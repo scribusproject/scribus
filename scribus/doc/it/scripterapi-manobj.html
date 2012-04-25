@@ -1,0 +1,71 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<title>Manipulating Objects</title>
+</head>
+<body>
+<h2>Manipulating Objects</h2>
+
+<dl>
+
+<dt><a name="-duplicateObject"><strong>duplicateObject</strong>(...)</a></dt>
+<dd><code>duplicateObject(["name"]) -&gt; string</code>
+<p>creates a Duplicate of the selected Object (or Selection Group).</p></dd>
+
+<dt><a name="-groupObjects"><strong>groupObjects</strong></a>(...)</dt>
+<dd><code>groupObjects(list)</code>
+<p>Groups the objects named in "list" together. "list" must contain the names of the objects to be grouped. If "list" is not given the currently selected items are used.</p></dd>
+
+<dt><a name="-isLocked"><strong>isLocked</strong></a>(...)</dt>
+<dd><code>isLocked(["name"]) -&gt; bool</code>
+<p>Returns true if is the object "name" locked.  If "name" is not given the currently selected item is used.</p></dd>
+
+<dt><a name="-lockObject"><strong>lockObject</strong></a>(...)</dt>
+<dd><code>lockObject(["name"]) -&gt; bool</code>
+<p>Locks the object "name" if it's unlocked or unlock it if it's locked. If "name" is not given the currently selected item is used. Returns true if locked.</p></dd>
+
+<dt><a name="-moveObject"><strong>moveObject</strong></a>(...)</dt>
+<dd><code>moveObject(dx, dy [, "name"])</code>
+<p>Moves the object "name" by dx and dy relative to its current position. The distances are expressed in the current measurement unit of the document (see UNIT constants). If "name" is not given the currently selected item is used. If the object "name" belongs to a group, the whole group is moved.</p></dd>
+
+<dt><a name="-moveObjectAbs"><strong>moveObjectAbs</strong></a>(...)</dt>
+<dd><code>moveObjectAbs(x, y [, "name"])</code>
+<p>Moves the object "name" to a new location. The coordinates are expressed in the current measurement unit of the document (see UNIT constants).  If "name" is not given the currently selected item is used.  If the object "name" belongs to a group, the whole group is moved.</p></dd>
+
+<dt><a name="-rotateObject"><strong>rotateObject</strong></a>(...)</dt>
+<dd><code>rotateObject(rot [, "name"])</code>
+<p>Rotates the object "name" by "rot" degrees relatively. The object is rotated by the vertex that is currently selected as the rotation point - by default, the top left vertext at zero rotation. Positive values mean counter clockwise rotation when the default rotation point is used. If "name" is not given the currently selected item is used.</p></dd>
+
+<dt><a name="-rotateObjectAbs"><strong>rotateObjectAbs</strong></a>(...)</dt>
+<dd><code>rotateObjectAbs(rot [, "name"])</code>
+<p>Sets the rotation of the object "name" to "rot". Positive values mean counter clockwise rotation. If "name" is not given the currently selected item is used.</p></dd>
+
+<dt><a name="-scaleGroup"><strong>scaleGroup</strong></a>(...)</dt>
+<dd><code>scaleGroup(factor [,"name"])</code>
+<p>Scales the group the object "name" belongs to. Values greater than 1 enlarge the group, values smaller than 1 make the group smaller e.g a value of 0.5 scales the group to 50 % of its original size, a value of 1.5 scales the group to 150 % of its original size.  The value for "factor" must be greater than 0. If "name" is not given the currently selected item is used.</p>
+<p>May raise ValueError if an invalid scale factor is passed.</p></dd>
+
+<dt><a name="-setScaleImageToFrame"><strong>setScaleImageToFrame</strong></a>(...)</dt>
+<dd><code>setScaleImageToFrame(scaletoframe, proportional=None, name=&lt;selection&gt;)</code>
+<p>Sets the scale to frame on the selected or specified image frame to `scaletoframe'. If `proportional' is specified, set fixed aspect ratio scaling to `proportional'. Both `scaletoframe' and `proportional' are boolean.</p>
+<p>May raise WrongFrameTypeError.</p></dd>
+
+<dt><a name="-setStyle"><strong>setStyle</strong></a>(...)</dt>
+<dd><code>setStyle("style" [, "name"])</code>
+<p>Apply the named "style" to the object named "name". If object name is given, style is applied to the current text selection in object "name". If no object name is given, style is applied on selected object.</p></dd>
+
+<dt><a name="-sizeObject"><strong>sizeObject</strong></a>(...)</dt>
+<dd><code>sizeObject(width, height [, "name"])</code>
+<p>Resizes the object "name" to the given width and height. If "name" is not given the currently selected item is used.</p></dd>
+
+<dt><a name="-unGroupObject"><strong>unGroupObject</strong></a>(...)</dt>
+<dd><code>unGroupObjects("name")</code>
+<p>Destructs the group the object "name" belongs to.If "name" is not given the currently selected item is used.</p></dd>
+
+<dt><a name="-textFlowMode"><strong>textFlowMode</strong>(...)</a></dt>
+<dd><code>textFlowMode("name" [, state])</code>
+<p>Enables/disables "Text Flows Around Frame" feature for object "name". Called with parameters string name and optional int "state" (0 &lt;= state &lt;= 3). Setting "state" to 0 will disable text flow. Setting "state" to 1 will make text flow around object frame. Setting "state" to 2 will make text flow around bounding box. Setting "state" to 3 will make text flow around contour line. If "state" is not passed, text flow is toggled.</p></dd>
+
+</dl>
+</body>
+</html>

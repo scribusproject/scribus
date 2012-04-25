@@ -1,0 +1,49 @@
+<html>
+<head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <title>Requisiti per la compilazione</title>
+</head>
+<body>
+<h2>Requisiti per la compilazione</h2>
+<p>I programmi che dovete avere per poter compilare Scribus 1.4 sono:</p>
+<ol>
+        <li><strong>Per Scribus 1.4.x &egrave; necessario GCC 3.x+, si consiglia fortemente GCC 3.3+</strong>. Il team di Scribus ha verificato la compilazione con GCC 4.1+. Si consiglia di utilizzare la pi&ugrave; recente versione stabile di GCC 4.x per i benefici di prestazioni che offre.</li>
+        <li>CMake</li>
+        <li>GNU make</li>
+</ol>
+Le dipendenze per la compilazione, e anche per l'esecuzione di Scribus, sono:
+<ol>
+<li>Qt 4.6.0+: sia le librerie di esecuzione sia quelle di sviluppo.</li>
+<li>Python e Python-devel: librerie 2.3+. Python 2.2 non funziona.</li>
+<li>Freetype2 2.1.7+. A causa di vari difetti presenti in freetype2, consigliamo, se la vostra distribuzione/sistema operativo lo permette, di usare la versione 2.3.x.</li>
+<li>Cairo 1.4.x. Consigliamo la versione 1.4.10 o successiva per ragioni di prestazioni.</li>
+<li>libxml2 2.6+.</li>
+<li>Ghostscript 8.60+ &egrave; altamente consigliato.</li>
+<li>littleCMS (noto anche come lcms in alcune distribuzioni). La versione minima &egrave; la 1.12, ma si consiglia la 1.17 o successiva. lcms 1.12+ &egrave; in grado di eseguire la compensazione del punto nero.</li>
+<li>libtiff 3.6.0+.</li>
+<li>libjpeg.</li>
+<li>librerie di sviluppo di CUPS; Scribus &egrave; in grado di stampare direttamente con  CUPS (solo Linux/UNIX/Mac&nbsp;OS&nbsp;X).</li>
+<li>tkinter (per gli script Font Sampler e Calendar Wizard).</li>
+<li>le librerie Python-imaging sono utilizzate da certe funzioni di scripting.</li>
+<li>openssl-devel; alcune distribuzioni di Linux, tra cui OpenSUSE, permettono di utilizzare il protocollo ssl con CUPS.</li>
+<li>fontconfig-devel: per il rilevamento automatico dei caratteri su Linux, Mac&nbsp;OS&nbsp;X e UNIX. Non richiesto su Windows, OS/2 ed eComStation.</li>
+<li>Podofo 0.6 o successivo: utilizzato per aumentare le capacit&agrave; dell'importatore Adobe Illustrator.</li>
+</ol>
+<h3>Requisiti opzionali:</h3>
+<ul>
+<li>antiword: serve per l'importazione da MS Word. Non &egrave; necessario per la compilazione, ma Scribus lo rileva quando viene eseguito.</li>
+<li>per utilizzare le <a href="WwRenderframes.html">cornici rendering</a> sono necessari programmi aggiuntivi, come LaTeX o Lilypond.</li>
+</ul>
+<p>Scribus funziona con quasi ogni window manager e non richiede KDE. Tuttavia le funzionalit&agrave; di trascinamento e rilascio sono assenti senza KDE.</p>
+<p>Se la gestione del colore non funziona, dovete avere installati almeno un profilo RGB e uno CMYK, altrimenti le preferenze e opzioni per il colore non saranno presenti nei men&ugrave;. Scribus installa un profilo RGB e uno CMYK in modo che la gestione del colore sia attiva, ma alcune distribuzioni, tra cui Debian, forniscono dei profili ICC in pacchetti separati, a causa dei loro criteri di gestione delle licenze. </p>
+<p>In base alle prove eseguite, si è constatato che l'impostazione corretta del parametro CXXFLAGS al valore &#034;-march=&#034; ha un effetto assai benefico sulle prestazioni di Scribus. Ad esempio, se avete un processore Duron o Athlon, l'utilizzo di <code>export CXXFLAGS=&#034;-march=athlon&#034;</code> apporta notevoli benefici. Verificate se la vostra distribuzione imposta questo parametro e come, e per altre informazioni consultate:
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
+<pre>man gcc</pre>
+</td></tr></table></blockquote></p>
+<p>Vi sono istruzioni dettagliate nel file BUILDING, e per la creazione dei pacchetti si dovrebbe consultare il file PACKAGING nel codice sorgente per ulteriori istruzioni.</p>
+<h4>Uso di CMake</h4>
+<p>Nella versione 1.3.3.6+ fu aggiunta la possibilit&agrave; di utilizzare CMake in alternativa ai tradizionali autotools. A partire dalla versione 1.3.5 CMake &egrave; obbligatorio, e non &egrave; pi&ugrave; possibile servirsi di autotools. Attualmente la compilazione su Linux, UNIX e Mac&nbsp;OS&nbsp;X funziona in modo soddisfacente. Per ulteriori informazioni leggete la pagina con le <a href="install4.html">istruzioni per CMake</a>.</p>
+<p>La posizione predefinita per l'eseguibile di Scribus &egrave; <code>/usr/local/bin</code>. La documentazione si trova in <code>/usr/local/lib/scribus/doc</code>.</p>
+<p>Inoltre, per i desktop Linux/UNIX, esiste un file <code>desktop.config</code> il cui nome &egrave; <code>scribus.desktop</code>, che pu&ograve; essere utilizzato per creare un collegamento nel men&ugrave; o sul desktop. Basta copiarlo dalla directory base del codice di installazione al desktop, e tramite esso potrete lanciare Scribus. Dopo aver spostato il file sul desktop, fate clic col tasto destro e controllate che la casella &ldquo;esecuzione&rdquo; sia contrassegnata. Questo file &egrave; conforme alle pi&ugrave; recenti specifiche <a href="http://www.freedesktop.org">www.freedesktop.org</a>.</p>
+</body>
+</html>

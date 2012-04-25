@@ -1,0 +1,109 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<title>Layer related Commands</title>
+</head>
+<body>
+<h2>Layer related Commands</h2>
+
+<dl>
+
+<dt><a name="-createLayer"><strong>createLayer</strong></a>(...)</dt>
+<dd><code>createLayer(layer)</code>
+<p>Creates a new layer with the name "name".</p>
+<p>May raise ValueError if the layer name isn't acceptable.</p></dd>
+
+<dt><a name="-deleteLayer"><strong>deleteLayer</strong></a>(...)</dt>
+<dd><code>deleteLayer("layer")</code>
+<p>Deletes the layer with the name "layer". Nothing happens if the layer doesn't exists or if it's the only layer in the document.</p>
+<p>May raise <a href="scripterapi.html#NotFoundError">NotFoundError</a> if the layer can't be found. May raise ValueError if the layer name isn't acceptable.</p></dd>
+
+<dt><a name="-getActiveLayer"><strong>getActiveLayer</strong></a>(...)</dt>
+<dd><code>getActiveLayer() -&gt; string</code>
+<p>Returns the name of the current active layer.</p></dd>
+
+<dt><a name="-getLayers"><strong>getLayers</strong></a>(...)</dt>
+<dd><code>getLayers() -&gt; list</code>
+<p>Returns a list with the names of all defined layers.</p></dd>
+
+<dt><a name="-getLayerBlendmode"><strong>getLayerBlendmode</strong>(...)</a></dt>
+<dd><code>getLayerBlendmode("layer") -&gt; int</code>
+<p>Returns the "layer" layer blendmode, May raise NotFoundError if the layer can't be found. May raise ValueError if the layer name isn't acceptable.</p></dd>
+
+<dt><a name="-isLayerFlow"><strong>isLayerFlow</strong>(...)</a></dt>
+<dd><code>isLayerFlow("layer") -&gt; bool</code>
+<p>Returns whether text flows around objects on layer "layer", a value of True means that text flows around, a value of False means that the text does not flow around.</p>
+<p>May raise NotFoundError if the layer can't be found. May raise ValueError if the layer name isn't acceptable.</p></dd>
+
+<dt><a name="-isLayerLocked"><strong>isLayerLocked</strong>(...)</a></dt>
+<dd><code>isLayerLocked("layer") -&gt; bool</code>
+<p>Returns whether the layer "layer" is locked or not, a value of True means that the layer "layer" is editable, a value of False means that the layer "layer" is locked.</p>
+<p>May raise NotFoundError if the layer can't be found. May raise ValueError if the layer name isn't acceptable.</p></dd>
+
+<dt><a name="-getLayerTransparency"><strong>getLayerTransparency</strong>(...)</a></dt>
+<dd><code>getLayerTransparency("layer") -&gt; float</code>
+<p>Returns the "layer" layer transparency, May raise NotFoundError if the layer can't be found. May raise ValueError if the layer name isn't acceptable.</p></dd>
+
+<dt><a name="-isLayerOutlined"><strong>isLayerOutlined</strong>(...)</a></dt>
+<dd><code>isLayerOutlined("layer") -&gt; bool</code>
+<p>Returns whether the layer "layer" is outlined or not, a value of True means that the layer "layer" is outlined, a value of False means that the layer "layer" is normal.</p>
+<p>May raise NotFoundError if the layer can't be found. May raise ValueError if the layer name isn't acceptable.</p></dd>
+
+<dt><a name="-isLayerPrintable"><strong>isLayerPrintable</strong></a>(...)</dt>
+<dd><code>isLayerPrintable("layer") -&gt; bool</code>
+<p>Returns whether the layer "layer" is printable or not, a value of True means that the layer "layer" can be printed, a value of False means that printing the layer "layer" is disabled.</p>
+<p>May raise <a href="scripterapi.html#NotFoundError">NotFoundError</a> if the layer can't be found. May raise ValueError if the layer name isn't acceptable.</p></dd>
+
+<dt><a name="-isLayerVisible"><strong>isLayerVisible</strong></a>(...)</dt>
+<dd><code>isLayerVisible("layer") -&gt; bool</code>
+<p>Returns whether the layer "layer" is visible or not, a value of True means that the layer "layer" is visible, a value of False means that the layer "layer" is invisible.</p>
+<p>May raise <a href="scripterapi.html#NotFoundError">NotFoundError</a> if the layer can't be found. May raise ValueError if the layer name isn't acceptable.</p></dd>
+
+<dt><a name="-sentToLayer"><strong>sentToLayer</strong></a>(...)</dt>
+<dd><code>sentToLayer("layer" [, "name"])</code>
+<p>Sends the object "name" to the layer "layer". The layer must exist. If "name" is not given the currently selected item is used.</p>
+<p>May raise <a href="scripterapi.html#NotFoundError">NotFoundError</a> if the layer can't be found. May raise ValueError if the layer name isn't acceptable.</p></dd>
+
+<dt><a name="-setActiveLayer"><strong>setActiveLayer</strong></a>(...)</dt>
+<dd><code>setActiveLayer("name")</code>
+<p>Sets the active layer to the layer named "name".</p>
+<p>May raise <a href="scripterapi.html#NotFoundError">NotFoundError</a> if the layer can't be found. May raise ValueError if the layer name isn't acceptable.</p></dd>
+
+<dt><a name="-setLayerBlendmode"><strong>setLayerBlendmode</strong>(...)</a></dt>
+<dd><code>setLayerBlendmode"layer", blend)</code>
+<p>Sets the layers "layer" blendmode to blend. May raise NotFoundError if the layer can't be found.</p>
+<p>May raise ValueError if the layer name isn't acceptable.</p></dd>
+
+<dt><a name="-setLayerFlow"><strong>setLayerFlow</strong>(...)</a></dt>
+<dd><code>setLayerFlow"layer", flow)</code>
+<p>Sets the layers "layer" flowcontrol to flow. If flow is set to true text in layers above this one will flow around objects on this layer.</p>
+<p>May raise NotFoundError if the layer can't be found. May raise ValueError if the layer name isn't acceptable.</p></dd>
+
+<dt><a name="-setLayerLocked"><strong>setLayerLocked</strong>(...)</a></dt>
+<dd><code>setLayerLocked("layer", locked)</code>
+<p>Sets the layer "layer" to be locked or not. If locked is set to true the layer will be locked.</p>
+<p>May raise NotFoundError if the layer can't be found. May raise ValueError if the layer name isn't acceptable.</p></dd>
+
+<dt><a name="-setLayerOutlined"><strong>setLayerOutlined</strong>(...)</a></dt>
+<dd><code>setLayerOutlined"layer", outline)</code>
+<p>Sets the layer "layer" to be locked or not. If outline is set to true the layer will be displayed outlined.</p>
+<p>May raise NotFoundError if the layer can't be found. May raise ValueError if the layer name isn't acceptable.</p></dd>
+
+<dt><a name="-setLayerPrintable"><strong>setLayerPrintable</strong></a>(...)</dt>
+<dd><code>setLayerPrintable("layer", printable)</code>
+<p>Sets the layer "layer" to be printable or not. If is the printable set to false the layer won't be printed.</p>
+<p>May raise <a href="scripterapi.html#NotFoundError">NotFoundError</a> if the layer can't be found. May raise ValueError if the layer name isn't acceptable.</p></dd>
+
+<dt><a name="-setLayerTransparency"><strong>setLayerTransparency</strong>(...)</a></dt>
+<dd><code>setLayerTransparency"layer", trans)</code>
+<p>Sets the layers "layer" transparency to trans.</p>
+<p>May raise NotFoundError if the layer can't be found. May raise ValueError if the layer name isn't acceptable.</p></dd>
+
+<dt><a name="-setLayerVisible"><strong>setLayerVisible</strong></a>(...)</dt>
+<dd><code>setLayerVisible("layer", visible)</code>
+<p>Sets the layer "layer" to be visible or not. If is the visible set to false the layer is invisible.</p>
+<p>May raise <a href="scripterapi.html#NotFoundError">NotFoundError</a> if the layer can't be found. May raise ValueError if the layer name isn't acceptable.</p></dd>
+
+</dl>
+</body>
+</html>

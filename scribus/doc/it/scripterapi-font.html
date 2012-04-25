@@ -1,0 +1,26 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<title>Font Related Commands</title>
+</head>
+<body>
+<h2>Font Related Commands</h2>
+
+<dl>
+
+<dt><a name="-getFontNames"><strong>getFontNames</strong></a>(...)</dt>
+<dd><code>getFontNames() -&gt; list</code>
+<p>Returns a list with the names of all available fonts.</p></dd>
+	
+<dt><a name="-getXFontNames"><strong>getXFontNames</strong></a>(...)</dt>
+<dd><code>getXFontNames() -&gt; list of tuples</code>
+<p>Returns a larger font info. It's a list of the tuples with: [ (Scribus name, Family, Real name, subset (1|0), embed PS (1|0), font file), (...), ... ]</p></dd></dl>
+	
+<dt><a name="-renderFont"><strong>renderFont</strong></a>(...)</dt>
+<dd><code>renderFont("name", "filename", "sample", size, format="PPM") -&gt; bool</code>
+<p>Creates an image preview of font "name" with given text "sample" and size. If "filename" is not "", image is saved into "filename". Otherwise image data is returned as a string. The optional "format" argument specifies the image format to generate, and supports any format allowed by QPixmap.save(). Common formats are PPM, JPEG, PNG and XPM.</p>
+<p>May raise <a href="scripterapi.html#NotFoundError">NotFoundError</a> if the specified font can't be found. May raise ValueError if an empty sample or filename is passed.</p></dd></dl>
+
+</dl>
+</body>
+</html>

@@ -1,0 +1,120 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<title>The Available Commands</title>
+</head>
+<body>
+<h2>The Available Commands</h2>
+
+<p>The Plugin installs a builtin Module "scribus". Thus to use the extensions to the Python language you must do a "import scribus" or "from scribus import *".</p>
+
+<p>Scripter provides functions to control scribus and to manipulate objects on the canvas. Each function is documented individually below. A few things are common across most of the interface. Most functions operate on frames. Frames are identified by their name, a string - they are not real Python objects. Many functions take an optional (non-keyword) parameter, a frame name. Many exceptions are also common across most functions. These are not currently documented in the docstring for each function.</p>
+<ul>
+	<li>Many functions will raise a NoDocOpenError if you try to use them without a document to operate on.</li>
+	<li>If you do not pass a frame name to a function that requires one, the function will use the currently selected frame, if any, or raise a NoValidObjectError if it can't find anything to operate on.</li>
+	<li>Many functions will raise WrongFrameTypeError if you try to use them on a frame type that they do not make sense with. For example, setting the text color on a graphics frame doesn't make sense, and will result in this exception being raised.</li>
+	<li>Errors resulting from calls to the underlying Python API will be passed through unaltered. As such, the list of exceptions thrown by any function as provided here and in its docstring is incomplete.</li>
+</ul>
+<p>Details of what exceptions each function may throw are provided on the function's documentation.</p>
+
+<p>Conventions used in this Document:</p>
+<dl>
+	<dt><strong>number</strong></dt>
+	<dd>means that "number" is an ordinary Interger or Floating 	Point Number.</dd>
+	<dt><strong>"name"</strong></dt>
+	<dd>means that "name" is a String Literal or Variable.</dd>
+	<dt><strong><i>list</i></strong></dt>
+	<dd>means that "<i>list</i>" is a Python List.</dd>
+</dl>
+<p>Variables in angled Brackets are optional.</p>
+
+<h2>Exceptions</h2>
+
+<dl>
+<dt><a href="#Exception">exceptions.Exception</a></dt><dd>
+	<dl>
+	<dt><a href="#ScribusException">ScribusException</a></dt><dd>
+		<dl>
+		<dt><a href="#NameExistsError">NameExistsError</a></dt>
+		<dt><a href="#NoDocOpenError">NoDocOpenError</a></dt>
+		<dt><a href="#NoValidObjectError">NoValidObjectError</a></dt>
+		<dt><a href="#NotFoundError">NotFoundError</a></dt>
+		<dt><a href="#WrongFrameTypeError">WrongFrameTypeError</a></dt>
+		</dl>
+	</dd>
+	</dl>
+</dd>
+</dl>
+
+<h3>NameExistsError</h3>
+<a name="NameExistsError">class NameExistsError</a>(<a href="#ScribusException">ScribusException</a>)
+<dl><dt>Method resolution order:</dt>
+	<dd><a href="#NameExistsError">NameExistsError</a></dd>
+	<dd><a href="#ScribusException">ScribusException</a></dd>
+	<dd><a href="#Exception">exceptions.Exception</a></dd>
+</dl>
+Methods inherited from <a href="#Exception">exceptions.Exception</a>:<br>
+<dl><dt><a name="NameExistsError-__getitem__"><strong>__getitem__</strong></a>(...)</dt></dl>
+<dl><dt><a name="NameExistsError-__init__"><strong>__init__</strong></a>(...)</dt></dl>
+<dl><dt><a name="NameExistsError-__str__"><strong>__str__</strong></a>(...)</dt></dl>
+
+<h3>NoDocOpenError</h3>
+<a name="NoDocOpenError">class NoDocOpenError</a>(<a href="#ScribusException">ScribusException</a>)
+<dl><dt>Method resolution order:</dt>
+	<dd><a href="#NoDocOpenError">NoDocOpenError</a></dd>
+	<dd><a href="#ScribusException">ScribusException</a></dd>
+	<dd><a href="#Exception">exceptions.Exception</a></dd>
+</dl>
+Methods inherited from <a href="#Exception">exceptions.Exception</a>:<br>
+<dl><dt><a name="NoDocOpenError-__getitem__"><strong>__getitem__</strong></a>(...)</dt></dl>
+<dl><dt><a name="NoDocOpenError-__init__"><strong>__init__</strong></a>(...)</dt></dl>
+<dl><dt><a name="NoDocOpenError-__str__"><strong>__str__</strong></a>(...)</dt></dl>
+
+<h3>NoValidObjectError</h3>
+<a name="NoValidObjectError">class NoValidObjectError</a>(<a href="#ScribusException">ScribusException</a>)
+<dl><dt>Method resolution order:</dt>
+	<dd><a href="#NoValidObjectError">NoValidObjectError</a></dd>
+	<dd><a href="#ScribusException">ScribusException</a></dd>
+	<dd><a href="#Exception">exceptions.Exception</a></dd>
+</dl>
+Methods inherited from <a href="#Exception">exceptions.Exception</a>:<br>
+<dl><dt><a name="NoValidObjectError-__getitem__"><strong>__getitem__</strong></a>(...)</dt></dl>
+<dl><dt><a name="NoValidObjectError-__init__"><strong>__init__</strong></a>(...)</dt></dl>
+<dl><dt><a name="NoValidObjectError-__str__"><strong>__str__</strong></a>(...)</dt></dl>
+
+<h3>NotFoundError</h3>
+<a name="NotFoundError">class NotFoundError</a>(<a href="#ScribusException">ScribusException</a>)
+<dl><dt>Method resolution order:</dt>
+	<dd><a href="#NotFoundError">NotFoundError</a></dd>
+	<dd><a href="#ScribusException">ScribusException</a></dd>
+	<dd><a href="#Exception">exceptions.Exception</a></dd>
+</dl>
+Methods inherited from <a href="#Exception">exceptions.Exception</a>:<br>
+<dl><dt><a name="NotFoundError-__getitem__"><strong>__getitem__</strong></a>(...)</dt></dl>
+<dl><dt><a name="NotFoundError-__init__"><strong>__init__</strong></a>(...)</dt></dl>
+<dl><dt><a name="NotFoundError-__str__"><strong>__str__</strong></a>(...)</dt></dl>
+
+<h3>ScribusException</h3>
+<a name="ScribusException">class ScribusException</a>(<a href="#Exception">exceptions.Exception</a>)
+Methods inherited from <a href="#Exception">exceptions.Exception</a>:<br>
+<dl><dt><a name="ScribusException-__getitem__"><strong>__getitem__</strong></a>(...)</dt></dl>
+<dl><dt><a name="ScribusException-__init__"><strong>__init__</strong></a>(...)</dt></dl>
+<dl><dt><a name="ScribusException-__str__"><strong>__str__</strong></a>(...)</dt></dl>
+
+<h3>WrongFrameTypeError</h3>
+<a name="WrongFrameTypeError">class <strong>WrongFrameTypeError</strong></a>(<a href="#ScribusException">ScribusException</a>)
+<dl>
+	<dt>Method resolution order:</dt>
+	<dd><a href="#WrongFrameTypeError">WrongFrameTypeError</a></dd>
+	<dd><a href="#ScribusException">ScribusException</a></dd>
+<dd><a href="#Exception">exceptions.Exception</a></dd>
+</dl>
+Methods inherited from <a href="#Exception">exceptions.Exception</a>:<br>
+<dl>
+	<dt><a name="WrongFrameTypeError-__getitem__"><strong>__getitem__</strong></a>(...)</dt>
+	<dt><a name="WrongFrameTypeError-__init__"><strong>__init__</strong></a>(...)</dt>
+	<dt><a name="WrongFrameTypeError-__str__"><strong>__str__</strong></a>(...)</dt>
+</dl>
+
+</body>
+</html>

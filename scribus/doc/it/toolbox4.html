@@ -1,0 +1,31 @@
+<html>
+<head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <title>GIMP 2.x</title>
+</head>
+<body>
+<h2>GIMP 2.x</h2>
+
+<p>Non c'&egrave; molto da dire sulla migliore applicazione per il trattamento di immagini in Linux. I miglioramenti in GIMP 2.x sono troppi per elencarli. </p>
+
+<p>Tuttavia, impostare GIMP per l'utilizzo con Scribus (il cui prodotto finale &egrave; destinato alla stampa) richiede alcuni aggiustamenti alle impostazioni predefinite, come mostrato sotto: </p>
+
+<ul>
+<li>Accertatevi di avere la pi&ugrave; recente versione stabile 2.6.x. </li>
+<li>GIMP ora &egrave; in grado di lavorare con i colori CMYK. Anche se il modello di colore internamente &egrave; ancora RGB pi&ugrave; canali alfa, potete usare i valori CMYK e le definizioni di colore CMYK. Per completare queste funzionalit&agrave;, esiste un plugin (prodotto da terzi) chiamato <a href="http://cue.yellowmagic.info/softwares/separate.html">separate+</a>, che pu&ograve; esportare in formato TIFF CMYK utilizzando un abile espediente con i livelli alfa. Il plugin separate+ pu&ograve; inoltre incorporare i profili ICC nei file TIFF esportati e creare TIFF in bicromia.</li>
+<li>Uno dei miglioramenti pi&ugrave; apprezzati riguarda la gestione del testo. GIMP 2.x utilizza <code>fontconfig</code>, quindi il rilevamento dei caratteri presenti sul sistema &egrave; molto meno problematico. Il testo pu&ograve; essere mantenuto in un livello a s&eacute; per facilitarne la modifica e la correzione. Nelle versioni 1.2.x certe operazioni sul testo erano difficili, ma ora vi sono ben pochi motivi per lamentarsi; &egrave; un piacere usare i nuovi controlli per il testo. Inoltre esiste anche un apposito plugin freetype per GIMP, che permette di manipolare i caratteri come in Scribus e Inkscape. Lo consigliamo, e lo potete trovare su ftp.gimp.org.</li>
+<li>Le versioni pi&ugrave; recenti di GIMP possono esportare tutti i tracciati come maschere di ritaglio nei file TIFF, e sono anche in grado di eseguirne meglio l'importazione da file TIFF. </li>
+<li>Nei filtri e negli effetti, per impostazione predefinita i pixel sono adattati (interpolati) con il metodo lineare: questo &egrave; un buon compromesso tra velocit&agrave; e accuratezza. <b>Per materiale destinato alla stampa, si dovrebbe quasi sempre utilizzare il filtro di Lanczos</b>, ma dovete aspettarvi che molte operazioni, (come riscalatura e applicazione di filtri) siano pi&ugrave; lente. L'utilizzo del filtro di Lanczos a volte pu&ograve; produrre una differenza eccezionale nella qualit&agrave; percepita di stampa di un'immagine, quindi dovreste fare in modo che GIMP lo usi per impostazione predefinita.</li>
+</ul>
+
+<table width="100%"><tr><td align="center"><img src="images/gimpoptions1.png" alt="Interpolazione Lanczos" /></td></tr></table>
+
+<p>Come accade per la maggior parte dei programmi per la creazione e la modifica di immagini, le impostazioni predefinite di GIMP sono pensate primariamente per immagini destinate a siti web, il che significa che la risoluzione &egrave; di gran lunga troppo bassa per la stampa. Quindi, per prima cosa, impostate la risoluzione predefinita a un <strong>minimo</strong> di 144 DPI. Ricordate che l'uso di queste risoluzioni pi&ugrave; alte provocher&agrave; la creazione di file di dimensioni molto maggiori, quindi potreste dover regolare anche le impostazioni di massimo utilizzo della memoria nelle preferenze di GIMP. </p>
+
+<table width="100%"><tr><td align="center"><img src="images/gimpoptions3.png" alt="Impostazioni DPI predefinite"  /></td></tr></table>
+
+<p>L'altra aggiunta notevole &egrave; la capacit&agrave; (per ora a un livello molto semplice) di creare una prova colore a video (&ldquo;soft proof&rdquo;) con l'utilizzo della gestione del colore. Questa viene eseguita con LittleCMS (che &egrave; utilizzato anche da Scribus), e potete impostarla nelle preferenze. Ci&ograve; &egrave; utile se desiderate vedere l'aspetto dell'immagine in uno spazio colore CMYK quando sar&agrave; stampata o esportata in PDF. </p>
+
+<table width="100%"><tr><td align="center"><img src="images/gimpoptions2.png" alt="Impostazioni per la gestione del colore" /></td></tr></table>
+</body>
+</html>

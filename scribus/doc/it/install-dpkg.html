@@ -1,0 +1,189 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<title>Scribus on Debian GNU/Linux and Derivatives</title>
+</head>
+<body>
+<h2>How to use the Scribus Debian / Ubuntu Repository</h2>
+<p><em>These notes are kindly provided by our Debian package maintainer, Oleksandr Moskalenko.</em> &#060;malex at tagancha.org&#062;. Please direct questions related to Scribus on Debian to the above email.</p>
+
+<strong>"Debian" name here encompasses Debian proper (unstable/testing/stable also known as sid/etch/sarge) and at least Ubuntu breezy/hoary. Instructions on rebuilding the source package may be applicable to other Debian derivatives and custom distributions.</strong>
+<h3>Preamble</h3>
+
+<p>Currently there are following Scribus-related packages in Debian:</p>
+<ul>
+    <li><a href="http://packages.qa.debian.org/s/scribus.html">scribus</a> (Scribus 1.3.3.x - STABLE)  </li>
+    <li><a href="http://packages.qa.debian.org/s/scribus-ng.html">scribus-ng</a> (Scribus 1.3.x - UNSTABLE). scribus-ng package can be installed in parallel with the scribus package.  </li>
+
+    <li> <a href="http://packages.qa.debian.org/s/scribus-template.html">scribus-template</a> (Developer and user-contributed additional templates), </li>
+    <li><a href="http://packages.qa.debian.org/s/scribus-doc.html">scribus-doc</a> Scribus 1.2.x documentation, which has to be provided as a separate package due to is non-free nature by the Debian Free Software Guidelines </li>
+    <li><a href="http://packages.qa.debian.org/s/scribus-ng-doc.html">scribus-ng-doc</a> Scribus 1.3.x documentation, which has to be provided as a separate package due to is non-free nature by the Debian Free Software Guidelines </li>
+    <li><a href="http://packages.qa.debian.org/i/icc-profiles.html">icc-profiles</a> - A collection of common ICC profiles to use with Scribus and other color profile-aware software  </li>
+
+    <li><a href="http://packages.qa.debian.org/l/lprof.html">lprof</a> Hardware color profiler that can be used to create color profiles for your hardware to be used with Scribus </li>
+</ul>
+
+<p>Scribus team also maintains an unofficial (outside of Debian proper) repository that contains some of the packages mentioned above with the most notable difference being a more frequent update schedule compared to Debian proper.  There are a couple reasons for the existence of this upstream repository. Debian development has a limit on how often a scribus package can be updated. It could sometimes take weeks between consecutive uploads as the package could be waiting on other related packages before it can move from Unstable (sid) into Testing (currently etch). Because of that the official packages are usually behind those available in our upstream archives. Packages in our upstream repositories usually follow scribus development fairly closely via svn snapshot builds. For instance, if you discovered a but you are advised to install the most recent package as the bug might have already been fixed and a fixed package is available. This is called "the Scribus magic (TM)". Also, our repositories contain builds for Ubuntu Hoary and Breezy branches (ix86 architecture).</p>
+
+<h3>Debian setup for Scribus repositories</h3>
+<h4>About the repositories</h4>
+<p>We actually maintain two identical repositories to provide bandwidth redundancy and failover capability to our distribution of Debian scribus packages. These repositories contain x86 packages for Debian stable,testing and unstable and Ubuntu hoary and breezy branches. If you are using a different Debian-based distribution or your hardware is not x86-based such as PowerPC or AMD64 you can easily build a Scribus package from our source package, so do not consider it as a strong obstacle to using these packages.</p>
+
+<h3>Repository usage</h3>
+<p>To use our repositories add the appropriate source lines from the following list to your /etc/apt/sources.list file. Note that the lines starting with "deb" are used for installation of the pre-compiled binary packages and the line starting with "deb-src" are for the source package for building a binary package for your distribution (if it has a different set of libraries), hardware (if it's not x86) or compiler optimizations (if you really know you want them).&nbsp;</p>
+
+<h3>Source lines for /etc/apt/sources.list or for Synaptic et al</h3>
+<h4>Debian stable (Sarge): </h4>
+<pre> # debian.scribus.net - Primary repository
+    <br /> deb http://debian.scribus.net/debian/ stable main non-free contrib
+    <br /> deb-src http://debian.scribus.net/debian/ stable main non-free contrib
+    <br /> # debian.tagancha.org - Backup repository
+    <br /> deb http://debian.tagancha.org/debian/ stable main non-free contrib
+    <br /> deb-src http://debian.tagancha.org/debian/ stable main non-free contrib
+    <br />
+</pre>
+<h4>
+    Debian testing (Etch):
+</h4>
+<pre> # debian.scribus.net - Primary repository
+    <br /> deb http://debian.scribus.net/debian/ testing main non-free contrib
+    <br /> deb-src http://debian.scribus.net/debian/ unstable main non-free contrib
+    <br /> # debian.tagancha.org - Backup repository
+    <br /> deb http://debian.tagancha.org/debian/ testing main non-free contrib
+    <br /> deb-src http://debian.tagancha.org/debian/ unstable main non-free contrib
+    <br />
+</pre>
+<h4>
+    Debian unstable (Sid):
+</h4>
+<pre> # debian.scribus.net - Primary repository
+    <br /> deb http://debian.scribus.net/debian/ unstable main non-free contrib
+    <br /> deb-src http://debian.scribus.net/debian/ unstable main non-free contrib
+    <br /> # debian.tagancha.org - Backup repository
+    <br /> deb http://debian.tagancha.org/debian/ unstable main non-free contrib
+    <br /> deb-src http://debian.tagancha.org/debian/ unstable main non-free contrib
+    <br />
+</pre>
+<h4>
+    Ubuntu Hoary:
+</h4>
+<pre> # debian.scribus.net - Primary repository
+    <br /> deb http://debian.scribus.net/debian/ hoary main restricted
+    <br /> deb-src http://debian.scribus.net/debian/ hoary main restricted
+    <br /> # debian.tagancha.org - Backup repository
+    <br /> deb http://debian.tagancha.org/debian/ hoary main restricted
+    <br /> deb-src http://debian.tagancha.org/debian/ hoary main restricted
+    <br />
+
+    
+</pre>
+<h4>
+    Ubuntu Breezy:
+</h4>
+<div>
+    Note that Ubuntu breezy package can be also used for Ubuntu "Dapper" branch right now. When Dapper changes enough to require its own scribus or scribus-ng package we will provide it.
+</div>
+<pre> # debian.scribus.net - Primary repository
+    <br /> deb http://debian.scribus.net/debian breezy main restricted
+    <br /> deb-src http://debian.scribus.net/debian breezy main restricted
+    <br /> # debian.tagancha.org - Backup repository
+    <br /> deb http://debian.tagancha.org/debian breezy main restricted
+    <br /> deb-src http://debian.tagancha.org/debian breezy main restricted
+    <br />
+
+    
+</pre>
+
+<h3>Using cryptographic repository signatures:</h3>
+<p>Our repositories are cryptographically signed for added security. Add the gpg-keys for our repositories to avoid having to confirm your installation choice to the package manager each time you update a scribus or scribus-ng package.</p>
+
+<pre>
+    root$ gpg --keyserver wwwkeys.eu.pgp.net --recv-keys DA286F326C5F196B
+    root$ gpg --armor --export DA286F326C5F196B | apt-key add -</pre>
+or as a normal user (with an appropriate entry for apt-key in the sudoers file):
+<pre>
+    user$ gpg --keyserver wwwkeys.eu.pgp.net --recv-keys DA286F326C5F196B
+    user$ gpg --armor --export DA286F326C5F196B | sudo apt-key add -</pre>
+    
+<h3>Final installation step</h3>
+<p>Once you added the relevant sources lines to your /etc/apt/sources.list you can run:</p>
+    <pre>aptitude install scribus scribus-ng</pre>
+    or
+    <pre>apt-get install scribus scribus-ng</pre>
+
+    <p>in a root terminal or use your favorite graphical apt-get front-end such as synaptic or aptitude. Don't forget to "Reload Package List" in the synaptic. It's the equivalent of "apt-get (or aptitude) update" and has to be done to make new packages from our repositories available to your package management tools.</p>
+    
+    <h3>Bug reporting</h3>
+    <p>Please do not file bug reports about the packages from these upstream repositories in the Debian or Ubuntu BTS (Bug Tracking Systems). Use the distribution BTS for the package version that is in that distribution. However, if you cold verify that the bug is present in the package version in Debian, by all means feel free to file a bug report through the Debian BTS. You are encouraged to contact the maintainer <a href="mailto:malextagancha.org">Oleksandr (Alex) Moskalenko</a> directly if you have package installation questions or related Scribus issues that you believe do not belong in Scribus BTS or for comments and suggestions about this document. If you have a Scribus issue that is not related to Debian packaging you may find it easier to just use the scribus BTS at http://bugs.scribus.net for reporting bugs as such issues would be forwarded from the Debian BTS to the Scribus BTS by the maintainer anyway.</p>
+    
+    <h3>Step-by-step procedure for new Debian GNU/Linux users</h3>
+    <p>You don't have to log on as root, but you have to have superuser privileges to edit the /etc/apt/sources.list file. Fortunately, on a Linux system you can do that with ease. Please open a root terminal or open a regular terminal and become root through a "su" command. You will have to provide root password when prompted. Then, you can launch your favorite text editor from that terminal and edit the sources.list file as outlined in the http://wiki.scribus.net/index.php/Scribus_on_Debian_GNU/Linux page. Alternatively, you can do a bit more work upfront to achieve a more permanent access to package manipulation system. If you are familiar with the VI editor you can do the following:</p>
+
+    <ul>
+        <li>
+            Open a root terminal.
+        </li>
+        <li>
+            Type "visudo".
+        </li>
+        <li>Type "o" to open a new line (vi command) and type the following line (assuming your login name is "scribusoid"): scribusoid ALL= NOPASSWD: /usr/sbin/synaptic
+        </li>
+        <li>	Press "ESC" to leave the editing mode in Vi and return to the command mode.	</li>
+
+        <li>	Type ":wq!" to exit the editor.	</li>
+    </ul>
+    <p>Now you are ready to launch the very nice graphical apt-get front-end Synaptic with a "sudo synaptic" command at any time. If you are a new Linux user, Synaptic will help you get started easier than you probably would with command line tools. Once you launch Synaptic select the "Settings/Repositories" menu entry. Click on the "New" button and type or paste in the appropriate source lines. For example for "Debian Sarge": URI: http://debian.scribus.net/debian/</p>
+    <br />
+    Distribution: stable
+    <br />
+    Section(s): main non-free contrib
+    <br />
+    <p>Don't forget to enable that repository by selecting a checkbox in the leftmost column. Now you can reload repository information by clicking on the "Reload" button in the main Synaptic window. Then you click on the "Search" button and search for "scribus". Once "scribus", "scribus-ng", "scribus-doc", and "scribus-template" packages are found you can mark them for installation by double-clicking on them or by right-clicking and selecting "Mark for installation". When you are done, click on the "Apply" button to proceed with installation. After that you should have the packages installed and may begin to use Scribus.</p>
+    <h3>Building from a source package for other Debian-based distributions</h3>
+    <p>Instructions below have been rendered mostly obsolete for the x86 architecture by the new repositories. If you have non-x86 hardware or would like to build an optimized package you can still use these instructions. You can submit packages for other architectures to me and I will place them into the repository. If you have a non-x86 arch or would like to optimize the packages for your CPT you can achive these goals by a very simple package rebuild. Make sure that you have the deb-src lines for scribus repositories uncommented and run the following commands:</p>
+    
+    <p>The cool way (TM) - as root or set up sudo for yourself as a user:</p>
+    <pre>apt-get install apt-build
+    </pre>
+    
+    <p>Answer questions about your CPU and stuff - see an excellent document at <a href="http://julien.danjou.info/article-apt-build.html">http://julien.danjou.info/article-apt-build.html</a>)
+    </p>
+    <pre>apt-build update</pre>
+    <pre>apt-build install scribus (or scribus-ng)</pre>
+    <hr />
+    
+    <h4>An alternate cool way - as root or see the config setup below:</h4>
+    <ul>
+        <li>	Install "apt-src":<pre> apt-get install apt-src<br /></pre></li>
+        <li>	Install the dependencies, build and install scribus from source:
+	<pre> apt-src -i install scribus	<br /></pre></li>
+    </ul>
+    <h4>To streamline this process and build scribus as a user:</h4>
+    <p><strong>Configure apt-src:</strong> Add the following lines to /etc/apt/apt.conf or ~/.apt-src/config file:
+    </p>
+    <pre>
+        APT::Src::RootCommand su -c;<br />
+        APT::Src::BuildDeps</pre>
+    <p>This is especially convenient if you set up the no-password su to root for yourself through pam. Otherwise you'll likely have to type a password.</p>
+    <hr />
+    <h4>Without apt-build or apt-src - as root:</h4>
+    <pre> apt-get source -b scribus scribus-ng<br /></pre>
+    <pre> apt-get build-dep scribus-ng (or scribus)<br /></pre>
+    <hr />
+    <h4>Another way - as root:</h4>
+    <pre> apt-get install devscripts build-essential fakeroot<br /></pre>
+    <strong>Note:</strong> This creates a minimal build environment.
+    <pre> apt-get source scribus-ng (or "scribus" instead of "scribus-ng")<br /></pre>
+    <pre> apt-get build-dep scribus-ng (or scribus)<br /></pre>
+    <pre> cd scribus.... or scribus-ng...</pre>
+    <p>Use the actual directory names.</p>
+    <pre> debuild -us -uc<br /></pre>
+    <pre> cd .. <br /></pre>
+    <pre> dpkg -i scribus_.... or scribus-ng_....<br /></pre>
+    
+
+<p>One thing which sets Scribus apart is the enthusiastic and friendly Scribus community that assists beginner and pro alike.  You can take part in many ways: our <a href="http://lists.scribus.info/mailman/listinfo/scribus">mailing list</a>, the <a href="http://docs.scribus.net/index.php?lang=en&page=irc">IRC channel</a>, email, the <a href="http://wiki.scribus.net/">wiki</a>, contracted support and finally the <a href="http://bugs.scribus.net/">bugtracker</A>. These options add to your Scribus experience and we think you will find it very rewarding.</p></
+
+
+</body>
+</html>

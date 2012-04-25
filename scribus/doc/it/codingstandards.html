@@ -1,0 +1,433 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<title>Scribus Coding Standards</title>
+</head>
+<body>
+<h2>Scribus Coding Standards</h2>
+
+<p>
+Initial document: Paul F. Johnson, 26 Feb.  2004, Version: 0.04<br/>
+Revised: Craig Ringer, 16 Aug. 2005, Version: 0.05 (text encodings, exceptions, who to send patches to)<br />
+Revised: Peter Linnell, 06 Sept. 2005, Version: 0.06 (more text encodings stuff from recent discussions)</p>
+
+<p>This document is intended as a guide to all Scribus developers and contributors. It is aimed to be simple to use, as well as to keep the source code simple to understand and maintain.</p>
+
+<h3>Code Documentation</h3>
+
+<p>All code should be documented clearly.</p>
+
+<p>Prior to any method, the following should be there</p>
+
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
+<pre>
+/*!
+ \fn functionName::functionName()
+ \author Authors Name
+ \date
+ \brief Constructor for class
+ \param None
+ \retval None
+ */
+</pre>
+</td></tr></table></blockquote>
+
+<p>There should be something similar prior to the class definitions.</p>
+
+<p>In preference, all details should be in English. This includes comments.</p>
+
+<p>Unless a comment occupies a single line, <code>//</code> should be used in preference to <code>/* */</code></p>
+
+<h3>Code</h3>
+
+<h4>Variable naming conventions</h4>
+<p>All variables should begin in lower case letters. If the variable has more than one part to it, then the second part should begin in a capital letter. For example <code>int foo</code> and <code>int fooBar</code>. </p>
+<p>Variables should be clear in their naming. The exception to this is in a for loop. In preference, these should be in English. We are in the process of converting and altering the current ones to fit in with this.</p>
+<p>Any temporary variables (such as those used in a <code>for</code> loop or those only used within a scope), should only be declared where they are needed and not used in a global scope. If there is a condition at the start of a method, any variables required should be declared, but nothing else. For example</p>
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
+<pre>
+void foo::bar(f *b)
+{
+	int j;
+	string g = b-&gt;passed_in;
+	double fg, m, c;
+	which_string(g, &amp;j);
+	if (j == true)
+		return;
+	// rest of the code
+}
+</pre>
+</td></tr></table></blockquote>
+<p>should not have the double variables declared. It is arguable if g should be declared, but in this example, it doesn't matter.</p>
+
+<p>If a variable is not required, don't create it. In the example above, there is no requirement for g to be used.</p>
+
+<h4>Tabbing convention</h4>
+<ol>
+	<li>
+		<p>In class definitions</p>
+		<p>With the exception of the access declarations, a single tab should be used prior to all method and variable definitions. There should be no tabs prior to access declarations. There is a tab prior to <code>Q_Object</code>.</p>
+	</li>
+	<li>
+		<p>In the main code</p>
+		<p>There should be a tab at the start of every line. With any conditional line, there should be an opening brace by itself. On the next line down, there should be another tab prior to any code. The close brace should be underneath the open brace.</p>
+	</li>
+</ol>
+
+<h4>Conditionals</h4>
+<p>Always make a conditional logical. This may sound silly, but look at the following example</p>
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
+<pre>
+int foobar(bool m)
+{
+	if (m == true)
+	{
+		somethingA(1);
+		somethingB(1);
+		somethingC(1);
+	}
+	else
+	{
+		somethingA(0);
+		somethingB(0);
+		somethingC(0);
+	}
+}
+</pre>
+</td></tr></table></blockquote>
+
+<p>This can be re-written to make things clearer</p>
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
+<pre>
+int foobar(bool m)
+{
+   int c = m == true ? 1 : 0;
+   somethingA(c);
+   somethingB(c);
+   somethingC(c);
+}
+</pre>
+</td></tr></table></blockquote>
+<p>A lot simpler to see and will usually optimize far better.</p>
+
+<p>Ternary conditionals (?) should be used in preference to <code>if</code> / <code>else</code>. These are usually far quicker to process the code once compiled.</p>
+
+<p>Depending on what is being performed, switch statements should be avoided. There is usually a simpler way to avoid them. For example</p>
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
+<pre>
+int b;
+string s;
+switch (f)
+{
+	case 1 :
+		b = 4;
+		s = "four";
+		break;
+	case 2 :
+		b = 8;
+		s = "eight";
+		break;
+	case 3 :
+		b = 12;
+		s = "twelve";
+}
+</pre>
+</td></tr></table></blockquote>
+<p>can be re-written as</p>
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
+<pre>
+int b = f * 4;
+char *number[] = {"four", "eight", "twelve"};
+size_t no = sizeof(number) / sizeof(*number);
+s = number(f);
+</pre>
+</td></tr></table></blockquote>
+<p>The switch has gone and the code generated runs far faster and as the conditions don't need to be created, will optimize far better. Note: when using the <code>QObject::tr()</code> function, this method of using char* may not always work properly. An alternative is to use <code>QString number[] = {"four", "eight", "twelve"};</code> etc.
+
+<p>Obviously for more complex switch conditions, the above can't be used.</p>
+
+<h4>Conditionals formatting</h4>
+
+<p>Formatting should look like this:</p>
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
+<pre>
+if (fred == 5)
+{
+	// something
+	// something
+}
+</pre>
+</td></tr></table></blockquote>
+<p>Switch formatting should look like this:</p>
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
+<pre>
+switch (f)
+{
+	case 0:
+		if (fred == 1)
+		{
+			// something
+			// more
+			// ok
+		}
+		else
+		{
+			if (jimmy == 0)
+			{
+				// hi
+				// code
+			}
+			// something here
+		}
+		break;
+}
+</pre>
+</td></tr></table></blockquote>
+<p>Simple to read and simple to see where the conditional ends.</p>
+<p>Under NO circumstances should you have a line such as:</p>
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
+<pre>
+if (foo == bar) { somethingA(0); }
+</pre>
+</td></tr></table></blockquote>
+<p>This should be written as:</p>
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
+<pre>
+if (foo == bar)
+	somethingA(0);
+</pre>
+</td></tr></table></blockquote>
+<p>If braces are not required, don't use them. For example, braces wouldn't be needed here</p>
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
+<pre>
+for (int j = 0; j &lt; 10; ++j)
+	cout &lt;&lt; j &lt;&lt; &quot;\n&quot;?;
+</pre>
+</td></tr></table></blockquote>
+<h4>Pre or post increments</h4>
+
+<p>In for loops, preincrements should be used (++a rather than a++). Under ARM processors and x64 processors (not sure about ia64) ++a requires half the number of clock cycles than the post processor style. In some circumstances, ++a is far more efficient under ia32. It is even more efficient when used with iterators. Post increments should be used in the following sort of code:</p>
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
+<pre>
+if (b == true)
+{
+	m-&gt;wibble(c);
+	m-&gt;wobble(c++);
+}
+</pre>
+</td></tr></table></blockquote>
+
+<h4>Spacings</h4>
+<p>There should be a space after:</p>
+<ul>
+	<li>All commas and semi-colons (in a for condition)</li>
+	<li>Between any conditional (<code>if (a == true)</code> - there is a space either side of the <code>==</code> conditional)</li>
+	<li><p>Prior to an open bracket or after a close bracket:</p>
+		<ul>
+			<li>A space should not be used immediately inside or at the end of a bracket</li>
+			<li>Do not use spaces at the beginning of lines. You must use a tab. A tab will always be a finite number of spaces, the number of spaces can vary when hand inputted.</li>
+		</ul>
+	</li>
+</ul>
+
+<h4>Use of templates</h4>
+
+<p>Templates for both types and classes are fine to be used. The project recommends using g++ 3.x which fully support templates and template classes. Please remember the overhead involved in using templates!</p>
+<p>When using templates, please remember the following:</p>
+<ul>
+	<li>The final binary will be larger</li>
+	<li>To use them correctly. It is very easy to say "I can just whizz that over to a template" when actually, it would be far better to construct (say) a generic template class which inherits the base Qt classes in question.</li>
+	<li>In some places, a template will not be as efficient as a standalone call.</li>
+</ul>
+
+<h4>Optimization</h4>
+
+<p>Unless you really know what you're doing and more over, what the code is doing, do not attempt to do any code optimization. In a lot of respects, optimization is a "black art".</p>
+<p>Code such as <code>a = b = c = 0;</code> is more efficient (through the compiler) than <code>a=0; b=0; c=0;</code></p>
+<p>Careful thought about how the code works is usually far more beneficial than attempting any of the "tricks" currently employed.</p>
+<p>Any large scale changes should be approved of first. Sometimes a small change can have large side effects.</p>
+<p>Multiple separate lines containing calls to Qt methods are far less efficient than multiple calls contained in a for loop.</p>
+
+<h4>Initialization</h4>
+
+<p><code>QString fred = QString("bob")</code> is not the same as <code>QString fred("bob")</code>. The first one creates an additional temporary that's then thrown away. That's slow, and should generally be avoided.</p>
+
+<p>In constructors, it is somewhat faster to use:</p>
+
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
+Fred::Fred() : ParentClass(),
+	argument1("initialValue"),
+	argument2(INITIAL_VALUE)
+{
+}
+</td></tr></table></blockquote>
+
+<p>than</p>
+
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
+Fred::Fred() : ParentClass()
+{
+	argument1 = "initialvalue";
+	argument2 = INITIAL_VALUE;
+}
+</td></tr></table></blockquote>
+
+<p>for much the same reasons as outlined above. It's best to initialize the members in the same order that they're listed in the class declaration.</p>
+
+<h4>Memory checking</h4>
+
+<p>Due to the unavailability of exceptions (see below), we're using <code>Q_CHECK_PTR</code> to check allocations. This means that you get an abort with a useful message when an allocation fails, rather than an unexplained segfault.<p>
+
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
+int *m = new int[2048];
+Q_CHECK_PTR(m);
+</td></tr></table></blockquote>
+
+<h5>Exceptions</h5>
+
+<p>All calls to <code>new</code> should ideally be trapped. This is not currently implemented in current releases. The preferred method would be:</p>
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
+<pre>
+#include &lt;new&gt;
+
+try
+{
+  m = new int[2048];
+}
+
+catch(bad_exception)
+{
+  cout &lt;&lt; "memory allocation to m failed - &lt;method name&lt;" &lt;&lt; endl;
+  exit(EXIT_FAILURE);
+}
+</pre>
+</td></tr></table></blockquote>
+<p>As there are many calls in Scribus to new, these will have a wrapper around.</p>
+<p>For users of Qt who compile their own, they will need to include in the <code>./configure</code> script that they want to throw C++ exceptions. Failure to do so will result in the catches not catching and possibly Scribus failing to run.</p>
+<p>Currently (for v3.2 - v3.4), KDE recommend Qt is compiled without exceptions. This is a bad idea as it means trapping bad memory allocations cannot be caught using the preferred method. As most distributions follow this recommendation, that means we (Scribus) can't expect to be able to rely on exceptions.</p>
+
+<h4>Text encodings</h4>
+
+<p>Text encodings need to be handled carefully. Strange errors can result if you treat UTF-8 text as latin-1, for example. These issues are often hard to track down, so careful coding is important. A detailed treatment of text encodings won't fit here, but some information will be provided elsewhere in the documentation. This is an early version of this part of the text; feedback would be appreciated.</p>
+
+<p>The first thing you need to understand is that Qt's <code>QString</code>, and most other Qt classes, know their own encoding and take care of text encoding issues for you, so they can be treated as "just text" when passing them around inside Scribus and to other Qt classes. It's only at the interfaces between byte-oriented and "text"-oriented code that care is required. These interfaces can be tricky to spot (the implicit conversion of a <code>QString</code> to a <code>QCString</code> or <code>char*</code>, for example, is easily missed) so caution and careful reading of API documentation is required.</p>
+
+<p>While there is no real substitute for <i>understanding</i> text encodings, some of the most important rules to follow are:</p>
+
+<p>Always construct a <code>QString</code> from a byte string using one of the <code>QString::fromblah(...)</code> methods. You should never use <code>QString(char*)</code> or <code>QString(QCString)</code>. You need to determine what encoding the byte string you're working with is in and use the correct call, by examining the documentation for the system / library you are calling. There is generally no way to tell what encoding a string is in by examining the string - at best this is guesswork. <b>Do not</b> assume a string is utf-8 or latin-1, since even if it works for you, in some locales it will not. For data read from the OS or C libraries, you generally want <code>QString::fromLocal8Bit(...)</code>. If in doubt, ask somebody.</p>
+
+<p>Similarly, you should always use the appropriate <code>QString</code> conversion methods when converting <code>QString</code>s to byte strings (e.g. <code>QCString</code>, <code>QByteArray</code>, or <code>char*</code>). Note that such conversions may happen automatically, so watch out for implicit conversions. If sending data to system calls or C libraries you'll generally want <code>QString::local8Bit()</code> but you should check to confirm that's correct for the specific call you're making. Some win32 calls, for example, expect UCS-2 (wchar) data, and some C libraries will expect UTF-8 strings to be passed to some methods.</p>
+
+<p>You should absolutely never do this:</p>
+
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
+QString blah = anotherQString.utf8();
+</td></tr></table></blockquote>
+
+<p>The above code:</p>
+<ul>
+	<li>Converts anotherQString from its internal UCS-2 encoding to a UTF-8 byte string stored in a <code>QCString</code>; then</li>
+	<li>Passes it to the <code>QString(QCString)</code> constructor for blah;</li>
+	<li><code>QString(QCString)</code> decodes the passed <code>QCString</code> <i>according to the default byte string locale set in qt</i> which is usually latin-1 (don't rely on that; it should change to depend on locale at some point.).</li>
+</ul>
+
+<p>Thus, you end up doing a lot of pointless work encoding and decoding the string, and to top it off probably mangle it by decoding a utf-8 string as latin-1. You usually won't notice this, because you probably only send ASCII data thorough, and thus the bug will only turn up much later from people in other locales who use other text encodings. These issues tend to be a pain to track down.</p>
+
+<p>For similar reasons, when you're reading or writing a <code>QTextStream</code>, remember to call <code>QTextStream::setEncoding(...)</code> before reading/writing any data. Use <code>operator&lt;&lt;</code> with <code>QString</code>s, but <code>WriteRawBytes(...)</code> when writing byte strings that are already in the correct encoding. Byte strings in other encodings should be converted to <code>QString</code> or transcoded using <code>QTextCodec</code>. <b>Do not</b> just assume the <code>QTextStream</code> should  write out UTF-8. The correct encoding will depend on where the data is going / coming from. For example, a plain text file for the user to edit should be in their local text encoding. If you're not sure, ask someone.</p>
+
+<p>Don't convert a QString to a byte string when writing to a QTextStream - the QTextStream does that for you in operator&lt;&lt; . For example:</p>
+
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
+QTextStream ts(&amp;file);
+// In this case we know we want to write out UTF-8 to this file, not write in
+// the local 8-bit byte string encoding.
+ts.setEncoding(QTextStream::UnicodeUTF8);
+ts &lt;&lt; someQString.utf8();
+</td></tr></table></blockquote>
+
+<p>as that's the same error as in the previous example, just written a different way. Instead, you should omit the <code>.utf8()</code>.</p>
+
+<p>The best way to handle text encodings is to convert 8-bit byte strings to <code>QString</code> or another "safe" class as early as possible in input, and convert to 8-bit byte strings as late as possible on output. Above all else, do it only once and watch out for implicit conversions. You should think about encodings whenever passing text across any interface that wants byte-oriented strings rather than <code>QString</code>s. Remember to <b>read the documentation</b> of the APIs you're using to determine how they behave with text encodings, and if you're not sure, <i>ask somebody</i>.</p>
+
+<p>It is strongly recommended that you read <a href="http://doc.trolltech.com/3.3/i18n.html">http://doc.trolltech.com/3.3/i18n.html</a> for more coverage of this issue, especially the section "Support for Encodings". You should also read <a href="http://doc.trolltech.com/qq/qq05-achtung.html">Achtung! Binary and Character data</a>.</p>
+
+<h4>Translation Hints - Encoding Issues</h4>
+<p>Please use:</p> 
+<pre> "&#060;qt&#062;" + tr("text for translation") + "&#060;/qt&#062;"</pre>
+<p>not this:</p>
+<pre> tr("&#060;qt&#062;text for translation&#060;/qt&#062;")</pre>
+<p>it's really annoying to translators.</p>
+
+<p>If you are writing a class which is not inherited from QObject or any Qt
+class, you cannot use inherited tr() method. If you are using something like:</p>
+<pre> QObject::tr("text for translation")</pre>
+<p>replace it with:</p>
+ <pre>QObject::tr("text for translation", "describe what is it related")</pre>
+<p>An example from the scripter:</p>
+ <pre>QObject::tr("Item is not text frame", "scripter error")</pre>
+<p>It helps translators with context and it tells them what they are
+translating too, though in some cases strings are generic in nature.</p>
+
+
+<p>There's another issue related to translations, though it's more for
+encoding correctness etc: Please don't use:</p>
+
+<pre>tr( QString("blah %1").arg(something) )</pre>
+
+or otherwise use a QString inside a tr(...) . Doing so causes an
+implicit conversion to `const char*', in which the QString converts to a
+latin-1 byte string. If some characters cannot be represented in latin-1
+they're replaced with `?' . The correct usage is:
+
+<pre>tr("blah %1","context").arg("something")</pre>
+
+<p>... exploiting the fact that tr(...) returns a QString and that you can
+chain calls to QString::arg. That avoids any implicit conversions, and
+will avoid a whole class of weird encoding bugs.</p>
+
+<p>If you really have to translate text that can't be represented in
+latin-1, you need to use <strong>QObject::trUtf8(...).</strong> If you want to translate
+a string with "Î" (uppercase delta) in it, for example, we could try:</p>
+
+      <p> tr("Î is %1", "context")</p>
+
+<p>but that's wrong, not portable, may not compile, or worse might have
+different results on different systems. <strong>We must use escaped byte strings
+rather than including a unicode or extended latin-1 char directly in
+source. </strong>The UTF-8 byte sequence for that character is \xce\x94, so we
+could try:</p>
+
+       <pre>tr("\xce\x94 is %1", "context")</pre>
+
+<p>but that's also wrong, as that unicode byte sequence will be interpreted
+as latin-1 and you'll get a mangled result. You must instead use:</p>
+
+     <pre> trUtf8("\xce\x94 is %1", "context")</pre>
+
+<p>Similarly, if you wanted to include the &#169; (copyright) symbol, which
+exists in latin-1 as well, you could use either:</p>
+
+       <pre>tr("something \xa9 someone", "context")</pre>
+
+<p>or</p>
+
+       <pre>trUtf8("something \xc2\xa9 someone", "context")</pre>
+
+<h4>Portability</h4>
+
+<p>Don't cast a pointer to an int, it causes portability issues where sizeof(int) != sizeof(void*). You might want to find another way to do what you're trying to achieve.</p>
+
+<h4>Submitting of patches</h4>
+
+<p>Code patches should be sent to Franz, Craig Bradney, or Peter. Documentation patches should be sent to Peter and Craig Bradney.  Scripting matters should be addressed to Petr and Craig Ringer.</p>
+<p>Patches should be in plain text. <code>diff -u old_file.cpp new_file.cpp &gt;difference.diff</code> is the best way of sending them. Please do not send patches to the main list. Remember to use <code>-u</code> (unified diff) as other types of diff are painful to use.</p>
+<p>Please ensure that when you have changed something you put a comment immediately before the change. Ensure you put a date and who made the change and what the change is for. Make sure that the comments include the original line of code. Over time, these will be weeded out, but it useful to see what has been altered.</p>
+<p>Send a single diff for each file altered. It makes committing the changes far more simple for us!</p>
+
+<h4>Writing plugins</h4>
+
+<p>Please use the current functions and refer to the <a href="plugin_howto.html">Plugin howto</a> for further information.</p>
+<p>All code called from the main Scribus application has to be encompassed within an <code>extern "C" { ... };</code> to enable the plugin to work.
+Ensure that all the code is documented and follows the coding guidelines set out above.</p>
+</body>
+</html>

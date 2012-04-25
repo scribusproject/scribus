@@ -1,0 +1,65 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<title>Python: class ImageExport</title>
+</head>
+<body>
+<h2>Python: class ImageExport</h2>
+<p>
+<a name="ImageExport">class <strong>ImageExport</strong></a>(object)
+</p>
+<hr />
+
+<h2>Image export</h2>
+<p>Class ImageExport() provides the bitmap graphics exporting for Python scripting as you know it from Export/Save as Image menu. See related class PDFfile() and procedure savePageAsEPS().</p>
+<p>Example:<br/>
+<code>
+i = ImageExport()<br/>
+i.type = 'PNG' # select one from i.allTypes list<br/>
+i.scale = 200 # I want to have 200%<br/>
+i.name = '/home/subik/test.png'<br/>
+i.save()<br/>
+</p>
+<p>Last two lines should be replaced with: <code>i.saveAs('/home/subik/test.png')</code></p>
+
+<h3>Methods defined here</h3>
+
+<dl>
+	<dt><strong>__init__(...)</strong></strong></dt>
+	<dd><p>x.__init__(...) initializes x; see x.__class__.__doc__ for signature</p></dd>
+
+	<dt><strong>save(...)</strong></dt>
+	<dd>save() -> boolean
+	<p>Saves image under previously set 'name'.</p></dd>
+
+	<dt><strong>saveAs(...)</strong></dt>
+	<dd>saveAs('filename') -> boolean
+	<p>Saves image as 'filename'.</p></dd>
+</dl>
+
+<h3>Data and other attributes defined here</h3>
+
+<dl>
+	<dt><strong>__new__ = &lt;built-in method __new__ of type object&gt;</strong></dt>
+	<dd><p>T.__new__(S, ...) -> a new object with type S, a subtype of T</p></dd>
+
+	<dt><strong>allTypes = &lt;attribute 'allTypes' of 'ImageExport' objects&gt;</strong></dt>
+	<dd><p>Available types. Read only list of strings.</p></dd>
+
+	<dt><strong>dpi = &lt;member 'dpi' of 'ImageExport' objects&gt;</strong></dt>
+	<dd><p>This value will be used for export as DPI. Read/write integer.</p></dd>
+
+	<dt><strong>name = &lt;attribute 'name' of 'ImageExport' objects&gt;</strong></dt>
+	<dd><p>Filename of the image. With or without path. Read/write string.</p></dd>
+
+	<dt><strong>quality = &lt;member 'quality' of 'ImageExport' objects&gt;</strong></dt>
+	<dd><p>Quality/compression: minimum 1 (poor), maximum 100 (qaulity). Read/write integer.</p></dd>
+
+	<dt><strong>scale = &lt;member 'scale' of 'ImageExport' objects&gt;</strong></dt>
+	<dd><p>This is the scaling of the image. 100 = 100% etc. Read/write iteger.</p></dd>
+
+	<dt><strong>type = &lt;attribute 'type' of 'ImageExport' objects&gt;</strong></dt>
+	<dd><p>Bitmap type. See allTypes list for more info. Read/write string.</p></dd>
+
+</body>
+</html>

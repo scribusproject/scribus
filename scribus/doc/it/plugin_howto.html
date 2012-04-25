@@ -1,0 +1,322 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<title>How to write a Scribus Plugin</title>
+</head>
+<body>
+<h2>How to write a Scribus Plugin</h2>
+
+<h3>Preface</h3>
+
+<p>This article shows you how to write plugins for Scribus. Plugins are
+libraries that are loaded into the main application at run-time. Plugins can
+extend and to an extent modify the behavior of the application without having
+to edit and recompile the core application. They are useful for adding extra tools,
+extra import and export functions, and for various more advanced uses.</p>
+
+<p>This document assumes some basic knowledge of C++. You're assumed to know
+what a header file is, how include files work, know about classes an
+inheritance, and have some general familiarity with the language. Some
+familiarity with Qt - mainly QString and QObject - will also help. Issues like
+virtual and pure virtual functions, "extern C" declarations, the details of
+memory management, etc are glossed over and avoided in this document. You don't
+have to know about them, but it'll help you follow what's going on better if
+you do.</p>
+
+<p>We're not going to try to explain the details of how the Scribus plugin
+system works here. This is just about how to write a plugin. The documentation
+in the <code>scplugin.h</code> and <code>pluginmanager.h</code> help explain
+how the system works.</p>
+
+<p>For any reasonable plugin idea, you will receive encouragement and assistance from the Scribus Team.
+As rule, we do not do a lot of planning or development discussion by e-mail, but by <a href="irc.html">IRC</a>. Probably 99% of 
+the planning and project discussions take place there. You will find #scribus usually lively during parts of each day. The team is mostly resident in Europe, so Central European Time evenings is when it is busiest. </p>
+
+<h3>Where do I find Scribus Plugins?</h3>
+
+<p>Scribus ships with a number of standard plug-ins. These will be installed
+along with the Scribus program and its other files. On UNIX, plug-ins will be
+installed in the same prefix as the main app. In Mac OS X they're included in
+the .app bundle. If you want to know what these plug-ins do, the easiest way to
+find out is to to fire up Scribus and go into <code>Edit-&gt;Preferences</code>
+and click on the "plugins" icon. From there you will see a list of what
+plug-ins are installed, what type of plug-in they are, and where the files
+are.</p>
+
+<p>In addition to the plug-ins shipped as standard with Scribus, it is possible
+to build and install plug-ins you obtain from elsewhere, or to write and add
+your own.</p>
+
+<h3>Before you start coding</h3>
+
+<p>Let's suppose you've got a great idea to improve Scribus and you cannot wait
+to start writing some excellent C++ code. <b>Hold on for just a few minutes</b>
+and read this section; you might save yourself some time and trouble.</p>
+
+	<h4>Important</h4>
+
+	<p>Maybe you are at the edge of "reinventing the wheel" - that is, writing
+	something you don't have to because someone else has already done it. You
+	should probably join the mailing-list and post about your idea, or join the
+	<code>#scribus</code> channel on <code>irc.freenode.net</code>. Your topic will
+	be discussed and you will probably get some help and ideas from the developers
+	and from other users. As Scribus is freely licensed, you're welcome to work
+	on your own, but at least an introductory chat on IRC, or a mail to the
+	mailing list may save hours of work and head banging. We want to make
+	writing plug-ins as painless as possible for those who're interested.
+
+	<h4>Compatability</h4>
+
+	<p>Scribus does not have a fixed C++ API for plugins to use. Releases are not
+	binary compatible, and unstable versions frequently break source compatibility.
+	Source compatibility is not currently guaranteed even across stable releases
+	if changes are required to fix a problem. We hope to improve this so we can
+	provide a stable C++ API for external code in the future. For now, if possible
+	you should try to bundle the core of your plugin's functionality into a
+	separate module that knows as little about the innards of Scribus as
+	possible.</p>
+
+	<p>This document covers implementing a plugin for Scribus 1.3.x.  It is
+	dramatically different to what was required for the 1.2.x series. Future
+	changes should be smaller.</p>
+
+	
+<h3>Quick Start</h3>
+
+<p>It's not too hard to jump in and start writing a plugin. The documentation
+below describes the implementation of a plugin in some detail, with references
+to places where you can find out more if you need it. A "plugin template" is
+provided for your use, so if you like you can get started by making a copy of
+that and getting hacking. Some basic instructions are included in the file, and
+if you get confused you can refer back to this document.</p>
+
+<p>We'll build the plugin as a part of Scribus. That's the easiest way to get
+started, though you'll probably want to start distributing it separately later
+on (see later). To start work on an Action plugin:</p>
+
+<p>We use <a href="http://cmake.org">CMake</a>, as support for autotools has been
+deprecated and moving forward it will be the only one used in 1.3.5+</p>
+
+<ul>
+	<li>Copy <code>scribus/plugins/myplugin</code>
+	to <code>scribus/plugins/pluginname</code>
+	(where "pluginname" is what you want to call your plugin).
+	pluginname must be a valid C identifier - I suggest
+	sticking to nothing but lower case characters.</li>
+
+	<li>Edit <code>scribus/plugins/CmakeLists.txt</code> and add
+	"pluginname" to it by adding the subdirectory to the others. This tells Scribus's build
+	system to compile your plugin.</li>
+
+	<li>rename all the files in <code>scribus/plugins/pluginname/</code>
+	from <code>myplugin</code> to <code>pluginname</code>, eg
+	<code>myplugin.h</code> to <code>pluginname.h</code>.
+	</li>
+
+	<li>rename <code>myplugin</code> wherever it appears in the files to
+	<code>pluginname</code>, e.g. <code>myplugin_getPluginAPIVersion()</code>
+	to <code>pluginname_getPluginAPIVersion()</code>. Do the same for
+	<code>MyPlugin</code> and <code>MYPLUGIN</code>. On UNIX, you can use this
+	command:<br/>
+	<code>sed -i -e "s/myplugin/pluginname/g" -e "s/MyPlugin/PluginName/g" -e "s/MYPLUGIN/PLUGINNAME/g" myplugin*</code><br/>
+	(all on one line, run from <code>scribus/plugins/pluginname/</code>).
+	</li>
+</ul>
+
+<p>You're now ready to start work on your plug-in. First, you need to fill
+out some information about your plug-in in <code>pluginname.cpp</code>:</p>
+
+<ul>
+	<li>In <code>PluginName::languageChange()</code>:
+		<ul>
+			<li>Change <code>m_actionInfo.text</code> to the text of the menu item
+			you want to trigger your plugin.</li>
+			<li>Change <code>m_actionInfo.menu</code> to the name of the menu you
+			want the menu item to go in. See <b><i>FIXME where????
+					FIXME</i></b> for a list of menu names.</li>
+			<li>If you want your plugin to have a keyboard shortcut, uncomment
+			<code>m_actionInfo.keySequence</code> and set it to your preferred
+			shortcut. The example there should show you how that works.</li>
+		</ul>
+	</li>
+
+	<li>Change the name in <code>PluginName::fullTrName()</code>
+	to the name of your plugin as you want it to appear in the Help-&gt;About Plugins dialog
+	box and in the Plugin Manager pane in the preferences.</li>
+
+	<li>If you want your plugin to have information such as author info and a
+	description when the user looks at it in Help-&gt;About Plugins, fill out
+	as much as you want of the about info by assigning members of
+	<code>about</code>. You can see what information can be provided by looking
+	at the definition of <code>AboutData</code> in
+	<code>scplugin.h</code>.</li>
+</ul>
+
+<p>You've finished setting up the plugin, and can now start programming.  Your
+code should go in <code>pluginnameimpl.cpp</code> and
+<code>pluginnameimpl.h</code>. The existing code should display a message
+dialog box.</p>
+
+<p>To compile the plugin, you can simply re-run <code>cmake with your usual options. </code>,
+and <code>make</code> in the top-level Scribus directory. You may need to remove CmakeCache.txt,
+but this is becoming a rarer necessity in newer versions of CMake.
+When the compile completes, run <code>make install</code> and fire up Scribus.
+Your plugin should now appear in the plugin manager (in the preferences), and
+should have a menu item. If you press the menu item, a dialog box should appear.</p>
+
+<h3>Building plugins outside the Scribus tree</h3>
+
+<h4>Quick and dirty using QMake</h4>
+
+	<p><strong>Warning</strong></p>
+
+	<li>Beware - a qmake project easy to use but isn't necessarily the most standard
+	way to distribute software on the Linux platform. Scribus runs natively on Linux/Unix, MacOSX, OS/2 and
+	Windows. This process is an example
+	only for development. When you create your bug-free functional package then
+	make time to prepare a full featured distributon as described in the next section.</li>
+
+	<li>Let's compile it, but it isn't so easy as typing in <code>gcc
+		myplugin.cpp</code> ;). One easy way to build it - Qt qmake (because some
+	people really really hate autoconf and automake in their complexity. We've been know to
+call it worse things more than once. ). Note: you
+	will need to create an empty <code>config.h</code> file before running these
+	steps</li>
+	<li>On Linux or OSX systems where Qt3 and Qt4 are installed parallel, you may need to
+provide the full path: e.g. <code>/usr/lib/Qt4/qmake</code></li>
+
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
+<pre>
+$qmake -project
+</pre>
+</td></tr></table></blockquote>
+
+<p>Now the project file is created and we'll make just a few changes into it.</p>
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
+<pre>
+######################################################################
+# Automatically generated by qmake (1.06c) Sun Dec 14 13:32:11 2003
+######################################################################
+
+#change TEMPLATE = app. We aren't working on application just plugin
+TEMPLATE = lib
+INCLUDEPATH += .
+#As working with Scribus, we need Scribus includes too.
+INCLUDEPATH += /home/subzero/devel/Scribus/include/Scribus/
+#And Scribus have to use freetype2.
+#So we should link it too. Use paths returned from
+##freetype-config --cflags and --libs
+INCLUDEPATH += /usr/include/freetype2
+LIBS += -lfreetype -lz
+
+# Input
+#create empty config.h file
+HEADERS += myplugin.h config.h
+SOURCES += myplugin.cpp
+</pre>
+</td></tr></table></blockquote>
+
+	<p>After these changes you're ready to compile</p>
+
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
+<pre>
+$qmake
+$make
+</pre>
+</td></tr></table></blockquote>
+
+	<p>Running Qmake creates the Makefile and by running make you compile your
+	plugin.</p>
+
+	<p>Then just copy *so* files into Scribus plugin directory and run Scribus.
+	You'll see "Do Nothing Plugin" in the Extras menu.</p>
+
+	<p>It is clear that you have to use some other way to distribute your
+	source code to others - some use autogenerated qmake pro files, other use
+	the autoconf/automake combination.</p>
+
+	<h4>Distribute it! (a.k.a. Compile it! 2nd edition)</h4>
+
+	<p>Qmake is user frendly and useful for rapid development, but traditionally there has been
+	 one standard way to compile/distribute software for Linux, *BSD etc. - autoconf
+	and automake. Lets call these two programs by the automagic acronym in the
+	following text.</p>
+
+	<p>To use automagic successfully you'll need chalk drawn to the north
+	oriented pentagram on the floor (Carrefour, 2&#8364;), red-black daemonic
+	dress (Hugo Boss, 2000&#8364;) and a sacrificed penguin on the home altar
+	(one hour of fear in your local zoo). Err, only joking.. dont harm any
+	nice little penguins, you wont need to. We strongly prefer the simpler and 
+easier to use CMake build system.</p>
+
+	<p>Download the <code>donothingplugin-1.0.tar.gz</code> example from
+	http://docs.scribus.net, unpack it and browse it.</p>
+
+	
+<h3>Learning More</h3>
+
+<p>To go on from here, you should probably read <code>scplugin.h</code> and ensure
+you understand that. There is an explanation of the way the plugin system works
+in more detail <a href="WHERE">here</a>. Above all else, though, you'll learn how
+to get things done by reading the other plugins and the core Scribus code.</p>
+
+	<h4>Storing your plugin's preferences:</h4>
+
+	<p>Scribus provides a preferences api for plugin writers to store data between
+	Scribus launches. There are two types of storage formats available: key-value
+	pairs and tables.</p>
+
+	<p>First you will need to get the <code>PrefsContext</code> object for your
+	plugin. Then you can query <code>PrefsContext</code> to get the value for a
+	specific key or you can ask for a <code>PrefsTable</code> by it's name. Here is
+	a short example using key-value pairs.</p>
+
+<pre>
+#include &lt;prefsfile.h&gt;
+#include &lt;prefscontext.h&gt;
+
+extern PrefsFile* prefsFile;
+
+PrefsContext *myPluginPrefs = prefsFile-&gt;getPluginContext("MyPlugin");
+
+// default value -1 will be used if "i" doesn't already exist
+int i = myPluginPrefs-&gt;getInt("i");
+
+// default value "dog" will be used if "s" doesn't already exist
+QString s = myPluginPrefs-&gt;get("s", "dog");
+
+myPluginPrefs-&gt;set("i", 221);
+myPluginPrefs-&gt;set("s", "cat");
+</pre>
+
+	<h4>Scribus Object Model</h4>
+
+	<p>Scribus's source code is lightly documented. There is a significant
+	effort to correct this, but given the size of the codebase it's taking
+	quite some time. Please do try to follow what's going on based on the
+	header files and the code. If you're unable to sort it out, feel free to
+	drop in on IRC or ask on the mailing list, and someone may well be able to
+	help you. Try to be patient - we're not always on IRC or available, and it
+	can take time to answer a message if everybody's busy.</p>
+
+	<p>If you feel like improving the documentation or fixing the doxygen api
+	docs generation, the praise will be endless.</p>
+
+	<p>One important thing to understand is that the core Scribus application
+	can be accessed via the static global pointer <code>ScApp</code>, declared
+	in <code>scribus.h</code>. Confusingly, this is a QMainWindow subclass.
+	You can also get to the QApplication subclass used as <code>ScQApp</code>
+	from <code>scribusapp.h</code>.</p>
+
+	<p>Some major subsystems are singleton classes that are accessible via
+	ClassName::instance() . Examples include <code>PluginManager</code>,
+	<code>ScPaths</code>, and growing numbers of others. The advantage
+	of this is that you can interact with these classes without having to
+	delve into the guts of ScApp.</p>
+
+<h3>Plugin related links</h3>
+<a href="http://doc.trolltech.com/">Qt documentation from Trolltech</a><br />
+<a href="http://doc.trolltech.com/3.3/qmake-manual.html">QMake documentation from Trolltech</a><br />
+<!--<a href="http://www.murrayc.com/learning/linux/automake/automake.shtml">Automake/autoconf example</a>--><br />
+</body>
+</html>

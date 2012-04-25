@@ -1,0 +1,33 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<title>Adding Sample Text in your Language</title>
+</head>
+<body>
+<h2>Adding Sample Text in your Language</h2>
+<h3>Why Sample Text?</h3>
+<p>When creating page layouts a sample text, also known as &ldquo;Lorem ipsum&rdquo; or &ldquo;lipsum&rdquo; to typesetting professionals, is often used as a placeholder for actual text before the real text is inserted. The original Lorem ipsum consists of nonsensical Latin, the reason being the desire of typesetters to not distract from the impression of the text layout (font choice, font size, linespacing etc.). This can most easily be achieved with a nonsensical text, as the viewer will not be tempted to read. However, since one of the purposes of a Lorem ipsum is to show all letters in an alphabet, the original may not be well-suited for languages other than English or Latin, as most languages use either an extended Latin alphabet or no Latin alphabet at all.</p>
+<p>Scribus makes it very convenient to insert a sample text by simply selecting, then right-clicking a text frame and selecting &ldquo;Sample Text&rdquo; from the Context Menu. This allows you to visualize the layout or experiment with different fonts and effects before finalizing your design.</p>
+<h3>Creating a Sample Text for your Language</h3>
+<P>This simple HOWTO shows you how easy it is to add your own language or alphabet if it&rsquo;s not yet included with Scribus. </P>
+<p>The structure of a lipsum file is very simple XML, which anyone can create in a text editor. Below is a shortened version of a Finnish sample text.</p>
+<pre>
+&#060;?xml version="1.0" encoding="utf8"?&#062;
+&#060;lorem>
+	&#060;name>Finnish&#060;/name&#062;
+	&#060;author>http://www.dlc.fi/~frank/ite.htm&#060;/author&#062;
+	&#060;url>http://www.dlc.fi/~frank/huumori/trans/&#060;/url&#062;
+
+&#060;p>Vaimo ja mies ajattelivat pitää illallisjuhlat kaikille Rooman silmäätekeville Italiassa.
+Vaimo jännitti kovasti ja halusi kaiken  sujuvan täydellisesti. Viime minuuteilla hän tajusi, ettei
+hänellä ollut illallisille yhtään etanoita, jolloin hän käski miestään juoksemaan
+alas rannalle ja keräämään koriin joitain etanoita.&#060;/p&#062;
+&#060;/lorem&#062;
+</pre>
+
+<p>You can search on the internet for a lipsum in your language &ndash; there are many available &ndash; or simply create your own. Make sure that you can use and distribute an existing sample text without restrictions. If you create your own Lorem ipsum, you are advised to make sure that the sample text is as nonsensical as possible and that it contains all letters of your alphabet.</p>
+<p>Insert the text, replace the name, author and URL data with the correct ones. Then simply put HTML-like tags around each of the paragraphs.</p><p>Insert the text, then save is as <code>language.xml</code>, where &ldquo;language&rdquo; must be replaced with an <a href="http://en.wikipedia.org/wiki/ISO_639-1">ISO 639-1 language code</a>, a two letter abbreviation for the respective language, e.g. <code>ru.xml</code> for Russian. It&rsquo;s important to make sure that you save the text in <a href="http://en.wikipedia.org/wiki/UTF-8">UTF-8 encoding</a>. Otherwise, special characters won&rsquo;t be displayed correctly.</p>
+<p> To test your sample text, you can copy it to the subdirectory <code>~/share/scribus/loremipsum</code>, whose location will vary depending on your operating system and the way you installed Scribus (e.g. <code>/usr/share/scribus/loremipsum</code> on Linux).</p>
+<p>Once you made sure that your significant engineering effort works as expected, head over to the <a href="http://bugs.scribus.net">Scribus bugtracker</a>, file a bug report with the severity &ldquo;Feature&rdquo; and upload your XML file. One of the Scribus developers will add it to the next release of Scribus for all to enjoy.</p>
+</body>
+</html>

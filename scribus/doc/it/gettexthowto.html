@@ -1,0 +1,153 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<title>How To Write a Scribus Get Text Plugin</title>
+</head>
+<body>
+<h2>How To Write a Scribus Get Text Plugin</h2>
+<h4>Plugin interface and article written by Riku Leino</h4>
+<h3>Preface</h3>
+
+<p>This article shows you how to write Get Text plugins for Scribus. Plugins are dynamic loaded libraries in "so" format. Get Text Plugins are used to import formatted text from all kinds of file formats into a Scribus text frame.</p>
+
+<h4>Important</h4>
+
+<p>Wait here for a while! Maybe you are at the edge of reinventing the wheel - so join the mailing-list or visit #scribus channel at irc.freenode.net. Your topic will be discussed and you'll get support too. We cannot stop you to write anything you want - sure. :)))</p>
+
+<h3>An Example Plugin</h3>
+
+<h4>myimporter.h</h4>
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
+<pre>
+#ifndef MYIMPORTER_H
+#define MYIMPORTER_H
+
+#include &lt;scribus.h&gt;
+#include &lt;gtwriter.h&gt;
+
+extern "C" void GetText(QString filename, QString encoding, bool textOnly, gtWriter *writer);
+
+extern "C" QString FileFormatName();
+
+extern "C" QStringList FileExtensions();
+
+#endif // MYIMPORTER_H
+</pre>
+</td></tr></table></blockquote>
+<p>Now let's describe the source code. MYIMPORTER_H declaration is the standard way to ensure only one insertion of the header file. Scribus.h is required to access Scribus objects. The function GetText() is called when a user has selected to import a file that has a file extenison which matches one in the QStringList returned by FileExtensions(). FileFormatName() should return the name for the file format this importer works on f.e. "Text files" for plain text importer.</p>
+
+<h4>GetText parameters</h4>
+<ul>
+<li><strong>fileName</strong>: path to a file that a user wants to import</li>
+<li><strong>encoding</strong>: Character encoding a user has selected in a file dialog</li>
+<li><strong>textOnly</strong>: if true a user wants to import text from the file without any formatting</li>
+<li><strong>writer</strong>: gtWriter object that is used to import the text</li>
+</ul>
+
+<h4>File extensions</h4>
+<p>If your plugin is the only plugin for the file format return a QStringList with format's file extensions. If there already is an importer for the format you are also creating an importer for do not return file extensions but an empty QStringList. The most common and used plugin for a file format should return file extensions. Other more rarely used plugins should not return extensions. These plugins can be used by selecting them in the file dialog of Get Text.</p>
+
+<h4>myimporter.cpp</h4>
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
+<pre>
+#include "myimporter.h"
+#include &lt;qstring.h&gt;
+#include &lt;qstringlist.h&gt;
+
+QString FileFormatName()
+{
+    return QObject::tr("Nothing to import");
+}
+
+QStringList FileExtensions()
+{
+    // QStringList list("htm"); list << "html" << "php"; return list;
+    return QStringList();
+}
+
+void GetText(QString filename, QString encoding, bool textOnly, gtWriter *writer)
+{
+
+}
+</pre>
+</td></tr></table></blockquote>
+
+<p>The <code>importnothingplugin-1.0.tar.bz2</code> from http://docs.scribus.net can be used as a basis of your own get text plugin.</p>
+
+<h3>How does it work?</h3>
+
+<p>Text can be appended to a text frame with gtWriter::append() methods. append(QString text) appends text formatted with the style of the text frame. append(QString text, gtStyle *style) will use the style given as a parameter.</p>
+
+<p>gtStyle, gtParagraphStyle and gtFrameStyle can be used to set the style for imported text. The easiest way to get started is to use gtWriter's getDefaultStyle() method to get the text frame's current style and then use the gtFrameStyle returned to create new styles.</p>
+
+<p>gtStyle works on character styles and can be used inside a paragraph style. gtParagraphStyle creates a paragraph style in Scribus and can be used to apply a paragraph style to the text when importing. gtFrameStyle gives a possibility to change the default style of the text frame. Relation between these three classes is: gtStyle works as a base class. gtParagraphStyle extends gtStyle and gtFrameStyle extends gtParagraphStyle. They all have a gtFont object that can be obtained with getFont() method. gtFont object can be used to set some character based formatting. See the header files: gtfont.h, gtstyle.h, gtparagraphstyle.h and gtframestyle.h to get a better idea of the interfaces.</p>
+
+<p>There is also one helper class gtMeasure with static methods to convert length units to points which is the default unit scribus uses internally. For example converting 25 millimeters to points one can use gtMeasure's method i2d() (int to double): gtMeasure::i2d(25, MM). Second parameter tells the unit from where the conversion to points is done. All the possible units are defined as an enumeration Unit (see file gtmeasure.h).</p>
+
+<h3>Simple example</h3>
+
+<h4>Text to import</h4>
+
+Lorem ipsum dolor sit amet, consectetuer adipiscing elit. <strong>Ut a sapien.</strong> Aliquam aliquet purus molestie dolor. Integer quis eros ut erat posuere dictum. Curabitur dignissim. Integer orci. Fusce vulputate lacus at ipsum. Quisque in libero nec mi laoreet volutpat.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Aliquam eros pede, scelerisque quis, tristique cursus, placerat convallis, velit. Nam condimentum. Nulla ut mauris. Curabitur adipiscing, mauris non dictum aliquam, arcu risus dapibus diam, nec sollicitudin quam erat quis ligula. Aenean massa nulla, volutpat eu, accumsan et, fringilla eget, odio. Nulla placerat porta justo. Nulla vitae turpis. Praesent lacus.
+
+<h4>Code for import</h4>
+
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
+<pre>
+#include &lt;gtparagraphstyle.h&gt;
+#include &lt;gtframestyle.h&gt;
+#include &lt;gtmeasure.h&gt;
+
+...
+
+void GetText(QString filename, QString encoding, bool textOnly, gtWriter *writer)
+{
+
+/***** Create Paragraph Styles *************************************************/
+    gtFrameStyle* fstyle = writer->getDefaultStyle();
+    
+    gtParagraphStyle* firstPara = new gtParagraphStyle(*fstyle);
+    firstPara->setName("First Paragraph");
+    firstPara->getFont()->setSize(12.0);
+    firstPara->setLineSpacing(14.4);
+    
+    gtParagraphStyle* trailingPara = new gtParagraphStyle(*firstPara);
+    trailingPara->setName("Traling Paragraph");
+    trailingPara->setFirstLineIndent(gtMeasure::i2d(15, MM));
+    
+/***** Import Text *************************************************************/
+    writer->append("Lorem ipsum dolor sit amet, consectetuer adipiscing elit. ", firstPara);
+    
+    QString currentWeight = firstPara->getFont()->getWeight();
+    firstPara->getFont()->setWeight(BOLD); // from enum FontWeight (gtfont.h)
+    writer->append("Ut a sapien.", firstPara); // import with a bold font
+    
+    firstPara->getFont()->setWeight(currentWeight);
+    writer->append(" Aliquam aliquet purus molestie dolor. Integer quis eros ut "
+                   "erat posuere dictum. Curabitur dignissim. Integer orci. Fusce "
+                   "vulputate lacus at ipsum. Quisque in libero nec mi laoreet "
+                   "volutpat.\n", firstPara);
+    
+    // 2nd Paragraph
+    writer->append("Aliquam eros pede, scelerisque quis, tristique cursus, placerat "
+                   "convallis, velit. Nam condimentum. Nulla ut mauris. Curabitur "
+                   "adipiscing, mauris non dictum aliquam, arcu risus dapibus diam, nec "
+                   "sollicitudin quam erat quis ligula. Aenean massa nulla, "
+                   "volutpat eu, accumsan et, fringilla eget, odio. Nulla placerat porta "
+                   "justo. Nulla vitae turpis. Praesent lacus.", trailingPara);
+
+    delete firstPara;
+    delete trailingPara;
+}
+
+...
+</pre>
+</td></tr></table></blockquote>
+
+<p>Now after right clicking on a text frame, choosing "Get Text..." and selecting our just built importer and opening some file we get a text frame with the sample text formatted correctly.</p>
+<table width="100%"><tr><td align="center"><img src="images/result.png" alt="Sample frame"/></td></tr></table>
+
+<p>If you have any questions send mail to Riku Leino (IRC nick:Tsoots) tsoots at gmail.com, register for Scribus mailing list or join the irc channel #scribus at irc.freenode.net.</p>
+</body>
+</html>

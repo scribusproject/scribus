@@ -1,0 +1,46 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<title>Development Questions</title>
+</head>
+<body>
+<a name="top"></a>
+<h2>Development Questions</h2>
+<ul>
+	<li><a href="#16">Packaging Scribus rpms,debs or plug-ins - What should I do ?</a></li>
+	<li><a href="#12">I have a great idea for adding something to Scribus. How can I write a plug-in?</a></li>
+	<li><a href="#18">I am interested in contributing. Is there documentation on coding style or other reference?</a></li>
+</ul>
+
+<h3>Answers</h3>
+
+<ul>
+	<li><a name="16"></a>
+		<p class="faqquestion">Packaging Scribus rpms, debs or plug-ins - What should I do?</p>
+		<p>Downstream packagers are asking for and may soon demand GPG signed tarballs. For Fedora, this is not a requirement, but does ease acceptance of packages. It also shows we are doing &quot;The Right Thing&quot;. md5sums are not foolproof.</p>
+		<p>To create a gpg signed tarball: <br/>
+		<code>$gpg -u package&#114;&#064;&#102;oo.net --armor --output tarball.sig --detach-sig tarball.tar.gz </code></p>
+		<p>To verify : <br/>
+		<code>$gpg --verify ./tarball.asc ./tarball.tar.gz</code></p>
+		
+		<p><strong>Packaging plug-ins:</strong></p>
+		<p>Plug-ins should be named <i>scribus-something</i>. This helps packagers deal with revisions and obsoletes when upgrading.</p>
+		<p><strong>Signing your package,deb,tar etc.</strong></p>
+		<p>First, you need to have a public/private keypair. This can be generated with GPG using &lt;code&gt;gpg --gen-key&lt;/code&gt;</p>
+		<p>To add a signature to an existing package, use the command <code>rpm --addsign /path/to/package.rpm</code> To sign in the process of building a package, use <code>rpmbuild -bb --sign</code></p>
+		<p>To check the signature on a package, use <code>rpm --checksig</code></p>
+		<a href="#top">Back to top</a><hr/>
+	</li>
+	<li><a name="12"></a>
+		<p class="faqquestion">I have a great idea for adding something to Scribus. How can I write a plug-in?</p>
+		<p>Thanks to Petr Vanek, there is nicely done article: <a href="plugin_howto.html">Scribus Plug-in Howto</a> online.</p>
+		<a href="#top">Back to top</a><hr/>
+	</li>
+	<li><a name="18"></a>
+		<p class="faqquestion">I am interested in contributing. Is there documentation on coding style or other reference?</p>
+		<p>Glad you asked. There is a <a href="codingstandards.html">Scribus Coding section</a> which outlines coding style and recommendations for code submissions.</p>
+		<a href="#top">Back to top</a><hr/>
+	</li>
+</ul>
+</body>
+</html>

@@ -1,0 +1,163 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<title>Handling Text Frames</title>
+</head>
+<body>
+<h2>Handling Text Frames</h2>
+
+<dl>
+
+<dt><a name="-dehyphenateText"><strong>dehyphenateText</strong></a>(...)</dt>
+<dd><code>dehyphenateText(["name"]) -&gt; bool</code>
+<p>Does dehyphenation on text frame "name". If "name" is not given the currently selected item is used.</p>
+<p>May raise WrongFrameTypeError if the target frame is not a text frame</p></dd>
+
+<dt><a name="-deleteText"><strong>deleteText</strong></a>(...)</dt>
+<dd><code>deleteText(["name"])</code>
+<p>Deletes any text in the text frame "name". If there is some text selected, only the selected text will be deleted. If "name" is not given the currently selected item is used.</p></dd>
+
+<dt><a name="-getAllText"><strong>getAllText</strong></a>(...)</dt>
+<dd><code>getAllText(["name"]) -&gt; string</code>
+<p>Returns the text of the text frame "name" and of all text frames which are linked with this frame. If this textframe has some text selected, the selected text is returned. If "name" is not given the currently selected item is used.</p></dd></dt>
+
+<dt><a name="-getColumnGap"><strong>getColumnGap</strong></a>(...)</dt>
+<dd><code>getColumnGap(["name"]) -&gt; float</code>
+<p>Returns the column gap size of the text frame "name" expressed in points. If "name" is not given the currently selected item is used.</p></dd>
+
+<dt><a name="-getColumns"><strong>getColumns</strong></a>(...)</dt>
+<dd><code>getColumns(["name"]) -&gt; integer</code>
+<p>Gets the number of columns of the text frame "name". If "name" is not given the currently selected item is used.</p></dd>
+
+<dt><a name="-getFont"><strong>getFont</strong></a>(...)</dt>
+<dd><code>getFont(["name"]) -&gt; string</code>
+<p>Returns the font name for the text frame "name". If this text frame has some text selected the value assigned to the first character of the selection is returned. If "name" is not given the currently selected item is used.</p></dd>
+
+<dt><a name="-getFontSize"><strong>getFontSize</strong></a>(...)</dt>
+<dd><code>getFontSize(["name"]) -&gt; float</code>
+<p>Returns the font size in points for the text frame "name". If this text frame has some text selected the value assigned to the first character of the selection is returned. If "name" is not given the currently selected item is used.</p></dd>
+
+<dt><a name="-getLineSpacing"><strong>getLineSpacing</strong></a>(...)</dt>
+<dd><code>getLineSpacing(["name"]) -&gt; float</code>
+<p>Returns the line spacing ("leading") of the text frame "name" expressed in points. If "name" is not given the currently selected item is used.</p></dd>
+
+<dt><a name="-getText"><strong>getText</strong></a>(...)</dt>
+<dd><code>getText(["name"]) -&gt; string</code>
+<p>Returns the text of the text frame "name". If this text frame has some text selected, the selected text is returned. All text in the frame, not just currently visible text, is returned. If "name" is not given the currently selected item is used.</p></dd>
+
+<dt><a name="-getTextColor"><strong>getTextColor</strong></a>(...)</dt>
+<dd><code>getLineColor(["name"]) -&gt; string</code>
+<p>Returns the name of the line color of the object "name". If "name" is not given the currently selected item is used.</p></dd>
+
+<dt><a name="-getTextDistances"><strong>getTextDistances</strong></a>(...)</dt>
+<dd><code>getTextDistances(["name"]) -&gt; tuple</code>
+<p>Returns the text distances of the text frame "name" expressed in points. The
+distances are returned as a tuple like (left, right, top, bottom). If "name"
+is not given the currently selected item is used.</p></dd>
+
+<dt><a name="-getTextLength"><strong>getTextLength</strong></a>(...)</dt>
+<dd><code>getTextLength(["name"]) -&gt; integer</code>
+<p>Returns the length of the text in the text frame "name". If "name" is not given the currently selected item is used.</p></dd>
+
+<dt><a name="-getTextLines"><strong>getTextLines</strong>(...)</a></dt>
+<dd><code>getTextLines(["name"]) -&gt; integer</code>
+<p>Returns the number of lines of the text in the text frame "name". If "name" is not given the currently selected item is used.</p></dd>
+
+<dt><a name="-getTextShade"><strong>getTextShade</strong></a>(...)</dt>
+<dd><code>getLineShade(["name"]) -&gt; integer</code>
+<p>Returns the shading value of the line color of the object "name". If "name" is not given the currently selected item is used.</p></dd>
+
+<dt><a name="-hyphenateText"><strong>hyphenateText</strong></a>(...)</dt>
+<dd><code>hyphenateText(["name"]) -&gt; bool</code>
+<p>Does hyphenation on text frame "name". If "name" is not given the currently selected item is used.</p>
+<p>May raise WrongFrameTypeError if the target frame is not a text frame</p></dd>
+
+<dt><a name="-insertText"><strong>insertText</strong></a>(...)</dt>
+<dd><code>insertText("text", pos, ["name"])</code>
+<p>Inserts the text "text" at the position "pos" into the text frame "name". Text must be UTF encoded (see <a href="#-setText">setText</a>() as reference) The first character has an index of 0. Inserting text at position -1 appends it to the frame. If "name" is not given the currently selected Item is used.</p>
+<p>May throw IndexError for an insertion out of bounds.</p></dd>
+
+<dt><a name="-isPDFBookmark"><strong>isPDFBookmark</strong>(...)</a></dt>
+<dd><code>isPDFBookmark(["name"]) -&gt; bool</code>
+<p>Returns true if the text frame "name" is a PDF bookmark. If "name" is not given the currently selected item is used.</p>
+<p>May raise WrongFrameTypeError if the target frame is not a text frame</p></dd>
+
+<dt><a name="-selectText"><strong>selectText</strong></a>(...)</dt>
+<dd><code>selectText(start, count, ["name"])</code>
+<p>Selects "count" characters of text in the text frame "name" starting from the character "start". Character counting starts at 0. If "count" is zero, any text selection will be cleared.  If "name" is not given the currently selected item is used.</p>
+<p>May throw IndexError if the selection is outside the bounds of the text.</p></dd>
+
+<dt><a name="-setColumns"><strong>setColumns</strong></a>(...)</dt>
+<dd><code>setColumns(nr, ["name"])</code>
+<p>Sets the number of columns of the text frame "name" to the integer "nr". If "name" is not given the currently selected item is used.</p>
+<p>May throw ValueError if number of columns is not at least one.</p></dd>
+
+<dt><a name="-setColumnGap"><strong>setColumnGap</strong></a>(...)</dt>
+<dd><code>setColumnGap(size, ["name"])</code>
+<p>Sets the column gap of the text frame "name" to the value "size". If "name" is not given the currently selected item is used.</p>
+<p>May throw ValueError if the column gap is out of bounds (must be positive).</p></dd>
+
+<dt><a name="-setFont"><strong>setFont</strong></a>(...)</dt>
+<dd><code>setFont("font", ["name"])</code>
+<p>Sets the font of the text frame "name" to "font". If there is some text selected only the selected text is changed.  If "name" is not given the currently selected item is used.</p>
+<p>May throw ValueError if the font cannot be found.</p></dd>
+
+<dt><a name="-setFontSize"><strong>setFontSize</strong></a>(...)</dt>
+<dd><code>setFontSize(size, ["name"])</code>
+<p>Sets the font size of the text frame "name" to "size". "size" is treated as a value in points. If there is some text selected only the selected text is changed. "size" must be in the range 1 to 512. If "name" is not given the currently selected item is used.</p>
+<p>May throw ValueError for a font size that's out of bounds.</p></dd>
+
+<dt><a name="-setLineSpacing"><strong>setLineSpacing</strong></a>(...)</dt>
+<dd><code>setLineSpacing(size, ["name"])</code>
+<p>Sets the line spacing ("leading") of the text frame "name" to "size". "size" is a value in points. If "name" is not given the currently selected item is used.</p>
+<p>May throw ValueError if the line spacing is out of bounds.</p></dd>
+
+<dt><a name="-setPDFBookmark"><strong>setPDFBookmark</strong>(...)</a></dt>
+<dd><code>setPDFBookmark("toggle", ["name"])</code>
+<p>Sets wether (toggle = 1) the text frame "name" is a bookmark nor not. If "name" is not given the currently selected item is used.</p>
+<p>May raise WrongFrameTypeError if the target frame is not a text frame</p></dd>
+
+<dt><a name="-setText"><strong>setText</strong></a>(...)</dt>
+<dd><code>setText("text", ["name"])</code>
+<p>Sets the text of the text frame "name" to the text of the string "text". Text must be UTF8 encoded - use e.g. unicode(text, 'iso-8859-2'). See the FAQ for more details. If "name" is not given the currently selected item is used.</p></dd>
+
+<dt><a name="-setTextAlignment"><strong>setTextAlignment</strong></a>(...)</dt>
+<dd><code>setTextAlignment(align, ["name"])</code>
+<p>Sets the text alignment of the text frame "name" to the specified alignment. If "name" is not given the currently selected item is used. "align" should be one of the ALIGN_ constants defined in this module - see dir(scribus).</p>
+<p>May throw ValueError for an invalid alignment constant.</p></dd>
+
+<dt><a name="-setTextDistances"><strong>setTextDistances</strong></a>(...)</dt>
+<dd><code>setTextDistances(left, right, top, bottom, ["name"])</code>
+<p>Sets the text distances of the text frame "name" to the values "left"
+"right", "top" and "bottom". If "name" is not given the currently
+selected item is used.</p>
+<p>May throw ValueError if any of the distances are out of bounds (must be positive).</p></dd>
+
+<dt><a name="-setTextScalingH"><strong>setTextScalingH</strong></a>(...)</dt>
+<dd><code>setTextScalingH(scale, ["name"]))</code>
+<p>Sets the horizontal character scaling of the object "name" to "scale" in percent. If "name" is not given the currently selected item is used.</p></dd>
+
+<dt><a name="-setTextScalingV"><strong>setTextScalingV</strong></a>(...)</dt>
+<dd><code>setTextScalingV(scale, ["name"]))</code>
+<p>Sets the vertical character scaling of the object "name" to "scale" in percent. If "name" is not given the currently selected item is used.</p></dd>
+
+<dt><a name="-setTextColor"><strong>setTextColor</strong></a>(...)</dt>
+<dd><code>setTextColor("color", ["name"])</code>
+<p>Sets the text color of the text frame "name" to the color "color". If there is some text selected only the selected text is changed. If "name" is not given the currently selected item is used.</p></dd>
+
+<dt><a name="-setTextShade"><strong>setTextShade</strong></a>(...)</dt>
+<dd><code>setTextShade(shade, ["name"])</code>
+<p>Sets the shading of the text color of the object "name" to "shade". If there is some text selected only the selected text is changed. "shade" must be an integer value in the range from 0 (lightest) to 100 (full color intensity). If "name" is not given the currently selected item is used.</p></dd>
+
+<dt><a name="-setTextStroke"><strong>setTextStroke</strong></a>(...)</dt>
+<dd><code>setTextStroke("color", ["name"])</code>
+<p>Set "color" of the text stroke. If "name" is not given the currently selected item is used.</p></dd>
+
+<dt><a name="-textOverflows"><strong>textOverflows</strong></a>(...)</dt>
+<dd><code>textOverflows(["name", nolinks]) -&gt; integer</code>
+<p>Returns 1 if there are overflowing characters in text frame "name", 0 if not. If is nolinks set to non zero value it takes only one frame - it doesn't use text frame linking. Without this parameter it search all linking chain.</p>
+<p>May raise WrongFrameTypeError if the target frame is not an text frame</p></dd>
+
+</dl>
+</body>
+</html>

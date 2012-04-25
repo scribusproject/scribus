@@ -1,0 +1,141 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<title>Creating and Destroying Objects</title>
+</head>
+<body>
+<h2>Creating and Destroying Objects</h2>
+
+<dl>
+
+<dt><a name="-createCharStyle"><strong>createCharStyle</strong></a>(...)</dt>
+<dd><code>createCharStyle(...)</code>
+<p>Creates a character style. This function takes the following keyword parameters:
+<ul>
+<li>"name" [required] -> name of the char style to create</li>
+<li>"font" [optional] -> name of the font to use</li>
+<li>fontsize [optional] -> font size to set (double)</li>
+<li>"features" [optional] -> nearer typographic details can be defined by a string that might contain the following phrases comma-seperated (without spaces!):
+<ul>
+	<li>inherit</li>
+	<li>bold</li>
+	<li>italic</li>
+	<li>underline</li>
+	<li>underlinewords</li>
+	<li>strike</li>
+	<li>superscript</li>
+	<li>subscript</li>
+	<li>outline</li>
+	<li>shadowed</li>
+	<li>allcaps</li>
+	<li>smallcaps</li>
+</ul>
+</li>
+<li>"fillcolor" [optional], "fillshade" [optional] -> specify fill options</li>
+<li>"strokecolor" [optional], "strokeshade" [optional] -> specify stroke options</li>
+<li>baselineoffset [optional] -> offset of the baseline</li>
+<li>shadowxoffset [optional], shadowyoffset [optional] -> offset of the shadow if used</li>
+<li>outlinewidth [optional] -> width of the outline if used</li>
+<li>underlineoffset [optional], underlinewidth [optional] -> underline options if used</li>
+<li>strikethruoffset [optional], strikethruwidth [optional] -> strikethru options if used</li>
+<li>scaleh [optional], scalev [optional] -> scale of the chars</li>
+<li>tracking [optional] -> tracking of the text</li>
+<li>"language" [optional] -> language code</li>
+</ul>
+</p>
+</dd>
+
+<dt><a name="-createBezierLine"><strong>createBezierLine</strong></a>(...)</dt>
+<dd><code>createBezierLine(list, ["name"]) -&gt; string</code>
+<p>Creates a new bezier curve and returns its name. The points for the bezier curve are stored in the list "list" in the following order: [x1, y1, kx1, ky1, x2, y2, kx2, ky2...xn. yn, kxn. kyn] In the points list, x and y mean the x and y coordinates of the point and kx and ky meaning the control point for the curve.  The coordinates are given in the current measurement units of the document (see UNIT constants). "name" should be a unique identifier for the object because you need this name for further access to that object. If "name" is not given Scribus will create one for you.</p>
+<p>May raise <a href="scripterapi.html#NameExistsError">NameExistsError</a> if you explicitly pass a name that's already used. May raise ValueError if an insufficient number of points is passed or if the number of values passed don't group into points without leftovers.</p></dd>
+
+<dt><a name="-createEllipse"><strong>createEllipse</strong></a>(...)</dt>
+<dd><code>createEllipse(x, y, width, height, ["name"]) -&gt; string</code>
+<p>Creates a new ellipse on the current page and returns its name. The coordinates are given in the current measurement units of the document (see UNIT constants). "name" should be a unique identifier for the object because you need this name for further referencing of that object. If "name" is not given Scribus will create one for you.</p>
+<p>May raise <a href="scripterapi.html#NameExistsError">NameExistsError</a> if you explicitly pass a name that's already used.</p></dd></dt>
+
+<dt><a name="-createImage"><strong>createImage</strong></a>(...)</dt>
+<dd><code>createImage(x, y, width, height, ["name"]) -&gt; string</code>
+<p>Creates a new picture frame on the current page and returns its name. The coordinates are given in the current measurement units of the document. "name" should be a unique identifier for the object because you need this name for further access to that object. If "name" is not given Scribus will create one for you.</p>
+<p>May raise <a href="scripterapi.html#NameExistsError">NameExistsError</a> if you explicitly pass a name that's already used.</p></dd>
+
+<dt><a name="-createLine"><strong>createLine</strong></a>(...)</dt>
+<dd><code>createLine(x1, y1, x2, y2, ["name"]) -&gt; string</code>
+<p>Creates a new line from the point(x1, y1) to the point(x2, y2) and returns its name. The coordinates are given in the current measurement unit of the document (see UNIT constants). "name" should be a unique identifier for the object because you need this name for further access to that object. If "name" is not given Scribus will create one for you.</p>
+<p>May raise <a href="scripterapi.html#NameExistsError">NameExistsError</a> if you explicitly pass a name that's already used.</p></dd>
+
+<dt><a name="-createParagraphStyle"><strong>createParagraphStyle</strong></a>(...)</dt>
+<dd><code>createParagraphStyle(...)</code>
+<p>Creates a paragraph style. This function takes the following keyword parameters:
+<ul>
+<li>"name" [required] -> specifies the name of the paragraphstyle to create</li>
+<li>linespacingmode [optional] -> specifies the linespacing mode; possible modes are:
+<ul>
+	<li>fixed linespacing: 0</li>
+	<li>automatic linespacing: 1</li>
+	<li>baseline grid linespacing: 2</li>
+</ul>
+</li>
+<li>linespacing [optional] -> specifies the linespacing if using fixed linespacing</li>
+<li>alignment [optional] -> specifies the alignment of the paragraph
+<ul>
+	<li>left: 0</li>
+	<li>center: 1</li>
+	<li>right: 2</li>
+	<li>justify: 3</li>
+	<li>extend: 4</li>
+</ul>
+</li>
+<li>leftmargin [optional], rightmargin [optional] -> specify the margin</li>
+<li>gapbefore [optional], gapafter [optional] -> specify the gaps to the heading and following paragraphs</li>
+<li>firstindent [optional] -> the indent of the first line</li>
+<li>hasdropcap [optional] -> specifies if there are caps (1 = yes, 0 = no)</li>
+<li>dropcaplines [optional] -> height (in lines) of the caps if used</li>
+<li>dropcapoffset [optional] -> offset of the caps if used</li>
+<li>"charstyle" [optional] -> char style to use</li>
+</ul>
+</p>
+</dd>
+
+<dt><a name="-createPathText"><strong>createPathText</strong></a>(...)</dt>
+<dd><code>createPathText(x, y, "textbox", "beziercurve", ["name"]) -&gt; string</code>
+<p>Creates a new pathText by merging the two objects "textbox" and "beziercurve" and returns its name. The coordinates are given in the current measurement unit of the document (see UNIT constants). "name" should be a unique identifier for the object because you need this name for further access to that object. If "name" is not given Scribus will create one for you.</p>
+<p>May raise <a href="scripterapi.html#NameExistsError">NameExistsError</a> if you explicitly pass a name that's already used.
+May raise <a href="scripterapi.html#NotFoundError">NotFoundError</a> if one or both of the named base object don't exist.</p></dd>
+
+<dt><a name="-createPolyLine"><strong>createPolyLine</strong></a>(...)</dt>
+<dd><code>createPolyLine(list, ["name"]) -&gt; string</code>
+<p>Creates a new polyline and returns its name. The points for the polyline are stored in the list "list" in the following order: [x1, y1, x2, y2...xn. yn]. The coordinates are given in the current measurement units of the document (see UNIT constants). "name" should be a unique identifier for the object because you need this name for further access to that object. If "name" is not given Scribus will create one for you.</p>
+<p>May raise <a href="scripterapi.html#NameExistsError">NameExistsError</a> if you explicitly pass a name that's already used. May raise ValueError if an insufficient number of points is passed or if the number of values passed don't group into points without leftovers.</p></dd>
+
+<dt><a name="-createPolygon"><strong>createPolygon</strong></a>(...)</dt>
+<dd><code>createPolygon(list, ["name"]) -&gt; string</code>
+<p>Creates a new polygon and returns its name. The points for the polygon are stored in the list "list" in the following order: [x1, y1, x2, y2...xn. yn]. At least three points are required. There is no need to repeat the first point to close the polygon. The polygon is automatically closed by connecting the first and the last point. The coordinates are given in the current measurement units of the document (see UNIT constants). "name" should be a unique identifier for the object because you need this name for further access to that object. If "name" is not given Scribus will create one for you.</p>
+<p>May raise <a href="scripterapi.html#NameExistsError">NameExistsError</a> if you explicitly pass a name that's already used. May raise ValueError if an insufficient number of points is passed or if the number of values passed don't group into points without leftovers.</p></dd>
+
+<dt><a name="-createRect"><strong>createRect</strong></a>(...)</dt>
+<dd><code>createRect(x, y, width, height, ["name"]) -&gt; string</code>
+<p>Creates a new rectangle on the current page and returns its name. The coordinates are given in the current measurement units of the document (see UNIT constants). "name" should be a unique identifier for the object because you need this name to reference that object in future. If "name" is not given Scribus will create one for you.</p>
+<p>May raise <a href="scripterapi.html#NameExistsError">NameExistsError</a> if you explicitly pass a name that's already used.</p></dd>
+
+<dt><a name="-createText"><strong>createText</strong></a>(...)</dt>
+<dd><code>createText(x, y, width, height, ["name"]) -&gt; string</code>
+<p>Creates a new text frame on the actual page and returns its name. The coordinates are given in the actual measurement unit of the document (see UNIT constants). "name" should be a unique identifier for the object because you need this name for further referencing of that object. If "name" is not given Scribus will create one for you.</p>
+<p>May raise <a href="scripterapi.html#NameExistsError">NameExistsError</a> if you explicitly pass a name that's already used.</p></dd>
+
+<dt><a name="-deleteObject"><strong>deleteObject</strong></a>(...)</dt>
+<dd><code>deleteObject(["name"])</code>
+<p>Deletes the item with the name "name". If "name" is not given the currently selected item is deleted.</p></dd>
+
+<dt><a name="-getAllStyles"><strong>getAllStyles</strong></a>(...)</dt>
+<dd><code>getAllStyles() -&gt; list</code>
+<p>Return a list of the names of all paragraph styles in the current document.</p></dd>
+
+<dt><a name="-objectExists"><strong>objectExists</strong></a>(...)</dt>
+<dd><code>objectExists(["name"]) -&gt; bool</code>
+<p>Test if an object with specified name really exists in the document. The optional parameter is the object name. When no object name is given, returns True if there is something selected.</p></dd>
+
+</dl>
+</body>
+</html>

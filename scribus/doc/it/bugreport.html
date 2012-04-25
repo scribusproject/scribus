@@ -1,0 +1,85 @@
+<html>
+<head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <title>Segnalare un bug</title>
+</head>
+<body>
+<h2>Segnalare un bug</h2>
+<p>È quasi impossibile sviluppare software di buona qualità senza sottoporlo a prove, e Scribus naturalmente non fa eccezione. Sottoporre un software a prove significa usarlo, e questo è vero specialmente per le versioni di sviluppo. Quando si scopre un errore o un difetto (in gergo: un <i>bug</i>), gli sviluppatori devono essere informati che c'è qualcosa che non funziona, o che almeno sembra non funzionare, in modo che possa essere corretto. A volte la correzione potrebbe essere soltanto un aggiornamento della documentazione. Inoltre gli sviluppatori hanno bisogno di sapere quali sono le necessità degli utenti: se sentite la mancanza di una determinata caratteristica, o avete una grande idea per migliorare il programma, dovreste informarli.</p>
+
+<p>In ogni caso, la procedura è la stessa. Esistono dei software detti <i>sistemi per la gestione dei bug</i> (o <i>bug tracking systems</i>), che consentono agli sviluppatori di esaminare, classificare e organizzare la lavorazione delle segnalazioni di errore e delle richieste di miglioramento. Il team di Scribus ha deciso di usare <a href="http://www.mantisbt.org/">Mantis</a> come sistema per la gestione dei bug. Se volete contribuire al miglioramento di Scribus o se avete assolutamente bisogno di qualche nuova caratteristica, vi consigliamo di imparare a usarlo.</p>
+
+<h2>Creare un account</h2>
+
+<p>Per cominciare, visitate la <a href="http://bugs.scribus.net/signup_page.php">pagina di iscrizione</a>. Ecco come appare:</p>
+<br>
+<table width="100%"><tr><td align="center"><img src="images/Mantis_signup.png"/></td></tr></table>
+<br>
+<p>Inserite un nome utente, il vostro indirizzo di posta elettronica, e la combinazione di lettere e cifre che appare sotto. Poi fate clic su &ldquo;Signup&rdquo; e attendete la conferma di iscrizione e la password, che saranno inviati via email. Dopo aver eseguito il login potrete cambiare le vostre preferenze nella scheda &ldquo;My Account&rdquo;. È consigliabile controllare le opzioni e impostare quelle che vi appaiono più utili.</p>
+
+<h2>Prima di segnalare un bug</h2>
+<p>Se qualcosa non funziona come vi aspettate, o se pensate di avere l'idea del secolo, non cominciate ad inviare segnalazioni a raffica. È possibile che qualcun altro abbia già avuto lo stesso problema o la stessa grande idea, e la vostra segnalazione potrebbe essere chiusa come &ldquo;duplicata&rdquo; o con &ldquo;nessun cambiamento necessario&ldquo;. Per evitarlo, ecco cinque passi da seguire.</p>
+
+<ol>
+<li>Leggete la <a href="http://docs.scribus.net/">documentazione online</a>, frugate nel <a href="http://wiki.scribus.net/index.php">wiki di Scribus</a>; potreste anche prendere in considerazione l'acquisto del manuale ufficiale di Scribus. Ci sono molte informazioni in varie lingue, e forse qualcuno ha già scritto un articolo che descrive il vostro problema, o le persone che si occupano della documentazione potrebbero aver descritto la funzione o il problema che vi interessa.</li>
+<li>Cercate di usare Scribus sul serio e di imparare i concetti che sono alla base del programma. Scribus non è particolarmente difficile da imparare, ma è <a href="about2.html">alquanto diverso</a> da (ad esempio) un elaboratore di testi.</li>
+<li>Mandate un messaggio a una delle <a href="mailing_lists.html">mailing list</a> e spiegate il vostro problema o la vostra idea. Di solito si trova una soluzione rapidamente. Abbastanza spesso, la mancanza di esperienza fa sì che un certo problema sembri un bug.</li>
+<li>Fate domande su <a href="irc.html">IRC</a>. Questo può essere utile soprattutto se si ha bisogno di aiuto &ldquo;in diretta&rdquo;.</li>
+<li>Se non avete trovato risposte alle vostre domande, dovreste cercare nel database dei bug. Potete fare ricerche per parole chiave, come mostrato dall'immagine qui sotto. Inserite una o più parole nella casella &ldquo;Search&rdquo;, premete &ldquo;Apply Filter&rdquo;, e Mantis cercherà tutte le segnalazioni contenenti la stringa. Se non conoscete il termine inglese da cercare, potete cercare la traduzione nel <a href="http://wiki.scribus.net/index.php/Glossary_of_technical_terms_used_in_Scribus_and_its_translations">glossario multilingue</a> sul wiki. Se la vostra versione di Scribus non è in inglese e volete sapere quali sono i termini inglesi usati nell'interfaccia di Scribus, basta cambiare lingua nelle <a href="settings1.html#1">Preferenze</a>.</li>
+</ol>
+<br>
+<table width="100%"><tr><td align="center"><img src="images/Mantis_searching.png"/></td></tr></table>
+<br>
+</p><p>Noterete che Mantis usa colori diversi per indicare lo stato delle segnalazioni. Questo è il significato dei colori:</p>
+<table class="width100" cellspacing="1"><tr><td class="small-caption" width="14%" bgcolor="#ffa0a0">new</td><td class="small-caption" width="14%" bgcolor="#ff50a8">feedback</td><td class="small-caption" width="14%" bgcolor="#ffd850">acknowledged</td><td class="small-caption" width="14%" bgcolor="#ffffb0">confirmed</td><td class="small-caption" width="14%" bgcolor="#c8c8ff">assigned</td><td class="small-caption" width="14%" bgcolor="#cceedd">resolved</td><td class="small-caption" width="14%" bgcolor="#e8e8e8">closed</td></tr></table>
+<br>
+
+<ul><li><i>New</i>: la segnalazione di errore/richiesta di miglioramento è stata ricevuta, e non è ancora stato deciso nulla in proposito.</li>
+<li><i>Feedback</i>: c'è bisogno di altre informazioni dall'autore originale della segnalazione o da un altro utente che ha aggiunto una nota. Questo può accadere se il problema segnalato non si riesce a riprodurre.</li>
+<li><i>Acknowledged</i>: quando gli sviluppatori hanno deciso che si deve tener conto della segnalazione per futuri sviluppi, lo stato viene cambiato in &ldquo;acknowledged&rdquo;. Questo accade soprattutto per le richieste di miglioramento.</li>
+<li><i>Confirmed</i>: se un problema può essere riprodotto da altri, lo stato viene cambiato in &ldquo;confirmed&rdquo;. Questo è ciò che di solito accade con le segnalazioni di errore.</li>
+<li><i>Assigned</i>: un errore o una richiesta di miglioramento è stata assegnata a uno degli sviluppatori per la correzione o l'aggiunta.</li>
+<li><i>Resolved</i>: un errore è stato risolto o una richiesta di miglioramento è stata eseguita. Ciò non necessariamente significa che il programma sia stato modificato. Se la correzione non è possibile o necessaria, la segnalazione sarà comunque indicata come risolta.</li>
+<li><i>Closed</i>: la segnalazione è definitivamente chiusa. Se tutto va bene il problema è stato risolto, e l'inquietante numero di segnalazioni/richieste sarà un po' minore.</li>
+</ul>
+<br>
+<h2>Come inviare una segnalazione di bug</h2>
+<br>Per inviare una segnalazione di bug dovete fare clic sul link &ldquo;Report Issue&rdquo;. Questo apre una pagina con molti campi da compilare:<br>
+<table width="100%"><tr><td align="center"><img src="images/Mantis_new_report1.png"/></td></tr></table>
+<br>
+<ul><li><i>Category</i>: scegliete la categoria che vi sembra più adatta per la segnalazione che volete inviare. Se nessuna vi sembra adatta, scegliete &ldquo;General&rdquo;.</li>
+<li><i>Reproducibility</i>: se state segnalando un bug: potete riprodurlo? Quanto spesso accade? Scegliete il grado di frequenza corretto. Se state inviando una richiesta di miglioramento, scegliete &ldquo;Always&rdquo; (la funzione che desiderate è sempre mancante, finché il problema non viene risolto).</li>
+<li><i>Select Profile</i>: nelle vostre preferenze potete creare più profili utente da utilizzare per le vostre segnalazioni; questo può essere utile soprattutto se usate più di un sistema operativo o distribuzione. In questo caso potete creare un profilo per ciascuno di essi, e se state segnalando un problema che si verifica su uno solo, vi basterà scegliere il profilo adatto invece di inserire ogni volta tutti i dati a mano (piattaforma, sistema operativo e sua versione).</li>
+<li><i>Platform</i>: inserite qui la piattaforma della vostra CPU (esempi: x86, x86-64, PPC).</li>
+<li><i>OS</i>: inserite qui il sistema operativo (esempi: Linux, Windows, Mac&nbsp;OS&nbsp;X, eCS).</li>
+<li><i>OS Version</i>: inserite qui la versione del sistema operativo (esempi: Debian 3.1, OpenSUSE 11.2, Windows XP, OS&nbsp;X 10.5, eCS 1.2).</li>
+<li><i>Product Version</i>: Scribus esiste in diverse versioni, ad esempio il ramo stabile o quello di sviluppo, con versioni più o meno stabili (1.4.xsvn, 1.5svn ecc.). Accertatevi di selezionare quella corretta nel menù a discesa.</li>
+<li><i>Product Build</i>: è molto importante indicare questo dato se state usando una <a href="install1.html">versione SVN</a> di Scribus. Attenzione: la data che interessa non è quella che si trova in <i>Help&nbsp;&gt; About Scribus</i>, poiché essa viene aggiornata solo occasionalmente dagli sviluppatori; la data che dovete citare è quella in cui avete prelevato il codice da SVN, perché il codice sorgente viene modificato quasi ogni giorno. Il problema che avete notato potrebbe anche essere già stato risolto, e in questo caso vi sarà consigliato di provare con la versione SVN corrente. <b>Vi preghiamo di non segnalare errori per le vecchie versioni che non vengono più sviluppate</b>.</li>
+</ul>
+
+<p>Dopo avere inserito queste informazioni preliminari, potete iniziare a descrivere il vostro problema o proposta. Per favore, inserite la vostra segnalazione in inglese.</p>
+<br>
+<table width="100%"><tr><td align="center"><img src="images/Mantis_new_report2.png"/></td></tr></table>
+<br>
+
+<ul><li><i>Summary</i>: una breve descrizione della vostra segnalazione. Questa sarà il &ldquo;titolo&rdquo; con cui comparirà nel bug tracker.</li>
+<li><i>Description</i>: descrivete il problema o la proposta nel modo più preciso possibile, ma in modo sintetico. <b>Non scrivete romanzi!</b> Potrebbe essere utile allegare degli screenshot (vedi sotto). Se state inviando una richiesta di miglioramento, descrivete una situazione reale in cui potrebbe essere utile: gli sviluppatori hanno bisogno di esempi per capire in cosa consiste la vostra idea e come potrebbe essere utile per lavorare meglio e in modo più efficiente. In altre parole, tentate di descrivere non solo <i>cosa</i> e <i>come</i>, ma anche <i>perché</i>.</li>
+<li><i>Steps to reproduce</i>: se potete riprodurre il bug, scrivete qui i passaggi necessari a riprodurlo su altre macchine.</li>
+<li><i>Additional information</i>: potete aggiungere qui altre informazioni che pensate siano utili, ad esempio messaggi dalla mailing list o da un debugger.</li>
+</ul>
+<p>Avete quasi finito, ma se volete, potete allegare un file alla segnalazione (come uno screenshot o un documento Scribus di esempio). Fate clic su &ldquo;Search&rdquo; o inserite il percorso o la URL del file.</p>
+<br>
+<table width="100%"><tr><td align="center"><img src="images/Mantis_new_report3.png"/></td></tr></table>
+<br>
+<p>Se volete che la vostra segnalazione sia visibile solo dagli sviluppatori potete impostarla come &ldquo;Private&rdquo;; questo potrebbe essere utile, ad esempio, se avete dei problemi con un'immagine protetta da diritti d'autore. Marcate la vostra segnalazione come &ldquo;Private&rdquo; ed essa sarà visibile solo a pochissime persone.</p><p>Quando avete inserito tutto ciò che volevate, fate clic su &ldquo;Submit Report&rdquo;. Fatto!</p>
+
+<h2>Vista personalizzata</h2>
+<p>Se avete eseguito l'accesso al bug tracker, potete scegliere una visualizzazione più chiara. Fate clic sul link &ldquo;My view&rdquo;, e Mantis presenta le segnalazioni modificate di recente, suddivise in due gruppi: 
+<br>
+<table width="100%"><tr><td align="center"><img src="images/Mantis_my_view.png"/></td></tr></table>
+<br>
+<ul><li><i>colonna sinistra</i>: segnalazioni non assegnate, risolte, e &ldquo;tenute d'occhio&rdquo; da voi;</li>
+<li><i>colonna destra</i>: segnalazioni inviate da voi, e tutte le segnalazioni modificate di recente.</li>
+</ul>
+</body>
+</html>

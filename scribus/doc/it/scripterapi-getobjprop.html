@@ -1,0 +1,89 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<title>Getting Object Properties</title>
+</head>
+<body>
+<h2>Getting Object Properties</h2>
+
+<dl>
+
+<dt><a name="-getObjectType"><strong>getObjectType</strong></a>(...)</dt>
+<dd><code>getObjectType(["name"]) -&gt; string</code>
+<p>Get type of object "name" as a string. If "name" is not given the currently selected item is used.</p></dd>
+
+<dt><a name="-getCornerRadius"><strong>getCornerRadius</strong></a>(...)</dt>
+<dd><code>getCornerRadius(["name"]) -&gt; integer</code>
+<p>Returns the corner radius of the object "name". The radius is expressed in points. If "name" is not given the currently selected item is used.</p></dd>
+
+<dt><a name="-getFillColor"><strong>getFillColor</strong></a>(...)</dt>
+<dd><code>getFillColor(["name"]) -&gt; string</code>
+<p>Returns the name of the fill color of the object "name". If "name" is not given the currently selected item is used.</p></dd>
+
+<dt><a name="-getFillBlendmode"><strong>getFillBlendmode</strong>(...)</a></dt>
+<dd><code>getFillBlendmode(["name"]) -&gt; integer</code>
+<p>Returns the fill blendmode of the object "name". If "name" is not given the currently selected Item is used.</p></dd>
+
+<dt><a name="-getFillShade"><strong>getFillShade</strong></a>(...)</dt>
+<dd><code>getFillShade(["name"]) -&gt; integer</code>
+<p>Returns the shading value of the fill color of the object "name". If "name" is not given the currently selected item is used.</p></dd>
+
+<dt><a name="-getFillTransparency"><strong>getFillTransparency</strong>(...)</a></dt>
+<dd><code>getFillTransparency(["name"]) -&gt; float</code>
+<p>Returns the fill transparency of the object "name". If "name" is not given the currently selected Item is used.</p></dd>
+
+<dt><a name="-getImageFile"><strong>getImageFile</strong></a>(...)</dt>
+<dd><code>getImageName(["name"]) -&gt; string</code>
+<p>Returns the filename for the image in the image frame. If "name" is not given the currently selected item is used.</p></dd>
+ 
+<dt><a name="-getImageScale"><strong>getImageScale</strong></a>(...)</dt>
+<dd><code>getImageScale(["name"]) -&gt; (x,y)</code>
+<p>Returns a (x, y) tuple containing the scaling values of the image frame "name".  If "name" is not given the currently selected item is used.</p></dd>
+
+<dt><a name="-getLineBlendmode"><strong>getLineBlendmode</strong>(...)</a></dt>
+<dd><code>getLineBlendmode(["name"]) -&gt; integer</code>
+<p>Returns the line blendmode of the object "name". If "name" is not given the currently selected Item is used.</p></dd>
+
+<dt><a name="-getLineCap"><strong>getLineCap</strong></a>(...)</dt>
+<dd><code>getLineEnd(["name"]) -&gt; integer (see constants)</code>
+<p>Returns the line cap style of the object "name". If "name" is not given the currently selected item is used. The cap types are: CAP_FLAT, CAP_ROUND, CAP_SQUARE</p></dd>
+
+<dt><a name="-getLineColor"><strong>getLineColor</strong></a>(...)</dt>
+<dd><code>getLineColor(["name"]) -&gt; string</code>
+<p>Returns the name of the line color of the object "name". If "name" is not given the currently selected item is used.</p></dd>
+
+<dt><a name="-getLineJoin"><strong>getLineJoin</strong></a>(...)</dt>
+<dd><code>getLineJoin(["name"]) -&gt; integer (see contants)</code>
+<p>Returns the line join style of the object "name". If "name" is not given the currently selected item is used.  The join types are: JOIN_BEVEL, JOIN_MITTER, JOIN_ROUND</p></dd>
+
+<dt><a name="-getLineShade"><strong>getLineShade</strong></a>(...)</dt>
+<dd><code>getLineShade(["name"]) -&gt; integer</code>
+<p>Returns the shading value of the line color of the object "name". If "name" is not given the currently selected item is used.</p></dd>
+
+<dt><a name="-getLineStyle"><strong>getLineStyle</strong></a>(...)</dt>
+<dd><code>getLineStyle(["name"]) -&gt; integer (see constants)</code>
+<p>Returns the line style of the object "name". If "name" is not given the currently selected item is used. Line style constants are: LINE_DASH, LINE_DASHDOT, LINE_DASHDOTDOT, LINE_DOT, LINE_SOLID</p></dd>
+
+<dt><a name="-getLineTransparency"><strong>getLineTransparency</strong>(...)</a></dt>
+<dd><code>getLineTransparency(["name"]) -&gt; float</code>
+<p>Returns the line transparency of the object "name". If "name" is not given the currently selected Item is used.</p></dd>
+
+<dt><a name="-getLineWidth"><strong>getLineWidth</strong></a>(...)</dt>
+<dd><code>getLineWidth(["name"]) -&gt; integer</code>
+<p>Returns the line width of the object "name". If "name" is not given the currently selected Item is used.</p></dd>
+	
+<dt><a name="-getPosition"><strong>getPosition</strong></a>(...)</dt>
+<dd><code>getPosition(["name"]) -&gt; (x,y)</code>
+<p>Returns a (x, y) tuple with the position of the object "name". If "name" is not given the currently selected item is used. The position is expressed in the actual measurement unit of the document - see UNIT_&lt;type&gt; for reference.</p></dd>
+
+<dt><a name="-getRotation"><strong>getRotation</strong></a>(...)</dt>
+<dd><code>getRotation(["name"]) -&gt; integer</code>
+<p>Returns the rotation of the object "name". The value is expressed in degrees, and clockwise is positive. If "name" is not given the currently selected item is used.</p></dd>
+
+<dt><a name="-getSize"><strong>getSize</strong></a>(...)</dt>
+<dd><code>getSize(["name"]) -&gt; (width,height)</code>
+<p>Returns a (width, height) tuple with the size of the object "name". If "name" is not given the currently selected item is used. The size is expressed in the current measurement unit of the document - see UNIT_&lt;type&gt; for reference.</p></dd>
+
+</dl>
+</body>
+</html>

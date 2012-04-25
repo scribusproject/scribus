@@ -1,0 +1,126 @@
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <title>Compilazione e installazione con l'uso di CMake e Scribus 1.4.x</title>
+</head>
+
+<body>
+  <h2>Compilazione e installazione con l'uso di CMake e Scribus 1.4.x</h2>
+
+  <p>Per molti anni gli sviluppatori di Scribus hanno generato il programma a partire dal codice sorgente utilizzando <em>autotools</em>, ma poi hanno deciso di sostituirlo con <em>CMake</em>. È uno strumento molto più flessibile, e allo stesso tempo molto meno complesso, e inoltre è compatibile con gli strumenti di compilazione presenti su Linux e varianti di UNIX, Windows e Mac&nbsp;OS&nbsp;X.</p>
+
+  <p>Per generare un programma con CMake, ovviamente avete bisogno di CMake stesso. CMake è compreso nella maggior parte delle distribuzioni Linux e in alcune di UNIX. Se nella vostra non è presente, potete <a href="http://www.cmake.org">scaricarlo qui</a>; dovreste accertarvi di prelevarne una versione recente, come la 2.8 o una superiore. Nel sito vi sono anche i pacchetti di installazione per Mac&nbsp;OS&nbsp;X, che possono anche essere ottenuti da <a href="http://macports.org">macports.org</a>. Scribus non usa ancora CMake per Windows, anche se questa capacità potrebbe essere aggiunta in futuro.</p>
+
+  <p>Uno dei vantaggi di CMake è la possibilità di generare il programma &ldquo;fuori sorgenti&rdquo;. Creando una cartella distinta in cui avviene la compilazione del programma, i file temporanei e i file dell'applicazione che vengono generati si trovano un una posizione diversa dai file del codice sorgente. Questo aiuta a mantenere pulite le strutture delle directory, e riduce un po' il tempo necessario per scaricare gli aggiornamenti del codice sorgente. Questo è il metodo migliore ed è fortemente consigliato dai nostri sviluppatori. Inoltre CMake è molto più semplice da mantenere in efficienza per gli sviluppatori, e gli errori sono comprensibili anche dai comuni mortali. <!--However, both methods are described below; the first is recommended.--></p>
+
+  <h3>Preparazione</h3>
+
+  <p>Supponiamo che vi troviate nella seguente situazione:</p>
+
+  <ul>
+    <li>il codice sorgente di Scribus si trova nella directory <code>/home/username/scribussource/</code> (dove <em>username</em> è il vostro nome utente)</li>
+
+    <li>CMake si trova in <code>/usr/bin/</code></li>
+
+    <li>volete installare Scribus in <code>/home/username/scribusinstall/</code></li>
+  </ul>
+
+  <h3>Iniziare la compilazione all'esterno del codice sorgente</h3>
+
+  <p>Spostatevi nella directory del codice sorgente:</p>
+  <pre>
+cd /home/username/scribussource/
+</pre>
+
+  <p>Create una directory in cui Scribus sarà compilato:</p>
+  <pre>
+mkdir builddir
+</pre>
+
+  <p>Spostatevi nella directory di compilazione:</p>
+  <pre>
+cd builddir
+</pre>
+
+  <p>Poi date il seguente comando:</p>
+  <pre>
+/usr/bin/cmake ../Scribus -DCMAKE_INSTALL_PREFIX:PATH=/home/username/scribusinstall/
+</pre>
+
+<!--  <p>If this is the build location you have chosen, please skip down to the <strong>Build Stage</strong> section</p> <h3>Starting an In-Source Build</h3>
+<p>Change to the source directory:</p>
+<pre>cd /home/username/scribussource/</pre>
+<p>Then run:</p>
+<pre>/usr/bin/cmake . -DCMAKE_INSTALL_PREFIX:PATH=/home/username/scribusinstall/</pre>-->
+
+  <h3>Passare alla fase di compilazione</h3>
+
+  <p>Quando il comando CMake ha completato la sua esecuzione senza errori (ricordate che ha bisogno di trovare le dipendenze di Scribus e registrare la loro posizione), dovete dare il seguente comando:</p>
+  <pre>
+make &amp;&amp; make install
+</pre>
+
+  <h2>Opzioni avanzate</h2>
+
+  <h3>Opzioni di compilazione</h3>
+
+  <p>Ecco alcune opzioni presenti nei file Cmake di <b>Scribus 1.4.x</b> (altre ne seguiranno!):</p>
+
+  <ul>
+        <li><strong>WANT_VERSIONING=1</strong>: fa in modo che venga usato il valore di VERSION come suffisso per le directory di installazione e l'eseguibile (ad esempio l'eseguibile potrebbe essere scribus-1.4.0). Ciò significa che potete installare più versioni con lo stesso prefisso senza conflitti.</li>
+
+        <li><strong>WANT_DEBUG=1</strong>: genera una versione di debug e usa -O0 -g3, invece di -O2 (questa è attualmente l'impostazione predefinita, e può essere disattivata solo modificando il file CMakeFiles.txt).</li>
+
+        <li><strong>WANT_CAIRO=1</strong> (opzione predefinita): fa sì che CMake cerchi la libreria grafica Cairo e la utilizzi per la compilazione al posto di Arthur (che fa parte di Qt).</li>
+
+        <li><strong>WANT_QTARTHUR=1</strong>: fa sì che Cmake cerchi Qt Arthur e la utilizzi per la compilazione invece di Cairo.</li>
+
+        <li><strong>WANT_NOHEADERINSTALL=1</strong>: non installa i file header usati per gli sviluppatori. Le distribuzioni non dovrebbero usare questa opzione se suddividono Scribus in più pacchetti.
+
+        <li><strong>WANT_NORPATH</strong>: disabilita l'impostazione di uno specifico RPATH.</li>
+        <li><strong>WANT_DISTROBUILD</strong>: un'opzione per i distributori di sistemi operativi da usare per le loro opzioni di compilazione.</li>
+        <li><strong>WANT_LIB64</strong>: forza la compilazione a 64 bit.</li>
+        <li><strong>WANT_RELEASEWITHDEBUG</strong>: imposta le opzioni per la compilazione come release, ma aggiunge anche le informazioni di debug.</li>
+        <li><strong>WANT_UNIVERSAL_BUNDLE</strong>: solo per Mac&nbsp;OS&nbsp;X, abilita la compilazione di un pacchetto .app.</li>
+        <li><strong>WANT_QT4MAC_COCOA</strong>: solo per Mac&nbsp;OS&nbsp;X, abilita la compilazione della versione Cocoa con Qt 4.5+.</li>
+        <li><strong>WANT_QT3SUPPORT</strong>: abilita l'utilizzo di Qt 3 nel caso abbiate un plugin personalizzato non convertito a Qt4. Questa opzione non è necessaria per il codice ufficiale di Scribus.</li>
+        <li><strong>APPLICATION_DATA_DIR</strong>: imposta la posizione delle preferenze di Scribus (invece di quella predefinita, che è ~/.scribus su *nix e /Users/username/Library/Preferences/Scribus su Mac&nbsp;OS&nbsp;X.)</li>
+  </ul>
+  <p>Esempio: per generare una versione di debug con l'uso di Cairo, il comando da dare sarà simile al seguente (su una sola riga):</p>
+  <pre>
+/usr/bin/cmake . -DCMAKE_INSTALL_PREFIX:PATH=/home/username/scribusinstall -DWANT_CAIRO=1 -DWANT_DEBUG=1 -DWANT_VERSIONING=1
+</pre>
+
+  <h3>Specificare le posizioni delle librerie</h3>
+
+  <p>Quando la vostra distribuzione pubblica il proprio pacchetto per una libreria da cui Scribus dipende, esso potrebbe non essere la più recente versione stabile o instabile fornita dagli autori della libreria. A volte gli sviluppatori di Scribus hanno bisogno di usare il codice più recente per migliorare certe parti di Scribus. In questi casi è necessario che compiliate voi la versione adatta di tali librerie.</p>
+
+  <h3>Creare un archivio tar da distribuire</h3>
+
+  <p>Per creare un archivio tar da distribuire, il vecchio modo sarebbe: <code>make dist</code>.</p>
+
+  <p>Il nuovo modo consiste nel dare il seguente comando:</p>
+  <pre>
+make package_source
+</pre>
+
+  <p>oppure</p>
+  <pre>
+/usr/bin/cpack -G TBZ2 --config CPackSourceConfig.cmake
+</pre>
+
+  <p>per ottenere un pacchetto del codice sorgente.</p>
+
+  <p><strong>Importante:</strong> se dovete eseguire di nuovo cpack, eliminate <code>_CPack_Packages/</code> prima di lanciarlo una seconda volta.</p>
+
+  <p>Potete anche esportare da svn:</p>
+  <pre>
+/path/to/scribus/svn
+</pre>in una directory temporanea, e poi inserirla in un archivio tar o zip.
+
+  <h3>Problemi e successi</h3>
+
+  <p>Se avete letto bene queste istruzioni ma avete ancora problemi, contattateci su <a href="irc.html">IRC</a> o scrivete alla nostra <a href="resources.html">mailing list</a> spiegando il vostro problema. Siamo anche interessati ad avere notizie da utenti che sono riusciti a compilare Scribus su piattaforme diverse da Linux. Sappiamo già che la compilazione su Mac&nbsp;OS&nbsp;X è molto affidabile.</p>
+</body>
+</html>
