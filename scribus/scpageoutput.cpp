@@ -286,8 +286,8 @@ void ScPageOutput::drawPageItems(ScPainterExBase *painter, Page *page, const QRe
 						groupStack.push(currItem->groupsLastItem);
 						continue;
 					}
-					QRect oldR(currItem->getRedrawBounding(1.0));
-					if (clip.intersects(oldR))
+					QRectF oldR(currItem->getBoundingRect().adjusted(0.0, 0.0, 1.0, 1.0));
+					if (clip.intersects(oldR.toRect()))
 					{
 						drawItem( currItem, painter, clip );
 						if ((currItem->asTextFrame()) && ((currItem->nextInChain() != 0) || (currItem->prevInChain() != 0)))
@@ -328,8 +328,8 @@ void ScPageOutput::drawPageItems(ScPainterExBase *painter, Page *page, const QRe
 						continue;
 					if (!currItem->isTableItem)
 						continue;
-					QRect oldR(currItem->getRedrawBounding(1.0));
-					if (clip.intersects(oldR))
+					QRectF oldR(currItem->getBoundingRect().adjusted(0.0, 0.0, 1.0, 1.0));
+					if (clip.intersects(oldR.toRect()))
 					{
 						painter->save();
 						painter->translate(currItem->xPos(), currItem->yPos());
