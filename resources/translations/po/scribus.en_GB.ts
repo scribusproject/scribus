@@ -6999,7 +6999,7 @@ May throw ValueError if any of the distances are out of bounds (must be positive
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1388"/>
         <source>&amp;Frames...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Frames...</translation>
     </message>
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1389"/>
@@ -13162,7 +13162,7 @@ See the Edit Colours section of the documentation for more details.</translation
     <message>
         <location filename="../../../scribus/docinfo.cpp" line="53"/>
         <source>&amp;Subject:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Subject:</translation>
     </message>
     <message>
         <location filename="../../../scribus/docinfo.cpp" line="60"/>
@@ -15324,7 +15324,7 @@ Use 72 dpi for Images intended for the Screen</translation>
     <message>
         <location filename="../../../scribus/plugins/tools/hunspellcheck/hunspelldialog.cpp" line="50"/>
         <source>Spelling check complete</source>
-        <translation type="unfinished">Spelling check complete</translation>
+        <translation>Spelling check complete</translation>
     </message>
 </context>
 <context>
@@ -15332,42 +15332,42 @@ Use 72 dpi for Images intended for the Screen</translation>
     <message>
         <location filename="../../../scribus/plugins/tools/hunspellcheck/hunspelldialogbase.ui" line="14"/>
         <source>Check Spelling</source>
-        <translation type="unfinished"></translation>
+        <translation>Check Spelling</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/tools/hunspellcheck/hunspelldialogbase.ui" line="22"/>
         <source>Text Language:</source>
-        <translation type="unfinished"></translation>
+        <translation>Text Language:</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/tools/hunspellcheck/hunspelldialogbase.ui" line="47"/>
         <source>Not in dictionary</source>
-        <translation type="unfinished"></translation>
+        <translation>Not in dictionary</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/tools/hunspellcheck/hunspelldialogbase.ui" line="61"/>
         <source>Ignore Once</source>
-        <translation type="unfinished"></translation>
+        <translation>Ignore Once</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/tools/hunspellcheck/hunspelldialogbase.ui" line="68"/>
         <source>Ignore All</source>
-        <translation type="unfinished"></translation>
+        <translation>Ignore All</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/tools/hunspellcheck/hunspelldialogbase.ui" line="92"/>
         <source>Suggestions</source>
-        <translation type="unfinished"></translation>
+        <translation>Suggestions</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/tools/hunspellcheck/hunspelldialogbase.ui" line="106"/>
         <source>Change</source>
-        <translation type="unfinished"></translation>
+        <translation>Change</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/tools/hunspellcheck/hunspelldialogbase.ui" line="113"/>
         <source>Change All</source>
-        <translation type="unfinished"></translation>
+        <translation>Change All</translation>
     </message>
 </context>
 <context>
@@ -15375,7 +15375,7 @@ Use 72 dpi for Images intended for the Screen</translation>
     <message>
         <location filename="../../../scribus/plugins/tools/hunspellcheck/hunspellplugin.cpp" line="32"/>
         <source>Hunspell &amp;Plugin</source>
-        <translation type="unfinished"></translation>
+        <translation>Hunspell &amp;Plugin</translation>
     </message>
 </context>
 <context>
@@ -16027,7 +16027,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../../scribus/insertaframe.ui" line="13"/>
         <source>Insert Frames</source>
-        <translation type="unfinished"></translation>
+        <translation>Insert Frames</translation>
     </message>
     <message>
         <location filename="../../../scribus/insertaframe.ui" line="379"/>
@@ -19139,7 +19139,7 @@ If no handle is selected all handles will be reset.</source>
         <location filename="../../../scribus/pageitem_imageframe.cpp" line="356"/>
         <location filename="../../../scribus/pageitem_imageframe.cpp" line="519"/>
         <source>missing or corrupt</source>
-        <translation type="unfinished"></translation>
+        <translation>missing or corrupt</translation>
     </message>
     <message>
         <location filename="../../../scribus/pageitem_imageframe.cpp" line="358"/>
@@ -22125,12 +22125,12 @@ Note: PDF Forms will not be exported.</source>
     <message>
         <location filename="../../../scribus/propertiespalette.cpp" line="5620"/>
         <source>This rule determines the &amp;quot;insideness&amp;quot; of a point on the canvas by drawing a ray from that point to infinity in any direction and counting the number of path segments from the given shape that the ray crosses. If this number is odd, the point is inside, if even, the point is outside.</source>
-        <translation type="unfinished"></translation>
+        <translation>This rule determines the &amp;quot;insideness&amp;quot; of a point on the canvas by drawing a ray from that point to infinity in any direction and counting the number of path segments from the given shape that the ray crosses. If this number is odd, the point is inside, if even, the point is outside.</translation>
     </message>
     <message>
         <location filename="../../../scribus/propertiespalette.cpp" line="5621"/>
         <source>This rule determines the &amp;quot;insideness&amp;quot; of a point on the canvas by drawing a ray from that point to infinity in any direction and then examining the places where a segment of the shape crosses the ray. Starting with a count of zero, add one each time a path segment crosses the ray from left to right and subtract one each time a path segment crosses the ray from right to left. If the result is zero then the point is outside the path. Otherwise, it is inside.</source>
-        <translation type="unfinished"></translation>
+        <translation>This rule determines the &amp;quot;insideness&amp;quot; of a point on the canvas by drawing a ray from that point to infinity in any direction and then examining the places where a segment of the shape crosses the ray. Starting with a count of zero, add one each time a path segment crosses the ray from left to right and subtract one each time a path segment crosses the ray from right to left. If the result is zero then the point is outside the path. Otherwise, it is inside.</translation>
     </message>
     <message>
         <location filename="../../../scribus/propertiespalette.cpp" line="5679"/>
@@ -26222,7 +26222,7 @@ Therefore the image may be not correct</source>
     <message>
         <location filename="../../../scribus/plugins/tools/hunspellcheck/hunspellplugin.cpp" line="52"/>
         <source>Hunspell Plugin</source>
-        <translation type="unfinished"></translation>
+        <translation>Hunspell Plugin</translation>
     </message>
 </context>
 <context>
@@ -26375,19 +26375,21 @@ Therefore the image may be not correct</source>
         <location filename="../../../scribus/query.cpp" line="68"/>
         <source>Name &quot;%1&quot; is not allowed.
 Please choose another.</source>
-        <translation type="unfinished"></translation>
+        <translation>Name &quot;%1&quot; is not allowed.
+Please choose another.</translation>
     </message>
     <message>
         <location filename="../../../scribus/query.cpp" line="80"/>
         <source>Name &quot;%1&quot; already exists.
 Do you want to replace the current contents?</source>
-        <translation type="unfinished"></translation>
+        <translation>Name &quot;%1&quot; already exists.
+Do you want to replace the current contents?</translation>
     </message>
     <message>
         <location filename="../../../scribus/query.cpp" line="90"/>
         <source>Name &quot;%1&quot; is not unique.
 Please choose another.</source>
-        <translation type="unfinished">Name &quot;%1&quot; is not unique.
+        <translation>Name &quot;%1&quot; is not unique.
 Please choose another.</translation>
     </message>
 </context>
@@ -34938,7 +34940,7 @@ to %2</translation>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="971"/>
         <source>Move page</source>
-        <translation type="unfinished"></translation>
+        <translation>Move page</translation>
     </message>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="972"/>
@@ -34948,7 +34950,7 @@ to %2</translation>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="980"/>
         <source>Path Operation</source>
-        <translation type="unfinished"></translation>
+        <translation>Path Operation</translation>
     </message>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="970"/>
