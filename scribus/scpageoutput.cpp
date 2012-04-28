@@ -139,8 +139,8 @@ void ScPageOutput::drawMasterItems(ScPainterExBase *painter, ScPage *page, ScLay
 		}
 		/*if (evSpon)
 			currItem->Dirty = true;*/
-		QRect oldR(currItem->getRedrawBounding(1.0));
-		if (clip.intersects(oldR))
+		QRectF oldR(currItem->getBoundingRect().adjusted(0.0, 0.0, 1.0, 1.0));
+		if (clip.intersects(oldR.toRect()))
 		{
 			// relayout necessary to get page number ok
 			currItem->invalidateLayout();
@@ -179,8 +179,8 @@ void ScPageOutput::drawPageItems(ScPainterExBase *painter, ScPage *page, ScLayer
 			if (currItem->OnMasterPage != page->pageName())
 				continue;
 		}
-		QRect oldR(currItem->getRedrawBounding(1.0));
-		if (clip.intersects(oldR))
+		QRectF oldR(currItem->getBoundingRect().adjusted(0.0, 0.0, 1.0, 1.0));
+		if (clip.intersects(oldR.toRect()))
 		{
 			drawItem( currItem, painter, clip );
 		}
