@@ -25,6 +25,7 @@ for which a new license (GPL+exception) is in place.
 #include "prefsfile.h"
 #include "scpaths.h"
 #include "commonstrings.h"
+#include "storyeditor.h"
 
 #ifdef HAVE_DLFCN_H
 #include <dlfcn.h>
@@ -350,6 +351,65 @@ bool PluginManager::setupPluginActions(ScribusMainWindow *mw)
 			it.value().plugin->addToMainWindowMenu(mw);
 		}
 
+	}
+	return true;
+}
+
+bool PluginManager::setupPluginActions(StoryEditor *sew)
+{
+	Q_CHECK_PTR(sew);
+	ScActionPlugin* plugin = 0;
+
+	//sew->seMenuMgr->addMenuSeparator("Extras");
+	for (PluginMap::Iterator it = pluginMap.begin(); it != pluginMap.end(); ++it)
+	{
+		if (it.value().plugin->inherits("ScActionPlugin"))
+		{
+			//Add in ScrAction based plugin linkage
+			//Insert DLL Action into Dictionary with values from plugin interface
+			plugin = dynamic_cast<ScActionPlugin*>(it.value().plugin);
+			assert(plugin);
+			ScActionPlugin::ActionInfo ai(plugin->actionInfo());
+			if (ai.enabledForStoryEditor)
+			{
+				ScrAction* action = new ScrAction(ScrAction::ActionDLLSE, ai.icon1, ai.icon2, ai.text, ai.keySequence, sew);
+				Q_CHECK_PTR(action);
+				sew->seActions.insert(ai.name, action);
+
+				// then enable and connect up the action
+				sew->seActions[ai.name]->setEnabled(ai.enabledForStoryEditor);
+
+				// Connect action's activated signal with the plugin's run method
+				it.value().enabled = connect( sew->seActions[ai.name], SIGNAL(triggeredData(QWidget*, ScribusDoc*)),
+							plugin, SLOT(run(QWidget*, ScribusDoc*)) );
+				//Get the menu manager to add the DLL's menu item to the right menu, after the chosen existing item
+				if ( ai.menuAfterName.isEmpty() )
+				{
+					if (!ai.seMenu.isEmpty())
+					{
+						if ((!ai.subMenuName.isEmpty()) && (!ai.parentMenu.isEmpty()))
+						{
+							if (!sew->seMenuMgr->menuExists(ai.seMenu))
+								sew->seMenuMgr->createMenu(ai.seMenu, ai.subMenuName, ai.parentMenu);
+						}
+						sew->seMenuMgr->addMenuItem(sew->seActions[ai.name], ai.seMenu);
+					}
+				}
+				else
+				{
+					QString actionName(ai.seMenu.toLower()+ai.menuAfterName);
+					ScrAction* afterAction=0;
+					if (sew->seActions.contains(actionName))
+						afterAction=sew->seActions[actionName];
+					if ((!ai.subMenuName.isEmpty()) && (!ai.parentMenu.isEmpty()))
+					{
+						if (!sew->seMenuMgr->menuExists(ai.seMenu))
+							sew->seMenuMgr->createMenu(ai.seMenu, ai.subMenuName, ai.parentMenu);
+					}
+					sew->seMenuMgr->addMenuItemAfter(sew->seActions[ai.name], ai.seMenu, afterAction);
+				}
+			}
+		}
 	}
 	return true;
 }

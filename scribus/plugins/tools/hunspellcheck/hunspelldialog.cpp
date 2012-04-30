@@ -11,7 +11,7 @@ for which a new license (GPL+exception) is in place.
 #include "hunspelldialog.h"
 
 
-HunspellDialog::HunspellDialog(QWidget *parent, ScribusDoc *doc, PageItem *frameToCheck)
+HunspellDialog::HunspellDialog(QWidget *parent, ScribusDoc *doc, StoryText *iText)
 {
 	setupUi( this );
 	setModal( true );
@@ -23,7 +23,7 @@ HunspellDialog::HunspellDialog(QWidget *parent, ScribusDoc *doc, PageItem *frame
 
 	m_doc=doc;
 	m_docChanged=false;
-	fTC=frameToCheck;
+	m_Itext=iText;
 }
 
 void HunspellDialog::set(QStringList *dictEntries, Hunspell **hspellers, QList<WordsFound> *wfList)
@@ -66,7 +66,7 @@ void HunspellDialog::goToNextWord(int i)
 	suggestionsListWidget->setCurrentRow(0);
 
 	int sentencePos=0;
-	QString sentence(fTC->itemText.sentence(currWF.start, sentencePos));
+	QString sentence(m_Itext->sentence(currWF.start, sentencePos));
 	sentence.insert(currWF.end-sentencePos+currWF.changeOffset,"</b></font>");
 	sentence.insert(currWF.start-sentencePos+currWF.changeOffset,"<font color=red><b>");
 	sentenceTextEdit->setText(sentence);
@@ -89,7 +89,6 @@ void HunspellDialog::changeWord()
 	if(m_wfList->at(wfListIndex).ignore || m_wfList->at(wfListIndex).changed)
 		goToNextWord();
 	replaceWord(wfListIndex);
-	m_docChanged=true;
 	goToNextWord();
 }
 
@@ -102,7 +101,6 @@ void HunspellDialog::changeAllWords()
 	for(int i=0;i<m_wfList->count();++i)
 		if(m_wfList->at(i).w==wordToChange)
 			replaceWord(i);
-	m_docChanged=true;
 	goToNextWord();
 }
 
@@ -110,7 +108,7 @@ void HunspellDialog::replaceWord(int i)
 {
 	//qDebug()<<"Replacing word"<<i<m_wfList->at(i).w<<m_wfList->at(i).start;
 	QString newText(suggestionsListWidget->currentItem()->text());
-	int lengthDiff=fTC->itemText.replaceWord(m_wfList->at(i).start+m_wfList->at(i).changeOffset, newText);
+	int lengthDiff=m_Itext->replaceWord(m_wfList->at(i).start+m_wfList->at(i).changeOffset, newText);
 	if (lengthDiff!=0)
 	{
 		for (int k=i; k<m_wfList->count();++k)

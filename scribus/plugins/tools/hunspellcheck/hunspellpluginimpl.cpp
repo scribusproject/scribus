@@ -12,6 +12,7 @@ for which a new license (GPL+exception) is in place.
 #include "scpaths.h"
 #include "scribusdoc.h"
 #include "scribus.h"
+#include "storyeditor.h"
 #include "text/specialchars.h"
 #include "util.h"
 
@@ -31,6 +32,8 @@ HunspellPluginImpl::HunspellPluginImpl() : QObject(0)
 {
 	hspellers=NULL;
 	numDicts=0;
+	m_runningForSE=false;
+	m_SE=NULL;
 }
 
 HunspellPluginImpl::~HunspellPluginImpl()
@@ -55,7 +58,17 @@ bool HunspellPluginImpl::run(const QString & target, ScribusDoc* doc)
 	qDebug()<<"Hunspell Init Ok:"<<initOk;
 	if (!initOk)
 		return false;
-	bool spellCheckOk=checkWithHunspell();
+	bool spellCheckOk=false;
+	if (m_runningForSE)
+	{
+		//qDebug()<<"Running for StoryEditor";
+		spellCheckOk=checkWithHunspellSE();
+	}
+	else
+	{
+		//qDebug()<<"Running for ScribusMainWindow";
+		spellCheckOk=checkWithHunspell();
+	}
 	if (!spellCheckOk)
 		return false;
 	return true;
@@ -126,19 +139,26 @@ bool HunspellPluginImpl::checkWithHunspell()
 	for( int i = 0; i < m_doc->m_Selection->count(); ++i )
 	{
 		frameToCheck = m_doc->m_Selection->itemAt(i);
-		parseTextFrame(frameToCheck);
-		openGUIForTextFrame(frameToCheck);
+		StoryText *iText=&frameToCheck->itemText;
+		parseTextFrame(iText);
+		openGUIForTextFrame(iText);
 		m_doc->view()->DrawNew();
 	}
 	return true;
 }
 
-bool HunspellPluginImpl::parseTextFrame(PageItem *frameToCheck)
+bool HunspellPluginImpl::checkWithHunspellSE()
 {
-	StoryText *iText=&frameToCheck->itemText;
+	StoryText *iText=&(m_SE->Editor->StyledText);
+	parseTextFrame(iText);
+	openGUIForStoryEditor(iText);
+	m_SE->Editor->updateAll();
+	return true;
+}
+
+bool HunspellPluginImpl::parseTextFrame(StoryText *iText)
+{
 	int len=iText->length();
-	QString text=iText->text(0,len);
-//	qDebug()<<text;
 	int wordCount=0,wordNo=0,errorCount=0;
 	int currPos=0;
 	while (currPos<len)
@@ -185,13 +205,29 @@ bool HunspellPluginImpl::parseTextFrame(PageItem *frameToCheck)
 	return true;
 }
 
-bool HunspellPluginImpl::openGUIForTextFrame(PageItem *frameToCheck)
+bool HunspellPluginImpl::openGUIForTextFrame(StoryText *iText)
 {
-	HunspellDialog hsDialog(m_doc->scMW(), m_doc, frameToCheck);
+	HunspellDialog hsDialog(m_doc->scMW(), m_doc, iText);
 	hsDialog.set(&dictEntries, hspellers, &wordsToCorrect);
 	hsDialog.exec();
 	if (hsDialog.docChanged())
 		m_doc->changed();
 	return true;
+}
+
+bool HunspellPluginImpl::openGUIForStoryEditor(StoryText *iText)
+{
+	m_SE->setSpellActive(true);
+	HunspellDialog hsDialog(m_SE, m_doc, iText);
+	hsDialog.set(&dictEntries, hspellers, &wordsToCorrect);
+	hsDialog.exec();
+	m_SE->setSpellActive(false);
+	return true;
+}
+
+void HunspellPluginImpl::setRunningForSE(bool rfSE, StoryEditor *sE)
+{
+	m_runningForSE=rfSE;
+	m_SE=sE;
 }
 

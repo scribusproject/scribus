@@ -21,6 +21,7 @@ class ScPlugin;
 class ScActionPlugin;
 class ScPersistentPlugin;
 class PrefsContext;
+class StoryEditor;
 
 /**
  * \brief PluginManager handles plugin loading, unloading, and running.
@@ -62,6 +63,11 @@ public:
 	 * Run in main window startup
 	 */
 	bool setupPluginActions(ScribusMainWindow*);
+
+	/*! \brief Called at after initPlugs to hook the loaded plugin into the GUI.
+	 * Run in SE startup
+	 */
+	bool setupPluginActions(StoryEditor*);
 
 	/*! \brief Called when the last doc is closed
 	 */

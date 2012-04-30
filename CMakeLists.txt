@@ -78,8 +78,8 @@ PROJECT(scribus)
 #where VERSION_SUFFIX is of the form "", "svn" or "Nsvn" (N being the minor patch level)
 SET (VERSION_MAJOR "1")
 SET (VERSION_MINOR "4")
-SET (VERSION_PATCH "1")
-SET (VERSION_SUFFIX "")
+SET (VERSION_PATCH "2")
+SET (VERSION_SUFFIX "svn")
 SET (VERSION ${VERSION_MAJOR})
 IF (VERSION_MINOR GREATER -1)
   SET (VERSION ${VERSION}.${VERSION_MINOR})
@@ -406,8 +406,8 @@ IF(APPLE)
   SET( ENV{LD_PREBIND} 1 )
   SET( ENV{LD_PREBIND_ALLOW_OVERLAP} 1 )
   IF (WANT_DEBUG)
-    SET(CMAKE_CXX_FLAGS_DEBUG "-O0 -g3 -fno-inline-functions -Wall -mmacosx-version-min=${OSXMINVER}")
-    SET(CMAKE_C_FLAGS_DEBUG "-O0 -g3 -fno-inline-functions -Wall -mmacosx-version-min=${OSXMINVER}")
+	SET(CMAKE_CXX_FLAGS_DEBUG "-O0 -g3 -fno-inline-functions -Wall -mmacosx-version-min=${OSXMINVER}")
+	SET(CMAKE_C_FLAGS_DEBUG "-O0 -g3 -fno-inline-functions -Wall -mmacosx-version-min=${OSXMINVER}")
   ENDIF (WANT_DEBUG)
   IF (WANT_RELEASEWITHDEBUG)
     SET(CMAKE_CXX_FLAGS_RELWITHDEBINFO "-O2 -g3 -fno-inline-functions -Wall -mmacosx-version-min=${OSXMINVER}")
@@ -687,6 +687,19 @@ IF (WITH_ASPELL)
 ENDIF (WITH_ASPELL)
 #>>ASPELL for Speelling support
 
+#<<HUNSPELL for Speelling support
+OPTION(WANT_HUNSPELL "Enable support for spell checking with hunspell" OFF)
+IF (WANT_HUNSPELL)
+  FIND_PACKAGE(HUNSPELL)
+  IF (HUNSPELL_FOUND)
+    MESSAGE("Hunspell Found OK")
+    SET(HAVE_HUNSPELL 1)
+  ELSE (HUNSPELL_FOUND)
+    MESSAGE("HunSpell or its developer libraries NOT found - Disabling support for spell checking")
+  ENDIF (HUNSPELL_FOUND)
+ENDIF (WANT_HUNSPELL)
+#>>HUNSPELL for Speelling support
+
 
 #<<PoDoFo for AI PDF import
 OPTION(WITH_PODOFO "Enable support for PDF embedded in AI" ON)
@@ -863,11 +876,12 @@ IF(EXISTS "${CMAKE_ROOT}/Modules/CPack.cmake")
   SET(CPACK_TOPLEVEL_TAG "")
   SET(CPACK_SOURCE_IGNORE_FILES
     CMakeCache.txt
-    scribus-1.4.1.tar.gz
-    scribus-1.4.1.tar.Z
-    scribus-1.4.1.tar.xz
-    scribus-1.4.1.gz
-    scribus-1.4.1.tar.bz2
+	scribus-1.4.2.tar.gz
+	scribus-1.4.2.tar.Z
+	scribus-1.4.2.tar.xz
+	scribus-1.4.2.gz
+	scribus-1.4.2.tar.bz2
+	scribus-1.4.2.tar.7z
     "~$"
     "\\\\.cvsignore$"
     "\\\\.o$"

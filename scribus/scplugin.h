@@ -278,6 +278,10 @@ class SCRIBUS_API ScActionPlugin : public ScPlugin
 											// -1 indicates that any kind of object is possible. Otherwise the selection must contain the 2 Object Types
 											// for the Plugin Action to be enabled
 			bool enabledOnStartup;
+			bool enabledForStoryEditor;
+			QString seMenu;
+			QString seParentMenu;
+			QString seKeySequence;
 		};
 
 		// Return an ActionInfo instance to the caller
@@ -495,7 +499,7 @@ class SCRIBUS_API ScPersistentPlugin : public ScPlugin
 //
 // The API version is currently simply incremented with each incompatible
 // change. Future versions may introduce a minor/major scheme if necessary.
-#define PLUGIN_API_VERSION 0x00000009
+#define PLUGIN_API_VERSION 0x00000010
 
 
 #endif

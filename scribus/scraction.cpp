@@ -187,6 +187,8 @@ void ScrAction::triggeredToTriggeredData()
 		emit triggeredData(layerID);
 	if (_actionType==ScrAction::ActionDLL)
 		emit triggeredData(((ScribusMainWindow*)parent())->doc);
+	if (_actionType==ScrAction::ActionDLLSE)
+		emit triggeredData(dynamic_cast<QWidget*>(parent()), ((ScribusMainWindow*)parent())->doc);
 }
 
 void ScrAction::toggledToToggledData(bool ison)

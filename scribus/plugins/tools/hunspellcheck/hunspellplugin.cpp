@@ -7,6 +7,7 @@ for which a new license (GPL+exception) is in place.
 #include "hunspellplugin.h"
 #include "hunspellpluginimpl.h"
 #include "scribuscore.h"
+#include "storyeditor.h"
 
 // See scplugin.h and pluginmanager.{cpp,h} for detail on what these methods
 // do. That documentatation is not duplicated here.
@@ -29,9 +30,11 @@ void HunspellPlugin::languageChange()
 	// Action name
 	m_actionInfo.name = "HunspellPlugin";
 	// Action text for menu, including &accel
-	m_actionInfo.text = tr("Hunspell &Plugin");
+	m_actionInfo.text = tr("Check Spelling...");
 	// Menu
 	m_actionInfo.menu = "Item";
+	// Story Editor Menu
+	m_actionInfo.seMenu = "Edit";
 	// If needed, what item to add the menu item after
 	//m_actionInfo.menuAfterName = "ColorWheel"
 	// If needed, the keyboard shortcut for the plugin
@@ -39,6 +42,7 @@ void HunspellPlugin::languageChange()
 	// Should the menu item be enabled when the app starts
 	// (even without a document open) ?
 	m_actionInfo.enabledOnStartup = false;
+	m_actionInfo.enabledForStoryEditor = true;
 	m_actionInfo.notSuitableFor.append(PageItem::Line);
 	m_actionInfo.notSuitableFor.append(PageItem::Polygon);
 	m_actionInfo.notSuitableFor.append(PageItem::ImageFrame);
@@ -69,6 +73,17 @@ bool HunspellPlugin::run(ScribusDoc* doc, QString target)
 {
 	HunspellPluginImpl *hunspellPluginImpl = new HunspellPluginImpl();
 	Q_CHECK_PTR(hunspellPluginImpl);
+	bool result = hunspellPluginImpl->run(target, doc);
+	delete hunspellPluginImpl;
+	return result;
+}
+
+bool HunspellPlugin::run(QWidget *parent, ScribusDoc *doc, QString target)
+{
+	HunspellPluginImpl *hunspellPluginImpl = new HunspellPluginImpl();
+	Q_CHECK_PTR(hunspellPluginImpl);
+	if (parent)
+		hunspellPluginImpl->setRunningForSE(true, dynamic_cast<StoryEditor*>(parent));
 	bool result = hunspellPluginImpl->run(target, doc);
 	delete hunspellPluginImpl;
 	return result;

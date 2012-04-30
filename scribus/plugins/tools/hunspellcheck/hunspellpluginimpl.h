@@ -17,6 +17,8 @@ for which a new license (GPL+exception) is in place.
 class QString;
 class ScribusDoc;
 class PageItem;
+class StoryText;
+class StoryEditor;
 
 
 
@@ -30,8 +32,11 @@ class HunspellPluginImpl : public QObject
 		bool findDictionaries();
 		bool initHunspell();
 		bool checkWithHunspell();
-		bool parseTextFrame(PageItem *frameToCheck);
-		bool openGUIForTextFrame(PageItem *frameToCheck);
+		bool checkWithHunspellSE();
+		bool parseTextFrame(StoryText *);
+		bool openGUIForTextFrame(StoryText *iText);
+		bool openGUIForStoryEditor(StoryText *iText);
+		void setRunningForSE(bool rfSE, StoryEditor *sE);
 		QList<WordsFound> wordsToCorrect;
 
 	protected:
@@ -42,6 +47,8 @@ class HunspellPluginImpl : public QObject
 		QStringList dictEntries;
 		QStringList affEntries;
 		ScribusDoc* m_doc;
+		bool m_runningForSE;
+		StoryEditor* m_SE;
 };
 
 #endif

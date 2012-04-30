@@ -100,6 +100,10 @@ ScActionPlugin::ScActionPlugin() : ScPlugin()
 	m_actionInfo.firstObjectType.clear();
 	m_actionInfo.secondObjectType.clear();
 	m_actionInfo.enabledOnStartup = false;
+	m_actionInfo.enabledForStoryEditor = false;
+	m_actionInfo.seMenu = "";
+	m_actionInfo.seParentMenu = "";
+	m_actionInfo.seKeySequence = "";
 }
 
 ScActionPlugin::~ScActionPlugin()

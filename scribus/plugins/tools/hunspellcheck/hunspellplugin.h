@@ -24,6 +24,7 @@ class PLUGIN_API HunspellPlugin : public ScActionPlugin
 		virtual ~HunspellPlugin();
 		//! \brief main method to run the plug
 		virtual bool run(ScribusDoc* doc, QString target = QString::null);
+		virtual bool run(QWidget* p, ScribusDoc* doc, QString target = QString::null);
 		virtual const QString fullTrName() const;
 		virtual const AboutData* getAboutData() const;
 		virtual void deleteAboutData(const AboutData* about) const;
@@ -31,6 +32,8 @@ class PLUGIN_API HunspellPlugin : public ScActionPlugin
 		virtual void addToMainWindowMenu(ScribusMainWindow *) {};
 
 		// Special features (none)
+
+		QWidget *m_parent;
 };
 
 extern "C" PLUGIN_API int hunspellplugin_getPluginAPIVersion();
