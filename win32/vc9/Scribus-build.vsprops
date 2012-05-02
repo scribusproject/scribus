@@ -21,6 +21,10 @@
 		Value="F:\Libraries-vc9\freetype-2.4.6"
 	/>
 	<UserMacro
+		Name="HUNSPELL_DIR"
+		Value="F:\Libraries-vc9\hunspell-1.3.2"
+	/>
+	<UserMacro
 		Name="ICONV_DIR"
 		Value="F:\Libraries-vc9\iconv-1.9.2"
 	/>
