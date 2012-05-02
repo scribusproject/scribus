@@ -9,6 +9,7 @@ for which a new license (GPL+exception) is in place.
 #include <QListWidget>
 #include <QTextEdit>
 #include "hunspelldialog.h"
+#include "langmgr.h"
 
 
 HunspellDialog::HunspellDialog(QWidget *parent, ScribusDoc *doc, StoryText *iText)
@@ -20,10 +21,13 @@ HunspellDialog::HunspellDialog(QWidget *parent, ScribusDoc *doc, StoryText *iTex
 	connect (ignoreAllPushButton, SIGNAL(clicked()), this, SLOT(ignoreAllWords()));
 	connect (changePushButton, SIGNAL(clicked()), this, SLOT(changeWord()));
 	connect (changeAllPushButton, SIGNAL(clicked()), this, SLOT(changeAllWords()));
+	connect (languagesComboBox, SIGNAL(currentIndexChanged (int)), this, SLOT(languageComboChanged(int)));
 
 	m_doc=doc;
 	m_docChanged=false;
 	m_Itext=iText;
+	m_returnToDefaultLang=false;
+	m_primaryLangIndex=0;
 }
 
 void HunspellDialog::set(QStringList *dictEntries, Hunspell **hspellers, QList<WordsFound> *wfList)
@@ -31,15 +35,32 @@ void HunspellDialog::set(QStringList *dictEntries, Hunspell **hspellers, QList<W
 	m_dictEntries=dictEntries;
 	m_hspellers=hspellers;
 	m_wfList=wfList;
-
-	languagesComboBox->addItems(*dictEntries);
-
+	bool b=languagesComboBox->blockSignals(true);
+	languagesComboBox->clear();
+	for(int i=0;i<dictEntries->count();++i)
+		languagesComboBox->addItem(LanguageManager::instance()->getLangFromAbbrev(dictEntries->at(i), true));
+	languagesComboBox->setCurrentIndex(0);
+	m_primaryLangIndex=0;
+	languagesComboBox->blockSignals(b);
 	wfListIndex=0;
 	goToNextWord(0);
 }
 
+void HunspellDialog::updateSuggestions(QStringList &newSuggestions)
+{
+	suggestionsListWidget->clear();
+	suggestionsListWidget->addItems(newSuggestions);
+	suggestionsListWidget->setCurrentRow(0);
+}
+
 void HunspellDialog::goToNextWord(int i)
 {
+	if (m_returnToDefaultLang)
+	{
+		bool b=languagesComboBox->blockSignals(true);
+		languagesComboBox->setCurrentIndex(m_primaryLangIndex);
+		languagesComboBox->blockSignals(b);
+	}
 	if (i>=0)
 		wfListIndex=i;
 	else
@@ -61,9 +82,7 @@ void HunspellDialog::goToNextWord(int i)
 	else
 		statusLabel->setText("");
 	currWF=m_wfList->at(wfListIndex);
-	suggestionsListWidget->clear();
-	suggestionsListWidget->addItems(currWF.replacements);
-	suggestionsListWidget->setCurrentRow(0);
+	updateSuggestions(currWF.replacements);
 
 	int sentencePos=0;
 	QString sentence(m_Itext->sentence(currWF.start, sentencePos));
@@ -106,6 +125,7 @@ void HunspellDialog::changeAllWords()
 
 void HunspellDialog::replaceWord(int i)
 {
+	//TODO: rehypenate after the replacement
 	//qDebug()<<"Replacing word"<<i<m_wfList->at(i).w<<m_wfList->at(i).start;
 	QString newText(suggestionsListWidget->currentItem()->text());
 	int lengthDiff=m_Itext->replaceWord(m_wfList->at(i).start+m_wfList->at(i).changeOffset, newText);
@@ -116,4 +136,36 @@ void HunspellDialog::replaceWord(int i)
 	}
 	(*m_wfList)[i].changed=true;
 	m_docChanged=true;
+}
+
+void HunspellDialog::languageComboChanged(int index)
+{
+	m_returnToDefaultLang=true;
+	QString newLanguage=languagesComboBox->itemText(index);
+	QString wordToCheck=m_wfList->at(wfListIndex).w;
+//	qDebug()<<"You changed the language to:"<<newLanguage;
+	if (!m_hspellers[index])
+	{
+		qDebug()<<"hspeller"<<index<<"does not exist";
+		return;
+	}
+	if (m_hspellers[index]->spell(wordToCheck.toUtf8().constData())==0)
+	{
+		char **sugglist = NULL;
+		int suggCount=m_hspellers[index]->suggest(&sugglist, wordToCheck.toUtf8().constData());
+		QStringList replacements;
+		for (int j=0; j < suggCount; ++j)
+		{
+			//qDebug()<<"Suggestion "<<j<<":"<<sugglist[j];
+			replacements << QString::fromUtf8(sugglist[j]);
+		}
+		m_hspellers[index]->free_list(&sugglist, suggCount);
+		updateSuggestions(replacements);
+	}
+	else
+	{
+		(*m_wfList)[wfListIndex].changed=true;
+		m_docChanged=true;
+		goToNextWord();
+	}
 }

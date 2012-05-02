@@ -24,6 +24,7 @@ class PLUGIN_API HunspellDialog : public QDialog, private Ui::HunspellDialogBase
 		~HunspellDialog() {};
 		void set(QStringList* dictEntries, Hunspell **hspellers, QList<WordsFound>* wfList);
 		bool docChanged() {return m_docChanged;}
+		void updateSuggestions(QStringList& newSuggestions);
 
 	public slots:
 		void goToNextWord(int i=-1);
@@ -31,6 +32,7 @@ class PLUGIN_API HunspellDialog : public QDialog, private Ui::HunspellDialogBase
 		void changeWord();
 		void changeAllWords();
 		void replaceWord(int i);
+		void languageComboChanged(int index);
 
 	private:
 		ScribusDoc* m_doc;
@@ -41,6 +43,8 @@ class PLUGIN_API HunspellDialog : public QDialog, private Ui::HunspellDialogBase
 		WordsFound currWF;
 		int wfListIndex;
 		bool m_docChanged;
+		bool m_returnToDefaultLang;
+		int m_primaryLangIndex;
 };
 
 #endif // HUNSPELLDIALOG_H
