@@ -1,20 +1,20 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
 <scribus>
-  <release platform="X11" stability="stable" version="1.3.3.14" />
-  <release platform="OS2" stability="stable" version="1.3.3.14" />
-  <release platform="MacOSX" stability="stable" version="1.3.3.14" />
-  <release platform="Win32" stability="stable" version="1.3.3.14" />
-  <release platform="X11" stability="stablesvn" version="1.3.3.14svn" />
-  <release platform="OS2" stability="stablesvn" version="1.3.3.14svn" />
-  <release platform="MacOSX" stability="stablesvn" version="1.3.3.14svn" />
-  <release platform="Win32" stability="stablesvn" version="1.3.3.14svn" />
-  <release platform="X11" stability="unstable" version="1.3.9" />
-  <release platform="Win32" stability="unstable" version="1.3.9" />
-  <release platform="MacOSX" stability="unstable" version="1.3.9" />
-  <release platform="OS2" stability="unstable" version="1.3.9" />
+  <release platform="X11" stability="stable" version="1.4.1" />
+  <release platform="OS2" stability="stable" version="1.4.1" />
+  <release platform="MacOSX" stability="stable" version="1.4.1" />
+  <release platform="Win32" stability="stable" version="1.4.1" />
+  <release platform="X11" stability="stablesvn" version="1.4.2.svn" />
+  <release platform="OS2" stability="stablesvn" version="1.4.2.svn" />
+  <release platform="MacOSX" stability="stablesvn" version="1.4.2.svn" />
+  <release platform="Win32" stability="stablesvn" version="1.4.2.svn" />
+  <release platform="X11" stability="unstable" version="1.5.0.svn" />
+  <release platform="Win32" stability="unstable" version="1.5.0.svn" />
+  <release platform="MacOSX" stability="unstable" version="1.5.0.svn" />
+  <release platform="OS2" stability="unstable" version="1.5.0.svn" />
   <release platform="X11" stability="unstablesvn" version="1.5.0.svn" />
   <release platform="Win32" stability="unstablesvn" version="1.5.0.svn" />
-  <release platform="MacOSX" stability="unstablesvn" version="1.v.svn" />
+  <release platform="MacOSX" stability="unstablesvn" version="1.5.0.svn" />
   <release platform="OS2" stability="unstablesvn" version="1.5.0.svn" />
-  <message lang="en" > - Scribus 1.3.3.14 is the latest stable release.<![CDATA[<br>]]> - We have stabilised 1.3.3.x for those wishing to use some new features of the 1.3.x series but need more stability.<![CDATA[<br>]]> - Scribus 1.3.9 was released 29 November 2010 </message>
+  <message lang="en" > - Scribus 1.4.1 is the latest stable release, released April 30th 2012.<![CDATA[<br>]]> - Scribus 1.5.0.svn is the current development version. </message>
 </scribus>
