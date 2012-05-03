@@ -6,6 +6,7 @@ for which a new license (GPL+exception) is in place.
 */
 #include "hunspellpluginimpl.h"
 #include "hunspelldialog.h"
+#include "langmgr.h"
 #include "pageitem.h"
 #include "pageitem_textframe.h"
 #include "selection.h"
@@ -76,60 +77,62 @@ bool HunspellPluginImpl::run(const QString & target, ScribusDoc* doc)
 
 bool HunspellPluginImpl::findDictionaries()
 {
-	QStringList dirs(ScPaths::instance().spellDirs());
-	if (dirs.count()==0)
+	dictionaryPaths=ScPaths::instance().spellDirs();
+	if (dictionaryPaths.count()==0)
 		return false;
-	//for development, just take the first for now
-	dictPath=dirs.first();
 	return true;
 }
 
 bool HunspellPluginImpl::initHunspell()
 {
-	int errorCount=0;
 	bool dictPathFound=findDictionaries();
 	if (!dictPathFound)
 	{
 		qDebug()<<"No preinstalled dictonary paths found";
 		return false;
 	}
-	else
-		qDebug()<<"Preinstalled dictionary path selected"<<dictPath;
-
-	// Find the dic and aff files in the location
-	QDir dictLocation(dictPath);
-	QStringList dictFilters, affFilters;
-	dictFilters << "*.dic";
-	affFilters << "*.aff";
-	QStringList dictList(dictLocation.entryList(dictFilters, QDir::Files, QDir::Name));
-	dictList.replaceInStrings(".dic","");
-	QStringList affList;
-
-	//Ensure we have aff+dic file pairs, remove any hyphenation dictionaries from the list
-	QString dictName;
-	QStringListIterator dictListIterator(dictList);
-	while (dictListIterator.hasNext())
+	for (int i=0; i<dictionaryPaths.count(); ++i)
 	{
-		dictName=dictListIterator.next();
-		if (!QFile::exists(dictPath+dictName+".aff"))
-			dictList.removeAll(dictName);
+		// Find the dic and aff files in the location
+		QDir dictLocation(dictionaryPaths.at(i));
+		QStringList dictFilters;
+		dictFilters << "*.dic";
+		QStringList dictList(dictLocation.entryList(dictFilters, QDir::Files, QDir::Name));
+		dictList.replaceInStrings(".dic","");
+
+		//Ensure we have aff+dic file pairs, remove any hyphenation dictionaries from the list
+		QString dictName;
+		QStringListIterator dictListIterator(dictList);
+		while (dictListIterator.hasNext())
+		{
+			dictName=dictListIterator.next();
+			if (!QFile::exists(dictionaryPaths.at(i)+dictName+".aff"))
+				dictList.removeAll(dictName);
+			else
+			{
+				if (!dictionaryMap.contains(dictName))
+					dictionaryMap.insert(dictName, dictionaryPaths.at(i)+dictName);
+			}
+		}
+		qDebug()<<"Number of dictionaries/AFFs found in"<<dictionaryPaths.at(i)<<":"<<dictList.count();
 	}
-	numAFFs=numDicts=dictList.count();
-	qDebug()<<"Number of dictionaries/AFFs found:"<<numDicts<<numAFFs;
-	if (numDicts==0)
-		++errorCount;
-	qDebug()<<dictList;
+	numDicts=dictionaryMap.count();
+	if (dictionaryMap.count()==0)
+		return false;
 
 	//Initialise one hunspeller for each dictionary found
 	//Maybe we only need the text language related one later on
-	dictEntries=dictList;
-	affEntries=affList;
+	int i=0;
 	hspellers = new Hunspell* [numDicts];
-	for (int i=0; i<numDicts; ++i)
-		hspellers[i] = new Hunspell((dictPath+dictList.at(i)+".aff").toLocal8Bit().constData(),
-									(dictPath+dictList.at(i)+".dic").toLocal8Bit().constData());
-
-	return errorCount==0;
+	QMap<QString, QString>::iterator it = dictionaryMap.begin();
+	while (it != dictionaryMap.end())
+	{
+		qDebug() << it.key()<< it.value();
+		hspellers[i++] = new Hunspell((it.value()+".aff").toLocal8Bit().constData(),
+									  (it.value()+".dic").toLocal8Bit().constData());
+		++it;
+	}
+	return true;
 }
 
 bool HunspellPluginImpl::checkWithHunspell()
@@ -174,21 +177,42 @@ bool HunspellPluginImpl::parseTextFrame(StoryText *iText)
 				break;
 		}
 		QString word=iText->text(wordPos,eoWord-wordPos);
+		QString wordLang=iText->charStyle(wordPos).language();
+		//qDebug()<<word<<"is set to be in language"<<wordLang;
+		wordLang=LanguageManager::instance()->getAbbrevFromLang(wordLang, true);
+		if (wordLang=="en")
+			wordLang="en_GB";
+		int spellerIndex=0;
+		if (!dictionaryMap.contains(wordLang))
+			qDebug()<<"Spelling language to match style language not installed ("<<wordLang<<")";
+		else
+		{
+			int i=0;
+			QMap<QString, QString>::iterator it = dictionaryMap.begin();
+			while (it != dictionaryMap.end())
+			{
+				if (it.key()==wordLang)
+					break;
+				++i;
+				++it;
+			}
+			spellerIndex=i;
+		}
 		++wordCount;
 		++wordNo;
 		QStringList replacements;
-		if (hspellers[0]->spell(word.toUtf8().constData())==0)
+		if (hspellers[spellerIndex]->spell(word.toUtf8().constData())==0)
 		{
 //			qDebug()<<word;
 			++errorCount;
 			char **sugglist = NULL;
-			int suggCount=hspellers[0]->suggest(&sugglist, word.toUtf8().constData());
+			int suggCount=hspellers[spellerIndex]->suggest(&sugglist, word.toUtf8().constData());
 			for (int j=0; j < suggCount; ++j)
 			{
 //				qDebug()<<"Suggestion "<<j<<":"<<sugglist[j];
 				replacements << QString::fromUtf8(sugglist[j]);
 			}
-			hspellers[0]->free_list(&sugglist, suggCount);
+			hspellers[spellerIndex]->free_list(&sugglist, suggCount);
 
 			struct WordsFound wf;
 			wf.start=currPos;
@@ -208,7 +232,7 @@ bool HunspellPluginImpl::parseTextFrame(StoryText *iText)
 bool HunspellPluginImpl::openGUIForTextFrame(StoryText *iText)
 {
 	HunspellDialog hsDialog(m_doc->scMW(), m_doc, iText);
-	hsDialog.set(&dictEntries, hspellers, &wordsToCorrect);
+	hsDialog.set(&dictionaryMap, hspellers, &wordsToCorrect);
 	hsDialog.exec();
 	if (hsDialog.docChanged())
 		m_doc->changed();
@@ -219,7 +243,7 @@ bool HunspellPluginImpl::openGUIForStoryEditor(StoryText *iText)
 {
 	m_SE->setSpellActive(true);
 	HunspellDialog hsDialog(m_SE, m_doc, iText);
-	hsDialog.set(&dictEntries, hspellers, &wordsToCorrect);
+	hsDialog.set(&dictionaryMap, hspellers, &wordsToCorrect);
 	hsDialog.exec();
 	m_SE->setSpellActive(false);
 	return true;

@@ -11,6 +11,7 @@ for which a new license (GPL+exception) is in place.
 #include "hunspellpluginstructs.h"
 
 #include <QObject>
+#include <QMap>
 #include <QString>
 #include <QStringList>
 
@@ -40,12 +41,12 @@ class HunspellPluginImpl : public QObject
 		QList<WordsFound> wordsToCorrect;
 
 	protected:
+		QMap<QString, QString> dictionaryMap;
 		QStringList dictionaryPaths;
-		QString dictPath, affPath;
 		int numDicts, numAFFs;
 		Hunspell **hspellers;
-		QStringList dictEntries;
-		QStringList affEntries;
+		//QStringList dictEntries;
+		//QStringList affEntries;
 		ScribusDoc* m_doc;
 		bool m_runningForSE;
 		StoryEditor* m_SE;

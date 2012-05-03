@@ -30,15 +30,19 @@ HunspellDialog::HunspellDialog(QWidget *parent, ScribusDoc *doc, StoryText *iTex
 	m_primaryLangIndex=0;
 }
 
-void HunspellDialog::set(QStringList *dictEntries, Hunspell **hspellers, QList<WordsFound> *wfList)
+void HunspellDialog::set(QMap<QString, QString>* dictionaryMap, Hunspell **hspellers, QList<WordsFound> *wfList)
 {
-	m_dictEntries=dictEntries;
+	m_dictionaryMap=dictionaryMap;
 	m_hspellers=hspellers;
 	m_wfList=wfList;
 	bool b=languagesComboBox->blockSignals(true);
 	languagesComboBox->clear();
-	for(int i=0;i<dictEntries->count();++i)
-		languagesComboBox->addItem(LanguageManager::instance()->getLangFromAbbrev(dictEntries->at(i), true));
+	QMap<QString, QString>::iterator it = m_dictionaryMap->begin();
+	while (it != dictionaryMap->end())
+	{
+		languagesComboBox->addItem(LanguageManager::instance()->getLangFromAbbrev(it.key(), true));
+		++it;
+	}
 	languagesComboBox->setCurrentIndex(0);
 	m_primaryLangIndex=0;
 	languagesComboBox->blockSignals(b);

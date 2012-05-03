@@ -127,6 +127,7 @@ void LanguageManager::generateLangList()
 	langList.insert("tr",       langPair("Turkish",             QObject::tr( "Turkish" )) );
 	langList.insert("tr_TR",    langPair("Turkish",             QObject::tr( "Turkish" )) );
 	langList.insert("uk",       langPair("Ukranian",            QObject::tr( "Ukranian" )) );
+	langList.insert("uk_UA",    langPair("Ukranian",            QObject::tr( "Ukranian" )) );
 	langList.insert("vi",       langPair("Vietnamese",          QObject::tr( "Vietnamese" )) );
 	langList.insert("cy",       langPair("Welsh",               QObject::tr( "Welsh" )) );
 }

@@ -22,7 +22,7 @@ class PLUGIN_API HunspellDialog : public QDialog, private Ui::HunspellDialogBase
 	public:
 		HunspellDialog(QWidget* parent, ScribusDoc *doc, StoryText* iText);
 		~HunspellDialog() {};
-		void set(QStringList* dictEntries, Hunspell **hspellers, QList<WordsFound>* wfList);
+		void set(QMap<QString, QString>* dictionaryMap, Hunspell **hspellers, QList<WordsFound>* wfList);
 		bool docChanged() {return m_docChanged;}
 		void updateSuggestions(QStringList& newSuggestions);
 
@@ -37,7 +37,7 @@ class PLUGIN_API HunspellDialog : public QDialog, private Ui::HunspellDialogBase
 	private:
 		ScribusDoc* m_doc;
 		StoryText* m_Itext;
-		QStringList* m_dictEntries;
+		QMap<QString, QString>* m_dictionaryMap;
 		Hunspell **m_hspellers;
 		QList<WordsFound>* m_wfList;
 		WordsFound currWF;
