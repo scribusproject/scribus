@@ -1125,14 +1125,28 @@ int StoryText::prevChar(int pos)
 	else 
 		return 0;
 }
+
 int StoryText::nextWord(int pos)
 {
 	int len = length();
-	pos = qMin(len, pos+1);
-	while (pos < len  && wordBoundaries.indexOf(text(pos)) < 0)
-		++pos;
+	if (text(pos).isLetter())
+		pos = qMin(len, pos+1);
+	else
+		pos = qMin(len, pos);
+
+	//	while (pos < len  && wordBoundaries.indexOf(text(pos)) < 0)
+	//		++pos;
+
+	while (pos < len)
+	{
+		if(text(pos).isLetter())
+			++pos;
+		else
+			break;
+	}
 	return pos < len ? pos + 1 : pos;
 }
+
 int StoryText::prevWord(int pos)
 {
 	pos = qMax(0, pos-1);

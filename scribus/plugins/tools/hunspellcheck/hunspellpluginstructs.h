@@ -12,6 +12,7 @@ struct WordsFound {
 	bool changed;
 	bool ignore;
 	int changeOffset;
+	QString lang;
 };
 
 #endif // HUNSPELLPLUGINSTRUCTS_H

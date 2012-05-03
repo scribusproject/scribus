@@ -40,7 +40,8 @@ void HunspellDialog::set(QMap<QString, QString>* dictionaryMap, Hunspell **hspel
 	QMap<QString, QString>::iterator it = m_dictionaryMap->begin();
 	while (it != dictionaryMap->end())
 	{
-		languagesComboBox->addItem(LanguageManager::instance()->getLangFromAbbrev(it.key(), true));
+		QString lang=LanguageManager::instance()->getLangFromAbbrev(it.key(), true);
+		languagesComboBox->addItem(!lang.isEmpty() ? lang : it.key());
 		++it;
 	}
 	languagesComboBox->setCurrentIndex(0);
@@ -86,6 +87,7 @@ void HunspellDialog::goToNextWord(int i)
 	else
 		statusLabel->setText("");
 	currWF=m_wfList->at(wfListIndex);
+	setLanguageCombo(currWF.lang);
 	updateSuggestions(currWF.replacements);
 
 	int sentencePos=0;
@@ -172,4 +174,20 @@ void HunspellDialog::languageComboChanged(int index)
 		m_docChanged=true;
 		goToNextWord();
 	}
+}
+
+void HunspellDialog::setLanguageCombo(const QString &newLangAbbrev)
+{
+	QMap<QString, QString>::iterator it = m_dictionaryMap->begin();
+	int i=0;
+	while (it != m_dictionaryMap->end())
+	{
+		if (it.key()==newLangAbbrev)
+			break;
+		++i;
+		++it;
+	}
+	bool b=languagesComboBox->blockSignals(true);
+	languagesComboBox->setCurrentIndex(i);
+	languagesComboBox->blockSignals(b);
 }

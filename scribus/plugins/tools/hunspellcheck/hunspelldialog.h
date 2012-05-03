@@ -33,6 +33,7 @@ class PLUGIN_API HunspellDialog : public QDialog, private Ui::HunspellDialogBase
 		void changeAllWords();
 		void replaceWord(int i);
 		void languageComboChanged(int index);
+		void setLanguageCombo(const QString &newLangAbbrev);
 
 	private:
 		ScribusDoc* m_doc;

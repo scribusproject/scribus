@@ -163,16 +163,18 @@ bool HunspellPluginImpl::parseTextFrame(StoryText *iText)
 {
 	int len=iText->length();
 	int wordCount=0,wordNo=0,errorCount=0;
-	int currPos=0;
+	int currPos=0, wordPos=0;
 	while (currPos<len)
 	{
-		int wordPos=iText->nextWord(currPos);
+		wordPos=iText->nextWord(currPos);
 		currPos=wordPos;
 		int eoWord=wordPos;
 		while(eoWord < len)
 		{
-			if (iText->text(eoWord).isLetterOrNumber())
+			if (iText->text(eoWord).isLetter())
+			{
 				++eoWord;
+			}
 			else
 				break;
 		}
@@ -203,7 +205,7 @@ bool HunspellPluginImpl::parseTextFrame(StoryText *iText)
 		QStringList replacements;
 		if (hspellers[spellerIndex]->spell(word.toUtf8().constData())==0)
 		{
-//			qDebug()<<word;
+//			qDebug()<<word<<wordLang;
 			++errorCount;
 			char **sugglist = NULL;
 			int suggCount=hspellers[spellerIndex]->suggest(&sugglist, word.toUtf8().constData());
@@ -222,10 +224,10 @@ bool HunspellPluginImpl::parseTextFrame(StoryText *iText)
 			wf.changed=false;
 			wf.ignore=false;
 			wf.changeOffset=0;
+			wf.lang=wordLang;
 			wordsToCorrect.append(wf);
 		}
 	}
-//	qDebug()<<"Errors found:"<<errorCount;
 	return true;
 }
 
