@@ -21,19 +21,19 @@ HunspellDialog::HunspellDialog(QWidget *parent, ScribusDoc *doc, StoryText *iTex
 	connect (ignoreAllPushButton, SIGNAL(clicked()), this, SLOT(ignoreAllWords()));
 	connect (changePushButton, SIGNAL(clicked()), this, SLOT(changeWord()));
 	connect (changeAllPushButton, SIGNAL(clicked()), this, SLOT(changeAllWords()));
-	connect (languagesComboBox, SIGNAL(currentIndexChanged (int)), this, SLOT(languageComboChanged(int)));
+	connect (languagesComboBox, SIGNAL(currentIndexChanged(const QString &)), this, SLOT(languageComboChanged(const QString &)));
 
 	m_doc=doc;
 	m_docChanged=false;
-	m_Itext=iText;
+	m_iText=iText;
 	m_returnToDefaultLang=false;
 	m_primaryLangIndex=0;
 }
 
-void HunspellDialog::set(QMap<QString, QString>* dictionaryMap, Hunspell **hspellers, QList<WordsFound> *wfList)
+void HunspellDialog::set(QMap<QString, QString>* dictionaryMap, QMap<QString, Hunspell*> *hspellerMap, QList<WordsFound> *wfList)
 {
 	m_dictionaryMap=dictionaryMap;
-	m_hspellers=hspellers;
+	m_hspellerMap=hspellerMap;
 	m_wfList=wfList;
 	bool b=languagesComboBox->blockSignals(true);
 	languagesComboBox->clear();
@@ -91,7 +91,7 @@ void HunspellDialog::goToNextWord(int i)
 	updateSuggestions(currWF.replacements);
 
 	int sentencePos=0;
-	QString sentence(m_Itext->sentence(currWF.start, sentencePos));
+	QString sentence(m_iText->sentence(currWF.start, sentencePos));
 	sentence.insert(currWF.end-sentencePos+currWF.changeOffset,"</b></font>");
 	sentence.insert(currWF.start-sentencePos+currWF.changeOffset,"<font color=red><b>");
 	sentenceTextEdit->setText(sentence);
@@ -132,9 +132,8 @@ void HunspellDialog::changeAllWords()
 void HunspellDialog::replaceWord(int i)
 {
 	//TODO: rehypenate after the replacement
-	//qDebug()<<"Replacing word"<<i<m_wfList->at(i).w<<m_wfList->at(i).start;
 	QString newText(suggestionsListWidget->currentItem()->text());
-	int lengthDiff=m_Itext->replaceWord(m_wfList->at(i).start+m_wfList->at(i).changeOffset, newText);
+	int lengthDiff=m_iText->replaceWord(m_wfList->at(i).start+m_wfList->at(i).changeOffset, newText);
 	if (lengthDiff!=0)
 	{
 		for (int k=i; k<m_wfList->count();++k)
@@ -144,28 +143,25 @@ void HunspellDialog::replaceWord(int i)
 	m_docChanged=true;
 }
 
-void HunspellDialog::languageComboChanged(int index)
+void HunspellDialog::languageComboChanged(const QString &newLanguage)
 {
 	m_returnToDefaultLang=true;
-	QString newLanguage=languagesComboBox->itemText(index);
-	QString wordToCheck=m_wfList->at(wfListIndex).w;
-//	qDebug()<<"You changed the language to:"<<newLanguage;
-	if (!m_hspellers[index])
+	QString wordLang=LanguageManager::instance()->getAbbrevFromLang(newLanguage, true, false);
+	if (!m_hspellerMap->contains(wordLang) )
 	{
-		qDebug()<<"hspeller"<<index<<"does not exist";
+		qDebug()<<"hspeller"<<wordLang<<"does not exist";
 		return;
 	}
-	if (m_hspellers[index]->spell(wordToCheck.toUtf8().constData())==0)
+
+	QString word=m_wfList->at(wfListIndex).w;
+	if ((*m_hspellerMap)[wordLang]->spell(word.toUtf8().constData())==0)
 	{
 		char **sugglist = NULL;
-		int suggCount=m_hspellers[index]->suggest(&sugglist, wordToCheck.toUtf8().constData());
+		int suggCount=(*m_hspellerMap)[wordLang]->suggest(&sugglist, word.toUtf8().constData());
 		QStringList replacements;
 		for (int j=0; j < suggCount; ++j)
-		{
-			//qDebug()<<"Suggestion "<<j<<":"<<sugglist[j];
 			replacements << QString::fromUtf8(sugglist[j]);
-		}
-		m_hspellers[index]->free_list(&sugglist, suggCount);
+		(*m_hspellerMap)[wordLang]->free_list(&sugglist, suggCount);
 		updateSuggestions(replacements);
 	}
 	else

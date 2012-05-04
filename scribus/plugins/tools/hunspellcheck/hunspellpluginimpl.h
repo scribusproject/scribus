@@ -44,9 +44,7 @@ class HunspellPluginImpl : public QObject
 		QMap<QString, QString> dictionaryMap;
 		QStringList dictionaryPaths;
 		int numDicts, numAFFs;
-		Hunspell **hspellers;
-		//QStringList dictEntries;
-		//QStringList affEntries;
+		QMap<QString, Hunspell*> hspellerMap;
 		ScribusDoc* m_doc;
 		bool m_runningForSE;
 		StoryEditor* m_SE;

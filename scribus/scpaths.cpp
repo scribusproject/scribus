@@ -266,7 +266,6 @@ QStringList ScPaths::spellDirs() const
 	QStringList spellDirs;
 	spellDirs.append(m_shareDir + "dicts/spelling/");
 #ifdef Q_OS_MAC
-	//spellDirs.append(QDir::homePath() + "/Library/Fonts/");
 	d.setPath(macPortsPath);
 	if (d.exists())
 		spellDirs.append(macPortsPath);
@@ -274,11 +273,9 @@ QStringList ScPaths::spellDirs() const
 	if (d.exists())
 		spellDirs.append(finkPath);
 	d.setPath(osxLibreOfficePath);
-
 	if (d.exists())
 	{
-		QStringList dictDirFilters;
-		dictDirFilters << "dict-*";
+		QStringList dictDirFilters("dict-*");
 		QStringList dictDirList(d.entryList(dictDirFilters, QDir::Dirs, QDir::Name));
 		QString dir;
 		foreach (dir, dictDirList)
@@ -287,8 +284,7 @@ QStringList ScPaths::spellDirs() const
 	d.setPath(osxUserLibreOfficePath);
 	if (d.exists())
 	{
-		QStringList dictDirFilters;
-		dictDirFilters << "dict-*";
+		QStringList dictDirFilters("dict-*");
 		QStringList dictDirList(d.entryList(dictDirFilters, QDir::Dirs, QDir::Name));
 		QString dir;
 		foreach (dir, dictDirList)
@@ -300,8 +296,7 @@ QStringList ScPaths::spellDirs() const
 	d.setPath(progFiles+windowsLOPath);
 	if (d.exists())
 	{
-		QStringList dictDirFilters;
-		dictDirFilters << "dict-*";
+		QStringList dictDirFilters("dict-*");
 		QStringList dictDirList(d.entryList(dictDirFilters, QDir::Dirs, QDir::Name));
 		QString dir;
 		foreach (dir, dictDirList)

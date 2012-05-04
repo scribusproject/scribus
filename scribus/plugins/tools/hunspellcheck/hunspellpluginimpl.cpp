@@ -31,7 +31,7 @@ for which a new license (GPL+exception) is in place.
 // Initialize members here, if any
 HunspellPluginImpl::HunspellPluginImpl() : QObject(0)
 {
-	hspellers=NULL;
+	//hspellers=NULL;
 	numDicts=0;
 	m_runningForSE=false;
 	m_SE=NULL;
@@ -39,16 +39,12 @@ HunspellPluginImpl::HunspellPluginImpl() : QObject(0)
 
 HunspellPluginImpl::~HunspellPluginImpl()
 {
-	if (hspellers)
+	foreach (Hunspell* h, hspellerMap)
 	{
-		for (int i = 0; i < numDicts; ++i)
-		{
-			delete hspellers[i];
-			hspellers[i] = NULL;
-		}
-		delete[] hspellers;
+		delete h;
+		h = NULL;
 	}
-	hspellers = NULL;
+	hspellerMap.clear();
 	numDicts = 0;
 }
 
@@ -56,23 +52,14 @@ bool HunspellPluginImpl::run(const QString & target, ScribusDoc* doc)
 {
 	m_doc=doc;
 	bool initOk=initHunspell();
-	qDebug()<<"Hunspell Init Ok:"<<initOk;
 	if (!initOk)
 		return false;
 	bool spellCheckOk=false;
 	if (m_runningForSE)
-	{
-		//qDebug()<<"Running for StoryEditor";
 		spellCheckOk=checkWithHunspellSE();
-	}
 	else
-	{
-		//qDebug()<<"Running for ScribusMainWindow";
 		spellCheckOk=checkWithHunspell();
-	}
-	if (!spellCheckOk)
-		return false;
-	return true;
+	return spellCheckOk;
 }
 
 bool HunspellPluginImpl::findDictionaries()
@@ -118,14 +105,11 @@ bool HunspellPluginImpl::initHunspell()
 		return false;
 
 	//Initialise one hunspeller for each dictionary found
-	//Maybe we only need the text language related one later on
-	int i=0;
-	hspellers = new Hunspell* [numDicts];
 	QMap<QString, QString>::iterator it = dictionaryMap.begin();
 	while (it != dictionaryMap.end())
 	{
-		hspellers[i++] = new Hunspell((it.value()+".aff").toLocal8Bit().constData(),
-									  (it.value()+".dic").toLocal8Bit().constData());
+		hspellerMap.insert(it.key(), new Hunspell((it.value()+".aff").toLocal8Bit().constData(),
+											 (it.value()+".dic").toLocal8Bit().constData()));
 		++it;
 	}
 	return true;
@@ -166,8 +150,7 @@ bool HunspellPluginImpl::parseTextFrame(StoryText *iText)
 		currPos=wordStart;
 		QString word=iText->text(wordStart,wordEnd-wordStart);
 		QString wordLang=iText->charStyle(wordStart).language();
-		//qDebug()<<word<<"is set to be in language"<<wordLang;
-		wordLang=LanguageManager::instance()->getAbbrevFromLang(wordLang, true);
+		wordLang=LanguageManager::instance()->getAbbrevFromLang(wordLang, true, false);
 		//A little hack as for some reason our en dictionary from the aspell plugin was not called en_GB or en_US but en, content was en_GB though. Meh.
 		if (wordLang=="en")
 			wordLang="en_GB";
@@ -187,7 +170,7 @@ bool HunspellPluginImpl::parseTextFrame(StoryText *iText)
 			}
 			spellerIndex=i;
 		}
-		if (hspellers[spellerIndex]->spell(word.toUtf8().constData())==0)
+		if (hspellerMap.contains(wordLang) && hspellerMap[wordLang]->spell(word.toUtf8().constData())==0)
 		{
 			struct WordsFound wf;
 			wf.start=currPos;
@@ -199,10 +182,10 @@ bool HunspellPluginImpl::parseTextFrame(StoryText *iText)
 			wf.lang=wordLang;
 			wf.replacements.clear();
 			char **sugglist = NULL;
-			int suggCount=hspellers[spellerIndex]->suggest(&sugglist, word.toUtf8().constData());
+			int suggCount=hspellerMap[wordLang]->suggest(&sugglist, word.toUtf8().constData());
 			for (int j=0; j < suggCount; ++j)
 				wf.replacements << QString::fromUtf8(sugglist[j]);
-			hspellers[spellerIndex]->free_list(&sugglist, suggCount);
+			hspellerMap[wordLang]->free_list(&sugglist, suggCount);
 			wordsToCorrect.append(wf);
 		}
 	}
@@ -212,7 +195,7 @@ bool HunspellPluginImpl::parseTextFrame(StoryText *iText)
 bool HunspellPluginImpl::openGUIForTextFrame(StoryText *iText)
 {
 	HunspellDialog hsDialog(m_doc->scMW(), m_doc, iText);
-	hsDialog.set(&dictionaryMap, hspellers, &wordsToCorrect);
+	hsDialog.set(&dictionaryMap, &hspellerMap, &wordsToCorrect);
 	hsDialog.exec();
 	if (hsDialog.docChanged())
 		m_doc->changed();
@@ -223,7 +206,7 @@ bool HunspellPluginImpl::openGUIForStoryEditor(StoryText *iText)
 {
 	m_SE->setSpellActive(true);
 	HunspellDialog hsDialog(m_SE, m_doc, iText);
-	hsDialog.set(&dictionaryMap, hspellers, &wordsToCorrect);
+	hsDialog.set(&dictionaryMap, &hspellerMap, &wordsToCorrect);
 	hsDialog.exec();
 	m_SE->setSpellActive(false);
 	return true;
