@@ -63,6 +63,12 @@ public:
 	void setInitialHeight(const double);
 	void setOrientation(int);
 	void copySizingProperties(ScPage *sourcePage, const MarginStruct& pageMargins);
+	MarginStruct margins() const { return Margins; }
+	double leftMargin() const { return Margins.Left; }
+	double topMargin() const { return Margins.Top; }
+	double bottomMargin() const { return Margins.Bottom; }
+	double rightMargin() const { return Margins.Right; }
+
 	MarginStruct Margins;
 	MarginStruct initialMargins;
   /** Nummer der Seite */
