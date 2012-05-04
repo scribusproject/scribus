@@ -1154,6 +1154,20 @@ int StoryText::prevWord(int pos)
 		--pos;
 	return wordBoundaries.indexOf(text(pos)) < 0 ? pos + 1 : pos;
 }
+
+int StoryText::endOfWord(int pos) const
+{
+	int len = length();
+	while (pos < len)
+	{
+		if(text(pos).isLetter())
+			++pos;
+		else
+			break;
+	}
+	return pos;
+}
+
 int StoryText::nextSentence(int pos)
 {
 	int len = length();

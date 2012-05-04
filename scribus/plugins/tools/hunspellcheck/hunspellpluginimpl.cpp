@@ -95,17 +95,14 @@ bool HunspellPluginImpl::initHunspell()
 	{
 		// Find the dic and aff files in the location
 		QDir dictLocation(dictionaryPaths.at(i));
-		QStringList dictFilters;
-		dictFilters << "*.dic";
+		QStringList dictFilters("*.dic");
 		QStringList dictList(dictLocation.entryList(dictFilters, QDir::Files, QDir::Name));
 		dictList.replaceInStrings(".dic","");
 
 		//Ensure we have aff+dic file pairs, remove any hyphenation dictionaries from the list
 		QString dictName;
-		QStringListIterator dictListIterator(dictList);
-		while (dictListIterator.hasNext())
+		foreach(dictName, dictList)
 		{
-			dictName=dictListIterator.next();
 			if (!QFile::exists(dictionaryPaths.at(i)+dictName+".aff"))
 				dictList.removeAll(dictName);
 			else
@@ -127,7 +124,6 @@ bool HunspellPluginImpl::initHunspell()
 	QMap<QString, QString>::iterator it = dictionaryMap.begin();
 	while (it != dictionaryMap.end())
 	{
-		qDebug() << it.key()<< it.value();
 		hspellers[i++] = new Hunspell((it.value()+".aff").toLocal8Bit().constData(),
 									  (it.value()+".dic").toLocal8Bit().constData());
 		++it;
@@ -162,26 +158,17 @@ bool HunspellPluginImpl::checkWithHunspellSE()
 bool HunspellPluginImpl::parseTextFrame(StoryText *iText)
 {
 	int len=iText->length();
-	int wordCount=0,wordNo=0,errorCount=0;
-	int currPos=0, wordPos=0;
+	int currPos=0, wordStart=0;
 	while (currPos<len)
 	{
-		wordPos=iText->nextWord(currPos);
-		currPos=wordPos;
-		int eoWord=wordPos;
-		while(eoWord < len)
-		{
-			if (iText->text(eoWord).isLetter())
-			{
-				++eoWord;
-			}
-			else
-				break;
-		}
-		QString word=iText->text(wordPos,eoWord-wordPos);
-		QString wordLang=iText->charStyle(wordPos).language();
+		wordStart=iText->nextWord(currPos);
+		int wordEnd=iText->endOfWord(wordStart);
+		currPos=wordStart;
+		QString word=iText->text(wordStart,wordEnd-wordStart);
+		QString wordLang=iText->charStyle(wordStart).language();
 		//qDebug()<<word<<"is set to be in language"<<wordLang;
 		wordLang=LanguageManager::instance()->getAbbrevFromLang(wordLang, true);
+		//A little hack as for some reason our en dictionary from the aspell plugin was not called en_GB or en_US but en, content was en_GB though. Meh.
 		if (wordLang=="en")
 			wordLang="en_GB";
 		int spellerIndex=0;
@@ -200,31 +187,22 @@ bool HunspellPluginImpl::parseTextFrame(StoryText *iText)
 			}
 			spellerIndex=i;
 		}
-		++wordCount;
-		++wordNo;
-		QStringList replacements;
 		if (hspellers[spellerIndex]->spell(word.toUtf8().constData())==0)
 		{
-//			qDebug()<<word<<wordLang;
-			++errorCount;
-			char **sugglist = NULL;
-			int suggCount=hspellers[spellerIndex]->suggest(&sugglist, word.toUtf8().constData());
-			for (int j=0; j < suggCount; ++j)
-			{
-//				qDebug()<<"Suggestion "<<j<<":"<<sugglist[j];
-				replacements << QString::fromUtf8(sugglist[j]);
-			}
-			hspellers[spellerIndex]->free_list(&sugglist, suggCount);
-
 			struct WordsFound wf;
 			wf.start=currPos;
-			wf.end=eoWord;
+			wf.end=wordEnd;
 			wf.w=word;
-			wf.replacements=replacements;
 			wf.changed=false;
 			wf.ignore=false;
 			wf.changeOffset=0;
 			wf.lang=wordLang;
+			wf.replacements.clear();
+			char **sugglist = NULL;
+			int suggCount=hspellers[spellerIndex]->suggest(&sugglist, word.toUtf8().constData());
+			for (int j=0; j < suggCount; ++j)
+				wf.replacements << QString::fromUtf8(sugglist[j]);
+			hspellers[spellerIndex]->free_list(&sugglist, suggCount);
 			wordsToCorrect.append(wf);
 		}
 	}

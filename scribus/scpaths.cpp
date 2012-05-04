@@ -274,16 +274,41 @@ QStringList ScPaths::spellDirs() const
 	if (d.exists())
 		spellDirs.append(finkPath);
 	d.setPath(osxLibreOfficePath);
+
 	if (d.exists())
-		spellDirs.append(osxLibreOfficePath);
+	{
+		QStringList dictDirFilters;
+		dictDirFilters << "dict-*";
+		QStringList dictDirList(d.entryList(dictDirFilters, QDir::Dirs, QDir::Name));
+		QString dir;
+		foreach (dir, dictDirList)
+			spellDirs.append(osxLibreOfficePath + "/" + dir + "/");
+	}
 	d.setPath(osxUserLibreOfficePath);
 	if (d.exists())
-		spellDirs.append(osxUserLibreOfficePath);
+	{
+		QStringList dictDirFilters;
+		dictDirFilters << "dict-*";
+		QStringList dictDirList(d.entryList(dictDirFilters, QDir::Dirs, QDir::Name));
+		QString dir;
+		foreach (dir, dictDirList)
+			spellDirs.append(osxUserLibreOfficePath + "/" + dir + "/");
+	}
+
 #elif defined(_WIN32)
 	QString progFiles = getSpecialDir(CSIDL_PROGRAM_FILES);
 	d.setPath(progFiles+windowsLOPath);
 	if (d.exists())
-		spellDirs.append(progFiles+windowsLOPath);
+	{
+		QStringList dictDirFilters;
+		dictDirFilters << "dict-*";
+		QStringList dictDirList(d.entryList(dictDirFilters, QDir::Dirs, QDir::Name));
+		QString dir;
+		foreach (dir, dictDirList)
+			spellDirs.append(progFiles+windowsLOPath + "/" + dir + "/");
+	}
+	if (d.exists())
+		spellDirs.append(progFiles+windowsLOPath + "/" + dir + "/");
 #elif defined(Q_WS_X11)
 	d.setPath(linuxPath);
 	if (d.exists())
