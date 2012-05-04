@@ -61,6 +61,11 @@ public:
 	void setInitialWidth(const double);
 	void setInitialHeight(const double);
 	void copySizingProperties(Page *sourcePage, const MarginStruct& pageMargins);
+	double leftMargin() const { return Margins.Left; }
+	double topMargin() const { return Margins.Top; }
+	double bottomMargin() const { return Margins.Bottom; }
+	double rightMargin() const { return Margins.Right; }
+
 	MarginStruct Margins;
 	MarginStruct initialMargins;
   /** Nummer der Seite */
