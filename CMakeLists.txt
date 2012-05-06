@@ -862,7 +862,6 @@ ADD_SUBDIRECTORY(resources/loremipsum)
 ADD_SUBDIRECTORY(resources/profiles)
 ADD_SUBDIRECTORY(resources/swatches)
 ADD_SUBDIRECTORY(resources/templates)
-#ADD_SUBDIRECTORY(resources/translations/qm)
 ADD_SUBDIRECTORY(resources/translations/po)
 
 #Install our READMEs etc.
@@ -876,11 +875,17 @@ INSTALL(FILES
   NEWS
   PACKAGING
   README
-  README.MacOSX
   TODO
   TRANSLATION
   DESTINATION ${DOCDIR}
 )
+
+IF (APPLE)
+  INSTALL(FILES
+    README.MacOSX
+    DESTINATION ${DOCDIR}
+  )
+ENDIF (APPLE)
 
 #Install our MIME data
 INSTALL(FILES

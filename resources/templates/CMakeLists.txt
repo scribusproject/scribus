@@ -3,6 +3,11 @@ ${CMAKE_SOURCE_DIR}
 ${CMAKE_SOURCE_DIR}/scribus
 )
 
+# Gentoo has an option for no templates. Let's make the ebuild simpler and open up the option to others, but leave as a default for us. Make the directory in any case as our source will look for it.
+IF (WANT_NOTEMPLATES)
+  INSTALL(CODE "FILE(MAKE_DIRECTORY ${ENV}${CMAKE_INSTALL_PREFIX}/${TEMPLATEDIR})")
+ELSE (WANT_NOTEMPLATES)
+
 INSTALL(FILES
 template.xml
   DESTINATION ${TEMPLATEDIR}
@@ -351,3 +356,5 @@ buscard_coll/Business_Card_Collectiontn.png
 buscard_coll/Business_Card_Collection.png
   DESTINATION ${TEMPLATEDIR}buscard_coll
 )
+
+ENDIF (WANT_NOTEMPLATES)
