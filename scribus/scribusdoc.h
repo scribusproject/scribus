@@ -459,6 +459,7 @@ public:
 	 * @brief Return the layer count
 	 * @return Number of layers in doc
 	 */
+	int layerIDFromName(QString name);
 	int layerCount() const;
 	/**
 	 * @brief Lower a layer

@@ -2894,6 +2894,17 @@ int ScribusDoc::layerIDFromLevel(const int layerLevel)
 	return -1;
 }
 
+int ScribusDoc::layerIDFromName(QString name)
+{
+	ScLayers::iterator itend=Layers.end();
+	ScLayers::iterator it;
+	for (it = Layers.begin(); it != itend; ++it)
+	{
+		if (it->Name == name)
+			return it->ID;
+	}
+	return -1;
+}
 
 bool ScribusDoc::lowerLayer(const int layerID)
 {
