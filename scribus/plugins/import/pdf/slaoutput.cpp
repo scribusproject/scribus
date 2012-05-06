@@ -1375,12 +1375,68 @@ void SlaOutputDev::drawImage(GfxState *state, Object *ref, Stream *str, int widt
 	delete image;
 }
 
+void SlaOutputDev::beginMarkedContent(char *name, Object *dictRef)
+{
+	mContent mSte;
+	mSte.name = QString(name);
+	mSte.ocgName = "";
+	if (importerFlags & LoadSavePlugin::lfCreateDoc)
+	{
+		if (dictRef->isNull())
+			return;
+		Object dictObj;
+		Dict *dict;
+		Object dictType;
+		OCGs *contentConfig = catalog->getOptContentConfig();
+		OptionalContentGroup *oc;
+		if (dictRef->isRef())
+		{
+			oc = contentConfig->findOcgByRef(dictRef->getRef());
+			if (oc)
+			{
+//				qDebug() << "Begin OCG Content (Ref) with Name " << QString(name) << "Layer" << UnicodeParsedString(oc->getName());
+				m_doc->setActiveLayer(UnicodeParsedString(oc->getName()));
+				mSte.ocgName = UnicodeParsedString(oc->getName());
+			}
+		}
+		else
+		{
+			dictRef->fetch(xref, &dictObj);
+			if (!dictObj.isDict())
+			{
+				dictObj.free();
+				return;
+			}
+			dict = dictObj.getDict();
+			dict->lookup("Type", &dictType);
+			if (dictType.isName("OCG"))
+			{
+				oc = contentConfig->findOcgByRef(dictRef->getRef());
+				if (oc)
+				{
+//					qDebug() << "Begin OCG Content with Name " << UnicodeParsedString(oc->getName());
+					m_doc->setActiveLayer(UnicodeParsedString(oc->getName()));
+					mSte.ocgName = UnicodeParsedString(oc->getName());
+				}
+			}
+			dictType.free();
+			dictObj.free();
+		}
+	}
+	m_mcStack.push(mSte);
+}
+
 void SlaOutputDev::beginMarkedContent(char *name, Dict *properties)
 {
 //	qDebug() << "Begin Marked Content with Name " << QString(name);
+	QString nam = QString(name);
+	mContent mSte;
+	mSte.name = nam;
+	mSte.ocgName = "";
+	m_mcStack.push(mSte);
 	if (importerFlags & LoadSavePlugin::lfCreateDoc)
 	{
-		if (QString(name) == "Layer")		// Handle Adobe Illustrator Layer command
+		if (nam == "Layer")		// Handle Adobe Illustrator Layer command
 		{
 			if (layersSetByOCG)
 				return;
@@ -1447,6 +1503,24 @@ void SlaOutputDev::beginMarkedContent(char *name, Dict *properties)
 void SlaOutputDev::endMarkedContent(GfxState *state)
 {
 //	qDebug() << "End Marked Content";
+	if (m_mcStack.count() > 0)
+	{
+		mContent mSte = m_mcStack.pop();
+		if (importerFlags & LoadSavePlugin::lfCreateDoc)
+		{
+			if (mSte.name == "OC")
+			{
+				for (ScLayers::iterator it = m_doc->Layers.begin(); it != m_doc->Layers.end(); ++it)
+				{
+					if (it->Name == mSte.ocgName)
+					{
+						m_doc->setActiveLayer(mSte.ocgName);
+						return;
+					}
+				}
+			}
+		}
+	}
 }
 
 void SlaOutputDev::markPoint(char *name)
@@ -2460,4 +2534,41 @@ void SlaOutputDev::pushGroup(QString maskName, GBool forSoftMask, GBool alpha, b
 	gElements.inverted = inverted;
 	gElements.maskName = maskName;
 	m_groupStack.push(gElements);
+}
+
+QString SlaOutputDev::UnicodeParsedString(GooString *s1)
+{
+	if ( !s1 || s1->getLength() == 0 )
+		return QString();
+	GBool isUnicode;
+	int i;
+	Unicode u;
+	QString result;
+	if ((s1->getChar(0) & 0xff) == 0xfe && (s1->getLength() > 1 && (s1->getChar(1) & 0xff) == 0xff))
+	{
+		isUnicode = gTrue;
+		i = 2;
+		result.reserve((s1->getLength() - 2) / 2);
+	}
+	else
+	{
+		isUnicode = gFalse;
+		i = 0;
+		result.reserve(s1->getLength());
+	}
+	while (i < s1->getLength())
+	{
+		if (isUnicode)
+		{
+			u = ((s1->getChar(i) & 0xff) << 8) | (s1->getChar(i+1) & 0xff);
+			i += 2;
+		}
+		else
+		{
+			u = s1->getChar(i) & 0xff;
+			++i;
+		}
+		result += QChar( u );
+	}
+	return result;
 }

@@ -278,9 +278,9 @@ PdfPlug::~PdfPlug()
 
 bool PdfPlug::convert(QString fn)
 {
-	bool firstLayer = true;
 	bool firstPg = true;
 	int currentLayer = m_Doc->activeLayer();
+	int baseLayer = m_Doc->activeLayer();
 	importedColors.clear();
 	if(progressDialog)
 	{
@@ -322,6 +322,8 @@ bool PdfPlug::convert(QString fn)
 						hasOcg = ocg->hasOCGs();
 						if (hasOcg)
 						{
+
+							QStringList ocgNames;
 							Array *order = ocg->getOrderArray();
 							if (order)
 							{
@@ -336,9 +338,30 @@ bool PdfPlug::convert(QString fn)
 										if (ref.isRef())
 										{
 											OptionalContentGroup *oc = ocg->findOcgByRef(ref.getRef());
-											ocgGroups.prepend(oc);
+											QString ocgName = UnicodeParsedString(oc->getName());
+											if (!ocgNames.contains(ocgName))
+											{
+												ocgGroups.prepend(oc);
+												ocgNames.append(ocgName);
+											}
 										}
 										ref.free();
+									}
+									else
+									{
+										GooList *ocgs;
+										int i;
+										ocgs = ocg->getOCGs ();
+										for (i = 0; i < ocgs->getLength (); ++i)
+										{
+											OptionalContentGroup *oc = (OptionalContentGroup *)ocgs->get(i);
+											QString ocgName = UnicodeParsedString(oc->getName());
+											if (!ocgNames.contains(ocgName))
+											{
+												ocgGroups.prepend(oc);
+												ocgNames.append(ocgName);
+											}
+										}
 									}
 								}
 							}
@@ -350,7 +373,12 @@ bool PdfPlug::convert(QString fn)
 								for (i = 0; i < ocgs->getLength (); ++i)
 								{
 									OptionalContentGroup *oc = (OptionalContentGroup *)ocgs->get(i);
-									ocgGroups.prepend(oc);
+									QString ocgName = UnicodeParsedString(oc->getName());
+									if (!ocgNames.contains(ocgName))
+									{
+										ocgGroups.prepend(oc);
+										ocgNames.append(ocgName);
+									}
 								}
 							}
 						}
@@ -362,19 +390,18 @@ bool PdfPlug::convert(QString fn)
 					int rotate = pdfDoc->getPageRotate(firstPage);
 					if (importerFlags & LoadSavePlugin::lfCreateDoc)
 					{
+// POPPLER_VERSION appeared in 0.19.0 first
+#ifdef POPPLER_VERSION
 						if (hasOcg)
 						{
+							QString actL = m_Doc->activeLayerName();
 							for (int a = 0; a < ocgGroups.count(); a++)
 							{
 								OptionalContentGroup *oc = ocgGroups[a];
-								if (firstLayer)
-								{
-									m_Doc->changeLayerName(m_Doc->activeLayer(), UnicodeParsedString(oc->getName()));
-									currentLayer = m_Doc->activeLayer();
-									firstLayer = false;
-								}
-								else
+								if (actL != UnicodeParsedString(oc->getName()))
 									currentLayer = m_Doc->addLayer(UnicodeParsedString(oc->getName()), false);
+								else
+									currentLayer = m_Doc->layerIDFromName(UnicodeParsedString(oc->getName()));
 // POPPLER_VERSION appeared in 0.19.0 first
 #ifdef POPPLER_VERSION
 								if ((oc->getViewState() == OptionalContentGroup::ocUsageOn) || (oc->getViewState() == OptionalContentGroup::ocUsageUnset))
@@ -401,6 +428,7 @@ bool PdfPlug::convert(QString fn)
 							}
 							dev->layersSetByOCG = true;
 						}
+#endif
 						Object info;
 						pdfDoc->getDocInfo(&info);
 						if (info.isDict())
@@ -436,6 +464,7 @@ bool PdfPlug::convert(QString fn)
 						info.free();
 						for (int pp = 0; pp < lastPage; pp++)
 						{
+							m_Doc->setActiveLayer(baseLayer);
 							if (firstPg)
 								firstPg = false;
 							else
@@ -453,12 +482,13 @@ bool PdfPlug::convert(QString fn)
 								for (int a = 0; a < ocgGroups.count(); a++)
 								{
 									OptionalContentGroup *oc = ocgGroups[a];
-									m_Doc->setActiveLayer(UnicodeParsedString(oc->getName()));
-									currentLayer = m_Doc->activeLayer();
+								//	m_Doc->setActiveLayer(UnicodeParsedString(oc->getName()));
+								//	currentLayer = m_Doc->activeLayer();
 									oc->setState(OptionalContentGroup::On);
-									pdfDoc->displayPage(dev, pp + 1, hDPI, vDPI, rotate, useMediaBox, crop, printing);
-									oc->setState(OptionalContentGroup::Off);
+								//	pdfDoc->displayPage(dev, pp + 1, hDPI, vDPI, rotate, useMediaBox, crop, printing);
+								//	oc->setState(OptionalContentGroup::Off);
 								}
+								pdfDoc->displayPage(dev, pp + 1, hDPI, vDPI, rotate, useMediaBox, crop, printing);
 							}
 							else
 								pdfDoc->displayPage(dev, pp + 1, hDPI, vDPI, rotate, useMediaBox, crop, printing);

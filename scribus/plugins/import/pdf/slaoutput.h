@@ -83,6 +83,7 @@ public:
 	virtual GBool useTilingPatternFill() { return gTrue; }
 	virtual GBool useShadedFills(int type) { return type <= 7; }
 	virtual GBool useFillColorStop() { return gTrue; }
+	virtual GBool useDrawForm() { return gFalse; }
 	virtual void startPage(int, GfxState *);
 	virtual void endPage();
 	// grapics state
@@ -93,7 +94,6 @@ public:
 	virtual void stroke(GfxState *state);
 	virtual void fill(GfxState *state);
 	virtual void eoFill(GfxState *state);
-	virtual void clipToStrokePath(GfxState *state) { qDebug() << "clip to stroke path"; }
 	virtual GBool tilingPatternFill(GfxState *state, Catalog *cat, Object *str, double *pmat, int paintType, Dict *resDict,
 				  double *mat, double *bbox, int x0, int y0, int x1, int y1, double xStep, double yStep);
 	virtual GBool axialShadedFill(GfxState *state, GfxAxialShading *shading, double tMin, double tMax);
@@ -105,6 +105,7 @@ public:
 	//----- path clipping
 	virtual void clip(GfxState *state);
 	virtual void eoClip(GfxState *state);
+	virtual void clipToStrokePath(GfxState * /*state*/) { qDebug() << "Clip to StrokePath"; }
 	virtual GBool deviceHasTextClip(GfxState *state) { return gFalse; }
 
   // If current colorspace is pattern,
@@ -125,6 +126,7 @@ public:
 
   //----- grouping operators
 	virtual void beginMarkedContent(char *name, Dict *properties);
+	virtual void beginMarkedContent(char *name, Object *dictRef);
 	virtual void endMarkedContent(GfxState *state);
 	virtual void markPoint(char *name);
 	virtual void markPoint(char *name, Dict *properties);
@@ -165,6 +167,10 @@ public:
 	virtual void endType3Char(GfxState * /*state*/);
 	virtual void type3D0(GfxState * /*state*/, double /*wx*/, double /*wy*/);
 	virtual void type3D1(GfxState * /*state*/, double /*wx*/, double /*wy*/, double /*llx*/, double /*lly*/, double /*urx*/, double /*ury*/);
+	//----- form XObjects
+	virtual void drawForm(Ref /*id*/) { qDebug() << "Draw Form"; }
+	//----- links
+	virtual void processLink(AnnotLink * /*link*/) { qDebug() << "Draw Link"; }
 	bool layersSetByOCG;
 
 private:
@@ -174,6 +180,7 @@ private:
 	int getBlendMode(GfxState *state);
 	void applyMask(PageItem *ite);
 	void pushGroup(QString maskName = "", GBool forSoftMask = gFalse, GBool alpha = gFalse, bool inverted = false);
+	QString UnicodeParsedString(GooString *s1);
 	bool pathIsClosed;
 	QString CurrColorFill;
 	QString CurrColorStroke;
@@ -217,6 +224,12 @@ private:
 		bool colored;
 	};
 	QMap<QString, F3GlyphEntry> m_Font_Pattern_Map;
+	struct mContent
+	{
+		QString name;
+		QString ocgName;
+	};
+	QStack<mContent> m_mcStack;
 	int grStackDepth;
 	int layerNum;
 	int currentLayer;
