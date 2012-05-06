@@ -40,6 +40,7 @@ MovePages::MovePages( QWidget* parent, int currentPage, int maxPages, bool movin
 	fromPageData->setMinimum(1);
 	fromPageData->setMaximum(maxPages);
 	fromPageData->setValue( currentPage );
+	fromPageData->setSuffix("");
 	uint currentRow = 0;
 	fromToLayout->addWidget( moveLabel, currentRow, 0);
 	fromToLayout->addWidget( fromPageData, currentRow, 1);
@@ -52,6 +53,7 @@ MovePages::MovePages( QWidget* parent, int currentPage, int maxPages, bool movin
 		toPageData->setMinimum(1);
 		toPageData->setMaximum(maxPages);
 		toPageData->setValue( currentPage );
+		toPageData->setSuffix("");
 		fromToLayout->addWidget( toLabel, currentRow, 2);
 		fromToLayout->addWidget( toPageData, currentRow, 3);
 	}
@@ -62,6 +64,7 @@ MovePages::MovePages( QWidget* parent, int currentPage, int maxPages, bool movin
 		numberOfCopiesData->setDecimals(0);
 		numberOfCopiesData->setMinimum(1);
 		numberOfCopiesData->setMaximum(999);
+		numberOfCopiesData->setSuffix("");
 		++currentRow;
 		fromToLayout->addWidget(numberOfCopiesLabel, currentRow, 0);
 		fromToLayout->addWidget(numberOfCopiesData, currentRow, 1);
@@ -77,6 +80,7 @@ MovePages::MovePages( QWidget* parent, int currentPage, int maxPages, bool movin
 	mvWherePageData->setDecimals(0);
 	mvWherePageData->setMaximum(maxPages);
 	mvWherePageData->setValue( currentPage );
+	mvWherePageData->setSuffix("");
 	mvWherePageData->setDisabled( true );
 	fromToLayout->addWidget( mvWhereData, currentRow, 0 );
 	fromToLayout->addItem(new QSpacerItem(moveLabel->fontMetrics().width( tr( "Move Page(s):" )), 0), currentRow, 1);
