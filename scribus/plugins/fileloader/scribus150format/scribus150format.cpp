@@ -1923,7 +1923,7 @@ void Scribus150Format::readDocAttributes(ScribusDoc* doc, ScXmlStreamAttributes&
 	m_Doc->PageSpa = attrs.valueAsDouble("ABSTSPALTEN");
 	m_Doc->setUnitIndex( attrs.valueAsInt("UNITS", 0) );
 
-	m_Doc->setHyphLanguage(attrs.valueAsString("LANGUAGE", ""));
+	m_Doc->setHyphLanguage(attrs.valueAsString("LANGUAGE", "en_US"));
 	m_Doc->setHyphMinimumWordLength(attrs.valueAsInt("MINWORDLEN", 3));
 	m_Doc->setHyphConsecutiveLines(attrs.valueAsInt("HYCOUNT", 2));
 

@@ -6,6 +6,7 @@ for which a new license (GPL+exception) is in place.
 */
 #include <QInputDialog>
 #include <QListWidget>
+#include <QDebug>
 
 #include "prefs_hyphenator.h"
 #include "langmgr.h"
@@ -57,7 +58,7 @@ void Prefs_Hyphenator::restoreDefaults(struct ApplicationPrefs *prefsData)
 {
 	hyphSuggestionsCheckBox->setChecked(!prefsData->hyphPrefs.Automatic);
 	hyphAutoCheckBox->setChecked(prefsData->hyphPrefs.AutoCheck);
-	setCurrentComboItem(hyphLanguageComboBox, LanguageManager::instance()->getTransLangFromLang(prefsData->hyphPrefs.Language));
+	setCurrentComboItem(hyphLanguageComboBox, LanguageManager::instance()->getLangFromAbbrev(prefsData->hyphPrefs.Language, true));
 	smallestWordSpinBox->setValue(prefsData->hyphPrefs.MinWordLen);
 	maxConsecutiveCountSpinBox->setValue(prefsData->hyphPrefs.HyCount);
 	ignoreListWidget->addItems(prefsData->hyphPrefs.ignoredWords.toList());
@@ -70,7 +71,8 @@ void Prefs_Hyphenator::saveGuiToPrefs(struct ApplicationPrefs *prefsData) const
 {
 	prefsData->hyphPrefs.MinWordLen = smallestWordSpinBox->value();
 	 //FIXME: remove this ScCore call
-	prefsData->hyphPrefs.Language = ScCore->primaryMainWindow()->GetLang(hyphLanguageComboBox->itemData(hyphLanguageComboBox->currentIndex()).toString());
+	QString langFromCombo(ScCore->primaryMainWindow()->GetLang(hyphLanguageComboBox->itemData(hyphLanguageComboBox->currentIndex()).toString()));
+	prefsData->hyphPrefs.Language = LanguageManager::instance()->getAbbrevFromLang(langFromCombo, true, false);
 	prefsData->hyphPrefs.Automatic = !hyphSuggestionsCheckBox->isChecked();
 	prefsData->hyphPrefs.AutoCheck = hyphAutoCheckBox->isChecked();
 	prefsData->hyphPrefs.HyCount = maxConsecutiveCountSpinBox->value();

@@ -20,7 +20,7 @@ for which a new license (GPL+exception) is in place.
  ***************************************************************************/
  
 #include <iostream>
-
+#include <QDebug>
 #include <QDir>
 #include <QFileInfo>
 #include <QMap>
@@ -74,8 +74,10 @@ void LanguageManager::generateLangList()
 	langList.insert("nl",       langPair("Dutch",               QObject::tr( "Dutch" )) );
 	langList.insert("en",       langPair("English",             QObject::tr( "English" )) );
 	langList.insert("en_AU",    langPair("English (Australian)",QObject::tr( "English (Australian)" )) );
+	langList.insert("en_CA",    langPair("English (Canadian)",  QObject::tr( "English (Canadian)" )) );
 	langList.insert("en_GB",    langPair("English (British)",   QObject::tr( "English (British)" )) );
 	langList.insert("en_US",    langPair("English (American)",  QObject::tr( "English (American)" )) );
+	langList.insert("en_ZA",    langPair("English (South African)",  QObject::tr( "English (South African)" )) );
 	langList.insert("eo",       langPair("Esperanto",           QObject::tr( "Esperanto" )) );
 	langList.insert("et",       langPair("Estonian",            QObject::tr( "Estonian" )) );
 	langList.insert("de",       langPair("German",              QObject::tr( "German" )) );
@@ -128,6 +130,7 @@ void LanguageManager::generateLangList()
 	langList.insert("tr",       langPair("Turkish",             QObject::tr( "Turkish" )) );
 	langList.insert("tr_TR",    langPair("Turkish",             QObject::tr( "Turkish" )) );
 	langList.insert("uk",       langPair("Ukranian",            QObject::tr( "Ukranian" )) );
+	langList.insert("uk_UA",    langPair("Ukranian",            QObject::tr( "Ukranian" )) );
 	langList.insert("vi",       langPair("Vietnamese",          QObject::tr( "Vietnamese" )) );
 	langList.insert("cy",       langPair("Welsh",               QObject::tr( "Welsh" )) );
 }

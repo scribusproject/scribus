@@ -712,6 +712,18 @@ IF (WITH_ASPELL)
 ENDIF (WITH_ASPELL)
 #>>ASPELL for Speelling support
 
+#<<HUNSPELL for Speelling support
+OPTION(WANT_HUNSPELL "Enable support for spell checking with hunspell" OFF)
+IF (WANT_HUNSPELL)
+  FIND_PACKAGE(HUNSPELL)
+  IF (HUNSPELL_FOUND)
+    MESSAGE("Hunspell Found OK")
+    SET(HAVE_HUNSPELL 1)
+  ELSE (HUNSPELL_FOUND)
+    MESSAGE("HunSpell or its developer libraries NOT found - Disabling support for spell checking")
+  ENDIF (HUNSPELL_FOUND)
+ENDIF (WANT_HUNSPELL)
+#>>HUNSPELL for Speelling support
 
 #<<PoDoFo for AI PDF import
 OPTION(WITH_PODOFO "Enable support for PDF embedded in AI" ON)

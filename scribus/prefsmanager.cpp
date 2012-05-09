@@ -310,7 +310,7 @@ void PrefsManager::initDefaults()
 	appPrefs.docSetupPrefs.bleeds.Bottom = 0;
 	appPrefs.hyphPrefs.MinWordLen = 3;
 	appPrefs.hyphPrefs.HyCount = 2;
-	appPrefs.hyphPrefs.Language = "";
+	appPrefs.hyphPrefs.Language = "en_US";
 	appPrefs.hyphPrefs.specialWords.clear();
 	appPrefs.hyphPrefs.ignoredWords.clear();
 	appPrefs.hyphPrefs.Automatic = true;
@@ -2387,7 +2387,7 @@ bool PrefsManager::ReadPref(QString ho)
 		}
 		if (dc.tagName()=="Hyphenator")
 		{
-			appPrefs.hyphPrefs.Language = dc.attribute("Language","");
+			appPrefs.hyphPrefs.Language = dc.attribute("Language","en_US");
 			appPrefs.hyphPrefs.MinWordLen = dc.attribute("WordLength", "3").toInt();
 			appPrefs.hyphPrefs.HyCount = dc.attribute("HyphenCount", "2").toInt();
 			appPrefs.hyphPrefs.Automatic = static_cast<bool>(dc.attribute("Automatic", "1").toInt());

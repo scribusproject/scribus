@@ -110,6 +110,8 @@ class SCRIBUS_API StoryText : public QObject, public SaxIO
 
  	void clear();
 	StoryText copy() const;
+	
+	// Add, change, replace
 	// Insert chars from another StoryText object at current cursor position
 	void insert(const StoryText& other, bool onlySelection = false);
 	// Insert chars from another StoryText object at specific position
@@ -127,6 +129,8 @@ class SCRIBUS_API StoryText : public QObject, public SaxIO
 	// Insert object at specific position
 	void insertObject(int pos, int obj);
  	void replaceChar(int pos, QChar ch);
+ 	// Replaced a word, and return the difference in length between old and new
+	int replaceWord(int pos, QString newWord);
 	void replaceObject(int pos, int obj);
 
 	void hyphenateWord(int pos, uint len, char* hyphens);
@@ -138,6 +142,8 @@ class SCRIBUS_API StoryText : public QObject, public SaxIO
  	QChar   text(int pos) const;
 	// Get text with len chars at specific position
  	QString text(int pos, uint len) const;
+ 	//Get sentence at any position within it
+	QString sentence(int pos, int &posn);
 	// Get word at specific position
 	QString wordAt(int pos) const;
 
@@ -199,6 +205,7 @@ class SCRIBUS_API StoryText : public QObject, public SaxIO
 	int prevChar(int pos);
 	int nextWord(int pos);
 	int prevWord(int pos);
+	int endOfWord(int pos) const;
 	int nextSentence(int pos);
 	int prevSentence(int pos);
 	int nextParagraph(int pos);

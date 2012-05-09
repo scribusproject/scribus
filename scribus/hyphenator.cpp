@@ -63,7 +63,7 @@ Hyphenator::Hyphenator(QWidget* parent, ScribusDoc *dok) : QObject( parent ),
 		doc->setHyphLanguage(Language);
 	}
 // 	pfad += ScCore->primaryMainWindow()->Sprachen[Language];
-	pfad += lmgr->getHyphFilename( doc->hyphLanguage(), false );
+	pfad += lmgr->getHyphFilename( doc->hyphLanguage(), true );
 	QFile f(pfad);
 	if (f.open(QIODevice::ReadOnly))
 	{

@@ -387,11 +387,14 @@ public:
 	virtual void changeEvent(QEvent *e);
 
 	void setCurrentDocumentAndItem(ScribusDoc *doc=NULL, PageItem *item=NULL);
+	void setSpellActive(bool ssa);
 
 	ScribusDoc* currentDocument() const;
 	PageItem* currentItem() const;
 	SEditor* Editor;
 	bool activFromApp;
+	MenuManager* seMenuMgr;
+	QMap<QString, QPointer<ScrAction> > seActions;
 
 public slots:
 	void newStyle(const QString&);
@@ -517,9 +520,7 @@ protected:
 	PrefsManager* prefsManager;
 	PrefsContext* prefs;
 
-	QMap<QString, QPointer<ScrAction> > seActions;
 	QStringList unicodeCharActionNames;
-	MenuManager* seMenuMgr;
 	QPixmap noIcon;
 
 	QToolBar* FileTools;
@@ -544,6 +545,8 @@ protected:
 	QLabel* WordC2;
 	QLabel* CharCT2;
 	QLabel* CharC2;
+	
+	bool m_spellActive;
 };
 
 #endif
