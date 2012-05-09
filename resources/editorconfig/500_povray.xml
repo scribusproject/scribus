@@ -50,6 +50,7 @@ light_source { &lt;-10, 3, -20&gt; color red 1 green 1 blue 1 }
 			  <de>Render Optionen</de>
 			  <ru>Параметры визуализации</ru>
 			  <hu>Renderelési beállítások</hu>
+			  <it>Opzioni di visualizzazione</it>
 		  </i18n>
 	  </title>
 	  <list name="quality" default="11">
@@ -60,6 +61,7 @@ light_source { &lt;-10, 3, -20&gt; color red 1 green 1 blue 1 }
 				  <de>Qualität:</de>
 				  <ru>Качество:</ru>
 				  <hu>Minőség:</hu>
+				  <it>Qualità:</it>
 			</i18n>
 		</title>
 		<option value="1"><i18n>
@@ -99,15 +101,18 @@ light_source { &lt;-10, 3, -20&gt; color red 1 green 1 blue 1 }
 				<de>Antialiasing:</de>
 				<ru>Сглаживание:</ru>
 				<hu>Élsimítás:</hu>
+				<it>Antialiasing:</it>
 			</i18n>
 		</title>
 		<option value="+A"><i18n>
 			<en>On</en>
 			<hu>Bekapcsolva</hu>
+			<it>Sì</it>
 		</i18n></option>
 		<option value="-A"><i18n>
 			<en>Off</en>
 			<hu>Kikapcsolva</hu>
+			<it>No</it>
 		</i18n></option>
 	</list>
 	<spinbox name="aathres" type="double" min="0.0" max="3.0" step="0.1" default="0.3">
@@ -117,6 +122,7 @@ light_source { &lt;-10, 3, -20&gt; color red 1 green 1 blue 1 }
 			<de>Antialiasing Schwellwert:</de>
 			<ru>Порог сглаживания:</ru>
 			<hu>Élsimítási küszöb:</hu>
+			<it>Soglia antialiasing:</it>
 		</i18n>
 	</spinbox>
 	<spinbox name="aadepth" type="short" min="1" max="9" step="1" default="3">
@@ -126,6 +132,7 @@ light_source { &lt;-10, 3, -20&gt; color red 1 green 1 blue 1 }
 			<de>Antialiasing Rekursion:</de>
 			<ru>Глубина сглаживания:</ru>
 			<hu>Élsimítás mélysége:</hu>
+			<it>Profondità antialiasing:</it>
 		</i18n>
 	</spinbox>
 	</tab>
