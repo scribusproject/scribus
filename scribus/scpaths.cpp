@@ -273,8 +273,6 @@ QStringList ScPaths::spellDirs() const
 		foreach (dir, dictDirList)
 			spellDirs.append(progFiles+windowsLOPath + "/" + dir + "/");
 	}
-	if (d.exists())
-		spellDirs.append(progFiles+windowsLOPath + "/" + dir + "/");
 #elif defined(Q_WS_X11)
 	d.setPath(linuxHunspellPath);
 	if (d.exists())
