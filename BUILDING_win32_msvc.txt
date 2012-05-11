@@ -15,10 +15,11 @@ You will need:
 	- Cairo sources from cairographics.org (version >= 1.11.4)
 	- Pixman sources from cairographics.org (version >= 0.24.4)
 	- Boost from www.boost.org (version >= 1.35.0)
-	- Libxml2 win32 binaries from the Libxml project
+	- Freetype sources from freetype.org (version >= 2.4.0)
+	- Libhunspell sources from http://hunspell.sourceforge.net/ (version >= 1.3.2)
 	- Libjpeg win32 libs and binaries from the GnuWin32 project
 	- Libtiff win32 libs and binaries from the GnuWin32 project
-	- Freetype sources from freetype.org (version >= 2.4.0)
+	- Libxml2 win32 binaries from the Libxml project
 	- LittleCMS sources from www.littlecms.com (version >= 2.1)
 	- PoDoFo sources (version >= 0.8.0) from podofo.sourceforge.net
 	- Poppler sources (version >= 0.17.1) from poppler.freedesktop.org
@@ -145,6 +146,65 @@ Build cairo afterwards : open the cairo-win32 solution located in cairo-whatever
 directory and build Debug and Release configurations.
 
 ----
+Freetype:
+
+Unpack freetype
+
+Open include\freetype\config\ftoption.h and replace the DLL export compilation section
+by following lines :
+
+#ifndef __GNUC__
+# define __DLL_IMPORT__  __declspec(dllimport)
+# define __DLL_EXPORT__  __declspec(dllexport)
+#else
+# define __DLL_IMPORT__  __attribute__((dllimport)) extern
+# define __DLL_EXPORT__  __attribute__((dllexport)) extern
+#endif 
+
+#if (defined __WIN32__) || (defined _WIN32)
+# ifdef BUILD_FREETYPE2_DLL
+#  define FREETYPE2_DLL_IMPEXP     __DLL_EXPORT__
+# elif defined(FREETYPE2_STATIC)
+#  define FREETYPE2_DLL_IMPEXP      
+# elif defined (USE_FREETYPE2_DLL)
+#  define FREETYPE2_DLL_IMPEXP     __DLL_IMPORT__
+# elif defined (USE_FREETYPE2_STATIC)
+#  define FREETYPE2_DLL_IMPEXP      
+# else /* assume USE_FREETYPE2_DLL */
+#  define FREETYPE2_DLL_IMPEXP     __DLL_IMPORT__
+# endif
+#else /* __WIN32__ */
+# define FREETYPE2_DLL_IMPEXP  
+#endif
+
+#define FT_EXPORT(x)	FREETYPE2_DLL_IMPEXP x
+#define FT_BASE(x)		FREETYPE2_DLL_IMPEXP x
+
+Open builds\win32\vc2008
+Build "Release Multithreaded" and "Debug Multithreaded"
+
+At the end of the process you must have those files in your freetype lib
+directory :
+- freetype.dll
+- freetype.lib
+- freetypeD.dll
+- freetypeD.lib
+
+----
+Libhunspell :
+
+You will probably find easier to directly download packages with Visual 
+Studio 2008 solutions ready to build. You can find required file at 
+following address :
+
+https://sourceforge.net/projects/scribus/files/scribus-libs/win32-msvc2008/
+
+Download the scribus-hunspell-*.zip archive. Unpack it.
+
+Open the visual studio solution located in hunspell-whatever/src/win-api directory and build 
+Debug and Release configurations of Libhunspell project.
+
+----
 Libjpeg :
 
 While Qt also bundles libjpeg, it's not linked to the main DLL but rather a plugin.
@@ -197,51 +257,6 @@ C:\Developer
 		|- lib
 		|- man
 		|- manifest
-
-----
-Freetype:
-
-Unpack freetype
-
-Open include\freetype\config\ftoption.h and replace the DLL export compilation section
-by following lines :
-
-#ifndef __GNUC__
-# define __DLL_IMPORT__  __declspec(dllimport)
-# define __DLL_EXPORT__  __declspec(dllexport)
-#else
-# define __DLL_IMPORT__  __attribute__((dllimport)) extern
-# define __DLL_EXPORT__  __attribute__((dllexport)) extern
-#endif 
-
-#if (defined __WIN32__) || (defined _WIN32)
-# ifdef BUILD_FREETYPE2_DLL
-#  define FREETYPE2_DLL_IMPEXP     __DLL_EXPORT__
-# elif defined(FREETYPE2_STATIC)
-#  define FREETYPE2_DLL_IMPEXP      
-# elif defined (USE_FREETYPE2_DLL)
-#  define FREETYPE2_DLL_IMPEXP     __DLL_IMPORT__
-# elif defined (USE_FREETYPE2_STATIC)
-#  define FREETYPE2_DLL_IMPEXP      
-# else /* assume USE_FREETYPE2_DLL */
-#  define FREETYPE2_DLL_IMPEXP     __DLL_IMPORT__
-# endif
-#else /* __WIN32__ */
-# define FREETYPE2_DLL_IMPEXP  
-#endif
-
-#define FT_EXPORT(x)	FREETYPE2_DLL_IMPEXP x
-#define FT_BASE(x)		FREETYPE2_DLL_IMPEXP x
-
-Open builds\win32\vc2008
-Build "Release Multithreaded" and "Debug Multithreaded"
-
-At the end of the process you must have those files in your freetype lib
-directory :
-- freetype.dll
-- freetype.lib
-- freetypeD.dll
-- freetypeD.lib
 
 ----
 Libxml2 / iconv :
