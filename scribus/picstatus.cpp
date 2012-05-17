@@ -377,7 +377,7 @@ void PicStatus::GotoPic()
 {
 	if (currItem != NULL)
 	{
-		if (currItem->OnMasterPage.isEmpty() && currItem->doc()->masterPageMode())
+		if (currItem->OnMasterPage.isEmpty() && m_Doc->masterPageMode())
 			ScCore->primaryMainWindow()->closeActiveWindowMasterPageEditor();
 		if (!currItem->OnMasterPage.isEmpty())
 			emit selectMasterPage(currItem->OnMasterPage);
@@ -391,9 +391,9 @@ void PicStatus::SelectPic()
 	if (currItem == NULL)
 		return;
 
-	if (currItem->OnMasterPage.isEmpty() && currItem->doc()->masterPageMode())
+	if (currItem->OnMasterPage.isEmpty() && m_Doc->masterPageMode())
 		ScCore->primaryMainWindow()->closeActiveWindowMasterPageEditor();
-	else if (!currItem->OnMasterPage.isEmpty() && !currItem->doc()->masterPageMode())
+	else if (!currItem->OnMasterPage.isEmpty() && !m_Doc->masterPageMode())
 		emit selectMasterPage(currItem->OnMasterPage);
 
 	if (currItem->Groups.count() == 0)
