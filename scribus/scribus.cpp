@@ -9176,16 +9176,6 @@ void ScribusMainWindow::showLayer()
 	view->DrawNew();
 }
 
-void ScribusMainWindow::UnDoAction()
-{
-	undoManager->undo(1);
-}
-
-void ScribusMainWindow::RedoAction()
-{
-	undoManager->redo(1);
-}
-
 void ScribusMainWindow::initHyphenator()
 {
 	InstLang.clear();
@@ -9536,14 +9526,6 @@ void ScribusMainWindow::setUndoMode(bool isObjectSpecific)
 bool ScribusMainWindow::isObjectSpecificUndo()
 {
 	return objectSpecificUndo;
-}
-
-void ScribusMainWindow::slotTest()
-{
-}
-
-void ScribusMainWindow::slotTest2()
-{
 }
 
 void ScribusMainWindow::getImageInfo()
