@@ -119,12 +119,12 @@
   <customwidget>
    <class>SeList</class>
    <extends>QListWidget</extends>
-   <header>pagepalette_widgets.h</header>
+   <header>ui/pagepalette_widgets.h</header>
   </customwidget>
   <customwidget>
    <class>SeView</class>
    <extends>QTableWidget</extends>
-   <header>pagepalette_widgets.h</header>
+   <header>ui/pagepalette_widgets.h</header>
   </customwidget>
   <customwidget>
    <class>PageLayouts</class>
@@ -135,7 +135,7 @@
   <customwidget>
    <class>TrashBin</class>
    <extends>QLabel</extends>
-   <header>pagepalette_widgets.h</header>
+   <header>ui/pagepalette_widgets.h</header>
   </customwidget>
  </customwidgets>
  <resources/>
