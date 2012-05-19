@@ -28,7 +28,6 @@ class QPushButton;
 
 class PrefsManager;
 class MarginWidget;
-class PageLayouts;
 class ScrSpinBox;
 class ScComboBox;
 #if QT_VERSION  >= 0x040300

@@ -113,8 +113,6 @@ struct UIPrefs
 	bool grayscaleIcons; //! Show icons in toolbars as grayscale
 	WindowPrefs mainWinSettings;
 	QByteArray mainWinState;
-	bool SepalT; //! Page Palette - show page thumbnails
-	bool SepalN; //! Page Palette - show names on pages
 };
 
 //Paths

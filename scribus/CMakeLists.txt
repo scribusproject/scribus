@@ -91,6 +91,8 @@ SET(SCRIBUS_UI_SRC
   ui/nftdialog.ui
   ui/nftwidget.ui
   ui/pageitemattributes.ui
+  ui/pagepalette_pagesbase.ui
+  ui/pagepalette_masterpagesbase.ui
   ui/paintmanagerbase.ui
   ui/picsearch.ui
   ui/picsearchoptions.ui
@@ -315,7 +317,6 @@ SET(SCRIBUS_MOC_CLASSES
   ui/marginpresetlayout.h
   ui/marginwidget.h
   ui/newmarginwidget.h
-  ui/masterpagepalette.h
   ui/measurements.h
   ui/mergedoc.h
   ui/missing.h
@@ -332,6 +333,9 @@ SET(SCRIBUS_MOC_CLASSES
   ui/pageitemattributes.h
   ui/pagelayout.h
   ui/pagepalette.h
+  ui/pagepalette_pages.h
+  ui/pagepalette_masterpages.h
+  ui/pagepalette_widgets.h
   ui/pageselector.h
   ui/paintmanager.h
   ui/patternpropsdialog.h
@@ -741,7 +745,6 @@ SET(SCRIBUS_SOURCES
   ui/marginpresetlayout.cpp
   ui/marginwidget.cpp
   ui/newmarginwidget.cpp
-  ui/masterpagepalette.cpp
   ui/mergedoc.cpp
   ui/missing.cpp
   ui/movepage.cpp
@@ -758,6 +761,9 @@ SET(SCRIBUS_SOURCES
   ui/pageitemattributes.cpp
   ui/pagelayout.cpp
   ui/pagepalette.cpp
+  ui/pagepalette_pages.cpp
+  ui/pagepalette_masterpages.cpp
+  ui/pagepalette_widgets.cpp
   ui/pageselector.cpp
   ui/paintmanager.cpp
   ui/patternpropsdialog.cpp

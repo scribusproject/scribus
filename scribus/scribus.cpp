@@ -163,7 +163,6 @@ for which a new license (GPL+exception) is in place.
 #include "ui/loremipsum.h"
 #include "ui/marginwidget.h"
 #include "ui/margindialog.h"
-#include "ui/masterpagepalette.h"
 #include "ui/mergedoc.h"
 #include "ui/movepage.h"
 #include "ui/multipleduplicate.h"
@@ -527,7 +526,6 @@ void ScribusMainWindow::initPalettes()
 	scrapbookPalette->installEventFilter(this);
 	pagePalette = new PagePalette(this);
 	connect( scrActions["toolsPages"], SIGNAL(toggled(bool)) , pagePalette, SLOT(setPaletteShown(bool)) );
-	connect( scrActions["toolsPages"], SIGNAL(toggled(bool)) , this, SLOT(setPagePalette(bool)) );
 	connect( pagePalette, SIGNAL(paletteShown(bool)), scrActions["toolsPages"], SLOT(setChecked(bool)));
 	pagePalette->installEventFilter(this);
 	bookmarkPalette = new BookPalette(this);
@@ -5829,7 +5827,6 @@ void ScribusMainWindow::ToggleAllPalettes()
 			bookmarkPalette->show();
 		if (palettesStatus[9])
 			docCheckerPalette->show();
-		setPagePalette(palettesStatus[5]);
 		setUndoPalette(palettesStatus[8]);
 	}
 	else
@@ -5849,7 +5846,6 @@ void ScribusMainWindow::ToggleAllPalettes()
 		pagePalette->hide();
 		layerPalette->hide();
 		docCheckerPalette->hide();
-		setPagePalette(false);
 		setUndoPalette(false);
 		palettesStatus[0] = true;
 	}
@@ -5866,18 +5862,8 @@ void ScribusMainWindow::setUndoPalette(bool visible)
 	scrActions["toolsActionHistory"]->setChecked(visible);
 }
 
-void ScribusMainWindow::setPagePalette(bool visible)
-{
-	if (!visible)
-	{
-		prefsManager->appPrefs.uiPrefs.SepalT = pagePalette->getThumb();
-		prefsManager->appPrefs.uiPrefs.SepalN = pagePalette->getNamen();
-	}
-}
-
 void ScribusMainWindow::togglePagePalette()
 {
-	setPagePalette(!pagePalette->isVisible());
 	palettesStatus[0] = false;
 }
 
@@ -8605,52 +8591,46 @@ void ScribusMainWindow::manageMasterPages(QString temp)
 	if (HaveDoc)
 	{
 		view->Deselect(true);
+
 		if (doc->masterPageMode())
 		{
-			ActWin->masterPagesPalette()->updateMasterPageList(temp);
-			ActWin->masterPagesPalette()->selectMasterPage(temp);
+			pagePalette->startMasterPageMode(temp);
+			return;
 		}
-		else
-		{
-			storedPageNum = doc->currentPageNumber();
-			storedViewXCoor = view->contentsX();
-			storedViewYCoor = view->contentsY();
-			storedViewScale = view->scale();
-			MasterPagesPalette *dia = new MasterPagesPalette(this, doc, view, temp);
-			//connect(dia, SIGNAL(createNew(int)), this, SLOT(slotNewMasterPage(int)));
-			connect(dia, SIGNAL(removePage(int )), this, SLOT(deletePage2(int )));
-			//connect(dia, SIGNAL(loadPage(QString, int, bool)), this, SLOT(loadPage(QString, int, bool)));
-			connect(dia, SIGNAL(finished()), this, SLOT(manageMasterPagesEnd()));
-			scrActions["pageInsert"]->setEnabled(false);
-			scrActions["pageImport"]->setEnabled(false);
-			scrActions["pageDelete"]->setEnabled(false);
-			scrActions["pageCopy"]->setEnabled(false);
-			scrActions["pageMove"]->setEnabled(false);
-			scrActions["pageApplyMasterPage"]->setEnabled(false);
-			scrActions["pageCopyToMasterPage"]->setEnabled(false);
-			scrActions["editMasterPages"]->setEnabled(false);
-			scrActions["fileNew"]->setEnabled(false);
-			scrActions["fileNewFromTemplate"]->setEnabled(false);
-			scrActions["fileOpen"]->setEnabled(false);
-			scrActions["fileClose"]->setEnabled(false);
-			scrMenuMgr->setMenuEnabled("FileOpenRecent", false);
-			scrActions["fileRevert"]->setEnabled(false);
-			scrActions["fileDocSetup150"]->setEnabled(false);
-			scrActions["filePrint"]->setEnabled(false);
-			scrActions["PrintPreview"]->setEnabled(false);
-			scrActions["toolsPDFPushButton"]->setEnabled(false);
-			scrActions["toolsPDFTextField"]->setEnabled(false);
-			scrActions["toolsPDFCheckBox"]->setEnabled(false);
-			scrActions["toolsPDFComboBox"]->setEnabled(false);
-			scrActions["toolsPDFListBox"]->setEnabled(false);
-			scrActions["toolsPDFAnnotText"]->setEnabled(false);
+
+		storedPageNum = doc->currentPageNumber();
+		storedViewXCoor = view->contentsX();
+		storedViewYCoor = view->contentsY();
+		storedViewScale = view->scale();
+
+		pagePalette->startMasterPageMode(temp);
+
+		scrActions["pageInsert"]->setEnabled(false);
+		scrActions["pageImport"]->setEnabled(false);
+		scrActions["pageDelete"]->setEnabled(false);
+		scrActions["pageCopy"]->setEnabled(false);
+		scrActions["pageMove"]->setEnabled(false);
+		scrActions["pageApplyMasterPage"]->setEnabled(false);
+		scrActions["pageCopyToMasterPage"]->setEnabled(false);
+		scrActions["editMasterPages"]->setEnabled(false);
+		scrActions["fileNew"]->setEnabled(false);
+		scrActions["fileNewFromTemplate"]->setEnabled(false);
+		scrActions["fileOpen"]->setEnabled(false);
+		scrActions["fileClose"]->setEnabled(false);
+		scrMenuMgr->setMenuEnabled("FileOpenRecent", false);
+		scrActions["fileRevert"]->setEnabled(false);
+		scrActions["fileDocSetup150"]->setEnabled(false);
+		scrActions["filePrint"]->setEnabled(false);
+		scrActions["PrintPreview"]->setEnabled(false);
+		scrActions["toolsPDFPushButton"]->setEnabled(false);
+		scrActions["toolsPDFTextField"]->setEnabled(false);
+		scrActions["toolsPDFCheckBox"]->setEnabled(false);
+		scrActions["toolsPDFComboBox"]->setEnabled(false);
+		scrActions["toolsPDFListBox"]->setEnabled(false);
+		scrActions["toolsPDFAnnotText"]->setEnabled(false);
 #ifdef HAVE_OSG
-			scrActions["toolsPDFAnnot3D"]->setEnabled(false);
+		scrActions["toolsPDFAnnot3D"]->setEnabled(false);
 #endif
-			pagePalette->enablePalette(false);
-			dia->show();
-			ActWin->setMasterPagesPalette(dia);
-		}
 	}
 }
 
@@ -8692,18 +8672,13 @@ void ScribusMainWindow::manageMasterPagesEnd()
 	uint pageCount=doc->DocPages.count();
 	for (uint c=0; c<pageCount; ++c)
 		Apply_MasterPage(doc->DocPages.at(c)->MPageNam, c, false);
-//	doc->setMasterPageMode(false);
-	pagePalette->enablePalette(true);
-	pagePalette->rebuildMasters();
-	ActWin->setMasterPagesPalette(NULL);
+
+	pagePalette->endMasterPageMode();
+
 	doc->setCurrentPage(doc->DocPages.at(storedPageNum));
 	view->reformPages(false);
 	view->setContentsPos(static_cast<int>(storedViewXCoor * storedViewScale), static_cast<int>(storedViewYCoor * storedViewScale));
 	view->DrawNew();
-	pagePalette->Rebuild();
-//	if (outlinePalette->isVisible())
-//		outlinePalette->BuildTree();
-//	slotDocCh();
 }
 
 void ScribusMainWindow::ApplyMasterPage()
@@ -8883,7 +8858,7 @@ void ScribusMainWindow::restoreDeletePage(SimpleState *state, bool isUndo)
 		pagePalette->rebuildMasters();
 	}
 	if (doc->masterPageMode() && !pageName.isEmpty())
-		ActWin->masterPagesPalette()->updateMasterPageList();
+		pagePalette->updateMasterPageList();
 	pagePalette->rebuildPages();
 }
 
@@ -9673,7 +9648,7 @@ void ScribusMainWindow::closeActiveWindowMasterPageEditor()
 		return;
 	if(doc->masterPageMode())
 	{
-		ActWin->masterPagesPalette()->close();
+		manageMasterPagesEnd();
 		qApp->processEvents();
 	}
 }

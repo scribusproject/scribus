@@ -59,7 +59,37 @@ void PageListWidget::arrangeIcons()
 	}
 }
 
-PageLayouts::PageLayouts( QWidget* parent, QList<PageSet> pSets, bool mode )  : QGroupBox( parent )
+PageLayouts::PageLayouts(QWidget* parent)  : QGroupBox( parent )
+{
+	struct PageSet pageS;
+	pageS.Name = CommonStrings::trPageSet2;
+	pageS.FirstPage = 0;
+	pageS.Rows = 1;
+	pageS.Columns = 1;
+	pageS.pageNames.clear();
+	pageS.pageNames.append(CommonStrings::trPageLocMiddleRight);
+	pageSets.append(pageS);
+
+	modus = false;
+	layoutGroupLayout = new QVBoxLayout(this);
+	layoutGroupLayout->setSpacing( 5 );
+	layoutGroupLayout->setMargin( 10 );
+
+	layoutsCombo = new ScComboBox( this );
+	layoutGroupLayout->addWidget( layoutsCombo );
+
+	layoutLabel1 = new QLabel( this );
+	layoutGroupLayout->addWidget( layoutLabel1 );
+	firstPage = new ScComboBox( this );
+	layoutGroupLayout->addWidget( firstPage );
+
+	languageChange();
+
+	connect(layoutsCombo, SIGNAL(activated(int)), this, SLOT(itemSelected(int)));
+	connect(firstPage, SIGNAL(activated(int)), this, SIGNAL(selectedFirstPage(int)));
+}
+
+PageLayouts::PageLayouts(QWidget* parent, QList<PageSet> pSets, bool mode)  : QGroupBox( parent )
 {
 	pageSets = pSets;
 	modus = mode;

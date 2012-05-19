@@ -1183,6 +1183,18 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\scribus\ui\pagepalette_masterpages.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\scribus\ui\pagepalette_pages.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\scribus\ui\pagepalette_widgets.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\scribus\ui\pageselector.cpp"
 				>
 			</File>
@@ -5084,6 +5096,60 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath="..\..\..\scribus\ui\pagepalette_masterpages.h"
+				>
+				<FileConfiguration
+					Name="Debug-cairo|Win32"
+					>
+					<Tool
+						Name="moc.exe"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release-cairo|Win32"
+					>
+					<Tool
+						Name="moc.exe"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\..\scribus\ui\pagepalette_pages.h"
+				>
+				<FileConfiguration
+					Name="Debug-cairo|Win32"
+					>
+					<Tool
+						Name="moc.exe"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release-cairo|Win32"
+					>
+					<Tool
+						Name="moc.exe"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\..\scribus\ui\pagepalette_widgets.h"
+				>
+				<FileConfiguration
+					Name="Debug-cairo|Win32"
+					>
+					<Tool
+						Name="moc.exe"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release-cairo|Win32"
+					>
+					<Tool
+						Name="moc.exe"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
 				RelativePath="..\..\..\scribus\ui\pageselector.h"
 				>
 				<FileConfiguration
@@ -8477,6 +8543,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\scribus\ui\ui_pagepalette_masterpagesbase.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\scribus\ui\ui_paintmanagerbase.h"
 				>
 			</File>
@@ -9322,6 +9392,18 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\scribus\ui\moc_pagepalette_masterpages.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\scribus\ui\moc_pagepalette_pages.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\scribus\ui\moc_pagepalette_widgets.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\scribus\ui\moc_pageselector.cpp"
 				>
 			</File>
@@ -10052,6 +10134,14 @@
 			</File>
 			<File
 				RelativePath="..\..\..\scribus\ui\pageitemattributes.ui"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\scribus\ui\pagepalette_masterpagesbase.ui"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\scribus\ui\pagepalette_pagesbase.ui"
 				>
 			</File>
 			<File

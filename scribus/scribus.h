@@ -405,7 +405,6 @@ public slots:
 	void ToggleRulers();
 	void ToggleRulerMode();
 	void togglePagePalette();
-	void setPagePalette(bool visible);
 	void toggleUndoPalette();
 	void setUndoPalette(bool visible);
 	void toggleCheckPal();

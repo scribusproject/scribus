@@ -25,7 +25,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribus.h"
 #include "commonstrings.h"
 #include "fileloader.h"
-#include "ui/masterpagepalette.h"
+#include "ui/pagepalette.h"
 #include "ui/pageselector.h"
 #include "ui/scrspinbox.h"
 #include "ui/storyeditor.h"
@@ -44,7 +44,6 @@ ScribusWin::ScribusWin(QWidget* parent, ScribusDoc* doc) : QMainWindow(parent)
 	setWindowIcon(loadIcon("AppIcon2.png"));
 	setAttribute(Qt::WA_DeleteOnClose);
 	m_Doc = doc;
-	m_masterPagesPalette = NULL;
 	currentDir = QDir::currentPath();
 }
 
@@ -159,12 +158,17 @@ void ScribusWin::resizeEvent(QResizeEvent *re)
 
 void ScribusWin::setMasterPagesPaletteShown(bool isShown) const
 {
-	if (m_masterPagesPalette==NULL)
-		return;
-	if (isShown)
-		m_masterPagesPalette->show();
-	else
-		m_masterPagesPalette->hide();
+	QString pageName;
+	PagePalette* pagePalette = m_MainWindow->pagePalette;
+	if (isShown && m_Doc->masterPageMode())
+	{
+		pageName = m_Doc->currentPage()->pageName();
+		pagePalette->startMasterPageMode(pageName);
+	}
+	else if (pagePalette->masterPageMode())
+	{
+		pagePalette->endMasterPageMode();
+	}
 }
 
 void ScribusWin::windowActivationChange ( bool oldActive )
@@ -174,14 +178,4 @@ void ScribusWin::windowActivationChange ( bool oldActive )
 	else
 		currentDir = QDir::currentPath();
 	QMainWindow::windowActivationChange( oldActive );
-}
-
-void ScribusWin::setMasterPagesPalette(MasterPagesPalette* newMPP)
-{
-	 m_masterPagesPalette=newMPP;
-}
-
-MasterPagesPalette* ScribusWin::masterPagesPalette() const
-{
-	return m_masterPagesPalette;
 }
