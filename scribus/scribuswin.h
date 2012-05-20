@@ -58,7 +58,6 @@ public:
 	void setSubWin(QMdiSubWindow *win) { subWindow = win; }
 	void setMenuStatus(int index, bool value) { if (index>=0 && index <=6) MenuStat[index]=value;}
 	bool menuStatus(int index) const { if (index>=0 && index <=6) return MenuStat[index]; else return false; }
-	void setMasterPagesPaletteShown(bool isShown) const;
 	
 public slots:
 	void slotAutoSave();

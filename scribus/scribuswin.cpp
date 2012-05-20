@@ -156,21 +156,6 @@ void ScribusWin::resizeEvent(QResizeEvent *re)
 	statusBar()->setSizeGripEnabled(!isMaximized());
 }
 
-void ScribusWin::setMasterPagesPaletteShown(bool isShown) const
-{
-	QString pageName;
-	PagePalette* pagePalette = m_MainWindow->pagePalette;
-	if (isShown && m_Doc->masterPageMode())
-	{
-		pageName = m_Doc->currentPage()->pageName();
-		pagePalette->startMasterPageMode(pageName);
-	}
-	else if (pagePalette->masterPageMode())
-	{
-		pagePalette->endMasterPageMode();
-	}
-}
-
 void ScribusWin::windowActivationChange ( bool oldActive )
 {
 	if( isActiveWindow() )

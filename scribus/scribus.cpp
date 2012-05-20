@@ -2180,24 +2180,7 @@ void ScribusMainWindow::newActWin(QMdiSubWindow *w)
 	alignDistributePalette->setDoc(doc);
 	if (!doc->isLoading())
 	{
-//		scanDocument();
-//		docCheckerPalette->buildErrorList(doc);
 		SwitchWin();
-		QList<QMdiSubWindow *> windows = mdiArea->subWindowList();
-		ScribusWin* swin;
-		for ( int i = 0; i < static_cast<int>(windows.count()); ++i )
-		{
-			swin = dynamic_cast<ScribusWin *>(windows.at(i)->widget());
-			if (swin)
-			{
-				if (swin==ActWin && doc->masterPageMode())
-					swin->setMasterPagesPaletteShown(true);
-				else
-					swin->setMasterPagesPaletteShown(false);
-			}
-		}
-		//if (doc->masterPageMode())
-		//	ActWin->setMasterPagesPaletteShown(true);
 		view->requestMode(doc->appMode);
 	}
 	view->setFocus();
@@ -8588,50 +8571,50 @@ void ScribusMainWindow::editInlineEnd()
 
 void ScribusMainWindow::manageMasterPages(QString temp)
 {
-	if (HaveDoc)
+	if (!HaveDoc)
+		return;
+
+	view->Deselect(true);
+
+	if (doc->masterPageMode())
 	{
-		view->Deselect(true);
-
-		if (doc->masterPageMode())
-		{
-			pagePalette->startMasterPageMode(temp);
-			return;
-		}
-
-		storedPageNum = doc->currentPageNumber();
-		storedViewXCoor = view->contentsX();
-		storedViewYCoor = view->contentsY();
-		storedViewScale = view->scale();
-
 		pagePalette->startMasterPageMode(temp);
-
-		scrActions["pageInsert"]->setEnabled(false);
-		scrActions["pageImport"]->setEnabled(false);
-		scrActions["pageDelete"]->setEnabled(false);
-		scrActions["pageCopy"]->setEnabled(false);
-		scrActions["pageMove"]->setEnabled(false);
-		scrActions["pageApplyMasterPage"]->setEnabled(false);
-		scrActions["pageCopyToMasterPage"]->setEnabled(false);
-		scrActions["editMasterPages"]->setEnabled(false);
-		scrActions["fileNew"]->setEnabled(false);
-		scrActions["fileNewFromTemplate"]->setEnabled(false);
-		scrActions["fileOpen"]->setEnabled(false);
-		scrActions["fileClose"]->setEnabled(false);
-		scrMenuMgr->setMenuEnabled("FileOpenRecent", false);
-		scrActions["fileRevert"]->setEnabled(false);
-		scrActions["fileDocSetup150"]->setEnabled(false);
-		scrActions["filePrint"]->setEnabled(false);
-		scrActions["PrintPreview"]->setEnabled(false);
-		scrActions["toolsPDFPushButton"]->setEnabled(false);
-		scrActions["toolsPDFTextField"]->setEnabled(false);
-		scrActions["toolsPDFCheckBox"]->setEnabled(false);
-		scrActions["toolsPDFComboBox"]->setEnabled(false);
-		scrActions["toolsPDFListBox"]->setEnabled(false);
-		scrActions["toolsPDFAnnotText"]->setEnabled(false);
-#ifdef HAVE_OSG
-		scrActions["toolsPDFAnnot3D"]->setEnabled(false);
-#endif
+		return;
 	}
+
+	storedPageNum = doc->currentPageNumber();
+	storedViewXCoor = view->contentsX();
+	storedViewYCoor = view->contentsY();
+	storedViewScale = view->scale();
+
+	pagePalette->startMasterPageMode(temp);
+
+	scrActions["pageInsert"]->setEnabled(false);
+	scrActions["pageImport"]->setEnabled(false);
+	scrActions["pageDelete"]->setEnabled(false);
+	scrActions["pageCopy"]->setEnabled(false);
+	scrActions["pageMove"]->setEnabled(false);
+	scrActions["pageApplyMasterPage"]->setEnabled(false);
+	scrActions["pageCopyToMasterPage"]->setEnabled(false);
+	scrActions["editMasterPages"]->setEnabled(false);
+	scrActions["fileNew"]->setEnabled(false);
+	scrActions["fileNewFromTemplate"]->setEnabled(false);
+	scrActions["fileOpen"]->setEnabled(false);
+	scrActions["fileClose"]->setEnabled(false);
+	scrMenuMgr->setMenuEnabled("FileOpenRecent", false);
+	scrActions["fileRevert"]->setEnabled(false);
+	scrActions["fileDocSetup150"]->setEnabled(false);
+	scrActions["filePrint"]->setEnabled(false);
+	scrActions["PrintPreview"]->setEnabled(false);
+	scrActions["toolsPDFPushButton"]->setEnabled(false);
+	scrActions["toolsPDFTextField"]->setEnabled(false);
+	scrActions["toolsPDFCheckBox"]->setEnabled(false);
+	scrActions["toolsPDFComboBox"]->setEnabled(false);
+	scrActions["toolsPDFListBox"]->setEnabled(false);
+	scrActions["toolsPDFAnnotText"]->setEnabled(false);
+#ifdef HAVE_OSG
+	scrActions["toolsPDFAnnot3D"]->setEnabled(false);
+#endif
 }
 
 void ScribusMainWindow::manageMasterPagesEnd()

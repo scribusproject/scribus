@@ -124,6 +124,20 @@ void PagePalette::setView(ScribusView *view)
 	if (mpWidget)
 		mpWidget->setView(view);
 	m_view = view;
+
+	if (!m_view)
+		return;
+
+	ScribusDoc* doc = m_view->Doc;
+	if (doc->masterPageMode())
+	{
+		QString pageName = doc->currentPage()->pageName();
+		startMasterPageMode(pageName);
+	}
+	else if (masterPageMode())
+	{
+		endMasterPageMode();
+	}
 }
 
 void PagePalette::updateMasterPageList()

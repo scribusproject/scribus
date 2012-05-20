@@ -69,14 +69,13 @@ void PagePalette_MasterPages::setView(ScribusView* view, QString masterPageName)
 
 	disconnectSignals();
 	currentView = view;
+	currentDoc = currentView ? currentView->Doc : 0;
 
 	if (!view)
 	{
 		this->setEnabled(false);
 		return;
 	}
-
-	currentDoc = currentView->Doc;
 
 	if (masterPageName.isEmpty() && currentDoc->masterPageMode())
 		currentPage = currentDoc->currentPage()->pageName();
@@ -88,10 +87,10 @@ void PagePalette_MasterPages::setView(ScribusView* view, QString masterPageName)
 	QString currentPageName;
 	if (currentDoc->masterPageMode())
 		currentPageName = currentDoc->currentPage()->pageName();
-	if (!currentDoc->masterPageMode() || currentPage != currentPageName)
+	if (currentDoc->masterPageMode() && currentPage != currentPageName)
 		currentView->showMasterPage(currentDoc->MasterNames[currentPage]);
 
-	this->setEnabled(true);
+	this->setEnabled(currentDoc->masterPageMode());
 	connectSignals();
 }
 
@@ -369,7 +368,6 @@ void PagePalette_MasterPages::newMasterPage()
 
 void PagePalette_MasterPages::importPage()
 {
-	//bool atf;
 	MergeDoc *dia = new MergeDoc(this, true);
 	if (dia->exec())
 	{
@@ -377,10 +375,7 @@ void PagePalette_MasterPages::importPage()
 			currentView->requestMode(submodeEndNodeEdit);
 		qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
 		int nr = currentDoc->Pages->count();
-		//currentDoc->pageCount = 0;
-		//atf = currentDoc->usesAutomaticTextFrames();
-		//currentDoc->setUsesAutomaticTextFrames(false);
-		//emit createNew(nr);
+
 		QString MasterPageName(dia->getMasterPageNameText());
 		QString MasterPageName2(MasterPageName);
 		int copyC = 1;
@@ -395,24 +390,10 @@ void PagePalette_MasterPages::importPage()
 		//FileLoader::PasteItem as this call doesnt pass in the new destination page
 		currentDoc->scMW()->loadPage(dia->getFromDoc(), dia->getMasterPageNameItem(), true, MasterPageName2);
 		qApp->processEvents();
-		/*
-		MasterPageName = currentDoc->Pages->at(nr)->PageNam;
-		MasterPageName2 = MasterPageName;
-		int copyC = 1;
-		while (currentDoc->MasterNames.contains(MasterPageName2))
-		{
-			MasterPageName2 = tr("Copy #%1 of ").arg(copyC)+MasterPageName;
-			copyC++;
-		}
-		currentDoc->MasterNames.insert(MasterPageName2, nr);
-		currentDoc->Pages->at(nr)->setPageName(MasterPageName2);
-		currentDoc->Pages->at(nr)->MPageNam = "";
-		*/
+
 		updateMasterPageList(MasterPageName2);
-		//currentDoc->setUsesAutomaticTextFrames(atf);
 		currentView->showMasterPage(currentDoc->MasterNames[MasterPageName2]);
 		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
-		//currentDoc->MasterPages = currentDoc->Pages;
 	}
 	delete dia;
 }
@@ -422,10 +403,7 @@ void PagePalette_MasterPages::selectMasterPage(QListWidgetItem *item)
 	currentPage = item->text();
 	deleteButton->setEnabled(currentDoc->MasterNames.count() == 1 ? false : true);
 	if (currentPage == CommonStrings::trMasterPageNormal || currentPage == CommonStrings::masterPageNormal)
-	{
-// 		currentPage = CommonStrings::masterPageNormal;
 		deleteButton->setEnabled(false);
-	}
 	else
 		deleteButton->setEnabled(true);
 	if (currentDoc->appMode == modeEditClip)
@@ -433,6 +411,8 @@ void PagePalette_MasterPages::selectMasterPage(QListWidgetItem *item)
 	else if (currentDoc->appMode == modeEdit || currentDoc->appMode == modeEditGradientVectors)
 		currentView->requestMode(modeNormal);
 	currentView->showMasterPage(currentDoc->MasterNames[currentPage]);
+
+	this->setEnabled(true);
 }
 
 void PagePalette_MasterPages::selectMasterPage(QString name)
@@ -452,6 +432,8 @@ void PagePalette_MasterPages::selectMasterPage(QString name)
 	if (currentDoc->appMode == modeEditClip)
 		currentView->requestMode(submodeEndNodeEdit);
 	currentView->showMasterPage(currentDoc->MasterNames[currentPage]);
+
+	this->setEnabled(true);
 }
 
 void PagePalette_MasterPages::updateMasterPageList(void)
