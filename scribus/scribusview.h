@@ -294,7 +294,12 @@ public slots: // Public slots
 	void PasteToPage();
 	void TextToPath();
 	void adjustCMS();
-	
+
+//for linking frame after draw new frame
+private:
+	bool linkAfterDraw;
+	PageItem * firstFrame;
+
 private: // Private attributes
 	int m_previousMode;
 	QMenu *pmen3;

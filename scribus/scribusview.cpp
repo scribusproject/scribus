@@ -79,6 +79,7 @@ for which a new license (GPL+exception) is in place.
 #include "commonstrings.h"
 #include "filewatcher.h"
 #include "hyphenator.h"
+#include "pageitem.h"
 #include "pageitem_group.h"
 #include "pageitem_imageframe.h"
 #include "pageitem_line.h"
@@ -162,7 +163,8 @@ ScribusView::ScribusView(QWidget* win, ScribusMainWindow* mw, ScribusDoc *doc) :
 	m_groupTransactions(0),
 	m_groupTransaction(NULL),
 	_isGlobalMode(true),
-	m_vhRulerHW(17)
+	m_vhRulerHW(17),
+	linkAfterDraw(false)
 {
 	setObjectName("s");
 	QPalette p=palette();
@@ -4209,12 +4211,36 @@ bool ScribusView::eventFilter(QObject *obj, QEvent *event)
 		QMouseEvent* m = static_cast<QMouseEvent*> (event);
 		m_canvasMode->mouseReleaseEvent(m);
 		m_canvas->m_viewMode.m_MouseButtonPressed = false;
+		if (linkAfterDraw)
+		{
+			//user creates new frame using linking tool
+			PageItem * secondFrame = Doc->m_Selection->itemAt(0);
+			if (secondFrame && firstFrame)
+			{
+				firstFrame->link(secondFrame);
+				firstFrame = NULL;
+			}
+			linkAfterDraw = false;
+		}
 		return true;
 	}
 	else if (obj == widget() && event->type() == QEvent::MouseButtonPress)
 	{
 		QMouseEvent* m = static_cast<QMouseEvent*> (event);
+		bool linkmode = (Doc->appMode == modeLinkFrames);
+		firstFrame = Doc->m_Selection->itemAt(0);
 		m_canvasMode->mousePressEvent(m);
+		//if user dont click any frame he want to draw new frame and link it
+		bool requestDrawMode = (Doc->ElemToLink == NULL);
+		if (linkmode && requestDrawMode)
+		{
+			//switch to drawing new text frame
+			linkAfterDraw = true;
+			requestMode(modeDrawText);
+			m_canvasMode->mousePressEvent(m);
+		}
+		else
+			firstFrame = NULL;
 		m_canvas->m_viewMode.m_MouseButtonPressed = true;
 		return true;
 	}
