@@ -163,7 +163,9 @@ public:
 		StrokeOpacity(1.0),
 		textAnchor("start"),
 		clipPath(),
-		forGroup(false)
+		forGroup(false),
+		endMarker(""),
+		startMarker("")
 		{
 		}
 	bool Display;
@@ -213,6 +215,8 @@ public:
 	QString textDecoration;
 	FPointArray clipPath;
 	bool forGroup;
+	QString endMarker;
+	QString startMarker;
 };
 
 class SVGPlug : public QObject
@@ -277,6 +281,7 @@ public:
 	void parsePA( SvgStyle *obj, const QString &command, const QString &params );
 	void parseStyle( SvgStyle *obj, const QDomElement &e );
 	void parseColorStops(GradientHelper *gradient, const QDomElement &e);
+	void parseMarker(const QDomElement &b);
 	void parsePattern(const QDomElement &b);
 	void parseGradient( const QDomElement &e );
 	FPoint GetMaxClipO(FPointArray Clip);
@@ -311,6 +316,15 @@ public:
 	double inGroupYOrigin;
 	int importerFlags;
 	bool firstLayer;
+	struct markerDesc
+	{
+		double xref;
+		double yref;
+		double wpat;
+		double hpat;
+	};
+	QMap<QString, markerDesc> markers;
+	QList<PageItem*> Elements;
 };
 
 #endif

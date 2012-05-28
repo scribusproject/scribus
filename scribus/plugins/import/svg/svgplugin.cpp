@@ -432,7 +432,7 @@ void SVGPlug::convert(const TransactionSettings& trSettings, int flags)
 			m_gc.top()->matrix = matrix;
 		}
 	}
-	QList<PageItem*> Elements = parseDoc( docElem );
+	Elements += parseDoc( docElem );
 	if (flags & LoadSavePlugin::lfCreateDoc)
 	{
 		m_Doc->documentInfo().setTitle(docTitle);
@@ -832,6 +832,70 @@ void SVGPlug::finishNode( const QDomNode &e, PageItem* item)
 			}
 		}
 	}
+	if (!gc->endMarker.isEmpty())
+	{
+		if (markers.contains(gc->endMarker))
+		{
+			FPoint End = item->PoLine.point(item->PoLine.size()-2);
+			for (uint xx = item->PoLine.size()-1; xx > 0; xx -= 2)
+			{
+				FPoint Vector = item->PoLine.point(xx);
+				if ((End.x() != Vector.x()) || (End.y() != Vector.y()))
+				{
+					double r = atan2(End.y()-Vector.y(),End.x()-Vector.x())*(180.0/M_PI);
+					QTransform arrowTrans;
+					double bX = item->xPos() + End.x();
+					double bY = item->yPos() + End.y();
+					ScPattern pat = m_Doc->docPatterns[gc->endMarker];
+					markerDesc mark = markers[gc->endMarker];
+					double dX = (mark.wpat * pat.width) / 2.0;
+					double dY = (mark.hpat * pat.height) / 2.0;
+					arrowTrans.translate(bX, bY);
+					arrowTrans.rotate(r);
+					arrowTrans.translate(-dX, -dY);
+					FPoint ba = FPoint(0.0, 0.0).transformPoint(arrowTrans, false);
+					int z = m_Doc->itemAdd(PageItem::Symbol, PageItem::Unspecified, ba.x(), ba.y(), mark.wpat * pat.width, mark.hpat * pat.height, 0, CommonStrings::None, CommonStrings::None, true);
+					PageItem* ite = m_Doc->Items->at(z);
+					ite->setPattern(importedPattTrans[gc->endMarker]);
+					ite->setRotation(r, true);
+					Elements.append(ite);
+					break;
+				}
+			}
+		}
+	}
+	if (!gc->startMarker.isEmpty())
+	{
+		if (markers.contains(gc->startMarker))
+		{
+			FPoint End = item->PoLine.point(0);
+			for (uint xx = 1; xx < item->PoLine.size(); xx += 2)
+			{
+				FPoint Vector = item->PoLine.point(xx);
+				if ((End.x() != Vector.x()) || (End.y() != Vector.y()))
+				{
+					double r = atan2(End.y()-Vector.y(),End.x()-Vector.x())*(180.0/M_PI) - 180.0;
+					QTransform arrowTrans;
+					double bX = item->xPos() + End.x();
+					double bY = item->yPos() + End.y();
+					ScPattern pat = m_Doc->docPatterns[gc->startMarker];
+					markerDesc mark = markers[gc->startMarker];
+					double dX = (mark.wpat * pat.width) / 2.0;
+					double dY = (mark.hpat * pat.height) / 2.0;
+					arrowTrans.translate(bX, bY);
+					arrowTrans.rotate(r);
+					arrowTrans.translate(-dX, -dY);
+					FPoint ba = FPoint(0.0, 0.0).transformPoint(arrowTrans, false);
+					int z = m_Doc->itemAdd(PageItem::Symbol, PageItem::Unspecified, ba.x(), ba.y(), mark.wpat * pat.width, mark.hpat * pat.height, 0, CommonStrings::None, CommonStrings::None, true);
+					PageItem* ite = m_Doc->Items->at(z);
+					ite->setPattern(importedPattTrans[gc->startMarker]);
+					ite->setRotation(r, true);
+					Elements.append(ite);
+					break;
+				}
+			}
+		}
+	}
 }
 
 bool SVGPlug::isIgnorableNode( const QDomElement &e )
@@ -983,6 +1047,8 @@ void SVGPlug::parseDefs(const QDomElement &e)
 			parseClipPath(b);
 		else if (STag2 == "pattern")
 			parsePattern(b);
+		else if (STag2 == "marker")
+			parseMarker(b);
 		else if ( b.hasAttribute("id") )
 		{
 			QString id = b.attribute("id");
@@ -2574,6 +2640,24 @@ void SVGPlug::parsePA( SvgStyle *obj, const QString &command, const QString &par
 				obj->clipPath = it.value().copy();
 		}
 	}
+	else if (command == "marker-end")
+	{
+		if (params.startsWith( "url("))
+		{
+			unsigned int start = params.indexOf("#") + 1;
+			unsigned int end = params.lastIndexOf(")");
+			obj->endMarker = params.mid(start, end - start);
+		}
+	}
+	else if (command == "marker-start")
+	{
+		if (params.startsWith( "url("))
+		{
+			unsigned int start = params.indexOf("#") + 1;
+			unsigned int end = params.lastIndexOf(")");
+			obj->startMarker = params.mid(start, end - start);
+		}
+	}
 	else if( !isIgnorableNodeName(command) )
 	{
 		if (!m_unsupportedFeatures.contains(command))
@@ -2637,6 +2721,10 @@ void SVGPlug::parseStyle( SvgStyle *obj, const QDomElement &e )
 		parsePA( obj, "text-anchor", e.attribute( "text-anchor" ) );
 	if( !e.attribute( "text-decoration" ).isEmpty() )
 		parsePA( obj, "text-decoration", e.attribute( "text-decoration" ) );
+	if( !e.attribute( "marker-end" ).isEmpty() )
+		parsePA( obj, "marker-end", e.attribute( "marker-end" ) );
+	if( !e.attribute( "marker-start" ).isEmpty() )
+		parsePA( obj, "marker-start", e.attribute( "marker-start" ) );
 	QString style = e.attribute( "style" ).simplified();
 	QStringList substyles = style.split(';', QString::SkipEmptyParts);
 	for( QStringList::Iterator it = substyles.begin(); it != substyles.end(); ++it )
@@ -2709,6 +2797,55 @@ void SVGPlug::parseColorStops(GradientHelper *gradient, const QDomElement &e)
 		gradient->gradient.filterStops();
 }
 
+void SVGPlug::parseMarker(const QDomElement &b)
+{
+	QString id = b.attribute("id", "");
+	QString origName = id;
+	if (!id.isEmpty())
+	{
+		inGroupXOrigin = 999999;
+		inGroupYOrigin = 999999;
+		markerDesc mark;
+		mark.xref = parseUnit(b.attribute("refX", "0"));
+		mark.yref = parseUnit(b.attribute("refY", "0"));
+		mark.wpat = parseUnit(b.attribute("markerWidth", "3"));
+		mark.hpat = parseUnit(b.attribute("markerHeight", "3"));
+		QList<PageItem*> GElements;
+		GElements = parseGroup( b );
+		if (GElements.count() > 0)
+		{
+			ScPattern pat = ScPattern();
+			pat.setDoc(m_Doc);
+			PageItem* currItem = GElements.at(0);
+			m_Doc->DoDrawing = true;
+			double minx =  std::numeric_limits<double>::max();
+			double miny =  std::numeric_limits<double>::max();
+			double maxx = -std::numeric_limits<double>::max();
+			double maxy = -std::numeric_limits<double>::max();
+			double x1, x2, y1, y2;
+			currItem->getVisualBoundingRect(&x1, &y1, &x2, &y2);
+			minx = qMin(minx, x1);
+			miny = qMin(miny, y1);
+			maxx = qMax(maxx, x2);
+			maxy = qMax(maxy, y2);
+			currItem->gXpos = currItem->xPos() - minx;
+			currItem->gYpos = currItem->yPos() - miny;
+			currItem->setXYPos(currItem->gXpos, currItem->gYpos, true);
+			pat.pattern = currItem->DrawObj_toImage(qMax(maxx - minx, maxy - miny));
+			pat.width = maxx - minx;
+			pat.height = maxy - miny;
+			m_Doc->DoDrawing = false;
+			pat.items.append(currItem);
+			m_Doc->Items->removeAll(currItem);
+			m_Doc->addPattern(id, pat);
+			importedPatterns.append(id);
+			importedPattTrans.insert(origName, id);
+			markers.insert(id, mark);
+		}
+		m_nodeMap.insert(origName, b);
+	}
+}
+
 void SVGPlug::parsePattern(const QDomElement &b)
 {
 	GradientHelper gradhelper;
@@ -2752,9 +2889,9 @@ void SVGPlug::parsePattern(const QDomElement &b)
 				pat.pattern = pat.pattern.copy(-xOrg, -yOrg, wpat, hpat);
 			pat.xoffset = xOrg;
 			pat.yoffset = yOrg;
-			m_Doc->DoDrawing = false;
 			pat.width = wpat;
 			pat.height = hpat;
+			m_Doc->DoDrawing = false;
 			pat.items.append(currItem);
 			m_Doc->Items->removeAll(currItem);
 			m_Doc->addPattern(id, pat);
