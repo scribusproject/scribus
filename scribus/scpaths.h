@@ -65,10 +65,15 @@ public:
 
 	/** @brief Return path to application data dir*/
 	static QString getApplicationDataDir(void);
+	/** @brief Return path to application data dir for downloaded dictsionaries*/
+	static QString getUserDictDir(bool createIfNotExists);
+
 	/** @brief Return path to user documents*/
 	static QString getUserDocumentDir(void);
 	/** @brief Return path to directory used for temporary files*/
 	static QString getTempFileDir(void);
+	/** @brief Return path to directory used for downloaded (permanent) files*/
+	static QString downloadDir(void);
 	/** @brief Return path to Contents OSX subdirectory*/
 	QString bundleDir(void) const;
 
