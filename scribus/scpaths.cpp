@@ -235,6 +235,7 @@ QStringList ScPaths::spellDirs() const
 	QString windowsLOPath("LibreOffice 3.5/share/extensions");
 	QDir d;
 	QStringList spellDirs;
+	spellDirs.append(getUserDictDir(false));
 	spellDirs.append(m_shareDir + "dicts/spelling/");
 #ifdef Q_OS_MAC
 	d.setPath(macPortsPath);
@@ -423,6 +424,17 @@ QString ScPaths::getPluginDataDir(void)
 	return getApplicationDataDir() + "plugins/";
 }
 
+QString ScPaths::getUserDictDir(bool createIfNotExists)
+{
+	QDir userDictDirectory(getApplicationDataDir() + "dicts/");
+	if(createIfNotExists)
+	{
+		if (!userDictDirectory.exists())
+			userDictDirectory.mkpath(userDictDirectory.absolutePath());
+	}
+	return userDictDirectory.absolutePath()+"/";
+}
+
 QString ScPaths::getUserDocumentDir(void)
 {
 #if defined(_WIN32)
@@ -451,6 +463,14 @@ QString ScPaths::getTempFileDir(void)
 	}
 #endif
 	return getApplicationDataDir();
+}
+
+QString ScPaths::downloadDir()
+{
+	QDir downloadDirectory(getApplicationDataDir() + "downloads/");
+	if (!downloadDirectory.exists())
+		downloadDirectory.mkpath(downloadDirectory.absolutePath());
+	return downloadDirectory.absolutePath()+"/";
 }
 
 QString ScPaths::getSpecialDir(int folder)
