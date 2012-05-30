@@ -679,22 +679,37 @@ bool AIPlug::extractFromPDF(QString infile, QString outfile)
 bool AIPlug::decompressAIData(QString &fName)
 {
 	QString f2 = fName+"_decom.ai";
-	FILE *source = fopen(fName.toLocal8Bit().constData(), "rb");
-	fseek(source, 20, SEEK_SET);
-	FILE *dest = fopen(f2.toLocal8Bit().constData(), "wb");
+	FILE *source, *dest;
 	int ret;
 	unsigned have;
 	z_stream strm;
 	char in[4096];
 	char out[4096];
+
+	source = fopen(fName.toLocal8Bit().constData(), "rb");
+	if (!source)
+		return false;
+	fseek(source, 20, SEEK_SET);
+	dest = fopen(f2.toLocal8Bit().constData(), "wb");
+	if (!dest)
+	{
+		fclose(source);
+		return false;
+	}
+
 	strm.zalloc = Z_NULL;
 	strm.zfree = Z_NULL;
 	strm.opaque = Z_NULL;
 	strm.avail_in = 0;
 	strm.next_in = Z_NULL;
 	ret = inflateInit(&strm);
+
 	if (ret != Z_OK)
+	{
+		fclose(source);
+		fclose(dest);
 		return false;
+	}
 	do
 	{
 		strm.avail_in = fread(in, 1, 4096, source);

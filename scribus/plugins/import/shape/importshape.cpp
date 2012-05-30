@@ -536,18 +536,16 @@ void ShapePlug::parseGroup(QDomNode &DOC)
 			FirstM = true;
 			for( QStringList::Iterator it = pointList.begin(); it != pointList.end(); it++ )
 			{
+				x = ScCLocale::toDoubleC(*(it++));
+				y = ScCLocale::toDoubleC(*it);
 				if( bFirst )
 				{
-					x = ScCLocale::toDoubleC(*(it++));
-					y = ScCLocale::toDoubleC(*it);
 					svgMoveTo(x * Conversion, y * Conversion);
 					bFirst = false;
 					WasM = true;
 				}
 				else
 				{
-					x = ScCLocale::toDoubleC(*(it++));
-					y = ScCLocale::toDoubleC(*it);
 					svgLineTo(&PoLine, x * Conversion, y * Conversion);
 				}
 			}
@@ -716,18 +714,16 @@ void ShapePlug::parseGroupProperties(QDomNode &DOC, double &minXCoor, double &mi
 			FirstM = true;
 			for( QStringList::Iterator it1 = pointList.begin(); it1 != pointList.end(); it1++ )
 			{
+				x = ScCLocale::toDoubleC(*(it1++));
+				y = ScCLocale::toDoubleC(*it1);
 				if( bFirst )
 				{
-					x = ScCLocale::toDoubleC(*(it1++));
-					y = ScCLocale::toDoubleC(*it1);
 					svgMoveTo(x * Conversion, y * Conversion);
 					bFirst = false;
 					WasM = true;
 				}
 				else
 				{
-					x = ScCLocale::toDoubleC(*(it1++));
-					y = ScCLocale::toDoubleC(*it1);
 					svgLineTo(&PoLine, x * Conversion, y * Conversion);
 				}
 			}

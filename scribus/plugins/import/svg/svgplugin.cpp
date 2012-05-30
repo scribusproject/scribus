@@ -1640,17 +1640,15 @@ QList<PageItem*> SVGPlug::parsePolyline(const QDomElement &e)
 		double y = 0.0;
 		for( QStringList::Iterator it = pointList.begin(); it != pointList.end(); it++ )
 		{
+			x = ScCLocale::toDoubleC(*(it++));
+			y = ScCLocale::toDoubleC(*it);
 			if( bFirst )
 			{
-				x = ScCLocale::toDoubleC(*(it++));
-				y = ScCLocale::toDoubleC(*it);
 				ite->PoLine.svgMoveTo(x, y);
 				bFirst = false;
 			}
 			else
 			{
-				x = ScCLocale::toDoubleC(*(it++));
-				y = ScCLocale::toDoubleC(*it);
 				ite->PoLine.svgLineTo(x, y);
 			}
 		}
