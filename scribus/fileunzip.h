@@ -48,7 +48,7 @@ private:
 public:
 	FileUnzip(QString zipFilePath);
 	~FileUnzip();
-	QString getFile(QString name);
+	QString getFile(QString name, QString path=QString::null);
 };
 
 #endif
