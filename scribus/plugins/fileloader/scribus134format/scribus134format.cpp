@@ -414,12 +414,12 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 			if (tagName == "PAGEOBJECT")
 			{
 				if (itemInfo.nextItem != -1)
-					itemNext[m_Doc->DocItems.count()] = itemInfo.nextItem;
+					itemNext[itemInfo.ownNr] = itemInfo.nextItem;
 			}
 			else if (tagName == "MASTEROBJECT")
 			{
 				if (itemInfo.nextItem != -1)
-					itemNextM[m_Doc->MasterItems.count()] = itemInfo.nextItem;
+					itemNextM[itemInfo.ownNr] = itemInfo.nextItem;
 			}
 			/* not sure if we want that...
 			else if (tagName == "FRAMEOBJECT")
