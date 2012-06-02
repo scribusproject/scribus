@@ -514,9 +514,13 @@ Global
 		{BDF68684-5B3B-4D64-BEC5-3C333A929370}.Release-cairo|Win32.ActiveCfg = Release-cairo|Win32
 		{BDF68684-5B3B-4D64-BEC5-3C333A929370}.Release-cairo|Win32.Build.0 = Release-cairo|Win32
 		{C5268DFD-7CC5-4829-A354-82446B4E07AF}.Debug-arthur|Win32.ActiveCfg = Debug-arthur|Win32
+		{C5268DFD-7CC5-4829-A354-82446B4E07AF}.Debug-arthur|Win32.Build.0 = Debug-arthur|Win32
 		{C5268DFD-7CC5-4829-A354-82446B4E07AF}.Debug-cairo|Win32.ActiveCfg = Debug-cairo|Win32
+		{C5268DFD-7CC5-4829-A354-82446B4E07AF}.Debug-cairo|Win32.Build.0 = Debug-cairo|Win32
 		{C5268DFD-7CC5-4829-A354-82446B4E07AF}.Release-arthur|Win32.ActiveCfg = Release-arthur|Win32
+		{C5268DFD-7CC5-4829-A354-82446B4E07AF}.Release-arthur|Win32.Build.0 = Release-arthur|Win32
 		{C5268DFD-7CC5-4829-A354-82446B4E07AF}.Release-cairo|Win32.ActiveCfg = Release-cairo|Win32
+		{C5268DFD-7CC5-4829-A354-82446B4E07AF}.Release-cairo|Win32.Build.0 = Release-cairo|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
