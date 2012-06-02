@@ -8,7 +8,9 @@ for which a new license (GPL+exception) is in place.
 #define SCLIMITS_H
 
 #if defined(_MSC_VER)
-#define _USE_MATH_DEFINES
+#if !defined(_USE_MATH_DEFINES)
+	#define _USE_MATH_DEFINES
+#endif
 #define NOMINMAX
 #endif
 

@@ -24,7 +24,7 @@ for which a new license (GPL+exception) is in place.
 *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.              *
 ****************************************************************************/
 
-#if defined(_MSC_VER)
+#if defined(_MSC_VER) && !defined(_USE_MATH_DEFINES)
 #define _USE_MATH_DEFINES
 #endif
 #include <cmath>

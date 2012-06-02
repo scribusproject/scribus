@@ -31,7 +31,7 @@ for which a new license (GPL+exception) is in place.
 #include "units.h"
 #include "util_icon.h"
 
-#if defined(_MSC_VER)
+#if defined(_MSC_VER) && !defined(_USE_MATH_DEFINES)
 #define _USE_MATH_DEFINES
 #endif
 #include <cmath>
