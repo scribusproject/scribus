@@ -29,7 +29,7 @@ You will need:
 
 Some more details can be found below in the section entitled GETTING DEPENDENCIES.
 
-After having installed all dependencies, open Scribus-build.vsprops files located 
+After having installed all dependencies, open Scribus-build-props.vsprops files located 
 in Scribus\win32\vc9 and update the dependency paths to match your system.
 
 Open the Visual Studio solution located in Scribus\win32\vc9 and start building. The *-cairo 

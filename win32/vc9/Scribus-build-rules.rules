@@ -5,7 +5,7 @@
 	>
 	<Rules>
 		<CustomBuildRule
-			Name="uic.exe"
+			Name="uic"
 			DisplayName="Qt UI Compiler"
 			CommandLine="$(QT4_DIR)\bin\uic.exe [inputs] -o &quot;$(InputDir)\ui_$(InputName).h&quot;"
 			Outputs="$(InputDir)\ui_$(InputName).h"
@@ -17,7 +17,7 @@
 			</Properties>
 		</CustomBuildRule>
 		<CustomBuildRule
-			Name="moc.exe"
+			Name="moc"
 			DisplayName="Qt MetaObject Compiler"
 			CommandLine="$(QT4_DIR)\bin\moc.exe [inputs] -o &quot;$(InputDir)\moc_$(InputName).cpp&quot;"
 			Outputs="$(InputDir)\moc_$(InputName).cpp"
@@ -29,7 +29,7 @@
 			</Properties>
 		</CustomBuildRule>
 		<CustomBuildRule
-			Name="rcc.exe"
+			Name="rcc"
 			DisplayName="Qt Resource Compiler"
 			CommandLine="$(QT4_DIR)\bin\rcc.exe [inputs] -o &quot;$(InputDir)\rcc_$(InputName).cpp&quot;"
 			Outputs="$(InputDir)\rcc_$(InputName).cpp"
@@ -41,7 +41,7 @@
 			</Properties>
 		</CustomBuildRule>
 		<CustomBuildRule
-			Name="lrelease.exe"
+			Name="lrelease"
 			DisplayName="Qt Translation Compiler"
 			CommandLine="$(QT4_DIR)\bin\lrelease.exe [inputs] -qm &quot;$(OutDir)\share\translations\$(InputName).qm&quot;"
 			Outputs="$(OutDir)\share\translations\$(InputName).qm"

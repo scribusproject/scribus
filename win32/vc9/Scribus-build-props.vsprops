@@ -2,11 +2,11 @@
 <VisualStudioPropertySheet
 	ProjectType="Visual C++"
 	Version="8.00"
-	Name="Scribus-build"
+	Name="Scribus-build-props"
 	>
 	<UserMacro
 		Name="QT4_DIR"
-		Value="F:\Libraries-vc9\qt-4.8.1"
+		Value="F:\Libraries-vc9\qt-4.8.2"
 	/>
 	<UserMacro
 		Name="BOOST_DIR"

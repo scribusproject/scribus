@@ -91,4 +91,9 @@
 
 #include <stdlib.h>
 
+#include "pageitem.h"
+#include "scribus.h"
+#include "scribusdoc.h"
+#include "scribusview.h"
+
 #endif

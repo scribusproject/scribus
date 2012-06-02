@@ -21,7 +21,7 @@
 			OutputDirectory="..\..\..\..\Scribus-builds\Scribus-vc9-$(ConfigurationName)\scribus"
 			IntermediateDirectory="..\..\..\..\Scribus-builds\Build-objs-vc9\$(ConfigurationName)\$(TargetName)"
 			ConfigurationType="2"
-			InheritedPropertySheets="..\Scribus-build.vsprops"
+			InheritedPropertySheets="..\Scribus-build-props.vsprops"
 			UseOfMFC="0"
 			CharacterSet="2"
 			>
@@ -106,7 +106,7 @@
 			OutputDirectory="..\..\..\..\Scribus-builds\Scribus-vc9-$(ConfigurationName)\scribus"
 			IntermediateDirectory="..\..\..\..\Scribus-builds\Build-objs-vc9\$(ConfigurationName)\$(TargetName)"
 			ConfigurationType="2"
-			InheritedPropertySheets="..\Scribus-build.vsprops"
+			InheritedPropertySheets="..\Scribus-build-props.vsprops"
 			CharacterSet="2"
 			>
 			<Tool
