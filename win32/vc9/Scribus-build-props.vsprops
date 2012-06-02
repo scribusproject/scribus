@@ -2,7 +2,7 @@
 <VisualStudioPropertySheet
 	ProjectType="Visual C++"
 	Version="8.00"
-	Name="Scribus-build"
+	Name="Scribus-build-props"
 	>
 	<UserMacro
 		Name="QT4_DIR"

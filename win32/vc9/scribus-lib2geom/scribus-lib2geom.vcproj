@@ -21,7 +21,7 @@
 			OutputDirectory="..\..\..\..\Scribus-builds\Scribus-vc9-$(ConfigurationName)\scribus"
 			IntermediateDirectory="..\..\..\..\Scribus-builds\Build-objs-vc9\$(ConfigurationName)\$(TargetName)"
 			ConfigurationType="4"
-			InheritedPropertySheets="..\Scribus-build.vsprops"
+			InheritedPropertySheets="..\Scribus-build-props.vsprops"
 			CharacterSet="1"
 			>
 			<Tool
@@ -87,7 +87,7 @@
 			OutputDirectory="..\..\..\..\Scribus-builds\Scribus-vc9-$(ConfigurationName)\scribus"
 			IntermediateDirectory="..\..\..\..\Scribus-builds\Build-objs-vc9\$(ConfigurationName)\$(TargetName)"
 			ConfigurationType="4"
-			InheritedPropertySheets="..\Scribus-build.vsprops"
+			InheritedPropertySheets="..\Scribus-build-props.vsprops"
 			CharacterSet="1"
 			WholeProgramOptimization="0"
 			>
@@ -154,7 +154,7 @@
 			OutputDirectory="..\..\..\..\Scribus-builds\Scribus-vc9-$(ConfigurationName)\scribus"
 			IntermediateDirectory="..\..\..\..\Scribus-builds\Build-objs-vc9\$(ConfigurationName)\$(TargetName)"
 			ConfigurationType="4"
-			InheritedPropertySheets="..\Scribus-build.vsprops"
+			InheritedPropertySheets="..\Scribus-build-props.vsprops"
 			CharacterSet="1"
 			>
 			<Tool
@@ -220,7 +220,7 @@
 			OutputDirectory="..\..\..\..\Scribus-builds\Scribus-vc9-$(ConfigurationName)\scribus"
 			IntermediateDirectory="..\..\..\..\Scribus-builds\Build-objs-vc9\$(ConfigurationName)\$(TargetName)"
 			ConfigurationType="4"
-			InheritedPropertySheets="..\Scribus-build.vsprops"
+			InheritedPropertySheets="..\Scribus-build-props.vsprops"
 			CharacterSet="1"
 			WholeProgramOptimization="0"
 			>
