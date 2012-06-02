@@ -163,8 +163,8 @@ ScribusView::ScribusView(QWidget* win, ScribusMainWindow* mw, ScribusDoc *doc) :
 	m_groupTransactions(0),
 	m_groupTransaction(NULL),
 	_isGlobalMode(true),
-	m_vhRulerHW(17),
-	linkAfterDraw(false)
+	linkAfterDraw(false),
+	m_vhRulerHW(17)
 {
 	setObjectName("s");
 	QPalette p=palette();

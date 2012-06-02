@@ -64,8 +64,8 @@ PagePalette_MasterPages::PagePalette_MasterPages( QWidget* parent, ScribusView *
 
 void PagePalette_MasterPages::setView(ScribusView* view, QString masterPageName)
 {
-	ScribusView* oldView = currentView;
-	QString oldPage = currentPage;
+//	ScribusView* oldView = currentView;
+//	QString oldPage = currentPage;
 
 	disconnectSignals();
 	currentView = view;

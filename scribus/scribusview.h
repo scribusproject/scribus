@@ -297,7 +297,6 @@ public slots: // Public slots
 
 //for linking frame after draw new frame
 private:
-	bool linkAfterDraw;
 	PageItem * firstFrame;
 
 private: // Private attributes
@@ -318,6 +317,7 @@ private: // Private attributes
 	int m_oldCanvasWidth;
 	UndoTransaction*  m_groupTransaction;
 	bool _isGlobalMode;
+	bool linkAfterDraw;
 
 	double oldItemX;
 	double oldItemY;
