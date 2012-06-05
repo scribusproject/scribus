@@ -419,25 +419,34 @@ void SearchReplace::slotDoSearch()
 		sSize = qRound(SSizeVal->value() * 10);
 	if (sText.length() > 0)
 		found = false;
-	int inde = 0;
+
 	uint as = Item->itemText.cursorPosition();
 	ReplStart = as;
 	int a;
 	if (SMode)
 	{
+		Qt::CaseSensitivity cs = Qt::CaseSensitive;
+		if (CaseIgnore->isChecked())
+			cs = Qt::CaseInsensitive;
+
 		for (a = as; a < Item->itemText.length(); ++a)
 		{
+			found = true;
 			if (SText->isChecked())
 			{
-				QString chstr = Item->itemText.text(a,1);
-				if (CaseIgnore->isChecked())
-					chstr = chstr.toLower();
-				found = chstr == sText.mid(inde, 1) ? true : false;
-				if ((Word->isChecked()) && (inde == 0) && (chstr[0].isSpace()))
-					found = true;
+				a = Item->itemText.indexOf(sText, a, cs);
+				found = (a >= 0);
+				if (!found) break;
+
+				if (Word->isChecked() && (a > 0) && !Item->itemText.text(a - 1).isSpace())
+					found = false;
+				if (Word->isChecked())
+				{
+					int lastChar = qMin(a + sText.length(), maxChar);
+					found = ((lastChar == maxChar) || Item->itemText.text(lastChar).isSpace());
+				}
+				if (!found) continue;
 			}
-			else
-				found = true;
 			if (SSize->isChecked())
 			{
 				if (Item->itemText.charStyle(a).fontSize() != sSize)
@@ -487,41 +496,20 @@ void SearchReplace::slotDoSearch()
 			}
 			if (found)
 			{
-				Item->itemText.select(a,1);
+				Item->itemText.select(a, sText.length());
 				Item->HasSel = true;
 				if (rep)
 				{
 					DoReplace->setEnabled(true);
 					AllReplace->setEnabled(true);
 				}
-				Item->itemText.setCursorPosition(a+1);
-				if (SText->isChecked())
-				{
-					if (inde == 0)
-						ReplStart = a;
-					inde++;
-					if ((Word->isChecked()) && (inde == 1) && (Item->itemText.text(a).isSpace()))
-					{
-						inde--;
-						Item->itemText.select(a, 1, false);
-					}
-					if ( Word->isChecked()  &&  inde == sText.length()  &&
-						! Item->itemText.text(qMin(a+1, maxChar)).isSpace() )
-					{
-						for (int xx = ReplStart; xx < a+1; ++xx)
-							Item->itemText.select(qMin(xx, maxChar), 1, false);
-						Item->HasSel = false;
-						inde = 0;
-						found = false;
-					}
-					else
-					{
-						if (inde == sText.length())
-							break;
-					}
-				}
-				else
+				Item->itemText.setCursorPosition(a + sText.length());
+
+				if (!SText->isChecked())
 					break;
+
+				ReplStart = a;
+				break;
 			}
 			else
 			{
@@ -531,7 +519,6 @@ void SearchReplace::slotDoSearch()
 						Item->itemText.select(qMin(xx, maxChar), 1, false);
 					Item->HasSel = false;
 				}
-				inde = 0;
 			}
 		}
 		if ((!found) || (a == Item->itemText.length()))
