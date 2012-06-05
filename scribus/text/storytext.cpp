@@ -205,6 +205,95 @@ void StoryText::clear()
 	invalidateAll();
 }
 
+int StoryText::indexOf(const QString &str, int from, Qt::CaseSensitivity cs) const
+{
+	int foundIndex = -1;
+
+	if (str.isEmpty() || (from < 0))
+		return -1;
+
+	int strLen   = str.length();
+	int storyLen = length();
+
+	QString qStr = str;
+	if (cs == Qt::CaseInsensitive)
+		qStr = qStr.toLower();
+	QChar ch = qStr.at(0);
+
+	if (cs == Qt::CaseSensitive)
+	{
+		int i = indexOf(ch, from, cs);
+		while (i >= 0 && i < (int) d->len)
+		{
+			int index = 0;
+			while ((index < strLen) && ((index + i) < storyLen))
+			{
+				if (qStr.at(index) != d->at(index + i)->ch)
+					break;
+				++index;
+			}
+			if (index == strLen)
+			{
+				foundIndex = i;
+				break;
+			}
+			i = indexOf(ch, i + 1, cs);
+		}
+	}
+	else
+	{
+		int i = indexOf(ch, from, cs);
+		while (i >= 0 && i < (int) d->len)
+		{
+			int index = 0;
+			while ((index < strLen) && ((index + i) < storyLen))
+			{
+				if (qStr.at(index) != d->at(index + i)->ch.toLower())
+					break;
+				++index;
+			}
+			if (index == strLen)
+			{
+				foundIndex = i;
+				break;
+			}
+			i = indexOf(ch, i + 1, cs);
+		}
+	}
+
+	return foundIndex;
+}
+
+int StoryText::indexOf(QChar ch, int from, Qt::CaseSensitivity cs) const
+{
+	int foundIndex = -1;
+	int textLength = length();
+
+	if (cs == Qt::CaseSensitive)
+	{
+		for (int i = from; i < textLength; ++i)
+		{
+			if (d->at(i)->ch == ch)
+			{
+				foundIndex = i;
+				break;
+			}
+		}
+	}
+	else
+	{
+		for (int i = from; i < textLength; ++i)
+		{
+			if (d->at(i)->ch.toLower() == ch)
+			{
+				foundIndex = i;
+				break;
+			}
+		}
+	}
+	return foundIndex;
+}
+
 void StoryText::insert(const StoryText& other, bool onlySelection)
 {
 	insert(d->cursorPosition, other, onlySelection);

@@ -110,6 +110,10 @@ class SCRIBUS_API StoryText : public QObject, public SaxIO
 
  	void clear();
 	StoryText copy() const;
+
+	// Find text in story
+	int indexOf(const QString &str, int from = 0, Qt::CaseSensitivity cs = Qt::CaseSensitive) const;
+	int indexOf(QChar ch, int from = 0, Qt::CaseSensitivity cs = Qt::CaseSensitive) const;
 	
 	// Add, change, replace
 	// Insert chars from another StoryText object at current cursor position
