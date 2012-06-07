@@ -87,7 +87,7 @@ void UpgradeChecker::fetch()
 		qApp->processEvents();
 		if(rcvdFile->open(QIODevice::ReadWrite))
 		{
-			QString hostname("upgrade.scribus.net");
+			QString hostname("services.scribus.net");
 			QString filepath("/"+filename);
 			outputText("<b>"+ tr("Attempting to get the Scribus version update file:")+"</b>");
 			outputText(QString("<b>http://%1%2</b>").arg(hostname).arg(filepath));
