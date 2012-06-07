@@ -25,6 +25,7 @@ for which a new license (GPL+exception) is in place.
 #include <QString>
 
 #include "scribusapi.h"
+#include "downloadmanager/scdlmgr.h"
 class ScribusCore;
 class ScribusMainWindow;
 
@@ -36,7 +37,6 @@ class SCRIBUS_API ScribusQApp : public QApplication
 		ScribusQApp( int & argc, char ** argv );
 		~ScribusQApp();
 		int init();
-		void initLang();
 		void parseCommandLine();
 		void changeGUILanguage(const QString & lang);
 		/*!
@@ -66,9 +66,17 @@ class SCRIBUS_API ScribusQApp : public QApplication
 		void neverSplash(bool splashOff);
 		bool neverSplashExists();
 		const QString& currGUILanguage() {return GUILang;};
+		ScDLManager* dlManager() { return m_scDLMgr; }
+
+	public slots:
+
+	protected slots:
+		void downloadComplete(const QString& t);
 
 	private:
 		ScribusCore* m_ScCore;
+		void initLang();
+		void initDLMgr();
 		void showHeader();
 		void showVersion();
 		/*!
@@ -95,6 +103,7 @@ class SCRIBUS_API ScribusQApp : public QApplication
 		QString prefsUserFile;
 		QList<QString> filesToLoad;
 		QString fileName;
+		ScDLManager *m_scDLMgr;
 
 	protected:
 		virtual bool event(QEvent *event);

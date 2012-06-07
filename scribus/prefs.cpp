@@ -87,7 +87,7 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 	addItem( tr("Tools"), loadIcon("tools.png"), tabTools);
 
 	tabHyphenator = new HySettings(prefsWidgets/*, &ap->LangTransl*/);
-	addItem( tr("Hyphenator"), loadIcon("hyphenate.png"), tabHyphenator);
+	addItem( tr("Hyphenation and Spelling"), loadIcon("hyphenate.png"), tabHyphenator);
 
 	tabFonts = new FontPrefs(prefsWidgets, false, prefsManager->preferencesLocation(), ap->doc);
 	addItem( tr("Fonts"), loadIcon("font.png"), tabFonts);

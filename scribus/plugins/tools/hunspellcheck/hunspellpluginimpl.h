@@ -30,7 +30,6 @@ class HunspellPluginImpl : public QObject
 		HunspellPluginImpl();
 		~HunspellPluginImpl();
 		bool run(const QString & target, ScribusDoc* doc=0);
-		bool findDictionaries();
 		bool initHunspell();
 		bool checkWithHunspell();
 		bool checkWithHunspellSE();
@@ -43,7 +42,7 @@ class HunspellPluginImpl : public QObject
 	protected:
 		QMap<QString, QString> dictionaryMap;
 		QStringList dictionaryPaths;
-		int numDicts, numAFFs;
+		//int numDicts, numAFFs;
 		QMap<QString, Hunspell*> hspellerMap;
 		ScribusDoc* m_doc;
 		bool m_runningForSE;

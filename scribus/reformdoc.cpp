@@ -80,7 +80,8 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 	tabTools = new TabTools( prefsWidgets, &doc->toolSettings, docUnitIndex, doc);
 	addItem( tr("Tools"), loadIcon("tools.png"), tabTools);
 
-	tabHyphenator = new HySettings(prefsWidgets/*, &ScMW->LangTransl*/);
+	tabHyphenator = new HySettings(prefsWidgets);
+	tabHyphenator->setSpellingInvisible();
 	addItem( tr("Hyphenator"), loadIcon("hyphenate.png"), tabHyphenator);
 
 	tabFonts = new FontPrefs(prefsWidgets, true, PrefsManager::instance()->preferencesLocation(), doc);

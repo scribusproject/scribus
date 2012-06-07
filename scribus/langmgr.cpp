@@ -20,7 +20,7 @@ for which a new license (GPL+exception) is in place.
  ***************************************************************************/
  
 #include <iostream>
-
+#include <QDebug>
 #include <QDir>
 #include <QFileInfo>
 #include <QMap>
@@ -300,6 +300,40 @@ QString LanguageManager::numericSequence(QString seq)
 			break;
 	}
 	return retSeq;
+}
+
+bool LanguageManager::findDictionaries(QStringList &sl)
+{
+	sl=ScPaths::instance().spellDirs();
+	if (sl.count()==0)
+		return false;
+	return true;
+}
+
+void LanguageManager::findDictionarySets(QStringList &dictionaryPaths, QMap<QString, QString> &dictionaryMap)
+{
+	for (int i=0; i<dictionaryPaths.count(); ++i)
+	{
+		// Find the dic and aff files in the location
+		QDir dictLocation(dictionaryPaths.at(i));
+		QStringList dictFilters("*.dic");
+		QStringList dictList(dictLocation.entryList(dictFilters, QDir::Files, QDir::Name));
+		dictList.replaceInStrings(".dic","");
+
+		//Ensure we have aff+dic file pairs, remove any hyphenation dictionaries from the list
+		QString dictName;
+		foreach(dictName, dictList)
+		{
+			if (!QFile::exists(dictionaryPaths.at(i)+dictName+".aff"))
+				dictList.removeAll(dictName);
+			else
+			{
+				if (!dictionaryMap.contains(dictName))
+					dictionaryMap.insert(dictName, dictionaryPaths.at(i)+dictName);
+			}
+		}
+//		qDebug()<<"Number of dictionaries/AFFs found in"<<dictionaryPaths.at(i)<<":"<<dictList.count();
+	}
 }
 
 LanguageManager::~LanguageManager()

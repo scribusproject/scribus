@@ -98,6 +98,7 @@ void ScDLThread::startNextDownload()
 	if (downloadQueue.isEmpty())
 	{
 		qDebug()<<downloadedCount<<"/"<<totalCount<<"files downloaded successfully";
+		downloadedCount=totalCount=0;
 		emit finished();
 		return;
 	}

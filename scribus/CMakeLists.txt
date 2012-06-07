@@ -62,6 +62,7 @@ SET(SCRIBUS_UI_SRC
   tocindexprefs.ui
   ui/copypagetomasterpage.ui
   ui/createrange.ui
+  ui/downloaddictionaries.ui
   ui/helpbrowser.ui
   unicodesearch.ui
   useprintermarginsdialog.ui
@@ -118,6 +119,8 @@ SET(SCRIBUS_MOC_CLASSES
   docinfo.h
   docitemattrprefs.h
   docsections.h
+  downloadmanager/scdlmgr.h
+  downloadmanager/scdlthread.h
   editor.h
   effectsdialog.h
   extimageprops.h
@@ -278,6 +281,7 @@ SET(SCRIBUS_MOC_CLASSES
   tt/simpletreemodel/treemodel.h
   ui/copypagetomasterpagedialog.h
   ui/createrange.h
+  ui/downloaddictionaries.h
   ui/edittoolbar.h
   ui/filetoolbar.h  
   ui/modetoolbar.h
@@ -364,6 +368,8 @@ SET(SCRIBUS_SOURCES
   docsections.cpp
   documentchecker.cpp
   documentinformation.cpp
+  downloadmanager/scdlmgr.cpp
+  downloadmanager/scdlthread.cpp
   editor.cpp
   effectsdialog.cpp
   exif.cpp
@@ -602,6 +608,7 @@ SET(SCRIBUS_SOURCES
   tt/simpletreemodel/treemodel.cpp
   ui/copypagetomasterpagedialog.cpp
   ui/createrange.cpp
+  ui/downloaddictionaries.cpp
   ui/edittoolbar.cpp
   ui/filetoolbar.cpp
   ui/modetoolbar.cpp
