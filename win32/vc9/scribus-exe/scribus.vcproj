@@ -830,6 +830,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\scribus\ui\downloaddictionaries.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\scribus\editor.cpp"
 				>
 			</File>
@@ -1551,6 +1555,14 @@
 			</File>
 			<File
 				RelativePath="..\..\..\scribus\sccombobox.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\scribus\downloadmanager\scdlmgr.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\scribus\downloadmanager\scdlthread.cpp"
 				>
 			</File>
 			<File
@@ -4045,6 +4057,38 @@
 			<File
 				RelativePath="..\..\..\scribus\documentinformation.h"
 				>
+			</File>
+			<File
+				RelativePath="..\..\..\scribus\ui\downloaddictionaries.h"
+				>
+				<FileConfiguration
+					Name="Debug-cairo|Win32"
+					>
+					<Tool
+						Name="moc"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release-cairo|Win32"
+					>
+					<Tool
+						Name="moc"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug-arthur|Win32"
+					>
+					<Tool
+						Name="moc"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release-arthur|Win32"
+					>
+					<Tool
+						Name="moc"
+					/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\..\scribus\editor.h"
@@ -7227,6 +7271,70 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\scribus\downloadmanager\scdlmgr.h"
+				>
+				<FileConfiguration
+					Name="Debug-cairo|Win32"
+					>
+					<Tool
+						Name="moc"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release-cairo|Win32"
+					>
+					<Tool
+						Name="moc"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug-arthur|Win32"
+					>
+					<Tool
+						Name="moc"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release-arthur|Win32"
+					>
+					<Tool
+						Name="moc"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\..\scribus\downloadmanager\scdlthread.h"
+				>
+				<FileConfiguration
+					Name="Debug-cairo|Win32"
+					>
+					<Tool
+						Name="moc"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release-cairo|Win32"
+					>
+					<Tool
+						Name="moc"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug-arthur|Win32"
+					>
+					<Tool
+						Name="moc"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release-arthur|Win32"
+					>
+					<Tool
+						Name="moc"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
 				RelativePath="..\..\..\scribus\scdocoutput.h"
 				>
 			</File>
@@ -10236,6 +10344,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\scribus\ui\ui_downloaddictionaries.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\scribus\ui_gtfiledialog.h"
 				>
 			</File>
@@ -10590,6 +10702,10 @@
 			</File>
 			<File
 				RelativePath="..\..\..\scribus\moc_docsections.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\scribus\ui\moc_downloaddictionaries.cpp"
 				>
 			</File>
 			<File
@@ -10965,6 +11081,14 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\scribus\downloadmanager\moc_scdlmgr.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\scribus\downloadmanager\moc_scdlthread.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\scribus\moc_scfilewidget.cpp"
 				>
 			</File>
@@ -11311,6 +11435,10 @@
 			</File>
 			<File
 				RelativePath="..\..\..\scribus\docsections.ui"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\scribus\ui\downloaddictionaries.ui"
 				>
 			</File>
 			<File

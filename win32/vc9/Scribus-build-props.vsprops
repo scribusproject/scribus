@@ -50,6 +50,6 @@
 	/>
 	<UserMacro
 		Name="PYTHON_DIR"
-		Value="F:\Libraries-vc9\Python-2.7.1"
+		Value="F:\Libraries-vc9\Python-2.7.3"
 	/>
 </VisualStudioPropertySheet>
