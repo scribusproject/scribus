@@ -17,7 +17,7 @@ class ScribusDoc;
 
 class SCRIBUS_API HySettings : public QWidget, Ui::hysettingsBase
 { 
-	//TODO: Dict license showing, URL background unzipping, checksumming
+	//TODO: Dict license showing, URL background unzipping, checksumming, pkg mgr platforms warning
 	struct DictData
 	{
 			QString lang;
