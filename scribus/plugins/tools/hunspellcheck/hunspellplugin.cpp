@@ -8,6 +8,7 @@ for which a new license (GPL+exception) is in place.
 #include "hunspellpluginimpl.h"
 #include "scribuscore.h"
 #include "ui/storyeditor.h"
+#include "hunspelldownloader.h"
 
 // See scplugin.h and pluginmanager.{cpp,h} for detail on what these methods
 // do. That documentatation is not duplicated here.
@@ -19,6 +20,9 @@ HunspellPlugin::HunspellPlugin() : ScActionPlugin()
 	// Set action info in languageChange, so we only have to do
 	// it in one place.
 	languageChange();
+
+	HunspellDownloader hd;
+	hd.downloadDictionaryXML();
 }
 
 HunspellPlugin::~HunspellPlugin() {};
