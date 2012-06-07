@@ -6,6 +6,5 @@
 	<dictionary type="spell" language="en_CA" URL="http://" description="English (Canadian)" files="en_CA.dic;en_CA.aff" license="README_en_CA.txt" version="1.0" />
 	<dictionary type="spell" language="en_NZ" URL="http://services.scribus.net/myspell-en_NZ-20081002.zip" description="English (New Zealand)" files="en_NZ.dic;en_NZ.aff" license="README_en_NZ.txt" version="1.0" />
 	<dictionary type="spell" language="en_ZA" URL="http://services.scribus.net/myspell-en_ZA-20081002.zip" description="English (South African)" files="en_ZA.dic;en_ZA.aff" license="README_en_ZA.txt" version="1.0" />
-	<dictionary type="spell" language="en_ZA" URL="http://services.scribus.net/myspell-en_ZA-20081002.zip" description="English (South African)" files="en_ZA.dic;en_ZA.aff" license="README_en_ZA.txt" version="1.0" />
-	<dictionary type="spell" language="es_AR" URL="http://de-mirror.org/gentoo/distfiles/myspell-es_AR-20120418.zip" description="Spanish (Argentina)" files="es_AR.dic;es_AR.aff" license="README_es_AR.txt" version="1.0" />
+	<dictionary type="spell" language="es_AR" URL="http://de-mirror.org/gentoo/distfiles/myspell-es_AR-20120418.zip" description="Spanish (Argentina)" files="es_AR.dic;es_AR.aff" license="README.txt" version="1.0" />
 </scribus>
