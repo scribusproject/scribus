@@ -32,7 +32,7 @@ for which a new license (GPL+exception) is in place.
 HunspellPluginImpl::HunspellPluginImpl() : QObject(0)
 {
 	//hspellers=NULL;
-	numDicts=0;
+//	numDicts=0;
 	m_runningForSE=false;
 	m_SE=NULL;
 }
@@ -45,7 +45,7 @@ HunspellPluginImpl::~HunspellPluginImpl()
 		h = NULL;
 	}
 	hspellerMap.clear();
-	numDicts = 0;
+//	numDicts = 0;
 }
 
 bool HunspellPluginImpl::run(const QString & target, ScribusDoc* doc)
@@ -62,45 +62,17 @@ bool HunspellPluginImpl::run(const QString & target, ScribusDoc* doc)
 	return spellCheckOk;
 }
 
-bool HunspellPluginImpl::findDictionaries()
-{
-	dictionaryPaths=ScPaths::instance().spellDirs();
-	if (dictionaryPaths.count()==0)
-		return false;
-	return true;
-}
-
 bool HunspellPluginImpl::initHunspell()
 {
-	bool dictPathFound=findDictionaries();
+	bool dictPathFound=LanguageManager::instance()->findDictionaries(dictionaryPaths);
 	if (!dictPathFound)
 	{
 		qDebug()<<"No preinstalled dictonary paths found";
 		return false;
 	}
-	for (int i=0; i<dictionaryPaths.count(); ++i)
-	{
-		// Find the dic and aff files in the location
-		QDir dictLocation(dictionaryPaths.at(i));
-		QStringList dictFilters("*.dic");
-		QStringList dictList(dictLocation.entryList(dictFilters, QDir::Files, QDir::Name));
-		dictList.replaceInStrings(".dic","");
-
-		//Ensure we have aff+dic file pairs, remove any hyphenation dictionaries from the list
-		QString dictName;
-		foreach(dictName, dictList)
-		{
-			if (!QFile::exists(dictionaryPaths.at(i)+dictName+".aff"))
-				dictList.removeAll(dictName);
-			else
-			{
-				if (!dictionaryMap.contains(dictName))
-					dictionaryMap.insert(dictName, dictionaryPaths.at(i)+dictName);
-			}
-		}
-		qDebug()<<"Number of dictionaries/AFFs found in"<<dictionaryPaths.at(i)<<":"<<dictList.count();
-	}
-	numDicts=dictionaryMap.count();
+	dictionaryMap.clear();
+	LanguageManager::instance()->findDictionarySets(dictionaryPaths, dictionaryMap);
+//	numDicts=dictionaryMap.count();
 	if (dictionaryMap.count()==0)
 		return false;
 
@@ -150,7 +122,6 @@ bool HunspellPluginImpl::parseTextFrame(StoryText *iText)
 		currPos=wordStart;
 		QString word=iText->text(wordStart,wordEnd-wordStart);
 		QString wordLang=iText->charStyle(wordStart).language();
-		//qDebug()<<word<<wordLang;
 		wordLang=LanguageManager::instance()->getAbbrevFromLang(wordLang, true, false);
 		//A little hack as for some reason our en dictionary from the aspell plugin was not called en_GB or en_US but en, content was en_GB though. Meh.
 		if (wordLang=="en")

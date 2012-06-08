@@ -13,14 +13,12 @@
 	hunspelldialog.h
     hunspellplugin.h
     hunspellpluginimpl.h
-	hunspelldownloader.h
   )
 
   SET(HUNSPELL_PLUGIN_SOURCES
 	hunspelldialog.cpp
 	hunspellplugin.cpp
     hunspellpluginimpl.cpp
-	hunspelldownloader.cpp
   )
 
   SET(SCRIBUS_HUNSPELL_PLUGIN "hunspellplugin")

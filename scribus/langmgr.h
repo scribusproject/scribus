@@ -50,6 +50,8 @@ public:
 	void fillInstalledStringList(QStringList *stringListToFill, bool addDefaults);
 	void printInstalledList();
 	QString numericSequence(QString seq);
+	bool findDictionaries(QStringList& sl);
+	void findDictionarySets(QStringList& dictionaryPaths, QMap<QString, QString>& dictionaryMap);
 	
 	void addHyphLang(const QString& lang, const QString& filename);
 	const QString getHyphFilename(const QString& lang, bool langIsAbbreviated = true);
