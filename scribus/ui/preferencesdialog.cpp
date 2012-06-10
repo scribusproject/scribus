@@ -46,6 +46,7 @@ PreferencesDialog::PreferencesDialog(QWidget* parent, ApplicationPrefs& prefsDat
 	prefs_Plugins(0),prefs_PreflightVerifier(0),
 	prefs_Printer(0),
 	prefs_Scrapbook(0),
+	prefs_Spelling(0),
 	prefs_TableOfContents(0),
 	prefs_Typography(0),
 	prefs_UserInterface(0),
@@ -93,6 +94,7 @@ PreferencesDialog::PreferencesDialog(QWidget* parent, ApplicationPrefs& prefsDat
 		prefs_Paths = new Prefs_Paths(prefsStackWidget, m_Doc);
 		prefs_Plugins = new Prefs_Plugins(prefsStackWidget, m_Doc);
 		prefs_Scrapbook = new Prefs_Scrapbook(prefsStackWidget, m_Doc);
+		prefs_Spelling = new Prefs_Spelling(prefsStackWidget, m_Doc);
 		prefs_UserInterface = new Prefs_UserInterface(prefsStackWidget, m_Doc);
 	}
 	// Add Stack Widgets if required
@@ -126,6 +128,7 @@ PreferencesDialog::PreferencesDialog(QWidget* parent, ApplicationPrefs& prefsDat
 	{
 		addItem( tr("Keyboard Shortcuts"), loadIcon("16/preferences-desktop-keyboard-shortcuts.png"), prefs_KeyboardShortcuts);
 		addItem( tr("Scrapbook"), loadIcon("scrap_16.png"), prefs_Scrapbook);
+		addItem( tr("Spelling"), loadIcon("signature_16.png"), prefs_Spelling);
 	}
 	addItem( tr("Display"), loadIcon("16/video-display.png"), prefs_Display);
 	if (!doc)
@@ -204,6 +207,7 @@ void PreferencesDialog::setupGui()
 		prefs_ColorManagement->restoreDefaults(&localPrefs);
 	}
 	if (prefs_Scrapbook) prefs_Scrapbook->restoreDefaults(&localPrefs);
+	if (prefs_Spelling) prefs_Spelling->restoreDefaults(&localPrefs);
 	if (prefs_Display) prefs_Display->restoreDefaults(&localPrefs);
 	if (prefs_ExternalTools) prefs_ExternalTools->restoreDefaults(&localPrefs);
 	if (prefs_Plugins) prefs_Plugins->restoreDefaults(&localPrefs);
@@ -234,6 +238,7 @@ void PreferencesDialog::saveGuiToPrefs()
 	if (prefs_KeyboardShortcuts) prefs_KeyboardShortcuts->saveGuiToPrefs(&localPrefs);
 	if (prefs_ColorManagement) prefs_ColorManagement->saveGuiToPrefs(&localPrefs);
 	if (prefs_Scrapbook) prefs_Scrapbook->saveGuiToPrefs(&localPrefs);
+	if (prefs_Spelling) prefs_Spelling->saveGuiToPrefs(&localPrefs);
 	if (prefs_Display) prefs_Display->saveGuiToPrefs(&localPrefs);
 	if (prefs_ExternalTools) prefs_ExternalTools->saveGuiToPrefs(&localPrefs);
 	if (prefs_Plugins) prefs_Plugins->saveGuiToPrefs(&localPrefs);

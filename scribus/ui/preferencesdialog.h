@@ -17,30 +17,32 @@ for which a new license (GPL+exception) is in place.
 #include "ui_preferencesdialogbase.h"
 
 #include "ui/prefs_colormanagement.h"
-#include "ui/prefs_userinterface.h"
+#include "ui/prefs_display.h"
 #include "ui/prefs_documentinformation.h"
+#include "ui/prefs_documentitemattributes.h"
 #include "ui/prefs_documentsections.h"
 #include "ui/prefs_documentsetup.h"
-#include "ui/prefs_display.h"
-#include "ui/prefs_guides.h"
 #include "ui/prefs_externaltools.h"
-#include "ui/prefs_keyboardshortcuts.h"
-#include "ui/prefs_paths.h"
-#include "ui/prefs_printer.h"
+#include "ui/prefs_fonts.h"
+#include "ui/prefs_guides.h"
 #include "ui/prefs_hyphenator.h"
+#include "ui/prefs_imagecache.h"
+#include "ui/prefs_itemtools.h"
+#include "ui/prefs_keyboardshortcuts.h"
 #include "ui/prefs_miscellaneous.h"
+#include "ui/prefs_operatortools.h"
 #include "ui/prefs_pagesizes.h"
+#include "ui/prefs_paths.h"
+#include "ui/prefs_pdfexport.h"
 #include "ui/prefs_plugins.h"
 #include "ui/prefs_preflightverifier.h"
+#include "ui/prefs_printer.h"
 #include "ui/prefs_scrapbook.h"
-#include "ui/prefs_typography.h"
-#include "ui/prefs_itemtools.h"
-#include "ui/prefs_operatortools.h"
-#include "ui/prefs_fonts.h"
+#include "ui/prefs_spelling.h"
 #include "ui/prefs_tableofcontents.h"
-#include "ui/prefs_pdfexport.h"
-#include "ui/prefs_documentitemattributes.h"
-#include "ui/prefs_imagecache.h"
+#include "ui/prefs_typography.h"
+#include "ui/prefs_userinterface.h"
+
 
 class PrefsManager;
 class ScribusMainWindow;
@@ -107,9 +109,11 @@ class SCRIBUS_API PreferencesDialog : public QDialog, Ui::PreferencesDialog
 		Prefs_PreflightVerifier *prefs_PreflightVerifier;
 		Prefs_Printer *prefs_Printer;
 		Prefs_Scrapbook *prefs_Scrapbook;
+		Prefs_Spelling *prefs_Spelling;
 		Prefs_TableOfContents *prefs_TableOfContents;
 		Prefs_Typography *prefs_Typography;
 		Prefs_UserInterface *prefs_UserInterface;
+
 
 		QMap<QListWidgetItem*, int> stackWidgetMap;
 		int counter;

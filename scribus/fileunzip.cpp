@@ -56,6 +56,7 @@ for which a new license (GPL+exception) is in place.
 #include <zlib.h>
 
 #include <QDir>
+#include <QDebug>
 #include <QByteArray>
 
 #include "scpaths.h"
@@ -67,6 +68,8 @@ for which a new license (GPL+exception) is in place.
 
 int do_extract_currentfile(unzFile uf, QString outfile, const char *password);
 int do_extract_onefile(unzFile uf, const QString& filename, QString outfile, const char *password);
+int do_extract_currentfile(unzFile uf, const int* popt_extract_without_path, int* popt_overwrite, const char* password);
+int do_extract_onefile(unzFile uf, const QString& filename, int opt_extract_without_path, int opt_overwrite, const char* password);
 FILE*    openfile(const QString& filename, const QString& mode);
 unzFile  unzOpenFile(const QString& filename);
 int mymkdir(const QString& dirname);
@@ -84,30 +87,48 @@ FileUnzip::FileUnzip(QString zipFilePath)
 	zipFile = zipFilePath;
 }
 
-QString FileUnzip::getFile(QString name, QString path)
+QString FileUnzip::getFile(QString name)
+{
+		QString pwd = QDir::currentPath();
+		QTemporaryFile *tempImageFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_zip_XXXXXX.dat");
+		if (tempImageFile == NULL)
+				return NULL;
+		tempImageFile->open();
+		QString fname = getLongPathName(tempImageFile->fileName());
+		tempImageFile->close();
+		tempFileList.append(tempImageFile);
+		QDir::setCurrent(QDir::tempPath());
+		unzFile uf = unzOpenFile(zipFile);
+		int ret = do_extract_onefile(uf, name, fname, NULL);
+		unzClose(uf);
+		QDir::setCurrent(pwd);
+		if (ret != 0)
+				return NULL;
+		else
+				return fname;
+}
+
+QString FileUnzip::getFileToPath(QString name, QString path)
 {
 	QString pwd = QDir::currentPath();
 	QString outDir;
 	if (path.isNull())
-		outDir = QDir::tempPath();
+		outDir = ScPaths::getTempFileDir();
 	else
 		outDir=path;
-	QTemporaryFile *tempFile = new QTemporaryFile(outDir + "/scribus_temp_zip_XXXXXX.dat");
-	if (tempFile == NULL)
-		return NULL;
-	tempFile->open();
-	QString fname = getLongPathName(tempFile->fileName());
-	tempFile->close();
-	tempFileList.append(tempFile);
+	QFile f(outDir);
+	QFileInfo fi(f);
+	if (!fi.isWritable())
+		outDir = ScPaths::getApplicationDataDir();
 	QDir::setCurrent(outDir);
 	unzFile uf = unzOpenFile(zipFile);
-	int ret = do_extract_onefile(uf, name, fname, NULL);
+	int ret = do_extract_onefile(uf,name, 0, 1, NULL);
 	unzClose(uf);
 	QDir::setCurrent(pwd);
 	if (ret != 0)
 		return NULL;
 	else
-		return fname;
+		return outDir + name;
 }
 
 FileUnzip::~FileUnzip()
@@ -213,13 +234,13 @@ int makedir (const QString& newdir)
 int do_extract_onefile(unzFile uf, const QString& filename, QString outfile, const char *password)
 {
 	QByteArray fname = filename.toLocal8Bit();
-    if (unzLocateFile(uf,fname.data(),CASESENSITIVITY)!=UNZ_OK)
-        return 2;
+	if (unzLocateFile(uf,fname.data(),CASESENSITIVITY)!=UNZ_OK)
+		return 2;
 
 	if (do_extract_currentfile(uf, outfile, password) == UNZ_OK)
-        return 0;
-    else
-        return 1;
+		return 0;
+	else
+		return 1;
 }
 
 int do_extract_currentfile(unzFile uf, QString outfile, const char* password)
@@ -272,6 +293,118 @@ int do_extract_currentfile(unzFile uf, QString outfile, const char* password)
 		else
 			unzCloseCurrentFile(uf); /* don't lose the error */
 	}
+	free(buf);
+	return err;
+}
+
+int do_extract_onefile(unzFile uf, const QString& filename, int opt_extract_without_path, int opt_overwrite, const char* password)
+{
+//    int err = UNZ_OK;
+	QByteArray fname = filename.toLocal8Bit();
+	if (unzLocateFile(uf,fname.data(),CASESENSITIVITY)!=UNZ_OK)
+		return 2;
+
+	if (do_extract_currentfile(uf,&opt_extract_without_path,
+									  &opt_overwrite,
+									  password) == UNZ_OK)
+		return 0;
+	else
+		return 1;
+}
+
+int do_extract_currentfile(unzFile uf, const int* popt_extract_without_path, int*, const char* password)
+{
+	char  fn_inzip[256];
+	QString filename_inzip;
+	QString filename_withoutpath;
+	int err=UNZ_OK;
+	FILE *fout=NULL;
+	void* buf;
+	uInt size_buf;
+
+	unz_file_info file_info;
+	//uLong ratio=0;
+	err = unzGetCurrentFileInfo(uf,&file_info,fn_inzip,sizeof(fn_inzip),NULL,0,NULL,0);
+
+	if (err!=UNZ_OK)
+		return err;
+
+	size_buf = WRITEBUFFERSIZE;
+	buf = (void*)malloc(size_buf);
+	if (buf==NULL)
+		return UNZ_INTERNALERROR;
+
+	QChar p;
+//	uint cIndex = 0;
+	filename_inzip = QString::fromLocal8Bit(fn_inzip);
+	filename_withoutpath = filename_inzip;
+	for (int i = 0; i < filename_inzip.length(); i++)
+	{
+		p = filename_inzip[i];
+		if( (p == '/') || (p =='\\'))
+			filename_withoutpath = filename_inzip.mid(i+1);
+	}
+
+	if (filename_withoutpath.isEmpty())
+	{
+		if ((*popt_extract_without_path)==0)
+			mymkdir(filename_inzip);
+	}
+	else
+	{
+		QString write_filename;
+		int skip=0;
+
+		if ((*popt_extract_without_path)==0)
+			write_filename = filename_inzip;
+		else
+			write_filename = filename_withoutpath;
+
+		err = unzOpenCurrentFilePassword(uf,password);
+
+		if ((skip==0) && (err==UNZ_OK))
+		{
+			fout = openfile(write_filename, "wb");
+			/* some zipfile don't contain directory alone before file */
+			if ((fout==NULL) && ((*popt_extract_without_path)==0) &&
+								(filename_withoutpath != filename_inzip))
+			{
+				uint len = filename_inzip.length() - filename_withoutpath.length() - 1;
+				QString write_dir = filename_inzip.left(len);
+				makedir(write_dir);
+				fout = openfile(write_filename, "wb");
+			}
+		}
+
+		if (fout!=NULL)
+		{
+			do
+			{
+				err = unzReadCurrentFile(uf,buf,size_buf);
+				if (err<0)
+					break;
+				if (err>0)
+					if (fwrite(buf,err,1,fout)!=1)
+					{
+						err=UNZ_ERRNO;
+						break;
+					}
+			}
+			while (err>0);
+			if (fout)
+				fclose(fout);
+
+			if (err==0)
+				change_file_date(write_filename,file_info.dosDate,
+									file_info.tmu_date);
+		}
+
+		if (err==UNZ_OK)
+			err = unzCloseCurrentFile (uf);
+		else
+			unzCloseCurrentFile(uf); /* don't lose the error */
+	}
+
 	free(buf);
 	return err;
 }

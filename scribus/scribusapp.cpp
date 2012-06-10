@@ -99,6 +99,8 @@ ScribusQApp::ScribusQApp( int & argc, char ** argv ) : QApplication(argc, argv),
 {
 	ScQApp=this;
 	ScCore=NULL;
+
+	initDLMgr();
 }
 
 ScribusQApp::~ScribusQApp()
@@ -112,6 +114,12 @@ void ScribusQApp::initLang()
 
 	if (!langs.isEmpty())
 		installTranslators(langs);
+}
+
+void ScribusQApp::initDLMgr()
+{
+	m_scDLMgr=new ScDLManager(this);
+	connect(m_scDLMgr, SIGNAL(fileReceived(const QString&)), SLOT(downloadComplete(const QString&)));
 }
 
 void ScribusQApp::parseCommandLine()
@@ -529,6 +537,11 @@ void ScribusQApp::neverSplash(bool splashOff)
 bool ScribusQApp::neverSplashExists()
 {
 	return QFileInfo(ScPaths::getApplicationDataDir() + ".neversplash").exists();
+}
+
+void ScribusQApp::downloadComplete(const QString &t)
+{
+	qDebug()<<"ScribusQApp: download finished:"<<t;
 }
 
 bool ScribusQApp::event(QEvent *event)
