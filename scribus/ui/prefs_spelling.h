@@ -25,6 +25,7 @@ class SCRIBUS_API Prefs_Spelling : public Prefs_Pane, Ui::Prefs_Spelling
 				QString url;
 				QString desc;
 				QString license;
+				QString filetype;
 				bool download;
 		};
 	Q_OBJECT
