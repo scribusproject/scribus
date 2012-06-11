@@ -1,10 +1,10 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
 <scribus>
-	<dictionary type="spell" language="en_GB" URL="http://services.scribus.net/myspell-en_GB-20081002.zip" description="English (British)" files="en_GB.dic;en_GB.aff" license="README_en_GB.txt" version="1.0" />
+	<dictionary type="spell" filetype="zip" language="en_GB" URL="http://services.scribus.net/myspell-en_GB-20081002.zip" description="English (British)" files="en_GB.dic;en_GB.aff" license="README_en_GB.txt" version="1.0" />
 	<dictionary type="spell" language="en_US" URL="http://" description="English (American)" files="en_US.dic;en_US.aff" license="README_en_US.txt" version="1.0" />
-	<dictionary type="spell" language="en_AU" URL="http://" description="English (Australian)" files="en_AU.dic;en_AU.aff" license="README_en_AU.txt" version="1.0" />
+	<dictionary type="spell" filetype="plain" language="en_AU" URL="http://cgit.freedesktop.org/libreoffice/dictionaries/tree/dictionaries/en/" description="English (Australian)" files="en_AU.dic;en_AU.aff;README_en_AU.txt" license="README_en_AU.txt" version="1.0" />
 	<dictionary type="spell" language="en_CA" URL="http://" description="English (Canadian)" files="en_CA.dic;en_CA.aff" license="README_en_CA.txt" version="1.0" />
-	<dictionary type="spell" language="en_NZ" URL="http://services.scribus.net/myspell-en_NZ-20081002.zip" description="English (New Zealand)" files="en_NZ.dic;en_NZ.aff" license="README_en_NZ.txt" version="1.0" />
-	<dictionary type="spell" language="en_ZA" URL="http://services.scribus.net/myspell-en_ZA-20081002.zip" description="English (South African)" files="en_ZA.dic;en_ZA.aff" license="README_en_ZA.txt" version="1.0" />
-	<dictionary type="spell" language="es_AR" URL="http://de-mirror.org/gentoo/distfiles/myspell-es_AR-20120418.zip" description="Spanish (Argentina)" files="es_AR.dic;es_AR.aff" license="README.txt" version="1.0" />
+	<dictionary type="spell" filetype="zip" language="en_NZ" URL="http://services.scribus.net/myspell-en_NZ-20081002.zip" description="English (New Zealand)" files="en_NZ.dic;en_NZ.aff" license="README_en_NZ.txt" version="1.0" />
+	<dictionary type="spell" filetype="zip" language="en_ZA" URL="http://services.scribus.net/myspell-en_ZA-20081002.zip" description="English (South African)" files="en_ZA.dic;en_ZA.aff" license="README_en_ZA.txt" version="1.0" />
+	<dictionary type="spell" filetype="zip" language="es_AR" URL="http://de-mirror.org/gentoo/distfiles/myspell-es_AR-20120418.zip" description="Spanish (Argentina)" files="es_AR.dic;es_AR.aff" license="README.txt" version="1.0" />
 </scribus>
