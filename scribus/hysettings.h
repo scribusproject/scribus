@@ -26,6 +26,7 @@ class SCRIBUS_API HySettings : public QWidget, Ui::hysettingsBase
 			QString url;
 			QString desc;
 			QString license;
+			QString filetype;
 			bool download;
 	};
 

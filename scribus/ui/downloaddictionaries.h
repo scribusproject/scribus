@@ -26,6 +26,7 @@ class SCRIBUS_API DownloadDictionaries : public QDialog, Ui::DownloadDictionarie
 			QString url;
 			QString desc;
 			QString license;
+			QString filetype;
 			bool download;
 	};
 

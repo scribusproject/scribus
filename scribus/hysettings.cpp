@@ -12,7 +12,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribusdoc.h"
 #include "util_icon.h"
 #include "util.h"
-#include "ui/downloaddictionaries.h"
+#include "util_file.h"
 #include "scpaths.h"
 #include <QDomDocument>
 #include <QHeaderView>
@@ -182,9 +182,21 @@ void HySettings::downloadSpellDicts()
 	{
 		if (dlLangs.contains(d.lang))
 		{
-			ScQApp->dlManager()->addURL(d.url, true, downloadLocation);
-			downloadList.append(d);
-			++i;
+			if (d.filetype=="zip")
+			{
+				ScQApp->dlManager()->addURL(d.url, true, downloadLocation);
+				downloadList.append(d);
+				++i;
+			}
+			if (d.filetype=="plain")
+			{
+				//qDebug()<<d.url<<d.files;
+				QStringList plainURLs(d.files.split(";", QString::SkipEmptyParts));
+				foreach (QString s, plainURLs)
+					ScQApp->dlManager()->addURL(d.url+"/"+s, true, downloadLocation);
+				downloadList.append(d);
+				++i;
+			}
 		}
 	}
 	if (i>0)
@@ -251,16 +263,29 @@ void HySettings::downloadSpellDictsFinished()
 	foreach(DictData d, downloadList)
 	{
 		QString basename = QFileInfo(d.url).fileName();
-		QString filename=downloadLocation+"/"+basename;
+		QString filename=downloadLocation+basename;
 		//qDebug()<<filename;
-		FileUnzip* fun = new FileUnzip(filename);
-		QStringList files=d.files.split(";", QString::SkipEmptyParts);
-		foreach (QString s, files)
+		if (d.filetype=="zip")
 		{
-			qDebug()<<"Unzipping"<<userDictDir+s;
-			QString data=fun->getFile(s, userDictDir);
+			//qDebug()<<"zip data found"<<filename;
+			FileUnzip* fun = new FileUnzip(filename);
+			QStringList files=d.files.split(";", QString::SkipEmptyParts);
+			foreach (QString s, files)
+			{
+				//qDebug()<<"Unzipping"<<userDictDir+s;
+				QString data=fun->getFile(s, userDictDir);
+			}
+			delete fun;
 		}
-		delete fun;
+		if (d.filetype=="plain")
+		{
+			QStringList files=d.files.split(";", QString::SkipEmptyParts);
+			foreach (QString s, files)
+			{
+				//qDebug()<<"plain data found"<<downloadLocation<<userDictDir<<s;
+				moveFile(downloadLocation+s, userDictDir+s);
+			}
+		}
 	}
 	updateDictList();
 }
@@ -293,7 +318,7 @@ void HySettings::setAvailDictsXMLFile(QString availDictsXMLDataFile)
 		if( !e.isNull() ) {
 			if (e.tagName()=="dictionary")
 			{
-				if (e.hasAttribute("type"))
+				if (e.hasAttribute("type") && e.hasAttribute("filetype"))
 				{
 					if (e.attribute("type")=="spell")
 					{
@@ -305,6 +330,7 @@ void HySettings::setAvailDictsXMLFile(QString availDictsXMLDataFile)
 						d.version=e.attribute("version");
 						d.lang=e.attribute("language");
 						d.license=e.attribute("license");
+						d.filetype=e.attribute("filetype");
 						QUrl url(d.url);
 						if (url.isValid() && !url.isEmpty() && !url.host().isEmpty())
 							dictList.append(d);
