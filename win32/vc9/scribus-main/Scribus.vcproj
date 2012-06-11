@@ -1363,6 +1363,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\scribus\ui\prefs_spelling.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\scribus\ui\prefs_tableofcontents.cpp"
 				>
 			</File>
@@ -1548,6 +1552,14 @@
 			</File>
 			<File
 				RelativePath="..\..\..\scribus\ui\sccombobox.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\scribus\downloadmanager\scdlmgr.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\scribus\downloadmanager\scdlthread.cpp"
 				>
 			</File>
 			<File
@@ -5872,6 +5884,24 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath="..\..\..\scribus\ui\prefs_spelling.h"
+				>
+				<FileConfiguration
+					Name="Debug-cairo|Win32"
+					>
+					<Tool
+						Name="moc"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release-cairo|Win32"
+					>
+					<Tool
+						Name="moc"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
 				RelativePath="..\..\..\scribus\ui\prefs_tableofcontents.h"
 				>
 				<FileConfiguration
@@ -6474,6 +6504,42 @@
 			<File
 				RelativePath="..\..\..\scribus\scconfig.h"
 				>
+			</File>
+			<File
+				RelativePath="..\..\..\scribus\downloadmanager\scdlmgr.h"
+				>
+				<FileConfiguration
+					Name="Debug-cairo|Win32"
+					>
+					<Tool
+						Name="moc"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release-cairo|Win32"
+					>
+					<Tool
+						Name="moc"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\..\scribus\downloadmanager\scdlthread.h"
+				>
+				<FileConfiguration
+					Name="Debug-cairo|Win32"
+					>
+					<Tool
+						Name="moc"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release-cairo|Win32"
+					>
+					<Tool
+						Name="moc"
+					/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\..\scribus\ui\scdockpalette.h"
@@ -8671,6 +8737,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\scribus\ui\ui_prefs_spellingbase.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\scribus\ui\ui_prefs_tableofcontentsbase.h"
 				>
 			</File>
@@ -9560,6 +9630,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\scribus\ui\moc_prefs_spelling.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\scribus\ui\moc_prefs_tableofcontents.cpp"
 				>
 			</File>
@@ -9677,6 +9751,14 @@
 			</File>
 			<File
 				RelativePath="..\..\..\scribus\moc_sampleitem.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\scribus\downloadmanager\moc_scdlmgr.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\scribus\downloadmanager\moc_scdlthread.cpp"
 				>
 			</File>
 			<File
@@ -10262,6 +10344,10 @@
 			</File>
 			<File
 				RelativePath="..\..\..\scribus\ui\prefs_scrapbookbase.ui"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\scribus\ui\prefs_spellingbase.ui"
 				>
 			</File>
 			<File
