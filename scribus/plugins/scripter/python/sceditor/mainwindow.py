@@ -1,13 +1,13 @@
 from PyQt4.QtCore import pyqtSignature, Qt
-from PyQt4.QtGui import QMainWindow, QSplitter, QTabWidget, QApplication
+from PyQt4.QtGui import QMainWindow, QSplitter, QTabWidget, QApplication, QFileDialog, QMessageBox, QCloseEvent
 
-from sceditor.widget import PythonEditorWidget,  QtScriptEditorWidget
-from sceditor.console import PythonConsole, QtScriptConsole
-from sceditor.mainwindow_ui import Ui_ScriptEditor
+from widget import PythonEditorWidget,  QtScriptEditorWidget, SaveDialog
+from console import PythonConsole, QtScriptConsole
+from mainwindow_ui import Ui_ScriptEditor
 
 
 import traceback
-
+import os
 
 template_py = """\
 # -*- coding: utf-8 -*-
@@ -34,11 +34,47 @@ class EditorMainWindow(QMainWindow):
         self.editors = []
         self.on_actionNewPython_triggered()
 
+    @pyqtSignature("")
+    def closeEvent(self, event):
+	while(self.editors.__len__()):
+	    edit = self.edit_tab.currentWidget()
+            if edit:
+	        if(edit.isModified()):
+		    saveBox = SaveDialog("You have unsaved script. Save it now?")
+		    prompt = saveBox.exec_()
+		    if(prompt == QMessageBox.Save):
+			event.ignore()
+		        self.save(True)
+		    elif(prompt == QMessageBox.Cancel):
+		        event.ignore()
+			return
+		    elif(prompt == QMessageBox.Discard):
+		        event.accept()
+                i = self.edit_tab.indexOf(edit)
+                self.edit_tab.removeTab(i)
+                self.editors.remove(edit)
+	event.accept()
+
+	
 
     @pyqtSignature("")
     def on_actionExit_triggered(self):
-        self.close()
-
+	while(self.editors.__len__()):
+	    edit = self.edit_tab.currentWidget()
+            if edit:
+	        if(edit.isModified()):
+		    saveBox = SaveDialog("You have unsaved script. Save it now?")
+		    prompt = saveBox.exec_()
+		    if(prompt == QMessageBox.Save):
+		        self.save(True)
+		    elif(prompt == QMessageBox.Cancel):
+		        return
+		    elif(prompt == QMessageBox.Discard):
+		        pass
+		i = self.edit_tab.indexOf(edit)
+                self.edit_tab.removeTab(i)
+                self.editors.remove(edit)
+	self.close()
 
     @pyqtSignature("")
     def on_actionNewPython_triggered(self):
@@ -67,10 +103,71 @@ class EditorMainWindow(QMainWindow):
     def on_actionClose_triggered(self):
         edit = self.edit_tab.currentWidget()
         if edit:
+	    if(edit.isModified()):
+		saveBox = SaveDialog("Do you want to save this Script?")
+		prompt = saveBox.exec_()
+		if(prompt == QMessageBox.Save):
+		    self.save(True)
+		elif(prompt == QMessageBox.Cancel):
+		    return
+		elif(prompt == QMessageBox.Discard):
+		    pass
             i = self.edit_tab.indexOf(edit)
             self.edit_tab.removeTab(i)
             self.editors.remove(edit)
+
         
+    @pyqtSignature("")
+    def on_actionClear_triggered(self):
+        #edit = self.edit_tab.currentWidget()
+	#edit.setPlainText(template_py)
+	self.py_console.clear()
+
+
+    @pyqtSignature("")
+    def on_actionSave_As_triggered(self):
+	self.save()
+
+
+    @pyqtSignature("")
+    def on_actionSave_triggered(self):
+	self.save(True)
+
+
+    #Path of the script file in each tab will be stored in tabToolTip
+    def save(self, Update = False):
+        edit = self.edit_tab.currentWidget()
+	contents = str(edit.toPlainText())
+	if((Update == False) or (self.edit_tab.tabText(self.edit_tab.currentIndex()) == "Python") ):
+	    #Save in its first invocation and Save As will enter  
+	    filename = QFileDialog.getSaveFileName(self, "Save File", "", "*.spy")
+	    fil = open(filename , 'w')
+	    if(filename and self.edit_tab.tabText(self.edit_tab.currentIndex()) == "Python"):
+		#Script hasn't been saved before and user specifies a valid filename
+	        self.edit_tab.setTabToolTip(self.edit_tab.currentIndex(), filename+'.spy')
+	        self.edit_tab.setTabText(self.edit_tab.currentIndex(), os.path.basename(str(filename+'.spy')))
+	else:
+	    #filename = self.edit_tab.tabText(self.edit_tab.currentIndex())
+	    filename = self.edit_tab.tabToolTip(self.edit_tab.currentIndex())
+	    fil = open( filename , 'w')
+	fil.write(contents)	
+	fil.close()
+	edit.setModified(False)
+
+
+    @pyqtSignature("")
+    def on_actionOpen_triggered(self):
+	filename = QFileDialog.getOpenFileName(self,"Open File","","*.spy")
+	try:
+	    fil = open(filename , 'r')
+	except IOError:
+	    return
+	code = fil.read()
+	edit = self.edit_tab.currentWidget()
+	self.edit_tab.setTabText(self.edit_tab.currentIndex(), os.path.basename(str(filename)))
+	self.edit_tab.setTabToolTip(self.edit_tab.currentIndex(), filename)
+	edit.setPlainText(code)
+	fil.close()
 
 
     @pyqtSignature("")

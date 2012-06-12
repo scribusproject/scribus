@@ -36,6 +36,12 @@ class MenuHooks(object):
             menu = action.menu()
             if menu:
                 yield menu
+                
+    def iter_inner_menus(self, menu):
+        for action in menu.actions():
+            menu = action.menu()
+            if menu:
+                yield menu
 
 
     def findMenu(self, title):
@@ -52,6 +58,9 @@ class MenuHooks(object):
         for menu in self.iter_menus():
             if menu.title() == title:
                 return menu
+            for innerMenu in self.iter_inner_menus(menu):
+                if innerMenu.title() == title:
+                    return innerMenu
 
 
     def actionForMenu(self, menu):

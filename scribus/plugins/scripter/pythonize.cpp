@@ -122,7 +122,7 @@ bool Pythonize::appendToSysPath (const char* newPath)
 
     int res = PyRun_SimpleString (line);
 
-    delete[] line;
+    delete line;
     return res == 0;
 }
 

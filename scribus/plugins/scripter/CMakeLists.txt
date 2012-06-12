@@ -7,11 +7,17 @@ SET(SCRIPTER_PLUGIN_MOC_CLASSES
 scripter.h
 scripterimpl.h
 api_prefs.h
+api_imageitem.h
 api_item.h
+api_textitem.h
+api_printer.h
+api_imageexport.h
+api_layer.h
 api_page.h
 api_dialogs.h
 api_window.h
 api_document.h
+api_color.h
 )
 
 SET(SCRIPTER_PLUGIN_SOURCES
@@ -19,11 +25,18 @@ scripter.cpp
 scripterimpl.cpp
 pythonize.cpp
 api_prefs.cpp
+api_imageitem.cpp
 api_item.cpp
+api_textitem.cpp
+api_printer.cpp
+api_imageexport.cpp
+api_layer.cpp
 api_page.cpp
 api_dialogs.cpp
 api_window.cpp
 api_document.cpp
+api_color.cpp
+utils.cpp
 )
 
 

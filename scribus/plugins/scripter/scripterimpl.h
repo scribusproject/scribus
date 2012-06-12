@@ -16,11 +16,14 @@ for which a new license (GPL+exception) is in place.
 #include "scribuscore.h"
 #include "scpaths.h"
 #include "api_prefs.h"
-#include "api_item.h"
+#include "api_printer.h"
+#include "api_imageexport.h"
+#include "api_layer.h"
 #include "api_page.h"
 #include "api_dialogs.h"
 #include "api_window.h"
 #include "api_document.h"
+#include "api_color.h"
 
 // XXX make this INTO method inside a new util.cpp
 #define RAISE(msg) QApplication::instance()->setProperty("MIKRO_EXCEPTION", QVariant(msg))
@@ -34,50 +37,59 @@ class ScribusDoc;
 
 class ScripterImpl : public QObject
 {
-    Q_OBJECT
-    Q_PROPERTY(QObject* collector READ collector);
-    Q_PROPERTY(QObject* activeDocument READ activeDocument);
-    Q_PROPERTY(QObject* activeWindow READ activeWindow);
+	Q_OBJECT
+	Q_PROPERTY(QObject* collector READ collector);
+	Q_PROPERTY(QString language READ language);
+	Q_PROPERTY(QObject* activeDocument READ activeDocument);
+	Q_PROPERTY(QObject* activeWindow READ activeWindow);
+	Q_PROPERTY(QList<QVariant> colors READ colors);
+	Q_PROPERTY(QList<QVariant> fontInfo READ fontInfo);
+	Q_PROPERTY(QList<QVariant> extendedFontInfo READ xFontInfo);
 
 public:
-    ScripterImpl();
-    ~ScripterImpl();
-    static ScripterImpl *instance();
-    bool init();
-    bool cleanup();
-    void addToMainWindowMenu(ScribusMainWindow *mainwin);
-    QObject *collector()  {
-        return collected;
-    };
+	ScripterImpl();
+	~ScripterImpl();
+	static ScripterImpl *instance();
+	bool init();
+	bool cleanup();
+	void addToMainWindowMenu(ScribusMainWindow *mainwin);
+	QObject *collector()
+	{
+		return collected;
+	};
 
 public slots:
-    void aboutScripter();
-    QObject *openDocument(const QString & filename);
-    QObject *newDocument(
-        double topMargin, double bottomMargin,
-        double leftMargin, double rightMargin,
-        double pageWidth, double pageHeight,
-        int orientation, int firstPageNr, int unit, int pagesType,
-        int facingPages, int firstPageOrder, int numPages);
-    QObject *fromVariant(const QVariant& v);
-    bool test();
+	void aboutScripter();
+	QObject *openDocument(const QString & filename);
+	QObject *newDocument(
+	    double topMargin, double bottomMargin,
+	    double leftMargin, double rightMargin,
+	    double pageWidth, double pageHeight,
+	    int orientation, int firstPageNr, int unit, int pagesType,
+	    int facingPages, int firstPageOrder, int numPages);
+	QObject *fromVariant(const QVariant& v);
+	bool test();
 
 signals:
-    void createMenu(QMainWindow *mainwin);
+	void createMenu(QMainWindow *mainwin);
 
 private:
-    /*
-      collected is used for dumb garbage collection.
-      Use it as a parent to make sure that your object gets deleted
-      inside the scripting environment if it is not needed anymore.
-     */
-    QObject *collected;
-    Pythonize *python;
-    static ScripterImpl *_instance;
-    QString path;
-    bool runScript(const QString & filename);
-    QObject *activeDocument();
-    QObject *activeWindow();
+	/*
+	  collected is used for dumb garbage collection.
+	  Use it as a parent to make sure that your object gets deleted
+	  inside the scripting environment if it is not needed anymore.
+	 */
+	QObject *collected;
+	Pythonize *python;
+	static ScripterImpl *_instance;
+	QString path;
+	bool runScript(const QString & filename);
+	QString language();
+	QObject *activeDocument();
+	QObject *activeWindow();
+	QList<QVariant> colors();
+	QList<QVariant> fontInfo();
+	QList<QVariant> xFontInfo();
 };
 
 #endif

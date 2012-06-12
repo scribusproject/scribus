@@ -6,7 +6,7 @@ from PyQt4.QtCore import QObject, Qt
 from PyQt4.QtGui import QTextCursor, qApp, QApplication, QPlainTextEdit
 
 
-from sceditor.highlighter import PythonHighlighter,  QtScriptHighlighter
+from highlighter import PythonHighlighter,  QtScriptHighlighter
 
 
 
@@ -296,6 +296,9 @@ class PythonConsole(ConsoleWidget):
         return self.inter.push(line)
 
 
+    def clear(self):
+	doc = self.document()
+	doc.setPlainText(self.ps1)
 
 
 

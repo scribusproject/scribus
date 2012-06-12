@@ -25,6 +25,7 @@ class DialogsAPI : public QObject
     Q_PROPERTY(QWidget* documentChecker READ documentChecker);
     Q_PROPERTY(QWidget* pages READ pages);
     Q_PROPERTY(QWidget* bookmarks READ bookmarks);
+    Q_PROPERTY(bool newDocument READ newDocument);
 public:
     DialogsAPI();
     virtual ~DialogsAPI();
@@ -104,6 +105,12 @@ private:
      */
     QWidget* bookmarks() {
         return (QWidget*)ScCore->primaryMainWindow()->bookmarkPalette;
+    };
+    /** Scripter.dialogs.newDocument
+     *  Property
+     */
+    bool newDocument() {
+        return ScCore->primaryMainWindow()->slotFileNew();
     };
 };
 

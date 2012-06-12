@@ -111,7 +111,7 @@ class ScribusScript(object):
         Item("description"),
         Item("icon"),
         #Item("category"),
-        Item("menu", "Scripter"),
+        Item("menu"),
         #Item("context_menu"),
         Item("shortcut"),
         Item("filename"),

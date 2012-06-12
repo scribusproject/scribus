@@ -15,12 +15,12 @@ from rope.contrib.codeassist import code_assist
 from PyQt4.QtCore import QCoreApplication, QLine, Qt, SIGNAL
 from PyQt4.QtGui import (QTextCursor, QBrush, QFont, QPainter, QVBoxLayout, 
                          QApplication, QKeyEvent, QTextBlockUserData, QPen, QPlainTextEdit, 
-                         QHBoxLayout, QPalette, QColor, QFrame, QWidget)
+                         QHBoxLayout, QPalette, QColor, QFrame, QWidget, QMessageBox)
 
-from sceditor.indenter import PythonCodeIndenter
-from sceditor.assist import AutoComplete, CallTip
+from indenter import PythonCodeIndenter
+from assist import AutoComplete, CallTip
 
-from sceditor.highlighter import PythonHighlighter,  QtScriptHighlighter
+from highlighter import PythonHighlighter,  QtScriptHighlighter
 
 
 
@@ -428,10 +428,14 @@ class EditorWidget(QFrame):
         self.view.document().setPlainText(text)
         self.view.setModified(False)
 
+    def isModified(self):
+        return self.view.document().isModified()
 
     def toPlainText(self):
         return unicode(self.view.document().toPlainText())
 
+    def setModified(self, flag):
+        self.view.document().setModified(flag)
 
 class PythonEditorWidget(EditorWidget):
     pass
@@ -441,6 +445,15 @@ class QtScriptEditorWidget(QPlainTextEdit):
     def __init__(self,  parent):
         QPlainTextEdit.__init__(self,  parent)
         self.highlighter = QtScriptHighlighter(self)
+
+class SaveDialog(QMessageBox):
+
+    def __init__(self, msg):
+	QMessageBox.__init__(self)
+	self.setWindowTitle("Save")
+	self.setText(msg)
+	self.setStandardButtons(QMessageBox.Save |QMessageBox.Discard | QMessageBox.Cancel)
+	self.setDefaultButton(QMessageBox.Save)
 
 
 if __name__ == "__main__":

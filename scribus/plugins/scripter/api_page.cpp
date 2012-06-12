@@ -14,20 +14,23 @@ for which a new license (GPL+exception) is in place.
 #include "ui/propertiespalette.h"
 #include "ui/propertiespalette_text.h"
 #include "ui/propertiespalette_line.h"
+#include "scribuscore.h"
+#include "api_textitem.h"
+#include "api_imageitem.h"
 
 
 
-PageAPI::PageAPI(QObject *parent) : QObject(COLLECTOR)
+ScribusPage::ScribusPage(QObject *parent) : QObject(COLLECTOR)
 {
-    qDebug() << "PageAPI loaded";
-    setObjectName("activePage");
+	qDebug() << "PageAPI loaded";
+	setObjectName("page");
 }
 
 
 
-PageAPI::~PageAPI()
+ScribusPage::~ScribusPage()
 {
-    qDebug() << "PageAPI deleted";
+	qDebug() << "PageAPI deleted";
 }
 
 
@@ -37,12 +40,12 @@ PageAPI::~PageAPI()
  *
  * Removes the active page from the active document.
  */
-void PageAPI::remove()
+void ScribusPage::remove()
 {
-    if ( ScCore->primaryMainWindow()->doc->Pages->count() > 1  )
-        ScCore->primaryMainWindow()->DeletePage2(number());
-    else
-        RAISE("No pages left to remove");
+	if (ScCore->primaryMainWindow()->doc->Pages->count() > 1)
+		ScCore->primaryMainWindow()->deletePage2(number());
+	else
+		RAISE("No pages left to remove");
 }
 
 
@@ -52,9 +55,9 @@ void PageAPI::remove()
  * Property
  * location of active page as int value (read-only)
  */
-int PageAPI::position()
+int ScribusPage::position()
 {
-    return ScCore->primaryMainWindow()->doc->locationOfPage(number());
+	return ScCore->primaryMainWindow()->doc->locationOfPage(number());
 }
 
 
@@ -64,22 +67,22 @@ int PageAPI::position()
  * Property
  * int value of active page number >= 1
  */
-int PageAPI::number()
+int ScribusPage::number()
 {
-    return ScCore->primaryMainWindow()->doc->currentPageNumber() + 1;
+	return ScCore->primaryMainWindow()->doc->currentPageNumber() + 1;
 }
 
 
 
-void PageAPI::setNumber(int value)
+void ScribusPage::setNumber(int value)
 {
-    value--;
-    if ((value < 0) || (value > static_cast<int>(ScCore->primaryMainWindow()->doc->Pages->count())-1))
-    {
-        RAISE("Page number out of range.");
-        return;
-    }
-    ScCore->primaryMainWindow()->view->GotoPage(value);
+	value--;
+	if ((value < 0) || (value > static_cast<int>(ScCore->primaryMainWindow()->doc->Pages->count())-1))
+	{
+		RAISE("Page number out of range.");
+		return;
+	}
+	ScCore->primaryMainWindow()->view->GotoPage(value);
 }
 
 
@@ -89,28 +92,33 @@ void PageAPI::setNumber(int value)
  * Property
  * List of Item objects of active page
  */
-QList<QVariant> PageAPI::items()
+QList<QVariant> ScribusPage::items()
 {
-    QList<QVariant> l;
-    int num = number() - 1;
-    for (int i = 0; i<ScCore->primaryMainWindow()->doc->Items->count(); ++i)
-    {
-        if (num == ScCore->primaryMainWindow()->doc->Items->at(i)->OwnPage)
-        {
-            /*
-             new ItemAPI(this,
-                             ScCore->primaryMainWindow()->doc->Items->at(i)->itemName(),
-                             ScCore->primaryMainWindow()->doc->Items->at(i)->itemType(),
-                             ScCore->primaryMainWindow()->doc->Items->at(i)->ItemNr
-                            );
-            */
-            l.append(qVariantFromValue(
-                         (QObject *)(ScCore->primaryMainWindow()->doc->Items->at(i))
-                     ));
-
-        }
-    }
-    return l;
+	QList<QVariant> l;
+	int num = number() - 1;
+	for (int i = 0; i<ScCore->primaryMainWindow()->doc->Items->count(); ++i)
+	{
+		if (num == ScCore->primaryMainWindow()->doc->Items->at(i)->OwnPage)
+		{
+			PageItem *item = ScCore->primaryMainWindow()->doc->Items->at(i);
+			/**
+			 * Checking whether it is a textframe. If yes, we are trying to cast
+			 * it onto TextWrapper class, which can effectively perform all
+			 * the text operations
+			 */
+			if (item->asTextFrame())
+			{
+				l.append(qVariantFromValue((QObject *)(new ScribusTextItem(item->asTextFrame()))));
+			}
+			else
+			{
+				l.append(qVariantFromValue(
+				             (QObject *)(new ScribusItem(item))
+				         ));
+			}
+		}
+	}
+	return l;
 }
 
 
@@ -120,27 +128,36 @@ QList<QVariant> PageAPI::items()
  * Property
  * List of selected Item objects on active page of active document
  */
-QList<QVariant> PageAPI::selection()
+QList<QVariant> ScribusPage::selection()
 {
-    QList<QVariant> l;
-    int num = number() - 1;
-    Selection *sel = ScCore->primaryMainWindow()->doc->m_Selection;
-    for (int i=0; i < sel->count(); i++)
-    {
-        PageItem *item = sel->itemAt(i);
-        if (num == item->OwnPage)
-            l.append(qVariantFromValue((QObject *)item));
-    }
-    return l;
+	QList<QVariant> l;
+	int num = number() - 1;
+	Selection *sel = ScCore->primaryMainWindow()->doc->m_Selection;
+	for (int i=0; i < sel->count(); i++)
+	{
+		PageItem *item = sel->itemAt(i);
+		if (num == item->OwnPage)
+		{
+			if (item->asTextFrame())
+			{
+				l.append(qVariantFromValue((QObject*)(new ScribusTextItem(item->asTextFrame()))));
+			}
+			else
+			{
+				l.append(qVariantFromValue((QObject*)(new ScribusItem(item))));
+			}
+		}
+	}
+	return l;
 }
 
 
 // copied from scripter/cmdutil.cpp
 /// Convert an X co-ordinate part in page units to a document co-ordinate
 /// in system units.
-double pageXtoDocX(double x)
+double ScribusPage::pageXtoDocX(double x)
 {
-    return x + ScCore->primaryMainWindow()->doc->currentPage()->xOffset();
+	return x + ScCore->primaryMainWindow()->doc->currentPage()->xOffset();
 }
 
 
@@ -149,25 +166,23 @@ double pageXtoDocX(double x)
 /// in system units. The document co-ordinates have their origin somewere
 /// up and left of the first page, where page co-ordinates have their
 /// origin on the top left of the current page.
-double pageYtoDocY(double y)
+double ScribusPage::pageYtoDocY(double y)
 {
-    return y + ScCore->primaryMainWindow()->doc->currentPage()->yOffset();
+	return y + ScCore->primaryMainWindow()->doc->currentPage()->yOffset();
 }
 
-
-
-QObject *PageAPI::newItem(const PageItem::ItemType itemType,
+PageItem *ScribusPage::newItem(const PageItem::ItemType itemType,
                           const PageItem::ItemFrameType frameType,
                           const double x, const double y, const double width,
                           const double height, const double w,
                           const QString& fill, const QString& outline)
 {
-    int i = ScCore->primaryMainWindow()->doc->itemAdd(
-                itemType, frameType,
-                pageXtoDocX(x), pageYtoDocY(y),
-                width, height,
-                w, fill, outline, true);
-    return ScCore->primaryMainWindow()->doc->Items->at(i);
+	int i = ScCore->primaryMainWindow()->doc->itemAdd(
+	            itemType, frameType,
+	            pageXtoDocX(x), pageYtoDocY(y),
+	            width, height,
+	            w, fill, outline, true);
+	return ScCore->primaryMainWindow()->doc->Items->at(i);
 }
 
 
@@ -180,13 +195,14 @@ QObject *PageAPI::newItem(const PageItem::ItemType itemType,
  * height is a double
  * returns Item object
  */
-QObject *PageAPI::newRectangle(double x, double y, double width, double height)
+QObject *ScribusPage::newRectangle(double x, double y, double width, double height)
 {
-    return newItem(
-               PageItem::Polygon, PageItem::Rectangle, x, y, width, height,
-               ScCore->primaryMainWindow()->doc->itemToolPrefs().shapeLineWidth,
-               ScCore->primaryMainWindow()->doc->itemToolPrefs().shapeFillColor,
-               ScCore->primaryMainWindow()->doc->itemToolPrefs().shapeLineColor);
+	PageItem *item = newItem(
+	           PageItem::Polygon, PageItem::Rectangle, x, y, width, height,
+	           ScCore->primaryMainWindow()->doc->itemToolPrefs().shapeLineWidth,
+	           ScCore->primaryMainWindow()->doc->itemToolPrefs().shapeFillColor,
+	           ScCore->primaryMainWindow()->doc->itemToolPrefs().shapeLineColor);
+	return new ScribusItem(item);
 }
 
 
@@ -199,13 +215,14 @@ QObject *PageAPI::newRectangle(double x, double y, double width, double height)
  * height is a double
  * returns Item object
  */
-QObject *PageAPI::newEllipse(double x, double y, double width, double height)
+QObject *ScribusPage::newEllipse(double x, double y, double width, double height)
 {
-    return newItem(
-               PageItem::Polygon, PageItem::Ellipse, x, y, width, height,
-               ScCore->primaryMainWindow()->doc->itemToolPrefs().shapeLineWidth,
-               ScCore->primaryMainWindow()->doc->itemToolPrefs().shapeFillColor,
-               ScCore->primaryMainWindow()->doc->itemToolPrefs().shapeLineColor);
+	PageItem *item = newItem(
+	           PageItem::Polygon, PageItem::Ellipse, x, y, width, height,
+	           ScCore->primaryMainWindow()->doc->itemToolPrefs().shapeLineWidth,
+	           ScCore->primaryMainWindow()->doc->itemToolPrefs().shapeFillColor,
+	           ScCore->primaryMainWindow()->doc->itemToolPrefs().shapeLineColor);
+	return new ScribusItem(item);
 }
 
 
@@ -218,15 +235,16 @@ QObject *PageAPI::newEllipse(double x, double y, double width, double height)
  * height is a double
  * returns Item object
  */
-QObject *PageAPI::newImage(double x, double y, double width, double height)
+QObject *ScribusPage::newImage(double x, double y, double width, double height)
 {
-    return newItem(
-               PageItem::ImageFrame, PageItem::Unspecified, x, y, width, height,
-               1,
-               // @xxx: ale
-               // ScCore->primaryMainWindow()->doc->toolSettings.dBrushPict,
-               ScCore->primaryMainWindow()->doc->itemToolPrefs().imageFillColor,
-               CommonStrings::None);
+	PageItem *item = newItem(
+	           PageItem::ImageFrame, PageItem::Unspecified, x, y, width, height,
+	           1,
+	           // @xxx: ale
+	           // ScCore->primaryMainWindow()->doc->toolSettings.dBrushPict,
+	           ScCore->primaryMainWindow()->doc->itemToolPrefs().imageFillColor,
+	           CommonStrings::None);
+	return new ScribusImageItem(item->asImageFrame());
 }
 
 
@@ -239,13 +257,14 @@ QObject *PageAPI::newImage(double x, double y, double width, double height)
  * height is a double
  * returns Item object
  */
-QObject *PageAPI::newText(double x, double y, double width, double height)
+QObject *ScribusPage::newText(double x, double y, double width, double height)
 {
-    return newItem(
-               PageItem::TextFrame, PageItem::Unspecified, x, y, width, height,
-               ScCore->primaryMainWindow()->doc->itemToolPrefs().shapeLineWidth,
-               CommonStrings::None,
-               ScCore->primaryMainWindow()->doc->itemToolPrefs().textFont);
+	PageItem *item = newItem(
+	           PageItem::TextFrame, PageItem::Unspecified, x, y, width, height,
+	           ScCore->primaryMainWindow()->doc->itemToolPrefs().shapeLineWidth,
+	           CommonStrings::None,
+	           ScCore->primaryMainWindow()->doc->itemToolPrefs().textFont);
+	return new ScribusTextItem(item->asTextFrame());
 }
 
 
@@ -258,45 +277,46 @@ QObject *PageAPI::newText(double x, double y, double width, double height)
  * height is a double
  * returns Item object
  */
-QObject *PageAPI::newLine(double x, double y, double width, double height)
+QObject *ScribusPage::newLine(double x, double y, double width, double height)
 {
-    PageItem *item = (PageItem*)newItem(
-                         PageItem::Line, PageItem::Unspecified, x, y, width, height,
-                         ScCore->primaryMainWindow()->doc->itemToolPrefs().shapeLineWidth,
-                         ScCore->primaryMainWindow()->doc->itemToolPrefs().shapeFillColor,
-                         ScCore->primaryMainWindow()->doc->itemToolPrefs().shapeLineColor);
-    item->setRotation(xy2Deg(width-x, height-y));
-    item->setWidthHeight(sqrt(pow(x-width, 2.0) + pow(y-height, 2.0)), 1.0);
-    item->Sizing = false;
-    item->updateClip();
-    return item;
+	PageItem *item = (PageItem*)newItem(
+	                     PageItem::Line, PageItem::Unspecified, x, y, width, height,
+	                     ScCore->primaryMainWindow()->doc->itemToolPrefs().shapeLineWidth,
+	                     ScCore->primaryMainWindow()->doc->itemToolPrefs().shapeFillColor,
+	                     ScCore->primaryMainWindow()->doc->itemToolPrefs().shapeLineColor);
+	item->setRotation(xy2Deg(width-x, height-y));
+	item->setWidthHeight(sqrt(pow(x-width, 2.0) + pow(y-height, 2.0)), 1.0);
+	item->Sizing = false;
+	item->updateClip();
+	return new ScribusItem(item);
 }
 
 // XXX: newPolyLine, bezierline
 
 
-void PageAPI::placeImage(const int formatid, const QString & filename, const double x, const double y)
+void ScribusPage::placeImage(const int formatid, const QString & filename, const double x, const double y)
 {
-    const FileFormat * fmt = LoadSavePlugin::getFormatById(formatid);
-    if ( fmt )
-    {
-        fmt->loadFile(filename,
-                      LoadSavePlugin::lfUseCurrentPage|LoadSavePlugin::lfInteractive|LoadSavePlugin::lfScripted);
-        if (ScCore->primaryMainWindow()->doc->m_Selection->count() > 1)
-        {
-            double x2, y2, w, h;
-            ScCore->primaryMainWindow()->doc->m_Selection->getGroupRect(
-                &x2, &y2, &w, &h);
-            ScCore->primaryMainWindow()->view->startGroupTransaction();
-            ScCore->primaryMainWindow()->doc->moveGroup(
-                pageXtoDocX(x) - x2, pageYtoDocY(y) - y2);
-            ScCore->primaryMainWindow()->view->endGroupTransaction();
-            ScCore->primaryMainWindow()->propertiesPalette->updateColorList();
-            ScCore->primaryMainWindow()->propertiesPalette->textPal->paraStyleCombo->updateFormatList();
-            ScCore->primaryMainWindow()->propertiesPalette->textPal->charStyleCombo->updateFormatList();
-            ScCore->primaryMainWindow()->propertiesPalette->linePal->updateLineStyles();
-        }
-    } else RAISE("Format plug-in not loaded.");
+	const FileFormat * fmt = LoadSavePlugin::getFormatById(formatid);
+	if (fmt)
+	{
+		fmt->loadFile(filename,
+		              LoadSavePlugin::lfUseCurrentPage|LoadSavePlugin::lfInteractive|LoadSavePlugin::lfScripted);
+		if (ScCore->primaryMainWindow()->doc->m_Selection->count() > 1)
+		{
+			double x2, y2, w, h;
+			ScCore->primaryMainWindow()->doc->m_Selection->getGroupRect(
+			    &x2, &y2, &w, &h);
+			ScCore->primaryMainWindow()->view->startGroupTransaction();
+			ScCore->primaryMainWindow()->doc->moveGroup(
+			    pageXtoDocX(x) - x2, pageYtoDocY(y) - y2);
+			ScCore->primaryMainWindow()->view->endGroupTransaction();
+			ScCore->primaryMainWindow()->propertiesPalette->updateColorList();
+			ScCore->primaryMainWindow()->propertiesPalette->textPal->paraStyleCombo->updateFormatList();
+			ScCore->primaryMainWindow()->propertiesPalette->textPal->charStyleCombo->updateFormatList();
+			ScCore->primaryMainWindow()->propertiesPalette->linePal->updateLineStyles();
+		}
+	}
+	else RAISE("Format plug-in not loaded.");
 }
 
 
@@ -310,9 +330,9 @@ void PageAPI::placeImage(const int formatid, const QString & filename, const dou
  * y is double
  * import vector graphics at given position on active page
  */
-void PageAPI::placeSVG(const QString & filename, const double x, const double y)
+void ScribusPage::placeSVG(const QString & filename, const double x, const double y)
 {
-    placeImage(FORMATID_SVGIMPORT, filename, x, y);
+	placeImage(FORMATID_SVGIMPORT, filename, x, y);
 }
 
 
@@ -324,9 +344,9 @@ void PageAPI::placeSVG(const QString & filename, const double x, const double y)
  * y is double
  * import vector graphics at given position on active page
  */
-void PageAPI::placeODG(const QString & filename, const double x, const double y)
+void ScribusPage::placeODG(const QString & filename, const double x, const double y)
 {
-    placeImage(FORMATID_ODGIMPORT, filename, x, y);
+	placeImage(FORMATID_ODGIMPORT, filename, x, y);
 }
 
 
@@ -338,9 +358,9 @@ void PageAPI::placeODG(const QString & filename, const double x, const double y)
  * y is double
  * import vector graphics at given position on active page
  */
-void PageAPI::placeEPS(const QString & filename, const double x, const double y)
+void ScribusPage::placeEPS(const QString & filename, const double x, const double y)
 {
-    placeImage(FORMATID_PSIMPORT, filename, x, y);
+	placeImage(FORMATID_PSIMPORT, filename, x, y);
 }
 
 
@@ -352,7 +372,29 @@ void PageAPI::placeEPS(const QString & filename, const double x, const double y)
  * y is double
  * import vector graphics at given position on active page
  */
-void PageAPI::placeSXD(const QString & filename, const double x, const double y)
+void ScribusPage::placeSXD(const QString & filename, const double x, const double y)
 {
-    placeImage(FORMATID_SXDIMPORT, filename, x, y);
+	placeImage(FORMATID_SXDIMPORT, filename, x, y);
+}
+
+
+/**
+ *  Scripter.activeDocument.activePage.savePageAsEPS(filename)
+ * filename is QString
+ */
+void ScribusPage::savePageAsEPS(const QString &filename)
+{
+	QString epsError;
+	bool ret = ScCore->primaryMainWindow()->DoSaveAsEps(filename, epsError);
+	if (!ret)
+		RAISE("Failed to save as EPS");
+}
+
+/**
+ * Scripter.activeDocument.activePage.type
+ * Returns 0 if LeftPage, 1 if Middle Page, 2 for Right Page
+ */
+int ScribusPage::type()
+{
+	return ScCore->primaryMainWindow()->doc->locationOfPage(number());
 }

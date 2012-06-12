@@ -7,16 +7,16 @@ for which a new license (GPL+exception) is in place.
 #include "api_window.h"
 #include "canvas.h"
 
-WindowAPI::WindowAPI() : QObject(COLLECTOR)
+ScribusWindow::ScribusWindow() : QObject(COLLECTOR)
 {
     qDebug() << "WindowAPI loaded";
     // XXX: support other windows later
-    setObjectName("activeWindow");
+    setObjectName("window");
 }
 
 
 
-WindowAPI::~WindowAPI()
+ScribusWindow::~ScribusWindow()
 {
     qDebug() << "WindowAPI deleted";
 }
@@ -29,7 +29,7 @@ WindowAPI::~WindowAPI()
  *
  * -100.0 is special value to see the whole page.
  */
-void WindowAPI::setZoom(double factor)
+void ScribusWindow::setZoom(double factor)
 {
     if (factor > 0.0 || factor == -100.0)
         ScCore->primaryMainWindow()->slotZoom(factor);
@@ -39,7 +39,7 @@ void WindowAPI::setZoom(double factor)
 
 
 
-double WindowAPI::zoom()
+double ScribusWindow::zoom()
 {
     // XXX: better use the following?
     // ScCore->primaryMainWindow()->view->m_canvas->scale()/Prefs->DisScale*100
@@ -57,7 +57,7 @@ double WindowAPI::zoom()
  *
  * scrolls the visible view to (x, y)
  */
-void WindowAPI::scroll(int x, int y)
+void ScribusWindow::scroll(int x, int y)
 {
     ScCore->primaryMainWindow()->view->scrollBy(x, y);
 }
@@ -69,7 +69,7 @@ void WindowAPI::scroll(int x, int y)
  *
  * forces a complete redraw of the view
  */
-void WindowAPI::update()
+void ScribusWindow::update()
 {
     ScCore->primaryMainWindow()->view->DrawNew();
 }
@@ -86,14 +86,14 @@ void WindowAPI::update()
  * After that you can redraw the complete view with
  * ->Scripter.activeWindow.update()
  */
-void WindowAPI::setRedraw(bool flag)
+void ScribusWindow::setRedraw(bool flag)
 {
     ScCore->primaryMainWindow()->doc->DoDrawing = flag;
 }
 
 
 
-bool WindowAPI::redraw()
+bool ScribusWindow::redraw()
 {
     return ScCore->primaryMainWindow()->doc->DoDrawing;
 }

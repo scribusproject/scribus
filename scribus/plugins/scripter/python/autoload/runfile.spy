@@ -2,6 +2,7 @@
 ## shortcut = Esc,t
 ## shortcut = Ctrl+r,t
 ## subroutine = run
+## menu = Scripter
 import os
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *

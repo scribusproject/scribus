@@ -13,15 +13,15 @@ for which a new license (GPL+exception) is in place.
 
 #include "scripterimpl.h"
 
-class WindowAPI : public QObject
+class ScribusWindow : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(double zoom READ zoom WRITE setZoom);
     Q_PROPERTY(bool redraw READ redraw WRITE setRedraw);
 
 public:
-    WindowAPI();
-    virtual ~WindowAPI();
+    ScribusWindow();
+    virtual ~ScribusWindow();
 
 public slots:
     // XXX: relative or absolute scrolling?

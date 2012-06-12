@@ -23,57 +23,59 @@ ScripterImpl::ScripterImpl() : QObject(QApplication::instance())
 
 
 
-ScripterImpl::~ScripterImpl() {
-    qDebug() << "destructor";
-    Q_ASSERT(python);
-    delete python;
-    //Q_ASSERT(collected);
-    //delete collected;
-    _instance = NULL;
-    qDebug() << "Scripter deleted";
+ScripterImpl::~ScripterImpl()
+{
+	qDebug() << "destructor";
+	Q_ASSERT(python);
+	delete python;
+	//Q_ASSERT(collected);
+	//delete collected;
+	_instance = NULL;
+	qDebug() << "Scripter deleted";
 };
 
 
 
 ScripterImpl *ScripterImpl::instance()
 {
-    //return QApplication::instance()->findChild<ScripterImpl *>("Scripter");
-    return _instance;
+	//return QApplication::instance()->findChild<ScripterImpl *>("Scripter");
+	return _instance;
 }
 
 
 bool ScripterImpl::init()
 {
-    collected = new QObject(this);
-    collected->setObjectName(QString("internal_garbage_collector"));
-    new PreferencesAPI();
-    new DialogsAPI();
-    python = new Pythonize();
-    Q_CHECK_PTR(python);
-    path = ScPaths::instance().libDir() + "plugins/scripter/";
-    //qRegisterMetaType< QList<QVariant*> >("QList<QVariant*>");
-    QString init_py = path + "init_scripter.py";
-    bool ok = runScript(init_py);
-    return ok;
+	collected = new QObject(this);
+	collected->setObjectName(QString("internal_garbage_collector"));
+	new PreferencesAPI();
+	new DialogsAPI();
+	python = new Pythonize();
+	Q_CHECK_PTR(python);
+	path = ScPaths::instance().libDir() + "plugins/scripter/";
+	//qRegisterMetaType< QList<QVariant*> >("QList<QVariant*>");
+	QString init_py = path + "init_scripter.py";
+	bool ok = runScript(init_py);
+	return ok;
 }
 
 
 
-bool ScripterImpl::runScript(const QString & filename) {
-    qDebug()  <<  "Running" << filename;
-    if (!python->runScript(filename.toLocal8Bit().data()))
-    {
-        qDebug()  << "Running" << filename << "failed";
-        return false;
-    }
-    return true;
+bool ScripterImpl::runScript(const QString & filename)
+{
+	qDebug()  <<  "Running" << filename;
+	if (!python->runScript(filename.toLocal8Bit().data()))
+	{
+		qDebug()  << "Running" << filename << "failed";
+		return false;
+	}
+	return true;
 }
 
 
 bool ScripterImpl::cleanup()
 {
-    QString clean_py = path + "cleanup_scripter.py";
-    return runScript(clean_py);
+	QString clean_py = path + "cleanup_scripter.py";
+	return runScript(clean_py);
 }
 
 
@@ -89,18 +91,18 @@ bool ScripterImpl::cleanup()
 QObject *ScripterImpl::fromVariant(const QVariant& v)
 {
 
-    if (qVariantCanConvert< QWidget* >(v))
-    {
-        QObject* obj = qvariant_cast< QWidget* >(v);
-        return obj;
-    }
-    else if (qVariantCanConvert< QObject* >(v))
-    {
-        QObject* obj = qvariant_cast< QObject* >(v);
-        return obj;
-    }
-    else
-        return 0;
+	if (qVariantCanConvert< QWidget* >(v))
+	{
+		QObject* obj = qvariant_cast< QWidget* >(v);
+		return obj;
+	}
+	else if (qVariantCanConvert< QObject* >(v))
+	{
+		QObject* obj = qvariant_cast< QObject* >(v);
+		return obj;
+	}
+	else
+		return 0;
 }
 
 
@@ -111,13 +113,13 @@ QObject *ScripterImpl::fromVariant(const QVariant& v)
  */
 QObject *ScripterImpl::openDocument(const QString & filename)
 {
-    bool ret = ScCore->primaryMainWindow()->loadDoc(filename);
-    if (!ret)
-    {
-        RAISE("Failed to open " + filename);
-        return NULL;
-    }
-    return activeDocument();
+	bool ret = ScCore->primaryMainWindow()->loadDoc(filename);
+	if (!ret)
+	{
+		RAISE("Failed to open " + filename);
+		return NULL;
+	}
+	return activeDocument();
 }
 
 
@@ -127,11 +129,12 @@ QObject *ScripterImpl::openDocument(const QString & filename)
  * Property
  * returns a Document object if a document is open
  */
-QObject *ScripterImpl::activeDocument() {
-    if (ScCore->primaryMainWindow()->HaveDoc)
-        return new DocumentAPI();
-    else
-        return NULL;
+QObject *ScripterImpl::activeDocument()
+{
+	if (ScCore->primaryMainWindow()->HaveDoc)
+		return new DocumentAPI();
+	else
+		return NULL;
 }
 
 
@@ -140,11 +143,75 @@ QObject *ScripterImpl::activeDocument() {
  * Property
  * returns a Window object if a window is open
  */
-QObject *ScripterImpl::activeWindow() {
-    if (ScCore->primaryMainWindow()->HaveDoc)
-        return new WindowAPI();
-    else
-        return NULL;
+QObject *ScripterImpl::activeWindow()
+{
+	if (ScCore->primaryMainWindow()->HaveDoc)
+		return new ScribusWindow();
+	else
+		return NULL;
+}
+
+/**
+ * Scripter.colors
+ * Property
+ * returns a color object
+ */
+QList<QVariant> ScripterImpl::colors()
+{
+	QList<QVariant> l;
+
+	ColorList names = PrefsManager::instance()->colorSet();
+	ColorList::Iterator it;
+	for (it = names.begin(); it != names.end(); ++it)
+	{
+		ScColor *value = &(names[it.key()]);
+		ScColorWrapper *color = new ScColorWrapper(value, it.key());
+		l.append(qVariantFromValue((QObject *)(color)));
+	}
+	return l;
+}
+
+QList< QVariant > ScripterImpl::fontInfo()
+{
+	int cc2 = 0;
+	SCFontsIterator it2(PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts);
+	for ( ; it2.hasNext() ; it2.next())
+	{
+		if (it2.current().usable())
+			cc2++;
+	}
+	QList<QVariant> l;
+	SCFontsIterator it(PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts);
+	int cc = 0;
+	for ( ; it.hasNext() ; it.next())
+	{
+		if (it.current().usable())
+		{
+			l.append(it.currentKey());
+			cc++;
+		}
+	}
+	return l;
+}
+
+QList<QVariant> ScripterImpl::xFontInfo()
+{
+	QList<QVariant> l;
+	SCFontsIterator it(PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts);
+	int cc = 0;
+	QList<QVariant> row;
+	for ( ; it.hasNext() ; it.next())
+	{
+		row.append(it.currentKey());
+		row.append(it.current().family());
+		row.append(it.current().psName());
+		row.append(it.current().subset());
+		row.append(it.current().embedPs());
+		row.append(it.current().fontFilePath());
+		l.append(row);
+		cc++;
+	}
+	return l;
 }
 
 /**
@@ -171,43 +238,43 @@ QObject *ScripterImpl::newDocument(
     int orientation, int firstPageNr, int unit, int pagesType,
     int facingPages, int firstPageOrder, int numPages)
 {
-    if (numPages <= 0)
-        numPages = 1;
-    if (pagesType == 0)
-    {
-        facingPages = 0;
-        firstPageOrder = 0;
-    }
-    else
-        facingPages = 1;
-    // checking the bounds
-    if (pagesType < firstPageOrder)
-    {
-        RAISE("firstPageOrder is bigger than allowed.");
-        return NULL;
-    }
-    if (orientation == 1)
-    {
-        double x = pageWidth;
-        pageWidth = pageHeight;
-        pageHeight = x;
-    }
-    bool ret = ScCore->primaryMainWindow()->doFileNew(
-                   pageWidth, pageHeight, topMargin, leftMargin,
-                   rightMargin, bottomMargin,
-                   // XXX: add later?
-                   // autoframes. It's disabled in python
-                   // columnDistance, numberCols, autoframes,
-                   0, 1, false,
-                   pagesType, unit, firstPageOrder,
-                   orientation, firstPageNr, "Custom", true, numPages);
-    if (!ret)
-    {
-        RAISE("Page creation failed");
-        return NULL;
-    }
-    ScCore->primaryMainWindow()->doc->setPageSetFirstPage(pagesType, firstPageOrder);
-    return activeDocument();
+	if (numPages <= 0)
+		numPages = 1;
+	if (pagesType == 0)
+	{
+		facingPages = 0;
+		firstPageOrder = 0;
+	}
+	else
+		facingPages = 1;
+	// checking the bounds
+	if (pagesType < firstPageOrder)
+	{
+		RAISE("firstPageOrder is bigger than allowed.");
+		return NULL;
+	}
+	if (orientation == 1)
+	{
+		double x = pageWidth;
+		pageWidth = pageHeight;
+		pageHeight = x;
+	}
+	bool ret = ScCore->primaryMainWindow()->doFileNew(
+	               pageWidth, pageHeight, topMargin, leftMargin,
+	               rightMargin, bottomMargin,
+	               // XXX: add later?
+	               // autoframes. It's disabled in python
+	               // columnDistance, numberCols, autoframes,
+	               0, 1, false,
+	               pagesType, unit, firstPageOrder,
+	               orientation, firstPageNr, "Custom", true, numPages);
+	if (!ret)
+	{
+		RAISE("Page creation failed");
+		return NULL;
+	}
+	ScCore->primaryMainWindow()->doc->setPageSetFirstPage(pagesType, firstPageOrder);
+	return activeDocument();
 }
 
 
@@ -219,9 +286,13 @@ QObject *ScripterImpl::newDocument(
  */
 void ScripterImpl::addToMainWindowMenu(ScribusMainWindow *mainwin)
 {
-    emit createMenu(mainwin);
+	emit createMenu(mainwin);
 }
 
+QString ScripterImpl::language()
+{
+	return ScCore->getGuiLanguage();
+}
 
 
 /*
@@ -231,17 +302,17 @@ void ScripterImpl::addToMainWindowMenu(ScribusMainWindow *mainwin)
  */
 bool ScripterImpl::test()
 {
-    bool ok;
-    QString code = QInputDialog::getText(
-                       0, tr("Scripter"), tr("Please enter a Python command:"), QLineEdit::Normal,
-                       "import scripterconsole; scripterconsole.show_console()", &ok);
-    if (ok && !code.isEmpty())
-    {
-        bool success = python->runString(code.toUtf8().data());
-        if (!success)
-            qDebug() << "python->runString(..) failed";
-    }
-    return true;
+	bool ok;
+	QString code = QInputDialog::getText(
+	                   0, tr("Scripter"), tr("Please enter a Python command:"), QLineEdit::Normal,
+	                   "import scripterconsole; scripterconsole.show_console()", &ok);
+	if (ok && !code.isEmpty())
+	{
+		bool success = python->runString(code.toUtf8().data());
+		if (!success)
+			qDebug() << "python->runString(..) failed";
+	}
+	return true;
 }
 
 
@@ -254,12 +325,12 @@ bool ScripterImpl::test()
  */
 void ScripterImpl::aboutScripter()
 {
-    QMessageBox::information(
-        0, //(QWidget*)doc->scMW(),
-        tr("Scribus - Scripter Plugin"),
-        tr("If you see this box, Scripter probably works :)"),
-        QMessageBox::Ok|QMessageBox::Default|QMessageBox::Escape,
-        QMessageBox::NoButton);
+	QMessageBox::information(
+	    0, //(QWidget*)doc->scMW(),
+	    tr("Scribus - Scripter Plugin"),
+	    tr("If you see this box, Scripter probably works :)"),
+	    QMessageBox::Ok|QMessageBox::Default|QMessageBox::Escape,
+	    QMessageBox::NoButton);
 }
 
 

@@ -59,6 +59,8 @@ class ScripterMenu(QObject):
         self.setObjectName("Menu")
         self.popup = QMenu(i18n("Scripter"))
         MenuHooks().insertMenuAfter("E&xtras", self.popup)
+        self.scriptsMenu = QMenu(i18n("Scripts"))
+        MenuHooks().appendItem(self.popup, self.scriptsMenu)
         self._load_entries()
 
 

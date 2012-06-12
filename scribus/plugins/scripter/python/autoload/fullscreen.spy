@@ -1,6 +1,7 @@
 ## name = fullscreen
 ## title = Toggle fullscreen
 ## shortcut = Ctrl+r,f
+## menu = Scripter
 
 mainWin = Scripter.dialogs.mainWindow
 if mainWin.fullScreen:
