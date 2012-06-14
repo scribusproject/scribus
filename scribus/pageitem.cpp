@@ -1306,6 +1306,23 @@ void PageItem::dropLinks()
 	}
 }
 
+//unlink selected frame from text chain
+//but copy or cut its content from itemText
+void PageItem::unlinkWithText(bool cutText)
+{
+	// FIX ME - make this operation undoable
+	PageItem * Next = NextBox;
+	itemText.select(firstInFrame(),lastInFrame() - firstInFrame() +1);
+	StoryText content(m_Doc);
+	content.insert(0, itemText, true);
+	if (cutText)
+		itemText.removeSelection();
+	dropLinks();
+	itemText.append(content);
+	if (Next)
+		Next->update();
+}
+
 /// tests if a character is displayed by this frame
 bool PageItem::frameDisplays(int textpos) const
 {

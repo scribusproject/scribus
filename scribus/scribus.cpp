@@ -828,6 +828,8 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->addMenuSeparator("Item");
 	scrMenuMgr->addMenuItem(scrActions["toolsLinkTextFrame"], "Item", false);
 	scrMenuMgr->addMenuItem(scrActions["toolsUnlinkTextFrame"], "Item", false);
+	scrMenuMgr->addMenuItem(scrActions["toolsUnlinkTextFrameWithTextCopy"], "Item", false);
+	scrMenuMgr->addMenuItem(scrActions["toolsUnlinkTextFrameWithTextCut"], "Item", false);
 	scrMenuMgr->addMenuSeparator("Item");
 	scrMenuMgr->addMenuItem(scrActions["itemAttachTextToPath"], "Item", false);
 	scrMenuMgr->addMenuItem(scrActions["itemDetachTextFromPath"], "Item", false);
@@ -2703,6 +2705,8 @@ void ScribusMainWindow::HaveNewSel(int SelectedType)
 		scrActions["extrasDeHyphenateText"]->setEnabled(false);
 
 		scrActions["toolsUnlinkTextFrame"]->setEnabled(false);
+		scrActions["toolsUnlinkTextFrameWithTextCopy"]->setEnabled(false);
+		scrActions["toolsUnlinkTextFrameWithTextCut"]->setEnabled(false);
 		scrActions["toolsLinkTextFrame"]->setEnabled(false);
 		scrActions["toolsEditContents"]->setEnabled(false);
 		scrActions["toolsEditWithStoryEditor"]->setEnabled(false);
@@ -2754,6 +2758,8 @@ void ScribusMainWindow::HaveNewSel(int SelectedType)
 		scrActions["itemConvertToPolygon"]->setEnabled(doc->appMode != modeEdit);
 		scrActions["itemConvertToTextFrame"]->setEnabled(doc->appMode != modeEdit);
 		scrActions["toolsUnlinkTextFrame"]->setEnabled(false);
+		scrActions["toolsUnlinkTextFrameWithTextCopy"]->setEnabled(false);
+		scrActions["toolsUnlinkTextFrameWithTextCut"]->setEnabled(false);
 		scrActions["toolsLinkTextFrame"]->setEnabled(false);
 		scrActions["toolsEditContents"]->setEnabled(currItem->ScaleType);
 		scrActions["toolsEditWithStoryEditor"]->setEnabled(false);
@@ -2820,6 +2826,8 @@ void ScribusMainWindow::HaveNewSel(int SelectedType)
 			scrActions["itemConvertToPolygon"]->setEnabled(false);
 			scrActions["itemConvertToTextFrame"]->setEnabled(false);
 			scrActions["toolsUnlinkTextFrame"]->setEnabled(true);
+			scrActions["toolsUnlinkTextFrameWithTextCopy"]->setEnabled(true);
+			scrActions["toolsUnlinkTextFrameWithTextCut"]->setEnabled(true);
 			// FIXME: once there's one itemtext per story, always enable editcontents
 			if ((currItem->prevInChain() != 0) && (currItem->itemText.length() == 0))
 				scrActions["toolsEditContents"]->setEnabled(false);
@@ -2830,6 +2838,8 @@ void ScribusMainWindow::HaveNewSel(int SelectedType)
 		{
 			scrActions["toolsEditContents"]->setEnabled(true);
 			scrActions["toolsUnlinkTextFrame"]->setEnabled(false);
+			scrActions["toolsUnlinkTextFrameWithTextCopy"]->setEnabled(false);
+			scrActions["toolsUnlinkTextFrameWithTextCut"]->setEnabled(false);
 		}
 		if (currItem->nextInChain() == 0)
 			scrActions["toolsLinkTextFrame"]->setEnabled(true);
@@ -2920,6 +2930,8 @@ void ScribusMainWindow::HaveNewSel(int SelectedType)
 		scrActions["toolsEditWithStoryEditor"]->setEnabled(true);
 		scrActions["toolsLinkTextFrame"]->setEnabled(false);
 		scrActions["toolsUnlinkTextFrame"]->setEnabled(false);
+		scrActions["toolsUnlinkTextFrameWithTextCopy"]->setEnabled(false);
+		scrActions["toolsUnlinkTextFrameWithTextCut"]->setEnabled(false);
 		if (doc->appMode == modeEdit)
 			setTBvals(currItem);
 		else
@@ -3012,6 +3024,8 @@ void ScribusMainWindow::HaveNewSel(int SelectedType)
 		scrActions["toolsEditContents"]->setEnabled(false);
 		scrActions["toolsEditWithStoryEditor"]->setEnabled(false);
 		scrActions["toolsUnlinkTextFrame"]->setEnabled(false);
+		scrActions["toolsUnlinkTextFrameWithTextCopy"]->setEnabled(false);
+		scrActions["toolsUnlinkTextFrameWithTextCut"]->setEnabled(false);
 		scrActions["toolsLinkTextFrame"]->setEnabled(false);
 //		if (SelectedType != 5)
 			scrActions["toolsRotate"]->setEnabled(true);
@@ -4666,6 +4680,8 @@ bool ScribusMainWindow::DoFileClose()
 		scrActions["toolsInsertRenderFrame"]->setEnabled(false);
 		scrActions["toolsLinkTextFrame"]->setEnabled(false);
 		scrActions["toolsUnlinkTextFrame"]->setEnabled(false);
+		scrActions["toolsUnlinkTextFrameWithTextCopy"]->setEnabled(false);
+		scrActions["toolsUnlinkTextFrameWithTextCut"]->setEnabled(false);
 		scrActions["toolsMeasurements"]->setEnabled(false);
 		scrActions["toolsCopyProperties"]->setEnabled(false);
 		scrActions["toolsEyeDropper"]->setEnabled(false);
@@ -6169,6 +6185,8 @@ void ScribusMainWindow::ToggleFrameEdit()
 		scrActions["toolsInsertRenderFrame"]->setEnabled(false);
 		scrActions["toolsLinkTextFrame"]->setEnabled(false);
 		scrActions["toolsUnlinkTextFrame"]->setEnabled(false);
+		scrActions["toolsUnlinkTextFrameWithTextCopy"]->setEnabled(false);
+		scrActions["toolsUnlinkTextFrameWithTextCut"]->setEnabled(false);
 		scrActions["toolsMeasurements"]->setEnabled(false);
 		scrActions["toolsCopyProperties"]->setEnabled(false);
 		scrActions["toolsEyeDropper"]->setEnabled(false);
@@ -6267,6 +6285,8 @@ void ScribusMainWindow::NoFrameEdit()
 	scrActions["toolsCopyProperties"]->setEnabled(true);
 	scrActions["toolsEyeDropper"]->setEnabled(true);
 	scrActions["toolsUnlinkTextFrame"]->setEnabled(true);
+	scrActions["toolsUnlinkTextFrameWithTextCopy"]->setEnabled(true);
+	scrActions["toolsUnlinkTextFrameWithTextCut"]->setEnabled(true);
 	scrActions["itemDelete"]->setEnabled(true);
 	scrActions["itemShapeEdit"]->setChecked(false);
 	layerPalette->setEnabled(true);
@@ -6353,6 +6373,8 @@ void ScribusMainWindow::setAppMode(int mode)
 	scrActions["toolsEditWithStoryEditor"]->setChecked(mode==modeStoryEditor);
 	scrActions["toolsLinkTextFrame"]->setChecked(mode==modeLinkFrames);
 	scrActions["toolsUnlinkTextFrame"]->setChecked(mode==modeUnlinkFrames);
+	scrActions["toolsUnlinkTextFrameWithTextCopy"]->setChecked(mode==modeUnlinkFrames);
+	scrActions["toolsUnlinkTextFrameWithTextCut"]->setChecked(mode==modeUnlinkFrames);
 	scrActions["toolsEyeDropper"]->setChecked(mode==modeEyeDropper);
 	scrActions["toolsMeasurements"]->setChecked(mode==modeMeasurementTool);
 	scrActions["toolsCopyProperties"]->setChecked(mode==modeCopyProperties);

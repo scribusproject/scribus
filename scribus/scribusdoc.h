@@ -1403,6 +1403,8 @@ public slots:
 	void itemSelection_Rotate(double angle, Selection* customSelection = 0);
 	void itemSelection_DoHyphenate();
 	void itemSelection_DoDeHyphenate();
+	void itemSelection_UnlinkTextFrameWithText(Selection *customSelection=0, bool cutText=false);
+	void itemSelection_UnlinkTextFrameWithTextCut(Selection *customSelection=0);
 	void itemSelection_SendToLayer(int layerID);
 	void itemSelection_SetImageOffset(double x, double y, Selection* customSelection=0);
 	void itemSelection_SetImageScale(double x, double y, Selection* customSelection=0);

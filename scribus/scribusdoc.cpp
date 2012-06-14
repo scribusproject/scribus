@@ -15233,6 +15233,37 @@ void ScribusDoc::applyPrefsPageSizingAndMargins(bool resizePages, bool resizeMas
 	}
 }
 
+void ScribusDoc::itemSelection_UnlinkTextFrameWithText( Selection *customSelection, bool cutText)
+{
+	Selection* itemSelection = (customSelection!=0) ? customSelection : m_Selection;
+	assert(itemSelection!=0);
+	uint selectedItemCount=itemSelection->count();
+	if (selectedItemCount == 0)
+		return;
+
+	if (selectedItemCount > 0)
+	{
+		for (uint i = 0; i < selectedItemCount; ++i)
+		{
+			PageItem *currItem = itemSelection->itemAt(i);
+			if (currItem!=NULL)
+			{
+				if (currItem->asTextFrame() && (currItem->nextInChain() != NULL || currItem->prevInChain() != NULL))
+					currItem->unlinkWithText(cutText);
+			}
+		}
+		regionsChanged()->update(QRectF());
+		changed();
+		itemSelection->itemAt(0)->emitAllToGUI();
+	}
+
+}
+
+void ScribusDoc::itemSelection_UnlinkTextFrameWithTextCut( Selection *customSelection)
+{
+	itemSelection_UnlinkTextFrameWithText(customSelection, true);
+}
+
 void ScribusDoc::itemSelection_UnWeld()
 {
 	PageItem *currItem;
