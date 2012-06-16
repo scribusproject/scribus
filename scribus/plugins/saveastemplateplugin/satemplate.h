@@ -10,6 +10,7 @@ for which a new license (GPL+exception) is in place.
 #include "pluginapi.h"
 #include "scplugin.h"
 
+class ScribusDoc;
 
 class PLUGIN_API SaveAsTemplatePlugin : public ScActionPlugin
 {

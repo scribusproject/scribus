@@ -56,7 +56,7 @@ void SaveAsTemplatePlugin::languageChange()
 	m_actionInfo.keySequence = "Ctrl+Alt+S";
 	// Menu
 	m_actionInfo.menu = "File";
-	m_actionInfo.menuAfterName = "SaveAs";
+	m_actionInfo.menuAfterName = "fileSaveAs";
 	m_actionInfo.enabledOnStartup = true;
 	m_actionInfo.needsNumObjects = -1;
 }
