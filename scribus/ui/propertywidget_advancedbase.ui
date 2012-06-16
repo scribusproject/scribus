@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>209</width>
-    <height>131</height>
+    <width>239</width>
+    <height>155</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -106,7 +106,7 @@
       <double>1.000000000000000</double>
      </property>
      <property name="maximum">
-      <double>200.000000000000000</double>
+      <double>2000.000000000000000</double>
      </property>
      <property name="value">
       <double>100.000000000000000</double>
