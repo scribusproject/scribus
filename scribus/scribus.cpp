@@ -7734,6 +7734,7 @@ void ScribusMainWindow::slotDocSetup()
 		view->DrawNew();
 		pagePalette->rebuildPages();
 		emit UpdateRequest(reqCmsOptionsUpdate);
+		doc->changed();
 	}
 }
 int ScribusMainWindow::ShowSubs()
