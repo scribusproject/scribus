@@ -8611,6 +8611,8 @@ void ScribusMainWindow::manageMasterPages(QString temp)
 	storedViewScale = view->scale();
 
 	pagePalette->startMasterPageMode(temp);
+	if (!pagePalette->isVisible())
+		pagePalette->show();
 
 	scrActions["pageInsert"]->setEnabled(false);
 	scrActions["pageImport"]->setEnabled(false);
