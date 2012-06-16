@@ -1035,7 +1035,7 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->addMenuToMenuBar("Edit");
 	scrMenuMgr->addMenuToMenuBar("Item");
 	scrMenuMgr->addMenuToMenuBar("Insert");
-	scrMenuMgr->setMenuEnabled("Insert", false);
+	//scrMenuMgr->setMenuEnabled("Insert", false);
 	scrMenuMgr->addMenuToMenuBar("Page");
 	scrMenuMgr->addMenuToMenuBar("View");
 	scrMenuMgr->addMenuToMenuBar("Extras");
