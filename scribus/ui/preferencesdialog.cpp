@@ -64,6 +64,8 @@ PreferencesDialog::PreferencesDialog(QWidget* parent, ApplicationPrefs& prefsDat
 		exportButton->hide();
 		defaultsButton->hide();
 	}
+	else
+		connect(defaultsButton, SIGNAL(clicked()), SLOT(restoreDefaults()));
 	// Create Stack Widgets if required
 	prefs_ColorManagement = new Prefs_ColorManagement(prefsStackWidget, m_Doc);
 	prefs_Display = new Prefs_Display(prefsStackWidget, m_Doc);
