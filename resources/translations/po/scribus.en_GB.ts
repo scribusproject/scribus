@@ -8375,6 +8375,14 @@ May raise WrongFrameTypeError if the target frame is not an image frame
         <source>Inline Frames</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Unlink Text Frame with Text Copy</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unlink Text Frame with Text Cut</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>AdjustCmsDialog</name>
@@ -14762,6 +14770,55 @@ Use 72 dpi for Images intended for the Screen</translation>
     </message>
 </context>
 <context>
+    <name>HunspellDialog</name>
+    <message>
+        <source>Spelling check complete</source>
+        <translation type="unfinished">Spelling check complete</translation>
+    </message>
+</context>
+<context>
+    <name>HunspellDialogBase</name>
+    <message>
+        <source>Check Spelling</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Text Language:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Not in dictionary</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ignore Once</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ignore All</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Suggestions</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Change</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Change All</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>HunspellPlugin</name>
+    <message>
+        <source>Check Spelling...</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>HyAsk</name>
     <message>
         <source>Possible Hyphenation</source>
@@ -16250,6 +16307,10 @@ p, li { white-space: pre-wrap; }
     <message>
         <source>Name of the Layer - Double click on the name of a layer to edit the name</source>
         <translation>Name of the Layer - Double click on the name of a layer to edit the name</translation>
+    </message>
+    <message>
+        <source>Select Objects on Layer - Check to enable selecting. </source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -18894,31 +18955,171 @@ Often used for allowing items to be placed across page spreads</source>
     </message>
     <message>
         <source>Available Master Pages:</source>
-        <translation>Available Master Pages:</translation>
+        <translation type="obsolete">Available Master Pages:</translation>
     </message>
     <message>
         <source>Document Pages:</source>
-        <translation>Document Pages:</translation>
+        <translation type="obsolete">Document Pages:</translation>
     </message>
     <message>
         <source>List of normal pages in the document, shown with the document layout. Pages may be dragged to rearrange or delete them.</source>
-        <translation>List of normal pages in the document, shown with the document layout. Pages may be dragged to rearrange or delete them.</translation>
+        <translation type="obsolete">List of normal pages in the document, shown with the document layout. Pages may be dragged to rearrange or delete them.</translation>
     </message>
     <message>
         <source>Drag pages or master pages onto the trash to delete them</source>
-        <translation>Drag pages or master pages onto the trash to delete them</translation>
+        <translation type="obsolete">Drag pages or master pages onto the trash to delete them</translation>
     </message>
     <message>
         <source>List of master pages in the document. Master page names may be dragged onto the page view below to apply master pages, or onto the empty space between pages to create new pages.</source>
-        <translation>List of master pages in the document. Master page names may be dragged onto the page view below to apply master pages, or onto the empty space between pages to create new pages.</translation>
+        <translation type="obsolete">List of master pages in the document. Master page names may be dragged onto the page view below to apply master pages, or onto the empty space between pages to create new pages.</translation>
     </message>
     <message>
         <source>This master page is used at least once in the document.</source>
-        <translation>This master page is used at least once in the document.</translation>
+        <translation type="obsolete">This master page is used at least once in the document.</translation>
     </message>
     <message>
         <source>Do you really want to delete this master page?</source>
-        <translation>Do you really want to delete this master page?</translation>
+        <translation type="obsolete">Do you really want to delete this master page?</translation>
+    </message>
+</context>
+<context>
+    <name>PagePalette_MasterPages</name>
+    <message>
+        <source>Edit Master Pages</source>
+        <translation type="unfinished">Edit Master Pages</translation>
+    </message>
+    <message>
+        <source>Duplicate the selected master page</source>
+        <translation type="unfinished">Duplicate the selected master page</translation>
+    </message>
+    <message>
+        <source>Delete the selected master page</source>
+        <translation type="unfinished">Delete the selected master page</translation>
+    </message>
+    <message>
+        <source>Add a new master page</source>
+        <translation type="unfinished">Add a new master page</translation>
+    </message>
+    <message>
+        <source>Import master pages from another document</source>
+        <translation type="unfinished">Import master pages from another document</translation>
+    </message>
+    <message>
+        <source>This master page is used at least once in the document.</source>
+        <translation type="unfinished">This master page is used at least once in the document.</translation>
+    </message>
+    <message>
+        <source>Do you really want to delete master page &quot;%1&quot;?</source>
+        <translation type="unfinished">Do you really want to delete master page &quot;%1&quot;?</translation>
+    </message>
+    <message>
+        <source>Copy #%1 of %2</source>
+        <translation type="unfinished">Copy #%1 of %2</translation>
+    </message>
+    <message>
+        <source>&amp;Name:</source>
+        <translation type="unfinished">&amp;Name:</translation>
+    </message>
+    <message>
+        <source>New Master Page</source>
+        <translation type="unfinished">New Master Page</translation>
+    </message>
+    <message>
+        <source>Name:</source>
+        <translation type="unfinished">Name:</translation>
+    </message>
+    <message>
+        <source>New MasterPage</source>
+        <translation type="unfinished">New MasterPage</translation>
+    </message>
+    <message>
+        <source>New Master Page %1</source>
+        <translation type="unfinished">New Master Page %1</translation>
+    </message>
+    <message>
+        <source>Copy #%1 of </source>
+        <translation type="unfinished">Copy #%1 of </translation>
+    </message>
+    <message>
+        <source>Unable to Rename Master Page</source>
+        <translation type="unfinished">Unable to Rename Master Page</translation>
+    </message>
+    <message>
+        <source>The Normal page is not allowed to be renamed.</source>
+        <translation type="unfinished">The Normal page is not allowed to be renamed.</translation>
+    </message>
+    <message>
+        <source>Rename Master Page</source>
+        <translation type="unfinished">Rename Master Page</translation>
+    </message>
+    <message>
+        <source>New Name:</source>
+        <translation type="unfinished">New Name:</translation>
+    </message>
+</context>
+<context>
+    <name>PagePalette_MasterPagesBase</name>
+    <message>
+        <source>Form</source>
+        <translation type="unfinished">Form</translation>
+    </message>
+    <message>
+        <source>&lt;&lt;&lt; Return to pages edition</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>PagePalette_Pages</name>
+    <message>
+        <source>This master page is used at least once in the document.</source>
+        <translation type="unfinished">This master page is used at least once in the document.</translation>
+    </message>
+    <message>
+        <source>Do you really want to delete this master page?</source>
+        <translation type="unfinished">Do you really want to delete this master page?</translation>
+    </message>
+    <message>
+        <source>Arrange Pages</source>
+        <translation type="unfinished">Arrange Pages</translation>
+    </message>
+    <message>
+        <source>Available Master Pages:</source>
+        <translation type="unfinished">Available Master Pages:</translation>
+    </message>
+    <message>
+        <source>Document Pages:</source>
+        <translation type="unfinished">Document Pages:</translation>
+    </message>
+    <message>
+        <source>List of master pages in the document. Master page names may be dragged onto the page view below to apply master pages, or onto the empty space between pages to create new pages.</source>
+        <translation type="unfinished">List of master pages in the document. Master page names may be dragged onto the page view below to apply master pages, or onto the empty space between pages to create new pages.</translation>
+    </message>
+    <message>
+        <source>List of normal pages in the document, shown with the document layout. Pages may be dragged to rearrange or delete them.</source>
+        <translation type="unfinished">List of normal pages in the document, shown with the document layout. Pages may be dragged to rearrange or delete them.</translation>
+    </message>
+    <message>
+        <source>Drag pages or master pages onto the trash to delete them</source>
+        <translation type="unfinished">Drag pages or master pages onto the trash to delete them</translation>
+    </message>
+</context>
+<context>
+    <name>PagePalette_PagesBase</name>
+    <message>
+        <source>Form</source>
+        <translation type="unfinished">Form</translation>
+    </message>
+    <message>
+        <source>Available Master Pages:</source>
+        <translation type="unfinished">Available Master Pages:</translation>
+    </message>
+    <message>
+        <source>Document Pages:</source>
+        <translation type="unfinished">Document Pages:</translation>
+    </message>
+    <message>
+        <source>Document Layout</source>
+        <translation type="unfinished">Document Layout</translation>
     </message>
 </context>
 <context>
@@ -21224,6 +21425,10 @@ Please choose another one.</source>
     <message>
         <source>Scripter</source>
         <translation type="obsolete">Scripter</translation>
+    </message>
+    <message>
+        <source>Spelling</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -24633,6 +24838,53 @@ A value of 0 means unlimited hyphenations.</translation>
     <message>
         <source>Cannot open file %1</source>
         <translation>Cannot open file %1</translation>
+    </message>
+</context>
+<context>
+    <name>Prefs_Spelling</name>
+    <message>
+        <source>Form</source>
+        <translation type="unfinished">Form</translation>
+    </message>
+    <message>
+        <source>Spelling</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Installed Spelling Dictionaries</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Downloadable Spelling Dictionaries</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Refresh Downloadable List</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Download Selected Dictionaries</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Language</source>
+        <translation type="unfinished">Language</translation>
+    </message>
+    <message>
+        <source>Code</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Location</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Installed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Download</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -29037,7 +29289,7 @@ External Links</translation>
     </message>
     <message>
         <source>English (British)</source>
-        <translation>English (British)</translation>
+        <translation type="obsolete">English (British)</translation>
     </message>
     <message>
         <source>Esperanto</source>
@@ -30394,7 +30646,7 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>English (American)</source>
-        <translation>English (American)</translation>
+        <translation type="obsolete">English (American)</translation>
     </message>
     <message>
         <source>%1 may be corrupted : missing or wrong resolution tags</source>
@@ -30412,7 +30664,7 @@ Therefore the image may be not correct</translation>
     </message>
     <message>
         <source>English (Australian)</source>
-        <translation>English (Australian)</translation>
+        <translation type="obsolete">English (Australian)</translation>
     </message>
     <message>
         <source>German (Swiss)</source>
@@ -31229,6 +31481,46 @@ Therefore the image may be not correct</source>
         <comment>python error</comment>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Aragonese</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Belarusian</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>English (Australia)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>English (Canada)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>English (UK)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>English (New Zealand)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>English (USA)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>English (South Africa)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Spanish (Argentina)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hunspell Plugin</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QTextEdit</name>
@@ -31546,6 +31838,116 @@ Please choose another.</source>
     <message>
         <source>Run Script</source>
         <translation>Run Script</translation>
+    </message>
+</context>
+<context>
+    <name>SATDialog</name>
+    <message>
+        <source>Save as Template</source>
+        <translation type="unfinished">Save as Template</translation>
+    </message>
+    <message>
+        <source>Legal</source>
+        <translation type="unfinished">Legal</translation>
+    </message>
+    <message>
+        <source>Letter</source>
+        <translation type="unfinished">Letter</translation>
+    </message>
+    <message>
+        <source>Tabloid</source>
+        <translation type="unfinished">Tabloid</translation>
+    </message>
+    <message>
+        <source>landscape</source>
+        <translation type="unfinished">landscape</translation>
+    </message>
+    <message>
+        <source>portrait</source>
+        <translation type="unfinished">portrait</translation>
+    </message>
+    <message>
+        <source>custom</source>
+        <translation type="unfinished">custom</translation>
+    </message>
+</context>
+<context>
+    <name>SATDialogBase</name>
+    <message>
+        <source>Save as Template</source>
+        <translation type="unfinished">Save as Template</translation>
+    </message>
+    <message>
+        <source>Name:</source>
+        <translation type="unfinished">Name:</translation>
+    </message>
+    <message>
+        <source>Name of the document template</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show more details to describe the document template</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;More Details</source>
+        <translation type="unfinished">&amp;More Details</translation>
+    </message>
+    <message>
+        <source>Category:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Category of the document template</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Page Size:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Page size of the document template</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Colors:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Description of the color format of the document, or some hints regarding colors used</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Description:</source>
+        <translation type="unfinished">Description:</translation>
+    </message>
+    <message>
+        <source>Description of the document template</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Usage:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Planned usage of the document template</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Author:</source>
+        <translation type="unfinished">Author:</translation>
+    </message>
+    <message>
+        <source>Author of the document template</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Email:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Email address of the author of the document template</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -34699,6 +35101,50 @@ You can choose between normal and several colour blindness forms</translation>
     <message>
         <source>QtScript</source>
         <translation>QtScript</translation>
+    </message>
+    <message>
+        <source>Clear</source>
+        <translation type="unfinished">Clear</translation>
+    </message>
+    <message>
+        <source>Clear The Console</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save &amp;As</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save the  script</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ctrl+A</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Open</source>
+        <translation type="unfinished">&amp;Open</translation>
+    </message>
+    <message>
+        <source>Open a script</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ctrl+O</source>
+        <translation type="unfinished">Ctrl+O</translation>
+    </message>
+    <message>
+        <source>&amp;Save</source>
+        <translation type="unfinished">&amp;Save</translation>
+    </message>
+    <message>
+        <source>Save the current script</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ctrl+S</source>
+        <translation type="unfinished">Ctrl+S</translation>
     </message>
 </context>
 <context>
@@ -40800,103 +41246,67 @@ A value of 0 means unlimited hyphenations.</translation>
     <name>satdialog</name>
     <message>
         <source>Save as Template</source>
-        <translation>Save as Template</translation>
+        <translation type="obsolete">Save as Template</translation>
     </message>
     <message>
         <source>Name</source>
-        <translation>Name</translation>
+        <translation type="obsolete">Name</translation>
     </message>
     <message>
         <source>Category</source>
-        <translation>Category</translation>
+        <translation type="obsolete">Category</translation>
     </message>
     <message>
         <source>Page Size</source>
-        <translation>Page Size</translation>
+        <translation type="obsolete">Page Size</translation>
     </message>
     <message>
         <source>Colors</source>
-        <translation>Colours</translation>
+        <translation type="obsolete">Colours</translation>
     </message>
     <message>
         <source>Description</source>
-        <translation>Description</translation>
+        <translation type="obsolete">Description</translation>
     </message>
     <message>
         <source>Usage</source>
-        <translation>Usage</translation>
+        <translation type="obsolete">Usage</translation>
     </message>
     <message>
         <source>Author</source>
-        <translation>Author</translation>
+        <translation type="obsolete">Author</translation>
     </message>
     <message>
         <source>Email</source>
-        <translation>E-mail</translation>
+        <translation type="obsolete">E-mail</translation>
     </message>
     <message>
         <source>Legal</source>
-        <translation type="unfinished">Legal</translation>
+        <translation type="obsolete">Legal</translation>
     </message>
     <message>
         <source>Letter</source>
-        <translation type="unfinished">Letter</translation>
+        <translation type="obsolete">Letter</translation>
     </message>
     <message>
         <source>Tabloid</source>
-        <translation type="unfinished">Tabloid</translation>
+        <translation type="obsolete">Tabloid</translation>
     </message>
     <message>
         <source>landscape</source>
-        <translation type="unfinished">landscape</translation>
+        <translation type="obsolete">landscape</translation>
     </message>
     <message>
         <source>portrait</source>
-        <translation type="unfinished">portrait</translation>
+        <translation type="obsolete">portrait</translation>
     </message>
     <message>
         <source>custom</source>
-        <translation type="unfinished">custom</translation>
+        <translation type="obsolete">custom</translation>
     </message>
     <message>
         <source>&amp;More Details</source>
-        <translation>&amp;More Details</translation>
-    </message>
-    <message>
-        <source>Name of the document template</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Show more details to describe the document template</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Category of the document template</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Page size of the document template</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Description of the color format of the document, or some hints regarding colors used</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Description of the document template</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Planned usage of the document template</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Author of the document template</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Email address of the author of the document template</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">&amp;More Details</translation>
     </message>
 </context>
 <context>

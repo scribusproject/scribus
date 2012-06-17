@@ -1887,6 +1887,14 @@ Hvis objektet «name» tilhører en gruppe blir hele gruppen flyttet.
         <source>Inline Frames</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Unlink Text Frame with Text Copy</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unlink Text Frame with Text Cut</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>AdjustCmsDialog</name>
@@ -9779,6 +9787,55 @@ og www.scribus.net for nye versjoner av Scribus.</translation>
     </message>
 </context>
 <context>
+    <name>HunspellDialog</name>
+    <message>
+        <source>Spelling check complete</source>
+        <translation type="unfinished">Stavekontrollen er ferdig</translation>
+    </message>
+</context>
+<context>
+    <name>HunspellDialogBase</name>
+    <message>
+        <source>Check Spelling</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Text Language:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Not in dictionary</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ignore Once</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ignore All</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Suggestions</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Change</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Change All</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>HunspellPlugin</name>
+    <message>
+        <source>Check Spelling...</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>HyAsk</name>
     <message>
         <source>Possible Hyphenation</source>
@@ -11531,6 +11588,10 @@ p, li { white-space: pre-wrap; }
     <message>
         <source>Name of the Layer - Double click on the name of a layer to edit the name</source>
         <translation>Navn på laget – dobbeltklikk på navnet for å endre det</translation>
+    </message>
+    <message>
+        <source>Select Objects on Layer - Check to enable selecting. </source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -16155,11 +16216,147 @@ Often used for allowing items to be placed across page spreads</source>
     </message>
     <message>
         <source>Available Master Pages:</source>
-        <translation>Tilgjengelige malsider:</translation>
+        <translation type="obsolete">Tilgjengelige malsider:</translation>
     </message>
     <message>
         <source>Document Pages:</source>
-        <translation>Dokumentsider:</translation>
+        <translation type="obsolete">Dokumentsider:</translation>
+    </message>
+    <message>
+        <source>List of normal pages in the document, shown with the document layout. Pages may be dragged to rearrange or delete them.</source>
+        <translation type="obsolete">
+            </translation>
+    </message>
+    <message>
+        <source>Drag pages or master pages onto the trash to delete them</source>
+        <translation type="obsolete">Trekk sider eller maler til papirkurven for å slette dem</translation>
+    </message>
+    <message>
+        <source>List of master pages in the document. Master page names may be dragged onto the page view below to apply master pages, or onto the empty space between pages to create new pages.</source>
+        <translation type="obsolete">
+            </translation>
+    </message>
+    <message>
+        <source>This master page is used at least once in the document.</source>
+        <translation type="obsolete">Denne malsiden brukes minst en gang i dokumentet.</translation>
+    </message>
+    <message>
+        <source>Do you really want to delete this master page?</source>
+        <translation type="obsolete">Er du helt sikker på at du vil slette denne malsiden?</translation>
+    </message>
+</context>
+<context>
+    <name>PagePalette_MasterPages</name>
+    <message>
+        <source>Edit Master Pages</source>
+        <translation type="unfinished">Rediger malsider</translation>
+    </message>
+    <message>
+        <source>Duplicate the selected master page</source>
+        <translation type="unfinished">Lag en kopi av den valgte malsiden</translation>
+    </message>
+    <message>
+        <source>Delete the selected master page</source>
+        <translation type="unfinished">Slett den valgte malsiden</translation>
+    </message>
+    <message>
+        <source>Add a new master page</source>
+        <translation type="unfinished">Lag en ny malside</translation>
+    </message>
+    <message>
+        <source>Import master pages from another document</source>
+        <translation type="unfinished">Importer malsider fra et annet dokument</translation>
+    </message>
+    <message>
+        <source>This master page is used at least once in the document.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Do you really want to delete master page &quot;%1&quot;?</source>
+        <translation type="unfinished">Er du helt sikker på at du vil slett malsiden «%1»?</translation>
+    </message>
+    <message>
+        <source>Copy #%1 of %2</source>
+        <translation type="unfinished">Kopi #%1 av %2</translation>
+    </message>
+    <message>
+        <source>&amp;Name:</source>
+        <translation type="unfinished">&amp;Navn:</translation>
+    </message>
+    <message>
+        <source>New Master Page</source>
+        <translation type="unfinished">Ny malside</translation>
+    </message>
+    <message>
+        <source>Name:</source>
+        <translation type="unfinished">Navn:</translation>
+    </message>
+    <message>
+        <source>New MasterPage</source>
+        <translation type="unfinished">Ny malside</translation>
+    </message>
+    <message>
+        <source>New Master Page %1</source>
+        <translation type="unfinished">Ny malside %1</translation>
+    </message>
+    <message>
+        <source>Copy #%1 of </source>
+        <translation type="unfinished">Kopi #%1 av </translation>
+    </message>
+    <message>
+        <source>Unable to Rename Master Page</source>
+        <translation type="unfinished">Kan ikke gi nytt navn til malsiden</translation>
+    </message>
+    <message>
+        <source>The Normal page is not allowed to be renamed.</source>
+        <translation type="unfinished">Kan ikke gi nytt navn til siden «Normal»</translation>
+    </message>
+    <message>
+        <source>Rename Master Page</source>
+        <translation type="unfinished">Gi nytt navn til malsiden</translation>
+    </message>
+    <message>
+        <source>New Name:</source>
+        <translation type="unfinished">Nytt navn:</translation>
+    </message>
+</context>
+<context>
+    <name>PagePalette_MasterPagesBase</name>
+    <message>
+        <source>Form</source>
+        <translation type="unfinished">Skjema</translation>
+    </message>
+    <message>
+        <source>&lt;&lt;&lt; Return to pages edition</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>PagePalette_Pages</name>
+    <message>
+        <source>This master page is used at least once in the document.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Do you really want to delete this master page?</source>
+        <translation type="unfinished">Er du helt sikker på at du vil slette denne malsiden?</translation>
+    </message>
+    <message>
+        <source>Arrange Pages</source>
+        <translation type="unfinished">Flytt om på sidene</translation>
+    </message>
+    <message>
+        <source>Available Master Pages:</source>
+        <translation type="unfinished">Tilgjengelige malsider:</translation>
+    </message>
+    <message>
+        <source>Document Pages:</source>
+        <translation type="unfinished">Dokumentsider:</translation>
+    </message>
+    <message>
+        <source>List of master pages in the document. Master page names may be dragged onto the page view below to apply master pages, or onto the empty space between pages to create new pages.</source>
+        <translation type="unfinished">
+            </translation>
     </message>
     <message>
         <source>List of normal pages in the document, shown with the document layout. Pages may be dragged to rearrange or delete them.</source>
@@ -16168,20 +16365,26 @@ Often used for allowing items to be placed across page spreads</source>
     </message>
     <message>
         <source>Drag pages or master pages onto the trash to delete them</source>
-        <translation>Trekk sider eller maler til papirkurven for å slette dem</translation>
+        <translation type="unfinished">Trekk sider eller maler til papirkurven for å slette dem</translation>
+    </message>
+</context>
+<context>
+    <name>PagePalette_PagesBase</name>
+    <message>
+        <source>Form</source>
+        <translation type="unfinished">Skjema</translation>
     </message>
     <message>
-        <source>List of master pages in the document. Master page names may be dragged onto the page view below to apply master pages, or onto the empty space between pages to create new pages.</source>
-        <translation type="unfinished">
-            </translation>
+        <source>Available Master Pages:</source>
+        <translation type="unfinished">Tilgjengelige malsider:</translation>
     </message>
     <message>
-        <source>This master page is used at least once in the document.</source>
-        <translation>Denne malsiden brukes minst en gang i dokumentet.</translation>
+        <source>Document Pages:</source>
+        <translation type="unfinished">Dokumentsider:</translation>
     </message>
     <message>
-        <source>Do you really want to delete this master page?</source>
-        <translation>Er du helt sikker på at du vil slette denne malsiden?</translation>
+        <source>Document Layout</source>
+        <translation type="unfinished">Dokumentoppsett</translation>
     </message>
 </context>
 <context>
@@ -19679,6 +19882,10 @@ UCR reduserer muligheten for overmetning med CMY farger.</translation>
         <source>Image Cache</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Spelling</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>PrefsDialogBase</name>
@@ -23147,6 +23354,53 @@ Et kort tidsrom gir en kort effekt, et lengre tidsrom gir en lengre effekt.</tra
     <message>
         <source>Cannot open file %1</source>
         <translation type="unfinished">Klarte ikke å åpne fila %1</translation>
+    </message>
+</context>
+<context>
+    <name>Prefs_Spelling</name>
+    <message>
+        <source>Form</source>
+        <translation type="unfinished">Skjema</translation>
+    </message>
+    <message>
+        <source>Spelling</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Installed Spelling Dictionaries</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Downloadable Spelling Dictionaries</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Refresh Downloadable List</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Download Selected Dictionaries</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Language</source>
+        <translation type="unfinished">Språk</translation>
+    </message>
+    <message>
+        <source>Code</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Location</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Installed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Download</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -27696,7 +27950,7 @@ Eksterne lenker
     </message>
     <message>
         <source>English (British)</source>
-        <translation>Engelsk (Britisk)</translation>
+        <translation type="obsolete">Engelsk (Britisk)</translation>
     </message>
     <message>
         <source>Esperanto</source>
@@ -29255,7 +29509,7 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>English (American)</source>
-        <translation> Amerikansk-engelsk</translation>
+        <translation type="obsolete"> Amerikansk-engelsk</translation>
     </message>
     <message>
         <source>%1 may be corrupted : missing or wrong resolution tags</source>
@@ -29264,7 +29518,7 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>English (Australian)</source>
-        <translation>Engelsk (Australia)</translation>
+        <translation type="obsolete">Engelsk (Australia)</translation>
     </message>
     <message>
         <source>German (Swiss)</source>
@@ -30096,6 +30350,46 @@ is not exhaustive due to exceptions from called functions.
         <comment>python error</comment>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Aragonese</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Belarusian</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>English (Australia)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>English (Canada)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>English (UK)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>English (New Zealand)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>English (USA)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>English (South Africa)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Spanish (Argentina)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hunspell Plugin</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QTextEdit</name>
@@ -30632,6 +30926,117 @@ Hvis du bruker motstående sider, kan dette brukes til å få rettinnbindingsmar
     <message>
         <source>Run Script</source>
         <translation>Kjør skript</translation>
+    </message>
+</context>
+<context>
+    <name>SATDialog</name>
+    <message>
+        <source>Save as Template</source>
+        <translation type="unfinished">Lagre som mal</translation>
+    </message>
+    <message>
+        <source>Legal</source>
+        <translation type="unfinished">Legal</translation>
+    </message>
+    <message>
+        <source>Letter</source>
+        <translation type="unfinished">Letter</translation>
+    </message>
+    <message>
+        <source>Tabloid</source>
+        <translation type="unfinished">Tabloid</translation>
+    </message>
+    <message>
+        <source>landscape</source>
+        <translation type="unfinished">liggende</translation>
+    </message>
+    <message>
+        <source>portrait</source>
+        <translation type="unfinished">stående</translation>
+    </message>
+    <message>
+        <source>custom</source>
+        <translation type="unfinished">selvvalgt</translation>
+    </message>
+</context>
+<context>
+    <name>SATDialogBase</name>
+    <message>
+        <source>Save as Template</source>
+        <translation type="unfinished">Lagre som mal</translation>
+    </message>
+    <message>
+        <source>Name:</source>
+        <translation type="unfinished">Navn:</translation>
+    </message>
+    <message>
+        <source>Name of the document template</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show more details to describe the document template</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;More Details</source>
+        <translation type="unfinished">&amp;Flere detaljer</translation>
+    </message>
+    <message>
+        <source>Category:</source>
+        <translation type="unfinished">Kategori:</translation>
+    </message>
+    <message>
+        <source>Category of the document template</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Page Size:</source>
+        <translation type="unfinished">Sidestørrelse:</translation>
+    </message>
+    <message>
+        <source>Page size of the document template</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Colors:</source>
+        <translation type="unfinished">Farger:</translation>
+    </message>
+    <message>
+        <source>Description of the color format of the document, or some hints regarding colors used</source>
+        <translation type="unfinished">
+            </translation>
+    </message>
+    <message>
+        <source>Description:</source>
+        <translation type="unfinished">Beskrivelse:</translation>
+    </message>
+    <message>
+        <source>Description of the document template</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Usage:</source>
+        <translation type="unfinished">Bruk:</translation>
+    </message>
+    <message>
+        <source>Planned usage of the document template</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Author:</source>
+        <translation type="unfinished">Forfatter:</translation>
+    </message>
+    <message>
+        <source>Author of the document template</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Email:</source>
+        <translation type="unfinished">E-post:</translation>
+    </message>
+    <message>
+        <source>Email address of the author of the document template</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -35396,6 +35801,50 @@ Former monitor profile will be used.</source>
     <message>
         <source>QtScript</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Clear</source>
+        <translation type="unfinished">Tøm</translation>
+    </message>
+    <message>
+        <source>Clear The Console</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save &amp;As</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save the  script</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ctrl+A</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Open</source>
+        <translation type="unfinished">&amp;Åpne</translation>
+    </message>
+    <message>
+        <source>Open a script</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ctrl+O</source>
+        <translation type="unfinished">Ctrl + O</translation>
+    </message>
+    <message>
+        <source>&amp;Save</source>
+        <translation type="unfinished">&amp;Lagre</translation>
+    </message>
+    <message>
+        <source>Save the current script</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ctrl+S</source>
+        <translation type="unfinished">Ctrl + S</translation>
     </message>
 </context>
 <context>
@@ -42694,7 +43143,7 @@ A value of 0 means unlimited hyphenations.</source>
     <name>satdialog</name>
     <message>
         <source>Save as Template</source>
-        <translation>Lagre som mal</translation>
+        <translation type="obsolete">Lagre som mal</translation>
     </message>
     <message>
         <source>Email:</source>
@@ -42702,7 +43151,7 @@ A value of 0 means unlimited hyphenations.</source>
     </message>
     <message>
         <source>Description of the color format of the document, or some hints regarding colors used</source>
-        <translation type="unfinished">
+        <translation type="obsolete">
             </translation>
     </message>
     <message>
@@ -42735,35 +43184,35 @@ A value of 0 means unlimited hyphenations.</source>
     </message>
     <message>
         <source>Name</source>
-        <translation type="unfinished">Navn</translation>
+        <translation type="obsolete">Navn</translation>
     </message>
     <message>
         <source>Category</source>
-        <translation type="unfinished">Kategori</translation>
+        <translation type="obsolete">Kategori</translation>
     </message>
     <message>
         <source>Page Size</source>
-        <translation type="unfinished">Sidestørrelse</translation>
+        <translation type="obsolete">Sidestørrelse</translation>
     </message>
     <message>
         <source>Colors</source>
-        <translation type="unfinished">Farger</translation>
+        <translation type="obsolete">Farger</translation>
     </message>
     <message>
         <source>Description</source>
-        <translation type="unfinished">Beskrivelse</translation>
+        <translation type="obsolete">Beskrivelse</translation>
     </message>
     <message>
         <source>Usage</source>
-        <translation type="unfinished">Bruk</translation>
+        <translation type="obsolete">Bruk</translation>
     </message>
     <message>
         <source>Author</source>
-        <translation type="unfinished">Forfatter</translation>
+        <translation type="obsolete">Forfatter</translation>
     </message>
     <message>
         <source>Email</source>
-        <translation type="unfinished">E-post</translation>
+        <translation type="obsolete">E-post</translation>
     </message>
     <message>
         <source>More Details</source>
@@ -42779,63 +43228,31 @@ A value of 0 means unlimited hyphenations.</source>
     </message>
     <message>
         <source>Legal</source>
-        <translation>Legal</translation>
+        <translation type="obsolete">Legal</translation>
     </message>
     <message>
         <source>Letter</source>
-        <translation>Letter</translation>
+        <translation type="obsolete">Letter</translation>
     </message>
     <message>
         <source>Tabloid</source>
-        <translation>Tabloid</translation>
+        <translation type="obsolete">Tabloid</translation>
     </message>
     <message>
         <source>landscape</source>
-        <translation>liggende</translation>
+        <translation type="obsolete">liggende</translation>
     </message>
     <message>
         <source>portrait</source>
-        <translation>stående</translation>
+        <translation type="obsolete">stående</translation>
     </message>
     <message>
         <source>custom</source>
-        <translation>selvvalgt</translation>
+        <translation type="obsolete">selvvalgt</translation>
     </message>
     <message>
         <source>&amp;More Details</source>
-        <translation>&amp;Flere detaljer</translation>
-    </message>
-    <message>
-        <source>Name of the document template</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Show more details to describe the document template</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Category of the document template</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Page size of the document template</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Description of the document template</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Planned usage of the document template</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Author of the document template</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Email address of the author of the document template</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">&amp;Flere detaljer</translation>
     </message>
 </context>
 <context>
