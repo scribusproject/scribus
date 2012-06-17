@@ -174,7 +174,7 @@ static QRegion itemShape(PageItem* docItem, double xOffset, double yOffset)
 	return  res;
 }
 
-QRegion PageItem_TextFrame::availableRegion()
+QRegion PageItem_TextFrame::calcAvailableRegion()
 {
 	QRegion result(this->Clip);
 	if ((!isEmbedded) || (Parent != NULL))
@@ -1356,8 +1356,8 @@ void PageItem_TextFrame::layout()
 	if ((itemText.length() != 0)) // || (NextBox != 0))
 	{
 		// determine layout area
-		QRegion cl = availableRegion();
-		if (cl.isEmpty())
+		m_availableRegion = calcAvailableRegion();
+		if (m_availableRegion.isEmpty())
 		{
 			MaxChars = firstInFrame();
 			goto NoRoom;
@@ -1376,7 +1376,7 @@ void PageItem_TextFrame::layout()
 				matrix.translate(0, Height);
 				matrix.scale(1, -1);
 			}
-			cl = matrix.map(cl);
+			m_availableRegion = matrix.map(m_availableRegion);
 		}
 		
 		current.nextColumn();
@@ -1878,9 +1878,9 @@ void PageItem_TextFrame::layout()
 					while (Xpos <= Xend && Xpos < current.colRight)
 					{
 						pt.moveTopLeft(QPoint(static_cast<int>(floor(Xpos)),maxYAsc));
-						if (!regionContainsRect(cl, pt))
+						if (!regionContainsRect(m_availableRegion, pt))
 						{
-							Xpos = current.xPos = realEnd = findRealOverflowEnd(cl, pt, current.colRight);
+							Xpos = current.xPos = realEnd = findRealOverflowEnd(m_availableRegion, pt, current.colRight);
 							Xend = current.xPos + (addIndent2overflow ? current.leftIndent : 0);
 							//for first paragraph`s line - if first line offset should be added
 							if ( addFirstIndent2overflow && (a==0 || (a > 0 && (itemText.text(a-1) == SpecialChars::PARSEP))))
@@ -2240,9 +2240,9 @@ void PageItem_TextFrame::layout()
 					pt2 = QPoint(charEnd, maxYDesc);
 				}
 				pt = QRect(pt1, pt2);
-				if (!regionContainsRect(cl, pt))
+				if (!regionContainsRect(m_availableRegion, pt))
 				{
-					realEnd = findRealOverflowEnd(cl, pt, current.colRight);
+					realEnd = findRealOverflowEnd(m_availableRegion, pt, current.colRight);
 					outs = true;
 				}
 				else if (style.rightMargin() > 0.0)
@@ -2251,9 +2251,9 @@ void PageItem_TextFrame::layout()
 						//condition after || is for find overflows in right margin area
 					{
 						pt.translate(static_cast<int>(ceil(style.rightMargin())), 0);
-						if (!regionContainsRect(cl, pt))
+						if (!regionContainsRect(m_availableRegion, pt))
 						{
-							realEnd = findRealOverflowEnd(cl, pt, current.colRight);
+							realEnd = findRealOverflowEnd(m_availableRegion, pt, current.colRight);
 							outs = true;
 						}
 					}
@@ -2399,7 +2399,7 @@ void PageItem_TextFrame::layout()
 				{
 					// find end of line
 					current.breakLine(itemText, style, firstLineOffset(), a);
-					EndX = current.endOfLine(cl, style.rightMargin(), maxYAsc, maxYDesc);
+					EndX = current.endOfLine(m_availableRegion, style.rightMargin(), maxYAsc, maxYDesc);
 					current.finishLine(EndX);
 					//addLine = true;
 					assert(current.addLine);
@@ -2476,7 +2476,7 @@ void PageItem_TextFrame::layout()
 						current.updateHeightMetrics(itemText);
 						//current.updateLineOffset(itemText, style, firstLineOffset());
 						//current.xPos = current.breakXPos;
-						EndX = current.endOfLine(cl, current.rightMargin, maxYAsc, maxYDesc);
+						EndX = current.endOfLine(m_availableRegion, current.rightMargin, maxYAsc, maxYDesc);
 						current.finishLine(EndX);
 						
 						hyphWidth = 0.0;
@@ -2710,7 +2710,7 @@ void PageItem_TextFrame::layout()
 			maxYAsc = qMax(maxYAsc, 0);
 			maxYDesc = static_cast<int>(ceil(current.yPos + qMax(realDesc, desc)));
 
-			EndX = current.endOfLine(cl, style.rightMargin(), maxYAsc, maxYDesc);
+			EndX = current.endOfLine(m_availableRegion, style.rightMargin(), maxYAsc, maxYDesc);
 			current.finishLine(EndX);
 
 			if (opticalMargins & ParagraphStyle::OM_RightHangingPunct)

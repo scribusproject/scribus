@@ -76,15 +76,16 @@ public:
 	int firstTextItem() const { return itemText.firstFrameItem; }
 	int lastTextItem() const { return itemText.lastFrameItem; }
 #endif
-	
+	QRegion availableRegion() { return m_availableRegion; }
 protected:
+	QRegion calcAvailableRegion();
+	QRegion m_availableRegion;
 	virtual void DrawObj_Item(ScPainter *p, QRectF e);
 	virtual void DrawObj_Post(ScPainter *p);
 	virtual void DrawObj_Decoration(ScPainter *p);
 	//void drawOverflowMarker(ScPainter *p);
 	void drawUnderflowMarker(ScPainter *p);
 	void drawColumnBorders(ScPainter *p);
-	QRegion availableRegion();
 
 #ifdef NLS_PROTO
 	void DrawLineItem(ScPainter *p, double width,

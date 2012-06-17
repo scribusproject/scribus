@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>satdialog</class>
- <widget class="QDialog" name="satdialog">
+ <class>SATDialogBase</class>
+ <widget class="QDialog" name="SATDialogBase">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -17,7 +17,7 @@
    <item row="0" column="0">
     <widget class="QLabel" name="label">
      <property name="text">
-      <string>Name</string>
+      <string>Name:</string>
      </property>
     </widget>
    </item>
@@ -41,7 +41,7 @@
    <item row="2" column="0">
     <widget class="QLabel" name="catsLabel">
      <property name="text">
-      <string>Category</string>
+      <string>Category:</string>
      </property>
     </widget>
    </item>
@@ -55,7 +55,7 @@
    <item row="3" column="0">
     <widget class="QLabel" name="psizeLabel">
      <property name="text">
-      <string>Page Size</string>
+      <string>Page Size:</string>
      </property>
     </widget>
    </item>
@@ -69,7 +69,7 @@
    <item row="4" column="0">
     <widget class="QLabel" name="colorsLabel">
      <property name="text">
-      <string>Colors</string>
+      <string>Colors:</string>
      </property>
     </widget>
    </item>
@@ -83,7 +83,7 @@
    <item row="5" column="0">
     <widget class="QLabel" name="descrLabel">
      <property name="text">
-      <string>Description</string>
+      <string>Description:</string>
      </property>
     </widget>
    </item>
@@ -103,7 +103,7 @@
    <item row="6" column="0">
     <widget class="QLabel" name="usageLabel">
      <property name="text">
-      <string>Usage</string>
+      <string>Usage:</string>
      </property>
     </widget>
    </item>
@@ -123,7 +123,7 @@
    <item row="7" column="0">
     <widget class="QLabel" name="authorLabel">
      <property name="text">
-      <string>Author</string>
+      <string>Author:</string>
      </property>
     </widget>
    </item>
@@ -137,7 +137,7 @@
    <item row="8" column="0">
     <widget class="QLabel" name="emailLabel">
      <property name="text">
-      <string>Email</string>
+      <string>Email:</string>
      </property>
     </widget>
    </item>
@@ -165,7 +165,7 @@
   <connection>
    <sender>buttonBox</sender>
    <signal>accepted()</signal>
-   <receiver>satdialog</receiver>
+   <receiver>SATDialogBase</receiver>
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -181,7 +181,7 @@
   <connection>
    <sender>buttonBox</sender>
    <signal>rejected()</signal>
-   <receiver>satdialog</receiver>
+   <receiver>SATDialogBase</receiver>
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">

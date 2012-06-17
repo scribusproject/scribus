@@ -310,6 +310,8 @@ Canvas::FrameHandle Canvas::frameHitTest(QPointF canvasPoint, PageItem* item) co
 	extraS = (item->visualHeight() - item->height()) / - 2.0;
 //	if (item->lineColor() != CommonStrings::None)
 //		extraS = (item->lineWidth() / -2.0);
+	if (item->isTextFrame() && (m_doc->appMode == modeEdit) && !item->asTextFrame()->availableRegion().contains(item->getTransform().inverted().map(canvasPoint.toPoint())))
+		return OUTSIDE;
 	Canvas::FrameHandle result = frameHitTest(item->getTransform().inverted().map(canvasPoint), QRectF(extraS, extraS, item->visualWidth(), item->visualHeight()));
 //	qDebug() << "frameHitTest for item" << item->ItemNr 
 //		<< item->getTransform().inverted().map(canvasPoint) 
