@@ -52,7 +52,7 @@ void OptionListWidget::arrangeIcons()
 {
 	int maxWidth = 0;
 	if (ScQApp->currGUILanguage()=="ja")
-		maxWidth=200;
+		maxWidth=100;
 	setWrapping(false);
 	QListWidgetItem* ic;
 	int startY = 5;
