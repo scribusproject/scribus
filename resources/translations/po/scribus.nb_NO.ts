@@ -7128,6 +7128,37 @@ eventuelt fulgt av en bindestrek og en ISO-3166 landskode, f.eks nn-NO, nb-NO, f
     </message>
 </context>
 <context>
+    <name>DownloadDictionaries</name>
+    <message>
+        <source>Download Dictionaries</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Available Dictionary Downloads</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Update Dictionary List</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation type="unfinished">Lukk</translation>
+    </message>
+    <message>
+        <source>Language</source>
+        <translation type="unfinished">Språk</translation>
+    </message>
+    <message>
+        <source>Code</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Location</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>EPSPlug</name>
     <message>
         <source>Importing File:
@@ -9191,7 +9222,7 @@ og www.scribus.net for nye versjoner av Scribus.</translation>
 <context>
     <name>HunspellPlugin</name>
     <message>
-        <source>Hunspell &amp;Plugin</source>
+        <source>Check Spelling...</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -9281,6 +9312,26 @@ A value of 0 means unlimited hyphenations.</source>
     <message>
         <source>Exception List</source>
         <translation>Unntaksliste</translation>
+    </message>
+    <message>
+        <source>Language</source>
+        <translation type="unfinished">Språk</translation>
+    </message>
+    <message>
+        <source>Code</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Location</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Installed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Download</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -17120,7 +17171,7 @@ UCR reduserer muligheten for overmetning med CMY farger.</translation>
     </message>
     <message>
         <source>Hyphenator</source>
-        <translation>Orddeler …</translation>
+        <translation type="obsolete">Orddeler …</translation>
     </message>
     <message>
         <source>Fonts</source>
@@ -17217,6 +17268,10 @@ UCR reduserer muligheten for overmetning med CMY farger.</translation>
     <message>
         <source>Printer</source>
         <translation>Trykk</translation>
+    </message>
+    <message>
+        <source>Hyphenation and Spelling</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -19823,7 +19878,7 @@ Eksterne lenker
     </message>
     <message>
         <source>English (British)</source>
-        <translation>Engelsk (Britisk)</translation>
+        <translation type="obsolete">Engelsk (Britisk)</translation>
     </message>
     <message>
         <source>Esperanto</source>
@@ -21382,7 +21437,7 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>English (American)</source>
-        <translation> Amerikansk-engelsk</translation>
+        <translation type="obsolete"> Amerikansk-engelsk</translation>
     </message>
     <message>
         <source>%1 may be corrupted : missing or wrong resolution tags</source>
@@ -21823,6 +21878,38 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>Hunspell Plugin</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Aragonese</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Belarusian</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>English (Canadian)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>English (UK)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>English (New Zealand)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>English (USA)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>English (South African)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Spanish (Argentina)</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -22305,6 +22392,37 @@ Hvis du bruker motstående sider, kan dette brukes til å få rettinnbindingsmar
     <message>
         <source>Run Script</source>
         <translation>Kjør skript</translation>
+    </message>
+</context>
+<context>
+    <name>SATDialog</name>
+    <message>
+        <source>Save as Template</source>
+        <translation type="unfinished">Lagre som mal</translation>
+    </message>
+    <message>
+        <source>Legal</source>
+        <translation type="unfinished">Legal</translation>
+    </message>
+    <message>
+        <source>Letter</source>
+        <translation type="unfinished">Letter</translation>
+    </message>
+    <message>
+        <source>Tabloid</source>
+        <translation type="unfinished">Tabloid</translation>
+    </message>
+    <message>
+        <source>landscape</source>
+        <translation type="unfinished">liggende</translation>
+    </message>
+    <message>
+        <source>portrait</source>
+        <translation type="unfinished">stående</translation>
+    </message>
+    <message>
+        <source>custom</source>
+        <translation type="unfinished">selvvalgt</translation>
     </message>
 </context>
 <context>
@@ -32572,6 +32690,30 @@ A value of 0 means unlimited hyphenations.</source>
         <source>Ignore List</source>
         <translation>Unntaksliste</translation>
     </message>
+    <message>
+        <source>Hyphenation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Spelling</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Installed Spelling Dictionaries</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Downloadable Spelling Dictionaries</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Refresh Downloadable List</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Download Selected Dictionaries</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>nftdialog</name>
@@ -32945,27 +33087,27 @@ A value of 0 means unlimited hyphenations.</source>
     </message>
     <message>
         <source>Legal</source>
-        <translation>Legal</translation>
+        <translation type="obsolete">Legal</translation>
     </message>
     <message>
         <source>Letter</source>
-        <translation>Letter</translation>
+        <translation type="obsolete">Letter</translation>
     </message>
     <message>
         <source>Tabloid</source>
-        <translation>Tabloid</translation>
+        <translation type="obsolete">Tabloid</translation>
     </message>
     <message>
         <source>landscape</source>
-        <translation>liggende</translation>
+        <translation type="obsolete">liggende</translation>
     </message>
     <message>
         <source>portrait</source>
-        <translation>stående</translation>
+        <translation type="obsolete">stående</translation>
     </message>
     <message>
         <source>custom</source>
-        <translation>selvvalgt</translation>
+        <translation type="obsolete">selvvalgt</translation>
     </message>
     <message>
         <source>&amp;More Details</source>
