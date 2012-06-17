@@ -22,8 +22,10 @@ for which a new license (GPL+exception) is in place.
 
 #include "commonstrings.h"
 #include "prefsmanager.h"
-
+#include "scribusapp.h"
 #include "util_icon.h"
+
+extern ScribusQApp* ScQApp;
 
 OptionListWidget::OptionListWidget(QWidget* parent) : QListWidget(parent)
 {
@@ -49,6 +51,8 @@ OptionListWidget::OptionListWidget(QWidget* parent) : QListWidget(parent)
 void OptionListWidget::arrangeIcons()
 {
 	int maxWidth = 0;
+	if (ScQApp->currGUILanguage()=="ja")
+		maxWidth=200;
 	setWrapping(false);
 	QListWidgetItem* ic;
 	int startY = 5;
