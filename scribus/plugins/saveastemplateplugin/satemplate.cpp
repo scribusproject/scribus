@@ -145,7 +145,7 @@ void MenuSAT::RunSATPlug(ScribusDoc* doc)
 
 	if (currentFile !=  doc->DocName)
 	{
-		satdialog* satdia = new satdialog(doc->scMW(),docName,
+		SATDialog* satdia = new SATDialog(doc->scMW(),docName,
                                           static_cast<int>(doc->pageWidth + 0.5),
                                           static_cast<int>(doc->pageHeight + 0.5));
 		if (satdia->exec())
@@ -171,7 +171,7 @@ void MenuSAT::RunSATPlug(ScribusDoc* doc)
 
 // --------------------- CLASS sat ------------------------------------------------//
 
-sat::sat(ScribusDoc* doc, satdialog* satdia, QString fileName, QString tmplDir)
+sat::sat(ScribusDoc* doc, SATDialog* satdia, QString fileName, QString tmplDir)
 {
 	lang = ScCore->getGuiLanguage();
 	m_Doc = doc;

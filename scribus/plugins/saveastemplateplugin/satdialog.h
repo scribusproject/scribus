@@ -14,13 +14,13 @@ for which a new license (GPL+exception) is in place.
 #include <QMap>
 #include <prefscontext.h>
 
-class satdialog : public QDialog, public Ui::satdialog
+class SATDialog : public QDialog, public Ui::satdialog
 {
 	Q_OBJECT
 
 public:
-	satdialog(QWidget* parent, QString tmplName = "", int pageW = 0, int pageH = 0);
-	~satdialog();
+	SATDialog(QWidget* parent, QString tmplName = "", int pageW = 0, int pageH = 0);
+	~SATDialog();
 
 	QMap<QString, QString> cats;
 private slots:

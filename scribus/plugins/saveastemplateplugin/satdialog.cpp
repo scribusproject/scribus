@@ -35,7 +35,7 @@ public:
 	};
 };
 
-satdialog::satdialog(QWidget* parent, QString tmplName, int pageW, int pageH) : QDialog(parent)
+SATDialog::SATDialog(QWidget* parent, QString tmplName, int pageW, int pageH) : QDialog(parent)
 {
 	setupUi(this);
 	setModal(true);
@@ -53,7 +53,7 @@ satdialog::satdialog(QWidget* parent, QString tmplName, int pageW, int pageH) : 
 	connect(detailButton, SIGNAL(stateChanged(int)), this, SLOT(detailClicked(int)));
 }
 
-void satdialog::detailClicked(int state)
+void SATDialog::detailClicked(int state)
 {
 	isFullDetail = state == Qt::Checked;
 
@@ -73,7 +73,7 @@ void satdialog::detailClicked(int state)
 	emailEdit->setVisible(isFullDetail);
 }
 
-void satdialog::readPrefs()
+void SATDialog::readPrefs()
 {
 	prefs = PrefsManager::instance()->prefsFile->getPluginContext("satemplate");
 	author = prefs->get("author", "");
@@ -83,14 +83,14 @@ void satdialog::readPrefs()
 	detailButton->setCheckState(isFullDetail ? Qt::Checked : Qt::Unchecked);
 }
 
-void satdialog::writePrefs()
+void SATDialog::writePrefs()
 {
 	prefs->set("author", authorEdit->text());
 	prefs->set("email", emailEdit->text());
 	prefs->set("isFullDetail", isFullDetail);
 }
 
-QString satdialog::findTemplateXml(QString dir)
+QString SATDialog::findTemplateXml(QString dir)
 {
 	QString lang = ScCore->getGuiLanguage();
 	QString tmp = dir + "/template." + lang + ".xml";
@@ -106,7 +106,7 @@ QString satdialog::findTemplateXml(QString dir)
 	return dir + "/template.xml";	
 }
 
-void satdialog::addCategories(const QString& dir)
+void SATDialog::addCategories(const QString& dir)
 {
 	// Read categories from the dir itself
 	QString tmplFile = findTemplateXml(dir);
@@ -128,7 +128,7 @@ void satdialog::addCategories(const QString& dir)
 	}
 }
 
-void satdialog::readCategories(const QString& fileName)
+void SATDialog::readCategories(const QString& fileName)
 {
 	QFile file(fileName);
 	CategoriesReader catReader;
@@ -145,7 +145,7 @@ void satdialog::readCategories(const QString& fileName)
 	}
 }
 
-void satdialog::setupCategories() 
+void SATDialog::setupCategories() 
 {
 	// en will be used in template.xml and it will be then replaced with the lang when used for users
 	// to get the categories in their language.
@@ -192,7 +192,7 @@ void satdialog::setupCategories()
 	catsCombo->setEditable(true);
 }
 
-void satdialog::setupPageSize(int w, int h)
+void SATDialog::setupPageSize(int w, int h)
 {
 	QString sizelist[] = 
 		{"2380x3368", "1684x2380", "1190x1684", "842x1190", "595x842", "421x595", "297x421", "210x297", "148x210",
@@ -238,7 +238,7 @@ void satdialog::setupPageSize(int w, int h)
 	psizeEdit->setText(psize + orient);
 }
 
-satdialog::~satdialog()
+SATDialog::~SATDialog()
 {
 	writePrefs();
 }

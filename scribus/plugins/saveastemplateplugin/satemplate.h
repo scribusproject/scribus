@@ -34,7 +34,7 @@ extern "C" PLUGIN_API ScPlugin* saveastemplateplugin_getPlugin();
 extern "C" PLUGIN_API void saveastemplateplugin_freePlugin(ScPlugin* plugin);
 
 
-class satdialog;
+class SATDialog;
 
 
 class MenuSAT : public QObject
@@ -55,7 +55,7 @@ class sat
 {
 private:
 	ScribusDoc* m_Doc;
-	satdialog* dia;
+	SATDialog* dia;
 	QString file;
 	QString dir;
 	QString tmplXmlFile;
@@ -67,7 +67,7 @@ private:
 public:
 	void createTmplXml();
 	void createImages();
-	sat(ScribusDoc* doc, satdialog* satdia, QString fileName, QString tmplDir);
+	sat(ScribusDoc* doc, SATDialog* satdia, QString fileName, QString tmplDir);
 	~sat();
 };
 
