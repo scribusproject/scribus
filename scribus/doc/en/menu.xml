@@ -69,6 +69,7 @@
 			<submenuitem text="PDF Export Targets" file="pdfexport2.html"/>
 			<submenuitem text="PDF Export for Screen/Web" file="pdfexport3.html"/>
 			<submenuitem text="PDF Presentations" file="pdfexport4.html"/>
+			<submenuitem text="Creating Document Links" file="createlinks.html"/>
 			<submenuitem text="PDF Forms" file="pdf_form.html"/>
 			<submenuitem text="PDF/X-3" file="pdfx3.html"/>
 		</submenuitem>

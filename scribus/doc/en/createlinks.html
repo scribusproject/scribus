@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+  
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>Creating Document Links</title>
+
+  
+</head><body>
+<h2>Creating Document Links</h2>
+<h3>and Annotations</h3>
+<p>The first thing to clarify is what this article is about. We are referring to a situation where you want to create a clickable link in your PDF, which might link to some other place in your current document, some other PDF document, or even a weblink. We will not cover <strong>linking text frames</strong>, which is covered in <strong>Working with Text Frames</strong>.
+</p>
+<p>The most straightforward way to create a linking area (and this is literally what we are doing), is to click the <i>Insert Link Annotation</i> icon on the toolbar (presuming you have the <strong>PDF Tools</strong> collection of items activated &ndash; right-click on the toolbar to see which are currently showing). This icon looks like two shoeprints.
+</p>
+<p><img src="images/pdftools.png"/></p>
+<p>Now you can create a frame-like structure on your page. It resembles a text frame, and will even allow you to enter text just like text frames. There may be reasons why you would like to do this, to have a reference in Scribus that shows this frame, but an important rude awakening is that none of the frame features will end up being visible in the final PDF. This includes not only any text content, but also any fill or line colors you have created. Again, you might consider creating a fill with transparency just to show inside Scribus where the clickable area is, but this will not show in the PDF &ndash; maybe you should consider this a feature.
+</p>
+<p>On a practical level, what you will see in Adobe Reader, for example, is that the mouse cursor changes as you hover over this linkable area &ndash; typically the default mouse pointer changes to a hand with the index finger extended. This is pretty subtle, and easily missed, so you will likely want to create some other underlying visual cue as you where this clickable area is, and perhaps where you will be going. This can be anything, which might include a portion of a text frame, in other words, something that looks like what a viewer might be more used to as a some clickable text. <i>Something worth mentioning is that even though you might edit your frame with the shape editor, your clickable area will remain a rectangle, which corresponds to the bounding box of your shape, so there is no reason to do this sort of editing.</i>
+</p>
+<h4>Annotations</h4>
+<table cellpadding="5" width="80%">
+<tr><td><img src="images/annotation.png"/></td>
+<td><p>To the left is the dialog which comes up when you right-click your frame and select <i>PDF Options > Annotation Properties</i>.</p>
+<p>As you can see, the top choice in the drop-down list is <strong>Text</strong>. Choosing this creates a pop-up annotation in your PDF when the mouse hovers over the area of the frame &ndash; double-clicking this area in the PDF brings the annotation into a static view.</p>
+<p>In this case, you create the contents of that pop-up annotation by entering it in this frame as you would for any text frame, but again, this will not appear in the PDF on the page, but only in a pop-up window when the annotation is activated. You will see a small icon in your PDF viewer showing there is an annotation.</td></tr>
+</table>
+
+<blockquote><strong>Note</strong> &ndash; Another method to create one of these link annotation frames is to start with a text frame, then right-click and choose <i>PDF Options > Is PDF Annotation</i> from the context menu, then right-click again to choose <i>PDF Options > Annotation Properties</i> as above. Remember, any content or other visible features of this text frame will not appear in the PDF, unless you are creating a pop-up annotation.</blockquote>
+<h4>Link</h4>
+<table cellpadding="5" width="80%">
+<tr><td><img src="images/link.png"/></td>
+<td><p>Once you choose <strong>Link</strong>, you may choose which page and what particular spot on the page to jump to. As shown here, once you select the page, you will see a small preview of the page to help you choose precisely where to select.</p>
+<p> Experiments in Adobe Reader show that, for example, if you wish this entire picture to show after the jump is made, you should chose a spot slightly to the left and above the image frame. This may not be an issue if the page is on a low zoom and entirely shows onscreen.</p>
+</tr>
+</table>
+<h4>External Link</h4>
+<table cellpadding="5" width="80%">
+<tr><td><img src="images/externallink.png"/></td>
+<td><p>When you choose <strong>External Link</strong>, you first get a file dialog to choose a PDF to link to.</p>
+<p>After this, then once again you may choose which page and what particular spot on the page to jump to. Again, once you select the page, you will see a small preview of the page to help you choose precisely where to select.</p>
+
+</tr>
+</table>
+<h4>External Web-Link</h4>
+<table cellpadding="5" width="80%">
+<tr><td><img src="images/externalweblink.png"/></td>
+<td><p>When you choose <strong>External Web-Link</strong>, you will only get this very simple space to enter your URL.</p>
+<p>You may be able to get by without prepending your link with <strong><i>http://</i></strong> &ndash; this seems to be the case with both Adobe Reader and Evince, but not with Okular. In general, it would be advisable to enter the entire URL.</p>
+<p>If your link is to a file on a website, such as a PDF, you will not have the option to choose a particular page.</p>
+<p>Also possible in this tab is a <strong><i>mailto:</i></strong> type of link, in which case a mail client should open a new email with the indicated email address inserted into the <strong>To:</strong> field.
+</tr>
+</table>
+</body></html>
