@@ -126,6 +126,9 @@ void SMPStyleWidget::languageChange()
 //	optMarginCombo->addItem(tr("Default"), ParagraphStyle::OM_Default);
 //
 //	optMarginLabel->setText(tr("Optical Margins:"));
+
+	dropCapsLineLabel->setText( tr("Lines:"));
+	distFromTextLabel->setText( tr("Distance from Text:"));
 	lineSpacing_->setSuffix(unitGetSuffixFromIndex(0));
 	spaceAbove_->setSuffix(unitGetSuffixFromIndex(0));
 	spaceBelow_->setSuffix(unitGetSuffixFromIndex(0));
@@ -136,10 +139,21 @@ void SMPStyleWidget::languageChange()
 	tabWidget->setTabText(0, tr("Properties"));
 	tabWidget->setTabText(1, tr("Character Style"));
 	
-	minSpaceLabel->setText(tr("Min. Space Width:"));
-	glyphExtensionLabel->setText(tr("Glyph Extension"));
-	minGlyphExtLabel->setText(tr("Min:", "Glyph Extension"));
-	maxGlyphExtLabel->setText(tr("Max:", "Glyph Extension"));
+	advSettingsGroupBox->setTitle( tr("Advanced Settings"));
+	minSpaceLabel->setText( tr("Min. Space Width:"));
+	glyphExtensionLabel->setText( tr("Glyph Extension"));
+	minGlyphExtLabel->setText( tr("Min:", "Glyph Extension"));
+	maxGlyphExtLabel->setText (tr("Max:", "Glyph Extension"));
+
+	opticalMarginsGroupBox->setTitle( tr("Optical Margins"));
+	optMarginRadioNone->setText( tr("None","optical margins") );
+	optMarginRadioBoth->setText( tr("Both Sides","optical margins") );
+	optMarginRadioLeft->setText( tr("Left Only","optical margins") );
+	optMarginRadioRight->setText( tr("Right Only","optical margins") );
+
+	optMarginDefaultButton->setText( tr("Reset to Default") );
+	optMarginParentButton->setText( tr("Use Parent Value") );
+
 }
 
 void SMPStyleWidget::unitChange(double oldRatio, double newRatio, int unitIndex)
