@@ -2873,6 +2873,8 @@ void ScribusMainWindow::HaveNewSel(int SelectedType)
 
 		break;
 	case PageItem::Table:
+		scrActions["editCut"]->setEnabled(true);
+		scrActions["editCopy"]->setEnabled(true);
 		if (doc->appMode == modeEditTable)
 		{
 			charPalette->setEnabled(true, currItem);
