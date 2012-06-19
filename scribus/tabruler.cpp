@@ -761,7 +761,12 @@ void Tabruler::setTabFillChar(QChar t)
 	{
 		tabFillCombo->setCurrentIndex(4);
 		tabFillCombo->setEditable(true);
-		setCurrentComboItem(tabFillCombo, CommonStrings::trCustomTabFill+QString(t));
+		if (!t.isNull())
+		{
+			bool sigBlocked = tabFillCombo->blockSignals(true);
+			tabFillCombo->setEditText(QString(t));
+			tabFillCombo->blockSignals(sigBlocked);
+		}
 	}
 	emit tabrulerChanged();
 	emit tabsChanged();
