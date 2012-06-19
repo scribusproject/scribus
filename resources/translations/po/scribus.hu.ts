@@ -1019,12 +1019,12 @@
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1562"/>
         <source>Unlink Text Frame with Text Copy</source>
-        <translation type="unfinished"></translation>
+        <translation>Szövegkeretek szétkapcsolása szövegmásolással</translation>
     </message>
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1563"/>
         <source>Unlink Text Frame with Text Cut</source>
-        <translation type="unfinished"></translation>
+        <translation>Szövegkeretek szétkapcsolása szövegvágással</translation>
     </message>
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1564"/>
@@ -8843,7 +8843,7 @@ Az exportálandó fájl neve ilyen lesz: dokumentumnév-oldalszám.fájltípus</
     <message>
         <location filename="../../../scribus/plugins/tools/hunspellcheck/hunspelldialog.cpp" line="80"/>
         <source>Spelling check complete</source>
-        <translation type="unfinished">Helyesírás-ellenőrzés befejeződött</translation>
+        <translation>Helyesírás-ellenőrzés befejeződött</translation>
     </message>
 </context>
 <context>
@@ -8851,42 +8851,42 @@ Az exportálandó fájl neve ilyen lesz: dokumentumnév-oldalszám.fájltípus</
     <message>
         <location filename="../../../scribus/plugins/tools/hunspellcheck/hunspelldialogbase.ui" line="14"/>
         <source>Check Spelling</source>
-        <translation type="unfinished"></translation>
+        <translation>Helyesírás-ellenőrzés</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/tools/hunspellcheck/hunspelldialogbase.ui" line="22"/>
         <source>Text Language:</source>
-        <translation type="unfinished"></translation>
+        <translation>Szöveg nyelve:</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/tools/hunspellcheck/hunspelldialogbase.ui" line="47"/>
         <source>Not in dictionary</source>
-        <translation type="unfinished"></translation>
+        <translation>Nincs a szótárban</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/tools/hunspellcheck/hunspelldialogbase.ui" line="61"/>
         <source>Ignore Once</source>
-        <translation type="unfinished"></translation>
+        <translation>Mellőzés egyszer</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/tools/hunspellcheck/hunspelldialogbase.ui" line="68"/>
         <source>Ignore All</source>
-        <translation type="unfinished"></translation>
+        <translation>Összes mellőzése</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/tools/hunspellcheck/hunspelldialogbase.ui" line="92"/>
         <source>Suggestions</source>
-        <translation type="unfinished"></translation>
+        <translation>Javaslat</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/tools/hunspellcheck/hunspelldialogbase.ui" line="106"/>
         <source>Change</source>
-        <translation type="unfinished"></translation>
+        <translation>Módosítás</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/tools/hunspellcheck/hunspelldialogbase.ui" line="113"/>
         <source>Change All</source>
-        <translation type="unfinished"></translation>
+        <translation>Összes cseréje</translation>
     </message>
 </context>
 <context>
@@ -8894,7 +8894,7 @@ Az exportálandó fájl neve ilyen lesz: dokumentumnév-oldalszám.fájltípus</
     <message>
         <location filename="../../../scribus/plugins/tools/hunspellcheck/hunspellplugin.cpp" line="33"/>
         <source>Check Spelling...</source>
-        <translation type="unfinished"></translation>
+        <translation>Helyesírás-ellenőrzés...</translation>
     </message>
 </context>
 <context>
@@ -9059,7 +9059,7 @@ Ignore List</source>
     <message>
         <location filename="../../../scribus/ui/imageinfodialog.cpp" line="130"/>
         <source>Exposure time</source>
-        <translation>Expozíciós idő:</translation>
+        <translation>Expozíciós idő</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/imageinfodialog.cpp" line="131"/>
@@ -10635,7 +10635,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../../scribus/ui/layers.cpp" line="638"/>
         <source>Select Objects on Layer - Check to enable selecting. </source>
-        <translation type="unfinished"></translation>
+        <translation>Rétegen lévő objektumok kijelölése - Kijelölve bekapcsolható.</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/layers.cpp" line="639"/>
@@ -13239,7 +13239,7 @@ Ha nincs kijelölve egy köröcske, az összes alaphelyzetbe lesz állítva.</tr
         <location filename="../../../scribus/pageitem.cpp" line="5115"/>
         <location filename="../../../scribus/pageitem.cpp" line="5116"/>
         <source>Copy of</source>
-        <translation>Másolat:</translation>
+        <translation>Másolata</translation>
     </message>
 </context>
 <context>
@@ -13710,92 +13710,92 @@ Gyakran csak arra használatos, hogy az oldalak a teljes rajzvásznat elfoglalj�
     <message>
         <location filename="../../../scribus/ui/pagepalette_masterpages.cpp" line="125"/>
         <source>Edit Master Pages</source>
-        <translation type="unfinished">Mesteroldalak szerkesztése</translation>
+        <translation>Mesteroldalak szerkesztése</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/pagepalette_masterpages.cpp" line="126"/>
         <source>Duplicate the selected master page</source>
-        <translation type="unfinished">Kijelölt mesteroldal kettőzése</translation>
+        <translation>Kijelölt mesteroldal kettőzése</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/pagepalette_masterpages.cpp" line="127"/>
         <source>Delete the selected master page</source>
-        <translation type="unfinished">Kijelölt mesteroldal törlése</translation>
+        <translation>Kijelölt mesteroldal törlése</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/pagepalette_masterpages.cpp" line="128"/>
         <source>Add a new master page</source>
-        <translation type="unfinished">Új mesteroldal hozzáadása</translation>
+        <translation>Új mesteroldal hozzáadása</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/pagepalette_masterpages.cpp" line="129"/>
         <source>Import master pages from another document</source>
-        <translation type="unfinished">Mesteroldalak importálása más dokumentumból</translation>
+        <translation>Mesteroldalak importálása más dokumentumból</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/pagepalette_masterpages.cpp" line="155"/>
         <source>This master page is used at least once in the document.</source>
-        <translation type="unfinished">Ez a mesteroldal legalább egyszer alkalmazva van a dokumentumban.</translation>
+        <translation>Ez a mesteroldal legalább egyszer alkalmazva van a dokumentumban.</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/pagepalette_masterpages.cpp" line="159"/>
         <source>Do you really want to delete master page &quot;%1&quot;?</source>
-        <translation type="unfinished">Valóban törölhető a(z) „%1” mesteroldal?</translation>
+        <translation>Valóban törölhető a mesteroldal: „%1”?</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/pagepalette_masterpages.cpp" line="191"/>
         <source>Copy #%1 of %2</source>
-        <translation type="unfinished">%2 %1. másolata</translation>
+        <translation>%2 %1. másolata</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/pagepalette_masterpages.cpp" line="193"/>
         <source>&amp;Name:</source>
-        <translation type="unfinished">&amp;Név:</translation>
+        <translation>&amp;Név:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/pagepalette_masterpages.cpp" line="193"/>
         <source>New Master Page</source>
-        <translation type="unfinished">Új mesteroldal</translation>
+        <translation>Új mesteroldal</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/pagepalette_masterpages.cpp" line="319"/>
         <source>Name:</source>
-        <translation type="unfinished">Név:</translation>
+        <translation>Név:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/pagepalette_masterpages.cpp" line="319"/>
         <source>New MasterPage</source>
-        <translation type="unfinished">Új mesteroldal</translation>
+        <translation>Új mesteroldal</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/pagepalette_masterpages.cpp" line="319"/>
         <source>New Master Page %1</source>
-        <translation type="unfinished">Új mesteroldal %1</translation>
+        <translation>Új mesteroldal %1</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/pagepalette_masterpages.cpp" line="384"/>
         <source>Copy #%1 of </source>
-        <translation type="unfinished">#%1 másolata</translation>
+        <translation>#%1 másolata</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/pagepalette_masterpages.cpp" line="469"/>
         <source>Unable to Rename Master Page</source>
-        <translation type="unfinished">A mesteroldalt nem lehet átnevezni</translation>
+        <translation>A mesteroldalt nem lehet átnevezni</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/pagepalette_masterpages.cpp" line="469"/>
         <source>The Normal page is not allowed to be renamed.</source>
-        <translation type="unfinished">A Normál oldal átnevezése nem engedélyezett.</translation>
+        <translation>A Normál oldal átnevezése nem engedélyezett.</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/pagepalette_masterpages.cpp" line="473"/>
         <source>Rename Master Page</source>
-        <translation type="unfinished">Mesteroldal átnevezése</translation>
+        <translation>Mesteroldal átnevezése</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/pagepalette_masterpages.cpp" line="473"/>
         <source>New Name:</source>
-        <translation type="unfinished">Új név:</translation>
+        <translation>Új név:</translation>
     </message>
 </context>
 <context>
@@ -13803,12 +13803,12 @@ Gyakran csak arra használatos, hogy az oldalak a teljes rajzvásznat elfoglalj�
     <message>
         <location filename="../../../scribus/ui/pagepalette_masterpagesbase.ui" line="14"/>
         <source>Form</source>
-        <translation type="unfinished">Űrlap</translation>
+        <translation>Űrlap</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/pagepalette_masterpagesbase.ui" line="74"/>
         <source>&lt;&lt;&lt; Return to pages edition</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;&lt;&lt; Vissza az oldalak szerkesztéséhez</translation>
     </message>
 </context>
 <context>
@@ -13816,42 +13816,42 @@ Gyakran csak arra használatos, hogy az oldalak a teljes rajzvásznat elfoglalj�
     <message>
         <location filename="../../../scribus/ui/pagepalette_pages.cpp" line="94"/>
         <source>This master page is used at least once in the document.</source>
-        <translation type="unfinished">Ez a mesteroldal legalább egyszer alkalmazva van a dokumentumban.</translation>
+        <translation>Ez a mesteroldal legalább egyszer alkalmazva van a dokumentumban.</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/pagepalette_pages.cpp" line="98"/>
         <source>Do you really want to delete this master page?</source>
-        <translation type="unfinished">Valóban törölhető ez a mesteroldal?</translation>
+        <translation>Valóban törölhető ez a mesteroldal?</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/pagepalette_pages.cpp" line="388"/>
         <source>Arrange Pages</source>
-        <translation type="unfinished">Oldalak rendezése</translation>
+        <translation>Oldalak rendezése</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/pagepalette_pages.cpp" line="389"/>
         <source>Available Master Pages:</source>
-        <translation type="unfinished">Elérhető mesteroldalak:</translation>
+        <translation>Elérhető mesteroldalak:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/pagepalette_pages.cpp" line="390"/>
         <source>Document Pages:</source>
-        <translation type="unfinished">Oldalak:</translation>
+        <translation>Oldalak:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/pagepalette_pages.cpp" line="392"/>
         <source>List of master pages in the document. Master page names may be dragged onto the page view below to apply master pages, or onto the empty space between pages to create new pages.</source>
-        <translation type="unfinished">Mesteroldalak listája a dokumentumban. A mesteroldalak nevének az alul látható oldalak képére való húzásával alkalmazható a mesteroldal az oldalra, vagy az oldalak között üres helyre húzva új oldalak hozhatók létre az adott mesteroldallal.</translation>
+        <translation>Mesteroldalak listája a dokumentumban. A mesteroldalak nevének az alul látható oldalak képére való húzásával alkalmazható a mesteroldal az oldalra, vagy az oldalak között üres helyre húzva új oldalak hozhatók létre az adott mesteroldallal.</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/pagepalette_pages.cpp" line="393"/>
         <source>List of normal pages in the document, shown with the document layout. Pages may be dragged to rearrange or delete them.</source>
-        <translation type="unfinished">Normál oldalak listája a dokumentumban, ahogy a dokumentum elrendezésben szerepelnek. Az oldalak húzásával újrarendezhetők, ill. törölhetők.</translation>
+        <translation>Normál oldalak listája a dokumentumban, ahogy a dokumentum elrendezésben szerepelnek. Az oldalak húzásával újrarendezhetők, ill. törölhetők.</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/pagepalette_pages.cpp" line="394"/>
         <source>Drag pages or master pages onto the trash to delete them</source>
-        <translation type="unfinished">Kukába húzva törölhetők az oldalak, ill. mesteroldalak</translation>
+        <translation>Kukába húzva törölhetők az oldalak, ill. mesteroldalak</translation>
     </message>
 </context>
 <context>
@@ -13859,22 +13859,22 @@ Gyakran csak arra használatos, hogy az oldalak a teljes rajzvásznat elfoglalj�
     <message>
         <location filename="../../../scribus/ui/pagepalette_pagesbase.ui" line="14"/>
         <source>Form</source>
-        <translation type="unfinished">Űrlap</translation>
+        <translation>Űrlap</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/pagepalette_pagesbase.ui" line="39"/>
         <source>Available Master Pages:</source>
-        <translation type="unfinished">Elérhető mesteroldalak:</translation>
+        <translation>Elérhető mesteroldalak:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/pagepalette_pagesbase.ui" line="72"/>
         <source>Document Pages:</source>
-        <translation type="unfinished">Oldalak:</translation>
+        <translation>Oldalak:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/pagepalette_pagesbase.ui" line="118"/>
         <source>Document Layout</source>
-        <translation type="unfinished">Dokumentum elrendezése</translation>
+        <translation>Dokumentum elrendezése</translation>
     </message>
 </context>
 <context>
@@ -15847,7 +15847,7 @@ Adjon meg egy másikat.</translation>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.ui" line="1580"/>
         <source>Insert Image into</source>
-        <translation type="unfinished">Kép beszúrása ide</translation>
+        <translation>Kép beszúrása ide</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/picbrowser/picturebrowser.ui" line="1596"/>
@@ -16527,7 +16527,7 @@ Adjon meg egy másikat.</translation>
     <message>
         <location filename="../../../scribus/ui/preferencesdialog.cpp" line="133"/>
         <source>Spelling</source>
-        <translation type="unfinished"></translation>
+        <translation>Helyesírás</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/preferencesdialog.cpp" line="135"/>
@@ -20871,59 +20871,59 @@ Az 1. és a 2. szint nagy méretű fájlt eredményez</translation>
     <message>
         <location filename="../../../scribus/ui/prefs_spellingbase.ui" line="14"/>
         <source>Form</source>
-        <translation type="unfinished">Űrlap</translation>
+        <translation>Űrlap</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_spellingbase.ui" line="27"/>
         <source>Spelling</source>
-        <translation type="unfinished"></translation>
+        <translation>Helyesírás</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_spellingbase.ui" line="60"/>
         <source>Installed Spelling Dictionaries</source>
-        <translation type="unfinished"></translation>
+        <translation>Telepített helyesírási szótárak</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_spellingbase.ui" line="78"/>
         <source>Downloadable Spelling Dictionaries</source>
-        <translation type="unfinished"></translation>
+        <translation>Letölthető helyesírási szótárak</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_spellingbase.ui" line="111"/>
         <source>Refresh Downloadable List</source>
-        <translation type="unfinished"></translation>
+        <translation>Letölthető lista frissítése</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_spellingbase.ui" line="118"/>
         <source>Download Selected Dictionaries</source>
-        <translation type="unfinished"></translation>
+        <translation>Kijelölt szótárak letöltése</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_spelling.cpp" line="137"/>
         <location filename="../../../scribus/ui/prefs_spelling.cpp" line="267"/>
         <source>Language</source>
-        <translation type="unfinished">Nyelv</translation>
+        <translation>Nyelv</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_spelling.cpp" line="137"/>
         <location filename="../../../scribus/ui/prefs_spelling.cpp" line="267"/>
         <source>Code</source>
-        <translation type="unfinished"></translation>
+        <translation>Kód</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_spelling.cpp" line="137"/>
         <source>Location</source>
-        <translation type="unfinished"></translation>
+        <translation>Hely</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_spelling.cpp" line="267"/>
         <source>Installed</source>
-        <translation type="unfinished"></translation>
+        <translation>Telepítve</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_spelling.cpp" line="267"/>
         <source>Download</source>
-        <translation type="unfinished"></translation>
+        <translation>Letöltés</translation>
     </message>
 </context>
 <context>
@@ -25864,47 +25864,47 @@ Külső hivatkozások
     <message>
         <location filename="../../../scribus/langmgr.cpp" line="60"/>
         <source>Aragonese</source>
-        <translation type="unfinished"></translation>
+        <translation>Aragóniai</translation>
     </message>
     <message>
         <location filename="../../../scribus/langmgr.cpp" line="62"/>
         <source>Belarusian</source>
-        <translation type="unfinished"></translation>
+        <translation>Belarusz</translation>
     </message>
     <message>
         <location filename="../../../scribus/langmgr.cpp" line="80"/>
         <source>English (Australia)</source>
-        <translation type="unfinished"></translation>
+        <translation>Angol (Ausztrália)</translation>
     </message>
     <message>
         <location filename="../../../scribus/langmgr.cpp" line="81"/>
         <source>English (Canada)</source>
-        <translation type="unfinished"></translation>
+        <translation>Angol (Kanada)</translation>
     </message>
     <message>
         <location filename="../../../scribus/langmgr.cpp" line="82"/>
         <source>English (UK)</source>
-        <translation type="unfinished"></translation>
+        <translation>Angol (UK)</translation>
     </message>
     <message>
         <location filename="../../../scribus/langmgr.cpp" line="83"/>
         <source>English (New Zealand)</source>
-        <translation type="unfinished"></translation>
+        <translation>Angol (Új-Zéland)</translation>
     </message>
     <message>
         <location filename="../../../scribus/langmgr.cpp" line="84"/>
         <source>English (USA)</source>
-        <translation type="unfinished"></translation>
+        <translation>Angol (USA)</translation>
     </message>
     <message>
         <location filename="../../../scribus/langmgr.cpp" line="85"/>
         <source>English (South Africa)</source>
-        <translation type="unfinished"></translation>
+        <translation>Angol (Dél-Afrika)</translation>
     </message>
     <message>
         <location filename="../../../scribus/langmgr.cpp" line="88"/>
         <source>Spanish (Argentina)</source>
-        <translation type="unfinished"></translation>
+        <translation>Spanyol (Argentína)</translation>
     </message>
     <message>
         <location filename="../../../scribus/langmgr.cpp" line="99"/>
@@ -28510,7 +28510,7 @@ A kép valószínű nem lesz így helyes</translation>
     <message>
         <location filename="../../../scribus/plugins/tools/hunspellcheck/hunspellplugin.cpp" line="56"/>
         <source>Hunspell Plugin</source>
-        <translation type="unfinished"></translation>
+        <translation>Hunspell bővítmény</translation>
     </message>
 </context>
 <context>
@@ -28874,37 +28874,37 @@ Kérem, válasszon másikat.</translation>
     <message>
         <location filename="../../../scribus/plugins/saveastemplateplugin/satdialog.cpp" line="43"/>
         <source>Save as Template</source>
-        <translation type="unfinished">Mentés sablonként</translation>
+        <translation>Mentés sablonként</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/saveastemplateplugin/satdialog.cpp" line="207"/>
         <source>Legal</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/saveastemplateplugin/satdialog.cpp" line="208"/>
         <source>Letter</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/saveastemplateplugin/satdialog.cpp" line="208"/>
         <source>Tabloid</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/saveastemplateplugin/satdialog.cpp" line="215"/>
         <source>landscape</source>
-        <translation type="unfinished">fekvő</translation>
+        <translation>fekvő</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/saveastemplateplugin/satdialog.cpp" line="220"/>
         <source>portrait</source>
-        <translation type="unfinished">álló</translation>
+        <translation>álló</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/saveastemplateplugin/satdialog.cpp" line="236"/>
         <source>custom</source>
-        <translation type="unfinished">egyedi</translation>
+        <translation>egyedi</translation>
     </message>
 </context>
 <context>
@@ -28912,97 +28912,97 @@ Kérem, válasszon másikat.</translation>
     <message>
         <location filename="../../../scribus/plugins/saveastemplateplugin/satdialog.ui" line="14"/>
         <source>Save as Template</source>
-        <translation type="unfinished">Mentés sablonként</translation>
+        <translation>Mentés sablonként</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/saveastemplateplugin/satdialog.ui" line="20"/>
         <source>Name:</source>
-        <translation type="unfinished">Név:</translation>
+        <translation>Név:</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/saveastemplateplugin/satdialog.ui" line="27"/>
         <source>Name of the document template</source>
-        <translation type="unfinished">A sablon neve</translation>
+        <translation>A sablon neve</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/saveastemplateplugin/satdialog.ui" line="34"/>
         <source>Show more details to describe the document template</source>
-        <translation type="unfinished">További részletek megjelenítése a dokumentum leírásához</translation>
+        <translation>További részletek megjelenítése a dokumentum leírásához</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/saveastemplateplugin/satdialog.ui" line="37"/>
         <source>&amp;More Details</source>
-        <translation type="unfinished">&amp;További részletek</translation>
+        <translation>&amp;További részletek</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/saveastemplateplugin/satdialog.ui" line="44"/>
         <source>Category:</source>
-        <translation type="unfinished">Kategória:</translation>
+        <translation>Kategória:</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/saveastemplateplugin/satdialog.ui" line="51"/>
         <source>Category of the document template</source>
-        <translation type="unfinished">A sablon kategóriája</translation>
+        <translation>A sablon kategóriája</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/saveastemplateplugin/satdialog.ui" line="58"/>
         <source>Page Size:</source>
-        <translation type="unfinished">Oldalméret:</translation>
+        <translation>Oldalméret:</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/saveastemplateplugin/satdialog.ui" line="65"/>
         <source>Page size of the document template</source>
-        <translation type="unfinished">A sablon oldalmérete</translation>
+        <translation>A sablon oldalmérete</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/saveastemplateplugin/satdialog.ui" line="72"/>
         <source>Colors:</source>
-        <translation type="unfinished">Színek:</translation>
+        <translation>Színek:</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/saveastemplateplugin/satdialog.ui" line="79"/>
         <source>Description of the color format of the document, or some hints regarding colors used</source>
-        <translation type="unfinished">A dokumentumban alkalmazott színek formátuma, ill. utalás az alkalmazott színekre</translation>
+        <translation>A dokumentumban alkalmazott színek formátuma, ill. utalás az alkalmazott színekre</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/saveastemplateplugin/satdialog.ui" line="86"/>
         <source>Description:</source>
-        <translation type="unfinished">Leírás:</translation>
+        <translation>Leírás:</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/saveastemplateplugin/satdialog.ui" line="99"/>
         <source>Description of the document template</source>
-        <translation type="unfinished">A sablon leírása</translation>
+        <translation>A sablon leírása</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/saveastemplateplugin/satdialog.ui" line="106"/>
         <source>Usage:</source>
-        <translation type="unfinished">Felhasználás:</translation>
+        <translation>Felhasználás:</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/saveastemplateplugin/satdialog.ui" line="119"/>
         <source>Planned usage of the document template</source>
-        <translation type="unfinished">A sablon tervezett alkalmazása</translation>
+        <translation>A sablon tervezett alkalmazása</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/saveastemplateplugin/satdialog.ui" line="126"/>
         <source>Author:</source>
-        <translation type="unfinished">Szerző:</translation>
+        <translation>Szerző:</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/saveastemplateplugin/satdialog.ui" line="133"/>
         <source>Author of the document template</source>
-        <translation type="unfinished">A sablon készítője</translation>
+        <translation>A sablon készítője</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/saveastemplateplugin/satdialog.ui" line="140"/>
         <source>Email:</source>
-        <translation type="unfinished">E-mail:</translation>
+        <translation>E-mail:</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/saveastemplateplugin/satdialog.ui" line="147"/>
         <source>Email address of the author of the document template</source>
-        <translation type="unfinished">A sablon szerzőjének e-mail címe</translation>
+        <translation>A sablon szerzőjének e-mail címe</translation>
     </message>
 </context>
 <context>
@@ -32582,57 +32582,57 @@ Tekintse meg őket az Elővizsgálóval, hogy javítani tudja</translation>
     <message>
         <location filename="../../../scribus/plugins/scripter/python/sceditor/mainwindow.ui" line="101"/>
         <source>Clear</source>
-        <translation type="unfinished">Törlés</translation>
+        <translation>Törlés</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/scripter/python/sceditor/mainwindow.ui" line="104"/>
         <source>Clear The Console</source>
-        <translation type="unfinished"></translation>
+        <translation>Konzole törlése</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/scripter/python/sceditor/mainwindow.ui" line="109"/>
         <source>Save &amp;As</source>
-        <translation type="unfinished"></translation>
+        <translation>M&amp;entés másként</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/scripter/python/sceditor/mainwindow.ui" line="112"/>
         <source>Save the  script</source>
-        <translation type="unfinished"></translation>
+        <translation>Parancsfájl mentése</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/scripter/python/sceditor/mainwindow.ui" line="115"/>
         <source>Ctrl+A</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/scripter/python/sceditor/mainwindow.ui" line="120"/>
         <source>&amp;Open</source>
-        <translation type="unfinished">&amp;Megnyitás</translation>
+        <translation>&amp;Megnyitás</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/scripter/python/sceditor/mainwindow.ui" line="123"/>
         <source>Open a script</source>
-        <translation type="unfinished"></translation>
+        <translation>Parancsfájl megnyitása</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/scripter/python/sceditor/mainwindow.ui" line="126"/>
         <source>Ctrl+O</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/scripter/python/sceditor/mainwindow.ui" line="131"/>
         <source>&amp;Save</source>
-        <translation type="unfinished">&amp;Mentés</translation>
+        <translation>Me&amp;ntés</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/scripter/python/sceditor/mainwindow.ui" line="134"/>
         <source>Save the current script</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktuális parancsfájl mentése</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/scripter/python/sceditor/mainwindow.ui" line="137"/>
         <source>Ctrl+S</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
 </context>
 <context>
@@ -38496,7 +38496,7 @@ converting their vector data into Scribus objects.</source>
     <message>
         <location filename="../../../scribus/ui/colorpalette.ui" line="792"/>
         <source>Pattern follows Path</source>
-        <translation type="unfinished">Minta követi az útvonalat</translation>
+        <translation>Minta követi az útvonalat</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/colorpalette.ui" line="575"/>
@@ -38543,7 +38543,7 @@ converting their vector data into Scribus objects.</source>
     <message>
         <location filename="../../../scribus/ui/colorpalette.ui" line="143"/>
         <source>Patch Mesh</source>
-        <translation type="unfinished">Foltos színátmenetes háló</translation>
+        <translation>Foltos színátmenetes háló</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/colorpalette.ui" line="195"/>
@@ -38630,7 +38630,7 @@ converting their vector data into Scribus objects.</source>
         <source>You cannot create a gradient without a name
 Please give it a name</source>
         <translation>Nem lehet létrehozni színátmenetet név nélkül.
-Kérem, adjon neki nevet.</translation>
+Kérem, adjon neki nevet</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/gradientaddedit.cpp" line="67"/>
