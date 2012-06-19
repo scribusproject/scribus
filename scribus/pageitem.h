@@ -1574,8 +1574,8 @@ signals:
 	//void textToFrameDistances(double, double, double, double); //left, top, bottom, right: Extra, TExtra, BExtra, RExtra
 	//FIXME: columns, grid ?
 	
-	//items welding (item follows while item moves which they are connected with)
 public:
+	//items welding (item follows while item moves which they are connected with)
 	struct weldingInfo
 	{
 		PageItem *weldItem;

@@ -1452,6 +1452,7 @@ public slots:
 	 * Adjust an image size to fit the size of the frame
 	 */
 	void itemSelection_AdjustImagetoFrameSize(Selection* customSelection=0);
+	void itemSelection_AdjustFrameHeightToText( Selection *customSelection=0);
 	//! @brief startArrowID or endArrowID of -1 mean not applying a selection at this point.
 	void itemSelection_ApplyArrowHead(int startArrowID=-1, int endArrowID=-1, Selection* customSelection=0);
 	void itemSelection_ApplyArrowScale(int startArrowSc, int endArrowSc, Selection* customSelection);

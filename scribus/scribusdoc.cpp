@@ -14389,6 +14389,31 @@ void ScribusDoc::itemSelection_AdjustImagetoFrameSize( Selection *customSelectio
 	}
 }
 
+void ScribusDoc::itemSelection_AdjustFrameHeightToText( Selection *customSelection)
+{
+	Selection* itemSelection = (customSelection!=0) ? customSelection : m_Selection;
+	assert(itemSelection!=0);
+	uint selectedItemCount=itemSelection->count();
+	if (selectedItemCount == 0)
+		return;
+	
+	if (selectedItemCount > 0)
+	{
+		for (uint i = 0; i < selectedItemCount; ++i)
+		{
+			PageItem *currItem = itemSelection->itemAt(i);
+			if (currItem!=NULL)
+			{
+				if (currItem->asTextFrame() && (currItem->itemText.length() > 0) && !currItem->isTableItem)
+					currItem ->asTextFrame()->setTextFrameHeight();
+			}
+		}
+		regionsChanged()->update(QRectF());
+		changed();
+		itemSelection->itemAt(0)->emitAllToGUI();
+	}
+}
+
 void ScribusDoc::itemSelection_AdjustFrameToTable()
 {
 	// TODO: Do this in an undo transaction?

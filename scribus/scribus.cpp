@@ -799,6 +799,7 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->addMenuSeparator("Item");
 	// End Table submenu.
 	scrMenuMgr->addMenuSeparator("Item");
+	scrMenuMgr->addMenuItem(scrActions["itemAdjustFrameHeightToText"], "Item", false);
 	scrMenuMgr->addMenuItem(scrActions["itemAdjustFrameToImage"], "Item", false);
 	scrMenuMgr->addMenuItem(scrActions["itemAdjustImageToFrame"], "Item", false);
 	scrMenuMgr->addMenuItem(scrActions["itemUpdateImage"], "Item", false);
@@ -2644,6 +2645,7 @@ void ScribusMainWindow::HaveNewSel(int SelectedType)
 #else
 	scrActions["editEditRenderSource"]->setEnabled(SelectedType==PageItem::ImageFrame && currItem && (currItem->asLatexFrame()));
 #endif
+	scrActions["itemAdjustFrameHeightToText"]->setEnabled(SelectedType==PageItem::TextFrame && currItem->itemText.length() >0);
 	if (SelectedType!=PageItem::ImageFrame)
 	{
 		scrActions["itemImageIsVisible"]->setChecked(false);

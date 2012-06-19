@@ -116,6 +116,13 @@ private:
 	QMap<QString,StoryText> shadows;
 	bool checkKeyIsShortcut(QKeyEvent *k);
 	
+	// set text frame height to last line of text
+	double maxY;
+	void setMaxY(double y);
+
+public:
+	void setTextFrameHeight();
+
 private slots:
 	void slotInvalidateLayout();
 };

@@ -449,6 +449,8 @@ void ActionManager::initItemMenuActions()
 	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
 	name="tableAdjustFrameToTable";
 	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
+	name="itemAdjustFrameHeightToText";
+	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
 	name = "tableAdjustTableToFrame";
 	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
 	name="itemAdjustFrameToImage";
@@ -1107,6 +1109,7 @@ void ActionManager::disconnectNewDocActions()
 	disconnect( (*scrActions)["tableDistributeColumnsEvenly"], 0, 0, 0 );
 	disconnect( (*scrActions)["tableAdjustFrameToTable"], 0, 0, 0 );
 	disconnect( (*scrActions)["tableAdjustTableToFrame"], 0, 0, 0 );
+	disconnect( (*scrActions)["itemAdjustFrameHeightToText"], 0, 0, 0 );
 	disconnect( (*scrActions)["itemAdjustFrameToImage"], 0, 0, 0 );
 	disconnect( (*scrActions)["itemAdjustImageToFrame"], 0, 0, 0 );
 	disconnect( (*scrActions)["itemLock"], 0, 0, 0);
@@ -1129,7 +1132,6 @@ void ActionManager::disconnectNewDocActions()
 	disconnect( (*scrActions)["itemRaise"], 0, 0, 0);
 	disconnect( (*scrActions)["toolsUnlinkTextFrameWithTextCopy"], 0, 0, 0 );
 	disconnect( (*scrActions)["toolsUnlinkTextFrameWithTextCut"], 0, 0, 0 );
-
 }
 
 void ActionManager::connectNewDocActions(ScribusDoc *currDoc)
@@ -1159,6 +1161,7 @@ void ActionManager::connectNewDocActions(ScribusDoc *currDoc)
 	connect( (*scrActions)["tableDistributeColumnsEvenly"], SIGNAL(triggered()), currDoc, SLOT(itemSelection_DistributeTableColumnsEvenly()));
 	connect( (*scrActions)["tableAdjustFrameToTable"], SIGNAL(triggered()), currDoc, SLOT(itemSelection_AdjustFrameToTable()));
 	connect( (*scrActions)["tableAdjustTableToFrame"], SIGNAL(triggered()), currDoc, SLOT(itemSelection_AdjustTableToFrame()));
+	connect( (*scrActions)["itemAdjustFrameHeightToText"], SIGNAL(triggered()), currDoc, SLOT(itemSelection_AdjustFrameHeightToText()) );
 	connect( (*scrActions)["itemAdjustFrameToImage"], SIGNAL(triggered()), currDoc, SLOT(itemSelection_AdjustFrametoImageSize()) );
 	connect( (*scrActions)["itemAdjustImageToFrame"], SIGNAL(triggered()), currDoc, SLOT(itemSelection_AdjustImagetoFrameSize()) );
 	connect( (*scrActions)["itemsUnWeld"], SIGNAL(triggered()), currDoc, SLOT(itemSelection_UnWeld()) );
@@ -1464,6 +1467,7 @@ void ActionManager::languageChange()
 	(*scrActions)["tableDistributeColumnsEvenly"]->setTexts(tr("Distribute Columns Evenly"));
 	(*scrActions)["tableAdjustFrameToTable"]->setTexts(tr("Adjust Frame to Table"));
 	(*scrActions)["tableAdjustTableToFrame"]->setTexts(tr("Adjust Table to Frame"));
+	(*scrActions)["itemAdjustFrameHeightToText"]->setTexts( tr("Adjust Frame Height to Text"));
 	(*scrActions)["itemAdjustFrameToImage"]->setTexts( tr("Adjust Frame to Image"));
 	(*scrActions)["itemAdjustImageToFrame"]->setTexts( tr("Adjust Image to Frame"));
 	(*scrActions)["itemToggleInlineImage"]->setTexts( tr("Embed Image"));
@@ -1940,6 +1944,7 @@ void ActionManager::createDefaultMenus()
 		<< "tableDistributeColumnsEvenly"
 		<< "tableAdjustFrameToTable"
 		<< "tableAdjustTableToFrame"
+		<< "itemAdjustFrameHeightToText"
 		<< "itemAdjustFrameToImage" 
 		<< "itemAdjustImageToFrame" 
 		<< "itemToggleInlineImage" 
