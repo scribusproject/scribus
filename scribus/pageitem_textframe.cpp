@@ -1311,7 +1311,7 @@ void PageItem_TextFrame::layout()
 	tTabValues.clear();
 	
 	bool DropCmode = false;
-	double desc=0, asce=0, realAsce=0, realDesc = 0;
+	double desc=0, asce=0, realAsce=0, realDesc = 0, offset = 0;
 	double maxDY=0, maxDX=0;
 	double DropCapDrop = 0;
 	int    DropLines = 0;
@@ -1428,6 +1428,7 @@ void PageItem_TextFrame::layout()
 		current.restartX = 0;
 		int lastStat = 0, curStat = 0;
 		setMaxY(-1);
+		double maxYAsc = 0.0, maxYDesc = 0.0;
 
 		for (int a = firstInFrame(); a < itemText.length(); ++a)
 		{
@@ -1443,7 +1444,7 @@ void PageItem_TextFrame::layout()
 			double hlcsize10 = charStyle.fontSize() / 10.0;
 			double scaleV = charStyle.scaleV() / 1000.0;
 			double scaleH = charStyle.scaleH() / 1000.0;
-			double offset = hlcsize10 * (charStyle.baselineOffset() / 1000.0);
+			offset = hlcsize10 * (charStyle.baselineOffset() / 1000.0);
 
 			if (chstr.isEmpty())
 				chstr = SpecialChars::ZWNBSPACE;
@@ -1824,11 +1825,14 @@ void PageItem_TextFrame::layout()
 				}
 			}
 			current.recalculateY = true;
-			double maxYAsc = 0.0, maxYDesc = 0.0;
+			maxYAsc = 0.0, maxYDesc = 0.0;
 			if (current.startOfCol)
 			{
-				//qMax is used for glyphs shifted or vertically scalled above ascent or below descent
-				double addAsce = qMax(realAsce, asce);
+				double addAsce;
+				if (DropCmode)
+					addAsce = qMax(realAsce, asce + offset);
+				else
+					addAsce = asce + offset;
 				if (style.lineSpacingMode() != ParagraphStyle::BaselineGridLineSpacing)
 				{
 					if (firstLineOffset() == FLOPRealGlyphHeight)
@@ -1839,10 +1843,10 @@ void PageItem_TextFrame::layout()
 				maxYAsc = current.yPos - addAsce;
 			}
 			else
-				maxYAsc = current.yPos - qMax(realAsce, asce);
+				maxYAsc = current.yPos - realAsce;
 			//fix for glyphs with negative realAsce value
 			maxYAsc = qMax(maxYAsc, 0.0);
-			maxYDesc = current.yPos + qMax(realDesc, desc);
+			maxYDesc = current.yPos + realDesc;
 
 			if (current.itemsInLine == 0 && !current.afterOverflow)
 			{
@@ -1851,7 +1855,7 @@ void PageItem_TextFrame::layout()
 
 				// find line`s start
 				pt1 = QPoint(static_cast<int>(floor(current.xPos)), static_cast<int>(floor(maxYAsc)));
-				pt2 = QPoint(static_cast<int>(ceil(current.xPos + (style.minGlyphExtension() * wide))), static_cast<int>(ceil(maxYDesc)));
+				pt2 = QPoint(static_cast<int>(floor(current.xPos + (style.minGlyphExtension() * wide))), static_cast<int>(floor(maxYDesc)) -1);
 				pt = QRect(pt1, pt2);
 				realEnd = 0;
 				//check if there is overflow at start of line, if so jump behind it and check again
@@ -1913,20 +1917,23 @@ void PageItem_TextFrame::layout()
 						lastLineY = maxYAsc;
 						if (current.startOfCol)
 						{
-							//qMax is used for glyphs shifted or vertically scalled above ascent or below descent
-							double addAsce = qMax(realAsce, asce);
+							double addAsce;
+							if (DropCmode)
+								addAsce = qMax(realAsce, asce + offset);
+							else
+								addAsce = asce + offset;
 							if (style.lineSpacingMode() != ParagraphStyle::BaselineGridLineSpacing)
 							{
 								if (firstLineOffset() == FLOPRealGlyphHeight)
 									addAsce = realAsce;
 								else if (firstLineOffset() == FLOPLineSpacing)
-									addAsce = style.lineSpacing();
+									addAsce = style.lineSpacing() + offset;
 							}
 							maxYAsc = current.yPos - addAsce;
 						}
 						else
-							maxYAsc = current.yPos - qMax(realAsce, asce);
-						maxYDesc = current.yPos + qMax(realDesc, desc);
+							maxYAsc = current.yPos - realAsce;
+						maxYDesc = current.yPos + realDesc;
 
 						pt.moveTopLeft(QPoint(static_cast<int>(floor(current.xPos)), static_cast<int>(floor(maxYAsc))));
 						done = false;
@@ -2213,7 +2220,7 @@ void PageItem_TextFrame::layout()
 				else
 				{
 					charStart = static_cast<int>(qMax(floor(current.xPos - current.maxShrink - (style.minGlyphExtension() * wide)),0.0));
-					charEnd = static_cast<int>(ceil(current.xPos - current.maxShrink) + hyphWidth);
+					charEnd = static_cast<int>(ceil(current.xPos - current.maxShrink));
 				}
 				if (legacy &&
 						(((hl->ch == '-' || (hl->effects() & ScStyle_HyphenationPossible)) && (current.hyphenCount < m_Doc->hyphConsecutiveLines() || m_Doc->hyphConsecutiveLines() == 0))
@@ -2222,23 +2229,23 @@ void PageItem_TextFrame::layout()
 					if (hl->effects() & ScStyle_HyphenationPossible || hl->ch == SpecialChars::SHYPHEN)
 					{
 						pt1 = QPoint(charStart,  static_cast<int>(floor(maxYAsc)));
-						pt2 = QPoint(static_cast<int>(charEnd + hyphWidth), static_cast<int>(ceil(maxYDesc)));
+						pt2 = QPoint(static_cast<int>(charEnd + hyphWidth), static_cast<int>(floor(maxYDesc)) -1);
 					}
 					else
 					{
 						pt1 = QPoint(charStart, static_cast<int>(floor(maxYAsc)));
-						pt2 = QPoint(charEnd, static_cast<int>(ceil(maxYDesc)));
+						pt2 = QPoint(charEnd, static_cast<int>(floor(maxYDesc)) -1);
 					}
 				}
 				else if (!legacy && SpecialChars::isBreakingSpace(hl->ch))
 				{
 					pt1 = QPoint(static_cast<int>(qMax(floor(breakPos - current.maxShrink - (style.minGlyphExtension() * wide)),0.0)), static_cast<int>(floor(maxYAsc)));
-					pt2 = QPoint(charEnd, static_cast<int>(ceil(maxYDesc)));
+					pt2 = QPoint(charEnd, static_cast<int>(floor(maxYDesc)) -1);
 				}
 				else
 				{
 					pt1 = QPoint(charStart, static_cast<int>(floor(maxYAsc)));
-					pt2 = QPoint(charEnd, static_cast<int>(ceil(maxYDesc)));
+					pt2 = QPoint(charEnd, static_cast<int>(floor(maxYDesc)) -1);
 				}
 				pt = QRect(pt1, pt2);
 				if (!regionContainsRect(m_availableRegion, pt))
@@ -2402,7 +2409,7 @@ void PageItem_TextFrame::layout()
 				{
 					// find end of line
 					current.breakLine(itemText, style, firstLineOffset(), a);
-					EndX = current.endOfLine(m_availableRegion, style.rightMargin(), static_cast<int>(floor(maxYAsc)), static_cast<int>(ceil(maxYDesc)));
+					EndX = current.endOfLine(m_availableRegion, style.rightMargin(), static_cast<int>(floor(maxYAsc)), static_cast<int>(floor(maxYDesc)));
 					current.finishLine(EndX);
 					//addLine = true;
 					assert(current.addLine);
@@ -2479,7 +2486,7 @@ void PageItem_TextFrame::layout()
 						current.updateHeightMetrics(itemText);
 						//current.updateLineOffset(itemText, style, firstLineOffset());
 						//current.xPos = current.breakXPos;
-						EndX = current.endOfLine(m_availableRegion, current.rightMargin, static_cast<int>(floor(maxYAsc)), static_cast<int>(ceil(maxYDesc)));
+						EndX = current.endOfLine(m_availableRegion, current.rightMargin, static_cast<int>(floor(maxYAsc)), static_cast<int>(floor(maxYDesc)));
 						current.finishLine(EndX);
 						
 						hyphWidth = 0.0;
@@ -2698,26 +2705,27 @@ void PageItem_TextFrame::layout()
 			hl = (a >= 0) ? itemText.item(a) : NULL;
 			current.breakLine(itemText, style, firstLineOffset(), a);
 
-			int maxYAsc = 0, maxYDesc = 0;
 			if (current.startOfCol)
 			{
-				//qMax is used for glyphs shifted or vertically scalled above ascent or below descent
-				double addAsce = qMax(realAsce, asce);
-				if (style.lineSpacingMode() != ParagraphStyle::BaselineGridLineSpacing)
+				double addAsce;
+				if (DropCmode)
+					addAsce = qMax(realAsce, asce + offset);
+				else
+					addAsce = asce + offset;				if (style.lineSpacingMode() != ParagraphStyle::BaselineGridLineSpacing)
 				{
 					if (firstLineOffset() == FLOPRealGlyphHeight)
 						addAsce = realAsce;
 					else if (firstLineOffset() == FLOPLineSpacing)
-						addAsce = style.lineSpacing();
+						addAsce = style.lineSpacing() + offset;
 				}
-				maxYAsc = static_cast<int>(floor(current.yPos - addAsce));
+				maxYAsc = current.yPos - addAsce;
 			}
 			else
-				maxYAsc = static_cast<int>(floor(current.yPos - qMax(realAsce, asce)));
-			maxYAsc = qMax(maxYAsc, 0);
-			maxYDesc = static_cast<int>(ceil(current.yPos + qMax(realDesc, desc)));
+				maxYAsc = current.yPos - realAsce;
+			maxYAsc = qMax(maxYAsc, 0.0);
+			maxYDesc = current.yPos + realDesc;
 
-			EndX = current.endOfLine(m_availableRegion, style.rightMargin(), maxYAsc, maxYDesc);
+			EndX = current.endOfLine(m_availableRegion, style.rightMargin(), static_cast<int>(floor(maxYAsc)), static_cast<int>(floor(maxYDesc)));
 			current.finishLine(EndX);
 
 			if (opticalMargins & ParagraphStyle::OM_RightHangingPunct)
@@ -4236,7 +4244,10 @@ void PageItem_TextFrame::setMaxY(double y)
 
 void PageItem_TextFrame::setTextFrameHeight()
 {
-	setHeight(ceil(maxY) + BExtra + 0.5);
+	//ugly hack increasing min frame`s haeight against strange glyph painting if it is too close of bottom
+	double hackValue = 0.5;
+
+	setHeight(ceil(maxY) + BExtra + hackValue);
 	updateClip();
 	invalid = true;
 	m_Doc->changed();
