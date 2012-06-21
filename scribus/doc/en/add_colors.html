@@ -1,0 +1,63 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<title>Adding and Editing Colors</title>
+</head>
+<body>
+<h2>Adding and Editing Colors</h2>
+If you are looking for instructions on how to change an entire color palette, <a href="color2.html">then go here</a>.
+<h3>Automatic and Semi-automatic Methods</h3>
+<h4>From another document</h4>
+<p>If you begin with a previously saved document, you will use its color set. If you extrapolate from this fact, then you might choose to open a document, delete its content, and <i>File Save As</i> under a new name.</p>
+<p>You might even anticipate this, especially if you have a customized color palette, by saving an empty document named something like "colorscheme3.sla" or some other meaningful guide to finding it later.</p>
+You could also consider that when you import a page from another document, its colors will be imported. Lastly, even if you have already begun a new document, you can open <i>Edit > Colors</i>, and choose <strong>Import</strong> from the dialog to import the colors from another document.</p>
+<h4>From Imported Objects</h4>
+<p>Whenever you import an object from the Scrapbook, its colors will be added to the document. Similarly, vector graphics (SVG, EPS, and so on) will also add any colors they may contain.</p>
+
+<table width="90%" cellpadding="5">
+<tr>
+<td><img src="images/add_colors1.png"></td>
+<td><p>&nbsp; </p><p>&nbsp; </p><p>&nbsp; </p><p>In this example, following import of an SVG, we take a look at the Colors dialog (<i>Edit > Colors</i>), so that we can point out some particulars.</p>
+<p>We started out with the Scribus Basic color set, then imported an SVG, which has added these colors which begin with <i>FromSVG</i>. Scribus does not ask you for your Ok to do this &ndash; for one thing, consider the job this would create for a many-colored graphic.</p>
+
+</td></tr></table>
+<p>Notice the many blacks we have here, yet each is unique. Our newly added black, <i>FromSVG#000000</i>, is an RGB black, all the others are CMYK blacks. If you hover your mouse cursor over each one, you will see the differences.</p>
+<table cellpadding="5" align="center">
+<tr>
+<td></td><td><b>C%</b></td><td><b>M%</b></td><td><b>Y%</b></td><td><b>K%</b></td></tr>
+<tr>
+<td>Black</td><td align="center">0</td><td align="center">0</td><td align="center">0</td><td align="center">100</td></tr>
+<tr>
+<td>Cool Black</td><td align="center">60</td><td align="center">0</td><td align="center">0</td><td align="center">100</td></tr>
+<tr>
+<td>Registration</td><td align="center">100</td><td align="center">100</td><td align="center">100</td><td align="center">100</td></tr>
+<tr>
+<td>Rich Black</td><td align="center">60</td><td align="center">40</td><td align="center">40</td><td align="center">100</td></tr>
+<tr>
+<td>Warm Black</td><td align="center">0</td><td align="center">60</td><td align="center">30</td><td align="center">100</td></tr>
+</table>
+<table cellpadding="5">
+<tr><td><img src="images/add_colors2.png"></td><td><p>&nbsp; </p><p>Let's go a bit further here and edit a color. Either left-click or right-click on a color, and you bring up this dialog. In this particular case, you might just want to change the color name to something more meaningful. On the other hand, there is useful information in this name, considering that the hex value &lsquo;80&rsquo; corresponds to decimal &lsquo;128&rsquo;.</p>
+<p>You have 3 color models to choose from: <strong>RGB</strong>, <strong>CMYK</strong>, and <strong>Web Safe RGB</strong>. This last choice limits the values to those which will display the same on 8-bit and 16-bit systems.</p>
+<p>The last thing we will mention here is the sliders to the right of the dialog for changing RGB or CMYK values. You can also click on the rainbow display, then make fine adjustments with the sliders. As you make changes, the color in the box labeled <strong>New</strong> adjusts. Click <strong>OK</strong> to switch, or <strong>Cancel</strong> to stay with the <strong>Old</strong></p>
+</td></tr></table>
+<h4>From the Color Picker</h4>
+<p>The little eyedropper on the toolbar activates the color picker, after which clicking on some spot on the screen grabs its color. You can expect to be presented with a dialog asking for a name for this color. If you don't name it, the color will not be added, even if you click <strong>OK</strong></p>
+<p><img src="images/add_colors3.png"></p>
+<h3>Manual Methods</h3>
+<h4>New Color</h4>
+<table width="90%" cellpadding="5">
+<tr>
+<td><p>Here again is our <i>Colors</i> dialog. This time, click tne <strong>New</strong> button. </p>
+<img src="images/add_colors1.png"></td></tr>
+<tr><td><p>Click the button in the upper right of the <i>Edit Color</i> dialog, and an extremely long list of choices appears, consisting of all the color sets available in Scribus. Now click one of these colors and its name and RGB/CMYK values are your new color. Many of the color sets contain proprietary spot colors.</p></td></tr>
+<tr><td>
+<img src="images/add_colors5.png">
+</p></td>
+</tr></table>
+<h4>Duplicate</h4>
+<p>In the <i>Colors</i> dialog above, click a color you wish to modify. This will of course bring up <i>Edit Color</i>, but click <strong>Cancel</strong>, so that you can go back and click <strong>Duplicate</strong>. Now your color name will show as <i>Copy of ...</i> and you can edit in the various ways we have shown and change the name.</p>
+<h4>Getting Rid of Colors</h4>
+<p>You can do this individually, by highlighting a color then clicking <strong>Delete</strong>, or you might consider reducing the number of colors on the list by clicking <strong>Remove Unused</strong>, which deletes any colors you have not actually used in your document.</p>
+</body>
+</html>
