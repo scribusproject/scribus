@@ -318,14 +318,18 @@ void CanvasMode_Edit::mouseDoubleClickEvent(QMouseEvent *m)
 			else
 			{	//Double click in a frame to select a word
 				oldCp = currItem->itemText.cursorPosition();
-				if (currItem->itemText.hasObject(oldCp))
+				bool validPos = (oldCp >= 0 && oldCp < currItem->itemText.length());
+				if (validPos && currItem->itemText.hasObject(oldCp))
 				{
 					currItem->itemText.select(oldCp, 1, true);
 					PageItem *iItem = currItem->itemText.object(oldCp);
 					m_ScMW->editInlineStart(iItem->inlineCharID);
 				}
 				else
-					currItem->itemText.setCursorPosition(currItem->itemText.selectWord(currItem->itemText.cursorPosition()));
+				{
+					int newPos = currItem->itemText.selectWord(oldCp);
+					currItem->itemText.setCursorPosition(newPos);
+				}
 			}
 			currItem->HasSel = (currItem->itemText.lengthOfSelection() > 0);
 		}
