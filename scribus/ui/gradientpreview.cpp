@@ -228,7 +228,7 @@ void GradientPreview::mouseReleaseEvent(QMouseEvent *m)
 		}
 	}
 	Mpressed = false;
-	if (!onlyselect){
+	if ((!onlyselect) && (ActStop >= 0)){
 		emit gradientChanged();
 		QList<VColorStop*> cstops = fill_gradient.colorStops();
 		emit currStep(cstops.at(ActStop)->rampPoint);
