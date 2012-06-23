@@ -1328,6 +1328,8 @@ public:
 	FPointArray symNewFrame;
 	
 	Hyphenator * docHyphenator;
+	void itemResizeToMargin(PageItem* item, int direction); //direction reflect enum numbers from Canvas::FrameHandle
+
 private:
 	UndoTransaction* m_itemCreationTransaction;
 	UndoTransaction* m_alignTransaction;

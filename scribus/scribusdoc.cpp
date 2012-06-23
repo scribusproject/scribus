@@ -15333,3 +15333,47 @@ int ScribusDoc::addToInlineFrames(PageItem *item)
 	FrameItems.insert(fIndex, item);
 	return fIndex;
 }
+
+void ScribusDoc::itemResizeToMargin(PageItem* item, int direction)
+{
+	//FIX ME: for now avoid for rotated items
+	if (item->rotation() != 0)
+		return;
+	Canvas::FrameHandle fh = (Canvas::FrameHandle) direction;
+	ScPage *currPage = Pages->at(item->OwnPage);
+	QMatrix ma;
+	ma.translate(item->xPos(), item->yPos());
+	double inX = ma.dx() - currentPage()->xOffset();
+	double inY = ma.dy() - currentPage()->yOffset();
+	if (fh == Canvas::NORTH || fh == Canvas::NORTHWEST || fh == Canvas::NORTHEAST)
+	{
+		double top = currPage->topMargin();
+		double dY = inY - top;
+		item->moveBy(0, -dY);
+		item->setHeight(item->height() + dY);
+	}
+	if (fh == Canvas::SOUTH || fh == Canvas::SOUTHWEST || fh == Canvas::SOUTHEAST)
+	{
+		double bottom = currPage->height() - currPage->bottomMargin();
+		double dY = bottom - (inY + item->height());
+		item->setHeight(item->height() + dY);
+	}
+	if (fh == Canvas::EAST || fh == Canvas::NORTHEAST || fh == Canvas::SOUTHEAST)
+	{
+		double right = currPage->width() - currPage->rightMargin();
+		double dX = right - (inX + item->width());
+		item->setWidth(item->width() + dX);
+	}
+	if (fh == Canvas::WEST || fh == Canvas::NORTHWEST || fh == Canvas::SOUTHWEST)
+	{
+		double left = currPage->leftMargin();
+		double dX = inX - left;
+		item->moveBy(-dX, 0);
+		item->setWidth(item->width() + dX);
+	}
+
+	item->updateClip();
+	item->invalid = true;
+	changed();
+	regionsChanged()->update(QRect());
+}
