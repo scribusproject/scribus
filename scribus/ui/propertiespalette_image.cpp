@@ -47,6 +47,7 @@ PropertiesPalette_Image::PropertiesPalette_Image( QWidget* parent) : QWidget(par
 	imagePageNumber->setMinimum(0);
 	imagePageNumber->setSpecialValueText(tr( "Auto" ));
 	imagePageNumber->setDecimals(0);
+	imagePageNumber->setSuffix("");
 	imagePageNumberLabel->setBuddy(imagePageNumber);
 	installSniffer(imagePageNumber);
 	
@@ -72,9 +73,11 @@ PropertiesPalette_Image::PropertiesPalette_Image( QWidget* parent) : QWidget(par
 	keepImageWHRatioButton->setCheckable( true );
 	keepImageWHRatioButton->setAutoRaise( true );
 
+	imgDpiX->setSuffix("");
 	installSniffer(imgDpiX);
 	imgDPIXLabel->setBuddy(imgDpiX);
 
+	imgDpiY->setSuffix("");
 	installSniffer(imgDpiY);
 	imgDPIYLabel->setBuddy(imgDpiY);
 
@@ -798,8 +801,6 @@ void PropertiesPalette_Image::languageChange()
 	QString pctSuffix = tr(" %");
 	imageXScaleSpinBox->setSuffix(pctSuffix);
 	imageYScaleSpinBox->setSuffix(pctSuffix);
-	imgDpiX->setSuffix("");
-	imgDpiY->setSuffix("");
 
 	QString ptSuffix = tr(" pt");
 	QString suffix   = (m_haveDoc) ? unitGetSuffixFromIndex(m_doc->unitIndex()) : ptSuffix;
