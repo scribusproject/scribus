@@ -26,6 +26,7 @@ for which a new license (GPL+exception) is in place.
 #include "selection.h"
 #include "vgradient.h"
 
+#include <pyport.h>
 #include <goo/gtypes.h>
 #include <Object.h>
 #include <OutputDev.h>
