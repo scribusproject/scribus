@@ -58,7 +58,7 @@ TabGeneral::TabGeneral(QWidget* parent, const char* name)
 	GTFsize->setToolTip( "<qt>" + tr("Default font size for the tool windows") + "</qt>" );
 	Docs->setToolTip( "<qt>" + tr( "Default documents directory" ) + "</qt>" );
 	useSmallWidgetsCheck->setToolTip( "<qt>" + tr("Palette windows will use smaller (space savy) widgets. Requires application restart") + "</qt>");
-	ProPfad->setToolTip( "<qt>" + tr( "Default ICC profiles directory. This cannot be changed with a document open. By default, Scribus will look in the System Directories under Mac OSX and Windows. On Linux and Unix, Scribus will search $home/.color/icc,/usr/share/color/icc and /usr/local/share/color/icc " ) + "</qt>" );
+	ProPfad->setToolTip( "<qt>" + tr( "Default ICC profiles directory. This cannot be changed with a document open. By default, Scribus will look in the System Directories under Mac OSX and Windows. On Linux and Unix, Scribus will search $home/.color/icc, $home/.local/share/color/icc, /usr/share/color/icc and /usr/local/share/color/icc" ) + "</qt>" );
 	ScriptPfad->setToolTip( "<qt>" + tr( "Default Scripter scripts directory" ) + "</qt>" );
 	DocumentTemplateDir->setToolTip( "<qt>"+ tr("Additional directory for document templates")+"</qt>" );
 
