@@ -381,6 +381,22 @@ PyObject *scribus_setmultiline(PyObject* /* self */, PyObject* args)
 	Py_RETURN_NONE;
 }
 
+PyObject *scribus_setnewname(PyObject* /* self */, PyObject* args)
+{
+	char *Name = const_cast<char*>("");
+	char *newName = const_cast<char*>("");
+	if (!PyArg_ParseTuple(args, "es|es", "utf-8", &newName, "utf-8", &Name))
+		return NULL;
+	if(!checkHaveDocument())
+		return NULL;
+	PageItem *currItem = GetUniqueItem(QString::fromUtf8(Name));
+	if (currItem == NULL)
+		return NULL;
+	currItem->setItemName(newName);
+	Py_RETURN_NONE;
+}
+
+
 /*! HACK: this removes "warning: 'blah' defined but not used" compiler warnings
 with header files structure untouched (docstrings are kept near declarations)
 PV */
@@ -394,5 +410,6 @@ void cmdsetpropdocwarnings()
 	  << scribus_setlinewidth__doc__ << scribus_setlineshade__doc__ 
 	  << scribus_setlinejoin__doc__  << scribus_setlinecap__doc__   
 	  << scribus_setlinestyle__doc__ << scribus_setfillshade__doc__ 
-	  << scribus_setcornerrad__doc__ <<  scribus_setmultiline__doc__;
+	  << scribus_setcornerrad__doc__ << scribus_setmultiline__doc__
+	  << scribus_setnewname__doc__;
 }
