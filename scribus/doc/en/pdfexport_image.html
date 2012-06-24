@@ -1,0 +1,37 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<title>PDF Export: Image Compression</title>
+</head>
+<body>
+<h3>Image Compression with PDF Export</h3>
+
+<p>Elsewhere, you may have already seen advice to resize images outside of Scribus, in order to reduce the size of a PDF. This is certainly one of the options, but there is also the ability to compress the images at the time of export, which has the advantage of being nondestructive, in other words, the original image files are unaffected, and a compressed version will only be embedded in the PDF.</p>
+<p><img src="images/image_compress.png"></p>
+<p>Here is the section of the <i>General</i> tab of the PDF Export dialog that manages image compression. By default, <i>Maximum Image Resolution</i> is unchecked, so that no compression is done. In the above example, we have checked this, and see the default setting of 300dpi. This is probably the minimum setting you would want for print output, but if you are making a PDF for use on the web or on a computer in some other way, you might go down as far as 96 or 72dpi, since these are typical resolutions of monitor screens.</p>
+<p>Under <i>Compression Method</i>, we have these choices:
+<ul>
+<li>Automatic</li>
+<li>Lossy - JPEG</li>
+<li>Lossless - ZIP</li>
+<li>None</li>
+</ul></p>
+<p>Under <i>Compression Quality</i> we see:
+<ul><li>Maximum</li>
+<li>High</li>
+<li>Medium</li>
+<li>Low</li>
+<li>Minimum</li>
+</ul></p>
+<p>As you look at these settings, you would assume there is some sort of relationship between the degree of image compression and the method used, so that a high degree of compression and lossy sort of compression should show the poorest quality of the final image. This is certainly true, but there is not a good way to predict in between the extreme settings how much compression there will be, and how acceptable the quality will be.</p>
+<p>This is illustrated in the Scribus wiki, in the article <a href="http://wiki.scribus.net/canvas/Image_DPI_and_Scaling,_and_Resultant_File_Sizes">Image DPI and Scaling, and Resultant File Sizes</a>. This is a methodical but not exhaustive attempt to show how various settings impact the quality of the results, and the resulting PDF size. You are encouraged not only to review this article for its results, but in particular to attempt your own experiments, so that you might make some informed decisions about PDF Export image compression.</p>
+<p>In summary, the results of this experiment demonstrated in the wiki are that:
+<ul>
+<li>For Automatic and Lossless-Zip methods, the only changes in file size come from reducing the maximal DPI of the image. In fact, one wonders if Automatic and Lossless are identical.</li>
+<li>For the Lossy method, there is progressive shrinking of the resultant PDF, both with reducing maximal DPI and with reduced quality, and these are additive. This also degrades the images considerably beyond some point.</li>
+</ul>
+
+
+
+</body>
+</html>
