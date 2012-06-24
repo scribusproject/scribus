@@ -67,6 +67,7 @@
 			<submenuitem text="Exporting to PDF" file="pdfexport1.html">
 			<submenuitem text="PDF Flavors" file="pdflavor.html"/>
 			<submenuitem text="PDF Export Targets" file="pdfexport2.html"/>
+			<submenuitem text="PDF Export: Image Compression" file="pdfexport_image.html"/>
 			<submenuitem text="PDF Export for Screen/Web" file="pdfexport3.html"/>
 			<submenuitem text="PDF Presentations" file="pdfexport4.html"/>
 			<submenuitem text="Creating Document Links" file="createlinks.html"/>
