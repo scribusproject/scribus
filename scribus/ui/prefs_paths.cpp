@@ -31,7 +31,7 @@ Prefs_Paths::~Prefs_Paths()
 void Prefs_Paths::languageChange()
 {
 	docDirLineEdit->setToolTip( "<qt>" + tr( "Default documents directory" ) + "</qt>" );
-	profileDirLineEdit->setToolTip( "<qt>" + tr( "Default ICC profiles directory. This cannot be changed with a document open. By default, Scribus will look in the System Directories under Mac OSX and Windows. On Linux and Unix, Scribus will search $home/.color/icc,/usr/share/color/icc and /usr/local/share/color/icc " ) + "</qt>" );
+	profileDirLineEdit->setToolTip( "<qt>" + tr( "Default ICC profiles directory. This cannot be changed with a document open. By default, Scribus will look in the System Directories under Mac OSX and Windows. On Linux and Unix, Scribus will search $home/.color/icc, $home/.local/share/color/icc, /usr/share/color/icc and /usr/local/share/color/icc" ) + "</qt>" );
 	scriptDirLineEdit->setToolTip( "<qt>" + tr( "Default Scripter scripts directory" ) + "</qt>" );
 	templateDirLineEdit->setToolTip( "<qt>"+ tr("Additional directory for document templates")+"</qt>" );
 }

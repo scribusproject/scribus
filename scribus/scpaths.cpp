@@ -312,6 +312,7 @@ QStringList ScPaths::getSystemProfilesDirs(void)
 #elif defined(Q_WS_X11)
 	iccProfDirs.append(QDir::homePath()+"/color/icc/");
 	iccProfDirs.append(QDir::homePath()+"/.color/icc/");
+	iccProfDirs.append(QDir::homePath()+"/.local/share/color/icc/");
 	iccProfDirs.append("/usr/share/color/icc/");
 	iccProfDirs.append("/usr/local/share/color/icc/");
 #elif defined(_WIN32)
