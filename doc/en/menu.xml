@@ -45,15 +45,18 @@
 			<submenuitem text="Page Numbering" file="pagenumber.html" />
 			<submenuitem text="The Short Words Plug-in" file="short-words.html" />
 		</submenuitem>
-		<submenuitem text="Solid Colors" file="color1.html">
-			<submenuitem text="Managing Colors" file="color2.html" />
+                <submenuitem text="Editing Colors" file="color_editing.html">
+			<submenuitem text="Adding and Editing Colors" file="add_colors.html" />
+			<submenuitem text="The Color Wheel" file="colorwheel.html" />
+			<submenuitem text="Managing Color Sets" file="color2.html" />
+		</submenuitem>
+		<submenuitem text="Included Color Sets" file="color1.html">
 			<submenuitem text="Open Source Color Sets" file="color3.html" />
 			<submenuitem text="National Color Standards" file="color4.html" />
 			<submenuitem text="Resene Color Sets" file="color5.html" />
 			<submenuitem text="dtp studio Color Sets" file="color6.html" />
 			<submenuitem text="GiveLife Color System" file="color7.html" />
 			<submenuitem text="Special Purpose Colors" file="color8.html" />
-			<submenuitem text="The Color Wheel" file="colorwheel.html" />
 		</submenuitem>
 		<submenuitem text="Importing" file="importhints.html">
 			<submenuitem text="Importing Bitmap Files" file="importbitmap1.html" />

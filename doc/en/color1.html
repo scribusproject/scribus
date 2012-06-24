@@ -1,17 +1,11 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-	<title>Editing and Managing Solid Colors</title>
+	<title>Color Palettes</title>
 </head>
 <body>
-<h3>Editing and Managing Solid Colors (1)</h3>
-<table border="1" align="center">
-  <tbody>
-    <tr>
-      <td><i><b>Please note that this chapter is not about color management, but about the editing and managing of color <a href="WwFill.html">fills</a>. Color management is described in a <a href="cms.html">separate chapter</a>.</b></i></td>
-    </tr>
-  </tbody>
-</table>
+<h3>Color Palettes</h3>
+<h5>Please note that this chapter is not about color management, but about the editing and managing of color <a href="WwFill.html">fills</a>. Color management is described in a <a href="cms.html">separate chapter</a>.</b></i></h5>
 <p>Within Scribus there are several methods to create, import and edit solid colors and color sets. Moreover, Scribus has a well developed tool, the <a href="colorwheel.html">Color Wheel plug-in</a>, which helps with creating color harmonies and even testing them for people with color blindness.</p>
 <h3>Why Color Sets?</h3>
 <p>The answer to the question in the headline is closely related to the answer to a more basic question, namely: &ldquo;What is a color?&rdquo; The truth is, there is no simple answer to that question, as a &ldquo;color&rdquo; can be described in hundreds of ways, for example as a combination of wavelengths, a combination of color values within a certain &ldquo;color model&rdquo;, as a category in a framework based on aesthetical rules etc. As a result, many different so-called &ldquo;color models&rdquo; have been developed over the course of time, many of which have become part of a discipline called &ldquo;color science,&rdquo; a science that is itself a &ldquo;meta-science,&rdquo; as it requires input from many different disciplines, including physics, neuro-science, biology, mathematics, engineering, and even art, artisanry or literature. &ldquo;Color&rdquo; is actually one of a few cases, in which artists like Johann Wolfgang von Goethe or Albert Henry Munsell contributed significantly to scientific progress.</p>
@@ -23,15 +17,7 @@
 <p>As a practical matter, the colors available in a color palette or colors you create yourself (and thus add to an existing palette) are the only ones that can be used as text, fill, line or gradient colors.</p>
 
 <h4>Colors in Scribus Color Palettes</h4>
-<p>Scribus is being shipped with a huge collection of more than 150 useful color sets, also called “palettes” or (somehow misleading) “swatches.” These palettes serve different purposes, all of which will be described in <a href="color3.html">separate documents</a>. There are palettes of different sizes available, ranging from &ldquo;Scribus Basic&rdquo;, a collection of primary RGB and CMYK colors to, for instance, &ldquo;X11,&rdquo; which includes a huge number of (RGB) Colors.</p><br>
-<table border="1" align="center">
-  <tbody>
-    <tr>
-      <td><i><b>Please note that &ldquo;Scribus X11&rdquo; used to be the default palette in earlier versions of Scribus, whereas the default set has been changed to &ldquo;Scribus Basic&rdquo; since 1.3.6.</i></b>.</td>
-</tr>
-  </tbody>
-</table>
-<br>
+<p>Scribus is being shipped with a huge collection of more than 150 useful color sets, also called “palettes” or (somehow misleading) “swatches.” These palettes serve different purposes, all of which will be described in <a href="color3.html">separate documents</a>. There are palettes of different sizes available, ranging from &ldquo;Scribus Basic&rdquo;, a collection of primary RGB and CMYK colors to, for instance, &ldquo;X11,&rdquo; which includes a huge number of (RGB) Colors.</p>
 <p>Color palettes in Scribus can contain four different types of colors, each of which uses a different visual indicator in Scribus color dialogs:</p>
 
 <table border="0">
@@ -68,20 +54,6 @@
     </tr>
   </tbody>
 </table>
-<br>
-<h4>Editing Colors and Color Palettes</h4>
-<p>When you create and save a new document, all the colors that are availabe in the dialog <i>Edit > Colors</i> will be stored in that document. This is an important detail, because any changes to a color palette will only affect the current document. The selection or creation of a new default palette will be described in the <a href="color2.html">next section</a>.</p>
-<p>If you choose <i>Edit > Colors</i> from the menu bar for the first time and with a new document open, Scribus will bring up the following dialog:</p><br>
 
-<table width="100%"><tr><td align="center"><img src="images/editcols1.png"/></td></tr></table><br>
-<p>To the left you see the list of colors in the selected default color set, which is the palette &ldquo;Scribus Basic&rdquo;. The list view contains a preview of every color, a color model indicator, indicators for special colors (spot, registration), and finally the name of the color. If color management is active, you may also see a warning sign between the color preview and the color model icon, indicating that a color is out of gamut.</p>
-<p>To the right you see various editing options for your color palette, starting with the &ldquo;Import&rdquo; button at the top. Clicking on it brings up a file dialog, where you can select various sources for colors. These sources can either be existing Scribus files or color palettes in one of the following formats: <b>Encapsulated PostScript (EPS)</b>, <b>PostScript (PS)</b>, <b>Adobe Illustrator (AI)</b>, <b>OpenDocument Color Palettes (SOC)</b> or <b>GIMP Color Palettes (GPL)</b>. Note that importing a color palette does <i><b>not</b></i> replace the existing colors. Instead, the colors will be <i><b>added</b></i> to the existing palette:</p>
-<table width="100%"><tr><td align="center"><img src="images/editcols1a.png"/></td></tr></table><br>
-<p>You can also create a new color yourself and add it to the existing palette by clicking on the &ldquo;New&rdquo; button. This will bring up the color editor:</p>
-<table width="100%"><tr><td align="center"><img src="images/editcols2.png"/></td></tr></table><br>
-<p>Here you can insert a name for the new color and select a color model (CMYK, RGB and web-safe RGB, the latter being almost irrelevant today, even if you are creating a PDF for the world-wide web). In the lower right section you see three or four (depending on the selected color model) color sliders to modify the color values. Of course you can also insert numerical color values directly. At the top of the dialog you see a so-called &ldquo;HSV Color Map,&rdquo; which allows for creating a color by clicking somewhere on the colored field. &ldquo;HSV&rdquo; is an abbreviation for &ldquo;Hue, Saturation, Value&rdquo;, which is another way to describe colors in the RGB color model. If you click on the drop-down list, you will see that you can also select a color from one of the installed color palettes.</p>
-<p>To use the &ldquo;Edit&rdquo; and &ldquo;Duplicate&rdquo; options you have to select a color from the list. The dialog that will appear is identical to the one for new colors.</p>
-<p>Deleting a color from the list can be risky, since the color may have already been applied to an item or text in a document. Thus, Scribus will always ask for a replacement color, a mechanism that&rsquo;s similar to <i>Edit > Replace Colors</i>, which is described in the section on <a href="importhints2.html">importing vector drawings</a>:</p><br>
-<table width="100%"><tr><td align="center"><img src="images/editcols3.png"/></td></tr></table><br>
-<p>The final editing option is called &ldquo;Remove Unused,&rdquo; which is also described in the vector import section.</p>
-<p>If you click &ldquo;OK&rdquo;, the changes to the color list will be saved in your Scribus document, while clicking &ldquo;Cancel&rdquo; will leave the list untouched.</p>
+</body>
+</html>
