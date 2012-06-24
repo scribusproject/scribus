@@ -238,7 +238,7 @@ void HelpBrowser::setupLocalUI()
 	//Add Menu items
 	filePrint=fileMenu->addAction(loadIcon("16/document-print.png"), "", this, SLOT(print()), Qt::CTRL+Qt::Key_P);
 	fileMenu->addSeparator();
-	fileExit=fileMenu->addAction(loadIcon("exit.png"), "", this, SLOT(close()));
+	fileExit=fileMenu->addAction(loadIcon("exit.png"), "", this, SLOT(close()), Qt::CTRL+Qt::Key_W);
 	editFind=editMenu->addAction(loadIcon("find.png"), "", this, SLOT(find()), Qt::CTRL+Qt::Key_F);
 	editFindNext=editMenu->addAction( "", this, SLOT(findNext()), Qt::Key_F3);
 	editFindPrev=editMenu->addAction( "", this, SLOT(findPrevious()), Qt::SHIFT+Qt::Key_F3);
