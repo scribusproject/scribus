@@ -193,5 +193,16 @@ May raise NotFoundError if the line style doesn't exist.\n\
 /*! Set multiline */
 PyObject *scribus_setmultiline(PyObject * /*self*/, PyObject* args);
 
+/*! docstring */
+PyDoc_STRVAR(scribus_setnewname__doc__,
+QT_TR_NOOP("setNewName(newname, [\"name\"])\n\
+\n\
+Sets the new name of the object \"name\" to the newname.\n\
+If \"name\" is not given the currently selected item is used.\n\
+\n\
+May raise NotFoundError if the line style doesn't exist.\n\
+"));
+/*! Set newname */
+PyObject *scribus_setnewname(PyObject * /*self*/, PyObject* args);
 #endif
 
