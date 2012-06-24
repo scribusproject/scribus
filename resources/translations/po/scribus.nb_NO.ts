@@ -1895,6 +1895,10 @@ Hvis objektet «name» tilhører en gruppe blir hele gruppen flyttet.
         <source>Unlink Text Frame with Text Cut</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Adjust Frame Height to Text</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>AdjustCmsDialog</name>
@@ -22859,7 +22863,7 @@ Et kort tidsrom gir en kort effekt, et lengre tidsrom gir en lengre effekt.</tra
     </message>
     <message>
         <source>Default ICC profiles directory. This cannot be changed with a document open. By default, Scribus will look in the System Directories under Mac OSX and Windows. On Linux and Unix, Scribus will search $home/.color/icc,/usr/share/color/icc and /usr/local/share/color/icc </source>
-        <translation type="unfinished">
+        <translation type="obsolete">
             </translation>
     </message>
     <message>
@@ -22873,6 +22877,10 @@ Et kort tidsrom gir en kort effekt, et lengre tidsrom gir en lengre effekt.</tra
     <message>
         <source>Choose a Directory</source>
         <translation type="unfinished">Velg en mappe</translation>
+    </message>
+    <message>
+        <source>Default ICC profiles directory. This cannot be changed with a document open. By default, Scribus will look in the System Directories under Mac OSX and Windows. On Linux and Unix, Scribus will search $home/.color/icc, $home/.local/share/color/icc, /usr/share/color/icc and /usr/local/share/color/icc</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -31705,6 +31713,30 @@ Expressed as a percentage of the current white space value.</source>
     <message>
         <source>No Style</source>
         <translation type="unfinished">Ingen stil</translation>
+    </message>
+    <message>
+        <source>Lines:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>None</source>
+        <comment>optical margins</comment>
+        <translation type="unfinished">Ingen</translation>
+    </message>
+    <message>
+        <source>Both Sides</source>
+        <comment>optical margins</comment>
+        <translation type="unfinished">Begge sidene</translation>
+    </message>
+    <message>
+        <source>Left Only</source>
+        <comment>optical margins</comment>
+        <translation type="unfinished">Bare til venstre</translation>
+    </message>
+    <message>
+        <source>Right Only</source>
+        <comment>optical margins</comment>
+        <translation type="unfinished">Bare til høyre</translation>
     </message>
 </context>
 <context>

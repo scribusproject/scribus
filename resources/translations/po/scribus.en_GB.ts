@@ -8383,6 +8383,10 @@ May raise WrongFrameTypeError if the target frame is not an image frame
         <source>Unlink Text Frame with Text Cut</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Adjust Frame Height to Text</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>AdjustCmsDialog</name>
@@ -24345,7 +24349,7 @@ A value of 0 means unlimited hyphenations.</translation>
     </message>
     <message>
         <source>Default ICC profiles directory. This cannot be changed with a document open. By default, Scribus will look in the System Directories under Mac OSX and Windows. On Linux and Unix, Scribus will search $home/.color/icc,/usr/share/color/icc and /usr/local/share/color/icc </source>
-        <translation>Default ICC profiles directory. This cannot be changed with a document open. By default, Scribus will look in the System Directories under Mac OSX and Windows. On Linux and Unix, Scribus will search $home/.color/icc,/usr/share/color/icc and /usr/local/share/color/icc </translation>
+        <translation type="obsolete">Default ICC profiles directory. This cannot be changed with a document open. By default, Scribus will look in the System Directories under Mac OSX and Windows. On Linux and Unix, Scribus will search $home/.color/icc,/usr/share/color/icc and /usr/local/share/color/icc </translation>
     </message>
     <message>
         <source>Default Scripter scripts directory</source>
@@ -24358,6 +24362,10 @@ A value of 0 means unlimited hyphenations.</translation>
     <message>
         <source>Choose a Directory</source>
         <translation>Choose a Directory</translation>
+    </message>
+    <message>
+        <source>Default ICC profiles directory. This cannot be changed with a document open. By default, Scribus will look in the System Directories under Mac OSX and Windows. On Linux and Unix, Scribus will search $home/.color/icc, $home/.local/share/color/icc, /usr/share/color/icc and /usr/local/share/color/icc</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -32606,6 +32614,30 @@ Expressed as a percentage of the current white space value.</translation>
     <message>
         <source>No Style</source>
         <translation type="unfinished">No Style</translation>
+    </message>
+    <message>
+        <source>Lines:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>None</source>
+        <comment>optical margins</comment>
+        <translation type="unfinished">None</translation>
+    </message>
+    <message>
+        <source>Both Sides</source>
+        <comment>optical margins</comment>
+        <translation type="unfinished">Both Sides</translation>
+    </message>
+    <message>
+        <source>Left Only</source>
+        <comment>optical margins</comment>
+        <translation type="unfinished">Left Only</translation>
+    </message>
+    <message>
+        <source>Right Only</source>
+        <comment>optical margins</comment>
+        <translation type="unfinished">Right Only</translation>
     </message>
 </context>
 <context>
