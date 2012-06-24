@@ -834,19 +834,12 @@ INCLUDE_DIRECTORIES(
   ${JPEG_INCLUDE_DIR}
   ${LCMS_INCLUDE_DIR}
   ${LIBXML2_INCLUDE_DIR}
-  ${PYTHON_INCLUDE_PATH}
   ${TIFF_INCLUDE_DIR}
   ${ZLIB_INCLUDE_DIR}
   ${OPENGL_INCLUDE_DIR}
   ${OSG_INCLUDE_DIR}
   ${GSL_INCLUDE_DIR}
 )
-
-IF (HAVE_POPPLER)
-  INCLUDE_DIRECTORIES(
-	${POPPLER_INCLUDE_DIR}
-  )
-ENDIF (HAVE_POPPLER)
 
 ##############################################################################################################
 ########## Uninstall Setup                                                                          ##########
