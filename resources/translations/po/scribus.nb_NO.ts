@@ -22973,6 +22973,30 @@ Expressed as a percentage of the current white space value.</source>
         <source>Right Only</source>
         <translation>Bare til høyre</translation>
     </message>
+    <message>
+        <source>Lines:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>None</source>
+        <comment>optical margins</comment>
+        <translation type="unfinished">Ingen</translation>
+    </message>
+    <message>
+        <source>Both Sides</source>
+        <comment>optical margins</comment>
+        <translation type="unfinished">Begge sidene</translation>
+    </message>
+    <message>
+        <source>Left Only</source>
+        <comment>optical margins</comment>
+        <translation type="unfinished">Bare til venstre</translation>
+    </message>
+    <message>
+        <source>Right Only</source>
+        <comment>optical margins</comment>
+        <translation type="unfinished">Bare til høyre</translation>
+    </message>
 </context>
 <context>
     <name>SMParagraphStyle</name>
@@ -28316,7 +28340,7 @@ med jevne mellomrom</translation>
     </message>
     <message>
         <source>Default ICC profiles directory. This cannot be changed with a document open. By default, Scribus will look in the System Directories under Mac OSX and Windows. On Linux and Unix, Scribus will search $home/.color/icc,/usr/share/color/icc and /usr/local/share/color/icc </source>
-        <translation type="unfinished">
+        <translation type="obsolete">
             </translation>
     </message>
     <message>
@@ -28445,6 +28469,10 @@ med jevne mellomrom</translation>
         <source>Use Small Widgets in Palettes</source>
         <translation type="unfinished">
             </translation>
+    </message>
+    <message>
+        <source>Default ICC profiles directory. This cannot be changed with a document open. By default, Scribus will look in the System Directories under Mac OSX and Windows. On Linux and Unix, Scribus will search $home/.color/icc, $home/.local/share/color/icc, /usr/share/color/icc and /usr/local/share/color/icc</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

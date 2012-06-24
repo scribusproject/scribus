@@ -34848,7 +34848,7 @@ erro de python.</translation>
         <translation>Scripter</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/scriptplugin/scriptplugin.cpp" line="748"/>
+        <location filename="../../../scribus/plugins/scriptplugin/scriptplugin.cpp" line="749"/>
         <source>Scribus Python interface module
 
 This module is the Python interface for Scribus. It provides functions
@@ -37121,24 +37121,24 @@ Se se escollen Páxinas Enfrentadas, este espazo de marxe pódese ussar para obt
     <message>
         <location filename="../../../scribus/smpstylewidget.cpp" line="34"/>
         <location filename="../../../scribus/smpstylewidget.cpp" line="116"/>
-        <location filename="../../../scribus/smpstylewidget.cpp" line="159"/>
-        <location filename="../../../scribus/smpstylewidget.cpp" line="330"/>
+        <location filename="../../../scribus/smpstylewidget.cpp" line="173"/>
+        <location filename="../../../scribus/smpstylewidget.cpp" line="344"/>
         <source>Fixed Linespacing</source>
         <translation>Interliñado fixo</translation>
     </message>
     <message>
         <location filename="../../../scribus/smpstylewidget.cpp" line="35"/>
         <location filename="../../../scribus/smpstylewidget.cpp" line="117"/>
-        <location filename="../../../scribus/smpstylewidget.cpp" line="160"/>
-        <location filename="../../../scribus/smpstylewidget.cpp" line="331"/>
+        <location filename="../../../scribus/smpstylewidget.cpp" line="174"/>
+        <location filename="../../../scribus/smpstylewidget.cpp" line="345"/>
         <source>Automatic Linespacing</source>
         <translation>Interliñado automático</translation>
     </message>
     <message>
         <location filename="../../../scribus/smpstylewidget.cpp" line="36"/>
         <location filename="../../../scribus/smpstylewidget.cpp" line="118"/>
-        <location filename="../../../scribus/smpstylewidget.cpp" line="161"/>
-        <location filename="../../../scribus/smpstylewidget.cpp" line="332"/>
+        <location filename="../../../scribus/smpstylewidget.cpp" line="175"/>
+        <location filename="../../../scribus/smpstylewidget.cpp" line="346"/>
         <source>Align to Baseline Grid</source>
         <translation>Aliñar á grella base</translation>
     </message>
@@ -37147,41 +37147,42 @@ Se se escollen Páxinas Enfrentadas, este espazo de marxe pódese ussar para obt
         <translation type="obsolete"> pt</translation>
     </message>
     <message>
-        <location filename="../../../scribus/smpstylewidget.ui" line="72"/>
-        <location filename="../../../scribus/smpstylewidget.cpp" line="133"/>
+        <location filename="../../../scribus/smpstylewidget.ui" line="70"/>
+        <location filename="../../../scribus/smpstylewidget.cpp" line="136"/>
         <source>Distances and Alignment</source>
         <translation>Distancias e aliñamento</translation>
     </message>
     <message>
-        <location filename="../../../scribus/smpstylewidget.ui" line="247"/>
-        <location filename="../../../scribus/smpstylewidget.cpp" line="134"/>
+        <location filename="../../../scribus/smpstylewidget.ui" line="245"/>
+        <location filename="../../../scribus/smpstylewidget.cpp" line="137"/>
         <source>Drop Caps</source>
         <translation>Maiúsculas capitulares</translation>
     </message>
     <message>
-        <location filename="../../../scribus/smpstylewidget.ui" line="589"/>
-        <location filename="../../../scribus/smpstylewidget.cpp" line="135"/>
+        <location filename="../../../scribus/smpstylewidget.ui" line="587"/>
+        <location filename="../../../scribus/smpstylewidget.cpp" line="138"/>
         <source>Tabulators and Indentation</source>
         <translation>Tabuladores e indentación</translation>
     </message>
     <message>
-        <location filename="../../../scribus/smpstylewidget.ui" line="20"/>
-        <location filename="../../../scribus/smpstylewidget.cpp" line="136"/>
+        <location filename="../../../scribus/smpstylewidget.ui" line="21"/>
+        <location filename="../../../scribus/smpstylewidget.cpp" line="139"/>
         <source>Properties</source>
         <translation>Propiedades</translation>
     </message>
     <message>
-        <location filename="../../../scribus/smpstylewidget.cpp" line="137"/>
+        <location filename="../../../scribus/smpstylewidget.cpp" line="140"/>
         <source>Character Style</source>
         <translation>Estilo de carácter</translation>
     </message>
     <message>
-        <location filename="../../../scribus/smpstylewidget.ui" line="265"/>
+        <location filename="../../../scribus/smpstylewidget.ui" line="263"/>
         <source>&amp;Lines:</source>
         <translation>&amp;Liñas:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/smpstylewidget.ui" line="289"/>
+        <location filename="../../../scribus/smpstylewidget.ui" line="287"/>
+        <location filename="../../../scribus/smpstylewidget.cpp" line="131"/>
         <source>Distance from Text:</source>
         <translation>Distancia ao texto:</translation>
     </message>
@@ -37241,21 +37242,50 @@ Se se escollen Páxinas Enfrentadas, este espazo de marxe pódese ussar para obt
         <translation>Indentación dereita</translation>
     </message>
     <message>
-        <location filename="../../../scribus/smpstylewidget.ui" line="34"/>
-        <location filename="../../../scribus/smpstylewidget.cpp" line="132"/>
-        <location filename="../../../scribus/smpstylewidget.cpp" line="274"/>
-        <location filename="../../../scribus/smpstylewidget.cpp" line="655"/>
+        <location filename="../../../scribus/smpstylewidget.cpp" line="130"/>
+        <source>Lines:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/smpstylewidget.cpp" line="149"/>
+        <source>None</source>
+        <comment>optical margins</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/smpstylewidget.cpp" line="150"/>
+        <source>Both Sides</source>
+        <comment>optical margins</comment>
+        <translation type="unfinished">Ambas as dúas caras</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/smpstylewidget.cpp" line="151"/>
+        <source>Left Only</source>
+        <comment>optical margins</comment>
+        <translation type="unfinished">Só a esquerda</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/smpstylewidget.cpp" line="152"/>
+        <source>Right Only</source>
+        <comment>optical margins</comment>
+        <translation type="unfinished">Só a dereita</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/smpstylewidget.ui" line="32"/>
+        <location filename="../../../scribus/smpstylewidget.cpp" line="135"/>
+        <location filename="../../../scribus/smpstylewidget.cpp" line="288"/>
+        <location filename="../../../scribus/smpstylewidget.cpp" line="669"/>
         <source>Based On:</source>
         <translation>Baseado en:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/smpstylewidget.ui" line="86"/>
-        <location filename="../../../scribus/smpstylewidget.ui" line="139"/>
-        <location filename="../../../scribus/smpstylewidget.ui" line="179"/>
-        <location filename="../../../scribus/smpstylewidget.ui" line="460"/>
-        <location filename="../../../scribus/smpstylewidget.ui" line="501"/>
-        <location filename="../../../scribus/smpstylewidget.ui" line="512"/>
-        <location filename="../../../scribus/smpstylewidget.ui" line="536"/>
+        <location filename="../../../scribus/smpstylewidget.ui" line="84"/>
+        <location filename="../../../scribus/smpstylewidget.ui" line="137"/>
+        <location filename="../../../scribus/smpstylewidget.ui" line="177"/>
+        <location filename="../../../scribus/smpstylewidget.ui" line="458"/>
+        <location filename="../../../scribus/smpstylewidget.ui" line="499"/>
+        <location filename="../../../scribus/smpstylewidget.ui" line="510"/>
+        <location filename="../../../scribus/smpstylewidget.ui" line="534"/>
         <source>TextLabel</source>
         <translation>EtiquetaDeTexto</translation>
     </message>
@@ -37264,7 +37294,7 @@ Se se escollen Páxinas Enfrentadas, este espazo de marxe pódese ussar para obt
         <translation type="obsolete">Estado das Maiúsculas Capitulares Pai</translation>
     </message>
     <message>
-        <location filename="../../../scribus/smpstylewidget.ui" line="639"/>
+        <location filename="../../../scribus/smpstylewidget.ui" line="637"/>
         <source>Ch&amp;aracter Style</source>
         <translation>Estilo de c&amp;arácter</translation>
     </message>
@@ -37306,17 +37336,18 @@ Exprésase como porcentaxe do valor de espazo en branco actual.</translation>
         <translation>Extensión máxima para os glifos</translation>
     </message>
     <message>
-        <location filename="../../../scribus/smpstylewidget.ui" line="367"/>
+        <location filename="../../../scribus/smpstylewidget.ui" line="365"/>
+        <location filename="../../../scribus/smpstylewidget.cpp" line="148"/>
         <source>Optical Margins</source>
         <translation>Marxes ópticas</translation>
     </message>
     <message>
-        <location filename="../../../scribus/smpstylewidget.cpp" line="278"/>
+        <location filename="../../../scribus/smpstylewidget.cpp" line="292"/>
         <source>A default style cannot be assigned a parent style</source>
         <translation>A un estilo por omisión non se lle pode asignar un estilo pai</translation>
     </message>
     <message>
-        <location filename="../../../scribus/smpstylewidget.cpp" line="139"/>
+        <location filename="../../../scribus/smpstylewidget.cpp" line="143"/>
         <source>Min. Space Width:</source>
         <translation>Min. anchura espazo:</translation>
     </message>
@@ -37329,55 +37360,58 @@ Exprésase como porcentaxe do valor de espazo en branco actual.</translation>
         <translation type="obsolete">Máx. extensión glifos:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/smpstylewidget.ui" line="334"/>
-        <location filename="../../../scribus/smpstylewidget.ui" line="385"/>
+        <location filename="../../../scribus/smpstylewidget.ui" line="332"/>
+        <location filename="../../../scribus/smpstylewidget.ui" line="383"/>
+        <location filename="../../../scribus/smpstylewidget.cpp" line="155"/>
         <source>Use Parent Value</source>
         <translation>Usar o valor pai</translation>
     </message>
     <message>
-        <location filename="../../../scribus/smpstylewidget.ui" line="378"/>
+        <location filename="../../../scribus/smpstylewidget.ui" line="376"/>
+        <location filename="../../../scribus/smpstylewidget.cpp" line="154"/>
         <source>Reset to Default</source>
         <translation>Volver ao predeterminado</translation>
     </message>
     <message>
-        <location filename="../../../scribus/smpstylewidget.ui" line="443"/>
+        <location filename="../../../scribus/smpstylewidget.ui" line="441"/>
+        <location filename="../../../scribus/smpstylewidget.cpp" line="142"/>
         <source>Advanced Settings</source>
         <translation>Configuración avanzada</translation>
     </message>
     <message>
-        <location filename="../../../scribus/smpstylewidget.cpp" line="140"/>
+        <location filename="../../../scribus/smpstylewidget.cpp" line="144"/>
         <source>Glyph Extension</source>
         <translation>Extensión de glifos</translation>
     </message>
     <message>
-        <location filename="../../../scribus/smpstylewidget.cpp" line="141"/>
+        <location filename="../../../scribus/smpstylewidget.cpp" line="145"/>
         <source>Min:</source>
         <comment>Glyph Extension</comment>
         <translation>Mín:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/smpstylewidget.cpp" line="142"/>
+        <location filename="../../../scribus/smpstylewidget.cpp" line="146"/>
         <source>Max:</source>
         <comment>Glyph Extension</comment>
         <translation>Máx:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/smpstylewidget.ui" line="394"/>
+        <location filename="../../../scribus/smpstylewidget.ui" line="392"/>
         <source>None</source>
         <translation>Nengunha</translation>
     </message>
     <message>
-        <location filename="../../../scribus/smpstylewidget.ui" line="404"/>
+        <location filename="../../../scribus/smpstylewidget.ui" line="402"/>
         <source>Both Sides</source>
         <translation>Ambas as dúas caras</translation>
     </message>
     <message>
-        <location filename="../../../scribus/smpstylewidget.ui" line="411"/>
+        <location filename="../../../scribus/smpstylewidget.ui" line="409"/>
         <source>Left Only</source>
         <translation>Só a esquerda</translation>
     </message>
     <message>
-        <location filename="../../../scribus/smpstylewidget.ui" line="418"/>
+        <location filename="../../../scribus/smpstylewidget.ui" line="416"/>
         <source>Right Only</source>
         <translation>Só a dereita</translation>
     </message>
@@ -44123,8 +44157,12 @@ Selector de Estilo de Texto</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabgeneral.cpp" line="61"/>
+        <source>Default ICC profiles directory. This cannot be changed with a document open. By default, Scribus will look in the System Directories under Mac OSX and Windows. On Linux and Unix, Scribus will search $home/.color/icc, $home/.local/share/color/icc, /usr/share/color/icc and /usr/local/share/color/icc</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Default ICC profiles directory. This cannot be changed with a document open. By default, Scribus will look in the System Directories under Mac OSX and Windows. On Linux and Unix, Scribus will search $home/.color/icc,/usr/share/color/icc and /usr/local/share/color/icc </source>
-        <translation>Directorio por omisión dos perfís ICC. Isto non se pode modificar cando un documento está aberto. Por omisión, Scribus procurará baixo os Directorios de Sistema en MacOS X e Windows. En Linux e Unix, Scribus procurará en $home/.color/icc,/usr/share/color/icc e /usr/local/share/color/icc</translation>
+        <translation type="obsolete">Directorio por omisión dos perfís ICC. Isto non se pode modificar cando un documento está aberto. Por omisión, Scribus procurará baixo os Directorios de Sistema en MacOS X e Windows. En Linux e Unix, Scribus procurará en $home/.color/icc,/usr/share/color/icc e /usr/local/share/color/icc</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabgeneral.cpp" line="62"/>

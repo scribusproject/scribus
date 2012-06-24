@@ -29394,7 +29394,7 @@ Ali jo želite zamenjati z novo?</translation>
         <translation>Ime datoteke ne sme biti prazno.</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/scriptplugin/scriptplugin.cpp" line="748"/>
+        <location filename="../../../scribus/plugins/scriptplugin/scriptplugin.cpp" line="749"/>
         <source>Scribus Python interface module
 
 This module is the Python interface for Scribus. It provides functions
@@ -31644,24 +31644,24 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     <message>
         <location filename="../../../scribus/smpstylewidget.cpp" line="34"/>
         <location filename="../../../scribus/smpstylewidget.cpp" line="116"/>
-        <location filename="../../../scribus/smpstylewidget.cpp" line="159"/>
-        <location filename="../../../scribus/smpstylewidget.cpp" line="330"/>
+        <location filename="../../../scribus/smpstylewidget.cpp" line="173"/>
+        <location filename="../../../scribus/smpstylewidget.cpp" line="344"/>
         <source>Fixed Linespacing</source>
         <translation>Nespremenljiv razmik vrstic</translation>
     </message>
     <message>
         <location filename="../../../scribus/smpstylewidget.cpp" line="35"/>
         <location filename="../../../scribus/smpstylewidget.cpp" line="117"/>
-        <location filename="../../../scribus/smpstylewidget.cpp" line="160"/>
-        <location filename="../../../scribus/smpstylewidget.cpp" line="331"/>
+        <location filename="../../../scribus/smpstylewidget.cpp" line="174"/>
+        <location filename="../../../scribus/smpstylewidget.cpp" line="345"/>
         <source>Automatic Linespacing</source>
         <translation>Samodejen razmik vrstic</translation>
     </message>
     <message>
         <location filename="../../../scribus/smpstylewidget.cpp" line="36"/>
         <location filename="../../../scribus/smpstylewidget.cpp" line="118"/>
-        <location filename="../../../scribus/smpstylewidget.cpp" line="161"/>
-        <location filename="../../../scribus/smpstylewidget.cpp" line="332"/>
+        <location filename="../../../scribus/smpstylewidget.cpp" line="175"/>
+        <location filename="../../../scribus/smpstylewidget.cpp" line="346"/>
         <source>Align to Baseline Grid</source>
         <translation>Poravnaj na mrežo osnovnice </translation>
     </message>
@@ -31721,60 +31721,90 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
         <translation>Desni zamik</translation>
     </message>
     <message>
-        <location filename="../../../scribus/smpstylewidget.ui" line="34"/>
-        <location filename="../../../scribus/smpstylewidget.cpp" line="132"/>
-        <location filename="../../../scribus/smpstylewidget.cpp" line="274"/>
-        <location filename="../../../scribus/smpstylewidget.cpp" line="655"/>
+        <location filename="../../../scribus/smpstylewidget.cpp" line="130"/>
+        <source>Lines:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/smpstylewidget.cpp" line="149"/>
+        <source>None</source>
+        <comment>optical margins</comment>
+        <translation type="unfinished">Brez</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/smpstylewidget.cpp" line="150"/>
+        <source>Both Sides</source>
+        <comment>optical margins</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/smpstylewidget.cpp" line="151"/>
+        <source>Left Only</source>
+        <comment>optical margins</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/smpstylewidget.cpp" line="152"/>
+        <source>Right Only</source>
+        <comment>optical margins</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/smpstylewidget.ui" line="32"/>
+        <location filename="../../../scribus/smpstylewidget.cpp" line="135"/>
+        <location filename="../../../scribus/smpstylewidget.cpp" line="288"/>
+        <location filename="../../../scribus/smpstylewidget.cpp" line="669"/>
         <source>Based On:</source>
         <translation>Temelji na:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/smpstylewidget.ui" line="72"/>
-        <location filename="../../../scribus/smpstylewidget.cpp" line="133"/>
+        <location filename="../../../scribus/smpstylewidget.ui" line="70"/>
+        <location filename="../../../scribus/smpstylewidget.cpp" line="136"/>
         <source>Distances and Alignment</source>
         <translation>Razdalje in poravnava</translation>
     </message>
     <message>
-        <location filename="../../../scribus/smpstylewidget.ui" line="247"/>
-        <location filename="../../../scribus/smpstylewidget.cpp" line="134"/>
+        <location filename="../../../scribus/smpstylewidget.ui" line="245"/>
+        <location filename="../../../scribus/smpstylewidget.cpp" line="137"/>
         <source>Drop Caps</source>
         <translation>Ozaljšana začetnica</translation>
     </message>
     <message>
-        <location filename="../../../scribus/smpstylewidget.ui" line="589"/>
-        <location filename="../../../scribus/smpstylewidget.cpp" line="135"/>
+        <location filename="../../../scribus/smpstylewidget.ui" line="587"/>
+        <location filename="../../../scribus/smpstylewidget.cpp" line="138"/>
         <source>Tabulators and Indentation</source>
         <translation>Tabulatorji in zamikanje</translation>
     </message>
     <message>
-        <location filename="../../../scribus/smpstylewidget.ui" line="20"/>
-        <location filename="../../../scribus/smpstylewidget.cpp" line="136"/>
+        <location filename="../../../scribus/smpstylewidget.ui" line="21"/>
+        <location filename="../../../scribus/smpstylewidget.cpp" line="139"/>
         <source>Properties</source>
         <translation>Lastnosti</translation>
     </message>
     <message>
-        <location filename="../../../scribus/smpstylewidget.cpp" line="137"/>
+        <location filename="../../../scribus/smpstylewidget.cpp" line="140"/>
         <source>Character Style</source>
         <translation>Slog znakov</translation>
     </message>
     <message>
-        <location filename="../../../scribus/smpstylewidget.ui" line="86"/>
-        <location filename="../../../scribus/smpstylewidget.ui" line="139"/>
-        <location filename="../../../scribus/smpstylewidget.ui" line="179"/>
-        <location filename="../../../scribus/smpstylewidget.ui" line="460"/>
-        <location filename="../../../scribus/smpstylewidget.ui" line="501"/>
-        <location filename="../../../scribus/smpstylewidget.ui" line="512"/>
-        <location filename="../../../scribus/smpstylewidget.ui" line="536"/>
+        <location filename="../../../scribus/smpstylewidget.ui" line="84"/>
+        <location filename="../../../scribus/smpstylewidget.ui" line="137"/>
+        <location filename="../../../scribus/smpstylewidget.ui" line="177"/>
+        <location filename="../../../scribus/smpstylewidget.ui" line="458"/>
+        <location filename="../../../scribus/smpstylewidget.ui" line="499"/>
+        <location filename="../../../scribus/smpstylewidget.ui" line="510"/>
+        <location filename="../../../scribus/smpstylewidget.ui" line="534"/>
         <source>TextLabel</source>
         <translation>BesedilnaOznaka</translation>
     </message>
     <message>
-        <location filename="../../../scribus/smpstylewidget.ui" line="265"/>
+        <location filename="../../../scribus/smpstylewidget.ui" line="263"/>
         <source>&amp;Lines:</source>
         <translation>&amp;Črte:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/smpstylewidget.ui" line="289"/>
+        <location filename="../../../scribus/smpstylewidget.ui" line="287"/>
+        <location filename="../../../scribus/smpstylewidget.cpp" line="131"/>
         <source>Distance from Text:</source>
         <translation>Razdalja do besedila:</translation>
     </message>
@@ -31783,12 +31813,12 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
         <translation type="obsolete">Stanje ozaljšane začetnice starša</translation>
     </message>
     <message>
-        <location filename="../../../scribus/smpstylewidget.ui" line="639"/>
+        <location filename="../../../scribus/smpstylewidget.ui" line="637"/>
         <source>Ch&amp;aracter Style</source>
         <translation>Slog &amp;znakov</translation>
     </message>
     <message>
-        <location filename="../../../scribus/smpstylewidget.ui" line="394"/>
+        <location filename="../../../scribus/smpstylewidget.ui" line="392"/>
         <source>None</source>
         <translation type="unfinished">Brez</translation>
     </message>
@@ -31829,65 +31859,69 @@ Expressed as a percentage of the current white space value.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/smpstylewidget.ui" line="367"/>
+        <location filename="../../../scribus/smpstylewidget.ui" line="365"/>
+        <location filename="../../../scribus/smpstylewidget.cpp" line="148"/>
         <source>Optical Margins</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/smpstylewidget.cpp" line="278"/>
+        <location filename="../../../scribus/smpstylewidget.cpp" line="292"/>
         <source>A default style cannot be assigned a parent style</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/smpstylewidget.cpp" line="139"/>
+        <location filename="../../../scribus/smpstylewidget.cpp" line="143"/>
         <source>Min. Space Width:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/smpstylewidget.ui" line="334"/>
-        <location filename="../../../scribus/smpstylewidget.ui" line="385"/>
+        <location filename="../../../scribus/smpstylewidget.ui" line="332"/>
+        <location filename="../../../scribus/smpstylewidget.ui" line="383"/>
+        <location filename="../../../scribus/smpstylewidget.cpp" line="155"/>
         <source>Use Parent Value</source>
         <translation type="unfinished">Uporabi vrednost starša</translation>
     </message>
     <message>
-        <location filename="../../../scribus/smpstylewidget.ui" line="378"/>
+        <location filename="../../../scribus/smpstylewidget.ui" line="376"/>
+        <location filename="../../../scribus/smpstylewidget.cpp" line="154"/>
         <source>Reset to Default</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/smpstylewidget.ui" line="443"/>
+        <location filename="../../../scribus/smpstylewidget.ui" line="441"/>
+        <location filename="../../../scribus/smpstylewidget.cpp" line="142"/>
         <source>Advanced Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/smpstylewidget.cpp" line="140"/>
+        <location filename="../../../scribus/smpstylewidget.cpp" line="144"/>
         <source>Glyph Extension</source>
         <translation type="unfinished">Končnica znaka</translation>
     </message>
     <message>
-        <location filename="../../../scribus/smpstylewidget.cpp" line="141"/>
+        <location filename="../../../scribus/smpstylewidget.cpp" line="145"/>
         <source>Min:</source>
         <comment>Glyph Extension</comment>
         <translation type="unfinished">Najm:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/smpstylewidget.cpp" line="142"/>
+        <location filename="../../../scribus/smpstylewidget.cpp" line="146"/>
         <source>Max:</source>
         <comment>Glyph Extension</comment>
         <translation type="unfinished">Najv:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/smpstylewidget.ui" line="404"/>
+        <location filename="../../../scribus/smpstylewidget.ui" line="402"/>
         <source>Both Sides</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/smpstylewidget.ui" line="411"/>
+        <location filename="../../../scribus/smpstylewidget.ui" line="409"/>
         <source>Left Only</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/smpstylewidget.ui" line="418"/>
+        <location filename="../../../scribus/smpstylewidget.ui" line="416"/>
         <source>Right Only</source>
         <translation type="unfinished"></translation>
     </message>
@@ -38541,8 +38575,12 @@ Uporabite le, če veste da vam po uvozu ne bo treba več urejati besedila.</tran
     </message>
     <message>
         <location filename="../../../scribus/tabgeneral.cpp" line="61"/>
+        <source>Default ICC profiles directory. This cannot be changed with a document open. By default, Scribus will look in the System Directories under Mac OSX and Windows. On Linux and Unix, Scribus will search $home/.color/icc, $home/.local/share/color/icc, /usr/share/color/icc and /usr/local/share/color/icc</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Default ICC profiles directory. This cannot be changed with a document open. By default, Scribus will look in the System Directories under Mac OSX and Windows. On Linux and Unix, Scribus will search $home/.color/icc,/usr/share/color/icc and /usr/local/share/color/icc </source>
-        <translation>Privzeta mapa s profili ICC. Te ni mogoče spremeniti ob odprtem dokumentu. Privzeta nastavitev je, da Scribus preišče sistemske mape v sistemih Mac OSX in Windows. V okoljih Linux ali Unix Scribus preišče mapi $home/.color/icc,/usr/share/color/icc in /usr/local/share/color/icc </translation>
+        <translation type="obsolete">Privzeta mapa s profili ICC. Te ni mogoče spremeniti ob odprtem dokumentu. Privzeta nastavitev je, da Scribus preišče sistemske mape v sistemih Mac OSX in Windows. V okoljih Linux ali Unix Scribus preišče mapi $home/.color/icc,/usr/share/color/icc in /usr/local/share/color/icc </translation>
     </message>
     <message>
         <location filename="../../../scribus/tabgeneral.cpp" line="62"/>
