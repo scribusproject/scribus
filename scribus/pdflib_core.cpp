@@ -1376,7 +1376,7 @@ bool PDFLibCore::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QStrin
 					if (Options.Compress)
 						PutDoc("\n/Filter /FlateDecode");
 					PutDoc(" >>\nstream\n"+EncStream(fon, fontGlyphXForm)+"\nendstream\nendobj\n");
-					Seite.XObjects[AllFonts[it.key()].psName().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" )+QString::number(ig.key())] = fontGlyphXForm;
+					Seite.XObjects[face.psName().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" )+QString::number(ig.key())] = fontGlyphXForm;
 				}
 			}
 		}
@@ -1387,10 +1387,10 @@ bool PDFLibCore::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QStrin
 			if ((fformat == ScFace::PFB) && (Options.EmbedList.contains(it.key())))
 			{
 				QString fon("");
+				QByteArray bb;
 				embeddedFontObject = newObject();
 				StartObj(embeddedFontObject);
-				QByteArray bb;
-				AllFonts[it.key()].RawData(bb);
+				face.RawData(bb);
 				int posi;
 				for (posi = 6; posi < bb.size(); ++posi)
 				{
@@ -1440,7 +1440,7 @@ bool PDFLibCore::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QStrin
 				bool ok = true;
 				embeddedFontObject = newObject();
 				StartObj(embeddedFontObject);
-				AllFonts[it.key()].EmbedFont(fon);
+				face.EmbedFont(fon);
 				int len1 = fon.indexOf("eexec")+5;
 				fon2 = fon.left(len1)+"\n";
 				int len2 = fon.indexOf("0000000000000000000000000");
@@ -1471,35 +1471,33 @@ bool PDFLibCore::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QStrin
 			}
 			if ((fformat == ScFace::SFNT || fformat == ScFace::TTCF) && (Options.EmbedList.contains(it.key())))
 			{
-				QString fon("");
+				QByteArray bb;
 				embeddedFontObject = newObject();
 				StartObj(embeddedFontObject);
-				QByteArray bb;
-				AllFonts[it.key()].RawData(bb);
-				//AV: += and append() dont't work because they stop at '\0' :-(
-				for (int i=0; i < bb.size(); i++)
-					fon += QChar(bb[i]);
-				int len = fon.length();
+				face.RawData(bb);
+				int len = bb.length();
 				if (Options.Compress)
-					fon = CompressStr(&fon);
-				//qDebug() << QString("sfnt data: size=%1 before=%2 compressed=%3").arg(bb.size()).arg(len).arg(fon.length());
-				PutDoc("<<\n/Length "+QString::number(fon.length()+1)+"\n");
-				PutDoc("/Length1 "+QString::number(len)+"\n");
+					bb = CompressArray(bb);
+				//qDebug() << QString("sfnt data: size=%1 compressed=%2").arg(len).arg(bb.length());
+				PutDoc("<<\n/Length " + QString::number(bb.length() + 1) + "\n");
+				PutDoc("/Length1 " + QString::number(len) + "\n");
 				if (Options.Compress)
 					PutDoc("/Filter /FlateDecode\n");
-				PutDoc(">>\nstream\n"+EncStream(fon, embeddedFontObject)+"\nendstream\nendobj\n");
+				PutDoc(">>\nstream\n");
+				EncodeArrayToStream(bb, embeddedFontObject);
+				PutDoc("\nendstream\nendobj\n");
 			}
 			uint fontDescriptor = newObject();
 			StartObj(fontDescriptor);
 			// TODO: think about QByteArray ScFace::getFontDescriptor() -- AV
 			PutDoc("<<\n/Type /FontDescriptor\n");
-			PutDoc("/FontName /"+AllFonts[it.key()].psName().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" )+"\n");
-			PutDoc("/FontBBox [ "+AllFonts[it.key()].fontBBoxAsString()+" ]\n");
+			PutDoc("/FontName /"+face.psName().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" )+"\n");
+			PutDoc("/FontBBox [ "+face.fontBBoxAsString()+" ]\n");
 			PutDoc("/Flags ");
 			//FIXME: isItalic() should be queried from ScFace, not from Qt -- AV
 			//QFontInfo fo = QFontInfo(it.data());
 			int pfl = 0;
-			if (AllFonts[it.key()].isFixedPitch())
+			if (face.isFixedPitch())
 				pfl = pfl ^ 1;
 			//if (fo.italic())
 			if (AllFonts[it.key()].italicAngleAsString() != "0")
@@ -1507,15 +1505,15 @@ bool PDFLibCore::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QStrin
 //			pfl = pfl ^ 4;
 			pfl = pfl ^ 32;
 			PutDoc(QString::number(pfl)+"\n");
-			PutDoc("/Ascent "+AllFonts[it.key()].ascentAsString()+"\n");
-			PutDoc("/Descent "+AllFonts[it.key()].descentAsString()+"\n");
-			PutDoc("/CapHeight "+AllFonts[it.key()].capHeightAsString()+"\n");
-			PutDoc("/ItalicAngle "+AllFonts[it.key()].italicAngleAsString()+"\n");
-//			PutDoc("/Ascent "+QString::number(static_cast<int>(AllFonts[it.key()].ascent()))+"\n");
-//			PutDoc("/Descent "+QString::number(static_cast<int>(AllFonts[it.key()].descent()))+"\n");
-//			PutDoc("/CapHeight "+QString::number(static_cast<int>(AllFonts[it.key()].capHeight()))+"\n");
-//			PutDoc("/ItalicAngle "+AllFonts[it.key()].italicAngle()+"\n");
-//			PutDoc("/StemV "+ AllFonts[it.key()].stemV() + "\n");
+			PutDoc("/Ascent " + face.ascentAsString()+"\n");
+			PutDoc("/Descent " + face.descentAsString()+"\n");
+			PutDoc("/CapHeight " + face.capHeightAsString()+"\n");
+			PutDoc("/ItalicAngle " + face.italicAngleAsString()+"\n");
+//			PutDoc("/Ascent "+QString::number(static_cast<int>(face.ascent()))+"\n");
+//			PutDoc("/Descent "+QString::number(static_cast<int>(face.descent()))+"\n");
+//			PutDoc("/CapHeight "+QString::number(static_cast<int>(face.capHeight()))+"\n");
+//			PutDoc("/ItalicAngle "+face.italicAngle()+"\n");
+//			PutDoc("/StemV "+ face.stemV() + "\n");
 			PutDoc("/StemV 1\n");
 			if ((fformat == ScFace::SFNT || fformat == ScFace::TTCF) && (Options.EmbedList.contains(it.key())))
 				PutDoc("/FontFile2 "+QString::number(embeddedFontObject)+" 0 R\n");
@@ -1524,14 +1522,14 @@ bool PDFLibCore::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QStrin
 			if ((fformat == ScFace::PFA) && (Options.EmbedList.contains(it.key())))
 				PutDoc("/FontFile "+QString::number(embeddedFontObject)+" 0 R\n");
 			PutDoc(">>\nendobj\n");
-/*			if (!FT_Has_PS_Glyph_Names(AllFonts[it.key()])
+/*			if (!FT_Has_PS_Glyph_Names(face)
 			{
 				StartObj(ObjCounter);
 				int chCount = 31;
 				PutDoc("[ 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 ");
 				for (int ww = 31; ww < 256; ++ww)
 				{
-					PutDoc(QString::number(static_cast<int>(AllFonts[it.key()]->CharWidth[itg.key()]*
+					PutDoc(QString::number(static_cast<int>(face->CharWidth[itg.key()]*
 							1000))+" ");
 					if (itg == gl.end())
 						break;
@@ -1546,7 +1544,7 @@ bool PDFLibCore::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QStrin
 				PutDoc("<<\n/Type /Font\n/Subtype ");
 				PutDoc((fformat == ScFace::SFNT || fformat == ScFace::TTCF) ? "/TrueType\n" : "/Type1\n");
 				PutDoc("/Name /Fo"+QString::number(a)+"\n");
-				PutDoc("/BaseFont /"+AllFonts[it.key()]->psName().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "" )+"\n");
+				PutDoc("/BaseFont /"+face->psName().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "" )+"\n");
 				//cf. widths:
 				PutDoc("/FirstChar 0\n");
 				PutDoc("/LastChar "+QString::number(chCount-1)+"\n");
@@ -1559,7 +1557,7 @@ bool PDFLibCore::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QStrin
 			else */
 //			{
 				QMap<uint,std::pair<QChar,QString> > gl;
-				AllFonts[it.key()].glyphNames(gl);
+				face.glyphNames(gl);
 				int nglyphs = 0;
 				QMap<uint,std::pair<QChar,QString> >::Iterator gli;
 				for (gli = gl.begin(); gli != gl.end(); ++gli)
@@ -1568,7 +1566,7 @@ bool PDFLibCore::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QStrin
 						nglyphs = gli.key();
 				}
 				++nglyphs;
-//				qDebug() << QString("pdflib: nglyphs %1 max %2").arg(nglyphs).arg(AllFonts[it.key()].maxGlyph());
+//				qDebug() << QString("pdflib: nglyphs %1 max %2").arg(nglyphs).arg(face.maxGlyph());
 				uint FontDes = fontDescriptor;
 				if (Options.Version == PDFOptions::PDFVersion_X4 && (fformat == ScFace::SFNT || fformat == ScFace::TTCF))
 				{
@@ -1584,7 +1582,7 @@ bool PDFLibCore::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QStrin
 					QList<uint>::iterator git;
 					for (git = keys.begin(); git != keys.end(); ++git)
 					{
-						PutDoc(QString::number(*git)+" ["+QString::number(static_cast<int>(AllFonts[it.key()].glyphWidth(*git)* 1000))+"] " );
+						PutDoc(QString::number(*git)+" ["+QString::number(static_cast<int>(face.glyphWidth(*git)* 1000))+"] " );
 						QString tmp, tmp2;
 						tmp.sprintf("%02X", *git);
 						tmp2.sprintf("%04X", gl.value(*git).first.unicode());
@@ -1633,13 +1631,13 @@ bool PDFLibCore::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QStrin
 					StartObj(fontObject2);
 					PutDoc("<<\n/Type /Font\n/Subtype /Type0\n");
 					PutDoc("/Name /Fo"+QString::number(a)+"\n");
-					PutDoc("/BaseFont /"+AllFonts[it.key()].psName().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" )+"\n");
+					PutDoc("/BaseFont /"+face.psName().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" )+"\n");
 					PutDoc("/Encoding /Identity-H\n");
 					PutDoc("/ToUnicode "+QString::number(fontToUnicode2)+" 0 R\n");
 					PutDoc("/DescendantFonts [");
 					PutDoc("<</Type /Font");
 					PutDoc("/Subtype /CIDFontType2");
-					PutDoc("/BaseFont /"+AllFonts[it.key()].psName().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" ));
+					PutDoc("/BaseFont /"+face.psName().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" ));
 					PutDoc("/FontDescriptor "+QString::number(FontDes)+" 0 R");
 					PutDoc("/CIDSystemInfo <</Ordering(Identity)/Registry(Adobe)/Supplement 0>>");
 					PutDoc("/DW 1000");
@@ -1665,7 +1663,7 @@ bool PDFLibCore::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QStrin
 						{
 							uint glyph = 224 * Fc + ww - 32;
 							if (gl.contains(glyph))
-								PutDoc(QString::number(static_cast<int>(AllFonts[it.key()].glyphWidth(glyph)* 1000))+" ");
+								PutDoc(QString::number(static_cast<int>(face.glyphWidth(glyph)* 1000))+" ");
 							else
 								PutDoc("0 ");
 							chCount++;
@@ -1758,7 +1756,7 @@ bool PDFLibCore::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QStrin
 						PutDoc("<<\n/Type /Font\n/Subtype ");
 						PutDoc((fformat == ScFace::SFNT || fformat == ScFace::TTCF) ? "/TrueType\n" : "/Type1\n");
 						PutDoc("/Name /Fo"+QString::number(a)+"S"+QString::number(Fc)+"\n");
-						PutDoc("/BaseFont /"+AllFonts[it.key()].psName().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" )+"\n");
+						PutDoc("/BaseFont /"+face.psName().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" )+"\n");
 						PutDoc("/FirstChar 0\n");
 						PutDoc("/LastChar "+QString::number(chCount-1)+"\n");
 						PutDoc("/Widths "+QString::number(fontWidths2)+" 0 R\n");
@@ -1773,9 +1771,9 @@ bool PDFLibCore::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QStrin
 					PutDoc("[ 0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 ");
 					for (int ww = 32; ww < 256; ++ww)
 					{
-						uint glyph = AllFonts[it.key()].char2CMap(QChar(ww));
+						uint glyph = face.char2CMap(QChar(ww));
 						if (gl.contains(glyph))
-							PutDoc(QString::number(static_cast<int>(AllFonts[it.key()].glyphWidth(glyph)* 1000))+" ");
+							PutDoc(QString::number(static_cast<int>(face.glyphWidth(glyph)* 1000))+" ");
 						else
 							PutDoc("0 ");
 					}
@@ -1794,11 +1792,11 @@ bool PDFLibCore::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QStrin
 					else
 					{
 						PutDoc("/Type1\n");
-						PutDoc("/Name /"+AllFonts[it.key()].psName().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" )+"\n");
-						Seite.FObjects[AllFonts[it.key()].psName().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" )] = ObjCounter;
-						UsedFontsF.insert(it.key(), "/"+AllFonts[it.key()].psName().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" ));
+						PutDoc("/Name /"+face.psName().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" )+"\n");
+						Seite.FObjects[face.psName().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" )] = ObjCounter;
+						UsedFontsF.insert(it.key(), "/"+face.psName().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" ));
 					} */
-					PutDoc("/BaseFont /"+AllFonts[it.key()].psName().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" )+"\n");
+					PutDoc("/BaseFont /"+face.psName().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" )+"\n");
 					PutDoc("/Encoding << \n");
 					PutDoc("/Differences [ \n");
 					PutDoc("24 /breve /caron /circumflex /dotaccent /hungarumlaut /ogonek /ring /tilde\n");
