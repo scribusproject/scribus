@@ -83,11 +83,7 @@ CMYKChoose::CMYKChoose( QWidget* parent, ScribusDoc* doc, ScColor orig, QString 
 	cyd = cmyk.y / 2.55;
 	ckd = cmyk.k / 2.55;
 	RGBColor rgb;
-	double crd, cgd, cbd;
 	ScColorEngine::getRGBValues(orig, m_doc, rgb);
-	crd = rgb.r / 2.55;
-	cgd = rgb.g / 2.55;
-	cbd = rgb.b / 2.55;
 	resize( 498, 306 );
 	setWindowTitle( tr( "Edit Color" ) );
 	setWindowIcon(QIcon(loadIcon("AppIcon.png")));

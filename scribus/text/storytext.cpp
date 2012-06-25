@@ -118,15 +118,6 @@ StoryText StoryText::copy() const
 	StoryText result(doc);
 	*(result.d) = *d;
 	return result;
-//	qDebug() << QString("StoryText::copy:");
-	QListIterator<ScText*> it( *(result.d) );
-	ScText* elem;
-	while ( it.hasNext() ) {
-		elem = it.next();
-//		qDebug() << QString("\tchar '%1' size %2 (orig %3)").arg(elem->ch).arg(elem->fontSize()).arg(charStyle(i++).fontSize());
-	}
-	
-	return result;
 }
 
 
@@ -533,7 +524,7 @@ void StoryText::insertCharsWithSmartHyphens(int pos, QString txt, bool applyNeig
 			if (item->ch == SpecialChars::PARSEP) {
 				insertParSep(index);
 			}
-			if (d->cursorPosition >= index) {
+			if (d->cursorPosition >= static_cast<uint>(index)) {
 				d->cursorPosition += 1;
 			}
 			++inserted;
@@ -846,7 +837,7 @@ void StoryText::applyCharStyle(int pos, uint len, const CharStyle& style )
 	if (len == 0)
 		return;
 
-	int lastParStart = pos == 0? 0 : -1;
+	//int lastParStart = pos == 0? 0 : -1;
 	ScText* itText;
 	for (uint i=pos; i < pos+len; ++i) {
 		itText = d->at(i);

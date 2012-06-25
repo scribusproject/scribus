@@ -214,9 +214,6 @@ bool EPSPlug::import(QString fName, const TransactionSettings &trSettings, int f
 	}
 	boundingBoxRect.addRect(0, 0, b-x, h-y);
 	Elements.clear();
-	FPoint minSize = m_Doc->minCanvasCoordinate;
-	FPoint maxSize = m_Doc->maxCanvasCoordinate;
-	FPoint cOrigin = m_Doc->view()->canvasOrigin();
 	m_Doc->view()->Deselect();
 	m_Doc->setLoading(true);
 	m_Doc->DoDrawing = false;

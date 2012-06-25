@@ -857,12 +857,10 @@ QDomElement SVGExPlug::processPathTextItem(PageItem *Item, QString trans, QStrin
 			}
 		}
 	}
-	double x, y, wide;
+	double wide;
 	QString chstr;
 	for (int a = 0; a < Item->itemText.length(); ++a)
 	{
-		x = 0.0;
-		y = 0.0;
 		ScText *hl = Item->itemText.item(a);
 		const CharStyle& charStyle(Item->itemText.charStyle(a));
 		chstr = Item->itemText.text(a,1);

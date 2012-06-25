@@ -378,9 +378,6 @@ bool OODPlug::convert(const TransactionSettings& trSettings, int flags)
 				m_Doc->documentInfo.setKeywords(Keys.left(Keys.length()-2));
 		}
 	}
-	FPoint minSize = m_Doc->minCanvasCoordinate;
-	FPoint maxSize = m_Doc->maxCanvasCoordinate;
-	FPoint cOrigin = m_Doc->view()->canvasOrigin();
 	Elements.clear();
 	m_Doc->view()->Deselect();
 	m_Doc->setLoading(true);
@@ -2003,6 +2000,3 @@ OODPlug::~OODPlug()
 	m_styles.clear();
 	m_draws.clear();
 }
-
-
-

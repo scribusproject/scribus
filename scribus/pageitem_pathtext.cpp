@@ -78,13 +78,12 @@ void PageItem_PathText::DrawObj_Item(ScPainter *p, QRectF cullingArea, double sc
 	MaxChars = 0;
 	int a;
 	double chs;
-	QString chstr, chstr2, chstr3;
+	QString chstr;
 	ScText *hl;
 	double dx;
 	FPoint point = FPoint(0, 0);
 	FPoint tangent = FPoint(0, 0);
 	uint seg = 0;
-	double segLen = 0;
 	QColor tmp;
 	CurX = Extra;
 	QString cachedStroke = "";
@@ -131,7 +130,6 @@ void PageItem_PathText::DrawObj_Item(ScPainter *p, QRectF cullingArea, double sc
 		CurX += itemText.charStyle(0).fontSize() * itemText.charStyle(0).tracking() / 10000.0;
 		totalTextLen += itemText.charStyle(0).fontSize() * itemText.charStyle(0).tracking() / 10000.0;
 	}
-	segLen = PoLine.lenPathSeg(seg);
 	for (a = firstChar; a < itemText.length(); ++a)
 	{
 		hl = itemText.item(a);

@@ -2533,8 +2533,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRectF cullingArea, double s
 		return;
 	QMatrix pf2;
 	QPoint pt1, pt2;
-	double wide, lineCorr;
-	QChar chstr0;
+	double wide;
 	QString cachedStroke = "";
 	QString cachedFill = "";
 	double cachedFillShade = -1;
@@ -2546,7 +2545,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRectF cullingArea, double s
 	QColor cachedFillQ;
 	QColor cachedStrokeQ;
 	//	QValueList<ParagraphStyle::TabRecord> tTabValues;
-	double desc, asce, tabDist;
+	double desc, asce;
 	//	tTabValues.clear();
 	p->save(); //SA1
 	//	QRect e2;
@@ -2570,10 +2569,6 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRectF cullingArea, double s
 			p->fillPath();
 		}
 	}
-	if (lineColor() != CommonStrings::None)
-		lineCorr = m_lineWidth / 2.0;
-	else
-		lineCorr = 0;
 	if ((isAnnotation()) && (annotation().Type() == 2) && (!Pfile.isEmpty()) && (PictureIsAvailable) && (PicArt) && (annotation().UseIcons()))
 	{
 		p->save();//SA2
@@ -2633,14 +2628,12 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRectF cullingArea, double s
 			pf2.translate(0, Height);
 			pf2.scale(1, -1);
 		}
-		uint tabCc = 0;
 		assert( firstInFrame() >= 0 );
 		assert( lastInFrame() < itemText.length() );
 		LineSpec ls;
 		for (uint ll=0; ll < itemText.lines(); ++ll)
 		{
 			ls = itemText.line(ll);
-			tabDist = ls.x;
 			double CurX = ls.x;
 
 			// Draw text selection rectangles
@@ -2721,11 +2714,8 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRectF cullingArea, double s
 			{
 				hl = itemText.item(a);
 				const CharStyle& charStyle(itemText.charStyle(a));
-				double chs = charStyle.fontSize() * hl->glyph.scaleV;
 				bool selected = itemText.selected(a);
-				if (charStyle.effects() & ScStyle_StartOfLine)
-					tabCc = 0;
-				chstr0 = hl->ch;
+
 				actFill = charStyle.fillColor();
 				actFillShade = charStyle.fillShade();
 				if (actFill != CommonStrings::None)
@@ -2744,24 +2734,6 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRectF cullingArea, double s
 				}
 				else
 					p->setFillMode(ScPainter::None);
-				if (charStyle.effects() & ScStyle_DropCap)
-				{
-					const ParagraphStyle& style(itemText.paragraphStyle(a));
-					if (style.lineSpacingMode() == ParagraphStyle::BaselineGridLineSpacing)
-						chs = qRound(10 * ((m_Doc->typographicSettings.valueBaseGrid * (style.dropCapLines()-1) + (charStyle.font().ascent(style.charStyle().fontSize() / 10.0))) / charStyle.font().realCharHeight(chstr0, 10)));
-					else
-					{
-						if (style.lineSpacingMode() == ParagraphStyle::FixedLineSpacing)
-							chs = qRound(10 * ((style.lineSpacing() * (style.dropCapLines()-1)+(charStyle.font().ascent(style.charStyle().fontSize() / 10.0))) / charStyle.font().realCharHeight(chstr0, 10)));
-						else
-						{
-							double currasce = charStyle.font().height(style.charStyle().fontSize() / 10.0);
-							chs = qRound(10 * ((currasce * (style.dropCapLines()-1)+(charStyle.font().ascent(style.charStyle().fontSize() / 10.0))) / charStyle.font().realCharHeight(chstr0, 10)));
-						}
-					}
-				}
-				if (chstr0 == SpecialChars::TAB)
-					tabCc++;
 
 				if (!m_Doc->RePos)
 				{
@@ -2804,7 +2776,6 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRectF cullingArea, double s
 					else
 						CurX += hl->glyph.wide();
 				}
-				tabDist = CurX;
 			}
 		}
 	//	else {
@@ -3821,7 +3792,6 @@ void PageItem_TextFrame::drawColumnBorders(ScPainter *p)
 		p->drawLine(FPoint(0, TExtra + lineCorr), FPoint(Width, TExtra + lineCorr));
 	if (BExtra + lineCorr!=0.0)
 		p->drawLine(FPoint(0, Height - BExtra - lineCorr), FPoint(Width, Height - BExtra - lineCorr));
-	double oldColRightX = Extra + lineCorr;
 	while(curCol < Cols)
 	{
 		colLeft=(colWidth + ColGap) * curCol + Extra + lineCorr;
@@ -3829,7 +3799,6 @@ void PageItem_TextFrame::drawColumnBorders(ScPainter *p)
 			p->drawLine(FPoint(colLeft, 0), FPoint(colLeft, 0+Height));
 		if (colLeft + colWidth != Width)
 			p->drawLine(FPoint(colLeft+colWidth, 0), FPoint(colLeft+colWidth, 0+Height));
-		oldColRightX=colLeft+colWidth;
 		++curCol;
 	}
 	

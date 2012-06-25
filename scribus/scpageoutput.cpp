@@ -1016,12 +1016,12 @@ void ScPageOutput::drawItem_Line( PageItem_Line* item, ScPainterExBase* painter,
 
 void ScPageOutput::drawItem_PathText( PageItem_PathText* item, ScPainterExBase* painter, const QRect& clip )
 {
-	QString chstr, chstr2, chstr3;
+	QString chstr;
 	ScText *hl;
 	FPoint point = FPoint(0, 0);
 	FPoint tangent = FPoint(0, 0);
 	uint seg = 0;
-	double chs, dx, segLen = 0;
+	double dx;
 	double CurX = item->textToFrameDistLeft(); // item->CurX = item->textToFrameDistLeft()
 	double CurY = 0;
 	QString actFill, actStroke;
@@ -1060,7 +1060,6 @@ void ScPageOutput::drawItem_PathText( PageItem_PathText* item, ScPainterExBase* 
 		CurX += itemText.item(0)->fontSize() * itemText.charStyle(0).tracking() / 10000.0;
 		totalTextLen += itemText.charStyle(0).fontSize() * itemText.charStyle(0).tracking() / 10000.0;
 	}
-	segLen = item->PoLine.lenPathSeg(seg);
 	for (int a = 0; a < itemText.length(); ++a)
 	{
 		hl = itemText.item(a);
@@ -1107,7 +1106,6 @@ void ScPageOutput::drawItem_PathText( PageItem_PathText* item, ScPainterExBase* 
 		if (chstr[0] == SpecialChars::PAGENUMBER || chstr[0] == SpecialChars::PARSEP || chstr[0] == SpecialChars::PAGECOUNT
 			|| chstr[0] == SpecialChars::TAB || chstr[0] == SpecialChars::LINEBREAK)
 			continue;
-		chs = hl->fontSize();
 		if (a < itemText.length()-1)
 			chstr += itemText.text(a+1, 1);
 		hl->glyph.yadvance = 0;
@@ -1315,7 +1313,6 @@ void ScPageOutput::drawItem_TextFrame( PageItem_TextFrame* item, ScPainterExBase
 	QRegion cm;
 	int a;
 	double lineCorr;
-	QString chstr, chstr2, chstr3;
 	ScText *hl;
 	double desc, asce, tabDist;
 	
@@ -1361,7 +1358,7 @@ void ScPageOutput::drawItem_TextFrame( PageItem_TextFrame* item, ScPainterExBase
 			painter->translate(0, item->height());
 			painter->scale(1, -1);
 		}
-		uint tabCc = 0;
+
 		for (uint ll=0; ll < item->itemText.lines(); ++ll)
 		{
 			LineSpec ls = item->itemText.line(ll);
@@ -1371,10 +1368,6 @@ void ScPageOutput::drawItem_TextFrame( PageItem_TextFrame* item, ScPainterExBase
 			{
 				hl = item->itemText.item(a);
 				const CharStyle& charStyle  = item->itemText.charStyle(a);
-				double chs = charStyle.fontSize() * hl->glyph.scaleV;
-				if (charStyle.effects() & ScStyle_StartOfLine)
-					tabCc = 0;
-				chstr = hl->ch;
 				if (charStyle.fillColor() != CommonStrings::None)
 				{
 					ScColorShade tmp(m_doc->PageColors[charStyle.fillColor()], (int) hl->fillShade());
@@ -1385,24 +1378,7 @@ void ScPageOutput::drawItem_TextFrame( PageItem_TextFrame* item, ScPainterExBase
 					ScColorShade tmp(m_doc->PageColors[charStyle.strokeColor()], (int) hl->strokeShade());
 					painter->setPen(tmp, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 				}
-				if (charStyle.effects() & ScStyle_DropCap)
-				{
-					const ParagraphStyle& style(item->itemText.paragraphStyle(a));
-					if (style.lineSpacingMode() == ParagraphStyle::BaselineGridLineSpacing)
-						chs = qRound(10 * ((m_doc->typographicSettings.valueBaseGrid * (style.dropCapLines()-1) + (charStyle.font().ascent(style.charStyle().fontSize() / 10.0))) / charStyle.font().realCharHeight(chstr[0], 10)));
-					else
-					{
-						if (style.lineSpacingMode() == ParagraphStyle::FixedLineSpacing)
-							chs = qRound(10 * ((style.lineSpacing() * (style.dropCapLines()-1)+(charStyle.font().ascent(style.charStyle().fontSize() / 10.0))) / charStyle.font().realCharHeight(chstr[0], 10)));
-						else
-						{
-							double currasce = charStyle.font().height(style.charStyle().fontSize() / 10.0);
-							chs = qRound(10 * ((currasce * (style.dropCapLines()-1)+(charStyle.font().ascent(style.charStyle().fontSize() / 10.0))) / charStyle.font().realCharHeight(chstr[0], 10)));
-						}
-					}
-				}
-				if (chstr[0] == SpecialChars::TAB)
-					tabCc++;
+
 				//if (!m_doc->RePos)
 				{
 					//double xcoZli = CurX + hl->glyph.xoffset;
@@ -1696,7 +1672,3 @@ void ScPageOutput::strokePath( PageItem* item, ScPainterExBase* painter, const Q
 {
 	painter->strokePath();
 }
-
-
-
-

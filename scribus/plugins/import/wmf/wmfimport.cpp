@@ -567,9 +567,6 @@ bool WMFImport::importWMF(const TransactionSettings& trSettings, int flags)
 			m_Doc->PageOri = 0;
 		m_Doc->m_pageSize = "Custom";
 	}
-	FPoint minSize = m_Doc->minCanvasCoordinate;
-	FPoint maxSize = m_Doc->maxCanvasCoordinate;
-	FPoint cOrigin = m_Doc->view()->canvasOrigin();
 	m_Doc->view()->Deselect();
 	m_Doc->setLoading(true);
 	m_Doc->DoDrawing = false;

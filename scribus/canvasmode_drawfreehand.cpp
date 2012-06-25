@@ -246,8 +246,6 @@ void FreehandMode::mousePressEvent(QMouseEvent *m)
 	const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
 	double Rxp = 0;
 	double Ryp = 0;
-	double Rxpd = 0;
-	double Rypd = 0;
 //	m_canvas->PaintSizeRect(QRect());
 	FPoint npf, npf2;
 	QRect tx;
@@ -266,10 +264,8 @@ void FreehandMode::mousePressEvent(QMouseEvent *m)
 	QRect mpo(m->x()-m_doc->guidesSettings.grabRad, m->y()-m_doc->guidesSettings.grabRad, m_doc->guidesSettings.grabRad*2, m_doc->guidesSettings.grabRad*2);
 //	mpo.moveBy(qRound(m_doc->minCanvasCoordinate.x() * m_canvas->scale()), qRound(m_doc->minCanvasCoordinate.y() * m_canvas->scale()));
 	Rxp = m_doc->ApplyGridF(FPoint(Mxp, Myp)).x();
-	Rxpd = Mxp - Rxp;
 	Mxp = qRound(Rxp);
 	Ryp = m_doc->ApplyGridF(FPoint(Mxp, Myp)).y();
-	Rypd = Myp - Ryp;
 	Myp = qRound(Ryp);
 	SeRx = Mxp;
 	SeRy = Myp;
@@ -1047,6 +1043,4 @@ void FreehandMode::selectPage(QMouseEvent *m)
 		//FIXME m_view->setRulerPos(m_view->contentsX(), m_view->contentsY());
 	}
 }
-
-
 

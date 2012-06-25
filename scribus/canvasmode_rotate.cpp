@@ -193,7 +193,6 @@ void CanvasMode_Rotate::mousePressEvent(QMouseEvent *m)
 	m_canvasPressCoord = mousePointDoc;
 	
 	double Rxp = 0,  Ryp = 0;
-	double Rxpd = 0, Rypd = 0;
 	PageItem *currItem;
 	m_canvas->PaintSizeRect(QRect());
 	QRect tx;
@@ -206,10 +205,8 @@ void CanvasMode_Rotate::mousePressEvent(QMouseEvent *m)
 	m_view->registerMousePress(m->globalPos());
 	QRect mpo(m->x()-m_doc->guidesSettings.grabRad, m->y()-m_doc->guidesSettings.grabRad, m_doc->guidesSettings.grabRad*2, m_doc->guidesSettings.grabRad*2);
 	Rxp  = m_doc->ApplyGridF(m_canvasPressCoord).x();
-	Rxpd = m_canvasPressCoord.x() - Rxp;
 	m_canvasPressCoord.setX( qRound(Rxp) );
 	Ryp  = m_doc->ApplyGridF(m_canvasPressCoord).y();
-	Rypd = m_canvasPressCoord.y()  - Ryp;
 	m_canvasPressCoord.setY( qRound(Ryp) );
 	if (m->button() == Qt::MidButton)
 	{
@@ -384,15 +381,12 @@ void CanvasMode_Rotate::mouseMoveEvent(QMouseEvent *m)
 	m_canvasCurrCoord  = mousePointDoc;
 	m_angleConstrained = false;
 	
-	double newX, newY;
 	PageItem *currItem;
 	QRect tx;
 	m->accept();
 
 	if (GetItem(&currItem))
 	{
-		newX = qRound(mousePointDoc.x()); //m_view->translateToDoc(m->x(), m->y()).x());
-		newY = qRound(mousePointDoc.y()); //m_view->translateToDoc(m->x(), m->y()).y());
 		m_angleConstrained = ((m->modifiers() & Qt::ControlModifier) != Qt::NoModifier);
 		if (m_view->moveTimerElapsed() && m_canvas->m_viewMode.m_MouseButtonPressed)
 		{
@@ -452,8 +446,6 @@ void CanvasMode_Rotate::mouseMoveEvent(QMouseEvent *m)
 	{
 		if ((m_canvas->m_viewMode.m_MouseButtonPressed) && (m->buttons() & Qt::LeftButton))
 		{
-			newX = qRound(mousePointDoc.x()); //m_view->translateToDoc(m->x(), m->y()).x());
-			newY = qRound(mousePointDoc.y()); //m_view->translateToDoc(m->x(), m->y()).y());
 			QPoint startP = m_canvas->canvasToGlobal(m_canvasPressCoord);
 			m_view->redrawMarker->setGeometry(QRect(startP, m->globalPos()).normalized());
 			if (!m_view->redrawMarker->isVisible())

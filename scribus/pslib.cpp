@@ -2826,11 +2826,7 @@ bool PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 								PS_save();
 								PS_translate(0, -(tsz / 10.0));
 								double Ulen = hl->glyph.xadvance;
-								double Upos, Uwid, kern;
-								if (style.effects() & ScStyle_StartOfLine)
-									kern = 0;
-								else
-									kern = style.fontSize() * style.tracking() / 10000.0;
+								double Upos, Uwid;
 								if ((style.underlineOffset() != -1) || (style.underlineWidth() != -1))
 								{
 									if (style.underlineOffset() != -1)
@@ -2897,11 +2893,7 @@ bool PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 								PS_save();
 								PS_translate(0, -(tsz / 10.0));
 								double Ulen = hl->glyph.xadvance;
-								double Upos, Uwid, kern;
-								if (hl->effects() & ScStyle_StartOfLine)
-									kern = 0;
-								else
-									kern = style.fontSize() * style.tracking() / 10000.0;
+								double Upos, Uwid;
 								if ((style.strikethruOffset() != -1) || (style.strikethruWidth() != -1))
 								{
 									if (style.strikethruOffset() != -1)
@@ -2974,11 +2966,7 @@ bool PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 					{
 						PS_save();
 						double Ulen = hl->glyph.xadvance;
-						double Upos, Uwid, kern;
-						if (style.effects() & ScStyle_StartOfLine)
-							kern = 0;
-						else
-							kern = style.fontSize() * style.tracking() / 10000.0;
+						double Upos, Uwid;
 						if ((style.underlineOffset() != -1) || (style.underlineWidth() != -1))
 						{
 							if (style.underlineOffset() != -1)
@@ -3051,11 +3039,7 @@ bool PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 					{
 						PS_save();
 						double Ulen = hl->glyph.xadvance;
-						double Upos, Uwid, kern;
-						if (hl->effects() & ScStyle_StartOfLine)
-							kern = 0;
-						else
-							kern = style.fontSize() * style.tracking() / 10000.0;
+						double Upos, Uwid;
 						if ((style.strikethruOffset() != -1) || (style.strikethruWidth() != -1))
 						{
 							if (style.strikethruOffset() != -1)
@@ -3505,7 +3489,6 @@ void PSLib::setTextSt(ScribusDoc* Doc, PageItem* ite, bool gcr, uint argh, Page*
 	int tabCc = 0;
 	int savedOwnPage = ite->OwnPage;
 	double tabDist = ite->textToFrameDistLeft();
-	double colLeft = 0.0;
 	QList<ParagraphStyle::TabRecord> tTabValues;
 
 	ite->OwnPage = argh;
@@ -3517,7 +3500,6 @@ void PSLib::setTextSt(ScribusDoc* Doc, PageItem* ite, bool gcr, uint argh, Page*
 
 	for (uint ll=0; ll < ite->itemText.lines(); ++ll) {
 		LineSpec ls = ite->itemText.line(ll);
-		colLeft = ls.colLeft;
 		tabDist = ls.x;
 		double CurX = ls.x;
 
@@ -3775,11 +3757,7 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, double x, double y, bool g
 		{
 	//		double Ulen = cstyle.font().glyphWidth(glyph, cstyle.fontSize()) * glyphs.scaleH;
 			double Ulen = glyphs.xadvance;
-			double Upos, lw, kern;
-			if (cstyle.effects() & ScStyle_StartOfLine)
-				kern = 0;
-			else
-				kern = cstyle.fontSize() * cstyle.tracking() / 10000.0;
+			double Upos, lw;
 			if ((cstyle.underlineOffset() != -1) || (cstyle.underlineWidth() != -1))
 			{
 				if (cstyle.underlineOffset() != -1)
@@ -3908,11 +3886,7 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, double x, double y, bool g
 		{
 			//		double Ulen = cstyle.font().glyphWidth(glyph, cstyle.fontSize()) * glyphs.scaleH;
 			double Ulen = glyphs.xadvance;
-			double Upos, lw, kern;
-			if (cstyle.effects() & 16384)
-				kern = 0;
-			else
-				kern = cstyle.fontSize() * cstyle.tracking() / 10000.0;
+			double Upos, lw;
 			if ((cstyle.strikethruOffset() != -1) || (cstyle.strikethruWidth() != -1))
 			{
 				if (cstyle.strikethruOffset() != -1)

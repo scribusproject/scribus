@@ -441,10 +441,6 @@ void CanvasMode_NodeEdit::mousePressEvent(QMouseEvent *m)
 
 void CanvasMode_NodeEdit::mouseReleaseEvent(QMouseEvent *m)
 {
-//	const double mouseX = m->globalX();
-//	const double mouseY = m->globalY();
-	const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
-	
 //	QMenu* pmen3 = NULL;
 	PageItem *currItem;
 	m_canvas->m_viewMode.m_MouseButtonPressed = false;
@@ -1286,6 +1282,4 @@ void CanvasMode_NodeEdit::handleNodeEditDrag(QMouseEvent* m, PageItem* currItem)
 	m_canvas->m_viewMode.operItemMoving = false;
 	m_doc->regionsChanged()->update(QRectF());
 }
-
-
 

@@ -1136,8 +1136,6 @@ QPixmap StencilReader::createPreview(QString data)
 			double y1 = 0.0;
 			double currx = 0.0;
 			double curry = 0.0;
-			double startx = 0.0;
-			double starty = 0.0;
 			QString typ = pg.attribute("type");
 			QDomNode point = DOC.firstChild();
 			bool first = true;
@@ -1168,8 +1166,6 @@ QPixmap StencilReader::createPreview(QString data)
 					{
 						currx = x;
 						curry = y;
-						startx = x;
-						starty = y;
 						first = false;
 						if (pt.attribute("type") == "bezier")
 							count = 0;
@@ -1626,8 +1622,6 @@ QString StencilReader::createObjects(QString datain)
 			double y1 = 0.0;
 			double currx = 0.0;
 			double curry = 0.0;
-			double startx = 0.0;
-			double starty = 0.0;
 			QString typ = pg.attribute("type");
 			QDomNode point = DOC.firstChild();
 			bool first = true;
@@ -1675,8 +1669,6 @@ QString StencilReader::createObjects(QString datain)
 					{
 						currx = x;
 						curry = y;
-						startx = x;
-						starty = y;
 						first = false;
 						if (pt.attribute("type") == "bezier")
 							count = 0;
