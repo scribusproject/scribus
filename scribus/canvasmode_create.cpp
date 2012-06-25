@@ -392,7 +392,6 @@ void CreateMode::mousePressEvent(QMouseEvent *m)
 
 void CreateMode::mouseReleaseEvent(QMouseEvent *m)
 {
-	const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
 	modifiers = m->modifiers();
 
 	PageItem *currItem;

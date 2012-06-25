@@ -1067,7 +1067,7 @@ void ScPageOutput::drawItem_Line( PageItem_Line* item, ScPainterExBase* painter,
 
 void ScPageOutput::drawItem_PathText( PageItem_PathText* item, ScPainterExBase* painter, const QRect& clip )
 {
-	QString chstr, chstr2, chstr3;
+	QString chstr;
 	ScText *hl;
 	FPoint point = FPoint(0, 0);
 	FPoint tangent = FPoint(0, 0);
@@ -1582,7 +1582,6 @@ void ScPageOutput::drawItem_TextFrame( PageItem_TextFrame* item, ScPainterExBase
 	FPoint ColBound;
 	QRegion cm;
 	int a;
-	QString chstr, chstr2, chstr3;
 	ScText *hl;
 	double desc, asce;
 	
@@ -1624,7 +1623,6 @@ void ScPageOutput::drawItem_TextFrame( PageItem_TextFrame* item, ScPainterExBase
 			painter->translate(0, item->height());
 			painter->scale(1, -1);
 		}
-		uint tabCc = 0;
 
 		//automatic line spacing factor (calculated once)
 		double autoLS = static_cast<double>(m_doc->typographicPrefs().autoLineSpacing) / 100.0;
@@ -1637,10 +1635,7 @@ void ScPageOutput::drawItem_TextFrame( PageItem_TextFrame* item, ScPainterExBase
 			{
 				hl = item->itemText.item(a);
 				const CharStyle& charStyle  = item->itemText.charStyle(a);
-				double chs = charStyle.fontSize() * hl->glyph.scaleV;
-				if (charStyle.effects() & ScStyle_StartOfLine)
-					tabCc = 0;
-				chstr = hl->ch;
+
 				if (charStyle.fillColor() != CommonStrings::None)
 				{
 					ScColorShade tmp(m_doc->PageColors[charStyle.fillColor()], (int) hl->fillShade());
@@ -1651,21 +1646,7 @@ void ScPageOutput::drawItem_TextFrame( PageItem_TextFrame* item, ScPainterExBase
 					ScColorShade tmp(m_doc->PageColors[charStyle.strokeColor()], (int) hl->strokeShade());
 					painter->setPen(tmp, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 				}
-				if (charStyle.effects() & ScStyle_DropCap)
-				{
-					const ParagraphStyle& style(item->itemText.paragraphStyle(a));
-					if (style.lineSpacingMode() == ParagraphStyle::BaselineGridLineSpacing)
-						chs = qRound(10 * ((m_doc->guidesPrefs().valueBaselineGrid * (style.dropCapLines()-1) + (charStyle.font().ascent(style.charStyle().fontSize() / 10.0))) / charStyle.font().realCharHeight(chstr[0], 10)));
-					else if (style.lineSpacingMode() == ParagraphStyle::FixedLineSpacing)
-						chs = qRound(10 * ((style.lineSpacing() * (style.dropCapLines()-1)+(charStyle.font().ascent(style.charStyle().fontSize() / 10.0))) / charStyle.font().realCharHeight(chstr[0], 10)));
-					else
-					{
-						double currasce = charStyle.font().height(style.charStyle().fontSize() / 10.0) * autoLS;
-						chs = qRound(10 * ((currasce * (style.dropCapLines() - 1)+(charStyle.font().ascent(style.charStyle().fontSize() / 10.0))) / charStyle.font().realCharHeight(chstr[0], 10)));
-					}
-				}
-				if (chstr[0] == SpecialChars::TAB)
-					tabCc++;
+
 				//if (!m_doc->RePos)
 				{
 					//double xcoZli = CurX + hl->glyph.xoffset;

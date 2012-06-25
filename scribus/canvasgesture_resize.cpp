@@ -342,12 +342,8 @@ void ResizeGesture::doResize(bool scaleContent)
 				}
 			}
 		}
-		double oldX = currItem->xPos();
-		double oldY = currItem->yPos();
 		QTransform mm = currItem->getTransform();
 		QPointF itPos = mm.map(QPointF(0, 0));
-		oldX = itPos.x();
-		oldY = itPos.y();
 		double m_scaleX, m_scaleY;
 		getScaleFromMatrix(mm, m_scaleX, m_scaleY);
 		double dx = (itPos.x() - newBounds.x()) / m_scaleX;

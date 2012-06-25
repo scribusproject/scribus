@@ -188,8 +188,6 @@ void CalligraphicMode::mousePressEvent(QMouseEvent *m)
 	const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
 	double Rxp = 0;
 	double Ryp = 0;
-	double Rxpd = 0;
-	double Rypd = 0;
 	FPoint npf, npf2;
 	QRect tx;
 	QTransform pm;
@@ -203,10 +201,8 @@ void CalligraphicMode::mousePressEvent(QMouseEvent *m)
 	Myp = mousePointDoc.y(); //qRound(m->y()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.y());
 	QRect mpo(m->x()-m_doc->guidesPrefs().grabRadius, m->y()-m_doc->guidesPrefs().grabRadius, m_doc->guidesPrefs().grabRadius*2, m_doc->guidesPrefs().grabRadius*2);
 	Rxp = m_doc->ApplyGridF(FPoint(Mxp, Myp)).x();
-	Rxpd = Mxp - Rxp;
 	Mxp = qRound(Rxp);
 	Ryp = m_doc->ApplyGridF(FPoint(Mxp, Myp)).y();
-	Rypd = Myp - Ryp;
 	Myp = qRound(Ryp);
 	SeRx = Mxp;
 	SeRy = Myp;
@@ -235,9 +231,6 @@ void CalligraphicMode::mousePressEvent(QMouseEvent *m)
 
 void CalligraphicMode::mouseReleaseEvent(QMouseEvent *m)
 {
-	const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
-	
-
 	PageItem *currItem;
 	m_MouseButtonPressed = false;
 	m_canvas->resetRenderMode();

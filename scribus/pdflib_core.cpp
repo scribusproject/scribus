@@ -4832,7 +4832,6 @@ QString PDFLibCore::setTextSt(PageItem *ite, uint PNr, const ScPage* pag)
 	int tabCc = 0;
 	int savedOwnPage = ite->OwnPage;
 	double tabDist = ite->textToFrameDistLeft();
-	double colLeft = 0.0;
 	QString tmp(""), tmp2("");
 	QList<ParagraphStyle::TabRecord> tTabValues;
 	ite->OwnPage = PNr;
@@ -4848,7 +4847,6 @@ QString PDFLibCore::setTextSt(PageItem *ite, uint PNr, const ScPage* pag)
 		for (uint ll=0; ll < ite->itemText.lines(); ++ll)
 		{
 			LineSpec ls = ite->itemText.line(ll);
-			colLeft = ls.colLeft;
 			tabDist = ls.x;
 			double CurX = ls.x;
 			for (int d = ls.firstItem; d <= ls.lastItem; ++d)
@@ -5175,11 +5173,7 @@ bool PDFLibCore::setTextCh(PageItem *ite, uint PNr, double x, double y, uint d, 
 		{
 			//		double Ulen = style.font().charWidth(chstr, style.fontSize()) * (hl->glyph.scaleH);
 			double Ulen = hl->glyph.xadvance;
-			double Upos, Uwid, kern;
-			if (style.effects() & ScStyle_StartOfLine)
-				kern = 0;
-			else
-				kern = style.fontSize() * style.tracking() / 10000.0;
+			double Upos, Uwid;
 			if ((style.underlineOffset() != -1) || (style.underlineWidth() != -1))
 			{
 				if (style.underlineOffset() != -1)
@@ -5468,11 +5462,7 @@ bool PDFLibCore::setTextCh(PageItem *ite, uint PNr, double x, double y, uint d, 
 		{
 			//		double Ulen = style.font().charWidth(chstr, style.fontSize()) * (hl->glyph.scaleH);
 			double Ulen = hl->glyph.xadvance;
-			double Upos, Uwid, kern;
-			if (hl->effects() & ScStyle_StartOfLine)
-				kern = 0;
-			else
-				kern = style.fontSize() * style.tracking() / 10000.0;
+			double Upos, Uwid;
 			if ((style.strikethruOffset() != -1) || (style.strikethruWidth() != -1))
 			{
 				if (style.strikethruOffset() != -1)

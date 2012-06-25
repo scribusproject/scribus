@@ -128,7 +128,7 @@ bool SmlPlug::import(QString fNameIn, const TransactionSettings& trSettings, int
 	interactive = (flags & LoadSavePlugin::lfInteractive);
 	importerFlags = flags;
 	cancel = false;
-	double x, y, b, h;
+	double b, h;
 	bool ret = false;
 	QFileInfo fi = QFileInfo(fName);
 	if ( !ScCore->usingGUI() )
@@ -157,8 +157,6 @@ bool SmlPlug::import(QString fNameIn, const TransactionSettings& trSettings, int
 	else
 		progressDialog = NULL;
 /* Set default Page to size defined in Preferences */
-	x = 0.0;
-	y = 0.0;
 	b = 0.0;
 	h = 0.0;
 	if (progressDialog)

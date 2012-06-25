@@ -976,7 +976,6 @@ void ScPainterEx_Ps2::drawLinearGradient_RGB( VGradientEx& gradient, const QRect
 	int r2, g2, b2;
 	double cosa, sina;
 	double ramp1, ramp2;
-	double scale1, scale2;
 	double length, scale;
 	double x1, y1, x2, y2, dx, dy;
 	int clipBoxWidth, clipBoxHeight, maxDim;
@@ -994,9 +993,6 @@ void ScPainterEx_Ps2::drawLinearGradient_RGB( VGradientEx& gradient, const QRect
 	clipBoxHeight = rect.height();
 	maxDim = qRound(sqrt( (double) (clipBoxWidth * clipBoxWidth + clipBoxHeight * clipBoxHeight) )) * 2;
 	if ( maxDim <= 0 ) return;
-	
-	scale1 = sqrt( m_matrix.m11() * m_matrix.m11() + m_matrix.m12() * m_matrix.m12() );
-	scale2 = sqrt( m_matrix.m21() * m_matrix.m21() + m_matrix.m22() * m_matrix.m22() );
 
 	x1 = m_matrix.dx() + gradient.origin().x() * m_matrix.m11();
 	y1 = m_matrix.dy() + gradient.origin().y() * m_matrix.m22();
@@ -1080,7 +1076,6 @@ void ScPainterEx_Ps2::drawLinearGradient_CMYK( VGradientEx& gradient, const QRec
 	int c2, m2, j2, n2;
 	double cosa, sina;
 	double ramp1, ramp2;
-	double scale1, scale2;
 	double length, scale;
 	double x1, y1, x2, y2, dx, dy;
 	int clipBoxWidth, clipBoxHeight, maxDim;
@@ -1098,9 +1093,6 @@ void ScPainterEx_Ps2::drawLinearGradient_CMYK( VGradientEx& gradient, const QRec
 	clipBoxHeight = rect.height();
 	maxDim = qRound(sqrt( (double) (clipBoxWidth * clipBoxWidth + clipBoxHeight * clipBoxHeight) )) * 2;
 	if ( maxDim <= 0 ) return;
-	
-	scale1 = sqrt( m_matrix.m11() * m_matrix.m11() + m_matrix.m12() * m_matrix.m12() );
-	scale2 = sqrt( m_matrix.m21() * m_matrix.m21() + m_matrix.m22() * m_matrix.m22() );
 
 	x1 = m_matrix.dx() + gradient.origin().x() * m_matrix.m11();
 	y1 = m_matrix.dy() + gradient.origin().y() * m_matrix.m22();
@@ -1198,7 +1190,6 @@ void ScPainterEx_Ps2::drawCircularGradient_RGB( VGradientEx& gradient, const QRe
 	int r1, g1, b1;
 	int r2, g2, b2;
 	double ramp1, ramp2;
-	double scale1, scale2;
 	int clipBoxWidth, clipBoxHeight, maxDim;
 	QList<VColorStopEx*> colorStops = gradient.colorStops();
 	VColorStopEx stop1( *colorStops[gradient.Stops() - 1] );
@@ -1210,9 +1201,6 @@ void ScPainterEx_Ps2::drawCircularGradient_RGB( VGradientEx& gradient, const QRe
 	clipBoxHeight = rect.height();
 	maxDim = qRound(sqrt( (double) (clipBoxWidth * clipBoxWidth + clipBoxHeight * clipBoxHeight) )) * 2;
 	if ( maxDim <= 0 ) return;
-
-	scale1 = sqrt( m_matrix.m11() * m_matrix.m11() + m_matrix.m21() * m_matrix.m21() );
-	scale2 = sqrt( m_matrix.m12() * m_matrix.m12() + m_matrix.m22() * m_matrix.m22() );
 
 	FPoint pc( gradient.origin().x(), gradient.origin().y() );
 	FPoint pcz( gradient.origin().x(), gradient.origin().y() );
@@ -1285,7 +1273,6 @@ void ScPainterEx_Ps2::drawCircularGradient_CMYK( VGradientEx& gradient, const QR
 	int c1, m1, y1, k1;
 	int c2, m2, y2, k2;
 	double ramp1, ramp2;
-	double scale1, scale2;
 	int clipBoxWidth, clipBoxHeight, maxDim;
 	QList<VColorStopEx*> colorStops = gradient.colorStops();
 	VColorStopEx stop1( *colorStops[gradient.Stops() - 1] );
@@ -1297,9 +1284,6 @@ void ScPainterEx_Ps2::drawCircularGradient_CMYK( VGradientEx& gradient, const QR
 	clipBoxHeight = rect.height();
 	maxDim = qRound(sqrt( (double) (clipBoxWidth * clipBoxWidth + clipBoxHeight * clipBoxHeight) )) * 2;
 	if ( maxDim <= 0 ) return;
-
-	scale1 = sqrt( m_matrix.m11() * m_matrix.m11() + m_matrix.m21() * m_matrix.m21() );
-	scale2 = sqrt( m_matrix.m12() * m_matrix.m12() + m_matrix.m22() * m_matrix.m22() );
 
 	FPoint pc( gradient.origin().x(), gradient.origin().y() );
 	FPoint pcz( gradient.origin().x(), gradient.origin().y() );

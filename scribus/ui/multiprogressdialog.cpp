@@ -90,11 +90,8 @@ int MultiProgressDialog::progress(const QString &barName) const
 {
 	int progress = 0;
 	if (progressBars.contains(barName))
-	{
 		progress = progressBars[barName]->value();
-		return true;
-	}
-	return false;
+	return progress;
 }
 
 bool MultiProgressDialog::setLabel(const QString &barName, const QString & newLabel)

@@ -634,7 +634,7 @@ void SVGPlug::finishNode( const QDomNode &e, PageItem* item)
 		}
 	case PageItem::TextFrame:
 		{
-			QTransform mm = gc->matrix;
+			//QTransform mm = gc->matrix;
 			item->setLineWidth(item->lineWidth() * (coeff1 + coeff2) / 2.0);
 		}
 		break;

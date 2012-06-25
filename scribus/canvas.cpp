@@ -1273,7 +1273,7 @@ void Canvas::drawControlsMovingItemsRect(QPainter* pp)
 			double gx, gy, gw, gh;
 			m_doc->m_Selection->setGroupRect();
 			m_doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
-			QPoint out = contentsToViewport(QPoint(0, 0));
+			//QPoint out = contentsToViewport(QPoint(0, 0));
 			pp->translate(gx, gy);
 			pp->drawRect(QRectF(0.0, 0.0, gw, gh));
 		}
@@ -2488,8 +2488,3 @@ void Canvas::setupEditHRuler(PageItem * item, bool forceAndReset)
 	m_view->horizRuler->setItem(item);
 	m_view->horizRuler->update();
 }
-
-
-
-
-
