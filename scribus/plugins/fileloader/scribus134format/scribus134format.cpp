@@ -182,7 +182,6 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 	struct ScribusDoc::BookMa bok;
 	int counter;//, Pgc;
 	//bool AtFl;
-	bool newVersion = false;
 	QString tmp, tmpf, PgNam, Defont;
 	QMap<int,int> TableID;
 	QList<PageItem*> TableItems;
@@ -230,8 +229,6 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 	QDomElement elem=docu.documentElement();
 	if (elem.tagName() != "SCRIBUSUTF8NEW")
 		return false;
-	if (elem.hasAttribute("Version"))
-		newVersion = true;
 	QDomNode DOC=elem.firstChild();
 	if (m_mwProgressBar!=0)
 	{
@@ -2766,9 +2763,8 @@ bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool M
 	QMap<int,int> TableID;
 	QList<PageItem*> TableItems;
 	QMap<PageItem*, int> groupID;
-	int a, counter, baseobj;
+	int a, counter;
 	double pageX = 0, pageY = 0;
-	bool newVersion = false;
 	bool VorLFound = false;
 	QMap<int,int> layerTrans;
 	int maxLayer = 0;
@@ -2806,11 +2802,8 @@ bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool M
 	QDomElement elem=docu.documentElement();
 	if (elem.tagName() != "SCRIBUSUTF8NEW")
 		return false;
-	if (elem.hasAttribute("Version"))
-		newVersion = true;
 	QDomNode DOC=elem.firstChild();
 	counter = m_Doc->Items->count();
-	baseobj = counter;
 //	PrefsManager* prefsManager=PrefsManager::instance();
 	while(!DOC.isNull())
 	{
@@ -3713,8 +3706,3 @@ bool Scribus134Format::readPageCount(const QString& fileName, int *num1, int *nu
 	*num2 = counter2;
 	return true;
 }
-
-
-
-
-

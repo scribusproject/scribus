@@ -1020,10 +1020,8 @@ void ScPageOutput::drawItem_PathText( PageItem_PathText* item, ScPainterExBase* 
 	ScText *hl;
 	FPoint point = FPoint(0, 0);
 	FPoint tangent = FPoint(0, 0);
-	uint seg = 0;
 	double dx;
 	double CurX = item->textToFrameDistLeft(); // item->CurX = item->textToFrameDistLeft()
-	double CurY = 0;
 	QString actFill, actStroke;
 	double actFillShade, actStrokeShade;
 	StoryText& itemText = item->itemText;
@@ -1100,7 +1098,6 @@ void ScPageOutput::drawItem_PathText( PageItem_PathText* item, ScPainterExBase* 
 	int currPathIndex = 0;
 	for (int a = item->firstInFrame(); a < itemText.length(); ++a)
 	{
-		CurY = 0;
 		hl = itemText.item(a);
 		chstr = hl->ch;
 		if (chstr[0] == SpecialChars::PAGENUMBER || chstr[0] == SpecialChars::PARSEP || chstr[0] == SpecialChars::PAGECOUNT
@@ -1312,9 +1309,8 @@ void ScPageOutput::drawItem_TextFrame( PageItem_TextFrame* item, ScPainterExBase
 	FPoint ColBound;
 	QRegion cm;
 	int a;
-	double lineCorr;
 	ScText *hl;
-	double desc, asce, tabDist;
+	double desc, asce;
 	
 	QRect e2;
 	painter->save();
@@ -1331,10 +1327,6 @@ void ScPageOutput::drawItem_TextFrame( PageItem_TextFrame* item, ScPainterExBase
 		painter->setupPolygon(&item->PoLine);
 		fillPath(item, painter, clip);
 	}
-	if (item->lineColor() != CommonStrings::None)
-		lineCorr = item->lineWidth() / 2.0;
-	else
-		lineCorr = 0;
 	if ((item->isAnnotation()) && (item->annotation().Type() == 2) && (!item->Pfile.isEmpty()) && (item->PictureIsAvailable) && (item->imageShown()) && (item->annotation().UseIcons()))
 	{
 		painter->save();
@@ -1362,7 +1354,6 @@ void ScPageOutput::drawItem_TextFrame( PageItem_TextFrame* item, ScPainterExBase
 		for (uint ll=0; ll < item->itemText.lines(); ++ll)
 		{
 			LineSpec ls = item->itemText.line(ll);
-			tabDist = ls.x;
 			double CurX = ls.x;
 			for (a = ls.firstItem; a <= ls.lastItem; ++a)
 			{
@@ -1404,7 +1395,6 @@ void ScPageOutput::drawItem_TextFrame( PageItem_TextFrame* item, ScPainterExBase
 					else
 						CurX += hl->glyph.wide();
 				}
-				tabDist = CurX;
 			}
 		}
 	}

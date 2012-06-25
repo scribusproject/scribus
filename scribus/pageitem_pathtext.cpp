@@ -77,13 +77,11 @@ void PageItem_PathText::DrawObj_Item(ScPainter *p, QRectF cullingArea, double sc
 	firstChar = 0;
 	MaxChars = 0;
 	int a;
-	double chs;
 	QString chstr;
 	ScText *hl;
 	double dx;
 	FPoint point = FPoint(0, 0);
 	FPoint tangent = FPoint(0, 0);
-	uint seg = 0;
 	QColor tmp;
 	CurX = Extra;
 	QString cachedStroke = "";
@@ -176,7 +174,6 @@ void PageItem_PathText::DrawObj_Item(ScPainter *p, QRectF cullingArea, double sc
 		if (chstr[0] == SpecialChars::PAGENUMBER || chstr[0] == SpecialChars::PARSEP || chstr[0] == SpecialChars::PAGECOUNT
 			|| chstr[0] == SpecialChars::TAB || chstr[0] == SpecialChars::LINEBREAK)
 			continue;
-		chs = hl->fontSize();
 		if (a < itemText.length()-1)
 			chstr += itemText.text(a+1, 1);
 		hl->glyph.yadvance = 0;
