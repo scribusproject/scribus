@@ -102,6 +102,7 @@ protected:
 	UndoManager * const undoManager;
 	void restorePageItemCreation(ScItemState<PageItem*> *state, bool isUndo);
 	void restorePageItemDeletion(ScItemState< QList<PageItem*> > *state, bool isUndo);
+	void restorePageAttributes(SimpleState *state, bool isUndo);
 	void restorePageItemConversion(ScItemState<std::pair<PageItem*, PageItem*> >*state, bool isUndo);
 	
 	double m_xOffset;

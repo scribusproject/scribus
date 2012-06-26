@@ -8,6 +8,7 @@ for which a new license (GPL+exception) is in place.
 #define MUSTERPAGES_H
 
 class QCloseEvent;
+class UndoManager;
 class QHBoxLayout;
 class QListWidget;
 class QListWidgetItem;
@@ -52,6 +53,7 @@ private:
 	QToolButton* importButton;
 	QToolButton* newButton;
 	ScribusDoc *currentDoc;
+	UndoManager *undoManager;
 	ScribusView *currentView;
 
 protected:

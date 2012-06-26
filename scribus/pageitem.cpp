@@ -4428,6 +4428,10 @@ void PageItem::restore(UndoState *state, bool isUndo)
 			restoreContourLine(ss, isUndo);
 		else if (ss->contains("CHANGE_SHAPE_TYPE"))
 			restoreShapeType(ss, isUndo);
+		else if (ss->contains("UNITEITEM"))
+			restoreUniteItem(ss, isUndo);
+		else if (ss->contains("SPLITITEM"))
+			restoreSplitItem(ss, isUndo);
 		else if (ss->contains("MIRROR_PATH_H"))
 		{
 			bool editContour = m_Doc->nodeEdit.isContourLine;
@@ -4917,6 +4921,55 @@ void PageItem::restorePoly(SimpleState *state, bool isUndo, bool isContour)
 	}
 	view->TransformPoly(mode, rot, scaling);
 	m_Doc->nodeEdit.isContourLine = editContour;
+}
+
+void PageItem::restoreUniteItem(SimpleState *state, bool isUndo)
+{
+	ScItemState< QPair<QList<PageItem*>,QList<QTransform> > > *is = dynamic_cast<ScItemState< QPair<QList<PageItem*>,QList<QTransform> > >*>(state);
+	if (is)
+	{
+		if (isUndo){
+			int pts = 0;
+			for (int i = 0; i < is->getItem().first.size(); ++i) {
+				PageItem* myItem = is->getItem().first.at(i);
+				myItem->PoLine.map(is->getItem().second.at(i).inverted());
+				pts += myItem->PoLine.size();
+				pts+=4;
+			}
+			PoLine.resize(PoLine.size()-pts);
+			Segments.clear();
+			Frame = is->getBool("FRAME");
+			FrameType = is->getInt("FRAMETYPE");
+			ClipEdited = is->getBool("CLIPEDITED");
+			m_Doc->AdjustItemSize(this);
+		} else {
+			m_Doc->view()->Deselect(true);
+			m_Doc->view()->SelectItem(this);
+			for (int i = 0; i < is->getItem().first.size(); ++i) {
+				m_Doc->view()->SelectItem(is->getItem().first.at(i));
+			}
+			m_Doc->itemSelection_UniteItems();
+		}
+	}
+}
+
+void PageItem::restoreSplitItem(SimpleState *state, bool isUndo)
+{
+	ScItemState< QList<int> > *is = dynamic_cast<ScItemState< QList<int> >*>(state);
+	if (is)
+	{
+
+		QList<int> itemsList = is->getItem();
+		select();
+		for (int i = 0; i < itemsList.size(); ++i) {
+			m_Doc->view()->SelectItem(m_Doc->Items->at(itemsList.at(i)));
+		}
+		if (isUndo){
+			m_Doc->itemSelection_UniteItems();
+		} else {
+			m_Doc->itemSelection_SplitItems();
+		}
+	}
 }
 
 void PageItem::restoreContourLine(SimpleState *state, bool isUndo)
@@ -7184,8 +7237,8 @@ void PageItem::updateClip()
 				OldH2 = height();
 				ContourLine = PoLine.copy();
 			}
-			if ((OldB2 == 0) || (OldH2 == 0) || (width() == 0) || (height() == 0))
-				return;
+			OldB2 = (OldB2==0)?1:OldB2;
+			OldH2 = (OldH2==0)?1:OldH2;
 			double scx = width() / OldB2;
 			double scy = height() / OldH2;
 			QTransform ma;

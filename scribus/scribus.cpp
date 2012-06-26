@@ -3597,6 +3597,10 @@ bool ScribusMainWindow::slotPageImport()
 	Q_ASSERT(!doc->masterPageMode());
 	bool ret = false;
 	MergeDoc *dia = new MergeDoc(this, false, doc->DocPages.count(), doc->currentPage()->pageNr() + 1);
+	UndoTransaction* activeTransaction = NULL;
+	if(UndoManager::undoEnabled())
+		activeTransaction = new UndoTransaction(undoManager->beginTransaction(Um::ImportPage, Um::IGroup, Um::ImportPage, 0, Um::ILock));
+
 	if (dia->exec())
 	{
 		mainWindowStatusLabel->setText( tr("Importing Pages..."));
@@ -3680,6 +3684,12 @@ bool ScribusMainWindow::slotPageImport()
 		}
 		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 		ret = doIt;
+	}
+	if (activeTransaction)
+	{
+		activeTransaction->commit();
+		delete activeTransaction;
+		activeTransaction = NULL;
 	}
 	delete dia;
 	return ret;

@@ -22,6 +22,7 @@ class FileFormat;
 class ScribusView;
 #include "scfonts.h"
 #include "scribusdoc.h"
+#include "undomanager.h"
 
 /*!
  * @brief Superclass for all file import/export/load/save plugins
@@ -141,6 +142,7 @@ class SCRIBUS_API LoadSavePlugin : public ScPlugin
 		QProgressBar*      m_mwProgressBar;
 		SCFonts*           m_AvailableFonts;
 		QString            m_lastSavedFile;
+		UndoManager * const undoManager;
 
 	private:
 		// A list of all supported formats. This is maintained by plugins

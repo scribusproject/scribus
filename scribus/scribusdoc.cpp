@@ -40,6 +40,7 @@ for which a new license (GPL+exception) is in place.
 #include <qtconcurrentmap.h>
 
 #include "canvas.h"
+#include "ui/masterpagepalette.h"
 #include "colorblind.h"
 #include "commonstrings.h"
 #include "desaxe/digester.h"
@@ -48,6 +49,7 @@ for which a new license (GPL+exception) is in place.
 #include "filewatcher.h"
 #include "fpoint.h"
 #include "ui/guidemanager.h"
+#include "ui/outlinepalette.h"
 #include "hyphenator.h"
 #include "ui/inserttablecolumnsdialog.h"
 #include "ui/inserttablerowsdialog.h"
@@ -1758,10 +1760,20 @@ void ScribusDoc::restore(UndoState* state, bool isUndo)
 		}
 		else if (ss->contains("OLD_MASTERPAGE"))
 			restoreMasterPageApplying(ss, isUndo);
+		else if (ss->contains("MASTERPAGE_ADD"))
+			restoreAddMasterPage(ss, isUndo);
 		else if (ss->contains("PAGE_COPY"))
 			restoreCopyPage(ss, isUndo);
 		else if (ss->contains("PAGE_MOVE"))
 			restoreMovePage(ss, isUndo);
+		else if (ss->contains("LEVEL_DOWN"))
+			restoreLevelDown(ss,isUndo);
+		else if (ss->contains("LEVEL_UP"))
+			restoreLevelDown(ss,!isUndo);
+		else if (ss->contains("LEVEL_BOTTOM"))
+			restoreLevelBottom(ss,isUndo);
+		else if (ss->contains("LEVEL_TOP"))
+			restoreLevelBottom(ss,!isUndo);
 		else if (ss->contains("PAGE_CHANGEPROPS"))
 		{
 			if (isUndo)
@@ -1789,6 +1801,63 @@ void ScribusDoc::restore(UndoState* state, bool isUndo)
 				m_ScMW->layerPalette->rebuildList();
 			}
 		}
+	}
+}
+
+void ScribusDoc::restoreLevelDown(SimpleState *ss, bool isUndo)
+{
+	ScItemState<QList<QPointer<PageItem> > > *is = dynamic_cast<ScItemState<QList<QPointer<PageItem> > > *>(ss);
+	QList<QPointer<PageItem> > listItem = is->getItem();
+	m_Selection->clear();
+	for(int i = 0; i<listItem.size();i++)
+		m_Selection->addItem(listItem.at(i));
+	if(isUndo)
+		itemSelection_RaiseItem();
+	else
+		itemSelection_LowerItem();
+}
+
+void ScribusDoc::restoreLevelBottom(SimpleState *ss, bool isUndo)
+{
+	ScItemState<QList<QPointer<PageItem> > > *is = dynamic_cast<ScItemState<QList<QPointer<PageItem> > > *>(ss);
+	QList<QPointer<PageItem> > listItem = is->getItem();
+	m_Selection->clear();
+	for(int i = 0; i<listItem.size();i++)
+		m_Selection->addItem(listItem.at(i));
+	if(isUndo)
+		bringItemSelectionToFront();
+	else
+		sendItemSelectionToBack();
+}
+
+void ScribusDoc::restoreAddMasterPage(SimpleState *ss, bool isUndo)
+{
+	QString pageName = ss->get("MASTERPAGE_NAME");
+	int pageNr = ss->getInt("MASTERPAGE_NR");
+
+	bool oldMPMode=masterPageMode();
+	setMasterPageMode(true);
+	if(isUndo)
+	{
+		DummyUndoObject *duo = new DummyUndoObject();
+		uint did = static_cast<uint>(duo->getUId());
+		undoManager->replaceObject(Pages->at(MasterNames[pageName])->getUId(), duo);
+		ss->set("DUMMY_ID", did);
+
+		scMW()->deletePage2(MasterNames[pageName]);
+		rebuildMasterNames();
+		scMW()->pagePalette->updateMasterPageList();
+	} 
+	else 
+	{
+		ScPage* Mpage = addMasterPage(pageNr, pageName);
+		setCurrentPage(Mpage);
+		UndoObject *tmp = undoManager->replaceObject(
+					ss->getUInt("DUMMY_ID"), Pages->at(MasterNames[pageName]));
+		delete tmp;
+		scMW()->pagePalette->updateMasterPageList();
+		m_View->reformPages();
+		setMasterPageMode(oldMPMode);
 	}
 }
 
@@ -2108,6 +2177,14 @@ ScPage* ScribusDoc::addMasterPage(const int pageNumber, const QString& pageName)
 	assert(MasterPages.at(pageNumber)!=NULL);
 	if  (!isLoading())
 		changed();
+	if(UndoManager::undoEnabled())
+	{
+		SimpleState *ss = new SimpleState(Um::NewMasterPage, "", Um::IDocument);
+		ss->set("MASTERPAGE_ADD", "masterpage_add");
+		ss->set("MASTERPAGE_NAME", pageName);
+		ss->set("MASTERPAGE_NBR", pageNumber);
+		undoManager->action(this, ss);
+	}
 	return addedPage;
 }
 
@@ -4308,8 +4385,11 @@ void ScribusDoc::restoreCopyPage(SimpleState *state, bool isUndo)
 				--destLocation;
 		}
 	}
-	else
+	else{
 		copyPage(pnum, extPage, whereTo, copyCount);
+		if(m_ScMW->outlinePalette->isVisible())
+			m_ScMW->outlinePalette->BuildTree();
+	}
 
 }
 
@@ -6467,15 +6547,20 @@ void ScribusDoc::setFirstSectionFromFirstPageNumber()
 
 void ScribusDoc::copyPage(int pageNumberToCopy, int existingPage, int whereToInsert, int copyCount)
 {
-	UndoTransaction copyTransaction(undoManager->beginTransaction(getUName(), Um::IDocument, Um::CopyPage, "", Um::ICreate));
-	SimpleState *ss = new SimpleState(Um::Copy, "", Um::ICreate);
-	ss->set("PAGE_COPY", "copy_page");
-	ss->set("PAGE_NUM", pageNumberToCopy);
-	ss->set("EXISTING_PAGE", existingPage);
-	ss->set("WHERE_TO", whereToInsert);
-	ss->set("COPY_COUNT", copyCount);
-	undoManager->action(this, ss);
+	UndoTransaction *copyTransaction = NULL;
+	if(UndoManager::undoEnabled())
+	{
+		copyTransaction = new UndoTransaction(undoManager->beginTransaction(getUName(), Um::IDocument, Um::CopyPage, "", Um::ICreate));
+		SimpleState *ss = new SimpleState(Um::Copy, "", Um::ICreate);
+		ss->set("PAGE_COPY", "copy_page");
+		ss->set("PAGE_NUM", pageNumberToCopy);
+		ss->set("EXISTING_PAGE", existingPage);
+		ss->set("WHERE_TO", whereToInsert);
+		ss->set("COPY_COUNT", copyCount);
+		undoManager->action(this, ss);
+	}
 
+	undoManager->setUndoEnabled(false);
 	//CB Should we really be disabling auto text frames here?
 	bool autoText = usesAutomaticTextFrames();
 	setUsesAutomaticTextFrames(false);
@@ -6608,7 +6693,13 @@ void ScribusDoc::copyPage(int pageNumberToCopy, int existingPage, int whereToIns
 	else
 		setCurrentPage(from);
 	changed();
-	copyTransaction.commit();
+	undoManager->setUndoEnabled(true);
+	if(copyTransaction)
+	{
+		copyTransaction->commit();
+		delete copyTransaction;
+		copyTransaction = NULL;
+	}
 }
 
 
@@ -6837,6 +6928,13 @@ void ScribusDoc::sendItemSelectionToBack()
 	int docSelectionCount = m_Selection->count();
 	if (docSelectionCount == 0)
 		return;
+	if (UndoManager::undoEnabled())
+	{
+		ScItemState<QList<QPointer<PageItem> > > *is = new ScItemState<QList<QPointer<PageItem> > >(Um::LevelBottom);
+		is->set("LEVEL_BOTTOM","level_bottom");
+		is->setItem(m_Selection->selectionList());
+		undoManager->action(this, is);
+	}
 	if (docSelectionCount > 1)
 	{
 		PageItem *firstItem = m_Selection->itemAt(0);
@@ -6894,6 +6992,13 @@ void ScribusDoc::bringItemSelectionToFront()
 	int docSelectionCount = m_Selection->count();
 	if (docSelectionCount == 0)
 		return;
+	if (UndoManager::undoEnabled())
+	{
+		ScItemState<QList<QPointer<PageItem> > > *is = new ScItemState<QList<QPointer<PageItem> > >(Um::LevelTop);
+		is->set("LEVEL_TOP","level_top");
+		is->setItem(m_Selection->selectionList());
+		undoManager->action(this, is);
+	}
 	if (docSelectionCount > 1)
 	{
 		PageItem *firstItem = m_Selection->itemAt(0);
@@ -6951,6 +7056,13 @@ void ScribusDoc::itemSelection_LowerItem()
 	int docSelectionCount = m_Selection->count();
 	if (docSelectionCount == 0)
 		return;
+	if (UndoManager::undoEnabled())
+	{
+		ScItemState<QList<QPointer<PageItem> > > *is = new ScItemState<QList<QPointer<PageItem> > >(Um::LevelDown);
+		is->set("LEVEL_DOWN","level_down");
+		is->setItem(m_Selection->selectionList());
+		undoManager->action(this, is);
+	}
 	if (docSelectionCount > 1)
 	{
 		PageItem *firstItem = m_Selection->itemAt(0);
@@ -7016,6 +7128,13 @@ void ScribusDoc::itemSelection_RaiseItem()
 	int docSelectionCount = m_Selection->count();
 	if (docSelectionCount == 0)
 		return;
+	if (UndoManager::undoEnabled())
+	{
+		ScItemState<QList<QPointer<PageItem> > > *is = new ScItemState<QList<QPointer<PageItem> > >(Um::LevelUp);
+		is->set("LEVEL_UP","level_up");
+		is->setItem(m_Selection->selectionList());
+		undoManager->action(this, is);
+	}
 	if (docSelectionCount > 1)
 	{
 		PageItem *firstItem = m_Selection->itemAt(0);
@@ -10483,6 +10602,7 @@ void ScribusDoc::itemSelection_DeleteItem(Selection* customSelection, bool force
 			ScItemState< QList<PageItem*> > *is = new ScItemState< QList<PageItem*> >(Um::Delete + " " + currItem->getUName(), "", Um::IDelete);
 			is->setItem(delItems);
 			is->set("ITEMID", itemList->indexOf(currItem));
+			is->set("ID", selectedItemCount - (de + 1));
 			is->set("DELETE_ITEM", "delete_item");
 			undoManager->action(Pages->at(0), is, currItem->getUPixmap());
 		}
@@ -14181,15 +14301,26 @@ void ScribusDoc::itemSelection_UniteItems(Selection* /*customSelection*/)
 {
 	PageItem *currItem;
 	PageItem *bb;
+	QList<QTransform> transform;
 	QList<PageItem *> toDel;
 	toDel.clear();
 	uint docSelectionCount = m_Selection->count();
 	if (docSelectionCount > 1)
 	{
+		UndoTransaction* transaction = NULL;
+		if (UndoManager::undoEnabled())
+		{
+			transaction = new UndoTransaction(undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::UniteItem, "", Um::IGroup));
+			transform.clear();
+		}
+		undoManager->setUndoEnabled(false);
 		currItem = m_Selection->itemAt(0);
 		if (currItem->isGroup())
 			return;
 		m_Selection->delaySignalsOn();
+		bool currFrame = currItem->Frame;
+		bool currClipEdited = currItem->ClipEdited;
+		int currFrameType = currItem->FrameType;
 		currItem->Frame = false;
 		currItem->ClipEdited = true;
 		currItem->FrameType = 3;
@@ -14200,25 +14331,46 @@ void ScribusDoc::itemSelection_UniteItems(Selection* /*customSelection*/)
 			QTransform ma;
 			ma.translate(bb->xPos(), bb->yPos());
 			ma.rotate(bb->rotation());
-			bb->PoLine.map(ma);
 			QTransform ma2;
 			ma2.translate(currItem->xPos(), currItem->yPos());
 			ma2.rotate(currItem->rotation());
 			ma2 = ma2.inverted();
-			bb->PoLine.map(ma2);
+			ma=ma*ma2;
+			bb->PoLine.map(ma);
+			undoManager->setUndoEnabled(true);
+			if (UndoManager::undoEnabled())
+				transform.append(ma);
+			undoManager->setUndoEnabled(false);
 			currItem->PoLine.setMarker();
 			currItem->PoLine.putPoints(currItem->PoLine.size(), bb->PoLine.size(), bb->PoLine);
 		}
 //		currItem->Clip = FlattenPath(currItem->PoLine, currItem->Segments);
 		AdjustItemSize(currItem);
 		currItem->ContourLine = currItem->PoLine.copy();
+		undoManager->setUndoEnabled(true);
 		//FIXME: stop using m_View
+		if (UndoManager::undoEnabled())
+		{
+			ScItemState< QPair<QList<PageItem*> , QList<QTransform> > > *is = new ScItemState< QPair<QList<PageItem*> , QList<QTransform> > >(Um::UniteItem, "", Um::IGroup);
+			is->setItem(QPair<QList<PageItem*>,QList<QTransform> >(toDel,transform));
+			is->set("UNITEITEM", "uniteitem");
+			is->set("FRAME",currFrame);
+			is->set("FRAMETYPE",currFrameType);
+			is->set("CLIPEDITED",currClipEdited);
+			undoManager->action(currItem, is);
+		}
 		m_View->Deselect(true);
 		for (int c = 0; c < toDel.count(); ++c)
 			m_View->SelectItem(toDel.at(c));
 		m_Selection->delaySignalsOff();
 		itemSelection_DeleteItem();
 		regionsChanged()->update(QRectF());
+		if(transaction)
+		{
+			transaction->commit();
+			delete transaction;
+			transaction = NULL;
+		}
 	}
 }
 
@@ -14226,8 +14378,14 @@ void ScribusDoc::itemSelection_SplitItems(Selection* /*customSelection*/)
 {
 	PageItem *bb;
 	m_Selection->delaySignalsOn();
+	UndoTransaction* transaction = NULL;
+	if (UndoManager::undoEnabled())
+		transaction = new UndoTransaction(undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::SplitItem, "", Um::IGroup));
+	undoManager->setUndoEnabled(false);
 	for (int i = 0; i < m_Selection->count(); ++i)
 	{
+		QList< int> itemsList;
+		itemsList.clear();
 		PageItem *currItem = m_Selection->itemAt(i);
 		if (!currItem->isPolygon() || currItem->Segments.count() <= 0)
 			continue;
@@ -14241,6 +14399,7 @@ void ScribusDoc::itemSelection_SplitItems(Selection* /*customSelection*/)
 				StartInd = a + 1;
 				bb = new PageItem_Polygon(*currItem);
 				currItemNr++;
+				itemsList.append(currItemNr);
 				Items->insert(currItemNr, bb);
 				bb->convertTo(PageItem::Polygon);
 				bb->Frame = false;
@@ -14260,11 +14419,27 @@ void ScribusDoc::itemSelection_SplitItems(Selection* /*customSelection*/)
 		AdjustItemSize(currItem);
 		currItem->ContourLine = currItem->PoLine.copy();
 		currItem->ClipEdited = true;
+		undoManager->setUndoEnabled(true);
+		if (UndoManager::undoEnabled())
+		{
+			ScItemState< QList<int> > *is = new ScItemState< QList<int> >(Um::SplitItem, "", Um::IGroup);
+			is->setItem(QList<int>(itemsList));
+			is->set("SPLITITEM", "split_item");
+			undoManager->action(currItem, is);
+		}
+		undoManager->setUndoEnabled(false);
 	}
+	undoManager->setUndoEnabled(true);
 	m_Selection->delaySignalsOff();
 	//FIXME: stop using m_View
 	m_View->Deselect(true);
 	regionsChanged()->update(QRectF());
+	if(transaction)
+	{
+		transaction->commit();
+		delete transaction;
+		transaction = NULL;
+	}
 }
 
 void ScribusDoc::itemSelection_convertItemsTo(const PageItem::ItemType newType, Selection* restoredSelection, Selection* customSelection)

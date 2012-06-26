@@ -601,6 +601,18 @@ UndoObject* UndoManager::replaceObject(ulong uid, UndoObject *newUndoObject)
 			tmpState->setUndoObject(newUndoObject);
 		}
 	}
+	for (uint i = 0; i < stacks_[currentDoc_].redoActions_.size(); ++i)
+	{
+		UndoState *tmpState = stacks_[currentDoc_].redoActions_[i];
+		TransactionState *ts = dynamic_cast<TransactionState*>(tmpState);
+		if (ts)
+			tmp = ts->replace(uid, newUndoObject);
+		else if (tmpState->undoObject() && tmpState->undoObject()->getUId() == uid)
+		{
+			tmp = tmpState->undoObject();
+			tmpState->setUndoObject(newUndoObject);
+		}
+	}
 	if (transaction_) // replace also in the currently open transaction
 		tmp = transaction_->replace(uid, newUndoObject);
 	return tmp;
@@ -826,6 +838,12 @@ void UndoManager::languageChange()
 	UndoManager::LockGuides         = tr("Lock guides");
 	UndoManager::UnlockGuides       = tr("Unlock guides");
 	UndoManager::Move               = tr("Move");
+	UndoManager::NewMasterPage      = tr("Add master page");
+	UndoManager::DelMasterPage      = tr("Del master page");
+	UndoManager::ImportMasterPage   = tr("Import master page");
+	UndoManager::DuplicateMasterPage= tr("Duplicate master page");
+	UndoManager::UniteItem          = tr("Combine Polygons");
+	UndoManager::SplitItem          = tr("Split Polygons");
 	UndoManager::Resize             = tr("Resize");
 	UndoManager::Rotate             = tr("Rotate");
 	UndoManager::MoveFromTo         = tr("X1: %1, Y1: %2, %3\nX2: %4, Y2: %5, %6");
@@ -838,6 +856,10 @@ void UndoManager::languageChange()
 	UndoManager::Group              = tr("Group");
 	UndoManager::SelectionGroup     = tr("Selection/Group");
 	UndoManager::Create             = tr("Create");
+	UndoManager::LevelUp            = tr("Level up");
+	UndoManager::LevelDown          = tr("Level up");
+	UndoManager::LevelTop           = tr("Send to bottom");
+	UndoManager::LevelBottom        = tr("Send to front");
 	UndoManager::CreateTo           = tr("X: %1, Y: %2\nW: %3, H: %4");
 	UndoManager::AlignDistribute    = tr("Align/Distribute");
 	UndoManager::ItemsInvolved      = tr("Items involved");
@@ -967,11 +989,13 @@ void UndoManager::languageChange()
 	UndoManager::Copy               = tr("Copy");
 	UndoManager::CopyPage           = tr("Copy page");
 	UndoManager::MovePage           = tr("Move page");
+	UndoManager::ImportPage         = tr("Import page");
 	UndoManager::ToOutlines         = tr("Convert to outlines");
 	UndoManager::LinkTextFrame		= tr("Link text frame");
 	UndoManager::UnlinkTextFrame	= tr("Unlink text frame");
 	UndoManager::ClearImage         = tr("Clear image frame content");
 	UndoManager::PathOperation		= tr("Path Operation");
+	UndoManager::ChangePageAttrs    = tr("Change Page Attributes");
 }
 
 void UndoManager::initIcons()
@@ -1036,9 +1060,15 @@ QString UndoManager::DelVAGuide         = "";
 QString UndoManager::DelHAGuide         = "";
 QString UndoManager::MoveVGuide         = "";
 QString UndoManager::MoveHGuide         = "";
+QString UndoManager::UniteItem          = "";
+QString UndoManager::SplitItem          = "";
 QString UndoManager::LockGuides         = "";
 QString UndoManager::UnlockGuides       = "";
 QString UndoManager::Move               = "";
+QString UndoManager::NewMasterPage      = "";
+QString UndoManager::ImportMasterPage   = "";
+QString UndoManager::DuplicateMasterPage= "";
+QString UndoManager::DelMasterPage      = "";
 QString UndoManager::Resize             = "";
 QString UndoManager::Rotate             = "";
 QString UndoManager::MoveFromTo         = "";
@@ -1065,6 +1095,10 @@ QString UndoManager::SetLineShade       = "";
 QString UndoManager::FlipH              = "";
 QString UndoManager::FlipV              = "";
 QString UndoManager::Lock               = "";
+QString UndoManager::LevelUp            = "";
+QString UndoManager::LevelTop           = "";
+QString UndoManager::LevelBottom        = "";
+QString UndoManager::LevelDown          = "";
 QString UndoManager::UnLock             = "";
 QString UndoManager::SizeLock           = "";
 QString UndoManager::SizeUnLock         = "";
@@ -1179,12 +1213,14 @@ QString UndoManager::RemoveAllGuides    = "";
 QString UndoManager::RemoveAllPageGuides = "";
 QString UndoManager::Copy               = "";
 QString UndoManager::CopyPage           = "";
+QString UndoManager::ImportPage         = "";
 QString UndoManager::MovePage           = "";
 QString UndoManager::ToOutlines         = "";
 QString UndoManager::LinkTextFrame      = "";
 QString UndoManager::UnlinkTextFrame    = "";
 QString UndoManager::ClearImage         = "";
 QString UndoManager::PathOperation      = "";
+QString UndoManager::ChangePageAttrs    = "";
 
 /*** Icons for UndoObjects *******************************************/
 QPixmap *UndoManager::IImageFrame      = 0;

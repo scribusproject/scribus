@@ -734,11 +734,17 @@ public:
 	void restoreMasterPageApplying(SimpleState *state, bool isUndo);
 	void restoreCopyPage(SimpleState *state, bool isUndo);
 	void restoreMovePage(SimpleState *state, bool isUndo);
+	void restoreAddMasterPage(SimpleState *state, bool isUndo);
 	/**
 	 * @brief Undo function for grouping/ungrouping
 	 */
 	void restoreGrouping(SimpleState *state, bool isUndo);
 	void restoreUngrouping(SimpleState *state, bool isUndo);
+	/**
+	 * @brief Undo function for level
+	 */
+	void restoreLevelDown(SimpleState *state, bool isUndo);
+	void restoreLevelBottom(SimpleState *state, bool isUndo);
 	/**
 	 * @brief Save function
 	 */

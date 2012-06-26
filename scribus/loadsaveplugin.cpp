@@ -21,7 +21,8 @@ LoadSavePlugin::LoadSavePlugin()
 	m_View(0),
 	m_ScMW(0),
 	m_mwProgressBar(0),
-	m_AvailableFonts(0)
+	m_AvailableFonts(0),
+	undoManager(UndoManager::instance())
 {
 }
 

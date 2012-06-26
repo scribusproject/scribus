@@ -31,12 +31,14 @@ for which a new license (GPL+exception) is in place.
 #include "scribusview.h"
 #include "scribusXml.h"
 #include "selection.h"
+#include "undomanager.h"
 #include "util_icon.h"
 
 MasterPagesPalette::MasterPagesPalette( QWidget* parent, ScribusDoc *pCurrentDoc, ScribusView *pCurrentView, QString masterPageName) : ScrPaletteBase( parent, "MasterPages", false, 0 )
 {
 	setAttribute(Qt::WA_DeleteOnClose);
 	setModal(false);
+	undoManager = UndoManager::instance();
 	setWindowIcon(QIcon(loadIcon ( "AppIcon.png" )));
 	currentDoc = pCurrentDoc;
 	currentView = pCurrentView;
@@ -114,7 +116,9 @@ void MasterPagesPalette::closeEvent(QCloseEvent *closeEvent)
 void MasterPagesPalette::deleteMasterPage()
 {
 	bool forceDelete = false;
-
+	UndoTransaction* activeTransaction = NULL;
+	if (UndoManager::undoEnabled())
+		activeTransaction = new UndoTransaction(undoManager->beginTransaction(Um::Group, Um::IGroup, Um::DelMasterPage, "", Um::IDelete));
 	// allow to delete multiple pages in one step
 	foreach (QListWidgetItem * delItem, masterPageListBox->selectedItems())
 	{
@@ -163,11 +167,20 @@ void MasterPagesPalette::deleteMasterPage()
 	QMap<QString,int>::Iterator it = currentDoc->MasterNames.begin();
 	sMuster = it.key();
 	updateMasterPageList(sMuster);
+	if (activeTransaction)
+	{
+		activeTransaction->commit();
+		delete activeTransaction;
+		activeTransaction = NULL;
+	}
 }
 
 void MasterPagesPalette::duplicateMasterPage()
 {
 	int copyC = 1;
+	UndoTransaction* activeTransaction = NULL;
+	if (UndoManager::undoEnabled())
+		activeTransaction = new UndoTransaction(undoManager->beginTransaction(Um::Group, Um::IGroup, Um::DuplicateMasterPage, "", Um::IGroup));
 	QString potentialMasterPageName(sMuster);
 	while (currentDoc->MasterNames.contains(potentialMasterPageName))
 		potentialMasterPageName = tr("Copy #%1 of %2").arg(copyC++).arg(sMuster);
@@ -291,12 +304,21 @@ void MasterPagesPalette::duplicateMasterPage()
 		currentView->reformPages();
 		currentView->DrawNew();
 	}
+	if (activeTransaction)
+	{
+		activeTransaction->commit();
+		delete activeTransaction;
+		activeTransaction = NULL;
+	}
 	delete dia;
 }
 
 void MasterPagesPalette::newMasterPage()
 {
 	QString MasterPageName;
+	UndoTransaction* activeTransaction = NULL;
+	if (UndoManager::undoEnabled())
+		activeTransaction = new UndoTransaction(undoManager->beginTransaction(Um::Group, Um::IGroup, Um::NewMasterPage, "", Um::IGroup));
 	int nr = currentDoc->Pages->count();
 	NewTm *dia = new NewTm(this, tr("Name:"), tr("New MasterPage"), currentDoc, tr("New Master Page %1").arg(nr));
 	if (dia->exec())
@@ -345,11 +367,20 @@ void MasterPagesPalette::newMasterPage()
 		selectMasterPage(MasterPageName);
 		currentView->reformPages();
 	}
+	if (activeTransaction)
+	{
+		activeTransaction->commit();
+		delete activeTransaction;
+		activeTransaction = NULL;
+	}
 	delete dia;
 }
 
 void MasterPagesPalette::importPage()
 {
+	UndoTransaction* activeTransaction = NULL;
+	if (UndoManager::undoEnabled())
+		activeTransaction = new UndoTransaction(undoManager->beginTransaction(Um::Group, Um::IGroup, Um::ImportMasterPage, "", Um::IGroup));
 	//bool atf;
 	MergeDoc *dia = new MergeDoc(this, true);
 	if (dia->exec())
@@ -394,6 +425,12 @@ void MasterPagesPalette::importPage()
 		currentView->showMasterPage(currentDoc->MasterNames[MasterPageName2]);
 		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 		//currentDoc->MasterPages = currentDoc->Pages;
+	}
+	if (activeTransaction)
+	{
+		activeTransaction->commit();
+		delete activeTransaction;
+		activeTransaction = NULL;
 	}
 	delete dia;
 }

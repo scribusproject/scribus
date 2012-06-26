@@ -1382,6 +1382,7 @@ void ScribusView::TransformPoly(int mode, int rot, double scaling)
 	PageItem *currItem = Doc->m_Selection->itemAt(0);
 	currItem->ClipEdited = true;
 	QTransform ma;
+	undoManager->setUndoEnabled(false);
 	if (Doc->nodeEdit.isContourLine)
 	{
 		FPoint tp2(getMinClipF(&currItem->ContourLine));
@@ -1462,6 +1463,7 @@ void ScribusView::TransformPoly(int mode, int rot, double scaling)
 		updateContents();
 		currItem->FrameOnly = true;
 		updateContents(currItem->getRedrawBounding(m_canvas->scale()));
+		undoManager->setUndoEnabled(true);
 		if (UndoManager::undoEnabled())
 		{
 			undoManager->setUndoEnabled(false);
@@ -1566,6 +1568,7 @@ void ScribusView::TransformPoly(int mode, int rot, double scaling)
 	currItem->update();
 //	MarkClip(currItem, currItem->PoLine, true);
 	currItem->FrameType = 3;
+	undoManager->setUndoEnabled(true);
 	if (UndoManager::undoEnabled())
 	{
 		undoManager->setUndoEnabled(false);

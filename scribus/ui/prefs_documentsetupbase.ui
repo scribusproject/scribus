@@ -217,7 +217,11 @@
           </widget>
          </item>
          <item row="4" column="1">
-          <widget class="QComboBox" name="layoutFirstPageIsComboBox"/>
+          <widget class="QComboBox" name="layoutFirstPageIsComboBox">
+           <property name="sizeAdjustPolicy">
+            <enum>QComboBox::AdjustToContents</enum>
+           </property>
+          </widget>
          </item>
          <item row="3" column="1">
           <widget class="QRadioButton" name="fourFoldRadioButton">
@@ -303,8 +307,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>428</width>
-            <height>525</height>
+            <width>252</width>
+            <height>206</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_5">

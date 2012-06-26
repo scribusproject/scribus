@@ -47,6 +47,7 @@ MergeDoc::MergeDoc(QWidget* parent, bool importMasterPages, int targetDocPageCou
 	fromInfoLayout->setMargin(0);
 	fromInfoLayout->setSpacing(5);
 	fromDocData = new QLineEdit( this );
+	fromDocData->setMinimumWidth(QWidget::fontMetrics().width('a')*50);
 	fromDocLabel = new QLabel( tr( "&From Document:"), this );
 	fromDocLabel->setBuddy( fromDocData );
 	fromInfoLayout->addWidget( fromDocLabel, 0, 0 );
