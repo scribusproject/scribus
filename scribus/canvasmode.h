@@ -36,6 +36,7 @@ class QMouseEvent;
 class QKeyEvent;
 class QPainter;
 
+class  UndoManager;
 class  Canvas;
 struct CanvasViewMode;
 class  PanGesture;
@@ -140,6 +141,7 @@ public:
 	
 
 protected:
+	UndoManager* undoManager;
 	ScribusView * const m_view;	
 	Canvas * const m_canvas;
 	ScribusDoc * const m_doc;

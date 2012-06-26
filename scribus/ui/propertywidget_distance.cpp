@@ -44,6 +44,7 @@ PropertyWidget_Distance::PropertyWidget_Distance(QWidget* parent) : QFrame(paren
 	rightLabel->setBuddy(rightDistance);
 
 	columns->setDecimals(0);
+	columns->setSuffix("");
 
 	languageChange();
 
@@ -281,9 +282,10 @@ void PropertyWidget_Distance::handleColumns()
 
 	if (textItem)
 	{
-		textItem->Cols = static_cast<int>(columns->value());
+		textItem->setColumns(static_cast<int>(columns->value()));
 		displayColumns(textItem->Cols, textItem->ColGap);
-		if (static_cast<int>(columns->value()) == 1)
+		//this is already done in displayColumns()
+		/*if (static_cast<int>(columns->value()) == 1)
 		{
 			columnGap->setEnabled(false);
 			columnGapLabel->setEnabled(false);
@@ -292,7 +294,7 @@ void PropertyWidget_Distance::handleColumns()
 		{
 			columnGap->setEnabled(true);
 			columnGapLabel->setEnabled(true);
-		}
+		}*/
 		textItem->update();
 		if (m_doc->appMode == modeEditTable)
 			m_item->asTable()->update();
@@ -311,7 +313,7 @@ void PropertyWidget_Distance::handleColumnGap()
 	if (!textItem) return;
 
 	if (columnGapLabel->currentIndex() == 0)
-		textItem->ColGap = columnGap->value() / m_unitRatio;
+		textItem->setColumnGap(columnGap->value() / m_unitRatio);
 	else
 	{
 		double lineCorr;
@@ -321,7 +323,7 @@ void PropertyWidget_Distance::handleColumnGap()
 			lineCorr = 0;
 		double newWidth = columnGap->value() / m_unitRatio;
 		double newGap = qMax(((textItem->width() - textItem->textToFrameDistLeft() - textItem->textToFrameDistRight() - lineCorr) - (newWidth * textItem->Cols)) / (textItem->Cols - 1), 0.0);
-		textItem->ColGap = newGap;
+		textItem->setColumnGap(newGap);
 	}
 	textItem->update();
 	if (m_doc->appMode == modeEditTable)
@@ -358,7 +360,9 @@ void PropertyWidget_Distance::handleTabs()
 			{
 				ParagraphStyle newStyle(m_item->itemText.defaultStyle());
 				newStyle.setTabValues(dia->tmpTab);
-				m_item->itemText.setDefaultStyle(newStyle);
+				Selection tempSelection(this, false);
+				tempSelection.addItem(m_item, true);
+				m_doc->itemSelection_ApplyParagraphStyle(newStyle, &tempSelection);
 			}
 			else
 			{

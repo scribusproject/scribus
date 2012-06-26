@@ -487,6 +487,12 @@ void CanvasMode_Edit::mouseMoveEvent(QMouseEvent *m)
 
 void CanvasMode_Edit::mousePressEvent(QMouseEvent *m)
 {
+	if (UndoManager::undoEnabled())
+	{
+		SimpleState *ss = dynamic_cast<SimpleState*>(undoManager->getLastUndo());
+		if(ss)
+			ss->set("ETEA",QString(""));
+	}
 // 	const double mouseX = m->globalX();
 // 	const double mouseY = m->globalY();
 	const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());

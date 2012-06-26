@@ -353,6 +353,8 @@ public:
 	 */
 	bool isGlobalMode();
 
+	UndoState* getLastUndo();
+
 private:
 	/**
 	 * @brief The only instance of UndoManager available.
@@ -563,6 +565,14 @@ public:
 	static QString ResetContourLine;
 	static QString AddPage;
 	static QString AddPages;
+	static QString ReplaceText;
+	static QString FirstLineOffset;
+	static QString AppendText;
+	static QString ImportText;
+	static QString ClearText;
+	static QString AddLoremIpsum;
+	static QString DeleteText;
+	static QString InsertText;
 	static QString DeletePage;
 	static QString DeletePages;
 	static QString ChangePageProps;
@@ -586,6 +596,10 @@ public:
 	static QString ChangeFormula;
 	static QString MultipleDuplicate;
 	static QString ApplyTextStyle;
+	static QString RemoveTextStyle;
+	static QString Columns;
+	static QString ColumnsGap;
+	static QString TextFrameDist;
 	static QString MenuUndo;
 	static QString MenuUndoEmpty;
 	static QString MenuRedo;

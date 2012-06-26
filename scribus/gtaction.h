@@ -41,6 +41,7 @@ class CharStyle;
 class ParagraphStyle;
 class ScribusDoc;
 class ScribusMainWindow;
+class UndoManager;
 
 class gtStyle;
 class gtParagraphStyle;
@@ -52,6 +53,7 @@ typedef QMap<QString, QString> FontFamilyMap;
 class SCRIBUS_API gtAction
 {
 private:
+	UndoManager* undoManager;
 	ScribusMainWindow* m_ScMW;
 	PageItem *textFrame;
 	PageItem *it;

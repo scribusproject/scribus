@@ -76,7 +76,8 @@ CanvasMode::CanvasMode (ScribusView* view) :
 	m_view(view),
 	m_canvas(view->m_canvas),
 	m_doc(view->Doc),
-	m_panGesture(NULL)
+	m_panGesture(NULL),
+	undoManager(UndoManager::instance())
 {
 	m_pen["outline"]	= QPen(Qt::gray, 1.0 , Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 	m_pen["outline"].setCosmetic(true);

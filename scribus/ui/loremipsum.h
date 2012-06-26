@@ -35,6 +35,7 @@ class QTreeWidget;
 class QVBoxLayout;
 
 class ScribusDoc;
+class UndoManager;
 // class LanguageManager;
 
 
@@ -122,6 +123,7 @@ private:
 	QHBoxLayout* layout1;
 	QSpacerItem* buttonSpacer;
 	QString standardloremtext;
+	UndoManager* undoManager;
 
 	//! all lorems with Public Name -> filename structure
 	QMap<QString,QString> availableLorems;

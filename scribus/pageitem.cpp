@@ -1376,34 +1376,83 @@ void PageItem::currentTextProps(ParagraphStyle& parStyle) const
 
 void PageItem::setTextToFrameDistLeft(double newLeft)
 {
+	if(Extra==newLeft)
+		return;
+	if (UndoManager::undoEnabled())
+	{
+		SimpleState *ss = new SimpleState(Um::TextFrameDist, "", Um::ITextFrame);
+		ss->set("LEFT_TEXTFRAMEDIST", "left_textframedist");
+		ss->set("OLD_DIST",Extra);
+		ss->set("NEW_DIST",newLeft);
+		undoManager->action(this, ss);
+	}
 	Extra=newLeft;
 	//emit textToFrameDistances(Extra, TExtra, BExtra, RExtra);
 }
 
 void PageItem::setTextToFrameDistRight(double newRight)
 {
+	if(RExtra==newRight)
+		return;
+	if (UndoManager::undoEnabled())
+	{
+		SimpleState *ss = new SimpleState(Um::TextFrameDist, "", Um::ITextFrame);
+		ss->set("RIGHT_TEXTFRAMEDIST", "right_textframedist");
+		ss->set("OLD_DIST",RExtra);
+		ss->set("NEW_DIST",newRight);
+		undoManager->action(this, ss);
+	}
 	RExtra=newRight;
 	//emit textToFrameDistances(Extra, TExtra, BExtra, RExtra);
 }
 
 void PageItem::setTextToFrameDistTop(double newTop)
 {
+	if(TExtra==newTop)
+		return;
+	if (UndoManager::undoEnabled())
+	{
+		SimpleState *ss = new SimpleState(Um::TextFrameDist, "", Um::ITextFrame);
+		ss->set("TOP_TEXTFRAMEDIST", "top_textframedist");
+		ss->set("OLD_DIST",TExtra);
+		ss->set("NEW_DIST",newTop);
+		undoManager->action(this, ss);
+	}
 	TExtra=newTop;
 	//emit textToFrameDistances(Extra, TExtra, BExtra, RExtra);
 }
 
 void PageItem::setTextToFrameDistBottom(double newBottom)
 {
+	if(BExtra==newBottom)
+		return;
+	if (UndoManager::undoEnabled())
+	{
+		SimpleState *ss = new SimpleState(Um::TextFrameDist, "", Um::ITextFrame);
+		ss->set("BOTTOM_TEXTFRAMEDIST", "bottom_textframedist");
+		ss->set("OLD_DIST",BExtra);
+		ss->set("NEW_DIST",newBottom);
+		undoManager->action(this, ss);
+	}
 	BExtra=newBottom;
 	//emit textToFrameDistances(Extra, TExtra, BExtra, RExtra);
 }
 
 void PageItem::setTextToFrameDist(double newLeft, double newRight, double newTop, double newBottom)
 {
-	Extra=newLeft;
-	RExtra=newRight;
-	TExtra=newTop;
-	BExtra=newBottom;
+	UndoTransaction* activeTransaction = NULL;
+	if (UndoManager::undoEnabled())
+		activeTransaction = new UndoTransaction(undoManager->beginTransaction(Um::TextFrame, Um::IDocument, Um::TextFrameDist, "", Um::ITextFrame));
+	setTextToFrameDistLeft(newLeft);
+	setTextToFrameDistRight(newRight);
+	setTextToFrameDistTop(newTop);
+	setTextToFrameDistBottom(newBottom);
+	if (activeTransaction)
+	{
+		activeTransaction->commit();
+		delete activeTransaction;
+		activeTransaction = NULL;
+	}
 	//emit textToFrameDistances(Extra, TExtra, BExtra, RExtra);
 }
 
@@ -1414,11 +1463,29 @@ void PageItem::setGridOffset(double) { } // FIXME
 void PageItem::setGridDistance(double) { } // FIXME
 void PageItem::setColumns(int n) 
 {
-	Cols = qMax(1, n); //FIXME: undo
+	if(Cols==n)
+		return;
+	if(UndoManager::undoEnabled()){
+		SimpleState *ss = new SimpleState(Um::Columns, "", Um::IBorder);
+		ss->set("COLUMNS", "columns");
+		ss->set("OLD_COLUMNS", Cols);
+		ss->set("NEW_COLUMNS",n);
+		undoManager->action(this, ss);
+	}
+	Cols = qMax(1, n);
 }
 void PageItem::setColumnGap(double gap)
 {
-	ColGap = gap; //FIXME: undo
+	if(ColGap==gap)
+		return;
+	if(UndoManager::undoEnabled()){
+		SimpleState *ss = new SimpleState(Um::Columns, "", Um::IBorder);
+		ss->set("COLUMNSGAP", "columnsgap");
+		ss->set("OLD_COLUMNS", ColGap);
+		ss->set("NEW_COLUMNS",gap);
+		undoManager->action(this, ss);
+	}
+	ColGap = gap;
 }
 
 void PageItem::setCornerRadius(double newRadius)
@@ -4361,8 +4428,40 @@ void PageItem::restore(UndoState *state, bool isUndo)
 			restoreShade(ss, isUndo);
 		else if (ss->contains("LINE_COLOR"))
 			restoreLineColor(ss, isUndo);
+		else if (ss->contains("COLUMNS"))
+			restoreColumns(ss, isUndo);
+		else if (ss->contains("COLUMNSGAP"))
+			restoreColumnsGap(ss, isUndo);
 		else if (ss->contains("LINE_SHADE"))
 			restoreLineShade(ss, isUndo);
+		else if (ss->contains("DELETE_FRAMETEXT"))
+			restoreDeleteFrameText(ss, isUndo);
+		else if (ss->contains("INSERT_FRAMETEXT"))
+			restoreInsertFrameText(ss,isUndo);
+		else if (ss->contains("LOREM_FRAMETEXT"))
+			restoreLoremIpsum(ss,isUndo);
+		else if (ss->contains("APPLY_CHARSTYLE"))
+			restoreCharStyle(ss,isUndo);
+		else if (ss->contains("SET_CHARSTYLE"))
+			restoreSetCharStyle(ss,isUndo);
+		else if (ss->contains("SET_PARASTYLE"))
+			restoreSetParagraphStyle(ss,isUndo);
+		else if (ss->contains("APPLY_PARASTYLE"))
+			restoreParagraphStyle(ss,isUndo);
+		else if (ss->contains("APPLY_DEFAULTPARASTYLE"))
+			restoreDefaultParagraphStyle(ss,isUndo);
+		else if (ss->contains("LEFT_TEXTFRAMEDIST"))
+			restoreLeftTextFrameDist(ss,isUndo);
+		else if (ss->contains("RIGHT_TEXTFRAMEDIST"))
+			restoreRightTextFrameDist(ss,isUndo);
+		else if (ss->contains("TOP_TEXTFRAMEDIST"))
+			restoreTopTextFrameDist(ss,isUndo);
+		else if (ss->contains("BOTTOM_TEXTFRAMEDIST"))
+			restoreBottomTextFrameDist(ss,isUndo);
+		else if (ss->contains("FIRSTLINEOFFSET"))
+			restoreFirstLineOffset(ss,isUndo);
+		else if (ss->contains("PASTE_TEXT"))
+			restorePasteText(ss,isUndo);
 		else if (ss->contains("IMAGEFLIPH"))
 		{
 			select();
@@ -4464,6 +4563,8 @@ void PageItem::restore(UndoState *state, bool isUndo)
 			restoreReverseText(ss, isUndo);
 		else if (ss->contains("CLEAR_IMAGE"))
 			restoreClearImage(ss,isUndo);
+		else if (ss->contains("PASTE_INLINE"))
+			restorePasteInline(ss,isUndo);
 		else if (ss->contains("PATH_OPERATION"))
 			restorePathOperation(ss, isUndo);
 	}
@@ -4472,6 +4573,191 @@ void PageItem::restore(UndoState *state, bool isUndo)
 	m_Doc->setMasterPageMode(oldMPMode);
 	m_Doc->useRaster = useRasterBackup;
 	m_Doc->SnapGuides = SnapGuidesBackup;
+}
+
+void PageItem::restorePasteInline(SimpleState *is, bool isUndo)
+{
+	int start = is->getInt("START");
+	if(isUndo){
+		itemText.select(start,1);
+		asTextFrame()->deleteSelectedTextFromFrame();
+	} else {
+		itemText.insertObject(is->getInt("INDEX"));
+	}
+}
+
+void PageItem::restorePasteText(SimpleState *ss, bool isUndo)
+{
+	ScItemState<StoryText> *is = dynamic_cast<ScItemState<StoryText>*>(ss);
+	int start = is->getInt("START");
+	if(isUndo){
+		itemText.select(start,is->getItem().length());
+		asTextFrame()->deleteSelectedTextFromFrame();
+	} else {
+		itemText.insert(is->getItem());
+	}
+}
+
+void PageItem::restoreColumnsGap(SimpleState *ss, bool isUndo)
+{
+	if(isUndo){
+		ColGap = ss->getInt("OLD_COLUMNS");
+	} else {
+		ColGap = ss->getInt("NEW_COLUMNS");
+	}
+	update();
+}
+
+void PageItem::restoreLeftTextFrameDist(SimpleState *ss, bool isUndo)
+{
+	if(isUndo){
+		Extra = ss->getInt("OLD_DIST");
+	} else {
+		Extra = ss->getInt("NEW_DIST");
+	}
+	update();
+}
+
+void PageItem::restoreRightTextFrameDist(SimpleState *ss, bool isUndo)
+{
+	if(isUndo){
+		RExtra = ss->getInt("OLD_DIST");
+	} else {
+		RExtra = ss->getInt("NEW_DIST");
+	}
+	update();
+}
+
+void PageItem::restoreTopTextFrameDist(SimpleState *ss, bool isUndo)
+{
+	if(isUndo){
+		TExtra = ss->getInt("OLD_DIST");
+	} else {
+		TExtra = ss->getInt("NEW_DIST");
+	}
+	update();
+}
+
+void PageItem::restoreBottomTextFrameDist(SimpleState *ss, bool isUndo)
+{
+	if(isUndo){
+		BExtra = ss->getInt("OLD_DIST");
+	} else {
+		BExtra = ss->getInt("NEW_DIST");
+	}
+	update();
+}
+
+void PageItem::restoreColumns(SimpleState *ss, bool isUndo)
+{
+	if(isUndo){
+		Cols = ss->getInt("OLD_COLUMNS");
+	} else {
+		Cols = ss->getInt("NEW_COLUMNS");
+	}
+	update();
+}
+
+void PageItem::restoreFirstLineOffset(SimpleState *ss, bool isUndo)
+{
+	ScItemState<QPair<FirstLineOffsetPolicy, FirstLineOffsetPolicy > > *is = dynamic_cast<ScItemState<QPair<FirstLineOffsetPolicy, FirstLineOffsetPolicy> >*>(ss);
+	if(isUndo){
+		firstLineOffsetP = is->getItem().first;
+	} else {
+		firstLineOffsetP = is->getItem().second;
+	}
+	update();
+}
+
+void PageItem::restoreDefaultParagraphStyle(SimpleState *ss, bool isUndo)
+{
+	ScItemState<QPair<ParagraphStyle, ParagraphStyle > > *is = dynamic_cast<ScItemState<QPair<ParagraphStyle, ParagraphStyle> >*>(ss);
+	if(isUndo){
+		itemText.setDefaultStyle(is->getItem().second);
+	} else {
+		itemText.setDefaultStyle(is->getItem().first);
+	}
+}
+
+void PageItem::restoreParagraphStyle(SimpleState *ss, bool isUndo)
+{
+	ScItemState<QPair<ParagraphStyle, ParagraphStyle > > *is = dynamic_cast<ScItemState<QPair<ParagraphStyle, ParagraphStyle> >*>(ss);
+	int pos = is->getInt("POS");
+	if(isUndo){
+		itemText.eraseStyle(pos,is->getItem().first);
+		itemText.applyStyle(pos,is->getItem().second);
+	} else {
+		itemText.applyStyle(pos,is->getItem().first);
+	}
+}
+
+void PageItem::restoreCharStyle(SimpleState *ss, bool isUndo)
+{
+	ScItemState<QPair<CharStyle, CharStyle > > *is = dynamic_cast<ScItemState<QPair<CharStyle, CharStyle> >*>(ss);
+	int length = is->getInt("LENGTH");
+	int start = is->getInt("START");
+	if(isUndo){
+		itemText.eraseCharStyle(start,length,is->getItem().first);
+		itemText.applyCharStyle(start,length,is->getItem().second);
+	} else {
+		itemText.applyCharStyle(start,length,is->getItem().first);
+	}
+}
+
+void PageItem::restoreSetCharStyle(SimpleState *ss, bool isUndo)
+{
+	ScItemState<QPair<CharStyle, CharStyle > > *is = dynamic_cast<ScItemState<QPair<CharStyle, CharStyle> >*>(ss);
+	int length = is->getInt("LENGTH");
+	int start = is->getInt("START");
+	if(isUndo){
+		itemText.setCharStyle(start,length,is->getItem().second);
+	} else {
+		itemText.setCharStyle(start,length,is->getItem().first);
+	}
+}
+
+void PageItem::restoreSetParagraphStyle(SimpleState *ss, bool isUndo)
+{
+	ScItemState<QPair<ParagraphStyle, ParagraphStyle > > *is = dynamic_cast<ScItemState<QPair<ParagraphStyle, ParagraphStyle> >*>(ss);
+	int pos = is->getInt("POS");
+	if(isUndo){
+		itemText.setStyle(pos,is->getItem().second);
+	} else {
+		itemText.setStyle(pos,is->getItem().first);
+	}
+}
+
+void PageItem::restoreLoremIpsum(SimpleState *ss, bool isUndo)
+{
+	QString sampleText = ss->get("TEXT_STR");
+	if(isUndo){
+		itemText.selectAll();
+		asTextFrame()->deleteSelectedTextFromFrame();
+	} else {
+		itemText.insertChars(0,sampleText);
+	}
+}
+
+void PageItem::restoreDeleteFrameText(SimpleState *ss, bool isUndo){
+	QString text = ss->get("TEXT_STR");
+	int start = ss->getInt("START");
+	if(isUndo){
+		itemText.insertChars(start,text);
+	} else {
+		itemText.select(start,text.length());
+		asTextFrame()->deleteSelectedTextFromFrame();
+	}
+}
+
+void PageItem::restoreInsertFrameText(SimpleState *ss, bool isUndo){
+	QString text = ss->get("TEXT_STR");
+	int start = ss->getInt("START");
+	if(isUndo){
+		itemText.select(start,text.length());
+		asTextFrame()->deleteSelectedTextFromFrame();
+	} else {
+		itemText.insertChars(start,text);
+	}
 }
 
 void PageItem::restoreMove(SimpleState *state, bool isUndo)
@@ -7348,6 +7634,13 @@ void PageItem::setFirstLineOffset(FirstLineOffsetPolicy flop)
 {
 	if(firstLineOffsetP != flop)
 	{
+		if (UndoManager::undoEnabled())
+		{
+			ScItemState<QPair<FirstLineOffsetPolicy,FirstLineOffsetPolicy> > *is = new ScItemState<QPair <FirstLineOffsetPolicy,FirstLineOffsetPolicy> >(Um::FirstLineOffset);
+			is->set("FIRSTLINEOFFSET", "fisrtlineoffset");
+			is->setItem(QPair<FirstLineOffsetPolicy,FirstLineOffsetPolicy>(firstLineOffsetP, flop));
+			undoManager->action(this, is);
+		}
 		firstLineOffsetP = flop;
 	}
 }

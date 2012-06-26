@@ -46,6 +46,7 @@ for which a new license (GPL+exception) is in place.
 #include "commonstrings.h"
 #include "hyphenator.h"
 #include "util_icon.h"
+#include "undomanager.h"
 
 QString getLoremLocation(QString fname)
 {
@@ -135,6 +136,7 @@ QString LoremParser::createLorem(uint parCount, bool random)
 
 LoremManager::LoremManager(ScribusDoc* doc, QWidget* parent) : QDialog( parent )
 {
+	undoManager = UndoManager::instance();
 	m_Doc=doc;
 	setModal(true);
 	setWindowTitle( tr( "Lorem Ipsum" ) );
@@ -285,11 +287,17 @@ void LoremManager::insertLoremIpsum(QString name, int paraCount, bool random)
 			i2 = currItem->asTable()->activeCell().textFrame();
 		if (!i2->asTextFrame())
 			continue;
+		UndoTransaction* activeTransaction = NULL;
 		if (i2->itemText.length() != 0)
 		{
-			Selection tempSelection(this, false);
-			tempSelection.addItem(i2, true);
-			m_Doc->itemSelection_ClearItem(&tempSelection);
+			if (UndoManager::undoEnabled())
+				activeTransaction = new UndoTransaction(undoManager->beginTransaction(Um::Selection, Um::IGroup, Um::AddLoremIpsum, "", Um::ICreate));
+			i2->itemText.selectAll();
+			i2->asTextFrame()->deleteSelectedTextFromFrame();
+			//We don't need to open a dialog box as the user can undo this action.
+			//Selection tempSelection(this, false);
+			//tempSelection.addItem(i2, true);
+			//m_Doc->itemSelection_ClearItem(&tempSelection);
 			/* ClearItem() doesn't return true or false so
 			the following test has to be done */
 			if (i2->itemText.length() != 0)
@@ -320,7 +328,21 @@ void LoremManager::insertLoremIpsum(QString name, int paraCount, bool random)
 #endif
 		
 		// K.I.S.S.:
-		i2->itemText.insertChars(0, lp->createLorem(paraCount, random));
+		QString sampleText = lp->createLorem(paraCount, random);
+		if (UndoManager::undoEnabled())
+		{
+			SimpleState *ss = new SimpleState(Um::AddLoremIpsum,"",Um::ICreate);
+			ss->set("LOREM_FRAMETEXT", "lorem_frametext");
+			ss->set("TEXT_STR",sampleText);
+			undoManager->action(i2, ss);
+		}
+		if (activeTransaction)
+		{
+			activeTransaction->commit();
+			delete activeTransaction;
+			activeTransaction = NULL;
+		}
+		i2->itemText.insertChars(0, sampleText);
 		delete lp;
 		if (m_Doc->docHyphenator->AutoCheck)
 			m_Doc->docHyphenator->slotHyphenate(i2);

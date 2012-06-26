@@ -1173,9 +1173,33 @@ void ScribusMainWindow::specialActionKeyEvent(const QString& actionName, int uni
 				{
 					if (unicodevalue!=-1)
 					{
-						if (currItem->HasSel)
+						UndoTransaction* activeTransaction = NULL;
+						if (currItem->HasSel){
+							if (UndoManager::undoEnabled())
+								activeTransaction = new UndoTransaction(undoManager->beginTransaction(Um::Selection, Um::IGroup, Um::ReplaceText, "", Um::IDelete));
 							currItem->deleteSelectedTextFromFrame();
+						}
+						if (UndoManager::undoEnabled())
+						{
+							SimpleState *ss = dynamic_cast<SimpleState*>(undoManager->getLastUndo());
+							if(ss && ss->get("ETEA") == "insert_frametext")
+									ss->set("TEXT_STR",ss->get("TEXT_STR") + QString(QChar(unicodevalue)));
+							else {
+								ss = new SimpleState(Um::InsertText,"",Um::ICreate);
+								ss->set("INSERT_FRAMETEXT", "insert_frametext");
+								ss->set("ETEA", QString("insert_frametext"));
+								ss->set("TEXT_STR", QString(QChar(unicodevalue)));
+								ss->set("START", currItem->itemText.cursorPosition());
+								undoManager->action(currItem, ss);
+							}
+						}
 						currItem->itemText.insertChars(QString(QChar(unicodevalue)), true);
+						if (activeTransaction)
+						{
+							activeTransaction->commit();
+							delete activeTransaction;
+							activeTransaction = NULL;
+						}
 					}
 					else if (actionName=="unicodeSoftHyphen") //ignore the char as we use an attribute if the text item, for now.
 					{
@@ -1188,6 +1212,20 @@ void ScribusMainWindow::specialActionKeyEvent(const QString& actionName, int uni
 							fl |= ScStyle_HyphenationPossible;
 							currItem->itemText.item(qMax(currItem->CPos-1,0))->setEffects(fl);
 #else
+							if (UndoManager::undoEnabled())
+							{
+								SimpleState *ss = dynamic_cast<SimpleState*>(undoManager->getLastUndo());
+								if(ss && ss->get("ETEA") == "insert_frametext")
+										ss->set("TEXT_STR",ss->get("TEXT_STR") + QString(SpecialChars::SHYPHEN));
+								else {
+									ss = new SimpleState(Um::InsertText,"",Um::ICreate);
+									ss->set("INSERT_FRAMETEXT", "insert_frametext");
+									ss->set("ETEA", QString("insert_frametext"));
+									ss->set("TEXT_STR", QString(SpecialChars::SHYPHEN));
+									ss->set("START", currItem->itemText.cursorPosition());
+									undoManager->action(currItem, ss);
+								}
+							}
 							currItem->itemText.insertChars(QString(SpecialChars::SHYPHEN), true);
 #endif
 						}
@@ -5111,7 +5149,14 @@ void ScribusMainWindow::slotEditPaste()
 				dig.parseMemory(xml, xml.length());
 
 				StoryText* story = dig.result<StoryText>();
-
+				if (UndoManager::undoEnabled())
+				{
+					ScItemState<StoryText> *is = new ScItemState<StoryText>(Um::Paste);
+					is->set("PASTE_TEXT", "paste_text");
+					is->set("START",currItem->itemText.cursorPosition());
+					is->setItem(*story);
+					undoManager->action(currItem, is);
+				}
 				currItem->itemText.insert(*story);
 
 				delete story;
@@ -5178,8 +5223,16 @@ void ScribusMainWindow::slotEditPaste()
 				doc->maxCanvasCoordinate = maxSize;
 				if (outlinePalette->isVisible())
 					outlinePalette->BuildTree();
-				currItem->itemText.insertObject(fIndex);
 				undoManager->setUndoEnabled(true);
+				if (UndoManager::undoEnabled())
+				{
+					SimpleState *is = new SimpleState(Um::Paste,"",Um::IPaste);
+					is->set("PASTE_INLINE", "paste_inline");
+					is->set("START",currItem->itemText.cursorPosition());
+					is->set("INDEX",fIndex);
+					undoManager->action(currItem, is);
+				}
+				currItem->itemText.insertObject(fIndex);
 				doc->m_Selection->delaySignalsOff();
 				inlinePalette->unsetDoc();
 				inlinePalette->setDoc(doc);

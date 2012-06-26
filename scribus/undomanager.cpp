@@ -526,6 +526,13 @@ void UndoManager::action(UndoObject* target, UndoState* state,
 	target->setUName(oldName);
 }
 
+UndoState* UndoManager::getLastUndo(){
+	if(stacks_[currentDoc_].undoActions_.size()>0)
+		return stacks_[currentDoc_].undoActions_[0];
+	else
+		return 0;
+}
+
 void UndoManager::undo(int steps)
 {
 	if (!undoEnabled_)
@@ -928,7 +935,10 @@ void UndoManager::languageChange()
 	UndoManager::ImportOOoDraw      = tr("Import OpenOffice.org Draw image");
 	UndoManager::ImportAI           = tr("Import AI drawing");
 	UndoManager::ImportXfig         = tr("Import XFig drawing");
+	UndoManager::Columns            = tr("Change columns");
+	UndoManager::ColumnsGap         = tr("Change columns gap");
 	UndoManager::ImportWMF          = tr("Import WMF drawing");
+	UndoManager::TextFrameDist      = tr("Change text to frame distance");
 	UndoManager::ScratchSpace       = tr("Scratch space");
 	//UndoManager::TextFlow           = tr("Text flows around the frame");
 	UndoManager::ObjectFrame        = tr("Text flows around the frame");
@@ -951,6 +961,14 @@ void UndoManager::languageChange()
 	UndoManager::ResetContourLine   = tr("Reset contour line");
 	UndoManager::AddPage            = tr("Add page");
 	UndoManager::AddPages           = tr("Add pages");
+	UndoManager::ReplaceText        = tr("Replace text");
+	UndoManager::FirstLineOffset    = tr("Change First Line Offset");
+	UndoManager::DeleteText         = tr("Delete text");
+	UndoManager::InsertText         = tr("Insert text");
+	UndoManager::AppendText         = tr("Append text");
+	UndoManager::ImportText         = tr("Import text");
+	UndoManager::ClearText          = tr("Clear text");
+	UndoManager::AddLoremIpsum      = tr("Add Lorem Ipsum");
 	UndoManager::DeletePage         = tr("Delete page");
 	UndoManager::DeletePages        = tr("Delete pages");
 	UndoManager::ChangePageProps    = tr("Change page properties");
@@ -974,6 +992,7 @@ void UndoManager::languageChange()
 	UndoManager::ChangeFormula      = tr("Change formula");
 	UndoManager::MultipleDuplicate  = tr("Multiple duplicate");
 	UndoManager::ApplyTextStyle     = tr("Apply text style");
+	UndoManager::RemoveTextStyle    = tr("Remove text style");
 	UndoManager::MenuUndo           = tr("&Undo: %1", "f.e. Undo: Move");
 	UndoManager::MenuUndoEmpty      = tr("&Undo");
 	UndoManager::MenuRedo           = tr("&Redo: %1", "f.e. Redo: Move");
@@ -1087,6 +1106,7 @@ QString UndoManager::ItemsInvolved      = "";
 QString UndoManager::ItemsInvolved2     = "";
 uint    UndoManager::ItemsInvolvedLimit = 20;
 QString UndoManager::Cancel             = "";
+QString UndoManager::TextFrameDist      = "";
 QString UndoManager::SetFill            = "";
 QString UndoManager::ColorFromTo        = "";
 QString UndoManager::SetShade           = "";
@@ -1114,6 +1134,7 @@ QString UndoManager::Cut                = "";
 QString UndoManager::Transparency       = "";
 QString UndoManager::LineTransparency   = "";
 QString UndoManager::LineStyle          = "";
+QString UndoManager::FirstLineOffset    = "";
 QString UndoManager::LineEnd            = "";
 QString UndoManager::LineJoin           = "";
 QString UndoManager::LineWidth          = "";
@@ -1176,6 +1197,13 @@ QString UndoManager::ChangeShapeType    = "";
 QString UndoManager::ResetContourLine   = "";
 QString UndoManager::AddPage            = "";
 QString UndoManager::AddPages           = "";
+QString UndoManager::DeleteText         = "";
+QString UndoManager::AppendText         = "";
+QString UndoManager::ImportText         = "";
+QString UndoManager::ClearText          = "";
+QString UndoManager::ReplaceText        = "";
+QString UndoManager::InsertText         = "";
+QString UndoManager::AddLoremIpsum      = "";
 QString UndoManager::DeletePage         = "";
 QString UndoManager::DeletePages        = "";
 QString UndoManager::ChangePageProps    = "";
@@ -1199,11 +1227,14 @@ QString UndoManager::GetImage           = "";
 QString UndoManager::ChangeFormula      = "";
 QString UndoManager::MultipleDuplicate  = "";
 QString UndoManager::ApplyTextStyle     = "";
+QString UndoManager::RemoveTextStyle    = "";
 QString UndoManager::MenuUndo           = "";
 QString UndoManager::MenuUndoEmpty      = "";
 QString UndoManager::MenuRedo           = "";
 QString UndoManager::MenuRedoEmpty      = "";
 QString UndoManager::EditContour        = "";
+QString UndoManager::Columns            = "";
+QString UndoManager::ColumnsGap         = "";
 QString UndoManager::ResetControlPoint  = "";
 QString UndoManager::ResetControlPoints = "";
 QString UndoManager::ImageEffects       = "";

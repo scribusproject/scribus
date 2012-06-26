@@ -43,6 +43,8 @@ for which a new license (GPL+exception) is in place.
 #include "selection.h"
 #include "sccolorengine.h"
 #include "scribus.h"
+#include "undomanager.h"
+#include "pageitem_textframe.h"
 
 #include "util_icon.h"
 #include "ui/propertiespalette.h"
@@ -80,6 +82,7 @@ gtAction::gtAction(bool append, PageItem* pageitem)
 	doAppend = append;
 	updateParagraphStyles = false;
 	overridePStyleFont = true;
+	undoManager = UndoManager::instance();
 }
 
 void gtAction::setProgressInfo()
@@ -108,42 +111,54 @@ void gtAction::clearFrame()
 
 void gtAction::writeUnstyled(const QString& text)
 {
+	UndoTransaction* activeTransaction = NULL;
 	if (isFirstWrite)
 	{
 		if (!doAppend)
 		{
+			if (UndoManager::undoEnabled())
+				activeTransaction = new UndoTransaction(undoManager->beginTransaction(Um::Selection, Um::IGroup, Um::ImportText, "", Um::IDelete));
 			if (it->nextInChain() != 0)
 			{
 				PageItem *nextItem = it->nextInChain();
 				while (nextItem != 0)
 				{
-					nextItem->itemText.clear();
+					nextItem->itemText.selectAll();
+					nextItem->asTextFrame()->deleteSelectedTextFromFrame();
 					nextItem = nextItem->nextInChain();
 				}
 			}
-			it->itemText.clear();
+			it->itemText.selectAll();
+			it->asTextFrame()->deleteSelectedTextFromFrame();
 		}
 	}
 
-	QChar ch0(0), ch5(5), ch10(10), ch13(13); 
-	for (int a = 0; a < text.length(); ++a)
+	QChar ch0(0), ch5(5), ch10(10), ch13(13);
+	QString textStr = text;
+	textStr.remove(ch0);
+	textStr.remove(ch13);
+	textStr.replace(ch10,ch13);
+	textStr.replace(ch5,ch13);
+	textStr.replace(QString(0x2028),SpecialChars::LINEBREAK);
+	textStr.replace(QString(0x2029),SpecialChars::PARSEP);
+	int pos = it->itemText.length();
+	if (UndoManager::undoEnabled())
 	{
-		if ((text.at(a) == ch0) || (text.at(a) == ch13))
-			continue;
-		QChar ch = text.at(a);
-		if ((ch == ch10) || (ch == ch5))
-			ch = ch13;
-		else if (ch.unicode() == 0x2028)
-			ch = SpecialChars::LINEBREAK;
-		else if (ch.unicode() == 0x2029)
-			ch = SpecialChars::PARSEP;
-		
-		int pos = it->itemText.length();
-		it->itemText.insertChars(pos, QString(ch));
+		SimpleState *ss = new SimpleState(Um::AppendText,"",Um::ICreate);
+			ss->set("INSERT_FRAMETEXT", "insert_frametext");
+			ss->set("TEXT_STR",textStr);
+			ss->set("START", pos);
+			undoManager->action(it, ss);
 	}
-	
+	it->itemText.insertChars(pos, textStr);
 	lastCharWasLineChange = text.right(1) == "\n";
 	isFirstWrite = false;
+	if (activeTransaction)
+	{
+		activeTransaction->commit();
+		delete activeTransaction;
+		activeTransaction = NULL;
+	}
 }
 
 void gtAction::write(const QString& text, gtStyle *style)
