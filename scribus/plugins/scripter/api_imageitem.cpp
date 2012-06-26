@@ -12,59 +12,59 @@ for which a new license (GPL+exception) is in place.
 #include "ui/propertiespalette.h"
 #include "ui/propertiespalette_image.h"
 
-ScribusImageItem::ScribusImageItem(PageItem_ImageFrame* im) : ScribusItem(im)
+ImageAPI::ImageAPI(PageItem_ImageFrame* im) : ItemAPI(im)
 {
 	qDebug() << "ImageitemAPI loaded";
-	setObjectName("imageItem");
+    setObjectName("ImageItemAPI");
 	item = im;
 }
 
 
-double ScribusImageItem::imageXScale()
+double ImageAPI::imageXScale()
 {
 	return item->imageXScale();
 }
 
-void ScribusImageItem::setImageXScale(double value)
+void ImageAPI::setImageXScale(double value)
 {
 	item->setImageXScale(value);
 }
 
 
-double ScribusImageItem::imageYScale()
+double ImageAPI::imageYScale()
 {
 	return item->imageYScale();
 }
 
-void ScribusImageItem::setImageYScale(double value)
+void ImageAPI::setImageYScale(double value)
 {
 	item->setImageYScale(value);
 }
 
 
-double ScribusImageItem::imageXOffset()
+double ImageAPI::imageXOffset()
 {
 	return item->imageXOffset();
 }
 
-void ScribusImageItem::setImageXOffset(double value)
+void ImageAPI::setImageXOffset(double value)
 {
 	item->setImageXOffset(value);
 }
 
 
-double ScribusImageItem::imageYOffset()
+double ImageAPI::imageYOffset()
 {
 	return item->imageYOffset();
 }
 
-void ScribusImageItem::setImageYOffset(double value)
+void ImageAPI::setImageYOffset(double value)
 {
 	item->setImageYOffset(value);
 }
 
 
-void ScribusImageItem::loadImage(QString filename)
+void ImageAPI::loadImage(QString filename)
 {
 	if (!checkHaveDocument())
 		RAISE("No document open");
@@ -78,7 +78,7 @@ void ScribusImageItem::loadImage(QString filename)
 	ScCore->primaryMainWindow()->doc->loadPict(filename, item);
 }
 
-void ScribusImageItem::scaleImage(double x, double y)
+void ImageAPI::scaleImage(double x, double y)
 {
 	if (!checkHaveDocument())
 		RAISE("No document open");
@@ -90,19 +90,14 @@ void ScribusImageItem::scaleImage(double x, double y)
 		return;
 	}
 
-	// Grab the old selection - but use it only where is there any
-	Selection tempSelection(*ScCore->primaryMainWindow()->doc->m_Selection);
+    Selection tempSelection(*ScCore->primaryMainWindow()->doc->m_Selection);
 	bool hadOrigSelection = (tempSelection.count() != 0);
 
 	ScCore->primaryMainWindow()->doc->m_Selection->clear();
-	// Clear the selection
-	ScCore->primaryMainWindow()->view->Deselect();
-	// Select the item, which will also select its group if
-	// there is one.
-	ScCore->primaryMainWindow()->view->SelectItem(item);
+    ScCore->primaryMainWindow()->view->Deselect();
+    ScCore->primaryMainWindow()->view->SelectItem(item);
 
-	// scale
-	ScCore->primaryMainWindow()->doc->itemSelection_SetImageScale(x, y);    //CB why when this is done above?
+    ScCore->primaryMainWindow()->doc->itemSelection_SetImageScale(x, y);
 	ScCore->primaryMainWindow()->doc->updatePic();
 
 	// Now restore the selection.
@@ -111,7 +106,7 @@ void ScribusImageItem::scaleImage(double x, double y)
 		*ScCore->primaryMainWindow()->doc->m_Selection=tempSelection;
 }
 
-void ScribusImageItem::setImageOffset(double x, double y)
+void ImageAPI::setImageOffset(double x, double y)
 {
 	if (!checkHaveDocument())
 		RAISE("No document open");
@@ -146,7 +141,7 @@ void ScribusImageItem::setImageOffset(double x, double y)
 		*ScCore->primaryMainWindow()->doc->m_Selection=tempSelection;
 }
 
-void ScribusImageItem::setImageBrightness(double n)
+void ImageAPI::setImageBrightness(double n)
 {
 	if (!checkHaveDocument())
 		RAISE("No document open");
@@ -169,7 +164,7 @@ void ScribusImageItem::setImageBrightness(double n)
 	ScCore->primaryMainWindow()->doc->updatePic();
 }
 
-void ScribusImageItem::setImageGrayscale()
+void ImageAPI::setImageGrayscale()
 {
 	if (!checkHaveDocument())
 		RAISE("No document open");
@@ -190,7 +185,7 @@ void ScribusImageItem::setImageGrayscale()
 	ScCore->primaryMainWindow()->doc->updatePic();
 }
 
-void ScribusImageItem::setScaleImageToFrame(bool scaletoframe, bool Proportional)
+void ImageAPI::setScaleImageToFrame(bool scaletoframe, bool Proportional)
 {
 	bool scaleToFrame = false;
 	bool proportional = true;
@@ -223,7 +218,7 @@ void ScribusImageItem::setScaleImageToFrame(bool scaletoframe, bool Proportional
 	item->update();
 }
 
-ScribusImageItem::~ScribusImageItem()
+ImageAPI::~ImageAPI()
 {
 	qDebug() << "ImageitemAPI deleted";
 }

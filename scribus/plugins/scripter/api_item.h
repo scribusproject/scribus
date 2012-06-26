@@ -13,10 +13,10 @@ for which a new license (GPL+exception) is in place.
 
 #include "scripterimpl.h"
 
-class ScribusItem : public QObject
+class ItemAPI : public QObject
 {
 	Q_OBJECT
-	Q_PROPERTY(QString itemName READ itemName WRITE setItemName)
+    Q_PROPERTY(QString name READ name WRITE setName)
 	Q_PROPERTY(QString fillColor READ fillColor WRITE setFillColor)
 	Q_PROPERTY(QString lineColor READ lineColor WRITE setLineColor)
 	Q_PROPERTY(double fillShade READ fillShade WRITE setFillShade)
@@ -44,8 +44,8 @@ class ScribusItem : public QObject
 	Q_PROPERTY(int columns READ columns WRITE setColumns)
 
 public:
-	ScribusItem(PageItem *it);
-	virtual ~ScribusItem();
+    ItemAPI(PageItem *it);
+    virtual ~ItemAPI();
 
 public slots:
 	void move(double dx, double dy);
@@ -60,8 +60,8 @@ private:
 	/**
 	 * Properties
 	 */
-	QString itemName();
-	void setItemName(QString name);
+    QString name();
+    void setName(QString name);
 	
 	QString fillColor();
 	void setFillColor(QString color);

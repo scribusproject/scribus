@@ -1105,7 +1105,14 @@ HEADERS += scribus/actionmanager.h \
            scribus/styles/cellstyle.attrdefs.cxx \
            scribus/main_nix.cpp \
            scribus/main_win32.cpp \
-           scribus/styles/linestyle.attrdefs.cxx
+           scribus/styles/linestyle.attrdefs.cxx \
+    scribus/plugins/scripter/utils.h \
+    scribus/plugins/scripter/new_api.py \
+    scribus/plugins/scripter/api_textitem.h \
+    scribus/plugins/scripter/api_printer.h \
+    scribus/plugins/scripter/api_layer.h \
+    scribus/plugins/scripter/api_imageitem.h \
+    scribus/plugins/scripter/api_imageexport.h
 FORMS += scribus/ui/aboutplugins.ui \
          scribus/ui/aligndistribute.ui \
          scribus/ui/arcvectorbase.ui \
@@ -2127,7 +2134,13 @@ SOURCES += scribus/actionmanager.cpp \
            scribus/plugins/tools/2geomtools/meshdistortion/meshdistortion.cpp \
            scribus/plugins/tools/2geomtools/meshdistortion/meshdistortiondialog.cpp \
            scribus/plugins/tools/2geomtools/pathalongpath/pathalongpath.cpp \
-           scribus/plugins/tools/2geomtools/pathalongpath/pathdialog.cpp
+           scribus/plugins/tools/2geomtools/pathalongpath/pathdialog.cpp \
+    scribus/plugins/scripter/utils.cpp \
+    scribus/plugins/scripter/api_textitem.cpp \
+    scribus/plugins/scripter/api_printer.cpp \
+    scribus/plugins/scripter/api_layer.cpp \
+    scribus/plugins/scripter/api_imageitem.cpp \
+    scribus/plugins/scripter/api_imageexport.cpp
 RESOURCES += scribus/plugins/scripter/python/sceditor/dockwidget_icons.qrc
 TRANSLATIONS += resources/translations/po/scribus.af.ts \
                 resources/translations/po/scribus.ar.ts \
@@ -2173,3 +2186,17 @@ TRANSLATIONS += resources/translations/po/scribus.af.ts \
                 resources/translations/po/scribus.uk.ts \
                 resources/translations/po/scribus.zh_CN.ts \
                 resources/translations/po/scribus.zh_TW.ts
+
+OTHER_FILES += \
+    scribus/plugins/scripter/README.txt \
+    scribus/plugins/scripter/dynapidocs.spy \
+    scribus/plugins/scripter/CMakeLists.txt \
+    scribus/plugins/scripter/apidocs.py \
+    scribus/plugins/scripter/api_Scripter.dialogs.scrapbook.api \
+    scribus/plugins/scripter/api_Scripter.dialogs.properties.api \
+    scribus/plugins/scripter/api_Scripter.dialogs.pages.api \
+    scribus/plugins/scripter/api_Scripter.dialogs.outline.api \
+    scribus/plugins/scripter/api_Scripter.dialogs.nodes.api \
+    scribus/plugins/scripter/api_Scripter.dialogs.mainWindow.api \
+    scribus/plugins/scripter/api_Scripter.dialogs.layers.api \
+    scribus/plugins/scripter/api_Scripter.activeDocument.activePage.items.api

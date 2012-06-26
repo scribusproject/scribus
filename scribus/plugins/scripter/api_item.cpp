@@ -9,252 +9,252 @@ for which a new license (GPL+exception) is in place.
 #include "undomanager.h"
 #include "selection.h"
 
-ScribusItem::ScribusItem(PageItem* it) : QObject(COLLECTOR)
+ItemAPI::ItemAPI(PageItem* it) : QObject(COLLECTOR)
 {
 	qDebug() << "ItemAPI loaded";
-	setObjectName("item");
+    setObjectName("ItemAPI");
 	item = it;
 }
 
-QString ScribusItem::itemName()
+QString ItemAPI::name()
 {
 	return item->itemName();
 }
 
-void ScribusItem::setItemName(QString name)
+void ItemAPI::setName(QString name)
 {
 	item->setItemName(name);
 }
 
 
-QString ScribusItem::fillColor()
+QString ItemAPI::fillColor()
 {
 	return item->fillColor();
 }
 
-void ScribusItem::setFillColor(QString color)
+void ItemAPI::setFillColor(QString color)
 {
 	item->setFillColor(color);
 }
 
-QString ScribusItem::lineColor()
+QString ItemAPI::lineColor()
 {
 	return item->lineColor();
 }
 
-void ScribusItem::setLineColor(QString color)
+void ItemAPI::setLineColor(QString color)
 {
 	item->setLineColor(color);
 }
 
 
-double ScribusItem::fillShade()
+double ItemAPI::fillShade()
 {
 	return item->fillShade();
 }
 
-void ScribusItem::setFillShade(double value)
+void ItemAPI::setFillShade(double value)
 {
 	item->setFillShade(value);
 }
 
-double ScribusItem::lineShade()
+double ItemAPI::lineShade()
 {
 	return item->lineShade();
 }
 
-void ScribusItem::setLineShade(double value)
+void ItemAPI::setLineShade(double value)
 {
 	item->setLineShade(value);
 }
 
-double ScribusItem::fillTransparency()
+double ItemAPI::fillTransparency()
 {
 	return item->fillTransparency();
 }
 
-void ScribusItem::setFillTransparency(double value)
+void ItemAPI::setFillTransparency(double value)
 {
 	item->setFillTransparency(value);
 }
 
 
-double ScribusItem::lineTransparency()
+double ItemAPI::lineTransparency()
 {
 	return item->lineTransparency();
 }
 
-void ScribusItem::setLineTransparency(double value)
+void ItemAPI::setLineTransparency(double value)
 {
 	item->setLineTransparency(value);
 }
 
-bool ScribusItem::locked()
+bool ItemAPI::locked()
 {
 	return item->locked();
 }
 
-void ScribusItem::setLocked(bool value)
+void ItemAPI::setLocked(bool value)
 {
 	item->setLocked(value);
 }
 
-bool ScribusItem::sizeLocked()
+bool ItemAPI::sizeLocked()
 {
 	return item->sizeLocked();
 }
 
-void ScribusItem::setSizeLocked(bool value)
+void ItemAPI::setSizeLocked(bool value)
 {
 	item->setSizeLocked(value);
 }
 
-bool ScribusItem::imageFlippedV()
+bool ItemAPI::imageFlippedV()
 {
 	return item->imageFlippedV();
 }
 
-void ScribusItem::setImageFlippedV(bool value)
+void ItemAPI::setImageFlippedV(bool value)
 {
 	item->setImageFlippedV(value);
 }
 
-bool ScribusItem::imageFlippedH()
+bool ItemAPI::imageFlippedH()
 {
 	return item->imageFlippedH();
 }
 
-void ScribusItem::setImageFlippedH(bool value)
+void ItemAPI::setImageFlippedH(bool value)
 {
 	item->setImageFlippedH(value);
 }
 
-double ScribusItem::lineWidth()
+double ItemAPI::lineWidth()
 {
 	return item->lineWidth();
 }
 
-void ScribusItem::setLineWidth(double value)
+void ItemAPI::setLineWidth(double value)
 {
 	item->setLineWidth(value);
 }
 
-QString ScribusItem::customLineStyle()
+QString ItemAPI::customLineStyle()
 {
 	return item->customLineStyle();
 }
 
-void ScribusItem::setCustomLineStyle(QString name)
+void ItemAPI::setCustomLineStyle(QString name)
 {
 	item->setCustomLineStyle(name);
 }
 
-int ScribusItem::startArrowIndex()
+int ItemAPI::startArrowIndex()
 {
 	return item->startArrowIndex();
 }
 
-void ScribusItem::setStartArrowIndex(int value)
+void ItemAPI::setStartArrowIndex(int value)
 {
 	item->setStartArrowIndex(value);
 }
 
-int ScribusItem::endArrowIndex()
+int ItemAPI::endArrowIndex()
 {
 	return item->endArrowIndex();
 }
 
-void ScribusItem::setEndArrowIndex(int value)
+void ItemAPI::setEndArrowIndex(int value)
 {
 	item->setEndArrowIndex(value);
 }
 
-bool ScribusItem::printEnabled()
+bool ItemAPI::printEnabled()
 {
 	return item->printEnabled();
 }
 
-void ScribusItem::setPrintEnabled(bool value)
+void ItemAPI::setPrintEnabled(bool value)
 {
 	item->setPrintEnabled(value);
 }
 
-double ScribusItem::xPos()
+double ItemAPI::xPos()
 {
 	return item->xPos();
 }
 
-void ScribusItem::setXPos(double value)
+void ItemAPI::setXPos(double value)
 {
 	item->setXPos(value);
 }
 
-double ScribusItem::yPos()
+double ItemAPI::yPos()
 {
 	return item->yPos();
 }
 
-void ScribusItem::setYPos(double value)
+void ItemAPI::setYPos(double value)
 {
 	item->setYPos(value);
 }
 
-double ScribusItem::width()
+double ItemAPI::width()
 {
 	return item->width();
 }
 
-void ScribusItem::setWidth(double value)
+void ItemAPI::setWidth(double value)
 {
 	item->setWidth(value);
 }
 
-double ScribusItem::height()
+double ItemAPI::height()
 {
 	return item->height();
 }
 
-void ScribusItem::setHeight(double value)
+void ItemAPI::setHeight(double value)
 {
 	item->setHeight(value);
 }
 
-double ScribusItem::rotation()
+double ItemAPI::rotation()
 {
 	return item->rotation();
 }
 
-void ScribusItem::setRotation(double rotation)
+void ItemAPI::setRotation(double rotation)
 {
 	item->setRotation(rotation);
 }
 
-bool ScribusItem::reversed()
+bool ItemAPI::reversed()
 {
 	return item->reversed();
 }
 
-void ScribusItem::setReversed(bool value)
+void ItemAPI::setReversed(bool value)
 {
 	item->setReversed(value);
 }
 
-double ScribusItem::cornerRadius()
+double ItemAPI::cornerRadius()
 {
 	return item->cornerRadius();
 }
 
-void ScribusItem::setCornerRadius(double value)
+void ItemAPI::setCornerRadius(double value)
 {
 	item->setCornerRadius(value);
 }
 
-double ScribusItem::columnGap()
+double ItemAPI::columnGap()
 {
 	return item->columnGap();
 }
 
-void ScribusItem::setColumnGap(double value)
+void ItemAPI::setColumnGap(double value)
 {
 	if (!checkHaveDocument())
 		RAISE("No document open");
@@ -265,12 +265,12 @@ void ScribusItem::setColumnGap(double value)
 	item->ColGap = ValueToPoint(value);
 }
 
-int ScribusItem::columns()
+int ItemAPI::columns()
 {
 	return item->columns();
 }
 
-void ScribusItem::setColumns(int value)
+void ItemAPI::setColumns(int value)
 {
 	if (!checkHaveDocument())
 		RAISE("No document open");
@@ -286,7 +286,7 @@ void ScribusItem::setColumns(int value)
  * Methods
  */
 
-void ScribusItem::move(double dx, double dy)
+void ItemAPI::move(double dx, double dy)
 {
 	if (!checkHaveDocument())
 		return;
@@ -320,7 +320,7 @@ void ScribusItem::move(double dx, double dy)
 
 }
 
-void ScribusItem::moveAbs(double x, double y)
+void ItemAPI::moveAbs(double x, double y)
 {
 	if (!checkHaveDocument())
 		return;
@@ -352,7 +352,7 @@ void ScribusItem::moveAbs(double x, double y)
 		*ScCore->primaryMainWindow()->doc->m_Selection=tempSelection;
 }
 
-void ScribusItem::resize(double width, double height)
+void ItemAPI::resize(double width, double height)
 {
 	if (!checkHaveDocument())
 		return;
@@ -361,7 +361,7 @@ void ScribusItem::resize(double width, double height)
 	ScCore->primaryMainWindow()->doc->SizeItem(ValueToPoint(width), ValueToPoint(height), item);
 }
 
-void ScribusItem::rotate(double rot)
+void ItemAPI::rotate(double rot)
 {
 	if (!checkHaveDocument())
 		return;
@@ -370,7 +370,7 @@ void ScribusItem::rotate(double rot)
 	ScCore->primaryMainWindow()->doc->RotateItem(item->rotation() - rot, item);
 
 }
-void ScribusItem::rotateAbs(double rot)
+void ItemAPI::rotateAbs(double rot)
 {
 	if (!checkHaveDocument())
 		return;
@@ -380,7 +380,7 @@ void ScribusItem::rotateAbs(double rot)
 }
 
 
-ScribusItem::~ScribusItem()
+ItemAPI::~ItemAPI()
 {
 	qDebug() << "ItemAPI deleted";
 }

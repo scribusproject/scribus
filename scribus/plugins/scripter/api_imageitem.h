@@ -15,7 +15,7 @@ for which a new license (GPL+exception) is in place.
 #include "api_item.h"
 #include "pageitem_imageframe.h"
 
-class ScribusImageItem : public ScribusItem
+class ImageAPI : public ItemAPI
 {
 	Q_OBJECT
 	Q_PROPERTY(double imageXScale READ imageXScale WRITE setImageXScale)
@@ -23,8 +23,8 @@ class ScribusImageItem : public ScribusItem
 	Q_PROPERTY(double imageXOffset READ imageXOffset WRITE setImageXOffset)
 	Q_PROPERTY(double imageYOffset READ imageYOffset WRITE setImageYOffset)
 public:
-	ScribusImageItem(PageItem_ImageFrame* im);
-	virtual ~ScribusImageItem();
+    ImageAPI(PageItem_ImageFrame* im);
+    virtual ~ImageAPI();
 
 public slots:
 	void loadImage(QString filename);

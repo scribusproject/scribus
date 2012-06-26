@@ -15,14 +15,10 @@ DialogsAPI::DialogsAPI() : QObject(SCRIPTER)
     setObjectName("dialogs");
 }
 
-
-
 DialogsAPI::~DialogsAPI()
 {
     qDebug() << "DialogsAPI deleted";
 }
-
-
 
 /**
  * Scripter.dialogs.alert(message)

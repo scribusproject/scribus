@@ -17,16 +17,16 @@
 #include "scripterimpl.h"
 #include "sccolor.h"
 
-class ScColorWrapper : public QObject
+class ColorAPI : public QObject
 {
     Q_OBJECT
 	
-	Q_PROPERTY(bool spotColor READ isSpotColor WRITE setSpotColor);
-	Q_PROPERTY(QString name READ name WRITE setName);
+    Q_PROPERTY(bool spotColor READ isSpotColor WRITE setSpotColor)
+    Q_PROPERTY(QString name READ name WRITE setName)
 
 public:
-    ScColorWrapper(ScColor *l, QString n);
-    virtual ~ScColorWrapper();
+    ColorAPI(ScColor *l, QString n);
+    virtual ~ColorAPI();
 
 public slots:
 	bool isSpotColor();

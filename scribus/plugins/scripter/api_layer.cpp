@@ -9,7 +9,7 @@ for which a new license (GPL+exception) is in place.
 #include "api_textitem.h"
 #include "api_imageitem.h"
 
-ScribusLayer::ScribusLayer(ScLayer *l) : QObject(COLLECTOR)
+LayerAPI::LayerAPI(ScLayer *l) : QObject(COLLECTOR)
 {
 	qDebug() << "ScLayerWrapper loaded";
 	setObjectName("layer");
@@ -17,109 +17,109 @@ ScribusLayer::ScribusLayer(ScLayer *l) : QObject(COLLECTOR)
 }
 
 
-QString ScribusLayer::getName()
+QString LayerAPI::getName()
 {
 	return innerLayer->Name;
 }
 
-void ScribusLayer::setName(QString name)
+void LayerAPI::setName(QString name)
 {
 	innerLayer->Name = name;
 }
 
-int ScribusLayer::getID()
+int LayerAPI::getID()
 {
 	return innerLayer->ID;
 }
 
-int ScribusLayer::getLevel()
+int LayerAPI::getLevel()
 {
 	return innerLayer->Level;
 }
 
-void ScribusLayer::setLevel(int level)
+void LayerAPI::setLevel(int level)
 {
 	innerLayer->Level = level;
 }
 
-bool ScribusLayer::isPrintable()
+bool LayerAPI::isPrintable()
 {
 	return innerLayer->isPrintable;
 }
 
-void ScribusLayer::setPrintable(bool value)
+void LayerAPI::setPrintable(bool value)
 {
 	innerLayer->isPrintable = value;
 }
 
-bool ScribusLayer::isViewable()
+bool LayerAPI::isViewable()
 {
 	return innerLayer->isViewable;
 }
 
-void ScribusLayer::setViewable(bool value)
+void LayerAPI::setViewable(bool value)
 {
 	innerLayer->isViewable = value;
 }
 
-bool ScribusLayer::isEditable()
+bool LayerAPI::isEditable()
 {
 	return innerLayer->isEditable;
 }
 
-void ScribusLayer::setEditable(bool value)
+void LayerAPI::setEditable(bool value)
 {
 	innerLayer->isEditable = value;
 }
 
-bool ScribusLayer::getFlowControl()
+bool LayerAPI::getFlowControl()
 {
 	return innerLayer->flowControl;
 }
 
-void ScribusLayer::setFlowControl(bool value)
+void LayerAPI::setFlowControl(bool value)
 {
 	innerLayer->flowControl = value;
 }
 
-bool ScribusLayer::getOutlineMode()
+bool LayerAPI::getOutlineMode()
 {
 	return innerLayer->outlineMode;
 }
 
-void ScribusLayer::setOutlineMode(bool value)
+void LayerAPI::setOutlineMode(bool value)
 {
 	innerLayer->outlineMode = value;
 }
 
-double ScribusLayer::getTransparency()
+double LayerAPI::getTransparency()
 {
 	return innerLayer->transparency;
 }
 
-void ScribusLayer::setTransparency(double value)
+void LayerAPI::setTransparency(double value)
 {
 	innerLayer->transparency = value;
 }
 
-int ScribusLayer::getBlendMode()
+int LayerAPI::getBlendMode()
 {
 	return innerLayer->blendMode;
 }
 
-void ScribusLayer::setBlendMode(int value)
+void LayerAPI::setBlendMode(int value)
 {
 	innerLayer->blendMode = value;
 }
 
-bool ScribusLayer::isActive()
+bool LayerAPI::isActive()
 {
 	if (ScCore->primaryMainWindow()->doc->activeLayerName() == innerLayer->Name)
 		return true;
 	return false;
 }
 
-void ScribusLayer::setActive(bool value)
+void LayerAPI::setActive(bool value)
 {
 	if (value)
 	{
@@ -134,7 +134,7 @@ void ScribusLayer::setActive(bool value)
  *
  */
 
-QList< QVariant > ScribusLayer::items()
+QList< QVariant > LayerAPI::items()
 {
 	QList<QVariant> l;
 	for (int i = 0; i<ScCore->primaryMainWindow()->doc->Items->count(); ++i)
@@ -144,17 +144,17 @@ QList< QVariant > ScribusLayer::items()
 		{
 			if (item->asTextFrame())
 			{
-				ScribusTextItem *textItem = new ScribusTextItem(item->asTextFrame());
+				TextAPI *textItem = new TextAPI(item->asTextFrame());
 				l.append(qVariantFromValue((QObject *)(textItem)));
 			}
 			else if (item->asImageFrame())
 			{
-				ScribusImageItem *imageItem = new ScribusImageItem(item->asImageFrame());
+				ImageAPI *imageItem = new ImageAPI(item->asImageFrame());
 				l.append(qVariantFromValue((QObject *)(imageItem)));
 			}
 			else
 			{
-				ScribusItem *otherItem = new ScribusItem(item);
+				ItemAPI *otherItem = new ItemAPI(item);
 				l.append(qVariantFromValue(
 				             (QObject *)(otherItem)
 				         ));
@@ -164,7 +164,7 @@ QList< QVariant > ScribusLayer::items()
 	return l;
 }
 
-ScribusLayer::~ScribusLayer()
+LayerAPI::~LayerAPI()
 {
 	qDebug() << "ScribusLayer deleted";
 }

@@ -12,14 +12,14 @@ for which a new license (GPL+exception) is in place.'
 #include "hyphenator.h"
 #include "scripterimpl.h"
 
-ScribusTextItem::ScribusTextItem(PageItem_TextFrame* inner) : ScribusItem(inner)
+TextAPI::TextAPI(PageItem_TextFrame* inner) : ItemAPI(inner)
 {
 	qDebug() << "TextItemWrapper loaded";
 	setObjectName("textItem");
 	item = inner;
 }
 
-QString ScribusTextItem::font()
+QString TextAPI::font()
 {
 	if (item->HasSel)
 	{
@@ -32,7 +32,7 @@ QString ScribusTextItem::font()
 		return item->currentCharStyle().font().scName();
 }
 
-void ScribusTextItem::setFont(QString name)
+void TextAPI::setFont(QString name)
 {
 	if (PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts.contains(name))
 	{
@@ -52,7 +52,7 @@ void ScribusTextItem::setFont(QString name)
 
 }
 
-double ScribusTextItem::fontSize()
+double TextAPI::fontSize()
 {
 	if (item->HasSel)
 	{
@@ -67,7 +67,7 @@ double ScribusTextItem::fontSize()
 	}
 }
 
-void ScribusTextItem::setFontSize(double size)
+void TextAPI::setFontSize(double size)
 {
 	int Apm = ScCore->primaryMainWindow()->doc->appMode;
 	ScCore->primaryMainWindow()->doc->m_Selection->clear();
@@ -79,7 +79,7 @@ void ScribusTextItem::setFontSize(double size)
 	ScCore->primaryMainWindow()->view->Deselect();
 }
 
-void ScribusTextItem::setText(QString text)
+void TextAPI::setText(QString text)
 {
 	text.replace("\r\n", SpecialChars::PARSEP);
 	text.replace(QChar('\n') , SpecialChars::PARSEP);
@@ -95,7 +95,7 @@ void ScribusTextItem::setText(QString text)
 	ScCore->primaryMainWindow()->view->DrawNew();
 }
 
-QString ScribusTextItem::text()
+QString TextAPI::text()
 {
 	QString text = "";
 	for (int a = 0; a < item->itemText.length(); a++)
@@ -113,22 +113,22 @@ QString ScribusTextItem::text()
 	return text;
 }
 
-int ScribusTextItem::textLines()
+int TextAPI::textLines()
 {
 	return item->itemText.lines();
 }
 
-int ScribusTextItem::textLength()
+int TextAPI::textLength()
 {
 	return item->itemText.length();
 }
 
-double ScribusTextItem::lineSpacing()
+double TextAPI::lineSpacing()
 {
 	return item->currentStyle().lineSpacing();
 }
 
-void ScribusTextItem::setLineSpacing(double value)
+void TextAPI::setLineSpacing(double value)
 {
 	int Apm = ScCore->primaryMainWindow()->doc->appMode;
 	ScCore->primaryMainWindow()->doc->m_Selection->clear();
@@ -140,7 +140,7 @@ void ScribusTextItem::setLineSpacing(double value)
 	ScCore->primaryMainWindow()->view->Deselect();
 }
 
-QList<QVariant> ScribusTextItem::distances()
+QList<QVariant> TextAPI::distances()
 {
 	QList<QVariant> l;
 	l.append(pts2value(item->textToFrameDistLeft(), ScCore->primaryMainWindow()->doc->unitIndex()));
@@ -150,7 +150,7 @@ QList<QVariant> ScribusTextItem::distances()
 	return l;
 }
 
-void ScribusTextItem::insertText(QString text, int position)
+void TextAPI::insertText(QString text, int position)
 {
 	text.replace("\r\n", SpecialChars::PARSEP);
 	text.replace(QChar('\n') , SpecialChars::PARSEP);
@@ -171,7 +171,7 @@ void ScribusTextItem::insertText(QString text, int position)
 	ScCore->primaryMainWindow()->view->DrawNew();
 }
 
-void ScribusTextItem::setLineSpacingMode(int mode)
+void TextAPI::setLineSpacingMode(int mode)
 {
 	if (!checkHaveDocument())
 		RAISE("No document open");
@@ -190,7 +190,7 @@ void ScribusTextItem::setLineSpacingMode(int mode)
 	ScCore->primaryMainWindow()->view->Deselect();
 }
 
-void ScribusTextItem::setDistances(double left, double right, double top, double bottom)
+void TextAPI::setDistances(double left, double right, double top, double bottom)
 {
 	if (!checkHaveDocument())
 		RAISE("No document open");
@@ -202,7 +202,7 @@ void ScribusTextItem::setDistances(double left, double right, double top, double
 	item->setTextToFrameDist(ValueToPoint(left), ValueToPoint(right), ValueToPoint(top), ValueToPoint(bottom));
 }
 
-void ScribusTextItem::setTextAlignment(int alignment)
+void TextAPI::setTextAlignment(int alignment)
 {
 	if (!checkHaveDocument())
 		RAISE("No document open");
@@ -220,7 +220,7 @@ void ScribusTextItem::setTextAlignment(int alignment)
 	ScCore->primaryMainWindow()->view->Deselect();
 }
 
-void ScribusTextItem::setTextColor(QString color)
+void TextAPI::setTextColor(QString color)
 {
 	if (!checkHaveDocument())
 		RAISE("No document open");
@@ -237,7 +237,7 @@ void ScribusTextItem::setTextColor(QString color)
 	}
 }
 
-void ScribusTextItem::setTextStroke(QString color)
+void TextAPI::setTextStroke(QString color)
 {
 	if (!checkHaveDocument())
 		RAISE("No document open");
@@ -254,7 +254,7 @@ void ScribusTextItem::setTextStroke(QString color)
 	}
 }
 
-void ScribusTextItem::setTextScalingV(double value)
+void TextAPI::setTextScalingV(double value)
 {
 	if (!checkHaveDocument())
 		RAISE("No document open");
@@ -274,7 +274,7 @@ void ScribusTextItem::setTextScalingV(double value)
 
 }
 
-void ScribusTextItem::setTextScalingH(double value)
+void TextAPI::setTextScalingH(double value)
 {
 	if (!checkHaveDocument())
 		RAISE("No document open");
@@ -294,7 +294,7 @@ void ScribusTextItem::setTextScalingH(double value)
 
 }
 
-void ScribusTextItem::setTextShade(int w)
+void TextAPI::setTextShade(int w)
 {
 	if (!checkHaveDocument())
 		RAISE("No document open");
@@ -315,7 +315,7 @@ void ScribusTextItem::setTextShade(int w)
 	}
 }
 
-void ScribusTextItem::selectText(int start, int selcount)
+void TextAPI::selectText(int start, int selcount)
 {
 	if (!checkHaveDocument())
 		RAISE("No document open");
@@ -343,7 +343,7 @@ void ScribusTextItem::selectText(int start, int selcount)
 	item->HasSel = true;
 }
 
-void ScribusTextItem::linkToTextFrame(QString name2)
+void TextAPI::linkToTextFrame(QString name2)
 {
 	if(name2.isEmpty())
 	{
@@ -382,7 +382,7 @@ void ScribusTextItem::linkToTextFrame(QString name2)
 	ScCore->primaryMainWindow()->slotDocCh();
 }
 
-void ScribusTextItem::unLinkTextFrames()
+void TextAPI::unLinkTextFrames()
 {
 	if (!checkHaveDocument())
 		RAISE("No document open");
@@ -397,7 +397,7 @@ void ScribusTextItem::unLinkTextFrames()
 	ScCore->primaryMainWindow()->view->DrawNew();
 }
 
-bool ScribusTextItem::deleteText()
+bool TextAPI::deleteText()
 {
 	if (!checkHaveDocument())
 		RAISE("No document open");
@@ -413,7 +413,7 @@ bool ScribusTextItem::deleteText()
 	}
 }
 
-bool ScribusTextItem::traceText()
+bool TextAPI::traceText()
 {
 	if (!checkHaveDocument())
 		RAISE("No document open");
@@ -422,9 +422,10 @@ bool ScribusTextItem::traceText()
 	ScCore->primaryMainWindow()->view->Deselect(true);
 	ScCore->primaryMainWindow()->view->SelectItem(item);
 	ScCore->primaryMainWindow()->view->TextToPath();
+    return true;
 }
 
-int ScribusTextItem::textOverFlows(bool checkLinks)
+int TextAPI::textOverFlows(bool checkLinks)
 {
 	if (!checkHaveDocument())
 		RAISE("No document open");
@@ -458,7 +459,7 @@ int ScribusTextItem::textOverFlows(bool checkLinks)
 	return item->frameOverflows();
 }
 
-bool ScribusTextItem::hyphenate()
+bool TextAPI::hyphenate()
 {
 	if (!checkHaveDocument())
 		RAISE("No document open");
@@ -466,7 +467,7 @@ bool ScribusTextItem::hyphenate()
 	return true;
 }
 
-bool ScribusTextItem::dehyphenate()
+bool TextAPI::dehyphenate()
 {
 	if (!checkHaveDocument())
 		RAISE("No document open");
@@ -474,7 +475,7 @@ bool ScribusTextItem::dehyphenate()
 	return false;
 }
 
-bool ScribusTextItem::PDFBookMark()
+bool TextAPI::PDFBookMark()
 {
 	if (!checkHaveDocument())
 		RAISE("No document open");
@@ -483,7 +484,7 @@ bool ScribusTextItem::PDFBookMark()
 	return false;
 }
 
-void ScribusTextItem::setPDFBookMark(bool toggle)
+void TextAPI::setPDFBookMark(bool toggle)
 {
 	if (!checkHaveDocument())
 		RAISE("No document open");
@@ -501,7 +502,7 @@ void ScribusTextItem::setPDFBookMark(bool toggle)
 	item->isBookmark = toggle;
 }
 
-ScribusTextItem::~ScribusTextItem()
+TextAPI::~TextAPI()
 {
 	qDebug() << "TextItemWrapper deleted";
 }

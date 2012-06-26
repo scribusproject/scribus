@@ -19,30 +19,29 @@ for which a new license (GPL+exception) is in place.
  * all properties of ScLayer defined via Q_PROPERTY
  */
 
-class ScribusLayer : public QObject
+class LayerAPI : public QObject
 {
     Q_OBJECT
 	
-	Q_PROPERTY(QString name READ getName WRITE setName);
+    Q_PROPERTY(QString name READ getName WRITE setName)
 	Q_PROPERTY(int id READ getID)
-	Q_PROPERTY(int level READ getLevel WRITE setLevel);
-	Q_PROPERTY(bool printable READ isPrintable WRITE setPrintable);
-	Q_PROPERTY(bool viewable READ isViewable WRITE setViewable);
-	Q_PROPERTY(bool editable READ isEditable WRITE setEditable);
-	Q_PROPERTY(bool flowControl READ getFlowControl WRITE setFlowControl);
-	Q_PROPERTY(bool outlineMode READ getOutlineMode WRITE setOutlineMode);
-	Q_PROPERTY(double transparency READ getTransparency WRITE setTransparency);
-	Q_PROPERTY(int blendMode READ getBlendMode WRITE setBlendMode);
-	Q_PROPERTY(bool active READ isActive WRITE setActive);
-	
-	Q_PROPERTY(QList<QVariant> items READ items);
+    Q_PROPERTY(int level READ getLevel WRITE setLevel)
+    Q_PROPERTY(bool printable READ isPrintable WRITE setPrintable)
+    Q_PROPERTY(bool viewable READ isViewable WRITE setViewable)
+    Q_PROPERTY(bool editable READ isEditable WRITE setEditable)
+    Q_PROPERTY(bool flowControl READ getFlowControl WRITE setFlowControl)
+    Q_PROPERTY(bool outlineMode READ getOutlineMode WRITE setOutlineMode)
+    Q_PROPERTY(double transparency READ getTransparency WRITE setTransparency)
+    Q_PROPERTY(int blendMode READ getBlendMode WRITE setBlendMode)
+    Q_PROPERTY(bool active READ isActive WRITE setActive)
+    Q_PROPERTY(QList<QVariant> items READ items)
 
 private:
 	ScLayer *innerLayer;
 	
 public:
-	ScribusLayer(ScLayer *l);
-	virtual ~ScribusLayer();
+    LayerAPI(ScLayer *l);
+    virtual ~LayerAPI();
 	
 	QList<QVariant> items();
     

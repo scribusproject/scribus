@@ -146,7 +146,7 @@ QObject *ScripterImpl::activeDocument()
 QObject *ScripterImpl::activeWindow()
 {
 	if (ScCore->primaryMainWindow()->HaveDoc)
-		return new ScribusWindow();
+		return new WindowAPI();
 	else
 		return NULL;
 }
@@ -165,7 +165,7 @@ QList<QVariant> ScripterImpl::colors()
 	for (it = names.begin(); it != names.end(); ++it)
 	{
 		ScColor *value = &(names[it.key()]);
-		ScColorWrapper *color = new ScColorWrapper(value, it.key());
+		ColorAPI *color = new ColorAPI(value, it.key());
 		l.append(qVariantFromValue((QObject *)(color)));
 	}
 	return l;

@@ -159,7 +159,7 @@ int DocumentAPI::pageCount()
  */
 QObject *DocumentAPI::activePage()
 {
-	return new ScribusPage(this);
+	return new PageAPI(this);
 }
 
 
@@ -177,17 +177,17 @@ QObject *DocumentAPI::activeItem()
 		PageItem* item = ScCore->primaryMainWindow()->doc->m_Selection->itemAt(0);
 		if(item->asTextFrame())
 		{
-			ScribusTextItem *textItem = new ScribusTextItem(item->asTextFrame());
+			TextAPI *textItem = new TextAPI(item->asTextFrame());
 			return textItem;
 		}
 		else if(item->asImageFrame())
 		{
-			ScribusImageItem *imageItem = new ScribusImageItem(item->asImageFrame());
+			ImageAPI *imageItem = new ImageAPI(item->asImageFrame());
 			return imageItem;
 		}
 		else
 		{
-			ScribusItem *otherItem = new ScribusItem(item);
+			ItemAPI *otherItem = new ItemAPI(item);
 			return otherItem;
 		}
 	}
@@ -220,17 +220,17 @@ QList<QVariant> DocumentAPI::selection()
 		PageItem *item = sel->itemAt(i);
 		if (item->asTextFrame())
 		{
-			ScribusTextItem *textItem = new ScribusTextItem(item->asTextFrame());
+			TextAPI *textItem = new TextAPI(item->asTextFrame());
 			l.append(qVariantFromValue((QObject *)(textItem)));
 		}
 		else if(item->asImageFrame())
 		{
-			ScribusImageItem *imageItem = new ScribusImageItem(item->asImageFrame());
+			ImageAPI *imageItem = new ImageAPI(item->asImageFrame());
 			l.append(qVariantFromValue((QObject *)(imageItem)));
 		}
 		else
 		{
-			ScribusItem *otherItem = new ScribusItem(item);
+			ItemAPI *otherItem = new ItemAPI(item);
 			l.append(qVariantFromValue(
 			             (QObject *)(otherItem)
 			         ));
@@ -263,17 +263,17 @@ QList<QVariant> DocumentAPI::items()
 		PageItem *item = ScCore->primaryMainWindow()->doc->Items->at(i);
 		if (item->asTextFrame())
 		{
-			ScribusTextItem *textItem = new ScribusTextItem(item->asTextFrame());
+			TextAPI *textItem = new TextAPI(item->asTextFrame());
 			l.append(qVariantFromValue((QObject *)(textItem)));
 		}
 		else if(item->asImageFrame())
 		{
-			ScribusImageItem *imageItem = new ScribusImageItem(item->asImageFrame());
+			ImageAPI *imageItem = new ImageAPI(item->asImageFrame());
 			l.append(qVariantFromValue((QObject *)(imageItem)));
 		}
 		else
 		{
-			ScribusItem *otherItem = new ScribusItem(item);
+			ItemAPI *otherItem = new ItemAPI(item);
 			l.append(qVariantFromValue(
 			             (QObject *)(otherItem)
 			         ));
@@ -302,7 +302,7 @@ QList<QVariant> DocumentAPI::layers()
 	for (int i = 0; i<ScCore->primaryMainWindow()->doc->Layers.count() ; ++i)
 	{
 		ScLayer *L = &(ScCore->primaryMainWindow()->doc->Layers[i]);
-		ScribusLayer *layer = new ScribusLayer(L);
+		LayerAPI *layer = new LayerAPI(L);
 		l.append(qVariantFromValue((QObject *)(layer)));
 	}
 	return l;
@@ -310,7 +310,7 @@ QList<QVariant> DocumentAPI::layers()
 
 QObject *DocumentAPI::newLayer(QString name)
 {
-	ScribusLayer *l = new ScribusLayer(ScCore->primaryMainWindow()->doc->Layers.newLayer(name));
+	LayerAPI *l = new LayerAPI(ScCore->primaryMainWindow()->doc->Layers.newLayer(name));
 	return (QObject *)(l);
 }
 
@@ -352,7 +352,7 @@ QObject *DocumentAPI::getActiveLayer()
 		if (ScCore->primaryMainWindow()->doc->Layers[i].Name == ScCore->primaryMainWindow()->doc->activeLayerName())
 		{
 			ScLayer *L = &(ScCore->primaryMainWindow()->doc->Layers[i]);
-			return new ScribusLayer(L);
+			return new LayerAPI(L);
 		}
 	}
 	return NULL;
@@ -386,7 +386,7 @@ QList<QVariant> DocumentAPI::colors()
 	for (it = names.begin(); it != names.end(); ++it)
 	{
 		ScColor *value = &(names[it.key()]);
-		ScColorWrapper *color = new ScColorWrapper(value, it.key());
+		ColorAPI *color = new ColorAPI(value, it.key());
 		l.append(qVariantFromValue((QObject *)(color)));
 	}
 	return l;
@@ -394,7 +394,7 @@ QList<QVariant> DocumentAPI::colors()
 
 QObject *DocumentAPI::getColor(QString name)
 {
-	return new ScColorWrapper(&(ScCore->primaryMainWindow()->doc->PageColors[name]), name);
+	return new ColorAPI(&(ScCore->primaryMainWindow()->doc->PageColors[name]), name);
 }
 
 QObject *DocumentAPI::newColorCMYK(QString name, int c, int m, int y, int k)

@@ -16,16 +16,16 @@ for which a new license (GPL+exception) is in place.
 class DialogsAPI : public QObject
 {
     Q_OBJECT
-    Q_PROPERTY(QWidget* mainWindow READ mainWindow);
-    Q_PROPERTY(QWidget* properties READ properties);
-    Q_PROPERTY(QWidget* nodes READ nodes);
-    Q_PROPERTY(QWidget* outline READ outline);
-    Q_PROPERTY(QWidget* scrapbook READ scrapbook);
-    Q_PROPERTY(QWidget* layers READ layers);
-    Q_PROPERTY(QWidget* documentChecker READ documentChecker);
-    Q_PROPERTY(QWidget* pages READ pages);
-    Q_PROPERTY(QWidget* bookmarks READ bookmarks);
-    Q_PROPERTY(bool newDocument READ newDocument);
+    Q_PROPERTY(QWidget* mainWindow READ mainWindow)
+    Q_PROPERTY(QWidget* properties READ properties)
+    Q_PROPERTY(QWidget* nodes READ nodes)
+    Q_PROPERTY(QWidget* outline READ outline)
+    Q_PROPERTY(QWidget* scrapbook READ scrapbook)
+    Q_PROPERTY(QWidget* layers READ layers)
+    Q_PROPERTY(QWidget* documentChecker READ documentChecker)
+    Q_PROPERTY(QWidget* pages READ pages)
+    Q_PROPERTY(QWidget* bookmarks READ bookmarks)
+    Q_PROPERTY(bool newDocument READ newDocument)
 public:
     DialogsAPI();
     virtual ~DialogsAPI();

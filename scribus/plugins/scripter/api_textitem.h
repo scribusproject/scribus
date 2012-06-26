@@ -15,7 +15,7 @@ for which a new license (GPL+exception) is in place.
 #include "pageitem_textframe.h"
 #include "api_item.h"
 
-class ScribusTextItem : public ScribusItem
+class TextAPI : public ItemAPI
 {
 	Q_OBJECT
 	
@@ -24,8 +24,7 @@ class ScribusTextItem : public ScribusItem
 	Q_PROPERTY(QString text READ text WRITE setText)
 	Q_PROPERTY(int textLines READ textLines)
 	Q_PROPERTY(int textLength READ textLength)
-	Q_PROPERTY(QString allText READ allText)
-	Q_PROPERTY(double lineSpacing READ lineSpacing WRITE setLineSpacing)
+    Q_PROPERTY(double lineSpacing READ lineSpacing WRITE setLineSpacing)
 	Q_PROPERTY(QList<QVariant> distances READ distances)
 	Q_PROPERTY(bool deleteText READ deleteText)
 	Q_PROPERTY(bool traceText READ traceText)
@@ -34,8 +33,8 @@ class ScribusTextItem : public ScribusItem
 	Q_PROPERTY(bool PDFBookMark READ PDFBookMark WRITE setPDFBookMark)
 
 public:
-	ScribusTextItem(PageItem_TextFrame* inner);
-	~ScribusTextItem();
+    TextAPI(PageItem_TextFrame* inner);
+    ~TextAPI();
 
 public slots:
 	void insertText(QString text, int position);
@@ -62,9 +61,8 @@ private:
 
 	int textLines();
 	int textLength();
-	QString allText();
 
-	double lineSpacing();
+    double lineSpacing();
 	void setLineSpacing(double value);
 
 	QList<QVariant> distances();

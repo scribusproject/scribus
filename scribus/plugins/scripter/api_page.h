@@ -14,18 +14,14 @@ for which a new license (GPL+exception) is in place.
 #include "scripterimpl.h"
 
 
-class ScribusPage : public QObject
+class PageAPI : public QObject
 {
 	Q_OBJECT
-	Q_PROPERTY(int number READ number WRITE setNumber);
-	Q_PROPERTY(int position READ position);
-	Q_PROPERTY(QList<QVariant> items READ items);
-	Q_PROPERTY(QList<QVariant> selection READ selection);
-	Q_PROPERTY(int type READ type);
-public:
-	ScribusPage(QObject *parent);
-	virtual ~ScribusPage();
-
+    Q_PROPERTY(int number READ number WRITE setNumber)
+    Q_PROPERTY(int position READ position)
+    Q_PROPERTY(QList<QVariant> items READ items)
+    Q_PROPERTY(QList<QVariant> selection READ selection)
+    Q_PROPERTY(int type READ type)
 
 public slots:
 	void remove();
@@ -39,6 +35,10 @@ public slots:
 	void placeEPS(const QString & filename, const double x, const double y);
 	void placeSXD(const QString & filename, const double x, const double y);
 	void savePageAsEPS(const QString & filename);
+
+public:
+    PageAPI(QObject *parent);
+    virtual ~PageAPI();
 
 private:
 	int position();

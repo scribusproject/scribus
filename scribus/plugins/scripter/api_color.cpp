@@ -15,35 +15,35 @@
 #include "sccolor.h"
 #include "utils.h"
 
-ScColorWrapper::ScColorWrapper(ScColor *l, QString n) : QObject(COLLECTOR)
+ColorAPI::ColorAPI(ScColor *l, QString n) : QObject(COLLECTOR)
 {
-    qDebug() << "ScColorWrapper loaded";
-    setObjectName("scColorWrapper");
+    qDebug() << "ColorAPI loaded";
+    setObjectName("ColorAPI");
 	color = l;
 	colorName = n;
 }
 
-QString ScColorWrapper::name()
+QString ColorAPI::name()
 {
 	return colorName;
 }
 
-void ScColorWrapper::setName(QString name)
+void ColorAPI::setName(QString name)
 {
 	colorName = name;
 }
 
-bool ScColorWrapper::isSpotColor()
+bool ColorAPI::isSpotColor()
 {
 	return color->isSpotColor();
 }
 
-void ScColorWrapper::setSpotColor(bool value)
+void ColorAPI::setSpotColor(bool value)
 {
 	color->setSpotColor(value);
 }
 
-void ScColorWrapper::replace(QString replace)
+void ColorAPI::replace(QString replace)
 {
 	if(replace.isEmpty())
 	{
@@ -59,7 +59,7 @@ void ScColorWrapper::replace(QString replace)
 	}
 }
 
-void ScColorWrapper::remove(QString replace)
+void ColorAPI::remove(QString replace)
 {
 	if (ScCore->primaryMainWindow()->HaveDoc)
 	{
@@ -89,7 +89,7 @@ void ScColorWrapper::remove(QString replace)
 	}	
 }
 
-void ScColorWrapper::changeCMYK(int c, int m, int y, int k)
+void ColorAPI::changeCMYK(int c, int m, int y, int k)
 {
     if(ScCore->primaryMainWindow()->HaveDoc)
     {
@@ -110,7 +110,7 @@ void ScColorWrapper::changeCMYK(int c, int m, int y, int k)
     }
 }
 
-void ScColorWrapper::changeRGB(int r, int g, int b)
+void ColorAPI::changeRGB(int r, int g, int b)
 {
 	if(ScCore->primaryMainWindow()->HaveDoc)
 	{
@@ -131,7 +131,7 @@ void ScColorWrapper::changeRGB(int r, int g, int b)
 	}
 }
 
-ScColorWrapper::~ScColorWrapper()
+ColorAPI::~ColorAPI()
 {
 	qDebug() << "ScColorWrapper deleted";
 }
