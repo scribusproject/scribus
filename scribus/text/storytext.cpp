@@ -122,17 +122,7 @@ StoryText StoryText::copy() const
 	StoryText result(doc);
 	*(result.d) = *d;
 	return result;
-//	qDebug() << QString("StoryText::copy:");
-	QListIterator<ScText*> it( *(result.d) );
-	ScText* elem;
-	while ( it.hasNext() ) {
-		elem = it.next();
-//		qDebug() << QString("\tchar '%1' size %2 (orig %3)").arg(elem->ch).arg(elem->fontSize()).arg(charStyle(i++).fontSize());
-	}
-	
-	return result;
 }
-
 
 StoryText& StoryText::operator= (const StoryText & other)
 {

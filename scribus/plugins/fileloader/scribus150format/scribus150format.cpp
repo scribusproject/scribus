@@ -179,7 +179,6 @@ void Scribus150Format::getReplacedFontData(bool & getNewReplacement, QMap<QStrin
 bool Scribus150Format::loadElements(const QString & data, QString fileDir, int toLayer, double Xp_in, double Yp_in, bool loc)
 {
 	ParagraphStyle vg;
-	bool newVersion = false;
 	isNewFormat = false;
 	LayerToPaste = toLayer;
 	Xp = Xp_in;
@@ -241,8 +240,6 @@ bool Scribus150Format::loadElements(const QString & data, QString fileDir, int t
 					GrX = attrs.valueAsDouble("XP");
 					GrY = attrs.valueAsDouble("YP");
 				}
-				if (attrs.hasAttribute("Version"))
-					newVersion = true;
 			}
 			else
 			{
@@ -1160,7 +1157,6 @@ bool Scribus150Format::loadFile(const QString & fileName, const FileFormat & /* 
 	struct ScribusDoc::BookMa bok;
 	QMap<int, ScribusDoc::BookMa> bookmarks;
 
-	bool newVersion = false;
 	isNewFormat = false;
 
 	QMap<int,PageItem*> TableID;
@@ -1252,8 +1248,6 @@ bool Scribus150Format::loadFile(const QString & fileName, const FileFormat & /* 
 				success = false;
 				break;
 			}
-			if (attrs.hasAttribute("Version"))
-				newVersion = true;
 			firstElement = false;
 		}
 		if (tagName == "DOCUMENT")
@@ -5143,7 +5137,6 @@ bool Scribus150Format::loadPage(const QString & fileName, int pageNumber, bool M
 	QStack< QList<PageItem*> > groupStackP;
 	QStack<int> groupStack2;
 	double pageX = 0, pageY = 0;
-	bool newVersion = false;
 	QMap<int,int> layerTrans;
 	int maxLayer = 0, maxLevel = 0, a = 0;
 
@@ -5198,8 +5191,6 @@ bool Scribus150Format::loadPage(const QString & fileName, int pageNumber, bool M
 				success = false;
 				break;
 			}
-			if (attrs.hasAttribute("Version"))
-				newVersion = true;
 			firstElement = false;
 		}
 
@@ -5876,7 +5867,7 @@ bool Scribus150Format::readLineStyles(const QString& fileName, QHash<QString,mul
 			styles->insert(mlName2, ml);
 		}
 	}
-	return true;
+	return success;
 }
 
 bool Scribus150Format::readColors(const QString& fileName, ColorList & colors)
@@ -5914,7 +5905,7 @@ bool Scribus150Format::readColors(const QString& fileName, ColorList & colors)
 			}
 		}
 	}
-	return true;
+	return success;
 }
 
 bool Scribus150Format::readPageCount(const QString& fileName, int *num1, int *num2, QStringList & masterPageNames)

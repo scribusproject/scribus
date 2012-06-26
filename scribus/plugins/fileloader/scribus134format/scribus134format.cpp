@@ -188,8 +188,6 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 	struct ScribusDoc::BookMa bok;
 	QMap<int, ScribusDoc::BookMa> bookmarks;
 
-	bool newVersion = false;
-
 	QMap<int,PageItem*> TableID;
 	QMap<int,PageItem*> TableIDM;
 	QMap<int,PageItem*> TableIDF;
@@ -277,8 +275,6 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 				success = false;
 				break;
 			}
-			if (attrs.hasAttribute("Version"))
-				newVersion = true;
 			firstElement = false;
 		}
 		if (tagName == "DOCUMENT")
@@ -3065,7 +3061,6 @@ bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool M
 	QList<PageItem*> TableItems;
 	QMap<PageItem*, int> groupID;
 	double pageX = 0, pageY = 0;
-	bool newVersion = false;
 	bool vorLFound  = false;
 	QMap<int,int> layerTrans;
 	int maxLayer = 0, maxLevel = 0, a = 0;
@@ -3124,8 +3119,6 @@ bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool M
 				success = false;
 				break;
 			}
-			if (attrs.hasAttribute("Version"))
-				newVersion = true;
 			firstElement = false;
 		}
 
@@ -3539,7 +3532,7 @@ bool Scribus134Format::readCharStyles(const QString& fileName, ScribusDoc* doc, 
 			docCharStyles.create(cstyle);
 		}
 	}
-	return true;
+	return success;
 }
 
 bool Scribus134Format::readLineStyles(const QString& fileName, QHash<QString,multiLine> *styles)
@@ -3588,7 +3581,7 @@ bool Scribus134Format::readLineStyles(const QString& fileName, QHash<QString,mul
 			styles->insert(mlName2, ml);
 		}
 	}
-	return true;
+	return success;
 }
 
 bool Scribus134Format::readColors(const QString& fileName, ColorList & colors)

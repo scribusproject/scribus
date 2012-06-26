@@ -1624,9 +1624,6 @@ void ScPageOutput::drawItem_TextFrame( PageItem_TextFrame* item, ScPainterExBase
 			painter->scale(1, -1);
 		}
 
-		//automatic line spacing factor (calculated once)
-		double autoLS = static_cast<double>(m_doc->typographicPrefs().autoLineSpacing) / 100.0;
-
 		for (uint ll=0; ll < item->itemText.lines(); ++ll)
 		{
 			LineSpec ls = item->itemText.line(ll);
