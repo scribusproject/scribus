@@ -49,6 +49,7 @@ public slots:
 	void selectText(int start, int selcount);
 	void linkToTextFrame(QString name2);
 	void unLinkTextFrames();
+
 private:
 	QString font();
 	void setFont(QString name);

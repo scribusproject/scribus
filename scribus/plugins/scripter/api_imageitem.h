@@ -18,38 +18,39 @@ for which a new license (GPL+exception) is in place.
 class ImageAPI : public ItemAPI
 {
 	Q_OBJECT
-	Q_PROPERTY(double imageXScale READ imageXScale WRITE setImageXScale)
-	Q_PROPERTY(double imageYScale READ imageYScale WRITE setImageYScale)
-	Q_PROPERTY(double imageXOffset READ imageXOffset WRITE setImageXOffset)
-	Q_PROPERTY(double imageYOffset READ imageYOffset WRITE setImageYOffset)
+    Q_PROPERTY(double xScale READ xScale WRITE setXScale)
+    Q_PROPERTY(double yScale READ yScale WRITE setYScale)
+    Q_PROPERTY(double xOffset READ xOffset WRITE setXOffset)
+    Q_PROPERTY(double yOffset READ yOffset WRITE setYOffset)
+
 public:
     ImageAPI(PageItem_ImageFrame* im);
     virtual ~ImageAPI();
 
 public slots:
-	void loadImage(QString filename);
-	void scaleImage(double x, double y);
-	void setImageOffset(double x, double y);
-	void setImageBrightness(double n);
-	void setImageGrayscale();
-	void setScaleImageToFrame(bool scaletoframe, bool Proportional);
+    void load(QString filename);
+    void scale(double x, double y);
+    void offset(double x, double y);
+    void setBrightness(double n);
+    void setGrayscale();
+    void scaleToFrame(bool scaletoframe, bool Proportional);
 
 private:
 	PageItem_ImageFrame* item;
 	
-	double imageXScale();
-	void setImageXScale(double value);
+    double xScale();
+    void setXScale(double value);
 	
-	double imageYScale();
-	void setImageYScale(double value);
-	
-	
-	double imageXOffset();
-	void setImageXOffset(double value);
+    double yScale();
+    void setYScale(double value);
 	
 	
-	double imageYOffset();
-	void setImageYOffset(double value);
+    double xOffset();
+    void setXOffset(double value);
+	
+	
+    double yOffset();
+    void setYOffset(double value);
 };
 
 #endif /*API_IMAGEITEM_H_*/

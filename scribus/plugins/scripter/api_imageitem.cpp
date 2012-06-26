@@ -20,51 +20,71 @@ ImageAPI::ImageAPI(PageItem_ImageFrame* im) : ItemAPI(im)
 }
 
 
-double ImageAPI::imageXScale()
+double ImageAPI::xScale()
 {
 	return item->imageXScale();
 }
 
-void ImageAPI::setImageXScale(double value)
+void ImageAPI::setXScale(double value)
 {
 	item->setImageXScale(value);
 }
 
 
-double ImageAPI::imageYScale()
+double ImageAPI::yScale()
 {
 	return item->imageYScale();
 }
 
-void ImageAPI::setImageYScale(double value)
+void ImageAPI::setYScale(double value)
 {
 	item->setImageYScale(value);
 }
 
 
-double ImageAPI::imageXOffset()
+double ImageAPI::xOffset()
 {
 	return item->imageXOffset();
 }
 
-void ImageAPI::setImageXOffset(double value)
+void ImageAPI::setXOffset(double value)
 {
 	item->setImageXOffset(value);
 }
 
 
-double ImageAPI::imageYOffset()
+double ImageAPI::yOffset()
 {
 	return item->imageYOffset();
 }
 
-void ImageAPI::setImageYOffset(double value)
+void ImageAPI::setYOffset(double value)
 {
 	item->setImageYOffset(value);
 }
 
+void ImageAPI::setGrayscale()
+{
+    if (!checkHaveDocument())
+        RAISE("No document open");
+    if (item == NULL)
+        return;
+    if (! item->asImageFrame())
+    {
+        RAISE("Specified item not an image frame.");
+        return;
+    }
 
-void ImageAPI::loadImage(QString filename)
+    ImageEffect ef;
+    ef.effectCode = ScImage::EF_GRAYSCALE;
+
+    item->effectsInUse.append(ef);
+    item->pixm.applyEffect(item->effectsInUse, ScCore->primaryMainWindow()->doc->PageColors, false);
+
+    ScCore->primaryMainWindow()->doc->updatePic();
+}
+
+void ImageAPI::load(QString filename)
 {
 	if (!checkHaveDocument())
 		RAISE("No document open");
@@ -78,7 +98,7 @@ void ImageAPI::loadImage(QString filename)
 	ScCore->primaryMainWindow()->doc->loadPict(filename, item);
 }
 
-void ImageAPI::scaleImage(double x, double y)
+void ImageAPI::scale(double x, double y)
 {
 	if (!checkHaveDocument())
 		RAISE("No document open");
@@ -106,7 +126,7 @@ void ImageAPI::scaleImage(double x, double y)
 		*ScCore->primaryMainWindow()->doc->m_Selection=tempSelection;
 }
 
-void ImageAPI::setImageOffset(double x, double y)
+void ImageAPI::offset(double x, double y)
 {
 	if (!checkHaveDocument())
 		RAISE("No document open");
@@ -141,7 +161,7 @@ void ImageAPI::setImageOffset(double x, double y)
 		*ScCore->primaryMainWindow()->doc->m_Selection=tempSelection;
 }
 
-void ImageAPI::setImageBrightness(double n)
+void ImageAPI::setBrightness(double n)
 {
 	if (!checkHaveDocument())
 		RAISE("No document open");
@@ -164,28 +184,7 @@ void ImageAPI::setImageBrightness(double n)
 	ScCore->primaryMainWindow()->doc->updatePic();
 }
 
-void ImageAPI::setImageGrayscale()
-{
-	if (!checkHaveDocument())
-		RAISE("No document open");
-	if (item == NULL)
-		return;
-	if (! item->asImageFrame())
-	{
-		RAISE("Specified item not an image frame.");
-		return;
-	}
-
-	ImageEffect ef;
-	ef.effectCode = ScImage::EF_GRAYSCALE;
-
-	item->effectsInUse.append(ef);
-	item->pixm.applyEffect(item->effectsInUse, ScCore->primaryMainWindow()->doc->PageColors, false);
-
-	ScCore->primaryMainWindow()->doc->updatePic();
-}
-
-void ImageAPI::setScaleImageToFrame(bool scaletoframe, bool Proportional)
+void ImageAPI::scaleToFrame(bool scaletoframe, bool Proportional)
 {
 	bool scaleToFrame = false;
 	bool proportional = true;
