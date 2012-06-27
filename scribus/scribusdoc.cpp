@@ -8626,14 +8626,26 @@ void ScribusDoc::itemSelection_ApplyCharStyle(const CharStyle & newStyle, Select
 					length = start < currItem->itemText.length() ? 1 : 0;
 				}
 			}
-			if (UndoManager::undoEnabled())
+			CharStyle lastParent = currItem->itemText.charStyle(start);
+			int stop = start+qMax(0,length);
+			int lastPos = start;
+			for (int i=start; i <= stop; ++i)
 			{
-				ScItemState<QPair<CharStyle,CharStyle> > *is = new ScItemState<QPair <CharStyle,CharStyle> >(Um::ApplyTextStyle);
-				is->set("APPLY_CHARSTYLE", "apply_charstyle");
-				is->set("START",start);
-				is->set("LENGTH",qMax(0,length));
-				is->setItem(QPair<CharStyle,CharStyle>(newStyle, currItem->itemText.charStyle(start)));
-				undoManager->action(currItem, is);
+				const CharStyle& curParent(currItem->itemText.charStyle(i));
+				if (!curParent.equiv(lastParent) || i==stop)
+				{
+					if (UndoManager::undoEnabled())
+					{
+						ScItemState<QPair<CharStyle,CharStyle> > *is = new ScItemState<QPair <CharStyle,CharStyle> >(Um::ApplyTextStyle);
+						is->set("APPLY_CHARSTYLE", "apply_charstyle");
+						is->set("START",lastPos);
+						is->set("LENGTH",i-lastPos);
+						is->setItem(QPair<CharStyle,CharStyle>(newStyle, currItem->itemText.charStyle(lastPos)));
+						undoManager->action(currItem, is);
+					}
+					lastPos = i;
+					lastParent = curParent;
+				}
 			}
 			currItem->itemText.applyCharStyle(start, qMax(0, length), newStyle);
 			currItem->invalid = true;
@@ -8648,13 +8660,27 @@ void ScribusDoc::itemSelection_ApplyCharStyle(const CharStyle & newStyle, Select
 				is->set("APPLY_DEFAULTPARASTYLE", "apply_defaultparastyle");
 				is->setItem(QPair<ParagraphStyle,ParagraphStyle>(dstyle, currItem->itemText.defaultStyle()));
 				undoManager->action(currItem, is);
-
-				ScItemState<QPair<CharStyle,CharStyle> > *ist = new ScItemState<QPair <CharStyle,CharStyle> >(Um::ApplyTextStyle);
-				ist->set("APPLY_CHARSTYLE", "apply_charstyle");
-				ist->set("START",0);
-				ist->set("LENGTH",currItem->itemText.length());
-				ist->setItem(QPair<CharStyle,CharStyle>(newStyle, currItem->itemText.charStyle(0)));
-				undoManager->action(currItem, ist);
+			}
+			CharStyle lastParent = currItem->itemText.charStyle(0);
+			int stop = currItem->itemText.length();
+			int lastPos = 0;
+			for (int i=0; i <= stop; ++i)
+			{
+				const CharStyle& curParent(currItem->itemText.charStyle(i));
+				if (!curParent.equiv(lastParent) || i==stop)
+				{
+					if (UndoManager::undoEnabled())
+					{
+						ScItemState<QPair<CharStyle,CharStyle> > *ist = new ScItemState<QPair <CharStyle,CharStyle> >(Um::ApplyTextStyle);
+						ist->set("APPLY_CHARSTYLE", "apply_charstyle");
+						ist->set("START",lastPos);
+						ist->set("LENGTH",i-lastPos);
+						ist->setItem(QPair<CharStyle,CharStyle>(newStyle, currItem->itemText.charStyle(lastPos)));
+						undoManager->action(currItem, ist);
+					}
+					lastPos = i;
+					lastParent = curParent;
+				}
 			}
 			currItem->itemText.setDefaultStyle(dstyle);
 //			if (currItem->asPathText())
