@@ -73,6 +73,8 @@ public:
 	TransactionState();
 	/** @brief Destroys the TransactionState instance */
 	~TransactionState();
+	/** @brief To know if the state is a Transaction */
+	bool isTransaction(){return true;};
 	
 	/**
 	 * @brief Add a new <code>UndoState</code> object to the transaction.

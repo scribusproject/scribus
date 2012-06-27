@@ -527,10 +527,8 @@ void UndoManager::action(UndoObject* target, UndoState* state,
 }
 
 UndoState* UndoManager::getLastUndo(){
-	if(stacks_[currentDoc_].undoActions_.size()>0)
-		return stacks_[currentDoc_].undoActions_[0];
-	else
-		return 0;
+	UndoState* state = stacks_[currentDoc_].getNextUndo(currentUndoObjectId_);
+	return state;
 }
 
 void UndoManager::undo(int steps)

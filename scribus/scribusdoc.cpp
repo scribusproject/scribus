@@ -7312,7 +7312,7 @@ void ScribusDoc::itemSelection_SetFont(QString fon, Selection* customSelection)
 {
 	CharStyle newStyle;
 	newStyle.setFont((*AllFonts)[fon]);
-	itemSelection_ApplyCharStyle(newStyle, customSelection);
+	itemSelection_ApplyCharStyle(newStyle, customSelection, "FONT");
 }
 
 
@@ -7321,7 +7321,7 @@ void ScribusDoc::itemSelection_SetNamedCharStyle(const QString& name, Selection*
 {
 	CharStyle newStyle;
 	newStyle.setParent(name.isEmpty()? Style::INHERIT_PARENT : name);
-	itemSelection_ApplyCharStyle(newStyle, customSelection);
+	itemSelection_ApplyCharStyle(newStyle, customSelection, "NAMED_STYLE");
 }
 
 
@@ -7401,14 +7401,14 @@ void ScribusDoc::itemSelection_SetFillColor(QString farbe, Selection* customSele
 		farbe = CommonStrings::None;
 	CharStyle newStyle;
 	newStyle.setFillColor(farbe);
-	itemSelection_ApplyCharStyle(newStyle, customSelection);
+	itemSelection_ApplyCharStyle(newStyle, customSelection, "FILL_COLOR");
 }
 
 void ScribusDoc::itemSelection_SetFillShade(int sha, Selection* customSelection)
 {
 	CharStyle newStyle;
 	newStyle.setFillShade(sha);
-	itemSelection_ApplyCharStyle(newStyle, customSelection);
+	itemSelection_ApplyCharStyle(newStyle, customSelection, "FILL_SHADE");
 }
 
 void ScribusDoc::itemSelection_SetStrokeColor(QString farbe, Selection* customSelection)
@@ -7417,28 +7417,28 @@ void ScribusDoc::itemSelection_SetStrokeColor(QString farbe, Selection* customSe
 		farbe = CommonStrings::None;
 	CharStyle newStyle;
 	newStyle.setStrokeColor(farbe);
-	itemSelection_ApplyCharStyle(newStyle, customSelection);
+	itemSelection_ApplyCharStyle(newStyle, customSelection, "STROKE_COLOR");
 }
 
 void ScribusDoc::itemSelection_SetStrokeShade(int sha, Selection* customSelection)
 {
 	CharStyle newStyle;
 	newStyle.setStrokeShade(sha);
-	itemSelection_ApplyCharStyle(newStyle, customSelection);
+	itemSelection_ApplyCharStyle(newStyle, customSelection, "STROKE_SHADE");
 }
 
 void ScribusDoc::itemSelection_SetScaleV(int scale, Selection* customSelection)
 {
 	CharStyle newStyle;
 	newStyle.setScaleV(scale);
-	itemSelection_ApplyCharStyle(newStyle, customSelection);
+	itemSelection_ApplyCharStyle(newStyle, customSelection, "SCALE_V");
 }
 
 void ScribusDoc::itemSelection_SetScaleH(int scale, Selection* customSelection)
 {
 	CharStyle newStyle;
 	newStyle.setScaleH(scale);
-	itemSelection_ApplyCharStyle(newStyle, customSelection);
+	itemSelection_ApplyCharStyle(newStyle, customSelection, "SCALE_H");
 }
 
 void ScribusDoc::itemSelection_SetShadowOffsets(int shx, int shy, Selection* customSelection)
@@ -7446,7 +7446,7 @@ void ScribusDoc::itemSelection_SetShadowOffsets(int shx, int shy, Selection* cus
 	CharStyle newStyle;
 	newStyle.setShadowXOffset(shx);
 	newStyle.setShadowYOffset(shy);
-	itemSelection_ApplyCharStyle(newStyle, customSelection);
+	itemSelection_ApplyCharStyle(newStyle, customSelection, "SHADOW_OFFSET");
 }
 
 void ScribusDoc::itemSelection_SetUnderline(int pos, int wid, Selection* customSelection)
@@ -7454,7 +7454,7 @@ void ScribusDoc::itemSelection_SetUnderline(int pos, int wid, Selection* customS
 	CharStyle newStyle;
 	newStyle.setUnderlineOffset(pos);
 	newStyle.setUnderlineWidth(wid);
-	itemSelection_ApplyCharStyle(newStyle, customSelection);
+	itemSelection_ApplyCharStyle(newStyle, customSelection, "UNDERLINE");
 }
 
 void ScribusDoc::itemSelection_SetStrikethru(int pos, int wid, Selection* customSelection)
@@ -7462,21 +7462,21 @@ void ScribusDoc::itemSelection_SetStrikethru(int pos, int wid, Selection* custom
 	CharStyle newStyle;
 	newStyle.setStrikethruOffset(pos);
 	newStyle.setStrikethruWidth(wid);
-	itemSelection_ApplyCharStyle(newStyle, customSelection);
+	itemSelection_ApplyCharStyle(newStyle, customSelection, "STRIKE_THRU");
 }
 
 void ScribusDoc::itemSelection_SetBaselineOffset(int sha, Selection* customSelection)
 {
 	CharStyle newStyle;
 	newStyle.setBaselineOffset(sha);
-	itemSelection_ApplyCharStyle(newStyle, customSelection);
+	itemSelection_ApplyCharStyle(newStyle, customSelection, "BASELINE_OFFSET");
 }
 
 void ScribusDoc::itemSelection_SetOutlineWidth(int wid, Selection* customSelection)
 {
 	CharStyle newStyle;
 	newStyle.setOutlineWidth(wid);
-	itemSelection_ApplyCharStyle(newStyle, customSelection);
+	itemSelection_ApplyCharStyle(newStyle, customSelection, "OUTLINE_WIDTH");
 }
 
 void ScribusDoc::itemSelection_SetItemBrush(QString farbe)
@@ -8263,10 +8263,10 @@ void ScribusDoc::itemSelection_SetEffects(int s, Selection* customSelection)
 {
 	CharStyle newStyle;
 	newStyle.setFeatures(static_cast<StyleFlag>(s).featureList());
-	itemSelection_ApplyCharStyle(newStyle, customSelection);
+	itemSelection_ApplyCharStyle(newStyle, customSelection, "EFFECTS");
 	return;
 	
-	uint selectedItemCount=m_Selection->count();
+	/*uint selectedItemCount=m_Selection->count();
 	if (selectedItemCount != 0 && s != ScStyle_None)
 	{
 		UndoTransaction* activeTransaction = NULL;
@@ -8316,7 +8316,7 @@ void ScribusDoc::itemSelection_SetEffects(int s, Selection* customSelection)
 		}
 		m_updateManager.setUpdatesEnabled();
 		changed();
-	}
+	}*/
 }
 
 void ScribusDoc::itemSelection_SetOpticalMargins(int i, Selection* customSelection)
@@ -8339,7 +8339,7 @@ void ScribusDoc::itemSelection_SetTracking(int kern, Selection* customSelection)
 {
 	CharStyle newStyle;
 	newStyle.setTracking(kern);
-	itemSelection_ApplyCharStyle(newStyle, customSelection);
+	itemSelection_ApplyCharStyle(newStyle, customSelection, "TRACKING");
 }
 
 void ScribusDoc::itemSelection_SetLineSpacingMode(int m, Selection* customSelection)
@@ -8351,12 +8351,12 @@ void ScribusDoc::itemSelection_SetLineSpacingMode(int m, Selection* customSelect
 
 void ScribusDoc::itemSelection_SetFontSize(int size, Selection* customSelection)
 {
-	if (true || ((appMode == modeEdit) || (appMode == modeEditTable)))
-	{
+	//if (true || ((appMode == modeEdit) || (appMode == modeEditTable)))
+	//{
 		CharStyle newStyle;
 		newStyle.setFontSize(size);
-		itemSelection_ApplyCharStyle(newStyle, customSelection);
-	}
+		itemSelection_ApplyCharStyle(newStyle, customSelection, "FONT_SIZE");
+	/*}
 	else
 	{
 		ParagraphStyle storyStyle;
@@ -8374,7 +8374,7 @@ void ScribusDoc::itemSelection_SetFontSize(int size, Selection* customSelection)
 			storyStyle.setLineSpacing(docPrefsData.guidesPrefs.valueBaselineGrid-1);
 		}
 		itemSelection_ApplyParagraphStyle(storyStyle, customSelection);
-	}
+	}*/
 }
 
 void ScribusDoc::itemSelection_SetParagraphStyle(const ParagraphStyle & newStyle, Selection* customSelection)
@@ -8592,7 +8592,7 @@ void ScribusDoc::itemSelection_ApplyParagraphStyle(const ParagraphStyle & newSty
 	regionsChanged()->update(QRectF());
 }
 
-void ScribusDoc::itemSelection_ApplyCharStyle(const CharStyle & newStyle, Selection* customSelection)
+void ScribusDoc::itemSelection_ApplyCharStyle(const CharStyle & newStyle, Selection* customSelection, QString ETEA)
 {
 	Selection* itemSelection = (customSelection!=0) ? customSelection : m_Selection;
 	assert(itemSelection!=0);
@@ -8636,12 +8636,29 @@ void ScribusDoc::itemSelection_ApplyCharStyle(const CharStyle & newStyle, Select
 				{
 					if (UndoManager::undoEnabled())
 					{
-						ScItemState<QPair<CharStyle,CharStyle> > *is = new ScItemState<QPair <CharStyle,CharStyle> >(Um::ApplyTextStyle);
-						is->set("APPLY_CHARSTYLE", "apply_charstyle");
-						is->set("START",lastPos);
-						is->set("LENGTH",i-lastPos);
-						is->setItem(QPair<CharStyle,CharStyle>(newStyle, currItem->itemText.charStyle(lastPos)));
-						undoManager->action(currItem, is);
+						UndoState* state = undoManager->getLastUndo();
+						ScItemState<QPair<CharStyle,CharStyle> > *is = NULL;
+						SimpleState *ss = NULL;
+						TransactionState *ts = dynamic_cast<TransactionState*>(state);
+						if(state && state->isTransaction())
+							ss = dynamic_cast<SimpleState*>(ts->at(0));
+						if(ss && ss->get("ETEA") == ETEA)
+						{
+							for(int i=0;i<ts->sizet();i++){
+								is = dynamic_cast<ScItemState<QPair<CharStyle,CharStyle> > *>(ts->at(i));
+								is->setItem(QPair<CharStyle,CharStyle>(newStyle, is->getItem().second));
+							}
+						}
+						else
+						{
+							is = new ScItemState<QPair <CharStyle,CharStyle> >(Um::ApplyTextStyle);
+							is->set("APPLY_CHARSTYLE", "apply_charstyle");
+							is->set("START",lastPos);
+							is->set("LENGTH",i-lastPos);
+							is->set("ETEA", ETEA);
+							is->setItem(QPair<CharStyle,CharStyle>(newStyle, currItem->itemText.charStyle(lastPos)));
+							undoManager->action(currItem, is);
+						}
 					}
 					lastPos = i;
 					lastParent = curParent;

@@ -108,7 +108,8 @@ public:
 	/** @brief redo the state described by this UndoState,
 	 *  @brief requires the related UndoObject */
 	virtual void redo();
-
+	/** @brief To know if the state is a transaction */
+	virtual bool isTransaction(){ return false;};
 	/** @brief Set the UndoObject this state belongs to */
 	virtual void setUndoObject(UndoObject *object);
 	/** @brief return the UndoObject this state belongs to */

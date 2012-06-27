@@ -492,6 +492,14 @@ void CanvasMode_Edit::mousePressEvent(QMouseEvent *m)
 		SimpleState *ss = dynamic_cast<SimpleState*>(undoManager->getLastUndo());
 		if(ss)
 			ss->set("ETEA",QString(""));
+		else
+		{
+			TransactionState *ts = dynamic_cast<TransactionState*>(undoManager->getLastUndo());
+			if(ts)
+				ss = dynamic_cast<SimpleState*>(ts->at(0));
+			if(ss)
+				ss->set("ETEA",QString(""));
+		}
 	}
 // 	const double mouseX = m->globalX();
 // 	const double mouseY = m->globalY();
