@@ -488,6 +488,7 @@ public:
 	QString externalFile() const { return Pfile; }
 	void setExternalFile(QString val);
 	void setImagePagenumber(int num) { pixm.imgInfo.actualPageNumber = num; }
+	void setResolution(int);
 	
 	//FIXME: maybe these should go into annotation?
 	QString fileIconPressed() const { return Pfile2; }
@@ -703,7 +704,7 @@ public:
 	void setFillEvenOdd(bool val) { fillRule = val; }
 	//
 	bool overprint() const { return doOverprint; }
-	void setOverprint(bool val) { doOverprint = val; }
+	void setOverprint(bool val);
 	// rect / oval / round / other
 	int frameType() const { return FrameType; }
 	void setFrameType(int val) { FrameType = val; }
@@ -1180,6 +1181,7 @@ public:
 	
 	bool isAnnotation() const { return m_isAnnotation; }
 	void setIsAnnotation(bool);
+	void setIsBookMark(bool);
 	void setAnnotation(const Annotation& ad);
 	Annotation& annotation() { return m_annotation; }
 	const Annotation& annotation() const { return m_annotation; }
@@ -1226,6 +1228,9 @@ protected:
 	void restoreLoremIpsum(SimpleState *state, bool isUndo);
 	void restoreDeleteFrameText(SimpleState *state, bool isUndo);
 	void restoreInsertFrameText(SimpleState *state, bool isUndo);
+	void restoreCornerRadius(SimpleState *state, bool isUndo);
+	void restoreShowImage(SimpleState *state, bool isUndo);
+	void restoreResTyp(SimpleState *state, bool isUndo);
 	void restoreMove(SimpleState *state, bool isUndo);
 	void restoreResize(SimpleState *state, bool isUndo);
 	void restoreRotate(SimpleState *state, bool isUndo);

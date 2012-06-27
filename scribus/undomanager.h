@@ -451,6 +451,9 @@ public:
 	static QString MoveVGuide;
 	static QString MoveHGuide;
 	static QString UniteItem;
+	static QString Overprint;
+	static QString BlendMode;
+	static QString ActionPDF;
 	static QString SplitItem;
 	static QString RemoveAllGuides;
 	static QString RemoveAllPageGuides;
@@ -530,12 +533,15 @@ public:
 	static QString ImageFrame;
 	static QString TextFrame;
 	static QString LatexFrame;
+	static QString ResTyp;
 	static QString Polygon;
 	static QString BezierCurve;
+	static QString ShowImage;
 	static QString Polyline;
 	static QString PathText;
 	static QString ConvertTo;
 	static QString ImportSVG;
+	static QString RoundCorner;
 	static QString ImportUniconv;
 	static QString ImportEPS;
 	static QString ImportBarcode;

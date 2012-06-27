@@ -143,17 +143,8 @@ PageItem* PropertiesPalette_Shape::currentItemFromSelection()
 {
 	PageItem *currentItem = NULL;
 
-	if (m_doc)
-	{
-		if (m_doc->m_Selection->count() > 1)
-		{
-			currentItem = m_doc->m_Selection->itemAt(0);
-		}
-		else if (m_doc->m_Selection->count() == 1)
-		{
-			currentItem = m_doc->m_Selection->itemAt(0);
-		}
-	}
+	if (m_doc && m_doc->m_Selection->count()>0)
+		currentItem = m_doc->m_Selection->itemAt(0);
 
 	return currentItem;
 }
