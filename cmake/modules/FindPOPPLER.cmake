@@ -16,7 +16,7 @@ FIND_PATH(POPPLER_INCLUDE_DIR
 
 FIND_LIBRARY(POPPLER_LIBRARY
   NAMES libpoppler poppler
-  PATHS ${PKG_POPPLER_LIBRARIES} ${POPPLER_LIBRARY_DIRS} /usr/local/lib /usr/lib /usr/lib/i386-linux-gnu /usr/lib/x86_64-linux-gnu
+  PATHS ${PKG_POPPLER_LIBRARIES} ${POPPLER_LIBRARY_DIRS} /usr/local/lib /usr/lib /usr/lib/${CMAKE_LIBRARY_ARCHITECTURE}
   PATH_SUFFIXES poppler
   NO_DEFAULT_PATH
 )
