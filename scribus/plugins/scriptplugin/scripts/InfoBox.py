@@ -61,11 +61,13 @@ except ImportError:
     print "Unable to import the 'scribus' module. This script will only run within"
     print "the Python interpreter embedded in Scribus. Try Script->Execute Script."
     sys.exit(1)
+
+pil_found = 1
+
 try:
     from PIL import Image
 except ImportError:
-    print "Unable to import the Python Imaging Library module."
-    sys.exit(1)
+    pil_found = 0
 
 def main(argv):
     unit = scribus.getUnit()
@@ -124,7 +126,7 @@ def main(argv):
     while (new_height == 0):
         new_height = scribus.valueDialog('Height','Your frame height is '+ str(o_height) +
                                                  unitlabel +'. How tall\n do you want your ' +
-                                                 'infobox to be in '+ unitlabel +'?\n If you load an image, height will be\n calculated, so the value here does not\n matter.', str(o_height))
+                                                 'infobox to be in '+ unitlabel +'?\n If you load an image and have the PIL module, height will be\n calculated, so the value here will not\n matter in that case.', str(o_height))
     new_top = -1
     while (new_top < 0):
         new_top = scribus.valueDialog('Y-Pos','The top of your infobox is currently\n'+ str(top) +
@@ -143,10 +145,13 @@ def main(argv):
     else:
         if (frametype == 'imageL'):
 	    imageload = scribus.fileDialog('Load image','Images(*.jpg *.png *.tif *.JPG *.PNG *.jpeg *.JPEG *.TIF)',haspreview=1)
-            im = Image.open(imageload)
-            xsize, ysize = im.size
-	    new_height = float(ysize)/float(xsize)*new_width
-	    new_image = scribus.createImage(new_left, float(new_top), new_width, float(new_height),framename)
+            if (pil_found == 1):
+                im = Image.open(imageload)
+                xsize, ysize = im.size
+                new_height = float(ysize)/float(xsize)*new_width
+	    else:
+                scribus.messageBox('Please Note',"Your frame will be created once you click OK.\n\nUse the Context Menu to Adjust Frame to Image.\n\nIf your image does not fill the width completely,\nstretch the frame vertically first.",scribus.BUTTON_OK)
+            new_image = scribus.createImage(new_left, float(new_top), new_width, float(new_height),framename)
 	    scribus.loadImage(imageload, new_image)
         else:
 	    new_image = scribus.createImage(new_left, float(new_top), new_width, float(new_height),framename)
