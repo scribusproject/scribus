@@ -700,8 +700,10 @@ void CanvasMode::setModeCursor()
 			qApp->changeOverrideCursor(QCursor(Qt::CrossCursor));
 			break;
 		case modeDrawFreehandLine:
-		case modeDrawCalligraphicLine:
 			qApp->changeOverrideCursor(QCursor(loadIcon("DrawFreeLine.png"), 0, 31));
+			break;
+		case modeDrawCalligraphicLine:
+			qApp->changeOverrideCursor(QCursor(loadIcon("DrawCalligraphy.xpm"), 4, 4));
 			break;
 		case modeImportObject:
 			qApp->changeOverrideCursor(QCursor(loadIcon("DragPix.xpm")));
