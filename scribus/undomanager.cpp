@@ -720,7 +720,8 @@ bool TransactionState::contains(int uid) const
 {
 	for (uint i = 0; i < states_.size(); ++i)
 	{
-		if (states_[i]->undoObject()->getUId() == static_cast<uint>(uid))
+		UndoObject* undoObject = states_[i]->undoObject();
+		if (undoObject && undoObject->getUId() == static_cast<uint>(uid))
 			return true;
 	}
 	return false;
@@ -730,7 +731,8 @@ bool TransactionState::containsOnly(int uid) const
 {
 	for (uint i = 0; i < states_.size(); ++i)
 	{
-		if (states_[i]->undoObject()->getUId() != static_cast<uint>(uid))
+		UndoObject* undoObject = states_[i]->undoObject();
+		if (undoObject && undoObject->getUId() != static_cast<uint>(uid))
 			return false;
 	}
 	return true;
