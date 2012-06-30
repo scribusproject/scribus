@@ -10565,12 +10565,13 @@ void ScribusDoc::item_setFrameShape(PageItem* item, int frameType, int count, do
 
 void ScribusDoc::itemSelection_ClearItem(Selection* customSelection)
 {
-	Selection* itemSelection = (customSelection!=0) ? customSelection : m_Selection;
-	assert(itemSelection!=0);
-	uint selectedItemCount=itemSelection->count();
+	Selection* itemSelection = (customSelection != 0) ? customSelection : m_Selection;
+	assert(itemSelection != 0);
+	uint selectedItemCount = itemSelection->count();
 	if (selectedItemCount != 0)
 	{
 		PageItem *currItem;
+		bool applyToAll = false;
 		for (uint i = 0; i < selectedItemCount; ++i)
 		{
 			currItem = itemSelection->itemAt(i);
@@ -10579,16 +10580,17 @@ void ScribusDoc::itemSelection_ClearItem(Selection* customSelection)
 				if ((ScCore->fileWatcher->files().contains(currItem->Pfile) != 0) && (currItem->PictureIsAvailable))
 					ScCore->fileWatcher->removeFile(currItem->Pfile);
 			}
-			else
-			if (currItem->asTextFrame() && ScCore->usingGUI())
+			else if (currItem->asTextFrame() && ScCore->usingGUI() && (!applyToAll))
 			{
 				if (currItem->itemText.length() != 0 && (currItem->nextInChain() == 0 || currItem->prevInChain() == 0))
 				{
+					int btnYesToAll = (i < (selectedItemCount - 1)) ? QMessageBox::YesToAll : 0;
 					int t = ScMessageBox::warning(m_ScMW, CommonStrings::trWarning,
 										tr("Do you really want to clear all your text?"),
-										QMessageBox::Yes, QMessageBox::No | QMessageBox::Default);
+										QMessageBox::Yes, QMessageBox::No | QMessageBox::Default, btnYesToAll);
 					if (t == QMessageBox::No)
 						continue;
+					applyToAll = (t == QMessageBox::YesToAll);
 				}
 			}
 			currItem->clearContents();
@@ -14096,7 +14098,6 @@ PageItem * ScribusDoc::itemSelection_GroupObjects(bool changeLock, bool lock, Se
 	if (objectsLayer == -1)
 		return NULL;
 	PageItem *currItem;
-	PageItem* bb;
 	double x, y, w, h;
 	UndoTransaction activeTransaction(undoManager->beginTransaction(Um::Selection,Um::IGroup,Um::Group,"",Um::IGroup));
 	uint selectedItemCount = itemSelection->count();
@@ -14107,8 +14108,8 @@ PageItem * ScribusDoc::itemSelection_GroupObjects(bool changeLock, bool lock, Se
 	{
 		for (uint c=0; c < selectedItemCount; ++c)
 		{
-			bb = itemSelection->itemAt(c);
-			bb->setLocked(lock);
+			currItem = itemSelection->itemAt(c);
+			currItem->setLocked(lock);
 			//if (m_ScMW && ScCore->usingGUI())
 			//	m_ScMW->scrActions["itemLock"]->setChecked(lock);
 			if (selectedItemCount <= Um::ItemsInvolvedLimit)
