@@ -27,14 +27,14 @@ In <a href="WwFrames.html">Working with Frames</a> there is information on manip
 <h3>Polygons</h3>
 <table cellpadding=5><tr>
 <td>Polygons in Scribus are regular polygons, which when drawn with equal width and height dimensions, will have equal sides and angles. Default is for 4 sides (corners), although you may have anything from 3 to 999 sides. The Polygons icon will always show a pentagon, but by selecting Properties from the drop-down you get the dialog to the right. As you see, your choices here are restricted to the geometry of the polygon. You can set defaults for line and fill colors and shading, and line thickness in <i>File > Preferences > Tools > Shape (icon)</i> or in <i>File > Document Settings > Tools > Shape (icon)</i>. Your choices in <i>File > Preferences > Tools > Polygon (icon)</i> and in <i>File > Document Settings > Tools > Polygon (icon)</i> will be limited to what you see here in the <i>Polygon Properties</i> dialog.
-<p>Number of <b>Corners</b> and <b>Rotation</b> need no explanation, but note that the rotation can be set in the spinbox or with the slider. <b>Apply Factor</b> is not so intuitive, but the small preview will quickly show you that a factor of less than 0% will bend the sides inward at the midpoint, and greater than 0% bend them outward. <b>Curvature</b> transforms the angulated bend into a curve instead.
+<p>In 1.5+ we have new settings for <i>Polygon Properties</i>. Number of <b>Corners</b> and <b>Rotation</b> need no explanation, but note that the rotation can be set in the spinbox or with the slider.</p>
+<p><b>Apply Factor</b> allows the usage of the remaining settings. In this example, setting the <b>Factor</b> less than 0% causes the sides to bend inward in the middle. The <b>Inner Rotation</b> setting has shifted the bending points clockwise, and finally, <b>Outer Curvature</b> causes the line segments to bend outward.</p>
 </td>
 <td><img src="images/polygons.png" ALT="Polygon Properties" ALIGN=right></td></tr>
 </table>
-<p>The best way to learn what the various settings do is simply to play with them then see the results. If you draw your polygon with unequal width and height, you will see various kinds of distortions compared to the small preview window. Below are some variations on a 4 and a 7-sided polygon which you might try to duplicate. 
+<p>The best way to learn what the various settings do is simply to play with them then see the results. If you draw your polygon with unequal width and height, you will see various kinds of distortions compared to the small preview window.</p>
 <p>Just as with shapes, if you activate the polygons icon, then click the canvas, you will get the <b>Enter Object Size</b> dialog.
-<table><tr><td><img src="images/polygons1.png" ALT="Polygon examples" ALIGN=left></td></tr>
-</table>
+
 <h3>Context Menu</h3>
 <table cellpadding=5><tr><td><img src="images/context_shape.png" ALT="Context Menu Shapes" ALIGN=right></td>
 <td>The context menu with shapes and polygons has fewer choices than with text or image frames.
