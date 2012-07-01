@@ -75,16 +75,17 @@ Scaling or as is set in <i>File&nbsp;&gt; Preferences/Document Setup&nbsp;&gt; T
 <li><b>X-Scale</b> and <b>Y-Scale</b> - Magnification of the image, compared to its native DPI.</li>
 <li><b>Actual X-DPI</b> and <b>Actual Y-DPI</b> - These of course are
 inversely related to magnification. Your monitor will still likely be
-showing the image at no better than 72 PPI, but this refers to the
+showing the image at no better than 72 or 96 PPI, but this setting refers to the
 final resolution to be exported to the PDF.</li>
 </ul>
-<p>In many cases, we may have a more or less set frame size we wish to squeeze an entire image into, in which case choosing <b>Scale to Frame Size</b> (or <b>Adjust Image to Frame</b> from the Context Menu) makes sense. Without checking <b>Proportional</b>,
+<p>In many cases, we may have a more or less set frame size we wish to squeeze an entire image into, in which case choosing <b>To Frame Size</b> (or <b>Adjust Image to Frame</b> from the Context Menu) makes sense. Without checking <b>Proportional</b>,
 the image is simply stretched to fit the frame and may be quite
 distorted. You should find the combination of scaling to frame size
 (proportional) and then <b>Adjust Frame to Image</b> from the Context Menu very useful for making a frame exactly the right size for your image.
-</p><p><b>Image Effects</b> will be discussed elsewhere.</p></td>
+</p><p>The <strong>Color Management</strong> section tells us that you can now specify per-frame profiles, as well as the <strong>Rendering Intent</strong>. Likewise, we can see that image compression type and degree on PDF export can now follow the <i>Global</i> settings or be on a per-frame basis.</p></td>
 <td><img src="images/Image_Properties.png" alt="Properties: Image"></td>
 </tr>
+<tr><td><img src="images/Image_warning.png"><p>If you see this warning triangle in the lower right corner of your frame, it indicates that the image resolution is below 144 DPI, or whatever you have set as your minimum value in the Preflight Verifier settings in <i>File > Preferences</i> or <i>File > Document Settings</i>. This is strictly a warning.</td></tr>
 </tbody></table>
 <h3>Edit Contents Mode</h3>
 Enter Edit Contents mode by clicking the icon on the toolbar, or pressing <b>E</b> from the keyboard. Go back to Select Item mode by pressing <b>Esc</b>, or clicking outside, then inside the frame. You will need to have checked <b>Free Scaling</b> in order for this to be operational.
