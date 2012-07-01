@@ -296,13 +296,13 @@ QString Prefs_KeyboardShortcuts::getKeyText(int KeyC)
 	// we prefer plain English
 	QString res;
 	if ((KeyC & Qt::META) != 0)
-		res += "Meta+";
+		res += CommonStrings::metaModifier + "+";
 	if ((KeyC & Qt::CTRL) != 0)
-		res += "Ctrl+";
+		res += CommonStrings::controlModifier + "+";
 	if ((KeyC & Qt::ALT) != 0)
-		res += "Alt+";
+		res += CommonStrings::altModifier + "+";
 	if ((KeyC & Qt::SHIFT) != 0)
-		res += "Shift+";
+		res += CommonStrings::shiftModifier + "+";
 	return res + QString(QKeySequence(KeyC & ~(Qt::META | Qt::CTRL | Qt::ALT | Qt::SHIFT)));
 }
 
@@ -472,26 +472,30 @@ void Prefs_KeyboardShortcuts::keyPressEvent(QKeyEvent *k)
 			if (tl.count() > 0)
 			{
 				Part4 = tl.last();
-				if (Part4 == tr("Alt") || Part4 == tr("Ctrl") || Part4 == tr("Shift") || Part4 == tr("Meta"))
+				if (Part4 == CommonStrings::altModifier ||
+						Part4 == CommonStrings::ctrlModifier ||
+						Part4 == CommonStrings::shiftModifier ||
+						Part4 == CommonStrings::metaModifier
+						)
 					Part4 = "";
 			}
 		}
 		switch (k->key())
 		{
 			case Qt::Key_Meta:
-				Part0 = tr("Meta+");
+				Part0 = CommonStrings::metaModifier+"+";
 				keyCode |= Qt::META;
 				break;
 			case Qt::Key_Shift:
-				Part3 = tr("Shift+");
+				Part3 = CommonStrings::shiftModifier+"+";
 				keyCode |= Qt::SHIFT;
 				break;
 			case Qt::Key_Alt:
-				Part2 = tr("Alt+");
+				Part2 = CommonStrings::altModifier+"+";
 				keyCode |= Qt::ALT;
 				break;
 			case Qt::Key_Control:
-				Part1 = tr("Ctrl+");
+				Part1 = CommonStrings::controlModifier+"+";
 				keyCode |= Qt::CTRL;
 				break;
 			default:
@@ -501,7 +505,9 @@ void Prefs_KeyboardShortcuts::keyPressEvent(QKeyEvent *k)
 				if (checkKey(keyCode))
 				{
 					QMessageBox::information(this, CommonStrings::trWarning,
-											tr("This key sequence is already in use"),
+											tr("The %1 key sequence is already in use by \"%2\"")
+												.arg(getKeyText(keyCode))
+												.arg(getAction(keyCode)),
 											CommonStrings::tr_OK);
 					selectedLVI->setText(1,keyMap[lviToActionMap[selectedLVI]].keySequence);
 					keyDisplay->setText(keyMap[lviToActionMap[selectedLVI]].keySequence);
@@ -532,7 +538,11 @@ void Prefs_KeyboardShortcuts::keyReleaseEvent(QKeyEvent *k)
 			if (tl.count() > 0)
 			{
 				Part4 = tl.last();
-				if (Part4 == tr("Alt") || Part4 == tr("Ctrl") || Part4 == tr("Shift") || Part4 == tr("Meta"))
+				if (Part4 == CommonStrings::altModifier ||
+						Part4 == CommonStrings::ctrlModifier ||
+						Part4 == CommonStrings::shiftModifier ||
+						Part4 == CommonStrings::metaModifier
+						)
 					Part4 = "";
 			}
 		}
@@ -558,6 +568,21 @@ void Prefs_KeyboardShortcuts::keyReleaseEvent(QKeyEvent *k)
 		}
 		keyDisplay->setText(Part0+Part1+Part2+Part3+Part4);
 	}
+}
+
+QString Prefs_KeyboardShortcuts::getAction(int code)
+{
+	QString ret = "";
+	QKeySequence key = QKeySequence(code);
+	for (QMap<QString,Keys>::Iterator it=keyMap.begin(); it!=keyMap.end(); ++it)
+	{
+		if (key.matches(it.value().keySequence) != QKeySequence::NoMatch)
+		{
+			ret = it->cleanMenuText;
+			break;
+		}
+	}
+	return ret;
 }
 
 bool Prefs_KeyboardShortcuts::checkKey(int code)

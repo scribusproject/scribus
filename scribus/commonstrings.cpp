@@ -182,6 +182,11 @@ QString CommonStrings::strP    = "";
 QString CommonStrings::strCM   = "";
 QString CommonStrings::strC    = "";
 
+QString CommonStrings::controlModifier = "";
+QString CommonStrings::altModifier     = "";
+QString CommonStrings::shiftModifier   = "";
+QString CommonStrings::metaModifier    = "";
+
 CommonStrings::CommonStrings()
 {
 	languageChange();
@@ -432,6 +437,23 @@ void CommonStrings::languageChange()
 	CommonStrings::strP =unitGetUntranslatedStrFromIndex(SC_P);
 	CommonStrings::strCM=unitGetUntranslatedStrFromIndex(SC_CM);
 	CommonStrings::strC =unitGetUntranslatedStrFromIndex(SC_C);
+
+	//Keyboard Modifiers
+	CommonStrings::altModifier=tr("Alt");
+	CommonStrings::shiftModifier=tr("Shift");
+
+#ifdef Q_OS_MAC
+	CommonStrings::controlModifier=tr("Cmd");
+	CommonStrings::metaModifier=tr("Ctrl");
+#endif
+#ifdef Q_OS_WIN32
+	CommonStrings::metaModifier=tr("Windows");
+#endif
+#if !defined(Q_OS_WIN32) && !defined(Q_OS_MAC)
+	CommonStrings::controlModifier=tr("Ctrl");
+	CommonStrings::metaModifier=tr("Meta");
+#endif
+
 }
 
 const QString & CommonStrings::translatePenStyleName( Qt::PenStyle ps )

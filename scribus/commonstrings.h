@@ -271,6 +271,12 @@ public:
 	static QString strP;
 	static QString strCM;
 	static QString strC;
+
+	//Keyboard Modifiers
+	static QString controlModifier;
+	static QString altModifier;
+	static QString shiftModifier;
+	static QString metaModifier;
 };
 
 #endif

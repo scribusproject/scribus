@@ -59,7 +59,8 @@ protected:
 	void importKeySet(QString);
 	bool exportKeySet(QString);
 	QStringList scanForSets();
-	bool checkKey(int Code);
+	bool checkKey(int code);
+	QString getAction(int code);
 
 protected slots:
 	void setKeyText();
