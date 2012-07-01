@@ -473,7 +473,7 @@ void Prefs_KeyboardShortcuts::keyPressEvent(QKeyEvent *k)
 			{
 				Part4 = tl.last();
 				if (Part4 == CommonStrings::altModifier ||
-						Part4 == CommonStrings::ctrlModifier ||
+						Part4 == CommonStrings::controlModifier ||
 						Part4 == CommonStrings::shiftModifier ||
 						Part4 == CommonStrings::metaModifier
 						)
@@ -539,7 +539,7 @@ void Prefs_KeyboardShortcuts::keyReleaseEvent(QKeyEvent *k)
 			{
 				Part4 = tl.last();
 				if (Part4 == CommonStrings::altModifier ||
-						Part4 == CommonStrings::ctrlModifier ||
+						Part4 == CommonStrings::controlModifier ||
 						Part4 == CommonStrings::shiftModifier ||
 						Part4 == CommonStrings::metaModifier
 						)
