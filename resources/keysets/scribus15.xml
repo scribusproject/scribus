@@ -15,7 +15,7 @@
     <function shortcut="" name="PathFinder"/>
     <function shortcut="" name="PathStroker"/>
     <function shortcut="" name="Picture Browser"/>
-    <function shortcut="Ctrl+Alt+P" name="PrintPreview"/>
+    <function shortcut="" name="PrintPreview"/>
     <function shortcut="Ctrl+Alt+S" name="SaveAsDocumentTemplate"/>
     <function shortcut="" name="ShortWords"/>
     <function shortcut="" name="Subdivide"/>
@@ -57,7 +57,7 @@
     <function shortcut="" name="fileDocSetup"/>
     <function shortcut="" name="fileDocSetup150"/>
     <function shortcut="" name="fileExportAsEPS"/>
-    <function shortcut="" name="fileExportAsPDF"/>
+    <function shortcut="Ctrl+Shift+P" name="fileExportAsPDF"/>
     <function shortcut="" name="fileExportText"/>
     <function shortcut="" name="fileImportAppendText"/>
     <function shortcut="Ctrl+I" name="fileImportImage"/>
@@ -263,7 +263,7 @@
     <function shortcut="" name="viewFit50"/>
     <function shortcut="" name="viewFit75"/>
     <function shortcut="Ctrl+0" name="viewFitInWindow"/>
-    <function shortcut="" name="viewFitPreview"/>
+    <function shortcut="Ctrl+Alt+P" name="viewPreviewMode"/>
     <function shortcut="" name="viewFitWidth"/>
     <function shortcut="" name="viewRulerMode"/>
     <function shortcut="" name="viewShowBaseline"/>

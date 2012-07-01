@@ -315,7 +315,7 @@ ScribusView::ScribusView(QWidget* win, ScribusMainWindow* mw, ScribusDoc *doc) :
 	redrawMarker->hide();
 	m_canvas->newRedrawPolygon();
 	m_canvas->resetRenderMode();
-	m_ScMW->scrActions["viewFitPreview"]->setChecked(m_canvas->m_viewMode.viewAsPreview);
+	m_ScMW->scrActions["viewPreviewMode"]->setChecked(m_canvas->m_viewMode.viewAsPreview);
 //	m_SnapCounter = 0;
 
 	Doc->regionsChanged()->connectObserver(this);
@@ -446,7 +446,7 @@ void ScribusView::togglePreview()
 		visualMenu->setCurrentIndex(0);
 		connect(visualMenu, SIGNAL(activated(int)), this, SLOT(switchPreviewVisual(int)));
 	}
-	m_ScMW->scrActions["viewFitPreview"]->setChecked(m_canvas->m_viewMode.viewAsPreview);
+	m_ScMW->scrActions["viewPreviewMode"]->setChecked(m_canvas->m_viewMode.viewAsPreview);
 	m_ScMW->scrActions["viewShowMargins"]->setEnabled(!m_canvas->m_viewMode.viewAsPreview);
 	m_ScMW->scrActions["viewShowFrames"]->setEnabled(!m_canvas->m_viewMode.viewAsPreview);
 	m_ScMW->scrActions["viewShowLayerMarkers"]->setEnabled(!m_canvas->m_viewMode.viewAsPreview);

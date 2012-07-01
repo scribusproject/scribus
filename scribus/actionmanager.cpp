@@ -599,7 +599,7 @@ void ActionManager::initViewMenuActions()
 	scrActions->insert(name, new ScrAction(ScrAction::DataDouble, QPixmap(), QPixmap(), "", defaultKey(name), mainWindow, 0, 200.0));
 	name="viewFit400";
 	scrActions->insert(name, new ScrAction(ScrAction::DataDouble, QPixmap(), QPixmap(), "", defaultKey(name), mainWindow, 0, 400.0));
-	name="viewFitPreview";
+	name="viewPreviewMode";
 	scrActions->insert(name, new ScrAction(ScrAction::DataDouble, QPixmap(), QPixmap(), "", defaultKey(name), mainWindow, 0, 20.0));
 	name="viewShowMargins";
 	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
@@ -637,7 +637,7 @@ void ActionManager::initViewMenuActions()
 	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
 //	scrActions->insert("viewNewView", new ScrAction("", defaultKey(name), mainWindow));
 
-	(*scrActions)["viewFitPreview"]->setToggleAction(true);
+	(*scrActions)["viewPreviewMode"]->setToggleAction(true);
 	(*scrActions)["viewShowMargins"]->setToggleAction(true);
 	(*scrActions)["viewShowBleeds"]->setToggleAction(true);
 	(*scrActions)["viewShowFrames"]->setToggleAction(true);
@@ -655,7 +655,7 @@ void ActionManager::initViewMenuActions()
 	(*scrActions)["viewSnapToGuides"]->setToggleAction(true);
 	(*scrActions)["showMouseCoordinates"]->setToggleAction(true);
 
-	(*scrActions)["viewFitPreview"]->setChecked(false);
+	(*scrActions)["viewPreviewMode"]->setChecked(false);
 	(*scrActions)["viewShowMargins"]->setChecked(true);
 	(*scrActions)["viewShowBleeds"]->setChecked(true);
 	(*scrActions)["viewShowFrames"]->setChecked(true);
@@ -1177,7 +1177,7 @@ void ActionManager::connectNewDocActions(ScribusDoc *currDoc)
 
 void ActionManager::disconnectNewViewActions()
 {
-	disconnect( (*scrActions)["viewFitPreview"], 0, 0, 0);
+	disconnect( (*scrActions)["viewPreviewMode"], 0, 0, 0);
 	disconnect( (*scrActions)["toolsZoomIn"], 0, 0, 0);
 	disconnect( (*scrActions)["toolsZoomOut"], 0, 0, 0);
 	disconnect( (*scrActions)["itemImageIsVisible"], 0, 0, 0);
@@ -1198,7 +1198,7 @@ void ActionManager::connectNewViewActions(ScribusView *currView)
 {
 	if (currView==NULL)
 		return;
-	connect( (*scrActions)["viewFitPreview"], SIGNAL(triggered()), currView, SLOT(togglePreview()) );
+	connect( (*scrActions)["viewPreviewMode"], SIGNAL(triggered()), currView, SLOT(togglePreview()) );
 	connect( (*scrActions)["toolsZoomIn"], SIGNAL(triggered()) , currView, SLOT(slotZoomIn()) );
 	connect( (*scrActions)["toolsZoomOut"], SIGNAL(triggered()) , currView, SLOT(slotZoomOut()) );
 	connect( (*scrActions)["itemConvertToBezierCurve"], SIGNAL(triggered()), currView, SLOT(ToBezierFrame()) );
@@ -1518,7 +1518,7 @@ void ActionManager::languageChange()
 	(*scrActions)["viewFit100"]->setTexts( tr("&100%"));
 	(*scrActions)["viewFit200"]->setTexts( tr("&200%"));
 	(*scrActions)["viewFit400"]->setTexts( tr("&400%"));
-	(*scrActions)["viewFitPreview"]->setTexts( tr("Preview Mode"));
+	(*scrActions)["viewPreviewMode"]->setTexts( tr("Preview Mode"));
 	(*scrActions)["viewShowMargins"]->setTexts( tr("Show &Margins"));
 	(*scrActions)["viewShowBleeds"]->setTexts( tr("Show Bleeds"));
 	(*scrActions)["viewShowFrames"]->setTexts( tr("Show &Frames"));
@@ -1696,7 +1696,7 @@ void ActionManager::createDefaultShortcuts()
 	defKeys.insert("fileImportText", Qt::CTRL+Qt::Key_I);
 	defKeys.insert("fileImportImage", Qt::CTRL+Qt::Key_I);
 	defKeys.insert("filePrint", QKeySequence::Print);
-	defKeys.insert("PrintPreview", Qt::CTRL+Qt::ALT+Qt::Key_P);
+	defKeys.insert("fileExportAsPDF", Qt::CTRL+Qt::SHIFT+Qt::Key_P);
 	defKeys.insert("fileQuit", Qt::CTRL+Qt::Key_Q);
 	//Edit Menu
 	defKeys.insert("editUndoAction", QKeySequence::Undo);
@@ -1732,6 +1732,7 @@ void ActionManager::createDefaultShortcuts()
 	//View Menu
 	defKeys.insert("viewFitInWindow", Qt::CTRL+Qt::Key_0);
 	defKeys.insert("viewFit100", Qt::CTRL+Qt::Key_1);
+	defKeys.insert("viewPreviewMode", Qt::CTRL+Qt::ALT+Qt::Key_P);
 	defKeys.insert("viewShowRulers", Qt::CTRL+Qt::SHIFT+Qt::Key_R);
 	defKeys.insert("viewShowContextMenu", Qt::Key_Menu); //Context menu key on Windows. Do we have one to use on Linux/OSX? Super_L ?
 
@@ -2088,7 +2089,7 @@ void ActionManager::createDefaultMenus()
 		<< "viewFit100"
 		<< "viewFit200"
 		<< "viewFit400"
-		<< "viewFitPreview"
+		<< "viewPreviewMode"
 		<< "viewShowMargins"
 		<< "viewShowBleeds"
 		<< "viewShowFrames"

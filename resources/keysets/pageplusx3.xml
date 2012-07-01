@@ -259,7 +259,7 @@
     <function shortcut="" name="viewFit50" />
     <function shortcut="" name="viewFit75" />
     <function shortcut="Ctrl+0" name="viewFitInWindow" />
-    <function shortcut="Ctrl+Shift+G" name="viewFitPreview" />
+    <function shortcut="Ctrl+Shift+G" name="viewPreviewMode" />
     <function shortcut="" name="viewFitWidth" />
     <function shortcut="" name="viewRulerMode" />
     <function shortcut="" name="viewShowBaseline" />

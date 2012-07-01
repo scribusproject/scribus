@@ -961,7 +961,7 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->addMenuItem(scrActions["viewFit200"], "View", false);
 	scrMenuMgr->addMenuItem(scrActions["viewFit400"], "View", false);
 	scrMenuMgr->addMenuSeparator("View");
-	scrMenuMgr->addMenuItem(scrActions["viewFitPreview"], "View", true);
+	scrMenuMgr->addMenuItem(scrActions["viewPreviewMode"], "View", true);
 	scrMenuMgr->addMenuSeparator("View");
 	scrMenuMgr->addMenuItem(scrActions["viewShowMargins"], "View", true);
 	scrMenuMgr->addMenuItem(scrActions["viewShowBleeds"], "View", true);
