@@ -1378,7 +1378,7 @@ void ActionManager::languageChange()
 //	(*scrActions)["filePreferences"]->setTexts( tr("P&references (old)..."));
 	(*scrActions)["filePreferences150"]->setTexts( tr("P&references..."));
 	(*scrActions)["filePrint"]->setTexts( tr("&Print..."));
-	(*scrActions)["PrintPreview"]->setTexts( tr("Print Previe&w"));
+	(*scrActions)["PrintPreview"]->setTexts( tr("Proofing"));
 	(*scrActions)["fileQuit"]->setTexts( tr("&Quit"));
 	//Edit Menu
 	(*scrActions)["editUndoAction"]->setTexts( tr("&Undo"));
