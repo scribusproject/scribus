@@ -20,6 +20,7 @@
 #include <QPainter>
 
 #include "canvas.h"
+#include "canvasgesture_pan.h"
 #include "canvasgesture_rectselect.h"
 #include "fpoint.h"
 #include "pageitem.h"
@@ -370,6 +371,17 @@ void CanvasMode_NodeEdit::mousePressEvent(QMouseEvent *m)
 	QRect mpo;
 	Mxp = m->x();
 	Myp = m->y();
+
+	if (((m->buttons() & Qt::RightButton) && (m->modifiers() & Qt::ControlModifier)) || ((!(m->modifiers() & Qt::ControlModifier)) && (m->buttons() & Qt::MidButton)))
+	{
+		if (!m_panGesture)
+		{
+			m_panGesture = new PanGesture(this);
+		}
+		m_view->startGesture(m_panGesture);
+		m_panGesture->mousePressEvent(m); // Not an error, this is used to register current canvas point
+		return;
+	}
 	
 	if (m_doc->m_Selection->count() != 0)
 	{
