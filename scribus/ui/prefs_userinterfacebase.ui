@@ -236,7 +236,7 @@
          <item row="1" column="0">
           <widget class="QLabel" name="storyEditorFontColorLabel">
            <property name="text">
-            <string>Font Color:</string>
+            <string>Background Color:</string>
            </property>
           </widget>
          </item>
