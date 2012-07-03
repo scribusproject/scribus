@@ -649,6 +649,28 @@ int StoryText::length() const
 	return d->len;
 }
 
+QString StoryText::plainText() const
+{
+	if (length() <= 0)
+		return QString();
+
+	QChar   ch;
+	QString result;
+
+	uint len = length();
+	result.reserve(len);
+
+	StoryText* that(const_cast<StoryText*>(this));
+	for (int i = 0; i < len; ++i) {
+		ch = that->d->at(i)->ch;
+		if (ch == SpecialChars::PARSEP)
+			ch = QLatin1Char('\n');
+		result += ch;
+	}
+
+	return result;
+}
+
 QChar StoryText::text() const
 {
 	return text(d->cursorPosition);

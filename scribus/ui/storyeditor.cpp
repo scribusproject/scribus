@@ -3297,7 +3297,7 @@ void StoryEditor::SaveTextFile()
 	if (!fileName.isEmpty())
 	{
 		dirs->set("story_save", fileName.left(fileName.lastIndexOf("/")));
-		Serializer::writeWithEncoding(fileName, LoadEnc, Editor->toPlainText());
+		Serializer::writeWithEncoding(fileName, LoadEnc, Editor->StyledText.plainText());
 	}
 	blockUpdate = false;
 }

@@ -139,7 +139,15 @@ class SCRIBUS_API StoryText : public QObject, public SaxIO
 
 	void hyphenateWord(int pos, uint len, char* hyphens);
 	
+ 	// Retrieve length of story text
  	int length() const;
+
+	// Get content at specific position as plain text
+	// Internal paragraph separator are converted to 
+	// unix new lines for better compatibility with
+	// text editors
+	QString plainText() const;
+
 	// Get char at current cursor position
 	QChar   text() const;
 	// Get char at specific position
