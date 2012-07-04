@@ -104,7 +104,8 @@
 			<submenuitem text="LibreOffice/OpenOffice.org" file="toolbox18.html"/>
 			<submenuitem text="Commandline Tools" file="toolbox19.html"/>
 		</submenuitem>
-		<area text="HELP!!" file="help.html" >
+		<area text="Help!!" file="help.html" >
+		</area>
 		<area text="Troubleshooting File Problems" file="fileproblems.html" >
 		</area>
 	</area>
