@@ -163,6 +163,7 @@ Formerly, if you also held Ctrl, amount of enlarging/shrinking was larger, but c
 <li>Right-arrow or Down-arrow enlarge image (Scaling goes up, X-Pos and Y-Pos are unchanged)</li>
 <li>Left-arrow or Up-arrow shrink image</li>
 </ul>
+&nbsp;
 <li>Holding down no modifier, or Shift, or Ctrl, or Shift+Ctrl<br />(Image moves, not frame)</li>
 <ul>
 <li>Right-arrow moves image to right (increases X-Pos)</li>
@@ -172,12 +173,14 @@ Formerly, if you also held Ctrl, amount of enlarging/shrinking was larger, but c
 <li>The relative amounts of movement:
 <br />Shift > Ctrl = no key > Shift+Ctrl</li>
 </ul></ul>
-<br />The amounts are numerically independent of units, and therefore are greatest with a unit of inches
-<table cellpadding="5">
-<tr><td>Points:</td> <td> Shift &ndash; 1.27 pts</td> <td>Ctrl &ndash; 0.12(7) pts</td> <td>Shift+Ctrl &ndash; 0.01(27) pts</td></tr>
-<tr><td>Millimeters:</td> <td> Shift &ndash; 1.27 mm</td> <td> Ctrl &ndash; 0.127 mm</td> <td>Shift+Ctrl &ndash; 0.012(7) mm</td></tr>
-<tr><td>Inches:</td> <td> Shift &ndash; 1.27 in</td> <td>Ctrl &ndash; 0.127 in</td> <td>Shift+Ctrl &ndash; 0.0127 in</td></tr>
+<br />The amount of movement is <b>numerically independent of units but dependent on scaling of the image</b>, and therefore is greatest with a unit of inches.
+<table cellpadding="5" align="center">
+<tr><td></td> <td align="center"> Shift</td> <td align="center"> Ctrl</td> <td align="center">Shift+Ctrl</td></tr>
+<tr><td>Movement:</td> <td align="center">0.1 &times; Scaling</td> <td align="center">0.01 &times; Scaling </td> <td align="center">0.001 &times Scaling</td></tr>
+<tr><td><i>Example</i></td></tr>
+<tr><td>48.1% Scale:</td> <td align="center">4.81 units</td> <td align="center">0.481 units</td> <td align="center">0.0481 units</td></tr>
 </table>
+<p>Clearly, with units of inches, one would need to be careful. Furthermore, note that if your X-Scale is different from Y-Scale, the movement will be different in each direction, again according to this calculation.</p>
 <h3>Selection/Navigation Keys</h3>
 <p>Holding Shift while Left clicking add objects to current selection, for multiple selection.</p>
 <p>Shift+Right/Left Arrow selects Characters</p>
