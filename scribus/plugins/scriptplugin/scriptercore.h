@@ -24,7 +24,10 @@ class ScripterCore : public QObject
 public:
 	ScripterCore(QWidget* parent);
 	~ScripterCore();
+
 	void addToMainWindowMenu(ScribusMainWindow *);
+	void enableMainWindowMenu();
+	void disableMainWindowMenu();
 
 	/** @brief String representation of result returned by last python console command */
 	QString returnString;
