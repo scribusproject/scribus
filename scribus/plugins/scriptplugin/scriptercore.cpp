@@ -36,6 +36,8 @@ for which a new license (GPL+exception) is in place.
 
 ScripterCore::ScripterCore(QWidget* parent)
 {
+	menuMgr = NULL;
+
 	pcon = new PythonConsole(parent);
 	scrScripterActions.clear();
 	scrRecentScriptActions.clear();
@@ -84,6 +86,23 @@ void ScripterCore::addToMainWindowMenu(ScribusMainWindow *mw)
 	buildRecentScriptsMenu();
 }
 
+void ScripterCore::enableMainWindowMenu()
+{
+	if (!menuMgr)
+		return;
+	menuMgr->setMenuEnabled("ScribusScripts", true);
+	menuMgr->setMenuEnabled("RecentScripts", true);
+	scrScripterActions["scripterExecuteScript"]->setEnabled(true);
+}
+
+void ScripterCore::disableMainWindowMenu()
+{
+	if (!menuMgr)
+		return;
+	menuMgr->setMenuEnabled("ScribusScripts", false);
+	menuMgr->setMenuEnabled("RecentScripts", false);
+	scrScripterActions["scripterExecuteScript"]->setEnabled(false);
+}
 
 void ScripterCore::buildScribusScriptsMenu()
 {
@@ -223,6 +242,11 @@ void ScripterCore::RecentScript(QString fn)
 
 void ScripterCore::slotRunScriptFile(QString fileName, bool inMainInterpreter)
 {
+	// Prevent two scripts to be run concurrently or face crash!
+	if (ScCore->primaryMainWindow()->scriptIsRunning())
+		return;
+	disableMainWindowMenu();
+
 	PyThreadState *state = NULL;
 	QFileInfo fi(fileName);
 	QByteArray na = fi.fileName().toLocal8Bit();
@@ -341,11 +365,18 @@ void ScripterCore::slotRunScriptFile(QString fileName, bool inMainInterpreter)
 		//PyEval_RestoreThread(stateo);
 //		qApp->restoreOverrideCursor();
 		ScCore->primaryMainWindow()->setScriptRunning(false);
-	}	
+	}
+
+	enableMainWindowMenu();
 }
 
 void ScripterCore::slotRunScript(const QString Script)
 {
+	// Prevent two scripts to be run concurrently or face crash!
+	if (ScCore->primaryMainWindow()->scriptIsRunning())
+		return;
+	disableMainWindowMenu();
+
 	ScCore->primaryMainWindow()->propertiesPalette->unsetDoc();
 	ScCore->primaryMainWindow()->pagePalette->setView(NULL);
 	ScCore->primaryMainWindow()->setScriptRunning(true);
@@ -412,6 +443,8 @@ void ScripterCore::slotRunScript(const QString Script)
 			Py_XDECREF(result);
 	}
 	ScCore->primaryMainWindow()->setScriptRunning(false);
+
+	enableMainWindowMenu();
 }
 
 void ScripterCore::slotInteractiveScript(bool visible)

@@ -14,13 +14,15 @@ the Free Software Foundation; either version 2 of the License, or
 #include "pconsole.h"
 
 #include <QFileDialog>
-#include "scribus.h"
+#include "commonstrings.h"
 #include "prefsmanager.h"
 #include "prefsfile.h"
 #include "prefscontext.h"
-#include "ui/scmessagebox.h"
-#include "commonstrings.h"
+#include "scribus.h"
+#include "scribuscore.h"
 #include "util_icon.h"
+
+#include "ui/scmessagebox.h"
 
 
 PythonConsole::PythonConsole( QWidget* parent)
@@ -125,6 +127,15 @@ void PythonConsole::languageChange()
 void PythonConsole::slot_runScript()
 {
 	outputEdit->clear();
+
+	//Prevent two scripts to be run concurrently or face crash!
+	if (ScCore->primaryMainWindow()->scriptIsRunning())
+	{
+		outputEdit->append( tr("Another script is already running...") );
+		outputEdit->append( tr("Please let it finish its task...") );
+		return;
+	}
+
 	parsePythonString();
 	emit runCommand();
 	commandEdit->textCursor().movePosition(QTextCursor::Start);
@@ -132,6 +143,14 @@ void PythonConsole::slot_runScript()
 
 void PythonConsole::slot_runScriptAsConsole()
 {
+	//Prevent two scripts to be run concurrently or face crash!
+	if (ScCore->primaryMainWindow()->scriptIsRunning())
+	{
+		outputEdit->append( tr("\n>>> Another script is already running...") );
+		outputEdit->append( tr("Please let it finish its task...") );
+		return;
+	}
+
 	parsePythonString();
 	commandEdit->clear();
 	// content is destroyed. This is to prevent overwriting
