@@ -212,7 +212,6 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 	QString fileDir = QFileInfo(fileName).absolutePath();
 	int firstPage = 0;
 	int layerToSetActive = 0;
-	ScColor lf = ScColor();
 	
 	if (m_mwProgressBar!=0)
 	{
@@ -2203,7 +2202,7 @@ bool Scribus134Format::readPattern(ScribusDoc* doc, ScXmlStreamReader& reader, c
 	return success;
 }
 
-bool Scribus134Format::readItemText(PageItem *obj, ScXmlStreamAttributes& attrs, LastStyles* last, bool impo, bool VorLFound)
+bool Scribus134Format::readItemText(PageItem *obj, ScXmlStreamAttributes& attrs, LastStyles* last)
 {
 	QString tmp2;
 	CharStyle newStyle;
@@ -2315,7 +2314,7 @@ bool Scribus134Format::readItemText(PageItem *obj, ScXmlStreamAttributes& attrs,
 	
 	fixLegacyCharStyle(newStyle);
 	
-	if (impo && ab >= 0 && VorLFound)
+	if (ab >= 0)
 		last->ParaStyle = legacyStyleMap[ab];
 	else
 		last->ParaStyle = pstylename;
@@ -3061,7 +3060,6 @@ bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool M
 	QList<PageItem*> TableItems;
 	QMap<PageItem*, int> groupID;
 	double pageX = 0, pageY = 0;
-	bool vorLFound  = false;
 	QMap<int,int> layerTrans;
 	int maxLayer = 0, maxLevel = 0, a = 0;
 
@@ -3189,7 +3187,6 @@ bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool M
 		if(tagName == "STYLE")
 		{
 			getStyle(vg, reader, NULL, m_Doc, true);
-			vorLFound = true;
 		}
 		if (((tagName == "PAGE") || (tagName == "MASTERPAGE")) && (attrs.valueAsInt("NUM") == pageNumber))
 		{
@@ -3667,7 +3664,3 @@ bool Scribus134Format::readPageCount(const QString& fileName, int *num1, int *nu
 	*num2 = counter2;
 	return success;
 }
-
-
-
-

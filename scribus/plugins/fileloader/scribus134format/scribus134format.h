@@ -98,7 +98,7 @@ class PLUGIN_API Scribus134Format : public LoadSavePlugin
 		void readNamedCharacterStyleAttrs(ScribusDoc *doc, ScXmlStreamAttributes& attrs, CharStyle & newStyle);
 		bool readDocItemAttributes(ScribusDoc *doc, ScXmlStreamReader& reader);
 		bool readHyphen(ScribusDoc *doc, ScXmlStreamReader& reader);
-		bool readItemText(PageItem* item, ScXmlStreamAttributes& attrs, LastStyles* last, bool impo=false, bool VorLFound=false);
+		bool readItemText(PageItem* item, ScXmlStreamAttributes& attrs, LastStyles* last);
 		bool readLatexInfo(PageItem_LatexFrame* item, ScXmlStreamReader& reader);
 		void readLayers(ScLayer& layer, ScXmlStreamAttributes& attrs);
 		bool readMultiline(multiLine& ml, ScXmlStreamReader& reader);
