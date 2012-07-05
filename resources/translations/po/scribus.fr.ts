@@ -3328,7 +3328,7 @@ Si le chargement est réussi, la sélection contient l&apos;ODG importé
     </message>
     <message>
         <source>Rulers relative to Page</source>
-        <translation type="obsolete">Guides relatifs à la page</translation>
+        <translation type="obsolete">Règles relatives à la page</translation>
     </message>
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1426"/>
@@ -4066,7 +4066,7 @@ Si le chargement est réussi, la sélection contient l&apos;ODG importé
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1425"/>
         <source>Rulers Relative to Page</source>
-        <translation>Guides relatifs à la page</translation>
+        <translation>Règles relatives à la page</translation>
     </message>
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1460"/>
@@ -29458,7 +29458,7 @@ You can choose between normal and several color blindness forms</source>
     <message>
         <location filename="../../../scribus/tabdisplay.ui" line="63"/>
         <source>Rulers Relative to Page</source>
-        <translation>Guides relatifs à la page</translation>
+        <translation>Règles relatives à la page</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabdisplay.ui" line="56"/>
@@ -29595,7 +29595,7 @@ You can choose between normal and several color blindness forms</source>
     </message>
     <message>
         <source>Rulers Relative to Page</source>
-        <translation type="obsolete">Guides relatifs à la page</translation>
+        <translation type="obsolete">Règles relatives à la page</translation>
     </message>
     <message>
         <source>Show Text Control Characters</source>
