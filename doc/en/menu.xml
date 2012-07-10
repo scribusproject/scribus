@@ -45,8 +45,6 @@
 			<submenuitem text="Page Numbering" file="pagenumber.html" />
 			<submenuitem text="The Short Words Plug-in" file="short-words.html" />
 		</submenuitem>
-		<submenuitem text="Collect for Output" file="collect4output.html">
-		</submenuitem>
                 <submenuitem text="Editing Colors" file="color_editing.html">
 			<submenuitem text="Adding and Editing Colors" file="add_colors.html" />
 			<submenuitem text="The Color Wheel" file="colorwheel.html" />
@@ -108,7 +106,7 @@
 		</submenuitem>
 		<area text="Help!!" file="help.html" >
 		</area>
-		<area text="Troubleshooting File Problems" file="fileproblems.html" >
+		<area text="File Problems" file="fileproblems.html" >
 		</area>
 	</area>
 	<area text="My Tutorials" file="tutorials.html" section="tutorials">
