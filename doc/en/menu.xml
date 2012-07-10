@@ -45,6 +45,8 @@
 			<submenuitem text="Page Numbering" file="pagenumber.html" />
 			<submenuitem text="The Short Words Plug-in" file="short-words.html" />
 		</submenuitem>
+		<submenuitem text="Collect for Output" file="collect4output.html">
+		</submenuitem>
                 <submenuitem text="Editing Colors" file="color_editing.html">
 			<submenuitem text="Adding and Editing Colors" file="add_colors.html" />
 			<submenuitem text="The Color Wheel" file="colorwheel.html" />
