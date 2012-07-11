@@ -189,8 +189,42 @@ void CanvasMode_FrameLinks::mousePressEvent(QMouseEvent *m)
 				while (bblast->nextInChain())
 					bblast = bblast->nextInChain();
 				
-				if (currItem->nextInChain() == 0 && bb->prevInChain() == 0 && currItem != bblast)
+				if (currItem->nextInChain() == NULL && currItem != bblast) //possibility to insert empty frames into chain
 				{
+					if (bb->prevInChain() != NULL)
+					{
+						qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+						QMessageBox msgBox(QMessageBox::Question, tr("Linking Text Frames"), "<qt>" + ScribusView::tr("Do you want to insert the frame into the selected text chain? If so, where would you like to insert it?") + "<qt>");
+						//QMessageBox msgBox;
+						QPushButton *cancelButton = msgBox.addButton(CommonStrings::tr_Cancel, QMessageBox::RejectRole);
+						QPushButton *beforeButton = msgBox.addButton(tr("Before"), QMessageBox::AcceptRole);
+						QPushButton *afterButton = msgBox.addButton(tr("After"), QMessageBox::AcceptRole);
+						msgBox.exec();
+						if ((QPushButton *) msgBox.clickedButton() == cancelButton)
+							break;
+						if ((QPushButton *) msgBox.clickedButton() == beforeButton)
+						{
+							PageItem *prev = bb->prevInChain();
+							prev->unlink();
+							prev->link(currItem);
+						}
+						else if ((QPushButton *) msgBox.clickedButton() == afterButton)
+						{
+							if (bb->nextInChain() != NULL)
+							{
+								PageItem *next = bb->nextInChain();
+								bb->unlink();
+								bb->link(currItem);
+								bb = next;
+							}
+							else
+							{ // link at end of last frame in chain - switch currItem <-> bb
+								PageItem* tmp = currItem;
+								currItem = bb;
+								bb = tmp;
+							}
+						}
+					}
 					currItem->link(bb);
 					int cid = m_doc->Items->indexOf(currItem);
 					int bid = m_doc->Items->indexOf(bb);
@@ -203,7 +237,10 @@ void CanvasMode_FrameLinks::mousePressEvent(QMouseEvent *m)
 					}
 					// m_view->updateContents();
 					// link calls PageItem::update	
-					// emit DocChanged();
+					//ECE no, link() not force update
+					currItem->update();
+					m_view->DrawNew();
+					//emit DocChanged();
 					m_doc->ElemToLink = bb;
 				}
 				else if (currItem == bblast)
@@ -218,7 +255,7 @@ void CanvasMode_FrameLinks::mousePressEvent(QMouseEvent *m)
 					//CB Mouse is released when this messagebox takes focus
 					m_canvas->m_viewMode.m_MouseButtonPressed = false;
 					QMessageBox::warning(m_view, ScribusView::tr("Linking Text Frames"),
-										 "<qt>" + ScribusView::tr("You are trying to link a frame which is already linked.") + "</qt>");
+										 "<qt>" + ScribusView::tr("You are trying to link a non-empty frame to frame which is already linked.") + "</qt>");
 				}
 			}
 			else
