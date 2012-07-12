@@ -225,12 +225,14 @@ void CalligraphicMode::mousePressEvent(QMouseEvent *m)
 	SeRx = Mxp;
 	SeRy = Myp;
 	m_canvas->setRenderModeFillBuffer();
+	undoManager->setUndoEnabled(false);
 }
 
 
 
 void CalligraphicMode::mouseReleaseEvent(QMouseEvent *m)
 {
+	undoManager->setUndoEnabled(true);
 	PageItem *currItem;
 	m_MouseButtonPressed = false;
 	m_canvas->resetRenderMode();

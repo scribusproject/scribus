@@ -43,7 +43,7 @@ class CanvasMode_EditMeshPatch :  public CanvasMode
 {
 public:
 	explicit CanvasMode_EditMeshPatch(ScribusView* view);
-	virtual ~CanvasMode_EditMeshPatch() {}
+	virtual ~CanvasMode_EditMeshPatch();
 
 	virtual void enterEvent(QEvent *);
 	virtual void leaveEvent(QEvent *);
@@ -83,6 +83,7 @@ private:
 
 	inline bool GetItem(PageItem** pi);
 
+	meshPoint* old_mesh;
 	double Mxp, Myp;
 	ScribusMainWindow* m_ScMW;
 	eMPatchPoint m_patchPoint;

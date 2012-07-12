@@ -71,6 +71,7 @@ for which a new license (GPL+exception) is in place.
 
 PropertiesPalette::PropertiesPalette( QWidget* parent) : ScDockPalette( parent, "PropertiesPalette", 0)
 {
+	undoManager = UndoManager::instance();
 	m_ScMW=0;
 	m_doc=0;
 	m_haveDoc = false;
@@ -636,89 +637,102 @@ void PropertiesPalette::NewSpGradient(double x1, double y1, double x2, double y2
 	if ((m_haveDoc) && (m_haveItem))
 	{
 		QRectF upRect;
+		UndoTransaction trans(undoManager->beginTransaction(Um::Selection,Um::ILine,Um::GradPos + "p","",Um::ILine));
 		if (m_ScMW->view->editStrokeGradient == 1)
 		{
-			m_item->GrStrokeStartX = x1 / m_unitRatio;
-			m_item->GrStrokeStartY = y1 / m_unitRatio;
-			m_item->GrStrokeEndX = x2 / m_unitRatio;
-			m_item->GrStrokeEndY = y2 / m_unitRatio;
-			m_item->GrStrokeFocalX = fx / m_unitRatio;
-			m_item->GrStrokeFocalY = fy / m_unitRatio;
-			m_item->GrStrokeScale = sg;
-			m_item->GrStrokeSkew = sk;
-			if (m_item->GrTypeStroke == 6)
+			m_item->setGradientStrokeStartX(x1 / m_unitRatio);
+			m_item->setGradientStrokeStartY(y1 / m_unitRatio);
+			m_item->setGradientStrokeEndX(x2 / m_unitRatio);
+			m_item->setGradientStrokeEndY(y2 / m_unitRatio);
+			m_item->setGradientStrokeFocalX(fx / m_unitRatio);
+			m_item->setGradientStrokeFocalY(fy / m_unitRatio);
+			m_item->setGradientStrokeScale(sg);
+			m_item->setGradientStrokeSkew(sk);
+			if (m_item->strokeGradientType() == 6)
 			{
-				m_item->GrStrokeFocalX = m_item->GrStrokeStartX;
-				m_item->GrStrokeFocalY = m_item->GrStrokeStartY;
+				m_item->setGradientStrokeFocalX(m_item->gradientStrokeStartX());
+				m_item->setGradientStrokeFocalY(m_item->gradientStrokeStartY());
 			}
 			m_item->update();
-			upRect = QRectF(QPointF(m_item->GrStrokeStartX, m_item->GrStrokeStartY), QPointF(m_item->GrStrokeEndX, m_item->GrStrokeEndY));
-			double radEnd = distance(m_item->GrStrokeEndX - m_item->GrStrokeStartX, m_item->GrStrokeEndY - m_item->GrStrokeStartY);
-			double rotEnd = xy2Deg(m_item->GrStrokeEndX - m_item->GrStrokeStartX, m_item->GrStrokeEndY - m_item->GrStrokeStartY);
+			upRect = QRectF(QPointF(m_item->gradientStrokeStartX(), m_item->gradientStrokeStartY()), QPointF(m_item->gradientStrokeEndX(), m_item->gradientStrokeEndY()));
+			double radEnd = distance(m_item->gradientStrokeEndX() - m_item->gradientStrokeStartX(), m_item->gradientStrokeEndY() - m_item->gradientStrokeStartY());
+			double rotEnd = xy2Deg(m_item->gradientStrokeEndX() - m_item->gradientStrokeStartX(), m_item->gradientStrokeEndY() - m_item->gradientStrokeStartY());
 			QTransform m;
-			m.translate(m_item->GrStrokeStartX, m_item->GrStrokeStartY);
+			m.translate(m_item->gradientStrokeStartX(), m_item->gradientStrokeStartY());
 			m.rotate(rotEnd);
 			m.rotate(-90);
-			m.rotate(m_item->GrStrokeSkew);
-			m.translate(radEnd * m_item->GrStrokeScale, 0);
+			m.rotate(m_item->gradientStrokeSkew());
+			m.translate(radEnd * m_item->gradientStrokeScale(), 0);
 			QPointF shP = m.map(QPointF(0,0));
-			upRect = upRect.united(QRectF(shP, QPointF(m_item->GrStrokeEndX, m_item->GrStrokeEndY)).normalized());
-			upRect = upRect.united(QRectF(shP, QPointF(m_item->GrStrokeStartX, m_item->GrStrokeStartY)).normalized());
+			upRect = upRect.united(QRectF(shP, QPointF(m_item->gradientStrokeEndX(), m_item->gradientStrokeEndY())).normalized());
+			upRect = upRect.united(QRectF(shP, QPointF(m_item->gradientStrokeStartX(), m_item->gradientStrokeStartY())).normalized());
 			upRect |= QRectF(shP, QPointF(0, 0)).normalized();
 			upRect |= QRectF(shP, QPointF(m_item->width(), m_item->height())).normalized();
 		}
 		else if (m_ScMW->view->editStrokeGradient == 3)
 		{
-			m_item->GrControl1 = FPoint(x1 / m_unitRatio, y1 / m_unitRatio);
-			m_item->GrControl2 = FPoint(x2 / m_unitRatio, y2 / m_unitRatio);
-			m_item->GrControl3 = FPoint(fx / m_unitRatio, fy / m_unitRatio);
-			m_item->GrControl4 = FPoint(sg / m_unitRatio, sk / m_unitRatio);
+			m_item->setGradientControl1(FPoint(x1 / m_unitRatio, y1 / m_unitRatio));
+			m_item->setGradientControl2(FPoint(x2 / m_unitRatio, y2 / m_unitRatio));
+			m_item->setGradientControl3(FPoint(fx / m_unitRatio, fy / m_unitRatio));
+			m_item->setGradientControl4(FPoint(sg / m_unitRatio, sk / m_unitRatio));
 			m_item->update();
 			upRect = QRectF(QPointF(-m_item->width(), -m_item->height()), QPointF(m_item->width() * 2, m_item->height() * 2)).normalized();
 		}
 		else if (m_ScMW->view->editStrokeGradient == 4)
 		{
-			m_item->GrControl1 = FPoint(x1 / m_unitRatio, y1 / m_unitRatio);
-			m_item->GrControl2 = FPoint(x2 / m_unitRatio, y2 / m_unitRatio);
-			m_item->GrControl3 = FPoint(fx / m_unitRatio, fy / m_unitRatio);
-			m_item->GrControl4 = FPoint(sg / m_unitRatio, sk / m_unitRatio);
-			m_item->GrControl5 = FPoint(cx / m_unitRatio, cy / m_unitRatio);
+			m_item->setGradientControl1(FPoint(x1 / m_unitRatio, y1 / m_unitRatio));
+			m_item->setGradientControl2(FPoint(x2 / m_unitRatio, y2 / m_unitRatio));
+			m_item->setGradientControl3(FPoint(fx / m_unitRatio, fy / m_unitRatio));
+			m_item->setGradientControl4(FPoint(sg / m_unitRatio, sk / m_unitRatio));
+			m_item->setGradientControl5(FPoint(cx / m_unitRatio, cy / m_unitRatio));
 			m_item->update();
 			upRect = QRectF(QPointF(-m_item->width(), -m_item->height()), QPointF(m_item->width() * 2, m_item->height() * 2)).normalized();
 		}
 		else
 		{
-			m_item->GrStartX = x1 / m_unitRatio;
-			m_item->GrStartY = y1 / m_unitRatio;
-			m_item->GrEndX = x2 / m_unitRatio;
-			m_item->GrEndY = y2 / m_unitRatio;
-			m_item->GrFocalX = fx / m_unitRatio;
-			m_item->GrFocalY = fy / m_unitRatio;
-			m_item->GrScale = sg;
-			m_item->GrSkew = sk;
-			if (m_item->GrTypeStroke == 6)
+			if (m_item->gradientType() == 13)
 			{
-				m_item->GrFocalX = m_item->GrStartX;
-				m_item->GrFocalY = m_item->GrStartY;
+				SimpleState *ss= new SimpleState("Refresh");
+				ss->set("UNDO_UPDATE_CONICAL","undo_update_conical");
+				undoManager->action(m_item,ss);
 			}
-			if (m_item->GrType == 13)
+			m_item->setGradientStartX(x1 / m_unitRatio);
+			m_item->setGradientStartY(y1 / m_unitRatio);
+			m_item->setGradientEndX(x2 / m_unitRatio);
+			m_item->setGradientEndY(y2 / m_unitRatio);
+			m_item->setGradientFocalX(fx / m_unitRatio);
+			m_item->setGradientFocalY(fy / m_unitRatio);
+			m_item->setGradientScale(sg);
+			m_item->setGradientSkew(sk);
+			if (m_item->strokeGradientType() == 6)
+			{
+				m_item->setGradientFocalX(m_item->gradientStartX());
+				m_item->setGradientFocalY(m_item->gradientStartY());
+			}
+			if (m_item->gradientType() == 13)
+			{
 				m_item->createConicalMesh();
+				SimpleState *ss= new SimpleState("Refresh");
+				ss->set("REDO_UPDATE_CONICAL","redo_update_conical");
+				undoManager->action(m_item,ss);
+			}
 			m_item->update();
-			upRect = QRectF(QPointF(m_item->GrStartX, m_item->GrStartY), QPointF(m_item->GrEndX, m_item->GrEndY));
-			double radEnd = distance(m_item->GrEndX - m_item->GrStartX, m_item->GrEndY - m_item->GrStartY);
-			double rotEnd = xy2Deg(m_item->GrEndX - m_item->GrStartX, m_item->GrEndY - m_item->GrStartY);
+			upRect = QRectF(QPointF(m_item->gradientStartX(), m_item->gradientStartY()), QPointF(m_item->gradientEndX(), m_item->gradientEndY()));
+			double radEnd = distance(m_item->gradientEndX() - m_item->gradientStartX(), m_item->gradientEndY() - m_item->gradientStartY());
+			double rotEnd = xy2Deg(m_item->gradientEndX() - m_item->gradientStartX(), m_item->gradientEndY() - m_item->gradientStartY());
 			QTransform m;
-			m.translate(m_item->GrStartX, m_item->GrStartY);
+			m.translate(m_item->gradientStartX(), m_item->gradientStartY());
 			m.rotate(rotEnd);
 			m.rotate(-90);
-			m.rotate(m_item->GrSkew);
-			m.translate(radEnd * m_item->GrScale, 0);
+			m.rotate(m_item->gradientSkew());
+			m.translate(radEnd * m_item->gradientScale(), 0);
 			QPointF shP = m.map(QPointF(0,0));
-			upRect |= QRectF(shP, QPointF(m_item->GrEndX, m_item->GrEndY)).normalized();
-			upRect |= QRectF(shP, QPointF(m_item->GrStartX, m_item->GrStartY)).normalized();
+			upRect |= QRectF(shP, QPointF(m_item->gradientEndX(), m_item->gradientEndY())).normalized();
+			upRect |= QRectF(shP, QPointF(m_item->gradientStartX(), m_item->gradientStartY())).normalized();
 			upRect |= QRectF(shP, QPointF(0, 0)).normalized();
 			upRect |= QRectF(shP, QPointF(m_item->width(), m_item->height())).normalized();
 		}
+		trans.commit();
 		upRect.translate(m_item->xPos(), m_item->yPos());
 		m_doc->regionsChanged()->update(upRect.adjusted(-10.0, -10.0, 10.0, 10.0));
 		m_doc->changed();
@@ -764,20 +778,22 @@ void PropertiesPalette::NewSpGradientM(double x1, double y1, double x2, double y
 	if ((m_haveDoc) && (m_haveItem))
 	{
 		QRectF upRect;
-		m_item->GrMaskStartX = x1 / m_unitRatio;
-		m_item->GrMaskStartY = y1 / m_unitRatio;
-		m_item->GrMaskEndX = x2 / m_unitRatio;
-		m_item->GrMaskEndY = y2 / m_unitRatio;
-		m_item->GrMaskFocalX = fx / m_unitRatio;
-		m_item->GrMaskFocalY = fy / m_unitRatio;
-		m_item->GrMaskScale = sg;
-		m_item->GrMaskSkew = sk;
+		UndoTransaction trans(undoManager->beginTransaction(Um::Selection,Um::ILine,Um::GradPos + "o","",Um::ILine));
+		m_item->setGradientMaskStartX(x1 / m_unitRatio);
+		m_item->setGradientMaskStartY(y1 / m_unitRatio);
+		m_item->setGradientMaskEndX(x2 / m_unitRatio);
+		m_item->setGradientMaskEndY(y2 / m_unitRatio);
+		m_item->setGradientMaskFocalX(fx / m_unitRatio);
+		m_item->setGradientMaskFocalY(fy / m_unitRatio);
+		m_item->setGradientMaskScale(sg);
+		m_item->setGradientMaskSkew(sk);
 		if ((m_item->GrMask == 1) || (m_item->GrMask == 4))
 		{
-			m_item->GrMaskFocalX = m_item->GrMaskStartX;
-			m_item->GrMaskFocalY = m_item->GrMaskStartY;
+			m_item->setGradientMaskFocalX(m_item->GrMaskStartX);
+			m_item->setGradientMaskFocalY(m_item->GrMaskStartY);
 		}
 		m_item->update();
+		trans.commit();
 		upRect = QRectF(QPointF(m_item->GrMaskStartX, m_item->GrMaskStartY), QPointF(m_item->GrMaskEndX, m_item->GrMaskEndY));
 		double radEnd = distance(m_item->GrMaskEndX - m_item->GrMaskStartX, m_item->GrMaskEndY - m_item->GrMaskStartY);
 		double rotEnd = xy2Deg(m_item->GrMaskEndX - m_item->GrMaskStartX, m_item->GrMaskEndY - m_item->GrMaskStartY);

@@ -67,6 +67,13 @@ CanvasMode_EditMeshPatch::CanvasMode_EditMeshPatch(ScribusView* view) : CanvasMo
 	m_patchPoint = noPointDefined;
 	m_gradientPoint = noControlPointDefined;
 	m_click_count = 0;
+	old_mesh = new meshPoint();
+}
+
+CanvasMode_EditMeshPatch::~CanvasMode_EditMeshPatch()
+{
+	delete old_mesh;
+	old_mesh = NULL;
 }
 
 inline bool CanvasMode_EditMeshPatch::GetItem(PageItem** pi)
@@ -343,25 +350,13 @@ void CanvasMode_EditMeshPatch::keyPressEvent(QKeyEvent *e)
 			double moveY = 0.0;
 			bool isMoving = false;
 			bool doUpdate = false;
-			if (m_doc->unitIndex()!=SC_INCHES)
-			{
-				if ((buttonModifiers & Qt::ShiftModifier) && !(buttonModifiers & Qt::ControlModifier) && !(buttonModifiers & Qt::AltModifier))
-					moveBy=0.1;
-				else if (!(buttonModifiers & Qt::ShiftModifier) && (buttonModifiers & Qt::ControlModifier) && !(buttonModifiers & Qt::AltModifier))
-					moveBy=10.0;
-				else if ((buttonModifiers & Qt::ShiftModifier) && (buttonModifiers & Qt::ControlModifier) && !(buttonModifiers & Qt::AltModifier))
-					moveBy=0.01;
-				moveBy/=m_doc->unitRatio();//Lets allow movement by the current doc ratio, not only points
-			}
-			else
-			{
-				if ((buttonModifiers & Qt::ShiftModifier) && !(buttonModifiers & Qt::ControlModifier) && !(buttonModifiers & Qt::AltModifier))
-					moveBy=0.1/m_doc->unitRatio();
-				else if (!(buttonModifiers & Qt::ShiftModifier) && (buttonModifiers & Qt::ControlModifier) && !(buttonModifiers & Qt::AltModifier))
-					moveBy=1.0/m_doc->unitRatio();
-				else if ((buttonModifiers & Qt::ShiftModifier) && (buttonModifiers & Qt::ControlModifier) && !(buttonModifiers & Qt::AltModifier))
-					moveBy=0.01/m_doc->unitRatio();
-			}
+			if ((buttonModifiers & Qt::ShiftModifier) && !(buttonModifiers & Qt::ControlModifier) && !(buttonModifiers & Qt::AltModifier))
+				moveBy=0.1;
+			else if (!(buttonModifiers & Qt::ShiftModifier) && (buttonModifiers & Qt::ControlModifier) && !(buttonModifiers & Qt::AltModifier))
+				moveBy=10.0;
+			else if ((buttonModifiers & Qt::ShiftModifier) && (buttonModifiers & Qt::ControlModifier) && !(buttonModifiers & Qt::AltModifier))
+				moveBy=0.01;
+			moveBy/=m_doc->unitRatio();//Lets allow movement by the current doc ratio, not only points
 			moveBy /= m_canvas->m_viewMode.scale;
 			PageItem *currItem = m_doc->m_Selection->itemAt(0);
 			switch (kk)
@@ -813,13 +808,25 @@ void CanvasMode_EditMeshPatch::mousePressEvent(QMouseEvent *m)
 				meshPoint mp3 = patch.BR;
 				meshPoint mp4 = patch.BL;
 				if ((m_canvas->hitsCanvasPoint(mousePointDoc, itemMatrix.map(QPointF(mp1.gridPoint.x(), mp1.gridPoint.y())))) || (m_canvas->hitsCanvasPoint(mousePointDoc, itemMatrix.map(QPointF(mp1.controlColor.x(), mp1.controlColor.y())))))
+				{
 					m_patchPoint = useTL;
+					*old_mesh = mp1;
+				}
 				else if ((m_canvas->hitsCanvasPoint(mousePointDoc, itemMatrix.map(QPointF(mp2.gridPoint.x(), mp2.gridPoint.y())))) || (m_canvas->hitsCanvasPoint(mousePointDoc, itemMatrix.map(QPointF(mp2.controlColor.x(), mp2.controlColor.y())))))
+				{
+					*old_mesh = mp2;
 					m_patchPoint = useTR;
+				}
 				else if ((m_canvas->hitsCanvasPoint(mousePointDoc, itemMatrix.map(QPointF(mp3.gridPoint.x(), mp3.gridPoint.y())))) || (m_canvas->hitsCanvasPoint(mousePointDoc, itemMatrix.map(QPointF(mp3.controlColor.x(), mp3.controlColor.y())))))
+				{
+					*old_mesh = mp3;
 					m_patchPoint = useBR;
+				}
 				else if ((m_canvas->hitsCanvasPoint(mousePointDoc, itemMatrix.map(QPointF(mp4.gridPoint.x(), mp4.gridPoint.y())))) || (m_canvas->hitsCanvasPoint(mousePointDoc, itemMatrix.map(QPointF(mp4.controlColor.x(), mp4.controlColor.y())))))
+				{
+					*old_mesh = mp4;
 					m_patchPoint = useBL;
+				}
 				else
 					m_patchPoint = noPointDefined;
 			}
@@ -831,13 +838,25 @@ void CanvasMode_EditMeshPatch::mousePressEvent(QMouseEvent *m)
 				meshPoint mp3 = patch.BR;
 				meshPoint mp4 = patch.BL;
 				if (m_canvas->hitsCanvasPoint(mousePointDoc, itemMatrix.map(QPointF(mp1.gridPoint.x(), mp1.gridPoint.y()))))
+				{
+					*old_mesh = mp1;
 					m_patchPoint = useTL;
+				}
 				else if (m_canvas->hitsCanvasPoint(mousePointDoc, itemMatrix.map(QPointF(mp2.gridPoint.x(), mp2.gridPoint.y()))))
+				{
+					*old_mesh = mp2;
 					m_patchPoint = useTR;
+				}
 				else if (m_canvas->hitsCanvasPoint(mousePointDoc, itemMatrix.map(QPointF(mp3.gridPoint.x(), mp3.gridPoint.y()))))
+				{
+					*old_mesh = mp3;
 					m_patchPoint = useBR;
+				}
 				else if (m_canvas->hitsCanvasPoint(mousePointDoc, itemMatrix.map(QPointF(mp4.gridPoint.x(), mp4.gridPoint.y()))))
+				{
+					*old_mesh = mp4;
 					m_patchPoint = useBL;
+				}
 				else
 					m_patchPoint = noPointDefined;
 			}
@@ -953,6 +972,54 @@ void CanvasMode_EditMeshPatch::mouseReleaseEvent(QMouseEvent *m)
 	m_canvas->m_viewMode.m_MouseButtonPressed = false;
 	m_canvas->resetRenderMode();
 	m->accept();
+	if (m_view->editStrokeGradient != 11 && currItem->selectedMeshPointX >=0 && m_patchPoint != noPointDefined)
+	{
+		ScItemState<QPair<meshPoint,meshPoint> > *ss = new ScItemState<QPair<meshPoint,meshPoint> >(Um::GradPos);
+		ss->set("MOVE_MESH_PATCH","move_mesh_patch");
+		ss->set("X",currItem->selectedMeshPointX);
+		ss->set("Y",currItem->selectedMeshPointY);
+		ss->set("ARRAY",false);
+		switch(currItem->selectedMeshPointY){
+			case 1:
+				if((*old_mesh) == currItem->meshGradientPatches[currItem->selectedMeshPointX].TL)
+				{
+					delete ss;
+					ss=NULL;
+				}
+				else
+					ss->setItem(qMakePair(*old_mesh,currItem->meshGradientPatches[currItem->selectedMeshPointX].TL));
+				break;
+			case 2:
+				if((*old_mesh) == currItem->meshGradientPatches[currItem->selectedMeshPointX].TR)
+				{
+					delete ss;
+					ss=NULL;
+				}
+				else
+					ss->setItem(qMakePair(*old_mesh,currItem->meshGradientPatches[currItem->selectedMeshPointX].TR));
+				break;
+			case 3:
+				if((*old_mesh) == currItem->meshGradientPatches[currItem->selectedMeshPointX].BR)
+				{
+					delete ss;
+					ss=NULL;
+				}
+				else
+					ss->setItem(qMakePair(*old_mesh,currItem->meshGradientPatches[currItem->selectedMeshPointX].BR));
+				break;
+			case 4:
+				if((*old_mesh) == currItem->meshGradientPatches[currItem->selectedMeshPointX].BL)
+				{
+					delete ss;
+					ss=NULL;
+				}
+				else
+					ss->setItem(qMakePair(*old_mesh,currItem->meshGradientPatches[currItem->selectedMeshPointX].BL));
+				break;
+		}
+		if(ss)
+			undoManager->action(currItem,ss);
+	}
 	currItem = m_doc->m_Selection->itemAt(0);
 	currItem->update();
 	QTransform itemMatrix = currItem->getTransform();

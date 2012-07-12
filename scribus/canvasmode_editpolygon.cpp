@@ -44,6 +44,7 @@
 #include "fpointarray.h"
 #include "pageitem_regularpolygon.h"
 #include "ui/pageselector.h"
+#include "ui/polygonwidget.h"
 #include "prefscontext.h"
 #include "prefsfile.h"
 #include "prefsmanager.h"
@@ -157,6 +158,9 @@ void CanvasMode_EditPolygon::updateFromItem()
 	polyCurvature = item->polyCurvature;
 	polyInnerRot = item->polyInnerRot;
 	polyOuterCurvature = item->polyOuterCurvature;
+	VectorDialog->polyWidget->blockSignals(true);
+	VectorDialog->setValues(polyCorners, polyFactor, polyUseFactor, polyRotation, polyCurvature, polyInnerRot, polyOuterCurvature);
+	VectorDialog->polyWidget->blockSignals(false);
 	uint cx = polyUseFactor ? polyCorners * 2 : polyCorners;
 	double seg = 360.0 / cx;
 	double trueLength = sqrt(pow(sin(seg / 180.0 * M_PI) * (item->width() / 2.0), 2) + pow(cos(seg / 180.0 * M_PI) * (item->height() / 2.0) + (item->height()/2.0) - item->height(), 2));
@@ -246,6 +250,23 @@ void CanvasMode_EditPolygon::applyValues(int polyC, double polyF, bool polyUseCF
 	polyCurvature = polyCur;
 	polyInnerRot = polyIRot;
 	polyOuterCurvature = polyOCur;
+	SimpleState *ss = new SimpleState(Um::EditPolygon,"",Um::IPolygon);
+	ss->set("POLYGON","polygon");
+	ss->set("NEW_CORNER",polyC);
+	ss->set("NEW_USEFACTOR",polyUseCF);
+	ss->set("NEW_FACTOR",polyFactor);
+	ss->set("NEW_ROTATION",polyRotation);
+	ss->set("NEW_CURV",polyCurvature);
+	ss->set("NEW_INNER",polyInnerRot);
+	ss->set("NEW_OUTER",polyOuterCurvature);
+	ss->set("OLD_CORNER",item->polyCorners);
+	ss->set("OLD_USEFACTOR",item->polyUseFactor);
+	ss->set("OLD_FACTOR",item->polyFactor);
+	ss->set("OLD_ROTATION",item->polyRotation);
+	ss->set("OLD_CURV",item->polyCurvature);
+	ss->set("OLD_INNER",item->polyInnerRot);
+	ss->set("OLD_OUTER",item->polyOuterCurvature);
+	undoManager->action(currItem,ss);
 	item->polyCorners = polyC;
 	item->polyUseFactor = polyUseCF;
 	item->polyFactor = polyFactor;

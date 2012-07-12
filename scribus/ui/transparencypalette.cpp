@@ -154,9 +154,9 @@ void Tpalette::updateFromItem()
 		namedGradient->setCurrentIndex(0);
 		gradEdit->setGradientEditable(true);
 	}
-	if (currentItem->GrMask == 0)
+	if (currentItem->maskType() == 0)
 		tabWidget->setCurrentIndex(0);
-	else if ((currentItem->GrMask == 1) || (currentItem->GrMask == 2) || (currentItem->GrMask == 4) || (currentItem->GrMask == 5))
+	else if ((currentItem->maskType() == 1) || (currentItem->maskType() == 2) || (currentItem->maskType() == 4) || (currentItem->maskType() == 5))
 		tabWidget->setCurrentIndex(1);
 	else
 		tabWidget->setCurrentIndex(2);
@@ -167,17 +167,18 @@ void Tpalette::updateFromItem()
 	transpCalcGradient->setChecked(false);
 	transpCalcPattern->setChecked(false);
 	usePatternInverted->setChecked(false);
-	if ((currentItem->GrMask == 4) || (currentItem->GrMask == 5))
+	if ((currentItem->maskType() == 4) || (currentItem->maskType() == 5))
 		transpCalcGradient->setChecked(true);
-	if ((currentItem->GrMask == 6) || (currentItem->GrMask == 7))
+	if ((currentItem->maskType() == 6) || (currentItem->maskType() == 7))
 		transpCalcPattern->setChecked(true);
-	if ((currentItem->GrMask == 7) || (currentItem->GrMask == 8))
+	if ((currentItem->maskType() == 7) || (currentItem->maskType() == 8))
 		usePatternInverted->setChecked(true);
-	if ((currentItem->GrMask == 1) || (currentItem->GrMask == 4))
+	if ((currentItem->maskType() == 1) || (currentItem->maskType() == 4))
 		gradientType->setCurrentIndex(0);
-	else if ((currentItem->GrMask == 2) || (currentItem->GrMask == 5))
+	else if ((currentItem->maskType() == 2) || (currentItem->maskType() == 5))
 		gradientType->setCurrentIndex(1);
-
+	if(TGradDia && gradEditButton->isChecked())
+		TGradDia->setValues(currentItem->GrMaskStartX, currentItem->GrMaskStartY, currentItem->GrMaskEndX, currentItem->GrMaskEndY, currentItem->GrMaskFocalX, currentItem->GrMaskFocalY, currentItem->GrMaskScale, currentItem->GrMaskSkew, 0, 0);
 	double patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY;
 	bool mirrorX, mirrorY;
 	currentItem->maskTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY);

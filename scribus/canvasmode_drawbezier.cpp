@@ -65,7 +65,6 @@ BezierMode::BezierMode(ScribusView* view) : CanvasMode(view)
 	inItemCreation = false;
 	shiftSelItems = false;
 	FirstPoly = true;
-	m_createTransaction = NULL;
 }
 
 
@@ -99,18 +98,6 @@ void BezierMode::finalizeItem(PageItem* currItem)
 	}
 	m_view->resetMousePressed();
 	currItem->checkChanges();
-	if (m_createTransaction)
-	{
-		m_view->resetMousePressed();
-		currItem->checkChanges(true);
-		QString targetName = Um::ScratchSpace;
-		if (currItem->OwnPage > -1)
-			targetName = m_doc->Pages->at(currItem->OwnPage)->getUName();
-		m_createTransaction->commit(targetName, currItem->getUPixmap(),
-									Um::Create + " " + currItem->getUName(),  "", Um::ICreate);
-		delete m_createTransaction;
-		m_createTransaction = NULL;
-	}
 	currItem->update();
 	currItem->emitAllToGUI();
 }
@@ -150,25 +137,17 @@ void BezierMode::deactivate(bool flag)
 //	qDebug() << "BezierMode::deactivate" << flag;
 //	m_view->stopDragTimer();
 	PageItem* currItem = m_doc->m_Selection->itemAt(0);
-	if (m_createTransaction && currItem)
+	undoManager->setUndoEnabled(true);
+	if (UndoManager::undoEnabled())
 	{
-		//FIXME : we should call finalizeItem() here, currently some
-		//related code is executed in ScribusMainWindow::keyPressEvent()
-		m_view->resetMousePressed();
-		currItem->checkChanges(true);
-		QString targetName = Um::ScratchSpace;
+		ScItemState<PageItem*> *is = new ScItemState<PageItem*>("Create PageItem");
+		is->set("CREATE_ITEM", "create_item");
+		is->setItem(currItem);
+		//Undo target rests with the Page for object specific undo
+		UndoObject *target = m_doc->Pages->at(0);
 		if (currItem->OwnPage > -1)
-			targetName = m_doc->Pages->at(currItem->OwnPage)->getUName();
-		m_createTransaction->commit(targetName, currItem->getUPixmap(),
-									Um::Create + " " + currItem->getUName(),  "", Um::ICreate);
-		delete m_createTransaction;
-		m_createTransaction = NULL;
-	}
-	else if (m_createTransaction)
-	{
-		m_createTransaction->cancel();
-		delete m_createTransaction;
-		m_createTransaction = NULL;
+			target = m_doc->Pages->at(currItem->OwnPage);
+		undoManager->action(target, is);
 	}
 	m_view->redrawMarker->hide();
 }
@@ -313,7 +292,7 @@ void BezierMode::mousePressEvent(QMouseEvent *m)
 	if (FirstPoly)
 	{
 		selectPage(m);
-		m_createTransaction = new UndoTransaction(UndoManager::instance()->beginTransaction());
+		undoManager->setUndoEnabled(false);
 		z = m_doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, Rxp, Ryp, 1+Rxpd, 1+Rypd, m_doc->itemToolPrefs().lineWidth, CommonStrings::None, m_doc->itemToolPrefs().lineColor, true);
 		currItem = m_doc->Items->at(z);
 		m_doc->m_Selection->clear();
@@ -341,6 +320,7 @@ void BezierMode::mousePressEvent(QMouseEvent *m)
 	m_doc->SizeItem(currItem->PoLine.WidthHeight().x(), currItem->PoLine.WidthHeight().y(), currItem, false, false, false);
 	currItem->setPolyClip(qRound(qMax(currItem->lineWidth() / 2, 1.0)));
 	m_canvas->newRedrawPolygon();
+	undoManager->setUndoEnabled(false);
 }
 
 
@@ -349,7 +329,7 @@ void BezierMode::mouseReleaseEvent(QMouseEvent *m)
 {
 	const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
 	
-
+	undoManager->setUndoEnabled(true);
 	PageItem *currItem;
 	m_MouseButtonPressed = false;
 	m_canvas->resetRenderMode();

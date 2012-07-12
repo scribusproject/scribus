@@ -27,6 +27,7 @@ PolygonWidget::PolygonWidget(QWidget* parent) : QWidget( parent )
 	factorSpinBox->setDecimals(0);
 	rotationSpinBox->setDecimals(0);
 	cornersSpinBox->setDecimals(0);
+	cornersSpinBox->setDecimals(0);
 	curvatureSpinBox->setDecimals(0);
 	innerRotationspinBox->setDecimals(0);
 	OuterCurvatureSpinBox->setDecimals(0);

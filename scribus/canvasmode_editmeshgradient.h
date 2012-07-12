@@ -33,6 +33,7 @@ class PageItem;
 class PageItem_TextFrame;
 class ScribusMainWindow;
 class ScribusView;
+class meshPoint;
 
 
 // This class encapsulate the old code for mouse interaction from scribusview.cpp
@@ -41,7 +42,7 @@ class CanvasMode_EditMeshGradient :  public CanvasMode
 {	
 public:
 	explicit CanvasMode_EditMeshGradient(ScribusView* view);
-	virtual ~CanvasMode_EditMeshGradient() {}
+	virtual ~CanvasMode_EditMeshGradient();
 
 	virtual void enterEvent(QEvent *);
 	virtual void leaveEvent(QEvent *);
@@ -70,6 +71,7 @@ private:
 
 	inline bool GetItem(PageItem** pi);
 
+	meshPoint *old_mesh;
 	double Mxp, Myp;
 	ScribusMainWindow* m_ScMW;
 	eMGradientPoint m_gradientPoint;

@@ -3928,23 +3928,67 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 void PageItem_TextFrame::deleteSelectedTextFromFrame()
 {
 	if (itemText.lengthOfSelection() > 0) {
-		if (UndoManager::undoEnabled())
-		{
-			SimpleState *ss = dynamic_cast<SimpleState*>(undoManager->getLastUndo());
-			if(ss && ss->get("ETEA") == "delete_frametext"){
-				if(itemText.startOfSelection()<ss->getInt("START")){
-					ss->set("START",itemText.startOfSelection());
-					ss->set("TEXT_STR",itemText.text(itemText.startOfSelection(),itemText.lengthOfSelection()) + ss->get("TEXT_STR"));
-				} else
-					ss->set("TEXT_STR",ss->get("TEXT_STR") + itemText.text(itemText.startOfSelection(),itemText.lengthOfSelection()));
-			}else {
-				ss = new SimpleState(Um::DeleteText,"",Um::IDelete);
-				ss->set("DELETE_FRAMETEXT", "delete_frametext");
-				ss->set("ETEA", QString("delete_frametext"));
-				ss->set("TEXT_STR",itemText.text(itemText.startOfSelection(),itemText.lengthOfSelection()));
-				ss->set("START", itemText.startOfSelection());
-				undoManager->action(this, ss);
+		if(UndoManager::undoEnabled()){
+			int start = itemText.startOfSelection();
+			int stop = itemText.endOfSelection();
+			int lastPos = start;
+			CharStyle lastParent = itemText.charStyle(start);
+			UndoState* state = undoManager->getLastUndo();
+			ScItemState<CharStyle> *is = NULL;
+			TransactionState *ts = NULL;
+			bool added = false;
+			bool lastIsDelete = false;
+			while(state && state->isTransaction()){
+				ts = dynamic_cast<TransactionState*>(state);
+				is = dynamic_cast<ScItemState<CharStyle>*>(ts->at(ts->sizet()-1));
+				state = ts->at(0);
 			}
+			UndoTransaction trans = undoManager->beginTransaction(Um::Selection,Um::IDelete,Um::Delete,"",Um::IDelete);
+			for (int i=start; i <= stop; ++i)
+			{
+				const CharStyle& curParent(itemText.charStyle(i));
+				if (!curParent.equiv(lastParent) || i==stop)
+					{
+						added = false;
+						lastIsDelete = false;
+						if(is && dynamic_cast<ScItemState<CharStyle>*>(ts->at(0))->get("ETEA") == "delete_frametext" && lastPos<is->getInt("START"))
+						{
+							if(is->getItem().equiv(lastParent))
+							{
+								is->set("START",start);
+								is->set("TEXT_STR",itemText.text(lastPos,i - lastPos) + is->get("TEXT_STR"));
+								added = true;
+							}
+							lastIsDelete = true;
+						}
+						else if(is && dynamic_cast<ScItemState<CharStyle>*>(ts->at(0))->get("ETEA") == "delete_frametext"  && lastPos>=is->getInt("START"))
+						{
+							if(is && is->getItem().equiv(lastParent)){
+								is->set("TEXT_STR",is->get("TEXT_STR") + itemText.text(lastPos,i - lastPos));
+								added = true;
+							}
+							lastIsDelete = true;
+						}
+						if(!added)
+						{
+							is = new ScItemState<CharStyle>(Um::DeleteText,"",Um::IDelete);
+							is->set("DELETE_FRAMETEXT", "delete_frametext");
+							is->set("ETEA", QString("delete_frametext"));
+							is->set("TEXT_STR",itemText.text(lastPos,i - lastPos));
+							is->set("START", start);
+							is->setItem(lastParent);
+							if(!ts || !lastIsDelete){
+								undoManager->action(this, is);
+								ts = NULL;
+							}
+							else
+								ts->pushBack(this,is);
+						}
+						lastPos = i;
+						lastParent = curParent;
+					}
+			}
+			trans.commit();
 		}
 		itemText.setCursorPosition( itemText.startOfSelection() );
 		itemText.removeSelection();

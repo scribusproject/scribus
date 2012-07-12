@@ -1797,6 +1797,8 @@ void ScribusDoc::restore(UndoState* state, bool isUndo)
 		{
 			if (ScCore->usingGUI())
 			{
+				if(ss->contains("ACTIVE"))
+					scMW()->layerPalette->setActiveLayer(layerLevelFromID(ss->getInt("ACTIVE")),0);
 				m_ScMW->changeLayer(ss->getInt("ACTIVE"));
 				m_ScMW->layerPalette->rebuildList();
 			}
@@ -2973,7 +2975,7 @@ bool ScribusDoc::lowerLayerByLevel(const int layerLevel)
 	{
 		SimpleState *ss = new SimpleState(Um::LowerLayer, "", Um::IDown);
 		ss->set("DOWN_LAYER", "down_layer");
-		ss->set("ACTIVE", layerLevel-1);
+		ss->set("ACTIVE", layerIDFromLevel(layerLevel));
 		undoManager->action(this, ss, DocName, Um::ILayer);
 	}
 
@@ -3020,7 +3022,7 @@ bool ScribusDoc::raiseLayerByLevel(const int layerLevel)
 	{
 		SimpleState *ss = new SimpleState(Um::RaiseLayer, "", Um::IUp);
 		ss->set("UP_LAYER", "up_layer");
-		ss->set("ACTIVE", layerLevel+1);
+		ss->set("ACTIVE", layerIDFromLevel(layerLevel));
 		undoManager->action(this, ss, DocName, Um::ILayer);
 	}
 
@@ -7573,14 +7575,16 @@ void ScribusDoc::itemSelection_SetItemGradMask(int typ)
 	{
 		m_updateManager.setUpdatesDisabled();
 		PageItem *currItem;
+		UndoTransaction trans(undoManager->beginTransaction(Um::Selection,Um::IFill,Um::GradTypeMask,"",Um::IFill));
 		for (uint a = 0; a < selectedItemCount; ++a)
 		{
 			currItem = m_Selection->itemAt(a);
-			currItem->GrMask = typ;
+			currItem->setMaskType(typ);
 			if ((typ > 0) && (typ < 9))
 				currItem->updateGradientVectors();
 			currItem->update();
 		}
+		trans.commit();
 		m_updateManager.setUpdatesEnabled();
 		changed();
 	}
@@ -7593,11 +7597,12 @@ void ScribusDoc::itemSelection_SetItemGradStroke(int typ)
 	{
 		m_updateManager.setUpdatesDisabled();
 		PageItem *currItem;
+		UndoTransaction trans(undoManager->beginTransaction(Um::Selection,Um::IFill,Um::GradTypeMask,"",Um::IFill));
 		for (uint a = 0; a < selectedItemCount; ++a)
 		{
 			currItem = m_Selection->itemAt(a);
-			currItem->GrTypeStroke = typ;
-			if (currItem->GrTypeStroke == 0)
+			currItem->setStrokeGradientType(typ);
+			if (currItem->strokeGradientType() == 0)
 			{
 				if (currItem->lineColor() != CommonStrings::None)
 				{
@@ -7627,6 +7632,7 @@ void ScribusDoc::itemSelection_SetItemGradStroke(int typ)
 				currItem->updateGradientVectors();
 			currItem->update();
 		}
+		trans.commit();
 		m_updateManager.setUpdatesEnabled();
 		changed();
 	}
@@ -7639,11 +7645,12 @@ void ScribusDoc::itemSelection_SetItemGradFill(int typ)
 	{
 		m_updateManager.setUpdatesDisabled();
 		PageItem *currItem;
+		UndoTransaction trans(undoManager->beginTransaction(Um::Selection,Um::IPolygon,Um::SetFill,"",Um::IFill));
 		for (uint a = 0; a < selectedItemCount; ++a)
 		{
 			currItem = m_Selection->itemAt(a);
-			currItem->GrType = typ;
-			switch (currItem->GrType)
+			currItem->setGradientType(typ);
+			switch (currItem->gradientType())
 			{
 				case 0:
 					if (currItem->fillColor() != CommonStrings::None)
@@ -7672,41 +7679,41 @@ void ScribusDoc::itemSelection_SetItemGradFill(int typ)
 					}
 					break;
 				case 1:
-					currItem->GrStartX = 0;
-					currItem->GrStartY = currItem->height() / 2.0;
-					currItem->GrEndX = currItem->width();
-					currItem->GrEndY = currItem->height() / 2.0;
+					currItem->setGradientStartX(0);
+					currItem->setGradientStartY(currItem->height() / 2.0);
+					currItem->setGradientEndX(currItem->width());
+					currItem->setGradientEndY(currItem->height() / 2.0);
 					break;
 				case 2:
-					currItem->GrStartX = currItem->width() / 2.0;
-					currItem->GrStartY = 0;
-					currItem->GrEndX = currItem->width() / 2.0;
-					currItem->GrEndY = currItem->height();
+					currItem->setGradientStartX(currItem->width() / 2.0);
+					currItem->setGradientStartY(0);
+					currItem->setGradientEndX(currItem->width() / 2.0);
+					currItem->setGradientEndY(currItem->height());
 					break;
 				case 3:
-					currItem->GrStartX = 0;
-					currItem->GrStartY = 0;
-					currItem->GrEndX = currItem->width();
-					currItem->GrEndY = currItem->height();
+					currItem->setGradientStartX(0);
+					currItem->setGradientStartY(0);
+					currItem->setGradientEndX(currItem->width());
+					currItem->setGradientEndY(currItem->height());
 					break;
 				case 4:
-					currItem->GrStartX = 0;
-					currItem->GrStartY = currItem->height();
-					currItem->GrEndX = currItem->width();
-					currItem->GrEndY = 0;
+					currItem->setGradientStartX(0);
+					currItem->setGradientStartY(currItem->height());
+					currItem->setGradientEndX(currItem->width());
+					currItem->setGradientEndY(0);
 					break;
 				case 5:
-					currItem->GrStartX = currItem->width() / 2.0;
-					currItem->GrStartY = currItem->height() / 2.0;
+					currItem->setGradientStartX(currItem->width() / 2.0);
+					currItem->setGradientStartY(currItem->height() / 2.0);
 					if (currItem->width() >= currItem->height())
 					{
-						currItem->GrEndX = currItem->width();
-						currItem->GrEndY = currItem->height() / 2.0;
+						currItem->setGradientEndX(currItem->width());
+						currItem->setGradientEndY(currItem->height() / 2.0);
 					}
 					else
 					{
-						currItem->GrEndX = currItem->width() / 2.0;
-						currItem->GrEndY = currItem->height();
+						currItem->setGradientEndX(currItem->width() / 2.0);
+						currItem->setGradientEndY(currItem->height());
 					}
 					break;
 				default:
@@ -7714,10 +7721,11 @@ void ScribusDoc::itemSelection_SetItemGradFill(int typ)
 			}
 			if ((typ > 0) && (typ < 8))
 				currItem->updateGradientVectors();
-			if (currItem->GrType == 13)
+			if (currItem->gradientType() == 13)
 				currItem->createConicalMesh();
 			currItem->update();
 		}
+		trans.commit();
 		m_updateManager.setUpdatesEnabled();
 		changed();
 	}
@@ -10032,6 +10040,19 @@ void ScribusDoc::itemSelection_Transform(int nrOfCopies, QTransform matrix, int 
 				matrixAft.translate(gw, 0);
 				break;
 			}
+			ScItemState<QList<QTransform> > *state = new ScItemState<QList<QTransform> >(Um::Transform);
+			state->set("TRANSFORM", "TRANSFORM");
+			state->set("DX",deltaX);
+			state->set("DY",deltaY);
+			state->set("POSX",currItem->xPos());
+			state->set("POSY",currItem->yPos());
+			QList<QTransform> l;
+			l.append(matrixPre);
+			l.append(matrix);
+			l.append(matrixAft);
+			state->setItem(l);
+			undoManager->action(currItem, state);
+
 			currItem->PoLine.translate(deltaX, deltaY);
 			currItem->PoLine.map(matrixPre);
 			currItem->PoLine.map(matrix);
@@ -10045,7 +10066,9 @@ void ScribusDoc::itemSelection_Transform(int nrOfCopies, QTransform matrix, int 
 //			currItem->Frame = false;
 			currItem->ClipEdited = true;
 //			currItem->FrameType = 3;
+			undoManager->setUndoEnabled(false);
 			AdjustItemSize(currItem);
+			undoManager->setUndoEnabled(true);
 		}
 	}
 	else
@@ -10106,6 +10129,20 @@ void ScribusDoc::itemSelection_Transform(int nrOfCopies, QTransform matrix, int 
 					matrixAft.translate(gw, 0);
 					break;
 				}
+
+				ScItemState<QList<QTransform> > *state = new ScItemState<QList<QTransform> >(Um::Transform);
+				state->set("TRANSFORM", "TRANSFORM");
+				state->set("DX",deltaX);
+				state->set("DY",deltaY);
+				state->set("POSX",currItem->xPos());
+				state->set("POSY",currItem->yPos());
+				QList<QTransform> l;
+				l.append(matrixPre);
+				l.append(matrix);
+				l.append(matrixAft);
+				state->setItem(l);
+				undoManager->action(currItem, state);
+
 				currItem->PoLine.translate(deltaX, deltaY);
 				currItem->PoLine.map(matrixPre);
 				currItem->PoLine.map(comulatedMatrix);
@@ -10119,7 +10156,9 @@ void ScribusDoc::itemSelection_Transform(int nrOfCopies, QTransform matrix, int 
 //				currItem->Frame = false;
 				currItem->ClipEdited = true;
 //				currItem->FrameType = 3;
+				undoManager->setUndoEnabled(false);
 				AdjustItemSize(currItem);
+				undoManager->setUndoEnabled(true);
 				Elements.append(currItem);
 			}
 			comulatedMatrix *= matrix;
@@ -10914,7 +10953,7 @@ void ScribusDoc::itemSelection_SetLineGradient(VGradient& newGradient, Selection
 	{
 		PageItem *currItem;
 		currItem = itemSelection->itemAt(i);
-		currItem->stroke_gradient = newGradient;
+		currItem->setStrokeGradient(newGradient);
 		currItem->update();
 	}
 	/*if (selectedItemCount>1)
@@ -10936,8 +10975,8 @@ void ScribusDoc::itemSelection_SetFillGradient(VGradient& newGradient, Selection
 	{
 		PageItem *currItem;
 		currItem = itemSelection->itemAt(i);
-		currItem->fill_gradient = newGradient;
-		if (currItem->GrType == 13)
+		currItem->setFillGradient(newGradient);
+		if (currItem->gradientType() == 13)
 			currItem->createConicalMesh();
 		currItem->update();
 	}
@@ -10957,7 +10996,7 @@ void ScribusDoc::itemSelection_SetMaskGradient(VGradient& newGradient, Selection
 	{
 		PageItem *currItem;
 		currItem = itemSelection->itemAt(i);
-		currItem->mask_gradient = newGradient;
+		currItem->setMaskGradient(newGradient);
 		currItem->update();
 	}
 	m_updateManager.setUpdatesEnabled();
@@ -11231,6 +11270,7 @@ void ScribusDoc::itemSelection_SetImageRotation(double rot, Selection* customSel
 	uint selectedItemCount=itemSelection->count();
 	if (selectedItemCount != 0)
 	{
+		UndoTransaction trans(undoManager->beginTransaction(Um::Selection,Um::IImageFrame,Um::Rotate,"",Um::IRotate));
 		for (uint a = 0; a < selectedItemCount; ++a)
 		{
 			PageItem *currItem = itemSelection->itemAt(a);
@@ -11246,6 +11286,7 @@ void ScribusDoc::itemSelection_SetImageRotation(double rot, Selection* customSel
 			}
 			currItem->update();
 		}
+		trans.commit();
 		changed();
 	}
 }
@@ -14512,6 +14553,7 @@ void ScribusDoc::itemSelection_UniteItems(Selection* /*customSelection*/)
 			delete transaction;
 			transaction = NULL;
 		}
+		m_Selection->addItem(currItem);
 	}
 }
 
@@ -14533,6 +14575,8 @@ void ScribusDoc::itemSelection_SplitItems(Selection* /*customSelection*/)
 		uint StartInd = 0;
 		int currItemNr = Items->indexOf(currItem);
 		uint EndInd = currItem->PoLine.size();
+		m_Selection->clear();
+		m_Selection->addItem(currItem);
 		for (uint a = EndInd-1; a > 0; --a)
 		{
 			if (currItem->PoLine.point(a).x() > 900000)
@@ -14715,6 +14759,7 @@ void ScribusDoc::itemSelection_AdjustFrameHeightToText( Selection *customSelecti
 	
 	if (selectedItemCount > 0)
 	{
+		UndoTransaction trans(undoManager->beginTransaction(Um::Selection,Um::ITextFrame,Um::Resize,"",Um::IResize));
 		for (uint i = 0; i < selectedItemCount; ++i)
 		{
 			PageItem *currItem = itemSelection->itemAt(i);
@@ -14724,6 +14769,7 @@ void ScribusDoc::itemSelection_AdjustFrameHeightToText( Selection *customSelecti
 					currItem ->asTextFrame()->setTextFrameHeight();
 			}
 		}
+		trans.commit();
 		regionsChanged()->update(QRectF());
 		changed();
 		itemSelection->itemAt(0)->emitAllToGUI();
@@ -14914,7 +14960,7 @@ ScItemState<QPair<FPointArray, FPointArray> >* NodeEditContext::finishTransactio
 void NodeEditContext::finishTransaction2(PageItem* currItem, ScItemState<QPair<FPointArray, FPointArray> >* state)
 {
 	UndoManager* undoManager = UndoManager::instance();
-	
+
 	state->set("OLD_X", oldItemX);
 	state->set("OLD_Y", oldItemY);
 	state->set("NEW_X", currItem->xPos());

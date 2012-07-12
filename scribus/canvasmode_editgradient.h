@@ -71,6 +71,37 @@ private:
 	double Mxp, Myp;
 	ScribusMainWindow* m_ScMW;
 	eGradientPoint m_gradientPoint;
+
+	//save of previous state
+	double OldGrStartX;
+	double OldGrStartY;
+	double OldGrEndX;
+	double OldGrEndY;
+	double OldGrFocalX;
+	double OldGrFocalY;
+	double OldGrScale;
+	double OldGrSkew;
+	FPoint OldGrControl1;
+	FPoint OldGrControl2;
+	FPoint OldGrControl3;
+	FPoint OldGrControl4;
+	FPoint OldGrControl5;
+	double OldGrStrokeStartX;
+	double OldGrStrokeStartY;
+	double OldGrStrokeEndX;
+	double OldGrStrokeEndY;
+	double OldGrStrokeFocalX;
+	double OldGrStrokeFocalY;
+	double OldGrStrokeScale;
+	double OldGrStrokeSkew;
+	double OldGrMaskStartX;
+	double OldGrMaskStartY;
+	double OldGrMaskEndX;
+	double OldGrMaskEndY;
+	double OldGrMaskFocalX;
+	double OldGrMaskFocalY;
+	double OldGrMaskScale;
+	double OldGrMaskSkew;
 };
 
 

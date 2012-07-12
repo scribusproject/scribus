@@ -12,6 +12,7 @@
 *   (at your option) any later version.                                   *
 *                                                                         *
 ***************************************************************************/
+#include <QDebug>
 
 #include "commonstrings.h"
 #include "styles/style.h"
@@ -219,7 +220,7 @@ void ParagraphStyle::setStyle(const ParagraphStyle & other)
 {
 	other.validate();
 	setParent(other.parent());
-	m_contextversion = -1; 
+	m_contextversion = -1;
 	cstyle.setStyle(other.charStyle());
 	cstyleContext.invalidate();
 #define ATTRDEF(attr_TYPE, attr_GETTER, attr_NAME, attr_DEFAULT) \

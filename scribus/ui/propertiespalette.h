@@ -44,6 +44,7 @@ class ScComboBox;
 class ScribusDoc;
 class ScribusMainWindow;
 class Selection;
+class UndoManager;
 class Tpalette;
 
 class SCRIBUS_API PropertiesPalette : public ScDockPalette
@@ -121,6 +122,7 @@ protected:
 	double    m_unitRatio;
 	int       m_unitIndex;
 	PageItem* m_item;
+	UndoManager *undoManager;
 	
 	ScGuardedPtr<ScribusDoc> m_doc;
 	

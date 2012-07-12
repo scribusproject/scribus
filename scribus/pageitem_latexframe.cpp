@@ -514,11 +514,11 @@ void PageItem_LatexFrame::restore(UndoState *state, bool isUndo)
 		return;
 	}
 	if (ss->contains("CHANGE_FORMULA")) {
-		if (isUndo) {
+		if (isUndo)
 			setFormula(ss->get("OLD_FORMULA"), false);
-		} else {
+		else
 			setFormula(ss->get("NEW_FORMULA"), false);
-		}
+		rerunApplication(true);
 	} else {
 		PageItem_ImageFrame::restore(state, isUndo);
 	}

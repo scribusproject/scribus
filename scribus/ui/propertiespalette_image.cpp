@@ -487,6 +487,9 @@ void PropertiesPalette_Image::setCurrentItem(PageItem *item)
 			cbProportional->setChecked(m_item->AspectRatio);
 			freeScale->setEnabled(true);
 			frameScale->setEnabled(true);
+			//Necessary for undo action
+			keepImageWHRatioButton->setEnabled(setter);
+			keepImageDPIRatioButton->setEnabled(setter);
 		}
 //CB Why do we need this? Setting it too much here
 // 		if (setter == true)
@@ -716,6 +719,11 @@ void PropertiesPalette_Image::handleImagePageNumber()
 	if (!m_haveDoc || !m_haveItem || !m_ScMW || m_ScMW->scriptIsRunning())
 		return;
 	bool reallynew = (m_item->pixm.imgInfo.actualPageNumber != imagePageNumber->value());
+	SimpleState *ss = new SimpleState(Um::PageNmbr.arg(static_cast<int>(imagePageNumber->value())),"",Um::IImageFrame);
+	ss->set("IMAGE_NBR","image_nbr");
+	ss->set("OLD",m_item->pixm.imgInfo.actualPageNumber);
+	ss->set("NEW",imagePageNumber->value());
+	UndoManager::instance()->action(m_item,ss);
 	m_item->pixm.imgInfo.actualPageNumber = static_cast<int>(imagePageNumber->value());
 	if (reallynew)
 		m_item->loadImage(m_item->externalFile(), true);

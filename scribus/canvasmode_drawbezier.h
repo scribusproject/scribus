@@ -52,7 +52,6 @@ private:
 	void finalizeItem(PageItem* item);
 	void selectPage(QMouseEvent *m);
 
-	UndoTransaction* m_createTransaction;
 	bool inItemCreation, shiftSelItems, FirstPoly;
 	bool m_MouseButtonPressed;
 	double Mxp, Myp, Dxp, Dyp;

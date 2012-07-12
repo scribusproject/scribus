@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>470</width>
-    <height>353</height>
+    <width>510</width>
+    <height>365</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -41,6 +41,9 @@
         <widget class="ScrSpinBox" name="cornersSpinBox">
          <property name="toolTip">
           <string>Number of corners for polygons</string>
+         </property>
+         <property name="suffix">
+          <string notr="true"> </string>
          </property>
          <property name="minimum">
           <number>3</number>

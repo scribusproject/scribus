@@ -75,7 +75,7 @@ public:
 	~TransactionState();
 	/** @brief To know if the state is a Transaction */
 	bool isTransaction(){return true;};
-	
+
 	/**
 	 * @brief Add a new <code>UndoState</code> object to the transaction.
 	 * @param state state to be added to the transaction
@@ -501,6 +501,7 @@ public:
 	static QString Delete;
 	static QString Rename;
 	static QString FromTo;
+	static QString Mode;
 	static QString ApplyMasterPage;
 	static QString Paste;
 	static QString Cut;
@@ -537,6 +538,7 @@ public:
 	static QString LatexFrame;
 	static QString ResTyp;
 	static QString Polygon;
+	static QString EditPolygon;
 	static QString BezierCurve;
 	static QString ShowImage;
 	static QString Polyline;
@@ -598,11 +600,25 @@ public:
 	static QString DisableFlowLayer;
 	static QString SetLayerBlendMode;
 	static QString SetLayerTransparency;
+	static QString MeshGradient;
+	static QString ChangeMeshGradient;
 	static QString SetLayerLocked;
 	static QString SetLayerUnlocked;
+	static QString RemoveMeshPatch;
+	static QString StartArrowScale;
+	static QString EndArrowScale;
 	static QString GetImage;
 	static QString ChangeFormula;
+	static QString GradType;
+	static QString GradTypeMask;
+	static QString GradPos;
+	static QString GradVal;
+	static QString GradValStroke;
+	static QString GradCol;
+	static QString GradTypeStroke;
 	static QString MultipleDuplicate;
+	static QString Duplicate;
+	static QString Transform;
 	static QString ApplyTextStyle;
 	static QString RemoveTextStyle;
 	static QString Columns;

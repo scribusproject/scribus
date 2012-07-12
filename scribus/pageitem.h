@@ -662,9 +662,104 @@ public:
 	// PDF bookmark
 	bool isPDFBookmark() const { return isBookmark; }
 	void setIsPDFBookmark(bool val) { isBookmark = val; }
-	// 0=none, 1,2,3,4=linear, 5=radial, 6=free linear, 7=free radial, 8=pattern 
+	// 0=none, 1,2,3,4=linear, 5=radial, 6=free linear, 7=free radial, 8=pattern
 	int gradientType() const { return GrType; }
-	void setGradientType(int val) { GrType = val; }
+	void setGradientType(int val);
+	double gradientStartX() const { return GrStartX; }
+	void setGradientStartX(double val);
+	double gradientStartY() const { return GrStartY; }
+	void setGradientStartY(double val);
+	double gradientEndX() const { return GrEndX; }
+	void setGradientEndX(double val);
+	double gradientEndY() const { return GrEndY; }
+	void setGradientEndY(double val);
+	double gradientFocalX() const { return GrFocalX; }
+	void setGradientFocalX(double val);
+	double gradientFocalY() const { return GrFocalY; }
+	void setGradientFocalY(double val);
+	double gradientScale() const { return GrScale; }
+	void setGradientScale(double val);
+	double gradientSkew() const { return GrSkew; }
+	void setGradientSkew(double val);
+	double gradientMaskStartX() const { return GrMaskStartX; }
+	void setGradientMaskStartX(double val);
+	double gradientMaskStartY() const { return GrMaskStartY; }
+	void setGradientMaskStartY(double val);
+	double gradientMaskEndX() const { return GrMaskEndX; }
+	void setGradientMaskEndX(double val);
+	double gradientMaskEndY() const { return GrMaskEndY; }
+	void setGradientMaskEndY(double val);
+	double gradientMaskFocalX() const { return GrMaskFocalX; }
+	void setGradientMaskFocalX(double val);
+	double gradientMaskFocalY() const { return GrMaskFocalY; }
+	void setGradientMaskFocalY(double val);
+	double gradientMaskScale() const { return GrMaskScale; }
+	void setGradientMaskScale(double val);
+	double gradientMaskSkew() const { return GrMaskSkew; }
+	void setGradientMaskSkew(double val);
+	FPoint gradientControl1() const { return GrControl1; }
+	void setGradientControl1(FPoint val);
+	FPoint gradientControl2() const { return GrControl2; }
+	void setGradientControl2(FPoint val);
+	FPoint gradientControl3() const { return GrControl3; }
+	void setGradientControl3(FPoint val);
+	FPoint gradientControl4() const { return GrControl4; }
+	void setGradientControl4(FPoint val);
+	FPoint gradientControl5() const { return GrControl5; }
+	void setGradientControl5(FPoint val);
+	double gradientStrokeScale() const { return GrStrokeScale; }
+	void setGradientStrokeScale(double val);
+	double gradientStrokeSkew() const { return GrStrokeSkew; }
+	void setGradientStrokeSkew(double val);
+	double gradientStrokeFocalX() const { return GrStrokeFocalX; }
+	void setGradientStrokeFocalX(double val);
+	double gradientStrokeFocalY() const { return GrStrokeFocalY; }
+	void setGradientStrokeFocalY(double val);
+	double gradientStrokeStartX() const { return GrStrokeStartX; }
+	void setGradientStrokeStartX(double val);
+	double gradientStrokeStartY() const { return GrStrokeStartY; }
+	void setGradientStrokeStartY(double val);
+	double gradientStrokeEndX() const { return GrStrokeEndX; }
+	void setGradientStrokeEndX(double val);
+	double gradientStrokeEndY() const { return GrStrokeEndY; }
+	void setGradientStrokeEndY(double val);
+	QString gradientCol1() const { return GrColorP1; }
+	void setGradientCol1(QString val);
+	QString gradientCol2() const { return GrColorP2; }
+	void setGradientCol2(QString val);
+	QString gradientCol3() const { return GrColorP3; }
+	void setGradientCol3(QString val);
+	QString gradientCol4() const { return GrColorP4; }
+	void setGradientCol4(QString val);
+	double gradientTransp1() const { return GrCol1transp; }
+	void setGradientTransp1(double val);
+	double gradientTransp2() const { return GrCol2transp; }
+	void setGradientTransp2(double val);
+	double gradientTransp3() const { return GrCol3transp; }
+	void setGradientTransp3(double val);
+	double gradientTransp4() const { return GrCol4transp; }
+	void setGradientTransp4(double val);
+	int gradientShade1() const { return GrCol1Shade; }
+	void setGradientShade1(int val);
+	int gradientShade2() const { return GrCol2Shade; }
+	void setGradientShade2(int val);
+	int gradientShade3() const { return GrCol3Shade; }
+	void setGradientShade3(int val);
+	int gradientShade4() const { return GrCol4Shade; }
+	void setGradientShade4(int val);
+	QColor gradientColor1() const { return GrColorP1QColor; }
+	void setGradientColor1(QColor val);
+	QColor gradientColor2() const { return GrColorP2QColor; }
+	void setGradientColor2(QColor val);
+	QColor gradientColor3() const { return GrColorP3QColor; }
+	void setGradientColor3(QColor val);
+	QColor gradientColor4() const { return GrColorP4QColor; }
+	void setGradientColor4(QColor val);
+	bool getSnapToPatchGrid() const { return snapToPatchGrid; }
+	void setSnapToPatchGrid(bool val);
+	void setMaskGradient(VGradient grad);
+	void setFillGradient(VGradient grad);
+	void setStrokeGradient(VGradient grad);
 	void set4ColorGeometry(FPoint c1, FPoint c2, FPoint c3, FPoint c4);
 	void set4ColorTransparency(double t1, double t2, double t3, double t4);
 	void set4ColorShade(int t1, int t2, int t3, int t4);
@@ -683,12 +778,12 @@ public:
 	void setGradientVector(double startX, double startY, double endX, double endY, double focalX, double focalY, double scale, double skew);
 
 	int strokeGradientType() const { return GrTypeStroke; }
-	void setStrokeGradientType(int val) { GrTypeStroke = val; }
+	void setStrokeGradientType(int val);
 	void strokeGradientVector(double& startX, double& startY, double& endX, double& endY, double &focalX, double &focalY, double &scale, double &skew) const;
 	void setStrokeGradientVector(double startX, double startY, double endX, double endY, double focalX, double focalY, double scale, double skew);
 
 	int maskType() const { return GrMask; }
-	void setMaskType(int val) { GrMask = val; }
+	void setMaskType(int val);
 	void setGradientMask(const QString &newMask);
 	void setPatternMask(const QString &newMask);
 	QString gradientMask() const { return gradientMaskVal; }
@@ -1211,6 +1306,73 @@ protected:
 	 * @author Riku Leino
 	 */
 	/*@{*/
+	void restoreAppMode(SimpleState *state, bool isUndo);
+	void restoreArc(SimpleState *state,bool isUndo);
+	void restorePolygon(SimpleState *state,bool isUndo);
+	void restoreImageNbr(SimpleState *state,bool isUndo);
+	void restoreTransform(SimpleState *state,bool isUndo);
+	void restoreMaskType(SimpleState *state,bool isUndo);
+	void restoreGradPos(SimpleState *state,bool isUndo);
+	void restoreSnapToPatchGrid(SimpleState *state, bool isUndo);
+	void restoreRemoveMeshPatch(SimpleState *state, bool isUndo);
+	void restoreCreateMeshGrad(SimpleState *state, bool isUndo);
+	void restoreMoveMeshGrad(SimpleState *state, bool isUndo);
+	void restoreResetMeshGrad(SimpleState *state, bool isUndo);
+	void restoreGradientColor1(SimpleState *state, bool isUndo);
+	void restoreGradientColor2(SimpleState *state, bool isUndo);
+	void restoreGradientColor3(SimpleState *state, bool isUndo);
+	void restoreGradientColor4(SimpleState *state, bool isUndo);
+	void restoreGradientCol1(SimpleState *state, bool isUndo);
+	void restoreGradientCol2(SimpleState *state, bool isUndo);
+	void restoreGradientCol3(SimpleState *state, bool isUndo);
+	void restoreGradientCol4(SimpleState *state, bool isUndo);
+	void restoreGradientShade1(SimpleState *state, bool isUndo);
+	void restoreGradientShade2(SimpleState *state, bool isUndo);
+	void restoreGradientShade3(SimpleState *state, bool isUndo);
+	void restoreGradientShade4(SimpleState *state, bool isUndo);
+	void restoreGradientTrans1(SimpleState *state, bool isUndo);
+	void restoreGradientTrans2(SimpleState *state, bool isUndo);
+	void restoreGradientTrans3(SimpleState *state, bool isUndo);
+	void restoreGradientTrans4(SimpleState *state, bool isUndo);
+	void restoreMoveMeshPatch(SimpleState *state, bool isUndo);
+	void restoreMaskGradient(SimpleState *state, bool isUndo);
+	void restoreFillGradient(SimpleState *state, bool isUndo);
+	void restoreStrokeGradient(SimpleState *state, bool isUndo);
+	void restoreGradientMeshColor(SimpleState *state, bool isUndo);
+	void restoreGradientStartX(SimpleState *state, bool isUndo);
+	void restoreGradientStartY(SimpleState *state, bool isUndo);
+	void restoreGradientEndX(SimpleState *state, bool isUndo);
+	void restoreGradientEndY(SimpleState *state, bool isUndo);
+	void restoreGradientFocalX(SimpleState *state, bool isUndo);
+	void restoreGradientFocalY(SimpleState *state, bool isUndo);
+	void restoreGradientScale(SimpleState *state, bool isUndo);
+	void restoreGradientSkew(SimpleState *state, bool isUndo);
+	void restoreGradientMaskStartX(SimpleState *state, bool isUndo);
+	void restoreGradientMaskStartY(SimpleState *state, bool isUndo);
+	void restoreGradientMaskEndX(SimpleState *state, bool isUndo);
+	void restoreGradientMaskEndY(SimpleState *state, bool isUndo);
+	void restoreGradientMaskFocalX(SimpleState *state, bool isUndo);
+	void restoreGradientMaskFocalY(SimpleState *state, bool isUndo);
+	void restoreGradientMaskScale(SimpleState *state, bool isUndo);
+	void restoreGradientMaskSkew(SimpleState *state, bool isUndo);
+	void restoreGradientControl1(SimpleState *state, bool isUndo);
+	void restoreGradientControl2(SimpleState *state, bool isUndo);
+	void restoreGradientControl3(SimpleState *state, bool isUndo);
+	void restoreGradientControl4(SimpleState *state, bool isUndo);
+	void restoreGradientControl5(SimpleState *state, bool isUndo);
+	void restoreGradientStrokeScale(SimpleState *state, bool isUndo);
+	void restoreGradientStrokeSkew(SimpleState *state, bool isUndo);
+	void restoreGradientStrokeFocalX(SimpleState *state, bool isUndo);
+	void restoreGradientStrokeFocalY(SimpleState *state, bool isUndo);
+	void restoreGradientStrokeStartX(SimpleState *state, bool isUndo);
+	void restoreGradientStrokeStartY(SimpleState *state, bool isUndo);
+	void restoreGradientStrokeEndX(SimpleState *state, bool isUndo);
+	void restoreGradientStrokeEndY(SimpleState *state, bool isUndo);
+	void restoreGradientType(SimpleState *state, bool isUndo);
+	void restoreGradientTypeStroke(SimpleState *state, bool isUndo);
+	void restoreStartArrowScale(SimpleState *state, bool isUndo);
+	void restoreEndArrowScale(SimpleState *state, bool isUndo);
+	void restoreImageRotation(SimpleState *state, bool isUndo);
 	void restorePasteInline(SimpleState *state, bool isUndo);
 	void restorePasteText(SimpleState *state, bool isUndo);
 	void restoreFirstLineOffset(SimpleState *state, bool isUndo);

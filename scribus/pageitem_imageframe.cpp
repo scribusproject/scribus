@@ -242,7 +242,7 @@ void PageItem_ImageFrame::clearContents()
 	setImageFlippedV(false);
 	EmProfile = "";
 	ScaleType = true;
-	AspectRatio = true;
+	AspectRatio = false;
 	setFillTransparency(0.0);
 	setLineTransparency(0.0);
 	imageClip.resize(0);

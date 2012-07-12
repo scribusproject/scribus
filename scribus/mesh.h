@@ -38,6 +38,7 @@ public:
 	void moveAbs(double x, double y);
 	void transform(QTransform t);
 	void resetTo(FPoint p);
+	bool operator ==(meshPoint p);
 	FPoint gridPoint;
 	FPoint controlTop;
 	FPoint controlBottom;

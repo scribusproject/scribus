@@ -329,7 +329,7 @@ void CanvasMode_EditGradient::mouseMoveEvent(QMouseEvent *m)
 				currItem->GrStrokeStartY -= np.y(); // (Myp - newY); // / m_canvas->scale();
 				currItem->GrStrokeFocalX -= np.x();
 				currItem->GrStrokeFocalY -= np.y();
-				if (currItem->GrTypeStroke == 7)
+				if (currItem->strokeGradientType() == 7)
 				{
 					double radEnd = distance(currItem->GrStrokeEndX - currItem->GrStrokeStartX, currItem->GrStrokeEndY - currItem->GrStrokeStartY);
 					double radFoc = distance(currItem->GrStrokeFocalX - currItem->GrStrokeStartX, currItem->GrStrokeFocalY - currItem->GrStrokeStartY);
@@ -368,7 +368,7 @@ void CanvasMode_EditGradient::mouseMoveEvent(QMouseEvent *m)
 				QPointF shRe = m.map(shR - np);
 				currItem->GrStrokeFocalX = shRe.x();
 				currItem->GrStrokeFocalY = shRe.y();
-				if (currItem->GrTypeStroke == 7)
+				if (currItem->strokeGradientType() == 7)
 				{
 					double radEnd = distance(currItem->GrStrokeEndX - currItem->GrStrokeStartX, currItem->GrStrokeEndY - currItem->GrStrokeStartY);
 					double radFoc = distance(currItem->GrStrokeFocalX - currItem->GrStrokeStartX, currItem->GrStrokeFocalY - currItem->GrStrokeStartY);
@@ -404,7 +404,7 @@ void CanvasMode_EditGradient::mouseMoveEvent(QMouseEvent *m)
 			{
 				currItem->GrStrokeEndX -= np.x(); // (Mxp - newX); // / m_canvas->scale();
 				currItem->GrStrokeEndY -= np.y(); // (Myp - newY); // / m_canvas->scale();
-				if (currItem->GrTypeStroke == 7)
+				if (currItem->strokeGradientType() == 7)
 				{
 					double radEnd = distance(currItem->GrStrokeEndX - currItem->GrStrokeStartX, currItem->GrStrokeEndY - currItem->GrStrokeStartY);
 					double radFoc = distance(currItem->GrStrokeFocalX - currItem->GrStrokeStartX, currItem->GrStrokeFocalY - currItem->GrStrokeStartY);
@@ -519,7 +519,7 @@ void CanvasMode_EditGradient::mouseMoveEvent(QMouseEvent *m)
 				currItem->GrStartY -= np.y();
 				currItem->GrFocalX -= np.x();
 				currItem->GrFocalY -= np.y();
-				if ((currItem->GrType == 7) || (currItem->GrType == 13))
+				if ((currItem->gradientType() == 7) || (currItem->gradientType() == 13))
 				{
 					double radEnd = distance(currItem->GrEndX - currItem->GrStartX, currItem->GrEndY - currItem->GrStartY);
 					double radFoc = distance(currItem->GrFocalX - currItem->GrStartX, currItem->GrFocalY - currItem->GrStartY);
@@ -889,6 +889,37 @@ void CanvasMode_EditGradient::mousePressEvent(QMouseEvent *m)
 			m_gradientPoint = useGradientSkew;
 	}
 	m_canvas->m_viewMode.m_MouseButtonPressed = true;
+	if(m_gradientPoint != noPointDefined){
+		OldGrStartX = currItem->gradientStartX();
+		OldGrStartY = currItem->gradientStartY();
+		OldGrEndX = currItem->gradientEndX();
+		OldGrEndY = currItem->gradientEndY();
+		OldGrFocalX = currItem->gradientFocalX();
+		OldGrFocalY = currItem->gradientFocalY();
+		OldGrScale = currItem->gradientScale();
+		OldGrSkew = currItem->gradientSkew();
+		OldGrControl1 = currItem->gradientControl1();
+		OldGrControl2 = currItem->gradientControl2();
+		OldGrControl3 = currItem->gradientControl3();
+		OldGrControl4 = currItem->gradientControl4();
+		OldGrControl5 = currItem->gradientControl5();
+		OldGrStrokeStartX = currItem->gradientStrokeStartX();
+		OldGrStrokeStartY = currItem->gradientStrokeStartY();
+		OldGrStrokeEndX = currItem->gradientStrokeEndX();
+		OldGrStrokeEndY = currItem->gradientStrokeEndY();
+		OldGrStrokeFocalX = currItem->gradientStrokeFocalX();
+		OldGrStrokeFocalY = currItem->gradientStrokeFocalY();
+		OldGrStrokeScale = currItem->gradientStrokeScale();
+		OldGrStrokeSkew = currItem->gradientStrokeSkew();
+		OldGrMaskStartX = currItem->GrMaskStartX;
+		OldGrMaskStartY = currItem->GrMaskStartY;
+		OldGrMaskEndX = currItem->GrMaskEndX;
+		OldGrMaskEndY = currItem->GrMaskEndY;
+		OldGrMaskFocalX = currItem->GrMaskFocalX;
+		OldGrMaskFocalY = currItem->GrMaskFocalY;
+		OldGrMaskScale = currItem->GrMaskScale;
+		OldGrMaskSkew = currItem->GrMaskSkew;
+	}
 	qApp->changeOverrideCursor(QCursor(Qt::CrossCursor));
 }
 
@@ -900,6 +931,72 @@ void CanvasMode_EditGradient::mouseReleaseEvent(QMouseEvent *m)
 	m_canvas->m_viewMode.m_MouseButtonPressed = false;
 	m_canvas->resetRenderMode();
 	m->accept();
+	PageItem* currItem = m_doc->m_Selection->itemAt(0);
+	if(m_gradientPoint != noPointDefined){
+		QList<FPoint> tmp;
+		ScItemState<QList<FPoint> > *is = new ScItemState<QList<FPoint> >(Um::GradPos + "i");
+		is->set("GRAD_POS","grad_pos");
+		is->set("OLDSTARTX",OldGrStartX);
+		is->set("STARTX",currItem->gradientStartX());
+		is->set("OLDSTARTY",OldGrStartY);
+		is->set("STARTY",currItem->gradientStartY());
+		is->set("OLDENDX",OldGrEndX);
+		is->set("ENDX",currItem->gradientEndX());
+		is->set("OLDENDY",OldGrEndY);
+		is->set("ENDY",currItem->gradientEndY());
+		is->set("OLDFOCALX",OldGrFocalX);
+		is->set("FOCALX",currItem->gradientFocalX());
+		is->set("OLDFOCALY",OldGrFocalY);
+		is->set("FOCALY",currItem->gradientFocalY());
+		is->set("OLDSCALE",OldGrScale);
+		is->set("SCALE",currItem->gradientScale());
+		is->set("OLDSKEW",OldGrSkew);
+		is->set("SKEW",currItem->gradientSkew());
+		tmp.append(OldGrControl1);
+		tmp.append(currItem->gradientControl1());
+		tmp.append(OldGrControl2);
+		tmp.append(currItem->gradientControl2());
+		tmp.append(OldGrControl3);
+		tmp.append(currItem->gradientControl3());
+		tmp.append(OldGrControl4);
+		tmp.append(currItem->gradientControl4());
+		tmp.append(OldGrControl5);
+		tmp.append(currItem->gradientControl5());
+		is->setItem(tmp);
+		is->set("OLDSTROKESTARTX",OldGrStrokeStartX);
+		is->set("STROKESTARTX",currItem->gradientStrokeStartX());
+		is->set("OLDSTROKESTARTY",OldGrStrokeStartY);
+		is->set("STROKESTARTY",currItem->gradientStrokeStartY());
+		is->set("OLDSTROKEENDX",OldGrStrokeEndX);
+		is->set("STROKEENDX",currItem->gradientStrokeEndX());
+		is->set("OLDSTROKEENDY",OldGrStrokeEndY);
+		is->set("STROKEENDY",currItem->gradientStrokeEndY());
+		is->set("OLDSTROKEFOCALX",OldGrStrokeFocalX);
+		is->set("STROKEFOCALX",currItem->gradientStrokeFocalX());
+		is->set("OLDSTROKEFOCALY",OldGrStrokeFocalY);
+		is->set("STROKEFOCALY",currItem->gradientStrokeFocalY());
+		is->set("OLDSTROKESCALE",OldGrStrokeScale);
+		is->set("STROKESCALE",currItem->gradientStrokeScale());
+		is->set("OLDSTROKESKEW",OldGrStrokeSkew);
+		is->set("STROKESKEW",currItem->gradientStrokeSkew());
+		is->set("OLDMARKSTARTX",OldGrMaskStartX);
+		is->set("MARKSTARTX",currItem->GrMaskStartX);
+		is->set("OLDMARKSTARTY",OldGrMaskStartY);
+		is->set("MARKSTARTY",currItem->GrMaskStartY);
+		is->set("OLDMARKENDX",OldGrMaskEndX);
+		is->set("MARKENDX",currItem->GrMaskEndX);
+		is->set("OLDMARKENDY",OldGrMaskEndY);
+		is->set("MARKENDY",currItem->GrMaskEndY);
+		is->set("OLDMARKFOCALX",OldGrMaskFocalX);
+		is->set("MARKFOCALX",currItem->GrMaskFocalX);
+		is->set("OLDMARKFOCALY",OldGrMaskFocalY);
+		is->set("MARKFOCALY",currItem->GrMaskFocalY);
+		is->set("OLDMARKSCALE",OldGrMaskScale);
+		is->set("MARKSCALE",currItem->GrMaskScale);
+		is->set("OLDMARKSKEW",OldGrMaskSkew);
+		is->set("MARKSKEW",currItem->GrMaskSkew);
+		undoManager->action(currItem,is);
+	}
 	m_gradientPoint = noPointDefined;
 //	m_view->stopDragTimer();
 }
