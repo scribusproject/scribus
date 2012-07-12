@@ -829,7 +829,7 @@ void ActionManager::initToolsMenuActions()
 	*modeActionNames << "toolsSelect" << "toolsInsertTextFrame" << "toolsInsertImageFrame" << "toolsInsertTable";
 	*modeActionNames << "toolsInsertShape" << "toolsInsertPolygon" << "toolsInsertArc" << "toolsInsertSpiral" << "toolsInsertLine" << "toolsInsertBezier";
 	*modeActionNames << "toolsInsertFreehandLine" << "toolsInsertCalligraphicLine" << "toolsInsertRenderFrame" << "toolsRotate" << "toolsZoom" << "toolsEditContents";
-	*modeActionNames << "toolsEditWithStoryEditor" << "toolsLinkTextFrame" << "toolsUnlinkTextFrame" << "toolsUnlinkTextFrameWithTextCopy" << "toolsUnlinkTextFrameWithTextCut";
+	*modeActionNames << "toolsEditWithStoryEditor" << "toolsLinkTextFrame" << "toolsUnlinkTextFrame"; //<< "toolsUnlinkTextFrameWithTextCopy" << "toolsUnlinkTextFrameWithTextCut";
 	*modeActionNames << "toolsEyeDropper" << "toolsCopyProperties";
 	*modeActionNames << "toolsPDFPushButton" << "toolsPDFTextField" << "toolsPDFCheckBox" << "toolsPDFComboBox" << "toolsPDFListBox" << "toolsPDFAnnotText" << "toolsPDFAnnotLink";
 #ifdef HAVE_OSG
@@ -1975,7 +1975,10 @@ void ActionManager::createDefaultMenus()
 		<< "itemSplitPolygons"
 		<< "itemsUnWeld"
 		<< "itemWeld"
-		<< "itemEditWeld";
+		<< "itemEditWeld"
+		<< "toolsUnlinkTextFrameWithTextCopy"
+		<< "toolsUnlinkTextFrameWithTextCut";
+	
 	//Insert
 	++itmenu;
 	itmenu->second
@@ -2199,8 +2202,8 @@ void ActionManager::createDefaultNonMenuActions()
 	itnmenua->second << "toolsEditContents";
 	itnmenua->second << "toolsLinkTextFrame";
 	itnmenua->second << "toolsUnlinkTextFrame";
-	itnmenua->second << "toolsUnlinkTextFrameWithTextCopy";
-	itnmenua->second << "toolsUnlinkTextFrameWithTextCut";
+//	itnmenua->second << "toolsUnlinkTextFrameWithTextCopy";
+//	itnmenua->second << "toolsUnlinkTextFrameWithTextCut";
 	itnmenua->second << "toolsEyeDropper";
 	itnmenua->second << "toolsCopyProperties";
 	itnmenua->second << "toolsPDFPushButton";

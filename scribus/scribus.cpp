@@ -6440,8 +6440,8 @@ void ScribusMainWindow::setAppMode(int mode)
 	scrActions["toolsEditWithStoryEditor"]->setChecked(mode==modeStoryEditor);
 	scrActions["toolsLinkTextFrame"]->setChecked(mode==modeLinkFrames);
 	scrActions["toolsUnlinkTextFrame"]->setChecked(mode==modeUnlinkFrames);
-	scrActions["toolsUnlinkTextFrameWithTextCopy"]->setChecked(mode==modeUnlinkFrames);
-	scrActions["toolsUnlinkTextFrameWithTextCut"]->setChecked(mode==modeUnlinkFrames);
+//	scrActions["toolsUnlinkTextFrameWithTextCopy"]->setChecked(mode==modeUnlinkFrames);
+//	scrActions["toolsUnlinkTextFrameWithTextCut"]->setChecked(mode==modeUnlinkFrames);
 	scrActions["toolsEyeDropper"]->setChecked(mode==modeEyeDropper);
 	scrActions["toolsMeasurements"]->setChecked(mode==modeMeasurementTool);
 	scrActions["toolsCopyProperties"]->setChecked(mode==modeCopyProperties);
