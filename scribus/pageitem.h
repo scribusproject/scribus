@@ -1300,6 +1300,10 @@ protected:
 	
 	/** @brief Manages undostack and is where all undo actions/states are sent. */
 	UndoManager * const undoManager;
+
+	/** Split the restore methods */
+	bool checkGradientUndoRedo(SimpleState *state, bool isUndo);
+
 	/**
 	 * @name Restore helper methods
 	 * Split the restore method for easier handling.

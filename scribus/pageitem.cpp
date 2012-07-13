@@ -4651,122 +4651,15 @@ void PageItem::restore(UndoState *state, bool isUndo)
 	}
 	if (ss)
 	{
-		if (ss->contains("GRAD_COL1"))
-			restoreGradientCol1(ss, isUndo);
+		bool actionFound = checkGradientUndoRedo(ss, isUndo);
+		if (actionFound)
+			int dummy = 0;
 		else if (ss->contains("ARC"))
 			restoreArc(ss, isUndo);
 		else if (ss->contains("MASKTYPE"))
 			restoreMaskType(ss, isUndo);
-		else if (ss->contains("SNAP_TO_PATCH"))
-			restoreSnapToPatchGrid(ss, isUndo);
-		else if ((ss->contains("UNDO_UPDATE_CONICAL") && isUndo) || (ss->contains("REDO_UPDATE_CONICAL") && !isUndo))
-			createConicalMesh();
-		else if (ss->contains("GRAD_COL2"))
-			restoreGradientCol2(ss, isUndo);
-		else if (ss->contains("GRAD_COL3"))
-			restoreGradientCol3(ss, isUndo);
-		else if (ss->contains("GRAD_COL4"))
-			restoreGradientCol4(ss, isUndo);
-		else if (ss->contains("GRAD_POS"))
-			restoreGradPos(ss, isUndo);
-		else if (ss->contains("GRAD_QCOLOR1"))
-			restoreGradientColor1(ss, isUndo);
-		else if (ss->contains("GRAD_QCOLOR2"))
-			restoreGradientColor2(ss, isUndo);
-		else if (ss->contains("GRAD_QCOLOR3"))
-			restoreGradientColor3(ss, isUndo);
-		else if (ss->contains("GRAD_QCOLOR4"))
-			restoreGradientColor4(ss, isUndo);
 		else if (ss->contains("POLYGON"))
 			restorePolygon(ss, isUndo);
-		else if (ss->contains("GRAD_TRANSP1"))
-			restoreGradientTrans1(ss, isUndo);
-		else if (ss->contains("GRAD_TRANSP2"))
-			restoreGradientTrans2(ss, isUndo);
-		else if (ss->contains("GRAD_TRANSP3"))
-			restoreGradientTrans3(ss, isUndo);
-		else if (ss->contains("GRAD_TRANSP4"))
-			restoreGradientTrans4(ss, isUndo);
-		else if (ss->contains("GRAD_SHADE1"))
-			restoreGradientShade1(ss, isUndo);
-		else if (ss->contains("GRAD_SHADE2"))
-			restoreGradientShade2(ss, isUndo);
-		else if (ss->contains("GRAD_SHADE3"))
-			restoreGradientShade3(ss, isUndo);
-		else if (ss->contains("GRAD_SHADE4"))
-			restoreGradientShade4(ss, isUndo);
-		else if (ss->contains("MOVE_MESH_PATCH"))
-			restoreMoveMeshPatch(ss, isUndo);
-		else if (ss->contains("FILL_GRAD"))
-			restoreFillGradient(ss, isUndo);
-		else if (ss->contains("MASK_GRAD"))
-			restoreMaskGradient(ss, isUndo);
-		else if (ss->contains("STROKE_GRAD"))
-			restoreStrokeGradient(ss, isUndo);
-		else if (ss->contains("GRAD_MESH_COLOR"))
-			restoreGradientMeshColor(ss, isUndo);
-		else if (ss->contains("GRADSTROKE_STARTX"))
-			restoreGradientStrokeStartX(ss, isUndo);
-		else if (ss->contains("GRADSTROKE_ENDX"))
-			restoreGradientStrokeEndX(ss, isUndo);
-		else if (ss->contains("GRADSTROKE_STARTY"))
-			restoreGradientStrokeStartY(ss, isUndo);
-		else if (ss->contains("GRADSTROKE_ENDY"))
-			restoreGradientStrokeEndY(ss, isUndo);
-		else if (ss->contains("GRADSTROKE_FOCALX"))
-			restoreGradientStrokeFocalX(ss, isUndo);
-		else if (ss->contains("GRADSTROKE_FOCALY"))
-			restoreGradientStrokeFocalY(ss, isUndo);
-		else if (ss->contains("GRAD_FOCALX"))
-			restoreGradientFocalX(ss, isUndo);
-		else if (ss->contains("GRAD_FOCALY"))
-			restoreGradientFocalY(ss, isUndo);
-		else if (ss->contains("GRAD_MASKFOCALX"))
-			restoreGradientMaskFocalX(ss, isUndo);
-		else if (ss->contains("GRAD_MASKFOCALY"))
-			restoreGradientMaskFocalY(ss, isUndo);
-		else if (ss->contains("GRADSTROKE_SCALE"))
-			restoreGradientStrokeScale(ss, isUndo);
-		else if (ss->contains("GRADSTROKE_SKEW"))
-			restoreGradientStrokeSkew(ss, isUndo);
-		else if (ss->contains("GRAD_CONTROL1"))
-			restoreGradientControl1(ss, isUndo);
-		else if (ss->contains("GRAD_CONTROL2"))
-			restoreGradientControl2(ss, isUndo);
-		else if (ss->contains("GRAD_CONTROL3"))
-			restoreGradientControl3(ss, isUndo);
-		else if (ss->contains("GRAD_CONTROL4"))
-			restoreGradientControl4(ss, isUndo);
-		else if (ss->contains("GRAD_CONTROL5"))
-			restoreGradientControl5(ss, isUndo);
-		else if (ss->contains("GRAD_SCALE"))
-			restoreGradientScale(ss, isUndo);
-		else if (ss->contains("GRAD_SKEW"))
-			restoreGradientSkew(ss, isUndo);
-		else if (ss->contains("GRAD_STARTX"))
-			restoreGradientStartX(ss, isUndo);
-		else if (ss->contains("GRAD_ENDX"))
-			restoreGradientEndX(ss, isUndo);
-		else if (ss->contains("GRAD_STARTY"))
-			restoreGradientStartY(ss, isUndo);
-		else if (ss->contains("GRAD_ENDY"))
-			restoreGradientEndY(ss, isUndo);
-		else if (ss->contains("GRAD_MASKSCALE"))
-			restoreGradientMaskScale(ss, isUndo);
-		else if (ss->contains("GRAD_MASKSKEW"))
-			restoreGradientMaskSkew(ss, isUndo);
-		else if (ss->contains("GRAD_MASKSTARTX"))
-			restoreGradientMaskStartX(ss, isUndo);
-		else if (ss->contains("GRAD_MASKENDX"))
-			restoreGradientMaskEndX(ss, isUndo);
-		else if (ss->contains("GRAD_MASKSTARTY"))
-			restoreGradientMaskStartY(ss, isUndo);
-		else if (ss->contains("GRAD_MASKENDY"))
-			restoreGradientMaskEndY(ss, isUndo);
-		else if (ss->contains("GRAD_TYPE"))
-			restoreGradientType(ss, isUndo);
-		else if (ss->contains("GRAD_TYPESTROKE"))
-			restoreGradientTypeStroke(ss, isUndo);
 		else if (ss->contains("END_ARROWSCALE"))
 			restoreEndArrowScale(ss, isUndo);
 		else if (ss->contains("START_ARROWSCALE"))
@@ -4826,6 +4719,11 @@ void PageItem::restore(UndoState *state, bool isUndo)
 			select();
 			m_Doc->itemSelection_FlipH();
 		}
+		else if (ss->contains("IMAGEFLIPV"))
+		{
+			select();
+			m_Doc->itemSelection_FlipV();
+		}
 		else if (ss->contains("OVERPRINT"))
 		{
 			if (isUndo)
@@ -4860,11 +4758,6 @@ void PageItem::restore(UndoState *state, bool isUndo)
 				lineBlendmodeVal=ss->getInt("LINEBLENDMODE_OLD");
 			else
 				lineBlendmodeVal=ss->getInt("LINEBLENDMODE");
-		}
-		else if (ss->contains("IMAGEFLIPV"))
-		{
-			select();
-			m_Doc->itemSelection_FlipV();
 		}
 		else if (ss->contains("LOCK"))
 		{
@@ -4929,14 +4822,6 @@ void PageItem::restore(UndoState *state, bool isUndo)
 			restoreUniteItem(ss, isUndo);
 		else if (ss->contains("SPLITITEM"))
 			restoreSplitItem(ss, isUndo);
-		else if (ss->contains("CREATE_MESH_GRAD"))
-			restoreCreateMeshGrad(ss, isUndo);
-		else if (ss->contains("MOVE_MESH_GRAD"))
-			restoreMoveMeshGrad(ss, isUndo);
-		else if (ss->contains("RESET_MESH_GRAD"))
-			restoreResetMeshGrad(ss, isUndo);
-		else if (ss->contains("REMOVE_MESH_PATCH"))
-			restoreRemoveMeshPatch(ss, isUndo);
 		else if (ss->contains("MIRROR_PATH_H"))
 		{
 			bool editContour = m_Doc->nodeEdit.isContourLine;
@@ -4985,6 +4870,306 @@ void PageItem::restore(UndoState *state, bool isUndo)
 	m_Doc->setMasterPageMode(oldMPMode);
 	m_Doc->useRaster = useRasterBackup;
 	m_Doc->SnapGuides = SnapGuidesBackup;
+}
+
+bool PageItem::checkGradientUndoRedo(SimpleState *ss, bool isUndo)
+{
+	if (ss->contains("SNAP_TO_PATCH"))
+	{
+		restoreSnapToPatchGrid(ss, isUndo);
+		return true;
+	}
+	if ((ss->contains("UNDO_UPDATE_CONICAL") && isUndo) || (ss->contains("REDO_UPDATE_CONICAL") && !isUndo))
+	{
+		createConicalMesh();
+		return true;
+	}
+	if (ss->contains("GRAD_COL1"))
+	{
+		restoreGradientCol1(ss, isUndo);
+		return true;
+	}
+	if (ss->contains("GRAD_COL2"))
+	{
+		restoreGradientCol2(ss, isUndo);
+		return true;
+	}
+	if (ss->contains("GRAD_COL3"))
+	{
+		restoreGradientCol3(ss, isUndo);
+		return true;
+	}
+	if (ss->contains("GRAD_COL4"))
+	{
+		restoreGradientCol4(ss, isUndo);
+		return true;
+	}
+	if (ss->contains("GRAD_POS"))
+	{
+		restoreGradPos(ss, isUndo);
+		return true;
+	}
+	if (ss->contains("GRAD_QCOLOR1"))
+	{
+		restoreGradientColor1(ss, isUndo);
+		return true;
+	}
+	if (ss->contains("GRAD_QCOLOR2"))
+	{
+		restoreGradientColor2(ss, isUndo);
+		return true;
+	}
+	if (ss->contains("GRAD_QCOLOR3"))
+	{
+		restoreGradientColor3(ss, isUndo);
+		return true;
+	}
+	if (ss->contains("GRAD_QCOLOR4"))
+	{
+		restoreGradientColor4(ss, isUndo);
+		return true;
+	}
+	if (ss->contains("GRAD_TRANSP1"))
+	{
+		restoreGradientTrans1(ss, isUndo);
+		return true;
+	}
+	if (ss->contains("GRAD_TRANSP2"))
+	{
+		restoreGradientTrans2(ss, isUndo);
+		return true;
+	}
+	if (ss->contains("GRAD_TRANSP3"))
+	{
+		restoreGradientTrans3(ss, isUndo);
+		return true;
+	}
+	if (ss->contains("GRAD_TRANSP4"))
+	{
+		restoreGradientTrans4(ss, isUndo);
+		return true;
+	}
+	if (ss->contains("GRAD_SHADE1"))
+	{
+		restoreGradientShade1(ss, isUndo);
+		return true;
+	}
+	if (ss->contains("GRAD_SHADE2"))
+	{
+		restoreGradientShade2(ss, isUndo);
+		return true;
+	}
+	if (ss->contains("GRAD_SHADE3"))
+	{
+		restoreGradientShade3(ss, isUndo);
+		return true;
+	}
+	if (ss->contains("GRAD_SHADE4"))
+	{
+		restoreGradientShade4(ss, isUndo);
+		return true;
+	}
+	if (ss->contains("MOVE_MESH_PATCH"))
+	{
+		restoreMoveMeshPatch(ss, isUndo);
+		return true;
+	}
+	if (ss->contains("FILL_GRAD"))
+	{
+		restoreFillGradient(ss, isUndo);
+		return true;
+	}
+	if (ss->contains("MASK_GRAD"))
+	{
+		restoreMaskGradient(ss, isUndo);
+		return true;
+	}
+	if (ss->contains("STROKE_GRAD"))
+	{
+		restoreStrokeGradient(ss, isUndo);
+		return true;
+	}
+	if (ss->contains("GRAD_MESH_COLOR"))
+	{
+		restoreGradientMeshColor(ss, isUndo);
+		return true;
+	}
+	if (ss->contains("GRADSTROKE_STARTX"))
+	{
+		restoreGradientStrokeStartX(ss, isUndo);
+		return true;
+	}
+	if (ss->contains("GRADSTROKE_ENDX"))
+	{
+		restoreGradientStrokeEndX(ss, isUndo);
+		return true;
+	}
+	if (ss->contains("GRADSTROKE_STARTY"))
+	{
+		restoreGradientStrokeStartY(ss, isUndo);
+		return true;
+	}
+	if (ss->contains("GRADSTROKE_ENDY"))
+	{
+		restoreGradientStrokeEndY(ss, isUndo);
+		return true;
+	}
+	if (ss->contains("GRADSTROKE_FOCALX"))
+	{
+		restoreGradientStrokeFocalX(ss, isUndo);
+		return true;
+	}
+	if (ss->contains("GRADSTROKE_FOCALY"))
+	{
+		restoreGradientStrokeFocalY(ss, isUndo);
+		return true;
+	}
+	if (ss->contains("GRAD_FOCALX"))
+	{
+		restoreGradientFocalX(ss, isUndo);
+		return true;
+	}
+	if (ss->contains("GRAD_FOCALY"))
+	{
+		restoreGradientFocalY(ss, isUndo);
+		return true;
+	}
+	if (ss->contains("GRAD_MASKFOCALX"))
+	{
+		restoreGradientMaskFocalX(ss, isUndo);
+		return true;
+	}
+	if (ss->contains("GRAD_MASKFOCALY"))
+	{
+		restoreGradientMaskFocalY(ss, isUndo);
+		return true;
+	}
+	if (ss->contains("GRADSTROKE_SCALE"))
+	{
+		restoreGradientStrokeScale(ss, isUndo);
+		return true;
+	}
+	if (ss->contains("GRADSTROKE_SKEW"))
+	{
+		restoreGradientStrokeSkew(ss, isUndo);
+		return true;
+	}
+	if (ss->contains("GRAD_CONTROL1"))
+	{
+		restoreGradientControl1(ss, isUndo);
+		return true;
+	}
+	if (ss->contains("GRAD_CONTROL2"))
+	{
+		restoreGradientControl2(ss, isUndo);
+		return true;
+	}
+	if (ss->contains("GRAD_CONTROL3"))
+	{
+		restoreGradientControl3(ss, isUndo);
+		return true;
+	}
+	if (ss->contains("GRAD_CONTROL4"))
+	{
+		restoreGradientControl4(ss, isUndo);
+		return true;
+	}
+	if (ss->contains("GRAD_CONTROL5"))
+	{
+		restoreGradientControl5(ss, isUndo);
+		return true;
+	}
+	if (ss->contains("GRAD_SCALE"))
+	{
+		restoreGradientScale(ss, isUndo);
+		return true;
+	}
+	if (ss->contains("GRAD_SKEW"))
+	{
+		restoreGradientSkew(ss, isUndo);
+		return true;
+	}
+	if (ss->contains("GRAD_STARTX"))
+	{
+		restoreGradientStartX(ss, isUndo);
+		return true;
+	}
+	if (ss->contains("GRAD_ENDX"))
+	{
+		restoreGradientEndX(ss, isUndo);
+		return true;
+	}
+	if (ss->contains("GRAD_STARTY"))
+	{
+		restoreGradientStartY(ss, isUndo);
+		return true;
+	}
+	if (ss->contains("GRAD_ENDY"))
+	{
+		restoreGradientEndY(ss, isUndo);
+		return true;
+	}
+	if (ss->contains("GRAD_MASKSCALE"))
+	{
+		restoreGradientMaskScale(ss, isUndo);
+		return true;
+	}
+	if (ss->contains("GRAD_MASKSKEW"))
+	{
+		restoreGradientMaskSkew(ss, isUndo);
+		return true;
+	}
+	if (ss->contains("GRAD_MASKSTARTX"))
+	{
+		restoreGradientMaskStartX(ss, isUndo);
+		return true;
+	}
+	if (ss->contains("GRAD_MASKENDX"))
+	{
+		restoreGradientMaskEndX(ss, isUndo);
+		return true;
+	}
+	if (ss->contains("GRAD_MASKSTARTY"))
+	{
+		restoreGradientMaskStartY(ss, isUndo);
+		return true;
+	}
+	if (ss->contains("GRAD_MASKENDY"))
+	{
+		restoreGradientMaskEndY(ss, isUndo);
+		return true;
+	}
+	if (ss->contains("GRAD_TYPE"))
+	{
+		restoreGradientType(ss, isUndo);
+		return true;
+	}
+	if (ss->contains("GRAD_TYPESTROKE"))
+	{
+		restoreGradientTypeStroke(ss, isUndo);
+		return true;
+	}
+	if (ss->contains("CREATE_MESH_GRAD"))
+	{
+		restoreCreateMeshGrad(ss, isUndo);
+		return true;
+	}
+	if (ss->contains("MOVE_MESH_GRAD"))
+	{
+		restoreMoveMeshGrad(ss, isUndo);
+		return true;
+	}
+	if (ss->contains("RESET_MESH_GRAD"))
+	{
+		restoreResetMeshGrad(ss, isUndo);
+		return true;
+	}
+	if (ss->contains("REMOVE_MESH_PATCH"))
+	{
+		restoreRemoveMeshPatch(ss, isUndo);
+		return true;
+	}
+	return false;
 }
 
 void PageItem::restoreAppMode(SimpleState *state, bool isUndo)
