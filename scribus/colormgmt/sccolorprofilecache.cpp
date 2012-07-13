@@ -9,11 +9,17 @@ for which a new license (GPL+exception) is in place.
 void ScColorProfileCache::addProfile(const ScColorProfile& profile)
 {
 	QString path = profile.profilePath();
-	if (!path.isEmpty())
+	if (path.isEmpty())
+		return;
+
+	QMap<QString, QWeakPointer<ScColorProfileData> >::iterator iter = m_profileMap.find(path);
+	if (iter != m_profileMap.end())
 	{
-		if (!m_profileMap.contains(path))
-			m_profileMap.insert(path, profile.weakRef());
+		QSharedPointer<ScColorProfileData> strongRef = iter.value().toStrongRef();
+		if (strongRef) return;
 	}
+
+	m_profileMap.insert(path, profile.weakRef());
 }
 
 void ScColorProfileCache::removeProfile(const QString& profilePath)
@@ -28,7 +34,13 @@ void ScColorProfileCache::removeProfile(const ScColorProfile& profile)
 	
 bool ScColorProfileCache::contains(const QString& profilePath)
 {
-	return m_profileMap.contains(profilePath);
+	QMap<QString, QWeakPointer<ScColorProfileData> >::iterator iter = m_profileMap.find(profilePath);
+	if (iter != m_profileMap.end())
+	{
+		QSharedPointer<ScColorProfileData> strongRef = iter.value().toStrongRef();
+		return (!strongRef.isNull());
+	}
+	return false;
 }
 
 ScColorProfile ScColorProfileCache::profile(const QString& profilePath)
