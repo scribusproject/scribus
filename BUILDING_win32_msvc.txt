@@ -11,7 +11,7 @@ related tools will be provided.
 You will need:
 	- Microsoft Windows XP, Vista or 7
 	- Microsoft Visual Studio 2008 or Visual C++ Express Edition 2008
-	- A recent Qt (version >= 4.6) release built with Visual Studio 2008
+	- A recent Qt release built with Visual Studio 2008 (version >= 4.6)
 	- Cairo sources from cairographics.org (version >= 1.8.0)
 	- Pixman sources from cairographics.org (version >= 0.12.0)
 	- Boost from www.boost.org (version >= 1.35.0)
@@ -21,7 +21,7 @@ You will need:
 	- Libtiff win32 libs and binaries from the GnuWin32 project
 	- Libxml2 win32 binaries from the Libxml project
 	- LittleCMS sources from www.littlecms.com (version >= 2.1)
-	- PoDoFo sources (version >= 0.8.x) from podofo.sourceforge.net
+	- PoDoFo sources from podofo.sourceforge.net (version >= 0.8.x)
 	- A Python 2.7 Windows binary build.
       For debug builds, you'll need a release that contains the python27_d.dll .
 
