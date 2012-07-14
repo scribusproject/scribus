@@ -527,7 +527,7 @@ void UndoManager::action(UndoObject* target, UndoState* state,
 }
 
 UndoState* UndoManager::getLastUndo(){
-	UndoState* state = stacks_[currentDoc_].getNextUndo(currentUndoObjectId_);
+	UndoState* state = stacks_[currentDoc_].getNextUndo(Um::GLOBAL_UNDO_MODE);
 	return state;
 }
 
