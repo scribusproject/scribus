@@ -3485,7 +3485,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 	case Qt::Key_End:
 		// go to end of line
 		len = lastInFrame();
-		if ( itemText.cursorPosition() >= len )
+		if ( itemText.cursorPosition() >= (len + 1))
 			break; // at end of frame
 		if ( (buttonModifiers & Qt::ControlModifier) == 0 )
 		{
