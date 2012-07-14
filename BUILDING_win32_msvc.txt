@@ -11,7 +11,7 @@ related tools will be provided.
 You will need:
 	- Microsoft Windows XP, Vista or 7
 	- Microsoft Visual Studio 2008 or Visual C++ Express Edition 2008
-	- A recent Qt (version >= 4.6) release built with Visual Studio 2008
+	- A recent Qt release built with Visual Studio 2008 (version >= 4.7)
 	- Cairo sources from cairographics.org (version >= 1.11.4)
 	- Pixman sources from cairographics.org (version >= 0.24.4)
 	- Boost from www.boost.org (version >= 1.35.0)
@@ -21,9 +21,9 @@ You will need:
 	- Libtiff win32 libs and binaries from the GnuWin32 project
 	- Libxml2 win32 binaries from the Libxml project
 	- LittleCMS sources from www.littlecms.com (version >= 2.1)
-	- PoDoFo sources (version >= 0.8.0) from podofo.sourceforge.net
-	- Poppler sources (version >= 0.17.1) from poppler.freedesktop.org
-	- Poppler data (version >= 0.4.4) from poppler.freedesktop.org
+	- PoDoFo sources from podofo.sourceforge.net (version >= 0.8.0)
+	- Poppler sources from poppler.freedesktop.org (version >= 0.17.1)
+	- Poppler data from poppler.freedesktop.org (version >= 0.4.4)
 	- A Python 2.7 Windows binary build.
       For debug builds, you'll need a release that contains the python27_d.dll .
 
@@ -96,7 +96,7 @@ in its path.
 ----
 Qt:
 
-Download the latest qt >= 4.6 snapshot from ftp://ftp.qt.nokia.com/qt/source
+Download the latest qt >= 4.7 snapshot from ftp://ftp.qt.nokia.com/qt/source
 and unpack it to C:\Developer.
 
 Start a command line and import your Visual Studio environment:
