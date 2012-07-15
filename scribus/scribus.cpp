@@ -4521,8 +4521,13 @@ bool ScribusMainWindow::slotFileSaveAs()
 	if (doc->hasName)
 	{
 		QFileInfo fi(doc->DocName);
+		QString completeBaseName = fi.completeBaseName();
+		if (completeBaseName.endsWith(".sla", Qt::CaseInsensitive))
+			completeBaseName.chop(4);
+		else if (completeBaseName.endsWith(".gz", Qt::CaseInsensitive))
+			completeBaseName.chop(3);
 		wdir = QDir::fromNativeSeparators( fi.path() );
-		fna  = QDir::fromNativeSeparators( fi.path()+"/"+fi.baseName()+".sla" );
+		fna  = QDir::fromNativeSeparators( fi.path()+"/"+completeBaseName+".sla" );
 	}
 	else
 	{
@@ -4878,7 +4883,12 @@ void ScribusMainWindow::slotReallyPrint()
 		if (!doc->DocName.startsWith( tr("Document")))
 		{
 			QFileInfo fi(doc->DocName);
-			doc->Print_Options.filename = fi.path()+"/"+fi.baseName()+".ps";
+			QString completeBaseName = fi.completeBaseName();
+			if (completeBaseName.endsWith(".sla", Qt::CaseInsensitive))
+				if (completeBaseName.length() > 4) completeBaseName.chop(4);
+			if (completeBaseName.endsWith(".gz", Qt::CaseInsensitive))
+				if (completeBaseName.length() > 3) completeBaseName.chop(3);
+			doc->Print_Options.filename = fi.path()+"/"+completeBaseName+".ps";
 		}
 		else
 		{
@@ -8864,8 +8874,8 @@ QString ScribusMainWindow::CFileDialog(QString wDir, QString caption, QString fi
 	if (!defNa.isEmpty())
 	{
 		QFileInfo f(defNa);
-		dia->setExtension(f.completeSuffix());
-		dia->setZipExtension(f.completeSuffix() + ".gz");
+		dia->setExtension(f.suffix());
+		dia->setZipExtension(f.suffix() + ".gz");
 		dia->setSelection(defNa);
 	}
 	if (optionFlags & fdDirectoriesOnly)

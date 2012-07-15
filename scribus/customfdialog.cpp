@@ -456,26 +456,28 @@ CustomFDialog::~CustomFDialog()
 
 void CustomFDialog::handleCompress()
 {
-	QFileInfo tmp;
-	tmp.setFile(selectedFile());
-	QString e(tmp.completeSuffix());
-	QStringList ex = e.split(".", QString::SkipEmptyParts);
-	QString baseExt = "";
-	for (int a = 0; a < ex.count(); a++)
+	QString   fileName;
+	QFileInfo tmp(selectedFile());
+	QString   fn(tmp.fileName());
+	QStringList fc = fn.split(".", QString::KeepEmptyParts);
+	if (fc.count() > 0)
+		fileName = fc.at(0);
+	for (int a = 1; a < fc.count(); a++)
 	{
-		if ((ex[a] != "sla") && (ex[a] != "SLA") && (ex[a] != "gz") && (ex[a] != "GZ"))
-			baseExt += "."+ex[a];
+		if (fc.at(a).compare("sla", Qt::CaseInsensitive) == 0)
+			continue;
+		if (fc.at(a).compare("gz", Qt::CaseInsensitive) == 0)
+			continue;
+		if (fc.at(a).compare(ext, Qt::CaseInsensitive) == 0)
+			continue;
+		if (fc.at(a).compare(extZip, Qt::CaseInsensitive) == 0)
+			continue;
+		fileName += "." + fc[a];
 	}
 	if (SaveZip->isChecked())
-	{
-		if (e != extZip)
-			tmp.setFile(tmp.baseName() + baseExt + "." + extZip);
-	}
+		tmp.setFile(fileName + "." + extZip);
 	else
-	{
-		if (e != ext)
-			tmp.setFile(tmp.baseName() + baseExt + "." + ext);
-	}
+		tmp.setFile(fileName + "." + ext);
 	setSelection(tmp.fileName());
 }
 
