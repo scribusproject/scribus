@@ -75,9 +75,14 @@ PDFExportDialog::PDFExportDialog( QWidget* parent, const QString & docFileName,
 	else
 	{
 		QFileInfo fi(docFileName);
+		QString completeBaseName = fi.completeBaseName();
+		if (completeBaseName.endsWith(".sla", Qt::CaseInsensitive))
+			if (completeBaseName.length() > 4) completeBaseName.chop(4);
+		if (completeBaseName.endsWith(".gz", Qt::CaseInsensitive))
+			if (completeBaseName.length() > 3) completeBaseName.chop(3);
 		if (fi.exists())
 		{
-			QString fileName(fi.path()+"/"+fi.baseName()+".pdf");
+			QString fileName(fi.path() + "/" + completeBaseName + ".pdf");
 			fileNameLineEdit->setText( QDir::toNativeSeparators(fileName) );
 		}
 		else
@@ -86,7 +91,7 @@ PDFExportDialog::PDFExportDialog( QWidget* parent, const QString & docFileName,
 			QString pdfdir = dirs->get("pdf", fi.path());
 			if (pdfdir.right(1) != "/")
 				pdfdir += "/";
-			QString fileName(pdfdir+fi.baseName()+".pdf");
+			QString fileName(pdfdir + completeBaseName + ".pdf");
 			fileNameLineEdit->setText( QDir::toNativeSeparators(fileName) );
 		}
 	}
