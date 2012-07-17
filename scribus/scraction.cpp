@@ -238,6 +238,15 @@ QString ScrAction::cleanMenuText()
 	return text().remove('&').remove("...");
 }
 
+void ScrAction::setToolTipFromTextAndShortcut()
+{
+	QString sct(shortcut());
+	if (sct.isEmpty())
+		QAction::setToolTip("<qt>" + cleanMenuText() + "</qt>");
+	else
+		QAction::setToolTip("<qt>" + cleanMenuText() + " (<b>" + sct + "</b>)" + "</qt>");
+}
+
 int ScrAction::getMenuIndex() const
 {
 	return menuIndex;

@@ -1965,6 +1965,7 @@ void StoryEditor::buildGUI()
 	EditorBar->editor = Editor;
 	Editor->installEventFilter(this);
 	languageChange();
+	ActionManager::setActionTooltips(&seActions);
 }
 
 void StoryEditor::changeEvent(QEvent *e)

@@ -75,6 +75,7 @@ void ActionManager::init(ScribusMainWindow *mw)
 	createDefaultMenus();
 	createDefaultNonMenuActions();
 	languageChange();
+	setActionTooltips(scrActions);
 }
 
 void ActionManager::createActions()
@@ -94,7 +95,6 @@ void ActionManager::createActions()
 	initUnicodeActions(scrActions, mainWindow, unicodeCharActionNames);
 	enableUnicodeActions(scrActions, false);
 	initSpecialActions();
-	
 }
 
 void ActionManager::initFileMenuActions()
@@ -1083,6 +1083,12 @@ void ActionManager::initSpecialActions()
 	connect( (*scrActions)["specialToggleAllGuides"], SIGNAL(triggered()), mainWindow, SLOT(ToggleAllGuides()) );
 }
 
+void ActionManager::setActionTooltips(QMap<QString, QPointer<ScrAction> > *actionMap)
+{
+	for( QMap<QString, QPointer<ScrAction> >::Iterator it = actionMap->begin(); it!=actionMap->end(); ++it )
+		it.value()->setToolTipFromTextAndShortcut();
+}
+
 void ActionManager::disconnectModeActions()
 {
 	for ( QStringList::Iterator it = modeActionNames->begin(); it != modeActionNames->end(); ++it )
@@ -1358,14 +1364,10 @@ void ActionManager::languageChange()
 
 	//File Menu
 	(*scrActions)["fileNew"]->setTexts( tr("&New"));
-	(*scrActions)["fileNew"]->setToolTip( tr("New")+" <b>"+QString(defaultKey("fileNew"))+"</b>");
 	(*scrActions)["fileNewFromTemplate"]->setTexts( tr("New &from Template..."));
 	(*scrActions)["fileOpen"]->setTexts( tr("&Open..."));
-	(*scrActions)["fileOpen"]->setToolTip( tr("Open...")+" <b>"+QString(defaultKey("fileOpen"))+"</b>");
 	(*scrActions)["fileClose"]->setTexts( tr("&Close"));
-	(*scrActions)["fileClose"]->setToolTip( tr("Close")+" <b>"+QString(defaultKey("fileClose"))+"</b>");
 	(*scrActions)["fileSave"]->setTexts( tr("&Save"));
-	(*scrActions)["fileSave"]->setToolTip( tr("Save")+" <b>"+QString(defaultKey("fileSave"))+"</b>");
 	(*scrActions)["fileSaveAs"]->setTexts( tr("Save &As..."));
 	(*scrActions)["fileRevert"]->setTexts( tr("Re&vert to Saved"));
 	(*scrActions)["fileCollect"]->setTexts( tr("Collect for O&utput..."));
@@ -1382,14 +1384,11 @@ void ActionManager::languageChange()
 //	(*scrActions)["filePreferences"]->setTexts( tr("P&references (old)..."));
 	(*scrActions)["filePreferences150"]->setTexts( tr("P&references..."));
 	(*scrActions)["filePrint"]->setTexts( tr("&Print..."));
-	(*scrActions)["filePrint"]->setToolTip( tr("Print...")+" <b>"+QString(defaultKey("filePrint"))+"</b>");
 	(*scrActions)["PrintPreview"]->setTexts( tr("Print Previe&w"));
 	(*scrActions)["fileQuit"]->setTexts( tr("&Quit"));
 	//Edit Menu
 	(*scrActions)["editUndoAction"]->setTexts( tr("&Undo"));
-	(*scrActions)["editUndoAction"]->setToolTip( tr("Undo")+" <b>"+QString(defaultKey("editUndoAction"))+"</b>");
 	(*scrActions)["editRedoAction"]->setTexts( tr("&Redo"));
-	(*scrActions)["editRedoAction"]->setToolTip( tr("Redo")+" <b>"+QString(defaultKey("editRedoAction"))+"</b>");
 	(*scrActions)["editActionMode"]->setTexts( tr("&Item Action Mode"));
 	(*scrActions)["editCut"]->setTexts( tr("Cu&t"));
 	(*scrActions)["editCopy"]->setTexts( tr("&Copy"));
@@ -1562,49 +1561,31 @@ void ActionManager::languageChange()
 
 	//toolbar only items
 	(*scrActions)["toolsSelect"]->setTexts( tr("Select Item"));
-	(*scrActions)["toolsSelect"]->setToolTip( tr("Select Item")+" <b>"+QString(defaultKey("toolsSelect"))+"</b>");
 	(*scrActions)["toolsRotate"]->setTexts( tr("Rotate Item"));
-	(*scrActions)["toolsRotate"]->setToolTip( tr("Rotate Item")+" <b>"+QString(defaultKey("toolsRotate"))+"</b>");
 	(*scrActions)["toolsZoom"]->setTexts( tr("Zoom in or out"));
-	(*scrActions)["toolsZoom"]->setToolTip( tr("Zoom in or out")+" <b>"+QString(defaultKey("toolsZoom"))+"</b>");
 	(*scrActions)["toolsZoomIn"]->setTexts( tr("Zoom in"));
 	(*scrActions)["toolsZoomOut"]->setTexts( tr("Zoom out"));
 	(*scrActions)["toolsEditContents"]->setTexts( tr("Edit Contents of Frame"));
-	(*scrActions)["toolsEditContents"]->setToolTip( tr("Edit Contents of Frame")+" <b>"+QString(defaultKey("toolsEditContents"))+"</b>");
 	(*scrActions)["toolsEditWithStoryEditor"]->setText( tr("Edit Text..."));
-	(*scrActions)["toolsEditWithStoryEditor"]->setToolTip( tr("Edit Text...")+" <b>"+QString(defaultKey("toolsEditWithStoryEditor"))+"</b>");
 	(*scrActions)["toolsLinkTextFrame"]->setTexts( tr("Link Text Frames"));
-	(*scrActions)["toolsLinkTextFrame"]->setToolTip( tr("Link Text Frames")+" <b>"+QString(defaultKey("toolsLinkTextFrame"))+"</b>");
 	(*scrActions)["toolsUnlinkTextFrame"]->setTexts( tr("Unlink Text Frames"));
-	(*scrActions)["toolsUnlinkTextFrame"]->setToolTip( tr("Unlink Text Frames")+" <b>"+QString(defaultKey("toolsUnlinkTextFrame"))+"</b>");
 	(*scrActions)["toolsUnlinkTextFrameWithTextCopy"]->setTexts( tr("Unlink Text Frame with Text Copy"));
 	(*scrActions)["toolsUnlinkTextFrameWithTextCut"]->setTexts( tr("Unlink Text Frame with Text Cut"));
 	(*scrActions)["toolsEyeDropper"]->setTexts( tr("&Eye Dropper"));
-	(*scrActions)["toolsEyeDropper"]->setToolTip( tr("Eye Dropper")+" <b>"+QString(defaultKey("toolsEyeDropper"))+"</b>");
 	(*scrActions)["toolsCopyProperties"]->setTexts( tr("Copy Item Properties"));
-	(*scrActions)["toolsCopyProperties"]->setToolTip( tr("Copy Item Properties")+" <b>"+QString(defaultKey("toolsCopyProperties"))+"</b>");
 
 	(*scrActions)["toolsInsertTextFrame"]->setText( tr("Insert &Text Frame"));
-	(*scrActions)["toolsInsertTextFrame"]->setToolTip( tr("Insert Text Frame")+" <b>"+QString(defaultKey("toolsInsertTextFrame"))+"</b>");
 	(*scrActions)["toolsInsertImageFrame"]->setText( tr("Insert &Image Frame"));
-	(*scrActions)["toolsInsertImageFrame"]->setToolTip( tr("Insert Image Frame")+" <b>"+QString(defaultKey("toolsInsertImageFrame"))+"</b>");
 	(*scrActions)["toolsInsertRenderFrame"]->setText( tr("Insert &Render Frame"));
-	(*scrActions)["toolsInsertRenderFrame"]->setToolTip( tr("Insert Render Frame")+" <b>"+QString(defaultKey("toolsInsertRenderFrame"))+"</b>");
 	(*scrActions)["toolsInsertTable"]->setText( tr("Insert T&able"));
-	(*scrActions)["toolsInsertTable"]->setToolTip( tr("Insert Table")+" <b>"+QString(defaultKey("toolsInsertTable"))+"</b>");
 	(*scrActions)["toolsInsertShape"]->setText( tr("Insert &Shape"));
-	(*scrActions)["toolsInsertShape"]->setToolTip( tr("Insert Shape")+" <b>"+QString(defaultKey("toolsInsertShape"))+"</b>");
 	(*scrActions)["toolsInsertPolygon"]->setText( tr("Insert &Polygon"));
-	(*scrActions)["toolsInsertPolygon"]->setToolTip( tr("Insert Polygon")+" <b>"+QString(defaultKey("toolsInsertPolygon"))+"</b>");
 	(*scrActions)["toolsInsertArc"]->setText( tr("Insert Arc"));
 	(*scrActions)["toolsInsertSpiral"]->setText( tr("Insert Spiral"));
 	(*scrActions)["toolsInsertLine"]->setText( tr("Insert &Line"));
-	(*scrActions)["toolsInsertLine"]->setToolTip( tr("Insert Line")+" <b>"+QString(defaultKey("toolsInsertLine"))+"</b>");
 	(*scrActions)["toolsInsertCalligraphicLine"]->setText( tr("Insert Calligraphic Line"));
 	(*scrActions)["toolsInsertBezier"]->setText( tr("Insert &Bezier Curve"));
-	(*scrActions)["toolsInsertBezier"]->setToolTip( tr("Insert Bezier Curve")+" <b>"+QString(defaultKey("toolsInsertBezier"))+"</b>");
 	(*scrActions)["toolsInsertFreehandLine"]->setText( tr("Insert &Freehand Line"));
-	(*scrActions)["toolsInsertFreehandLine"]->setToolTip( tr("Insert Freehand Line")+" <b>"+QString(defaultKey("toolsInsertFreehandLine"))+"</b>");
 
 	(*scrActions)["toolsPDFPushButton"]->setTexts( tr("Insert PDF Push Button"));
 	(*scrActions)["toolsPDFTextField"]->setTexts( tr("Insert PDF Text Field"));

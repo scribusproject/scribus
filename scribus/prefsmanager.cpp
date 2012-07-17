@@ -512,7 +512,10 @@ void PrefsManager::applyLoadedShortCuts()
 		if (!it.value().actionName.isEmpty())
 		{
 			if (ScCore->primaryMainWindow()->scrActions[it.value().actionName])
+			{
 				ScCore->primaryMainWindow()->scrActions[it.value().actionName]->setShortcut(it.value().keySequence);
+				ScCore->primaryMainWindow()->scrActions[it.value().actionName]->setToolTipFromTextAndShortcut();
+			}
 		}
 	}
 }
