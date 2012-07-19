@@ -244,7 +244,7 @@ void ScrAction::setToolTipFromTextAndShortcut()
 	if (sct.isEmpty())
 		QAction::setToolTip("<qt>" + cleanMenuText() + "</qt>");
 	else
-		QAction::setToolTip("<qt>" + cleanMenuText() + " (<b>" + sct + "</b>)" + "</qt>");
+		QAction::setToolTip("<qt>" + cleanMenuText() + " (" + sct + ")" + "</qt>");
 }
 
 int ScrAction::getMenuIndex() const
