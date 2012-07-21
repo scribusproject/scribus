@@ -7611,52 +7611,51 @@ void ScribusDoc::itemSelection_ClearItem(Selection* customSelection)
 {
 	Selection* itemSelection = (customSelection!=0) ? customSelection : m_Selection;
 	assert(itemSelection!=0);
-	uint selectedItemCount=itemSelection->count();
-	if (selectedItemCount != 0)
+
+	uint selectedItemCount = itemSelection->count();
+	if (selectedItemCount <= 0) return;
+
+	PageItem *currItem;
+	bool userDecide = false;
+	bool userWantClear = true;
+	UndoTransaction* activeTransaction = NULL;
+	if (selectedItemCount > 1)
+		activeTransaction = new UndoTransaction(undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::ClearContent, tr( "Remove content from frames" ), Um::IDelete));
+	for (uint i = 0; i < selectedItemCount; ++i)
 	{
-		PageItem *currItem;
-		bool userDecide = false;
-		bool userWantClear = true;
-		UndoTransaction* activeTransaction = NULL;
-		if (selectedItemCount > 1)
-			activeTransaction = new UndoTransaction(undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::ClearContent, tr( "Remove content from frames" ), Um::IDelete));
-		for (uint i = 0; i < selectedItemCount; ++i)
+		currItem = itemSelection->itemAt(i);
+		if (currItem->asImageFrame())
 		{
-			currItem = itemSelection->itemAt(i);
-			if (currItem->asImageFrame())
+			if ((ScCore->fileWatcher->files().contains(currItem->Pfile) != 0) && (currItem->PictureIsAvailable))
+				ScCore->fileWatcher->removeFile(currItem->Pfile);
+			currItem->clearContents();
+		}
+		else if (currItem->asTextFrame())
+		{
+			if (ScCore->usingGUI() && (! userDecide))
 			{
-				if ((ScCore->fileWatcher->files().contains(currItem->Pfile) != 0) && (currItem->PictureIsAvailable))
-					ScCore->fileWatcher->removeFile(currItem->Pfile);
-				currItem->clearContents();
-			}
-			else
-			if (currItem->asTextFrame())
-			{
-				if (ScCore->usingGUI() && (! userDecide))
+				if (currItem->itemText.length() != 0 && (currItem->nextInChain() == 0 || currItem->prevInChain() == 0))
 				{
-					if (currItem->itemText.length() != 0 && (currItem->nextInChain() == 0 || currItem->prevInChain() == 0))
-					{
-						int t = ScMessageBox::warning(m_ScMW, CommonStrings::trWarning,
-										tr("Do you really want to clear all your text?"),
-										QMessageBox::Yes, QMessageBox::No | QMessageBox::Default);
-						userWantClear = (t != QMessageBox::No);
-						userDecide = true;
-					}
+					int t = ScMessageBox::warning(m_ScMW, CommonStrings::trWarning,
+									tr("Do you really want to clear all your text?"),
+									QMessageBox::Yes, QMessageBox::No | QMessageBox::Default);
+					userWantClear = (t != QMessageBox::No);
+					userDecide = true;
 				}
-				if (userWantClear)
-					currItem->clearContents();
 			}
+			if (userWantClear)
+				currItem->clearContents();
 		}
-		if (activeTransaction)
-		{
-			activeTransaction->commit();
-			delete activeTransaction;
-			activeTransaction = NULL;
-		}
-		updateFrameItems();
-		regionsChanged()->update(QRectF());
-		changed();
 	}
+	if (activeTransaction)
+	{
+		activeTransaction->commit();
+		delete activeTransaction;
+		activeTransaction = NULL;
+	}
+	updateFrameItems();
+	regionsChanged()->update(QRectF());
+	changed();
 }
 
 
