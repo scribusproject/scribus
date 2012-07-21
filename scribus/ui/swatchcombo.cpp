@@ -84,6 +84,7 @@ void SwatchCombo::setCurrentComboItem(QString text)
 	QFontMetrics fm(font());
 	setToolTip(text);
 	QList<QTreeWidgetItem*> lg;
+
 	if (text == "Scribus Small")
 	{
 		QString elText = fm.elidedText(text, Qt::ElideMiddle, width());
@@ -92,26 +93,26 @@ void SwatchCombo::setCurrentComboItem(QString text)
 		dataTree->setCurrentItem(lg[0]);
 		return;
 	}
-	else
+
+	QFileInfo fo(text);
+	QString txt = fo.baseName();
+	lg = dataTree->findItems(txt, Qt::MatchExactly | Qt::MatchRecursive);
+	if (lg.count() <= 0) return;
+
+	QString dText = fo.absolutePath();
+	for (int a = 0; a < lg.count(); a++)
 	{
-		QFileInfo fo(text);
-		QString txt = fo.baseName();
-		QString elText = fm.elidedText(txt, Qt::ElideMiddle, width());
-		setText(elText);
-		QString dText = fo.absolutePath();
-		lg = dataTree->findItems(txt, Qt::MatchExactly | Qt::MatchRecursive);
-		if (lg.count() > 0)
+		if (dText == lg[a]->data(0, Qt::UserRole).toString())
 		{
-			for (int a = 0; a < lg.count(); a++)
-			{
-				if (dText == lg[a]->data(0, Qt::UserRole).toString())
-				{
-					dataTree->setCurrentItem(lg[0]);
-					break;
-				}
-			}
+			dataTree->setCurrentItem(lg[0]);
+			QString elText = fm.elidedText(txt, Qt::ElideMiddle, width());
+			setText(elText);
+			break;
 		}
 	}
+
+	if(!dataTree->currentItem())
+		setCurrentComboItem("Scribus Small");
 }
 
 QTreeWidgetItem* SwatchCombo::currentItem()
