@@ -921,16 +921,16 @@ void Hruler::UpdateTabList()
 	tb.tabPosition = TabValues[ActTab].tabPosition;
 	tb.tabType = TabValues[ActTab].tabType;
 	tb.tabFillChar =  TabValues[ActTab].tabFillChar;
-	int gg = static_cast<int>(TabValues.count());
-	int g = gg;
+	int tab_n = static_cast<int>(TabValues.count());
+	int tab_i = tab_n;
 	TabValues.removeAt(ActTab);
-	for (int yg = static_cast<int>(TabValues.count()-1); yg > -1; yg--)
+	for (int i = static_cast<int>(TabValues.count()-1); i > -1; --i)
 	{
-		if (tb.tabPosition < TabValues[yg].tabPosition)
-			g = yg;
+		if (tb.tabPosition < TabValues[i].tabPosition)
+			tab_i = i;
 	}
-	ActTab = g;
-	if (gg == g)
+	ActTab = tab_i;
+	if (tab_n == tab_i)
 	{
 		TabValues.append(tb);
 		ActTab = static_cast<int>(TabValues.count()-1);
