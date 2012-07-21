@@ -63,7 +63,6 @@ private:
 	bool inList;
 	bool inNote;
 	bool inNoteBody;
-	bool isOrdered;
 	bool inSpan;
 	int  append;
 	int  listLevel;
