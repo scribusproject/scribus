@@ -48,7 +48,6 @@ ContentReader::ContentReader(QString documentName, StyleReader *s, gtWriter *w, 
 	inList = false;
 	inNote = false;
 	inNoteBody = false;
-	isOrdered = false;
 	inSpan = false;
 	append    = 0;
 	listIndex = 0;
@@ -120,19 +119,17 @@ bool ContentReader::startElement(const QString&, const QString&, const QString &
 		styleNames.clear();
 		styleNames.push_back(QString(currentList + "_%1").arg(listLevel));
 		if (name == "text:ordered-list")
-		{
-			isOrdered = true;
 			isOrdered2.push_back(true);
-		}
 		else
-		{
-			isOrdered = false;
 			isOrdered2.push_back(false);
-		}
 	}
 	else if (name == "text:list-item")
 	{
-		if (isOrdered2[listLevel - 1])
+		bool isOrdered = false;
+		int levelIndex = listLevel - 1;
+		if (levelIndex >= 0 && levelIndex < isOrdered2.size())
+			isOrdered = isOrdered2[listLevel - 1];
+		if (isOrdered)
 		{
 			++listIndex;
 			++listIndex2[listLevel - 1];
