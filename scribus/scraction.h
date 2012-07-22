@@ -113,6 +113,8 @@ public:
 	*/
 	QString cleanMenuText();
 
+	void setToolTipFromTextAndShortcut();
+
 	/*!
 		\author Craig Bradney
 		\date Jan 2005

@@ -103,6 +103,7 @@ class SCRIBUS_API ActionManager : public QObject
 		void initHelpMenuActions();
 		static void initUnicodeActions(QMap<QString, QPointer<ScrAction> > *actionMap, QWidget *actionParent, QStringList *actionNamesList);
 		void initSpecialActions();
+		static void setActionTooltips(QMap<QString, QPointer<ScrAction> > *actionMap);
 		static void languageChangeUnicodeActions(QMap<QString, QPointer<ScrAction> > *actionMap);
 		void languageChangeActions();
 		static QKeySequence defaultKey(const QString &actionName);

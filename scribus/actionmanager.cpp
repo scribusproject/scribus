@@ -75,6 +75,7 @@ void ActionManager::init(ScribusMainWindow *mw)
 	createDefaultMenus();
 	createDefaultNonMenuActions();
 	languageChange();
+	setActionTooltips(scrActions);
 }
 
 void ActionManager::createActions()
@@ -1019,6 +1020,12 @@ void ActionManager::initSpecialActions()
 
 	connect( (*scrActions)["specialToggleAllPalettes"], SIGNAL(triggered()), mainWindow, SLOT(ToggleAllPalettes()) );
 	connect( (*scrActions)["specialToggleAllGuides"], SIGNAL(triggered()), mainWindow, SLOT(ToggleAllGuides()) );
+}
+
+void ActionManager::setActionTooltips(QMap<QString, QPointer<ScrAction> > *actionMap)
+{
+	for( QMap<QString, QPointer<ScrAction> >::Iterator it = actionMap->begin(); it!=actionMap->end(); ++it )
+		it.value()->setToolTipFromTextAndShortcut();
 }
 
 void ActionManager::disconnectModeActions()
