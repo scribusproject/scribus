@@ -65,6 +65,7 @@ CanvasMode_EditPolygon::CanvasMode_EditPolygon(ScribusView* view) : CanvasMode(v
 	Mxp = Myp = -1;
 	m_blockUpdateFromItem = 0;
 	m_polygonPoint = noPointDefined;
+	trans = NULL;
 }
 
 inline bool CanvasMode_EditPolygon::GetItem(PageItem** pi)
@@ -452,6 +453,8 @@ void CanvasMode_EditPolygon::mousePressEvent(QMouseEvent *m)
 	}
 	else
 		m_polygonPoint = noPointDefined;
+	if(m_polygonPoint != noPointDefined)
+		trans = new UndoTransaction(undoManager->beginTransaction(Um::Polygon,Um::IPolygon,Um::EditPolygon,"",Um::IPolygon));
 	qApp->changeOverrideCursor(QCursor(Qt::CrossCursor));
 	QPainterPath path = itemMatrix.map(RegularPolygonPath(currItem->width(), currItem->height(), polyCorners, polyUseFactor, polyFactor, polyRotation, polyCurvature, polyInnerRot, polyOuterCurvature));
 	m_doc->regionsChanged()->update(path.boundingRect().adjusted(-5, -5, 10, 10));
@@ -503,6 +506,12 @@ void CanvasMode_EditPolygon::mouseReleaseEvent(QMouseEvent *m)
 		item->polyOuterCurvature = polyOuterCurvature;
 		item->recalcPath();
 		VectorDialog->setValues(polyCorners, polyFactor, polyUseFactor, polyRotation, polyCurvature, polyInnerRot, polyOuterCurvature);
+		if(trans)
+		{
+			trans->commit();
+			delete trans;
+			trans = NULL;
+		}
 	}
 	QPainterPath path = itemMatrix.map(RegularPolygonPath(item->width(), item->height(), polyCorners, polyUseFactor, polyFactor, polyRotation, polyCurvature, polyInnerRot, polyOuterCurvature));
 	m_doc->regionsChanged()->update(path.boundingRect().adjusted(-5, -5, 10, 10));

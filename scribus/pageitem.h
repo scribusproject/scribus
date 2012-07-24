@@ -1310,6 +1310,8 @@ protected:
 	 * @author Riku Leino
 	 */
 	/*@{*/
+	void restoreConnectPath(SimpleState *state, bool isUndo);
+	void restoreSpiral(SimpleState *state, bool isUndo);
 	void restoreAppMode(SimpleState *state, bool isUndo);
 	void restoreArc(SimpleState *state,bool isUndo);
 	void restorePolygon(SimpleState *state,bool isUndo);

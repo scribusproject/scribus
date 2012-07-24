@@ -85,6 +85,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "actionmanager.h"
 #include "canvasmode.h"
+#include "canvasmode_imageimport.h"
 #include "commonstrings.h"
 #include "desaxe/digester.h"
 #include "desaxe/saxXML.h"
@@ -197,6 +198,7 @@ for which a new license (GPL+exception) is in place.
 #include "ui/query.h"
 #include "ui/replacecolors.h"
 #include "ui/sccombobox.h"
+#include "ui/scfilewidget.h"
 #include "ui/scmessagebox.h"
 #include "ui/scrapbookpalette.h"
 #include "ui/scmwmenumanager.h"
@@ -1399,6 +1401,7 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 				case modeEditWeldPoint:
 				case modeEyeDropper:
 				case modeImportObject:
+				case modeImportImage:
 				case modePanning:
 					view->requestMode(modeNormal);
 					break;
@@ -4218,26 +4221,22 @@ void ScribusMainWindow::slotGetContent()
 				docDir = prefsManager->prefsFile->getContext("dirs")->get("images", prefsDocDir);
 			else
 				docDir = prefsManager->prefsFile->getContext("dirs")->get("images", ".");
-			QString fileName = CFileDialog( docDir, tr("Open"), formatD, "", fdShowPreview | fdExistingFiles);
-			if (!fileName.isEmpty())
+
+			QStringList fileNames;
+			fileNames.clear();
+			CustomFDialog *dia = new CustomFDialog(qApp->activeWindow(), docDir, tr("Open"), formatD, fdShowPreview | fdExistingFilesI);
+			if (dia->exec() == QDialog::Accepted)
+				fileNames = dia->fileDialog->selectedFiles();
+			delete dia;
+			//QStringList fileNames = CFileDialog( docDir, tr("Open"), formatD, "", fdShowPreview | fdExistingFiles);
+			if (!fileNames.isEmpty())
 			{
-				prefsManager->prefsFile->getContext("dirs")->set("images", fileName.left(fileName.lastIndexOf("/")));
-				currItem->EmProfile = "";
-				currItem->pixm.imgInfo.isRequest = false;
-				currItem->UseEmbedded = true;
-				currItem->IProfile = doc->cmsSettings().DefaultImageRGBProfile;
-				currItem->IRender = doc->cmsSettings().DefaultIntentImages;
-				qApp->changeOverrideCursor( QCursor(Qt::WaitCursor) );
-				qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
-				doc->loadPict(fileName, currItem, false, true);
-				propertiesPalette->imagePal->displayScaleAndOffset(currItem->imageXScale(), currItem->imageYScale(), currItem->imageXOffset(), currItem->imageYOffset());
-				qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
-				view->DrawNew();
-				emit UpdateRequest(reqColorsUpdate | reqCmsOptionsUpdate);
-				currItem->emitAllToGUI();
+				prefsManager->prefsFile->getContext("dirs")->set("images", fileNames[0].left(fileNames[0].lastIndexOf("/")));
+				view->requestMode(modeImportImage);
+				dynamic_cast<CanvasMode_ImageImport*>(view->canvasMode())->setImageList(fileNames);
 			}
 		}
-		if (currItem->asTextFrame())
+		else if (currItem->asTextFrame())
 		{
 			gtGetText* gt = new gtGetText(doc);
 			ImportSetup impsetup=gt->run();
@@ -6478,7 +6477,7 @@ void ScribusMainWindow::setAppMode(int mode)
 			ToggleFrameEdit();
 
 		//Ugly hack but I have absolutly no idea about how to do this in another way
-		if(currItem && oldMode != mode && (mode == modeEditMeshPatch || mode == modeEditMeshGradient || mode == modeEditGradientVectors || oldMode == modeEditMeshPatch || oldMode == modeEditMeshGradient || oldMode == modeEditGradientVectors || oldMode == modeEditPolygon || mode == modeEditPolygon || oldMode == modeEditArc || mode == modeEditArc))
+		if(currItem && oldMode != mode && (mode == modeEditMeshPatch || mode == modeEditMeshGradient || mode == modeEditGradientVectors || oldMode == modeEditMeshPatch || oldMode == modeEditMeshGradient || oldMode == modeEditGradientVectors || oldMode == modeEditPolygon || mode == modeEditPolygon || oldMode == modeEditArc || mode == modeEditArc || oldMode == modeEditSpiral || mode == modeEditSpiral))
 		{
 			SimpleState *ss = new SimpleState(Um::Mode);
 			ss->set("CHANGE_MODE","change_mode");

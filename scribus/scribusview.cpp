@@ -75,6 +75,7 @@ for which a new license (GPL+exception) is in place.
 #include "canvasgesture.h"
 #include "canvasmode.h"
 #include "canvasmode_objimport.h"
+#include "canvasmode_imageimport.h"
 #include "actionmanager.h"
 #include "commonstrings.h"
 #include "filewatcher.h"
@@ -164,6 +165,7 @@ ScribusView::ScribusView(QWidget* win, ScribusMainWindow* mw, ScribusDoc *doc) :
 	m_groupTransaction(NULL),
 	_isGlobalMode(true),
 	linkAfterDraw(false),
+	ImageAfterDraw(false),
 	m_vhRulerHW(17)
 {
 	setObjectName("s");
@@ -591,9 +593,9 @@ void ScribusView::requestMode(int appMode)
 				 return;
 				 */
 		case submodeLoadPic:         // open GetImage dialog
+			m_ScMW->slotGetContent();
 			appMode = Doc->appMode;
 			m_previousMode = appMode;
-			m_ScMW->slotGetContent();
 			break;
 		case submodeStatusPic:       // open ManageImages dialog
 			appMode = Doc->appMode;
@@ -3817,6 +3819,7 @@ void ScribusView::TextToPath()
 									chma.scale(-1, 1);
 								if (currItem->imageFlippedV())
 									chma.scale(1, -1);
+								undoManager->setUndoEnabled(false);
 								pts.map(chma);
 								if ((charStyle.effects() & ScStyle_Shadowed) && (charStyle.strokeColor() != CommonStrings::None))
 								{
@@ -3874,7 +3877,6 @@ void ScribusView::TextToPath()
 								}
 								uint z = Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, currItem->xPos(), currItem->yPos(), currItem->width(), currItem->height(), currItem->lineWidth(), currItem->lineColor(), currItem->fillColor(), true);
 								bb = Doc->Items->at(z);
-								undoManager->setUndoEnabled(false);
 								//bb->setTextFlowsAroundFrame(currItem->textFlowsAroundFrame());
 								//bb->setTextFlowUsesBoundingBox(currItem->textFlowUsesBoundingBox());
 								bb->setTextFlowMode(currItem->textFlowMode());
@@ -4249,6 +4251,18 @@ bool ScribusView::eventFilter(QObject *obj, QEvent *event)
 			}
 			linkAfterDraw = false;
 		}
+		if (ImageAfterDraw)
+		{
+			//user creates new frame using linking tool
+			PageItem * frame = Doc->m_Selection->itemAt(0);
+			if (frame)
+			{
+				requestMode(modeImportImage);
+				dynamic_cast<CanvasMode_ImageImport*>(canvasMode())->setImage(frame);
+				dynamic_cast<CanvasMode_ImageImport*>(canvasMode())->updateList();
+			}
+			ImageAfterDraw = false;
+		}
 		return true;
 	}
 	else if (obj == widget() && event->type() == QEvent::MouseButtonPress)
@@ -4268,6 +4282,12 @@ bool ScribusView::eventFilter(QObject *obj, QEvent *event)
 		}
 		else
 			firstFrame = NULL;
+		if(Doc->appMode == modeImportImage && ImageAfterDraw)
+		{
+			//switch to drawing new text frame
+			requestMode(modeDrawImage);
+			m_canvasMode->mousePressEvent(m);
+		}
 		m_canvas->m_viewMode.m_MouseButtonPressed = true;
 		return true;
 	}

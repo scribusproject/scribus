@@ -494,6 +494,7 @@ SET(SCRIBUS_SOURCES
   canvasmode_drawfreehand.cpp
   canvasmode_eyedropper.cpp
   canvasmode_framelinks.cpp
+  canvasmode_imageimport.cpp
   canvasmode_edit.cpp
   canvasmode_editarc.cpp
   canvasmode_editgradient.cpp

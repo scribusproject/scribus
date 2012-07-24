@@ -13588,6 +13588,7 @@ bool ScribusDoc::MoveSizeItem(FPoint newX, FPoint newY, PageItem* currItem, bool
 
 void ScribusDoc::AdjustItemSize(PageItem *currItem, bool includeGroup, bool moveInGroup)
 {
+	undoManager->setUndoEnabled(false);
 	bool siz = currItem->Sizing;
 	currItem->Sizing = false;
 	if ((!(currItem->isGroup() || currItem->isSymbol())) || includeGroup)
@@ -13659,6 +13660,7 @@ void ScribusDoc::AdjustItemSize(PageItem *currItem, bool includeGroup, bool move
 		currItem->Clip = FlattenPath(currItem->PoLine, currItem->Segments);
 	currItem->updateGradientVectors();
 	currItem->Sizing = siz;
+	undoManager->setUndoEnabled(true);
 }
 
 void ScribusDoc::moveGroup(double x, double y, bool fromMP, Selection* customSelection)

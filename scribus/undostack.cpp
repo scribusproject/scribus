@@ -63,6 +63,16 @@ bool UndoStack::undo(uint steps, int objectId)
 					undoActions_.erase(it);
 					break;
 				}
+				else if((*it)->isTransaction())
+				{
+					TransactionState *ts = dynamic_cast<TransactionState*>(*it);
+					if(ts->containsOnly(objectId))
+					{
+						tmpUndoState = *it;
+						undoActions_.erase(it);
+						break;
+					}
+				}
 			}
 		}
 
@@ -93,6 +103,16 @@ bool UndoStack::redo(uint steps, int objectId)
 					tmpRedoState = *it;
 					redoActions_.erase(it);
 					break;
+				}
+				else if((*it)->isTransaction())
+				{
+					TransactionState *ts = dynamic_cast<TransactionState*>(*it);
+					if(ts->containsOnly(objectId))
+					{
+						tmpRedoState = *it;
+						redoActions_.erase(it);
+						break;
+					}
 				}
 			}
 		}
@@ -170,14 +190,14 @@ UndoState* UndoStack::getNextUndo(int objectId)
 			{
 				UndoState*  tmp  = *it;
 				TransactionState *ts = dynamic_cast<TransactionState*>(tmp);
-				if (ts && ts->contains(objectId))
-					break;
-				else if (!ts && tmp->undoObject() && 
-				         tmp->undoObject()->getUId() == static_cast<ulong>(objectId))
+				if ((tmp && tmp->undoObject() &&
+						 tmp->undoObject()->getUId() == static_cast<ulong>(objectId)) || (ts && ts->containsOnly(objectId)))
 				{
 					state = tmp;
 					break;
 				}
+				else if (ts && ts->contains(objectId))
+					break;
 			}
 		}
 	}
@@ -198,14 +218,14 @@ UndoState* UndoStack::getNextRedo(int objectId)
 			{
 				UndoState*  tmp  = *it;
 				TransactionState *ts = dynamic_cast<TransactionState*>(tmp);
-				if (ts && ts->contains(objectId))
-					break;
-				else if (!ts && tmp->undoObject() && 
-				         tmp->undoObject()->getUId() == static_cast<ulong>(objectId))
+				if ((tmp && tmp->undoObject() &&
+						 tmp->undoObject()->getUId() == static_cast<ulong>(objectId)) || (ts && ts->containsOnly(objectId)))
 				{
 					state = tmp;
 					break;
 				}
+				else if (ts && ts->contains(objectId))
+					break;
 			}
 		}
 	}

@@ -37,9 +37,9 @@ for which a new license (GPL+exception) is in place.
 #include "scraction.h"
 #include "util_icon.h"
 
-UndoGui::UndoGui(QWidget* parent, const char* name, Qt::WFlags f) : ScrPaletteBase(parent, name, f)
+UndoGui::UndoGui(QWidget* parent, const char* name, Qt::WFlags f) : ScDockPalette(parent, name, f)
 {
-
+	setWindowTitle( tr("Action History"));
 }
 
 /*** UndoWidget ***************************************************************/
@@ -228,9 +228,13 @@ UndoWidget::~UndoWidget()
 UndoPalette::UndoPalette(QWidget* parent, const char* name)
 : UndoGui(parent, name)
 {
+	setObjectName(QString::fromLocal8Bit(name));
+	setSizePolicy( QSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum));
+
+	container = new QWidget(this);
 	currentSelection = 0;
 	redoItems = 0;
-	QVBoxLayout* layout = new QVBoxLayout(this);
+	QVBoxLayout* layout = new QVBoxLayout(container);
 	layout->setMargin(5);
 	layout->setSpacing(5);
 	objectBox = new QCheckBox(this);
@@ -255,6 +259,7 @@ UndoPalette::UndoPalette(QWidget* parent, const char* name)
 	initialUndoKS = undoButton->shortcut();
 	initialRedoKS = redoButton->shortcut();
 	layout->addLayout(buttonLayout);
+	setWidget(container);
 
 	updateFromPrefs();
 	languageChange();
@@ -306,7 +311,6 @@ void UndoPalette::changeEvent(QEvent *e)
 
 void UndoPalette::languageChange()
 {
-	setWindowTitle( tr("Action History"));
 	objectBox->setText( tr("Show Selected Object Only"));
 	undoButton->setText( tr("&Undo"));
 	redoButton->setText( tr("&Redo"));

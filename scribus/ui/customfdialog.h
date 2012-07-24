@@ -75,7 +75,8 @@ typedef enum {
 	fdCompressFile = 4, // Show and handle the "Compress" behaviour and CheckBox (true)
 	fdShowCodecs = 8, // Show and handle text codecs and ComboBox (true)
 	fdDirectoriesOnly = 16, // Show only directories
-	fdHidePreviewCheckBox = 32 // Hide preview Checkbox
+	fdHidePreviewCheckBox = 32, // Hide preview Checkbox
+	fdExistingFilesI = 64 // For multiple files
 } fdFlags;
 
 /*! \brief A Scribus own file dialog.

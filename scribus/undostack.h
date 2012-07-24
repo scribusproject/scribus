@@ -37,7 +37,7 @@ typedef std::vector<UndoState*> StateList;
 class SCRIBUS_API UndoStack
 {
 public:
-    explicit UndoStack(int maxSize = 20);
+	explicit UndoStack(int maxSize = 100);
     ~UndoStack();
 
     /* Used to push a new action to the stack. UndoState in the parameter will then

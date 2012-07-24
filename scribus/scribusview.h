@@ -107,6 +107,7 @@ public:
 	friend class CanvasMode_EditArc;
 	friend class CanvasMode_EditSpiral;
 	friend class CanvasMode_FrameLinks;
+	friend class CanvasMode_ImageImport;
 	friend class CanvasMode_Magnifier;
 	friend class CanvasMode_NodeEdit;
 	friend class CanvasMode_Normal;
@@ -318,6 +319,7 @@ private: // Private attributes
 	UndoTransaction*  m_groupTransaction;
 	bool _isGlobalMode;
 	bool linkAfterDraw;
+	bool ImageAfterDraw;
 
 	double oldItemX;
 	double oldItemY;

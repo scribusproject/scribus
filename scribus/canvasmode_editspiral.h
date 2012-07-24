@@ -33,6 +33,7 @@
 class PageItem;
 class ScribusMainWindow;
 class ScribusView;
+class UndoTransaction;
 
 
 // This class encapsulate the old code for mouse interaction from scribusview.cpp
@@ -77,6 +78,7 @@ private:
 	double endAngle;
 	eSpiralPoint m_arcPoint;
 	SpiralVectorDialog* VectorDialog;
+	UndoTransaction *trans;
 
 	int    m_blockUpdateFromItem;
 	void   blockUpdateFromItem(bool block) { if (block) ++m_blockUpdateFromItem; else --m_blockUpdateFromItem; }

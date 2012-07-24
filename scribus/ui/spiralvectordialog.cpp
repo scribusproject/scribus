@@ -34,7 +34,7 @@ SpiralVectorDialog::SpiralVectorDialog(QWidget* parent) : ScrPaletteBase( parent
 	connect(startAngle,   SIGNAL(valueChanged(double)), this, SLOT(changeVectors()));
 	connect(sweepAngle,   SIGNAL(valueChanged(double)), this, SLOT(changeVectors()));
 	connect(arcFactor,   SIGNAL(valueChanged(double)), this, SLOT(changeVectors()));
-	connect(exitButton, SIGNAL(clicked()), this, SIGNAL(endEdit()));
+	connect(exitButton, SIGNAL(clicked()), this, SLOT(accept()));
 	languageChange();
 	resize(minimumSizeHint());
 }

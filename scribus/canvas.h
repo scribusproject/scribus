@@ -101,6 +101,7 @@ public:
 	friend class CanvasMode_EditTable;
 	friend class CanvasMode_EyeDropper;
 	friend class CanvasMode_FrameLinks;
+	friend class CanvasMode_ImageImport;
 	friend class CanvasMode_Magnifier;
 	friend class CanvasMode_NodeEdit;
 	friend class CanvasMode_ObjImport;

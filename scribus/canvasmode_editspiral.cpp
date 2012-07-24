@@ -41,6 +41,7 @@
 #include "scribusdoc.h"
 #include "scribusview.h"
 #include "selection.h"
+#include "undomanager.h"
 #include "util.h"
 #include "util_math.h"
 
@@ -49,6 +50,7 @@ CanvasMode_EditSpiral::CanvasMode_EditSpiral(ScribusView* view) : CanvasMode(vie
 	Mxp = Myp = -1;
 	m_blockUpdateFromItem = 0;
 	m_arcPoint = noPointDefined;
+	trans = NULL;
 }
 
 inline bool CanvasMode_EditSpiral::GetItem(PageItem** pi)
@@ -228,9 +230,18 @@ void CanvasMode_EditSpiral::applyValues(double start, double end, double factor)
 {
 	PageItem *currItem = m_doc->m_Selection->itemAt(0);
 	PageItem_Spiral *item = currItem->asSpiral();
+	SimpleState *ss = new SimpleState(Um::EditSpiral, "", Um::IPolygon);
+	ss->set("SPIRAL","spiral");
+	ss->set("OLD_START",item->spiralStartAngle);
+	ss->set("OLD_END",item->spiralEndAngle);
+	ss->set("OLD_FACTOR",item->spiralFactor);
 	item->spiralStartAngle = computeRealAngle(start, true);
 	item->spiralEndAngle = computeRealAngle(end, true);
 	item->spiralFactor = factor;
+	ss->set("NEW_START",item->spiralStartAngle);
+	ss->set("NEW_END",item->spiralEndAngle);
+	ss->set("NEW_FACTOR",item->spiralFactor);
+	undoManager->action(item,ss);
 	item->recalcPath();
 	startPoint = currItem->PoLine.pointQF(0);
 	endPoint = currItem->PoLine.pointQF(currItem->PoLine.size() - 2);
@@ -292,7 +303,7 @@ void CanvasMode_EditSpiral::mouseMoveEvent(QMouseEvent *m)
 			if (startAngle + deltaAngle >= 0)
 			{
 				startAngle += deltaAngle;
-				item->spiralStartAngle = startAngle;
+				applyValues(startAngle,endAngle,item->spiralFactor);
 				item->recalcPath();
 				startPoint = currItem->PoLine.pointQF(0);
 				m_canvas->displayRealRotHUD(m->globalPos(), startAngle);
@@ -304,7 +315,7 @@ void CanvasMode_EditSpiral::mouseMoveEvent(QMouseEvent *m)
 			if (endAngle + deltaAngle > startAngle)
 			{
 				endAngle += deltaAngle;
-				item->spiralEndAngle = endAngle;
+				applyValues(startAngle,endAngle,item->spiralFactor);
 				item->recalcPath();
 				endPoint = currItem->PoLine.pointQF(currItem->PoLine.size() - 2);
 				m_canvas->displayRealRotHUD(m->globalPos(), endAngle);
@@ -350,6 +361,8 @@ void CanvasMode_EditSpiral::mousePressEvent(QMouseEvent *m)
 		m_arcPoint = useControlEnd;
 	else
 		m_arcPoint = noPointDefined;
+	if(m_arcPoint != noPointDefined)
+		trans = new UndoTransaction(undoManager->beginTransaction(Um::Polygon,Um::IPolygon,Um::EditSpiral,"",Um::IPolygon));
 	m_canvas->m_viewMode.m_MouseButtonPressed = true;
 	qApp->changeOverrideCursor(QCursor(Qt::CrossCursor));
 	m_doc->regionsChanged()->update(itemMatrix.mapRect(QRectF(0, 0, currItem->width(), currItem->height())).adjusted(-5, -5, 10, 10));
@@ -361,6 +374,12 @@ void CanvasMode_EditSpiral::mouseReleaseEvent(QMouseEvent *m)
 	m_canvas->resetRenderMode();
 	m->accept();
 	PageItem *currItem = m_doc->m_Selection->itemAt(0);
+	if(trans)
+	{
+		trans->commit();
+		delete trans;
+		trans = NULL;
+	}
 	QTransform itemMatrix = currItem->getTransform();
 	m_doc->regionsChanged()->update(itemMatrix.mapRect(QRectF(0, 0, currItem->width(), currItem->height())).adjusted(-5, -5, 10, 10));
 }

@@ -440,7 +440,6 @@ void PageItem_ImageFrame::applicableActions(QStringList & actionList)
 		if (pixm.imgInfo.exifDataValid)
 			actionList << "itemImageInfo";
 		actionList << "itemUpdateImage";
-		actionList << "editClearContents";
 		actionList << "editCopyContents";
 		actionList << "itemToggleInlineImage";
 		if (isRaster)
@@ -449,6 +448,8 @@ void PageItem_ImageFrame::applicableActions(QStringList & actionList)
 			actionList << "editEditWithImageEditor";
 		}
 	}
+	if(!Pfile.isEmpty())
+		actionList << "editClearContents";
 	actionList << "itemConvertToPolygon";
 	if (doc()->scMW()->contentsBuffer.sourceType==PageItem::ImageFrame)
 	{

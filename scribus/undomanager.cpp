@@ -834,6 +834,7 @@ TransactionState::~TransactionState()
 
 void UndoManager::languageChange()
 {
+	UndoManager::ConnectPath        = tr("Connect path");
 	UndoManager::AddVGuide          = tr("Add vertical guide");
 	UndoManager::AddHGuide          = tr("Add horizontal guide");
 	UndoManager::DelVGuide          = tr("Remove vertical guide");
@@ -939,6 +940,8 @@ void UndoManager::languageChange()
 	UndoManager::LatexFrame         = tr("Render frame");
 	UndoManager::Polygon            = tr("Polygon");
 	UndoManager::EditPolygon        = tr("Edit polygon");
+	UndoManager::EditArc            = tr("Edit arc");
+	UndoManager::EditSpiral         = tr("Edit spiral");
 	UndoManager::BezierCurve        = tr("Bezier curve");
 	UndoManager::Polyline           = tr("Polyline");
 	UndoManager::PathText           = tr("Text on a Path");
@@ -1094,6 +1097,7 @@ void UndoManager::initIcons()
 // 	UndoManager::IGetImage        = new QPixmap(iconDir + "u_get_image.png");
 	UndoManager::IMultipleDuplicate = new QPixmap(iconDir + "u_multiple.png");
 }
+QString UndoManager::ConnectPath        = "";
 QString UndoManager::AddVGuide          = "";
 QString UndoManager::AddHGuide          = "";
 QString UndoManager::DelVGuide          = "";
@@ -1204,6 +1208,8 @@ QString UndoManager::TextFrame          = "";
 QString UndoManager::LatexFrame         = "";
 QString UndoManager::Polygon            = "";
 QString UndoManager::EditPolygon        = "";
+QString UndoManager::EditArc            = "";
+QString UndoManager::EditSpiral         = "";
 QString UndoManager::BezierCurve        = "";
 QString UndoManager::Polyline           = "";
 QString UndoManager::PathText           = "";

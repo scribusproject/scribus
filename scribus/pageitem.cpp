@@ -45,6 +45,7 @@ for which a new license (GPL+exception) is in place.
 #include "pageitem_group.h"
 #include "pageitem_regularpolygon.h"
 #include "pageitem_arc.h"
+#include "pageitem_spiral.h"
 #include "pageitem_textframe.h"
 #include "pageitem_latexframe.h"
 #include "prefsmanager.h"
@@ -4864,12 +4865,35 @@ void PageItem::restore(UndoState *state, bool isUndo)
 			restoreImageNbr(ss, isUndo);
 		else if (ss->contains("CHANGE_MODE"))
 			restoreAppMode(ss, isUndo);
+		else if (ss->contains("CONNECT_PATH"))
+			restoreConnectPath(ss, isUndo);
 	}
 	if (!OnMasterPage.isEmpty())
 		m_Doc->setCurrentPage(oldCurrentPage);
 	m_Doc->setMasterPageMode(oldMPMode);
 	m_Doc->useRaster = useRasterBackup;
 	m_Doc->SnapGuides = SnapGuidesBackup;
+}
+
+void PageItem::restoreConnectPath(SimpleState *state, bool isUndo)
+{
+	ScItemState<QPair<FPointArray, FPointArray> > *is = dynamic_cast<ScItemState<QPair<FPointArray, FPointArray> > *>(state);
+	if(isUndo)
+	{
+		PoLine = is->getItem().first;
+		doc()->AdjustItemSize(this);
+		moveBy(is->getDouble("OLDX") - xPos(),is->getDouble("OLDY") - yPos());
+	}
+	else
+	{
+		PoLine = is->getItem().second;
+		doc()->AdjustItemSize(this);
+		moveBy(is->getDouble("NEWX") - xPos(),is->getDouble("NEWY") - yPos());
+	}
+	OldB2 = width();
+	OldH2 = height();
+	updateClip();
+	ContourLine = PoLine.copy();
 }
 
 bool PageItem::checkGradientUndoRedo(SimpleState *ss, bool isUndo)
@@ -5180,6 +5204,26 @@ void PageItem::restoreAppMode(SimpleState *state, bool isUndo)
 		doc()->view()->requestMode(state->getInt("OLD"));
 	else
 		doc()->view()->requestMode(state->getInt("NEW"));
+}
+
+void PageItem::restoreSpiral(SimpleState *ss, bool isUndo)
+{
+	PageItem_Spiral *item = asSpiral();
+	if (isUndo)
+	{
+		item->spiralStartAngle = ss->getDouble("OLD_START");
+		item->spiralEndAngle = ss->getDouble("OLD_END");
+		item->spiralFactor = ss->getDouble("OLD_FACTOR");
+	}
+	else
+	{
+		item->spiralStartAngle = ss->getDouble("NEW_START");
+		item->spiralEndAngle = ss->getDouble("NEW_END");
+		item->spiralFactor = ss->getDouble("NEW_FACTOR");
+	}
+	item->recalcPath();
+	update();
+	doc()->changed();
 }
 
 void PageItem::restorePolygon(SimpleState *ss, bool isUndo)

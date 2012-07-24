@@ -380,6 +380,8 @@ CustomFDialog::CustomFDialog(QWidget *parent, QString wDir, QString caption, QSt
 		}
 		if (flags & fdExistingFiles)
 			fileDialog->setFileMode(QFileDialog::ExistingFile);
+		else if (flags & fdExistingFilesI)
+			fileDialog->setFileMode(QFileDialog::ExistingFiles);
 		else
 		{
 			fileDialog->setFileMode(QFileDialog::AnyFile);

@@ -28,10 +28,12 @@ for which a new license (GPL+exception) is in place.
 #define UNDOGUI_H
 
 #include <QListWidgetItem>
+#include <QPushButton>
+
 #include "scribusapi.h"
 #include "undoobject.h"
 #include "undostate.h"
-#include "ui/scrpalettebase.h"
+#include "ui/scdockpalette.h"
 
 class QEvent;
 class QMenu;
@@ -54,7 +56,7 @@ class QCheckBox;
  * @author Riku Leino  tsoots@gmail.com
  * @date December 2004
  */
-class SCRIBUS_API UndoGui : public ScrPaletteBase
+class SCRIBUS_API UndoGui : public ScDockPalette
 {
 	Q_OBJECT
 
@@ -256,6 +258,7 @@ class SCRIBUS_API UndoPalette : public UndoGui
 	Q_OBJECT
 
 private:
+	QWidget* container;
 	int currentSelection;
 	int redoItems;
 	QListWidget* undoList;
