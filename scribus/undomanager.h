@@ -138,7 +138,7 @@ private:
 /**
     Class which handles Undo transactions. No data, just methods.
  */
-class UndoTransaction : public Transaction
+class SCRIBUS_API UndoTransaction : public Transaction
 {
 public:
 	UndoTransaction(TransactionData* data);

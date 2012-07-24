@@ -503,6 +503,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\scribus\canvasmode_imageimport.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\scribus\canvasmode_magnifier.cpp"
 				>
 			</File>
@@ -2909,6 +2913,10 @@
 			</File>
 			<File
 				RelativePath="..\..\..\scribus\canvasmode_framelinks.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\scribus\canvasmode_imageimport.h"
 				>
 			</File>
 			<File
