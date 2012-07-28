@@ -4105,16 +4105,6 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 			PageItem *ite = doc->Items->at(azz);
 			if(ite->nextInChain() == NULL)
 				ite->layout();
-/*			if (doc->OldBM)
-			{
-				if ((ite->itemType() == PageItem::TextFrame) && (ite->isBookmark))
-					bookmarkPalette->BView->AddPageItem(ite);
-			}
-			else
-			{
-				if ((ite->itemType() == PageItem::TextFrame) && (ite->isBookmark))
-					bookmarkPalette->BView->ChangeItem(ite->BMnr, ite->ItemNr);
-			} */
 		}
 		for (QHash<int, PageItem*>::iterator itf = doc->FrameItems.begin(); itf != doc->FrameItems.end(); ++itf)
 		{
@@ -4123,8 +4113,6 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 			if(ite->nextInChain() == NULL)
 				ite->layout();
 		}
-//		if (doc->OldBM)
-//			StoreBookmarks();
 		doc->RePos = false;
 		doc->setModified(false);
 		updateRecent(FName);
