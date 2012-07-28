@@ -318,6 +318,39 @@ void PageItem_TextFrame::setShadow()
 	}
 }
 
+static void debugLineLayout(const StoryText& itemText, const LineSpec& line)
+{
+	QFile debugFile(QDir::homePath() + "/Desktop/debug_line.csv");
+	debugFile.open(QIODevice::WriteOnly);
+
+	QTextStream stream(&debugFile);
+	stream.setRealNumberNotation(QTextStream::FixedNotation);
+	stream.setRealNumberPrecision(7);
+
+	stream << "xoffset"  << "\t";
+	stream << "yoffset"  << "\t";
+	stream << "xadvance" << "\t";
+	stream << "yadvance" << "\t";
+	stream << "scaleH"   << "\t";
+	stream << "scaleV"   << "\t";
+	stream << "\n";
+
+	for (int zc = line.firstItem; zc < line.lastItem; ++zc)
+	{
+		const ScText* item = itemText.item(zc);
+
+		stream << item->glyph.xoffset  << "\t";
+		stream << item->glyph.yoffset  << "\t";
+		stream << item->glyph.xadvance << "\t";
+		stream << item->glyph.yadvance << "\t";
+		stream << item->glyph.scaleH   << "\t";
+		stream << item->glyph.scaleV   << "\t";
+		stream << "\n";
+	}
+
+	debugFile.close();
+}
+
 static void dumpIt(const ParagraphStyle& pstyle, QString indent = QString("->"))
 {
 	QString db = QString("%6%1/%2 @ %3: %4--%5 linespa%6: %7 align%8")
@@ -2775,14 +2808,13 @@ void PageItem_TextFrame::layout()
 	}
 	MaxChars = itemText.length();
 	invalid = false;
-	if (NextBox != NULL) 
+
+	PageItem_TextFrame* nextFrame = dynamic_cast<PageItem_TextFrame*>(NextBox);
+	while (nextFrame != NULL)
 	{
-		PageItem_TextFrame* nextFrame = dynamic_cast<PageItem_TextFrame*>(NextBox);
-		if (nextFrame != NULL)
-		{
-			nextFrame->invalid = true;
-			nextFrame->firstChar = MaxChars;
-		}
+		nextFrame->invalid   = true;
+		nextFrame->firstChar = MaxChars;
+		nextFrame = dynamic_cast<PageItem_TextFrame*>(nextFrame->NextBox);
 	}
 //	qDebug("textframe: len=%d, done relayout", itemText.length());
 	return;
