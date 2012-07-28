@@ -1327,8 +1327,9 @@ void PageItem_TextFrame::layout()
 	double EndX, OFs, wide, kernVal;
 	QString chstr;
 	ScText *hl;
+	PageItem_TextFrame* nextFrame;
 	ParagraphStyle style;
-	int /*ParagraphStyle::OpticalMarginType*/ opticalMargins = ParagraphStyle::OM_None;
+	int opticalMargins = ParagraphStyle::OM_None;
 	
 	bool outs = false;
 	bool goNoRoom = false;
@@ -2809,7 +2810,7 @@ void PageItem_TextFrame::layout()
 	MaxChars = itemText.length();
 	invalid = false;
 
-	PageItem_TextFrame* nextFrame = dynamic_cast<PageItem_TextFrame*>(NextBox);
+	nextFrame = dynamic_cast<PageItem_TextFrame*>(NextBox);
 	while (nextFrame != NULL)
 	{
 		nextFrame->invalid   = true;
