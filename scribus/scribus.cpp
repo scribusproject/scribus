@@ -4198,27 +4198,9 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 		for (int azz=0; azz<docItemsCount; ++azz)
 		{
 			PageItem *ite = doc->Items->at(azz);
-			//CB dont need this as we get it from the loading page in 1.2.x docs. 1.3.x items have this anyway.
-			/*
-			if (ite->Groups.count() != 0)
-				doc->GroupOnPage(ite);
-			else
-				ite->OwnPage = doc->OnPage(ite);
-			*/
-			//view->setRedrawBounding(ite);
 //			qDebug() << QString("load D: %1 %2 %3").arg(azz).arg((uint)ite).arg(ite->itemType());
 			if(ite->nextInChain() == NULL)
 				ite->layout();
-/*			if (doc->OldBM)
-			{
-				if ((ite->itemType() == PageItem::TextFrame) && (ite->isBookmark))
-					bookmarkPalette->BView->AddPageItem(ite);
-			}
-			else
-			{
-				if ((ite->itemType() == PageItem::TextFrame) && (ite->isBookmark))
-					bookmarkPalette->BView->ChangeItem(ite->BMnr, ite->ItemNr);
-			} */
 		}
 		for (int azz=0; azz<doc->FrameItems.count(); ++azz)
 		{
@@ -4228,8 +4210,6 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 				ite->layout();
 		}
 		/*qDebug("Time elapsed: %d ms", t.elapsed());*/
-//		if (doc->OldBM)
-//			StoreBookmarks();
 		doc->RePos = false;
 		doc->setModified(false);
 		updateRecent(FName);
