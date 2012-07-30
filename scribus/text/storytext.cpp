@@ -2103,6 +2103,11 @@ public:
 		if (lastStyle)
 			delete lastStyle;
 	}
+
+	virtual void reset()
+	{
+		numPara = 0;
+	}
 	
 	void begin(const Xml_string& tag, Xml_attr attr)
 	{

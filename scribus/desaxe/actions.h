@@ -34,6 +34,7 @@ protected:
                                                
 	virtual void end(const Xml_string&)             {}
 	virtual void chars(const Xml_string&)           {}
+	virtual void reset()                            {}
 
 	Digester* dig;
 private:
@@ -86,6 +87,11 @@ public:
 			++body->refs;
 		}
 		return *this;
+	}
+
+	virtual void reset()
+	{
+		body->reset();
 	}
 
 protected:

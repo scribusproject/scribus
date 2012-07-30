@@ -164,7 +164,7 @@ void Digester::begin(const Xml_string& tag, Xml_attr attr)
 	for(it=rules.begin(); it!=rules.end(); ++it)
 	{
 #ifdef DESAXE_DEBUG
-		std::cerr << "B " << it->first << " " << typeid(it->second).name() << "\n";
+		std::cerr << "B " << it->first.toStdString() << " " << typeid(it->second).name() << "\n";
 #endif
 		const_cast<Action&>(it->second).begin(tag, attr);
 	}
@@ -177,7 +177,7 @@ void Digester::end(const Xml_string& tag)
 	for(it=rules.rbegin(); it!=rules.rend(); ++it)
 	{
 #ifdef DESAXE_DEBUG
-		std::cerr << "E " << it->first << " " << typeid(it->second).name() << "\n";
+		std::cerr << "E " << it->first.toStdString() << " " << typeid(it->second).name() << "\n";
 #endif
 		const_cast<Action&>(it->second).end(tag);
 	}
@@ -191,7 +191,7 @@ void Digester::chars(const Xml_string& text)
 	for(it=rules.begin(); it!=rules.end(); ++it)
 	{
 #ifdef DESAXE_DEBUG
-		std::cerr << "C " << it->first << " " << typeid(it->second).name() << "\n";
+		std::cerr << "C " << it->first.toStdString() << " " << typeid(it->second).name() << "\n";
 #endif
 		const_cast<Action&>(it->second).chars(text);
 	}
@@ -243,6 +243,9 @@ void RuleState::addRule(const Xml_string& pattern, Action action)
 inline
 void RuleState::reset()
 {
+	std::vector<rule_t>::iterator it;
+	for (it = rules.begin(); it != rules.end(); ++it)
+		it->second.reset();
 	stateStack.clear();
 	if (!valid)
 		compileDFA();

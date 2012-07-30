@@ -1148,6 +1148,8 @@ public:
 	QMap<PageItem*, QString> getDocItemNames(PageItem::ItemType itemType);
 	//! \brief Returns a serializer for this document
 	Serializer *serializer();
+	//! \brief Returns a text serializer for this document, used to paste text chunks
+	Serializer *textSerializer();
 
 	//! \brief Get rotation mode
 	int RotMode() const {return rotMode;}
@@ -1184,7 +1186,7 @@ protected:
 	ScribusMainWindow* m_ScMW;
 	ScribusView* m_View;
 	ScGuardedObject<ScribusDoc> m_guardedObject;
-	Serializer *m_serializer;
+	Serializer *m_serializer, *m_tserializer;
 	QString currentEditedSymbol;
 	int currentEditedIFrame;
 
