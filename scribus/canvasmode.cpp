@@ -766,7 +766,28 @@ void CanvasMode::clearPixmapCache()
 }
 #endif // GESTURE_FRAME_PREVIEW
 
-
+void CanvasMode::drawSnapLine(QPainter* p)
+{
+	if(m_doc->SnapElement)
+	{
+		if(ySnap)
+		{
+			p->setPen(Qt::green);
+			double x = (m_doc->currentPage()->xOffset() - m_doc->bleedsVal().Left)* m_canvas->scale();
+			double w = (m_doc->currentPage()->width() + m_doc->bleedsVal().Left + m_doc->bleedsVal().Right) * m_canvas->scale();
+			p->drawLine(x, ySnap, x+w,ySnap);
+			ySnap = 0;
+		}
+		if(xSnap)
+		{
+			p->setPen(Qt::green);
+			double y = (m_doc->currentPage()->yOffset() - m_doc->bleedsVal().Top) * m_canvas->scale();
+			double h = (m_doc->currentPage()->height() + m_doc->bleedsVal().Bottom + m_doc->bleedsVal().Top) * m_canvas->scale();
+			p->drawLine(xSnap, y, xSnap,y+h);
+			xSnap = 0;
+		}
+	}
+}
 
 void CanvasMode::setResizeCursor(int how, double rot)
 {
@@ -1265,14 +1286,17 @@ void CanvasMode::commonkeyPressEvent_NormalNodeEdit(QKeyEvent *e)
 						/* Don't use Grid or Guide Snapping when dragging Items or Groups with the keyboard */
 						/* as the user might be trying to fine tune a position */
 							bool sav1 = m_doc->SnapGuides;
+							bool sav3 = m_doc->SnapElement;
 							bool sav2 = m_doc->useRaster;
 							m_doc->SnapGuides = false;
 							m_doc->useRaster = false;
+							m_doc->SnapElement = false;
 							if (m_doc->m_Selection->count() > 1)
 								m_view->startGroupTransaction(Um::Move, "", Um::IMove);
 							m_doc->moveGroup(-moveBy, 0);
 							if (m_doc->m_Selection->count() > 1)
 								m_view->endGroupTransaction();
+							m_doc->SnapElement = sav3;
 							m_doc->SnapGuides = sav1;
 							m_doc->useRaster = sav2;
 						}
@@ -1337,8 +1361,10 @@ void CanvasMode::commonkeyPressEvent_NormalNodeEdit(QKeyEvent *e)
 						/* as the user might be trying to fine tune a position */
 							bool sav1 = m_doc->SnapGuides;
 							bool sav2 = m_doc->useRaster;
+							bool sav3 = m_doc->SnapElement;
 							m_doc->SnapGuides = false;
 							m_doc->useRaster = false;
+							m_doc->SnapElement = false;
 							if (m_doc->m_Selection->count() > 1)
 								m_view->startGroupTransaction(Um::Move, "", Um::IMove);
 							m_doc->moveGroup(moveBy, 0);
@@ -1346,6 +1372,7 @@ void CanvasMode::commonkeyPressEvent_NormalNodeEdit(QKeyEvent *e)
 								m_view->endGroupTransaction();
 							m_doc->SnapGuides = sav1;
 							m_doc->useRaster = sav2;
+							m_doc->SnapElement = sav3;
 						}
 					}
 					else
@@ -1408,8 +1435,10 @@ void CanvasMode::commonkeyPressEvent_NormalNodeEdit(QKeyEvent *e)
 						/* as the user might be trying to fine tune a position */
 							bool sav1 = m_doc->SnapGuides;
 							bool sav2 = m_doc->useRaster;
+							bool sav3 = m_doc->SnapElement;
 							m_doc->SnapGuides = false;
 							m_doc->useRaster = false;
+							m_doc->SnapElement = false;
 							if (m_doc->m_Selection->count() > 1)
 								m_view->startGroupTransaction(Um::Move, "", Um::IMove);
 							m_doc->moveGroup(0, -moveBy);
@@ -1417,6 +1446,7 @@ void CanvasMode::commonkeyPressEvent_NormalNodeEdit(QKeyEvent *e)
 								m_view->endGroupTransaction();
 							m_doc->SnapGuides = sav1;
 							m_doc->useRaster = sav2;
+							m_doc->SnapElement = sav3;
 						}
 					}
 					else
@@ -1479,8 +1509,10 @@ void CanvasMode::commonkeyPressEvent_NormalNodeEdit(QKeyEvent *e)
 						/* as the user might be trying to fine tune a position */
 							bool sav1 = m_doc->SnapGuides;
 							bool sav2 = m_doc->useRaster;
+							bool sav3 = m_doc->SnapElement;
 							m_doc->SnapGuides = false;
 							m_doc->useRaster = false;
+							m_doc->SnapElement = false;
 							if (m_doc->m_Selection->count() > 1)
 								m_view->startGroupTransaction(Um::Move, "", Um::IMove);
 							m_doc->moveGroup(0, moveBy);
@@ -1488,6 +1520,7 @@ void CanvasMode::commonkeyPressEvent_NormalNodeEdit(QKeyEvent *e)
 								m_view->endGroupTransaction();
 							m_doc->SnapGuides = sav1;
 							m_doc->useRaster = sav2;
+							m_doc->SnapElement = sav3;
 						}
 					}
 					else

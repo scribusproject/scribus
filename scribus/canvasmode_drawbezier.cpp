@@ -138,7 +138,7 @@ void BezierMode::deactivate(bool flag)
 //	m_view->stopDragTimer();
 	PageItem* currItem = m_doc->m_Selection->itemAt(0);
 	undoManager->setUndoEnabled(true);
-	if (UndoManager::undoEnabled())
+	if (currItem && UndoManager::undoEnabled())
 	{
 		ScItemState<PageItem*> *is = new ScItemState<PageItem*>("Create PageItem");
 		is->set("CREATE_ITEM", "create_item");

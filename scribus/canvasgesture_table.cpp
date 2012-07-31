@@ -32,6 +32,7 @@ QPointF TableGesture::globalToTableGrid(const QPoint point, bool snap)
 		// Snap to grid and guides.
 		canvasPoint = m_doc->ApplyGridF(canvasPoint);
 		m_doc->ApplyGuides(&canvasPoint);
+		m_doc->ApplyGuides(&canvasPoint,true);
 	}
 
 	// Return point mapped to table grid.

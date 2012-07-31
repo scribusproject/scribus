@@ -576,7 +576,7 @@ void CanvasMode_EditMeshGradient::mouseMoveEvent(QMouseEvent *m)
 		FPoint npfN;
 		double nx = mousePointDoc.x();
 		double ny = mousePointDoc.y();
-		if (!m_doc->ApplyGuides(&nx, &ny))
+		if (!m_doc->ApplyGuides(&nx, &ny) && !m_doc->ApplyGuides(&nx, &ny,true))
 			npfN = m_doc->ApplyGridF(FPoint(nx, ny));
 		else
 			npfN = FPoint(nx, ny);

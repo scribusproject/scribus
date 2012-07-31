@@ -1292,8 +1292,10 @@ void PaintManagerDialog::loadVectors(QString data)
 	uint ap = m_doc->docPatterns.count();
 	bool savedAlignGrid = m_doc->useRaster;
 	bool savedAlignGuides = m_doc->SnapGuides;
+	bool savedAlignElement = m_doc->SnapElement;
 	m_doc->useRaster = false;
 	m_doc->SnapGuides = false;
+	m_doc->SnapElement = false;
 	if (fi.suffix().toLower() == "sce")
 	{
 		ScriXmlDoc ss;
@@ -1316,6 +1318,7 @@ void PaintManagerDialog::loadVectors(QString data)
 	}
 	m_doc->useRaster = savedAlignGrid;
 	m_doc->SnapGuides = savedAlignGuides;
+	m_doc->SnapElement = savedAlignElement;
 	uint ae = m_doc->Items->count();
 	if (ac != ae)
 	{

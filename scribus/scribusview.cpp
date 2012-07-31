@@ -423,6 +423,7 @@ void ScribusView::switchPreviewVisual(int vis)
 
 void ScribusView::togglePreview()
 {
+	undoManager->setUndoEnabled(false);
 	m_canvas->m_viewMode.viewAsPreview = !m_canvas->m_viewMode.viewAsPreview;
 	Doc->drawAsPreview = m_canvas->m_viewMode.viewAsPreview;
 	if (m_canvas->m_viewMode.viewAsPreview)
@@ -470,6 +471,7 @@ void ScribusView::togglePreview()
 	{
 		DrawNew();
 	}
+	undoManager->setUndoEnabled(true);
 }
 
 void ScribusView::changed(QRectF re, bool)
@@ -1181,7 +1183,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 				Doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
 				double nx = gx;
 				double ny = gy;
-				if (!Doc->ApplyGuides(&nx, &ny))
+				if (!Doc->ApplyGuides(&nx, &ny) && !Doc->ApplyGuides(&nx, &ny,true))
 				{
 					FPoint npx;
 					npx = Doc->ApplyGridF(FPoint(nx, ny));
@@ -1195,6 +1197,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 				nx = gx+gw;
 				ny = gy+gh;
 				Doc->ApplyGuides(&nx, &ny);
+				Doc->ApplyGuides(&nx, &ny,true);
 				Doc->moveGroup(nx-(gx+gw), ny-(gy+gh), false);
 				Doc->m_Selection->setGroupRect();
 				Doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
@@ -1221,7 +1224,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 				{
 					double nx = currItem->xPos();
 					double ny = currItem->yPos();
-					if (!Doc->ApplyGuides(&nx, &ny))
+					if (!Doc->ApplyGuides(&nx, &ny) && !Doc->ApplyGuides(&nx, &ny,true))
 					{
 						FPoint npx;
 						npx = Doc->ApplyGridF(FPoint(nx, ny));
@@ -1962,7 +1965,7 @@ void ScribusView::PasteToPage()
 		newObjects.getGroupRect(&gx, &gy, &gw, &gh);
 		double nx = gx;
 		double ny = gy;
-		if (!Doc->ApplyGuides(&nx, &ny))
+		if (!Doc->ApplyGuides(&nx, &ny) && !Doc->ApplyGuides(&nx, &ny,true))
 		{
 			FPoint npx;
 			npx = Doc->ApplyGridF(FPoint(nx, ny));
@@ -1975,6 +1978,7 @@ void ScribusView::PasteToPage()
 		nx = gx+gw;
 		ny = gy+gh;
 		Doc->ApplyGuides(&nx, &ny);
+		Doc->ApplyGuides(&nx, &ny,true);
 		Doc->moveGroup(nx-(gx+gw), ny-(gy+gh), false, &newObjects);
 		newObjects.setGroupRect();
 		newObjects.getGroupRect(&gx, &gy, &gw, &gh);
@@ -1988,7 +1992,7 @@ void ScribusView::PasteToPage()
 		{
 			double nx = currItem->xPos();
 			double ny = currItem->yPos();
-			if (!Doc->ApplyGuides(&nx, &ny))
+			if (!Doc->ApplyGuides(&nx, &ny) && !Doc->ApplyGuides(&nx, &ny,true))
 			{
 				FPoint npx;
 				npx = Doc->ApplyGridF(FPoint(nx, ny));
@@ -4255,9 +4259,9 @@ bool ScribusView::eventFilter(QObject *obj, QEvent *event)
 		{
 			//user creates new frame using linking tool
 			PageItem * frame = Doc->m_Selection->itemAt(0);
+			requestMode(modeImportImage);
 			if (frame)
 			{
-				requestMode(modeImportImage);
 				dynamic_cast<CanvasMode_ImageImport*>(canvasMode())->setImage(frame);
 				dynamic_cast<CanvasMode_ImageImport*>(canvasMode())->updateList();
 			}

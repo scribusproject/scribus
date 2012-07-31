@@ -31,6 +31,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "canvas.h"
 #include "canvasgesture_rulermove.h"
+#include "ui/guidemanager.h"
 #include "scribusview.h"
 #include "scribusdoc.h"
 #include "scraction.h"
@@ -104,6 +105,8 @@ void RulerMover::mouseReleaseEvent(QMouseEvent *m)
 		if (pmen2)
 			delete pmen2;
 	}
+	if (currView->Doc->guidesPrefs().guidesShown)
+		currView->Doc->scMW()->guidePalette->setupPage();
 	QWidget::mouseReleaseEvent(m);
 }
 

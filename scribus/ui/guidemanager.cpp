@@ -293,8 +293,8 @@ void GuideManager::unitChange()
 	horizontalGroupBox->setTitle(horizontalGroupBox->title() + " ("+suffix.trimmed()+")");
 	verticalGroupBox->setTitle(verticalGroupBox->title() + " ("+suffix.trimmed()+")");
 	// models display
-	horizontalModel->unitChange(docUnitIndex, docUnitDecimals);
-	verticalModel->unitChange(docUnitIndex, docUnitDecimals);
+	horizontalModel->unitChange(docUnitIndex, docUnitDecimals, m_Doc->rulerYoffset);
+	verticalModel->unitChange(docUnitIndex, docUnitDecimals, m_Doc->rulerXoffset);
 	qobject_cast<GuidesHDelegate*>(horizontalView->itemDelegateForColumn(0))->setDoc(m_Doc);
 	qobject_cast<GuidesVDelegate*>(verticalView->itemDelegateForColumn(0))->setDoc(m_Doc);
 }

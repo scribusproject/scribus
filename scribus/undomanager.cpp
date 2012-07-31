@@ -422,7 +422,7 @@ void UndoManager::switchStack(const QString& stackName)
 	if (!stacks_.contains(currentDoc_))
 		stacks_[currentDoc_] = UndoStack();
 
-	stacks_[currentDoc_].setMaxSize(prefs_->getInt("historylength", 20));
+	stacks_[currentDoc_].setMaxSize(prefs_->getInt("historylength", 100));
 	for (uint i = 0; i < undoGuis_.size(); ++i)
 		setState(undoGuis_[i]);
 
@@ -937,6 +937,7 @@ void UndoManager::languageChange()
 	UndoManager::SetFontEffect      = tr("Set font effect");
 	UndoManager::ImageFrame         = tr("Image frame");
 	UndoManager::TextFrame          = tr("Text frame");
+	UndoManager::Layer              = tr("Layer");
 	UndoManager::LatexFrame         = tr("Render frame");
 	UndoManager::Polygon            = tr("Polygon");
 	UndoManager::EditPolygon        = tr("Edit polygon");
@@ -1205,6 +1206,7 @@ QString UndoManager::AlignText          = "";
 QString UndoManager::SetFontEffect      = "";
 QString UndoManager::ImageFrame         = "";
 QString UndoManager::TextFrame          = "";
+QString UndoManager::Layer              = "";
 QString UndoManager::LatexFrame         = "";
 QString UndoManager::Polygon            = "";
 QString UndoManager::EditPolygon        = "";

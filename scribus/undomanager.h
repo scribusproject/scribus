@@ -536,6 +536,7 @@ public:
 	static QString SetFontEffect;
 	static QString ImageFrame;
 	static QString TextFrame;
+	static QString Layer;
 	static QString LatexFrame;
 	static QString ResTyp;
 	static QString Polygon;

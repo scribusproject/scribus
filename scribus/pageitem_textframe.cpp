@@ -3409,7 +3409,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 		return;
 	}
 	//>>
-	
+
 	ScribusView* view = m_Doc->view();	
 	switch (kk)
 	{
@@ -3461,14 +3461,31 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 			unicodeInputString = "";
 			if (ok)
 			{
+				UndoTransaction trans(undoManager->beginTransaction(Um::Selection,Um::ITextFrame,Um::InsertText,"",Um::IDelete));
 				if (itemText.lengthOfSelection() > 0)
 					deleteSelectedTextFromFrame();
 				if (conv < 31)
 					conv = 32;
+				if (UndoManager::undoEnabled())
+				{
+					SimpleState *ss = dynamic_cast<SimpleState*>(undoManager->getLastUndo());
+					if(ss && ss->get("ETEA") == "insert_frametext")
+							ss->set("TEXT_STR",ss->get("TEXT_STR") + QString(QChar(conv)));
+					else {
+						ss = new SimpleState(Um::InsertText,"",Um::ICreate);
+						ss->set("INSERT_FRAMETEXT", "insert_frametext");
+						ss->set("ETEA", QString("insert_frametext"));
+						ss->set("TEXT_STR", QString(QChar(conv)));
+						ss->set("START", itemText.cursorPosition());
+						undoManager->action(this, ss);
+					}
+				}
 				itemText.insertChars(QString(QChar(conv)), true);
+				trans.commit();
 //				Tinput = true;
 				m_Doc->scMW()->setTBvals(this);
 				update();
+				doc()->changed();
 				keyRepeat = false;
 				return;
 			}
@@ -3772,14 +3789,18 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 		if (itemText.lengthOfSelection() == 0)
 			itemText.select(itemText.cursorPosition(), 1, true);
 		deleteSelectedTextFromFrame();
+		updateLayout();
+		if (oldLast != lastInFrame() && NextBox != 0 && NextBox->invalid)
+			NextBox->updateLayout();
 		update();
 //		Tinput = false;
-		if ((cr == QChar(13)) && (itemText.length() != 0))
-		{
+//		if ((cr == QChar(13)) && (itemText.length() != 0))
+//		{
 //			m_Doc->chAbStyle(this, findParagraphStyle(m_Doc, itemText.paragraphStyle(qMax(itemText.cursorPosition()-1,0))));
 //			Tinput = false;
-		}
+//		}
 		m_Doc->scMW()->setTBvals(this);
+		doc()->changed();
 //		view->RefreshItem(this);
 		break;
 	case Qt::Key_Backspace:
@@ -3826,6 +3847,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 		}
 		m_Doc->scMW()->setTBvals(this);
 		update();
+		doc()->changed();
 //		view->RefreshItem(this);
 		break;
 	default:
@@ -3938,11 +3960,11 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 			updateLayout();
 			if (oldLast != lastInFrame() && NextBox != 0 && NextBox->invalid)
 				NextBox->updateLayout();
+			doc()->changed();
 		}
 		//check if cursor need to jump to next linked frame
 		if ((itemText.cursorPosition() > lastInFrame() + 1) && (lastInFrame() < (itemText.length() - 2)) && NextBox != 0)
 		{
-			view->Deselect(true);
 			view->Deselect(true);
 			NextBox->update();
 			m_Doc->scMW()->selectItemsFromOutlines(NextBox);
@@ -3952,10 +3974,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 // 	update();
 //	view->slotDoCurs(true);
 	if ((kk == Qt::Key_Left) || (kk == Qt::Key_Right) || (kk == Qt::Key_Up) || (kk == Qt::Key_Down))
-	{
 		keyRepeat = false;
-		return;
-	}
 }
 
 void PageItem_TextFrame::deleteSelectedTextFromFrame()

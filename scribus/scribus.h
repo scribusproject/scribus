@@ -478,6 +478,7 @@ public slots:
 	void ToggleGuides();
 	void ToggleBase();
 	void ToggleUGuides();
+	void ToggleUElements();
 	void EditTabs();
 	void SearchText();
 	void imageEditorExited(int, QProcess::ExitStatus);

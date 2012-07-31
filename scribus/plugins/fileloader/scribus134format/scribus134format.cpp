@@ -1018,13 +1018,13 @@ void Scribus134Format::readToolSettings(ScribusDoc* doc, ScXmlStreamAttributes& 
 	doc->itemToolPrefs().shapeFillColorShade      = attrs.valueAsInt("BRUSHSHADE", 100);
 	doc->opToolPrefs().magMin      = attrs.valueAsInt("MAGMIN", 1);
 	doc->opToolPrefs().magMax      = attrs.valueAsInt("MAGMAX", 3200);
-	doc->opToolPrefs().magStep     = attrs.valueAsInt("MAGSTEP", 200);
+	doc->opToolPrefs().magStep     = attrs.valueAsInt("MAGSTEP", 125);
 	doc->opToolPrefs().dispX       = attrs.valueAsDouble("dispX", 10.0);
 	doc->opToolPrefs().dispY       = attrs.valueAsDouble("dispY", 10.0);
 	doc->opToolPrefs().constrain   = attrs.valueAsDouble("constrain", 15.0);
 	//CB Reset doc zoom step value to 200% instead of old values.
 	if (doc->opToolPrefs().magStep <= 100)
-		doc->opToolPrefs().magStep = 200;
+		doc->opToolPrefs().magStep = 125;
 	doc->itemToolPrefs().textTabFillChar = attrs.valueAsString("TabFill","");
 	doc->itemToolPrefs().textTabWidth   = attrs.valueAsDouble("TabWidth", 36.0);
 	if (attrs.hasAttribute("CPICT"))

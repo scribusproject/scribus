@@ -943,6 +943,7 @@ void Canvas::paintEvent ( QPaintEvent * p )
 #endif
 	// does mode specific rendering, currently selection in legacymode and nodes in nodeedit
 	m_view->m_canvasMode->drawControls(&qp);
+	m_view->m_canvasMode->drawSnapLine(&qp);
 	QPainter tp(this);
 	tp.drawPixmap(p->rect(), tmpImg, tmpImg.rect());
 #ifdef SHOW_ME_WHAT_YOU_GET_IN_D_CANVA

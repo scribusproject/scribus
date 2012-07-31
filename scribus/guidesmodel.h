@@ -49,7 +49,7 @@ class GuidesModel : public QAbstractTableModel
 		//! \brief Get values back to the app.
 		Guides values();
 
-		void unitChange(int docUnitIndex, int docUnitDecimals);
+		void unitChange(int docUnitIndex, int docUnitDecimals, double offset);
 #if 0
 		//! debug only
 		void printValues();
@@ -64,6 +64,7 @@ class GuidesModel : public QAbstractTableModel
 		Guides m_values;
 		int m_docUnitIndex;
 		int m_docUnitDecimals;
+		double rule;
 };
 
 #endif

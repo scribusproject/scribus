@@ -218,6 +218,7 @@ void LineMove::adjustBounds(QMouseEvent *m, bool updateCanvas)
 	double nx = np2.x();
 	double ny = np2.y();
 	m_doc->ApplyGuides(&nx, &ny);
+	m_doc->ApplyGuides(&nx, &ny,true);
 	newX = nx;
 	newY = ny;
 	//>>#8099

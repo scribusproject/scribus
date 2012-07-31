@@ -299,6 +299,7 @@ void CreateMode::mouseMoveEvent(QMouseEvent *m)
 				double nx = np2.x();
 				double ny = np2.y();
 				m_doc->ApplyGuides(&nx, &ny);
+				m_doc->ApplyGuides(&nx, &ny,true);
 				// #8959 : suppress qRound here as this prevent drawing line with angle constrain
 				// precisely and does not allow to stick precisely to grid or guides
 				newX = /*qRound(*/nx/*)*/;
@@ -359,6 +360,7 @@ void CreateMode::mousePressEvent(QMouseEvent *m)
 
 	canvasCurrCoord = canvasPressCoord;
 	m_doc->ApplyGuides(&Rxp, &Ryp);
+	m_doc->ApplyGuides(&Rxp, &Ryp,true);
 	createObjectPos.setXY(Rxp, Ryp);
 
 	if (m->button() == Qt::MidButton)
@@ -667,6 +669,7 @@ PageItem* CreateMode::doCreateNewObject(void)
 		Rxp = createObjectPos.x();
 		Ryp = createObjectPos.y();
 		m_doc->ApplyGuides(&Rxp, &Ryp);
+		m_doc->ApplyGuides(&Rxp, &Ryp,true);
 		rot = xy2Deg(Rxpd, Rypd);
 		if (rot < 0.0) 
 			rot += 360;
@@ -934,14 +937,16 @@ FRect CreateMode::adjustedRect(FPoint &firstPoint, FPoint &secondPoint)
 	FPoint first = m_doc->ApplyGridF(firstPoint);
 	FPoint second = m_doc->ApplyGridF(secondPoint);
 
-	// Lock to guides.
+	// Lock to guides and items.
 	double firstX = first.x();
 	double firstY = first.y();
 	m_doc->ApplyGuides(&firstX, &firstY);
+	m_doc->ApplyGuides(&firstX, &firstY,true);
 
 	double secondX = second.x();
 	double secondY = second.y();
 	m_doc->ApplyGuides(&secondX, &secondY);
+	m_doc->ApplyGuides(&secondX, &secondY,true);
 
 	// Return normalized rectangle.
 	FRect rect(firstX, firstY, secondX - firstX, secondY - firstY);

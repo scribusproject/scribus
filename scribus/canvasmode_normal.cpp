@@ -83,6 +83,8 @@ CanvasMode_Normal::CanvasMode_Normal(ScribusView* view) : CanvasMode(view), m_Sc
 	m_mouseCurrentPoint.setXY(0, 0);
 	m_mouseSavedPoint.setXY(0, 0);
 	m_objectDeltaPos.setXY(0,0 );
+	ySnap = 0;
+	xSnap = 0;
 }
 
 inline bool CanvasMode_Normal::GetItem(PageItem** pi)
@@ -95,13 +97,9 @@ void CanvasMode_Normal::drawControls(QPainter* p)
 {
 //	qDebug() << "CanvasMode_Normal::drawControls";
 	if (m_canvas->m_viewMode.operItemMoving)
-	{
 		drawOutline(p, 1.0, 1.0, m_objectDeltaPos.x(), m_objectDeltaPos.y());
-	}
 	else
-	{
 		drawSelection(p, true);
-	}
 }
 
 void CanvasMode_Normal::enterEvent(QEvent *)
@@ -433,7 +431,6 @@ void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 			if (!m_canvas->m_viewMode.operItemResizing)
 			{
 				//Dragging an item (plus more?)
-				QRectF newPlace;
 				newX = mousePointDoc.x(); //static_cast<int>(m->x()/sc);
 				newY = mousePointDoc.y(); //static_cast<int>(m->y()/sc);
 				m_canvas->m_viewMode.operItemMoving = true;
@@ -466,7 +463,6 @@ void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 						}
 						double gx, gy, gh, gw;
 						m_objectDeltaPos.setXY(dX, dY);
-						m_doc->m_Selection->setGroupRect();
 						m_doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
 						// #10677 : temporary hack : we need to introduce the
 						// concept of item snapping points to handle better
@@ -491,6 +487,37 @@ void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 							ny = nyo = gy + gh + m_objectDeltaPos.y();
 							m_doc->ApplyGuides(&nx, &ny);
 							m_objectDeltaPos += FPoint(nx-nxo, ny-nyo);
+							if(false)
+							{
+								nx = nxo = gx + gw/2 + m_objectDeltaPos.x();
+								ny = nyo = gy + gh/2 + m_objectDeltaPos.y();
+								m_doc->ApplyGuides(&nx, &ny);
+								m_objectDeltaPos += FPoint(nx-nxo, ny-nyo);
+							}
+						}
+						if (m_doc->SnapElement)
+						{
+							xSnap = 0;
+							ySnap = 0;
+							double snapWidth[] = {0,gw,gw/2};
+							double snapHeight[] = {0,gh,gh/2};
+							if(m_objectDeltaPos.x()<0)
+								std::swap(snapWidth[0],snapWidth[2]);
+							if(m_objectDeltaPos.y()<0)
+								std::swap(snapHeight[0],snapHeight[2]);
+							double nx,ny,nyo,nxo;
+							for(int i = 0;i<3;i++)
+							{
+								nx = gx + snapWidth[i] + m_objectDeltaPos.x();
+								ny = gy + snapHeight[i] + m_objectDeltaPos.y();
+								nxo = nx, nyo = ny;
+								m_doc->ApplyGuides(&nx, &ny,true);
+								m_objectDeltaPos += FPoint(nx - nxo, ny - nyo);
+								if(ny != nyo)
+									ySnap = ny * m_canvas->scale();
+								if(nx != nxo)
+									xSnap = nx * m_canvas->scale();
+							}
 						}
 						if (m_doc->useRaster)
 						{
@@ -537,16 +564,46 @@ void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 					m_objectDeltaPos.setXY(dX, dY);
 					if (m_doc->SnapGuides)
 					{
-						m_doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
 						double nx = gx + m_objectDeltaPos.x();
 						double ny = gy + m_objectDeltaPos.y();
 						double nxo = nx, nyo = ny;
 						m_doc->ApplyGuides(&nx, &ny);
-						m_objectDeltaPos += FPoint(nx-nxo, ny-nyo);
+						m_objectDeltaPos += FPoint(nx - nxo, ny - nyo);
 						nx = nxo = gx + gw + m_objectDeltaPos.x();
 						ny = nyo = gy + gh + m_objectDeltaPos.y();
 						m_doc->ApplyGuides(&nx, &ny);
 						m_objectDeltaPos += FPoint(nx-nxo, ny-nyo);
+						if(false)
+						{
+							nx = nxo = gx + gw/2 + m_objectDeltaPos.x();
+							ny = nyo = gy + gh/2 + m_objectDeltaPos.y();
+							m_doc->ApplyGuides(&nx, &ny);
+							m_objectDeltaPos += FPoint(nx-nxo, ny-nyo);
+						}
+					}
+					if (m_doc->SnapElement)
+					{
+						xSnap = 0;
+						ySnap = 0;
+						double snapWidth[] = {0,gw,gw/2};
+						double snapHeight[] = {0,gh,gh/2};
+						if(m_objectDeltaPos.x()<0)
+							std::swap(snapWidth[0],snapWidth[2]);
+						if(m_objectDeltaPos.y()<0)
+							std::swap(snapHeight[0],snapHeight[2]);
+						double nx,ny,nyo,nxo;
+						for(int i = 0;i<3;i++)
+						{
+							nx = gx + snapWidth[i] + m_objectDeltaPos.x();
+							ny = gy + snapHeight[i] + m_objectDeltaPos.y();
+							nxo = nx, nyo = ny;
+							m_doc->ApplyGuides(&nx, &ny,true);
+							m_objectDeltaPos += FPoint(nx - nxo, ny - nyo);
+							if(ny != nyo)
+								ySnap = ny * m_canvas->scale();
+							if(nx != nxo)
+								xSnap = nx * m_canvas->scale();
+						}
 					}
 					if (m_doc->useRaster)
 					{
@@ -920,7 +977,7 @@ void CanvasMode_Normal::mouseReleaseEvent(QMouseEvent *m)
 				m_doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
 				double nx = gx;
 				double ny = gy;
-				if (!m_doc->ApplyGuides(&nx, &ny))
+				if (!m_doc->ApplyGuides(&nx, &ny) && !m_doc->ApplyGuides(&nx, &ny,true))
 				{
 					FPoint npx = m_doc->ApplyGridF(FPoint(gx, gy));
 					FPoint npw = m_doc->ApplyGridF(FPoint(gx+gw, gy+gh));
@@ -938,7 +995,7 @@ void CanvasMode_Normal::mouseReleaseEvent(QMouseEvent *m)
 				m_doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
 				nx = gx+gw;
 				ny = gy+gh;
-				if (m_doc->ApplyGuides(&nx, &ny))
+				if (m_doc->ApplyGuides(&nx, &ny) && !m_doc->ApplyGuides(&nx, &ny,true))
 					m_doc->moveGroup(nx-(gx+gw), ny-(gy+gh), false);
 				m_doc->m_Selection->setGroupRect();
 			}
@@ -950,7 +1007,7 @@ void CanvasMode_Normal::mouseReleaseEvent(QMouseEvent *m)
 				{
 					double nx = currItem->xPos();
 					double ny = currItem->yPos();
-					if (!m_doc->ApplyGuides(&nx, &ny))
+					if (!m_doc->ApplyGuides(&nx, &ny) && !m_doc->ApplyGuides(&nx, &ny,true))
 					{
 						m_doc->m_Selection->setGroupRect();
 						double gx, gy, gh, gw, gxo, gyo;
@@ -1090,6 +1147,7 @@ void CanvasMode_Normal::mouseReleaseEvent(QMouseEvent *m)
 	}
 	else
 		m_view->Deselect(true);
+	xSnap = ySnap = 0;
 	m_canvas->setRenderModeUseBuffer(false);
 	m_doc->DragP = false;
 	m_doc->leaveDrag = false;
@@ -1381,6 +1439,8 @@ void CanvasMode_Normal::importToPage()
 		QFileInfo fi(fileName);
 		bool savedAlignGrid = m_doc->useRaster;
 		bool savedAlignGuides = m_doc->SnapGuides;
+		bool savedAlignElement = m_doc->SnapElement;
+		m_doc->SnapElement = false;
 		m_doc->useRaster = false;
 		m_doc->SnapGuides = false;
 		if (fi.suffix().toLower() == "sce")
@@ -1415,6 +1475,7 @@ void CanvasMode_Normal::importToPage()
 		}
 		m_doc->useRaster = savedAlignGrid;
 		m_doc->SnapGuides = savedAlignGuides;
+		m_doc->SnapElement = savedAlignElement;
 		m_doc->setLoading(false);
 		m_doc->view()->DrawNew();
 		if (m_doc->m_Selection->count() > 0)

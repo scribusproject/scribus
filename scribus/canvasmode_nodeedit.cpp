@@ -428,7 +428,7 @@ void CanvasMode_NodeEdit::mouseReleaseEvent(QMouseEvent *m)
 			FPoint npf;
 			double nx = newP.x();
 			double ny = newP.y();
-			if (!m_doc->ApplyGuides(&nx, &ny))
+			if (!m_doc->ApplyGuides(&nx, &ny) && !m_doc->ApplyGuides(&nx, &ny,true))
 				npf = m_doc->ApplyGridF(FPoint(nx, ny));
 			else
 				npf = FPoint(nx, ny);
@@ -1118,7 +1118,7 @@ void CanvasMode_NodeEdit::handleNodeEditDrag(QMouseEvent* m, PageItem* currItem)
 				npf = m_canvas->globalToCanvas(m->globalPos());
 				double nx = npf.x();
 				double ny = npf.y();
-				if (!m_doc->ApplyGuides(&nx, &ny))
+				if (!m_doc->ApplyGuides(&nx, &ny) && !m_doc->ApplyGuides(&nx, &ny,true))
 					npf = m_doc->ApplyGridF(FPoint(nx, ny));
 				else
 					npf = FPoint(nx, ny);
@@ -1219,7 +1219,7 @@ void CanvasMode_NodeEdit::handleNodeEditDrag(QMouseEvent* m, PageItem* currItem)
 			npf = m_canvas->globalToCanvas(m->globalPos());
 			double nx = npf.x();
 			double ny = npf.y();
-			if (!m_doc->ApplyGuides(&nx, &ny))
+			if (!m_doc->ApplyGuides(&nx, &ny) && !m_doc->ApplyGuides(&nx, &ny,true))
 				npf = m_doc->ApplyGridF(FPoint(nx, ny));
 			else
 				npf = FPoint(nx, ny);

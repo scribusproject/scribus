@@ -49,7 +49,7 @@ QVariant GuidesModel::data(const QModelIndex & index, int role) const
 	{
 		QLocale l;
 		return QVariant(l.toString(pts2value(m_values.at(index.row()),
-											  m_docUnitIndex), 'f',
+											  m_docUnitIndex) - rule, 'f',
 											  m_docUnitDecimals)
 						);
 	}
@@ -69,7 +69,7 @@ bool GuidesModel::setData(const QModelIndex & index, const QVariant & value, int
 	double newVal = value.toDouble(&ok);
 	if (!ok)
 		return false;
-	m_values[index.row()] = value2pts(newVal, m_docUnitIndex);
+	m_values[index.row()] = value2pts(newVal, m_docUnitIndex) + rule;
 	qSort(m_values);
 	emit dataChanged(index, index);
 	emit valueChanged();
@@ -138,8 +138,9 @@ Guides GuidesModel::values()
 	return m_values;
 }
 
-void GuidesModel::unitChange(int docUnitIndex, int docUnitDecimals)
+void GuidesModel::unitChange(int docUnitIndex, int docUnitDecimals,double offset)
 {
+	rule = offset;
 	m_docUnitIndex = docUnitIndex;
 	m_docUnitDecimals = docUnitDecimals;
 	reset();
