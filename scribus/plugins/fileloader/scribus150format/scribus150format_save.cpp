@@ -2143,8 +2143,6 @@ void Scribus150Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 		//write weld parameter
 		if (item->isWelded())
 		{
-			docu.writeAttribute("isWeldItem", 1);
-			docu.writeAttribute("WeldSource", qHash(item));
 			for (int i = 0 ; i <  item->weldList.count(); i++)
 			{
 				PageItem::weldingInfo wInf = item->weldList.at(i);
@@ -2203,6 +2201,12 @@ void Scribus150Format::SetItemProps(ScXmlStreamWriter& docu, PageItem* item, con
 			docu.writeAttribute("PLINEEND", item->PLineEnd);
 		if (item->PLineJoin != 0)
 			docu.writeAttribute("PLINEJOIN", item->PLineJoin);
+	}
+	//write weld parameter
+	if (item->isWelded())
+	{
+		docu.writeAttribute("isWeldItem", 1);
+		docu.writeAttribute("WeldSource", qHash(item));
 	}
 	if (item->asRegularPolygon())
 	{
