@@ -251,23 +251,26 @@ void CanvasMode_EditPolygon::applyValues(int polyC, double polyF, bool polyUseCF
 	polyCurvature = polyCur;
 	polyInnerRot = polyIRot;
 	polyOuterCurvature = polyOCur;
-	SimpleState *ss = new SimpleState(Um::EditPolygon,"",Um::IPolygon);
-	ss->set("POLYGON","polygon");
-	ss->set("NEW_CORNER",polyC);
-	ss->set("NEW_USEFACTOR",polyUseCF);
-	ss->set("NEW_FACTOR",polyFactor);
-	ss->set("NEW_ROTATION",polyRotation);
-	ss->set("NEW_CURV",polyCurvature);
-	ss->set("NEW_INNER",polyInnerRot);
-	ss->set("NEW_OUTER",polyOuterCurvature);
-	ss->set("OLD_CORNER",item->polyCorners);
-	ss->set("OLD_USEFACTOR",item->polyUseFactor);
-	ss->set("OLD_FACTOR",item->polyFactor);
-	ss->set("OLD_ROTATION",item->polyRotation);
-	ss->set("OLD_CURV",item->polyCurvature);
-	ss->set("OLD_INNER",item->polyInnerRot);
-	ss->set("OLD_OUTER",item->polyOuterCurvature);
-	undoManager->action(currItem,ss);
+	if(UndoManager::undoEnabled())
+	{
+		SimpleState *ss = new SimpleState(Um::EditPolygon,"",Um::IPolygon);
+		ss->set("POLYGON","polygon");
+		ss->set("NEW_CORNER",polyC);
+		ss->set("NEW_USEFACTOR",polyUseCF);
+		ss->set("NEW_FACTOR",polyFactor);
+		ss->set("NEW_ROTATION",polyRotation);
+		ss->set("NEW_CURV",polyCurvature);
+		ss->set("NEW_INNER",polyInnerRot);
+		ss->set("NEW_OUTER",polyOuterCurvature);
+		ss->set("OLD_CORNER",item->polyCorners);
+		ss->set("OLD_USEFACTOR",item->polyUseFactor);
+		ss->set("OLD_FACTOR",item->polyFactor);
+		ss->set("OLD_ROTATION",item->polyRotation);
+		ss->set("OLD_CURV",item->polyCurvature);
+		ss->set("OLD_INNER",item->polyInnerRot);
+		ss->set("OLD_OUTER",item->polyOuterCurvature);
+		undoManager->action(currItem,ss);
+	}
 	item->polyCorners = polyC;
 	item->polyUseFactor = polyUseCF;
 	item->polyFactor = polyFactor;
@@ -453,7 +456,7 @@ void CanvasMode_EditPolygon::mousePressEvent(QMouseEvent *m)
 	}
 	else
 		m_polygonPoint = noPointDefined;
-	if(m_polygonPoint != noPointDefined)
+	if(m_polygonPoint != noPointDefined && UndoManager::undoEnabled())
 		trans = new UndoTransaction(undoManager->beginTransaction(Um::Polygon,Um::IPolygon,Um::EditPolygon,"",Um::IPolygon));
 	qApp->changeOverrideCursor(QCursor(Qt::CrossCursor));
 	QPainterPath path = itemMatrix.map(RegularPolygonPath(currItem->width(), currItem->height(), polyCorners, polyUseFactor, polyFactor, polyRotation, polyCurvature, polyInnerRot, polyOuterCurvature));

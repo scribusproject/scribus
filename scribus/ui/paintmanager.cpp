@@ -1283,7 +1283,6 @@ void PaintManagerDialog::loadVectors(QString data)
 {
 	m_doc->PageColors = m_colorList;
 	m_doc->docGradients = dialogGradients;
-	bool wasUndo = UndoManager::undoEnabled();
 	UndoManager::instance()->setUndoEnabled(false);
 	m_doc->setLoading(true);
 	QFileInfo fi(data);
@@ -1387,7 +1386,7 @@ void PaintManagerDialog::loadVectors(QString data)
 	m_doc->setLoading(false);
 	m_colorList = m_doc->PageColors;
 	dialogGradients = m_doc->docGradients;
-	UndoManager::instance()->setUndoEnabled(wasUndo);
+	UndoManager::instance()->setUndoEnabled(true);
 }
 
 ColorList PaintManagerDialog::getGradientColors()

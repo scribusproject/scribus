@@ -518,7 +518,9 @@ void GuideManager::clearRestoreVerticalList()
 
 void GuideManager::deletePageButton_clicked()
 {
-	UndoTransaction trans(UndoManager::instance()->beginTransaction(currentPage->getUName(),
+	UndoTransaction *trans = NULL;
+	if(UndoManager::undoEnabled())
+		trans = new UndoTransaction(UndoManager::instance()->beginTransaction(currentPage->getUName(),
 																currentPage->getUPixmap(),
 																Um::RemoveAllPageGuides, "",
 																Um::IGuides));
@@ -537,7 +539,12 @@ void GuideManager::deletePageButton_clicked()
 	currentPage->guides.setVerticalAutoRefer(0);
 	horizontalAutoCountSpin->setValue(0);
 	verticalAutoCountSpin->setValue(0);
-	trans.commit();
+	if(trans)
+	{
+		trans->commit();
+		delete trans;
+		trans = NULL;
+	}
 
 	drawGuides();
 	m_Doc->changed();
@@ -545,7 +552,9 @@ void GuideManager::deletePageButton_clicked()
 
 void GuideManager::deleteAllGuides_clicked()
 {
-	UndoTransaction trans(UndoManager::instance()->beginTransaction(m_Doc->getUName(),
+	UndoTransaction *trans = NULL;
+	if(UndoManager::undoEnabled())
+		trans = new UndoTransaction(UndoManager::instance()->beginTransaction(m_Doc->getUName(),
 																m_Doc->getUPixmap(),
 																Um::RemoveAllGuides, "",
 																Um::IGuides));
@@ -554,7 +563,12 @@ void GuideManager::deleteAllGuides_clicked()
 	copyGuidesToAllPages(GuideManagerCore::Standard);
 	copyGuidesToAllPages(GuideManagerCore::Auto);
 	m_drawGuides = true;
-	trans.commit();
+	if(trans)
+	{
+		trans->commit();
+		delete trans;
+		trans = NULL;
+	}
 	drawGuides();
 	m_Doc->changed();
 }

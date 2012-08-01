@@ -168,20 +168,14 @@ bool ImportSmlPlugin::import(QString fileName, int flags)
 
 QImage ImportSmlPlugin::readThumbnail(const QString& fileName)
 {
-	bool wasUndo = false;
 	if( fileName.isEmpty() )
 		return QImage();
-	if (UndoManager::undoEnabled())
-	{
-		UndoManager::instance()->setUndoEnabled(false);
-		wasUndo = true;
-	}
+	UndoManager::instance()->setUndoEnabled(false);
 	m_Doc = NULL;
 	SmlPlug *dia = new SmlPlug(m_Doc, lfCreateThumbnail);
 	Q_CHECK_PTR(dia);
 	QImage ret = dia->readThumbnail(fileName);
-	if (wasUndo)
-		UndoManager::instance()->setUndoEnabled(true);
+	UndoManager::instance()->setUndoEnabled(true);
 	delete dia;
 	return ret;
 }

@@ -120,7 +120,7 @@ void Prefs_Spelling::updateDictList()
 	{
 		 i.next();
 		 int column=0;
-		 //qDebug()<<i.key()<<i.value();
+		 qDebug()<<i.key()<<i.value();
 		 QTableWidgetItem *newItem1 = new QTableWidgetItem(LanguageManager::instance()->getLangFromAbbrev(i.key()));
 		 newItem1->setFlags(newItem1->flags() & ~Qt::ItemIsEditable);
 		 dictTableWidget->setItem(row, column++, newItem1);

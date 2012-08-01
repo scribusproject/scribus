@@ -67,7 +67,7 @@ PathFinderPlugin::PathFinderPlugin() : ScActionPlugin()
 	languageChange();
 }
 
-PathFinderPlugin::~PathFinderPlugin() {};
+PathFinderPlugin::~PathFinderPlugin() {}
 
 void PathFinderPlugin::languageChange()
 {

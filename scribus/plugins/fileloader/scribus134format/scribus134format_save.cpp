@@ -207,9 +207,6 @@ bool Scribus134Format::saveFile(const QString & fileName, const FileFormat & /* 
 	docu.writeAttribute("PENSHADE",m_Doc->itemToolPrefs().shapeLineColorShade);
 	docu.writeAttribute("LINESHADE",m_Doc->itemToolPrefs().lineColorShade);
 	docu.writeAttribute("BRUSHSHADE",m_Doc->itemToolPrefs().shapeFillColorShade);
-	docu.writeAttribute("MAGMIN",m_Doc->opToolPrefs().magMin);
-	docu.writeAttribute("MAGMAX",m_Doc->opToolPrefs().magMax);
-	docu.writeAttribute("MAGSTEP",m_Doc->opToolPrefs().magStep);
 	docu.writeAttribute("CPICT",m_Doc->itemToolPrefs().imageFillColor);
 	docu.writeAttribute("PICTSHADE",m_Doc->itemToolPrefs().imageFillColorShade);
 	docu.writeAttribute("PICTSCX",m_Doc->itemToolPrefs().imageScaleX);

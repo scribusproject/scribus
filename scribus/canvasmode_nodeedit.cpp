@@ -459,10 +459,7 @@ void CanvasMode_NodeEdit::mouseReleaseEvent(QMouseEvent *m)
 			}
 			m_doc->nodeEdit.moveClipPoint(currItem, npf);
 		}
-
-		undoManager->setUndoEnabled(false);
 		m_doc->AdjustItemSize(currItem, true, true);
-		undoManager->setUndoEnabled(true);
 		if (!m_doc->nodeEdit.isContourLine)
 			currItem->ContourLine.translate(xposOrig - currItem->xPos(), yposOrig - currItem->yPos());
 		m_doc->regionsChanged()->update(QRectF());

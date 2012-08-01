@@ -932,7 +932,7 @@ void CanvasMode_EditGradient::mouseReleaseEvent(QMouseEvent *m)
 	m_canvas->resetRenderMode();
 	m->accept();
 	PageItem* currItem = m_doc->m_Selection->itemAt(0);
-	if(m_gradientPoint != noPointDefined){
+	if(m_gradientPoint != noPointDefined && UndoManager::undoEnabled()){
 		QList<FPoint> tmp;
 		ScItemState<QList<FPoint> > *is = new ScItemState<QList<FPoint> >(Um::GradPos + "i");
 		is->set("GRAD_POS","grad_pos");

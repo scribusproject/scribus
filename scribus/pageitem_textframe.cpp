@@ -3461,7 +3461,9 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 			unicodeInputString = "";
 			if (ok)
 			{
-				UndoTransaction trans(undoManager->beginTransaction(Um::Selection,Um::ITextFrame,Um::InsertText,"",Um::IDelete));
+				UndoTransaction *trans = NULL;
+				if(UndoManager::undoEnabled())
+					trans = new UndoTransaction(undoManager->beginTransaction(Um::Selection,Um::ITextFrame,Um::InsertText,"",Um::IDelete));
 				if (itemText.lengthOfSelection() > 0)
 					deleteSelectedTextFromFrame();
 				if (conv < 31)
@@ -3481,7 +3483,12 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 					}
 				}
 				itemText.insertChars(QString(QChar(conv)), true);
-				trans.commit();
+				if(trans)
+				{
+					trans->commit();
+					delete trans;
+					trans = NULL;
+				}
 //				Tinput = true;
 				m_Doc->scMW()->setTBvals(this);
 				update();

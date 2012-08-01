@@ -258,7 +258,7 @@ void PrefsManager::initDefaults()
 	appPrefs.itemToolPrefs.lineEndArrow = 0;
 	appPrefs.opToolPrefs.magMin = 1;
 	appPrefs.opToolPrefs.magMax = 3200;
-	appPrefs.opToolPrefs.magStep = 125;
+	appPrefs.opToolPrefs.magStep = 25;
 	appPrefs.docSetupPrefs.docUnitIndex = 0;
 	appPrefs.itemToolPrefs.polyCorners = 4;
 	appPrefs.itemToolPrefs.polyFactor = 0.5;
@@ -1702,7 +1702,15 @@ bool PrefsManager::WritePref(QString ho)
 			continue;
 		QDomElement kscc=docu.createElement("Shortcut");
 		kscc.setAttribute("Action",ksc.value().actionName);
-		kscc.setAttribute("KeySequence",Prefs_KeyboardShortcuts::getKeyText(ksc.value().keySequence));
+		QString ks(Prefs_KeyboardShortcuts::getKeyText(ksc.value().keySequence));
+#ifdef Q_OS_MAC
+		ks.replace("Ctrl","Meta");
+		ks.replace("Cmd","Ctrl");
+#endif
+#ifdef Q_OS_WIN32
+		ks.replace("Windows","Meta");
+#endif
+		kscc.setAttribute("KeySequence",ks);
 		elem.appendChild(kscc);
 	}
 	QDomElement cosd=docu.createElement("DefaultColorSet");
@@ -2146,10 +2154,9 @@ bool PrefsManager::ReadPref(QString ho)
 		{
 			appPrefs.opToolPrefs.magMin  = dc.attribute("MinimumMagnification", "1").toInt();
 			appPrefs.opToolPrefs.magMax  = dc.attribute("MaximumMagnification", "3200").toInt();
-			appPrefs.opToolPrefs.magStep = dc.attribute("MagnificationStep", "125").toInt();
-			//CB Reset prefs zoom step value to 200% instead of old values.
-			if (appPrefs.opToolPrefs.magStep <= 100)
-				appPrefs.opToolPrefs.magStep = 125;
+			appPrefs.opToolPrefs.magStep = dc.attribute("MagnificationStep", "25").toInt();
+			if (appPrefs.opToolPrefs.magStep < 0)
+				appPrefs.opToolPrefs.magStep = 25;
 			appPrefs.opToolPrefs.dispX = ScCLocale::toDoubleC(dc.attribute("DisplayOffsetX"), 10.0);
 			appPrefs.opToolPrefs.dispY = ScCLocale::toDoubleC(dc.attribute("DisplayOffsetY"), 10.0);
 			appPrefs.opToolPrefs.constrain = ScCLocale::toDoubleC(dc.attribute("RotationConstrainAngle"), 15.0);

@@ -48,13 +48,13 @@ QVariant GuidesModel::data(const QModelIndex & index, int role) const
 	if (role == Qt::DisplayRole)
 	{
 		QLocale l;
-		return QVariant(l.toString(pts2value(m_values.at(index.row()),
-											  m_docUnitIndex) - rule, 'f',
+		return QVariant(l.toString(pts2value(m_values.at(index.row()) - rule,
+											  m_docUnitIndex), 'f',
 											  m_docUnitDecimals)
 						);
 	}
 	if (role == Qt::EditRole)
-		return pts2value(m_values.at(index.row()), m_docUnitIndex);
+		return pts2value(m_values.at(index.row()) - rule, m_docUnitIndex);
 
 	if (role == Qt::BackgroundColorRole && m_values.at(index.row()) == 0.0)
 		return QVariant(Qt::red);

@@ -3444,7 +3444,9 @@ void ScribusMainWindow::doPasteRecent(QString data)
 		}
 		else
 		{
-			UndoTransaction pasteAction(undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::Create,"",Um::ICreate));
+			UndoTransaction *pasteAction = NULL;
+			if(UndoManager::undoEnabled())
+				pasteAction = new UndoTransaction(undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::Create,"",Um::ICreate));
 			view->Deselect(true);
 			uint ac = doc->Items->count();
 			bool savedAlignGrid = doc->useRaster;
@@ -3471,7 +3473,12 @@ void ScribusMainWindow::doPasteRecent(QString data)
 					AddBookMark(currItem);
 			}
 			doc->m_Selection->copy(tmpSelection, false);
-			pasteAction.commit();
+			if(pasteAction)
+			{
+				pasteAction->commit();
+				delete pasteAction;
+				pasteAction = NULL;
+			}
 		}
 		slotDocCh(false);
 		doc->regionsChanged()->update(QRectF());
@@ -6211,6 +6218,12 @@ void ScribusMainWindow::ToggleUElements()
 	}
 }
 
+void ScribusMainWindow::SetSnapElements(bool b)
+{
+	if(doc && doc->SnapElement != b)
+		ToggleUElements();
+}
+
 
 void ScribusMainWindow::toggleNodeEdit()
 {
@@ -6484,7 +6497,7 @@ void ScribusMainWindow::setAppMode(int mode)
 			ToggleFrameEdit();
 
 		//Ugly hack but I have absolutly no idea about how to do this in another way
-		if(currItem && oldMode != mode && (mode == modeEditMeshPatch || mode == modeEditMeshGradient || mode == modeEditGradientVectors || oldMode == modeEditMeshPatch || oldMode == modeEditMeshGradient || oldMode == modeEditGradientVectors || oldMode == modeEditPolygon || mode == modeEditPolygon || oldMode == modeEditArc || mode == modeEditArc || oldMode == modeEditSpiral || mode == modeEditSpiral))
+		if(UndoManager::undoEnabled() && currItem && oldMode != mode && (mode == modeEditMeshPatch || mode == modeEditMeshGradient || mode == modeEditGradientVectors || oldMode == modeEditMeshPatch || oldMode == modeEditMeshGradient || oldMode == modeEditGradientVectors || oldMode == modeEditPolygon || mode == modeEditPolygon || oldMode == modeEditArc || mode == modeEditArc || oldMode == modeEditSpiral || mode == modeEditSpiral))
 		{
 			SimpleState *ss = new SimpleState(Um::Mode);
 			ss->set("CHANGE_MODE","change_mode");
@@ -7507,14 +7520,21 @@ void ScribusMainWindow::duplicateItem()
 	doc->SnapElement = false;
 	slotEditCopy();
 	view->Deselect(true);
-	UndoTransaction trans(undoManager->beginTransaction(Um::Selection,Um::IPolygon,Um::Duplicate,"",Um::IMultipleDuplicate));
+	UndoTransaction *trans = NULL;
+	if(UndoManager::undoEnabled())
+		trans = new UndoTransaction(undoManager->beginTransaction(Um::Selection,Um::IPolygon,Um::Duplicate,"",Um::IMultipleDuplicate));
 	slotEditPaste();
 	for (int b=0; b<doc->m_Selection->count(); ++b)
 	{
 		doc->m_Selection->itemAt(b)->setLocked(false);
 		doc->MoveItem(doc->opToolPrefs().dispX, doc->opToolPrefs().dispY, doc->m_Selection->itemAt(b));
 	}
-	trans.commit();
+	if(trans)
+	{
+		trans->commit();
+		delete trans;
+		trans = NULL;
+	}
 	doc->useRaster = savedAlignGrid;
 	doc->SnapGuides = savedAlignGuides;
 	doc->SnapElement = savedAlignElement;
@@ -9973,14 +9993,21 @@ void ScribusMainWindow::slotItemTransform()
 		TransformDialog td(this, doc);
 		if (td.exec())
 		{
-			UndoTransaction trans(undoManager->beginTransaction(Um::Selection,Um::IPolygon,Um::Transform,"",Um::IMove));
+			UndoTransaction *trans = NULL;
+			if(UndoManager::undoEnabled())
+				trans = new UndoTransaction(undoManager->beginTransaction(Um::Selection,Um::IPolygon,Um::Transform,"",Um::IMove));
 			qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
 			int count=td.getCount();
 			QTransform matrix(td.getTransformMatrix());
 			int basepoint=td.getBasepoint();
 			doc->itemSelection_Transform(count, matrix, basepoint);
 			qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
-			trans.commit();
+			if(trans)
+			{
+				trans->commit();
+				delete trans;
+				trans = NULL;
+			}
 		}
 	}
 }

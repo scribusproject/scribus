@@ -56,7 +56,7 @@ PathConnectPlugin::PathConnectPlugin() : ScActionPlugin()
 	languageChange();
 }
 
-PathConnectPlugin::~PathConnectPlugin() {};
+PathConnectPlugin::~PathConnectPlugin() {}
 
 void PathConnectPlugin::languageChange()
 {
@@ -131,11 +131,10 @@ bool PathConnectPlugin::run(ScribusDoc* doc, QString)
 			int pointOne = dia->getFirstLinePoint();
 			int pointTwo = dia->getSecondLinePoint();
 			int mode = dia->getMode();
-			UndoTransaction trans(UndoManager::instance()->beginTransaction(Um::BezierCurve,Um::ILine,Um::ConnectPath,"",Um::ILine));
-			ScItemState<QPair<FPointArray,FPointArray> > *is = new ScItemState<QPair<FPointArray,FPointArray> >(Um::ConnectPath);
-			is->set("CONNECT_PATH","connect_path");
-			is->set("OLDX",originalXPos);
-			is->set("OLDY",originalYPos);
+			UndoTransaction *trans = NULL;
+			if(UndoManager::undoEnabled())
+				trans = new UndoTransaction(UndoManager::instance()->beginTransaction(Um::BezierCurve,Um::ILine,Um::ConnectPath,"",Um::ILine));
+
 			Item1->PoLine = computePath(pointOne, pointTwo, mode, originalPath1, originalPath2);
 			Item1->Frame = false;
 			Item1->ClipEdited = true;
@@ -143,16 +142,28 @@ bool PathConnectPlugin::run(ScribusDoc* doc, QString)
 			currDoc->AdjustItemSize(Item1);
 			Item1->OldB2 = Item1->width();
 			Item1->OldH2 = Item1->height();
-			is->set("NEWX",Item1->xPos());
-			is->set("NEWY",Item1->yPos());
-			is->setItem(qMakePair(originalPath1,Item1->PoLine));
-			UndoManager::instance()->action(Item1,is);
+			if(UndoManager::undoEnabled())
+			{
+				ScItemState<QPair<FPointArray,FPointArray> > *is = new ScItemState<QPair<FPointArray,FPointArray> >(Um::ConnectPath);
+				is->set("CONNECT_PATH","connect_path");
+				is->set("OLDX",originalXPos);
+				is->set("OLDY",originalYPos);
+				is->set("NEWX",Item1->xPos());
+				is->set("NEWY",Item1->yPos());
+				is->setItem(qMakePair(originalPath1,Item1->PoLine));
+				UndoManager::instance()->action(Item1,is);
+			}
 			Item1->updateClip();
 			Item1->ContourLine = Item1->PoLine.copy();
 			currDoc->m_Selection->removeItem(Item1);
 			currDoc->itemSelection_DeleteItem();
 			currDoc->changed();
-			trans.commit();
+			if(trans)
+			{
+				trans->commit();
+				delete trans;
+				trans = NULL;
+			}
 		}
 		else
 		{

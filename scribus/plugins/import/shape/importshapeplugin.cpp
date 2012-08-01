@@ -161,17 +161,14 @@ bool ImportShapePlugin::import(QString fileName, int flags)
 
 QImage ImportShapePlugin::readThumbnail(const QString& fileName)
 {
-	bool wasUndo = UndoManager::undoEnabled();
 	if( fileName.isEmpty() )
 		return QImage();
-	if (UndoManager::undoEnabled())
-		UndoManager::instance()->setUndoEnabled(false);
+	UndoManager::instance()->setUndoEnabled(false);
 	m_Doc = NULL;
 	ShapePlug *dia = new ShapePlug(m_Doc, lfCreateThumbnail);
 	Q_CHECK_PTR(dia);
 	QImage ret = dia->readThumbnail(fileName);
-	if (wasUndo)
-		UndoManager::instance()->setUndoEnabled(true);
+	UndoManager::instance()->setUndoEnabled(true);
 	delete dia;
 	return ret;
 }

@@ -637,7 +637,9 @@ void PropertiesPalette::NewSpGradient(double x1, double y1, double x2, double y2
 	if ((m_haveDoc) && (m_haveItem))
 	{
 		QRectF upRect;
-		UndoTransaction trans(undoManager->beginTransaction(Um::Selection,Um::ILine,Um::GradPos + "p","",Um::ILine));
+		UndoTransaction *trans = NULL;
+		if(UndoManager::undoEnabled())
+			trans = new UndoTransaction(undoManager->beginTransaction(Um::Selection,Um::ILine,Um::GradPos + "p","",Um::ILine));
 		if (m_ScMW->view->editStrokeGradient == 1)
 		{
 			m_item->setGradientStrokeStartX(x1 / m_unitRatio);
@@ -690,7 +692,7 @@ void PropertiesPalette::NewSpGradient(double x1, double y1, double x2, double y2
 		}
 		else
 		{
-			if (m_item->gradientType() == 13)
+			if (m_item->gradientType() == 13 && UndoManager::undoEnabled())
 			{
 				SimpleState *ss= new SimpleState("Refresh");
 				ss->set("UNDO_UPDATE_CONICAL","undo_update_conical");
@@ -709,7 +711,7 @@ void PropertiesPalette::NewSpGradient(double x1, double y1, double x2, double y2
 				m_item->setGradientFocalX(m_item->gradientStartX());
 				m_item->setGradientFocalY(m_item->gradientStartY());
 			}
-			if (m_item->gradientType() == 13)
+			if (m_item->gradientType() == 13 && UndoManager::undoEnabled())
 			{
 				m_item->createConicalMesh();
 				SimpleState *ss= new SimpleState("Refresh");
@@ -732,7 +734,12 @@ void PropertiesPalette::NewSpGradient(double x1, double y1, double x2, double y2
 			upRect |= QRectF(shP, QPointF(0, 0)).normalized();
 			upRect |= QRectF(shP, QPointF(m_item->width(), m_item->height())).normalized();
 		}
-		trans.commit();
+		if(trans)
+		{
+			trans->commit();
+			delete trans;
+			trans = NULL;
+		}
 		upRect.translate(m_item->xPos(), m_item->yPos());
 		m_doc->regionsChanged()->update(upRect.adjusted(-10.0, -10.0, 10.0, 10.0));
 		m_doc->changed();
@@ -778,7 +785,9 @@ void PropertiesPalette::NewSpGradientM(double x1, double y1, double x2, double y
 	if ((m_haveDoc) && (m_haveItem))
 	{
 		QRectF upRect;
-		UndoTransaction trans(undoManager->beginTransaction(Um::Selection,Um::ILine,Um::GradPos + "o","",Um::ILine));
+		UndoTransaction *trans = NULL;
+		if(UndoManager::undoEnabled())
+			trans = new UndoTransaction(undoManager->beginTransaction(Um::Selection,Um::ILine,Um::GradPos + "o","",Um::ILine));
 		m_item->setGradientMaskStartX(x1 / m_unitRatio);
 		m_item->setGradientMaskStartY(y1 / m_unitRatio);
 		m_item->setGradientMaskEndX(x2 / m_unitRatio);
@@ -793,7 +802,12 @@ void PropertiesPalette::NewSpGradientM(double x1, double y1, double x2, double y
 			m_item->setGradientMaskFocalY(m_item->GrMaskStartY);
 		}
 		m_item->update();
-		trans.commit();
+		if(trans)
+		{
+			trans->commit();
+			delete trans;
+			trans = NULL;
+		}
 		upRect = QRectF(QPointF(m_item->GrMaskStartX, m_item->GrMaskStartY), QPointF(m_item->GrMaskEndX, m_item->GrMaskEndY));
 		double radEnd = distance(m_item->GrMaskEndX - m_item->GrMaskStartX, m_item->GrMaskEndY - m_item->GrMaskStartY);
 		double rotEnd = xy2Deg(m_item->GrMaskEndX - m_item->GrMaskStartX, m_item->GrMaskEndY - m_item->GrMaskStartY);

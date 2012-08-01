@@ -136,6 +136,7 @@ void Prefs_ItemTools::restoreDefaults(struct ApplicationPrefs *prefsData)
 	imageHorizontalScalingSpinBox->setValue(qRound(prefsData->itemToolPrefs.imageScaleX * 100));
 	imageVerticalScalingSpinBox->setValue(qRound(prefsData->itemToolPrefs.imageScaleY * 100));
 	imageKeepAspectRatioCheckBox->setChecked(prefsData->itemToolPrefs.imageAspectRatio);
+	scalingLockToolButton->setChecked(prefsData->itemToolPrefs.imageAspectRatio);
 	imageFrameFillColorComboBox->initColorList(colorList, m_doc, prefsData->itemToolPrefs.imageFillColor);
 	imageFrameFillShadingSpinBox->setValue(prefsData->itemToolPrefs.imageFillColorShade );
 	imageFrameLineColorComboBox->initColorList(colorList, m_doc, prefsData->itemToolPrefs.imageStrokeColor);
@@ -252,11 +253,6 @@ void Prefs_ItemTools::saveGuiToPrefs(struct ApplicationPrefs *prefsData) const
 	prefsData->itemToolPrefs.textDistances.Bottom = bottomTextDistanceSpinBox->value() / unitRatio;
 	prefsData->itemToolPrefs.textDistances.Left = leftTextDistanceSpinBox->value() / unitRatio;
 	prefsData->itemToolPrefs.textDistances.Right = rightTextDistanceSpinBox->value() / unitRatio;
-
-	//Image Tool
-	//
-	//	TODO scalingLockToolButton
-
 	prefsData->itemToolPrefs.imageFillColor = imageFrameFillColorComboBox->currentText();
 	if (prefsData->itemToolPrefs.imageFillColor == CommonStrings::tr_NoneColor)
 		prefsData->itemToolPrefs.imageFillColor = CommonStrings::None;
@@ -340,6 +336,7 @@ void Prefs_ItemTools::enableSignals(bool on)
 //		connect(buttonGroup5, SIGNAL(toggled(bool)), this, SLOT(changeImageScalingRatio(bool)));
 		connect(scalingLockToolButton, SIGNAL(clicked()), this, SLOT(toggleImagesScalingChain()));
 		connect(imageHorizontalScalingSpinBox, SIGNAL(valueChanged(int)), this, SLOT(imageHorizontalScalingChange()));
+		connect(imageKeepAspectRatioCheckBox, SIGNAL(toggled(bool)), scalingLockToolButton, SLOT(setChecked(bool)));
 		connect(imageVerticalScalingSpinBox, SIGNAL(valueChanged(int)), this, SLOT(imageVerticalScalingChange()));
 //		connect(tabFillCombo, SIGNAL(activated(int)), this, SLOT(setFillChar(int)));
 	}
@@ -414,6 +411,7 @@ void Prefs_ItemTools::updateFontPreview()
 void Prefs_ItemTools::toggleImagesScalingChain()
 {
 	imageHorizontalScalingChange();
+	imageKeepAspectRatioCheckBox->setChecked(scalingLockToolButton->isChecked());
 }
 
 void Prefs_ItemTools::imageHorizontalScalingChange()

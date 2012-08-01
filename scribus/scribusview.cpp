@@ -2442,7 +2442,9 @@ void ScribusView::slotZoomIn(int mx,int my)
 	}
 	else
 		rememberOldZoomLocation(mx,my);
-	double newScale = m_canvas->scale() * static_cast<double>(Doc->opToolPrefs().magStep)/100.0;
+	double newScale = m_canvas->scale() * (1 + static_cast<double>(Doc->opToolPrefs().magStep)/100.0);
+	if(static_cast<int>(newScale*100)>static_cast<int>(100 * static_cast<double>(Doc->opToolPrefs().magStep)*Prefs->displayPrefs.displayScale/100))
+		newScale = m_canvas->scale() + static_cast<double>(Doc->opToolPrefs().magStep)*Prefs->displayPrefs.displayScale/100;
 	if (Doc->m_Selection->count() != 0)
 	{
 		PageItem *currItem = Doc->m_Selection->itemAt(0);
@@ -2468,7 +2470,11 @@ void ScribusView::slotZoomOut(int mx,int my)
 	}
 	else
 		rememberOldZoomLocation(mx,my);
-	double newScale = m_canvas->scale() / (static_cast<double>(Doc->opToolPrefs().magStep)/100.0);
+	double newScale = m_canvas->scale() - static_cast<double>(Doc->opToolPrefs().magStep)*Prefs->displayPrefs.displayScale/100;
+	if(newScale<=Prefs->displayPrefs.displayScale/100)
+		newScale = m_canvas->scale() / (1 + static_cast<double>(Doc->opToolPrefs().magStep)/100.0);
+	if(newScale<=Prefs->displayPrefs.displayScale/100)
+		newScale = m_canvas->scale();
 	if (Doc->m_Selection->count() != 0)
 	{
 		PageItem *currItem = Doc->m_Selection->itemAt(0);
@@ -4304,6 +4310,8 @@ bool ScribusView::eventFilter(QObject *obj, QEvent *event)
 	else if (event->type() == QEvent::KeyPress)
 	{
 		QKeyEvent* m = static_cast<QKeyEvent*> (event);
+		if(m->key() == Qt::Key_Shift)
+			m_ScMW->SetSnapElements(false);
 		if (m_canvasMode->handleKeyEvents())
 			m_canvasMode->keyPressEvent(m);
 		else
@@ -4313,6 +4321,8 @@ bool ScribusView::eventFilter(QObject *obj, QEvent *event)
 	else if (event->type() == QEvent::KeyRelease)
 	{
 		QKeyEvent* m = static_cast<QKeyEvent*> (event);
+		if(m->key() == Qt::Key_Shift)
+			m_ScMW->SetSnapElements(true);
 		if (m_canvasMode->handleKeyEvents())
 			m_canvasMode->keyReleaseEvent(m);
 		else
