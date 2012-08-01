@@ -147,7 +147,7 @@ void CheckDocument::slotSelect(QTreeWidgetItem* ite)
 			return;
 		if (!m_Doc->masterPageMode())
 			emit selectMasterPage(masterPageItemMap[ite]->OnMasterPage);
-		if (itemMap[ite]->isTextFrame())
+		if (masterPageItemMap[ite]->isTextFrame())
 			emit selectElement(masterPageItemMap[ite], true, posMap[ite]);
 		else
 			emit selectElementByItem(masterPageItemMap[ite], true);
