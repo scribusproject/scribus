@@ -3977,7 +3977,9 @@ void ScribusDoc::checkItemForFonts(PageItem *it, QMap<QString, QMap<uint, FPoint
 				Really.insert(it->itemText.defaultStyle().charStyle().font().replacementName(), QMap<uint, FPointArray>());
 			}
 		}*/
-		for (int e = 0; e < it->itemText.length(); ++e)
+		int start = it->isTextFrame() ? it->firstInFrame() : 0;
+		int stop  = it->isTextFrame() ? it->lastInFrame() + 1 : it->itemText.length();
+		for (int e = start; e < stop; ++e)
 		{
 			if (! Really.contains(it->itemText.charStyle(e).font().replacementName()) )
 			{

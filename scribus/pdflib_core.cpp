@@ -987,7 +987,9 @@ bool PDFLibCore::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QStrin
 						ReallyUsed.insert(pgit->itemText.defaultStyle().charStyle().font().replacementName(), DocFonts[pgit->itemText.defaultStyle().charStyle().font().replacementName()]);
 					}
 				}
-				for (uint e = 0; e < static_cast<uint>(pgit->itemText.length()); ++e)
+				uint start = pgit->isTextFrame() ? (uint) pgit->firstInFrame() : 0;
+				uint stop  = pgit->isTextFrame() ? (uint) pgit->lastInFrame() + 1 : (uint) pgit->itemText.length();
+				for (uint e = start; e < stop; ++e)
 				{
 					ReallyUsed.insert(pgit->itemText.charStyle(e).font().replacementName(), DocFonts[pgit->itemText.charStyle(e).font().replacementName()]);
 				}
@@ -1037,7 +1039,9 @@ bool PDFLibCore::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QStrin
 						ReallyUsed.insert(pgit->itemText.defaultStyle().charStyle().font().replacementName(), DocFonts[pgit->itemText.defaultStyle().charStyle().font().replacementName()]);
 					}
 				}
-				for (uint e = 0; e < static_cast<uint>(pgit->itemText.length()); ++e)
+				uint start = pgit->isTextFrame() ? (uint) pgit->firstInFrame() : 0;
+				uint stop  = pgit->isTextFrame() ? (uint) pgit->lastInFrame() + 1 : (uint) pgit->itemText.length();
+				for (uint e = start; e < stop; ++e)
 				{
 					ReallyUsed.insert(pgit->itemText.charStyle(e).font().replacementName(), DocFonts[pgit->itemText.charStyle(e).font().replacementName()]);
 				}
@@ -1087,7 +1091,9 @@ bool PDFLibCore::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QStrin
 						ReallyUsed.insert(pgit->itemText.defaultStyle().charStyle().font().replacementName(), DocFonts[pgit->itemText.defaultStyle().charStyle().font().replacementName()]);
 					}
 				}
-				for (uint e = 0; e < static_cast<uint>(pgit->itemText.length()); ++e)
+				uint start = pgit->isTextFrame() ? (uint) pgit->firstInFrame() : 0;
+				uint stop  = pgit->isTextFrame() ? (uint) pgit->lastInFrame() + 1 : (uint) pgit->itemText.length();
+				for (uint e = start; e < stop; ++e)
 				{
 					ReallyUsed.insert(pgit->itemText.charStyle(e).font().replacementName(), DocFonts[pgit->itemText.charStyle(e).font().replacementName()]);
 				}
@@ -1143,7 +1149,9 @@ bool PDFLibCore::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QStrin
 							ReallyUsed.insert(pgit->itemText.defaultStyle().charStyle().font().replacementName(), DocFonts[pgit->itemText.defaultStyle().charStyle().font().replacementName()]);
 						}
 					}
-					for (uint e = 0; e < static_cast<uint>(pgit->itemText.length()); ++e)
+					uint start = pgit->isTextFrame() ? (uint) pgit->firstInFrame() : 0;
+					uint stop  = pgit->isTextFrame() ? (uint) pgit->lastInFrame() + 1 : (uint) pgit->itemText.length();
+					for (uint e = start; e < stop; ++e)
 					{
 						ReallyUsed.insert(pgit->itemText.charStyle(e).font().replacementName(), DocFonts[pgit->itemText.charStyle(e).font().replacementName()]);
 					}
