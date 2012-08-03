@@ -76,7 +76,7 @@ void ReplaceColor(QString col, QString rep)
 	for (int c = 0; c < ScCore->primaryMainWindow()->doc->Items->count(); c++)
 	{
 		PageItem *ite = ScCore->primaryMainWindow()->doc->Items->at(c);
-		if (ite->itemType() == PageItem::TextFrame)
+		if ((ite->itemType() == PageItem::TextFrame) && (ite->prevInChain() == NULL))
 		{
 			for (int d = 0; d < ite->itemText.length(); d++)
 			{
