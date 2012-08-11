@@ -83,11 +83,9 @@ void CanvasMode_ImageImport::newToolTip(QString name)
 		tipText = "<p align=\"center\"><img src=\"data:image/png;base64," + QString(ba) + "\"></p>";
 	}
 	else
-	{
-		p.end();
 		tipText = "<p align=\"center\">" + name.right(name.lastIndexOf("/")) + "</p>";
-	}
 	QToolTip::showText(QPoint(Mx,My), tipText, qApp->activeWindow());
+	p.end();
 }
 
 void CanvasMode_ImageImport::drawControls(QPainter* p)
