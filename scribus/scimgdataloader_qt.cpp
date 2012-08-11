@@ -42,10 +42,12 @@ bool ScImgDataLoader_QT::loadPicture(const QString& fn, int /*page*/, int /*res*
 		float xres = m_image.dotsPerMeterX() * 0.0254;
 		float yres = m_image.dotsPerMeterY() * 0.0254;
 		int resInf = m_imageInfoRecord.lowResType;
+		m_imageInfoRecord.colorspace = ColorSpaceRGB;
+		if (m_image.isGrayscale() || m_image.depth() == 1)
+			m_imageInfoRecord.colorspace = ColorSpaceGray;
 		m_image = m_image.convertToFormat(QImage::Format_ARGB32);
 		m_image.setDotsPerMeterX (qMax(2834, (int) (xres / 0.0254)));
 		m_image.setDotsPerMeterY (qMax(2834, (int) (yres / 0.0254)));
-		m_imageInfoRecord.colorspace = ColorSpaceRGB;
 		m_imageInfoRecord.xres = qMax(72, qRound(xres));
 		m_imageInfoRecord.yres = qMax(72, qRound(yres));
 		m_imageInfoRecord.lowResType = resInf;
