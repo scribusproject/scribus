@@ -2302,7 +2302,8 @@ void PageItem::SetQColor(QColor *tmp, QString farbe, double shad)
 double PageItem::layoutGlyphs(const CharStyle& style, const QString& chars, GlyphLayout& layout)
 {
 	double retval = 0.0;
-	double asce = style.font().ascent(style.fontSize() / 10.0);
+	const ScFace font = style.font();
+	double asce = font.ascent(style.fontSize() / 10.0);
 	int chst = style.effects() & 1919;
 /*	if (chars[0] == SpecialChars::ZWSPACE ||
 		chars[0] == SpecialChars::ZWNBSPACE ||
@@ -2319,7 +2320,7 @@ double PageItem::layoutGlyphs(const CharStyle& style, const QString& chars, Glyp
 	}
 	else */
 	{
-		layout.glyph = style.font().char2CMap(chars[0].unicode());
+		layout.glyph = font.char2CMap(chars[0].unicode());
 	}
 	double tracking = 0.0;
 	if ( (style.effects() & ScStyle_StartOfLine) == 0)
@@ -2348,7 +2349,7 @@ double PageItem::layoutGlyphs(const CharStyle& style, const QString& chars, Glyp
 		layout.scaleV *= style.scaleV() / 1000.0;
 		if (chst & ScStyle_AllCaps)
 		{
-			layout.glyph = style.font().char2CMap(chars[0].toUpper().unicode());
+			layout.glyph = font.char2CMap(chars[0].toUpper().unicode());
 		}
 		if (chst & ScStyle_SmallCaps)
 		{
@@ -2356,7 +2357,7 @@ double PageItem::layoutGlyphs(const CharStyle& style, const QString& chars, Glyp
 			QChar uc = chars[0].toUpper();
 			if (uc != chars[0])
 			{
-				layout.glyph = style.font().char2CMap(chars[0].toUpper().unicode());
+				layout.glyph = font.char2CMap(chars[0].toUpper().unicode());
 				layout.scaleV *= smallcapsScale;
 				layout.scaleH *= smallcapsScale;
 			}
@@ -2368,14 +2369,14 @@ double PageItem::layoutGlyphs(const CharStyle& style, const QString& chars, Glyp
 	}	
 	
 /*	if (layout.glyph == (ScFace::CONTROL_GLYPHS + SpecialChars::NBSPACE.unicode())) {
-		uint replGlyph = style.font().char2CMap(QChar(' '));
-		layout.xadvance = style.font().glyphWidth(replGlyph, style.fontSize() / 10) * layout.scaleH;
-		layout.yadvance = style.font().glyphBBox(replGlyph, style.fontSize() / 10).ascent * layout.scaleV;
+		uint replGlyph = font.char2CMap(QChar(' '));
+		layout.xadvance = font.glyphWidth(replGlyph, style.fontSize() / 10) * layout.scaleH;
+		layout.yadvance = font.glyphBBox(replGlyph, style.fontSize() / 10).ascent * layout.scaleV;
 	}
 	else if (layout.glyph == (ScFace::CONTROL_GLYPHS + SpecialChars::NBHYPHEN.unicode())) {
-		uint replGlyph = style.font().char2CMap(QChar('-'));
-		layout.xadvance = style.font().glyphWidth(replGlyph, style.fontSize() / 10) * layout.scaleH;
-		layout.yadvance = style.font().glyphBBox(replGlyph, style.fontSize() / 10).ascent * layout.scaleV;
+		uint replGlyph = font.char2CMap(QChar('-'));
+		layout.xadvance = font.glyphWidth(replGlyph, style.fontSize() / 10) * layout.scaleH;
+		layout.yadvance = font.glyphBBox(replGlyph, style.fontSize() / 10).ascent * layout.scaleV;
 	}
 	else if (layout.glyph >= ScFace::CONTROL_GLYPHS) {
 		layout.xadvance = 0;
@@ -2383,8 +2384,8 @@ double PageItem::layoutGlyphs(const CharStyle& style, const QString& chars, Glyp
 	}
 	else */
 	{
-		layout.xadvance = style.font().glyphWidth(layout.glyph, style.fontSize() / 10) * layout.scaleH;
-		layout.yadvance = style.font().glyphBBox(layout.glyph, style.fontSize() / 10).ascent * layout.scaleV;
+		layout.xadvance = font.glyphWidth(layout.glyph, style.fontSize() / 10) * layout.scaleH;
+		layout.yadvance = font.glyphBBox(layout.glyph, style.fontSize() / 10).ascent * layout.scaleV;
 	}
 	if (layout.xadvance > 0)
 		layout.xadvance += tracking;
@@ -2392,7 +2393,7 @@ double PageItem::layoutGlyphs(const CharStyle& style, const QString& chars, Glyp
 	if (chars.length() > 1) {
 		layout.grow();
 		layoutGlyphs(style, chars.mid(1), *layout.more);
-		layout.xadvance += style.font().glyphKerning(layout.glyph, layout.more->glyph, style.fontSize() / 10) * layout.scaleH;
+		layout.xadvance += font.glyphKerning(layout.glyph, layout.more->glyph, style.fontSize() / 10) * layout.scaleH;
 		if (layout.more->yadvance > layout.yadvance)
 			layout.yadvance = layout.more->yadvance;
 	}
@@ -2405,8 +2406,9 @@ double PageItem::layoutGlyphs(const CharStyle& style, const QString& chars, Glyp
 void PageItem::drawGlyphs(ScPainter *p, const CharStyle& style, GlyphLayout& glyphs)
 {
 	uint glyph = glyphs.glyph;
+	const ScFace font = style.font();
 	if ((m_Doc->guidesPrefs().showControls) &&
-		(glyph == style.font().char2CMap(QChar(' ')) || glyph >=  ScFace::CONTROL_GLYPHS))
+		(glyph == font.char2CMap(QChar(' ')) || glyph >=  ScFace::CONTROL_GLYPHS))
 	{
 		bool stroke = false;
 		if (glyph >=  ScFace::CONTROL_GLYPHS)
@@ -2449,7 +2451,7 @@ void PageItem::drawGlyphs(ScPainter *p, const CharStyle& style, GlyphLayout& gly
 		}
 		else if (glyph == SpecialChars::NBHYPHEN.unicode())
 		{
-			points = style.font().glyphOutline(style.font().char2CMap(QChar('-')), style.fontSize() / 100);
+			points = font.glyphOutline(font.char2CMap(QChar('-')), style.fontSize() / 100);
 			chma4.translate(glyphs.xoffset, glyphs.yoffset-((style.fontSize() / 10.0) * glyphs.scaleV));
 		}
 		else if (glyph == SpecialChars::SHYPHEN.unicode())
@@ -2495,9 +2497,9 @@ void PageItem::drawGlyphs(ScPainter *p, const CharStyle& style, GlyphLayout& gly
 	}
 	else if (glyph == (ScFace::CONTROL_GLYPHS + SpecialChars::NBSPACE.unicode()) ||
 			 glyph == (ScFace::CONTROL_GLYPHS + 32)) 
-		glyph = style.font().char2CMap(QChar(' '));
+		glyph = font.char2CMap(QChar(' '));
 	else if (glyph == (ScFace::CONTROL_GLYPHS + SpecialChars::NBHYPHEN.unicode()))
-		glyph = style.font().char2CMap(QChar('-'));
+		glyph = font.char2CMap(QChar('-'));
 	
 	if (glyph >= ScFace::CONTROL_GLYPHS || (style.effects() & ScStyle_SuppressSpace)) {
 //		qDebug("drawGlyphs: skipping %d", glyph);
@@ -2509,29 +2511,29 @@ void PageItem::drawGlyphs(ScPainter *p, const CharStyle& style, GlyphLayout& gly
 		}			
 		return;
 	}
-//	if (style.font().canRender(QChar(glyph)))
+//	if (font.canRender(QChar(glyph)))
 	{
-		FPointArray gly = style.font().glyphOutline(glyph);
+		FPointArray gly = font.glyphOutline(glyph);
 		// Do underlining first so you can get typographically correct
 		// underlines when drawing a white outline
-		if (((style.effects() & ScStyle_Underline) || ((style.effects() & ScStyle_UnderlineWords) && glyph != style.font().char2CMap(QChar(' ')))) && (style.strokeColor() != CommonStrings::None))
+		if (((style.effects() & ScStyle_Underline) || ((style.effects() & ScStyle_UnderlineWords) && glyph != font.char2CMap(QChar(' ')))) && (style.strokeColor() != CommonStrings::None))
 		{
 			double st, lw;
 			if ((style.underlineOffset() != -1) || (style.underlineWidth() != -1))
 			{
 				if (style.underlineOffset() != -1)
-					st = (style.underlineOffset() / 1000.0) * (style.font().descent(style.fontSize() / 10.0));
+					st = (style.underlineOffset() / 1000.0) * (font.descent(style.fontSize() / 10.0));
 				else
-					st = style.font().underlinePos(style.fontSize() / 10.0);
+					st = font.underlinePos(style.fontSize() / 10.0);
 				if (style.underlineWidth() != -1)
 					lw = (style.underlineWidth() / 1000.0) * (style.fontSize() / 10.0);
 				else
-					lw = qMax(style.font().strokeWidth(style.fontSize() / 10.0), 1.0);
+					lw = qMax(font.strokeWidth(style.fontSize() / 10.0), 1.0);
 			}
 			else
 			{
-				st = style.font().underlinePos(style.fontSize() / 10.0);
-				lw = qMax(style.font().strokeWidth(style.fontSize() / 10.0), 1.0);
+				st = font.underlinePos(style.fontSize() / 10.0);
+				lw = qMax(font.strokeWidth(style.fontSize() / 10.0), 1.0);
 			}
 			if (style.baselineOffset() != 0)
 				st += (style.fontSize() / 10.0) * glyphs.scaleV * (style.baselineOffset() / 1000.0);
@@ -2597,7 +2599,7 @@ void PageItem::drawGlyphs(ScPainter *p, const CharStyle& style, GlyphLayout& gly
 				p->setLineWidth(style.fontSize() * glyphs.scaleV * style.outlineWidth() * 2 / 10000.0);
 				p->strokePath();
 			}
-			else if ((style.font().isStroked()) && (style.strokeColor() != CommonStrings::None) && ((style.fontSize() * glyphs.scaleV * style.outlineWidth() / 10000.0) != 0))
+			else if ((font.isStroked()) && (style.strokeColor() != CommonStrings::None) && ((style.fontSize() * glyphs.scaleV * style.outlineWidth() / 10000.0) != 0))
 			{
 				QColor tmp = p->brush();
 				p->setPen(tmp, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
@@ -2638,18 +2640,18 @@ void PageItem::drawGlyphs(ScPainter *p, const CharStyle& style, GlyphLayout& gly
 			if ((style.strikethruOffset() != -1) || (style.strikethruWidth() != -1))
 			{
 				if (style.strikethruOffset() != -1)
-					st = (style.strikethruOffset() / 1000.0) * (style.font().ascent(style.fontSize() / 10.0));
+					st = (style.strikethruOffset() / 1000.0) * (font.ascent(style.fontSize() / 10.0));
 				else
-					st = style.font().strikeoutPos(style.fontSize() / 10.0);
+					st = font.strikeoutPos(style.fontSize() / 10.0);
 				if (style.strikethruWidth() != -1)
 					lw = (style.strikethruWidth() / 1000.0) * (style.fontSize() / 10.0);
 				else
-					lw = qMax(style.font().strokeWidth(style.fontSize() / 10.0), 1.0);
+					lw = qMax(font.strokeWidth(style.fontSize() / 10.0), 1.0);
 			}
 			else
 			{
-				st = style.font().strikeoutPos(style.fontSize() / 10.0);
-				lw = qMax(style.font().strokeWidth(style.fontSize() / 10.0), 1.0);
+				st = font.strikeoutPos(style.fontSize() / 10.0);
+				lw = qMax(font.strokeWidth(style.fontSize() / 10.0), 1.0);
 			}
 			if (style.baselineOffset() != 0)
 				st += (style.fontSize() / 10.0) * glyphs.scaleV * (style.baselineOffset() / 1000.0);

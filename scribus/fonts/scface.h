@@ -20,10 +20,9 @@ embedding:    fontdictionary, rawdata, embedPS, embedPDF, subsetPS, subsetPDF
 virtual:      dispatch to constituents, handle embedding (-)
 */
 
-#include <QString>
-//#include <QVector>
+#include <QHash>
 #include <QMap>
-//#include <QArray>
+#include <QString>
 #include <utility>
 
 #include "fpointarray.h"
@@ -133,9 +132,9 @@ public:
 		Status cachedStatus;
 		
 		// caches
-		mutable QMap<uint,qreal>    m_glyphWidth;
-		mutable QMap<uint,GlyphData> m_glyphOutline;
-		mutable QMap<uint, uint>     m_cMap;
+		mutable QHash<uint, qreal>     m_glyphWidth;
+		mutable QHash<uint, GlyphData> m_glyphOutline;
+		mutable QHash<uint, uint>      m_cMap;
 		
 		// fill caches & members
 		
