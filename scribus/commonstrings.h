@@ -211,6 +211,7 @@ public:
 	static QString trCMYK;
 	static QString trGrayscale;
 	static QString trDuotone;
+	static QString trMonochrome;
 	static QString trUnknownCS;
 
 	//Color Blindness

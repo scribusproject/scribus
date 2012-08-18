@@ -129,6 +129,7 @@ QString CommonStrings::trRGB       = "";
 QString CommonStrings::trCMYK      = "";
 QString CommonStrings::trGrayscale = "";
 QString CommonStrings::trDuotone   = "";
+QString CommonStrings::trMonochrome = "";
 QString CommonStrings::trUnknownCS = "";
 
 QString CommonStrings::trVisionNormal         = "";
@@ -380,6 +381,7 @@ void CommonStrings::languageChange()
 	CommonStrings::trCMYK      = tr("CMYK", "Colorspace");
 	CommonStrings::trGrayscale = tr("Grayscale", "Colorspace");
 	CommonStrings::trDuotone   = tr("Duotone", "Colorspace");
+	CommonStrings::trMonochrome= tr("Monochrome", "Colorspace");
 	CommonStrings::trUnknownCS = tr("Unknown", "Colorspace (Unknown)");
 
 	CommonStrings::trVisionNormal         = tr("Normal Vision", "Color Blindness - Normal Vision");

@@ -1080,7 +1080,14 @@ bool ScImgDataLoader_TIFF::loadPicture(const QString& fn, int page, int res, boo
 		else if (samplesperpixel == 1)
 		{
 			// Do not set m_pixelFormat here as the real pixel format is most probably different than gray
-			m_imageInfoRecord.colorspace = ColorSpaceGray;
+			if (bitspersample == 1)
+			{
+				m_imageInfoRecord.colorspace = ColorSpaceMonochrome;
+			}
+			else
+			{
+				m_imageInfoRecord.colorspace = ColorSpaceGray;
+			}
 		}
 		else
 		{

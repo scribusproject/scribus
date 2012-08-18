@@ -186,7 +186,7 @@ bool PDFLibCore::doExport(const QString& fn, const QString& nam, int Components,
 	usedFonts.clear();
 	doc.getUsedFonts(usedFonts);
 	ucs2Codec = QTextCodec::codecForName("ISO-10646-UCS-2");
-	if(!ucs2Codec)
+	if (!ucs2Codec)
 		ucs2Codec = QTextCodec::codecForName("UTF-16");
 	if (!ucs2Codec)
 	{
@@ -470,9 +470,9 @@ bool PDFLibCore::EncodeArrayToStream(const QByteArray& in, int ObjNum)
 	return (outStream.status() == QDataStream::Ok);
 }
 
-int PDFLibCore::WriteImageToStream(ScImage& image, int ObjNum, bool cmyk, bool gray, bool precal)
+int PDFLibCore::WriteImageToStream(ScImage& image, int ObjNum, ColorSpaceEnum format, bool precal)
 {
-	bool succeed = false;
+	bool fromCmyk, succeed = false;
 	int  bytesWritten = 0;
 	if (Options.Encrypt)
 	{
@@ -480,12 +480,18 @@ int PDFLibCore::WriteImageToStream(ScImage& image, int ObjNum, bool cmyk, bool g
 		ScRC4EncodeFilter rc4Encode(&outStream, step1.data(), qMin(KeyLen+5, 16));
 		if (rc4Encode.openFilter())
 		{
-			if (gray)
-				succeed = image.writeGrayDataToFilter(&rc4Encode, precal);
-			else if (cmyk)
-				succeed = image.writeCMYKDataToFilter(&rc4Encode);
-			else
-				succeed = image.writeRGBDataToFilter(&rc4Encode);
+			switch (format)
+			{
+				case ColorSpaceMonochrome :
+					fromCmyk = !Options.UseRGB && !Options.isGrayscale && !(doc.HasCMS && Options.UseProfiles2);
+					succeed = image.writeMonochromeDataToFilter(&rc4Encode, fromCmyk); break;
+				case ColorSpaceGray :
+					succeed = image.writeGrayDataToFilter(&rc4Encode, precal); break;
+				case ColorSpaceCMYK :
+					succeed = image.writeCMYKDataToFilter(&rc4Encode); break;
+				default :
+					succeed = image.writeRGBDataToFilter(&rc4Encode); break;
+			}
 			succeed &= rc4Encode.closeFilter();
 			bytesWritten = rc4Encode.writtenToStream();
 		}
@@ -495,12 +501,18 @@ int PDFLibCore::WriteImageToStream(ScImage& image, int ObjNum, bool cmyk, bool g
 		ScNullEncodeFilter nullEncode(&outStream);
 		if (nullEncode.openFilter())
 		{
-			if (gray)
-				succeed = image.writeGrayDataToFilter(&nullEncode, precal);
-			else if (cmyk)
-				succeed = image.writeCMYKDataToFilter(&nullEncode);
-			else
-				succeed = image.writeRGBDataToFilter(&nullEncode);
+			switch (format)
+			{
+				case ColorSpaceMonochrome :
+					fromCmyk = !Options.UseRGB && !Options.isGrayscale && !(doc.HasCMS && Options.UseProfiles2);
+					succeed = image.writeMonochromeDataToFilter(&nullEncode, fromCmyk); break;
+				case ColorSpaceGray :
+					succeed = image.writeGrayDataToFilter(&nullEncode, precal); break;
+				case ColorSpaceCMYK :
+					succeed = image.writeCMYKDataToFilter(&nullEncode); break;
+				default :
+					succeed = image.writeRGBDataToFilter(&nullEncode); break;
+			}
 			succeed &= nullEncode.closeFilter();
 			bytesWritten = nullEncode.writtenToStream();
 		}
@@ -508,8 +520,8 @@ int PDFLibCore::WriteImageToStream(ScImage& image, int ObjNum, bool cmyk, bool g
 	return (succeed ? bytesWritten : 0);
 }
 
-int PDFLibCore::WriteJPEGImageToStream(ScImage& image, const QString& fn, int ObjNum, int quality, bool cmyk,
-										bool gray, bool sameFile, bool precal)
+int PDFLibCore::WriteJPEGImageToStream(ScImage& image, const QString& fn, int ObjNum, int quality, ColorSpaceEnum format,
+										 bool sameFile, bool precal)
 {
 	bool succeed = true;
 	int  bytesWritten = 0;
@@ -521,9 +533,9 @@ int PDFLibCore::WriteJPEGImageToStream(ScImage& image, const QString& fn, int Ob
 	else
 	{
 		tmpFile  = QDir::toNativeSeparators(ScPaths::getTempFileDir() + "sc.jpg");
-		if ((gray) && (!precal))
+		if (format == ColorSpaceGray && (!precal))
 			image.convertToGray();
-		if (image.convert2JPG(tmpFile, quality, cmyk, gray))
+		if (image.convert2JPG(tmpFile, quality, format == ColorSpaceCMYK, format == ColorSpaceGray))
 			jpgFileName = tmpFile;
 	}
 	if (jpgFileName.isEmpty())
@@ -551,9 +563,9 @@ int PDFLibCore::WriteJPEGImageToStream(ScImage& image, const QString& fn, int Ob
 	return (succeed ? bytesWritten : 0);
 }
 
-int PDFLibCore::WriteFlateImageToStream(ScImage& image, int ObjNum, bool cmyk, bool gray, bool precal)
+int PDFLibCore::WriteFlateImageToStream(ScImage& image, int ObjNum, ColorSpaceEnum format, bool precal)
 {
-	bool succeed = false;
+	bool fromCmyk, succeed = false;
 	int  bytesWritten = 0;
 	if (Options.Encrypt)
 	{
@@ -562,12 +574,18 @@ int PDFLibCore::WriteFlateImageToStream(ScImage& image, int ObjNum, bool cmyk, b
 		ScFlateEncodeFilter flateEncode(&rc4Encode);
 		if (flateEncode.openFilter())
 		{
-			if (gray)
-				succeed = image.writeGrayDataToFilter(&flateEncode, precal);
-			else if (cmyk)
-				succeed = image.writeCMYKDataToFilter(&flateEncode);
-			else
-				succeed = image.writeRGBDataToFilter(&flateEncode);
+			switch (format)
+			{
+				case ColorSpaceMonochrome :
+					fromCmyk = !Options.UseRGB && !Options.isGrayscale && !(doc.HasCMS && Options.UseProfiles2);
+					succeed = image.writeMonochromeDataToFilter(&flateEncode, fromCmyk); break;
+				case ColorSpaceGray :
+					succeed = image.writeGrayDataToFilter(&flateEncode, precal); break;
+				case ColorSpaceCMYK :
+					succeed = image.writeCMYKDataToFilter(&flateEncode); break;
+				default :
+					succeed = image.writeRGBDataToFilter(&flateEncode); break;
+			}
 			succeed &= flateEncode.closeFilter();
 			bytesWritten = flateEncode.writtenToStream();
 		}
@@ -577,12 +595,18 @@ int PDFLibCore::WriteFlateImageToStream(ScImage& image, int ObjNum, bool cmyk, b
 		ScFlateEncodeFilter flateEncode(&outStream);
 		if (flateEncode.openFilter())
 		{
-			if (gray)
-				succeed = image.writeGrayDataToFilter(&flateEncode, precal);
-			else if (cmyk)
-				succeed = image.writeCMYKDataToFilter(&flateEncode);
-			else
-				succeed = image.writeRGBDataToFilter(&flateEncode);
+			switch (format)
+			{
+				case ColorSpaceMonochrome :
+					fromCmyk = !Options.UseRGB && !Options.isGrayscale && !(doc.HasCMS && Options.UseProfiles2);
+					succeed = image.writeMonochromeDataToFilter(&flateEncode, fromCmyk); break;
+				case ColorSpaceGray :
+					succeed = image.writeGrayDataToFilter(&flateEncode, precal); break;
+				case ColorSpaceCMYK :
+					succeed = image.writeCMYKDataToFilter(&flateEncode); break;
+				default :
+					succeed = image.writeRGBDataToFilter(&flateEncode); break;
+			}
 			succeed &= flateEncode.closeFilter();
 			bytesWritten = flateEncode.writtenToStream();
 		}
@@ -9290,6 +9314,18 @@ void PDFLibCore::copyPoDoFoObject(const PoDoFo::PdfObject* obj, uint scObjID, QM
 }
 #endif
 
+/*
+ * Helper function to transition for booleans to ColorSpaceEnum. This
+ * should be removed once output format is specified directly.
+ */
+static ColorSpaceEnum getOutputType(const bool gray, const bool cmyk)
+{
+	if (gray)
+		return ColorSpaceGray;
+	if (cmyk)
+		return ColorSpaceCMYK;
+	return ColorSpaceRGB;
+}
 
 bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy, double x, double y, bool fromAN, const QString& Profil, bool Embedded, eRenderIntent Intent, QString* output)
 {
@@ -9367,7 +9403,7 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 			isEmbeddedPDF = true;
 			ImInfo.Page = c->pixm.imgInfo.actualPageNumber;
 		}
-		if(!imageLoaded && extensionIndicatesPDF(ext) && c->effectsInUse.count() == 0 && Options.embedPDF)
+		if (!imageLoaded && extensionIndicatesPDF(ext) && c->effectsInUse.count() == 0 && Options.embedPDF)
 			qDebug() << "Failed to embed the PDF file";
 		// no embedded PDF:
 		if (!imageLoaded)
@@ -9734,28 +9770,6 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 			PutDoc("<<\n/Type /XObject\n/Subtype /Image\n");
 			PutDoc("/Width "+QString::number(img.width())+"\n");
 			PutDoc("/Height "+QString::number(img.height())+"\n");
-			if ((doc.HasCMS) && (Options.UseProfiles2))
-			{
-				PutDoc("/ColorSpace "+ICCProfiles[profInUse].ICCArray+"\n");
-				PutDoc("/Intent /");
-				int inte2 = Intent;
-				if (Options.EmbeddedI)
-					inte2 = Options.Intent2;
-				static const QString cmsmode[] = {"Perceptual", "RelativeColorimetric", "Saturation", "AbsoluteColorimetric"};
-				PutDoc(cmsmode[inte2] + "\n");
-			}
-			else
-			{
-				if (Options.UseRGB)
-					PutDoc("/ColorSpace /DeviceRGB\n");
-				else
-				{
-					if (Options.isGrayscale)
-						PutDoc("/ColorSpace /DeviceGray\n");
-					else
-						PutDoc("/ColorSpace /DeviceCMYK\n");
-				}
-			}
 			enum PDFOptions::PDFCompression compress_method = Options.CompressMethod;
  			enum PDFOptions::PDFCompression cm = Options.CompressMethod;
 			bool exportToCMYK = false, exportToGrayscale = false, jpegUseOriginal = false;
@@ -9769,6 +9783,11 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 			}
 			if (c->OverrideCompressionMethod)
 				compress_method = cm = (enum PDFOptions::PDFCompression) c->CompressionMethodIndex;
+			if (img.imgInfo.colorspace == ColorSpaceMonochrome && (c->effectsInUse.count() == 0))
+			{
+				compress_method = (compress_method != PDFOptions::Compression_None) ? PDFOptions::Compression_ZIP : compress_method;
+				cm = compress_method;
+			}
 			if (extensionIndicatesJPEG(ext) && (cm != PDFOptions::Compression_None))
 			{
 				if (((Options.UseRGB || Options.UseProfiles2) && (cm == PDFOptions::Compression_Auto) && (c->effectsInUse.count() == 0) && (img.imgInfo.colorspace == ColorSpaceRGB)) && (!img.imgInfo.progressive) && (!((Options.RecalcPic) && (Options.PicRes < (qMax(72.0 / c->imageXScale(), 72.0 / c->imageYScale()))))))
@@ -9831,8 +9850,39 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 					}*/
 				}
 			}
+			if ((hasGrayProfile) && (doc.HasCMS) && (Options.UseProfiles2) && (!hasColorEffect))
+				exportToGrayscale = true;
 			int bytesWritten = 0;
-			PutDoc("/BitsPerComponent 8\n");
+			// Fixme: outType variable should be set directly in the if/else maze above.
+			ColorSpaceEnum outType;
+			if (img.imgInfo.colorspace == ColorSpaceMonochrome && c->effectsInUse.count() == 0)
+				outType = ColorSpaceMonochrome;
+			else
+				outType = getOutputType(exportToGrayscale, exportToCMYK);
+			if ((outType != ColorSpaceMonochrome) && (doc.HasCMS) && (Options.UseProfiles2))
+			{
+				PutDoc("/ColorSpace "+ICCProfiles[profInUse].ICCArray+"\n");
+				PutDoc("/Intent /");
+				int inte2 = Intent;
+				if (Options.EmbeddedI)
+					inte2 = Options.Intent2;
+				static const QString cmsmode[] = {"Perceptual", "RelativeColorimetric", "Saturation", "AbsoluteColorimetric"};
+				PutDoc(cmsmode[inte2] + "\n");
+			}
+			else
+			{
+				switch (outType)
+				{
+					case ColorSpaceMonochrome :
+					case ColorSpaceGray : PutDoc("/ColorSpace /DeviceGray\n"); break;
+					case ColorSpaceCMYK : PutDoc("/ColorSpace /DeviceCMYK\n"); break;
+					default : PutDoc("/ColorSpace /DeviceRGB\n"); break;
+				}
+			}
+			if (outType == ColorSpaceMonochrome)
+				PutDoc("/BitsPerComponent 1\n");
+			else
+				PutDoc("/BitsPerComponent 8\n");
 			uint lengthObj = newObject();
 			PutDoc("/Length "+QString::number(lengthObj)+" 0 R\n");
 			if (cm == PDFOptions::Compression_JPEG)
@@ -9849,19 +9899,17 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 					PutDoc("/Mask "+QString::number(maskObj)+" 0 R\n");
 			}
 			PutDoc(">>\nstream\n");
-			if ((hasGrayProfile) && (doc.HasCMS) && (Options.UseProfiles2) && (!hasColorEffect))
-				exportToGrayscale = true;
-			if (cm == PDFOptions::Compression_JPEG)
+			if (cm == PDFOptions::Compression_JPEG) // Fixme: should not do this with monochrome images?
 			{
 				int quality = c->OverrideCompressionQuality ? c->CompressionQualityIndex : Options.Quality;
 				if (c->OverrideCompressionQuality)
 					jpegUseOriginal = false;
-				bytesWritten = WriteJPEGImageToStream(img, fn, imageObj, quality, exportToCMYK, exportToGrayscale, jpegUseOriginal, (!hasColorEffect && hasGrayProfile));
+				bytesWritten = WriteJPEGImageToStream(img, fn, imageObj, quality, outType, jpegUseOriginal, (!hasColorEffect && hasGrayProfile));
 			}
 			else if (cm == PDFOptions::Compression_ZIP)
-				bytesWritten = WriteFlateImageToStream(img, imageObj, exportToCMYK, exportToGrayscale, (!hasColorEffect && hasGrayProfile));
+				bytesWritten = WriteFlateImageToStream(img, imageObj, outType, (!hasColorEffect && hasGrayProfile));
 			else
-				bytesWritten = WriteImageToStream(img, imageObj, exportToCMYK, exportToGrayscale, (!hasColorEffect && hasGrayProfile));
+				bytesWritten = WriteImageToStream(img, imageObj, outType, (!hasColorEffect && hasGrayProfile));
 			PutDoc("\nendstream\nendobj\n");
 			if (bytesWritten <= 0)
 			{

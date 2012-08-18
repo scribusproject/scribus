@@ -1347,6 +1347,51 @@ bool ScImage::writeGrayDataToFilter(ScStreamFilter* filter, bool precal)
 	return success;
 }
 
+bool ScImage::writeMonochromeDataToFilter(ScStreamFilter* filter, bool fromCmyk)
+{
+	QRgb *s;
+	QByteArray buffer;
+	bool success = true;
+	int  h = height();
+	int  w = width();
+	int  byteCount = 0;
+	int  bufferSize = (w + 7) / 8 * h;
+	int  value;
+	const unsigned char threshold = 127;
+	buffer.resize(bufferSize);
+	if (buffer.isNull()) // Memory allocation failure
+		return false;
+	for (int yi = 0; yi < h; ++yi)
+	{
+		char curByte = 0;
+		int bitCount = 0;
+		s = (QRgb*)(scanLine( yi ));
+		for (int xi = 0; xi < w; ++xi)
+		{
+			curByte <<= 1;
+			value = fromCmyk ? (255 - qAlpha(*s)) : qRed(*s);
+			if (value > threshold) // In monochrome images all elements have the same value.
+				curByte |= 1;
+			++bitCount;
+			if (bitCount == 8)
+			{
+				buffer[byteCount++] = curByte;
+				curByte = 0;
+				bitCount = 0;
+			}
+			++s;
+		}
+		// End of line is aligned to byte.
+		if (bitCount > 0) {
+			curByte <<=  8-bitCount;
+			buffer[byteCount++] = curByte;
+		}
+	}
+	assert(byteCount == bufferSize);
+	success = filter->writeData(buffer.constData(), byteCount);
+	return success;
+}
+
 bool ScImage::writeCMYKDataToFilter(ScStreamFilter* filter)
 {
 	QRgb r, *s;

@@ -106,9 +106,9 @@ private:
 
 	bool       EncodeArrayToStream(const QByteArray& in, int ObjNum);
 
-	int     WriteImageToStream(ScImage& image, int ObjNum, bool cmyk, bool gray, bool precal);
-	int     WriteJPEGImageToStream(ScImage& image, const QString& fn, int ObjNum, int quality, bool cmyk, bool gray, bool sameFile, bool precal);
-	int     WriteFlateImageToStream(ScImage& image, int ObjNum, bool cmyk, bool gray, bool precal);
+	int     WriteImageToStream(ScImage& image, int ObjNum, ColorSpaceEnum format, bool precal);
+	int     WriteJPEGImageToStream(ScImage& image, const QString& fn, int ObjNum, int quality, ColorSpaceEnum format, bool sameFile, bool precal);
+	int     WriteFlateImageToStream(ScImage& image, int ObjNum, ColorSpaceEnum format, bool precal);
 
 	void    CalcOwnerKey(const QString & Owner, const QString & User);
 	void    CalcUserKey(const QString & User, int Permission);
