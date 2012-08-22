@@ -50,6 +50,16 @@
      </attribute>
     </widget>
    </item>
+   <item>
+    <widget class="QRadioButton" name="flopBaselineGrid">
+     <property name="text">
+      <string>Baseline Grid</string>
+     </property>
+     <attribute name="buttonGroup">
+      <string>flopGroup</string>
+     </attribute>
+    </widget>
+   </item>
   </layout>
  </widget>
  <resources/>

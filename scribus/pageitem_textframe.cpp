@@ -1347,7 +1347,7 @@ void PageItem_TextFrame::layout()
 	QList<ParagraphStyle::TabRecord> tTabValues;
 	tTabValues.clear();
 	
-	bool DropCmode = false;
+	bool   DropCmode = false, FlopBaseline = false;
 	double desc=0, asce=0, realAsce=0, realDesc = 0, offset = 0;
 	double maxDY=0, maxDX=0;
 	double DropCapDrop = 0;
@@ -1486,6 +1486,8 @@ void PageItem_TextFrame::layout()
 			if (chstr.isEmpty())
 				chstr = SpecialChars::ZWNBSPACE;
 			style.setLineSpacing (calculateLineSpacing (style, this));
+			FlopBaseline = (current.startOfCol && firstLineOffset() == FLOPBaselineGrid);
+
 			// find out about par gap and dropcap
 			if (a == firstInFrame())
 			{
@@ -1807,7 +1809,18 @@ void PageItem_TextFrame::layout()
 					if (current.startOfCol)
 					{
 						lastLineY = qMax(lastLineY, extra.Top + lineCorr);
-						if (style.lineSpacingMode() != ParagraphStyle::BaselineGridLineSpacing)
+						if (style.lineSpacingMode() == ParagraphStyle::BaselineGridLineSpacing || FlopBaseline)
+						{
+							if (current.yPos <= lastLineY)
+								current.yPos = lastLineY +1;
+							double by = Ypos;
+							if (OwnPage != -1)
+								by = Ypos - m_Doc->Pages->at(OwnPage)->yOffset();
+							int ol1 = qRound((by + current.yPos - m_Doc->guidesPrefs().offsetBaselineGrid) * 10000.0);
+							int ol2 = static_cast<int>(ol1 / m_Doc->guidesPrefs().valueBaselineGrid);
+							current.yPos = ceil(  ol2 / 10000.0 ) * m_Doc->guidesPrefs().valueBaselineGrid + m_Doc->guidesPrefs().offsetBaselineGrid - by;
+						}
+						else if (style.lineSpacingMode() != ParagraphStyle::BaselineGridLineSpacing)
 						{
 							if (firstLineOffset() == FLOPRealGlyphHeight)
 							{
@@ -1820,17 +1833,6 @@ void PageItem_TextFrame::layout()
 								current.yPos += style.lineSpacing();
 							else
 								current.yPos += asce;
-						}
-						else if (style.lineSpacingMode() == ParagraphStyle::BaselineGridLineSpacing)
-						{
-							if (current.yPos <= lastLineY)
-								current.yPos = lastLineY +1;
-							double by = Ypos;
-							if (OwnPage != -1)
-								by = Ypos - m_Doc->Pages->at(OwnPage)->yOffset();
-							int ol1 = qRound((by + current.yPos - m_Doc->guidesPrefs().offsetBaselineGrid) * 10000.0);
-							int ol2 = static_cast<int>(ol1 / m_Doc->guidesPrefs().valueBaselineGrid);
-							current.yPos = ceil(  ol2 / 10000.0 ) * m_Doc->guidesPrefs().valueBaselineGrid + m_Doc->guidesPrefs().offsetBaselineGrid - by;
 						}
 					}
 					else
@@ -1939,7 +1941,7 @@ void PageItem_TextFrame::layout()
 					{
 						// new line
 						current.xPos = qMax(current.colLeft, maxDX);
-						if (style.lineSpacingMode() == ParagraphStyle::BaselineGridLineSpacing)
+						if (style.lineSpacingMode() == ParagraphStyle::BaselineGridLineSpacing || FlopBaseline)
 						{
 							current.yPos++;
 							double by = Ypos;
@@ -2038,7 +2040,7 @@ void PageItem_TextFrame::layout()
 						maxDX = 0;
 					}
 					int linesDrop = 0;
-					if (style.lineSpacingMode() == ParagraphStyle::BaselineGridLineSpacing)
+					if (style.lineSpacingMode() == ParagraphStyle::BaselineGridLineSpacing || FlopBaseline)
 					{
 						linesDrop = ceil(diff / m_Doc->guidesPrefs().valueBaselineGrid);
 						current.yPos += m_Doc->guidesPrefs().valueBaselineGrid * linesDrop;
@@ -2750,7 +2752,8 @@ void PageItem_TextFrame::layout()
 				if (DropCmode)
 					addAsce = qMax(realAsce, asce + offset);
 				else
-					addAsce = asce + offset;				if (style.lineSpacingMode() != ParagraphStyle::BaselineGridLineSpacing)
+					addAsce = asce + offset;
+				if (style.lineSpacingMode() != ParagraphStyle::BaselineGridLineSpacing)
 				{
 					if (firstLineOffset() == FLOPRealGlyphHeight)
 						addAsce = realAsce;

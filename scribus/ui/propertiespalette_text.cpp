@@ -444,8 +444,10 @@ void PropertiesPalette_Text::displayFirstLinePolicy( FirstLineOffsetPolicy f )
 		flopBox->flopFontAscent->setChecked(true);
 	else if(f == FLOPLineSpacing)
 		flopBox->flopLineSpacing->setChecked(true);
-	else
+	else if (f == FLOPRealGlyphHeight)
 		flopBox->flopRealHeight->setChecked(true); //It’s historical behaviour.
+	else // if (f == FLOPBaseline)
+		flopBox->flopBaselineGrid->setChecked(true);
 }
 
 void PropertiesPalette_Text::setupLineSpacingSpinbox(int mode, double value)
@@ -725,6 +727,8 @@ void PropertiesPalette_Text::handleFirstLinePolicy(int radioFlop)
 			i2->setFirstLineOffset(FLOPFontAscent);
 		else if( radioFlop == PropertyWidget_Flop::LineSpacingID)
 			i2->setFirstLineOffset(FLOPLineSpacing);
+		else if( radioFlop == PropertyWidget_Flop::BaselineGridID)
+			i2->setFirstLineOffset(FLOPBaselineGrid);
 		i2->update();
 		if (m_doc->appMode == modeEditTable)
 			m_item->asTable()->update();
