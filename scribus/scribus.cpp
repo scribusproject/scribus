@@ -1332,12 +1332,12 @@ bool ScribusMainWindow::eventFilter( QObject* /*o*/, QEvent *e )
 
 void ScribusMainWindow::inputMethodEvent ( QInputMethodEvent * event )
 {
-	qDebug() << "IMEmw" << event->commitString() << event->preeditString() << "attributes:" << event->attributes().count();
+	//qDebug() << "IMEmw" << event->commitString() << event->preeditString() << "attributes:" << event->attributes().count();
 }
 
 QVariant ScribusMainWindow::inputMethodQuery ( Qt::InputMethodQuery query ) const
 {
-	qDebug() << "IMQmw" << query;
+	//qDebug() << "IMQmw" << query;
 	return QVariant();
 }
 
