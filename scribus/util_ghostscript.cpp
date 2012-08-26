@@ -40,6 +40,12 @@ for which a new license (GPL+exception) is in place.
 
 #if defined(_WIN32)
 #include <windows.h>
+#ifndef KEY_WOW64_32KEY
+	#define KEY_WOW64_32KEY (0x0200)
+#endif
+#ifndef KEY_WOW64_64KEY
+	#define KEY_WOW64_64KEY (0x0100)
+#endif
 #endif
 
 #include "prefsfile.h"
@@ -266,9 +272,29 @@ QString getGSDefaultExeName(void)
 	// Set gsName to its default value
 	gsName = "gswin32c.exe";
 
-	QMap<int, QString> gplGS  = getGSExePaths("SOFTWARE\\GPL Ghostscript");
-	QMap<int, QString> afplGS = getGSExePaths("SOFTWARE\\AFPL Ghostscript");
-	QMap<int, QString> gsVersions = gplGS.unite(afplGS);
+	// Test is we are running a 64bit version of WINDOWS
+	bool isWindows64 = false;
+	wchar_t* procArch = _wgetenv(L"PROCESSOR_ARCHITECTURE");
+	if (procArch)
+	{
+		isWindows64 |= (wcscmp(procArch, L"AMD64") == 0);
+		isWindows64 |= (wcscmp(procArch, L"IA64") == 0);
+	}
+	wchar_t* procArchWow64 = _wgetenv(L"PROCESSOR_ARCHITEW6432");
+	if (procArchWow64) isWindows64 = true;
+
+	// Search for Ghostsscript executable in native registry
+	QMap<int, QString> gsVersions;
+	gsVersions.unite( getGSExePaths("SOFTWARE\\GPL Ghostscript") );
+	gsVersions.unite( getGSExePaths("SOFTWARE\\AFPL Ghostscript") );
+
+	// If running on Windows 64bit, search alternate registry view,
+	// ie 32bit registry if process is 64bit, 64bit registry if process is 32bit
+	if (isWindows64)
+	{
+		gsVersions.unite( getGSExePaths("SOFTWARE\\GPL Ghostscript", true) );
+		gsVersions.unite( getGSExePaths("SOFTWARE\\AFPL Ghostscript", true) );
+	}
 
 	if (gsVersions.isEmpty())
 		return gsName;
@@ -307,7 +333,7 @@ QString getGSDefaultExeName(void)
 	return gsName;
 }
 
-QMap<int, QString> SCRIBUS_API getGSExePaths(const QString& regKey)
+QMap<int, QString> SCRIBUS_API getGSExePaths(const QString& regKey, bool alternateView)
 {
 	QMap<int, QString> gsVersions;
 #if defined _WIN32
@@ -315,22 +341,35 @@ QMap<int, QString> SCRIBUS_API getGSExePaths(const QString& regKey)
 	DWORD size;
 	HKEY hKey1, hKey2;
 	DWORD regType = REG_SZ;
+	REGSAM flags  = KEY_READ;
 	WCHAR regVersion[MAX_PATH];
 	WCHAR regPath[MAX_PATH];
 	WCHAR gsPath[MAX_PATH];
-	QString gsVersion, gsName;
+	QString gsVersion, gsExeName, gsName;
 
-	if( RegOpenKeyW(HKEY_LOCAL_MACHINE, (LPCWSTR) regKey.utf16(), &hKey1) == ERROR_SUCCESS )
+	bool isWin64Api = false;
+#if defined(_WIN64)
+	isWin64Api = true;
+#endif
+
+	gsExeName = isWin64Api ? "gswin64c.exe" : "gswin32c.exe";
+	if (alternateView)
+	{
+		gsExeName = isWin64Api ? "gswin32c.exe" : "gswin64c.exe";
+		flags |= (isWin64Api ? KEY_WOW64_32KEY : KEY_WOW64_64KEY);
+	}
+
+	if (RegOpenKeyExW(HKEY_LOCAL_MACHINE, (LPCWSTR) regKey.utf16(), 0, flags, &hKey1) == ERROR_SUCCESS)
 	{
 		size = sizeof(regVersion)/sizeof(WCHAR) - 1;
 		DWORD keyIndex = 0;
-		while ( RegEnumKeyExW(hKey1, keyIndex, regVersion, &size, NULL, NULL, NULL, NULL) == ERROR_SUCCESS )
+		while (RegEnumKeyExW(hKey1, keyIndex, regVersion, &size, NULL, NULL, NULL, NULL) == ERROR_SUCCESS)
 		{
 			int gsNumericVer, gsMajor, gsMinor;
 			wcscpy(regPath, (const wchar_t*) regKey.utf16());
 			wcscat(regPath, L"\\");
 			wcscat(regPath, regVersion);
-			if (RegOpenKeyW(HKEY_LOCAL_MACHINE, regPath, &hKey2) == ERROR_SUCCESS)
+			if (RegOpenKeyExW(HKEY_LOCAL_MACHINE, regPath, 0, flags, &hKey2) == ERROR_SUCCESS)
 			{
 				size = sizeof(gsPath) - 1;
 				if (RegQueryValueExW(hKey2, L"GS_DLL", 0, &regType, (LPBYTE) gsPath, &size) == ERROR_SUCCESS)
@@ -345,7 +384,7 @@ QMap<int, QString> SCRIBUS_API getGSExePaths(const QString& regKey)
 						if (size > 0)
 						{
 							gsName  = gsName.left(size + 1);
-							gsName += "gswin32c.exe";
+							gsName += gsExeName;
 							gsName.replace("\\", "/");
 							gsVersions.insert(gsNumericVer, gsName);
 						}	

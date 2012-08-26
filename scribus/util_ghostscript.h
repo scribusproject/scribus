@@ -52,5 +52,5 @@ QString SCRIBUS_API getGSVersion();
 bool    SCRIBUS_API getNumericGSVersion(int & major, int & minor);
 bool    SCRIBUS_API getNumericGSVersion(const QString& ver, int&major, int& minor);
 QString SCRIBUS_API getGSDefaultExeName(void);
-QMap<int, QString> SCRIBUS_API getGSExePaths(const QString& regKey);
+QMap<int, QString> SCRIBUS_API getGSExePaths(const QString& regKey, bool alternateView = false);
 #endif
