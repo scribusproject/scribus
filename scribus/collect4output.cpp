@@ -23,11 +23,11 @@ for which a new license (GPL+exception) is in place.
 #include "scpattern.h"
 #include "util_file.h"
 
+#include <QDir>
+#include <QMap>
 #include <QMessageBox>
 #include <QProgressBar>
 #include <QString>
-#include <QMap>
-#include <QDir>
 
 CollectForOutput::CollectForOutput(ScribusDoc* doc, QString outputDirectory, bool withFonts, bool withProfiles, bool compressDoc)
 	: QObject(ScCore),
@@ -74,15 +74,26 @@ bool CollectForOutput::newDirDialog()
 		return false;
 	if (!m_outputDirectory.endsWith("/"))
 		m_outputDirectory += "/";
-	QDir dir(m_outputDirectory);
-	if (!dir.exists())
+
+	QStringList directories;
+	directories.append(m_outputDirectory);
+	directories.append(m_outputDirectory + "images/");
+	if (m_withFonts)
+		directories.append(m_outputDirectory + "fonts/");
+	if (m_withProfiles)
+		directories.append(m_outputDirectory + "profiles/");
+
+	for (int i = 0; i < directories.count(); ++i)
 	{
-		bool created = dir.mkpath(m_outputDirectory);
+		QDir dir(directories[i]);
+		if (dir.exists()) continue;
+		
+		bool created = dir.mkpath(directories[i]);
 		if (!created)
 		{
 			QMessageBox::warning(ScCore->primaryMainWindow(), CommonStrings::trWarning,
-							 "<qt>" + tr("Cannot create directory:\n%1").arg(m_outputDirectory) + "</qt>",
-							 CommonStrings::tr_OK);
+			                     "<qt>" + tr("Cannot create directory:\n%1").arg(directories[i]) + "</qt>",
+			                     CommonStrings::tr_OK);
 			return false;
 		}
 	}
@@ -130,7 +141,8 @@ QString CollectForOutput::collect(QString &newFileName)
 	ScCore->primaryMainWindow()->mainWindowProgressBar->reset();
 	ScCore->fileWatcher->start();
 	collectedFiles.clear();
-	newFileName=newName;
+	newFileName = newName;
+
 	return QString::null;
 }
 
@@ -337,7 +349,7 @@ bool CollectForOutput::collectFonts()
 	for (it3 = m_Doc->UsedFonts.begin(); it3 != it3end; ++it3)
 	{
 		QFileInfo itf(prefsManager->appPrefs.fontPrefs.AvailFonts[it3.key()].fontFilePath());
-		copyFileAtomic(prefsManager->appPrefs.fontPrefs.AvailFonts[it3.key()].fontFilePath(), m_outputDirectory + itf.fileName());
+		copyFileAtomic(prefsManager->appPrefs.fontPrefs.AvailFonts[it3.key()].fontFilePath(), m_outputDirectory + "fonts/" + itf.fileName());
 		if (prefsManager->appPrefs.fontPrefs.AvailFonts[it3.key()].type() == ScFace::TYPE1)
 		{
 			QStringList metrics;
@@ -360,7 +372,7 @@ bool CollectForOutput::collectFonts()
 			{
 				QString origAFM = metrics[a];
 				QFileInfo fi(origAFM);
-				copyFileAtomic(origAFM, m_outputDirectory + fi.fileName());
+				copyFileAtomic(origAFM, m_outputDirectory + "fonts/" + fi.fileName());
 			}
 		}
 		if (uiCollect)
@@ -419,7 +431,7 @@ bool CollectForOutput::collectProfiles()
 	{
 		QString profileName(it.key());
 		QString profilePath(it.value());
-		copyFileAtomic(profilePath, m_outputDirectory + QFileInfo(profilePath).fileName());
+		copyFileAtomic(profilePath, m_outputDirectory + "profiles/" + QFileInfo(profilePath).fileName());
 		if (uiCollect)
 			emit profilesCollected(c++);
 	}
@@ -445,7 +457,9 @@ QString CollectForOutput::collectFile(QString oldFile, QString newFile)
 		++cnt;
 	}
 	if (copy)
-		copyFileAtomic(oldFile, m_outputDirectory + newFile);
+	{
+		copyFileAtomic(oldFile, m_outputDirectory + "images/" + newFile);
+	}
 	collectedFiles[newFile] = oldFile;
-	return m_outputDirectory + newFile;
+	return m_outputDirectory + "images/" + newFile;
 }
