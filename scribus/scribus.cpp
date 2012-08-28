@@ -9366,7 +9366,7 @@ void ScribusMainWindow::initHyphenator()
 	//For each hyphenation file, grab the strings and the hyphenation data.
 	QString lang = QString(QLocale::system().name()).left(2);
 	LangTransl.clear();
-	prefsManager->appPrefs.hyphPrefs.Language = "en_US";
+	prefsManager->appPrefs.hyphPrefs.Language = "en_GB";
 	if ((hyphDir.exists()) && (hyphDir.count() != 0))
 	{
 		LanguageManager *langmgr(LanguageManager::instance());
@@ -9383,7 +9383,7 @@ void ScribusMainWindow::initHyphenator()
 				prefsManager->appPrefs.hyphPrefs.Language = fileLangAbbrev;
 		}
 		if (tLang.isEmpty())
-			prefsManager->appPrefs.hyphPrefs.Language = "en_US";
+			prefsManager->appPrefs.hyphPrefs.Language = "en_GB";
 	}
 }
 
