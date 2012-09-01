@@ -56,7 +56,7 @@ protected:
 	void mouseMoveEvent(QMouseEvent* e);
 
 	//! \brief Map current QModelIndex into CharClassDef index/position
-	int currenCharactersIndex();
+	int currentCharactersIndex();
 
 	void hideZoomedChar();
 
