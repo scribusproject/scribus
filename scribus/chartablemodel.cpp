@@ -164,7 +164,9 @@ void CharTableModel::appendUnicode(const QString & s, uint base)
 	bool ok;
 	int a = s.indexOf("#");
 	QString si = s.left(a);
-	QString sf = s.mid(a+1);
+	QString sf = (a >= 0) ? s.mid(a+1) : "";
+	if (sf.isEmpty())
+		sf = m_fontInUse;
 	int val = si.toInt(&ok, base);
 	if (!ok)
 		return;
