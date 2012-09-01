@@ -63,7 +63,7 @@ void CharTableView::keyPressEvent(QKeyEvent *k)
 		emit delChar();
 		break;
 	case Qt::Key_Insert:
-		// safely emit selectChar(model()->characters()[currenCharactersIndex()]);
+		// safely emit selectChar(model()->characters()[currentCharactersIndex()]);
 		viewDoubleClicked(QModelIndex());
 		break;
 	}
@@ -74,7 +74,9 @@ void CharTableView::mousePressEvent(QMouseEvent* e)
 {
 	QTableView::mousePressEvent(e);
 
-	int index = currenCharactersIndex();
+	int index = currentCharactersIndex();
+	if (index < 0)
+		return;
 	int currentChar = -1;
 
 	if ((index < model()->characters().count()) && (model()->characters().count() > 0))
@@ -116,13 +118,17 @@ void CharTableView::mouseReleaseEvent(QMouseEvent* e)
 
 void CharTableView::viewDoubleClicked(const QModelIndex & /*index*/)
 {
-	if (model()->characters().count() > currenCharactersIndex())
-		emit selectChar(model()->characters()[currenCharactersIndex()], model()->fonts()[currenCharactersIndex()]);
+	int charIndex = currentCharactersIndex();
+	if (model()->characters().count() > charIndex)
+		emit selectChar(model()->characters()[charIndex], model()->fonts()[charIndex]);
 }
 
-int CharTableView::currenCharactersIndex()
+int CharTableView::currentCharactersIndex()
 {
-	return currentIndex().row() * model()->columnCount() + currentIndex().column();
+	QModelIndex index = currentIndex();
+	if (!index.isValid())
+		return -1;
+	return index.row() * model()->columnCount() + index.column();
 }
 
 void CharTableView::hideZoomedChar()
