@@ -23,6 +23,8 @@ protected:
 	QByteArray m_profileData;
 
 public:
+	virtual ~ScColorProfileData() {};
+	
 	QString dataHash() const;
 
 	QString path() const { return m_profilePath; }

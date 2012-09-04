@@ -19,6 +19,8 @@ protected:
 	ScColorTransformInfo m_transformInfo;
 
 public:
+	virtual ~ScColorTransformData() {};
+	
 	inline const ScColorTransformInfo& transformInfo() const { return m_transformInfo; }
 	inline void  setTransformInfo(const ScColorTransformInfo& info) { m_transformInfo = info; }
 	
