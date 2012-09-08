@@ -141,7 +141,10 @@ PrintDialog::PrintDialog( QWidget* parent, ScribusDoc* doc, const PrintOptions& 
 	setStoredValues(printOptions.filename, gcr);
 #if defined(_WIN32)
 	if (!outputToFile())
+	{
+		DevMode = printOptions.devMode;
 		PrinterUtil::initDeviceSettings( PrintDest->currentText(), DevMode );
+	}
 #endif
 
 	printEngineMap = PrinterUtil::getPrintEngineSupport(PrintDest->currentText(), outputToFile());
