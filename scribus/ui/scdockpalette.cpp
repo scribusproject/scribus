@@ -41,9 +41,8 @@ for which a new license (GPL+exception) is in place.
 
 
 ScDockPalette::ScDockPalette(  QWidget * parent, const QString& prefsContext, Qt::WFlags f)
-	: QDockWidget ( parent, f | Qt::Tool | Qt::CustomizeWindowHint
-			| Qt::WindowTitleHint | Qt::WindowMinMaxButtonsHint
-			| Qt::WindowSystemMenuHint | Qt::WindowCloseButtonHint ),
+	: QDockWidget ( parent, f | Qt::Tool  | Qt::CustomizeWindowHint
+			| Qt::WindowMinMaxButtonsHint | Qt::WindowCloseButtonHint ),
 	palettePrefs(0),
 	prefsContextName(QString::null),
 	visibleOnStartup(false)
