@@ -208,35 +208,35 @@ const ScFace& ScFace::none()
 	return NONE; 
 }
 
-QString ScFace::ascentAsString() const
+QString ScFace::pdfAscentAsString() const
 {
 	if (m->status == ScFace::UNKNOWN) {
 		m->load();
 	}
-	return m->ascentAsString();
+	return m->pdfAscentAsString();
 }
 
-QString ScFace::descentAsString() const
+QString ScFace::pdfDescentAsString() const
 {
 	if (m->status == ScFace::UNKNOWN) {
 		m->load();
 	}
-	return m->descentAsString();
+	return m->pdfDescentAsString();
 }
-QString ScFace::capHeightAsString() const
+QString ScFace::pdfCapHeightAsString() const
 {
 	if (m->status == ScFace::UNKNOWN) {
 		m->load();
 	}
-	return m->capHeightAsString();
+	return m->pdfCapHeightAsString();
 }
 
-QString ScFace::fontBBoxAsString() const
+QString ScFace::pdfFontBBoxAsString() const
 {
 	if (m->status == ScFace::UNKNOWN) {
 		m->load();
 	}
-	return m->FontBBoxAsString();
+	return m->pdfFontBBoxAsString();
 }
 
 QString ScFace::italicAngleAsString() const

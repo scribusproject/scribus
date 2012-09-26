@@ -161,12 +161,12 @@ public:
 
 		// dummy implementations
 		virtual qreal ascent(qreal sz)           const { return sz; }
-		virtual QString ascentAsString()    const { return "0" ; }
-		virtual QString descentAsString()    const { return "0"; }
-		virtual QString capHeightAsString()    const { return "0"; }
-		virtual QString FontBBoxAsString()    const { return "0 0 0 0"; }
+		virtual QString pdfAscentAsString()      const { return "0" ; }
+		virtual QString pdfDescentAsString()     const { return "0"; }
+		virtual QString pdfCapHeightAsString()   const { return "0"; }
+		virtual QString pdfFontBBoxAsString()    const { return "0 0 0 0"; }
 		virtual QString ItalicAngleAsString()    const { return "0"; }
-		virtual qreal descent(qreal /*sz*/)          const { return 0.0; }
+		virtual qreal descent(qreal /*sz*/)      const { return 0.0; }
 		virtual qreal xHeight(qreal sz)          const { return sz; }
 		virtual qreal capHeight(qreal sz)        const { return sz; }
 		virtual qreal height(qreal sz)           const { return sz; }
@@ -308,11 +308,11 @@ public:
 	QString variant()  const { return m->variant; }
 	
 	// font metrics
-	QString ascentAsString()      const;
-	QString descentAsString()     const;
-	QString capHeightAsString()   const;
-	QString fontBBoxAsString()    const;
-	QString italicAngleAsString() const;
+	QString pdfAscentAsString()      const;
+	QString pdfDescentAsString()     const;
+	QString pdfCapHeightAsString()   const;
+	QString pdfFontBBoxAsString()    const;
+	QString italicAngleAsString()    const;
 	qreal ascent(qreal sz=1.0)          const;
 	qreal descent(qreal sz=1.0)         const;
 	qreal xHeight(qreal sz=1.0)         const;

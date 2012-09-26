@@ -111,11 +111,14 @@ void FtFace::load() const
 	m_strikeoutPos = m_ascent / 3;
 	m_strokeWidth = m_face->underline_thickness / m_uniEM;
 	const_cast<FtFace*>(this)->isFixedPitch = m_face->face_flags & 4;
-	Ascent = QString::number(m_face->ascender);
-	CapHeight = QString::number(m_face->height);
-	Descender = QString::number(m_face->descender);
-	FontBBox = QString::number(m_face->bbox.xMin)+" "+QString::number(m_face->bbox.yMin)+" "+QString::number(m_face->bbox.xMax)+" "+QString::number(m_face->bbox.yMax);
-	ItalicAngle = "0";
+	m_pdfAscent    = QString::number(m_face->ascender / m_uniEM * 1000);
+	m_pdfCapHeight = QString::number(m_face->height / m_uniEM * 1000);
+	m_pdfDescender = QString::number(m_face->descender / m_uniEM * 1000);
+	m_pdfFontBBox  = QString::number(m_face->bbox.xMin / m_uniEM * 1000) + " " + 
+	            QString::number(m_face->bbox.yMin / m_uniEM * 1000) + " " +
+	            QString::number(m_face->bbox.xMax / m_uniEM * 1000) + " " + 
+	            QString::number(m_face->bbox.yMax / m_uniEM * 1000);
+	m_italicAngle  = "0";
 
 //FIXME:	FT_Set_Charmap(m_face, m_face->charmaps[m_encoding]);
 	setBestEncoding(m_face);
