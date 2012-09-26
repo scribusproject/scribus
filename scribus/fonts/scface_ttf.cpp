@@ -273,16 +273,13 @@ void KernFeature::makePairs ( quint16 subtableOffset )
 					quint16 SecondGlyph ( toUint16 ( recordBase ) );
 					qint16 Value1 ( toInt16 ( recordBase + 2 ) );
 					pairs[FirstGlyph][SecondGlyph] = double ( Value1 );
-
 				}
-
 			}
 		}
 		else
 		{
 //			qDebug() <<"ValueFormat1 is null or both ValueFormat1 and ValueFormat2 are null";
 		}
-
 	}
 	else if ( PosFormat == 2 ) // class kerning
 	{
@@ -606,7 +603,7 @@ bool ScFace_ttf::EmbedFont(QString &str) const
 	str+="/FontName /" + psName + " def\n";
 	str+="/Encoding /ISOLatin1Encoding where {pop ISOLatin1Encoding} {StandardEncoding} ifelse def\n";
 	str+="/PaintType 0 def\n/FontMatrix [1 0 0 1 0 0] def\n";
-	str+="/FontBBox ["+FontBBox+"] def\n";
+	str+="/FontBBox ["+m_pdfFontBBox+"] def\n";
 	str+="/FontType 42 def\n";
 	str+="/FontInfo 8 dict dup begin\n";
 	str+="/FamilyName (" + psName + ") def\n";

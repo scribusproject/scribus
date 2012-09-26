@@ -1523,8 +1523,8 @@ bool PDFLibCore::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QStrin
 			StartObj(fontDescriptor);
 			// TODO: think about QByteArray ScFace::getFontDescriptor() -- AV
 			PutDoc("<<\n/Type /FontDescriptor\n");
-			PutDoc("/FontName /"+face.psName().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" )+"\n");
-			PutDoc("/FontBBox [ "+face.fontBBoxAsString()+" ]\n");
+			PutDoc("/FontName /"  + face.psName().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" ) + "\n");
+			PutDoc("/FontBBox [ " + face.pdfFontBBoxAsString() + " ]\n");
 			PutDoc("/Flags ");
 			//FIXME: isItalic() should be queried from ScFace, not from Qt -- AV
 			//QFontInfo fo = QFontInfo(it.data());
@@ -1537,15 +1537,10 @@ bool PDFLibCore::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QStrin
 //			pfl = pfl ^ 4;
 			pfl = pfl ^ 32;
 			PutDoc(QString::number(pfl)+"\n");
-			PutDoc("/Ascent " + face.ascentAsString()+"\n");
-			PutDoc("/Descent " + face.descentAsString()+"\n");
-			PutDoc("/CapHeight " + face.capHeightAsString()+"\n");
+			PutDoc("/Ascent "      + face.pdfAscentAsString()+"\n");
+			PutDoc("/Descent "     + face.pdfDescentAsString()+"\n");
+			PutDoc("/CapHeight "   + face.pdfCapHeightAsString()+"\n");
 			PutDoc("/ItalicAngle " + face.italicAngleAsString()+"\n");
-//			PutDoc("/Ascent "+QString::number(static_cast<int>(face.ascent()))+"\n");
-//			PutDoc("/Descent "+QString::number(static_cast<int>(face.descent()))+"\n");
-//			PutDoc("/CapHeight "+QString::number(static_cast<int>(face.capHeight()))+"\n");
-//			PutDoc("/ItalicAngle "+face.italicAngle()+"\n");
-//			PutDoc("/StemV "+ face.stemV() + "\n");
 			PutDoc("/StemV 1\n");
 			if ((fformat == ScFace::SFNT || fformat == ScFace::TTCF) && (Options.EmbedList.contains(it.key())))
 				PutDoc("/FontFile2 "+QString::number(embeddedFontObject)+" 0 R\n");

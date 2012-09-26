@@ -70,11 +70,11 @@ struct SCRIBUS_API FtFace : public ScFace::ScFaceData
 	qreal underlinePos(qreal sz=1.0)    const { return m_underlinePos * sz; }
 	qreal strokeWidth(qreal /*sz*/)     const { return m_strokeWidth; }
 	qreal maxAdvanceWidth(qreal sz=1.0) const { return m_maxAdvanceWidth * sz; }
-	QString ascentAsString()    const { return Ascent; }
-	QString descentAsString()    const { return Descender; }
-	QString capHeightAsString()    const { return CapHeight; }
-	QString FontBBoxAsString()    const { return FontBBox; }
-	QString ItalicAngleAsString()    const { return ItalicAngle; }
+	QString pdfAscentAsString()      const { return m_pdfAscent; }
+	QString pdfDescentAsString()     const { return m_pdfDescender; }
+	QString pdfCapHeightAsString()   const { return m_pdfCapHeight; }
+	QString pdfFontBBoxAsString()    const { return m_pdfFontBBox; }
+	QString ItalicAngleAsString()    const { return m_italicAngle; }
 	
 	
 //FIXME	QMap<QString,QString> fontDictionary(qreal sz=1.0)      const;
@@ -95,13 +95,13 @@ protected:
 	
 	static FT_Library library;
 
-	mutable QString Ascent;
-	mutable QString CapHeight;
-	mutable QString Descender;
-	mutable QString ItalicAngle;
+	mutable QString m_pdfAscent;
+	mutable QString m_pdfCapHeight;
+	mutable QString m_pdfDescender;
+	mutable QString m_italicAngle;
+	mutable QString m_pdfFontBBox;
 	mutable QString StdVW;
 	QString FontEnc;
-	mutable QString FontBBox;
 
 	mutable int m_encoding;
 	
