@@ -801,23 +801,25 @@ PageItem* CreateMode::doCreateNewObject(void)
 
 		if ((m_doc->m_Selection->count() == 0) && (m_view->HaveSelRect) && (!m_view->MidButt))
 		{
+			int    Cols, Rows;
+			double Tx, Ty, Tw, Th;
+			double deltaX, deltaY, offX, offY;
 			UndoTransaction * activeTransaction = NULL;
 			m_view->HaveSelRect = false;
-			double Tx, Ty, Tw, Th;
 			FPoint np2 = m_doc->ApplyGridF(canvasPressCoord);
-			Tx = np2.x();
-			Ty = np2.y();
-			m_doc->ApplyGuides(&Tx, &Ty);
-			canvasPressCoord.setXY(qRound(Tx), qRound(Ty));
+			double Tx1 = np2.x();
+			double Ty1 = np2.y();
+			m_doc->ApplyGuides(&Tx1, &Ty1);
+			canvasPressCoord.setXY(qRound(Tx1), qRound(Ty1));
 			np2 = m_doc->ApplyGridF(canvasCurrCoord);
-			Tw = np2.x();
-			Th = np2.y();
-			m_doc->ApplyGuides(&Tw, &Th);
-			canvasCurrCoord.setXY(qRound(Tw), qRound(Th));
-			Tw = Tw - Tx;
-			Th = Th - Ty;
-			int Cols, Rows;
-			double deltaX, deltaY, offX, offY;
+			double Tx2 = np2.x();
+			double Ty2 = np2.y();
+			m_doc->ApplyGuides(&Tx2, &Ty2);
+			canvasCurrCoord.setXY(qRound(Tx2), qRound(Ty2));
+			Tx = qMin(Tx1, Tx2);
+			Ty = qMin(Ty1, Ty2);
+			Tw = qAbs(Tx2 - Tx1);
+			Th = qAbs(Ty2 - Ty1);
 			if ((Th < 6) || (Tw < 6))
 			{
 				m_view->requestMode(submodePaintingDone);
