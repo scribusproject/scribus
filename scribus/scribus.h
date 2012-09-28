@@ -610,6 +610,7 @@ private:
 	FormatsManager *formatsManager;
 
 	QPointer<HelpBrowser> helpBrowser;
+	QString osgFilterString;
 };
 
 #endif

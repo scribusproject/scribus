@@ -119,48 +119,42 @@ void PRCExporter::analyseGeode ( osg::Geode *geode, oPRCFile *out )
 	getCurrentMaterial ( geode );
 	for ( unsigned int i=0; i<geode->getNumDrawables(); i++ )
 	{
-		osg::Drawable *drawable=geode->getDrawable ( i );
-		osg::Geometry *geom=dynamic_cast<osg::Geometry *> ( drawable );
-		getCurrentMaterial ( drawable );
-		QString nam = QString::fromStdString(drawable->getName());
-		out->begingroup(nam.toLatin1());
-		for ( unsigned int ipr=0; ipr<geom->getNumPrimitiveSets(); ipr++ )
+		osg::Drawable *drawable = geode->getDrawable ( i );
+		if (drawable)
 		{
-			osg::PrimitiveSet* prset=geom->getPrimitiveSet ( ipr );
-			analysePrimSet ( prset, out, geom, dynamic_cast<const osg::Vec3Array*> ( geom->getVertexArray() ) );
+			osg::Geometry *geom = dynamic_cast<osg::Geometry *> ( drawable );
+			if (geom)
+			{
+				getCurrentMaterial ( drawable );
+				QString nam = QString::fromStdString(drawable->getName());
+				PRCoptions grpopt;
+				grpopt.no_break = true;
+				grpopt.do_break = false;
+				grpopt.tess = true;
+				out->begingroup(nam.toLatin1(), &grpopt);
+				for ( unsigned int ipr=0; ipr < geom->getNumPrimitiveSets(); ipr++ )
+				{
+					osg::PrimitiveSet* prset=geom->getPrimitiveSet ( ipr );
+					analysePrimSet ( prset, out, geom, dynamic_cast<const osg::Vec3Array*> ( geom->getVertexArray() ) );
+				}
+				out->endgroup();
+			}
 		}
-		out->endgroup();
 	}
 }
 
 void PRCExporter::analysePrimSet ( osg::PrimitiveSet*prset, oPRCFile *out, osg::Geometry *geom, const osg::Vec3Array *verts )
 {
 	unsigned int ic;
-//	const osg::Vec4Array *Diffuse = dynamic_cast<const osg::Vec4Array*> ( geom->getColorArray() );
-//	double r = ( *Diffuse ) [0].x();
-//	double g = ( *Diffuse ) [0].y();
-//	double b = ( *Diffuse ) [0].z();
-//	double a = ( *Diffuse ) [0].w();
-	// you might want to handle each type of primset differently: such as:
+	unsigned int evenodd=0;
 	switch ( prset->getMode() )
 	{
 		case osg::PrimitiveSet::TRIANGLES: // get vertices of triangle
-//			osg::notify ( osg::WARN ) << "Triangles " << std::endl;
 			for ( ic=0; ic<prset->getNumIndices()-2; ic+=3 )
 			{
 				double ( *points ) [3] = new double[4][3];
-//				double *knotsU = new double[4];
-//				double *knotsV = new double[4];
 				double knotsU[] = {1,1,2,2};
 				double knotsV[] = {1,1,2,2};
-//				knotsU[0] = 1.0;
-//				knotsU[1] = 1.0;
-//				knotsU[2] = 2.0;
-//				knotsU[3] = 2.0;
-//				knotsV[0] = 1.0;
-//				knotsV[1] = 1.0;
-//				knotsV[2] = 2.0;
-//				knotsV[3] = 2.0;
 				points[0][0] = ( * verts ) [prset->index ( ic ) ].x();
 				points[0][1] = ( * verts ) [prset->index ( ic ) ].y();
 				points[0][2] = ( * verts ) [prset->index ( ic ) ].z();
@@ -173,31 +167,113 @@ void PRCExporter::analysePrimSet ( osg::PrimitiveSet*prset, oPRCFile *out, osg::
 				points[3][0] = ( * verts ) [prset->index ( ic+2 ) ].x();
 				points[3][1] = ( * verts ) [prset->index ( ic+2 ) ].y();
 				points[3][2] = ( * verts ) [prset->index ( ic+2 ) ].z();
-//				out->addRectangle(points, currentMaterial);
 				out->addSurface(1, 1, 2, 2, points, knotsU, knotsV, currentMaterial, NULL );
-//				out->add ( new PRCsurface ( out, 1, 1, 2, 2, points, knotsU, knotsV, *new RGBAColour ( r,g,b,a ) ) );
+				delete[] points;
 			}
 			break;
 		case osg::PrimitiveSet::TRIANGLE_STRIP: // look up how tristrips are coded
-//			osg::notify ( osg::WARN ) << "Triangle Strip " << std::endl;
+			if (prset->getType() == osg::PrimitiveSet::DrawArrayLengthsPrimitiveType)
+			{
+				const osg::DrawArrayLengths* drawArrayLengths = static_cast<const osg::DrawArrayLengths*>(prset);
+				QList<uint> lenList;
+				for(osg::DrawArrayLengths::const_iterator primItr = drawArrayLengths->begin(); primItr !=drawArrayLengths->end(); ++primItr)
+				{
+					unsigned int localPrimLength = *primItr;
+					lenList.append(localPrimLength);
+				}
+				int lenInd = 0;
+				int actLen = lenList[lenInd]-2;
+				int currLen = 0;
+				evenodd = 0;
+				for(unsigned int vindex = 0; vindex < prset->getNumIndices()-2; ++vindex, evenodd++)
+				{
+					double ( *points ) [3] = new double[4][3];
+					double knotsU[] = {1,1,2,2};
+					double knotsV[] = {1,1,2,2};
+					if (evenodd % 2 == 0)
+					{
+						points[0][0] = ( * verts ) [prset->index ( vindex ) ].x();
+						points[0][1] = ( * verts ) [prset->index ( vindex ) ].y();
+						points[0][2] = ( * verts ) [prset->index ( vindex ) ].z();
+						points[1][0] = ( * verts ) [prset->index ( vindex+1 ) ].x();
+						points[1][1] = ( * verts ) [prset->index ( vindex+1 ) ].y();
+						points[1][2] = ( * verts ) [prset->index ( vindex+1 ) ].z();
+					}
+					else
+					{
+						points[0][0] = ( * verts ) [prset->index ( vindex+1 ) ].x();
+						points[0][1] = ( * verts ) [prset->index ( vindex+1 ) ].y();
+						points[0][2] = ( * verts ) [prset->index ( vindex+1 ) ].z();
+						points[1][0] = ( * verts ) [prset->index ( vindex ) ].x();
+						points[1][1] = ( * verts ) [prset->index ( vindex ) ].y();
+						points[1][2] = ( * verts ) [prset->index ( vindex ) ].z();
+					}
+					points[2][0] = ( * verts ) [prset->index ( vindex+2 ) ].x();
+					points[2][1] = ( * verts ) [prset->index ( vindex+2 ) ].y();
+					points[2][2] = ( * verts ) [prset->index ( vindex+2 ) ].z();
+					points[3][0] = ( * verts ) [prset->index ( vindex+2 ) ].x();
+					points[3][1] = ( * verts ) [prset->index ( vindex+2 ) ].y();
+					points[3][2] = ( * verts ) [prset->index ( vindex+2 ) ].z();
+					out->addSurface(1, 1, 2, 2, points, knotsU, knotsV, currentMaterial, NULL );
+					currLen++;
+					if (currLen >= actLen)
+					{
+						lenInd++;
+						if (lenInd == lenList.count())
+							break;
+						actLen = lenList[lenInd]-2;
+						currLen = 0;
+						vindex += 2;
+						evenodd = 0;
+						if (vindex >= prset->getNumIndices())
+							break;
+					}
+					delete[] points;
+				}
+			}
+			else
+			{
+				evenodd = 0;
+				for(unsigned int vindex = 0; vindex < prset->getNumIndices()-2; ++vindex, evenodd++)
+				{
+					double ( *points ) [3] = new double[4][3];
+					double knotsU[] = {1,1,2,2};
+					double knotsV[] = {1,1,2,2};
+					if (evenodd % 2 == 0)
+					{
+						points[0][0] = ( * verts ) [prset->index ( vindex ) ].x();
+						points[0][1] = ( * verts ) [prset->index ( vindex ) ].y();
+						points[0][2] = ( * verts ) [prset->index ( vindex ) ].z();
+						points[1][0] = ( * verts ) [prset->index ( vindex+1 ) ].x();
+						points[1][1] = ( * verts ) [prset->index ( vindex+1 ) ].y();
+						points[1][2] = ( * verts ) [prset->index ( vindex+1 ) ].z();
+					}
+					else
+					{
+						points[0][0] = ( * verts ) [prset->index ( vindex+1 ) ].x();
+						points[0][1] = ( * verts ) [prset->index ( vindex+1 ) ].y();
+						points[0][2] = ( * verts ) [prset->index ( vindex+1 ) ].z();
+						points[1][0] = ( * verts ) [prset->index ( vindex ) ].x();
+						points[1][1] = ( * verts ) [prset->index ( vindex ) ].y();
+						points[1][2] = ( * verts ) [prset->index ( vindex ) ].z();
+					}
+					points[2][0] = ( * verts ) [prset->index ( vindex+2 ) ].x();
+					points[2][1] = ( * verts ) [prset->index ( vindex+2 ) ].y();
+					points[2][2] = ( * verts ) [prset->index ( vindex+2 ) ].z();
+					points[3][0] = ( * verts ) [prset->index ( vindex+2 ) ].x();
+					points[3][1] = ( * verts ) [prset->index ( vindex+2 ) ].y();
+					points[3][2] = ( * verts ) [prset->index ( vindex+2 ) ].z();
+					out->addSurface(1, 1, 2, 2, points, knotsU, knotsV, currentMaterial, NULL );
+					delete[] points;
+				}
+			}
 			break;
 		case osg::PrimitiveSet::QUADS: // get vertices of quad
-//			osg::notify ( osg::WARN ) << "Quad " << std::endl;
 			for ( ic=0; ic<prset->getNumIndices()-3; ic+=4 )
 			{
 				double ( *points ) [3] = new double[4][3];
-//				double *knotsU = new double[4];
-//				double *knotsV = new double[4];
 				double knotsU[] = {1,1,2,2};
 				double knotsV[] = {1,1,2,2};
-//				knotsU[0] = 1.0;
-//				knotsU[1] = 1.0;
-//				knotsU[2] = 2.0;
-//				knotsU[3] = 2.0;
-//				knotsV[0] = 1.0;
-//				knotsV[1] = 1.0;
-//				knotsV[2] = 2.0;
-//				knotsV[3] = 2.0;
 				points[0][0] = ( * verts ) [prset->index ( ic ) ].x();
 				points[0][1] = ( * verts ) [prset->index ( ic ) ].y();
 				points[0][2] = ( * verts ) [prset->index ( ic ) ].z();
@@ -210,9 +286,8 @@ void PRCExporter::analysePrimSet ( osg::PrimitiveSet*prset, oPRCFile *out, osg::
 				points[3][0] = ( * verts ) [prset->index ( ic+2 ) ].x();
 				points[3][1] = ( * verts ) [prset->index ( ic+2 ) ].y();
 				points[3][2] = ( * verts ) [prset->index ( ic+2 ) ].z();
-//				out->addRectangle(points, currentMaterial);
 				out->addSurface(1, 1, 2, 2, points, knotsU, knotsV, currentMaterial, NULL );
-//				out->add ( new PRCsurface ( out, 1, 1, 2, 2, points, knotsU, knotsV, *new RGBAColour ( r,g,b,a ) ) );
+				delete[] points;
 			}
 			break;
 		case osg::PrimitiveSet::QUAD_STRIP: // look up how tristrips are coded

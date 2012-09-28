@@ -47,11 +47,12 @@ for which a new license (GPL+exception) is in place.
 #include <QInputDialog>
 #include <QColorDialog>
 
-OSGEditorDialog::OSGEditorDialog(QWidget* parent, PageItem_OSGFrame *frame) : QDialog(parent)
+OSGEditorDialog::OSGEditorDialog(QWidget* parent, PageItem_OSGFrame *frame, QString osgFilterString) : QDialog(parent)
 {
 	setupUi(this);
 	setModal(true);
 	currItem = frame;
+	filterString = osgFilterString;
 	int wd = 300;
 	int hd = 300;
 	double asp = currItem->width() / currItem->height();
@@ -572,36 +573,7 @@ void OSGEditorDialog::openFile()
 	QString fileName;
 	PrefsContext* dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
 	QString wdir = dirs->get("models", ".");
-	QStringList supportedExts;
-	supportedExts << "osg" << "dxf" << "flt" << "ive" << "geo" << "sta" << "stl" << "logo" << "3ds" << "ac" << "obj";
-	QStringList realSupportedExts;
-	QMap<QString, QString> formats;
-	osgDB::FileNameList plugins = osgDB::listAllAvailablePlugins();
-	for(osgDB::FileNameList::iterator itr = plugins.begin(); itr != plugins.end(); ++itr)
-	{
-		osgDB::ReaderWriterInfoList infoList;
-		if (osgDB::queryPlugin(*itr, infoList))
-		{
-			for(osgDB::ReaderWriterInfoList::iterator rwi_itr = infoList.begin(); rwi_itr != infoList.end(); ++rwi_itr)
-			{
-				osgDB::ReaderWriterInfo& info = *(*rwi_itr);
-				osgDB::ReaderWriter::FormatDescriptionMap::iterator fdm_itr;
-				for(fdm_itr = info.extensions.begin(); fdm_itr != info.extensions.end(); ++fdm_itr)
-				{
-					if (supportedExts.contains(QString::fromStdString(fdm_itr->first)))
-					{
-						formats.insert("*." + QString::fromStdString(fdm_itr->first) + " *." + QString::fromStdString(fdm_itr->first).toUpper(), QString::fromStdString(fdm_itr->second) + " (*." + QString::fromStdString(fdm_itr->first) + " *." + QString::fromStdString(fdm_itr->first).toUpper() + ")");
-					}
-				}
-			}
-		}
-	}
-	realSupportedExts = formats.keys();
-	QString docexts = realSupportedExts.join(" ");
-	QStringList longList = formats.values();
-	QString longDesc = longList.join(";;") + ";;";
-	QString filter = tr("All Supported Formats (%1);;%2All Files (*)").arg(docexts).arg(longDesc);
-	CustomFDialog dia(this, wdir, tr("Import 3-D Model"), filter, fdHidePreviewCheckBox);
+	CustomFDialog dia(this, wdir, tr("Import 3-D Model"), filterString, fdHidePreviewCheckBox);
 	if (dia.exec() == QDialog::Accepted)
 		fileName = dia.selectedFile();
 	else

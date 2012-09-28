@@ -3,6 +3,7 @@
 
 #include <cstdlib>
 #include <cmath>
+#include <cstring>
 
 #ifdef HAVE_CONFIG_H
 #include "scconfig.h"
@@ -131,8 +132,9 @@ struct sCodageOfFrequentDoubleOrExponent* getcofdoe(unsigned,short);
 int stCOFDOECompare(const void*,const void*);
 
 #ifdef WORDS_BIGENDIAN
+#ifndef HAVE_MEMRCHR
 void *memrchr(const void *,int,size_t);
 #endif
-
+#endif
 
 #endif // __PRC_DOUBLE_H

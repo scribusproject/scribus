@@ -176,6 +176,8 @@ for which a new license (GPL+exception) is in place.
 #include "ui/nodeeditpalette.h"
 #ifdef HAVE_OSG
 	#include "ui/osgeditor.h"
+	#include <osgDB/ReaderWriter>
+	#include <osgDB/PluginQuery>
 #endif
 #include "ui/outlinepalette.h"
 #include "ui/pageitemattributes.h"
@@ -476,6 +478,37 @@ void ScribusMainWindow::initDefaultValues()
 	ClipB = QApplication::clipboard();
 	palettesStatus[0] = false;
 	guidesStatus[0] = false;
+#ifdef HAVE_OSG
+	QStringList supportedExts;
+	supportedExts << "osg" << "dxf" << "flt" << "ive" << "geo" << "sta" << "stl" << "logo" << "3ds" << "ac" << "obj";
+	QStringList realSupportedExts;
+	QMap<QString, QString> formats;
+	osgDB::FileNameList plugins = osgDB::listAllAvailablePlugins();
+	for(osgDB::FileNameList::iterator itr = plugins.begin(); itr != plugins.end(); ++itr)
+	{
+		osgDB::ReaderWriterInfoList infoList;
+		if (osgDB::queryPlugin(*itr, infoList))
+		{
+			for(osgDB::ReaderWriterInfoList::iterator rwi_itr = infoList.begin(); rwi_itr != infoList.end(); ++rwi_itr)
+			{
+				osgDB::ReaderWriterInfo& info = *(*rwi_itr);
+				osgDB::ReaderWriter::FormatDescriptionMap::iterator fdm_itr;
+				for(fdm_itr = info.extensions.begin(); fdm_itr != info.extensions.end(); ++fdm_itr)
+				{
+					if (supportedExts.contains(QString::fromStdString(fdm_itr->first)))
+					{
+						formats.insert("*." + QString::fromStdString(fdm_itr->first) + " *." + QString::fromStdString(fdm_itr->first).toUpper(), QString::fromStdString(fdm_itr->second) + " (*." + QString::fromStdString(fdm_itr->first) + " *." + QString::fromStdString(fdm_itr->first).toUpper() + ")");
+					}
+				}
+			}
+		}
+	}
+	realSupportedExts = formats.keys();
+	QString docexts = realSupportedExts.join(" ");
+	QStringList longList = formats.values();
+	QString longDesc = longList.join(";;") + ";;";
+	osgFilterString = tr("All Supported Formats (%1);;%2All Files (*)").arg(docexts).arg(longDesc);
+#endif
 }
 
 
@@ -9577,7 +9610,7 @@ void ScribusMainWindow::callImageEditor()
 #ifdef HAVE_OSG
 		if (currItem->asOSGFrame())
 		{
-			OSGEditorDialog *dia = new OSGEditorDialog(this, currItem->asOSGFrame());
+			OSGEditorDialog *dia = new OSGEditorDialog(this, currItem->asOSGFrame(), osgFilterString);
 			dia->exec();
 			return;
 		}

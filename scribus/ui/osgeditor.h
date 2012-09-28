@@ -43,7 +43,7 @@ class SCRIBUS_API OSGEditorDialog : public QDialog, Ui::OSGEditor
 	Q_OBJECT
 
 	public:
-		OSGEditorDialog(QWidget* parent, PageItem_OSGFrame *frame);
+		OSGEditorDialog(QWidget* parent, PageItem_OSGFrame *frame, QString osgFilterString);
 		~OSGEditorDialog() {};
 
 	public slots:
@@ -78,6 +78,7 @@ class SCRIBUS_API OSGEditorDialog : public QDialog, Ui::OSGEditor
 		osg::ref_ptr<osg::Node> usedModel2;
 		osg::ref_ptr<osg::StateSet> default_stateset;
 		QString modelFile;
+		QString filterString;
 };
 
 #endif
