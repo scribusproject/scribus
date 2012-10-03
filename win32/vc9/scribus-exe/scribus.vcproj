@@ -88,7 +88,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="QtCored4.lib QtGuid4.lib QtNetworkd4.lib QtXmld4.lib freetypeD.lib cairo2d.lib libjpeg.a libtiff.lib lcms2_staticd.lib mscms.lib PoDoFoLibD.lib WSock32.Lib"
+				AdditionalDependencies="QtCored4.lib QtGuid4.lib QtNetworkd4.lib QtXmld4.lib $(FREETYPE_DEBUG_LIB) $(CAIRO_DEBUG_LIB) $(LIBJPEG_DEBUG_LIB) $(LIBTIFF_DEBUG_LIB) $(LCMS_DEBUG_LIB) mscms.lib $(PODOFO_DEBUG_LIB) WSock32.Lib"
 				OutputFile="$(OutDir)\Scribus.exe"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="&quot;$(QT4_DIR)\lib&quot;;&quot;$(LCMS_DIR)\lib&quot;;&quot;$(FREETYPE_DIR)\lib&quot;;&quot;$(CAIRO_DIR)\lib&quot;;&quot;$(LIBJPEG_DIR)\lib&quot;;&quot;$(LIBTIFF_DIR)\lib&quot;;&quot;$(PODOFO_DIR)\lib&quot;"
@@ -193,7 +193,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="QtCore4.lib QtGui4.lib QtNetwork4.lib QtXml4.lib qtmain.lib freetype.lib cairo2.lib libjpeg.a libtiff.lib lcms2_static.lib mscms.lib PoDoFoLib.lib WSock32.Lib"
+				AdditionalDependencies="QtCore4.lib QtGui4.lib QtNetwork4.lib QtXml4.lib qtmain.lib $(FREETYPE_RELEASE_LIB) $(CAIRO_RELEASE_LIB) $(LIBJPEG_RELEASE_LIB) $(LIBTIFF_RELEASE_LIB) $(LCMS_RELEASE_LIB) mscms.lib $(PODOFO_RELEASE_LIB) WSock32.Lib"
 				OutputFile="$(OutDir)\Scribus.exe"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="&quot;$(QT4_DIR)\lib&quot;;&quot;$(LCMS_DIR)\lib&quot;;&quot;$(FREETYPE_DIR)\lib&quot;;&quot;$(CAIRO_DIR)\lib&quot;;&quot;$(LIBJPEG_DIR)\lib&quot;;&quot;$(LIBTIFF_DIR)\lib&quot;;&quot;$(PODOFO_DIR)\lib&quot;"
@@ -299,7 +299,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="QtCored4.lib QtGuid4.lib QtNetworkd4.lib QtXmld4.lib freetypeD.lib cairo2d.lib libjpeg.a libtiff.lib lcms2_staticd.lib mscms.lib PoDoFoLibD.lib WSock32.Lib"
+				AdditionalDependencies="QtCored4.lib QtGuid4.lib QtNetworkd4.lib QtXmld4.lib $(FREETYPE_DEBUG_LIB) $(CAIRO_DEBUG_LIB) $(LIBJPEG_DEBUG_LIB) $(LIBTIFF_DEBUG_LIB) $(LCMS_DEBUG_LIB) mscms.lib $(PODOFO_DEBUG_LIB) WSock32.Lib"
 				OutputFile="$(OutDir)\Scribus.exe"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="&quot;$(QT4_DIR)\lib&quot;;&quot;$(LCMS_DIR)\lib&quot;;&quot;$(FREETYPE_DIR)\lib&quot;;&quot;$(CAIRO_DIR)\lib&quot;;&quot;$(LIBJPEG_DIR)\lib&quot;;&quot;$(LIBTIFF_DIR)\lib&quot;;&quot;$(PODOFO_DIR)\lib&quot;"
@@ -404,7 +404,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="QtCore4.lib QtGui4.lib QtNetwork4.lib QtXml4.lib qtmain.lib freetype.lib cairo2.lib libjpeg.a libtiff.lib lcms2_static.lib mscms.lib PoDoFoLib.lib WSock32.Lib"
+				AdditionalDependencies="QtCore4.lib QtGui4.lib QtNetwork4.lib QtXml4.lib qtmain.lib $(FREETYPE_RELEASE_LIB) $(CAIRO_RELEASE_LIB) $(LIBJPEG_RELEASE_LIB) $(LIBTIFF_RELEASE_LIB) $(LCMS_RELEASE_LIB) mscms.lib $(PODOFO_RELEASE_LIB) WSock32.Lib"
 				OutputFile="$(OutDir)\Scribus.exe"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="&quot;$(QT4_DIR)\lib&quot;;&quot;$(LCMS_DIR)\lib&quot;;&quot;$(FREETYPE_DIR)\lib&quot;;&quot;$(CAIRO_DIR)\lib&quot;;&quot;$(LIBJPEG_DIR)\lib&quot;;&quot;$(LIBTIFF_DIR)\lib&quot;;&quot;$(PODOFO_DIR)\lib&quot;"
