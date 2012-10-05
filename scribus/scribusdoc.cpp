@@ -4487,6 +4487,32 @@ void  ScribusDoc::fixItemPageOwner()
 		currItem = FrameItems.at(i);
 		currItem->OwnPage = -1;
  	}
+
+	// #11097 : we have a bug if an object inside a group fall outside masterpage
+	QMap<int, PageItem*> groupControls;
+	for (int i = 0; i < MasterItems.count(); ++i)
+	{
+		currItem = MasterItems.at(i);
+		if (currItem->isGroupControl)
+		{
+			int first = currItem->Groups.first();
+			groupControls[first] = currItem;
+		}
+		if (currItem->OwnPage == -1 && currItem->Groups.count() > 0)
+		{
+			int top = currItem->Groups.top();
+			PageItem* groupControl = groupControls.value(top, 0);
+			while (groupControl)
+			{
+				currItem->OwnPage = groupControl->OwnPage;
+				if (currItem->OwnPage >= 0 || groupControl->Groups.count() <= 1)
+					break;
+				int groupIndex = groupControl->Groups.count() - 2;
+				int groupID  = groupControl->Groups.at(groupIndex);
+				groupControl = groupControls.value(groupID, 0);
+			}
+		}
+	}
 }
 
 
