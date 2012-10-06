@@ -302,8 +302,9 @@ ScribusDoc::ScribusDoc(const QString& docName, int unitindex, const PageSize& pa
 	NrItems(0),
 	First(1), Last(0),
 	viewCount(0), viewID(0),
+	SnapGuides(false),
 	SnapElement(false),
-	SnapGuides(false), GuideLock(false),
+	GuideLock(false),
 	minCanvasCoordinate(FPoint(0, 0)),
 	rulerXoffset(0.0), rulerYoffset(0.0),
 	Pages(0), MasterPages(), DocPages(),
@@ -15833,6 +15834,141 @@ int ScribusDoc::addToInlineFrames(PageItem *item)
 	item->setXYPos(lw, lw, true);
 	FrameItems.insert(fIndex, item);
 	return fIndex;
+}
+
+void ScribusDoc::removeInlineFrame(int fIndex)
+{
+	QList<PageItem*> allItems;
+	PageItem* it = NULL;
+	uint counter = 0;
+	for (uint lc = 0; lc < 2; ++lc)
+	{
+		switch (lc)
+		{
+			case 0:
+				counter = MasterItems.count();
+				break;
+			case 1:
+				counter = DocItems.count();
+				break;
+		}
+		for (uint d = 0; d < counter; ++d)
+		{
+			switch (lc)
+			{
+				case 0:
+					it = MasterItems.at(d);
+					break;
+				case 1:
+					it = DocItems.at(d);
+					break;
+			}
+			if (it->isGroup())
+				allItems = it->asGroupFrame()->getItemList();
+			else
+				allItems.append(it);
+			for (int ii = 0; ii < allItems.count(); ii++)
+			{
+				it = allItems.at(ii);
+				if (it->isTable())
+				{
+					for (int row = 0; row < it->asTable()->rows(); ++row)
+					{
+						for (int col = 0; col < it->asTable()->columns(); col ++)
+						{
+							TableCell cell = it->asTable()->cellAt(row, col);
+							if (cell.row() == row && cell.column() == col)
+							{
+								PageItem* textFrame = cell.textFrame();
+								checkItemForFrames(textFrame, fIndex);
+							}
+						}
+					}
+				}
+				else
+					checkItemForFrames(it, fIndex);
+			}
+			allItems.clear();
+		}
+	}
+	for (QHash<int, PageItem*>::iterator itf = FrameItems.begin(); itf != FrameItems.end(); ++itf)
+	{
+		PageItem *ite = itf.value();
+		if (ite->isGroup())
+			allItems = ite->asGroupFrame()->getItemList();
+		else
+			allItems.append(ite);
+		for (int ii = 0; ii < allItems.count(); ii++)
+		{
+			ite = allItems.at(ii);
+			if (ite->isTable())
+			{
+				for (int row = 0; row < ite->asTable()->rows(); ++row)
+				{
+					for (int col = 0; col < ite->asTable()->columns(); col ++)
+					{
+						TableCell cell = ite->asTable()->cellAt(row, col);
+						if (cell.row() == row && cell.column() == col)
+						{
+							PageItem* textFrame = cell.textFrame();
+							checkItemForFrames(textFrame, fIndex);
+						}
+					}
+				}
+			}
+			else
+				checkItemForFrames(ite, fIndex);
+		}
+		allItems.clear();
+	}
+	QStringList patterns = getUsedPatterns();
+	for (int c = 0; c < patterns.count(); ++c)
+	{
+		ScPattern pa = docPatterns[patterns[c]];
+		for (int o = 0; o < pa.items.count(); o++)
+		{
+			it = pa.items.at(o);
+			if (it->isGroup())
+				allItems = it->asGroupFrame()->getItemList();
+			else
+				allItems.append(it);
+			for (int ii = 0; ii < allItems.count(); ii++)
+			{
+				it = allItems.at(ii);
+				checkItemForFrames(it, fIndex);
+			}
+			allItems.clear();
+		}
+	}
+	it = FrameItems.take(fIndex);
+	delete it;
+	changed();
+	regionsChanged()->update(QRect());
+}
+
+
+void ScribusDoc::checkItemForFrames(PageItem *it, int fIndex)
+{
+	QList<int> deleteList;
+	deleteList.clear();
+	if (!it->isTextFrame() && !it->isPathText())
+		return;
+	int start = 0;
+	int stop  = it->itemText.length();
+	for (int e = start; e < stop; ++e)
+	{
+		ScText *hl = it->itemText.item(e);
+		if ((hl->ch == SpecialChars::OBJECT) && (hl->hasObject(this)))
+		{
+			if (hl->getItem(this)->inlineCharID == fIndex)
+				deleteList.prepend(e);
+		}
+	}
+	for (int a = 0; a < deleteList.count(); a++)
+	{
+		it->itemText.removeChars(deleteList[a], 1);
+	}
+	it->invalid = true;
 }
 
 void ScribusDoc::itemResizeToMargin(PageItem* item, int direction)

@@ -129,6 +129,8 @@ void InlinePalette::handleContextMenue(QPoint p)
 			QAction* editAct = pmenu->addAction( tr("Edit Item"));
 			connect(editAct, SIGNAL(triggered()), this, SLOT(handleEditItem()));
 		}
+		QAction* delAct = pmenu->addAction( tr("Remove Item"));
+		connect(delAct, SIGNAL(triggered()), this, SLOT(handleDeleteItem()));
 		pmenu->exec(QCursor::pos());
 		delete pmenu;
 		actItem = -1;
@@ -161,6 +163,14 @@ void InlinePalette::handleDoubleClick(QListWidgetItem *item)
 {
 	if (item)
 		emit startEdit(item->data(Qt::UserRole).toInt());
+}
+
+void InlinePalette::handleDeleteItem()
+{
+	currDoc->removeInlineFrame(actItem);
+	QListWidgetItem* item = InlineViewWidget->takeItem(InlineViewWidget->currentRow());
+	delete item;
+	InlineViewWidget->update();
 }
 
 void InlinePalette::editingStart()

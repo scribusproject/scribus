@@ -1163,6 +1163,8 @@ public:
 	void beginUpdate();
 	void endUpdate();
 	int addToInlineFrames(PageItem *item);
+	void removeInlineFrame(int fIndex);
+	void checkItemForFrames(PageItem *it, int fIndex);
 
 protected:
 	void addSymbols();

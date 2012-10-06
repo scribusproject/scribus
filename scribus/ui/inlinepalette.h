@@ -85,6 +85,7 @@ public slots:
 	void handlePasteToItem();
 	void handleEditItem();
 	void handleDoubleClick(QListWidgetItem *item);
+	void handleDeleteItem();
 	void handleUpdateRequest(int);
 	void languageChange();
 
