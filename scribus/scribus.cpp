@@ -2883,7 +2883,7 @@ void ScribusMainWindow::HaveNewSel(int SelectedType)
 		scrActions["itemAttributes"]->setEnabled(true);
 		scrActions["itemPreviewLow"]->setEnabled(false);
 		//scrMenuMgr->setMenuEnabled("ItemShapes", !(currItem->isTableItem && currItem->isSingleSel));
-//		scrMenuMgr->setMenuEnabled("ItemConvertTo", true);
+		scrMenuMgr->setMenuEnabled("ItemConvertTo", !((doc->appMode == modeEdit) || (currItem->isAnnotation())));
 		scrActions["itemConvertToBezierCurve"]->setEnabled(false);
 		scrActions["itemConvertToImageFrame"]->setEnabled(doc->appMode != modeEdit);
 		scrActions["itemConvertToOutlines"]->setEnabled(doc->appMode != modeEdit);

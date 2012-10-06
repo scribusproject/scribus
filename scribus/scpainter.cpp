@@ -660,7 +660,8 @@ void ScPainter::strokePath()
 {
 //	if( LineWidth == 0 )
 //		return;
-	strokePathHelper();
+	if (strokeMode != 0)
+		strokePathHelper();
 }
 
 QColor ScPainter::pen()
@@ -2054,32 +2055,41 @@ void ScPainter::drawRect(double x, double y, double w, double h)
 	strokePath();
 }
 
-void ScPainter::drawText(QRectF area, QString text)
+void ScPainter::drawText(QRectF area, QString text, bool filled, int align)
 {
 	cairo_text_extents_t extents;
 	cairo_font_extents_t extentsF;
-	double x = area.center().x();
-	double y;
+	double x;
+	if (align == 0)
+		x = area.center().x();
+	else
+		x = area.x();
+	double y = area.y();
 	double ww = 0;
 	double hh = 0;
 	double r, g, b;
-	cairo_select_font_face(m_cr, m_font.family().toLatin1(), CAIRO_FONT_SLANT_NORMAL, CAIRO_FONT_WEIGHT_BOLD);
+	cairo_select_font_face(m_cr, m_font.family().toLatin1(), m_font.italic() ? CAIRO_FONT_SLANT_ITALIC : CAIRO_FONT_SLANT_NORMAL, m_font.bold() ? CAIRO_FONT_WEIGHT_BOLD : CAIRO_FONT_WEIGHT_NORMAL);
 	cairo_set_font_size(m_cr, m_font.pointSizeF());
 	cairo_font_extents (m_cr, &extentsF);
 	QStringList textList = text.split("\n");
 	for (int a = 0; a < textList.count(); ++a)
 	{
 		cairo_text_extents (m_cr, textList[a].toUtf8(), &extents);
-		x = qMin(area.center().x() - (extents.width / 2.0 + extents.x_bearing), x);
+		if (align == 0)
+			x = qMin(area.center().x() - (extents.width / 2.0 + extents.x_bearing), x);
 		ww = qMax(ww, extents.width);
 	}
 	hh = extentsF.height * textList.count();
-	y = area.center().y() - ((extentsF.height * textList.count()) / 2.0);
-	m_fill.getRgbF(&r, &g, &b);
-	cairo_set_source_rgba( m_cr, r, g, b, fill_trans );
-	cairo_new_path( m_cr );
-	cairo_rectangle(m_cr, x, y, ww, hh);
-	cairo_fill( m_cr );
+	if ((align == 0) || (align == 1))
+		y = area.center().y() - ((extentsF.height * textList.count()) / 2.0);
+	if (filled)
+	{
+		m_fill.getRgbF(&r, &g, &b);
+		cairo_set_source_rgba( m_cr, r, g, b, fill_trans );
+		cairo_new_path( m_cr );
+		cairo_rectangle(m_cr, x, y, ww, hh);
+		cairo_fill( m_cr );
+	}
 	cairo_new_path( m_cr );
 	y += extentsF.ascent;
 	cairo_move_to (m_cr, x, y);
@@ -2090,5 +2100,50 @@ void ScPainter::drawText(QRectF area, QString text)
 		cairo_show_text (m_cr, textList[a].toUtf8());
 		y += extentsF.height;
 		cairo_move_to (m_cr, x, y);
+	}
+}
+
+void ScPainter::drawShadePanel(const QRect &r, const QPalette &pal, bool sunken, int lineWidth)
+{
+	QColor shade = pal.dark().color();
+	QColor light = pal.light().color();
+	setStrokeMode(1);
+	setLineWidth(1.2);
+	if (sunken)
+		setPen(shade, 1.2, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+	else
+		setPen(light, 1.2, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+	int x1, y1, x2, y2, x3, y3;
+	x1 = r.x();
+	x2 = r.x();
+	x3 = r.x() + r.width();
+	y1 = r.y() + r.height();
+	y2 = r.y();
+	y3 = r.y();
+	for (int i = 0; i < lineWidth; i++)
+	{
+		newPath();
+		moveTo(x1++, y1--);
+		lineTo(x2++, y2++);
+		lineTo(x3--, y3++);
+		strokePath();
+	}
+	if (sunken)
+		setPen(light, 1.2, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+	else
+		setPen(shade, 1.2, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+	x1 = r.x();
+	x2 = r.x() + r.width();
+	x3 = r.x() + r.width();
+	y1 = r.y() + r.height();
+	y2 = r.y() + r.height();
+	y3 = r.y();
+	for (int i = 0; i < lineWidth; i++)
+	{
+		newPath();
+		moveTo(x1++, y1--);
+		lineTo(x2--, y2--);
+		lineTo(x3--, y3++);
+		strokePath();
 	}
 }

@@ -87,7 +87,8 @@ public:
 	virtual void drawLine(FPoint start, FPoint end);
 	virtual void drawLine(const QPointF& start, const QPointF& end);
 	virtual void drawRect(double, double, double, double);
-	virtual void drawText(QRectF area, QString text);
+	virtual void drawText(QRectF area, QString text, bool filled = true, int align = 0);
+	virtual void drawShadePanel(const QRect &r, const QPalette &pal, bool sunken, int lineWidth);
 
 	// pen + brush
 	virtual QColor pen();

@@ -1952,10 +1952,12 @@ void PageItem::DrawObj_Decoration(ScPainter *p)
 	if (!isEmbedded)
 		p->translate(Xpos, Ypos);
 	p->rotate(Rot);
+//	p->setAntialiasing(false);
 	if ((!isEmbedded) && (!m_Doc->RePos))
 	{
 		double aestheticFactor(5.0);
 		double scpInv = 1.0 / (qMax(p->zoomFactor(), 1.0) * aestheticFactor);
+	//	double scpInv = 0;
 		if (!isGroup())
 		{
 			if ((Frame) && (m_Doc->guidesPrefs().framesShown) && ((itemType() == ImageFrame) || (itemType() == LatexFrame) || (itemType() == OSGFrame) || (itemType() == PathText)))
@@ -2056,6 +2058,7 @@ void PageItem::DrawObj_Decoration(ScPainter *p)
 	}
 //	Tinput = false;
 	FrameOnly = false;
+//	p->setAntialiasing(true);
 	p->restore();
 }
 
