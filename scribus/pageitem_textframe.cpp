@@ -317,7 +317,7 @@ void PageItem_TextFrame::setShadow()
 		currentShadow = newShadow;
 	}
 }
-
+/*
 static void debugLineLayout(const StoryText& itemText, const LineSpec& line)
 {
 	QFile debugFile(QDir::homePath() + "/Desktop/debug_line.csv");
@@ -350,7 +350,7 @@ static void debugLineLayout(const StoryText& itemText, const LineSpec& line)
 
 	debugFile.close();
 }
-
+*/
 static void dumpIt(const ParagraphStyle& pstyle, QString indent = QString("->"))
 {
 	QString db = QString("%6%1/%2 @ %3: %4--%5 linespa%6: %7 align%8")
@@ -3544,13 +3544,9 @@ void PageItem_TextFrame::DrawObj_Decoration(ScPainter *p)
 	if (!isEmbedded)
 		p->translate(Xpos, Ypos);
 	p->rotate(Rot);
-//	p->setAntialiasing(false);
 	if ((!isEmbedded) && (!m_Doc->RePos))
 	{
-		// added to prevent fat frame outline due to antialiasing and considering you can’t pass a cosmetic pen to scpainter - pm
-		double aestheticFactor(5.0);
-		double scpInv = 1.0 / (qMax(p->zoomFactor(), 1.0) * aestheticFactor);
-//		double scpInv = 0.0;
+		double scpInv = 0.0;
 		if ((Frame) && (m_Doc->guidesPrefs().framesShown))
 		{
 			p->setPen(PrefsManager::instance()->appPrefs.displayPrefs.frameNormColor, scpInv, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
@@ -3564,9 +3560,9 @@ void PageItem_TextFrame::DrawObj_Decoration(ScPainter *p)
 			p->setFillMode(0);
 // Ugly Hack to fix rendering problems with cairo >=1.5.10 && <1.8.0 follows
 	#if ((CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 5, 10)) && (CAIRO_VERSION < CAIRO_VERSION_ENCODE(1, 8, 0)))
-			p->setupPolygon(&PoLine, false);
+			p->setupSharpPolygon(&PoLine, false);
 	#else
-			p->setupPolygon(&PoLine);
+			p->setupSharpPolygon(&PoLine);
 	#endif
 			p->strokePath();
 		}
@@ -3575,9 +3571,9 @@ void PageItem_TextFrame::DrawObj_Decoration(ScPainter *p)
 			p->setPen(Qt::lightGray, scpInv, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 // Ugly Hack to fix rendering problems with cairo >=1.5.10 && <1.8.0 follows
 	#if ((CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 5, 10)) && (CAIRO_VERSION < CAIRO_VERSION_ENCODE(1, 8, 0)))
-			p->setupPolygon(&ContourLine, false);
+			p->setupSharpPolygon(&ContourLine, false);
 	#else
-			p->setupPolygon(&ContourLine);
+			p->setupSharpPolygon(&ContourLine);
 	#endif
 			p->strokePath();
 		}
@@ -3592,7 +3588,7 @@ void PageItem_TextFrame::DrawObj_Decoration(ScPainter *p)
 			drawColumnBorders(p);
 		if ((m_Doc->guidesPrefs().layerMarkersShown) && (m_Doc->layerCount() > 1) && (!m_Doc->layerOutline(LayerID)) && (!m_Doc->drawAsPreview))
 		{
-			p->setPen(Qt::black, 0.5/ p->zoomFactor(), Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+			p->setPen(Qt::black, 0, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 			p->setPenOpacity(1.0);
 			p->setBrush(m_Doc->layerMarker(LayerID));
 			p->setBrushOpacity(1.0);
@@ -3600,14 +3596,12 @@ void PageItem_TextFrame::DrawObj_Decoration(ScPainter *p)
 			double ofwh = 10;
 			double ofx = Width - ofwh/2;
 			double ofy = Height - ofwh*3;
-			p->drawRect(ofx, ofy, ofwh, ofwh);
+			p->drawSharpRect(ofx, ofy, ofwh, ofwh);
 		}
 		//if (m_Doc->selection->findItem(this)!=-1)
 		//	drawLockedMarker(p);
 	}
-//	Tinput = false;
 	FrameOnly = false;
-//	p->setAntialiasing(true);
 	p->restore();
 }
 
@@ -4548,7 +4542,7 @@ void PageItem_TextFrame::drawOverflowMarker(ScPainter *p)
 
 void PageItem_TextFrame::drawColumnBorders(ScPainter *p)
 {
-	p->setPen(Qt::black, 0.5/ p->zoomFactor(), Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+	p->setPen(Qt::black, 0, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 	p->setPenOpacity(1.0);
 	p->setBrush(Qt::white);
 	p->setBrushOpacity(1.0);
@@ -4562,16 +4556,16 @@ void PageItem_TextFrame::drawColumnBorders(ScPainter *p)
 	if (lineColor() != CommonStrings::None)
 		lineCorr = m_lineWidth / 2.0;
 	if (TExtra + lineCorr!=0.0)
-		p->drawLine(FPoint(0, TExtra + lineCorr), FPoint(Width, TExtra + lineCorr));
+		p->drawSharpLine(FPoint(0, TExtra + lineCorr), FPoint(Width, TExtra + lineCorr));
 	if (BExtra + lineCorr!=0.0)
-		p->drawLine(FPoint(0, Height - BExtra - lineCorr), FPoint(Width, Height - BExtra - lineCorr));
+		p->drawSharpLine(FPoint(0, Height - BExtra - lineCorr), FPoint(Width, Height - BExtra - lineCorr));
 	while(curCol < Cols)
 	{
 		colLeft=(colWidth + ColGap) * curCol + Extra + lineCorr;
 		if (colLeft != 0.0)
-			p->drawLine(FPoint(colLeft, 0), FPoint(colLeft, 0+Height));
+			p->drawSharpLine(FPoint(colLeft, 0), FPoint(colLeft, 0+Height));
 		if (colLeft + colWidth != Width)
-			p->drawLine(FPoint(colLeft+colWidth, 0), FPoint(colLeft+colWidth, 0+Height));
+			p->drawSharpLine(FPoint(colLeft+colWidth, 0), FPoint(colLeft+colWidth, 0+Height));
 		++curCol;
 	}
 	

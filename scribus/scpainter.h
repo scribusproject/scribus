@@ -82,11 +82,17 @@ public:
 
 	virtual void drawImage( QImage *image);
 	virtual void setupPolygon(FPointArray *points, bool closed = true);
+	virtual void setupSharpPolygon(FPointArray *points, bool closed = true);
+	virtual void sharpLineHelper(FPoint &pp);
+	virtual void sharpLineHelper(QPointF &pp);
 	virtual void drawPolygon();
 	virtual void drawPolyLine();
 	virtual void drawLine(FPoint start, FPoint end);
 	virtual void drawLine(const QPointF& start, const QPointF& end);
+	virtual void drawSharpLine(FPoint start, FPoint end);
+	virtual void drawSharpLine(QPointF start, QPointF end);
 	virtual void drawRect(double, double, double, double);
+	virtual void drawSharpRect(double x, double y, double w, double h);
 	virtual void drawText(QRectF area, QString text, bool filled = true, int align = 0);
 	virtual void drawShadePanel(const QRect &r, const QPalette &pal, bool sunken, int lineWidth);
 
