@@ -1298,7 +1298,6 @@ void PageItem::unlink(bool createUndo)
 	}
 }
 
-
 void PageItem::dropLinks()
 {
 	// update auto pointers

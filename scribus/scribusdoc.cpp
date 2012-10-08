@@ -10791,7 +10791,7 @@ void ScribusDoc::itemSelection_DeleteItem(Selection* customSelection, bool force
 	selectedItemCount = delItems.count();
 
 	UndoTransaction* activeTransaction = NULL;
-	if ((selectedItemCount > 1) && UndoManager::undoEnabled())
+	if (UndoManager::undoEnabled())
 		activeTransaction = new UndoTransaction(undoManager->beginTransaction(Um::Group + "/" + Um::Selection, Um::IGroup,
 																			  Um::Delete, tooltip, Um::IDelete));
 
@@ -10801,24 +10801,7 @@ void ScribusDoc::itemSelection_DeleteItem(Selection* customSelection, bool force
 		if ((currItem->asImageFrame()) && ((ScCore->fileWatcher->files().contains(currItem->Pfile) != 0) && (currItem->PictureIsAvailable)))
 			ScCore->fileWatcher->removeFile(currItem->Pfile);
 		if (currItem->asTextFrame())
-		{
 			currItem->dropLinks();
-			
-			/* this code will instead remove the contained text
-			// unlink after
-			currItem->unlink();
-			if (before != 0)
-			{
-				// unlink before
-				before->unlink();
-				// repair link
-				if (after != 0)
-				{
-					before->link(after);
-				}
-			}
-			*/
-		}
 		if (currItem->isWelded())
 			currItem->unWeld();
 		if (currItem->isBookmark)
