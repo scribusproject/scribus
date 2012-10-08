@@ -1436,6 +1436,10 @@ protected:
 	void restoreUnlinkTextFrame(UndoState *state, bool isUndo);
 	void restoreReverseText(UndoState *state, bool isUndo);
 	void restorePathOperation(UndoState *state, bool isUndo);
+
+	void restoreWeldItems(SimpleState *state, bool isUndo);
+	void restoreUnWeldItem(SimpleState *state, bool isUndo);
+	
 	/*@}*/
 
 	/**

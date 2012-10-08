@@ -652,6 +652,7 @@ public:
 	static QString UnlinkTextFrame;
 	static QString ClearImage;
 	static QString PathOperation;
+	static QString WeldItems;
 	/*@}*/
 
 	/**
