@@ -1255,11 +1255,11 @@ QPixmap AutoformButtonGroup::getIconPixmap(int nr, int pixmapSize)
 	}
 	ScPainter *painter = new ScPainter(&Ico, 32, 32);
 	painter->setBrush(qRgb(238, 238, 236));
-	painter->setPen(qRgb(137, 139, 134));
-	painter->setFillMode(1);
+	painter->setPen(qRgb(137, 139, 134), 2.0, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+	painter->setFillMode(ScPainter::Solid);
+	painter->setStrokeMode(ScPainter::Solid);
 	painter->translate(2.0, 2.0);
 	painter->setupPolygon(&Path);
-	painter->setLineWidth(2.0);
 	painter->drawPolygon();
 	painter->drawPolyLine();
 	painter->end();

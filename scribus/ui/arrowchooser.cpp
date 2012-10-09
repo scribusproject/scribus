@@ -40,7 +40,7 @@ void ArrowChooser::rebuildList(QList<ArrowDesc> *arrowStyles)
 		ScPainter *painter = new ScPainter(&image, 22, 22);
 //		painter->clear();
 		painter->setBrush(qRgb(0, 0, 0));
-		painter->setPen(qRgb(0, 0, 0));
+		painter->setPen(qRgb(0, 0, 0), 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 		painter->setFillMode(1);
 		painter->translate(3.0, 3.0);
 		Path.resize(0);
@@ -58,7 +58,6 @@ void ArrowChooser::rebuildList(QList<ArrowDesc> *arrowStyles)
 		mm.scale(16.0 / qMax(max.x(), max.y()), 16.0 / qMax(max.x(), max.y()));
 		Path.map(mm2 * mm);
 		painter->setupPolygon(&Path);
-		painter->setLineWidth(1.0);
 		painter->drawPolygon();
 		painter->drawPolyLine();
 		painter->end();

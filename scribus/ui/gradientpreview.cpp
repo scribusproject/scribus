@@ -89,8 +89,7 @@ void GradientPreview::paintEvent(QPaintEvent *e)
 	pb.end();
 	ScPainter *p = new ScPainter(&pixm, width()-20, 37);
 //	p->clear(Qt::white);
-	p->setPen(Qt::black);
-	p->setLineWidth(1);
+	p->setPen(Qt::black, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 	p->setFillMode(2);
 	p->fill_gradient = fill_gradient;
 	p->setGradient(VGradient::linear, FPoint(0,20), FPoint(width()-20,20), FPoint(0, 0), 1.0, 0.0);

@@ -247,10 +247,9 @@ ExtImageProps::ExtImageProps( QWidget* parent, ImageInfoRecord *info, PageItem *
 			mm.scale(34.0 / qMax(max.x(), max.y()), 34.0 / qMax(max.x(), max.y()));
 			Path.map(mm);
 			p->setupPolygon(&Path);
-			p->setPen(Qt::black);
+			p->setPen(Qt::black, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 			p->setBrush(Qt::white);
 			p->setFillMode(0);
-			p->setLineWidth(1.0);
 			p->strokePath();
 			p->end();
 			delete p;
