@@ -88,6 +88,9 @@ void SymbolView::dropEvent(QDropEvent *e)
 		e->acceptProposedAction();
 		if (e->source() == this)
 			return;
+		QString text = e->mimeData()->text();
+		if ((text.startsWith("<SCRIBUSELEM")) || (text.startsWith("SCRIBUSELEMUTF8")))
+			emit objectDropped();
 	}
 	else
 		e->ignore();
@@ -154,6 +157,7 @@ SymbolPalette::SymbolPalette( QWidget* parent) : ScDockPalette( parent, "Symb", 
 	editItemNames.clear();
 	languageChange();
 	connect(SymbolViewWidget, SIGNAL(itemDoubleClicked(QListWidgetItem *)), this, SLOT(handleDoubleClick(QListWidgetItem *)));
+	connect(SymbolViewWidget, SIGNAL(objectDropped()), this, SIGNAL(objectDropped()));
 }
 
 void SymbolPalette::handleDoubleClick(QListWidgetItem *item)

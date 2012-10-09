@@ -62,6 +62,9 @@ protected:
 	void dropEvent(QDropEvent *e);
 	void startDrag(Qt::DropActions supportedActions);
 
+signals:
+	void objectDropped();
+
 private:
 	ScListWidgetDelegate* delegate;
 };
@@ -90,6 +93,7 @@ public slots:
 signals:
 	void startEdit(QString);
 	void endEdit();
+	void objectDropped();
 
 protected:
 	SymbolView *SymbolViewWidget;

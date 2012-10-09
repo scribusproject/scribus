@@ -593,6 +593,7 @@ void ScribusMainWindow::initPalettes()
 	connect(symbolPalette, SIGNAL(paletteShown(bool)), scrActions["toolsSymbols"], SLOT(setChecked(bool)));
 	connect(symbolPalette, SIGNAL(startEdit(QString)), this, SLOT(editSymbolStart(QString)));
 	connect(symbolPalette, SIGNAL(endEdit()), this, SLOT(editSymbolEnd()));
+	connect(symbolPalette, SIGNAL(objectDropped()), this, SLOT(PutToPatterns()));
 	symbolPalette->installEventFilter(this);
 	symbolPalette->hide();
 
