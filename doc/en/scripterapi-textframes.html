@@ -72,6 +72,11 @@ is not given the currently selected item is used.</p></dd>
 <p>Does hyphenation on text frame "name". If "name" is not given the currently selected item is used.</p>
 <p>May raise WrongFrameTypeError if the target frame is not a text frame</p></dd>
 
+<dt><a name="-insertHtmlText"><strong>insertHtmlText</strong></a>(...)</dt>
+<dd><code>insertHtmlText("text", ["name"])</code>
+<p>Inserts the text from "file" into the text frame "name". Text must be UTF encoded (see <a href="#-setText">setText</a>() as reference). If "name" is not given the currently selected Item is used.</p>
+<p>May raise WrongFrameTypeError if the target frame is not a text frame</p></dd>
+
 <dt><a name="-insertText"><strong>insertText</strong></a>(...)</dt>
 <dd><code>insertText("text", pos, ["name"])</code>
 <p>Inserts the text "text" at the position "pos" into the text frame "name". Text must be UTF encoded (see <a href="#-setText">setText</a>() as reference) The first character has an index of 0. Inserting text at position -1 appends it to the frame. If "name" is not given the currently selected Item is used.</p>

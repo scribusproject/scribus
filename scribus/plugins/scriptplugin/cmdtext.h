@@ -148,6 +148,17 @@ May throw IndexError for an insertion out of bounds.\n\
 PyObject *scribus_inserttext(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
+PyDoc_STRVAR(scribus_inserthtmltext__doc__,
+QT_TR_NOOP("insertHTMLText(\"file\", [\"name\"])\n\
+\n\
+Inserts the text from \"file\" into the text frame \"name\".\n\
+Text must be UTF encoded (see setText() as reference). If \"name\" is\n\
+not given the currently selected Item is used.\n\
+"));
+/*! Insert HTML text */
+PyObject *scribus_inserthtmltext(PyObject * /*self*/, PyObject* args);
+
+/*! docstring */
 PyDoc_STRVAR(scribus_setfont__doc__,
 QT_TR_NOOP("setFont(\"font\", [\"name\"])\n\
 \n\

@@ -412,6 +412,7 @@ PyMethodDef scribus_methods[] = {
 	{const_cast<char*>("insertTableRows"), scribus_inserttablerows, METH_VARARGS, tr(scribus_inserttablerows__doc__)},
 	{const_cast<char*>("insertTableColumns"), scribus_inserttablecolumns, METH_VARARGS, tr(scribus_inserttablecolumns__doc__)},
 	{const_cast<char*>("insertText"), scribus_inserttext, METH_VARARGS, tr(scribus_inserttext__doc__)},
+	{const_cast<char*>("insertHtmlText"), scribus_inserthtmltext, METH_VARARGS, tr(scribus_inserthtmltext__doc__)},
 	{const_cast<char*>("isLayerPrintable"), scribus_glayerprint, METH_VARARGS, tr(scribus_glayerprint__doc__)},
 	{const_cast<char*>("isLayerVisible"), scribus_glayervisib, METH_VARARGS, tr(scribus_glayervisib__doc__)},
 	{const_cast<char*>("isLayerLocked"), scribus_glayerlock, METH_VARARGS, tr(scribus_glayerlock__doc__)},

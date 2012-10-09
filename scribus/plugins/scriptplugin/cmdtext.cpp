@@ -311,6 +311,41 @@ PyObject *scribus_inserttext(PyObject* /* self */, PyObject* args)
 	Py_RETURN_NONE;
 }
 
+PyObject *scribus_inserthtmltext(PyObject* /* self */, PyObject* args)
+{
+    char *name = const_cast<char*>("");
+    char *file;
+    QString data;
+
+    if (!PyArg_ParseTuple(args, "es|es", "utf-8", &file, "utf-8", &name)) {
+        return NULL;
+    }
+
+    if(!checkHaveDocument()) {
+        return NULL;
+    }
+
+    PageItem *it = GetUniqueItem(QString::fromUtf8(name));
+    if (it == NULL) {
+        return NULL;
+    }
+
+    if (!(it->asTextFrame()) && !(it->asPathText())) {
+        PyErr_SetString(WrongFrameTypeError,
+                QObject::tr("Cannot insert text into non-text frame.",
+                    "python error").toLocal8Bit().constData());
+        return NULL;
+    }
+
+	QString fileName = QString::fromUtf8(file);
+
+    gtGetText gt(ScCore->primaryMainWindow()->doc);
+    gt.launchImporter(-1, fileName, false, QString("utf-8"), false, it);
+
+    // FIXME: PyMem_Free() - are any needed??
+    Py_RETURN_NONE;
+}
+
 PyObject *scribus_setalign(PyObject* /* self */, PyObject* args)
 {
 	char *Name = const_cast<char*>("");
