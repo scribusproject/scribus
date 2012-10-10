@@ -1956,7 +1956,7 @@ void PageItem::DrawObj_Decoration(ScPainter *p)
 		double scpInv = 0;
 		if (!isGroup())
 		{
-			if ((Frame) && (m_Doc->guidesPrefs().framesShown) && ((itemType() == ImageFrame) || (itemType() == LatexFrame) || (itemType() == OSGFrame) || (itemType() == PathText)))
+			if ((Frame) && (m_Doc->guidesPrefs().framesShown) && ((itemType() == ImageFrame) || (itemType() == LatexFrame) || (itemType() == OSGFrame) || (itemType() == PathText)) && (no_stroke))
 			{
 				p->setPen(PrefsManager::instance()->appPrefs.displayPrefs.frameNormColor, scpInv, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 				if ((isBookmark) || (m_isAnnotation))

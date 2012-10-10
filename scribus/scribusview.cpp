@@ -24,6 +24,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribusview.h"
 
 #include "scconfig.h"
+#include "sclimits.h"
 
 #include <QColor>
 #include <QDebug>
@@ -4028,16 +4029,19 @@ void ScribusView::TextToPath()
 			}
 			if (currItem->asTextFrame())
 			{
-				PageItem* newItem = new PageItem_Polygon(*currItem);
-				newItem->convertTo(PageItem::Polygon);
-				newItem->Frame = false;
-				newItem->ClipEdited = true;
-				newItem->FrameType = 3;
-				newItem->OldB2 = newItem->width();
-				newItem->OldH2 = newItem->height();
-				newItem->Clip = FlattenPath(newItem->PoLine, newItem->Segments);
-				newItem->ContourLine = newItem->PoLine.copy();
-				newGroupedItems.prepend(newItem);
+				if ((!currItem->NamedLStyle.isEmpty()) || (currItem->lineColor() != CommonStrings::None) || (!currItem->strokePattern().isEmpty()) || (!currItem->strokeGradient().isEmpty()))
+				{
+					PageItem* newItem = new PageItem_Polygon(*currItem);
+					newItem->convertTo(PageItem::Polygon);
+					newItem->Frame = false;
+					newItem->ClipEdited = true;
+					newItem->FrameType = 3;
+					newItem->OldB2 = newItem->width();
+					newItem->OldH2 = newItem->height();
+					newItem->Clip = FlattenPath(newItem->PoLine, newItem->Segments);
+					newItem->ContourLine = newItem->PoLine.copy();
+					newGroupedItems.prepend(newItem);
+				}
 			}
 			delItems.append(tmpSelection.takeItem(offset));
 		}
@@ -4051,7 +4055,24 @@ void ScribusView::TextToPath()
 		}
 		if (newGroupedItems.count() > 1)
 		{
-			int z = Doc->itemAdd(PageItem::Group, PageItem::Rectangle, currItem->xPos(), currItem->yPos(), currItem->width(), currItem->height(), 0, CommonStrings::None, CommonStrings::None, true);
+			double minx =  std::numeric_limits<double>::max();
+			double miny =  std::numeric_limits<double>::max();
+			double maxx = -std::numeric_limits<double>::max();
+			double maxy = -std::numeric_limits<double>::max();
+			for (uint ep = 0; ep < newGroupedItems.count(); ++ep)
+			{
+				double x1, x2, y1, y2;
+				newGroupedItems.at(ep)->getVisualBoundingRect(&x1, &y1, &x2, &y2);
+				minx = qMin(minx, x1);
+				miny = qMin(miny, y1);
+				maxx = qMax(maxx, x2);
+				maxy = qMax(maxy, y2);
+			}
+			double gx = minx;
+			double gy = miny;
+			double gw = maxx - minx;
+			double gh = maxy - miny;
+			int z = Doc->itemAdd(PageItem::Group, PageItem::Rectangle, gx, gy, gw, gh, 0, CommonStrings::None, CommonStrings::None, true);
 			PageItem *gItem = Doc->Items->takeAt(z);
 			Doc->groupObjectsToItem(gItem, newGroupedItems);
 			gItem->Parent = currItem->Parent;
@@ -4078,8 +4099,9 @@ void ScribusView::TextToPath()
 				tmpSelection.addItem(delItems.takeAt(0)); //yes, 0, remove the first
 			Doc->itemSelection_DeleteItem(&tmpSelection);
 		}
-		Doc->m_Selection->copy(tmpSelection, true);
+//		Doc->m_Selection->copy(tmpSelection, true);
 		m_ScMW->HaveNewSel(-1);
+		Deselect(true);
 		trans.commit();
 	}
 #endif
