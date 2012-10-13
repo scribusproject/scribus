@@ -2068,6 +2068,8 @@ ScribusDoc *ScribusMainWindow::doFileNew(double width, double height, double top
 		connect(ScCore->fileWatcher, SIGNAL(fileChanged(QString)), tempDoc, SLOT(updatePict(QString)));
 		connect(ScCore->fileWatcher, SIGNAL(fileDeleted(QString)), tempDoc, SLOT(removePict(QString)));
 		connect(ScCore->fileWatcher, SIGNAL(dirChanged(QString )), tempDoc, SLOT(updatePictDir(QString )));
+		connect(doc, SIGNAL(updateAutoSaveClock()), view->clockLabel, SLOT(resetTime()));
+		view->clockLabel->resetTime();
 		//scrActions["fileSave"]->setEnabled(false);
 		tempView->cmsToolbarButton->setChecked(tempDoc->HasCMS);
 		undoManager->switchStack(tempDoc->DocName);
@@ -4212,6 +4214,8 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 		doc->connectDocSignals();
 		if (doc->autoSave())
 			doc->autoSaveTimer->start(doc->autoSaveTime());
+		connect(doc, SIGNAL(updateAutoSaveClock()), view->clockLabel, SLOT(resetTime()));
+		view->clockLabel->resetTime();
 // 		scrActions["fileSave"]->setEnabled(false);
 		doc->NrItems = bookmarkPalette->BView->NrItems;
 		doc->First = bookmarkPalette->BView->First;

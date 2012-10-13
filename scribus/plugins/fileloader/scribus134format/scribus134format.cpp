@@ -726,7 +726,8 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 
 	// start auto save timer if needed
 	if (m_Doc->autoSave()  && ScCore->usingGUI())
-		m_Doc->autoSaveTimer->start(m_Doc->autoSaveTime());
+		m_Doc->restartAutoSaveTimer();
+//		m_Doc->autoSaveTimer->start(m_Doc->autoSaveTime());
 	
 	if (m_mwProgressBar!=0)
 		m_mwProgressBar->setValue(reader.characterOffset());

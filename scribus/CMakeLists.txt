@@ -275,6 +275,7 @@ SET(SCRIBUS_MOC_CLASSES
   ui/charselectenhanced.h
   ui/charzoom.h
   ui/checkDocument.h
+  ui/clockwidget.h
   ui/cmsprefs.h
   ui/cmykfw.h
   ui/collectforoutput_ui.h
@@ -706,6 +707,7 @@ SET(SCRIBUS_SOURCES
   ui/charselectenhanced.cpp
   ui/charzoom.cpp
   ui/checkDocument.cpp
+  ui/clockwidget.cpp
   ui/cmsprefs.cpp
   ui/cmykfw.cpp
   ui/collectforoutput_ui.cpp

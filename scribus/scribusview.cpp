@@ -135,10 +135,7 @@ for which a new license (GPL+exception) is in place.
 #include "plugins/formatidlist.h"
 #include <tiffio.h>
 
-
 using namespace std;
-
-
 
 ScribusView::ScribusView(QWidget* win, ScribusMainWindow* mw, ScribusDoc *doc) :
 	QScrollArea(win),
@@ -340,6 +337,9 @@ ScribusView::ScribusView(QWidget* win, ScribusMainWindow* mw, ScribusDoc *doc) :
 //	connect(m_dragTimer, SIGNAL(timeout()), this, SLOT(dragTimerTimeOut()));
 //	m_dragTimer->stop();
 	m_dragTimerFired = false;
+	clockLabel = new ClockWidget(this, Doc);
+	clockLabel->setGeometry(m_vhRulerHW + 1, height() - m_vhRulerHW - 61, 60, 60);
+	clockLabel->setVisible(false);
 }
 
 ScribusView::~ScribusView()
@@ -2031,6 +2031,16 @@ void ScribusView::resizeEvent ( QResizeEvent * event )
 	horizRuler->setGeometry(m_vhRulerHW, 1, width()-m_vhRulerHW-1, m_vhRulerHW);
 	vertRuler->setGeometry(1, m_vhRulerHW, m_vhRulerHW, height()-m_vhRulerHW-1);
 	rulerMover->setGeometry(1, 1, m_vhRulerHW, m_vhRulerHW);
+	if (clockLabel->isExpanded())
+	{
+		clockLabel->setGeometry(m_vhRulerHW + 1, height() - m_vhRulerHW - 61, 60, 60);
+		clockLabel->setFixedSize(60, 60);
+	}
+	else
+	{
+		clockLabel->setGeometry(m_vhRulerHW + 1, height() - m_vhRulerHW - 16, 15, 15);
+		clockLabel->setFixedSize(15, 15);
+	}
 	m_canvas->m_viewMode.forceRedraw = true;
 	m_canvas->resetRenderMode();
 	// Per Qt doc, not painting should be done in a resizeEvent,

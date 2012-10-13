@@ -1381,6 +1381,7 @@ signals:
 	//! Signal a change in rotation mode (aka basepoint)
 	void rotationMode(int);
 	void updateEditItem();
+	void updateAutoSaveClock();
 	
 public slots:
 	void selectionChanged();
@@ -1621,6 +1622,7 @@ public slots:
 	void itemSelection_UnWeld();
 	void itemSelection_Weld();
 	void itemSelection_EditWeld();
+	void restartAutoSaveTimer();
 };
 
 Q_DECLARE_METATYPE(ScribusDoc*);

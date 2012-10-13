@@ -15576,6 +15576,7 @@ void ScribusDoc::setNewPrefs(const ApplicationPrefs& prefsData, const Applicatio
 	autoSaveTimer->stop();
 	if (docPrefsData.docSetupPrefs.AutoSave)
 		autoSaveTimer->start(docPrefsData.docSetupPrefs.AutoSaveTime);
+	emit updateAutoSaveClock();
 
 /*	FIXME: scribus determines dict by charstyle now, so this setting should go into the doc's default charstyle
 		currDoc->docHyphenator->slotNewDict(ScMW->GetLang(tabHyphenator->language->currentText()));
@@ -15996,4 +15997,12 @@ void ScribusDoc::itemResizeToMargin(PageItem* item, int direction)
 	item->invalid = true;
 	changed();
 	regionsChanged()->update(QRect());
+}
+
+void ScribusDoc::restartAutoSaveTimer()
+{
+	autoSaveTimer->stop();
+	if (docPrefsData.docSetupPrefs.AutoSave)
+		autoSaveTimer->start(docPrefsData.docSetupPrefs.AutoSaveTime);
+	emit updateAutoSaveClock();
 }
