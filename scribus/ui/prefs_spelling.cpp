@@ -105,11 +105,11 @@ void Prefs_Spelling::downloadSpellDicts()
 
 void Prefs_Spelling::updateDictList()
 {
-	bool dictsFound=LanguageManager::instance()->findDictionaries(dictionaryPaths);
+	bool dictsFound=LanguageManager::instance()->findSpellingDictionaries(dictionaryPaths);
 	if (!dictsFound)
 		return;
 	dictionaryMap.clear();
-	LanguageManager::instance()->findDictionarySets(dictionaryPaths, dictionaryMap);
+	LanguageManager::instance()->findSpellingDictionarySets(dictionaryPaths, dictionaryMap);
 
 	dictTableWidget->clear();
 	dictTableWidget->setRowCount(dictionaryMap.count());
@@ -120,7 +120,7 @@ void Prefs_Spelling::updateDictList()
 	{
 		 i.next();
 		 int column=0;
-		 qDebug()<<i.key()<<i.value();
+		 qDebug()<<i.key()<<i.value()<<LanguageManager::instance()->getLangFromAbbrev(i.key(), false);
 		 QTableWidgetItem *newItem1 = new QTableWidgetItem(LanguageManager::instance()->getLangFromAbbrev(i.key()));
 		 newItem1->setFlags(newItem1->flags() & ~Qt::ItemIsEditable);
 		 dictTableWidget->setItem(row, column++, newItem1);
@@ -232,8 +232,8 @@ void Prefs_Spelling::setAvailDictsXMLFile(QString availDictsXMLDataFile)
 						QUrl url(d.url);
 						if (url.isValid() && !url.isEmpty() && !url.host().isEmpty())
 							dictList.append(d);
-						else
-							qDebug()<<"hysettings : availDicts : invalid URL"<<d.url;
+						//else
+						//	qDebug()<<"hysettings : availDicts : invalid URL"<<d.url;
 					}
 				}
 			}

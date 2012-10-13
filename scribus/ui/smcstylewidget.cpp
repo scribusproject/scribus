@@ -138,6 +138,17 @@ void SMCStyleWidget::fillLangCombo(QMap<QString,QString> langMap)
 		tmpView->setMinimumWidth(tmpWidth + 24);
 }
 
+void SMCStyleWidget::fillLangComboFromList(QStringList langList)
+{
+	language_->clear();
+	language_->addItems(langList);
+
+	QListView *tmpView = dynamic_cast<QListView*>(language_->view()); Q_ASSERT(tmpView);
+	int tmpWidth = tmpView->sizeHintForColumn(0);
+	if (tmpWidth > 0)
+		tmpView->setMinimumWidth(tmpWidth + 24);
+}
+
 void SMCStyleWidget::fillColorCombo(ColorList &colors)
 {
 	fillColor_->clear();
@@ -254,6 +265,7 @@ void SMCStyleWidget::show(CharStyle *cstyle, QList<CharStyle> &cstyles, const QS
 
 	QString clang = cstyle->language().isNull() || cstyle->language().isEmpty() ?
 	                                      defLang : cstyle->language();
+	//qDebug()<<"style lang"<<cstyle->language()<<clang;
 	QString plang(QString::null);
 	if (hasParent)
 		plang = parent->language().isNull() || parent->language().isEmpty() ?
@@ -265,21 +277,23 @@ void SMCStyleWidget::show(CharStyle *cstyle, QList<CharStyle> &cstyles, const QS
 	QString tl;
 	for (int i = 0; i < language_->count(); ++i)
 	{
-		if (language_->itemText(i) == langMap_[clang])
+		QString ltAbbrev=LanguageManager::instance()->getAbbrevFromLang(language_->itemText(i), true, false);
+		//qDebug()<<"ltabbrev"<<ltAbbrev<<language_->itemText(i);
+		if (ltAbbrev == clang)
 			ci = i;
 		
-		if (hasParent && language_->itemText(i) == langMap_[plang])
+		if (hasParent && ltAbbrev == plang)
 			pi = i;
-		tl=LanguageManager::instance()->getTransLangFromLang(defLang);
-// 		qDebug() << i << language_->itemText(i) << defLang << langMap_[defLang] << tl;
-		if (language_->itemText(i) == defLang || language_->itemText(i) == langMap_[defLang] || language_->itemText(i) == tl)
+		tl=defLang;
+		//qDebug() << i << language_->itemText(i) << defLang << langMap_[defLang] << tl;
+		if (ltAbbrev == defLang || ltAbbrev == tl)
 // 		{
 			di = i;
-// 			qDebug() << "match on:" << di;
+			//qDebug() << "match on:" << di;
 // 		}
 	}
 
-//	qDebug() << QString("SMCStyleWidget::show(): deflan='%1'->'%2'").arg(defLang).arg(langMap_[defLang]);
+	//qDebug() << QString("SMCStyleWidget::show(): deflan='%1'->'%2'").arg(defLang).arg(langMap_[defLang]);
 	Q_ASSERT(di != -1);
 
 	if (hasParent)

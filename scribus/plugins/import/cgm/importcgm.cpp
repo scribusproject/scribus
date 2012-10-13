@@ -2073,7 +2073,7 @@ void CgmPlug::getBinaryColorTable(QDataStream &ts, quint16 paramLen)
 		while (bytesRead < paramLen)
 		{
 			posA = ts.device()->pos();
-			ScColor cc = getBinaryDirectColor(ts);
+			//ScColor cc = getBinaryDirectColor(ts);
 			ColorTableMap.insert(c, tmpName);
 			c++;
 			posN = ts.device()->pos();

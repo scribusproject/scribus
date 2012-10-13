@@ -51,7 +51,7 @@ private:
 	HyphenDict *hdict;
 	/*! Flag - if is the dictionary without errors etc. If is it 'false'
 		hyphen aborted. */
-	bool useAble;
+	bool usable;
 	/*! Qt text codec which handles local characters. */
 	QTextCodec *codec;
 

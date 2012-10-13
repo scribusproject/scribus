@@ -60,13 +60,17 @@ public:
 	void setCurrentIndex(int index);
 	int currentIndex();
 	void setItemText(int index, QString text);
+
 private slots:
 	void handleMousePress(QTreeWidgetItem *item);
+
 signals:
 	void currentChanged(int);
+
 private:
 	bool m_toolbox_mode;
 	QHash<int, QTreeWidgetItem*> keySList;
+
 protected:
 	bool event(QEvent *e);
 };

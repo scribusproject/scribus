@@ -554,6 +554,7 @@ SET(SCRIBUS_SOURCES
   hyphenator.cpp
   ioapi.c
   KarbonCurveFit.cpp
+  langdef.cpp
   langmgr.cpp
   latexhelpers.cpp
   loadsaveplugin.cpp

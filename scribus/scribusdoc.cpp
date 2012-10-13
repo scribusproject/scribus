@@ -9034,7 +9034,7 @@ void ScribusDoc::MirrorPolyH(PageItem* currItem)
 			ss->set("IS_CONTOUR", true);
 			undoManager->action(currItem, ss, Um::IBorder);
 		}
-		FPoint tp2(getMinClipF(&currItem->ContourLine));
+		//FPoint tp2(getMinClipF(&currItem->ContourLine));
 		FPoint tp(getMaxClipF(&currItem->ContourLine));
 		ma.translate(qRound(tp.x()), 0);
 		ma.scale(-1, 1);

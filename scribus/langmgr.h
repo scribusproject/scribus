@@ -27,6 +27,7 @@ for which a new license (GPL+exception) is in place.
 
 #include <QString>
 #include <QStringList>
+#include "langdef.h"
 #include "scribusapi.h"
 
 typedef std::pair<QString, QString> langPair;
@@ -42,29 +43,33 @@ class SCRIBUS_API LanguageManager
 	
 public:
 	static LanguageManager* instance();
+	void languageChange();
+	QStringList languageList(bool getTranslated=true);
 	
 	const QString getLangFromAbbrev(QString, bool getTranslated=true);
 	const QString getAbbrevFromLang(QString, bool getFromTranslated=true, bool useInstalled=true);
-	const QString getLangFromTransLang(QString lang);
+	const QString getLangFromTransLang(QString transLang);
 	const QString getTransLangFromLang(QString lang);
+	const QString getShortAbbrevFromAbbrev(QString langAbbrev);
+	const QString getAlternativeAbbrevfromAbbrev(QString langAbbrev);
 	void fillInstalledStringList(QStringList *stringListToFill, bool addDefaults);
+	void fillInstalledGUIStringList(QStringList *stringListToFill, bool addDefaults);
+	void fillInstalledHyphStringList(QStringList *stringListToFill);
 	void printInstalledList();
 	QString numericSequence(QString seq);
-	bool findDictionaries(QStringList& sl);
-	void findDictionarySets(QStringList& dictionaryPaths, QMap<QString, QString>& dictionaryMap);
+	bool findSpellingDictionaries(QStringList& sl);
+	void findSpellingDictionarySets(QStringList& dictionaryPaths, QMap<QString, QString>& dictionaryMap);
 	
-	void addHyphLang(const QString& lang, const QString& filename);
-	const QString getHyphFilename(const QString& lang, bool langIsAbbreviated = true);
-	const QStringList hyphLangs();
+	const QString getHyphFilename(const QString& langAbbrev);
+	int langTableIndex(const QString& abbrev);
 
-private:
-	QMap<QString, langPair > langList;
-	QMap<QString, QString> installedLangList;
-	QMap<QString, QString> hyphLangList; // <lang abbreviated, dict filename>
+	private:
+	QList <LangDef> langTable;
 
 	void generateLangList();
-	void generateInstalledLangList();
-	
+	void generateInstalledGUILangList();
+	void generateInstalledHyphLangList();
+	void generateInstalledSpellLangList();
 };
 
 #endif

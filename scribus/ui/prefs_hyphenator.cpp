@@ -11,9 +11,9 @@ for which a new license (GPL+exception) is in place.
 #include "prefs_hyphenator.h"
 #include "langmgr.h"
 #include "prefsstructs.h"
-#include "scribuscore.h" //FIXME: for the ScCore call (remove this call)
+//#include "scribuscore.h" //FIXME: for the ScCore call (remove this call)
 #include "scribusdoc.h"
-#include "scribus.h" //FIXME: for the ScCore call (remove this call)
+//#include "scribus.h" //FIXME: for the ScCore call (remove this call)
 #include "util_icon.h"
 #include "util.h"
 
@@ -21,12 +21,17 @@ Prefs_Hyphenator::Prefs_Hyphenator(QWidget* parent, ScribusDoc* doc)
 	: Prefs_Pane(parent)
 {
 	setupUi(this);
-	LanguageManager *lmg(LanguageManager::instance());
-	hyphLanguageComboBox->setInsertPolicy(QComboBox::InsertAlphabetically);
-	foreach(QString hlang, lmg->hyphLangs())
-	{
-		hyphLanguageComboBox->addItem( lmg->getLangFromAbbrev(hlang), lmg->getLangFromAbbrev(hlang,false) );
-	}
+//	LanguageManager *lmg(LanguageManager::instance());
+//	hyphLanguageComboBox->setInsertPolicy(QComboBox::InsertAlphabetically);
+//	foreach(QString hlang, lmg->hyphLangs())
+//	{
+//		hyphLanguageComboBox->addItem( lmg->getLangFromAbbrev(hlang), lmg->getLangFromAbbrev(hlang,false) );
+//	}
+
+	QStringList languageList;
+	LanguageManager::instance()->fillInstalledHyphStringList(&languageList);
+	languageList.sort();
+	hyphLanguageComboBox->addItems( languageList );
 
 	exceptionAddButton->setIcon(QIcon(loadIcon("16/list-add.png")));
 	exceptionEditButton->setEnabled(false);
@@ -70,9 +75,7 @@ void Prefs_Hyphenator::restoreDefaults(struct ApplicationPrefs *prefsData)
 void Prefs_Hyphenator::saveGuiToPrefs(struct ApplicationPrefs *prefsData) const
 {
 	prefsData->hyphPrefs.MinWordLen = smallestWordSpinBox->value();
-	 //FIXME: remove this ScCore call
-	QString langFromCombo(ScCore->primaryMainWindow()->GetLang(hyphLanguageComboBox->itemData(hyphLanguageComboBox->currentIndex()).toString()));
-	prefsData->hyphPrefs.Language = LanguageManager::instance()->getAbbrevFromLang(langFromCombo, true, false);
+	prefsData->hyphPrefs.Language = LanguageManager::instance()->getAbbrevFromLang(hyphLanguageComboBox->currentText(), true, false);
 	prefsData->hyphPrefs.Automatic = !hyphSuggestionsCheckBox->isChecked();
 	prefsData->hyphPrefs.AutoCheck = hyphAutoCheckBox->isChecked();
 	prefsData->hyphPrefs.HyCount = maxConsecutiveCountSpinBox->value();

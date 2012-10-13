@@ -61,13 +61,13 @@ void SWParse::parseItem(PageItem *aFrame)
 		if (lang.isNull() || lang.isEmpty())
 			qDebug("SWParse::parseItem - variable lang is still empty. No changes are made.");
 	}
-
+/* IL
 	QString langCode;
 // 	if (aFrame->doc()->scMW()->Sprachen.contains(lang))
 		langCode = cfg->getLangCodeFromHyph(LanguageManager::instance()->getHyphFilename(lang,false));
-
+*/
 	// apply spaces after shorts
-	shorts = cfg->getShortWords(langCode);
+	shorts = cfg->getShortWords(lang);
 	if (shorts.count()==0)
 		return; // no changes
 
