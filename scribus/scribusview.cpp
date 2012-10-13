@@ -882,6 +882,40 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 		update();
 		return;
 	}
+	else if (e->mimeData()->hasFormat("text/inline"))
+	{
+		if (((Doc->appMode == modeEditTable) || (Doc->appMode == modeEdit)) && (!Doc->m_Selection->isEmpty()))
+		{
+			PageItem *b = Doc->m_Selection->itemAt(0);
+			if (b->isTextFrame() || b->isTable())
+			{
+				e->acceptProposedAction();
+				activateWindow();
+				if (!m_ScMW->scriptIsRunning())
+					raise();
+				m_ScMW->newActWin(((ScribusWin*)(Doc->WinHan))->getSubWin());
+				updateContents();
+				QString patternVal = e->mimeData()->data("text/inline");
+				int id = patternVal.toInt();
+				PageItem_TextFrame *cItem;
+				if (Doc->appMode == modeEditTable)
+					cItem = b->asTable()->activeCell().textFrame();
+				else
+					cItem = b->asTextFrame();
+				if (cItem->HasSel)
+					cItem->deleteSelectedTextFromFrame();
+				cItem->invalidateLayout();
+				cItem->itemText.insertObject(id);
+				if (b->isTable())
+					b->asTable()->update();
+				else
+					b->update();
+				emit DocChanged();
+				update();
+				return;
+			}
+		}
+	}
 //	qDebug() << "ScribusView::contentsDropEvent" << e->mimeData()->formats() << url;
 	if (!url.isEmpty())
 	{

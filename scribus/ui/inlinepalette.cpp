@@ -80,7 +80,9 @@ void InlineView::dropEvent(QDropEvent *e)
  void InlineView::startDrag(Qt::DropActions supportedActions)
  {
 	QMimeData *mimeData = new QMimeData;
-	QByteArray data = currentItem()->text().toLocal8Bit();
+	int id = currentItem()->data(Qt::UserRole).toInt();
+	QByteArray data;
+	data.setNum(id);
 	mimeData->setData("text/inline", data);
 	QDrag *drag = new QDrag(this);
 	drag->setMimeData(mimeData);
