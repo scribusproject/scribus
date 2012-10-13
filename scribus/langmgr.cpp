@@ -178,11 +178,12 @@ const QString LanguageManager::getLangFromAbbrev(QString langAbbrev, bool getTra
 		return "";	
 }
 
-const QString LanguageManager::getAbbrevFromLang(QString lang, bool getFromTranslated, bool useInstalled)
+const QString LanguageManager::getAbbrevFromLang(QString lang, bool getFromTranslated, bool useInstalled, int abbrevNo)
 {
 	QMap<QString, langPair>::Iterator it;
 	if (lang == "English" || lang == QObject::tr( "English"))
 		useInstalled = false;
+	int count=1;
 	if (useInstalled)
 	{
 		for (it=langList.begin();it!=langList.end();++it)
@@ -190,9 +191,23 @@ const QString LanguageManager::getAbbrevFromLang(QString lang, bool getFromTrans
 			if (installedLangList.find(it.key()) != installedLangList.end())
 			{
 				if (getFromTranslated && it.value().second==lang)
-					return it.key();
+				{
+					if (abbrevNo==1)
+						return it.key();
+					if (abbrevNo!=1 && count==abbrevNo)
+						return it.key();
+					++count;
+					continue;			
+				}
 				if (!getFromTranslated && it.value().first==lang)
-					return it.key();
+				{
+					if (abbrevNo==1)
+						return it.key();
+					if (abbrevNo!=1 && count==abbrevNo)
+						return it.key();
+					++count;
+					continue;		
+				}
 			}
 		}
 	}
@@ -200,13 +215,25 @@ const QString LanguageManager::getAbbrevFromLang(QString lang, bool getFromTrans
 	{
 		for (it=langList.begin();it!=langList.end();++it)
 		{
-// 			if (installedLangList.find(it.key()) != installedLangList.end())
-// 			{
 			if (getFromTranslated && it.value().second==lang)
-				return it.key();
+			{
+				if (abbrevNo==1)
+					return it.key();
+				if (abbrevNo!=1 && count==abbrevNo)
+					return it.key();
+				++count;
+				continue;
+					
+			}
 			if (!getFromTranslated && it.value().first==lang)
-				return it.key();
-// 			}
+			{
+				if (abbrevNo==1)
+					return it.key();
+				if (abbrevNo!=1 && count==abbrevNo)
+					return it.key();
+				++count;
+				continue;
+			}
 		}
 	}
 	return "";

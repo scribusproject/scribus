@@ -122,27 +122,36 @@ bool HunspellPluginImpl::parseTextFrame(StoryText *iText)
 		currPos=wordStart;
 		QString word=iText->text(wordStart,wordEnd-wordStart);
 		QString wordLang=iText->charStyle(wordStart).language();
-		wordLang=LanguageManager::instance()->getAbbrevFromLang(wordLang, true, false);
+		//qDebug()<<wordLang<<LanguageManager::instance()->getAbbrevFromLang(wordLang, true, false, 1)<<LanguageManager::instance()->getAbbrevFromLang(wordLang, true, false, 2);
+		QString langAbbrev=LanguageManager::instance()->getAbbrevFromLang(wordLang, true, false, 1);
 		//A little hack as for some reason our en dictionary from the aspell plugin was not called en_GB or en_US but en, content was en_GB though. Meh.
-		if (wordLang=="en")
-			wordLang="en_GB";
+		if (langAbbrev=="en")
+			langAbbrev="en_GB";
 		int spellerIndex=0;
-		if (!dictionaryMap.contains(wordLang))
-			qDebug()<<"Spelling language to match style language not installed ("<<wordLang<<")";
+		if (!dictionaryMap.contains(langAbbrev))
+		{
+			//qDebug()<<"Spelling language to match style language not installed ("<<langAbbrev<<")";
+			QString langAbbrev2=LanguageManager::instance()->getAbbrevFromLang(wordLang, true, false, 2);
+			if (!langAbbrev2.isEmpty() && dictionaryMap.contains(langAbbrev2))
+			{
+				//qDebug()<<"Spelling language swapped to :"<<langAbbrev2;
+				langAbbrev=langAbbrev2;
+			}
+		}
 		else
 		{
 			int i=0;
 			QMap<QString, QString>::iterator it = dictionaryMap.begin();
 			while (it != dictionaryMap.end())
 			{
-				if (it.key()==wordLang)
+				if (it.key()==langAbbrev)
 					break;
 				++i;
 				++it;
 			}
 			spellerIndex=i;
 		}
-		if (hspellerMap.contains(wordLang) && hspellerMap[wordLang]->spell(word.toUtf8().constData())==0)
+		if (hspellerMap.contains(langAbbrev) && hspellerMap[langAbbrev]->spell(word.toUtf8().constData())==0)
 		{
 			struct WordsFound wf;
 			wf.start=currPos;
@@ -151,13 +160,13 @@ bool HunspellPluginImpl::parseTextFrame(StoryText *iText)
 			wf.changed=false;
 			wf.ignore=false;
 			wf.changeOffset=0;
-			wf.lang=wordLang;
+			wf.lang=langAbbrev;
 			wf.replacements.clear();
 			char **sugglist = NULL;
-			int suggCount=hspellerMap[wordLang]->suggest(&sugglist, word.toUtf8().constData());
+			int suggCount=hspellerMap[langAbbrev]->suggest(&sugglist, word.toUtf8().constData());
 			for (int j=0; j < suggCount; ++j)
 				wf.replacements << QString::fromUtf8(sugglist[j]);
-			hspellerMap[wordLang]->free_list(&sugglist, suggCount);
+			hspellerMap[langAbbrev]->free_list(&sugglist, suggCount);
 			wordsToCorrect.append(wf);
 		}
 	}
