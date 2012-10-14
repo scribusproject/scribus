@@ -107,7 +107,7 @@ void ClockWidget::resetTime()
 
 void ClockWidget::updateDisplay()
 {
-	if (m_doc->autoSave())
+	if (m_doc->autoSave() && m_doc->autoSaveClockDisplay())
 	{
 		if (!isVisible())
 			setVisible(true);

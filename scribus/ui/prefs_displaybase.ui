@@ -44,87 +44,90 @@
       <attribute name="title">
        <string>Pages</string>
       </attribute>
-      <layout class="QVBoxLayout" name="verticalLayout_7">
+      <layout class="QVBoxLayout" name="verticalLayout_2">
        <item>
-        <layout class="QVBoxLayout" name="verticalLayout_2">
-         <item>
-          <widget class="QCheckBox" name="showRulersCheckBox">
-           <property name="text">
-            <string>Show Rulers</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QCheckBox" name="showRulersRelativeToPageCheckBox">
-           <property name="text">
-            <string>Show Rulers Relative to Page</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QCheckBox" name="showFramesCheckBox">
-           <property name="text">
-            <string>Show Frames</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QCheckBox" name="showImagesCheckBox">
-           <property name="text">
-            <string>Show Images</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QCheckBox" name="showTextChainsCheckBox">
-           <property name="text">
-            <string>Show Text Chains</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QCheckBox" name="showControlCharsCheckBox">
-           <property name="text">
-            <string>Show Text Control Characters</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QCheckBox" name="showLayerIndicatorsCheckBox">
-           <property name="text">
-            <string>Show Layer Indicators</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QCheckBox" name="showUnprintableAreaInMarginColorCheckBox">
-           <property name="text">
-            <string>Show Unprintable Area in Margin Color</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QCheckBox" name="showBleedAreaCheckBox">
-           <property name="text">
-            <string>Show Bleed Area</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QCheckBox" name="showPageShadowCheckBox">
-           <property name="text">
-            <string>Show Page Shadow</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QCheckBox" name="showVerifierWarningsOnCanvasCheckBox">
-           <property name="text">
-            <string>Show Preflight Verifier Warnings on the Page</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
+        <widget class="QCheckBox" name="showRulersCheckBox">
+         <property name="text">
+          <string>Show Rulers</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="showRulersRelativeToPageCheckBox">
+         <property name="text">
+          <string>Show Rulers Relative to Page</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="showFramesCheckBox">
+         <property name="text">
+          <string>Show Frames</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="showImagesCheckBox">
+         <property name="text">
+          <string>Show Images</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="showTextChainsCheckBox">
+         <property name="text">
+          <string>Show Text Chains</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="showControlCharsCheckBox">
+         <property name="text">
+          <string>Show Text Control Characters</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="showLayerIndicatorsCheckBox">
+         <property name="text">
+          <string>Show Layer Indicators</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="showUnprintableAreaInMarginColorCheckBox">
+         <property name="text">
+          <string>Show Unprintable Area in Margin Color</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="showBleedAreaCheckBox">
+         <property name="text">
+          <string>Show Bleed Area</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="showPageShadowCheckBox">
+         <property name="text">
+          <string>Show Page Shadow</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="showVerifierWarningsOnCanvasCheckBox">
+         <property name="text">
+          <string>Show Preflight Verifier Warnings on the Page</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="showAutosaveClockOnCanvasCheckBox">
+         <property name="text">
+          <string>Show Autosave Countdown Clock on the Canvas</string>
+         </property>
+        </widget>
        </item>
        <item>
         <spacer name="verticalSpacer_8">
@@ -372,8 +375,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>432</width>
-            <height>350</height>
+            <width>192</width>
+            <height>339</height>
            </rect>
           </property>
           <layout class="QFormLayout" name="formLayout_2">
