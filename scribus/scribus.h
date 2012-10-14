@@ -272,6 +272,7 @@ public slots:
 	void updateActiveWindowCaption(const QString &newCaption);
 	void windowsMenuActivated(int id);
 	void PutScrap(int scID);
+	void PutToInline(QString buffer);
 	void PutToPatterns();
 	void changeLayer(int);
 	void showLayer();

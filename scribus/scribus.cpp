@@ -605,6 +605,7 @@ void ScribusMainWindow::initPalettes()
 	connect(inlinePalette, SIGNAL(paletteShown(bool)), scrActions["toolsInline"], SLOT(setChecked(bool)));
 	connect(inlinePalette, SIGNAL(startEdit(int)), this, SLOT(editInlineStart(int)));
 	connect(inlinePalette, SIGNAL(endEdit()), this, SLOT(editInlineEnd()));
+	connect(inlinePalette, SIGNAL(objectDropped(QString)), this, SLOT(PutToInline(QString)));
 	inlinePalette->installEventFilter(this);
 	inlinePalette->hide();
 	
@@ -10052,6 +10053,62 @@ void ScribusMainWindow::slotItemTransform()
 			}
 		}
 	}
+}
+
+void ScribusMainWindow::PutToInline(QString buffer)
+{
+	Selection tempSelection(*doc->m_Selection);
+	bool savedAlignGrid = doc->useRaster;
+	bool savedAlignGuides = doc->SnapGuides;
+	bool savedAlignElement = doc->SnapElement;
+	int ac = doc->Items->count();
+	bool isGroup = false;
+	double gx, gy, gh, gw;
+	FPoint minSize = doc->minCanvasCoordinate;
+	FPoint maxSize = doc->maxCanvasCoordinate;
+	doc->useRaster = false;
+	doc->SnapGuides = false;
+	doc->SnapElement = false;
+	undoManager->setUndoEnabled(false);
+	slotElemRead(buffer, 0, 0, false, true, doc, view);
+	doc->useRaster = savedAlignGrid;
+	doc->SnapGuides = savedAlignGuides;
+	doc->SnapElement = savedAlignElement;
+	doc->m_Selection->clear();
+	if (doc->Items->count() - ac > 1)
+		isGroup = true;
+	doc->m_Selection->delaySignalsOn();
+	for (int as = ac; as < doc->Items->count(); ++as)
+	{
+		doc->m_Selection->addItem(doc->Items->at(as));
+	}
+	if (isGroup)
+		doc->GroupCounter++;
+	doc->m_Selection->setGroupRect();
+	doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
+	PageItem* currItem3 = doc->Items->at(ac);
+	currItem3->isEmbedded = true;
+	currItem3->setIsAnnotation(false);
+	currItem3->isBookmark = false;
+	currItem3->gXpos = currItem3->xPos() - gx;
+	currItem3->gYpos = currItem3->yPos() - gy;
+	currItem3->gWidth = gw;
+	currItem3->gHeight = gh;
+	doc->addToInlineFrames(currItem3);
+	int acc = doc->Items->count();
+	for (int as = ac; as < acc; ++as)
+	{
+		doc->Items->takeAt(ac);
+	}
+	doc->m_Selection->clear();
+	doc->m_Selection->delaySignalsOff();
+	*doc->m_Selection=tempSelection;
+	doc->minCanvasCoordinate = minSize;
+	doc->maxCanvasCoordinate = maxSize;
+	undoManager->setUndoEnabled(true);
+	inlinePalette->unsetDoc();
+	inlinePalette->setDoc(doc);
+	view->Deselect(false);
 }
 
 void ScribusMainWindow::PutToPatterns()

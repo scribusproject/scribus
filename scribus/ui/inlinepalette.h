@@ -60,6 +60,9 @@ protected:
 	void dropEvent(QDropEvent *e);
 	void startDrag(Qt::DropActions supportedActions);
 
+signals:
+	void objectDropped(QString);
+
 private:
 	ScListWidgetDelegate* delegate;
 };
@@ -92,6 +95,7 @@ public slots:
 signals:
 	void startEdit(int);
 	void endEdit();
+	void objectDropped(QString);
 
 protected:
 	InlineView *InlineViewWidget;
