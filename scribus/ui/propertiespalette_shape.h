@@ -57,6 +57,7 @@ protected:
 	ScribusMainWindow *m_ScMW;
 	
 	void enableCustomShape();
+	void enableEditShape();
 
 public slots:
 	void setMainWindow(ScribusMainWindow *mw);
