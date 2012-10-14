@@ -4465,12 +4465,15 @@ void ScribusMainWindow::slotFileRevert()
 {
 	if ((doc->hasName) && (doc->isModified()) && (!doc->masterPageMode()))
 	{
+		ScribusWin* tw = ActWin;
 		int t = QMessageBox::warning(this, CommonStrings::trWarning, "<qt>" +
 								 QObject::tr("The changes to your document have not been saved and you have requested to revert them. Do you wish to continue?") + "</qt>",
 								 QMessageBox::Yes | QMessageBox::No, QMessageBox::No);
 		if (t == QMessageBox::No)
 			return;
 
+		mdiArea->setActiveSubWindow(tw->getSubWin());
+		ActWin = tw;
 		QString fn(doc->DocName);
 		doc->setModified(false);
 		if (doc==storyEditor->currentDocument())
