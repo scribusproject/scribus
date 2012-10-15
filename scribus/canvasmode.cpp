@@ -484,7 +484,7 @@ void CanvasMode::drawOutline(QPainter* p, double scalex, double scaley, double d
 		}
 		else // moving page item
 		{
-			QRectF br(currItem->getVisualBoundingRect());
+//			QRectF br(currItem->getVisualBoundingRect());
 #ifdef GESTURE_FRAME_PREVIEW
 			QImage *pixItem(0);
 			if( m_pixmapCache.contains(currItem) )
@@ -605,7 +605,7 @@ void CanvasMode::drawOutline(QPainter* p, double scalex, double scaley, double d
 					}
 					else
 					{
-						QRectF br(currItem->getVisualBoundingRect());
+//						QRectF br(currItem->getVisualBoundingRect());
 #ifdef GESTURE_FRAME_PREVIEW
 						QImage *pixItem(0);
 						if( m_pixmapCache.contains(currItem) )

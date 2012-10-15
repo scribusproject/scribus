@@ -143,11 +143,11 @@ public:
 	
 
 protected:
-	UndoManager* undoManager;
-	ScribusView * const m_view;	
+	ScribusView * const m_view;
 	Canvas * const m_canvas;
 	ScribusDoc * const m_doc;
 	PanGesture * m_panGesture;
+	UndoManager* undoManager;
 	double xSnap,ySnap;
 	
 	void setResizeCursor(int how, double rot = 0.0);
