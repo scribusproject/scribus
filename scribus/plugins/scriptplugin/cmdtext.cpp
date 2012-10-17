@@ -1155,7 +1155,7 @@ void cmdtextdocwarnings()
 	  << scribus_getframetext__doc__   << scribus_gettext__doc__
 	  << scribus_getlinespace__doc__   << scribus_getcolumngap__doc__
 	  << scribus_getcolumns__doc__     << scribus_setboxtext__doc__
-	  << scribus_inserttext__doc__     << scribus_setfont__doc__
+	  << scribus_inserttext__doc__     << scribus_inserthtmltext__doc__<< scribus_setfont__doc__
 	  << scribus_setfontsize__doc__    << scribus_setlinespace__doc__
 	  << scribus_setcolumngap__doc__   << scribus_setcolumns__doc__
 	  << scribus_setalign__doc__       << scribus_selecttext__doc__

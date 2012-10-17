@@ -4103,7 +4103,7 @@ void ScribusView::TextToPath()
 			double miny =  std::numeric_limits<double>::max();
 			double maxx = -std::numeric_limits<double>::max();
 			double maxy = -std::numeric_limits<double>::max();
-			for (uint ep = 0; ep < newGroupedItems.count(); ++ep)
+			for (int ep = 0; ep < newGroupedItems.count(); ++ep)
 			{
 				double x1, x2, y1, y2;
 				newGroupedItems.at(ep)->getVisualBoundingRect(&x1, &y1, &x2, &y2);

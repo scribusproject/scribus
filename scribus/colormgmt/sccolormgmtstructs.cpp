@@ -49,6 +49,9 @@ eColorType colorFormatType(eColorFormat format)
 	case Format_LabA_8:
 		type = Color_Lab;
 		break;
+	case Format_Undefined:
+		type = Color_Unknown;
+		break;
 	}
 	return type;
 }

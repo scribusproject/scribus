@@ -657,7 +657,7 @@ QString StoryText::plainText() const
 	QChar   ch;
 	QString result;
 
-	uint len = length();
+	int len = length();
 	result.reserve(len);
 
 	StoryText* that(const_cast<StoryText*>(this));

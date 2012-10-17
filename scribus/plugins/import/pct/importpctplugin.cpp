@@ -159,7 +159,6 @@ bool ImportPctPlugin::import(QString fileName, int flags)
 
 QImage ImportPctPlugin::readThumbnail(const QString& fileName)
 {
-	bool wasUndo = false;
 	if( fileName.isEmpty() )
 		return QImage();
 	UndoManager::instance()->setUndoEnabled(false);
