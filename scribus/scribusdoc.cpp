@@ -14193,6 +14193,10 @@ void ScribusDoc::groupObjectsToItem(PageItem* groupItem, QList<PageItem*> &itemL
 		maxx = qMax(maxx, x2);
 		maxy = qMax(maxy, y2);
 	}
+	if (groupItem->width() == 0)
+		groupItem->setWidth(maxx - minx);
+	if (groupItem->height() == 0)
+		groupItem->setHeight(maxy - miny);
 	groupItem->groupWidth = groupItem->width();
 	groupItem->groupHeight = groupItem->height();
 	for (uint c = 0; c < selectedItemCount; ++c)

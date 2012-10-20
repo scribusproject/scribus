@@ -192,7 +192,6 @@ private:
 	struct clipEntry
 	{
 		PageItem* ClipItem;
-		FPointArray ClipCoords;
 		int grStackDepth;
 	};
 	QStack<clipEntry> m_clipStack;

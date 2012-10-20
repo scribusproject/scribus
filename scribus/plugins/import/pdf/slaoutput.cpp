@@ -99,15 +99,31 @@ void SlaOutputDev::restoreState(GfxState *state)
 					{
 						m_Elements->removeAll(gElements.Items.at(d));
 					}
-					m_doc->groupObjectsToItem(ite, gElements.Items);
-					ite->setFillTransparency(1.0 - state->getFillOpacity());
-					ite->setFillBlendmode(getBlendMode(state));
+					if ((gElements.Items.count() == 1) && (gElements.Items.first()->isImageFrame() || gElements.Items.first()->isGroup()))
+					{
+						PageItem *sing = gElements.Items.first();
+						m_Elements->replace(m_Elements->indexOf(ite), sing);
+						m_doc->Items->removeAll(sing);
+						m_doc->Items->replace(m_doc->Items->indexOf(ite), sing);
+						m_groupStack.top().Items.replace(m_groupStack.top().Items.indexOf(ite), sing);
+						sing->setFillTransparency(1.0 - (state->getFillOpacity() * (1.0 - ite->fillTransparency())));
+						sing->setFillBlendmode(getBlendMode(state));
+						sing->PoLine = ite->PoLine.copy();
+						delete ite;
+					}
+					else
+					{
+						m_doc->groupObjectsToItem(ite, gElements.Items);
+						ite->setFillTransparency(1.0 - state->getFillOpacity());
+						ite->setFillBlendmode(getBlendMode(state));
+					}
 				}
 				else
 				{
 					m_Elements->removeAll(ite);
 					m_doc->Items->removeAll(ite);
 					m_groupStack.top().Items.removeAll(ite);
+					delete ite;
 				}
 			}
 			if (m_clipStack.count() == 0)
@@ -224,6 +240,8 @@ void SlaOutputDev::clip(GfxState *state)
 	QString output = convertPath(state->getPath());
 	FPointArray out;
 	out.parseSVG(output);
+	if (!pathIsClosed)
+		out.svgClosePath();
 	m_ctm = QTransform(ctm[0], ctm[1], ctm[2], ctm[3], ctm[4], ctm[5]);
 	out.map(m_ctm);
 	double xmin, ymin, xmax, ymax;
@@ -234,7 +252,9 @@ void SlaOutputDev::clip(GfxState *state)
 	PageItem *ite = m_doc->Items->at(z);
 	FPoint wh(getMinClipF(&out));
 	out.translate(-wh.x(), -wh.y());
-	ite->PoLine = out.copy();  //FIXME: try to avoid copy if FPointArray when properly shared
+	FPoint dim = out.WidthHeight();
+	if (!((dim.x() == 0.0) || (dim.y() == 0.0)))		// avoid degenerate clipping paths
+		ite->PoLine = out.copy();  //FIXME: try to avoid copy if FPointArray when properly shared
 	ite->ClipEdited = true;
 	ite->FrameType = 3;
 	ite->setFillEvenOdd(false);
@@ -249,7 +269,6 @@ void SlaOutputDev::clip(GfxState *state)
 		applyMask(ite);
 	}
 	clipEntry clp;
-	clp.ClipCoords = out.copy();
 	clp.ClipItem = ite;
 	clp.grStackDepth = grStackDepth;
 	m_clipStack.push(clp);
@@ -265,6 +284,8 @@ void SlaOutputDev::eoClip(GfxState *state)
 	QString output = convertPath(state->getPath());
 	FPointArray out;
 	out.parseSVG(output);
+	if (!pathIsClosed)
+		out.svgClosePath();
 	m_ctm = QTransform(ctm[0], ctm[1], ctm[2], ctm[3], ctm[4], ctm[5]);
 	out.map(m_ctm);
 	double xmin, ymin, xmax, ymax;
@@ -275,7 +296,9 @@ void SlaOutputDev::eoClip(GfxState *state)
 	PageItem *ite = m_doc->Items->at(z);
 	FPoint wh(getMinClipF(&out));
 	out.translate(-wh.x(), -wh.y());
-	ite->PoLine = out.copy();  //FIXME: try to avoid copy if FPointArray when properly shared
+	FPoint dim = out.WidthHeight();
+	if (!((dim.x() == 0.0) || (dim.y() == 0.0)))		// avoid degenerate clipping paths
+		ite->PoLine = out.copy();  //FIXME: try to avoid copy if FPointArray when properly shared
 	ite->ClipEdited = true;
 	ite->FrameType = 3;
 	ite->setFillEvenOdd(true);
@@ -290,7 +313,6 @@ void SlaOutputDev::eoClip(GfxState *state)
 		applyMask(ite);
 	}
 	clipEntry clp;
-	clp.ClipCoords = out.copy();
 	clp.ClipItem = ite;
 	clp.grStackDepth = grStackDepth;
 	m_clipStack.push(clp);
