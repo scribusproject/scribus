@@ -108,6 +108,11 @@ void SlaOutputDev::restoreState(GfxState *state)
 						m_groupStack.top().Items.replace(m_groupStack.top().Items.indexOf(ite), sing);
 						sing->setFillTransparency(1.0 - (state->getFillOpacity() * (1.0 - ite->fillTransparency())));
 						sing->setFillBlendmode(getBlendMode(state));
+						if (!ite->patternMask().isEmpty())
+						{
+							sing->setPatternMask(ite->patternMask());
+							sing->setMaskType(ite->maskType());
+						}
 						sing->PoLine = ite->PoLine.copy();
 						delete ite;
 					}
