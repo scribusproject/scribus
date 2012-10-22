@@ -10,15 +10,8 @@ ELSE (WANT_NOTEMPLATES)
 
 INSTALL(FILES
 template.xml
-  DESTINATION ${TEMPLATEDIR}
-)
-
-INSTALL(FILES
 template.de.xml
-  DESTINATION ${TEMPLATEDIR}
-)
-
-INSTALL(FILES
+template.es.xml
 template.hu.xml
   DESTINATION ${TEMPLATEDIR}
 )

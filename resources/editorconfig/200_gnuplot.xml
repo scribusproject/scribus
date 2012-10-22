@@ -32,6 +32,7 @@
 			<pl>Zakresy</pl>
 			<ru>Диапазоны</ru>
 			<hu>Tartomány</hu>
+			<es>Rangos</es>
 		</i18n></title>
 		<comment><i18n>
 			<en>Enter asterisk (*) for autoscale!</en>
@@ -41,29 +42,34 @@
 			<pl>Wpisz asterisk (*) dla automatycznego skalowania!</pl>
 			<ru>Enter asterisk (*) for autoscale!</ru>
 			<hu>Automatikus méretezés csillaggal (*)</hu>
+			<es>Escribir asterisco (*) para escalado automático</es>
 		</i18n></comment>
 		<spinbox name="xmin" type="double" min="-1e6" max="+1e6" step="1" default="*" special="*"><i18n>
 			<en>X Min:</en>
 			<cs>X Min:</cs>
 			<pl>Min X:</pl>
 			<ru>Минимум по X:</ru>
+			<es>X mín.</es>
 		</i18n></spinbox>
 		<spinbox name="xmax" type="double" min="-1e6" max="+1e6" step="1" default="*" special="*"><i18n>
 			<en>X Max:</en>
 			<cs>X Max:</cs>
 			<pl>Maks. X:</pl>
 			<ru>Максимум по X:</ru>
+			<es>X máx.</es>
 		</i18n></spinbox>
 		<spinbox name="ymin" type="double" min="-1e6" max="+1e6" step="1" default="*" special="*"><i18n>
 			<en>Y Min:</en>
 			<cs>Y Min:</cs>
 			<pl>Min Y:</pl>
 			<ru>Минимум по Y:</ru>
+			<es>Y mín.</es>
 		</i18n></spinbox>
 		<spinbox name="ymax" type="double" min="-1e6" max="+1e6" step="1" default="*" special="*"><i18n>
 			<en>Y Max:</en>
 			<cs>Y Max:</cs>
 			<pl>Maks. Y:</pl>
+			<es>Y máx.</es>
 			<ru>Максимум по Y:</ru>
 		</i18n></spinbox>
 	</tab>
@@ -76,6 +82,7 @@
 			<pl>Etykiety</pl>
 			<ru>Метки</ru>
 			<hu>Címkék</hu>
+			<es>Etiquetas</es>
 		</i18n></title>
 		<text name="title" type="short" default=""><i18n>
 			<en>Title:</en>
@@ -85,6 +92,7 @@
 			<pl>Tytuł:</pl>
 			<ru>Название:</ru>
 			<hu>Cím</hu>
+			<es>Título:</es>
 		</i18n></text>
 		<text name="xlabel" type="short" default=""><i18n>
 			<en>X-Label:</en>
@@ -92,6 +100,7 @@
 			<de>X-Beschriftung:</de>
 			<ru>Метка оси X:</ru>
 			<hu>X címke</hu>
+			<es>Etiqueta X</es>
 		</i18n></text>
 		<text name="ylabel" type="short" default=""><i18n>
 			<en>Y-Label:</en>
@@ -99,6 +108,7 @@
 			<de>Y-Beschriftung:</de>
 			<ru>Метка оси Y:</ru>
 			<hu>Y címke</hu>
+			<es>Etiqueta Y</es>
 		</i18n></text>
 		<list name="grid" default="#">
 			<title><i18n>
@@ -109,6 +119,7 @@
 				<pl>Siatka:</pl>
 				<ru>Сетка:</ru>
 				<hu>Rács</hu>
+				<es>Rejilla</es>
 			</i18n></title>
 			<option value="#"><i18n>
 				<en>No Grid</en>
@@ -118,6 +129,7 @@
 				<pl>Bez siatki</pl>
 				<ru>Без сетки</ru>
 				<hu>Rács nélkül</hu>
+				<es>Sin rejilla</es>
 			</i18n></option>
 			<option value="set grid xtics ytics"><i18n>
 				<en>Major ticks only</en>
@@ -127,6 +139,7 @@
 				<pl>Tylko główne linie</pl>
 				<ru>Только основные линии</ru>
 				<hu>Csak fővonalak</hu>
+				<es>Sólo puntos mayores</es>
 			</i18n></option>
 			<option value="set grid xtics ytics mxtics mytics"><i18n>
 				<en>Major and minor ticks</en>
@@ -136,6 +149,7 @@
 				<pl>Wszystkie linie</pl>
 				<ru>Основные и вторичные линии</ru>
 				<hu>Fő- és alvonalak is</hu>
+				<es>Puntos mayores y menores</es>
 			</i18n></option>
 		</list>
 		<list name="gridlayer" default="back">
@@ -147,6 +161,7 @@
 				<pl>Warstwa siatki:</pl>
 				<ru>Слой сетки:</ru>
 				<hu>Rács réteg</hu>
+				<es>Capa de rejilla</es>
 			</i18n></title>
 			<option value="back"><i18n>
 				<en>Back</en>
@@ -156,6 +171,7 @@
 				<pl>Na spodzie</pl>
 				<ru>Позади</ru>
 				<hu>Alul</hu>
+				<es>Atrás</es>
 			</i18n></option>
 			<option value="front"><i18n>
 				<en>Front</en>
@@ -165,6 +181,7 @@
 				<pl>Na wierzchu</pl>
 				<ru>Впереди</ru>
 				<hu>Felül</hu>
+				<es>Frente</es>
 			</i18n></option>
 		</list>
 		<list name="zeroaxis" default="">
@@ -176,6 +193,7 @@
 				<pl>Oś zerowa:</pl>
 				<ru>Начало координат:</ru>
 				<hu>Nulla tengely</hu>
+				<es>Eje cero</es>
 			</i18n></title>
 			<option value=""><i18n>
 				<en>None</en>
@@ -185,6 +203,7 @@
 				<pl>Brak</pl>
 				<ru>Нет</ru>
 				<hu>Nincs</hu>
+				<es>Ninguno</es>
 			</i18n></option>
 			<option value="set xzeroaxis"><i18n>
 				<en>X axis</en>
@@ -194,6 +213,7 @@
 				<pl>Oś X</pl>
 				<ru>Для оси X</ru>
 				<hu>X tengely</hu>
+				<es>Eje X</es>
 			</i18n></option>
 			<option value="set yzeroaxis"><i18n>
 				<en>Y axis</en>
@@ -203,6 +223,7 @@
 				<pl>Oś Y</pl>
 				<ru>Для оси Y</ru>
 				<hu>Y tengely</hu>
+				<es>Eje Y</es>
 			</i18n></option>
 			<option value="set zeroaxis"><i18n>
 				<en>Both</en>
@@ -212,6 +233,7 @@
 				<pl>Obie</pl>
 				<ru>Для обеих осей</ru>
 				<hu>Mindkettő</hu>
+				<es>Ambos</es>
 			</i18n></option>
 		</list>
 	</tab>

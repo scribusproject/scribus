@@ -104,6 +104,18 @@
 				-- ezt eredményezi:
 				\[J = \int r^2 \mathrm{d}m\]
 			</hu>
+			<es>
+				\section*{Manual}
+				La configuración del marco \LaTeX funciona cuando se puede leer este texto\\
+				Colocar fórmulas es muy fácil:\\
+				Clic con el botón derecho $\Rightarrow$ Editar fuente\\
+				Y se reemplaza el texto con el suyo. Aquí tiene un ejemplo:
+				\begin{verbatim}
+					\[J = \int r^2 \mathrm{d}m\]
+				\end{verbatim}
+				da como resultado
+				\[J = \int r^2 \mathrm{d}m\]
+			</es>
 		</i18n>
 	</empty-frame-text>
 	<preamble>
@@ -131,6 +143,7 @@
 				<pl>Fonty/Nagłówki</pl>
 				<ru>Шрифты и заголовки</ru>
 				<hu>Betűkészlet/Fejléc</hu>
+				<es>Tipografía/Encabezados</es>
 		</i18n></title>
 		<comment><i18n>
 			<en>Fonts only work when installed on your computer!</en>
@@ -140,6 +153,7 @@
 			<pl>Fonty muszą być zainstalowane na twoim komputerze!</pl>
 			<ru>Шрифты работают только если они установлены в системе!</ru>
 			<hu>A betűkészlet csak akkor működik, ha telepítve van!</hu>
+			<es>Sólo se pùeden usar los tipos instalados en el sistema</es>
 		</i18n></comment>
 		<list name="font" default="">
 			<title><i18n>
@@ -150,6 +164,7 @@
 				<pl>Font:</pl>
 				<ru>Шрифт:</ru>
 				<hu>Betűkészlet:</hu>
+				<es>Tipo:</es>
 			</i18n></title>
 			<option value="">Computer Modern</option>
 			<option value="\usepackage{ccfonts}">Concrete</option>
@@ -164,6 +179,7 @@
 			<pl>Uwaga: Na początku tekstu należy dodatkowo umieścić \sf dla fontu Helvetica i \tt dla fontu Courier!</pl>
 			<ru>Примечание: необходимо включить команду \sf в начало текста для Helvetica и \tt для Courier!</ru>
 			<hu>Megjegyzés: A Helvetica a \sf, a Courier pedig a \tt paranccsal aktiválható.</hu>
+			<es>Nota: hay que añadir \sf al comiendo del texto para usar Helvética y \tt para Courier</es>
 		</i18n></comment>
 		<list name="fontsize" default="11pt">
 			<title><i18n>
@@ -174,6 +190,7 @@
 					<pl>Stopień pisma:</pl>
 					<ru>Кегль шрифт:</ru>
 					<hu>Betűméret:</hu>
+					<es>Tamaño de tipo:</es>
 			</i18n></title>
 			<option value="8pt">8pt</option>
 			<option value="9pt">9pt</option>
@@ -191,6 +208,7 @@
 				<fr>Couleur police</fr>
 				<pl>Kolor fontu</pl>
 				<hu>Betűszín</hu>
+				<es>Color de tipo</es>
 			</i18n></color>
 		<color name="bg"><i18n>
 				<en>Backgroundcolor</en>
@@ -199,6 +217,7 @@
 				<fr>Couleur de fond</fr>
 				<pl>Kolor tła</pl>
 				<hu>Háttérszín</hu>
+				<es>Color de fondo</es>
 			</i18n></color>
 		-->
 		<text name="additionalheaders" type="long" default="\usepackage{amsmath}"><i18n>
@@ -209,6 +228,7 @@
 			<pl>Dodatkowe nagłówki:</pl>
 			<en>Дополнительные заголовки:</en>
 			<hu>További fejléc:</hu>
+			<es>Encabezado adicional</es>
 		</i18n></text>
 	</tab>
 	<tab type="items">
@@ -220,6 +240,7 @@
 				<pl>Symbole relacji</pl>
 				<ru>Символы соотношения</ru>
 				<hu>Relációs jelek</hu>
+				<es>Símbolos de relación</es>
 		</i18n></title>
 		<item value="\pm"  image="pm.png" />
 		<item value="\cap"  image="cap.png" />
@@ -460,6 +481,7 @@
 				<pl>Strzałki</pl>
 				<ru>Стрелки</ru>
 				<hu>Nyilak</hu>
+				<es>Flechas</es>
 		</i18n></title>
 		<item value="\leftarrow"  image="leftarrow.png" />
 		<item value="\longleftarrow"  image="longleftarrow.png" />
@@ -540,6 +562,7 @@
 				<pl>Różne symbole</pl>
 				<ru>Различные символы</ru>
 				<hu>Egyéb szimbólumok</hu>
+				<es>Símbolos varios</es>
 		</i18n></title>
 		<item value="\ldots"  image="ldots.png" />
 		<item value="\cdots"  image="cdots.png" />
@@ -610,6 +633,7 @@
 				<pl>Znaki rozdzielające</pl>
 				<ru>Разделители</ru>
 				<hu>Határolójelek</hu>
+				<es>Delimitadores</es>
 		</i18n></title>
 		<item value="\vert"  image="vert.png" />
 		<item value="\Vert"  image="v_ert.png" />
@@ -653,6 +677,7 @@
 				<pl>Alfabet grecki</pl>
 				<ru>Греческий алфавит</ru>
 				<hu>Görög betűk</hu>
+				<es>Alfabeto griego</es>
 		</i18n></title>
 		<item value="\alpha"  image="alpha.png" />
 		<item value="\beta"  image="beta.png" />
@@ -704,6 +729,7 @@
 			<pl>Alfabet matematyczny</pl>
 			<ru>Математические алфавиты</ru>
 			<hu>Matematikai betűk</hu>
+			<es>Alfabeto matemático</es>
 		</i18n></title>
 		<item value="\mathcal{A}"  image="mathcala_.png" />
 		<item value="\mathcal{B}"  image="mathcalb_.png" />
@@ -887,6 +913,7 @@
 				<pl>Zwykły tekst</pl>
 				<ru>Обычный текст</ru>
 				<hu>Normál szöveg</hu>
+				<es>Texto normal</es>
 			</i18n>
 		</item>
 	</tab>
@@ -899,6 +926,7 @@
 			<pl>Akcenty matematyczne</pl>
 			<ru>Математические акценты</ru>
 			<hu>Matematikai ékezetek</hu>
+			<es>Acentos matemáticos</es>
 		</i18n></title>
 		<item value="\bar{}"  image="bara.png" />
 		<item value="\vec{}"  image="veca.png" />
