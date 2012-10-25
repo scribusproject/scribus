@@ -446,7 +446,7 @@ void StencilReader::parseGroupProperties(QDomDocument &data, QDomElement &group,
 {
 	QString FillCol = "White";
 	QString StrokeCol = "Black";
-	QColor stroke = Qt::black;
+//	QColor stroke = Qt::black;
 	QColor fill = Qt::white;
 	while(!DOC.isNull())
 	{

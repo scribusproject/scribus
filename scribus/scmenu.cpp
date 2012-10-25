@@ -142,7 +142,7 @@ bool ScrPopupMenu::insertMenuItem(ScrAction *newMenuAction)
 #ifdef Q_WS_MAC
 		bool menuListHasNoIcons = true;
 		// look for ScrAction or ScrPopupMenu from the end of the list
-		QList< QPointer<QObject> >::Iterator it = menuItemList.end();
+//		QList< QPointer<QObject> >::Iterator it = menuItemList.end();
 		int s=menuItemList.size()-1; 
 		for (int i=s; i>=0; --i) {
 			QObject* menuItem = menuItemList[i];
