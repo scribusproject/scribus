@@ -45,6 +45,7 @@ class SCRIBUS_API Prefs_Spelling : public Prefs_Pane, Ui::Prefs_Spelling
 		void updateAvailDictList();
 		void downloadDictListFinished();
 		void downloadSpellDictsFinished();
+		void updateProgressBar();
 		void setAvailDictsXMLFile(QString availDictsXMLDataFile);
 
 	protected:

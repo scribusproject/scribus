@@ -41,5 +41,5 @@ void ScDLManager::startDownloads()
 void ScDLManager::updateText(const QString& t)
 {
 	emit fileReceived(t);
-	qDebug()<<t;
+	qDebug()<<"File Received:"<<t;
 }
