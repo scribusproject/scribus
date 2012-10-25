@@ -17,6 +17,8 @@ for which a new license (GPL+exception) is in place.
 #include <QDomDocument>
 #include <QHeaderView>
 #include <QInputDialog>
+#include <QLabel>
+#include <QProgressBar>
 #include <QTableWidgetItem>
 
 extern ScribusQApp* ScQApp;
@@ -35,7 +37,8 @@ HySettings::HySettings( QWidget* parent) : QWidget( parent )
 	}
 	updateDictList();
 	setAvailDictsXMLFile(downloadLocation + "scribus_spell_dicts.xml");
-	
+	downloadProgressBar->setVisible(false);
+	dlLabel->setVisible(false);
 	buttonExceptAdd->setIcon(QIcon(loadIcon("16/list-add.png")));
 	buttonExceptEdit->setEnabled(false);
 	buttonExceptRemove->setIcon(QIcon(loadIcon("16/list-remove.png")));
@@ -176,8 +179,12 @@ void HySettings::downloadSpellDicts()
 			dlLangs<<availDictTableWidget->item(i,1)->text();
 	}
 	qDebug()<<dlLangs;
-	int i=0;
+
 	downloadList.clear();
+	downloadProgressBar->setValue(0);
+	downloadProgressBar->setVisible(true);
+	dlLabel->setVisible(true);
+	int i=0;
 	foreach(DictData d, dictList)
 	{
 		if (dlLangs.contains(d.lang))
@@ -193,15 +200,20 @@ void HySettings::downloadSpellDicts()
 				//qDebug()<<d.url<<d.files;
 				QStringList plainURLs(d.files.split(";", QString::SkipEmptyParts));
 				foreach (QString s, plainURLs)
+				{
 					ScQApp->dlManager()->addURL(d.url+"/"+s, true, downloadLocation);
+					++i;
+				}
 				downloadList.append(d);
-				++i;
 			}
 		}
 	}
 	if (i>0)
 	{
+		qDebug()<<"Files to download:"<<i;
+		downloadProgressBar->setRange(0, i);
 		connect(ScQApp->dlManager(), SIGNAL(finished()), this, SLOT(downloadSpellDictsFinished()));
+		connect(ScQApp->dlManager(), SIGNAL(fileReceived(const QString&)), this, SLOT(updateProgressBar()));
 		ScQApp->dlManager()->startDownloads();
 	}
 }
@@ -288,6 +300,14 @@ void HySettings::downloadSpellDictsFinished()
 		}
 	}
 	updateDictList();
+	downloadProgressBar->setValue(0);
+	downloadProgressBar->setVisible(false);
+	dlLabel->setVisible(false);
+}
+
+void HySettings::updateProgressBar()
+{
+	downloadProgressBar->setValue(downloadProgressBar->value()+1);
 }
 
 void HySettings::setAvailDictsXMLFile(QString availDictsXMLDataFile)

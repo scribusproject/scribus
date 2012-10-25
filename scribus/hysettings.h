@@ -60,6 +60,7 @@ private slots:
 	void updateAvailDictList();
 	void downloadDictListFinished();
 	void downloadSpellDictsFinished();
+	void updateProgressBar();
 	void setAvailDictsXMLFile(QString availDictsXMLDataFile);
 
 	protected:
