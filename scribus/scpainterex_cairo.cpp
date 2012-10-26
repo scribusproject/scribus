@@ -312,7 +312,8 @@ void ScPainterEx_Cairo::strokePath()
 {
 	//if (m_lineWidth == 0)
 	//	return;
-	strokePathHelper();
+	if (m_strokeMode != 0)
+		strokePathHelper();
 }
 
 ScColorShade ScPainterEx_Cairo::pen()
