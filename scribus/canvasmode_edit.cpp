@@ -441,9 +441,9 @@ void CanvasMode_Edit::mouseMoveEvent(QMouseEvent *m)
 				if (currItem->locked())
 					break;
 				int hitTest = m_canvas->frameHitTest(QPointF(mousePointDoc.x(),mousePointDoc.y()), currItem);
-				if(hitTest >= 0)
+				if (hitTest >= 0)
 				{
-					if(hitTest == Canvas::INSIDE)
+					if (hitTest == Canvas::INSIDE)
 					{
 						if (currItem->asTextFrame())
 							qApp->changeOverrideCursor(QCursor(Qt::IBeamCursor));
