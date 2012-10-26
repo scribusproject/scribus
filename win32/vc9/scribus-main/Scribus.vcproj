@@ -571,6 +571,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\scribus\ui\clockwidget.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\scribus\cmserrorhandling.cpp"
 				>
 			</File>
@@ -968,6 +972,10 @@
 			</File>
 			<File
 				RelativePath="..\..\..\scribus\KarbonCurveFit.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\scribus\langdef.cpp"
 				>
 			</File>
 			<File
@@ -3096,6 +3104,24 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath="..\..\..\scribus\ui\clockwidget.h"
+				>
+				<FileConfiguration
+					Name="Debug-cairo|Win32"
+					>
+					<Tool
+						Name="moc"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release-cairo|Win32"
+					>
+					<Tool
+						Name="moc"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
 				RelativePath="..\..\..\scribus\cmserrorhandling.h"
 				>
 			</File>
@@ -4258,6 +4284,10 @@
 						Name="moc"
 					/>
 				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\..\scribus\langdef.h"
+				>
 			</File>
 			<File
 				RelativePath="..\..\..\scribus\langmgr.h"
@@ -9067,6 +9097,10 @@
 			</File>
 			<File
 				RelativePath="..\..\..\scribus\ui\moc_checkDocument.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\scribus\ui\moc_clockwidget.cpp"
 				>
 			</File>
 			<File
