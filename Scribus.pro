@@ -1112,7 +1112,18 @@ HEADERS += scribus/actionmanager.h \
     scribus/plugins/scripter/api_printer.h \
     scribus/plugins/scripter/api_layer.h \
     scribus/plugins/scripter/api_imageitem.h \
-    scribus/plugins/scripter/api_imageexport.h
+    scribus/plugins/scripter/api_imageexport.h \
+    scribus/marks.h \
+    scribus/notesstyles.h \
+    scribus/pageitem_noteframe.h \
+    scribus/ui/notesstyleseditor.h \
+    scribus/ui/markvariabletext.h \
+    scribus/ui/marksmanager.h \
+    scribus/ui/marknote.h \
+    scribus/ui/MarkInsertDlg.h \
+    scribus/ui/markanchor.h \
+    scribus/ui/mark2mark.h \
+    scribus/ui/mark2item.h
 FORMS += scribus/ui/aboutplugins.ui \
          scribus/ui/aligndistribute.ui \
          scribus/ui/arcvectorbase.ui \
@@ -1240,7 +1251,14 @@ FORMS += scribus/ui/aboutplugins.ui \
          scribus/plugins/tools/spellcheck/aspellpluginbase.ui \
          scribus/plugins/scripter/python/sceditor/mainwindow.ui \
          scribus/plugins/tools/2geomtools/meshdistortion/meshdistortiondialog.ui \
-         scribus/plugins/tools/2geomtools/pathalongpath/pathdialogbase.ui
+         scribus/plugins/tools/2geomtools/pathalongpath/pathdialogbase.ui \
+    scribus/ui/notesstyleseditor.ui \
+    scribus/ui/markvariabletext.ui \
+    scribus/ui/marksmanager.ui \
+    scribus/ui/marknote.ui \
+    scribus/ui/markanchor.ui \
+    scribus/ui/mark2mark.ui \
+    scribus/ui/mark2item.ui
 SOURCES += scribus/actionmanager.cpp \
            scribus/canvas.cpp \
            scribus/canvasgesture_cellselect.cpp \
@@ -2140,7 +2158,17 @@ SOURCES += scribus/actionmanager.cpp \
     scribus/plugins/scripter/api_printer.cpp \
     scribus/plugins/scripter/api_layer.cpp \
     scribus/plugins/scripter/api_imageitem.cpp \
-    scribus/plugins/scripter/api_imageexport.cpp
+    scribus/plugins/scripter/api_imageexport.cpp \
+    scribus/notesstyles.cpp \
+    scribus/pageitem_noteframe.cpp \
+    scribus/ui/mark2item.cpp \
+    scribus/ui/notesstyleseditor.cpp \
+    scribus/ui/markvariabletext.cpp \
+    scribus/ui/marksmanager.cpp \
+    scribus/ui/marknote.cpp \
+    scribus/ui/markanchor.cpp \
+    scribus/ui/mark2mark.cpp \
+    scribus/canvasmode_imageimport.cpp
 RESOURCES += scribus/plugins/scripter/python/sceditor/dockwidget_icons.qrc
 TRANSLATIONS += resources/translations/po/scribus.af.ts \
                 resources/translations/po/scribus.ar.ts \
