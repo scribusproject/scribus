@@ -106,7 +106,7 @@ for which a new license (GPL+exception) is in place.
 #include "colormgmt/sccolormgmtenginefactory.h"
 #include "ui/hruler.h"
 #include "ui/layers.h"
-#include "ui/MarkInsertDlg.h"
+#include "ui/markinsert.h"
 #include "ui/mark2item.h"
 #include "ui/mark2mark.h"
 #include "ui/markanchor.h"

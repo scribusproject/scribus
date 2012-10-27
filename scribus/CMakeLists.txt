@@ -327,13 +327,13 @@ pageitem_noteframe.h
   ui/latexeditor.h
   ui/layers.h
   ui/loremipsum.h
-ui/MarkInsertDlg.h
-ui/mark2item.h
-ui/mark2mark.h
-ui/markanchor.h
-ui/marknote.h
-ui/markvariabletext.h
-ui/marksmanager.h
+  ui/markinsert.h
+  ui/mark2item.h
+  ui/mark2mark.h
+  ui/markanchor.h
+  ui/marknote.h
+  ui/markvariabletext.h
+  ui/marksmanager.h
   ui/margindialog.h
   ui/marginpresetlayout.h
   ui/marginwidget.h

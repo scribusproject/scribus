@@ -1,7 +1,7 @@
 #ifndef MARKANCHOR_H
 #define MARKANCHOR_H
 
-#include "MarkInsertDlg.h"
+#include "markinsert.h"
 #include "ui_markanchor.h"
 
 class SCRIBUS_API MarkAnchorDlg : public MarkInsertDlg, private Ui::MarkAnchorDlg

@@ -1,7 +1,7 @@
 #ifndef MARK2ITEM_H
 #define MARK2ITEM_H
 
-#include "MarkInsertDlg.h"
+#include "markinsert.h"
 #include "ui_mark2item.h"
 
 class SCRIBUS_API Mark2ItemDlg : public MarkInsertDlg, private Ui::Mark2ItemDlg

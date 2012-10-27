@@ -172,7 +172,7 @@ for which a new license (GPL+exception) is in place.
 #include "ui/markanchor.h"
 #include "ui/marknote.h"
 #include "ui/markvariabletext.h"
-#include "ui/MarkInsertDlg.h"
+#include "ui/markinsert.h"
 #include "ui/marksmanager.h"
 #include "ui/masterpagepalette.h"
 #include "ui/mergedoc.h"

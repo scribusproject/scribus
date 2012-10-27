@@ -1,7 +1,7 @@
 #ifndef MARKNOTE_H
 #define MARKNOTE_H
 
-#include "MarkInsertDlg.h"
+#include "markinsert.h"
 #include "notesstyles.h"
 #include "ui_marknote.h"
 

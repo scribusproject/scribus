@@ -2,7 +2,7 @@
 #define MARKVARIABLETEXT_H
 
 #include "scribusapi.h"
-#include "MarkInsertDlg.h"
+#include "markinsert.h"
 #include "ui_markvariabletext.h"
 
 class SCRIBUS_API MarkVariableTextDlg : public MarkInsertDlg, private Ui::MarkVariableTextDlg
