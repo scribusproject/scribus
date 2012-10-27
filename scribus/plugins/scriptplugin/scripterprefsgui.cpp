@@ -96,7 +96,7 @@ void ScripterPrefsGui::setColor()
  	if (button == stringButton)  oldColor = syntaxColors->stringColor;
  	if (button == numberButton)  oldColor = syntaxColors->numberColor;
 
-	QColor color = QColorDialog::getColor(color, this);
+	QColor color = QColorDialog::getColor(oldColor, this);
 	if (color.isValid())
 	{
 		setButtonIcon(button, color);
