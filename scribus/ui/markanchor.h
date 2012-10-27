@@ -13,6 +13,7 @@ public:
 	~MarkAnchor() {}
 	virtual void values(QString& label);
 	virtual void setValues(const QString label);
+
 protected:
 	void changeEvent(QEvent *e);
 };

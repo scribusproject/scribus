@@ -17,6 +17,7 @@ public:
 	explicit MarksManager(QWidget *parent = 0, const char *name = "MarksManager");
 	~MarksManager();
 	void updateListView();
+
 private:
 	ScribusDoc         *m_Doc;
 	PrefsContext       *m_prefs;

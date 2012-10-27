@@ -13,8 +13,10 @@ public:
 	explicit MarkNote(const QList<NotesStyle*>& notesStylesList, QWidget *parent = NULL);
 	virtual NotesStyle* values();
 	virtual void setValues(NotesStyle* defaultStyle);
+
 protected:
 	void changeEvent(QEvent *e);
+
 private slots:
 	void on_buttonBox_accepted();
 };

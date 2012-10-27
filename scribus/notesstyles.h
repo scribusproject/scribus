@@ -111,6 +111,7 @@ class SCRIBUS_API TextNote : public QObject
 {
     Q_OBJECT
 	friend class ScribusDoc;
+
 private:
 	//only ScribusDoc can create and delete notes
 	TextNote(NotesStyle *nStyle) : m_notesStyle(nStyle), m_noteSaxedText(""), m_noteMasterMark(NULL), m_noteFrameMark(NULL), m_number(0) { }
