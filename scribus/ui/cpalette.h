@@ -61,8 +61,6 @@ public:
 	virtual void changeEvent(QEvent *e);
 
 	void setDocument(ScribusDoc* doc);
-	void setCurrentItem(PageItem* item);
-	void updateFromItem();
 
 	void updateColorList();
 
@@ -176,6 +174,12 @@ protected:
 	bool   m_Pattern_mirrorYS;
 	int    currentUnit;
 	int    editStrokeGradient;
+
+	void   connectSignals();
+	void   disconnectSignals();
+
+	void   setCurrentItem(PageItem* item);
+	void   updateFromItem();
 
 	int    m_blockUpdates;
 	void   blockUpdates(bool block) { if (block) ++m_blockUpdates; else --m_blockUpdates; }
