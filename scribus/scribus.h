@@ -630,7 +630,7 @@ private:
 	QString osgFilterString;
 
 	void insertMark(MarkType);
-	bool insertMarkDlg(PageItem_TextFrame* item, MarkType mT, ScItemsState* &is);
+	bool insertMarkDialog(PageItem_TextFrame* item, MarkType mT, ScItemsState* &is);
 	int m_marksCount; //remember marks count from last call
 };
 

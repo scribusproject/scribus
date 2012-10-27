@@ -1,26 +1,27 @@
 #include "markanchor.h"
 
-MarkAnchorDlg::MarkAnchorDlg(QWidget *parent) :
-	MarkInsertDlg(parent)
+MarkAnchor::MarkAnchor(QWidget *parent) :
+	MarkInsert(parent)
 {
 	setupUi(this);
 	setWindowTitle(tr("Anchor Mark"));
 }
 
-void MarkAnchorDlg:: values(QString& label)
+void MarkAnchor:: values(QString& label)
 {
 	label = labelEdit->text();
 }
 
-void MarkAnchorDlg::setValues(const QString label)
+void MarkAnchor::setValues(const QString label)
 {
 	labelEdit->setText(label);
 }
 
-void MarkAnchorDlg::changeEvent(QEvent *e)
+void MarkAnchor::changeEvent(QEvent *e)
 {
 	QDialog::changeEvent(e);
-	switch (e->type()) {
+	switch (e->type())
+	{
 		case QEvent::LanguageChange:
 			retranslateUi(this);
 			break;

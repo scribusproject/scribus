@@ -5,13 +5,13 @@
 #include "markinsert.h"
 #include "ui_markvariabletext.h"
 
-class SCRIBUS_API MarkVariableTextDlg : public MarkInsertDlg, private Ui::MarkVariableTextDlg
+class SCRIBUS_API MarkVariableText : public MarkInsert, private Ui::MarkVariableTextDlg
 {
 	Q_OBJECT
 public:
-	explicit MarkVariableTextDlg(const QList<Mark*>&, QWidget *parent = 0);
-	explicit MarkVariableTextDlg(const Mark*, QWidget *parent = 0);
-	~MarkVariableTextDlg();
+	explicit MarkVariableText(const QList<Mark*>&, QWidget *parent = 0);
+	explicit MarkVariableText(const Mark*, QWidget *parent = 0);
+	~MarkVariableText();
 	virtual Mark* values(QString& label, QString& text);
 	virtual void setValues(const QString label, const QString text);
 protected:

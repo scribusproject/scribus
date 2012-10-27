@@ -1,5 +1,5 @@
-#ifndef MARKINSERTDLG_H
-#define MARKINSERTDLG_H
+#ifndef MARKINSERT_H
+#define MARKINSERT_H
 
 #include <QDialog>
 #include <scribusapi.h>
@@ -8,16 +8,16 @@ class NotesStyle;
 class Mark;
 class PageItem;
 
-class SCRIBUS_API MarkInsertDlg : public QDialog
+class SCRIBUS_API MarkInsert : public QDialog
 {
 	Q_OBJECT
 
 public:
-	MarkInsertDlg(const QList<Mark*>&, QWidget *parent = 0) : QDialog(parent) {}
-	MarkInsertDlg(const Mark*, QWidget *parent = 0) : QDialog(parent) {}
-	MarkInsertDlg(const QList<NotesStyle*>&, QWidget *parent = 0) : QDialog(parent) {}
-	MarkInsertDlg(QWidget *parent = 0) : QDialog(parent) {}
-	~MarkInsertDlg() {}
+	MarkInsert(const QList<Mark*>&, QWidget *parent = 0) : QDialog(parent) {}
+	MarkInsert(const Mark*, QWidget *parent = 0) : QDialog(parent) {}
+	MarkInsert(const QList<NotesStyle*>&, QWidget *parent = 0) : QDialog(parent) {}
+	MarkInsert(QWidget *parent = 0) : QDialog(parent) {}
+	~MarkInsert() {}
 
 	virtual void values(QString &label) {}
 	virtual void values(QString &label, PageItem* &item) {}
@@ -37,4 +37,4 @@ public slots:
 
 };
 
-#endif // MARKINSERTDLG_H
+#endif // MARKINSERT_H

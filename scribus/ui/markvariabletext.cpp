@@ -2,7 +2,7 @@
 #include "marks.h"
 #include <QComboBox>
 
-MarkVariableTextDlg::MarkVariableTextDlg(const QList<Mark*>& marks, QWidget *parent) : MarkInsertDlg(marks, parent)
+MarkVariableText::MarkVariableText(const QList<Mark*>& marks, QWidget *parent) : MarkInsert(marks, parent)
 {
 	//for editing mark entry in text - user can change mark pointer inserted into text or create new mark entry
 	setupUi(this);
@@ -22,7 +22,7 @@ MarkVariableTextDlg::MarkVariableTextDlg(const QList<Mark*>& marks, QWidget *par
 	setWindowTitle(tr("Mark with Variable Text"));
 }
 
-MarkVariableTextDlg::MarkVariableTextDlg(const Mark* mark, QWidget *parent) : MarkInsertDlg(mark, parent), mrk(mark)
+MarkVariableText::MarkVariableText(const Mark* mark, QWidget *parent) : MarkInsert(mark, parent), mrk(mark)
 {
 	//for editing by marks Manager - user can change label and variable text
 	setupUi(this);
@@ -35,13 +35,13 @@ MarkVariableTextDlg::MarkVariableTextDlg(const Mark* mark, QWidget *parent) : Ma
 	setWindowTitle(tr("Mark with Variable Text"));
 }
 
-MarkVariableTextDlg::~MarkVariableTextDlg()
+MarkVariableText::~MarkVariableText()
 {
 	//delete ui;
 	delete labelEditWidget;
 }
 
-Mark* MarkVariableTextDlg::values(QString& label, QString& text)
+Mark* MarkVariableText::values(QString& label, QString& text)
 {
 	text = textEdit->text();
 	//hack to read if it is QComboBox or QLineEdit
@@ -59,7 +59,7 @@ Mark* MarkVariableTextDlg::values(QString& label, QString& text)
 	return const_cast<Mark*> (mrk);
 }
 
-void MarkVariableTextDlg::setValues(QString label, QString text)
+void MarkVariableText::setValues(QString label, QString text)
 {
 	if (labelEditWidget->toolTip() == tr("Edit selected Mark`s label."))
 		((QLineEdit*) labelEditWidget)->setText(label);
@@ -68,7 +68,7 @@ void MarkVariableTextDlg::setValues(QString label, QString text)
 	textEdit->setText(text);
 }
 
-void MarkVariableTextDlg::changeEvent(QEvent *e)
+void MarkVariableText::changeEvent(QEvent *e)
 {
 	QDialog::changeEvent(e);
 	switch (e->type()) {
@@ -80,7 +80,7 @@ void MarkVariableTextDlg::changeEvent(QEvent *e)
 	}
 }
 
-void MarkVariableTextDlg::onLabelList_currentIndexChanged(int index)
+void MarkVariableText::onLabelList_currentIndexChanged(int index)
 {
 	if (index > 0)
 	{

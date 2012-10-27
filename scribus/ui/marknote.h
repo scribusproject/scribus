@@ -5,12 +5,12 @@
 #include "notesstyles.h"
 #include "ui_marknote.h"
 
-class SCRIBUS_API MarkNoteDlg : public MarkInsertDlg, private Ui::MarkNoteDlg
+class SCRIBUS_API MarkNote : public MarkInsert, private Ui::MarkNoteDlg
 {
 	Q_OBJECT
 	
 public:
-	explicit MarkNoteDlg(const QList<NotesStyle*>& notesStylesList, QWidget *parent = NULL);
+	explicit MarkNote(const QList<NotesStyle*>& notesStylesList, QWidget *parent = NULL);
 	virtual NotesStyle* values();
 	virtual void setValues(NotesStyle* defaultStyle);
 protected:

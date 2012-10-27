@@ -10616,7 +10616,7 @@ void ScribusMainWindow::insertMark(MarkType mType)
 			currItem->asTextFrame()->deleteSelectedTextFromFrame();
 		}
 		ScItemsState* is = NULL;
-		if (insertMarkDlg(currItem->asTextFrame(), mType, is))
+		if (insertMarkDialog(currItem->asTextFrame(), mType, is))
 		{
 			Mark* mrk = currItem->itemText.item(currItem->itemText.cursorPosition() -1)->mark;
 			view->updatesOn(false);
@@ -10756,29 +10756,29 @@ void ScribusMainWindow::slotInsertMarkNote()
 		insertMark(MARKNoteMasterType);
 }
 
-bool ScribusMainWindow::insertMarkDlg(PageItem_TextFrame* currItem, MarkType mrkType, ScItemsState* &is)
+bool ScribusMainWindow::insertMarkDialog(PageItem_TextFrame* currItem, MarkType mrkType, ScItemsState* &is)
 {
 	if (doc->masterPageMode() && (mrkType != MARKVariableTextType))
 		//avoid inserting in master pages other marks than Variable Text
 		return false;
 	
-	MarkInsertDlg* insertMDialog = NULL;
+	MarkInsert* insertMDialog = NULL;
 	switch (mrkType)
 	{
 	case MARKAnchorType:
-		insertMDialog = (MarkInsertDlg*) new MarkAnchorDlg(this);
+		insertMDialog = (MarkInsert*) new MarkAnchor(this);
 		break;
 	case MARKVariableTextType:
-			insertMDialog = (MarkInsertDlg*) new MarkVariableTextDlg(doc->marksList(), this);
+		insertMDialog = (MarkInsert*) new MarkVariableText(doc->marksList(), this);
 		break;
 	case MARK2ItemType:
-		insertMDialog = (MarkInsertDlg*) new Mark2ItemDlg(this);
+		insertMDialog = (MarkInsert*) new Mark2Item(this);
 		break;
 	case MARK2MarkType:
-			insertMDialog = (MarkInsertDlg*) new Mark2MarkDlg(doc->marksList(), NULL, this);
+		insertMDialog = (MarkInsert*) new Mark2Mark(doc->marksList(), NULL, this);
 		break;
 	case MARKNoteMasterType:
-		insertMDialog = (MarkInsertDlg*) new MarkNoteDlg(doc->m_docNotesStylesList, this);
+		insertMDialog = (MarkInsert*) new MarkNote(doc->m_docNotesStylesList, this);
 		break;
 	case MARKIndexType:
 		break;
@@ -10841,7 +10841,7 @@ bool ScribusMainWindow::insertMarkDlg(PageItem_TextFrame* currItem, MarkType mrk
 			d.destmarkType = mrkPtr->getType();
 			break;
 		case MARKNoteMasterType:
-			//gets pointer to choosed notes style
+			//gets pointer to chosen notes style
 			NStyle = insertMDialog->values();
 			if (NStyle == NULL)
 				return false;
@@ -10956,29 +10956,29 @@ bool ScribusMainWindow::insertMarkDlg(PageItem_TextFrame* currItem, MarkType mrk
 
 bool ScribusMainWindow::editMarkDlg(Mark *mrk, PageItem_TextFrame* currItem)
 {
-	MarkInsertDlg* editMDialog = NULL;
+	MarkInsert* editMDialog = NULL;
 	switch (mrk->getType())
 	{
 		case MARKAnchorType:
-			editMDialog = (MarkInsertDlg*) new MarkAnchorDlg(this);
+			editMDialog = (MarkInsert*) new MarkAnchor(this);
 			editMDialog->setValues(mrk->label);
 			break;
 		case MARKVariableTextType:
 			if (currItem == NULL)
 				//invoked from Marks Manager
-				editMDialog = (MarkInsertDlg*) new MarkVariableTextDlg(mrk, this);
+				editMDialog = (MarkInsert*) new MarkVariableText(mrk, this);
 			else
 				//invoked from mark`s entry in text
-				editMDialog = (MarkInsertDlg*) new MarkVariableTextDlg(doc->marksList(), this);
+				editMDialog = (MarkInsert*) new MarkVariableText(doc->marksList(), this);
 			editMDialog->setValues(mrk->label, mrk->getString());
 			break;
 		case MARK2ItemType:
-			editMDialog = (MarkInsertDlg*) new Mark2ItemDlg(this);
+			editMDialog = (MarkInsert*) new Mark2Item(this);
 			editMDialog->setValues(mrk->label, mrk->getItemPtr());
 			break;
 		case MARK2MarkType:
 			{
-			editMDialog = (MarkInsertDlg*) new Mark2MarkDlg(doc->marksList(), mrk, this);
+			editMDialog = (MarkInsert*) new Mark2Mark(doc->marksList(), mrk, this);
 				QString l;
 				MarkType t;
 				mrk->getMark(l,t);

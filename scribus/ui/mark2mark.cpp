@@ -2,7 +2,7 @@
 #include "mark2mark.h"
 #include <QStandardItemModel>
 
-Mark2MarkDlg::Mark2MarkDlg(const QList<Mark*>& marks, Mark* omitMark, QWidget *parent) : MarkInsertDlg(marks, parent)
+Mark2Mark::Mark2Mark(const QList<Mark*>& marks, Mark* omitMark, QWidget *parent) : MarkInsert(marks, parent)
 {
 	setupUi(this);
 	LabelList->addItem("", QVariant::fromValue((void*) NULL));
@@ -71,7 +71,7 @@ Mark2MarkDlg::Mark2MarkDlg(const QList<Mark*>& marks, Mark* omitMark, QWidget *p
 	setWindowTitle(tr("Mark to Mark"));
 }
 
-void Mark2MarkDlg::values(QString& label, Mark* &mrk)
+void Mark2Mark::values(QString& label, Mark* &mrk)
 {
 	label = this->labelEdit->text();
 	int labelID = LabelList->currentIndex();
@@ -81,14 +81,14 @@ void Mark2MarkDlg::values(QString& label, Mark* &mrk)
 		mrk = (Mark*) LabelList->itemData(labelID).value<void*>();
 }
 
-void Mark2MarkDlg::setValues(const QString label, const Mark* mrk)
+void Mark2Mark::setValues(const QString label, const Mark* mrk)
 {
 	int index = (mrk == NULL)? -1:LabelList->findText(mrk->label);
 	LabelList->setCurrentIndex(index);
 	labelEdit->setText(label);
 }
 
-void Mark2MarkDlg::changeEvent(QEvent *e)
+void Mark2Mark::changeEvent(QEvent *e)
 {
     QDialog::changeEvent(e);
     switch (e->type()) {

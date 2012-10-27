@@ -4,13 +4,13 @@
 #include "markinsert.h"
 #include "ui_markanchor.h"
 
-class SCRIBUS_API MarkAnchorDlg : public MarkInsertDlg, private Ui::MarkAnchorDlg
+class SCRIBUS_API MarkAnchor : public MarkInsert, private Ui::MarkAnchorDlg
 {
     Q_OBJECT
 
 public:
-	explicit MarkAnchorDlg(QWidget *parent = 0);
-	~MarkAnchorDlg() {}
+	explicit MarkAnchor(QWidget *parent = 0);
+	~MarkAnchor() {}
 	virtual void values(QString& label);
 	virtual void setValues(const QString label);
 protected:
