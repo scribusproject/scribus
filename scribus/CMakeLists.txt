@@ -216,7 +216,6 @@ SET(SCRIBUS_MOC_CLASSES
   latexhelpers.h
   loadsaveplugin.h
   menumanager.h
-marks.h
   navigator.h
 notesstyles.h
   observable.h
