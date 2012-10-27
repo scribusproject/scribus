@@ -24,6 +24,7 @@
 
 #include "contextmenu.h"
 #include "prefsmanager.h"
+#include "pageitem_textframe.h"
 #include "scmimedata.h"
 #include "scraction.h"
 #include "scrapbookpalette.h"
@@ -94,6 +95,7 @@ void ContextMenu::createMenuItems_Selection()
 	QMenu *menuLayer = new QMenu(this);
 	QMenu *menuLevel = new QMenu(this);
 	QMenu *menuPDF = new QMenu(this);
+	QMenu *menuMark = new QMenu(this);
 	QMenu *menuResolution = new QMenu(this);
 //	QMenu *menuWeld = new QMenu(this);
 	
@@ -164,6 +166,34 @@ void ContextMenu::createMenuItems_Selection()
 		{
 			addSeparator();
 			addAction(m_AP->scrActions["editEditRenderSource"]);
+		}
+		if (m_doc->appMode == modeEdit)
+		{
+			//add actions for marks in edit mode
+			addSeparator();
+			QAction *act2 = addMenu(menuMark);
+			act2->setText( ScribusView::tr("Insert Mark"));
+			menuMark->addAction(m_AP->scrActions["insertMarkVariableText"]);
+			if (m_actionList.contains("insertMarkAnchor"))
+			{
+				menuMark->addAction(m_AP->scrActions["insertMarkAnchor"]);
+				menuMark->addAction(m_AP->scrActions["insertMarkItem"]);
+				menuMark->addAction(m_AP->scrActions["insertMark2Mark"]);
+				if (!currItem->isNoteFrame())
+					menuMark->addAction(m_AP->scrActions["insertMarkNote"]);
+				//	menuMark->addAction(m_AP->scrActions["insertMarkIndex"]);
+			}
+			if (currItem->itemText.cursorPosition() < currItem->itemText.length())
+			{
+				ScText *hl = currItem->itemText.item(currItem->itemText.cursorPosition());
+				if (hl->hasMark())
+					addAction(m_AP->scrActions["editMark"]);
+			}
+		}
+		if (!m_doc->marksList().isEmpty())
+		{
+			addSeparator();
+			addAction(m_AP->scrActions["itemUpdateMarks"]);
 		}
 		if (m_actionList.contains("fileImportText"))
 		{

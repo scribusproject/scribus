@@ -18,6 +18,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "scribusdoc.h"
 #include "util_text.h"
+#include "serializer.h"
 
 int findParagraphStyle(ScribusDoc* doc, const ParagraphStyle& parStyle)
 {
@@ -49,4 +50,19 @@ int findParagraphStyle(ScribusDoc* doc, const QString &name)
 	}
 	assert(false);
 	return -1;
+}
+
+StoryText desaxeString(ScribusDoc* doc, QString saxedString)
+{
+	assert(!saxedString.isEmpty());
+
+	Serializer* dig = doc->textSerializer();
+	dig->parseMemory(saxedString.toStdString().c_str(), saxedString.length());
+
+	StoryText* story = dig->result<StoryText>();
+	assert (story != NULL);
+
+	StoryText res = *story;
+	delete story;
+	return res;
 }

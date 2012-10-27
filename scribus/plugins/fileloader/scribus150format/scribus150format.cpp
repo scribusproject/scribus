@@ -12,7 +12,9 @@ for which a new license (GPL+exception) is in place.
 #include "ui/missing.h"
 #include "hyphenator.h"
 #include "langmgr.h"
+#include "notesstyles.h"
 #include "pageitem_latexframe.h"
+#include "pageitem_noteframe.h"
 #include "prefsmanager.h"
 #include "scclocale.h"
 #include "scconfig.h"
@@ -28,6 +30,7 @@ for which a new license (GPL+exception) is in place.
 #include "util.h"
 #include "util_math.h"
 #include "util_color.h"
+#include "util_text.h"
 #include "scgzfile.h"
 #ifdef HAVE_OSG
 	#include "pageitem_osgframe.h"
@@ -36,6 +39,7 @@ for which a new license (GPL+exception) is in place.
 #include "pageitem_regularpolygon.h"
 #include "pageitem_arc.h"
 #include "pageitem_spiral.h"
+#include "pagestructs.h"
 #include <QCursor>
 // #include <QDebug>
 #include <QFileInfo>
@@ -379,6 +383,26 @@ bool Scribus150Format::loadElements(const QString & data, QString fileDir, int t
 		if (tagName == "Pattern")
 		{
 			success = readPattern(m_Doc, reader, fileDir);
+			if (!success) break;
+		}
+		if (tagName == "NotesStyles")
+		{
+			success = readNotesStyles(m_Doc, reader);
+			if (!success) break;
+		}
+		if (tagName == "NotesFrames")
+		{
+			success = readNotesFrames(reader);
+			if (!success) break;
+		}
+		if (tagName == "Notes")
+		{
+			success = readNotes(m_Doc, reader);
+			if (!success) break;
+		}
+		if (tagName == "Marks")
+		{
+			success = readMarks(m_Doc, reader);
 			if (!success) break;
 		}
 	}
@@ -859,6 +883,26 @@ bool Scribus150Format::loadPalette(const QString & fileName)
 			success = readPattern(m_Doc, reader, fileDir);
 			if (!success) break;
 		}
+		if (tagName == "NotesStyles")
+		{
+			success = readNotesStyles(m_Doc, reader);
+			if (!success) break;
+		}
+		if (tagName == "NotesFrames")
+		{
+			success = readNotesFrames(reader);
+			if (!success) break;
+		}
+		if (tagName == "Notes")
+		{
+			success = readNotes(m_Doc, reader);
+			if (!success) break;
+		}
+		if (tagName == "Marks")
+		{
+			success = readMarks(m_Doc, reader);
+			if (!success) break;
+		}
 	}
 
 	if (reader.hasError())
@@ -1182,6 +1226,13 @@ bool Scribus150Format::loadFile(const QString & fileName, const FileFormat & /* 
 	QStack< QList<PageItem*> > groupStackP;
 	QStack<int> groupStack2;
 	
+	markeredItemsMap.clear();
+	markeredMarksMap.clear();
+	nsetRangeItemNamesMap.clear();
+	notesFramesData.clear();
+	notesMasterMarks.clear();
+	notesNSets.clear();
+
 	QString f(readSLA(fileName));
 	if (f.isEmpty())
 	{
@@ -1494,6 +1545,26 @@ bool Scribus150Format::loadFile(const QString & fileName, const FileFormat & /* 
 			if (!success)
 				break;
 		}
+		if (tagName == "NotesStyles")
+		{
+			success = readNotesStyles(m_Doc, reader);
+			if (!success) break;
+		}
+		if (tagName == "NotesFrames")
+		{
+			success = readNotesFrames(reader);
+			if (!success) break;
+		}
+		if (tagName == "Notes")
+		{
+			success = readNotes(m_Doc, reader);
+			if (!success) break;
+		}
+		if (tagName == "Marks")
+		{
+			success = readMarks(m_Doc, reader);
+			if (!success) break;
+		}
 	}
 
 	if (reader.hasError())
@@ -1805,6 +1876,8 @@ bool Scribus150Format::loadFile(const QString & fileName, const FileFormat & /* 
 				gItem->groupItemList = gpL;
 		}
 	}
+	//update names to pointers
+	updateNames2Ptr();
 	
 	// reestablish first/lastAuto
 	m_Doc->FirstAuto = m_Doc->LastAuto;
@@ -2396,7 +2469,6 @@ void Scribus150Format::readCharacterStyleAttrs(ScribusDoc *doc, ScXmlStreamAttri
 			newStyle.setLanguage(lnew);
 		}
 	}
-
 
 	static const QString SHORTCUT("SHORTCUT");
 	if (attrs.hasAttribute(SHORTCUT))
@@ -3104,6 +3176,167 @@ bool Scribus150Format::readTableOfContents(ScribusDoc* doc, ScXmlStreamReader& r
 	return !reader.hasError();
 }
 
+bool Scribus150Format::readNotesStyles(ScribusDoc* doc, ScXmlStreamReader& reader)
+{
+	QStringRef tagName = reader.name();
+	while(!reader.atEnd() && !reader.hasError())
+	{
+		reader.readNext();
+		if (reader.isEndElement() && reader.name() == tagName)
+			break;
+		//read notes styles
+		if (reader.isStartElement() && reader.name() == "notesStyle")
+		{
+			ScXmlStreamAttributes attrs = reader.scAttributes();
+			NotesStyle NS;
+			NS.setName(attrs.valueAsString("Name"));
+			NS.setStart(attrs.valueAsInt("Start"));
+			NS.setEndNotes(attrs.valueAsBool("Endnotes"));
+			QString type = attrs.valueAsString("Type");
+			if (type == "Type_1_2_3")
+				NS.setType(Type_1_2_3);
+			else if (type == "Type_i_ii_iii")
+				NS.setType(Type_i_ii_iii);
+			else if (type == "Type_I_II_III")
+				NS.setType(Type_I_II_III);
+			else if (type == "Type_a_b_c")
+				NS.setType(Type_a_b_c);
+			else if (type == "Type_A_B_C")
+				NS.setType(Type_A_B_C);
+			else if (type == "Type_asterix")
+				NS.setType(Type_asterix);
+			else //if (type == "Type_None")
+				NS.setType(Type_None);
+			NS.setRange((NumerationRange) attrs.valueAsInt("Range"));
+			NS.setPrefix(attrs.valueAsString("Prefix"));
+			NS.setSuffix(attrs.valueAsString("Suffix"));
+			NS.setAutoNotesHeight(attrs.valueAsBool("AutoHeight"));
+			NS.setAutoNotesWidth(attrs.valueAsBool("AutoWidth"));
+			NS.setAutoRemoveEmptyNotesFrames(attrs.valueAsBool("AutoRemove"));
+			NS.setAutoWeldNotesFrames(attrs.valueAsBool("AutoWeld"));
+			NS.setSuperscriptInNote(attrs.valueAsBool("SuperNote"));
+			NS.setSuperscriptInMaster(attrs.valueAsBool("SuperMaster"));
+			NS.setMarksCharStyle("");
+			NS.setNotesParStyle("");
+			QString name;
+			name = attrs.valueAsString("MarksStyle");
+			if (!name.isEmpty())
+				NS.setMarksCharStyle(name);
+			name = attrs.valueAsString("NotesStyle");
+			if (!name.isEmpty())
+				NS.setNotesParStyle(name);
+
+			m_Doc->newNotesStyle(NS);
+		}
+	}
+	return !reader.hasError();
+}
+
+bool Scribus150Format::readNotesFrames(ScXmlStreamReader& reader)
+{
+	notesFramesData.clear();
+	QStringRef tagName = reader.name();
+	while(!reader.atEnd() && !reader.hasError())
+	{
+		reader.readNext();
+		if (reader.isEndElement() && reader.name() == tagName)
+			break;
+		if (reader.isStartElement())
+		{
+			ScXmlStreamAttributes attrs = reader.scAttributes();
+			NoteFrameData eF;
+			eF.NSname = attrs.valueAsString("NSname");
+			eF.myID = attrs.valueAsInt("myID");
+			if (reader.name() == "ENDNOTEFRAME")
+			{
+				eF.index = attrs.valueAsInt("index");
+				eF.NSrange = (NumerationRange) attrs.valueAsInt("range");
+				eF.itemID = attrs.valueAsInt("ItemID");
+			}
+			if (reader.name() == "FOOTNOTEFRAME")
+				eF.itemID = attrs.valueAsInt("MasterID");
+			notesFramesData.append(eF);
+		}
+	}
+	return !reader.hasError();
+}
+
+bool Scribus150Format::readNotes(ScribusDoc* doc, ScXmlStreamReader& reader)
+{
+	//read notes
+	QStringRef tagName = reader.name();
+	while(!reader.atEnd() && !reader.hasError())
+	{
+		reader.readNext();
+		if (reader.isEndElement() && reader.name() == tagName)
+			break;
+		if (reader.isStartElement() && reader.name() == "Note")
+		{
+			ScXmlStreamAttributes attrs = reader.scAttributes();
+			TextNote* note = m_Doc->newNote(NULL);
+			note->setSaxedText(attrs.valueAsString("Text"));
+			//temporaly insert names of master mark and notes style into maps with note pointer
+			//will be resolved to pointers by updateNames2Ptr() after all will read
+			notesMasterMarks.insert(attrs.valueAsString("Master"), note);
+			notesNSets.insert(note, attrs.valueAsString("NStyle"));
+		}
+	}
+	return !reader.hasError();
+}
+
+bool Scribus150Format::readMarks(ScribusDoc* doc, ScXmlStreamReader& reader)
+{
+	QStringRef tagName = reader.name();
+	while(!reader.atEnd() && !reader.hasError())
+	{
+		reader.readNext();
+		if (reader.isEndElement() && reader.name() == tagName)
+			break;
+		if(reader.isStartElement() && reader.name() == "Mark")
+		{
+			ScXmlStreamAttributes attrs = reader.scAttributes();
+
+			QString label = "";
+			if (attrs.hasAttribute("label"))
+				label = attrs.valueAsString("label");
+
+			MarkType type = MARKNoType;
+			if (attrs.hasAttribute("type"))
+				type = (MarkType) attrs.valueAsInt("type");
+
+			if (label != "" && type != MARKNoType)
+			{
+				Mark* mark = doc->newMark();
+				mark->label=attrs.valueAsString("label");
+				mark->setType(type);
+
+				if (type == MARKVariableTextType && attrs.hasAttribute("str"))
+					mark->setString(attrs.valueAsString("str"));
+				if (type == MARK2ItemType && attrs.hasAttribute("ItemID"))
+				{
+					//QString itemName = attrs.valueAsString("itemName");
+					markeredItemsMap.insert(mark, attrs.valueAsInt("ItemID"));
+				}
+				if (type == MARK2MarkType && attrs.hasAttribute("MARKlabel"))
+				{
+					QString mark2Label = attrs.valueAsString("MARKlabel");
+					MarkType mark2Type = (MarkType) attrs.valueAsInt("MARKtype");
+					Mark* mark2 = doc->getMarkDefinied(mark2Label, mark2Type);
+					if (mark2 != NULL) //mark is not defined yet, insert into temp list for update to pointers later
+						mark->setMark(mark2);
+					else
+					{
+						QMap<QString, MarkType> mark2map;
+						mark2map.insert(mark2Label, mark2Type);
+						markeredMarksMap.insert(mark, mark2map);
+					}
+				}
+			}
+		}
+	}
+	return !reader.hasError();
+}
+
 bool Scribus150Format::readSections(ScribusDoc* doc, ScXmlStreamReader& reader)
 {
 	QStringRef tagName = reader.name();
@@ -3562,6 +3795,60 @@ bool Scribus150Format::readObject(ScribusDoc* doc, ScXmlStreamReader& reader, It
 					currItem->Parent = newItem;
 				}
 				doc->Items = DItems;
+			}
+		}
+		if (tName == "MARK")
+		{
+			if (newItem->asTextFrame())
+			{
+				QString l = tAtt.valueAsString("label");
+				MarkType t = (MarkType) tAtt.valueAsInt("type");
+				Mark* mark = NULL;
+				if (m_Doc->isLoading())
+				{
+					mark = m_Doc->getMarkDefinied(l, t);
+				}
+				else
+				{	//doc is not loading so it is copy/paste task
+					if (t == MARKVariableTextType)
+						mark = m_Doc->getMarkDefinied(l, t);
+					else
+					{
+						//create copy of mark
+						Mark* oldMark = m_Doc->getMarkDefinied(l, t);
+						if (oldMark == NULL)
+						{
+							qWarning() << "wrong copy of oldMark";
+							mark = m_Doc->newMark();
+							mark->setType(t);
+						}
+						else
+						{
+							mark = m_Doc->newMark(oldMark);
+							getUniqueName(l,doc->marksLabelsList(t), "_");
+						}
+						mark->label = l;
+						if (t == MARKNoteMasterType)
+						{  //create copy of note
+							TextNote* old = mark->getNotePtr();
+							TextNote* note = m_Doc->newNote(old->notesStyle());
+							mark->setNotePtr(note);
+							note->setMasterMark(mark);
+							note->setSaxedText(old->saxedText());
+							m_Doc->setNotesChanged(true);
+						}
+					}
+				}
+				if (mark == NULL)
+					qDebug() << "Undefinied mark label ["<< l << "] type " << t;
+				else
+				{
+					//set pointer to item holds mark in his text
+					if (t == MARKAnchorType)
+						mark->setItemPtr(newItem);
+					mark->OwnPage = newItem->OwnPage;
+					newItem->itemText.insertMark(mark, newItem->itemText.length());
+				}
 			}
 		}
 		if (tName == "WeldEntry")
@@ -4038,6 +4325,7 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 	bool isGroupFlag = attrs.valueAsBool("isGroupControl", 0);
 	if (isGroupFlag)
 		pt = PageItem::Group;
+	bool isNoteFrameFlag = attrs.valueAsBool("isNoteFrame", 0);
 	double xf, yf;
 	double x   = attrs.valueAsDouble("XPOS");
 	double y   = attrs.valueAsDouble("YPOS");
@@ -4160,7 +4448,7 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 			currItem->OwnPage = pagenr;
 		break;
 	case PageItem::TextFrame:
-		z = doc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, x, y, w, h, pw, CommonStrings::None, Pcolor, true);
+		z = doc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, x, y, w, h, pw, CommonStrings::None, Pcolor, true, isNoteFrameFlag);
 		currItem = doc->Items->at(z);
 		if (pagenr > -2) 
 			currItem->OwnPage = pagenr;
@@ -4340,10 +4628,10 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 		}
 	}
 	currItem->setRotation( attrs.valueAsDouble("ROT", 0.0) );
-	currItem->setTextToFrameDist(attrs.valueAsDouble("EXTRA", 1.0),
-								attrs.valueAsDouble("REXTRA", 1.0),
-								attrs.valueAsDouble("TEXTRA", 1.0),
-								attrs.valueAsDouble("BEXTRA", 1.0));
+	currItem->setTextToFrameDist(attrs.valueAsDouble("EXTRA", 0.0),
+								attrs.valueAsDouble("REXTRA", 0.0),
+								attrs.valueAsDouble("TEXTRA", 0.0),
+								attrs.valueAsDouble("BEXTRA", 0.0));
 	currItem->setFirstLineOffset(static_cast<FirstLineOffsetPolicy>(attrs.valueAsInt("FLOP")));
 
 	currItem->PLineArt  = Qt::PenStyle(attrs.valueAsInt("PLINEART", 0));
@@ -5205,6 +5493,13 @@ bool Scribus150Format::loadPage(const QString & fileName, int pageNumber, bool M
 	WeldItems.clear();
 	WeldID.clear();
 
+	markeredItemsMap.clear();
+	markeredMarksMap.clear();
+	nsetRangeItemNamesMap.clear();
+	notesFramesData.clear();
+	notesMasterMarks.clear();
+	notesNSets.clear();
+
  	QString f(readSLA(fileName));
 	if (f.isEmpty())
 	{
@@ -5961,6 +6256,14 @@ bool Scribus150Format::readPageCount(const QString& fileName, int *num1, int *nu
 	QString pageName;
 	int counter = 0;
 	int counter2 = 0;
+
+	markeredItemsMap.clear();
+	markeredMarksMap.clear();
+	nsetRangeItemNamesMap.clear();
+	notesFramesData.clear();
+	notesMasterMarks.clear();
+	notesNSets.clear();
+
 	QString f(readSLA(fileName));
 	if (f.isEmpty())
 		return false;
@@ -6000,4 +6303,148 @@ bool Scribus150Format::readPageCount(const QString& fileName, int *num1, int *nu
 	*num1 = counter;
 	*num2 = counter2;
 	return success;
+}
+
+void Scribus150Format::updateNames2Ptr() //after document load - items pointers should be updated
+{
+	if (!markeredItemsMap.isEmpty())
+	{
+		QMap<Mark*, int>::Iterator markIt;
+		QMap<Mark*, int>::Iterator end = markeredItemsMap.end();
+		for (markIt = markeredItemsMap.begin(); markIt != end; ++markIt)
+		{
+			Mark* mrk = markIt.key();
+			int ItemID = markIt.value();
+			if (LinkID.contains(ItemID))
+			{
+				mrk->setItemPtr(LinkID[ItemID]);
+				mrk->setString(QString("%1").arg(mrk->getItemPtr()->OwnPage +1));
+			}
+			else
+			{
+				qWarning() << "Scribus150Format::updateNames2Ptr() : wrong mark [" << mrk->label << "] data - item [" << ItemID << "] not exists - DELETING MARK";
+				if (!m_Doc->eraseMark(mrk, true))
+					qWarning() << "Erase mark [" << mrk->label << "] failed - was it definied?";
+			}
+		}
+		markeredItemsMap.clear();
+	}
+	if (!markeredMarksMap.isEmpty())
+	{
+		QMap<Mark*,QMap<QString, MarkType> >::iterator markIt;
+		QMap<Mark*,QMap<QString, MarkType> >::iterator end = markeredMarksMap.end();
+		for (markIt = markeredMarksMap.begin(); markIt != end; ++markIt)
+		{
+			Mark* mark = markIt.key();
+			QMap<QString, MarkType> mark2map = markIt.value();
+			QString label2 = mark2map.begin().key();
+			MarkType type2 = mark2map.begin().value();
+			Mark* mark2 = m_Doc->getMarkDefinied(label2, type2);
+			if (mark2 != NULL)
+			{
+				mark->setMark(mark2);
+			}
+			else
+			{
+				qWarning() << "Scribus150Format::updateNames2Ptr() : wrong mark [" << mark->label << "] data - pointed mark name [" << label2 << "] not exists - DELETING MARK";
+				if (!m_Doc->eraseMark(mark, true))
+					qWarning() << "Erase mark [" << mark->label << "] failed - was it definied?";
+
+			}
+		}
+		markeredMarksMap.clear();
+	}
+
+	//update endnotes frames pointers
+	if (!notesFramesData.isEmpty())
+	{
+		for (int i = 0; i < notesFramesData.count(); ++i)
+		{
+			NoteFrameData eF = notesFramesData.at(i);
+			NotesStyle* NS = m_Doc->getNotesStyle(eF.NSname);
+			if (NS != NULL)
+			{
+				PageItem* item = LinkID.value(eF.myID);
+				if ((item != NULL) && item->isNoteFrame())
+				{
+					item->asNoteFrame()->setNS(NS);
+					if (NS->isEndNotes())
+					{
+						if (eF.NSrange == NSRdocument)
+							m_Doc->setEndNoteFrame(item->asNoteFrame(), (void*) NULL);
+						else if (eF.NSrange == NSRpage)
+							m_Doc->setEndNoteFrame(item->asNoteFrame(), (void*) m_Doc->DocPages.at(eF.index));
+						else if (eF.NSrange == NSRsection)
+							m_Doc->setEndNoteFrame(item->asNoteFrame(), m_Doc->getSectionKeyForPageIndex(eF.index));
+						else if (eF.NSrange == NSRstory)
+							m_Doc->setEndNoteFrame(item->asNoteFrame(), (void*) LinkID.value(eF.itemID));
+					}
+					else
+					{
+						PageItem* master = LinkID.value(eF.itemID);
+						item->asNoteFrame()->setMaster(master);
+						master->asTextFrame()->setNoteFrame(item->asNoteFrame());
+						//FIX welding with note frame
+						PageItem::weldingInfo wInf;
+						for (int i = 0 ; i < master->weldList.count(); i++)
+						{
+							wInf = master->weldList.at(i);
+							if (wInf.weldID == eF.myID)
+							{
+								master->weldList[i].weldItem = item;
+								break;
+							}
+						}
+					}
+				}
+				else
+					qDebug() << "Scribus150Format::updateNames2Ptr() : update end frames pointers - item is not note frame or name is wrong";
+			}
+		}
+	}
+	//update pointers to notes in master notes marks
+	if (!notesMasterMarks.isEmpty())
+	{
+		assert(!m_Doc->marksList().isEmpty() && !m_Doc->notesList().isEmpty());
+		QMap<QString, TextNote*>::Iterator it;
+		QMap<QString, TextNote*>::Iterator end = notesMasterMarks.end();
+		for (it = notesMasterMarks.begin(); it != end; ++it)
+		{
+			TextNote* note = it.value();
+			assert(note != NULL);
+			QString mrkLabel = it.key();
+			Mark* mrk = m_Doc->getMarkDefinied(mrkLabel, MARKNoteMasterType);
+			if (mrk == NULL)
+			{
+				qWarning() << "Scribus150Format::updateNames2Ptr() : cannot find master mark ("<<mrkLabel <<") for note - note will be deleted";
+				m_Doc->deleteNote(note);
+				continue;
+			}
+			note->setMasterMark(mrk);
+			mrk->setNotePtr(note);
+		}
+		notesMasterMarks.clear();
+	}
+	if (!notesNSets.isEmpty())
+	{
+		assert(!m_Doc->notesList().isEmpty());
+		QMap<TextNote*, QString>::iterator it;
+		QMap<TextNote*, QString>::iterator end = notesNSets.end();
+		for (it = notesNSets.begin(); it != end; ++it)
+		{
+			TextNote* note = it.key();
+			assert(note != NULL);
+			QString nsLabel = it.value();
+			NotesStyle* ns = m_Doc->getNotesStyle(nsLabel);
+			if (ns != NULL)
+				note->setNotesStyle(ns);
+			if (note->notesStyle() == NULL)
+			{
+				qWarning() << "Scribus150Format::updateNames2Ptr()  : cannot find notes style ("<<nsLabel <<") for note - note will be deleted";
+				m_Doc->deleteNote(note);
+				continue;
+			}
+		}
+		notesNSets.clear();
+	}
 }

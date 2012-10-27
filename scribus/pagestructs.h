@@ -48,8 +48,11 @@ typedef enum
 	Type_I_II_III,
 	Type_a_b_c,
 	Type_A_B_C,
+	Type_asterix,
 	Type_None=99
 } DocumentSectionType;
+
+typedef DocumentSectionType NumerationType;
 
 struct DocumentSection
 {

@@ -103,7 +103,7 @@ void CharSelect::slot_insertSpecialChar()
 		cItem = m_Item->asTextFrame();
 	if (cItem->HasSel)
 		cItem->deleteSelectedTextFromFrame();
-	cItem->invalidateLayout();
+	cItem->invalidateLayout(false);
 	//CB: Avox please make text->insertchar(char) so none of this happens in gui code, and item can tell doc its changed so the view and mainwindow slotdocch are not necessary
 	QChar ch;
 	QString fontName = m_doc->currentStyle.charStyle().font().scName();
@@ -138,7 +138,7 @@ void CharSelect::slot_insertUserSpecialChar(QChar ch, QString font)
 		cItem = m_Item->asTextFrame();
 	if (cItem->HasSel)
 		cItem->deleteSelectedTextFromFrame();
-	cItem->invalidateLayout();
+	cItem->invalidateLayout(false);
 // 	//CB: Avox please make text->insertchar(char) so none of this happens in gui code, and item can tell doc its changed so the view and mainwindow slotdocch are not necessary
 	if (ch == QChar(10))
 		ch = QChar(13);

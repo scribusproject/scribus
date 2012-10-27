@@ -587,6 +587,14 @@ public:
 	static QString AddLoremIpsum;
 	static QString DeleteText;
 	static QString InsertText;
+	static QString InsertMark;
+	static QString InsertNote;
+	static QString EditMark;
+	static QString DeleteMark;
+	static QString NewNotesStyle;
+	static QString EditNotesStyle;
+	static QString DeleteNotesStyle;
+	static QString DeleteNote;
 	static QString DeletePage;
 	static QString DeletePages;
 	static QString ChangePageProps;

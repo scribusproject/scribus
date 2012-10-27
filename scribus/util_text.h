@@ -13,6 +13,7 @@ for which a new license (GPL+exception) is in place.
 #include "styles/charstyle.h"
 #include "styles/paragraphstyle.h"
 #include "scribusapi.h"
+#include "text/storytext.h"
 
 class  ScribusDoc;
 
@@ -21,5 +22,7 @@ int SCRIBUS_API findParagraphStyle(ScribusDoc* doc, const ParagraphStyle& parSty
 int SCRIBUS_API findParagraphStyle(ScribusDoc* doc, const QString &name);
 #endif
 
+// returns StoryText from saxed string
+StoryText SCRIBUS_API desaxeString(ScribusDoc* doc, QString saxedString);
 
 #endif

@@ -26,9 +26,11 @@ pageitem.cpp  -  description
 #include <QList>
 #include <cassert>  //added to make Fedora-5 happy
 #include "fpoint.h"
+#include "notesstyles.h"
 #include "scfonts.h"
 #include "scribusdoc.h"
 #include "sctext_shared.h"
+#include "selection.h"
 #include "storytext.h"
 #include "scribus.h"
 #include "util.h"
@@ -327,6 +329,7 @@ void StoryText::insert(int pos, const StoryText& other, bool onlySelection)
 		else if (other.text(i) == SpecialChars::OBJECT) {
 			insertChars(pos, SpecialChars::OBJECT);
 			item(pos)->embedded = other.item(i)->embedded;
+			item(pos)->mark = other.item(i)->mark;
 			applyCharStyle(pos, 1, other.charStyle(i));
 			cstyleStart = i+1;
 			pos += 1;
@@ -632,6 +635,17 @@ void StoryText::insertObject(int pos, int ob)
 	doc->FrameItems[ob]->OwnPage = -1; // #10379: OwnPage is not meaningful for inline object
 }
 
+void StoryText::insertMark(Mark* Mark, int pos)
+{
+	if (Mark == NULL)
+		return;
+	if (pos < 0)
+		pos = d->cursorPosition;
+
+	insertChars(pos, SpecialChars::OBJECT, false);
+	const_cast<StoryText *>(this)->d->at(pos)->mark = Mark;
+}
+
 void StoryText::replaceObject(int pos, int ob)
 {
 	if (pos < 0)
@@ -761,6 +775,32 @@ PageItem* StoryText::object(int pos) const
 	return that->d->at(pos)->getItem(doc);
 }
 
+bool StoryText::hasMark(int pos) const
+{
+	if (pos < 0)
+		pos += length();
+
+	assert(pos >= 0);
+	assert(pos < length());
+
+	StoryText* that = const_cast<StoryText *>(this);
+	if (that->d->at(pos)->ch == SpecialChars::OBJECT)
+		return that->d->at(pos)->hasMark();
+	return false;
+}
+
+Mark* StoryText::mark(int pos) const
+{
+	if (pos < 0)
+		pos += length();
+
+	assert(pos >= 0);
+	assert(pos < length());
+
+	StoryText* that = const_cast<StoryText *>(this);
+	return that->d->at(pos)->mark;
+}
+
 const CharStyle & StoryText::charStyle() const
 {
 	return charStyle(d->cursorPosition);
@@ -782,9 +822,11 @@ const CharStyle & StoryText::charStyle(int pos) const
 		qDebug() << "storytext::charstyle: access at end of text %i" << pos;
 		--pos;
 	}
+	//for notes frames - get style from note text, not from mark
+	if ((pos+1 < length()) && hasMark(pos) && mark(pos)->isNoteType())
+		++pos;
 	if (text(pos) == SpecialChars::PARSEP)
 		return paragraphStyle(pos).charStyle();
-	
 	StoryText* that = const_cast<StoryText *>(this);
 	return dynamic_cast<const CharStyle &> (*that->d->at(pos));
 }
@@ -1464,7 +1506,13 @@ int StoryText::endOfSelection() const
 
 int StoryText::lengthOfSelection() const
 {
-	return selFirst <= selLast? selLast - selFirst + 1 : 0;
+	//FIX ME - sometimes I saw values equal or greater than length of text
+	int last = selLast;
+	if (selFirst >= length())
+		return 0;
+	if (selLast >= length())
+		last = length() -1;
+	return selFirst <= last? last - selFirst + 1 : 0;
 }
 
 
@@ -1634,6 +1682,8 @@ void StoryText::invalidate(int firstItem, int endItem)
 		if (par)
 			par->charStyleContext()->invalidate();
 	}
+	if (!signalsBlocked())
+		emit changed();
 	emit changed();
 }
 
@@ -1868,6 +1918,38 @@ void StoryText::saxx(SaxHandler& handler, const Xml_string& elemtag) const
 		{
 			object(i)->saxx(handler);
 		}
+		else if (hasMark(i))
+		{
+			Mark* mrk = mark(i);
+			if ((doc->m_Selection->itemAt(0)->isNoteFrame() && mrk->isType(MARKNoteMasterType))
+				|| (!doc->m_Selection->itemAt(0)->isTextFrame() && mrk->isType(MARKNoteFrameType)))
+				continue; //do not insert notes marks into text frames nad vice versa
+			Xml_attr mark_attr;
+			mark_attr.insert("label", mrk->label);
+			mark_attr.insert("typ", QString::number((int )mrk->getType()));
+			if (mrk->isType(MARK2ItemType) && (mrk->getItemPtr() != NULL))
+				mark_attr.insert("item", mrk->getItemPtr()->itemName());
+			else if (mrk->isType(MARK2MarkType))
+			{
+				QString l;
+				MarkType t;
+				mrk->getMark(l, t);
+				if (doc->getMarkDefinied(l,t) != NULL)
+				{
+					mark_attr.insert("mark_l", l);
+					mark_attr.insert("mark_t", QString::number((int) t));
+				}
+			}
+			else if (mrk->isType(MARKNoteMasterType))
+			{
+				mark_attr.insert("nStyle", mrk->getNotePtr()->notesStyle()->name());
+				mark_attr.insert("note",mrk->getNotePtr()->saxedText());
+				//store noteframe name for inserting into note if it is non-auto-removable
+				if (!mrk->getNotePtr()->noteMark()->getItemPtr()->isAutoNoteFrame())
+					mark_attr.insert("noteframe", mrk->getNotePtr()->noteMark()->getItemPtr()->getUName());
+			}
+			handler.beginEnd("mark", mark_attr);
+		}
 		else if (curr == SpecialChars::TAB)
 		{
 			handler.beginEnd("tab", empty);
@@ -2026,6 +2108,92 @@ public:
 };
 
 struct AppendInlineFrame : public MakeAction<AppendInlineFrame_body>
+{};
+
+//marks support
+class AppendMark_body : public Action_body
+{
+public:
+	void begin(const Xml_string& tag, Xml_attr attr)
+	{
+		StoryText* story = this->dig->top<StoryText>();
+		QString l = "";
+		MarkType t = MARKNoType;
+		
+		Mark* mrk = NULL;
+		
+		if (tag == "mark")
+		{
+			Xml_attr::iterator lIt = attr.find("label");
+			Xml_attr::iterator tIt = attr.find("typ");
+			Xml_attr::iterator iIt = attr.find("item");
+			Xml_attr::iterator m_lIt = attr.find("mark_l");
+			Xml_attr::iterator m_tIt = attr.find("mark_t");
+			Xml_attr::iterator nf_It = attr.find("noteframe");
+			if (lIt != attr.end())
+				l = Xml_data(lIt);
+			if (tIt != attr.end())
+				t = (MarkType) parseInt(Xml_data(tIt));
+			ScribusDoc* doc  = this->dig->lookup<ScribusDoc>("<scribusdoc>");
+			if (t == MARKVariableTextType)
+				mrk = doc->getMarkDefinied(l,t);
+			else
+			{
+				mrk = doc->newMark();
+				getUniqueName(l,doc->marksLabelsList(t), "_");
+				mrk->label = l;
+				mrk->OwnPage = doc->currentPage()->pageNr();
+				mrk->setType(t);
+				if (mrk->isType(MARK2ItemType) && (iIt != attr.end()))
+				{
+					PageItem* item = doc->getItemFromName(Xml_data(iIt));
+					mrk->setItemPtr(item);
+					if (item == NULL)
+						mrk->setString("0");
+					else
+						mrk->setString(QString::number(item->OwnPage));
+					mrk->setItemName(Xml_data(iIt));
+				}
+				if (mrk->isType(MARK2MarkType) && (m_lIt != attr.end()) && (m_tIt != attr.end()))
+				{
+					Mark* targetMark = doc->getMarkDefinied(Xml_data(m_lIt), (MarkType) parseInt(Xml_data(m_tIt)));
+					mrk->setMark(targetMark);
+					if (targetMark == NULL)
+						mrk->setString("0");
+					else
+						mrk->setString(QString::number(targetMark->OwnPage));
+					mrk->setItemName(Xml_data(m_lIt));
+				}
+				if (mrk->isType(MARKNoteMasterType))
+				{
+					Xml_attr::iterator nIt = attr.find("note");
+					Xml_attr::iterator nsIt = attr.find("nStyle");
+					NotesStyle* NS;
+					if (nsIt == attr.end())
+						NS = doc->m_docNotesStylesList.at(0);
+					else
+						NS = doc->getNotesStyle(Xml_data(nsIt));
+					TextNote* note = doc->newNote(NS);
+					note->setMasterMark(mrk);
+					if (nIt != attr.end())
+						note->setSaxedText(Xml_data(nIt));
+//					if (!NS->isAutoRemoveEmptyNotesFrames() && (nf_It != attr.end()))
+//					{
+//						PageItem_NoteFrame* nF = (PageItem_NoteFrame*) doc->getItemFromName(Xml_data(nf_It));
+//						if (nF != NULL)
+//							doc->m_Selection->itemAt(0)->asTextFrame()->setNoteFrame(nF);
+//					}
+					mrk->setNotePtr(note);
+					doc->setNotesChanged(true);
+				}
+				doc->newMark(mrk);
+			}
+			story->insertMark(mrk);
+		}
+	}
+};
+
+struct AppendMark : public MakeAction<AppendMark_body>
 {};
 
 /*
@@ -2252,5 +2420,6 @@ void StoryText::desaxeRules(const Xml_string& prefixPattern, Digester& ruleset, 
 	
 	//PageItem::desaxeRules(storyPrefix, ruleset); argh, that would be recursive!
 	ruleset.addRule(Digester::concat(spanPrefix, "item"), AppendInlineFrame() );
+	ruleset.addRule(Digester::concat(spanPrefix, "mark"), AppendMark() );
 	
 }

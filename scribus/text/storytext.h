@@ -30,6 +30,7 @@ pageitem.cpp  -  description
 #include <QList>
 #include <cassert>
 
+#include "marks.h"
 //#include "text/paragraphlayout.h"
 #include "text/frect.h"
 #include "text/specialchars.h"
@@ -132,6 +133,8 @@ class SCRIBUS_API StoryText : public QObject, public SaxIO
 	void insertObject(int obj);
 	// Insert object at specific position
 	void insertObject(int pos, int obj);
+	// Insert mark at cursor or specific position
+	void insertMark(Mark* Mark, int pos = -1);
  	void replaceChar(int pos, QChar ch);
  	// Replaced a word, and return the difference in length between old and new
 	int replaceWord(int pos, QString newWord);
@@ -161,6 +164,8 @@ class SCRIBUS_API StoryText : public QObject, public SaxIO
 
 	bool hasObject(int pos) const;
  	PageItem* object(int pos) const;
+	bool hasMark(int pos) const;
+	Mark *mark(int pos) const;
 	
 	int nextCharPos(int c);
 	int prevCharPos(int c);

@@ -282,6 +282,12 @@ void LoremManager::insertLoremIpsum(QString name, int paraCount, bool random)
 		PageItem* currItem = m_Doc->m_Selection->itemAt(i);
 		if (currItem == NULL)
 			continue;
+		//do not insert lorem ipsum text into notes frames
+		if (currItem->isNoteFrame())
+			continue;
+		//removing marks and notes from current text
+//		if (currItem->isTextFrame() && !currItem->asTextFrame()->removeMarksFromText(!m_Doc->hasGUI()))
+//			continue;
 		PageItem *i2 = currItem;
 		if (m_Doc->appMode == modeEditTable)
 			i2 = currItem->asTable()->activeCell().textFrame();
@@ -346,7 +352,7 @@ void LoremManager::insertLoremIpsum(QString name, int paraCount, bool random)
 		delete lp;
 		if (m_Doc->docHyphenator->AutoCheck)
 			m_Doc->docHyphenator->slotHyphenate(i2);
-		i2->invalidateLayout();
+		i2->asTextFrame()->invalidateLayout(true);
 	}
 	m_Doc->regionsChanged()->update(QRectF());
 	m_Doc->changed();

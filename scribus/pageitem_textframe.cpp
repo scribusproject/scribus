@@ -35,9 +35,12 @@ for which a new license (GPL+exception) is in place.
 #include "canvas.h"
 #include "commonstrings.h"
 #include "hyphenator.h"
+#include "marks.h"
+#include "notesstyles.h"
 #include "pageitem.h"
 #include "pageitem_group.h"
 #include "pageitem_textframe.h"
+#include "pageitem_noteframe.h"
 #include "prefsmanager.h"
 #include "scpage.h"
 #include "scpainter.h"
@@ -54,6 +57,8 @@ for which a new license (GPL+exception) is in place.
 #include "util_math.h"
 
 #include "ui/guidemanager.h"
+//don`t worry - message boxes are called only if GUI is enabled
+#include "ui/scmessagebox.h"
 
 #include <cairo.h>
 
@@ -79,6 +84,7 @@ PageItem_TextFrame::PageItem_TextFrame(const PageItem & p) : PageItem(p)
 	unicodeTextEditMode = false;
 	unicodeInputCount = 0;
 	unicodeInputString = "";
+	m_notesFramesMap.clear();
 	
 	connect(&itemText,SIGNAL(changed()), this, SLOT(slotInvalidateLayout()));
 }
@@ -282,6 +288,8 @@ QRegion PageItem_TextFrame::calcAvailableRegion()
 			} // for all docItems
 		} // if(OnMasterPage.isEmpty()		
 	} // if(!Embedded)
+	else
+		qDebug() << "QRegion epmty";
 	return result;
 }
 
@@ -350,7 +358,7 @@ static void debugLineLayout(const StoryText& itemText, const LineSpec& line)
 
 	debugFile.close();
 }
-*/
+
 static void dumpIt(const ParagraphStyle& pstyle, QString indent = QString("->"))
 {
 	QString db = QString("%6%1/%2 @ %3: %4--%5 linespa%6: %7 align%8")
@@ -368,7 +376,7 @@ static void dumpIt(const ParagraphStyle& pstyle, QString indent = QString("->"))
 	if (pstyle.hasParent())
 		dumpIt(*dynamic_cast<const ParagraphStyle*>(pstyle.parentStyle()), more + indent);
 }
-
+*/
 static const bool legacy = true;
 
 /*
@@ -1195,8 +1203,8 @@ static double nextAutoTab (const LineControl &current, PageItem *item)
 	return res;
 }
 
-
-static double calculateLineSpacing (const ParagraphStyle &style, PageItem *item)
+//cezaryece: I remove static statement as this function is used also by PageItem_NoteFrame
+double calculateLineSpacing (const ParagraphStyle &style, PageItem *item)
 {
 	if (style.lineSpacingMode() == ParagraphStyle::AutomaticLineSpacing)
 	{
@@ -1330,7 +1338,6 @@ void PageItem_TextFrame::layout()
 	double EndX, OFs, wide, kernVal;
 	QString chstr;
 	ScText *hl;
-	PageItem_TextFrame* nextFrame;
 	ParagraphStyle style;
 	int opticalMargins = ParagraphStyle::OM_None;
 	
@@ -1378,6 +1385,8 @@ void PageItem_TextFrame::layout()
 	//for moving next line if glyphs are higher than that
 	double lastLineY = 0;
 	
+	QMap<int, Mark*> noteMarksPosMap;  //maping notes marks and its position in text
+
 	// dump styles
 /*	
 	for (int i=0; i < itemText.nrOfParagraphs(); ++i) {
@@ -1390,7 +1399,33 @@ void PageItem_TextFrame::layout()
 */
 	
 	setShadow();
-	if ((itemText.length() != 0)) // || (NextBox != 0))
+	int itLen = itemText.length();
+	//fast validate empty frames
+	if (itLen == 0 || firstInFrame() == itLen)
+	{
+		PageItem* next = this;
+		while (next != NULL)
+		{
+			next->invalid = false;
+			next = next->nextInChain();
+		}
+		if (!isNoteFrame() && m_Doc->notesChanged() && !m_notesFramesMap.isEmpty())
+		{ //if notes are used
+			UndoManager::instance()->setUndoEnabled(false);
+			QList<PageItem_NoteFrame*> delList;
+			foreach (PageItem_NoteFrame* nF, m_notesFramesMap.keys())
+			{
+				if (nF->notesList().isEmpty() && !nF->isAutoNoteFrame())
+					delList.append(nF);
+			}
+			while (!delList.isEmpty())
+				m_Doc->delNoteFrame(delList.takeFirst(), false);
+			UndoManager::instance()->setUndoEnabled(true);
+		}
+		return;
+	}
+
+	if ((itLen != 0)) // || (NextBox != 0))
 	{
 		// determine layout area
 		m_availableRegion = calcAvailableRegion();
@@ -1423,7 +1458,7 @@ void PageItem_TextFrame::layout()
 		double autoLS = static_cast<double>(m_Doc->typographicPrefs().autoLineSpacing) / 100.0;
 
 		// find start of first line
-		if (firstInFrame() < itemText.length())
+		if (firstInFrame() < itLen)
 		{
 			hl = itemText.item(firstInFrame());
 			style = itemText.paragraphStyle(firstInFrame());
@@ -1464,27 +1499,92 @@ void PageItem_TextFrame::layout()
 		current.mustLineEnd = current.colRight;
 		current.restartX = 0;
 		int lastStat = 0, curStat = 0;
+
+		//why emit invalidating signals each time text is changed by appling styles?
+		//this speed up layouting in case of using notes marks and drop caps
+		itemText.blockSignals(true);
 		setMaxY(-1);
 		double maxYAsc = 0.0, maxYDesc = 0.0;
 
-		for (int a = firstInFrame(); a < itemText.length(); ++a)
+		for (int a = firstInFrame(); a < itLen; ++a)
 		{
 			hl = itemText.item(a);
+			bool HasObject = hl->hasObject(m_Doc);
+			bool HasMark = hl->hasMark();
+			if (HasMark)
+			{
+				//show control characters for marks
+				hl->glyph.glyph = SpecialChars::OBJECT.unicode() + ScFace::CONTROL_GLYPHS;
+
+				hl->mark->OwnPage = OwnPage;
+				//itemPtr and itemName set to this frame only if mark type is different than MARK2ItemType
+				if (!hl->mark->isType(MARK2ItemType))
+				{
+					hl->mark->setItemPtr(this);
+					hl->mark->setItemName(itemName());
+				}
+				//anchors and indexes has no visible inserts in text
+				if (hl->mark->isType(MARKAnchorType) || hl->mark->isType(MARKIndexType))
+				{
+					hl->glyph.shrink();
+					continue;
+				}
+				//store mark pointer and position in text
+				if (hl->mark->isType(MARKNoteMasterType))
+					noteMarksPosMap.insert(a, hl->mark);
+				//set note marker charstyle
+				if (hl->mark->isNoteType())
+				{
+					TextNote* note = hl->mark->getNotePtr();
+					if (note == NULL)
+						continue;
+					hl->mark->setItemPtr(this);
+					NotesStyle* nStyle = note->notesStyle();
+						Q_ASSERT(nStyle != NULL);
+					QString chsName = nStyle->marksChStyle();
+					CharStyle newStyle(itemText.charStyle(a));
+					if ((chsName != "") && (chsName != tr("No Style")))
+					{
+						CharStyle marksStyle(m_Doc->charStyle(chsName));
+						if (!newStyle.equiv(marksStyle))
+						{
+							newStyle.setParent(chsName);
+							itemText.applyCharStyle(a, 1, marksStyle);
+						}
+					}
+					else
+						itemText.eraseCharStyle(a, 1, newStyle);
+					if (hl->mark->isType(MARKNoteMasterType))
+					{
+						if (nStyle->isSuperscriptInMaster())
+							hl->setEffects(hl->effects() | ScStyle_Superscript);
+						else
+							hl->setEffects(hl->effects() & ~ScStyle_Superscript);
+					}
+					else
+					{
+						if (nStyle->isSuperscriptInNote())
+							hl->setEffects(hl->effects() | ScStyle_Superscript);
+						else
+							hl->setEffects(hl->effects() & ~ScStyle_Superscript);
+					}
+				}
+			}
+			chstr = ExpandToken(a);
+			int chstrLen = chstr.length();
+			if (chstr.isEmpty())
+				chstr = SpecialChars::ZWNBSPACE;
+
 			curStat = SpecialChars::getCJKAttr(hl->ch);
 			if (a > 0 && itemText.text(a-1) == SpecialChars::PARSEP)
 				style = itemText.paragraphStyle(a);
 			if (current.itemsInLine == 0)
 				opticalMargins = style.opticalMargins();
-			
 			CharStyle charStyle = (hl->ch != SpecialChars::PARSEP? itemText.charStyle(a) : style.charStyle());
-			chstr = ExpandToken(a);
 			double hlcsize10 = charStyle.fontSize() / 10.0;
 			double scaleV = charStyle.scaleV() / 1000.0;
 			double scaleH = charStyle.scaleH() / 1000.0;
-			offset = hlcsize10 * (charStyle.baselineOffset() / 1000.0);
-
-			if (chstr.isEmpty())
-				chstr = SpecialChars::ZWNBSPACE;
+			double offset = hlcsize10 * (charStyle.baselineOffset() / 1000.0);
 			style.setLineSpacing (calculateLineSpacing (style, this));
 			FlopBaseline = (current.startOfCol && firstLineOffset() == FLOPBaselineGrid);
 
@@ -1516,7 +1616,7 @@ void PageItem_TextFrame::layout()
 					}
 					else if (charStyle.name() != style.dcCharStyleName())
 						charStyle.setStyle(m_Doc->charStyle(style.dcCharStyleName()));
-					itemText.setCharStyle(a, chstr.length(),charStyle);
+					itemText.setCharStyle(a, chstrLen ,charStyle);
 				}
 				else if (style.dcCharStyleName() != tr("No Style") && !style.dcCharStyleName().isEmpty())
 				//hasDropCap is cleared but is set dcCharStyleName = clear drop cap char style
@@ -1608,8 +1708,15 @@ void PageItem_TextFrame::layout()
 				// FIXME : we should ensure that fonts are loaded before calls to layout()
 				// ScFace::realCharHeight()/Ascent() ensure font is loaded thanks to an indirect call to char2CMap()
 				// ScFace::ascent() can be called safely afterwards
-				double realCharHeight = font.realCharHeight(chstr[0], 1);
-				double realCharAscent = font.realCharAscent(chstr[0], 1);
+
+				//text height, width, ascent and descent should be calculated for whole text provided by hl in current position
+				//and that may be more than one char (variable text for example)
+				double realCharHeight = 0.0, realCharAscent = 0.0;
+				for (int i = 0; i < chstrLen; ++i)
+				{
+					realCharHeight = qMax(realCharHeight, font.realCharHeight(chstr[i], 1));
+					realCharAscent = qMax(realCharAscent, font.realCharAscent(chstr[i], 1));
+				}
 				double fontAscent     = font.ascent(style.charStyle().fontSize() / 10.0);
 				if (realCharHeight == 0.0)
 					realCharHeight = font.height(style.charStyle().fontSize() / 10.0);
@@ -1619,7 +1726,7 @@ void PageItem_TextFrame::layout()
 				chs  = (10 * ((DropCapDrop + fontAscent) / realCharAscent));
 				hl->setEffects(hl->effects() | ScStyle_DropCap);
 				hl->glyph.yoffset -= DropCapDrop;
-				if ((hl->ch == SpecialChars::OBJECT) && (hl->hasObject(m_Doc)))
+				if (HasObject)
 				{
 					chs = qRound((hl->getItem(m_Doc)->height() + hl->getItem(m_Doc)->lineWidth()) * 10);
 					chsd = qRound((hl->getItem(m_Doc)->height() + hl->getItem(m_Doc)->lineWidth()) * 10);
@@ -1627,7 +1734,7 @@ void PageItem_TextFrame::layout()
 			}
 			else // ! dropCapMode
 			{
-				if ((hl->ch == SpecialChars::OBJECT) && (hl->hasObject(m_Doc)))
+				if (HasObject)
 					chs = qRound((hl->getItem(m_Doc)->height() + hl->getItem(m_Doc)->lineWidth()) * 10);
 				else
 					chs = charStyle.fontSize();
@@ -1646,7 +1753,7 @@ void PageItem_TextFrame::layout()
 			hl->glyph.yadvance = 0;
 			layoutGlyphs(*hl, chstr, hl->glyph);
 			// find out width, ascent and descent of char
-			if ((hl->ch == SpecialChars::OBJECT) && (hl->hasObject(m_Doc)))
+			if (HasObject)
 			{
 				wide = hl->getItem(m_Doc)->width() + hl->getItem(m_Doc)->lineWidth();
 				hl->glyph.xadvance = wide * hl->glyph.scaleH;
@@ -1742,7 +1849,7 @@ void PageItem_TextFrame::layout()
 			if (DropCmode)
 			{
 				// drop caps are wider...
-				if ((hl->ch == SpecialChars::OBJECT) && (hl->hasObject(m_Doc)))
+				if (HasObject)
 				{
 					double itemHeight = hl->getItem(m_Doc)->height() + hl->getItem(m_Doc)->lineWidth();
 					if (itemHeight == 0)
@@ -1756,11 +1863,19 @@ void PageItem_TextFrame::layout()
 				}
 				else
 				{
-					double realCharHeight = font.realCharHeight(chstr[0], charStyle.fontSize() / 10.0);
+					double realCharHeight = 0.0;
+					wide = 0.0; realAsce = 0.0;
+					//
+					for (int i = 0; i < chstrLen; ++i)
+					{
+						realCharHeight = qMax(realCharHeight, font.realCharHeight(chstr[i], charStyle.fontSize() / 10.0));
+						realAsce = qMax(realAsce, font.realCharHeight(chstr[i], chsd / 10.0));
+						wide += font.realCharWidth(chstr[i], chsd / 10.0);
+					}
+					wide = (wide* scaleH) + (1 - scaleH);
+					realAsce = realAsce  * scaleV + offset;
 					if (realCharHeight == 0)
 						realCharHeight = font.height(style.charStyle().fontSize() / 10.0);
-					wide = (font.realCharWidth(chstr[0], chsd / 10.0) * scaleH) + (1 - scaleH); //dropcaps are to close to next glyphs if glyphs are hard scaled
-					realAsce = font.realCharHeight(chstr[0], chsd / 10.0) * scaleV + offset;
 					asce = font.ascent(hlcsize10);
 					// qDebug() QString("dropcaps pre: chsd=%1 realCharHeight = %2 chstr=%3").arg(chsd).arg(asce).arg(chstr2[0]);
 					hl->glyph.scaleH /= hl->glyph.scaleV;
@@ -1780,15 +1895,22 @@ void PageItem_TextFrame::layout()
 					wide *= wordtracking;
 				}
 				// find ascent / descent
-				if ((hl->ch == SpecialChars::OBJECT) && (hl->hasObject(m_Doc)))
+				if (HasObject)
 					desc = realDesc = 0;
 				else
 				{
+					for (int i = 0; i < chstrLen; ++i)
+					{
+						if (chstr[i] == SpecialChars::OBJECT)
+							continue;
+						realDesc = qMax(realDesc, font.realCharDescent(chstr[i], hlcsize10));
+						realAsce = font.realCharAscent(chstr[i], hlcsize10);
+					}
+					realDesc =  realDesc * scaleV - offset;
 					desc = -font.descent(hlcsize10);
-					realDesc = font.realCharDescent(chstr[0], hlcsize10) * scaleV - offset;
 					current.rememberShrinkStretch(hl->ch, wide, style);
 				}
-				if ((hl->ch == SpecialChars::OBJECT) && (hl->hasObject(m_Doc)))
+				if (HasObject)
 				{
 					asce = hl->getItem(m_Doc)->height() + hl->getItem(m_Doc)->lineWidth();
 					realAsce = asce * scaleV + offset;
@@ -1796,7 +1918,13 @@ void PageItem_TextFrame::layout()
 				else
 				{
 					asce = font.ascent(hlcsize10);
-					realAsce = font.realCharAscent(chstr[0], hlcsize10) * scaleV + offset;
+					if (HasMark)
+						realAsce = asce * scaleV + offset;
+					else
+					{
+						for (int i = 0; i < chstrLen; ++i)
+							realAsce = qMax(realAsce, font.realCharAscent(chstr[i], hlcsize10) * scaleV + offset);
+					}
 				}
 			}
 
@@ -1809,6 +1937,9 @@ void PageItem_TextFrame::layout()
 					if (current.startOfCol)
 					{
 						lastLineY = qMax(lastLineY, extra.Top + lineCorr);
+						//fix for proper rendering first empty line (only with PARSEP)
+						if (chstr[0] == SpecialChars::PARSEP)
+							current.yPos += style.lineSpacing();
 						if (style.lineSpacingMode() == ParagraphStyle::BaselineGridLineSpacing || FlopBaseline)
 						{
 							if (current.yPos <= lastLineY)
@@ -2021,14 +2152,14 @@ void PageItem_TextFrame::layout()
 					diff = realAsce - (current.yPos - lastLineY);
 				else if (style.lineSpacingMode() != ParagraphStyle::FixedLineSpacing)
 				{
-					if ((hl->ch == SpecialChars::OBJECT) && (hl->hasObject(m_Doc)))
+					if (HasObject)
 						diff = (hl->getItem(m_Doc)->height() + hl->getItem(m_Doc)->lineWidth()) * scaleV + offset - (current.yPos - lastLineY);
 					else
 						diff = font.realCharAscent(QChar('l'), hlcsize10) * scaleV + offset - (current.yPos - lastLineY);
 				}
 				else
 				{
-					if ((hl->ch == SpecialChars::OBJECT) && (hl->hasObject(m_Doc)))
+					if (HasObject)
 						diff = (hl->getItem(m_Doc)->height() + hl->getItem(m_Doc)->lineWidth()) * scaleV + offset - (current.yPos - lastLineY);
 				}
 				if (diff >= 1 || (!DropCmode && diff > 0))
@@ -2141,8 +2272,12 @@ void PageItem_TextFrame::layout()
 			
 			// remember y pos
 			if (DropCmode)
-				hl->glyph.yoffset -= font.realCharHeight(chstr[0], chsd / 10.0) - font.realCharAscent(chstr[0], chsd / 10.0);
-
+			{
+				double yoffset = 0.0;
+				for (int i = 0; i < chstrLen; ++i)
+					yoffset = qMax(yoffset, font.realCharHeight(chstr[i], chsd / 10.0) - font.realCharAscent(chstr[i], chsd / 10.0));
+				hl->glyph.yoffset -= yoffset;
+			}
 			// remember x pos
 			double breakPos = current.xPos;
 			
@@ -2662,6 +2797,7 @@ void PageItem_TextFrame::layout()
 							maxDX = 0;
 						}
 					}
+					lastLineY = current.rowDesc;
 					current.mustLineEnd = current.colRight;
 					current.restartRowIndex = current.restartIndex;
 				}
@@ -2811,20 +2947,31 @@ void PageItem_TextFrame::layout()
 
 			if (moveLinesFromPreviousFrame ()) {
 				layout ();  // line moving ensures that this won't be an endless loop
+				itemText.blockSignals(false);
 				return;
 			}
 		}
 	}
 	MaxChars = itemText.length();
 	invalid = false;
-
-	nextFrame = dynamic_cast<PageItem_TextFrame*>(NextBox);
-	while (nextFrame != NULL)
+	if (!isNoteFrame() && (!m_Doc->notesList().isEmpty() || m_Doc->notesChanged()))
+	{ //if notes are used
+		UndoManager::instance()->setUndoEnabled(false);
+		NotesInFrameMap notesMap = updateNotesFrames(noteMarksPosMap);
+		if (notesMap != m_notesFramesMap)
+		{
+			updateNotesMarks(notesMap);
+			notesFramesLayout();
+		}
+		UndoManager::instance()->setUndoEnabled(true);
+	}
+	if (NextBox != NULL) 
 	{
+		PageItem_TextFrame * nextFrame = dynamic_cast<PageItem_TextFrame*>(NextBox);
 		nextFrame->invalid   = true;
 		nextFrame->firstChar = MaxChars;
-		nextFrame = dynamic_cast<PageItem_TextFrame*>(nextFrame->NextBox);
 	}
+	itemText.blockSignals(false);
 //	qDebug("textframe: len=%d, done relayout", itemText.length());
 	return;
 			
@@ -2832,6 +2979,18 @@ NoRoom:
 	invalid = false;
 
 	adjustParagraphEndings ();
+
+	if (!isNoteFrame() && (!m_Doc->notesList().isEmpty() || m_Doc->notesChanged()))
+	{
+		UndoManager::instance()->setUndoEnabled(false);
+		NotesInFrameMap notesMap = updateNotesFrames(noteMarksPosMap);
+		if (notesMap != m_notesFramesMap)
+		{
+			updateNotesMarks(notesMap);
+			notesFramesLayout();
+		}
+		UndoManager::instance()->setUndoEnabled(true);
+	}
 
 	PageItem_TextFrame * next = dynamic_cast<PageItem_TextFrame*>(NextBox);
 	if (next != NULL)
@@ -2857,12 +3016,13 @@ NoRoom:
 		next->layout();
 	}
 //	qDebug("textframe: len=%d, done relayout (no room %d)", itemText.length(), MaxChars);
+	itemText.blockSignals(false);
 }
 
-void PageItem_TextFrame::invalidateLayout()
+void PageItem_TextFrame::invalidateLayout(bool wholeChain)
 {
-	const bool wholeChain = true;
-	this->invalid = true;
+	//const bool wholeChain = true;
+	invalid = true;
 	if (wholeChain)
 	{
 		PageItem *prevFrame = this->prevInChain();
@@ -2880,10 +3040,37 @@ void PageItem_TextFrame::invalidateLayout()
 	}
 }
 
+void PageItem_TextFrame::slotInvalidateLayout()
+{
+	invalidateLayout(true);
+}
+
+bool PageItem_TextFrame::isValidChainFromBegin()
+{
+	if (invalid)
+		return false;
+	if (BackBox == NULL)
+		return !invalid;
+
+	PageItem* prev = prevInChain();
+	while (prev != NULL)
+	{
+		if (prev->invalid)
+			return false;
+		prev = prev->prevInChain();
+	}
+	return true;
+}
+
 void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRectF cullingArea)
 {
 	if(invalid)
+	{
+		if (isNoteFrame() && asNoteFrame()->deleteIt)
+		//do not layout notes frames which should be deleted
+			return;
 		layout();
+	}
 	if (invalid)
 		return;
 	QTransform pf2;
@@ -3259,15 +3446,19 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRectF cullingArea)
 			bool previousWasObject(false);
 			double selX = ls.x;
 			ScText *hls = 0;
-			for (int as = ls.firstItem; as <= qMin(ls.lastItem, itemText.length() - 1); ++as)
+			int last = qMin(ls.lastItem, itemText.length() - 1);
+			for (int as = ls.firstItem; as <= last; ++as)
 			{
 				bool selecteds = itemText.selected(as);
 				hls = itemText.item(as);
+				bool HasObject = hls->hasObject(m_Doc);
+				if (hls->mark != NULL && (hls->mark->isType(MARKAnchorType) || hls->mark->isType(MARKIndexType)))
+					continue;
 				if(selecteds)
 				{
 					const CharStyle& charStyleS(itemText.charStyle(as));
 					if(((as > ls.firstItem) && (charStyleS != itemText.charStyle(as-1)))
-						|| ((!selectedFrame.isNull()) && (hls->ch == SpecialChars::OBJECT))
+						|| ((!selectedFrame.isNull()) && HasObject)
 					    || previousWasObject)
 					{
 						sFList << selectedFrame;
@@ -3296,7 +3487,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRectF cullingArea)
 							asce = font.ascent(fontSize);
 							wide = hls->glyph.wide();
 							QRectF scr;
-							if ((hls->ch == SpecialChars::OBJECT)  && (hls->hasObject(m_Doc)))
+							if (HasObject)
 							{
 								double ww = (hls->getItem(m_Doc)->width() + hls->getItem(m_Doc)->lineWidth()) * hls->glyph.scaleH;
 								double hh = (hls->getItem(m_Doc)->height() + hls->getItem(m_Doc)->lineWidth()) * hls->glyph.scaleV;
@@ -3332,7 +3523,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRectF cullingArea)
 
 			QColor tmp;
 			ScText *hl = 0;
-			for (int a = ls.firstItem; a <= qMin(ls.lastItem, itemText.length() - 1); ++a)
+			for (int a = ls.firstItem; a <= last; ++a)
 			{
 				hl = itemText.item(a);
 				const CharStyle& charStyle(itemText.charStyle(a));
@@ -3389,10 +3580,19 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRectF cullingArea)
 					{
 						p->save();//SA4
 						p->translate(CurX, ls.y);
-						if ((hl->ch == SpecialChars::OBJECT) && (hl->hasObject(m_Doc)))
+						if (hl->hasObject(m_Doc))
 							DrawObj_Embedded(p, cullingArea, charStyle, hl->getItem(m_Doc));
 						else
+						{
+							//control chars for marks
+							if (m_Doc->guidesPrefs().showControls && hl->hasMark() && (hl->glyph.glyph != SpecialChars::OBJECT))
+							{
+								GlyphLayout markGlyph;
+								layoutGlyphs(charStyle,SpecialChars::OBJECT, markGlyph);
+								drawGlyphs(p, charStyle, markGlyph);
+							}
 							drawGlyphs(p, charStyle, hl->glyph);
+						}
 						p->restore();//RE4
 					}
 					// Unneeded now that glyph xadvance is set appropriately for inline objects by layout() - JG
@@ -3586,7 +3786,7 @@ void PageItem_TextFrame::DrawObj_Decoration(ScPainter *p)
 		//Draw the overflow icon
 		if (frameOverflows())
 		{
-			if (!(m_Doc->drawAsPreview))
+			if (!m_Doc->drawAsPreview)
 				drawOverflowMarker(p);
 		}
 		if ((m_Doc->guidesPrefs().colBordersShown) && (!m_Doc->drawAsPreview))
@@ -3630,9 +3830,12 @@ void PageItem_TextFrame::clearContents()
 	ParagraphStyle defaultStyle = nextItem->itemText.defaultStyle();
 	nextItem->itemText.selectAll();
 	nextItem->asTextFrame()->deleteSelectedTextFromFrame();
+	if (!isNoteFrame())
+	{
 	if(UndoManager::undoEnabled())
 		undoManager->getLastUndo()->setName(Um::ClearText);
 	nextItem->itemText.setDefaultStyle(defaultStyle);
+	}
 
 	while (nextItem != 0)
 	{
@@ -3785,8 +3988,13 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 				}
 //				Tinput = true;
 				m_Doc->scMW()->setTBvals(this);
+				if (isAutoNoteFrame() && m_Doc->notesChanged())
+				{
+					Q_ASSERT(asNoteFrame()->masterFrame());
+					asNoteFrame()->masterFrame()->invalid = true;
+				}
+				else
 				update();
-				doc()->changed();
 				keyRepeat = false;
 				return;
 			}
@@ -4075,6 +4283,15 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 			{
 				deleteSelectedTextFromFrame();
 				m_Doc->scMW()->setTBvals(this);
+				if (isAutoNoteFrame() && asNoteFrame()->notesList().isEmpty())
+				{
+					if (!asNoteFrame()->isEndNotesFrame())
+					{
+						Q_ASSERT(asNoteFrame()->masterFrame());
+						asNoteFrame()->masterFrame()->invalid = true;
+					}
+				}
+				else
 				update();
 //				view->RefreshItem(this);
 			}
@@ -4090,10 +4307,20 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 		if (itemText.lengthOfSelection() == 0)
 			itemText.select(itemText.cursorPosition(), 1, true);
 		deleteSelectedTextFromFrame();
-		updateLayout();
+		if (isAutoNoteFrame() && asNoteFrame()->notesList().isEmpty())
+		{
+			if (!asNoteFrame()->isEndNotesFrame())
+			{
+				Q_ASSERT(asNoteFrame()->masterFrame());
+				asNoteFrame()->masterFrame()->invalid = true;
+			}
+		}
+		else
+		{
+			layout();
 		if (oldLast != lastInFrame() && NextBox != 0 && NextBox->invalid)
 			NextBox->updateLayout();
-		update();
+		}
 //		Tinput = false;
 //		if ((cr == QChar(13)) && (itemText.length() != 0))
 //		{
@@ -4101,7 +4328,6 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 //			Tinput = false;
 //		}
 		m_Doc->scMW()->setTBvals(this);
-		doc()->changed();
 //		view->RefreshItem(this);
 		break;
 	case Qt::Key_Backspace:
@@ -4111,6 +4337,15 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 			{
 				deleteSelectedTextFromFrame();
 				m_Doc->scMW()->setTBvals(this);
+				if (isAutoNoteFrame() && asNoteFrame()->notesList().isEmpty())
+				{
+					if (!asNoteFrame()->isEndNotesFrame())
+					{
+						Q_ASSERT(asNoteFrame()->masterFrame());
+						asNoteFrame()->masterFrame()->invalid = true;
+					}
+				}
+				else
 				update();
 			}
 			break;
@@ -4125,14 +4360,25 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 		}
 		deleteSelectedTextFromFrame();
 //		Tinput = false;
-		if ((cr == QChar(13)) && (itemText.length() != 0))
-		{
+//		if ((cr == QChar(13)) && (itemText.length() != 0))
+//		{
 //			m_Doc->chAbStyle(this, findParagraphStyle(m_Doc, itemText.paragraphStyle(qMax(CPos-1,0))));
 //			Tinput = false;
+//		}
+		if (isAutoNoteFrame() && asNoteFrame()->notesList().isEmpty())
+		{
+			if (!asNoteFrame()->isEndNotesFrame())
+			{
+				Q_ASSERT(asNoteFrame()->masterFrame());
+				asNoteFrame()->masterFrame()->invalid = true;
+			}
 		}
-		updateLayout();
+		else
+		{
+			layout();
 		if (oldLast != lastInFrame() && NextBox != 0 && NextBox->invalid)
 			NextBox->updateLayout();
+		}
 		if (itemText.cursorPosition() < firstInFrame())
 		{
 			itemText.setCursorPosition( firstInFrame() );
@@ -4147,11 +4393,12 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 			}
 		}
 		m_Doc->scMW()->setTBvals(this);
-		update();
-		doc()->changed();
+//		update();
 //		view->RefreshItem(this);
 		break;
 	default:
+		if (isNoteFrame() && itemText.cursorPosition() == 0)
+			break; //avoid inserting chars before first note mark
 		bool doUpdate = false;
 		UndoTransaction* activeTransaction = NULL;
 		if (itemText.lengthOfSelection() > 0) //(kk < 0x1000)
@@ -4199,7 +4446,13 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 					ss->set("ETEA", QString("insert_frametext"));
 					ss->set("TEXT_STR", QString(SpecialChars::TAB));
 					ss->set("START", itemText.cursorPosition());
-					undoManager->action(this, ss);
+					UndoObject * undoTarget = this;
+					if (isNoteFrame())
+					{
+						undoTarget = m_Doc;
+						ss->set("noteframeName", getUName());
+					}
+					undoManager->action(undoTarget, ss);
 				}
 			}
 			itemText.insertChars(QString(SpecialChars::TAB), true);
@@ -4220,7 +4473,12 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 					ss->set("ETEA", QString("insert_frametext"));
 					ss->set("TEXT_STR",uc);
 					ss->set("START", itemText.cursorPosition());
-					undoManager->action(this, ss);
+					UndoObject * undoTarget = this;
+					if (isNoteFrame())
+					{						undoTarget = m_Doc;
+						ss->set("noteframeName", getUName());
+					}
+					undoManager->action(undoTarget, ss);
 				}
 			}
 			itemText.insertChars(uc, true);
@@ -4258,12 +4516,21 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 			}
 			// update layout immediately, we need MaxChars to be correct to detect 
 			// if we need to move to next frame or not
-			updateLayout();
+			if (isAutoNoteFrame() && asNoteFrame()->notesList().isEmpty())
+			{
+				if (!asNoteFrame()->isEndNotesFrame())
+				{
+					Q_ASSERT(asNoteFrame()->masterFrame());
+					asNoteFrame()->masterFrame()->invalid = true;
+				}
+			}
+			else
+				update();
 			if (oldLast != lastInFrame() && NextBox != 0 && NextBox->invalid)
 				NextBox->updateLayout();
-			doc()->changed();
 		}
 		//check if cursor need to jump to next linked frame
+		//but not for notes frames can`t be updated as may disapper during update
 		if ((itemText.cursorPosition() > lastInFrame() + 1) && (lastInFrame() < (itemText.length() - 2)) && NextBox != 0)
 		{
 			view->Deselect(true);
@@ -4278,12 +4545,17 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 		keyRepeat = false;
 }
 
-void PageItem_TextFrame::deleteSelectedTextFromFrame()
+void PageItem_TextFrame::deleteSelectedTextFromFrame(/*bool findNotes*/)
 {
-	if (itemText.lengthOfSelection() > 0) {
-		if(UndoManager::undoEnabled()){
+	if (itemText.lengthOfSelection() == 0)
+	{
+		itemText.select(itemText.cursorPosition(),1);
+		HasSel = true;
+	}
 			int start = itemText.startOfSelection();
 			int stop = itemText.endOfSelection();
+	int marksNum = 0;
+	if(UndoManager::undoEnabled()) {
 			int lastPos = start;
 			CharStyle lastParent = itemText.charStyle(start);
 			UndoState* state = undoManager->getLastUndo();
@@ -4296,13 +4568,38 @@ void PageItem_TextFrame::deleteSelectedTextFromFrame()
 				is = dynamic_cast<ScItemState<CharStyle>*>(ts->at(ts->sizet()-1));
 				state = ts->at(0);
 			}
-			UndoTransaction trans = undoManager->beginTransaction(Um::Selection,Um::IDelete,Um::Delete,"",Um::IDelete);
+		UndoTransaction* trans = new UndoTransaction(undoManager->beginTransaction(Um::Selection,Um::IDelete,Um::Delete,"",Um::IDelete));
+
+		//find and delete notes and marks in selected text
+		QList<QPair<TextNote*, int> > notes2DEL;
+		if (isNoteFrame()/* && findNotes*/)
+		{
+			//find and delete notes
+			//if marks are in notes then they will be deleted further while note is physicaly deleted
+			for (int i=start; i < stop; ++i)
+			{
+				if (i == itemText.length())
+					break;
+				ScText* hl = itemText.item(i);
+				if (hl->hasMark() && hl->mark->isType(MARKNoteFrameType))
+					notes2DEL.append(QPair<TextNote*, int>(hl->mark->getNotePtr(), i));
+			}
+		}
+		else
+		{
+			//delete marks from selected text (with undo)
+			marksNum = removeMarksFromText(true);
+			stop -= marksNum;
+		}
+		//delete text
 			for (int i=start; i <= stop; ++i)
 			{
-				const CharStyle& curParent(itemText.charStyle(i));
-				if (curParent.equiv(lastParent) && i != stop)
-					continue;
-
+			ScText* hl = NULL;
+			if (i < itemText.length())
+				hl = itemText.item(i);
+			const CharStyle& curParent = itemText.charStyle(i);
+			if (i==stop || !curParent.equiv(lastParent) || (hl!=NULL && hl->hasMark() && hl->mark->isType(MARKNoteFrameType)))
+			{
 				added = false;
 				lastIsDelete = false;
 				if (is && ts && dynamic_cast<ScItemState<CharStyle>*>(ts->at(0))->get("ETEA") == "delete_frametext" && lastPos<is->getInt("START"))
@@ -4325,28 +4622,84 @@ void PageItem_TextFrame::deleteSelectedTextFromFrame()
 				}
 				if (!added)
 				{
+					UndoObject * undoTarget = this;
+					is = NULL;
+					if (i - lastPos > 0)
+					{
 					is = new ScItemState<CharStyle>(Um::DeleteText,"",Um::IDelete);
 					is->set("DELETE_FRAMETEXT", "delete_frametext");
 					is->set("ETEA", QString("delete_frametext"));
 					is->set("TEXT_STR",itemText.text(lastPos,i - lastPos));
 					is->set("START", start);
 					is->setItem(lastParent);
+					}
+					//delete selected notes from notes frame
+					if (isNoteFrame())
+					{
+						undoTarget = m_Doc; //undo target is doc for notes as after deleting last note notesframe can be deleted
+						if (is)
+							is->set("noteframeName", getUName());
+						//remove marks from notes
+						for (int ii = notes2DEL.count() -1; ii >= 0; --ii)
+						{
+							TextNote* note = notes2DEL.at(ii).first;
+							Q_ASSERT(note != NULL);
+							if (note->textLen > 0)
+							{
+								itemText.deselectAll();
+								itemText.select(notes2DEL.at(ii).second + 1, note->textLen);
+								removeMarksFromText(true);
+							}
+						}
+						asNoteFrame()->updateNotesText();
+						for (int ii = notes2DEL.count() -1; ii >= 0; --ii)
+						{
+							TextNote* note = notes2DEL.at(ii).first;
+							Q_ASSERT(note != NULL);
+							m_Doc->setUndoDelNote(note);
+							if (note->isEndNote())
+								m_Doc->flag_updateEndNotes = true;
+							m_Doc->deleteNote(note);
+						}
+						if(is)
+						{
+							if (!ts || !lastIsDelete){
+								undoManager->action(undoTarget, is);
+								ts = NULL;
+							}
+							else
+								ts->pushBack(undoTarget,is);
+						}
+						break;
+					}
+					if (is)
+					{
 					if(!ts || !lastIsDelete){
-						undoManager->action(this, is);
+							undoManager->action(undoTarget, is);
 						ts = NULL;
 					}
 					else
-						ts->pushBack(this,is);
+							ts->pushBack(undoTarget,is);
+					}
 				}
 				lastPos = i;
 				lastParent = curParent;
 			}
-			trans.commit();
 		}
-		itemText.setCursorPosition( itemText.startOfSelection() );
+		if (trans)
+		{
+			trans->commit();
+			delete trans;
+			trans = NULL;
+		}
+	}
+	else //remove marks without undo
+		marksNum =removeMarksFromText(false);
+	itemText.setCursorPosition( start );
+	//for sure text is still selected
+	itemText.select(start, stop - start - marksNum);
 		itemText.removeSelection();
 		HasSel = false;
-	}
 //	m_Doc->updateFrameItems();
 	m_Doc->scMW()->DisableTxEdit();
 }
@@ -4644,8 +4997,39 @@ bool PageItem_TextFrame::createInfoGroup(QFrame *infoGroup, QGridLayout *infoGro
 	return true;
 }
 
+void PageItem_TextFrame::togleEditModeActions()
+{
+	bool editMode = (m_Doc->appMode == modeEdit);
+	bool masterMode = m_Doc->masterPageMode();
+	m_Doc->scMW()->scrActions["insertMarkVariableText"]->setEnabled(editMode);
+	m_Doc->scMW()->scrActions["insertMarkAnchor"]->setEnabled(editMode && !masterMode);
+	m_Doc->scMW()->scrActions["insertMarkItem"]->setEnabled(editMode && !masterMode);
+	m_Doc->scMW()->scrActions["insertMark2Mark"]->setEnabled(editMode && !masterMode);
+	m_Doc->scMW()->scrActions["insertMarkNote"]->setEnabled(editMode && !masterMode && !isNoteFrame());
+	//	scrActions["insertMarkIndex"]->setEnabled(editMode && !masterMode);
+	bool enableEditMark = false;
+	if (editMode && (itemText.cursorPosition() < itemText.length()))
+	{
+		ScText *hl = itemText.item(itemText.cursorPosition());
+		if (hl->hasMark())
+		{
+			Mark* mrk = hl->mark;
+			//notes marks in note frames are not editable
+			if (!mrk->isType(MARKNoteFrameType))
+				enableEditMark = true;
+		}
+	}
+	m_Doc->scMW()->scrActions["editMark"]->setEnabled(enableEditMark);
+}
+
 void PageItem_TextFrame::applicableActions(QStringList & actionList)
 {
+	actionList << "insertMarkVariableText";
+	if (!m_Doc->masterPageMode())
+		actionList << "insertMarkAnchor";
+	//notes frames are not simply text frames
+	if (isNoteFrame())
+		return;
 	actionList << "fileImportText";
 	actionList << "fileImportAppendText";
 	actionList << "toolsEditWithStoryEditor";
@@ -4678,9 +5062,422 @@ QString PageItem_TextFrame::infoDescription()
 	return QString();
 }
 
-void PageItem_TextFrame::slotInvalidateLayout()
+bool PageItem_TextFrame::hasMark(NotesStyle *NS)
 {
-	invalidateLayout();
+	if (isNoteFrame())
+		return (asNoteFrame()->notesStyle() == NS);
+
+	if (NS == NULL)
+	{
+		//find any mark
+		if (!m_notesFramesMap.isEmpty())
+			return true;
+		for (int i=firstInFrame(); i <= lastInFrame(); ++i)
+			if (itemText.item(i)->hasMark())
+				return true;
+	}
+	else
+	{
+		for (int pos = firstInFrame(); pos <= lastInFrame(); ++pos)
+		{
+			ScText* hl = itemText.item(pos);
+			if (hl->hasMark())
+			{
+				TextNote* note = hl->mark->getNotePtr();
+				if (note != NULL && (note->notesStyle() == NS))
+					return true;
+			}
+		}
+	}
+	return false;
+}
+
+bool PageItem_TextFrame::hasNoteFrame(NotesStyle *NS, bool inChain)
+{
+	if (isNoteFrame())
+		return false;
+	if (m_notesFramesMap.isEmpty())
+		return false;
+	if (NS == NULL)
+	{ //check if any notes are in frame or whole chain
+		if (!inChain)
+			return !m_notesFramesMap.isEmpty();
+		else
+		{
+			PageItem* item = this;
+			item = firstInChain();
+			while (item != NULL)
+			{
+				if (item->asTextFrame()->hasNoteFrame(NULL, false))
+					return true;
+				item = item->nextInChain();
+			}
+			return false;
+		}
+	}
+	PageItem* item = this;
+	if (inChain)
+		item = firstInChain();
+	while (item != NULL)
+	{
+		QMap<PageItem_NoteFrame*, QList<TextNote*> >::iterator it = m_notesFramesMap.begin();
+		QMap<PageItem_NoteFrame*, QList<TextNote*> >::iterator end = m_notesFramesMap.end();
+		while (it != end)
+		{
+			if (it.key()->notesStyle() == NS)
+				return true;
+			++it;
+		}
+		if (!inChain)
+			break;
+		item = item->nextInChain();
+	}
+	return false;
+}
+
+void PageItem_TextFrame::delAllNoteFrames(bool doUpdate)
+{
+	int oldItemsCount = m_Doc->Items->count();
+
+	QList<PageItem_NoteFrame*> delList;
+	foreach (PageItem_NoteFrame* nF, m_notesFramesMap.keys())
+	{
+		if (nF->notesList().isEmpty() && !nF->isAutoNoteFrame())
+			delList.append(nF);
+	}
+	while (!delList.isEmpty())
+	{
+		PageItem_NoteFrame* nF = delList.takeFirst();
+		m_Doc->delNoteFrame(nF);
+	}
+
+	//check if doc need update
+	if (doUpdate && (oldItemsCount != m_Doc->Items->count()))
+	{
+		m_Doc->changed();
+		m_Doc->regionsChanged()->update(QRectF());
+	}
+	m_Doc->setNotesChanged(true);
+}
+
+Mark* PageItem_TextFrame::selectedMark(bool onlySelection)
+{ //return pointer to first mark in selected (or whole) text
+	
+	bool omitNotes = true; //do not return notes marks (for searching notes use selectedNotesMark()
+	int start = 0;
+	int stop = 0;
+	if (onlySelection)
+	{
+		if (itemText.lengthOfSelection() > 0)
+		{
+			//only selection
+			start = itemText.startOfSelection();
+			stop = start + itemText.lengthOfSelection();
+		}
+		else //in edit mode only one char in cursor position
+		{
+			if (m_Doc->appMode == modeEdit)
+			{
+				//only char after cursor
+				start = itemText.cursorPosition();
+				stop = start + 1;
+				if (stop > itemText.length())
+					return NULL;
+			}
+			else
+			{
+				//only frame
+				start = firstInFrame();
+				stop = lastInFrame();
+				if (start == stop)
+					return NULL;
+			}
+		}
+		
+	}
+	else //in whole text
+		stop = itemText.length();
+	
+	for (int pos = start; pos < stop; ++pos)
+	{
+		ScText* hl = itemText.item(pos);
+		if (hl->hasMark())
+		{
+			if (omitNotes && (hl->mark->isType(MARKNoteMasterType) || hl->mark->isType(MARKNoteFrameType)))
+				continue;
+			return hl->mark;
+		}
+	}
+	return NULL;
+}
+
+TextNote* PageItem_TextFrame::selectedNoteMark(ScText* &hl, bool onlySelection)
+{
+	//return pointer to note from first mark found in text
+	int start = 0;
+	int stop = itemText.length();
+	if (onlySelection)
+	{
+		if (itemText.lengthOfSelection() > 0)
+		{
+			start = itemText.startOfSelection();
+			stop = start + itemText.lengthOfSelection();
+		}
+		else
+			return NULL;
+	}
+	MarkType typ = isNoteFrame()? MARKNoteFrameType : MARKNoteMasterType;
+	for (int pos = start; pos < stop; ++pos)
+	{
+		ScText* hl = itemText.item(pos);
+		if (hl->hasMark() && hl->mark->isType(typ))
+			return hl->mark->getNotePtr();
+	}
+	return NULL;
+}
+
+TextNote* PageItem_TextFrame::selectedNoteMark(bool onlySelection)
+{
+	ScText* hl = NULL;
+	return selectedNoteMark(hl, onlySelection);
+}
+
+NotesInFrameMap PageItem_TextFrame::updateNotesFrames(QMap<int, Mark*> noteMarksPosMap)
+{
+	NotesInFrameMap notesMap; //= m_notesFramesMap;
+	QMap<int, Mark*>::Iterator it = noteMarksPosMap.begin();
+	QMap<int, Mark*>::Iterator end = noteMarksPosMap.end();
+	PageItem* lastItem = this;
+	while (it != end)
+	{
+		if (it.key() <= lastInFrame())
+		{
+			Mark* mark = it.value();
+			mark->setItemPtr(this);
+			mark->setItemName(itemName());
+
+			TextNote* note = mark->getNotePtr();
+			Q_ASSERT(note != NULL);
+			if (note == NULL)
+			{
+				qWarning() << "note mark without valid note pointer";
+				note = m_Doc->newNote(m_Doc->m_docNotesStylesList.at(0));
+				note->setMasterMark(mark);
+				mark->setNotePtr(note);
+			}
+			NotesStyle* NS = note->notesStyle();
+			PageItem_NoteFrame* nF = NULL;
+			if (NS->isEndNotes())
+				nF = m_Doc->endNoteFrame(NS, this);
+			else
+				nF = itemNoteFrame(NS);
+			if (nF == NULL)
+			{
+				//creating new noteframe
+				if (NS->isEndNotes())
+				{
+					//create new endnotes frame
+					double x,y,w,h;
+					const ScPage* scP = m_Doc->page4EndNotes(NS, this);
+					x = scP->Margins.Left + m_Doc->rulerXoffset + scP->xOffset();
+					y = scP->Margins.Top + m_Doc->rulerYoffset + scP->yOffset();
+					w = scP->width() - scP->Margins.Left - scP->Margins.Right;
+					h = calculateLineSpacing(itemText.defaultStyle(), this);
+					nF = m_Doc->createNoteFrame(note->notesStyle(), x, y, w, h, m_Doc->itemToolPrefs().shapeLineWidth, CommonStrings::None, m_Doc->itemToolPrefs().textFont);
+					switch (NS->range())
+					{ //insert pointer to endnoteframe into m_Doc->m_endNotesFramesMap
+						case NSRdocument:
+							m_Doc->setEndNoteFrame(nF, (void*) NULL);
+							break;
+						case NSRsection:
+							m_Doc->setEndNoteFrame(nF, m_Doc->getSectionKeyForPageIndex(OwnPage));
+						case NSRstory:
+							m_Doc->setEndNoteFrame(nF, (void*) firstInChain());
+							break;
+						case NSRpage:
+							m_Doc->setEndNoteFrame(nF, (void*) m_Doc->DocPages.at(OwnPage));
+							break;
+						case NSRframe:
+							qDebug() << "Frame range is prohibited for end-notes";
+							Q_ASSERT(false);
+							break;
+					}
+				}
+				else
+					//create new footnotes frame for that text frame
+					nF = m_Doc->createNoteFrame(this, note->notesStyle(), m_Doc->DocItems.indexOf(lastItem));
+				//insert in map noteframe with empty list of notes
+				m_notesFramesMap.insert(nF, QList<TextNote*>());
+				m_Doc->setNotesChanged(true);
+			}
+			else if (NS->isEndNotes())
+			{//check endnotes frame proper page
+				const ScPage* scP = m_Doc->page4EndNotes(NS, this);
+				if (scP->pageNr() != nF->OwnPage)
+				{
+					double x,y;
+					x = scP->Margins.Left + m_Doc->rulerXoffset + scP->xOffset();
+					y = scP->Margins.Top + m_Doc->rulerYoffset + scP->yOffset();
+					if ((scP->pageNr() != nF->OwnPage) || (nF->xPos() > (x + scP->width())) || nF->yPos() > (y + scP->height()))
+					{
+						undoManager->setUndoEnabled(false);
+						nF->setXYPos(x,y);
+						undoManager->setUndoEnabled(true);
+					}
+				}
+			}
+			QList<TextNote*> nList;//list of notes in current noteFrame
+			nList = notesMap.value(nF);
+			if (!nList.contains(note))
+			{
+				nList.append(note);
+				notesMap.insert(nF, nList);
+			}
+			if (!nF->isEndNotesFrame())
+				lastItem = nF;
+		}
+		else
+			break;
+		++it;
+	}
+	return notesMap;
+}
+
+void PageItem_TextFrame::updateNotesMarks(NotesInFrameMap notesMap)
+{
+	bool docWasChanged = false;
+
+//	QList<PageItem_NoteFrame*> curr_footNotesList;
+//	QList<PageItem_NoteFrame*> old_footNotesList;
+//	QList<PageItem_NoteFrame*> curr_endNotesList;
+//	QList<PageItem_NoteFrame*> old_endNotesList;
+
+	
+//	foreach(PageItem_NoteFrame* nF, notesMap.keys())
+//	{
+//		if (nF->isEndNotesFrame())
+//			curr_endNotesList.append(nF);
+//		else if (!notesMap.value(nF).isEmpty())
+//			curr_footNotesList.append(nF);
+//	}
+//	foreach(PageItem_NoteFrame* nF, m_notesFramesMap.keys())
+//	{
+//		if (nF->isEndNotesFrame())
+//			old_endNotesList.append(nF);
+//		else
+//			old_footNotesList.append(nF);
+//	}
+//	//check for endnotes marks change in current frame
+//	foreach (PageItem_NoteFrame* nF, old_endNotesList)
+//	{
+//		if (nF->deleteIt)
+//		{
+//			m_Doc->delNoteFrame(nF,true);
+//			docWasChanged = true;
+//		}
+//		else if (!notesMap.contains(nF) || (m_notesFramesMap.value(nF) != notesMap.value(nF)))
+//		{
+//			m_Doc->endNoteFrameChanged(nF);
+//			docWasChanged = true;
+//		}
+//	}
+	//check if some notes frames are not used anymore
+	foreach (PageItem_NoteFrame* nF, m_notesFramesMap.keys())
+	{
+		if (nF->deleteIt || (nF->isAutoNoteFrame() && !notesMap.keys().contains(nF)))
+		{
+			m_Doc->delNoteFrame(nF,true);
+			docWasChanged = true;
+		}
+		else
+		{
+			QList<TextNote*> nList = notesMap.value(nF);
+			if (nList != nF->notesList() || m_Doc->notesChanged())
+			{
+				nF->updateNotes(nList, (!nF->isEndNotesFrame() && !nF->notesList().isEmpty()));
+				docWasChanged = true;
+			}
+		}
+	}
+	if (m_notesFramesMap != notesMap)
+	{
+		docWasChanged = true;
+		foreach (PageItem_NoteFrame* nF, m_notesFramesMap.keys())
+		{
+			if (notesMap.contains(nF))
+			{
+				m_notesFramesMap.insert(nF, notesMap.value(nF));
+				notesMap.remove(nF);
+			}
+			else if (nF->isAutoNoteFrame() || nF->isEndNotesFrame())
+				m_notesFramesMap.remove(nF);
+		}
+		m_notesFramesMap.unite(notesMap);
+	}
+	if (docWasChanged)
+	{
+		m_Doc->flag_restartMarksRenumbering = true;
+		m_Doc->setNotesChanged(true);
+	}
+}
+
+void PageItem_TextFrame::notesFramesLayout()
+{
+	foreach (PageItem_NoteFrame* nF, m_notesFramesMap.keys())
+	{
+		if (nF == NULL)
+			continue;
+		if (nF->deleteIt)
+			continue;
+		if (nF->isEndNotesFrame() && m_Doc->flag_updateEndNotes)
+			m_Doc->updateEndNotesFrameContent(nF);
+		nF->invalid = true;
+		nF->layout();
+	}
+}
+
+int PageItem_TextFrame::removeMarksFromText(bool doUndo)
+{
+	int num = 0;
+	if (!isNoteFrame())
+	{
+		TextNote* note = selectedNoteMark(true);
+		while (note != NULL)
+		{
+			if (doUndo && UndoManager::undoEnabled())
+				m_Doc->setUndoDelNote(note);
+			if (note->isEndNote())
+				m_Doc->flag_updateEndNotes = true;
+			m_Doc->deleteNote(note);
+			note = selectedNoteMark(true);
+			++num;
+		}
+	}
+	
+	Mark* mrk = selectedMark(true);
+	while (mrk != NULL)
+	{
+		Q_ASSERT(!mrk->isNoteType());
+		if (doUndo)
+			m_Doc->setUndoDelMark(mrk);
+		m_Doc->eraseMark(mrk, true, this);
+		mrk = selectedMark(true);
+		++num;
+	}
+	return num;
+}
+
+PageItem_NoteFrame *PageItem_TextFrame::itemNoteFrame(NotesStyle *nStyle)
+{
+	foreach (PageItem_NoteFrame* nF, m_notesFramesMap.keys())
+		if (nF->notesStyle() == nStyle)
+			return nF;
+	return NULL;
+}
+
+void PageItem_TextFrame::setNoteFrame(PageItem_NoteFrame *nF)
+{
+	 m_notesFramesMap.insert(nF, nF->notesList());
 }
 
 void PageItem_TextFrame::setMaxY(double y)

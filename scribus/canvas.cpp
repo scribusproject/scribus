@@ -1035,7 +1035,10 @@ void Canvas::drawContents(QPainter *psx, int clipx, int clipy, int clipw, int cl
 					{
 						DrawMasterItems(painter, m_doc->Pages->at(a), layer, QRect(clipx, clipy, clipw, cliph));
 					}
-					DrawPageItems(painter, layer, QRect(clipx, clipy, clipw, cliph));
+					//first pass draws all except notes frames
+					DrawPageItems(painter, layer, QRect(clipx, clipy, clipw, cliph), false);
+					//seconf only for notes frames
+					DrawPageItems(painter, layer, QRect(clipx, clipy, clipw, cliph), true);
 				}
 			}
 		}
@@ -1076,7 +1079,10 @@ void Canvas::drawContents(QPainter *psx, int clipx, int clipy, int clipw, int cl
 				for (int layerLevel = 0; layerLevel < layerCount; ++layerLevel)
 				{
 					m_doc->Layers.levelToLayer(layer, layerLevel);
-					DrawPageItems(painter, layer, QRect(clipx, clipy, clipw, cliph));
+					//first pass draws all except notes frames
+					DrawPageItems(painter, layer, QRect(clipx, clipy, clipw, cliph), false);
+					//second pass draw only notes frames
+					DrawPageItems(painter, layer, QRect(clipx, clipy, clipw, cliph), true);
 				}
 			}
 		}
@@ -1445,7 +1451,7 @@ void Canvas::DrawMasterItems(ScPainter *painter, ScPage *page, ScLayer& layer, Q
 /**
   draws page items contained in a specific Layer
  */
-void Canvas::DrawPageItems(ScPainter *painter, ScLayer& layer, QRect clip)
+void Canvas::DrawPageItems(ScPainter *painter, ScLayer& layer, QRect clip, bool notesFramesPass)
 {
 	if ((m_viewMode.previewMode) && (!layer.isPrintable))
 		return;
@@ -1466,9 +1472,34 @@ void Canvas::DrawPageItems(ScPainter *painter, ScLayer& layer, QRect clip)
 	int docCurrPageNo=static_cast<int>(m_doc->currentPageNumber());
 	if ((layerCount > 1) && ((layer.blendMode != 0) || (layer.transparency != 1.0)) && (!layer.outlineMode))
 		painter->beginLayer(layer.transparency, layer.blendMode);
+
+	//if notes are used
+	//then we must be sure that text frames are valid and all notes frames are created before we start drawing
+	if (!notesFramesPass && !m_doc->notesList().isEmpty())
+	{
 	for (int it = 0; it < m_doc->Items->count(); ++it)
 	{
 		currItem = m_doc->Items->at(it);
+			if ( !currItem->isTextFrame()
+				|| currItem->isNoteFrame()
+				|| !currItem->invalid
+				|| (currItem->LayerID != layer.ID)
+				|| (m_viewMode.previewMode && !currItem->printEnabled())
+				|| (m_viewMode.viewAsPreview && (!currItem->printEnabled()))
+				|| (m_doc->masterPageMode() && ((currItem->OwnPage != -1) && (currItem->OwnPage != docCurrPageNo)))
+				|| ((!m_doc->masterPageMode() && !currItem->OnMasterPage.isEmpty()) && (currItem->OnMasterPage != m_doc->currentPage()->pageName())))
+				continue;
+			if (cullingArea.intersects(currItem->getBoundingRect().adjusted(0.0, 0.0, 1.0, 1.0)))
+				currItem->layout();
+		}
+	}
+	for (int it = 0; it < m_doc->Items->count(); ++it)
+	{
+		currItem = m_doc->Items->at(it);
+		if (notesFramesPass && !currItem->isNoteFrame())
+			continue;
+		if (!notesFramesPass && currItem->isNoteFrame())
+			continue;
 		if (currItem->LayerID != layer.ID)
 			continue;
 		if ((m_viewMode.previewMode) && (!currItem->printEnabled()))

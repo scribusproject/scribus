@@ -29,9 +29,14 @@ for which a new license (GPL+exception) is in place.
 
 #include "scribusapi.h"
 #include "pageitem.h"
+#include "marks.h"
+#include "notesstyles.h"
 
+class PageItem_NoteFrame;
 class ScPainter;
 class ScribusDoc;
+
+typedef QMap<PageItem_NoteFrame*, QList<TextNote *> > NotesInFrameMap;
 
 #include "text/nlsconfig.h"
 
@@ -42,6 +47,9 @@ class ScribusDoc;
 class ScText;
 class ScStyleRun;
 #endif
+
+//cezaryece: I remove static statement and made it public as this function is used also by PageItem_NoteFrame
+double calculateLineSpacing (const ParagraphStyle &style, PageItem *item);
 
 class SCRIBUS_API PageItem_TextFrame : public PageItem
 {
@@ -68,15 +76,25 @@ public:
 	void ExpandSel(int dir, int oldPos);
 	void deselectAll();
 	
-	virtual void invalidateLayout();
+	//for speed up updates when changed was only one frame from chain
+	virtual void invalidateLayout(bool wholeChain);
+	using PageItem::invalidateLayout;
 	virtual void layout();
+	//return true if all previouse frames from chain are valid (including that one)
+	bool isValidChainFromBegin();
+	//simplify conditions checking if frame is in chain
+	//FIX: use it in other places
+	bool isInChain() { return ((prevInChain() != NULL) || (nextInChain() != NULL)); }
 
 	double columnWidth();
 #ifdef NLS_PROTO
 	int firstTextItem() const { return itemText.firstFrameItem; }
 	int lastTextItem() const { return itemText.lastFrameItem; }
 #endif
+	//enable/disable marks inserting actions depending on editMode
+	void togleEditModeActions();
 	QRegion availableRegion() { return m_availableRegion; }
+
 protected:
 	QRegion calcAvailableRegion();
 	QRegion m_availableRegion;
@@ -116,15 +134,44 @@ private:
 	QMap<QString,StoryText> shadows;
 	bool checkKeyIsShortcut(QKeyEvent *k);
 	
+private slots:
+	void slotInvalidateLayout();
+
+public:
+	//for footnotes/endnotes
+	bool hasMark(NotesStyle* NS = NULL);
+	bool hasNoteFrame(NotesStyle* NS, bool inChain = false);
+	//bool hasNoteFrame(PageItem_NoteFrame* nF) { return m_notesFramesMap.contains(nF); }
+	void delAllNoteFrames(bool doUpdate = false);
+	void removeNoteFrame(PageItem_NoteFrame* nF) { m_notesFramesMap.remove(nF); }
+	//layout notes frames /updates endnotes frames content if m_Doc->flag_updateEndNotes is set/
+	void notesFramesLayout();
+	//removing all marsk from text, returns number of removed marks
+	int removeMarksFromText(bool doUndo);
+	//return note frame for given notes style if current text frame has notes marks with this style
+	PageItem_NoteFrame* itemNoteFrame(NotesStyle* nStyle);
+	//list all notes frames for current text frame /with endnotes frames if endnotes marks are in that frame/
+	QList<PageItem_NoteFrame*> notesFramesList() { return m_notesFramesMap.keys(); }
+	//list of notes inserted by current text frame into given noteframe
+	QList<TextNote*> notesList(PageItem_NoteFrame* nF) { return m_notesFramesMap.value(nF); }
+	//insert note frame to list with empty notes list
+	void setNoteFrame(PageItem_NoteFrame* nF);
+	void invalidateNotesFrames();
+
+private:
+	NotesInFrameMap m_notesFramesMap;
+	NotesInFrameMap updateNotesFrames(QMap<int, Mark*> noteMarksPosMap); //update notes frames content
+	void updateNotesMarks(NotesInFrameMap notesMap);
+	Mark* selectedMark(bool onlySelection = true);
+	TextNote* selectedNoteMark(ScText* &hl, bool onlySelection = true);
+	TextNote* selectedNoteMark(bool onlySelection = true);
+protected:
 	// set text frame height to last line of text
 	double maxY;
 	void setMaxY(double y);
 
 public:
 	void setTextFrameHeight();
-
-private slots:
-	void slotInvalidateLayout();
 };
 
 #endif

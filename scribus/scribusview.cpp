@@ -904,7 +904,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 					cItem = b->asTextFrame();
 				if (cItem->HasSel)
 					cItem->deleteSelectedTextFromFrame();
-				cItem->invalidateLayout();
+				cItem->invalidateLayout(false);
 				cItem->itemText.insertObject(id);
 				if (b->isTable())
 					b->asTable()->update();
@@ -1753,7 +1753,7 @@ void ScribusView::HandleCurs(PageItem *currItem, QRect mpo)
 	{
 		if (Doc->appMode == modeRotation)
 			qApp->changeOverrideCursor(QCursor(loadIcon("Rotieren2.png")));
-		else
+		else if (!currItem->sizeHLocked() && ! currItem->sizeVLocked())
 		{
 			double rr = fabs(currItem->rotation());
 			if (((rr >= 0.0) && (rr < 45.0)) || ((rr >= 135.0) && (rr < 225.0)) ||
@@ -2812,7 +2812,8 @@ QImage ScribusView::MPageToPixmap(QString name, int maxGr, bool drawFrame)
 		for (int layerLevel = 0; layerLevel < layerCount; ++layerLevel)
 		{
 			Doc->Layers.levelToLayer(layer, layerLevel);
-			m_canvas->DrawPageItems(painter, layer, QRect(clipx, clipy, clipw, cliph));
+			m_canvas->DrawPageItems(painter, layer, QRect(clipx, clipy, clipw, cliph), false);
+			m_canvas->DrawPageItems(painter, layer, QRect(clipx, clipy, clipw, cliph), true);
 		}
 		painter->endLayer();
 		painter->end();
@@ -2943,7 +2944,8 @@ QImage ScribusView::PageToPixmap(int Nr, int maxGr, bool drawFrame)
 			{
 				Doc->Layers.levelToLayer(layer, layerLevel);
 				m_canvas->DrawMasterItems(painter, Doc->DocPages.at(Nr), layer, QRect(clipx, clipy, clipw, cliph));
-				m_canvas->DrawPageItems(painter, layer, QRect(clipx, clipy, clipw, cliph));
+				m_canvas->DrawPageItems(painter, layer, QRect(clipx, clipy, clipw, cliph), false);
+				m_canvas->DrawPageItems(painter, layer, QRect(clipx, clipy, clipw, cliph), true);
 			}
 			painter->endLayer();
 			painter->end();

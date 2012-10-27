@@ -9,6 +9,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "pluginapi.h"
 #include "loadsaveplugin.h"
+#include "notesstyles.h"
 #include "scfonts.h"
 #include "scribusstructs.h"
 #include "styles/styleset.h"
@@ -125,6 +126,27 @@ class PLUGIN_API Scribus150Format : public LoadSavePlugin
 		bool readPrinterOptions(ScribusDoc* doc, ScXmlStreamReader& reader);
 		bool readSections(ScribusDoc* doc, ScXmlStreamReader& reader);
 		bool readTableOfContents(ScribusDoc* doc, ScXmlStreamReader& reader);
+		bool readNotes(ScribusDoc* doc, ScXmlStreamReader& reader);
+		bool readNotesStyles(ScribusDoc* doc, ScXmlStreamReader& reader);
+		bool readNotesFrames(ScXmlStreamReader &reader);
+		bool readMarks(ScribusDoc* doc, ScXmlStreamReader& reader);
+
+		//lists of items and marks with names only, which need update to pointers
+		QMap<Mark*, int> markeredItemsMap;
+		QMap<Mark*, QMap<QString, MarkType> > markeredMarksMap;
+		QMap<QString, int> nsetRangeItemNamesMap;
+		QMap<QString, TextNote*> notesMasterMarks;
+		QMap<TextNote*, QString> notesNSets;
+		struct NoteFrameData {
+			QString NSname;
+			int myID;
+			int itemID;
+			int index;
+			NumerationRange NSrange;
+		};
+		QList<NoteFrameData> notesFramesData;
+		
+		void updateNames2Ptr(); //after document load items pointers should be updated in markeredItemList
 
 		PageItem* pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& attrs, const QString& baseDir, int pagenr = -2 /* currentPage*/);
 
@@ -151,6 +173,10 @@ class PLUGIN_API Scribus150Format : public LoadSavePlugin
 		void writePdfOptions(ScXmlStreamWriter& docu);
 		void writeDocItemAttributes(ScXmlStreamWriter& docu);
 		void writeTOC(ScXmlStreamWriter& docu);
+		void writeMarks(ScXmlStreamWriter & docu);
+		void writeNotesStyles(ScXmlStreamWriter & docu);
+		void writeNotesFrames(ScXmlStreamWriter & docu);
+		void writeNotes(ScXmlStreamWriter & docu);
 		void writePageSets(ScXmlStreamWriter& docu);
 		void writeSections(ScXmlStreamWriter& docu);
 		void writePatterns(ScXmlStreamWriter& docu, const QString& baseDir, bool part = false, Selection* selection = 0);

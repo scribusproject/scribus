@@ -35,18 +35,22 @@ for which a new license (GPL+exception) is in place.
 #include <QMessageBox>
 #include <QPolygon>
 #include <cassert>
+#include <sstream>
 #include <QDebug>
 
 #include "canvas.h"
 #include "cmsettings.h"
 #include "colorblind.h"
 #include "commonstrings.h"
+#include "desaxe/saxXML.h"
+#include "marks.h"
 
 #include "pageitem_group.h"
 #include "pageitem_regularpolygon.h"
 #include "pageitem_arc.h"
 #include "pageitem_spiral.h"
 #include "pageitem_textframe.h"
+#include "pageitem_noteframe.h"
 #include "pageitem_latexframe.h"
 #include "prefsmanager.h"
 
@@ -244,6 +248,8 @@ PageItem::PageItem(const PageItem & other)
 	m_ImageIsFlippedV(other.m_ImageIsFlippedV),
 	m_Locked(other.m_Locked),
 	m_SizeLocked(other.m_SizeLocked),
+	m_SizeHLocked(other.m_SizeHLocked),
+	m_SizeVLocked(other.m_SizeVLocked),
 	textFlowModeVal(other.textFlowModeVal),
 	pageItemAttributes(other.pageItemAttributes),
 	m_PrintEnabled(other.m_PrintEnabled),
@@ -382,6 +388,8 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	m_ImageIsFlippedV(0),
 	m_Locked(false),
 	m_SizeLocked(false),
+	m_SizeHLocked(false),
+	m_SizeVLocked(false),
 	textFlowModeVal(TextFlowDisabled)
 {
 	Parent = NULL;
@@ -828,6 +836,32 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	isInlineImage = false;
 }
 
+PageItem::~PageItem()
+{
+	if (tempImageFile != NULL)
+		delete tempImageFile;
+	//remove marks
+
+	if (isTextFrame())
+	{
+		if (!asTextFrame()->isInChain() && itemText.length() >0)
+		{
+			for (int pos=0; pos < itemText.length(); ++pos)
+			{
+				if (itemText.item(pos)->hasMark())
+				{
+					Mark* mrk = itemText.item(pos)->mark;
+					m_Doc->eraseMark(mrk);
+				}
+			}
+		}
+	}
+//		if (isWeld())
+//			unWeldFromMaster(true);
+//		if (isWelded())
+//			unWeldChild();
+}
+
 void PageItem::setXPos(const double newXPos, bool drawingOnly)
 {
 	Xpos = newXPos;
@@ -884,8 +918,8 @@ void PageItem::moveBy(const double dX, const double dY, bool drawingOnly)
 	}
 	if (drawingOnly || m_Doc->isLoading())
 		return;
-	checkChanges();
 	moveWelded(dX, dY);
+	checkChanges();
 }
 
 void PageItem::setWidth(const double newWidth)
@@ -947,8 +981,8 @@ void PageItem::setRotation(const double newRotation, bool drawingOnly)
 	Rot = newRotation;
 	if (drawingOnly || m_Doc->isLoading())
 		return;
-	checkChanges();
 	rotateWelded(dR, oldRot);
+	checkChanges();
 }
 
 void PageItem::rotateBy(const double dR)
@@ -2272,6 +2306,13 @@ QString PageItem::ExpandToken(uint base)
 		else
 			return "%";
 	}
+	//check for marks
+	else if (ch == SpecialChars::OBJECT)
+	{
+		ScText* hl = itemText.item(base);
+		if ((hl->mark != NULL) && !hl->mark->isType(MARKAnchorType) && !hl->mark->isType(MARKIndexType))
+			chstr = hl->mark->getString();
+	}
 	return chstr;
 }
 
@@ -2455,6 +2496,13 @@ void PageItem::drawGlyphs(ScPainter *p, const CharStyle& style, GlyphLayout& gly
 		{
 			points.resize(0);
 			points.addQuadPoint(0, -10, 0, -10, 0, -6, 0, -6);
+			stroke = true;
+		}
+		else if (glyph == SpecialChars::OBJECT.unicode())
+		{
+			//for showing marks entries as control chars
+			points.resize(0);
+			points.addQuadPoint(0, -8, 1, -8, 0, -6, 1, -6);
 			stroke = true;
 		}
 		else // ???
@@ -4624,27 +4672,47 @@ void PageItem::resizeUndoAction()
 {
 	if (oldHeight == Height && oldWidth == Width)
 		return;
-	if (UndoManager::undoEnabled())
+	bool doUndo = true;
+	if (isNoteFrame()
+		&& ((asNoteFrame()->isAutoHeight() && asNoteFrame()->isAutoWidth())
+			|| ((oldHeight == Height) && asNoteFrame()->isAutoWidth())
+			|| ((oldWidth == Width) && asNoteFrame()->isAutoHeight())))
+		doUndo = false;
+	if (doUndo && UndoManager::undoEnabled())
 	{
 		SimpleState *ss = new SimpleState(Um::Resize,
                            QString(Um::ResizeFromTo).arg(oldWidth).arg(oldHeight).arg(Width).arg(Height),
                                           Um::IResize);
+		if (!isNoteFrame() || !asNoteFrame()->isAutoWidth())
+		{
 		ss->set("OLD_WIDTH", oldWidth);
-		ss->set("OLD_HEIGHT", oldHeight);
 		ss->set("NEW_WIDTH", Width);
+		}
+		if (!isNoteFrame() || !asNoteFrame()->isAutoHeight())
+		{
+			ss->set("OLD_HEIGHT", oldHeight);
 		ss->set("NEW_HEIGHT", Height);
+		}
+		if (!isNoteFrame() || !asNoteFrame()->isAutoWelded())
+		{
 		ss->set("OLD_RXPOS", oldXpos);
 		ss->set("OLD_RYPOS", oldYpos);
 		ss->set("NEW_RXPOS", Xpos);
 		ss->set("NEW_RYPOS", Ypos);
+		}
 		ss->set("OLD_RROT", oldRot);
 		ss->set("NEW_RROT", Rot);
 		undoManager->action(this, ss);
 	}
+	if (!isNoteFrame() || !asNoteFrame()->isAutoWidth())
+		oldWidth = Width;
+	if (!isNoteFrame() || !asNoteFrame()->isAutoHeight())
+		oldHeight = Height;
+	if (!isNoteFrame() || !asNoteFrame()->isAutoWelded())
+	{
 	oldXpos = Xpos;
 	oldYpos = Ypos;
-	oldHeight = Height;
-	oldWidth = Width;
+	}
 	oldOwnPage = OwnPage;
 	oldRot = Rot;
 }
@@ -4660,14 +4728,23 @@ void PageItem::rotateUndoAction()
                                           Um::IRotate);
 		ss->set("OLD_ROT", oldRot);
 		ss->set("NEW_ROT", Rot);
+		if (!isNoteFrame() || !asNoteFrame()->isAutoWelded())
+		{
 		ss->set("OLD_RXPOS", oldXpos);
 		ss->set("OLD_RYPOS", oldYpos);
 		ss->set("NEW_RXPOS", Xpos);
 		ss->set("NEW_RYPOS", Ypos);
-		ss->set("OLD_RWIDTH", oldWidth);
+		}
+		if (!isNoteFrame() || !asNoteFrame()->isAutoHeight())
+		{
 		ss->set("OLD_RHEIGHT", oldHeight);
-		ss->set("NEW_RWIDTH", Width);
 		ss->set("NEW_RHEIGHT", Height);
+		}
+		if (!isNoteFrame() || !asNoteFrame()->isAutoWidth())
+		{
+			ss->set("NEW_RWIDTH", Width);
+			ss->set("OLD_RWIDTH", oldWidth);
+		}
 		undoManager->action(this, ss);
 	}
 	oldRot = Rot;
@@ -4751,7 +4828,7 @@ void PageItem::restore(UndoState *state, bool isUndo)
 			restoreStartArrowScale(ss, isUndo);
 		else if (ss->contains("IMAGE_ROTATION"))
 			restoreImageRotation(ss, isUndo);
-		else if (ss->contains("OLD_HEIGHT"))
+		else if (ss->contains("OLD_HEIGHT") || ss->contains("OLD_WIDTH"))
 			restoreResize(ss, isUndo);
 		else if (ss->contains("OLD_ROT"))
 			restoreRotate(ss, isUndo);
@@ -4881,6 +4958,8 @@ void PageItem::restore(UndoState *state, bool isUndo)
 			restoreArrow(ss, isUndo, true);
 		else if (ss->contains("END_ARROW"))
 			restoreArrow(ss, isUndo, false);
+		else if (ss->contains("PSTYLE"))
+			restorePStyle(ss, isUndo);
 		else if (ss->contains("CONVERT"))
 			restoreType(ss, isUndo);
 		else if (ss->contains("TEXTFLOW_OLDMODE"))
@@ -4983,22 +5062,6 @@ void PageItem::restoreConnectPath(SimpleState *state, bool isUndo)
 	ContourLine = PoLine.copy();
 }
 
-void PageItem::restoreWeldItems(SimpleState *state, bool isUndo)
-{
-	if (isUndo)
-	{
-		unWeld();
-	}
-	else
-	{
-		ScItemState<PageItem*> *is = dynamic_cast<ScItemState<PageItem*>*>(state);
-		PageItem* wIt = is->getItem();
-		weldTo(wIt);
-	}
-	m_Doc->changed();
-	m_Doc->regionsChanged()->update(QRectF());
-}
-
 void PageItem::restoreUnWeldItem(SimpleState *state, bool isUndo)
 {
 	if (isUndo)
@@ -5023,6 +5086,22 @@ void PageItem::restoreUnWeldItem(SimpleState *state, bool isUndo)
 	else
 	{
 		unWeld();
+	}
+	m_Doc->changed();
+	m_Doc->regionsChanged()->update(QRectF());
+}
+
+void PageItem::restoreWeldItems(SimpleState *state, bool isUndo)
+{
+	if (isUndo)
+	{
+		unWeld();
+	}
+	else
+	{
+		ScItemState<PageItem*> *is = dynamic_cast<ScItemState<PageItem*>*>(state);
+		PageItem* wIt = is->getItem();
+		weldTo(wIt);
 	}
 	m_Doc->changed();
 	m_Doc->regionsChanged()->update(QRectF());
@@ -6328,6 +6407,7 @@ void PageItem::restoreDeleteFrameText(SimpleState *ss, bool isUndo)
 		itemText.select(start,text.length());
 		asTextFrame()->deleteSelectedTextFromFrame();
 	}
+	update();
 }
 
 void PageItem::restoreInsertFrameText(SimpleState *ss, bool isUndo)
@@ -6583,6 +6663,17 @@ void PageItem::restoreArrow(SimpleState *state, bool isUndo, bool isStart)
 	else
 		setEndArrowIndex(i);
 }
+
+
+void PageItem::restorePStyle(SimpleState *state, bool isUndo)
+{
+	int styleid = state->getInt("OLD_STYLE");
+	if (!isUndo)
+		styleid = state->getInt("NEW_STYLE");
+	//will be done later with other text-undo:
+	//	m_Doc->chAbStyle(this, styleid);
+}
+
 
 // FIXME: This must go into class ScribusDoc!
 // For now we'll just make it independent of 'this' -- AV
@@ -7114,7 +7205,8 @@ void PageItem::setObjectAttributes(ObjAttrVector* map)
 	pageItemAttributes=*map;
 }
 
-QString PageItem::generateUniqueCopyName(const QString originalName) const
+//if not `prependCopy` then string "Copy of" wil not be prepended
+QString PageItem::generateUniqueCopyName(const QString originalName, bool prependCopy) const
 {
 	if (!m_Doc->itemNameExists(originalName))
 		return originalName;
@@ -7122,7 +7214,7 @@ QString PageItem::generateUniqueCopyName(const QString originalName) const
 	// Start embellishing the name until we get an acceptable unique name
 	// first we prefix `Copy of' if it's not already there
 	QString newname(originalName);
-	if (!originalName.startsWith( tr("Copy of")))
+	if (prependCopy && !originalName.startsWith( tr("Copy of")))
 		newname.prepend( tr("Copy of")+" ");
 
 	// See if the name prefixed by "Copy of " is free
@@ -9418,6 +9510,24 @@ void PageItem::setFileIconRollover(QString val)
 	}
 }
 
+PageItem* PageItem::firstInChain()
+{
+	Q_ASSERT(this != NULL);
+	PageItem* first = this;
+	while (first->prevInChain() != NULL)
+		first = first->prevInChain();
+	return first;
+}
+
+PageItem* PageItem::lastInChain()
+{
+	Q_ASSERT(this != NULL);
+	PageItem* last = this;
+	while (last->nextInChain() != NULL)
+		last = last->nextInChain();
+	return last;
+}
+
 QRect PageItem::getRedrawBounding(const double viewScale)
 {
 	int x = qRound(floor(BoundingX - Oldm_lineWidth / 2.0 - 5) * viewScale);
@@ -9766,7 +9876,8 @@ void PageItem::convertClip()
 	}
 }
 
-void PageItem::updateClip()
+//udateWelded determine if welded items should be updated as well (default behaviour)
+void PageItem::updateClip(bool updateWelded)
 {
 	if (m_Doc->appMode == modeDrawBezierLine)
 		return;
@@ -9876,9 +9987,30 @@ void PageItem::updateClip()
 					else
 						Clip = FlattenPath(PoLine, Segments);
 				}
+				if (updateWelded)
+				{
 				for (int i = 0 ; i < weldList.count(); i++)
 				{
 					weldingInfo wInf = weldList.at(i);
+						if (wInf.weldItem->isNoteFrame())
+						{
+							PageItem_NoteFrame* noteFrame = wInf.weldItem->asNoteFrame();
+							if (noteFrame->notesStyle()->isAutoWeldNotesFrames())
+							{
+								if (noteFrame->notesStyle()->isAutoNotesWidth())
+								{
+									if (noteFrame->width() != width())
+									{
+										noteFrame->setWidth(width());
+										noteFrame->updateClip();
+									}
+								}
+								noteFrame->setXYPos(xPos(),yPos() + height());
+								setWeldPoint(0, height(), noteFrame);
+								noteFrame->setWeldPoint(0,0, this);
+								continue;
+							}
+						}
 					FPointArray gr4;
 					FPoint wp = wInf.weldPoint;
 					gr4.addPoint(wp);
@@ -9889,6 +10021,7 @@ void PageItem::updateClip()
 					wInf.weldPoint = gr4.point(0);
 					weldList[i] = wInf;
 				}
+			}
 			}
 			OldB2 = width();
 			OldH2 = height();
@@ -9989,9 +10122,29 @@ void PageItem::updateClip()
 				Clip = FlattenPath(PoLine, Segments);
 			OldB2 = width();
 			OldH2 = height();
+			if (updateWelded)
+			{
 			for (int i = 0 ; i < weldList.count(); i++)
 			{
 				weldingInfo wInf = weldList.at(i);
+					if (wInf.weldItem->isNoteFrame())
+					{
+						PageItem_NoteFrame* noteFrame = wInf.weldItem->asNoteFrame();
+						if (noteFrame->notesStyle()->isAutoWeldNotesFrames())
+						{
+							if (noteFrame->notesStyle()->isAutoNotesWidth())
+							{
+								if (noteFrame->width() != width())
+								{
+									noteFrame->setWidth(width());
+									noteFrame->updateClip();
+								}
+							}
+							setWeldPoint(0, height(), noteFrame);
+							noteFrame->setWeldPoint(0,0, this);
+							continue;
+						}
+					}
 				FPointArray gr4;
 				FPoint wp = wInf.weldPoint;
 				gr4.addPoint(wp);
@@ -10002,6 +10155,7 @@ void PageItem::updateClip()
 				wInf.weldPoint = gr4.point(0);
 				weldList[i] = wInf;
 			}
+		}
 		}
 		break;
 	}
@@ -10134,6 +10288,10 @@ void PageItem::moveWelded(double DX, double DY, int weld)
 
 void PageItem::moveWelded(double DX, double DY, PageItem* except)
 {
+	if ((DX == 0) && (DY == 0))
+		return;
+	//do not save undo for auto-welded notes frames
+	UndoManager::instance()->setUndoEnabled(false);
 	for (int i = 0 ; i < weldList.count(); i++)
 	{
 		weldingInfo wInf = weldList.at(i);
@@ -10146,10 +10304,12 @@ void PageItem::moveWelded(double DX, double DY, PageItem* except)
 			pIt->moveWelded(DX, DY, this);
 		}
 	}
+	UndoManager::instance()->setUndoEnabled(true);
 }
 
 void PageItem::rotateWelded(double dR, double oldRot)
 {
+	UndoManager::instance()->setUndoEnabled(false);
 	QTransform ma;
 	ma.translate(xPos(), yPos());
 	ma.scale(1, 1);
@@ -10179,6 +10339,7 @@ void PageItem::rotateWelded(double dR, double oldRot)
 		pIt->setXYPos(lin.p2().x(), lin.p2().y());
 		pIt->rotateBy(dR);
 	}
+	UndoManager::instance()->setUndoEnabled(true);
 }
 
 QList<PageItem*> PageItem::itemsWeldedTo(PageItem* except)
@@ -10199,6 +10360,19 @@ QList<PageItem*> PageItem::itemsWeldedTo(PageItem* except)
 	return ret;
 }
 
+void PageItem::setWeldPoint(double DX, double DY, PageItem *pItem)
+{
+	for (int i = 0 ; i < weldList.count(); i++)
+	{
+		PageItem *pIt = weldList[i].weldItem;
+		if (pIt == pItem)
+		{
+			weldList[i].weldPoint = FPoint(DX, DY);
+			return;
+		}
+	}
+}
+
 void PageItem::unWeld()
 {
 	UndoTransaction* activeTransaction = NULL;
@@ -10209,6 +10383,11 @@ void PageItem::unWeld()
 	{
 		weldingInfo wInf = weldList.at(a);
 		PageItem *pIt = wInf.weldItem;
+		if (pIt == NULL)
+		{
+			qDebug() << "unWeld - null pointer in weldList";
+			continue;
+		}
 		for (int b = 0 ; b < pIt->weldList.count(); b++)
 		{
 			weldingInfo wInf2 = pIt->weldList.at(b);
@@ -10241,4 +10420,30 @@ void PageItem::unWeld()
 	}
 	weldList.clear();
 }
+
+QString PageItem::getItemTextSaxed(int selStart, int selLength)
+{
+	if (selStart < 0 || selLength < 0)
+		return QString();
+
+	StoryText it(m_Doc);
+	it.setDefaultStyle(itemText.defaultStyle());
+
+	if (selLength == 0)
+		selLength = 1;
+	itemText.deselectAll();
+	itemText.select(selStart, selLength);
+	it.insert(0, itemText, true);
+	itemText.deselectAll();
+
+	//saxing text
+	std::ostringstream xmlString;
+	SaxXML xmlStream(xmlString);
+	xmlStream.beginDoc();
+	it.saxx(xmlStream, "SCRIBUSTEXT");
+	xmlStream.endDoc();
+	std::string xml(xmlString.str());
+	return QString(xml.c_str());
+}
+
 

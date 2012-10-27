@@ -131,7 +131,7 @@ void TextFilter::write()
 		{
 			QString tmpText(list[i]);
 			QString tmpText2(tmpText);
-			tmpText2.simplified();
+			tmpText2=tmpText2.simplified();
 			int numberOfWords = tmpText2.count(" ");
 			++numberOfWords;
 			useStyle = NULL;

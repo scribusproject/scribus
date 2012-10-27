@@ -72,6 +72,7 @@ class PageItem_PolyLine;
 class PageItem_RegularPolygon;
 class PageItem_Table;
 class PageItem_TextFrame;
+class PageItem_NoteFrame;
 class PageItem_PathText;
 class PageItem_LatexFrame;
 class PageItem_Spiral;
@@ -99,6 +100,9 @@ class SCRIBUS_API PageItem : public QObject, public UndoObject, public SaxIO, pu
 	Q_PROPERTY(double lineTransparency READ lineTransparency WRITE setLineTransparency DESIGNABLE false)
 	Q_PROPERTY(bool m_Locked READ locked WRITE setLocked DESIGNABLE false)
 	Q_PROPERTY(bool m_SizeLocked READ sizeLocked WRITE setSizeLocked DESIGNABLE false)
+	//used for notes frames
+	Q_PROPERTY(bool m_SizeHLocked READ sizeHLocked WRITE setSizeHLocked DESIGNABLE false)
+	Q_PROPERTY(bool m_SizeVLocked READ sizeVLocked WRITE setSizeVLocked DESIGNABLE false)
 	Q_PROPERTY(bool m_ImageIsFlippedV READ imageFlippedV WRITE setImageFlippedV DESIGNABLE false)
 	Q_PROPERTY(bool m_ImageIsFlippedH READ imageFlippedH WRITE setImageFlippedH DESIGNABLE false)
 	Q_PROPERTY(double lineWidth READ lineWidth WRITE setLineWidth DESIGNABLE false)
@@ -195,6 +199,7 @@ public:
 	virtual PageItem_Polygon * asPolygon() { return NULL; }
 	virtual PageItem_PolyLine * asPolyLine() { return NULL; }
 	virtual PageItem_TextFrame * asTextFrame() { return NULL; }
+	virtual PageItem_NoteFrame * asNoteFrame() { return NULL; }
 	virtual PageItem_LatexFrame * asLatexFrame() { return NULL; }
 
 	virtual PageItem_OSGFrame * asOSGFrame() { return NULL; }
@@ -219,6 +224,8 @@ public:
 	virtual bool isArc()			const { return false; }
 	virtual bool isSpiral()			const { return false; }
 	virtual bool isTable()			const { return false; }
+	virtual bool isNoteFrame()		const { return false; }
+	virtual bool isAutoNoteFrame()	const { return false; }
 
 	/** @brief Frame Type
 	 *
@@ -237,15 +244,7 @@ protected:
 	
 public:
 	PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double w, double h, double w2, QString fill, QString outline);
-	~PageItem()
-	{
-		if (tempImageFile != NULL)
-			delete tempImageFile;
-//		if (isWeld())
-//			unWeldFromMaster(true);
-//		if (isWelded())
-//			unWeldChild();
-	}
+	~PageItem();
 
 	// Get item level relative to its parent doc or group
 	int level();
@@ -322,7 +321,8 @@ public:
 	void SetFrameRound();
 	void setPolyClip(int up, int down = 0);
 	void updatePolyClip();
-	void updateClip();
+	//added switch for not updating welded items - used by notes frames with automatic size adjusted
+	void updateClip(bool updateWelded = true);
 	void convertClip();
 	void getBoundingRect(double *x1, double *y1, double *x2, double *y2) const;
 	void getVisualBoundingRect(double *x1, double *y1, double *x2, double *y2) const;
@@ -543,6 +543,9 @@ public:
 	PageItem* nextInChain() { return NextBox; }
 	const PageItem* prevInChain() const { return BackBox; }
 	const PageItem* nextInChain() const { return NextBox; }
+	//you can change all code for search first or last item in chain
+	PageItem* firstInChain();
+	PageItem* lastInChain();
 	PageItem *Parent;
 
 	bool testLinkCandidate(PageItem* nextFrame);
@@ -1110,8 +1113,12 @@ public:
 	void toggleSizeLock();
 	/** @brief Is the item's size locked? */
 	bool sizeLocked() const { return m_SizeLocked; }
+	bool sizeHLocked() const { return m_SizeHLocked || m_SizeLocked; }
+	bool sizeVLocked() const { return m_SizeVLocked || m_SizeLocked; }
 	/** @brief set lock for resizing */
 	void setSizeLocked(bool isLocked);
+	void setSizeHLocked(bool isLocked) { m_SizeHLocked = isLocked; }
+	void setSizeVLocked(bool isLocked) { m_SizeVLocked = isLocked; }
 
 	/**
 	 * @brief Does text flow around this object and how
@@ -1222,8 +1229,9 @@ public:
 	 * @author Craig Ringer
 	 *
 	 * Usually of the form 'Copy of [name]' or 'Copy of [name] (n)'
+	 * cezaryece: if prependCopy is false then form '[name] (n)' is generated
 	 */
-	QString generateUniqueCopyName(const QString originalName) const;
+	QString generateUniqueCopyName(const QString originalName, bool prependCopy = true) const;
 	/**
 	 * @brief Is this item printed?
 	 * @sa setPrintEnabled()
@@ -1416,6 +1424,8 @@ protected:
 	void restoreCustomLineStyle(SimpleState *state, bool isUndo);
 	void restoreArrow(SimpleState *state, bool isUndo, bool isStart);
 
+	void restorePStyle(SimpleState *state, bool isUndo);
+
 	void restoreType(SimpleState *state, bool isUndo);
 	void restoreTextFlowing(SimpleState *state, bool isUndo);
 	void restoreImageScaleMode(SimpleState *state, bool isUndo);
@@ -1570,6 +1580,11 @@ protected:
 	 */
 	bool m_SizeLocked;
 
+	/**
+	 * @for notes frames - locking horizontal or vertical size
+	**/
+	bool m_SizeHLocked;
+	bool m_SizeVLocked;
 	/**
 	 * @brief Should text flow around the item
 	 * @sa PageItem::textFlowMode(), PateItem::setTextFlowMode()
@@ -1785,6 +1800,11 @@ public:
 	void moveWelded(double DX, double DY, int weld);
 	void moveWelded(double DX, double DY, PageItem* except = NULL);
 	void rotateWelded(double dR, double oldRot);
+	//added for autowelding feature of notes frames
+	//setting welding point with given pItem to given coords
+	void setWeldPoint(double DX, double DY, PageItem *pItem);
+	//used by notes frames to get content of notes from itemText
+	QString getItemTextSaxed(int selStart, int selLength);
 };
 
 Q_DECLARE_METATYPE(PageItem*)

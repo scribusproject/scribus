@@ -32,12 +32,25 @@ ScText::~ScText()
 	if (parstyle)
 		delete parstyle;
 	parstyle = NULL;
+	mark = NULL;
 }
 
 bool ScText::hasObject(ScribusDoc *doc) const
 {
 	if (this->ch == SpecialChars::OBJECT)
 		return ((embedded > 0) && (doc->FrameItems.contains(embedded)));
+	return false;
+}
+
+bool ScText::hasMark(Mark* MRK) const
+{
+	if (this->ch == SpecialChars::OBJECT)
+	{
+		if (MRK == NULL)
+			return mark != NULL;
+		else
+			return mark == MRK;
+	}
 	return false;
 }
 
@@ -59,4 +72,10 @@ PageItem* ScText::getItem(ScribusDoc *doc)
 	if ((embedded > 0) && (doc->FrameItems.contains(embedded)))
 		return doc->FrameItems[embedded];
 	return NULL;
+}
+
+void ScText::setNewMark(Mark *mrk)
+{
+	if (!mrk->isUnique())
+		mark = mrk;
 }

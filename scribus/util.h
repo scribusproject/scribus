@@ -129,7 +129,9 @@ QString SCRIBUS_API getLongPathName(const QString & shortPath);
  */
 QString SCRIBUS_API getFileNameByPage(ScribusDoc* currDoc, uint pageNo, QString extension);
 void SCRIBUS_API sDebug(QString message);
-const QString SCRIBUS_API getStringFromSequence(DocumentSectionType type, uint position);
+//asterix is QString used in numeration when number is presented as few chars, like *, **, *** etc
+//default is '*' but can be used any string
+const QString SCRIBUS_API getStringFromSequence(DocumentSectionType type, uint position, QString asterix="*");
 const QString SCRIBUS_API arabicToRoman(uint i);
 const QString SCRIBUS_API numberToLetterSequence(uint i);
 void SCRIBUS_API parsePagesString(QString pages, std::vector<int>* pageNs, int sourcePageCount);
@@ -152,4 +154,10 @@ void    SCRIBUS_API getDashArray(int dashtype, double linewidth, QVector<float> 
 void SCRIBUS_API printBacktrace(int nFrames);
 void SCRIBUS_API convertOldTable(ScribusDoc *m_Doc, PageItem* gItem, QList<PageItem*> &gpL, QStack< QList<PageItem*> > *groupStackT = NULL, QList<PageItem *> *target = NULL);
 
+/*!
+ *\brief
+ * check if name exists in list
+ * if exist then seprator and numbers are pre/append to name while it will be unique
+*/
+void SCRIBUS_API getUniqueName(QString &name, QStringList list, QString separator = "", bool prepend = false);
 #endif

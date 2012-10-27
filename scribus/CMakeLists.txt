@@ -85,11 +85,18 @@ SET(SCRIBUS_UI_SRC
   ui/inserttablerowsdialog.ui
   ui/latexeditor.ui
   ui/newmarginwidgetbase.ui
+ui/mark2item.ui
+ui/mark2mark.ui
+ui/markanchor.ui
+ui/marknote.ui
+ui/markvariabletext.ui
+ui/marksmanager.ui
   ui/measurementsbase.ui
   ui/multipleduplicate.ui
   ui/multiprogressdialog.ui
   ui/nftdialog.ui
   ui/nftwidget.ui
+ui/notesstyleseditor.ui
   ui/pageitemattributes.ui
   ui/pagepalette_pagesbase.ui
   ui/pagepalette_masterpagesbase.ui
@@ -209,7 +216,9 @@ SET(SCRIBUS_MOC_CLASSES
   latexhelpers.h
   loadsaveplugin.h
   menumanager.h
+marks.h
   navigator.h
+notesstyles.h
   observable.h
   pageitem.h
   pageitem_arc.h
@@ -225,6 +234,7 @@ SET(SCRIBUS_MOC_CLASSES
   pageitem_symbol.h
   pageitem_table.h
   pageitem_textframe.h
+pageitem_noteframe.h
   pageitempointer.h
   pdf_analyzer.h
   pdflib.h
@@ -317,6 +327,13 @@ SET(SCRIBUS_MOC_CLASSES
   ui/latexeditor.h
   ui/layers.h
   ui/loremipsum.h
+ui/MarkInsertDlg.h
+ui/mark2item.h
+ui/mark2mark.h
+ui/markanchor.h
+ui/marknote.h
+ui/markvariabletext.h
+ui/marksmanager.h
   ui/margindialog.h
   ui/marginpresetlayout.h
   ui/marginwidget.h
@@ -332,6 +349,7 @@ SET(SCRIBUS_MOC_CLASSES
   ui/nftdialog.h
   ui/nftwidget.h
   ui/nodeeditpalette.h
+ui/notesstyleseditor.h
   ui/oneclick.h
   ui/outlinepalette.h
   ui/pageitemattributes.h
@@ -565,6 +583,7 @@ SET(SCRIBUS_SOURCES
   nftrcreader.cpp
   nftsettings.cpp
   nfttemplate.cpp
+notesstyles.cpp
   pageitem.cpp
   pageitem_arc.cpp
   pageitem_group.cpp
@@ -579,6 +598,7 @@ SET(SCRIBUS_SOURCES
   pageitem_symbol.cpp
   pageitem_table.cpp
   pageitem_textframe.cpp
+pageitem_noteframe.cpp
   pageitempointer.cpp
   pagesize.cpp
   pdf_analyzer.cpp
@@ -751,6 +771,12 @@ SET(SCRIBUS_SOURCES
   ui/linecombo.cpp
   ui/linkbutton.cpp
   ui/loremipsum.cpp
+ui/mark2item.cpp
+ui/mark2mark.cpp
+ui/markanchor.cpp
+ui/marknote.cpp
+ui/markvariabletext.cpp
+ui/marksmanager.cpp
   ui/margindialog.cpp
   ui/marginpresetlayout.cpp
   ui/marginwidget.cpp
@@ -766,6 +792,7 @@ SET(SCRIBUS_SOURCES
   ui/nftdialog.cpp
   ui/nftwidget.cpp
   ui/nodeeditpalette.cpp
+ui/notesstyleseditor.cpp
   ui/oneclick.cpp
   ui/outlinepalette.cpp
   ui/pageitemattributes.cpp
