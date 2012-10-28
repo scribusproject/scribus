@@ -268,8 +268,11 @@ void previewImages::filterResolution ( qint64 resolution, bool smallerThan )
 	for ( int i = 0 ; i < previewImagesList.size() ; ++i )
 	{
 		tmpPreviewImage = previewImagesList.at ( i );
+		if (!tmpPreviewImage->imgInfo)
+			continue;
+		int imgResolution = qMin(tmpPreviewImage->imgInfo->xdpi, tmpPreviewImage->imgInfo->ydpi);
 
-		if ( toRemove ( ( resolution < resolution ), smallerThan ) )
+		if ( toRemove ( ( imgResolution < resolution ), smallerThan ) )
 		{
 			tmpPreviewImage->filtered = true;
 		}
