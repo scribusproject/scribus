@@ -74,6 +74,7 @@ class SlaOutputDev : public OutputDev
 public:
 	SlaOutputDev(ScribusDoc* doc, QList<PageItem*> *Elements, QStringList *importedColors, int flags);
 	virtual ~SlaOutputDev();
+	static GBool annotations_callback(Annot *annota, void *user_data);
 	void startDoc(PDFDoc *doc, XRef *xrefA, Catalog *catA);
 
 	GBool isOk() { return gTrue; }

@@ -1,6 +1,7 @@
 #include "slaoutput.h"
 #include <GlobalParams.h>
 #include <poppler-config.h>
+#include <Link.h>
 #include <QApplication>
 #include <QFile>
 #include "commonstrings.h"
@@ -44,6 +45,153 @@ SlaOutputDev::~SlaOutputDev()
 	delete m_fontEngine;
 }
 
+GBool SlaOutputDev::annotations_callback(Annot *annota, void *user_data)
+{
+	SlaOutputDev *dev = (SlaOutputDev*)user_data;
+	PDFRectangle *box = annota->getRect();
+	double xCoor = dev->m_doc->currentPage()->xOffset() + box->x1;
+	double yCoor = dev->m_doc->currentPage()->yOffset() + dev->m_doc->currentPage()->height() - box->y2;
+	double width = box->x2 - box->x1;
+	double height = box->y2 - box->y1;
+	if ((annota->getType() == 1) || (annota->getType() == 2) || (annota->getType() == 20))
+	{
+		int z = dev->m_doc->itemAdd(PageItem::TextFrame, PageItem::Rectangle, xCoor, yCoor, width, height, 0, CommonStrings::None, CommonStrings::None, true);
+		PageItem *ite = dev->m_doc->Items->at(z);
+		ite->ClipEdited = true;
+		ite->FrameType = 3;
+		ite->setFillEvenOdd(false);
+		ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
+		ite->ContourLine = ite->PoLine.copy();
+		ite->setTextFlowMode(PageItem::TextFlowDisabled);
+		dev->m_Elements->append(ite);
+		if (dev->m_groupStack.count() != 0)
+		{
+			dev->m_groupStack.top().Items.append(ite);
+			dev->applyMask(ite);
+		}
+		ite->setIsAnnotation(true);
+		ite->AutoName = false;
+		if (annota->getType() == 1)
+		{
+			ite->annotation().setType(10);
+		}
+		else if (annota->getType() == 2)
+		{
+			AnnotLink *anl = (AnnotLink*)annota;
+			LinkAction *act = anl->getAction();
+			bool validLink = false;
+			int pagNum = 0;
+			int xco = 0;
+			int yco = 0;
+			if (act->getKind() == actionGoTo)
+			{
+				LinkGoTo *gto = (LinkGoTo*)act;
+				LinkDest *dst = gto->getDest();
+				if (dst)
+				{
+					if (dst->getKind() == destXYZ)
+					{
+						if (dst->isPageRef())
+						{
+							Ref dstr = dst->getPageRef();
+							pagNum = dev->pdfDoc->findPage(dstr.num, dstr.gen);
+						}
+						else
+							pagNum = dst->getPageNum();
+						xco = dst->getLeft();
+						yco = dst->getTop();
+						validLink = true;
+					}
+				}
+				else
+				{
+					GooString *ndst = gto->getNamedDest();
+					if (ndst)
+					{
+						LinkDest *dstn = dev->pdfDoc->findDest(ndst);
+						if (dstn)
+						{
+							if (dstn->getKind() == destXYZ)
+							{
+								if (dstn->isPageRef())
+								{
+									Ref dstr = dstn->getPageRef();
+									pagNum = dev->pdfDoc->findPage(dstr.num, dstr.gen);
+								}
+								else
+									pagNum = dstn->getPageNum();
+								xco = dstn->getLeft();
+								yco = dstn->getTop();
+								validLink = true;
+							}
+						}
+					}
+				}
+				if (validLink)
+				{
+					ite->annotation().setZiel(pagNum - 1);
+					ite->annotation().setAction(QString("%1 %2").arg(xco).arg(yco));
+					ite->annotation().setActionType(2);
+				}
+			}
+			else if (act->getKind() == actionGoToR)
+			{
+				LinkGoToR *gto = (LinkGoToR*)act;
+				LinkDest *dst = gto->getDest();
+				if (dst)
+				{
+					if (dst->getKind() == destXYZ)
+					{
+						pagNum = dst->getPageNum();
+						xco = dst->getLeft();
+						yco = dst->getTop();
+						validLink = true;
+					}
+				}
+				else
+				{
+					GooString *ndst = gto->getNamedDest();
+					if (ndst)
+					{
+						LinkDest *dstn = dev->pdfDoc->findDest(ndst);
+						if (dstn)
+						{
+							if (dstn->getKind() == destXYZ)
+							{
+								pagNum = dstn->getPageNum();
+								xco = dstn->getLeft();
+								yco = dstn->getTop();
+								validLink = true;
+							}
+						}
+					}
+				}
+				if (validLink)
+				{
+					ite->annotation().setZiel(pagNum - 1);
+					ite->annotation().setExtern(dev->UnicodeParsedString(gto->getFileName()));
+					ite->annotation().setAction(QString("%1 %2").arg(xco).arg(yco));
+					ite->annotation().setActionType(2);
+				}
+			}
+			else if (act->getKind() == actionURI)
+			{
+				LinkURI *gto = (LinkURI*)act;
+				ite->annotation().setAction("");
+				ite->annotation().setExtern(dev->UnicodeParsedString(gto->getURI()));
+				ite->annotation().setActionType(8);
+			}
+			ite->annotation().setType(11);
+		}
+/*		else if (annota->getType() == 20)
+		{
+			qDebug() << "Widget Annotation";
+		}*/
+//		qDebug() << "Annotation of type" << annota->getType() << "X1" << xCoor << "Y1" << yCoor << "W" << width << "H" << height;
+		return false;
+	}
+	return true;
+}
 
 void SlaOutputDev::startDoc(PDFDoc *doc, XRef *xrefA, Catalog *catA)
 {
@@ -2359,7 +2507,11 @@ void SlaOutputDev::endTextObject(GfxState *state)
 				tmpSel->addItem(gElements.Items.at(dre), true);
 				m_Elements->removeAll(gElements.Items.at(dre));
 			}
-			PageItem *ite = m_doc->groupObjectsSelection(tmpSel);
+			PageItem *ite;
+			if (gElements.Items.count() != 1)
+				ite = m_doc->groupObjectsSelection(tmpSel);
+			else
+				ite = gElements.Items.first();
 			ite->setFillTransparency(1.0 - state->getFillOpacity());
 			ite->setFillBlendmode(getBlendMode(state));
 			for (int as = 0; as < tmpSel->count(); ++as)

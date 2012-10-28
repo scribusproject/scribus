@@ -486,10 +486,10 @@ bool PdfPlug::convert(QString fn)
 								//	pdfDoc->displayPage(dev, pp + 1, hDPI, vDPI, rotate, useMediaBox, crop, printing);
 								//	oc->setState(OptionalContentGroup::Off);
 								}
-								pdfDoc->displayPage(dev, pp + 1, hDPI, vDPI, rotate, useMediaBox, crop, printing);
+								pdfDoc->displayPage(dev, pp + 1, hDPI, vDPI, rotate, useMediaBox, crop, printing, NULL, NULL, dev->annotations_callback, dev);
 							}
 							else
-								pdfDoc->displayPage(dev, pp + 1, hDPI, vDPI, rotate, useMediaBox, crop, printing);
+								pdfDoc->displayPage(dev, pp + 1, hDPI, vDPI, rotate, useMediaBox, crop, printing, NULL, NULL, dev->annotations_callback, dev);
 						}
 					}
 					else
@@ -501,7 +501,7 @@ bool PdfPlug::convert(QString fn)
 								ocgGroups[a]->setState(OptionalContentGroup::On);
 							}
 						}
-						pdfDoc->displayPage(dev, firstPage, hDPI, vDPI, rotate, useMediaBox, crop, printing);
+						pdfDoc->displayPage(dev, firstPage, hDPI, vDPI, rotate, useMediaBox, crop, printing, NULL, NULL, dev->annotations_callback, dev);
 					}
 				}
 				delete dev;
