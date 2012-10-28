@@ -768,7 +768,7 @@ void CanvasMode::clearPixmapCache()
 
 void CanvasMode::drawSnapLine(QPainter* p)
 {
-	if (m_doc->SnapElement)
+	if (m_doc->SnapElement && (xSnap != 0.0 || ySnap != 0.0))
 	{
 		MarginStruct bleedValues;
 		m_doc->getBleeds(m_doc->currentPage(), bleedValues);
