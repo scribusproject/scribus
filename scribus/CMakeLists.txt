@@ -89,8 +89,8 @@ SET(SCRIBUS_UI_SRC
   ui/mark2mark.ui
   ui/markanchor.ui
   ui/marknote.ui
-  ui/markvariabletext.ui
   ui/marksmanager.ui
+  ui/markvariabletext.ui
   ui/measurementsbase.ui
   ui/multipleduplicate.ui
   ui/multiprogressdialog.ui
@@ -331,8 +331,8 @@ SET(SCRIBUS_MOC_CLASSES
   ui/mark2mark.h
   ui/markanchor.h
   ui/marknote.h
-  ui/markvariabletext.h
   ui/marksmanager.h
+  ui/markvariabletext.h
   ui/margindialog.h
   ui/marginpresetlayout.h
   ui/marginwidget.h
@@ -774,8 +774,8 @@ SET(SCRIBUS_SOURCES
   ui/mark2mark.cpp
   ui/markanchor.cpp
   ui/marknote.cpp
-  ui/markvariabletext.cpp
   ui/marksmanager.cpp
+  ui/markvariabletext.cpp
   ui/margindialog.cpp
   ui/marginpresetlayout.cpp
   ui/marginwidget.cpp
