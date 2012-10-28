@@ -75,6 +75,9 @@ public:
 	SlaOutputDev(ScribusDoc* doc, QList<PageItem*> *Elements, QStringList *importedColors, int flags);
 	virtual ~SlaOutputDev();
 	static GBool annotations_callback(Annot *annota, void *user_data);
+	bool handleTextAnnot(Annot* annota);
+	bool handleLinkAnnot(Annot* annota);
+	bool handleWidgetAnnot(Annot* annota);
 	void startDoc(PDFDoc *doc, XRef *xrefA, Catalog *catA);
 
 	GBool isOk() { return gTrue; }

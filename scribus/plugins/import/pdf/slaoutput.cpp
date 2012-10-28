@@ -48,149 +48,196 @@ SlaOutputDev::~SlaOutputDev()
 GBool SlaOutputDev::annotations_callback(Annot *annota, void *user_data)
 {
 	SlaOutputDev *dev = (SlaOutputDev*)user_data;
+	bool retVal = true;
+	if (annota->getType() == 1)
+		retVal = !dev->handleTextAnnot(annota);
+	else if (annota->getType() == 2)
+		retVal = !dev->handleLinkAnnot(annota);
+	else if (annota->getType() == 20)
+		retVal = !dev->handleWidgetAnnot(annota);
+	return retVal;
+}
+
+bool SlaOutputDev::handleTextAnnot(Annot* annota)
+{
 	PDFRectangle *box = annota->getRect();
-	double xCoor = dev->m_doc->currentPage()->xOffset() + box->x1;
-	double yCoor = dev->m_doc->currentPage()->yOffset() + dev->m_doc->currentPage()->height() - box->y2;
+	double xCoor = m_doc->currentPage()->xOffset() + box->x1;
+	double yCoor = m_doc->currentPage()->yOffset() + m_doc->currentPage()->height() - box->y2;
 	double width = box->x2 - box->x1;
 	double height = box->y2 - box->y1;
-	if ((annota->getType() == 1) || (annota->getType() == 2) || (annota->getType() == 20))
+	int z = m_doc->itemAdd(PageItem::TextFrame, PageItem::Rectangle, xCoor, yCoor, width, height, 0, CommonStrings::None, CommonStrings::None, true);
+	PageItem *ite = m_doc->Items->at(z);
+	ite->ClipEdited = true;
+	ite->FrameType = 3;
+	ite->setFillEvenOdd(false);
+	ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
+	ite->ContourLine = ite->PoLine.copy();
+	ite->setTextFlowMode(PageItem::TextFlowDisabled);
+	m_Elements->append(ite);
+	if (m_groupStack.count() != 0)
 	{
-		int z = dev->m_doc->itemAdd(PageItem::TextFrame, PageItem::Rectangle, xCoor, yCoor, width, height, 0, CommonStrings::None, CommonStrings::None, true);
-		PageItem *ite = dev->m_doc->Items->at(z);
+		m_groupStack.top().Items.append(ite);
+		applyMask(ite);
+	}
+	ite->setIsAnnotation(true);
+	ite->AutoName = false;
+	ite->annotation().setType(10);
+	ite->annotation().setActionType(0);
+	ite->itemText.insertChars(UnicodeParsedString(annota->getContents()));
+	return true;
+}
+
+bool SlaOutputDev::handleLinkAnnot(Annot* annota)
+{
+	AnnotLink *anl = (AnnotLink*)annota;
+	LinkAction *act = anl->getAction();
+	bool validLink = false;
+	int pagNum = 0;
+	int xco = 0;
+	int yco = 0;
+	QString fileName = "";
+	if (act->getKind() == actionGoTo)
+	{
+		LinkGoTo *gto = (LinkGoTo*)act;
+		LinkDest *dst = gto->getDest();
+		if (dst)
+		{
+			if (dst->getKind() == destXYZ)
+			{
+				if (dst->isPageRef())
+				{
+					Ref dstr = dst->getPageRef();
+					pagNum = pdfDoc->findPage(dstr.num, dstr.gen);
+				}
+				else
+					pagNum = dst->getPageNum();
+				xco = dst->getLeft();
+				yco = dst->getTop();
+				validLink = true;
+			}
+		}
+		else
+		{
+			GooString *ndst = gto->getNamedDest();
+			if (ndst)
+			{
+				LinkDest *dstn = pdfDoc->findDest(ndst);
+				if (dstn)
+				{
+					if (dstn->getKind() == destXYZ)
+					{
+						if (dstn->isPageRef())
+						{
+							Ref dstr = dstn->getPageRef();
+							pagNum = pdfDoc->findPage(dstr.num, dstr.gen);
+						}
+						else
+							pagNum = dstn->getPageNum();
+						xco = dstn->getLeft();
+						yco = dstn->getTop();
+						validLink = true;
+					}
+				}
+			}
+		}
+	}
+	else if (act->getKind() == actionGoToR)
+	{
+		LinkGoToR *gto = (LinkGoToR*)act;
+		fileName = UnicodeParsedString(gto->getFileName());
+		LinkDest *dst = gto->getDest();
+		if (dst)
+		{
+			if (dst->getKind() == destXYZ)
+			{
+				pagNum = dst->getPageNum();
+				xco = dst->getLeft();
+				yco = dst->getTop();
+				validLink = true;
+			}
+		}
+		else
+		{
+			GooString *ndst = gto->getNamedDest();
+			if (ndst)
+			{
+				LinkDest *dstn = pdfDoc->findDest(ndst);
+				if (dstn)
+				{
+					if (dstn->getKind() == destXYZ)
+					{
+						pagNum = dstn->getPageNum();
+						xco = dstn->getLeft();
+						yco = dstn->getTop();
+						validLink = true;
+					}
+				}
+			}
+		}
+	}
+	else if (act->getKind() == actionURI)
+	{
+		LinkURI *gto = (LinkURI*)act;
+		validLink = true;
+		fileName = UnicodeParsedString(gto->getURI());
+	}
+	if (validLink)
+	{
+		PDFRectangle *box = annota->getRect();
+		double xCoor = m_doc->currentPage()->xOffset() + box->x1;
+		double yCoor = m_doc->currentPage()->yOffset() + m_doc->currentPage()->height() - box->y2;
+		double width = box->x2 - box->x1;
+		double height = box->y2 - box->y1;
+		int z = m_doc->itemAdd(PageItem::TextFrame, PageItem::Rectangle, xCoor, yCoor, width, height, 0, CommonStrings::None, CommonStrings::None, true);
+		PageItem *ite = m_doc->Items->at(z);
 		ite->ClipEdited = true;
 		ite->FrameType = 3;
 		ite->setFillEvenOdd(false);
 		ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
 		ite->ContourLine = ite->PoLine.copy();
 		ite->setTextFlowMode(PageItem::TextFlowDisabled);
-		dev->m_Elements->append(ite);
-		if (dev->m_groupStack.count() != 0)
+		m_Elements->append(ite);
+		if (m_groupStack.count() != 0)
 		{
-			dev->m_groupStack.top().Items.append(ite);
-			dev->applyMask(ite);
+			m_groupStack.top().Items.append(ite);
+			applyMask(ite);
 		}
 		ite->setIsAnnotation(true);
 		ite->AutoName = false;
-		if (annota->getType() == 1)
+		if (act->getKind() == actionGoTo)
 		{
-			ite->annotation().setType(10);
+			ite->annotation().setZiel(pagNum - 1);
+			ite->annotation().setAction(QString("%1 %2").arg(xco).arg(yco));
+			ite->annotation().setActionType(2);
 		}
-		else if (annota->getType() == 2)
+		else if (act->getKind() == actionGoToR)
 		{
-			AnnotLink *anl = (AnnotLink*)annota;
-			LinkAction *act = anl->getAction();
-			bool validLink = false;
-			int pagNum = 0;
-			int xco = 0;
-			int yco = 0;
-			if (act->getKind() == actionGoTo)
-			{
-				LinkGoTo *gto = (LinkGoTo*)act;
-				LinkDest *dst = gto->getDest();
-				if (dst)
-				{
-					if (dst->getKind() == destXYZ)
-					{
-						if (dst->isPageRef())
-						{
-							Ref dstr = dst->getPageRef();
-							pagNum = dev->pdfDoc->findPage(dstr.num, dstr.gen);
-						}
-						else
-							pagNum = dst->getPageNum();
-						xco = dst->getLeft();
-						yco = dst->getTop();
-						validLink = true;
-					}
-				}
-				else
-				{
-					GooString *ndst = gto->getNamedDest();
-					if (ndst)
-					{
-						LinkDest *dstn = dev->pdfDoc->findDest(ndst);
-						if (dstn)
-						{
-							if (dstn->getKind() == destXYZ)
-							{
-								if (dstn->isPageRef())
-								{
-									Ref dstr = dstn->getPageRef();
-									pagNum = dev->pdfDoc->findPage(dstr.num, dstr.gen);
-								}
-								else
-									pagNum = dstn->getPageNum();
-								xco = dstn->getLeft();
-								yco = dstn->getTop();
-								validLink = true;
-							}
-						}
-					}
-				}
-				if (validLink)
-				{
-					ite->annotation().setZiel(pagNum - 1);
-					ite->annotation().setAction(QString("%1 %2").arg(xco).arg(yco));
-					ite->annotation().setActionType(2);
-				}
-			}
-			else if (act->getKind() == actionGoToR)
-			{
-				LinkGoToR *gto = (LinkGoToR*)act;
-				LinkDest *dst = gto->getDest();
-				if (dst)
-				{
-					if (dst->getKind() == destXYZ)
-					{
-						pagNum = dst->getPageNum();
-						xco = dst->getLeft();
-						yco = dst->getTop();
-						validLink = true;
-					}
-				}
-				else
-				{
-					GooString *ndst = gto->getNamedDest();
-					if (ndst)
-					{
-						LinkDest *dstn = dev->pdfDoc->findDest(ndst);
-						if (dstn)
-						{
-							if (dstn->getKind() == destXYZ)
-							{
-								pagNum = dstn->getPageNum();
-								xco = dstn->getLeft();
-								yco = dstn->getTop();
-								validLink = true;
-							}
-						}
-					}
-				}
-				if (validLink)
-				{
-					ite->annotation().setZiel(pagNum - 1);
-					ite->annotation().setExtern(dev->UnicodeParsedString(gto->getFileName()));
-					ite->annotation().setAction(QString("%1 %2").arg(xco).arg(yco));
-					ite->annotation().setActionType(2);
-				}
-			}
-			else if (act->getKind() == actionURI)
-			{
-				LinkURI *gto = (LinkURI*)act;
-				ite->annotation().setAction("");
-				ite->annotation().setExtern(dev->UnicodeParsedString(gto->getURI()));
-				ite->annotation().setActionType(8);
-			}
-			ite->annotation().setType(11);
+			ite->annotation().setZiel(pagNum - 1);
+			ite->annotation().setExtern(fileName);
+			ite->annotation().setAction(QString("%1 %2").arg(xco).arg(yco));
+			ite->annotation().setActionType(2);
 		}
-/*		else if (annota->getType() == 20)
+		else if (act->getKind() == actionURI)
 		{
-			qDebug() << "Widget Annotation";
-		}*/
-//		qDebug() << "Annotation of type" << annota->getType() << "X1" << xCoor << "Y1" << yCoor << "W" << width << "H" << height;
-		return false;
+			ite->annotation().setAction("");
+			ite->annotation().setExtern(fileName);
+			ite->annotation().setActionType(8);
+		}
+		ite->annotation().setType(11);
 	}
-	return true;
+	return validLink;
+}
+
+bool SlaOutputDev::handleWidgetAnnot(Annot* annota)
+{
+	PDFRectangle *box = annota->getRect();
+	double xCoor = m_doc->currentPage()->xOffset() + box->x1;
+	double yCoor = m_doc->currentPage()->yOffset() + m_doc->currentPage()->height() - box->y2;
+	double width = box->x2 - box->x1;
+	double height = box->y2 - box->y1;
+	qDebug() << "Widget Annotation at x" << xCoor << "y" << yCoor << "w" << width << "h" << height;
+	bool retVal = true;
+	return retVal;
 }
 
 void SlaOutputDev::startDoc(PDFDoc *doc, XRef *xrefA, Catalog *catA)

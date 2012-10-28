@@ -460,6 +460,9 @@ bool PdfPlug::convert(QString fn)
 							}
 						}
 						info.free();
+						m_Doc->setPageHeight(pdfDoc->getPageMediaHeight(1));
+						m_Doc->setPageWidth(pdfDoc->getPageMediaWidth(1));
+						m_Doc->setPageSize("Custom");
 						for (int pp = 0; pp < lastPage; pp++)
 						{
 							m_Doc->setActiveLayer(baseLayer);
@@ -473,7 +476,6 @@ bool PdfPlug::convert(QString fn)
 							m_Doc->currentPage()->setWidth(pdfDoc->getPageMediaWidth(pp + 1));
 							m_Doc->currentPage()->MPageNam = CommonStrings::trMasterPageNormal;
 							m_Doc->currentPage()->m_pageSize = "Custom";
-							m_Doc->setPageSize("Custom");
 							m_Doc->reformPages(true);
 							if (hasOcg)
 							{
