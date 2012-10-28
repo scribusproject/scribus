@@ -517,9 +517,9 @@ void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 								m_doc->ApplyGuides(&nx, &ny,true);
 								m_objectDeltaPos += FPoint(nx - nxo, ny - nyo);
 								if(ny != nyo)
-									ySnap = ny * m_canvas->scale();
+									ySnap = ny;
 								if(nx != nxo)
-									xSnap = nx * m_canvas->scale();
+									xSnap = nx;
 							}
 						}
 						if (m_doc->useRaster)
@@ -603,9 +603,9 @@ void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 							m_doc->ApplyGuides(&nx, &ny,true);
 							m_objectDeltaPos += FPoint(nx - nxo, ny - nyo);
 							if(ny != nyo)
-								ySnap = ny * m_canvas->scale();
+								ySnap = ny;
 							if(nx != nxo)
-								xSnap = nx * m_canvas->scale();
+								xSnap = nx;
 						}
 					}
 					if (m_doc->useRaster)

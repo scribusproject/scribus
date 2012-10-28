@@ -768,22 +768,25 @@ void CanvasMode::clearPixmapCache()
 
 void CanvasMode::drawSnapLine(QPainter* p)
 {
-	if(m_doc->SnapElement)
+	if (m_doc->SnapElement)
 	{
-		if(ySnap)
+		MarginStruct bleedValues = m_doc->bleedsVal();
+		QPointF pageOffset = QPointF(m_doc->currentPage()->xOffset(), m_doc->currentPage()->yOffset());
+		QPoint  pageOrigin = m_canvas->canvasToLocal(pageOffset);
+		if (ySnap)
 		{
 			p->setPen(Qt::green);
-			double x = (m_doc->currentPage()->xOffset() - m_doc->bleedsVal().Left)* m_canvas->scale();
-			double w = (m_doc->currentPage()->width() + m_doc->bleedsVal().Left + m_doc->bleedsVal().Right) * m_canvas->scale();
-			p->drawLine(x, ySnap, x+w,ySnap);
+			QPoint pt = m_canvas->canvasToLocal(QPointF(pageOffset.x(), ySnap));
+			double w  = (m_doc->currentPage()->width() + bleedValues.Left + bleedValues.Right) * m_canvas->scale();
+			p->drawLine(pageOrigin.x(), pt.y(), pageOrigin.x() + w, pt.y());
 			ySnap = 0;
 		}
-		if(xSnap)
+		if (xSnap)
 		{
 			p->setPen(Qt::green);
-			double y = (m_doc->currentPage()->yOffset() - m_doc->bleedsVal().Top) * m_canvas->scale();
-			double h = (m_doc->currentPage()->height() + m_doc->bleedsVal().Bottom + m_doc->bleedsVal().Top) * m_canvas->scale();
-			p->drawLine(xSnap, y, xSnap,y+h);
+			QPoint pt = m_canvas->canvasToLocal(QPointF(xSnap, pageOffset.y()));
+			double h  = (m_doc->currentPage()->height() + bleedValues.Bottom + bleedValues.Top) * m_canvas->scale();
+			p->drawLine(pt.x(), pageOrigin.y(), pt.x(), pageOrigin.y() + h);
 			xSnap = 0;
 		}
 	}
