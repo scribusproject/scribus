@@ -2,6 +2,7 @@
 #include <GlobalParams.h>
 #include <poppler-config.h>
 #include <Link.h>
+#include <Form.h>
 #include <QApplication>
 #include <QFile>
 #include "commonstrings.h"
@@ -48,23 +49,23 @@ SlaOutputDev::~SlaOutputDev()
 GBool SlaOutputDev::annotations_callback(Annot *annota, void *user_data)
 {
 	SlaOutputDev *dev = (SlaOutputDev*)user_data;
+	PDFRectangle *box = annota->getRect();
+	double xCoor = dev->m_doc->currentPage()->xOffset() + box->x1;
+	double yCoor = dev->m_doc->currentPage()->yOffset() + dev->m_doc->currentPage()->height() - box->y2;
+	double width = box->x2 - box->x1;
+	double height = box->y2 - box->y1;
 	bool retVal = true;
-	if (annota->getType() == 1)
-		retVal = !dev->handleTextAnnot(annota);
-	else if (annota->getType() == 2)
-		retVal = !dev->handleLinkAnnot(annota);
-	else if (annota->getType() == 20)
-		retVal = !dev->handleWidgetAnnot(annota);
+	if (annota->getType() == Annot::typeText)
+		retVal = !dev->handleTextAnnot(annota, xCoor, yCoor, width, height);
+	else if (annota->getType() == Annot::typeLink)
+		retVal = !dev->handleLinkAnnot(annota, xCoor, yCoor, width, height);
+	else if (annota->getType() == Annot::typeWidget)
+		retVal = !dev->handleWidgetAnnot(annota, xCoor, yCoor, width, height);
 	return retVal;
 }
 
-bool SlaOutputDev::handleTextAnnot(Annot* annota)
+bool SlaOutputDev::handleTextAnnot(Annot* annota, double xCoor, double yCoor, double width, double height)
 {
-	PDFRectangle *box = annota->getRect();
-	double xCoor = m_doc->currentPage()->xOffset() + box->x1;
-	double yCoor = m_doc->currentPage()->yOffset() + m_doc->currentPage()->height() - box->y2;
-	double width = box->x2 - box->x1;
-	double height = box->y2 - box->y1;
 	int z = m_doc->itemAdd(PageItem::TextFrame, PageItem::Rectangle, xCoor, yCoor, width, height, 0, CommonStrings::None, CommonStrings::None, true);
 	PageItem *ite = m_doc->Items->at(z);
 	ite->ClipEdited = true;
@@ -87,7 +88,7 @@ bool SlaOutputDev::handleTextAnnot(Annot* annota)
 	return true;
 }
 
-bool SlaOutputDev::handleLinkAnnot(Annot* annota)
+bool SlaOutputDev::handleLinkAnnot(Annot* annota, double xCoor, double yCoor, double width, double height)
 {
 	AnnotLink *anl = (AnnotLink*)annota;
 	LinkAction *act = anl->getAction();
@@ -183,11 +184,6 @@ bool SlaOutputDev::handleLinkAnnot(Annot* annota)
 	}
 	if (validLink)
 	{
-		PDFRectangle *box = annota->getRect();
-		double xCoor = m_doc->currentPage()->xOffset() + box->x1;
-		double yCoor = m_doc->currentPage()->yOffset() + m_doc->currentPage()->height() - box->y2;
-		double width = box->x2 - box->x1;
-		double height = box->y2 - box->y1;
 		int z = m_doc->itemAdd(PageItem::TextFrame, PageItem::Rectangle, xCoor, yCoor, width, height, 0, CommonStrings::None, CommonStrings::None, true);
 		PageItem *ite = m_doc->Items->at(z);
 		ite->ClipEdited = true;
@@ -215,7 +211,7 @@ bool SlaOutputDev::handleLinkAnnot(Annot* annota)
 			ite->annotation().setZiel(pagNum - 1);
 			ite->annotation().setExtern(fileName);
 			ite->annotation().setAction(QString("%1 %2").arg(xco).arg(yco));
-			ite->annotation().setActionType(2);
+			ite->annotation().setActionType(9);
 		}
 		else if (act->getKind() == actionURI)
 		{
@@ -228,16 +224,409 @@ bool SlaOutputDev::handleLinkAnnot(Annot* annota)
 	return validLink;
 }
 
-bool SlaOutputDev::handleWidgetAnnot(Annot* annota)
+bool SlaOutputDev::handleWidgetAnnot(Annot* annota, double xCoor, double yCoor, double width, double height)
 {
-	PDFRectangle *box = annota->getRect();
-	double xCoor = m_doc->currentPage()->xOffset() + box->x1;
-	double yCoor = m_doc->currentPage()->yOffset() + m_doc->currentPage()->height() - box->y2;
-	double width = box->x2 - box->x1;
-	double height = box->y2 - box->y1;
-	qDebug() << "Widget Annotation at x" << xCoor << "y" << yCoor << "w" << width << "h" << height;
-	bool retVal = true;
+	bool retVal = false;
+	int formcount = m_formWidgets->getNumWidgets();
+	for (int i = 0; i < formcount; ++i)
+	{
+		FormWidget *fm = m_formWidgets->getWidget(i);
+		if (fm)
+		{
+			AnnotWidget *ano = fm->getWidgetAnnotation();
+			if (ano)
+			{
+				if (ano == (AnnotWidget*)annota)
+				{
+					int wtyp = -1;
+					if (fm->getType() == formButton)
+					{
+						FormWidgetButton *btn = (FormWidgetButton*)fm;
+						if (btn)
+						{
+							if (btn->getButtonType() == formButtonCheck)
+							{
+								wtyp = 4;
+								retVal = true;
+							}
+							else if (btn->getButtonType() == formButtonPush)
+							{
+								wtyp = 2;
+								retVal = true;
+							}
+							else if (btn->getButtonType() == formButtonRadio)
+							{
+								retVal = false;
+							}
+						}
+					}
+					else if (fm->getType() == formText)
+					{
+						wtyp = 3;
+						retVal = true;
+					}
+					else if (fm->getType() == formChoice)
+					{
+						FormWidgetChoice *btn = (FormWidgetChoice*)fm;
+						if (btn)
+						{
+							if (btn->isCombo())
+							{
+								wtyp = 5;
+								retVal = true;
+							}
+							else if (btn->isListBox())
+							{
+								wtyp = 6;
+								retVal = true;
+							}
+						}
+					}
+					if (retVal)
+					{
+						AnnotAppearanceCharacs *achar = ano->getAppearCharacs();
+						if (achar)
+						{
+							AnnotColor *bgCol = achar->getBackColor();
+							if (bgCol)
+								CurrColorFill = getAnnotationColor(bgCol);
+							else
+								CurrColorFill = CommonStrings::None;
+						}
+						else
+							CurrColorFill = CommonStrings::None;
+						int z = m_doc->itemAdd(PageItem::TextFrame, PageItem::Rectangle, xCoor, yCoor, width, height, 0, CurrColorFill, CommonStrings::None, true);
+						PageItem *ite = m_doc->Items->at(z);
+						ite->ClipEdited = true;
+						ite->FrameType = 3;
+						ite->setFillEvenOdd(false);
+						ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
+						ite->ContourLine = ite->PoLine.copy();
+						ite->setTextFlowMode(PageItem::TextFlowDisabled);
+						m_Elements->append(ite);
+						if (m_groupStack.count() != 0)
+						{
+							m_groupStack.top().Items.append(ite);
+							applyMask(ite);
+						}
+						ite->setIsAnnotation(true);
+						ite->AutoName = false;
+						if (achar)
+						{
+							AnnotColor *fgCol = achar->getBorderColor();
+							if (fgCol)
+								CurrColorStroke = getAnnotationColor(fgCol);
+							else
+							{
+								fgCol = achar->getBackColor();
+								if (fgCol)
+									CurrColorStroke = getAnnotationColor(fgCol);
+								else
+									CurrColorStroke = CommonStrings::None;
+							}
+						}
+						else
+							CurrColorStroke = CommonStrings::None;
+						AnnotBorder *brd = annota->getBorder();
+						if (brd)
+						{
+							int bsty = brd->getStyle();
+							if (bsty == AnnotBorder::borderDashed)
+								bsty = 1;
+							else if (bsty == AnnotBorder::borderBeveled)
+								bsty = 3;
+							else if (bsty == AnnotBorder::borderInset)
+								bsty = 4;
+							else if (bsty == AnnotBorder::borderUnderlined)
+								bsty = 2;
+							ite->annotation().setBsty(bsty);
+							ite->annotation().setBorderColor(CurrColorStroke);
+							ite->annotation().setBwid(qRound(brd->getWidth()));
+						}
+						else
+						{
+							ite->annotation().setBsty(0);
+							ite->annotation().setBorderColor(CommonStrings::None);
+							ite->annotation().setBwid(0);
+						}
+						QString tmTxt = "";
+						tmTxt = UnicodeParsedString(fm->getPartialName());
+						if (!tmTxt.isEmpty())
+							ite->setItemName(tmTxt);
+						tmTxt = "";
+						tmTxt = UnicodeParsedString(fm->getAlternateUiName());
+						if (!tmTxt.isEmpty())
+							ite->annotation().setToolTip(tmTxt);
+						tmTxt = "";
+						if (achar)
+						{
+							tmTxt = UnicodeParsedString(achar->getRolloverCaption());
+							if (!tmTxt.isEmpty())
+								ite->annotation().setRollOver(tmTxt);
+							tmTxt = "";
+							tmTxt = UnicodeParsedString(achar->getAlternateCaption());
+							if (!tmTxt.isEmpty())
+								ite->annotation().setDown(tmTxt);
+						}
+						ite->annotation().setType(wtyp);
+						ite->annotation().setFlag(ano->getFlags());
+						if (wtyp == 2) // Button
+						{
+							if (achar)
+								ite->itemText.insertChars(UnicodeParsedString(achar->getNormalCaption()));
+							ite->annotation().addToFlag(65536);
+							handleActions(ite, ano);
+						}
+						else if (wtyp == 3) // Textfield
+						{
+							FormWidgetText *btn = (FormWidgetText*)fm;
+							if (btn)
+							{
+								ite->itemText.insertChars(UnicodeParsedString(btn->getContent()));
+								if (btn->isMultiline())
+									ite->annotation().addToFlag(4096);
+								if (btn->isPassword())
+									ite->annotation().addToFlag(8192);
+								if (btn->noSpellCheck())
+									ite->annotation().addToFlag(4194304);
+								if (btn->noScroll())
+									ite->annotation().addToFlag(8388608);
+								int mxLen = btn->getMaxLen();
+								if (mxLen > 0)
+									ite->annotation().setMaxChar(mxLen);
+								else
+									ite->annotation().setMaxChar(-1);
+								handleActions(ite, ano);
+							}
+						}
+						else if (wtyp == 4) // Checkbox
+						{
+							FormWidgetButton *btn = (FormWidgetButton*)fm;
+							if (btn)
+							{
+								ite->annotation().setIsChk(btn->getState());
+								handleActions(ite, ano);
+							}
+						}
+						else if (wtyp == 5) // Combobox
+						{
+							ite->annotation().addToFlag(131072);
+							handleActions(ite, ano);
+						}
+						else if (wtyp == 6) // Listbox
+						{
+							handleActions(ite, ano);
+						}
+					}
+					break;
+				}
+			}
+		}
+	}
 	return retVal;
+}
+
+void SlaOutputDev::handleActions(PageItem* ite, AnnotWidget *ano)
+{
+	LinkAction *Lact = ano->getAction();
+	if (Lact)
+	{
+		if (Lact->getKind() == actionJavaScript)
+		{
+			LinkJavaScript *jsa = (LinkJavaScript*)Lact;
+			if (jsa->isOk())
+			{
+				ite->annotation().setActionType(1);
+				ite->annotation().setAction(UnicodeParsedString(jsa->getScript()));
+			}
+		}
+		else if (Lact->getKind() == actionGoTo)
+		{
+			int pagNum = 0;
+			int xco = 0;
+			int yco = 0;
+			LinkGoTo *gto = (LinkGoTo*)Lact;
+			LinkDest *dst = gto->getDest();
+			if (dst)
+			{
+				if (dst->getKind() == destXYZ)
+				{
+					if (dst->isPageRef())
+					{
+						Ref dstr = dst->getPageRef();
+						pagNum = pdfDoc->findPage(dstr.num, dstr.gen);
+					}
+					else
+						pagNum = dst->getPageNum();
+					xco = dst->getLeft();
+					yco = dst->getTop();
+					ite->annotation().setZiel(pagNum - 1);
+					ite->annotation().setAction(QString("%1 %2").arg(xco).arg(yco));
+					ite->annotation().setActionType(2);
+				}
+			}
+			else
+			{
+				GooString *ndst = gto->getNamedDest();
+				if (ndst)
+				{
+					LinkDest *dstn = pdfDoc->findDest(ndst);
+					if (dstn)
+					{
+						if (dstn->getKind() == destXYZ)
+						{
+							if (dstn->isPageRef())
+							{
+								Ref dstr = dstn->getPageRef();
+								pagNum = pdfDoc->findPage(dstr.num, dstr.gen);
+							}
+							else
+								pagNum = dstn->getPageNum();
+							xco = dstn->getLeft();
+							yco = dstn->getTop();
+							ite->annotation().setZiel(pagNum - 1);
+							ite->annotation().setAction(QString("%1 %2").arg(xco).arg(yco));
+							ite->annotation().setActionType(2);
+						}
+					}
+				}
+			}
+		}
+		else if (Lact->getKind() == actionGoToR)
+		{
+			int pagNum = 0;
+			int xco = 0;
+			int yco = 0;
+			LinkGoToR *gto = (LinkGoToR*)Lact;
+			QString fileName = UnicodeParsedString(gto->getFileName());
+			LinkDest *dst = gto->getDest();
+			if (dst)
+			{
+				if (dst->getKind() == destXYZ)
+				{
+					pagNum = dst->getPageNum();
+					xco = dst->getLeft();
+					yco = dst->getTop();
+					ite->annotation().setZiel(pagNum - 1);
+					ite->annotation().setExtern(fileName);
+					ite->annotation().setAction(QString("%1 %2").arg(xco).arg(yco));
+					ite->annotation().setActionType(9);
+				}
+			}
+			else
+			{
+				GooString *ndst = gto->getNamedDest();
+				if (ndst)
+				{
+					LinkDest *dstn = pdfDoc->findDest(ndst);
+					if (dstn)
+					{
+						if (dstn->getKind() == destXYZ)
+						{
+							pagNum = dstn->getPageNum();
+							xco = dstn->getLeft();
+							yco = dstn->getTop();
+							ite->annotation().setZiel(pagNum - 1);
+							ite->annotation().setExtern(fileName);
+							ite->annotation().setAction(QString("%1 %2").arg(xco).arg(yco));
+							ite->annotation().setActionType(9);
+						}
+					}
+				}
+			}
+		}
+		else if (Lact->getKind() == actionUnknown)
+		{
+			LinkUnknown *uno = (LinkUnknown*)Lact;
+			QString actString = UnicodeParsedString(uno->getAction());
+			if (actString == "ResetForm")
+			{
+				ite->annotation().setActionType(4);
+			}
+			else
+				qDebug() << "Found unknown Action of type" << actString;
+		}
+		else if (Lact->getKind() == actionNamed)
+		{
+			LinkNamed *uno = (LinkNamed*)Lact;
+			qDebug() << "Found named Action of type" << UnicodeParsedString(uno->getName());
+		}
+		else
+			qDebug() << "Found Action of type" << Lact->getKind();
+	}
+// POPPLER_VERSION appeared in 0.19.0 first
+#ifdef POPPLER_VERSION
+	LinkAction *Aact = ano->getAdditionalAction(Annot::actionMousePressed);
+	if (Aact)
+	{
+		if (Aact->getKind() == actionJavaScript)
+		{
+			LinkJavaScript *jsa = (LinkJavaScript*)Aact;
+			if (jsa->isOk())
+			{
+				ite->annotation().setD_act(UnicodeParsedString(jsa->getScript()));
+				ite->annotation().setAAact(true);
+			}
+		}
+		Aact = NULL;
+	}
+	Aact = ano->getAdditionalAction(Annot::actionCursorEntering);
+	if (Aact)
+	{
+		if (Aact->getKind() == actionJavaScript)
+		{
+			LinkJavaScript *jsa = (LinkJavaScript*)Aact;
+			if (jsa->isOk())
+			{
+				ite->annotation().setE_act(UnicodeParsedString(jsa->getScript()));
+				ite->annotation().setAAact(true);
+			}
+		}
+		Aact = NULL;
+	}
+	Aact = ano->getAdditionalAction(Annot::actionCursorLeaving);
+	if (Aact)
+	{
+		if (Aact->getKind() == actionJavaScript)
+		{
+			LinkJavaScript *jsa = (LinkJavaScript*)Aact;
+			if (jsa->isOk())
+			{
+				ite->annotation().setX_act(UnicodeParsedString(jsa->getScript()));
+				ite->annotation().setAAact(true);
+			}
+		}
+		Aact = NULL;
+	}
+	Aact = ano->getAdditionalAction(Annot::actionFocusIn);
+	if (Aact)
+	{
+		if (Aact->getKind() == actionJavaScript)
+		{
+			LinkJavaScript *jsa = (LinkJavaScript*)Aact;
+			if (jsa->isOk())
+			{
+				ite->annotation().setFo_act(UnicodeParsedString(jsa->getScript()));
+				ite->annotation().setAAact(true);
+			}
+		}
+		Aact = NULL;
+	}
+	Aact = ano->getAdditionalAction(Annot::actionFocusOut);
+	if (Aact)
+	{
+		if (Aact->getKind() == actionJavaScript)
+		{
+			LinkJavaScript *jsa = (LinkJavaScript*)Aact;
+			if (jsa->isOk())
+			{
+				ite->annotation().setBl_act(UnicodeParsedString(jsa->getScript()));
+				ite->annotation().setAAact(true);
+			}
+		}
+		Aact = NULL;
+	}
+#endif
 }
 
 void SlaOutputDev::startDoc(PDFDoc *doc, XRef *xrefA, Catalog *catA)
@@ -258,8 +647,9 @@ void SlaOutputDev::startDoc(PDFDoc *doc, XRef *xrefA, Catalog *catA)
 	true);
 }
 
-void SlaOutputDev::startPage(int, GfxState *)
+void SlaOutputDev::startPage(int pageNum, GfxState *)
 {
+	m_formWidgets = pdfDoc->getPage(pageNum)->getFormWidgets();
 }
 
 void SlaOutputDev::endPage()
@@ -2645,6 +3035,46 @@ QString SlaOutputDev::getColor(GfxColorSpace *color_space, GfxColor *color, int 
 		tmp.setColorRGB(Rc, Gc, Bc);
 		fNam = m_doc->PageColors.tryAddColor(namPrefix+tmp.name(), tmp);
 	//	qDebug() << "update fill color other colorspace" << color_space->getMode() << "treating as rgb" << Rc << Gc << Bc;
+	}
+	if (fNam == namPrefix+tmp.name())
+		m_importedColors->append(fNam);
+	return fNam;
+}
+
+QString SlaOutputDev::getAnnotationColor(AnnotColor *color)
+{
+	QString fNam;
+	QString namPrefix = "FromPDF";
+	ScColor tmp;
+	tmp.setSpotColor(false);
+	tmp.setRegistrationColor(false);
+	if (color->getSpace() == AnnotColor::colorTransparent)
+		return CommonStrings::None;
+	else if (color->getSpace() == AnnotColor::colorRGB)
+	{
+		const double *color_data = color->getValues();
+		int Rc = qRound(color_data[0] * 255);
+		int Gc = qRound(color_data[1] * 255);
+		int Bc = qRound(color_data[2] * 255);
+		tmp.setColorRGB(Rc, Gc, Bc);
+		fNam = m_doc->PageColors.tryAddColor(namPrefix+tmp.name(), tmp);
+	}
+	else if (color->getSpace() == AnnotColor::colorCMYK)
+	{
+		const double *color_data = color->getValues();
+		int Cc = qRound(color_data[0] * 255);
+		int Mc = qRound(color_data[1] * 255);
+		int Yc = qRound(color_data[2] * 255);
+		int Kc = qRound(color_data[3] * 255);
+		tmp.setColor(Cc, Mc, Yc, Kc);
+		fNam = m_doc->PageColors.tryAddColor(namPrefix+tmp.name(), tmp);
+	}
+	else if (color->getSpace() == AnnotColor::colorGray)
+	{
+		const double *color_data = color->getValues();
+		int Kc = 255 - qRound(color_data[0] * 255);
+		tmp.setColor(0, 0, 0, Kc);
+		fNam = m_doc->PageColors.tryAddColor(namPrefix+tmp.name(), tmp);
 	}
 	if (fNam == namPrefix+tmp.name())
 		m_importedColors->append(fNam);

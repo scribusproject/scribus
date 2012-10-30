@@ -3168,7 +3168,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRectF cullingArea)
 			{
 				p->setPen(fontColor);
 				p->setFont(QFont(fontName, fontSize));
-				p->drawText(QRectF(wdt, wdt, Width - (2 * wdt), Height - (2 * wdt)), bmUtf16);
+				p->drawText(QRectF(wdt, wdt, Width - (2 * wdt), Height - (2 * wdt)), bmUtf16, false);
 			}
 			if ((!Pfile.isEmpty()) && (PictureIsAvailable) && (PicArt) && (annotation().UseIcons()))
 			{

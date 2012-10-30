@@ -75,9 +75,10 @@ public:
 	SlaOutputDev(ScribusDoc* doc, QList<PageItem*> *Elements, QStringList *importedColors, int flags);
 	virtual ~SlaOutputDev();
 	static GBool annotations_callback(Annot *annota, void *user_data);
-	bool handleTextAnnot(Annot* annota);
-	bool handleLinkAnnot(Annot* annota);
-	bool handleWidgetAnnot(Annot* annota);
+	bool handleTextAnnot(Annot* annota, double xCoor, double yCoor, double width, double height);
+	bool handleLinkAnnot(Annot* annota, double xCoor, double yCoor, double width, double height);
+	bool handleWidgetAnnot(Annot* annota, double xCoor, double yCoor, double width, double height);
+	void handleActions(PageItem* ite, AnnotWidget *ano);
 	void startDoc(PDFDoc *doc, XRef *xrefA, Catalog *catA);
 
 	GBool isOk() { return gTrue; }
@@ -88,7 +89,7 @@ public:
 	virtual GBool useShadedFills(int type) { return type <= 7; }
 	virtual GBool useFillColorStop() { return gTrue; }
 	virtual GBool useDrawForm() { return gFalse; }
-	virtual void startPage(int, GfxState *);
+	virtual void startPage(int pageNum, GfxState *);
 	virtual void endPage();
 	// grapics state
 	virtual void saveState(GfxState *state);
@@ -180,6 +181,7 @@ public:
 private:
 	void getPenState(GfxState *state);
 	QString getColor(GfxColorSpace *color_space, GfxColor *color, int *shade);
+	QString getAnnotationColor(AnnotColor *color);
 	QString convertPath(GfxPath *path);
 	int getBlendMode(GfxState *state);
 	void applyMask(PageItem *ite);
@@ -244,6 +246,7 @@ private:
 	Catalog *catalog;
 	SplashFontEngine *m_fontEngine;
 	SplashFont *m_font;
+	FormPageWidgets *m_formWidgets;
 };
 
 #endif
