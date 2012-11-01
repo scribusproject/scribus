@@ -493,6 +493,32 @@ bool PdfPlug::convert(QString fn)
 							else
 								pdfDoc->displayPage(dev, pp + 1, hDPI, vDPI, rotate, useMediaBox, crop, printing, NULL, NULL, dev->annotations_callback, dev);
 						}
+						int numjs = pdfDoc->getCatalog()->numJS();
+						if (numjs > 0)
+						{
+							NameTree *jsNameTreeP = new NameTree();
+							Object names;
+							Object catDict;
+							pdfDoc->getXRef()->getCatalog(&catDict);
+							if (catDict.isDict())
+							{
+								catDict.dictLookup("Names", &names);
+								if (names.isDict())
+								{
+									Object obj;
+									names.dictLookup("JavaScript", &obj);
+									jsNameTreeP->init(pdfDoc->getXRef(), &obj);
+									obj.free();
+								}
+								for (int a = 0; a < numjs; a++)
+								{
+									m_Doc->JavaScripts.insert(UnicodeParsedString(jsNameTreeP->getName(a)), UnicodeParsedString(pdfDoc->getCatalog()->getJS(a)));
+								}
+								names.free();
+							}
+							catDict.free();
+							delete jsNameTreeP;
+						}
 					}
 					else
 					{
