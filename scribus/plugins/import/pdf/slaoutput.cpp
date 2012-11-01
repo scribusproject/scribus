@@ -46,6 +46,36 @@ SlaOutputDev::~SlaOutputDev()
 	delete m_fontEngine;
 }
 
+/* Replacement for the crippled Poppler function LinkAction* AnnotWidget::getAdditionalAction(AdditionalActionsType type) */
+LinkAction* SlaOutputDev::SC_getAdditionalAction(const char *key, AnnotWidget *ano)
+{
+	LinkAction *linkAction = NULL;
+	Object obj;
+	Ref refa = ano->getRef();
+	Object additionalActions;
+	Object *act = xref->fetch(refa.num, refa.gen, &obj);
+	if (act)
+	{
+		if (act->isDict())
+		{
+			Dict* adic = act->getDict();
+			adic->lookupNF("AA", &additionalActions);
+			Object additionalActionsObject;
+			if (additionalActions.fetch(pdfDoc->getXRef(), &additionalActionsObject)->isDict())
+			{
+				Object actionObject;
+				if (additionalActionsObject.dictLookup(key, &actionObject)->isDict())
+					linkAction = LinkAction::parseAction(&actionObject, pdfDoc->getCatalog()->getBaseURI());
+				actionObject.free();
+			}
+			additionalActionsObject.free();
+			additionalActions.free();
+		}
+	}
+	obj.free();
+	return linkAction;
+}
+
 GBool SlaOutputDev::annotations_callback(Annot *annota, void *user_data)
 {
 	SlaOutputDev *dev = (SlaOutputDev*)user_data;
@@ -554,9 +584,7 @@ void SlaOutputDev::handleActions(PageItem* ite, AnnotWidget *ano)
 		else
 			qDebug() << "Found Action of type" << Lact->getKind();
 	}
-// POPPLER_VERSION appeared in 0.19.0 first
-#ifdef POPPLER_VERSION
-	LinkAction *Aact = ano->getAdditionalAction(Annot::actionMousePressed);
+	LinkAction *Aact = SC_getAdditionalAction("D", ano);
 	if (Aact)
 	{
 		if (Aact->getKind() == actionJavaScript)
@@ -570,7 +598,7 @@ void SlaOutputDev::handleActions(PageItem* ite, AnnotWidget *ano)
 		}
 		Aact = NULL;
 	}
-	Aact = ano->getAdditionalAction(Annot::actionCursorEntering);
+	Aact = SC_getAdditionalAction("E", ano);
 	if (Aact)
 	{
 		if (Aact->getKind() == actionJavaScript)
@@ -584,7 +612,7 @@ void SlaOutputDev::handleActions(PageItem* ite, AnnotWidget *ano)
 		}
 		Aact = NULL;
 	}
-	Aact = ano->getAdditionalAction(Annot::actionCursorLeaving);
+	Aact = SC_getAdditionalAction("X", ano);
 	if (Aact)
 	{
 		if (Aact->getKind() == actionJavaScript)
@@ -598,7 +626,7 @@ void SlaOutputDev::handleActions(PageItem* ite, AnnotWidget *ano)
 		}
 		Aact = NULL;
 	}
-	Aact = ano->getAdditionalAction(Annot::actionFocusIn);
+	Aact = SC_getAdditionalAction("Fo", ano);
 	if (Aact)
 	{
 		if (Aact->getKind() == actionJavaScript)
@@ -612,7 +640,7 @@ void SlaOutputDev::handleActions(PageItem* ite, AnnotWidget *ano)
 		}
 		Aact = NULL;
 	}
-	Aact = ano->getAdditionalAction(Annot::actionFocusOut);
+	Aact = SC_getAdditionalAction("Bl", ano);
 	if (Aact)
 	{
 		if (Aact->getKind() == actionJavaScript)
@@ -626,7 +654,64 @@ void SlaOutputDev::handleActions(PageItem* ite, AnnotWidget *ano)
 		}
 		Aact = NULL;
 	}
-#endif
+	Aact = SC_getAdditionalAction("C", ano);
+	if (Aact)
+	{
+		if (Aact->getKind() == actionJavaScript)
+		{
+			LinkJavaScript *jsa = (LinkJavaScript*)Aact;
+			if (jsa->isOk())
+			{
+				ite->annotation().setC_act(UnicodeParsedString(jsa->getScript()));
+				ite->annotation().setAAact(true);
+			}
+		}
+		Aact = NULL;
+	}
+	Aact = SC_getAdditionalAction("F", ano);
+	if (Aact)
+	{
+		if (Aact->getKind() == actionJavaScript)
+		{
+			LinkJavaScript *jsa = (LinkJavaScript*)Aact;
+			if (jsa->isOk())
+			{
+				ite->annotation().setF_act(UnicodeParsedString(jsa->getScript()));
+				ite->annotation().setAAact(true);
+				ite->annotation().setFormat(5);
+			}
+		}
+		Aact = NULL;
+	}
+	Aact = SC_getAdditionalAction("K", ano);
+	if (Aact)
+	{
+		if (Aact->getKind() == actionJavaScript)
+		{
+			LinkJavaScript *jsa = (LinkJavaScript*)Aact;
+			if (jsa->isOk())
+			{
+				ite->annotation().setK_act(UnicodeParsedString(jsa->getScript()));
+				ite->annotation().setAAact(true);
+				ite->annotation().setFormat(5);
+			}
+		}
+		Aact = NULL;
+	}
+	Aact = SC_getAdditionalAction("V", ano);
+	if (Aact)
+	{
+		if (Aact->getKind() == actionJavaScript)
+		{
+			LinkJavaScript *jsa = (LinkJavaScript*)Aact;
+			if (jsa->isOk())
+			{
+				ite->annotation().setV_act(UnicodeParsedString(jsa->getScript()));
+				ite->annotation().setAAact(true);
+			}
+		}
+		Aact = NULL;
+	}
 }
 
 void SlaOutputDev::startDoc(PDFDoc *doc, XRef *xrefA, Catalog *catA)
@@ -650,6 +735,7 @@ void SlaOutputDev::startDoc(PDFDoc *doc, XRef *xrefA, Catalog *catA)
 void SlaOutputDev::startPage(int pageNum, GfxState *)
 {
 	m_formWidgets = pdfDoc->getPage(pageNum)->getFormWidgets();
+	m_actPage = pageNum;
 }
 
 void SlaOutputDev::endPage()

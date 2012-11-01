@@ -74,6 +74,7 @@ class SlaOutputDev : public OutputDev
 public:
 	SlaOutputDev(ScribusDoc* doc, QList<PageItem*> *Elements, QStringList *importedColors, int flags);
 	virtual ~SlaOutputDev();
+	LinkAction* SC_getAdditionalAction(const char *key, AnnotWidget *ano);
 	static GBool annotations_callback(Annot *annota, void *user_data);
 	bool handleTextAnnot(Annot* annota, double xCoor, double yCoor, double width, double height);
 	bool handleLinkAnnot(Annot* annota, double xCoor, double yCoor, double width, double height);
@@ -247,6 +248,7 @@ private:
 	SplashFontEngine *m_fontEngine;
 	SplashFont *m_font;
 	FormPageWidgets *m_formWidgets;
+	int m_actPage;
 };
 
 #endif
