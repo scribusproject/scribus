@@ -8612,6 +8612,13 @@ bool PDFLibCore::PDF_Annotation(PageItem *ite, uint)
 					NamedDest.append(de);
 					NDnum++;
 				}
+				if (ite->annotation().ActionType() == 10)
+				{
+					if (!ite->annotation().Action().isEmpty())
+					{
+						PutDoc("/A << /Type /Action /S /Named /N /" + ite->annotation().Action() + " >>\n");
+					}
+				}
 			}
 			break;
 		}

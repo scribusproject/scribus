@@ -536,7 +536,7 @@ ScAnnot::ScAnnot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorLi
 
 	ActionCombo = new QComboBox(tab_2);
 	QString tmp_actcom[] = { tr("None", "action"), tr("JavaScript"), tr("Go To"),
-	                        tr("Submit Form"), tr("Reset Form"), tr("Import Data")};
+							tr("Submit Form"), tr("Reset Form"), tr("Import Data"), tr("Named")};
 	size_t array_act = sizeof(tmp_actcom) / sizeof(*tmp_actcom);
 	/* PFJ - 28/02/04 - Altered from uint to int and var name */
 	for (uint propogate = 0; propogate < array_act; ++propogate)
@@ -545,7 +545,11 @@ ScAnnot::ScAnnot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorLi
 	int tmpac = item->annotation().ActionType();
 	if (item->annotation().ActionType() < 0)
 		tmpac = 1;
-	ActionCombo->setCurrentIndex(tmpac == 7 ? 2 : tmpac);
+	if ((tmpac == 7) || (tmpac == 9))
+		tmpac = 2;
+	else if (tmpac == 10)
+		tmpac = 6;
+	ActionCombo->setCurrentIndex(tmpac);
 
 	Layout20->addWidget( ActionCombo );
 	tabLayout_2->addLayout( Layout20 );
@@ -674,10 +678,6 @@ ScAnnot::ScAnnot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorLi
 	Frame3bLayout->addWidget( SubURL );
 	if (item->annotation().ActionType() == 3)
 		SubURL->setText(item->annotation().Action());
-//	SubAsHtml = new QCheckBox( Frame3b );
-//	SubAsHtml->setChecked(item->annotation().HTML());
-//	SubAsHtml->setText( tr( "Submit Data as HTML" ) );
-//	Frame3bLayout->addWidget( SubAsHtml );
 
 	SubText2 = new QLabel( Frame3b );
 	SubText2->setText( tr( "Submit format:" ) );
@@ -714,6 +714,74 @@ ScAnnot::ScAnnot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorLi
 	QSpacerItem* spacerSua = new QSpacerItem( 2, 2, QSizePolicy::Minimum, QSizePolicy::Expanding );
 	Frame3cLayout->addItem( spacerSua);
 	Fram2->addWidget( Frame3c );
+
+	Frame5 = new QFrame( tab_2 );
+	Frame5->setFrameShape( QFrame::Box );
+	Frame5->setFrameShadow( QFrame::Sunken );
+	Frame5Layout = new QVBoxLayout( Frame5 );
+	Frame5Layout->setSpacing( 5 );
+	Frame5Layout->setMargin( 10 );
+	TextLabel5 = new QLabel( Frame5 );
+	TextLabel5->setText( tr("Action Name"));
+	Frame5Layout->addWidget( TextLabel5 );
+	nameActionCombo = new QComboBox( Frame5 );
+	nameActionCombo->addItem( tr("First Page"), QString("FirstPage"));
+	nameActionCombo->addItem( tr("Previous Page"), QString("PrevPage"));
+	nameActionCombo->addItem( tr("Next Page"), QString("NextPage"));
+	nameActionCombo->addItem( tr("Last Page"), QString("LastPage"));
+	nameActionCombo->addItem( tr("Go Back"), QString("GoBack"));
+	nameActionCombo->addItem( tr("Go Forward"), QString("GoForward"));
+	nameActionCombo->addItem( tr("Go Back Doc"), QString("GoBackDoc"));
+	nameActionCombo->addItem( tr("Go Forward Doc"), QString("GoForwardDoc"));
+	nameActionCombo->addItem( tr("Go To Page"), QString("GoToPage"));
+	nameActionCombo->addItem( tr("Actual Size"), QString("ActualSize"));
+	nameActionCombo->addItem( tr("Fit Page"), QString("FitPage"));
+	nameActionCombo->addItem( tr("Fit Width"), QString("FitWidth"));
+	nameActionCombo->addItem( tr("Fit Height"), QString("FitHeight"));
+	nameActionCombo->addItem( tr("Fit Visible"), QString("FitVisible"));
+	nameActionCombo->addItem( tr("Single Page"), QString("SinglePage"));
+	nameActionCombo->addItem( tr("Two Pages"), QString("TwoPages"));
+	nameActionCombo->addItem( tr("One Column"), QString("OneColumn"));
+	nameActionCombo->addItem( tr("Two Columns"), QString("TwoColumns"));
+	nameActionCombo->addItem( tr("Zoom View In"), QString("ZoomViewIn"));
+	nameActionCombo->addItem( tr("Zoom View Out"), QString("ZoomViewOut"));
+	nameActionCombo->addItem( tr("Zoom To"), QString("ZoomTo"));
+	nameActionCombo->addItem( tr("Print"), QString("Print"));
+	nameActionCombo->addItem( tr("Close"), QString("Close"));
+	nameActionCombo->addItem( tr("Quit"), QString("Quit"));
+	nameActionCombo->addItem( tr("General Prefs"), QString("GeneralPrefs"));
+	nameActionCombo->addItem( tr("General Info"), QString("GeneralInfo"));
+	nameActionCombo->addItem( tr("Page Setup"), QString("PageSetup"));
+	nameActionCombo->addItem( tr("Full Screen"), QString("FullScreen"));
+	nameActionCombo->addItem( tr("Show/Hide Bookmarks"), QString("ShowHideBookmarks"));
+	nameActionCombo->addItem( tr("Show/Hide Thumbnails"), QString("ShowHideThumbnails"));
+	nameActionCombo->addItem( tr("Show/Hide Toolbar Editing"), QString("ShowHideToolbarEditing"));
+	nameActionCombo->addItem( tr("Show/Hide Toolbar Commenting"), QString("ShowHideToolbarCommenting"));
+	nameActionCombo->addItem( tr("Show/Hide Toolbar Edit"), QString("ShowHideToolbarEdit"));
+	nameActionCombo->addItem( tr("Show/Hide Toolbar File"), QString("ShowHideToolbarFile"));
+	nameActionCombo->addItem( tr("Show/Hide Toolbar Find"), QString("ShowHideToolbarFind"));
+	nameActionCombo->addItem( tr("Show/Hide Toolbar Forms"), QString("ShowHideToolbarForms"));
+	nameActionCombo->addItem( tr("Show/Hide Toolbar Measuring"), QString("ShowHideToolbarMeasuring"));
+	nameActionCombo->addItem( tr("Show/Hide Toolbar Data"), QString("ShowHideToolbarData"));
+	nameActionCombo->addItem( tr("Show/Hide Toolbar Page Display"), QString("ShowHideToolbarPageDisplay"));
+	nameActionCombo->addItem( tr("Show/Hide Toolbar Navigation"), QString("ShowHideToolbarNavigation"));
+	nameActionCombo->addItem( tr("Show/Hide Toolbar Print Production"), QString("ShowHideToolbarPrintProduction"));
+	nameActionCombo->addItem( tr("Show/Hide Toolbar Redaction"), QString("ShowHideToolbarRedaction"));
+	nameActionCombo->addItem( tr("Show/Hide Toolbar Basic Tools"), QString("ShowHideToolbarBasicTools"));
+	nameActionCombo->addItem( tr("Show/Hide Toolbar Tasks"), QString("ShowHideToolbarTasks"));
+	nameActionCombo->addItem( tr("Show/Hide Toolbar Typewriter"), QString("ShowHideToolbarTypewriter"));
+	nameActionCombo->addItem( tr("Show/Hide Articles"), QString("ShowHideArticles"));
+	nameActionCombo->addItem( tr("Show/Hide File Attachment"), QString("ShowHideFileAttachment"));
+	nameActionCombo->addItem( tr("Show/Hide Annot Manager"), QString("ShowHideAnnotManager"));
+	nameActionCombo->addItem( tr("Show/Hide Fields"), QString("ShowHideFields"));
+	nameActionCombo->addItem( tr("Show/Hide Optional Content"), QString("ShowHideOptCont"));
+	nameActionCombo->addItem( tr("Show/Hide Model Tree"), QString("ShowHideModelTree"));
+	nameActionCombo->addItem( tr("Show/Hide Signatures"), QString("ShowHideSignatures"));
+	Frame5Layout->addWidget( nameActionCombo );
+	QSpacerItem* spacerNea = new QSpacerItem( 2, 2, QSizePolicy::Minimum, QSizePolicy::Expanding );
+	Frame5Layout->addItem( spacerNea);
+	Fram2->addWidget( Frame5 );
+
 	TabWidget2->addTab( tab_2, tr( "Action" ) );
 	if ((item->annotation().ActionType() == 7) || (item->annotation().ActionType() == 9))
 	{
@@ -1617,7 +1685,7 @@ void ScAnnot::DecodeNum()
 	if (item->annotation().Format() == 4)
 	{
 		switch (pfol[0].toInt())
-			{
+		{
 			case 0:
 				Format0b->setChecked(true);
 				FormNum = 0;
@@ -1634,8 +1702,8 @@ void ScAnnot::DecodeNum()
 				Format3b->setChecked(true);
 				FormNum = 3;
 				break;
-			}
 		}
+	}
 }
 
 void ScAnnot::SetFormNum()
@@ -1766,10 +1834,10 @@ void ScAnnot::SetFoScript(int it)
 	{
 		EditFormat->setEnabled( true );
 		EditKeystr->setEnabled( true );
-		KeyScript->setPlainText("");
-		FormatScript->setPlainText("");
-//		KeyScript->setText( item->annotation().K_act() );
-//		FormatScript->setText( item->annotation().F_act() );
+//		KeyScript->setPlainText("");
+//		FormatScript->setPlainText("");
+		KeyScript->setText( item->annotation().K_act() );
+		FormatScript->setText( item->annotation().F_act() );
 	}
 	item->annotation().setFormat(it);
 }
@@ -1966,14 +2034,14 @@ void ScAnnot::SetValues()
 	}
 	item->annotation().setAction("");
 	switch (ActionCombo->currentIndex())
-		{
+	{
 		case 0:
 			item->annotation().setActionType(0);
 			break;
 		case 1:
 			item->annotation().setActionType(1);
 			switch (ScrEdited)
-				{
+			{
 				case 0:
 					item->annotation().setAction(EditJava->toPlainText());
 					break;
@@ -1995,7 +2063,7 @@ void ScAnnot::SetValues()
 				case 6:
 					item->annotation().setK_act(EditJava->toPlainText());
 					break;
-				}
+			}
 			break;
 		case 2:
 			if ((LExtern->isChecked()) && (!Destfile->text().isEmpty()))
@@ -2018,7 +2086,6 @@ void ScAnnot::SetValues()
 			item->annotation().setActionType(3);
 			item->annotation().setAction(SubURL->text().simplified());
 			item->annotation().setHTML(SelAsHtml->currentIndex());
-//			item->annotation().setHTML(SubAsHtml->isChecked());
 			break;
 		case 4:
 			item->annotation().setActionType(4);
@@ -2027,7 +2094,11 @@ void ScAnnot::SetValues()
 			item->annotation().setActionType(5);
 			item->annotation().setAction(SubURLa->text().simplified());
 			break;
-		}
+		case 6:
+			item->annotation().setActionType(10);
+			item->annotation().setAction(nameActionCombo->itemData(nameActionCombo->currentIndex()).toString());
+			break;
+	}
 	if (!item->annotation().E_act().isEmpty())
 		AAct = true;
 	if (!item->annotation().X_act().isEmpty())
@@ -2057,6 +2128,8 @@ void ScAnnot::SetAnnotationType(int it)
 	int tmpac = item->annotation().ActionType();
 	if ((tmpac == 7) || (tmpac == 9))
 		tmpac = 2;
+	else if (tmpac == 10)
+		tmpac = 6;
 	int sela = it + 2;
 	TabWidget2->setTabEnabled(TabWidget2->indexOf(tab4), false);
 	TabWidget2->setTabEnabled(TabWidget2->indexOf(tab_4), false);
@@ -2085,12 +2158,12 @@ void ScAnnot::SetAnnotationType(int it)
 			NoExport->setChecked(false);
 			ActionCombo->clear();
 			QString tmp_actcom[] = {tr("None", "action"), tr("JavaScript"), tr("Go To"),
-			                        tr("Submit Form"), tr("Reset Form"), tr("Import Data")};
+									tr("Submit Form"), tr("Reset Form"), tr("Import Data"), tr("Named")};
 			size_t array_act = sizeof(tmp_actcom) / sizeof(*tmp_actcom);
 			/* PFJ - 28/02/04 - Altered from uint to int and varname */
 			for (uint prop = 0; prop < array_act; ++prop)
 				ActionCombo->addItem(tmp_actcom[prop]);
-			ActionCombo->setCurrentIndex(qMin(tmpac,5));
+			ActionCombo->setCurrentIndex(qMin(tmpac,6));
 			setter = ((item->annotation().ActionType() != 7) && (item->annotation().ActionType() != 9)) ? true : false;
 			Destfile->setEnabled(setter);
 			ChFile->setEnabled(setter);
@@ -2195,6 +2268,14 @@ void ScAnnot::SetActionType(int it)
 	bool setter;
 	switch (it)
 	{
+	case 6:
+	{
+		Fram2->setCurrentIndex(5);
+		int nac = nameActionCombo->findData(item->annotation().Action());
+		if (nac >= 0)
+			nameActionCombo->setCurrentIndex(nac);
+		break;
+	}
 	case 5:
 		Fram2->setCurrentIndex(4);
 		SubURLa->setText(item->annotation().Action());
@@ -2202,7 +2283,6 @@ void ScAnnot::SetActionType(int it)
 	case 3:
 		Fram2->setCurrentIndex(3);
 		SubURL->setText(item->annotation().Action());
-//		SubAsHtml->setChecked(item->annotation().HTML());
 		SelAsHtml->setCurrentIndex(item->annotation().HTML());
 		break;
 	case 2:

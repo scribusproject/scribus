@@ -56,6 +56,9 @@ public:
 	QFrame* Frame3;
 	QFrame* Frame4;
 	QFrame* Frame4a;
+	QFrame* Frame5;
+	QLabel* TextLabel5;
+	QComboBox* nameActionCombo;
 	QLabel* TextLabel4a;
 	QLineEdit *Name;
 	QLabel* TextLabel4b;
@@ -184,7 +187,6 @@ public:
 	QFrame* Frame3b;
 	QLabel* SubText1;
 	QLineEdit* SubURL;
-//	QCheckBox* SubAsHtml;
 	QLabel* SubText2;
 	QComboBox* SelAsHtml;
 	QFrame* Frame3c;
@@ -311,6 +313,7 @@ protected:
 	QGridLayout* Layout14;
 	QGridLayout* Layout15;
 	QGridLayout* Layout16;
+	QVBoxLayout* Frame5Layout;
 	PrefsContext* dirs;
 };
 

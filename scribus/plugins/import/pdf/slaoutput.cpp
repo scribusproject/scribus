@@ -715,7 +715,8 @@ void SlaOutputDev::handleActions(PageItem* ite, AnnotWidget *ano)
 		else if (Lact->getKind() == actionNamed)
 		{
 			LinkNamed *uno = (LinkNamed*)Lact;
-			qDebug() << "Found named Action of type" << UnicodeParsedString(uno->getName());
+			ite->annotation().setActionType(10);
+			ite->annotation().setAction(UnicodeParsedString(uno->getName()));
 		}
 		else
 			qDebug() << "Found unsupported Action of type" << Lact->getKind();
