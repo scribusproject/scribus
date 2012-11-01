@@ -1,8 +1,8 @@
 #include "slaoutput.h"
 #include <GlobalParams.h>
 #include <poppler-config.h>
-#include <Link.h>
 #include <Form.h>
+#include <FileSpec.h>
 #include <QApplication>
 #include <QFile>
 #include "commonstrings.h"
@@ -10,6 +10,73 @@
 #include "sccolorengine.h"
 #include "util.h"
 #include "util_math.h"
+
+LinkSubmitForm::LinkSubmitForm(Object *actionObj)
+{
+	Object obj1, obj2, obj3;
+	fileName = NULL;
+	m_flags = 0;
+	if (actionObj->isDict())
+	{
+		if (!actionObj->dictLookup("F", &obj1)->isNull())
+		{
+			if (obj1.isDict())
+			{
+				if (!obj1.dictLookup("FS", &obj3)->isNull())
+				{
+					if (obj3.isName())
+					{
+						char *name = obj3.getName();
+						if (!strcmp(name, "URL"))
+						{
+							if (!obj1.dictLookup("F", &obj2)->isNull())
+								fileName = obj2.getString()->copy();
+						}
+						obj2.free();
+					}
+				}
+				obj3.free();
+			}
+		}
+		obj1.free();
+		if (!actionObj->dictLookup("Flags", &obj1)->isNull())
+		{
+			if (obj1.isNum())
+				m_flags = obj1.getInt();
+		}
+		obj1.free();
+	}
+}
+
+LinkSubmitForm::~LinkSubmitForm()
+{
+	if (fileName)
+		delete fileName;
+}
+
+LinkImportData::LinkImportData(Object *actionObj)
+{
+	Object obj1, obj3;
+	fileName = NULL;
+	if (actionObj->isDict())
+	{
+		if (!actionObj->dictLookup("F", &obj1)->isNull())
+		{
+			if (getFileSpecNameForPlatform (&obj1, &obj3))
+			{
+				fileName = obj3.getString()->copy();
+				obj3.free();
+			}
+		}
+		obj1.free();
+	}
+}
+
+LinkImportData::~LinkImportData()
+{
+	if (fileName)
+		delete fileName;
+}
 
 
 SlaOutputDev::SlaOutputDev(ScribusDoc* doc, QList<PageItem*> *Elements, QStringList *importedColors, int flags)
@@ -44,6 +111,43 @@ SlaOutputDev::~SlaOutputDev()
 	tmpSel->clear();
 	delete tmpSel;
 	delete m_fontEngine;
+}
+
+/* get Actions not implemented by Poppler */
+LinkAction* SlaOutputDev::SC_getAction(AnnotWidget *ano)
+{
+	LinkAction *linkAction = NULL;
+	Object obj;
+	Ref refa = ano->getRef();
+	Object additionalActions;
+	Object *act = xref->fetch(refa.num, refa.gen, &obj);
+	if (act)
+	{
+		if (act->isDict())
+		{
+			Dict* adic = act->getDict();
+			adic->lookupNF("A", &additionalActions);
+			Object additionalActionsObject;
+			if (additionalActions.fetch(pdfDoc->getXRef(), &additionalActionsObject)->isDict())
+			{
+				Object actionObject;
+				additionalActionsObject.dictLookup("S", &actionObject);
+				if (actionObject.isName("ImportData"))
+				{
+					linkAction = new LinkImportData(&additionalActionsObject);
+				}
+				else if (actionObject.isName("SubmitForm"))
+				{
+					linkAction = new LinkSubmitForm(&additionalActionsObject);
+				}
+				actionObject.free();
+			}
+			additionalActionsObject.free();
+			additionalActions.free();
+		}
+	}
+	obj.free();
+	return linkAction;
 }
 
 /* Replacement for the crippled Poppler function LinkAction* AnnotWidget::getAdditionalAction(AdditionalActionsType type) */
@@ -574,7 +678,39 @@ void SlaOutputDev::handleActions(PageItem* ite, AnnotWidget *ano)
 				ite->annotation().setActionType(4);
 			}
 			else
-				qDebug() << "Found unknown Action of type" << actString;
+			{
+				LinkAction* scact = SC_getAction(ano);
+				if (scact)
+				{
+					if (actString == "ImportData")
+					{
+						LinkImportData *impo = (LinkImportData*)scact;
+						if (impo->isOk())
+						{
+							ite->annotation().setActionType(5);
+							ite->annotation().setAction(UnicodeParsedString(impo->getFileName()));
+						}
+					}
+					else if (actString == "SubmitForm")
+					{
+						LinkSubmitForm *impo = (LinkSubmitForm*)scact;
+						if (impo->isOk())
+						{
+							ite->annotation().setActionType(3);
+							ite->annotation().setAction(UnicodeParsedString(impo->getFileName()));
+							int fl = impo->getFlags();
+							if (fl == 0)
+								ite->annotation().setHTML(0);
+							else if (fl == 4)
+								ite->annotation().setHTML(1);
+							else if (fl == 64)
+								ite->annotation().setHTML(2);
+							else if (fl == 512)
+								ite->annotation().setHTML(3);
+						}
+					}
+				}
+			}
 		}
 		else if (Lact->getKind() == actionNamed)
 		{
@@ -582,7 +718,7 @@ void SlaOutputDev::handleActions(PageItem* ite, AnnotWidget *ano)
 			qDebug() << "Found named Action of type" << UnicodeParsedString(uno->getName());
 		}
 		else
-			qDebug() << "Found Action of type" << Lact->getKind();
+			qDebug() << "Found unsupported Action of type" << Lact->getKind();
 	}
 	LinkAction *Aact = SC_getAdditionalAction("D", ano);
 	if (Aact)

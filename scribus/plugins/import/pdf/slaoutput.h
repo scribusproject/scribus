@@ -33,6 +33,7 @@ for which a new license (GPL+exception) is in place.
 #include <GfxState.h>
 #include <Stream.h>
 #include <GfxFont.h>
+#include <Link.h>
 #include <PDFDoc.h>
 #include <Error.h>
 #include <Page.h>
@@ -48,6 +49,47 @@ for which a new license (GPL+exception) is in place.
 #include <splash/SplashPath.h>
 #include <splash/SplashGlyphBitmap.h>
 
+//------------------------------------------------------------------------
+// LinkSubmitData
+//------------------------------------------------------------------------
+
+class LinkSubmitForm: public LinkAction
+{
+public:
+	// Build a LinkImportData from an action dictionary.
+	LinkSubmitForm(Object *actionObj);
+	// Destructor.
+	virtual ~LinkSubmitForm();
+	// Was the LinkImportData created successfully?
+	virtual GBool isOk() { return fileName != NULL; }
+	// Accessors.
+	virtual LinkActionKind getKind() { return actionUnknown; }
+	GooString *getFileName() { return fileName; }
+	int getFlags() { return m_flags; }
+private:
+	GooString *fileName;		// file name
+	int m_flags;
+};
+
+//------------------------------------------------------------------------
+// LinkImportData
+//------------------------------------------------------------------------
+
+class LinkImportData: public LinkAction
+{
+public:
+	// Build a LinkImportData from an action dictionary.
+	LinkImportData(Object *actionObj);
+	// Destructor.
+	virtual ~LinkImportData();
+	// Was the LinkImportData created successfully?
+	virtual GBool isOk() { return fileName != NULL; }
+	// Accessors.
+	virtual LinkActionKind getKind() { return actionUnknown; }
+	GooString *getFileName() { return fileName; }
+private:
+	GooString *fileName;		// file name
+};
 //------------------------------------------------------------------------
 // SplashOutFontFileID
 //------------------------------------------------------------------------
@@ -74,6 +116,7 @@ class SlaOutputDev : public OutputDev
 public:
 	SlaOutputDev(ScribusDoc* doc, QList<PageItem*> *Elements, QStringList *importedColors, int flags);
 	virtual ~SlaOutputDev();
+	LinkAction* SC_getAction(AnnotWidget *ano);
 	LinkAction* SC_getAdditionalAction(const char *key, AnnotWidget *ano);
 	static GBool annotations_callback(Annot *annota, void *user_data);
 	bool handleTextAnnot(Annot* annota, double xCoor, double yCoor, double width, double height);
