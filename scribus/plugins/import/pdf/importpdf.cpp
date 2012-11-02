@@ -16,6 +16,7 @@ for which a new license (GPL+exception) is in place.
 #include <QDebug>
 #include "slaoutput.h"
 #include <GlobalParams.h>
+#include <ViewerPreferences.h>
 #include <poppler-config.h>
 
 #include "importpdf.h"
@@ -25,6 +26,7 @@ for which a new license (GPL+exception) is in place.
 #include "commonstrings.h"
 #include "loadsaveplugin.h"
 #include "pagesize.h"
+#include "pdfoptions.h"
 #include "prefscontext.h"
 #include "prefsfile.h"
 #include "prefsmanager.h"
@@ -519,6 +521,29 @@ bool PdfPlug::convert(QString fn)
 							catDict.free();
 							delete jsNameTreeP;
 						}
+						m_Doc->pdfOptions().Version = (PDFOptions::PDFVersion)qMin(15, qMax(13, pdfDoc->getPDFMajorVersion() * 10 + pdfDoc->getPDFMinorVersion()));
+						ViewerPreferences *viewPrefs = pdfDoc->getCatalog()->getViewerPreferences();
+						if (viewPrefs)
+						{
+							m_Doc->pdfOptions().Binding = viewPrefs->getDirection() == ViewerPreferences::directionL2R ? 0 : 1;
+							m_Doc->pdfOptions().hideMenuBar = viewPrefs->getHideMenubar();
+							m_Doc->pdfOptions().hideToolBar = viewPrefs->getHideToolbar();
+							m_Doc->pdfOptions().fitWindow = viewPrefs->getFitWindow();
+						}
+						Catalog::PageMode pgm = pdfDoc->getCatalog()->getPageMode();
+						m_Doc->pdfOptions().displayFullscreen = (pgm == Catalog::pageModeFullScreen);
+						m_Doc->pdfOptions().displayThumbs = (pgm == Catalog::pageModeThumbs);
+						m_Doc->pdfOptions().displayBookmarks = (pgm == Catalog::pageModeOutlines);
+						m_Doc->pdfOptions().displayLayers = (pgm == Catalog::pageModeOC);
+						Catalog::PageLayout pgl = pdfDoc->getCatalog()->getPageLayout();
+						if (pgl == Catalog::pageLayoutSinglePage)
+							m_Doc->pdfOptions().PageLayout = PDFOptions::SinglePage;
+						else if (pgl == Catalog::pageLayoutOneColumn)
+							m_Doc->pdfOptions().PageLayout = PDFOptions::OneColumn;
+						else if (pgl == Catalog::pageLayoutTwoColumnLeft)
+							m_Doc->pdfOptions().PageLayout = PDFOptions::TwoColumnLeft;
+						else if (pgl == Catalog::pageLayoutTwoColumnRight)
+							m_Doc->pdfOptions().PageLayout = PDFOptions::TwoColumnRight;
 					}
 					else
 					{

@@ -542,14 +542,27 @@ bool SlaOutputDev::handleWidgetAnnot(Annot* annota, double xCoor, double yCoor, 
 								handleActions(ite, ano);
 							}
 						}
-						else if (wtyp == 5) // Combobox
+						else if ((wtyp == 5) || (wtyp == 6)) // Combobox + Listbox
 						{
-							ite->annotation().addToFlag(131072);
-							handleActions(ite, ano);
-						}
-						else if (wtyp == 6) // Listbox
-						{
-							handleActions(ite, ano);
+							FormWidgetChoice *btn = (FormWidgetChoice*)fm;
+							if (btn)
+							{
+								if (wtyp == 5)
+									ite->annotation().addToFlag(131072);
+								int co = btn->getNumChoices();
+								if (co > 0)
+								{
+									QString inh = UnicodeParsedString(btn->getChoice(0));
+									for (int a = 1; a < co; a++)
+									{
+										inh += "\n" + UnicodeParsedString(btn->getChoice(a));
+									}
+									ite->itemText.insertChars(inh);
+								}
+								if (!btn->isReadOnly())
+									ite->annotation().addToFlag(262144);
+								handleActions(ite, ano);
+							}
 						}
 					}
 					break;
