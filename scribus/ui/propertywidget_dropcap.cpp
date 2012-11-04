@@ -280,6 +280,6 @@ void PropertyWidget_DropCap::languageChange()
 	dropCapLinesLabel->setText(tr("Drop Caps lines"));
 	dropCapOffsetLabel->setText(tr("Drop Caps offset"));
 	dropCapCharStyleLabel->setText(tr("Drop Cap use character style..."));
-	dropCapCharStyleCombo->setToolTip("<qt>" + tr("Choose chracter style or leave blank for use default paragraph style"));
+	dropCapCharStyleCombo->setToolTip("<qt>" + tr("Choose character style or leave blank for use default paragraph style"));
 }
 
