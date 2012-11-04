@@ -9,12 +9,14 @@ for which a new license (GPL+exception) is in place.
 #include <QCursor>
 #include <QDrag>
 #include <QFile>
+#include <QInputDialog>
 #include <QList>
 #include <QMimeData>
 #include <QRegExp>
 #include <QStack>
 #include <QDebug>
 #include "slaoutput.h"
+#include <ErrorCodes.h>
 #include <GlobalParams.h>
 #include <ViewerPreferences.h>
 #include <poppler-config.h>
@@ -297,6 +299,7 @@ bool PdfPlug::convert(QString fn)
 	}
 
 	globalParams = new GlobalParams();
+	GooString *userPW = NULL;
 	if (globalParams)
 	{
 		GooString *fname = new GooString(QFile::encodeName(fn).data());
@@ -304,9 +307,37 @@ bool PdfPlug::convert(QString fn)
 		GBool hasOcg = gFalse;
 		QList<OptionalContentGroup*> ocgGroups;
 //		globalParams->setPrintCommands(gTrue);
-		PDFDoc *pdfDoc = new PDFDoc(fname, 0, 0, 0);
+		PDFDoc *pdfDoc = new PDFDoc(fname, NULL, NULL, NULL);
 		if (pdfDoc)
 		{
+			if (pdfDoc->getErrorCode() == errEncrypted)
+			{
+				delete pdfDoc;
+				pdfDoc = NULL;
+				if (progressDialog)
+					progressDialog->hide();
+				qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+				ScribusMainWindow* mw = (m_Doc==0) ? ScCore->primaryMainWindow() : m_Doc->scMW();
+				bool ok;
+				QString text = QInputDialog::getText(mw, tr("Open PDF-File"), tr("Password"), QLineEdit::Normal, "", &ok);
+				if (ok && !text.isEmpty())
+				{
+					fname = new GooString(QFile::encodeName(fn).data());
+					userPW = new GooString(text.toLocal8Bit().data());
+					pdfDoc = new PDFDoc(fname, userPW, userPW, NULL);
+					qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
+				}
+				if ((!pdfDoc) || (pdfDoc->getErrorCode() != errNone))
+				{
+					if (progressDialog)
+						progressDialog->close();
+					delete pdfDoc;
+					delete globalParams;
+					return false;
+				}
+				if (progressDialog)
+					progressDialog->show();
+			}
 			if (pdfDoc->isOk())
 			{
 				double hDPI = 72.0;
