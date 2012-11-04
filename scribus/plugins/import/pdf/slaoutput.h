@@ -106,8 +106,37 @@ public:
 	}
 
 private:
-
 	Ref r;
+};
+
+
+class AnoOutputDev : public OutputDev
+{
+public:
+	AnoOutputDev(ScribusDoc* doc, QStringList *importedColors);
+	virtual ~AnoOutputDev();
+	GBool isOk() { return gTrue; }
+	virtual GBool upsideDown() { return gTrue; }
+	virtual GBool useDrawChar() { return gFalse; }
+	virtual GBool interpretType3Chars() { return gFalse; }
+	virtual GBool useTilingPatternFill() { return gFalse; }
+	virtual GBool useShadedFills(int type) { return gFalse; }
+	virtual GBool useFillColorStop() { return gFalse; }
+	virtual GBool useDrawForm() { return gFalse; }
+	virtual void stroke(GfxState *state);
+	virtual void eoFill(GfxState *state);
+	virtual void fill(GfxState *state);
+	virtual void drawString(GfxState *state, GooString *s);
+	QString CurrColorText;
+	QString CurrColorFill;
+	QString CurrColorStroke;
+	double m_fontSize;
+	GooString *m_fontName;
+	GooString *m_itemText;
+private:
+	QString getColor(GfxColorSpace *color_space, GfxColor *color, int *shade);
+	ScribusDoc* m_doc;
+	QStringList *m_importedColors;
 };
 
 
@@ -122,6 +151,7 @@ public:
 	bool handleTextAnnot(Annot* annota, double xCoor, double yCoor, double width, double height);
 	bool handleLinkAnnot(Annot* annota, double xCoor, double yCoor, double width, double height);
 	bool handleWidgetAnnot(Annot* annota, double xCoor, double yCoor, double width, double height);
+	void applyTextStyle(PageItem* ite, QString fontName, QString textColor, double fontSize);
 	void handleActions(PageItem* ite, AnnotWidget *ano);
 	void startDoc(PDFDoc *doc, XRef *xrefA, Catalog *catA);
 

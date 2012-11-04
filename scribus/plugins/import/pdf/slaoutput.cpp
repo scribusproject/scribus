@@ -78,6 +78,120 @@ LinkImportData::~LinkImportData()
 		delete fileName;
 }
 
+AnoOutputDev::~AnoOutputDev()
+{
+	if (m_fontName)
+		delete m_fontName;
+	if (m_itemText)
+		delete m_itemText;
+}
+
+AnoOutputDev::AnoOutputDev(ScribusDoc* doc, QStringList *importedColors)
+{
+	m_doc = doc;
+	m_importedColors = importedColors;
+	CurrColorStroke = CommonStrings::None;
+	CurrColorFill = CommonStrings::None;
+	CurrColorText = "Black";
+	m_fontSize = 12.0;
+	m_fontName = NULL;
+	m_itemText = NULL;
+}
+
+void AnoOutputDev::eoFill(GfxState *state)
+{
+	int shade = 100;
+	CurrColorFill = getColor(state->getFillColorSpace(), state->getFillColor(), &shade);
+}
+
+void AnoOutputDev::fill(GfxState *state)
+{
+	int shade = 100;
+	CurrColorFill = getColor(state->getFillColorSpace(), state->getFillColor(), &shade);
+}
+
+void AnoOutputDev::stroke(GfxState *state)
+{
+	int shade = 100;
+	CurrColorStroke = getColor(state->getStrokeColorSpace(), state->getStrokeColor(), &shade);
+}
+
+void AnoOutputDev::drawString(GfxState *state, GooString *s)
+{
+	int shade = 100;
+	CurrColorText = getColor(state->getFillColorSpace(), state->getFillColor(), &shade);
+	m_fontSize = state->getFontSize();
+	if (state->getFont())
+		m_fontName = state->getFont()->getName()->copy();
+	m_itemText = s->copy();
+}
+
+QString AnoOutputDev::getColor(GfxColorSpace *color_space, GfxColor *color, int *shade)
+{
+	QString fNam;
+	QString namPrefix = "FromPDF";
+	ScColor tmp;
+	tmp.setSpotColor(false);
+	tmp.setRegistrationColor(false);
+	*shade = 100;
+	if ((color_space->getMode() == csDeviceRGB) || (color_space->getMode() == csCalRGB))
+	{
+		GfxRGB rgb;
+		color_space->getRGB(color, &rgb);
+		int Rc = qRound(colToDbl(rgb.r) * 255);
+		int Gc = qRound(colToDbl(rgb.g) * 255);
+		int Bc = qRound(colToDbl(rgb.b) * 255);
+		tmp.setColorRGB(Rc, Gc, Bc);
+		fNam = m_doc->PageColors.tryAddColor(namPrefix+tmp.name(), tmp);
+	}
+	else if (color_space->getMode() == csDeviceCMYK)
+	{
+		GfxCMYK cmyk;
+		color_space->getCMYK(color, &cmyk);
+		int Cc = qRound(colToDbl(cmyk.c) * 255);
+		int Mc = qRound(colToDbl(cmyk.m) * 255);
+		int Yc = qRound(colToDbl(cmyk.y) * 255);
+		int Kc = qRound(colToDbl(cmyk.k) * 255);
+		tmp.setColor(Cc, Mc, Yc, Kc);
+		fNam = m_doc->PageColors.tryAddColor(namPrefix+tmp.name(), tmp);
+	}
+	else if ((color_space->getMode() == csCalGray) || (color_space->getMode() == csDeviceGray))
+	{
+		GfxGray gray;
+		color_space->getGray(color, &gray);
+		int Kc = 255 - qRound(colToDbl(gray) * 255);
+		tmp.setColor(0, 0, 0, Kc);
+		fNam = m_doc->PageColors.tryAddColor(namPrefix+tmp.name(), tmp);
+	}
+	else if (color_space->getMode() == csSeparation)
+	{
+		GfxCMYK cmyk;
+		color_space->getCMYK(color, &cmyk);
+		int Cc = qRound(colToDbl(cmyk.c) * 255);
+		int Mc = qRound(colToDbl(cmyk.m) * 255);
+		int Yc = qRound(colToDbl(cmyk.y) * 255);
+		int Kc = qRound(colToDbl(cmyk.k) * 255);
+		tmp.setColor(Cc, Mc, Yc, Kc);
+		tmp.setSpotColor(true);
+		QString nam = QString(((GfxSeparationColorSpace*)color_space)->getName()->getCString());
+		fNam = m_doc->PageColors.tryAddColor(nam, tmp);
+		*shade = qRound(colToDbl(color->c[0]) * 100);
+	}
+	else
+	{
+		GfxRGB rgb;
+		color_space->getRGB(color, &rgb);
+		int Rc = qRound(colToDbl(rgb.r) * 255);
+		int Gc = qRound(colToDbl(rgb.g) * 255);
+		int Bc = qRound(colToDbl(rgb.b) * 255);
+		tmp.setColorRGB(Rc, Gc, Bc);
+		fNam = m_doc->PageColors.tryAddColor(namPrefix+tmp.name(), tmp);
+	//	qDebug() << "update fill color other colorspace" << color_space->getMode() << "treating as rgb" << Rc << Gc << Bc;
+	}
+	if (fNam == namPrefix+tmp.name())
+		m_importedColors->append(fNam);
+	return fNam;
+}
 
 SlaOutputDev::SlaOutputDev(ScribusDoc* doc, QList<PageItem*> *Elements, QStringList *importedColors, int flags)
 {
@@ -426,9 +540,42 @@ bool SlaOutputDev::handleWidgetAnnot(Annot* annota, double xCoor, double yCoor, 
 								CurrColorFill = getAnnotationColor(bgCol);
 							else
 								CurrColorFill = CommonStrings::None;
+							AnnotColor *fgCol = achar->getBorderColor();
+							if (fgCol)
+								CurrColorStroke = getAnnotationColor(fgCol);
+							else
+							{
+								fgCol = achar->getBackColor();
+								if (fgCol)
+									CurrColorStroke = getAnnotationColor(fgCol);
+								else
+									CurrColorStroke = CommonStrings::None;
+							}
 						}
-						else
-							CurrColorFill = CommonStrings::None;
+						QString CurrColorText = "Black";
+						double fontSize = 12;
+						QString fontName = "";
+						QString itemText = "";
+						AnnotAppearance *apa = annota->getAppearStreams();
+						if (apa || !achar)
+						{
+							AnoOutputDev *Adev = new AnoOutputDev(m_doc, m_importedColors);
+							Gfx *gfx;
+#ifdef POPPLER_VERSION
+							gfx = new Gfx(pdfDoc, Adev, pdfDoc->getPage(m_actPage)->getResourceDict(), annota->getRect(), NULL);
+#else
+							gfx = new Gfx(xref, Adev, pdfDoc->getPage(m_actPage)->getResourceDict(), catalog, annota->getRect(), NULL);
+#endif
+							annota->draw(gfx, false);
+							CurrColorFill = Adev->CurrColorFill;
+							CurrColorStroke = Adev->CurrColorStroke;
+							CurrColorText = Adev->CurrColorText;
+							fontSize = Adev->m_fontSize;
+							fontName = UnicodeParsedString(Adev->m_fontName);
+							itemText = UnicodeParsedString(Adev->m_itemText);
+							delete gfx;
+							delete Adev;
+						}
 						int z = m_doc->itemAdd(PageItem::TextFrame, PageItem::Rectangle, xCoor, yCoor, width, height, 0, CurrColorFill, CommonStrings::None, true);
 						PageItem *ite = m_doc->Items->at(z);
 						ite->ClipEdited = true;
@@ -445,22 +592,6 @@ bool SlaOutputDev::handleWidgetAnnot(Annot* annota, double xCoor, double yCoor, 
 						}
 						ite->setIsAnnotation(true);
 						ite->AutoName = false;
-						if (achar)
-						{
-							AnnotColor *fgCol = achar->getBorderColor();
-							if (fgCol)
-								CurrColorStroke = getAnnotationColor(fgCol);
-							else
-							{
-								fgCol = achar->getBackColor();
-								if (fgCol)
-									CurrColorStroke = getAnnotationColor(fgCol);
-								else
-									CurrColorStroke = CommonStrings::None;
-							}
-						}
-						else
-							CurrColorStroke = CommonStrings::None;
 						AnnotBorder *brd = annota->getBorder();
 						if (brd)
 						{
@@ -506,8 +637,12 @@ bool SlaOutputDev::handleWidgetAnnot(Annot* annota, double xCoor, double yCoor, 
 						ite->annotation().setFlag(ano->getFlags());
 						if (wtyp == 2) // Button
 						{
+							ite->setFillColor(CurrColorFill);
 							if (achar)
 								ite->itemText.insertChars(UnicodeParsedString(achar->getNormalCaption()));
+							else
+								ite->itemText.insertChars(itemText);
+							applyTextStyle(ite, fontName, CurrColorText, fontSize);
 							ite->annotation().addToFlag(65536);
 							handleActions(ite, ano);
 						}
@@ -517,6 +652,7 @@ bool SlaOutputDev::handleWidgetAnnot(Annot* annota, double xCoor, double yCoor, 
 							if (btn)
 							{
 								ite->itemText.insertChars(UnicodeParsedString(btn->getContent()));
+								applyTextStyle(ite, fontName, CurrColorText, fontSize);
 								if (btn->isMultiline())
 									ite->annotation().addToFlag(4096);
 								if (btn->isPassword())
@@ -540,6 +676,19 @@ bool SlaOutputDev::handleWidgetAnnot(Annot* annota, double xCoor, double yCoor, 
 							{
 								ite->annotation().setIsChk(btn->getState());
 								handleActions(ite, ano);
+								if (itemText == "4")
+									ite->annotation().setChkStil(0);
+								else if (itemText == "5")
+									ite->annotation().setChkStil(1);
+								else if (itemText == "F")
+									ite->annotation().setChkStil(2);
+								else if (itemText == "l")
+									ite->annotation().setChkStil(3);
+								else if (itemText == "H")
+									ite->annotation().setChkStil(4);
+								else if (itemText == "n")
+									ite->annotation().setChkStil(5);
+							//	qDebug() << "Font" << fontName << "\nSize" << fontSize << "\nText" << itemText;
 							}
 						}
 						else if ((wtyp == 5) || (wtyp == 6)) // Combobox + Listbox
@@ -559,6 +708,7 @@ bool SlaOutputDev::handleWidgetAnnot(Annot* annota, double xCoor, double yCoor, 
 									}
 									ite->itemText.insertChars(inh);
 								}
+								applyTextStyle(ite, fontName, CurrColorText, fontSize);
 								if (!btn->isReadOnly())
 									ite->annotation().addToFlag(262144);
 								handleActions(ite, ano);
@@ -571,6 +721,41 @@ bool SlaOutputDev::handleWidgetAnnot(Annot* annota, double xCoor, double yCoor, 
 		}
 	}
 	return retVal;
+}
+
+void SlaOutputDev::applyTextStyle(PageItem* ite, QString fontName, QString textColor, double fontSize)
+{
+	CharStyle newStyle;
+	newStyle.setFillColor(textColor);
+	newStyle.setFontSize(fontSize * 10);
+	if (!fontName.isEmpty())
+	{
+		SCFontsIterator it(*m_doc->AllFonts);
+		for ( ; it.hasNext() ; it.next())
+		{
+			ScFace& face(it.current());
+			if ((face.psName() == fontName) && (face.usable()) && (face.type() == ScFace::TTF))
+			{
+				newStyle.setFont(face);
+				break;
+			}
+			else if ((face.family() == fontName) && (face.usable()) && (face.type() == ScFace::TTF))
+			{
+				newStyle.setFont(face);
+				break;
+			}
+			else if ((face.scName() == fontName) && (face.usable()) && (face.type() == ScFace::TTF))
+			{
+				newStyle.setFont(face);
+				break;
+			}
+		}
+	}
+	ParagraphStyle dstyle(ite->itemText.defaultStyle());
+	dstyle.charStyle().applyCharStyle(newStyle);
+	ite->itemText.setDefaultStyle(dstyle);
+	ite->itemText.applyCharStyle(0, ite->itemText.length(), newStyle);
+	ite->invalid = true;
 }
 
 void SlaOutputDev::handleActions(PageItem* ite, AnnotWidget *ano)
