@@ -141,7 +141,7 @@ void Hyphenator::slotNewSettings(int Wordlen, bool Autom, bool ACheck, int Num)
 	doc->setHyphMinimumWordLength(Wordlen);
 	doc->setHyphAutomatic(Autom);
 	doc->setHyphAutoCheck(AutoCheck);
-	doc->setHyphAutoCheck(Num);
+	doc->setHyphConsecutiveLines(Num);
 }
 
 void Hyphenator::slotHyphenateWord(PageItem* it, const QString& text, int firstC)
