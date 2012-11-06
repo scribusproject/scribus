@@ -530,11 +530,11 @@ bool PdfPlug::convert(QString fn)
 						if (numjs > 0)
 						{
 							NameTree *jsNameTreeP = new NameTree();
-							Object names;
 							Object catDict;
 							pdfDoc->getXRef()->getCatalog(&catDict);
 							if (catDict.isDict())
 							{
+								Object names;
 								catDict.dictLookup("Names", &names);
 								if (names.isDict())
 								{
@@ -546,6 +546,28 @@ bool PdfPlug::convert(QString fn)
 								for (int a = 0; a < numjs; a++)
 								{
 									m_Doc->JavaScripts.insert(UnicodeParsedString(jsNameTreeP->getName(a)), UnicodeParsedString(pdfDoc->getCatalog()->getJS(a)));
+								}
+								names.free();
+								catDict.dictLookup("OpenAction", &names);
+								if (names.isDict())
+								{
+									LinkAction *linkAction = NULL;
+									linkAction = LinkAction::parseAction(&names, pdfDoc->getCatalog()->getBaseURI());
+									if (linkAction)
+									{
+										LinkJavaScript *jsa = (LinkJavaScript*)linkAction;
+										if (jsa->isOk())
+										{
+											QString script = UnicodeParsedString(jsa->getScript());
+											if (script.startsWith("this."))
+											{
+												script.remove(0, 5);
+												script.remove("()");
+												if (m_Doc->JavaScripts.contains(script))
+													m_Doc->pdfOptions().openAction = script;
+											}
+										}
+									}
 								}
 								names.free();
 							}
