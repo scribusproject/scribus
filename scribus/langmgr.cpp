@@ -45,7 +45,20 @@ LanguageManager * LanguageManager::instance()
 
 void LanguageManager::languageChange()
 {
+	QList<LangDef> oldLangList = langTable;
 	generateLangList();
+
+	for (int i = 0; i < langTable.count(); ++i)
+	{
+		langTable[i].m_hyphAvailable = oldLangList[i].m_hyphAvailable;
+		langTable[i].m_hyphFile = oldLangList[i].m_hyphFile;
+
+		langTable[i].m_spellAvailable = oldLangList[i].m_spellAvailable;
+		langTable[i].m_spellFile = oldLangList[i].m_spellFile;
+
+		langTable[i].m_transAvailable = oldLangList[i].m_transAvailable;
+		langTable[i].m_transFile = oldLangList[i].m_transFile;
+	}
 }
 
 void LanguageManager::init(bool generateInstalledList)
