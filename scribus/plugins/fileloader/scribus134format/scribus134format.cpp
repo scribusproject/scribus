@@ -3532,6 +3532,7 @@ bool Scribus134Format::readCharStyles(const QString& fileName, ScribusDoc* doc, 
 		if (tagName == "CHARSTYLE")
 		{
 			cstyle.erase();
+			attrs = reader.scAttributes();
 			readNamedCharacterStyleAttrs(doc, attrs, cstyle);
 			docCharStyles.create(cstyle);
 		}
