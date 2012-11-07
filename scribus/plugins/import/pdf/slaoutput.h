@@ -36,6 +36,7 @@ for which a new license (GPL+exception) is in place.
 #include <Link.h>
 #include <PDFDoc.h>
 #include <Error.h>
+#include <Form.h>
 #include <Page.h>
 #include <Catalog.h>
 #include <CharCodeToUnicode.h>

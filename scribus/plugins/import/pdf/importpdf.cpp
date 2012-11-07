@@ -18,6 +18,7 @@ for which a new license (GPL+exception) is in place.
 #include "slaoutput.h"
 #include <ErrorCodes.h>
 #include <GlobalParams.h>
+#include <PageTransition.h>
 #include <ViewerPreferences.h>
 #include <poppler-config.h>
 
@@ -496,6 +497,7 @@ bool PdfPlug::convert(QString fn)
 						m_Doc->setPageHeight(pdfDoc->getPageMediaHeight(1));
 						m_Doc->setPageWidth(pdfDoc->getPageMediaWidth(1));
 						m_Doc->setPageSize("Custom");
+						m_Doc->pdfOptions().PresentVals.clear();
 						for (int pp = 0; pp < lastPage; pp++)
 						{
 							m_Doc->setActiveLayer(baseLayer);
@@ -525,6 +527,56 @@ bool PdfPlug::convert(QString fn)
 							}
 							else
 								pdfDoc->displayPage(dev, pp + 1, hDPI, vDPI, rotate, useMediaBox, crop, printing, NULL, NULL, dev->annotations_callback, dev);
+							PDFPresentationData ef;
+							Object trans;
+							Object *transi = pdfDoc->getPage(pp + 1)->getTrans(&trans);
+							if (transi->isDict())
+							{
+								m_Doc->pdfOptions().PresentMode = true;
+								PageTransition *pgTrans = new PageTransition(transi);
+								ef.pageViewDuration = pdfDoc->getPage(pp + 1)->getDuration();
+								ef.pageEffectDuration = pgTrans->getDuration();
+								ef.Dm = pgTrans->getAlignment() == transitionHorizontal ? 0 : 1;
+								ef.M = pgTrans->getDirection() == transitionInward ? 0 : 1;
+								int ang = pgTrans->getAngle();
+								if (ang == 0)
+									ef.Di = 0;
+								else if (ang == 270)
+									ef.Di = 1;
+								else if (ang == 90)
+									ef.Di = 2;
+								else if (ang == 180)
+									ef.Di = 3;
+								else if (ang == 315)
+									ef.Di = 4;
+								PageTransitionType trType = pgTrans->getType();
+								if (trType == transitionReplace)
+									ef.effectType = 0;
+								else if (trType == transitionBlinds)
+									ef.effectType = 1;
+								else if (trType == transitionBox)
+									ef.effectType = 2;
+								else if (trType == transitionDissolve)
+									ef.effectType = 3;
+								else if (trType == transitionGlitter)
+									ef.effectType = 4;
+								else if (trType == transitionSplit)
+									ef.effectType = 5;
+								else if (trType == transitionWipe)
+									ef.effectType = 6;
+								else if (trType == transitionPush)
+									ef.effectType = 7;
+								else if (trType == transitionCover)
+									ef.effectType = 8;
+								else if (trType == transitionUncover)
+									ef.effectType = 9;
+								else if (trType == transitionFade)
+									ef.effectType = 10;
+								delete pgTrans;
+							}
+							m_Doc->pdfOptions().PresentVals.append(ef);
+							trans.free();
+							transi->free();
 						}
 						int numjs = pdfDoc->getCatalog()->numJS();
 						if (numjs > 0)

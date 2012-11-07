@@ -1,7 +1,6 @@
 #include "slaoutput.h"
 #include <GlobalParams.h>
 #include <poppler-config.h>
-#include <Form.h>
 #include <FileSpec.h>
 #include <QApplication>
 #include <QFile>
