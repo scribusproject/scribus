@@ -968,8 +968,10 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 			{
 				if ((GsMinor < 54) && (GsMajor < 9))
 					loaderror = im.LoadPicture(ScPaths::getTempFileDir()+"/sc.tif.Cyan.tif", 1, cms, false, false, ScImage::RGBData, 72, &mode);
-				else
+				else if ((GsMajor < 9) || ((GsMajor == 9) && (GsMinor <= 5)))
 					loaderror = im.LoadPicture(ScPaths::getTempFileDir()+"/sc.Cyan.tif", 1, cms, false, false, ScImage::RGBData, 72, &mode);
+				else
+					loaderror = im.LoadPicture(ScPaths::getTempFileDir()+"/sc(Cyan).tif", 1, cms, false, false, ScImage::RGBData, 72, &mode);
 				if (!loaderror)
 				{
 					imageLoadError(Bild, Seite);
@@ -984,8 +986,10 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 			{
 				if ((GsMinor < 54) && (GsMajor < 9))
 					loaderror = im.LoadPicture(ScPaths::getTempFileDir()+"/sc.tif.Magenta.tif", 1, cms, false, false, ScImage::RGBData, 72, &mode);
-				else
+				else if ((GsMajor < 9) || ((GsMajor == 9) && (GsMinor <= 5)))
 					loaderror = im.LoadPicture(ScPaths::getTempFileDir()+"/sc.Magenta.tif", 1, cms, false, false, ScImage::RGBData, 72, &mode);
+				else
+					loaderror = im.LoadPicture(ScPaths::getTempFileDir()+"/sc(Magenta).tif", 1, cms, false, false, ScImage::RGBData, 72, &mode);
 				if (!loaderror)
 				{
 					imageLoadError(Bild, Seite);
@@ -1000,8 +1004,10 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 			{
 				if ((GsMinor < 54) && (GsMajor < 9))
 					loaderror = im.LoadPicture(ScPaths::getTempFileDir()+"/sc.tif.Yellow.tif", 1, cms, false, false, ScImage::RGBData, 72, &mode);
-				else
+				else if ((GsMajor < 9) || ((GsMajor == 9) && (GsMinor <= 5)))
 					loaderror = im.LoadPicture(ScPaths::getTempFileDir()+"/sc.Yellow.tif", 1, cms, false, false, ScImage::RGBData, 72, &mode);
+				else
+					loaderror = im.LoadPicture(ScPaths::getTempFileDir()+"/sc(Yellow).tif", 1, cms, false, false, ScImage::RGBData, 72, &mode);
 				if (!loaderror)
 				{
 					imageLoadError(Bild, Seite);
@@ -1023,8 +1029,10 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 						QString fnam;
 						if ((GsMinor < 54) && (GsMajor < 9))
 							fnam = QString(ScPaths::getTempFileDir()+"/sc.tif.s%1.tif").arg(sepit.value());
-						else
+						else if ((GsMajor < 9) || ((GsMajor == 9) && (GsMinor <= 5)))
 							fnam = QString(ScPaths::getTempFileDir()+"/sc.s%1.tif").arg(sepit.value());
+						else
+							fnam = QString(ScPaths::getTempFileDir()+"/sc(%1).tif").arg(sepit.key());
 						if (!im.LoadPicture(fnam, 1, cms, false, false, ScImage::RGBData, 72, &mode))
 						{
 							imageLoadError(Bild, Seite);
@@ -1042,8 +1050,10 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 				CMSettings cms(doc, "", Intent_Perceptual);
 				if ((GsMinor < 54) && (GsMajor < 9))
 					loaderror = im.LoadPicture(ScPaths::getTempFileDir()+"/sc.tif.Black.tif", 1, cms, false, false, ScImage::RGBData, 72, &mode);
-				else
+				else if ((GsMajor < 9) || ((GsMajor == 9) && (GsMinor <= 5)))
 					loaderror = im.LoadPicture(ScPaths::getTempFileDir()+"/sc.Black.tif", 1, cms, false, false, ScImage::RGBData, 72, &mode);
+				else
+					loaderror = im.LoadPicture(ScPaths::getTempFileDir()+"/sc(Black).tif", 1, cms, false, false, ScImage::RGBData, 72, &mode);
 				if (!loaderror)
 				{
 					imageLoadError(Bild, Seite);
