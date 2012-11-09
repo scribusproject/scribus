@@ -2858,8 +2858,10 @@ QImage ScribusView::PageToPixmap(int Nr, int maxGr, bool drawFrame)
 			Doc->minCanvasCoordinate = FPoint(0, 0);
 			bool oldFramesShown  = Doc->guidesPrefs().framesShown;
 			bool oldShowControls = Doc->guidesPrefs().showControls;
+			bool oldDrawAsPreview = Doc->drawAsPreview;
 			Doc->guidesPrefs().framesShown = false;
 			Doc->guidesPrefs().showControls = false;
+			Doc->drawAsPreview = true;
 			m_canvas->setScale(sc);
 			m_canvas->m_viewMode.previewMode = true;
 			m_canvas->m_viewMode.forceRedraw = true;
@@ -2968,13 +2970,14 @@ QImage ScribusView::PageToPixmap(int Nr, int maxGr, bool drawFrame)
 				}
 			}
 
+			Doc->drawAsPreview = oldDrawAsPreview;
 			Doc->guidesPrefs().framesShown  = oldFramesShown;
 			Doc->guidesPrefs().showControls = oldShowControls;
 			m_canvas->setScale(oldScale);
 			Doc->setMasterPageMode(mMode);
 			Doc->setCurrentPage(act);
 			Doc->setLoading(false);
-			m_canvas->m_viewMode.previewMode = false;
+			m_canvas->m_viewMode.previewMode = Doc->drawAsPreview;
 			m_canvas->m_viewMode.forceRedraw = false;
 			Doc->minCanvasCoordinate = FPoint(cx, cy);
 		}
