@@ -449,6 +449,7 @@ void CommonStrings::languageChange()
 	CommonStrings::metaModifier=tr("Ctrl");
 #endif
 #ifdef Q_OS_WIN32
+	CommonStrings::controlModifier=tr("Ctrl");
 	CommonStrings::metaModifier=tr("Windows");
 #endif
 #if !defined(Q_OS_WIN32) && !defined(Q_OS_MAC)

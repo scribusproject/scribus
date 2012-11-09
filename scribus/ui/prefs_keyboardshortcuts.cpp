@@ -221,9 +221,9 @@ bool Prefs_KeyboardShortcuts::exportKeySet(QString filename)
 		{
 			if (it.value().keySequence.isEmpty() && it.key().isEmpty())
 				continue;
-			QDomElement function_shortcut=doc.createElement("function");
-			function_shortcut.setAttribute("name",it.key());
-			function_shortcut.setAttribute("shortcut",getKeyText(it.value().keySequence));
+			QDomElement function_shortcut = doc.createElement("function");
+			function_shortcut.setAttribute("name", it.key());
+			function_shortcut.setAttribute("shortcut", getKeyText(it.value().keySequence));
 			keySetElement.appendChild(function_shortcut);
 		}
 		QFile f(filename);
@@ -289,6 +289,24 @@ QStringList Prefs_KeyboardShortcuts::scanForSets()
 }
 
 QString Prefs_KeyboardShortcuts::getKeyText(int KeyC)
+{
+	if ((KeyC & ~(Qt::META | Qt::CTRL | Qt::ALT | Qt::SHIFT)) == 0)
+		return "";
+	// on OSX Qt translates modifiers to forsaken symbols, arrows and the like
+	// we prefer plain English
+	QString res;
+	if ((KeyC & Qt::META) != 0)
+		res += "Meta+";
+	if ((KeyC & Qt::CTRL) != 0)
+		res += "Ctrl+";
+	if ((KeyC & Qt::ALT) != 0)
+		res += "Alt+";
+	if ((KeyC & Qt::SHIFT) != 0)
+		res += "Shift+";
+	return res + QString(QKeySequence(KeyC & ~(Qt::META | Qt::CTRL | Qt::ALT | Qt::SHIFT)));
+}
+
+QString Prefs_KeyboardShortcuts::getTrKeyText(int KeyC)
 {
 	if ((KeyC & ~(Qt::META | Qt::CTRL | Qt::ALT | Qt::SHIFT)) == 0)
 		return "";
@@ -500,13 +518,13 @@ void Prefs_KeyboardShortcuts::keyPressEvent(QKeyEvent *k)
 				break;
 			default:
 				keyCode |= k->key();
-				keyDisplay->setText(getKeyText(keyCode));
+				keyDisplay->setText(getTrKeyText(keyCode));
 				releaseKeyboard();
 				if (checkKey(keyCode))
 				{
 					QMessageBox::information(this, CommonStrings::trWarning,
 											tr("The %1 key sequence is already in use by \"%2\"")
-												.arg(getKeyText(keyCode))
+												.arg(getTrKeyText(keyCode))
 												.arg(getAction(keyCode)),
 											CommonStrings::tr_OK);
 					selectedLVI->setText(1,keyMap[lviToActionMap[selectedLVI]].keySequence);

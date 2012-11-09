@@ -1704,15 +1704,7 @@ bool PrefsManager::WritePref(QString ho)
 			continue;
 		QDomElement kscc=docu.createElement("Shortcut");
 		kscc.setAttribute("Action",ksc.value().actionName);
-		QString ks(Prefs_KeyboardShortcuts::getKeyText(ksc.value().keySequence));
-#ifdef Q_OS_MAC
-		ks.replace("Ctrl","Meta");
-		ks.replace("Cmd","Ctrl");
-#endif
-#ifdef Q_OS_WIN32
-		ks.replace("Windows","Meta");
-#endif
-		kscc.setAttribute("KeySequence",ks);
+		kscc.setAttribute("KeySequence", Prefs_KeyboardShortcuts::getKeyText(ksc.value().keySequence));
 		elem.appendChild(kscc);
 	}
 	QDomElement cosd=docu.createElement("DefaultColorSet");

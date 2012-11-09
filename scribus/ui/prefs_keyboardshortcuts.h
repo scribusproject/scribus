@@ -34,7 +34,9 @@ class SCRIBUS_API Prefs_KeyboardShortcuts : public Prefs_Pane, Ui::Prefs_Keyboar
 		bool event( QEvent* ev );
 		void keyPressEvent(QKeyEvent *k);
 		void keyReleaseEvent(QKeyEvent *k);
+
 		static QString getKeyText(int KeyC);
+		static QString getTrKeyText(int KeyC);
 
 	public slots:
 		void languageChange();
