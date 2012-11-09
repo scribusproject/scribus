@@ -59,12 +59,12 @@ for which a new license (GPL+exception) is in place.
 #include "pageitem_imageframe.h"
 #include "pageitem_latexframe.h"
 #include "pageitem_line.h"
+#include "pageitem_noteframe.h"
 #include "pageitem_pathtext.h"
 #include "pageitem_polygon.h"
 #include "pageitem_polyline.h"
 #include "pageitem_table.h"
 #include "pageitem_textframe.h"
-#include "pageitem_noteframe.h"
 #ifdef HAVE_OSG
 	#include "pageitem_osgframe.h"
 #endif

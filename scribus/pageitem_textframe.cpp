@@ -39,8 +39,8 @@ for which a new license (GPL+exception) is in place.
 #include "notesstyles.h"
 #include "pageitem.h"
 #include "pageitem_group.h"
-#include "pageitem_textframe.h"
 #include "pageitem_noteframe.h"
+#include "pageitem_textframe.h"
 #include "prefsmanager.h"
 #include "scpage.h"
 #include "scpainter.h"
@@ -3994,7 +3994,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 					asNoteFrame()->masterFrame()->invalid = true;
 				}
 				else
-				update();
+					update();
 				keyRepeat = false;
 				return;
 			}
@@ -4292,7 +4292,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 					}
 				}
 				else
-				update();
+					update();
 //				view->RefreshItem(this);
 			}
 			keyRepeat = false;
@@ -4346,7 +4346,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 					}
 				}
 				else
-				update();
+					update();
 			}
 			break;
 		}

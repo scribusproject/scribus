@@ -21,15 +21,15 @@ for which a new license (GPL+exception) is in place.
 #include "scribusview.h"
 #include "hyphenator.h"
 #include "notesstyles.h"
+#include "pageitem_arc.h"
 #include "pageitem_latexframe.h"
+#include "pageitem_noteframe.h"
 #ifdef HAVE_OSG
 	#include "pageitem_osgframe.h"
 #endif
 #include "pageitem_regularpolygon.h"
-#include "pageitem_arc.h"
 #include "pageitem_spiral.h"
 #include "pageitem_table.h"
-#include "pageitem_noteframe.h"
 
 #include "units.h"
 #include "util.h"

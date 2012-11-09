@@ -48,9 +48,9 @@ for which a new license (GPL+exception) is in place.
 #include "pageitem_group.h"
 #include "pageitem_regularpolygon.h"
 #include "pageitem_arc.h"
+#include "pageitem_noteframe.h"
 #include "pageitem_spiral.h"
 #include "pageitem_textframe.h"
-#include "pageitem_noteframe.h"
 #include "pageitem_latexframe.h"
 #include "prefsmanager.h"
 
