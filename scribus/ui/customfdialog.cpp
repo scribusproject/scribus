@@ -147,6 +147,7 @@ void FDialogPreview::GenPreview(QString name)
 	QString formatD(FormatsManager::instance()->extensionListForFormat(FormatsManager::IMAGESIMGFRAME, 1));
  	QStringList formats = formatD.split("|");
 	formats.append("pat");
+	formats.removeAll("pdf");
 	
 	QStringList allFormatsV = LoadSavePlugin::getExtensionsForPreview(FORMATID_ODGIMPORT);
 	if (ext.isEmpty())

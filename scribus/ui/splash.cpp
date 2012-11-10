@@ -19,12 +19,12 @@ for which a new license (GPL+exception) is in place.
 #include "util_icon.h"
 
 
-SplashScreen::SplashScreen( const QPixmap & pixmap, Qt::WindowFlags f ) : QSplashScreen( pixmap, f)
+ScSplashScreen::ScSplashScreen( const QPixmap & pixmap, Qt::WindowFlags f ) : QSplashScreen( pixmap, f)
 {
 
 }
 
-void SplashScreen::setStatus( const QString &message )
+void ScSplashScreen::setStatus( const QString &message )
 {
 	static QRegExp rx("&\\S*");	
 	QString tmp(message);

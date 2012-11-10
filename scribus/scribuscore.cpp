@@ -221,7 +221,7 @@ void ScribusCore::initSplash(bool showSplash)
 	if (showSplash)
 	{
         QPixmap pix = loadIcon("Splash.png", true);
-        m_SplashScreen = new SplashScreen(pix, Qt::WindowStaysOnTopHint);
+		m_SplashScreen = new ScSplashScreen(pix, Qt::WindowStaysOnTopHint);
         if (m_SplashScreen != NULL)
             m_SplashScreen->show();
 		if (m_SplashScreen != NULL && m_SplashScreen->isVisible())

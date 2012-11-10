@@ -1127,6 +1127,14 @@ void SlaOutputDev::restoreState(GfxState *state)
 							double dx = sing->xPos() - ite->xPos();
 							double dy = sing->yPos() - ite->yPos();
 							sing->PoLine.translate(dx, dy);
+							if (sing->isGroup())
+							{
+								QList<PageItem*> allItems = sing->asGroupFrame()->getItemList();
+								for (int si = 0; si < allItems.count(); si++)
+								{
+									allItems[si]->moveBy(dx, dy, true);
+								}
+							}
 							QPainterPath input1 = sing->PoLine.toQPainterPath(true);
 							if (sing->fillEvenOdd())
 								input1.setFillRule(Qt::OddEvenFill);
@@ -1140,8 +1148,12 @@ void SlaOutputDev::restoreState(GfxState *state)
 							QPainterPath result = input1.intersected(input2);
 							sing->setXYPos(ite->xPos(), ite->yPos(), true);
 							sing->setWidthHeight(ite->width(), ite->height(), true);
+							sing->groupWidth = ite->width();
+							sing->groupHeight = ite->height();
 							sing->PoLine.fromQPainterPath(result);
 							m_doc->AdjustItemSize(sing);
+							if (sing->isGroup())
+								sing->asGroupFrame()->adjustXYPosition();
 						}
 						delete ite;
 					}

@@ -32,7 +32,7 @@ for which a new license (GPL+exception) is in place.
 class QWidget;
 class FileWatcher;
 class PluginManager;
-class SplashScreen;
+class ScSplashScreen;
 class ScribusMainWindow;
 class PrefsManager;
 class UndoManager;
@@ -56,7 +56,7 @@ public:
 	ScribusCore();
 	~ScribusCore();
 	
-	SplashScreen* splash() {return m_SplashScreen;};
+	ScSplashScreen* splash() {return m_SplashScreen;};
 	/*
 	int exportToPDF() {return 0;}
 	int exportToEPS() {return 0;}
@@ -131,7 +131,7 @@ protected:
 	QList<ScribusMainWindow*> ScMWList;
 	int m_currScMW;
 	
-	SplashScreen *m_SplashScreen;
+	ScSplashScreen *m_SplashScreen;
 	UndoManager *undoManager;
 	PrefsManager *prefsManager;
 	bool m_ScribusInitialized;

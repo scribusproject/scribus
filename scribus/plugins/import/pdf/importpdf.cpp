@@ -16,11 +16,13 @@ for which a new license (GPL+exception) is in place.
 #include <QStack>
 #include <QDebug>
 #include "slaoutput.h"
-#include <ErrorCodes.h>
-#include <GlobalParams.h>
-#include <PageTransition.h>
-#include <ViewerPreferences.h>
-#include <poppler-config.h>
+#include <poppler/ErrorCodes.h>
+#include <poppler/GlobalParams.h>
+#include <poppler/PageTransition.h>
+#include <poppler/ViewerPreferences.h>
+#include <poppler/poppler-config.h>
+#include <poppler/SplashOutputDev.h>
+#include <poppler/splash/SplashBitmap.h>
 
 #include "importpdf.h"
 
@@ -68,6 +70,88 @@ PdfPlug::PdfPlug(ScribusDoc* doc, int flags)
 
 QImage PdfPlug::readThumbnail(QString fName)
 {
+	QString pdfFile = QDir::toNativeSeparators(fName);
+	globalParams = new GlobalParams();
+	if (globalParams)
+	{
+		GooString *fname = new GooString(QFile::encodeName(pdfFile).data());
+		globalParams->setErrQuiet(gTrue);
+		PDFDoc *pdfDoc = new PDFDoc(fname, NULL, NULL, NULL);
+		if (pdfDoc)
+		{
+			if (pdfDoc->getErrorCode() == errEncrypted)
+			{
+				delete pdfDoc;
+				delete globalParams;
+				return QImage();
+			}
+			if (pdfDoc->isOk())
+			{
+				double h = pdfDoc->getPageMediaHeight(1);
+				double w = pdfDoc->getPageMediaWidth(1);
+				double scale = qMin(500.0 / h, 500.0 / w);
+				double hDPI = 72.0 * scale;
+				double vDPI = 72.0 * scale;
+				SplashColor bgColor;
+				bgColor[0] = 255;
+				bgColor[1] = 255;
+				bgColor[2] = 255;
+				SplashOutputDev *dev = new SplashOutputDev(splashModeXBGR8, 4, gFalse, bgColor, gTrue, gTrue);
+				dev->setVectorAntialias(gTrue);
+				dev->setFreeTypeHinting(gTrue, gFalse);
+				dev->startDoc(pdfDoc);
+				pdfDoc->displayPage(dev, 1, hDPI, vDPI, 0, gTrue, gFalse, gFalse);
+				SplashBitmap *bitmap = dev->getBitmap();
+				int bw = bitmap->getWidth();
+				int bh = bitmap->getHeight();
+				if (bitmap->convertToXBGR())
+				{
+					SplashColorPtr dataPtr = bitmap->getDataPtr();
+					if (QSysInfo::BigEndian == QSysInfo::ByteOrder)
+					{
+						uchar c;
+						int count = bw * bh * 4;
+						for (int k = 0; k < count; k += 4)
+						{
+							c = dataPtr[k];
+							dataPtr[k] = dataPtr[k+3];
+							dataPtr[k+3] = c;
+							c = dataPtr[k+1];
+							dataPtr[k+1] = dataPtr[k+2];
+							dataPtr[k+2] = c;
+						}
+					}
+					// construct a qimage SHARING the raw bitmap data in memory
+					QImage tmpimg( dataPtr, bw, bh, QImage::Format_ARGB32 );
+					QImage image = tmpimg.copy();
+					image.setText("XSize", QString("%1").arg(w));
+					image.setText("YSize", QString("%1").arg(h));
+					delete dev;
+					delete pdfDoc;
+					delete globalParams;
+					return image;
+				}
+				else
+				{
+					delete dev;
+					delete pdfDoc;
+					delete globalParams;
+					return QImage();
+				}
+			}
+			else
+			{
+				delete pdfDoc;
+				delete globalParams;
+				return QImage();
+			}
+		}
+		else
+			return QImage();
+	}
+	return QImage();
+}
+/*	Old Code to be backed up
 	QString tmp, cmd1, cmd2;
 	QString pdfFile = QDir::toNativeSeparators(fName);
 	QString tmpFile = QDir::toNativeSeparators(ScPaths::getTempFileDir() + "sc.png");
@@ -90,7 +174,7 @@ QImage PdfPlug::readThumbnail(QString fName)
 		return image;
 	}
 	return QImage();
-}
+*/
 
 bool PdfPlug::import(QString fNameIn, const TransactionSettings& trSettings, int flags, bool showProgress)
 {
@@ -497,6 +581,21 @@ bool PdfPlug::convert(QString fn)
 						m_Doc->setPageHeight(pdfDoc->getPageMediaHeight(1));
 						m_Doc->setPageWidth(pdfDoc->getPageMediaWidth(1));
 						m_Doc->setPageSize("Custom");
+						PDFRectangle *mediaBox = pdfDoc->getPage(1)->getMediaBox();
+						PDFRectangle *cropBox = pdfDoc->getPage(1)->getCropBox();
+						PDFRectangle *trimBox = pdfDoc->getPage(1)->getTrimBox();
+						PDFRectangle *bleedBox = pdfDoc->getPage(1)->getBleedBox();
+						PDFRectangle *artBox = pdfDoc->getPage(1)->getArtBox();
+						QRectF mediaRect = QRectF(QPointF(mediaBox->x1, mediaBox->y1), QPointF(mediaBox->x2, mediaBox->y2)).normalized();
+						QRectF cropRect = QRectF(QPointF(cropBox->x1, cropBox->y1), QPointF(cropBox->x2, cropBox->y2)).normalized();
+						QRectF trimRect = QRectF(QPointF(trimBox->x1, trimBox->y1), QPointF(trimBox->x2, trimBox->y2)).normalized();
+						QRectF bleedRect = QRectF(QPointF(bleedBox->x1, bleedBox->y1), QPointF(bleedBox->x2, bleedBox->y2)).normalized();
+						QRectF artRect = QRectF(QPointF(artBox->x1, artBox->y1), QPointF(artBox->x2, artBox->y2)).normalized();
+						qDebug() << "Media Box" << mediaRect << "Area" << mediaRect.width() * mediaRect.height();
+						qDebug() << "Crop Box" << cropRect << "Area" << cropRect.width() * cropRect.height();
+						qDebug() << "Trim Box" << trimRect << "Area" << trimRect.width() * trimRect.height();
+						qDebug() << "Bleed Box" << bleedRect << "Area" << bleedRect.width() * bleedRect.height();
+						qDebug() << "Art Box" << artRect << "Area" << artRect.width() * artRect.height();
 						m_Doc->pdfOptions().PresentVals.clear();
 						for (int pp = 0; pp < lastPage; pp++)
 						{
