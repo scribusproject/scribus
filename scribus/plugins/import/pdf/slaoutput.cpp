@@ -1,7 +1,7 @@
 #include "slaoutput.h"
-#include <GlobalParams.h>
-#include <poppler-config.h>
-#include <FileSpec.h>
+#include <poppler/GlobalParams.h>
+#include <poppler/poppler-config.h>
+#include <poppler/FileSpec.h>
 #include <QApplication>
 #include <QFile>
 #include "commonstrings.h"
