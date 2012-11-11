@@ -104,40 +104,30 @@ QImage PdfPlug::readThumbnail(QString fName)
 				SplashBitmap *bitmap = dev->getBitmap();
 				int bw = bitmap->getWidth();
 				int bh = bitmap->getHeight();
-				if (bitmap->convertToXBGR())
+				SplashColorPtr dataPtr = bitmap->getDataPtr();
+				if (QSysInfo::BigEndian == QSysInfo::ByteOrder)
 				{
-					SplashColorPtr dataPtr = bitmap->getDataPtr();
-					if (QSysInfo::BigEndian == QSysInfo::ByteOrder)
+					uchar c;
+					int count = bw * bh * 4;
+					for (int k = 0; k < count; k += 4)
 					{
-						uchar c;
-						int count = bw * bh * 4;
-						for (int k = 0; k < count; k += 4)
-						{
-							c = dataPtr[k];
-							dataPtr[k] = dataPtr[k+3];
-							dataPtr[k+3] = c;
-							c = dataPtr[k+1];
-							dataPtr[k+1] = dataPtr[k+2];
-							dataPtr[k+2] = c;
-						}
+						c = dataPtr[k];
+						dataPtr[k] = dataPtr[k+3];
+						dataPtr[k+3] = c;
+						c = dataPtr[k+1];
+						dataPtr[k+1] = dataPtr[k+2];
+						dataPtr[k+2] = c;
 					}
-					// construct a qimage SHARING the raw bitmap data in memory
-					QImage tmpimg( dataPtr, bw, bh, QImage::Format_ARGB32 );
-					QImage image = tmpimg.copy();
-					image.setText("XSize", QString("%1").arg(w));
-					image.setText("YSize", QString("%1").arg(h));
-					delete dev;
-					delete pdfDoc;
-					delete globalParams;
-					return image;
 				}
-				else
-				{
-					delete dev;
-					delete pdfDoc;
-					delete globalParams;
-					return QImage();
-				}
+				// construct a qimage SHARING the raw bitmap data in memory
+				QImage tmpimg( dataPtr, bw, bh, QImage::Format_ARGB32 );
+				QImage image = tmpimg.copy();
+				image.setText("XSize", QString("%1").arg(w));
+				image.setText("YSize", QString("%1").arg(h));
+				delete dev;
+				delete pdfDoc;
+				delete globalParams;
+				return image;
 			}
 			else
 			{
@@ -581,7 +571,7 @@ bool PdfPlug::convert(QString fn)
 						m_Doc->setPageHeight(pdfDoc->getPageMediaHeight(1));
 						m_Doc->setPageWidth(pdfDoc->getPageMediaWidth(1));
 						m_Doc->setPageSize("Custom");
-						PDFRectangle *mediaBox = pdfDoc->getPage(1)->getMediaBox();
+					/*	PDFRectangle *mediaBox = pdfDoc->getPage(1)->getMediaBox();
 						PDFRectangle *cropBox = pdfDoc->getPage(1)->getCropBox();
 						PDFRectangle *trimBox = pdfDoc->getPage(1)->getTrimBox();
 						PDFRectangle *bleedBox = pdfDoc->getPage(1)->getBleedBox();
@@ -595,7 +585,7 @@ bool PdfPlug::convert(QString fn)
 						qDebug() << "Crop Box" << cropRect << "Area" << cropRect.width() * cropRect.height();
 						qDebug() << "Trim Box" << trimRect << "Area" << trimRect.width() * trimRect.height();
 						qDebug() << "Bleed Box" << bleedRect << "Area" << bleedRect.width() * bleedRect.height();
-						qDebug() << "Art Box" << artRect << "Area" << artRect.width() * artRect.height();
+						qDebug() << "Art Box" << artRect << "Area" << artRect.width() * artRect.height(); */
 						m_Doc->pdfOptions().PresentVals.clear();
 						for (int pp = 0; pp < lastPage; pp++)
 						{
