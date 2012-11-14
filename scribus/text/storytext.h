@@ -220,6 +220,7 @@ class SCRIBUS_API StoryText : public QObject, public SaxIO
 // positioning
 	int nextChar(int pos);
 	int prevChar(int pos);
+	int firstWord();
 	int nextWord(int pos);
 	int prevWord(int pos);
 	int endOfWord(int pos) const;

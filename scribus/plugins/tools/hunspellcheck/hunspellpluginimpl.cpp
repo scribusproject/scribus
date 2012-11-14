@@ -114,15 +114,14 @@ bool HunspellPluginImpl::checkWithHunspellSE()
 
 bool HunspellPluginImpl::parseTextFrame(StoryText *iText)
 {
-	int len=iText->length();
-	int currPos=0, wordStart=0;
-	while (currPos<len)
+	int len = iText->length();
+	int currPos = iText->firstWord(), wordStart;
+	while (currPos < len)
 	{
-		wordStart=iText->nextWord(currPos);
-		int wordEnd=iText->endOfWord(wordStart);
-		currPos=wordStart;
-		QString word=iText->text(wordStart,wordEnd-wordStart);
-		QString wordLang=iText->charStyle(wordStart).language();
+		wordStart = currPos;
+		int wordEnd = iText->endOfWord(wordStart);
+		QString word = iText->text(wordStart,wordEnd - wordStart);
+		QString wordLang = iText->charStyle(wordStart).language();
 
 		if (wordLang.isEmpty())
 		{
@@ -155,7 +154,7 @@ bool HunspellPluginImpl::parseTextFrame(StoryText *iText)
 		else
 		{
 			//qDebug()<<"Spelling language to match style language IS installed ("<<wordLang<<")";
-			int i=0;
+			int i = 0;
 			QMap<QString, QString>::iterator it = dictionaryMap.begin();
 			while (it != dictionaryMap.end())
 			{
@@ -164,7 +163,7 @@ bool HunspellPluginImpl::parseTextFrame(StoryText *iText)
 				++i;
 				++it;
 			}
-			spellerIndex=i;
+			spellerIndex = i;
 		}
 
 		if (hspellerMap.contains(wordLang) && hspellerMap[wordLang]->spell(word.toUtf8().constData())==0)
@@ -172,7 +171,7 @@ bool HunspellPluginImpl::parseTextFrame(StoryText *iText)
 			//qDebug()<<"hspellerMap.contains(wordLang)"<<hspellerMap.contains(wordLang)<< "hspellerMap[wordLang]->spell(word.toUtf8().constData())"<<hspellerMap[wordLang]->spell(word.toUtf8().constData());
 
 			struct WordsFound wf;
-			wf.start=currPos;
+			wf.start=wordStart;
 			wf.end=wordEnd;
 			wf.w=word;
 			wf.changed=false;
@@ -191,6 +190,7 @@ bool HunspellPluginImpl::parseTextFrame(StoryText *iText)
 			hspellerMap[wordLang]->free_list(&sugglist, suggCount);
 			wordsToCorrect.append(wf);
 		}
+		currPos = iText->nextWord(wordStart);
 	}
 	return true;
 }
