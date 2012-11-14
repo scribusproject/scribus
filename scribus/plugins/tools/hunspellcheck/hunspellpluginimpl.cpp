@@ -113,25 +113,24 @@ bool HunspellPluginImpl::checkWithHunspellSE()
 
 bool HunspellPluginImpl::parseTextFrame(StoryText *iText)
 {
-	int len=iText->length();
-	int currPos=0, wordStart=0;
-	while (currPos<len)
+	int len = iText->length();
+	int currPos = iText->firstWord(), wordStart;
+	while (currPos < len)
 	{
-		wordStart=iText->nextWord(currPos);
-		int wordEnd=iText->endOfWord(wordStart);
-		currPos=wordStart;
-		QString word=iText->text(wordStart,wordEnd-wordStart);
-		QString wordLang=iText->charStyle(wordStart).language();
-		//qDebug()<<wordLang<<LanguageManager::instance()->getAbbrevFromLang(wordLang, true, false, 1)<<LanguageManager::instance()->getAbbrevFromLang(wordLang, true, false, 2);
-		QString langAbbrev=LanguageManager::instance()->getAbbrevFromLang(wordLang, true, false, 1);
+		wordStart = currPos;
+		int wordEnd = iText->endOfWord(wordStart);
+		QString word = iText->text(wordStart,wordEnd - wordStart);
+		QString wordLang = iText->charStyle(wordStart).language();
+		//qDebug()<<wordLang<<LanguageManager::instance()->getAbbrevFromLang(wordLang, false, false, 1)<<LanguageManager::instance()->getAbbrevFromLang(wordLang, true, false, 2);
+		QString langAbbrev = LanguageManager::instance()->getAbbrevFromLang(wordLang, false, false, 1);
 		//A little hack as for some reason our en dictionary from the aspell plugin was not called en_GB or en_US but en, content was en_GB though. Meh.
-		if (langAbbrev=="en")
-			langAbbrev="en_GB";
-		int spellerIndex=0;
+		if (langAbbrev == "en")
+			langAbbrev = "en_GB";
+		int spellerIndex = 0;
 		if (!dictionaryMap.contains(langAbbrev))
 		{
 			//qDebug()<<"Spelling language to match style language not installed ("<<langAbbrev<<")";
-			QString langAbbrev2=LanguageManager::instance()->getAbbrevFromLang(wordLang, true, false, 2);
+			QString langAbbrev2=LanguageManager::instance()->getAbbrevFromLang(wordLang, false, false, 2);
 			if (!langAbbrev2.isEmpty() && dictionaryMap.contains(langAbbrev2))
 			{
 				//qDebug()<<"Spelling language swapped to :"<<langAbbrev2;
@@ -154,7 +153,7 @@ bool HunspellPluginImpl::parseTextFrame(StoryText *iText)
 		if (hspellerMap.contains(langAbbrev) && hspellerMap[langAbbrev]->spell(word.toUtf8().constData())==0)
 		{
 			struct WordsFound wf;
-			wf.start=currPos;
+			wf.start=wordStart;
 			wf.end=wordEnd;
 			wf.w=word;
 			wf.changed=false;
@@ -169,6 +168,7 @@ bool HunspellPluginImpl::parseTextFrame(StoryText *iText)
 			hspellerMap[langAbbrev]->free_list(&sugglist, suggCount);
 			wordsToCorrect.append(wf);
 		}
+		currPos = iText->nextWord(wordStart);
 	}
 	return true;
 }

@@ -1220,12 +1220,27 @@ int StoryText::nextChar(int pos)
 	else
 		return length();
 }
+
 int StoryText::prevChar(int pos)
 {
 	if (pos > 0)
 		return pos - 1;
 	else 
 		return 0;
+}
+
+int StoryText::firstWord()
+{
+	int len = length();
+	int pos = 0;
+
+	while (pos < len)
+	{
+		if (text(pos).isLetter())
+			break;
+		++pos;
+	}
+	return pos;
 }
 
 int StoryText::nextWord(int pos)
