@@ -146,7 +146,7 @@ void HunspellDialog::replaceWord(int i)
 void HunspellDialog::languageComboChanged(const QString &newLanguage)
 {
 	m_returnToDefaultLang=true;
-	QString wordLang=LanguageManager::instance()->getAbbrevFromLang(newLanguage, true, false, 1);
+	QString wordLang = LanguageManager::instance()->getAbbrevFromLang(newLanguage, true, false, 1);
 	if (!m_hspellerMap->contains(wordLang) )
 	{
 		//qDebug()<<"hspeller"<<wordLang<<"does not exist";
@@ -160,11 +160,16 @@ void HunspellDialog::languageComboChanged(const QString &newLanguage)
 			//qDebug()<<"hspeller"<<wordLang<<"ALTERNATIVE exists";
 	}
 
-	QString word=m_wfList->at(wfListIndex).w;
+	if (m_wfList->count() == 0)
+		return;
+	if (wfListIndex >= m_wfList->count())
+		wfListIndex = 0;
+
+	QString word = m_wfList->at(wfListIndex).w;
 	if ((*m_hspellerMap)[wordLang]->spell(word.toUtf8().constData())==0)
 	{
 		char **sugglist = NULL;
-		int suggCount=(*m_hspellerMap)[wordLang]->suggest(&sugglist, word.toUtf8().constData());
+		int suggCount = (*m_hspellerMap)[wordLang]->suggest(&sugglist, word.toUtf8().constData());
 		QStringList replacements;
 		for (int j=0; j < suggCount; ++j)
 			replacements << QString::fromUtf8(sugglist[j]);
@@ -173,8 +178,8 @@ void HunspellDialog::languageComboChanged(const QString &newLanguage)
 	}
 	else
 	{
-		(*m_wfList)[wfListIndex].changed=true;
-		m_docChanged=true;
+		(*m_wfList)[wfListIndex].changed = true;
+		m_docChanged = true;
 		goToNextWord();
 	}
 }
@@ -182,15 +187,15 @@ void HunspellDialog::languageComboChanged(const QString &newLanguage)
 void HunspellDialog::setLanguageCombo(const QString &newLangAbbrev)
 {
 	QMap<QString, QString>::iterator it = m_dictionaryMap->begin();
-	int i=0;
+	int i = 0;
 	while (it != m_dictionaryMap->end())
 	{
-		if (it.key()==newLangAbbrev)
+		if (it.key() == newLangAbbrev)
 			break;
 		++i;
 		++it;
 	}
-	bool b=languagesComboBox->blockSignals(true);
+	bool b = languagesComboBox->blockSignals(true);
 	languagesComboBox->setCurrentIndex(i);
 	languagesComboBox->blockSignals(b);
 }
