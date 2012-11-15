@@ -234,8 +234,8 @@ void TransformDialog::changeRotation(double val)
 {
 	QListWidgetItem* item = transformSelector->currentItem();
 	TransformItem *ite = (TransformItem*)item;
-	ite->firstValue = val;
-	item->setText( tr("Rotate Angle = %1%2").arg(ite->firstValue).arg(unitGetSuffixFromIndex(6)));
+	ite->firstValue = -val;
+	item->setText( tr("Rotate Angle = %1%2").arg(-ite->firstValue).arg(unitGetSuffixFromIndex(6)));
 }
 
 void TransformDialog::changeHSkew(double val)
