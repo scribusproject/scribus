@@ -31,6 +31,7 @@ for which a new license (GPL+exception) is in place.
 #include "commonstrings.h"
 #include "loadsaveplugin.h"
 #include "pagesize.h"
+#include "pdfimportoptions.h"
 #include "pdfoptions.h"
 #include "prefscontext.h"
 #include "prefsfile.h"
@@ -66,6 +67,7 @@ PdfPlug::PdfPlug(ScribusDoc* doc, int flags)
 	importerFlags = flags;
 	interactive = (flags & LoadSavePlugin::lfInteractive);
 	progressDialog = NULL;
+	m_pdfDoc = NULL;
 }
 
 QImage PdfPlug::readThumbnail(QString fName)
@@ -415,10 +417,37 @@ bool PdfPlug::convert(QString fn)
 			}
 			if (pdfDoc->isOk())
 			{
+				std::vector<int> pageNs;
+				QString pageString = "*";
+				m_pdfDoc = pdfDoc;
 				double hDPI = 72.0;
 				double vDPI = 72.0;
 				int firstPage = 1;
 				int lastPage = pdfDoc->getNumPages();
+				if ((interactive) || (importerFlags & LoadSavePlugin::lfCreateDoc))
+				{
+					if (progressDialog)
+						progressDialog->hide();
+					qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+					PdfImportOptions *optImp = new PdfImportOptions(ScCore->primaryMainWindow());
+					optImp->setUpOptions(firstPage, lastPage, interactive, this);
+					if (!optImp->exec())
+					{
+						if (progressDialog)
+							progressDialog->close();
+						delete optImp;
+						delete pdfDoc;
+						delete globalParams;
+						return false;
+					}
+					pageString = optImp->getPagesString();
+					delete optImp;
+					qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
+					if (progressDialog)
+						progressDialog->show();
+				}
+				parsePagesString(pageString, &pageNs, lastPage);
+				firstPage = pageNs[0];
 				SlaOutputDev *dev = new SlaOutputDev(m_Doc, &Elements, &importedColors, importerFlags);
 				if (dev->isOk())
 				{
@@ -568,8 +597,8 @@ bool PdfPlug::convert(QString fn)
 							}
 						}
 						info.free();
-						m_Doc->setPageHeight(pdfDoc->getPageMediaHeight(1));
-						m_Doc->setPageWidth(pdfDoc->getPageMediaWidth(1));
+						m_Doc->setPageHeight(pdfDoc->getPageMediaHeight(pageNs[0]));
+						m_Doc->setPageWidth(pdfDoc->getPageMediaWidth(pageNs[0]));
 						m_Doc->setPageSize("Custom");
 					/*	PDFRectangle *mediaBox = pdfDoc->getPage(1)->getMediaBox();
 						PDFRectangle *cropBox = pdfDoc->getPage(1)->getCropBox();
@@ -587,17 +616,18 @@ bool PdfPlug::convert(QString fn)
 						qDebug() << "Bleed Box" << bleedRect << "Area" << bleedRect.width() * bleedRect.height();
 						qDebug() << "Art Box" << artRect << "Area" << artRect.width() * artRect.height(); */
 						m_Doc->pdfOptions().PresentVals.clear();
-						for (int pp = 0; pp < lastPage; pp++)
+						for (uint ap = 0; ap < pageNs.size(); ++ap)
 						{
+							int pp = pageNs[ap];
 							m_Doc->setActiveLayer(baseLayer);
 							if (firstPg)
 								firstPg = false;
 							else
-								m_Doc->addPage(pp);
-							m_Doc->currentPage()->setInitialHeight(pdfDoc->getPageMediaHeight(pp + 1));
-							m_Doc->currentPage()->setInitialWidth(pdfDoc->getPageMediaWidth(pp + 1));
-							m_Doc->currentPage()->setHeight(pdfDoc->getPageMediaHeight(pp + 1));
-							m_Doc->currentPage()->setWidth(pdfDoc->getPageMediaWidth(pp + 1));
+								m_Doc->addPage(ap);
+							m_Doc->currentPage()->setInitialHeight(pdfDoc->getPageMediaHeight(pp));
+							m_Doc->currentPage()->setInitialWidth(pdfDoc->getPageMediaWidth(pp));
+							m_Doc->currentPage()->setHeight(pdfDoc->getPageMediaHeight(pp));
+							m_Doc->currentPage()->setWidth(pdfDoc->getPageMediaWidth(pp));
 							m_Doc->currentPage()->MPageNam = CommonStrings::trMasterPageNormal;
 							m_Doc->currentPage()->m_pageSize = "Custom";
 							m_Doc->reformPages(true);
@@ -612,13 +642,13 @@ bool PdfPlug::convert(QString fn)
 								//	pdfDoc->displayPage(dev, pp + 1, hDPI, vDPI, rotate, useMediaBox, crop, printing);
 								//	oc->setState(OptionalContentGroup::Off);
 								}
-								pdfDoc->displayPage(dev, pp + 1, hDPI, vDPI, rotate, useMediaBox, crop, printing, NULL, NULL, dev->annotations_callback, dev);
+								pdfDoc->displayPage(dev, pp, hDPI, vDPI, rotate, useMediaBox, crop, printing, NULL, NULL, dev->annotations_callback, dev);
 							}
 							else
-								pdfDoc->displayPage(dev, pp + 1, hDPI, vDPI, rotate, useMediaBox, crop, printing, NULL, NULL, dev->annotations_callback, dev);
+								pdfDoc->displayPage(dev, pp, hDPI, vDPI, rotate, useMediaBox, crop, printing, NULL, NULL, dev->annotations_callback, dev);
 							PDFPresentationData ef;
 							Object trans;
-							Object *transi = pdfDoc->getPage(pp + 1)->getTrans(&trans);
+							Object *transi = pdfDoc->getPage(pp)->getTrans(&trans);
 							if (transi->isDict())
 							{
 								m_Doc->pdfOptions().PresentMode = true;
@@ -776,6 +806,51 @@ bool PdfPlug::convert(QString fn)
 	if (progressDialog)
 		progressDialog->close();
 	return true;
+}
+
+QImage PdfPlug::readPreview(int pgNum, int width, int height)
+{
+	if (!m_pdfDoc)
+		return QImage();
+	double h = m_pdfDoc->getPageMediaHeight(pgNum);
+	double w = m_pdfDoc->getPageMediaWidth(pgNum);
+	double scale = qMin(height / h, width / w);
+	double hDPI = 72.0 * scale;
+	double vDPI = 72.0 * scale;
+	SplashColor bgColor;
+	bgColor[0] = 255;
+	bgColor[1] = 255;
+	bgColor[2] = 255;
+	SplashOutputDev *dev = new SplashOutputDev(splashModeXBGR8, 4, gFalse, bgColor, gTrue, gTrue);
+	dev->setVectorAntialias(gTrue);
+	dev->setFreeTypeHinting(gTrue, gFalse);
+	dev->startDoc(m_pdfDoc);
+	m_pdfDoc->displayPage(dev, pgNum, hDPI, vDPI, 0, gTrue, gFalse, gFalse);
+	SplashBitmap *bitmap = dev->getBitmap();
+	int bw = bitmap->getWidth();
+	int bh = bitmap->getHeight();
+	SplashColorPtr dataPtr = bitmap->getDataPtr();
+	if (QSysInfo::BigEndian == QSysInfo::ByteOrder)
+	{
+		uchar c;
+		int count = bw * bh * 4;
+		for (int k = 0; k < count; k += 4)
+		{
+			c = dataPtr[k];
+			dataPtr[k] = dataPtr[k+3];
+			dataPtr[k+3] = c;
+			c = dataPtr[k+1];
+			dataPtr[k+1] = dataPtr[k+2];
+			dataPtr[k+2] = c;
+		}
+	}
+	// construct a qimage SHARING the raw bitmap data in memory
+	QImage tmpimg( dataPtr, bw, bh, QImage::Format_ARGB32 );
+	QImage image = tmpimg.copy();
+	image.setText("XSize", QString("%1").arg(w));
+	image.setText("YSize", QString("%1").arg(h));
+	delete dev;
+	return image;
 }
 
 QString PdfPlug::UnicodeParsedString(GooString *s1)

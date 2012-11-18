@@ -36,7 +36,7 @@ class Selection;
 class TransactionSettings;
 
 class GooString;
-
+class PDFDoc;
 
 //! \brief PDF importer plugin
 class PdfPlug : public QObject
@@ -68,6 +68,7 @@ public:
 	 */
 	bool import(QString fn, const TransactionSettings& trSettings, int flags, bool showProgress = true);
 	QImage readThumbnail(QString fn);
+	QImage readPreview(int pgNum, int width, int height);
 
 private:
 	bool convert(QString fn);
@@ -89,6 +90,7 @@ private:
 	int importerFlags;
 	int oldDocItemCount;
 	QString baseFile;
+	PDFDoc *m_pdfDoc;
 
 public slots:
 	void cancelRequested() { cancel = true; }
