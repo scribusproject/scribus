@@ -1,7 +1,15 @@
+/*
+For general Scribus (>=1.3.2) copyright and licensing information please refer
+to the COPYING file provided with the program. Following this notice may exist
+a copyright and/or license notice that predates the release of Scribus 1.3.2
+for which a new license (GPL+exception) is in place.
+*/
+
 #include "slaoutput.h"
 #include <poppler/GlobalParams.h>
 #include <poppler/poppler-config.h>
 #include <poppler/FileSpec.h>
+#include <poppler/fofi/FoFiTrueType.h>
 #include <QApplication>
 #include <QFile>
 #include "commonstrings.h"
