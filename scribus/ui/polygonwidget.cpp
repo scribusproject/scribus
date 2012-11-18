@@ -25,10 +25,12 @@ PolygonWidget::PolygonWidget(QWidget* parent) : QWidget( parent )
 {
 	setupUi(this);
 	factorSpinBox->setDecimals(0);
+	rotationSpinBox->setNewUnit(6);
 	rotationSpinBox->setDecimals(0);
 	cornersSpinBox->setDecimals(0);
 	cornersSpinBox->setDecimals(0);
 	curvatureSpinBox->setDecimals(0);
+	innerRotationspinBox->setNewUnit(6);
 	innerRotationspinBox->setDecimals(0);
 	OuterCurvatureSpinBox->setDecimals(0);
 	editMode = false;
@@ -37,6 +39,15 @@ PolygonWidget::PolygonWidget(QWidget* parent) : QWidget( parent )
 PolygonWidget::PolygonWidget(QWidget* parent, int polyCorners, double polyF, bool polyUseConvexFactor, double polyRotation, double polyCurvature, double polyInnerRot, double polyOuterCurvature, bool forEditMode) : QWidget( parent )
 {
 	setupUi(this);
+	factorSpinBox->setDecimals(0);
+	rotationSpinBox->setNewUnit(6);
+	rotationSpinBox->setDecimals(0);
+	cornersSpinBox->setDecimals(0);
+	cornersSpinBox->setDecimals(0);
+	curvatureSpinBox->setDecimals(0);
+	innerRotationspinBox->setNewUnit(6);
+	innerRotationspinBox->setDecimals(0);
+	OuterCurvatureSpinBox->setDecimals(0);
 	editMode = forEditMode;
 	if (editMode)
 		Preview->hide();

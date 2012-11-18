@@ -26,7 +26,9 @@ CreateRange::CreateRange(QString currText, int pageCount, QWidget* parent, Qt::W
 	setupUi(this);
 	pageCountValueLabel->setText(QString("%1").arg(pageCount));
 	basicConsecutiveFromSpinBox->setMinimum(1);
+	basicConsecutiveFromSpinBox->setSuffix("");
 	basicConsecutiveToSpinBox->setMinimum(1);
+	basicConsecutiveToSpinBox->setSuffix("");
 	basicConsecutiveFromSpinBox->setDecimals(0);
 	basicConsecutiveToSpinBox->setDecimals(0);
 	basicConsecutiveFromSpinBox->setMaximum(pageCount);
@@ -34,6 +36,7 @@ CreateRange::CreateRange(QString currText, int pageCount, QWidget* parent, Qt::W
 	basicSelectRangeType(m_BasicRangeType);
 	advPageGroupSizeSpinBox->setMaximum(pageCount);
 	advPageGroupSizeSpinBox->setDecimals(0);
+	advPageGroupSizeSpinBox->setSuffix("");
 	if (m_PageCount==1)
 		basicEvenRadioButton->setShown(false);
 	if (currText.length()>0)
