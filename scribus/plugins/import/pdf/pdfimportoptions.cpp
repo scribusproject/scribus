@@ -17,12 +17,27 @@ PdfImportOptions::PdfImportOptions(QWidget *parent) : QDialog(parent), ui(new Ui
 	ui->pageSelectButton->setIcon(QIcon(loadIcon("ellipsis.png")));
 	m_plugin = NULL;
 	m_maxPage = 0;
+	m_resized = false;
 	ui->cropGroup->hide();	// for now as functionality is not implemented yet
 }
 
 PdfImportOptions::~PdfImportOptions()
 {
 	delete ui;
+}
+
+void PdfImportOptions::resizeEvent(QResizeEvent *e)
+{
+	m_resized = true;
+	QDialog::resizeEvent(e);
+}
+
+void PdfImportOptions::paintEvent(QPaintEvent *e)
+{
+	if (m_resized)
+		updatePreview(ui->pgSelect->getCurrentPage());
+	m_resized = false;
+	QDialog::paintEvent(e);
 }
 
 QString PdfImportOptions::getPagesString()
@@ -34,9 +49,10 @@ QString PdfImportOptions::getPagesString()
 	return ui->pageRangeString->text();
 }
 
-void PdfImportOptions::setUpOptions(int actPage, int numPages, bool interact, PdfPlug* plug)
+void PdfImportOptions::setUpOptions(QString fileName, int actPage, int numPages, bool interact, PdfPlug* plug)
 {
 	m_plugin = plug;
+	ui->fileLabel->setText(fileName);
 	ui->spinBox->setMaximum(numPages);
 	ui->spinBox->setMinimum(actPage);
 	ui->spinBox->setValue(actPage);
@@ -58,8 +74,15 @@ void PdfImportOptions::setUpOptions(int actPage, int numPages, bool interact, Pd
 	m_maxPage = numPages;
 	updatePreview(actPage);
 	connect(ui->pgSelect, SIGNAL(GotoPage(int)), this, SLOT(updatePreview(int)));
+	connect(ui->spinBox, SIGNAL(valueChanged(int)), this, SLOT(updateFromSpinBox(int)));
 	connect(ui->spinBox, SIGNAL(valueChanged(int)), this, SLOT(updatePreview(int)));
 	connect(ui->pageSelectButton, SIGNAL(clicked()), this, SLOT(createPageNumberRange()));
+}
+
+
+void PdfImportOptions::updateFromSpinBox(int pg)
+{
+	ui->pgSelect->GotoPg(pg - 1);
 }
 
 void PdfImportOptions::updatePreview(int pg)

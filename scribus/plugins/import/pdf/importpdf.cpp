@@ -51,7 +51,7 @@ for which a new license (GPL+exception) is in place.
 #include "undomanager.h"
 #include "util.h"
 #include "util_formats.h"
-#include "util_ghostscript.h"
+//#include "util_ghostscript.h"
 #include "util_icon.h"
 #include "util_math.h"
 
@@ -424,13 +424,14 @@ bool PdfPlug::convert(QString fn)
 				double vDPI = 72.0;
 				int firstPage = 1;
 				int lastPage = pdfDoc->getNumPages();
-				if ((interactive) || (importerFlags & LoadSavePlugin::lfCreateDoc))
+				if (((interactive) || (importerFlags & LoadSavePlugin::lfCreateDoc)) && (lastPage > 1))
 				{
 					if (progressDialog)
 						progressDialog->hide();
 					qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 					PdfImportOptions *optImp = new PdfImportOptions(ScCore->primaryMainWindow());
-					optImp->setUpOptions(firstPage, lastPage, interactive, this);
+					QFileInfo fi = QFileInfo(fn);
+					optImp->setUpOptions(fi.fileName(), firstPage, lastPage, interactive, this);
 					if (!optImp->exec())
 					{
 						if (progressDialog)
@@ -597,8 +598,16 @@ bool PdfPlug::convert(QString fn)
 							}
 						}
 						info.free();
-						m_Doc->setPageHeight(pdfDoc->getPageMediaHeight(pageNs[0]));
-						m_Doc->setPageWidth(pdfDoc->getPageMediaWidth(pageNs[0]));
+						if (crop)
+						{
+							m_Doc->setPageHeight(pdfDoc->getPageCropHeight(pageNs[0]));
+							m_Doc->setPageWidth(pdfDoc->getPageCropWidth(pageNs[0]));
+						}
+						else
+						{
+							m_Doc->setPageHeight(pdfDoc->getPageMediaHeight(pageNs[0]));
+							m_Doc->setPageWidth(pdfDoc->getPageMediaWidth(pageNs[0]));
+						}
 						m_Doc->setPageSize("Custom");
 					/*	PDFRectangle *mediaBox = pdfDoc->getPage(1)->getMediaBox();
 						PDFRectangle *cropBox = pdfDoc->getPage(1)->getCropBox();
@@ -624,10 +633,20 @@ bool PdfPlug::convert(QString fn)
 								firstPg = false;
 							else
 								m_Doc->addPage(ap);
-							m_Doc->currentPage()->setInitialHeight(pdfDoc->getPageMediaHeight(pp));
-							m_Doc->currentPage()->setInitialWidth(pdfDoc->getPageMediaWidth(pp));
-							m_Doc->currentPage()->setHeight(pdfDoc->getPageMediaHeight(pp));
-							m_Doc->currentPage()->setWidth(pdfDoc->getPageMediaWidth(pp));
+							if (crop)
+							{
+								m_Doc->currentPage()->setInitialHeight(pdfDoc->getPageCropHeight(pp));
+								m_Doc->currentPage()->setInitialWidth(pdfDoc->getPageCropWidth(pp));
+								m_Doc->currentPage()->setHeight(pdfDoc->getPageCropHeight(pp));
+								m_Doc->currentPage()->setWidth(pdfDoc->getPageCropWidth(pp));
+							}
+							else
+							{
+								m_Doc->currentPage()->setInitialHeight(pdfDoc->getPageMediaHeight(pp));
+								m_Doc->currentPage()->setInitialWidth(pdfDoc->getPageMediaWidth(pp));
+								m_Doc->currentPage()->setHeight(pdfDoc->getPageMediaHeight(pp));
+								m_Doc->currentPage()->setWidth(pdfDoc->getPageMediaWidth(pp));
+							}
 							m_Doc->currentPage()->MPageNam = CommonStrings::trMasterPageNormal;
 							m_Doc->currentPage()->m_pageSize = "Custom";
 							m_Doc->reformPages(true);

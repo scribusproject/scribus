@@ -21,10 +21,15 @@ class PdfImportOptions : public QDialog
 public:
 	explicit PdfImportOptions(QWidget *parent = 0);
 	~PdfImportOptions();
-	void setUpOptions(int actPage, int numPages, bool interact, PdfPlug* plug);
+	void setUpOptions(QString fileName, int actPage, int numPages, bool interact, PdfPlug* plug);
 	QString getPagesString();
+	void paintEvent(QPaintEvent *e);
+
+protected:
+	void resizeEvent(QResizeEvent *e);
 
 public slots:
+	void updateFromSpinBox(int pg);
 	void updatePreview(int pg);
 	void createPageNumberRange();
 
@@ -32,6 +37,7 @@ private:
 	Ui::PdfImportOptions *ui;
 	PdfPlug* m_plugin;
 	int m_maxPage;
+	bool m_resized;
 };
 
 #endif // PDFIMPORTOPTIONS_H
