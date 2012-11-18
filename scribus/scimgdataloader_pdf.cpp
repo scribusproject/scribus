@@ -81,6 +81,7 @@ bool ScImgDataLoader_PDF::loadPicture(const QString& fn, int page, int gsRes, bo
 	args.append("-sOutputFile="+tmpFile);
 	args.append("-dFirstPage=" + QString::number(qMax(1, page)));
 	args.append("-dLastPage=" + QString::number(qMax(1, page)));
+	args.append("-dUseCropBox");
 	args.append(picFile);
 //	qDebug() << "scimgdataloader_pdf:" << args;
 	int retg = callGS(args);
@@ -134,6 +135,7 @@ bool ScImgDataLoader_PDF::preloadAlphaChannel(const QString& fn, int page, int g
 	args.append("-sOutputFile="+tmpFile);
 	args.append("-dFirstPage=" + QString::number(qMax(1, page)));
 	args.append("-dLastPage=" + QString::number(qMax(1, page)));
+	args.append("-dUseCropBox");
 //	args.append("\""+picFile+"\"");
 	args.append(picFile);
 //	qDebug() << "scimgdataloader_pdf(alpha):" << args;
