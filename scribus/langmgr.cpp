@@ -272,6 +272,40 @@ const QString LanguageManager::getTransLangFromLang(QString lang)
 	return "";
 }
 
+const QString LanguageManager::getShortAbbrevFromAbbrev(QString langAbbrev)
+{
+	if (langList.contains(langAbbrev))
+		return langAbbrev;
+
+	QString joiner("_");
+	QStringList langParts = langAbbrev.split(QChar('_'));
+	if (langParts.count() > 2)
+		langParts.removeLast();
+
+	while (langParts.count() > 2)
+	{
+		QString abbrev = langParts.join(joiner);
+		if (langList.contains(abbrev))
+			return abbrev;
+		langParts.removeLast();
+	}
+
+	if (langParts.count() == 2)
+	{
+		QString abbrev = langParts.join(joiner);
+		if (langList.contains(abbrev))
+			return abbrev;
+		if (langParts.at(0) == langParts.at(1).toLower())
+		{
+			if (langList.contains(langParts.at(0)))
+				return langParts.at(0);
+		}
+		langParts.removeLast();
+	}
+
+	return "";
+}
+
 void LanguageManager::fillInstalledStringList(QStringList *stringListToFill, bool addDefaults) 
 {
 	if (stringListToFill)
@@ -366,11 +400,23 @@ void LanguageManager::findDictionarySets(QStringList &dictionaryPaths, QMap<QStr
 		foreach(dictName, dictList)
 		{
 			if (!QFile::exists(dictionaryPaths.at(i)+dictName+".aff"))
+			{
 				dictList.removeAll(dictName);
+			}
 			else
 			{
 				if (!dictionaryMap.contains(dictName))
-					dictionaryMap.insert(dictName, dictionaryPaths.at(i)+dictName);
+				{
+					if (dictName.length() <= 5 && langList.contains(dictName))
+					{
+						dictionaryMap.insert(dictName, dictionaryPaths.at(i)+dictName);
+						continue;
+					}
+					QString shortAbbrev(LanguageManager::getShortAbbrevFromAbbrev(dictName));
+					if (shortAbbrev.isEmpty())
+						shortAbbrev = dictName;
+					dictionaryMap.insert(shortAbbrev, dictionaryPaths.at(i)+dictName);
+				}
 			}
 		}
 //		qDebug()<<"Number of dictionaries/AFFs found in"<<dictionaryPaths.at(i)<<":"<<dictList.count();

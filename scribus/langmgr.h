@@ -47,6 +47,7 @@ public:
 	const QString getAbbrevFromLang(QString lang, bool getFromTranslated=true, bool useInstalled=true, int abbrevNo=1);
 	const QString getLangFromTransLang(QString lang);
 	const QString getTransLangFromLang(QString lang);
+	const QString getShortAbbrevFromAbbrev(QString langAbbrev);
 	void fillInstalledStringList(QStringList *stringListToFill, bool addDefaults);
 	void printInstalledList();
 	QString numericSequence(QString seq);
