@@ -39,7 +39,7 @@ HunspellPluginImpl::HunspellPluginImpl() : QObject(0)
 
 HunspellPluginImpl::~HunspellPluginImpl()
 {
-	foreach (Hunspell* h, hspellerMap)
+	foreach (HunspellDict* h, hspellerMap)
 	{
 		delete h;
 		h = NULL;
@@ -80,8 +80,7 @@ bool HunspellPluginImpl::initHunspell()
 	QMap<QString, QString>::iterator it = dictionaryMap.begin();
 	while (it != dictionaryMap.end())
 	{
-		hspellerMap.insert(it.key(), new Hunspell((it.value()+".aff").toLocal8Bit().constData(),
-											 (it.value()+".dic").toLocal8Bit().constData()));
+		hspellerMap.insert(it.key(), new HunspellDict(it.value()+".aff", it.value()+".dic"));
 		++it;
 	}
 	return true;
@@ -150,7 +149,7 @@ bool HunspellPluginImpl::parseTextFrame(StoryText *iText)
 			}
 			spellerIndex=i;
 		}
-		if (hspellerMap.contains(langAbbrev) && hspellerMap[langAbbrev]->spell(word.toUtf8().constData())==0)
+		if (hspellerMap.contains(langAbbrev) && hspellerMap[langAbbrev]->spell(word)==0)
 		{
 			struct WordsFound wf;
 			wf.start=wordStart;
@@ -159,13 +158,8 @@ bool HunspellPluginImpl::parseTextFrame(StoryText *iText)
 			wf.changed=false;
 			wf.ignore=false;
 			wf.changeOffset=0;
-			wf.lang=langAbbrev;
-			wf.replacements.clear();
-			char **sugglist = NULL;
-			int suggCount=hspellerMap[langAbbrev]->suggest(&sugglist, word.toUtf8().constData());
-			for (int j=0; j < suggCount; ++j)
-				wf.replacements << QString::fromUtf8(sugglist[j]);
-			hspellerMap[langAbbrev]->free_list(&sugglist, suggCount);
+			wf.lang = langAbbrev;
+			wf.replacements = hspellerMap[langAbbrev]->suggest(word);
 			wordsToCorrect.append(wf);
 		}
 		currPos = iText->nextWord(wordStart);

@@ -6,9 +6,8 @@
 #include <QStringList>
 #include <QWidget>
 
-#include <hunspell/hunspell.hxx>
-
 #include "pluginapi.h"
+#include "hunspelldict.h"
 #include "hunspellpluginstructs.h"
 #include "scribusdoc.h"
 #include "text/storytext.h"
@@ -22,7 +21,7 @@ class PLUGIN_API HunspellDialog : public QDialog, private Ui::HunspellDialogBase
 	public:
 		HunspellDialog(QWidget* parent, ScribusDoc *doc, StoryText* iText);
 		~HunspellDialog() {};
-		void set(QMap<QString, QString>* dictionaryMap, QMap<QString, Hunspell*> *hspellerMap, QList<WordsFound>* wfList);
+		void set(QMap<QString, QString>* dictionaryMap, QMap<QString, HunspellDict*> *hspellerMap, QList<WordsFound>* wfList);
 		bool docChanged() {return m_docChanged;}
 		void updateSuggestions(QStringList& newSuggestions);
 
@@ -39,7 +38,7 @@ class PLUGIN_API HunspellDialog : public QDialog, private Ui::HunspellDialogBase
 		ScribusDoc* m_doc;
 		StoryText* m_iText;
 		QMap<QString, QString>* m_dictionaryMap;
-		QMap<QString, Hunspell*> *m_hspellerMap;
+		QMap<QString, HunspellDict*> *m_hspellerMap;
 		QList<WordsFound>* m_wfList;
 		WordsFound currWF;
 		int wfListIndex;
