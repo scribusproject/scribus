@@ -7,7 +7,7 @@ for which a new license (GPL+exception) is in place.
 #ifndef HUNSPELLPLUGINIMPL_H
 #define HUNSPELLPLUGINIMPL_H
 
-#include <hunspell/hunspell.hxx>
+#include "hunspelldict.h"
 #include "hunspellpluginstructs.h"
 
 #include <QObject>
@@ -43,7 +43,7 @@ class HunspellPluginImpl : public QObject
 		QMap<QString, QString> dictionaryMap;
 		QStringList dictionaryPaths;
 		//int numDicts, numAFFs;
-		QMap<QString, Hunspell*> hspellerMap;
+		QMap<QString, HunspellDict*> hspellerMap;
 		ScribusDoc* m_doc;
 		bool m_runningForSE;
 		StoryEditor* m_SE;

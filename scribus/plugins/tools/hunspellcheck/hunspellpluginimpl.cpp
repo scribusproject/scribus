@@ -39,7 +39,7 @@ HunspellPluginImpl::HunspellPluginImpl() : QObject(0)
 
 HunspellPluginImpl::~HunspellPluginImpl()
 {
-	foreach (Hunspell* h, hspellerMap)
+	foreach (HunspellDict* h, hspellerMap)
 	{
 		delete h;
 		h = NULL;
@@ -81,8 +81,7 @@ bool HunspellPluginImpl::initHunspell()
 	while (it != dictionaryMap.end())
 	{
 		//qDebug()<<"hunspell init:"<<it.key()<<it.value();
-		hspellerMap.insert(it.key(), new Hunspell((it.value()+".aff").toLocal8Bit().constData(),
-											 (it.value()+".dic").toLocal8Bit().constData()));
+		hspellerMap.insert(it.key(), new HunspellDict(it.value()+".aff", it.value()+".dic"));
 		++it;
 	}
 	return true;
@@ -166,10 +165,9 @@ bool HunspellPluginImpl::parseTextFrame(StoryText *iText)
 			spellerIndex = i;
 		}
 
-		if (hspellerMap.contains(wordLang) && hspellerMap[wordLang]->spell(word.toUtf8().constData())==0)
+		if (hspellerMap.contains(wordLang) && hspellerMap[wordLang]->spell(word)==0)
 		{
-			//qDebug()<<"hspellerMap.contains(wordLang)"<<hspellerMap.contains(wordLang)<< "hspellerMap[wordLang]->spell(word.toUtf8().constData())"<<hspellerMap[wordLang]->spell(word.toUtf8().constData());
-
+			//qDebug()<<"hspellerMap.contains(wordLang)"<<hspellerMap.contains(wordLang)<< "hspellerMap[wordLang]->spell(word)"<<hspellerMap[wordLang]->spell(word);
 			struct WordsFound wf;
 			wf.start=wordStart;
 			wf.end=wordEnd;
@@ -177,17 +175,8 @@ bool HunspellPluginImpl::parseTextFrame(StoryText *iText)
 			wf.changed=false;
 			wf.ignore=false;
 			wf.changeOffset=0;
-			wf.lang=wordLang;
-			wf.replacements.clear();
-			char **sugglist = NULL;
-			int suggCount=hspellerMap[wordLang]->suggest(&sugglist, word.toUtf8().constData());
-			//qDebug()<<"suggestion count";
-			for (int j=0; j < suggCount; ++j)
-			{
-				wf.replacements << QString::fromUtf8(sugglist[j]);
-				//qDebug()<<QString::fromUtf8(sugglist[j]);
-			}
-			hspellerMap[wordLang]->free_list(&sugglist, suggCount);
+			wf.lang = wordLang;
+			wf.replacements = hspellerMap[wordLang]->suggest(word);
 			wordsToCorrect.append(wf);
 		}
 		currPos = iText->nextWord(wordStart);

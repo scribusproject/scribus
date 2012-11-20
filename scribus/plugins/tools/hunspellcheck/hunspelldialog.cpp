@@ -30,7 +30,7 @@ HunspellDialog::HunspellDialog(QWidget *parent, ScribusDoc *doc, StoryText *iTex
 	m_primaryLangIndex=0;
 }
 
-void HunspellDialog::set(QMap<QString, QString>* dictionaryMap, QMap<QString, Hunspell*> *hspellerMap, QList<WordsFound> *wfList)
+void HunspellDialog::set(QMap<QString, QString>* dictionaryMap, QMap<QString, HunspellDict*> *hspellerMap, QList<WordsFound> *wfList)
 {
 	m_dictionaryMap=dictionaryMap;
 	m_hspellerMap=hspellerMap;
@@ -161,14 +161,9 @@ void HunspellDialog::languageComboChanged(const QString &newLanguage)
 	if (wfListIndex>=m_wfList->count())
 		wfListIndex=0;
 	QString word=m_wfList->at(wfListIndex).w;
-	if ((*m_hspellerMap)[wordLang]->spell(word.toUtf8().constData())==0)
+	if ((*m_hspellerMap)[wordLang]->spell(word)==0)
 	{
-		char **sugglist = NULL;
-		int suggCount=(*m_hspellerMap)[wordLang]->suggest(&sugglist, word.toUtf8().constData());
-		QStringList replacements;
-		for (int j=0; j < suggCount; ++j)
-			replacements << QString::fromUtf8(sugglist[j]);
-		(*m_hspellerMap)[wordLang]->free_list(&sugglist, suggCount);
+		QStringList replacements = (*m_hspellerMap)[wordLang]->suggest(word);
 		updateSuggestions(replacements);
 	}
 	else

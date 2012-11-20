@@ -11,12 +11,14 @@
 
   SET(HUNSPELL_PLUGIN_MOC_CLASSES
 	hunspelldialog.h
+	hunspelldict.h
     hunspellplugin.h
     hunspellpluginimpl.h
   )
 
   SET(HUNSPELL_PLUGIN_SOURCES
 	hunspelldialog.cpp
+	hunspelldict.cpp
 	hunspellplugin.cpp
     hunspellpluginimpl.cpp
   )

@@ -230,6 +230,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\scribus\plugins\tools\hunspellcheck\hunspelldict.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\scribus\plugins\tools\hunspellcheck\hunspellplugin.cpp"
 				>
 			</File>
@@ -273,6 +277,10 @@
 						Name="moc"
 					/>
 				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\..\scribus\plugins\tools\hunspellcheck\hunspelldict.h"
+				>
 			</File>
 			<File
 				RelativePath="..\..\..\scribus\plugins\tools\hunspellcheck\hunspellplugin.h"
