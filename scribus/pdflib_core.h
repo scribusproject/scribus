@@ -306,6 +306,7 @@ private:
 	QMap<QString, QMap<uint, uint> > Type3Fonts;
 	QString xmpPacket;
 	QStack<QPointF> groupStackPos;
+	QStack<QPointF> patternStackPos;
 
 protected slots:
 	void cancelRequested();

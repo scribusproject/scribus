@@ -2554,8 +2554,12 @@ bool PDFLibCore::PDF_TemplatePage(const ScPage* pag, bool )
 								tmpD += "q\n";
 								tmpD +=  "1 0 0 1 "+FToStr(embedded->gXpos)+" "+FToStr(ite->height() - embedded->gYpos)+" cm\n";
 								QString output;
+								if (inPattern > 0)
+									patternStackPos.push(QPointF(embedded->gXpos, -(embedded->gYpos - ite->height())));
 								if (!PDF_ProcessItem(output, embedded, pag, pag->pageNr(), true))
 									return "";
+								if (inPattern)
+									patternStackPos.pop();
 								tmpD += output;
 								tmpD += "Q\n";
 							}
@@ -4159,6 +4163,7 @@ bool PDFLibCore::PDF_ProcessItem(QString& output, PageItem* ite, const ScPage* p
 				trans.translate(0.0, -ite->height());
 	//			trans.translate(pat.items.at(0)->gXpos, -pat.items.at(0)->gYpos);
 				tmp += FToStr(trans.m11())+" "+FToStr(trans.m12())+" "+FToStr(trans.m21())+" "+FToStr(trans.m22())+" "+FToStr(trans.dx())+" "+FToStr(trans.dy())+" cm\n";
+				groupStackPos.push(QPointF(0, ite->height()));
 				for (int em = 0; em < pat.items.count(); ++em)
 				{
 					PageItem* embedded = pat.items.at(em);
@@ -4170,6 +4175,7 @@ bool PDFLibCore::PDF_ProcessItem(QString& output, PageItem* ite, const ScPage* p
 					tmpD += output;
 					tmpD += "Q\n";
 				}
+				groupStackPos.pop();
 				if (Options.Version >= PDFOptions::PDFVersion_14 || Options.Version == PDFOptions::PDFVersion_X4)
 					tmp += Write_TransparencyGroup(ite->fillTransparency(), ite->fillBlendmode(), tmpD, ite);
 				else
@@ -4202,8 +4208,12 @@ bool PDFLibCore::PDF_ProcessItem(QString& output, PageItem* ite, const ScPage* p
 					tmpD += "q\n";
 					tmpD +=  "1 0 0 1 "+FToStr(embedded->gXpos)+" "+FToStr(ite->height() - embedded->gYpos)+" cm\n";
 					QString output;
+					if (inPattern > 0)
+						patternStackPos.push(QPointF(embedded->gXpos, -(embedded->gYpos - ite->height())));
 					if (!PDF_ProcessItem(output, embedded, pag, PNr, true))
 						return "";
+					if (inPattern > 0)
+						patternStackPos.pop();
 					tmpD += output;
 					tmpD += "Q\n";
 				}
@@ -6183,12 +6193,14 @@ bool PDFLibCore::PDF_PatternFillStroke(QString& output, PageItem *currItem, int 
 		tmp2 += "q\n";
 		tmp2 +=  "1 0 0 1 "+FToStr(item->gXpos)+" "+FToStr(-(item->gYpos - pat->height))+" cm\n";
 		item->setXYPos(item->xPos() + ActPageP->xOffset(), item->yPos() + ActPageP->yOffset(), true);
+		patternStackPos.push(QPointF(item->gXpos, -(item->gYpos - pat->height)));
 		inPattern++;
 		if (!PDF_ProcessItem(tmpOut, item, doc.DocPages.at(0), 0, true, true))
 			return false;
 		tmp2 += tmpOut;
 		item->setXYPos(item->xPos() - ActPageP->xOffset(), item->yPos() - ActPageP->yOffset(), true);
 		inPattern--;
+		patternStackPos.pop();
 		tmp2 += "Q\n";
 	}
 	if (Options.Compress)
@@ -6640,6 +6652,11 @@ bool PDFLibCore::PDF_MeshGradientFill(QString& output, PageItem *c)
 			mpa.rotate(-c->rotation());
 		}
 	}
+	else
+	{
+		if (patternStackPos.count() != 0)
+			mpa.translate(patternStackPos.top().x(), patternStackPos.top().y());
+	}
 	PutDoc("/Matrix ["+FToStr(mpa.m11())+" "+FToStr(mpa.m12())+" "+FToStr(mpa.m21())+" "+FToStr(mpa.m22())+" "+FToStr(mpa.dx())+" "+FToStr(mpa.dy())+"]\n");
 	PutDoc("/Shading "+QString::number(shadeObject)+" 0 R\n");
 	PutDoc(">>\nendobj\n");
@@ -6960,6 +6977,11 @@ bool PDFLibCore::PDF_PatchMeshGradientFill(QString& output, PageItem *c)
 			mpa.translate(c->xPos() - ActPageP->xOffset(), ActPageP->height() - (c->yPos() - ActPageP->yOffset()));
 			mpa.rotate(-c->rotation());
 		}
+	}
+	else
+	{
+		if (patternStackPos.count() != 0)
+			mpa.translate(patternStackPos.top().x(), patternStackPos.top().y());
 	}
 	PutDoc("/Matrix ["+FToStr(mpa.m11())+" "+FToStr(mpa.m12())+" "+FToStr(mpa.m21())+" "+FToStr(mpa.m22())+" "+FToStr(mpa.dx())+" "+FToStr(mpa.dy())+"]\n");
 	PutDoc("/Shading "+QString::number(shadeObject)+" 0 R\n");
@@ -7373,6 +7395,11 @@ bool PDFLibCore::PDF_DiamondGradientFill(QString& output, PageItem *c)
 			mpa.rotate(-c->rotation());
 		}
 	}
+	else
+	{
+		if (patternStackPos.count() != 0)
+			mpa.translate(patternStackPos.top().x(), patternStackPos.top().y());
+	}
 	PutDoc("/Matrix ["+FToStr(mpa.m11())+" "+FToStr(mpa.m12())+" "+FToStr(mpa.m21())+" "+FToStr(mpa.m22())+" "+FToStr(mpa.dx())+" "+FToStr(mpa.dy())+"]\n");
 	PutDoc("/Shading "+QString::number(shadeObject)+" 0 R\n");
 	PutDoc(">>\nendobj\n");
@@ -7704,6 +7731,11 @@ bool PDFLibCore::PDF_TensorGradientFill(QString& output, PageItem *c)
 			mpa.rotate(-c->rotation());
 		}
 	}
+	else
+	{
+		if (patternStackPos.count() != 0)
+			mpa.translate(patternStackPos.top().x(), patternStackPos.top().y());
+	}
 	PutDoc("/Matrix ["+FToStr(mpa.m11())+" "+FToStr(mpa.m12())+" "+FToStr(mpa.m21())+" "+FToStr(mpa.m22())+" "+FToStr(mpa.dx())+" "+FToStr(mpa.dy())+"]\n");
 	PutDoc("/Shading "+QString::number(shadeObject)+" 0 R\n");
 	PutDoc(">>\nendobj\n");
@@ -7827,6 +7859,11 @@ bool PDFLibCore::PDF_GradientFillStroke(QString& output, PageItem *currItem, boo
 			mpa.translate(currItem->xPos() - ActPageP->xOffset(), ActPageP->height() - (currItem->yPos() - ActPageP->yOffset()));
 			mpa.rotate(-currItem->rotation());
 		}
+	}
+	else
+	{
+		if (patternStackPos.count() != 0)
+			mpa.translate(patternStackPos.top().x(), patternStackPos.top().y());
 	}
 	if (Gskew == 90)
 		Gskew = 1;
