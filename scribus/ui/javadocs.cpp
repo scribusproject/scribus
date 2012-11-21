@@ -82,7 +82,7 @@ void JavaDocs::slotAdd()
 	if (dia.exec())
 	{
 		nam = dia.getEditText();
-		nam.replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" );
+		nam.replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%\\.]"), "_" );
 		Editor* dia2 = new Editor(this, "", View);
 		dia2->EditTex->setText("function "+nam+"()\n{\n}");
 		if (dia2->exec())
