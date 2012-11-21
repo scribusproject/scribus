@@ -72,6 +72,7 @@ void LanguageManager::generateLangList()
 	langList.insert("da_DK",    langPair("Danish",              QObject::tr( "Danish" )) );
 	langList.insert("de",       langPair("German",              QObject::tr( "German" )) );
 	langList.insert("de_1901",  langPair("German (Trad.)",      QObject::tr( "German (Trad.)" )) );
+	langList.insert("de_AT",    langPair("German (Austria)",    QObject::tr( "German (Austria)" )) );
 	langList.insert("de_CH",    langPair("German (Swiss)",      QObject::tr( "German (Swiss)" )) );
 	langList.insert("de_DE",    langPair("German",              QObject::tr( "German" )) );
 	langList.insert("dz",       langPair("Dzongkha",            QObject::tr( "Dzongkha" )) );
