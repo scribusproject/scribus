@@ -10,6 +10,9 @@ for which a new license (GPL+exception) is in place.
 #include <QLineEdit>
 #include <QPushButton>
 #include <QMessageBox>
+#include <QRegExp>
+#include <QValidator>
+#include <QRegExpValidator>
 #include "commonstrings.h"
 #include "util_icon.h"
 
@@ -122,4 +125,10 @@ void Query::setForbiddenList(QStringList tList)
 void Query::setCheckMode(bool mode)
 {
 	checkMode = mode;
+}
+
+void Query::setValidator(QRegExp rx)
+{
+	QValidator* vaild = new QRegExpValidator( rx, this );
+	answerEdit->setValidator(vaild);
 }
