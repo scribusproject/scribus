@@ -5,7 +5,7 @@ IF (${CMAKE_MAJOR_VERSION}.${CMAKE_MINOR_VERSION} LESS 2.5)
     SET(PKG_POPPLER_LIBRARIES ${_libPopplerLinkDir})
  ELSE (${CMAKE_MAJOR_VERSION}.${CMAKE_MINOR_VERSION} LESS 2.5)
     INCLUDE(FindPkgConfig)
-    pkg_search_module(POPPLER libpoppler>=0.17.1 poppler>=0.17.1)
+	pkg_search_module(POPPLER libpoppler>=0.19.0 poppler>=0.19.0)
  ENDIF (${CMAKE_MAJOR_VERSION}.${CMAKE_MINOR_VERSION} LESS 2.5)
 FIND_PATH(POPPLER_INCLUDE_DIR 
   NAMES poppler-config.h
