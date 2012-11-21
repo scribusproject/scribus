@@ -662,7 +662,7 @@ void Cpalette::updateGradientList()
 		namedGradientStroke->addItem(pm, patK[a]);
 	}
 	namedGradient->blockSignals(sigBlocked1);
-	namedGradientStroke->blockSignals(sigBlocked1);
+	namedGradientStroke->blockSignals(sigBlocked2);
 }
 
 void Cpalette::setGradients(QHash<QString, VGradient> *docGradients)
@@ -1630,6 +1630,8 @@ void Cpalette::changePatternProps()
 	PatternPropsDialog *dia = new PatternPropsDialog(this, currentUnit, false);
 	dia->spinXscaling->setValue(m_Pattern_scaleX);
 	dia->spinYscaling->setValue(m_Pattern_scaleY);
+	if (m_Pattern_scaleX == m_Pattern_scaleY)
+		dia->keepScaleRatio->setChecked(true);
 	dia->spinXoffset->setValue(m_Pattern_offsetX);
 	dia->spinYoffset->setValue(m_Pattern_offsetY);
 	dia->spinAngle->setValue(m_Pattern_rotation);
@@ -1683,6 +1685,8 @@ void Cpalette::changePatternPropsStroke()
 	PatternPropsDialog *dia = new PatternPropsDialog(this, currentUnit, true);
 	dia->spinXscaling->setValue(m_Pattern_scaleXS);
 	dia->spinYscaling->setValue(m_Pattern_scaleYS);
+	if (m_Pattern_scaleXS == m_Pattern_scaleYS)
+		dia->keepScaleRatio->setChecked(true);
 	dia->spinXoffset->setValue(m_Pattern_offsetXS);
 	dia->spinYoffset->setValue(m_Pattern_offsetYS);
 	dia->spinAngle->setValue(m_Pattern_rotationS);

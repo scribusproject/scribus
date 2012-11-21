@@ -53,6 +53,7 @@ public:
 	ScrSpinBox* spinSpacing;
 	QToolButton* FlipH;
 	QToolButton* FlipV;
+	LinkButton* keepScaleRatio;
 	bool forStroke;
 
 public slots:
@@ -73,7 +74,6 @@ protected:
 	QGroupBox* groupScale;
 	QLabel* textLabel5;
 	QLabel* textLabel6;
-	LinkButton* keepScaleRatio;
 	QGroupBox* groupRotation;
 	QLabel* textLabel7;
 	QGroupBox* groupSkew;

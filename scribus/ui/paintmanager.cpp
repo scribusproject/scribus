@@ -1156,7 +1156,7 @@ void PaintManagerDialog::importColorItems()
 			imgFormats.append("tiff");
 			imgFormats.append("pat");
 			imgFormats.append("psd");
-			imgFormats.append("pdf");
+		//	imgFormats.append("pdf");
 			imgFormats.append("eps");
 			imgFormats.append("epsi");
 			imgFormats.append("ps");
@@ -1349,6 +1349,12 @@ void PaintManagerDialog::loadVectors(QString data)
 		pat.pattern = currItem->DrawObj_toImage(qMax(maxx - minx, maxy - miny));
 		pat.width = maxx - minx;
 		pat.height = maxy - miny;
+		currItem->setXYPos(0, 0, true);
+		currItem->setWidthHeight(maxx - minx, maxy - miny, true);
+		currItem->groupWidth = maxx - minx;
+		currItem->groupHeight = maxy - miny;
+		currItem->gWidth = maxx - minx;
+		currItem->gHeight = maxy - miny;
 		for (uint as = ac; as < ae; ++as)
 		{
 			pat.items.append(m_doc->Items->takeAt(ac));

@@ -495,6 +495,8 @@ void Tpalette::changePatternProps()
 	PatternPropsDialog *dia = new PatternPropsDialog(this, currentUnit, false);
 	dia->spinXscaling->setValue(m_Pattern_scaleX);
 	dia->spinYscaling->setValue(m_Pattern_scaleY);
+	if (m_Pattern_scaleX == m_Pattern_scaleY)
+		dia->keepScaleRatio->setChecked(true);
 	dia->spinXoffset->setValue(m_Pattern_offsetX);
 	dia->spinYoffset->setValue(m_Pattern_offsetY);
 	dia->spinAngle->setValue(m_Pattern_rotation);
