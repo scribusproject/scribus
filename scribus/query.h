@@ -32,6 +32,7 @@ public:
 	void setTestList(QStringList tList);
 	void setForbiddenList(QStringList tList);
 	void setCheckMode(bool mode);
+	void setValidator(QRegExp rx);
 
 public slots:
 	void Leave();

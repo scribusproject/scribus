@@ -926,6 +926,7 @@ bool Biblio::copyObj(int id)
 	if (bv->objectMap.contains(nam))
 	{
 		Query dia(this, "tt", 1, 0, tr("&Name:"), tr("New Entry"));
+		dia.setValidator(QRegExp("[\\w()]+"));
 		dia.setEditText(nam, true);
 		dia.setTestList(activeBView->objectMap.keys());
 		if (dia.exec())
@@ -1112,6 +1113,7 @@ void Biblio::renameObj()
 	QListWidgetItem *ite = actItem;
 	QString OldName = ite->text();
 	Query dia(this, "tt", 1, 0, tr("&Name:"), tr("New Name"));
+	dia.setValidator(QRegExp("[\\w()]+"));
 	dia.setEditText(ite->text(), true);
 	dia.setTestList(activeBView->objectMap.keys());
 	if (dia.exec())
@@ -1253,6 +1255,7 @@ void Biblio::ObjFromMenu(QString text)
 	}
 	qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 	Query dia(this, "tt", 1, 0, tr("&Name:"), tr("New Entry"));
+	dia.setValidator(QRegExp("[\\w()]+"));
 	dia.setEditText(nam, true);
 	dia.setTestList(activeBView->objectMap.keys());
 	if (dia.exec())
@@ -1402,6 +1405,7 @@ void Biblio::ObjFromMainMenu(QString text, int scrapID)
 		nam += "("+ tmp.setNum(tempCount) + ")";
 	qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 	Query dia(this, "tt", 1, 0, tr("&Name:"), tr("New Entry"));
+	dia.setValidator(QRegExp("[\\w()]+"));
 	dia.setEditText(nam, true);
 	dia.setTestList(activeBView->objectMap.keys());
 	if (dia.exec())
