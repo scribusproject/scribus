@@ -3315,7 +3315,7 @@ Si le chargement est réussi, la sélection contient l&apos;ODG importé
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1505"/>
         <source>&amp;Delete...</source>
-        <translation>&amp;Effacer...</translation>
+        <translation>&amp;Supprimer...</translation>
     </message>
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1506"/>
