@@ -13,7 +13,7 @@ ${PIXMAN_INCLUDE_DIRS}
 )
 # We need to pass -fPIC only to lib2geom on amd64 - avoid it elsewhere see: http://www.gentoo.org/proj/en/base/amd64/howtos/index.xml?part=1&chap=3
 IF (ARCH_X86_64 EQUAL 1)
-  SET(CMAKE_CXX_FLAGS "$(CMAKE_CXX_FLAGS) -fPIC")
+  SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC")
 ENDIF (ARCH_X86_64 EQUAL 1)
 
 SET(SCRIBUS_CAIRO_LIB_SOURCES
