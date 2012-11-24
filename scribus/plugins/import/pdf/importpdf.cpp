@@ -266,8 +266,16 @@ bool PdfPlug::import(QString fNameIn, const TransactionSettings& trSettings, int
 	{
 		tmpSele->clear();
 		QDir::setCurrent(CurDirP);
+		if ((Elements.count() == 1) && (!(importerFlags & LoadSavePlugin::lfCreateDoc)))
+		{
+			PageItem *gr = Elements[0];
+			m_Doc->resizeGroupToContents(gr);
+		}
 		if ((Elements.count() > 1) && (!(importerFlags & LoadSavePlugin::lfCreateDoc)))
-			m_Doc->groupObjectsList(Elements);
+		{
+			PageItem *gr = m_Doc->groupObjectsList(Elements);
+			m_Doc->resizeGroupToContents(gr);
+		}
 		m_Doc->DoDrawing = true;
 		m_Doc->scMW()->setScriptRunning(false);
 		m_Doc->setLoading(false);

@@ -477,6 +477,7 @@ public slots:
 	void Apply_MasterPage(QString pageName, int pageNumber, bool reb = true);
 	void GroupObj(bool showLockDia = true);
 	void UnGroupObj();
+	void AdjustGroupObj();
 	void StatusPic();
 	void ModifyAnnot();
 	void ToggleGuides();

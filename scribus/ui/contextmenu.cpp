@@ -386,7 +386,10 @@ void ContextMenu::createMenuItems_Selection()
 	else
 	{
 		if (currItem->isGroup())
+		{
 			addAction(m_AP->scrActions["itemUngroup"]);
+			addAction(m_AP->scrActions["itemGroupAdjust"]);
+		}
 	}
 	//-->
 

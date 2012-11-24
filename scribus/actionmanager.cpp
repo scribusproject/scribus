@@ -400,6 +400,8 @@ void ActionManager::initItemMenuActions()
 	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
 	name="itemUngroup";
 	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
+	name="itemGroupAdjust";
+	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
 	name="itemLock";
 	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
 	name="itemLockSize";
@@ -524,6 +526,7 @@ void ActionManager::initItemMenuActions()
 	connect( (*scrActions)["itemTransform"], SIGNAL(triggered()), mainWindow, SLOT(slotItemTransform()) );
 	connect( (*scrActions)["itemGroup"], SIGNAL(triggered()), mainWindow, SLOT(GroupObj()) );
 	connect( (*scrActions)["itemUngroup"], SIGNAL(triggered()), mainWindow, SLOT(UnGroupObj()) );
+	connect( (*scrActions)["itemGroupAdjust"], SIGNAL(triggered()), mainWindow, SLOT(AdjustGroupObj()) );
 	connect( (*scrActions)["itemPDFAnnotationProps"], SIGNAL(triggered()), mainWindow, SLOT(ModifyAnnot()) );
 	connect( (*scrActions)["itemPDFFieldProps"], SIGNAL(triggered()), mainWindow, SLOT(ModifyAnnot()) );
 	connect( (*scrActions)["itemSendToPattern"], SIGNAL(triggered()), mainWindow, SLOT(PutToPatterns()) );
@@ -1494,6 +1497,7 @@ void ActionManager::languageChange()
 	(*scrActions)["itemDelete"]->setTexts( tr("&Delete"));
 	(*scrActions)["itemGroup"]->setTexts( tr("&Group"));
 	(*scrActions)["itemUngroup"]->setTexts( tr("&Ungroup"));
+	(*scrActions)["itemGroupAdjust"]->setTexts( tr("Adjust Group"));
 	(*scrActions)["itemLock"]->setTexts( tr("Is &Locked"));
 	(*scrActions)["itemLockSize"]->setTexts( tr("Si&ze is Locked"));
 	(*scrActions)["itemPrintingEnabled"]->setTexts( tr("&Printing Enabled"));
@@ -1993,6 +1997,7 @@ void ActionManager::createDefaultMenus()
 		<< "itemDelete" 
 		<< "itemGroup" 
 		<< "itemUngroup"
+		<< "itemGroupAdjust"
 		<< "itemLock" 
 		<< "itemLockSize" 
 		<< "itemImageIsVisible" 

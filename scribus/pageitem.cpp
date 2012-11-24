@@ -2760,7 +2760,11 @@ void PageItem::setItemName(const QString& newName)
 void PageItem::setGradient(const QString &newGradient)
 {
 	if (gradientVal != newGradient)
+	{
 		gradientVal = newGradient;
+		if (m_Doc->docGradients.contains(gradientVal))
+			fill_gradient = m_Doc->docGradients[gradientVal];
+	}
 }
 
 void PageItem::setMaskGradient(VGradient grad){

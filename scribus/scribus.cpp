@@ -826,6 +826,7 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->addMenuSeparator("Item");
 	scrMenuMgr->addMenuItem(scrActions["itemGroup"], "Item", false);
 	scrMenuMgr->addMenuItem(scrActions["itemUngroup"], "Item", false);
+	scrMenuMgr->addMenuItem(scrActions["itemGroupAdjust"], "Item", false);
 	scrMenuMgr->addMenuItem(scrActions["itemLock"], "Item", false);
 	scrMenuMgr->addMenuItem(scrActions["itemLockSize"], "Item", false);
 	scrMenuMgr->addMenuSeparator("Item");
@@ -3288,10 +3289,12 @@ void ScribusMainWindow::HaveNewSel(int SelectedType)
 		if (currItem->isGroup())
 		{
 			scrActions["itemUngroup"]->setEnabled(doc->appMode != modeEdit);
+			scrActions["itemGroupAdjust"]->setEnabled(doc->appMode != modeEdit);
 		}
 		else
 		{
 			scrActions["itemUngroup"]->setEnabled(false);
+			scrActions["itemGroupAdjust"]->setEnabled(false);
 			scrActions["itemSplitPolygons"]->setEnabled( (currItem->asPolygon()) && (currItem->Segments.count() != 0) );
 		}
 		if (currItem->locked())
@@ -7825,6 +7828,7 @@ void ScribusMainWindow::editItemsFromOutlines(PageItem *ite)
 		{
 			view->requestMode(modeEditClip);
 			scrActions["itemUngroup"]->setEnabled(false);
+			scrActions["itemGroupAdjust"]->setEnabled(false);
 		}
 	}
 	else if (ite->itemType() == PageItem::TextFrame)
@@ -9140,6 +9144,12 @@ void ScribusMainWindow::UnGroupObj()
 {
 	if (HaveDoc)
 		doc->itemSelection_UnGroupObjects();
+}
+
+void ScribusMainWindow::AdjustGroupObj()
+{
+	if (HaveDoc)
+		doc->itemSelection_resizeGroupToContents();
 }
 
 void ScribusMainWindow::restore(UndoState* state, bool isUndo)

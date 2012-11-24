@@ -566,7 +566,7 @@ QPainterPath FPointArray::toQPainterPath(bool closed)
 	return m_path;
 }
 
-void FPointArray::fromQPainterPath(QPainterPath &path)
+void FPointArray::fromQPainterPath(QPainterPath &path, bool close)
 {
 	resize(0);
 	svgInit();
@@ -591,6 +591,8 @@ void FPointArray::fromQPainterPath(QPainterPath &path)
 				break;
 		}
 	}
+	if (close)
+		svgClosePath();
 }
 
 FPointArray::~FPointArray()

@@ -85,7 +85,7 @@ public:
 	bool parseSVG(const QString& svgPath);
 	QString svgPath(bool closed = false) const;
 	QPainterPath toQPainterPath(bool closed);
-	void fromQPainterPath(QPainterPath &path);
+	void fromQPainterPath(QPainterPath &path, bool close = false);
 private:
 	SVGState * svgState;
 };
