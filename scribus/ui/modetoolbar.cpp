@@ -53,15 +53,10 @@ ModeToolBar::ModeToolBar(ScribusMainWindow* parent) : ScToolBar( tr("Tools"), "T
 	this->addAction(m_ScMW->scrActions["toolsInsertTable"]);
 	
 	this->addAction(m_ScMW->scrActions["toolsInsertShape"]);
-//	insertShapeButtonMenu = new QMenu();
 	Rechteck = new AutoformButtonGroup( NULL );
-//	insertShapeButtonAct = new QWidgetAction( this );
-//	insertShapeButtonAct->setDefaultWidget(Rechteck);
-//	insertShapeButtonMenu->addAction(insertShapeButtonAct);
-//	m_ScMW->scrActions["toolsInsertShape"]->setMenu(insertShapeButtonMenu);
 	m_ScMW->scrActions["toolsInsertShape"]->setMenu(Rechteck);
 	QToolButton* tb = dynamic_cast<QToolButton*>(this->widgetForAction(m_ScMW->scrActions["toolsInsertShape"]));
-	tb->setPopupMode(QToolButton::MenuButtonPopup);
+	tb->setPopupMode(QToolButton::DelayedPopup);
 	m_ScMW->scrActions["toolsInsertShape"]->setIcon(QIcon(Rechteck->getIconPixmap(0,16)));
 
 	this->addAction(m_ScMW->scrActions["toolsInsertPolygon"]);
@@ -69,7 +64,7 @@ ModeToolBar::ModeToolBar(ScribusMainWindow* parent) : ScToolBar( tr("Tools"), "T
 	idInsertPolygonButtonMenu = insertPolygonButtonMenu->addAction( "Properties...", this, SLOT(GetPolyProps()));
 	m_ScMW->scrActions["toolsInsertPolygon"]->setMenu(insertPolygonButtonMenu);
 	QToolButton* tb2 = dynamic_cast<QToolButton*>(this->widgetForAction(m_ScMW->scrActions["toolsInsertPolygon"]));
-	tb2->setPopupMode(QToolButton::MenuButtonPopup);
+	tb2->setPopupMode(QToolButton::DelayedPopup);
 
 	this->addAction(m_ScMW->scrActions["toolsInsertArc"]);
 	this->addAction(m_ScMW->scrActions["toolsInsertSpiral"]);
@@ -99,7 +94,7 @@ ModeToolBar::ModeToolBar(ScribusMainWindow* parent) : ScToolBar( tr("Tools"), "T
 	this->addAction(m_ScMW->scrActions["toolsInsertCalligraphicLine"]);
 	m_ScMW->scrActions["toolsInsertCalligraphicLine"]->setMenu(calPop);
 	QToolButton* tb3 = dynamic_cast<QToolButton*>(this->widgetForAction(m_ScMW->scrActions["toolsInsertCalligraphicLine"]));
-	tb3->setPopupMode(QToolButton::MenuButtonPopup);
+	tb3->setPopupMode(QToolButton::DelayedPopup);
 
 	this->addAction(m_ScMW->scrActions["toolsRotate"]);
 	this->addAction(m_ScMW->scrActions["toolsZoom"]);
@@ -137,7 +132,6 @@ void ModeToolBar::GetPolyProps()
 void ModeToolBar::SelShape(int s, int c, qreal *vals)
 {
 	m_ScMW->scrActions["toolsInsertShape"]->setIcon(QIcon(Rechteck->getIconPixmap(s,16)));
-//	insertShapeButtonMenu->hide();
 	SubMode = s;
 	ValCount = c;
 	ShapeVals = vals;
