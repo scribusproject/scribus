@@ -62,13 +62,20 @@ QString CommonStrings::itemType_Spiral			= "";
 QString CommonStrings::itemType_Table			= "";
 QString CommonStrings::itemType_Multiple		= "";
 
-QString CommonStrings::itemSubType_PDF_PushButton;
-QString CommonStrings::itemSubType_PDF_TextField;
-QString CommonStrings::itemSubType_PDF_CheckBox;
-QString CommonStrings::itemSubType_PDF_ComboBox;
-QString CommonStrings::itemSubType_PDF_ListBox;
-QString CommonStrings::itemSubType_PDF_TextAnnotation;
-QString CommonStrings::itemSubType_PDF_LinkAnnotation;
+QString CommonStrings::itemSubType_PDF_PushButton		= "";
+QString CommonStrings::itemSubType_PDF_TextField		= "";
+QString CommonStrings::itemSubType_PDF_CheckBox			= "";
+QString CommonStrings::itemSubType_PDF_ComboBox			= "";
+QString CommonStrings::itemSubType_PDF_ListBox			= "";
+QString CommonStrings::itemSubType_PDF_TextAnnotation	= "";
+QString CommonStrings::itemSubType_PDF_LinkAnnotation	= "";
+QString CommonStrings::itemName_PushButton				= "";
+QString CommonStrings::itemName_TextField				= "";
+QString CommonStrings::itemName_CheckBox				= "";
+QString CommonStrings::itemName_ComboBox				= "";
+QString CommonStrings::itemName_ListBox					= "";
+QString CommonStrings::itemName_TextAnnotation			= "";
+QString CommonStrings::itemName_LinkAnnotation			= "";
 
 
 QString CommonStrings::pageSet1    = "";
@@ -305,6 +312,13 @@ void CommonStrings::languageChange()
 	CommonStrings::itemSubType_PDF_ListBox        = tr("PDF List Box");
 	CommonStrings::itemSubType_PDF_TextAnnotation = tr("PDF Text Annotation");
 	CommonStrings::itemSubType_PDF_LinkAnnotation = tr("PDF Link Annotation");
+	CommonStrings::itemName_PushButton				= tr("Button");
+	CommonStrings::itemName_TextField				= tr("Textfield");
+	CommonStrings::itemName_CheckBox				= tr("Checkbox");
+	CommonStrings::itemName_ComboBox				= tr("Combobox");
+	CommonStrings::itemName_ListBox					= tr("Listbox");
+	CommonStrings::itemName_TextAnnotation			= tr("TextAnnot");
+	CommonStrings::itemName_LinkAnnotation			= tr("Link");
 
 
 	CommonStrings::customPageSize = "Custom";

@@ -339,6 +339,7 @@ bool SlaOutputDev::handleTextAnnot(Annot* annota, double xCoor, double yCoor, do
 	ite->AutoName = false;
 	ite->annotation().setType(10);
 	ite->annotation().setActionType(0);
+	ite->setItemName( CommonStrings::itemName_TextAnnotation + QString("%1").arg(m_doc->TotalItems));
 	ite->itemText.insertChars(UnicodeParsedString(annota->getContents()));
 	return true;
 }
@@ -475,6 +476,7 @@ bool SlaOutputDev::handleLinkAnnot(Annot* annota, double xCoor, double yCoor, do
 			ite->annotation().setActionType(8);
 		}
 		ite->annotation().setType(11);
+		ite->setItemName( CommonStrings::itemName_LinkAnnotation + QString("%1").arg(m_doc->TotalItems));
 	}
 	return validLink;
 }

@@ -130,6 +130,13 @@ public:
 	static QString itemSubType_PDF_ListBox;
 	static QString itemSubType_PDF_TextAnnotation;
 	static QString itemSubType_PDF_LinkAnnotation;
+	static QString itemName_PushButton;
+	static QString itemName_TextField;
+	static QString itemName_CheckBox;
+	static QString itemName_ComboBox;
+	static QString itemName_ListBox;
+	static QString itemName_TextAnnotation;
+	static QString itemName_LinkAnnotation;
 
 	//Page Size
 	static QString customPageSize;
