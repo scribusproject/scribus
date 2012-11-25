@@ -2396,11 +2396,15 @@ void ScribusMainWindow::newActWin(QMdiSubWindow *w)
 	}
 }
 
-void ScribusMainWindow::windowsMenuActivated( int id )
+void ScribusMainWindow::windowsMenuActivated(int id)
 {
 	QMdiSubWindow* windowWidget = mdiArea->subWindowList().at( id );
-	if ( windowWidget )
-		windowWidget->showNormal();
+	if (windowWidget)
+	{
+		if (windowWidget->isShaded() || windowWidget->isMinimized())
+			windowWidget->showNormal();
+		windowWidget->raise();
+	}
 	newActWin(windowWidget);
 }
 
