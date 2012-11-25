@@ -91,6 +91,11 @@ void PdfImportOptions::updatePreview(int pg)
 	{
 		QImage img = m_plugin->readPreview(pg, ui->previewWidget->width(), ui->previewWidget->height());
 		ui->previewWidget->setPixmap(QPixmap::fromImage(img));
+		disconnect(ui->spinBox, SIGNAL(valueChanged(int)), this, SLOT(updateFromSpinBox(int)));
+		disconnect(ui->spinBox, SIGNAL(valueChanged(int)), this, SLOT(updatePreview(int)));
+		ui->spinBox->setValue(pg);
+		connect(ui->spinBox, SIGNAL(valueChanged(int)), this, SLOT(updateFromSpinBox(int)));
+		connect(ui->spinBox, SIGNAL(valueChanged(int)), this, SLOT(updatePreview(int)));
 	}
 }
 
