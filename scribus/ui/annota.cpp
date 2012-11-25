@@ -145,6 +145,7 @@ Annota::Annota(QWidget* parent, PageItem *it, int Seite, int b, int h, ScribusVi
 	SpinBox1->setDecimals(0);
 	SpinBox1->setMinimum(1);
 	SpinBox1->setMaximum(((item->annotation().ActionType() == 7) || (item->annotation().ActionType() == 9)) ? 1000 : Seite);
+	SpinBox1->setSuffix("");
 	TextLabel3 = new QLabel( tr("&Page:"), GroupBox1);
 	TextLabel3->setBuddy(SpinBox1);
 	GroupBox1Layout->addWidget( TextLabel3, 2, 0 );

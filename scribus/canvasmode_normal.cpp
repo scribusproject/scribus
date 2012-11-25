@@ -99,7 +99,7 @@ void CanvasMode_Normal::drawControls(QPainter* p)
 	if (m_canvas->m_viewMode.operItemMoving)
 		drawOutline(p, 1.0, 1.0, m_objectDeltaPos.x(), m_objectDeltaPos.y());
 	else
-		drawSelection(p, true);
+		drawSelection(p, !m_doc->drawAsPreview);
 }
 
 void CanvasMode_Normal::enterEvent(QEvent *)
@@ -152,6 +152,8 @@ void CanvasMode_Normal::mouseDoubleClickEvent(QMouseEvent *m)
 {
 	m->accept();
 	m_canvas->m_viewMode.m_MouseButtonPressed = false;
+	if (m_doc->drawAsPreview)
+		return;
 	m_canvas->resetRenderMode();
 //	m_view->stopDragTimer();
 	PageItem *currItem = 0;
@@ -357,16 +359,52 @@ void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 		hoveredItem = m_canvas->itemUnderCursor(m->globalPos(), hoveredItem, m->modifiers());
 		if (hoveredItem)
 		{
-			if (hoveredItem->asTextFrame() && hoveredItem->frameOverflows())
+			if (m_doc->drawAsPreview)
 			{
-				if (m_canvas->cursorOverTextFrameControl(m->globalPos(), hoveredItem))
+				if (hoveredItem->isAnnotation())
 				{
-					QToolTip::showText(m->globalPos() + QPoint(5, 5), tr("Overflow Characters: %1").arg(hoveredItem->frameOverflowCount()), m_canvas);
+					QString toolT = "";
+					if (!hoveredItem->annotation().ToolTip().isEmpty())
+						toolT = hoveredItem->annotation().ToolTip();
+					if (hoveredItem->annotation().Type() == 2)
+					{
+						if (!hoveredItem->annotation().RollOver().isEmpty())
+							toolT = hoveredItem->annotation().RollOver();
+						else if (!hoveredItem->annotation().Down().isEmpty())
+							toolT = hoveredItem->annotation().Down();
+					}
+					else if (hoveredItem->annotation().Type() == 11)
+					{
+						if (hoveredItem->annotation().ActionType() == 2)
+							toolT = QString( tr("Go to Page %1").arg(hoveredItem->annotation().Ziel() + 1));
+						else if (hoveredItem->annotation().ActionType() == 8)
+							toolT = QString( tr("Go to URL %1").arg(hoveredItem->annotation().Extern()));
+						else if (hoveredItem->annotation().ActionType() == 9)
+							toolT = QString( tr("Go to Page %1 in File %2").arg(hoveredItem->annotation().Ziel() + 1).arg(hoveredItem->annotation().Extern()));
+						qApp->changeOverrideCursor(QCursor(Qt::PointingHandCursor));
+					}
+					if (toolT.isEmpty())
+						toolT = hoveredItem->itemText.plainText();
+					if (!toolT.isEmpty())
+						QToolTip::showText(m->globalPos() + QPoint(5, 5), toolT, m_canvas);
 				}
+				else
+					if (QToolTip::isVisible())
+						QToolTip::hideText();
 			}
 			else
-				if (QToolTip::isVisible())
-					QToolTip::hideText();
+			{
+				if (hoveredItem->asTextFrame() && hoveredItem->frameOverflows())
+				{
+					if (m_canvas->cursorOverTextFrameControl(m->globalPos(), hoveredItem))
+					{
+						QToolTip::showText(m->globalPos() + QPoint(5, 5), tr("Overflow Characters: %1").arg(hoveredItem->frameOverflowCount()), m_canvas);
+					}
+				}
+				else
+					if (QToolTip::isVisible())
+						QToolTip::hideText();
+			}
 		}
 		else
 		{
@@ -375,7 +413,8 @@ void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 		}
 	}
 	//>>#10116
-
+	if (m_doc->drawAsPreview)
+		return;
 	if ((GetItem(&currItem)) && (!shiftSelItems))
 	{
 		newX = qRound(mousePointDoc.x()); //m_view->translateToDoc(m->x(), m->y()).x());
@@ -779,7 +818,7 @@ void CanvasMode_Normal::mousePressEvent(QMouseEvent *m)
 
 	if ((GetItem(&currItem)) && (!m_lastPosWasOverGuide))
 	{
-		if ((currItem->asLine()) && (!m_doc->m_Selection->isMultipleSelection()))
+		if ((currItem->asLine()) && (!m_doc->m_Selection->isMultipleSelection()) && (!m_doc->drawAsPreview))
 		{
 			if (!lineMoveGesture)
 				lineMoveGesture = new LineMove(this);
@@ -794,7 +833,7 @@ void CanvasMode_Normal::mousePressEvent(QMouseEvent *m)
 		else
 		{
 			bool isMS=m_doc->m_Selection->isMultipleSelection();
-			if (isMS || (!isMS && (!currItem->locked() && !currItem->sizeLocked())))
+			if ((isMS || (!isMS && (!currItem->locked() && !currItem->sizeLocked()))) && (!m_doc->drawAsPreview))
 			{
 				if (!resizeGesture)
 					resizeGesture = new ResizeGesture(this);
@@ -812,7 +851,7 @@ void CanvasMode_Normal::mousePressEvent(QMouseEvent *m)
 		
 		qApp->changeOverrideCursor(Qt::ClosedHandCursor);
 #if 1				
-		if (m_doc->m_Selection->isMultipleSelection())
+		if (m_doc->m_Selection->isMultipleSelection() && (!m_doc->drawAsPreview))
 		{
 			m_canvas->PaintSizeRect(QRect());
 			double gx, gy, gh, gw;
@@ -853,14 +892,14 @@ void CanvasMode_Normal::mousePressEvent(QMouseEvent *m)
 				m_doc->m_Selection->delaySignalsOn();
 				m_view->updatesOn(false);
 				SeleItem(m); //Where we send the mouse press event to select an item
-				if (GetItem(&currItem))
+				if (GetItem(&currItem) && (!m_doc->drawAsPreview))
 					frameResizeHandle = m_canvas->frameHitTest(QPointF(mousePointDoc.x(),mousePointDoc.y()), currItem);
 				else
 					frameResizeHandle = 0;
 				m_view->updatesOn(true);
 				m_doc->m_Selection->delaySignalsOff();
 			}
-			if ((currItem && !currItem->locked() && frameResizeHandle > 0) == false)
+			if ((currItem && !currItem->locked() && frameResizeHandle > 0) == false && (!m_doc->drawAsPreview))
 			{
 				m_mouseCurrentPoint = m_mousePressPoint = m_mouseSavedPoint = mousePointDoc;
 			}
@@ -918,12 +957,12 @@ void CanvasMode_Normal::mouseReleaseEvent(QMouseEvent *m)
 	m_view->redrawMarker->hide();
 //	m_view->stopDragTimer();
 	//m_canvas->update(); //ugly in a mouseReleaseEvent!!!!!!!
-	if ((!GetItem(&currItem)) && (m->button() == Qt::RightButton) && (!m_doc->DragP))
+	if ((!GetItem(&currItem)) && (m->button() == Qt::RightButton) && (!m_doc->DragP) && (!m_doc->drawAsPreview))
 	{
 		createContextMenu(NULL, mousePointDoc.x(), mousePointDoc.y());
 		return;
 	}
-	if ((GetItem(&currItem)) && (m->button() == Qt::RightButton) && (!m_doc->DragP))
+	if ((GetItem(&currItem)) && (m->button() == Qt::RightButton) && (!m_doc->DragP) && (!m_doc->drawAsPreview))
 	{
 		createContextMenu(currItem, mousePointDoc.x(), mousePointDoc.y());
 		return;
@@ -931,7 +970,7 @@ void CanvasMode_Normal::mouseReleaseEvent(QMouseEvent *m)
 	//<<#10116: Click on overflow icon to get into link frame mode
 	PageItem* clickedItem=NULL;
 	clickedItem = m_canvas->itemUnderCursor(m->globalPos(), clickedItem, m->modifiers());
-	if (clickedItem && clickedItem->asTextFrame())
+	if (clickedItem && clickedItem->asTextFrame() && (!m_doc->drawAsPreview))
 	{
 		if (clickedItem->frameOverflows())
 		{
@@ -1171,17 +1210,57 @@ void CanvasMode_Normal::mouseReleaseEvent(QMouseEvent *m)
 	for (int i = 0; i < m_doc->m_Selection->count(); ++i)
 		m_doc->m_Selection->itemAt(i)->checkChanges(true);
 	//Commit drag created items to undo manager.
-	if (m_doc->m_Selection->itemAt(0)!=NULL)
+	if (m_doc->m_Selection->count() > 0)
 	{
-		m_doc->itemAddCommit(m_doc->m_Selection->itemAt(0));
+		if (m_doc->m_Selection->itemAt(0)!=NULL)
+		{
+			m_doc->itemAddCommit(m_doc->m_Selection->itemAt(0));
+		}
 	}
 	//Make sure the Zoom spinbox and page selector dont have focus if we click on the canvas
 	m_view->zoomSpinBox->clearFocus();
 	m_view->pageSelector->clearFocus();
-	if (m_doc->m_Selection->itemAt(0) != 0) // is there the old clip stored for the undo action
+	if (m_doc->m_Selection->count() > 0)
 	{
-		currItem = m_doc->m_Selection->itemAt(0);
-		m_doc->nodeEdit.finishTransaction(currItem);
+		if (m_doc->m_Selection->itemAt(0) != 0) // is there the old clip stored for the undo action
+		{
+			currItem = m_doc->m_Selection->itemAt(0);
+			m_doc->nodeEdit.finishTransaction(currItem);
+		}
+	}
+	if (m_doc->drawAsPreview)
+	{
+		if (m_doc->m_Selection->count() == 1)
+		{
+			currItem = m_doc->m_Selection->itemAt(0);
+			if (currItem->isAnnotation())
+			{
+				if (currItem->annotation().Type() == 11)
+				{
+					if (currItem->annotation().ActionType() == 2)
+					{
+						m_view->Deselect(true);
+						if (currItem->annotation().Ziel() < m_doc->Pages->count())
+							m_view->GotoPage(currItem->annotation().Ziel());
+						else
+						{
+							QString message = tr("Page %1 does not exist!").arg(currItem->annotation().Ziel() + 1);
+							QMessageBox::warning(m_view, CommonStrings::trWarning, message, CommonStrings::tr_OK);
+						}
+					}
+					else if (currItem->annotation().ActionType() == 8)
+					{
+						QString message = tr("Link Target is Web URL.\nURL: %1").arg(currItem->annotation().Extern());
+						QMessageBox::information(m_view, tr("Information"), message, CommonStrings::tr_OK);
+					}
+					else if (currItem->annotation().ActionType() == 9)
+					{
+						QString message = tr("Link Target is external File.\nFile: %1\nPage: %2").arg(currItem->annotation().Extern()).arg(currItem->annotation().Ziel() + 1);
+						QMessageBox::information(m_view, tr("Information"), message, CommonStrings::tr_OK);
+					}
+				}
+			}
+		}
 	}
 }
 
@@ -1336,6 +1415,8 @@ bool CanvasMode_Normal::SeleItem(QMouseEvent *m)
 			if ((m->modifiers() == SELECT_BENEATH) && m_canvas->frameHitTest(QPointF(mousePointDoc.x(),mousePointDoc.y()), currItem) >= 0)
 				m_doc->m_Selection->clear();
 			//CB: #7186: This was prependItem, does not seem to need to be anymore with current select code
+			if (m_doc->drawAsPreview)
+				m_doc->m_Selection->clear();
 			m_doc->m_Selection->addItem(currItem);
 			if ( (m->modifiers() & SELECT_IN_GROUP) && (!currItem->isGroup()))
 			{

@@ -475,6 +475,8 @@ void OutlinePalette::slotRightClick(QPoint point)
 		return;
 	if (!ite->isSelected())
 		slotMultiSelect();
+	if (currDoc->drawAsPreview)
+		return;
 	OutlineTreeItem *item = (OutlineTreeItem*)ite;
 	
 	if (item != NULL)
@@ -862,6 +864,8 @@ void OutlinePalette::slotMultiSelect()
 		return;
 	if (currDoc==NULL)
 		return;
+	if (currDoc->drawAsPreview)
+		return;
 	disconnect(reportDisplay, SIGNAL(itemSelectionChanged()), this, SLOT(slotMultiSelect()));
 	selectionTriggered = true;
 	QList<QTreeWidgetItem *> items = reportDisplay->selectedItems();
@@ -910,6 +914,8 @@ void OutlinePalette::slotSelect(QTreeWidgetItem* ite, int)
 {
 	if (!m_MainWindow || m_MainWindow->scriptIsRunning())
 		return;
+	if (currDoc->drawAsPreview)
+		return;
 	selectionTriggered = true;
 	OutlineTreeItem *item = (OutlineTreeItem*)ite;
 	uint pg = 0;
@@ -954,6 +960,8 @@ void OutlinePalette::slotSelect(QTreeWidgetItem* ite, int)
 void OutlinePalette::slotDoubleClick(QTreeWidgetItem* ite, int)
 {
 	if (!m_MainWindow || m_MainWindow->scriptIsRunning())
+		return;
+	if (currDoc->drawAsPreview)
 		return;
 	OutlineTreeItem *item = (OutlineTreeItem*)ite;
 	PageItem *pgItem = NULL;

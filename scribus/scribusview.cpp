@@ -424,9 +424,12 @@ void ScribusView::switchPreviewVisual(int vis)
 
 void ScribusView::togglePreview()
 {
+	this->requestMode(modeNormal);
+	Deselect(true);
 	undoManager->setUndoEnabled(false);
 	m_canvas->m_viewMode.viewAsPreview = !m_canvas->m_viewMode.viewAsPreview;
 	Doc->drawAsPreview = m_canvas->m_viewMode.viewAsPreview;
+	m_ScMW->propertiesPalette->setEnabled(!m_canvas->m_viewMode.viewAsPreview);
 	if (m_canvas->m_viewMode.viewAsPreview)
 	{
 		storedFramesShown = Doc->guidesPrefs().framesShown;
@@ -460,6 +463,7 @@ void ScribusView::togglePreview()
 	m_ScMW->scrActions["viewShowBaseline"]->setEnabled(!m_canvas->m_viewMode.viewAsPreview);
 	m_ScMW->scrActions["viewShowTextChain"]->setEnabled(!m_canvas->m_viewMode.viewAsPreview);
 	m_ScMW->scrActions["viewShowTextControls"]->setEnabled(!m_canvas->m_viewMode.viewAsPreview);
+	m_ScMW->setPreviewToolbar();
 #if OPTION_USE_QTOOLBUTTON
 	previewToolbarButton->setChecked(m_canvas->m_viewMode.viewAsPreview);
 #endif

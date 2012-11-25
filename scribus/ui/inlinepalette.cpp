@@ -215,15 +215,22 @@ void InlinePalette::setDoc(ScribusDoc *newDoc)
 	else
 		currDoc = newDoc;
 	if (currDoc == NULL)
+	{
 		InlineViewWidget->clear();
+		setEnabled(true);
+	}
 	else
+	{
+		setEnabled(!currDoc->drawAsPreview);
 		updateItemList();
+	}
 }
 
 void InlinePalette::unsetDoc()
 {
 	currDoc = NULL;
 	InlineViewWidget->clear();
+	setEnabled(true);
 }
 
 void InlinePalette::handleUpdateRequest(int updateFlags)

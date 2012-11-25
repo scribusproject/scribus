@@ -183,6 +183,7 @@ public:
 	void restoreUngrouping(SimpleState *state, bool isUndo);
 	void restoreAddPage(SimpleState *state, bool isUndo);
 	void restoreDeletePage(SimpleState *state, bool isUndo);
+	void setPreviewToolbar();
 	struct CopyContentsBuffer contentsBuffer;
 	bool internalCopy;
 	QString internalCopyBuffer;

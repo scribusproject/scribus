@@ -202,15 +202,22 @@ void SymbolPalette::setDoc(ScribusDoc *newDoc)
 	else
 		currDoc = newDoc;
 	if (currDoc == NULL)
+	{
 		SymbolViewWidget->clear();
+		setEnabled(true);
+	}
 	else
+	{
+		setEnabled(!currDoc->drawAsPreview);
 		updateSymbolList();
+	}
 }
 
 void SymbolPalette::unsetDoc()
 {
 	currDoc = NULL;
 	SymbolViewWidget->clear();
+	setEnabled(true);
 }
 
 void SymbolPalette::handleUpdateRequest(int updateFlags)

@@ -477,6 +477,11 @@ PageItem* Canvas::itemUnderCursor(QPoint globalPos, PageItem* itemAbove, bool al
 			--currNr;
 			continue;
 		}
+		if (m_doc->drawAsPreview && !currItem->isAnnotation())
+		{
+			--currNr;
+			continue;
+		}
 		if (((currItem->LayerID == m_doc->activeLayer()) || (m_doc->layerSelectable(currItem->LayerID))) && (!m_doc->layerLocked(currItem->LayerID)))
 		{
 			QTransform itemPos = currItem->getTransform();
@@ -988,6 +993,9 @@ void Canvas::drawContents(QPainter *psx, int clipx, int clipy, int clipw, int cl
 	if (!m_doc->masterPageMode())
 	{
 		drawBackgroundPageOutlines(painter, clipx, clipy, clipw, cliph);
+		m_viewMode.linkedFramesToShow.clear();
+		QRectF clip = QRectF(clipx, clipy, clipw, cliph);
+		DrawPageBorder(painter, clip);
 		if (m_viewMode.viewAsPreview)
 		{
 			FPointArray PoLine;
@@ -996,11 +1004,6 @@ void Canvas::drawContents(QPainter *psx, int clipx, int clipy, int clipw, int cl
 		}
 		else
 			painter->beginLayer(1.0, 0);
-		
-		m_viewMode.linkedFramesToShow.clear();
-		QRectF clip = QRectF(clipx, clipy, clipw, cliph);
-		if (!m_viewMode.viewAsPreview)
-			DrawPageBorder(painter, clip);
 		int renderStackCount = m_doc->guidesPrefs().renderStackOrder.count();
 		for (int r = 0; r < renderStackCount; r++)
 		{
@@ -1610,7 +1613,7 @@ void Canvas::drawBackgroundMasterpage(ScPainter* painter, int clipx, int clipy, 
 void Canvas::drawBackgroundPageOutlines(ScPainter* painter, int clipx, int clipy, int clipw, int cliph)
 {
 	uint docPagesCount=m_doc->Pages->count();
-	if (PrefsManager::instance()->appPrefs.displayPrefs.showPageShadow && !m_viewMode.viewAsPreview)
+	if (PrefsManager::instance()->appPrefs.displayPrefs.showPageShadow)
 	{
 		painter->setBrush(QColor(128,128,128));
 		painter->setAntialiasing(false);
@@ -1621,6 +1624,8 @@ void Canvas::drawBackgroundPageOutlines(ScPainter* painter, int clipx, int clipy
 		{
 			actPg = m_doc->Pages->at(a);
 			m_doc->getBleeds(actPg, pageBleeds);
+			if (m_viewMode.viewAsPreview)
+				pageBleeds.resetToZero();
 			double blx = (actPg->xOffset() - pageBleeds.Left) * m_viewMode.scale;
 			double bly = (actPg->yOffset() - pageBleeds.Top) * m_viewMode.scale;
 			double blw = (actPg->width() + pageBleeds.Left + pageBleeds.Right) * m_viewMode.scale;

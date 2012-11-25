@@ -620,7 +620,6 @@ void ScribusMainWindow::initPalettes()
 	connect(inlinePalette, SIGNAL(objectDropped(QString)), this, SLOT(PutToInline(QString)));
 	inlinePalette->installEventFilter(this);
 	inlinePalette->hide();
-	
 
 	undoPalette = new UndoPalette(this, "undoPalette");
 	undoPalette->installEventFilter(this);
@@ -2514,6 +2513,7 @@ void ScribusMainWindow::SwitchWin()
 		scrActions["toolsPDFAnnot3D"]->setEnabled(true);
 #endif
 		pagePalette->enablePalette(true);
+		setPreviewToolbar();
 	}
 	scrMenuMgr->setMenuEnabled("ItemLayer", doc->layerCount() > 1);
 }
@@ -8991,6 +8991,8 @@ void ScribusMainWindow::manageMasterPages(QString temp)
 #ifdef HAVE_OSG
 	scrActions["toolsPDFAnnot3D"]->setEnabled(false);
 #endif
+	scrActions["viewPreviewMode"]->setEnabled(false);
+	view->previewToolbarButton->setEnabled(false);
 }
 
 void ScribusMainWindow::manageMasterPagesEnd()
@@ -9028,6 +9030,8 @@ void ScribusMainWindow::manageMasterPagesEnd()
 #ifdef HAVE_OSG
 	scrActions["toolsPDFAnnot3D"]->setEnabled(true);
 #endif
+	scrActions["viewPreviewMode"]->setEnabled(true);
+	view->previewToolbarButton->setEnabled(true);
 	uint pageCount=doc->DocPages.count();
 	for (uint c=0; c<pageCount; ++c)
 		Apply_MasterPage(doc->DocPages.at(c)->MPageNam, c, false);
@@ -11231,4 +11235,14 @@ bool ScribusMainWindow::editMarkDlg(Mark *mrk, PageItem_TextFrame* currItem)
 	}
 	delete editMDialog;
 	return docWasChanged;
+}
+
+void ScribusMainWindow::setPreviewToolbar()
+{
+	modeToolBar->setEnabled(!doc->drawAsPreview);
+	editToolBar->setEnabled(!doc->drawAsPreview);
+	pdfToolBar->setEnabled(!doc->drawAsPreview);
+	symbolPalette->setEnabled(!doc->drawAsPreview);
+	inlinePalette->setEnabled(!doc->drawAsPreview);
+	undoPalette->setEnabled(!doc->drawAsPreview);
 }

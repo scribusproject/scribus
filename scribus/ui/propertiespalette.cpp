@@ -216,6 +216,7 @@ void PropertiesPalette::setDoc(ScribusDoc *d)
 
 	m_doc = d;
 	m_item = NULL;
+	setEnabled(!m_doc->drawAsPreview);
 	Cpal->setDocument(m_doc);
 	Cpal->setCurrentItem(NULL);
 	Tpal->setDocument(m_doc);
@@ -248,7 +249,7 @@ void PropertiesPalette::unsetDoc()
 		disconnect(m_doc->m_Selection, SIGNAL(selectionChanged()), this, SLOT(handleSelectionChanged()));
 		disconnect(m_doc             , SIGNAL(docChanged())      , this, SLOT(handleSelectionChanged()));
 	}
-
+	setEnabled(true);
 	m_haveDoc = false;
 	m_haveItem = false;
 	m_doc=NULL;
