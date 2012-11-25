@@ -671,6 +671,7 @@ void SEditor::setAlign(QTextCursor& tCursor, int align)
 
 void SEditor::loadItemText(PageItem *currItem)
 {
+	setTextColor(Qt::black);
 	StyledText.clear();
 	FrameItems.clear();
 	StyledText.setDefaultStyle(currItem->itemText.defaultStyle());
@@ -693,6 +694,7 @@ void SEditor::loadItemText(PageItem *currItem)
 
 void SEditor::loadText(QString tx, PageItem *currItem)
 {
+	setTextColor(Qt::black);
 	setUpdatesEnabled(false);
 	QString Text = "";
 	StyledText.clear();
