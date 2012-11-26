@@ -430,6 +430,7 @@ void ScribusView::togglePreview()
 	m_canvas->m_viewMode.viewAsPreview = !m_canvas->m_viewMode.viewAsPreview;
 	Doc->drawAsPreview = m_canvas->m_viewMode.viewAsPreview;
 	m_ScMW->propertiesPalette->setEnabled(!m_canvas->m_viewMode.viewAsPreview);
+	bool recalc = false;
 	if (m_canvas->m_viewMode.viewAsPreview)
 	{
 		storedFramesShown = Doc->guidesPrefs().framesShown;
@@ -448,6 +449,8 @@ void ScribusView::togglePreview()
 		Doc->guidesPrefs().framesShown = storedFramesShown;
 		Doc->guidesPrefs().showControls = storedShowControls;
 		disconnect(visualMenu, SIGNAL(activated(int)), this, SLOT(switchPreviewVisual(int)));
+		if (visualMenu->currentIndex() != Doc->previewVisual)
+			recalc = true;
 		m_canvas->m_viewMode.previewVisual = 0;
 		Doc->previewVisual = 0;
 		visualMenu->setCurrentIndex(0);
@@ -469,8 +472,11 @@ void ScribusView::togglePreview()
 #endif
 	visualMenu->setEnabled(m_canvas->m_viewMode.viewAsPreview);
 	ScGuardedPtr<ScribusDoc> docPtr = Doc->guardedPtr();
-	Doc->recalculateColors();
-	Doc->recalcPicturesRes();
+	if (recalc)
+	{
+		Doc->recalculateColors();
+		Doc->recalcPicturesRes();
+	}
 //	repaintContents(QRect());
 	if (docPtr) // document may have been destroyed in-between
 	{
