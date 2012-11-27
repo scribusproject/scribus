@@ -228,19 +228,19 @@ ScAnnot::ScAnnot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorLi
 	GroupBox30Layout->setAlignment( Qt::AlignTop );
 	ReadOnly = new QCheckBox( GroupBox30 );
 	ReadOnly->setText( tr( "Read Only" ) );
-	if (item->annotation().Type() == 2)
+	if (item->annotation().Type() == Annotation::Button)
 		ReadOnly->setEnabled(false);
 	ReadOnly->setChecked(item->annotation().Flag() & 1);
 	GroupBox30Layout->addWidget( ReadOnly, 0, 0, 1, 2 );
 	Required = new QCheckBox( GroupBox30 );
 	Required->setText( tr( "Required" ) );
-	if (item->annotation().Type() == 2)
+	if (item->annotation().Type() == Annotation::Button)
 		Required->setEnabled(false);
 	Required->setChecked(item->annotation().Flag() & 2);
 	GroupBox30Layout->addWidget( Required, 1, 0, 1, 2 );
 	NoExport = new QCheckBox( GroupBox30 );
 	NoExport->setText( tr( "Do Not Export Value" ) );
-	if (item->annotation().Type() == 2)
+	if (item->annotation().Type() == Annotation::Button)
 		NoExport->setEnabled(false);
 	NoExport->setChecked(item->annotation().Flag() & 4);
 	GroupBox30Layout->addWidget( NoExport, 2, 0, 1, 2 );
@@ -1908,7 +1908,7 @@ void ScAnnot::SetValues()
 	if (item->annotation().borderColor() == CommonStrings::tr_NoneColor)
 		item->annotation().setBorderColor(CommonStrings::None);
 	Limit->isChecked() ? item->annotation().setMaxChar(MaxChars->value()) : item->annotation().setMaxChar(-1);
-	if (item->annotation().Type() == 2)
+	if (item->annotation().Type() == Annotation::Button)
 	{
 		item->annotation().addToFlag(65536);
 		if (item->Pfile.isEmpty())
@@ -1924,13 +1924,13 @@ void ScAnnot::SetValues()
 		if (NoExport->isChecked())
 			item->annotation().addToFlag(4);
 	}
-	if (item->annotation().Type() == 5)
+	if (item->annotation().Type() == Annotation::Combobox)
 	{
 		item->annotation().addToFlag(131072);
 		if (CanEdit->isChecked())
 			item->annotation().addToFlag(262144);
 	}
-	if (item->annotation().Type() == 3)
+	if (item->annotation().Type() == Annotation::Textfield)
 	{
 		if (MultiL->isChecked())
 			item->annotation().addToFlag(4096);
@@ -1941,7 +1941,7 @@ void ScAnnot::SetValues()
 		if (NoScroll->isChecked())
 			item->annotation().addToFlag(8388608);
 	}
-	if ((item->annotation().Type() == 3) || (item->annotation().Type() == 5))
+	if ((item->annotation().Type() == Annotation::Textfield) || (item->annotation().Type() == Annotation::Combobox))
 	{
 		if (NoValid->isChecked())
 			item->annotation().setV_act("");

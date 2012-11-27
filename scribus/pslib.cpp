@@ -1311,12 +1311,12 @@ void PSLib::PDF_Annotation(PageItem *item, QString text, double x, double y, dou
 	switch (item->annotation().Type())
 	{
 		case 0:
-		case 10:
+		case Annotation::Text:
 			PutStream("/Subtype /Text\n");
 			PutStream("/Contents ("+text+")\n/Open false\n");
 			break;
 		case 1:
-		case 11:
+		case Annotation::Link:
 			PutStream("/Subtype /Link\n");
 			if (item->annotation().ActionType() == 2)
 			{
@@ -1819,7 +1819,7 @@ bool PSLib::ProcessItem(ScribusDoc* Doc, ScPage* a, PageItem* c, uint PNr, bool 
 			}
 			if (c->isAnnotation())
 			{
-				if ((c->annotation().Type() == 0) || (c->annotation().Type() == 1) || (c->annotation().Type() == 10) || (c->annotation().Type() == 11))
+				if ((c->annotation().Type() == 0) || (c->annotation().Type() == 1) || (c->annotation().Type() == Annotation::Text) || (c->annotation().Type() == Annotation::Link))
 				{
 					QString bm = "";
 					QString cc;

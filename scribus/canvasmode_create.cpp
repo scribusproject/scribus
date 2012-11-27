@@ -736,33 +736,33 @@ PageItem* CreateMode::doCreateNewObject(void)
 		switch (m_doc->appMode)
 		{
 		case modeInsertPDFButton:
-			currItem->annotation().setType(2);
+			currItem->annotation().setType(Annotation::Button);
 			currItem->annotation().setFlag(65536);
 			currItem->setItemName( CommonStrings::itemName_PushButton + QString("%1").arg(m_doc->TotalItems));
 			break;
 		case modeInsertPDFTextfield:
-			currItem->annotation().setType(3);
+			currItem->annotation().setType(Annotation::Textfield);
 			currItem->setItemName( CommonStrings::itemName_TextField + QString("%1").arg(m_doc->TotalItems));
 			break;
 		case modeInsertPDFCheckbox:
-			currItem->annotation().setType(4);
+			currItem->annotation().setType(Annotation::Checkbox);
 			currItem->setItemName( CommonStrings::itemName_CheckBox + QString("%1").arg(m_doc->TotalItems));
 			break;
 		case modeInsertPDFCombobox:
-			currItem->annotation().setType(5);
+			currItem->annotation().setType(Annotation::Combobox);
 			currItem->annotation().setFlag(131072);
 			currItem->setItemName( CommonStrings::itemName_ComboBox + QString("%1").arg(m_doc->TotalItems));
 			break;
 		case modeInsertPDFListbox:
-			currItem->annotation().setType(6);
+			currItem->annotation().setType(Annotation::Listbox);
 			currItem->setItemName( CommonStrings::itemName_ListBox + QString("%1").arg(m_doc->TotalItems));
 			break;
 		case modeInsertPDFTextAnnotation:
-			currItem->annotation().setType(10);
+			currItem->annotation().setType(Annotation::Text);
 			currItem->setItemName( CommonStrings::itemName_TextAnnotation + QString("%1").arg(m_doc->TotalItems));
 			break;
 		case modeInsertPDFLinkAnnotation:
-			currItem->annotation().setType(11);
+			currItem->annotation().setType(Annotation::Link);
 			currItem->annotation().setZiel(m_doc->currentPage()->pageNr());
 			currItem->annotation().setAction("0 0");
 			currItem->setItemName( CommonStrings::itemName_LinkAnnotation + QString("%1").arg(m_doc->TotalItems));
@@ -830,7 +830,7 @@ PageItem* CreateMode::doCreateNewObject(void)
 		currItem = m_doc->Items->at(z);
 		currItem->setIsAnnotation(true);
 		currItem->AutoName = false;
-		currItem->annotation().setType(12);
+		currItem->annotation().setType(Annotation::Annot3D);
 		currItem->setItemName( tr("3DAnnot") + QString("%1").arg(m_doc->TotalItems));
 		break;
 	}

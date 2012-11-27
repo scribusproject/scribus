@@ -1083,7 +1083,7 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 				if (((pgit->itemType() == PageItem::TextFrame) || (pgit->itemType() == PageItem::PathText)) && (pgit->isAnnotation()))
 				{
 					int annotType  = pgit->annotation().Type();
-					bool mustEmbed = ((annotType >= 2) && (annotType <= 6) && (annotType != 4));
+					bool mustEmbed = ((annotType >= Annotation::Button) && (annotType <= Annotation::Listbox) && (annotType != Annotation::Checkbox));
 					if (pgit->itemText.length() > 0 || mustEmbed)
 						AnnotationFonts.insert(pgit->itemText.defaultStyle().charStyle().font().replacementName(), "");
 				}
@@ -1103,7 +1103,7 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 				if (((pgit->itemType() == PageItem::TextFrame) || (pgit->itemType() == PageItem::PathText)) && (pgit->isAnnotation()))
 				{
 					int annotType  = pgit->annotation().Type();
-					bool mustEmbed = ((annotType >= 2) && (annotType <= 6) && (annotType != 4));
+					bool mustEmbed = ((annotType >= Annotation::Button) && (annotType <= Annotation::Listbox) && (annotType != Annotation::Checkbox));
 					if (pgit->itemText.length() > 0 || mustEmbed)
 						AnnotationFonts.insert(pgit->itemText.defaultStyle().charStyle().font().replacementName(), "");
 				}
@@ -1123,7 +1123,7 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 				if (((pgit->itemType() == PageItem::TextFrame) || (pgit->itemType() == PageItem::PathText)) && (pgit->isAnnotation()))
 				{
 					int annotType  = pgit->annotation().Type();
-					bool mustEmbed = ((annotType >= 2) && (annotType <= 6) && (annotType != 4));
+					bool mustEmbed = ((annotType >= Annotation::Button) && (annotType <= Annotation::Listbox) && (annotType != Annotation::Checkbox));
 					if (pgit->itemText.length() > 0 || mustEmbed)
 						AnnotationFonts.insert(pgit->itemText.defaultStyle().charStyle().font().replacementName(), "");
 				}

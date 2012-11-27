@@ -46,6 +46,16 @@ class SCRIBUS_API Annotation // : public SaxIO
 						AnIPlace(1), AnScaleW(0), AnFormat(0)
 		{
 		}
+		enum AnnotationType {
+			Button			= 2,
+			Textfield		= 3,
+			Checkbox		= 4,
+			Combobox		= 5,
+			Listbox			= 6,
+			Text			= 10,
+			Link			= 11,
+			Annot3D		  	= 12
+		};
 		
 //	static const Xml_string saxxDefaultElem;
 //	static void  desaxeRules(const Xml_string& prefixPattern, desaxe::Digester& ruleset, Xml_string elemtag = saxxDefaultElem);

@@ -290,25 +290,25 @@ bool OutlineWidget::viewportEvent(QEvent *event)
  						case PageItem::TextFrame:
  							switch (pgItem->annotation().Type())
  							{
- 								case 2:
+								case Annotation::Button:
 									tipText += CommonStrings::itemSubType_PDF_PushButton;
  									break;
- 								case 3:
+								case Annotation::Textfield:
 									tipText += CommonStrings::itemSubType_PDF_TextField;
  									break;
- 								case 4:
+								case Annotation::Checkbox:
 									tipText += CommonStrings::itemSubType_PDF_CheckBox;
  									break;
- 								case 5:
+								case Annotation::Combobox:
 									tipText += CommonStrings::itemSubType_PDF_ComboBox;
  									break;
- 								case 6:
+								case Annotation::Listbox:
 									tipText += CommonStrings::itemSubType_PDF_ListBox;
  									break;
- 								case 10:
+								case Annotation::Text:
 									tipText += CommonStrings::itemSubType_PDF_TextAnnotation;
  									break;
- 								case 11:
+								case Annotation::Link:
 									tipText += CommonStrings::itemSubType_PDF_LinkAnnotation;
  									break;
  								default:
@@ -751,25 +751,25 @@ void OutlinePalette::setItemIcon(QTreeWidgetItem *item, PageItem *pgItem)
 	case PageItem::TextFrame:
 		switch (pgItem->annotation().Type())
 		{
-			case 2:
+			case Annotation::Button:
 				item->setIcon( 0, buttonIcon );
 				break;
-			case 3:
+			case Annotation::Textfield:
 				item->setIcon( 0, textFieldIcon );
 				break;
-			case 4:
+			case Annotation::Checkbox:
 				item->setIcon( 0, checkBoxIcon );
 				break;
-			case 5:
+			case Annotation::Combobox:
 				item->setIcon( 0, comboBoxIcon );
 				break;
-			case 6:
+			case Annotation::Listbox:
 				item->setIcon( 0, listBoxIcon );
 				break;
-			case 10:
+			case Annotation::Text:
 				item->setIcon( 0, annotTextIcon );
 				break;
-			case 11:
+			case Annotation::Link:
 				item->setIcon( 0, annotLinkIcon );
 				break;
 			default:

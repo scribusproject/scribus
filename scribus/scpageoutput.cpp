@@ -1600,7 +1600,7 @@ void ScPageOutput::drawItem_TextFrame( PageItem_TextFrame* item, ScPainterExBase
 		painter->setupPolygon(&item->PoLine);
 		fillPath(item, painter, clip);
 	}
-	if ((item->isAnnotation()) && (item->annotation().Type() == 2) && (!item->Pfile.isEmpty()) && (item->PictureIsAvailable) && (item->imageShown()) && (item->annotation().UseIcons()))
+	if ((item->isAnnotation()) && (item->annotation().Type() == Annotation::Button) && (!item->Pfile.isEmpty()) && (item->PictureIsAvailable) && (item->imageShown()) && (item->annotation().UseIcons()))
 	{
 		painter->save();
 		painter->setupPolygon(&item->PoLine);

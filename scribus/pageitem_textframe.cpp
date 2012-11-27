@@ -3155,7 +3155,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRectF cullingArea)
 				p->drawRect(0, 0, Width, Height);
 			}
 		}
-		if (annotation().Type() == 2)
+		if (annotation().Type() == Annotation::Button)
 		{
 			int wdt = annotation().Bwid();
 			QPainterPath clp;
@@ -3186,7 +3186,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRectF cullingArea)
 			p->restore();
 			return;
 		}
-		else if (annotation().Type() == 3)
+		else if (annotation().Type() == Annotation::Textfield)
 		{
 			int wdt = annotation().Bwid();
 			TExtra = wdt;
@@ -3196,7 +3196,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRectF cullingArea)
 			invalid = true;
 			layout();
 		}
-		else if (annotation().Type() == 4)
+		else if (annotation().Type() == Annotation::Checkbox)
 		{
 			if (annotation().IsChk())
 			{
@@ -3314,7 +3314,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRectF cullingArea)
 				return;
 			}
 		}
-		else if (annotation().Type() == 5)
+		else if (annotation().Type() == Annotation::Combobox)
 		{
 			int wdt = annotation().Bwid();
 			if (Width > 2 * wdt + 15)
@@ -3358,7 +3358,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRectF cullingArea)
 				return;
 			}
 		}
-		else if (annotation().Type() == 6)
+		else if (annotation().Type() == Annotation::Listbox)
 		{
 			int wdt = annotation().Bwid();
 			if (Width > 2 * wdt + 15)
@@ -5039,7 +5039,7 @@ void PageItem_TextFrame::applicableActions(QStringList & actionList)
 		actionList << "itemPDFIsBookmark";
 	if (isAnnotation())
 	{
-		if ((annotation().Type() == 0) || (annotation().Type() == 1) || (annotation().Type() > 9))
+		if ((annotation().Type() == 0) || (annotation().Type() == 1) || ((annotation().Type() > Annotation::Listbox) && (annotation().Type() < Annotation::Annot3D)))
 			actionList << "itemPDFAnnotationProps";
 		else
 			actionList << "itemPDFFieldProps";

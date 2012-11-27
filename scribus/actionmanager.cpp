@@ -1384,7 +1384,7 @@ void ActionManager::setPDFActions(ScribusView *currView)
 	if (currItem->isAnnotation())
 	{
 		int aType=currItem->annotation().Type();
-		bool setter=((aType == 0) || (aType == 1) || (aType > 9));
+		bool setter=((aType == 0) || (aType == 1) || ((aType > Annotation::Listbox) && (aType < Annotation::Annot3D)));
 		(*scrActions)["itemPDFAnnotationProps"]->setEnabled(setter);
 		(*scrActions)["itemPDFFieldProps"]->setEnabled(!setter);
 	}

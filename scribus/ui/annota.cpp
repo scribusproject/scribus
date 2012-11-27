@@ -286,7 +286,7 @@ void Annota::SetValues()
 			else
 				item->annotation().setActionType(7);
 		}
-		item->annotation().setType(11);
+		item->annotation().setType(Annotation::Link);
 		break;
 	case 13:
 		item->annotation().setAction("");
@@ -295,7 +295,7 @@ void Annota::SetValues()
 			item->annotation().setExtern(Destfile->text());
 			item->annotation().setActionType(8);
 		}
-		item->annotation().setType(11);
+		item->annotation().setType(Annotation::Link);
 		break;
 	}
 	accept();
