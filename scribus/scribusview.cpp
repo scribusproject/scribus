@@ -305,7 +305,7 @@ ScribusView::ScribusView(QWidget* win, ScribusMainWindow* mw, ScribusDoc *doc) :
 	storedShowControls = Doc->guidesPrefs().showControls;
 	setRulersShown(Doc->guidesPrefs().rulersShown);
 	m_canvas->m_viewMode.viewAsPreview = false;
-	m_canvas->setPreviewVisual(0);
+	m_canvas->setPreviewVisual(-1);
 //	shiftSelItems = false;
 //	inItemCreation = false;
 	m_previousMode = -1;
