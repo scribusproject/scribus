@@ -288,6 +288,7 @@ ScribusDoc::ScribusDoc() : UndoObject( tr("Document")), Observable<ScribusDoc>(N
 	Print_Options.firstUse = true;
 	drawAsPreview = false;
 	viewAsPreview = false;
+	editOnPreview = false;
 	previewVisual = -1;
 	dontResize = false;
 }
@@ -393,6 +394,7 @@ ScribusDoc::ScribusDoc(const QString& docName, int unitindex, const PageSize& pa
 	Print_Options.firstUse = true;
 	drawAsPreview = false;
 	viewAsPreview = false;
+	editOnPreview = false;
 	previewVisual = -1;
 	dontResize = false;
 }

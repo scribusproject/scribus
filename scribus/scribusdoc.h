@@ -1334,6 +1334,7 @@ public:
 	bool DoDrawing;
 	bool drawAsPreview;
 	bool viewAsPreview;
+	bool editOnPreview;
 	int previewVisual;
 	struct OpenNodesList
 	{

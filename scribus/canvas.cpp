@@ -477,7 +477,7 @@ PageItem* Canvas::itemUnderCursor(QPoint globalPos, PageItem* itemAbove, bool al
 			--currNr;
 			continue;
 		}
-		if (m_doc->drawAsPreview && !currItem->isAnnotation())
+		if ((m_doc->drawAsPreview && !m_doc->editOnPreview) && !currItem->isAnnotation())
 		{
 			--currNr;
 			continue;

@@ -11245,4 +11245,11 @@ void ScribusMainWindow::setPreviewToolbar()
 	symbolPalette->setEnabled(!doc->drawAsPreview);
 	inlinePalette->setEnabled(!doc->drawAsPreview);
 	undoPalette->setEnabled(!doc->drawAsPreview);
+	propertiesPalette->setEnabled(!(doc->drawAsPreview && !doc->editOnPreview));
+	scrMenuMgr->setMenuEnabled("Edit", !doc->drawAsPreview);
+	scrMenuMgr->setMenuEnabled("Item", !doc->drawAsPreview);
+	scrMenuMgr->setMenuEnabled("Insert", !doc->drawAsPreview);
+	scrMenuMgr->setMenuEnabled("Page", !doc->drawAsPreview);
+	scrMenuMgr->setMenuEnabled("Extras", !doc->drawAsPreview);
+	HaveNewSel(-1);
 }

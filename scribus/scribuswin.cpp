@@ -84,6 +84,7 @@ void ScribusWin::setView(ScribusView* newView)
 	statusFrameLayout->addItem( spacer );
 	statusFrameLayout->addWidget(m_View->cmsToolbarButton);
 	statusFrameLayout->addWidget(m_View->previewToolbarButton);
+	statusFrameLayout->addWidget(m_View->editOnPreviewToolbarButton);
 	statusFrameLayout->addWidget(m_View->visualMenu);
 	statusBar()->addPermanentWidget(statusFrame, 4);
 	currentDir = QDir::currentPath();

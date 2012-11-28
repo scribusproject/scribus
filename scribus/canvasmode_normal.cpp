@@ -962,7 +962,7 @@ void CanvasMode_Normal::mouseReleaseEvent(QMouseEvent *m)
 		createContextMenu(NULL, mousePointDoc.x(), mousePointDoc.y());
 		return;
 	}
-	if ((GetItem(&currItem)) && (m->button() == Qt::RightButton) && (!m_doc->DragP) && (!m_doc->drawAsPreview))
+	if ((GetItem(&currItem)) && (m->button() == Qt::RightButton) && (!m_doc->DragP) && (!(m_doc->drawAsPreview && !m_doc->editOnPreview)))
 	{
 		createContextMenu(currItem, mousePointDoc.x(), mousePointDoc.y());
 		return;
@@ -1228,7 +1228,7 @@ void CanvasMode_Normal::mouseReleaseEvent(QMouseEvent *m)
 			m_doc->nodeEdit.finishTransaction(currItem);
 		}
 	}
-	if (m_doc->drawAsPreview)
+	if (m_doc->drawAsPreview && !m_doc->editOnPreview)
 	{
 		if (m_doc->m_Selection->count() == 1)
 		{
@@ -1415,7 +1415,7 @@ bool CanvasMode_Normal::SeleItem(QMouseEvent *m)
 			if ((m->modifiers() == SELECT_BENEATH) && m_canvas->frameHitTest(QPointF(mousePointDoc.x(),mousePointDoc.y()), currItem) >= 0)
 				m_doc->m_Selection->clear();
 			//CB: #7186: This was prependItem, does not seem to need to be anymore with current select code
-			if (m_doc->drawAsPreview)
+			if (m_doc->drawAsPreview && !m_doc->editOnPreview)
 				m_doc->m_Selection->clear();
 			m_doc->m_Selection->addItem(currItem);
 			if ( (m->modifiers() & SELECT_IN_GROUP) && (!currItem->isGroup()))
