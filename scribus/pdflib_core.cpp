@@ -3444,6 +3444,14 @@ QString PDFLibCore::Write_TransparencyGroup(double trans, int blend, QString &da
 	return retString;
 }
 
+/**
+ * Fill this.output with the QString representation of the item.
+ * Checks if the item can be represented in the chosen PDF version, based on some of its caracteristics
+ * and delegates the work to PDF_Image, PDF_GradientFillStroke, PDF_PatternFillStroke and so on for
+ * filling this.output.
+ * Returns false if the content can't be represented in the chosen PDF version,
+ * if the image can't be loaded
+ */
 bool PDFLibCore::PDF_ProcessItem(QString& output, PageItem* ite, const ScPage* pag, uint PNr, bool embedded, bool pattern)
 {
 	QString tmp(""), tmpOut;
@@ -9366,6 +9374,10 @@ static ColorSpaceEnum getOutputType(const bool gray, const bool cmyk)
 	return ColorSpaceRGB;
 }
 
+/**
+ * Add the image item to this.output
+ * Returns false if the image can't be read or if it can't be added to this.output
+*/
 bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy, double x, double y, bool fromAN, const QString& Profil, bool Embedded, eRenderIntent Intent, QString* output)
 {
 	QFileInfo fi = QFileInfo(fn);
