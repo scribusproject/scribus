@@ -2376,6 +2376,10 @@ void ScriXmlDoc::WriteLegacyCStyle (ScXmlStreamWriter& writer, const CharStyle& 
 		writer.writeAttribute("CSCALE", style.scaleH() / 10.0);
 	if ( ! style.isInhScaleV())
 		writer.writeAttribute("CSALEV", style.scaleV() / 10.0);
+	if ( ! style.isInhBaselineOffset())
+		writer.writeAttribute("CBASE", style.baselineOffset() / 10.0);
+	if ( ! style.isInhTracking())
+		writer.writeAttribute("KERN", style.tracking() / 10.0); 
 	if ( ! style.isInhFeatures())
 		writer.writeAttribute("CSTYLE", style.effects() & 2047);
 }
@@ -2600,6 +2604,9 @@ void ScriXmlDoc::ReadLegacyCStyle (const QXmlStreamAttributes& attrs, CharStyle&
 
 	if (attrHasValue(attrs, "CSTW"))
 		newStyle.setStrikethruWidth( qRound(attrAsDbl(attrs, "CSTW", -0.1) * 10) );
+
+	if (attrHasValue(attrs, "KERN"))
+		newStyle.setTracking( qRound(attrAsDbl(attrs, "KERN", 0.0) * 10) );
 
 	if (attrHasValue(attrs, "CSTYLE"))
 	{
