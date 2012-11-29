@@ -233,7 +233,7 @@ void PageSize::generateSizeList()
 		info.width = mm2pts(Awidths[format]);
 		info.height = mm2pts(Aheights[format]);
 		info.pageUnitIndex=SC_MM;
-		name = QString("B%1").arg(format);
+		name = QString("C%1").arg(format);
 		info.trSizeName = name;
 		pageSizeList.insert(name, info);
 	}
