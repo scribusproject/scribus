@@ -159,10 +159,6 @@ class SCRIBUS_API PSLib : public QObject
 		void WriteASCII85Bytes(const QByteArray& array);
 		void WriteASCII85Bytes(const unsigned char* array, int length);
 
-		quint32 encode32dVal(double val);
-		quint16 encode16dVal(double val);
-		void encodeColor(QDataStream &vs, QString col);
-
 		void paintBorder(const TableBorder& border, const QPointF& start, const QPointF& end, const QPointF& startOffsetFactors, const QPointF& endOffsetFactors, bool gcr);
 
 		Optimization optimization;
