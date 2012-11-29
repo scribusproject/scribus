@@ -3502,8 +3502,7 @@ bool Scribus150Format::readObject(ScribusDoc* doc, ScXmlStreamReader& reader, It
 	{
 		newItem->LayerID = LayerToPaste;
 		newItem->OwnPage = doc->OnPage(newItem);
-		if (!attrs.value("OnMasterPage").isEmpty())
-			newItem->OnMasterPage = doc->currentPage()->pageName();
+		newItem->OnMasterPage = doc->currentPage()->pageName();
 	}
 	QString tmpf = attrs.valueAsString("IFONT", doc->itemToolPrefs().textFont);
 	m_AvailableFonts->findFont(tmpf, doc);
