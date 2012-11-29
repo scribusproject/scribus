@@ -8963,8 +8963,10 @@ void ScribusMainWindow::manageMasterPages(QString temp)
 
 	pagePalette->startMasterPageMode(temp);
 	if (!pagePalette->isVisible())
+	{
 		pagePalette->show();
-
+		scrActions["toolsPages"]->setChecked(true);
+	}
 	scrActions["pageInsert"]->setEnabled(false);
 	scrActions["pageImport"]->setEnabled(false);
 	scrActions["pageDelete"]->setEnabled(false);
