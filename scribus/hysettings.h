@@ -8,7 +8,9 @@ for which a new license (GPL+exception) is in place.
 #define HYSETTINGS_H
 
 #include "ui_hysettingsBase.h"
+
 #include <QSet>
+#include <QStringList>
 #include <QHash>
 
 #include "scribusapi.h"
@@ -20,14 +22,14 @@ class SCRIBUS_API HySettings : public QWidget, Ui::hysettingsBase
 	//TODO: Dict license showing, URL background unzipping, checksumming, pkg mgr platforms warning
 	struct DictData
 	{
-			QString lang;
-			QString version;
-			QString files;
-			QString url;
-			QString desc;
-			QString license;
-			QString filetype;
-			bool download;
+		QString lang;
+		QString version;
+		QString files;
+		QString url;
+		QString desc;
+		QString license;
+		QString filetype;
+		bool download;
 	};
 
 	Q_OBJECT
@@ -61,15 +63,18 @@ private slots:
 	void downloadDictListFinished();
 	void downloadSpellDictsFinished();
 	void updateProgressBar();
+
+private:
+	QString affixFileName(QStringList files);
+	QString dictFileName(QStringList files);
 	void setAvailDictsXMLFile(QString availDictsXMLDataFile);
 
-	protected:
+protected:
 	QMap<QString, QString> dictionaryMap;
 	QStringList dictionaryPaths;
 	QString downloadLocation;
 	QList <DictData> dictList;
 	QList <DictData> downloadList;
-// 	QMap<QString,QString> langsMap;
 };
 
 #endif // HYSETTINGS_H
