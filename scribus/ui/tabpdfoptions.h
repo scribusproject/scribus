@@ -152,6 +152,7 @@ public slots:
 
 protected slots:
 	void createPageNumberRange();
+	void handleCompressionMethod(int ind);
 
 protected:
 	// PDFExportDialog should really privately inherit from us, but it can't

@@ -957,6 +957,7 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,
 	connect(Encry, SIGNAL(clicked()), this, SLOT(ToggleEncr()));
 	connect(UseLPI, SIGNAL(clicked()), this, SLOT(EnableLPI2()));
 	connect(LPIcolor, SIGNAL(activated(int)), this, SLOT(SelLPIcol(int)));
+	connect(CMethod, SIGNAL(activated(int)), this, SLOT(handleCompressionMethod(int)));
 	//tooltips
 	RotateDeg->setToolTip( "<qt>" + tr( "Automatically rotate the exported pages" ) + "</qt>" );
 	AllPages->setToolTip( "<qt>" + tr( "Export all pages to PDF" ) + "</qt>" );
@@ -1062,6 +1063,8 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 	Compression->setChecked( Opts.Compress );
 	CMethod->setCurrentIndex(Opts.CompressMethod);
 	CQuality->setCurrentIndex(Opts.Quality);
+	if (Opts.CompressMethod == 3)
+		CQuality->setEnabled(false);
 	DSColor->setChecked(Opts.RecalcPic);
 	ValC->setValue(Opts.PicRes);
 	ValC->setEnabled(DSColor->isChecked() ? true : false);
@@ -1447,6 +1450,11 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 		}
 		
 	}
+}
+
+void TabPDFOptions::handleCompressionMethod(int ind)
+{
+	CQuality->setDisabled(ind == 3);
 }
 
 void TabPDFOptions::storeValues(PDFOptions& pdfOptions)
