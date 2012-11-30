@@ -165,30 +165,49 @@ void Prefs_Spelling::downloadSpellDictsFinished()
 	disconnect(ScQApp->dlManager(), SIGNAL(finished()), this, SLOT(downloadDictListFinished()));
 	//qDebug()<<"Downloads All Finished";
 	QString userDictDir(ScPaths::getUserDictDir(true));
+	// List all downloaded files in order to handle identical
+	// affix files while reducing potential errors related to
+	// disk space
+	QStringList allFileList;
+	foreach(DictData d, downloadList)
+	{
+		allFileList += d.files.split(";", QString::SkipEmptyParts);
+	}
+	// Move downloaded files to destination
 	foreach(DictData d, downloadList)
 	{
 		QString basename = QFileInfo(d.url).fileName();
-		QString filename=downloadLocation+basename;
+		QString filename = downloadLocation+basename;
+		QStringList files = d.files.split(";", QString::SkipEmptyParts);
+		QString affixFile = affixFileName(files);
+		QString dictFile  = dictFileName(files);
 		//qDebug()<<filename;
 		if (d.filetype=="zip")
 		{
 			//qDebug()<<"zip data found"<<filename;
-			FileUnzip* fun = new FileUnzip(filename);
-			QStringList files=d.files.split(";", QString::SkipEmptyParts);
+			FileUnzip fun(filename);
 			foreach (QString s, files)
 			{
 				//qDebug()<<"Unzipping"<<userDictDir+s;
-				QString data=fun->getFileToPath(s, userDictDir);
+				QString data = fun.getFileToPath(s, userDictDir);
+				allFileList.removeOne(s);
 			}
-			delete fun;
 		}
 		if (d.filetype=="plain")
 		{
-			QStringList files=d.files.split(";", QString::SkipEmptyParts);
 			foreach (QString s, files)
 			{
 				//qDebug()<<"plain data found"<<downloadLocation<<userDictDir<<s;
-				moveFile(downloadLocation+s, userDictDir+s);
+				QString dstName = s;
+				if (dstName == affixFile)
+					dstName = QFileInfo(downloadLocation+dictFile).baseName() + ".aff";
+				allFileList.removeOne(s);
+				if (allFileList.contains(s))
+				{
+					copyFile(downloadLocation+s, userDictDir+dstName);
+					continue;
+				}
+				moveFile(downloadLocation+s, userDictDir+dstName);
 			}
 		}
 	}
@@ -283,4 +302,26 @@ void Prefs_Spelling::setAvailDictsXMLFile(QString availDictsXMLDataFile)
 	headers << tr("Language") << tr("Code") << tr("Installed") << tr("Download");
 	availDictTableWidget->setHorizontalHeaderLabels(headers);
 	availDictTableWidget->resizeColumnsToContents();
+}
+
+QString Prefs_Spelling::affixFileName(QStringList files)
+{
+	for (int i = 0; i < files.count(); ++i)
+	{
+		const QString& file = files.at(i);
+		if (file.endsWith(".aff", Qt::CaseInsensitive))
+			return file;
+	}
+	return QString();
+}
+
+QString Prefs_Spelling::dictFileName(QStringList files)
+{
+	for (int i = 0; i < files.count(); ++i)
+	{
+		const QString& file = files.at(i);
+		if (file.endsWith(".dic", Qt::CaseInsensitive))
+			return file;
+	}
+	return QString();
 }

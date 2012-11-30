@@ -16,18 +16,19 @@ class ScribusDoc;
 
 class SCRIBUS_API Prefs_Spelling : public Prefs_Pane, Ui::Prefs_Spelling
 {
-		//TODO: Dict license showing, URL background unzipping, checksumming, pkg mgr platforms warning
-		struct DictData
-		{
-				QString lang;
-				QString version;
-				QString files;
-				QString url;
-				QString desc;
-				QString license;
-				QString filetype;
-				bool download;
-		};
+	//TODO: Dict license showing, URL background unzipping, checksumming, pkg mgr platforms warning
+	struct DictData
+	{
+		QString lang;
+		QString version;
+		QString files;
+		QString url;
+		QString desc;
+		QString license;
+		QString filetype;
+		bool download;
+	};
+
 	Q_OBJECT
 
 	public:
@@ -46,6 +47,10 @@ class SCRIBUS_API Prefs_Spelling : public Prefs_Pane, Ui::Prefs_Spelling
 		void downloadDictListFinished();
 		void downloadSpellDictsFinished();
 		void updateProgressBar();
+
+	private:
+		QString affixFileName(QStringList files);
+		QString dictFileName(QStringList files);
 		void setAvailDictsXMLFile(QString availDictsXMLDataFile);
 
 	protected:
