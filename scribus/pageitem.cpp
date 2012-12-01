@@ -9993,9 +9993,9 @@ void PageItem::updateClip(bool updateWelded)
 				}
 				if (updateWelded)
 				{
-				for (int i = 0 ; i < weldList.count(); i++)
-				{
-					weldingInfo wInf = weldList.at(i);
+					for (int i = 0 ; i < weldList.count(); i++)
+					{
+						weldingInfo wInf = weldList.at(i);
 						if (wInf.weldItem->isNoteFrame())
 						{
 							PageItem_NoteFrame* noteFrame = wInf.weldItem->asNoteFrame();
@@ -10015,17 +10015,17 @@ void PageItem::updateClip(bool updateWelded)
 								continue;
 							}
 						}
-					FPointArray gr4;
-					FPoint wp = wInf.weldPoint;
-					gr4.addPoint(wp);
-					gr4.map(ma);
-					double dx = gr4.point(0).x() - wp.x();
-					double dy = gr4.point(0).y() - wp.y();
-					moveWelded(dx, dy, i);
-					wInf.weldPoint = gr4.point(0);
-					weldList[i] = wInf;
+						FPointArray gr4;
+						FPoint wp = wInf.weldPoint;
+						gr4.addPoint(wp);
+						gr4.map(ma);
+						double dx = gr4.point(0).x() - wp.x();
+						double dy = gr4.point(0).y() - wp.y();
+						moveWelded(dx, dy, i);
+						wInf.weldPoint = gr4.point(0);
+						weldList[i] = wInf;
+					}
 				}
-			}
 			}
 			OldB2 = width();
 			OldH2 = height();
