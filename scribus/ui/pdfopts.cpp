@@ -254,6 +254,8 @@ void PDFExportDialog::updateDocOptions()
 	Opts.MirrorV = Options->MirrorV->isChecked();
 	Opts.doClip = Options->ClipMarg->isChecked();
 	Opts.RotateDeg = Options->RotateDeg->currentIndex() * 90;
+	Opts.pageRangeSelection = Options->AllPages->isChecked() ? 0 : 1;
+	Opts.pageRangeString = Options->PageNr->text();
 	Opts.PresentMode = Options->CheckBox10->isChecked();
 	Opts.PresentVals = EffVal;
 	Opts.Articles = Options->Article->isChecked();

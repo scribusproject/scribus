@@ -435,6 +435,8 @@ void PrefsManager::initDefaults()
 	appPrefs.pdfPrefs.MirrorH = false;
 	appPrefs.pdfPrefs.MirrorV = false;
 	appPrefs.pdfPrefs.doClip = false;
+	appPrefs.pdfPrefs.pageRangeSelection = 0;
+	appPrefs.pdfPrefs.pageRangeString = "";
 	appPrefs.pdfPrefs.RotateDeg = 0;
 	appPrefs.pdfPrefs.PresentMode = false;
 	appPrefs.pdfPrefs.fileName = "";

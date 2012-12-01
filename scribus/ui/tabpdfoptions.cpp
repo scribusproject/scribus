@@ -1027,6 +1027,17 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 	AllPages->setChecked( true );
 	PageNr->setEnabled(false);
 	pageNrButton->setEnabled(false);
+	if (mdoc != 0 && exporting)
+	{
+		AllPages->setChecked(Opts.pageRangeSelection == 0);
+		OnlySome->setChecked(Opts.pageRangeSelection != 0);
+		if (OnlySome->isChecked())
+		{
+			PageNr->setEnabled(true);
+			PageNr->setText(Opts.pageRangeString);
+			pageNrButton->setEnabled(true);
+		}
+	}
 	RotateDeg->setCurrentIndex(Opts.RotateDeg / 90);
 	MirrorH->setChecked(Opts.MirrorH);
 	MirrorV->setChecked(Opts.MirrorV);
@@ -1471,6 +1482,8 @@ void TabPDFOptions::storeValues(PDFOptions& pdfOptions)
 	pdfOptions.MirrorH = MirrorH->isChecked();
 	pdfOptions.MirrorV = MirrorV->isChecked();
 	pdfOptions.RotateDeg = RotateDeg->currentIndex() * 90;
+	pdfOptions.pageRangeSelection = AllPages->isChecked() ? 0 : 1;
+	pdfOptions.pageRangeString = PageNr->text();
 	pdfOptions.Articles = Article->isChecked();
 	pdfOptions.Encrypt = Encry->isChecked();
 	pdfOptions.UseLPI = UseLPI->isChecked();

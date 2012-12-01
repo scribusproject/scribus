@@ -1044,6 +1044,8 @@ void Scribus150Format::writePdfOptions(ScXmlStreamWriter & docu)
 	docu.writeAttribute("MirrorH", static_cast<int>(m_Doc->pdfOptions().MirrorH));
 	docu.writeAttribute("MirrorV", static_cast<int>(m_Doc->pdfOptions().MirrorV));
 	docu.writeAttribute("Clip", static_cast<int>(m_Doc->pdfOptions().doClip));
+	docu.writeAttribute("rangeSel", m_Doc->pdfOptions().pageRangeSelection);
+	docu.writeAttribute("rangeTxt", m_Doc->pdfOptions().pageRangeString);
 	docu.writeAttribute("RotateDeg", static_cast<int>(m_Doc->pdfOptions().RotateDeg));
 	docu.writeAttribute("PresentMode", static_cast<int>(m_Doc->pdfOptions().PresentMode));
 	docu.writeAttribute("RecalcPic", static_cast<int>(m_Doc->pdfOptions().RecalcPic));

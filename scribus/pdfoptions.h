@@ -157,6 +157,8 @@ public:
 	double markLength;
 	double markOffset;
 	QString openAction;
+	int pageRangeSelection;
+	QString pageRangeString;
 };
 
 #endif
