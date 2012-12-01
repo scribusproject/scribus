@@ -134,7 +134,7 @@ void LanguageManager::generateLangList()
 	langTable.append(LangDef("nn",     "nn_NO", "Norwegian (Nnyorsk)",    QObject::tr( "Norwegian (Nnyorsk)" )) );
 	langTable.append(LangDef("no",     "no_NO", "Norwegian",              QObject::tr( "Norwegian" )) );
 	langTable.append(LangDef("pl",     "pl_PL", "Polish",                 QObject::tr( "Polish" )) );
-	langTable.append(LangDef("pt",     "",      "Portuguese",             QObject::tr( "Portuguese" )) );
+	langTable.append(LangDef("pt",     "pt_PT", "Portuguese",             QObject::tr( "Portuguese" )) );
 	langTable.append(LangDef("pt_BR",  "",      "Portuguese (BR)",        QObject::tr( "Portuguese (BR)" )) );
 	langTable.append(LangDef("ro",     "",      "Romanian",               QObject::tr( "Romanian" )) );
 	langTable.append(LangDef("ru",     "ru_RU", "Russian",                QObject::tr( "Russian" )) );
@@ -323,20 +323,20 @@ const QString LanguageManager::getTransLangFromLang(QString lang)
 const QString LanguageManager::getShortAbbrevFromAbbrev(QString langAbbrev)
 {
 	//	qDebug()<<"Trying to find:"<<langAbbrev;
-		int i=langTableIndex(langAbbrev);
+	int i = langTableIndex(langAbbrev);
 	//	qDebug()<<"Index of"<<langAbbrev<<":"<<i;
-		if (i==-1)
+	if (i == -1)
+	{
+		if (langAbbrev.length()>5)
 		{
-			if (langAbbrev.length()>5)
-			{
-				langAbbrev.truncate(5);
-				i=langTableIndex(langAbbrev);
-			}
+			langAbbrev.truncate(5);
+			i=langTableIndex(langAbbrev);
 		}
-		if (i!=-1)
-			return langTable[i].m_priAbbrev;
-		//qDebug()<<langAbbrev<<"not found";
-		return "";
+	}
+	if (i != -1)
+		return langTable[i].m_priAbbrev;
+	//qDebug()<<langAbbrev<<"not found";
+	return "";
 }
 
 const QString LanguageManager::getAlternativeAbbrevfromAbbrev(QString langAbbrev)
