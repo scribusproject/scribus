@@ -1326,6 +1326,7 @@ public:
 	QList<BookMa> BookMarks;
 	bool OldBM;
 	bool hasName;
+	bool isConverted;
 	QTimer * const autoSaveTimer;
 	QHash<QString,multiLine> MLineStyles;
 	QHash<QString, ScPattern> docPatterns;

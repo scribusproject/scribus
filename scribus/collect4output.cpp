@@ -155,7 +155,7 @@ bool CollectForOutput::collectDocument()
 	if (!fi.isDir() || !fi.isWritable())
 		return false;
 
-	if (m_Doc->hasName)
+	if ((m_Doc->hasName) && (!m_Doc->isConverted))
 	{
 		QFileInfo fis(m_Doc->DocName);
 		newName += fis.fileName();

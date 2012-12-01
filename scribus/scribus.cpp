@@ -2458,7 +2458,7 @@ void ScribusMainWindow::SwitchWin()
 			scrActions["fileSave"]->setEnabled(false);
 		}
 		else
-			scrActions["fileSave"]->setEnabled(true);
+			scrActions["fileSave"]->setEnabled(!doc->isConverted);
 		scrActions["fileOpen"]->setEnabled(false);
 		scrActions["fileRevert"]->setEnabled(false);
 		scrMenuMgr->setMenuEnabled("FileOpenRecent", false);
@@ -2480,7 +2480,7 @@ void ScribusMainWindow::SwitchWin()
 		scrActions["fileNewFromTemplate"]->setEnabled(true);
 		scrActions["fileOpen"]->setEnabled(true);
 		scrActions["fileClose"]->setEnabled(true);
-		scrActions["fileSave"]->setEnabled(true);
+		scrActions["fileSave"]->setEnabled(!doc->isConverted);
 		scrActions["fileRevert"]->setEnabled(false);
 		scrMenuMgr->setMenuEnabled("FileOpenRecent", true);
 
@@ -2521,7 +2521,7 @@ void ScribusMainWindow::SwitchWin()
 void ScribusMainWindow::HaveNewDoc()
 {
 	scrActions["filePrint"]->setEnabled(true);
- 	scrActions["fileSave"]->setEnabled(true);
+	scrActions["fileSave"]->setEnabled(!doc->isConverted);
 	scrActions["fileClose"]->setEnabled(true);
 //	scrActions["fileDocSetup"]->setEnabled(true);
 	scrActions["fileDocSetup150"]->setEnabled(true);
@@ -4231,6 +4231,7 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 			doc->setName(FName+ tr("(converted)"));
 			QFileInfo fi(doc->DocName);
 			doc->setName(fi.fileName());
+			doc->isConverted = true;
 		}
 		else
 			doc->setName(FName);
@@ -4299,11 +4300,8 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 		}
 		view->reformPages(false);
 		doc->setLoading(false);
-/*		if (fileLoader->FileType > FORMATID_NATIVEIMPORTEND)
-		{
-			doc->hasName = false;
-			slotFileSaveAs();
-		} */
+//		if (fileLoader->fileType() > FORMATID_NATIVEIMPORTEND)
+//			scrActions["fileSave"]->setEnabled(false);
 		delete fileLoader;
 		view->updatesOn(true);
 		w->setUpdatesEnabled(true);
@@ -4333,7 +4331,6 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 			doc->autoSaveTimer->start(doc->autoSaveTime());
 		connect(doc, SIGNAL(updateAutoSaveClock()), view->clockLabel, SLOT(resetTime()));
 		view->clockLabel->resetTime();
-// 		scrActions["fileSave"]->setEnabled(false);
 		doc->NrItems = bookmarkPalette->BView->NrItems;
 		doc->First = bookmarkPalette->BView->First;
 		doc->Last = bookmarkPalette->BView->Last;
@@ -4582,7 +4579,7 @@ void ScribusMainWindow::slotFileAppend()
 
 void ScribusMainWindow::slotFileRevert()
 {
-	if ((doc->hasName) && (doc->isModified()) && (!doc->masterPageMode()))
+	if ((doc->hasName) && (doc->isModified()) && (!doc->masterPageMode()) && (!doc->isConverted))
 	{
 		ScribusWin* tw = ActWin;
 		int t = QMessageBox::warning(this, CommonStrings::trWarning, "<qt>" +
@@ -4613,7 +4610,7 @@ void ScribusMainWindow::slotAutoSaved()
 bool ScribusMainWindow::slotFileSave()
 {
 	bool ret = false;
-	if (doc->hasName)
+	if ((doc->hasName) && (!doc->isConverted))
 	{
 		//Scribus 1.3.x warning, remove at a later stage
 		if (doc->is12doc && !warningVersion(this))
@@ -8794,7 +8791,7 @@ void ScribusMainWindow::editSymbolEnd()
 	scrActions["fileOpen"]->setEnabled(true);
 	scrActions["fileClose"]->setEnabled(true);
 	scrActions["fileClose"]->setToolTip( tr("Close"));
-	scrActions["fileSave"]->setEnabled(true);
+	scrActions["fileSave"]->setEnabled(!doc->isConverted);
 	scrMenuMgr->setMenuEnabled("FileOpenRecent", true);
 	scrActions["fileRevert"]->setEnabled(true);
 	scrActions["fileDocSetup150"]->setEnabled(true);
@@ -8899,7 +8896,7 @@ void ScribusMainWindow::editInlineEnd()
 	scrActions["fileOpen"]->setEnabled(true);
 	scrActions["fileClose"]->setEnabled(true);
 	scrActions["fileClose"]->setToolTip( tr("Close"));
-	scrActions["fileSave"]->setEnabled(true);
+	scrActions["fileSave"]->setEnabled(!doc->isConverted);
 	scrMenuMgr->setMenuEnabled("FileOpenRecent", true);
 	scrActions["fileRevert"]->setEnabled(true);
 	scrActions["fileDocSetup150"]->setEnabled(true);
@@ -9007,7 +9004,7 @@ void ScribusMainWindow::manageMasterPagesEnd()
 	scrActions["fileNewFromTemplate"]->setEnabled(true);
 	scrActions["fileOpen"]->setEnabled(true);
 	scrActions["fileClose"]->setEnabled(true);
-	scrActions["fileSave"]->setEnabled(true);
+	scrActions["fileSave"]->setEnabled(!doc->isConverted);
 	scrMenuMgr->setMenuEnabled("FileOpenRecent", true);
 	scrActions["fileRevert"]->setEnabled(true);
 //	scrActions["fileDocSetup"]->setEnabled(true);

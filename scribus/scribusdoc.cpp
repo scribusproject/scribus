@@ -255,6 +255,7 @@ ScribusDoc::ScribusDoc() : UndoObject( tr("Document")), Observable<ScribusDoc>(N
 	BookMarks(),
 	OldBM(false),
 	hasName(false),
+	isConverted(false),
 	autoSaveTimer(new QTimer(this)),
 	MLineStyles(),
 	WinHan(0),
@@ -357,6 +358,7 @@ ScribusDoc::ScribusDoc(const QString& docName, int unitindex, const PageSize& pa
 	BookMarks(),
 	OldBM(false),
 	hasName(false),
+	isConverted(false),
 	autoSaveTimer(new QTimer(this)),
 	MLineStyles(),
 	WinHan(0),
@@ -4836,6 +4838,7 @@ bool ScribusDoc::save(const QString& fileName, QString* savedFile)
 		setName(fileName);
 		setModified(false);
 		hasName = true;
+		isConverted = false;
 	}
 	return ret;
 }
