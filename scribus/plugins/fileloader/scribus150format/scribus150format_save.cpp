@@ -1886,10 +1886,30 @@ void Scribus150Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 				if (item->isNoteFrame())
 					docu.writeAttribute("isNoteFrame", 1);
 				else
-				writeITEXTs(doc, docu, item);
+					writeITEXTs(doc, docu, item);
 			}
 		}
 
+		if (item->isWelded())
+		{
+			bool isWelded = false;
+			for (int i = 0 ; i <  item->weldList.count(); i++)
+			{
+				PageItem::weldingInfo wInf = item->weldList.at(i);
+				PageItem *pIt = wInf.weldItem;
+				if (pIt == NULL)
+				{
+					qDebug() << "Saving welding info - empty pointer!!!";
+					continue;
+				}
+				if (pIt->isAutoNoteFrame())
+					continue;
+				docu.writeEmptyElement("WeldEntry");
+				docu.writeAttribute("Target", qHash(wInf.weldItem));
+				docu.writeAttribute("WX", wInf.weldPoint.x());
+				docu.writeAttribute("WY", wInf.weldPoint.y());
+			}
+		}
 		if (item->effectsInUse.count() != 0)
 		{
 			for (int a = 0; a < item->effectsInUse.count(); ++a)
@@ -2363,7 +2383,6 @@ void Scribus150Format::SetItemProps(ScXmlStreamWriter& docu, PageItem* item, con
 			docu.writeAttribute("PLINEJOIN", item->PLineJoin);
 	}
 	//write weld parameter
-	//write weld parameter
 	if (item->isWelded())
 	{
 		bool isWelded = false;
@@ -2371,24 +2390,17 @@ void Scribus150Format::SetItemProps(ScXmlStreamWriter& docu, PageItem* item, con
 		{
 			PageItem::weldingInfo wInf = item->weldList.at(i);
 			PageItem *pIt = wInf.weldItem;
-			if (pIt == NULL)
+			if (pIt != NULL && !pIt->isAutoNoteFrame())
 			{
-				qDebug() << "Saving welding info - empty pointer!!!";
-				continue;
+				isWelded = true;
+				break;
 			}
-			if (pIt->isAutoNoteFrame())
-				continue;
-			isWelded = true;
-			docu.writeEmptyElement("WeldEntry");
-			docu.writeAttribute("Target", qHash(wInf.weldItem));
-			docu.writeAttribute("WX", wInf.weldPoint.x());
-			docu.writeAttribute("WY", wInf.weldPoint.y());
 		}
 		if (isWelded)
 		{
-		docu.writeAttribute("isWeldItem", 1);
-		docu.writeAttribute("WeldSource", qHash(item));
-	}
+			docu.writeAttribute("isWeldItem", 1);
+			docu.writeAttribute("WeldSource", qHash(item));
+		}
 	}
 	if (item->asRegularPolygon())
 	{
