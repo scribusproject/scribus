@@ -236,8 +236,8 @@ ScribusView::ScribusView(QWidget* win, ScribusMainWindow* mw, ScribusDoc *doc) :
 	editOnPreviewToolbarButton->setAutoRaise(OPTION_FLAT_BUTTON);
 	editOnPreviewToolbarButton->setCheckable(true);
 	QIcon ic3;
-	ic3.addPixmap(loadIcon("16/pointer.png"), QIcon::Normal, QIcon::Off);
-	ic3.addPixmap(loadIcon("16/pointer.png"), QIcon::Normal, QIcon::On);
+	ic3.addPixmap(loadIcon("16/editdoc.png"), QIcon::Normal, QIcon::Off);
+	ic3.addPixmap(loadIcon("16/editdoc.png"), QIcon::Normal, QIcon::On);
 	editOnPreviewToolbarButton->setIcon(ic3);
 #else
 	zoomDefaultToolbarButton = new QPushButton(this);
@@ -274,7 +274,7 @@ ScribusView::ScribusView(QWidget* win, ScribusMainWindow* mw, ScribusDoc *doc) :
 	editOnPreviewToolbarButton->setDefault( false );
 	editOnPreviewToolbarButton->setAutoDefault( false );
 	editOnPreviewToolbarButton->setFlat(OPTION_FLAT_BUTTON);
-	editOnPreviewToolbarButton->setIcon(loadIcon("previewOn.png"));
+	editOnPreviewToolbarButton->setIcon(loadIcon("16/editdoc.png"));
 #endif
 	cmsAdjustMenu = new QMenu();
 	idCmsAdjustMenu = cmsAdjustMenu->addAction( "Configure CMS...", this, SLOT(adjustCMS()));
