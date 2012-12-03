@@ -15015,9 +15015,9 @@ void ScribusDoc::itemSelection_UnGroupObjects(Selection* customSelection)
 		itemSelection->delaySignalsOff();
 
 		// Delete items after delaySignalsOff() call so that palette are updated before item deletion
-		for (int b = 0; b < toDelete.count(); b++)
+		for (int i = 0; i < toDelete.count(); i++)
 		{
-			currItem = toDelete.at(0);
+			currItem = toDelete.at(i);
 			delete currItem;
 		}
 		if(activeTransaction)
