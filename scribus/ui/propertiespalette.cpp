@@ -125,7 +125,7 @@ PropertiesPalette::PropertiesPalette( QWidget* parent) : ScDockPalette( parent, 
 	connect(groupPal, SIGNAL(shapeChanged(int)) , this, SLOT(handleNewShape(int)));
 	connect(groupPal, SIGNAL(shapeEditStarted()), this, SLOT(handleShapeEdit()));
 
-	connect(TabStack, SIGNAL(currentChanged(int)), this, SLOT(SelTab(int)));
+	connect(TabStack, SIGNAL(currentChanged2(int)), this, SLOT(SelTab(int)));
 
 	connect(Cpal, SIGNAL(NewSpecial(double, double, double, double, double, double, double, double, double, double)), this, SLOT(NewSpGradient(double, double, double, double, double, double, double, double, double, double )));
 	connect(Cpal, SIGNAL(editGradient(int)), this, SLOT(toggleGradientEdit(int)));
@@ -366,7 +366,7 @@ void PropertiesPalette::setCurrentItem(PageItem *i)
 	if (!m_doc)
 		setDoc(i->doc());
 
-	disconnect(TabStack, SIGNAL(currentChanged(int)) , this, SLOT(SelTab(int)));
+	disconnect(TabStack, SIGNAL(currentChanged2(int)) , this, SLOT(SelTab(int)));
 	disconnect(linePal , SIGNAL(lineModeChanged(int)), this, SLOT(NewLineMode(int)));
 
 	m_haveItem = false;
@@ -440,7 +440,7 @@ void PropertiesPalette::setCurrentItem(PageItem *i)
 		TabStack->setItemEnabled(idTransparencyItem, false);
 		TabStack->setItemEnabled(idTableItem, false);
 	}
-	connect(TabStack, SIGNAL(currentChanged(int)), this, SLOT(SelTab(int)));
+	connect(TabStack, SIGNAL(currentChanged2(int)), this, SLOT(SelTab(int)));
 }
 
 void  PropertiesPalette::handleSelectionChanged()
@@ -448,7 +448,7 @@ void  PropertiesPalette::handleSelectionChanged()
 	if (!m_haveDoc || !m_ScMW || m_ScMW->scriptIsRunning())
 		return;
 	int currentTab = TabStack->currentIndex();
-	disconnect(TabStack, SIGNAL(currentChanged(int)), this, SLOT(SelTab(int)));
+	disconnect(TabStack, SIGNAL(currentChanged2(int)), this, SLOT(SelTab(int)));
 
 	PageItem* currItem = currentItemFromSelection();
 	if (m_doc->m_Selection->count() > 1)
@@ -571,7 +571,7 @@ void  PropertiesPalette::handleSelectionChanged()
 		TabStack->setCurrentIndex(currentTab);
 	updateGeometry();
 	repaint();
-	connect(TabStack, SIGNAL(currentChanged(int)), this, SLOT(SelTab(int)));
+	connect(TabStack, SIGNAL(currentChanged2(int)), this, SLOT(SelTab(int)));
 
 	if (currItem)
 	{

@@ -65,7 +65,7 @@ private slots:
 	void handleMousePress(QTreeWidgetItem *item);
 
 signals:
-	void currentChanged(int);
+	void currentChanged2(int);
 
 private:
 	bool m_toolbox_mode;
