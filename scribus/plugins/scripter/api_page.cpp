@@ -20,10 +20,11 @@ for which a new license (GPL+exception) is in place.
 
 
 
-PageAPI::PageAPI(QObject *parent) : QObject(COLLECTOR)
+PageAPI::PageAPI(ScPage *thisPage) : QObject(COLLECTOR)
 {
 	qDebug() << "PageAPI loaded";
 	setObjectName("page");
+	page = thisPage;
 }
 
 
@@ -60,8 +61,6 @@ int PageAPI::position()
 	return ScCore->primaryMainWindow()->doc->locationOfPage(number());
 }
 
-
-
 /**
  * Scripter.activeDocument.activePage.position
  * Property
@@ -71,20 +70,6 @@ int PageAPI::number()
 {
 	return ScCore->primaryMainWindow()->doc->currentPageNumber() + 1;
 }
-
-
-
-void PageAPI::setNumber(int value)
-{
-	value--;
-	if ((value < 0) || (value > static_cast<int>(ScCore->primaryMainWindow()->doc->Pages->count())-1))
-	{
-		RAISE("Page number out of range.");
-		return;
-	}
-	ScCore->primaryMainWindow()->view->GotoPage(value);
-}
-
 
 
 /**
@@ -120,7 +105,6 @@ QList<QVariant> PageAPI::items()
 	}
 	return l;
 }
-
 
 
 /**

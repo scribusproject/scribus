@@ -12,12 +12,13 @@ for which a new license (GPL+exception) is in place.
 #include <QApplication>
 
 #include "scripterimpl.h"
+#include "scpage.h"
 
 
 class PageAPI : public QObject
 {
 	Q_OBJECT
-    Q_PROPERTY(int number READ number WRITE setNumber)
+    Q_PROPERTY(int number READ number)
     Q_PROPERTY(int position READ position)
     Q_PROPERTY(QList<QVariant> items READ items)
     Q_PROPERTY(QList<QVariant> selection READ selection)
@@ -37,13 +38,12 @@ public slots:
 	void savePageAsEPS(const QString & filename);
 
 public:
-    PageAPI(QObject *parent);
+    PageAPI(ScPage* thisPage);
     virtual ~PageAPI();
 
 private:
 	int position();
 	int number();
-	void setNumber(int value);
 	QList<QVariant> items();
 	QList<QVariant> selection();
 	PageItem *newItem(const PageItem::ItemType itemType,
@@ -56,6 +56,8 @@ private:
 	bool isMasterPage;
 	int type();
 	double pageYtoDocY(double y);
-	double pageXtoDocX(double x); 
+	double pageXtoDocX(double x);
+	
+	ScPage* page;
 };
 #endif /*API_PAGE_H_*/

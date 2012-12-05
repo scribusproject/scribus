@@ -159,7 +159,7 @@ int DocumentAPI::pageCount()
  */
 QObject *DocumentAPI::activePage()
 {
-	return new PageAPI(this);
+	return new PageAPI(ScCore->primaryMainWindow()->doc->currentPage());
 }
 
 
@@ -527,6 +527,33 @@ void DocumentAPI::editMasterPage(QString name)
 	}
 	ScCore->primaryMainWindow()->view->showMasterPage(*it);
 }
+
+QList< QVariant > DocumentAPI::pages()
+{
+	QList<QVariant> pages;
+	if (!check())
+		return pages;
+	QList<ScPage*> *allPages = ScCore->primaryMainWindow()->doc->Pages;
+	for(int i=0; i< allPages->count(); i++) {
+	  pages.append(qVariantFromValue((QObject *)(new PageAPI(allPages->at(i)))));
+	}
+	return pages;
+}
+
+
+void DocumentAPI::setActivePage(int pageNumber)
+{
+	if(!check())
+	    return;
+	pageNumber--;
+	if ((pageNumber < 0) || (pageNumber > static_cast<int>(ScCore->primaryMainWindow()->doc->Pages->count())-1))
+	{
+		RAISE("Page number out of range.");
+		return;
+	}
+	ScCore->primaryMainWindow()->view->GotoPage(pageNumber);
+}
+
 
 void DocumentAPI::loadStylesFromFile(QString name)
 {
