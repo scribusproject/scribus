@@ -20,10 +20,11 @@
 
 #include "scribusapi.h"
 
+#include <QBrush>
+#include <QCursor>
 #include <QMap>
 #include <QPen>
 #include <QPointF>
-#include <QBrush>
 
 class QDragEnterEvent;
 class QDragMoveEvent;
@@ -134,6 +135,8 @@ public:
 	public:
 	void clearPixmapCache();
 #endif // GESTURE_FRAME_PREVIEW
+
+	QCursor modeCursor();
 	void setModeCursor();
 	
 	/** main canvas modes dont have a delegate */

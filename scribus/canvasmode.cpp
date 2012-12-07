@@ -673,6 +673,83 @@ void CanvasMode::drawOutline(QPainter* p, double scalex, double scaley, double d
 	p->restore();
 }
 
+QCursor CanvasMode::modeCursor()
+{
+	QCursor cursor;
+	switch (m_doc->appMode)
+	{
+		case modeDrawShapes:
+		case modeDrawArc:
+		case modeDrawSpiral:
+			cursor = QCursor(loadIcon("DrawFrame.xpm"));
+			break;
+		case modeDrawImage:
+			cursor = QCursor(loadIcon("DrawImageFrame.xpm"));
+			break;
+		case modeDrawLatex:
+			cursor = QCursor(loadIcon("DrawLatexFrame.xpm"));
+			break;
+		case modeDrawText:
+			cursor = QCursor(loadIcon("DrawTextFrame.xpm"));
+			break;
+		case modeDrawTable2:
+			cursor = QCursor(loadIcon("DrawTable.xpm"));
+			break;
+		case modeDrawRegularPolygon:
+			cursor = QCursor(loadIcon("DrawPolylineFrame.xpm"));
+			break;
+		case modeDrawLine:
+		case modeDrawBezierLine:
+			cursor = QCursor(Qt::CrossCursor);
+			break;
+		case modeDrawFreehandLine:
+			cursor = QCursor(loadIcon("DrawFreeLine.png"), 0, 31);
+			break;
+		case modeDrawCalligraphicLine:
+			cursor = QCursor(loadIcon("DrawCalligraphy.xpm"), 4, 4);
+			break;
+		case modeImportObject:
+			cursor = QCursor(loadIcon("DragPix.xpm"));
+			break;
+		case modeMagnifier:
+			if (m_view->Magnify)
+				cursor = QCursor(loadIcon("LupeZ.xpm"));
+			else
+				cursor = QCursor(loadIcon("LupeZm.xpm"));
+			break;
+		case modePanning:
+			cursor = QCursor(loadIcon("HandC.xpm"));
+			break;
+		case modeEyeDropper:
+			cursor = QCursor(loadIcon("colorpickercursor.png"), 0, 31);
+			break;
+		case modeLinkFrames:
+			cursor = QCursor(loadIcon("LinkTextFrame.png"), 0, 31);
+			break;
+		case modeMeasurementTool:
+		case modeEditGradientVectors:
+		case modeEditMeshGradient:
+		case modeEditMeshPatch:
+		case modeEditWeldPoint:
+		case modeInsertPDFButton:
+		case modeInsertPDFTextfield:
+		case modeInsertPDFCheckbox:
+		case modeInsertPDFCombobox:
+		case modeInsertPDFListbox:
+		case modeInsertPDFTextAnnotation:
+		case modeInsertPDFLinkAnnotation:
+		case modeInsertPDF3DAnnotation:
+		case modeEditArc:
+		case modeEditPolygon:
+		case modeEditSpiral:
+			cursor = QCursor(Qt::CrossCursor);
+			break;
+		default:
+			cursor = QCursor(Qt::ArrowCursor);
+			break;
+	}
+	return cursor;
+}
 
 void CanvasMode::setModeCursor()
 {
