@@ -529,51 +529,50 @@ void CanvasMode::drawOutline(QPainter* p, double scalex, double scaley, double d
 	p->restore();
 }
 
-
-void CanvasMode::setModeCursor()
+QCursor CanvasMode::modeCursor()
 {
-	//NOTE: Merge with similar code in ScribusMainWindow::setAppMode()
+	QCursor cursor;
 	switch (m_doc->appMode)
 	{
 		case modeDrawShapes:
-			qApp->changeOverrideCursor(QCursor(loadIcon("DrawFrame.xpm")));
+			cursor = QCursor(loadIcon("DrawFrame.xpm"));
 			break;
 		case modeDrawImage:
-			qApp->changeOverrideCursor(QCursor(loadIcon("DrawImageFrame.xpm")));
+			cursor =  QCursor(loadIcon("DrawImageFrame.xpm"));
 			break;
 		case modeDrawLatex:
-			qApp->changeOverrideCursor(QCursor(loadIcon("DrawLatexFrame.xpm")));
+			cursor = QCursor(loadIcon("DrawLatexFrame.xpm"));
 			break;
 		case modeDrawText:
-			qApp->changeOverrideCursor(QCursor(loadIcon("DrawTextFrame.xpm")));
+			cursor = QCursor(loadIcon("DrawTextFrame.xpm"));
 			break;
 		case modeDrawTable:
-			qApp->changeOverrideCursor(QCursor(loadIcon("DrawTable.xpm")));
+			cursor = QCursor(loadIcon("DrawTable.xpm"));
 			break;
 		case modeDrawRegularPolygon:
-			qApp->changeOverrideCursor(QCursor(loadIcon("DrawPolylineFrame.xpm")));
+			cursor = QCursor(loadIcon("DrawPolylineFrame.xpm"));
 			break;
 		case modeDrawLine:
 		case modeDrawBezierLine:
-			qApp->changeOverrideCursor(QCursor(Qt::CrossCursor));
+			cursor = QCursor(Qt::CrossCursor);
 			break;
 		case modeDrawFreehandLine:
-			qApp->changeOverrideCursor(QCursor(loadIcon("DrawFreeLine.png"), 0, 32));
+			cursor = QCursor(loadIcon("DrawFreeLine.png"), 0, 32);
 			break;
 		case modeImportObject:
-			qApp->changeOverrideCursor(QCursor(loadIcon("DragPix.xpm")));
+			cursor = QCursor(loadIcon("DragPix.xpm"));
 			break;
 		case modeMagnifier:
 			if (m_view->Magnify)
-				qApp->changeOverrideCursor(QCursor(loadIcon("LupeZ.xpm")));
+				cursor = QCursor(loadIcon("LupeZ.xpm"));
 			else
-				qApp->changeOverrideCursor(QCursor(loadIcon("LupeZm.xpm")));
+				cursor = QCursor(loadIcon("LupeZm.xpm"));
 			break;
 		case modePanning:
-			qApp->changeOverrideCursor(QCursor(loadIcon("HandC.xpm")));
+			cursor = QCursor(loadIcon("HandC.xpm"));
 			break;
 		case modeEyeDropper:
-			qApp->changeOverrideCursor(QCursor(loadIcon("colorpickercursor.png"), 0, 32));
+			cursor = QCursor(loadIcon("colorpickercursor.png"), 0, 32);
 			break;
 		case modeMeasurementTool:
 		case modeEditGradientVectors:
@@ -584,12 +583,19 @@ void CanvasMode::setModeCursor()
 		case modeInsertPDFListbox:
 		case modeInsertPDFTextAnnotation:
 		case modeInsertPDFLinkAnnotation:
-			qApp->changeOverrideCursor(QCursor(Qt::CrossCursor));
+			cursor = QCursor(Qt::CrossCursor);
 			break;
 		default:
-			qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+			cursor = QCursor(Qt::ArrowCursor);
 			break;
 	}
+	return cursor;
+}
+
+void CanvasMode::setModeCursor()
+{
+	QCursor cursor = modeCursor();
+	qApp->changeOverrideCursor(cursor);
 }
 
 #ifdef GESTURE_FRAME_PREVIEW

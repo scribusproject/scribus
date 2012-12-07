@@ -48,7 +48,7 @@ void CanvasMode_EyeDropper::grabMouse(void)
 {
 	if (!m_mouseGrabbed)
 	{
-		m_view->widget()->grabMouse();
+		m_view->widget()->grabMouse(modeCursor());
 		m_mouseGrabbed = true;
 	}
 }
