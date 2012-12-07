@@ -3823,6 +3823,9 @@ void PageItem_TextFrame::DrawObj_Decoration(ScPainter *p)
 
 void PageItem_TextFrame::clearContents()
 {
+	if (itemText.length() <= 0)
+		return;
+
 	PageItem *nextItem = this;
 	while (nextItem->prevInChain() != 0)
 		nextItem = nextItem->prevInChain();
@@ -4547,6 +4550,8 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 
 void PageItem_TextFrame::deleteSelectedTextFromFrame(/*bool findNotes*/)
 {
+	if (itemText.length() <= 0)
+		return;
 	if (itemText.lengthOfSelection() == 0)
 	{
 		itemText.select(itemText.cursorPosition(), 1);
