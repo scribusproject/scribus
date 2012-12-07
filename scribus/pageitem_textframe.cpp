@@ -3832,9 +3832,9 @@ void PageItem_TextFrame::clearContents()
 	nextItem->asTextFrame()->deleteSelectedTextFromFrame();
 	if (!isNoteFrame())
 	{
-	if(UndoManager::undoEnabled())
-		undoManager->getLastUndo()->setName(Um::ClearText);
-	nextItem->itemText.setDefaultStyle(defaultStyle);
+		if(UndoManager::undoEnabled())
+			undoManager->getLastUndo()->setName(Um::ClearText);
+		nextItem->itemText.setDefaultStyle(defaultStyle);
 	}
 
 	while (nextItem != 0)
@@ -4549,25 +4549,25 @@ void PageItem_TextFrame::deleteSelectedTextFromFrame(/*bool findNotes*/)
 {
 	if (itemText.lengthOfSelection() == 0)
 	{
-		itemText.select(itemText.cursorPosition(),1);
+		itemText.select(itemText.cursorPosition(), 1);
 		HasSel = true;
 	}
-			int start = itemText.startOfSelection();
-			int stop = itemText.endOfSelection();
+	int start = itemText.startOfSelection();
+	int stop = itemText.endOfSelection();
 	int marksNum = 0;
 	if(UndoManager::undoEnabled()) {
-			int lastPos = start;
-			CharStyle lastParent = itemText.charStyle(start);
-			UndoState* state = undoManager->getLastUndo();
-			ScItemState<CharStyle> *is = NULL;
-			TransactionState *ts = NULL;
-			bool added = false;
-			bool lastIsDelete = false;
-			while(state && state->isTransaction()){
-				ts = dynamic_cast<TransactionState*>(state);
-				is = dynamic_cast<ScItemState<CharStyle>*>(ts->at(ts->sizet()-1));
-				state = ts->at(0);
-			}
+		int lastPos = start;
+		CharStyle lastParent = itemText.charStyle(start);
+		UndoState* state = undoManager->getLastUndo();
+		ScItemState<CharStyle> *is = NULL;
+		TransactionState *ts = NULL;
+		bool added = false;
+		bool lastIsDelete = false;
+		while(state && state->isTransaction()){
+			ts = dynamic_cast<TransactionState*>(state);
+			is = dynamic_cast<ScItemState<CharStyle>*>(ts->at(ts->sizet()-1));
+			state = ts->at(0);
+		}
 		UndoTransaction* trans = new UndoTransaction(undoManager->beginTransaction(Um::Selection,Um::IDelete,Um::Delete,"",Um::IDelete));
 
 		//find and delete notes and marks in selected text
@@ -4592,8 +4592,8 @@ void PageItem_TextFrame::deleteSelectedTextFromFrame(/*bool findNotes*/)
 			stop -= marksNum;
 		}
 		//delete text
-			for (int i=start; i <= stop; ++i)
-			{
+		for (int i=start; i <= stop; ++i)
+		{
 			ScText* hl = NULL;
 			if (i < itemText.length())
 				hl = itemText.item(i);
@@ -4626,12 +4626,12 @@ void PageItem_TextFrame::deleteSelectedTextFromFrame(/*bool findNotes*/)
 					is = NULL;
 					if (i - lastPos > 0)
 					{
-					is = new ScItemState<CharStyle>(Um::DeleteText,"",Um::IDelete);
-					is->set("DELETE_FRAMETEXT", "delete_frametext");
-					is->set("ETEA", QString("delete_frametext"));
-					is->set("TEXT_STR",itemText.text(lastPos,i - lastPos));
-					is->set("START", start);
-					is->setItem(lastParent);
+						is = new ScItemState<CharStyle>(Um::DeleteText,"",Um::IDelete);
+						is->set("DELETE_FRAMETEXT", "delete_frametext");
+						is->set("ETEA", QString("delete_frametext"));
+						is->set("TEXT_STR",itemText.text(lastPos,i - lastPos));
+						is->set("START", start);
+						is->setItem(lastParent);
 					}
 					//delete selected notes from notes frame
 					if (isNoteFrame())
@@ -4674,11 +4674,11 @@ void PageItem_TextFrame::deleteSelectedTextFromFrame(/*bool findNotes*/)
 					}
 					if (is)
 					{
-					if(!ts || !lastIsDelete){
+						if(!ts || !lastIsDelete){
 							undoManager->action(undoTarget, is);
-						ts = NULL;
-					}
-					else
+							ts = NULL;
+						}
+						else
 							ts->pushBack(undoTarget,is);
 					}
 				}
@@ -4698,8 +4698,8 @@ void PageItem_TextFrame::deleteSelectedTextFromFrame(/*bool findNotes*/)
 	itemText.setCursorPosition( start );
 	//for sure text is still selected
 	itemText.select(start, stop - start - marksNum);
-		itemText.removeSelection();
-		HasSel = false;
+	itemText.removeSelection();
+	HasSel = false;
 //	m_Doc->updateFrameItems();
 	m_Doc->scMW()->DisableTxEdit();
 }
