@@ -31,12 +31,13 @@ for which a new license (GPL+exception) is in place.
 #include <QEventLoop>
 #include <QFile>
 #include <QList>
-#include <QtAlgorithms>
-#include <QTime>
+#include <QMessageBox>
 #include <QPainter>
 #include <QPixmap>
 #include <QPointer>
 #include <QProgressBar>
+#include <QtAlgorithms>
+#include <QTime>
 #include <qtconcurrentmap.h>
 
 #include "canvas.h"
@@ -112,7 +113,6 @@ for which a new license (GPL+exception) is in place.
 #include "ui/markanchor.h"
 #include "ui/markvariabletext.h"
 #include "ui/marksmanager.h"
-#include "ui/scmessagebox.h"
 #include "ui/storyeditor.h"
 
 // static const bool FRAMESELECTION_EDITS_DEFAULTSTYLE = false;
@@ -11187,7 +11187,7 @@ void ScribusDoc::itemSelection_ClearItem(Selection* customSelection)
 			if (currItem->itemText.length() != 0 && (currItem->nextInChain() == 0 || currItem->prevInChain() == 0))
 			{
 				int btnYesToAll = (i < (selectedItemCount - 1)) ? QMessageBox::YesToAll : 0;
-				int t = ScMessageBox::warning(m_ScMW, CommonStrings::trWarning,
+				int t = QMessageBox::warning(m_ScMW, CommonStrings::trWarning,
 									tr("Do you really want to clear all your text?"),
 									QMessageBox::Yes, QMessageBox::No | QMessageBox::Default, btnYesToAll);
 				if (t == QMessageBox::No)
@@ -17914,7 +17914,7 @@ bool ScribusDoc::validateNSet(NotesStyle NS, QString newName)
 
 	if (!errStr.isEmpty() && ScCore->usingGUI())
 	{
-		ScMessageBox::warning(this->scMW(), QObject::tr("Unaceptable settings for Notes Style"), "<qt>"+ errStr +"</qt>", QMessageBox::Ok, QMessageBox::Abort | QMessageBox::Default);
+		QMessageBox::warning(this->scMW(), QObject::tr("Unaceptable settings for Notes Style"), "<qt>"+ errStr +"</qt>", QMessageBox::Ok, QMessageBox::Abort | QMessageBox::Default);
 		return false;
 	}
 	return true;
