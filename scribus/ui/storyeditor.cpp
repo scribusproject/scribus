@@ -38,6 +38,7 @@ for which a new license (GPL+exception) is in place.
 #include <QLabel>
 #include <QList>
 #include <QPair>
+#include <QMessageBox>
 #include <QMouseEvent>
 #include <QPaintEvent>
 #include <QPalette>
@@ -65,7 +66,6 @@ for which a new license (GPL+exception) is in place.
 #include "prefsfile.h"
 #include "prefsmanager.h"
 #include "scfonts.h"
-#include "scmessagebox.h"
 #include "scplugin.h"
 #include "scraction.h"
 #include "scribuscore.h"
@@ -2154,7 +2154,7 @@ void StoryEditor::closeEvent(QCloseEvent *e)
 	if (textChanged)
 	{
 		blockUpdate = true;
-		int t = ScMessageBox::warning(this, CommonStrings::trWarning,
+		int t = QMessageBox::warning(this, CommonStrings::trWarning,
 									tr("Do you want to save your changes?"),
 									QMessageBox::Yes|QMessageBox::Default,
 									QMessageBox::No,
@@ -2751,7 +2751,7 @@ void StoryEditor::Do_leave()
 	if (textChanged)
 	{
 		blockUpdate = true;
-		int t = ScMessageBox::warning(this, CommonStrings::trWarning,
+		int t = QMessageBox::warning(this, CommonStrings::trWarning,
 									 tr("Do you really want to lose all your changes?"),
 									 QMessageBox::Yes, QMessageBox::No | QMessageBox::Default);
 		qApp->processEvents();
@@ -2780,7 +2780,7 @@ bool StoryEditor::Do_new()
 	if (!Editor->document()->isEmpty())
 	{
 		blockUpdate = true;
-		int t = ScMessageBox::warning(this, CommonStrings::trWarning,
+		int t = QMessageBox::warning(this, CommonStrings::trWarning,
 								 tr("Do you really want to clear all your text?"),
 								 QMessageBox::Yes, QMessageBox::No | QMessageBox::Default);
 		qApp->processEvents();

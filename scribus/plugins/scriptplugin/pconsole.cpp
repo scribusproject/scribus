@@ -22,9 +22,6 @@ the Free Software Foundation; either version 2 of the License, or
 #include "scribuscore.h"
 #include "util_icon.h"
 
-#include "ui/scmessagebox.h"
-
-
 PythonConsole::PythonConsole( QWidget* parent)
 	: QMainWindow( parent )
 {
@@ -231,18 +228,6 @@ void PythonConsole::slot_saveAs()
 		filename = oldFname;
 		return;
 	}
-	// #10070 : not needed QFileDialog::getSaveFileName() will ask overwrite confirmation by itself
-	/*if (QFile::exists(filename))
-	{
-		QString fn = QDir::toNativeSeparators(filename);
-		if (ScMessageBox::warning(this, CommonStrings::trWarning,
-			"<qt>" + tr(QString("File %1 already exists. Do you want to replace it?").arg(fn).toLocal8Bit().constData()) + "</qt>",
-			QMessageBox::Yes, QMessageBox::No) == QMessageBox::No)
-		{
-			filename = oldFname;
-			return;
-		}
-	}*/
 	slot_save();
 }
 
@@ -256,15 +241,6 @@ void PythonConsole::slot_saveOutput()
 	if (fname.isEmpty())
 		return;
 	QFile f(fname);
-	// #10070 : not needed QFileDialog::getSaveFileName() will ask overwrite confirmation by itself
-	/*if (f.exists())
-	{
-		QString fn = QDir::toNativeSeparators(filename);
-		if (QMessageBox::warning(this, CommonStrings::trWarning,
-			"<qt>" + tr(QString("File %1 already exists. Do you want to replace it?").arg(fn).toLocal8Bit().constData()) + "</qt>",
-			QMessageBox::Yes, QMessageBox::No) == QMessageBox::No)
-			return;
-	}*/
 	// save
 	if (f.open(QIODevice::WriteOnly))
 	{

@@ -10,20 +10,18 @@ for which a new license (GPL+exception) is in place.
 #include "scpaths.h"
 #include "commonstrings.h"
 
+#include <QDir>
 #include <QGridLayout>
 #include <QHBoxLayout>
 #include <QVBoxLayout>
-#include <QTextStream>
-#include <QTextEdit>
 #include <QLabel>
+#include <QMessageBox>
 #include <QPushButton>
-#include <QToolTip>
 #include <QSpacerItem>
-#include <QFile>
 #include <QTextCodec>
-#include <QDir>
-
-#include "ui/scmessagebox.h"
+#include <QTextEdit>
+#include <QTextStream>
+#include <QToolTip>
 
 SWPrefsGui::SWPrefsGui(QWidget* parent ) : PrefsPanel(parent)
 {
@@ -108,12 +106,11 @@ void SWPrefsGui::okButton_pressed()
 {
 	if (cfgEdit->document()->isModified() && QFile::exists(RC_PATH_USR))
 	{
-		if ((ScMessageBox::warning(this, tr("Short Words"),
+		if ((QMessageBox::warning(this, tr("Short Words"),
 				"<qt>" + tr("User configuration exists already. "
 						"Do you really want to overwrite it?") + "</qt>",
-				CommonStrings::trYes,
-				CommonStrings::trNo, 0, 0, 1)
-			) == 1)
+				QMessageBox::Yes|QMessageBox::No)
+			) == QMessageBox::No)
 			return;
 	}
 

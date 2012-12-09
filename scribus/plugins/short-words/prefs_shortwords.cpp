@@ -5,9 +5,10 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 
+#include <QMessageBox>
+
 #include "prefs_shortwords.h"
 #include "prefsstructs.h"
-#include "ui/scmessagebox.h"
 #include "swsyntaxhighlighter.h"
 #include "version.h"
 #include "scpaths.h"
@@ -66,12 +67,11 @@ void Prefs_ShortWords::saveButton_pressed()
 {
 	if (cfgEdit->document()->isModified() && QFile::exists(RC_PATH_USR))
 	{
-		if ((ScMessageBox::warning(this, tr("Short Words"),
+		if ((QMessageBox::warning(this, tr("Short Words"),
 				"<qt>" + tr("User configuration exists already. "
 						"Do you really want to overwrite it?") + "</qt>",
-				CommonStrings::trYes,
-				CommonStrings::trNo, 0, 0, 1)
-			) == 1)
+				QMessageBox::Yes|QMessageBox::No)
+			) == QMessageBox::No)
 			return;
 	}
 
