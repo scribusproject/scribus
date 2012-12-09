@@ -17907,14 +17907,14 @@ bool ScribusDoc::validateNSet(NotesStyle NS, QString newName)
 			continue;
 		if (NS.range() == NS2->range())
 		{
-				if ((NS.getType() == NS2->getType()) && (NS.prefix() == NS2->prefix()) && (NS.suffix() == NS2->suffix()))
-					errStr.append(NS.name() + tr("Notes style has document as range and provide same numbering style as set ") + NS2->name() + "\n");
+			if ((NS.getType() == NS2->getType()) && (NS.prefix() == NS2->prefix()) && (NS.suffix() == NS2->suffix()))
+				errStr.append(tr("%1 note style has document as range and provide same numbering style as set %2").arg(NS.name()).arg(NS2->name()) + "\n");
 		}
 	}
 
 	if (!errStr.isEmpty() && ScCore->usingGUI())
 	{
-		QMessageBox::warning(this->scMW(), QObject::tr("Unaceptable settings for Notes Style"), "<qt>"+ errStr +"</qt>", QMessageBox::Ok, QMessageBox::Abort | QMessageBox::Default);
+		QMessageBox::warning(this->scMW(), QObject::tr("Unaceptable settings for note style"), "<qt>"+ errStr +"</qt>", QMessageBox::Ok, QMessageBox::Abort | QMessageBox::Default);
 		return false;
 	}
 	return true;
