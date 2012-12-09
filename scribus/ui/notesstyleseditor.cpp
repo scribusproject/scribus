@@ -7,7 +7,6 @@
 #include "scribusdoc.h"
 #include "scribusview.h"
 #include "scribus.h"
-#include "scmessagebox.h"
 #include "undomanager.h"
 
 NotesStylesEditor::NotesStylesEditor(QWidget *parent, const char *name)
@@ -361,8 +360,8 @@ void NotesStylesEditor::on_ApplyButton_clicked()
 void NotesStylesEditor::on_DeleteButton_clicked()
 {
 	QString nsName = NSlistBox->currentText();
-	int t = ScMessageBox::warning(m_Doc->scMW(), QObject::tr("Attention! Deleting Notes Style"), "<qt>" +
-								 QObject::tr("You are going to delete notes style %1, but you must to know, that it deletes all notes inputs in notes frames and notes marks in text with that notes style.").arg(nsName) + "</qt>",
+	int t = QMessageBox::warning(m_Doc->scMW(), tr("Warning! Deleting Notes Style"), "<qt>" +
+								 tr("You are going to delete notes style %1. All notes and marks using that style are also going to be deleted.").arg(nsName) + "</qt>",
 								 QMessageBox::Ok, QMessageBox::Abort | QMessageBox::Default);
 	if (t == QMessageBox::Ok)
 	{
