@@ -4,7 +4,6 @@
 #include "pageitem.h"
 #include "scribus.h"
 #include "scribusdoc.h"
-#include "ui/scmessagebox.h"
 #include "undomanager.h"
 #include "util_text.h"
 

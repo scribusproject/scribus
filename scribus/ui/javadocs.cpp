@@ -5,13 +5,15 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 #include "javadocs.h"
-#include <QPixmap>
+
 #include <QHBoxLayout>
 #include <QVBoxLayout>
-#include <QTextEdit>
+#include <QMessageBox>
 #include <QListWidget>
+#include <QPixmap>
 #include <QPushButton>
 #include <QRegExp>
+#include <QTextEdit>
 #include <QToolTip>
 
 #include "commonstrings.h"
@@ -19,7 +21,6 @@ for which a new license (GPL+exception) is in place.
 #include "query.h"
 #include "scpage.h"
 #include "scribusdoc.h"
-#include "ui/scmessagebox.h"
 #include "util_icon.h"
 
 

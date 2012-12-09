@@ -43,6 +43,7 @@ for which a new license (GPL+exception) is in place.
 #include <QLabel>
 #include <QList>
 #include <QMenu>
+#include <QMessageBox>
 #include <QMimeData>
 #include <QMouseEvent>
 #include <QPaintEvent>
@@ -118,7 +119,6 @@ for which a new license (GPL+exception) is in place.
 #include "ui/propertiespalette_line.h"
 #include "ui/propertiespalette_text.h"
 #include "ui/rulermover.h"
-#include "ui/scmessagebox.h"
 #include "ui/scrapbookpalette.h"
 #include "ui/storyeditor.h"
 #include "ui/symbolpalette.h"

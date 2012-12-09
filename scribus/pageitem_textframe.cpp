@@ -57,8 +57,6 @@ for which a new license (GPL+exception) is in place.
 #include "util_math.h"
 
 #include "ui/guidemanager.h"
-//don`t worry - message boxes are called only if GUI is enabled
-#include "ui/scmessagebox.h"
 
 #include <cairo.h>
 

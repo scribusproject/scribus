@@ -6,13 +6,14 @@ for which a new license (GPL+exception) is in place.
 */
 #include "export.h"
 #include "dialog.h"
+
+#include <QCursor>
+#include <QDir>
+#include <QMessageBox>
 #include <QPixmap>
 #include <QString>
-#include <QDir>
-#include <QCursor>
 #include <QSharedPointer>
 
-#include "ui/scmessagebox.h"
 #include "scribus.h"
 #include "scraction.h"
 #include "ui/scmwmenumanager.h"

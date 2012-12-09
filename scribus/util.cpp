@@ -24,13 +24,15 @@ for which a new license (GPL+exception) is in place.
 #include <algorithm>
 #include "util.h"
 #include <zlib.h>
+
 #include <QApplication>
 #include <QCryptographicHash>
 #include <QDomElement>
+#include <QMessageBox>
 #include <QProcess>
+
 #include "pageitem.h"
 #include "pageitem_table.h"
-#include "ui/scmessagebox.h"
 #include "scribus.h"
 #include "scribusdoc.h"
 #include "scpainter.h"

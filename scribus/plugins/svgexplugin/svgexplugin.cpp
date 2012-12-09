@@ -21,14 +21,15 @@ for which a new license (GPL+exception) is in place.
  *                                                                         *
  ***************************************************************************/
 
-#include <QFile>
-#include <QTextStream>
-#include <QDataStream>
-#include <QByteArray>
 #include <QBuffer>
-#include <QList>
+#include <QByteArray>
 #include <QCheckBox>
+#include <QDataStream>
+#include <QFile>
+#include <QList>
+#include <QMessageBox>
 #include <QScopedPointer>
+#include <QTextStream>
 
 #include "svgexplugin.h"
 
@@ -50,7 +51,6 @@ for which a new license (GPL+exception) is in place.
 #include "util.h"
 #include "ui/customfdialog.h"
 #include "ui/guidemanager.h"
-#include "ui/scmessagebox.h"
 #include "sccolorengine.h"
 #include "util_formats.h"
 #include "util_math.h"
