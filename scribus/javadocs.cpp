@@ -5,20 +5,23 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 #include "javadocs.h"
-#include <QPixmap>
+
 #include <QHBoxLayout>
 #include <QVBoxLayout>
-#include <QTextEdit>
 #include <QListWidget>
+#include <QMessageBox>
+#include <QPixmap>
 #include <QPushButton>
 #include <QRegExp>
+#include <QTextEdit>
 #include <QToolTip>
+
+#include "commonstrings.h"
 #include "editor.h"
+#include "page.h"
+#include "query.h"
 #include "scmessagebox.h"
 #include "scribusdoc.h"
-#include "page.h"
-#include "commonstrings.h"
-#include "query.h"
 #include "util_icon.h"
 
 JavaDocs::JavaDocs(QWidget* parent, ScribusDoc *doc, ScribusView* vie) : QDialog( parent )

@@ -6,19 +6,21 @@ for which a new license (GPL+exception) is in place.
 */
 #include "export.h"
 #include "dialog.h"
-#include <QPixmap>
-#include <QString>
-#include <QDir>
-#include <QCursor>
-#include <QSharedPointer>
 
-#include "scmessagebox.h"
-#include "scribus.h"
-#include "scraction.h"
-#include "menumanager.h"
-#include "util.h"
+#include <QCursor>
+#include <QDir>
+#include <QList>
+#include <QMessageBox>
+#include <QPixmap>
+#include <QSharedPointer>
+#include <QString>
+
 #include "commonstrings.h"
+#include "menumanager.h"
 #include "scpaths.h"
+#include "scraction.h"
+#include "scribus.h"
+#include "util.h"
 
 int scribusexportpixmap_getPluginAPIVersion()
 {

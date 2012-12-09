@@ -27,6 +27,7 @@ for which a new license (GPL+exception) is in place.
 #include <QLabel>
 #include <QLayout>
 #include <QLineEdit>
+#include <QMessageBox>
 #include <QPixmap>
 #include <QPushButton>
 #include <QTabWidget>
@@ -36,7 +37,6 @@ for which a new license (GPL+exception) is in place.
 
 #include "commonstrings.h"
 #include "page.h"
-#include "scmessagebox.h"
 #include "scribusdoc.h"
 #include "scrspinbox.h"
 #include "selection.h"

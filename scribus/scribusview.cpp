@@ -42,6 +42,7 @@ for which a new license (GPL+exception) is in place.
 #include <QLabel>
 #include <QList>
 #include <QMenu>
+#include <QMessageBox>
 #include <QMimeData>
 #include <QMouseEvent>
 #include <QPaintEvent>
@@ -101,7 +102,6 @@ for which a new license (GPL+exception) is in place.
 #include "propertiespalette.h"
 #include "rulermover.h"
 #include "scclocale.h"
-#include "scmessagebox.h"
 #include "scmimedata.h"
 #include "scpainter.h"
 #include "scpaths.h"
