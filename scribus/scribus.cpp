@@ -709,8 +709,8 @@ void ScribusMainWindow::initScrapbook()
 bool ScribusMainWindow::warningVersion(QWidget *parent)
 {
 	bool retval = false;
-	int t = ScMessageBox::warning(parent, QObject::tr("Scribus Development Version"), "<qt>" +
-								 QObject::tr("You are running a development version of Scribus 1.3.x. The document you are working with was created in Scribus 1.2.x.  Saving the current file under 1.3.x renders it unable to be edited in Scribus 1.2.x versions. To preserve the ability to edit in 1.2.x, save this file under a different name and further edit the newly named file and the original will be untouched. Are you sure you wish to proceed with this operation?") + "</qt>",
+	int t = QMessageBox::warning(parent, QObject::tr("Scribus Development Version"), "<qt>" +
+								 QObject::tr("You are running a development version of Scribus 1.5.x. The document you are working with was created in Scribus 1.2.x.  Saving the current file under 1.5.x renders it unable to be edited in Scribus 1.2.x versions. To preserve the ability to edit in 1.2.x, save this file under a different name and further edit the newly named file and the original will be untouched. Are you sure you wish to proceed with this operation?") + "</qt>",
 								 QMessageBox::Ok | QMessageBox::Cancel, QMessageBox::Cancel);
 	if (t == QMessageBox::Ok)
 		retval = true;

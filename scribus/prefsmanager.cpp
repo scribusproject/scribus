@@ -57,7 +57,6 @@ for which a new license (GPL+exception) is in place.
 #include "ui/missing.h"
 #include "ui/modetoolbar.h"
 #include "ui/prefs_keyboardshortcuts.h"
-#include "ui/scmessagebox.h"
 
 extern bool emergencyActivated;
 
