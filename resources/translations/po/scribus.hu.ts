@@ -674,7 +674,8 @@
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1470"/>
         <source>Adjust Frame Height to Text</source>
-        <translation type="unfinished"></translation>
+        <translatorcomment>Rövidítve: Keret magasságának hozzáigazítása a szöveghez</translatorcomment>
+        <translation>Keret magassága a szöveghez</translation>
     </message>
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1471"/>
@@ -4445,7 +4446,8 @@ Height: %2</source>
     <message>
         <location filename="../../../scribus/canvasmode_normal.cpp" line="363"/>
         <source>Overflow Characters: %1</source>
-        <translation>Túlcsorduló karakterek: %1</translation>
+        <translatorcomment>magyarul egyes számban marad</translatorcomment>
+        <translation>Túlcsorduló karakter: %1</translation>
     </message>
     <message>
         <location filename="../../../scribus/canvasmode_normal.cpp" line="1344"/>
@@ -20261,7 +20263,7 @@ Wesselényinél mázol Quitóban</translation>
     <message>
         <location filename="../../../scribus/ui/prefs_paths.cpp" line="34"/>
         <source>Default ICC profiles directory. This cannot be changed with a document open. By default, Scribus will look in the System Directories under Mac OSX and Windows. On Linux and Unix, Scribus will search $home/.color/icc, $home/.local/share/color/icc, /usr/share/color/icc and /usr/local/share/color/icc</source>
-        <translation type="unfinished"></translation>
+        <translation>Alapértelmezett ICC profil mappa. Nem változtatható, ha egy dokumentum nyitva van. Alapértelmezetten a Scribus Mac OSX és Windows alatt a rendszerkönyvtárban keresi, Linux és Unix alatt pedig a $home/.color/icc, $home/.local/share/color/icc, /usr/share/color/icc és a /usr/local/share/color/icc mappákban</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_paths.cpp" line="35"/>
@@ -29637,31 +29639,31 @@ Kérem, válasszon másikat.</translation>
     <message>
         <location filename="../../../scribus/ui/smpstylewidget.cpp" line="138"/>
         <source>Lines:</source>
-        <translation type="unfinished"></translation>
+        <translation>Sorok:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/smpstylewidget.cpp" line="157"/>
         <source>None</source>
         <comment>optical margins</comment>
-        <translation type="unfinished">Nincs</translation>
+        <translation>Nincs</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/smpstylewidget.cpp" line="158"/>
         <source>Both Sides</source>
         <comment>optical margins</comment>
-        <translation type="unfinished">Mindkét oldalon</translation>
+        <translation>Mindkét oldalon</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/smpstylewidget.cpp" line="159"/>
         <source>Left Only</source>
         <comment>optical margins</comment>
-        <translation type="unfinished">Csak bal oldalon</translation>
+        <translation>Csak bal oldalon</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/smpstylewidget.cpp" line="160"/>
         <source>Right Only</source>
         <comment>optical margins</comment>
-        <translation type="unfinished">Csak jobb oldalon</translation>
+        <translation>Csak jobb oldalon</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/smpstylewidget.cpp" line="305"/>
