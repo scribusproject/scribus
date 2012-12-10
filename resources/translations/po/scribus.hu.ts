@@ -19425,31 +19425,31 @@ Kérem, válasszon másikat.</translation>
     <message>
         <location filename="../../../scribus/smpstylewidget.cpp" line="130"/>
         <source>Lines:</source>
-        <translation type="unfinished"></translation>
+        <translation>Sorok:</translation>
     </message>
     <message>
         <location filename="../../../scribus/smpstylewidget.cpp" line="149"/>
         <source>None</source>
         <comment>optical margins</comment>
-        <translation type="unfinished"></translation>
+        <translation>Nincs</translation>
     </message>
     <message>
         <location filename="../../../scribus/smpstylewidget.cpp" line="150"/>
         <source>Both Sides</source>
         <comment>optical margins</comment>
-        <translation type="unfinished">Mindkét oldalon</translation>
+        <translation>Mindkét oldalon</translation>
     </message>
     <message>
         <location filename="../../../scribus/smpstylewidget.cpp" line="151"/>
         <source>Left Only</source>
         <comment>optical margins</comment>
-        <translation type="unfinished">Csak bal oldalon</translation>
+        <translation>Csak bal oldalon</translation>
     </message>
     <message>
         <location filename="../../../scribus/smpstylewidget.cpp" line="152"/>
         <source>Right Only</source>
         <comment>optical margins</comment>
-        <translation type="unfinished">Csak jobb oldalon</translation>
+        <translation>Csak jobb oldalon</translation>
     </message>
     <message>
         <location filename="../../../scribus/smpstylewidget.ui" line="32"/>
@@ -23310,7 +23310,7 @@ Tekintse meg őket az Elővizsgálóval, hogy javítani tudja</translation>
     <message>
         <location filename="../../../scribus/tabgeneral.cpp" line="61"/>
         <source>Default ICC profiles directory. This cannot be changed with a document open. By default, Scribus will look in the System Directories under Mac OSX and Windows. On Linux and Unix, Scribus will search $home/.color/icc, $home/.local/share/color/icc, /usr/share/color/icc and /usr/local/share/color/icc</source>
-        <translation type="unfinished"></translation>
+        <translation>Alapértelmezett ICC profil könyvtár. Nem változtatható, ha egy dokumentum nyitva van. Alapértelmezetten a Scribus Mac OSX és Windows alatt a rendszerkönyvtárban keresi, Linux és Unix alatt pedig a $home/.color/icc, $home/.local/share/color/icc, /usr/share/color/icc és a /usr/local/share/color/icc könyvtárakban</translation>
     </message>
     <message>
         <source>Default ICC profiles directory. This cannot be changed with a document open. By default, Scribus will look in the System Directories under Mac OSX and Windows. On Linux and Unix, Scribus will search $home/.color/icc,/usr/share/color/icc and /usr/local/share/color/icc </source>
