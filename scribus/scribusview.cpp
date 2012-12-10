@@ -293,10 +293,12 @@ ScribusView::ScribusView(QWidget* win, ScribusMainWindow* mw, ScribusDoc *doc) :
 	layerMenu->setEditable(false);
 	layerMenu->setFont(fo);
 	layerMenu->setFocusPolicy(Qt::NoFocus);
+	layerMenu->setSizeAdjustPolicy(QComboBox::AdjustToContents);
 	visualMenu = new QComboBox( this );
 	visualMenu->setFocusPolicy(Qt::NoFocus);
 	visualMenu->setFont(fo);
 	visualMenu->setEnabled(false);
+	visualMenu->setSizeAdjustPolicy(QComboBox::AdjustToContents);
 	horizRuler = new Hruler(this, Doc);
 	vertRuler = new Vruler(this, Doc);
 	horizRuler->installEventFilter(this);
