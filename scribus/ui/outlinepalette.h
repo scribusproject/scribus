@@ -115,6 +115,7 @@ protected:
 	QPixmap groupIcon;
 	QPixmap tableIcon;
 	QPixmap buttonIcon;
+	QPixmap radiobuttonIcon;
 	QPixmap textFieldIcon;
 	QPixmap checkBoxIcon;
 	QPixmap comboBoxIcon;

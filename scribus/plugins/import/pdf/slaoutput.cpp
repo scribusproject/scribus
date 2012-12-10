@@ -652,7 +652,7 @@ bool SlaOutputDev::handleWidgetAnnot(Annot* annota, double xCoor, double yCoor, 
 							else
 								ite->itemText.insertChars(itemText);
 							applyTextStyle(ite, fontName, CurrColorText, fontSize);
-							ite->annotation().addToFlag(65536);
+							ite->annotation().addToFlag(Annotation::Flag_PushButton);
 							handleActions(ite, ano);
 						}
 						else if (wtyp == 3) // Textfield
@@ -663,13 +663,13 @@ bool SlaOutputDev::handleWidgetAnnot(Annot* annota, double xCoor, double yCoor, 
 								ite->itemText.insertChars(UnicodeParsedString(btn->getContent()));
 								applyTextStyle(ite, fontName, CurrColorText, fontSize);
 								if (btn->isMultiline())
-									ite->annotation().addToFlag(4096);
+									ite->annotation().addToFlag(Annotation::Flag_Multiline);
 								if (btn->isPassword())
-									ite->annotation().addToFlag(8192);
+									ite->annotation().addToFlag(Annotation::Flag_Password);
 								if (btn->noSpellCheck())
-									ite->annotation().addToFlag(4194304);
+									ite->annotation().addToFlag(Annotation::Flag_DoNotSpellCheck);
 								if (btn->noScroll())
-									ite->annotation().addToFlag(8388608);
+									ite->annotation().addToFlag(Annotation::Flag_DoNotScroll);
 								int mxLen = btn->getMaxLen();
 								if (mxLen > 0)
 									ite->annotation().setMaxChar(mxLen);
@@ -706,7 +706,7 @@ bool SlaOutputDev::handleWidgetAnnot(Annot* annota, double xCoor, double yCoor, 
 							if (btn)
 							{
 								if (wtyp == 5)
-									ite->annotation().addToFlag(131072);
+									ite->annotation().addToFlag(Annotation::Flag_Combo);
 								int co = btn->getNumChoices();
 								if (co > 0)
 								{
@@ -719,7 +719,7 @@ bool SlaOutputDev::handleWidgetAnnot(Annot* annota, double xCoor, double yCoor, 
 								}
 								applyTextStyle(ite, fontName, CurrColorText, fontSize);
 								if (!btn->isReadOnly())
-									ite->annotation().addToFlag(262144);
+									ite->annotation().addToFlag(Annotation::Flag_Edit);
 								handleActions(ite, ano);
 							}
 						}

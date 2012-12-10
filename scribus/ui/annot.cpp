@@ -93,14 +93,17 @@ ScAnnot::ScAnnot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorLi
 	Layout1->addWidget( TextLabel1 );
 
 	ComboBox1 = new QComboBox( this );
-	QString tmp[] = { tr("Button"), tr("Text Field"), tr("Check Box"), tr("Combo Box"), tr("List Box")};
+	QString tmp[] = { tr("Button"), tr("Text Field"), tr("Check Box"), tr("Combo Box"), tr("List Box"), tr("Radio Button")};
 	size_t array = sizeof(tmp) / sizeof(*tmp);
 	for (uint a = 0; a < array; ++a)
 		ComboBox1->addItem(tmp[a]);
 	ComboBox1->setEditable(false);
 	Layout1->addWidget( ComboBox1 );
 	AnnotLayout->addLayout( Layout1 );
-	ComboBox1->setCurrentIndex(item->annotation().Type()-2);
+	if (item->annotation().Type() != Annotation::RadioButton)
+		ComboBox1->setCurrentIndex(item->annotation().Type()-2);
+	else
+		ComboBox1->setCurrentIndex(5);
 
 	Fram = new QStackedWidget(this);
 	AnnotLayout->addWidget( Fram );
@@ -230,19 +233,19 @@ ScAnnot::ScAnnot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorLi
 	ReadOnly->setText( tr( "Read Only" ) );
 	if (item->annotation().Type() == Annotation::Button)
 		ReadOnly->setEnabled(false);
-	ReadOnly->setChecked(item->annotation().Flag() & 1);
+	ReadOnly->setChecked(item->annotation().Flag() & Annotation::Flag_ReadOnly);
 	GroupBox30Layout->addWidget( ReadOnly, 0, 0, 1, 2 );
 	Required = new QCheckBox( GroupBox30 );
 	Required->setText( tr( "Required" ) );
 	if (item->annotation().Type() == Annotation::Button)
 		Required->setEnabled(false);
-	Required->setChecked(item->annotation().Flag() & 2);
+	Required->setChecked(item->annotation().Flag() & Annotation::Flag_Required);
 	GroupBox30Layout->addWidget( Required, 1, 0, 1, 2 );
 	NoExport = new QCheckBox( GroupBox30 );
 	NoExport->setText( tr( "Do Not Export Value" ) );
 	if (item->annotation().Type() == Annotation::Button)
 		NoExport->setEnabled(false);
-	NoExport->setChecked(item->annotation().Flag() & 4);
+	NoExport->setChecked(item->annotation().Flag() & Annotation::Flag_NoExport);
 	GroupBox30Layout->addWidget( NoExport, 2, 0, 1, 2 );
 	TextLabel90 = new QLabel( GroupBox30 );
 	TextLabel90->setText( tr( "Visibility:" ) );
@@ -437,11 +440,11 @@ ScAnnot::ScAnnot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorLi
 	OptTextFeldLayout->setAlignment( Qt::AlignTop );
 	MultiL = new QCheckBox( OptTextFeld );
 	MultiL->setText( tr( "Multi-Line" ) );
-	MultiL->setChecked(item->annotation().Flag() & 4096);
+	MultiL->setChecked(item->annotation().Flag() & Annotation::Flag_Multiline);
 	OptTextFeldLayout->addWidget( MultiL );
 	Passwd = new QCheckBox( OptTextFeld );
 	Passwd->setText( tr( "Password" ) );
-	Passwd->setChecked(item->annotation().Flag() & 8192);
+	Passwd->setChecked(item->annotation().Flag() & Annotation::Flag_Password);
 	OptTextFeldLayout->addWidget( Passwd );
 	Layout8 = new QHBoxLayout;
 	Layout8->setSpacing( 5 );
@@ -465,11 +468,11 @@ ScAnnot::ScAnnot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorLi
 	OptTextFeldLayout->addLayout( Layout8 );
 	NoScroll = new QCheckBox( OptTextFeld );
 	NoScroll->setText( tr( "Do Not Scroll" ) );
-	NoScroll->setChecked(item->annotation().Flag() & 8388608);
+	NoScroll->setChecked(item->annotation().Flag() & Annotation::Flag_DoNotScroll);
 	OptTextFeldLayout->addWidget( NoScroll );
 	NoSpell = new QCheckBox( OptTextFeld );
 	NoSpell->setText( tr( "Do Not Spell Check" ) );
-	NoSpell->setChecked(item->annotation().Flag() & 4194304);
+	NoSpell->setChecked(item->annotation().Flag() & Annotation::Flag_DoNotSpellCheck);
 	OptTextFeldLayout->addWidget( NoSpell );
 	FramOp->addWidget( OptTextFeld );
 
@@ -513,7 +516,7 @@ ScAnnot::ScAnnot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorLi
 	OptComboLayout->setAlignment( Qt::AlignTop );
 	CanEdit = new QCheckBox( OptCombo );
 	CanEdit->setText( tr( "Editable" ) );
-	CanEdit->setChecked(item->annotation().Flag() & 262144);
+	CanEdit->setChecked(item->annotation().Flag() & Annotation::Flag_Edit);
 	OptComboLayout->addWidget( CanEdit );
 	FramOp->addWidget( OptCombo );
 
@@ -1192,7 +1195,10 @@ ScAnnot::ScAnnot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorLi
 	Frame9->setFrameShadow( QFrame::Plain );
 	Fram->addWidget(Frame9);
 
-	SetAnnotationType(item->annotation().Type()-2);
+	if (item->annotation().Type() == Annotation::RadioButton)
+		SetAnnotationType(5);
+	else
+		SetAnnotationType(item->annotation().Type()-2);
 	Layout1_2 = new QHBoxLayout;
 	Layout1_2->setSpacing( 5 );
 	Layout1_2->setMargin( 0 );
@@ -1890,7 +1896,10 @@ void ScAnnot::SetValues()
 	QString tmp, tmp2;
 	QString Nfo("");
 	bool AAct = false;
-	item->annotation().setType(ComboBox1->currentIndex()+2);
+	if (ComboBox1->currentIndex() == 5)
+		item->annotation().setType(Annotation::RadioButton);
+	else
+		item->annotation().setType(ComboBox1->currentIndex()+2);
 	if (Name->text() != OldName)
 		item->setItemName(Name->text());
 	item->annotation().setToolTip(Tip->text());
@@ -1910,7 +1919,7 @@ void ScAnnot::SetValues()
 	Limit->isChecked() ? item->annotation().setMaxChar(MaxChars->value()) : item->annotation().setMaxChar(-1);
 	if (item->annotation().Type() == Annotation::Button)
 	{
-		item->annotation().addToFlag(65536);
+		item->annotation().addToFlag(Annotation::Flag_PushButton);
 		if (item->Pfile.isEmpty())
 			item->annotation().setUseIcons(false);
 	}
@@ -1918,28 +1927,32 @@ void ScAnnot::SetValues()
 	{
 		item->annotation().setUseIcons(false);
 		if (ReadOnly->isChecked())
-			item->annotation().addToFlag(1);
+			item->annotation().addToFlag(Annotation::Flag_ReadOnly);
 		if (Required->isChecked())
-			item->annotation().addToFlag(2);
+			item->annotation().addToFlag(Annotation::Flag_Required);
 		if (NoExport->isChecked())
-			item->annotation().addToFlag(4);
+			item->annotation().addToFlag(Annotation::Flag_NoExport);
+	}
+	if (item->annotation().Type() == Annotation::RadioButton)
+	{
+		item->annotation().addToFlag(Annotation::Flag_Radio | Annotation::Flag_NoToggleToOff);
 	}
 	if (item->annotation().Type() == Annotation::Combobox)
 	{
-		item->annotation().addToFlag(131072);
+		item->annotation().addToFlag(Annotation::Flag_Combo);
 		if (CanEdit->isChecked())
-			item->annotation().addToFlag(262144);
+			item->annotation().addToFlag(Annotation::Flag_Edit);
 	}
 	if (item->annotation().Type() == Annotation::Textfield)
 	{
 		if (MultiL->isChecked())
-			item->annotation().addToFlag(4096);
+			item->annotation().addToFlag(Annotation::Flag_Multiline);
 		if (Passwd->isChecked())
-			item->annotation().addToFlag(8192);
+			item->annotation().addToFlag(Annotation::Flag_Password);
 		if (NoSpell->isChecked())
-			item->annotation().addToFlag(4194304);
+			item->annotation().addToFlag(Annotation::Flag_DoNotSpellCheck);
 		if (NoScroll->isChecked())
-			item->annotation().addToFlag(8388608);
+			item->annotation().addToFlag(Annotation::Flag_DoNotScroll);
 	}
 	if ((item->annotation().Type() == Annotation::Textfield) || (item->annotation().Type() == Annotation::Combobox))
 	{
@@ -2136,6 +2149,8 @@ void ScAnnot::SetAnnotationType(int it)
 	TabWidget2->setTabEnabled(TabWidget2->indexOf(tab_5), false);
 	EditFormat->setEnabled( false );
 	EditKeystr->setEnabled( false );
+	CText1->show();
+	ChkStil->show();
 	SelAction->clear();
 	QString tmp_selact[]={tr("Mouse Up"), tr("Mouse Down"), tr("Mouse Enter"),
 	                      tr("Mouse Exit"), tr("On Focus"), tr("On Blur")};
@@ -2188,11 +2203,20 @@ void ScAnnot::SetAnnotationType(int it)
 		if (sela == 6)
 			SelAction->addItem( tr( "Selection Change" ) );
 		ReadOnly->setEnabled(true);
-		ReadOnly->setChecked(item->annotation().Flag() & 1);
-		Required->setChecked(item->annotation().Flag() & 2);
-		NoExport->setChecked(item->annotation().Flag() & 4);
+		ReadOnly->setChecked(item->annotation().Flag() & Annotation::Flag_ReadOnly);
+		Required->setChecked(item->annotation().Flag() & Annotation::Flag_Required);
+		NoExport->setChecked(item->annotation().Flag() & Annotation::Flag_NoExport);
 		Fram->setCurrentIndex(3);
-		sela > 5 ? FramOp->setCurrentIndex(3) : FramOp->setCurrentIndex(sela-2);
+		if (sela < 6)
+			FramOp->setCurrentIndex(sela-2);
+		else if (sela == 6)
+			FramOp->setCurrentIndex(3);
+		else
+		{
+			CText1->hide();
+			ChkStil->hide();
+			FramOp->setCurrentIndex(2);
+		}
 		ActionCombo->clear();
 		ActionCombo->addItem( tr( "None" ) );
 		ActionCombo->addItem( tr( "JavaScript" ) );
@@ -2203,11 +2227,11 @@ void ScAnnot::SetAnnotationType(int it)
 		Fram->setCurrentIndex(2);
 		break;
 	}
-	MultiL->setChecked(item->annotation().Flag() & 4096);
-	Passwd->setChecked(item->annotation().Flag() & 8192);
-	CanEdit->setChecked(item->annotation().Flag() & 262144);
-	NoSpell->setChecked(item->annotation().Flag() & 4194304);
-	NoScroll->setChecked(item->annotation().Flag() & 8388608);
+	MultiL->setChecked(item->annotation().Flag() & Annotation::Flag_Multiline);
+	Passwd->setChecked(item->annotation().Flag() & Annotation::Flag_Password);
+	CanEdit->setChecked(item->annotation().Flag() & Annotation::Flag_Edit);
+	NoSpell->setChecked(item->annotation().Flag() & Annotation::Flag_DoNotSpellCheck);
+	NoScroll->setChecked(item->annotation().Flag() & Annotation::Flag_DoNotScroll);
 	ChkStil->setCurrentIndex(item->annotation().ChkStil());
 	isChkd->setChecked(item->annotation().IsChk());
 	setter = item->annotation().MaxChar() != -1 ? true : false;

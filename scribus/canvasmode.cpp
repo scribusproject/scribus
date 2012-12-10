@@ -157,6 +157,7 @@ CanvasMode* CanvasMode::createForAppMode(ScribusView* view, int appMode)
 		case modeDrawArc:
 		case modeDrawSpiral:
 		case modeInsertPDFButton:
+		case modeInsertPDFRadioButton:
 		case modeInsertPDFTextfield:
 		case modeInsertPDFCheckbox:
 		case modeInsertPDFCombobox:
@@ -810,6 +811,7 @@ void CanvasMode::setModeCursor()
 		case modeEditMeshPatch:
 		case modeEditWeldPoint:
 		case modeInsertPDFButton:
+		case modeInsertPDFRadioButton:
 		case modeInsertPDFTextfield:
 		case modeInsertPDFCheckbox:
 		case modeInsertPDFCombobox:

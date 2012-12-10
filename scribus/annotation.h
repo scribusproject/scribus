@@ -28,7 +28,6 @@ for which a new license (GPL+exception) is in place.
 
 #include <QString>
 #include "scribusapi.h"
-//#include "desaxe/saxio.h"
 
 //FIXME: Someone please fix these variable names.. 
 //They are simply moved here, not all fixed.
@@ -41,7 +40,6 @@ class SCRIBUS_API Annotation // : public SaxIO
 						An_Fo_act(""), An_Bl_act(""), An_K_act(""), An_F_act(""), An_V_act(""), An_C_act(""),
 						AnToolTip(""), AnRollOver(""), AnDown(""), AnBColor(""), An_Extern(""), AnBsty(0),
 						AnBwid(1), AnFeed(1), AnZiel(0), AnFlag(0), AnMaxChar(-1), AnVis(0), AnChkStil(0),
-//						AnFont(4), AnIsChk(false), AnAAact(false), AnHTML(false), AnUseIcons(false),
 						AnFont(4), AnIsChk(false), AnAAact(false), AnHTML(0), AnUseIcons(false),
 						AnIPlace(1), AnScaleW(0), AnFormat(0)
 		{
@@ -54,14 +52,30 @@ class SCRIBUS_API Annotation // : public SaxIO
 			Listbox			= 6,
 			Text			= 10,
 			Link			= 11,
-			Annot3D		  	= 12
+			Annot3D		  	= 12,
+			RadioButton		= 13
 		};
-		
-//	static const Xml_string saxxDefaultElem;
-//	static void  desaxeRules(const Xml_string& prefixPattern, desaxe::Digester& ruleset, Xml_string elemtag = saxxDefaultElem);
-	
-//	virtual void saxx(SaxHandler& handler, const Xml_string& elemtag) const;
-//	virtual void saxx(SaxHandler& handler)                     const { saxx(handler, saxxDefaultElem); }
+		enum AnnotationFlags {
+			Flag_ReadOnly			=		   1,	// Bit  1
+			Flag_Required			=		   2,	// Bit  2
+			Flag_NoExport			=		   4,	// Bit  3
+			Flag_Multiline			=		4096,	// Bit 13
+			Flag_Password			=		8192,	// Bit 14
+			Flag_NoToggleToOff		=	   16384,	// Bit 15
+			Flag_Radio				=	   32768,	// Bit 16
+			Flag_PushButton			=	   65536,	// Bit 17
+			Flag_Combo				=	  131072,	// Bit 18
+			Flag_Edit				=	  262144,	// Bit 19
+			Flag_Sort				=	  524288,	// Bit 20
+			Flag_FileSelect			=	 1048576,	// Bit 21
+			Flag_MultiSelect		=	 2097152,	// Bit 22
+			Flag_DoNotSpellCheck	=	 4194304,	// Bit 23
+			Flag_DoNotScroll		=	 8388608,	// Bit 24
+			Flag_Comb				=	16777216,	// Bit 25
+			Flag_RichText			=	33554432,	// Bit 26 for Textfields only
+			Flag_RadiosInUnison		=	33554432,	// Bit 26 for Radio Buttons only
+			Flag_CommitOnSelChange	=	67108864	// Bit 27
+		};
 
 	void setType(int newType) { AnType=newType; }
 	void setAction(const QString& newAction) { AnAction=newAction; }
@@ -93,7 +107,6 @@ class SCRIBUS_API Annotation // : public SaxIO
 	void setFormat(int newFormat) { AnFormat=newFormat; }
 	void setIsChk(bool newIsChk) { AnIsChk=newIsChk; }
 	void setAAact(bool newAAct) { AnAAact=newAAct; }
-//	void setHTML(bool newHTML) { AnHTML=newHTML; }
 	void setHTML(int newHTML) { AnHTML=newHTML; }
 	void setUseIcons(bool newUseIcons) { AnUseIcons=newUseIcons; }
 	void setIPlace(int newIPlace) { AnIPlace=newIPlace; }
@@ -128,7 +141,6 @@ class SCRIBUS_API Annotation // : public SaxIO
 	int Format() const { return AnFormat; }
 	bool IsChk() const { return AnIsChk; }
 	bool AAact() const { return AnAAact; }
-//	bool HTML() const { return AnHTML; }
 	int HTML() const { return AnHTML; }
 	bool UseIcons() const { return AnUseIcons; }
 	int IPlace() const { return AnIPlace; }
@@ -163,7 +175,6 @@ class SCRIBUS_API Annotation // : public SaxIO
 		int AnFont;
 		bool AnIsChk;
 		bool AnAAact;
-//		bool AnHTML;
 		int AnHTML;
 		bool AnUseIcons;
 		int AnIPlace;

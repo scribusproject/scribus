@@ -124,6 +124,7 @@ public:
 	static QString itemType_Multiple;
 
 	static QString itemSubType_PDF_PushButton;
+	static QString itemSubType_PDF_RadioButton;
 	static QString itemSubType_PDF_TextField;
 	static QString itemSubType_PDF_CheckBox;
 	static QString itemSubType_PDF_ComboBox;
@@ -131,6 +132,7 @@ public:
 	static QString itemSubType_PDF_TextAnnotation;
 	static QString itemSubType_PDF_LinkAnnotation;
 	static QString itemName_PushButton;
+	static QString itemName_RadioButton;
 	static QString itemName_TextField;
 	static QString itemName_CheckBox;
 	static QString itemName_ComboBox;

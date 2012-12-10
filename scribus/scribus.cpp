@@ -2464,6 +2464,7 @@ void ScribusMainWindow::SwitchWin()
 		scrMenuMgr->setMenuEnabled("FileOpenRecent", false);
 		pagePalette->enablePalette(false);
 		scrActions["toolsPDFPushButton"]->setEnabled(false);
+		scrActions["toolsPDFRadioButton"]->setEnabled(false);
 		scrActions["toolsPDFTextField"]->setEnabled(false);
 		scrActions["toolsPDFCheckBox"]->setEnabled(false);
 		scrActions["toolsPDFComboBox"]->setEnabled(false);
@@ -2504,6 +2505,7 @@ void ScribusMainWindow::SwitchWin()
 		scrActions["fileSaveAs"]->setEnabled(true);
 		scrActions["fileCollect"]->setEnabled(true);
 		scrActions["toolsPDFPushButton"]->setEnabled(true);
+		scrActions["toolsPDFRadioButton"]->setEnabled(true);
 		scrActions["toolsPDFTextField"]->setEnabled(true);
 		scrActions["toolsPDFCheckBox"]->setEnabled(true);
 		scrActions["toolsPDFComboBox"]->setEnabled(true);
@@ -2598,6 +2600,7 @@ void ScribusMainWindow::HaveNewDoc()
 	scrActions["toolsMeasurements"]->setEnabled(true);
 	scrActions["toolsEyeDropper"]->setEnabled(true);
 	scrActions["toolsPDFPushButton"]->setEnabled(true);
+	scrActions["toolsPDFRadioButton"]->setEnabled(true);
 	scrActions["toolsPDFTextField"]->setEnabled(true);
 	scrActions["toolsPDFCheckBox"]->setEnabled(true);
 	scrActions["toolsPDFComboBox"]->setEnabled(true);
@@ -4919,6 +4922,7 @@ bool ScribusMainWindow::DoFileClose()
 		scrActions["toolsCopyProperties"]->setEnabled(false);
 		scrActions["toolsEyeDropper"]->setEnabled(false);
 		scrActions["toolsPDFPushButton"]->setEnabled(false);
+		scrActions["toolsPDFRadioButton"]->setEnabled(false);
 		scrActions["toolsPDFTextField"]->setEnabled(false);
 		scrActions["toolsPDFCheckBox"]->setEnabled(false);
 		scrActions["toolsPDFComboBox"]->setEnabled(false);
@@ -6505,6 +6509,7 @@ void ScribusMainWindow::ToggleFrameEdit()
 		scrActions["toolsCopyProperties"]->setEnabled(false);
 		scrActions["toolsEyeDropper"]->setEnabled(false);
 		scrActions["toolsPDFPushButton"]->setEnabled(false);
+		scrActions["toolsPDFRadioButton"]->setEnabled(false);
 		scrActions["toolsPDFTextField"]->setEnabled(false);
 		scrActions["toolsPDFCheckBox"]->setEnabled(false);
 		scrActions["toolsPDFComboBox"]->setEnabled(false);
@@ -6584,6 +6589,7 @@ void ScribusMainWindow::NoFrameEdit()
 	scrActions["toolsInsertSpiral"]->setEnabled(true);
 	scrActions["toolsInsertRenderFrame"]->setEnabled(true);
 	scrActions["toolsPDFPushButton"]->setEnabled(true);
+	scrActions["toolsPDFRadioButton"]->setEnabled(true);
 	scrActions["toolsPDFTextField"]->setEnabled(true);
 	scrActions["toolsPDFCheckBox"]->setEnabled(true);
 	scrActions["toolsPDFComboBox"]->setEnabled(true);
@@ -6693,6 +6699,7 @@ void ScribusMainWindow::setAppMode(int mode)
 	scrActions["toolsMeasurements"]->setChecked(mode==modeMeasurementTool);
 	scrActions["toolsCopyProperties"]->setChecked(mode==modeCopyProperties);
 	scrActions["toolsPDFPushButton"]->setChecked(mode==modeInsertPDFButton);
+	scrActions["toolsPDFRadioButton"]->setChecked(mode==modeInsertPDFRadioButton);
 	scrActions["toolsPDFTextField"]->setChecked(mode==modeInsertPDFTextfield);
 	scrActions["toolsPDFCheckBox"]->setChecked(mode==modeInsertPDFCheckbox);
 	scrActions["toolsPDFComboBox"]->setChecked(mode==modeInsertPDFCombobox);
@@ -6933,6 +6940,7 @@ void ScribusMainWindow::setAppMode(int mode)
 				qApp->changeOverrideCursor(QCursor(loadIcon("colorpickercursor.png"), 0, 32));
 				break;
 			case modeInsertPDFButton:
+			case modeInsertPDFRadioButton:
 			case modeInsertPDFTextfield:
 			case modeInsertPDFCheckbox:
 			case modeInsertPDFCombobox:
@@ -8755,6 +8763,7 @@ void ScribusMainWindow::editSymbolStart(QString temp)
 		scrActions["fileExportAsPDF"]->setEnabled(false);
 		scrActions["PrintPreview"]->setEnabled(false);
 		scrActions["toolsPDFPushButton"]->setEnabled(false);
+		scrActions["toolsPDFRadioButton"]->setEnabled(false);
 		scrActions["toolsPDFTextField"]->setEnabled(false);
 		scrActions["toolsPDFCheckBox"]->setEnabled(false);
 		scrActions["toolsPDFComboBox"]->setEnabled(false);
@@ -8819,6 +8828,7 @@ void ScribusMainWindow::editSymbolEnd()
 	scrActions["pageDelete"]->setEnabled(setter);
 	scrActions["pageMove"]->setEnabled(setter);
 	scrActions["toolsPDFPushButton"]->setEnabled(true);
+	scrActions["toolsPDFRadioButton"]->setEnabled(true);
 	scrActions["toolsPDFTextField"]->setEnabled(true);
 	scrActions["toolsPDFCheckBox"]->setEnabled(true);
 	scrActions["toolsPDFComboBox"]->setEnabled(true);
@@ -8877,6 +8887,7 @@ void ScribusMainWindow::editInlineStart(int id)
 		scrActions["fileExportAsPDF"]->setEnabled(false);
 		scrActions["PrintPreview"]->setEnabled(false);
 		scrActions["toolsPDFPushButton"]->setEnabled(false);
+		scrActions["toolsPDFRadioButton"]->setEnabled(false);
 		scrActions["toolsPDFTextField"]->setEnabled(false);
 		scrActions["toolsPDFCheckBox"]->setEnabled(false);
 		scrActions["toolsPDFComboBox"]->setEnabled(false);
@@ -8926,6 +8937,7 @@ void ScribusMainWindow::editInlineEnd()
 	scrActions["pageDelete"]->setEnabled(setter);
 	scrActions["pageMove"]->setEnabled(setter);
 	scrActions["toolsPDFPushButton"]->setEnabled(true);
+	scrActions["toolsPDFRadioButton"]->setEnabled(true);
 	scrActions["toolsPDFTextField"]->setEnabled(true);
 	scrActions["toolsPDFCheckBox"]->setEnabled(true);
 	scrActions["toolsPDFComboBox"]->setEnabled(true);
@@ -8993,6 +9005,7 @@ void ScribusMainWindow::manageMasterPages(QString temp)
 	scrActions["filePrint"]->setEnabled(false);
 	scrActions["PrintPreview"]->setEnabled(false);
 	scrActions["toolsPDFPushButton"]->setEnabled(false);
+	scrActions["toolsPDFRadioButton"]->setEnabled(false);
 	scrActions["toolsPDFTextField"]->setEnabled(false);
 	scrActions["toolsPDFCheckBox"]->setEnabled(false);
 	scrActions["toolsPDFComboBox"]->setEnabled(false);
@@ -9034,6 +9047,7 @@ void ScribusMainWindow::manageMasterPagesEnd()
 	scrActions["pageDelete"]->setEnabled(setter);
 	scrActions["pageMove"]->setEnabled(setter);
 	scrActions["toolsPDFPushButton"]->setEnabled(true);
+	scrActions["toolsPDFRadioButton"]->setEnabled(true);
 	scrActions["toolsPDFTextField"]->setEnabled(true);
 	scrActions["toolsPDFCheckBox"]->setEnabled(true);
 	scrActions["toolsPDFComboBox"]->setEnabled(true);
@@ -9427,7 +9441,7 @@ void ScribusMainWindow::ModifyAnnot()
 	if (doc->m_Selection->count() != 0)
 	{
 		PageItem *currItem = doc->m_Selection->itemAt(0);
-		if ((currItem->annotation().Type() == 0) || (currItem->annotation().Type() == 1) || (currItem->annotation().Type() > 9))
+		if ((currItem->annotation().Type() == 0) || (currItem->annotation().Type() == 1) || ((currItem->annotation().Type() > 9) && (currItem->annotation().Type() < 13)))
 		{
 			int AnType = currItem->annotation().Type();
 			int AnActType = currItem->annotation().ActionType();
@@ -9526,6 +9540,7 @@ void ScribusMainWindow::changeLayer(int )
 	if (doc->masterPageMode())
 	{
 		scrActions["toolsPDFPushButton"]->setEnabled(false);
+		scrActions["toolsPDFRadioButton"]->setEnabled(false);
 		scrActions["toolsPDFTextField"]->setEnabled(false);
 		scrActions["toolsPDFCheckBox"]->setEnabled(false);
 		scrActions["toolsPDFComboBox"]->setEnabled(false);
@@ -9538,6 +9553,7 @@ void ScribusMainWindow::changeLayer(int )
 	else
 	{
 		scrActions["toolsPDFPushButton"]->setEnabled(setter);
+		scrActions["toolsPDFRadioButton"]->setEnabled(setter);
 		scrActions["toolsPDFTextField"]->setEnabled(setter);
 		scrActions["toolsPDFCheckBox"]->setEnabled(setter);
 		scrActions["toolsPDFComboBox"]->setEnabled(setter);

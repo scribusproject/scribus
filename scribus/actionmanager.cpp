@@ -830,6 +830,8 @@ void ActionManager::initToolsMenuActions()
 	//PDF toolbar
 	name="toolsPDFPushButton";
 	scrActions->insert(name, new ScrAction(ScrAction::DataInt, loadIcon("16/insert-button.png"), loadIcon("22/insert-button.png"), "", defaultKey(name), mainWindow, modeInsertPDFButton));
+	name="toolsPDFRadioButton";
+	scrActions->insert(name, new ScrAction(ScrAction::DataInt, loadIcon("16/radiobutton.png"), loadIcon("22/radiobutton.png"), "", defaultKey(name), mainWindow, modeInsertPDFRadioButton));
 	name="toolsPDFTextField";
 	scrActions->insert(name, new ScrAction(ScrAction::DataInt, loadIcon("16/text-field.png"), loadIcon("22/text-field.png"), "", defaultKey(name), mainWindow, modeInsertPDFTextfield));
 	name="toolsPDFCheckBox";
@@ -879,7 +881,7 @@ void ActionManager::initToolsMenuActions()
 	*modeActionNames << "toolsInsertFreehandLine" << "toolsInsertCalligraphicLine" << "toolsInsertRenderFrame" << "toolsRotate" << "toolsZoom" << "toolsEditContents";
 	*modeActionNames << "toolsEditWithStoryEditor" << "toolsLinkTextFrame" << "toolsUnlinkTextFrame"; //<< "toolsUnlinkTextFrameWithTextCopy" << "toolsUnlinkTextFrameWithTextCut";
 	*modeActionNames << "toolsEyeDropper" << "toolsCopyProperties";
-	*modeActionNames << "toolsPDFPushButton" << "toolsPDFTextField" << "toolsPDFCheckBox" << "toolsPDFComboBox" << "toolsPDFListBox" << "toolsPDFAnnotText" << "toolsPDFAnnotLink";
+	*modeActionNames << "toolsPDFPushButton" << "toolsPDFRadioButton" << "toolsPDFTextField" << "toolsPDFCheckBox" << "toolsPDFComboBox" << "toolsPDFListBox" << "toolsPDFAnnotText" << "toolsPDFAnnotLink";
 #ifdef HAVE_OSG
 	*modeActionNames << "toolsPDFAnnot3D";
 #endif
@@ -1648,6 +1650,7 @@ void ActionManager::languageChange()
 	(*scrActions)["toolsInsertFreehandLine"]->setText( tr("Insert &Freehand Line"));
 
 	(*scrActions)["toolsPDFPushButton"]->setTexts( tr("Insert PDF Push Button"));
+	(*scrActions)["toolsPDFRadioButton"]->setTexts( tr("Insert PDF Radio Button"));
 	(*scrActions)["toolsPDFTextField"]->setTexts( tr("Insert PDF Text Field"));
 	(*scrActions)["toolsPDFCheckBox"]->setTexts( tr("Insert PDF Check Box"));
 	(*scrActions)["toolsPDFComboBox"]->setTexts( tr("Insert PDF Combo Box"));
@@ -2285,6 +2288,7 @@ void ActionManager::createDefaultNonMenuActions()
 	itnmenua->second << "toolsEyeDropper";
 	itnmenua->second << "toolsCopyProperties";
 	itnmenua->second << "toolsPDFPushButton";
+	itnmenua->second << "toolsPDFRadioButton";
 	itnmenua->second << "toolsPDFTextField";
 	itnmenua->second << "toolsPDFCheckBox";
 	itnmenua->second << "toolsPDFListBox";

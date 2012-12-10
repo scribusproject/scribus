@@ -1002,7 +1002,7 @@ bool PDFLibCore::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QStrin
 				{
 					int annotType  = pgit->annotation().Type();
 					bool mustEmbed = ((annotType >= Annotation::Button) && (annotType <= Annotation::Listbox) && (annotType != Annotation::Checkbox));
-					if (pgit->annotation().Type() == Annotation::Checkbox)
+					if ((pgit->annotation().Type() == Annotation::Checkbox) || (pgit->annotation().Type() == Annotation::RadioButton))
 						StdFonts.insert("/ZapfDingbats", "");
 					if (pgit->itemText.length() > 0 || mustEmbed)
 					{
@@ -1054,7 +1054,7 @@ bool PDFLibCore::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QStrin
 				{
 					int annotType  = pgit->annotation().Type();
 					bool mustEmbed = ((annotType >= Annotation::Button) && (annotType <= Annotation::Listbox) && (annotType != Annotation::Checkbox));
-					if (pgit->annotation().Type() == Annotation::Checkbox)
+					if ((pgit->annotation().Type() == Annotation::Checkbox) || (pgit->annotation().Type() == Annotation::RadioButton))
 						StdFonts.insert("/ZapfDingbats", "");
 					if (pgit->itemText.length() > 0 || mustEmbed)
 					{
@@ -1106,7 +1106,7 @@ bool PDFLibCore::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QStrin
 				{
 					int annotType  = pgit->annotation().Type();
 					bool mustEmbed = ((annotType >= Annotation::Button) && (annotType <= Annotation::Listbox) && (annotType != Annotation::Checkbox));
-					if (pgit->annotation().Type() == Annotation::Checkbox)
+					if ((pgit->annotation().Type() == Annotation::Checkbox) || (pgit->annotation().Type() == Annotation::RadioButton))
 						StdFonts.insert("/ZapfDingbats", "");
 					if (pgit->itemText.length() > 0 || mustEmbed)
 					{
@@ -1164,7 +1164,7 @@ bool PDFLibCore::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QStrin
 				{
 					if (pgit->isAnnotation())
 					{
-						if (pgit->annotation().Type() == Annotation::Checkbox)
+						if ((pgit->annotation().Type() == Annotation::Checkbox) || (pgit->annotation().Type() == Annotation::RadioButton))
 							StdFonts.insert("/ZapfDingbats", "");
 						if (pgit->itemText.length() > 0)
 						{
@@ -2667,10 +2667,10 @@ bool PDFLibCore::PDF_TemplatePage(const ScPage* pag, bool )
 
 void PDFLibCore::PDF_Begin_Page(const ScPage* pag, QPixmap pm)
 {
-	QString tmp;
 	ActPageP = pag;
 	Content = "";
 	Seite.AObjects.clear();
+	Seite.radioButtonList.clear();
 	if (Options.Thumbnails)
 	{
 		ScImage img(pm.toImage());
@@ -2703,6 +2703,8 @@ void PDFLibCore::PDF_Begin_Page(const ScPage* pag, QPixmap pm)
 
 void PDFLibCore::PDF_End_Page(int physPage)
 {
+	if (!Seite.radioButtonList.isEmpty())
+		PDF_RadioButtons();
 	uint PgNr =  ActPageP->pageNr();
 	double markOffs = 0.0;
 	if ((Options.cropMarks) || (Options.bleedMarks) || (Options.registrationMarks) || (Options.colorMarks) || (Options.docInfoMarks))
@@ -3703,6 +3705,11 @@ bool PDFLibCore::PDF_ProcessItem(QString& output, PageItem* ite, const ScPage* p
 		case PageItem::TextFrame:
 			if ((ite->isAnnotation()) && (Options.Version != PDFOptions::PDFVersion_X3) && (Options.Version != PDFOptions::PDFVersion_X1a) && (Options.Version != PDFOptions::PDFVersion_X4))
 			{
+				if (ite->annotation().Type() == Annotation::RadioButton)
+				{
+					Seite.radioButtonList.append(ite);
+					break;
+				}
 				if (!PDF_Annotation(ite, PNr))
 					return false;
 				break;
@@ -8331,6 +8338,213 @@ bool PDFLibCore::PDF_3DAnnotation(PageItem *ite, uint)
 }
 #endif
 
+void PDFLibCore::PDF_RadioButtons()
+{
+	QMap<PageItem*, QList<PageItem*> > rbMap;
+	for (int a = 0; a < Seite.radioButtonList.count(); a++)
+	{
+		PageItem* pa = Seite.radioButtonList[a]->Parent;
+		if (rbMap.contains(pa))
+			rbMap[pa].append(Seite.radioButtonList[a]);
+		else
+		{
+			QList<PageItem*> aList;
+			aList.append(Seite.radioButtonList[a]);
+			rbMap.insert(pa, aList);
+		}
+	}
+	QMap<PageItem*, QList<PageItem*> >::Iterator it;
+	for (it = rbMap.begin(); it != rbMap.end(); ++it)
+	{
+		QList<PageItem*> bList = it.value();
+		QList<uint> kidsList;
+		uint parentObject = newObject();
+		QString onState = "";
+		for (int a = 0; a < bList.count(); a++)
+		{
+			uint kid = PDF_RadioButton(bList[a], parentObject);
+			kidsList.append(kid);
+			if (bList[a]->annotation().IsChk())
+				onState = QString("/%1").arg(bList[a]->itemName().replace(".", "_" ));
+		}
+		QString anTitle;
+		if (it.key() == 0)
+			anTitle = QString("Page%1").arg(ActPageP->pageNr() + 1);
+		else
+			anTitle = QString("/%1").arg(it.key()->itemName().replace(".", "_" ));
+		StartObj(parentObject);
+		Seite.AObjects.append(parentObject);
+		Seite.FormObjects.append(parentObject);
+		PutDoc("<<\n/Type /Annot\n");
+		PutDoc("/Subtype /Widget\n");
+		PutDoc("/FT /Btn\n");
+		PutDoc("/T " + EncString(anTitle, parentObject) + "\n");
+		PutDoc("/Ff "+QString::number(Annotation::Flag_Radio | Annotation::Flag_NoToggleToOff)+"\n");
+		PutDoc("/V "+onState+"\n");
+		PutDoc("/DV "+onState+"\n");
+		PutDoc("/Kids\n[\n");
+		for (int a = 0; a < kidsList.count(); a++)
+		{
+			PutDoc(QString::number(kidsList[a]) + " 0 R\n");
+		}
+		PutDoc("]\n");
+		PutDoc("/Rect [0 0 0 0]\n");
+		PutDoc(">>\nendobj\n");
+	}
+}
+
+uint PDFLibCore::PDF_RadioButton(PageItem* ite, uint parent)
+{
+	QMap<int, QString> ind2PDFabr;
+	static const QString bifonts[] = {"/Courier", "/Courier-Bold", "/Courier-Oblique", "/Courier-BoldOblique",
+												"/Helvetica", "/Helvetica-Bold", "/Helvetica-Oblique", "/Helvetica-BoldOblique",
+												"/Times-Roman", "/Times-Bold", "/Times-Italic", "/Times-BoldItalic",
+												"/ZapfDingbats", "/Symbol"};
+	static const size_t ar = sizeof(bifonts) / sizeof(*bifonts);
+	for (uint a = 0; a < ar; ++a)
+		ind2PDFabr[a] = bifonts[a];
+	double x = ite->xPos() - ActPageP->xOffset();
+	double y = ActPageP->height() - (ite->yPos()  - ActPageP->yOffset());
+	double x2 = x+ite->width();
+	double y2 = y-ite->height();
+	QString cc;
+	uint annotationObj = newObject();
+	uint actionObj = 0;
+	if ((ite->annotation().Type() > 1) && ((ite->annotation().ActionType() == 1) || (ite->annotation().AAact())) && (!ite->annotation().Action().isEmpty()))
+		actionObj = WritePDFString(ite->annotation().Action());
+	uint AActionObj = writeActions(ite->annotation(), annotationObj);
+	StartObj(annotationObj);
+	Seite.AObjects.append(annotationObj);
+	PutDoc("<<\n/Type /Annot\n");
+	Seite.FormObjects.append(annotationObj);
+	PutDoc("/Subtype /Widget\n");
+	PutDoc("/Parent " + QString::number(parent) + " 0 R\n");
+	if (!ite->annotation().ToolTip().isEmpty())
+		PutDoc("/TU " + EncStringUTF16(ite->annotation().ToolTip(), annotationObj) + "\n");
+	PutDoc("/F ");
+	QString mm[] = {"4", "2", "0", "32"};
+	PutDoc(mm[ite->annotation().Vis()]);
+	PutDoc("\n");
+	QString cnx = "/"+StdFonts["/ZapfDingbats"];
+	cnx += " "+FToStr(ite->itemText.defaultStyle().charStyle().fontSize() / 10.0)+" Tf";
+	if (ite->itemText.defaultStyle().charStyle().fillColor() != CommonStrings::None)
+		cnx += " "+ putColor(ite->itemText.defaultStyle().charStyle().fillColor(), ite->itemText.defaultStyle().charStyle().fillShade(), true);
+	if (ite->fillColor() != CommonStrings::None)
+		cnx += " "+ putColor(ite->fillColor(), ite->fillShade(), false);
+	PutDoc("/DA " + EncString(cnx, annotationObj) + "\n");
+	int flg = ite->annotation().Flag();
+	if (Options.Version == PDFOptions::PDFVersion_13)
+		flg = flg & 522247;
+	PutDoc("/Ff "+QString::number(flg)+"\n");
+	PutDoc("/FT /Btn\n");
+	PutDoc("/BS << /Type /Border /W ");
+	PutDoc(ite->annotation().borderColor() != CommonStrings::None ? QString::number(ite->annotation().Bwid()) : QString("0"));
+	PutDoc(" /S /");
+	const QString xb[] = {"S", "D", "U", "B", "I"};
+	PutDoc(xb[ite->annotation().Bsty()]);
+	PutDoc(" >>\n");
+	PutDoc("/MK << ");
+	PutDoc("/BG [ 1 1 1 ] ");
+	if (ite->annotation().borderColor() != CommonStrings::None)
+		PutDoc("/BC [ "+SetColor(ite->annotation().borderColor(), 100)+" ] ");
+	if (ite->rotation() != 0)
+		PutDoc("/R "+QString::number((abs(static_cast<int>(ite->rotation())) / 90)*90)+" ");
+	PutDoc(">>\n");
+	QString onState = QString("/%1").arg(ite->itemName().replace(".", "_" ));
+	if (ite->annotation().IsChk())
+		PutDoc("/AS "+onState+"\n");
+	else
+		PutDoc("/AS /Off\n");
+	uint appearanceObj1 = newObject();
+	uint appearanceObj2 = newObject();
+	PutDoc("/AP << /N <<\n");
+	PutDoc(onState + " " + QString::number(appearanceObj1)+" 0 R\n");
+	PutDoc("/Off " + QString::number(appearanceObj2)+" 0 R\n");
+	PutDoc(">> >>\n");
+	if ((ite->annotation().ActionType() != 0) || (ite->annotation().AAact()))
+	{
+		if (ite->annotation().ActionType() == 1)
+		{
+			if (!ite->annotation().Action().isEmpty())
+			{
+				PutDoc("/A << /Type /Action /S /JavaScript /JS " + QString::number(actionObj) + " 0 R >>\n");
+			}
+		}
+		if (ite->annotation().AAact())
+		{
+			if (!ite->annotation().Action().isEmpty())
+			{
+				PutDoc("/A << /Type /Action /S /JavaScript /JS " + QString::number(actionObj) + " 0 R >>\n");
+			}
+			PutDoc("/AA " + QString::number(AActionObj) + " 0 R\n");
+		}
+	}
+	switch (((abs(static_cast<int>(ite->rotation())) / 90)*90))
+	{
+		case 0:
+			break;
+		case 90:
+			x = ite->xPos() - ActPageP->xOffset();
+			y2 = ActPageP->height() - (ite->yPos()  - ActPageP->yOffset());
+			x2 = x + ite->height();
+			y = y2 + ite->width();
+			break;
+		case 180:
+			x = ite->xPos() - ActPageP->xOffset() - ite->width();
+			y2 = ActPageP->height() - (ite->yPos()  - ActPageP->yOffset());
+			x2 = ite->xPos() - ActPageP->xOffset();
+			y = y2 + ite->height();
+			break;
+		case 270:
+			x = ite->xPos() - ActPageP->xOffset() - ite->height();
+			y2 = ActPageP->height() - (ite->yPos()  - ActPageP->yOffset()) - ite->width();
+			x2 = ite->xPos() - ActPageP->xOffset();
+			y = ActPageP->height() - (ite->yPos()  - ActPageP->yOffset());
+			break;
+	}
+	PutDoc("/Rect [ "+FToStr(x+bleedDisplacementX)+" "+FToStr(y2+bleedDisplacementY)+" "+FToStr(x2+bleedDisplacementX)+" "+FToStr(y+bleedDisplacementY)+" ]\n");
+	PutDoc(">>\nendobj\n");
+
+	double bwh = ite->annotation().Bwid() / 2.0;
+	QPainterPath clp;
+	clp.addEllipse(QRectF(bwh, bwh, ite->width() - ite->annotation().Bwid(), ite->height() - ite->annotation().Bwid()));
+	FPointArray clpArr;
+	clpArr.fromQPainterPath(clp);
+	clpArr.translate(0, -ite->height());
+	cc = "q\n";
+	cc += QString::number(ite->annotation().Bwid())+" w\n";
+	if (ite->annotation().borderColor() != CommonStrings::None)
+		cc += putColor(ite->annotation().borderColor(), 100.0, false);
+	else
+		cc += "0 G\n";
+	cc += SetClipPathArray(&clpArr, true);
+	cc += "h\nS\n";
+	if (ite->itemText.defaultStyle().charStyle().fillColor() != CommonStrings::None)
+		cc += putColor(ite->itemText.defaultStyle().charStyle().fillColor(), ite->itemText.defaultStyle().charStyle().fillShade(), true);
+	else if (ite->fillColor() != CommonStrings::None)
+		cc += putColor(ite->fillColor(), ite->fillShade(), true);
+	QPainterPath clp2;
+	clp2.addEllipse(QRectF(ite->annotation().Bwid() * 1.5, ite->annotation().Bwid() * 1.5, ite->width() - ite->annotation().Bwid() * 3, ite->height() - ite->annotation().Bwid() * 3).normalized());
+	FPointArray clpArr2;
+	clpArr2.fromQPainterPath(clp2);
+	clpArr2.translate(0, -ite->height());
+	cc += SetClipPathArray(&clpArr2, true);
+	cc += "h\nf\nQ\n";
+	PDF_xForm(appearanceObj1, ite->width(), ite->height(), cc);
+	cc = "";
+	cc = "q\n";
+	cc += QString::number(ite->annotation().Bwid())+" w\n";
+	if (ite->annotation().borderColor() != CommonStrings::None)
+		cc += putColor(ite->annotation().borderColor(), 100.0, false);
+	else
+		cc += "0 G\n";
+	cc += SetClipPathArray(&clpArr, true);
+	cc += "h\nS\n";
+	cc += "Q";
+	PDF_xForm(appearanceObj2, ite->width(), ite->height(), cc);
+	return annotationObj;
+}
+
 bool PDFLibCore::PDF_Annotation(PageItem *ite, uint)
 {
 	ScImage img;
@@ -8432,7 +8646,7 @@ bool PDFLibCore::PDF_Annotation(PageItem *ite, uint)
 			PutDoc(x[ite->annotation().Bsty()]);
 			PutDoc(" >>\n");
 			QString cnx;
-			if (ite->annotation().Type() == 4)
+			if (ite->annotation().Type() == Annotation::Checkbox)
 				cnx += "/"+StdFonts["/ZapfDingbats"];
 			else
 			{
@@ -8502,7 +8716,7 @@ bool PDFLibCore::PDF_Annotation(PageItem *ite, uint)
 				if (ite->annotation().borderColor() != CommonStrings::None)
 					PutDoc("/BC [ "+SetColor(ite->annotation().borderColor(), 100)+" ] ");
 			}
-				else
+			else
 			{
 				if (ite->fillColor() != CommonStrings::None)
 					PutDoc("/BG [ "+SetColor(ite->fillColor(), ite->fillShade())+" ] ");
