@@ -186,7 +186,7 @@ int ScMessageBox::swapReturnValues(const int b0Val, const int b1Val, const int b
 int ScMessageBox::information ( QWidget * parent, const QString & caption, const QString & text, int button0, int button1, int button2)
 {
 	int b0=button0, b1=button1, b2=button2;
-	int buttonsUsed=swapButtonValues(b0, b1, b2);
+	/*int buttonsUsed=*/ swapButtonValues(b0, b1, b2);
 	int stdReturn=QMessageBox::information(parent, caption, text, b0, b1, b2);
 	return stdReturn /*swapReturnValues(b0, b1, b2, stdReturn, buttonsUsed)*/;
 }
@@ -203,7 +203,7 @@ int ScMessageBox::information ( QWidget * parent, const QString & caption, const
 int ScMessageBox::question ( QWidget * parent, const QString & caption, const QString & text, int button0, int button1, int button2)
 {
 	int b0=button0, b1=button1, b2=button2;
-	int buttonsUsed=swapButtonValues(b0, b1, b2);
+	/*int buttonsUsed=*/ swapButtonValues(b0, b1, b2);
 	int stdReturn=QMessageBox::question(parent, caption, text, b0, b1, b2);
 	return stdReturn /*swapReturnValues(b0, b1, b2, stdReturn, buttonsUsed)*/;
 }
@@ -220,7 +220,7 @@ int ScMessageBox::question ( QWidget * parent, const QString & caption, const QS
 int ScMessageBox::warning ( QWidget * parent, const QString & caption, const QString & text, int button0, int button1, int button2)
 {
 	int b0=button0, b1=button1, b2=button2;
-	int buttonsUsed=swapButtonValues(b0, b1, b2);
+	/*int buttonsUsed=*/ swapButtonValues(b0, b1, b2);
 	int stdReturn=QMessageBox::warning(parent, caption, text, b0, b1, b2);
 	return stdReturn /*swapReturnValues(b0, b1, b2, stdReturn, buttonsUsed)*/;
 }
@@ -237,7 +237,7 @@ int ScMessageBox::warning ( QWidget * parent, const QString & caption, const QSt
 int ScMessageBox::critical ( QWidget * parent, const QString & caption, const QString & text, int button0, int button1, int button2)
 {
 	int b0=button0, b1=button1, b2=button2;
-	int buttonsUsed=swapButtonValues(b0, b1, b2);
+	/*int buttonsUsed=*/ swapButtonValues(b0, b1, b2);
 	int stdReturn=QMessageBox::critical(parent, caption, text, b0, b1, b2);
 	return stdReturn /*swapReturnValues(b0, b1, b2, stdReturn, buttonsUsed)*/;
 }
