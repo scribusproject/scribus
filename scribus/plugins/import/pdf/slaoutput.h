@@ -320,6 +320,8 @@ private:
 	SplashFontEngine *m_fontEngine;
 	SplashFont *m_font;
 	FormPageWidgets *m_formWidgets;
+	QHash<QString, QList<int> > m_radioMap;
+	QHash<int, PageItem*> m_radioButtons;
 	int m_actPage;
 };
 

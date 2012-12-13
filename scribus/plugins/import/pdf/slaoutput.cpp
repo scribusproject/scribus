@@ -484,6 +484,7 @@ bool SlaOutputDev::handleLinkAnnot(Annot* annota, double xCoor, double yCoor, do
 bool SlaOutputDev::handleWidgetAnnot(Annot* annota, double xCoor, double yCoor, double width, double height)
 {
 	bool retVal = false;
+	bool found = false;
 	int formcount = m_formWidgets->getNumWidgets();
 	for (int i = 0; i < formcount; ++i)
 	{
@@ -495,6 +496,7 @@ bool SlaOutputDev::handleWidgetAnnot(Annot* annota, double xCoor, double yCoor, 
 			{
 				if (ano == (AnnotWidget*)annota)
 				{
+					found = true;
 					int wtyp = -1;
 					if (fm->getType() == formButton)
 					{
@@ -503,23 +505,24 @@ bool SlaOutputDev::handleWidgetAnnot(Annot* annota, double xCoor, double yCoor, 
 						{
 							if (btn->getButtonType() == formButtonCheck)
 							{
-								wtyp = 4;
+								wtyp = Annotation::Checkbox;
 								retVal = true;
 							}
 							else if (btn->getButtonType() == formButtonPush)
 							{
-								wtyp = 2;
+								wtyp = Annotation::Button;
 								retVal = true;
 							}
 							else if (btn->getButtonType() == formButtonRadio)
 							{
-								retVal = false;
+								wtyp = Annotation::RadioButton;
+								retVal = true;
 							}
 						}
 					}
 					else if (fm->getType() == formText)
 					{
-						wtyp = 3;
+						wtyp = Annotation::Textfield;
 						retVal = true;
 					}
 					else if (fm->getType() == formChoice)
@@ -529,12 +532,12 @@ bool SlaOutputDev::handleWidgetAnnot(Annot* annota, double xCoor, double yCoor, 
 						{
 							if (btn->isCombo())
 							{
-								wtyp = 5;
+								wtyp = Annotation::Combobox;
 								retVal = true;
 							}
 							else if (btn->isListBox())
 							{
-								wtyp = 6;
+								wtyp = Annotation::Listbox;
 								retVal = true;
 							}
 						}
@@ -644,7 +647,7 @@ bool SlaOutputDev::handleWidgetAnnot(Annot* annota, double xCoor, double yCoor, 
 						}
 						ite->annotation().setType(wtyp);
 						ite->annotation().setFlag(ano->getFlags());
-						if (wtyp == 2) // Button
+						if (wtyp == Annotation::Button)
 						{
 							ite->setFillColor(CurrColorFill);
 							if (achar)
@@ -655,7 +658,7 @@ bool SlaOutputDev::handleWidgetAnnot(Annot* annota, double xCoor, double yCoor, 
 							ite->annotation().addToFlag(Annotation::Flag_PushButton);
 							handleActions(ite, ano);
 						}
-						else if (wtyp == 3) // Textfield
+						else if (wtyp == Annotation::Textfield)
 						{
 							FormWidgetText *btn = (FormWidgetText*)fm;
 							if (btn)
@@ -678,7 +681,7 @@ bool SlaOutputDev::handleWidgetAnnot(Annot* annota, double xCoor, double yCoor, 
 								handleActions(ite, ano);
 							}
 						}
-						else if (wtyp == 4) // Checkbox
+						else if (wtyp == Annotation::Checkbox)
 						{
 							FormWidgetButton *btn = (FormWidgetButton*)fm;
 							if (btn)
@@ -697,10 +700,9 @@ bool SlaOutputDev::handleWidgetAnnot(Annot* annota, double xCoor, double yCoor, 
 									ite->annotation().setChkStil(4);
 								else if (itemText == "n")
 									ite->annotation().setChkStil(5);
-							//	qDebug() << "Font" << fontName << "\nSize" << fontSize << "\nText" << itemText;
 							}
 						}
-						else if ((wtyp == 5) || (wtyp == 6)) // Combobox + Listbox
+						else if ((wtyp == Annotation::Combobox) || (wtyp == Annotation::Listbox))
 						{
 							FormWidgetChoice *btn = (FormWidgetChoice*)fm;
 							if (btn)
@@ -723,11 +725,65 @@ bool SlaOutputDev::handleWidgetAnnot(Annot* annota, double xCoor, double yCoor, 
 								handleActions(ite, ano);
 							}
 						}
+						else if (wtyp == Annotation::RadioButton)
+						{
+							FormWidgetButton *btn = (FormWidgetButton*)fm;
+							if (btn)
+							{
+								ite->setItemName( CommonStrings::itemName_RadioButton + QString("%1").arg(m_doc->TotalItems));
+								ite->annotation().setIsChk(btn->getState());
+								handleActions(ite, ano);
+								m_radioButtons.insert(annota->getRef().num, ite);
+							}
+						}
 					}
 					break;
 				}
 			}
 		}
+	}
+	if (!found)
+	{
+		Object obj1;
+		Ref refa = annota->getRef();
+		Object *act = xref->fetch(refa.num, refa.gen, &obj1);
+		if (act)
+		{
+			if (act->isDict())
+			{
+				Dict* dict = act->getDict();
+				Object obj2;
+				//childs
+				if (dict->lookup("Kids", &obj2)->isArray())
+				{
+				  // Load children
+					QList<int> radList;
+					for (int i = 0 ; i < obj2.arrayGetLength(); i++)
+					{
+						Object childRef, childObj;
+						if (!obj2.arrayGetNF(i, &childRef)->isRef())
+						{
+							childRef.free();
+							continue;
+						}
+						if (!obj2.arrayGet(i, &childObj)->isDict())
+						{
+							childObj.free();
+							childRef.free();
+							continue;
+						}
+						const Ref ref = childRef.getRef();
+						radList.append(ref.num);
+						childObj.free();
+						childRef.free();
+					}
+					QString tmTxt = UnicodeParsedString(annota->getName());
+					m_radioMap.insert(tmTxt, radList);
+				}
+				obj2.free();
+			}
+		}
+		obj1.free();
 	}
 	return retVal;
 }
@@ -1079,11 +1135,42 @@ void SlaOutputDev::startDoc(PDFDoc *doc, XRef *xrefA, Catalog *catA)
 void SlaOutputDev::startPage(int pageNum, GfxState *)
 {
 	m_formWidgets = pdfDoc->getPage(pageNum)->getFormWidgets();
+	m_radioMap.clear();
+	m_radioButtons.clear();
 	m_actPage = pageNum;
 }
 
 void SlaOutputDev::endPage()
 {
+	if (!m_radioMap.isEmpty())
+	{
+		QHash<QString, QList<int> >::iterator it;
+		for (it = m_radioMap.begin(); it != m_radioMap.end(); ++it)
+		{
+			tmpSel->clear();
+			QList<int> refList = it.value();
+			for (int a = 0; a < refList.count(); a++)
+			{
+				if (m_radioButtons.contains(refList[a]))
+				{
+					tmpSel->addItem(m_radioButtons[refList[a]], true);
+					m_Elements->removeAll(m_radioButtons[refList[a]]);
+				}
+			}
+			if (!tmpSel->isEmpty())
+			{
+				PageItem *ite = m_doc->groupObjectsSelection(tmpSel);
+				ite->setItemName(it.key());
+				m_Elements->append(ite);
+				if (m_groupStack.count() != 0)
+				{
+					m_groupStack.top().Items.append(ite);
+				}
+			}
+		}
+	}
+	m_radioMap.clear();
+	m_radioButtons.clear();
 //	qDebug() << "ending page";
 }
 
