@@ -254,6 +254,8 @@ void LayerPalette::rebuildList()
 
 void LayerPalette::addLayer()
 {
+	if (!m_Doc)
+		return;
 	m_Doc->addLayer(QString::null, true);
 	rebuildList();
 	markActiveLayer();
@@ -263,6 +265,8 @@ void LayerPalette::addLayer()
 
 void LayerPalette::dupLayer()
 {
+	if (!m_Doc)
+		return;
 	UndoTransaction copyTransaction( UndoManager::instance()->beginTransaction("", Um::ILayerAction, Um::DuplicateLayer.arg(m_Doc->activeLayerName()) , "", Um::ICreate) );
 	
 	int current = m_Doc->activeLayer();
@@ -279,6 +283,8 @@ void LayerPalette::dupLayer()
 
 void LayerPalette::removeLayer()
 {
+	if (!m_Doc)
+		return;
 	int layerCount=m_Doc->layerCount();
 	if (layerCount < 2)
 		return;
@@ -306,6 +312,8 @@ void LayerPalette::removeLayer()
 
 void LayerPalette::upLayer()
 {
+	if (!m_Doc)
+		return;
 	int layerCount=m_Doc->layerCount();
 	if ((layerCount < 2) || (Table->currentRow() == 0))
 		return;
@@ -320,6 +328,8 @@ void LayerPalette::upLayer()
 
 void LayerPalette::downLayer()
 {
+	if (!m_Doc)
+		return;
 	int layerCount=m_Doc->layerCount();
 	if ((layerCount < 2) || (Table->currentRow() == static_cast<int>(layerCount) - 1))
 		return;
@@ -334,6 +344,8 @@ void LayerPalette::downLayer()
 
 void LayerPalette::changeName(int row, int col)
 {
+	if (!m_Doc)
+		return;
 	if (col == 6)
 	{
 		int layerLevel = m_Doc->layerCount()-1-row;
@@ -346,6 +358,8 @@ void LayerPalette::changeName(int row, int col)
 
 void LayerPalette::visibleLayer()
 {
+	if (!m_Doc)
+		return;
 	int level = QString(sender()->objectName()).toInt();
 	int layerNumber=m_Doc->layerNumberFromLevel(level);
 	if (layerNumber==-1)
@@ -361,6 +375,8 @@ void LayerPalette::visibleLayer()
 
 void LayerPalette::printLayer()
 {
+	if (!m_Doc)
+		return;
 	int level = QString(sender()->objectName()).toInt();
 	int layerNumber=m_Doc->layerNumberFromLevel(level);
 	if (layerNumber==-1)
@@ -375,6 +391,8 @@ void LayerPalette::printLayer()
 
 void LayerPalette::lockLayer()
 {
+	if (!m_Doc)
+		return;
 	int level = QString(sender()->objectName()).toInt();
 	int layerNumber=m_Doc->layerNumberFromLevel(level);
 	if (layerNumber==-1)
@@ -391,6 +409,8 @@ void LayerPalette::lockLayer()
 
 void LayerPalette::flowToggleLayer()
 {
+	if (!m_Doc)
+		return;
 	int level = QString(sender()->objectName()).toInt();
 	int layerNumber=m_Doc->layerNumberFromLevel(level);
 	if (layerNumber==-1)
@@ -406,6 +426,8 @@ void LayerPalette::flowToggleLayer()
 
 void LayerPalette::outlineToggleLayer()
 {
+	if (!m_Doc)
+		return;
 	int level = QString(sender()->objectName()).toInt();
 	int layerNumber=m_Doc->layerNumberFromLevel(level);
 	if (layerNumber==-1)
@@ -460,6 +482,8 @@ void LayerPalette::toggleAllfromHeader(int index)
 
 void LayerPalette::markLayer()
 {
+	if (!m_Doc)
+		return;
 	int level = QString(sender()->objectName()).toInt();
 	int layerNumber=m_Doc->layerNumberFromLevel(level);
 	if (layerNumber==-1)
@@ -483,18 +507,24 @@ void LayerPalette::markLayer()
 
 void LayerPalette::changeOpacity()
 {
+	if (!m_Doc)
+		return;
 	m_Doc->setLayerTransparency(m_Doc->activeLayer(), opacitySpinBox->value() / 100.0);
 	emit LayerChanged();
 }
 
 void LayerPalette::changeBlendMode(int blend)
 {
+	if (!m_Doc)
+		return;
 	m_Doc->setLayerBlendMode(m_Doc->activeLayer(), blend);
 	emit LayerChanged();
 }
 
 void LayerPalette::markActiveLayer(int layerNumber)
 {
+	if (!m_Doc)
+		return;
 	disconnect(blendMode, SIGNAL(activated(int)), this, SLOT(changeBlendMode(int)));
 	disconnect(opacitySpinBox, SIGNAL(valueChanged(int)), this, SLOT(changeOpacity()));
 	disconnect(Table, SIGNAL(cellClicked(int, int)), this, SLOT(setActiveLayer(int, int)));
@@ -523,6 +553,8 @@ void LayerPalette::markActiveLayer(int layerNumber)
 
 void LayerPalette::setActiveLayer(int row, int col)
 {
+	if (!m_Doc)
+		return;
 	if (col != 6)
 	{
 		markActiveLayer(-1);
