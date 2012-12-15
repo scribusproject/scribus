@@ -20,7 +20,6 @@ for which a new license (GPL+exception) is in place.
 #include "editor.h"
 #include "page.h"
 #include "query.h"
-#include "scmessagebox.h"
 #include "scribusdoc.h"
 #include "util_icon.h"
 
