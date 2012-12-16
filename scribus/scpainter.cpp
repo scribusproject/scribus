@@ -2209,10 +2209,96 @@ void ScPainter::drawText(QRectF area, QString text, bool filled, int align)
 	}
 }
 
-void ScPainter::drawShadePanel(const QRect &r, const QPalette &pal, bool sunken, int lineWidth)
+void ScPainter::drawShadeCircle(const QRectF &re, const QColor color, bool sunken, int lineWidth)
 {
-	QColor shade = pal.dark().color();
-	QColor light = pal.light().color();
+	setStrokeMode(1);
+	double bezierCircle = 0.55228475;
+	double dx = re.width();
+	double dy = re.height();
+	double cx = dx / 2.0;
+	double cy = dy / 2.0;
+	double rb = 0.5 * (dx < dy ? dx : dy);
+	double r = rb - 0.25 * lineWidth;
+	QColor shade;
+	shade.setRgbF(color.redF() * 0.5, color.greenF() * 0.5, color.blueF() * 0.5);
+	QColor light;
+	light.setRgbF(color.redF() * 0.5 + 0.5, color.greenF() * 0.5 + 0.5, color.blueF() * 0.5 + 0.5);
+	cairo_save(m_cr);
+	translate(0, dy);
+	scale(1, -1);
+	setPen(color, lineWidth * 0.5, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+	newPath();
+	moveTo(cx + r, cy);
+	cairo_curve_to(m_cr, cx + r, cy + bezierCircle * r, cx + bezierCircle * r, cy + r, cx, cy + r);
+	cairo_curve_to(m_cr, cx - bezierCircle * r, cy + r, cx - r, cy + bezierCircle * r, cx - r, cy);
+	cairo_curve_to(m_cr, cx - r, cy - bezierCircle * r, cx - bezierCircle * r, cy - r, cx, cy - r);
+	cairo_curve_to(m_cr, cx + bezierCircle * r, cy - r, cx + r, cy - bezierCircle * r, cx + r, cy);
+	strokePath();
+	r = rb - 0.73 * lineWidth;
+	double r2 = r / 1.414213562;
+	if (sunken)
+		setPen(shade, lineWidth * 0.5, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+	else
+		setPen(light, lineWidth * 0.5, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+	newPath();
+	moveTo(cx + r2, cy + r2);
+	cairo_curve_to(m_cr, cx + (1 - bezierCircle) * r2, cy + (1 + bezierCircle) * r2, cx - (1 - bezierCircle) * r2, cy + (1 + bezierCircle) * r2, cx - r2, cy + r2);
+	cairo_curve_to(m_cr, cx - (1 + bezierCircle) * r2, cy + (1 - bezierCircle) * r2, cx - (1 + bezierCircle) * r2, cy - (1 - bezierCircle) * r2, cx - r2, cy - r2);
+	strokePath();
+	if (sunken)
+		setPen(light, lineWidth * 0.5, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+	else
+		setPen(shade, lineWidth * 0.5, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+	newPath();
+	moveTo(cx - r2, cy - r2);
+	cairo_curve_to(m_cr, cx - (1 - bezierCircle) * r2, cy - (1 + bezierCircle) * r2, cx + (1 - bezierCircle) * r2, cy - (1 + bezierCircle) * r2, cx + r2, cy - r2);
+	cairo_curve_to(m_cr, cx + (1 + bezierCircle) * r2, cy - (1 - bezierCircle) * r2, cx + (1 + bezierCircle) * r2, cy + (1 - bezierCircle) * r2, cx + r2, cy + r2);
+	strokePath();
+	cairo_restore( m_cr );
+}
+
+void ScPainter::drawShadePanel(const QRectF &r, const QColor color, bool sunken, int lineWidth)
+{
+	QColor shade;
+	QColor light;
+	if (sunken)
+	{
+		shade.setRgbF(color.redF() * 0.5, color.greenF() * 0.5, color.blueF() * 0.5);
+		light.setRgbF(color.redF() * 0.5 + 0.5, color.greenF() * 0.5 + 0.5, color.blueF() * 0.5 + 0.5);
+	}
+	else
+	{
+		light.setRgbF(color.redF() * 0.5, color.greenF() * 0.5, color.blueF() * 0.5);
+		shade.setRgbF(color.redF() * 0.5 + 0.5, color.greenF() * 0.5 + 0.5, color.blueF() * 0.5 + 0.5);
+	}
+	double x1, y1, y2, x3;
+	x1 = r.x();
+	x3 = r.x() + r.width();
+	y1 = r.y() + r.height();
+	y2 = r.y();
+	setFillMode(ScPainter::Solid);
+	newPath();
+	moveTo(x1, y1);
+	lineTo(x1, y2);
+	lineTo(x3, y2);
+	lineTo(x3 - lineWidth, lineWidth);
+	lineTo(lineWidth, lineWidth);
+	lineTo(lineWidth, y1 - lineWidth);
+	closePath();
+	setBrush(shade);
+	fillPath();
+	newPath();
+	moveTo(x1, y1);
+	lineTo(x3, y1);
+	lineTo(x3, y2);
+	lineTo(x3 - lineWidth, lineWidth);
+	lineTo(x3 - lineWidth, y1 - lineWidth);
+	lineTo(lineWidth, y1 - lineWidth);
+	closePath();
+	setBrush(light);
+	fillPath();
+
+/*
 	setStrokeMode(1);
 	setLineWidth(1.2);
 	if (sunken)
@@ -2251,5 +2337,5 @@ void ScPainter::drawShadePanel(const QRect &r, const QPalette &pal, bool sunken,
 		lineTo(x2--, y2--);
 		lineTo(x3--, y3++);
 		strokePath();
-	}
+	} */
 }

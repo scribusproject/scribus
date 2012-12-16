@@ -700,6 +700,8 @@ bool SlaOutputDev::handleWidgetAnnot(Annot* annota, double xCoor, double yCoor, 
 									ite->annotation().setChkStil(4);
 								else if (itemText == "n")
 									ite->annotation().setChkStil(5);
+								else
+									ite->annotation().setChkStil(0);
 							}
 						}
 						else if ((wtyp == Annotation::Combobox) || (wtyp == Annotation::Listbox))

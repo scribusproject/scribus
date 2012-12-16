@@ -94,7 +94,8 @@ public:
 	virtual void drawRect(double, double, double, double);
 	virtual void drawSharpRect(double x, double y, double w, double h);
 	virtual void drawText(QRectF area, QString text, bool filled = true, int align = 0);
-	virtual void drawShadePanel(const QRect &r, const QPalette &pal, bool sunken, int lineWidth);
+	virtual void drawShadeCircle(const QRectF &re, const QColor color, bool sunken, int lineWidth);
+	virtual void drawShadePanel(const QRectF &r, const QColor color, bool sunken, int lineWidth);
 
 	// pen + brush
 	virtual QColor pen();

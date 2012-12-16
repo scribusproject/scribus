@@ -310,6 +310,9 @@ bool OutlineWidget::viewportEvent(QEvent *event)
  									break;
 								case Annotation::Link:
 									tipText += CommonStrings::itemSubType_PDF_LinkAnnotation;
+									break;
+								case Annotation::RadioButton:
+									tipText += CommonStrings::itemSubType_PDF_RadioButton;
  									break;
  								default:
 									tipText += CommonStrings::itemType_TextFrame;

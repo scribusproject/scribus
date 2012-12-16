@@ -3144,23 +3144,29 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRectF cullingArea)
 			if (annotation().Type() == Annotation::RadioButton)
 			{
 				double bwh = annotation().Bwid() / 2.0;
-				QPainterPath clp;
-				clp.addEllipse(QRectF(bwh, bwh, Width - annotation().Bwid(), Height - annotation().Bwid()));
-				FPointArray clpArr;
-				clpArr.fromQPainterPath(clp);
-				p->setupPolygon(&clpArr);
-				p->setPen(tmp, annotation().Bwid(), annotation().Bsty() == 0 ? Qt::SolidLine : Qt::DashLine, Qt::FlatCap, Qt::MiterJoin);
-				p->setFillMode(ScPainter::None);
-				p->setStrokeMode(ScPainter::Solid);
-				p->strokePath();
+				if ((annotation().Bsty() == 0) || (annotation().Bsty() == 1))
+				{
+					QPainterPath clp;
+					clp.addEllipse(QRectF(bwh, bwh, Width - annotation().Bwid(), Height - annotation().Bwid()));
+					FPointArray clpArr;
+					clpArr.fromQPainterPath(clp);
+					p->setupPolygon(&clpArr);
+					p->setPen(tmp, annotation().Bwid(), annotation().Bsty() == 0 ? Qt::SolidLine : Qt::DashLine, Qt::FlatCap, Qt::MiterJoin);
+					p->setFillMode(ScPainter::None);
+					p->setStrokeMode(ScPainter::Solid);
+					p->strokePath();
+				}
+				else if (annotation().Bsty() == 3)
+					p->drawShadeCircle(QRectF(0, 0, Width, Height), tmp, false, annotation().Bwid());
+				else if (annotation().Bsty() == 4)
+					p->drawShadeCircle(QRectF(0, 0, Width, Height), tmp, true, annotation().Bwid());
 			}
 			else
 			{
-				QPalette pal = QPalette(tmp);
 				if (annotation().Bsty() == 3)
-					p->drawShadePanel(QRect(0, 0, Width, Height), pal, false, annotation().Bwid());
+					p->drawShadePanel(QRectF(0, 0, Width, Height), tmp, false, annotation().Bwid());
 				else if (annotation().Bsty() == 4)
-					p->drawShadePanel(QRect(0, 0, Width, Height), pal, true, annotation().Bwid());
+					p->drawShadePanel(QRectF(0, 0, Width, Height), tmp, true, annotation().Bwid());
 				else
 				{
 					p->setPen(tmp, annotation().Bwid(), annotation().Bsty() == 0 ? Qt::SolidLine : Qt::DashLine, Qt::FlatCap, Qt::MiterJoin);
@@ -3215,7 +3221,10 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRectF cullingArea)
 			if (annotation().IsChk())
 			{
 				QPainterPath clp2;
-				clp2.addEllipse(QRectF(annotation().Bwid() * 1.5, annotation().Bwid() * 1.5, width() - annotation().Bwid() * 3, height() - annotation().Bwid() * 3).normalized());
+				double siz = qMin(width(), height()) * 0.4;
+				QRectF sizR(0, 0, siz, siz);
+				sizR.moveCenter(QPointF(width() / 2.0, height() / 2.0));
+				clp2.addEllipse(sizR);
 				FPointArray clpArr2;
 				clpArr2.fromQPainterPath(clp2);
 				p->setBrush(fontColor);
