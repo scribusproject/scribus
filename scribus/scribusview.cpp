@@ -862,12 +862,14 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 //	int ex = qRound(e->pos().x()/m_canvas->scale());// + Doc->minCanvasCoordinate.x());
 //		int ey = qRound(e->pos().y()/m_canvas->scale());// + Doc->minCanvasCoordinate.y());
 
-	if (ScMimeData::clipboardHasScribusElem() && (Doc->DraggedElem == 0))
+//  Commented out to fix Bug #11254 (fs)
+/*	if (ScMimeData::clipboardHasScribusElem() && (Doc->DraggedElem == 0))
 	{
 		text = ScMimeData::clipboardScribusElem();
 		url  = QUrl(text);
 	}
-	else if (e->mimeData()->hasText())
+	else*/
+	if (e->mimeData()->hasText())
 	{
 		text = e->mimeData()->text();
 		url = QUrl(text);
