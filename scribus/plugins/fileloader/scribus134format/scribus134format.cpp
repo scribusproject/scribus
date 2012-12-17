@@ -2095,11 +2095,12 @@ bool Scribus134Format::readPattern(ScribusDoc* doc, ScXmlStreamReader& reader, c
 		ItemInfo itemInfo;
 		m_Doc->setMasterPageMode(false);
 		
-		int ownPage = tAtt.valueAsInt("OwnPage");
+		//int ownPage = tAtt.valueAsInt("OwnPage");
 		success = readObject(doc, reader, itemInfo, baseDir, false);
 		if (!success) break;
 
-		itemInfo.item->OwnPage = ownPage;
+		// #11274 : OwnPage is not meaningful for pattern items
+		itemInfo.item->OwnPage = -1 /*ownPage*/;
 		itemInfo.item->OnMasterPage = "";
 
 		if (itemInfo.item->isTableItem)

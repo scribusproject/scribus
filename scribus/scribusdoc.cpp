@@ -5998,6 +5998,21 @@ void  ScribusDoc::fixItemPageOwner()
 		currItem = it.value();
 		currItem->OwnPage = -1;
  	}
+
+	// #11274: Scribus crash when opening .sla document
+	// OwnPage is not meaningful for pattern items
+	QHash<QString, ScPattern>::iterator patternIt;
+	for (patternIt = docPatterns.begin(); patternIt != docPatterns.end(); ++patternIt)
+	{
+		QList<PageItem*> patternItems = patternIt->items;
+		while (patternItems.count() > 0)
+		{
+			PageItem* patItem = patternItems.takeAt(0);
+			if (patItem->isGroup())
+				patternItems += patItem->groupItemList;
+			patItem->OwnPage = -1;
+		}
+	}
 }
 
 

@@ -3990,11 +3990,11 @@ bool Scribus150Format::readPattern(ScribusDoc* doc, ScXmlStreamReader& reader, c
 		ItemInfo itemInfo;
 		m_Doc->setMasterPageMode(false);
 		
-		int ownPage = tAtt.valueAsInt("OwnPage");
+		//int ownPage = tAtt.valueAsInt("OwnPage");
 		success = readObject(doc, reader, itemInfo, baseDir, false);
 		if (!success) break;
 
-		itemInfo.item->OwnPage = ownPage;
+		itemInfo.item->OwnPage = -1 /*ownPage*/;
 		itemInfo.item->OnMasterPage = "";
 		if (isNewFormat)
 		{

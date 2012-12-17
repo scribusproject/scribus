@@ -10411,6 +10411,16 @@ void ScribusMainWindow::PutToPatterns()
 	pat.width = maxx - minx;
 	pat.height = maxy - miny;
 	pat.items.append(currItem);
+	// #11274 : OwnPage is not meaningful for pattern items
+	// We set consequently pattern item's OwnPage to -1 
+	QList<PageItem*> patternItems = pat.items;
+	while (patternItems.count() > 0)
+	{
+		PageItem* patItem = patternItems.takeAt(0);
+		if (patItem->isGroup())
+			patternItems += patItem->groupItemList;
+		patItem->OwnPage = -1;
+	}
 	if (doc->docPatterns.contains(patternName))
 		doc->docPatterns.remove(patternName);
 	doc->addPattern(patternName, pat);
