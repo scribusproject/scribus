@@ -9726,6 +9726,7 @@ void ScribusMainWindow::PutToPatterns()
 	{
 		PageItem* paItem = doc->Items->takeAt(ac);
 		paItem->setItemName(patternName+QString("_%1").arg(as-ac));
+		paItem->OwnPage = -1; // #11274 : OwnPage is not meaningful for pattern items
 		pat.items.append(paItem);
 	}
 	doc->addPattern(patternName, pat);

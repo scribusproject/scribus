@@ -1244,7 +1244,8 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 					/*m_Doc->GroupCounter = 0;*/
 					Neu = PasteItem(&pite, m_Doc, fileDir);
 					Neu->setRedrawBounding();
-					Neu->OwnPage = pite.attribute("OwnPage").toInt();
+					// #11274 : OwnPage is not meaningful for pattern items
+					Neu->OwnPage = -1 /*pite.attribute("OwnPage").toInt()*/;
 					Neu->OnMasterPage = "";
 					/*m_Doc->GroupCounter = docGc;*/
 					tmpf = pite.attribute("IFONT", m_Doc->toolSettings.defFont);
@@ -3239,7 +3240,8 @@ bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool M
 					/*m_Doc->GroupCounter = 0;*/
 					Neu = PasteItem(&pite, m_Doc, fileDir);
 					Neu->setRedrawBounding();
-					Neu->OwnPage = pite.attribute("OwnPage").toInt();
+					// #11274 : OwnPage is not meaningful for pattern items
+					Neu->OwnPage = -1 /*pite.attribute("OwnPage").toInt()*/;
 					Neu->OnMasterPage = "";
 					Neu->LayerNr = layerTrans.value(Neu->LayerNr, Neu->LayerNr);
 					/*m_Doc->GroupCounter = docGc;*/

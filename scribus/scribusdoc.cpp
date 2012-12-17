@@ -4488,6 +4488,19 @@ void  ScribusDoc::fixItemPageOwner()
 		currItem->OwnPage = -1;
  	}
 
+	// #11274: Scribus crash when opening .sla document
+	// OwnPage is not meaningful for pattern items
+	QMap<QString, ScPattern>::iterator patternIt;
+	for (patternIt = docPatterns.begin(); patternIt != docPatterns.end(); ++patternIt)
+	{
+		QList<PageItem*> &patternItems(patternIt->items);
+		for (int i = 0; i < patternItems.count(); ++i)
+		{
+			currItem = patternItems.at(i);
+			currItem->OwnPage = -1;
+		}
+	}
+
 	// #11097 : we have a bug if an object inside a group fall outside masterpage
 	QMap<int, PageItem*> groupControls;
 	for (int i = 0; i < MasterItems.count(); ++i)
