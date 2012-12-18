@@ -28,8 +28,16 @@ for which a new license (GPL+exception) is in place.
 #include <QPoint>
 #include <QPointF>
 #include "scribusapi.h"
+
 /**
-  *@author Franz Schmid
+  * @author Franz Schmid
+  * @brief A point with floating point precision
+  *
+  * One of the advantage of FPoint vs QPointF is that FPoint has consistent precision across platforms :
+  * the coordinates are systematically stored as double. QPointF uses the qreal typedef which is sometime double,
+  * sometime float.
+  *
+  * FPoint has also some coordinate transformation functionalities not provided by QPointF. 
   */
 
 class SCRIBUS_API FPoint
