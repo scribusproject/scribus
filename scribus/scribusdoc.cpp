@@ -1269,10 +1269,10 @@ void ScribusDoc::replaceNamedResources(ResourceCollection& newNames)
 {
 	// replace names in items
 
-#ifndef QT_NO_CONCURRENT
-	QtConcurrent::blockingMap(DocItems, ResMapped(newNames));
-	QtConcurrent::blockingMap(MasterItems, ResMapped(newNames));
-#else
+//#ifndef QT_NO_CONCURRENT
+//	QtConcurrent::blockingMap(DocItems, ResMapped(newNames));
+//	QtConcurrent::blockingMap(MasterItems, ResMapped(newNames));
+//#else
 
 	QList<PageItem*> * itemlist = & MasterItems;
 	while (itemlist != NULL)
@@ -1288,7 +1288,7 @@ void ScribusDoc::replaceNamedResources(ResourceCollection& newNames)
 		else
 			itemlist = NULL;
 	}
-#endif
+//#endif
 	foreach (NotesStyle* nStyle, m_docNotesStylesList)
 	{ //update styles names in notes styles
 		if (nStyle == NULL)
@@ -5025,14 +5025,14 @@ void ScribusDoc::recalculateColors()
 		}
 	}
 
-#ifndef QT_NO_CONCURRENT
-	QtConcurrent::blockingMap(DocItems, &ScribusDoc::recalculateColorItem);
-	QtConcurrent::blockingMap(MasterItems, &ScribusDoc::recalculateColorItem);
-#else
+//#ifndef QT_NO_CONCURRENT
+//	QtConcurrent::blockingMap(DocItems, &ScribusDoc::recalculateColorItem);
+//	QtConcurrent::blockingMap(MasterItems, &ScribusDoc::recalculateColorItem);
+//#else
 
 	recalculateColorsList(&DocItems);
 	recalculateColorsList(&MasterItems);
-#endif
+//#endif
 	QList<PageItem*> itemList = FrameItems.values();
 	recalculateColorsList(&itemList);
 	QList<PageItem*> allItems;
@@ -9985,13 +9985,13 @@ void ScribusDoc::recalcPicturesRes(bool applyNewRes)
 	QList<PageItem*> allItems;
 	QStringList patterns = docPatterns.keys();
 
-#ifndef QT_NO_CONCURRENT
-	int lowRes = 0;
-	if (applyNewRes)
-		lowRes = docPrefsData.itemToolPrefs.imageLowResType;
-	QtConcurrent::blockingMap(DocItems, PicResMapped(applyNewRes, lowRes));
-	QtConcurrent::blockingMap(MasterItems, PicResMapped(applyNewRes, lowRes));
-#else
+//#ifndef QT_NO_CONCURRENT
+//	int lowRes = 0;
+//	if (applyNewRes)
+//		lowRes = docPrefsData.itemToolPrefs.imageLowResType;
+//	QtConcurrent::blockingMap(DocItems, PicResMapped(applyNewRes, lowRes));
+//	QtConcurrent::blockingMap(MasterItems, PicResMapped(applyNewRes, lowRes));
+//#else
 	int cc = 0;
 	for (int a = 0; a < DocItems.count(); ++a)
 	{
@@ -10120,7 +10120,7 @@ void ScribusDoc::recalcPicturesRes(bool applyNewRes)
 		}
 		allItems.clear();
 	}
-#endif
+//#endif
 	for (QHash<int, PageItem*>::iterator it = FrameItems.begin(); it != FrameItems.end(); ++it)
 	{
 		PageItem *currItem = it.value();
