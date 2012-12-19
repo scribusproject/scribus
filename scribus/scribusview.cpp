@@ -347,7 +347,6 @@ ScribusView::ScribusView(QWidget* win, ScribusMainWindow* mw, ScribusDoc *doc) :
 	connect(cmsToolbarButton, SIGNAL(clicked()), this, SLOT(toggleCMS()));
 	connect(visualMenu, SIGNAL(activated(int)), this, SLOT(switchPreviewVisual(int)));
 	connect(this, SIGNAL(HaveSel(int)), Doc, SLOT(selectionChanged()));
-	languageChange();
 // Commented out to fix bug #7865
 //	m_dragTimer = new QTimer(this);
 //	connect(m_dragTimer, SIGNAL(timeout()), this, SLOT(dragTimerTimeOut()));
@@ -356,7 +355,12 @@ ScribusView::ScribusView(QWidget* win, ScribusMainWindow* mw, ScribusDoc *doc) :
 	clockLabel = new ClockWidget(this, Doc);
 	clockLabel->setGeometry(m_vhRulerHW + 1, height() - m_vhRulerHW - 61, 60, 60);
 	clockLabel->setVisible(false);
+	endEditButton = new QPushButton(loadIcon("22/exit.png"), tr("End Edit"), this);
+	endEditButton->setGeometry(m_vhRulerHW + 1, height() - m_vhRulerHW - endEditButton->minimumSizeHint().height() - 1, endEditButton->minimumSizeHint().width(), endEditButton->minimumSizeHint().height());
+	endEditButton->setVisible(false);
+	connect(endEditButton, SIGNAL(clicked()), m_ScMW, SLOT(slotFileClose()));
 	editOnPreviewToolbarButton->hide();
+	languageChange();
 }
 
 ScribusView::~ScribusView()
@@ -395,6 +399,7 @@ void ScribusView::languageChange()
 	previewToolbarButton->setToolTip( tr("Enable/disable the Preview Mode"));
 	editOnPreviewToolbarButton->setToolTip( tr("Enable/disable editing the Preview Mode"));
 	visualMenu->setToolTip( tr("Select the visual appearance of the display. You can choose between normal and several color blindness forms"));
+	endEditButton->setToolTip( tr("Click here to leave this special edit mode."));
 	disconnect(visualMenu, SIGNAL(activated(int)), this, SLOT(switchPreviewVisual(int)));
 	visualMenu->clear();
 	visualMenu->addItem(CommonStrings::trVisionNormal);
@@ -2116,6 +2121,7 @@ void ScribusView::resizeEvent ( QResizeEvent * event )
 		clockLabel->setGeometry(m_vhRulerHW + 1, height() - m_vhRulerHW - 16, 15, 15);
 		clockLabel->setFixedSize(15, 15);
 	}
+	endEditButton->setGeometry(m_vhRulerHW + 1, height() - m_vhRulerHW - endEditButton->minimumSizeHint().height() - 1, endEditButton->minimumSizeHint().width(), endEditButton->minimumSizeHint().height());
 	m_canvas->m_viewMode.forceRedraw = true;
 	m_canvas->resetRenderMode();
 	// Per Qt doc, not painting should be done in a resizeEvent,
@@ -2730,6 +2736,7 @@ void ScribusView::showMasterPage(int nr)
 	oldY = qRound(Doc->currentPage()->yOffset()- 10);
 	SetCPo(Doc->currentPage()->xOffset() - 10, Doc->currentPage()->yOffset() - 10);
 	updateOn = true;
+	endEditButton->setVisible(true);
 	DrawNew();
 }
 
@@ -2740,6 +2747,7 @@ void ScribusView::hideMasterPage()
 		this->requestMode(modeNormal);
 	Doc->setMasterPageMode(false);
 	pageSelector->setEnabled(true);
+	endEditButton->setVisible(false);
 	resizeContents(qRound((Doc->maxCanvasCoordinate.x() - Doc->minCanvasCoordinate.x()) * m_canvas->scale()), qRound((Doc->maxCanvasCoordinate.y() - Doc->minCanvasCoordinate.y()) * m_canvas->scale()));
 }
 
@@ -2759,6 +2767,7 @@ void ScribusView::showSymbolPage(QString symbolName)
 	oldY = qRound(Doc->currentPage()->yOffset()- 10);
 	SetCPo(Doc->currentPage()->xOffset() - 10, Doc->currentPage()->yOffset() - 10);
 	updateOn = true;
+	endEditButton->setVisible(true);
 	DrawNew();
 }
 
@@ -2770,6 +2779,7 @@ void ScribusView::hideSymbolPage()
 		this->requestMode(modeNormal);
 	Doc->setSymbolEditMode(false);
 	updatesOn(true);
+	endEditButton->setVisible(false);
 	Doc->setCurrentPage(Doc->Pages->at(0));
 	pageSelector->setEnabled(true);
 	layerMenu->setEnabled(true);
@@ -2792,6 +2802,7 @@ void ScribusView::showInlinePage(int id)
 	oldY = qRound(Doc->currentPage()->yOffset()- 10);
 	SetCPo(Doc->currentPage()->xOffset() - 10, Doc->currentPage()->yOffset() - 10);
 	updateOn = true;
+	endEditButton->setVisible(true);
 	DrawNew();
 }
 
@@ -2803,6 +2814,7 @@ void ScribusView::hideInlinePage()
 		this->requestMode(modeNormal);
 	Doc->setInlineEditMode(false);
 	updatesOn(true);
+	endEditButton->setVisible(false);
 	Doc->setCurrentPage(Doc->Pages->at(0));
 	pageSelector->setEnabled(true);
 	layerMenu->setEnabled(true);

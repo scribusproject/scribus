@@ -144,6 +144,7 @@ public:
 	QComboBox *previewQualitySwitcher; //Menu for image preview quality
 	QComboBox *visualMenu;
 	ClockWidget *clockLabel;
+	QPushButton *endEditButton;
   /** Dokument zu dem die Seite gehoert */
 	ScribusDoc * const Doc;
 	Canvas * const m_canvas;
