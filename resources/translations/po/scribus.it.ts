@@ -11902,7 +11902,7 @@ Vedere la sezione Modifica colori della documentazione per ulteriori dettagli.</
     </message>
     <message>
         <source>If color management is enabled, a triangle warning indicator is a warning that the color maybe outside of the color gamut of the current printer profile selected. What this means is the color may not print exactly as indicated on screen. Spot colors are indicated by a red circle. More hints about gamut warnings are in the online help under Color Management. Registration colors will have a registration mark next to the color. Use Registration only for printers marks and crop marks.</source>
-        <translation type="obsolete">Se è abilitata la gestione colori, un indicatore triangolare funge da avviso che il colore potrebbe essere fuori gamma del corrente profilo stampante selezionato. Ciò significa che il color potrebe non essere stampato come mostrato sullo schermo. I colori a tinta piatta sono indicati da un cerchio rosso. Ulteriori informazioni sugli avvisi relativi alla gamma si trovano nell&apos;Aiuto in linea, sotto Gestione colori. I colori di registrazione avranno un marchio di registrazione vicino al colore. Utilizzare la Registrazione solo per marchi di stampante o per indicatori di ritaglio.</translation>
+        <translation type="obsolete">Se è abilitata la gestione colori, un indicatore triangolare funge da avviso che il colore potrebbe essere fuori gamma del corrente profilo stampante selezionato. Ciò significa che il color potrebe non essere stampato come mostrato sullo schermo. I colori a tinta piatta sono indicati da un cerchio rosso. Ulteriori informazioni sugli avvisi relativi alla gamma si trovano nell&apos;Aiuto in linea, sotto Gestione colori. I colori di registrazione avranno un marchio di registrazione vicino al colore. Utilizzare la Registrazione solo per marchi di stampante o per indicatori di taglio.</translation>
     </message>
     <message>
         <source>All Supported Formats (%1);;Documents (%2);;Other Files (%3);;All Files (*)</source>
@@ -26858,7 +26858,7 @@ Un valore uguale a 0 significa sillabazioni illimitate.</translation>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="1105"/>
         <source>Crop Marks</source>
-        <translation>Indicatori di ritaglio</translation>
+        <translation>Indicatori di taglio</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="1069"/>
@@ -27264,7 +27264,7 @@ Un valore uguale a 0 significa sillabazioni illimitate.</translation>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="87"/>
         <source>Creates crop marks in the PDF indicating where the paper should be cut or trimmed after printing</source>
-        <translation>Crea indicatori di ritaglio nel PDF mostrando dove dovrebbe essere tagliata o smarginata la carta, dopo la stampa</translation>
+        <translation>Crea indicatori di taglio nel PDF mostrando dove dovrebbe essere tagliata o smarginata la carta, dopo la stampa</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexport.cpp" line="88"/>
@@ -28071,7 +28071,7 @@ Un valore uguale a 0 significa sillabazioni illimitate.</translation>
     <message>
         <location filename="../../../scribus/ui/prefs_printerbase.ui" line="458"/>
         <source>Crop Marks</source>
-        <translation>Indicatori di ritaglio</translation>
+        <translation>Indicatori di taglio</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_printerbase.ui" line="465"/>
@@ -29403,12 +29403,12 @@ L&apos;impostazione ai livelli 1 o 2 può generare file molto grandi</translatio
     <message>
         <location filename="../../../scribus/ui/printdialogbase.ui" line="453"/>
         <source>This creates crop marks in the PDF indicating where the paper should be cut or trimmed after printing</source>
-        <translation>Crea indicatori di ritaglio nel PDF mostrando dove dovrebbe essere tagliata o smarginata la carta, dopo la stampa</translation>
+        <translation>Crea indicatori di taglio nel PDF mostrando dove dovrebbe essere tagliata o smarginata la carta, dopo la stampa</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/printdialogbase.ui" line="456"/>
         <source>Crop Marks</source>
-        <translation>Indicatori di ritaglio</translation>
+        <translation>Indicatori di taglio</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/printdialogbase.ui" line="473"/>
@@ -44442,7 +44442,7 @@ quando il documento viene aperto:</translation>
     <message>
         <location filename="../../../scribus/ui/tabpdfoptions.cpp" line="803"/>
         <source>Crop Marks</source>
-        <translation>Indicatori di ritaglio</translation>
+        <translation>Indicatori di taglio</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/tabpdfoptions.cpp" line="805"/>
@@ -44627,7 +44627,7 @@ quando il documento viene aperto:</translation>
     <message>
         <location filename="../../../scribus/ui/tabpdfoptions.cpp" line="1002"/>
         <source>Creates crop marks in the PDF indicating where the paper should be cut or trimmed after printing</source>
-        <translation>Crea indicatori di ritaglio nel PDF mostrando dove dovrebbe essere tagliata o smarginata la carta, dopo la stampa</translation>
+        <translation>Crea indicatori di taglio nel PDF mostrando dove dovrebbe essere tagliata o smarginata la carta, dopo la stampa</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/tabpdfoptions.cpp" line="1003"/>
@@ -44924,11 +44924,11 @@ L&apos;impostazione ai livelli 1 o 2 può generare file molto grandi</translatio
     </message>
     <message>
         <source>This creates crop marks in the PDF indicating where the paper should be cut or trimmed after printing</source>
-        <translation type="obsolete">Crea indicatori di ritaglio nel PDF mostrando dove dovrebbe essere tagliata o smarginata la carta, dopo la stampa</translation>
+        <translation type="obsolete">Crea indicatori di taglio nel PDF mostrando dove dovrebbe essere tagliata o smarginata la carta, dopo la stampa</translation>
     </message>
     <message>
         <source>Crop Marks</source>
-        <translation type="obsolete">Indicatori di ritaglio</translation>
+        <translation type="obsolete">Indicatori di taglio</translation>
     </message>
     <message>
         <source>Print Destination</source>
