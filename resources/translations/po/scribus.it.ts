@@ -9488,7 +9488,7 @@ May throw ValueError if any of the distances are out of bounds (must be positive
         <location filename="../../../scribus/plugins/tools/spellcheck/aspellpluginimpl.cpp" line="268"/>
         <location filename="../../../scribus/plugins/tools/spellcheck/aspellpluginimpl.cpp" line="460"/>
         <source>Spell Checker</source>
-        <translation>Controllore ortografico</translation>
+        <translation>Controllo ortografico</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/tools/spellcheck/aspellpluginimpl.cpp" line="81"/>
