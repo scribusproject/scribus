@@ -476,7 +476,10 @@ void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 				newX = mousePointDoc.x(); //static_cast<int>(m->x()/sc);
 				newY = mousePointDoc.y(); //static_cast<int>(m->y()/sc);
 				m_canvas->m_viewMode.operItemMoving = true;
-				qApp->changeOverrideCursor(Qt::ClosedHandCursor);
+				if (!(m_doc->drawAsPreview && !m_doc->editOnPreview))
+					qApp->changeOverrideCursor(Qt::ClosedHandCursor);
+				else
+					qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 				erf = false;
 				int dX = qRound(newX - m_mousePressPoint.x()), dY = qRound(newY - m_mousePressPoint.y());
 				if (!m_doc->m_Selection->isMultipleSelection())
@@ -750,7 +753,7 @@ void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 //					setModeCursor();
 				}
 			}
-			if (GetItem(&currItem) && m_doc->appMode == modeNormal)
+			if (GetItem(&currItem) && (m_doc->appMode == modeNormal))
 			{
 				int how = m_canvas->frameHitTest(QPointF(mousePointDoc.x(),mousePointDoc.y()), currItem);
 				if (how > 0)
@@ -762,10 +765,15 @@ void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 						if ((!currItem->sizeHLocked() && !currItem->sizeVLocked()) || (currItem->sizeHLocked() && (how == 5 || how == 8))
 							|| (currItem->sizeVLocked() && (how == 6 || how == 7)))
 						setResizeCursor(how, currItem->rotation());
-				}
+					}
 				}
 				else if (how == 0)
-					qApp->changeOverrideCursor(QCursor(Qt::OpenHandCursor));
+				{
+					if (!(m_doc->drawAsPreview && !m_doc->editOnPreview))
+						qApp->changeOverrideCursor(QCursor(Qt::OpenHandCursor));
+					else
+						qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+				}
 				else
 				{
 					qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
@@ -848,8 +856,10 @@ void CanvasMode_Normal::mousePressEvent(QMouseEvent *m)
 //#7928			else
 //#7928				return;
 		}
-		
-		qApp->changeOverrideCursor(Qt::ClosedHandCursor);
+		if (!(m_doc->drawAsPreview && !m_doc->editOnPreview))
+			qApp->changeOverrideCursor(Qt::ClosedHandCursor);
+		else
+			qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 #if 1				
 		if (m_doc->m_Selection->isMultipleSelection() && (!m_doc->drawAsPreview))
 		{
@@ -918,7 +928,8 @@ void CanvasMode_Normal::mousePressEvent(QMouseEvent *m)
 		}
 		else
 		{
-			m_canvas->setRenderModeFillBuffer();
+			if (!(m_doc->drawAsPreview && !m_doc->editOnPreview))
+				m_canvas->setRenderModeFillBuffer();
 		}
 	}
 /*	if (m->button() == MidButton)
@@ -932,6 +943,23 @@ void CanvasMode_Normal::mousePressEvent(QMouseEvent *m)
 	{
 		m_canvas->m_viewMode.m_MouseButtonPressed = true;
 		m_mousePressPoint = m_mouseCurrentPoint;
+	}
+	if (m_doc->drawAsPreview && !m_doc->editOnPreview)
+	{
+		m_canvas->setRenderModeUseBuffer(false);
+		if (m_doc->m_Selection->count() == 1)
+		{
+			currItem = m_doc->m_Selection->itemAt(0);
+			if (currItem->isAnnotation())
+			{
+				if (currItem->annotation().Type() == Annotation::Checkbox)
+					handleCheckBoxPress(currItem);
+				else if (currItem->annotation().Type() == Annotation::RadioButton)
+					handleRadioButtonPress(currItem);
+				else if (currItem->annotation().Type() == Annotation::Button)
+					handlePushButtonPress(currItem);
+			}
+		}
 	}
 // Commented out to fix bug #7865
 //	if ((m_doc->m_Selection->count() != 0) && (m->button() == Qt::LeftButton) && (frameResizeHandle == 0))
@@ -1236,32 +1264,152 @@ void CanvasMode_Normal::mouseReleaseEvent(QMouseEvent *m)
 			if (currItem->isAnnotation())
 			{
 				if (currItem->annotation().Type() == Annotation::Link)
-				{
-					if (currItem->annotation().ActionType() == 2)
-					{
-						m_view->Deselect(true);
-						if (currItem->annotation().Ziel() < m_doc->Pages->count())
-							m_view->GotoPage(currItem->annotation().Ziel());
-						else
-						{
-							QString message = tr("Page %1 does not exist!").arg(currItem->annotation().Ziel() + 1);
-							QMessageBox::warning(m_view, CommonStrings::trWarning, message, CommonStrings::tr_OK);
-						}
-					}
-					else if (currItem->annotation().ActionType() == 8)
-					{
-						QString message = tr("Link Target is Web URL.\nURL: %1").arg(currItem->annotation().Extern());
-						QMessageBox::information(m_view, tr("Information"), message, CommonStrings::tr_OK);
-					}
-					else if (currItem->annotation().ActionType() == 9)
-					{
-						QString message = tr("Link Target is external File.\nFile: %1\nPage: %2").arg(currItem->annotation().Extern()).arg(currItem->annotation().Ziel() + 1);
-						QMessageBox::information(m_view, tr("Information"), message, CommonStrings::tr_OK);
-					}
-				}
+					handleLinkAnnotation(currItem);
+				else if (currItem->annotation().Type() == Annotation::Checkbox)
+					handleCheckBoxRelease(currItem);
+				else if (currItem->annotation().Type() == Annotation::RadioButton)
+					handleRadioButtonRelease(currItem);
+				else if (currItem->annotation().Type() == Annotation::Button)
+					handlePushButtonRelease(currItem);
 			}
 		}
 	}
+}
+
+void CanvasMode_Normal::handleCheckBoxPress(PageItem* currItem)
+{
+	currItem->annotation().setOnState(true);
+	currItem->update();
+	m_doc->regionsChanged()->update(currItem->getVisualBoundingRect());
+}
+
+void CanvasMode_Normal::handlePushButtonPress(PageItem* currItem)
+{
+	currItem->annotation().setOnState(true);
+	currItem->update();
+	m_doc->regionsChanged()->update(currItem->getVisualBoundingRect());
+}
+
+void CanvasMode_Normal::handleRadioButtonPress(PageItem* currItem)
+{
+	if (currItem->Parent != NULL)
+	{
+		PageItem *group = currItem->Parent->asGroupFrame();
+		for (int a = 0; a < group->groupItemList.count(); a++)
+		{
+			PageItem *gItem = group->groupItemList[a];
+			if ((gItem->isAnnotation()) && (gItem->annotation().Type() == Annotation::RadioButton))
+			{
+				gItem->update();
+			}
+		}
+		currItem->annotation().setOnState(true);
+		currItem->update();
+	}
+	else
+	{
+		int op = currItem->OwnPage;
+		uint docItemCount = m_doc->Items->count();
+		for (uint i = 0; i < docItemCount; ++i)
+		{
+			PageItem *gItem = m_doc->Items->at(i);
+			if ((gItem->isAnnotation()) && (gItem->annotation().Type() == Annotation::RadioButton) && (gItem->OwnPage == op))
+			{
+				gItem->update();
+			}
+		}
+		currItem->annotation().setOnState(true);
+		currItem->update();
+	}
+	m_view->updateContents();
+}
+
+void CanvasMode_Normal::handleCheckBoxRelease(PageItem* currItem)
+{
+	currItem->annotation().setOnState(false);
+	currItem->annotation().setCheckState(!currItem->annotation().IsChecked());
+	currItem->update();
+	m_doc->regionsChanged()->update(currItem->getVisualBoundingRect());
+}
+
+void CanvasMode_Normal::handlePushButtonRelease(PageItem* currItem)
+{
+	currItem->annotation().setOnState(false);
+	currItem->update();
+	m_doc->regionsChanged()->update(currItem->getVisualBoundingRect());
+}
+
+void CanvasMode_Normal::handleRadioButtonRelease(PageItem* currItem)
+{
+	if (currItem->Parent != NULL)
+	{
+		PageItem *group = currItem->Parent->asGroupFrame();
+		for (int a = 0; a < group->groupItemList.count(); a++)
+		{
+			PageItem *gItem = group->groupItemList[a];
+			if ((gItem->isAnnotation()) && (gItem->annotation().Type() == Annotation::RadioButton))
+			{
+				gItem->annotation().setCheckState(false);
+				gItem->update();
+			}
+		}
+		currItem->annotation().setCheckState(true);
+		currItem->annotation().setOnState(false);
+		currItem->update();
+	}
+	else
+	{
+		int op = currItem->OwnPage;
+		uint docItemCount = m_doc->Items->count();
+		for (uint i = 0; i < docItemCount; ++i)
+		{
+			PageItem *gItem = m_doc->Items->at(i);
+			if ((gItem->isAnnotation()) && (gItem->annotation().Type() == Annotation::RadioButton) && (gItem->OwnPage == op))
+			{
+				gItem->annotation().setCheckState(false);
+				gItem->update();
+			}
+		}
+		currItem->annotation().setCheckState(true);
+		currItem->annotation().setOnState(false);
+		currItem->update();
+	}
+	m_view->updateContents();
+}
+
+void CanvasMode_Normal::handleLinkAnnotation(PageItem* currItem)
+{
+	if (currItem->annotation().ActionType() == 2)
+	{
+		m_view->Deselect(true);
+		if (currItem->annotation().Ziel() < m_doc->Pages->count())
+			m_view->GotoPage(currItem->annotation().Ziel());
+		else
+		{
+			QString message = tr("Page %1 does not exist!").arg(currItem->annotation().Ziel() + 1);
+			QMessageBox::warning(m_view, CommonStrings::trWarning, message, CommonStrings::tr_OK);
+		}
+	}
+	else if (currItem->annotation().ActionType() == 8)
+	{
+		QString message = tr("Link Target is Web URL.\nURL: %1").arg(currItem->annotation().Extern());
+		QMessageBox::information(m_view, tr("Information"), message, CommonStrings::tr_OK);
+	}
+	else if (currItem->annotation().ActionType() == 9)
+	{
+		QString message = tr("Link Target is external File.\nFile: %1\nPage: %2").arg(currItem->annotation().Extern()).arg(currItem->annotation().Ziel() + 1);
+		QMessageBox::information(m_view, tr("Information"), message, CommonStrings::tr_OK);
+	}
+}
+
+void CanvasMode_Normal::handleFocusOut(PageItem* currItem)
+{
+//	qDebug() << "Focus Out" << currItem->itemName();
+}
+
+void CanvasMode_Normal::handleFocusIn(PageItem* currItem)
+{
+//	qDebug() << "Focus In" << currItem->itemName();
 }
 
 void CanvasMode_Normal::keyPressEvent(QKeyEvent *e)
@@ -1277,6 +1425,9 @@ void CanvasMode_Normal::keyReleaseEvent(QKeyEvent *e)
 //CB-->Doc/Fix
 bool CanvasMode_Normal::SeleItem(QMouseEvent *m)
 {
+	PageItem *previousSelectedItem = NULL;
+	if (m_doc->m_Selection->count() != 0)
+		previousSelectedItem = m_doc->m_Selection->itemAt(0);
 	m_canvas->m_viewMode.operItemSelecting = true;
 	const unsigned SELECT_IN_GROUP = Qt::AltModifier; // Qt::MetaModifier;
 	const unsigned SELECT_MULTIPLE = Qt::ShiftModifier;
@@ -1400,7 +1551,7 @@ bool CanvasMode_Normal::SeleItem(QMouseEvent *m)
 	{
 		m_view->Deselect(false);
 	}
-	currItem = m_canvas->itemUnderCursor(m->globalPos(), currItem, (m->modifiers() & SELECT_IN_GROUP));
+	currItem = m_canvas->itemUnderCursor(m->globalPos(), currItem, ((m->modifiers() & SELECT_IN_GROUP) || (m_doc->drawAsPreview && !m_doc->editOnPreview)));
 	if (currItem)
 	{
 		m_doc->m_Selection->delaySignalsOn();
@@ -1418,7 +1569,7 @@ bool CanvasMode_Normal::SeleItem(QMouseEvent *m)
 			if (m_doc->drawAsPreview && !m_doc->editOnPreview)
 				m_doc->m_Selection->clear();
 			m_doc->m_Selection->addItem(currItem);
-			if ( (m->modifiers() & SELECT_IN_GROUP) && (!currItem->isGroup()))
+			if (((m->modifiers() & SELECT_IN_GROUP) || (m_doc->drawAsPreview && !m_doc->editOnPreview)) && (!currItem->isGroup()))
 			{
 				currItem->isSingleSel = true;
 			}
@@ -1446,6 +1597,16 @@ bool CanvasMode_Normal::SeleItem(QMouseEvent *m)
 			m_doc->m_Selection->getGroupRect(&x, &y, &w, &h);
 			m_view->getGroupRectScreen(&x, &y, &w, &h);
 		}
+		if (previousSelectedItem != NULL)
+		{
+			if (currItem != previousSelectedItem)
+			{
+				handleFocusOut(previousSelectedItem);
+				handleFocusIn(currItem);
+			}
+		}
+		else
+			handleFocusIn(currItem);
 		return true;
 	}
 	if ((m_doc->guidesPrefs().guidesShown) /*&& (!m_doc->GuideLock)*/ && (m_doc->OnPage(MxpS, MypS) != -1))
@@ -1481,6 +1642,8 @@ bool CanvasMode_Normal::SeleItem(QMouseEvent *m)
 		else
 			m_view->Deselect(true);
 	}
+	if (previousSelectedItem != NULL)
+		handleFocusOut(previousSelectedItem);
 	return false;
 }
 

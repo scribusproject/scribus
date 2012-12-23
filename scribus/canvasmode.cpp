@@ -272,6 +272,8 @@ void CanvasMode::drawSelection(QPainter* psx, bool drawHandles)
 	m_pen["selection-group-inside"].setCosmetic(true);
 	QPen ba = QPen(Qt::white, 3.0, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 	ba.setCosmetic(true);
+	QPen bb = QPen(Qt::black, 1.0, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin);
+	bb.setCosmetic(true);
 	psx->scale(m_canvas->scale(), m_canvas->scale());
 	psx->translate(-m_doc->minCanvasCoordinate.x(), -m_doc->minCanvasCoordinate.y());
 	
@@ -371,16 +373,25 @@ void CanvasMode::drawSelection(QPainter* psx, bool drawHandles)
 				x = -currItem->visualLineWidth() / 2.0;
 				y = -currItem->visualLineWidth() / 2.0;
 				psx->setBrush(Qt::NoBrush);
-				psx->setPen(ba);
 				QRectF drRect = QRectF(x, y, w, h).normalized();
-				psx->drawRect(drRect);
-				if (drawHandles)
-					drawSelectionHandles(psx, QRectF(x, y, w, h), true, true, sx, sy);
-				psx->setPen(m_pen["selection-group-inside"]);
-				psx->setBrush(m_brush["selection-group-inside"]);
-				psx->drawRect(drRect);
-				if (drawHandles)
-					drawSelectionHandles(psx, QRectF(x, y, w, h), false, true, sx, sy);
+				if (m_doc->drawAsPreview && !m_doc->editOnPreview)
+				{
+					psx->setPen(bb);
+					psx->setBrush(Qt::NoBrush);
+					psx->drawRect(drRect.adjusted(-1, -1, 1, 1));
+				}
+				else
+				{
+					psx->setPen(ba);
+					psx->drawRect(drRect);
+					if (drawHandles)
+						drawSelectionHandles(psx, QRectF(x, y, w, h), true, true, sx, sy);
+					psx->setPen(m_pen["selection-group-inside"]);
+					psx->setBrush(m_brush["selection-group-inside"]);
+					psx->drawRect(drRect);
+					if (drawHandles)
+						drawSelectionHandles(psx, QRectF(x, y, w, h), false, true, sx, sy);
+				}
 			}
 			else
 			{
@@ -401,13 +412,22 @@ void CanvasMode::drawSelection(QPainter* psx, bool drawHandles)
 					y = currItem->asLine() ? 0 : -lineAdjust;
 				}
 				psx->setBrush(Qt::NoBrush);
-				psx->setPen(ba);
-				psx->drawRect(QRectF(x, y, w, h));
-				if(drawHandles && !currItem->locked() && !currItem->isLine())
-					drawSelectionHandles(psx, QRectF(x, y, w, h), true);
-				psx->setPen(m_pen["selection"]);
-				psx->setBrush(m_brush["selection"]);
-				psx->drawRect(QRectF(x, y, w, h));
+				if (m_doc->drawAsPreview && !m_doc->editOnPreview)
+				{
+					psx->setPen(bb);
+					psx->setBrush(Qt::NoBrush);
+					psx->drawRect(QRectF(x, y, w, h).adjusted(-1, -1, 1, 1));
+				}
+				else
+				{
+					psx->setPen(ba);
+					psx->drawRect(QRectF(x, y, w, h));
+					if(drawHandles && !currItem->locked() && !currItem->isLine())
+						drawSelectionHandles(psx, QRectF(x, y, w, h), true);
+					psx->setPen(m_pen["selection"]);
+					psx->setBrush(m_brush["selection"]);
+					psx->drawRect(QRectF(x, y, w, h));
+				}
 				if(drawHandles && !currItem->locked())
 				{
 					if(currItem->asLine())
@@ -733,6 +753,7 @@ QCursor CanvasMode::modeCursor()
 		case modeEditMeshPatch:
 		case modeEditWeldPoint:
 		case modeInsertPDFButton:
+		case modeInsertPDFRadioButton:
 		case modeInsertPDFTextfield:
 		case modeInsertPDFCheckbox:
 		case modeInsertPDFCombobox:

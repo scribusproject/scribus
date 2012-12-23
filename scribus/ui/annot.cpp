@@ -1912,6 +1912,7 @@ void ScAnnot::SetValues()
 	item->annotation().setFont(Schrift->currentIndex());
 	item->annotation().setFlag(0);
 	item->annotation().setIsChk(isChkd->isChecked());
+	item->annotation().setCheckState(isChkd->isChecked());
 	item->annotation().setChkStil(ChkStil->currentIndex());
 	item->annotation().setBorderColor(BorderC->currentText());
 	if (item->annotation().borderColor() == CommonStrings::tr_NoneColor)

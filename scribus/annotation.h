@@ -41,7 +41,7 @@ class SCRIBUS_API Annotation // : public SaxIO
 						AnToolTip(""), AnRollOver(""), AnDown(""), AnBColor(""), An_Extern(""), AnBsty(0),
 						AnBwid(1), AnFeed(1), AnZiel(0), AnFlag(0), AnMaxChar(-1), AnVis(0), AnChkStil(0),
 						AnFont(4), AnIsChk(false), AnAAact(false), AnHTML(0), AnUseIcons(false),
-						AnIPlace(1), AnScaleW(0), AnFormat(0)
+						AnIPlace(1), AnScaleW(0), AnFormat(0), tmp_Chk(false), on_State(false)
 		{
 		}
 		enum AnnotationType {
@@ -106,6 +106,8 @@ class SCRIBUS_API Annotation // : public SaxIO
 	void setChkStil(int newChkStil) { AnChkStil=newChkStil; }
 	void setFormat(int newFormat) { AnFormat=newFormat; }
 	void setIsChk(bool newIsChk) { AnIsChk=newIsChk; }
+	void setCheckState(bool newIsChk) { tmp_Chk=newIsChk; }
+	void setOnState(bool newIsChk) { on_State=newIsChk; }
 	void setAAact(bool newAAct) { AnAAact=newAAct; }
 	void setHTML(int newHTML) { AnHTML=newHTML; }
 	void setUseIcons(bool newUseIcons) { AnUseIcons=newUseIcons; }
@@ -140,6 +142,8 @@ class SCRIBUS_API Annotation // : public SaxIO
 	int ChkStil() const { return AnChkStil; }
 	int Format() const { return AnFormat; }
 	bool IsChk() const { return AnIsChk; }
+	bool IsChecked() const { return tmp_Chk; }
+	bool IsOn() const { return on_State; }
 	bool AAact() const { return AnAAact; }
 	int HTML() const { return AnHTML; }
 	bool UseIcons() const { return AnUseIcons; }
@@ -180,6 +184,8 @@ class SCRIBUS_API Annotation // : public SaxIO
 		int AnIPlace;
 		int AnScaleW;
 		int AnFormat;
+		bool tmp_Chk;
+		bool on_State;
 };
 
 #endif

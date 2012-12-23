@@ -687,6 +687,7 @@ bool SlaOutputDev::handleWidgetAnnot(Annot* annota, double xCoor, double yCoor, 
 							if (btn)
 							{
 								ite->annotation().setIsChk(btn->getState());
+								ite->annotation().setCheckState(ite->annotation().IsChk());
 								handleActions(ite, ano);
 								if (itemText == "4")
 									ite->annotation().setChkStil(0);
@@ -734,6 +735,7 @@ bool SlaOutputDev::handleWidgetAnnot(Annot* annota, double xCoor, double yCoor, 
 							{
 								ite->setItemName( CommonStrings::itemName_RadioButton + QString("%1").arg(m_doc->TotalItems));
 								ite->annotation().setIsChk(btn->getState());
+								ite->annotation().setCheckState(ite->annotation().IsChk());
 								handleActions(ite, ano);
 								m_radioButtons.insert(annota->getRef().num, ite);
 							}

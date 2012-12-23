@@ -3105,6 +3105,11 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRectF cullingArea)
 	{
 		if ((fillColor() != CommonStrings::None) || (GrType != 0))
 		{
+			if (isAnnotation() && !((m_Doc->appMode == modeEdit) && (m_Doc->m_Selection->findItem(this) != -1)) && ((annotation().Type() == 2) || (annotation().Type() == 5) || (annotation().Type() == 6)))
+			{
+				if ((annotation().Feed() == 1) && annotation().IsOn())
+					p->setBrush(QColor(255 - fillQColor.red(), 255 - fillQColor.green(), 255 - fillQColor.blue(), fillQColor.alpha()));
+			}
 			p->setupPolygon(&PoLine);
 			p->fillPath();
 		}
@@ -3141,35 +3146,57 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRectF cullingArea)
 		{
 			QColor tmp;
 			SetQColor(&tmp, annotation().borderColor(), 100);
+			int BStyle = annotation().Bsty();
+			if (annotation().IsOn())
+			{
+				if (annotation().Feed() == 2)
+					tmp = QColor(255 - tmp.red(), 255 - tmp.green(), 255 - tmp.blue(), tmp.alpha());
+				if (annotation().Feed() == 3)
+					BStyle = 4;
+			}
 			if (annotation().Type() == Annotation::RadioButton)
 			{
 				double bwh = annotation().Bwid() / 2.0;
-				if ((annotation().Bsty() == 0) || (annotation().Bsty() == 1))
+				if (annotation().IsOn())
+				{
+					if (BStyle == 4)
+						BStyle = 3;
+					else
+						BStyle = 4;
+				}
+				if ((BStyle == 0) || (BStyle == 1))
 				{
 					QPainterPath clp;
 					clp.addEllipse(QRectF(bwh, bwh, Width - annotation().Bwid(), Height - annotation().Bwid()));
 					FPointArray clpArr;
 					clpArr.fromQPainterPath(clp);
 					p->setupPolygon(&clpArr);
-					p->setPen(tmp, annotation().Bwid(), annotation().Bsty() == 0 ? Qt::SolidLine : Qt::DashLine, Qt::FlatCap, Qt::MiterJoin);
+					p->setPen(tmp, annotation().Bwid(), BStyle == 0 ? Qt::SolidLine : Qt::DashLine, Qt::FlatCap, Qt::MiterJoin);
 					p->setFillMode(ScPainter::None);
 					p->setStrokeMode(ScPainter::Solid);
 					p->strokePath();
 				}
-				else if (annotation().Bsty() == 3)
+				else if (BStyle == 3)
 					p->drawShadeCircle(QRectF(0, 0, Width, Height), tmp, false, annotation().Bwid());
-				else if (annotation().Bsty() == 4)
+				else if (BStyle == 4)
 					p->drawShadeCircle(QRectF(0, 0, Width, Height), tmp, true, annotation().Bwid());
 			}
 			else
 			{
-				if (annotation().Bsty() == 3)
+				if ((annotation().Type() == Annotation::Checkbox) && annotation().IsOn())
+				{
+					if (BStyle == 4)
+						BStyle = 3;
+					else
+						BStyle = 4;
+				}
+				if (BStyle == 3)
 					p->drawShadePanel(QRectF(0, 0, Width, Height), tmp, false, annotation().Bwid());
-				else if (annotation().Bsty() == 4)
+				else if (BStyle == 4)
 					p->drawShadePanel(QRectF(0, 0, Width, Height), tmp, true, annotation().Bwid());
 				else
 				{
-					p->setPen(tmp, annotation().Bwid(), annotation().Bsty() == 0 ? Qt::SolidLine : Qt::DashLine, Qt::FlatCap, Qt::MiterJoin);
+					p->setPen(tmp, annotation().Bwid(), BStyle == 0 ? Qt::SolidLine : Qt::DashLine, Qt::FlatCap, Qt::MiterJoin);
 					p->setStrokeMode(ScPainter::Solid);
 					p->drawRect(0, 0, Width, Height);
 				}
@@ -3186,7 +3213,10 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRectF cullingArea)
 			p->setClipPath();
 			if (!bmUtf16.isEmpty())
 			{
-				p->setPen(fontColor);
+				if ((annotation().Feed() == 1) && annotation().IsOn())
+					p->setPen(QColor(255 - fontColor.red(), 255 - fontColor.green(), 255 - fontColor.blue(), fontColor.alpha()));
+				else
+					p->setPen(fontColor);
 				p->setFont(QFont(fontName, fontSize));
 				p->drawText(QRectF(wdt, wdt, Width - (2 * wdt), Height - (2 * wdt)), bmUtf16, false);
 			}
@@ -3218,7 +3248,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRectF cullingArea)
 		}
 		else if (annotation().Type() == Annotation::RadioButton)
 		{
-			if (annotation().IsChk())
+			if (annotation().IsChecked())
 			{
 				QPainterPath clp2;
 				double siz = qMin(width(), height()) * 0.4;
@@ -3238,7 +3268,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRectF cullingArea)
 		}
 		else if (annotation().Type() == Annotation::Checkbox)
 		{
-			if (annotation().IsChk())
+			if (annotation().IsChecked())
 			{
 				p->setBrush(fontColor);
 				p->setFillMode(ScPainter::Solid);

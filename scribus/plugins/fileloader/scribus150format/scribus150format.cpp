@@ -4681,6 +4681,7 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 	currItem->annotation().setFormat( attrs.valueAsInt("ANFORMAT", 0));
 	currItem->annotation().setVis( attrs.valueAsInt("ANVIS", 0));
 	currItem->annotation().setIsChk( attrs.valueAsBool("ANCHK", false) );
+	currItem->annotation().setCheckState(currItem->annotation().IsChk());
 	currItem->annotation().setAAact( attrs.valueAsBool("ANAA", false) );
 	currItem->annotation().setHTML ( attrs.valueAsInt("ANHTML", 0));
 	currItem->annotation().setUseIcons( attrs.valueAsBool("ANICON", false));
