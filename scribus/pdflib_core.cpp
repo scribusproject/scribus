@@ -8411,7 +8411,7 @@ uint PDFLibCore::PDF_RadioButton(PageItem* ite, uint parent, QString parentName)
 	QString cc;
 	uint annotationObj = newObject();
 	uint actionObj = 0;
-	if ((ite->annotation().Type() > 1) && ((ite->annotation().ActionType() == 1) || (ite->annotation().AAact())) && (!ite->annotation().Action().isEmpty()))
+	if ((ite->annotation().Type() > 1) && ((ite->annotation().ActionType() == Annotation::Action_JavaScript) || (ite->annotation().AAact())) && (!ite->annotation().Action().isEmpty()))
 		actionObj = WritePDFString(ite->annotation().Action());
 	uint AActionObj = writeActions(ite->annotation(), annotationObj);
 	StartObj(annotationObj);
@@ -8462,9 +8462,9 @@ uint PDFLibCore::PDF_RadioButton(PageItem* ite, uint parent, QString parentName)
 	PutDoc(onState + " " + QString::number(appearanceObj1)+" 0 R\n");
 	PutDoc("/Off " + QString::number(appearanceObj2)+" 0 R\n");
 	PutDoc(">> >>\n");
-	if ((ite->annotation().ActionType() != 0) || (ite->annotation().AAact()))
+	if ((ite->annotation().ActionType() != Annotation::Action_None) || (ite->annotation().AAact()))
 	{
-		if (ite->annotation().ActionType() == 1)
+		if (ite->annotation().ActionType() == Annotation::Action_JavaScript)
 		{
 			if (!ite->annotation().Action().isEmpty())
 			{
@@ -8569,7 +8569,7 @@ bool PDFLibCore::PDF_Annotation(PageItem *ite, uint PNr)
 	uint icon2Obj = 0;
 	uint icon3Obj = 0;
 	uint actionObj = 0;
-	if ((ite->annotation().Type() > 1) && ((ite->annotation().ActionType() == 1) || (ite->annotation().AAact())) && (!ite->annotation().Action().isEmpty()))
+	if ((ite->annotation().Type() > 1) && ((ite->annotation().ActionType() == Annotation::Action_JavaScript) || (ite->annotation().AAact())) && (!ite->annotation().Action().isEmpty()))
 		actionObj = WritePDFString(ite->annotation().Action());
 	uint AActionObj = writeActions(ite->annotation(), annotationObj);
 	StartObj(annotationObj);
@@ -8586,7 +8586,7 @@ bool PDFLibCore::PDF_Annotation(PageItem *ite, uint PNr)
 		case 1:
 		case Annotation::Link:
 			PutDoc("/Subtype /Link\n");
-			if (ite->annotation().ActionType() == 2)
+			if (ite->annotation().ActionType() == Annotation::Action_GoTo)
 			{
 				PutDoc("/Dest /"+NDnam+QString::number(NDnum)+"\n");
 				Dest de;
@@ -8596,14 +8596,14 @@ bool PDFLibCore::PDF_Annotation(PageItem *ite, uint PNr)
 				NamedDest.append(de);
 				NDnum++;
 			}
-			if (ite->annotation().ActionType() == 7)
+			if (ite->annotation().ActionType() == Annotation::Action_GoToR_FileRel)
 			{
 				PutDoc("/A << /Type /Action /S /GoToR\n/F " + EncString(Path2Relative(ite->annotation().Extern(), baseDir), annotationObj) + "\n");
 				PutDoc("/D ["+QString::number(ite->annotation().Ziel())+" /XYZ "+ite->annotation().Action()+"]\n>>\n");
 			}
-			if (ite->annotation().ActionType() == 8)
+			if (ite->annotation().ActionType() == Annotation::Action_URI)
 				PutDoc("/A << /Type /Action /S /URI\n/URI " + EncString(ite->annotation().Extern(), annotationObj) + "\n>>\n");
-			if (ite->annotation().ActionType() == 9)
+			if (ite->annotation().ActionType() == Annotation::Action_GoToR_FileAbs)
 			{
 				PutDoc("/A << /Type /Action /S /GoToR\n/F " + EncString(ite->annotation().Extern(), ObjCounter-1) + "\n");
 				PutDoc("/D ["+QString::number(ite->annotation().Ziel())+" /XYZ "+ite->annotation().Action()+"]\n>>\n");
@@ -8795,23 +8795,23 @@ bool PDFLibCore::PDF_Annotation(PageItem *ite, uint PNr)
 			if (ite->rotation() != 0)
 				PutDoc("/R "+QString::number((abs(static_cast<int>(ite->rotation())) / 90)*90)+" ");
 			PutDoc(">>\n");
-			if ((ite->annotation().ActionType() != 0) || (ite->annotation().AAact()))
+			if ((ite->annotation().ActionType() != Annotation::Action_None) || (ite->annotation().AAact()))
 			{
-				if (ite->annotation().ActionType() == 7)
+				if (ite->annotation().ActionType() == Annotation::Action_GoToR_FileRel)
 				{
 					PutDoc("/A << /Type /Action /S /GoToR\n/F " + EncString(Path2Relative(ite->annotation().Extern(), baseDir), annotationObj) + "\n");
 					PutDoc("/D ["+QString::number(ite->annotation().Ziel())+" /XYZ "+ite->annotation().Action()+"]\n>>\n");
 				}
-				if (ite->annotation().ActionType() == 9)
+				if (ite->annotation().ActionType() == Annotation::Action_GoToR_FileAbs)
 				{
 					PutDoc("/A << /Type /Action /S /GoToR\n/F " + EncString(ite->annotation().Extern(), ObjCounter-1) + "\n");
 					PutDoc("/D ["+QString::number(ite->annotation().Ziel())+" /XYZ "+ite->annotation().Action()+"]\n>>\n");
 				}
-				if (ite->annotation().ActionType() == 5)
+				if (ite->annotation().ActionType() == Annotation::Action_ImportData)
 					PutDoc("/A << /Type /Action /S /ImportData\n/F " + EncString(ite->annotation().Action(), annotationObj) + " >>\n");
-				if (ite->annotation().ActionType() == 4)
+				if (ite->annotation().ActionType() == Annotation::Action_ResetForm)
 					PutDoc("/A << /Type /Action /S /ResetForm >>\n");
-				if (ite->annotation().ActionType() == 3)
+				if (ite->annotation().ActionType() == Annotation::Action_SubmitForm)
 				{
 					PutDoc("/A << /Type /Action /S /SubmitForm\n/F << /FS /URL /F " + EncString(ite->annotation().Action(), annotationObj) + " >>\n");
 //					if (ite->annotation().HTML())
@@ -8838,7 +8838,7 @@ bool PDFLibCore::PDF_Annotation(PageItem *ite, uint PNr)
 					}
 					PutDoc(">>\n");
 				}
-				if (ite->annotation().ActionType() == 1)
+				if (ite->annotation().ActionType() == Annotation::Action_JavaScript)
 				{
 					if (!ite->annotation().Action().isEmpty())
 					{
@@ -8853,7 +8853,7 @@ bool PDFLibCore::PDF_Annotation(PageItem *ite, uint PNr)
 					}
 					PutDoc("/AA " + QString::number(AActionObj) + " 0 R\n");
 				}
-				if (ite->annotation().ActionType() == 2)
+				if (ite->annotation().ActionType() == Annotation::Action_GoTo)
 				{
 					PutDoc("/A << /Type /Action /S /GoTo /D /" + NDnam + QString::number(NDnum) + " >>\n");
 					Dest de;
@@ -8863,7 +8863,7 @@ bool PDFLibCore::PDF_Annotation(PageItem *ite, uint PNr)
 					NamedDest.append(de);
 					NDnum++;
 				}
-				if (ite->annotation().ActionType() == 10)
+				if (ite->annotation().ActionType() == Annotation::Action_Named)
 				{
 					if (!ite->annotation().Action().isEmpty())
 					{

@@ -375,11 +375,11 @@ void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 					}
 					else if (hoveredItem->annotation().Type() == Annotation::Link)
 					{
-						if (hoveredItem->annotation().ActionType() == 2)
+						if (hoveredItem->annotation().ActionType() == Annotation::Action_GoTo)
 							toolT = QString( tr("Go to Page %1").arg(hoveredItem->annotation().Ziel() + 1));
-						else if (hoveredItem->annotation().ActionType() == 8)
+						else if (hoveredItem->annotation().ActionType() == Annotation::Action_URI)
 							toolT = QString( tr("Go to URL %1").arg(hoveredItem->annotation().Extern()));
-						else if (hoveredItem->annotation().ActionType() == 9)
+						else if ((hoveredItem->annotation().ActionType() == Annotation::Action_GoToR_FileAbs) || (hoveredItem->annotation().ActionType() == Annotation::Action_GoToR_FileRel))
 							toolT = QString( tr("Go to Page %1 in File %2").arg(hoveredItem->annotation().Ziel() + 1).arg(hoveredItem->annotation().Extern()));
 						qApp->changeOverrideCursor(QCursor(Qt::PointingHandCursor));
 					}
@@ -1379,7 +1379,7 @@ void CanvasMode_Normal::handleRadioButtonRelease(PageItem* currItem)
 
 void CanvasMode_Normal::handleLinkAnnotation(PageItem* currItem)
 {
-	if (currItem->annotation().ActionType() == 2)
+	if (currItem->annotation().ActionType() == Annotation::Action_GoTo)
 	{
 		m_view->Deselect(true);
 		if (currItem->annotation().Ziel() < m_doc->Pages->count())
@@ -1390,12 +1390,12 @@ void CanvasMode_Normal::handleLinkAnnotation(PageItem* currItem)
 			QMessageBox::warning(m_view, CommonStrings::trWarning, message, CommonStrings::tr_OK);
 		}
 	}
-	else if (currItem->annotation().ActionType() == 8)
+	else if (currItem->annotation().ActionType() == Annotation::Action_URI)
 	{
 		QString message = tr("Link Target is Web URL.\nURL: %1").arg(currItem->annotation().Extern());
 		QMessageBox::information(m_view, tr("Information"), message, CommonStrings::tr_OK);
 	}
-	else if (currItem->annotation().ActionType() == 9)
+	else if ((currItem->annotation().ActionType() == Annotation::Action_GoToR_FileAbs) || (currItem->annotation().ActionType() == Annotation::Action_GoToR_FileRel))
 	{
 		QString message = tr("Link Target is external File.\nFile: %1\nPage: %2").arg(currItem->annotation().Extern()).arg(currItem->annotation().Ziel() + 1);
 		QMessageBox::information(m_view, tr("Information"), message, CommonStrings::tr_OK);

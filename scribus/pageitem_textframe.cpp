@@ -3118,7 +3118,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRectF cullingArea)
 	double S_Extra = Extra;
 	double S_RExtra = RExtra;
 	double S_BExtra = BExtra;
-	if (isAnnotation() && !((m_Doc->appMode == modeEdit) && (m_Doc->m_Selection->findItem(this) != -1)) && (((annotation().Type() > 1) && (annotation().Type() < 7)) || (annotation().Type() > 12)))
+	if (isAnnotation() && !((m_Doc->appMode == modeEdit) && (m_Doc->m_Selection->findItem(this) != -1)) && (((annotation().Type() > 1) && (annotation().Type() < 11)) || (annotation().Type() > 12)))
 	{
 		QColor fontColor;
 		SetQColor(&fontColor, itemText.defaultStyle().charStyle().fillColor(), itemText.defaultStyle().charStyle().fillShade());
@@ -3142,7 +3142,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRectF cullingArea)
 			}
 		}
 		p->save();
-		if (((annotation().Bwid() > 0) && (annotation().borderColor() != CommonStrings::None)))
+		if ((annotation().Bwid() > 0) && (annotation().borderColor() != CommonStrings::None) && (annotation().Type() != Annotation::Text))
 		{
 			QColor tmp;
 			SetQColor(&tmp, annotation().borderColor(), 100);
@@ -3447,6 +3447,94 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRectF cullingArea)
 					p->drawText(QRectF(wdt + 1, wdt + 1, Width - (2 * wdt) - 17, Height - (2 * wdt) - 2), bmUtf16, false, 2);
 					p->restore();
 				}
+				p->restore();
+				p->restore();
+				return;
+			}
+		}
+		else if (annotation().Type() == Annotation::Text)
+		{
+			if (m_Doc->drawAsPreview && !m_Doc->editOnPreview)
+			{
+				QPainterPath chkPath;
+				p->save();
+				p->translate(0, 24);
+				p->scale(1, -1);
+				p->setBrush(QColor(255, 255, 255));
+				p->setFillMode(ScPainter::Solid);
+				p->setStrokeMode(ScPainter::None);
+				chkPath.moveTo(3.602, 24.0);
+				chkPath.lineTo(20.398, 24.0);
+				chkPath.cubicTo(22.387, 24, 24, 22.387, 24, 20.398);
+				chkPath.lineTo(24.0, 3.602);
+				chkPath.cubicTo(24, 1.613, 22.387, 0, 20.398, 0);
+				chkPath.lineTo(3.602, 0);
+				chkPath.cubicTo(1.613, 0, 0, 1.613, 0, 3.602);
+				chkPath.lineTo(0, 20.398);
+				chkPath.cubicTo(0, 22.387, 1.613, 24, 3.602, 24);
+				chkPath.closeSubpath();
+				FPointArray chArr;
+				chArr.fromQPainterPath(chkPath);
+				p->setupPolygon(&chArr);
+				p->fillPath();
+				p->setFillMode(ScPainter::None);
+				p->setStrokeMode(ScPainter::Solid);
+				chkPath = QPainterPath();
+				chkPath.moveTo(9, 18);
+				chkPath.lineTo(4, 18);
+				chkPath.cubicTo(4, 7, 4, 4, 6, 3);
+				chkPath.lineTo(20, 3);
+				chkPath.cubicTo(18, 4, 18, 7, 18, 18);
+				chkPath.lineTo(17, 18);
+				chArr.fromQPainterPath(chkPath);
+				p->setupPolygon(&chArr, false);
+				p->setPen(QColor(qRound(255 * 0.533333), qRound(255 * 0.541176), qRound(255 * 0.521569)), 2, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+				p->strokePath();
+				p->setPen(QColor(qRound(255 * 0.533333), qRound(255 * 0.541176), qRound(255 * 0.521569)), 1.5, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+				p->drawLine(QPointF(10, 16), QPointF(14, 21));
+				p->setPen(QColor(qRound(255 * 0.533333), qRound(255 * 0.541176), qRound(255 * 0.521569)), 1.85625, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+				chkPath = QPainterPath();
+				chkPath.moveTo(15.07, 20.523);
+				chkPath.cubicTo(15.07, 19.672, 14.379, 18.977, 13.523, 18.977);
+				chkPath.cubicTo(12.672, 18.977, 11.977, 19.672, 11.977, 20.523);
+				chkPath.cubicTo(11.977, 21.379, 12.672, 22.07, 13.523, 22.07);
+				chkPath.cubicTo(14.379, 22.07, 15.07, 21.379, 15.07, 20.523);
+				chkPath.closeSubpath();
+				chArr.fromQPainterPath(chkPath);
+				p->setupPolygon(&chArr);
+				p->strokePath();
+				p->drawLine(QPointF(6.5, 13.5), QPointF(15.5, 13.5));
+				p->drawLine(QPointF(6.5, 10.5), QPointF(13.5, 10.5));
+				p->drawLine(QPointF(6.801, 7.5), QPointF(15.5, 7.5));
+				chkPath = QPainterPath();
+				chkPath.moveTo(9, 19);
+				chkPath.lineTo(4, 19);
+				chkPath.cubicTo(4, 8, 4, 5, 6, 4);
+				chkPath.lineTo(20, 4);
+				chkPath.cubicTo(18, 5, 18, 8, 18, 19);
+				chkPath.lineTo(17, 19);
+				chArr.fromQPainterPath(chkPath);
+				p->setupPolygon(&chArr, false);
+				p->setPen(QColor(qRound(255 * 0.729412), qRound(255 * 0.741176), qRound(255 * 0.713725)), 2, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+				p->strokePath();
+				p->setPen(QColor(qRound(255 * 0.729412), qRound(255 * 0.741176), qRound(255 * 0.713725)), 1.5, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+				p->drawLine(QPointF(10, 17), QPointF(14, 22));
+				chkPath = QPainterPath();                             \
+				chkPath.moveTo(15.07, 21.523);
+				chkPath.cubicTo(15.07, 20.672, 14.379, 19.977, 13.523, 19.977);
+				chkPath.cubicTo(12.672, 19.977, 11.977, 20.672, 11.977, 21.523);
+				chkPath.cubicTo(11.977, 22.379, 12.672, 23.07, 13.523, 23.07);
+				chkPath.cubicTo(14.379, 23.07, 15.07, 22.379, 15.07, 21.523);
+				chkPath.closeSubpath();
+				chArr.fromQPainterPath(chkPath);
+				p->setupPolygon(&chArr);
+				p->setPen(QColor(qRound(255 * 0.729412), qRound(255 * 0.741176), qRound(255 * 0.713725)), 1.85625, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+				p->strokePath();
+				p->setPen(QColor(qRound(255 * 0.729412), qRound(255 * 0.741176), qRound(255 * 0.713725)), 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+				p->drawLine(QPointF(6.5, 14.5), QPointF(15.5, 14.5));
+				p->drawLine(QPointF(6.5, 11.5), QPointF(13.5, 11.5));
+				p->drawLine(QPointF(6.801, 8.5), QPointF(15.5, 8.5));
+				p->restore();
 				p->restore();
 				p->restore();
 				return;

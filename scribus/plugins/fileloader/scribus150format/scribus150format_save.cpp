@@ -2442,7 +2442,7 @@ void Scribus150Format::SetItemProps(ScXmlStreamWriter& docu, PageItem* item, con
 		docu.writeAttribute("ANFACT", item->annotation().F_act());
 		docu.writeAttribute("ANVACT", item->annotation().V_act());
 		docu.writeAttribute("ANCACT", item->annotation().C_act());
-		if (item->annotation().ActionType() == 8)
+		if (item->annotation().ActionType() == Annotation::Action_URI)
 			docu.writeAttribute("ANEXTERN", item->annotation().Extern());
 		else
 			docu.writeAttribute("ANEXTERN", Path2Relative(item->annotation().Extern(), baseDir));

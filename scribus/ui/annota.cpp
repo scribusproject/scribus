@@ -53,7 +53,7 @@ Annota::Annota(QWidget* parent, PageItem *it, int Seite, int b, int h, ScribusVi
 	view = vie;
 	MaxSeite = Seite;
 	QStringList tl;
-	if ((item->annotation().ActionType() == 2) || (item->annotation().ActionType() == 7) || (item->annotation().ActionType() == 9))
+	if ((item->annotation().ActionType() == Annotation::Action_GoTo) || (item->annotation().ActionType() == Annotation::Action_GoToR_FileRel) || (item->annotation().ActionType() == Annotation::Action_GoToR_FileAbs))
 	{
 		QString tm = item->annotation().Action();
 		tl = tm.split(" ", QString::SkipEmptyParts);
@@ -90,9 +90,9 @@ Annota::Annota(QWidget* parent, PageItem *it, int Seite, int b, int h, ScribusVi
 			ComboBox1->setCurrentIndex(item->annotation().Type() - 1);
 		else
 			ComboBox1->setCurrentIndex(item->annotation().Type()-11);
-		if ((item->annotation().ActionType() == 7) || (item->annotation().ActionType() == 8))
+		if ((item->annotation().ActionType() == Annotation::Action_GoToR_FileRel) || (item->annotation().ActionType() == Annotation::Action_URI))
 			ComboBox1->setCurrentIndex(item->annotation().ActionType() - 6);
-		if (item->annotation().ActionType() == 9)
+		if (item->annotation().ActionType() == Annotation::Action_GoToR_FileAbs)
 			ComboBox1->setCurrentIndex(1);
 	}
 	else
@@ -101,9 +101,9 @@ Annota::Annota(QWidget* parent, PageItem *it, int Seite, int b, int h, ScribusVi
 			ComboBox1->setCurrentIndex(item->annotation().Type());
 		else
 			ComboBox1->setCurrentIndex(item->annotation().Type()-10);
-		if ((item->annotation().ActionType() == 7) || (item->annotation().ActionType() == 8))
+		if ((item->annotation().ActionType() == Annotation::Action_GoToR_FileRel) || (item->annotation().ActionType() == Annotation::Action_URI))
 			ComboBox1->setCurrentIndex(item->annotation().ActionType() - 5);
-		if (item->annotation().ActionType() == 9)
+		if (item->annotation().ActionType() == Annotation::Action_GoToR_FileAbs)
 			ComboBox1->setCurrentIndex(2);
 	}
 	Fram = new QStackedWidget(this);
@@ -130,11 +130,11 @@ Annota::Annota(QWidget* parent, PageItem *it, int Seite, int b, int h, ScribusVi
 	GroupBox1Layout->addWidget( ChFile, 0, 2 );
 	useAbsolute = new QCheckBox( tr("Export absolute Filename"), GroupBox1);
 	GroupBox1Layout->addWidget( useAbsolute, 1, 0, 1, 3 );
-	if (item->annotation().ActionType() == 7)
+	if (item->annotation().ActionType() == Annotation::Action_GoToR_FileRel)
 		useAbsolute->setChecked(false);
-	else if (item->annotation().ActionType() == 9)
+	else if (item->annotation().ActionType() == Annotation::Action_GoToR_FileAbs)
 		useAbsolute->setChecked(true);
-	if ((item->annotation().ActionType() != 7) && (item->annotation().ActionType() != 8) && (item->annotation().ActionType() != 9))
+	if ((item->annotation().ActionType() != Annotation::Action_GoToR_FileRel) && (item->annotation().ActionType() != Annotation::Action_URI) && (item->annotation().ActionType() != Annotation::Action_GoToR_FileAbs))
 	{
 		Destfile->hide();
 		ChFile->hide();
@@ -144,13 +144,13 @@ Annota::Annota(QWidget* parent, PageItem *it, int Seite, int b, int h, ScribusVi
 	SpinBox1 = new ScrSpinBox( GroupBox1);
 	SpinBox1->setDecimals(0);
 	SpinBox1->setMinimum(1);
-	SpinBox1->setMaximum(((item->annotation().ActionType() == 7) || (item->annotation().ActionType() == 9)) ? 1000 : Seite);
+	SpinBox1->setMaximum(((item->annotation().ActionType() == Annotation::Action_GoToR_FileRel) || (item->annotation().ActionType() == Annotation::Action_GoToR_FileAbs)) ? 1000 : Seite);
 	SpinBox1->setSuffix("");
 	TextLabel3 = new QLabel( tr("&Page:"), GroupBox1);
 	TextLabel3->setBuddy(SpinBox1);
 	GroupBox1Layout->addWidget( TextLabel3, 2, 0 );
 	GroupBox1Layout->addWidget( SpinBox1, 2, 1 );
-	if ((!Destfile->text().isEmpty()) && ((item->annotation().ActionType() == 7) || (item->annotation().ActionType() == 9)))
+	if ((!Destfile->text().isEmpty()) && ((item->annotation().ActionType() == Annotation::Action_GoToR_FileRel) || (item->annotation().ActionType() == Annotation::Action_GoToR_FileAbs)))
 		Pg = new Navigator( GroupBox1, 100, item->annotation().Ziel()+1, view, item->annotation().Extern());
 	else
 	{
@@ -269,12 +269,12 @@ void Annota::SetValues()
 	switch (item->annotation().Type())
 	{
 	case 10:
-		item->annotation().setActionType(0);
+		item->annotation().setActionType(Annotation::Action_None);
 		break;
 	case 11:
 		item->annotation().setAction(tmp.setNum(SpinBox2->value())+" "+ tmp2.setNum(Height-SpinBox3->value())+" 0");
 		item->annotation().setExtern("");
-		item->annotation().setActionType(2);
+		item->annotation().setActionType(Annotation::Action_GoTo);
 		break;
 	case 12:
 		item->annotation().setAction(tmp.setNum(SpinBox2->value())+" "+ tmp2.setNum(Height-SpinBox3->value())+" 0");
@@ -282,9 +282,9 @@ void Annota::SetValues()
 		{
 			item->annotation().setExtern(Destfile->text());
 			if (useAbsolute->isChecked())
-				item->annotation().setActionType(9);
+				item->annotation().setActionType(Annotation::Action_GoToR_FileAbs);
 			else
-				item->annotation().setActionType(7);
+				item->annotation().setActionType(Annotation::Action_GoToR_FileRel);
 		}
 		item->annotation().setType(Annotation::Link);
 		break;
@@ -293,7 +293,7 @@ void Annota::SetValues()
 		if (!Destfile->text().isEmpty())
 		{
 			item->annotation().setExtern(Destfile->text());
-			item->annotation().setActionType(8);
+			item->annotation().setActionType(Annotation::Action_URI);
 		}
 		item->annotation().setType(Annotation::Link);
 		break;
@@ -322,7 +322,7 @@ void Annota::SetTarget(int it)
 		Destfile->hide();
 		ChFile->hide();
 		useAbsolute->hide();
-		item->annotation().setActionType(2);
+		item->annotation().setActionType(Annotation::Action_GoTo);
 		SetPage(qMin(static_cast<int>(SpinBox1->value()), MaxSeite));
 		break;
 	case 2:
@@ -331,14 +331,14 @@ void Annota::SetTarget(int it)
 		ChFile->show();
 		useAbsolute->show();
 		Destfile->setReadOnly(true);
-		if ((Destfile->text().isEmpty())  || (item->annotation().ActionType() == 8))
+		if ((Destfile->text().isEmpty())  || (item->annotation().ActionType() == Annotation::Action_URI))
 		{
 			Destfile->setText("");
 			GetFile();
 		}
 		if (Destfile->text().isEmpty())
 		{
-			item->annotation().setActionType(2);
+			item->annotation().setActionType(Annotation::Action_GoTo);
 			Destfile->setText("");
 			Destfile->hide();
 			ChFile->hide();
@@ -351,9 +351,9 @@ void Annota::SetTarget(int it)
 		else
 		{
 			if (useAbsolute->isChecked())
-				item->annotation().setActionType(9);
+				item->annotation().setActionType(Annotation::Action_GoToR_FileAbs);
 			else
-				item->annotation().setActionType(7);
+				item->annotation().setActionType(Annotation::Action_GoToR_FileRel);
 		}
 		SetPage(qMin(static_cast<int>(SpinBox1->value()), MaxSeite));
 		break;
@@ -370,18 +370,18 @@ void Annota::SetTarget(int it)
 		SpinBox1->hide();
 		SpinBox2->hide();
 		SpinBox3->hide();
-		item->annotation().setActionType(8);
+		item->annotation().setActionType(Annotation::Action_URI);
 		break;
 	case 11:
 		Fram->setCurrentIndex(1);
-		if ((item->annotation().ActionType() == 7) || (item->annotation().ActionType() == 9))
+		if ((item->annotation().ActionType() == Annotation::Action_GoToR_FileRel) || (item->annotation().ActionType() == Annotation::Action_GoToR_FileAbs))
 		{
 			Destfile->show();
 			ChFile->show();
 			useAbsolute->show();
 			Destfile->setReadOnly(true);
 		}
-		if (item->annotation().ActionType() == 8)
+		if (item->annotation().ActionType() == Annotation::Action_URI)
 		{
 			Destfile->show();
 			Destfile->setReadOnly(false);

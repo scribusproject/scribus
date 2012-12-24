@@ -1318,12 +1318,12 @@ void PSLib::PDF_Annotation(PageItem *item, QString text, double x, double y, dou
 		case 1:
 		case Annotation::Link:
 			PutStream("/Subtype /Link\n");
-			if (item->annotation().ActionType() == 2)
+			if (item->annotation().ActionType() == Annotation::Action_GoTo)
 			{
 				PutStream("/Page " + QString::number(item->annotation().Ziel() + 1) + "\n");
 				PutStream("/View [ /XYZ " + item->annotation().Action() + "]\n");
 			}
-			if (item->annotation().ActionType() == 7)
+			if (item->annotation().ActionType() == Annotation::Action_GoToR_FileRel)
 			{
 				QFileInfo fiBase(Spool.fileName());
 				QString baseDir = fiBase.absolutePath();
@@ -1332,7 +1332,7 @@ void PSLib::PDF_Annotation(PageItem *item, QString text, double x, double y, dou
 				PutStream("/Page " + QString::number(item->annotation().Ziel() + 1) + "\n");
 				PutStream("/View [ /XYZ " + item->annotation().Action() + "]\n");
 			}
-			if (item->annotation().ActionType() == 8)
+			if (item->annotation().ActionType() == Annotation::Action_URI)
 			{
 			/* The PDFMark docs say that for URI actions should contain an entry /Subtype /URI
 			   but tests with Ghostscript shows that only /S /URI works. Don't know if that is
@@ -1341,7 +1341,7 @@ void PSLib::PDF_Annotation(PageItem *item, QString text, double x, double y, dou
 			*/
 				PutStream("/Action << /S /URI /URI (" + item->annotation().Extern() + ") >>\n");
 			}
-			if (item->annotation().ActionType() == 9)
+			if (item->annotation().ActionType() == Annotation::Action_GoToR_FileAbs)
 			{
 				PutStream("/Action /GoToR\n");
 				PutStream("/File (" + item->annotation().Extern() + ")\n");
