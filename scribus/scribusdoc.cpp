@@ -18013,3 +18013,107 @@ PageItem_NoteFrame* ScribusDoc::endNoteFrame(NotesStyle *nStyle, void* item)
 	}
 	return NULL;
 }
+
+/* Functions for PDF Form Actions */
+
+void ScribusDoc::SubmitForm()
+{
+}
+
+void ScribusDoc::ImportData()
+{
+}
+
+void ScribusDoc::ResetFormFields()
+{
+	QList<PageItem*> allItems;
+	PageItem* it = NULL;
+	uint counter = 0;
+	for (uint lc = 0; lc < 2; ++lc)
+	{
+		switch (lc)
+		{
+			case 0:
+				counter = MasterItems.count();
+				break;
+			case 1:
+				counter = DocItems.count();
+				break;
+		}
+		for (uint d = 0; d < counter; ++d)
+		{
+			switch (lc)
+			{
+				case 0:
+					it = MasterItems.at(d);
+					break;
+				case 1:
+					it = DocItems.at(d);
+					break;
+			}
+			if (it->isGroup())
+				allItems = it->asGroupFrame()->getItemList();
+			else
+				allItems.append(it);
+			for (int ii = 0; ii < allItems.count(); ii++)
+			{
+				it = allItems.at(ii);
+				if (it->isAnnotation())
+				{
+					if ((it->annotation().Type() == Annotation::RadioButton) || (it->annotation().Type() == Annotation::Checkbox))
+						it->annotation().setCheckState(it->annotation().IsChk());
+					it->annotation().setOnState(false);
+					it->annotation().setOpen(false);
+				}
+			}
+			allItems.clear();
+		}
+	}
+	for (QHash<int, PageItem*>::iterator itf = FrameItems.begin(); itf != FrameItems.end(); ++itf)
+	{
+		it = itf.value();
+		if (it->isGroup())
+			allItems = it->asGroupFrame()->getItemList();
+		else
+			allItems.append(it);
+		for (int ii = 0; ii < allItems.count(); ii++)
+		{
+			it = allItems.at(ii);
+			if (it->isAnnotation())
+			{
+				if ((it->annotation().Type() == Annotation::RadioButton) || (it->annotation().Type() == Annotation::Checkbox))
+					it->annotation().setCheckState(it->annotation().IsChk());
+				it->annotation().setOnState(false);
+				it->annotation().setOpen(false);
+			}
+		}
+		allItems.clear();
+	}
+	QStringList patterns = getUsedPatterns();
+	for (int c = 0; c < patterns.count(); ++c)
+	{
+		ScPattern pa = docPatterns[patterns[c]];
+		for (int o = 0; o < pa.items.count(); o++)
+		{
+			it = pa.items.at(o);
+			if (it->isGroup())
+				allItems = it->asGroupFrame()->getItemList();
+			else
+				allItems.append(it);
+			for (int ii = 0; ii < allItems.count(); ii++)
+			{
+				it = allItems.at(ii);
+				if (it->isAnnotation())
+				{
+					if ((it->annotation().Type() == Annotation::RadioButton) || (it->annotation().Type() == Annotation::Checkbox))
+						it->annotation().setCheckState(it->annotation().IsChk());
+					it->annotation().setOnState(false);
+					it->annotation().setOpen(false);
+				}
+			}
+			allItems.clear();
+		}
+	}
+	changed();
+	regionsChanged()->update(QRect());
+}

@@ -1769,6 +1769,13 @@ public slots:
 	void itemSelection_Weld();
 	void itemSelection_EditWeld();
 	void restartAutoSaveTimer();
+
+/* Functions for PDF Form Actions */
+
+public:
+	void SubmitForm();
+	void ImportData();
+	void ResetFormFields();
 };
 
 Q_DECLARE_METATYPE(ScribusDoc*);

@@ -67,6 +67,19 @@ class SCRIBUS_API Annotation // : public SaxIO
 			Action_GoToR_FileAbs	= 9,
 			Action_Named			= 10
 		};
+		enum AnnotationScriptEvents {
+			Java_ReleaseButton	= 0,
+			Java_PressButton	= 1,
+			Java_EnterWidget	= 2,
+			Java_LeaveWidget	= 3,
+			Java_FocusIn		= 4,
+			Java_FocusOut		= 5,
+			Java_SelectionChg	= 6,
+			Java_FieldFormat	= 7,
+			Java_FieldValidate	= 8,
+			Java_FieldCalculate	= 9
+		};
+
 		enum AnnotationFlags {
 			Flag_ReadOnly			=		   1,	// Bit  1
 			Flag_Required			=		   2,	// Bit  2

@@ -85,6 +85,7 @@ CanvasMode_Normal::CanvasMode_Normal(ScribusView* view) : CanvasMode(view), m_Sc
 	m_objectDeltaPos.setXY(0,0 );
 	ySnap = 0;
 	xSnap = 0;
+	m_hoveredItem = NULL;
 }
 
 inline bool CanvasMode_Normal::GetItem(PageItem** pi)
@@ -135,6 +136,7 @@ void CanvasMode_Normal::activate(bool fromGesture)
 	m_objectDeltaPos.setXY(0,0 );
 	frameResizeHandle = -1;
 	shiftSelItems = false;
+	m_hoveredItem = NULL;
 	setModeCursor();
 	if (fromGesture)
 	{
@@ -355,7 +357,7 @@ void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 	//<<#10116 Show overflow counter HUD
 	if (!movingOrResizing && mouseIsOnPage)
 	{
-		PageItem* hoveredItem=NULL;
+		PageItem* hoveredItem = NULL;
 		hoveredItem = m_canvas->itemUnderCursor(m->globalPos(), hoveredItem, m->modifiers());
 		if (hoveredItem)
 		{
@@ -387,10 +389,20 @@ void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 						toolT = hoveredItem->itemText.plainText();
 					if (!toolT.isEmpty())
 						QToolTip::showText(m->globalPos() + QPoint(5, 5), toolT, m_canvas);
+					if (hoveredItem != m_hoveredItem)
+					{
+						if (m_hoveredItem)
+							handleMouseLeave(m_hoveredItem);
+						handleMouseEnter(hoveredItem);
+					}
+					m_hoveredItem = hoveredItem;
 				}
 				else
+				{
 					if (QToolTip::isVisible())
 						QToolTip::hideText();
+					m_hoveredItem = NULL;
+				}
 			}
 			else
 			{
@@ -410,6 +422,12 @@ void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 		{
 			if (QToolTip::isVisible())
 				QToolTip::hideText();
+			if (m_doc->drawAsPreview)
+			{
+				if (m_hoveredItem)
+					handleMouseLeave(m_hoveredItem);
+				m_hoveredItem = NULL;
+			}
 		}
 	}
 	//>>#10116
@@ -1280,6 +1298,8 @@ void CanvasMode_Normal::handleCheckBoxPress(PageItem* currItem)
 {
 	currItem->annotation().setOnState(true);
 	currItem->update();
+	if (currItem->annotation().ActionType() == Annotation::Action_JavaScript)
+		handleJavaAction(currItem, Annotation::Java_PressButton);
 	m_doc->regionsChanged()->update(currItem->getVisualBoundingRect());
 }
 
@@ -1287,6 +1307,8 @@ void CanvasMode_Normal::handlePushButtonPress(PageItem* currItem)
 {
 	currItem->annotation().setOnState(true);
 	currItem->update();
+	if (currItem->annotation().ActionType() == Annotation::Action_JavaScript)
+		handleJavaAction(currItem, Annotation::Java_PressButton);
 	m_doc->regionsChanged()->update(currItem->getVisualBoundingRect());
 }
 
@@ -1303,8 +1325,6 @@ void CanvasMode_Normal::handleRadioButtonPress(PageItem* currItem)
 				gItem->update();
 			}
 		}
-		currItem->annotation().setOnState(true);
-		currItem->update();
 	}
 	else
 	{
@@ -1318,9 +1338,11 @@ void CanvasMode_Normal::handleRadioButtonPress(PageItem* currItem)
 				gItem->update();
 			}
 		}
-		currItem->annotation().setOnState(true);
-		currItem->update();
 	}
+	currItem->annotation().setOnState(true);
+	currItem->update();
+	if (currItem->annotation().ActionType() == Annotation::Action_JavaScript)
+		handleJavaAction(currItem, Annotation::Java_PressButton);
 	m_view->updateContents();
 }
 
@@ -1328,6 +1350,8 @@ void CanvasMode_Normal::handleCheckBoxRelease(PageItem* currItem)
 {
 	currItem->annotation().setOnState(false);
 	currItem->annotation().setCheckState(!currItem->annotation().IsChecked());
+	if (currItem->annotation().ActionType() == Annotation::Action_JavaScript)
+		handleJavaAction(currItem, Annotation::Java_ReleaseButton);
 	currItem->update();
 	m_doc->regionsChanged()->update(currItem->getVisualBoundingRect());
 }
@@ -1336,6 +1360,31 @@ void CanvasMode_Normal::handlePushButtonRelease(PageItem* currItem)
 {
 	currItem->annotation().setOnState(false);
 	currItem->update();
+	switch (currItem->annotation().ActionType())
+	{
+		case Annotation::Action_JavaScript:
+			handleJavaAction(currItem, Annotation::Java_ReleaseButton);
+			break;
+		case Annotation::Action_GoTo:
+		case Annotation::Action_URI:
+		case Annotation::Action_GoToR_FileAbs:
+		case Annotation::Action_GoToR_FileRel:
+			handleLinkAnnotation(currItem);
+			break;
+		case Annotation::Action_ResetForm:
+			m_doc->ResetFormFields();
+			break;
+		case Annotation::Action_ImportData:
+			m_doc->ImportData();
+			break;
+		case Annotation::Action_SubmitForm:
+			m_doc->SubmitForm();
+			break;
+		case Annotation::Action_Named:
+			handleNamedAction(currItem);
+		default:
+			break;
+	}
 	m_doc->regionsChanged()->update(currItem->getVisualBoundingRect());
 }
 
@@ -1353,9 +1402,6 @@ void CanvasMode_Normal::handleRadioButtonRelease(PageItem* currItem)
 				gItem->update();
 			}
 		}
-		currItem->annotation().setCheckState(true);
-		currItem->annotation().setOnState(false);
-		currItem->update();
 	}
 	else
 	{
@@ -1370,11 +1416,63 @@ void CanvasMode_Normal::handleRadioButtonRelease(PageItem* currItem)
 				gItem->update();
 			}
 		}
-		currItem->annotation().setCheckState(true);
-		currItem->annotation().setOnState(false);
-		currItem->update();
 	}
+	currItem->annotation().setCheckState(true);
+	currItem->annotation().setOnState(false);
+	if (currItem->annotation().ActionType() == Annotation::Action_JavaScript)
+		handleJavaAction(currItem, Annotation::Java_ReleaseButton);
+	currItem->update();
 	m_view->updateContents();
+}
+
+void CanvasMode_Normal::handleJavaAction(PageItem* currItem, int event)
+{
+	QString scriptCode = "";
+	switch (event)
+	{
+		case Annotation::Java_PressButton:
+			scriptCode = currItem->annotation().D_act();
+			break;
+		case Annotation::Java_ReleaseButton:
+			scriptCode = currItem->annotation().Action();
+			break;
+		case Annotation::Java_EnterWidget:
+			scriptCode = currItem->annotation().E_act();
+			break;
+		case Annotation::Java_LeaveWidget:
+			scriptCode = currItem->annotation().X_act();
+			break;
+		case Annotation::Java_FocusIn:
+			scriptCode = currItem->annotation().Fo_act();
+			break;
+		case Annotation::Java_FocusOut:
+			scriptCode = currItem->annotation().Bl_act();
+			break;
+		case Annotation::Java_SelectionChg:
+			scriptCode = currItem->annotation().K_act();
+			break;
+		case Annotation::Java_FieldFormat:
+			scriptCode = currItem->annotation().F_act();
+			break;
+		case Annotation::Java_FieldValidate:
+			scriptCode = currItem->annotation().V_act();
+			break;
+		case Annotation::Java_FieldCalculate:
+			scriptCode = currItem->annotation().C_act();
+			break;
+		default:
+			break;
+	}
+	if (!scriptCode.isEmpty())
+	{
+		// Execute the JavasScript Code
+//		qDebug() << "JavaScript:" << scriptCode;
+	}
+}
+
+void CanvasMode_Normal::handleNamedAction(PageItem* currItem)
+{
+//	qDebug() << "Named Action:" << currItem->annotation().Action();
 }
 
 void CanvasMode_Normal::handleLinkAnnotation(PageItem* currItem)
@@ -1404,12 +1502,26 @@ void CanvasMode_Normal::handleLinkAnnotation(PageItem* currItem)
 
 void CanvasMode_Normal::handleFocusOut(PageItem* currItem)
 {
-//	qDebug() << "Focus Out" << currItem->itemName();
+	if (currItem->annotation().ActionType() == Annotation::Action_JavaScript)
+		handleJavaAction(currItem, Annotation::Java_FocusOut);
 }
 
 void CanvasMode_Normal::handleFocusIn(PageItem* currItem)
 {
-//	qDebug() << "Focus In" << currItem->itemName();
+	if (currItem->annotation().ActionType() == Annotation::Action_JavaScript)
+		handleJavaAction(currItem, Annotation::Java_FocusIn);
+}
+
+void CanvasMode_Normal::handleMouseLeave(PageItem* currItem)
+{
+	if (currItem->annotation().ActionType() == Annotation::Action_JavaScript)
+		handleJavaAction(currItem, Annotation::Java_LeaveWidget);
+}
+
+void CanvasMode_Normal::handleMouseEnter(PageItem* currItem)
+{
+	if (currItem->annotation().ActionType() == Annotation::Action_JavaScript)
+		handleJavaAction(currItem, Annotation::Java_EnterWidget);
 }
 
 void CanvasMode_Normal::keyPressEvent(QKeyEvent *e)

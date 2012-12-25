@@ -600,7 +600,7 @@ ScAnnot::ScAnnot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorLi
 	palTxt.setColor(QPalette::Base, palette().color(QPalette::Window));
 	if ((item->annotation().ActionType() == Annotation::Action_JavaScript) || (item->annotation().AAact()))
 		EditJava->setPlainText(item->annotation().Action());
-	ScrEdited = 0;
+	ScrEdited = Annotation::Java_ReleaseButton;
 	SelAction->setCurrentIndex(0);
 	EditJava->setReadOnly(true);
 	EditJava->setAutoFillBackground(true);
@@ -2056,25 +2056,25 @@ void ScAnnot::SetValues()
 			item->annotation().setActionType(Annotation::Action_JavaScript);
 			switch (ScrEdited)
 			{
-				case 0:
+				case Annotation::Java_PressButton:
 					item->annotation().setAction(EditJava->toPlainText());
 					break;
-				case 1:
+				case Annotation::Java_ReleaseButton:
 					item->annotation().setD_act(EditJava->toPlainText());
 					break;
-				case 2:
+				case Annotation::Java_EnterWidget:
 					item->annotation().setE_act(EditJava->toPlainText());
 					break;
-				case 3:
+				case Annotation::Java_LeaveWidget:
 					item->annotation().setX_act(EditJava->toPlainText());
 					break;
-				case 4:
+				case Annotation::Java_FocusIn:
 					item->annotation().setFo_act(EditJava->toPlainText());
 					break;
-				case 5:
+				case Annotation::Java_FocusOut:
 					item->annotation().setBl_act(EditJava->toPlainText());
 					break;
-				case 6:
+				case Annotation::Java_SelectionChg:
 					item->annotation().setK_act(EditJava->toPlainText());
 					break;
 			}
@@ -2331,49 +2331,49 @@ void ScAnnot::SetActionScript(int it)
 {
 	switch (ScrEdited)
 	{
-	case 0:
+	case Annotation::Java_ReleaseButton:
 		item->annotation().setAction(EditJava->toPlainText());
 		break;
-	case 1:
+	case Annotation::Java_PressButton:
 		item->annotation().setD_act(EditJava->toPlainText());
 		break;
-	case 2:
+	case Annotation::Java_EnterWidget:
 		item->annotation().setE_act(EditJava->toPlainText());
 		break;
-	case 3:
+	case Annotation::Java_LeaveWidget:
 		item->annotation().setX_act(EditJava->toPlainText());
 		break;
-	case 4:
+	case Annotation::Java_FocusIn:
 		item->annotation().setFo_act(EditJava->toPlainText());
 		break;
-	case 5:
+	case Annotation::Java_FocusOut:
 		item->annotation().setBl_act(EditJava->toPlainText());
 		break;
-	case 6:
+	case Annotation::Java_SelectionChg:
 		item->annotation().setK_act(EditJava->toPlainText());
 		break;
 	}
 	switch (it)
 	{
-	case 0:
+	case Annotation::Java_ReleaseButton:
 		EditJava->setPlainText(item->annotation().Action());
 		break;
-	case 1:
+	case Annotation::Java_PressButton:
 		EditJava->setPlainText(item->annotation().D_act());
 		break;
-	case 2:
+	case Annotation::Java_EnterWidget:
 		EditJava->setPlainText(item->annotation().E_act());
 		break;
-	case 3:
+	case Annotation::Java_LeaveWidget:
 		EditJava->setPlainText(item->annotation().X_act());
 		break;
-	case 4:
+	case Annotation::Java_FocusIn:
 		EditJava->setPlainText(item->annotation().Fo_act());
 		break;
-	case 5:
+	case Annotation::Java_FocusOut:
 		EditJava->setPlainText(item->annotation().Bl_act());
 		break;
-	case 6:
+	case Annotation::Java_SelectionChg:
 		EditJava->setPlainText(item->annotation().K_act());
 		break;
 	}
