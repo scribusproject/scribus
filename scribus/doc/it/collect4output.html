@@ -1,0 +1,46 @@
+﻿<html>
+<head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <title>Raggruppa per l'output</title>
+</head>
+<body>
+<h2>Raggruppa per l'output</h2>
+<p><i>Raggruppa per l'output</i> &egrave; un modo speciale di salvare un documento di Scribus.</p>
+<p>Se lavorate con Scribus su un solo computer, e se nessun altro lavora sui vostri documenti, potreste non aver mai bisogno della funzione <i>raggruppa per l'output</i>. Ma se lavorate su pi&ugrave; computer, e specialmente su computer con sistemi operativi diversi (ad esempio uno con Linux e uno con Windows) potreste trovarla utile. E se siete in pi&ugrave; persone a lavorare sullo stesso documento di Scribus, <i>raggruppa per l'output</i> sar&agrave; quasi indispensabile, o almeno &egrave; molto utile che sappiate della sua esistenza.</p>
+<p>Se siete ben organizzati nel vostro lavoro con Scribus, probabilmente avrete un'apposita directory per ciascun progetto, con tutte le immagini e gli altri contenuti. Anche cos&igrave;, se volete che qualcun altro possa lavorare su quel progetto, potrebbe non bastare mandargli l'intera directory: potreste scoprire che mancano alcune immagini o che il vostro collaboratore non ha uno dei tipi di carattere usati nel documento.</p>
+<p>Ma potreste trovare utile questa funzione semplicemente perch&eacute; vi permette di riunire comodamente in una sola directory tutti gli elementi che compongono un progetto.</p>
+<h3>Il procedimento</h3>
+<p>In sintesi, <i>raggruppa per l'output</i> consiste in questo: si crea una directory per il progetto, e la si seleziona, dopodich&eacute; Scribus vi salva il documento con tutte le immagini che contiene, e, se volete, anche i file dei caratteri e i profili colore utilizzati. Non &egrave; strettamente necessario creare una nuova directory o selezionarne una vuota, ma di solito inserire nella directory soltanto i file relativi al progetto &egrave; la scelta pi&ugrave; sensata.</p>
+<p>Quando l'operazione viene eseguita, nella copia del documento inserita nella directory tutti i collegamenti alle immagini vengono opportunamente modificati. Vediamone un esempio.</p>
+<p>&nbsp;</p>
+<table cellpadding="3" width="100%">
+<tr><td><img src="images/collect_out1.png"></td>
+<td><p>Qui vogliamo &ldquo;raccogliere per l'output&rdquo; un progetto che consiste in un documento per una presentazione. Dopo aver selezionato <i>File > Raggruppa per l'output</i>, appare questa finestra di dialogo, in cui, come vedete, si lavora soltanto su directory. Abbiamo creato una nuova directory chiamata &ldquo;conference&rdquo;.</p>
+<p>Nel passo successivo, selezioniamo la directory <i>conference</i> facendo clic su di essa. Per ora, non premiamo <i>OK</i>.</p></td></tr>
+<tr><td><img src="images/collect_out2.png"></td>
+<td><p>Ora la nostra directory &egrave; selezionata, ed &egrave; vuota (questa finestra di dialogo mostrerebbe soltanto directory). In basso abbiamo contrassegnato le opzioni <i>Includi font</i> e <i>Includi profili colore</i>. Se avessimo contrassegnato anche <i>Comprimi file</i>, il file del documento Scribus verrebbe compresso in formato <code>gzip</code>, che potrebbe essere utile per un documento di grandi dimensioni; ma nel nostro caso non ce n'&egrave; bisogno. I nomi dei file compressi finiscono con <code>.sla.gz</code>.</p>
+<p>Ora &egrave; il momento di premere <i>OK</i>.</p></td></tr>
+</table>
+<h3>Il risultato</h3>
+
+<table cellpadding="3" width="80%">
+<tr><td><img src="images/collect_out3.png"></td>
+<td><p>Qui si vede ci&ograve; che Scribus ha inserito nella directory: diverse immagini, file dei tipi di carattere (quelli che terminano con <code>.ttf</code>) e profili ICC (quelli che terminano con <code>.icm)</code>, oltre al documento <code>conference_present.sla</code>.</p>
+<p>Ci&ograve; che &egrave; successo &egrave; che ora stiamo lavorando con questa nuova copia del documento, con tutti i suoi contenuti riuniti in questa directory, invece che con il file originale e i suoi contenuti, qualunque fosse prima la loro posizione. Si pu&ograve; aprire questo file come per ogni altro documento, raggiungendo la directory in cui si trova e selezionandolo.</p>
+<p>Potete capire facilmente che tutto ci&ograve; rende molto pi&ugrave; efficiente lo scambio del progetto tra i diversi collaboratori. Inoltre notate che questa funzione potrebbe essere usata per creare pi&ugrave; versioni dello stesso progetto, ad esempio con immagini diverse, selezionando directory diverse per il salvataggio.</p></td></tr>
+</table>
+<h3>Evitare problemi</h3>
+<table cellpadding="3" width="80%">
+<tr><td><p>Dovreste fare attenzione a non spostare o rinominare alcuno di questi file al di fuori di Scribus. Per capire perch&eacute;, guardate che succede se lo fate.</p>
+<p>A destra &egrave; mostrata la situazione iniziale, prima di eseguire <i>raggruppa per l'output</i>: abbiamo il documento di Scribus salvato in una certa directory, e inoltre varie immagini sparse in diverse directory. Quando diamo il comando <i>raggruppa per l'output</i>, tutti questi file si trovano ancora nelle loro rispettive posizioni.</p>
+<p>Per ciascuna immagine, Scribus salva nel documento soltanto il percorso relativo alla posizione del file <code>.sla</code>.</p>
+<td><img src="images/collect_out5.png"></td></tr>
+<tr><td>&nbsp;</td></tr>
+<tr><td><p>Dopo aver eseguito <i>raggruppa per l'output</i>, il file del documento si trova nella nuova directory, ma vi si trovano anche copie di tutte le immagini, e tutti i collegamenti relativi puntano a questa nuova posizione. Se cancellate o spostate un'immagine dalla directory, il riferimento all'immagine che si trova nel documento resta invariato, quindi l'immagine non sar&agrave; pi&ugrave; trovata.</p>
+<p>Una soluzione potrebbe essere quella di tornare al documento originale e rieseguire <i>raggruppa per l'output</i>, ma cos&igrave; perdereste le modifiche che avete apportato nel frattempo. Per evitare questo problema, potreste rinominare il file &ldquo;raggruppato&rdquo;, tornare all'originale, rieseguire <i>raggruppa per l'output</i>, e ripristinare il file rinominato.</p>
+<p>Altrimenti vi toccher&agrave; riesaminare il file originale per individuare l'immagine mancante, oppure potreste trovarvi in situazioni ancora pi&ugrave; complicate. Ecco perch&eacute; &egrave; meglio evitare di spostare o cancellare file al di fuori di Scribus.</p>
+<td><img src="images/collect_out6.png"></td></tr>
+
+</table>
+</body>
+</html>

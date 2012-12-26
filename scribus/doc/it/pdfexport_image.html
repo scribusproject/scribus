@@ -1,0 +1,35 @@
+<html>
+<head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <title>Esportazione PDF: compressione delle immagini</title>
+</head>
+<body>
+<h3>Compressione delle immagini nell'esportazione PDF</h3>
+
+<p>Forse, in altre parti della guida in linea, avete letto che &egrave; consigliabile ridimensionare le immagini al fuori di Scribus, allo scopo di ridurre le dimensioni del PDF esportato. Tuttavia vi &egrave; anche la possibilit&agrave; di comprimere le immagini al momento dell'esportazione. Il vantaggio &egrave; che si tratta di un'operazione non distruttiva, cio&egrave; i file originali restano immutati, e sar&agrave; una loro versione compressa ad essere incorporata nel PDF.</p>
+<p><img src="images/image_compress.png"></p>
+<p>Nella scheda <i>Generale</i> della finestra di dialogo dell'esportazione PDF, questa &egrave; la parte in cui si gestisce la compressione delle immagini. Per impostazione predefinita, l'opzione <i>Risoluzione massima dell'immagine</i> &egrave; disattivata, quindi non viene eseguita alcuna compressione. Nell'esempio mostrato sopra l'abbiamo attivata, e vediamo l'impostazione predefinita di 300 dpi. Questo &egrave; probabilmente il valore minimo da scegliere per un documento destinato alla stampa, ma se state generando un PDF da pubblicare sul web o comunque da visualizzare su un computer, potete scendere fino a 96 o 72 dpi, poich&eacute; queste sono le tipiche risoluzioni degli schermi da computer.</p>
+<p>In <i>Metodo di compressione</i>, abbiamo queste opzioni:
+<ul>
+<li>Automatico</li>
+<li>Con perdita - JPEG</li>
+<li>Senza perdita - Zip</li>
+<li>Nessuno</li>
+</ul></p>
+<p>In <i>Qualit&agrave; di compressione</i> abbiamo queste opzioni:
+<ul><li>Massima</li>
+<li>Alta</li>
+<li>Media</li>
+<li>Bassa</li>
+<li>Minima</li>
+</ul></p>
+<p>Se esaminate queste impostazioni, probabilmente concluderete che esiste una qualche relazione tra il grado di compressione dell'immagine e il metodo utilizzato, e quindi che un elevato grado di compressione e un metodo con perdita dovrebbero produrre la peggiore qualit&agrave; nell'immagine finale. Questo &egrave; senza dubbio vero, ma non vi &egrave; un buon modo di prevedere, con le impostazioni intermedie, l'entit&agrave; della compressione n&eacute; quanto accettabile sar&agrave; la qualit&agrave;.</p>
+<p>Ci&ograve; &egrave; spiegato pi&ugrave; in dettaglio nel wiki di Scribus, nell'articolo <a href="http://wiki.scribus.net/canvas/Image_DPI_and_Scaling,_and_Resultant_File_Sizes">Image DPI and Scaling, and Resultant File Sizes</a>. Questo &egrave; un tentativo metodico, ma non esaustivo, di mostrare come diverse impostazioni influiscono sulla qualit&agrave; dei risultati e sulle dimensioni del PDF generato. Dovreste leggere quest'articolo non solo per le sue conclusioni, ma soprattutto perch&eacute; suggerisce come fare esperimenti con i vostri documenti, in modo che possiate prendere decisioni informate sulla compressione delle immagini nell'esportazione PDF.</p>
+<p>Riassumendo, i risultati degli esperimenti mostrati sul wiki sono i seguenti:
+<ul>
+<li>per i metodi &ldquo;Automatico&rdquo; e &ldquo;Senza perdita-Zip&rdquo;, i soli cambiamenti nelle dimensioni del file derivano dalla riduzione del valore DPI massimo dell'immagine. Sembra che l'opzione &ldquo;Automatico&rdquo; sia identica a &ldquo;Senza perdita-Zip&rdquo;.</li>
+<li>per il metodo &ldquo;Con perdita&rdquo;, il PDF generato diventa progressivamente pi&ugrave; piccolo, sia con la riduzione del valore DPI massimo sia con la riduzione della qualit&agrave;, e i due effetti si sommano. E oltre un certo punto l'immagine si degrada considerevolmente.</li>
+</ul>
+
+</body>
+</html>

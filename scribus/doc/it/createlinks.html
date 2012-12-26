@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+ 
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>Creare collegamenti nei documenti</title>
+
+ 
+</head><body>
+<h2>Creare collegamenti nei documenti</h2>
+<h3>e anche annotazioni</h3>
+<p>Cominciamo col chiarire qual &egrave; l'argomento di questa pagina. Vogliamo parlare della situazione in cui volete creare un collegamento cliccabile in un documento PDF, che potrebbe portare a un altro punto del documento stesso, a qualche altro documento, oppure anche a una pagina web. Non parleremo qui del <strong>collegamento tra cornici di testo</strong>, che &egrave; spiegato in <strong>Lavorare con le cornici di testo</strong>.
+</p>
+<p>Il modo pi&ugrave; diretto di creare un'area di collegamento (e questo &egrave;, alla lettera, ci&ograve; che stiamo facendo), consiste nel fare clic sull'icona <i>Inserisci annotazione collegamento</i> nella barra degli strumenti (presumendo che la barra degli <strong>strumenti PDF</strong> sia attiva; fate clic col tasto destro sulla barra degli strumenti per controllare quali delle barre sono visibili). Quest'icona contiene due orme di scarpa.
+</p>
+<p><img src="images/pdftools.png"/></p>
+<p>Ora potete creare l'area di collegamento nella posizione della pagina che desiderate. Somiglia a una cornice di testo, e vi potete inserire del testo proprio come in una vera cornice di testo. Potrebbero esserci delle buone ragioni per farlo, ad esempio per fare in modo che questa cornice sia visibile in Scribus, ma vi accorgerete che nessuno dei suoi elementi sar&agrave; visibile nel PDF finale: n&eacute; il testo n&eacute; gli eventuali colori di contorno e riempimento. Potreste anche pensare di dare a questa cornice un colore di riempimento con una trasparenza, per rendere visibile l'area cliccabile in Scribus, ma questa non sar&agrave; visibile nel PDF; dovreste considerarla una caratteristica di questo tipo di oggetto, e non un difetto.
+</p>
+<p>Dal punto di vista pratico, ci&ograve; che si vede in Adobe Reader, ad esempio, &egrave; che il cursore cambia quando lo si sposta su questa area di collegamento; di solito il puntatore predefinito diventa una mano con il dito indice puntato. Questo non si nota facilmente e pu&ograve; sfuggire, quindi probabilmente vorrete creare qualche altro elemento visivo sottostante che indichi la posizione di quest'area, e forse anche la destinazione del collegamento. Quest'elemento visivo pu&ograve; essere un oggetto qualunque, anche una parte di una cornice di testo; in questo caso sarebbe sostanzialmente ci&ograve; che il lettore medio &egrave; abituato a considerare un testo cliccabile. <i>&Egrave; importante notare che potete anche modificare la forma, ma l'area cliccabile sar&agrave; sempre rettangolare, e corrisponder&agrave; al riquadro di delimitazione della forma, quindi non vi &egrave; motivo di fare modifiche di questo genere.</i>
+</p>
+<h4>Annotazioni</h4>
+<table cellpadding="5" width="80%">
+<tr><td><img src="images/annotation.png"/></td>
+<td><p>Qui a sinistra &egrave; mostrata la finestra di dialogo che appare quando fate clic col tasto destro sulla cornice e selezionate <i>Opzioni PDF &gt; Propriet&agrave; annotazione</i>.</p>
+<p>Come vedete, la prima voce nell'elenco a discesa &egrave; <strong>Testo</strong>. Scegliendola, si crea nel PDF un'annotazione visualizzata quando il mouse passa sull'area della cornice (annotazione &ldquo;pop-up&rdquo;); un doppio clic in quest'area rende l'annotazione fissa.</p>
+<p>In questo caso, potete creare il contenuto dell'annotazione inserendolo in questa cornice allo stesso modo che per una cornice di testo, ma, come prima, esso non apparir&agrave; nella pagina, ma solo in una finestra a comparsa (pop-up) quando l'annotazione &egrave; attivata. Nel PDF &egrave; presente una piccola icona che indica la presenza di un'annotazione.</td></tr>
+</table>
+
+<blockquote><strong>Nota:</strong> un altro metodo per creare una di queste cornici consiste nel partire con una cornice di testo, poi fare clic col tasto destro e contrassegnare <i>Opzioni PDF &gt; Annotazione PDF</i> nel men&ugrave; contestuale, poi fare di nuovo doppio clic e scegliere <i>Opzioni PDF &gt; Propriet&agrave; annotazione</i> come sopra. Ricordate che qualunque contenuto o altre caratteristiche visibili di questa cornice di testo non appariranno nel PDF, a meno che non stiate creando un'annotazione pop-up.</blockquote>
+<h4>Collegamento</h4>
+<table cellpadding="5" width="80%">
+<tr><td><img src="images/link.png"/></td>
+<td><p>Con l'opzione <strong>Collegamento</strong>, potete selezionare a quale pagina e a quale punto nella pagina porter&agrave; il collegamento. Come mostrato qui a fianco, quando avete selezionato la pagina vedrete una piccola anteprima che vi aiuter&agrave; a impostare la posizione esatta della destinazione.</p>
+<p>Qualche prova in Adobe Reader mostra che, ad esempio, se volete che l'intera immagine sia visibile dopo lo spostamento, dovreste scegliere un punto leggermente a sinistra e al di sopra della cornice immagine. Questo potrebbe non essere un problema se la pagina &egrave; a un basso livello di ingrandimento ed &egrave; interamente visibile sullo schermo.</p>
+</tr>
+</table>
+<h4>Collegamento esterno</h4>
+<table cellpadding="5" width="80%">
+<tr><td><img src="images/externallink.png"/></td>
+<td><p>Con l'opzione <strong>Collegamento esterno</strong>, prima si apre una finestra di dialogo in cui dovete scegliere il documento PDF verso il quale il collegamento sar&agrave; diretto.</p>
+<p>Dopo ci&ograve;, come prima, potrete scegliere a quale pagina e a quale punto nella pagina porter&agrave; il collegamento. E, anche in questo caso, quando avete selezionato la pagina vedrete una piccola anteprima che vi aiuter&agrave; a impostare la posizione esatta della destinazione.</p>
+
+</tr>
+</table>
+<h4>Collegamento web esterno</h4>
+<table cellpadding="5" width="80%">
+<tr><td><img src="images/externalweblink.png"/></td>
+<td><p>Con l'opzione <strong>Collegamento web esterno</strong>, dovrete soltanto inserire la URL a cui porta il collegamento.</p>
+<p>Il collegamento potrebbe funzionare anche se non premettete <strong><i>http://</i></strong> all'indirizzo; questo sembra accadere con Adobe Reader e con Evince, ma non con Okular. In generale &egrave; consigliabile inserire la URL completa.</p>
+<p>Se il collegamento porta a un file che si trova su un sito, ad esempio un documento PDF, non potete indicare una certa pagina come destinazione.</p>
+<p>&Egrave; inoltre possibile inserire un collegamento di tipo <strong><i>mailto:</i></strong>; in questo caso, quando il collegamento viene attivato un programma di posta elettronica dovrebbe creare un nuovo messaggio, che avr&agrave; come destinatario l'indirizzo specificato nel collegamento stesso.
+</tr>
+</table>
+</body></html>

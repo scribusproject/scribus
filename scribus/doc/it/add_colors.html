@@ -1,0 +1,65 @@
+<html>
+<head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <title>Aggiungere e modificare colori</title>
+</head>
+<body>
+<h2>Aggiungere e modificare colori</h2>
+Se state cercando spiegazioni su come modificare un'intera raccolta di colori, <a href="color2.html">le trovate qui</a>.
+<h3>Metodi manuali</h3>
+<h4>Creare un nuovo colore</h4>
+<p>Questa &egrave; la finestra di dialogo <i>Colori</i> che abbiamo gi&agrave; incontrato nella pagina precedente di questa guida (ricordiamo che si apre con <i>Modifica &gt; Colori</i>). Fate clic sul pulsante <strong>Nuovo</strong>, che apre la finestra di dialogo <i>Modifica colore</i>. Dategli un nome univoco, e poi usate i cursori per regolare la tonalit&agrave; e la saturazione. Potete anche fare clic in un punto dell'area colorata per ottenere velocemente un colore vicino a quello a cui volete arrivare. Premete <strong>OK</strong> per aggiungere il nuovo colore alla vostra raccolta. Ricordate che con questo metodo la raccolta si applica solo al documento corrente; chiarito questo, pi&ugrave; avanti vedremo come importare una raccolta da un file salvato.</p>
+<p>Potete scegliere fra 3 <i>modelli di colore</i>: <strong>RGB</strong>, <strong>CMYK</strong>, e <strong>RGB per web</strong>. Quest'ultimo limita i valori a quelli che vengono mostrati allo stesso modo su sistemi di colore a 8 bit e a 16 bit.</p>
+<table width="100%">
+<tr>
+<td>
+<img src="images/add_colors4.png"></td>
+<td><img src="images/add_colors6.png"></td>
+</tr>
+</table>
+<h4>Importare un colore da un'altra raccolta</h4>
+<table width="90%" cellpadding="5">
+<tr><td><p>Se premete il pulsante in alto a destra nella finestra di dialogo <i>Modifica colore</i>, appare il lungo elenco di tutte le raccolte colore disponibili in Scribus. Fate clic su uno di questi colori, e nella raccolta corrente viene inserito un nuovo colore con il nome e i valori RGB/CMYK di quello selezionato. Tra le raccolte colore, molte contengono colori spot proprietari.</p></td></tr>
+<tr><td>
+<img src="images/add_colors5.png">
+</p></td>
+</tr></table>
+<h4>Dal selettore colore</h4>
+<p>Premendo il piccolo contagocce sulla barra degli strumenti si attiva il selettore colore, dopodich&eacute; facendo clic su un punto dello schermo potrete &ldquo;prelevare&rdquo; il suo colore. Si apre una finestra di dialogo che vi chiede di inserire un nome per il colore selezionato. Se non inserite alcun nome, il colore non viene aggiunto, nemmeno se premete <strong>OK</strong>.</p>
+<p><img src="images/add_colors3.png"></p>
+<h4>Duplicazione</h4>
+<p>Nella finestra di dialogo <i>Colori</i> vista sopra, selezionate il colore che desiderate duplicare e premete <strong>Duplica</strong>. Si apre la finestra <i>Modifica colore</i>, in cui il nome del colore &egrave; indicato come <i>Copia di ...</i>; potete salvarlo cos&igrave; com'&egrave; oppure potete modificarlo come abbiamo visto sopra e cambiarne il nome.</p>
+<h4>Eliminare colori</h4>
+<p>Potete eliminare un singolo colore, selezionandolo e premendo <strong>Elimina</strong>, oppure potete ridurre il numero dei colori presenti nell'elenco premendo <strong>Elimina inutilizzati</strong>, che ha l'effetto di eliminare tutti i colori che non sono utilizzati nel documento.</p>
+<h3>Metodi automatici e semiautomatici</h3>
+<h4>Importare colori da un altro documento</h4>
+<p>Se aprite un documento salvato, avrete a disposizione i colori che contiene. Quindi potreste aprire un documento esistente, cancellarne l'intero contenuto, e salvarlo con un altro nome. Potrete quindi utilizzarlo per creare un nuovo documento che contiene gli stessi colori del precedente.</p>
+<p>Potreste anche preparare in anticipo un documento vuoto contenente un certo insieme di colori, specialmente se volete utilizzare una raccolta di colori personalizzata. &Egrave; consigliabile dargli un nome significativo, come &ldquo;schemacolori3.sla&rdquo; in modo che in seguito possiate trovarlo facilmente.</p>
+Dovreste anche tener presente che quando importate una pagina da un altro documento, anche i colori di quest'ultimo vengono importati. E infine, anche se avete gi&agrave; cominciato a lavorare su un nuovo documento, potete aprire <i>Modifica > Colori</i>, e selezionare <strong>Importa</strong> nella finestra di dialogo per importare i colori da un altro documento.</p>
+<h4>Da oggetti importati</h4>
+<p>Quando importate un oggetto dalla Biblioteca, i suoi colori vengono aggiunti a quelli del documento. Analogamente, quando si importano immagini vettoriali (SVG, EPS, e cos&igrave; via) gli eventuali colori in esse contenuti vengono importati.</p>
+<table width="90%" cellpadding="5">
+<tr>
+<td><img src="images/add_colors1.png"></td>
+<td><p>&nbsp; </p><p>In quest'esempio abbiamo importato un'immagine SVG. Esaminiamo la finestra di dialogo Colori (<i>Modifica &gt; Colori</i>), in cui vogliamo mettere in evidenza alcuni particolari.</p>
+<p>Abbiamo iniziato con un documento la cui raccolta colori era la Scribus Basic, poi abbiamo importato un'immagine SVG, e questo ha provocato l'aggiunta dei suoi colori, che sono quelli che iniziano con <i>FromSVG</i>. Scribus non chiede alcuna conferma per l'importazione; pensate a quanto potrebbe essere gravosa l'operazione se l'immagine avesse un numero elevato di colori.</p>
+<p>Se desiderate importare soltanto i colori da un file vettoriale (EPS e varianti, PS), o da un file tavolozza adatto [AI (Adobe Illustrator), GPL (tavolozza di colori Gimp), SOC (tavolozza di colori OpenDocument), o da una descrizione in formato Scribus XML], potete farlo premendo <strong>Importa</strong> nella finestra di dialogo <i>Colori</i>.
+</td></tr></table>
+<p>Notate che qui abbiamo diversi neri, e che ciascuno ha le sue caratteristiche. Il nero che &egrave; stato appena aggiunto, <i>FromSVG#000000</i>, &egrave; un nero RGB, tutti gli altri sono neri CMYK. Se spostate il cursore del mouse su ciascuno di essi, vedrete le differenze.</p>
+<table cellpadding="6">
+<tr>
+<td></td><td><b>C%</b></td><td><b>M%</b></td><td><b>Y%</b></td><td><b>K%</b></td></tr>
+<tr>
+<td>Nero</td><td align="center">0</td><td align="center">0</td><td align="center">0</td><td align="center">100</td></tr>
+<tr>
+<td>Nero freddo</td><td align="center">60</td><td align="center">0</td><td align="center">0</td><td align="center">100</td></tr>
+<tr>
+<td>Registrazione</td><td align="center">100</td><td align="center">100</td><td align="center">100</td><td align="center">100</td></tr>
+<tr>
+<td>Nero ricco</td><td align="center">60</td><td align="center">40</td><td align="center">40</td><td align="center">100</td></tr>
+<tr>
+<td>Nero caldo</td><td align="center">0</td><td align="center">60</td><td align="center">30</td><td align="center">100</td></tr>
+</table>
+
+</body>
+</html>
