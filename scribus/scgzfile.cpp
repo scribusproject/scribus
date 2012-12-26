@@ -188,7 +188,7 @@ bool ScGzFile::atEnd() const
 		if (openMode() == QIODevice::ReadOnly)
 		{
 			int result = gzeof(m_data->gzfile);
-			z_off_t offset = gzoffset(m_data->gzfile);
+//			z_off_t offset = gzoffset(m_data->gzfile);
 			return result;
 		}
 		return QIODevice::atEnd();
