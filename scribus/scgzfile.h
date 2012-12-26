@@ -39,6 +39,8 @@ public:
 	virtual bool open(QIODevice::OpenMode mode);
 	virtual void close();
 
+	virtual qint64 size () const;
+
 	bool errorOccurred(void) const;
 	int  error(void) const;
 

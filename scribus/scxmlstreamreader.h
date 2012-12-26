@@ -53,6 +53,7 @@ class SCRIBUS_API ScXmlStreamReader : public QXmlStreamReader
 {
 public:
 	ScXmlStreamReader(const QString& string) : QXmlStreamReader(string) {};
+	ScXmlStreamReader(QIODevice* device) : QXmlStreamReader(device) {};
 	ScXmlStreamAttributes scAttributes(void) const;
 
 	void readToElementEnd(void);

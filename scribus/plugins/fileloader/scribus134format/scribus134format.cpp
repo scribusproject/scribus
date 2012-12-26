@@ -31,13 +31,15 @@ for which a new license (GPL+exception) is in place.
 #include "util_color.h"
 #include "util_layer.h"
 #include "scgzfile.h"
+
+#include <QApplication>
+#include <QByteArray>
 #include <QCursor>
 // #include <QDebug>
 #include <QFileInfo>
+#include <QIODevice>
 #include <QList>
-#include <QByteArray>
-#include <QApplication>
-
+#include <QScopedPointer>
 
 // See scplugin.h and pluginmanager.{cpp,h} for detail on what these methods
 // do. That documentatation is not duplicated here.
@@ -138,38 +140,31 @@ bool Scribus134Format::fileSupported(QIODevice* /* file */, const QString & file
 	return false;
 }
 
-QString Scribus134Format::readSLA(const QString & fileName)
+QIODevice* Scribus134Format::slaReader(const QString & fileName)
 {
-	QByteArray docBytes("");
+	if (!fileSupported(0, fileName))
+		return NULL;
+
+	QIODevice* ioDevice = 0;
 	if(fileName.right(2) == "gz")
 	{
-		if (!ScGzFile::readFromFile(fileName, docBytes))
+		ioDevice = new ScGzFile(fileName);
+		if (!ioDevice->open(QIODevice::ReadOnly))
 		{
-			// FIXME: Needs better error return
-			return QString::null;
+			delete ioDevice;
+			return NULL;
 		}
 	}
 	else
 	{
-		// Not gzip encoded, just load it
-		loadRawText(fileName, docBytes);
+		ioDevice = new QFile(fileName);
+		if (!ioDevice->open(QIODevice::ReadOnly))
+		{
+			delete ioDevice;
+			return NULL;
+		}
 	}
-	QString docText("");
-	int startElemPos = docBytes.left(512).indexOf("<SCRIBUSUTF8NEW ");
-	if (startElemPos >= 0)
-	{
-		QRegExp regExp134("Version=\"1.3.[4-9]");
-		QRegExp regExp140("Version=\"1.4.[0-9]");
-		bool is134 = ( regExp134.indexIn(docBytes.mid(startElemPos, 64)) >= 0 );
-		bool is140 = ( regExp140.indexIn(docBytes.mid(startElemPos, 64)) >= 0 );
-		if (is134 || is140)
-			docText = QString::fromUtf8(docBytes);
-		if (docText.endsWith(QChar(10)) || docText.endsWith(QChar(13)))
-			docText.truncate(docText.length()-1);
-	}
-	if (docText.isEmpty())
-		return QString::null;
-	return docText;
+	return ioDevice;
 }
 
 void Scribus134Format::getReplacedFontData(bool & getNewReplacement, QMap<QString,QString> &getReplacedFonts, QList<ScFace> &getDummyScFaces)
@@ -204,8 +199,8 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 	QStack< QList<PageItem*> > groupStackP;
 	QStack<int> groupStack2;
 	
-	QString f(readSLA(fileName));
-	if (f.isEmpty())
+	QScopedPointer<QIODevice> ioDevice(slaReader(fileName));
+	if (ioDevice.isNull())
 	{
 		setFileReadError();
 		return false;
@@ -216,7 +211,7 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 	
 	if (m_mwProgressBar!=0)
 	{
-		m_mwProgressBar->setMaximum(f.length());
+		m_mwProgressBar->setMaximum(ioDevice->size());
 		m_mwProgressBar->setValue(0);
 	}
 	// Stop autosave timer,it will be restarted only if doc has autosave feature is enabled
@@ -248,7 +243,7 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 	bool hasPageSets = false;
 	int  progress = 0;
 
-	ScXmlStreamReader reader(f);
+	ScXmlStreamReader reader(ioDevice.data());
 	ScXmlStreamAttributes attrs;
 	while(!reader.atEnd() && !reader.hasError())
 	{
@@ -260,7 +255,7 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 
 		if (m_mwProgressBar != 0)
 		{
-			int newProgress = qRound(reader.characterOffset() / (double) f.length() * 100);
+			int newProgress = qRound(ioDevice->pos() / (double) ioDevice->size() * 100);
 			if (newProgress != progress)
 			{
 				m_mwProgressBar->setValue(reader.characterOffset());
@@ -3097,8 +3092,8 @@ bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool M
 	legacyStyleMap[4] = "4";
 	legacyStyleCount = 5;
 
- 	QString f(readSLA(fileName));
-	if (f.isEmpty())
+ 	QScopedPointer<QIODevice> ioDevice(slaReader(fileName));
+	if (ioDevice.isNull())
 	{
 		setFileReadError();
 		return false;
@@ -3109,7 +3104,7 @@ bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool M
 	bool firstElement = true;
 	bool success = true;
 	
-	ScXmlStreamReader reader(f);
+	ScXmlStreamReader reader(ioDevice.data());
 	ScXmlStreamAttributes attrs;
 	while(!reader.atEnd() && !reader.hasError())
 	{
@@ -3470,14 +3465,14 @@ void Scribus134Format::getStyle(ParagraphStyle& style, ScXmlStreamReader& reader
 bool Scribus134Format::readStyles(const QString& fileName, ScribusDoc* doc, StyleSet<ParagraphStyle> &docParagraphStyles)
 {
 	ParagraphStyle pstyle;
-	QString f (readSLA(fileName));
-	if (f.isEmpty())
-		return false;
-
 	bool firstElement = true;
 	bool success = true;
 
-	ScXmlStreamReader reader(f);
+	QScopedPointer<QIODevice> ioDevice(slaReader(fileName));
+	if (ioDevice.isNull())
+		return false;
+
+	ScXmlStreamReader reader(ioDevice.data());
 	ScXmlStreamAttributes attrs;
 	while(!reader.atEnd() && !reader.hasError())
 	{
@@ -3507,13 +3502,14 @@ bool Scribus134Format::readStyles(const QString& fileName, ScribusDoc* doc, Styl
 bool Scribus134Format::readCharStyles(const QString& fileName, ScribusDoc* doc, StyleSet<CharStyle> &docCharStyles)
 {
 	CharStyle cstyle;
-	QString f(readSLA(fileName));
-	if (f.isEmpty())
-		return false;
 	bool firstElement = true;
 	bool success = true;
 
-	ScXmlStreamReader reader(f);
+	QScopedPointer<QIODevice> ioDevice(slaReader(fileName));
+	if (ioDevice.isNull())
+		return false;
+
+	ScXmlStreamReader reader(ioDevice.data());
 	ScXmlStreamAttributes attrs;
 	while(!reader.atEnd() && !reader.hasError())
 	{
@@ -3544,13 +3540,14 @@ bool Scribus134Format::readCharStyles(const QString& fileName, ScribusDoc* doc, 
 
 bool Scribus134Format::readLineStyles(const QString& fileName, QHash<QString,multiLine> *styles)
 {
-	QString f(readSLA(fileName));
-	if (f.isEmpty())
-		return false;
 	bool firstElement = true;
 	bool success = true;
 
-	ScXmlStreamReader reader(f);
+	QScopedPointer<QIODevice> ioDevice(slaReader(fileName));
+	if (ioDevice.isNull())
+		return false;
+
+	ScXmlStreamReader reader(ioDevice.data());
 	ScXmlStreamAttributes attrs;
 	while(!reader.atEnd() && !reader.hasError())
 	{
@@ -3593,13 +3590,14 @@ bool Scribus134Format::readLineStyles(const QString& fileName, QHash<QString,mul
 
 bool Scribus134Format::readColors(const QString& fileName, ColorList & colors)
 {
-	QString f(readSLA(fileName));
-	if (f.isEmpty())
-		return false;
 	bool firstElement = true;
 	bool success = true;
 
-	ScXmlStreamReader reader(f);
+	QScopedPointer<QIODevice> ioDevice(slaReader(fileName));
+	if (ioDevice.isNull())
+		return false;
+
+	ScXmlStreamReader reader(ioDevice.data());
 	ScXmlStreamAttributes attrs;
 	while(!reader.atEnd() && !reader.hasError())
 	{
@@ -3634,13 +3632,14 @@ bool Scribus134Format::readPageCount(const QString& fileName, int *num1, int *nu
 	QString pageName;
 	int counter = 0;
 	int counter2 = 0;
-	QString f(readSLA(fileName));
-	if (f.isEmpty())
-		return false;
 	bool firstElement = true;
 	bool success = true;
 
-	ScXmlStreamReader reader(f);
+	QScopedPointer<QIODevice> ioDevice(slaReader(fileName));
+	if (ioDevice.isNull())
+		return false;
+
+	ScXmlStreamReader reader(ioDevice.data());
 	ScXmlStreamAttributes attrs;
 	while(!reader.atEnd() && !reader.hasError())
 	{

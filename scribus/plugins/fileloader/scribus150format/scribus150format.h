@@ -15,10 +15,12 @@ for which a new license (GPL+exception) is in place.
 #include "styles/styleset.h"
 #include "selection.h"
 
-#include <QMap>
-#include <QString>
 #include <QList>
+#include <QMap>
 #include <QProgressBar>
+#include <QString>
+
+class QIODevice;
 
 class  ColorList;
 class  multiLine;
@@ -89,7 +91,7 @@ class PLUGIN_API Scribus150Format : public LoadSavePlugin
 
 		void registerFormats();
 		
-		QString readSLA(const QString & fileName);
+		QIODevice* slaReader(const QString & fileName);
 
 		void getStyle(ParagraphStyle& style, ScXmlStreamReader& reader, StyleSet<ParagraphStyle> *docParagraphStyles, ScribusDoc* doc, bool fl);
 

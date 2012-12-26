@@ -18,8 +18,9 @@ const  int ScGzFile::gzipExpansionFactor = 8;
 
 struct  ScGzFileDataPrivate
 {
-	FILE*  file;
-	gzFile gzfile;
+	FILE*   file;
+	gzFile  gzfile;
+	quint64 uncSize; // Uncompressed stream size
 };
 
 ScGzFile::ScGzFile(const QString& fileName) : QIODevice(), m_fileName(fileName)
@@ -58,8 +59,9 @@ ScGzFileDataPrivate* ScGzFile::newPrivateData(void)
 	m_data = (ScGzFileDataPrivate*) malloc(sizeof(ScGzFileDataPrivate));
 	if (m_data)
 	{
-		m_data->file   = NULL;
-		m_data->gzfile = NULL;
+		m_data->file    = NULL;
+		m_data->gzfile  = NULL;
+		m_data->uncSize = 0;
 	}
 	return m_data;
 }
@@ -78,6 +80,7 @@ bool ScGzFile::gzFileOpen(QString fileName, ScGzFileDataPrivate* data, QIODevice
 	bool success = false;
 	FILE* file   = NULL;
 	gzFile gzf   = NULL;
+	quint64 fsize = 0;
 	QString localPath = QDir::toNativeSeparators(fileName);
 #if defined(_WIN32)
 	if (mode == QIODevice::ReadOnly)
@@ -87,7 +90,21 @@ bool ScGzFile::gzFileOpen(QString fileName, ScGzFileDataPrivate* data, QIODevice
 	if (file)
 	{
 		int fno = _fileno(file);
-		gzf = gzdopen(fno,(mode == QIODevice::ReadOnly) ? "rb" : "wb");
+		if (mode == QIODevice::ReadOnly)
+		{
+			fseek(file, 0, SEEK_END);
+			if (ftell(file) > 4)
+			{
+				fseek(file, -4, SEEK_END);
+				int b4 = fgetc(file);
+				int b3 = fgetc(file);
+				int b2 = fgetc(file);
+				int b1 = fgetc(file);
+				fsize  = (b1 << 24) + (b2 << 16) + (b3 << 8) + b4;
+				fseek(file, 0, SEEK_SET);
+			}
+		}
+		gzf = gzdopen(fno, (mode == QIODevice::ReadOnly) ? "rb" : "wb");
 		if (!gzf) fclose(file);
 	}
 #else
@@ -98,14 +115,29 @@ bool ScGzFile::gzFileOpen(QString fileName, ScGzFileDataPrivate* data, QIODevice
 	if (file)
 	{
 		int fno = fileno(file);
+		if (mode == QIODevice::ReadOnly)
+		{
+			fseek(file, 0, SEEK_END);
+			if (ftell(file) > 4)
+			{
+				fseek(file, -4, SEEK_END);
+				int b4 = fgetc(file);
+				int b3 = fgetc(file);
+				int b2 = fgetc(file);
+				int b1 = fgetc(file);
+				fsize  = (b1 << 24) + (b2 << 16) + (b3 << 8) + b4;
+				fseek(file, 0, SEEK_SET);
+			}
+		}
 		gzf = gzdopen(fno,(mode == QIODevice::ReadOnly) ? "rb" : "wb");
 		if (!gzf) fclose(file);
 	}
 #endif
 	if (gzf)
 	{
-		data->file   = file;
-		data->gzfile = gzf;
+		data->file    = file;
+		data->gzfile  = gzf;
+		data->uncSize = fsize;
 		success = true;
 	}
 	return success;
@@ -132,6 +164,13 @@ bool ScGzFile::open(QIODevice::OpenMode mode)
 	return success;
 }
 
+qint64 ScGzFile::size () const
+{
+	if (m_data && (openMode() == QIODevice::ReadOnly))
+		return m_data->uncSize;
+	return QIODevice::size();
+}
+
 bool ScGzFile::reset(void)
 {
 	if (!m_data || (openMode() != QIODevice::ReadOnly))
@@ -149,6 +188,7 @@ bool ScGzFile::atEnd() const
 		if (openMode() == QIODevice::ReadOnly)
 		{
 			int result = gzeof(m_data->gzfile);
+			z_off_t offset = gzoffset(m_data->gzfile);
 			return result;
 		}
 		return QIODevice::atEnd();

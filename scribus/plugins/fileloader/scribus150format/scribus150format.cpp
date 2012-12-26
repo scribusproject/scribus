@@ -40,13 +40,14 @@ for which a new license (GPL+exception) is in place.
 #include "pageitem_arc.h"
 #include "pageitem_spiral.h"
 #include "pagestructs.h"
+
+#include <QApplication>
+#include <QByteArray>
 #include <QCursor>
 // #include <QDebug>
 #include <QFileInfo>
 #include <QList>
-#include <QByteArray>
-#include <QApplication>
-
+#include <QScopedPointer>
 
 // See scplugin.h and pluginmanager.{cpp,h} for detail on what these methods
 // do. That documentatation is not duplicated here.
@@ -143,36 +144,31 @@ bool Scribus150Format::fileSupported(QIODevice* /* file */, const QString & file
 	return false;
 }
 
-QString Scribus150Format::readSLA(const QString & fileName)
+QIODevice* Scribus150Format::slaReader(const QString & fileName)
 {
-	QByteArray docBytes("");
+	if (!fileSupported(0, fileName))
+		return NULL;
+
+	QIODevice* ioDevice = 0;
 	if(fileName.right(2) == "gz")
 	{
-		if (!ScGzFile::readFromFile(fileName, docBytes))
+		ioDevice = new ScGzFile(fileName);
+		if (!ioDevice->open(QIODevice::ReadOnly))
 		{
-			// FIXME: Needs better error return
-			return QString::null;
+			delete ioDevice;
+			return NULL;
 		}
 	}
 	else
 	{
-		// Not gzip encoded, just load it
-		loadRawText(fileName, docBytes);
+		ioDevice = new QFile(fileName);
+		if (!ioDevice->open(QIODevice::ReadOnly))
+		{
+			delete ioDevice;
+			return NULL;
+		}
 	}
-	QString docText("");
-	int startElemPos = docBytes.left(512).indexOf("<SCRIBUSUTF8NEW ");
-	if (startElemPos >= 0)
-	{
-		QRegExp regExp150("Version=\"1.5.[0-9]");
-		bool is150 = ( regExp150.indexIn(docBytes.mid(startElemPos, 64)) >= 0 );
-		if (is150)
-			docText = QString::fromUtf8(docBytes);
-		if (docText.endsWith(QChar(10)) || docText.endsWith(QChar(13)))
-			docText.truncate(docText.length()-1);
-	}
-	if (docText.isEmpty())
-		return QString::null;
-	return docText;
+	return ioDevice;
 }
 
 void Scribus150Format::getReplacedFontData(bool & getNewReplacement, QMap<QString,QString> &getReplacedFonts, QList<ScFace> &getDummyScFaces)
@@ -1233,8 +1229,8 @@ bool Scribus150Format::loadFile(const QString & fileName, const FileFormat & /* 
 	notesMasterMarks.clear();
 	notesNSets.clear();
 
-	QString f(readSLA(fileName));
-	if (f.isEmpty())
+	QScopedPointer<QIODevice> ioDevice(slaReader(fileName));
+	if (ioDevice.isNull())
 	{
 		setFileReadError();
 		return false;
@@ -1245,7 +1241,7 @@ bool Scribus150Format::loadFile(const QString & fileName, const FileFormat & /* 
 	
 	if (m_mwProgressBar!=0)
 	{
-		m_mwProgressBar->setMaximum(f.length());
+		m_mwProgressBar->setMaximum(ioDevice->size());
 		m_mwProgressBar->setValue(0);
 	}
 	// Stop autosave timer,it will be restarted only if doc has autosave feature is enabled
@@ -1281,7 +1277,7 @@ bool Scribus150Format::loadFile(const QString & fileName, const FileFormat & /* 
 	bool hasPageSets = false;
 	int  progress = 0;
 
-	ScXmlStreamReader reader(f);
+	ScXmlStreamReader reader(ioDevice.data());
 	ScXmlStreamAttributes attrs;
 	while(!reader.atEnd() && !reader.hasError())
 	{
@@ -1293,7 +1289,7 @@ bool Scribus150Format::loadFile(const QString & fileName, const FileFormat & /* 
 
 		if (m_mwProgressBar != 0)
 		{
-			int newProgress = qRound(reader.characterOffset() / (double) f.length() * 100);
+			int newProgress = qRound(ioDevice->pos() / (double) ioDevice->size() * 100);
 			if (newProgress != progress)
 			{
 				m_mwProgressBar->setValue(reader.characterOffset());
@@ -5504,8 +5500,8 @@ bool Scribus150Format::loadPage(const QString & fileName, int pageNumber, bool M
 	notesMasterMarks.clear();
 	notesNSets.clear();
 
- 	QString f(readSLA(fileName));
-	if (f.isEmpty())
+ 	QScopedPointer<QIODevice> ioDevice(slaReader(fileName));
+	if (ioDevice.isNull())
 	{
 		setFileReadError();
 		return false;
@@ -5517,7 +5513,7 @@ bool Scribus150Format::loadPage(const QString & fileName, int pageNumber, bool M
 	bool success = true;
 	isNewFormat = false;
 	
-	ScXmlStreamReader reader(f);
+	ScXmlStreamReader reader(ioDevice.data());
 	ScXmlStreamAttributes attrs;
 	while(!reader.atEnd() && !reader.hasError())
 	{
@@ -6097,14 +6093,14 @@ void Scribus150Format::getStyle(ParagraphStyle& style, ScXmlStreamReader& reader
 bool Scribus150Format::readStyles(const QString& fileName, ScribusDoc* doc, StyleSet<ParagraphStyle> &docParagraphStyles)
 {
 	ParagraphStyle pstyle;
-	QString f (readSLA(fileName));
-	if (f.isEmpty())
-		return false;
-
 	bool firstElement = true;
 	bool success = true;
 
-	ScXmlStreamReader reader(f);
+	QScopedPointer<QIODevice> ioDevice(slaReader(fileName));
+	if (ioDevice.isNull())
+		return false;
+
+	ScXmlStreamReader reader(ioDevice.data());
 	ScXmlStreamAttributes attrs;
 	while(!reader.atEnd() && !reader.hasError())
 	{
@@ -6134,13 +6130,14 @@ bool Scribus150Format::readStyles(const QString& fileName, ScribusDoc* doc, Styl
 bool Scribus150Format::readCharStyles(const QString& fileName, ScribusDoc* doc, StyleSet<CharStyle> &docCharStyles)
 {
 	CharStyle cstyle;
-	QString f(readSLA(fileName));
-	if (f.isEmpty())
-		return false;
 	bool firstElement = true;
 	bool success = true;
 
-	ScXmlStreamReader reader(f);
+	QScopedPointer<QIODevice> ioDevice(slaReader(fileName));
+	if (ioDevice.isNull())
+		return false;
+
+	ScXmlStreamReader reader(ioDevice.data());
 	ScXmlStreamAttributes attrs;
 	while(!reader.atEnd() && !reader.hasError())
 	{
@@ -6171,13 +6168,14 @@ bool Scribus150Format::readCharStyles(const QString& fileName, ScribusDoc* doc, 
 
 bool Scribus150Format::readLineStyles(const QString& fileName, QHash<QString,multiLine> *styles)
 {
-	QString f(readSLA(fileName));
-	if (f.isEmpty())
-		return false;
 	bool firstElement = true;
 	bool success = true;
 
-	ScXmlStreamReader reader(f);
+	QScopedPointer<QIODevice> ioDevice(slaReader(fileName));
+	if (ioDevice.isNull())
+		return false;
+
+	ScXmlStreamReader reader(ioDevice.data());
 	ScXmlStreamAttributes attrs;
 	while(!reader.atEnd() && !reader.hasError())
 	{
@@ -6220,13 +6218,14 @@ bool Scribus150Format::readLineStyles(const QString& fileName, QHash<QString,mul
 
 bool Scribus150Format::readColors(const QString& fileName, ColorList & colors)
 {
-	QString f(readSLA(fileName));
-	if (f.isEmpty())
-		return false;
 	bool firstElement = true;
 	bool success = true;
 
-	ScXmlStreamReader reader(f);
+	QScopedPointer<QIODevice> ioDevice(slaReader(fileName));
+	if (ioDevice.isNull())
+		return false;
+
+	ScXmlStreamReader reader(ioDevice.data());
 	ScXmlStreamAttributes attrs;
 	while(!reader.atEnd() && !reader.hasError())
 	{
@@ -6261,6 +6260,8 @@ bool Scribus150Format::readPageCount(const QString& fileName, int *num1, int *nu
 	QString pageName;
 	int counter = 0;
 	int counter2 = 0;
+	bool firstElement = true;
+	bool success = true;
 
 	markeredItemsMap.clear();
 	markeredMarksMap.clear();
@@ -6269,13 +6270,11 @@ bool Scribus150Format::readPageCount(const QString& fileName, int *num1, int *nu
 	notesMasterMarks.clear();
 	notesNSets.clear();
 
-	QString f(readSLA(fileName));
-	if (f.isEmpty())
+	QScopedPointer<QIODevice> ioDevice(slaReader(fileName));
+	if (ioDevice.isNull())
 		return false;
-	bool firstElement = true;
-	bool success = true;
 
-	ScXmlStreamReader reader(f);
+	ScXmlStreamReader reader(ioDevice.data());
 	ScXmlStreamAttributes attrs;
 	while(!reader.atEnd() && !reader.hasError())
 	{
