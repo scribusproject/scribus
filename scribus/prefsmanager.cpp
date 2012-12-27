@@ -265,7 +265,7 @@ void PrefsManager::initDefaults()
 	appPrefs.opToolPrefs.magMax = 3200;
 	appPrefs.opToolPrefs.magStep = 25;
 	qDebug()<<ScQApp->currGUILanguage();
-	appPrefs.docSetupPrefs.docUnitIndex = unitIndexFromString(LocaleManager::instance()->unitForLocale("default"));
+	appPrefs.docSetupPrefs.docUnitIndex = unitIndexFromString(LocaleManager::instance()->unitForLocale(ScQApp->currGUILanguage()));
 	appPrefs.itemToolPrefs.polyCorners = 4;
 	appPrefs.itemToolPrefs.polyFactor = 0.5;
 	appPrefs.itemToolPrefs.polyUseFactor = false;
@@ -300,7 +300,7 @@ void PrefsManager::initDefaults()
 	appPrefs.scrapbookPrefs.writePreviews = true;
 	appPrefs.scrapbookPrefs.numScrapbookCopies = 10;
 	appPrefs.displayPrefs.marginColored = false;
-	appPrefs.docSetupPrefs.pageSize = LocaleManager::instance()->pageSizeForLocale("default");
+	appPrefs.docSetupPrefs.pageSize = LocaleManager::instance()->pageSizeForLocale(ScQApp->currGUILanguage());
 	appPrefs.docSetupPrefs.pageOrientation = 0;
 	PageSize defaultPageSize(appPrefs.docSetupPrefs.pageSize);
 	appPrefs.docSetupPrefs.pageWidth = defaultPageSize.width();

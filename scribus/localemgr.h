@@ -22,6 +22,7 @@ for which a new license (GPL+exception) is in place.
 #ifndef LOCALEMANAGER_H
 #define LOCALEMANAGER_H
 
+#include <QLocale>
 #include <QMap>
 #include <QString>
 
@@ -66,7 +67,7 @@ public:
 
 private:
 	QList <LocaleDef> localeTable;
-
+	QLocale sysLocale;
 	void generateLocaleList();
 };
 
