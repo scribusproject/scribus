@@ -1899,6 +1899,54 @@ Hvis objektet «name» tilhører en gruppe blir hele gruppen flyttet.
         <source>Adjust Frame Height to Text</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Marks...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Notes Styles...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Adjust Group</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Anchor Mark</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Variable Text</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Reference to Item</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Reference to Mark</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Foot/Endnote</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Edit Mark</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Update Marks</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Snap to Items</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Insert PDF Radio Button</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>AdjustCmsDialog</name>
@@ -3058,6 +3106,54 @@ UCR reduserer muligheten for overmetning med CMY-farger.</translation>
         <source>Export absolute Filename</source>
         <translation>Eksporter absolutt filnavn</translation>
     </message>
+    <message>
+        <source>Options</source>
+        <translation type="unfinished">Innstillinger</translation>
+    </message>
+    <message>
+        <source>Icon:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Note</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Comment</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Key</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Help</source>
+        <translation type="unfinished">Hjelp</translation>
+    </message>
+    <message>
+        <source>NewParagraph</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Paragraph</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Insert</source>
+        <translation type="unfinished">Sett inn</translation>
+    </message>
+    <message>
+        <source>Cross</source>
+        <translation type="unfinished">Kryss</translation>
+    </message>
+    <message>
+        <source>Circle</source>
+        <translation type="unfinished">Sirkel</translation>
+    </message>
+    <message>
+        <source>Annotation is Open</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ApplyMasterPageDialog</name>
@@ -3867,10 +3963,6 @@ Velg et annet.</translation>
         <translation>Importer en kladdebok fra Scribus 1.3.2 eller senere</translation>
     </message>
     <message>
-        <source>Hide Directorys</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Hide Images</source>
         <translation type="unfinished">Skjul bildene</translation>
     </message>
@@ -3879,15 +3971,19 @@ Velg et annet.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Open Directorys in a new tab</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Go up one Directory</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Configure the scrapbook</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hide Directories</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Open Directories in a new tab</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -4797,6 +4893,21 @@ Høyde: %2</translation>
     </message>
 </context>
 <context>
+    <name>CanvasMode_FrameLinks</name>
+    <message>
+        <source>Linking Text Frames</source>
+        <translation type="unfinished">Lenker tekstrammer</translation>
+    </message>
+    <message>
+        <source>Before</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>After</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>CanvasMode_Normal</name>
     <message>
         <source>All Supported Formats</source>
@@ -4808,6 +4919,37 @@ Høyde: %2</translation>
     </message>
     <message>
         <source>Overflow Characters: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Go to Page %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Go to URL %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Go to Page %1 in File %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Page %1 does not exist!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Link Target is Web URL.
+URL: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Information</source>
+        <translation type="unfinished">Informasjon</translation>
+    </message>
+    <message>
+        <source>Link Target is external File.
+File: %1
+Page: %2</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -5260,6 +5402,10 @@ Nå %2 x %3 ppt</translation>
         <source>Image dimension is smaller than its frame</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>After Marks update document was changed</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>CheckerPrefsList</name>
@@ -5297,6 +5443,13 @@ Nå %2 x %3 ppt</translation>
     <message>
         <source>Cancel</source>
         <translation type="obsolete">Avbryt</translation>
+    </message>
+</context>
+<context>
+    <name>ClockWidget</name>
+    <message>
+        <source>A</source>
+        <translation type="unfinished">A</translation>
     </message>
 </context>
 <context>
@@ -6122,6 +6275,71 @@ Se avsnittet «Endre farger» i dokumentasjonen for flere detaljer.</translation
         <source>Default Cell Style</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>PDF Radio Button</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Button</source>
+        <translation type="unfinished">Knapp</translation>
+    </message>
+    <message>
+        <source>RadioButton</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Textfield</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Checkbox</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Combobox</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Listbox</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>TextAnnot</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Link</source>
+        <translation type="unfinished">Lenke</translation>
+    </message>
+    <message>
+        <source>Monochrome</source>
+        <comment>Colorspace</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alt</source>
+        <translation type="unfinished">Alt</translation>
+    </message>
+    <message>
+        <source>Shift</source>
+        <translation type="unfinished">Shift</translation>
+    </message>
+    <message>
+        <source>Cmd</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ctrl</source>
+        <translation type="unfinished">Ctrl</translation>
+    </message>
+    <message>
+        <source>Windows</source>
+        <translation type="unfinished">Vinduer</translation>
+    </message>
+    <message>
+        <source>Meta</source>
+        <translation type="unfinished">Meta</translation>
+    </message>
 </context>
 <context>
     <name>ContextMenu</name>
@@ -6404,6 +6622,13 @@ Se avsnittet «Endre farger» i dokumentasjonen for flere detaljer.</translation
     </message>
     <message>
         <source>Gradient</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>CreateMode</name>
+    <message>
+        <source>3DAnnot</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -10598,6 +10823,10 @@ p, li { white-space: pre-wrap; }
         <source>Inline Frames</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Remove Item</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>InsPage</name>
@@ -12351,6 +12580,191 @@ p, li { white-space: pre-wrap; }
     </message>
 </context>
 <context>
+    <name>Mark2Item</name>
+    <message>
+        <source>Mark to Item</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>Mark2ItemDlg</name>
+    <message>
+        <source>Dialog</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Label:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Item:</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>Mark2Mark</name>
+    <message>
+        <source>Anchors</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mark to Mark</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mark to Item</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Note mark</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>Mark2MarkDlg</name>
+    <message>
+        <source>Dialog</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Label:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Select marker:</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>MarkAnchor</name>
+    <message>
+        <source>Anchor Mark</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>MarkAnchorDlg</name>
+    <message>
+        <source>Dialog</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Label:</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>MarkNote</name>
+    <message>
+        <source>Insert Foot/Endnote</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>MarkNoteDlg</name>
+    <message>
+        <source>Dialog</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Notes Style:</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>MarkVariableText</name>
+    <message>
+        <source>New Mark</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Edit selected Mark`s label. To create new Mark select &quot;New Mark&quot; in drop list and input new label</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Edit variable text</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mark with Variable Text</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Edit selected Mark`s label.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>MarkVariableTextDlg</name>
+    <message>
+        <source>Add new Mark for Variable Text</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Label:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Text to insert:</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>MarksManager</name>
+    <message>
+        <source>Dialog</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Update All Marks</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Edit</source>
+        <translation type="unfinished">Rediger</translation>
+    </message>
+    <message>
+        <source>Delete</source>
+        <translation type="unfinished">Slett</translation>
+    </message>
+    <message>
+        <source>Anchors</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Variable Text</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Marks to Items</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Marks to Anchors</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Notes marks</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Marks Manager</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Double click to find mark in text</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Update all refeence texts for all marks</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Edit selected mark</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>MasterPagesPalette</name>
     <message>
         <source>Edit Master Pages</source>
@@ -13847,6 +14261,162 @@ ellers måles koordinatene i forhold til objektet.</translation>
     </message>
 </context>
 <context>
+    <name>NotesStylesEditor</name>
+    <message>
+        <source>Notes Styles Editor</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Add New Style</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>New Style Name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Footnotes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Endnotes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Numbering</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Range</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Start Number</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Prefix</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Suffix</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Superscript in text</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Superscript in notes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mark Character Style</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Note Paragraph Style</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Auto Height</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Auto Width</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Auto Welding</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Remove if empty</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Apply</source>
+        <translation type="unfinished">Bruk</translation>
+    </message>
+    <message>
+        <source>Delete</source>
+        <translation type="unfinished">Slett</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation type="unfinished">Greit</translation>
+    </message>
+    <message>
+        <source>Document</source>
+        <translation type="unfinished">Dokument</translation>
+    </message>
+    <message>
+        <source>Section</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Story</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Page</source>
+        <translation type="unfinished">Side</translation>
+    </message>
+    <message>
+        <source>Frame</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished">Avbryt</translation>
+    </message>
+    <message>
+        <source>Dialog is in adding new notes style mode. After pressing Cancel button dialog will be switched into normal notes styles edit mode.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Add Style</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>New notes style will be add to document only after pressing Apply butoton.
+You cannot switch to different notes style before you apply that new one or press Cancel button and exit from adding mode.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mark`s Character Style</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Note`s Paragraph Style</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>default</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>No Style</source>
+        <translation type="unfinished">Ingen stil</translation>
+    </message>
+    <message>
+        <source>Warning! Deleting Notes Style</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You are going to delete notes style %1. All notes and marks using that style are also going to be deleted.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cancel Adding</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Notes Styles Editor is in adding new notes style mode. After pressing Cancel button Notes Styles Editor switch into normal notes styles edit mode.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>OODPlug</name>
     <message>
         <source>This document does not seem to be an OpenOffice Draw file.</source>
@@ -14085,10 +14655,6 @@ ellers måles koordinatene i forhold til objektet.</translation>
     </message>
     <message>
         <source>Import 3-D Model</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>All Supported Formats (%1);;%2All Files (*)</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -16106,6 +16672,21 @@ UCR reduserer muligheten for overmetning med CMY farger.</translation>
     </message>
 </context>
 <context>
+    <name>PageItem_NoteFrame</name>
+    <message>
+        <source>Endnote frame </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Footnote frame </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>No Style</source>
+        <translation type="unfinished">Ingen stil</translation>
+    </message>
+</context>
+<context>
     <name>PageItem_OSGFrame</name>
     <message>
         <source>OSG</source>
@@ -17317,6 +17898,61 @@ The result is a combination of &quot;Intersection&quot; and &quot;Exclusion&quot
     </message>
 </context>
 <context>
+    <name>PdfImportOptions</name>
+    <message>
+        <source>PDF-Import</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Importing File:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>TextLabel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Page Range</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>All Pages</source>
+        <translation type="unfinished">Alle sidene</translation>
+    </message>
+    <message>
+        <source>Single Page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Choose Pages</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Crop to:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Media Box</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Bleed Box</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Trim Box</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Crop Box</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Art Box</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>PdfPlug</name>
     <message>
         <source>Importing: %1</source>
@@ -17329,6 +17965,14 @@ The result is a combination of &quot;Intersection&quot; and &quot;Exclusion&quot
     <message>
         <source>Generating Items</source>
         <translation type="unfinished">Lager objekter</translation>
+    </message>
+    <message>
+        <source>Open PDF-File</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Password</source>
+        <translation type="unfinished">Passord</translation>
     </message>
 </context>
 <context>
@@ -20355,6 +20999,10 @@ Vil du overføre dem til denne nye scribusversjonen? {1.3.5 ?}</translation>
         <source> dpi</source>
         <translation type="unfinished"> ppt</translation>
     </message>
+    <message>
+        <source>Show Autosave Countdown Clock on the Canvas</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Prefs_DocumentInformation</name>
@@ -21261,12 +21909,8 @@ Do you want to use this?</source>
         <translation type="unfinished">Skru av eller på margene</translation>
     </message>
     <message>
-        <source>Foreground</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Background</source>
-        <translation type="unfinished">Bakgrunn</translation>
+        <translation type="obsolete">Bakgrunn</translation>
     </message>
     <message>
         <source>Type:</source>
@@ -21783,38 +22427,38 @@ A value of 0 means unlimited hyphenations.</source>
     </message>
     <message>
         <source>Alt</source>
-        <translation type="unfinished">Alt</translation>
+        <translation type="obsolete">Alt</translation>
     </message>
     <message>
         <source>Ctrl</source>
-        <translation type="unfinished">Ctrl</translation>
+        <translation type="obsolete">Ctrl</translation>
     </message>
     <message>
         <source>Shift</source>
-        <translation type="unfinished">Shift</translation>
+        <translation type="obsolete">Shift</translation>
     </message>
     <message>
         <source>Meta</source>
-        <translation type="unfinished">Meta</translation>
+        <translation type="obsolete">Meta</translation>
     </message>
     <message>
         <source>Meta+</source>
-        <translation type="unfinished">Meta +</translation>
+        <translation type="obsolete">Meta +</translation>
     </message>
     <message>
         <source>Shift+</source>
-        <translation type="unfinished">Shift + </translation>
+        <translation type="obsolete">Shift + </translation>
     </message>
     <message>
         <source>Alt+</source>
-        <translation type="unfinished">Alt + </translation>
+        <translation type="obsolete">Alt + </translation>
     </message>
     <message>
         <source>Ctrl+</source>
-        <translation type="unfinished">Ctrl + </translation>
+        <translation type="obsolete">Ctrl + </translation>
     </message>
     <message>
-        <source>This key sequence is already in use</source>
+        <source>The %1 key sequence is already in use by &quot;%2&quot;</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -23410,6 +24054,10 @@ Et kort tidsrom gir en kort effekt, et lengre tidsrom gir en lengre effekt.</tra
         <source>Download</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Downloading</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Prefs_TableOfContents</name>
@@ -23661,10 +24309,6 @@ Et kort tidsrom gir en kort effekt, et lengre tidsrom gir en lengre effekt.</tra
         <translation type="unfinished">Skrifttype:</translation>
     </message>
     <message>
-        <source>Font Color:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Use Smart Text Selection</source>
         <translation type="unfinished"></translation>
     </message>
@@ -23725,6 +24369,10 @@ Et kort tidsrom gir en kort effekt, et lengre tidsrom gir en lengre effekt.</tra
     </message>
     <message>
         <source>Number of lines Scribus will scroll for each move of the mouse wheel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Background Color:</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -26711,7 +27359,7 @@ Corners:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Choose chracter style or leave blank for use default paragraph style</source>
+        <source>Choose character style or leave blank for use default paragraph style</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -26720,10 +27368,6 @@ Corners:</source>
     <message>
         <source>Form</source>
         <translation type="unfinished">Skjema</translation>
-    </message>
-    <message>
-        <source>Ensure that first lines of a paragraph won&apos;t end up separated from the rest (known as widow/orphan control)</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Height</source>
@@ -26743,6 +27387,10 @@ Corners:</source>
     </message>
     <message>
         <source>Use Character Style</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Number of lines used by the drop cap</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -26777,6 +27425,14 @@ Corners:</source>
         <translation type="unfinished">
             </translation>
     </message>
+    <message>
+        <source>Baseline Grid</source>
+        <translation type="unfinished">Vannrette linjer</translation>
+    </message>
+    <message>
+        <source>Set the base line of the first line of the text frame to the base line grid</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>PropertyWidget_FlopBase</name>
@@ -26801,6 +27457,10 @@ Corners:</source>
     <message>
         <source>Line Spacing</source>
         <translation type="unfinished">Linjeavstand</translation>
+    </message>
+    <message>
+        <source>Baseline Grid</source>
+        <translation type="unfinished">Vannrette linjer</translation>
     </message>
 </context>
 <context>
@@ -27134,6 +27794,19 @@ Scripter documentation for futher information. </source>
         <translation>Dette er et standard Python-skall med noen
 begrensninger. Se dokumentasjonen for
 Scribus Skripter for mer informasjon.</translation>
+    </message>
+    <message>
+        <source>Another script is already running...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Please let it finish its task...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>
+&gt;&gt;&gt; Another script is already running...</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -29499,7 +30172,7 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>You are running a development version of Scribus 1.3.x. The document you are working with was created in Scribus 1.2.x.  Saving the current file under 1.3.x renders it unable to be edited in Scribus 1.2.x versions. To preserve the ability to edit in 1.2.x, save this file under a different name and further edit the newly named file and the original will be untouched. Are you sure you wish to proceed with this operation?</source>
-        <translation type="unfinished">
+        <translation type="obsolete">
             </translation>
     </message>
     <message>
@@ -30383,10 +31056,6 @@ is not exhaustive due to exceptions from called functions.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>English (USA)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>English (South Africa)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -30396,6 +31065,39 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>Hunspell Plugin</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Bengali (Bangladesh)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>German (Austria)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>English (US)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Scottish Gaelic</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Gujarati</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Nepali</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You are running a development version of Scribus 1.5.x. The document you are working with was created in Scribus 1.2.x.  Saving the current file under 1.5.x renders it unable to be edited in Scribus 1.2.x versions. To preserve the ability to edit in 1.2.x, save this file under a different name and further edit the newly named file and the original will be untouched. Are you sure you wish to proceed with this operation?</source>
+        <translation type="unfinished">
+             {1.5.?} {1.2.?} {1.5.?} {1.2.?} {1.2.?}</translation>
+    </message>
+    <message>
+        <source>Unaceptable settings for note style</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -32894,6 +33596,226 @@ converting their vector data into Scribus objects.</source>
         <source>PDF Files (*.pdf);;All Files (*)</source>
         <translation type="unfinished">PDF-filer (*.pdf);;Alle filer (*)</translation>
     </message>
+    <message>
+        <source>Radio Button</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Named</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Action Name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>First Page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Previous Page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Next Page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Last Page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Go Back</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Go Forward</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Go Back Doc</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Go Forward Doc</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Go To Page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Actual Size</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Fit Page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Fit Width</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Fit Height</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Fit Visible</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Single Page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Two Pages</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>One Column</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Two Columns</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Zoom View In</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Zoom View Out</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Zoom To</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Print</source>
+        <translation type="unfinished">Skriv ut</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation type="unfinished">Lukk</translation>
+    </message>
+    <message>
+        <source>Quit</source>
+        <translation type="unfinished">Avslutt</translation>
+    </message>
+    <message>
+        <source>General Prefs</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>General Info</source>
+        <translation type="unfinished">Generell informasjon</translation>
+    </message>
+    <message>
+        <source>Page Setup</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Full Screen</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show/Hide Bookmarks</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show/Hide Thumbnails</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show/Hide Toolbar Editing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show/Hide Toolbar Commenting</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show/Hide Toolbar Edit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show/Hide Toolbar File</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show/Hide Toolbar Find</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show/Hide Toolbar Forms</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show/Hide Toolbar Measuring</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show/Hide Toolbar Data</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show/Hide Toolbar Page Display</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show/Hide Toolbar Navigation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show/Hide Toolbar Print Production</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show/Hide Toolbar Redaction</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show/Hide Toolbar Basic Tools</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show/Hide Toolbar Tasks</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show/Hide Toolbar Typewriter</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show/Hide Articles</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show/Hide File Attachment</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show/Hide Annot Manager</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show/Hide Fields</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show/Hide Optional Content</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show/Hide Model Tree</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show/Hide Signatures</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ScGTFileDialog</name>
@@ -34717,6 +35639,14 @@ Rotasjon: %4</translation>
         <comment>Prefix of imported default style</comment>
         <translation>Importert</translation>
     </message>
+    <message>
+        <source>No Style</source>
+        <translation type="unfinished">Ingen stil</translation>
+    </message>
+    <message>
+        <source>%1 note style has document as range and provide same numbering style as set %2</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ScribusMainWindow</name>
@@ -34742,7 +35672,7 @@ Rotasjon: %4</translation>
     </message>
     <message>
         <source>Initializing Hyphenator</source>
-        <translation>Starter orddeleren</translation>
+        <translation type="obsolete">Starter orddeleren</translation>
     </message>
     <message>
         <source>Reading Scrapbook</source>
@@ -35345,6 +36275,46 @@ Former monitor profile will be used.</source>
         <source>Editing Inline Frame</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Initializing Languages</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>All Supported Formats (%1);;%2All Files (*)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Marks</source>
+        <translation type="unfinished">Merker</translation>
+    </message>
+    <message>
+        <source>Click here to leave master page edit mode.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Insert new </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Anchor mark</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mark with &lt;%1&gt; variable text</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mark to %1 item</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mark to %1 mark</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Edit </source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ScribusQApp</name>
@@ -35683,7 +36653,7 @@ Former monitor profile will be used.</source>
     </message>
     <message>
         <source>You are trying to link a frame which is already linked.</source>
-        <translation>Du prøver å lenke en ramme som allerede er lenket.</translation>
+        <translation type="obsolete">Du prøver å lenke en ramme som allerede er lenket.</translation>
     </message>
     <message>
         <source>Enable/disable Color Management</source>
@@ -35743,6 +36713,30 @@ Former monitor profile will be used.</source>
     <message>
         <source>Select the image preview quality</source>
         <translation>Velg kvaliteten på forhåndsvisningen av bildene</translation>
+    </message>
+    <message>
+        <source>Do you want to insert the frame into the selected text chain? If so, where would you like to insert it?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You are trying to link a non-empty frame to frame which is already linked.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>End Edit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enable/disable editing the Preview Mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Click here to leave this special edit mode.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Insert Mark</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -41235,6 +42229,13 @@ Du må velge et annet navn.</translation>
     </message>
 </context>
 <context>
+    <name>UndoGui</name>
+    <message>
+        <source>Action History</source>
+        <translation type="unfinished">Handlingshistorie</translation>
+    </message>
+</context>
+<context>
     <name>UndoManager</name>
     <message>
         <source>Add vertical guide</source>
@@ -41883,6 +42884,243 @@ X: %4, Y: %5</translation>
         <source>Path Operation</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Connect path</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Change overprint</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Change blend mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Change action PDF</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Add master page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Del master page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Import master page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Duplicate master page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Combine Polygons</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Split Polygons</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Level up</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Level down</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Send to front</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Send to bottom</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Change image resolution</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Set mask gradient type</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Change round corner</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Set start arrow scale</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Set end arrow scale</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Change fill gradient type</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Change fill gradient values</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Change stroke gradient values</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Change gradient color</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Change stroke gradient type</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Layer</source>
+        <translation type="unfinished">Lag</translation>
+    </message>
+    <message>
+        <source>Edit polygon</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Edit arc</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Edit spiral</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Change columns</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Change columns gap</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Change text to frame distance</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show image</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Create mesh gradient</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Change mesh gradient</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Change Mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Replace text</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Change First Line Offset</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Delete text</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Insert text</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Append text</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Import text</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Clear text</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Add Lorem Ipsum</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Insert mark</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Insert note</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Edit mark</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Delete mark</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Delete note</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Add note style</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Edit note style</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Delete note style</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Change gradient position</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Duplicate</source>
+        <translation type="unfinished">Kopier</translation>
+    </message>
+    <message>
+        <source>Remove mesh patch</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Remove text style</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Import page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Change Page Attributes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Transform</source>
+        <translation type="unfinished">
+            </translation>
+    </message>
+    <message>
+        <source>Weld Items</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>UndoPalette</name>
@@ -41893,7 +43131,7 @@ X: %4, Y: %5</translation>
     </message>
     <message>
         <source>Action History</source>
-        <translation>Handlingshistorie</translation>
+        <translation type="obsolete">Handlingshistorie</translation>
     </message>
     <message>
         <source>&amp;Undo</source>
