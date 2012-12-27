@@ -19110,6 +19110,19 @@ Scripter documentation for futher information. </source>
 begrensninger. Se dokumentasjonen for
 Scribus Skripter for mer informasjon.</translation>
     </message>
+    <message>
+        <source>Another script is already running...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Please let it finish its task...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>
+&gt;&gt;&gt; Another script is already running...</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QColorDialog</name>
@@ -21910,6 +21923,14 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>Spanish (Argentina)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>German (Austria)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Nepali</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -32740,6 +32761,10 @@ A value of 0 means unlimited hyphenations.</source>
     </message>
     <message>
         <source>Download Selected Dictionaries</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Downloading</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
