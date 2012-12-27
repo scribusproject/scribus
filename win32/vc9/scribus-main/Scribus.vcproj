@@ -1011,6 +1011,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\scribus\localemgr.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\scribus\ui\loremipsum.cpp"
 				>
 			</File>
@@ -4426,6 +4430,10 @@
 						Name="moc"
 					/>
 				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\..\scribus\localemgr.h"
+				>
 			</File>
 			<File
 				RelativePath="..\..\..\scribus\ui\loremipsum.h"
