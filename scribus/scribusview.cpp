@@ -479,6 +479,7 @@ void ScribusView::togglePreview()
 	}
 	else
 	{
+		Doc->ResetFormFields();
 		editOnPreviewToolbarButton->hide();
 		Doc->guidesPrefs().framesShown = storedFramesShown;
 		Doc->guidesPrefs().showControls = storedShowControls;

@@ -41,10 +41,11 @@ class SCRIBUS_API Annotation // : public SaxIO
 						AnToolTip(""), AnRollOver(""), AnDown(""), AnBColor(""), An_Extern(""), AnBsty(0),
 						AnBwid(1), AnFeed(1), AnZiel(0), AnFlag(0), AnMaxChar(-1), AnVis(0), AnChkStil(0),
 						AnFont(4), AnIsChk(false), AnAAact(false), AnHTML(0), AnUseIcons(false),
-						AnIPlace(1), AnScaleW(0), AnFormat(0), tmp_Chk(false), on_State(false), is_Open(false)
+						AnIPlace(1), AnScaleW(0), AnFormat(0), tmp_Chk(false), on_State(false), is_Open(false), AnIcon(0), AnIsOpen(false)
 		{
 		}
-		enum AnnotationType {
+		enum AnnotationType
+		{
 			Button			= 2,
 			Textfield		= 3,
 			Checkbox		= 4,
@@ -55,7 +56,8 @@ class SCRIBUS_API Annotation // : public SaxIO
 			Annot3D		  	= 12,
 			RadioButton		= 13
 		};
-		enum AnnotationAction {
+		enum AnnotationAction
+		{
 			Action_None				= 0,
 			Action_JavaScript		= 1,
 			Action_GoTo				= 2,
@@ -67,7 +69,8 @@ class SCRIBUS_API Annotation // : public SaxIO
 			Action_GoToR_FileAbs	= 9,
 			Action_Named			= 10
 		};
-		enum AnnotationScriptEvents {
+		enum AnnotationScriptEvents
+		{
 			Java_ReleaseButton	= 0,
 			Java_PressButton	= 1,
 			Java_EnterWidget	= 2,
@@ -79,8 +82,20 @@ class SCRIBUS_API Annotation // : public SaxIO
 			Java_FieldValidate	= 8,
 			Java_FieldCalculate	= 9
 		};
-
-		enum AnnotationFlags {
+		enum AnnotationIconType
+		{
+			Icon_Note			= 0,
+			Icon_Comment		= 1,
+			Icon_Key			= 2,
+			Icon_Help			= 3,
+			Icon_NewParagraph	= 4,
+			Icon_Paragraph		= 5,
+			Icon_Insert			= 6,
+			Icon_Cross			= 7,
+			Icon_Circle			= 8
+		};
+		enum AnnotationFlags
+		{
 			Flag_ReadOnly			=		   1,	// Bit  1
 			Flag_Required			=		   2,	// Bit  2
 			Flag_NoExport			=		   4,	// Bit  3
@@ -139,6 +154,8 @@ class SCRIBUS_API Annotation // : public SaxIO
 	void setUseIcons(bool newUseIcons) { AnUseIcons=newUseIcons; }
 	void setIPlace(int newIPlace) { AnIPlace=newIPlace; }
 	void setScaleW(int newScaleW) { AnScaleW=newScaleW; }
+	void setAnOpen(bool newIsOpen) { AnIsOpen = newIsOpen; }
+	void setIcon(int newHTML) { AnIcon = newHTML; }
 
 	int Type() const { return AnType; }
 	QString Action() const { return AnAction; }
@@ -176,6 +193,8 @@ class SCRIBUS_API Annotation // : public SaxIO
 	bool UseIcons() const { return AnUseIcons; }
 	int IPlace() const { return AnIPlace; }
 	int ScaleW() const { return AnScaleW; }
+	bool IsAnOpen() const { return AnIsOpen; }
+	int Icon() const { return AnIcon; }
 	
 	protected:
 		int AnType;
@@ -214,6 +233,8 @@ class SCRIBUS_API Annotation // : public SaxIO
 		bool tmp_Chk;
 		bool on_State;
 		bool is_Open;
+		int AnIcon;
+		bool AnIsOpen;
 };
 
 #endif

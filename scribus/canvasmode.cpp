@@ -376,9 +376,12 @@ void CanvasMode::drawSelection(QPainter* psx, bool drawHandles)
 				QRectF drRect = QRectF(x, y, w, h).normalized();
 				if (m_doc->drawAsPreview && !m_doc->editOnPreview)
 				{
-					psx->setPen(bb);
-					psx->setBrush(Qt::NoBrush);
-					psx->drawRect(drRect.adjusted(-1, -1, 1, 1));
+					if (!currItem->annotation().IsOpen())
+					{
+						psx->setPen(bb);
+						psx->setBrush(Qt::NoBrush);
+						psx->drawRect(drRect.adjusted(-1, -1, 1, 1));
+					}
 				}
 				else
 				{
@@ -414,9 +417,12 @@ void CanvasMode::drawSelection(QPainter* psx, bool drawHandles)
 				psx->setBrush(Qt::NoBrush);
 				if (m_doc->drawAsPreview && !m_doc->editOnPreview)
 				{
-					psx->setPen(bb);
-					psx->setBrush(Qt::NoBrush);
-					psx->drawRect(QRectF(x, y, w, h).adjusted(-1, -1, 1, 1));
+					if (!currItem->annotation().IsOpen())
+					{
+						psx->setPen(bb);
+						psx->setBrush(Qt::NoBrush);
+						psx->drawRect(QRectF(x, y, w, h).adjusted(-1, -1, 1, 1));
+					}
 				}
 				else
 				{

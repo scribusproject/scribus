@@ -56,9 +56,13 @@ public:
 	ScrSpinBox* SpinBox1;
 	ScrSpinBox* SpinBox2;
 	ScrSpinBox* SpinBox3;
-	QFrame* Frame9;
+//	QFrame* Frame9;
 	QPushButton* PushButton1;
 	QPushButton* PushButton2;
+	QGroupBox* GroupBox2;
+	QLabel* TextLabelG1;
+	QComboBox* ComboBox2;
+	QCheckBox* textIsOpen;
 	PageItem* item;
 	ScribusView* view;
 	int Width;
@@ -79,6 +83,7 @@ protected:
 	QVBoxLayout* AnnotLayout;
 	QHBoxLayout* Layout1;
 	QGridLayout* GroupBox1Layout;
+	QGridLayout* GroupBox2Layout;
 	QHBoxLayout* Layout1_2;
 };
 

@@ -18064,6 +18064,8 @@ void ScribusDoc::ResetFormFields()
 						it->annotation().setCheckState(it->annotation().IsChk());
 					it->annotation().setOnState(false);
 					it->annotation().setOpen(false);
+					it->asTextFrame()->setTextAnnotationOpen(false);
+					it->update();
 				}
 			}
 			allItems.clear();
@@ -18085,6 +18087,8 @@ void ScribusDoc::ResetFormFields()
 					it->annotation().setCheckState(it->annotation().IsChk());
 				it->annotation().setOnState(false);
 				it->annotation().setOpen(false);
+				it->asTextFrame()->setTextAnnotationOpen(false);
+				it->update();
 			}
 		}
 		allItems.clear();
@@ -18109,6 +18113,8 @@ void ScribusDoc::ResetFormFields()
 						it->annotation().setCheckState(it->annotation().IsChk());
 					it->annotation().setOnState(false);
 					it->annotation().setOpen(false);
+					it->asTextFrame()->setTextAnnotationOpen(false);
+					it->update();
 				}
 			}
 			allItems.clear();

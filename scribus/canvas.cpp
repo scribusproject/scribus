@@ -523,6 +523,13 @@ bool Canvas::cursorOverTextFrameControl(QPoint globalPos, PageItem* frame)
 	return false;
 }
 
+bool Canvas::cursorOverFrameControl(QPoint globalPos, QRectF targetRect, PageItem* frame)
+{
+	FPoint mp = globalToCanvas(globalPos);
+	QRectF tg = targetRect.translated(frame->xPos(), frame->yPos());
+	return tg.contains(QPointF(mp.x(), mp.y()));
+}
+
 PageItem* Canvas::itemInGroup(PageItem* group, QTransform itemPos, QRectF mouseArea) const
 {
 	int currNr = group->groupItemList.count() - 1;

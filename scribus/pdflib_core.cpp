@@ -8582,6 +8582,45 @@ bool PDFLibCore::PDF_Annotation(PageItem *ite, uint PNr)
 		case Annotation::Text:
 			PutDoc("/Subtype /Text\n");
 			PutDoc("/Contents " + EncStringUTF16(bmUtf16, annotationObj) + "\n");
+			PutDoc("/Open " );
+			if (ite->annotation().IsAnOpen())
+				PutDoc("true\n");
+			else
+				PutDoc("false\n");
+			PutDoc("/Name /");
+			switch (ite->annotation().Icon())
+			{
+				case Annotation::Icon_Note:
+					PutDoc("Note\n");
+					break;
+				case Annotation::Icon_Comment:
+					PutDoc("Comment\n");
+					break;
+				case Annotation::Icon_Key:
+					PutDoc("Key\n");
+					break;
+				case Annotation::Icon_Help:
+					PutDoc("Help\n");
+					break;
+				case Annotation::Icon_NewParagraph:
+					PutDoc("NewParagraph\n");
+					break;
+				case Annotation::Icon_Paragraph:
+					PutDoc("Paragraph\n");
+					break;
+				case Annotation::Icon_Insert:
+					PutDoc("Insert\n");
+					break;
+				case Annotation::Icon_Cross:
+					PutDoc("Cross\n");
+					break;
+				case Annotation::Icon_Circle:
+					PutDoc("Circle\n");
+					break;
+				default:
+					PutDoc("Note\n");
+					break;
+			}
 			break;
 		case 1:
 		case Annotation::Link:

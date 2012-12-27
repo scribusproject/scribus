@@ -109,10 +109,35 @@ Annota::Annota(QWidget* parent, PageItem *it, int Seite, int b, int h, ScribusVi
 	Fram = new QStackedWidget(this);
 	AnnotLayout->addWidget( Fram );
 
-	Frame9 = new QFrame( this );
-	Frame9->setFrameShape( QFrame::NoFrame );
-	Frame9->setFrameShadow( QFrame::Plain );
-	Fram->addWidget(Frame9);
+//	Frame9 = new QFrame( this );
+//	Frame9->setFrameShape( QFrame::NoFrame );
+//	Frame9->setFrameShadow( QFrame::Plain );
+
+	GroupBox2 = new QGroupBox( this );
+	GroupBox2->setTitle( tr( "Options" ) );
+	GroupBox2Layout = new QGridLayout( GroupBox2 );
+	GroupBox2Layout->setAlignment( Qt::AlignTop );
+	GroupBox2Layout->setSpacing( 5 );
+	GroupBox2Layout->setMargin( 10 );
+	TextLabelG1 = new QLabel( tr("Icon:"), GroupBox2);
+	ComboBox2 = new QComboBox(GroupBox2);
+	ComboBox2->addItem( tr("Note"));
+	ComboBox2->addItem( tr("Comment"));
+	ComboBox2->addItem( tr("Key"));
+	ComboBox2->addItem( tr("Help"));
+	ComboBox2->addItem( tr("NewParagraph"));
+	ComboBox2->addItem( tr("Paragraph"));
+	ComboBox2->addItem( tr("Insert"));
+	ComboBox2->addItem( tr("Cross"));
+	ComboBox2->addItem( tr("Circle"));
+	ComboBox2->setEditable(false);
+	ComboBox2->setCurrentIndex(item->annotation().Icon());
+	GroupBox2Layout->addWidget( TextLabelG1, 0, 0 );
+	GroupBox2Layout->addWidget( ComboBox2, 0, 1 );
+	textIsOpen = new QCheckBox( tr("Annotation is Open"), GroupBox2);
+	textIsOpen->setChecked(item->annotation().IsAnOpen());
+	GroupBox2Layout->addWidget( textIsOpen, 1, 0, 1, 1 );
+	Fram->addWidget(GroupBox2);
 
 	GroupBox1 = new QGroupBox( this );
 	GroupBox1->setTitle( tr( "Destination" ) );
@@ -270,6 +295,8 @@ void Annota::SetValues()
 	{
 	case 10:
 		item->annotation().setActionType(Annotation::Action_None);
+		item->annotation().setAnOpen(textIsOpen->isChecked());
+		item->annotation().setIcon(ComboBox2->currentIndex());
 		break;
 	case 11:
 		item->annotation().setAction(tmp.setNum(SpinBox2->value())+" "+ tmp2.setNum(Height-SpinBox3->value())+" 0");

@@ -4686,6 +4686,8 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 	currItem->annotation().setBorderColor( attrs.valueAsString("ANBCOL", CommonStrings::None));
 	currItem->annotation().setIPlace(attrs.valueAsInt("ANPLACE", 1));
 	currItem->annotation().setScaleW(attrs.valueAsInt("ANSCALE", 0));
+	currItem->annotation().setIcon(attrs.valueAsInt("ANITYP", 0));
+	currItem->annotation().setAnOpen(attrs.valueAsBool("ANOPEN", false) );
 
 	if (currItem->asTextFrame() || currItem->asPathText())
 	{

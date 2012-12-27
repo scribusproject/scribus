@@ -152,13 +152,28 @@ void CanvasMode_Normal::deactivate(bool forGesture)
 
 void CanvasMode_Normal::mouseDoubleClickEvent(QMouseEvent *m)
 {
+	PageItem *currItem = 0;
 	m->accept();
 	m_canvas->m_viewMode.m_MouseButtonPressed = false;
 	if (m_doc->drawAsPreview)
+	{
+		if (GetItem(&currItem))
+		{
+			if (currItem->isAnnotation())
+			{
+				if (currItem->annotation().Type() == Annotation::Text)
+				{
+					currItem->annotation().setOpen(!currItem->annotation().IsOpen());
+					currItem->asTextFrame()->setTextAnnotationOpen(currItem->annotation().IsOpen());
+					currItem->update();
+					m_view->updateContents();
+				}
+			}
+		}
 		return;
+	}
 	m_canvas->resetRenderMode();
 //	m_view->stopDragTimer();
-	PageItem *currItem = 0;
 	if (m_doc->m_Selection->isMultipleSelection())
 	{
 		if (GetItem(&currItem))
@@ -299,7 +314,7 @@ void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 
 	if (commonMouseMove(m))
 		return;
-	m_mouseCurrentPoint = mousePointDoc;
+//	m_mouseCurrentPoint = mousePointDoc;
 	bool movingOrResizing = (m_canvas->m_viewMode.operItemMoving || m_canvas->m_viewMode.operItemResizing);
 	bool mouseIsOnPage    = (m_doc->OnPage(mousePointDoc.x(), mousePointDoc.y()) != -1);
 	if ((m_doc->guidesPrefs().guidesShown) && (!m_doc->GuideLock) && (!movingOrResizing) && (mouseIsOnPage) )
@@ -396,6 +411,19 @@ void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 						handleMouseEnter(hoveredItem);
 					}
 					m_hoveredItem = hoveredItem;
+					if ((hoveredItem->annotation().Type() == Annotation::Text) && (hoveredItem->annotation().IsOpen()))
+					{
+						if (m_view->moveTimerElapsed() && m_canvas->m_viewMode.m_MouseButtonPressed && (m->buttons() & Qt::LeftButton) && (!currItem->locked()))
+						{
+							double dx = mousePointDoc.x() - m_mouseCurrentPoint.x();
+							double dy = mousePointDoc.y() - m_mouseCurrentPoint.y();
+							hoveredItem->setXYPos(hoveredItem->xPos() + dx, hoveredItem->yPos() + dy, true);
+							m_mouseCurrentPoint = mousePointDoc;
+							m_canvas->resetRenderMode();
+							m_canvas->setRenderModeUseBuffer(false);
+							m_canvas->repaint();
+						}
+					}
 				}
 				else
 				{
@@ -433,6 +461,7 @@ void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 	//>>#10116
 	if (m_doc->drawAsPreview)
 		return;
+	m_mouseCurrentPoint = mousePointDoc;
 	if ((GetItem(&currItem)) && (!shiftSelItems))
 	{
 		newX = qRound(mousePointDoc.x()); //m_view->translateToDoc(m->x(), m->y()).x());
@@ -1016,7 +1045,7 @@ void CanvasMode_Normal::mouseReleaseEvent(QMouseEvent *m)
 	//<<#10116: Click on overflow icon to get into link frame mode
 	PageItem* clickedItem=NULL;
 	clickedItem = m_canvas->itemUnderCursor(m->globalPos(), clickedItem, m->modifiers());
-	if (clickedItem && clickedItem->asTextFrame() && (!m_doc->drawAsPreview))
+	if (clickedItem && clickedItem->asTextFrame() && (!clickedItem->isAnnotation()) && (!m_doc->drawAsPreview))
 	{
 		if (clickedItem->frameOverflows())
 		{
@@ -1281,6 +1310,19 @@ void CanvasMode_Normal::mouseReleaseEvent(QMouseEvent *m)
 			currItem = m_doc->m_Selection->itemAt(0);
 			if (currItem->isAnnotation())
 			{
+				if (currItem->annotation().Type() == Annotation::Text)
+				{
+					if (currItem->annotation().IsOpen())
+					{
+						if (m_canvas->cursorOverFrameControl(m->globalPos(), QRectF(245, 20, 11, 11), currItem))
+						{
+							currItem->annotation().setOpen(false);
+							currItem->asTextFrame()->setTextAnnotationOpen(false);
+							currItem->update();
+							m_view->updateContents();
+						}
+					}
+				}
 				if (currItem->annotation().Type() == Annotation::Link)
 					handleLinkAnnotation(currItem);
 				else if (currItem->annotation().Type() == Annotation::Checkbox)
