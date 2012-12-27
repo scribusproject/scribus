@@ -3339,8 +3339,8 @@ void ScribusMainWindow::HaveNewSel(int SelectedType)
 			scrActions["itemTransform"]->setEnabled(setter);
 			scrActions["itemDelete"]->setEnabled(true);
 //			scrActions["itemSendToScrapbook"]->setEnabled(setter);
-			scrMenuMgr->setMenuEnabled("itemSendToScrapbook", setter);
-			scrActions["itemSendToPattern"]->setEnabled(setter);
+			scrMenuMgr->setMenuEnabled("itemSendToScrapbook", true);
+			scrActions["itemSendToPattern"]->setEnabled(true);
 			if (docSelectionCount > 1)
 			{
 				bool haveSameParent = true;
