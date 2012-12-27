@@ -572,7 +572,7 @@ Biblio::Biblio( QWidget* parent) : ScDockPalette( parent, "Sclib", 0)
 	configButton->setIcon(loadIcon("16/configure.png"));
 	configButton->setIconSize(QSize(16, 16));
 	configMenue = new QMenu();
-	conf_HideDirs = configMenue->addAction( tr("Hide Directorys"));
+	conf_HideDirs = configMenue->addAction( tr("Hide Directories"));
 	conf_HideDirs->setCheckable(true);
 	conf_HideDirs->setChecked(false);
 	conf_HideImages = configMenue->addAction( tr("Hide Images"));
@@ -582,7 +582,7 @@ Biblio::Biblio( QWidget* parent) : ScDockPalette( parent, "Sclib", 0)
 	conf_HideVectors->setCheckable(true);
 	conf_HideVectors->setChecked(false);
 	configMenue->addSeparator();
-	conf_OpenMode = configMenue->addAction( tr("Open Directorys in a new tab"));
+	conf_OpenMode = configMenue->addAction( tr("Open Directories in a new tab"));
 	conf_OpenMode->setCheckable(true);
 	conf_OpenMode->setChecked(false);
 	configButton->setMenu(configMenue);
@@ -1757,8 +1757,8 @@ void Biblio::languageChange()
  	importButton->setToolTip( tr( "Import a scrapbook file from Scribus <=1.3.2" ) );
  	closeButton->setToolTip( tr( "Close the selected scrapbook" ) );
  	configButton->setToolTip( tr( "Configure the scrapbook" ) );
-	conf_HideDirs->setText( tr("Hide Directorys"));
+	conf_HideDirs->setText( tr("Hide Directories"));
 	conf_HideImages->setText( tr("Hide Images"));
 	conf_HideVectors->setText( tr("Hide Vector files"));
-	conf_OpenMode->setText( tr("Open Directorys in a new tab"));
+	conf_OpenMode->setText( tr("Open Directories in a new tab"));
 }
