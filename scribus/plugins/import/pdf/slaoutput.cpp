@@ -568,16 +568,24 @@ bool SlaOutputDev::handleWidgetAnnot(Annot* annota, double xCoor, double yCoor, 
 					if (retVal)
 					{
 						AnnotAppearanceCharacs *achar = ano->getAppearCharacs();
+						bool fgFound = false;
+						bool bgFound = false;
 						if (achar)
 						{
 							AnnotColor *bgCol = achar->getBackColor();
 							if (bgCol)
+							{
+								bgFound = true;
 								CurrColorFill = getAnnotationColor(bgCol);
+							}
 							else
 								CurrColorFill = CommonStrings::None;
 							AnnotColor *fgCol = achar->getBorderColor();
 							if (fgCol)
+							{
+								fgFound = true;
 								CurrColorStroke = getAnnotationColor(fgCol);
+							}
 							else
 							{
 								fgCol = achar->getBackColor();
@@ -602,8 +610,10 @@ bool SlaOutputDev::handleWidgetAnnot(Annot* annota, double xCoor, double yCoor, 
 							gfx = new Gfx(xref, Adev, pdfDoc->getPage(m_actPage)->getResourceDict(), catalog, annota->getRect(), NULL);
 #endif
 							annota->draw(gfx, false);
-							CurrColorFill = Adev->CurrColorFill;
-							CurrColorStroke = Adev->CurrColorStroke;
+							if (!bgFound)
+								CurrColorFill = Adev->CurrColorFill;
+							if (!fgFound)
+								CurrColorStroke = Adev->CurrColorStroke;
 							CurrColorText = Adev->CurrColorText;
 							fontSize = Adev->m_fontSize;
 							fontName = UnicodeParsedString(Adev->m_fontName);
