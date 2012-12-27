@@ -477,8 +477,6 @@ void ScribusQApp::showAvailLangs()
 	ts << tr("Installed interface languages for Scribus are as follows:"); endl(ts);
 	endl(ts);
 
-// 	LanguageManager langMgr;
-// 	langMgr.init();
 	LanguageManager::instance()->printInstalledList();
 
 	endl(ts);

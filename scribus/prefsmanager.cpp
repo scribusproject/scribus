@@ -38,6 +38,7 @@ for which a new license (GPL+exception) is in place.
 #include "commonstrings.h"
 #include "filewatcher.h"
 #include "latexhelpers.h"
+#include "localemgr.h"
 #include "pagesize.h"
 #include "pagestructs.h"
 #include "pdfoptions.h"
@@ -47,9 +48,11 @@ for which a new license (GPL+exception) is in place.
 #include "scdomelement.h"
 #include "scfonts.h"
 #include "scpaths.h"
+#include "scribusapp.h"
 #include "scribuscore.h"
 #include "scribusstructs.h"
 #include "sctextstream.h"
+#include "units.h"
 #include "util_color.h"
 #include "util_file.h"
 #include "util_ghostscript.h"
@@ -58,6 +61,7 @@ for which a new license (GPL+exception) is in place.
 #include "ui/modetoolbar.h"
 #include "ui/prefs_keyboardshortcuts.h"
 
+extern ScribusQApp* ScQApp;
 extern bool emergencyActivated;
 
 PrefsManager* PrefsManager::_instance = 0;
@@ -260,7 +264,8 @@ void PrefsManager::initDefaults()
 	appPrefs.opToolPrefs.magMin = 1;
 	appPrefs.opToolPrefs.magMax = 3200;
 	appPrefs.opToolPrefs.magStep = 25;
-	appPrefs.docSetupPrefs.docUnitIndex = 0;
+	qDebug()<<ScQApp->currGUILanguage();
+	appPrefs.docSetupPrefs.docUnitIndex = unitIndexFromString(LocaleManager::instance()->unitForLocale("default"));
 	appPrefs.itemToolPrefs.polyCorners = 4;
 	appPrefs.itemToolPrefs.polyFactor = 0.5;
 	appPrefs.itemToolPrefs.polyUseFactor = false;
@@ -295,11 +300,11 @@ void PrefsManager::initDefaults()
 	appPrefs.scrapbookPrefs.writePreviews = true;
 	appPrefs.scrapbookPrefs.numScrapbookCopies = 10;
 	appPrefs.displayPrefs.marginColored = false;
-	appPrefs.docSetupPrefs.pageSize = "A4";
+	appPrefs.docSetupPrefs.pageSize = LocaleManager::instance()->pageSizeForLocale("default");
 	appPrefs.docSetupPrefs.pageOrientation = 0;
-	PageSize a4("A4");
-	appPrefs.docSetupPrefs.pageWidth = a4.width();
-	appPrefs.docSetupPrefs.pageHeight = a4.height();
+	PageSize defaultPageSize(appPrefs.docSetupPrefs.pageSize);
+	appPrefs.docSetupPrefs.pageWidth = defaultPageSize.width();
+	appPrefs.docSetupPrefs.pageHeight = defaultPageSize.height();
 	appPrefs.docSetupPrefs.margins.Top = 40;
 	appPrefs.docSetupPrefs.margins.Bottom = 40;
 	appPrefs.docSetupPrefs.margins.Left = 40;

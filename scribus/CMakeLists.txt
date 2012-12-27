@@ -575,6 +575,7 @@ SET(SCRIBUS_SOURCES
   langmgr.cpp
   latexhelpers.cpp
   loadsaveplugin.cpp
+  localemgr.cpp
   menumanager.cpp
   mesh.cpp
   navigator.cpp

@@ -231,8 +231,6 @@ public:
 	ScribusWin* ActWin;
 	QClipboard *ClipB;
 	QString LoadEnc;
-	//QMap<QString, QStringList> InstLang;
-	//QMap<QString,QString> LangTransl;
 
 	QProcess *ExternalApp;
 

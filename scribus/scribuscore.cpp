@@ -28,6 +28,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "commonstrings.h"
 #include "filewatcher.h"
+#include "localemgr.h"
 #include "pluginmanager.h"
 #include "prefsmanager.h"
 #include "scimagecachemanager.h"
@@ -49,7 +50,6 @@ ScribusCore::ScribusCore() : QObject(), defaultEngine(colorMgmtEngineFactory.cre
 	m_SplashScreen=0;
 	m_UseGUI=false;
 	m_HaveCMS=false;
-// 	m_PaletteParent=0;
 	m_currScMW=0;
 
 	ScColorMgmtStrategy strategy;
@@ -94,15 +94,12 @@ const QString& ScribusCore::getGuiLanguage() const
 
 int ScribusCore::startGUI(bool showSplash, bool showFontInfo, bool showProfileInfo, const QString newGuiLanguage, const QString prefsUserFile)
 {
-// 	m_PaletteParent=new QWidget(0);
-// 	Q_CHECK_PTR(m_PaletteParent);
 	ScribusMainWindow* scribus = new ScribusMainWindow();
 	Q_CHECK_PTR(scribus);
 	if (!scribus)
 		return(EXIT_FAILURE);
 	ScMWList.append(scribus);
 	m_currScMW=0;
-//	ScMW=scribus;
 	int retVal=initScribusCore(showSplash, showFontInfo, showProfileInfo,newGuiLanguage, prefsUserFile);
 	if (retVal == 1)
 		return(EXIT_FAILURE);
@@ -113,7 +110,6 @@ int ScribusCore::startGUI(bool showSplash, bool showFontInfo, bool showProfileIn
 	
 	closeSplash();
 	m_ScribusInitialized=true;
-//	ScQApp->setMainWidget(scribus);
 	connect(ScQApp, SIGNAL(lastWindowClosed()), ScQApp, SLOT(quit()));
 
 	scribus->show();
@@ -155,6 +151,7 @@ int ScribusCore::initScribusCore(bool showSplash, bool showFontInfo, bool showPr
 	int retVal=0;
 //FIXME	ExternalApp = 0;
 	initSplash(showSplash);
+	LocaleManager::instance();
 	prefsManager = PrefsManager::instance();
 	prefsManager->setup();
 	//CB #4428 Get fonts before prefs are set to default
