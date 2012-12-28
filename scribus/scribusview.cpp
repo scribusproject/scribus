@@ -607,7 +607,6 @@ switches between appmodes:
  - for submodes, activate the appropiate dialog or palette
  - set a new CanvasMode if necessary
  - call ScribusMainWindow::setAppMode(), which de/activates actions
- TODO:av make this simpler
  */
 void ScribusView::requestMode(int appMode)
 {
@@ -616,31 +615,15 @@ void ScribusView::requestMode(int appMode)
 	switch(appMode) // filter submodes
 	{
 		case submodePaintingDone:   // return to normal mode
-//			appMode = m_previousMode < 0 ? modeNormal : m_previousMode;
 			appMode = modeNormal;
 			m_previousMode = -1;
 			updateNecessary = true;
 			break;
 		case submodeEndNodeEdit:     // return from node/shape editing
-//			appMode = m_previousMode < 0 ? modeNormal : m_previousMode;
 			appMode = modeNormal;
 			m_previousMode = -1;
 			updateNecessary = true;
 			break;
-			/*
-			 case submodeToggleNodeEdit:
-				 if (Doc->appMode == modeEditClip)
-				 {
-					 m_ScMW->setAppMode(m_previousMode < 0 ? modeNormal : m_previousMode);
-					 m_previousMode = -1;
-				 }
-				 else
-				 {
-					 m_previousMode = Doc->appMode;
-					 m_ScMW->setAppMode(modeEditClip);
-				 }
-				 return;
-				 */
 		case submodeLoadPic:         // open GetImage dialog
 			m_ScMW->slotGetContent();
 			appMode = Doc->appMode;
@@ -697,10 +680,6 @@ void ScribusView::requestMode(int appMode)
 	}
 	else
 		m_ScMW->setAppMode(appMode);
-//	if (appMode == modeEdit)
-//	{
-//		m_ScMW->activateWindow();
-//	}
 	if (updateNecessary)
 		updateCanvas();
 }
