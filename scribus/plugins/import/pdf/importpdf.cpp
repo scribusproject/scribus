@@ -530,8 +530,12 @@ bool PdfPlug::convert(QString fn)
 					GBool useMediaBox = gTrue;
 					GBool crop = gFalse;
 					GBool printing = gFalse;
+					bool rotated = false;
 					dev->startDoc(pdfDoc, pdfDoc->getXRef(), pdfDoc->getCatalog());
 					int rotate = pdfDoc->getPageRotate(firstPage);
+					if ((rotate == 90) || (rotate == 270))
+						rotated = true;
+					rotate = 0;
 					if (importerFlags & LoadSavePlugin::lfCreateDoc)
 					{
 // POPPLER_VERSION appeared in 0.19.0 first
@@ -608,13 +612,29 @@ bool PdfPlug::convert(QString fn)
 						info.free();
 						if (crop)
 						{
-							m_Doc->setPageHeight(pdfDoc->getPageCropHeight(pageNs[0]));
-							m_Doc->setPageWidth(pdfDoc->getPageCropWidth(pageNs[0]));
+							if (rotated)
+							{
+								m_Doc->setPageWidth(pdfDoc->getPageCropHeight(pageNs[0]));
+								m_Doc->setPageHeight(pdfDoc->getPageCropWidth(pageNs[0]));
+							}
+							else
+							{
+								m_Doc->setPageHeight(pdfDoc->getPageCropHeight(pageNs[0]));
+								m_Doc->setPageWidth(pdfDoc->getPageCropWidth(pageNs[0]));
+							}
 						}
 						else
 						{
-							m_Doc->setPageHeight(pdfDoc->getPageMediaHeight(pageNs[0]));
-							m_Doc->setPageWidth(pdfDoc->getPageMediaWidth(pageNs[0]));
+							if (rotated)
+							{
+								m_Doc->setPageWidth(pdfDoc->getPageMediaHeight(pageNs[0]));
+								m_Doc->setPageHeight(pdfDoc->getPageMediaWidth(pageNs[0]));
+							}
+							else
+							{
+								m_Doc->setPageHeight(pdfDoc->getPageMediaHeight(pageNs[0]));
+								m_Doc->setPageWidth(pdfDoc->getPageMediaWidth(pageNs[0]));
+							}
 						}
 						m_Doc->setPageSize("Custom");
 					/*	PDFRectangle *mediaBox = pdfDoc->getPage(1)->getMediaBox();
@@ -643,17 +663,37 @@ bool PdfPlug::convert(QString fn)
 								m_Doc->addPage(ap);
 							if (crop)
 							{
-								m_Doc->currentPage()->setInitialHeight(pdfDoc->getPageCropHeight(pp));
-								m_Doc->currentPage()->setInitialWidth(pdfDoc->getPageCropWidth(pp));
-								m_Doc->currentPage()->setHeight(pdfDoc->getPageCropHeight(pp));
-								m_Doc->currentPage()->setWidth(pdfDoc->getPageCropWidth(pp));
+								if (rotated)
+								{
+									m_Doc->currentPage()->setInitialWidth(pdfDoc->getPageCropHeight(pp));
+									m_Doc->currentPage()->setInitialHeight(pdfDoc->getPageCropWidth(pp));
+									m_Doc->currentPage()->setWidth(pdfDoc->getPageCropHeight(pp));
+									m_Doc->currentPage()->setHeight(pdfDoc->getPageCropWidth(pp));
+								}
+								else
+								{
+									m_Doc->currentPage()->setInitialHeight(pdfDoc->getPageCropHeight(pp));
+									m_Doc->currentPage()->setInitialWidth(pdfDoc->getPageCropWidth(pp));
+									m_Doc->currentPage()->setHeight(pdfDoc->getPageCropHeight(pp));
+									m_Doc->currentPage()->setWidth(pdfDoc->getPageCropWidth(pp));
+								}
 							}
 							else
 							{
-								m_Doc->currentPage()->setInitialHeight(pdfDoc->getPageMediaHeight(pp));
-								m_Doc->currentPage()->setInitialWidth(pdfDoc->getPageMediaWidth(pp));
-								m_Doc->currentPage()->setHeight(pdfDoc->getPageMediaHeight(pp));
-								m_Doc->currentPage()->setWidth(pdfDoc->getPageMediaWidth(pp));
+								if (rotated)
+								{
+									m_Doc->currentPage()->setInitialWidth(pdfDoc->getPageMediaHeight(pp));
+									m_Doc->currentPage()->setInitialHeight(pdfDoc->getPageMediaWidth(pp));
+									m_Doc->currentPage()->setWidth(pdfDoc->getPageMediaHeight(pp));
+									m_Doc->currentPage()->setHeight(pdfDoc->getPageMediaWidth(pp));
+								}
+								else
+								{
+									m_Doc->currentPage()->setInitialHeight(pdfDoc->getPageMediaHeight(pp));
+									m_Doc->currentPage()->setInitialWidth(pdfDoc->getPageMediaWidth(pp));
+									m_Doc->currentPage()->setHeight(pdfDoc->getPageMediaHeight(pp));
+									m_Doc->currentPage()->setWidth(pdfDoc->getPageMediaWidth(pp));
+								}
 							}
 							m_Doc->currentPage()->MPageNam = CommonStrings::trMasterPageNormal;
 							m_Doc->currentPage()->m_pageSize = "Custom";
