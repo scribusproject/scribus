@@ -743,8 +743,7 @@ QString GuideManagerIO::writeSelection(ScPage *page)
 
 void GuideManagerIO::readSelection(const QString guideString, ScPage *page)
 {
-	// TODO: examine this check in 134vs.134qt4 - PV
-	if (guideString.isNull() || guideString.isEmpty())
+	if (guideString.isEmpty())
 		return;
 	QStringList gVal(guideString.split(' ', QString::SkipEmptyParts));
 	page->guides.gx = ScCLocale::toDoubleC(gVal[0]);
