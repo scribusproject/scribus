@@ -15507,19 +15507,20 @@ Corners:</source>
     <message>
         <location filename="../../../scribus/plugins/scriptplugin/pconsole.cpp" line="133"/>
         <source>Another script is already running...</source>
-        <translation type="unfinished"></translation>
+        <translation>Egy másik szkript már fut...</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/scriptplugin/pconsole.cpp" line="134"/>
         <location filename="../../../scribus/plugins/scriptplugin/pconsole.cpp" line="149"/>
         <source>Please let it finish its task...</source>
-        <translation type="unfinished"></translation>
+        <translation>Hagyjuk, míg be nem fejeződik...</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/scriptplugin/pconsole.cpp" line="148"/>
         <source>
 &gt;&gt;&gt; Another script is already running...</source>
-        <translation type="unfinished"></translation>
+        <translation>
+&gt;&gt;&gt; Egy másik szkript már fut...</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/scriptplugin/pconsole.cpp" line="225"/>
@@ -16458,7 +16459,7 @@ Külső hivatkozások
     <message>
         <location filename="../../../scribus/langmgr.cpp" line="75"/>
         <source>German (Austria)</source>
-        <translation type="unfinished"></translation>
+        <translation>Német (Ausztria)</translation>
     </message>
     <message>
         <location filename="../../../scribus/langmgr.cpp" line="82"/>
@@ -16526,7 +16527,7 @@ Külső hivatkozások
     <message>
         <location filename="../../../scribus/langmgr.cpp" line="117"/>
         <source>Nepali</source>
-        <translation type="unfinished"></translation>
+        <translation>Nepáli</translation>
     </message>
     <message utf8="true">
         <location filename="../../../scribus/langmgr.cpp" line="118"/>
@@ -27601,7 +27602,7 @@ A value of 0 means unlimited hyphenations.</source>
     <message>
         <location filename="../../../scribus/hysettingsBase.ui" line="350"/>
         <source>Downloading</source>
-        <translation type="unfinished"></translation>
+        <translation>Letöltés</translation>
     </message>
     <message>
         <location filename="../../../scribus/hysettingsBase.ui" line="383"/>
