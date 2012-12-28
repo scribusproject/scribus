@@ -449,6 +449,7 @@ void ScribusView::togglePreviewEdit()
 {
 	Doc->editOnPreview = !Doc->editOnPreview;
 	m_ScMW->setPreviewToolbar();
+	DrawNew();
 }
 
 void ScribusView::togglePreview()

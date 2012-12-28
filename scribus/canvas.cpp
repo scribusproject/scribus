@@ -477,7 +477,7 @@ PageItem* Canvas::itemUnderCursor(QPoint globalPos, PageItem* itemAbove, bool al
 			--currNr;
 			continue;
 		}
-		if ((m_doc->drawAsPreview && !m_doc->editOnPreview) && !currItem->isAnnotation() && !allowInGroup)
+		if ((m_doc->drawAsPreview && !m_doc->editOnPreview) && !(currItem->isAnnotation() || currItem->isGroup()))
 		{
 			--currNr;
 			continue;
@@ -500,7 +500,12 @@ PageItem* Canvas::itemUnderCursor(QPoint globalPos, PageItem* itemAbove, bool al
 					currItem->asGroupFrame()->adjustXYPosition();
 					PageItem* ret = itemInGroup(currItem, itemPos, mouseArea);
 					if (ret != NULL)
-						return ret;
+					{
+						if ((m_doc->drawAsPreview && !m_doc->editOnPreview) && !ret->isAnnotation())
+							return NULL;
+						else
+							return ret;
+					}
 				}
 				return currItem;
 			}
