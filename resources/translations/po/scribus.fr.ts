@@ -10280,37 +10280,37 @@ Ce champ peut être inclus dans le document Scribus pour référence, en plus de
         <location filename="../../../scribus/ui/downloaddictionaries.ui" line="14"/>
         <location filename="../../../scribus/ui/downloaddictionaries.ui" line="56"/>
         <source>Download Dictionaries</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Télécharger</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/downloaddictionaries.ui" line="20"/>
         <source>Available Dictionary Downloads</source>
-        <translation type="unfinished"></translation>
+        <translation>Dictionnaires disponibles au téléchargement</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/downloaddictionaries.ui" line="49"/>
         <source>Update Dictionary List</source>
-        <translation type="unfinished"></translation>
+        <translation>Mettre à jour la liste</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/downloaddictionaries.ui" line="63"/>
         <source>Close</source>
-        <translation type="unfinished">Fermer</translation>
+        <translation>Fermer</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/downloaddictionaries.cpp" line="116"/>
         <source>Language</source>
-        <translation type="unfinished">Langue</translation>
+        <translation>Langue</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/downloaddictionaries.cpp" line="116"/>
         <source>Code</source>
-        <translation type="unfinished"></translation>
+        <translation>Code</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/downloaddictionaries.cpp" line="116"/>
         <source>Location</source>
-        <translation type="unfinished"></translation>
+        <translation>Emplacement</translation>
     </message>
 </context>
 <context>
@@ -12569,7 +12569,7 @@ and www.scribus.net for downloads.</source>
     <message>
         <location filename="../../../scribus/plugins/tools/hunspellcheck/hunspellplugin.cpp" line="33"/>
         <source>Check Spelling...</source>
-        <translation type="unfinished"></translation>
+        <translation>Vérifier l&apos;orthographe...</translation>
     </message>
 </context>
 <context>
@@ -12675,28 +12675,28 @@ de 0 permet un nombre illimité de césures.</translation>
         <location filename="../../../scribus/hysettings.cpp" line="252"/>
         <location filename="../../../scribus/hysettings.cpp" line="409"/>
         <source>Language</source>
-        <translation type="unfinished">Langue</translation>
+        <translation>Langue</translation>
     </message>
     <message>
         <location filename="../../../scribus/hysettings.cpp" line="252"/>
         <location filename="../../../scribus/hysettings.cpp" line="409"/>
         <source>Code</source>
-        <translation type="unfinished"></translation>
+        <translation>Code</translation>
     </message>
     <message>
         <location filename="../../../scribus/hysettings.cpp" line="252"/>
         <source>Location</source>
-        <translation type="unfinished"></translation>
+        <translation>Emplacement</translation>
     </message>
     <message>
         <location filename="../../../scribus/hysettings.cpp" line="409"/>
         <source>Installed</source>
-        <translation type="unfinished"></translation>
+        <translation>Installé</translation>
     </message>
     <message>
         <location filename="../../../scribus/hysettings.cpp" line="409"/>
         <source>Download</source>
-        <translation type="unfinished"></translation>
+        <translation>Télécharger</translation>
     </message>
 </context>
 <context>
@@ -19043,7 +19043,7 @@ Veuillez en choisir un autre.</translation>
     <message>
         <location filename="../../../scribus/prefs.cpp" line="90"/>
         <source>Hyphenation and Spelling</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Césures et Orthographe</translation>
     </message>
     <message>
         <location filename="../../../scribus/prefs.cpp" line="96"/>
@@ -21239,19 +21239,20 @@ arr&amp;ondis :</translation>
     <message>
         <location filename="../../../scribus/plugins/scriptplugin/pconsole.cpp" line="133"/>
         <source>Another script is already running...</source>
-        <translation type="unfinished"></translation>
+        <translation>Un script est actuellement en cours d&apos;exécution...</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/scriptplugin/pconsole.cpp" line="134"/>
         <location filename="../../../scribus/plugins/scriptplugin/pconsole.cpp" line="149"/>
         <source>Please let it finish its task...</source>
-        <translation type="unfinished"></translation>
+        <translation>Veuillez attendre la fin de la tâche...</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/scriptplugin/pconsole.cpp" line="148"/>
         <source>
 &gt;&gt;&gt; Another script is already running...</source>
-        <translation type="unfinished"></translation>
+        <translation>
+&gt;&gt;&gt; Un script est actuellement en cours d&apos;exécution...</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/scriptplugin/pconsole.cpp" line="183"/>
@@ -22006,52 +22007,52 @@ Vérifiez le chemin et le nom du fichier.</translation>
     <message>
         <location filename="../../../scribus/langmgr.cpp" line="60"/>
         <source>Aragonese</source>
-        <translation type="unfinished"></translation>
+        <translation>Aragonais</translation>
     </message>
     <message>
         <location filename="../../../scribus/langmgr.cpp" line="62"/>
         <source>Belarusian</source>
-        <translation type="unfinished"></translation>
+        <translation>Bélarusse</translation>
     </message>
     <message>
         <location filename="../../../scribus/langmgr.cpp" line="75"/>
         <source>German (Austria)</source>
-        <translation type="unfinished"></translation>
+        <translation>Allemand (Autriche)</translation>
     </message>
     <message>
         <location filename="../../../scribus/langmgr.cpp" line="82"/>
         <source>English (Canadian)</source>
-        <translation type="unfinished"></translation>
+        <translation>Anglais (Canada)</translation>
     </message>
     <message>
         <location filename="../../../scribus/langmgr.cpp" line="83"/>
         <source>English (UK)</source>
-        <translation type="unfinished"></translation>
+        <translation>Anglais (Royaume-Uni)</translation>
     </message>
     <message>
         <location filename="../../../scribus/langmgr.cpp" line="84"/>
         <source>English (New Zealand)</source>
-        <translation type="unfinished"></translation>
+        <translation>Anglais (Nouvelle Zélande)</translation>
     </message>
     <message>
         <location filename="../../../scribus/langmgr.cpp" line="85"/>
         <source>English (USA)</source>
-        <translation type="unfinished"></translation>
+        <translation>Anglais (Etats-Unis)</translation>
     </message>
     <message>
         <location filename="../../../scribus/langmgr.cpp" line="86"/>
         <source>English (South African)</source>
-        <translation type="unfinished"></translation>
+        <translation>Anglais (Afrique du Sud)</translation>
     </message>
     <message>
         <location filename="../../../scribus/langmgr.cpp" line="89"/>
         <source>Spanish (Argentina)</source>
-        <translation type="unfinished"></translation>
+        <translation>Espagnol (Argentine)</translation>
     </message>
     <message>
         <location filename="../../../scribus/langmgr.cpp" line="117"/>
         <source>Nepali</source>
-        <translation type="unfinished"></translation>
+        <translation>Népalais</translation>
     </message>
     <message utf8="true">
         <location filename="../../../scribus/langmgr.cpp" line="118"/>
@@ -24837,22 +24838,22 @@ Veuillez en choisir un autre.</translation>
     <message>
         <location filename="../../../scribus/plugins/saveastemplateplugin/satdialog.cpp" line="42"/>
         <source>Save as Template</source>
-        <translation type="unfinished">Enregistrer en tant que modèle</translation>
+        <translation>Enregistrer en tant que modèle</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/saveastemplateplugin/satdialog.cpp" line="205"/>
         <source>Legal</source>
-        <translation type="unfinished">Légal</translation>
+        <translation>Légal</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/saveastemplateplugin/satdialog.cpp" line="206"/>
         <source>Letter</source>
-        <translation type="unfinished">Lettre</translation>
+        <translation>Lettre</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/saveastemplateplugin/satdialog.cpp" line="206"/>
         <source>Tabloid</source>
-        <translation type="unfinished">Tabloïd</translation>
+        <translation>Tabloïd</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/saveastemplateplugin/satdialog.cpp" line="213"/>
@@ -26169,7 +26170,7 @@ convertissant les données vectorielles en objets Scribus.</translation>
     <message>
         <location filename="../../../scribus/plugins/short-words/swdialog.ui" line="20"/>
         <source>Apply Unbreakable Space To:</source>
-        <translation type="unfinished">Appliquer les espaces non sécables</translation>
+        <translation>Appliquer les espaces non sécables</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/short-words/swdialog.ui" line="26"/>
@@ -30621,7 +30622,7 @@ You can choose between normal and several color blindness forms</source>
     <message>
         <location filename="../../../scribus/tabguides.cpp" line="174"/>
         <source>Show Baseline Grid</source>
-        <translation type="unfinished">Afficher la grille d&apos;interlignage</translation>
+        <translation>Afficher la grille d&apos;interlignage</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabguides.cpp" line="193"/>
@@ -35270,7 +35271,7 @@ en convertissant les données vectorielles en objets Scribus.</translation>
     <message>
         <location filename="../../../scribus/hysettingsBase.ui" line="33"/>
         <source>Hyphenation</source>
-        <translation type="unfinished"></translation>
+        <translation>Césures</translation>
     </message>
     <message>
         <location filename="../../../scribus/hysettingsBase.ui" line="45"/>
@@ -35353,32 +35354,32 @@ de 0 permet un nombre illimité de césures.</translation>
     <message>
         <location filename="../../../scribus/hysettingsBase.ui" line="302"/>
         <source>Spelling</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Orthographe</translation>
     </message>
     <message>
         <location filename="../../../scribus/hysettingsBase.ui" line="312"/>
         <source>Installed Spelling Dictionaries</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Dictionnaires installés</translation>
     </message>
     <message>
         <location filename="../../../scribus/hysettingsBase.ui" line="330"/>
         <source>Downloadable Spelling Dictionaries</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Dictionnaires téléchargeables</translation>
     </message>
     <message>
         <location filename="../../../scribus/hysettingsBase.ui" line="350"/>
         <source>Downloading</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Téléchargement en cours</translation>
     </message>
     <message>
         <location filename="../../../scribus/hysettingsBase.ui" line="383"/>
         <source>Refresh Downloadable List</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Obtenir les dictionnaires disponibles</translation>
     </message>
     <message>
         <location filename="../../../scribus/hysettingsBase.ui" line="390"/>
         <source>Download Selected Dictionaries</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Télécharger la sélection</translation>
     </message>
 </context>
 <context>
