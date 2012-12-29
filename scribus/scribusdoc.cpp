@@ -8854,6 +8854,32 @@ void ScribusDoc::itemSelection_SetLineSpacingMode(int m, Selection* customSelect
 	itemSelection_ApplyParagraphStyle(newStyle, customSelection);
 }
 
+void ScribusDoc::itemSetFont(const QString &newFont)
+{
+	QString nf2(newFont);
+	if (!UsedFonts.contains(newFont))
+	{
+		if (!AddFont(newFont))
+		{
+			if (m_Selection->count() != 0)
+			{
+				PageItem *currItem = m_Selection->itemAt(0);
+				nf2 = currItem->currentCharStyle().font().scName();
+			}
+		}
+	}
+	PageItem *i2 = m_Selection->itemAt(0);
+	if (appMode == modeEditTable)
+		i2 = m_Selection->itemAt(0)->asTable()->activeCell().textFrame();
+	if (i2 != NULL)
+	{
+		Selection tempSelection(this, false);
+		tempSelection.addItem(i2, true);
+		itemSelection_SetFont(nf2, &tempSelection);
+	}
+	m_View->DrawNew();
+}
+
 void ScribusDoc::itemSelection_SetFontSize(int size, Selection* customSelection)
 {
 	//if (true || ((appMode == modeEdit) || (appMode == modeEditTable)))

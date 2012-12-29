@@ -1054,6 +1054,7 @@ public:
 	void itemSelection_SetLineSpacingMode(int w, Selection* customSelection=0);
 	//void ChLocalXY(double x, double y);
 	//void ChLocalSc(double x, double y);
+	void itemSetFont(const QString& newFont);
 	void itemSelection_SetFont(QString fon, Selection* customSelection=0);
 	void itemSelection_SetFillColor(QString farbe, Selection* customSelection=0);
 	void itemSelection_SetFillShade(int sha, Selection* customSelection=0);

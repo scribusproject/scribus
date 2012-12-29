@@ -7285,33 +7285,7 @@ void ScribusMainWindow::changePageMargins()
 void ScribusMainWindow::SetNewFont(const QString& nf)
 {
 	setMainWindowActive();
-	QString nf2(nf);
-	if (!doc->UsedFonts.contains(nf))
-	{
-		if (doc->AddFont(nf)) //, prefsManager->appPrefs.fontPrefs.AvailFonts[nf]->Font))
-		{
-		}
-		else
-		{//CB FIXME: to doc?
-			if (doc->m_Selection->count() != 0)
-			{
-				PageItem *currItem = doc->m_Selection->itemAt(0);
-				nf2 = currItem->currentCharStyle().font().scName();
-			}
-		}
-	}
-	PageItem *i2 = doc->m_Selection->itemAt(0);
-	if (doc->appMode == modeEditTable)
-		i2 = doc->m_Selection->itemAt(0)->asTable()->activeCell().textFrame();
-	if (i2 != NULL)
-	{
-		Selection tempSelection(this, false);
-		tempSelection.addItem(i2, true);
-		doc->itemSelection_SetFont(nf2, &tempSelection);
-	}
-//	doc->currentStyle.charStyle().setFont((*doc->AllFonts)[nf2]);
-	view->DrawNew();
-// 	slotDocCh();
+	doc->itemSetFont(nf);
 }
 
 void ScribusMainWindow::setItemFSize(int id)
