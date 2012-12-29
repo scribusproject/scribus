@@ -1431,24 +1431,31 @@ void SlaOutputDev::clip(GfxState *state)
 //	qDebug() << "Clip";
 	double *ctm;
 	ctm = state->getCTM();
+	m_ctm = QTransform(ctm[0], ctm[1], ctm[2], ctm[3], ctm[4], ctm[5]);
 	QString output = convertPath(state->getPath());
 	FPointArray out;
-	out.parseSVG(output);
-	if (!pathIsClosed)
-		out.svgClosePath();
-	m_ctm = QTransform(ctm[0], ctm[1], ctm[2], ctm[3], ctm[4], ctm[5]);
-	out.map(m_ctm);
+	bool haveClip = out.parseSVG(output);
+	if (haveClip)
+	{
+		out.parseSVG(output);
+		if (!pathIsClosed)
+			out.svgClosePath();
+		out.map(m_ctm);
+	}
 	double xmin, ymin, xmax, ymax;
 	state->getClipBBox(&xmin, &ymin, &xmax, &ymax);
 	QRectF crect = QRectF(QPointF(xmin, ymin), QPointF(xmax, ymax));
 	crect = crect.normalized();
 	int z = m_doc->itemAdd(PageItem::Group, PageItem::Rectangle, crect.x() + m_doc->currentPage()->xOffset(), crect.y() + m_doc->currentPage()->yOffset(), crect.width(), crect.height(), 0, CommonStrings::None, CommonStrings::None, true);
 	PageItem *ite = m_doc->Items->at(z);
-	FPoint wh(getMinClipF(&out));
-	out.translate(-wh.x(), -wh.y());
-	FPoint dim = out.WidthHeight();
-	if (!((dim.x() == 0.0) || (dim.y() == 0.0)))		// avoid degenerate clipping paths
-		ite->PoLine = out.copy();  //FIXME: try to avoid copy if FPointArray when properly shared
+	if (haveClip)
+	{
+		FPoint wh(getMinClipF(&out));
+		out.translate(-wh.x(), -wh.y());
+		FPoint dim = out.WidthHeight();
+		if (!((dim.x() == 0.0) || (dim.y() == 0.0)))		// avoid degenerate clipping paths
+			ite->PoLine = out.copy();  //FIXME: try to avoid copy if FPointArray when properly shared
+	}
 	ite->ClipEdited = true;
 	ite->FrameType = 3;
 	ite->setFillEvenOdd(false);
@@ -1475,24 +1482,30 @@ void SlaOutputDev::eoClip(GfxState *state)
 //	qDebug() << "EoClip";
 	double *ctm;
 	ctm = state->getCTM();
+	m_ctm = QTransform(ctm[0], ctm[1], ctm[2], ctm[3], ctm[4], ctm[5]);
 	QString output = convertPath(state->getPath());
 	FPointArray out;
-	out.parseSVG(output);
-	if (!pathIsClosed)
-		out.svgClosePath();
-	m_ctm = QTransform(ctm[0], ctm[1], ctm[2], ctm[3], ctm[4], ctm[5]);
-	out.map(m_ctm);
+	bool haveClip = out.parseSVG(output);
+	if (haveClip)
+	{
+		if (!pathIsClosed)
+			out.svgClosePath();
+		out.map(m_ctm);
+	}
 	double xmin, ymin, xmax, ymax;
 	state->getClipBBox(&xmin, &ymin, &xmax, &ymax);
 	QRectF crect = QRectF(QPointF(xmin, ymin), QPointF(xmax, ymax));
 	crect = crect.normalized();
 	int z = m_doc->itemAdd(PageItem::Group, PageItem::Rectangle, crect.x() + m_doc->currentPage()->xOffset(), crect.y() + m_doc->currentPage()->yOffset(), crect.width(), crect.height(), 0, CommonStrings::None, CommonStrings::None, true);
 	PageItem *ite = m_doc->Items->at(z);
-	FPoint wh(getMinClipF(&out));
-	out.translate(-wh.x(), -wh.y());
-	FPoint dim = out.WidthHeight();
-	if (!((dim.x() == 0.0) || (dim.y() == 0.0)))		// avoid degenerate clipping paths
-		ite->PoLine = out.copy();  //FIXME: try to avoid copy if FPointArray when properly shared
+	if (haveClip)
+	{
+		FPoint wh(getMinClipF(&out));
+		out.translate(-wh.x(), -wh.y());
+		FPoint dim = out.WidthHeight();
+		if (!((dim.x() == 0.0) || (dim.y() == 0.0)))		// avoid degenerate clipping paths
+			ite->PoLine = out.copy();  //FIXME: try to avoid copy if FPointArray when properly shared
+	}
 	ite->ClipEdited = true;
 	ite->FrameType = 3;
 	ite->setFillEvenOdd(true);
