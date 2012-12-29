@@ -224,6 +224,8 @@ SlaOutputDev::SlaOutputDev(ScribusDoc* doc, QList<PageItem*> *Elements, QStringL
 	m_font = 0;
 	updateGUICounter = 0;
 	layersSetByOCG = false;
+	cropOffsetX = 0;
+	cropOffsetY = 0;
 }
 
 SlaOutputDev::~SlaOutputDev()
@@ -305,8 +307,8 @@ GBool SlaOutputDev::annotations_callback(Annot *annota, void *user_data)
 {
 	SlaOutputDev *dev = (SlaOutputDev*)user_data;
 	PDFRectangle *box = annota->getRect();
-	double xCoor = dev->m_doc->currentPage()->xOffset() + box->x1;
-	double yCoor = dev->m_doc->currentPage()->yOffset() + dev->m_doc->currentPage()->height() - box->y2;
+	double xCoor = dev->m_doc->currentPage()->xOffset() + box->x1 - dev->cropOffsetX;
+	double yCoor = dev->m_doc->currentPage()->yOffset() + dev->m_doc->currentPage()->height() - box->y2 + dev->cropOffsetY;
 	double width = box->x2 - box->x1;
 	double height = box->y2 - box->y1;
 	bool retVal = true;

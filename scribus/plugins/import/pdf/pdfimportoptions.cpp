@@ -18,7 +18,7 @@ PdfImportOptions::PdfImportOptions(QWidget *parent) : QDialog(parent), ui(new Ui
 	m_plugin = NULL;
 	m_maxPage = 0;
 	m_resized = false;
-	ui->cropGroup->hide();	// for now as functionality is not implemented yet
+//	ui->cropGroup->hide();	// for now as functionality is not implemented yet
 }
 
 PdfImportOptions::~PdfImportOptions()
@@ -49,6 +49,14 @@ QString PdfImportOptions::getPagesString()
 	return ui->pageRangeString->text();
 }
 
+int PdfImportOptions::getCropBox()
+{
+	int ret = 0;
+	if (ui->cropGroup->isChecked())
+		ret = ui->cropBox->currentIndex();
+	return ret;
+}
+
 void PdfImportOptions::setUpOptions(QString fileName, int actPage, int numPages, bool interact, PdfPlug* plug)
 {
 	m_plugin = plug;
@@ -77,8 +85,14 @@ void PdfImportOptions::setUpOptions(QString fileName, int actPage, int numPages,
 	connect(ui->spinBox, SIGNAL(valueChanged(int)), this, SLOT(updateFromSpinBox(int)));
 	connect(ui->spinBox, SIGNAL(valueChanged(int)), this, SLOT(updatePreview(int)));
 	connect(ui->pageSelectButton, SIGNAL(clicked()), this, SLOT(createPageNumberRange()));
+	connect(ui->cropGroup, SIGNAL(clicked()), this, SLOT(updateFromCrop()));
+	connect(ui->cropBox, SIGNAL(currentIndexChanged(int)), this, SLOT(updateFromCrop()));
 }
 
+void PdfImportOptions::updateFromCrop()
+{
+	updatePreview(ui->pgSelect->getCurrentPage());
+}
 
 void PdfImportOptions::updateFromSpinBox(int pg)
 {
@@ -89,7 +103,10 @@ void PdfImportOptions::updatePreview(int pg)
 {
 	if (m_plugin)
 	{
-		QImage img = m_plugin->readPreview(pg, ui->previewWidget->width(), ui->previewWidget->height());
+		int cb = 0;
+		if (ui->cropGroup->isChecked())
+			cb =  ui->cropBox->currentIndex();
+		QImage img = m_plugin->readPreview(pg, ui->previewWidget->width(), ui->previewWidget->height(), cb);
 		ui->previewWidget->setPixmap(QPixmap::fromImage(img));
 		disconnect(ui->spinBox, SIGNAL(valueChanged(int)), this, SLOT(updateFromSpinBox(int)));
 		disconnect(ui->spinBox, SIGNAL(valueChanged(int)), this, SLOT(updatePreview(int)));

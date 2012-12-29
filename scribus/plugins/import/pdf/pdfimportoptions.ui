@@ -144,7 +144,7 @@
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_2">
           <item>
-           <widget class="QComboBox" name="comboBox">
+           <widget class="QComboBox" name="cropBox">
             <item>
              <property name="text">
               <string>Media Box</string>

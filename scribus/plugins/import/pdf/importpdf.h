@@ -68,10 +68,19 @@ public:
 	 */
 	bool import(QString fn, const TransactionSettings& trSettings, int flags, bool showProgress = true);
 	QImage readThumbnail(QString fn);
-	QImage readPreview(int pgNum, int width, int height);
+	QImage readPreview(int pgNum, int width, int height, int box);
+	enum PDF_Box_Type
+	{
+		Media_Box	= 0,
+		Bleed_Box	= 1,
+		Trim_Box	= 2,
+		Crop_Box	= 3,
+		Art_Box		= 4
+	};
 
 private:
 	bool convert(QString fn);
+	QRectF getCBox(int box, int pgNum);
 	QString UnicodeParsedString(GooString *s1);
 	
 	QList<PageItem*> Elements;
