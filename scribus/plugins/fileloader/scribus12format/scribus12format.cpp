@@ -569,7 +569,6 @@ void Scribus12Format::PasteItem(struct CopyPasteBuffer *Buffer, bool drag, bool 
 		currItem->ClipEdited = true;
 		currItem->FrameType = 3;
 		currItem->updatePolyClip();
-		currItem->Frame = true;
 	}
 	if (Buffer->GrType != 0)
 	{

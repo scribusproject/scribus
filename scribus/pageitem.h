@@ -472,8 +472,7 @@ public:
 	int FrameType;
   /** Internal unique Item-Number, used for the undo system */
 	uint uniqueNr;
-  /** Hat Element Rahmen? FIXME: still used? - in DrawObject_Post */
-	bool Frame;
+	bool drawFrame() { return ((m_ItemType == TextFrame && !m_sampleItem) || (m_ItemType == ImageFrame) || (m_ItemType == PathText)); }
   /** page this element belongs to */
 	int OwnPage;
 	/** @brief Old page number tracked for the move undo action */
@@ -559,7 +558,9 @@ protected:
 	PageItem *NextBox;
 	uint firstChar;
 	uint MaxChars;
+	bool m_sampleItem; //Used to not draw the frame for sample items
 public:
+	void setSampleItem(bool b) {m_sampleItem=b;}
 	bool inPdfArticle;
 	bool isRaster;
 	double OldB;

@@ -3876,7 +3876,7 @@ void PageItem_TextFrame::DrawObj_Decoration(ScPainter *p)
 	if ((!isEmbedded) && (!m_Doc->RePos))
 	{
 		double scpInv = 0.0;
-		if ((Frame) && (m_Doc->guidesPrefs().framesShown) && (no_stroke))
+		if ((drawFrame()) && (m_Doc->guidesPrefs().framesShown) && (no_stroke))
 		{
 			p->setPen(PrefsManager::instance()->appPrefs.displayPrefs.frameNormColor, scpInv, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 			if ((isBookmark) || (m_isAnnotation))

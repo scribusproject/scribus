@@ -1324,14 +1324,9 @@ void PaintManagerDialog::loadVectors(QString data)
 		{
 			PageItem* ite = m_doc->Items->at(ac);
 			if (ite->itemType() == PageItem::PathText)
-			{
-				ite->Frame = true;
 				ite->updatePolyClip();
-			}
 			else
-			{
 				ite->layout();
-			}
 		}
 		ScPattern pat = ScPattern();
 		pat.setDoc(m_doc);

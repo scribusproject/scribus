@@ -149,7 +149,6 @@ PageItem::PageItem(const PageItem & other)
 	textPathFlipped(other.textPathFlipped),
 	ClipEdited(other.ClipEdited),
 	FrameType(other.FrameType),
-	Frame(other.Frame),
 	OwnPage(other.OwnPage),
 	oldOwnPage(other.oldOwnPage),
 	pixm(other.pixm),
@@ -180,6 +179,7 @@ PageItem::PageItem(const PageItem & other)
 	NextBox(NULL),  // otherwise other.NextBox->BackBox would be inconsistent
 	firstChar(0),   // since this box is unlinked now
 	MaxChars(0),   // since the layout is invalid now
+	m_sampleItem(false),
 	inPdfArticle(other.inPdfArticle),
 	isRaster(other.isRaster),
 	OldB(other.OldB),
@@ -486,6 +486,7 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	RExtra = m_Doc->itemToolPrefs().textDistances.Right;
 	firstChar = 0;
 	MaxChars = 0;
+	m_sampleItem = false;
 	Pfile = "";
 	pixm = ScImage();
 	pixm.imgInfo.lowResType = m_Doc->itemToolPrefs().imageLowResType;
@@ -501,11 +502,6 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	BBoxX = 0;
 	BBoxH = 0;
 	RadRect = 0;
-	if ((m_ItemType == TextFrame) || (m_ItemType == ImageFrame) || (m_ItemType == PathText))
-		// TODO: Frame should become a read-only calculated property
-		Frame = true;
-	else
-		Frame = false;
 	switch (m_ItemType)
 	{
 		case Polygon:
@@ -1990,7 +1986,7 @@ void PageItem::DrawObj_Decoration(ScPainter *p)
 		double scpInv = 0;
 		if (!isGroup())
 		{
-			if ((Frame) && (m_Doc->guidesPrefs().framesShown) && ((itemType() == ImageFrame) || (itemType() == LatexFrame) || (itemType() == OSGFrame) || (itemType() == PathText)) && (no_stroke))
+			if ((drawFrame()) && (m_Doc->guidesPrefs().framesShown) && ((itemType() == ImageFrame) || (itemType() == LatexFrame) || (itemType() == OSGFrame) || (itemType() == PathText)) && (no_stroke))
 			{
 				p->setPen(PrefsManager::instance()->appPrefs.displayPrefs.frameNormColor, scpInv, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 				if ((isBookmark) || (m_isAnnotation))
@@ -6925,7 +6921,6 @@ void PageItem::restorePathOperation(UndoState *state, bool isUndo)
 		if (isUndo)
 		{
 			this->ClipEdited=is->getBool("PATH_OP_OLD_CLIPEDITED");
-			this->Frame=is->getBool("PATH_OP_OLD_FRAME");
 			this->FrameType=is->getInt("PATH_OP_OLD_FRAMETYPE");
 			this->OldB2=is->getDouble("PATH_OP_OLD_OLDB2");
 			this->OldH2=is->getDouble("PATH_OP_OLD_OLDH2");
@@ -6936,7 +6931,6 @@ void PageItem::restorePathOperation(UndoState *state, bool isUndo)
 		else
 		{
 			this->ClipEdited=is->getBool("PATH_OP_NEW_CLIPEDITED");
-			this->Frame=is->getBool("PATH_OP_NEW_FRAME");
 			this->FrameType=is->getInt("PATH_OP_NEW_FRAMETYPE");
 			this->OldB2=is->getDouble("PATH_OP_NEW_OLDB2");
 			this->OldH2=is->getDouble("PATH_OP_NEW_OLDH2");
@@ -6991,7 +6985,6 @@ void PageItem::restoreUniteItem(SimpleState *state, bool isUndo)
 			}
 			PoLine.resize(PoLine.size()-pts);
 			Segments.clear();
-			Frame = is->getBool("FRAME");
 			FrameType = is->getInt("FRAMETYPE");
 			ClipEdited = is->getBool("CLIPEDITED");
 			doc()->AdjustItemSize(this);

@@ -2020,10 +2020,7 @@ bool Scribus134Format::readObject(ScribusDoc* doc, ScXmlStreamReader& reader, It
 	}
 
 	if (newItem->asPathText())
-	{
 		newItem->updatePolyClip();
-		newItem->Frame = true;
-	}
 	if (newItem->asImageFrame() || newItem->asLatexFrame())
 	{
 		if (!newItem->Pfile.isEmpty())
@@ -2931,10 +2928,7 @@ PageItem* Scribus134Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 	}
 
 	if (currItem->asPathText())
-	{
 		currItem->updatePolyClip();
-		currItem->Frame = true;
-	}
 	currItem->GrType = attrs.valueAsInt("GRTYP", 0);
 	QString GrColor;
 	QString GrColor2;

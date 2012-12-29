@@ -82,7 +82,7 @@ void PageItem_ImageFrame::DrawObj_Item(ScPainter *p, QRectF /*e*/)
 	p->save();
 	if (Pfile.isEmpty())
 	{
-		if ((Frame) && (m_Doc->guidesPrefs().framesShown))
+		if ((drawFrame()) && (m_Doc->guidesPrefs().framesShown))
 		{
 			p->setPen(Qt::black, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 			p->drawLine(FPoint(0, 0), FPoint(Width, Height));
@@ -94,7 +94,7 @@ void PageItem_ImageFrame::DrawObj_Item(ScPainter *p, QRectF /*e*/)
 		//If we are missing our image, draw a red cross in the frame
 		if ((!PicArt) || (!PictureIsAvailable))
 		{
-			if ((Frame) && (m_Doc->guidesPrefs().framesShown))
+			if ((drawFrame()) && (m_Doc->guidesPrefs().framesShown))
 			{
 				p->setBrush(Qt::white);
 				QString htmlText = "";

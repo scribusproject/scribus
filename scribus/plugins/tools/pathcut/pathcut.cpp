@@ -161,7 +161,6 @@ bool PathCutPlugin::run(ScribusDoc* doc, QString)
 		FPointArray points;
 		points.fromQPainterPath(result);
 		Item2->PoLine = points;
-		Item2->Frame = false;
 		Item2->ClipEdited = true;
 		Item2->FrameType = 3;
 		currDoc->AdjustItemSize(Item2);

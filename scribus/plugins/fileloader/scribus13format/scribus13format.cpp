@@ -1921,10 +1921,7 @@ PageItem* Scribus13Format::PasteItem(QDomElement *obj, ScribusDoc *doc, const QS
 	if (currItem->asImageFrame())
 		currItem->AdjustPictScale();
 	if (currItem->asPathText())
-	{
 		currItem->updatePolyClip();
-		currItem->Frame = true;
-	}
 	currItem->GrType = obj->attribute("GRTYP", "0").toInt();
 	QString GrColor;
 	QString GrColor2;

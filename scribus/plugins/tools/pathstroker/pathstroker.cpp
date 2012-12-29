@@ -199,7 +199,6 @@ bool PathStrokerPlugin::run(ScribusDoc* doc, QString)
 			FPointArray points;
 			points.fromQPainterPath(result);
 			newItem->PoLine = points;
-			newItem->Frame = false;
 			newItem->ClipEdited = true;
 			newItem->FrameType = 3;
 			currDoc->AdjustItemSize(newItem);
@@ -253,7 +252,6 @@ bool PathStrokerPlugin::run(ScribusDoc* doc, QString)
 					FPointArray points;
 					points.fromQPainterPath(result);
 					newItem->PoLine = points;
-					newItem->Frame = false;
 					newItem->ClipEdited = true;
 					newItem->FrameType = 3;
 					currDoc->AdjustItemSize(newItem);
@@ -291,7 +289,6 @@ bool PathStrokerPlugin::run(ScribusDoc* doc, QString)
 						newItem->setFillTransparency(newItem->lineTransparency());
 						newItem->setFillBlendmode(newItem->lineBlendmode());
 						newItem->PoLine = arrow;
-						newItem->Frame = false;
 						newItem->ClipEdited = true;
 						newItem->FrameType = 3;
 						currDoc->AdjustItemSize(newItem);
@@ -331,7 +328,6 @@ bool PathStrokerPlugin::run(ScribusDoc* doc, QString)
 						newItem->setFillTransparency(newItem->lineTransparency());
 						newItem->setFillBlendmode(newItem->lineBlendmode());
 						newItem->PoLine = arrow;
-						newItem->Frame = false;
 						newItem->ClipEdited = true;
 						newItem->FrameType = 3;
 						currDoc->AdjustItemSize(newItem);

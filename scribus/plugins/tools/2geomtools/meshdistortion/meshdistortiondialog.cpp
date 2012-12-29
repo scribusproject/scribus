@@ -541,7 +541,6 @@ void MeshDistortionDialog::updateAndExit()
 		outputPath.fromQPainterPath(path);
 		PageItem *currItem = origPageItem[a];
 		currItem->PoLine = outputPath;
-		currItem->Frame = false;
 		currItem->ClipEdited = true;
 		currItem->FrameType = 3;
 		double oW = currItem->width();

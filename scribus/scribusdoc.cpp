@@ -5755,16 +5755,11 @@ bool ScribusDoc::loadPict(QString fn, PageItem *pageItem, bool reload, bool show
 		if (m_hasGUI)
 		{
 			QFileInfo fi(pageItem->Pfile);
-			//#9845, why are we tracking dir changes when we are tracking the file itself
-			//ScCore->fileWatcher->addDir(fi.absolutePath());
 			ScCore->fileWatcher->addFile(pageItem->Pfile);
 		}
 	}
 	if (!isLoading())
 	{
-		//TODO: Previously commented out.. unsure why, remove later
-		//emit UpdtObj(PageNr, ItNr);
-		//CB: probably because we are therefore not always refreshing the view when an image changes...
 		pageItem->update();
 		changed();
 	}
@@ -6326,11 +6321,9 @@ PageItem* ScribusDoc::convertItemTo(PageItem *currItem, PageItem::ItemType newTy
 	{
 		case PageItem::ImageFrame:
 			newItem->convertTo(PageItem::ImageFrame);
-			newItem->Frame = true;
 			break;
 		case PageItem::TextFrame:
 			newItem->convertTo(PageItem::TextFrame);
-			newItem->Frame = true;
 			if (oldItem->itemType()==PageItem::PathText)
 			{
 				uint newPolyItemNo = itemAdd(PageItem::PolyLine, PageItem::Unspecified, currItem->xPos(), currItem->yPos(), currItem->width(), currItem->height(), currItem->lineWidth(), CommonStrings::None, currItem->lineColor(), true);
@@ -6352,7 +6345,6 @@ PageItem* ScribusDoc::convertItemTo(PageItem *currItem, PageItem::ItemType newTy
 			break; */
 		case PageItem::Polygon:
 			newItem->convertTo(PageItem::Polygon);
-			newItem->Frame = false;
 			newItem->ClipEdited = true;
 			newItem->FrameType = 3;
 			if(oldItem->itemType()==PageItem::PolyLine)
@@ -6372,7 +6364,6 @@ PageItem* ScribusDoc::convertItemTo(PageItem *currItem, PageItem::ItemType newTy
 			if(oldItem->itemType()==PageItem::Line)
 			{
 				QTransform ma;
-				newItem->Frame = false;
 				newItem->FrameType = 3;
 				ma.rotate(newItem->rotation());
 				newItem->PoLine.resize(0);
@@ -6388,7 +6379,6 @@ PageItem* ScribusDoc::convertItemTo(PageItem *currItem, PageItem::ItemType newTy
 		case PageItem::PathText:
 			{
 				newItem->convertTo(PageItem::PathText);
-				newItem->Frame = true;
 				newItem->ClipEdited = true;
 				newItem->PoLine = secondaryItem->PoLine.copy();
 				newItem->setLineWidth(secondaryItem->lineWidth());
@@ -15266,10 +15256,8 @@ void ScribusDoc::itemSelection_UniteItems(Selection* /*customSelection*/)
 		if (currItem->isGroup())
 			return;
 		m_Selection->delaySignalsOn();
-		bool currFrame = currItem->Frame;
 		bool currClipEdited = currItem->ClipEdited;
 		int currFrameType = currItem->FrameType;
-		currItem->Frame = false;
 		currItem->ClipEdited = true;
 		currItem->FrameType = 3;
 		for (uint a = 1; a < docSelectionCount; ++a)
@@ -15302,7 +15290,6 @@ void ScribusDoc::itemSelection_UniteItems(Selection* /*customSelection*/)
 			ScItemState< QPair<QList<PageItem*> , QList<QTransform> > > *is = new ScItemState< QPair<QList<PageItem*> , QList<QTransform> > >(Um::UniteItem, "", Um::IGroup);
 			is->setItem(qMakePair(toDel,transform));
 			is->set("UNITEITEM", "uniteitem");
-			is->set("FRAME",currFrame);
 			is->set("FRAMETYPE",currFrameType);
 			is->set("CLIPEDITED",currClipEdited);
 			undoManager->action(currItem, is);
@@ -15353,7 +15340,6 @@ void ScribusDoc::itemSelection_SplitItems(Selection* /*customSelection*/)
 				itemsList.append(currItemNr);
 				Items->insert(currItemNr, bb);
 				bb->convertTo(PageItem::Polygon);
-				bb->Frame = false;
 				bb->FrameType = 3;
 				bb->PoLine.resize(0);
 				bb->PoLine.putPoints(0, EndInd - StartInd, currItem->PoLine, StartInd);

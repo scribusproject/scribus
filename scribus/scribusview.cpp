@@ -4116,7 +4116,6 @@ void ScribusView::TextToPath()
 				{
 					PageItem* newItem = new PageItem_Polygon(*currItem);
 					newItem->convertTo(PageItem::Polygon);
-					newItem->Frame = false;
 					newItem->ClipEdited = true;
 					newItem->FrameType = 3;
 					newItem->OldB2 = newItem->width();

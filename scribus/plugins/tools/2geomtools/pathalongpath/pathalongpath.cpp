@@ -249,7 +249,6 @@ bool PathAlongPathPlugin::run(ScribusDoc* doc, QString)
 			else
 			{
 				patternItem->PoLine = originalPath;
-				patternItem->Frame = false;
 				patternItem->ClipEdited = true;
 				patternItem->FrameType = 3;
 				patternItem->setXYPos(originalXPos, originalYPos);
@@ -273,7 +272,6 @@ void PathAlongPathPlugin::updateEffectG(int effectType, double offset, double of
 	{
 		PageItem* bxi = patternItemG[bx];
 		bxi->PoLine = originalPathG[bx];
-		bxi->Frame = false;
 		bxi->ClipEdited = true;
 		bxi->FrameType = 3;
 		bxi->setXYPos(originalXPosG[bx], originalYPosG[bx], true);
@@ -322,7 +320,6 @@ void PathAlongPathPlugin::updateEffectG(int effectType, double offset, double of
 			QTransform mm2;
 			mm2.rotate(-originalRotG[bx]);
 			bxi->PoLine.map(mm2);
-			bxi->Frame = false;
 			bxi->ClipEdited = true;
 			bxi->FrameType = 3;
 			bxi->setXYPos(pathItem->xPos()+deltaX, pathItem->yPos()+deltaY, true);
@@ -360,7 +357,6 @@ void PathAlongPathPlugin::updateEffect(int effectType, double offset, double off
 	if (effectType == -1)
 	{
 		patternItem->PoLine = originalPath;
-		patternItem->Frame = false;
 		patternItem->ClipEdited = true;
 		patternItem->FrameType = 3;
 		patternItem->setXYPos(originalXPos, originalYPos);
@@ -377,7 +373,6 @@ void PathAlongPathPlugin::updateEffect(int effectType, double offset, double off
 			patternpwd2 = FPointArray2Piecewise(originalPath, true);
 		setUpEffect(originaldpwd2, patternpwd2, effectType, offset / currDoc->unitRatio(), offsetY / currDoc->unitRatio(), gap / currDoc->unitRatio(), rotate);
 		patternItem->PoLine = doEffect_pwd2(patternpwd2);
-		patternItem->Frame = false;
 		patternItem->ClipEdited = true;
 		patternItem->FrameType = 3;
 		patternItem->setXYPos(pathItem->xPos(), pathItem->yPos());

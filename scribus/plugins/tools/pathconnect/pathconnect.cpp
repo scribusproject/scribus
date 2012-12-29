@@ -136,7 +136,6 @@ bool PathConnectPlugin::run(ScribusDoc* doc, QString)
 				trans = new UndoTransaction(UndoManager::instance()->beginTransaction(Um::BezierCurve,Um::ILine,Um::ConnectPath,"",Um::ILine));
 
 			Item1->PoLine = computePath(pointOne, pointTwo, mode, originalPath1, originalPath2);
-			Item1->Frame = false;
 			Item1->ClipEdited = true;
 			Item1->FrameType = 3;
 			currDoc->AdjustItemSize(Item1);
@@ -168,7 +167,6 @@ bool PathConnectPlugin::run(ScribusDoc* doc, QString)
 		else
 		{
 			Item1->PoLine = originalPath1.copy();
-			Item1->Frame = false;
 			Item1->ClipEdited = true;
 			Item1->FrameType = 3;
 			Item1->setXYPos(originalXPos, originalYPos);
@@ -189,7 +187,6 @@ void PathConnectPlugin::updateEffect(int effectType, int pointOne, int pointTwo,
 	if (effectType == -1)
 	{
 		Item1->PoLine = originalPath1.copy();
-		Item1->Frame = false;
 		Item1->ClipEdited = true;
 		Item1->FrameType = 3;
 		Item1->setXYPos(originalXPos, originalYPos);
@@ -199,7 +196,6 @@ void PathConnectPlugin::updateEffect(int effectType, int pointOne, int pointTwo,
 	{
 		Item1->setXYPos(originalXPos, originalYPos);
 		Item1->PoLine = computePath(pointOne, pointTwo, mode, originalPath1, originalPath2);
-		Item1->Frame = false;
 		Item1->ClipEdited = true;
 		Item1->FrameType = 3;
 	}

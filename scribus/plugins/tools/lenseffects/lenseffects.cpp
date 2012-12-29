@@ -126,7 +126,6 @@ bool LensEffectsPlugin::run(ScribusDoc* doc, QString)
 				FPointArray points;
 				points.fromQPainterPath(path);
 				currItem->PoLine = points;
-				currItem->Frame = false;
 				currItem->ClipEdited = true;
 				currItem->FrameType = 3;
 				double oW = currItem->width();

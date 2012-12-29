@@ -3899,10 +3899,7 @@ bool Scribus150Format::readObject(ScribusDoc* doc, ScXmlStreamReader& reader, It
 	}
 
 	if (newItem->asPathText())
-	{
 		newItem->updatePolyClip();
-		newItem->Frame = true;
-	}
 #ifdef HAVE_OSG
 	if (newItem->asImageFrame() || newItem->asLatexFrame() || newItem->asOSGFrame())
 #else
@@ -4918,10 +4915,7 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 	}
 
 	if (currItem->asPathText())
-	{
 		currItem->updatePolyClip();
-		currItem->Frame = true;
-	}
 	currItem->GrType = attrs.valueAsInt("GRTYP", 0);
 	QString GrColor;
 	QString GrColor2;

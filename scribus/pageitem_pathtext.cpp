@@ -66,7 +66,6 @@ void PageItem_PathText::layout()
 	DrawObj(painter, rd);
 	painter->end();
 	delete painter;
-	Frame = true;
 	updatePolyClip();
 }
 

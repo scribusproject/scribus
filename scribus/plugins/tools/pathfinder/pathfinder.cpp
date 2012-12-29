@@ -230,7 +230,6 @@ bool PathFinderPlugin::run(ScribusDoc* doc, QString)
 			{
 				state = new ScItemState<QPair<QPair<FPointArray, FPointArray>, QPair<FPointArray, FPointArray> > >(Um::PathOperation);
 				state->set("PATH_OPERATION", "path_operation");
-				state->set("PATH_OP_OLD_FRAME", currItem->Frame);
 				state->set("PATH_OP_OLD_CLIPEDITED", currItem->ClipEdited);
 				state->set("PATH_OP_OLD_FRAMETYPE", currItem->FrameType);
 				state->set("PATH_OP_OLD_OLDB2", currItem->OldB2);
@@ -242,7 +241,6 @@ bool PathFinderPlugin::run(ScribusDoc* doc, QString)
 			//>>#9046
 			
 			currItem->PoLine = points;
-			currItem->Frame = false;
 			currItem->ClipEdited = true;
 			currItem->FrameType = 3;
 			currDoc->AdjustItemSize(currItem);
@@ -283,7 +281,6 @@ bool PathFinderPlugin::run(ScribusDoc* doc, QString)
 				{
 					state = new ScItemState<QPair<QPair<FPointArray, FPointArray>, QPair<FPointArray, FPointArray> > >(Um::PathOperation);
 					state->set("PATH_OPERATION", "path_operation");
-					state->set("PATH_OP_OLD_FRAME", Item1->Frame);
 					state->set("PATH_OP_OLD_CLIPEDITED", Item1->ClipEdited);
 					state->set("PATH_OP_OLD_FRAMETYPE", Item1->FrameType);
 					state->set("PATH_OP_OLD_OLDB2", Item1->OldB2);
@@ -294,7 +291,6 @@ bool PathFinderPlugin::run(ScribusDoc* doc, QString)
 				}
 				//>>#9046
 				Item1->PoLine = points;
-				Item1->Frame = false;
 				Item1->ClipEdited = true;
 				Item1->FrameType = 3;
 				currDoc->AdjustItemSize(Item1);
@@ -326,7 +322,6 @@ bool PathFinderPlugin::run(ScribusDoc* doc, QString)
 				{
 					state = new ScItemState<QPair<QPair<FPointArray, FPointArray>, QPair<FPointArray, FPointArray> > >(Um::PathOperation);
 					state->set("PATH_OPERATION", "path_operation");
-					state->set("PATH_OP_OLD_FRAME", Item2->Frame);
 					state->set("PATH_OP_OLD_CLIPEDITED", Item2->ClipEdited);
 					state->set("PATH_OP_OLD_FRAMETYPE", Item2->FrameType);
 					state->set("PATH_OP_OLD_OLDB2", Item2->OldB2);
@@ -339,7 +334,6 @@ bool PathFinderPlugin::run(ScribusDoc* doc, QString)
 				Item2->setXYPos(i1x, i1y);
 				Item2->setRotation(0.0);
 				Item2->PoLine = points;
-				Item2->Frame = false;
 				Item2->ClipEdited = true;
 				Item2->FrameType = 3;
 				currDoc->AdjustItemSize(Item2);
@@ -377,7 +371,6 @@ bool PathFinderPlugin::run(ScribusDoc* doc, QString)
 				newItem->setSelected(false);
 				points.fromQPainterPath(path);
 				newItem->PoLine = points;
-				newItem->Frame = false;
 				newItem->ClipEdited = true;
 				newItem->FrameType = 3;
 				currDoc->AdjustItemSize(newItem);
