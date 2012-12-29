@@ -18,7 +18,6 @@ PdfImportOptions::PdfImportOptions(QWidget *parent) : QDialog(parent), ui(new Ui
 	m_plugin = NULL;
 	m_maxPage = 0;
 	m_resized = false;
-//	ui->cropGroup->hide();	// for now as functionality is not implemented yet
 }
 
 PdfImportOptions::~PdfImportOptions()
@@ -57,14 +56,15 @@ int PdfImportOptions::getCropBox()
 	return ret;
 }
 
-void PdfImportOptions::setUpOptions(QString fileName, int actPage, int numPages, bool interact, PdfPlug* plug)
+void PdfImportOptions::setUpOptions(QString fileName, int actPage, int numPages, bool interact, bool cropPossible, PdfPlug* plug)
 {
 	m_plugin = plug;
 	ui->fileLabel->setText(fileName);
 	ui->spinBox->setMaximum(numPages);
 	ui->spinBox->setMinimum(actPage);
 	ui->spinBox->setValue(actPage);
-	ui->cropGroup->setChecked(false);
+	ui->cropGroup->setVisible(cropPossible);
+	ui->cropGroup->setChecked(cropPossible);
 	if (interact)
 	{
 		ui->allPages->setChecked(false);

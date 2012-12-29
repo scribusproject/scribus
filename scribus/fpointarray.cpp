@@ -614,6 +614,8 @@ void FPointArray::svgInit()
 
 void FPointArray::svgMoveTo(double x, double y)
 {
+	if (!svgState)
+		return;
 	svgState->reset(x, y);
 	svgState->WasM = true;
 }
@@ -621,10 +623,10 @@ void FPointArray::svgMoveTo(double x, double y)
 
 void FPointArray::svgLineTo(double x1, double y1)
 {
+	if (!svgState)
+		return;
 	if (svgState->needsMarker())
-	{
 		setMarker();
-	}
 	svgState->FirstM = false;
 	svgState->WasM = false;
 	if (size() > 3)
@@ -648,10 +650,10 @@ void FPointArray::svgLineTo(double x1, double y1)
 
 void FPointArray::svgCurveToCubic(double x1, double y1, double x2, double y2, double x3, double y3)
 {
+	if (!svgState)
+		return;
 	if (svgState->needsMarker())
-	{
 		setMarker();
-	}
 	svgState->FirstM = false;
 	svgState->WasM = false;
 	if (svgState->PathLen > 3)
@@ -677,6 +679,8 @@ void FPointArray::svgCurveToCubic(double x1, double y1, double x2, double y2, do
 
 void FPointArray::svgClosePath()
 {
+	if (!svgState)
+		return;
 	if (svgState->PathLen > 2)
 	{
 		if ((svgState->PathLen == 4) || (point(size()-2).x() != svgState->StartX) || (point(size()-2).y() != svgState->StartY))
@@ -691,6 +695,8 @@ void FPointArray::svgClosePath()
 
 void FPointArray::svgArcTo(double r1, double r2, double angle, bool largeArcFlag, bool sweepFlag, double x1, double y1)
 {
+	if (!svgState)
+		return;
 	calculateArc(false, svgState->CurrX, svgState->CurrY, angle, x1, y1, r1, r2, largeArcFlag, sweepFlag);
 }
 
@@ -1085,6 +1091,5 @@ bool FPointArray::parseSVG(const QString& svgPath)
 		}
 	}
 	return ret;
-
 }
 

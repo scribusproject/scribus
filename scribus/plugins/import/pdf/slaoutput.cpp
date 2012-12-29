@@ -1265,7 +1265,7 @@ void SlaOutputDev::restoreState(GfxState *state)
 							sing->PoLine.translate(dx, dy);
 							if (sing->isGroup())
 							{
-								QList<PageItem*> allItems = sing->asGroupFrame()->getItemList();
+								QList<PageItem*> allItems = sing->asGroupFrame()->groupItemList;
 								for (int si = 0; si < allItems.count(); si++)
 								{
 									allItems[si]->moveBy(dx, dy, true);
@@ -1434,8 +1434,7 @@ void SlaOutputDev::clip(GfxState *state)
 	m_ctm = QTransform(ctm[0], ctm[1], ctm[2], ctm[3], ctm[4], ctm[5]);
 	QString output = convertPath(state->getPath());
 	FPointArray out;
-	bool haveClip = out.parseSVG(output);
-	if (haveClip)
+	if (!output.isEmpty())
 	{
 		out.parseSVG(output);
 		if (!pathIsClosed)
@@ -1448,7 +1447,7 @@ void SlaOutputDev::clip(GfxState *state)
 	crect = crect.normalized();
 	int z = m_doc->itemAdd(PageItem::Group, PageItem::Rectangle, crect.x() + m_doc->currentPage()->xOffset(), crect.y() + m_doc->currentPage()->yOffset(), crect.width(), crect.height(), 0, CommonStrings::None, CommonStrings::None, true);
 	PageItem *ite = m_doc->Items->at(z);
-	if (haveClip)
+	if (!output.isEmpty())
 	{
 		FPoint wh(getMinClipF(&out));
 		out.translate(-wh.x(), -wh.y());
@@ -1485,9 +1484,9 @@ void SlaOutputDev::eoClip(GfxState *state)
 	m_ctm = QTransform(ctm[0], ctm[1], ctm[2], ctm[3], ctm[4], ctm[5]);
 	QString output = convertPath(state->getPath());
 	FPointArray out;
-	bool haveClip = out.parseSVG(output);
-	if (haveClip)
+	if (!output.isEmpty())
 	{
+		out.parseSVG(output);
 		if (!pathIsClosed)
 			out.svgClosePath();
 		out.map(m_ctm);
@@ -1498,7 +1497,7 @@ void SlaOutputDev::eoClip(GfxState *state)
 	crect = crect.normalized();
 	int z = m_doc->itemAdd(PageItem::Group, PageItem::Rectangle, crect.x() + m_doc->currentPage()->xOffset(), crect.y() + m_doc->currentPage()->yOffset(), crect.width(), crect.height(), 0, CommonStrings::None, CommonStrings::None, true);
 	PageItem *ite = m_doc->Items->at(z);
-	if (haveClip)
+	if (!output.isEmpty())
 	{
 		FPoint wh(getMinClipF(&out));
 		out.translate(-wh.x(), -wh.y());

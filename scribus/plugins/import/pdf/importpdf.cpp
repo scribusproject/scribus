@@ -455,7 +455,7 @@ bool PdfPlug::convert(QString fn)
 					qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 					PdfImportOptions *optImp = new PdfImportOptions(ScCore->primaryMainWindow());
 					QFileInfo fi = QFileInfo(fn);
-					optImp->setUpOptions(fi.fileName(), firstPage, lastPage, interactive, this);
+					optImp->setUpOptions(fi.fileName(), firstPage, lastPage, interactive, boxesAreDifferent, this);
 					if (!optImp->exec())
 					{
 						if (progressDialog)
