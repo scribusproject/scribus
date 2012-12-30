@@ -4490,6 +4490,10 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath="..\..\..\scribus\margins.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\scribus\ui\marginwidget.h"
 				>
 				<FileConfiguration
