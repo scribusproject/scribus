@@ -2696,7 +2696,6 @@ void ScribusMainWindow::HaveNewDoc()
 
 void ScribusMainWindow::HaveNewSel(int SelectedType)
 {
-	bool isRaster = false;
 	PageItem *currItem = NULL;
 	const uint docSelectionCount=doc->m_Selection->count();
 	if (SelectedType != -1)
@@ -2803,7 +2802,7 @@ void ScribusMainWindow::HaveNewSel(int SelectedType)
 	scrActions["itemPreviewLow"]->setEnabled(SelectedType==PageItem::ImageFrame);
 	scrActions["itemPreviewNormal"]->setEnabled(SelectedType==PageItem::ImageFrame);
 	scrActions["itemPreviewFull"]->setEnabled(SelectedType==PageItem::ImageFrame);
-	scrActions["styleImageEffects"]->setEnabled(SelectedType==PageItem::ImageFrame && isRaster);
+	scrActions["styleImageEffects"]->setEnabled(SelectedType==PageItem::ImageFrame && currItem->isRaster);
 	scrActions["editCopyContents"]->setEnabled(SelectedType==PageItem::ImageFrame && currItem->PictureIsAvailable);
 	scrActions["editPasteContents"]->setEnabled(SelectedType==PageItem::ImageFrame);
 	scrActions["editPasteContentsAbs"]->setEnabled(SelectedType==PageItem::ImageFrame);
@@ -2899,7 +2898,6 @@ void ScribusMainWindow::HaveNewSel(int SelectedType)
 		scrActions["editSearchReplace"]->setEnabled(false);
 		scrActions["extrasHyphenateText"]->setEnabled(false);
 		scrActions["extrasDeHyphenateText"]->setEnabled(false);
-//		scrMenuMgr->setMenuEnabled("Item", true);
 		scrActions["itemDuplicate"]->setEnabled(true);
 		scrActions["itemMulDuplicate"]->setEnabled(true);
 		scrActions["itemTransform"]->setEnabled(true);
@@ -2908,20 +2906,17 @@ void ScribusMainWindow::HaveNewSel(int SelectedType)
 		scrActions["itemLower"]->setEnabled(true);
 		scrActions["itemRaiseToTop"]->setEnabled(true);
 		scrActions["itemLowerToBottom"]->setEnabled(true);
-//		scrActions["itemSendToScrapbook"]->setEnabled(true);
 		scrMenuMgr->setMenuEnabled("itemSendToScrapbook", true);
 		scrActions["itemSendToPattern"]->setEnabled(true);
 		scrActions["itemAdjustFrameToImage"]->setEnabled(true);
 		scrActions["itemAdjustImageToFrame"]->setEnabled(true);
-		scrActions["itemExtendedImageProperties"]->setEnabled(true);
+		scrActions["itemExtendedImageProperties"]->setEnabled(currItem->pixm.imgInfo.valid);
 		scrActions["itemUpdateImage"]->setEnabled(true);
 		scrActions["itemPreviewLow"]->setEnabled(true);
 		scrActions["itemPreviewNormal"]->setEnabled(true);
 		scrActions["itemPreviewFull"]->setEnabled(true);
 		scrActions["itemAttributes"]->setEnabled(true);
 		scrActions["itemPreviewLow"]->setEnabled(true);
-		//scrMenuMgr->setMenuEnabled("ItemShapes", !(currItem->isTableItem && currItem->isSingleSel));
-//		scrMenuMgr->setMenuEnabled("ItemConvertTo", true);
 		scrActions["itemConvertToBezierCurve"]->setEnabled(false);
 		scrActions["itemConvertToImageFrame"]->setEnabled(false);
 		scrActions["itemConvertToOutlines"]->setEnabled(false);
@@ -2964,7 +2959,6 @@ void ScribusMainWindow::HaveNewSel(int SelectedType)
 		scrActions["itemLower"]->setEnabled(true);
 		scrActions["itemRaiseToTop"]->setEnabled(true);
 		scrActions["itemLowerToBottom"]->setEnabled(true);
-//		scrActions["itemSendToScrapbook"]->setEnabled(true);
 		scrMenuMgr->setMenuEnabled("itemSendToScrapbook", true);
 		scrActions["itemSendToPattern"]->setEnabled(true);
 		scrActions["itemAdjustFrameToImage"]->setEnabled(false);
@@ -2976,7 +2970,6 @@ void ScribusMainWindow::HaveNewSel(int SelectedType)
 		scrActions["itemPreviewFull"]->setEnabled(false);
 		scrActions["itemAttributes"]->setEnabled(true);
 		scrActions["itemPreviewLow"]->setEnabled(false);
-		//scrMenuMgr->setMenuEnabled("ItemShapes", !(currItem->isTableItem && currItem->isSingleSel));
 		scrMenuMgr->setMenuEnabled("ItemConvertTo", !((doc->appMode == modeEdit) || (currItem->isAnnotation())));
 		scrActions["itemConvertToBezierCurve"]->setEnabled(false);
 		scrActions["itemConvertToImageFrame"]->setEnabled(doc->appMode != modeEdit);
@@ -2994,7 +2987,6 @@ void ScribusMainWindow::HaveNewSel(int SelectedType)
 		{
 			scrActions["itemConvertToBezierCurve"]->setEnabled(false);
 			scrActions["itemConvertToImageFrame"]->setEnabled(false);
-//			scrActions["itemConvertToOutlines"]->setEnabled(false);
 			scrActions["itemConvertToPolygon"]->setEnabled(false);
 			scrActions["itemConvertToTextFrame"]->setEnabled(false);
 			scrActions["toolsUnlinkTextFrame"]->setEnabled(true);
@@ -4914,6 +4906,7 @@ bool ScribusMainWindow::DoFileClose()
 		scrActions["toolsInsertArc"]->setEnabled(false);
 		scrActions["toolsInsertSpiral"]->setEnabled(false);
 		scrActions["toolsInsertRenderFrame"]->setEnabled(false);
+		scrActions["toolsInsertTable"]->setEnabled(false);
 		scrActions["toolsLinkTextFrame"]->setEnabled(false);
 		scrActions["toolsUnlinkTextFrame"]->setEnabled(false);
 		scrActions["toolsUnlinkTextFrameWithTextCopy"]->setEnabled(false);
