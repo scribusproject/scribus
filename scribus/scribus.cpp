@@ -8717,6 +8717,8 @@ void ScribusMainWindow::editSymbolStart(QString temp)
 		storedViewXCoor = view->contentsX();
 		storedViewYCoor = view->contentsY();
 		storedViewScale = view->scale();
+		doc->stored_minCanvasCoordinate = doc->minCanvasCoordinate;
+		doc->stored_maxCanvasCoordinate = doc->maxCanvasCoordinate;
 		view->showSymbolPage(temp);
 		scrActions["pageInsert"]->setEnabled(false);
 		scrActions["pageImport"]->setEnabled(false);
@@ -8778,6 +8780,9 @@ void ScribusMainWindow::editSymbolStart(QString temp)
 
 void ScribusMainWindow::editSymbolEnd()
 {
+	doc->minCanvasCoordinate = doc->stored_minCanvasCoordinate;
+	doc->maxCanvasCoordinate = doc->stored_maxCanvasCoordinate;
+	view->setScale(storedViewScale);
 	view->hideSymbolPage();
 	if (m_WasAutoSave)
 	{
@@ -8852,6 +8857,8 @@ void ScribusMainWindow::editInlineStart(int id)
 		storedViewXCoor = view->contentsX();
 		storedViewYCoor = view->contentsY();
 		storedViewScale = view->scale();
+		doc->stored_minCanvasCoordinate = doc->minCanvasCoordinate;
+		doc->stored_maxCanvasCoordinate = doc->maxCanvasCoordinate;
 		view->showInlinePage(id);
 		scrActions["pageInsert"]->setEnabled(false);
 		scrActions["pageImport"]->setEnabled(false);
@@ -8898,6 +8905,9 @@ void ScribusMainWindow::editInlineStart(int id)
 
 void ScribusMainWindow::editInlineEnd()
 {
+	doc->minCanvasCoordinate = doc->stored_minCanvasCoordinate;
+	doc->maxCanvasCoordinate = doc->stored_maxCanvasCoordinate;
+	view->setScale(storedViewScale);
 	view->hideInlinePage();
 	if (m_WasAutoSave)
 	{
@@ -8980,6 +8990,8 @@ void ScribusMainWindow::manageMasterPages(QString temp)
 	storedViewXCoor = view->contentsX();
 	storedViewYCoor = view->contentsY();
 	storedViewScale = view->scale();
+	doc->stored_minCanvasCoordinate = doc->minCanvasCoordinate;
+	doc->stored_maxCanvasCoordinate = doc->maxCanvasCoordinate;
 
 	pagePalette->startMasterPageMode(temp);
 	if (!pagePalette->isVisible())
@@ -9022,7 +9034,10 @@ void ScribusMainWindow::manageMasterPages(QString temp)
 
 void ScribusMainWindow::manageMasterPagesEnd()
 {
+	doc->setLoading(true);
 	view->setScale(storedViewScale);
+	doc->minCanvasCoordinate = doc->stored_minCanvasCoordinate;
+	doc->maxCanvasCoordinate = doc->stored_maxCanvasCoordinate;
 	view->hideMasterPage();
 	if (m_WasAutoSave)
 	{
@@ -9074,6 +9089,7 @@ void ScribusMainWindow::manageMasterPagesEnd()
 	doc->setCurrentPage(doc->DocPages.at(storedPageNum));
 	view->reformPages(false);
 	view->setContentsPos(static_cast<int>(storedViewXCoor * storedViewScale), static_cast<int>(storedViewYCoor * storedViewScale));
+	doc->setLoading(false);
 	view->DrawNew();
 }
 

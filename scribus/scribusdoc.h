@@ -1223,6 +1223,8 @@ public: // Public attributes
 	/** \brief Minimum and Maximum Points of Document */
 	FPoint minCanvasCoordinate;
 	FPoint maxCanvasCoordinate;
+	FPoint stored_minCanvasCoordinate;
+	FPoint stored_maxCanvasCoordinate;
 	double rulerXoffset;
 	double rulerYoffset;
 	/** \brief List of Pages */
