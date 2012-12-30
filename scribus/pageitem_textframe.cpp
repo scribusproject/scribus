@@ -1370,14 +1370,10 @@ void PageItem_TextFrame::layout()
 		lineCorr = m_lineWidth / 2.0;
 	
 	// TODO: refactor this into PageItem
-	MarginStruct extra;
-	extra.Top = TExtra;
-	extra.Left = Extra;
-	extra.Right = RExtra;
-	extra.Bottom = BExtra;
+	MarginStruct savedTextDistanceMargins(m_textDistanceMargins);
 
 	LineControl current;
-	current.init(Width, Height, extra, lineCorr);
+	current.init(Width, Height, m_textDistanceMargins, lineCorr);
 	current.initColumns(columnWidth(), ColGap);
 	current.hyphenCount = 0;
 
@@ -1452,7 +1448,7 @@ void PageItem_TextFrame::layout()
 		}
 		
 		current.nextColumn();
-		lastLineY = extra.Top;
+		lastLineY = m_textDistanceMargins.Top;
 
 		//automatic line spacing factor (calculated once)
 		double autoLS = static_cast<double>(m_Doc->typographicPrefs().autoLineSpacing) / 100.0;
@@ -1473,13 +1469,13 @@ void PageItem_TextFrame::layout()
 			else 
 				chs = hl->fontSize();
 			desc = -hl->font().descent(chs / 10.0);
-			current.yPos = extra.Top + lineCorr;
+			current.yPos = m_textDistanceMargins.Top + lineCorr;
 //			qDebug() << QString("first line at y=%1").arg(current.yPos);
 		}
 		else // empty itemText:
 		{
 			desc = -itemText.defaultStyle().charStyle().font().descent(itemText.defaultStyle().charStyle().fontSize() / 10.0);
-			current.yPos = itemText.defaultStyle().lineSpacing() + extra.Top + lineCorr - desc;
+			current.yPos = itemText.defaultStyle().lineSpacing() + m_textDistanceMargins.Top + lineCorr - desc;
 		}
 		current.startLine(firstInFrame());
 
@@ -1681,7 +1677,7 @@ void PageItem_TextFrame::layout()
 				}
 				current.breakIndex = -1;
 				if (current.startOfCol && !current.afterOverflow && current.recalculateY)
-					current.yPos = qMax(current.yPos, extra.Top);
+					current.yPos = qMax(current.yPos, m_textDistanceMargins.Top);
 				// more about par gap and dropcaps
 				if ((a > firstInFrame() && itemText.text(a-1) == SpecialChars::PARSEP) || (a == 0 && BackBox == 0 && current.startOfCol))
 				{
@@ -1936,7 +1932,7 @@ void PageItem_TextFrame::layout()
 					//if top of column Y position depends on first line offset
 					if (current.startOfCol)
 					{
-						lastLineY = qMax(lastLineY, extra.Top + lineCorr);
+						lastLineY = qMax(lastLineY, m_textDistanceMargins.Top + lineCorr);
 						//fix for proper rendering first empty line (only with PARSEP)
 						if (chstr[0] == SpecialChars::PARSEP)
 							current.yPos += style.lineSpacing();
@@ -2839,7 +2835,7 @@ void PageItem_TextFrame::layout()
 						current.nextColumn();
 						current.mustLineEnd = current.colRight;
 						current.addLeftIndent = true;
-						lastLineY = extra.Top;
+						lastLineY = m_textDistanceMargins.Top;
 						current.rowDesc = 0;
 						current.recalculateY = true;
 					}
@@ -3116,10 +3112,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRectF cullingArea)
 			p->fillPath();
 		}
 	}
-	double S_TExtra = TExtra;
-	double S_Extra = Extra;
-	double S_RExtra = RExtra;
-	double S_BExtra = BExtra;
+	MarginStruct savedTextDistanceMargins(m_textDistanceMargins);
 	if (isAnnotation() && !((m_Doc->appMode == modeEdit) && (m_Doc->m_Selection->findItem(this) != -1)) && (((annotation().Type() > 1) && (annotation().Type() < 11)) || (annotation().Type() > 12)))
 	{
 		QColor fontColor;
@@ -3241,10 +3234,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRectF cullingArea)
 		else if (annotation().Type() == Annotation::Textfield)
 		{
 			int wdt = annotation().Bwid();
-			TExtra = wdt;
-			Extra = wdt;
-			RExtra = wdt;
-			BExtra = wdt;
+			m_textDistanceMargins.set(wdt, wdt, wdt, wdt);
 			invalid = true;
 			layout();
 		}
@@ -3732,10 +3722,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRectF cullingArea)
 	//	}
 		//	pf2.end();
 	}
-	TExtra = S_TExtra;
-	Extra = S_Extra;
-	RExtra = S_RExtra;
-	BExtra = S_BExtra;
+	m_textDistanceMargins=savedTextDistanceMargins;
 	p->restore();//RE1
 }
 
@@ -5003,8 +4990,8 @@ double PageItem_TextFrame::columnWidth()
 		lineCorr = m_lineWidth / 2.0;
 	else
 		lineCorr = 0;
-	return (Width - (ColGap * (Cols - 1)) - Extra - RExtra - 2 * lineCorr) / Cols;
-//	return (Width - (ColGap * (Cols - 1)) - Extra - RExtra - lineCorr) / Cols;
+	return (Width - (ColGap * (Cols - 1)) - m_textDistanceMargins.Left - m_textDistanceMargins.Right - 2 * lineCorr) / Cols;
+//	return (Width - (ColGap * (Cols - 1)) - m_textDistanceMargins.Left - m_textDistanceMargins.Right - lineCorr) / Cols;
 }
 
 /*
@@ -5052,13 +5039,13 @@ void PageItem_TextFrame::drawColumnBorders(ScPainter *p)
 	double lineCorr=0;
 	if (lineColor() != CommonStrings::None)
 		lineCorr = m_lineWidth / 2.0;
-	if (TExtra + lineCorr!=0.0)
-		p->drawSharpLine(FPoint(0, TExtra + lineCorr), FPoint(Width, TExtra + lineCorr));
-	if (BExtra + lineCorr!=0.0)
-		p->drawSharpLine(FPoint(0, Height - BExtra - lineCorr), FPoint(Width, Height - BExtra - lineCorr));
+	if (m_textDistanceMargins.Top + lineCorr!=0.0)
+		p->drawSharpLine(FPoint(0, m_textDistanceMargins.Top + lineCorr), FPoint(Width, m_textDistanceMargins.Top + lineCorr));
+	if (m_textDistanceMargins.Bottom + lineCorr!=0.0)
+		p->drawSharpLine(FPoint(0, Height - m_textDistanceMargins.Bottom - lineCorr), FPoint(Width, Height - m_textDistanceMargins.Bottom - lineCorr));
 	while(curCol < Cols)
 	{
-		colLeft=(colWidth + ColGap) * curCol + Extra + lineCorr;
+		colLeft=(colWidth + ColGap) * curCol + m_textDistanceMargins.Left + lineCorr;
 		if (colLeft != 0.0)
 			p->drawSharpLine(FPoint(colLeft, 0), FPoint(colLeft, 0+Height));
 		if (colLeft + colWidth != Width)
@@ -5961,7 +5948,7 @@ void PageItem_TextFrame::setTextFrameHeight()
 	//ugly hack increasing min frame`s haeight against strange glyph painting if it is too close of bottom
 	double hackValue = 0.5;
 
-	setHeight(ceil(maxY) + BExtra + hackValue);
+	setHeight(ceil(maxY) + m_textDistanceMargins.Bottom + hackValue);
 	updateClip();
 	invalid = true;
 	m_Doc->changed();

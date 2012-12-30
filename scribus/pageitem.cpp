@@ -276,10 +276,7 @@ PageItem::PageItem(const PageItem & other)
 	m_endArrowIndex(other.m_endArrowIndex),
 	m_startArrowScale(other.m_startArrowScale),
 	m_endArrowScale(other.m_endArrowScale),
-	Extra(other.Extra),
-	TExtra(other.TExtra),
-	BExtra(other.BExtra),
-	RExtra(other.RExtra),
+	m_textDistanceMargins(other.m_textDistanceMargins),
 	firstLineOffsetP(other.firstLineOffsetP),
 	RadRect(other.RadRect),
 	oldXpos(other.oldXpos),
@@ -480,10 +477,7 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	FrameType = 0;
 	CurX = 0;
 	CurY = 0;
-	Extra = m_Doc->itemToolPrefs().textDistances.Left;
-	TExtra = m_Doc->itemToolPrefs().textDistances.Top;
-	BExtra = m_Doc->itemToolPrefs().textDistances.Bottom;
-	RExtra = m_Doc->itemToolPrefs().textDistances.Right;
+	m_textDistanceMargins=m_Doc->itemToolPrefs().textDistances;
 	firstChar = 0;
 	MaxChars = 0;
 	m_sampleItem = false;
@@ -1469,65 +1463,65 @@ void PageItem::currentTextProps(ParagraphStyle& parStyle) const
 
 void PageItem::setTextToFrameDistLeft(double newLeft)
 {
-	if(Extra==newLeft)
+	if(m_textDistanceMargins.Left==newLeft)
 		return;
 	if (UndoManager::undoEnabled())
 	{
 		SimpleState *ss = new SimpleState(Um::TextFrameDist, "", Um::ITextFrame);
 		ss->set("LEFT_TEXTFRAMEDIST", "left_textframedist");
-		ss->set("OLD_DIST",Extra);
+		ss->set("OLD_DIST",m_textDistanceMargins.Left);
 		ss->set("NEW_DIST",newLeft);
 		undoManager->action(this, ss);
 	}
-	Extra=newLeft;
+	m_textDistanceMargins.Left=newLeft;
 	//emit textToFrameDistances(Extra, TExtra, BExtra, RExtra);
 }
 
 void PageItem::setTextToFrameDistRight(double newRight)
 {
-	if(RExtra==newRight)
+	if(m_textDistanceMargins.Right==newRight)
 		return;
 	if (UndoManager::undoEnabled())
 	{
 		SimpleState *ss = new SimpleState(Um::TextFrameDist, "", Um::ITextFrame);
 		ss->set("RIGHT_TEXTFRAMEDIST", "right_textframedist");
-		ss->set("OLD_DIST",RExtra);
+		ss->set("OLD_DIST",m_textDistanceMargins.Right);
 		ss->set("NEW_DIST",newRight);
 		undoManager->action(this, ss);
 	}
-	RExtra=newRight;
+	m_textDistanceMargins.Right=newRight;
 	//emit textToFrameDistances(Extra, TExtra, BExtra, RExtra);
 }
 
 void PageItem::setTextToFrameDistTop(double newTop)
 {
-	if(TExtra==newTop)
+	if(m_textDistanceMargins.Top==newTop)
 		return;
 	if (UndoManager::undoEnabled())
 	{
 		SimpleState *ss = new SimpleState(Um::TextFrameDist, "", Um::ITextFrame);
 		ss->set("TOP_TEXTFRAMEDIST", "top_textframedist");
-		ss->set("OLD_DIST",TExtra);
+		ss->set("OLD_DIST",m_textDistanceMargins.Top);
 		ss->set("NEW_DIST",newTop);
 		undoManager->action(this, ss);
 	}
-	TExtra=newTop;
+	m_textDistanceMargins.Top=newTop;
 	//emit textToFrameDistances(Extra, TExtra, BExtra, RExtra);
 }
 
 void PageItem::setTextToFrameDistBottom(double newBottom)
 {
-	if(BExtra==newBottom)
+	if(m_textDistanceMargins.Bottom==newBottom)
 		return;
 	if (UndoManager::undoEnabled())
 	{
 		SimpleState *ss = new SimpleState(Um::TextFrameDist, "", Um::ITextFrame);
 		ss->set("BOTTOM_TEXTFRAMEDIST", "bottom_textframedist");
-		ss->set("OLD_DIST",BExtra);
+		ss->set("OLD_DIST",m_textDistanceMargins.Bottom);
 		ss->set("NEW_DIST",newBottom);
 		undoManager->action(this, ss);
 	}
-	BExtra=newBottom;
+	m_textDistanceMargins.Bottom=newBottom;
 	//emit textToFrameDistances(Extra, TExtra, BExtra, RExtra);
 }
 
@@ -6272,36 +6266,36 @@ void PageItem::restoreColumnsGap(SimpleState *ss, bool isUndo)
 void PageItem::restoreLeftTextFrameDist(SimpleState *ss, bool isUndo)
 {
 	if (isUndo)
-		Extra = ss->getInt("OLD_DIST");
+		m_textDistanceMargins.Left = ss->getInt("OLD_DIST");
 	else
-		Extra = ss->getInt("NEW_DIST");
+		m_textDistanceMargins.Left = ss->getInt("NEW_DIST");
 	update();
 }
 
 void PageItem::restoreRightTextFrameDist(SimpleState *ss, bool isUndo)
 {
 	if (isUndo)
-		RExtra = ss->getInt("OLD_DIST");
+		m_textDistanceMargins.Right = ss->getInt("OLD_DIST");
 	else
-		RExtra = ss->getInt("NEW_DIST");
+		m_textDistanceMargins.Right = ss->getInt("NEW_DIST");
 	update();
 }
 
 void PageItem::restoreTopTextFrameDist(SimpleState *ss, bool isUndo)
 {
 	if (isUndo)
-		TExtra = ss->getInt("OLD_DIST");
+		m_textDistanceMargins.Top = ss->getInt("OLD_DIST");
 	else
-		TExtra = ss->getInt("NEW_DIST");
+		m_textDistanceMargins.Top = ss->getInt("NEW_DIST");
 	update();
 }
 
 void PageItem::restoreBottomTextFrameDist(SimpleState *ss, bool isUndo)
 {
 	if (isUndo)
-		BExtra = ss->getInt("OLD_DIST");
+		m_textDistanceMargins.Bottom = ss->getInt("OLD_DIST");
 	else
-		BExtra = ss->getInt("NEW_DIST");
+		m_textDistanceMargins.Bottom = ss->getInt("NEW_DIST");
 	update();
 }
 

@@ -43,6 +43,7 @@ for which a new license (GPL+exception) is in place.
 #include "observable.h"
 #include "pagestructs.h"
 #include "scimage.h"
+#include "margins.h"
 #include "sctextstruct.h"
 #include "text/nlsconfig.h"
 #include "text/storytext.h"
@@ -428,6 +429,11 @@ public:
 	double ColGap;
 	double gridOffset_;
 	double gridValue_;
+	int m_startArrowIndex;
+	int m_endArrowIndex;
+	int m_startArrowScale;
+	int m_endArrowScale;
+
 
 	/** Linestyle */
 	Qt::PenStyle PLineArt;
@@ -559,7 +565,9 @@ protected:
 	uint firstChar;
 	uint MaxChars;
 	bool m_sampleItem; //Used to not draw the frame for sample items
-public:
+	/** Left, Top, Bottom, Right distances of text from the frame */
+	MarginStruct m_textDistanceMargins;
+	public:
 	void setSampleItem(bool b) {m_sampleItem=b;}
 	bool inPdfArticle;
 	bool isRaster;
@@ -828,10 +836,10 @@ public:
 	void makeImageExternal(QString path);
 	
 	//Text Data - Move to PageItem_TextFrame at some point? --- no, to FrameStyle, av
-	double textToFrameDistLeft() const { return Extra; }
-	double textToFrameDistRight() const { return RExtra; }
-	double textToFrameDistTop() const { return TExtra; }
-	double textToFrameDistBottom() const { return BExtra; }
+	double textToFrameDistLeft() const { return m_textDistanceMargins.Left; }
+	double textToFrameDistRight() const { return m_textDistanceMargins.Right; }
+	double textToFrameDistTop() const { return m_textDistanceMargins.Top; }
+	double textToFrameDistBottom() const { return m_textDistanceMargins.Bottom; }
 	int columns() const { return Cols; }
 	double columnGap() const { return ColGap; }
 	double gridOffset() const;
@@ -1645,18 +1653,7 @@ protected:
 	/** If the frame is reversed */
 	bool Reverse;
 
-	int m_startArrowIndex;
-	int m_endArrowIndex;
-	int m_startArrowScale;
-	int m_endArrowScale;
-
 protected:
-  	/** Left, Top, Bottom, Right distances of text from the frame */
-	double Extra;
-	double TExtra;
-	double BExtra;
-	double RExtra;
-	
 	FirstLineOffsetPolicy firstLineOffsetP;
 	
 public:
