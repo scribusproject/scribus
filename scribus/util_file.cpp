@@ -216,8 +216,7 @@ bool fileInPath(const QString& filename)
 		}
 	}
 	QStringList splitpath;
-	//TODO: Check this again! OS2? MacOS?
-	#ifdef _WIN32
+	#if defined(Q_OS_WIN32) || defined (Q_OS_OS2)
 		splitpath = path.split(';', QString::SkipEmptyParts);
 	#else
 		splitpath = path.split(':', QString::SkipEmptyParts);
