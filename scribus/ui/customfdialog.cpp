@@ -185,7 +185,8 @@ void FDialogPreview::GenPreview(QString name)
 			p.fillRect(0, h-44, w, 44, QColor(255, 255, 255));
 			p.drawImage((w - im2.width()) / 2, (h - 44 - im2.height()) / 2, im2);
 			p.drawText(2, h-29, tr("Size:")+" "+tmp.setNum(ix)+" x "+tmp2.setNum(iy));
-			p.drawText(2, h-17, tr("Resolution:")+" "+tmp.setNum(xres)+" x "+tmp2.setNum(yres)+" "+ tr("DPI"));
+			if (!(extensionIndicatesPDF(ext) || extensionIndicatesEPSorPS(ext)))
+				p.drawText(2, h-17, tr("Resolution:")+" "+tmp.setNum(xres)+" x "+tmp2.setNum(yres)+" "+ tr("DPI"));
 			QString cSpace;
 			if ((extensionIndicatesPDF(ext) || extensionIndicatesEPSorPS(ext)) && (im.imgInfo.type != ImageType7))
 				cSpace = tr("Unknown");
