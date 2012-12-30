@@ -27,10 +27,9 @@ Measurements::Measurements( QWidget* parent ) : ScrPaletteBase( parent, "Measure
 	int maxUindex = unitGetMaxIndex() - 2;
 	textWidth = fontMetrics().width("mmm")+12;
 	for (int i = 0; i <= maxUindex; ++i)
-	{
 		unitSwitch->addItem(unitGetStrFromIndex(i));
-		unitSwitch->setMinimumSize(textWidth, 12);
-	}
+	int minHeight = unitSwitch->minimumSizeHint().height();
+	unitSwitch->setMinimumSize(textWidth, minHeight);
 	resize(minimumSizeHint());
 	connect(unitSwitch, SIGNAL(currentIndexChanged(int)), this, SLOT(unitChanged()));
 }
