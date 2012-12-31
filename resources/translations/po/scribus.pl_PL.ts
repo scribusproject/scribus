@@ -10785,7 +10785,7 @@ See the Edit Colors section of the documentation for more details.</source>
     <message>
         <location filename="../../../scribus/commonstrings.cpp" line="291"/>
         <source>Single Page</source>
-        <translation>Pojedyńcza strona</translation>
+        <translation>Pojedyncza strona</translation>
     </message>
     <message>
         <location filename="../../../scribus/commonstrings.cpp" line="292"/>
@@ -23922,7 +23922,7 @@ UCR zmniejsza możliwość wystąpienia przesycenia  tuszami CMY.</translation>
     <name>PrefsManager</name>
     <message>
         <source>Single Page</source>
-        <translation type="obsolete">Pojedyńcza strona</translation>
+        <translation type="obsolete">Pojedyncza strona</translation>
     </message>
     <message>
         <source>Double sided</source>
@@ -38947,7 +38947,7 @@ ponieważ redukuje to wielkość pliku PDF.</translation>
     <message>
         <location filename="../../../scribus/tabpdfoptions.cpp" line="563"/>
         <source>Single Page</source>
-        <translation>Pojedyńcza strona</translation>
+        <translation>Pojedyncza strona</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabpdfoptions.cpp" line="566"/>
