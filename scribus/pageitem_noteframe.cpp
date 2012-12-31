@@ -101,7 +101,7 @@ PageItem_NoteFrame::PageItem_NoteFrame(PageItem_TextFrame* inFrame, NotesStyle *
 		frameHeight = newStyle.charStyle().fontSize()/10;
 	Height = oldHeight = frameHeight;
 	oldWidth = Width;
-	oldRot = Rot;
+	oldRot = m_rotation;
 	oldXpos = Xpos;
 	Ypos = oldYpos =m_masterFrame->yPos() + m_masterFrame->height();
 

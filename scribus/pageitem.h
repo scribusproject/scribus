@@ -116,13 +116,13 @@ class SCRIBUS_API PageItem : public QObject, public UndoObject, public SaxIO, pu
 	Q_PROPERTY(double yPos READ yPos WRITE setYPos DESIGNABLE false)
 	Q_PROPERTY(double width READ width WRITE setWidth DESIGNABLE false)
 	Q_PROPERTY(double height READ height WRITE setHeight DESIGNABLE false)
-	Q_PROPERTY(double rotation READ rotation WRITE setRotation DESIGNABLE false)
-	Q_PROPERTY(double imageXScale READ imageXScale WRITE setImageXScale DESIGNABLE false)
-	Q_PROPERTY(double imageYScale READ imageYScale WRITE setImageYScale DESIGNABLE false)
+	Q_PROPERTY(double m_rotation READ rotation WRITE setRotation DESIGNABLE false)
+	Q_PROPERTY(double m_imageXScale READ imageXScale WRITE setImageXScale DESIGNABLE false)
+	Q_PROPERTY(double m_imageYScale READ imageYScale WRITE setImageYScale DESIGNABLE false)
 	Q_PROPERTY(double imageXOffset READ imageXOffset WRITE setImageXOffset DESIGNABLE false)
 	Q_PROPERTY(double imageYOffset READ imageYOffset WRITE setImageYOffset DESIGNABLE false)
-	Q_PROPERTY(bool reversed READ reversed WRITE setReversed DESIGNABLE false)
-	Q_PROPERTY(double cornerRadius READ cornerRadius WRITE setCornerRadius DESIGNABLE false)
+	Q_PROPERTY(bool m_isReversed READ reversed WRITE setReversed DESIGNABLE false)
+	Q_PROPERTY(double m_roundedCorderRadius READ cornerRadius WRITE setCornerRadius DESIGNABLE false)
 	Q_PROPERTY(double textToFrameDistLeft READ textToFrameDistLeft WRITE setTextToFrameDistLeft DESIGNABLE false)
 	Q_PROPERTY(double textToFrameDistRight READ textToFrameDistRight WRITE setTextToFrameDistRight DESIGNABLE false)
 	Q_PROPERTY(double textToFrameDistTop READ textToFrameDistTop WRITE setTextToFrameDistTop DESIGNABLE false)
@@ -644,16 +644,16 @@ protected:
 	void setWidthHeight(const double, const double);
 	void resizeBy(const double, const double);
 	//Rotation
-	double rotation() const { return Rot; }
+	double rotation() const { return m_rotation; }
 	void setRotation(const double, bool drawingOnly);
 	void setRotation(const double r) { setRotation(r, false); }  // needed for deSaXe
 	void rotateBy(const double);
 	//Selection
-	bool isSelected() const { return Select; }
+	bool isSelected() const { return m_isSelected; }
 	void setSelected(const bool);
 	//Image Data
-	double imageXScale() const { return LocalScX; }
-	double imageYScale() const { return LocalScY; }
+	double imageXScale() const { return m_imageXScale; }
+	double imageYScale() const { return m_imageYScale; }
 	void setImageXScale(const double);
 	void setImageYScale(const double);
 	void setImageXYScale(const double, const double);
@@ -663,13 +663,13 @@ protected:
 	void setImageYOffset(const double);
 	void moveImageXYOffsetBy(const double, const double);
 	void setImageXYOffset(const double, const double);
-	double imageRotation() const { return LocalRot; }
+	double imageRotation() const { return m_imageRotation; }
 	void setImageRotation(const double newRotation);
 	//Reverse
-	bool reversed() const { return Reverse; }
+	bool reversed() const { return m_isReversed; }
 	void setReversed(bool);
 	//Rounded Corners
-	double cornerRadius() const { return RadRect; }
+	double cornerRadius() const { return m_roundedCorderRadius; }
 	void setCornerRadius(double);
 	// PDF bookmark
 	bool isPDFBookmark() const { return isBookmark; }
@@ -1637,28 +1637,28 @@ protected:
 	/** Height of the item */
 	double Height;
 	/** Rotation of the item */
-	double Rot;
+	double m_rotation;
 	/** Element selected? */
-	bool Select;
+	bool m_isSelected;
 	/** Scaling X Factor for images */
-	double LocalScX;
+	double m_imageXScale;
 	/** Scaling Y Factor for images*/
-	double LocalScY;
+	double m_imageYScale;
 	/** Image X Offset to frame */
 	double LocalX;
 	/** Image Y Offset to frame */
 	double LocalY;
 	/** Image rotation in frame */
-	double LocalRot;
+	double m_imageRotation;
 	/** If the frame is reversed */
-	bool Reverse;
+	bool m_isReversed;
 
 protected:
 	FirstLineOffsetPolicy firstLineOffsetP;
 	
 public:
 	/** Radius of rounded corners */
-	double RadRect;
+	double m_roundedCorderRadius;
 	
 	//Undo Data
 	/** @brief Stores the old X-position for undo action. Is used to detect move actions.*/

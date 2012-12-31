@@ -191,7 +191,7 @@ QRegion PageItem_TextFrame::calcAvailableRegion()
 			canvasToLocalMat.translate(gXpos, gYpos);
 		else
 			canvasToLocalMat.translate(Xpos, Ypos);
-		canvasToLocalMat.rotate(Rot);
+		canvasToLocalMat.rotate(m_rotation);
 		canvasToLocalMat = canvasToLocalMat.inverted(&invertible);
 
 		if (!invertible) return QRegion();
@@ -3098,7 +3098,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRectF cullingArea)
 		pf2.translate(Xpos, Ypos);
 	}
 	
-	pf2.rotate(Rot);
+	pf2.rotate(m_rotation);
 	if (!m_Doc->layerOutline(LayerID))
 	{
 		if ((fillColor() != CommonStrings::None) || (GrType != 0))
@@ -3220,9 +3220,9 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRectF cullingArea)
 				p->save();//SA2
 				p->setupPolygon(&PoLine);
 				p->setClipPath();
-				p->scale(LocalScX, LocalScY);
-				p->translate(LocalX*LocalScX, LocalY*LocalScY);
-				p->rotate(LocalRot);
+				p->scale(m_imageXScale, m_imageYScale);
+				p->translate(LocalX*m_imageXScale, LocalY*m_imageYScale);
+				p->rotate(m_imageRotation);
 				if (pixm.width() > 0 && pixm.height() > 0)
 					p->drawImage(pixm.qImagePtr());
 				p->restore();//RE2
@@ -3581,7 +3581,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRectF cullingArea)
 					}
 					if (!m_Doc->RePos)
 					{
-						if (((selecteds && Select) || ((NextBox != 0 || BackBox != 0) && selecteds))
+						if (((selecteds && m_isSelected) || ((NextBox != 0 || BackBox != 0) && selecteds))
 							&& (m_Doc->appMode == modeEdit || m_Doc->appMode == modeEditTable))
 						{
 							double xcoZli = selX + hls->glyph.xoffset;
@@ -3668,7 +3668,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRectF cullingArea)
 					double fontSize = charStyle.fontSize() / 10.0;
 					desc = - font.descent(fontSize);
 					asce = font.ascent(fontSize);
-					if (((selected && Select) || ((NextBox != 0 || BackBox != 0) && selected)) && (m_Doc->appMode == modeEdit || m_Doc->appMode == modeEditTable))
+					if (((selected && m_isSelected) || ((NextBox != 0 || BackBox != 0) && selected)) && (m_Doc->appMode == modeEdit || m_Doc->appMode == modeEditTable))
 					{
 						// set text color to highlight if its selected
 						p->setBrush(qApp->palette().color(QPalette::Active, QPalette::HighlightedText));
@@ -3859,7 +3859,7 @@ void PageItem_TextFrame::DrawObj_Decoration(ScPainter *p)
 	p->save();
 	if (!isEmbedded)
 		p->translate(Xpos, Ypos);
-	p->rotate(Rot);
+	p->rotate(m_rotation);
 	if ((!isEmbedded) && (!m_Doc->RePos))
 	{
 		double scpInv = 0.0;

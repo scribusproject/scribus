@@ -155,11 +155,11 @@ void PageItem_ImageFrame::DrawObj_Item(ScPainter *p, QRectF /*e*/)
 				p->setupPolygon(&imageClip);
 				p->setClipPath();
 			}
-			p->translate(LocalX*LocalScX, LocalY*LocalScY);
-			p->rotate(LocalRot);
-			double mscalex = 1.0 / LocalScX;
-			double mscaley = 1.0 / LocalScY;
-			p->scale(LocalScX, LocalScY);
+			p->translate(LocalX*m_imageXScale, LocalY*m_imageYScale);
+			p->rotate(m_imageRotation);
+			double mscalex = 1.0 / m_imageXScale;
+			double mscaley = 1.0 / m_imageYScale;
+			p->scale(m_imageXScale, m_imageYScale);
 			if (pixm.imgInfo.lowResType != 0)
 			{
 				p->scale(pixm.imgInfo.lowResScale, pixm.imgInfo.lowResScale);
@@ -232,8 +232,8 @@ void PageItem_ImageFrame::clearContents()
 	Pfile = "";
 	pixm = ScImage();
 
-	LocalScX = 1;
-	LocalScY = 1;
+	m_imageXScale = 1;
+	m_imageYScale = 1;
 	OrigW = 0;
 	OrigH = 0;
 	LocalX = 0;
@@ -316,22 +316,22 @@ void PageItem_ImageFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 		}		
 		if (dX!=0.0)
 		{
-			double newXScale=dX / 100.0 * LocalScX;
+			double newXScale=dX / 100.0 * m_imageXScale;
 			setImageXScale(newXScale);
 			if (!controlDown)
 			{
-				double newYScale=dX / 100.0 * LocalScY;
+				double newYScale=dX / 100.0 * m_imageYScale;
 				setImageYScale(newYScale);
 			}
 		}
 		else
 		if (dY!=0.0)
 		{
-			double newYScale=dY / 100.0 * LocalScY;
+			double newYScale=dY / 100.0 * m_imageYScale;
 			setImageYScale(newYScale);
 			if (!controlDown)
 			{
-				double newXScale=dY / 100.0 * LocalScY;
+				double newXScale=dY / 100.0 * m_imageYScale;
 				setImageXScale(newXScale);
 			}
 		}

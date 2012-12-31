@@ -264,21 +264,21 @@ PageItem::PageItem(const PageItem & other)
 	Ypos(other.Ypos),
 	Width(other.Width),
 	Height(other.Height),
-	Rot(other.Rot),
-	Select(other.Select),
-	LocalScX(other.LocalScX),
-	LocalScY(other.LocalScY),
+	m_rotation(other.m_rotation),
+	m_isSelected(other.m_isSelected),
+	m_imageXScale(other.m_imageXScale),
+	m_imageYScale(other.m_imageYScale),
 	LocalX(other.LocalX),
 	LocalY(other.LocalY),
-	LocalRot(other.LocalRot),
-	Reverse(other.Reverse),
+	m_imageRotation(other.m_imageRotation),
+	m_isReversed(other.m_isReversed),
 	m_startArrowIndex(other.m_startArrowIndex),
 	m_endArrowIndex(other.m_endArrowIndex),
 	m_startArrowScale(other.m_startArrowScale),
 	m_endArrowScale(other.m_endArrowScale),
 	m_textDistanceMargins(other.m_textDistanceMargins),
 	firstLineOffsetP(other.firstLineOffsetP),
-	RadRect(other.RadRect),
+	m_roundedCorderRadius(other.m_roundedCorderRadius),
 	oldXpos(other.oldXpos),
 	oldYpos(other.oldYpos),
 	oldWidth(other.oldWidth),
@@ -404,7 +404,7 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	BoundingW = w;
 	BoundingH = h;
 	m_ItemType = newType;
-	oldRot = Rot = 0;
+	oldRot = m_rotation = 0;
 	fillColorVal = fill;
 	lineColorVal = m_ItemType == PageItem::TextFrame ? fill : outline;
 	gWidth = gHeight = 0;
@@ -472,7 +472,7 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	PLineArt = Qt::PenStyle(m_Doc->itemToolPrefs().shapeLineStyle);
 	PLineEnd = Qt::FlatCap;
 	PLineJoin = Qt::MiterJoin;
-	Select = false;
+	m_isSelected = false;
 	ClipEdited = false;
 	FrameType = 0;
 	CurX = 0;
@@ -486,16 +486,16 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	pixm.imgInfo.lowResType = m_Doc->itemToolPrefs().imageLowResType;
 	Pfile2 = "";
 	Pfile3 = "";
-	oldLocalScX = LocalScX = 1;
-	oldLocalScY = LocalScY = 1;
+	oldLocalScX = m_imageXScale = 1;
+	oldLocalScY = m_imageYScale = 1;
 	OrigW = 0;
 	OrigH = 0;
 	oldLocalX = LocalX = 0;
 	oldLocalY = LocalY = 0;
-	LocalRot = 0;
+	m_imageRotation = 0;
 	BBoxX = 0;
 	BBoxH = 0;
-	RadRect = 0;
+	m_roundedCorderRadius = 0;
 	switch (m_ItemType)
 	{
 		case Polygon:
@@ -605,7 +605,7 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	LayerID = m_Doc->activeLayer();
 	ScaleType = true;
 	AspectRatio = true;
-	Reverse = false;
+	m_isReversed = false;
 	NamedLStyle = "";
 	DashValues.clear();
 	DashOffset = 0;
@@ -966,9 +966,9 @@ void PageItem::resizeBy(const double dH, const double dW)
 
 void PageItem::setRotation(const double newRotation, bool drawingOnly)
 {
-	double dR = newRotation - Rot;
-	double oldRot = Rot;
-	Rot = newRotation;
+	double dR = newRotation - m_rotation;
+	double oldRot = m_rotation;
+	m_rotation = newRotation;
 	if (drawingOnly || m_Doc->isLoading())
 		return;
 	rotateWelded(dR, oldRot);
@@ -979,7 +979,7 @@ void PageItem::rotateBy(const double dR)
 {
 	if (dR==0.0)
 		return;
-	Rot+=dR;
+	m_rotation+=dR;
 	if (m_Doc->isLoading())
 		return;
 	checkChanges();
@@ -987,12 +987,12 @@ void PageItem::rotateBy(const double dR)
 
 void PageItem::setSelected(const bool toSelect)
 {
-	Select=toSelect;
+	m_isSelected=toSelect;
 }
 
 void PageItem::setImageXScale(const double newImageXScale)
 {
-	LocalScX=newImageXScale;
+	m_imageXScale=newImageXScale;
 	if (m_Doc->isLoading())
 		return;
 	checkChanges();
@@ -1000,7 +1000,7 @@ void PageItem::setImageXScale(const double newImageXScale)
 
 void PageItem::setImageYScale(const double newImageYScale)
 {
-	LocalScY=newImageYScale;
+	m_imageYScale=newImageYScale;
 	if (m_Doc->isLoading())
 		return;
 	checkChanges();
@@ -1008,8 +1008,8 @@ void PageItem::setImageYScale(const double newImageYScale)
 
 void PageItem::setImageXYScale(const double newImageXScale, const double newImageYScale)
 {
-	LocalScX=newImageXScale;
-	LocalScY=newImageYScale;
+	m_imageXScale=newImageXScale;
+	m_imageYScale=newImageYScale;
 	if (m_Doc->isLoading())
 		return;
 	checkChanges();
@@ -1055,17 +1055,17 @@ void PageItem::moveImageXYOffsetBy(const double dX, const double dY)
 
 void PageItem::setImageRotation(const double newRotation)
 {
-	if(LocalRot == newRotation)
+	if(m_imageRotation == newRotation)
 		return;
 	if(UndoManager::undoEnabled())
 	{
 		SimpleState *ss = new SimpleState(Um::Rotate,"",Um::IRotate);
 		ss->set("IMAGE_ROTATION","image_rotation");
-		ss->set("OLD_ROT",LocalRot);
+		ss->set("OLD_ROT",m_imageRotation);
 		ss->set("NEW_ROT",newRotation);
 		undoManager->action(this,ss);
 	}
-	LocalRot = newRotation;
+	m_imageRotation = newRotation;
 	if (m_Doc->isLoading())
 		return;
 	checkChanges();
@@ -1073,7 +1073,7 @@ void PageItem::setImageRotation(const double newRotation)
 
 void PageItem::setReversed(bool newReversed)
 {
-	if (Reverse == newReversed)
+	if (m_isReversed == newReversed)
 		return;
 	if (UndoManager::undoEnabled())
 	{
@@ -1081,7 +1081,7 @@ void PageItem::setReversed(bool newReversed)
 		ss->set("REVERSE_TEXT", newReversed);
 		undoManager->action(this, ss);
 	}
-	Reverse = newReversed;
+	m_isReversed = newReversed;
 }
 
 //return frame where is text end
@@ -1578,17 +1578,17 @@ void PageItem::setColumnGap(double gap)
 
 void PageItem::setCornerRadius(double newRadius)
 {
-	if(RadRect==newRadius)
+	if(m_roundedCorderRadius==newRadius)
 		return;
 	if(UndoManager::undoEnabled())
 	{
 		SimpleState *state = new SimpleState(Um::RoundCorner,"",Um::IBorder);
 		state->set("CORNER_RADIUS","corner_radius");
-		state->set("OLD_RADIUS",RadRect);
+		state->set("OLD_RADIUS",m_roundedCorderRadius);
 		state->set("NEW_RADIUS",newRadius);
 		undoManager->action(this,state);
 	}
-	RadRect=newRadius;
+	m_roundedCorderRadius=newRadius;
 	//emit cornerRadius(RadRect);
 }
 
@@ -1627,7 +1627,7 @@ void PageItem::DrawObj_Pre(ScPainter *p)
 	p->save();
 	if (!isEmbedded)
 		p->translate(Xpos, Ypos);
-	p->rotate(Rot);
+	p->rotate(m_rotation);
 	if (m_Doc->layerOutline(LayerID))
 	{
 		p->setPen(m_Doc->layerMarker(LayerID), 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
@@ -1974,7 +1974,7 @@ void PageItem::DrawObj_Decoration(ScPainter *p)
 	p->save();
 	if (!isEmbedded)
 		p->translate(Xpos, Ypos);
-	p->rotate(Rot);
+	p->rotate(m_rotation);
 	if ((!isEmbedded) && (!m_Doc->RePos))
 	{
 		double scpInv = 0;
@@ -2589,7 +2589,7 @@ void PageItem::drawGlyphs(ScPainter *p, const CharStyle& style, GlyphLayout& gly
 			}
 			p->save();
 			p->translate(glyphs.xoffset, glyphs.yoffset - ((style.fontSize() / 10.0) * glyphs.scaleV));
-			if (Reverse)
+			if (m_isReversed)
 			{
 				p->scale(-1, 1);
 				p->translate(-glyphs.xadvance, 0);
@@ -4333,8 +4333,8 @@ void PageItem::setImageScalingMode(bool freeScale, bool keepRatio)
 				//in undo must be offset and scale saved
 				ss->set("OLD_IMAGEXOFFSET", LocalX);
 				ss->set("OLD_IMAGEYOFFSET", LocalY);
-				ss->set("OLD_IMAGEXSCALE", LocalScX);
-				ss->set("OLD_IMAGEYSCALE", LocalScY);
+				ss->set("OLD_IMAGEXSCALE", m_imageXScale);
+				ss->set("OLD_IMAGEYSCALE", m_imageYScale);
 			}
 		}
 		if (keepRatio != AspectRatio)
@@ -4601,7 +4601,7 @@ void PageItem::checkChanges(bool force)
 		spreadChanges = (textFlowMode() != TextFlowDisabled );
 	}
 	// has the item been rotated
-	if (force || ((oldRot != Rot) && (shouldCheck())))
+	if (force || ((oldRot != m_rotation) && (shouldCheck())))
 	{
 		rotateUndoAction();
 		spreadChanges = (textFlowMode() != TextFlowDisabled );
@@ -4616,7 +4616,7 @@ void PageItem::checkChanges(bool force)
 	if (force || ((oldLocalX != LocalX || oldLocalY != LocalY) && shouldCheck()))
 		changeImageOffsetUndoAction();
 	// has the item's image been scaled
-	if (force || ((oldLocalScX != LocalScX || oldLocalScY != LocalScY) && shouldCheck()))
+	if (force || ((oldLocalScX != m_imageXScale || oldLocalScY != m_imageYScale) && shouldCheck()))
 		changeImageScaleUndoAction();
 	
 	if(spreadChanges)
@@ -4695,7 +4695,7 @@ void PageItem::resizeUndoAction()
 		ss->set("NEW_RYPOS", Ypos);
 		}
 		ss->set("OLD_RROT", oldRot);
-		ss->set("NEW_RROT", Rot);
+		ss->set("NEW_RROT", m_rotation);
 		undoManager->action(this, ss);
 	}
 	if (!isNoteFrame() || !asNoteFrame()->isAutoWidth())
@@ -4704,24 +4704,24 @@ void PageItem::resizeUndoAction()
 		oldHeight = Height;
 	if (!isNoteFrame() || !asNoteFrame()->isAutoWelded())
 	{
-	oldXpos = Xpos;
-	oldYpos = Ypos;
+		oldXpos = Xpos;
+		oldYpos = Ypos;
 	}
 	oldOwnPage = OwnPage;
-	oldRot = Rot;
+	oldRot = m_rotation;
 }
 
 void PageItem::rotateUndoAction()
 {
-	if (oldRot == Rot)
+	if (oldRot == m_rotation)
 		return;
 	if (UndoManager::undoEnabled())
 	{
 		SimpleState *ss = new SimpleState(Um::Rotate,
-                                          QString(Um::FromTo).arg(oldRot).arg(Rot),
+										  QString(Um::FromTo).arg(oldRot).arg(m_rotation),
                                           Um::IRotate);
 		ss->set("OLD_ROT", oldRot);
-		ss->set("NEW_ROT", Rot);
+		ss->set("NEW_ROT", m_rotation);
 		if (!isNoteFrame() || !asNoteFrame()->isAutoWelded())
 		{
 		ss->set("OLD_RXPOS", oldXpos);
@@ -4741,7 +4741,7 @@ void PageItem::rotateUndoAction()
 		}
 		undoManager->action(this, ss);
 	}
-	oldRot = Rot;
+	oldRot = m_rotation;
 	oldXpos = Xpos;
 	oldYpos = Ypos;
 	oldOwnPage = OwnPage;
@@ -4770,21 +4770,21 @@ void PageItem::changeImageOffsetUndoAction()
 
 void PageItem::changeImageScaleUndoAction()
 {
-	if (oldLocalScX == LocalScX && oldLocalScY == LocalScY)
+	if (oldLocalScX == m_imageXScale && oldLocalScY == m_imageYScale)
 		return;
 	if (UndoManager::undoEnabled())
 	{
 		SimpleState *ss = new SimpleState(Um::ImageScale,
-			QString(Um::ImageScaleFromTo).arg(oldLocalScX).arg(oldLocalScY).arg(LocalScX).arg(LocalScY), Um::IMove);
+			QString(Um::ImageScaleFromTo).arg(oldLocalScX).arg(oldLocalScY).arg(m_imageXScale).arg(m_imageYScale), Um::IMove);
 		ss->set("IMAGE_SCALE", "image_scale");
 		ss->set("OLD_IMAGEXSCALE", oldLocalScX);
 		ss->set("OLD_IMAGEYSCALE", oldLocalScY);
-		ss->set("NEW_IMAGEXSCALE", LocalScX);
-		ss->set("NEW_IMAGEYSCALE", LocalScY);
+		ss->set("NEW_IMAGEXSCALE", m_imageXScale);
+		ss->set("NEW_IMAGEYSCALE", m_imageYScale);
 		undoManager->action(this, ss);
 	}
-	oldLocalScX = LocalScX;
-	oldLocalScY = LocalScY;
+	oldLocalScX = m_imageXScale;
+	oldLocalScY = m_imageYScale;
 }
 
 void PageItem::restore(UndoState *state, bool isUndo)
@@ -6225,9 +6225,9 @@ void PageItem::restoreStartArrowScale(SimpleState *is, bool isUndo)
 void PageItem::restoreImageRotation(SimpleState *is, bool isUndo)
 {
 	if (isUndo)
-		LocalRot = is->getInt("OLD_ROT");
+		m_imageRotation = is->getInt("OLD_ROT");
 	else
-		LocalRot = is->getInt("NEW_ROT");
+		m_imageRotation = is->getInt("NEW_ROT");
 }
 
 void PageItem::restorePasteInline(SimpleState *is, bool isUndo)
@@ -6420,9 +6420,9 @@ void PageItem::restoreInsertFrameText(SimpleState *ss, bool isUndo)
 void PageItem::restoreCornerRadius(SimpleState *state, bool isUndo)
 {
 	if (isUndo)
-		RadRect=state->getDouble("OLD_RADIUS");
+		m_roundedCorderRadius=state->getDouble("OLD_RADIUS");
 	else
-		RadRect=state->getDouble("NEW_RADIUS");
+		m_roundedCorderRadius=state->getDouble("NEW_RADIUS");
 	Selection tmpSelection(doc()->m_Selection);
 	doc()->m_Selection->clear();
 	doc()->m_Selection->addItem(this);
@@ -6484,7 +6484,7 @@ void PageItem::restoreResize(SimpleState *state, bool isUndo)
 	oldXpos = Xpos;
 	oldYpos = Ypos;
 	oldOwnPage = OwnPage;
-	oldRot = Rot;
+	oldRot = m_rotation;
 }
 
 void PageItem::restoreRotate(SimpleState *state, bool isUndo)
@@ -6513,7 +6513,7 @@ void PageItem::restoreRotate(SimpleState *state, bool isUndo)
 		m_Doc->MoveItem(x - Xpos, y - Ypos, this, false);
 		m_Doc->SizeItem(w, h, this, false, true, redraw);
 	}
-	oldRot = Rot;
+	oldRot = m_rotation;
 	oldXpos = Xpos;
 	oldYpos = Ypos;
 	oldOwnPage = OwnPage;
@@ -6741,8 +6741,8 @@ void PageItem::restoreImageScaleMode(SimpleState *state, bool isUndo)
 		{
 			state->set("OLD_IMAGEXOFFSET", LocalX);
 			state->set("OLD_IMAGEYOFFSET", LocalY);
-			state->set("OLD_IMAGEXSCALE", LocalScX);
-			state->set("OLD_IMAGEYSCALE", LocalScY);
+			state->set("OLD_IMAGEXSCALE", m_imageXScale);
+			state->set("OLD_IMAGEYSCALE", m_imageYScale);
 		}
 	}
 
@@ -6904,7 +6904,7 @@ void PageItem::restoreReverseText(UndoState *state, bool /*isUndo*/)
 {
 	if (!isTextFrame())
 		return;
-	Reverse = !Reverse;
+	m_isReversed = !m_isReversed;
 }
 
 void PageItem::restorePathOperation(UndoState *state, bool isUndo)
@@ -8311,10 +8311,10 @@ void PageItem::SetOvalFrame()
 
 void PageItem::SetFrameRound()
 {
-	setCornerRadius(qMin(RadRect, qMin(Width,Height)/2));
+	setCornerRadius(qMin(m_roundedCorderRadius, qMin(Width,Height)/2));
 	PoLine.resize(0);
-	double rr = fabs(RadRect);
-	if (RadRect > 0.0)
+	double rr = fabs(m_roundedCorderRadius);
+	if (m_roundedCorderRadius > 0.0)
 	{
 		QPainterPath path;
 		path.addRoundedRect(0, 0, Width, Height, rr, rr);
@@ -8344,14 +8344,14 @@ QTransform PageItem::getGroupTransform() const
 {
 	QTransform result;
 	result.translate(gXpos, gYpos);
-	result.rotate(Rot);
+	result.rotate(m_rotation);
 	return result;
 }
 
 void PageItem::getTransform(QTransform& mat) const
 {
 	mat.translate(Xpos, Ypos);
-	mat.rotate(Rot);
+	mat.rotate(m_rotation);
 }
 
 QTransform PageItem::getTransform() const
@@ -8419,7 +8419,7 @@ QTransform PageItem::getCombinedTransform() const
 	else
 	{
 		result.translate(Xpos, Ypos);
-		result.rotate(Rot);
+		result.rotate(m_rotation);
 	}
 	return result;
 }
@@ -8454,14 +8454,14 @@ void PageItem::getBoundingRect(double *x1, double *y1, double *x2, double *y2) c
 	double miny =  std::numeric_limits<double>::max();
 	double maxx = -std::numeric_limits<double>::max();
 	double maxy = -std::numeric_limits<double>::max();
-	if (Rot != 0)
+	if (m_rotation != 0)
 	{
 		FPointArray pb;
 		pb.resize(0);
 		pb.addPoint(FPoint(Xpos, Ypos));
-		pb.addPoint(FPoint(Width,    0.0, Xpos, Ypos, Rot, 1.0, 1.0));
-		pb.addPoint(FPoint(Width, Height, Xpos, Ypos, Rot, 1.0, 1.0));
-		pb.addPoint(FPoint(  0.0, Height, Xpos, Ypos, Rot, 1.0, 1.0));
+		pb.addPoint(FPoint(Width,    0.0, Xpos, Ypos, m_rotation, 1.0, 1.0));
+		pb.addPoint(FPoint(Width, Height, Xpos, Ypos, m_rotation, 1.0, 1.0));
+		pb.addPoint(FPoint(  0.0, Height, Xpos, Ypos, m_rotation, 1.0, 1.0));
 		for (uint pc = 0; pc < 4; ++pc)
 		{
 			minx = qMin(minx, pb.point(pc).x());
@@ -8487,7 +8487,7 @@ void PageItem::getBoundingRect(double *x1, double *y1, double *x2, double *y2) c
 		QTransform arrowTrans;
 		FPointArray arrow = m_Doc->arrowStyles().at(m_startArrowIndex-1).points.copy();
 		arrowTrans.translate(Xpos, Ypos);
-		arrowTrans.rotate(Rot);
+		arrowTrans.rotate(m_rotation);
 		if (itemType() == Line)
 		{
 			arrowTrans.translate(0, 0);
@@ -8542,7 +8542,7 @@ void PageItem::getBoundingRect(double *x1, double *y1, double *x2, double *y2) c
 		QTransform arrowTrans;
 		FPointArray arrow = m_Doc->arrowStyles().at(m_endArrowIndex-1).points.copy();
 		arrowTrans.translate(Xpos, Ypos);
-		arrowTrans.rotate(Rot);
+		arrowTrans.rotate(m_rotation);
 		if (itemType() == Line)
 		{
 			arrowTrans.translate(Width, 0);
@@ -8628,14 +8628,14 @@ void PageItem::getVisualBoundingRect(double * x1, double * y1, double * x2, doub
 		if ((sl.Color != CommonStrings::None) && (sl.Width != 0))
 			extraSpace = sl.Width / 2.0;
 	}
-	if (Rot != 0)
+	if (m_rotation != 0)
 	{
 		FPointArray pb;
 		pb.resize(0);
-		pb.addPoint(FPoint(-extraSpace,				-extraSpace,			xPos(), yPos(), Rot, 1.0, 1.0));
-		pb.addPoint(FPoint(visualWidth()-extraSpace,	-extraSpace,			xPos(), yPos(), Rot, 1.0, 1.0));
-		pb.addPoint(FPoint(visualWidth()-extraSpace,	visualHeight()-extraSpace,	xPos(), yPos(), Rot, 1.0, 1.0));
-		pb.addPoint(FPoint(-extraSpace, 				visualHeight()-extraSpace,	xPos(), yPos(), Rot, 1.0, 1.0));
+		pb.addPoint(FPoint(-extraSpace,					-extraSpace,				xPos(), yPos(), m_rotation, 1.0, 1.0));
+		pb.addPoint(FPoint(visualWidth()-extraSpace,	-extraSpace,				xPos(), yPos(), m_rotation, 1.0, 1.0));
+		pb.addPoint(FPoint(visualWidth()-extraSpace,	visualHeight()-extraSpace,	xPos(), yPos(), m_rotation, 1.0, 1.0));
+		pb.addPoint(FPoint(-extraSpace, 				visualHeight()-extraSpace,	xPos(), yPos(), m_rotation, 1.0, 1.0));
 		for (uint pc = 0; pc < 4; ++pc)
 		{
 			minx = qMin(minx, pb.point(pc).x());
@@ -8661,7 +8661,7 @@ void PageItem::getVisualBoundingRect(double * x1, double * y1, double * x2, doub
 		QTransform arrowTrans;
 		FPointArray arrow = m_Doc->arrowStyles().at(m_startArrowIndex-1).points.copy();
 		arrowTrans.translate(Xpos, Ypos);
-		arrowTrans.rotate(Rot);
+		arrowTrans.rotate(m_rotation);
 		if (itemType() == Line)
 		{
 			arrowTrans.translate(0, 0);
@@ -8716,7 +8716,7 @@ void PageItem::getVisualBoundingRect(double * x1, double * y1, double * x2, doub
 		QTransform arrowTrans;
 		FPointArray arrow = m_Doc->arrowStyles().at(m_endArrowIndex-1).points.copy();
 		arrowTrans.translate(Xpos, Ypos);
-		arrowTrans.rotate(Rot);
+		arrowTrans.rotate(m_rotation);
 		if (itemType() == Line)
 		{
 			arrowTrans.translate(Width, 0);
@@ -8769,7 +8769,7 @@ void PageItem::getVisualBoundingRect(double * x1, double * y1, double * x2, doub
 	{
 		QTransform clipTrans;
 		clipTrans.translate(Xpos, Ypos);
-		clipTrans.rotate(Rot);
+		clipTrans.rotate(m_rotation);
 		totalRect = totalRect.united(QRectF(clipTrans.mapRect(Clip.boundingRect())));
 	}
 	totalRect.getCoords(x1, y1, x2, y2);
@@ -9031,8 +9031,8 @@ bool PageItem::loadImage(const QString& filename, const bool reload, const int g
 		
 		if (Pfile != filename)
 		{
-			oldLocalScX = LocalScX = 72.0 / xres;
-			oldLocalScY = LocalScY = 72.0 / yres;
+			oldLocalScX = m_imageXScale = 72.0 / xres;
+			oldLocalScY = m_imageYScale = 72.0 / yres;
 			oldLocalX = LocalX = 0;
 			oldLocalY = LocalY = 0;
 			if ((m_Doc->itemToolPrefs().imageUseEmbeddedPath) && (!pixm.imgInfo.clipPath.isEmpty()))
@@ -9044,8 +9044,8 @@ bool PageItem::loadImage(const QString& filename, const bool reload, const int g
 					imageClip = pixm.imgInfo.PDSpathData[clPath].copy();
 					pixm.imgInfo.usedPath = clPath;
 					QTransform cl;
-					cl.translate(LocalX*LocalScX, LocalY*LocalScY);
-					cl.scale(LocalScX, LocalScY);
+					cl.translate(LocalX*m_imageXScale, LocalY*m_imageYScale);
+					cl.scale(m_imageXScale, m_imageYScale);
 					imageClip.map(cl);
 				}
 			}
@@ -9057,8 +9057,8 @@ bool PageItem::loadImage(const QString& filename, const bool reload, const int g
 			imageClip = pixm.imgInfo.PDSpathData[clPath].copy();
 			pixm.imgInfo.usedPath = clPath;
 			QTransform cl;
-			cl.translate(LocalX*LocalScX, LocalY*LocalScY);
-			cl.scale(LocalScX, LocalScY);
+			cl.translate(LocalX*m_imageXScale, LocalY*m_imageYScale);
+			cl.scale(m_imageXScale, m_imageYScale);
 			imageClip.map(cl);
 		}
 		BBoxX = pixm.imgInfo.BBoxX;
@@ -9400,18 +9400,18 @@ void PageItem::AdjustPictScale()
 //	LocalRot = 0;
 	double xs = Width / static_cast<double>(OrigW);
 	double ys = Height / static_cast<double>(OrigH);
-	if (LocalRot != 0.0)
+	if (m_imageRotation != 0.0)
 	{
 		QRectF br = QRectF(0, 0, OrigW, OrigH);
 		QTransform m;
-		m.rotate(LocalRot);
+		m.rotate(m_imageRotation);
 		br = m.mapRect(br);
 		xs = Width / br.width();
 		ys = Height / br.height();
 		QLineF wL = QLineF(0, 0, OrigW, 0);
-		wL.setAngle(-LocalRot);
+		wL.setAngle(-m_imageRotation);
 		QLineF hL = QLineF(0, 0, 0, OrigH);
-		hL.setAngle(-LocalRot-90);
+		hL.setAngle(-m_imageRotation-90);
 		QTransform mm;
 		mm.scale(xs, ys);
 		hL = mm.map(hL);
@@ -9423,13 +9423,13 @@ void PageItem::AdjustPictScale()
 	}
 	if (AspectRatio)
 	{
-		LocalScX = qMin(xs, ys);
-		LocalScY = qMin(xs, ys);
+		m_imageXScale = qMin(xs, ys);
+		m_imageYScale = qMin(xs, ys);
 	}
 	else
 	{
-		LocalScX = xs;
-		LocalScY = ys;
+		m_imageXScale = xs;
+		m_imageYScale = ys;
 	}
 	// Disable broken code. Code must be independent from doc in that function
 	/*switch (m_Doc->RotMode)
@@ -9459,8 +9459,8 @@ void PageItem::AdjustPictScale()
 	{
 		imageClip = pixm.imgInfo.PDSpathData[pixm.imgInfo.usedPath].copy();
 		QTransform cl;
-		cl.translate(LocalX*LocalScX, LocalY*LocalScY);
-		cl.scale(LocalScX, LocalScY);
+		cl.translate(LocalX*m_imageXScale, LocalY*m_imageYScale);
+		cl.scale(m_imageXScale, m_imageYScale);
 		imageClip.map(cl);
 	}
 }
