@@ -4049,7 +4049,7 @@ QStringList ScribusDoc::getPatternDependencyList(QStringList used)
 		for (int c = 0; c < pp.count(); c++)
 		{
 			if (!results.contains(pp[c]))
-				results.prepend(pp[c]);
+				results.append(pp[c]);
 		}
 		if (patternStack.count() == 0)
 			break;

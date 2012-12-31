@@ -2178,7 +2178,7 @@ GBool SlaOutputDev::tilingPatternFill(GfxState *state, Gfx * /*gfx*/, Catalog *c
 
 	gfx->display(str);
 	gElements = m_groupStack.pop();
-	tmpSel->clear();
+	m_doc->m_Selection->clear();
 	double pwidth = 0;
 	double pheight = 0;
 	if (gElements.Items.count() > 0)
@@ -2189,7 +2189,11 @@ GBool SlaOutputDev::tilingPatternFill(GfxState *state, Gfx * /*gfx*/, Catalog *c
 			m_Elements->removeAll(gElements.Items.at(dre));
 		}
 		m_doc->itemSelection_FlipV();
-		ite = m_doc->groupObjectsSelection();
+		PageItem *ite;
+		if (m_doc->m_Selection->count() > 1)
+			ite = m_doc->groupObjectsSelection();
+		else
+			ite = m_doc->m_Selection->itemAt(0);
 		ite->setFillTransparency(1.0 - state->getFillOpacity());
 		ite->setFillBlendmode(getBlendMode(state));
 		m_doc->m_Selection->clear();
@@ -2211,7 +2215,6 @@ GBool SlaOutputDev::tilingPatternFill(GfxState *state, Gfx * /*gfx*/, Catalog *c
 		m_doc->Items->removeAll(ite);
 		id = QString("Pattern_from_PDF_%1").arg(m_doc->docPatterns.count() + 1);
 		m_doc->addPattern(id, pat);
-		tmpSel->clear();
 	}
 	double xCoor = m_doc->currentPage()->xOffset();
 	double yCoor = m_doc->currentPage()->yOffset();
@@ -3410,7 +3413,7 @@ void SlaOutputDev::endType3Char(GfxState *state)
 	double *ctm;
 	ctm = state->getCTM();
 	groupEntry gElements = m_groupStack.pop();
-	tmpSel->clear();
+	m_doc->m_Selection->clear();
 	if (gElements.Items.count() > 0)
 	{
 		for (int dre = 0; dre < gElements.Items.count(); ++dre)
@@ -3419,7 +3422,11 @@ void SlaOutputDev::endType3Char(GfxState *state)
 			m_Elements->removeAll(gElements.Items.at(dre));
 		}
 		m_doc->itemSelection_FlipV();
-		PageItem *ite = m_doc->groupObjectsSelection();
+		PageItem *ite;
+		if (m_doc->m_Selection->count() > 1)
+			ite = m_doc->groupObjectsSelection();
+		else
+			ite = m_doc->m_Selection->itemAt(0);
 		ite->setFillTransparency(1.0 - state->getFillOpacity());
 		ite->setFillBlendmode(getBlendMode(state));
 		m_doc->m_Selection->clear();
