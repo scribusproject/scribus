@@ -2185,14 +2185,13 @@ GBool SlaOutputDev::tilingPatternFill(GfxState *state, Gfx * /*gfx*/, Catalog *c
 	{
 		for (int dre = 0; dre < gElements.Items.count(); ++dre)
 		{
-			tmpSel->addItem(gElements.Items.at(dre), true);
+			m_doc->m_Selection->addItem(gElements.Items.at(dre), true);
 			m_Elements->removeAll(gElements.Items.at(dre));
 		}
-		ite = m_doc->groupObjectsSelection(tmpSel);
+		m_doc->itemSelection_FlipV();
+		ite = m_doc->groupObjectsSelection();
 		ite->setFillTransparency(1.0 - state->getFillOpacity());
 		ite->setFillBlendmode(getBlendMode(state));
-		m_doc->m_Selection->addItem(ite, true);
-		m_doc->itemSelection_FlipV();
 		m_doc->m_Selection->clear();
 		ScPattern pat = ScPattern();
 		pat.setDoc(m_doc);
@@ -3416,14 +3415,13 @@ void SlaOutputDev::endType3Char(GfxState *state)
 	{
 		for (int dre = 0; dre < gElements.Items.count(); ++dre)
 		{
-			tmpSel->addItem(gElements.Items.at(dre), true);
+			m_doc->m_Selection->addItem(gElements.Items.at(dre), true);
 			m_Elements->removeAll(gElements.Items.at(dre));
 		}
-		PageItem *ite = m_doc->groupObjectsSelection(tmpSel);
+		m_doc->itemSelection_FlipV();
+		PageItem *ite = m_doc->groupObjectsSelection();
 		ite->setFillTransparency(1.0 - state->getFillOpacity());
 		ite->setFillBlendmode(getBlendMode(state));
-		m_doc->m_Selection->addItem(ite, true);
-		m_doc->itemSelection_FlipV();
 		m_doc->m_Selection->clear();
 		ScPattern pat = ScPattern();
 		pat.setDoc(m_doc);

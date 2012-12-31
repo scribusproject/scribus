@@ -252,6 +252,7 @@ public:
 	bool layersSetByOCG;
 	double cropOffsetX;
 	double cropOffsetY;
+	int rotate;
 
 private:
 	void getPenState(GfxState *state);

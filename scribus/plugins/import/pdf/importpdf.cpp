@@ -554,6 +554,7 @@ bool PdfPlug::convert(QString fn)
 					int rotate = pdfDoc->getPageRotate(firstPage);
 					if ((rotate == 90) || (rotate == 270))
 						rotated = true;
+					dev->rotate = rotate;
 					rotate = 0;
 					if (importerFlags & LoadSavePlugin::lfCreateDoc)
 					{

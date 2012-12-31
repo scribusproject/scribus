@@ -3929,18 +3929,28 @@ QStringList ScribusDoc::getUsedPatternsSelection(Selection* customSelection)
 		for (uint a = 0; a < selectedItemCount; ++a)
 		{
 			PageItem *currItem = customSelection->itemAt(a);
-			if ((currItem->GrType == 8) || (currItem->itemType() == PageItem::Symbol))
+			QList<PageItem*> allItems;
+			if (currItem->isGroup())
+				allItems = currItem->asGroupFrame()->getItemList();
+			else
+				allItems.append(currItem);
+			for (int ii = 0; ii < allItems.count(); ii++)
 			{
-				const QString& pat = currItem->pattern();
-				if (!pat.isEmpty() && !results.contains(pat))
-					results.append(currItem->pattern());
+				currItem = allItems.at(ii);
+				if ((currItem->GrType == 8) || (currItem->itemType() == PageItem::Symbol))
+				{
+					const QString& pat = currItem->pattern();
+					if (!pat.isEmpty() && !results.contains(pat))
+						results.append(currItem->pattern());
+				}
+				const QString& pat2 = currItem->strokePattern();
+				if (!pat2.isEmpty() && !results.contains(pat2))
+					results.append(currItem->strokePattern());
+				const QString& pat3 = currItem->patternMask();
+				if (!pat3.isEmpty() && !results.contains(pat3))
+					results.append(currItem->patternMask());
 			}
-			const QString& pat2 = currItem->strokePattern();
-			if (!pat2.isEmpty() && !results.contains(pat2))
-				results.append(currItem->strokePattern());
-			const QString& pat3 = currItem->patternMask();
-			if (!pat3.isEmpty() && !results.contains(pat3))
-				results.append(currItem->patternMask());
+			allItems.clear();
 		}
 		QStringList results2 = results;
 		for (int c = 0; c < results.count(); ++c)
@@ -3970,18 +3980,28 @@ QStringList ScribusDoc::getUsedPatternsHelper(QString pattern, QStringList &resu
 	pats.clear();
 	for (int c = 0; c < pat->items.count(); ++c)
 	{
-		if ((pat->items.at(c)->GrType == 8) || (pat->items.at(c)->itemType() == PageItem::Symbol))
+		QList<PageItem*> allItems;
+		if (pat->items.at(c)->isGroup())
+			allItems = pat->items.at(c)->asGroupFrame()->getItemList();
+		else
+			allItems.append(pat->items.at(c));
+		for (int ii = 0; ii < allItems.count(); ii++)
 		{
-			const QString& patName = pat->items.at(c)->pattern();
-			if (!patName.isEmpty() && !results.contains(patName))
-				pats.append(patName);
+			PageItem *currItem = allItems.at(ii);
+			if ((currItem->GrType == 8) || (currItem->itemType() == PageItem::Symbol))
+			{
+				const QString& patName = currItem->pattern();
+				if (!patName.isEmpty() && !results.contains(patName))
+					pats.append(patName);
+			}
+			const QString& pat2 = currItem->strokePattern();
+			if (!pat2.isEmpty() && !results.contains(pat2))
+				pats.append(currItem->strokePattern());
+			const QString& pat3 = currItem->patternMask();
+			if (!pat3.isEmpty() && !results.contains(pat3))
+				pats.append(currItem->patternMask());
 		}
-		const QString& pat2 = pat->items.at(c)->strokePattern();
-		if (!pat2.isEmpty() && !results.contains(pat2))
-			pats.append(pat->items.at(c)->strokePattern());
-		const QString& pat3 = pat->items.at(c)->patternMask();
-		if (!pat3.isEmpty() && !results.contains(pat3))
-			pats.append(pat->items.at(c)->patternMask());
+		allItems.clear();
 	}
 	if (!pats.isEmpty())
 	{
