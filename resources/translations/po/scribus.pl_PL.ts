@@ -11178,7 +11178,7 @@ currently %2 x %3 DPI</source>
     <message>
         <location filename="../../../scribus/commonstrings.cpp" line="335"/>
         <source>Single Page</source>
-        <translation>Pojedyńcza strona</translation>
+        <translation>Pojedyncza strona</translation>
     </message>
     <message>
         <location filename="../../../scribus/commonstrings.cpp" line="336"/>
@@ -24833,7 +24833,7 @@ The result is a combination of &quot;Intersection&quot; and &quot;Exclusion&quot
     <message>
         <location filename="../../../scribus/plugins/import/pdf/pdfimportoptions.ui" line="81"/>
         <source>Single Page</source>
-        <translation type="unfinished">Pojedyńcza strona</translation>
+        <translation type="unfinished">Pojedyncza strona</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/import/pdf/pdfimportoptions.ui" line="97"/>
@@ -27690,7 +27690,7 @@ UCR zmniejsza możliwość wystąpienia przesycenia  tuszami CMY.</translation>
     <name>PrefsManager</name>
     <message>
         <source>Single Page</source>
-        <translation type="obsolete">Pojedyńcza strona</translation>
+        <translation type="obsolete">Pojedyncza strona</translation>
     </message>
     <message>
         <source>Double sided</source>
@@ -28696,7 +28696,7 @@ połączeń między ramkami.</translation>
     <message>
         <location filename="../../../scribus/ui/prefs_documentsetupbase.ui" line="259"/>
         <source>Single Page</source>
-        <translation type="unfinished">Pojedyńcza strona</translation>
+        <translation type="unfinished">Pojedyncza strona</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_documentsetupbase.ui" line="232"/>
@@ -31216,7 +31216,7 @@ JPEG nadaje się lepiej do tworzenia mniejszych plików PDF zawierających dużo
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="1599"/>
         <source>Single Page</source>
-        <translation type="unfinished">Pojedyńcza strona</translation>
+        <translation type="unfinished">Pojedyncza strona</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_pdfexportbase.ui" line="1606"/>
@@ -43778,7 +43778,7 @@ converting their vector data into Scribus objects.</source>
     <message>
         <location filename="../../../scribus/ui/annot.cpp" line="745"/>
         <source>Single Page</source>
-        <translation type="unfinished">Pojedyńcza strona</translation>
+        <translation type="unfinished">Pojedyncza strona</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/annot.cpp" line="746"/>
@@ -51380,7 +51380,7 @@ ponieważ redukuje to wielkość pliku PDF.</translation>
     <message>
         <location filename="../../../scribus/ui/tabpdfoptions.cpp" line="568"/>
         <source>Single Page</source>
-        <translation>Pojedyńcza strona</translation>
+        <translation>Pojedyncza strona</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/tabpdfoptions.cpp" line="571"/>
