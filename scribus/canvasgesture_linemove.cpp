@@ -208,7 +208,7 @@ void LineMove::adjustBounds(QMouseEvent *m, bool updateCanvas)
 	double newX = mousePointDoc.x();
 	double newY = mousePointDoc.y();
 	
-	if (m_doc->useRaster)
+	if (m_doc->SnapGrid)
 	{
 		newX = qRound(newX / m_doc->guidesPrefs().minorGridSpacing) * m_doc->guidesPrefs().minorGridSpacing;
 		newY = qRound(newY / m_doc->guidesPrefs().minorGridSpacing) * m_doc->guidesPrefs().minorGridSpacing;

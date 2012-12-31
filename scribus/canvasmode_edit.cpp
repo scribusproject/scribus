@@ -758,7 +758,7 @@ void CanvasMode_Edit::mouseReleaseEvent(QMouseEvent *m)
 			else
 			{
 				currItem = m_doc->m_Selection->itemAt(0);
-				if (m_doc->useRaster)
+				if (m_doc->SnapGrid)
 				{
 					double nx = currItem->xPos();
 					double ny = currItem->yPos();

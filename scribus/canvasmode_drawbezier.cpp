@@ -205,7 +205,7 @@ void BezierMode::mouseMoveEvent(QMouseEvent *m)
 			
 			if (m_doc->appMode == modeDrawBezierLine)
 			{
-				if ((m_doc->useRaster) && (m_doc->OnPage(currItem) != -1))
+				if ((m_doc->SnapGrid) && (m_doc->OnPage(currItem) != -1))
 				{
 					newX = qRound(newX / m_doc->guidesPrefs().minorGridSpacing) * m_doc->guidesPrefs().minorGridSpacing;
 					newY = qRound(newY / m_doc->guidesPrefs().minorGridSpacing) * m_doc->guidesPrefs().minorGridSpacing;

@@ -1288,10 +1288,10 @@ void PaintManagerDialog::loadVectors(QString data)
 	QString patNam = fi.baseName().trimmed().simplified().replace(" ", "_");
 	uint ac = m_doc->Items->count();
 	uint ap = m_doc->docPatterns.count();
-	bool savedAlignGrid = m_doc->useRaster;
+	bool savedAlignGrid = m_doc->SnapGrid;
 	bool savedAlignGuides = m_doc->SnapGuides;
 	bool savedAlignElement = m_doc->SnapElement;
-	m_doc->useRaster = false;
+	m_doc->SnapGrid = false;
 	m_doc->SnapGuides = false;
 	m_doc->SnapElement = false;
 	if (fi.suffix().toLower() == "sce")
@@ -1314,7 +1314,7 @@ void PaintManagerDialog::loadVectors(QString data)
 			}
 		}
 	}
-	m_doc->useRaster = savedAlignGrid;
+	m_doc->SnapGrid = savedAlignGrid;
 	m_doc->SnapGuides = savedAlignGuides;
 	m_doc->SnapElement = savedAlignElement;
 	uint ae = m_doc->Items->count();

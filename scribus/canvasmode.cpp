@@ -1398,9 +1398,9 @@ void CanvasMode::commonkeyPressEvent_NormalNodeEdit(QKeyEvent *e)
 						/* as the user might be trying to fine tune a position */
 							bool sav1 = m_doc->SnapGuides;
 							bool sav3 = m_doc->SnapElement;
-							bool sav2 = m_doc->useRaster;
+							bool sav2 = m_doc->SnapGrid;
 							m_doc->SnapGuides = false;
-							m_doc->useRaster = false;
+							m_doc->SnapGrid   = false;
 							m_doc->SnapElement = false;
 							if (m_doc->m_Selection->count() > 1)
 								m_view->startGroupTransaction(Um::Move, "", Um::IMove);
@@ -1409,7 +1409,7 @@ void CanvasMode::commonkeyPressEvent_NormalNodeEdit(QKeyEvent *e)
 								m_view->endGroupTransaction();
 							m_doc->SnapElement = sav3;
 							m_doc->SnapGuides = sav1;
-							m_doc->useRaster = sav2;
+							m_doc->SnapGrid = sav2;
 						}
 					}
 					else
@@ -1471,10 +1471,10 @@ void CanvasMode::commonkeyPressEvent_NormalNodeEdit(QKeyEvent *e)
 						/* Don't use Grid or Guide Snapping when dragging Items or Groups with the keyboard */
 						/* as the user might be trying to fine tune a position */
 							bool sav1 = m_doc->SnapGuides;
-							bool sav2 = m_doc->useRaster;
+							bool sav2 = m_doc->SnapGrid;
 							bool sav3 = m_doc->SnapElement;
 							m_doc->SnapGuides = false;
-							m_doc->useRaster = false;
+							m_doc->SnapGrid = false;
 							m_doc->SnapElement = false;
 							if (m_doc->m_Selection->count() > 1)
 								m_view->startGroupTransaction(Um::Move, "", Um::IMove);
@@ -1482,7 +1482,7 @@ void CanvasMode::commonkeyPressEvent_NormalNodeEdit(QKeyEvent *e)
 							if (m_doc->m_Selection->count() > 1)
 								m_view->endGroupTransaction();
 							m_doc->SnapGuides = sav1;
-							m_doc->useRaster = sav2;
+							m_doc->SnapGrid = sav2;
 							m_doc->SnapElement = sav3;
 						}
 					}
@@ -1545,10 +1545,10 @@ void CanvasMode::commonkeyPressEvent_NormalNodeEdit(QKeyEvent *e)
 						/* Don't use Grid or Guide Snapping when dragging Items or Groups with the keyboard */
 						/* as the user might be trying to fine tune a position */
 							bool sav1 = m_doc->SnapGuides;
-							bool sav2 = m_doc->useRaster;
+							bool sav2 = m_doc->SnapGrid;
 							bool sav3 = m_doc->SnapElement;
 							m_doc->SnapGuides = false;
-							m_doc->useRaster = false;
+							m_doc->SnapGrid = false;
 							m_doc->SnapElement = false;
 							if (m_doc->m_Selection->count() > 1)
 								m_view->startGroupTransaction(Um::Move, "", Um::IMove);
@@ -1556,7 +1556,7 @@ void CanvasMode::commonkeyPressEvent_NormalNodeEdit(QKeyEvent *e)
 							if (m_doc->m_Selection->count() > 1)
 								m_view->endGroupTransaction();
 							m_doc->SnapGuides = sav1;
-							m_doc->useRaster = sav2;
+							m_doc->SnapGrid = sav2;
 							m_doc->SnapElement = sav3;
 						}
 					}
@@ -1619,10 +1619,10 @@ void CanvasMode::commonkeyPressEvent_NormalNodeEdit(QKeyEvent *e)
 						/* Don't use Grid or Guide Snapping when dragging Items or Groups with the keyboard */
 						/* as the user might be trying to fine tune a position */
 							bool sav1 = m_doc->SnapGuides;
-							bool sav2 = m_doc->useRaster;
+							bool sav2 = m_doc->SnapGrid;
 							bool sav3 = m_doc->SnapElement;
 							m_doc->SnapGuides = false;
-							m_doc->useRaster = false;
+							m_doc->SnapGrid = false;
 							m_doc->SnapElement = false;
 							if (m_doc->m_Selection->count() > 1)
 								m_view->startGroupTransaction(Um::Move, "", Um::IMove);
@@ -1630,7 +1630,7 @@ void CanvasMode::commonkeyPressEvent_NormalNodeEdit(QKeyEvent *e)
 							if (m_doc->m_Selection->count() > 1)
 								m_view->endGroupTransaction();
 							m_doc->SnapGuides = sav1;
-							m_doc->useRaster = sav2;
+							m_doc->SnapGrid = sav2;
 							m_doc->SnapElement = sav3;
 						}
 					}

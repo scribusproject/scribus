@@ -277,7 +277,7 @@ bool Scribus150Format::saveFile(const QString & fileName, const FileFormat & /* 
 	docu.writeAttribute("AUTOCHECK", static_cast<int>(m_Doc->hyphAutoCheck()));
 	docu.writeAttribute("GUIDELOCK", static_cast<int>(m_Doc->GuideLock));
 	docu.writeAttribute("SnapToGuides", static_cast<int>(m_Doc->SnapGuides));
-	docu.writeAttribute("SnapToGrid", static_cast<int>(m_Doc->useRaster));
+	docu.writeAttribute("SnapToGrid", static_cast<int>(m_Doc->SnapGrid));
 	docu.writeAttribute("MINGRID", m_Doc->guidesPrefs().minorGridSpacing);
 	docu.writeAttribute("MAJGRID", m_Doc->guidesPrefs().majorGridSpacing);
 	docu.writeAttribute("SHOWGRID", static_cast<int>(m_Doc->guidesPrefs().gridShown));

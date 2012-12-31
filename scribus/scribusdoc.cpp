@@ -216,6 +216,7 @@ ScribusDoc::ScribusDoc() : UndoObject( tr("Document")), Observable<ScribusDoc>(N
 	NrItems(0),
 	First(1), Last(0),
 	viewCount(0), viewID(0),
+	SnapGrid(false),
 	SnapGuides(false),
 	SnapElement(false), GuideLock(false),
 	minCanvasCoordinate(FPoint(0, 0)),
@@ -226,7 +227,6 @@ ScribusDoc::ScribusDoc() : UndoObject( tr("Document")), Observable<ScribusDoc>(N
 	m_Selection(new Selection(this, true)),
 	PageSp(1), PageSpa(0),
 	FirstPnum(1),
-	useRaster(false),
 	PageColors(this, true),
 	appMode(modeNormal),
 	SubMode(-1),
@@ -318,6 +318,7 @@ ScribusDoc::ScribusDoc(const QString& docName, int unitindex, const PageSize& pa
 	NrItems(0),
 	First(1), Last(0),
 	viewCount(0), viewID(0),
+	SnapGrid(false),
 	SnapGuides(false),
 	SnapElement(false),
 	GuideLock(false),
@@ -329,7 +330,6 @@ ScribusDoc::ScribusDoc(const QString& docName, int unitindex, const PageSize& pa
 	m_Selection(new Selection(this, true)),
 	PageSp(pagesSetup.columnCount), PageSpa(pagesSetup.columnDistance),
 	FirstPnum(pagesSetup.firstPageNumber),
-	useRaster(false),
 	PageColors(this, true),
 	appMode(modeNormal),
 	SubMode(-1),
@@ -7135,10 +7135,10 @@ void ScribusDoc::copyPage(int pageNumberToCopy, int existingPage, int whereToIns
 			if (Layers.count()!= 0)
 			{
 				int currActiveLayer = activeLayer();
-				bool savedAlignGrid   = this->useRaster;
+				bool savedAlignGrid   = this->SnapGrid;
 				bool savedAlignGuides = this->SnapGuides;
 				bool savedAlignElement = this->SnapElement;
-				this->useRaster  = false;
+				this->SnapGrid   = false;
 				this->SnapGuides = false;
 				this->SnapElement = false;
 				for (it = Layers.begin(); it != Layers.end(); ++it)
@@ -7152,7 +7152,7 @@ void ScribusDoc::copyPage(int pageNumberToCopy, int existingPage, int whereToIns
 					}
 					lcount++;
 				}
-				this->useRaster  = savedAlignGrid;
+				this->SnapGrid   = savedAlignGrid;
 				this->SnapGuides = savedAlignGuides;
 				this->SnapElement = savedAlignElement;
 				setActiveLayer(currActiveLayer);
@@ -10668,10 +10668,10 @@ void ScribusDoc::itemSelection_Transform(int nrOfCopies, QTransform matrix, int 
 	else
 	{
 		QList<PageItem*> Elements;
-		bool savedAlignGrid = useRaster;
+		bool savedAlignGrid = SnapGrid;
 		bool savedAlignGuides = SnapGuides;
 		bool savedAlignElement = SnapElement;
-		useRaster = false;
+		SnapGrid  = false;
 		SnapGuides = false;
 		SnapElement = false;
 		DoDrawing = false;
@@ -10767,7 +10767,7 @@ void ScribusDoc::itemSelection_Transform(int nrOfCopies, QTransform matrix, int 
 		}
 		m_Selection->setGroupRect();
 		RotMode (rotBack);
-		useRaster = savedAlignGrid;
+		SnapGrid  = savedAlignGrid;
 		SnapGuides = savedAlignGuides;
 		SnapElement = savedAlignElement;
 		DoDrawing = true;
@@ -13418,7 +13418,7 @@ QPoint ScribusDoc::ApplyGrid(const QPoint& in)
 {
 	QPoint np;
 	int onp = OnPage(in.x(), in.y());
-	if (useRaster && (onp != -1))
+	if (SnapGrid && (onp != -1))
 	{
 		np.setX(static_cast<int>(qRound((in.x() - Pages->at(onp)->xOffset()) / docPrefsData.guidesPrefs.minorGridSpacing) * docPrefsData.guidesPrefs.minorGridSpacing + Pages->at(onp)->xOffset()));
 		np.setY(static_cast<int>(qRound((in.y() - Pages->at(onp)->yOffset()) / docPrefsData.guidesPrefs.minorGridSpacing) * docPrefsData.guidesPrefs.minorGridSpacing + Pages->at(onp)->yOffset()));
@@ -13433,7 +13433,7 @@ FPoint ScribusDoc::ApplyGridF(const FPoint& in)
 {
 	FPoint np;
 	int onp = OnPage(in.x(), in.y());
-	if (useRaster && (onp != -1))
+	if (SnapGrid && (onp != -1))
 	{
 		np.setX(qRound((in.x() - Pages->at(onp)->xOffset()) / docPrefsData.guidesPrefs.minorGridSpacing) * docPrefsData.guidesPrefs.minorGridSpacing + Pages->at(onp)->xOffset());
 		np.setY(qRound((in.y() - Pages->at(onp)->yOffset()) / docPrefsData.guidesPrefs.minorGridSpacing) * docPrefsData.guidesPrefs.minorGridSpacing + Pages->at(onp)->yOffset());
@@ -13981,7 +13981,7 @@ bool ScribusDoc::MoveItem(double newX, double newY, PageItem* currItem, bool fro
 	double oldx = currItem->xPos();
 	double oldy = currItem->yPos();
 	currItem->moveBy(newX, newY);
-/*	if ((useRaster) && (!m_View->operItemMoving) && (!fromMP) && (static_cast<int>(currentPage()->pageNr()) == currItem->OwnPage))
+/*	if ((SnapGrid) && (!m_View->operItemMoving) && (!fromMP) && (static_cast<int>(currentPage()->pageNr()) == currItem->OwnPage))
 	{
 		FPoint np = ApplyGridF(FPoint(currItem->xPos(), currItem->yPos()));
 		currItem->setXYPos(np.x(), np.y());

@@ -2572,7 +2572,7 @@ void ScribusMainWindow::HaveNewDoc()
 	scrActions["viewFit200"]->setEnabled(true);
 	scrActions["viewFit400"]->setEnabled(true);
 
-	scrActions["viewSnapToGrid"]->setChecked(doc->useRaster);
+	scrActions["viewSnapToGrid"]->setChecked(doc->SnapGrid);
 	scrActions["viewSnapToGuides"]->setChecked(doc->SnapGuides);
 	scrActions["viewSnapToElements"]->setChecked(doc->SnapElement);
 	scrActions["viewShowRulers"]->setEnabled(true);
@@ -3591,17 +3591,17 @@ void ScribusMainWindow::doPasteRecent(QString data)
 				pasteAction = new UndoTransaction(undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::Create,"",Um::ICreate));
 			view->Deselect(true);
 			uint ac = doc->Items->count();
-			bool savedAlignGrid = doc->useRaster;
+			bool savedAlignGrid = doc->SnapGrid;
 			bool savedAlignGuides = doc->SnapGuides;
 			bool savedAlignElement = doc->SnapElement;
-			doc->useRaster = false;
+			doc->SnapGrid = false;
 			doc->SnapGuides = false;
 			doc->SnapElement = false;
 			if ((view->dragX == 0) && (view->dragY == 0))
 				slotElemRead(data, doc->currentPage()->xOffset(), doc->currentPage()->yOffset(), true, false, doc, view);
 			else
 				slotElemRead(data, view->dragX, view->dragY, true, false, doc, view);
-			doc->useRaster = savedAlignGrid;
+			doc->SnapGrid = savedAlignGrid;
 			doc->SnapGuides = savedAlignGuides;
 			doc->SnapElement = savedAlignElement;
 			Selection tmpSelection(this, false);
@@ -5377,7 +5377,7 @@ void ScribusMainWindow::slotEditPaste()
 			}
 			else if (ScMimeData::clipboardHasScribusElem() || ScMimeData::clipboardHasScribusFragment())
 			{
-				bool savedAlignGrid = doc->useRaster;
+				bool savedAlignGrid = doc->SnapGrid;
 				bool savedAlignGuides = doc->SnapGuides;
 				bool savedAlignElement = doc->SnapElement;
 				int ac = doc->Items->count();
@@ -5385,7 +5385,7 @@ void ScribusMainWindow::slotEditPaste()
 				double gx, gy, gh, gw;
 				FPoint minSize = doc->minCanvasCoordinate;
 				FPoint maxSize = doc->maxCanvasCoordinate;
-				doc->useRaster = false;
+				doc->SnapGrid = false;
 				doc->SnapGuides = false;
 				doc->SnapElement = false;
 				// HACK #6541 : undo does not handle text modification => do not record embedded item creation
@@ -5402,7 +5402,7 @@ void ScribusMainWindow::slotEditPaste()
 				symbolPalette->unsetDoc();
 				symbolPalette->setDoc(doc);
 
-				doc->useRaster = savedAlignGrid;
+				doc->SnapGrid = savedAlignGrid;
 				doc->SnapGuides = savedAlignGuides;
 				doc->SnapElement = savedAlignElement;
 				//int tempList=doc->m_Selection->backupToTempList(0);
@@ -5476,10 +5476,10 @@ void ScribusMainWindow::slotEditPaste()
 			{
 				view->Deselect(true);
 				uint ac = doc->Items->count();
-				bool savedAlignGrid = doc->useRaster;
+				bool savedAlignGrid = doc->SnapGrid;
 				bool savedAlignGuides = doc->SnapGuides;
 				bool savedAlignElement = doc->SnapElement;
-				doc->useRaster = false;
+				doc->SnapGrid = false;
 				doc->SnapGuides = false;
 				doc->SnapElement = false;
 				if (internalCopy)
@@ -5500,7 +5500,7 @@ void ScribusMainWindow::slotEditPaste()
 				inlinePalette->unsetDoc();
 				inlinePalette->setDoc(doc);
 
-				doc->useRaster = savedAlignGrid;
+				doc->SnapGrid = savedAlignGrid;
 				doc->SnapGuides = savedAlignGuides;
 				doc->SnapElement = savedAlignElement;
 				doc->m_Selection->delaySignalsOn();
@@ -6215,7 +6215,7 @@ void ScribusMainWindow::ToggleAllGuides()
 		ToggleMarks();
 		ToggleFrames();
 		ToggleLayerMarkers();
-		ToggleRaster();
+		ToggleGrid();
 		ToggleGuides();
 		ToggleColumnBorders();
 		ToggleBase();
@@ -6309,7 +6309,7 @@ void ScribusMainWindow::ToggleLayerMarkers()
 	}
 }
 
-void ScribusMainWindow::ToggleRaster()
+void ScribusMainWindow::ToggleGrid()
 {
 	if (doc)
 	{
@@ -6406,11 +6406,11 @@ void ScribusMainWindow::ToggleRulerMode()
 	}
 }
 
-void ScribusMainWindow::ToggleURaster()
+void ScribusMainWindow::ToggleUGrid()
 {
 	if (doc)
 	{
-		doc->useRaster = !doc->useRaster;
+		doc->SnapGrid = !doc->SnapGrid;
 		slotDocCh();
 	}
 }
@@ -7718,11 +7718,11 @@ void ScribusMainWindow::MakeFrame(int f, int c, double *vals)
 void ScribusMainWindow::duplicateItem()
 {
 	slotSelect();
-	bool savedAlignGrid = doc->useRaster;
+	bool savedAlignGrid = doc->SnapGrid;
 	bool savedAlignGuides = doc->SnapGuides;
 	bool savedAlignElement = doc->SnapElement;
 	internalCopy = true;
-	doc->useRaster = false;
+	doc->SnapGrid  = false;
 	doc->SnapGuides = false;
 	doc->SnapElement = false;
 	slotEditCopy();
@@ -7742,7 +7742,7 @@ void ScribusMainWindow::duplicateItem()
 		delete trans;
 		trans = NULL;
 	}
-	doc->useRaster = savedAlignGrid;
+	doc->SnapGrid  = savedAlignGrid;
 	doc->SnapGuides = savedAlignGuides;
 	doc->SnapElement = savedAlignElement;
 	internalCopy = false;
@@ -10294,7 +10294,7 @@ void ScribusMainWindow::slotItemTransform()
 void ScribusMainWindow::PutToInline(QString buffer)
 {
 	Selection tempSelection(*doc->m_Selection);
-	bool savedAlignGrid = doc->useRaster;
+	bool savedAlignGrid = doc->SnapGrid;
 	bool savedAlignGuides = doc->SnapGuides;
 	bool savedAlignElement = doc->SnapElement;
 	int ac = doc->Items->count();
@@ -10302,12 +10302,12 @@ void ScribusMainWindow::PutToInline(QString buffer)
 	double gx, gy, gh, gw;
 	FPoint minSize = doc->minCanvasCoordinate;
 	FPoint maxSize = doc->maxCanvasCoordinate;
-	doc->useRaster = false;
+	doc->SnapGrid  = false;
 	doc->SnapGuides = false;
 	doc->SnapElement = false;
 	undoManager->setUndoEnabled(false);
 	slotElemRead(buffer, 0, 0, false, true, doc, view);
-	doc->useRaster = savedAlignGrid;
+	doc->SnapGrid  = savedAlignGrid;
 	doc->SnapGuides = savedAlignGuides;
 	doc->SnapElement = savedAlignElement;
 	doc->m_Selection->clear();

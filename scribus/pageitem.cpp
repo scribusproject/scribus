@@ -4789,12 +4789,12 @@ void PageItem::changeImageScaleUndoAction()
 
 void PageItem::restore(UndoState *state, bool isUndo)
 {
-	bool useRasterBackup = m_Doc->useRaster;
+	bool SnapGridBackup = m_Doc->SnapGrid;
 	bool SnapGuidesBackup = m_Doc->SnapGuides;
 	bool SnapElementBackup = m_Doc->SnapElement;
 	int dummy = 0;
 	m_Doc->SnapElement = false;
-	m_Doc->useRaster = false;
+	m_Doc->SnapGrid = false;
 	m_Doc->SnapGuides = false;
 	SimpleState *ss = dynamic_cast<SimpleState*>(state);
 	bool oldMPMode=m_Doc->masterPageMode();
@@ -5031,7 +5031,7 @@ void PageItem::restore(UndoState *state, bool isUndo)
 		m_Doc->setCurrentPage(oldCurrentPage);
 	m_Doc->setMasterPageMode(oldMPMode);
 	m_Doc->SnapElement = SnapElementBackup;
-	m_Doc->useRaster = useRasterBackup;
+	m_Doc->SnapGrid = SnapGridBackup;
 	m_Doc->SnapGuides = SnapGuidesBackup;
 }
 

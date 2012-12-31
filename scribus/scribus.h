@@ -410,9 +410,9 @@ public slots:
 	/** \brief Schaltet M_ViewShowImages ein/aus */
 	void TogglePics();
 	/** \brief Schaltet Raster ein/aus */
-	void ToggleRaster();
+	void ToggleGrid();
 	/** \brief Schaltet Rasterbenutzung ein/aus */
-	void ToggleURaster();
+	void ToggleUGrid();
 	/** \brief Schaltet Rahmenbearbeitung ein/aus */
 	void toggleNodeEdit();
 	void slotSelect();

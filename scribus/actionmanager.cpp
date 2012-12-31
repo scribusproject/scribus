@@ -726,7 +726,7 @@ void ActionManager::initViewMenuActions()
 	connect( (*scrActions)["viewShowFrames"], SIGNAL(triggered()), mainWindow, SLOT(ToggleFrames()) );
 	connect( (*scrActions)["viewShowLayerMarkers"], SIGNAL(triggered()), mainWindow, SLOT(ToggleLayerMarkers()) );
 	connect( (*scrActions)["viewShowImages"], SIGNAL(triggered()), mainWindow, SLOT(TogglePics()) );
-	connect( (*scrActions)["viewShowGrid"], SIGNAL(triggered()), mainWindow, SLOT(ToggleRaster()) );
+	connect( (*scrActions)["viewShowGrid"], SIGNAL(triggered()), mainWindow, SLOT(ToggleGrid()) );
 	connect( (*scrActions)["viewShowGuides"], SIGNAL(triggered()), mainWindow, SLOT(ToggleGuides()) );
 	connect( (*scrActions)["viewShowColumnBorders"], SIGNAL(triggered()), mainWindow, SLOT(ToggleColumnBorders()) );
 	connect( (*scrActions)["viewShowBaseline"], SIGNAL(triggered()), mainWindow, SLOT(ToggleBase()) );
@@ -734,7 +734,7 @@ void ActionManager::initViewMenuActions()
 	connect( (*scrActions)["viewShowTextControls"], SIGNAL(triggered()), mainWindow, SLOT(ToggleTextControls()) );
 	connect( (*scrActions)["viewShowRulers"], SIGNAL(triggered()), mainWindow, SLOT(ToggleRulers()) );
 	connect( (*scrActions)["viewRulerMode"], SIGNAL(triggered()), mainWindow, SLOT(ToggleRulerMode()) );
-	connect( (*scrActions)["viewSnapToGrid"], SIGNAL(triggered()), mainWindow, SLOT(ToggleURaster()) );
+	connect( (*scrActions)["viewSnapToGrid"], SIGNAL(triggered()), mainWindow, SLOT(ToggleUGrid()) );
 	connect( (*scrActions)["viewSnapToGuides"], SIGNAL(triggered()), mainWindow, SLOT(ToggleUGuides()) );
 	connect( (*scrActions)["viewSnapToElements"], SIGNAL(triggered()), mainWindow, SLOT(ToggleUElements()) );
 	connect( (*scrActions)["showMouseCoordinates"], SIGNAL(triggered()), mainWindow, SLOT(ToggleMouseTips()) );

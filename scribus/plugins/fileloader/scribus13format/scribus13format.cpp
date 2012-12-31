@@ -365,7 +365,7 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 		m_Doc->rulerXoffset = ScCLocale::toDoubleC(dc.attribute("rulerXoffset"), 0.0);
 		m_Doc->rulerYoffset = ScCLocale::toDoubleC(dc.attribute("rulerYoffset"), 0.0);
 		m_Doc->SnapGuides = static_cast<bool>(dc.attribute("SnapToGuides", "0").toInt());
-		m_Doc->useRaster = static_cast<bool>(dc.attribute("SnapToGrid", "0").toInt());
+		m_Doc->SnapGrid  = static_cast<bool>(dc.attribute("SnapToGrid", "0").toInt());
 		m_Doc->itemToolPrefs().polyCorners = dc.attribute("POLYC", "4").toInt();
 		m_Doc->itemToolPrefs().polyFactor = ScCLocale::toDoubleC(dc.attribute("POLYF"), 0.5);
 		m_Doc->itemToolPrefs().polyRotation = ScCLocale::toDoubleC(dc.attribute("POLYR"), 0.0);

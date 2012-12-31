@@ -274,7 +274,7 @@ void CreateMode::mouseMoveEvent(QMouseEvent *m)
 			newY = mousePointDoc.y();
 			if (createObjectMode == modeDrawLine)
 			{
-				if (m_doc->useRaster)
+				if (m_doc->SnapGrid)
 				{
 					newX = qRound(newX / m_doc->guidesPrefs().minorGridSpacing) * m_doc->guidesPrefs().minorGridSpacing;
 					newY = qRound(newY / m_doc->guidesPrefs().minorGridSpacing) * m_doc->guidesPrefs().minorGridSpacing;

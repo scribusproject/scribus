@@ -1216,6 +1216,7 @@ public: // Public attributes
 	int Last;
 	int viewCount;
 	int viewID;
+	bool SnapGrid;
 	bool SnapGuides;
 	bool SnapElement;
 	bool GuideLock;
@@ -1252,8 +1253,6 @@ public: // Public attributes
 	//int currentPageLayout;
 	/** \brief Erste Seitennummer im Dokument */
 	int FirstPnum;
-	/** \brief Flag fuer Rasterbenutzung */
-	bool useRaster;
 	/** \brief Im Dokument benutzte Farben */
 	ColorList PageColors;
 	int appMode;
