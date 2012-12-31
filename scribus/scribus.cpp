@@ -7770,7 +7770,7 @@ void ScribusMainWindow::prefsOrg(Preferences *dia)
 	prefsManager->applyLoadedShortCuts();
 
 	int newImageQuality = prefsManager->appPrefs.toolSettings.lowResType;
-	if (oldImageQuality != newImageQuality)
+	if (view && (oldImageQuality != newImageQuality))
 		view->previewQualitySwitcher->setCurrentIndex(newImageQuality);
 
 	QWidgetList windows = wsp->windowList();
