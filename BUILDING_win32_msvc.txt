@@ -22,8 +22,8 @@ You will need:
 	- Libxml2 win32 binaries from the Libxml project
 	- LittleCMS sources from www.littlecms.com (version >= 2.1)
 	- PoDoFo sources from podofo.sourceforge.net (version >= 0.8.0)
-	- Poppler sources from poppler.freedesktop.org (version >= 0.17.1)
-	- Poppler data from poppler.freedesktop.org (version >= 0.4.4)
+	- Poppler sources from poppler.freedesktop.org (version >= 0.19.0)
+	- Poppler data from poppler.freedesktop.org (version >= 0.4.5)
 	- A Python 2.7 Windows binary build.
       For debug builds, you'll need a release that contains the python27_d.dll .
 
