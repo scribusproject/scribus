@@ -25,13 +25,11 @@ for which a new license (GPL+exception) is in place.
 #include "scribusstructs.h"
 #include "styles/styleset.h"
 
-#include <QXmlStreamAttributes>
-#include <QXmlStreamReader>
-//#include <QXmlStreamWriter>
 class PageItem;
 class PrefsManager;
 class SCFonts;
 class ScribusDoc;
+class ScElemMimeData;
 class ScPattern;
 class ScXmlStreamWriter;
 class Selection;
@@ -52,7 +50,9 @@ public:
 	bool ReadElemHeader(QString file, bool isFile, double *x, double *y, double *w, double *h);
 	bool ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, double Xp, double Yp, bool Fi, bool loc, QMap<QString,QString> &FontSub);
 	bool ReadElemToLayer(QString fileName, SCFonts &avail, ScribusDoc *doc, double Xp, double Yp, bool Fi, bool loc, QMap<QString,QString> &FontSub, int toLayer);
-	QString WriteElem(ScribusDoc *doc, Selection *selection);
+	
+	static QString WriteElem(ScribusDoc *doc, Selection *selection);
+	static ScElemMimeData* WriteToMimeData(ScribusDoc *doc, Selection *selection);
 };
 
 #endif // _SCRIBUS_CONFIG_

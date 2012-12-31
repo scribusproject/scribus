@@ -504,11 +504,8 @@ void SVGPlug::convert(const TransactionSettings& trSettings, int flags)
 			{
 				tmpSel->addItem(Elements.at(dre), true);
 			}
-			ScriXmlDoc *ss = new ScriXmlDoc();
 			tmpSel->setGroupRect();
-			ScElemMimeData* md = new ScElemMimeData();
-			md->setScribusElem(ss->WriteElem(m_Doc, tmpSel));
-			delete ss;
+			ScElemMimeData* md = ScriXmlDoc::WriteToMimeData(m_Doc, tmpSel);
 /*#ifndef Q_WS_MAC*/
 // see #2526
 			m_Doc->itemSelection_DeleteItem(tmpSel);

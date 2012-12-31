@@ -398,10 +398,7 @@ bool XfigPlug::import(QString fNameIn, const TransactionSettings& trSettings, in
 					tmpSel->addItem(Elements.at(dre), true);
 				}
 				tmpSel->setGroupRect();
-				ScriXmlDoc *ss = new ScriXmlDoc();
-				ScElemMimeData* md = new ScElemMimeData();
-				md->setScribusElem(ss->WriteElem(m_Doc, tmpSel));
-				delete ss;
+				ScElemMimeData* md = ScriXmlDoc::WriteToMimeData(m_Doc, tmpSel);
 /*#ifndef Q_WS_MAC*/
 // see #2196
 				m_Doc->itemSelection_DeleteItem(tmpSel);

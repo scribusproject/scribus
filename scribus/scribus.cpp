@@ -10117,8 +10117,8 @@ void ScribusMainWindow::dropEvent ( QDropEvent * e)
 					loadRawText(url.toLocalFile(), cf);
 					data = QString::fromUtf8(cf.data());
 					double gx, gy, gw, gh;
-					ScriXmlDoc *ss = new ScriXmlDoc();
-					if(ss->ReadElemHeader(data, false, &gx, &gy, &gw, &gh))
+					ScriXmlDoc ss;
+					if(ss.ReadElemHeader(data, false, &gx, &gy, &gw, &gh))
 					{
 						doFileNew(gw, gh, 0, 0, 0, 0, 0, 0, false, false, 0, false, 0, 1, "Custom", true);
 						HaveNewDoc();
@@ -10126,7 +10126,6 @@ void ScribusMainWindow::dropEvent ( QDropEvent * e)
 						slotElemRead(data, doc->currentPage()->xOffset(), doc->currentPage()->yOffset(), false, false, doc, view);
 						slotDocCh(false);
 						doc->regionsChanged()->update(QRectF());
-						delete ss;
 					}
 				}
 			}
@@ -10156,8 +10155,8 @@ void ScribusMainWindow::dropEvent ( QDropEvent * e)
 			if ((text.startsWith("<SCRIBUSELEM")) || (text.startsWith("SCRIBUSELEMUTF8")))
 			{
 				double gx, gy, gw, gh;
-				ScriXmlDoc *ss = new ScriXmlDoc();
-				if(ss->ReadElemHeader(text, false, &gx, &gy, &gw, &gh))
+				ScriXmlDoc ss;
+				if(ss.ReadElemHeader(text, false, &gx, &gy, &gw, &gh))
 				{
 					doFileNew(gw, gh, 0, 0, 0, 0, 0, 0, false, false, 0, false, 0, 1, "Custom", true);
 					HaveNewDoc();
@@ -10165,7 +10164,6 @@ void ScribusMainWindow::dropEvent ( QDropEvent * e)
 					slotElemRead(text, doc->currentPage()->xOffset(), doc->currentPage()->yOffset(), false, false, doc, view);
 					slotDocCh(false);
 					doc->regionsChanged()->update(QRectF());
-					delete ss;
 				}
 			}
 		}

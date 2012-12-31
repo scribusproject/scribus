@@ -5235,12 +5235,11 @@ bool ScribusDoc::copyPageToMasterPage(const int pageNumber, const int leftPage, 
 					}
 					if (tempSelection.count() != 0)
 					{
+						ScriXmlDoc ss;
 						setMasterPageMode(true);
-						ScriXmlDoc *ss = new ScriXmlDoc();
-						QString dataS = ss->WriteElem(this, &tempSelection);
+						QString dataS = ss.WriteElem(this, &tempSelection);
 						setCurrentPage(targetPage);
-						ss->ReadElemToLayer(dataS, appPrefsData.fontPrefs.AvailFonts, this, targetPage->xOffset(), targetPage->yOffset(), false, true, appPrefsData.fontPrefs.GFontSub, it->ID);
-						delete ss;
+						ss.ReadElemToLayer(dataS, appPrefsData.fontPrefs.AvailFonts, this, targetPage->xOffset(), targetPage->yOffset(), false, true, appPrefsData.fontPrefs.GFontSub, it->ID);
 						setMasterPageMode(false);
 					}
 					tempSelection.clear();
@@ -5264,12 +5263,11 @@ bool ScribusDoc::copyPageToMasterPage(const int pageNumber, const int leftPage, 
 			}
 			if (tempSelection.count() != 0)
 			{
-				ScriXmlDoc *ss = new ScriXmlDoc();
-				QString dataS = ss->WriteElem(this, &tempSelection);
+				ScriXmlDoc ss;
+				QString dataS = ss.WriteElem(this, &tempSelection);
 				setMasterPageMode(true);
 				setCurrentPage(targetPage);
-				ss->ReadElemToLayer(dataS, appPrefsData.fontPrefs.AvailFonts, this, targetPage->xOffset(), targetPage->yOffset(), false, true, appPrefsData.fontPrefs.GFontSub, it->ID);
-				delete ss;
+				ss.ReadElemToLayer(dataS, appPrefsData.fontPrefs.AvailFonts, this, targetPage->xOffset(), targetPage->yOffset(), false, true, appPrefsData.fontPrefs.GFontSub, it->ID);
 				setMasterPageMode(false);
 			}
 			tempSelection.clear();
@@ -7060,10 +7058,9 @@ void ScribusDoc::copyPage(int pageNumberToCopy, int existingPage, int whereToIns
 				}
 				if (tempSelection.count() != 0)
 				{
-					ScriXmlDoc *ss = new ScriXmlDoc();
-					QString dataS = ss->WriteElem(this, &tempSelection);
+					ScriXmlDoc ss;
+					QString dataS = ss.WriteElem(this, &tempSelection);
 					itemBuffer.append(dataS);
-					delete ss;
 				}
 				else
 					itemBuffer.append(QString());
@@ -7145,10 +7142,9 @@ void ScribusDoc::copyPage(int pageNumberToCopy, int existingPage, int whereToIns
 				{
 					if ((lcount < itemBuffer.count()) && !itemBuffer[lcount].isEmpty())
 					{
+						ScriXmlDoc ss;
 						QString fragment = itemBuffer[lcount];
-						ScriXmlDoc *ss = new ScriXmlDoc();
-						ss->ReadElemToLayer(fragment, appPrefsData.fontPrefs.AvailFonts, this, destination->xOffset(), destination->yOffset(), false, true, appPrefsData.fontPrefs.GFontSub, it->ID);
-						delete ss;
+						ss.ReadElemToLayer(fragment, appPrefsData.fontPrefs.AvailFonts, this, destination->xOffset(), destination->yOffset(), false, true, appPrefsData.fontPrefs.GFontSub, it->ID);
 					}
 					lcount++;
 				}

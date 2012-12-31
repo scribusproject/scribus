@@ -23,9 +23,7 @@ for which a new license (GPL+exception) is in place.
 #include <QRegExp>
 #include <QTextCodec>
 #include <QTextStream>
-#include <QXmlSimpleReader>
 #include <QXmlStreamReader>
-#include <QXmlStreamWriter>
 #include <QDebug>
 
 #include <cstdlib>
@@ -38,6 +36,7 @@ for which a new license (GPL+exception) is in place.
 #endif
 #include "prefsmanager.h"
 #include "scclocale.h"
+#include "scmimedata.h"
 #include "scpage.h"
 #include "scribusdoc.h"
 #include "selection.h"
@@ -247,4 +246,11 @@ QString ScriXmlDoc::WriteElem(ScribusDoc *doc, Selection* selection)
 		documentStr = fmt->saveElements(xp, yp, wp, hp, selection, ba);
 	}
 	return documentStr;
+}
+
+ScElemMimeData* ScriXmlDoc::WriteToMimeData(ScribusDoc *doc, Selection *selection)
+{
+	ScElemMimeData* md = new ScElemMimeData();
+	md->setScribusElem(WriteElem(doc, selection));
+	return md;
 }

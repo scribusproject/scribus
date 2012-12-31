@@ -735,8 +735,8 @@ void ScribusView::contentsDragEnterEvent(QDragEnterEvent *e)
 	{
 		e->acceptProposedAction();
 		double gx, gy, gw, gh;
-		ScriXmlDoc *ss = new ScriXmlDoc();
-		if(ss->ReadElemHeader(text, fromFile, &gx, &gy, &gw, &gh))
+		ScriXmlDoc ss;
+		if(ss.ReadElemHeader(text, fromFile, &gx, &gy, &gw, &gh))
 		{
 			FPoint dragPosDoc = m_canvas->globalToCanvas(widget()->mapToGlobal(e->pos()));
 			dragX = dragPosDoc.x(); //e->pos().x() / m_canvas->scale();
@@ -753,8 +753,6 @@ void ScribusView::contentsDragEnterEvent(QDragEnterEvent *e)
 //				redrawMarker->show();
 			emit ItemGeom();
 		}
-		delete ss;
-		ss=NULL;
 	}
 }
 
@@ -3782,14 +3780,11 @@ void ScribusView::TextToPath()
 						{
 							if (hl->hasObject(Doc))
 							{
+								ScriXmlDoc ss;
 								Selection tempSelection(this, false);
 								tempSelection.addItem(hl->getItem(Doc), true);
-								ScriXmlDoc *ss = new ScriXmlDoc();
-								QString dataS = ss->WriteElem(Doc, &tempSelection);
-								delete ss;
-								ss = new ScriXmlDoc();
+								QString dataS = ss.WriteElem(Doc, &tempSelection);
 								emit LoadElem(dataS, currItem->xPos(), currItem->yPos(), false, true, Doc, this);
-								delete ss;
 								bb = Doc->Items->last();
 								int z = Doc->Items->indexOf(bb);
 								bb->setTextFlowMode(currItem->textFlowMode());

@@ -311,10 +311,7 @@ bool PdfPlug::import(QString fNameIn, const TransactionSettings& trSettings, int
 					tmpSele->addItem(Elements.at(dre), true);
 				}
 				tmpSele->setGroupRect();
-				ScriXmlDoc *ss = new ScriXmlDoc();
-				ScElemMimeData* md = new ScElemMimeData();
-				md->setScribusElem(ss->WriteElem(m_Doc, tmpSele));
-				delete ss;
+				ScElemMimeData* md = ScriXmlDoc::WriteToMimeData(m_Doc, tmpSele);
 				m_Doc->itemSelection_DeleteItem(tmpSele);
 				m_Doc->view()->updatesOn(true);
 				m_Doc->m_Selection->delaySignalsOff();
