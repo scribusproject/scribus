@@ -121,8 +121,6 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "aiimport", "aiimport\aiimpo
 		{B17FCD80-7978-4544-93C4-2FE1AC6FE9F3} = {B17FCD80-7978-4544-93C4-2FE1AC6FE9F3}
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "scribus-desaxe", "scribus-desaxe\scribus-desaxe.vcproj", "{CCA6B7D5-9CC5-4FD0-B64C-A70ECF953DB1}"
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "lenseffects", "lenseffects\lenseffects.vcproj", "{A00C1154-21EF-4844-9A6A-CA04CD6CB3D7}"
 	ProjectSection(ProjectDependencies) = postProject
 		{B17FCD80-7978-4544-93C4-2FE1AC6FE9F3} = {B17FCD80-7978-4544-93C4-2FE1AC6FE9F3}
@@ -364,10 +362,6 @@ Global
 		{1BBA70B3-12AF-463C-A8E4-E613E4999491}.Debug-cairo|Win32.Build.0 = Debug-cairo|Win32
 		{1BBA70B3-12AF-463C-A8E4-E613E4999491}.Release-cairo|Win32.ActiveCfg = Release-cairo|Win32
 		{1BBA70B3-12AF-463C-A8E4-E613E4999491}.Release-cairo|Win32.Build.0 = Release-cairo|Win32
-		{CCA6B7D5-9CC5-4FD0-B64C-A70ECF953DB1}.Debug-cairo|Win32.ActiveCfg = Debug-cairo|Win32
-		{CCA6B7D5-9CC5-4FD0-B64C-A70ECF953DB1}.Debug-cairo|Win32.Build.0 = Debug-cairo|Win32
-		{CCA6B7D5-9CC5-4FD0-B64C-A70ECF953DB1}.Release-cairo|Win32.ActiveCfg = Release-cairo|Win32
-		{CCA6B7D5-9CC5-4FD0-B64C-A70ECF953DB1}.Release-cairo|Win32.Build.0 = Release-cairo|Win32
 		{A00C1154-21EF-4844-9A6A-CA04CD6CB3D7}.Debug-cairo|Win32.ActiveCfg = Debug-cairo|Win32
 		{A00C1154-21EF-4844-9A6A-CA04CD6CB3D7}.Debug-cairo|Win32.Build.0 = Debug-cairo|Win32
 		{A00C1154-21EF-4844-9A6A-CA04CD6CB3D7}.Release-cairo|Win32.ActiveCfg = Release-cairo|Win32
