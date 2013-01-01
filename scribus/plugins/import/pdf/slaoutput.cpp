@@ -311,6 +311,21 @@ GBool SlaOutputDev::annotations_callback(Annot *annota, void *user_data)
 	double yCoor = dev->m_doc->currentPage()->yOffset() + dev->m_doc->currentPage()->height() - box->y2 + dev->cropOffsetY;
 	double width = box->x2 - box->x1;
 	double height = box->y2 - box->y1;
+	if (dev->rotate == 90)
+	{
+		xCoor = dev->m_doc->currentPage()->xOffset() - dev->cropOffsetX + box->y2;
+		yCoor = dev->m_doc->currentPage()->yOffset() + dev->cropOffsetY + box->x1;
+	}
+	else if (dev->rotate == 180)
+	{
+		xCoor = dev->m_doc->currentPage()->xOffset() - dev->cropOffsetX + dev->m_doc->currentPage()->width() - box->x1;
+		yCoor = dev->m_doc->currentPage()->yOffset() + dev->cropOffsetY + box->y2;
+	}
+	else if (dev->rotate == 270)
+	{
+		xCoor = dev->m_doc->currentPage()->xOffset() - dev->cropOffsetX + dev->m_doc->currentPage()->width() - box->y2;
+		yCoor = dev->m_doc->currentPage()->yOffset() + dev->cropOffsetY + dev->m_doc->currentPage()->height() - box->x1;
+	}
 	bool retVal = true;
 	if (annota->getType() == Annot::typeText)
 		retVal = !dev->handleTextAnnot(annota, xCoor, yCoor, width, height);
@@ -326,6 +341,7 @@ bool SlaOutputDev::handleTextAnnot(Annot* annota, double xCoor, double yCoor, do
 	AnnotText *anl = (AnnotText*)annota;
 	int z = m_doc->itemAdd(PageItem::TextFrame, PageItem::Rectangle, xCoor, yCoor, width, height, 0, CommonStrings::None, CommonStrings::None, true);
 	PageItem *ite = m_doc->Items->at(z);
+	ite->setRotation(rotate, true);
 	ite->ClipEdited = true;
 	ite->FrameType = 3;
 	ite->setFillEvenOdd(false);
@@ -467,6 +483,7 @@ bool SlaOutputDev::handleLinkAnnot(Annot* annota, double xCoor, double yCoor, do
 	{
 		int z = m_doc->itemAdd(PageItem::TextFrame, PageItem::Rectangle, xCoor, yCoor, width, height, 0, CommonStrings::None, CommonStrings::None, true);
 		PageItem *ite = m_doc->Items->at(z);
+		ite->setRotation(rotate, true);
 		ite->ClipEdited = true;
 		ite->FrameType = 3;
 		ite->setFillEvenOdd(false);
@@ -625,6 +642,7 @@ bool SlaOutputDev::handleWidgetAnnot(Annot* annota, double xCoor, double yCoor, 
 						}
 						int z = m_doc->itemAdd(PageItem::TextFrame, PageItem::Rectangle, xCoor, yCoor, width, height, 0, CurrColorFill, CommonStrings::None, true);
 						PageItem *ite = m_doc->Items->at(z);
+						ite->setRotation(rotate, true);
 						ite->ClipEdited = true;
 						ite->FrameType = 3;
 						ite->setFillEvenOdd(false);
