@@ -8780,7 +8780,7 @@ hvis indlæsning lykkedes, indeholder markeringen den importerede ODG
     <message>
         <location filename="../../../scribus/annot.cpp" line="1020"/>
         <source>Custom validate script:</source>
-        <translation>Bruger validerings script:</translation>
+        <translation>Brugerdefineret validerings-skript:</translation>
     </message>
     <message>
         <location filename="../../../scribus/annot.cpp" line="716"/>
@@ -8855,7 +8855,7 @@ hvis indlæsning lykkedes, indeholder markeringen den importerede ODG
     <message>
         <location filename="../../../scribus/annot.cpp" line="1095"/>
         <source>Custom calculation script:</source>
-        <translation>Bruger udregnings script:</translation>
+        <translation>Brugerdefineret udregnings skript:</translation>
     </message>
     <message>
         <location filename="../../../scribus/annot.cpp" line="1191"/>
@@ -8865,7 +8865,7 @@ hvis indlæsning lykkedes, indeholder markeringen den importerede ODG
     <message>
         <location filename="../../../scribus/annot.cpp" line="918"/>
         <source>Custom Scripts</source>
-        <translation>Bruger scripts</translation>
+        <translation>Brugedefinerede skripter</translation>
     </message>
     <message>
         <location filename="../../../scribus/annot.cpp" line="421"/>
@@ -9701,7 +9701,7 @@ hvis indlæsning lykkedes, indeholder markeringen den importerede ODG
     <message>
         <location filename="../../../scribus/plugins/tools/spellcheck/aspellpluginimpl.cpp" line="258"/>
         <source>Spelling check complete</source>
-        <translation>Stavekontrol tjek fuldført</translation>
+        <translation>Stavekontrol fuldført</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/tools/spellcheck/aspellpluginimpl.cpp" line="97"/>
@@ -14292,37 +14292,37 @@ Dette kan indstilles i Præferencer.</translation>
         <location filename="../../../scribus/ui/downloaddictionaries.ui" line="14"/>
         <location filename="../../../scribus/ui/downloaddictionaries.ui" line="56"/>
         <source>Download Dictionaries</source>
-        <translation type="unfinished"></translation>
+        <translation>Hent ordbøger</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/downloaddictionaries.ui" line="20"/>
         <source>Available Dictionary Downloads</source>
-        <translation type="unfinished"></translation>
+        <translation>Tilgængelige ordbøger </translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/downloaddictionaries.ui" line="49"/>
         <source>Update Dictionary List</source>
-        <translation type="unfinished"></translation>
+        <translation>Opdatér ordbogsliste</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/downloaddictionaries.ui" line="63"/>
         <source>Close</source>
-        <translation type="unfinished">Luk</translation>
+        <translation>Luk</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/downloaddictionaries.cpp" line="116"/>
         <source>Language</source>
-        <translation type="unfinished">Sprog</translation>
+        <translation>Sprog</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/downloaddictionaries.cpp" line="116"/>
         <source>Code</source>
-        <translation type="unfinished"></translation>
+        <translation>Kode</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/downloaddictionaries.cpp" line="116"/>
         <source>Location</source>
-        <translation type="unfinished"></translation>
+        <translation>Sted</translation>
     </message>
 </context>
 <context>
@@ -16572,7 +16572,7 @@ og www.scribus.net for at hente scribus ect.</translation>
     <message>
         <location filename="../../../scribus/plugins/tools/hunspellcheck/hunspellplugin.cpp" line="33"/>
         <source>Check Spelling...</source>
-        <translation type="unfinished"></translation>
+        <translation>Stavekontrol...</translation>
     </message>
 </context>
 <context>
@@ -16680,28 +16680,28 @@ Værdien 0 betyder ubegrænset antal.</translation>
         <location filename="../../../scribus/hysettings.cpp" line="252"/>
         <location filename="../../../scribus/hysettings.cpp" line="409"/>
         <source>Language</source>
-        <translation type="unfinished">Sprog</translation>
+        <translation>Sprog</translation>
     </message>
     <message>
         <location filename="../../../scribus/hysettings.cpp" line="252"/>
         <location filename="../../../scribus/hysettings.cpp" line="409"/>
         <source>Code</source>
-        <translation type="unfinished"></translation>
+        <translation>Kode</translation>
     </message>
     <message>
         <location filename="../../../scribus/hysettings.cpp" line="252"/>
         <source>Location</source>
-        <translation type="unfinished"></translation>
+        <translation>Sted</translation>
     </message>
     <message>
         <location filename="../../../scribus/hysettings.cpp" line="409"/>
         <source>Installed</source>
-        <translation type="unfinished"></translation>
+        <translation>Installeret</translation>
     </message>
     <message>
         <location filename="../../../scribus/hysettings.cpp" line="409"/>
         <source>Download</source>
-        <translation type="unfinished"></translation>
+        <translation>Hent</translation>
     </message>
 </context>
 <context>
@@ -17491,12 +17491,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../../scribus/insertaframe.ui" line="211"/>
         <source>Custom Position</source>
-        <translation>Bruger defineret position</translation>
+        <translation>Brugerdefineret position</translation>
     </message>
     <message>
         <location filename="../../../scribus/insertaframe.ui" line="358"/>
         <source>Custom Size</source>
-        <translation>Bruger defineret størrelse</translation>
+        <translation>Brugerdefineret størrelse</translation>
     </message>
     <message>
         <location filename="../../../scribus/insertaframe.cpp" line="133"/>
@@ -18744,7 +18744,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../../scribus/margindialog.cpp" line="175"/>
         <source>Size of the inserted pages, either a standard or custom size.</source>
-        <translation>Størrelse på de indsatte sider, enten en standard eller bruger-defineret størrelse.</translation>
+        <translation>Størrelse på de indsatte sider, enten en standard eller brugerdefineret størrelse.</translation>
     </message>
     <message>
         <location filename="../../../scribus/margindialog.cpp" line="176"/>
@@ -21745,7 +21745,7 @@ Resultatet er en kombination af &quot;gennemskæring&quot; og &quot;udelukkelse&
     <message>
         <location filename="../../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="482"/>
         <source>Custom Colors</source>
-        <translation>Bruger definerede farver</translation>
+        <translation>Brugerdefinerede farver</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="494"/>
@@ -22968,7 +22968,7 @@ Vælg venligst en anden.</translation>
     <message>
         <location filename="../../../scribus/prefs.cpp" line="90"/>
         <source>Hyphenation and Spelling</source>
-        <translation type="unfinished"></translation>
+        <translation>Orddeling og stavekontrol</translation>
     </message>
     <message>
         <location filename="../../../scribus/prefs.cpp" line="138"/>
@@ -25205,19 +25205,20 @@ hjørner:</translation>
     <message>
         <location filename="../../../scribus/plugins/scriptplugin/pconsole.cpp" line="133"/>
         <source>Another script is already running...</source>
-        <translation type="unfinished"></translation>
+        <translation>Et andet skript kører allerede...</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/scriptplugin/pconsole.cpp" line="134"/>
         <location filename="../../../scribus/plugins/scriptplugin/pconsole.cpp" line="149"/>
         <source>Please let it finish its task...</source>
-        <translation type="unfinished"></translation>
+        <translation>Lad det venligst afslutte sin opgave...</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/scriptplugin/pconsole.cpp" line="148"/>
         <source>
 &gt;&gt;&gt; Another script is already running...</source>
-        <translation type="unfinished"></translation>
+        <translation>
+&gt;&gt;&gt; Et andet skript kører allerede...</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/scriptplugin/pconsole.cpp" line="225"/>
@@ -25256,7 +25257,7 @@ hjørner:</translation>
     <message>
         <location filename="../../../scribus/plugins/scriptplugin/pconsole.cpp" line="183"/>
         <source>Open Python Script File</source>
-        <translation>Åbn python script fil</translation>
+        <translation>Åbn python skriptfil</translation>
     </message>
     <message>
         <source>Line: %1 Column: %2</source>
@@ -25266,7 +25267,7 @@ hjørner:</translation>
         <location filename="../../../scribus/plugins/scriptplugin/pconsole.cpp" line="185"/>
         <location filename="../../../scribus/plugins/scriptplugin/pconsole.cpp" line="227"/>
         <source>Python Scripts (*.py *.PY)</source>
-        <translation>Python Scripts (*.py *.PY)</translation>
+        <translation>Python Skripts (*.py *.PY)</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/scriptplugin/pconsole.cpp" line="34"/>
@@ -25318,7 +25319,7 @@ Scripter dokumentationen for mere information.</translation>
     <message>
         <location filename="../../../scribus/translationdummy.cpp" line="139"/>
         <source>&amp;Define Custom Colors &gt;&gt;</source>
-        <translation>&amp;Definér bruger farver &gt;&gt;</translation>
+        <translation>&amp;Definér tilpassede farver &gt;&gt;</translation>
     </message>
     <message>
         <location filename="../../../scribus/translationdummy.cpp" line="143"/>
@@ -25328,7 +25329,7 @@ Scripter dokumentationen for mere information.</translation>
     <message>
         <location filename="../../../scribus/translationdummy.cpp" line="142"/>
         <source>&amp;Add to Custom Colors</source>
-        <translation>&amp;Tilføj til bruger farver</translation>
+        <translation>&amp;Tilføj til brugerdefinerede farver</translation>
     </message>
     <message>
         <location filename="../../../scribus/translationdummy.cpp" line="135"/>
@@ -25353,7 +25354,7 @@ Scripter dokumentationen for mere information.</translation>
     <message>
         <location filename="../../../scribus/translationdummy.cpp" line="138"/>
         <source>&amp;Custom colors</source>
-        <translation>&amp;Bruger farver</translation>
+        <translation>&amp;Brugerdefinerede farver</translation>
     </message>
     <message>
         <location filename="../../../scribus/translationdummy.cpp" line="136"/>
@@ -25723,7 +25724,7 @@ Kontrollér sti og filnavn.</translation>
     <message>
         <location filename="../../../scribus/translationdummy.cpp" line="155"/>
         <source>Scr&amp;ipt</source>
-        <translation>S&amp;cript</translation>
+        <translation>S&amp;kript</translation>
     </message>
     <message>
         <location filename="../../../scribus/translationdummy.cpp" line="156"/>
@@ -26171,47 +26172,47 @@ Ekstern Lænker</translation>
     <message>
         <location filename="../../../scribus/langmgr.cpp" line="60"/>
         <source>Aragonese</source>
-        <translation type="unfinished"></translation>
+        <translation>Aragonisk</translation>
     </message>
     <message>
         <location filename="../../../scribus/langmgr.cpp" line="62"/>
         <source>Belarusian</source>
-        <translation type="unfinished"></translation>
+        <translation>Hviderussisk</translation>
     </message>
     <message>
         <location filename="../../../scribus/langmgr.cpp" line="75"/>
         <source>German (Austria)</source>
-        <translation type="unfinished"></translation>
+        <translation>Tysk (Østrig)</translation>
     </message>
     <message>
         <location filename="../../../scribus/langmgr.cpp" line="82"/>
         <source>English (Canadian)</source>
-        <translation type="unfinished"></translation>
+        <translation>Engelsk (Canadisk)</translation>
     </message>
     <message>
         <location filename="../../../scribus/langmgr.cpp" line="83"/>
         <source>English (UK)</source>
-        <translation type="unfinished"></translation>
+        <translation>Engelsk (Britisk)</translation>
     </message>
     <message>
         <location filename="../../../scribus/langmgr.cpp" line="84"/>
         <source>English (New Zealand)</source>
-        <translation type="unfinished"></translation>
+        <translation>Engelsk (New Zealand)</translation>
     </message>
     <message>
         <location filename="../../../scribus/langmgr.cpp" line="85"/>
         <source>English (USA)</source>
-        <translation type="unfinished"></translation>
+        <translation>Engelsk (USA)</translation>
     </message>
     <message>
         <location filename="../../../scribus/langmgr.cpp" line="86"/>
         <source>English (South African)</source>
-        <translation type="unfinished"></translation>
+        <translation>Engelsk (sydafrikansk)</translation>
     </message>
     <message>
         <location filename="../../../scribus/langmgr.cpp" line="89"/>
         <source>Spanish (Argentina)</source>
-        <translation type="unfinished"></translation>
+        <translation>Spansk (Argentina)</translation>
     </message>
     <message>
         <location filename="../../../scribus/langmgr.cpp" line="101"/>
@@ -26293,7 +26294,7 @@ Ekstern Lænker</translation>
     <message>
         <location filename="../../../scribus/langmgr.cpp" line="117"/>
         <source>Nepali</source>
-        <translation type="unfinished"></translation>
+        <translation>Nepalesisk</translation>
     </message>
     <message>
         <location filename="../../../scribus/langmgr.cpp" line="134"/>
@@ -26448,7 +26449,7 @@ Ekstern Lænker</translation>
         <location filename="../../../scribus/plugins/short-words/configuration.cpp" line="153"/>
         <source>Custom (optional) configuration: </source>
         <comment>short words plugin</comment>
-        <translation>Bruger (valgfri) indstilling:</translation>
+        <translation>Brugerdefineret (valgfri) indstilling:</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/short-words/configuration.cpp" line="149"/>
@@ -27329,7 +27330,7 @@ Ekstern Lænker</translation>
         <location filename="../../../scribus/plugins/scriptplugin/scriptercore.cpp" line="45"/>
         <location filename="../../../scribus/plugins/scriptplugin/scriptercore.cpp" line="601"/>
         <source>&amp;Execute Script...</source>
-        <translation>&amp;Kør Script...</translation>
+        <translation>&amp;Kør Skript...</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/scriptplugin/scriptercore.cpp" line="46"/>
@@ -27341,30 +27342,30 @@ Ekstern Lænker</translation>
         <location filename="../../../scribus/plugins/scriptplugin/scriptercore.cpp" line="47"/>
         <location filename="../../../scribus/plugins/scriptplugin/scriptercore.cpp" line="603"/>
         <source>&amp;About Script...</source>
-        <translation>&amp;Om script...</translation>
+        <translation>&amp;Om skript...</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/scriptplugin/scriptercore.cpp" line="76"/>
         <location filename="../../../scribus/plugins/scriptplugin/scriptercore.cpp" line="605"/>
         <source>&amp;Script</source>
-        <translation>&amp;Script</translation>
+        <translation>&amp;Skript</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/scriptplugin/scriptercore.cpp" line="78"/>
         <location filename="../../../scribus/plugins/scriptplugin/scriptercore.cpp" line="606"/>
         <source>&amp;Scribus Scripts</source>
-        <translation>&amp;Scribus scripts</translation>
+        <translation>&amp;Scribus skripts</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/scriptplugin/scriptercore.cpp" line="80"/>
         <location filename="../../../scribus/plugins/scriptplugin/scriptercore.cpp" line="607"/>
         <source>&amp;Recent Scripts</source>
-        <translation>&amp;Nyeste scripts</translation>
+        <translation>&amp;Nyeste skripter</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/scriptplugin/scriptercore.cpp" line="574"/>
         <source>About Script</source>
-        <translation>Om script</translation>
+        <translation>Om skript</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/scriptplugin/scriptplugin.cpp" line="749"/>
@@ -27494,7 +27495,7 @@ er denne liste ikke udtømmende, på grund af indsiglser fra kaldte funktioner.
     <message>
         <location filename="../../../scribus/plugins/scriptplugin/scriptplugin.cpp" line="133"/>
         <source>Scripter</source>
-        <translation>Scripter</translation>
+        <translation>Skripter</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/short-words/shortwords.cpp" line="84"/>
@@ -27579,7 +27580,7 @@ er denne liste ikke udtømmende, på grund af indsiglser fra kaldte funktioner.
     <message>
         <location filename="../../../scribus/pslib.cpp" line="1852"/>
         <source>Exporting PostScript File</source>
-        <translation>Eksporterer PostScript filer</translation>
+        <translation>Eksporterer PostScriptfiler</translation>
     </message>
     <message>
         <location filename="../../../scribus/pslib.cpp" line="1854"/>
@@ -28796,17 +28797,17 @@ Vælg venligst et andet.</translation>
     <message>
         <location filename="../../../scribus/plugins/scriptplugin/runscriptdialog.cpp" line="27"/>
         <source>Python Scripts (*.py *.PY);; All Files (*)</source>
-        <translation>Python Scripts (*.py *.PY);;Alle filer (*)</translation>
+        <translation>Python Skripts (*.py *.PY);;Alle filer (*)</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/scriptplugin/runscriptdialog.ui" line="22"/>
         <source>Run as Extension Script</source>
-        <translation>Kør som udvidelses-script</translation>
+        <translation>Kør som udvidelsesskript</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/scriptplugin/runscriptdialog.ui" line="13"/>
         <source>Run Script</source>
-        <translation>Kør script</translation>
+        <translation>Kør skript</translation>
     </message>
 </context>
 <context>
@@ -28814,37 +28815,37 @@ Vælg venligst et andet.</translation>
     <message>
         <location filename="../../../scribus/plugins/saveastemplateplugin/satdialog.cpp" line="42"/>
         <source>Save as Template</source>
-        <translation type="unfinished">Gem som skabelon</translation>
+        <translation>Gem som skabelon</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/saveastemplateplugin/satdialog.cpp" line="205"/>
         <source>Legal</source>
-        <translation type="unfinished">Legal</translation>
+        <translation>Legal</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/saveastemplateplugin/satdialog.cpp" line="206"/>
         <source>Letter</source>
-        <translation type="unfinished">Letter</translation>
+        <translation>Letter</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/saveastemplateplugin/satdialog.cpp" line="206"/>
         <source>Tabloid</source>
-        <translation type="unfinished">Tabloid</translation>
+        <translation>Tabloid</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/saveastemplateplugin/satdialog.cpp" line="213"/>
         <source>landscape</source>
-        <translation type="unfinished">Landskab</translation>
+        <translation>Landskab</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/saveastemplateplugin/satdialog.cpp" line="218"/>
         <source>portrait</source>
-        <translation type="unfinished">portræt</translation>
+        <translation>portræt</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/saveastemplateplugin/satdialog.cpp" line="234"/>
         <source>custom</source>
-        <translation type="unfinished">brugerdefineret</translation>
+        <translation>brugerdefineret</translation>
     </message>
 </context>
 <context>
@@ -29506,31 +29507,31 @@ Vælg venligst et andet.</translation>
     <message>
         <location filename="../../../scribus/smpstylewidget.cpp" line="130"/>
         <source>Lines:</source>
-        <translation type="unfinished"></translation>
+        <translation>Linjer:</translation>
     </message>
     <message>
         <location filename="../../../scribus/smpstylewidget.cpp" line="149"/>
         <source>None</source>
         <comment>optical margins</comment>
-        <translation type="unfinished">Ingen</translation>
+        <translation>Ingen</translation>
     </message>
     <message>
         <location filename="../../../scribus/smpstylewidget.cpp" line="150"/>
         <source>Both Sides</source>
         <comment>optical margins</comment>
-        <translation type="unfinished">Begge sider</translation>
+        <translation>Begge sider</translation>
     </message>
     <message>
         <location filename="../../../scribus/smpstylewidget.cpp" line="151"/>
         <source>Left Only</source>
         <comment>optical margins</comment>
-        <translation type="unfinished">Kun venstre</translation>
+        <translation>Kun venstre</translation>
     </message>
     <message>
         <location filename="../../../scribus/smpstylewidget.cpp" line="152"/>
         <source>Right Only</source>
         <comment>optical margins</comment>
-        <translation type="unfinished">Kun højre</translation>
+        <translation>Kun højre</translation>
     </message>
     <message>
         <location filename="../../../scribus/smpstylewidget.ui" line="32"/>
@@ -30209,7 +30210,7 @@ og konverterer deres vektordata til Scribus objekter.</translation>
     <message>
         <location filename="../../../scribus/plugins/short-words/swprefsgui.cpp" line="97"/>
         <source>Edit custom configuration. If you save it, it will be used over system wide configuration</source>
-        <translation>Redigér bruger konfiguration. Hvis du gemmer den, vil den blive brugt i stedet for den indbyggede konfiguration</translation>
+        <translation>Redigér brugerdefineret konfiguration. Hvis du gemmer den, vil den blive brugt i stedet for den indbyggede konfiguration</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/short-words/swprefsgui.cpp" line="110"/>
@@ -31094,7 +31095,7 @@ Overvej at bruge Preflight efterprøvning for at rette dem</translation>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="7820"/>
         <source>Until this is remedied, you cannot import EPS images or use PostScript Print Preview. </source>
-        <translation>Indtil dette er afhjulpet, kan du ikke importere EPS billeder eller bruge Postscript print-forhåndsvisning.</translation>
+        <translation>Indtil dette er afhjulpet, kan du ikke importere EPS billeder eller bruge Postscript printforhåndsvisning.</translation>
     </message>
     <message>
         <source>Please read our &lt;a href=&quot;http://wiki.scribus.net/index.php/Ghostscript&quot;&gt;help and installation instructions&lt;/a&gt;.</source>
@@ -31786,12 +31787,12 @@ Du kan vælge mellem normal og adskillige former for farveblindhed</translation>
     <message>
         <location filename="../../../scribus/plugins/scriptplugin/scriptplugin.cpp" line="144"/>
         <source>Embedded Python scripting support.</source>
-        <translation>Indlejret Python script understøttelse.</translation>
+        <translation>Indlejret Python skriptunderstøttelse.</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/scriptplugin/scriptplugin.cpp" line="200"/>
         <source>Scripter</source>
-        <translation>Scripter</translation>
+        <translation>Skripter</translation>
     </message>
 </context>
 <context>
@@ -31801,12 +31802,12 @@ Du kan vælge mellem normal og adskillige former for farveblindhed</translation>
         <location filename="../../../scribus/plugins/scriptplugin/scriptercore.cpp" line="470"/>
         <location filename="../../../scribus/plugins/scriptplugin/scriptercore.cpp" line="628"/>
         <source>Script error</source>
-        <translation>Script fejl</translation>
+        <translation>Skriptfejl</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/scriptplugin/scriptercore.cpp" line="386"/>
         <source>If you are running an official script report it at &lt;a href=&quot;http://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt; please.</source>
-        <translation>Hvis du kører en officiel script, så meddel det venligst til &lt;a href=&quot;http://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt;.</translation>
+        <translation>Hvis du kører et officiel skript, så meddel det venligst til &lt;a href=&quot;http://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt;.</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/scriptplugin/scriptercore.cpp" line="388"/>
@@ -31816,7 +31817,7 @@ Du kan vælge mellem normal og adskillige former for farveblindhed</translation>
     <message>
         <location filename="../../../scribus/plugins/scriptplugin/scriptercore.cpp" line="551"/>
         <source>Examine Script</source>
-        <translation>Undersøg script</translation>
+        <translation>Undersøg skript</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/scriptplugin/scriptercore.cpp" line="471"/>
@@ -31836,7 +31837,7 @@ Du kan vælge mellem normal og adskillige former for farveblindhed</translation>
     <message>
         <location filename="../../../scribus/plugins/scriptplugin/scriptercore.cpp" line="569"/>
         <source>Script</source>
-        <translation>Script</translation>
+        <translation>Skript</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/scriptplugin/scriptercore.cpp" line="569"/>
@@ -31846,7 +31847,7 @@ Du kan vælge mellem normal og adskillige former for farveblindhed</translation>
     <message>
         <location filename="../../../scribus/plugins/scriptplugin/scriptercore.cpp" line="551"/>
         <source>Python Scripts (*.py *.PY);;All Files (*)</source>
-        <translation>Python Scripts (*.py *.PY);;Alle filer (*)</translation>
+        <translation>Python Skripts (*.py *.PY);;Alle filer (*)</translation>
     </message>
 </context>
 <context>
@@ -31854,12 +31855,12 @@ Du kan vælge mellem normal og adskillige former for farveblindhed</translation>
     <message>
         <location filename="../../../scribus/plugins/scriptplugin/scripterprefsgui.cpp" line="65"/>
         <source>Scripter Preferences</source>
-        <translation>Scripter præferencer</translation>
+        <translation>Skripter præferencer</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/scriptplugin/scripterprefsgui.ui" line="89"/>
         <source>Enable Extension Scripts</source>
-        <translation>Aktivér udvidelses-scripts</translation>
+        <translation>Aktivér udvidelses-skripter</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/scriptplugin/scripterprefsgui.ui" line="50"/>
@@ -31874,7 +31875,7 @@ Du kan vælge mellem normal og adskillige former for farveblindhed</translation>
     <message>
         <location filename="../../../scribus/plugins/scriptplugin/scripterprefsgui.ui" line="70"/>
         <source>Startup Script:</source>
-        <translation>Opstarts Script:</translation>
+        <translation>Opstarts Skript:</translation>
     </message>
     <message>
         <source>Errors:</source>
@@ -31923,7 +31924,7 @@ Du kan vælge mellem normal og adskillige former for farveblindhed</translation>
     <message>
         <location filename="../../../scribus/plugins/scriptplugin/scripterprefsgui.cpp" line="148"/>
         <source>Locate Startup Script</source>
-        <translation>find opstarts Script</translation>
+        <translation>Find opstarts Skript</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/scriptplugin/scripterprefsgui.ui" line="13"/>
@@ -33831,7 +33832,7 @@ Du kan vælge mellem normal og adskillige former for farveblindhed</translation>
     <message>
         <location filename="../../../scribus/tabdocument.cpp" line="192"/>
         <source>Default page size, either a standard size or a custom size</source>
-        <translation>Standard sidestørrelse, enten en standard-størrelse eller en bruger-defineret</translation>
+        <translation>Standard sidestørrelse, enten en standard-størrelse eller en brugerdefineret størrelse</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabdocument.cpp" line="193"/>
@@ -34248,7 +34249,7 @@ Du kan vælge mellem normal og adskillige former for farveblindhed</translation>
     <message>
         <location filename="../../../scribus/tabgeneral.cpp" line="61"/>
         <source>Default ICC profiles directory. This cannot be changed with a document open. By default, Scribus will look in the System Directories under Mac OSX and Windows. On Linux and Unix, Scribus will search $home/.color/icc, $home/.local/share/color/icc, /usr/share/color/icc and /usr/local/share/color/icc</source>
-        <translation type="unfinished"></translation>
+        <translation>Standard ICC-profilmappe. Denne kan ikke ændres, når der er åbnede dokumenter. Som standard vil Scribus se i system-mapperne under Mac OSX og Windows. På Linux og Unix, søger Scribus i $HOME/.color/icc, $HOME/.local/share/color/icc, /usr/share/color/icc og /usr/local/share/color/icc</translation>
     </message>
     <message>
         <source>Default ICC profiles directory. This cannot be changed with a document open. By default, Scribus will look in the System Directories under Mac OSX and Windows. On Linux and Unix, Scribus will search $home/.color/icc,/usr/share/color/icc and /usr/local/share/color/icc </source>
@@ -34257,7 +34258,7 @@ Du kan vælge mellem normal og adskillige former for farveblindhed</translation>
     <message>
         <location filename="../../../scribus/tabgeneral.cpp" line="62"/>
         <source>Default Scripter scripts directory</source>
-        <translation>Standard Scripter scriptmappe</translation>
+        <translation>Standard Skripter skriptmappe</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabgeneral.cpp" line="63"/>
@@ -34366,7 +34367,7 @@ Du kan vælge mellem normal og adskillige former for farveblindhed</translation>
     <message>
         <location filename="../../../scribus/tabgeneral.ui" line="306"/>
         <source>&amp;Scripts:</source>
-        <translation>&amp;Scripts:</translation>
+        <translation>&amp;Skripter:</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabgeneral.ui" line="329"/>
@@ -35502,7 +35503,7 @@ Du kan vælge mellem normal og adskillige former for farveblindhed</translation>
     <message>
         <location filename="../../../scribus/tabpdfoptions.cpp" line="688"/>
         <source>&amp;Use Custom Rendering Settings</source>
-        <translation>Brug br&amp;uger indstillinger for gengivelse</translation>
+        <translation>Brug br&amp;ugerdefinerede indstillinger for gengivelse</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabpdfoptions.cpp" line="690"/>
@@ -35922,7 +35923,7 @@ Du kan vælge mellem normal og adskillige former for farveblindhed</translation>
         <location filename="../../../scribus/tabpdfoptions.cpp" line="616"/>
         <location filename="../../../scribus/tabpdfoptions.cpp" line="1194"/>
         <source>No Script</source>
-        <translation>Ingen script</translation>
+        <translation>Ingen skript</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabpdfoptions.cpp" line="619"/>
@@ -38192,12 +38193,12 @@ til %2</translation>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="878"/>
         <source>Set custom line style</source>
-        <translation>Vælg bruger linjestil</translation>
+        <translation>Vælg brugerdefineret linjestil</translation>
     </message>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="879"/>
         <source>Do not use custom line style</source>
-        <translation>Brug ikke bruger linjestil</translation>
+        <translation>Brug ikke brugerdefineret linjestil</translation>
     </message>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="880"/>
@@ -39243,7 +39244,7 @@ og konverterer deres vektordata til Scribus objekter.</translation>
     <message>
         <location filename="../../../scribus/hysettingsBase.ui" line="33"/>
         <source>Hyphenation</source>
-        <translation type="unfinished"></translation>
+        <translation>Orddeling</translation>
     </message>
     <message>
         <location filename="../../../scribus/hysettingsBase.ui" line="45"/>
@@ -39326,32 +39327,32 @@ Værdien 0 betyder ubegrænset antal.</translation>
     <message>
         <location filename="../../../scribus/hysettingsBase.ui" line="302"/>
         <source>Spelling</source>
-        <translation type="unfinished"></translation>
+        <translation>Stavekontrol</translation>
     </message>
     <message>
         <location filename="../../../scribus/hysettingsBase.ui" line="312"/>
         <source>Installed Spelling Dictionaries</source>
-        <translation type="unfinished"></translation>
+        <translation>Installerede staveordbøger</translation>
     </message>
     <message>
         <location filename="../../../scribus/hysettingsBase.ui" line="330"/>
         <source>Downloadable Spelling Dictionaries</source>
-        <translation type="unfinished"></translation>
+        <translation>Staveordbøger der kan hentes</translation>
     </message>
     <message>
         <location filename="../../../scribus/hysettingsBase.ui" line="350"/>
         <source>Downloading</source>
-        <translation type="unfinished"></translation>
+        <translation>Henter</translation>
     </message>
     <message>
         <location filename="../../../scribus/hysettingsBase.ui" line="383"/>
         <source>Refresh Downloadable List</source>
-        <translation type="unfinished"></translation>
+        <translation>Opdatér liste</translation>
     </message>
     <message>
         <location filename="../../../scribus/hysettingsBase.ui" line="390"/>
         <source>Download Selected Dictionaries</source>
-        <translation type="unfinished"></translation>
+        <translation>Hent valgte ordbøger</translation>
     </message>
 </context>
 <context>
