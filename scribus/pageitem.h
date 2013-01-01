@@ -272,10 +272,7 @@ public:
 	QRect getRedrawBounding(const double);
 	void setRedrawBounding();
 			
-	/**
-	 * @brief Update the gradient vectors, moved from the View
-	 */		
-	void updateGradientVectors();
+	void updateGradientVectors(); //!< Update the gradient vectors, moved from the View
 	/**
 	 * @brief Move the image within the frame
 	 * Old ScribusView::MoveItemI
@@ -371,12 +368,10 @@ public:
 	int firstInFrame() const;
 	/// returns index of last char displayed in this frame, used to be MaxChars-1
 	int lastInFrame() const;
-	/// tests if a character is displayed by this frame
-	bool frameDisplays(int textpos) const;
-	/// returns the style at the current charpos
-	const ParagraphStyle& currentStyle() const;
-	/// returns the style at the current charpos
-	ParagraphStyle& changeCurrentStyle();
+
+	bool frameDisplays(int textpos) const; ///< tests if a character is displayed by this fram
+	const ParagraphStyle& currentStyle() const; ///< returns the style at the current charpos
+	ParagraphStyle& changeCurrentStyle(); ///< returns the style at the current charpos
 	/// returns the style at the current charpos
 	const CharStyle& currentCharStyle() const;
 	/// Return current text properties (current char + paragraph properties)
@@ -393,7 +388,7 @@ public:
 	double gYpos;
 	double gWidth;
 	double gHeight;
-	int GrType;			// used values 6 = linear, 7 = radial, 8 = pattern, 9 = 4 color gradient, 10 = diamond, 11 = mesh gradient
+	int GrType;			///< used values 6 = linear, 7 = radial, 8 = pattern, 9 = 4 color gradient, 10 = diamond, 11 = mesh gradient
 	double GrStartX;
 	double GrStartY;
 	double GrEndX;
@@ -623,11 +618,11 @@ protected:
 	int inlineCharID;
 	
 	//Position
-	double xPos() const { return Xpos; }
-	double yPos() const { return Ypos; }
+	double xPos() const { return m_xPos; }
+	double yPos() const { return m_yPos; }
 	double visualXPos() const;
 	double visualYPos() const;
-	FPoint xyPos() const { return FPoint(Xpos, Ypos); }
+	FPoint xyPos() const { return FPoint(m_xPos, m_yPos); }
 	void setXPos(const double, bool drawingOnly=false);
 	void setYPos(const double, bool drawingOnly=false);
 	void setXYPos(const double, const double, bool drawingOnly=false);
@@ -657,8 +652,8 @@ protected:
 	void setImageXScale(const double);
 	void setImageYScale(const double);
 	void setImageXYScale(const double, const double);
-	double imageXOffset() const { return LocalX; }
-	double imageYOffset() const { return LocalY; }
+	double imageXOffset() const { return m_imageXOffset; }
+	double imageYOffset() const { return m_imageYOffset; }
 	void setImageXOffset(const double);
 	void setImageYOffset(const double);
 	void moveImageXYOffsetBy(const double, const double);
@@ -1629,9 +1624,9 @@ protected:
 	QColor GrColorP4QColor;
 	
 	/** X position on the page */
-	double Xpos;
+	double m_xPos;
 	/** Y position on the page */
-	double Ypos;
+	double m_yPos;
 	/** Width of the item */
 	double Width;
 	/** Height of the item */
@@ -1645,9 +1640,9 @@ protected:
 	/** Scaling Y Factor for images*/
 	double m_imageYScale;
 	/** Image X Offset to frame */
-	double LocalX;
+	double m_imageXOffset;
 	/** Image Y Offset to frame */
-	double LocalY;
+	double m_imageYOffset;
 	/** Image rotation in frame */
 	double m_imageRotation;
 	/** If the frame is reversed */

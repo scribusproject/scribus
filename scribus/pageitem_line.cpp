@@ -160,13 +160,13 @@ QString PageItem_Line::infoDescription()
 
 QPointF PageItem_Line::startPoint()
 {
-	return QPointF(Xpos, Ypos);
+	return QPointF(m_xPos, m_yPos);
 }
 
 QPointF PageItem_Line::endPoint()
 {
 	double rot = this->rotation();
-	double x = Xpos + Width * cos(rot * M_PI / 180.0);
-	double y = Ypos + Width * sin(rot * M_PI / 180.0);
+	double x = m_xPos + Width * cos(rot * M_PI / 180.0);
+	double y = m_yPos + Width * sin(rot * M_PI / 180.0);
 	return QPointF(x, y);
 }

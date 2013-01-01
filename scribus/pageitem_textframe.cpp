@@ -190,7 +190,7 @@ QRegion PageItem_TextFrame::calcAvailableRegion()
 		if (Parent != NULL)
 			canvasToLocalMat.translate(gXpos, gYpos);
 		else
-			canvasToLocalMat.translate(Xpos, Ypos);
+			canvasToLocalMat.translate(m_xPos, m_yPos);
 		canvasToLocalMat.rotate(m_rotation);
 		canvasToLocalMat = canvasToLocalMat.inverted(&invertible);
 
@@ -1940,9 +1940,9 @@ void PageItem_TextFrame::layout()
 						{
 							if (current.yPos <= lastLineY)
 								current.yPos = lastLineY +1;
-							double by = Ypos;
+							double by = m_yPos;
 							if (OwnPage != -1)
-								by = Ypos - m_Doc->Pages->at(OwnPage)->yOffset();
+								by = m_yPos - m_Doc->Pages->at(OwnPage)->yOffset();
 							int ol1 = qRound((by + current.yPos - m_Doc->guidesPrefs().offsetBaselineGrid) * 10000.0);
 							int ol2 = static_cast<int>(ol1 / m_Doc->guidesPrefs().valueBaselineGrid);
 							current.yPos = ceil(  ol2 / 10000.0 ) * m_Doc->guidesPrefs().valueBaselineGrid + m_Doc->guidesPrefs().offsetBaselineGrid - by;
@@ -1967,9 +1967,9 @@ void PageItem_TextFrame::layout()
 						if (style.lineSpacingMode() == ParagraphStyle::BaselineGridLineSpacing)
 						{
 							current.yPos += m_Doc->guidesPrefs().valueBaselineGrid;
-							double by = Ypos;
+							double by = m_yPos;
 							if (OwnPage != -1)
-								by = Ypos - m_Doc->Pages->at(OwnPage)->yOffset();
+								by = m_yPos - m_Doc->Pages->at(OwnPage)->yOffset();
 							int ol1 = qRound((by + current.yPos - m_Doc->guidesPrefs().offsetBaselineGrid) * 10000.0);
 							int ol2 = static_cast<int>(ol1 / m_Doc->guidesPrefs().valueBaselineGrid);
 							current.yPos = ceil(  ol2 / 10000.0 ) * m_Doc->guidesPrefs().valueBaselineGrid + m_Doc->guidesPrefs().offsetBaselineGrid - by;
@@ -2071,9 +2071,9 @@ void PageItem_TextFrame::layout()
 						if (style.lineSpacingMode() == ParagraphStyle::BaselineGridLineSpacing || FlopBaseline)
 						{
 							current.yPos++;
-							double by = Ypos;
+							double by = m_yPos;
 							if (OwnPage != -1)
-								by = Ypos - m_Doc->Pages->at(OwnPage)->yOffset();
+								by = m_yPos - m_Doc->Pages->at(OwnPage)->yOffset();
 							int ol1 = qRound((by + current.yPos - m_Doc->guidesPrefs().offsetBaselineGrid) * 10000.0);
 							int ol2 = static_cast<int>(ol1 / m_Doc->guidesPrefs().valueBaselineGrid);
 							current.yPos = ceil(  ol2 / 10000.0 ) * m_Doc->guidesPrefs().valueBaselineGrid + m_Doc->guidesPrefs().offsetBaselineGrid - by;
@@ -3095,7 +3095,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRectF cullingArea)
 	{
 	//	e2 = QRect(qRound(cullingArea.x()  / sc + m_Doc->minCanvasCoordinate.x()), qRound(cullingArea.y()  / sc + m_Doc->minCanvasCoordinate.y()),
 	//			   qRound(cullingArea.width() / sc), qRound(cullingArea.height() / sc));
-		pf2.translate(Xpos, Ypos);
+		pf2.translate(m_xPos, m_yPos);
 	}
 	
 	pf2.rotate(m_rotation);
@@ -3221,7 +3221,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRectF cullingArea)
 				p->setupPolygon(&PoLine);
 				p->setClipPath();
 				p->scale(m_imageXScale, m_imageYScale);
-				p->translate(LocalX*m_imageXScale, LocalY*m_imageYScale);
+				p->translate(m_imageXOffset*m_imageXScale, m_imageYOffset*m_imageYScale);
 				p->rotate(m_imageRotation);
 				if (pixm.width() > 0 && pixm.height() > 0)
 					p->drawImage(pixm.qImagePtr());
@@ -3858,7 +3858,7 @@ void PageItem_TextFrame::DrawObj_Decoration(ScPainter *p)
 		return;
 	p->save();
 	if (!isEmbedded)
-		p->translate(Xpos, Ypos);
+		p->translate(m_xPos, m_yPos);
 	p->rotate(m_rotation);
 	if ((!isEmbedded) && (!m_Doc->RePos))
 	{

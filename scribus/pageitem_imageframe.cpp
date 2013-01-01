@@ -155,7 +155,7 @@ void PageItem_ImageFrame::DrawObj_Item(ScPainter *p, QRectF /*e*/)
 				p->setupPolygon(&imageClip);
 				p->setClipPath();
 			}
-			p->translate(LocalX*m_imageXScale, LocalY*m_imageYScale);
+			p->translate(m_imageXOffset*m_imageXScale, m_imageYOffset*m_imageYScale);
 			p->rotate(m_imageRotation);
 			double mscalex = 1.0 / m_imageXScale;
 			double mscaley = 1.0 / m_imageYScale;
@@ -236,8 +236,8 @@ void PageItem_ImageFrame::clearContents()
 	m_imageYScale = 1;
 	OrigW = 0;
 	OrigH = 0;
-	LocalX = 0;
-	LocalY = 0;
+	m_imageXOffset = 0;
+	m_imageYOffset = 0;
 	setImageFlippedH(false);
 	setImageFlippedV(false);
 	EmProfile = "";
