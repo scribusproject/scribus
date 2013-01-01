@@ -8964,7 +8964,11 @@ void ScribusMainWindow::manageMasterPages(QString temp)
 {
 	if (!HaveDoc)
 		return;
-
+	QString mpName = "";
+	if (temp.isEmpty())
+		mpName = doc->currentPage()->MPageNam;
+	else
+		mpName = temp;
 	view->Deselect(true);
 	m_WasAutoSave = doc->autoSave();
 	if (m_WasAutoSave)
@@ -8975,7 +8979,7 @@ void ScribusMainWindow::manageMasterPages(QString temp)
 
 	if (doc->masterPageMode())
 	{
-		pagePalette->startMasterPageMode(temp);
+		pagePalette->startMasterPageMode(mpName);
 		return;
 	}
 
@@ -8986,7 +8990,7 @@ void ScribusMainWindow::manageMasterPages(QString temp)
 	doc->stored_minCanvasCoordinate = doc->minCanvasCoordinate;
 	doc->stored_maxCanvasCoordinate = doc->maxCanvasCoordinate;
 
-	pagePalette->startMasterPageMode(temp);
+	pagePalette->startMasterPageMode(mpName);
 	if (!pagePalette->isVisible())
 	{
 		pagePalette->show();
@@ -9027,7 +9031,6 @@ void ScribusMainWindow::manageMasterPages(QString temp)
 
 void ScribusMainWindow::manageMasterPagesEnd()
 {
-	doc->setLoading(true);
 	view->setScale(storedViewScale);
 	doc->minCanvasCoordinate = doc->stored_minCanvasCoordinate;
 	doc->maxCanvasCoordinate = doc->stored_maxCanvasCoordinate;
@@ -9080,6 +9083,9 @@ void ScribusMainWindow::manageMasterPagesEnd()
 	pagePalette->endMasterPageMode();
 
 	doc->setCurrentPage(doc->DocPages.at(storedPageNum));
+	doc->minCanvasCoordinate = doc->stored_minCanvasCoordinate;
+	doc->maxCanvasCoordinate = doc->stored_maxCanvasCoordinate;
+	doc->setLoading(true);
 	view->reformPages(false);
 	view->setContentsPos(static_cast<int>(storedViewXCoor * storedViewScale), static_cast<int>(storedViewYCoor * storedViewScale));
 	doc->setLoading(false);
