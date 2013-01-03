@@ -118,6 +118,18 @@ void ScribusWin::closeEvent(QCloseEvent *ce)
 		ce->ignore();
 		return;
 	}
+	else if (m_Doc->inlineEditMode())
+	{
+		m_MainWindow->editInlineEnd();
+		ce->ignore();
+		return;
+	}
+	else if (m_Doc->masterPageMode())
+	{
+		m_MainWindow->manageMasterPagesEnd();
+		ce->ignore();
+		return;
+	}
 	else
 	{
 		if (m_Doc->isModified() && (m_Doc->viewCount == 1))
