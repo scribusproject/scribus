@@ -305,7 +305,7 @@ void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 	
 	m_lastPosWasOverGuide = false;
 	double newX, newY;
-	PageItem *currItem;
+	PageItem *currItem=NULL;
 	bool erf = false;
 	m->accept();
 //	qDebug() << "legacy mode move:" << m->x() << m->y() << m_canvas->globalToCanvas(m->globalPos()).x() << m_canvas->globalToCanvas(m->globalPos()).y();
