@@ -413,7 +413,7 @@ void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 					m_hoveredItem = hoveredItem;
 					if ((hoveredItem->annotation().Type() == Annotation::Text) && (hoveredItem->annotation().IsOpen()))
 					{
-						if (m_view->moveTimerElapsed() && m_canvas->m_viewMode.m_MouseButtonPressed && (m->buttons() & Qt::LeftButton) && (!currItem->locked()))
+						if (m_view->moveTimerElapsed() && m_canvas->m_viewMode.m_MouseButtonPressed && (m->buttons() & Qt::LeftButton) && (!hoveredItem->locked()))
 						{
 							double dx = mousePointDoc.x() - m_mouseCurrentPoint.x();
 							double dy = mousePointDoc.y() - m_mouseCurrentPoint.y();
