@@ -2697,6 +2697,7 @@ void ScribusView::GotoPage(int Seite)
 		return;
 	setMenTxt(Seite);
 	SetCPo(Doc->currentPage()->xOffset() - 10, Doc->currentPage()->yOffset() - 10);
+	m_ScMW->HaveNewSel(-1);
 }
 
 void ScribusView::showMasterPage(int nr)
