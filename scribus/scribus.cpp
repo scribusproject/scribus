@@ -6535,6 +6535,7 @@ void ScribusMainWindow::ToggleFrameEdit()
 			nodePalette->ResetCont->setEnabled(false);
 			nodePalette->ResetContClip->setEnabled(false);
 			nodePalette->PolyStatus(currItem->itemType(), currItem->PoLine.size());
+			nodePalette->setDefaults(currItem);
 			if ((currItem->asImageFrame()) && (currItem->imageClip.size() != 0))
 			{
 				nodePalette->ResetContClip->setSizePolicy(QSizePolicy(static_cast<QSizePolicy::Policy>(3), static_cast<QSizePolicy::Policy>(3)));

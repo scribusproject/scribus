@@ -281,9 +281,18 @@ NodePalette::NodePalette( QWidget* parent) : ScrPaletteBase( parent, "nodePalett
 	ResetShape2Clip->hide();
 	gridLayout2->addWidget(ResetShape2Clip, 7, 0, 1, 2);
 
-	editEditButton = new QPushButton(this);
+	resetDefaultButton = new QPushButton(this);
+	resetDefaultButton->setEnabled(true);
+	gridLayout2->addWidget(resetDefaultButton, 8, 0, 1, 2);
+
+	editEditButton = new QPushButton(loadIcon("22/exit.png"), tr("OK"), this);
+	editEditButton->setEnabled(true);
 	editEditButton->setDefault(true);
-	gridLayout2->addWidget(editEditButton, 8, 0, 1, 2);
+	gridLayout2->addWidget(editEditButton, 9, 0, 1, 1);
+
+	cancelEditButton = new QPushButton( tr("Cancel"), this);
+	cancelEditButton->setEnabled(true);
+	gridLayout2->addWidget(cancelEditButton, 9, 1, 1, 1);
 
 	vboxLayout->addLayout(gridLayout2);
 	resize(QSize(170, 380).expandedTo(minimumSizeHint()));
@@ -295,6 +304,8 @@ void NodePalette::connectSignals()
 {
 	// signals and slots connections
 	connect(editEditButton, SIGNAL(clicked()), this, SLOT(EndEdit()));
+	connect(cancelEditButton, SIGNAL(clicked()), this, SLOT(CancelEdit()));
+	connect(resetDefaultButton, SIGNAL(clicked()), this, SLOT(ResetToEditDefaults()));
 	connect(DeleteNode, SIGNAL(clicked()), this, SLOT(DelN()));
 	connect(AddNode, SIGNAL(clicked()), this, SLOT(AddN()));
 	connect(MoveNode, SIGNAL(clicked()), this, SLOT(MoveN()));
@@ -332,6 +343,8 @@ void NodePalette::disconnectSignals()
 {
 	// signals and slots disconnetions
 	disconnect(editEditButton, SIGNAL(clicked()), this, SLOT(EndEdit()));
+	disconnect(cancelEditButton, SIGNAL(clicked()), this, SLOT(CancelEdit()));
+	disconnect(resetDefaultButton, SIGNAL(clicked()), this, SLOT(ResetToEditDefaults()));
 	disconnect(DeleteNode, SIGNAL(clicked()), this, SLOT(DelN()));
 	disconnect(AddNode, SIGNAL(clicked()), this, SLOT(AddN()));
 	disconnect(MoveNode, SIGNAL(clicked()), this, SLOT(MoveN()));
@@ -896,6 +909,56 @@ void NodePalette::EndEdit()
 	emit paletteClosed();
 }
 
+void NodePalette::CancelEdit()
+{
+	if (doc != 0)
+	{
+		MoveN();
+		doc->nodeEdit.ClRe = -1;
+		doc->nodeEdit.ClRe2 = -1;
+		doc->nodeEdit.SegP1 = -1;
+		doc->nodeEdit.SegP2 = -1;
+		doc->nodeEdit.SelNode.clear();
+		EditCont->setChecked(false);
+		ToggleConMode();
+		PageItem *currItem = doc->m_Selection->itemAt(0);
+		currItem->setXYPos(xPos, yPos, true);
+		currItem->ContourLine = itemContourPath.copy();
+		currItem->PoLine = itemPath.copy();
+		doc->AdjustItemSize(currItem);
+		if (currItem->itemType() == PageItem::PathText)
+			currItem->updatePolyClip();
+	}
+	PolySplit->setEnabled( false );
+	BezierClose->setEnabled( false );
+	EditCont->setChecked(false);
+	emit paletteClosed();
+}
+
+void NodePalette::ResetToEditDefaults()
+{
+	if (doc != 0)
+	{
+		doc->nodeEdit.ClRe = -1;
+		doc->nodeEdit.ClRe2 = -1;
+		doc->nodeEdit.SegP1 = -1;
+		doc->nodeEdit.SegP2 = -1;
+		doc->nodeEdit.SelNode.clear();
+		PageItem *currItem = doc->m_Selection->itemAt(0);
+		if (EditCont->isChecked())
+			currItem->ContourLine = itemContourPath.copy();
+		else
+		{
+			currItem->setXYPos(xPos, yPos, true);
+			currItem->PoLine = itemPath.copy();
+			doc->AdjustItemSize(currItem);
+		}
+		if (currItem->itemType() == PageItem::PathText)
+			currItem->updatePolyClip();
+		currItem->update();
+	}
+}
+
 void NodePalette::changeEvent(QEvent *e)
 {
 	if (e->type() == QEvent::LanguageChange)
@@ -904,6 +967,14 @@ void NodePalette::changeEvent(QEvent *e)
 	}
 	else
 		QWidget::changeEvent(e);
+}
+
+void NodePalette::setDefaults(PageItem* currItem)
+{
+	xPos = currItem->xPos();
+	yPos = currItem->yPos();
+	itemPath = currItem->PoLine.copy();
+	itemContourPath = currItem->ContourLine.copy();
 }
 
 void NodePalette::languageChange()
@@ -920,7 +991,10 @@ void NodePalette::languageChange()
 	ResetCont->setText( tr("&Reset Contour Line"));
 	ResetContClip->setText( tr("Set Contour to Image Clip"));
 	ResetShape2Clip->setText( tr("Set Shape to Image Clip"));
-	editEditButton->setText( tr("&End Editing"));
+	editEditButton->setText( tr("OK"));
+	cancelEditButton->setText( tr("Cancel"));
+	resetDefaultButton->setText( tr("Reset all edits"));
+//	editEditButton->setText( tr("&End Editing"));
 	MoveNode->setToolTip( tr("Move Nodes"));
 	MoveControl->setToolTip( tr("Move Control Points"));
 	AddNode->setToolTip( tr("Add Nodes"));

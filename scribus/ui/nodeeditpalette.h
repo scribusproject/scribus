@@ -22,11 +22,13 @@ for which a new license (GPL+exception) is in place.
 class QEvent;
 
 #include "scribusapi.h"
+#include "fpointarray.h"
 #include "scrpalettebase.h"
 #include "scrspinbox.h"
 
 class ScribusDoc;
 class ScribusView;
+class PageItem;
 
 class SCRIBUS_API NodePalette : public ScrPaletteBase
 {
@@ -35,6 +37,7 @@ class SCRIBUS_API NodePalette : public ScrPaletteBase
 public:
 	NodePalette( QWidget* parent);
 	~NodePalette() {};
+	void setDefaults(PageItem* currItem);
 	
 	virtual void changeEvent(QEvent *e);
 
@@ -75,6 +78,8 @@ public:
 	QPushButton* ResetContClip;
 	QPushButton* ResetShape2Clip;
 	QPushButton* editEditButton;
+	QPushButton* cancelEditButton;
+	QPushButton* resetDefaultButton;
 	void setDoc(ScribusDoc *dc, ScribusView *vi);
 	ScribusDoc* currentDocument() const;
 	ScribusDoc *doc;
@@ -119,6 +124,8 @@ public slots:
 	void languageChange();
 	void unitChange();
 	void EndEdit(); // allow remote close
+	void CancelEdit();
+	void ResetToEditDefaults();
 
 protected:
 	void connectSignals();
@@ -130,6 +137,10 @@ protected:
 	QGridLayout *gridLayout2;
 	
 	double unitRatio;
+	double xPos;
+	double yPos;
+	FPointArray itemPath;
+	FPointArray itemContourPath;
 	
 signals:
 	void DocChanged();
