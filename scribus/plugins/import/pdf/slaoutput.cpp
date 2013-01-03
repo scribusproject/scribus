@@ -341,7 +341,9 @@ bool SlaOutputDev::handleTextAnnot(Annot* annota, double xCoor, double yCoor, do
 	AnnotText *anl = (AnnotText*)annota;
 	int z = m_doc->itemAdd(PageItem::TextFrame, PageItem::Rectangle, xCoor, yCoor, width, height, 0, CommonStrings::None, CommonStrings::None, true);
 	PageItem *ite = m_doc->Items->at(z);
-	ite->setRotation(rotate, true);
+	int flg = annota->getFlags();
+	if (!(flg & 16))
+		ite->setRotation(rotate, true);
 	ite->ClipEdited = true;
 	ite->FrameType = 3;
 	ite->setFillEvenOdd(false);
@@ -483,7 +485,9 @@ bool SlaOutputDev::handleLinkAnnot(Annot* annota, double xCoor, double yCoor, do
 	{
 		int z = m_doc->itemAdd(PageItem::TextFrame, PageItem::Rectangle, xCoor, yCoor, width, height, 0, CommonStrings::None, CommonStrings::None, true);
 		PageItem *ite = m_doc->Items->at(z);
-		ite->setRotation(rotate, true);
+		int flg = annota->getFlags();
+		if (!(flg & 16))
+			ite->setRotation(rotate, true);
 		ite->ClipEdited = true;
 		ite->FrameType = 3;
 		ite->setFillEvenOdd(false);
@@ -628,7 +632,7 @@ bool SlaOutputDev::handleWidgetAnnot(Annot* annota, double xCoor, double yCoor, 
 #else
 							gfx = new Gfx(xref, Adev, pdfDoc->getPage(m_actPage)->getResourceDict(), catalog, annota->getRect(), NULL);
 #endif
-							annota->draw(gfx, false);
+							ano->draw(gfx, false);
 							if (!bgFound)
 								CurrColorFill = Adev->CurrColorFill;
 							if (!fgFound)
@@ -642,7 +646,9 @@ bool SlaOutputDev::handleWidgetAnnot(Annot* annota, double xCoor, double yCoor, 
 						}
 						int z = m_doc->itemAdd(PageItem::TextFrame, PageItem::Rectangle, xCoor, yCoor, width, height, 0, CurrColorFill, CommonStrings::None, true);
 						PageItem *ite = m_doc->Items->at(z);
-						ite->setRotation(rotate, true);
+						int flg = annota->getFlags();
+						if (!(flg & 16))
+							ite->setRotation(rotate, true);
 						ite->ClipEdited = true;
 						ite->FrameType = 3;
 						ite->setFillEvenOdd(false);
@@ -699,7 +705,11 @@ bool SlaOutputDev::handleWidgetAnnot(Annot* annota, double xCoor, double yCoor, 
 								ite->annotation().setDown(tmTxt);
 						}
 						ite->annotation().setType(wtyp);
-						ite->annotation().setFlag(ano->getFlags());
+						ite->annotation().setFlag(0);
+						if (flg & 2)
+							ite->annotation().setVis(1);
+						if (flg & 32)
+							ite->annotation().setVis(3);
 						if (wtyp == Annotation::Button)
 						{
 							ite->setFillColor(CurrColorFill);
@@ -709,6 +719,9 @@ bool SlaOutputDev::handleWidgetAnnot(Annot* annota, double xCoor, double yCoor, 
 								ite->itemText.insertChars(itemText);
 							applyTextStyle(ite, fontName, CurrColorText, fontSize);
 							ite->annotation().addToFlag(Annotation::Flag_PushButton);
+							FormWidgetButton *btn = (FormWidgetButton*)fm;
+							if (!btn->isReadOnly())
+								ite->annotation().addToFlag(Annotation::Flag_Edit);
 							handleActions(ite, ano);
 						}
 						else if (wtyp == Annotation::Textfield)
@@ -731,6 +744,8 @@ bool SlaOutputDev::handleWidgetAnnot(Annot* annota, double xCoor, double yCoor, 
 									ite->annotation().setMaxChar(mxLen);
 								else
 									ite->annotation().setMaxChar(-1);
+								if (!btn->isReadOnly())
+									ite->annotation().addToFlag(Annotation::Flag_Edit);
 								handleActions(ite, ano);
 							}
 						}
@@ -756,6 +771,8 @@ bool SlaOutputDev::handleWidgetAnnot(Annot* annota, double xCoor, double yCoor, 
 									ite->annotation().setChkStil(5);
 								else
 									ite->annotation().setChkStil(0);
+								if (!btn->isReadOnly())
+									ite->annotation().addToFlag(Annotation::Flag_Edit);
 							}
 						}
 						else if ((wtyp == Annotation::Combobox) || (wtyp == Annotation::Listbox))

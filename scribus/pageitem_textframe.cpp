@@ -3115,6 +3115,12 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRectF cullingArea)
 	MarginStruct savedTextDistanceMargins(m_textDistanceMargins);
 	if (isAnnotation() && !((m_Doc->appMode == modeEdit) && (m_Doc->m_Selection->findItem(this) != -1)) && (((annotation().Type() > 1) && (annotation().Type() < 11)) || (annotation().Type() > 12)))
 	{
+
+		if ((m_Doc->drawAsPreview && !m_Doc->editOnPreview) && ((annotation().Vis() == 1) || (annotation().Vis() == 3)))
+		{
+			p->restore();
+			return;
+		}
 		QColor fontColor;
 		SetQColor(&fontColor, itemText.defaultStyle().charStyle().fillColor(), itemText.defaultStyle().charStyle().fillShade());
 		double fontSize = itemText.defaultStyle().charStyle().fontSize() / 10.0;

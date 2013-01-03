@@ -127,6 +127,7 @@ public:
 	virtual void eoFill(GfxState *state);
 	virtual void fill(GfxState *state);
 	virtual void drawString(GfxState *state, GooString *s);
+
 	QString CurrColorText;
 	QString CurrColorFill;
 	QString CurrColorStroke;
