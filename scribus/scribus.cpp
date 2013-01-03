@@ -8847,6 +8847,10 @@ void ScribusMainWindow::editInlineStart(int id)
 			doc->autoSaveTimer->stop();
 			doc->setAutoSave(false);
 		}
+		if (doc->m_Selection->count() == 1)
+			doc->currentEditedTextframe = doc->m_Selection->itemAt(0);
+		else
+			doc->currentEditedTextframe = NULL;
 		view->Deselect(true);
 		storedPageNum = doc->currentPageNumber();
 		storedViewXCoor = view->contentsX();
@@ -8952,6 +8956,9 @@ void ScribusMainWindow::editInlineEnd()
 	view->setScale(storedViewScale);
 	doc->setCurrentPage(doc->DocPages.at(storedPageNum));
 	view->setContentsPos(static_cast<int>(storedViewXCoor * storedViewScale), static_cast<int>(storedViewYCoor * storedViewScale));
+	if (doc->currentEditedTextframe != NULL)
+		doc->currentEditedTextframe->invalidateLayout();
+	doc->currentEditedTextframe = NULL;
 	view->DrawNew();
 	pagePalette->Rebuild();
 	propertiesPalette->updateColorList();

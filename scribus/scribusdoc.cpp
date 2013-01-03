@@ -292,6 +292,7 @@ ScribusDoc::ScribusDoc() : UndoObject( tr("Document")), Observable<ScribusDoc>(N
 	editOnPreview = false;
 	previewVisual = -1;
 	dontResize = false;
+	currentEditedTextframe = NULL;
 }
 
 
@@ -399,6 +400,7 @@ ScribusDoc::ScribusDoc(const QString& docName, int unitindex, const PageSize& pa
 	editOnPreview = false;
 	previewVisual = -1;
 	dontResize = false;
+	currentEditedTextframe = NULL;
 }
 
 
@@ -6783,6 +6785,8 @@ void ScribusDoc::setInlineEditMode(bool mode, int id)
 		maxy = qMax(maxy, y2);
 		currItem->gXpos = currItem->xPos() - minx;
 		currItem->gYpos = currItem->yPos() - miny;
+		currItem->gWidth = maxx - minx;
+		currItem->gHeight = maxy - miny;
 		currItem->setXYPos(currItem->gXpos, currItem->gYpos, true);
 		currItem->isEmbedded = true;
 		currItem->inlineCharID = currentEditedIFrame;
