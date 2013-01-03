@@ -2779,7 +2779,8 @@ void ScribusMainWindow::HaveNewSel(int SelectedType)
 		}
 		QString widthTxt = value2String(doc->m_Selection->width(), doc->unitIndex(), true, true);
 		QString heightTxt = value2String(doc->m_Selection->height(), doc->unitIndex(), true, true);
-		setStatusBarInfoText( tr("%1 selected, Size = %2 x %3").arg(whatSel).arg(widthTxt).arg(heightTxt));
+		QString txtBody = tr("selected, Size");
+		setStatusBarInfoText( QString("%1 %2 = %3 x %4").arg(whatSel).arg(txtBody).arg(widthTxt).arg(heightTxt));
 	}
 	else
 	{
