@@ -16767,7 +16767,24 @@ int ScribusDoc::findMarkCPos(Mark* mrk, PageItem* &currItem, int Start)
 	if (currItem == NULL)
 		currItem = findFirstMarkItem(mrk);
 	if (currItem == NULL)
+	{
+		foreach (PageItem* item, DocItems)
+		{
+			if (item->isTextFrame() && (item->prevInChain() == NULL))
+			{
+				for (int pos = 0; pos < item->itemText.length(); ++pos)
+				{
+					ScText* hl = item->itemText.item(pos);
+					if (hl->hasMark(mrk))
+					{
+						currItem = item;
+						return pos;
+					}
+				}
+			}
+		}
 		return -1;
+	}
 	Q_ASSERT(currItem->isTextFrame());
 
 	if (Start < currItem->firstInFrame())
@@ -16972,6 +16989,33 @@ bool ScribusDoc::invalidateVariableTextFrames(Mark* mrk, bool forceUpdate)
 //and update marks list in Marka Manager
 bool ScribusDoc::updateMarks(bool updateNotesMarks)
 {
+	if (updateNotesMarks && !notesList().isEmpty())
+	{
+		foreach (PageItem* item, DocItems)
+		{
+			if (item->isTextFrame() && !item->isNoteFrame())
+			{
+				if (item->prevInChain() == NULL)
+				{
+					item = item->lastInChain();
+					int pos = item->lastInFrame() +1;
+					if (pos < item->itemText.length())
+					{
+						for (int i = pos; i < item->itemText.length(); ++i)
+						{
+							if (item->itemText.item(i)->hasMark() && item->itemText.item(i)->mark->isNoteType())
+							{
+								TextNote * note = item->itemText.item(i)->mark->getNotePtr();
+								note->setNoteMark(NULL);
+								note->masterMark()->setItemPtr(item);
+								note->masterMark()->setItemName(item->itemName());
+							}
+						}
+					}
+				}
+			}
+		}
+	}
 	if (m_docMarksList.isEmpty())
 	{
 		if ((!notesList().isEmpty() || notesChanged()) && updateNotesMarks && !isLoading())
@@ -17216,22 +17260,24 @@ void ScribusDoc::deleteNote(TextNote* note)
 		return;
 	PageItem_NoteFrame* nF = NULL;
 	if (note->noteMark() != NULL)
+	{
 		if (note->noteMark()->getItemPtr() != NULL)
 			nF = note->noteMark()->getItemPtr()->asNoteFrame();
-	if (nF == NULL)
-		nF = findFirstMarkItem(note->noteMark())->asNoteFrame();
-	Q_ASSERT(nF != NULL);
-	nF->removeNote(note);
-	PageItem* master = note->masterMark()->getItemPtr();
-	nF->invalid = true;
-	master->invalid = true;
-	if (nF->notesList().isEmpty() && nF->isAutoNoteFrame())
-	{
-		nF->deleteIt = true;
-		master->asTextFrame()->removeNoteFrame(nF);
+		if (nF == NULL)
+			nF = findFirstMarkItem(note->noteMark())->asNoteFrame();
 	}
-//	else
-//		master->asTextFrame()->setNoteFrame(nF);
+	PageItem* master = note->masterMark()->getItemPtr();
+	if (nF != NULL)
+	{
+		nF->removeNote(note);
+		nF->invalid = true;
+		master->invalid = true;
+		if (nF->notesList().isEmpty() && nF->isAutoNoteFrame())
+		{
+			nF->deleteIt = true;
+			master->asTextFrame()->removeNoteFrame(nF);
+		}
+	}
 	if (note->masterMark() != NULL)
 		eraseMark(note->masterMark(), true, master);
 	if (note->noteMark() != NULL)
@@ -17244,12 +17290,11 @@ void ScribusDoc::deleteNote(TextNote* note)
 }
 
 void ScribusDoc::setUndoDelNote(TextNote *note)
-{ //used by MarksManager
+{
 	if (UndoManager::undoEnabled())
 	{
 		ScItemsState* ims = new ScItemsState(Um::DeleteNote,"",Um::IDelete);
 		ims->set("DELETE_NOTE", QString("delete_note"));
-		ims->set("ETEA", note->masterMark()->label);
 		PageItem* master = note->masterMark()->getItemPtr();
 		int pos = findMarkCPos(note->masterMark(), master);
 		Q_ASSERT(pos > -1);
@@ -17883,7 +17928,11 @@ PageItem_NoteFrame *ScribusDoc::createNoteFrame(NotesStyle *nStyle, double x, do
 void ScribusDoc::delNoteFrame(PageItem_NoteFrame* nF, bool removeMarks, bool forceDeletion)
 {
 	Q_ASSERT(nF != NULL);
-	//check if note frame is listed in text frames m_notesFramesMap
+
+	//for all notes in noteFrame set notes marks to null
+	foreach(TextNote* n, nF->notesList())
+		n->setNoteMark(NULL);
+
 	if (nF->itemText.length() > 0 && removeMarks)
 		nF->removeMarksFromText(false);
 		

@@ -1959,11 +1959,13 @@ void StoryText::saxx(SaxHandler& handler, const Xml_string& elemtag) const
 			}
 			else if (mrk->isType(MARKNoteMasterType))
 			{
-				mark_attr.insert("nStyle", mrk->getNotePtr()->notesStyle()->name());
-				mark_attr.insert("note",mrk->getNotePtr()->saxedText());
+				TextNote * note = mrk->getNotePtr();
+				assert(note != NULL);
+				mark_attr.insert("nStyle", note->notesStyle()->name());
+				mark_attr.insert("note",note->saxedText());
 				//store noteframe name for inserting into note if it is non-auto-removable
-				if (!mrk->getNotePtr()->noteMark()->getItemPtr()->isAutoNoteFrame())
-					mark_attr.insert("noteframe", mrk->getNotePtr()->noteMark()->getItemPtr()->getUName());
+				if (note->noteMark() && note->noteMark()->getItemPtr() && !note->noteMark()->getItemPtr()->isAutoNoteFrame())
+					mark_attr.insert("noteframe", note->noteMark()->getItemPtr()->getUName());
 			}
 			handler.beginEnd("mark", mark_attr);
 		}
