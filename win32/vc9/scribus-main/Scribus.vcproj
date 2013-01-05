@@ -1147,6 +1147,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\scribus\numeration.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\scribus\observable.cpp"
 				>
 			</File>
@@ -1507,10 +1511,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\ui\propertywidget_dropcap.cpp"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\scribus\ui\propertywidget_flop.cpp"
 				>
 			</File>
@@ -1520,6 +1520,10 @@
 			</File>
 			<File
 				RelativePath="..\..\..\scribus\ui\propertywidget_orphans.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\scribus\ui\propertywidget_pareffect.cpp"
 				>
 			</File>
 			<File
@@ -4982,6 +4986,10 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath="..\..\..\scribus\numeration.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\scribus\observable.h"
 				>
 				<FileConfiguration
@@ -6516,24 +6524,6 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\ui\propertywidget_dropcap.h"
-				>
-				<FileConfiguration
-					Name="Debug-cairo|Win32"
-					>
-					<Tool
-						Name="moc"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="moc"
-					/>
-				</FileConfiguration>
-			</File>
-			<File
 				RelativePath="..\..\..\scribus\ui\propertywidget_flop.h"
 				>
 				<FileConfiguration
@@ -6571,6 +6561,24 @@
 			</File>
 			<File
 				RelativePath="..\..\..\scribus\ui\propertywidget_orphans.h"
+				>
+				<FileConfiguration
+					Name="Debug-cairo|Win32"
+					>
+					<Tool
+						Name="moc"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release-cairo|Win32"
+					>
+					<Tool
+						Name="moc"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\..\scribus\ui\propertywidget_pareffect.h"
 				>
 				<FileConfiguration
 					Name="Debug-cairo|Win32"
@@ -9091,10 +9099,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\ui\ui_propertywidget_dropcapbase.h"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\scribus\ui\ui_propertywidget_flopbase.h"
 				>
 			</File>
@@ -9108,6 +9112,10 @@
 			</File>
 			<File
 				RelativePath="..\..\..\scribus\ui\ui_propertywidget_orphansbase.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\scribus\ui\ui_propertywidget_pareffectbase.h"
 				>
 			</File>
 			<File
@@ -10048,10 +10056,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\ui\moc_propertywidget_dropcap.cpp"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\scribus\ui\moc_propertywidget_flop.cpp"
 				>
 			</File>
@@ -10061,6 +10065,10 @@
 			</File>
 			<File
 				RelativePath="..\..\..\scribus\ui\moc_propertywidget_orphans.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\scribus\ui\moc_propertywidget_pareffect.cpp"
 				>
 			</File>
 			<File
@@ -10773,10 +10781,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\ui\propertywidget_dropcapbase.ui"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\scribus\ui\propertywidget_flopbase.ui"
 				>
 			</File>
@@ -10786,6 +10790,10 @@
 			</File>
 			<File
 				RelativePath="..\..\..\scribus\ui\propertywidget_orphansbase.ui"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\scribus\ui\propertywidget_pareffectbase.ui"
 				>
 			</File>
 			<File
