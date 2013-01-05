@@ -8331,8 +8331,19 @@ bool PDFLibCore::PDF_3DAnnotation(PageItem *ite, uint)
 	PutDoc("/3DD "+QString::number(appearanceObj)+" 0 R\n");
 	PutDoc("/3DV "+QString::number(viewObj)+" 0 R\n");
 	PutDoc("/3DA <<\n/A /PV\n/TB true\n/NP true\n>>\n");
+	QString onState = QString("/%1").arg(ite->itemName().replace(".", "_" ));
+	PutDoc("/AS "+onState+"\n");
+	uint appearanceObj1 = newObject();
+	PutDoc("/AP << /N <<\n" + onState + " " + QString::number(appearanceObj1)+" 0 R >> >>\n");
 	PutDoc("/Rect [ "+FToStr(x+bleedDisplacementX)+" "+FToStr(y2+bleedDisplacementY)+" "+FToStr(x2+bleedDisplacementX)+" "+FToStr(y+bleedDisplacementY)+" ]\n");
 	PutDoc(">>\nendobj\n");
+	if (!ite->Pfile.isEmpty())
+	{
+		PDF_Image(ite, ite->Pfile, ite->imageXScale(), ite->imageYScale(), ite->imageXOffset(), -ite->imageYOffset(), true);
+		QString cc = QString::number(ite->pixm.width())+" 0 0 "+QString::number(ite->pixm.height())+" 0 0 cm\n";
+		cc += "/"+ResNam+"I"+QString::number(ResCount-1)+" Do";
+		PDF_xForm(appearanceObj1, ite->pixm.width(), ite->pixm.height(), cc);
+	}
 	delete tempImageFile;
 	return true;
 }
