@@ -7151,6 +7151,8 @@ void ScribusMainWindow::deletePage(int from, int to)
 	}
 	if (tmpSelection.count() != 0)
 		doc->itemSelection_DeleteItem(&tmpSelection);
+	disconnect(view->pageSelector, SIGNAL(GotoPage(int)), view, SLOT(GotoPa(int)));
+	view->updatesOn(false);
 	for (int a = to - 1; a >= from - 1; a--)
 	{
 		if (UndoManager::undoEnabled())
@@ -7173,16 +7175,15 @@ void ScribusMainWindow::deletePage(int from, int to)
 			doc->deleteMasterPage(a);
 		else
 			doc->deletePage(a);
-		disconnect(view->pageSelector, SIGNAL(GotoPage(int)), view, SLOT(GotoPa(int)));
-		view->pageSelector->setMaximum(doc->Pages->count());
-		view->pageSelector->GotoPg(0);
-		connect(view->pageSelector, SIGNAL(GotoPage(int)), view, SLOT(GotoPa(int)));
 		if (!isMasterPage) // Master pages are not added to sections when created
 			doc->removePageFromSection(a);
 	}
+	view->pageSelector->setMaximum(doc->Pages->count());
+	connect(view->pageSelector, SIGNAL(GotoPage(int)), view, SLOT(GotoPa(int)));
 	undoManager->setUndoEnabled(false); // ugly hack to disable object moving when undoing page deletion
 	view->reformPagesView();
 	undoManager->setUndoEnabled(true); // ugly hack continues
+	view->updatesOn(true);
 	view->GotoPage(qMin(doc->Pages->count()-1, oldPg));
 	doc->updateEndnotesFrames();
 	updateGUIAfterPagesChanged();
