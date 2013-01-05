@@ -1525,6 +1525,7 @@ protected: // Start protected functions
 
 	void restoreWeldItems(SimpleState *state, bool isUndo);
 	void restoreUnWeldItem(SimpleState *state, bool isUndo);
+	void restoreMarkString(SimpleState *state, bool isUndo);
 
 	/*@}*/
 

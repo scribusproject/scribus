@@ -5,6 +5,7 @@
 #include <QObject>
 #include <QString>
 #include <QList>
+#include "numeration.h"
 #include "pagestructs.h"
 #include "scpage.h"
 #include "styles/charstyle.h"
@@ -15,25 +16,6 @@
 class ScribusDoc;
 class PageItem_NoteFrame;
 class PageItem_TextFrame;
-
-class Numeration
-{
-public:
-	Numeration() : numType(Type_1_2_3) {}
-	void setType(NumerationType type) { numType = type; }
-	const NumerationType type() { return numType; }
-	const QString numString(const int num) { return getStringFromSequence(numType, num); }
-private:
-	NumerationType numType;
-};
-
-typedef enum {
-	NSRdocument,
-	NSRsection,
-	NSRstory,
-	NSRpage,
-	NSRframe
-} NumerationRange;
 
 //used for map with endnotes frames maped with range item
 typedef union
@@ -65,8 +47,8 @@ public:
 	void setSuffix (const QString str) { suffixStr = str; }
 
 	const QString numString(const int num) { return numeration.numString(num); }
-	void setType(const NumerationType type) { numeration.setType(type); }
-	const NumerationType getType() { return numeration.type(); }
+	void setType(const NumFormat type) { numeration.numFormat = type; }
+	const NumFormat getType() { return numeration.numFormat; }
 
 	bool isEndNotes() { return m_endNotesStyle; }
 	bool isAutoNotesHeight() { return autoNotesHeight; }

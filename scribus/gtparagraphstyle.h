@@ -64,6 +64,14 @@ protected:
 	QList<ParagraphStyle::TabRecord> tabValues;
 	bool dropCap;
 	int  dropCapHeight;
+	bool m_bullet; ///< Is style using bullet?
+	QString m_bulletStr; ///< String used as bullet
+	bool m_numeration; ///< Is style using numeration?
+	int m_numLevel; ///< Level in hierarchical numbering
+	int m_numFormat; ///< 1_2_3, i_ii_ii, a_b_c
+	int m_numStart; ///< Numeration starts at number
+	QString m_numPrefix; ///< Numeration prefix of style
+	QString m_numSuffix; ///< Numeration sufffix of style
 	bool adjToBaseline;
 	bool autoLineSpacing;
 	bool isVisible;
@@ -83,6 +91,8 @@ public:
 		dropCapHeightWasSet = 512,
 		adjToBaselineWasSet = 1024,
 		autoLineSpacingWasSet  = 2048,
+		bulletWasSet = 4096,
+		numWasSet = 8192
 	} wasSetFlags;
 
 	int    getFlags();
@@ -118,6 +128,16 @@ public:
 	gtParagraphStyle(const gtStyle& s);
 	~gtParagraphStyle();
 	QString target();
+	bool hasBullet();
+	void setBullet(bool newBullet, QString str = QString(QChar(0x2022)));
+	QString getBullet();
+	bool hasNum();
+	void setNum(bool newNum, int format=0, int level=0, int start = 1, QString prefix = "", QString suffix = "");
+	int getNumLevel();
+	int getNumFormat();
+	int getNumStart();
+	QString getNumPrefix();
+	QString getNumSuffix();
 };
 
 #endif // GTPARAGRAPHSTYLE_H

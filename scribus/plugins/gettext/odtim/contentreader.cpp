@@ -130,7 +130,7 @@ bool ContentReader::startElement(const QString&, const QString&, const QString &
 		if (currentListStyle)
 		{
 			currentListStyle->advance();
-			write(currentListStyle->bullet());
+			//write(currentListStyle->bullet());
 		}
 	}
 	else if (name == "office:annotation")

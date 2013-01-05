@@ -48,9 +48,9 @@ for which a new license (GPL+exception) is in place.
 #include "pageitem_group.h"
 #include "pageitem_regularpolygon.h"
 #include "pageitem_arc.h"
-#include "pageitem_noteframe.h"
 #include "pageitem_spiral.h"
 #include "pageitem_textframe.h"
+#include "pageitem_noteframe.h"
 #include "pageitem_latexframe.h"
 #include "prefsmanager.h"
 
@@ -841,7 +841,8 @@ PageItem::~PageItem()
 				if (itemText.item(pos)->hasMark())
 				{
 					Mark* mrk = itemText.item(pos)->mark;
-					m_Doc->eraseMark(mrk);
+					if (!mrk->isType(MARKBullNumType))
+						m_Doc->eraseMark(mrk);
 				}
 			}
 		}
@@ -5026,6 +5027,8 @@ void PageItem::restore(UndoState *state, bool isUndo)
 			restoreWeldItems(ss, isUndo);
 		else if (ss->contains("UNWELD_ITEM"))
 			restoreUnWeldItem(ss, isUndo);
+		else if (ss->contains("CLEARMARKSTRING"))
+			restoreMarkString(ss, isUndo);
 	}
 	if (!OnMasterPage.isEmpty())
 		m_Doc->setCurrentPage(oldCurrentPage);
@@ -5099,6 +5102,18 @@ void PageItem::restoreWeldItems(SimpleState *state, bool isUndo)
 	}
 	m_Doc->changed();
 	m_Doc->regionsChanged()->update(QRectF());
+}
+
+void PageItem::restoreMarkString(SimpleState *state, bool isUndo)
+{
+	ScItemState< QPair<int,QString> > *is = dynamic_cast<ScItemState< QPair<int,QString> >*>(state);
+	ScText * hl = itemText.item(is->getItem().first);
+	if (!hl->hasMark())
+		return;
+	if (isUndo)
+		hl->mark->setString(is->getItem().second);
+	else
+		hl->mark->setString(QString());
 }
 
 bool PageItem::checkGradientUndoRedo(SimpleState *ss, bool isUndo)

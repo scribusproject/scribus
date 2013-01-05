@@ -41,6 +41,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribusapi.h"
 #include "colormgmt/sccolormgmtengine.h"
 #include "documentinformation.h"
+#include "numeration.h"
 #include "marks.h"
 #include "notesstyles.h"
 #include "observable.h"
@@ -938,7 +939,7 @@ public:
 	 * @brief Add a section to the document sections list
 	 * Set number to -1 to add in the default section if the map is empty
 	 */
-	void addSection(const int number=0, const QString& name=QString::null, const uint fromindex=0, const uint toindex=0, const  DocumentSectionType type=Type_1_2_3, const uint sectionstartindex=0, const bool reversed=false, const bool active=true, const QChar fillChar=QChar(), int fieldWidth=0);
+	void addSection(const int number=0, const QString& name=QString::null, const uint fromindex=0, const uint toindex=0, const  NumFormat type=Type_1_2_3, const uint sectionstartindex=0, const bool reversed=false, const bool active=true, const QChar fillChar=QChar(), int fieldWidth=0);
 	/**
 	 * @brief Delete a section from the document sections list
 	 */
@@ -1773,6 +1774,19 @@ public slots:
 	void itemSelection_EditWeld();
 	void restartAutoSaveTimer();
 
+//auto-numerations
+public:
+	QMap<QString, NumStruct*> numerations;
+	QStringList orgNumNames; //orgNumerations keeps original settings read from paragraph styles for reset settings overrided localy
+	void setupNumerations(); //read styles for used auto-numerations, initialize numCounters
+	QString getNumberStr(QString numName, int level, bool reset, ParagraphStyle &style);
+	void setNumerationCounter(QString numName, int level, int number);
+	bool flag_Renumber;
+	bool flag_NumUpdateRequest;
+	// for local numeration of paragraphs
+	bool updateLocalNums(StoryText& itemText); //return true if any num strings were updated and item need s invalidation
+	void updateNumbers(bool updateNumerations = false);
+	void itemSelection_ClearBulNumStrings(Selection *customSelection);
 /* Functions for PDF Form Actions */
 
 public:

@@ -9,9 +9,9 @@ for which a new license (GPL+exception) is in place.
 #define SMPSTYLEWIDGET_H
 
 class QEvent;
-
 #include "ui_smpstylewidget.h"
 
+#include "ui/charselectenhanced.h"
 // #include "styles/styleset.h"
 
 
@@ -19,7 +19,7 @@ class SMPStyleWidget : public QWidget, Ui::SMPStyleWidget
 {
 	Q_OBJECT
 public:
-	SMPStyleWidget();
+	SMPStyleWidget(ScribusDoc *doc);
 	~SMPStyleWidget();
 	
 	virtual void changeEvent(QEvent *e);
@@ -30,14 +30,27 @@ public:
 	void clearAll();
 	void languageChange();
 	void unitChange(double oldRatio, double newRatio, int unitIndex);
+	void setDoc(ScribusDoc* doc);
 
 private:
 	bool hasParent_;
-	bool parentDropCap_;
+	//bool parentParEffects_;
+	bool parentDC_, parentBul_, parentNum_;
+	CharSelectEnhanced * m_enhanced;
+	ScribusDoc * m_Doc;
+	QString currFontName;
+	ParagraphStyle* currPStyle;
 
+	void fillBulletStrEditCombo();
+	void fillNumFormatCombo();
+	void fillNumerationsCombo();
+	void fillNumRestartCombo();
+	void checkParEffectState();
 	void showLineSpacing(QList<ParagraphStyle*> &pstyles);
 	void showSpaceAB(QList<ParagraphStyle*> &pstyles, int unitIndex);
 	void showDropCap(QList<ParagraphStyle*> &pstyles, QList<CharStyle> &cstyles, int unitIndex);
+	void showBullet(QList<ParagraphStyle*> &pstyles, QList<CharStyle> &cstyles, int unitIndex);
+	void showNumeration(QList<ParagraphStyle*> &pstyles, QList<CharStyle> &cstyles, int unitIndex);
 	void showAlignment(QList<ParagraphStyle*> &pstyles);
 	void showOpticalMargin(QList<ParagraphStyle*> &pstyles);
 	void showMinSpace(QList<ParagraphStyle*> &pstyles);
@@ -48,19 +61,28 @@ private:
 	void showParent(QList<ParagraphStyle*> &pstyles);
 	void setOpticalMargins(int o, bool inhO=false, const ParagraphStyle *parent=NULL);
 
+	void openEnhanced();
+	void closeEnhanced(bool show = false);
+	void connectPESignals();
+	void disconnectPESignals();
+
 	friend class SMParagraphStyle;
 
 private slots:
 	void slotLineSpacingModeChanged(int);
 	void slotDropCap(bool isOn);
-	void slotParentDropCap();
+	void slotBullets(bool isOn);
+	void insertSpecialChars(const QString &);
+	void slotNumbering(bool isOn);
+	void slotParentParEffects();
 	void slotDefaultOpticalMargins();
 	void slotParentOpticalMargins();
 //	void slotUpdateOpticalMarginsFromCheckBoxes(int);
-
+	void on_bulletCharTableButton__toggled(bool checked);
+	void handleUpdateRequest(int);
 
 signals:
-	void useParentDropCap();
+	void useParentParaEffects();
 	void useParentOptMargins();
 };
 

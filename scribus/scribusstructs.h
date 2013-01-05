@@ -149,6 +149,20 @@ struct SingleLine
 	}
 };
 
+struct Bullet  //used by style reader while importing ODT files
+{
+	QString name;
+	QString charStr;
+	double indent;
+	double firstLineIndent;
+	double tabPosition;
+	CharStyle* style;
+	Bullet() : name(""), charStr(""), indent(0.0), firstLineIndent(0.0), tabPosition(0.0), style(NULL) {}
+	Bullet(QString n, QString ch) : name(n), charStr(ch), indent(0.0), firstLineIndent(0.0), tabPosition(0.0), style(NULL) {}
+	Bullet(QString n, QString ch, double first, double ind, double tab, CharStyle* chStyle)
+		{ name = n; charStr = ch, firstLineIndent = first; indent = ind; tabPosition = tab; style = chStyle; }
+};
+
 struct ArrowDesc
 {
 	QString name;
@@ -348,6 +362,7 @@ enum UpdateRequests
 	reqCustomShapeUpdate = 1024,
 	reqInlinePalUpdate   = 2048,
 	reqMarksUpdate       = 4096,
+	reqNumUpdate         = 8192,
 	reqUpdateAll = 65535
 };
 

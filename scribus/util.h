@@ -131,7 +131,7 @@ QString SCRIBUS_API getFileNameByPage(ScribusDoc* currDoc, uint pageNo, QString 
 void SCRIBUS_API sDebug(QString message);
 //asterix is QString used in numeration when number is presented as few chars, like *, **, *** etc
 //default is '*' but can be used any string
-const QString SCRIBUS_API getStringFromSequence(DocumentSectionType type, uint position, QString asterix="*");
+const QString SCRIBUS_API getStringFromSequence(NumFormat type, uint position, QString asterix="*");
 const QString SCRIBUS_API arabicToRoman(uint i);
 const QString SCRIBUS_API numberToLetterSequence(uint i);
 void SCRIBUS_API parsePagesString(QString pages, std::vector<int>* pageNs, int sourcePageCount);
@@ -154,6 +154,7 @@ void    SCRIBUS_API getDashArray(int dashtype, double linewidth, QVector<float> 
 void SCRIBUS_API printBacktrace(int nFrames);
 void SCRIBUS_API convertOldTable(ScribusDoc *m_Doc, PageItem* gItem, QList<PageItem*> &gpL, QStack< QList<PageItem*> > *groupStackT = NULL, QList<PageItem *> *target = NULL);
 
+void SCRIBUS_API setWidgetBoldFont(QWidget* w, bool wantBold);
 /*!
  *\brief
  * check if name exists in list

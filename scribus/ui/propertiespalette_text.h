@@ -25,7 +25,7 @@ for which a new license (GPL+exception) is in place.
 class PageItem;
 class PropertyWidget_Advanced;
 class PropertyWidget_Distance;
-class PropertyWidget_DropCap;
+class PropertyWidget_ParEffect;
 class PropertyWidget_Flop;
 class PropertyWidget_OptMargins;
 class PropertyWidget_Orphans;
@@ -134,8 +134,8 @@ protected:
 	PropertyWidget_Orphans* orphanBox;
 	QTreeWidgetItem* orphanItem;
 
-	PropertyWidget_DropCap* dropcapsBox;
-	QTreeWidgetItem* dropcapsItem;
+	PropertyWidget_ParEffect* parEffectWidgets;
+	QTreeWidgetItem* parEffectItem;
 
 	PropertyWidget_PathText* pathTextWidgets;
 	QTreeWidgetItem* pathTextItem;

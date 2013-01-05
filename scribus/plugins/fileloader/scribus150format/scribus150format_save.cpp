@@ -639,14 +639,40 @@ void Scribus150Format::putPStyle(ScXmlStreamWriter & docu, const ParagraphStyle 
 		docu.writeAttribute("VOR", style.gapBefore());
 	if ( ! style.isInhGapAfter())
 		docu.writeAttribute("NACH", style.gapAfter());
+	if ( ! style.isInhPeCharStyleName())
+		docu.writeAttribute("ParagraphEffectCharStyle", style.peCharStyleName());
+	if ( ! style.isInhParEffectOffset())
+		docu.writeAttribute("ParagraphEffectOffset", style.parEffectOffset());
+	if ( ! style.isInhParEffectIndent())
+		docu.writeAttribute("ParagraphEffectIndent", static_cast<int>(style.parEffectIndent()));
 	if ( ! style.isInhHasDropCap())
 		docu.writeAttribute("DROP", static_cast<int>(style.hasDropCap()));
-	if ( ! style.isInhDcCharStyleName())
-		docu.writeAttribute("DROPCHSTYLE", style.dcCharStyleName());
 	if ( ! style.isInhDropCapLines())
 		docu.writeAttribute("DROPLIN", style.dropCapLines());
-	if ( ! style.isInhDropCapOffset())
-		docu.writeAttribute("DROPDIST", style.dropCapOffset());
+	if ( ! style.isInhHasBullet())
+		docu.writeAttribute("Bullet", static_cast<int>(style.hasBullet()));
+	if ( ! style.isInhBulletStr())
+		docu.writeAttribute("BulletStr", style.bulletStr());
+	if ( ! style.isInhHasNum())
+		docu.writeAttribute("Numeration", static_cast<int>(style.hasNum()));
+	if ( ! style.isInhNumFormat())
+		docu.writeAttribute("NumerationFormat", style.numFormat());
+	if ( ! style.isInhNumName())
+		docu.writeAttribute("NumerationName", style.numName());
+	if ( ! style.isInhNumLevel())
+		docu.writeAttribute("NumerationLevel", style.numLevel());
+	if ( ! style.isInhNumPrefix())
+		docu.writeAttribute("NumerationPrefix", style.numPrefix());
+	if ( ! style.isInhNumSuffix())
+		docu.writeAttribute("NumerationSuffix", style.numSuffix());
+	if ( ! style.isInhNumStart())
+		docu.writeAttribute("NumerationStart", style.numStart());
+	if ( ! style.isInhNumRestart())
+		docu.writeAttribute("NumerationRestart", style.numRestart());
+	if ( ! style.isInhNumOther())
+		docu.writeAttribute("NumerationOther", static_cast<int>(style.numOther()));
+	if ( ! style.isInhNumHigher())
+		docu.writeAttribute("NumerationHigher", static_cast<int>(style.numHigher()));
 	if ( ! style.isInhOpticalMargins())
 		docu.writeAttribute("OpticalMargins", style.opticalMargins());
 	if ( ! style.isInhHyphenationMode())
@@ -1566,9 +1592,12 @@ void Scribus150Format::writeITEXTs(ScribusDoc *doc, ScXmlStreamWriter &docu, Pag
 		else if (ch == SpecialChars::OBJECT && item->itemText.item(k)->mark != NULL)
 		{
 			Mark* mark = item->itemText.item(k)->mark;
-			docu.writeEmptyElement("MARK");
-			docu.writeAttribute("label", mark->label);
-			docu.writeAttribute("type", mark->getType());
+			if (!mark->isType(MARKBullNumType))
+			{ //dont save marks for bullets and numbering
+				docu.writeEmptyElement("MARK");
+				docu.writeAttribute("label", mark->label);
+				docu.writeAttribute("type", mark->getType());
+			}
 		}
 		else if (ch == SpecialChars::PARSEP)	// stores also the paragraphstyle for preceding chars
 			putPStyle(docu, item->itemText.paragraphStyle(k), "para");

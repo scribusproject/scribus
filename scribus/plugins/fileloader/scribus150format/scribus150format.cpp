@@ -1886,9 +1886,9 @@ bool Scribus150Format::loadFile(const QString & fileName, const FileFormat & /* 
 	}
 
 	// start auto save timer if needed
-	if (m_Doc->autoSave()  && ScCore->usingGUI())
+	if (m_Doc->autoSave() && ScCore->usingGUI())
 		m_Doc->restartAutoSaveTimer();
-//		m_Doc->autoSaveTimer->start(m_Doc->autoSaveTime());
+//	m_Doc->autoSaveTimer->start(m_Doc->autoSaveTime());
 	
 	if (m_mwProgressBar!=0)
 		m_mwProgressBar->setValue(reader.characterOffset());
@@ -1977,8 +1977,8 @@ namespace {
 			pstyle.resetGapAfter();
 		if (pstyle.dropCapLines() < 0)
 			pstyle.resetDropCapLines();
-		if (pstyle.dropCapOffset() <= -16000)
-			pstyle.resetDropCapOffset();
+		if (pstyle.parEffectOffset() <= -16000)
+			pstyle.resetParEffectOffset();
 		fixLegacyCharStyle(pstyle.charStyle());
 	}
 	
@@ -2556,13 +2556,25 @@ void Scribus150Format::readParagraphStyle(ScribusDoc *doc, ScXmlStreamReader& re
 	if (attrs.hasAttribute(NACH))
 		newStyle.setGapAfter(attrs.valueAsDouble(NACH));
 
+	static const QString ParagraphEffectCharStyle("ParagraphEffectCharStyle");
+	if (attrs.hasAttribute(ParagraphEffectCharStyle))
+		newStyle.setPeCharStyleName(attrs.valueAsString(ParagraphEffectCharStyle));
+
+	static const QString ParagraphEffectOffset("ParagraphEffectOffset");
+	if (attrs.hasAttribute(ParagraphEffectOffset))
+		newStyle.setParEffectOffset(attrs.valueAsDouble(ParagraphEffectOffset));
+
+	static const QString ParagraphEffectIndent("ParagraphEffectIndent");
+	if (attrs.hasAttribute(ParagraphEffectIndent))
+		newStyle.setParEffectIndent(attrs.valueAsDouble(ParagraphEffectIndent));
+
 	static const QString DROP("DROP");
 	if (attrs.hasAttribute(DROP))
 		newStyle.setHasDropCap(static_cast<bool>(attrs.valueAsInt(DROP)));
 
 	static const QString DROPCHSTYLE("DROPCHSTYLE");
 	if (attrs.hasAttribute(DROPCHSTYLE))
-		newStyle.setDcCharStyleName(attrs.valueAsString(DROPCHSTYLE));
+		newStyle.setPeCharStyleName(attrs.valueAsString(DROPCHSTYLE));
 
 	static const QString DROPLIN("DROPLIN");
 	if (attrs.hasAttribute(DROPLIN))
@@ -2570,7 +2582,55 @@ void Scribus150Format::readParagraphStyle(ScribusDoc *doc, ScXmlStreamReader& re
 
 	static const QString DROPDIST("DROPDIST");
 	if (attrs.hasAttribute(DROPDIST))
-		newStyle.setDropCapOffset(attrs.valueAsDouble(DROPDIST));
+		newStyle.setParEffectOffset(attrs.valueAsDouble(DROPDIST));
+
+	static const QString Bullet("Bullet");
+	if (attrs.hasAttribute(Bullet))
+		newStyle.setHasBullet(static_cast<bool>(attrs.valueAsInt(Bullet)));
+
+	static const QString BulletStr("BulletStr");
+	if (attrs.hasAttribute(BulletStr))
+		newStyle.setBulletStr(attrs.valueAsString(BulletStr));
+
+	static const QString Numeration("Numeration");
+	if (attrs.hasAttribute(Numeration))
+		newStyle.setHasNum(static_cast<bool>(attrs.valueAsInt(Numeration)));
+
+	static const QString NumerationName("NumerationName");
+	if (attrs.hasAttribute(NumerationName))
+		newStyle.setNumName(attrs.valueAsString(NumerationName));
+
+	static const QString NumerationFormat("NumerationFormat");
+	if (attrs.hasAttribute(NumerationFormat))
+		newStyle.setNumFormat(attrs.valueAsInt(NumerationFormat));
+
+	static const QString NumerationLevel("NumerationLevel");
+	if (attrs.hasAttribute(NumerationLevel))
+		newStyle.setNumLevel(attrs.valueAsInt(NumerationLevel));
+
+	static const QString NumerationStart("NumerationStart");
+	if (attrs.hasAttribute(NumerationStart))
+		newStyle.setNumStart(attrs.valueAsInt(NumerationStart));
+
+	static const QString NumearationPrefix("NumerationPrefix");
+	if (attrs.hasAttribute(NumearationPrefix))
+		newStyle.setNumPrefix(attrs.valueAsString(NumearationPrefix));
+
+	static const QString NumerationSuffix("NumerationSuffix");
+	if (attrs.hasAttribute(NumerationSuffix))
+		newStyle.setNumSuffix(attrs.valueAsString(NumerationSuffix));
+
+	static const QString NumerationRestart("NumerationRestart");
+	if (attrs.hasAttribute(NumerationRestart))
+		newStyle.setNumRestart(attrs.valueAsInt(NumerationRestart));
+
+	static const QString NumerationOther("NumeartionOther");
+	if (attrs.hasAttribute(NumerationOther))
+		newStyle.setNumOther(static_cast<bool>(attrs.valueAsInt(NumerationOther)));
+
+	static const QString NumearationHigher("NumerationHigher");
+	if (attrs.hasAttribute(NumearationHigher))
+		newStyle.setNumHigher(static_cast<bool>(attrs.valueAsInt(NumearationHigher)));
 
 	static const QString PSHORTCUT("PSHORTCUT");
 	if (attrs.hasAttribute(PSHORTCUT))

@@ -105,9 +105,9 @@ for which a new license (GPL+exception) is in place.
 #include "pageitem_group.h"
 #include "pageitem_imageframe.h"
 #include "pageitem_latexframe.h"
-#include "pageitem_noteframe.h"
 #include "pageitem_table.h"
 #include "pageitem_textframe.h"
+#include "pageitem_noteframe.h"
 #include "pagesize.h"
 #include "pdflib.h"
 #include "pdfoptions.h"
@@ -1081,6 +1081,7 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->addMenuItem(scrActions["extrasHyphenateText"], "Extras", false);
 	scrMenuMgr->addMenuItem(scrActions["extrasDeHyphenateText"], "Extras", false);
 	scrMenuMgr->addMenuItem(scrActions["extrasGenerateTableOfContents"], "Extras", false);
+	scrMenuMgr->addMenuItem(scrActions["extrasUpdateDocument"], "Extras", false);
 	connect(scrMenuMgr->getLocalPopupMenu("Extras"), SIGNAL(aboutToShow()), this, SLOT(extrasMenuAboutToShow()));
 
 	//Window menu
@@ -1697,7 +1698,7 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 					currItem->handleModeEditKey(k, keyrep);
 				}
 //FIXME:av		view->oldCp = currItem->CPos;
-				if (currItem->itemType() == PageItem::TextFrame)
+				if (currItem->isTextFrame())
 				{
 					bool kr=keyrep;
 					view->canvasMode()->keyPressEvent(k); //Hack for 1.4.x for stopping the cursor blinking while moving about
@@ -1712,7 +1713,8 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 					}
 					keyrep=kr;
 				}
-				slotDocCh(false);
+				if (!currItem->isTextFrame() || (currItem->isAutoNoteFrame() && currItem->asNoteFrame()->notesList().isEmpty()))
+					slotDocCh(false);
 				doc->regionsChanged()->update(QRectF());
 			}
 		}
@@ -2353,6 +2355,7 @@ void ScribusMainWindow::newActWin(QMdiSubWindow *w)
 	scrActions["viewShowRulers"]->setChecked(doc->guidesPrefs().rulersShown);
 	scrActions["viewRulerMode"]->setChecked(doc->guidesPrefs().rulerMode);
 	scrActions["extrasGenerateTableOfContents"]->setEnabled(doc->hasTOCSetup());
+	scrActions["extrasUpdateDocument"]->setEnabled(true);
 	if (!doc->masterPageMode())
 		pagePalette->Rebuild();
 	outlinePalette->setDoc(doc);
@@ -3431,6 +3434,17 @@ void ScribusMainWindow::slotDocCh(bool /*reb*/)
 		Q_ASSERT(plugin); // all the returned names should represent loaded plugins
 		plugin->changedDoc(doc);
 	}
+	if (doc->flag_NumUpdateRequest)
+	{
+		doc->setupNumerations();
+		emit UpdateRequest(reqNumUpdate);
+	}
+	while (doc->flag_Renumber)
+	{
+		doc->updateNumbers();
+		if (!doc->flag_Renumber)
+			doc->regionsChanged()->update(QRect());
+	}
 	if (m_marksCount != doc->marksList().count() || doc->notesChanged() || doc->flag_updateEndNotes || doc->flag_updateMarksLabels)
 	{
 		bool sendUpdateReqest = false;
@@ -4264,6 +4278,7 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 		/*QTime t;
 		t.start();*/
 		int docItemsCount=doc->Items->count();
+		doc->flag_Renumber = false;
 		for (int azz=0; azz<docItemsCount; ++azz)
 		{
 			PageItem *ite = doc->Items->at(azz);
@@ -4310,6 +4325,8 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 		// Seems to fix crash on loading
 		ActWin = NULL;
 		newActWin(w->getSubWin());
+		doc->updateNumbers(true);
+		emit UpdateRequest(reqNumUpdate);
 		doc->setCurrentPage(doc->DocPages.at(0));
 		view->cmsToolbarButton->setChecked(doc->HasCMS);
 		view->zoom();
@@ -4417,6 +4434,8 @@ void ScribusMainWindow::slotGetContent()
 				if (doc->Items->at(a)->isBookmark)
 					bookmarkPalette->BView->ChangeText(doc->Items->at(a));
 			}
+			if (!impsetup.textOnly)
+				doc->flag_NumUpdateRequest = true;
 			view->DrawNew();
 			slotDocCh();
 			styleManager->setDoc(doc);
@@ -8053,6 +8072,7 @@ void ScribusMainWindow::slotDocSetup()
 		scrActions["viewShowRulers"]->setChecked(doc->guidesPrefs().rulersShown);
 		scrActions["viewRulerMode"]->setChecked(doc->guidesPrefs().rulerMode);
 		scrActions["extrasGenerateTableOfContents"]->setEnabled(doc->hasTOCSetup());
+		scrActions["extrasUpdateDocument"]->setEnabled(true);
 		view->cmsToolbarButton->setChecked(doc->HasCMS);
 		//doc emits changed() via this
 		doc->setMasterPageMode(true);
@@ -9985,6 +10005,17 @@ void ScribusMainWindow::generateTableOfContents()
 {
 	if (HaveDoc)
 		tocGenerator->generateDefault();
+}
+
+void ScribusMainWindow::updateDocument()
+{
+	if (HaveDoc)
+	{
+		doc->updateNumbers(true);
+		doc->updateMarks(true);
+		doc->regionsChanged()->update(QRect());
+		emit UpdateRequest(reqNumUpdate);
+	}
 }
 
 void ScribusMainWindow::insertSampleText()

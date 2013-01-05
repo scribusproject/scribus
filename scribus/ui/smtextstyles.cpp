@@ -45,7 +45,7 @@ SMParagraphStyle::SMParagraphStyle(StyleSet<CharStyle> *cstyles) : StyleItem(),
 pwidget_(0), doc_(0), selectionIsDirty_(false), unitRatio_(1.0), cstyles_(cstyles)
 {
 	Q_ASSERT(cstyles_);
-	pwidget_ = new SMPStyleWidget();
+	pwidget_ = new SMPStyleWidget(doc_);
 	Q_CHECK_PTR(pwidget_);
 }
 
@@ -87,6 +87,8 @@ void SMParagraphStyle::setCurrentDoc(ScribusDoc *doc)
 		tmpStyles_.clear();
 		deleted_.clear();
 	}
+	if (pwidget_)
+		pwidget_->setDoc(doc);
 }
 
 StyleSet<ParagraphStyle>* SMParagraphStyle::tmpStyles()
@@ -512,11 +514,27 @@ void SMParagraphStyle::setupConnections()
 	connect(pwidget_->minGlyphExtSpin, SIGNAL(valueChanged(double)),this,SLOT(slotMinGlyphExt()));
 	connect(pwidget_->maxGlyphExtSpin, SIGNAL(valueChanged(double)),this,SLOT(slotMaxGlyphExt()));
 
-	connect(pwidget_, SIGNAL(useParentDropCap()), this, SLOT(slotParentDropCap()));
+	connect(pwidget_, SIGNAL(useParentParaEffects()), this, SLOT(slotParentParaEffects()));
 	connect(pwidget_->dropCapsBox, SIGNAL(toggled(bool)), this, SLOT(slotDropCap(bool)));
 	connect(pwidget_->dropCapLines_, SIGNAL(valueChanged(int)), this, SLOT(slotDropCapLines(int)));
-	connect(pwidget_->dropCapOffset_, SIGNAL(valueChanged(double)), this, SLOT(slotDropCapOffset()));
-	connect(pwidget_->dropCapCharStyleCombo, SIGNAL(activated(const QString&)), this, SLOT(slotDropCapCharStyle(const QString&)));
+	connect(pwidget_->parEffectOffset_, SIGNAL(valueChanged(double)), this, SLOT(slotParEffectOffset()));
+	connect(pwidget_->parEffectIndentBox, SIGNAL(toggled(bool)), this, SLOT(slotParEffectIndent(bool)));
+	connect(pwidget_->parEffectCharStyleCombo, SIGNAL(activated(const QString&)), this, SLOT(slotParEffectCharStyle(const QString&)));
+
+	connect(pwidget_->bulletBox, SIGNAL(toggled(bool)), this, SLOT(slotBullet(bool)));
+	connect(pwidget_->bulletStrEdit_, SIGNAL(editTextChanged(QString)), this, SLOT(slotBulletStr(QString)));
+	connect(pwidget_->numBox, SIGNAL(toggled(bool)), this, SLOT(slotNumeration(bool)));
+	connect(pwidget_->numComboBox, SIGNAL(activated(QString)), this, SLOT(slotNumName(QString)));
+	connect(pwidget_->numLevelSpin, SIGNAL(valueChanged(int)), this, SLOT(slotNumLevel(int)));
+	connect(pwidget_->numFormatCombo, SIGNAL(activated(int)), this, SLOT(slotNumFormat(int)));
+	connect(pwidget_->numStartSpin, SIGNAL(valueChanged(int)), this, SLOT(slotNumStart(int)));
+	connect(pwidget_->numRestartCombo, SIGNAL(activated(int)), this, SLOT(slotNumRestart(int)));
+	connect(pwidget_->numRestartOtherBox, SIGNAL(toggled(bool)), this, SLOT(slotNumOther(bool)));
+	connect(pwidget_->numRestartHigherBox, SIGNAL(toggled(bool)), this, SLOT(slotNumHigher(bool)));
+	connect(pwidget_->numPrefix, SIGNAL(textChanged(QString)), this, SLOT(slotNumPrefix(QString)));
+	connect(pwidget_->numSuffix, SIGNAL(textChanged(QString)), this, SLOT(slotNumSuffix(QString)));
+	connect(pwidget_->numNewLineEdit, SIGNAL(editingFinished()), this, SLOT(slotNumNew()));
+	connect(pwidget_->numNewLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotSelectionDirty()));
 
 	connect(pwidget_->keepLinesStart, SIGNAL(valueChanged(int)), this, SLOT(handleKeepLinesStart()));
 	connect(pwidget_->keepLinesEnd, SIGNAL(valueChanged(int)), this, SLOT(handleKeepLinesEnd()));
@@ -529,26 +547,18 @@ void SMParagraphStyle::setupConnections()
 	connect(pwidget_->tabList_->right_, SIGNAL(valueChanged(double)), this, SLOT(slotRightIndent()));
 	connect(pwidget_->tabList_->first_, SIGNAL(valueChanged(double)), this, SLOT(slotFirstLine()));
 
-	connect(pwidget_->parentCombo, SIGNAL(activated(const QString&)),
-			this, SLOT(slotParentChanged(const QString&)));
+	connect(pwidget_->parentCombo, SIGNAL(activated(const QString&)), this, SLOT(slotParentChanged(const QString&)));
 
 	// character attributes
 	connect(pwidget_->cpage->fontFace_, SIGNAL(fontSelected(QString)), this, SLOT(slotFont(QString)));
 	connect(pwidget_->cpage->effects_, SIGNAL(State(int)), this, SLOT(slotEffects(int)));
-	connect(pwidget_->cpage->effects_->ShadowVal->Xoffset, SIGNAL(valueChanged(double)),
-			this, SLOT(slotEffectProperties()));
-	connect(pwidget_->cpage->effects_->ShadowVal->Yoffset, SIGNAL(valueChanged(double)),
-			this, SLOT(slotEffectProperties()));
-	connect(pwidget_->cpage->effects_->OutlineVal->LWidth, SIGNAL(valueChanged(double)),
-			this, SLOT(slotEffectProperties()));
-	connect(pwidget_->cpage->effects_->UnderlineVal->LPos, SIGNAL(valueChanged(double)),
-			this, SLOT(slotEffectProperties()));
-	connect(pwidget_->cpage->effects_->UnderlineVal->LWidth, SIGNAL(valueChanged(double)),
-			this, SLOT(slotEffectProperties()));
-	connect(pwidget_->cpage->effects_->StrikeVal->LPos, SIGNAL(valueChanged(double)),
-			this, SLOT(slotEffectProperties()));
-	connect(pwidget_->cpage->effects_->StrikeVal->LWidth, SIGNAL(valueChanged(double)),
-			this, SLOT(slotEffectProperties()));
+	connect(pwidget_->cpage->effects_->ShadowVal->Xoffset, SIGNAL(valueChanged(double)), this, SLOT(slotEffectProperties()));
+	connect(pwidget_->cpage->effects_->ShadowVal->Yoffset, SIGNAL(valueChanged(double)), this, SLOT(slotEffectProperties()));
+	connect(pwidget_->cpage->effects_->OutlineVal->LWidth, SIGNAL(valueChanged(double)), this, SLOT(slotEffectProperties()));
+	connect(pwidget_->cpage->effects_->UnderlineVal->LPos, SIGNAL(valueChanged(double)), this, SLOT(slotEffectProperties()));
+	connect(pwidget_->cpage->effects_->UnderlineVal->LWidth, SIGNAL(valueChanged(double)), this, SLOT(slotEffectProperties()));
+	connect(pwidget_->cpage->effects_->StrikeVal->LPos, SIGNAL(valueChanged(double)), this, SLOT(slotEffectProperties()));
+	connect(pwidget_->cpage->effects_->StrikeVal->LWidth, SIGNAL(valueChanged(double)), this, SLOT(slotEffectProperties()));
 	connect(pwidget_->cpage->fillColor_, SIGNAL(activated(const QString&)), this, SLOT(slotFillColor()));
 	connect(pwidget_->cpage->fillShade_, SIGNAL(clicked()), this, SLOT(slotFillShade()));
 	connect(pwidget_->cpage->strokeColor_, SIGNAL(activated(const QString&)), this, SLOT(slotStrokeColor()));
@@ -561,8 +571,7 @@ void SMParagraphStyle::setupConnections()
 	connect(pwidget_->cpage->widthSpaceSpin, SIGNAL(valueChanged(double)), this, SLOT(slotWordTracking()));
 	connect(pwidget_->cpage->baselineOffset_, SIGNAL(valueChanged(double)), this, SLOT(slotBaselineOffset()));
 	connect(pwidget_->cpage->fontFace_, SIGNAL(fontSelected(QString)), this, SLOT(slotFont(QString)));
-	connect(pwidget_->cpage->parentCombo, SIGNAL(activated(const QString&)),
-			this, SLOT(slotCharParentChanged(const QString&)));
+	connect(pwidget_->cpage->parentCombo, SIGNAL(activated(const QString&)), this, SLOT(slotCharParentChanged(const QString&)));
 }
 
 void SMParagraphStyle::removeConnections()
@@ -590,14 +599,29 @@ void SMParagraphStyle::removeConnections()
 	disconnect(pwidget_->minGlyphExtSpin, SIGNAL(valueChanged(double)),this,SLOT(slotMinGlyphExt()));
 	disconnect(pwidget_->maxGlyphExtSpin, SIGNAL(valueChanged(double)),this,SLOT(slotMaxGlyphExt()));
 	
-	disconnect(pwidget_, SIGNAL(useParentDropCap()), this, SLOT(slotParentDropCap()));
+	disconnect(pwidget_, SIGNAL(useParentParaEffects()), this, SLOT(slotParentParaEffects()));
 	disconnect(pwidget_->dropCapsBox, SIGNAL(toggled(bool)), this, SLOT(slotDropCap(bool)));
 	disconnect(pwidget_->dropCapLines_, SIGNAL(valueChanged(int)), this, SLOT(slotDropCapLines(int)));
-	disconnect(pwidget_->dropCapOffset_, SIGNAL(valueChanged(double)), this, SLOT(slotDropCapOffset()));
-	disconnect(pwidget_->dropCapCharStyleCombo, SIGNAL(activated(const QString&)), this, SLOT(slotDropCapCharStyle(const QString&)));
+	disconnect(pwidget_->parEffectOffset_, SIGNAL(valueChanged(double)), this, SLOT(slotParEffectOffset()));
+	disconnect(pwidget_->parEffectIndentBox, SIGNAL(toggled(bool)), this, SLOT(slotParEffectIndent(bool)));
+	disconnect(pwidget_->parEffectCharStyleCombo, SIGNAL(activated(const QString&)), this, SLOT(slotParEffectCharStyle(const QString&)));
 
-	disconnect(pwidget_->parentCombo, SIGNAL(activated(const QString&)),
-			this, SLOT(slotParentChanged(const QString&)));
+	disconnect(pwidget_->bulletBox, SIGNAL(toggled(bool)), this, SLOT(slotBullet(bool)));
+	disconnect(pwidget_->bulletStrEdit_, SIGNAL(editTextChanged(QString)), this, SLOT(slotBulletStr(QString)));
+	disconnect(pwidget_->numBox, SIGNAL(toggled(bool)), this, SLOT(slotNumeration(bool)));
+	disconnect(pwidget_->numComboBox, SIGNAL(activated(QString)), this, SLOT(slotNumName(QString)));
+	disconnect(pwidget_->numFormatCombo, SIGNAL(activated(int)), this, SLOT(slotNumFormat(int)));
+	disconnect(pwidget_->numLevelSpin, SIGNAL(valueChanged(int)), this, SLOT(slotNumLevel(int)));
+	disconnect(pwidget_->numStartSpin, SIGNAL(valueChanged(int)), this, SLOT(slotNumStart(int)));
+	disconnect(pwidget_->numRestartCombo, SIGNAL(activated(int)), this, SLOT(slotNumRestart(int)));
+	disconnect(pwidget_->numRestartOtherBox, SIGNAL(toggled(bool)), this, SLOT(slotNumOther(bool)));
+	disconnect(pwidget_->numRestartHigherBox, SIGNAL(toggled(bool)), this, SLOT(slotNumHigher(bool)));
+	disconnect(pwidget_->numPrefix, SIGNAL(textChanged(QString)), this, SLOT(slotNumPrefix(QString)));
+	disconnect(pwidget_->numSuffix, SIGNAL(textChanged(QString)), this, SLOT(slotNumSuffix(QString)));
+	disconnect(pwidget_->numNewLineEdit, SIGNAL(editingFinished()), this, SLOT(slotNumNew()));
+	disconnect(pwidget_->numNewLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotSelectionDirty()));
+	
+	disconnect(pwidget_->parentCombo, SIGNAL(activated(const QString&)), this, SLOT(slotParentChanged(const QString&)));
 
 	disconnect(pwidget_->keepLinesStart, SIGNAL(valueChanged(int)), this, SLOT(handleKeepLinesStart()));
 	disconnect(pwidget_->keepLinesEnd, SIGNAL(valueChanged(int)), this, SLOT(handleKeepLinesEnd()));
@@ -611,20 +635,13 @@ void SMParagraphStyle::removeConnections()
 
 	disconnect(pwidget_->cpage->fontFace_, SIGNAL(fontSelected(QString)), this, SLOT(slotFont(QString)));
 	disconnect(pwidget_->cpage->effects_, SIGNAL(State(int)), this, SLOT(slotEffects(int)));
-	disconnect(pwidget_->cpage->effects_->ShadowVal->Xoffset, SIGNAL(valueChanged(double)),
-			this, SLOT(slotEffectProperties()));
-	disconnect(pwidget_->cpage->effects_->ShadowVal->Yoffset, SIGNAL(valueChanged(double)),
-			this, SLOT(slotEffectProperties()));
-	disconnect(pwidget_->cpage->effects_->OutlineVal->LWidth, SIGNAL(valueChanged(double)),
-			this, SLOT(slotEffectProperties()));
-	disconnect(pwidget_->cpage->effects_->UnderlineVal->LPos, SIGNAL(valueChanged(double)),
-			this, SLOT(slotEffectProperties()));
-	disconnect(pwidget_->cpage->effects_->UnderlineVal->LWidth, SIGNAL(valueChanged(double)),
-			this, SLOT(slotEffectProperties()));
-	disconnect(pwidget_->cpage->effects_->StrikeVal->LPos, SIGNAL(valueChanged(double)),
-			this, SLOT(slotEffectProperties()));
-	disconnect(pwidget_->cpage->effects_->StrikeVal->LWidth, SIGNAL(valueChanged(double)),
-			this, SLOT(slotEffectProperties()));
+	disconnect(pwidget_->cpage->effects_->ShadowVal->Xoffset, SIGNAL(valueChanged(double)), this, SLOT(slotEffectProperties()));
+	disconnect(pwidget_->cpage->effects_->ShadowVal->Yoffset, SIGNAL(valueChanged(double)), this, SLOT(slotEffectProperties()));
+	disconnect(pwidget_->cpage->effects_->OutlineVal->LWidth, SIGNAL(valueChanged(double)), this, SLOT(slotEffectProperties()));
+	disconnect(pwidget_->cpage->effects_->UnderlineVal->LPos, SIGNAL(valueChanged(double)), this, SLOT(slotEffectProperties()));
+	disconnect(pwidget_->cpage->effects_->UnderlineVal->LWidth, SIGNAL(valueChanged(double)), this, SLOT(slotEffectProperties()));
+	disconnect(pwidget_->cpage->effects_->StrikeVal->LPos, SIGNAL(valueChanged(double)), this, SLOT(slotEffectProperties()));
+	disconnect(pwidget_->cpage->effects_->StrikeVal->LWidth, SIGNAL(valueChanged(double)), this, SLOT(slotEffectProperties()));
 	disconnect(pwidget_->cpage->fillColor_, SIGNAL(activated(const QString&)), this, SLOT(slotFillColor()));
 	disconnect(pwidget_->cpage->fillShade_, SIGNAL(clicked()), this, SLOT(slotFillShade()));
 	disconnect(pwidget_->cpage->strokeColor_, SIGNAL(activated(const QString&)), this, SLOT(slotStrokeColor()));
@@ -637,8 +654,7 @@ void SMParagraphStyle::removeConnections()
 	disconnect(pwidget_->cpage->widthSpaceSpin, SIGNAL(valueChanged(double)), this, SLOT(slotWordTracking()));
 	disconnect(pwidget_->cpage->baselineOffset_, SIGNAL(valueChanged(double)), this, SLOT(slotBaselineOffset()));
 	disconnect(pwidget_->cpage->fontFace_, SIGNAL(fontSelected(QString)), this, SLOT(slotFont(QString)));
-	disconnect(pwidget_->cpage->parentCombo, SIGNAL(activated(const QString&)),
-			this, SLOT(slotCharParentChanged(const QString&)));
+	disconnect(pwidget_->cpage->parentCombo, SIGNAL(activated(const QString&)), this, SLOT(slotCharParentChanged(const QString&)));
 }
 
 void SMParagraphStyle::slotLineSpacingMode(int mode)
@@ -854,8 +870,15 @@ void SMParagraphStyle::slotMaxGlyphExt()
 void SMParagraphStyle::slotDropCap(bool isOn)
 {
 	for (int i = 0; i < selection_.count(); ++i)
+	{
 		selection_[i]->setHasDropCap(isOn);
-
+		if (isOn)
+		{
+			selection_[i]->setHasBullet(false);
+			selection_[i]->setHasNum(false);
+		}
+	}
+	
 	if (!selectionIsDirty_)
 	{
 		selectionIsDirty_ = true;
@@ -863,11 +886,15 @@ void SMParagraphStyle::slotDropCap(bool isOn)
 	}
 }
 
-void SMParagraphStyle::slotParentDropCap()
+void SMParagraphStyle::slotParentParaEffects()
 {
 	for (int i = 0; i < selection_.count(); ++i)
+	{
 		selection_[i]->resetHasDropCap();
-
+		selection_[i]->resetHasBullet();
+		selection_[i]->resetHasNum();
+	}
+	
 	if (!selectionIsDirty_)
 	{
 		selectionIsDirty_ = true;
@@ -891,20 +918,20 @@ void SMParagraphStyle::slotDropCapLines(int lines)
 	}
 }
 
-void SMParagraphStyle::slotDropCapOffset()
+void SMParagraphStyle::slotParEffectOffset()
 {
-	if (pwidget_->dropCapOffset_->useParentValue())
+	if (pwidget_->parEffectOffset_->useParentValue())
 		for (int i = 0; i < selection_.count(); ++i)
-			selection_[i]->resetDropCapOffset();
+			selection_[i]->resetParEffectOffset();
 	else 
 	{
 		double a, b, value;
 		int c;
 
-		pwidget_->dropCapOffset_->getValues(&a, &b, &c, &value);
+		pwidget_->parEffectOffset_->getValues(&a, &b, &c, &value);
 		value = value / unitRatio_;
 		for (int i = 0; i < selection_.count(); ++i)
-			selection_[i]->setDropCapOffset(value);
+			selection_[i]->setParEffectOffset(value);
 	}
 	
 	if (!selectionIsDirty_)
@@ -914,15 +941,268 @@ void SMParagraphStyle::slotDropCapOffset()
 	}
 }
 
-void SMParagraphStyle::slotDropCapCharStyle(const QString& name)
+void SMParagraphStyle::slotParEffectIndent(bool isOn)
 {
-	if (pwidget_->dropCapCharStyleCombo->useParentValue())
+	if (pwidget_->parEffectIndentBox->useParentValue())
 		for (int i = 0; i < selection_.count(); ++i)
-			selection_[i]->resetDcCharStyleName();
+			selection_[i]->resetParEffectIndent();
+	else 
+	{
+		for (int i = 0; i < selection_.count(); ++i)
+			selection_[i]->setParEffectIndent(isOn);
+	}
+	
+	if (!selectionIsDirty_)
+	{
+		selectionIsDirty_ = true;
+		emit selectionDirty();
+	}
+}
+
+void SMParagraphStyle::slotParEffectCharStyle(const QString& name)
+{
+	if (pwidget_->parEffectCharStyleCombo->useParentValue())
+		for (int i = 0; i < selection_.count(); ++i)
+			selection_[i]->resetPeCharStyleName();
 	else
 		for (int i = 0; i < selection_.count(); ++i)
-			selection_[i]->setDcCharStyleName(name);
+			selection_[i]->setPeCharStyleName(name);
 
+	if (!selectionIsDirty_)
+	{
+		selectionIsDirty_ = true;
+		emit selectionDirty();
+	}
+}
+
+void SMParagraphStyle::slotBullet(bool isOn)
+{
+	for (int i = 0; i < selection_.count(); ++i)
+	{
+		selection_[i]->setHasBullet(isOn);
+		if (isOn)
+		{
+			selection_[i]->setBulletStr(pwidget_->bulletStrEdit_->currentText());
+			selection_[i]->setHasDropCap(false);
+			selection_[i]->setHasNum(false);
+		}
+	}
+	
+	if (!selectionIsDirty_)
+	{
+		selectionIsDirty_ = true;
+		emit selectionDirty();
+	}
+}
+
+void SMParagraphStyle::slotBulletStr(const QString &str)
+{
+	QString bstr(str);
+	if (bstr.isEmpty())
+	{
+		bstr = pwidget_->bulletStrEdit_->itemText(0);
+		pwidget_->bulletStrEdit_->setEditText(bstr);
+	}
+	for (int i = 0; i < selection_.count(); ++i)
+		selection_[i]->setBulletStr(bstr);
+
+	if (!selectionIsDirty_)
+	{
+		selectionIsDirty_ = true;
+		emit selectionDirty();
+	}
+}
+
+void SMParagraphStyle::slotNumeration(bool isOn)
+{
+	for (int i = 0; i < selection_.count(); ++i)
+	{
+		selection_[i]->setHasNum(isOn);
+		if (isOn)
+		{
+			selection_[i]->setHasDropCap(false);
+			selection_[i]->setHasBullet(false);
+		}
+	}
+	
+	if (!selectionIsDirty_)
+	{
+		selectionIsDirty_ = true;
+		emit selectionDirty();
+	}
+}
+
+void SMParagraphStyle::slotNumName(const QString &str)
+{
+	QString bstr(str);
+	if (!str.isEmpty())
+	{
+		for (int i = 0; i < selection_.count(); ++i)
+			selection_[i]->setNumName(bstr);
+		pwidget_->numComboBox->setCurrentItem(pwidget_->numComboBox->findText(selection_[0]->numName()));
+		pwidget_->numLevelSpin->setValue(selection_[0]->numLevel()+1);
+		NumStruct * numS = doc_->numerations.value(selection_[0]->numName());
+		if (numS)
+			pwidget_->numLevelSpin->setMaximum(numS->m_counters.count()+1);
+		else
+			pwidget_->numLevelSpin->setMaximum(1);
+		doc_->flag_NumUpdateRequest = true;
+	}
+
+	if (!selectionIsDirty_)
+	{
+		selectionIsDirty_ = true;
+		emit selectionDirty();
+	}
+}
+
+void SMParagraphStyle::slotNumNew()
+{
+	QString newName = pwidget_->numNewLineEdit->text();
+	if (!newName.isEmpty())
+	{
+		for (int i = 0; i < selection_.count(); ++i)
+			selection_[i]->setNumName(newName);
+		doc_->flag_NumUpdateRequest = true;
+	}
+
+	if (!selectionIsDirty_)
+	{
+		selectionIsDirty_ = true;
+		emit selectionDirty();
+	}
+}
+
+void SMParagraphStyle::slotSelectionDirty()
+{
+	if (!selectionIsDirty_)
+	{
+		selectionIsDirty_ = true;
+		emit selectionDirty();
+	}
+}
+
+void SMParagraphStyle::slotNumFormat(int numFormat)
+{
+	if (pwidget_->numFormatCombo->useParentValue())
+		for (int i = 0; i < selection_.count(); ++i)
+			selection_[i]->resetNumFormat();
+	else
+		for (int i = 0; i < selection_.count(); ++i)
+			selection_[i]->setNumFormat(numFormat);
+
+	if (!selectionIsDirty_)
+	{
+		selectionIsDirty_ = true;
+		emit selectionDirty();
+	}
+}
+
+void SMParagraphStyle::slotNumLevel(int level)
+{
+	if (pwidget_->numLevelSpin->useParentValue())
+		for (int i = 0; i < selection_.count(); ++i)
+			selection_[i]->resetNumLevel();
+	else
+		for (int i = 0; i < selection_.count(); ++i)
+		{
+			selection_[i]->setNumLevel(level-1);
+		}
+	
+	if (level == 0)
+		slotNumHigher(false);
+	if (!selectionIsDirty_)
+	{
+		selectionIsDirty_ = true;
+		emit selectionDirty();
+	}
+}
+
+void SMParagraphStyle::slotNumPrefix(const QString &str)
+{
+	for (int i = 0; i < selection_.count(); ++i)
+		selection_[i]->setNumPrefix(str);
+
+	if (!selectionIsDirty_)
+	{
+		selectionIsDirty_ = true;
+		emit selectionDirty();
+	}
+}
+
+void SMParagraphStyle::slotNumSuffix(const QString &str)
+{
+	for (int i = 0; i < selection_.count(); ++i)
+		selection_[i]->setNumSuffix(str);
+
+	if (!selectionIsDirty_)
+	{
+		selectionIsDirty_ = true;
+		emit selectionDirty();
+	}
+}
+
+void SMParagraphStyle::slotNumStart(int start)
+{
+	if (pwidget_->numStartSpin->useParentValue())
+		for (int i = 0; i < selection_.count(); ++i)
+			selection_[i]->resetNumStart();
+	else
+		for (int i = 0; i < selection_.count(); ++i)
+			selection_[i]->setNumStart(start);
+
+	if (!selectionIsDirty_)
+	{
+		selectionIsDirty_ = true;
+		emit selectionDirty();
+	}
+}
+
+void SMParagraphStyle::slotNumRestart(int restart)
+{
+	if (pwidget_->numRestartCombo->useParentValue())
+		for (int i = 0; i < selection_.count(); ++i)
+			selection_[i]->resetNumRestart();
+	else
+		for (int i = 0; i < selection_.count(); ++i)
+			selection_[i]->setNumRestart(restart);
+
+	if (!selectionIsDirty_)
+	{
+		selectionIsDirty_ = true;
+		emit selectionDirty();
+	}
+}
+
+void SMParagraphStyle::slotNumOther(bool isOn)
+{
+	if (pwidget_->numRestartOtherBox->useParentValue())
+		for (int i = 0; i < selection_.count(); ++i)
+			selection_[i]->resetNumOther();
+	else 
+	{
+		for (int i = 0; i < selection_.count(); ++i)
+			selection_[i]->setNumOther(isOn);
+	}
+	
+	if (!selectionIsDirty_)
+	{
+		selectionIsDirty_ = true;
+		emit selectionDirty();
+	}
+}
+
+void SMParagraphStyle::slotNumHigher(bool isOn)
+{
+	if (pwidget_->numRestartHigherBox->useParentValue())
+		for (int i = 0; i < selection_.count(); ++i)
+			selection_[i]->resetNumHigher();
+	else 
+	{
+		for (int i = 0; i < selection_.count(); ++i)
+			selection_[i]->setNumHigher(isOn);
+	}
+	
 	if (!selectionIsDirty_)
 	{
 		selectionIsDirty_ = true;

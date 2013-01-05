@@ -81,7 +81,7 @@ QString ParagraphStyle::displayName() const
 bool ParagraphStyle::equiv(const Style& other) const
 {
 	other.validate();
-	const ParagraphStyle* oth = dynamic_cast<const ParagraphStyle*> ( & other );
+	const ParagraphStyle* oth = reinterpret_cast<const ParagraphStyle*> ( & other );
 	return  oth &&
 		parent() == oth->parent() && cstyle.equiv(oth->charStyle())
 #define ATTRDEF(attr_TYPE, attr_GETTER, attr_NAME, attr_DEFAULT) \
@@ -123,7 +123,7 @@ ParagraphStyle& ParagraphStyle::operator=(const ParagraphStyle& other)
 	
 	if (cstyleContextIsInh)
 	{
-		const ParagraphStyle * parent = dynamic_cast<const ParagraphStyle*> ( parentStyle() );
+		const ParagraphStyle * parent = reinterpret_cast<const ParagraphStyle*> ( parentStyle() );
 		cstyle.setContext(parent ? parent->charStyleContext() : NULL);
 	}
 	else
@@ -150,7 +150,7 @@ void ParagraphStyle::setContext(const StyleContext* context)
 void ParagraphStyle::repairImplicitCharStyleInheritance()
 {
 	if (cstyleContextIsInh) {
-		const ParagraphStyle * newParent = dynamic_cast<const ParagraphStyle*> ( parentStyle() );
+		const ParagraphStyle * newParent = reinterpret_cast<const ParagraphStyle*> ( parentStyle() );
 		cstyle.setContext(newParent ? newParent->charStyleContext() : NULL);
 	}
 }
@@ -172,7 +172,7 @@ void ParagraphStyle::update(const StyleContext* context)
 	cstyle.validate();
 	cstyleContext.invalidate();
 
-	const ParagraphStyle * oth = dynamic_cast<const ParagraphStyle*> ( parentStyle() );
+	const ParagraphStyle * oth = reinterpret_cast<const ParagraphStyle*> ( parentStyle() );
 //	qDebug() << QString("ParagraphStyle::update(%1) parent=%2").arg((unsigned long int)context).arg((unsigned long int)oth);
 	if (oth) {
 #define ATTRDEF(attr_TYPE, attr_GETTER, attr_NAME, attr_DEFAULT) \
@@ -248,6 +248,8 @@ void ParagraphStyle::replaceNamedResources(ResourceCollection& newNames)
 		setParent(it.value());
 		repairImplicitCharStyleInheritance();
 	}
+	if ((it = (newNames.charStyles().find(peCharStyleName()))) != newNames.charStyles().end())
+		setPeCharStyleName(it.value());
 	cstyle.replaceNamedResources(newNames);
 }
 

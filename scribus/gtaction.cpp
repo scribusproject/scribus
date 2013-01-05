@@ -394,6 +394,10 @@ void gtAction::getFrameStyle(gtFrameStyle *fstyle)
 		fstyle->setDropCap(vg.hasDropCap());
 	if (!vg.isInhDropCapLines())
 		fstyle->setDropCapHeight(vg.dropCapLines());
+	if (!vg.isInhHasBullet())
+		fstyle->setBullet(vg.hasBullet(), vg.bulletStr());
+	if (!vg.isInhHasNum())
+		fstyle->setNum(vg.hasNum(),vg.numFormat(),vg.numLevel(), vg.numStart(), vg.numPrefix(), vg.numSuffix());
 
 	gtFont font;
 	getFrameFont(&font);
@@ -490,6 +494,24 @@ void gtAction::setParaStyleAttributes(gtParagraphStyle *pstyle, ParagraphStyle& 
 		style.setHasDropCap(pstyle->hasDropCap());
 	if (flags & gtParagraphStyle::dropCapHeightWasSet)
 		style.setDropCapLines(pstyle->getDropCapHeight());
+	if (flags & gtParagraphStyle::bulletWasSet)
+	{
+		style.setHasBullet(pstyle->hasBullet());
+		style.setBulletStr(pstyle->getBullet());
+	}
+	if (flags & gtParagraphStyle::numWasSet)
+	{
+		style.setHasNum(pstyle->hasNum());
+		style.setNumName(pstyle->getName());
+		style.setNumFormat(pstyle->getNumFormat());
+		style.setNumLevel(pstyle->getNumLevel());
+		style.setNumStart(pstyle->getNumStart());
+		style.setNumHigher(true);
+		style.setNumOther(true);
+		style.setNumPrefix(pstyle->getNumPrefix());
+		style.setNumSuffix(pstyle->getNumSuffix());
+	}
+	
 	/*vg.setDropCapOffset(0);*/
 }
 

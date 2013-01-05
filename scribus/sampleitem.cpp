@@ -47,8 +47,10 @@ SampleItem::SampleItem() : QObject()
 	tmpStyle.charStyle().setFontSize(m_Doc->itemToolPrefs().textSize);
 //	tmpStyle.tabValues().clear();
 	tmpStyle.setHasDropCap(false);
+	tmpStyle.setHasBullet(false);
+	tmpStyle.setHasNum(false);
 	tmpStyle.setDropCapLines(0);//2;
-	tmpStyle.setDropCapOffset(0);
+	tmpStyle.setParEffectOffset(0);
 	tmpStyle.charStyle().setFeatures(QStringList(CharStyle::INHERIT));
 	tmpStyle.charStyle().setFillColor("__blackforpreview__");
 	tmpStyle.charStyle().setFillShade(100); //m_Doc->toolSettings.dShade;
@@ -178,9 +180,19 @@ void SampleItem::setDropLin(int dropLin)
 	tmpStyle.setDropCapLines(dropLin);
 }
 
-void SampleItem::setDropDist(double dropDist)
+void SampleItem::setParEffectDist(double dist)
 {
-	tmpStyle.setDropCapOffset(dropDist);
+	tmpStyle.setParEffectOffset(dist);
+}
+
+void SampleItem::setBullet(bool bul)
+{
+	tmpStyle.setHasBullet(bul);
+}
+
+void SampleItem::setNum(bool num)
+{
+	tmpStyle.setHasNum(num);
 }
 
 void SampleItem::setFontEffect(int fontEffect)

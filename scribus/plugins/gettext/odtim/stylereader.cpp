@@ -167,6 +167,16 @@ StyleReader::StyleReader(QString documentName, gtWriter *w,
 		ListLevel *llevel = new ListLevel(ulevel, bstyle, prefix, suffix, bullet, displayLevels, startAt);
 		currentListStyle->addLevel(ulevel, llevel);
  		readProperties = true;
+
+		gtParagraphStyle* s = dynamic_cast<gtParagraphStyle*>(currentStyle);
+		assert(s != NULL);
+		if (bstyle == Bullet || bstyle == Graphic)
+			s->setBullet(true);
+		else
+		{
+			Q_ASSERT(((int) bstyle > 0) && ((int) bstyle < 6));
+			s->setNum(true, (int) bstyle -1, 0, startAt+1, prefix, suffix);
+		}
  	}
  	else if ((name == "style:drop-cap") && (readProperties))
  	{
@@ -498,6 +508,18 @@ StyleReader::StyleReader(QString documentName, gtWriter *w,
  			  (name == "text:list-level-style-number") ||
 			  (name == "text:list-level-style-image")) && (currentStyle != NULL))
  	{
+//		if ((name == "text:list-level-style-bullet"))
+//		{
+//			gtParagraphStyle* s = dynamic_cast<gtParagraphStyle*>(currentStyle);
+//			if (s)
+//				s->setBullet(true);
+//		}
+//		else if ((name == "text:list-level-style-number"))
+//		{
+//			gtParagraphStyle* s = dynamic_cast<gtParagraphStyle*>(currentStyle);
+//			if (s)
+//				s->setNum(true);
+//		}
  		setStyle(currentStyle->getName(), currentStyle);
  		currentStyle = NULL;
  		parentStyle = NULL;
@@ -572,6 +594,7 @@ StyleReader::StyleReader(QString documentName, gtWriter *w,
  		nameByAttrs += QString("%1-").arg(s->getFirstLineIndent());
  		nameByAttrs += QString("%1-").arg(s->getAlignment());
  		nameByAttrs += QString("%1-").arg(s->hasDropCap());
+		nameByAttrs += QString("%1-").arg(s->hasBullet());
  		nameByAttrs += QString("%1-").arg(s->getFont()->getColor());
  		nameByAttrs += QString("%1-").arg(s->getFont()->getStrokeColor());
 // TODO is this important ??

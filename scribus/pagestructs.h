@@ -10,6 +10,7 @@ for which a new license (GPL+exception) is in place.
 #include <QMap>
 #include <QList>
 #include <QString>
+#include "numeration.h"
 
 struct ObjectAttribute 
 {
@@ -40,27 +41,13 @@ struct ToCSetup
 
 typedef QList<ToCSetup> ToCSetupVector;
 
-
-typedef enum 
-{
-	Type_1_2_3,
-	Type_i_ii_iii,
-	Type_I_II_III,
-	Type_a_b_c,
-	Type_A_B_C,
-	Type_asterix,
-	Type_None=99
-} DocumentSectionType;
-
-typedef DocumentSectionType NumerationType;
-
 struct DocumentSection
 {
 	uint number; //Just an index in the section list
 	QString name; //User defined name for the section
 	uint fromindex; //First page _index_ of the section in the document (old page number)
 	uint toindex; //Last page _index_ of the section in the document (old page number)
-	DocumentSectionType type; //Type of section numbering, ie i,ii,iii or a,b,c or 1,2,3, etc
+	NumFormat type; //Type of section numbering, ie i,ii,iii or a,b,c or 1,2,3, etc
 	uint sectionstartindex; // Start of section, an index in the range of type, eg for type i,ii,iii, this would be 2 for "ii".
 	bool reversed; // Counting 10-1 ?
 	bool active; // Is the section active, ie, if the fromindex is 10, and theres 5 pages, this should be inactive.

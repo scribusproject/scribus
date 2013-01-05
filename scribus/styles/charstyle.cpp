@@ -148,7 +148,7 @@ void CharStyle::eraseDirectFormatting()
 bool CharStyle::equiv(const Style & other) const
 {
 	other.validate();
-	const CharStyle * oth = dynamic_cast<const CharStyle*> ( & other );
+	const CharStyle * oth = reinterpret_cast<const CharStyle*> ( & other );
 	return  oth &&
 		parent() == oth->parent() 
 #define ATTRDEF(attr_TYPE, attr_GETTER, attr_NAME, attr_DEFAULT) \
@@ -267,7 +267,7 @@ QStringList StyleFlag::featureList() const
 void CharStyle::updateFeatures()
 {
 	m_Effects &= ~ScStyle_UserStyles;
-	runFeatures(m_Features, dynamic_cast<const CharStyle*>(parentStyle()));
+	runFeatures(m_Features, reinterpret_cast<const CharStyle*>(parentStyle()));
 /* need to access global fontlist :-/
 	if (!font().name().endsWith(fontVariant()))
 	{
@@ -280,13 +280,14 @@ void CharStyle::updateFeatures()
 void CharStyle::runFeatures(const QStringList& featureList, const CharStyle* parent)
 {
 	QStringList::ConstIterator it;
-	for (it = featureList.begin(); it != featureList.end(); ++it)
+	QStringList::ConstIterator itEnd = featureList.end();
+	for (it = featureList.begin(); it != itEnd; ++it)
 	{
 		QString feature = it->trimmed();
 		if (feature == INHERIT)
 		{
 			if (parent)
-				runFeatures(parent->features(), dynamic_cast<const CharStyle*>(parent->parentStyle()));
+				runFeatures(parent->features(), reinterpret_cast<const CharStyle*>(parent->parentStyle()));
 			continue;
 		}
 		int set = feature.startsWith('-') ? 0 : 1;
@@ -294,15 +295,16 @@ void CharStyle::runFeatures(const QStringList& featureList, const CharStyle* par
 		if (invert)
 			feature = feature.mid(1);
 
-		if (feature == BOLD)
-		{
-			// (de)select bolder font
-		}
-		else if (feature == ITALIC)
-		{
-			// (de)select italic font
-		}
-		else if (feature == UNDERLINE)
+//		if (feature == BOLD)
+//		{
+//			// (de)select bolder font
+//		}
+//		else if (feature == ITALIC)
+//		{
+//			// (de)select italic font
+//		}
+//		else
+		if (feature == UNDERLINE)
 		{
 			m_Effects &= ~(invert * ScStyle_Underline);
 			m_Effects |= set * ScStyle_Underline;

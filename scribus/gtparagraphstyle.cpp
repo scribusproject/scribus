@@ -42,7 +42,15 @@ gtParagraphStyle::gtParagraphStyle(const gtParagraphStyle& p) : gtStyle(p)
 	spaceAbove      = p.spaceAbove;
 	spaceBelow      = p.spaceBelow;
 	dropCap         = p.dropCap;
+	m_bullet          = p.m_bullet;
+	m_bulletStr       = p.m_bulletStr;
 	dropCapHeight   = p.dropCapHeight;
+	m_numeration      = p.m_numeration;
+	m_numFormat       = p.m_numFormat;
+	m_numLevel        = p.m_numLevel;
+	m_numStart        = p.m_numStart;
+	m_numPrefix       = p.m_numPrefix;
+	m_numSuffix       = p.m_numSuffix;
 	adjToBaseline   = p.adjToBaseline;
 	autoLineSpacing = p.autoLineSpacing;
 	isVisible       = p.isVisible;
@@ -65,6 +73,14 @@ void gtParagraphStyle::init()
 	spaceBelow      = 0;
 	dropCap         = false;
 	dropCapHeight   = 2;
+	m_bullet          = false;
+	m_bulletStr       = QString(QChar(0x2022));
+	m_numeration      = false;
+	m_numFormat       = 0;
+	m_numLevel        = 0;
+	m_numStart        = 1;
+	m_numPrefix       = QString();
+	m_numSuffix       = QString();
 	adjToBaseline   = false;
 	autoLineSpacing = false;
 	isVisible       = true;
@@ -219,6 +235,67 @@ void   gtParagraphStyle::setDropCapHeight(int newHeight)
 {
 	dropCapHeight = newHeight;
 	flags |= dropCapHeightWasSet;
+}
+
+bool gtParagraphStyle::hasBullet()
+{
+	return m_bullet;
+}
+
+QString  gtParagraphStyle::getBullet()
+{
+	return m_bulletStr;
+}
+
+void gtParagraphStyle::setBullet(bool newBullet, QString str)
+{
+	m_bullet = newBullet;
+	m_bulletStr = str;
+	flags |= bulletWasSet;
+}
+
+bool gtParagraphStyle::hasNum()
+{
+	return m_numeration;
+}
+
+void gtParagraphStyle::setNum(bool newNum, int format, int level, int start, QString prefix, QString suffix)
+{
+	m_numeration = newNum;
+	if (newNum)
+	{
+		m_numFormat = format;
+		m_numLevel = level;
+		m_numStart = start;
+		m_numPrefix = prefix;
+		m_numSuffix = suffix;
+	}
+	flags |= numWasSet;
+}
+
+int gtParagraphStyle::getNumLevel()
+{
+	return m_numLevel;
+}
+
+int gtParagraphStyle::getNumFormat()
+{
+	return m_numFormat;
+}
+
+int gtParagraphStyle::getNumStart()
+{
+	return m_numStart;
+}
+
+QString gtParagraphStyle::getNumPrefix()
+{
+	return m_numPrefix;
+}
+
+QString gtParagraphStyle::getNumSuffix()
+{
+	return m_numSuffix;
 }
 
 bool gtParagraphStyle::isAdjToBaseline()

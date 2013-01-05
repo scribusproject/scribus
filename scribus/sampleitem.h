@@ -67,8 +67,10 @@ class SCRIBUS_API SampleItem : QObject
 		void setFontSize(int fontSize, bool autoLineSpa=false);
 		//void setTabValues(QValueList<PageItem::TabRecord> tabValues);
 		void setDrop(bool drop);
+		void setBullet(bool bul);
+		void setNum(bool num);
 		void setDropLin(int dropLin);
-		void setDropDist(double dropDist);
+		void setParEffectDist(double dropDist);
 		void setFontEffect(int fontEffect);
 		void setFColor(QString fColor);
 		void setFShade(int fShade);

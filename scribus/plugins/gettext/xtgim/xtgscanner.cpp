@@ -731,7 +731,7 @@ void XtgScanner::setDropCap()
 		{
 			flushText();
 			currentParagraphStyle.setDropCapLines(lineCount);
-			currentParagraphStyle.setDropCapOffset(charCount);
+			currentParagraphStyle.setParEffectOffset(charCount);
 			currentParagraphStyle.setHasDropCap(true);
 			writer->setStyle(currentParagraphStyle);
 			currentParagraphStyle = writer->getCurrentStyle();
@@ -741,7 +741,7 @@ void XtgScanner::setDropCap()
 		if (define == 2)
 		{
 			defParagraphStyle.setDropCapLines(lineCount);
-			defParagraphStyle.setDropCapOffset(charCount);
+			defParagraphStyle.setParEffectOffset(charCount);
 			defParagraphStyle.setHasDropCap(true);
 		}
 	}

@@ -148,7 +148,7 @@ void Prefs_DocumentSections::tableItemChanged( int row, int col )
 			{
 				int index=qcti->currentIndex();
 				if (index<styles.count()-1)
-					localSections[row].type=(DocumentSectionType)index;
+					localSections[row].type=(NumFormat)index;
 				else
 					if (index==styles.count()-1)
 					localSections[row].type=Type_None;

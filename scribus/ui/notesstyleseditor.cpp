@@ -314,7 +314,7 @@ void NotesStylesEditor::on_ApplyButton_clicked()
 					ss->set("NEWname", NS->name());
 					ss->set("NEWstart", NS->start());
 					ss->set("NEWendNotes", NS->isEndNotes());
-					ss->set("NEWnumStyle", (int) NS->getType());
+					ss->set("NEWnumFormat", (int) NS->getType());
 					ss->set("NEWrange", (int) NS->range());
 					ss->set("NEWprefix", NS->prefix());
 					ss->set("NEWsuffix", NS->suffix());
@@ -331,7 +331,7 @@ void NotesStylesEditor::on_ApplyButton_clicked()
 				//invalidate all text frames with marks from current changed notes style
 				foreach (PageItem* item, m_Doc->DocItems)
 				{
-					if (item->isTextFrame() && !item->isNoteFrame() && item->asTextFrame()->hasMark(NS))
+					if (item->isTextFrame() && !item->isNoteFrame() && item->asTextFrame()->hasNoteMark(NS))
 						item->invalid = true;
 				}
 				m_Doc->updateNotesNums(NS);
@@ -479,7 +479,7 @@ void NotesStylesEditor::on_EndRadio_toggled(bool checked)
 void NotesStylesEditor::on_NumberingBox_currentIndexChanged(int index)
 {
 	NotesStyle ns = changesMap.value(NSlistBox->currentText());
-	ns.setType((NumerationType) index);
+	ns.setType((NumFormat) index);
 
 	changesMap.insert(NSlistBox->currentText(), ns);
 	ApplyButton->setEnabled(true);

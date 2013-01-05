@@ -813,8 +813,8 @@ namespace {
 			pstyle.resetGapAfter();
 		if (pstyle.dropCapLines() < 0)
 			pstyle.resetDropCapLines();
-		if (pstyle.dropCapOffset() <= -16000)
-			pstyle.resetDropCapOffset();
+		if (pstyle.parEffectOffset() <= -16000)
+			pstyle.resetParEffectOffset();
 		fixLegacyCharStyle(pstyle.charStyle());
 	}
 	
@@ -1324,7 +1324,7 @@ void Scribus134Format::readParagraphStyle(ScribusDoc *doc, ScXmlStreamReader& re
 
 	static const QString DROPDIST("DROPDIST");
 	if (attrs.hasAttribute(DROPDIST))
-		newStyle.setDropCapOffset(attrs.valueAsDouble(DROPDIST));
+		newStyle.setParEffectOffset(attrs.valueAsDouble(DROPDIST));
 
 	static const QString PSHORTCUT("PSHORTCUT");
 	if (attrs.hasAttribute(PSHORTCUT))

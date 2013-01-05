@@ -143,7 +143,7 @@ SET(SCRIBUS_UI_SRC
   ui/propertiespalette_xyzbase.ui
   ui/propertywidget_advancedbase.ui
   ui/propertywidget_distancebase.ui
-  ui/propertywidget_dropcapbase.ui
+  ui/propertywidget_pareffectbase.ui
   ui/propertywidget_flopbase.ui
   ui/propertywidget_optmarginsbase.ui
   ui/propertywidget_orphansbase.ui
@@ -216,6 +216,7 @@ SET(SCRIBUS_MOC_CLASSES
   latexhelpers.h
   loadsaveplugin.h
   menumanager.h
+  numeration.h
   navigator.h
   notesstyles.h
   observable.h
@@ -409,7 +410,7 @@ SET(SCRIBUS_MOC_CLASSES
   ui/propertiespalette_xyz.h
   ui/propertywidget_advanced.h
   ui/propertywidget_distance.h
-  ui/propertywidget_dropcap.h
+  ui/propertywidget_pareffect.h
   ui/propertywidget_flop.h
   ui/propertywidget_optmargins.h
   ui/propertywidget_orphans.h
@@ -579,6 +580,7 @@ SET(SCRIBUS_SOURCES
   menumanager.cpp
   mesh.cpp
   navigator.cpp
+  numeration.cpp
   observable.cpp
   nftrcreader.cpp
   nftsettings.cpp
@@ -852,7 +854,7 @@ SET(SCRIBUS_SOURCES
   ui/propertiespalette_xyz.cpp
   ui/propertywidget_advanced.cpp
   ui/propertywidget_distance.cpp
-  ui/propertywidget_dropcap.cpp
+  ui/propertywidget_pareffect.cpp
   ui/propertywidget_flop.cpp
   ui/propertywidget_optmargins.cpp
   ui/propertywidget_orphans.cpp

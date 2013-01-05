@@ -20,7 +20,7 @@ for which a new license (GPL+exception) is in place.
 #include "propertiespalette_utils.h"
 #include "propertywidget_advanced.h"
 #include "propertywidget_distance.h"
-#include "propertywidget_dropcap.h"
+#include "propertywidget_pareffect.h"
 #include "propertywidget_flop.h"
 #include "propertywidget_optmargins.h"
 #include "propertywidget_orphans.h"
@@ -77,8 +77,8 @@ PropertiesPalette_Text::PropertiesPalette_Text( QWidget* parent) : QWidget(paren
 	orphanBox = new PropertyWidget_Orphans(textTree);
 	orphanItem = textTree->addWidget( tr("Orphans and Widows"), orphanBox);
 
-	dropcapsBox = new PropertyWidget_DropCap(textTree);
-	dropcapsItem = textTree->addWidget( tr("Drop Cap"), dropcapsBox);
+	parEffectWidgets = new PropertyWidget_ParEffect(textTree);
+	parEffectItem = textTree->addWidget( tr("Paragraph Effects"), parEffectWidgets);
 
 	distanceWidgets = new PropertyWidget_Distance(textTree);
 	distanceItem = textTree->addWidget( tr("Columns && Text Distances"), distanceWidgets);
@@ -120,7 +120,7 @@ void PropertiesPalette_Text::setMainWindow(ScribusMainWindow* mw)
 	advancedWidgets->setMainWindow(mw);
 	colorWidgets->setMainWindow(mw);
 	distanceWidgets->setMainWindow(mw);
-	dropcapsBox->setMainWindow(mw);
+	parEffectWidgets->setMainWindow(mw);
 	optMargins->setMainWindow(mw);
 	pathTextWidgets->setMainWindow(mw);
 
@@ -156,7 +156,7 @@ void PropertiesPalette_Text::setDoc(ScribusDoc *d)
 	advancedWidgets->setDoc(m_doc);
 	colorWidgets->setDoc(m_doc);
 	distanceWidgets->setDoc(m_doc);
-	dropcapsBox->setDoc(m_doc);
+	parEffectWidgets->setDoc(m_doc);
 	flopBox->setDoc(m_doc);
 	optMargins->setDoc(m_doc);
 	orphanBox->setDoc(m_doc);
@@ -192,7 +192,7 @@ void PropertiesPalette_Text::unsetDoc()
 	flopBox->setDoc(0);
 	optMargins->setDoc(0);
 	orphanBox->setDoc(0);
-	dropcapsBox->setDoc(0);
+	parEffectWidgets->setDoc(0);
 	pathTextWidgets->setDoc(0);
 
 	m_haveItem = false;
@@ -276,7 +276,7 @@ void PropertiesPalette_Text::handleUpdateRequest(int updateFlags)
 	if (updateFlags & reqCharStylesUpdate)
 	{
 		charStyleCombo->updateFormatList();
-		dropcapsBox->updateCharStyles();
+		parEffectWidgets->updateCharStyles();
 	}
 	if (updateFlags & reqParaStylesUpdate)
 		paraStyleCombo->updateFormatList();
@@ -288,7 +288,7 @@ void PropertiesPalette_Text::handleUpdateRequest(int updateFlags)
 	{
 		paraStyleCombo->setDoc(m_haveDoc ? m_doc : 0);
 		charStyleCombo->setDoc(m_haveDoc ? m_doc : 0);
-		dropcapsBox->setDoc(m_haveDoc ? m_doc : 0);
+		parEffectWidgets->setDoc(m_haveDoc ? m_doc : 0);
 	}
 }
 
@@ -320,7 +320,7 @@ void PropertiesPalette_Text::setCurrentItem(PageItem *i)
 		flopItem->setHidden(true);
 		distanceItem->setHidden(true);
 		orphanItem->setHidden(true);
-		dropcapsItem->setHidden(true);
+		parEffectItem->setHidden(true);
 		pathTextItem->setHidden(false);
 	}
 	else if (m_item->asTextFrame() || m_item->asTable())
@@ -328,7 +328,7 @@ void PropertiesPalette_Text::setCurrentItem(PageItem *i)
 		flopItem->setHidden(false);
 		distanceItem->setHidden(false);
 		orphanItem->setHidden(false);
-		dropcapsItem->setHidden(false);
+		parEffectItem->setHidden(false);
 		pathTextItem->setHidden(true);
 	}
 	else
@@ -336,7 +336,7 @@ void PropertiesPalette_Text::setCurrentItem(PageItem *i)
 		flopItem->setHidden(false);
 		distanceItem->setHidden(false);
 		orphanItem->setHidden(false);
-		dropcapsItem->setHidden(false);
+		parEffectItem->setHidden(false);
 		pathTextItem->setHidden(true);
 	}
 
@@ -374,7 +374,7 @@ void PropertiesPalette_Text::unitChange()
 	flopBox->unitChange();
 	optMargins->unitChange();
 	pathTextWidgets->unitChange();
-	dropcapsBox->unitChange();
+	parEffectWidgets->unitChange();
 
 	m_haveItem = tmp;
 }
@@ -496,7 +496,7 @@ void PropertiesPalette_Text::updateStyle(const ParagraphStyle& newCurrent)
 	colorWidgets->updateStyle(newCurrent);
 	optMargins->updateStyle(newCurrent);
 	orphanBox->updateStyle (newCurrent);
-	dropcapsBox->updateStyle(newCurrent);
+	parEffectWidgets->updateStyle(newCurrent);
 
 	displayFontFace(charStyle.font().scName());
 	displayFontSize(charStyle.fontSize());
@@ -514,14 +514,14 @@ void PropertiesPalette_Text::updateStyle(const ParagraphStyle& newCurrent)
 void PropertiesPalette_Text::updateCharStyles()
 {
 	charStyleCombo->updateFormatList();
-	dropcapsBox->updateCharStyles();
+	parEffectWidgets->updateCharStyles();
 }
 
 void PropertiesPalette_Text::updateParagraphStyles()
 {
 	paraStyleCombo->updateFormatList();
 	charStyleCombo->updateFormatList();
-	dropcapsBox->updateCharStyles();
+	parEffectWidgets->updateCharStyles();
 }
 
 void PropertiesPalette_Text::updateTextStyles()
@@ -643,6 +643,7 @@ void PropertiesPalette_Text::doClearPStyle()
 		{
 			Selection tempSelection(this, false);
 			tempSelection.addItem(i2, true);
+			m_doc->itemSelection_ClearBulNumStrings(&tempSelection);
 			m_doc->itemSelection_EraseParagraphStyle(&tempSelection);
 			CharStyle emptyCStyle;
 			m_doc->itemSelection_SetCharStyle(emptyCStyle, &tempSelection);

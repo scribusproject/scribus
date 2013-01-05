@@ -22,6 +22,7 @@ for which a new license (GPL+exception) is in place.
 			Special thanks go to avox for helping me! */
 PyObject *scribus_createparagraphstyle(PyObject* /* self */, PyObject* args, PyObject* keywords)
 {
+	//TODO - new paragraph properties for bullets and numbering
 	char* keywordargs[] = {
 			const_cast<char*>("name"),
 			const_cast<char*>("linespacingmode"),
@@ -40,11 +41,11 @@ PyObject *scribus_createparagraphstyle(PyObject* /* self */, PyObject* args, PyO
 	char *Name = const_cast<char*>(""), *CharStyle = const_cast<char*>("");
 	int LineSpacingMode = 0, Alignment = 0, DropCapLines = 2, HasDropCap = 0;
 	double LineSpacing = 15.0, LeftMargin = 0.0, RightMargin = 0.0;
-	double GapBefore = 0.0, GapAfter = 0.0, FirstIndent = 0.0, DropCapOffset = 0;
+	double GapBefore = 0.0, GapAfter = 0.0, FirstIndent = 0.0, PEOffset = 0;
 	if (!PyArg_ParseTupleAndKeywords(args, keywords, "es|ididddddiides",
 		 keywordargs, "utf-8", &Name, &LineSpacingMode, &LineSpacing, &Alignment,
 		&LeftMargin, &RightMargin, &GapBefore, &GapAfter, &FirstIndent,
-		&HasDropCap, &DropCapLines, &DropCapOffset, "utf-8", &CharStyle))
+		&HasDropCap, &DropCapLines, &PEOffset, "utf-8", &CharStyle))
 		return NULL;
 	if(!checkHaveDocument())
 		return NULL;
@@ -74,7 +75,7 @@ PyObject *scribus_createparagraphstyle(PyObject* /* self */, PyObject* args, PyO
 		return NULL;
 	}
 	TmpParagraphStyle.setDropCapLines(DropCapLines);
-	TmpParagraphStyle.setDropCapOffset(DropCapOffset);
+	TmpParagraphStyle.setParEffectOffset(PEOffset);
 	TmpParagraphStyle.charStyle().setParent(CharStyle);
 
 	StyleSet<ParagraphStyle> TmpStyleSet;
