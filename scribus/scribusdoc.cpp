@@ -2630,11 +2630,14 @@ ScPage* ScribusDoc::addMasterPage(const int pageNumber, const QString& pageName)
 	addedPage->setOrientation(docPrefsData.docSetupPrefs.pageOrientation);
 	addedPage->marginPreset = docPrefsData.docSetupPrefs.marginPreset;
 	addedPage->MPageNam = "";
+	int pgN = pageNumber;
+	if (pageNumber > MasterPages.count())
+		pgN = MasterPages.count();
 	addedPage->setPageName(pageName);
-	addedPage->setPageNr(pageNumber);
-	MasterNames.insert(pageName, pageNumber);
-	MasterPages.insert(pageNumber, addedPage);
-	assert(MasterPages.at(pageNumber)!=NULL);
+	addedPage->setPageNr(pgN);
+	MasterNames.insert(pageName, pgN);
+	MasterPages.insert(pgN, addedPage);
+	assert(MasterPages.at(pgN)!=NULL);
 	if  (!isLoading())
 		changed();
 	if(UndoManager::undoEnabled())
@@ -2642,7 +2645,7 @@ ScPage* ScribusDoc::addMasterPage(const int pageNumber, const QString& pageName)
 		SimpleState *ss = new SimpleState(Um::NewMasterPage, "", Um::IDocument);
 		ss->set("MASTERPAGE_ADD", "masterpage_add");
 		ss->set("MASTERPAGE_NAME", pageName);
-		ss->set("MASTERPAGE_NBR", pageNumber);
+		ss->set("MASTERPAGE_NBR", pgN);
 		undoManager->action(this, ss);
 	}
 	return addedPage;
