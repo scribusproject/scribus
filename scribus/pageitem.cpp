@@ -2140,6 +2140,18 @@ void PageItem::DrawObj_Embedded(ScPainter *p, QRectF cullingArea, const CharStyl
 		p->restore();
 		embedded->m_lineWidth = pws;
 	}
+	if (m_Doc->guidesPrefs().framesShown)
+	{
+		p->save();
+		p->translate(0, -(cembedded->Height * (style.scaleV() / 1000.0)));
+		if (style.baselineOffset() != 0)
+			p->translate(0, -cembedded->Height * (style.baselineOffset() / 1000.0));
+		p->scale(style.scaleH() / 1000.0, style.scaleV() / 1000.0);
+		p->setPen(PrefsManager::instance()->appPrefs.displayPrefs.frameNormColor, 0, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin);
+		p->setFillMode(ScPainter::None);
+		p->drawSharpRect(0, 0, cembedded->Width, cembedded->Height);
+		p->restore();
+	}
 }
 
 void PageItem::DrawStrokePattern(ScPainter *p, QPainterPath &path)
