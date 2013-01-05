@@ -4671,6 +4671,42 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 		pstyle.setKeepWithNext(attrs.valueAsBool("keepWithNext"));
 	if (attrs.hasAttribute("keepTogether"))
 		pstyle.setKeepTogether(attrs.valueAsBool("keepTogether"));
+	if (attrs.hasAttribute("ParagraphEffectCharStyle"))
+		pstyle.setPeCharStyleName(attrs.valueAsString("ParagraphEffectCharStyle"));
+	if (attrs.hasAttribute("ParagraphEffectOffset"))
+		pstyle.setParEffectOffset(attrs.valueAsDouble("ParagraphEffectOffset"));
+	if (attrs.hasAttribute("ParagraphEffectIndent"))
+		pstyle.setParEffectIndent(attrs.valueAsDouble("ParagraphEffectIndent"));
+	if (attrs.hasAttribute("DROP"))
+		pstyle.setHasDropCap(static_cast<bool>(attrs.valueAsInt("DROP")));
+	if (attrs.hasAttribute("DROPLIN"))
+		pstyle.setDropCapLines(attrs.valueAsInt("DROPLIN"));
+	if (attrs.hasAttribute("DROPDIST"))
+		pstyle.setParEffectOffset(attrs.valueAsDouble("DROPDIST"));
+	if (attrs.hasAttribute("Bullet"))
+		pstyle.setHasBullet(static_cast<bool>(attrs.valueAsInt("Bullet")));
+	if (attrs.hasAttribute("BulletStr"))
+		pstyle.setBulletStr(attrs.valueAsString("BulletStr"));
+	if (attrs.hasAttribute("Numeration"))
+		pstyle.setHasNum(static_cast<bool>(attrs.valueAsInt("Numeration")));
+	if (attrs.hasAttribute("NumerationName"))
+		pstyle.setNumName(attrs.valueAsString("NumerationName"));
+	if (attrs.hasAttribute("NumerationFormat"))
+		pstyle.setNumFormat(attrs.valueAsInt("NumerationFormat"));
+	if (attrs.hasAttribute("NumerationLevel"))
+		pstyle.setNumLevel(attrs.valueAsInt("NumerationLevel"));
+	if (attrs.hasAttribute("NumerationStart"))
+		pstyle.setNumStart(attrs.valueAsInt("NumerationStart"));
+	if (attrs.hasAttribute("NumerationPrefix"))
+		pstyle.setNumPrefix(attrs.valueAsString("NumerationPrefix"));
+	if (attrs.hasAttribute("NumerationSuffix"))
+		pstyle.setNumSuffix(attrs.valueAsString("NumerationSuffix"));
+	if (attrs.hasAttribute("NumerationRestart"))
+		pstyle.setNumRestart(attrs.valueAsInt("NumerationRestart"));
+	if (attrs.hasAttribute("NumeartionOther"))
+		pstyle.setNumOther(static_cast<bool>(attrs.valueAsInt("NumeartionOther")));
+	if (attrs.hasAttribute("NumerationHigher"))
+		pstyle.setNumHigher(static_cast<bool>(attrs.valueAsInt("NumerationHigher")));
 	currItem->itemText.setDefaultStyle(pstyle);
 
 	if (attrs.hasAttribute("PSTYLE"))

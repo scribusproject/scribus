@@ -2586,6 +2586,40 @@ void Scribus150Format::SetItemProps(ScXmlStreamWriter& docu, PageItem* item, con
 			docu.writeAttribute("ISIZE", dStyle.charStyle().fontSize() / 10.0 );
 		if ( ! dStyle.charStyle().isInhLanguage())
 			docu.writeAttribute("LANGUAGE", dStyle.charStyle().language());
+		if ( ! dStyle.isInhPeCharStyleName())
+			docu.writeAttribute("ParagraphEffectCharStyle", dStyle.peCharStyleName());
+		if ( ! dStyle.isInhParEffectOffset())
+			docu.writeAttribute("ParagraphEffectOffset", dStyle.parEffectOffset());
+		if ( ! dStyle.isInhParEffectIndent())
+			docu.writeAttribute("ParagraphEffectIndent", static_cast<int>(dStyle.parEffectIndent()));
+		if ( ! dStyle.isInhHasDropCap())
+			docu.writeAttribute("DROP", static_cast<int>(dStyle.hasDropCap()));
+		if ( ! dStyle.isInhDropCapLines())
+			docu.writeAttribute("DROPLIN", dStyle.dropCapLines());
+		if ( ! dStyle.isInhHasBullet())
+			docu.writeAttribute("Bullet", static_cast<int>(dStyle.hasBullet()));
+		if ( ! dStyle.isInhBulletStr())
+			docu.writeAttribute("BulletStr", dStyle.bulletStr());
+		if ( ! dStyle.isInhHasNum())
+			docu.writeAttribute("Numeration", static_cast<int>(dStyle.hasNum()));
+		if ( ! dStyle.isInhNumFormat())
+			docu.writeAttribute("NumerationFormat", dStyle.numFormat());
+		if ( ! dStyle.isInhNumName())
+			docu.writeAttribute("NumerationName", dStyle.numName());
+		if ( ! dStyle.isInhNumLevel())
+			docu.writeAttribute("NumerationLevel", dStyle.numLevel());
+		if ( ! dStyle.isInhNumPrefix())
+			docu.writeAttribute("NumerationPrefix", dStyle.numPrefix());
+		if ( ! dStyle.isInhNumSuffix())
+			docu.writeAttribute("NumerationSuffix", dStyle.numSuffix());
+		if ( ! dStyle.isInhNumStart())
+			docu.writeAttribute("NumerationStart", dStyle.numStart());
+		if ( ! dStyle.isInhNumRestart())
+			docu.writeAttribute("NumerationRestart", dStyle.numRestart());
+		if ( ! dStyle.isInhNumOther())
+			docu.writeAttribute("NumerationOther", static_cast<int>(dStyle.numOther()));
+		if ( ! dStyle.isInhNumHigher())
+			docu.writeAttribute("NumerationHigher", static_cast<int>(dStyle.numHigher()));
 	}
 	if (item->asTextFrame() || item->asPathText())
 	{
