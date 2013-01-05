@@ -1801,6 +1801,9 @@ Page* ScribusDoc::addMasterPage(const int pageNumber, const QString& pageName)
 	//CB We dont create master pages (yet) with a pageCount based location
 	//Page* addedPage = new Page(ScratchLeft, MasterPages.count()*(pageHeight+ScratchBottom+ScratchTop)+ScratchTop, pageWidth, pageHeight);
 	Page* addedPage = new Page(scratch.Left, scratch.Top, pageWidth, pageHeight);
+	int pgN = pageNumber;
+	if (pageNumber > MasterPages.count())
+		pgN = MasterPages.count();
 	assert(addedPage!=NULL);
 	addedPage->setDocument(this);
 	addedPage->Margins.Top = pageMargins.Top;
@@ -1816,10 +1819,10 @@ Page* ScribusDoc::addMasterPage(const int pageNumber, const QString& pageName)
 	addedPage->marginPreset = marginPreset;
 	addedPage->MPageNam = "";
 	addedPage->setPageName(pageName);
-	addedPage->setPageNr(pageNumber);
-	MasterNames.insert(pageName, pageNumber);
-	MasterPages.insert(pageNumber, addedPage);
-	assert(MasterPages.at(pageNumber)!=NULL);
+	addedPage->setPageNr(pgN);
+	MasterNames.insert(pageName, pgN);
+	MasterPages.insert(pgN, addedPage);
+	assert(MasterPages.at(pgN)!=NULL);
 	if  (!isLoading())
 		changed();
 	return addedPage;
