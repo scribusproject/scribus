@@ -37,8 +37,15 @@ for which a new license (GPL+exception) is in place.
 bool Scribus134Format::saveFile(const QString & fileName, const FileFormat & /* fmt */)
 {
 	QString text, tf, tf2, tc, tc2;
-	QString fileDir = QFileInfo(fileName).absolutePath();
 	m_lastSavedFile = "";
+
+	// #11279: Image links get corrupted when symlinks involved
+	// We have to proceed in tow steps here as QFileInfo::canonicalPath()
+	// may no return correct result if fileName does not exists
+	QString fileDir = QFileInfo(fileName).absolutePath();
+	QString canonicalPath = QFileInfo(fileDir).canonicalFilePath();
+	if (!canonicalPath.isEmpty())
+		fileDir = canonicalPath;
 
 	// Create a random temporary file name
 	srand(time(NULL)); // initialize random sequence each time
@@ -52,13 +59,6 @@ bool Scribus134Format::saveFile(const QString & fileName, const FileFormat & /* 
 	}
 	if (QFile::exists(tmpFileName))
 		return false;
-
-	/*QDomDocument docu("scribus");
-	QString st="<SCRIBUSUTF8NEW></SCRIBUSUTF8NEW>";
-	docu.setContent(st);
-	QDomElement elem=docu.documentElement();
-	elem.setAttribute("Version", QString(VERSION));
-	QDomElement dc=docu.createElement("DOCUMENT");*/
 
 	std::auto_ptr<QIODevice> outputFile;
 	if (fileName.toLower().right(2) == "gz")
