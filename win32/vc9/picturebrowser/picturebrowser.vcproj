@@ -63,11 +63,13 @@
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
 				RuntimeTypeInfo="true"
-				UsePrecompiledHeader="0"
+				UsePrecompiledHeader="2"
+				PrecompiledHeaderThrough="plugins_pch.h"
 				WarningLevel="3"
 				Detect64BitPortabilityProblems="false"
 				DebugInformationFormat="3"
 				DisableSpecificWarnings="4190;4251;4267;4996"
+				ForcedIncludeFiles="plugins_pch.h"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -160,11 +162,13 @@
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
 				RuntimeTypeInfo="true"
-				UsePrecompiledHeader="0"
+				UsePrecompiledHeader="2"
+				PrecompiledHeaderThrough="plugins_pch.h"
 				WarningLevel="3"
 				Detect64BitPortabilityProblems="false"
 				DebugInformationFormat="3"
 				DisableSpecificWarnings="4190;4251;4267;4996"
+				ForcedIncludeFiles="plugins_pch.h"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -260,6 +264,26 @@
 			<File
 				RelativePath="..\..\..\scribus\plugins\picbrowser\pictview.cpp"
 				>
+			</File>
+			<File
+				RelativePath="..\..\..\scribus\plugins\plugins_pch.cpp"
+				>
+				<FileConfiguration
+					Name="Debug-cairo|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release-cairo|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1"
+					/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\..\scribus\plugins\picbrowser\previewimage.cpp"
@@ -402,6 +426,10 @@
 			</File>
 			<File
 				RelativePath="..\..\..\scribus\plugins\picbrowser\pictview.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\scribus\plugins\plugins_pch.h"
 				>
 			</File>
 			<File

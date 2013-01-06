@@ -6,6 +6,10 @@ for which a new license (GPL+exception) is in place.
 */
 #include "multicombobox.h"
 
+#include <QKeyEvent>
+#include <QObject>
+#include <QWidget>
+
 
 multiComboboxModel::multiComboboxModel ( QObject* parent ) : QStandardItemModel ( parent )
 {

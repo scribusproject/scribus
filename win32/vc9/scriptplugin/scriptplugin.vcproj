@@ -63,11 +63,13 @@
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
 				RuntimeTypeInfo="true"
-				UsePrecompiledHeader="0"
+				UsePrecompiledHeader="2"
+				PrecompiledHeaderThrough="plugins_pch.h"
 				WarningLevel="3"
 				Detect64BitPortabilityProblems="false"
 				DebugInformationFormat="3"
 				DisableSpecificWarnings="4005;4138;4190;4251;4267;4996"
+				ForcedIncludeFiles="plugins_pch.h"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -160,11 +162,13 @@
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
 				RuntimeTypeInfo="true"
-				UsePrecompiledHeader="0"
+				UsePrecompiledHeader="2"
+				PrecompiledHeaderThrough="plugins_pch.h"
 				WarningLevel="3"
 				Detect64BitPortabilityProblems="false"
 				DebugInformationFormat="3"
 				DisableSpecificWarnings="4005;4138;4190;4251;4267;4996"
+				ForcedIncludeFiles="plugins_pch.h"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -302,6 +306,28 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\scribus\plugins\plugins_pch.cpp"
+				>
+				<FileConfiguration
+					Name="Debug-cairo|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1"
+						PrecompiledHeaderThrough="plugins_pch.h"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release-cairo|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1"
+						PrecompiledHeaderThrough="plugins_pch.h"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
 				RelativePath="..\..\..\scribus\plugins\scriptplugin\prefs_scripter.cpp"
 				>
 			</File>
@@ -431,6 +457,10 @@
 						Name="moc"
 					/>
 				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\..\scribus\plugins\plugins_pch.h"
+				>
 			</File>
 			<File
 				RelativePath="..\..\..\scribus\plugins\scriptplugin\prefs_scripter.h"
