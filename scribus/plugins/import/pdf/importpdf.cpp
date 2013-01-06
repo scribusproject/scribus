@@ -950,8 +950,10 @@ QImage PdfPlug::readPreview(int pgNum, int width, int height, int box)
 
 QRectF PdfPlug::getCBox(int box, int pgNum)
 {
-	PDFRectangle *cBox;
-	if (box == Bleed_Box)
+	PDFRectangle *cBox = NULL;
+	if (box == Media_Box)
+		cBox = m_pdfDoc->getPage(pgNum)->getMediaBox();
+	else if (box == Bleed_Box)
 		cBox = m_pdfDoc->getPage(pgNum)->getBleedBox();
 	else if (box == Trim_Box)
 		cBox = m_pdfDoc->getPage(pgNum)->getTrimBox();
