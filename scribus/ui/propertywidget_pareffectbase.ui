@@ -68,10 +68,10 @@
         <item>
          <widget class="ScrSpinBox" name="peOffset_">
           <property name="minimum">
-           <double>-999.990000000000009</double>
+           <double>-3000.000000000000000</double>
           </property>
           <property name="maximum">
-           <double>999.990000000000009</double>
+           <double>3000.000000000000000</double>
           </property>
          </widget>
         </item>

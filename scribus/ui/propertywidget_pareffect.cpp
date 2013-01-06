@@ -372,7 +372,7 @@ void PropertyWidget_ParEffect::handleParEffectUse()
 		newStyle.setHasBullet(false);
 		newStyle.setHasNum(false);
 	}
-	newStyle.setParEffectOffset(peOffset_->value());
+	newStyle.setParEffectOffset(peOffset_->value() / m_unitRatio);
 	newStyle.setParEffectIndent(peIndent_->isChecked());
 	handleChanges(m_item, newStyle);
 }
@@ -495,7 +495,7 @@ void PropertyWidget_ParEffect::handlePEOffset(double offset)
 	if (!m_doc || !m_item)
 		return;
 	ParagraphStyle newStyle;
-	newStyle.setParEffectOffset(offset);
+	newStyle.setParEffectOffset(offset / m_unitRatio);
 	handleChanges(m_item, newStyle);
 }
 
