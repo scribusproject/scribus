@@ -107,6 +107,7 @@ InlinePalette::InlinePalette( QWidget* parent) : ScDockPalette( parent, "Inline"
 
 	unsetDoc();
 	m_scMW  = NULL;
+	currentEditedItem = -1;
 	languageChange();
 	connect(InlineViewWidget, SIGNAL(itemDoubleClicked(QListWidgetItem *)), this, SLOT(handleDoubleClick(QListWidgetItem *)));
 	connect(InlineViewWidget, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(handleContextMenue(QPoint)));
@@ -115,6 +116,8 @@ InlinePalette::InlinePalette( QWidget* parent) : ScDockPalette( parent, "Inline"
 
 void InlinePalette::handleContextMenue(QPoint p)
 {
+	if (currentEditedItem > 0)
+		return;
 	QListWidgetItem *item = InlineViewWidget->itemAt(p);
 	if (item)
 	{
@@ -181,8 +184,9 @@ void InlinePalette::handleDeleteItem()
 	InlineViewWidget->update();
 }
 
-void InlinePalette::editingStart()
+void InlinePalette::editingStart(int itemID)
 {
+	currentEditedItem = itemID;
 	for (int a = 0; a < InlineViewWidget->count(); a++)
 	{
 		QListWidgetItem* item = InlineViewWidget->item(a);
@@ -194,6 +198,7 @@ void InlinePalette::editingStart()
 void InlinePalette::editingFinished()
 {
 	updateItemList();
+	currentEditedItem = -1;
 }
 
 void InlinePalette::setMainWindow(ScribusMainWindow *mw)

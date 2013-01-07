@@ -8899,7 +8899,7 @@ void ScribusMainWindow::editInlineStart(int id)
 #endif
 		pagePalette->enablePalette(false);
 		layerPalette->setEnabled(false);
-		inlinePalette->editingStart();
+		inlinePalette->editingStart(id);
 		if (outlinePalette->isVisible())
 			outlinePalette->BuildTree(false);
 		updateActiveWindowCaption( tr("Editing Inline Frame"));
@@ -9095,8 +9095,11 @@ void ScribusMainWindow::manageMasterPagesEnd()
 		Apply_MasterPage(doc->DocPages.at(c)->MPageNam, c, false);
 
 	pagePalette->endMasterPageMode();
-	pagePalette->setVisible(m_pagePalVisible);
-	scrActions["toolsPages"]->setChecked(m_pagePalVisible);
+	if (pagePalette->isFloating())
+	{
+		pagePalette->setVisible(m_pagePalVisible);
+		scrActions["toolsPages"]->setChecked(m_pagePalVisible);
+	}
 	doc->setCurrentPage(doc->DocPages.at(storedPageNum));
 	doc->minCanvasCoordinate = doc->stored_minCanvasCoordinate;
 	doc->maxCanvasCoordinate = doc->stored_maxCanvasCoordinate;

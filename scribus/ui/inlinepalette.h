@@ -77,7 +77,7 @@ public:
 	void setMainWindow(ScribusMainWindow *mw);
 	void setDoc(ScribusDoc *);
 	void unsetDoc();
-	void editingStart();
+	void editingStart(int itemID);
 	void editingFinished();
 	void updateItemList();
 	
@@ -103,6 +103,7 @@ protected:
 	ScribusDoc *currDoc;
 	ScribusMainWindow *m_scMW;
 	int actItem;
+	int currentEditedItem;
 };
 
 #endif
