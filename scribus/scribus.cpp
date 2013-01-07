@@ -8977,6 +8977,7 @@ void ScribusMainWindow::manageMasterPages(QString temp)
 {
 	if (!HaveDoc)
 		return;
+	m_pagePalVisible = pagePalette->isVisible();
 	QString mpName = "";
 	if (temp.isEmpty())
 		mpName = doc->currentPage()->MPageNam;
@@ -9094,7 +9095,8 @@ void ScribusMainWindow::manageMasterPagesEnd()
 		Apply_MasterPage(doc->DocPages.at(c)->MPageNam, c, false);
 
 	pagePalette->endMasterPageMode();
-
+	pagePalette->setVisible(m_pagePalVisible);
+	scrActions["toolsPages"]->setChecked(m_pagePalVisible);
 	doc->setCurrentPage(doc->DocPages.at(storedPageNum));
 	doc->minCanvasCoordinate = doc->stored_minCanvasCoordinate;
 	doc->maxCanvasCoordinate = doc->stored_maxCanvasCoordinate;
