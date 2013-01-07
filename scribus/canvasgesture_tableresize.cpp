@@ -40,6 +40,9 @@ void TableResize::mouseReleaseEvent(QMouseEvent* event)
 
 	// Perform the actual resize of the table.
 	table()->resize(gridPoint.x(), gridPoint.y());
+	table()->doc()->dontResize = true;
+	table()->adjustFrameToTable();
+	table()->doc()->dontResize = false;
 	table()->update();
 
 	m_view->stopGesture();
