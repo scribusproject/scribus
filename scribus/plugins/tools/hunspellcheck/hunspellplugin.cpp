@@ -32,7 +32,7 @@ void HunspellPlugin::languageChange()
 	// Action text for menu, including &accel
 	m_actionInfo.text = tr("Check Spelling...");
 	// Menu
-	m_actionInfo.menu = "Item";
+	m_actionInfo.menu = "Extras";
 	// Story Editor Menu
 	m_actionInfo.seMenu = "Edit";
 	// If needed, what item to add the menu item after
@@ -48,6 +48,10 @@ void HunspellPlugin::languageChange()
 	m_actionInfo.notSuitableFor.append(PageItem::ImageFrame);
 	m_actionInfo.notSuitableFor.append(PageItem::PathText);
 	m_actionInfo.notSuitableFor.append(PageItem::LatexFrame);
+	m_actionInfo.notSuitableFor.append(PageItem::Symbol);
+	m_actionInfo.notSuitableFor.append(PageItem::RegularPolygon);
+	m_actionInfo.notSuitableFor.append(PageItem::Arc);
+	m_actionInfo.notSuitableFor.append(PageItem::Spiral);
 	m_actionInfo.needsNumObjects = 1;
 }
 

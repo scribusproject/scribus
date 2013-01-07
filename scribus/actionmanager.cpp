@@ -1510,8 +1510,8 @@ void ActionManager::languageChange()
 	(*scrActions)["itemRaiseToTop"]->setTexts( tr("Raise to &Top"));
 	(*scrActions)["itemLower"]->setTexts( tr("&Lower"));
 	(*scrActions)["itemRaise"]->setTexts( tr("&Raise"));
-	(*scrActions)["itemSendToPattern"]->setTexts( tr("Send to Patterns"));
-	(*scrActions)["itemSendToInline"]->setTexts( tr("Send to Inline Items"));
+	(*scrActions)["itemSendToPattern"]->setTexts( tr("Patterns"));
+	(*scrActions)["itemSendToInline"]->setTexts( tr("Inline Items"));
 	(*scrActions)["itemAttributes"]->setTexts( tr("&Attributes..."));
 	(*scrActions)["itemImageInfo"]->setTexts( tr("More Info..."));
 	(*scrActions)["itemImageIsVisible"]->setTexts( tr("I&mage Visible"));
@@ -1873,6 +1873,7 @@ void ActionManager::createDefaultMenuNames()
 	defMenuNames.append(QPair<QString, QStringList>("Insert", QStringList()));
 	defMenuNames.append(QPair<QString, QStringList>("Page", QStringList()));
 	defMenuNames.append(QPair<QString, QStringList>("View", QStringList()));
+	defMenuNames.append(QPair<QString, QStringList>("Table", QStringList()));
 	defMenuNames.append(QPair<QString, QStringList>("Extras", QStringList()));
 	defMenuNames.append(QPair<QString, QStringList>("Windows", QStringList()));
 	defMenuNames.append(QPair<QString, QStringList>("Help", QStringList()));
@@ -1891,6 +1892,8 @@ void ActionManager::createDefaultMenuNames()
 	itMenuNames->second << tr("Page") << "&Page" << tr("&Page");
 	++itMenuNames;
 	itMenuNames->second << tr("View") << "&View" << tr("&View");
+	++itMenuNames;
+	itMenuNames->second << tr("Table") << "&Table" << tr("&Table");
 	++itMenuNames;
 	itMenuNames->second << tr("Extras") << "E&xtras" << tr("E&xtras");
 	++itMenuNames;
@@ -2007,19 +2010,7 @@ void ActionManager::createDefaultMenus()
 		<< "itemLock" 
 		<< "itemLockSize" 
 		<< "itemImageIsVisible" 
-		<< "itemUpdateImage" 
-		<< "tableInsertRows"
-		<< "tableInsertColumns"
-		<< "tableDeleteRows"
-		<< "tableDeleteColumns"
-		<< "tableMergeCells"
-		<< "tableSplitCells"
-		<< "tableSetRowHeights"
-		<< "tableSetColumnWidths"
-		<< "tableDistributeRowsEvenly"
-		<< "tableDistributeColumnsEvenly"
-		<< "tableAdjustFrameToTable"
-		<< "tableAdjustTableToFrame"
+		<< "itemUpdateImage"
 		<< "itemAdjustFrameHeightToText"
 		<< "itemAdjustFrameToImage" 
 		<< "itemAdjustImageToFrame" 
@@ -2193,6 +2184,20 @@ void ActionManager::createDefaultMenus()
 		<< "viewShowRulers"
 		<< "viewRulerMode"
 		<< "showMouseCoordinates";
+	++itmenu;
+	itmenu->second
+		<< "tableInsertRows"
+		<< "tableInsertColumns"
+		<< "tableDeleteRows"
+		<< "tableDeleteColumns"
+		<< "tableMergeCells"
+		<< "tableSplitCells"
+		<< "tableSetRowHeights"
+		<< "tableSetColumnWidths"
+		<< "tableDistributeRowsEvenly"
+		<< "tableDistributeColumnsEvenly"
+		<< "tableAdjustFrameToTable"
+		<< "tableAdjustTableToFrame";
 	//Extras
 	++itmenu;
 	itmenu->second

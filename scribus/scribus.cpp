@@ -772,6 +772,7 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->addMenuItem(scrActions["editPasteContents"], "EditContents", false);
 	scrMenuMgr->addMenuItem(scrActions["editPasteContentsAbs"], "EditContents", false);
 	scrMenuMgr->addMenuItem(scrActions["editClearContents"], "EditContents", false);
+	scrMenuMgr->addMenuItem(scrActions["itemDelete"], "Edit", false);
 	scrMenuMgr->addMenuSeparator("Edit");
 	scrMenuMgr->addMenuItem(scrActions["editSelectAll"], "Edit", false);
 	scrMenuMgr->addMenuItem(scrActions["editSelectAllOnLayer"], "Edit", false);
@@ -792,90 +793,46 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->setMenuEnabled("EditPasteRecent", false);
 	scrMenuMgr->setMenuEnabled("EditContents", false);
 
-
-
-//	scrActions["itemDuplicate"]->setEnabled(false);
-//	scrActions["itemMulDuplicate"]->setEnabled(false);
-//	scrActions["itemDelete"]->setEnabled(false);
-//	scrActions["itemRaise"]->setEnabled(false);
-//	scrActions["itemLower"]->setEnabled(false);
-//	scrActions["itemRaiseToTop"]->setEnabled(false);
-//	scrActions["itemLowerToBottom"]->setEnabled(false);
-//	scrActions["itemSendToScrapbook"]->setEnabled(false);
-//	scrActions["itemSendToPattern"]->setEnabled(false);
-//	scrActions["itemAdjustFrameToImage"]->setEnabled(false);
-//	scrActions["itemAdjustImageToFrame"]->setEnabled(false);
-//	scrActions["itemExtendedImageProperties"]->setEnabled(false);
-//	scrActions["itemUpdateImage"]->setEnabled(false);
-//	scrActions["itemPreviewLow"]->setEnabled(false);
-//	scrActions["itemPreviewNormal"]->setEnabled(false);
-//	scrActions["itemPreviewFull"]->setEnabled(false);
-//	scrActions["itemAttributes"]->setEnabled(false);
-//	scrActions["itemPreviewLow"]->setEnabled(false);
-
-
 	//Item Menu
 	scrMenuMgr->createMenu("Item", ActionManager::defaultMenuNameEntryTranslated("Item"));
-	scrMenuMgr->addMenuItem(scrActions["itemDuplicate"], "Item", false);
-	scrMenuMgr->addMenuItem(scrActions["itemMulDuplicate"], "Item", false);
-	scrMenuMgr->addMenuItem(scrActions["itemTransform"], "Item", false);
-	scrMenuMgr->addMenuItem(scrActions["itemDelete"], "Item", false);
-	scrMenuMgr->addMenuSeparator("Item");
-	scrMenuMgr->addMenuItem(scrActions["itemGroup"], "Item", false);
-	scrMenuMgr->addMenuItem(scrActions["itemUngroup"], "Item", false);
-	scrMenuMgr->addMenuItem(scrActions["itemGroupAdjust"], "Item", false);
-	scrMenuMgr->addMenuItem(scrActions["itemLock"], "Item", false);
-	scrMenuMgr->addMenuItem(scrActions["itemLockSize"], "Item", false);
-	scrMenuMgr->addMenuSeparator("Item");
-	scrMenuMgr->createMenu("ItemLevel", tr("Level"));
-	scrMenuMgr->addMenuToMenu("ItemLevel", "Item");
+	scrMenuMgr->createMenu("DuplicateTransform", tr("Duplicate/Transform"), "Item");
+	scrMenuMgr->addMenuItem(scrActions["itemDuplicate"], "DuplicateTransform", false);
+	scrMenuMgr->addMenuItem(scrActions["itemMulDuplicate"], "DuplicateTransform", false);
+	scrMenuMgr->addMenuItem(scrActions["itemTransform"], "DuplicateTransform", false);
+	scrMenuMgr->createMenu("Grouping", tr("Grouping"), "Item");
+	scrMenuMgr->addMenuItem(scrActions["itemGroup"], "Grouping", false);
+	scrMenuMgr->addMenuItem(scrActions["itemUngroup"], "Grouping", false);
+	scrMenuMgr->addMenuItem(scrActions["itemGroupAdjust"], "Grouping", false);
+	scrMenuMgr->createMenu("Locking", tr("Locking"), "Item");
+	scrMenuMgr->addMenuItem(scrActions["itemLock"], "Locking", false);
+	scrMenuMgr->addMenuItem(scrActions["itemLockSize"], "Locking", false);
+	scrMenuMgr->createMenu("ItemLevel", tr("Level"), "Item");
 	scrMenuMgr->addMenuItem(scrActions["itemRaise"], "ItemLevel", false);
 	scrMenuMgr->addMenuItem(scrActions["itemLower"], "ItemLevel", false);
 	scrMenuMgr->addMenuItem(scrActions["itemRaiseToTop"], "ItemLevel", false);
 	scrMenuMgr->addMenuItem(scrActions["itemLowerToBottom"], "ItemLevel", false);
 	scrMenuMgr->createMenu("ItemLayer", tr("Send to La&yer"));
 	scrMenuMgr->addMenuToMenu("ItemLayer", "Item");
-	scrMenuMgr->createMenu("itemSendToScrapbook", tr("Send to Scrapbook"));
-	scrMenuMgr->addMenuToMenu("itemSendToScrapbook", "Item");
-//	scrMenuMgr->addMenuItem(scrActions["itemSendToScrapbook"], "Item", false);
-	scrMenuMgr->addMenuItem(scrActions["itemSendToPattern"], "Item", false);
-	scrMenuMgr->addMenuItem(scrActions["itemSendToInline"], "Item", false);
-	// Table submenu.
-	scrMenuMgr->addMenuSeparator("Item");
-	scrMenuMgr->createMenu("ItemTable", tr("Table"));
-	scrMenuMgr->addMenuToMenu("ItemTable", "Item");
-	scrMenuMgr->addMenuItem(scrActions["tableInsertRows"], "ItemTable", false);
-	scrMenuMgr->addMenuItem(scrActions["tableInsertColumns"], "ItemTable", false);
-	scrMenuMgr->addMenuItem(scrActions["tableDeleteRows"], "ItemTable", false);
-	scrMenuMgr->addMenuItem(scrActions["tableDeleteColumns"], "ItemTable", false);
-	scrMenuMgr->addMenuSeparator("ItemTable");
-	scrMenuMgr->addMenuItem(scrActions["tableMergeCells"], "ItemTable", false);
-	scrMenuMgr->addMenuItem(scrActions["tableSplitCells"], "ItemTable", false);
-	scrMenuMgr->addMenuSeparator("ItemTable");
-	scrMenuMgr->addMenuItem(scrActions["tableSetRowHeights"], "ItemTable", false);
-	scrMenuMgr->addMenuItem(scrActions["tableSetColumnWidths"], "ItemTable", false);
-	scrMenuMgr->addMenuItem(scrActions["tableDistributeRowsEvenly"], "ItemTable", false);
-	scrMenuMgr->addMenuItem(scrActions["tableDistributeColumnsEvenly"], "ItemTable", false);
-	scrMenuMgr->addMenuSeparator("ItemTable");
-	scrMenuMgr->addMenuItem(scrActions["tableAdjustFrameToTable"], "ItemTable", false);
-	scrMenuMgr->addMenuItem(scrActions["tableAdjustTableToFrame"], "ItemTable", false);
-	scrMenuMgr->addMenuSeparator("Item");
-	// End Table submenu.
-	scrMenuMgr->addMenuSeparator("Item");
-	scrMenuMgr->addMenuItem(scrActions["itemAdjustFrameHeightToText"], "Item", false);
-	scrMenuMgr->addMenuItem(scrActions["itemAdjustFrameToImage"], "Item", false);
-	scrMenuMgr->addMenuItem(scrActions["itemAdjustImageToFrame"], "Item", false);
-	scrMenuMgr->addMenuItem(scrActions["itemUpdateImage"], "Item", false);
-	scrMenuMgr->addMenuItem(scrActions["styleImageEffects"], "Item", false);
-	scrMenuMgr->addMenuItem(scrActions["itemExtendedImageProperties"], "Item", false);
-	scrMenuMgr->addMenuItem(scrActions["itemToggleInlineImage"], "Item", false);
-	scrMenuMgr->createMenu("ItemPreviewSettings", tr("Preview Settings"), "Item");
+	scrMenuMgr->createMenu("SendTo", tr("Send to"), "Item");
+	scrMenuMgr->createMenu("itemSendToScrapbook", tr("Scrapbook"));
+	scrMenuMgr->addMenuToMenu("itemSendToScrapbook", "SendTo");
+	scrMenuMgr->addMenuItem(scrActions["itemSendToPattern"], "SendTo", false);
+	scrMenuMgr->addMenuItem(scrActions["itemSendToInline"], "SendTo", false);
+	scrMenuMgr->createMenu("Adjust", tr("Adjust"), "Item");
+	scrMenuMgr->addMenuItem(scrActions["itemAdjustFrameHeightToText"], "Adjust", false);
+	scrMenuMgr->addMenuItem(scrActions["itemAdjustFrameToImage"], "Adjust", false);
+	scrMenuMgr->addMenuItem(scrActions["itemAdjustImageToFrame"], "Adjust", false);
+	scrMenuMgr->createMenu("Image", tr("Image"), "Item");
+	scrMenuMgr->addMenuItem(scrActions["itemUpdateImage"], "Image", false);
+	scrMenuMgr->addMenuItem(scrActions["styleImageEffects"], "Image", false);
+	scrMenuMgr->addMenuItem(scrActions["itemExtendedImageProperties"], "Image", false);
+	scrMenuMgr->addMenuItem(scrActions["itemToggleInlineImage"], "Image", false);
+	scrMenuMgr->createMenu("ItemPreviewSettings", tr("Preview Settings"), "Image");
 	scrMenuMgr->addMenuItem(scrActions["itemImageIsVisible"], "ItemPreviewSettings", false);
 	scrMenuMgr->addMenuSeparator("ItemPreviewSettings");
 	scrMenuMgr->addMenuItem(scrActions["itemPreviewLow"], "ItemPreviewSettings", false);
 	scrMenuMgr->addMenuItem(scrActions["itemPreviewNormal"], "ItemPreviewSettings", false);
 	scrMenuMgr->addMenuItem(scrActions["itemPreviewFull"], "ItemPreviewSettings", false);
-	scrMenuMgr->addMenuSeparator("Item");
 	scrMenuMgr->addMenuItem(scrActions["itemAttributes"], "Item", false);
 	scrMenuMgr->createMenu("ItemPDFOptions", tr("&PDF Options"));
 	scrMenuMgr->addMenuToMenu("ItemPDFOptions", "Item");
@@ -890,27 +847,26 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->addMenuItem(scrActions["itemConvertToPolygon"], "ItemConvertTo", false);
 	scrMenuMgr->addMenuItem(scrActions["itemConvertToTextFrame"], "ItemConvertTo", false);
 	scrMenuMgr->addMenuItem(scrActions["itemConvertToSymbolFrame"], "ItemConvertTo", false);
-	scrMenuMgr->addMenuSeparator("Item");
-	scrMenuMgr->addMenuItem(scrActions["toolsLinkTextFrame"], "Item", false);
-	scrMenuMgr->addMenuItem(scrActions["toolsUnlinkTextFrame"], "Item", false);
-	scrMenuMgr->addMenuItem(scrActions["toolsUnlinkTextFrameWithTextCopy"], "Item", false);
-	scrMenuMgr->addMenuItem(scrActions["toolsUnlinkTextFrameWithTextCut"], "Item", false);
-	scrMenuMgr->addMenuSeparator("Item");
-	scrMenuMgr->addMenuItem(scrActions["itemAttachTextToPath"], "Item", false);
-	scrMenuMgr->addMenuItem(scrActions["itemDetachTextFromPath"], "Item", false);
-//	scrMenuMgr->createMenu("ItemPathOps", tr("Path Tools"), "Item");
-	scrMenuMgr->addMenuItem(scrActions["itemCombinePolygons"], "Item", false);
-	scrMenuMgr->addMenuItem(scrActions["itemSplitPolygons"], "Item", false);
+	scrMenuMgr->createMenu("TextLinking", tr("Text Frame Links"), "Item");
+	scrMenuMgr->addMenuItem(scrActions["toolsLinkTextFrame"], "TextLinking", false);
+	scrMenuMgr->addMenuItem(scrActions["toolsUnlinkTextFrame"], "TextLinking", false);
+	scrMenuMgr->addMenuItem(scrActions["toolsUnlinkTextFrameWithTextCopy"], "TextLinking", false);
+	scrMenuMgr->addMenuItem(scrActions["toolsUnlinkTextFrameWithTextCut"], "TextLinking", false);
+	scrMenuMgr->createMenu("ItemPathOps", tr("Path Tools"), "Item");
+	scrMenuMgr->addMenuItem(scrActions["itemCombinePolygons"], "ItemPathOps", false);
+	scrMenuMgr->addMenuItem(scrActions["itemSplitPolygons"], "ItemPathOps", false);
+	scrMenuMgr->addMenuItem(scrActions["itemAttachTextToPath"], "ItemPathOps", false);
+	scrMenuMgr->addMenuItem(scrActions["itemDetachTextFromPath"], "ItemPathOps", false);
 
 	scrActions["itemPrintingEnabled"]->setEnabled(false);
 	scrMenuMgr->setMenuEnabled("ItemConvertTo", false);
 
-	scrMenuMgr->addMenuItem(scrActions["itemsUnWeld"], "Item", false);
-	scrMenuMgr->addMenuItem(scrActions["itemWeld"], "Item", false);
-	scrMenuMgr->addMenuItem(scrActions["itemEditWeld"], "Item", false);
+	scrMenuMgr->createMenu("Weld", tr("Welding"), "Item");
+	scrMenuMgr->addMenuItem(scrActions["itemsUnWeld"], "Weld", false);
+	scrMenuMgr->addMenuItem(scrActions["itemWeld"], "Weld", false);
+	scrMenuMgr->addMenuItem(scrActions["itemEditWeld"], "Weld", false);
 
 	scrMenuMgr->addMenuItem(scrActions["editMark"], "Item", false);
-	scrMenuMgr->addMenuItem(scrActions["itemUpdateMarks"], "Item", true);
 
 	//Insert menu
 	scrMenuMgr->createMenu("Insert", ActionManager::defaultMenuNameEntryTranslated("Insert"));
@@ -1057,23 +1013,23 @@ void ScribusMainWindow::initMenuBar()
 	//CB If this is viewNewView imeplemented, it should be on the windows menu
 //	scrMenuMgr->addMenuItem(scrActions["viewNewView"], "View");
 
-	//Tool menu
-	/*
-	scrMenuMgr->createMenu("Tools", tr("&Tools"));
-	scrMenuMgr->addMenuItem(scrActions["toolsProperties"], "Tools");
-	scrMenuMgr->addMenuItem(scrActions["toolsOutline"], "Tools");
-	scrMenuMgr->addMenuItem(scrActions["toolsScrapbook"], "Tools");
-	scrMenuMgr->addMenuItem(scrActions["toolsLayers"], "Tools");
-	scrMenuMgr->addMenuItem(scrActions["toolsPages"], "Tools");
-	scrMenuMgr->addMenuItem(scrActions["toolsBookmarks"], "Tools");
-	scrMenuMgr->addMenuItem(scrActions["toolsMeasurements"], "Tools");
-	scrMenuMgr->addMenuItem(scrActions["toolsActionHistory"], "Tools");
-	scrMenuMgr->addMenuItem(scrActions["toolsPreflightVerifier"], "Tools");
-	scrMenuMgr->addMenuItem(scrActions["toolsAlignDistribute"], "Tools");
-	scrMenuMgr->addMenuSeparator("Tools");
-	scrMenuMgr->addMenuItem(scrActions["toolsToolbarTools"], "Tools");
-	scrMenuMgr->addMenuItem(scrActions["toolsToolbarPDF"], "Tools");
-	//scrActions["toolsPreflightVerifier"]->setEnabled(false);*/
+	// Table menu.
+	scrMenuMgr->createMenu("ItemTable", ActionManager::defaultMenuNameEntryTranslated("Table"));
+	scrMenuMgr->addMenuItem(scrActions["tableInsertRows"], "ItemTable", false);
+	scrMenuMgr->addMenuItem(scrActions["tableInsertColumns"], "ItemTable", false);
+	scrMenuMgr->addMenuItem(scrActions["tableDeleteRows"], "ItemTable", false);
+	scrMenuMgr->addMenuItem(scrActions["tableDeleteColumns"], "ItemTable", false);
+	scrMenuMgr->addMenuSeparator("ItemTable");
+	scrMenuMgr->addMenuItem(scrActions["tableMergeCells"], "ItemTable", false);
+	scrMenuMgr->addMenuItem(scrActions["tableSplitCells"], "ItemTable", false);
+	scrMenuMgr->addMenuSeparator("ItemTable");
+	scrMenuMgr->addMenuItem(scrActions["tableSetRowHeights"], "ItemTable", false);
+	scrMenuMgr->addMenuItem(scrActions["tableSetColumnWidths"], "ItemTable", false);
+	scrMenuMgr->addMenuItem(scrActions["tableDistributeRowsEvenly"], "ItemTable", false);
+	scrMenuMgr->addMenuItem(scrActions["tableDistributeColumnsEvenly"], "ItemTable", false);
+	scrMenuMgr->addMenuSeparator("ItemTable");
+	scrMenuMgr->addMenuItem(scrActions["tableAdjustFrameToTable"], "ItemTable", false);
+	scrMenuMgr->addMenuItem(scrActions["tableAdjustTableToFrame"], "ItemTable", false);
 
 	//Extra menu
 	scrMenuMgr->createMenu("Extras", ActionManager::defaultMenuNameEntryTranslated("Extras"));
@@ -1082,6 +1038,7 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->addMenuItem(scrActions["extrasDeHyphenateText"], "Extras", false);
 	scrMenuMgr->addMenuItem(scrActions["extrasGenerateTableOfContents"], "Extras", false);
 	scrMenuMgr->addMenuItem(scrActions["extrasUpdateDocument"], "Extras", false);
+	scrMenuMgr->addMenuItem(scrActions["itemUpdateMarks"], "Extras", true);
 	connect(scrMenuMgr->getLocalPopupMenu("Extras"), SIGNAL(aboutToShow()), this, SLOT(extrasMenuAboutToShow()));
 
 	//Window menu
@@ -1112,11 +1069,10 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->addMenuToMenuBar("Edit");
 	scrMenuMgr->addMenuToMenuBar("Item");
 	scrMenuMgr->addMenuToMenuBar("Insert");
-	//scrMenuMgr->setMenuEnabled("Insert", false);
 	scrMenuMgr->addMenuToMenuBar("Page");
 	scrMenuMgr->addMenuToMenuBar("View");
+	scrMenuMgr->addMenuToMenuBar("ItemTable");
 	scrMenuMgr->addMenuToMenuBar("Extras");
-	//scrMenuMgr->setMenuEnabled("Extras", false);
 	scrMenuMgr->addMenuToMenuBar("Windows");
 	menuBar()->addSeparator();
 	scrMenuMgr->addMenuToMenuBar("Help");

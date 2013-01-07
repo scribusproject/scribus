@@ -37,12 +37,16 @@ void AspellPlugin::languageChange()
 	// Action text for menu, including &accel
 	m_actionInfo.text = tr("Spell Checker");
 	// Menu
-	m_actionInfo.menu = "Item";
+	m_actionInfo.menu = "Extras";
 	m_actionInfo.notSuitableFor.append(PageItem::Line);
 	m_actionInfo.notSuitableFor.append(PageItem::LatexFrame);
 	m_actionInfo.notSuitableFor.append(PageItem::Polygon);
 	m_actionInfo.notSuitableFor.append(PageItem::PolyLine);
 	m_actionInfo.notSuitableFor.append(PageItem::ImageFrame);
+	m_actionInfo.notSuitableFor.append(PageItem::Symbol);
+	m_actionInfo.notSuitableFor.append(PageItem::RegularPolygon);
+	m_actionInfo.notSuitableFor.append(PageItem::Arc);
+	m_actionInfo.notSuitableFor.append(PageItem::Spiral);
 	m_actionInfo.forAppMode.append(modeNormal);
 	m_actionInfo.needsNumObjects = 1;
 	// If needed, what item to add the menu item after
