@@ -1172,6 +1172,8 @@ void ScribusMainWindow::initStatusBar()
 
 void ScribusMainWindow::setStatusBarMousePosition(double xp, double yp)
 {
+	if (doc->Pages->count() == 0)
+		return;
 	double xn = xp;
 	double yn = yp;
 	if (doc->guidesPrefs().rulerMode)
@@ -1187,6 +1189,8 @@ void ScribusMainWindow::setStatusBarMousePosition(double xp, double yp)
 
 void ScribusMainWindow::setStatusBarTextPosition(double base, double xp)
 {
+	if (doc->Pages->count() == 0)
+		return;
 	mainWindowXPosDataLabel->setText(base + xp >= 0? value2String(xp, doc->unitIndex(), true, true): QString("-"));
 	mainWindowYPosDataLabel->setText("-");
 }
