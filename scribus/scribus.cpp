@@ -8726,6 +8726,8 @@ void ScribusMainWindow::editSymbolStart(QString temp)
 {
 	if (HaveDoc)
 	{
+		if (!doc->docPatterns.contains(temp))
+			return;
 		m_WasAutoSave = doc->autoSave();
 		if (m_WasAutoSave)
 		{
