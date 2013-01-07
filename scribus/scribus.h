@@ -276,7 +276,9 @@ public slots:
 	void windowsMenuActivated(int id);
 	void PutScrap(int scID);
 	void PutToInline(QString buffer);
+	void PutToInline();
 	void PutToPatterns();
+	void ConvertToSymbol();
 	void changeLayer(int);
 	void showLayer();
 	void ManageJava();

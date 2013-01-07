@@ -354,6 +354,7 @@ void ContextMenu::createMenuItems_Selection()
 
 //		addAction(m_AP->scrActions["itemSendToScrapbook"]);
 		addAction(m_AP->scrActions["itemSendToPattern"]);
+		addAction(m_AP->scrActions["itemSendToInline"]);
 		//<-- Add Layer Items
 		if (m_doc->layerCount() > 1)
 		{
@@ -421,6 +422,8 @@ void ContextMenu::createMenuItems_Selection()
 			menuConvertTo->addAction(m_AP->scrActions["itemConvertToPolygon"]);
 		if (m_AP->scrActions["itemConvertToTextFrame"]->isEnabled() && m_actionList.contains("itemConvertToTextFrame"))
 			menuConvertTo->addAction(m_AP->scrActions["itemConvertToTextFrame"]);
+		if (m_AP->scrActions["itemConvertToSymbolFrame"]->isEnabled())
+			menuConvertTo->addAction(m_AP->scrActions["itemConvertToSymbolFrame"]);
 		if (menuConvertTo->actions().count()>0)
 		{
 			QAction *act = addMenu(menuConvertTo);
