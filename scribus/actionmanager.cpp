@@ -230,10 +230,6 @@ void ActionManager::initEditMenuActions()
 	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
 	name="editReplaceColors";
 	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
-//	name="editPatterns";
-//	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
-//	name="editGradients";
-//	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
 	name="editStyles";
 	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
 	name="editMasterPages";
@@ -267,8 +263,6 @@ void ActionManager::initEditMenuActions()
 	connect( (*scrActions)["editEditRenderSource"], SIGNAL(triggered()), mainWindow, SLOT(callImageEditor()) );
 	connect( (*scrActions)["editColors"], SIGNAL(triggered()), mainWindow, SLOT(managePaints()) );
 	connect( (*scrActions)["editReplaceColors"], SIGNAL(triggered()), mainWindow, SLOT(slotReplaceColors()) );
-//	connect( (*scrActions)["editPatterns"], SIGNAL(triggered()), mainWindow, SLOT(managePatterns()) );
-//	connect( (*scrActions)["editGradients"], SIGNAL(triggered()), mainWindow, SLOT(manageGradients()) );
 	connect( (*scrActions)["editMasterPages"], SIGNAL(triggered()), mainWindow, SLOT(manageMasterPages()) );
 	connect( (*scrActions)["editJavascripts"], SIGNAL(triggered()), mainWindow, SLOT(ManageJava()) );
 }
@@ -1457,10 +1451,8 @@ void ActionManager::languageChange()
 	(*scrActions)["editSearchReplace"]->setTexts( tr("&Search/Replace..."));
 	(*scrActions)["editEditWithImageEditor"]->setTexts( tr("Edit Image..."));
 	(*scrActions)["editEditRenderSource"]->setTexts( tr("Edit Source..."));
-	(*scrActions)["editColors"]->setTexts( tr("C&olors..."));
+	(*scrActions)["editColors"]->setTexts( tr("Fills..."));
 	(*scrActions)["editReplaceColors"]->setTexts( tr("Replace Colors..."));
-//	(*scrActions)["editPatterns"]->setTexts( tr("Patterns..."));
-//	(*scrActions)["editGradients"]->setTexts( tr("Gradients..."));
 	(*scrActions)["editStyles"]->setTexts( tr("S&tyles..."));
 	(*scrActions)["editMarks"]->setTexts( tr("Marks..."));
 	(*scrActions)["editNotesStyles"]->setTexts( tr("Notes Styles..."));
@@ -1960,7 +1952,6 @@ void ActionManager::createDefaultMenus()
 		<< "editEditRenderSource"
 		<< "editColors"
 		<< "editReplaceColors"
-//		<< "editPatterns"
 		<< "editStyles"
 		<< "editMarks"
 		<< "editNotesStyles"
