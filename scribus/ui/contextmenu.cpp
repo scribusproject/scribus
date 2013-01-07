@@ -337,24 +337,14 @@ void ContextMenu::createMenuItems_Selection()
 	
 	//<-- Item Locking
 	addSeparator();
-	addAction(m_AP->scrActions["itemLock"]);
-	addAction(m_AP->scrActions["itemLockSize"]);
 	//-->
 	
 	if (selectedItemCount>0)
 	{
-//		QStringList scrapNames = m_AP->scrapbookPalette->getOpenScrapbooksNames();
-//		scrapNames.removeAt(1);
-//		for (int i = 0; i < scrapNames.count(); i++)
-//		{
-//			menuScrap->addAction(scrapNames[i], m_AP, SLOT(PutScrap(int)));
-//		}
-		QAction *actSc = addMenu(m_AP->scrMenuMgr->getLocalPopupMenu("itemSendToScrapbook"));
-		actSc->setText( ScribusView::tr("Send to Scrapbook"));
-
-//		addAction(m_AP->scrActions["itemSendToScrapbook"]);
-		addAction(m_AP->scrActions["itemSendToPattern"]);
-		addAction(m_AP->scrActions["itemSendToInline"]);
+		QAction *actSl = addMenu(m_AP->scrMenuMgr->getLocalPopupMenu("Locking"));
+		actSl->setText( ScribusView::tr("Locking"));
+		QAction *actSc = addMenu(m_AP->scrMenuMgr->getLocalPopupMenu("SendTo"));
+		actSc->setText( ScribusView::tr("Send to"));
 		//<-- Add Layer Items
 		if (m_doc->layerCount() > 1)
 		{
@@ -422,7 +412,7 @@ void ContextMenu::createMenuItems_Selection()
 			menuConvertTo->addAction(m_AP->scrActions["itemConvertToPolygon"]);
 		if (m_AP->scrActions["itemConvertToTextFrame"]->isEnabled() && m_actionList.contains("itemConvertToTextFrame"))
 			menuConvertTo->addAction(m_AP->scrActions["itemConvertToTextFrame"]);
-		if (m_AP->scrActions["itemConvertToSymbolFrame"]->isEnabled())
+		if (m_AP->scrActions["itemConvertToSymbolFrame"]->isEnabled() && !currItem->isSymbol())
 			menuConvertTo->addAction(m_AP->scrActions["itemConvertToSymbolFrame"]);
 		if (menuConvertTo->actions().count()>0)
 		{
