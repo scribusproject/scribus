@@ -341,6 +341,7 @@ bool PdfPlug::import(QString fNameIn, const TransactionSettings& trSettings, int
 		if (!(flags & LoadSavePlugin::lfLoadAsPattern))
 			m_Doc->view()->updatesOn(true);
 		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+		success = false;
 	}
 	if (interactive)
 		m_Doc->setLoading(false);

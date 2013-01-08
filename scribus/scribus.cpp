@@ -4064,6 +4064,7 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 			delete fileLoader;
 // 			delete view;
 			delete doc;
+			mdiArea->removeSubWindow(w->getSubWin());
 			delete w;
 			view=NULL;
 			doc=NULL;

@@ -165,7 +165,7 @@ bool ImportPdfPlugin::import(QString fileName, int flags)
 			prefs->set("wdir", fileName.left(fileName.lastIndexOf("/")));
 		}
 		else
-			return true;
+			return false;
 	}
 	m_Doc=ScCore->primaryMainWindow()->doc;
 	UndoTransaction* activeTransaction = NULL;
@@ -216,12 +216,13 @@ bool ImportPdfPlugin::import(QString fileName, int flags)
 			return false;
 		}
 	}
+	bool ret = false;
 	PdfPlug *dia = new PdfPlug(m_Doc, flags);
 	Q_CHECK_PTR(dia);
 	if (isCleanedFile)
-		dia->import(cleanFile, trSettings, flags);
+		ret = dia->import(cleanFile, trSettings, flags);
 	else
-		dia->import(fileName, trSettings, flags);
+		ret = dia->import(fileName, trSettings, flags);
 	if (activeTransaction)
 	{
 		activeTransaction->commit();
@@ -233,7 +234,7 @@ bool ImportPdfPlugin::import(QString fileName, int flags)
 	delete dia;
 	if (isCleanedFile)
 		QFile::remove(cleanFile);
-	return true;
+	return ret;
 }
 
 QImage ImportPdfPlugin::readThumbnail(const QString& fileName)
