@@ -899,7 +899,8 @@ void Biblio::reloadLib(QString fileName)
 			bv->ReadContents(fileName);
 			bv->ScFilename = fileName;
 			QDir d(fileName);
-			bv->visibleName = d.dirName();
+			if (a > 1)
+				bv->visibleName = d.dirName();
 			bv->scrollToTop();
 		}
 	}
@@ -1037,18 +1038,10 @@ void Biblio::HandleMouse(QPoint p)
 	else
 	{
 		QMenu *pmenu = new QMenu();
-		QAction* delAct;
-		QAction* saveAct;
-		QAction* closeAct;
-		if (activeBView->objectMap.count() != 0)
-		{
-			saveAct = pmenu->addAction( tr("Save as..."));
-			connect(saveAct, SIGNAL(triggered()), this, SLOT(SaveAs()));
-		}
-		closeAct = pmenu->addAction( tr("Close"));
+		QAction* closeAct = pmenu->addAction( tr("Close"));
 		if ((activeBView->canWrite) && (activeBView->objectMap.count() != 0))
 		{
-			delAct = pmenu->addAction( tr("Delete Contents"));
+			QAction* delAct = pmenu->addAction( tr("Delete Contents"));
 			connect(delAct, SIGNAL(triggered()), this, SLOT(deleteAllObj()));
 		}
 		connect(closeAct, SIGNAL(triggered()), this, SLOT(closeLib()));
@@ -1488,6 +1481,7 @@ void Biblio::ObjFromFile(QString path, int testResult)
 			}
 			emit updateRecentMenue();
 		}
+		reloadLib(activeBView->ScFilename);
 	}
 }
 
@@ -1585,6 +1579,7 @@ void Biblio::ObjFromMenu(QString text)
 			}
 		}
 		emit updateRecentMenue();
+		reloadLib(activeBView->ScFilename);
 	}
 }
 
@@ -1658,6 +1653,7 @@ void Biblio::ObjFromCopyAction(QString text, QString name)
 			delete tempBView->takeItem(tempBView->row(ite));
 		}
 	}
+	reloadLib(tempBView->ScFilename);
 }
 
 void Biblio::ObjFromMainMenu(QString text, int scrapID)
@@ -1709,6 +1705,7 @@ void Biblio::ObjFromMainMenu(QString text, int scrapID)
 	QListWidgetItem *item = new QListWidgetItem(QIcon(pm2), nam, actBView);
 	actBView->objectMap[nam].widgetItem = item;
 	delete pre;
+	reloadLib(actBView->ScFilename);
 }
 
 void Biblio::CleanUpTemp()

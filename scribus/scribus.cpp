@@ -9543,7 +9543,7 @@ void ScribusMainWindow::PutScrap(int scID)
 	}
 	objectString = docu.toString();
 	scrapbookPalette->ObjFromMainMenu(objectString, scID);
-}
+ }
 
 void ScribusMainWindow::changeLayer(int )
 {
@@ -10378,6 +10378,8 @@ void ScribusMainWindow::PutToInline(QString buffer)
 	undoManager->setUndoEnabled(wasUndo);
 	inlinePalette->unsetDoc();
 	inlinePalette->setDoc(doc);
+	if (outlinePalette->isVisible())
+		outlinePalette->BuildTree();
 	view->Deselect(false);
 }
 
@@ -10438,6 +10440,8 @@ void ScribusMainWindow::PutToInline()
 	undoManager->setUndoEnabled(wasUndo);
 	inlinePalette->unsetDoc();
 	inlinePalette->setDoc(doc);
+	if (outlinePalette->isVisible())
+		outlinePalette->BuildTree();
 	view->Deselect(false);
 }
 
@@ -10573,11 +10577,11 @@ void ScribusMainWindow::PutToPatterns()
 	propertiesPalette->updateColorList();
 	symbolPalette->updateSymbolList();
 	emit UpdateRequest(reqColorsUpdate);
-	if (outlinePalette->isVisible())
-		outlinePalette->BuildTree();
 	doc->minCanvasCoordinate = minSize;
 	doc->maxCanvasCoordinate = maxSize;
 	view->DrawNew();
+	if (outlinePalette->isVisible())
+		outlinePalette->BuildTree();
 	undoManager->setUndoEnabled(wasUndo);
 }
 
