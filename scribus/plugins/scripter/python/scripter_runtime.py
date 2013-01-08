@@ -184,8 +184,8 @@ def check_python(filename):
 def run_python(filename, subroutine=None, extension=False):
     if not extension:
         namespace = {
-        __name__: "__scribus__",
-        __file__: filename
+        "__name__": "__scribus__",
+        "__file__": filename
         }
     else:
         namespace = extension_namespace
