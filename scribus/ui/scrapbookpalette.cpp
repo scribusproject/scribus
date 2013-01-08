@@ -377,6 +377,8 @@ void BibView::ReadContents(QString name)
 				pgDia->setValue(readCount);
 				readCount++;
 			}
+			if (dd[dc].compare(".ScribusThumbs", Qt::CaseInsensitive) == 0)
+				continue;
 			QPixmap pm = loadIcon("folder.png");
 			AddObj(dd[dc], "", pm, true);
 		}
