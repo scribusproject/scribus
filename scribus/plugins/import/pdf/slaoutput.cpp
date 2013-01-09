@@ -1285,7 +1285,10 @@ void SlaOutputDev::restoreState(GfxState *state)
 						m_Elements->replace(m_Elements->indexOf(ite), sing);
 						m_doc->Items->removeAll(sing);
 						m_doc->Items->replace(m_doc->Items->indexOf(ite), sing);
-						m_groupStack.top().Items.replace(m_groupStack.top().Items.indexOf(ite), sing);
+						if (m_groupStack.top().Items.indexOf(ite) > -1)
+							m_groupStack.top().Items.replace(m_groupStack.top().Items.indexOf(ite), sing);
+						else
+							m_groupStack.top().Items.append(sing);
 						sing->setFillTransparency(1.0 - (state->getFillOpacity() * (1.0 - ite->fillTransparency())));
 						sing->setFillBlendmode(getBlendMode(state));
 						if (!ite->patternMask().isEmpty())

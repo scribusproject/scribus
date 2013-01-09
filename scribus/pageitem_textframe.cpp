@@ -3917,6 +3917,7 @@ void PageItem_TextFrame::DrawObj_Decoration(ScPainter *p)
 	if (isAnnotation() && ((annotation().Type() > 1) && (annotation().Type() < 7)) && (annotation().Bwid() > 0))
 		return;
 	p->save();
+	p->setAntialiasing(false);
 	if (!isEmbedded)
 		p->translate(m_xPos, m_yPos);
 	p->rotate(m_rotation);
@@ -3988,6 +3989,7 @@ void PageItem_TextFrame::DrawObj_Decoration(ScPainter *p)
 		//	drawLockedMarker(p);
 	}
 	FrameOnly = false;
+	p->setAntialiasing(true);
 	p->restore();
 }
 
