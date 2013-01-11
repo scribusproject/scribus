@@ -15,18 +15,13 @@ for which a new license (GPL+exception) is in place.
 #include <QString>
 #include <QStringList>
 
-#include <ft2build.h>
-#include FT_FREETYPE_H
-#include FT_OUTLINE_H
-#include FT_GLYPH_H
-
-FT_Error ftIOFunc( FT_Stream fts, unsigned long offset, unsigned char* buffer, unsigned long count);
-
 #include "fonts/scface.h"
 #include "fpointarray.h"
 #include "scconfig.h"
 #include "scribusapi.h"
 
+/* Forward declaration so we don't have to include all of Freetype. */
+typedef struct FT_LibraryRec_  *FT_Library;
 
 class ScribusDoc;
 

@@ -33,6 +33,7 @@ extern "C"
 #endif
 #include <jpeglib.h>
 #include <jerror.h>
+#include <csetjmp>
 #undef HAVE_STDLIB_H
 #ifdef const
 #  undef const          // remove crazy C hackery in jconfig.h

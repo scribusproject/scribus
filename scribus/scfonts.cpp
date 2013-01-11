@@ -50,6 +50,11 @@ for which a new license (GPL+exception) is in place.
 #include <fontconfig/fontconfig.h>
 #endif
 
+#include <ft2build.h>
+#include FT_FREETYPE_H
+#include FT_OUTLINE_H
+#include FT_GLYPH_H
+
 #include FT_TRUETYPE_TAGS_H
 #include FT_TRUETYPE_TABLES_H
 

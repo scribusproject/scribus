@@ -62,9 +62,6 @@ for which a new license (GPL+exception) is in place.
 #include "updatemanager.h"
 #include "usertaskstructs.h"
 
-#include <ft2build.h>
-#include FT_FREETYPE_H
-
 class DocUpdater;
 class FPoint;
 class UndoManager;
