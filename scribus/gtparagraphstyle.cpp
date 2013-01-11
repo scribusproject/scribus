@@ -250,7 +250,10 @@ QString  gtParagraphStyle::getBullet()
 void gtParagraphStyle::setBullet(bool newBullet, QString str)
 {
 	m_bullet = newBullet;
-	m_bulletStr = str;
+	if (str != "")
+		m_bulletStr = str;
+	else
+		m_bulletStr = QString(QChar(0x2022));
 	flags |= bulletWasSet;
 }
 

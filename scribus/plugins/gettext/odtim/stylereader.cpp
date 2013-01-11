@@ -134,8 +134,8 @@ StyleReader::StyleReader(QString documentName, gtWriter *w,
 				prefix = attrs.value(i);
 			else if (attrs.localName(i) == "style:num-suffix")
 				suffix = attrs.value(i);
-			/*else if (attrs.localName(i) == "text:bullet-char")
-				bullet = attrs.value(i);*/
+			else if (attrs.localName(i) == "text:bullet-char")
+				bullet = attrs.value(i);
 			else if (attrs.localName(i) == "style:num-format") {
 				QString tmp = attrs.value(i);
 				if (tmp == "i")
@@ -171,11 +171,13 @@ StyleReader::StyleReader(QString documentName, gtWriter *w,
 		gtParagraphStyle* s = dynamic_cast<gtParagraphStyle*>(currentStyle);
 		assert(s != NULL);
 		if (bstyle == Bullet || bstyle == Graphic)
-			s->setBullet(true);
+		{
+			s->setBullet(true, bullet);
+		}
 		else
 		{
 			Q_ASSERT(((int) bstyle > 0) && ((int) bstyle < 6));
-			s->setNum(true, (int) bstyle -1, 0, startAt+1, prefix, suffix);
+			s->setNum(true, (int) bstyle -1, ulevel, startAt+1, prefix, suffix);
 		}
  	}
  	else if ((name == "style:drop-cap") && (readProperties))
@@ -508,18 +510,18 @@ StyleReader::StyleReader(QString documentName, gtWriter *w,
  			  (name == "text:list-level-style-number") ||
 			  (name == "text:list-level-style-image")) && (currentStyle != NULL))
  	{
-//		if ((name == "text:list-level-style-bullet"))
-//		{
-//			gtParagraphStyle* s = dynamic_cast<gtParagraphStyle*>(currentStyle);
-//			if (s)
-//				s->setBullet(true);
-//		}
-//		else if ((name == "text:list-level-style-number"))
-//		{
-//			gtParagraphStyle* s = dynamic_cast<gtParagraphStyle*>(currentStyle);
-//			if (s)
-//				s->setNum(true);
-//		}
+		if ((name == "text:list-level-style-bullet"))
+		{
+			gtParagraphStyle* s = dynamic_cast<gtParagraphStyle*>(currentStyle);
+			if (s)
+				s->setBullet(true, "");
+		}
+		else if ((name == "text:list-level-style-number"))
+		{
+			gtParagraphStyle* s = dynamic_cast<gtParagraphStyle*>(currentStyle);
+			if (s)
+				s->setNum(true);
+		}
  		setStyle(currentStyle->getName(), currentStyle);
  		currentStyle = NULL;
  		parentStyle = NULL;
@@ -595,6 +597,13 @@ StyleReader::StyleReader(QString documentName, gtWriter *w,
  		nameByAttrs += QString("%1-").arg(s->getAlignment());
  		nameByAttrs += QString("%1-").arg(s->hasDropCap());
 		nameByAttrs += QString("%1-").arg(s->hasBullet());
+		nameByAttrs += QString("%1-").arg(s->getBullet());
+		nameByAttrs += QString("%1-").arg(s->hasNum());
+		nameByAttrs += QString("%1-").arg(s->getNumFormat());
+		nameByAttrs += QString("%1-").arg(s->getNumLevel());
+		nameByAttrs += QString("%1-").arg(s->getNumPrefix());
+		nameByAttrs += QString("%1-").arg(s->getNumStart());
+		nameByAttrs += QString("%1-").arg(s->getNumSuffix());
  		nameByAttrs += QString("%1-").arg(s->getFont()->getColor());
  		nameByAttrs += QString("%1-").arg(s->getFont()->getStrokeColor());
 // TODO is this important ??
@@ -1072,23 +1081,23 @@ QString ListStyle::bullet()
 {
 	uint displayLevels = levels[m_currentLevel]->displayLevels();
 	if (displayLevels == 1)
-		return QString(levels[m_currentLevel]->bullet() + " ");
+		return QString(levels[m_currentLevel]->bullet());
 
 	QString prefix = levels[m_currentLevel]->prefix();
 	QString suffix = levels[m_currentLevel]->suffix();
 	QString bullet = "";
 	int start = m_currentLevel - displayLevels + 1;
 	if (start < 1)
-		return QString(levels[m_currentLevel]->bullet() + " ");
+		return QString(levels[m_currentLevel]->bullet());
 	while (static_cast<uint>(start) <= m_currentLevel)
 	{
 		if (static_cast<uint>(start) == m_currentLevel)
 			bullet += levels[start]->bulletString();
 		else
-			bullet += levels[start]->bulletString() + ".";
+			bullet += levels[start]->bulletString();
 		++start;
 	}
-	return QString(prefix + bullet + suffix + " ");
+	return QString(prefix + bullet + suffix);
 }
 
 void ListStyle::advance()

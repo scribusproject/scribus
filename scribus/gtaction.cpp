@@ -37,16 +37,19 @@ for which a new license (GPL+exception) is in place.
 
 #include "color.h"
 #include "commonstrings.h"
-#include "prefsmanager.h"
 #include "hyphenator.h"
+#include "marks.h"
+#include "notesstyles.h"
+#include "pageitem_textframe.h"
+#include "prefsmanager.h"
 #include "scclocale.h"
 #include "selection.h"
 #include "sccolorengine.h"
 #include "scribus.h"
 #include "undomanager.h"
-#include "pageitem_textframe.h"
 
 #include "util_icon.h"
+#include "util_text.h"
 #include "ui/propertiespalette.h"
 #include "ui/propertiespalette_text.h"
 #include "ui/missing.h"
@@ -83,6 +86,8 @@ gtAction::gtAction(bool append, PageItem* pageitem)
 	updateParagraphStyles = false;
 	overridePStyleFont = true;
 	undoManager = UndoManager::instance();
+	noteStory = NULL;
+	note = NULL;
 }
 
 void gtAction::setProgressInfo()
@@ -109,10 +114,10 @@ void gtAction::clearFrame()
 	textFrame->itemText.clear();
 }
 
-void gtAction::writeUnstyled(const QString& text)
+void gtAction::writeUnstyled(const QString& text, bool isNote)
 {
 	UndoTransaction* activeTransaction = NULL;
-	if (isFirstWrite)
+	if (isFirstWrite && it->itemText.length() > 0)
 	{
 		if (!doAppend)
 		{
@@ -141,16 +146,73 @@ void gtAction::writeUnstyled(const QString& text)
 	textStr.replace(ch5,ch13);
 	textStr.replace(QString(0x2028),SpecialChars::LINEBREAK);
 	textStr.replace(QString(0x2029),SpecialChars::PARSEP);
-	int pos = it->itemText.length();
-	if (UndoManager::undoEnabled())
+	if (isNote)
 	{
-		SimpleState *ss = new SimpleState(Um::AppendText,"",Um::ICreate);
+		if (note == NULL)
+		{
+			note = it->m_Doc->newNote(it->m_Doc->m_docNotesStylesList.at(0));
+			Q_ASSERT(noteStory == NULL);
+			noteStory = new StoryText(it->m_Doc);
+		}
+		if (textStr == SpecialChars::OBJECT)
+		{
+			NotesStyle* nStyle = note->notesStyle();
+			QString label = "NoteMark_" + nStyle->name();
+			if (nStyle->range() == NSRsection)
+				label += " in section " + it->m_Doc->getSectionNameForPageIndex(it->OwnPage) + " page " + QString::number(it->OwnPage +1);
+			else if (nStyle->range() == NSRpage)
+				label += " on page " + QString::number(it->OwnPage +1);
+			else if (nStyle->range() == NSRstory)
+				label += " in " + it->firstInChain()->itemName();
+			else if (nStyle->range() == NSRframe)
+				label += " in frame" + it->itemName();
+			if (it->m_Doc->getMarkDefinied(label + "_1", MARKNoteMasterType) != NULL)
+				getUniqueName(label,it->m_Doc->marksLabelsList(MARKNoteMasterType), "_"); //FIX ME here user should be warned that inserted mark`s label was changed
+			else
+				label = label + "_1";
+			Mark* mrk = it->m_Doc->newMark();
+			mrk->label = label;
+			mrk->setType(MARKNoteMasterType);
+			mrk->setNotePtr(note);
+			note->setMasterMark(mrk);
+			if (noteStory->text(noteStory->length() -1) == SpecialChars::PARSEP)
+				noteStory->removeChars(noteStory->length() -1, 1);
+			note->setSaxedText(saxedText(noteStory));
+			mrk->setString("");
+			mrk->OwnPage = it->OwnPage;
+			it->itemText.insertMark(mrk);
+			if (UndoManager::undoEnabled())
+			{
+				ScItemsState* is = new ScItemsState(UndoManager::InsertNote);
+				is->set("ETEA", mrk->label);
+				is->set("MARK", QString("new"));
+				is->set("label", mrk->label);
+				is->set("type", (int) MARKNoteMasterType);
+				is->set("strtxt", QString(""));
+				is->set("nStyle", nStyle->name());
+				is->set("at", it->itemText.cursorPosition() -1);
+				is->insertItem("inItem", it);
+				undoManager->action(it->m_Doc, is);
+			}
+			note = NULL;
+			delete noteStory;
+		}
+		else
+			noteStory->insertChars(noteStory->length(), textStr);
+	}
+	else
+	{
+		int pos = it->itemText.length();
+		if (UndoManager::undoEnabled())
+		{
+			SimpleState *ss = new SimpleState(Um::AppendText,"",Um::ICreate);
 			ss->set("INSERT_FRAMETEXT", "insert_frametext");
 			ss->set("TEXT_STR",textStr);
 			ss->set("START", pos);
 			undoManager->action(it, ss);
+		}
+		it->itemText.insertChars(pos, textStr);
 	}
-	it->itemText.insertChars(pos, textStr);
 	lastCharWasLineChange = text.right(1) == "\n";
 	isFirstWrite = false;
 	if (activeTransaction)
@@ -161,7 +223,7 @@ void gtAction::writeUnstyled(const QString& text)
 	}
 }
 
-void gtAction::write(const QString& text, gtStyle *style)
+void gtAction::write(const QString& text, gtStyle *style, bool isNote)
 {
 	if (isFirstWrite)
 	{
@@ -226,6 +288,18 @@ void gtAction::write(const QString& text, gtStyle *style)
 
 	lastStyle = newStyle;
 	lastStyleStart = it->itemText.length();
+	StoryText* story = NULL;
+	if (isNote)
+	{
+		if (noteStory == NULL)
+		{
+			note = it->m_Doc->newNote(it->m_Doc->m_docNotesStylesList.at(0));
+			noteStory = new StoryText(it->m_Doc);
+		}
+		story = noteStory;
+	}
+	else
+		story = &it->itemText;
 
 	QChar ch0(0), ch5(5), ch10(10), ch13(13); 
 	for (int a = 0; a < text.length(); ++a)
@@ -236,29 +310,77 @@ void gtAction::write(const QString& text, gtStyle *style)
 		if ((ch == ch10) || (ch == ch5))
 			ch = ch13;
 		
-		int pos = it->itemText.length();
-		it->itemText.insertChars(pos, QString(ch));
+		int pos = story->length();
+		if (isNote && ch == SpecialChars::OBJECT)
+		{
+			NotesStyle* nStyle = note->notesStyle();
+			QString label = "NoteMark_" + nStyle->name();
+			if (nStyle->range() == NSRsection)
+				label += " in section " + it->m_Doc->getSectionNameForPageIndex(it->OwnPage) + " page " + QString::number(it->OwnPage +1);
+			else if (nStyle->range() == NSRpage)
+				label += " on page " + QString::number(it->OwnPage +1);
+			else if (nStyle->range() == NSRstory)
+				label += " in " + it->firstInChain()->itemName();
+			else if (nStyle->range() == NSRframe)
+				label += " in frame" + it->itemName();
+			if (it->m_Doc->getMarkDefinied(label + "_1", MARKNoteMasterType) != NULL)
+				getUniqueName(label,it->m_Doc->marksLabelsList(MARKNoteMasterType), "_"); //FIX ME here user should be warned that inserted mark`s label was changed
+			else
+				label = label + "_1";
+			Mark* mrk = it->m_Doc->newMark();
+			mrk->label = label;
+			mrk->setType(MARKNoteMasterType);
+			mrk->setNotePtr(note);
+			note->setMasterMark(mrk);
+			mrk->setString("");
+			mrk->OwnPage = it->OwnPage;
+			it->itemText.insertMark(mrk);
+			story->applyCharStyle(lastStyleStart, story->length()-lastStyleStart, lastStyle);
+			if (paraStyle.hasName())
+			{
+				ParagraphStyle pStyle;
+				pStyle.setParent(paraStyle.name());
+				story->applyStyle(qMax(0,story->length()-1), pStyle);
+			}
+			else
+				story->applyStyle(qMax(0,story->length()-1), paraStyle);
+			
+			lastCharWasLineChange = text.right(1) == "\n";
+			inPara = style->target() == "paragraph";
+			lastParagraphStyle = paragraphStyle;
+			if (isFirstWrite)
+				isFirstWrite = false;
+			if (story->text(pos -1) == SpecialChars::PARSEP)
+				story->removeChars(pos-1, 1);
+			note->setSaxedText(saxedText(story));
+			note = NULL;
+			delete noteStory;
+			noteStory = NULL;
+			return;
+		}
+		else
+			story->insertChars(pos, QString(ch));
 		if (ch == SpecialChars::PARSEP) 
 		{
 			if (paraStyle.hasName())
 			{
 				ParagraphStyle pstyle;
 				pstyle.setParent(paraStyle.name());
-				it->itemText.applyStyle(pos, pstyle);
+				story->applyStyle(pos, pstyle);
 			}
 			else
-				it->itemText.applyStyle(pos, paraStyle);
+				story->applyStyle(pos, paraStyle);
 		}
 	}
-	it->itemText.applyCharStyle(lastStyleStart, it->itemText.length()-lastStyleStart, lastStyle);
+	story->applyCharStyle(lastStyleStart, story->length()-lastStyleStart, lastStyle);
 	if (paraStyle.hasName())
 	{
 		ParagraphStyle pStyle;
 		pStyle.setParent(paraStyle.name());
-		it->itemText.applyStyle(qMax(0,it->itemText.length()-1), pStyle);
+		story->applyStyle(qMax(0,story->length()-1), pStyle);
 	}
 	else
-		it->itemText.applyStyle(qMax(0,it->itemText.length()-1), paraStyle);
+		story->applyStyle(qMax(0,story->length()-1), paraStyle);
 	
 	lastCharWasLineChange = text.right(1) == "\n";
 	inPara = style->target() == "paragraph";

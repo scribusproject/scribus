@@ -129,7 +129,7 @@ public:
 	~gtParagraphStyle();
 	QString target();
 	bool hasBullet();
-	void setBullet(bool newBullet, QString str = QString(QChar(0x2022)));
+	void setBullet(bool newBullet, QString str);
 	QString getBullet();
 	bool hasNum();
 	void setNum(bool newNum, int format=0, int level=0, int start = 1, QString prefix = "", QString suffix = "");
