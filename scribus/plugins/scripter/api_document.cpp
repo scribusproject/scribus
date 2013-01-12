@@ -94,7 +94,26 @@ bool DocumentAPI::modified()
 	return ScCore->primaryMainWindow()->doc->isModified();
 }
 
+/**
+ * Scripter.activeDocument.unit
+ * Property
+ * boolean flag current measurement unit of the document
+ *
+ * When starting a script you should query its current unit,
+ * Use your preferred unit during the script life and don't forget
+ * to set again the previous unit before finishing the script
+ */
+void DocumentAPI::setUnit(int value)
+{
+	if (!check()) return;
+	ScCore->primaryMainWindow()->doc->setUnitIndex(value);
+}
 
+int DocumentAPI::unit()
+{
+	if (!check()) return NULL;
+	return ScCore->primaryMainWindow()->doc->unitIndex();
+}
 
 /**
  * Scripter.activeDocument.close()
