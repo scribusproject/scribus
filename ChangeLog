@@ -1,3 +1,78 @@
+Scribus - 1.4.2 (Released 13-01-13)
+=======================================
+- 0011262: [Graphics / Image Frames] Scrapbook not working correctly with image frames if images are located on different drive (jghali) - resolved.
+- 0011176: [Scrapbook] scrapbook entry name & filesystem limitation (fschmid) - resolved.
+- 0010749: [General] Crashes due to signal 0000011 when opening file (fschmid) - closed.
+- 0011323: [Translation] Danish Translation (cbradney) - closed.
+- 0011301: [Translation] Polish translation: "Pojedy?cza strona" instead of "Pojedyncza strona" (jghali) - closed.
+- 0011320: [General] Changing Preferences, On Screen preview causes Signal 11 crash (jghali) - closed.
+- 0011308: [User Interface] Drop-down list in Measurements tool is too small (jghali) - closed.
+- 0011295: [Translation] Hungarian translation update for 1.4.2 release (cbradney) - closed.
+- 0011299: [Translation] German TS Update for 1.4.2 (jghali) - closed.
+- 0011287: [Translation] Ui Italian translation update (jghali) - closed.
+- 0011288: [Translation] Online help Italian translation - update (jghali) - closed.
+- 0011120: [Translation] IT translation: "Controllore ortografico" > "Controllo ortografico" (jghali) - closed.
+- 0011119: [Translation] IT translation: "Indicatori di ritaglio" > "Indicatori di taglio" (jghali) - closed.
+- 0011274: [Win32] ASSERT failure when loading document (jghali) - closed.
+- 0011253: [-] crash with signal 11, opening Windows > Layers and using mouse to scroll options (fschmid) - closed.
+- 0011248: [Translation] Hungarian translation update (jghali) - closed.
+- 0011202: [Build System] Incorrect variable expansion in CMakeLists (jghali) - closed.
+- 0011210: [Story Editor / Text Frames] manual kerning not preserved when using multiple duplicate (jghali) - closed.
+- 0011184: [Language Tools] Downloaded DE dictionaries aren't available for selection (jghali) - closed.
+- 0011172: [Language Tools] Wrong detection of spelling errors due to special characters (jghali) - closed.
+- 0011169: [Language Tools] Switching new spellchecker language crashes Scribus (jghali) - closed.
+- 0008291: [Plug-ins] use hunspell where available before aspell (cbradney) - closed.
+- 0010011: [Scripter] Scripter - add function for change name of page item (jainbasil) - closed.
+- 0010999: [Usability] Speed up some loops for very long text in many linked frames. (jghali) - closed.
+- 0011028: [Import / Export] Qt image reader backend labels all images as RGB (jghali) - closed.
+- 0011048: [General] Automatic detection of Ghostscript 64bit on Windows (jghali) - closed.
+- 0011054: [General] Inserting a glyph using the "Unicode search" fails (jghali) - closed.
+- 0011057: [General] Crash in character palette (jghali) - closed.
+- 0011066: [Printing] Page orientation and other print options are not persistent (jghali) - closed.
+- 0011094: [Fonts] Excessive line spacing in exported pdf form fields (jghali) - closed.
+- 0011097: [General] Content disappear if a group object falls outside master page (jghali) - closed.
+- 0007992: [Story Editor / Text Frames] When starting the spell checker scribus crashes (cbradney) - closed.
+- 0000577: [Styles] Paragraph Styles -> Kerning and language options missing (cbradney) - closed.
+- 0011145: [-] Enabling separations in print preview dialog fails with Ghostscript 9.06 (jghali) - closed.
+- 0010689: [General] Incorrect save filename when filename contains multiple points (jghali) - closed.
+- 0010659: [Story Editor / Text Frames] Search/replace for styles fails (jghali) - closed.
+- 0009110: [Import / Export] Non-breakable spaces export as underscores (jghali) - closed.
+- 0010925: [Import / Export] Crash when importing an .odt with bullet lists in it (jghali) - closed.
+- 0010879: [Story Editor / Text Frames] End key not working when carret is before last char in frame (jghali) - closed.
+- 0010884: [Story Editor / Text Frames] Text spills out of frame (jghali) - closed.
+- 0009360: [Import / Export] Cannot export with a SVG icon in a JS button (jghali) - closed.
+- 0010804: [Scripter] Scribus crash opening 2 script at the same time (jghali) - closed.
+- 0010848: [Scripter] The constants ALIGN_BLOCK and ALIGN_FORCED are both set the to a value of 4 (jghali) - closed.
+- 0010844: [User Interface] view > "rulers relatives to page" is not correctly translated into french (jghali) - closed.
+- 0009637: [PDF] Bad copy Javascript code for a duplicate button (fschmid) - closed.
+- 0010775: [User Interface] [patch] we need a keyboard shortcut to quit the help browser... (jghali) - closed.
+- 0009556: [Build System] gcc changes in natty make scribus fail to build (jghali) - closed.
+- 0010773: [Translation] wrong french translation of "Baseline grid" (cbradney) - closed.
+- 0009940: [Color Management] [patch] Default color profile location (cbradney) - closed.
+- 0009610: [Styles] Chars style does not work in Paragraph style (cbradney) - closed.
+- 0008496: [Documentation] Need better documentation on 'Save as PDF' re. 'Image Compression Method' (gpittman) - closed.
+- 0005290: [Story Editor / Text Frames] Tracking changes leave spaces after first char on line unselected but all other spaces are filled correctly (avox) - closed.
+- 0002836: [Scripter] missing copyObject() (cbradney) - closed.
+- 0010662: [Documentation] new manual page Creating Document Links (gpittman) - closed.
+- 0010511: [Plug-ins] Spellchecker not working (cbradney) - closed.
+- 0010712: [Documentation] there has been an intrusion of Italian images into en docs (cbradney) - closed.
+- 0010715: [Shape Drawing] cannot create a Polygon from the menu Insert > Polygon (cbradney) - closed.
+- 0009352: [Language Tools] Spellchecker dialog box not updated for dictionaries other than en/* (cbradney) - closed.
+- 0010582: [Usability] Changing the Export to PDF option should change the "modified doc" flag (cbradney) - closed.
+- 0010490: [User Interface] Make help text in "Insert A Frame" dialoge read-only (cbradney) - closed.
+- 0010620: [Win32] Windows installer: Make "shortcuts for all users" default (jghali) - closed.
+- 0010202: [Translation] Can't to translate some interface words (cbradney) - closed.
+- 0009494: [Translation] Some text strings only switch to new UI language after a restart (cbradney) - closed.
+- 0010763: [Translation] Hungarian translation update (jghali) - closed.
+- 0009554: [General] Hide the "Add Profile" Button in the Preflight Verifier section of Doc Setup and the Prefs or enable the addition of profiles (gpittman) - closed.
+- 0010760: [Styles] custom tab fill char is not shown in the styles dialog (jghali) - closed.
+- 0010663: [Translation] External tools config files: Italian translation (cbradney) - closed.
+- 0010713: [Graphics / Image Frames] Crash on master pages when managing images (jghali) - closed.
+- 0003730: [Story Editor / Text Frames] [patch] impossible to search and replace "fl" in text area (jghali) - closed.
+- 0010740: [Releases] Old insecure python27.dll in Scribus 1.4.1 (jghali) - closed.
+- 0000011: [Story Editor / Text Frames] Add Spellcheck functionality to Story Editor (cbradney) - closed.
+- 0010704: [Build System] Add WANT_NOTEMPLATES and WANTE_NOEXAMPLES build options (cbradney) - closed.
+
 Scribus - 1.4.1 (2012.04.30)
 - 0009984: [User Interface] rename "insert frame" to "insert frames" (cbradney) - closed.
 - 0010504: [Import / Export] Incorrect import of SVG file (jghali) - closed.
