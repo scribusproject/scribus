@@ -58,9 +58,18 @@ const QString HunspellPlugin::fullTrName() const
 
 const ScActionPlugin::AboutData* HunspellPlugin::getAboutData() const
 {
-	AboutData* about = new AboutData;
-	Q_CHECK_PTR(about);
-	return about;
+        AboutData* about = new AboutData;
+        Q_CHECK_PTR(about);
+        about->authors = QString::fromUtf8("Craig Bradney <cbradney@scribus.info>, The Scribus Team");
+        about->shortDescription = tr("Hunspell-based spell checker");
+        about->description = tr("Spell Checker based on the Hunspell libraries");
+        // about->version
+        // about->releaseDate
+        about->copyright = "The Scribus Team";
+        about->license = "GPL";
+        return about;
+
+
 }
 
 void HunspellPlugin::deleteAboutData(const AboutData* about) const
