@@ -148,6 +148,8 @@ private:
 	QString edgeColor;
 	QString fillColor;
 	int fillType;
+	QString backgroundColor;
+	bool backgroundSet;
 	QMap<uint, QString> ColorTableMap;
 	QRectF clipRect;
 	bool useClipRect;
@@ -180,6 +182,18 @@ private:
 	bool firstPage;
 	bool vcdSet;
 	bool wasEndPic;
+	bool recordFigure;
+	QPainterPath figurePath;
+	int figDocIndex;
+	int figElemIndex;
+	int figGstIndex;
+	QString figFillColor;
+	QMap<int, QString> fontID_Map;
+	int m_fontIndex;
+	QString textColor;
+	int textSize;
+	int textAlignH;
+	int textScaleMode;
 
 public slots:
 	void cancelRequested() { cancel = true; }
