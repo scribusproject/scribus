@@ -125,17 +125,17 @@ void PageItem_LatexFrame::DrawObj_Item(ScPainter *p, QRectF e)
 		//Draw indicator that latex is running
 		p->setBrush(Qt::white);
 		p->setPen(Qt::green, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
-		p->drawLine(FPoint(0, 0), FPoint(Width, Height));
-		p->drawText(QRectF(0.0, 0.0, Width, Height), tr("Rendering..."));
+		p->drawLine(FPoint(0, 0), FPoint(m_width, m_height));
+		p->drawText(QRectF(0.0, 0.0, m_width, m_height), tr("Rendering..."));
 	}
 	else if (err)
 	{
 		//Draw error indicator
 		p->setBrush(Qt::white);
 		p->setPen(Qt::blue, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
-		p->drawLine(FPoint(0, 0), FPoint(Width, Height));
-		p->drawLine(FPoint(0, Height), FPoint(Width, 0));
-		p->drawText(QRectF(0.0, 0.0, Width, Height), tr("Render Error"));
+		p->drawLine(FPoint(0, 0), FPoint(m_width, m_height));
+		p->drawLine(FPoint(0, m_height), FPoint(m_width, 0));
+		p->drawText(QRectF(0.0, 0.0, m_width, m_height), tr("Render Error"));
 	}
 	else
 	{
@@ -283,8 +283,8 @@ void PageItem_LatexFrame::runApplication()
 	latex->setWorkingDirectory(QDir::tempPath());
 
 	double lDpi = realDpi()/72.0;
-	full_command.replace("$scribus_height_px$", QString::number(qRound(Height*lDpi)));
-	full_command.replace("$scribus_width_px$",  QString::number(qRound(Width*lDpi)));
+	full_command.replace("$scribus_height_px$", QString::number(qRound(m_height*lDpi)));
+	full_command.replace("$scribus_width_px$",  QString::number(qRound(m_width*lDpi)));
 	QMapIterator<QString, QString> i(editorProperties);
 	while (i.hasNext())
 	{
@@ -340,17 +340,17 @@ void PageItem_LatexFrame::writeFileContents(QFile *tempfile)
 	scaleY = m_imageYScale*lDpi;
 	offsetX = m_imageXOffset*m_imageXScale;
 	offsetY = m_imageYOffset*m_imageYScale;
-	realW = Width/scaleX - m_imageXOffset/lDpi;
-	realH = Height/scaleY - m_imageYOffset/lDpi;
+	realW = m_width/scaleX - m_imageXOffset/lDpi;
+	realH = m_height/scaleY - m_imageYOffset/lDpi;
 	if (!tmp.contains("$scribus_noprepost$") && m_usePreamble) {
 		tmp = config->preamble() + tmp + config->postamble();
 	}
-	tmp.replace(QString("$scribus_width$"), QString::number(Width));
-	tmp.replace(QString("$scribus_width_px$"), QString::number(qRound(Width*lDpi)));
-	tmp.replace(QString("$scribus_width_inch$"), QString::number(Width/72.0));
-	tmp.replace(QString("$scribus_height$"), QString::number(Height));
-	tmp.replace(QString("$scribus_height_px$"), QString::number(qRound(Height*lDpi)));
-	tmp.replace(QString("$scribus_height_inch$"), QString::number(Height/72.0));
+	tmp.replace(QString("$scribus_width$"), QString::number(m_width));
+	tmp.replace(QString("$scribus_width_px$"), QString::number(qRound(m_width*lDpi)));
+	tmp.replace(QString("$scribus_width_inch$"), QString::number(m_width/72.0));
+	tmp.replace(QString("$scribus_height$"), QString::number(m_height));
+	tmp.replace(QString("$scribus_height_px$"), QString::number(qRound(m_height*lDpi)));
+	tmp.replace(QString("$scribus_height_inch$"), QString::number(m_height/72.0));
 	tmp.replace(QString("$scribus_realwidth$"), QString::number(realW));
 	tmp.replace(QString("$scribus_realwidth_px$"), QString::number(qRound(realW*lDpi)));
 	tmp.replace(QString("$scribus_realheight$"), QString::number(realH));
@@ -535,9 +535,9 @@ void PageItem_LatexFrame::layout()
 	if (!invalid) return;
 	invalid = false;
 	
-	if (Width == lastWidth && Height == lastHeight) return;
-	lastWidth = Width;
-	lastHeight = Height;
+	if (m_width == lastWidth && m_height == lastHeight) return;
+	lastWidth = m_width;
+	lastHeight = m_height;
 	
 	rerunApplication(false);
 }

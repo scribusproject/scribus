@@ -121,16 +121,16 @@ void PageItem_Group::DrawObj_Item(ScPainter *p, QRectF /*e*/)
 		{
 			p->save();
 			p->setPen(Qt::black, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
-			p->drawLine(FPoint(0, 0), FPoint(Width, Height));
-			p->drawLine(FPoint(0, Height), FPoint(Width, 0));
+			p->drawLine(FPoint(0, 0), FPoint(m_width, m_height));
+			p->drawLine(FPoint(0, m_height), FPoint(m_width, 0));
 			p->setFont(QApplication::font());
-			p->drawLine(FPoint(0, 0), FPoint(Width, 0));
-			p->drawLine(FPoint(Width, 0), FPoint(Width, Height));
-			p->drawLine(FPoint(Width, Height), FPoint(0, Height));
-			p->drawLine(FPoint(0, Height), FPoint(0, 0));
+			p->drawLine(FPoint(0, 0), FPoint(m_width, 0));
+			p->drawLine(FPoint(m_width, 0), FPoint(m_width, m_height));
+			p->drawLine(FPoint(m_width, m_height), FPoint(0, m_height));
+			p->drawLine(FPoint(0, m_height), FPoint(0, 0));
 			p->setBrush(QColor(255, 255, 255));
 			p->setBrushOpacity(0.0);
-			p->drawText(QRectF(0.0, 0.0, Width, Height), "Empty Group");
+			p->drawText(QRectF(0.0, 0.0, m_width, m_height), "Empty Group");
 			p->restore();
 		}
 		return;
@@ -139,12 +139,12 @@ void PageItem_Group::DrawObj_Item(ScPainter *p, QRectF /*e*/)
 	p->save();
 	if (imageFlippedH())
 	{
-		p->translate(Width, 0);
+		p->translate(m_width, 0);
 		p->scale(-1, 1);
 	}
 	if (imageFlippedV())
 	{
-		p->translate(0, Height);
+		p->translate(0, m_height);
 		p->scale(1, -1);
 	}
 	if ((maskType() == 1) || (maskType() == 2) || (maskType() == 4) || (maskType() == 5))
@@ -169,8 +169,8 @@ void PageItem_Group::DrawObj_Item(ScPainter *p, QRectF /*e*/)
 			p->setMaskMode(0);
 		else
 		{
-			double scw = Width / groupWidth;
-			double sch = Height / groupHeight;
+			double scw = m_width / groupWidth;
+			double sch = m_height / groupHeight;
 			p->setPatternMask(&m_Doc->docPatterns[patternMask()], patternMaskScaleX * scw, patternMaskScaleY * sch, patternMaskOffsetX, patternMaskOffsetY, patternMaskRotation, patternMaskSkewX, patternMaskSkewY, patternMaskMirrorX, patternMaskMirrorY);
 			if (maskType() == 3)
 				p->setMaskMode(2);
@@ -187,7 +187,7 @@ void PageItem_Group::DrawObj_Item(ScPainter *p, QRectF /*e*/)
 	p->setFillRule(fillRule);
 	p->beginLayer(1.0 - fillTransparency(), fillBlendmode(), &PoLine);
 	p->setMaskMode(0);
-	p->scale(Width / groupWidth, Height / groupHeight);
+	p->scale(m_width / groupWidth, m_height / groupHeight);
 	for (int em = 0; em < groupItemList.count(); ++em)
 	{
 		PageItem* embedded = groupItemList.at(em);

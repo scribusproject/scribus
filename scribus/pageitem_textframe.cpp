@@ -1375,7 +1375,7 @@ void PageItem_TextFrame::layout()
 	MarginStruct savedTextDistanceMargins(m_textDistanceMargins);
 
 	LineControl current;
-	current.init(Width, Height, m_textDistanceMargins, lineCorr);
+	current.init(m_width, m_height, m_textDistanceMargins, lineCorr);
 	current.initColumns(columnWidth(), ColGap);
 	current.hyphenCount = 0;
 
@@ -1438,12 +1438,12 @@ void PageItem_TextFrame::layout()
 			QTransform matrix;
 			if (imageFlippedH())
 			{
-				matrix.translate(Width, 0);
+				matrix.translate(m_width, 0);
 				matrix.scale(-1, 1);
 			}
 			if (imageFlippedV())
 			{
-				matrix.translate(0, Height);
+				matrix.translate(0, m_height);
 				matrix.scale(1, -1);
 			}
 			m_availableRegion = matrix.map(m_availableRegion);
@@ -3222,7 +3222,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRectF cullingArea)
 				if ((BStyle == 0) || (BStyle == 1))
 				{
 					QPainterPath clp;
-					clp.addEllipse(QRectF(bwh, bwh, Width - annotation().Bwid(), Height - annotation().Bwid()));
+					clp.addEllipse(QRectF(bwh, bwh, m_width - annotation().Bwid(), m_height - annotation().Bwid()));
 					FPointArray clpArr;
 					clpArr.fromQPainterPath(clp);
 					p->setupPolygon(&clpArr);
@@ -3232,9 +3232,9 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRectF cullingArea)
 					p->strokePath();
 				}
 				else if (BStyle == 3)
-					p->drawShadeCircle(QRectF(0, 0, Width, Height), tmp, false, annotation().Bwid());
+					p->drawShadeCircle(QRectF(0, 0, m_width, m_height), tmp, false, annotation().Bwid());
 				else if (BStyle == 4)
-					p->drawShadeCircle(QRectF(0, 0, Width, Height), tmp, true, annotation().Bwid());
+					p->drawShadeCircle(QRectF(0, 0, m_width, m_height), tmp, true, annotation().Bwid());
 			}
 			else
 			{
@@ -3246,14 +3246,14 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRectF cullingArea)
 						BStyle = 4;
 				}
 				if (BStyle == 3)
-					p->drawShadePanel(QRectF(0, 0, Width, Height), tmp, false, annotation().Bwid());
+					p->drawShadePanel(QRectF(0, 0, m_width, m_height), tmp, false, annotation().Bwid());
 				else if (BStyle == 4)
-					p->drawShadePanel(QRectF(0, 0, Width, Height), tmp, true, annotation().Bwid());
+					p->drawShadePanel(QRectF(0, 0, m_width, m_height), tmp, true, annotation().Bwid());
 				else
 				{
 					p->setPen(tmp, annotation().Bwid(), BStyle == 0 ? Qt::SolidLine : Qt::DashLine, Qt::FlatCap, Qt::MiterJoin);
 					p->setStrokeMode(ScPainter::Solid);
-					p->drawRect(0, 0, Width, Height);
+					p->drawRect(0, 0, m_width, m_height);
 				}
 			}
 		}
@@ -3261,7 +3261,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRectF cullingArea)
 		{
 			int wdt = annotation().Bwid();
 			QPainterPath clp;
-			clp.addRect(QRectF(wdt, wdt, Width - (2 * wdt), Height - (2 * wdt)));
+			clp.addRect(QRectF(wdt, wdt, m_width - (2 * wdt), m_height - (2 * wdt)));
 			FPointArray clpArr;
 			clpArr.fromQPainterPath(clp);
 			p->setupPolygon(&clpArr);
@@ -3273,7 +3273,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRectF cullingArea)
 				else
 					p->setPen(fontColor);
 				p->setFont(QFont(fontName, fontSize));
-				p->drawText(QRectF(wdt, wdt, Width - (2 * wdt), Height - (2 * wdt)), bmUtf16, false);
+				p->drawText(QRectF(wdt, wdt, m_width - (2 * wdt), m_height - (2 * wdt)), bmUtf16, false);
 			}
 			if ((!Pfile.isEmpty()) && (PictureIsAvailable) && (PicArt) && (annotation().UseIcons()))
 			{
@@ -3422,7 +3422,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRectF cullingArea)
 					mm.scale(fontSize / 10.0, fontSize / 10.0);
 					chkPath = mm.map(chkPath);
 					QRectF bb = chkPath.boundingRect();
-					QRectF bi = QRectF(0.0, 0.0, Width, Height);
+					QRectF bi = QRectF(0.0, 0.0, m_width, m_height);
 					double dx = bi.center().x() - (bb.width() / 2.0);
 					double dy = bi.center().y() - (bb.height() / 2.0);
 					p->translate(dx, dy);
@@ -3439,13 +3439,13 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRectF cullingArea)
 		else if (annotation().Type() == Annotation::Combobox)
 		{
 			int wdt = annotation().Bwid();
-			if (Width > 2 * wdt + 15)
+			if (m_width > 2 * wdt + 15)
 			{
 				if (!bmUtf16.isEmpty())
 				{
 					p->save();
 					QPainterPath clp;
-					clp.addRect(QRectF(wdt + 1, wdt + 1, Width - (2 * wdt) - 17, Height - (2 * wdt) - 2));
+					clp.addRect(QRectF(wdt + 1, wdt + 1, m_width - (2 * wdt) - 17, m_height - (2 * wdt) - 2));
 					FPointArray clpArr;
 					clpArr.fromQPainterPath(clp);
 					p->setupPolygon(&clpArr);
@@ -3453,7 +3453,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRectF cullingArea)
 					p->setPen(fontColor);
 					p->setFont(QFont(fontName, fontSize));
 					QStringList textList = bmUtf16.split("\n");
-					p->drawText(QRectF(wdt + 1, wdt + 1, Width - (2 * wdt) - 17, Height - (2 * wdt) - 2), textList[0], false, 1);
+					p->drawText(QRectF(wdt + 1, wdt + 1, m_width - (2 * wdt) - 17, m_height - (2 * wdt) - 2), textList[0], false, 1);
 					p->restore();
 				}
 				p->setFillMode(ScPainter::Solid);
@@ -3461,9 +3461,9 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRectF cullingArea)
 				p->setBrush(QColor(200, 200, 200));
 				QRectF bi;
 				if ((annotation().Bsty() == 3) || (annotation().Bsty() == 4))
-					bi = QRectF(Width - wdt - 15, wdt, 15, Height - (2 * wdt));
+					bi = QRectF(m_width - wdt - 15, wdt, 15, m_height - (2 * wdt));
 				else
-					bi = QRectF(Width - (wdt / 2.0) - 15, wdt / 2.0, 15, Height - wdt);
+					bi = QRectF(m_width - (wdt / 2.0) - 15, wdt / 2.0, 15, m_height - wdt);
 				p->drawRect(bi.x(), bi.y(), bi.width(), bi.height());
 				QPainterPath chkPath;
 				chkPath.moveTo(bi.center().x() - 3, bi.center().y());
@@ -3483,20 +3483,20 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRectF cullingArea)
 		else if (annotation().Type() == Annotation::Listbox)
 		{
 			int wdt = annotation().Bwid();
-			if (Width > 2 * wdt + 15)
+			if (m_width > 2 * wdt + 15)
 			{
 				if (!bmUtf16.isEmpty())
 				{
 					p->save();
 					QPainterPath clp;
-					clp.addRect(QRectF(wdt + 1, wdt + 1, Width - (2 * wdt) - 17, Height - (2 * wdt) - 2));
+					clp.addRect(QRectF(wdt + 1, wdt + 1, m_width - (2 * wdt) - 17, m_height - (2 * wdt) - 2));
 					FPointArray clpArr;
 					clpArr.fromQPainterPath(clp);
 					p->setupPolygon(&clpArr);
 					p->setClipPath();
 					p->setPen(fontColor);
 					p->setFont(QFont(fontName, fontSize));
-					p->drawText(QRectF(wdt + 1, wdt + 1, Width - (2 * wdt) - 17, Height - (2 * wdt) - 2), bmUtf16, false, 2);
+					p->drawText(QRectF(wdt + 1, wdt + 1, m_width - (2 * wdt) - 17, m_height - (2 * wdt) - 2), bmUtf16, false, 2);
 					p->restore();
 				}
 				p->restore();
@@ -3594,16 +3594,16 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRectF cullingArea)
 		//		qDebug("drawing textframe: len=%d", itemText.length());
 		if (imageFlippedH())
 		{
-			p->translate(Width, 0);
+			p->translate(m_width, 0);
 			p->scale(-1, 1);
-			pf2.translate(Width, 0);
+			pf2.translate(m_width, 0);
 			pf2.scale(-1, 1);
 		}
 		if (imageFlippedV())
 		{
-			p->translate(0, Height);
+			p->translate(0, m_height);
 			p->scale(1, -1);
-			pf2.translate(0, Height);
+			pf2.translate(0, m_height);
 			pf2.scale(1, -1);
 		}
 		assert( firstInFrame() >= 0 );
@@ -3971,8 +3971,8 @@ void PageItem_TextFrame::DrawObj_Decoration(ScPainter *p)
 			p->setBrushOpacity(1.0);
 			p->setFillMode(ScPainter::Solid);
 			double ofwh = 10;
-			double ofx = Width - ofwh/2;
-			double ofy = Height - ofwh*3;
+			double ofx = m_width - ofwh/2;
+			double ofy = m_height - ofwh*3;
 			p->drawSharpRect(ofx, ofy, ofwh, ofwh);
 		}
 		if (no_fill && no_stroke && m_Doc->guidesPrefs().framesShown)
@@ -3981,7 +3981,7 @@ void PageItem_TextFrame::DrawObj_Decoration(ScPainter *p)
 			if (m_Locked)
 				p->setPen(PrefsManager::instance()->appPrefs.displayPrefs.frameLockColor, scpInv, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 			p->setFillMode(ScPainter::None);
-			p->drawSharpRect(0, 0, Width, Height);
+			p->drawSharpRect(0, 0, m_width, m_height);
 			no_fill = false;
 			no_stroke = false;
 		}
@@ -5052,7 +5052,7 @@ double PageItem_TextFrame::columnWidth()
 		lineCorr = m_lineWidth / 2.0;
 	else
 		lineCorr = 0;
-	return (Width - (ColGap * (Cols - 1)) - m_textDistanceMargins.Left - m_textDistanceMargins.Right - 2 * lineCorr) / Cols;
+	return (m_width - (ColGap * (Cols - 1)) - m_textDistanceMargins.Left - m_textDistanceMargins.Right - 2 * lineCorr) / Cols;
 //	return (Width - (ColGap * (Cols - 1)) - m_textDistanceMargins.Left - m_textDistanceMargins.Right - lineCorr) / Cols;
 }
 
@@ -5102,16 +5102,16 @@ void PageItem_TextFrame::drawColumnBorders(ScPainter *p)
 	if (lineColor() != CommonStrings::None)
 		lineCorr = m_lineWidth / 2.0;
 	if (m_textDistanceMargins.Top + lineCorr!=0.0)
-		p->drawSharpLine(FPoint(0, m_textDistanceMargins.Top + lineCorr), FPoint(Width, m_textDistanceMargins.Top + lineCorr));
+		p->drawSharpLine(FPoint(0, m_textDistanceMargins.Top + lineCorr), FPoint(m_width, m_textDistanceMargins.Top + lineCorr));
 	if (m_textDistanceMargins.Bottom + lineCorr!=0.0)
-		p->drawSharpLine(FPoint(0, Height - m_textDistanceMargins.Bottom - lineCorr), FPoint(Width, Height - m_textDistanceMargins.Bottom - lineCorr));
+		p->drawSharpLine(FPoint(0, m_height - m_textDistanceMargins.Bottom - lineCorr), FPoint(m_width, m_height - m_textDistanceMargins.Bottom - lineCorr));
 	while(curCol < Cols)
 	{
 		colLeft=(colWidth + ColGap) * curCol + m_textDistanceMargins.Left + lineCorr;
 		if (colLeft != 0.0)
-			p->drawSharpLine(FPoint(colLeft, 0), FPoint(colLeft, 0+Height));
-		if (colLeft + colWidth != Width)
-			p->drawSharpLine(FPoint(colLeft+colWidth, 0), FPoint(colLeft+colWidth, 0+Height));
+			p->drawSharpLine(FPoint(colLeft, 0), FPoint(colLeft, 0 + m_height));
+		if (colLeft + colWidth != m_width)
+			p->drawSharpLine(FPoint(colLeft + colWidth, 0), FPoint(colLeft + colWidth, 0 + m_height));
 		++curCol;
 	}
 	

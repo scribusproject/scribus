@@ -54,30 +54,32 @@ for which a new license (GPL+exception) is in place.
 #include "scconfig.h"
 #endif
 
+class QFrame;
+class QGridLayout;
+class ResourceCollection;
 class ScPainter;
 class ScribusDoc;
 class SimpleState;
 class UndoManager;
 class UndoState;
-class ResourceCollection;
-class QFrame;
-class QGridLayout;
+
 
 class PageItem_Arc;
 class PageItem_Group;
 class PageItem_ImageFrame;
-class PageItem_Line;
-class PageItem_OSGFrame;
-class PageItem_Polygon;
-class PageItem_PolyLine;
-class PageItem_RegularPolygon;
-class PageItem_Table;
-class PageItem_TextFrame;
-class PageItem_NoteFrame;
-class PageItem_PathText;
 class PageItem_LatexFrame;
+class PageItem_Line;
+class PageItem_NoteFrame;
+class PageItem_OSGFrame;
+class PageItem_PathText;
+class PageItem_PolyLine;
+class PageItem_Polygon;
+class PageItem_RegularPolygon;
 class PageItem_Spiral;
 class PageItem_Symbol;
+class PageItem_Table;
+class PageItem_TextFrame;
+
 /**
   *@author Franz Schmid
   */
@@ -185,11 +187,11 @@ public:	// Start enumerator definitions
 	 * Describe if and how text flow around object
 	 */
 	enum TextFlowMode {
-		TextFlowDisabled = 0,
-		TextFlowUsesFrameShape  = 1,
-		TextFlowUsesBoundingBox = 2,
-		TextFlowUsesContourLine = 3,
-		TextFlowUsesImageClipping = 4
+		TextFlowDisabled			= 0,
+		TextFlowUsesFrameShape		= 1,
+		TextFlowUsesBoundingBox		= 2,
+		TextFlowUsesContourLine		= 3,
+		TextFlowUsesImageClipping	= 4
 	};
 
 	/** @brief Frame Type
@@ -209,83 +211,48 @@ public: // Start public functions
 	~PageItem();
 
 	/* these do essentially the same as a dynamic cast but might be more readable */
-	virtual PageItem_ImageFrame * asImageFrame() { return NULL; }
-	virtual PageItem_Line * asLine() { return NULL; }
-	virtual PageItem_PathText * asPathText() { return NULL; }
-	virtual PageItem_Polygon * asPolygon() { return NULL; }
-	virtual PageItem_PolyLine * asPolyLine() { return NULL; }
-	virtual PageItem_TextFrame * asTextFrame() { return NULL; }
-	virtual PageItem_NoteFrame * asNoteFrame() { return NULL; }
-	virtual PageItem_LatexFrame * asLatexFrame() { return NULL; }
+	virtual PageItem_Arc * asArc()					{ return NULL; } ///< Return self if Arc item, otherwise null
+	virtual PageItem_Group * asGroupFrame()			{ return NULL; } ///< Return self if Group item, otherwise null
+	virtual PageItem_ImageFrame * asImageFrame()	{ return NULL; } ///< Return self if Image item, otherwise null
+	virtual PageItem_LatexFrame * asLatexFrame()	{ return NULL; } ///< Return self if Render frame item, otherwise null
+	virtual PageItem_Line * asLine()				{ return NULL; } ///< Return self if Line item, otherwise null
+	virtual PageItem_NoteFrame * asNoteFrame()		{ return NULL; } ///< Return self if Note item, otherwise null
+	virtual PageItem_OSGFrame * asOSGFrame()		{ return NULL; } ///< Return self if OSG item, otherwise null
+	virtual PageItem_PathText * asPathText()		{ return NULL; } ///< Return self if Path Text item, otherwise null
+	virtual PageItem_PolyLine * asPolyLine()		{ return NULL; } ///< Return self if Poly Line item, otherwise null
+	virtual PageItem_Polygon * asPolygon()			{ return NULL; } ///< Return self if Polygon item, otherwise null
+	virtual PageItem_RegularPolygon * asRegularPolygon() { return NULL; } ///< Return self if Regular Polygon item, otherwise null
+	virtual PageItem_Spiral * asSpiral()			{ return NULL; } ///< Return self if Spiral item, otherwise null
+	virtual PageItem_Symbol * asSymbolFrame()		{ return NULL; } ///< Return self if Symbol item, otherwise null
+	virtual PageItem_Table * asTable()				{ return NULL; } ///< Return self if Table item, otherwise null
+	virtual PageItem_TextFrame * asTextFrame()		{ return NULL; } ///< Return self if Text item, otherwise null
 
-	virtual PageItem_OSGFrame * asOSGFrame() { return NULL; }
-	virtual PageItem_Symbol * asSymbolFrame() { return NULL; }
-	virtual PageItem_Group * asGroupFrame() { return NULL; }
-	virtual PageItem_RegularPolygon * asRegularPolygon() { return NULL; }
-	virtual PageItem_Arc * asArc() { return NULL; }
-	virtual PageItem_Spiral * asSpiral() { return NULL; }
-	virtual PageItem_Table * asTable() { return NULL; }
-
-	virtual bool isImageFrame()		const { return false; }
-	virtual bool isLine()			const { return false; }
-	virtual bool isPathText()		const { return false; }
-	virtual bool isPolygon()		const { return false; }
-	virtual bool isPolyLine()		const { return false; }
-	virtual bool isTextFrame()		const { return false; }
-	virtual bool isLatexFrame()		const { return false; }
-	virtual bool isOSGFrame()		const { return false; }
-	virtual bool isSymbol()			const { return false; }
-	virtual bool isGroup()			const { return false; }
-	virtual bool isRegularPolygon()	const { return false; }
-	virtual bool isArc()			const { return false; }
-	virtual bool isSpiral()			const { return false; }
-	virtual bool isTable()			const { return false; }
-	virtual bool isNoteFrame()		const { return false; }
-	virtual bool isAutoNoteFrame()	const { return false; }
+	virtual bool isArc()			const { return false; } ///< Return true if Arc item, otherwise false
+	virtual bool isAutoNoteFrame()	const { return false; } ///< Return true if Auto Note item, otherwise false
+	virtual bool isGroup()			const { return false; } ///< Return true if Group item, otherwise false
+	virtual bool isImageFrame()		const { return false; } ///< Return true if Image item, otherwise false
+	virtual bool isLatexFrame()		const { return false; } ///< Return true if Render frame item, otherwise false
+	virtual bool isLine()			const { return false; } ///< Return true if Line item, otherwise false
+	virtual bool isNoteFrame()		const { return false; } ///< Return true if Note item, otherwise false
+	virtual bool isOSGFrame()		const { return false; } ///< Return true if OSG item, otherwise false
+	virtual bool isPathText()		const { return false; } ///< Return true if Text Path Text, otherwise false
+	virtual bool isPolyLine()		const { return false; } ///< Return true if Poly Line item, otherwise false
+	virtual bool isPolygon()		const { return false; } ///< Return true if Polygon item, otherwise false
+	virtual bool isRegularPolygon()	const { return false; } ///< Return true if Regular Polygon item, otherwise false
+	virtual bool isSpiral()			const { return false; } ///< Return true if Spiral item, otherwise false
+	virtual bool isSymbol()			const { return false; } ///< Return true if Symbol item, otherwise false
+	virtual bool isTable()			const { return false; } ///< Return true if Table item, otherwise false
+	virtual bool isTextFrame()		const { return false; } ///< Return true if Text item, otherwise false
 
 
-	int level(); ///< Get item level relative to its parent doc or group
-	void saxx(SaxHandler& handler, const Xml_string& elemtag) const {}
-	void saxx(SaxHandler& handler) const {}
-	/**
-	 * @brief Clear the contents of a frame.
-	 * WARNING: Currently *they* do not check if the user wants this.
-	 * The view does when these are called.
-	 */
-	virtual void clearContents() {}
-
-	/**
-	 * @brief Adjust the picture scale, moved from the view, no view code here
-	 * FIXME: Move to PageItem_TextFrame
-	 */
-	void AdjustPictScale();
-
-	/**
-	 * @brief Set or get the redraw bounding box of the item, moved from the View
-	 */
-	QRect getRedrawBounding(const double);
-	void setRedrawBounding();
-
-	void updateGradientVectors(); //!< Update the gradient vectors, moved from the View
-	/**
-	 * @brief Move the image within the frame
-	 * Old ScribusView::MoveItemI
-	 * @todo Move to PageItem_ImageFrame
-	 */
-	void moveImageInFrame(double newX, double newY);
-	ObjAttrVector* getObjectAttributes();
-	/*!
-	 * brief Returns a list of attributes with specified name
-	 */
-	QList<ObjectAttribute> getObjectAttributes(QString attributeName) const;
-	/*!
-	 * brief Returns a complete ObjectAttribute struct if 1 is found, or ObjectAttribute.name will be QString::null if 0 or >1 are found
-	 */
-	ObjectAttribute getObjectAttribute(QString) const;
-	void setObjectAttributes(ObjAttrVector*);
-
+	virtual void applicableActions(QStringList& actionList) = 0;
+	virtual QString infoDescription();
 	virtual bool createInfoGroup(QFrame *, QGridLayout *) {return false;}
-	/** Zeichnet das Item */
+
+
+
+	//<< ********* Functions related to drawing the item *********
+
 	void DrawObj(ScPainter *p, QRectF e);
 	void DrawObj_Pre(ScPainter *p);
 	virtual void DrawObj_Post(ScPainter *p);
@@ -293,15 +260,13 @@ public: // Start public functions
 	virtual void DrawObj_Item(ScPainter *p, QRectF e) = 0;
 	QImage DrawObj_toImage(double maxSize);
 	QImage DrawObj_toImage(QList<PageItem*> &emG, double scaling);
-
-	virtual void applicableActions(QStringList& actionList) = 0;
-	virtual QString infoDescription();
 	void DrawObj_Embedded(ScPainter *p, QRectF e, const CharStyle& style, PageItem* cembedded);
 	void DrawStrokePattern(ScPainter *p, QPainterPath &path);
-	void SetFrameShape(int count, double *vals);
-	void SetRectFrame();
-	void SetOvalFrame();
-	void SetFrameRound();
+	/**
+	 * @brief Set or get the redraw bounding box of the item, moved from the View
+	 */
+	QRect getRedrawBounding(const double);
+	void setRedrawBounding();
 	void setPolyClip(int up, int down = 0);
 	void updatePolyClip();
 	//added switch for not updating welded items - used by notes frames with automatic size adjusted
@@ -312,10 +277,25 @@ public: // Start public functions
 	QRectF getBoundingRect() const;
 	QRectF getCurrentBoundingRect(double moreSpace = 0.0) const;
 	QRectF getVisualBoundingRect() const;
-	QTransform getGroupTransform() const;
-	void getTransform(QTransform& mat) const;
-	QTransform getTransform() const;
-	QTransform getCombinedTransform() const;
+
+
+	//>> ********* Functions related to drawing the item *********
+
+
+
+	//<< ********* Functions to work on the contents of the items *********
+
+	/**
+	 * @brief Clear the contents of a frame.
+	 * WARNING: Currently *they* do not check if the user wants this.
+	 * The view does when these are called.
+	 */
+	virtual void clearContents() {}
+
+	//>> ********* Functions to work on the contents of the items *********
+
+	//<< ********* Functions for user interaction with the item **********
+
 	/**
 	   * @brief Check if a QPoint is within the items boundaries
 	   * No coordinates transformation is performed
@@ -335,6 +315,52 @@ public: // Start public functions
 	bool mouseWithinItem(const int x, const int y, double scale) const;
 
 	virtual void handleModeEditKey(QKeyEvent *k, bool &keyRepeat);
+
+	//>> ********* Functions for user interaction with the item **********
+
+
+	int level(); ///< Get item level relative to its parent doc or group
+	void saxx(SaxHandler& handler, const Xml_string& elemtag) const {}
+	void saxx(SaxHandler& handler) const {}
+
+
+	/**
+	 * @brief Adjust the picture scale, moved from the view, no view code here
+	 * FIXME: Move to PageItem_TextFrame
+	 */
+	void AdjustPictScale();
+
+
+
+	void updateGradientVectors(); //!< Update the gradient vectors, moved from the View
+	/**
+	 * @brief Move the image within the frame
+	 * Old ScribusView::MoveItemI
+	 * @todo Move to PageItem_ImageFrame
+	 */
+	void moveImageInFrame(double newX, double newY);
+	ObjAttrVector* getObjectAttributes();
+	/*!
+	 * brief Returns a list of attributes with specified name
+	 */
+	QList<ObjectAttribute> getObjectAttributes(QString attributeName) const;
+	/*!
+	 * brief Returns a complete ObjectAttribute struct if 1 is found, or ObjectAttribute.name will be QString::null if 0 or >1 are found
+	 */
+	ObjectAttribute getObjectAttribute(QString) const;
+	void setObjectAttributes(ObjAttrVector*);
+
+
+
+	void SetFrameShape(int count, double *vals);
+	void SetRectFrame();
+	void SetOvalFrame();
+	void SetFrameRound();
+	QTransform getGroupTransform() const;
+	void getTransform(QTransform& mat) const;
+	QTransform getTransform() const;
+	QTransform getCombinedTransform() const;
+
 
 	/// invalidates current layout information
 	virtual void invalidateLayout() { invalid = true; }
@@ -421,6 +447,8 @@ public: // Start public functions
 	double dashOffset() const { return DashOffset; }
 	void setDashOffset(double val) { DashOffset = val; }
 	virtual QList<PageItem*> getItemList();
+
+	//<< ********* Attributes of the item *********
 	//Position
 	double xPos() const { return m_xPos; }
 	double yPos() const { return m_yPos; }
@@ -432,8 +460,8 @@ public: // Start public functions
 	void setXYPos(const double, const double, bool drawingOnly=false);
 	void moveBy(const double, const double, bool drawingOnly=false);
 	//Size
-	double width() const { return Width; }
-	double height() const { return Height; }
+	double width() const { return m_width; }
+	double height() const { return m_height; }
 	double visualWidth() const;
 	double visualHeight() const;
 	double visualLineWidth();
@@ -566,6 +594,11 @@ public: // Start public functions
 	void setGradientColor3(QColor val);
 	QColor gradientColor4() const { return GrColorP4QColor; }
 	void setGradientColor4(QColor val);
+
+	//>> ********* Attributes of the item *********
+
+
+
 	bool getSnapToPatchGrid() const { return snapToPatchGrid; }
 	void setSnapToPatchGrid(bool val);
 	void setMaskGradient(VGradient grad);
@@ -1108,11 +1141,8 @@ public: // Start public functions
 	void moveWelded(double DX, double DY, int weld);
 	void moveWelded(double DX, double DY, PageItem* except = NULL);
 	void rotateWelded(double dR, double oldRot);
-	//added for autowelding feature of notes frames
-	//setting welding point with given pItem to given coords
-	void setWeldPoint(double DX, double DY, PageItem *pItem);
-	//used by notes frames to get content of notes from itemText
-	QString getItemTextSaxed(int selStart, int selLength);
+	void setWeldPoint(double DX, double DY, PageItem *pItem); 	///< added for autowelding feature of notes frames, setting welding point with given pItem to given coords
+	QString getItemTextSaxed(int selStart, int selLength); ///< used by notes frames to get content of notes from itemText
 
 		// End public functions
 
@@ -1123,7 +1153,7 @@ public:	// Start public variables
 	double gYpos;
 	double gWidth;
 	double gHeight;
-	int GrType;			///< used values 6 = linear, 7 = radial, 8 = pattern, 9 = 4 color gradient, 10 = diamond, 11 = mesh gradient
+	int GrType; ///< used values 6 = linear, 7 = radial, 8 = pattern, 9 = 4 color gradient, 10 = diamond, 11 = mesh gradient
 	double GrStartX;
 	double GrStartY;
 	double GrEndX;
@@ -1218,7 +1248,6 @@ public:	// Start public variables
 	double OldB2;
 	double OldH2;
 	bool Sizing;
-//	bool toPixmap;
 	int  LayerID;
 	bool ScaleType;
 	bool AspectRatio;
@@ -1260,37 +1289,25 @@ public:	// Start public variables
 		double m_roundedCorderRadius;
 
 		//Undo Data
-		/** @brief Stores the old X-position for undo action. Is used to detect move actions.*/
-		double oldXpos;
-		/** @brief Stores the old Y-position for undo action. Is used to detect move actions. */
-		double oldYpos;
-		/** @brief Stores the old width for undo action. Is used to detect resize actions. */
-		double oldWidth;
-		/** @brief Stores the old height for undo action. Is used to detect resize actions. */
-		double oldHeight;
-		/** @brief Stores the old rotation value for undo action. Is used to detect rotation actions. */
-		double oldRot;
-		/** @brief Stores the old LocalScX value for undo action. Is used to detect image scale actions. */
-		double oldLocalScX;
-		/** @brief Stores the old LocalScY value for undo action. Is used to detect image scale actions. */
-		double oldLocalScY;
-		/** @brief Stores the old LocalX value for undo action. Is used to detect image offset actions. */
-		double oldLocalX;
-		/** @brief Stores the old LocalY value for undo action. Is used to detect image offset actions. */
-		double oldLocalY;
+		double oldXpos; ///< Stores the old X-position for undo action. Is used to detect move actions.
+		double oldYpos; ///< Stores the old Y-position for undo action. Is used to detect move actions.
+		double oldWidth; ///< Stores the old width for undo action. Is used to detect resize actions.
+		double oldHeight; ///< Stores the old height for undo action. Is used to detect resize actions.
+		double oldRot; ///< Stores the old rotation value for undo action. Is used to detect rotation actions.
+		double oldLocalScX; ///< Stores the old LocalScX value for undo action. Is used to detect image scale actions.
+		double oldLocalScY; ///< Stores the old LocalScY value for undo action. Is used to detect image scale actions.
+		double oldLocalX; ///< Stores the old LocalX value for undo action. Is used to detect image offset actions.lo j
+		double oldLocalY; ///< Stores the old LocalY value for undo action. Is used to detect image offset actions.
 
-		/** Document this item belongs to */
-		ScribusDoc *m_Doc;
 
-		/** Flags and data for PDF Annotations */
-		bool m_isAnnotation;
-		Annotation m_annotation;
+		ScribusDoc *m_Doc; ///< Document this item belongs to
 
-		/** Darstellungsart Bild/Titel */
-		bool PicArt;
+		bool m_isAnnotation; ///< Flag to tell if this item is a PDF annotation item
+		Annotation m_annotation; ///< PDF annotation data
 
-		 /** Line width */
-		double m_lineWidth;
+		bool PicArt; ///< Darstellungsart Bild/Titel
+
+		double m_lineWidth; //< Line width
 		double Oldm_lineWidth;
 
 		/**
@@ -1394,138 +1411,135 @@ protected: // Start protected functions
 	 * @author Riku Leino
 	 */
 	/*@{*/
-	void restoreConnectPath(SimpleState *state, bool isUndo);
-	void restoreSpiral(SimpleState *state, bool isUndo);
 	void restoreAppMode(SimpleState *state, bool isUndo);
 	void restoreArc(SimpleState *state,bool isUndo);
-	void restorePolygon(SimpleState *state,bool isUndo);
-	void restoreImageNbr(SimpleState *state,bool isUndo);
-	void restoreTransform(SimpleState *state,bool isUndo);
-	void restoreMaskType(SimpleState *state,bool isUndo);
-	void restoreGradPos(SimpleState *state,bool isUndo);
-	void restoreSnapToPatchGrid(SimpleState *state, bool isUndo);
-	void restoreRemoveMeshPatch(SimpleState *state, bool isUndo);
+	void restoreArrow(SimpleState *state, bool isUndo, bool isStart);
+	void restoreBottomTextFrameDist(SimpleState *state, bool isUndo);
+	void restoreCharStyle(SimpleState *state, bool isUndo);
+	void restoreClearImage(UndoState *state, bool isUndo);
+	void restoreColumns(SimpleState *state, bool isUndo);
+	void restoreColumnsGap(SimpleState *state, bool isUndo);
+	void restoreConnectPath(SimpleState *state, bool isUndo);
+	void restoreContourLine(SimpleState *state, bool isUndo);
+	void restoreCornerRadius(SimpleState *state, bool isUndo);
 	void restoreCreateMeshGrad(SimpleState *state, bool isUndo);
-	void restoreMoveMeshGrad(SimpleState *state, bool isUndo);
-	void restoreResetMeshGrad(SimpleState *state, bool isUndo);
-	void restoreGradientColor1(SimpleState *state, bool isUndo);
-	void restoreGradientColor2(SimpleState *state, bool isUndo);
-	void restoreGradientColor3(SimpleState *state, bool isUndo);
-	void restoreGradientColor4(SimpleState *state, bool isUndo);
+	void restoreCustomLineStyle(SimpleState *state, bool isUndo);
+	void restoreDefaultParagraphStyle(SimpleState *state, bool isUndo);
+	void restoreDeleteFrameText(SimpleState *state, bool isUndo);
+	void restoreEndArrowScale(SimpleState *state, bool isUndo);
+	void restoreFill(SimpleState *state, bool isUndo);
+	void restoreFillGradient(SimpleState *state, bool isUndo);
+	void restoreFillTP(SimpleState *state, bool isUndo);
+	void restoreFirstLineOffset(SimpleState *state, bool isUndo);
+	void restoreGetImage(UndoState *state, bool isUndo);
+	void restoreGradPos(SimpleState *state,bool isUndo);
 	void restoreGradientCol1(SimpleState *state, bool isUndo);
 	void restoreGradientCol2(SimpleState *state, bool isUndo);
 	void restoreGradientCol3(SimpleState *state, bool isUndo);
 	void restoreGradientCol4(SimpleState *state, bool isUndo);
-	void restoreGradientShade1(SimpleState *state, bool isUndo);
-	void restoreGradientShade2(SimpleState *state, bool isUndo);
-	void restoreGradientShade3(SimpleState *state, bool isUndo);
-	void restoreGradientShade4(SimpleState *state, bool isUndo);
-	void restoreGradientTrans1(SimpleState *state, bool isUndo);
-	void restoreGradientTrans2(SimpleState *state, bool isUndo);
-	void restoreGradientTrans3(SimpleState *state, bool isUndo);
-	void restoreGradientTrans4(SimpleState *state, bool isUndo);
-	void restoreMoveMeshPatch(SimpleState *state, bool isUndo);
-	void restoreMaskGradient(SimpleState *state, bool isUndo);
-	void restoreFillGradient(SimpleState *state, bool isUndo);
-	void restoreStrokeGradient(SimpleState *state, bool isUndo);
-	void restoreGradientMeshColor(SimpleState *state, bool isUndo);
-	void restoreGradientStartX(SimpleState *state, bool isUndo);
-	void restoreGradientStartY(SimpleState *state, bool isUndo);
+	void restoreGradientColor1(SimpleState *state, bool isUndo);
+	void restoreGradientColor2(SimpleState *state, bool isUndo);
+	void restoreGradientColor3(SimpleState *state, bool isUndo);
+	void restoreGradientColor4(SimpleState *state, bool isUndo);
+	void restoreGradientControl1(SimpleState *state, bool isUndo);
+	void restoreGradientControl2(SimpleState *state, bool isUndo);
+	void restoreGradientControl3(SimpleState *state, bool isUndo);
+	void restoreGradientControl4(SimpleState *state, bool isUndo);
+	void restoreGradientControl5(SimpleState *state, bool isUndo);
 	void restoreGradientEndX(SimpleState *state, bool isUndo);
 	void restoreGradientEndY(SimpleState *state, bool isUndo);
 	void restoreGradientFocalX(SimpleState *state, bool isUndo);
 	void restoreGradientFocalY(SimpleState *state, bool isUndo);
-	void restoreGradientScale(SimpleState *state, bool isUndo);
-	void restoreGradientSkew(SimpleState *state, bool isUndo);
-	void restoreGradientMaskStartX(SimpleState *state, bool isUndo);
-	void restoreGradientMaskStartY(SimpleState *state, bool isUndo);
 	void restoreGradientMaskEndX(SimpleState *state, bool isUndo);
 	void restoreGradientMaskEndY(SimpleState *state, bool isUndo);
 	void restoreGradientMaskFocalX(SimpleState *state, bool isUndo);
 	void restoreGradientMaskFocalY(SimpleState *state, bool isUndo);
 	void restoreGradientMaskScale(SimpleState *state, bool isUndo);
 	void restoreGradientMaskSkew(SimpleState *state, bool isUndo);
-	void restoreGradientControl1(SimpleState *state, bool isUndo);
-	void restoreGradientControl2(SimpleState *state, bool isUndo);
-	void restoreGradientControl3(SimpleState *state, bool isUndo);
-	void restoreGradientControl4(SimpleState *state, bool isUndo);
-	void restoreGradientControl5(SimpleState *state, bool isUndo);
-	void restoreGradientStrokeScale(SimpleState *state, bool isUndo);
-	void restoreGradientStrokeSkew(SimpleState *state, bool isUndo);
-	void restoreGradientStrokeFocalX(SimpleState *state, bool isUndo);
-	void restoreGradientStrokeFocalY(SimpleState *state, bool isUndo);
-	void restoreGradientStrokeStartX(SimpleState *state, bool isUndo);
-	void restoreGradientStrokeStartY(SimpleState *state, bool isUndo);
+	void restoreGradientMaskStartX(SimpleState *state, bool isUndo);
+	void restoreGradientMaskStartY(SimpleState *state, bool isUndo);
+	void restoreGradientMeshColor(SimpleState *state, bool isUndo);
+	void restoreGradientScale(SimpleState *state, bool isUndo);
+	void restoreGradientShade1(SimpleState *state, bool isUndo);
+	void restoreGradientShade2(SimpleState *state, bool isUndo);
+	void restoreGradientShade3(SimpleState *state, bool isUndo);
+	void restoreGradientShade4(SimpleState *state, bool isUndo);
+	void restoreGradientSkew(SimpleState *state, bool isUndo);
+	void restoreGradientStartX(SimpleState *state, bool isUndo);
+	void restoreGradientStartY(SimpleState *state, bool isUndo);
 	void restoreGradientStrokeEndX(SimpleState *state, bool isUndo);
 	void restoreGradientStrokeEndY(SimpleState *state, bool isUndo);
+	void restoreGradientStrokeFocalX(SimpleState *state, bool isUndo);
+	void restoreGradientStrokeFocalY(SimpleState *state, bool isUndo);
+	void restoreGradientStrokeScale(SimpleState *state, bool isUndo);
+	void restoreGradientStrokeSkew(SimpleState *state, bool isUndo);
+	void restoreGradientStrokeStartX(SimpleState *state, bool isUndo);
+	void restoreGradientStrokeStartY(SimpleState *state, bool isUndo);
+	void restoreGradientTrans1(SimpleState *state, bool isUndo);
+	void restoreGradientTrans2(SimpleState *state, bool isUndo);
+	void restoreGradientTrans3(SimpleState *state, bool isUndo);
+	void restoreGradientTrans4(SimpleState *state, bool isUndo);
 	void restoreGradientType(SimpleState *state, bool isUndo);
 	void restoreGradientTypeStroke(SimpleState *state, bool isUndo);
-	void restoreStartArrowScale(SimpleState *state, bool isUndo);
-	void restoreEndArrowScale(SimpleState *state, bool isUndo);
+	void restoreImageEffects(UndoState *state, bool isUndo);
+	void restoreImageNbr(SimpleState *state,bool isUndo);
+	void restoreImageOffsetChange(SimpleState *state, bool isUndo);
 	void restoreImageRotation(SimpleState *state, bool isUndo);
-	void restorePasteInline(SimpleState *state, bool isUndo);
-	void restorePasteText(SimpleState *state, bool isUndo);
-	void restoreFirstLineOffset(SimpleState *state, bool isUndo);
-	void restoreParagraphStyle(SimpleState *state, bool isUndo);
-	void restoreDefaultParagraphStyle(SimpleState *state, bool isUndo);
-	void restoreCharStyle(SimpleState *state, bool isUndo);
-	void restoreLeftTextFrameDist(SimpleState *state, bool isUndo);
-	void restoreRightTextFrameDist(SimpleState *state, bool isUndo);
-	void restoreTopTextFrameDist(SimpleState *state, bool isUndo);
-	void restoreBottomTextFrameDist(SimpleState *state, bool isUndo);
-	void restoreSetCharStyle(SimpleState *state, bool isUndo);
-	void restoreColumns(SimpleState *state, bool isUndo);
-	void restoreColumnsGap(SimpleState *state, bool isUndo);
-	void restoreSetParagraphStyle(SimpleState *state, bool isUndo);
-	void restoreLoremIpsum(SimpleState *state, bool isUndo);
-	void restoreDeleteFrameText(SimpleState *state, bool isUndo);
+	void restoreImageScaleChange(SimpleState *state, bool isUndo);
+	void restoreImageScaleMode(SimpleState *state, bool isUndo);
 	void restoreInsertFrameText(SimpleState *state, bool isUndo);
-	void restoreCornerRadius(SimpleState *state, bool isUndo);
-	void restoreShowImage(SimpleState *state, bool isUndo);
-	void restoreResTyp(SimpleState *state, bool isUndo);
-	void restoreMove(SimpleState *state, bool isUndo);
-	void restoreResize(SimpleState *state, bool isUndo);
-	void restoreRotate(SimpleState *state, bool isUndo);
-	void restoreFill(SimpleState *state, bool isUndo);
-	void restoreShade(SimpleState *state, bool isUndo);
+	void restoreLayer(SimpleState *state, bool isUndo);
+	void restoreLeftTextFrameDist(SimpleState *state, bool isUndo);
 	void restoreLineColor(SimpleState *state, bool isUndo);
-	void restoreLineShade(SimpleState *state, bool isUndo);
-	void restoreName(SimpleState *state, bool isUndo);
-	void restoreFillTP(SimpleState *state, bool isUndo);
-	void restoreLineTP(SimpleState *state, bool isUndo);
-	void restoreLineStyle(SimpleState *state, bool isUndo);
 	void restoreLineEnd(SimpleState *state, bool isUndo);
 	void restoreLineJoin(SimpleState *state, bool isUndo);
+	void restoreLineShade(SimpleState *state, bool isUndo);
+	void restoreLineStyle(SimpleState *state, bool isUndo);
+	void restoreLineTP(SimpleState *state, bool isUndo);
 	void restoreLineWidth(SimpleState *state, bool isUndo);
-	void restoreCustomLineStyle(SimpleState *state, bool isUndo);
-	void restoreArrow(SimpleState *state, bool isUndo, bool isStart);
-
-	void restorePStyle(SimpleState *state, bool isUndo);
-
-	void restoreType(SimpleState *state, bool isUndo);
-	void restoreTextFlowing(SimpleState *state, bool isUndo);
-	void restoreImageScaleMode(SimpleState *state, bool isUndo);
-	void restoreImageScaleChange(SimpleState *state, bool isUndo);
-	void restoreImageOffsetChange(SimpleState *state, bool isUndo);
-	void restoreClearImage(UndoState *state, bool isUndo);
-	void restoreGetImage(UndoState *state, bool isUndo);
-	void restorePoly(SimpleState *state, bool isUndo, bool isContour);
-	void restoreUniteItem(SimpleState *state, bool isUndo);
-	void restoreSplitItem(SimpleState *state, bool isUndo);
-	void restoreContourLine(SimpleState *state, bool isUndo);
-	void restoreShapeType(SimpleState *state, bool isUndo);
-	void restoreLayer(SimpleState *state, bool isUndo);
-
-	void restoreShapeContour(UndoState *state, bool isUndo);
-	void restoreImageEffects(UndoState *state, bool isUndo);
 	void restoreLinkTextFrame(UndoState *state, bool isUndo);
-	void restoreUnlinkTextFrame(UndoState *state, bool isUndo);
-	void restoreReverseText(UndoState *state, bool isUndo);
-	void restorePathOperation(UndoState *state, bool isUndo);
-
-	void restoreWeldItems(SimpleState *state, bool isUndo);
-	void restoreUnWeldItem(SimpleState *state, bool isUndo);
+	void restoreLoremIpsum(SimpleState *state, bool isUndo);
 	void restoreMarkString(SimpleState *state, bool isUndo);
+	void restoreMaskGradient(SimpleState *state, bool isUndo);
+	void restoreMaskType(SimpleState *state,bool isUndo);
+	void restoreMove(SimpleState *state, bool isUndo);
+	void restoreMoveMeshGrad(SimpleState *state, bool isUndo);
+	void restoreMoveMeshPatch(SimpleState *state, bool isUndo);
+	void restoreName(SimpleState *state, bool isUndo);
+	void restorePStyle(SimpleState *state, bool isUndo);
+	void restoreParagraphStyle(SimpleState *state, bool isUndo);
+	void restorePasteInline(SimpleState *state, bool isUndo);
+	void restorePasteText(SimpleState *state, bool isUndo);
+	void restorePathOperation(UndoState *state, bool isUndo);
+	void restorePoly(SimpleState *state, bool isUndo, bool isContour);
+	void restorePolygon(SimpleState *state,bool isUndo);
+	void restoreRemoveMeshPatch(SimpleState *state, bool isUndo);
+	void restoreResTyp(SimpleState *state, bool isUndo);
+	void restoreResetMeshGrad(SimpleState *state, bool isUndo);
+	void restoreResize(SimpleState *state, bool isUndo);
+	void restoreReverseText(UndoState *state, bool isUndo);
+	void restoreRightTextFrameDist(SimpleState *state, bool isUndo);
+	void restoreRotate(SimpleState *state, bool isUndo);
+	void restoreSetCharStyle(SimpleState *state, bool isUndo);
+	void restoreSetParagraphStyle(SimpleState *state, bool isUndo);
+	void restoreShade(SimpleState *state, bool isUndo);
+	void restoreShapeContour(UndoState *state, bool isUndo);
+	void restoreShapeType(SimpleState *state, bool isUndo);
+	void restoreShowImage(SimpleState *state, bool isUndo);
+	void restoreSnapToPatchGrid(SimpleState *state, bool isUndo);
+	void restoreSpiral(SimpleState *state, bool isUndo);
+	void restoreSplitItem(SimpleState *state, bool isUndo);
+	void restoreStartArrowScale(SimpleState *state, bool isUndo);
+	void restoreStrokeGradient(SimpleState *state, bool isUndo);
+	void restoreTextFlowing(SimpleState *state, bool isUndo);
+	void restoreTopTextFrameDist(SimpleState *state, bool isUndo);
+	void restoreTransform(SimpleState *state,bool isUndo);
+	void restoreType(SimpleState *state, bool isUndo);
+	void restoreUnWeldItem(SimpleState *state, bool isUndo);
+	void restoreUniteItem(SimpleState *state, bool isUndo);
+	void restoreUnlinkTextFrame(UndoState *state, bool isUndo);
+	void restoreWeldItems(SimpleState *state, bool isUndo);
+
 
 	/*@}*/
 
@@ -1539,8 +1553,7 @@ protected: // Start protected functions
 	 * state of arrow keys and mouse buttons else returns false.
 	 */
 	bool shouldCheck();
-	/** @brief Clears the current selection and selects this PageItem. */
-	void select();
+	void select(); ///< Clears the current selection and selects this PageItem.
 
 		// End protected functions
 
@@ -1703,30 +1716,18 @@ protected: // Start protected variables
 	QColor GrColorP3QColor;
 	QColor GrColorP4QColor;
 
-	/** X position on the page */
-	double m_xPos;
-	/** Y position on the page */
-	double m_yPos;
-	/** Width of the item */
-	double Width;
-	/** Height of the item */
-	double Height;
-	/** Rotation of the item */
-	double m_rotation;
-	/** Element selected? */
-	bool m_isSelected;
-	/** Scaling X Factor for images */
-	double m_imageXScale;
-	/** Scaling Y Factor for images*/
-	double m_imageYScale;
-	/** Image X Offset to frame */
-	double m_imageXOffset;
-	/** Image Y Offset to frame */
-	double m_imageYOffset;
-	/** Image rotation in frame */
-	double m_imageRotation;
-	/** If the frame is reversed */
-	bool m_isReversed;
+	double m_xPos; ///< X position on the page
+	double m_yPos; ///< Y position on the page
+	double m_width; ///< Width of the item
+	double m_height; ///<  Height of the item
+	double m_rotation; ///< Rotation of the item
+	bool m_isSelected; ///< Is the item selected?
+	double m_imageXScale; ///< Scaling X Factor for images
+	double m_imageYScale; ///< Scaling Y Factor for images
+	double m_imageXOffset; ///< Image X Offset to frame
+	double m_imageYOffset; ///< Image Y Offset to frame
+	double m_imageRotation; ///< Image rotation in frame
+	bool m_isReversed; ///< Is the frame is reversed?
 	FirstLineOffsetPolicy firstLineOffsetP;
 
 			// End protected variables
@@ -1748,11 +1749,11 @@ private:	// Start private variables
 signals:
 	//Frame signals
 	void myself(PageItem *);
-	void frameType(int);   // not related to Frametype but to m_itemIype :-/
-	//void frameLocked(bool); //Frame lock
-	//void frameSizeLocked(bool); //Frame size lock
+	void frameType(int);   ///< not related to Frametype but to m_itemIype
+	//void frameLocked(bool); ///< Frame lock
+	//void frameSizeLocked(bool); ///< Frame size lock
 	//Shape signals
-	//void cornerRadius(double); //Corner radius of the shape
+	//void cornerRadius(double); ///< Corner radius of the shape
 	//Frame text signals
 	//void lineSpacing(double);
 	//void textKerning(double);

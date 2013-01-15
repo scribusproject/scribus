@@ -85,8 +85,8 @@ void PageItem_ImageFrame::DrawObj_Item(ScPainter *p, QRectF /*e*/)
 		if ((drawFrame()) && (m_Doc->guidesPrefs().framesShown))
 		{
 			p->setPen(Qt::black, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
-			p->drawLine(FPoint(0, 0), FPoint(Width, Height));
-			p->drawLine(FPoint(0, Height), FPoint(Width, 0));
+			p->drawLine(FPoint(0, 0), FPoint(m_width, m_height));
+			p->drawLine(FPoint(0, m_height), FPoint(m_width, 0));
 		}
 	}
 	else
@@ -130,10 +130,10 @@ void PageItem_ImageFrame::DrawObj_Item(ScPainter *p, QRectF /*e*/)
 					p->setPen(Qt::red, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 					htmlText = fi.fileName();
 				}
-				p->drawLine(FPoint(0, 0), FPoint(Width, Height));
-				p->drawLine(FPoint(0, Height), FPoint(Width, 0));
+				p->drawLine(FPoint(0, 0), FPoint(m_width, m_height));
+				p->drawLine(FPoint(0, m_height), FPoint(m_width, 0));
 				p->setFont(QApplication::font());
-				p->drawText(QRectF(0.0, 0.0, Width, Height), htmlText);
+				p->drawText(QRectF(0.0, 0.0, m_width, m_height), htmlText);
 			}
 		}
 		else
@@ -142,12 +142,12 @@ void PageItem_ImageFrame::DrawObj_Item(ScPainter *p, QRectF /*e*/)
 			p->setClipPath();
 			if (imageFlippedH())
 			{
-				p->translate(Width, 0);
+				p->translate(m_width, 0);
 				p->scale(-1, 1);
 			}
 			if (imageFlippedV())
 			{
-				p->translate(0, Height);
+				p->translate(0, m_height);
 				p->scale(1, -1);
 			}
 			if (imageClip.size() != 0)

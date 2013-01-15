@@ -56,7 +56,7 @@ void PageItem_Line::DrawObj_Item(ScPainter *p, QRectF /*e*/)
 		return;
 
 	if (m_Doc->layerOutline(LayerID))
-		p->drawLine(FPoint(0, 0), FPoint(Width, 0));
+		p->drawLine(FPoint(0, 0), FPoint(m_width, 0));
 	else
 	{
 		if (NamedLStyle.isEmpty())
@@ -67,14 +67,14 @@ void PageItem_Line::DrawObj_Item(ScPainter *p, QRectF /*e*/)
 				{
 					QPainterPath guidePath;
 					guidePath.moveTo(0, 0);
-					guidePath.lineTo(Width, 0);
+					guidePath.lineTo(m_width, 0);
 					DrawStrokePattern(p, guidePath);
 				}
 				else
 				{
 					p->setPattern(&m_Doc->docPatterns[patternStrokeVal], patternStrokeScaleX, patternStrokeScaleY, patternStrokeOffsetX, patternStrokeOffsetY, patternStrokeRotation, patternStrokeSkewX, patternStrokeSkewY, patternStrokeMirrorX, patternStrokeMirrorY);
 					p->setStrokeMode(ScPainter::Pattern);
-					p->drawLine(FPoint(0, 0), FPoint(Width, 0));
+					p->drawLine(FPoint(0, 0), FPoint(m_width, 0));
 				}
 			}
 			else if (GrTypeStroke > 0)
@@ -105,12 +105,12 @@ void PageItem_Line::DrawObj_Item(ScPainter *p, QRectF /*e*/)
 					else
 						p->setGradient(VGradient::radial, FPoint(GrStrokeStartX, GrStrokeStartY), FPoint(GrStrokeEndX, GrStrokeEndY), FPoint(GrStrokeFocalX, GrStrokeFocalY), GrStrokeScale, GrStrokeSkew);
 				}
-				p->drawLine(FPoint(0, 0), FPoint(Width, 0));
+				p->drawLine(FPoint(0, 0), FPoint(m_width, 0));
 			}
 			else if (lineColor() != CommonStrings::None)
 			{
 				p->setStrokeMode(ScPainter::Solid);
-				p->drawLine(FPoint(0, 0), FPoint(Width, 0));
+				p->drawLine(FPoint(0, 0), FPoint(m_width, 0));
 			}
 			else
 				no_stroke = true;
@@ -126,7 +126,7 @@ void PageItem_Line::DrawObj_Item(ScPainter *p, QRectF /*e*/)
 				{
 					SetQColor(&tmp, ml[it].Color, ml[it].Shade);
 					p->setPen(tmp, ml[it].Width, static_cast<Qt::PenStyle>(ml[it].Dash), static_cast<Qt::PenCapStyle>(ml[it].LineEnd), static_cast<Qt::PenJoinStyle>(ml[it].LineJoin));
-					p->drawLine(FPoint(0, 0), FPoint(Width, 0));
+					p->drawLine(FPoint(0, 0), FPoint(m_width, 0));
 				}
 			}
 		}
@@ -142,7 +142,7 @@ void PageItem_Line::DrawObj_Item(ScPainter *p, QRectF /*e*/)
 	if (m_endArrowIndex != 0)
 	{
 		QTransform arrowTrans;
-		arrowTrans.translate(Width, 0);
+		arrowTrans.translate(m_width, 0);
 		arrowTrans.scale(m_endArrowScale / 100.0, m_endArrowScale / 100.0);
 		drawArrow(p, arrowTrans, m_endArrowIndex);
 	}
@@ -166,7 +166,7 @@ QPointF PageItem_Line::startPoint()
 QPointF PageItem_Line::endPoint()
 {
 	double rot = this->rotation();
-	double x = m_xPos + Width * cos(rot * M_PI / 180.0);
-	double y = m_yPos + Width * sin(rot * M_PI / 180.0);
+	double x = m_xPos + m_width * cos(rot * M_PI / 180.0);
+	double y = m_yPos + m_width * sin(rot * M_PI / 180.0);
 	return QPointF(x, y);
 }

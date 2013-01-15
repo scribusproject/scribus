@@ -62,16 +62,16 @@ void PageItem_Symbol::DrawObj_Item(ScPainter *p, QRectF /*e*/)
 		{
 			p->save();
 			p->setPen(Qt::black, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
-			p->drawLine(FPoint(0, 0), FPoint(Width, Height));
-			p->drawLine(FPoint(0, Height), FPoint(Width, 0));
+			p->drawLine(FPoint(0, 0), FPoint(m_width, m_height));
+			p->drawLine(FPoint(0, m_height), FPoint(m_width, 0));
 			p->setFont(QApplication::font());
-			p->drawLine(FPoint(0, 0), FPoint(Width, 0));
-			p->drawLine(FPoint(Width, 0), FPoint(Width, Height));
-			p->drawLine(FPoint(Width, Height), FPoint(0, Height));
-			p->drawLine(FPoint(0, Height), FPoint(0, 0));
+			p->drawLine(FPoint(0, 0), FPoint(m_width, 0));
+			p->drawLine(FPoint(m_width, 0), FPoint(m_width, m_height));
+			p->drawLine(FPoint(m_width, m_height), FPoint(0, m_height));
+			p->drawLine(FPoint(0, m_height), FPoint(0, 0));
 			p->setBrush(QColor(255, 255, 255));
 			p->setBrushOpacity(0.0);
-			p->drawText(QRectF(0.0, 0.0, Width, Height), "Empty Symbol");
+			p->drawText(QRectF(0.0, 0.0, m_width, m_height), "Empty Symbol");
 			p->restore();
 		}
 		return;
@@ -80,12 +80,12 @@ void PageItem_Symbol::DrawObj_Item(ScPainter *p, QRectF /*e*/)
 	p->save();
 	if (imageFlippedH())
 	{
-		p->translate(Width, 0);
+		p->translate(m_width, 0);
 		p->scale(-1, 1);
 	}
 	if (imageFlippedV())
 	{
-		p->translate(0, Height);
+		p->translate(0, m_height);
 		p->scale(1, -1);
 	}
 	if ((maskType() == 1) || (maskType() == 2) || (maskType() == 4) || (maskType() == 5))
@@ -110,8 +110,8 @@ void PageItem_Symbol::DrawObj_Item(ScPainter *p, QRectF /*e*/)
 			p->setMaskMode(0);
 		else
 		{
-			double scw = Width / groupWidth;
-			double sch = Height / groupHeight;
+			double scw = m_width / groupWidth;
+			double sch = m_height / groupHeight;
 			p->setPatternMask(&m_Doc->docPatterns[patternMask()], patternMaskScaleX * scw, patternMaskScaleY * sch, patternMaskOffsetX, patternMaskOffsetY, patternMaskRotation, patternMaskSkewX, patternMaskSkewY, patternMaskMirrorX, patternMaskMirrorY);
 			if (maskType() == 3)
 				p->setMaskMode(2);
@@ -129,7 +129,7 @@ void PageItem_Symbol::DrawObj_Item(ScPainter *p, QRectF /*e*/)
 	p->beginLayer(1.0 - fillTransparency(), fillBlendmode(), &PoLine);
 	p->setMaskMode(0);
 	ScPattern pat = m_Doc->docPatterns[patternVal];
-	p->scale(Width / pat.width, Height / pat.height);
+	p->scale(m_width / pat.width, m_height / pat.height);
 //		p->translate(pat.items.at(0)->gXpos, pat.items.at(0)->gYpos);
 	for (int em = 0; em < pat.items.count(); ++em)
 	{

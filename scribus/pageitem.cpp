@@ -262,8 +262,8 @@ PageItem::PageItem(const PageItem & other)
 	GrColorP4QColor(other.GrColorP4QColor),
 	m_xPos(other.m_xPos),
 	m_yPos(other.m_yPos),
-	Width(other.Width),
-	Height(other.Height),
+	m_width(other.m_width),
+	m_height(other.m_height),
 	m_rotation(other.m_rotation),
 	m_isSelected(other.m_isSelected),
 	m_imageXScale(other.m_imageXScale),
@@ -397,8 +397,8 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	gXpos = oldXpos = m_xPos = x;
 	gYpos = oldYpos = m_yPos = y;
 	//CB Surely we can remove some of these?
-	OldB2 = OldB = oldWidth = Width = w;
-	OldH2 = OldH = oldHeight = Height = h;
+	OldB2 = OldB = oldWidth = m_width = w;
+	OldH2 = OldH = oldHeight = m_height = h;
 	BoundingX = x;
 	BoundingY = y;
 	BoundingW = w;
@@ -760,27 +760,27 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	mgP.color = qcol;
 	mgList.append(mgP);
 	patch.TL = mgP;
-	mgP.resetTo(FPoint(Width / 2.0, 0.0));
+	mgP.resetTo(FPoint(m_width / 2.0, 0.0));
 	mgList.append(mgP);
-	mgP.resetTo(FPoint(Width, 0.0));
+	mgP.resetTo(FPoint(m_width, 0.0));
 	mgList.append(mgP);
 	patch.TR = mgP;
 	meshGradientArray.append(mgList);
 	mgList.clear();
-	mgP.resetTo(FPoint(0.0, Height / 2.0));
+	mgP.resetTo(FPoint(0.0, m_height / 2.0));
 	mgList.append(mgP);
-	mgP.resetTo(FPoint(Width / 2.0, Height / 2.0));
+	mgP.resetTo(FPoint(m_width / 2.0, m_height / 2.0));
 	mgList.append(mgP);
-	mgP.resetTo(FPoint(Width, Height / 2.0));
+	mgP.resetTo(FPoint(m_width, m_height / 2.0));
 	mgList.append(mgP);
 	meshGradientArray.append(mgList);
 	mgList.clear();
-	mgP.resetTo(FPoint(0.0, Height));
+	mgP.resetTo(FPoint(0.0, m_height));
 	mgList.append(mgP);
 	patch.BL = mgP;
-	mgP.resetTo(FPoint(Width / 2.0, Height));
+	mgP.resetTo(FPoint(m_width / 2.0, m_height));
 	mgList.append(mgP);
-	mgP.resetTo(FPoint(Width, Height));
+	mgP.resetTo(FPoint(m_width, m_height));
 	mgList.append(mgP);
 	patch.BR = mgP;
 	meshGradientArray.append(mgList);
@@ -915,7 +915,7 @@ void PageItem::moveBy(const double dX, const double dY, bool drawingOnly)
 
 void PageItem::setWidth(const double newWidth)
 {
-	Width = newWidth;
+	m_width = newWidth;
 	updateConstants();
 	if (m_Doc->isLoading())
 		return;
@@ -924,7 +924,7 @@ void PageItem::setWidth(const double newWidth)
 
 void PageItem::setHeight(const double newHeight)
 {
-	Height = newHeight;
+	m_height = newHeight;
 	updateConstants();
 	if (m_Doc->isLoading())
 		return;
@@ -933,8 +933,8 @@ void PageItem::setHeight(const double newHeight)
 
 void PageItem::setWidthHeight(const double newWidth, const double newHeight, bool drawingOnly)
 {
-	Width = newWidth;
-	Height = newHeight;
+	m_width = newWidth;
+	m_height = newHeight;
 	updateConstants();
 	if (drawingOnly)
 		return;
@@ -943,8 +943,8 @@ void PageItem::setWidthHeight(const double newWidth, const double newHeight, boo
 
 void PageItem::setWidthHeight(const double newWidth, const double newHeight)
 {
-	Width = newWidth;
-	Height = newHeight;
+	m_width = newWidth;
+	m_height = newHeight;
 	updateConstants();
 	if (m_Doc->isLoading())
 		return;
@@ -956,9 +956,9 @@ void PageItem::resizeBy(const double dH, const double dW)
 	if (dH==0.0 && dW==0.0)
 		return;
 	if (dH!=0.0)
-		Width+=dH;
+		m_width+=dH;
 	if (dW!=0.0)
-		Height+=dW;
+		m_height+=dW;
 	updateConstants();
 	if (m_Doc->isLoading())
 		return;
@@ -1148,9 +1148,9 @@ void PageItem::drawOverflowMarker(ScPainter *p)
 {
 	qreal sideLength = 10 / qMax(p->zoomFactor(), 1.0);
 	qreal offset = 1 / qMax(p->zoomFactor(), 1.0);
-	qreal left = Width - sideLength-offset;// / 2;
+	qreal left = m_width - sideLength-offset;// / 2;
 	qreal right = left + sideLength;
-	qreal top = Height - sideLength-offset;// * 1.5;
+	qreal top = m_height - sideLength-offset;// * 1.5;
 	qreal bottom = top + sideLength;
 
 	QColor color(PrefsManager::instance()->appPrefs.displayPrefs.frameNormColor);
@@ -2043,8 +2043,8 @@ void PageItem::DrawObj_Decoration(ScPainter *p)
 				|| ((72.0 / imageYScale()) > maxres)) 
 				&& (isRaster) && (checkres) && (!m_Doc->drawAsPreview) && (PrefsManager::instance()->appPrefs.displayPrefs.showVerifierWarningsOnCanvas))
 			{
-				double ofx = Width - 22.0;
-				double ofy = Height - 22.0;
+				double ofx = m_width - 22.0;
+				double ofy = m_height - 22.0;
 				p->save();
 				p->translate(ofx, ofy);
 				QImage ico = loadIcon("22/dialog-warning.png").toImage();
@@ -2060,8 +2060,8 @@ void PageItem::DrawObj_Decoration(ScPainter *p)
 			p->setBrushOpacity(1.0);
 			p->setFillMode(ScPainter::Solid);
 			double ofwh = 10;
-			double ofx = Width - ofwh/2;
-			double ofy = Height - ofwh*3;
+			double ofx = m_width - ofwh/2;
+			double ofy = m_height - ofwh*3;
 			p->drawSharpRect(ofx, ofy, ofwh, ofwh);
 		}
 		if (no_fill && no_stroke && m_Doc->guidesPrefs().framesShown)
@@ -2070,7 +2070,7 @@ void PageItem::DrawObj_Decoration(ScPainter *p)
 			if (m_Locked)
 				p->setPen(PrefsManager::instance()->appPrefs.displayPrefs.frameLockColor, scpInv, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 			p->setFillMode(ScPainter::None);
-			p->drawSharpRect(0, 0, Width, Height);
+			p->drawSharpRect(0, 0, m_width, m_height);
 			no_fill = false;
 			no_stroke = false;
 		}
@@ -2145,13 +2145,13 @@ void PageItem::DrawObj_Embedded(ScPainter *p, QRectF cullingArea, const CharStyl
 	if (m_Doc->guidesPrefs().framesShown)
 	{
 		p->save();
-		p->translate(0, -(cembedded->Height * (style.scaleV() / 1000.0)));
+		p->translate(0, -(cembedded->m_height * (style.scaleV() / 1000.0)));
 		if (style.baselineOffset() != 0)
-			p->translate(0, -cembedded->Height * (style.baselineOffset() / 1000.0));
+			p->translate(0, -cembedded->m_height * (style.baselineOffset() / 1000.0));
 		p->scale(style.scaleH() / 1000.0, style.scaleV() / 1000.0);
 		p->setPen(PrefsManager::instance()->appPrefs.displayPrefs.frameNormColor, 0, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin);
 		p->setFillMode(ScPainter::None);
-		p->drawSharpRect(0, 0, cembedded->Width, cembedded->Height);
+		p->drawSharpRect(0, 0, cembedded->m_width, cembedded->m_height);
 		p->restore();
 	}
 }
@@ -3335,8 +3335,8 @@ void PageItem::createGradientMesh(int rows, int cols)
 		undoManager->action(this,is);
 	}
 	meshGradientArray.clear();
-	double xoffs = Width / static_cast<double>(cols);
-	double yoffs = Height / static_cast<double>(rows);
+	double xoffs = m_width / static_cast<double>(cols);
+	double yoffs = m_height / static_cast<double>(rows);
 	for (int x = 0; x < rows + 1; x++)
 	{
 		QList<meshPoint> mgList;
@@ -3365,8 +3365,8 @@ void PageItem::resetGradientMesh()
 		is->setItem(meshGradientArray);
 		undoManager->action(this,is);
 	}
-	double xoffs = Width / static_cast<double>(cols-1);
-	double yoffs = Height / static_cast<double>(rows-1);
+	double xoffs = m_width / static_cast<double>(cols-1);
+	double yoffs = m_height / static_cast<double>(rows-1);
 	for (int x = 0; x < rows; x++)
 		for (int y = 0; y < cols; y++)
 			meshGradientArray[x][y].resetTo(FPoint(y * xoffs, x * yoffs));
@@ -4610,7 +4610,7 @@ void PageItem::checkChanges(bool force)
 {
 	bool spreadChanges(false);
 	// has the item been resized
-	if (force || ((oldWidth != Width || oldHeight != Height) && shouldCheck()))
+	if (force || ((oldWidth != m_width || oldHeight != m_height) && shouldCheck()))
 	{
 		resizeUndoAction();
 		spreadChanges = (textFlowMode() != TextFlowDisabled );
@@ -4679,28 +4679,28 @@ void PageItem::moveUndoAction()
 
 void PageItem::resizeUndoAction()
 {
-	if (oldHeight == Height && oldWidth == Width)
+	if (oldHeight == m_height && oldWidth == m_width)
 		return;
 	bool doUndo = true;
 	if (isNoteFrame()
 		&& ((asNoteFrame()->isAutoHeight() && asNoteFrame()->isAutoWidth())
-			|| ((oldHeight == Height) && asNoteFrame()->isAutoWidth())
-			|| ((oldWidth == Width) && asNoteFrame()->isAutoHeight())))
+			|| ((oldHeight == m_height) && asNoteFrame()->isAutoWidth())
+			|| ((oldWidth == m_width) && asNoteFrame()->isAutoHeight())))
 		doUndo = false;
 	if (doUndo && UndoManager::undoEnabled())
 	{
 		SimpleState *ss = new SimpleState(Um::Resize,
-                           QString(Um::ResizeFromTo).arg(oldWidth).arg(oldHeight).arg(Width).arg(Height),
+						   QString(Um::ResizeFromTo).arg(oldWidth).arg(oldHeight).arg(m_width).arg(m_height),
                                           Um::IResize);
 		if (!isNoteFrame() || !asNoteFrame()->isAutoWidth())
 		{
 		ss->set("OLD_WIDTH", oldWidth);
-		ss->set("NEW_WIDTH", Width);
+		ss->set("NEW_WIDTH", m_width);
 		}
 		if (!isNoteFrame() || !asNoteFrame()->isAutoHeight())
 		{
 			ss->set("OLD_HEIGHT", oldHeight);
-		ss->set("NEW_HEIGHT", Height);
+		ss->set("NEW_HEIGHT", m_height);
 		}
 		if (!isNoteFrame() || !asNoteFrame()->isAutoWelded())
 		{
@@ -4714,9 +4714,9 @@ void PageItem::resizeUndoAction()
 		undoManager->action(this, ss);
 	}
 	if (!isNoteFrame() || !asNoteFrame()->isAutoWidth())
-		oldWidth = Width;
+		oldWidth = m_width;
 	if (!isNoteFrame() || !asNoteFrame()->isAutoHeight())
-		oldHeight = Height;
+		oldHeight = m_height;
 	if (!isNoteFrame() || !asNoteFrame()->isAutoWelded())
 	{
 		oldXpos = m_xPos;
@@ -4747,11 +4747,11 @@ void PageItem::rotateUndoAction()
 		if (!isNoteFrame() || !asNoteFrame()->isAutoHeight())
 		{
 		ss->set("OLD_RHEIGHT", oldHeight);
-		ss->set("NEW_RHEIGHT", Height);
+		ss->set("NEW_RHEIGHT", m_height);
 		}
 		if (!isNoteFrame() || !asNoteFrame()->isAutoWidth())
 		{
-			ss->set("NEW_RWIDTH", Width);
+			ss->set("NEW_RWIDTH", m_width);
 			ss->set("OLD_RWIDTH", oldWidth);
 		}
 		undoManager->action(this, ss);
@@ -4760,8 +4760,8 @@ void PageItem::rotateUndoAction()
 	oldXpos = m_xPos;
 	oldYpos = m_yPos;
 	oldOwnPage = OwnPage;
-	oldWidth = Width;
-	oldHeight = Height;
+	oldWidth = m_width;
+	oldHeight = m_height;
 }
 
 void PageItem::changeImageOffsetUndoAction()
@@ -6508,8 +6508,8 @@ void PageItem::restoreResize(SimpleState *state, bool isUndo)
 		m_Doc->MoveItem(mx, my, this, false);
 		m_Doc->RotateItem(rt, this);
 	}
-	oldWidth = Width;
-	oldHeight = Height;
+	oldWidth = m_width;
+	oldHeight = m_height;
 	oldXpos = m_xPos;
 	oldYpos = m_yPos;
 	oldOwnPage = OwnPage;
@@ -6546,8 +6546,8 @@ void PageItem::restoreRotate(SimpleState *state, bool isUndo)
 	oldXpos = m_xPos;
 	oldYpos = m_yPos;
 	oldOwnPage = OwnPage;
-	oldWidth = Width;
-	oldHeight = Height;
+	oldWidth = m_width;
+	oldHeight = m_height;
 }
 
 void PageItem::restoreShowImage(SimpleState *state, bool isUndo)
@@ -8297,10 +8297,10 @@ void PageItem::SetFrameShape(int count, double *vals)
 			PoLine.setMarker();
 			continue;
 		}
-		double x1 = Width * vals[a] / 100.0;
-		double y1 = Height * vals[a+1] / 100.0;
-		double x2 = Width * vals[a+2] / 100.0;
-		double y2 = Height * vals[a+3] / 100.0;
+		double x1 = m_width * vals[a] / 100.0;
+		double y1 = m_height * vals[a+1] / 100.0;
+		double x2 = m_width * vals[a+2] / 100.0;
+		double y2 = m_height * vals[a+3] / 100.0;
 		PoLine.addPoint(x1, y1);
 		PoLine.addPoint(x2, y2);
 	}
@@ -8340,27 +8340,27 @@ void PageItem::SetOvalFrame()
 
 void PageItem::SetFrameRound()
 {
-	setCornerRadius(qMin(m_roundedCorderRadius, qMin(Width,Height)/2));
+	setCornerRadius(qMin(m_roundedCorderRadius, qMin(m_width, m_height)/2));
 	PoLine.resize(0);
 	double rr = fabs(m_roundedCorderRadius);
 	if (m_roundedCorderRadius > 0.0)
 	{
 		QPainterPath path;
-		path.addRoundedRect(0, 0, Width, Height, rr, rr);
+		path.addRoundedRect(0, 0, m_width, m_height, rr, rr);
 		PoLine.fromQPainterPath(path);
 	}
 	else
 	{
 		double bezierFactor = 0.552284749; //Bezier Control Point Factor: 8/3*(sin(45)-0.5)
 		double rrxBezierFactor = rr*bezierFactor;
-		double Width_rr = Width-rr;
-		double Height_rr = Height-rr;
+		double Width_rr = m_width-rr;
+		double Height_rr = m_height-rr;
 		PoLine.addQuadPoint(rr, 0, rr, 0, Width_rr, 0, Width_rr, 0);
-		PoLine.addQuadPoint(Width_rr, 0, Width_rr, rrxBezierFactor, Width, rr, Width-rrxBezierFactor, rr);
-		PoLine.addQuadPoint(Width, rr, Width, rr, Width, Height_rr, Width, Height_rr);
-		PoLine.addQuadPoint(Width, Height_rr, Width-rrxBezierFactor, Height_rr, Width_rr, Height, Width_rr, Height-rrxBezierFactor);
-		PoLine.addQuadPoint(Width_rr, Height, Width_rr, Height, rr, Height, rr, Height);
-		PoLine.addQuadPoint(rr, Height, rr, Height-rrxBezierFactor, 0, Height_rr, rrxBezierFactor, Height_rr);
+		PoLine.addQuadPoint(Width_rr, 0, Width_rr, rrxBezierFactor, m_width, rr, m_width-rrxBezierFactor, rr);
+		PoLine.addQuadPoint(m_width, rr, m_width, rr, m_width, Height_rr, m_width, Height_rr);
+		PoLine.addQuadPoint(m_width, Height_rr, m_width-rrxBezierFactor, Height_rr, Width_rr, m_height, Width_rr, m_height-rrxBezierFactor);
+		PoLine.addQuadPoint(Width_rr, m_height, Width_rr, m_height, rr, m_height, rr, m_height);
+		PoLine.addQuadPoint(rr, m_height, rr, m_height-rrxBezierFactor, 0, Height_rr, rrxBezierFactor, Height_rr);
 		PoLine.addQuadPoint(0, Height_rr, 0, Height_rr, 0, rr, 0, rr);
 		PoLine.addQuadPoint(0, rr, rrxBezierFactor, rr, rr, 0, rr, rr*bezierFactor);
 	}
@@ -8488,9 +8488,9 @@ void PageItem::getBoundingRect(double *x1, double *y1, double *x2, double *y2) c
 		FPointArray pb;
 		pb.resize(0);
 		pb.addPoint(FPoint(m_xPos, m_yPos));
-		pb.addPoint(FPoint(Width,    0.0, m_xPos, m_yPos, m_rotation, 1.0, 1.0));
-		pb.addPoint(FPoint(Width, Height, m_xPos, m_yPos, m_rotation, 1.0, 1.0));
-		pb.addPoint(FPoint(  0.0, Height, m_xPos, m_yPos, m_rotation, 1.0, 1.0));
+		pb.addPoint(FPoint(m_width,    0.0, m_xPos, m_yPos, m_rotation, 1.0, 1.0));
+		pb.addPoint(FPoint(m_width, m_height, m_xPos, m_yPos, m_rotation, 1.0, 1.0));
+		pb.addPoint(FPoint(  0.0, m_height, m_xPos, m_yPos, m_rotation, 1.0, 1.0));
 		for (uint pc = 0; pc < 4; ++pc)
 		{
 			minx = qMin(minx, pb.point(pc).x());
@@ -8507,8 +8507,8 @@ void PageItem::getBoundingRect(double *x1, double *y1, double *x2, double *y2) c
 	{
 		*x1 = m_xPos;
 		*y1 = m_yPos;
-		*x2 = m_xPos + qMax(1.0, qMax(Width, m_lineWidth));
-		*y2 = m_yPos + qMax(1.0, qMax(Height, m_lineWidth));
+		*x2 = m_xPos + qMax(1.0, qMax(m_width, m_lineWidth));
+		*y2 = m_yPos + qMax(1.0, qMax(m_height, m_lineWidth));
 	}
 	QRectF totalRect = QRectF(QPointF(*x1, *y1), QPointF(*x2, *y2));
 	if (m_startArrowIndex != 0)
@@ -8574,7 +8574,7 @@ void PageItem::getBoundingRect(double *x1, double *y1, double *x2, double *y2) c
 		arrowTrans.rotate(m_rotation);
 		if (itemType() == Line)
 		{
-			arrowTrans.translate(Width, 0);
+			arrowTrans.translate(m_width, 0);
 			arrowTrans.scale(m_endArrowScale / 100.0, m_endArrowScale / 100.0);
 			if (NamedLStyle.isEmpty())
 			{
@@ -8748,7 +8748,7 @@ void PageItem::getVisualBoundingRect(double * x1, double * y1, double * x2, doub
 		arrowTrans.rotate(m_rotation);
 		if (itemType() == Line)
 		{
-			arrowTrans.translate(Width, 0);
+			arrowTrans.translate(m_width, 0);
 			arrowTrans.scale(m_endArrowScale / 100.0, m_endArrowScale / 100.0);
 			if (NamedLStyle.isEmpty())
 			{
@@ -8896,8 +8896,8 @@ double PageItem::visualWidth() const
 		}
 	}
 	if (isPathText())
-		return qMax(QRectF(Clip.boundingRect()).width(), Width + extraSpace);
-	return Width + extraSpace;
+		return qMax(QRectF(Clip.boundingRect()).width(), m_width + extraSpace);
+	return m_width + extraSpace;
 }
 
 double PageItem::visualHeight() const
@@ -8926,8 +8926,8 @@ double PageItem::visualHeight() const
 			extraSpace = sl.Width;
 	}
 	if (isPathText())
-		return qMax(QRectF(Clip.boundingRect()).height(), Height + extraSpace);
-	return isLine() ? extraSpace : Height + extraSpace;
+		return qMax(QRectF(Clip.boundingRect()).height(), m_height + extraSpace);
+	return isLine() ? extraSpace : m_height + extraSpace;
 }
 
 double PageItem::visualLineWidth()
@@ -9304,8 +9304,8 @@ void PageItem::drawLockedMarker(ScPainter *p)
 	//TODO: CB clean
 	double scp1 = p->zoomFactor() ;// / ScMW->view->scale();
 	double ofwh = 6 * scp1;
-	double ofx = Width - ofwh/2;
-	double ofy = Height - ofwh*1.5;
+	double ofx = m_width - ofwh/2;
+	double ofy = m_height - ofwh*1.5;
 	double bx1= ofx+ scp1;
 	double by1= ofy+3 * scp1;
 	double bw= 4*scp1;
@@ -9427,16 +9427,16 @@ void PageItem::AdjustPictScale()
 //	LocalX = 0;
 //	LocalY = 0;
 //	LocalRot = 0;
-	double xs = Width / static_cast<double>(OrigW);
-	double ys = Height / static_cast<double>(OrigH);
+	double xs = m_width / static_cast<double>(OrigW);
+	double ys = m_height / static_cast<double>(OrigH);
 	if (m_imageRotation != 0.0)
 	{
 		QRectF br = QRectF(0, 0, OrigW, OrigH);
 		QTransform m;
 		m.rotate(m_imageRotation);
 		br = m.mapRect(br);
-		xs = Width / br.width();
-		ys = Height / br.height();
+		xs = m_width / br.width();
+		ys = m_height / br.height();
 		QLineF wL = QLineF(0, 0, OrigW, 0);
 		wL.setAngle(-m_imageRotation);
 		QLineF hL = QLineF(0, 0, 0, OrigH);
@@ -9579,40 +9579,40 @@ void PageItem::updateGradientVectors()
 		case 0:
 		case 1:
 			setGradientStartX(0);
-			setGradientStartY(Height / 2.0);
-			setGradientEndX(Width);
-			setGradientEndY(Height / 2.0);
+			setGradientStartY(m_height / 2.0);
+			setGradientEndX(m_width);
+			setGradientEndY(m_height / 2.0);
 			break;
 		case 2:
-			setGradientStartX(Width / 2.0);
+			setGradientStartX(m_width / 2.0);
 			setGradientStartY(0);
-			setGradientEndX(Width / 2.0);
-			setGradientEndY(Height);
+			setGradientEndX(m_width / 2.0);
+			setGradientEndY(m_height);
 			break;
 		case 3:
 			setGradientStartX(0);
 			setGradientStartY(0);
-			setGradientEndX(Width);
-			setGradientEndY(Height);
+			setGradientEndX(m_width);
+			setGradientEndY(m_height);
 			break;
 		case 4:
 			setGradientStartX(0);
-			setGradientStartY(Height);
-			setGradientEndX(Width);
+			setGradientStartY(m_height);
+			setGradientEndX(m_width);
 			setGradientEndY(0);
 			break;
 		case 5:
-			setGradientStartX(Width / 2.0);
-			setGradientStartY(Height / 2.0);
-			if (Width >= Height)
+			setGradientStartX(m_width / 2.0);
+			setGradientStartY(m_height / 2.0);
+			if (m_width >= m_height)
 			{
-				setGradientEndX(Width);
-				setGradientEndY(Height / 2.0);
+				setGradientEndX(m_width);
+				setGradientEndY(m_height / 2.0);
 			}
 			else
 			{
-				setGradientEndX(Width / 2.0);
-				setGradientEndY(Height);
+				setGradientEndX(m_width / 2.0);
+				setGradientEndY(m_height);
 			}
 			break;
 		default:
@@ -9840,8 +9840,8 @@ void PageItem::updateConstants()
 		m_Doc->constants().insert("margintop", m_Doc->Pages->at(OwnPage)->Margins.Top);
 		m_Doc->constants().insert("marginbottom", m_Doc->Pages->at(OwnPage)->height() - m_Doc->Pages->at(OwnPage)->Margins.Bottom);
 	}
-	m_Doc->constants().insert("width", Width);
-	m_Doc->constants().insert("height", Height);
+	m_Doc->constants().insert("width", m_width);
+	m_Doc->constants().insert("height", m_height);
 }
 
 //CB Old ScribusView MoveItemI

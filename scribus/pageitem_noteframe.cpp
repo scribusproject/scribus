@@ -99,8 +99,8 @@ PageItem_NoteFrame::PageItem_NoteFrame(PageItem_TextFrame* inFrame, NotesStyle *
 	double frameHeight = calculateLineSpacing(newStyle, this);
 	if (frameHeight == 0.0 && !m_nstyle->isAutoNotesHeight())
 		frameHeight = newStyle.charStyle().fontSize()/10;
-	Height = oldHeight = frameHeight;
-	oldWidth = Width;
+	m_height = oldHeight = frameHeight;
+	oldWidth = m_width;
 	oldRot = m_rotation;
 	oldXpos = m_xPos;
 	m_yPos = oldYpos =m_masterFrame->yPos() + m_masterFrame->height();
@@ -190,9 +190,9 @@ void PageItem_NoteFrame::layout()
 	//while layouting notes frames undo should be disabled
 	UndoManager::instance()->setUndoEnabled(false);
 
-	if (m_nstyle->isAutoNotesWidth() && (Width != m_masterFrame->width()))
+	if (m_nstyle->isAutoNotesWidth() && (m_width != m_masterFrame->width()))
 	{
-		oldWidth = Width = m_masterFrame->width();
+		oldWidth = m_width = m_masterFrame->width();
 		updateClip();
 	}
 
@@ -200,7 +200,7 @@ void PageItem_NoteFrame::layout()
 		updateNotesText();
 
 	PageItem_TextFrame::layout();
-	int oldH = Height;
+	int oldH = m_height;
 	if (notesStyle()->isAutoNotesHeight())
 	{
 		if (frameOverflows())
@@ -209,16 +209,16 @@ void PageItem_NoteFrame::layout()
 			double maxH = m_Doc->currentPage()->height() - m_xPos;
 			while (frameOverflows())
 			{
-				oldHeight = Height += 8;
+				oldHeight = m_height += 8;
 				updateClip(false);
 				invalid = true;
 				PageItem_TextFrame::layout();
-				if (Height >= maxH)
+				if (m_height >= maxH)
 					break;
 			}
 		}
 		double hackValue = 0.5;
-		oldHeight = Height = ceil(maxY) + m_textDistanceMargins.Bottom + hackValue;
+		oldHeight = m_height = ceil(maxY) + m_textDistanceMargins.Bottom + hackValue;
 		updateConstants();
 		updateClip();
 		invalid = true;
