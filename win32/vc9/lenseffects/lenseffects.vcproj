@@ -420,11 +420,11 @@
 				>
 			</File>
 			<File
-				RelativePath=".\lenseffectsdll.cpp"
+				RelativePath="..\..\..\scribus\plugins\tools\lenseffects\lenseffects.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\plugins\tools\lenseffects\lenseffects.cpp"
+				RelativePath=".\lenseffectsdll.cpp"
 				>
 			</File>
 		</Filter>
@@ -471,44 +471,28 @@
 					Name="Debug-cairo|Win32"
 					>
 					<Tool
-						Name="VCCustomBuildTool"
-						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4_DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
-						AdditionalDependencies="$(QT4_DIR)\bin\moc.ex"
-						Outputs="$(InputDir)\moc_$(InputName).cpp"
+						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release-cairo|Win32"
 					>
 					<Tool
-						Name="VCCustomBuildTool"
-						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4_DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
-						AdditionalDependencies="$(QT4_DIR)\bin\moc.ex"
-						Outputs="$(InputDir)\moc_$(InputName).cpp"
+						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Debug-arthur|Win32"
 					>
 					<Tool
-						Name="VCCustomBuildTool"
-						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4_DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
-						AdditionalDependencies="$(QT4_DIR)\bin\moc.ex"
-						Outputs="$(InputDir)\moc_$(InputName).cpp"
+						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release-arthur|Win32"
 					>
 					<Tool
-						Name="VCCustomBuildTool"
-						Description="Moc&apos;ing $(InputFileName)"
-						CommandLine="$(QT4_DIR)\bin\moc.exe &quot;$(InputPath)&quot; -o  &quot;$(InputDir)\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
-						AdditionalDependencies="$(QT4_DIR)\bin\moc.ex"
-						Outputs="$(InputDir)\moc_$(InputName).cpp"
+						Name="moc"
 					/>
 				</FileConfiguration>
 			</File>
