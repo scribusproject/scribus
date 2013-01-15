@@ -1727,7 +1727,7 @@ void CgmPlug::decodeClass4(QDataStream &ts, quint16 elemID, quint16 paramLen)
 	}
 	else if (elemID == 18)
 	{
-/*		QPointF center = getBinaryCoords(ts);
+		QPointF center = getBinaryCoords(ts);
 		double cx = convertCoords(center.x());
 		double cy = convertCoords(center.y());
 		QPointF r1 = getBinaryCoords(ts);
@@ -1759,43 +1759,184 @@ void CgmPlug::decodeClass4(QDataStream &ts, quint16 elemID, quint16 paramLen)
 		QLineF env = QLineF(cx, cy, cx + ex, cy + ey);
 		QPainterPath ell;
 		ell.addEllipse(QPointF(cx, cy), distX, distY);
-	//	ell.arcMoveTo(cx - distX, cy - distY, distX * 2.0, distY * 2.0, stv.angle());
-	//	ell.arcTo(cx - distX, cy - distY, distX * 2.0, distY * 2.0, stv.angle(), env.angleTo(stv));
 		ell.translate(-cx, -cy);
 		QTransform mm;
 		mm.rotate(rotB);
 		ell = mm.map(ell);
 		ell.translate(cx, cy);
-	//	QPainterPathStroker stroke;
-	//	stroke.setWidth(lineWidth);
-	//	QPainterPath result = stroke.createStroke(ell);
-
-		ell.moveTo(cx, cy);
-		ell.lineTo(cx + sx, cy + sy);
-		ell.moveTo(cx, cy);
-		ell.lineTo(cx + ex, cy + ey);
-
-		ell.translate(m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset());
+		QPolygonF elPo = ell.toFillPolygon();
+		QPointF stP = stv.p2();
+		for (int a = 0; a < elPo.size() - 1; a++)
+		{
+			QPointF intersect;
+			if (QLineF(elPo[a], elPo[a+1]).intersect(stv, &intersect) == QLineF::BoundedIntersection)
+			{
+				stP = intersect;
+				break;
+			}
+		}
+		QPointF enP = env.p2();
+		for (int a = 0; a < elPo.size() - 1; a++)
+		{
+			QPointF intersect;
+			if (QLineF(elPo[a], elPo[a+1]).intersect(env, &intersect) == QLineF::BoundedIntersection)
+			{
+				enP = intersect;
+				break;
+			}
+		}
+		Coords.resize(0);
+		Coords.svgInit();
+		if (dstX.angleTo(dstY) > 180)
+		{
+			Coords.svgMoveTo(stP.x(), stP.y());
+			Coords.svgArcTo(distX, distY, rotB, stv.angleTo(env) < 180 ? 1 : 0, dstX.angleTo(dstY) > 180 ? 1 : 0, enP.x(), enP.y());
+		}
+		else
+		{
+			Coords.svgMoveTo(stP.x(), stP.y());
+			Coords.svgArcTo(distX, distY, rotB, stv.angleTo(env) > 180 ? 1 : 0, dstX.angleTo(dstY) > 180 ? 1 : 0, enP.x(), enP.y());
+		}
+		Coords.translate(m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset());
 		if (recordRegion)
-			regionPath.connectPath(ell);
+			regionPath.connectPath(Coords.toQPainterPath(false));
 		else
 		{
 			if (recordFigure)
-				figurePath.connectPath(ell);
-			Coords.fromQPainterPath(ell, false);
+				figurePath.connectPath(Coords.toQPainterPath(false));
 			int z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, lineWidth, CommonStrings::None, lineColor, true);
 			PageItem *ite = m_Doc->Items->at(z);
 			ite->PoLine = Coords.copy();
 			finishItem(ite);
 		}
-*/
-		alignStreamToWord(ts, paramLen);
-		qDebug() << "ELLIPTICAL ARC";
+	//	qDebug() << "ELLIPTICAL ARC";
 	}
 	else if (elemID == 19)
 	{
-		alignStreamToWord(ts, paramLen);
-		qDebug() << "ELLIPTICAL ARC CLOSE";
+		quint16 mode;
+		QPointF center = getBinaryCoords(ts);
+		double cx = convertCoords(center.x());
+		double cy = convertCoords(center.y());
+		QPointF r1 = getBinaryCoords(ts);
+		double r1x = convertCoords(r1.x());
+		double r1y = convertCoords(r1.y());
+		QPointF r2 = getBinaryCoords(ts);
+		double r2x = convertCoords(r2.x());
+		double r2y = convertCoords(r2.y());
+		QLineF dstX = QLineF(cx, cy, r1x, r1y);
+		QLineF dstY = QLineF(cx, cy, r2x, r2y);
+		double distX = dstX.length();
+		double distY = dstY.length();
+		double rotB = dstX.angle();
+		double sx = convertCoords(getBinaryDistance(ts));
+		double sy = convertCoords(getBinaryDistance(ts));
+		double ex = convertCoords(getBinaryDistance(ts));
+		double ey = convertCoords(getBinaryDistance(ts));
+		ts >> mode;
+		if (vcdFlippedV)
+		{
+			sy *= -1;
+			ey *= -1;
+		}
+		if (vcdFlippedH)
+		{
+			sx *= -1;
+			ex *= -1;
+		}
+		QLineF stv = QLineF(cx, cy, cx + sx, cy + sy);
+		QLineF env = QLineF(cx, cy, cx + ex, cy + ey);
+		QPainterPath ell;
+		ell.addEllipse(QPointF(cx, cy), distX, distY);
+		ell.translate(-cx, -cy);
+		QTransform mm;
+		mm.rotate(rotB);
+		ell = mm.map(ell);
+		ell.translate(cx, cy);
+		QPolygonF elPo = ell.toFillPolygon();
+		QPointF stP = stv.p2();
+		for (int a = 0; a < elPo.size() - 1; a++)
+		{
+			QPointF intersect;
+			if (QLineF(elPo[a], elPo[a+1]).intersect(stv, &intersect) == QLineF::BoundedIntersection)
+			{
+				stP = intersect;
+				break;
+			}
+		}
+		QPointF enP = env.p2();
+		for (int a = 0; a < elPo.size() - 1; a++)
+		{
+			QPointF intersect;
+			if (QLineF(elPo[a], elPo[a+1]).intersect(env, &intersect) == QLineF::BoundedIntersection)
+			{
+				enP = intersect;
+				break;
+			}
+		}
+		Coords.resize(0);
+		Coords.svgInit();
+		if (mode == 0)
+		{
+			Coords.svgMoveTo(cx, cy);
+			if (dstX.angleTo(dstY) > 180)
+			{
+				Coords.svgLineTo(stP.x(), stP.y());
+				Coords.svgArcTo(distX, distY, rotB, stv.angleTo(env) < 180 ? 1 : 0, dstX.angleTo(dstY) > 180 ? 1 : 0, enP.x(), enP.y());
+			}
+			else
+			{
+				Coords.svgLineTo(stP.x(), stP.y());
+				Coords.svgArcTo(distX, distY, rotB, stv.angleTo(env) > 180 ? 1 : 0, dstX.angleTo(dstY) > 180 ? 1 : 0, enP.x(), enP.y());
+			}
+			Coords.svgLineTo(cx, cy);
+			Coords.svgClosePath();
+		}
+		else
+		{
+			if (dstX.angleTo(dstY) > 180)
+			{
+				Coords.svgMoveTo(stP.x(), stP.y());
+				Coords.svgArcTo(distX, distY, rotB, stv.angleTo(env) < 180 ? 1 : 0, dstX.angleTo(dstY) > 180 ? 1 : 0, enP.x(), enP.y());
+			}
+			else
+			{
+				Coords.svgMoveTo(stP.x(), stP.y());
+				Coords.svgArcTo(distX, distY, rotB, stv.angleTo(env) > 180 ? 1 : 0, dstX.angleTo(dstY) > 180 ? 1 : 0, enP.x(), enP.y());
+			}
+			Coords.svgLineTo(stP.x(), stP.y());
+			Coords.svgClosePath();
+		}
+		Coords.translate(m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset());
+		if (recordRegion)
+			regionPath.addPath(Coords.toQPainterPath(false));
+		else
+		{
+			if (recordFigure)
+				figurePath.addPath(Coords.toQPainterPath(false));
+			int z;
+			if (lineVisible)
+			{
+				if (fillType == 0)
+					z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, edgeWidth, CommonStrings::None, edgeColor, true);
+				else if ((fillType == 1) || (fillType == 2) || (fillType == 3))
+					z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, edgeWidth, fillColor, edgeColor, true);
+				else if (fillType == 4)
+					z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, edgeWidth, CommonStrings::None, edgeColor, true);
+				else
+					z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, edgeWidth, fillColor, edgeColor, true);
+			}
+			else
+			{
+				if ((fillType != 0) || (fillType != 4))
+					z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, edgeWidth, fillColor, CommonStrings::None, true);
+				else
+					z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, edgeWidth, CommonStrings::None, CommonStrings::None, true);
+			}
+			PageItem *ite = m_Doc->Items->at(z);
+			ite->PoLine = Coords.copy();
+			finishItem(ite, false);
+		}
+	//	qDebug() << "ELLIPTICAL ARC CLOSE";
 	}
 	else if (elemID == 20)
 	{
