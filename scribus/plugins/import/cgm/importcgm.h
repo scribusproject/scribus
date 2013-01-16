@@ -100,6 +100,7 @@ private:
 	void    handleMetaFileDescription(QString value);
 	QString handleColor(ScColor &color, QString proposedName);
 	double  convertCoords(double input);
+	QPointF convertCoords(QPointF input);
 	void    finishItem(PageItem* ite, bool line = true);
 
 /* common variables */

@@ -1508,8 +1508,7 @@ void CgmPlug::decodeClass4(QDataStream &ts, quint16 elemID, quint16 paramLen)
 	}
 	else if (elemID == 12)
 	{
-		QPointF max, min;
-		max = getBinaryCoords(ts);
+		QPointF max = getBinaryCoords(ts);
 		double x = convertCoords(max.x());
 		double y = convertCoords(max.y());
 		double r = convertCoords(getBinaryDistance(ts));
@@ -1548,13 +1547,139 @@ void CgmPlug::decodeClass4(QDataStream &ts, quint16 elemID, quint16 paramLen)
 	}
 	else if (elemID == 13)
 	{
-		alignStreamToWord(ts, paramLen);
-		qDebug() << "CIRCULAR ARC 3 POINT";
+		QPointF pStart = convertCoords(getBinaryCoords(ts));
+		QPointF pInter = convertCoords(getBinaryCoords(ts));
+		QPointF pEnd = convertCoords(getBinaryCoords(ts));
+		QLineF s_e = QLineF(pStart, pEnd);
+		QLineF n_s = s_e.normalVector();
+		n_s.translate(s_e.pointAt(0.5) - s_e.p1());
+		QLineF s_i = QLineF(pStart, pInter);
+		QLineF n_i = s_i.normalVector();
+		n_i.translate(s_i.pointAt(0.5) - s_i.p1());
+		QPointF center;
+		if (n_s.intersect(n_i, &center) != QLineF::NoIntersection)
+		{
+			QLineF rad1 = QLineF(center, pStart);
+			QLineF rad2 = QLineF(center, pEnd);
+			QLineF rad3 = QLineF(center, pInter);
+			double radius = rad1.length();
+			QPainterPath ell;
+			if (rad1.angle() < rad3.angle())
+			{
+				ell.moveTo(pStart);
+				ell.arcTo(center.x() - radius, center.y() - radius, radius * 2.0, radius * 2.0, rad1.angle(), rad1.angleTo(rad2));
+			}
+			else
+			{
+				ell.moveTo(pEnd);
+				ell.arcTo(center.x() - radius, center.y() - radius, radius * 2.0, radius * 2.0, rad2.angle(), rad2.angleTo(rad1));
+			}
+			ell.translate(m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset());
+			if (recordRegion)
+				regionPath.connectPath(ell);
+			else
+			{
+				if (recordFigure)
+					figurePath.connectPath(ell);
+				Coords.fromQPainterPath(ell, false);
+				int z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, lineWidth, CommonStrings::None, lineColor, true);
+				PageItem *ite = m_Doc->Items->at(z);
+				ite->PoLine = Coords.copy();
+				finishItem(ite);
+			}
+		}
+	//	qDebug() << "CIRCULAR ARC 3 POINT";
 	}
 	else if (elemID == 14)
 	{
-		alignStreamToWord(ts, paramLen);
-		qDebug() << "CIRCULAR ARC 3 POINT CLOSE";
+		QPointF pStart = convertCoords(getBinaryCoords(ts));
+		QPointF pInter = convertCoords(getBinaryCoords(ts));
+		QPointF pEnd = convertCoords(getBinaryCoords(ts));
+		quint16 mode;
+		ts >> mode;
+		QLineF s_e = QLineF(pStart, pEnd);
+		QLineF n_s = s_e.normalVector();
+		n_s.translate(s_e.pointAt(0.5) - s_e.p1());
+		QLineF s_i = QLineF(pStart, pInter);
+		QLineF n_i = s_i.normalVector();
+		n_i.translate(s_i.pointAt(0.5) - s_i.p1());
+		QPointF center;
+		if (n_s.intersect(n_i, &center) != QLineF::NoIntersection)
+		{
+			QLineF rad1 = QLineF(center, pStart);
+			QLineF rad2 = QLineF(center, pEnd);
+			QLineF rad3 = QLineF(center, pInter);
+			double radius = rad1.length();
+			QPainterPath ell;
+			if (rad1.angle() < rad3.angle())
+			{
+				if (mode == 0)
+				{
+					ell.moveTo(center);
+					ell.lineTo(pStart);
+					ell.arcTo(center.x() - radius, center.y() - radius, radius * 2.0, radius * 2.0, rad1.angle(), rad1.angleTo(rad2));
+					ell.lineTo(center);
+					ell.closeSubpath();
+				}
+				else
+				{
+					ell.moveTo(pStart);
+					ell.arcTo(center.x() - radius, center.y() - radius, radius * 2.0, radius * 2.0, rad1.angle(), rad1.angleTo(rad2));
+					ell.lineTo(pStart);
+					ell.closeSubpath();
+				}
+			}
+			else
+			{
+				if (mode == 0)
+				{
+					ell.moveTo(center);
+					ell.lineTo(pEnd);
+					ell.arcTo(center.x() - radius, center.y() - radius, radius * 2.0, radius * 2.0, rad2.angle(), rad2.angleTo(rad1));
+					ell.lineTo(center);
+					ell.closeSubpath();
+				}
+				else
+				{
+					ell.moveTo(pEnd);
+					ell.arcTo(center.x() - radius, center.y() - radius, radius * 2.0, radius * 2.0, rad2.angle(), rad2.angleTo(rad1));
+					ell.lineTo(pEnd);
+					ell.closeSubpath();
+				}
+			}
+			ell.translate(m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset());
+			if (recordRegion)
+				regionPath.addPath(ell);
+			else
+			{
+				if (recordFigure)
+					figurePath.addPath(ell);
+				Coords.fromQPainterPath(ell, true);
+				int z;
+				if (lineVisible)
+				{
+					if (fillType == 0)
+						z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, edgeWidth, CommonStrings::None, edgeColor, true);
+					else if ((fillType == 1) || (fillType == 2) || (fillType == 3))
+						z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, edgeWidth, fillColor, edgeColor, true);
+					else if (fillType == 4)
+						z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, edgeWidth, CommonStrings::None, edgeColor, true);
+					else
+						z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, edgeWidth, fillColor, edgeColor, true);
+				}
+				else
+				{
+					if ((fillType != 0) || (fillType != 4))
+						z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, edgeWidth, fillColor, CommonStrings::None, true);
+					else
+						z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, edgeWidth, CommonStrings::None, CommonStrings::None, true);
+				}
+				PageItem *ite = m_Doc->Items->at(z);
+				ite->PoLine = Coords.copy();
+				finishItem(ite, false);
+			}
+		}
+	//	qDebug() << "CIRCULAR ARC 3 POINT CLOSE";
 	}
 	else if (elemID == 15)
 	{
@@ -2996,6 +3121,11 @@ QString CgmPlug::handleColor(ScColor &color, QString proposedName)
 }
 
 double CgmPlug::convertCoords(double input)
+{
+	return input * metaScale;
+}
+
+QPointF CgmPlug::convertCoords(QPointF input)
 {
 	return input * metaScale;
 }
