@@ -290,7 +290,7 @@ QRegion PageItem_TextFrame::calcAvailableRegion()
 		} // if(OnMasterPage.isEmpty()		
 	} // if(!Embedded)
 	else
-		qDebug() << "QRegion epmty";
+		qDebug() << "QRegion empty";
 	return result;
 }
 
@@ -4008,7 +4008,7 @@ void PageItem_TextFrame::clearContents()
 	nextItem->asTextFrame()->deleteSelectedTextFromFrame();
 	if (!isNoteFrame())
 	{
-		if(UndoManager::undoEnabled())
+		if(UndoManager::undoEnabled() && undoManager->getLastUndo())
 			undoManager->getLastUndo()->setName(Um::ClearText);
 		nextItem->itemText.setDefaultStyle(defaultStyle);
 	}
