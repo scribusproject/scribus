@@ -3690,6 +3690,7 @@ void ScribusMainWindow::importVectorFile()
 				}
 			}
 		}
+		requestUpdate(reqColorsUpdate | reqSymbolsUpdate | reqLineStylesUpdate | reqTextStylesUpdate);
 	}
 }
 

@@ -362,8 +362,12 @@ bool CgmPlug::convert(QString fn)
 	edgeJoin = Qt::MiterJoin;
 	edgeWidth = 0.0;
 	edgeColor = "Black";
-	fillColor = "White";
+	fillColor = "Black";
 	backgroundColor = "White";
+	patternIndex = 1;
+	patternTable.clear();
+	patternScaleX = -1;
+	patternScaleY = -1;
 	backgroundSet = false;
 	fillType = 1;
 	minColor = 0;
@@ -416,6 +420,7 @@ bool CgmPlug::convert(QString fn)
 				paramLen  = data & 0x001F;
 				if (paramLen == 31)
 					ts >> paramLen;
+			//	qDebug() << "CGM Command Class" << elemClass << "ID" << elemID << "ParamLen" << paramLen;
 				decodeBinary(ts, elemClass, elemID, paramLen);
 				if (progressDialog)
 				{
@@ -579,8 +584,7 @@ void CgmPlug::decodeClass0(QDataStream &ts, quint16 elemID, quint16 paramLen)
 		alignStreamToWord(ts, paramLen);
 		recordFigure = false;
 		Coords.fromQPainterPath(figurePath);
-		int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, 0, figFillColor, CommonStrings::None, true);
-		PageItem *ite = m_Doc->Items->at(z);
+		PageItem *ite = itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, 0, figFillColor, CommonStrings::None);
 		ite->PoLine = Coords.copy();
 		ite->ClipEdited = true;
 		ite->FrameType = 3;
@@ -591,7 +595,7 @@ void CgmPlug::decodeClass0(QDataStream &ts, quint16 elemID, quint16 paramLen)
 		ite->OldB2 = ite->width();
 		ite->OldH2 = ite->height();
 		ite->updateClip();
-		m_Doc->Items->takeAt(z);
+		m_Doc->Items->takeLast();
 		m_Doc->Items->insert(figDocIndex, ite);
 		Elements.insert(figElemIndex, ite);
 		if (groupStack.count() != 0)
@@ -686,7 +690,7 @@ void CgmPlug::decodeClass1(QDataStream &ts, quint16 elemID, quint16 paramLen)
 	{
 		ts >> data;
 		intPrecision = data;
-		//qDebug() << "INTEGER PRECISION" << data;
+		qDebug() << "INTEGER PRECISION" << data;
 	}
 	else if (elemID == 5)
 	{
@@ -698,19 +702,19 @@ void CgmPlug::decodeClass1(QDataStream &ts, quint16 elemID, quint16 paramLen)
 		realFraction = data;
 		if (realPrecision == 0)
 			realPrecisionSet = true;
-		//qDebug() << "REAL PRECISION" << realPrecision << realMantissa << realFraction;
+		qDebug() << "REAL PRECISION" << realPrecision << realMantissa << realFraction;
 	}
 	else if (elemID == 6)
 	{
 		ts >> data;
 		indexPrecision = data;
-		//qDebug() << "INDEX PRECISION" << indexPrecision;
+		qDebug() << "INDEX PRECISION" << indexPrecision;
 	}
 	else if (elemID == 7)
 	{
 		ts >> data;
 		colorPrecision = data;
-		//qDebug() << "COLOUR PRECISION" << colorPrecision;
+		qDebug() << "COLOUR PRECISION" << colorPrecision;
 	}
 	else if (elemID == 8)
 	{
@@ -1313,22 +1317,7 @@ void CgmPlug::decodeClass4(QDataStream &ts, quint16 elemID, quint16 paramLen)
 			{
 				if (recordFigure)
 					figurePath.addPath(Coords.toQPainterPath(true));
-				int z;
-				if (lineVisible)
-				{
-					if ((fillType != 0) || (fillType != 4))
-						z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, edgeWidth, fillColor, edgeColor, true);
-					else
-						z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, edgeWidth, CommonStrings::None, edgeColor, true);
-				}
-				else
-				{
-					if ((fillType != 0) || (fillType != 4))
-						z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, edgeWidth, fillColor, CommonStrings::None, true);
-					else
-						z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, edgeWidth, CommonStrings::None, CommonStrings::None, true);
-				}
-				PageItem *ite = m_Doc->Items->at(z);
+				PageItem *ite = itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, edgeWidth, fillColor, edgeColor);
 				ite->PoLine = Coords.copy();
 				finishItem(ite, false);
 			}
@@ -1380,8 +1369,7 @@ void CgmPlug::decodeClass4(QDataStream &ts, quint16 elemID, quint16 paramLen)
 		{
 		//	qDebug() << "POLYGON SET" << "Fill Color" << fillColor;
 			Coords.fromQPainterPath(polySetPath, true);
-			int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, edgeWidth, fillColor, edgeColor, true);
-			PageItem *ite = m_Doc->Items->at(z);
+			PageItem *ite = itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, edgeWidth, fillColor, edgeColor);
 			ite->PoLine = Coords.copy();
 			ite->PoLine.translate(m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset());
 			finishItem(ite, false);
@@ -1485,22 +1473,7 @@ void CgmPlug::decodeClass4(QDataStream &ts, quint16 elemID, quint16 paramLen)
 		{
 			if (recordFigure)
 				figurePath.addRect(QRectF(x + m_Doc->currentPage()->xOffset(), y + m_Doc->currentPage()->yOffset(), w, h));
-			int z;
-			if (lineVisible)
-			{
-				if ((fillType != 0) || (fillType != 4))
-					z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX + x, baseY + y, w, h, edgeWidth, fillColor, edgeColor, true);
-				else
-					z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX + x, baseY + y, w, h, edgeWidth, CommonStrings::None, edgeColor, true);
-			}
-			else
-			{
-				if ((fillType != 0) || (fillType != 4))
-					z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX + x, baseY + y, w, h, edgeWidth, fillColor, CommonStrings::None, true);
-				else
-					z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX + x, baseY + y, w, h, edgeWidth, CommonStrings::None, CommonStrings::None, true);
-			}
-			PageItem *ite = m_Doc->Items->at(z);
+			PageItem *ite = itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX + x, baseY + y, w, h, edgeWidth, fillColor, edgeColor);
 			ite->PoLine.translate(m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset());
 			finishItem(ite, false);
 		}
@@ -1520,26 +1493,7 @@ void CgmPlug::decodeClass4(QDataStream &ts, quint16 elemID, quint16 paramLen)
 		{
 			if (recordFigure)
 				figurePath.addEllipse(QRectF(x + m_Doc->currentPage()->xOffset(), y + m_Doc->currentPage()->yOffset(), r * 2.0, r * 2.0));
-			int z;
-			if (lineVisible)
-			{
-				if (fillType == 0)
-					z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, baseX + x, baseY + y, r * 2.0, r * 2.0, edgeWidth, CommonStrings::None, edgeColor, true);
-				else if ((fillType == 1) || (fillType == 2) || (fillType == 3))
-					z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, baseX + x, baseY + y, r * 2.0, r * 2.0, edgeWidth, fillColor, edgeColor, true);
-				else if (fillType == 4)
-					z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, baseX + x, baseY + y, r * 2.0, r * 2.0, edgeWidth, CommonStrings::None, edgeColor, true);
-				else
-					z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, baseX + x, baseY + y, r * 2.0, r * 2.0, edgeWidth, fillColor, edgeColor, true);
-			}
-			else
-			{
-				if ((fillType != 0) || (fillType != 4))
-					z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, baseX + x, baseY + y, r * 2.0, r * 2.0, edgeWidth, fillColor, CommonStrings::None, true);
-				else
-					z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, baseX + x, baseY + y, r * 2.0, r * 2.0, edgeWidth, CommonStrings::None, CommonStrings::None, true);
-			}
-			PageItem *ite = m_Doc->Items->at(z);
+			PageItem *ite = itemAdd(PageItem::Polygon, PageItem::Ellipse, baseX + x, baseY + y, r * 2.0, r * 2.0, edgeWidth, fillColor, edgeColor);
 			ite->PoLine.translate(m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset());
 			finishItem(ite, false);
 		}
@@ -1655,26 +1609,7 @@ void CgmPlug::decodeClass4(QDataStream &ts, quint16 elemID, quint16 paramLen)
 				if (recordFigure)
 					figurePath.addPath(ell);
 				Coords.fromQPainterPath(ell, true);
-				int z;
-				if (lineVisible)
-				{
-					if (fillType == 0)
-						z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, edgeWidth, CommonStrings::None, edgeColor, true);
-					else if ((fillType == 1) || (fillType == 2) || (fillType == 3))
-						z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, edgeWidth, fillColor, edgeColor, true);
-					else if (fillType == 4)
-						z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, edgeWidth, CommonStrings::None, edgeColor, true);
-					else
-						z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, edgeWidth, fillColor, edgeColor, true);
-				}
-				else
-				{
-					if ((fillType != 0) || (fillType != 4))
-						z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, edgeWidth, fillColor, CommonStrings::None, true);
-					else
-						z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, edgeWidth, CommonStrings::None, CommonStrings::None, true);
-				}
-				PageItem *ite = m_Doc->Items->at(z);
+				PageItem *ite = itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, edgeWidth, fillColor, edgeColor);
 				ite->PoLine = Coords.copy();
 				finishItem(ite, false);
 			}
@@ -1768,26 +1703,7 @@ void CgmPlug::decodeClass4(QDataStream &ts, quint16 elemID, quint16 paramLen)
 			if (recordFigure)
 				figurePath.addPath(ell);
 			Coords.fromQPainterPath(ell, true);
-			int z;
-			if (lineVisible)
-			{
-				if (fillType == 0)
-					z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, edgeWidth, CommonStrings::None, edgeColor, true);
-				else if ((fillType == 1) || (fillType == 2) || (fillType == 3))
-					z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, edgeWidth, fillColor, edgeColor, true);
-				else if (fillType == 4)
-					z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, edgeWidth, CommonStrings::None, edgeColor, true);
-				else
-					z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, edgeWidth, fillColor, edgeColor, true);
-			}
-			else
-			{
-				if ((fillType != 0) || (fillType != 4))
-					z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, edgeWidth, fillColor, CommonStrings::None, true);
-				else
-					z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, edgeWidth, CommonStrings::None, CommonStrings::None, true);
-			}
-			PageItem *ite = m_Doc->Items->at(z);
+			PageItem *ite = itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, edgeWidth, fillColor, edgeColor);
 			ite->PoLine = Coords.copy();
 			finishItem(ite, false);
 		}
@@ -1825,26 +1741,7 @@ void CgmPlug::decodeClass4(QDataStream &ts, quint16 elemID, quint16 paramLen)
 			if (recordFigure)
 				figurePath.addPath(ell);
 			Coords.fromQPainterPath(ell, true);
-			int z;
-			if (lineVisible)
-			{
-				if (fillType == 0)
-					z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, edgeWidth, CommonStrings::None, edgeColor, true);
-				else if ((fillType == 1) || (fillType == 2) || (fillType == 3))
-					z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, edgeWidth, fillColor, edgeColor, true);
-				else if (fillType == 4)
-					z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, edgeWidth, CommonStrings::None, edgeColor, true);
-				else
-					z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, edgeWidth, fillColor, edgeColor, true);
-			}
-			else
-			{
-				if ((fillType != 0) || (fillType != 4))
-					z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, edgeWidth, fillColor, CommonStrings::None, true);
-				else
-					z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, edgeWidth, CommonStrings::None, CommonStrings::None, true);
-			}
-			PageItem *ite = m_Doc->Items->at(z);
+			PageItem *ite = itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, edgeWidth, fillColor, edgeColor);
 			ite->PoLine = Coords.copy();
 			finishItem(ite, false);
 		}
@@ -2038,26 +1935,7 @@ void CgmPlug::decodeClass4(QDataStream &ts, quint16 elemID, quint16 paramLen)
 		{
 			if (recordFigure)
 				figurePath.addPath(Coords.toQPainterPath(false));
-			int z;
-			if (lineVisible)
-			{
-				if (fillType == 0)
-					z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, edgeWidth, CommonStrings::None, edgeColor, true);
-				else if ((fillType == 1) || (fillType == 2) || (fillType == 3))
-					z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, edgeWidth, fillColor, edgeColor, true);
-				else if (fillType == 4)
-					z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, edgeWidth, CommonStrings::None, edgeColor, true);
-				else
-					z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, edgeWidth, fillColor, edgeColor, true);
-			}
-			else
-			{
-				if ((fillType != 0) || (fillType != 4))
-					z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, edgeWidth, fillColor, CommonStrings::None, true);
-				else
-					z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, edgeWidth, CommonStrings::None, CommonStrings::None, true);
-			}
-			PageItem *ite = m_Doc->Items->at(z);
+			PageItem *ite = itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, edgeWidth, fillColor, edgeColor);
 			ite->PoLine = Coords.copy();
 			finishItem(ite, false);
 		}
@@ -2280,8 +2158,10 @@ void CgmPlug::decodeClass5(QDataStream &ts, quint16 elemID, quint16 paramLen)
 	}
 	else if (elemID == 25)
 	{
-		alignStreamToWord(ts, paramLen);
- 		qDebug() << "PATTERN INDEX";
+		patternIndex = getBinaryUInt(ts, indexPrecision);
+		// Hack to fix some broken(?) CGM files
+		//fillType = 2;
+	//	qDebug() << "PATTERN INDEX" << patternIndex;
 	}
 	else if (elemID == 26)
 	{
@@ -2336,13 +2216,90 @@ void CgmPlug::decodeClass5(QDataStream &ts, quint16 elemID, quint16 paramLen)
 	}
 	else if (elemID == 32)
 	{
+		int pos = ts.device()->pos();
+		uint index = getBinaryUInt(ts, indexPrecision);
+		uint nx = getBinaryUInt(ts, intPrecision);
+		uint ny = getBinaryUInt(ts, intPrecision);
+		int t_colorPrecision = colorPrecision;
+		colorPrecision = getBinaryUInt(ts, intPrecision);
+		QImage tmpImg = QImage(nx, ny, QImage::Format_ARGB32);
+		for (uint a = 0; a < ny; a++)
+		{
+			QRgb *s = (QRgb*)tmpImg.scanLine(a);
+			for (uint b = 0; b < nx; b++)
+			{
+				ScColor color;
+				if (colorMode == 0)
+					color = m_Doc->PageColors[getBinaryIndexedColor(ts)];
+				else
+					color = getBinaryDirectColor(ts);
+				QColor co = color.getRawRGBColor();
+				*s = qRgba(co.red(), co.green(), co.blue(), 255);
+				s++;
+			}
+		}
+		int z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Rectangle, 0, 0, tmpImg.width(), tmpImg.height(), 0, CommonStrings::None, CommonStrings::None, true);
+		PageItem* ite = m_Doc->Items->at(z);
+		ite->SetRectFrame();
+		ite->setTextFlowMode(PageItem::TextFlowDisabled);
+		m_Doc->AdjustItemSize(ite);
+		ite->OldB2 = ite->width();
+		ite->OldH2 = ite->height();
+		ite->tempImageFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_cgm_XXXXXX.png");
+		if (ite->tempImageFile->open())
+		{
+			QString fileName = getLongPathName(ite->tempImageFile->fileName());
+			if (!fileName.isEmpty())
+			{
+				ite->tempImageFile->close();
+				ite->isInlineImage = true;
+				tmpImg.save(fileName, "PNG");
+				m_Doc->loadPict(fileName, ite);
+				ite->setImageScalingMode(false, true);
+				ScPattern pat = ScPattern();
+				pat.setDoc(m_Doc);
+				pat.pattern = tmpImg;
+				pat.xoffset = 0;
+				pat.yoffset = 0;
+				pat.width = ite->width();
+				pat.height = ite->height();
+				ite->gXpos = 0;
+				ite->gYpos = 0;
+				ite->setXYPos(ite->gXpos, ite->gYpos, true);
+				pat.items.append(ite);
+				m_Doc->Items->removeAll(ite);
+				QString id = QString("Pattern_from_CGM_%1").arg(m_Doc->docPatterns.count() + 1);
+				m_Doc->addPattern(id, pat);
+				patternTable.insert(index, id);
+			}
+			else
+			{
+				m_Doc->Items->removeAll(ite);
+				delete ite;
+			}
+		}
+		else
+		{
+			m_Doc->Items->removeAll(ite);
+			delete ite;
+		}
+		colorPrecision = t_colorPrecision;
+		ts.device()->seek(pos);
 		alignStreamToWord(ts, paramLen);
- 		qDebug() << "PATTERN TABLE";
+	//	qDebug() << "PATTERN TABLE" << "Index" << index << "NX" << nx << "NY" << ny;
 	}
 	else if (elemID == 33)
 	{
-		alignStreamToWord(ts, paramLen);
-		qDebug() << "PATTERN SIZE";
+//		alignStreamToWord(ts, paramLen);
+		double phx = convertCoords(getBinaryDistance(ts));
+		double phy = convertCoords(getBinaryDistance(ts));
+		double pwx = convertCoords(getBinaryDistance(ts));
+		double pwy = convertCoords(getBinaryDistance(ts));
+		QLineF hp = QLineF(0, 0, phx, phy);
+		QLineF wp = QLineF(0, 0, pwx, pwy);
+		patternScaleX = wp.length();
+		patternScaleY = hp.length();
+	//	qDebug() << "PATTERN SIZE" << wp.length() << hp.length();
 	}
 	else if (elemID == 34)
 	{
@@ -2403,7 +2360,6 @@ void CgmPlug::decodeClass5(QDataStream &ts, quint16 elemID, quint16 paramLen)
 	}
 	else if (elemID == 42)
 	{
-
 		textScaleMode = getBinaryUInt(ts, indexPrecision);
 		qDebug() << "RESTRICTED TEXT TYPE" << textScaleMode;
 	}
@@ -3128,6 +3084,68 @@ double CgmPlug::convertCoords(double input)
 QPointF CgmPlug::convertCoords(QPointF input)
 {
 	return input * metaScale;
+}
+
+PageItem* CgmPlug::itemAdd(PageItem::ItemType itemType, PageItem::ItemFrameType frameType, double x, double y, double b, double h, double w, QString fill, QString stroke)
+{
+	int z;
+	if (lineVisible)
+	{
+		if (fillType == 0)
+			z = m_Doc->itemAdd(itemType, frameType, x, y, b, h, w, CommonStrings::None, stroke, true);
+		else if ((fillType == 1) || (fillType == 3))
+			z = m_Doc->itemAdd(itemType, frameType, x, y, b, h, w, fill, stroke, true);
+		else if (fillType == 2)
+		{
+			z = m_Doc->itemAdd(itemType, frameType, x, y, b, h, w, fill, stroke, true);
+			if (patternTable.contains(patternIndex))
+			{
+				PageItem *ite = m_Doc->Items->at(z);
+				ite->setPattern(patternTable[patternIndex]);
+				ScPattern pat = m_Doc->docPatterns[patternTable[patternIndex]];
+				double patSX = 100;
+				double patSY = 100;
+				if (patternScaleX > -1)
+					patSX = patternScaleX / pat.width * 100;
+				if (patternScaleY > -1)
+					patSY = patternScaleY / pat.height * 100;
+				ite->setPatternTransform(patSX, patSY, 0, 0, 0, 0.0, 0.0);
+				ite->GrType = 8;
+			}
+		}
+		else if (fillType == 4)
+			z = m_Doc->itemAdd(itemType, frameType, x, y, b, h, w, CommonStrings::None, stroke, true);
+		else
+			z = m_Doc->itemAdd(itemType, frameType, x, y, b, h, w, fill, stroke, true);
+	}
+	else
+	{
+		if (fillType == 0)
+			z = m_Doc->itemAdd(itemType, frameType, x, y, b, h, w, CommonStrings::None, fill, true);
+		else if ((fillType == 1) || (fillType == 3))
+			z = m_Doc->itemAdd(itemType, frameType, x, y, b, h, w, fill, CommonStrings::None, true);
+		else if (fillType == 2)
+		{
+			z = m_Doc->itemAdd(itemType, frameType, x, y, b, h, w, fill, CommonStrings::None, true);
+			if (patternTable.contains(patternIndex))
+			{
+				PageItem *ite = m_Doc->Items->at(z);
+				ite->setPattern(patternTable[patternIndex]);
+				ScPattern pat = m_Doc->docPatterns[patternTable[patternIndex]];
+				double patSX = 100;
+				double patSY = 100;
+				if (patternScaleX > -1)
+					patSX = patternScaleX / pat.width * 100;
+				if (patternScaleY > -1)
+					patSY = patternScaleY / pat.height * 100;
+				ite->setPatternTransform(patSX, patSY, 0, 0, 0, 0.0, 0.0);
+				ite->GrType = 8;
+			}
+		}
+		else
+			z = m_Doc->itemAdd(itemType, frameType, x, y, b, h, w, CommonStrings::None, CommonStrings::None, true);
+	}
+	return m_Doc->Items->at(z);
 }
 
 void CgmPlug::finishItem(PageItem* ite, bool line)

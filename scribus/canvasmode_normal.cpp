@@ -1883,7 +1883,7 @@ void CanvasMode_Normal::importToPage()
 				double x2, y2, w, h;
 				m_doc->m_Selection->getGroupRect(&x2, &y2, &w, &h);
 				m_doc->moveGroup(pastePoint.x() - x2, pastePoint.y() - y2);
-				m_ScMW->requestUpdate(reqColorsUpdate | reqLineStylesUpdate | reqTextStylesUpdate);
+				m_ScMW->requestUpdate(reqColorsUpdate | reqSymbolsUpdate | reqLineStylesUpdate | reqTextStylesUpdate);
 			}
 			m_doc->dontResize = false;
 		}
