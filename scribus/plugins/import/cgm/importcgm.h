@@ -101,6 +101,7 @@ private:
 	QString handleColor(ScColor &color, QString proposedName);
 	double  convertCoords(double input);
 	QPointF convertCoords(QPointF input);
+	void appendPath(QPainterPath &path1, QPainterPath &path2);
 	PageItem* itemAdd(PageItem::ItemType itemType, PageItem::ItemFrameType frameType, double x, double y, double b, double h, double w, QString fill, QString stroke);
 	void    finishItem(PageItem* ite, bool line = true);
 
@@ -190,6 +191,7 @@ private:
 	bool wasEndPic;
 	bool recordFigure;
 	QPainterPath figurePath;
+	bool figClose;
 	int figDocIndex;
 	int figElemIndex;
 	int figGstIndex;

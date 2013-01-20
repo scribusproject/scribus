@@ -571,6 +571,7 @@ void CgmPlug::decodeClass0(QDataStream &ts, quint16 elemID, quint16 paramLen)
 		alignStreamToWord(ts, paramLen);
 		recordFigure = true;
 		figurePath = QPainterPath();
+		figClose = false;
 		figDocIndex = m_Doc->Items->count();
 		figElemIndex = Elements.count();
 		figGstIndex = 0;
@@ -583,23 +584,27 @@ void CgmPlug::decodeClass0(QDataStream &ts, quint16 elemID, quint16 paramLen)
 	{
 		alignStreamToWord(ts, paramLen);
 		recordFigure = false;
-		Coords.fromQPainterPath(figurePath);
-		PageItem *ite = itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, 0, figFillColor, CommonStrings::None);
-		ite->PoLine = Coords.copy();
-		ite->ClipEdited = true;
-		ite->FrameType = 3;
-		FPoint wh = getMaxClipF(&ite->PoLine);
-		ite->setWidthHeight(wh.x(),wh.y());
-		ite->setTextFlowMode(PageItem::TextFlowDisabled);
-		m_Doc->AdjustItemSize(ite);
-		ite->OldB2 = ite->width();
-		ite->OldH2 = ite->height();
-		ite->updateClip();
-		m_Doc->Items->takeLast();
-		m_Doc->Items->insert(figDocIndex, ite);
-		Elements.insert(figElemIndex, ite);
-		if (groupStack.count() != 0)
-			groupStack.top().insert(figGstIndex, ite);
+		if (!figurePath.isEmpty())
+		{
+			figurePath.closeSubpath();
+			Coords.fromQPainterPath(figurePath);
+			PageItem *ite = itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, 0, figFillColor, CommonStrings::None);
+			ite->PoLine = Coords.copy();
+			ite->ClipEdited = true;
+			ite->FrameType = 3;
+			FPoint wh = getMaxClipF(&ite->PoLine);
+			ite->setWidthHeight(wh.x(),wh.y());
+			ite->setTextFlowMode(PageItem::TextFlowDisabled);
+			m_Doc->AdjustItemSize(ite);
+			ite->OldB2 = ite->width();
+			ite->OldH2 = ite->height();
+			ite->updateClip();
+			m_Doc->Items->takeLast();
+			m_Doc->Items->insert(figDocIndex, ite);
+			Elements.insert(figElemIndex, ite);
+			if (groupStack.count() != 0)
+				groupStack.top().insert(figGstIndex, ite);
+		}
 		figurePath = QPainterPath();
 	//	qDebug() << "END FIGURE";
 	}
@@ -690,7 +695,7 @@ void CgmPlug::decodeClass1(QDataStream &ts, quint16 elemID, quint16 paramLen)
 	{
 		ts >> data;
 		intPrecision = data;
-		qDebug() << "INTEGER PRECISION" << data;
+	//	qDebug() << "INTEGER PRECISION" << data;
 	}
 	else if (elemID == 5)
 	{
@@ -702,19 +707,19 @@ void CgmPlug::decodeClass1(QDataStream &ts, quint16 elemID, quint16 paramLen)
 		realFraction = data;
 		if (realPrecision == 0)
 			realPrecisionSet = true;
-		qDebug() << "REAL PRECISION" << realPrecision << realMantissa << realFraction;
+	//	qDebug() << "REAL PRECISION" << realPrecision << realMantissa << realFraction;
 	}
 	else if (elemID == 6)
 	{
 		ts >> data;
 		indexPrecision = data;
-		qDebug() << "INDEX PRECISION" << indexPrecision;
+	//	qDebug() << "INDEX PRECISION" << indexPrecision;
 	}
 	else if (elemID == 7)
 	{
 		ts >> data;
 		colorPrecision = data;
-		qDebug() << "COLOUR PRECISION" << colorPrecision;
+	//	qDebug() << "COLOUR PRECISION" << colorPrecision;
 	}
 	else if (elemID == 8)
 	{
@@ -820,7 +825,7 @@ void CgmPlug::decodeClass1(QDataStream &ts, quint16 elemID, quint16 paramLen)
 		QPointF max, min;
 		max = getBinaryCoords(ts);
 		min = getBinaryCoords(ts);
- 		// qDebug() << "MAXIMUM VDC EXTENT" << min.x() << min.y() << max.x() << max.y();
+	//	qDebug() << "MAXIMUM VDC EXTENT" << min.x() << min.y() << max.x() << max.y();
 	}
 	else if (elemID == 18)
 	{
@@ -1095,6 +1100,11 @@ void CgmPlug::decodeClass3(QDataStream &ts, quint16 elemID, quint16 paramLen)
 	else if (elemID == 10)
 	{
 		alignStreamToWord(ts, paramLen);
+		if (recordRegion)
+			regionPath.closeSubpath();
+		if (recordFigure)
+			figurePath.closeSubpath();
+		figClose = true;
 		qDebug() << "NEW REGION";
 	}
 	else if (elemID == 11)
@@ -1184,11 +1194,20 @@ void CgmPlug::decodeClass4(QDataStream &ts, quint16 elemID, quint16 paramLen)
 		{
 			Coords.translate(m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset());
 			if (recordRegion)
-				regionPath.addPath(Coords.toQPainterPath(false));
+				regionPath.connectPath(Coords.toQPainterPath(false));
 			else
 			{
 				if (recordFigure)
-					figurePath.connectPath(Coords.toQPainterPath(false));
+				{
+					if (figClose)
+					{
+						QPainterPath ell = Coords.toQPainterPath(false);
+						appendPath(figurePath, ell);
+						figClose = false;
+					}
+					else
+						figurePath.connectPath(Coords.toQPainterPath(false));
+				}
 				int z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, lineWidth, CommonStrings::None, lineColor, true);
 				PageItem *ite = m_Doc->Items->at(z);
 				ite->PoLine = Coords.copy();
@@ -1204,11 +1223,20 @@ void CgmPlug::decodeClass4(QDataStream &ts, quint16 elemID, quint16 paramLen)
 		{
 			Coords.translate(m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset());
 			if (recordRegion)
-				regionPath.addPath(Coords.toQPainterPath(false));
+				regionPath.connectPath(Coords.toQPainterPath(false));
 			else
 			{
 				if (recordFigure)
-					figurePath.connectPath(Coords.toQPainterPath(false));
+				{
+					if (figClose)
+					{
+						QPainterPath ell = Coords.toQPainterPath(false);
+						appendPath(figurePath, ell);
+						figClose = false;
+					}
+					else
+						figurePath.connectPath(Coords.toQPainterPath(false));
+				}
 				int z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, lineWidth, CommonStrings::None, lineColor, true);
 				PageItem *ite = m_Doc->Items->at(z);
 				ite->PoLine = Coords.copy();
@@ -1514,28 +1542,29 @@ void CgmPlug::decodeClass4(QDataStream &ts, quint16 elemID, quint16 paramLen)
 		if (n_s.intersect(n_i, &center) != QLineF::NoIntersection)
 		{
 			QLineF rad1 = QLineF(center, pStart);
-			QLineF rad2 = QLineF(center, pEnd);
 			QLineF rad3 = QLineF(center, pInter);
 			double radius = rad1.length();
-			QPainterPath ell;
-			if (rad1.angle() < rad3.angle())
-			{
-				ell.moveTo(pStart);
-				ell.arcTo(center.x() - radius, center.y() - radius, radius * 2.0, radius * 2.0, rad1.angle(), rad1.angleTo(rad2));
-			}
-			else
-			{
-				ell.moveTo(pEnd);
-				ell.arcTo(center.x() - radius, center.y() - radius, radius * 2.0, radius * 2.0, rad2.angle(), rad2.angleTo(rad1));
-			}
-			ell.translate(m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset());
+			Coords.resize(0);
+			Coords.svgInit();
+			Coords.svgMoveTo(pStart.x(), pStart.y());
+			Coords.svgArcTo(radius, radius, 0, 0, rad1.angle() < rad3.angle() ? 0 : 1, pInter.x(), pInter.y());
+			Coords.svgArcTo(radius, radius, 0, 0, rad1.angle() < rad3.angle() ? 0 : 1, pEnd.x(), pEnd.y());
+			Coords.translate(m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset());
 			if (recordRegion)
-				regionPath.connectPath(ell);
+				regionPath.connectPath(Coords.toQPainterPath(false));
 			else
 			{
 				if (recordFigure)
-					figurePath.connectPath(ell);
-				Coords.fromQPainterPath(ell, false);
+				{
+					if (figClose)
+					{
+						QPainterPath ell = Coords.toQPainterPath(false);
+						appendPath(figurePath, ell);
+						figClose = false;
+					}
+					else
+						figurePath.connectPath(Coords.toQPainterPath(false));
+				}
 				int z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, lineWidth, CommonStrings::None, lineColor, true);
 				PageItem *ite = m_Doc->Items->at(z);
 				ite->PoLine = Coords.copy();
@@ -1561,54 +1590,31 @@ void CgmPlug::decodeClass4(QDataStream &ts, quint16 elemID, quint16 paramLen)
 		if (n_s.intersect(n_i, &center) != QLineF::NoIntersection)
 		{
 			QLineF rad1 = QLineF(center, pStart);
-			QLineF rad2 = QLineF(center, pEnd);
 			QLineF rad3 = QLineF(center, pInter);
 			double radius = rad1.length();
-			QPainterPath ell;
-			if (rad1.angle() < rad3.angle())
+			Coords.resize(0);
+			Coords.svgInit();
+			if (mode == 0)
 			{
-				if (mode == 0)
-				{
-					ell.moveTo(center);
-					ell.lineTo(pStart);
-					ell.arcTo(center.x() - radius, center.y() - radius, radius * 2.0, radius * 2.0, rad1.angle(), rad1.angleTo(rad2));
-					ell.lineTo(center);
-					ell.closeSubpath();
-				}
-				else
-				{
-					ell.moveTo(pStart);
-					ell.arcTo(center.x() - radius, center.y() - radius, radius * 2.0, radius * 2.0, rad1.angle(), rad1.angleTo(rad2));
-					ell.lineTo(pStart);
-					ell.closeSubpath();
-				}
+				Coords.svgMoveTo(center.x(), center.y());
+				Coords.svgLineTo(pStart.x(), pStart.y());
 			}
 			else
-			{
-				if (mode == 0)
-				{
-					ell.moveTo(center);
-					ell.lineTo(pEnd);
-					ell.arcTo(center.x() - radius, center.y() - radius, radius * 2.0, radius * 2.0, rad2.angle(), rad2.angleTo(rad1));
-					ell.lineTo(center);
-					ell.closeSubpath();
-				}
-				else
-				{
-					ell.moveTo(pEnd);
-					ell.arcTo(center.x() - radius, center.y() - radius, radius * 2.0, radius * 2.0, rad2.angle(), rad2.angleTo(rad1));
-					ell.lineTo(pEnd);
-					ell.closeSubpath();
-				}
-			}
-			ell.translate(m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset());
+				Coords.svgMoveTo(pStart.x(), pStart.y());
+			Coords.svgArcTo(radius, radius, 0, 0, rad1.angle() < rad3.angle() ? 0 : 1, pInter.x(), pInter.y());
+			Coords.svgArcTo(radius, radius, 0, 0, rad1.angle() < rad3.angle() ? 0 : 1, pEnd.x(), pEnd.y());
+			if (mode == 0)
+				Coords.svgLineTo(center.x(), center.y());
+			else
+				Coords.svgLineTo(pStart.x(), pStart.y());
+			Coords.svgClosePath();
+			Coords.translate(m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset());
 			if (recordRegion)
-				regionPath.addPath(ell);
+				regionPath.addPath(Coords.toQPainterPath(false));
 			else
 			{
 				if (recordFigure)
-					figurePath.addPath(ell);
-				Coords.fromQPainterPath(ell, true);
+					figurePath.addPath(Coords.toQPainterPath(false));
 				PageItem *ite = itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, edgeWidth, fillColor, edgeColor);
 				ite->PoLine = Coords.copy();
 				finishItem(ite, false);
@@ -1647,7 +1653,15 @@ void CgmPlug::decodeClass4(QDataStream &ts, quint16 elemID, quint16 paramLen)
 		else
 		{
 			if (recordFigure)
-				figurePath.connectPath(ell);
+			{
+				if (figClose)
+				{
+					appendPath(figurePath, ell);
+					figClose = false;
+				}
+				else
+					figurePath.connectPath(ell);
+			}
 			Coords.fromQPainterPath(ell, false);
 			int z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, lineWidth, CommonStrings::None, lineColor, true);
 			PageItem *ite = m_Doc->Items->at(z);
@@ -1825,7 +1839,16 @@ void CgmPlug::decodeClass4(QDataStream &ts, quint16 elemID, quint16 paramLen)
 		else
 		{
 			if (recordFigure)
-				figurePath.connectPath(Coords.toQPainterPath(false));
+			{
+				if (figClose)
+				{
+					QPainterPath ell = Coords.toQPainterPath(false);
+					appendPath(figurePath, ell);
+					figClose = false;
+				}
+				else
+					figurePath.connectPath(Coords.toQPainterPath(false));
+			}
 			int z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, lineWidth, CommonStrings::None, lineColor, true);
 			PageItem *ite = m_Doc->Items->at(z);
 			ite->PoLine = Coords.copy();
@@ -1982,7 +2005,16 @@ void CgmPlug::decodeClass4(QDataStream &ts, quint16 elemID, quint16 paramLen)
 			else
 			{
 				if (recordFigure)
-					figurePath.connectPath(Coords.toQPainterPath(false));
+				{
+					if (figClose)
+					{
+						QPainterPath ell = Coords.toQPainterPath(false);
+						appendPath(figurePath, ell);
+						figClose = false;
+					}
+					else
+						figurePath.connectPath(Coords.toQPainterPath(false));
+				}
 				int z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, lineWidth, CommonStrings::None, lineColor, true);
 				PageItem *ite = m_Doc->Items->at(z);
 				ite->PoLine = Coords.copy();
@@ -3084,6 +3116,28 @@ double CgmPlug::convertCoords(double input)
 QPointF CgmPlug::convertCoords(QPointF input)
 {
 	return input * metaScale;
+}
+
+void CgmPlug::appendPath(QPainterPath &path1, QPainterPath &path2)
+{
+	for (int i = 0; i < path2.elementCount(); ++i)
+	{
+		const QPainterPath::Element &elm = path2.elementAt(i);
+		switch (elm.type)
+		{
+			case QPainterPath::MoveToElement:
+				path1.moveTo(elm.x, elm.y);
+				break;
+			case QPainterPath::LineToElement:
+				path1.lineTo(elm.x, elm.y);
+				break;
+			case QPainterPath::CurveToElement:
+				path1.cubicTo(elm.x, elm.y, path2.elementAt(i+1).x, path2.elementAt(i+1).y, path2.elementAt(i+2).x, path2.elementAt(i+2).y );
+				break;
+			default:
+				break;
+		}
+	}
 }
 
 PageItem* CgmPlug::itemAdd(PageItem::ItemType itemType, PageItem::ItemFrameType frameType, double x, double y, double b, double h, double w, QString fill, QString stroke)
