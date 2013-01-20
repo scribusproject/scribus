@@ -475,6 +475,7 @@ void CgmPlug::decodeText(QFile &f)
 /* Start binary Decoder */
 void CgmPlug::decodeBinary(QDataStream &ts, quint16 elemClass, quint16 elemID, quint16 paramLen)
 {
+	qint64 pos = ts.device()->pos();
 	if (elemClass == 0)
 		decodeClass0(ts, elemID, paramLen);
 	else if (elemClass == 1)
@@ -496,10 +497,9 @@ void CgmPlug::decodeBinary(QDataStream &ts, quint16 elemClass, quint16 elemID, q
 	else if (elemClass == 9)
 		decodeClass9(ts, elemID, paramLen);
 	else
-	{
 		qDebug() << "Class" << elemClass << "ID" << elemID << "Len" << paramLen << "at" << ts.device()->pos();
-		alignStreamToWord(ts, paramLen);
-	}
+	ts.device()->seek(pos);
+	alignStreamToWord(ts, paramLen);
 	alignStreamToWord(ts, 0);
 }
 
@@ -507,14 +507,12 @@ void CgmPlug::decodeClass0(QDataStream &ts, quint16 elemID, quint16 paramLen)
 {
 	if (elemID == 0)
 	{
-		alignStreamToWord(ts, paramLen);
-		// qDebug() << "NO OP";
+		qDebug() << "NO OP";
 	}
 	else if (elemID == 1)
 		handleStartMetaFile(getBinaryText(ts));
 	else if (elemID == 2)
 	{
-		alignStreamToWord(ts, paramLen);
 		importRunning = false;
 		// qDebug() << "END METAFILE";
 	}
@@ -522,7 +520,6 @@ void CgmPlug::decodeClass0(QDataStream &ts, quint16 elemID, quint16 paramLen)
 		handleStartPicture(getBinaryText(ts));
 	else if (elemID == 4)
 	{
-		alignStreamToWord(ts, paramLen);
 		if (vcdSet)
 		{
 			double w = vdcWidth * metaScale;
@@ -538,7 +535,6 @@ void CgmPlug::decodeClass0(QDataStream &ts, quint16 elemID, quint16 paramLen)
 	}
 	else if (elemID == 5)
 	{
-		alignStreamToWord(ts, paramLen);
 		if (vcdSet)
 		{
 			if (firstPage)
@@ -558,17 +554,14 @@ void CgmPlug::decodeClass0(QDataStream &ts, quint16 elemID, quint16 paramLen)
 	}
 	else if (elemID == 6)
 	{
-		alignStreamToWord(ts, paramLen);
 		qDebug() << "BEGIN SEGMENT";
 	}
 	else if (elemID == 7)
 	{
-		alignStreamToWord(ts, paramLen);
 		qDebug() << "END SEGMENT";
 	}
 	else if (elemID == 8)
 	{
-		alignStreamToWord(ts, paramLen);
 		recordFigure = true;
 		figurePath = QPainterPath();
 		figClose = false;
@@ -582,7 +575,6 @@ void CgmPlug::decodeClass0(QDataStream &ts, quint16 elemID, quint16 paramLen)
 	}
 	else if (elemID == 9)
 	{
-		alignStreamToWord(ts, paramLen);
 		recordFigure = false;
 		if (!figurePath.isEmpty())
 		{
@@ -624,52 +616,42 @@ void CgmPlug::decodeClass0(QDataStream &ts, quint16 elemID, quint16 paramLen)
 	}
 	else if (elemID == 15)
 	{
-		alignStreamToWord(ts, paramLen);
 		qDebug() << "BEGIN COMPOUND LINE";
 	}
 	else if (elemID == 16)
 	{
-		alignStreamToWord(ts, paramLen);
 		qDebug() << "END COMPOUND LINE";
 	}
 	else if (elemID == 17)
 	{
-		alignStreamToWord(ts, paramLen);
 		qDebug() << "BEGIN COMPOUND TEXT PATH";
 	}
 	else if (elemID == 18)
 	{
-		alignStreamToWord(ts, paramLen);
 		qDebug() << "END COMPOUND TEXT PATH";
 	}
 	else if (elemID == 19)
 	{
-		alignStreamToWord(ts, paramLen);
-		//qDebug() << "BEGIN TILE ARRAY";
+		qDebug() << "BEGIN TILE ARRAY";
 	}
 	else if (elemID == 20)
 	{
-		alignStreamToWord(ts, paramLen);
-		//qDebug() << "END TILE ARRAY";
+		qDebug() << "END TILE ARRAY";
 	}
 	else if (elemID == 21)
 	{
-		alignStreamToWord(ts, paramLen);
-		//qDebug() << "BEGIN APPLICATION STRUCTURE";
+		qDebug() << "BEGIN APPLICATION STRUCTURE";
 	}
 	else if (elemID == 22)
 	{
-		alignStreamToWord(ts, paramLen);
-		//qDebug() << "BEGIN APPLICATION STRUCTURE BODY";
+		qDebug() << "BEGIN APPLICATION STRUCTURE BODY";
 	}
 	else if (elemID == 23)
 	{
-		alignStreamToWord(ts, paramLen);
-		//qDebug() << "END APPLICATION STRUCTURE";
+		qDebug() << "END APPLICATION STRUCTURE";
 	}
 	else
 	{
-		alignStreamToWord(ts, paramLen);
 		qDebug() << "Class 0 ID" << elemID << "Len" << paramLen;
 	}
 }
@@ -773,23 +755,18 @@ void CgmPlug::decodeClass1(QDataStream &ts, quint16 elemID, quint16 paramLen)
 				maxColor = c;
 			}
 		}
-		else
-			alignStreamToWord(ts, paramLen);
 		// qDebug() << "COLOUR VALUE EXTENT" << minColor << maxColor;
 	}
 	else if (elemID == 11)
 	{
-	//	qDebug() << "METAFILE ELEMENT LIST" << paramLen << "Starting at" << ts.device()->pos();
-		alignStreamToWord(ts, paramLen);
+		qDebug() << "METAFILE ELEMENT LIST" << paramLen << "Starting at" << ts.device()->pos();
 	}
 	else if (elemID == 12)
 	{
-		alignStreamToWord(ts, 0);
 		qDebug() << "METAFILE DEFAULTS REPLACEMENT" << paramLen;
 	}
 	else if (elemID == 13)
 	{
-		int pos = ts.device()->pos();
 		quint16 bytesRead = 0;
 		int fontID = 1;
 		while (bytesRead < paramLen)
@@ -800,18 +777,14 @@ void CgmPlug::decodeClass1(QDataStream &ts, quint16 elemID, quint16 paramLen)
 			bytesRead += posN - posA;
 			fontID_Map.insert(fontID, p);
 		}
-		ts.device()->seek(pos);
-		alignStreamToWord(ts, paramLen);
 	//	qDebug() << "FONT LIST" << fontID_Map;
 	}
 	else if (elemID == 14)
 	{
-		alignStreamToWord(ts, paramLen);
 		qDebug() << "CHARACTER SET LIST";
 	}
 	else if (elemID == 15)
 	{
-		alignStreamToWord(ts, paramLen);
 		qDebug() << "CHARACTER CODING ANNOUNCER";
 	}
 	else if (elemID == 16)
@@ -829,44 +802,37 @@ void CgmPlug::decodeClass1(QDataStream &ts, quint16 elemID, quint16 paramLen)
 	}
 	else if (elemID == 18)
 	{
-		alignStreamToWord(ts, paramLen);
 		qDebug() << "SEGMENT PRIORITY EXTENT";
 	}
 	else if (elemID == 19)
 	{
 		ts >> data;
 		colorModel = data;
-		qDebug() << "COLOUR MODEL" << colorModel;
+	//	qDebug() << "COLOUR MODEL" << colorModel;
 	}
 	else if (elemID == 20)
 	{
-		alignStreamToWord(ts, paramLen);
 		qDebug() << "COLOUR CALIBRATION";
 	}
 	else if (elemID == 21)
 	{
-		alignStreamToWord(ts, paramLen);
 		qDebug() << "FONT PROPERTIES";
 	}
 	else if (elemID == 22)
 	{
-		alignStreamToWord(ts, paramLen);
 		qDebug() << "GLYPH MAPPING";
 	}
 	else if (elemID == 23)
 	{
-		alignStreamToWord(ts, paramLen);
 		qDebug() << "SYMBOL LIBRARY LIST";
 	}
 	else if (elemID == 24)
 	{
-		alignStreamToWord(ts, paramLen);
 		qDebug() << "PICTURE DIRECTORY";
 	}
 	else
 	{
 		qDebug() << "Class 1 ID" << elemID << "Len" << paramLen;
-		alignStreamToWord(ts, paramLen);
 	}
 }
 
@@ -908,6 +874,14 @@ void CgmPlug::decodeClass2(QDataStream &ts, quint16 elemID, quint16 paramLen)
 	{
 		ts >> data;
 		edgeWidthMode = data;
+		if (edgeWidthMode == 0)
+			edgeWidth = qMax(vdcWidth, vdcHeight) / 1000;
+		else if (edgeWidthMode == 1)
+			edgeWidth = 1.0;
+		else if (edgeWidthMode == 2)
+			edgeWidth = 0.001;
+		else if (edgeWidthMode == 3)
+			edgeWidth = 0.35;
 		// qDebug() << "EDGE WIDTH SPECIFICATION MODE" << edgeWidthMode;
 	}
 	else if (elemID == 6)
@@ -968,62 +942,50 @@ void CgmPlug::decodeClass2(QDataStream &ts, quint16 elemID, quint16 paramLen)
 	}
 	else if (elemID == 10)
 	{
-		alignStreamToWord(ts, paramLen);
 		qDebug() << "DEVICE VIEWPORT MAPPING";
 	}
 	else if (elemID == 11)
 	{
-		alignStreamToWord(ts, paramLen);
 		qDebug() << "LINE REPRESENTATION";
 	}
 	else if (elemID == 12)
 	{
-		alignStreamToWord(ts, paramLen);
 		qDebug() << "MARKER REPRESENTATION";
 	}
 	else if (elemID == 13)
 	{
-		alignStreamToWord(ts, paramLen);
 		qDebug() << "TEXT REPRESENTATION";
 	}
 	else if (elemID == 14)
 	{
-		alignStreamToWord(ts, paramLen);
 		qDebug() << "FILL REPRESENTATION";
 	}
 	else if (elemID == 15)
 	{
-		alignStreamToWord(ts, paramLen);
 		qDebug() << "EDGE REPRESENTATION";
 	}
 	else if (elemID == 16)
 	{
-		alignStreamToWord(ts, paramLen);
 		qDebug() << "INTERIOR STYLE SPECIFICATION MODE";
 	}
 	else if (elemID == 17)
 	{
-		alignStreamToWord(ts, paramLen);
 		qDebug() << "LINE AND EDGE TYPE DEFINITION";
 	}
 	else if (elemID == 18)
 	{
-		alignStreamToWord(ts, paramLen);
 		qDebug() << "HATCH STYLE DEFINITION";
 	}
 	else if (elemID == 19)
 	{
-		alignStreamToWord(ts, paramLen);
 		qDebug() << "GEOMETRIC PATTERN DEFINITION";
 	}
 	else if (elemID == 20)
 	{
-		alignStreamToWord(ts, paramLen);
 		qDebug() << "APPLICATION STRUCTURE DIRECTORY";
 	}
 	else
 	{
-		alignStreamToWord(ts, paramLen);
 		qDebug() << "Class 2 ID" << elemID << "Len" << paramLen;
 	}
 }
@@ -1048,12 +1010,10 @@ void CgmPlug::decodeClass3(QDataStream &ts, quint16 elemID, quint16 paramLen)
 	}
 	else if (elemID == 3)
 	{
-		alignStreamToWord(ts, paramLen);
 		qDebug() << "AUXILIARY COLOUR";
 	}
 	else if (elemID == 4)
 	{
-		alignStreamToWord(ts, paramLen);
 		qDebug() << "TRANSPARENCY";
 	}
 	else if (elemID == 5)
@@ -1084,37 +1044,31 @@ void CgmPlug::decodeClass3(QDataStream &ts, quint16 elemID, quint16 paramLen)
 	}
 	else if (elemID == 7)
 	{
-		alignStreamToWord(ts, paramLen);
 		qDebug() << "LINE CLIPPING MODE";
 	}
 	else if (elemID == 8)
 	{
-		alignStreamToWord(ts, paramLen);
 		qDebug() << "MARKER CLIPPING MODE";
 	}
 	else if (elemID == 9)
 	{
-		alignStreamToWord(ts, paramLen);
 		qDebug() << "EDGE CLIPPING MODE";
 	}
 	else if (elemID == 10)
 	{
-		alignStreamToWord(ts, paramLen);
 		if (recordRegion)
 			regionPath.closeSubpath();
 		if (recordFigure)
 			figurePath.closeSubpath();
 		figClose = true;
-		qDebug() << "NEW REGION";
+	//	qDebug() << "NEW REGION";
 	}
 	else if (elemID == 11)
 	{
-		alignStreamToWord(ts, paramLen);
 		qDebug() << "SAVE PRIMITIVE CONTEXT";
 	}
 	else if (elemID == 12)
 	{
-		alignStreamToWord(ts, paramLen);
 		qDebug() << "RESTORE PRIMITIVE CONTEXT";
 	}
 	else if (elemID == 17)
@@ -1165,22 +1119,18 @@ void CgmPlug::decodeClass3(QDataStream &ts, quint16 elemID, quint16 paramLen)
 	}
 	else if (elemID == 18)
 	{
-		alignStreamToWord(ts, paramLen);
 		qDebug() << "GENERALIZED TEXT PATH MODE";
 	}
 	else if (elemID == 19)
 	{
-		alignStreamToWord(ts, paramLen);
 		qDebug() << "MITRE LIMIT";
 	}
 	else if (elemID == 20)
 	{
-		alignStreamToWord(ts, paramLen);
 		qDebug() << "TRANSPARENT CELL COLOUR";
 	}
 	else
 	{
-		alignStreamToWord(ts, paramLen);
 		qDebug() << "Class 3 ID" << elemID << "Len" << paramLen;
 	}
 }
@@ -1247,12 +1197,10 @@ void CgmPlug::decodeClass4(QDataStream &ts, quint16 elemID, quint16 paramLen)
 	}
 	else if (elemID == 3)
 	{
-		alignStreamToWord(ts, paramLen);
 		qDebug() << "POLYMARKER";
 	}
 	else if (elemID == 4)
 	{
-		int pos = ts.device()->pos();
 		QPointF center = getBinaryCoords(ts);
 		double txX = convertCoords(center.x());
 		double txY = convertCoords(center.y());
@@ -1279,14 +1227,10 @@ void CgmPlug::decodeClass4(QDataStream &ts, quint16 elemID, quint16 paramLen)
 			ite->PoLine = Coords.copy();
 			finishItem(ite, false);
 		}
-
-		ts.device()->seek(pos);
 	//	qDebug() << "TEXT Len" << textAlignH;
-		alignStreamToWord(ts, paramLen);
 	}
 	else if (elemID == 5)
 	{
-		int pos = ts.device()->pos();
 		double sx = convertCoords(getBinaryDistance(ts));
 		double sy = convertCoords(getBinaryDistance(ts));
 		QPointF center = getBinaryCoords(ts);
@@ -1323,14 +1267,10 @@ void CgmPlug::decodeClass4(QDataStream &ts, quint16 elemID, quint16 paramLen)
 			ite->PoLine = Coords.copy();
 			finishItem(ite, false);
 		}
-
-		ts.device()->seek(pos);
-		alignStreamToWord(ts, paramLen);
 	//	qDebug() << "RESTRICTED TEXT";
 	}
 	else if (elemID == 6)
 	{
-		alignStreamToWord(ts, paramLen);
 		qDebug() << "APPEND TEXT";
 	}
 	else if (elemID == 7)
@@ -1355,7 +1295,6 @@ void CgmPlug::decodeClass4(QDataStream &ts, quint16 elemID, quint16 paramLen)
 	else if (elemID == 8)
 	{
 	//	qDebug() << "POLYGON SET" << "Fill Type" << fillType;
-		int pos = ts.device()->pos();
 		quint16 bytesRead = 0;
 		bool first = true;
 		Coords.resize(0);
@@ -1402,8 +1341,6 @@ void CgmPlug::decodeClass4(QDataStream &ts, quint16 elemID, quint16 paramLen)
 			ite->PoLine.translate(m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset());
 			finishItem(ite, false);
 		}
-		ts.device()->seek(pos);
-		alignStreamToWord(ts, paramLen);
 	}
 	else if (elemID == 9)
 	{
@@ -1442,8 +1379,6 @@ void CgmPlug::decodeClass4(QDataStream &ts, quint16 elemID, quint16 paramLen)
 			QByteArray rD = ts.device()->read(pLen);
 			imageData.append(rD);
 		}
-		ts.device()->seek(pos);
-		alignStreamToWord(ts, paramLen);
 		QImage image = QImage(nx, ny, QImage::Format_ARGB32);
 		if (mode == 1)
 		{
@@ -1481,7 +1416,6 @@ void CgmPlug::decodeClass4(QDataStream &ts, quint16 elemID, quint16 paramLen)
 	}
 	else if (elemID == 10)
 	{
-		alignStreamToWord(ts, paramLen);
 		qDebug() << "GENERALIZED DRAWING PRIMITIVE";
 	}
 	else if (elemID == 11)
@@ -1645,9 +1579,16 @@ void CgmPlug::decodeClass4(QDataStream &ts, quint16 elemID, quint16 paramLen)
 		QLineF stv = QLineF(cx, cy, cx + sx, cy + sy);
 		QLineF env = QLineF(cx, cy, cx + ex, cy + ey);
 		QPainterPath ell;
-		stv.setLength(r);
-		ell.moveTo(stv.p2().x(), stv.p2().y());
-		ell.arcTo(cx - r, cy - r, r * 2.0, r * 2.0, stv.angle(), stv.angleTo(env));
+		if (qFuzzyCompare(sx, ex) && qFuzzyCompare(sy, ey))
+		{
+			ell.addEllipse(QPointF(cx, cy), r, r);
+		}
+		else
+		{
+			stv.setLength(r);
+			ell.moveTo(stv.p2().x(), stv.p2().y());
+			ell.arcTo(cx - r, cy - r, r * 2.0, r * 2.0, stv.angle(), stv.angleTo(env));
+		}
 		if (recordRegion)
 			regionPath.connectPath(ell);
 		else
@@ -1695,20 +1636,27 @@ void CgmPlug::decodeClass4(QDataStream &ts, quint16 elemID, quint16 paramLen)
 		QLineF stv = QLineF(cx, cy, cx + sx, cy + sy);
 		QLineF env = QLineF(cx, cy, cx + ex, cy + ey);
 		QPainterPath ell;
-		stv.setLength(r);
-		if (mode == 0)
+		if (qFuzzyCompare(sx, ex) && qFuzzyCompare(sy, ey))
 		{
-			ell.moveTo(cx, cy);
-			ell.arcTo(cx - r, cy - r, r * 2.0, r * 2.0, stv.angle(), stv.angleTo(env));
-			ell.lineTo(cx, cy);
-			ell.closeSubpath();
+			ell.addEllipse(QPointF(cx, cy), r, r);
 		}
 		else
 		{
-			ell.moveTo(stv.p2().x(), stv.p2().y());
-			ell.arcTo(cx - r, cy - r, r * 2.0, r * 2.0, stv.angle(), stv.angleTo(env));
-			ell.lineTo(stv.p2().x(), stv.p2().y());
-			ell.closeSubpath();
+			stv.setLength(r);
+			if (mode == 0)
+			{
+				ell.moveTo(cx, cy);
+				ell.arcTo(cx - r, cy - r, r * 2.0, r * 2.0, stv.angle(), stv.angleTo(env));
+				ell.lineTo(cx, cy);
+				ell.closeSubpath();
+			}
+			else
+			{
+				ell.moveTo(stv.p2().x(), stv.p2().y());
+				ell.arcTo(cx - r, cy - r, r * 2.0, r * 2.0, stv.angle(), stv.angleTo(env));
+				ell.lineTo(stv.p2().x(), stv.p2().y());
+				ell.closeSubpath();
+			}
 		}
 		if (recordRegion)
 			regionPath.addPath(ell);
@@ -1802,52 +1750,60 @@ void CgmPlug::decodeClass4(QDataStream &ts, quint16 elemID, quint16 paramLen)
 		ell.translate(cx, cy);
 		QPolygonF elPo = ell.toFillPolygon();
 		QPointF stP = stv.p2();
-		for (int a = 0; a < elPo.size() - 1; a++)
-		{
-			QPointF intersect;
-			if (QLineF(elPo[a], elPo[a+1]).intersect(stv, &intersect) == QLineF::BoundedIntersection)
-			{
-				stP = intersect;
-				break;
-			}
-		}
 		QPointF enP = env.p2();
-		for (int a = 0; a < elPo.size() - 1; a++)
+		if (qFuzzyCompare(sx, ex) && qFuzzyCompare(sy, ey))
 		{
-			QPointF intersect;
-			if (QLineF(elPo[a], elPo[a+1]).intersect(env, &intersect) == QLineF::BoundedIntersection)
-			{
-				enP = intersect;
-				break;
-			}
-		}
-		Coords.resize(0);
-		Coords.svgInit();
-		if (dstX.angleTo(dstY) > 180)
-		{
-			Coords.svgMoveTo(stP.x(), stP.y());
-			Coords.svgArcTo(distX, distY, rotB, stv.angleTo(env) < 180 ? 1 : 0, dstX.angleTo(dstY) > 180 ? 1 : 0, enP.x(), enP.y());
+			ell.translate(m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset());
+			Coords.fromQPainterPath(ell);
 		}
 		else
 		{
-			Coords.svgMoveTo(stP.x(), stP.y());
-			Coords.svgArcTo(distX, distY, rotB, stv.angleTo(env) > 180 ? 1 : 0, dstX.angleTo(dstY) > 180 ? 1 : 0, enP.x(), enP.y());
+			for (int a = 0; a < elPo.size() - 1; a++)
+			{
+				QPointF intersect;
+				if (QLineF(elPo[a], elPo[a+1]).intersect(stv, &intersect) == QLineF::BoundedIntersection)
+				{
+					stP = intersect;
+					break;
+				}
+			}
+			for (int a = 0; a < elPo.size() - 1; a++)
+			{
+				QPointF intersect;
+				if (QLineF(elPo[a], elPo[a+1]).intersect(env, &intersect) == QLineF::BoundedIntersection)
+				{
+					enP = intersect;
+					break;
+				}
+			}
+			Coords.resize(0);
+			Coords.svgInit();
+			if (dstX.angleTo(dstY) > 180)
+			{
+				Coords.svgMoveTo(stP.x(), stP.y());
+				Coords.svgArcTo(distX, distY, rotB, stv.angleTo(env) < 180 ? 1 : 0, dstX.angleTo(dstY) > 180 ? 1 : 0, enP.x(), enP.y());
+			}
+			else
+			{
+				Coords.svgMoveTo(stP.x(), stP.y());
+				Coords.svgArcTo(distX, distY, rotB, stv.angleTo(env) > 180 ? 1 : 0, dstX.angleTo(dstY) > 180 ? 1 : 0, enP.x(), enP.y());
+			}
+			Coords.translate(m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset());
+			ell = Coords.toQPainterPath(false);
 		}
-		Coords.translate(m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset());
 		if (recordRegion)
-			regionPath.connectPath(Coords.toQPainterPath(false));
+			regionPath.connectPath(ell);
 		else
 		{
 			if (recordFigure)
 			{
 				if (figClose)
 				{
-					QPainterPath ell = Coords.toQPainterPath(false);
 					appendPath(figurePath, ell);
 					figClose = false;
 				}
 				else
-					figurePath.connectPath(Coords.toQPainterPath(false));
+					figurePath.connectPath(ell);
 			}
 			int z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, lineWidth, CommonStrings::None, lineColor, true);
 			PageItem *ite = m_Doc->Items->at(z);
@@ -1966,32 +1922,26 @@ void CgmPlug::decodeClass4(QDataStream &ts, quint16 elemID, quint16 paramLen)
 	}
 	else if (elemID == 20)
 	{
-		alignStreamToWord(ts, paramLen);
 		qDebug() << "CIRCULAR ARC CENTRE REVERSED";
 	}
 	else if (elemID == 21)
 	{
-		alignStreamToWord(ts, paramLen);
 		qDebug() << "CONNECTING EDGE";
 	}
 	else if (elemID == 22)
 	{
-		alignStreamToWord(ts, paramLen);
 		qDebug() << "HYPERBOLIC ARC";
 	}
 	else if (elemID == 23)
 	{
-		alignStreamToWord(ts, paramLen);
 		qDebug() << "PARABOLIC ARC";
 	}
 	else if (elemID == 24)
 	{
-		alignStreamToWord(ts, paramLen);
 		qDebug() << "NON-UNIFORM B-SPLINE";
 	}
 	else if (elemID == 25)
 	{
-		alignStreamToWord(ts, paramLen);
 		qDebug() << "NON-UNIFORM RATIONAL B-SPLINE";
 	}
 	else if (elemID == 26)
@@ -2025,23 +1975,19 @@ void CgmPlug::decodeClass4(QDataStream &ts, quint16 elemID, quint16 paramLen)
 	}
 	else if (elemID == 27)
 	{
-		alignStreamToWord(ts, paramLen);
 		qDebug() << "POLYSYMBOL";
 	}
 	else if (elemID == 28)
 	{
-		alignStreamToWord(ts, paramLen);
 		qDebug() << "BITONAL TILE";
 	}
 	else if (elemID == 29)
 	{
-		alignStreamToWord(ts, paramLen);
 		qDebug() << "TILE";
 	}
 	else
 	{
 		qDebug() << "Class 4 ID" << elemID << "Len" << paramLen;
-		alignStreamToWord(ts, paramLen);
 	}
 }
 
@@ -2072,7 +2018,14 @@ void CgmPlug::decodeClass5(QDataStream &ts, quint16 elemID, quint16 paramLen)
 	else if (elemID == 3)
 	{
 		lineWidth = getBinaryDistance(ts);
-		lineWidth *= metaScale;
+		if (lineWidthMode == 0)
+			lineWidth *= metaScale;
+		else if (lineWidthMode == 1)
+			lineWidth *= 1.0;
+		else if (lineWidthMode == 2)
+			lineWidth *= 0.001;
+		else if (lineWidthMode == 3)
+			lineWidth *= 0.35;
  		// qDebug() << "LINE WIDTH" << lineWidth;
 	}
 	else if (elemID == 4)
@@ -2082,27 +2035,22 @@ void CgmPlug::decodeClass5(QDataStream &ts, quint16 elemID, quint16 paramLen)
 	}
 	else if (elemID == 5)
 	{
-		alignStreamToWord(ts, paramLen);
  		qDebug() << "MARKER BUNDLE INDEX";
 	}
 	else if (elemID == 6)
 	{
-		alignStreamToWord(ts, paramLen);
  		qDebug() << "MARKER TYPE";
 	}
 	else if (elemID == 7)
 	{
-		alignStreamToWord(ts, paramLen);
  		qDebug() << "MARKER SIZE";
 	}
 	else if (elemID == 8)
 	{
-		alignStreamToWord(ts, paramLen);
  		qDebug() << "MARKER COLOUR";
 	}
 	else if (elemID == 9)
 	{
-		alignStreamToWord(ts, paramLen);
 		qDebug() << "TEXT BUNDLE INDEX";
 	}
 	else if (elemID == 10)
@@ -2112,17 +2060,14 @@ void CgmPlug::decodeClass5(QDataStream &ts, quint16 elemID, quint16 paramLen)
 	}
 	else if (elemID == 11)
 	{
-		alignStreamToWord(ts, paramLen);
 		qDebug() << "TEXT PRECISION";
 	}
 	else if (elemID == 12)
 	{
-		alignStreamToWord(ts, paramLen);
 		qDebug() << "CHARACTER EXPANSION FACTOR";
 	}
 	else if (elemID == 13)
 	{
-		alignStreamToWord(ts, paramLen);
 		qDebug() << "CHARACTER SPACING";
 	}
 	else if (elemID == 14)
@@ -2138,37 +2083,29 @@ void CgmPlug::decodeClass5(QDataStream &ts, quint16 elemID, quint16 paramLen)
 	}
 	else if (elemID == 16)
 	{
-		alignStreamToWord(ts, paramLen);
 		qDebug() << "CHARACTER ORIENTATION";
 	}
 	else if (elemID == 17)
 	{
-		alignStreamToWord(ts, paramLen);
 		qDebug() << "TEXT PATH";
 	}
 	else if (elemID == 18)
 	{
-		int pos = ts.device()->pos();
 		quint16 hFlag;
 		ts >> hFlag;
 		textAlignH = hFlag;
-		ts.device()->seek(pos);
-		alignStreamToWord(ts, paramLen);
 	//	qDebug() << "TEXT ALIGNMENT" << hFlag;
 	}
 	else if (elemID == 19)
 	{
-		alignStreamToWord(ts, paramLen);
 		qDebug() << "CHARACTER SET INDEX";
 	}
 	else if (elemID == 20)
 	{
-		alignStreamToWord(ts, paramLen);
 		qDebug() << "ALTERNATE CHARACTER SET INDEX";
 	}
 	else if (elemID == 21)
 	{
-		alignStreamToWord(ts, paramLen);
  		qDebug() << "FILL BUNDLE INDEX";
 	}
 	else if (elemID == 22)
@@ -2185,7 +2122,6 @@ void CgmPlug::decodeClass5(QDataStream &ts, quint16 elemID, quint16 paramLen)
 	}
 	else if (elemID == 24)
 	{
-		alignStreamToWord(ts, paramLen);
  		qDebug() << "HATCH INDEX";
 	}
 	else if (elemID == 25)
@@ -2197,7 +2133,6 @@ void CgmPlug::decodeClass5(QDataStream &ts, quint16 elemID, quint16 paramLen)
 	}
 	else if (elemID == 26)
 	{
-		alignStreamToWord(ts, paramLen);
  		qDebug() << "EDGE BUNDLE INDEX";
 	}
 	else if (elemID == 27)
@@ -2220,7 +2155,14 @@ void CgmPlug::decodeClass5(QDataStream &ts, quint16 elemID, quint16 paramLen)
 	else if (elemID == 28)
 	{
 		edgeWidth = getBinaryDistance(ts);
-		edgeWidth *= metaScale;
+		if (edgeWidthMode == 0)
+			edgeWidth *= metaScale;
+		else if (edgeWidthMode == 1)
+			edgeWidth *= 1.0;
+		else if (edgeWidthMode == 2)
+			edgeWidth *= 0.001;
+		else if (edgeWidthMode == 3)
+			edgeWidth *= 0.35;
  		// qDebug() << "EDGE WIDTH" << edgeWidth;
 	}
 	else if (elemID == 29)
@@ -2248,7 +2190,6 @@ void CgmPlug::decodeClass5(QDataStream &ts, quint16 elemID, quint16 paramLen)
 	}
 	else if (elemID == 32)
 	{
-		int pos = ts.device()->pos();
 		uint index = getBinaryUInt(ts, indexPrecision);
 		uint nx = getBinaryUInt(ts, intPrecision);
 		uint ny = getBinaryUInt(ts, intPrecision);
@@ -2316,8 +2257,6 @@ void CgmPlug::decodeClass5(QDataStream &ts, quint16 elemID, quint16 paramLen)
 			delete ite;
 		}
 		colorPrecision = t_colorPrecision;
-		ts.device()->seek(pos);
-		alignStreamToWord(ts, paramLen);
 	//	qDebug() << "PATTERN TABLE" << "Index" << index << "NX" << nx << "NY" << ny;
 	}
 	else if (elemID == 33)
@@ -2340,12 +2279,10 @@ void CgmPlug::decodeClass5(QDataStream &ts, quint16 elemID, quint16 paramLen)
 	}
 	else if (elemID == 35)
 	{
-		alignStreamToWord(ts, paramLen);
 		qDebug() << "ASPECT SOURCE FLAGS";
 	}
 	else if (elemID == 36)
 	{
-		alignStreamToWord(ts, paramLen);
 		qDebug() << "PICK IDENTIFIER";
 	}
 	else if (elemID == 37)
@@ -2377,17 +2314,14 @@ void CgmPlug::decodeClass5(QDataStream &ts, quint16 elemID, quint16 paramLen)
 	}
 	else if (elemID == 39)
 	{
-		alignStreamToWord(ts, paramLen);
 		qDebug() << "LINE TYPE CONTINUATION";
 	}
 	else if (elemID == 40)
 	{
-		alignStreamToWord(ts, paramLen);
 		qDebug() << "LINE TYPE INITIAL OFFSET";
 	}
 	else if (elemID == 41)
 	{
-		alignStreamToWord(ts, paramLen);
 		qDebug() << "TEXT SCORE TYPE";
 	}
 	else if (elemID == 42)
@@ -2422,7 +2356,6 @@ void CgmPlug::decodeClass5(QDataStream &ts, quint16 elemID, quint16 paramLen)
 			qDebug() << "first 2 Stages " << s1;
 		}
 		ts.device()->seek(pos); */
-		alignStreamToWord(ts, paramLen);
 		qDebug() << "INTERPOLATED INTERIOR";
 	}
 	else if (elemID == 44)
@@ -2454,37 +2387,30 @@ void CgmPlug::decodeClass5(QDataStream &ts, quint16 elemID, quint16 paramLen)
 	}
 	else if (elemID == 46)
 	{
-		alignStreamToWord(ts, paramLen);
 		qDebug() << "EDGE TYPE CONTINUATION";
 	}
 	else if (elemID == 47)
 	{
-		alignStreamToWord(ts, paramLen);
 		qDebug() << "EDGE TYPE INITIAL OFFSET";
 	}
 	else if (elemID == 48)
 	{
-		alignStreamToWord(ts, paramLen);
 		qDebug() << "SYMBOL LIBRARY INDEX";
 	}
 	else if (elemID == 49)
 	{
-		alignStreamToWord(ts, paramLen);
 		qDebug() << "SYMBOL COLOUR";
 	}
 	else if (elemID == 50)
 	{
-		alignStreamToWord(ts, paramLen);
 		qDebug() << "SYMBOL SIZE";
 	}
 	else if (elemID == 51)
 	{
-		alignStreamToWord(ts, paramLen);
 		qDebug() << "SYMBOL ORIENTATION";
 	}
 	else
 	{
-		alignStreamToWord(ts, paramLen);
 		qDebug() << "Class 5 ID" << elemID << "Len" << paramLen;
 	}
 }
@@ -2493,12 +2419,10 @@ void CgmPlug::decodeClass6(QDataStream &ts, quint16 elemID, quint16 paramLen)
 {
 	if (elemID == 1)
 	{
-		alignStreamToWord(ts, paramLen);
 		qDebug() << "ESCAPE";
 	}
 	else
 	{
-		alignStreamToWord(ts, paramLen);
 		qDebug() << "Class 6 ID" << elemID << "Len" << paramLen;
 	}
 }
@@ -2507,17 +2431,14 @@ void CgmPlug::decodeClass7(QDataStream &ts, quint16 elemID, quint16 paramLen)
 {
 	if (elemID == 1)
 	{
-		alignStreamToWord(ts, paramLen);
 		qDebug() << "MESSAGE";
 	}
 	else if (elemID == 2)
 	{
-		alignStreamToWord(ts, paramLen);
 		qDebug() << "APPLICATION DATA" << paramLen << "at" << ts.device()->pos();
 	}
 	else
 	{
-		alignStreamToWord(ts, paramLen);
 		qDebug() << "Class 7 ID" << elemID << "Len" << paramLen;
 	}
 }
@@ -2526,42 +2447,34 @@ void CgmPlug::decodeClass8(QDataStream &ts, quint16 elemID, quint16 paramLen)
 {
 	if (elemID == 1)
 	{
-		alignStreamToWord(ts, paramLen);
 		qDebug() << "COPY SEGMENT";
 	}
 	else if (elemID == 2)
 	{
-		alignStreamToWord(ts, paramLen);
 		qDebug() << "INHERITANCE FILTER";
 	}
 	else if (elemID == 3)
 	{
-		alignStreamToWord(ts, paramLen);
 		qDebug() << "CLIP INHERITANCE";
 	}
 	else if (elemID == 4)
 	{
-		alignStreamToWord(ts, paramLen);
 		qDebug() << "SEGMENT TRANSFORMATION";
 	}
 	else if (elemID == 5)
 	{
-		alignStreamToWord(ts, paramLen);
 		qDebug() << "SEGMENT HIGHLIGHTING";
 	}
 	else if (elemID == 6)
 	{
-		alignStreamToWord(ts, paramLen);
 		qDebug() << "SEGMENT DISPLAY PRIORITY";
 	}
 	else if (elemID == 7)
 	{
-		alignStreamToWord(ts, paramLen);
 		qDebug() << "SEGMENT PICK PRIORITY";
 	}
 	else
 	{
-		alignStreamToWord(ts, paramLen);
 		qDebug() << "Class 8 ID" << elemID << "Len" << paramLen;
 	}
 }
@@ -2570,12 +2483,10 @@ void CgmPlug::decodeClass9(QDataStream &ts, quint16 elemID, quint16 paramLen)
 {
 	if (elemID == 1)
 	{
-		alignStreamToWord(ts, paramLen);
 		qDebug() << "APPLICATION STRUCTURE ATTRIBUTE";
 	}
 	else
 	{
-		alignStreamToWord(ts, paramLen);
 		qDebug() << "Class 9 ID" << elemID << "Len" << paramLen;
 	}
 }
