@@ -5002,6 +5002,17 @@ bool PDFLibCore::PDF_Gradient(QString& output, PageItem *currItem)
 	{
 		QStack<PageItem*> groupStack;
 		QString tmp2 = "", tmpOut;
+		QString pattern = currItem->pattern();
+		if (pattern.isEmpty() || !doc.docPatterns.contains(pattern))
+		{
+			if (currItem->fillColor() != CommonStrings::None)
+			{
+				output += putColor(currItem->fillColor(), currItem->fillShade(), true);
+				output += SetClipPath(currItem);
+				output += currItem->fillRule ? "h\nf*\n" : "h\nf\n";
+			}
+			return true;
+		}
 		ScPattern *pat = &doc.docPatterns[currItem->pattern()];
 		for (int em = 0; em < pat->items.count(); ++em)
 		{
