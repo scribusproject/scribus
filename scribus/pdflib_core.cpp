@@ -2304,9 +2304,12 @@ bool PDFLibCore::PDF_TemplatePage(const ScPage* pag, bool )
 								if (!PDF_GradientFillStroke(tmpOut, ite))
 									return false;
 							}
-							PutPage(tmpOut);
-							PutPage(SetClipPath(ite));
-							PutPage(ite->fillRule ? "h\nf*\n" : "h\nf\n");
+							if (!tmpOut.isEmpty())
+							{
+								PutPage(tmpOut);
+								PutPage(SetClipPath(ite));
+								PutPage(ite->fillRule ? "h\nf*\n" : "h\nf\n");
+							}
 						}
 						else
 						{
@@ -2390,9 +2393,12 @@ bool PDFLibCore::PDF_TemplatePage(const ScPage* pag, bool )
 									if (!PDF_GradientFillStroke(tmpOut, ite))
 										return false;
 								}
-								PutPage(tmpOut);
-								PutPage(SetClipPath(ite));
-								PutPage(ite->fillRule ? "h\nf*\n" : "h\nf\n");
+								if (!tmpOut.isEmpty())
+								{
+									PutPage(tmpOut);
+									PutPage(SetClipPath(ite));
+									PutPage(ite->fillRule ? "h\nf*\n" : "h\nf\n");
+								}
 							}
 							else
 							{
@@ -3619,9 +3625,12 @@ bool PDFLibCore::PDF_ProcessItem(QString& output, PageItem* ite, const ScPage* p
 						if (!PDF_GradientFillStroke(tmpOut, ite))
 							return false;
 					}
-					tmp += tmpOut;
-					tmp += SetClipPath(ite);
-					tmp += (ite->fillRule ? "h\nf*\n" : "h\nf\n");
+					if (!tmpOut.isEmpty())
+					{
+						tmp += tmpOut;
+						tmp += SetClipPath(ite);
+						tmp += (ite->fillRule ? "h\nf*\n" : "h\nf\n");
+					}
 				}
 				else
 				{
@@ -3733,9 +3742,12 @@ bool PDFLibCore::PDF_ProcessItem(QString& output, PageItem* ite, const ScPage* p
 						if (!PDF_GradientFillStroke(tmpOut, ite))
 							return false;
 					}
-					tmp += tmpOut;
-					tmp += SetClipPath(ite);
-					tmp += (ite->fillRule ? "h\nf*\n" : "h\nf\n");
+					if (!tmpOut.isEmpty())
+					{
+						tmp += tmpOut;
+						tmp += SetClipPath(ite);
+						tmp += (ite->fillRule ? "h\nf*\n" : "h\nf\n");
+					}
 				}
 				else
 				{
@@ -3897,9 +3909,12 @@ bool PDFLibCore::PDF_ProcessItem(QString& output, PageItem* ite, const ScPage* p
 					if (!PDF_GradientFillStroke(tmpOut, ite))
 						return false;
 				}
-				tmp += tmpOut;
-				tmp += SetClipPath(ite);
-				tmp += (ite->fillRule ? "h\nf*\n" : "h\nf\n");
+				if (!tmpOut.isEmpty())
+				{
+					tmp += tmpOut;
+					tmp += SetClipPath(ite);
+					tmp += (ite->fillRule ? "h\nf*\n" : "h\nf\n");
+				}
 			}
 			else
 			{
@@ -3984,9 +3999,12 @@ bool PDFLibCore::PDF_ProcessItem(QString& output, PageItem* ite, const ScPage* p
 						if (!PDF_GradientFillStroke(tmpOut, ite))
 							return false;
 					}
-					tmp += tmpOut;
-					tmp += SetClipPath(ite);
-					tmp += (ite->fillRule ? "h\nf*\n" : "h\nf\n");
+					if (!tmpOut.isEmpty())
+					{
+						tmp += tmpOut;
+						tmp += SetClipPath(ite);
+						tmp += (ite->fillRule ? "h\nf*\n" : "h\nf\n");
+					}
 				}
 				else
 				{
@@ -6195,7 +6213,16 @@ bool PDFLibCore::PDF_PatternFillStroke(QString& output, PageItem *currItem, int 
 	QString tmp2 = "", tmpOut;
 	ScPattern *pat = NULL;
 	if (kind == 0)
+	{
+		QString itemPattern = currItem->pattern();
+		if (itemPattern.isEmpty() || !doc.docPatterns.contains(itemPattern))
+		{
+			if (currItem->fillColor() != CommonStrings::None)
+				output += putColor(currItem->fillColor(), currItem->fillShade(), true);
+			return true;
+		}
 		pat = &doc.docPatterns[currItem->pattern()];
+	}
 	else if (kind == 1)
 		pat = &doc.docPatterns[currItem->strokePattern()];
 	else if (kind == 2)
