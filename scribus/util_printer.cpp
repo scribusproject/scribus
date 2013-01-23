@@ -54,11 +54,11 @@ QStringList PrinterUtil::getPrinterNames()
 	if ( printerInfos) free(printerInfos);
 #else
 	QString tmp;
-	QString Pcap;
 	QStringList wt;
-	if (loadText("/etc/printcap", &Pcap))
+	QByteArray printCap;
+	if (loadRawText("/etc/printcap", printCap))
 	{
-		QDataStream ts(&Pcap, QIODevice::ReadOnly);
+		QDataStream ts(&printCap, QIODevice::ReadOnly);
 		while(!ts.atEnd())
 		{
 			tmp = readLinefromDataStream(ts);
