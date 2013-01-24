@@ -42,9 +42,9 @@ struct SVGState;
 class SCRIBUS_API FPointArray : private QVector<FPoint>
 {
 public: 
-	FPointArray() : count(0), capacity(0), svgState(NULL) {};
-	FPointArray(int size) : QVector<FPoint>(size), count(size), capacity(size), svgState(NULL) {};
-	FPointArray(const FPointArray &a) : QVector<FPoint>(a), count(a.count), capacity(a.capacity), svgState(NULL) {};
+	FPointArray() : count(0), svgState(NULL) {};
+	FPointArray(int size) : QVector<FPoint>(size), count(size), svgState(NULL) {};
+	FPointArray(const FPointArray &a) : QVector<FPoint>(a), count(a.count), svgState(NULL) {};
 	uint size() const { return count; };
 	bool resize(uint newCount);
 	void setPoint(uint i, double x, double y) { Iterator p = begin(); p+=i; p->xp = x; p->yp = y; };
@@ -89,7 +89,6 @@ public:
 	void fromQPainterPath(QPainterPath &path);
 private:
 	uint count;
-	uint capacity;
 	SVGState * svgState;
 };
 

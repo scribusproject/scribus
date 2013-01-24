@@ -42,7 +42,6 @@ FPointArray FPointArray::copy() const
 	FPointArray tmp;
 	tmp << *this;
 	tmp.count = count;
-	tmp.capacity = capacity;
 	return tmp; 
 }
 
@@ -51,7 +50,6 @@ FPointArray & FPointArray::operator=( const FPointArray &a )
 { 
 	QVector<FPoint>::operator=(a);
 	count = a.count; 
-	capacity = a.capacity;
 	svgState = NULL;
 	return *this; 
 }
@@ -65,7 +63,6 @@ bool FPointArray::resize(uint newCount)
 	}
 	else
 		QVector<FPoint>::resize(newCount);
-	capacity = newCount;
 	count = newCount;
 	return true;
 }
@@ -448,15 +445,12 @@ void FPointArray::pointDerivativesAt( int seg, double t, FPoint* p, FPoint* d1, 
 bool FPointArray::operator==(const FPointArray &rhs) const
 {
 	return count == rhs.count && 
-	       capacity == rhs.capacity &&
 	       QVector<FPoint>::operator==(rhs);
 }
 
 bool FPointArray::operator!=(const FPointArray &rhs) const
 {
 	if (count != rhs.count)
-		return true;
-	if (capacity != rhs.capacity)
 		return true;
 	return QVector<FPoint>::operator!=(rhs);
 }
