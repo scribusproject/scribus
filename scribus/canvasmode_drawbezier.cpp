@@ -84,7 +84,8 @@ inline bool BezierMode::GetItem(PageItem** pi)
 
 void BezierMode::finalizeItem(PageItem* currItem)
 {
-	currItem->PoLine.resize(currItem->PoLine.size()-2);
+	if (currItem->PoLine.size() >= 2)
+		currItem->PoLine.resize(currItem->PoLine.size()-2);
 	if (currItem->PoLine.size() < 4)
 	{
 //		emit DelObj(m_doc->currentPage->pageNr(), currItem->ItemNr);
