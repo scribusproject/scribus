@@ -718,7 +718,7 @@ void XfigPlug::processArrows(int forward_arrow, QString fArrowData, int backward
 		arrow_thicknessAB = arrow_thicknessAB / 80.0 * 72.0;
 		FPointArray arrow;
 		FPoint Start = ite->PoLine.point(0);
-		for (uint xx = 1; xx < ite->PoLine.size(); xx += 2)
+		for (int xx = 1; xx < ite->PoLine.size(); xx += 2)
 		{
 			FPoint Vector = ite->PoLine.point(xx);
 			if ((Start.x() != Vector.x()) || (Start.y() != Vector.y()))

@@ -884,7 +884,7 @@ void ScPainterEx_Ps2::setupPolygon(FPointArray *points, bool closed)
 	if (points->size() > 3)
 	{
 		newPath();
-		for (uint poi=0; poi<points->size()-3; poi += 4)
+		for (int poi=0; poi<points->size()-3; poi += 4)
 		{
 			if (points->point(poi).x() > 900000)
 			{
@@ -1366,7 +1366,7 @@ void ScPainterEx_Ps2::getPathBoundingBox( FPointArray* points, QRect& r )
 
 	r.setCoords(0, 0, 0, 0);
 
-	for( uint i = 0; i < points->size(); i++ )
+	for (int i = 0; i < points->size(); i++ )
 	{
 		point = points->point(i);
 		if( point.x() > 900000 )

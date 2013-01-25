@@ -120,7 +120,7 @@ void FreehandMode::mouseMoveEvent(QMouseEvent *m)
 		else
 			RecordP.addPoint(FPoint(newXF, newYF));
 		QPolygon& redrawPolygon(m_canvas->newRedrawPolygon());
-		for (uint pp = 0; pp < RecordP.size(); pp++)
+		for (int pp = 0; pp < RecordP.size(); pp++)
 		{
 			redrawPolygon << RecordP.pointQ(pp);
 		}
@@ -237,7 +237,7 @@ void FreehandMode::mouseReleaseEvent(QMouseEvent *m)
 			if (m->modifiers() & Qt::ControlModifier)
 			{
 				QList<QPointF> clip;
-				for (uint px = 0; px < RecordP.size()-1; ++px)
+				for (int px = 0; px < RecordP.size()-1; ++px)
 				{
 					FPoint clp = RecordP.point(px);
 					clip.append(QPointF(clp.x(), clp.y()));
@@ -249,7 +249,7 @@ void FreehandMode::mouseReleaseEvent(QMouseEvent *m)
 			{
 				currItem->PoLine.addPoint(RecordP.point(0));
 				currItem->PoLine.addPoint(RecordP.point(0));
-				for (uint px = 1; px < RecordP.size()-1; ++px)
+				for (int px = 1; px < RecordP.size()-1; ++px)
 				{
 					currItem->PoLine.addPoint(RecordP.point(px));
 					currItem->PoLine.addPoint(RecordP.point(px));

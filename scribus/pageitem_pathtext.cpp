@@ -221,7 +221,7 @@ void PageItem_PathText::DrawObj_Item(ScPainter *p, QRectF cullingArea)
 		else
 			totalTextLen += hl->glyph.wide()+hl->fontSize() * hl->tracking() / 10000.0;
 	}
-	for (uint segs = 0; segs < PoLine.size()-3; segs += 4)
+	for (int segs = 0; segs < PoLine.size()-3; segs += 4)
 	{
 		totalCurveLen += PoLine.lenPathSeg(segs);
 	}

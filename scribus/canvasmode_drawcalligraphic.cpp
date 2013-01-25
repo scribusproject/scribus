@@ -127,7 +127,7 @@ void CalligraphicMode::mouseMoveEvent(QMouseEvent *m)
 		QPolygon& redrawPolygon(m_canvas->newRedrawPolygon());
 		double mx = sin(m_doc->itemToolPrefs().calligrapicPenAngle / 180.0 * M_PI) * (m_doc->itemToolPrefs().calligrapicPenWidth / 2.0);
 		double my = cos(m_doc->itemToolPrefs().calligrapicPenAngle / 180.0 * M_PI) * (m_doc->itemToolPrefs().calligrapicPenWidth / 2.0);
-		for (uint px = 0; px < RecordP.size()-1; ++px)
+		for (int px = 0; px < RecordP.size()-1; ++px)
 		{
 			FPoint clp = RecordP.point(px);
 			redrawPolygon.append(QPoint(qRound(clp.x() - mx), qRound(clp.y() - my)));
@@ -252,7 +252,7 @@ void CalligraphicMode::mouseReleaseEvent(QMouseEvent *m)
 			QList<QPointF> clipL;
 			double mx = sin(m_doc->itemToolPrefs().calligrapicPenAngle / 180.0 * M_PI) * (m_doc->itemToolPrefs().calligrapicPenWidth / 2.0);
 			double my = cos(m_doc->itemToolPrefs().calligrapicPenAngle / 180.0 * M_PI) * (m_doc->itemToolPrefs().calligrapicPenWidth / 2.0);
-			for (uint px = 0; px < RecordP.size()-1; ++px)
+			for (int px = 0; px < RecordP.size()-1; ++px)
 			{
 				FPoint clp = RecordP.point(px);
 				clipU.append(QPointF(clp.x() - mx, clp.y() - my));

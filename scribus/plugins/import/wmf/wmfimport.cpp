@@ -276,12 +276,12 @@ FPointArray WMFImport::pointsToPolyline( const FPointArray& points, bool closePa
 	double x = 0.0, y = 0.0;
 	FPointArray polyline;
 	polyline.svgInit();
-	for( uint i = 0; i < points.size(); ++i )
+	for (int i = 0; i < points.size(); ++i )
 	{
 		FPoint point = points.point(i);
 		x = point.x();
 		y = point.y();
-		if( bFirst )
+		if (bFirst)
 		{
 			polyline.svgMoveTo(x, y);
 			bFirst = false;

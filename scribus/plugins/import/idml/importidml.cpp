@@ -2042,7 +2042,7 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, QTransform pT
 						if (scX > 0)
 						{
 							double totalCurveLen = 0;
-							for (uint segs = 0; segs < item->PoLine.size()-3; segs += 4)
+							for (int segs = 0; segs < item->PoLine.size()-3; segs += 4)
 							{
 								totalCurveLen += item->PoLine.lenPathSeg(segs);
 							}
@@ -2224,7 +2224,7 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, QTransform pT
 					if (scX > 0)
 					{
 						double totalCurveLen = 0;
-						for (uint segs = 0; segs < item->PoLine.size()-3; segs += 4)
+						for (int segs = 0; segs < item->PoLine.size()-3; segs += 4)
 						{
 							totalCurveLen += item->PoLine.lenPathSeg(segs);
 						}

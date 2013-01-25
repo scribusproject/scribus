@@ -8538,7 +8538,7 @@ void PageItem::getBoundingRect(double *x1, double *y1, double *x2, double *y2) c
 		else
 		{
 			FPoint Start = PoLine.point(0);
-			for (uint xx = 1; xx < PoLine.size(); xx += 2)
+			for (int xx = 1; xx < PoLine.size(); xx += 2)
 			{
 				FPoint Vector = PoLine.point(xx);
 				if ((Start.x() != Vector.x()) || (Start.y() != Vector.y()))
@@ -8712,7 +8712,7 @@ void PageItem::getVisualBoundingRect(double * x1, double * y1, double * x2, doub
 		else
 		{
 			FPoint Start = PoLine.point(0);
-			for (uint xx = 1; xx < PoLine.size(); xx += 2)
+			for (int xx = 1; xx < PoLine.size(); xx += 2)
 			{
 				FPoint Vector = PoLine.point(xx);
 				if ((Start.x() != Vector.x()) || (Start.y() != Vector.y()))
@@ -9146,7 +9146,7 @@ bool PageItem::loadImage(const QString& filename, const bool reload, const int g
 				FPointArray Vals = pixm.imgInfo.duotoneColors[0].Curve;
 				tmp.setNum(Vals.size());
 				efVal += " "+tmp;
-				for (uint p = 0; p < Vals.size(); p++)
+				for (int p = 0; p < Vals.size(); p++)
 				{
 					FPoint pv = Vals.point(p);
 					efVal += QString(" %1 %2").arg(pv.x()).arg(pv.y());
@@ -9155,7 +9155,7 @@ bool PageItem::loadImage(const QString& filename, const bool reload, const int g
 				Vals = pixm.imgInfo.duotoneColors[1].Curve;
 				tmp.setNum(Vals.size());
 				efVal += " "+tmp;
-				for (uint p = 0; p < Vals.size(); p++)
+				for (int p = 0; p < Vals.size(); p++)
 				{
 					FPoint pv = Vals.point(p);
 					efVal += QString(" %1 %2").arg(pv.x()).arg(pv.y());
@@ -9171,7 +9171,7 @@ bool PageItem::loadImage(const QString& filename, const bool reload, const int g
 				FPointArray Vals = pixm.imgInfo.duotoneColors[0].Curve;
 				tmp.setNum(Vals.size());
 				efVal += " "+tmp;
-				for (uint p = 0; p < Vals.size(); p++)
+				for (int p = 0; p < Vals.size(); p++)
 				{
 					FPoint pv = Vals.point(p);
 					efVal += QString(" %1 %2").arg(pv.x()).arg(pv.y());
@@ -9180,7 +9180,7 @@ bool PageItem::loadImage(const QString& filename, const bool reload, const int g
 				Vals = pixm.imgInfo.duotoneColors[1].Curve;
 				tmp.setNum(Vals.size());
 				efVal += " "+tmp;
-				for (uint p = 0; p < Vals.size(); p++)
+				for (int p = 0; p < Vals.size(); p++)
 				{
 					FPoint pv = Vals.point(p);
 					efVal += QString(" %1 %2").arg(pv.x()).arg(pv.y());
@@ -9189,7 +9189,7 @@ bool PageItem::loadImage(const QString& filename, const bool reload, const int g
 				Vals = pixm.imgInfo.duotoneColors[2].Curve;
 				tmp.setNum(Vals.size());
 				efVal += " "+tmp;
-				for (uint p = 0; p < Vals.size(); p++)
+				for (int p = 0; p < Vals.size(); p++)
 				{
 					FPoint pv = Vals.point(p);
 					efVal += QString(" %1 %2").arg(pv.x()).arg(pv.y());
@@ -9205,7 +9205,7 @@ bool PageItem::loadImage(const QString& filename, const bool reload, const int g
 				FPointArray Vals = pixm.imgInfo.duotoneColors[0].Curve;
 				tmp.setNum(Vals.size());
 				efVal += " "+tmp;
-				for (uint p = 0; p < Vals.size(); p++)
+				for (int p = 0; p < Vals.size(); p++)
 				{
 					FPoint pv = Vals.point(p);
 					efVal += QString(" %1 %2").arg(pv.x()).arg(pv.y());
@@ -9214,7 +9214,7 @@ bool PageItem::loadImage(const QString& filename, const bool reload, const int g
 				Vals = pixm.imgInfo.duotoneColors[1].Curve;
 				tmp.setNum(Vals.size());
 				efVal += " "+tmp;
-				for (uint p = 0; p < Vals.size(); p++)
+				for (int p = 0; p < Vals.size(); p++)
 				{
 					FPoint pv = Vals.point(p);
 					efVal += QString(" %1 %2").arg(pv.x()).arg(pv.y());
@@ -9223,7 +9223,7 @@ bool PageItem::loadImage(const QString& filename, const bool reload, const int g
 				Vals = pixm.imgInfo.duotoneColors[2].Curve;
 				tmp.setNum(Vals.size());
 				efVal += " "+tmp;
-				for (uint p = 0; p < Vals.size(); p++)
+				for (int p = 0; p < Vals.size(); p++)
 				{
 					FPoint pv = Vals.point(p);
 					efVal += QString(" %1 %2").arg(pv.x()).arg(pv.y());
@@ -9232,7 +9232,7 @@ bool PageItem::loadImage(const QString& filename, const bool reload, const int g
 				Vals = pixm.imgInfo.duotoneColors[3].Curve;
 				tmp.setNum(Vals.size());
 				efVal += " "+tmp;
-				for (uint p = 0; p < Vals.size(); p++)
+				for (int p = 0; p < Vals.size(); p++)
 				{
 					FPoint pv = Vals.point(p);
 					efVal += QString(" %1 %2").arg(pv.x()).arg(pv.y());

@@ -1502,7 +1502,7 @@ QDomElement SVGExPlug::processArrows(PageItem *Item, QDomElement line, QString t
 		else
 		{
 			FPoint Start = Item->PoLine.point(0);
-			for (uint xx = 1; xx < Item->PoLine.size(); xx += 2)
+			for (int xx = 1; xx < Item->PoLine.size(); xx += 2)
 			{
 				FPoint Vector = Item->PoLine.point(xx);
 				if ((Start.x() != Vector.x()) || (Start.y() != Vector.y()))
@@ -2293,7 +2293,7 @@ QString SVGExPlug::SetClipPath(FPointArray *ite, bool closed)
 	bool first = true;
 	if (ite->size() > 3)
 	{
-		for (uint poi=0; poi<ite->size()-3; poi += 4)
+		for (int poi=0; poi<ite->size()-3; poi += 4)
 		{
 			if (ite->point(poi).x() > 900000)
 			{

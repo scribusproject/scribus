@@ -1251,7 +1251,7 @@ bool PDFLibCore::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QStrin
 						mat.scale(100.0, -100.0);
 						gly.map(mat);
 						gly.translate(0, 1000);
-						for (uint poi = 0; poi < gly.size()-3; poi += 4)
+						for (int poi = 0; poi < gly.size()-3; poi += 4)
 						{
 							if (gly.point(poi).x() > 900000)
 							{
@@ -1365,7 +1365,7 @@ bool PDFLibCore::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QStrin
 						QTransform mat;
 						mat.scale(0.1, 0.1);
 						gly.map(mat);
-						for (uint poi = 0; poi < gly.size()-3; poi += 4)
+						for (int poi = 0; poi < gly.size()-3; poi += 4)
 						{
 							if (gly.point(poi).x() > 900000)
 							{
@@ -2465,7 +2465,7 @@ bool PDFLibCore::PDF_TemplatePage(const ScPage* pag, bool )
 						if (ite->startArrowIndex() != 0)
 						{
 							FPoint Start = ite->PoLine.point(0);
-							for (uint xx = 1; xx < ite->PoLine.size(); xx += 2)
+							for (int xx = 1; xx < ite->PoLine.size(); xx += 2)
 							{
 								FPoint Vector = ite->PoLine.point(xx);
 								if ((Start.x() != Vector.x()) || (Start.y() != Vector.y()))
@@ -4071,7 +4071,7 @@ bool PDFLibCore::PDF_ProcessItem(QString& output, PageItem* ite, const ScPage* p
 			if (ite->startArrowIndex() != 0)
 			{
 				FPoint Start = ite->PoLine.point(0);
-				for (uint xx = 1; xx < ite->PoLine.size(); xx += 2)
+				for (int xx = 1; xx < ite->PoLine.size(); xx += 2)
 				{
 					FPoint Vector = ite->PoLine.point(xx);
 					if ((Start.x() != Vector.x()) || (Start.y() != Vector.y()))
@@ -5354,7 +5354,7 @@ bool PDFLibCore::setTextCh(PageItem *ite, uint PNr, double x, double y, uint d, 
 					FPoint np;
 					if (gly.size() > 3)
 					{
-						for (uint poi=0; poi<gly.size()-3; poi += 4)
+						for (int poi=0; poi<gly.size()-3; poi += 4)
 						{
 							if (gly.point(poi).x() > 900000)
 							{
@@ -5459,7 +5459,7 @@ bool PDFLibCore::setTextCh(PageItem *ite, uint PNr, double x, double y, uint d, 
 					FPoint np;
 					if (gly.size() > 3)
 					{
-						for (uint poi=0; poi<gly.size()-3; poi += 4)
+						for (int poi=0; poi<gly.size()-3; poi += 4)
 						{
 							if (gly.point(poi).x() > 900000)
 							{
@@ -5746,7 +5746,7 @@ QString PDFLibCore::SetClipPathImage(PageItem *ite)
 	if (ite->imageClip.size() > 3)
 	{
 		bool nPath = true;
-		for (uint poi=0; poi<ite->imageClip.size()-3; poi += 4)
+		for (int poi=0; poi<ite->imageClip.size()-3; poi += 4)
 		{
 			if (ite->imageClip.point(poi).x() > 900000)
 			{
@@ -5786,7 +5786,7 @@ QString PDFLibCore::SetClipPath(PageItem *ite, bool poly)
 	bool first = true;
 	if (ite->PoLine.size() > 3)
 	{
-		for (uint poi=0; poi<ite->PoLine.size()-3; poi += 4)
+		for (int poi=0; poi<ite->PoLine.size()-3; poi += 4)
 		{
 			if (ite->PoLine.point(poi).x() > 900000)
 			{
@@ -5830,7 +5830,7 @@ QString PDFLibCore::SetClipPathArray(FPointArray *ite, bool poly)
 	bool first = true;
 	if (ite->size() > 3)
 	{
-		for (uint poi=0; poi<ite->size()-3; poi += 4)
+		for (int poi=0; poi<ite->size()-3; poi += 4)
 		{
 			if (ite->point(poi).x() > 900000)
 			{

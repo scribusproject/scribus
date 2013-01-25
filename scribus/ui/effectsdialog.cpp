@@ -1452,7 +1452,7 @@ void EffectsDialog::selectEffectHelper(bool final)
 			FPointArray Vals = CurveD1->cDisplay->getCurve();
 			tmp.setNum(Vals.size());
 			efval += " "+tmp;
-			for (uint p = 0; p < Vals.size(); p++)
+			for (int p = 0; p < Vals.size(); p++)
 			{
 				FPoint pv = Vals.point(p);
 				efval += QString(" %1 %2").arg(pv.x()).arg(pv.y());
@@ -1464,7 +1464,7 @@ void EffectsDialog::selectEffectHelper(bool final)
 			Vals = CurveD2->cDisplay->getCurve();
 			tmp.setNum(Vals.size());
 			efval += " "+tmp;
-			for (uint p = 0; p < Vals.size(); p++)
+			for (int p = 0; p < Vals.size(); p++)
 			{
 				FPoint pv = Vals.point(p);
 				efval += QString(" %1 %2").arg(pv.x()).arg(pv.y());
@@ -1491,7 +1491,7 @@ void EffectsDialog::selectEffectHelper(bool final)
 			FPointArray Vals = CurveT1->cDisplay->getCurve();
 			tmp.setNum(Vals.size());
 			efval += " "+tmp;
-			for (uint p = 0; p < Vals.size(); p++)
+			for (int p = 0; p < Vals.size(); p++)
 			{
 				FPoint pv = Vals.point(p);
 				efval += QString(" %1 %2").arg(pv.x()).arg(pv.y());
@@ -1503,7 +1503,7 @@ void EffectsDialog::selectEffectHelper(bool final)
 			Vals = CurveT2->cDisplay->getCurve();
 			tmp.setNum(Vals.size());
 			efval += " "+tmp;
-			for (uint p = 0; p < Vals.size(); p++)
+			for (int p = 0; p < Vals.size(); p++)
 			{
 				FPoint pv = Vals.point(p);
 				efval += QString(" %1 %2").arg(pv.x()).arg(pv.y());
@@ -1515,7 +1515,7 @@ void EffectsDialog::selectEffectHelper(bool final)
 			Vals = CurveT3->cDisplay->getCurve();
 			tmp.setNum(Vals.size());
 			efval += " "+tmp;
-			for (uint p = 0; p < Vals.size(); p++)
+			for (int p = 0; p < Vals.size(); p++)
 			{
 				FPoint pv = Vals.point(p);
 				efval += QString(" %1 %2").arg(pv.x()).arg(pv.y());
@@ -1545,7 +1545,7 @@ void EffectsDialog::selectEffectHelper(bool final)
 			FPointArray Vals = CurveQ1->cDisplay->getCurve();
 			tmp.setNum(Vals.size());
 			efval += " "+tmp;
-			for (uint p = 0; p < Vals.size(); p++)
+			for (int p = 0; p < Vals.size(); p++)
 			{
 				FPoint pv = Vals.point(p);
 				efval += QString(" %1 %2").arg(pv.x()).arg(pv.y());
@@ -1557,7 +1557,7 @@ void EffectsDialog::selectEffectHelper(bool final)
 			Vals = CurveQ2->cDisplay->getCurve();
 			tmp.setNum(Vals.size());
 			efval += " "+tmp;
-			for (uint p = 0; p < Vals.size(); p++)
+			for (int p = 0; p < Vals.size(); p++)
 			{
 				FPoint pv = Vals.point(p);
 				efval += QString(" %1 %2").arg(pv.x()).arg(pv.y());
@@ -1569,7 +1569,7 @@ void EffectsDialog::selectEffectHelper(bool final)
 			Vals = CurveQc3->cDisplay->getCurve();
 			tmp.setNum(Vals.size());
 			efval += " "+tmp;
-			for (uint p = 0; p < Vals.size(); p++)
+			for (int p = 0; p < Vals.size(); p++)
 			{
 				FPoint pv = Vals.point(p);
 				efval += QString(" %1 %2").arg(pv.x()).arg(pv.y());
@@ -1581,7 +1581,7 @@ void EffectsDialog::selectEffectHelper(bool final)
 			Vals = CurveQ4->cDisplay->getCurve();
 			tmp.setNum(Vals.size());
 			efval += " "+tmp;
-			for (uint p = 0; p < Vals.size(); p++)
+			for (int p = 0; p < Vals.size(); p++)
 			{
 				FPoint pv = Vals.point(p);
 				efval += QString(" %1 %2").arg(pv.x()).arg(pv.y());
@@ -1599,7 +1599,7 @@ void EffectsDialog::selectEffectHelper(bool final)
 			QString tmp;
 			tmp.setNum(Vals.size());
 			efval += tmp;
-			for (uint p = 0; p < Vals.size(); p++)
+			for (int p = 0; p < Vals.size(); p++)
 			{
 				FPoint pv = Vals.point(p);
 				efval += QString(" %1 %2").arg(pv.x()).arg(pv.y());

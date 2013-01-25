@@ -149,7 +149,7 @@ bool PathStrokerPlugin::run(ScribusDoc* doc, QString)
 			if (currItem->startArrowIndex() != 0)
 			{
 				FPoint Start = currItem->PoLine.point(0);
-				for (uint xx = 1; xx < currItem->PoLine.size(); xx += 2)
+				for (int xx = 1; xx < currItem->PoLine.size(); xx += 2)
 				{
 					FPoint Vector = currItem->PoLine.point(xx);
 					if ((Start.x() != Vector.x()) || (Start.y() != Vector.y()))
@@ -266,7 +266,7 @@ bool PathStrokerPlugin::run(ScribusDoc* doc, QString)
 			if (currItem->startArrowIndex() != 0)
 			{
 				FPoint Start = currItem->PoLine.point(0);
-				for (uint xx = 1; xx < currItem->PoLine.size(); xx += 2)
+				for (int xx = 1; xx < currItem->PoLine.size(); xx += 2)
 				{
 					FPoint Vector = currItem->PoLine.point(xx);
 					if ((Start.x() != Vector.x()) || (Start.y() != Vector.y()))

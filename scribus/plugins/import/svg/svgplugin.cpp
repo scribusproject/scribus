@@ -859,7 +859,7 @@ void SVGPlug::finishNode( const QDomNode &e, PageItem* item)
 		if (markers.contains(gc->startMarker))
 		{
 			FPoint End = item->PoLine.point(0);
-			for (uint xx = 1; xx < item->PoLine.size(); xx += 2)
+			for (int xx = 1; xx < item->PoLine.size(); xx += 2)
 			{
 				FPoint Vector = item->PoLine.point(xx);
 				if ((End.x() != Vector.x()) || (End.y() != Vector.y()))

@@ -89,7 +89,7 @@ void CanvasMode_NodeEdit::drawControls(QPainter* p)
 	const double onePerScale = 1 / scale;
 	if (cli.size() > 3)
 	{
-		for (uint poi=0; poi<cli.size()-3; poi += 4)
+		for (int poi=0; poi<cli.size()-3; poi += 4)
 		{
 			if (cli.point(poi).x() > 900000)
 				continue;
@@ -108,7 +108,7 @@ void CanvasMode_NodeEdit::drawControls(QPainter* p)
 		}
 	}
 	// draw points
-	for (uint a=0; a<cli.size()-1; a += 2)
+	for (int a = 0; a < cli.size()-1; a += 2)
 	{
 		if (cli.point(a).x() > 900000)
 			continue;
@@ -196,7 +196,7 @@ void CanvasMode_NodeEdit::activate(bool fromGesture)
 				}
 			}
 		}
-		for (uint a = 0; a < Clip.size(); ++a)
+		for (int a = 0; a < Clip.size(); ++a)
 		{
 			if (Clip.point(a).x() > 900000)
 				continue;
@@ -566,7 +566,7 @@ void CanvasMode_NodeEdit::handleNodeEditPress(QMouseEvent* m, QRect)
 	FPointArray cli;
 	uint EndInd = Clip.size();
 	uint StartInd = 0;
-	for (uint n = m_doc->nodeEdit.ClRe; n < Clip.size(); ++n)
+	for (int n = m_doc->nodeEdit.ClRe; n < Clip.size(); ++n)
 	{
 		if (Clip.point(n).x() > 900000)
 		{
@@ -603,7 +603,7 @@ void CanvasMode_NodeEdit::handleNodeEditPress(QMouseEvent* m, QRect)
 			double nearT = 0.0;
 			QRect mpo2(0, 0, m_doc->guidesPrefs().grabRadius*3, m_doc->guidesPrefs().grabRadius*3);
 			mpo2.moveCenter(QPoint(qRound(npf2.x()), qRound(npf2.y())));
-			for (uint poi=0; poi<Clip.size()-3; poi += 4)
+			for (int poi=0; poi<Clip.size()-3; poi += 4)
 			{
 				FPoint a1 = Clip.point(poi);
 				FPoint a2 = Clip.point(poi+1);
@@ -669,7 +669,7 @@ void CanvasMode_NodeEdit::handleNodeEditPress(QMouseEvent* m, QRect)
 				m_doc->nodeEdit.ClRe2 = -1;
 				EndInd = Clip.size();
 				StartInd = 0;
-				for (uint n = m_doc->nodeEdit.ClRe; n < Clip.size(); ++n)
+				for (int n = m_doc->nodeEdit.ClRe; n < Clip.size(); ++n)
 				{
 					if (Clip.point(n).x() > 900000)
 					{
@@ -856,7 +856,7 @@ void CanvasMode_NodeEdit::handleNodeEditPress(QMouseEvent* m, QRect)
 		double nearT = 0.0;
 		QRect mpo2(0, 0, m_doc->guidesPrefs().grabRadius*3, m_doc->guidesPrefs().grabRadius*3);
 		mpo2.moveCenter(QPoint(qRound(npf2.x()), qRound(npf2.y())));
-		for (uint poi=0; poi<Clip.size()-3; poi += 4)
+		for (int poi = 0; poi < Clip.size()-3; poi += 4)
 		{
 			FPoint a1 = Clip.point(poi);
 			FPoint a2 = Clip.point(poi+1);
@@ -1024,7 +1024,7 @@ bool CanvasMode_NodeEdit::handleNodeEditMove(QMouseEvent* m, QRect, PageItem* cu
 		(m_doc->nodeEdit.submode == NodeEditContext::MOVE_POINT) || 
 		(m_doc->nodeEdit.submode == NodeEditContext::SPLIT_PATH && m_doc->nodeEdit.EdPoints))
 	{
-		for (uint poi=0; poi<Clip.size()-3; poi += 4)
+		for (int poi = 0; poi < Clip.size()-3; poi += 4)
 		{
 			// create bezier curve in canvas coords
 			QPointF a1 = itemPos.map(Clip.pointQF(poi));

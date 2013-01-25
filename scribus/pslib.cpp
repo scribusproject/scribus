@@ -169,7 +169,7 @@ PSLib::PSLib(PrintOptions &options, bool psart, SCFonts &AllFonts, QMap<QString,
 				bool nPath = true;
 				if (ig.value().size() > 3)
 				{
-					for (uint poi = 0; poi < ig.value().size()-3; poi += 4)
+					for (int poi = 0; poi < ig.value().size()-3; poi += 4)
 					{
 						if (ig.value().point(poi).x() > 900000)
 						{
@@ -2078,7 +2078,7 @@ bool PSLib::ProcessItem(ScribusDoc* Doc, ScPage* a, PageItem* c, uint PNr, bool 
 			if (c->startArrowIndex() != 0)
 			{
 				FPoint Start = c->PoLine.point(0);
-				for (uint xx = 1; xx < c->PoLine.size(); xx += 2)
+				for (int xx = 1; xx < c->PoLine.size(); xx += 2)
 				{
 					FPoint Vector = c->PoLine.point(xx);
 					if ((Start.x() != Vector.x()) || (Start.y() != Vector.y()))
@@ -5442,7 +5442,7 @@ void PSLib::SetClipPath(FPointArray *c, bool poly)
 	bool first = true;
 	if (c->size() > 3)
 	{
-		for (uint poi=0; poi<c->size()-3; poi += 4)
+		for (int poi=0; poi < c->size()-3; poi += 4)
 		{
 			if (c->point(poi).x() > 900000)
 			{

@@ -83,7 +83,7 @@ void KCurve::paintEvent(QPaintEvent *)
 		curvePrevVal = curveVal;
 	}
 	p1.drawLine(x - 1, wHeight - int(curvePrevVal * wHeight), x,     wHeight - int(getCurveValue(1.0) * wHeight));
-	for (uint dh = 0; dh < m_points.size(); dh++)
+	for (int dh = 0; dh < m_points.size(); dh++)
 	{
 		FPoint p = m_points.point(dh);
 		if(p == m_grab_point)
@@ -109,7 +109,7 @@ void KCurve::keyPressEvent(QKeyEvent *e)
 			FPoint closest_point = m_points.point(0);
 			FPoint p = m_points.point(0);
 			int pos = 0;
-			uint cc =0;
+			int cc = 0;
 			double distance = 1000; // just a big number
 			while(cc < m_points.size())
 			{
@@ -148,7 +148,7 @@ void KCurve::mousePressEvent ( QMouseEvent * e )
 	FPoint p = m_points.point(0);
 	int insert_pos =0;
 	int pos = 0;
-	uint cc =0;
+	int cc = 0;
 	while(cc < m_points.size())
 	{
 		if (fabs (x - p.x()) < distance)
@@ -239,7 +239,7 @@ void KCurve::mouseMoveEvent ( QMouseEvent * e )
 		double distance = 1000;
 		double ydistance = 1000;
 		FPoint p = m_points.point(0);
-		uint cc =0;
+		int cc = 0;
 		while(cc < m_points.size())
 		{
 			if (fabs (x - p.x()) < distance)
@@ -381,7 +381,7 @@ CurveWidget::CurveWidget( QWidget* parent ) : QWidget( parent )
 void CurveWidget::doInvert()
 {
 	FPointArray curve = cDisplay->getCurve();
-	for (uint a = 0; a < curve.size(); a++)
+	for (int a = 0; a < curve.size(); a++)
 	{
 		FPoint p = curve.point(a);
 		curve.setPoint(a, p.x(), 1.0 - p.y());
@@ -465,7 +465,7 @@ void CurveWidget::doSave()
 			QString tmp;
 			tmp.setNum(Vals.size());
 			efval += tmp;
-			for (uint p = 0; p < Vals.size(); p++)
+			for (int p = 0; p < Vals.size(); p++)
 			{
 				FPoint pv = Vals.point(p);
 				efval += QString(" %1 %2").arg(pv.x()).arg(pv.y());

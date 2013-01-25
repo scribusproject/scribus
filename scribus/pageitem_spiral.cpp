@@ -68,7 +68,7 @@ void PageItem_Spiral::DrawObj_Item(ScPainter *p, QRectF /*e*/)
 			FPointArray cli;
 			FPoint Start;
 			bool firstp = true;
-			for (uint n = 0; n < PoLine.size()-3; n += 4)
+			for (int n = 0; n < PoLine.size()-3; n += 4)
 			{
 				if (firstp)
 				{
@@ -175,7 +175,7 @@ void PageItem_Spiral::DrawObj_Item(ScPainter *p, QRectF /*e*/)
 	if (m_startArrowIndex != 0)
 	{
 		FPoint Start = PoLine.point(0);
-		for (uint xx = 1; xx < PoLine.size(); xx += 2)
+		for (int xx = 1; xx < PoLine.size(); xx += 2)
 		{
 			FPoint Vector = PoLine.point(xx);
 			if ((Start.x() != Vector.x()) || (Start.y() != Vector.y()))

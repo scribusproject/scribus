@@ -1981,7 +1981,7 @@ void ScPainter::setupPolygon(FPointArray *points, bool closed)
 		return;
 
 	newPath();
-	for (uint poi=0; poi<points->size()-3; poi += 4)
+	for (int poi=0; poi<points->size()-3; poi += 4)
 	{
 		if (points->point(poi).x() > 900000)
 		{
@@ -2025,7 +2025,7 @@ void ScPainter::setupSharpPolygon(FPointArray *points, bool closed)
 		return;
 
 	newPath();
-	for (uint poi=0; poi<points->size()-3; poi += 4)
+	for (int poi=0; poi<points->size()-3; poi += 4)
 	{
 		if (points->point(poi).x() > 900000)
 		{

@@ -398,7 +398,7 @@ QPolygon FlattenPath(const FPointArray& ina, QList<uint> &Segs)
 	Segs.clear();
 	if (ina.size() > 3)
 	{
-		for (uint poi=0; poi<ina.size()-3; poi += 4)
+		for (int poi=0; poi<ina.size()-3; poi += 4)
 		{
 			if (ina.point(poi).x() > 900000) // && cli.size() > 0)
 			{

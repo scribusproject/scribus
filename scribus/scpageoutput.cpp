@@ -1125,7 +1125,7 @@ void ScPageOutput::drawItem_PathText( PageItem_PathText* item, ScPainterExBase* 
 		else
 			totalTextLen += hl->glyph.wide()+hl->fontSize() * hl->tracking() / 10000.0;
 	}
-	for (uint segs = 0; segs < item->PoLine.size()-3; segs += 4)
+	for (int segs = 0; segs < item->PoLine.size()-3; segs += 4)
 	{
 		totalCurveLen += item->PoLine.lenPathSeg(segs);
 	}
@@ -1262,7 +1262,7 @@ void ScPageOutput::drawItem_PolyLine( PageItem_PolyLine* item, ScPainterExBase* 
 		FPointArray cli;
 		FPoint Start;
 		bool firstp = true;
-		for (uint n = 0; n < item->PoLine.size()-3; n += 4)
+		for (int n = 0; n < item->PoLine.size()-3; n += 4)
 		{
 			if (firstp)
 			{
@@ -1376,7 +1376,7 @@ void ScPageOutput::drawItem_PolyLine( PageItem_PolyLine* item, ScPainterExBase* 
 	if (startArrowIndex != 0)
 	{
 		FPoint Start = item->PoLine.point(0);
-		for (uint xx = 1; xx < item->PoLine.size(); xx += 2)
+		for (int xx = 1; xx < item->PoLine.size(); xx += 2)
 		{
 			FPoint Vector = item->PoLine.point(xx);
 			if ((Start.x() != Vector.x()) || (Start.y() != Vector.y()))
@@ -1428,7 +1428,7 @@ void ScPageOutput::drawItem_Spiral( PageItem_Spiral* item, ScPainterExBase* pain
 		FPointArray cli;
 		FPoint Start;
 		bool firstp = true;
-		for (uint n = 0; n < item->PoLine.size()-3; n += 4)
+		for (int n = 0; n < item->PoLine.size()-3; n += 4)
 		{
 			if (firstp)
 			{
@@ -1542,7 +1542,7 @@ void ScPageOutput::drawItem_Spiral( PageItem_Spiral* item, ScPainterExBase* pain
 	if (startArrowIndex != 0)
 	{
 		FPoint Start = item->PoLine.point(0);
-		for (uint xx = 1; xx < item->PoLine.size(); xx += 2)
+		for (int xx = 1; xx < item->PoLine.size(); xx += 2)
 		{
 			FPoint Vector = item->PoLine.point(xx);
 			if ((Start.x() != Vector.x()) || (Start.y() != Vector.y()))

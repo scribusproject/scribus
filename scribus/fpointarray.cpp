@@ -60,9 +60,9 @@ FPointArray & FPointArray::operator=( const FPointArray &a )
  *   when growing, try to double size
  *   if capacity permits, just increase count
  */
-bool FPointArray::resize(uint newCount)
+bool FPointArray::resize(int newCount)
 {
-	if (newCount == 0)
+	if (newCount <= 0)
 	{
 		QVector<FPoint>::resize(0);
 		QVector<FPoint>::squeeze();
@@ -153,33 +153,26 @@ bool FPointArray::putPoints( int index, int nPoints, const FPointArray & from, i
 	return true;
 }
 
-void FPointArray::point(uint i, double *x, double *y) const
+void FPointArray::point(int i, double *x, double *y) const
 {
-//	FPoint p = QMemArray<FPoint>::at(i);
-	ConstIterator p = begin();
-	p += i;
+	const FPoint& p = QVector<FPoint>::at(i);
 	if (x)
-		*x = p->xp;
+		*x = p.xp;
 	if (y)
-		*y = p->yp;
+		*y = p.yp;
 }
 
 
-QPoint FPointArray::pointQ(uint i) const
+QPoint FPointArray::pointQ(int i) const
 {
-//	FPoint p = QMemArray<FPoint>::at(i);
-	ConstIterator p = begin();
-	p += i;
-	QPoint r(qRound(p->xp),qRound(p->yp));
-	return r;
+	const FPoint& p = QVector<FPoint>::at(i);
+	return QPoint(qRound(p.xp), qRound(p.yp));
 }
 
-QPointF FPointArray::pointQF(uint i) const
+QPointF FPointArray::pointQF(int i) const
 {
-//	FPoint p = QMemArray<FPoint>::at(i);
-	ConstIterator p = begin();
-	p += i;
-	QPointF r(p->xp,p->yp);
+	const FPoint& p = QVector<FPoint>::at(i);
+	QPointF r(p.xp, p.yp);
 	return r;
 }
 
@@ -490,7 +483,7 @@ QString FPointArray::svgPath(bool closed) const
 	bool first = true;
 	if (size() > 3)
 	{
-		for (uint poi=0; poi < size()-3; poi += 4)
+		for (int poi=0; poi < size()-3; poi += 4)
 		{
 			if (point(poi).x() > 900000)
 			{
@@ -532,7 +525,7 @@ QPainterPath FPointArray::toQPainterPath(bool closed)
 	FPoint np, np1, np2, np3, np4, firstP;
 	if (size() > 3)
 	{
-		for (uint poi = 0; poi < size()-3; poi += 4)
+		for (int poi = 0; poi < size()-3; poi += 4)
 		{
 			if (point(poi).x() > 900000)
 			{

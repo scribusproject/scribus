@@ -486,7 +486,7 @@ void Scribus150Format::writeLinestyles(ScXmlStreamWriter& docu)
 			QString arp = "";
 			QString tmp, tmpy;
 			double xa, ya;
-			for (uint nxx = 0; nxx < (*itar).points.size(); ++nxx)
+			for (int nxx = 0; nxx < (*itar).points.size(); ++nxx)
 			{
 				(*itar).points.point(nxx, &xa, &ya);
 				arp += tmp.setNum(xa) + " " + tmpy.setNum(ya) + " ";
