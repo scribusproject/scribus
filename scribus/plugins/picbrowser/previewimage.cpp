@@ -590,7 +590,7 @@ QMimeData *PreviewImagesModel::mimeData ( const QModelIndexList &indexes ) const
 			if ( ( row >= 0 ) && ( row < modelItemsList.size() ) )
 			{
 				imageFile = modelItemsList.at ( row )->fileInformation.absoluteFilePath();
-				urls.append ( QUrl ( imageFile ) );
+				urls.append (QUrl::fromLocalFile(imageFile));
 			}
 		}
 	}
