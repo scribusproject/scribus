@@ -31,6 +31,19 @@ class ScribusDoc;
 class Selection;
 class TransactionSettings;
 
+class ScBitReader
+{
+	public:
+		ScBitReader(QByteArray &data);
+		~ScBitReader();
+		quint32 getUInt(uint size);
+		void alignToWord();
+	private:
+		int actByte;
+		int actBit;
+		QByteArray buffer;
+};
+
 //! \brief Cgm importer plugin
 class CgmPlug : public QObject
 {
@@ -82,8 +95,10 @@ private:
 	void    getBinaryBezierPath(QDataStream &ts, quint16 paramLen);
 	void    getBinaryPath(QDataStream &ts, quint16 paramLen, bool disjoint = false);
 	void    getBinaryColorTable(QDataStream &ts, quint16 paramLen);
-	QString getBinaryIndexedColor(QDataStream &ts);
+	ScColor getBinaryDirectColor(ScBitReader *breader);
 	ScColor getBinaryDirectColor(QDataStream &ts);
+	QString getBinaryIndexedColor(ScBitReader *breader);
+	QString getBinaryIndexedColor(QDataStream &ts);
 	QString getBinaryColor(QDataStream &ts);
 	double  getBinaryDistance(QDataStream &ts);
 	QPointF getBinaryCoords(QDataStream &ts, bool raw = false);

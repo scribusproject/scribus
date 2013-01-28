@@ -55,6 +55,49 @@ for which a new license (GPL+exception) is in place.
 
 extern SCRIBUS_API ScribusQApp * ScQApp;
 
+ScBitReader::ScBitReader(QByteArray &data)
+{
+	buffer = data;
+	actBit = 7;
+	actByte = 0;
+}
+
+ScBitReader::~ScBitReader()
+{
+}
+
+quint32 ScBitReader::getUInt(uint size)
+{
+	quint32 ret = 0;
+	if (size > 32)
+		return 0;
+	quint8 dat = buffer[actByte];
+	for (uint c = 0; c < size; c++)
+	{
+		ret = (ret << 1) | ((dat & (0x01 << actBit)) >> actBit);
+		actBit--;
+		if (actBit < 0)
+		{
+			actBit = 7;
+			actByte++;
+			if (actByte >= buffer.count())
+				break;
+			dat = buffer[actByte];
+		}
+	}
+	return ret;
+}
+
+void ScBitReader::alignToWord()
+{
+	if (actByte < buffer.count() - 1)
+	{
+		actByte++;
+		actByte += actByte % 2;
+		actBit = 7;
+	}
+}
+
 CgmPlug::CgmPlug(ScribusDoc* doc, int flags)
 {
 	tmpSel=new Selection(this, false);
@@ -852,7 +895,7 @@ void CgmPlug::decodeClass2(QDataStream &ts, quint16 elemID, quint16 paramLen)
 			sc = getBinaryReal(ts, 0, 9);
 		if (metaFileScaleMode != 0)
 			metaFileScale = sc;
-//		qDebug() << "SCALING MODE" << metaFileScaleMode << metaFileScale;
+	//	qDebug() << "SCALING MODE" << metaFileScaleMode << metaFileScale;
 	}
 	else if (elemID == 2)
 	{
@@ -864,7 +907,15 @@ void CgmPlug::decodeClass2(QDataStream &ts, quint16 elemID, quint16 paramLen)
 	{
 		ts >> data;
 		lineWidthMode = data;
-		// qDebug() << "LINE WIDTH SPECIFICATION MODE" << lineWidthMode;
+		if (lineWidthMode == 0)
+			lineWidth = 0; // qMax(vdcWidth, vdcHeight) / 1000;
+		else if (lineWidthMode == 1)
+			lineWidth = 1.0;
+		else if (lineWidthMode == 2)
+			lineWidth = 0.001;
+		else if (lineWidthMode == 3)
+			lineWidth = 0.35;
+	//	qDebug() << "LINE WIDTH SPECIFICATION MODE" << lineWidthMode;
 	}
 	else if (elemID == 4)
 	{
@@ -877,14 +928,14 @@ void CgmPlug::decodeClass2(QDataStream &ts, quint16 elemID, quint16 paramLen)
 		ts >> data;
 		edgeWidthMode = data;
 		if (edgeWidthMode == 0)
-			edgeWidth = qMax(vdcWidth, vdcHeight) / 1000;
+			edgeWidth = 0; // qMax(vdcWidth, vdcHeight) / 1000;
 		else if (edgeWidthMode == 1)
 			edgeWidth = 1.0;
 		else if (edgeWidthMode == 2)
 			edgeWidth = 0.001;
 		else if (edgeWidthMode == 3)
 			edgeWidth = 0.35;
-		// qDebug() << "EDGE WIDTH SPECIFICATION MODE" << edgeWidthMode;
+	//	qDebug() << "EDGE WIDTH SPECIFICATION MODE" << edgeWidthMode;
 	}
 	else if (elemID == 6)
 	{
@@ -901,7 +952,7 @@ void CgmPlug::decodeClass2(QDataStream &ts, quint16 elemID, quint16 paramLen)
 		vdcHeight = vd.height();
 		metaScale = 400.0 / qMax(vdcWidth, vdcHeight);
 		if (lineWidthMode == 0)
-			lineWidth = qMax(vdcWidth, vdcHeight) / 1000;
+			lineWidth = 0; // qMax(vdcWidth, vdcHeight) / 1000;
 		else if (lineWidthMode == 1)
 			lineWidth = 1.0;
 		else if (lineWidthMode == 2)
@@ -913,7 +964,7 @@ void CgmPlug::decodeClass2(QDataStream &ts, quint16 elemID, quint16 paramLen)
 		vcdSet = true;
 		if (!clipSet)
 			clipRect = QRectF(vd.left() * metaScale, vd.top() * metaScale, vdcWidth * metaScale, vdcHeight * metaScale);
-//		qDebug() << "VDC EXTENT" << vd.left() << vd.top() << vdcWidth << vdcHeight << metaScale;
+	//	qDebug() << "VDC EXTENT" << vd.left() << vd.top() << vdcWidth << vdcHeight << metaScale;
 	}
 	else if (elemID == 7)
 	{
@@ -1361,17 +1412,11 @@ void CgmPlug::decodeClass4(QDataStream &ts, quint16 elemID, quint16 paramLen)
 		int t_colorIndexPrecision = colorIndexPrecision;
 		colorPrecision = getBinaryUInt(ts, intPrecision);
 		colorIndexPrecision = colorPrecision;
-		qDebug() << "CELL ARRAY Size" << nx << ny << "Compression" << mode << "Color Prec" << colorPrecision;
+//		qDebug() << "CELL ARRAY at" << pos << "Size" << nx << ny << "Compression" << mode << "Color Prec" << colorPrecision;
 		if (colorPrecision == 0)
 		{
 			colorPrecision = t_colorPrecision;
 			colorIndexPrecision = t_colorIndexPrecision;
-		}
-		if (colorPrecision < 8)
-		{
-			colorPrecision = t_colorPrecision;
-			colorIndexPrecision = t_colorIndexPrecision;
-			return;
 		}
 		ts >> mode;
 		int bytesRead = ts.device()->pos() - pos;
@@ -1410,52 +1455,102 @@ void CgmPlug::decodeClass4(QDataStream &ts, quint16 elemID, quint16 paramLen)
 			QByteArray rD = ts.device()->read(pLen);
 			imageData.append(rD);
 		}
-		QDataStream istr(imageData);
-		istr.setByteOrder(QDataStream::BigEndian);
-		for (int yy = 0; yy < ny; yy++)
+		if (colorPrecision < 8)
 		{
-			ScColor color;
-			QRgb *s = (QRgb*)(image.scanLine(yy));
-			if (mode == 1)
+			ScBitReader *breader = new ScBitReader(imageData);
+			for (int yy = 0; yy < ny; yy++)
 			{
-				for (int xx = 0; xx < nx; xx++)
+				ScColor color;
+				QRgb *s = (QRgb*)(image.scanLine(yy));
+				if (mode == 1)
 				{
-					if (colorMode == 0)
-						color = m_Doc->PageColors[getBinaryIndexedColor(istr)];
-					else
-						color = getBinaryDirectColor(istr);
-					QColor co = color.getRawRGBColor();
-					*s++ = qRgba(co.red(), co.green(), co.blue(), 255);
-				}
-			}
-			else
-			{
-				int xx = 0;
-				while (xx < nx)
-				{
-					int counter = getBinaryUInt(istr, intPrecision);
-					if ((counter > nx) || (counter == 0))
+					for (int xx = 0; xx < nx; xx++)
 					{
-						importRunning = false;
-						return;
-					}
-					if (colorMode == 0)
-						color = m_Doc->PageColors[getBinaryIndexedColor(istr)];
-					else
-						color = getBinaryDirectColor(istr);
-					QColor co = color.getRawRGBColor();
-					for (int xc = 0; xc < counter; xc++)
-					{
+						if (colorMode == 0)
+							color = m_Doc->PageColors[getBinaryIndexedColor(breader)];
+						else
+							color = getBinaryDirectColor(breader);
+						QColor co = color.getRawRGBColor();
 						*s++ = qRgba(co.red(), co.green(), co.blue(), 255);
-						xx++;
-						if (xx >= nx)
-							break;
 					}
 				}
+				else
+				{
+					int xx = 0;
+					while (xx < nx)
+					{
+						int counter = breader->getUInt(intPrecision);
+						if ((counter > nx) || (counter == 0))
+						{
+							importRunning = false;
+							return;
+						}
+						if (colorMode == 0)
+							color = m_Doc->PageColors[getBinaryIndexedColor(breader)];
+						else
+							color = getBinaryDirectColor(breader);
+						QColor co = color.getRawRGBColor();
+						for (int xc = 0; xc < counter; xc++)
+						{
+							*s++ = qRgba(co.red(), co.green(), co.blue(), 255);
+							xx++;
+							if (xx >= nx)
+								break;
+						}
+					}
+				}
+				breader->alignToWord();
 			}
-			uint adj = istr.device()->pos() % 2;
-			if (adj != 0)
-				istr.skipRawData(1);
+		}
+		else
+		{
+			QDataStream istr(imageData);
+			istr.setByteOrder(QDataStream::BigEndian);
+			for (int yy = 0; yy < ny; yy++)
+			{
+				ScColor color;
+				QRgb *s = (QRgb*)(image.scanLine(yy));
+				if (mode == 1)
+				{
+					for (int xx = 0; xx < nx; xx++)
+					{
+						if (colorMode == 0)
+							color = m_Doc->PageColors[getBinaryIndexedColor(istr)];
+						else
+							color = getBinaryDirectColor(istr);
+						QColor co = color.getRawRGBColor();
+						*s++ = qRgba(co.red(), co.green(), co.blue(), 255);
+					}
+				}
+				else
+				{
+					int xx = 0;
+					while (xx < nx)
+					{
+						int counter = getBinaryUInt(istr, intPrecision);
+						if ((counter > nx) || (counter == 0))
+						{
+							importRunning = false;
+							return;
+						}
+						if (colorMode == 0)
+							color = m_Doc->PageColors[getBinaryIndexedColor(istr)];
+						else
+							color = getBinaryDirectColor(istr);
+						QColor co = color.getRawRGBColor();
+						for (int xc = 0; xc < counter; xc++)
+						{
+							*s++ = qRgba(co.red(), co.green(), co.blue(), 255);
+							xx++;
+							if (xx >= nx)
+								break;
+						}
+					}
+				}
+				uint adj = istr.device()->pos() % 2;
+				if (adj != 0)
+					istr.skipRawData(1);
+			}
 		}
 		ite->tempImageFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_cgm_XXXXXX.png");
 		ite->tempImageFile->open();
@@ -2710,6 +2805,34 @@ void CgmPlug::getBinaryColorTable(QDataStream &ts, quint16 paramLen)
 	}
 }
 
+ScColor CgmPlug::getBinaryDirectColor(ScBitReader *breader)
+{
+	ScColor ret;
+	if (colorModel == 1)		// RGB
+	{
+		uint r = breader->getUInt(colorPrecision);
+		uint g = breader->getUInt(colorPrecision);
+		uint b = breader->getUInt(colorPrecision);
+		r = qRound(r * (maxColor - minColor) / static_cast<double>(maxColor));
+		g = qRound(g * (maxColor - minColor) / static_cast<double>(maxColor));
+		b = qRound(b * (maxColor - minColor) / static_cast<double>(maxColor));
+		ret = ScColor(r, g, b);
+	}
+	else if (colorModel == 4)	// CMYK
+	{
+		uint c = breader->getUInt(colorPrecision);
+		uint m = breader->getUInt(colorPrecision);
+		uint y = breader->getUInt(colorPrecision);
+		uint k = breader->getUInt(colorPrecision);
+		c = qRound(c * (maxColor - minColor) / static_cast<double>(maxColor));
+		m = qRound(m * (maxColor - minColor) / static_cast<double>(maxColor));
+		y = qRound(y * (maxColor - minColor) / static_cast<double>(maxColor));
+		k = qRound(k * (maxColor - minColor) / static_cast<double>(maxColor));
+		ret = ScColor(c, m, y, k);
+	}
+	return ret;
+}
+
 ScColor CgmPlug::getBinaryDirectColor(QDataStream &ts)
 {
 	ScColor ret;
@@ -2858,6 +2981,15 @@ ScColor CgmPlug::getBinaryDirectColor(QDataStream &ts)
 			ret = ScColor(c, m, y, k);
 		}
 	}
+	return ret;
+}
+
+QString CgmPlug::getBinaryIndexedColor(ScBitReader *breader)
+{
+	QString ret = "Black";
+	uint c = breader->getUInt(colorIndexPrecision);
+	if (ColorTableMap.contains(c) && (c <= maxColorIndex))
+		ret = ColorTableMap[c];
 	return ret;
 }
 
