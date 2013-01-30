@@ -154,7 +154,7 @@ if not os.path.exists(CONFIG_PATH):
 
 
 try:
-    import Image
+    from PIL import Image
 except ImportError,err:
     print 'You need to install Python Imaging Library (PIL).'
     print 'If using gentoo then you need to emerge /dev-python/imaging'
@@ -164,7 +164,7 @@ except ImportError,err:
 
 
 try:
-    import ImageTk
+    from PIL import ImageTk
 except ImportError,err:
     print 'Module ImageTk not found, font preview disabled'
     showPreviewPanel = 0
