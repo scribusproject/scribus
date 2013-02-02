@@ -113,6 +113,8 @@ void CheckDocument::slotSelect(QTreeWidgetItem* ite)
 		if (itemMap[ite].isNull())
 			return;
 		ScCore->primaryMainWindow()->closeActiveWindowMasterPageEditor();
+		m_Doc->setActiveLayer(itemMap[ite]->LayerID);
+		ScCore->primaryMainWindow()->changeLayer(m_Doc->activeLayer());
 		if (itemMap[ite]->isTextFrame())
 			emit selectElement(itemMap[ite], true, posMap[ite]);
 		else
@@ -147,6 +149,8 @@ void CheckDocument::slotSelect(QTreeWidgetItem* ite)
 			return;
 		if (!m_Doc->masterPageMode())
 			emit selectMasterPage(masterPageItemMap[ite]->OnMasterPage);
+		m_Doc->setActiveLayer(itemMap[ite]->LayerID);
+		ScCore->primaryMainWindow()->changeLayer(m_Doc->activeLayer());
 		if (masterPageItemMap[ite]->isTextFrame())
 			emit selectElement(masterPageItemMap[ite], true, posMap[ite]);
 		else
