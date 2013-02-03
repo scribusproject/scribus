@@ -554,18 +554,21 @@ void OutlinePalette::setLayerVisible(int layerID)
 	currDoc->setLayerVisible(layerID, !currDoc->layerVisible(layerID));
 	currDoc->scMW()->showLayer();
 	currDoc->scMW()->layerPalette->rebuildList();
+	currDoc->scMW()->layerPalette->markActiveLayer();
 }
 
 void OutlinePalette::setLayerLocked(int layerID)
 {
 	currDoc->setLayerLocked(layerID, !currDoc->layerLocked(layerID));
 	currDoc->scMW()->layerPalette->rebuildList();
+	currDoc->scMW()->layerPalette->markActiveLayer();
 }
 
 void OutlinePalette::setLayerPrintable(int layerID)
 {
 	currDoc->setLayerPrintable(layerID, !currDoc->layerPrintable(layerID));
 	currDoc->scMW()->layerPalette->rebuildList();
+	currDoc->scMW()->layerPalette->markActiveLayer();
 }
 
 void OutlinePalette::slotRenameItem()
@@ -936,6 +939,8 @@ void OutlinePalette::slotSelect(QTreeWidgetItem* ite, int)
 			if (!currDoc->masterPageMode())
 				emit selectMasterPage(item->PageItemObject->OnMasterPage);
 			pgItem = item->PageItemObject;
+			currDoc->setActiveLayer(pgItem->LayerID);
+			m_MainWindow->changeLayer(currDoc->activeLayer());
 			if (item->PageItemObject->isGroup())
 				emit selectElementByItem(pgItem, false);
 			else
@@ -953,6 +958,8 @@ void OutlinePalette::slotSelect(QTreeWidgetItem* ite, int)
 		case 4:
 			pgItem = item->PageItemObject;
 			m_MainWindow->closeActiveWindowMasterPageEditor();
+			currDoc->setActiveLayer(pgItem->LayerID);
+			m_MainWindow->changeLayer(currDoc->activeLayer());
 			if (pgItem->isGroup())
 				emit selectElementByItem(pgItem, false);
 			else
