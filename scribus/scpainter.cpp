@@ -1081,12 +1081,6 @@ void ScPainter::fillPathHelper()
 			for( int offset = 0 ; offset < colorStops.count() ; offset++ )
 			{
 				qStopColor = colorStops[ offset ]->color;
-				int h, s, v, sneu, vneu;
-				int shad = colorStops[offset]->shade;
-				qStopColor.getHsv(&h, &s, &v);
-				sneu = s * shad / 100;
-				vneu = 255 - ((255 - v) * shad / 100);
-				qStopColor.setHsv(h, sneu, vneu);
 				qStopColor.setAlphaF(colorStops[offset]->opacity);
 				qStopColors.append(qStopColor);
 			}
@@ -1627,23 +1621,15 @@ void ScPainter::fillPathHelper()
 			cairo_pattern_set_extend(pat, CAIRO_EXTEND_PAD);
 			cairo_pattern_set_filter(pat, CAIRO_FILTER_GOOD);
 			QList<VColorStop*> colorStops = fill_gradient.colorStops();
-			QColor qStopColor;
 			for( int offset = 0 ; offset < colorStops.count() ; offset++ )
 			{
-				qStopColor = colorStops[ offset ]->color;
 				rampPoint  = colorStops[ offset ]->rampPoint;
 				if ((lastPoint == rampPoint) && (!isFirst))
 					continue;
 				isFirst = false;
-				int h, s, v, sneu, vneu;
-				int shad = colorStops[offset]->shade;
-				qStopColor.getHsv(&h, &s, &v);
-				sneu = s * shad / 100;
-				vneu = 255 - ((255 - v) * shad / 100);
-				qStopColor.setHsv(h, sneu, vneu);
 				double a = colorStops[offset]->opacity;
 				double r, g, b;
-				qStopColor.getRgbF(&r, &g, &b);
+				colorStops[ offset ]->color.getRgbF(&r, &g, &b);
 				cairo_pattern_add_color_stop_rgba (pat, colorStops[ offset ]->rampPoint, r, g, b, a);
 				lastPoint = rampPoint;
 			}
@@ -1833,23 +1819,15 @@ void ScPainter::strokePathHelper()
 		cairo_pattern_set_extend(pat, CAIRO_EXTEND_PAD);
 		cairo_pattern_set_filter(pat, CAIRO_FILTER_GOOD);
 		QList<VColorStop*> colorStops = stroke_gradient.colorStops();
-		QColor qStopColor;
 		for( int offset = 0 ; offset < colorStops.count() ; offset++ )
 		{
-			qStopColor = colorStops[ offset ]->color;
 			rampPoint  = colorStops[ offset ]->rampPoint;
 			if ((lastPoint == rampPoint) && (!isFirst))
 				continue;
 			isFirst = false;
-			int h, s, v, sneu, vneu;
-			int shad = colorStops[offset]->shade;
-			qStopColor.getHsv(&h, &s, &v);
-			sneu = s * shad / 100;
-			vneu = 255 - ((255 - v) * shad / 100);
-			qStopColor.setHsv(h, sneu, vneu);
 			double a = colorStops[offset]->opacity;
 			double r, g, b;
-			qStopColor.getRgbF(&r, &g, &b);
+			colorStops[ offset ]->color.getRgbF(&r, &g, &b);
 			cairo_pattern_add_color_stop_rgba (pat, rampPoint, r, g, b, a);
 			lastPoint = rampPoint;
 		}
