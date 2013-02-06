@@ -827,12 +827,6 @@ cairo_pattern_t * ScPainter::getMaskPattern()
 		for( int offset = 0 ; offset < colorStops.count() ; offset++ )
 		{
 			qStopColor = colorStops[ offset ]->color;
-			int h, s, v, sneu, vneu;
-			int shad = colorStops[offset]->shade;
-			qStopColor.getHsv(&h, &s, &v);
-			sneu = s * shad / 100;
-			vneu = 255 - ((255 - v) * shad / 100);
-			qStopColor.setHsv(h, sneu, vneu);
 			double a = colorStops[offset]->opacity;
 			double r, g, b;
 			qStopColor.getRgbF(&r, &g, &b);

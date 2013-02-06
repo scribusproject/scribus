@@ -1771,12 +1771,12 @@ GBool SlaOutputDev::axialShadedFill(GfxState *state, GfxAxialShading *shading, d
 			GfxColor temp;
 			((GfxAxialShading*)shading)->getColor(bounds[i], &temp);
 			QString stopColor = getColor(color_space, &temp, &shade);
-			FillGradient.addStop( ScColorEngine::getRGBColor(m_doc->PageColors[stopColor], m_doc), bounds[i], 0.5, 1.0, stopColor, shade );
+			FillGradient.addStop( ScColorEngine::getShadeColor(m_doc->PageColors[stopColor], m_doc, shade), bounds[i], 0.5, 1.0, stopColor, shade );
 			if (i == num_funcs - 1)
 			{
 				((GfxAxialShading*)shading)->getColor(bounds[i+1], &temp);
 				QString stopColor = getColor(color_space, &temp, &shade);
-				FillGradient.addStop( ScColorEngine::getRGBColor(m_doc->PageColors[stopColor], m_doc), bounds[i+1], 0.5, 1.0, stopColor, shade );
+				FillGradient.addStop( ScColorEngine::getShadeColor(m_doc->PageColors[stopColor], m_doc, shade), bounds[i+1], 0.5, 1.0, stopColor, shade );
 			}
 		}
 	}
@@ -1785,11 +1785,11 @@ GBool SlaOutputDev::axialShadedFill(GfxState *state, GfxAxialShading *shading, d
 		GfxColor stop1;
 		((GfxAxialShading*)shading)->getColor(0.0, &stop1);
 		QString stopColor1 = getColor(color_space, &stop1, &shade);
-		FillGradient.addStop( ScColorEngine::getRGBColor(m_doc->PageColors[stopColor1], m_doc), 0.0, 0.5, 1.0, stopColor1, shade );
+		FillGradient.addStop( ScColorEngine::getShadeColor(m_doc->PageColors[stopColor1], m_doc, shade), 0.0, 0.5, 1.0, stopColor1, shade );
 		GfxColor stop2;
 		((GfxAxialShading*)shading)->getColor(1.0, &stop2);
 		QString stopColor2 = getColor(color_space, &stop2, &shade);
-		FillGradient.addStop( ScColorEngine::getRGBColor(m_doc->PageColors[stopColor2], m_doc), 1.0, 0.5, 1.0, stopColor2, shade );
+		FillGradient.addStop( ScColorEngine::getShadeColor(m_doc->PageColors[stopColor2], m_doc, shade), 1.0, 0.5, 1.0, stopColor2, shade );
 	}
 	((GfxAxialShading*)shading)->getCoords(&GrStartX, &GrStartY, &GrEndX, &GrEndY);
 	double xmin, ymin, xmax, ymax;
@@ -1866,12 +1866,12 @@ GBool SlaOutputDev::radialShadedFill(GfxState *state, GfxRadialShading *shading,
 			GfxColor temp;
 			((GfxRadialShading*)shading)->getColor(bounds[i], &temp);
 			QString stopColor = getColor(color_space, &temp, &shade);
-			FillGradient.addStop( ScColorEngine::getRGBColor(m_doc->PageColors[stopColor], m_doc), bounds[i], 0.5, 1.0, stopColor, shade );
+			FillGradient.addStop( ScColorEngine::getShadeColor(m_doc->PageColors[stopColor], m_doc, shade), bounds[i], 0.5, 1.0, stopColor, shade );
 			if (i == num_funcs - 1)
 			{
 				((GfxRadialShading*)shading)->getColor(bounds[i+1], &temp);
 				QString stopColor = getColor(color_space, &temp, &shade);
-				FillGradient.addStop( ScColorEngine::getRGBColor(m_doc->PageColors[stopColor], m_doc), bounds[i+1], 0.5, 1.0, stopColor, shade );
+				FillGradient.addStop( ScColorEngine::getShadeColor(m_doc->PageColors[stopColor], m_doc, shade), bounds[i+1], 0.5, 1.0, stopColor, shade );
 			}
 		}
 	}
@@ -1880,11 +1880,11 @@ GBool SlaOutputDev::radialShadedFill(GfxState *state, GfxRadialShading *shading,
 		GfxColor stop1;
 		((GfxRadialShading*)shading)->getColor(0.0, &stop1);
 		QString stopColor1 = getColor(color_space, &stop1, &shade);
-		FillGradient.addStop( ScColorEngine::getRGBColor(m_doc->PageColors[stopColor1], m_doc), 0.0, 0.5, 1.0, stopColor1, shade );
+		FillGradient.addStop( ScColorEngine::getShadeColor(m_doc->PageColors[stopColor1], m_doc, shade), 0.0, 0.5, 1.0, stopColor1, shade );
 		GfxColor stop2;
 		((GfxRadialShading*)shading)->getColor(1.0, &stop2);
 		QString stopColor2 = getColor(color_space, &stop2, &shade);
-		FillGradient.addStop( ScColorEngine::getRGBColor(m_doc->PageColors[stopColor2], m_doc), 1.0, 0.5, 1.0, stopColor2, shade );
+		FillGradient.addStop( ScColorEngine::getShadeColor(m_doc->PageColors[stopColor2], m_doc, shade), 1.0, 0.5, 1.0, stopColor2, shade );
 	}
 	double r0, x1, y1, r1;
 	((GfxRadialShading*)shading)->getCoords(&GrStartX, &GrStartY, &r0, &x1, &y1, &r1);

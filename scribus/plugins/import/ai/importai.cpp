@@ -2686,14 +2686,16 @@ void AIPlug::processGradientData(QString data)
 			else if (colortype == 3)
 			{
 				stopName = parseCustomColor(Cdata, colorShade);
+				int stopShade = qRound(colorShade);
 				const ScColor& gradC = m_Doc->PageColors[stopName];
-				currentGradient.addStop( ScColorEngine::getRGBColor(gradC, m_Doc), stop, 0.5, 1.0, stopName, qRound(colorShade));
+				currentGradient.addStop( ScColorEngine::getShadeColor(gradC, m_Doc, stopShade), stop, 0.5, 1.0, stopName, stopShade);
 			}
 			else if (colortype == 4)
 			{
 				stopName = parseCustomColorX(Cdata, colorShade, "0");
+				int stopShade = qRound(colorShade);
 				const ScColor& gradC = m_Doc->PageColors[stopName];
-				currentGradient.addStop( ScColorEngine::getRGBColor(gradC, m_Doc), stop, 0.5, 1.0, stopName, qRound(colorShade));
+				currentGradient.addStop( ScColorEngine::getShadeColor(gradC, m_Doc, stopShade), stop, 0.5, 1.0, stopName, stopShade);
 			}
 			else if (colortype == 6)
 			{
