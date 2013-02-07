@@ -201,6 +201,8 @@ void CheckDocument::slotSelect(QTreeWidgetItem* ite)
 		if (itemMap[ite].isNull())
 			return;
 		ScCore->primaryMainWindow()->closeActiveWindowMasterPageEditor();
+		m_Doc->setActiveLayer(itemMap[ite]->LayerNr);
+		ScCore->primaryMainWindow()->changeLayer(m_Doc->activeLayer());
 		emit selectElement(itemMap[ite]->OwnPage, itemMap[ite]->ItemNr);
 		return;
 	}
@@ -232,6 +234,8 @@ void CheckDocument::slotSelect(QTreeWidgetItem* ite)
 			return;
 		if (!m_Doc->masterPageMode())
 			emit selectMasterPage(masterPageItemMap[ite]->OnMasterPage);
+		m_Doc->setActiveLayer(masterPageItemMap[ite]->LayerNr);
+		ScCore->primaryMainWindow()->changeLayer(m_Doc->activeLayer());
 		emit selectElement(-1, masterPageItemMap[ite]->ItemNr);
 		return;
 	}

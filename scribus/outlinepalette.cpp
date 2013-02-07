@@ -601,6 +601,11 @@ void OutlinePalette::slotSelect(QTreeWidgetItem* ite, int col)
 		case 1:
 			if (!currDoc->masterPageMode())
 				emit selectMasterPage(item->PageItemObject->OnMasterPage);
+			if (currDoc->activeLayer() != item->PageItemObject->LayerNr)
+			{
+				currDoc->setActiveLayer(item->PageItemObject->LayerNr);
+				m_MainWindow->changeLayer(currDoc->activeLayer());
+			}
 			if (item->PageItemObject->Groups.count() == 0)
 				emit selectElement(-1, item->PageItemObject->ItemNr, false);
 			else
@@ -620,6 +625,11 @@ void OutlinePalette::slotSelect(QTreeWidgetItem* ite, int col)
 		case 4:
 			pgItem = item->PageItemObject;
 			m_MainWindow->closeActiveWindowMasterPageEditor();
+			if (currDoc->activeLayer() != pgItem->LayerNr)
+			{
+				currDoc->setActiveLayer(pgItem->LayerNr);
+				m_MainWindow->changeLayer(currDoc->activeLayer());
+			}
 			if (pgItem->Groups.count() == 0)
 				emit selectElement(pgItem->OwnPage, pgItem->ItemNr, false);
 			else
