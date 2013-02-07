@@ -149,7 +149,7 @@ void CheckDocument::slotSelect(QTreeWidgetItem* ite)
 			return;
 		if (!m_Doc->masterPageMode())
 			emit selectMasterPage(masterPageItemMap[ite]->OnMasterPage);
-		m_Doc->setActiveLayer(itemMap[ite]->LayerID);
+		m_Doc->setActiveLayer(masterPageItemMap[ite]->LayerID);
 		ScCore->primaryMainWindow()->changeLayer(m_Doc->activeLayer());
 		if (masterPageItemMap[ite]->isTextFrame())
 			emit selectElement(masterPageItemMap[ite], true, posMap[ite]);
