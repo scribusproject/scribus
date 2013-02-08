@@ -4494,8 +4494,8 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 		else
 		{
 			layout();
-		if (oldLast != lastInFrame() && NextBox != 0 && NextBox->invalid)
-			NextBox->updateLayout();
+			if (oldLast != lastInFrame() && NextBox != 0 && NextBox->invalid)
+				NextBox->updateLayout();
 		}
 //		Tinput = false;
 //		if ((cr == QChar(13)) && (itemText.length() != 0))
@@ -4552,8 +4552,8 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 		else
 		{
 			layout();
-		if (oldLast != lastInFrame() && NextBox != 0 && NextBox->invalid)
-			NextBox->updateLayout();
+			if (oldLast != lastInFrame() && NextBox != 0 && NextBox->invalid)
+				NextBox->updateLayout();
 		}
 		if (itemText.cursorPosition() < firstInFrame())
 		{
@@ -4614,9 +4614,10 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 			if (UndoManager::undoEnabled())
 			{
 				SimpleState *ss = dynamic_cast<SimpleState*>(undoManager->getLastUndo());
-				if(ss && ss->get("ETEA") == "insert_frametext")
-						ss->set("TEXT_STR",ss->get("TEXT_STR") + QString(SpecialChars::TAB));
-				else {
+				if (ss && ss->get("ETEA") == "insert_frametext")
+					ss->set("TEXT_STR",ss->get("TEXT_STR") + QString(SpecialChars::TAB));
+				else 
+				{
 					ss = new SimpleState(Um::InsertText,"",Um::ICreate);
 					ss->set("INSERT_FRAMETEXT", "insert_frametext");
 					ss->set("ETEA", QString("insert_frametext"));
@@ -4641,9 +4642,10 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 			if (UndoManager::undoEnabled())
 			{
 				SimpleState *ss = dynamic_cast<SimpleState*>(undoManager->getLastUndo());
-				if(ss && ss->get("ETEA") == "insert_frametext")
-						ss->set("TEXT_STR",ss->get("TEXT_STR") + uc);
-				else {
+				if (ss && ss->get("ETEA") == "insert_frametext")
+					ss->set("TEXT_STR",ss->get("TEXT_STR") + uc);
+				else 
+				{
 					ss = new SimpleState(Um::InsertText,"",Um::ICreate);
 					ss->set("INSERT_FRAMETEXT", "insert_frametext");
 					ss->set("ETEA", QString("insert_frametext"));
@@ -4651,7 +4653,8 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 					ss->set("START", itemText.cursorPosition());
 					UndoObject * undoTarget = this;
 					if (isNoteFrame())
-					{						undoTarget = m_Doc;
+					{
+						undoTarget = m_Doc;
 						ss->set("noteframeName", getUName());
 					}
 					undoManager->action(undoTarget, ss);
