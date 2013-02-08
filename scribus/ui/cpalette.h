@@ -181,6 +181,9 @@ protected:
 	void   setCurrentItem(PageItem* item);
 	void   updateFromItem();
 
+	void   setGradientVectorValues();
+	void   setGradientVectorStrokeValues();
+
 	int    m_blockUpdates;
 	void   blockUpdates(bool block) { if (block) ++m_blockUpdates; else --m_blockUpdates; }
 	bool   updatesBlocked() { return (m_blockUpdates > 0); }

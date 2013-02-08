@@ -379,7 +379,6 @@ void PropertiesPalette_Group::updateColorSpecialGradient()
 		return;
 	if(m_doc->m_Selection->isEmpty())
 		return;
-	double ratio = m_doc->unitRatio();
 	PageItem *currItem = m_doc->m_Selection->itemAt(0);
 	if (currItem)
 	{
@@ -395,7 +394,7 @@ void PropertiesPalette_Group::updateColorSpecialGradient()
 			break;
 		default:
 			if (currItem->isGroup())
-				transPalWidget->setSpecialGradient(currItem->GrMaskStartX * ratio, currItem->GrMaskStartY * ratio, currItem->GrMaskEndX * ratio, currItem->GrMaskEndY * ratio, currItem->GrMaskFocalX * ratio, currItem->GrMaskFocalY * ratio, currItem->GrMaskScale, currItem->GrMaskSkew);
+				transPalWidget->setSpecialGradient(currItem->GrMaskStartX, currItem->GrMaskStartY, currItem->GrMaskEndX, currItem->GrMaskEndY, currItem->GrMaskFocalX, currItem->GrMaskFocalY, currItem->GrMaskScale, currItem->GrMaskSkew);
 		}
 	}
 }

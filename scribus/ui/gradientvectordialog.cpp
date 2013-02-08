@@ -22,10 +22,13 @@ for which a new license (GPL+exception) is in place.
  ***************************************************************************/
 
 #include "gradientvectordialog.h"
+#include "units.h"
 #include "util_icon.h"
 
 GradientVectorDialog::GradientVectorDialog(QWidget* parent) : ScrPaletteBase( parent, "GradientVectorPalette", false, 0 )
 {
+	m_unitRatio = 1.0;
+
 	setupUi(this);
 	gSk->setNewUnit(6);
 	gSk->setValues(-89, 89, 2, 0);
@@ -272,37 +275,39 @@ void GradientVectorDialog::setValues(double x1, double y1, double x2, double y2,
 	disconnect(gC4YD,  SIGNAL(valueChanged(double)), this, SLOT(changeSpecialD()));
 	disconnect(gC5XD,  SIGNAL(valueChanged(double)), this, SLOT(changeSpecialD()));
 	disconnect(gC5YD,  SIGNAL(valueChanged(double)), this, SLOT(changeSpecialD()));
-	gX1->setValue(x1);
-	gX2->setValue(x2);
-	gY1->setValue(y1);
-	gY2->setValue(y2);
-	gFX->setValue(fx);
-	gFY->setValue(fy);
+
+	gX1->setValue(x1 * m_unitRatio);
+	gX2->setValue(x2 * m_unitRatio);
+	gY1->setValue(y1 * m_unitRatio);
+	gY2->setValue(y2 * m_unitRatio);
+	gFX->setValue(fx * m_unitRatio);
+	gFY->setValue(fy * m_unitRatio);
 	gSk->setValue(sk);
 	gSc->setValue(sg * 100.0);
-	gX1_2->setValue(x1);
-	gX2_2->setValue(x2);
-	gY1_2->setValue(y1);
-	gY2_2->setValue(y2);
+	gX1_2->setValue(x1 * m_unitRatio);
+	gX2_2->setValue(x2 * m_unitRatio);
+	gY1_2->setValue(y1 * m_unitRatio);
+	gY2_2->setValue(y2 * m_unitRatio);
 	gSk_2->setValue(sk);
-	gC1X->setValue(x1);
-	gC1Y->setValue(y1);
-	gC2X->setValue(x2);
-	gC2Y->setValue(y2);
-	gC3X->setValue(fx);
-	gC3Y->setValue(fy);
-	gC4X->setValue(sg);
-	gC4Y->setValue(sk);
-	gC1XD->setValue(x1);
-	gC1YD->setValue(y1);
-	gC2XD->setValue(x2);
-	gC2YD->setValue(y2);
-	gC3XD->setValue(fx);
-	gC3YD->setValue(fy);
-	gC4XD->setValue(sg);
-	gC4YD->setValue(sk);
-	gC5XD->setValue(cx);
-	gC5YD->setValue(cy);
+	gC1X->setValue(x1 * m_unitRatio);
+	gC1Y->setValue(y1 * m_unitRatio);
+	gC2X->setValue(x2 * m_unitRatio);
+	gC2Y->setValue(y2 * m_unitRatio);
+	gC3X->setValue(fx * m_unitRatio);
+	gC3Y->setValue(fy * m_unitRatio);
+	gC4X->setValue(sg * m_unitRatio);
+	gC4Y->setValue(sk * m_unitRatio);
+	gC1XD->setValue(x1 * m_unitRatio);
+	gC1YD->setValue(y1 * m_unitRatio);
+	gC2XD->setValue(x2 * m_unitRatio);
+	gC2YD->setValue(y2 * m_unitRatio);
+	gC3XD->setValue(fx * m_unitRatio);
+	gC3YD->setValue(fy * m_unitRatio);
+	gC4XD->setValue(sg * m_unitRatio);
+	gC4YD->setValue(sk * m_unitRatio);
+	gC5XD->setValue(cx * m_unitRatio);
+	gC5YD->setValue(cy * m_unitRatio);
+
 	connect(gX1,   SIGNAL(valueChanged(double)), this, SLOT(changeSpecialL()));
 	connect(gX2,   SIGNAL(valueChanged(double)), this, SLOT(changeSpecialL()));
 	connect(gY1,   SIGNAL(valueChanged(double)), this, SLOT(changeSpecialL()));
@@ -358,6 +363,8 @@ void GradientVectorDialog::changeSpecialD()
 
 void GradientVectorDialog::unitChange(int unitIndex)
 {
+	m_unitRatio = unitGetRatioFromIndex(unitIndex);
+
 	disconnect(gX1,   SIGNAL(valueChanged(double)), this, SLOT(changeSpecialL()));
 	disconnect(gX2,   SIGNAL(valueChanged(double)), this, SLOT(changeSpecialL()));
 	disconnect(gY1,   SIGNAL(valueChanged(double)), this, SLOT(changeSpecialL()));

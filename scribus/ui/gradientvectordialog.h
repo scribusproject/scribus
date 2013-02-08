@@ -70,6 +70,9 @@ public slots:
 	void changeSpecialD();
 	void unitChange(int unitIndex);
 
+protected:
+	double m_unitRatio;
+
 signals:
 	void NewSpecial(double, double, double, double, double, double, double, double, double, double);
 	void editGradient(int);

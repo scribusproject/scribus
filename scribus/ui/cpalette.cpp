@@ -290,9 +290,9 @@ void Cpalette::setCurrentItem(PageItem* item)
 	if(CGradDia && gradEditButton->isChecked())
 	{
 		if(tabFillStroke->currentIndex() == 0)
-			CGradDia->setValues(currentItem->gradientStartX(), currentItem->gradientStartY(), currentItem->gradientEndX(), currentItem->gradientEndY(), currentItem->GrFocalX, currentItem->GrFocalY, currentItem->GrScale, currentItem->GrSkew, 0, 0);
+			setGradientVectorValues();
 		else
-			CGradDia->setValues(currentItem->GrStrokeStartX, currentItem->GrStrokeStartY, currentItem->GrStrokeEndX, currentItem->GrStrokeEndY, currentItem->GrStrokeFocalX, currentItem->GrStrokeFocalY, currentItem->GrStrokeScale, currentItem->GrStrokeSkew, 0, 0);
+			setGradientVectorStrokeValues();
 	}
 	editMeshColors->setEnabled(!CGradDia->isVisible());
 	gradEditButton->setEnabled(true);
@@ -1435,6 +1435,46 @@ void Cpalette::editGradientVector()
 {
 	if (gradEditButton->isChecked())
 	{
+		setGradientVectorValues();
+		CGradDia->show();
+	}
+	else
+	{
+		CGradDia->hide();
+		editMeshColors->setEnabled(true);
+	}
+	if (currentItem->gradientType() == 9)
+		editStrokeGradient = 3;
+	else if (currentItem->gradientType() == 10)
+		editStrokeGradient = 4;
+	else if (currentItem->gradientType() == 11)
+		editStrokeGradient = 5;
+	else if (currentItem->gradientType() == 12)
+		editStrokeGradient = 9;
+	else
+		editStrokeGradient = 0;
+	emit editGradient(editStrokeGradient);
+}
+
+void Cpalette::editGradientVectorStroke()
+{
+	if (gradEditButtonStroke->isChecked())
+	{
+		setGradientVectorStrokeValues();
+		CGradDia->show();
+	}
+	else
+	{
+		CGradDia->hide();
+	}
+	editStrokeGradient = 1;
+	emit editGradient(editStrokeGradient);
+}
+
+void Cpalette::setGradientVectorValues()
+{
+	if (gradEditButton->isChecked())
+	{
 		CGradDia->unitChange(currentDoc->unitIndex());
 		CGradDia->setValues(currentItem->gradientStartX(), currentItem->gradientStartY(), currentItem->gradientEndX(), currentItem->gradientEndY(), currentItem->GrFocalX, currentItem->GrFocalY, currentItem->GrScale, currentItem->GrSkew, 0, 0);
 		if (currentItem->gradientType() == 6)
@@ -1463,27 +1503,10 @@ void Cpalette::editGradientVector()
 		}
 		else if (currentItem->gradientType() == 13)
 			CGradDia->selectConical();
-		CGradDia->show();
 	}
-	else
-	{
-		CGradDia->hide();
-		editMeshColors->setEnabled(true);
-	}
-	if (currentItem->gradientType() == 9)
-		editStrokeGradient = 3;
-	else if (currentItem->gradientType() == 10)
-		editStrokeGradient = 4;
-	else if (currentItem->gradientType() == 11)
-		editStrokeGradient = 5;
-	else if (currentItem->gradientType() == 12)
-		editStrokeGradient = 9;
-	else
-		editStrokeGradient = 0;
-	emit editGradient(editStrokeGradient);
 }
 
-void Cpalette::editGradientVectorStroke()
+void Cpalette::setGradientVectorStrokeValues()
 {
 	if (gradEditButtonStroke->isChecked())
 	{
@@ -1493,14 +1516,7 @@ void Cpalette::editGradientVectorStroke()
 			CGradDia->selectLinear();
 		else
 			CGradDia->selectRadial();
-		CGradDia->show();
 	}
-	else
-	{
-		CGradDia->hide();
-	}
-	editStrokeGradient = 1;
-	emit editGradient(editStrokeGradient);
 }
 
 void Cpalette::setActiveGradDia(bool active)
