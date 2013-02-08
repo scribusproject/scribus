@@ -882,8 +882,10 @@ void Cpalette::editGradientVector()
 {
 	if (gradEditButton->isChecked())
 	{
+		double unitRatio = currentDoc->unitRatio();
 		CGradDia->unitChange(currentDoc->unitIndex());
-		CGradDia->setValues(currentItem->GrStartX, currentItem->GrStartY, currentItem->GrEndX, currentItem->GrEndY);
+		CGradDia->setValues(currentItem->GrStartX * unitRatio, currentItem->GrStartY * unitRatio, 
+		                    currentItem->GrEndX * unitRatio,   currentItem->GrEndY * unitRatio);
 		CGradDia->show();
 	}
 	else
