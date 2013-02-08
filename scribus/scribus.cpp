@@ -8677,6 +8677,7 @@ void ScribusMainWindow::slotChangeUnit(int unitIndex, bool draw)
 
 	doc->setUnitIndex(unitIndex);
 	setCurrentComboItem(view->unitSwitcher, unitGetStrFromIndex(doc->unitIndex()));
+	view->unitChange();
 	propertiesPalette->unitChange();
 	nodePalette->unitChange();
 	alignDistributePalette->unitChange();
