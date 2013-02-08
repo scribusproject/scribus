@@ -1457,7 +1457,7 @@ void ActionManager::languageChange()
 	(*scrActions)["editSearchReplace"]->setTexts( tr("&Search/Replace..."));
 	(*scrActions)["editEditWithImageEditor"]->setTexts( tr("Edit Image..."));
 	(*scrActions)["editEditRenderSource"]->setTexts( tr("Edit Source..."));
-	(*scrActions)["editColors"]->setTexts( tr("Fills..."));
+	(*scrActions)["editColors"]->setTexts( tr("Colors and Fills..."));
 	(*scrActions)["editReplaceColors"]->setTexts( tr("Replace Colors..."));
 	(*scrActions)["editStyles"]->setTexts( tr("S&tyles..."));
 	(*scrActions)["editMarks"]->setTexts( tr("Marks..."));
