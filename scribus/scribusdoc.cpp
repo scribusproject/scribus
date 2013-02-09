@@ -15071,6 +15071,7 @@ void ScribusDoc::itemSelection_UnGroupObjects(Selection* customSelection)
 	// Remove group control objects
 	setLoading(true);
 	itemSelection->delaySignalsOn();
+	dontResize = true;
 	for (int b = 0; b < toDelete.count(); b++)
 	{
 	/*	currItem = toDelete.at(b);
@@ -15181,6 +15182,7 @@ void ScribusDoc::itemSelection_UnGroupObjects(Selection* customSelection)
 			undoManager->action(this, is);
 		}
 	}
+	dontResize = false;
 	setLoading(wasLoad);
 	itemSelection->delaySignalsOff();
 
