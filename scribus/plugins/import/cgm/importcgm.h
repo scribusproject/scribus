@@ -142,7 +142,7 @@ private:
 	int colorPrecision;
 	int colorIndexPrecision;
 	uint maxColorIndex;
-	int colorModel;
+	int m_colorModel;
 	int colorMode;
 	int namePrecision;
 	int lineWidthMode;
@@ -217,6 +217,7 @@ private:
 	int textSize;
 	int textAlignH;
 	int textScaleMode;
+	QString pictName;
 
 public slots:
 	void cancelRequested() { cancel = true; }

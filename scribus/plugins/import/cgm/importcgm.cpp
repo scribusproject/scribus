@@ -268,7 +268,11 @@ bool CgmPlug::import(QString fNameIn, const TransactionSettings& trSettings, int
 		tmpSel->clear();
 		QDir::setCurrent(CurDirP);
 		if ((Elements.count() > 1) && (!(importerFlags & LoadSavePlugin::lfCreateDoc)))
-			m_Doc->groupObjectsList(Elements);
+		{
+			PageItem* group = m_Doc->groupObjectsList(Elements);
+			if (!pictName.isEmpty())
+				group->setItemName(group->generateUniqueCopyName(pictName, false).replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%\\.]"), "_" ));
+		}
 		m_Doc->DoDrawing = true;
 		m_Doc->scMW()->setScriptRunning(false);
 		m_Doc->setLoading(false);
@@ -374,7 +378,7 @@ bool CgmPlug::convert(QString fn)
 	vdcReal = 1;
 	vdcMantissa = 16;
 	vcdFlippedH = false;
-	vcdFlippedV = false;
+	vcdFlippedV = true;
 	intPrecision = 16;
 	realPrecision = 1;
 	realMantissa = 16;
@@ -384,12 +388,12 @@ bool CgmPlug::convert(QString fn)
 	colorPrecision = 8;
 	colorIndexPrecision = 8;
 	maxColorIndex = 63;
-	colorModel = 1;
+	m_colorModel = 1;
 	colorMode = 0;
 	namePrecision = 16;
 	metaFileScaleMode = 0;
 	metaFileScale = 1.0;
-	metaScale = 1.0;
+	metaScale = 400.0 / 32768.0;
 	lineWidthMode = 1;
 	edgeWidthMode = 1;
 	markerSizeMode = 1;
@@ -429,6 +433,7 @@ bool CgmPlug::convert(QString fn)
 	textAlignH = 0;
 	textScaleMode = 1;
 	currentRegion = 0;
+	pictName = "";
 	if(progressDialog)
 	{
 		progressDialog->setOverallProgress(2);
@@ -540,7 +545,10 @@ void CgmPlug::decodeBinary(QDataStream &ts, quint16 elemClass, quint16 elemID, q
 	else if (elemClass == 9)
 		decodeClass9(ts, elemID, paramLen);
 	else
+	{
+		importRunning = false;
 		qDebug() << "Class" << elemClass << "ID" << elemID << "Len" << paramLen << "at" << ts.device()->pos();
+	}
 	ts.device()->seek(pos);
 	alignStreamToWord(ts, paramLen);
 	alignStreamToWord(ts, 0);
@@ -761,7 +769,7 @@ void CgmPlug::decodeClass1(QDataStream &ts, quint16 elemID, quint16 paramLen)
 	}
 	else if (elemID == 10)
 	{
-		if (colorModel == 1)		// RGB
+		if (m_colorModel == 1)		// RGB
 		{
 			if (colorPrecision == 8)
 			{
@@ -780,7 +788,7 @@ void CgmPlug::decodeClass1(QDataStream &ts, quint16 elemID, quint16 paramLen)
 				maxColor = r;
 			}
 		}
-		else if (colorModel == 4)	// CMYK
+		else if (m_colorModel == 4)	// CMYK
 		{
 			if (colorPrecision == 8)
 			{
@@ -803,7 +811,7 @@ void CgmPlug::decodeClass1(QDataStream &ts, quint16 elemID, quint16 paramLen)
 	}
 	else if (elemID == 11)
 	{
-		qDebug() << "METAFILE ELEMENT LIST" << paramLen << "Starting at" << ts.device()->pos();
+	//	qDebug() << "METAFILE ELEMENT LIST";
 	}
 	else if (elemID == 12)
 	{
@@ -851,7 +859,7 @@ void CgmPlug::decodeClass1(QDataStream &ts, quint16 elemID, quint16 paramLen)
 	else if (elemID == 19)
 	{
 		ts >> data;
-		colorModel = data;
+		m_colorModel = data;
 	//	qDebug() << "COLOUR MODEL" << colorModel;
 	}
 	else if (elemID == 20)
@@ -943,10 +951,8 @@ void CgmPlug::decodeClass2(QDataStream &ts, quint16 elemID, quint16 paramLen)
 		max = getBinaryCoords(ts, true);
 		min = getBinaryCoords(ts, true);
 		QRectF vd = QRectF(max, min);
-		if (vd.height() > 0)
-			vcdFlippedV = true;
-		if (vd.width() < 0)
-			vcdFlippedH = true;
+		vcdFlippedV = (vd.height() > 0);
+		vcdFlippedH = (vd.width() < 0);
 		vd = vd.normalized();
 		vdcWidth = vd.width();
 		vdcHeight = vd.height();
@@ -963,8 +969,11 @@ void CgmPlug::decodeClass2(QDataStream &ts, quint16 elemID, quint16 paramLen)
 		baseY = vd.top() * metaScale;
 		vcdSet = true;
 		if (!clipSet)
+		{
 			clipRect = QRectF(vd.left() * metaScale, vd.top() * metaScale, vdcWidth * metaScale, vdcHeight * metaScale);
-	//	qDebug() << "VDC EXTENT" << vd.left() << vd.top() << vdcWidth << vdcHeight << metaScale;
+			clipSet = true;
+		}
+	//	qDebug() << "VDC EXTENT" << vd.left() << vd.top() << vdcWidth << vdcHeight << vcdFlippedV;
 	}
 	else if (elemID == 7)
 	{
@@ -981,7 +990,7 @@ void CgmPlug::decodeClass2(QDataStream &ts, quint16 elemID, quint16 paramLen)
 		QPointF max, min;
 		max = getBinaryCoords(ts);
 		min = getBinaryCoords(ts);
-		// qDebug() << "DEVICE VIEWPORT" << min.x() << min.y() << max.x() << max.y();
+	//	qDebug() << "DEVICE VIEWPORT" << min.x() << min.y() << max.x() << max.y();
 	}
 	else if (elemID == 9)
 	{
@@ -1085,7 +1094,7 @@ void CgmPlug::decodeClass3(QDataStream &ts, quint16 elemID, quint16 paramLen)
 		y += m_Doc->currentPage()->yOffset();
 		clipRect = QRectF(x, y, w, h);
 		clipSet = true;
-		// qDebug() << "CLIP RECTANGLE" << clipRect;
+	//	qDebug() << "CLIP RECTANGLE" << clipRect;
 	}
 	else if (elemID == 6)
 	{
@@ -2133,7 +2142,12 @@ void CgmPlug::decodeClass4(QDataStream &ts, quint16 elemID, quint16 paramLen)
 	}
 	else if (elemID == 28)
 	{
-		qDebug() << "BITONAL TILE";
+		uint comp = getBinaryUInt(ts, indexPrecision);
+		uint pad = getBinaryUInt(ts, intPrecision);
+		QString backColor = getBinaryColor(ts);
+		QString foreColor = getBinaryColor(ts);
+		uint prec = getBinaryUInt(ts, intPrecision);
+		qDebug() << "BITONAL TILE  Compression" << comp << "Padding" << pad << "Background" << backColor << "Foreground" << foreColor << "Precision" << prec;
 	}
 	else if (elemID == 29)
 	{
@@ -2345,7 +2359,7 @@ void CgmPlug::decodeClass5(QDataStream &ts, quint16 elemID, quint16 paramLen)
 		double x = convertCoords(p.x());
 		double y = convertCoords(p.y());
 		fillRefPoint = QPointF(x + m_Doc->currentPage()->xOffset(), y + m_Doc->currentPage()->yOffset());
- 		// qDebug() << "FILL REFERENCE POINT" << fillRefPoint;
+	//	qDebug() << "FILL REFERENCE POINT" << fillRefPoint;
 	}
 	else if (elemID == 32)
 	{
@@ -2489,6 +2503,17 @@ void CgmPlug::decodeClass5(QDataStream &ts, quint16 elemID, quint16 paramLen)
 	}
 	else if (elemID == 43)
 	{
+		int posI = ts.device()->pos();
+		uint type = getBinaryUInt(ts, indexPrecision);
+		QPointF p1 = convertCoords(getBinaryCoords(ts));
+		QPointF p2 = convertCoords(getBinaryCoords(ts));
+		uint index = getBinaryUInt(ts, intPrecision);
+	//	qDebug() << "INTERPOLATED INTERIOR  Type" << type << "from" << p1 << "to" << p2 << "Stages" << index << "at" << posI << realPrecision << realMantissa;
+		for (uint s = 0; s < index; s++)
+		{
+			double s1 = getBinaryReal(ts, realPrecision, realMantissa);
+			qDebug() << "Stages " << s1;
+		}
 /*		int pos = ts.device()->pos();
 		uint type = getBinaryUInt(ts, indexPrecision);
 		QPointF p, p2;
@@ -2514,7 +2539,7 @@ void CgmPlug::decodeClass5(QDataStream &ts, quint16 elemID, quint16 paramLen)
 			qDebug() << "first 2 Stages " << s1;
 		}
 		ts.device()->seek(pos); */
-		qDebug() << "INTERPOLATED INTERIOR";
+	//	qDebug() << "INTERPOLATED INTERIOR  Type" << type << "from" << p1 << "to" << p2 << "Stages" << index << "at" << posI;
 	}
 	else if (elemID == 44)
 	{
@@ -2808,7 +2833,7 @@ void CgmPlug::getBinaryColorTable(QDataStream &ts, quint16 paramLen)
 ScColor CgmPlug::getBinaryDirectColor(ScBitReader *breader)
 {
 	ScColor ret;
-	if (colorModel == 1)		// RGB
+	if (m_colorModel == 1)		// RGB
 	{
 		uint r = breader->getUInt(colorPrecision);
 		uint g = breader->getUInt(colorPrecision);
@@ -2818,7 +2843,7 @@ ScColor CgmPlug::getBinaryDirectColor(ScBitReader *breader)
 		b = qRound(b * (maxColor - minColor) / static_cast<double>(maxColor));
 		ret = ScColor(r, g, b);
 	}
-	else if (colorModel == 4)	// CMYK
+	else if (m_colorModel == 4)	// CMYK
 	{
 		uint c = breader->getUInt(colorPrecision);
 		uint m = breader->getUInt(colorPrecision);
@@ -2836,7 +2861,7 @@ ScColor CgmPlug::getBinaryDirectColor(ScBitReader *breader)
 ScColor CgmPlug::getBinaryDirectColor(QDataStream &ts)
 {
 	ScColor ret;
-	if (colorModel == 1)		// RGB
+	if (m_colorModel == 1)		// RGB
 	{
 		if (colorPrecision == 8)
 		{
@@ -2902,7 +2927,7 @@ ScColor CgmPlug::getBinaryDirectColor(QDataStream &ts)
 			ret = ScColor(r, g, b);
 		}
 	}
-	else if (colorModel == 4)	// CMYK
+	else if (m_colorModel == 4)	// CMYK
 	{
 		if (colorPrecision == 8)
 		{
@@ -3266,7 +3291,8 @@ void CgmPlug::handleStartMetaFile(QString value)
 
 void CgmPlug::handleStartPicture(QString value)
 {
-	qDebug() << "Start Picture" << value;
+	pictName = value;
+//	qDebug() << "Start Picture" << value;
 }
 
 void CgmPlug::handleStartPictureBody(double width, double height)
