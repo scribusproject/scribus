@@ -183,7 +183,7 @@ void PropertiesPalette_Line::handleSelectionChanged()
 	PageItem* currItem = currentItemFromSelection();
 	if (m_doc->m_Selection->count() > 1)
 	{
-		setEnabled(false);
+		setEnabled(true);
 	}
 	else
 	{

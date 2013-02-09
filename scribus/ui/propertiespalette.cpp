@@ -457,7 +457,7 @@ void  PropertiesPalette::handleSelectionChanged()
 			TabStack->setItemEnabled(ws, false);
 		TabStack->widget(0)->setEnabled(true);
 		TabStack->setItemEnabled(idXYZItem, true);
-		TabStack->setItemEnabled(idLineItem, false);
+		TabStack->setItemEnabled(idLineItem, true);
 		TabStack->setItemEnabled(idColorsItem, true);
 		TabStack->setItemEnabled(idTransparencyItem, true);
 		TabStack->setItemEnabled(idTableItem, false); // At least not for now.
@@ -550,8 +550,8 @@ void  PropertiesPalette::handleSelectionChanged()
 			TabStack->setItemEnabled(idShapeItem, false);
 			TabStack->setItemEnabled(idTextItem, false);
 			TabStack->setItemEnabled(idImageItem, false);
-			TabStack->setItemEnabled(idLineItem, false);
-			TabStack->setItemEnabled(idGroupItem, true);
+			TabStack->setItemEnabled(idLineItem, true);
+			TabStack->setItemEnabled(idGroupItem, false);
 			TabStack->setItemEnabled(idColorsItem, false);
 			TabStack->setItemEnabled(idTransparencyItem, false);
 			break;
