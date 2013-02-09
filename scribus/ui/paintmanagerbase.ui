@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Manage Paints</string>
+   <string>Manage Colors and Fills</string>
   </property>
   <property name="sizeGripEnabled">
    <bool>false</bool>
