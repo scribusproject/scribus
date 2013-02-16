@@ -6419,19 +6419,15 @@ void ScribusDoc::itemSelection_ApplyCharStyle(const CharStyle & newStyle, Select
 		{
 			int start = currItem->itemText.startOfItem(currItem->firstInFrame());
 			int length = currItem->itemText.endOfItem(currItem->lastInFrame()) - start;
-			if (appMode == modeEdit)
+			if (currItem->itemText.lengthOfSelection() > 0)
 			{
-				if (currItem->itemText.lengthOfSelection() > 0)
-				{
-					start = currItem->itemText.startOfSelection();
-					length = currItem->itemText.endOfSelection() - start;
-				}
-				else
-				{
-					start = qMax(currItem->firstInFrame(), currItem->itemText.cursorPosition());
-//9876					length = (start + 1) < currItem->itemText.length()? 1 : 0;
-					length = start < currItem->itemText.length() ? 1 : 0;
-				}
+				start = currItem->itemText.startOfSelection();
+				length = currItem->itemText.endOfSelection() - start;
+			}
+			else
+			{
+				start = qMax(currItem->firstInFrame(), currItem->itemText.cursorPosition());
+				length = start < currItem->itemText.length() ? 1 : 0;
 			}
 			currItem->itemText.applyCharStyle(start, qMax(0, length), newStyle);
 			currItem->invalid = true;
