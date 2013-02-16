@@ -11339,30 +11339,21 @@ void ScribusDoc::itemSelection_ClearItem(Selection* customSelection)
 	assert(itemSelection != 0);
 
 	uint selectedItemCount = itemSelection->count();
-	if (selectedItemCount <= 0) return;
-
-	PageItem *currItem;
-	bool applyToAll = false;
+	if (selectedItemCount <= 0)
+		return;
+	if (ScCore->usingGUI())
+	{
+		int t = QMessageBox::warning(m_ScMW, CommonStrings::trWarning, tr("Do you really want to clear the content of all selected frames?"),  QMessageBox::Yes, QMessageBox::No | QMessageBox::Default);
+		if (t == QMessageBox::No)
+			return;
+	}
 	for (uint i = 0; i < selectedItemCount; ++i)
 	{
-		currItem = itemSelection->itemAt(i);
+		PageItem *currItem = itemSelection->itemAt(i);
 		if (currItem->asImageFrame())
 		{
 			if ((ScCore->fileWatcher->files().contains(currItem->Pfile) != 0) && (currItem->PictureIsAvailable))
 				ScCore->fileWatcher->removeFile(currItem->Pfile);
-		}
-		else if (currItem->asTextFrame() && ScCore->usingGUI() && (!applyToAll))
-		{
-			if (currItem->itemText.length() != 0 && (currItem->nextInChain() == 0 || currItem->prevInChain() == 0))
-			{
-				int btnYesToAll = (i < (selectedItemCount - 1)) ? QMessageBox::YesToAll : 0;
-				int t = QMessageBox::warning(m_ScMW, CommonStrings::trWarning,
-									tr("Do you really want to clear all your text?"),
-									QMessageBox::Yes, QMessageBox::No | QMessageBox::Default, btnYesToAll);
-				if (t == QMessageBox::No)
-					continue;
-				applyToAll = (t == QMessageBox::YesToAll);
-			}
 		}
 		currItem->clearContents();
 	}
