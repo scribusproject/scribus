@@ -1262,10 +1262,8 @@ void DrwPlug::decodeSymbol(QDataStream &ds, bool last)
 	ds >> flags;
 	QPainterPath path;
 	QPointF posEnd, posMid, posStart;
-	QTransform mat;
 	QLineF sLin, eLin;
-	FPoint wh;
-//	QPointF position = getCoordinate(ds);
+	getCoordinate(ds);						// don't remove dummy parameters
 	double boundingBoxX = getValue(ds);
 	double boundingBoxY = getValue(ds);
 	double boundingBoxW = getValue(ds);
@@ -2002,6 +2000,9 @@ void DrwPlug::finishItem(PageItem* ite, bool scale)
 			ite->setLineWidth(ite->lineWidth() / qMin(scx, scy));
 		}
 	}
+	FPoint wh = getMaxClipF(&ite->PoLine);
+	ite->setWidthHeight(wh.x(),wh.y());
+	m_Doc->AdjustItemSize(ite);
 	ite->OldB2 = ite->width();
 	ite->OldH2 = ite->height();
 	ite->updateClip();
