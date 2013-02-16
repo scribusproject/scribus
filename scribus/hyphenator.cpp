@@ -163,16 +163,33 @@ void Hyphenator::slotHyphenateWord(PageItem* it, const QString& text, int firstC
 		NewDict(it->itemText.charStyle(firstC).language());
   		te = codec->fromUnicode( found );
 		word = te.data();
-		buffer = static_cast<char*>(malloc(strlen(word)+BORDER+3));
+		int wordlen = strlen(word);
+		buffer = static_cast<char*>(malloc(wordlen+BORDER+3));
 		if (buffer == NULL)
 			return;
-		if (!hnj_hyphen_hyphenate(hdict, word, strlen(word), buffer))
+		char ** rep = NULL;
+		int * pos = NULL;
+		int * cut = NULL;
+		if (!hnj_hyphen_hyphenate2(hdict, word, wordlen, buffer, NULL, &rep, &pos, &cut))
 		{
 			//uint i = 0;
-		  	buffer[strlen(word)] = '\0';
+		  	buffer[wordlen] = '\0';
 			it->itemText.hyphenateWord(firstC, found.length(), buffer); 
 		}
 		free(buffer);
+		if (rep)
+		{
+			for (int i = 0; i < wordlen - 1; ++i)
+				if (rep[i])
+					free(rep[i]);
+			free(rep);
+			free(pos);
+			free(cut);
+		}
+		buffer = NULL;
+		rep = NULL;
+		pos = NULL;
+		cut = NULL;
 	}
 }
 
@@ -239,13 +256,17 @@ void Hyphenator::slotHyphenate(PageItem* it)
 
   			te = codec->fromUnicode( found );
 			word = te.data();
-			buffer = static_cast<char*>(malloc(strlen(word)+BORDER+3));
+			int wordlen = strlen(word);
+			buffer = static_cast<char*>(malloc(wordlen+BORDER+3));
 			if (buffer == NULL)
 				break;
-			if (!hnj_hyphen_hyphenate(hdict, word, strlen(word), buffer))
+			char ** rep = NULL;
+			int * pos = NULL;
+			int * cut = NULL;
+			if (!hnj_hyphen_hyphenate2(hdict, word, wordlen, buffer, NULL, &rep, &pos, &cut))
 			{
 	  			int i = 0;
-  				buffer[strlen(word)] = '\0';
+  				buffer[wordlen] = '\0';
 				bool hasHyphen = false;
 				for (i = 1; i < found.length()-1; ++i)
 				{
@@ -382,7 +403,19 @@ void Hyphenator::slotHyphenate(PageItem* it)
 				}
 			}
 			free(buffer);
+			if (rep)
+			{
+				for (int i = 0; i < wordlen - 1; ++i)
+					if (rep[i])
+						free(rep[i]);
+				free(rep);
+				free(pos);
+				free(cut);
+			}
 			buffer = NULL;
+			rep = NULL;
+			pos = NULL;
+			cut = NULL;
 		}
 		if (Ccount == 0)
 			Ccount++;
