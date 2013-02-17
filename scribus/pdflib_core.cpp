@@ -5190,20 +5190,31 @@ bool PDFLibCore::setTextCh(PageItem *ite, uint PNr, double x, double y, uint d, 
 			tmp += "ET\n"+tmp2;
 			tmp2 = "";
 		}
-		QList<PageItem*> emG = hl->getGroupedItems(&doc);
-		for (int em = 0; em < emG.count(); ++em)
+		PageItem* embedded = hl->getItem(&doc);
+		tmp2 += "q\n";
+		if (ite->asPathText())
+			tmp2 +=  FToStr(style.scaleH() / 1000.0)+" 0 0 "+FToStr(style.scaleV() / 1000.0)+" "+FToStr(embedded->gXpos * (style.scaleH() / 1000.0))+" "+FToStr((embedded->height() * (style.scaleV() / 1000.0)) - embedded->gYpos * (style.scaleV() / 1000.0)+embedded->gHeight * (style.baselineOffset() / 1000.0))+" cm\n";
+		else
 		{
-			PageItem* embedded = emG.at(em);
-			tmp2 += "q\n";
-			if (ite->asPathText())
-				tmp2 +=  FToStr(style.scaleH() / 1000.0)+" 0 0 "+FToStr(style.scaleV() / 1000.0)+" "+FToStr(embedded->gXpos * (style.scaleH() / 1000.0))+" "+FToStr((embedded->height() * (style.scaleV() / 1000.0)) - embedded->gYpos * (style.scaleV() / 1000.0)+embedded->gHeight * (style.baselineOffset() / 1000.0))+" cm\n";
+			if (d == 0 || ite->itemText.text(d-1) == SpecialChars::PARSEP)
+			{
+				if ((style.baselineOffset() != 0) && (!pstyle.hasDropCap()))
+					tmp2 +=  FToStr(style.scaleH() / 1000.0)+" 0 0 "+FToStr(style.scaleV() / 1000.0)+" "+FToStr(x+hl->glyph.xoffset + embedded->gXpos * (style.scaleH() / 1000.0))+" "+FToStr(-y-hl->glyph.yoffset + (embedded->height() * (style.scaleV() / 1000.0)) - embedded->gYpos * (style.scaleV() / 1000.0)+embedded->height() * (style.baselineOffset() / 1000.0))+" cm\n";
+				else
+					tmp2 +=  FToStr(style.scaleH() / 1000.0)+" 0 0 "+FToStr(style.scaleV() / 1000.0)+" "+FToStr(x+hl->glyph.xoffset + embedded->gXpos * (style.scaleH() / 1000.0))+" "+FToStr(-y-hl->glyph.yoffset + (embedded->height() * (style.scaleV() / 1000.0)) - embedded->gYpos * (style.scaleV() / 1000.0))+" cm\n";
+			}
 			else
-				tmp2 +=  FToStr(style.scaleH() / 1000.0)+" 0 0 "+FToStr(style.scaleV() / 1000.0)+" "+FToStr(x+hl->glyph.xoffset + embedded->gXpos * (style.scaleH() / 1000.0))+" "+FToStr(-y-hl->glyph.yoffset + (embedded->height() * (style.scaleV() / 1000.0)) - embedded->gYpos * (style.scaleV() / 1000.0)+embedded->height() * (style.baselineOffset() / 1000.0))+" cm\n";
-			if (!PDF_ProcessItem(output, embedded, pag, PNr, true))
-				return false;
-			tmp2 +=output;
-			tmp2 += "Q\n";
+			{
+				if (style.baselineOffset() != 0)
+					tmp2 +=  FToStr(style.scaleH() / 1000.0)+" 0 0 "+FToStr(style.scaleV() / 1000.0)+" "+FToStr(x+hl->glyph.xoffset + embedded->gXpos * (style.scaleH() / 1000.0))+" "+FToStr(-y-hl->glyph.yoffset + (embedded->height() * (style.scaleV() / 1000.0)) - embedded->gYpos * (style.scaleV() / 1000.0)+embedded->height() * (style.baselineOffset() / 1000.0))+" cm\n";
+				else
+					tmp2 +=  FToStr(style.scaleH() / 1000.0)+" 0 0 "+FToStr(style.scaleV() / 1000.0)+" "+FToStr(x+hl->glyph.xoffset + embedded->gXpos * (style.scaleH() / 1000.0))+" "+FToStr(-y-hl->glyph.yoffset + (embedded->height() * (style.scaleV() / 1000.0)) - embedded->gYpos * (style.scaleV() / 1000.0))+" cm\n";
+			}
 		}
+		if (!PDF_ProcessItem(output, embedded, pag, PNr, true))
+			return false;
+		tmp2 +=output;
+		tmp2 += "Q\n";
 		tmp += tmp2+"\n";
 		tmp2 = "";
 		if (ite->asPathText())

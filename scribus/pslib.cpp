@@ -5099,21 +5099,25 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, double x, double y, bool g
 	*/
 	if (hl->hasObject(Doc))
 	{
-		QList<PageItem*> emG = hl->getGroupedItems(Doc);
-		for (int em = 0; em < emG.count(); ++em)
+		PageItem* embedded = hl->getItem(Doc);
+		PS_save();
+		PS_translate(x + hl->glyph.xoffset + embedded->gXpos * (cstyle.scaleH() / 1000.0), (y + hl->glyph.yoffset - (embedded->gHeight * (cstyle.scaleV() / 1000.0)) + embedded->gYpos * (cstyle.scaleV() / 1000.0)) * -1);
+		if (doh == 0 || ite->itemText.text(doh-1) == SpecialChars::PARSEP)
 		{
-			PageItem* embedded = emG.at(em);
-			PS_save();
-			PS_translate(x + hl->glyph.xoffset + embedded->gXpos * (cstyle.scaleH() / 1000.0), (y + hl->glyph.yoffset - (embedded->gHeight * (cstyle.scaleV() / 1000.0)) + embedded->gYpos * (cstyle.scaleV() / 1000.0)) * -1);
+			if ((cstyle.baselineOffset() != 0) && (!pstyle.hasDropCap()))
+				PS_translate(0, embedded->gHeight * (cstyle.baselineOffset() / 1000.0));
+		}
+		else
+		{
 			if (cstyle.baselineOffset() != 0)
 				PS_translate(0, embedded->gHeight * (cstyle.baselineOffset() / 1000.0));
-			if (cstyle.scaleH() != 1000)
-				PS_scale(cstyle.scaleH() / 1000.0, 1);
-			if (cstyle.scaleV() != 1000)
-				PS_scale(1, cstyle.scaleV() / 1000.0);
-			ProcessItem(Doc, pg, embedded, argh, sep, farb, ic, gcr, master, true);
-			PS_restore();
 		}
+		if (cstyle.scaleH() != 1000)
+			PS_scale(cstyle.scaleH() / 1000.0, 1);
+		if (cstyle.scaleV() != 1000)
+			PS_scale(1, cstyle.scaleV() / 1000.0);
+		ProcessItem(Doc, pg, embedded, argh, sep, farb, ic, gcr, master, true);
+		PS_restore();
 		return;
 	}
 
