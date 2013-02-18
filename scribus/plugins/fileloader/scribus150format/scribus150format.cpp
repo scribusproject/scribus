@@ -5753,8 +5753,8 @@ bool Scribus150Format::loadPage(const QString & fileName, int pageNumber, bool M
 			newPage->marginPreset = attrs.valueAsInt("PRESET", 0);
 			newPage->Margins.Top = newPage->initialMargins.Top;
 			newPage->Margins.Bottom = newPage->initialMargins.Bottom;
-			pageX = attrs.valueAsDouble( attrs.valueAsString("PAGEXPOS"));
-			pageY = attrs.valueAsDouble( attrs.valueAsString("PAGEYPOS"));
+			pageX = attrs.valueAsDouble("PAGEXPOS");
+			pageY = attrs.valueAsDouble("PAGEYPOS");
 
 			// guides reading
 			newPage->guides.setHorizontalAutoGap(attrs.valueAsDouble("AGhorizontalAutoGap", 0.0));
