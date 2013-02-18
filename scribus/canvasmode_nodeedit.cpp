@@ -566,16 +566,16 @@ void CanvasMode_NodeEdit::handleNodeEditPress(QMouseEvent* m, QRect)
 	FPointArray cli;
 	uint EndInd = Clip.size();
 	uint StartInd = 0;
-	for (int n = m_doc->nodeEdit.ClRe; n < Clip.size(); ++n)
-	{
-		if (Clip.point(n).x() > 900000)
-		{
-			EndInd = n;
-			break;
-		}
-	}
 	if (m_doc->nodeEdit.ClRe > 0)
 	{
+		for (int n = m_doc->nodeEdit.ClRe; n < Clip.size(); ++n)
+		{
+			if (Clip.point(n).x() > 900000)
+			{
+				EndInd = n;
+				break;
+			}
+		}
 		for (uint n2 = m_doc->nodeEdit.ClRe; n2 > 0; n2--)
 		{
 			if (n2 == 0)
