@@ -162,10 +162,10 @@ public:
 	void setDocument(ScribusDoc* doc);
 
 	/** \brief Add colors from the specified list. Colors are added using shadow copy.*/
-	void addColors(const ColorList& colorList, bool overwrite = TRUE);
+	void addColors(const ColorList& colorList, bool overwrite = true);
 
 	/** \brief Copy colors from the specified list.*/
-	void copyColors(const ColorList& colorList, bool overwrite = TRUE);
+	void copyColors(const ColorList& colorList, bool overwrite = true);
 
 	/** \brief Ensure availability of black and white colors. */
 	void ensureDefaultColors(void);

@@ -125,11 +125,11 @@ bool ScFlateEncodeFilter::writeDeflate(bool flush)
             m_filterData->zlib_stream.avail_out = BUFFER_SIZE;
         }
 
-        finished = TRUE;
+        finished = true;
         if (m_filterData->zlib_stream.avail_in != 0)
-            finished = FALSE;
+            finished = false;
         if (flush && ret != Z_STREAM_END)
-            finished = FALSE;
+            finished = false;
 
     } while (!finished);
 
