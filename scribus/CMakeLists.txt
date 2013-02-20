@@ -421,13 +421,14 @@ SET(SCRIBUS_MOC_CLASSES
   ui/replaceonecolor.h
   ui/rulermover.h
   ui/scdockpalette.h
+  ui/scescapecatcher.h
   ui/scfilewidget.h
   ui/scinputdialog.h
   ui/sclistwidgetdelegate.h
   ui/scmenu.h
   ui/scmessagebox.h
-  ui/scrapbookpalette.h
   ui/scmwmenumanager.h
+  ui/scrapbookpalette.h
   ui/scrpalettebase.h
   ui/scrspinbox.h
   ui/sctablewidget.h
@@ -867,14 +868,15 @@ SET(SCRIBUS_SOURCES
   ui/rulermover.cpp
   ui/sccombobox.cpp
   ui/scdockpalette.cpp
+  ui/scescapecatcher.cpp
   ui/scfilewidget.cpp
   ui/scinputdialog.cpp
   ui/sclistwidgetdelegate.cpp
   ui/scmenu.cpp
   ui/scmessagebox.cpp
+  ui/scmwmenumanager.cpp
   ui/scrapbookpalette.cpp
   ui/scresizecursor.cpp
-  ui/scmwmenumanager.cpp
   ui/scrpalettebase.cpp
   ui/scrspinbox.cpp
   ui/sctablewidget.cpp
