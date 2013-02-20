@@ -210,6 +210,7 @@ SET(SCRIBUS_MOC_CLASSES
   replaceonecolor.h
   rulermover.h
   sampleitem.h
+  scescapecatcher.h
   scfilewidget.h
   scgtplugin.h
   schelptreemodel.h
@@ -500,6 +501,7 @@ SET(SCRIBUS_SOURCES
   sccombobox.cpp
   scdocoutput.cpp
   scdocoutput_ps2.cpp
+  scescapecatcher.cpp
   scfilewidget.cpp
   scfonts.cpp
   scgtplugin.cpp

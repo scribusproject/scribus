@@ -26,11 +26,10 @@ class SCRIBUS_API ScFileWidget : public QFileDialog
 {
 	Q_OBJECT
 
-	public:
-		ScFileWidget(QWidget * parent);
+public:
+	ScFileWidget(QWidget * parent);
 
-		QString selectedFile();
-
+	QString selectedFile();
 };
 
 #endif

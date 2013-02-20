@@ -5,8 +5,10 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 #include <QPushButton>
+#include <QListView>
 #include <QUrl>
 
+#include "scescapecatcher.h"
 #include "scfilewidget.h"
 
 
@@ -17,7 +19,6 @@ ScFileWidget::ScFileWidget(QWidget * parent)
 	setModal(false);
 	setViewMode(QFileDialog::List);
 	setWindowFlags(Qt::Widget);
-
 
 #ifdef Q_OS_MAC
 	QList<QUrl> urls;
@@ -30,6 +31,14 @@ ScFileWidget::ScFileWidget(QWidget * parent)
 	//desktop too?	QUrl computer(QUrl::fromLocalFile(QDesktopServices::storageLocation(QDesktopServices::DesktopLocation)));
 	setSidebarUrls(urls);
 #endif
+
+	ScEscapeCatcher* keyCatcher = new ScEscapeCatcher(this);
+	QList<QListView *> lv = findChildren<QListView *>();
+	QListIterator<QListView *> lvi(lv);
+	while (lvi.hasNext())
+		lvi.next()->installEventFilter(keyCatcher);
+	connect(keyCatcher, SIGNAL(escapePressed()), this, SLOT(reject()));
+
 	QList<QPushButton *> b = findChildren<QPushButton *>();
 	QListIterator<QPushButton *> i(b);
 	while (i.hasNext())

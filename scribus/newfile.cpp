@@ -10,39 +10,38 @@ for which a new license (GPL+exception) is in place.
 #include <QGridLayout>
 #include <QHBoxLayout>
 #include <QVBoxLayout>
-#include <QSpacerItem>
-#include <QListWidgetItem>
+
+#include <QCheckBox>
+#include <QDir>
+#include <QFileDialog>
 #include <QFrame>
 #include <QGroupBox>
 #include <QLabel>
-#include <QSpinBox>
-#include <QCheckBox>
-#include <QTabWidget>
-#include <QPushButton>
+#include <QListWidgetItem>
 #include <QPixmap>
-#include <QToolTip>
-#include <QDir>
 #include <QPoint>
-#if QT_VERSION  >= 0x040300
-	#include <QFileDialog>
-#else
-	#include "customfdialog.h"
-#endif
+#include <QPushButton>
+#include <QSpacerItem>
+#include <QSpinBox>
+#include <QTabWidget>
+#include <QToolTip>
 
-#include "fileloader.h"
-#include "prefsfile.h"
-#include "units.h"
-#include "pagesize.h"
-#include "marginwidget.h"
 #include "scconfig.h"
-#include "scribuscore.h"
-#include "prefsmanager.h"
+
+#include "commonstrings.h"
+#include "fileloader.h"
+#include "marginwidget.h"
+#include "pagesize.h"
 #include "pagelayout.h"
 #include "pagestructs.h"
-#include "commonstrings.h"
-#include "scrspinbox.h"
+#include "prefsfile.h"
+#include "prefsmanager.h"
 #include "sccombobox.h"
+#include "scescapecatcher.h"
+#include "scribuscore.h"
+#include "scrspinbox.h"
 #include "util_icon.h"
+#include "units.h"
 
 PageLayoutsWidget::PageLayoutsWidget(QWidget* parent) : QListWidget(parent)
 {
@@ -362,14 +361,11 @@ void NewDoc::createOpenDocPage()
 	openDocLayout->setMargin(5);
 	openDocLayout->setSpacing(5);
 	m_selectedFile = "";
-#if QT_VERSION  >= 0x040300
+
 	fileDialog = new QFileDialog(openDocFrame, tr("Open"), docDir, formats);
 	fileDialog->setFileMode(QFileDialog::ExistingFile);
 	fileDialog->setAcceptMode(QFileDialog::AcceptOpen);
 	fileDialog->setReadOnly(true);
-#else
-	fileDialog = new CustomFDialog(openDocFrame, docDir, tr("Open"), formats, fdNone);
-#endif
 	fileDialog->setSizeGripEnabled(false);
 	fileDialog->setModal(false);
 	QList<QPushButton *> b = fileDialog->findChildren<QPushButton *>();
@@ -378,11 +374,15 @@ void NewDoc::createOpenDocPage()
 		i.next()->setVisible(false);
 	fileDialog->setWindowFlags(Qt::Widget);
 	openDocLayout->addWidget(fileDialog);
-#if QT_VERSION  >= 0x040300
+
+	ScEscapeCatcher* keyCatcher = new ScEscapeCatcher(this);
+	QList<QListView *> lv = fileDialog->findChildren<QListView *>();
+	QListIterator<QListView *> lvi(lv);
+	while (lvi.hasNext())
+		lvi.next()->installEventFilter(keyCatcher);
+	connect(keyCatcher, SIGNAL(escapePressed()), this, SLOT(reject()));
+
 	connect(fileDialog, SIGNAL(filesSelected(const QStringList &)), this, SLOT(openFile()));
-#else
-	connect(fileDialog, SIGNAL(fileSelected (const QString &)), this, SLOT(openFile()));
-#endif
 }
 
 void NewDoc::openFile()
@@ -568,13 +568,9 @@ void NewDoc::ExitOK()
 		}
 		else if (m_tabSelected == NewDoc::OpenExistingTab) // open existing doc
 		{
-#if QT_VERSION  >= 0x040300
 			QStringList files = fileDialog->selectedFiles();
 			if (files.count() != 0)
 				m_selectedFile = QDir::fromNativeSeparators(files[0]);
-#else
-			m_selectedFile = QDir::fromNativeSeparators(fileDialog->selectedFile());
-#endif
 		}
 		else if (m_tabSelected == NewDoc::OpenRecentTab) // open recent doc
 		{

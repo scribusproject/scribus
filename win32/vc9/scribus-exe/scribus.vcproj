@@ -1574,6 +1574,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\scribus\scescapecatcher.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\scribus\fonts\scface.cpp"
 				>
 			</File>
@@ -7387,6 +7391,38 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath="..\..\..\scribus\scescapecatcher.h"
+				>
+				<FileConfiguration
+					Name="Debug-cairo|Win32"
+					>
+					<Tool
+						Name="moc"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release-cairo|Win32"
+					>
+					<Tool
+						Name="moc"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug-arthur|Win32"
+					>
+					<Tool
+						Name="moc"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release-arthur|Win32"
+					>
+					<Tool
+						Name="moc"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
 				RelativePath="..\..\..\scribus\fonts\scface.h"
 				>
 			</File>
@@ -11086,6 +11122,10 @@
 			</File>
 			<File
 				RelativePath="..\..\..\scribus\downloadmanager\moc_scdlthread.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\scribus\moc_scescapecatcher.cpp"
 				>
 			</File>
 			<File
