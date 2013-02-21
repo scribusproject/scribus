@@ -563,6 +563,40 @@
    <container>1</container>
   </customwidget>
  </customwidgets>
+ <tabstops>
+  <tabstop>alignRelativeToCombo</tabstop>
+  <tabstop>alignGuideLineEdit</tabstop>
+  <tabstop>alignMoveOrResizeCombo</tabstop>
+  <tabstop>alignLeftOutToolButton</tabstop>
+  <tabstop>alignLeftInToolButton</tabstop>
+  <tabstop>alignCenterHorToolButton</tabstop>
+  <tabstop>alignRightInToolButton</tabstop>
+  <tabstop>alignRightOutToolButton</tabstop>
+  <tabstop>alignTopOutToolButton</tabstop>
+  <tabstop>alignTopInToolButton</tabstop>
+  <tabstop>alignCenterVerToolButton</tabstop>
+  <tabstop>alignBottomInToolButton</tabstop>
+  <tabstop>alignBottomOutToolButton</tabstop>
+  <tabstop>distributeLeftToolButton</tabstop>
+  <tabstop>distributeCenterHToolButton</tabstop>
+  <tabstop>distributeRightToolButton</tabstop>
+  <tabstop>distributeDistHToolButton</tabstop>
+  <tabstop>distributeBottomToolButton</tabstop>
+  <tabstop>distributeCenterVToolButton</tabstop>
+  <tabstop>distributeTopToolButton</tabstop>
+  <tabstop>distributeDistVToolButton</tabstop>
+  <tabstop>distributeAcrossPageToolButton</tabstop>
+  <tabstop>distributeDownPageToolButton</tabstop>
+  <tabstop>distributeAcrossMarginsToolButton</tabstop>
+  <tabstop>distributeDownMarginsToolButton</tabstop>
+  <tabstop>toolButtonDummy1</tabstop>
+  <tabstop>distributeDistValueHToolButton</tabstop>
+  <tabstop>distributeDistValueVToolButton</tabstop>
+  <tabstop>toolButtonDummy2</tabstop>
+  <tabstop>distributeDistSpinBox</tabstop>
+  <tabstop>reverseDistributionCheckBox</tabstop>
+  <tabstop>tabWidget</tabstop>
+ </tabstops>
  <includes>
   <include location="local">scrpalettebase.h</include>
   <include location="local">scrpalettebase.h</include>
