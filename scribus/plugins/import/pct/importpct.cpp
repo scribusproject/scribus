@@ -184,24 +184,41 @@ bool PctPlug::import(QString fNameIn, const TransactionSettings& trSettings, int
 		m_Doc->setPage(docWidth, docHeight, 0, 0, 0, 0, 0, 0, false, false);
 		m_Doc->addPage(0);
 		m_Doc->view()->addPage(0, true);
-		baseX = -x;
-		baseY = -y;
+		m_Doc->currentPage()->setInitialWidth(docWidth);
+		m_Doc->currentPage()->setInitialHeight(docHeight);
+		m_Doc->currentPage()->setWidth(docWidth);
+		m_Doc->currentPage()->setHeight(docHeight);
+		m_Doc->currentPage()->MPageNam = CommonStrings::trMasterPageNormal;
+		m_Doc->currentPage()->m_pageSize = "Custom";
+		m_Doc->reformPages(true);
+		baseX = m_Doc->currentPage()->xOffset();
+		baseY = m_Doc->currentPage()->yOffset();
 	}
 	else
 	{
 		if (!m_Doc || (flags & LoadSavePlugin::lfCreateDoc))
 		{
-			m_Doc=ScCore->primaryMainWindow()->doFileNew(docWidth, docHeight, 0, 0, 0, 0, 0, 0, false, false, 0, false, 0, 1, "Custom", true);
+			m_Doc = ScCore->primaryMainWindow()->doFileNew(docWidth, docHeight, 0, 0, 0, 0, 0, 0, false, false, 0, false, 0, 1, "Custom", true);
 			ScCore->primaryMainWindow()->HaveNewDoc();
+			m_Doc->setPageHeight(docHeight);
+			m_Doc->setPageWidth(docWidth);
+			m_Doc->currentPage()->setInitialWidth(docWidth);
+			m_Doc->currentPage()->setInitialHeight(docHeight);
+			m_Doc->currentPage()->setWidth(docWidth);
+			m_Doc->currentPage()->setHeight(docHeight);
 			ret = true;
-			baseX = m_Doc->currentPage()->xOffset() - x;
-			baseY = m_Doc->currentPage()->yOffset() - y;
+			baseX = m_Doc->currentPage()->xOffset();
+			baseY = m_Doc->currentPage()->yOffset();
 		}
 	}
+	offsetX += m_Doc->currentPage()->xOffset();
+	offsetY += m_Doc->currentPage()->yOffset();
+	offsetX *= -1;
+	offsetY *= -1;
 	if ((!ret) && (interactive))
 	{
-		baseX = m_Doc->currentPage()->xOffset() - x;
-		baseY = m_Doc->currentPage()->yOffset() - y;
+		baseX = m_Doc->currentPage()->xOffset();
+		baseY = m_Doc->currentPage()->yOffset();
 	}
 	if ((ret) || (!interactive))
 	{
@@ -331,13 +348,69 @@ void PctPlug::parseHeader(QString fName, double &x, double &y, double &b, double
 	if (f.open(QIODevice::ReadOnly))
 	{
 		QDataStream ts(&f);
+		ts.setByteOrder(QDataStream::BigEndian);
 		ts.device()->seek(512);
 		qint16 pgX, pgY, pgW, pgH, dummy;
 		ts >> dummy >> pgX >> pgY >> pgW >> pgH;
-		h = pgW - pgX;
-		b = pgH - pgY;
-		x = pgY;
-		y = pgX;
+		quint16 vers, vers2, vers3;
+		ts >> vers;
+		if (vers == 0x1101)
+		{
+			pctVersion = 1;
+			h = pgW - pgX;
+			b = pgH - pgY;
+			x = pgY;
+			y = pgX;
+			offsetX = x;
+			offsetY = y;
+			resX = 1.0;
+			resY = 1.0;
+		}
+		else if (vers == 0x0011)
+		{
+			ts >> vers2 >> vers3;
+			if ((vers2 == 0x02FF) && (vers3 == 0x0C00))
+			{
+				pctVersion = 2;
+				qint16 vExt;
+				ts >> vExt;
+				if (vExt == -1)
+				{
+					ts >> dummy;
+					quint32 xres, yres;
+					xres = 72;
+					yres = 72;
+					resX = 1.0;
+					resY = 1.0;
+					qint32 pgX2, pgY2, pgW2, pgH2;
+					ts >> pgX2 >> pgY2 >> pgW2 >> pgH2;
+					ts >> dummy;
+					ts >> dummy;
+					h = pgW - pgX;
+					b = pgH - pgY;
+					x = pgY;
+					y = pgX;
+					offsetX = x;
+					offsetY = y;
+				}
+				else if (vExt == -2)
+				{
+					ts >> dummy;
+					quint16 xres, yres;
+					ts >> xres >> dummy >> yres >> dummy;
+					ts >> pgX >> pgY >> pgW >> pgH;
+					ts >> dummy;
+					resX = 72.0 / static_cast<double>(xres);
+					resY = 72.0 / static_cast<double>(yres);
+					h = (pgW - pgX) * resX;
+					b = (pgH - pgY) * resY;
+					x = pgY * resX;
+					y = pgX * resY;
+					offsetX = x;
+					offsetY = y;
+				}
+			}
+		}
 		f.close();
 //		qDebug() << "W" << b << "H" << h;
 	}
@@ -391,6 +464,7 @@ bool PctPlug::convert(QString fn)
 			qApp->processEvents();
 		}
 		QDataStream ts(&f);
+		ts.setByteOrder(QDataStream::BigEndian);
 		ts.device()->seek(522);
 		quint16 vers = 0;
 		ts >> vers;
@@ -933,7 +1007,7 @@ void PctPlug::parsePict(QDataStream &ts)
 						QImage image;
 						image.loadFromData(imageData);
 						image = image.convertToFormat(QImage::Format_ARGB32);
-						int z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, baseX, baseY, image.width(), image.height(), 0, m_Doc->itemToolPrefs().imageFillColor, CommonStrings::None, true);
+						int z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, baseX, baseY, image.width() * resX, image.height() * resY, 0, m_Doc->itemToolPrefs().imageFillColor, CommonStrings::None, true);
 						PageItem *ite = m_Doc->Items->at(z);
 						ite->tempImageFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_pct_XXXXXX.png");
 						ite->tempImageFile->open();
@@ -942,6 +1016,7 @@ void PctPlug::parsePict(QDataStream &ts)
 						ite->isInlineImage = true;
 						image.save(fileName, "PNG");
 						ite->moveBy(m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset());
+						ite->moveBy(offsetX, offsetY);
 						finishItem(ite);
 						m_Doc->loadPict(fileName, ite);
 						ite->setImageScalingMode(false, false);
@@ -1132,11 +1207,11 @@ void PctPlug::handlePolygon(QDataStream &ts, quint16 opCode)
 	Coords.resize(0);
 	Coords.svgInit();
 	PageItem *ite;
-	Coords.svgMoveTo(x, y);
+	Coords.svgMoveTo(x * resX, y * resY);
 	for(unsigned i = 0; i < polySize; i += 4)
 	{
 		ts >> y >> x;
-		Coords.svgLineTo(x, y);
+		Coords.svgLineTo(x * resX, y * resX);
 	}
 	if (Coords.size() > 0)
 	{
@@ -1156,7 +1231,8 @@ void PctPlug::handlePolygon(QDataStream &ts, quint16 opCode)
 		}
 		ite = m_Doc->Items->at(z);
 		ite->PoLine = Coords.copy();
-		ite->PoLine.translate(m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset());
+		ite->PoLine.translate(baseX, baseY);
+		ite->PoLine.translate(offsetX, offsetY);
 		finishItem(ite);
 		if ((patternMode) && (opCode != 0x0070))
 			setFillPattern(ite);
@@ -1169,18 +1245,22 @@ void PctPlug::handleShape(QDataStream &ts, quint16 opCode)
 	QRect bounds = readRect(ts);
 //	qDebug() << QString("Handle Rect/Oval 0x%1").arg(opCode, 4, 16, QLatin1Char('0'));
 	int z;
+	double xp = baseX + (bounds.x() * resX);
+	double yp = baseX + (bounds.y() * resY);
+	double wv = (bounds.width() - 1) * resX;
+	double hv = (bounds.height() - 1) * resY;
 	PageItem *ite;
 	if (opCode == 0x0030)
-		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX + bounds.x(), baseY + bounds.y(), bounds.width() - 1, bounds.height() - 1, LineW, CommonStrings::None, CurrColorStroke, true);
+		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, xp, yp, wv, hv, LineW, CommonStrings::None, CurrColorStroke, true);
 	else if (opCode == 0x0031)
-		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX + bounds.x(), baseY + bounds.y(), bounds.width() - 1, bounds.height() - 1, 0, CurrColorStroke, CommonStrings::None, true);
+		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, xp, yp, wv, hv, 0, CurrColorStroke, CommonStrings::None, true);
 //	else if (opCode == 0x0032)
 //		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX + bounds.x(), baseY + bounds.y(), bounds.width() - 1, bounds.height() - 1, 0, CurrColorFill, CommonStrings::None, true);
 	else if (opCode == 0x0034)
-		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX + bounds.x(), baseY + bounds.y(), bounds.width() - 1, bounds.height() - 1, 0, CurrColorStroke, CommonStrings::None, true);
+		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, xp, yp, wv, hv, 0, CurrColorStroke, CommonStrings::None, true);
 	else if (opCode == 0x0040)
 	{
-		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX + bounds.x(), baseY + bounds.y(), bounds.width() - 1, bounds.height() - 1, LineW, CommonStrings::None, CurrColorStroke, true);
+		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, xp, yp, wv, hv, LineW, CommonStrings::None, CurrColorStroke, true);
 		ite = m_Doc->Items->at(z);
 		ite->setCornerRadius(qMax(ovalSize.x(), ovalSize.y()));
 		ite->SetFrameRound();
@@ -1188,7 +1268,7 @@ void PctPlug::handleShape(QDataStream &ts, quint16 opCode)
 	}
 	else if (opCode == 0x0041)
 	{
-		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX + bounds.x(), baseY + bounds.y(), bounds.width() - 1, bounds.height() - 1, 0, CurrColorStroke, CommonStrings::None, true);
+		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, xp, yp, wv, hv, 0, CurrColorStroke, CommonStrings::None, true);
 		ite = m_Doc->Items->at(z);
 		ite->setCornerRadius(qMax(ovalSize.x(), ovalSize.y()));
 		ite->SetFrameRound();
@@ -1204,28 +1284,28 @@ void PctPlug::handleShape(QDataStream &ts, quint16 opCode)
 //	}
 	else if (opCode == 0x0044)
 	{
-		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX + bounds.x(), baseY + bounds.y(), bounds.width() - 1, bounds.height() - 1, 0, CurrColorStroke, CommonStrings::None, true);
+		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, xp, yp, wv, hv, 0, CurrColorStroke, CommonStrings::None, true);
 		ite = m_Doc->Items->at(z);
 		ite->setCornerRadius(qMax(ovalSize.x(), ovalSize.y()));
 		ite->SetFrameRound();
 		m_Doc->setRedrawBounding(ite);
 	}
 	else if (opCode == 0x0050)
-		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, baseX + bounds.x(), baseY + bounds.y(), bounds.width() - 1, bounds.height() - 1, LineW, CommonStrings::None, CurrColorStroke, true);
+		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, xp, yp, wv, hv, LineW, CommonStrings::None, CurrColorStroke, true);
 	else if (opCode == 0x0051)
-		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, baseX + bounds.x(), baseY + bounds.y(), bounds.width() - 1, bounds.height() - 1, 0, CurrColorStroke, CommonStrings::None, true);
+		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, xp, yp, wv, hv, 0, CurrColorStroke, CommonStrings::None, true);
 //	else if (opCode == 0x0052)
 //		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, baseX + bounds.x(), baseY + bounds.y(), bounds.width() - 1, bounds.height() - 1, 0, CurrColorFill, CommonStrings::None, true);
 	else if (opCode == 0x0054)
-		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, baseX + bounds.x(), baseY + bounds.y(), bounds.width() - 1, bounds.height() - 1, 0, CurrColorStroke, CommonStrings::None, true);
+		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, xp, yp, wv, hv, 0, CurrColorStroke, CommonStrings::None, true);
 	else
 	{
 //		qDebug() << QString("Not implemented OpCode: 0x%1").arg(opCode, 4, 16, QLatin1Char('0'));
 		return;
 	}
 	ite = m_Doc->Items->at(z);
-	ite->PoLine.translate(m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset());
-	currRect = bounds;
+	ite->PoLine.translate(offsetX, offsetY);
+	currRect = QRect(bounds.x() * resX, bounds.y() * resY, bounds.width() * resX, bounds.height() * resY);
 	currRectItemNr = z;
 	currRectType = 0;
 	if (opCode > 0x0044)
@@ -1313,7 +1393,7 @@ void PctPlug::handleSameShape(QDataStream &ts, quint16 opCode)
 			return;
 		}
 		ite = m_Doc->Items->at(z);
-		ite->PoLine.translate(m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset());
+		ite->PoLine.translate(offsetX, offsetY);
 		finishItem(ite);
 	}
 	if ((patternMode) && ((opCode != 0x0038) || (opCode != 0x0048) || (opCode != 0x0058)))
@@ -1353,7 +1433,7 @@ void PctPlug::handleTextSize(QDataStream &ts)
 	handleLineModeEnd();
 	quint16 fontSize;
 	ts >> fontSize;
-	currentTextSize = fontSize;
+	currentTextSize = fontSize * resY;
 //	qDebug() << "Handle Text Size" << fontSize;
 }
 
@@ -1388,7 +1468,7 @@ void PctPlug::handleLongText(QDataStream &ts)
 	ts.readRawData(text.data(), textLen);
 	if (!textIsPostScript)
 	{
-		currentPointT = QPoint(x, y);
+		currentPointT = QPoint(x * resX, y * resY);
 		createTextPath(text);
 //		qDebug() << "Handle Long Text at" << x << y << text;
 	}
@@ -1406,7 +1486,7 @@ void PctPlug::handleDHText(QDataStream &ts)
 	if (!textIsPostScript)
 	{
 		QPoint s = currentPointT;
-		currentPointT = QPoint(s.x()+dh, s.y());
+		currentPointT = QPoint(s.x()+dh * resX, s.y());
 		createTextPath(text);
 //		qDebug() << "Handle DH Text at" << currentPointT << text;
 	}
@@ -1424,7 +1504,7 @@ void PctPlug::handleDVText(QDataStream &ts)
 	if (!textIsPostScript)
 	{
 		QPoint s = currentPointT;
-		currentPointT = QPoint(s.x(), s.y()+dv);
+		currentPointT = QPoint(s.x(), s.y()+dv * resY);
 		createTextPath(text);
 //		qDebug() << "Handle DV Text at" << currentPointT << text;
 	}
@@ -1442,7 +1522,7 @@ void PctPlug::handleDHVText(QDataStream &ts)
 	if (!textIsPostScript)
 	{
 		QPoint s = currentPointT;
-		currentPointT = QPoint(s.x()+dh, s.y()+dv);
+		currentPointT = QPoint(s.x()+dh * resX, s.y()+dv * resY);
 		createTextPath(text);
 //		qDebug() << "Handle DHV Text" << dh << dv << "->" << currentPointT << text;
 	}
@@ -1479,7 +1559,8 @@ void PctPlug::createTextPath(QByteArray textString)
 		int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, 0, CurrColorStroke, CommonStrings::None, true);
 		PageItem* ite = m_Doc->Items->at(z);
 		ite->PoLine = textPath;
-		ite->PoLine.translate(m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset());
+		ite->PoLine.translate(baseX, baseY);
+		ite->PoLine.translate(offsetX, offsetY);
 		finishItem(ite);
 		if (patternMode)
 			setFillPattern(ite);
@@ -1492,7 +1573,7 @@ void PctPlug::handlePenSize(QDataStream &ts)
 	handleLineModeEnd();
 	quint16 x, y;
 	ts >> y >> x;
-	LineW = qMax(x, y);
+	LineW = qMax(x, y) * resX;
 }
 
 void PctPlug::handleOvalSize(QDataStream &ts)
@@ -1501,7 +1582,7 @@ void PctPlug::handleOvalSize(QDataStream &ts)
 	handleLineModeEnd();
 	quint16 x, y;
 	ts >> y >> x;
-	ovalSize = QPoint(x, y);
+	ovalSize = QPoint(x * resX, y * resY);
 }
 
 void PctPlug::handleShortLine(QDataStream &ts)
@@ -1513,18 +1594,18 @@ void PctPlug::handleShortLine(QDataStream &ts)
 	if ((dh == 0) && (dv == 0))
 	{
 		handleLineModeEnd();
-		Coords.svgMoveTo(x, y);
-		currentPoint = QPoint(x, y);
+		Coords.svgMoveTo(x * resX, y * resY);
+		currentPoint = QPoint(x * resX, y * resY);
 		return;
 	}
-	QPoint s = QPoint(x, y);
+	QPoint s = QPoint(x * resX, y * resY);
 	if (currentPoint != s)
 	{
 		handleLineModeEnd();
-		Coords.svgMoveTo(x, y);
+		Coords.svgMoveTo(x * resX, y * resY);
 	}
-	Coords.svgLineTo(x+dh, y+dv);
-	currentPoint = QPoint(x+dh, y+dv);
+	Coords.svgLineTo((x+dh) * resX, (y+dv) * resY);
+	currentPoint = QPoint((x+dh) * resX, (y+dv) * resY);
 	lineMode = true;
 //	qDebug() << "Handle Short Line" << x << y << "+" << dh << dv << "->" << currentPoint;
 }
@@ -1538,8 +1619,8 @@ void PctPlug::handleShortLineFrom(QDataStream &ts)
 	QPoint s = currentPoint;
 	if (Coords.size() == 0)
 		Coords.svgMoveTo(s.x(), s.y());
-	Coords.svgLineTo(s.x()+dh, s.y()+dv);
-	currentPoint = QPoint(s.x()+dh, s.y()+dv);
+	Coords.svgLineTo(s.x()+dh * resX, s.y()+dv * resY);
+	currentPoint = QPoint(s.x()+dh * resX, s.y()+dv * resY);
 	lineMode = true;
 //	qDebug() << "Handle Short Line from" << dh << dv << "->" << currentPoint;
 }
@@ -1549,14 +1630,14 @@ void PctPlug::handleLine(QDataStream &ts)
 	qint16 x1, x2, y1, y2;
 	ts >> y1 >> x1;
 	ts >> y2 >> x2;
-	QPoint s = QPoint(x1, y1);
+	QPoint s = QPoint(x1 * resX, y1 * resY);
 	if (currentPoint != s)
 	{
 		handleLineModeEnd();
-		Coords.svgMoveTo(x1, y1);
+		Coords.svgMoveTo(x1 * resX, y1 * resY);
 	}
-	Coords.svgLineTo(x2, y2);
-	currentPoint = QPoint(x2, y2);
+	Coords.svgLineTo(x2 * resX, y2 * resY);
+	currentPoint = QPoint(x2 * resX, y2 * resY);
 	lineMode = true;
 //	qDebug() << "Handle Line" << x1 << y1 << "->" << currentPoint;
 }
@@ -1570,8 +1651,8 @@ void PctPlug::handleLineFrom(QDataStream &ts)
 	QPoint s = currentPoint;
 	if (Coords.size() == 0)
 		Coords.svgMoveTo(s.x(), s.y());
-	Coords.svgLineTo(x, y);
-	currentPoint = QPoint(x, y);
+	Coords.svgLineTo(x * resX, y * resY);
+	currentPoint = QPoint(x * resX, y * resY);
 	lineMode = true;
 //	qDebug() << "Handle Line from" << s << "->" << currentPoint;
 }
@@ -1713,7 +1794,7 @@ void PctPlug::handlePixmap(QDataStream &ts, quint16 opCode)
 						*q++ = qRgba(r, g, b, 255);
 					}
 				}
-				else if (component_size == 8)
+				else if ((component_size == 8) || (component_size == 24))
 				{
 					QRgb *q = (QRgb*)(image.scanLine(rr));
 					for (uint xx = 0; xx < (uint) pixCols; xx++)
@@ -1751,12 +1832,12 @@ void PctPlug::handlePixmap(QDataStream &ts, quint16 opCode)
 		isPixmap = true;
 		imageData.resize(0);
 	}
-	if ((component_size == 8) || (component_size == 1) || (component_size == 5) || (component_size == 4) || (!isPixmap) || (skipOpcode))
+	if ((component_size == 24) || (component_size == 8) || (component_size == 1) || (component_size == 5) || (component_size == 4) || (!isPixmap) || (skipOpcode))
 	{
 		image = image.convertToFormat(QImage::Format_ARGB32);
 		if (!isPixmap)
 			image.invertPixels();
-		int z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, baseX + dstRect.left(), baseY + dstRect.top(), imgCols, imgRows, 0, m_Doc->itemToolPrefs().imageFillColor, m_Doc->itemToolPrefs().imageStrokeColor, true);
+		int z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, baseX + dstRect.left() * resX, baseY + dstRect.top() * resY, imgCols * resY, imgRows * resY, 0, m_Doc->itemToolPrefs().imageFillColor, m_Doc->itemToolPrefs().imageStrokeColor, true);
 		PageItem *ite = m_Doc->Items->at(z);
 		ite->tempImageFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_pct_XXXXXX.png");
 		ite->tempImageFile->open();
@@ -1764,7 +1845,8 @@ void PctPlug::handlePixmap(QDataStream &ts, quint16 opCode)
 		ite->tempImageFile->close();
 		ite->isInlineImage = true;
 		image.save(fileName, "PNG");
-		ite->moveBy(m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset());
+		ite->moveBy(baseX, baseY);
+		ite->moveBy(offsetX, offsetY);
 		finishItem(ite);
 		m_Doc->loadPict(fileName, ite);
 		ite->setImageScalingMode(false, false);
@@ -2140,7 +2222,7 @@ void PctPlug::handleLineModeEnd()
 		int z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, LineW, CommonStrings::None, CurrColorStroke, true);
 		PageItem *ite = m_Doc->Items->at(z);
 		ite->PoLine = Coords.copy();
-		ite->PoLine.translate(m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset());
+		ite->PoLine.translate(offsetX, offsetY);
 		finishItem(ite);
 	}
 	Coords.resize(0);

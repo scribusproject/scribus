@@ -96,8 +96,10 @@ private:
 	QStack<QList<PageItem*> > groupStack;
 	ColorList CustColors;
 	double baseX, baseY;
+	double offsetX, offsetY;
 	double docWidth;
 	double docHeight;
+	double resX, resY;
 
 	double LineW;
 	QString CurrColorFill;
