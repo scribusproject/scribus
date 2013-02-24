@@ -21,14 +21,14 @@
 #include <xlocale.h>
 #endif
 
-#if defined(Q_OS_SOLARIS) || defined (Q_OS_OPENBSD) || defined (Q_OS_FREEBSD)
+#if defined(Q_OS_SOLARIS) || defined (Q_OS_OPENBSD) || defined (Q_OS_FREEBSD) || defined (Q_OS_HAIKU)
 #include <locale.h>
 #endif
 
 #if defined(Q_WS_WIN)
 #define XLocaleType _locale_t
 #else
-  #if defined (Q_OS_SOLARIS) || defined (Q_OS_OPENBSD) || defined (Q_OS_FREEBSD)
+  #if defined (Q_OS_SOLARIS) || defined (Q_OS_OPENBSD) || defined (Q_OS_FREEBSD) || defined (Q_OS_HAIKU)
   #define XLocaleType char*   //dummy?
   #else
   #define XLocaleType locale_t
