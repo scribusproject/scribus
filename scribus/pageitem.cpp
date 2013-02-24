@@ -1271,8 +1271,8 @@ void PageItem::DrawObj_Post(ScPainter *p)
 	}
 	if ((!isEmbedded) && (!m_Doc->RePos))
 	{
-		double aestheticFactor(5.0);
-		double scpInv = 1.0 / (qMax(view->scale(), 1.0) * aestheticFactor);
+		double aestheticFactor(3.33);
+		double scpInv = 1.0 / (view->scale() * aestheticFactor);
 		if (!isGroupControl)
 		{
 			if ((Frame) && (m_Doc->guidesSettings.framesShown) && ((itemType() == ImageFrame) || (itemType() == LatexFrame) || (itemType() == PathText)))
@@ -1320,7 +1320,7 @@ void PageItem::DrawObj_Post(ScPainter *p)
 		}
 		if ((m_Doc->guidesSettings.framesShown) && textFlowUsesContourLine() && (ContourLine.size() != 0))
 		{
-			p->setPen(Qt::darkGray, 1.0 / qMax(view->scale(), 1.0), Qt::DotLine, Qt::FlatCap, Qt::MiterJoin);
+			p->setPen(Qt::darkGray, scpInv, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin);
 // Ugly Hack to fix rendering problems with cairo >=1.5.10 && <1.8.0 follows
 #ifdef HAVE_CAIRO
 	#if ((CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 5, 10)) && (CAIRO_VERSION < CAIRO_VERSION_ENCODE(1, 8, 0)))
@@ -1335,7 +1335,7 @@ void PageItem::DrawObj_Post(ScPainter *p)
 		}
 		if ((m_Doc->guidesSettings.layerMarkersShown) && (m_Doc->layerCount() > 1) && (!m_Doc->layerOutline(LayerNr)) && ((isGroupControl) || (Groups.count() == 0)) && (!view->m_canvas->isPreviewMode()))
 		{
-			p->setPen(Qt::black, 0.5/ m_Doc->view()->scale(), Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+			p->setPen(Qt::black, 0.5 / m_Doc->view()->scale(), Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 			p->setPenOpacity(1.0);
 			p->setBrush(m_Doc->layerMarker(LayerNr));
 			p->setBrushOpacity(1.0);

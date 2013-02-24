@@ -2874,8 +2874,8 @@ void PageItem_TextFrame::DrawObj_Post(ScPainter *p)
 	if ((!isEmbedded) && (!m_Doc->RePos))
 	{
 		// added to prevent fat frame outline due to antialiasing and considering you can’t pass a cosmetic pen to scpainter - pm
-		double aestheticFactor(5.0);
-		double scpInv = 1.0 / (qMax(view->scale(), 1.0) * aestheticFactor);
+		double aestheticFactor(3.33);
+		double scpInv = 1.0 / (view->scale() * aestheticFactor);
 		if ((Frame) && (m_Doc->guidesSettings.framesShown))
 		{
 			p->setPen(PrefsManager::instance()->appPrefs.DFrameNormColor, scpInv, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
@@ -2925,7 +2925,7 @@ void PageItem_TextFrame::DrawObj_Post(ScPainter *p)
 			drawColumnBorders(p);
 		if ((m_Doc->guidesSettings.layerMarkersShown) && (m_Doc->layerCount() > 1) && (!m_Doc->layerOutline(LayerNr)) && (!view->m_canvas->isPreviewMode()))
 		{
-			p->setPen(Qt::black, 0.5/ m_Doc->view()->scale(), Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+			p->setPen(Qt::black, 0.5 / m_Doc->view()->scale(), Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 			p->setPenOpacity(1.0);
 			p->setBrush(m_Doc->layerMarker(LayerNr));
 			p->setBrushOpacity(1.0);
@@ -3014,7 +3014,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 	//<< ISO 14755
 	//Check if we are trying to enter Unicode sequence mode first
 	QKeySequence currKeySeq = QKeySequence(k->key() | keyModifiers);
-	if(currKeySeq.matches(doc()->scMW()->scrActions["specialUnicodeSequenceBegin"]->shortcut())==QKeySequence::ExactMatch)
+	if (currKeySeq.matches(doc()->scMW()->scrActions["specialUnicodeSequenceBegin"]->shortcut())==QKeySequence::ExactMatch)
 	{
 		unicodeTextEditMode = true;
 		unicodeInputCount = 0;
@@ -3133,9 +3133,9 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 	case Qt::Key_End:
 		// go to end of line
 		len = lastInFrame();
-		if ( itemText.cursorPosition() >= (len + 1) )
+		if (itemText.cursorPosition() >= (len + 1))
 			break; // at end of frame
-		if ( (buttonModifiers & Qt::ControlModifier) == 0 )
+		if ((buttonModifiers & Qt::ControlModifier) == 0)
 		{
 			itemText.setCursorPosition( itemText.endOfLine(itemText.cursorPosition()) );
 		}
@@ -3144,9 +3144,9 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 			//Control End for end of frame text
 			itemText.setCursorPosition( itemText.endOfFrame(itemText.cursorPosition()) );
 		}
-		if ( buttonModifiers & Qt::ShiftModifier )
+		if (buttonModifiers & Qt::ShiftModifier)
 			ExpandSel(1, oldPos);
-//		if ( this->itemText.lengthOfSelection() > 0 )
+//		if (this->itemText.lengthOfSelection() > 0)
 //			view->RefreshItem(this);
 		m_Doc->scMW()->setTBvals(this);
 		break;
@@ -3205,7 +3205,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 				break; // at begin of frame
 			len = itemText.length();
 			itemText.setCursorPosition( itemText.prevParagraph(itemText.cursorPosition()) );
-			if ( buttonModifiers & Qt::ShiftModifier )
+			if (buttonModifiers & Qt::ShiftModifier)
 				ExpandSel(-1, oldPos);
 		}
 		else
