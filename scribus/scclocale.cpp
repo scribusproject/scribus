@@ -110,7 +110,7 @@ double ScCLocale::strtod ( const char * str, char ** endptr )
 #if defined(Q_WS_WIN)
 		return _strtod_l(str, endptr, that()->cLocale);
 #else
-  #if defined(Q_OS_SOLARIS) or defined (Q_OS_OPENBSD) or defined (Q_OS_FREEBSD) and not defined (Q_OS_HAIKU)
+  #if defined(Q_OS_SOLARIS) or defined (Q_OS_OPENBSD) or defined (Q_OS_FREEBSD) or defined (Q_OS_HAIKU)
 		char *oldlocale=setlocale(LC_NUMERIC, NULL);
 		double result(0.0);
 		setlocale(LC_NUMERIC, "C");
