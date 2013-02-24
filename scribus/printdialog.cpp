@@ -25,7 +25,9 @@ for which a new license (GPL+exception) is in place.
 	#include <windows.h>
 	#include <winspool.h>
 #else
+    #if defined (HAVE_CUPS)
 	#include <cups/cups.h>
+    #endif
 #endif
 #include "util_printer.h"
 #include "util_icon.h"
