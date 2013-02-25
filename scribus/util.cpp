@@ -37,7 +37,7 @@ for which a new license (GPL+exception) is in place.
 
 #include <signal.h>
 
-#if !defined(_WIN32) && !defined(Q_OS_MAC) 
+#if !defined(_WIN32) && !defined(Q_OS_MAC) && !defined(Q_OS_HAIKU) 
 #include <execinfo.h>
 #include <cxxabi.h>
 #endif
@@ -946,7 +946,7 @@ void getDashArray(int dashtype, double linewidth, QVector<double> &m_array)
  */
 void printBacktrace ( int nFrames )
 {
-#if !defined(_WIN32) && !defined(Q_OS_MAC) && !defined(Q_OS_OPENBSD)  && !defined(Q_OS_FREEBSD)
+#if !defined(_WIN32) && !defined(Q_OS_MAC) && !defined(Q_OS_OPENBSD)  && !defined(Q_OS_FREEBSD) && !defined(Q_OS_HAIKU)
 	void ** trace = new void*[nFrames + 1];
 	char **messages = ( char ** ) NULL;
 	int i, trace_size = 0;
