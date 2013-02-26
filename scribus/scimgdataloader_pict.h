@@ -32,6 +32,7 @@ public:
 	virtual bool loadPicture(const QString& fn, int page, int res, bool thumbnail);
 
 private:
+	void parseHeader(QString fName, double &x, double &y, double &b, double &h);
 	void parsePict(QDataStream &ts);
 	void alignStreamToWord(QDataStream &ts, uint len);
 	void handleColor(QDataStream &ts, bool back);
@@ -67,6 +68,7 @@ private:
 	int baseX, baseY;
 	int docWidth;
 	int docHeight;
+	double resX, resY;
 
 	double LineW;
 	QColor backColor;

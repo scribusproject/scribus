@@ -69,22 +69,89 @@ void ScImgDataLoader_PICT::loadEmbeddedProfile(const QString& fn, int /*page*/)
 	m_profileComponents = 0;
 }
 
+void ScImgDataLoader_PICT::parseHeader(QString fName, double &x, double &y, double &b, double &h)
+{
+	QFile f(fName);
+	if (f.open(QIODevice::ReadOnly))
+	{
+		QDataStream ts(&f);
+		ts.setByteOrder(QDataStream::BigEndian);
+		ts.device()->seek(512);
+		qint16 pgX, pgY, pgW, pgH, dummy;
+		ts >> dummy >> pgX >> pgY >> pgW >> pgH;
+		quint16 vers, vers2, vers3;
+		ts >> vers;
+		if (vers == 0x1101)
+		{
+			pctVersion = 1;
+			h = pgW - pgX;
+			b = pgH - pgY;
+			x = pgY;
+			y = pgX;
+			resX = 72.0;
+			resY = 72.0;
+		}
+		else if (vers == 0x0011)
+		{
+			ts >> vers2 >> vers3;
+			if ((vers2 == 0x02FF) && (vers3 == 0x0C00))
+			{
+				pctVersion = 2;
+				qint16 vExt;
+				ts >> vExt;
+				if (vExt == -1)
+				{
+					ts >> dummy;
+					quint32 xres, yres;
+					xres = 72;
+					yres = 72;
+					qint32 pgX2, pgY2, pgW2, pgH2;
+					ts >> pgX2 >> pgY2 >> pgW2 >> pgH2;
+					ts >> dummy;
+					ts >> dummy;
+					resX = 72.0;
+					resY = 72.0;
+					h = pgW - pgX;
+					b = pgH - pgY;
+					x = pgY;
+					y = pgX;
+				}
+				else if (vExt == -2)
+				{
+					ts >> dummy;
+					quint16 xres, yres;
+					ts >> xres >> dummy >> yres >> dummy;
+					ts >> pgX >> pgY >> pgW >> pgH;
+					ts >> dummy;
+					h = pgW - pgX;
+					b = pgH - pgY;
+					x = pgY;
+					y = pgX;
+					resX = xres;
+					resY = yres;
+				}
+			}
+		}
+		f.close();
+	}
+}
+
 bool ScImgDataLoader_PICT::loadPicture(const QString& fn, int /*page*/, int /*res*/, bool /*thumbnail*/)
 {
 	if (!QFile::exists(fn))
 		return false;
 	initialize();
+	double x, y, w, h;
+	parseHeader(fn, x, y, w, h);
+	docWidth = w;
+	docHeight = h;
+	baseX = -x;
+	baseY = -y;
 	QFile f(fn);
 	if (f.open(QIODevice::ReadOnly))
 	{
 		QDataStream ts(&f);
-		ts.device()->seek(512);
-		qint16 pgX, pgY, pgW, pgH, dummy;
-		ts >> dummy >> pgX >> pgY >> pgW >> pgH;
-		docWidth = pgH - pgY;
-		docHeight = pgW - pgX;
-		baseX = -pgY;
-		baseY = -pgX;
+		ts.device()->seek(522);
 		m_image = QImage(docWidth, docHeight, QImage::Format_ARGB32);
 		if (m_image.isNull())
 			return false;
@@ -136,8 +203,8 @@ bool ScImgDataLoader_PICT::loadPicture(const QString& fn, int /*page*/, int /*re
 		imagePainter.end();
 		m_imageInfoRecord.type = ImageTypeOther;
 		m_imageInfoRecord.exifDataValid = false;
-		m_imageInfoRecord.xres = 72;
-		m_imageInfoRecord.yres = 72;
+		m_imageInfoRecord.xres = resX;
+		m_imageInfoRecord.yres = resY;
 		m_imageInfoRecord.BBoxX = 0;
 		m_imageInfoRecord.colorspace = ColorSpaceRGB;
 		m_imageInfoRecord.BBoxH = m_image.height();
@@ -1339,7 +1406,7 @@ void ScImgDataLoader_PICT::handlePixmap(QDataStream &ts, quint16 opCode)
 						*q++ = qRgba(r, g, b, 255);
 					}
 				}
-				else if (component_size == 8)
+				else if ((component_size == 8) || (component_size == 24))
 				{
 					QRgb *q = (QRgb*)(image.scanLine(rr));
 					for (uint xx = 0; xx < (uint) pixCols; xx++)
@@ -1377,7 +1444,7 @@ void ScImgDataLoader_PICT::handlePixmap(QDataStream &ts, quint16 opCode)
 		isPixmap = true;
 		imageData.resize(0);
 	}
-	if ((component_size == 8) || (component_size == 1) || (component_size == 5) || (component_size == 4) || (!isPixmap) || (skipOpcode))
+	if ((component_size == 24) || (component_size == 8) || (component_size == 1) || (component_size == 5) || (component_size == 4) || (!isPixmap) || (skipOpcode))
 	{
 		image = image.convertToFormat(QImage::Format_ARGB32);
 		if (!isPixmap)
