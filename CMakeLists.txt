@@ -676,16 +676,16 @@ ENDIF(NOT WIN32)
 #>>FontConfig
 
 #<<ASPELL for Speelling support
-OPTION(WITH_ASPELL "Enable support for spell checking" ON)
-IF (WITH_ASPELL)
-  FIND_PACKAGE(ASPELL)
-  IF (ASPELL_FOUND)
-    MESSAGE("ASpell Found OK")
-    SET(HAVE_ASPELL 1)
-  ELSE (ASPELL_FOUND)
-    MESSAGE("ASpell or its developer libraries NOT found - Disabling support for spell checking")
-  ENDIF (ASPELL_FOUND)
-ENDIF (WITH_ASPELL)
+#OPTION(WITH_ASPELL "Enable support for spell checking" ON)
+#IF (WITH_ASPELL)
+#  FIND_PACKAGE(ASPELL)
+#  IF (ASPELL_FOUND)
+#    MESSAGE("ASpell Found OK")
+#    SET(HAVE_ASPELL 1)
+#  ELSE (ASPELL_FOUND)
+#    MESSAGE("ASpell or its developer libraries NOT found - Disabling support for spell checking")
+#  ENDIF (ASPELL_FOUND)
+#ENDIF (WITH_ASPELL)
 #>>ASPELL for Speelling support
 
 #<<HUNSPELL for Speelling support
