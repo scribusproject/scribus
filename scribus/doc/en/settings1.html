@@ -128,9 +128,9 @@
 <h3><a name="15"></a>External Tools</h3>
 <p>This panel enables you to change the default settings for the location of Ghostscript and other external programs. If you have installed Ghostscript before installing Scribus, it is usually detected automatically. If you receive an error message indicating that EPS files cannot be used, this is where the settings can be changed to allow Scribus to find the correct location of Ghostscript.</p>
 <h4>Ghostscript</h4>
-<p><strong>Linux, UNIX, OS/2, eComStation and Windows:</strong></p>
+<p><strong>Linux, UNIX, OS/2, eComStation, Haiku and Windows:</strong></p>
 <table width="90%"><tr><td align="center"><img src="images/prefs_exttools.png" alt="External Tools Settings" title="External Tools Settings" width="680" /></td></tr></table>
-<p>This particular screenshot comes from Linux and is also applicable to other UNIX systems. See the <a href="readme-win32.html">Windows</a>, <a href="readme-os2.html">OS/2 and eComStation</a> specific information for these operating systems. Some additional information about Ghostscript can be found in <a href="toolbox7.html">Advanced Ghostscript.</a></p>
+<p>This particular screenshot comes from Linux and is also applicable to other UNIX systems. See the <a href="readme-haiku.html">Haiku</a>, <a href="readme-os2.html">OS/2 and eComStation</a> and <a href="readme-win32.html">Windows</a> specific information for these operating systems. Some additional information about Ghostscript can be found in <a href="toolbox7.html">Advanced Ghostscript.</a></p>
 <p><strong>Mac OS X</strong></p>
 <table width="100%"><tr><td align="center"><img src="images/prefs-mac-1.png" alt="External Tools Settings" title="External Tools Settings" /></td></tr></table>
 <p>Above are the recommended settings, provided you have correctly installed the <a href="readme-macosx.html">Ghostscript framework</a>.</p>
@@ -163,6 +163,7 @@ See the section on <a href="docinfo.html">Document Information</a>.
 <li><strong>Linux/UNIX:</strong> <code>/home/username/.scribus</code></li>
 <li><strong>Mac OS X:</strong> <code>User/username/.scribus</code></li>
 <li><strong>OS/2 and eComStation</strong>: <code>X:\SCRIBUS-1.4.x-OS2-date\scribus\.scribus</code></li>
+<li><strong>Haiku</strong>: <code>/boot/home/config/settings/Qt/.scribus</code></li>
 <li><strong>Windows:</strong> <code>C:\Documents and Settings/username/.scribus</code></li>
 </ul>
 <p>Within the directory are a <code>.scribus14.rc</code> file, a <code>scribusfont.rc</code> file (which preserves your font preferences) and a <code>prefs14.xml</code> file. These files are stored in XML format, so you can inspect and edit their contents with a text editor. If you have installed Python, there will also be a <code>scripter.rc</code> file that lists most recently used scripts. There are also several other directories, most which are comprised of configuration or history files. If you are encountering any issues with a previously working Scribus installation, <strong>renaming</strong>, not deleting, the <code>.scribus</code> directory may be a good idea. See the notes on <a href="fileproblems.html">Troubleshooting</a> for more information.</p>

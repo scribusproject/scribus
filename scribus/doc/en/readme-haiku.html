@@ -1,0 +1,24 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<title>Scribus on Haiku</title>
+</head>
+<body>
+<h2>Scribus on Haiku</h2>
+
+<p>Thanks to the efforts of Giovanni Mugnai Scribus is also available for Haiku.</p>
+
+<p>To run Scribus on Haiku you need to <a href="http://haikuware.com/directory/view-details/productivity/desktop-publishing/scribus-publishing-and-layout">download</a> Scribus for Haiku, which comes in a ZIP archive. Extract the archive to Haiku&rsquo;s <code>/boot</code> directory. The archive includes all dependencies. It also contains the latest versions of Ghostscript and LittleCMS, so these need not be installed separately.</p>
+
+<p>After extraction, an icon/link to Scribus will be present on the Desktop, and you can launch Scribus.</p>
+
+<table width="100%"><tr><td align="center"><img src="images/Scribus_Haiku.png" align="center" title="Scribus on Haiku" alt="Scribus on Haiku"/></td></tr></table>
+
+<h3>Caveats</h3>
+
+<ul>
+<li>Since CUPS hasn&rsquo;t been ported to Haiku yet, you can&rsquo;t print directly from Scribus. You can, however, export a PDF and print from BePDF or DocumentViewer.</li>
+
+<li>The Scripter doesn&rsquo;t work, because Python Tkinter is currently not available for Haiku.</li>
+
+</ul>

@@ -1,15 +1,16 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-	<title>Hyphenation</title>
+	<title>Hyphenation and Spellchecking</title>
 </head>
 <body>
-<h2>Hyphenation</h2>
-<h3>Introduction</h3>
+<h2>Hyphenation and Spellchecking</h2>
+<h3>Hyphenation</h3>
+<h4>Introduction</h4>
 <p>One of the reasons for ugly text layout is &ldquo;white holes&rdquo; between words, which in turn are the result of unhyphenated text. A general rule is that the shorter the a line of text, the more likely those gaps are. Hence the strong recommendation to use the hyphenator for continuous text.</p>
 
-<h3>Configuration</h3>
-<p>To get the best hyphenation results, you are advised to configure the hyphenator properly. This can be done via <i>File > Document Setup > Hyphenator</i> for the current document and <i>File > Preferences > Hyphenator</i> for new documents.</p><br>
+<h4>Configuration</h4>
+<p>To get the best hyphenation results, you are advised to configure the hyphenator properly. This can be done via <i>File > Document Setup > Hyphenator</i> for the current document and <i>File > Preferences > Hyphenation and Spelling</i> for new documents.</p><br>
 
 <table width="100%"><tr><td align="center"><img src="images/hyphen1.png" align="center" alt="Hyphenator Settings Dialog" /></td></tr></table>
 <p>The dialog consists of four parts. In the upper left section (<i>General Options</i>) you can determine the general behavior of the hyphenator:</p>
@@ -25,9 +26,24 @@
 </ul>
 <p>In the lower part of the dialog there are two fields that allow you to specify words that you want to be treated differently. The left field is called <i>Exceptions</i>. Here you can add words that aren&rsquo;t hyphenated correctly by the hyphenator. In the example above, the word &ldquo;manuscript&rdquo; has been inserted, including the desired positions for line breaks, which are specified by inserting &ldquo;-&rdquo; via the keyboard.</p>
 <p>To the right there is a second field called <i>Ignore List</i>. Any word that has been added to this list won&rsquo;t be hyphenated.</p>
-<h3>Usage</h3>
+<h4>Usage</h4>
 <p>Select a text frame, adjust the text alignment to your liking and then select <i>Extras > Hyphenate Text</i> from the menu. Note that this will only hyphenate text in a selected frame.</p>
 <p>In the <i>Extras</i> menu there is also the opposite feature, called <i>Dehyphenate Text</i>. It is used to dehyphenate text in a selected frame, but it can also be used to dehyphenate a single word. To do the latter, you have to select a hyphenated word in a text frame and then use the menu command.</p>
 <p>Not every possible or reasonable hyphenation can be detected by the hyphenation algorithm. In such a case you can insert a so-called &ldquo;soft hyphen&rdquo; into a word. &ldquo;Soft hyphen&rdquo; essentially tells the hyphenator: &ldquo;Hyphenate here, if possible,&rdquo; where &ldquo;possible&rdquo; means that hyphenation is not prevented by other settings, like <i>Consecutive Hyphenations Allowed</i>. To insert a soft hyphen, you need to place the cursor in a word at the desired break position and then use <i>Insert > Character > Soft Hyphen</i>.</p>
+
+<h3>Spellchecking</h3>
+<p>For spellchecking Scribus uses the <a href="http://hunspell.sourceforge.net/">Hunspell</a> library, which is also utilized by other popular programs like LibreOffice, Firefox or InDesign.</p>
+<h4>Configuration</h4>
+<p>Under <i>File > Preferences > Hyphenation and Spelling</i> you find a second tab called &ldquo;Spelling&rdquo;. The purpose of this dialog is not the configuration of spellchecking options per se, but the management of available dictionaries.</p>
+<br>
+<table width="100%"><tr><td align="center"><img src="images/hyphen2.png" align="center" alt="Hyphenator Settings Dialog" /></td></tr></table>
+<p>If you have already installed a program that uses Hunspell, like, for instance, LibreOffice, Scribus will try to detect the installed dictionaries and use them. Installed dictionaries will be listed in the left column of the dialog, where you can also see their location. To make proper use of the right column you need an internet connection, because Scribus will download a list of dictionaries available in LibreOffice&rsquo;s freedesktop.org repository. You can then select one or more new dictionaries for download. Please note that these dictionaries are stored in your home directory or its equivalent under <code>.scribus/dicts</code>, so other programs cannot use them, unless you copy them to the respective system or program directories.</p>
+<h4>Usage</h4>
+<p>Using the spellchecker in its current form can be tricky, especially on UNIX and Linux systems (including Mac&nbsp;OS&nbsp;X), where you have two spellchecking options, namely <i>Item&nbsp;&gt; Check Spelling</i> and <i>Item&nbsp;&gt; Spellchecker</i>. The latter will invoke the older GNU aspell library and dictionaries, which are not available for Haiku, OS/2, eCS or Windows. <i>Check Spelling</i> will invoke Hunspell.</p>
+<p>Spellchecking works on a frame basis, so just as with hyphenation, you have to select a text frame before you can let Scribus look for errors. One major difference between the hyphenator and the spellchecker is that you cannot set a default language. Scribus will use the system setting instead. If you want to use another language, you have to create a new <a href="WwStyles.html">character style</a>. As you can see below, there is a language selector in the spellchecking dialog, but it will only work for the currently indicated word and then jump back to the language of your character style. The rest should be self-explanatory.</p>
+<br>
+<table width="100%"><tr><td align="center"><img src="images/hyphen3.png" align="center" alt="Hyphenator Settings Dialog" /></td></tr></table>
+<br>
+<br>
 </body>
 </html>
