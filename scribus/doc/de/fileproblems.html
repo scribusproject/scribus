@@ -1,0 +1,82 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<title>Problems with Opening Scribus Files</title>
+</head>
+<body>
+<h2>Problems with Opening Scribus Files</h2>
+
+<h3>Damaged Files</h3>
+
+<h4>Parsing Errors</h4>
+<p>One of the major reasons for a damaged file (any file, not just Scribus files) is an interrupted saving procedure, e.g. a power failure or a system crash while the program was writing the data to the storage medium (like a hard drive or a USB stick). Other reasons can be file system errors or a damaged storage medium. Since Scribus SLA (and the older SCD) files are Plain Text XML-based files, these files can also be damaged by users themselves if they open and edit the files in a text editor. </p>
+<p>No matter what the reason for a damage to a particular file may be, the result will be that Scribus can&rsquo;t &ldquo;parse&rdquo; (i.e., in very general terms, read and interpret) the file&rsquo;s content, e.g. due to missing XML tags or invalid data. In such a case, Scribus will display a warning that indicates the line number of the file in which it stumbled across the error:</p>
+
+<table width="100%"><tr><td align="center"><img src="images/file-error3.png" title="Indicator for a parsing error" alt="Indicator for a parsing error"/></td></tr></table>
+
+<p>To fix damaged SLA and SCD files, a simple text editor is sufficient. For practical reasons, however, it&rsquo;s recommended that the text editor provide a little more features than, for instance, Notepad on Windows. At the very least, the text editor should be able to show line numbers and support XML syntax highlighting. In case you are unfamiliar with XML concepts like tags etc., you can file a <a href="bugreport.html">bug report</a> and upload the damaged file to the bugtracker. In general, you can expect the file to be fixed by the developers within 48 hours. Be aware, though, that fixing a file by the developers need not mean that all content can be restored, as not all of it may have been written to the storage medium before the error occured. Thus, repairing a file may only result in a file that can be opened by Scribus again.</p>
+
+<h4>Other File Errors</h4>
+<p>While it&rsquo;s relatively easy to repair SLA and SCD files, things are more complicated if you&rsquo;ve been saving a compressed version (SLA.GZ or SCD.GZ). In such a case you will have to use a tool that can either repair a damaged gzip archive or, if the latter is impossible, retrieve as much of the archive&rsquo;s content as possible.</p>
+
+<h3>Documents Created with Another Version of Scribus</h3>
+
+<h4>Files Created with an Earlier Version of Scribus</h4>
+<p>When you open a file created with an earlier version of Scribus, you will see a warning that you may or may not want to ignore. You can ignore it if you are sure that the file won&rsquo;t have to be opened in an earlier version again, e.g. if you created the file yourself and simply upgraded to a newer Scribus version. If you&rsquo;re working in a team, you should <b>always</b> make sure that all team members use the same version of Scribus.</p>
+
+<table width="100%"><tr><td align="center"><img src="images/file-error2.png" title="Warning about file format backward incompatibilty" alt="Warning about file format backward incompatibilty"/></td></tr></table>
+
+<p>But what if you ignored the warning or saved the file inadvertently, knowing that your partner has to or wants to use an earlier version? Saving back to an older file format version isn&rsquo;t possible. What you can do in such a case is to <i>group</i> all items on every page and then copy each group to the Scrapbook, page by page. You can then send your Scrapbook to the person that uses the older version, because the Scrapbook format didn&rsquo;t change between versions. Be aware, though, that <i>linked text frames</i> on different pages cannot be re-created this way: You&rsquo;ll have to re-link them in the earlier version.</p>
+<p>While every newer version of Scribus can open files created in older versions, including SCD and SCD.GZ files saved by early 0.x versions from more than a decade ago, you should <b>always</b> check the text layout, because the Scribus text layout algorithms have changed significantly over time. This measure of caution is especially important with older file versions, but it is recommended to always check the text layout if you open the file on another computer or after a font upgrade. While Scribus always does a <a href="fonts2.html">font check</a> during startup, it does not check for different font versions when it opens a file. Thus, different font versions or fonts with the same PostScript font name, but from different vendors/sources may result in broken text layout, e.g. unintended text overflow.</p>
+<table border="1" align="center">
+  <tbody>
+    <tr>
+      <td><span style="color: red;"><i><b>A special note about files created with Scribus versions 1.3.5 to 1.4 Release Candidate 5:</b> An important fix to the text layout engine in Scribus 1.4 Release Candidate 6 may cause significant text layout changes in text frames with certain text layout features (e.g. First Line Offset) applied, so re-formatting of text may be necessary in files created in versions prior to 1.4RC6.</i></span></td>
+    </tr>
+  </tbody>
+</table>
+
+
+<h4>Files Created with a Later Version of Scribus or Non-Scribus Files</h4>
+<p>Files created in later versions of Scribus cannot be opened by earlier ones. This is even true when both versions use the same file format, e.g. 1.3.9 and 1.4.0. Trying to open a file created in a later version with an earlier one will result in the following warning. This warning will also be displayed if you open a SLA, SLA.GZ, SCD or SCD.GZ file that is no Scribus file at all (there may be other programs that use these file extensions). The same goes, of course, for other file formats that can be opened by Scribus directly.</p>
+
+<table width="100%"><tr><td align="center"><img src="images/file-error1.png" title="Indicator for a file that has been created with a later version or that isn&rsquo;t a Scribus file at all" alt="Indicator for a file that has been created with a later version or that isn&rsquo;t a Scribus file at all"/></td></tr></table>
+<p>If you, for one reason or the other, can&rsquo;t use the latest stable release of Scribus, and your version supports the same file format, you can open the SLA file in a text editor and replace the Scribus version in the file header:</p>
+<p>Example:</p>
+<p><code>&lt;?xml version="1.0" encoding="UTF-8"?&gt;<br>
+&lt;SCRIBUSUTF8NEW Version="1.4.0"&gt;</code></p>
+<p>can be changed to:</p>
+<p><code>&lt;?xml version="1.0" encoding="UTF-8"?&gt;<br>
+&lt;SCRIBUSUTF8NEW Version="1.3.9"&gt;</code></p>
+<p>Be aware, though, that you do so at your own risk, especially if you consider the changes made to the text layout engine since 1.4RC6.</p>
+<h3>Safety Measures</h3>
+<p>It may sound like a platitude, but every program and every operating system can crash, which means you may lose some or all of your work. Likewise, no computer is expected to run flawlessly forever and, like all material things, will cease working one day. Thus, the timeless hint &ldquo;save your file regularly&rdquo; also applies to Scribus. Fortunately, Scribus allows for automating the saving procedure to let you concentrate on your layout.</p>
+<h4>Autosave</h4>
+<p>To let Scribus save your results in regular intervals, you can activate &ldquo;Autosave&rdquo; and set the interval in the <a href="settings1.html#2">Document section</a> of the Document Setup/Preferences. In addition to automatically saving your Scribus document, Scribus also creates a copy of the document. The copy&rsquo;s file name consists of the original file name extended by the extension &ldquo;.autosave&rdquo;. Thus, the &ldquo;autosave&rdquo; copy of <code>myfile.sla</code> will be stored as <code>myfile.sla.autosave</code>. Should a SLA file have been damaged, you can always remove the &ldquo;.autosave&rdquo; extension and then open the &ldquo;autosaved&rdquo; version in Scribus. This procedure will give you the latest automatically saved version of your Scribus document.</p>
+<h4>Emergency Backup Files</h4>
+<p>If &ldquo;Autosave&rdquo; isn&rsquo;t enabled or Scribus crashes unexpectedly between two autosave intervals, not all is lost, because Scribus tries to save an emergency backup file before exiting. If this mechanism worked, you will find the emergency backup in the same directory as your saved file with the additional file extension &ldquo;.emergency&rdquo;. Thus, the emergency backup of <code>myfile.sla</code> will be saved as <code>myfile.sla.emergency</code>.</p>
+<p>Before you rename an autosave or emergency backup file to a normal Scribus file in the same directory (which would require overwriting/deleting the original, you should compare the file sizes. For instance, if the original file has a size of 5 MB, whereas the *.autosave or *.emergency file is only 40 KB, the mechanism didn&rsquo;t work as expected.</p>
+
+<h3>Other Potential Sources for Errors</h3>
+
+<h4>Missing Images</h4>
+<p>Images you have loaded into an <a href="WwImages.html">image frame</a> will not be stored in your Scribus file. Instead, Scribus will save the path to the image relative the Scribus file. When you open the Scribus file, Scribus will search for the image(s) used in the document in the paths stored in the file and the directory where the Scribus file itself is located. If you have moved either the Scribus file or the image(s) to another directory, Scribus probably won&rsquo;t find the image(s) and display empty image frames. You can then use <i>Extras&nbsp;&gt; Manage Images</i> to let scribus search for the new location of the image(s).</p>
+<p>If you plan to exchange Scribus files with images between computers, you should always use <i>File&nbsp;&gt; Collect for Output</i> to make sure all images are included.</p>
+<p>Note that bitmap <a href="WwFill.html">patterns</a> will also have to be treated like regular images.</p>
+
+<h4>File Substitutions</h4>
+<p>Scribus not only saves the paths to images but also paths to other file types used in connection with your documents. These are fonts and color profiles. Upon opening a file, you will be asked to substitute both file types. See the <a href="fonts1.html">font</a> and <a href="cms.html">color management</a> chapters for more information. Note that substituting fonts and/or color profiles may have consequences for your layout or color correctness. To avoid potential errors, you are advised to export these resources with your Scribus document by using <i>File&nbsp;&gt; Collect for Output</i>.</p>
+
+<h4>Render Frames</h4>
+<p>Since the content of <a href="WwRenderframes.html">Render Frames</a> will be rendered anew each time you open a file, you have to make sure that third party applications used for rendering content are installed and configured correctly if you are exchanging files between computers and/or platforms. Otherwise, the frames will remain empty.</p>
+
+<h4>Settings/Preferences</h4>
+<p>If, for no obvious reasons, a Scribus installation that used to work without any issues suddenly starts to behave strangely or doesn&rsquo;t work at all, the reason may be damaged <a href="settings1.html#20">Preferences</a> files. In case you are encountering any strange behavior of Scribus you can try to <b>rename</b> the hidden <code>.scribus</code> directory that contains these files and start Scribus anew. The program will then create new configuration files from scratch. This may or may not solve the issue. If it doesn&rsquo;t, the reason for your problem is probably unrelated to Scribus, e.g. a hardware issue or compatibility issues after an update of other components of your system, like a Windows update or a Qt4 update under Linux/UNIX. In such a case you can delete the newly created <code>./scribus</code> directory and restore the previously renamed folder. Of course this won&rsquo;t solve your problem, but at least you don&rsquo;t lose your previous default settings that way.</p>
+<!--<hr>
+See also:
+<ul>
+<li><a href="scribus-files.html">Scribus Files and File Formats</a></li>
+</ul>-->
+<br>
+</body>
+</html>

@@ -1,0 +1,94 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>Working with Images</title></head><body>
+<h2>Working with Images</h2>
+
+See <a href="WwFrames.html">Working with Frames</a>
+to learn about Image Frame frame creation and manipulation. Note that
+the image frame shows as a red border with small square handles at the
+corners and at the midpoints of each side. Diagonals in black are drawn
+to indicate that it is an image frame. Note that these small square
+handles disappear when the frame is locked.
+<p>The quickest way to load an image into the frame is to right-click on the frame, and select <b>Get Image</b> from the Context Menu. Pressing Ctrl+I or menu <i>File &gt; Import &gt; Get Image</i>
+will also work. A file dialog will appear, showing the image types that
+Scribus can import, which include bitmap formats like TIFF, PNG and
+JPG, as well as vector/mixed vector-bitmap formats PS (PostScript), EPS
+(Encapsulated PostScript) and PDF, which will be converted to bitmaps.
+Note that after import the image may only partly show. We&rsquo;ll see below
+in <i>Properties: Image</i> how to adjust scaling and positioning of the image in the frame.
+</p><p><i>Descriptions, advantages and disadvantages of various file formats will be discussed elsewhere.</i>
+
+
+
+</p><h3>The Context Menu</h3>
+<table cellpadding="3"><tbody><tr>
+<td>Right-click on the empty frame to show its Context Menu as seen to the right. An empty frame will not show all these choices.
+<ul>
+<li><b>Info</b> gives a short list of information about the image, its
+name, the PPI (pixels per inch) of the original and as shown in
+Scribus, its colorspace, and whether it is set to print (and export to
+PDF).</li>
+<li><b>Undo</b> will undo the last operation, which should be indicated. If applicable, there will also be a <b>Redo</b> item.</li>
+<li><b>Get Image</b> allows for importing an image, as indicated above.</li>
+<li><b>Adjust Frame to Image</b> enlarges or shrinks the width and height of your frame to fit the image at its current resolution.</li>
+<li><b>Adjust Image to Frame</b> adjusts the image to the frame. Image will remain proportional if this is checked in Image tab of Properties.</li>
+<li><b>Update Image</b> reloads the image. Would be used if you have edited the source file. See Edit Image below.</li>
+<li><b>Preview Settings</b> This allows to image to be visible or not,
+and if visible, the resolution can be selected. Lower resolution or not
+showing images will speed up screen refreshes if this is sluggish. <b>Full Resolution</b> can only be as high as your monitor supports. These settings do not affect printing your image or exporting to PDF.</li>
+<li><b>Image Effects</b> (also Ctrl + E) provide for a number of
+editing types, like blurring or changing contrast and brightness. These
+edits happen in a nondestructive way, i.e., the source file is not
+altered.</li>
+<li><b>Edit Image</b> starts your image editor as set in the File-&gt;Preferences-&gt;External Tools and loads the image.</li>
+<li><b>Attributes</b> will not be discussed here.
+</li><li><b>Is Locked</b> locks the frame&rsquo;s position, size, and content.
+</li><li><b>Size is Locked</b> locks only the size. Frame and image can otherwise be moved and edited.</li>
+<li><b>Send to Scrapbook</b> and <b>Send to Patterns</b> will not be covered here, except to say that these allow for saving content to be shared among documents.</li>
+<li><b>Level</b> allows you to move the frame up or down levels on the
+current layer. If your document has more than one layer, there will
+also be an item <b>Send to Layer</b> to allow moving the frame to a different layer.</li>
+<li><b>Convert to</b> gives you the following sub-choices:
+<ul><li><b>Polygon</b>, converts to a polygon, with apparent loss of your image, recoverable with Convert to Image Frame.</li>
+<li><b>Text Frame</b> converts to that kind of frame, in which case
+your image becomes invisible, but will be restored if you convert back
+to an image frame. You cannot show text and an image together, except
+where text is incorporated in an image. Use a superimposed text frame
+to apply text over an image.</li>
+</ul>
+</li><li><b>Cut</b>, <b>Copy</b>, and <b>Delete</b> are covered in Working with Frames.</li>
+<li><b>Contents&nbsp;&gt; Clear</b> is only present when your frame has content, and you will get a dialog to Ok the operation. There is also a choice <b>Contents&nbsp;&gt; Copy</b> to copy only the content of the frame, as opposed to copying the frame <i>and</i> its contents.</li>
+<li><b>Properties</b> brings up or hides the Properties Palette</li>
+</ul>
+</td>
+<td><img src="images/context_image.png" alt="Image Context Menu" align="right"></td>
+</tr>
+</tbody></table>
+<h3>Properties: Image</h3>
+<table cellpadding="3"><tbody><tr>
+<td>When an Image is first loaded, the default is for it to have Free
+Scaling or as is set in <i>File&nbsp;&gt; Preferences/Document Setup&nbsp;&gt; Tools&nbsp;&gt; Image</i>.
+<p>Under Free Scaling the spinboxes are:
+</p><ul>
+<li><b>X-Pos</b> and <b>Y-Pos</b> - Relative position of the left upper corner of the image to the left upper corner of the frame.</li>
+<li><b>X-Scale</b> and <b>Y-Scale</b> - Magnification of the image, compared to its native DPI.</li>
+<li><b>Actual X-DPI</b> and <b>Actual Y-DPI</b> - These of course are
+inversely related to magnification. Your monitor will still likely be
+showing the image at no better than 72 PPI, but this refers to the
+final resolution to be exported to the PDF.</li>
+</ul>
+<p>In many cases, we may have a more or less set frame size we wish to squeeze an entire image into, in which case choosing <b>Scale to Frame Size</b> (or <b>Adjust Image to Frame</b> from the Context Menu) makes sense. Without checking <b>Proportional</b>,
+the image is simply stretched to fit the frame and may be quite
+distorted. You should find the combination of scaling to frame size
+(proportional) and then <b>Adjust Frame to Image</b> from the Context Menu very useful for making a frame exactly the right size for your image.
+</p><p><b>Image Effects</b> will be discussed elsewhere.</p></td>
+<td><img src="images/Image_Properties.png" alt="Properties: Image"></td>
+</tr>
+</tbody></table>
+<h3>Edit Contents Mode</h3>
+Enter Edit Contents mode by clicking the icon on the toolbar, or pressing <b>E</b> from the keyboard. Go back to Select Item mode by pressing <b>Esc</b>, or clicking outside, then inside the frame. You will need to have checked <b>Free Scaling</b> in order for this to be operational.
+<p>With image frames, Edit Contents mode allows you to click-drag with
+the mouse to shift the image relative to the frame, i.e., the same as
+adjusting the X-Pos and Y-Pos in the Image tab.
+</p></body></html>

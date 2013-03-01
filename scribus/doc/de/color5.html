@@ -1,0 +1,19 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<title>Color Palettes in Scribus (3): Resene&reg; Colors</title>
+</head>
+<body>
+<h2>Color Palettes in Scribus (3): Resene&reg; Colors</h2>
+<p><a href="http://www.resene.co.nz">Resene Paints Limited</a> is a New Zealand-based color vendor, and as the name suggests, concentrates on coatings, paints and other colors for interior design, with its main markets in the Pacific region, especially Australia and New Zealand. The focus on areas other than printing doesn&rsquo;t mean that the color sets are useless in Scribus &ndash; quite the contrary. If they were, the Scribus Team wouldn&rsquo;t bother including them in the first place. First of all it should be noted that in many cases a close matching between corporate or organizational colors on different levels is required, from coatings to print products. Second, Resene, just like other color manufacturers, provides color charts, which allow for easily verifying colors with a printer. Third, there is the aesthetic facet of Resene palettes, as they consist of carefully chosen and lively colors that can add to the appeal of your layout.</p><br>
+
+<table width="100%"><tr><td align="center"><img src="images/resene-pal.png" title="Resene&reg; Colors in the Scribus Color Manager" alt="Resene&reg; Colors in the Scribus Color Manager" /></td></tr></table><br/>
+
+<h3>Specifics of Resene&reg; Palettes in Scribus</h3>
+<h4>General</h4>
+<a>Resene color sets belong to the standardized palettes that are &ldquo;locked&rdquo;, i.e., <a href="color2.html">protected</a> from inadvertent editing. All colors are stored as <a href="color1.html">spot colors</a> with alternative RGB values, the reason being that they are derived from palette files for a CAD software that doesn&rsquo;t support the CMYK color space. It is probably safer to either use a Resene color as a spot color or to convert the original RGB values to CMYK during <a href="pdfexport1.html">PDF export</a> using a <a href="cms.html">color profile</a>. If you need &ldquo;raw&rdquo; CMYK values, you can either <a href="color1.html">edit</a> a color and change the color space or visit Resene&rsquo;s <a href="http://www.resene.co.nz/swatches/">website</a> for alternative CMYK values, but you should be aware of the fact that &ldquo;raw&rdquo; CMYK data without an associated color profile can turn out to be inaccurate in commercial printing.</p>
+<h4>Updates</h4>
+<p>Resene color collections are updated on a regular basis, and thanks to an arrangement with the company, Scribus users will receive updated versions of the palettes with every new Scribus release. As you have already learned, this won&rsquo;t affect documents that use older palette versions, since they are <a href="color1.html">stored in the documents themselves</a>, from which they can be imported into your current file. If you, for whatever reason, need to use an older Resene color set, perhaps even a palette that pre-dates the inclusion of Resene palettes in Scribus, you can <a href="http://www.resene.co.nz/comn/services/cad_colour_books.htm">download</a> the palette as an AutoCAD color book file (*.acb) and use <a href="toolbox17.html">Swatchbooker</a> to convert it into a Scribus XML palette file.</p>
+
+</body>
+</html>

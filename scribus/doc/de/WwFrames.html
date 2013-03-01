@@ -1,0 +1,277 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>  
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>Working with Frames</title>
+</head><body>
+<h2>Working with Frames</h2>
+
+<p>Working with Scribus is for the most part working with a frames
+environment. Some more generic terms you may see in menus and commands
+are objects or items, of which frames are one kind of object or item.
+There are five kinds of frames you will work with in Scribus:
+</p>
+
+<ul>
+
+  <li><a href="WwText.html">Text frames</a></li>
+  <li><a href="WwImages.html">Image frames</a></li>
+  <li><a href="WwRenderframes.html">Render frames</a></li>
+  <li><a href="WwShapes.html">Shapes</a></li>
+  <li><a href="WwShapes.html">Polygons</a></li>
+</ul>
+
+Each of these have their own section in this online manual, but here we
+will explain features they share.
+<h3>Creating Frames</h3>
+
+There are at least six ways to create frames:
+<ol>
+
+  <li>Clicking the toolbar icon for the type of frame</li>
+  <li>Choosing from the menu, <span style="font-style: italic;">Insert</span>&nbsp;&gt; <i>Type of frame</i></li>
+  <li>Using the keyboard shortcut (when not in Edit Contents mode in an
+already existing frame)</li>
+  <ul>
+    <li>T for Text frame</li>
+    <li>I for Image frame</li>
+    <li>D for Render frame</li>
+    <li>S for Shape</li>
+    <li>P for Polygon</li>
+  </ul>
+  <li>Using Duplicate or Multiple Duplicate to make one or more copies
+of the selected frame</li>
+  <li>Duplicating a Layer with its contents</li>
+  <li>Copying a page, with all of its contents</li>
+</ol>
+
+<table cellpadding="5" width="70%">
+
+  <tbody>
+    <tr>
+      <td valign="top">If you change your mind or pressed the wrong key
+(at least in the cases 1, 2 and 3),
+you can press Esc or the Spacebar to cancel, or click the toolbar icon
+for your next choice.
+      <p>When you make one of the choices 1&ndash;3, your mouse cursor
+becomes activated to draw the frame, and a tooltip pops up to tell you
+the cursor&rsquo;s X-Pos and Y-Pos. As you click-drag to make the frame from
+one corner to its opposite, the tooltip now displays the Width and
+Height frame you are creating. For Shapes and Polygons, this describes
+the dimensions of the Bounding Box. </p>
+      <p>Usually the next step is adding or doing something with the
+content, but we will leave that to the individual sections regarding
+each type of frame.</p>
+      </td>
+      <td width="310"><img src="images/shapes7.png">
+      <p>Here we see the <b>Enter Object Size</b> dialog that comes up
+if you left-click somewhere on the page, rather than doing a click-drag
+operation. Obviously this can be very handy for creating a frame of a
+precise size.</p>
+      <p>The fields <span style="font-style: italic;">Width</span> and
+      <span style="font-style: italic;">Height</span> are spinboxes
+whose use will be explained below.<br>
+      </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>Context Menus</h3>
+
+Each frame type has its own particular Context Menu, found by
+right-clicking on it. Since these are variable depending on the type of
+frame, they will not be elaborated upon here. Keep in mind that you can
+find interesting things in Scribus by right-clicking on various items.
+<h3>Manipulating Frames</h3>
+
+<h4>How to Use Spinboxes</h4>
+
+<table>
+
+  <tbody>
+    <tr>
+      <td>
+      <ul>
+        <li>Hover the cursor over the spinbox value and use your
+mousewheel to change it</li>
+        <li>Click the up or down arrow to the right side of the spinbox</li>
+        <li>Use the arrow keys &ndash; cursor must be over the appropriate
+spinbox</li>
+        <li>Change the value with the keyboard. <br>
+          <i>Hint: Scribus will do math for you. Enter (615/2+20), for
+example. There are some keywords you can use also, and combine with
+math operations: <b>pagewidth</b>/2, for example. Other keywords are <b>pageheight</b>,
+          <b>width</b> (of selected item), and <b>height</b> (of
+selected item).</i> </li>
+      </ul>
+The mousewheel digit changed can be modified:
+      <ul>
+        <li>No key pressed: units</li>
+        <li>Shift key held: tenths</li>
+        <li>Shift + Alt: hundredths</li>
+        <li>Ctrl or Alt: tens</li>
+        <li>Ctrl + Alt: hundreds &ndash; <i>Careful with this one with a
+page measurement unit like inches</i></li>
+        <li>Except for those that use Alt, you can use most of these
+keymods when moving the frame with the arrow keys (cursor not over
+spinbox), but not for resizing with arrow keys.</li>
+      </ul>
+      <h4>Moving Frames</h4>
+      <p>The simplest method is to click-hold inside the frame and move
+with the mouse. While this is taking place a tooltip tells you the
+position of the <b>Basepoint</b> (default basepoint is left upper
+corner). You can also use the arrow keys to move the frame as long as
+the cursor is not over any spinboxes. For more precise movement, use <span style="font-style: italic;">Properties&nbsp;&gt; X,Y,Z</span>
+tab (<b>X-Pos</b> and <b>Y-Pos</b>) and its
+spinboxes. </p>
+      <h4>Resizing Frames</h4>
+A selected frame shows a dotted red border and in addition small square
+handles at the corners and at the midpoints of each side. Click and
+drag a handle to make manual adjustments. If you hold down the Alt key <i>and
+the cursor is not over a spinbox</i>, you can resize the frame using
+the arrow keys. To resize a frame proportionally, press Ctrl+Alt while
+moving a handle. Use the <b>Width</b> and <b>Height</b> spinboxes in
+the Properties Palette for
+precision. </td>
+      <td valign="middle"><img src="images/XYZ_Prop.png"></td>
+    </tr>
+  </tbody>
+</table>
+
+<h4>Rotating Frames</h4>
+
+There are 2 ways to rotate a frame:
+<ul>
+
+  <li>Click the Rotate icon on the toolbar. You then click-drag inside
+the frame to rotate. As long as you click inside a frame, the basepoint
+is always the center of the frame. However, if click on any of the
+corner handles, the basepoint is the opposite corner.<br>
+  </li>
+  <li>Use the <b>Rotation</b> spinbox in Properties. In this case, you
+can choose the <b>basepoint</b> around which rotation takes place, as
+well as have more precision.</li>
+</ul>
+
+<table>
+
+  <tbody>
+    <tr>
+      <td>
+      <h4>Moving Frames &ndash; Level to Level or Layer to Layer</h4>
+You can move up or down levels using Properties&nbsp;&gt; X,Y,Z tab, in the
+area labelled <b>Level</b>, either one level at a time or to the top
+or bottom. The number beside these arrows tells you which level your
+object is on (1 is the bottom).
+      <p>There are also keyboard shortcuts: </p>
+      <ul>
+        <li>Home: to the top</li>
+        <li>End: to the bottom</li>
+        <li>Ctrl+Home: up one level</li>
+        <li>Ctrl+End: down one level</li>
+      </ul>
+If you have more than one <a href="layers.html">layer</a>, you can use the Context Menu
+(right-click on the frame) to send the frame to a different layer.
+      <h4>Final Section of Properties: X,Y,Z</h4>
+Looking at the last group of seven buttons in the lower right corner of <b>X,Y,Z</b>,
+the two leftmost buttons, grayed out in this picture, will group and
+ungroup a collection of selected objects (note that vector drawings are <span style="font-style: italic;">always</span> imported as groups of objects). The next two buttons, with
+the blue arrows, flip the object horizontally or vertically. The
+picture of the lock is where you can lock or unlock the selected
+object, and just to its right you can lock or unlock only the size of
+the object. The last button in the lower right corner enables is
+disables printing (and export to PDF) of the object. </td>
+      <td valign="middle"><img src="images/XYZ_Prop1.png"></td>
+    </tr>
+  </tbody>
+</table>
+
+<h4>Copy, Cut, Paste, Delete</h4>
+
+Most users should be familiar with these kinds of operations common to
+many types of editing software. They can be found in the Context Menu or the <span style="font-style: italic;">Edit</span> menu,
+and have the standard keyboard shortcuts of Ctrl+C, Ctrl+X, Ctrl+V, and
+Del. In Scribus, Delete operates similar to Cut, since it can be undone, but
+in contrast is not copied to the clipboard and therefore cannot be
+pasted. If you move from one page or one layer to another, Paste will
+place the new copy at the same coordinates it had on the original page
+or layer.
+<h4>Selecting Multiple Frames</h4>
+
+You might do this as a prelude to grouping the frames, so you can move
+or scale them as a unit.
+<p>The simplest way of selecting a group of frames is to click-drag <i>around</i>
+them. You have to be sure that any frame you wish to be selected is
+<span style="font-style: italic;">fully</span> within the temporary rectangle you see during this operation.
+This may not work when you only want some of the frames in a particular
+rectangular space. In that situation you can manually select additional
+frames in a cumulative way by holding down Shift as you click. If you
+make a mistake, click again while holding Shift to deselect individual
+frames. If you have
+not yet grouped the frames, click outside these collectively selected
+frames to &ldquo;break&rdquo; the multiple selection. You can also combine these
+approaches by click-dragging around a number of frames, then
+Shift-clicking any you wish to select in addition or deselect.
+</p>
+
+<h4>Selecting Frames Under Other Frames</h4>
+
+If all you want to do is select an individual frame that happens to be
+completely underneath some other frame, hold Shift+Ctrl, and click
+serially on a particular spot to toggle through the frames covering
+that spot. You will cycle through the frames, but also at some point
+select none of them.
+<p><i>Note: if you find an inability to select a frame underneath
+another using this method, consider that this frame may be on another
+layer. You may only work on one layer at a time.</i>
+</p>
+
+<h3>Line and Colors of Frames</h3>
+
+The line of a frame is the border. For text, image and render frames, the
+default color of the line is None, so none of the line settings have
+any meaning until the line is given a color in the <span style="font-style: italic;">Colors</span> tab of the Properties Palette. The
+default background or fill color of text and image frames is also None.
+<br>
+<br>
+For Shapes and Polygons, the default fill color is set to None, whereas the default line color is Black. For all
+kinds of frames these default colors can be set in <span style="font-style: italic;">File &gt; Document Setup &gt; Tools</span> for the current document and in <span style="font-style: italic;">File &gt;
+Preferences &gt; Tools</span> for new documents.
+<h3>Text Flow Around Frame</h3>
+
+<table cellpadding="5">
+
+  <tbody>
+    <tr>
+      <td>The first important thing to remember is that this can be a
+property of any kind of frame, and that it applies to any text frames <i>underneath</i>
+it, underneath being not only on a lower level, but also a lower layer.
+      <p>Secondly, you need to choose whether you want flow around the
+frame, the contour line, or the bounding box – making your choice in
+the <span style="font-style: italic;">Shape</span> tab of Properties. For text and image frames, all 3 coincide
+with each other when they are created. <br>
+</p>
+      <p>As for shapes and polygons, only the frame and
+contour lines coincide (i.e., they are identical with the shape/polygon
+itself), whereas the bounding box is always the surrounding rectangle.
+Details will be found in <a href="WwShapes.html">Working with Shapes</a>, but in the
+<span style="font-style: italic;">Shape</span> tab of the Properties Palette you can edit the frame/shape or the contour line
+independently. </p>
+
+      <p>In this screenshot below, the left column flows around the
+frame, the right around an edited (enlarged) contour line: </p>
+      </td>
+    </tr>
+    <tr>
+      <td align="center"><img src="images/text_flow.png"></td>
+    </tr>
+  </tbody>
+</table>
+
+<hr>
+<p>See also</p>
+<ul>
+<li><a href="importhints3.html#1">Let Scribus create frames for you</a></li>
+</ul>
+</body>
+</html>

@@ -1,0 +1,75 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<title>The Color Wheel</title>
+</head>
+<body>
+
+<h2>The Color Wheel</h2>
+<table width="90%" cellpadding="5">
+<tr><td><img src="images/RYB_color_wheel.png" title="The RYB color wheel" alt="The RYB color wheel"/>
+<p><i>The RYB color wheel</i></td>
+<td><p>Originally created as a tool to visualize the <i>physical spectrum</i> of <i>all</i> colors by scientists like Isaac Newton, a color wheel (or circle) nowadays is a tool used by artists and designers to select colors based on <i>color perception</i>. Like the <a href="color1.html">RGB and CMY(K) color models</a>, a color wheel is making use of the concept of <a href="http://en.wikipedia.org/wiki/Primary_color">primary colors</a>, in this case red, yellow and blue, hence the abbreviation RYB. While other color wheels, based on the RGB or CMY(K) models, are available, the Scribus Color Wheel follows the traditional &ldquo;artistic&rdquo; or &ldquo;perceptional&rdquo; approach, since this is the way to (almost always) guarantee visually pleasing results in design by using mathematical formulas based on Goethe&rsquo;s and his successors&rsquo; observations and research.</p>
+</tr>
+</table>
+<h3>The Color Wheel Dialog</h3>
+<p>The Color Wheel dialog (available via <i>Extras&nbsp;&gt; Color Wheel</i>) may look simple at first glance, but it&rsquo;s actually quite versatile. Note that it&rsquo;s only available with an open document, as the color harmonies you create in this dialog will be added to a document&rsquo;s colors.</p><br>
+<table width="100%"><tr><td align="center"><img src="images/colorwheel.png" title="The Color Wheel dialog" alt="The Color Wheel dialog"/></td></tr></table>
+
+<h4>General</h4>
+<p>In the upper left part of the dialog you can see the color wheel itself. Depending on the selected color scheme, you will see one or more tiny circles placed at the border of the wheel. These are the color indicators, and you can move them with the mouse to modify the color scheme. At the center of the wheel you can always see one color. This is the <i>base color</i>, i.e., the color that determines the other colors in the scheme. You can change this color either by clicking somewhere in the wheel or by choosing another base color in the section right to wheel.</p>
+<p>Underneath the wheel you can select the color scheme, which will be described below. Since the color schemes are based on geometrical ideas, you can also change the <i>angle</i> or the &ldquo;distance&rdquo; between colors in some (but not all) of them.</p>
+<h4>The Preview</h4>
+<p>The Preview section of the dialog provides a preview of the selected color scheme, as well as sample text in 100% RGB black and RGB white to show how text will look in front of areas that use these colors. One important feature of the preview is the emulation of color blindness (<i>Vision Defect Type</i>). When using color harmonies one should always keep in mind that some color combinations that work well for the majority of people may not work at all for people who are suffering from certain vision defects. For instance, two contrasting colors may look like a single color, or text that can be easily read if placed in front of a colored area may completely disappear for people with certain vision defects.</p>
+
+<h4>Color Models</h4>
+<p>The Color Wheel dialog provides three kinds of color models, as well as a variable color selection, to select the <i>base color</i>. CMYK, RGB and HSV have been described <a href="color1.html">elsewhere</a>. In addition, you can select colors from all document colors, i.e., the currently selected color palette, as well as all imported and newly created colors.</p>
+
+<h4>Color Schemes</h4>
+
+<p><b>Monochromatic:</b></p>
+<p>The monochromatic color scheme (as displayed above) is actually a combination of a base color and one dark and light variancy of the color. You cannot change the &ldquo;angle,&rdquo; as there is no geometrical relation between the colors.</p>
+
+<table width="80%" cellpadding="5">
+<tr><td><p><b>Analogous:</b></p></td></tr>
+<tr><td align="center"><img src="images/cw-analogous_20.png" title="The Color Wheel dialog" alt="The Color Wheel dialog"/><br />Angle = 20
+<p><img src="images/cw-analogous_30.png" title="The Color Wheel dialog" alt="The Color Wheel dialog"/><br />Angle = 30</td>
+<td align="left" rowspan="2"><p>The analogous color scheme creates color harmonies by using neighboring colors in the color wheel. These colors should be pleasing together when the angle is small, and offer increasing contrast as you increase the angle.</p>
+<p>In these images, our base color is the farthest to the right.</p></td>
+</tr>
+<tr><td><p><b>Complementary:</b></p></td</tr>
+<tr><td align="center"><img src="images/cw-complementary.png" title="The Color Wheel dialog" alt="The Color Wheel dialog"/><br />Base color to the left</td>
+<td align="left"><p>Complementary colors are colors opposite to each other on the Color Wheel, so here we have a fixed angle of 180°. Their best use is for creating strong contrasts between larger areas, but they should not be used together as text and text background colors.</p></td>
+</tr>
+<tr><td><p><b>Split Complementary:</b></p></td></tr>
+<tr><td align="center"><img src="images/cw-splitcompl_20.png" title="The Color Wheel dialog" alt="The Color Wheel dialog"/><br />Angle = 20
+<p><img src="images/cw-splitcompl_40.png" title="The Color Wheel dialog" alt="The Color Wheel dialog"/><br />Angle = 40</td>
+<td align="left">The base color is farthest to the right.<br />This is in essence a combination of Analogous and Complementary. The first two colors (left to right) are analogous to the base color, separated by our chosen angle. The next two colors are complementary to each of these analogous colors.</td>
+</tr>
+<tr><td><p><b>Triadic:</b></p></td></tr>
+<tr><td align="center"><img src="images/cw-triadic.png" title="The Color Wheel dialog" alt="The Color Wheel dialog"/><br />Base color to the right</td>
+<td align="left">Another simple fixed scheme, with the three colors 120° apart.</td>
+</tr>
+<tr><td><p><b>Tetradic (Double Complementary)</b></p></td></tr>
+<tr><td align="center"><img src="images/cw-tetradic_20.png" title="The Color Wheel dialog" alt="The Color Wheel dialog"/><br />Angle = 20
+<p><img src="images/cw-tetradic_40.png" title="The Color Wheel dialog" alt="The Color Wheel dialog"/><br />Angle = 40</td>
+<td align="left">The base color is farthest to the right.<br />Here we have a single analogous color (second from the left), separated by our chosen angle, then corresponding complementary colors (first and third colors). Note that one complementary color pair is the first and fourth, and the other pair is the second and third.</td>
+</tr></table>
+<h4>Making Use of These Schemes</h4>
+<p>With so many schemes and variations in settings, obviously there is no automatic answer to choosing which is best for you. One way to learn is to look at advertisements, web pages, or other examples of pleasing design, and pay attention to their color schemes, noting which seem to work well, and which do not. There are good uses for similar colors and for contrasting colors, and most designs have each in various areas of the page.</p>
+<h4>Adding Color Harmonies to the Document Colors</h4>
+<p>In the lower right section of the Color Wheel dialog, you can see the &ldquo;Result Colors&rdquo; in all three color models. Unfortunately, the names of the colors in the new scheme will be created automatically, and there&rsquo;s no way to rename them in the Color Wheel dialog. Thus, you will have to <a href="color1.html">rename</a> these colors via <i>Edit&nbsp;&gt; Colors</i> if you either want to use several color harmonies in your document or make sure that the colors of your scheme are listed next to each other in color dialogs.</p>
+<p>At the bottom of the dialog you can see two options for adding your color scheme to the document colors: &ldquo;Merge&rdquo; and &ldquo;Replace.&rdquo;</p>
+<p><b>Merge</b> will add the colors created by you to the document colors. If you have already created another color scheme without having changed the names of this scheme&rsquo;s colors, the following dialog will show up:</p><br>
+<table width="100%"><tr><td align="center"><img src="images/cw-warning.png" title="The Color Wheel dialog" alt="The Color Wheel dialog"/></td></tr></table>
+<p>As described, the <i>Colors</i> dialog will be launched, where you can rename the existing scheme colors. You can then return to the Color Wheel and merge the new color harmony.</p>
+<p><b>Replace</b>, not surprisingly, will replace colors from a previously created scheme with identical names in the <i>Color</i> dialog.</p>
+<h4>Limitations</h4>
+<p>There are several limitations to both the RYB color model and its implementation in Scribus:</p>
+<ul>
+<li>The RYB color model is <b>incomplete</b>. It ignores neutral colors like black, white or grays, and it doesn&rsquo;t work reliably with CMYK and spot colors. Some color vendors, like Pantone or RAL, offer specialized software that allows for creating color harmonies with their spot color systems. <a href="color6.html">dtp studio&rsquo;s</a> &ldquo;Digital Colour Atlas&rdquo; even permits the creation of color harmonies between different color systems.</li>
+<li>The Scribus Color Wheel implementation doesn&rsquo;t provide all possible RYB color harmonies (yet). The Scribus Team is working on a completion.</li>
+<li>You should be aware of the <a href="color1.html">differences</a> between the CMYK and RGB color models, as well as the results of applying certain <a href="cms3.html">rendering intents</a>. Unfortunately, there&rsquo;s no way to escape the laws of nature, and in some cases only experience (and reliably set up color management) will help to avoid a disappointing print result.</li>
+</ul>
+</body>
+</html>

@@ -1,0 +1,136 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<title>Editing Shapes</title>
+</head>
+
+<h2>Editing Shapes</h2>
+Many of the objects that can be incorporated into a Scribus document are vector drawings, and as such can be edited. Even though the title seems to refer to the geometric shapes that can be easily created, the same procedures can be applied to all of these:
+<ul>
+<li>Shapes</li>
+<li>Polygons</li>
+<li>Frames - all types</li>
+<li>Contour lines</li>
+<li>Bézier curves</li>
+<li>Freehand lines</li>
+<li>Outlines created from text glyphs</li>
+<li>Imported vector drawings, such as EPS and SVG</li>
+</ul>
+As you may be aware or recall, when you consider the ability to convert from one kind of object to another, there is a great deal of flexibility in what you can do. Here we have edited the shape of a text frame, then taken a large glyph, converted to an outline, then converted to an image frame, and finally we take a polygon and convert to a text frame. The final state of the object determines its editing capabilities, so the large B can be edited like any other image frame, the polygon can have its text edited in Story Editor.
+<table cellpadding=3><tr>
+<td><img src="images/edit_shapes.png" ALT="Edit examples" ALIGN=left></td></tr>
+</table>
+
+<h3>Properties: Shape</h3>
+<table cellpadding=3><tr>
+<td>Here is our Shape tab from Properties, or at least the bigger part of it. We'll get to what's left (Fill Rules) farther down below in <b>Combining Polygons</b>. Let's look at the <b>Round Corners</b> item first, since it's a simple kind of edit, that does what it says. Since the spinbox is active, we know that the object this relates to is either a "regular" frame, like text, image, or render frame, or it's the rectangle shape (and not the 4-sided polygon). What the number in the spinbox refers to is the radius of the corner. You can keep going up on this until 2 adjacent rounding operations meet &ndash; if you start with a square, for example, you will end up with a circle. A rectangle looks more like a capsule with flattened sides and rounded ends. This could just as easily be a text or image frame.</td>
+<td rowspan=2><img src="images/prop_shape.png" ALT="Properties: Shape" ALIGN=right></td>
+</tr>
+<tr><td><img src="images/round_rectangle.png" ALT="Rounded rectangle" ALIGN=left></td></tr>
+</table>
+<table cellpadding=3><tr>
+<td>The next quickie edit is the icon with the drop-down arrow, next to the <b>Edit</b> button. The drop-down lists are the familiar ones from the toolbar shape icon, but this is a transformation, not making a new shape. Thus we can convert our capsule to a squat and overfed-looking Tux if we want.
+<p>In fact, we can do this with text and other frames as well, although you can expect the utility of a Tux-shaped text frame to be limited.
+</td>
+<td><img src="images/squat_tux.png" ALIGN=left></td></tr>
+</table>
+<h3>Edit Button</h3>
+<table cellpadding="3"><tr>
+<td align=center width=200><img src="images/shape_edit.png"></td>
+<td>Now we get to the main event here, editing a shape/frame with its nodes and control points. When you click the <b>Edit</b> button on the Shape tab, the <b>Nodes</b> dialog to the right pops up and your shape/frame is transformed something like what you see on the left, with these blue and magenta circles.
+<p>Something to note at the outset is that generally where there is a sharp corner in a shape you only see the blue nodes, but where there is a smooth curve of some sort, these magenta control points are visible, sticking out like antennae from the node. Actually, all of these nodes have control points, but you don't see them when they are at the same position as the node.</td>
+<td rowspan=3 valign=middle><img src="images/nodes_edit.png"></td>
+</tr>
+<tr><td></td><td><img src="images/node_edit_close.png" ALIGN=right></td>
+</tr>
+<tr><td colspan=2>As we begin to describe the usage of the shape edit dialog, let's use this numbering scheme to refer to the various buttons on the dialog to the far right. 
+<p>When the dialog first comes up, button <b>1</b> will be selected, in which case you can move the blue nodes using the mouse. In addition to moving individual nodes, you can click-drag a line segment between nodes and move the segment along with its nodes. The segment retains its size, shape, and orientation &ndash; adjoining line segments do the adjusting. 
+<p>If you click button <b>5</b>, you can then move the magenta control points. Once you have clicked on a node or control point it turns red, and at this point, in addition to moving it with the mouse, the <b>X-Pos</b> and <b>Y-Pos</b> spinboxes become active and refer to this selected point. If <b>Absolute Coordinates</b> is <b><i>not</i></b> checked, then these numbers are relative to the upper left corner of the bounding box for the frame or shape (<i>see What is a Bounding Box? below</i>). Let's mention at this point that all of our editing steps here are Undo-able, i.e. can be undone with <b>Ctrl-Z</b> in case you change your mind.
+<p>Button <b>2</b> allows for adding nodes, though they must be added somewhere along the line of the shape. Button <b>3</b> deletes the node you subsequently click on. The tooltip for button <b>4</b> says <i>Reset Control Points</i>, but it is not clear how to make this button active.
+<p>Button <b>6</b>, when clicked, allows for each individual control point to move independently. If button <b>7</b> is clicked, then the two control points at a node will arrange themselves on opposite side of a node and equidistant from it once either one is moved. This tends to produce a very smooth curved transition through the node. When a control point is selected, button <b>8</b> will be active and when clicked, resets the control point to its node's position.
+<p>Button <b>9</b> will split the curve/shape when it is checked &ndash; click this button, then click anywhere along the line. It will appear that a node has been created, like using button <b>2</b>, but actually there are now 2 nodes at that position, so that if you move one, you will see the line is broken. Button <b>10</b> performs the opposite procedure, by joining a broken curve or shape (<i>and can also be used to make a closed figure out of a Bezier curve</i>).
+<p>Finishing out these first 3 rows, the unnumbered buttons next to the one we've labeled 10 flip the shape horizontally or vertically, respectively.</td>
+</tr></table>
+<h3>Skewing</h3>
+<table cellpadding=3><tr>
+<td>The first full row of buttons below the numbered ones are skewing operations. Each click on the button skews the shape in a small increment. Here we see the results of skewing using the 4 buttons, left to right, just like our images, each being clicked 10 times. Initially, the tops of all these shapes had the same Y-Pos.</td>
+<td><img src="images/skewing.png" ALT="Skewing Example"></td>
+</tr></table>
+<h3>Rotating, Enlarging, Shrinking</h3>
+Below the 4 rows of buttons we have spinboxes paired with buttons to the left. These are quite intuitive and the two buttons are complementary actions, for rotation, and then two ways to enlarge and shrink, either by percentage or number of points. Each click produces the amount of change indicated in the spinbox.
+<p>
+<h3>What is a Bounding Box?</h3>
+<table cellpadding=3><tr>
+<td><img src="images/boundingbox.png" ALIGN=left></td>
+<td><img src="images/boundingbox1.png" ALIGN=left></td>
+<td>A <i>Bounding Box</i> is the rectangular space that defines the boundaries of a shape and all of its descriptive components. Here we see this illustrated on the far left, noting that the bounding box is much larger than the actual shape. When we go to edit mode in the near left, we see that the box must include all of the control points for the shape.
+<p>There is a constraint on the <b>X-Pos</b> and <b>Y-Pos</b> so that they cannot be less than 0.0 when referring to the Bounding Box, so you will not be able to use the spinboxes to move nodes or control points lower than this value. Nonetheless, they can be moved with the mouse and the bounding box's left upper corner will then reposition. Using <b>Absolute Coordinates</b> is another workaround, since these values can be less than zero.
+<p><b>Use Bounding Box</b> is one of the choices for Text Flow mode, as shown in the Shape tab graphic.
+</td>
+</tr></table>
+<br clear=all>
+<h3>Finally: What is a Contour Line?</h3>
+Or maybe we should say, what is it for? A contour line is itself never visible, except in this editing mode. Let's imagine you have a frame/shape which is not rectangular, and you wish to flow around it, but not necessarily follow the contours of the frame/shape. Even if it's a shape and has a bounding box, as we saw above sometimes the bounding box is not what we want either, therefore we can use a contour line to flow in our precisely desired way. While you are editing your contour line, you will see the text flow change to help you get the look you want.
+<table cellpadding=3><tr>
+<td><img src="images/frame_shape_flow.png" ALIGN=left></td>
+<td><img src="images/contourline_flow.png" ALIGN=left></td>
+</tr></table>
+<p>Contour lines are not considered part of the graphic components, so therefore its nodes and control points can be outside the bounding box.
+<h3>Combining Polygons</h3>
+This operation really applies to both polygons and shapes, and mixtures of the two. The idea is to combine 2 or more shapes on different levels into a single one.
+<table cellpadding=3><tr>
+<td><img src="images/combine_polygons.png"></td>
+<td><img src="images/combine_polygons1.png"></td>
+<td><img src="images/combine_polygons3.png"></td>
+</tr></table>
+This top row shows our starting point, with a shape overlapping a polygon, the shape having some transparency. In the middle, we select both by click-dragging the mouse around them, then select <b>Item > Combine Polygons</b> from the menu, to get what we see on the right. With this method, the colors derive from the bottom object.
+<table><tr>
+<td><img src="images/combine_polygons2.png"></td>
+<td><img src="images/combine_polygons4.png"></td>
+<td><img src="images/combine_polygons5.png"></td>
+</tr></table>
+In the left graphic here, we selected the shapes by holding down Shift and clicking the cross shape first, then combined, so even if you combine more than two shapes this way, the colors derive from the first one clicked. The middle shows that our combined polygon has retained the transparency. On the right, we see the results of <b>Item > Split Polygons</b>. It is not recommended to Undo combined polygons, since results are unpredictable and may cause a subsequent crash, depending on what you do next.
+<p>Something else to point out here is that in the bottom row, the leftmost combination uses an <b>Even-Odd Fill Rule</b> from the Shape tab, and the middle uses <b>Non Zero</b>. <i>You apply the fill rule after you combine polygons</i>.
+<h3>Path Operations</h3>
+These are some improved methods for combining shapes and polygons in various ways. They can only be applied to shapes and polygons, not text or image frames, though once again, conversion to text or images frames is still possible later.
+<table><tr><td><img src="images/pathops.png" alt="pathops.png" ALIGN=right></td>
+<td>Let's start with this situation, two standard shapes. First, select both shapes, and then select from the menu <br><b>Item > Path Tools > Path Operations...</b>
+<br>If you don't select both shapes, you will not be able to make this menu selection.</td>
+</tr><tr>
+<td><img src="images/pathops1.png" alt="pathops1.png" ALIGN=left></td>
+<td>What you get from this is the dialog to the left. 
+<br>Notice that a color has been assigned to the doughnut shape. This is merely for clarity to more easily see what will happen. If neither shape had a fill color, they would be assigned contrasting colors. <b>Swap Shapes</b> simply reverses the position of the two shapes, so that the first shape becomes the second.
+<p>Staying with this initial default choice of combining the shapes, we see to the right that we must choose which color the final shape will have &ndash; just as with <i>Combining Polygons</i>, the final shape can only have one set of colors for <b>Fill</b> and <b>Stroke</b>. As you can see, there is an option for choosing other colors for each, using the <b>Custom Colors</b> radio button.
+<p>What about the <b>Keep</b> button? If chosen, this will retain the elements of the shape. Perhaps best to illustrate the difference between the two with the examples below.
+<p>On the left below is when you do <i>not</i> check <b>Keep</b>, and to its right what happens when you <i>do</i> check <b>Keep</b>. It's also worth repeating that we stayed with using the First Shape for color choices.
+<table><tr><td><img src="images/pathops2.png" alt="pathops2.png"></td><td><img src="images/pathops3.png" alt="pathops3.png"></td>
+</tr></table>
+</td>
+</tr></table>
+<h4>Other Choices</h4>
+<table>
+<tr><td ALIGN=center><b>Subtraction</b></td><td ALIGN=center><b>Intersection</b></td><td ALIGN=center><b>Exclusion</b></td><td ALIGN=center><b>Break Apart</b></td></tr>
+<tr><td><img src="images/pathops4.png" alt="pathops4.png"></td><td><img src="images/pathops5.png" alt="pathops5.png"></td><td><img src="images/pathops6.png" alt="pathops6.png"></td><td><img src="images/pathops7.png" alt="pathops7.png"></td>
+</tr>
+</table>
+<p>
+<table>
+<tr><td></td><td ALIGN=center><b>Break Apart pulled apart</b></td></tr>
+<tr><td width=450px VALIGN=top><b>Break Apart</b> has some interesting features. You may recall that above I said that the final shape could only have one sort of fill color, so what happened here? In contrast to all other choices, with <i>Break Apart</i> I can specify a color for the <i>intersection</i> of the two shapes, so here I have chosen a custom color. What you then find is the meaning of the <i>Break Apart</i> name &ndash; these are really 3 separate shapes now, which I can move apart if I wish. After that, conversion of these to other kinds of frames is also possible, as seen here, and also note that the upper right shape behaves as one image frame.
+<p>A final note with <i>Path Operations</i> is that <b>Undo</b> will likely have some effect, but will not reverse whatever operation you carried out here.</td>
+<td COLSPAN=3><img src="images/pathops8.png"></td>
+</tr>
+</table>
+<h3>Create Path from Stroke</h3>
+If you have a <i>single</i> shape selected, this will be an option under <b>Item > Path Tools</b>. The name for this operation is admittedly a bit obtuse, so once again simply showing what it does is more worthwhile.
+<table width=70% cellpadding=10><tr>
+<td><img src="images/pathtools.png"></td>
+<td>To do this, let's create a rectangular shape, and increase its stroke width to 10 points.<br>Now select <br><b>Item > Path Tools > Create Path from Stroke</b>,<br>at which point, your reaction is likely that nothing has changed, except if you had a fill color, it will have disappeared. Now, change the fill color from <i>None</i> to some color, here red, and then zoom in on your rectangle.</td></tr>
+<tr><td><img src="images/pathtools1.png"></td>
+<td>In the upper left corner of the rectangle, seen at about 900% zoom, we begin to understand what happened. The space which was formerly the border (stroke) is now the fill, and there has been applied a stroke to the boundaries of this (I have increased the hairline stroke to 1 point so that it is clearer).
+<p>If we had started with a red color to the stroke, then the new stroke would also have been red.</td></tr>
+<tr><td><img src="images/pathtools2.png"></td>
+<td>To even better understand what has happened, let's convert this to an image frame and load an image. Now we can see that the space of the frame is limited to the original stroke space, so in a sense we have created a picture frame from this original rectangle.</td>
+</tr></table>
+</body>
+</html>

@@ -1,0 +1,63 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<title>Importing Bitmap Files</title>
+</head>
+<body>
+<h2>Importing Bitmap Files</h2>
+<h3>Supported Bitmap Formats</h3>
+<p>Scribus supports a broad range of bitmap formats, but you should avoid most of them for serious print jobs. These formats are (in alphabetical order):</p>
+<ul>
+<li><b>BMP:</b> A bitmap format used by Windows, OS/2 and eComStation (e.g. for graphical user interfaces). Unlike GIF or XPM it can contain up to 32 bit per pixel and supports transparency. Due to its simplicity, the BMP format is wide-spread and can be read/written by most image editors. Unfortunately, the lack of a compression algorithm leads to comparatively huge file sizes, and BMP data may cause problems with commercial RIPs (Raster Image Processors).</li>
+<li><b>EPS:</b> See the <a href="importhints1.html">section on EPS import</a>.</li>
+<li><b>GIF:</b> The GIF format has been created in and for the early days of the World Wide Web. It uses compression and only permits a limited number of 256 colors. While it&rsquo;s possible to load a GIF image into an image frame, the format has absolutely no place in professional page layout. Moreover, commercial print jobs will probably fail when you use a so-called &ldquo;Animated GIF&rdquo; in your document. These GIFs work like a flip-book and are comprised of several images that will be subsequently displayed by a <i>browser</i>.</li>
+<li><b>JPEG:</b> See the more detailed notes on JPEG below.</li>
+<li><b>PDF:</b> PDF is not a bitmap format. Just like EPS or PostScript, it can contain images, vector drawings, fonts and a lot more, which makes a PDF <a href="toolbox2.html">hard to edit</a> and even harder hard to import natively. Using  <a href="toolbox5.html">Ghostscript</a>, however, Scribus can import PDF files into image frames. In this case, an imported file will rasterized. Since a PDF can contain more than one page, you can select the page you wish to use in the <i>Image</i> tab of the Properties Palette: <br> <table width="100%"><tr><td align="center"><img src="images/import-pdfimage.png" alt="PDF import into image frames" title="PDF import into image frames"/></td></tr></table></li>
+<li><b>PNG:</b> See the more detailed notes on PNG below.</li>
+<li><b>PostScript:</b> Like PDF, a PostScript file can consist of more than one page, and you can choose the same procedure to select a page in a file.</li>
+<li><b>PSD:</b> See the <a href="psd.html">section on Photoshop import</a>.</li>
+<li><b>TIFF:</b> See the more detailed notes on TIFF below.</li>
+<li><b>XPM:</b> This is an old bitmap format used for icons in the X-Window System. Like GIF, it only supports up to 256 colors. </li>
+</ul>
+
+<h3>Bitmap Formats in Depth</h3>
+<h4>Just because an image looks good on screen, do not assume it will look good on paper</h4>
+<p>This not only looks unprofessional, but can be an expensive mistake. Most websites use JPEGs, GIFs or &ndash; increasingly &ndash; PNGs. Remember that, no matter what format they use, most web page graphics have a resolution of 72&ndash;96 DPI, which is far too low for a print workflow. Scribus can generate PDFs with 4000 dpi, but for most purposes 300 dpi is a reasonable resolution. If you have any doubts and want to carefully check an image before it&rsquo;s printed, make a PDF, then view it in a PDF viewer under high magnification.</p>
+
+<h3>JPEG</h3>
+<p>JPEG images, by their design, use lossy compression. In the process of editing and/or compressing a JPEG file, data will be discarded and permanently lost. Moreover, there is a type of JPEG called &ldquo;progressive,&rdquo; which is pure poison in a commercial print workflow. A progressive JPEG is the type that partially displays as it is downloading in a web browser. Scribus will neither load, nor export progressive JPEGs.</p>
+
+<p>Another issue with JPEG files is that every time you open, edit, and save them in an image editing program you will lose image data. So if you need to edit a JPEG file (e.g. one from your digital camera), save it in another format, like TIFF, before you start applying any changes.</p>
+<h3>TIFF</h3>
+
+<p><b>Why TIFF?</b></p>
+<p>For high-level PostScript printing there are three kinds of file formats that work well for images like photos and anything that is made up of pixels and have been time-tested: TIFF, tif and Tiff.</p>
+<p>No matter which way you spell it, the Tagged Image File Format is the file format for bitmap images if you&rsquo;re preparing a file for commercial printing.</p>
+<ol>
+	<li>It is a <i>lossless</i> format. The compression scheme does not reduce quality.</li>
+	<li>For your purpose of working with Scribus, GIMP or Krita do a fine job of exporting or saving to TIFF.</li>
+	<li>It handles ICC profiles without problems. You can &ldquo;tag&rdquo; it with the LittleCMS utility <code>tifficc</code> or embed an ICC profile in many bitmap editors.</li>
+	<li>It supports CMYK colors better than almost any other bitmap format.</li>
+	<li>Every high-end DTP application, including Scribus, can import TIFF files.</li>
+	<li>TIFF files, if they are prepared properly in an image editor, are extremely reliable when printed commercially. Rarely do PostScript devices have problems with them.</li>
+</ol>
+
+<b>Caveats</b>
+<p>There is a large number of TIFF variants, some very esoteric and requiring a particular display program. In addition, not every image editor saves them with the same fidelity to the standards. GIMP, through its use of libtiff, shared with Scribus, does a fine job of supporting TIFFs. One way to work with files from GIMP is to save the original file in the native GIMP XCF format and then, once edited to your satisfaction, export as a TIFF or, with screen shots meant for the web, PNG.</p>
+<h3>PNG</h3>
+<p>PNG is an exception to the aforementioned rule, especially for screenshots. PNG has a number of advanced features, like ICC profile support and real alpha transparency. PNG also compresses very well, and can show a much better result than JPEG where there are sharp transitions in color and contrast. The only time JPEG may be preferrable over PNG is for photos with high dynamic range, mostly for reasons of size on a web page. For creating PDFs with screenshots, PNG is superb and will print well, as long as you do not make any scaling adjustments that reduce the image size. So if you have a screenshot, which is typically at 72&ndash;96dpi, but you need to shrink it, do so by scaling the image in an image manipulation program or within Scribus. <i>Whenever you are scaling screenshots, disable re-sampling in any image editor</i>. With screenshots you should never reduce the number of pixels or you will lose sharpness quickly.</p>
+<hr>
+See also:
+<ul>
+<li><a href="WwImages.html">Working with Images</a></li>
+<li><a href="WwFill.html">Working with Fill: Colors, Gradients and Patterns</a></li>
+<li><a href="importhints1.html">Importing EPS</a></li>
+<li><a href="psd.html">Importing Photoshop Files</a></li>
+<li><a href="toolbox4.html">GIMP</a></li>
+<li><a href="toolbox15.html">Krita</a></li>
+<li><a href="toolbox13.html">XnView</a></li>
+<li><a href="toolbox8.html">ImageMagick</a></li>
+</ul>
+<br>
+</body>
+</html>

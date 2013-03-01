@@ -1,0 +1,66 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<title>Adding and Editing Colors</title>
+</head>
+<body>
+<h2>Adding and Editing Colors</h2>
+If you are looking for instructions on how to change an entire color palette, <a href="color2.html">then go here</a>.
+<h3>Manual Methods</h3>
+<h4>Making a New Color</h4>
+<p>Here again is our <i>Colors</i> dialog we saw in the last article (brought up with <i>Edit > Colors</i>). Click tne <strong>New</strong> button, and you then see the <i>Edit Color</i> dialog. Give it a unique name, then use the sliders to adjust the hue and saturation. You can also click somewhere in the rainbow area for a quick approximation of what you're looking to achieve. Click <strong>OK</strong> to add this new color to your palette. Keep in mind that using this method, your palette will only apply to this document &ndash; having said this, below we'll see how to import a palette from a saved file.</p>
+<p>You have 3 <i>Color Models</i> to choose from: <strong>RGB</strong>, <strong>CMYK</strong>, and <strong>Web Safe RGB</strong>. This last choice limits the values to those which will display the same on 8-bit and 16-bit color systems.</p>
+<table width="100%">
+<tr>
+<td>
+<img src="images/add_colors4.png"></td>
+<td><img src="images/add_colors6.png"></td>
+</tr>
+</table>
+<h4>Borrowing a Color from another Palette</h4>
+<table width="90%" cellpadding="5">
+<tr><td><p>If you click the button in the upper right of the <i>Edit Color</i> dialog, an extremely long list of choices appears, consisting of all the color sets available in Scribus. Now click one of these colors and its name and RGB/CMYK values are your new color. Many of the color sets contain proprietary spot colors.</p></td></tr>
+<tr><td>
+<img src="images/add_colors5.png">
+</p></td>
+</tr></table>
+<h4>From the Color Picker</h4>
+<p>The little eyedropper on the toolbar activates the color picker, after which clicking on some spot on the screen grabs its color. You can expect to be presented with a dialog asking for a name for this color. If you don't name it, the color will not be added, even if you click <strong>OK</strong></p>
+<p><img src="images/add_colors3.png"></p>
+<h4>Duplicate</h4>
+<p>In the <i>Colors</i> dialog above, click a color you wish to modify. This will of course bring up <i>Edit Color</i>, but click <strong>Cancel</strong>, so that you can go back and click <strong>Duplicate</strong>. Now your color name will show as <i>Copy of ...</i> and you can edit in the various ways we have shown and change the name.</p>
+<h4>Getting Rid of Colors</h4>
+<p>You can do this individually, by highlighting a color then clicking <strong>Delete</strong>, or you might consider reducing the number of colors on the list by clicking <strong>Remove Unused</strong>, which deletes any colors you have not actually used in your document.</p>
+<h3>Automatic and Semi-automatic Methods</h3>
+<h4>From another document</h4>
+<p>If you begin with a previously saved document, you will use its color set. If you extrapolate from this fact, then you might choose to open a document, delete its content, and <i>File > Save As</i> under a new name.</p>
+<p>You might even anticipate this, especially if you have a customized color palette, by saving an empty document named something like "colorscheme3.sla" or some other meaningful guide to finding it later.</p>
+You could also consider that when you import a page from another document, its colors will be imported. Lastly, even if you have already begun a new document, you can open <i>Edit > Colors</i>, and choose <strong>Import</strong> from the dialog to import the colors from another document.</p>
+<h4>From Imported Objects</h4>
+<p>Whenever you import an object from the Scrapbook, its colors will be added to the document. Similarly, vector graphics (SVG, EPS, and so on) will also add any colors they may contain.</p>
+
+<table width="90%" cellpadding="5">
+<tr>
+<td><img src="images/add_colors1.png"></td>
+<td><p>&nbsp; </p><p>&nbsp; </p><p>&nbsp; </p><p>In this example, following import of an SVG, we take a look at the Colors dialog (<i>Edit > Colors</i>), so that we can point out some particulars.</p>
+<p>We started out with the Scribus Basic color set, then imported an SVG, which has added these colors which begin with <i>FromSVG</i>. Scribus does not ask you for your Ok to do this &ndash; for one thing, consider the job this would create for a many-colored graphic.</p>
+<p>In case you only want to import the colors from a vector file (EPS and variants, PS), or from suitable palette files [AI (Adobe Illustrator) GPL (Gimp color palettes), SOC (OpenDocument color palettes), or a suitably formatted Scribus XML description], this would also be an option by selecting <strong>Import</strong> in the <i>Colors</i> dialog. 
+</td></tr></table>
+<p>Notice the many blacks we have here, yet each is unique. Our newly added black, <i>FromSVG#000000</i>, is an RGB black, all the others are CMYK blacks. If you hover your mouse cursor over each one, you will see the differences.</p>
+<table cellpadding="5">
+<tr>
+<td></td><td><b>C%</b></td><td><b>M%</b></td><td><b>Y%</b></td><td><b>K%</b></td></tr>
+<tr>
+<td>Black</td><td align="center">0</td><td align="center">0</td><td align="center">0</td><td align="center">100</td></tr>
+<tr>
+<td>Cool Black</td><td align="center">60</td><td align="center">0</td><td align="center">0</td><td align="center">100</td></tr>
+<tr>
+<td>Registration</td><td align="center">100</td><td align="center">100</td><td align="center">100</td><td align="center">100</td></tr>
+<tr>
+<td>Rich Black</td><td align="center">60</td><td align="center">40</td><td align="center">40</td><td align="center">100</td></tr>
+<tr>
+<td>Warm Black</td><td align="center">0</td><td align="center">60</td><td align="center">30</td><td align="center">100</td></tr>
+</table>
+
+</body>
+</html>
