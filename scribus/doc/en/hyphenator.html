@@ -34,15 +34,22 @@
 <h3>Spellchecking</h3>
 <p>For spellchecking Scribus uses the <a href="http://hunspell.sourceforge.net/">Hunspell</a> library, which is also utilized by other popular programs like LibreOffice, Firefox or InDesign.</p>
 <h4>Configuration</h4>
-<p>Under <i>File > Preferences > Hyphenation and Spelling</i> you find a second tab called &ldquo;Spelling&rdquo;. The purpose of this dialog is not the configuration of spellchecking options per se, but the management of available dictionaries.</p>
+<p>Under <i>File &gt; Preferences &gt; Hyphenation and Spelling</i> you find a second tab called &ldquo;Spelling&rdquo;. The purpose of this dialog is not the configuration of spellchecking options per se, but the management of available dictionaries.</p>
 <br>
 <table width="100%"><tr><td align="center"><img src="images/hyphen2.png" align="center" alt="Hyphenator Settings Dialog" /></td></tr></table>
 <p>If you have already installed a program that uses Hunspell, like, for instance, LibreOffice, Scribus will try to detect the installed dictionaries and use them. Installed dictionaries will be listed in the left column of the dialog, where you can also see their location. To make proper use of the right column you need an internet connection, because Scribus will download a list of dictionaries available in LibreOffice&rsquo;s freedesktop.org repository. You can then select one or more new dictionaries for download. Please note that these dictionaries are stored in your home directory or its equivalent under <code>.scribus/dicts</code>, so other programs cannot use them, unless you copy them to the respective system or program directories.</p>
 <h4>Usage</h4>
-<p>Using the spellchecker in its current form can be tricky, especially on UNIX and Linux systems (including Mac&nbsp;OS&nbsp;X), where you have two spellchecking options, namely <i>Item&nbsp;&gt; Check Spelling</i> and <i>Item&nbsp;&gt; Spellchecker</i>. The latter will invoke the older GNU aspell library and dictionaries, which are not available for Haiku, OS/2, eCS or Windows. <i>Check Spelling</i> will invoke Hunspell.</p>
-<p>Spellchecking works on a frame basis, so just as with hyphenation, you have to select a text frame before you can let Scribus look for errors. One major difference between the hyphenator and the spellchecker is that you cannot set a default language. Scribus will use the system setting instead. If you want to use another language, you have to create a new <a href="WwStyles.html">character style</a>. As you can see below, there is a language selector in the spellchecking dialog, but it will only work for the currently indicated word and then jump back to the language of your character style. The rest should be self-explanatory.</p>
+<p>Spellchecking works on a frame basis, so just as with hyphenation, you have to select a text frame before you can let Scribus look for errors. With a text frame selected, click <i>Item&nbsp;&gt; Check Spelling</i>. One major difference between the hyphenator and the spellchecker is that you cannot set a default language. Scribus will use the system setting instead. If you want to use another language, you have to create a new <a href="WwStyles.html">character style</a>. As you can see below, there is a language selector in the spellchecking dialog, but it will only work for the currently indicated word and then jump back to the language of your character style. The rest should be self-explanatory.</p>
 <br>
 <table width="100%"><tr><td align="center"><img src="images/hyphen3.png" align="center" alt="Hyphenator Settings Dialog" /></td></tr></table>
+
+<table border="1" align="center">
+  <tbody>
+    <tr>
+      <td><span style="color: red;"><i>If you have dictionaries for more than one language installed, or more than one dictionary for a single language, the spellchecker may not work correctly or not at all. For example, if your character style uses &ldquo;English&rdquo; as the language setting, using the dictionary &ldquo;en_US&rdquo; (US-American English) won&rsquo;t work, as &ldquo;English&rdquo; is being mapped to &ldquo;en_GB&rdquo;. Likewise, &ldquo;German&rdquo; will be mapped to &ldquo;de_DE&rdquo;. This cannot be fixed in the 1.4.x series because it would break backward compatibility with Scribus files created with prior 1.4.x versions. The file format of the next Scribus version will handle this correctly. As a workaround you can either install the working version (e.g. en_GB or de_DE) or to remove or temporarily disable (=rename) other dictionaries.</i></span></td>
+    </tr>
+  </tbody>
+</table>
 <br>
 <br>
 </body>

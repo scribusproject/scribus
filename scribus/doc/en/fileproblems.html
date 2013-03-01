@@ -54,6 +54,8 @@
 <h4>Autosave</h4>
 <p>To let Scribus save your results in regular intervals, you can activate &ldquo;Autosave&rdquo; and set the interval in the <a href="settings1.html#2">Document section</a> of the Document Setup/Preferences. In addition to automatically saving your Scribus document, Scribus also creates a copy of the document. The copy&rsquo;s file name consists of the original file name extended by the extension &ldquo;.autosave&rdquo;. Thus, the &ldquo;autosave&rdquo; copy of <code>myfile.sla</code> will be stored as <code>myfile.sla.autosave</code>. Should a SLA file have been damaged, you can always remove the &ldquo;.autosave&rdquo; extension and then open the &ldquo;autosaved&rdquo; version in Scribus. This procedure will give you the latest automatically saved version of your Scribus document.</p>
 <h4>Emergency Backup Files</h4>
+<p>If &ldquo;Autosave&rdquo; isn&rsquo;t enabled or Scribus crashes unexpectedly between two autosave intervals, not all is lost, because Scribus tries to save an emergency backup file before exiting. If this mechanism worked, you will find the emergency backup in the same directory as your saved file with the additional file extension &ldquo;.emergency&rdquo;. Thus, the emergency backup of <code>myfile.sla</code> will be saved as <code>myfile.sla.emergency</code>.</p>
+<p>Before you rename an autosave or emergency backup file to a normal Scribus file in the same directory (which would require overwriting/deleting the original, you should compare the file sizes. For instance, if the original file has a size of 5 MB, whereas the *.autosave or *.emergency file is only 40 KB, the mechanism didn&rsquo;t work as expected.</p>
 
 <h3>Other Potential Sources for Errors</h3>
 
