@@ -57,6 +57,7 @@
 			<submenuitem text="dtp studio Color Sets" file="color6.html" />
 			<submenuitem text="GiveLife Color System" file="color7.html" />
 			<submenuitem text="Special Purpose Colors" file="color8.html" />
+			<submenuitem text="What about Pantone, HKS and others?" file="color10.html" />
 		</submenuitem>
 		<submenuitem text="Importing" file="importhints.html">
 			<submenuitem text="Importing Bitmap Files" file="importbitmap1.html" />
