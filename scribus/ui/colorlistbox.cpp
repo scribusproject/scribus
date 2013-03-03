@@ -247,7 +247,6 @@ void ColorListBox::slotRightClick()
 	{
 		QString first = QString();
 		QMenu *pmen = new QMenu();
-		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 		pmen->addAction( tr("Sort by Name"));
 		pmen->addAction( tr("Sort by Color"));
 		pmen->addAction( tr("Sort by Type"));

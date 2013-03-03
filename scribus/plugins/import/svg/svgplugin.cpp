@@ -397,7 +397,7 @@ void SVGPlug::convert(const TransactionSettings& trSettings, int flags)
 	if (!(flags & LoadSavePlugin::lfLoadAsPattern))
 		m_Doc->view()->updatesOn(false);
 	m_Doc->scMW()->setScriptRunning(true);
-	qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
+	qApp->setOverrideCursor(QCursor(Qt::WaitCursor));
 	gc->FontFamily = m_Doc->itemToolPrefs().textFont;
 	if (!m_Doc->PageColors.contains("Black"))
 		m_Doc->PageColors.insert("Black", ScColor(0, 0, 0, 255));
@@ -557,6 +557,7 @@ void SVGPlug::convert(const TransactionSettings& trSettings, int flags)
 		if (interactive)
 			m_Doc->view()->DrawNew();
 	}
+	qApp->restoreOverrideCursor();
 }
 
 void SVGPlug::addGraphicContext()

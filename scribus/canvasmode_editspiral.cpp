@@ -106,8 +106,6 @@ void CanvasMode_EditSpiral::enterEvent(QEvent *)
 
 void CanvasMode_EditSpiral::leaveEvent(QEvent *e)
 {
-	if (!m_canvas->m_viewMode.m_MouseButtonPressed)
-		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 }
 
 
@@ -364,7 +362,7 @@ void CanvasMode_EditSpiral::mousePressEvent(QMouseEvent *m)
 	if(m_arcPoint != noPointDefined)
 		trans = new UndoTransaction(undoManager->beginTransaction(Um::Polygon,Um::IPolygon,Um::EditSpiral,"",Um::IPolygon));
 	m_canvas->m_viewMode.m_MouseButtonPressed = true;
-	qApp->changeOverrideCursor(QCursor(Qt::CrossCursor));
+	m_view->setCursor(QCursor(Qt::CrossCursor));
 	m_doc->regionsChanged()->update(itemMatrix.mapRect(QRectF(0, 0, currItem->width(), currItem->height())).adjusted(-5, -5, 10, 10));
 }
 

@@ -2553,12 +2553,12 @@ QString Scribus13Format::AskForFont(QString fStr, ScribusDoc *doc)
 	{
 		if ((!prefsManager->appPrefs.fontPrefs.GFontSub.contains(tmpf)) || (!(*m_AvailableFonts)[prefsManager->appPrefs.fontPrefs.GFontSub[tmpf]].usable()))
 		{
-			qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+			qApp->setOverrideCursor(QCursor(Qt::ArrowCursor));
 			MissingFont *dia = new MissingFont(0, tmpf, doc);
 			dia->exec();
 			tmpf = dia->getReplacementFont();
 			delete dia;
-			qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
+			qApp->restoreOverrideCursor();
 			prefsManager->appPrefs.fontPrefs.GFontSub[fStr] = tmpf;
 		}
 		else

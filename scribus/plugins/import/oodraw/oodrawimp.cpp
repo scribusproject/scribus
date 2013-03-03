@@ -513,7 +513,7 @@ bool OODPlug::convert(const TransactionSettings& trSettings, int flags)
 	if (!(flags & LoadSavePlugin::lfLoadAsPattern))
 		m_Doc->view()->updatesOn(false);
 	m_Doc->scMW()->setScriptRunning(true);
-	qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
+	qApp->setOverrideCursor(QCursor(Qt::WaitCursor));
 	if (!m_Doc->PageColors.contains("Black"))
 		m_Doc->PageColors.insert("Black", ScColor(0, 0, 0, 255));
 	for( QDomNode drawPag = drawPagePNode.firstChild(); !drawPag.isNull(); drawPag = drawPag.nextSibling() )
@@ -611,6 +611,7 @@ bool OODPlug::convert(const TransactionSettings& trSettings, int flags)
 			m_Doc->view()->updatesOn(true);
 		m_Doc->setLoading(loadF);
 	}
+	qApp->restoreOverrideCursor();
 	return true;
 }
 

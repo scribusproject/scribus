@@ -61,21 +61,23 @@ void AdapterWidget::mousePressEvent ( QMouseEvent* event )
 	switch ( event->button() )
 	{
 		case Qt::LeftButton:
-			qApp->changeOverrideCursor(QCursor(Qt::OpenHandCursor));
+			qApp->setOverrideCursor(QCursor(Qt::OpenHandCursor));
 			button = 1;
 			break;
 		case Qt::MidButton:
-			qApp->changeOverrideCursor(QCursor(Qt::SizeAllCursor));
+			qApp->setOverrideCursor(QCursor(Qt::SizeAllCursor));
 			button = 2;
 			break;
 		case Qt::RightButton:
-			qApp->changeOverrideCursor(QCursor(loadIcon("LupeZ.xpm")));
+			qApp->setOverrideCursor(QCursor(loadIcon("LupeZ.xpm")));
 			button = 3;
 			break;
 		case Qt::NoButton:
+			qApp->setOverrideCursor(QCursor(Qt::ArrowCursor));
 			button = 0;
 			break;
 		default:
+			qApp->setOverrideCursor(QCursor(Qt::ArrowCursor));
 			button = 0;
 			break;
 	}
@@ -92,7 +94,7 @@ void AdapterWidget::mouseReleaseEvent ( QMouseEvent* event )
 		case ( Qt::NoButton ) : button = 0; break;
 		default: button = 0; break;
 	}
-	qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+	qApp->restoreOverrideCursor();
 	_gw->getEventQueue()->mouseButtonRelease ( event->x(), event->y(), button );
 }
 

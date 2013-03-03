@@ -536,7 +536,7 @@ void OutlinePalette::slotRightClick(QPoint point)
 			signalMapper4->setMapping(actLock, item->LayerID);
 			connect(actLock, SIGNAL(triggered()), signalMapper4, SLOT(map()));
 			connect(signalMapper4, SIGNAL(mapped(int)), this, SLOT(setLayerLocked(int)));
-			qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+	//		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 			pmenu->exec(QCursor::pos());
 			delete pmenu;
 		}
@@ -1400,7 +1400,7 @@ void OutlinePalette::createContextMenu(PageItem * currItem, double mx, double my
 	if (m_MainWindow==NULL || currDoc==NULL)
 		return;
 	ContextMenu* cmen=NULL;
-	qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+//	qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 	if(currItem!=NULL)
 		cmen = new ContextMenu(*(currDoc->m_Selection), m_MainWindow, currDoc);
 	else

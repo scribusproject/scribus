@@ -141,6 +141,7 @@ void GradientPreview::mousePressEvent(QMouseEvent *m)
 {
 	QRect fpo;
 	Mpressed = true;
+	qApp->setOverrideCursor(QCursor(Qt::ArrowCursor));
 	ActStop = -1;
 	if (isEditable)
 	{
@@ -162,6 +163,7 @@ void GradientPreview::mousePressEvent(QMouseEvent *m)
 
 void GradientPreview::mouseReleaseEvent(QMouseEvent *m)
 {
+	qApp->restoreOverrideCursor();
 	QRect insideRect = QRect(10, 43, width()-20, 13);
 	if (isEditable)
 	{
@@ -218,7 +220,7 @@ void GradientPreview::mouseReleaseEvent(QMouseEvent *m)
 			contextStop = stop;
 			mPos = m->pos();
 			QMenu *pmen = new QMenu();
-			qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+			setCursor(QCursor(Qt::ArrowCursor));
 			pmen->addAction( tr("Add Stop"), this, SLOT(addStop()));
 			if (stop != -1)
 				pmen->addAction( tr("Remove Stop"), this, SLOT(removeStop()));
@@ -243,13 +245,13 @@ void GradientPreview::mouseMoveEvent(QMouseEvent *m)
 		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 		if ((!Mpressed) && (m->y() < height()) && (m->y() > 43) && (m->x() > 9) && (m->x() < width()-9))
 		{
-			qApp->changeOverrideCursor(QCursor(loadIcon("AddPoint.png"), 1, 1));
+			setCursor(QCursor(loadIcon("AddPoint.png"), 1, 1));
 			for (int yg = 0; yg < static_cast<int>(StopM.count()); ++yg)
 			{
 				fpo = QRect(static_cast<int>(StopM[yg])-4, 43, 8, 13);
 				if (fpo.contains(m->pos()))
 				{
-					qApp->changeOverrideCursor(QCursor(Qt::SizeHorCursor));
+					setCursor(QCursor(Qt::SizeHorCursor));
 					return;
 				}
 			}
@@ -287,10 +289,13 @@ void GradientPreview::leaveEvent(QEvent*)
 {
 	if (isEditable)
 	{
-		if ((Mpressed) && (ActStop > 0) && (ActStop != static_cast<int>(StopM.count()-1)))
-			qApp->changeOverrideCursor(QCursor(loadIcon("DelPoint.png"), 1, 1));
-		else
-			qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+		if (Mpressed)
+		{
+			if ((ActStop > 0) && (ActStop != static_cast<int>(StopM.count()-1)))
+				qApp->changeOverrideCursor(QCursor(loadIcon("DelPoint.png"), 1, 1));
+			else
+				qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+		}
 		outside = true;
 	}
 }

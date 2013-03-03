@@ -64,6 +64,7 @@ void RulerMover::mousePressEvent(QMouseEvent *m)
 	if (m->button() == Qt::LeftButton)
 	{
 		Mpressed = true;
+		qApp->setOverrideCursor(QCursor(Qt::CrossCursor));
 		currView->startGesture(rulerGesture);
 	}
 	QWidget::mousePressEvent(m);
@@ -71,7 +72,7 @@ void RulerMover::mousePressEvent(QMouseEvent *m)
 
 void RulerMover::mouseReleaseEvent(QMouseEvent *m)
 {
-	qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+	qApp->restoreOverrideCursor();
 	if (Mpressed)
 	{
 		rulerGesture->mouseReleaseEvent(m);
@@ -81,7 +82,6 @@ void RulerMover::mouseReleaseEvent(QMouseEvent *m)
 	{
 		QMenu *pmen = new QMenu();
 		QMenu *pmen2 = NULL;
-		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 		pmen->addAction( tr("Reset Rulers"), this, SLOT(resetRulers()));
 		pmen->addAction(currView->Doc->scMW()->scrActions["viewRulerMode"]);
 		if (currView->Doc->guidesPrefs().rulerMode)

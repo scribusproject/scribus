@@ -69,7 +69,7 @@ void CanvasMode_EditTable::activate(bool fromGesture)
 	m_table = item->asTable();
 
 	if (fromGesture)
-		qApp->changeOverrideCursor(Qt::ArrowCursor);
+		m_view->setCursor(Qt::ArrowCursor);
 
 	m_lastCursorPos = -1;
 	m_blinkTime.start();
@@ -188,7 +188,7 @@ void CanvasMode_EditTable::mouseMoveEvent(QMouseEvent* event)
 				qWarning("Unknown hit target");
 				break;
 		}
-		qApp->changeOverrideCursor(cursor);
+		m_view->setCursor(cursor);
 	}
 }
 
@@ -245,7 +245,6 @@ void CanvasMode_EditTable::mousePressEvent(QMouseEvent* event)
 	else if (event->button() == Qt::RightButton)
 	{
 		// Show the table popup menu.
-		qApp->changeOverrideCursor(Qt::ArrowCursor);
 		m_view->m_ScMW->scrMenuMgr->runMenuAtPos("ItemTable", event->globalPos());
 	}
 }

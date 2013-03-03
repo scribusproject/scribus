@@ -406,7 +406,6 @@ void CMYKChoose::setValSLiders(double value)
 void CMYKChoose::slotRightClick()
 {
 	QMenu *pmen = new QMenu();
-	qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 	QAction* dynAct;
 	if (dynamic)
 		dynAct = pmen->addAction( tr("Static Color Bars"));

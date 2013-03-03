@@ -372,7 +372,7 @@ void PagePalette_MasterPages::importPage()
 	{
 		if (currentDoc->appMode == modeEditClip)
 			currentView->requestMode(submodeEndNodeEdit);
-		qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
+		qApp->setOverrideCursor(QCursor(Qt::WaitCursor));
 		int nr = currentDoc->Pages->count();
 
 		QString MasterPageName(dia->getMasterPageNameText());
@@ -392,7 +392,7 @@ void PagePalette_MasterPages::importPage()
 
 		updateMasterPageList(MasterPageName2);
 		currentView->showMasterPage(currentDoc->MasterNames[MasterPageName2]);
-		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+		qApp->restoreOverrideCursor();
 	}
 	delete dia;
 }

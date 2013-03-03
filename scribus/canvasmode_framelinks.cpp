@@ -78,8 +78,6 @@ void CanvasMode_FrameLinks::enterEvent(QEvent *)
 
 void CanvasMode_FrameLinks::leaveEvent(QEvent *e)
 {
-	if (!m_canvas->m_viewMode.m_MouseButtonPressed)
-		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 }
 
 
@@ -193,7 +191,6 @@ void CanvasMode_FrameLinks::mousePressEvent(QMouseEvent *m)
 				{
 					if (bb->prevInChain() != NULL)
 					{
-						qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 						QMessageBox msgBox(QMessageBox::Question, tr("Linking Text Frames"),
 										   "<qt>" + ScribusView::tr("Do you want to insert the frame into the selected text chain? If so, where would you like to insert it?") + "<qt>");
 						//QMessageBox msgBox;
@@ -462,11 +459,11 @@ bool CanvasMode_FrameLinks::SeleItem(QMouseEvent *m)
 		{
 			frameResizeHandle = m_canvas->frameHitTest(QPointF(mousePointDoc.x(),mousePointDoc.y()), currItem);
 			if ((frameResizeHandle == Canvas::INSIDE) && (!currItem->locked()))
-				qApp->changeOverrideCursor(QCursor(Qt::SizeAllCursor));
+				m_view->setCursor(QCursor(Qt::SizeAllCursor));
 		}
 		else
 		{
-			qApp->changeOverrideCursor(QCursor(Qt::SizeAllCursor));
+			m_view->setCursor(QCursor(Qt::SizeAllCursor));
 			m_canvas->m_viewMode.operItemResizing = false;
 		}
 		return true;
@@ -480,7 +477,6 @@ bool CanvasMode_FrameLinks::SeleItem(QMouseEvent *m)
 void CanvasMode_FrameLinks::createContextMenu(PageItem* currItem, double mx, double my)
 {
 	ContextMenu* cmen=NULL;
-	qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 	m_view->setObjectUndoMode();
 	Mxp = mx;
 	Myp = my;

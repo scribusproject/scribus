@@ -193,8 +193,6 @@ void CreateMode::enterEvent(QEvent *)
 
 void CreateMode::leaveEvent(QEvent *e)
 {
-	if (!m_MouseButtonPressed)
-		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 }
 
 
@@ -791,7 +789,7 @@ PageItem* CreateMode::doCreateNewObject(void)
 				break;
 			}
 			// Show table insert dialog.
-			qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+		//	qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 			InsertTable *dia = new InsertTable(m_view, static_cast<int>(tableRect.height()/6), static_cast<int>(tableRect.width()/6));
 			if (!dia->exec())
 			{
@@ -876,7 +874,7 @@ bool CreateMode::doOneClick(FPoint& startPoint, FPoint& endPoint)
 		originPoint = sizes->getInt("OriginL", 0);
 	}
 
-	qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+//	qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 	OneClick *dia = new OneClick(m_view, ScribusView::tr("Enter Object Size"), m_doc->unitIndex(), xSize, ySize, doRemember, originPoint, lmode);
 	if (dia->exec())
 	{

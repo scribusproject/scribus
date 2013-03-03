@@ -128,8 +128,6 @@ void CanvasMode_ImageImport::keyPressEvent(QKeyEvent *e)
 
 void CanvasMode_ImageImport::leaveEvent(QEvent *e)
 {
-	if (!m_canvas->m_viewMode.m_MouseButtonPressed)
-		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 }
 
 void CanvasMode_ImageImport::activate(bool fromGesture)
@@ -171,12 +169,12 @@ void CanvasMode_ImageImport::mouseMoveEvent(QMouseEvent *m)
 	{
 		PageItem_ImageFrame *currItem;
 		if((currItem = item->asImageFrame()) != NULL)
-			qApp->changeOverrideCursor(QCursor(loadIcon("DrawImageFrame.xpm")));
+			m_view->setCursor(QCursor(loadIcon("DrawImageFrame.xpm")));
 		else
-			qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+			m_view->setCursor(QCursor(Qt::ArrowCursor));
 	}
 	else
-		qApp->changeOverrideCursor(QCursor(loadIcon("DrawImageFrame.xpm")));
+		m_view->setCursor(QCursor(loadIcon("DrawImageFrame.xpm")));
 	if (commonMouseMove(m))
 		return;
 }

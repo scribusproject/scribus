@@ -71,8 +71,6 @@ void CalligraphicMode::enterEvent(QEvent *)
 
 void CalligraphicMode::leaveEvent(QEvent *e)
 {
-	if (!m_MouseButtonPressed)
-		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 }
 
 

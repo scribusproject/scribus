@@ -215,7 +215,7 @@ bool SmlPlug::import(QString fNameIn, const TransactionSettings& trSettings, int
 	if (!(flags & LoadSavePlugin::lfLoadAsPattern))
 		m_Doc->view()->updatesOn(false);
 	m_Doc->scMW()->setScriptRunning(true);
-	qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
+	qApp->setOverrideCursor(QCursor(Qt::WaitCursor));
 	QString CurDirP = QDir::currentPath();
 	QDir::setCurrent(fi.path());
 	if (convert(fName))
@@ -298,6 +298,7 @@ bool SmlPlug::import(QString fNameIn, const TransactionSettings& trSettings, int
 		if ((showProgress) && (!interactive))
 			m_Doc->view()->DrawNew();
 	}
+	qApp->restoreOverrideCursor();
 	return success;
 }
 

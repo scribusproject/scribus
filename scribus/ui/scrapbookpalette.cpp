@@ -1026,7 +1026,6 @@ void Biblio::HandleMouse(QPoint p)
 		pmenu->addMenu(pmenu2);
 		if (activeBView->canWrite)
 			pmenu->addMenu(pmenu3);
-		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 		pmenu->exec(QCursor::pos());
 		delete pmenu;
 		delete pmenu2;
@@ -1047,7 +1046,6 @@ void Biblio::HandleMouse(QPoint p)
 			connect(delAct, SIGNAL(triggered()), this, SLOT(deleteAllObj()));
 		}
 		connect(closeAct, SIGNAL(triggered()), this, SLOT(closeLib()));
-		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 		pmenu->exec(QCursor::pos());
 		delete pmenu;
 	}
@@ -1380,7 +1378,6 @@ void Biblio::ObjFromFile(QString path, int testResult)
 			if (activeBView->objectMap.contains(nam))
 				nam += "("+ tmp.setNum(tempCount) + ")";
 		}
-		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 		Query dia(this, "tt", 1, 0, tr("&Name:"), tr("New Entry"));
 		dia.setValidator(QRegExp("[\\w()]+"));
 		dia.setEditText(nam, true);
@@ -1509,7 +1506,6 @@ void Biblio::ObjFromMenu(QString text)
 		if (activeBView->objectMap.contains(nam))
 			nam += "("+ tmp.setNum(tempCount) + ")";
 	}
-	qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 	Query dia(this, "tt", 1, 0, tr("&Name:"), tr("New Entry"));
 	dia.setValidator(QRegExp("[\\w()]+"));
 	dia.setEditText(nam, true);
@@ -1673,7 +1669,6 @@ void Biblio::ObjFromMainMenu(QString text, int scrapID)
 		nam = tr("Object") + tmp.setNum(actBView->objectMap.count());
 	if (actBView->objectMap.contains(nam))
 		nam += "("+ tmp.setNum(tempCount) + ")";
-	qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 	Query dia(this, "tt", 1, 0, tr("&Name:"), tr("New Entry"));
 	dia.setValidator(QRegExp("[\\w()]+"));
 	dia.setEditText(nam, true);

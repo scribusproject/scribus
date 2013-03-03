@@ -787,50 +787,50 @@ void CanvasMode::setModeCursor()
 		case modeDrawShapes:
 		case modeDrawArc:
 		case modeDrawSpiral:
-			qApp->changeOverrideCursor(QCursor(loadIcon("DrawFrame.xpm")));
+			m_view->setCursor(QCursor(loadIcon("DrawFrame.xpm")));
 			break;
 		case modeDrawImage:
-			qApp->changeOverrideCursor(QCursor(loadIcon("DrawImageFrame.xpm")));
+			m_view->setCursor(QCursor(loadIcon("DrawImageFrame.xpm")));
 			break;
 		case modeDrawLatex:
-			qApp->changeOverrideCursor(QCursor(loadIcon("DrawLatexFrame.xpm")));
+			m_view->setCursor(QCursor(loadIcon("DrawLatexFrame.xpm")));
 			break;
 		case modeDrawText:
-			qApp->changeOverrideCursor(QCursor(loadIcon("DrawTextFrame.xpm")));
+			m_view->setCursor(QCursor(loadIcon("DrawTextFrame.xpm")));
 			break;
 		case modeDrawTable2:
-			qApp->changeOverrideCursor(QCursor(loadIcon("DrawTable.xpm")));
+			m_view->setCursor(QCursor(loadIcon("DrawTable.xpm")));
 			break;
 		case modeDrawRegularPolygon:
-			qApp->changeOverrideCursor(QCursor(loadIcon("DrawPolylineFrame.xpm")));
+			m_view->setCursor(QCursor(loadIcon("DrawPolylineFrame.xpm")));
 			break;
 		case modeDrawLine:
 		case modeDrawBezierLine:
-			qApp->changeOverrideCursor(QCursor(Qt::CrossCursor));
+			m_view->setCursor(QCursor(Qt::CrossCursor));
 			break;
 		case modeDrawFreehandLine:
-			qApp->changeOverrideCursor(QCursor(loadIcon("DrawFreeLine.png"), 0, 31));
+			m_view->setCursor(QCursor(loadIcon("DrawFreeLine.png"), 0, 31));
 			break;
 		case modeDrawCalligraphicLine:
-			qApp->changeOverrideCursor(QCursor(loadIcon("DrawCalligraphy.xpm"), 4, 4));
+			m_view->setCursor(QCursor(loadIcon("DrawCalligraphy.xpm"), 4, 4));
 			break;
 		case modeImportObject:
-			qApp->changeOverrideCursor(QCursor(loadIcon("DragPix.xpm")));
+			m_view->setCursor(QCursor(loadIcon("DragPix.xpm")));
 			break;
 		case modeMagnifier:
 			if (m_view->Magnify)
-				qApp->changeOverrideCursor(QCursor(loadIcon("LupeZ.xpm")));
+				m_view->setCursor(QCursor(loadIcon("LupeZ.xpm")));
 			else
-				qApp->changeOverrideCursor(QCursor(loadIcon("LupeZm.xpm")));
+				m_view->setCursor(QCursor(loadIcon("LupeZm.xpm")));
 			break;
 		case modePanning:
-			qApp->changeOverrideCursor(QCursor(loadIcon("HandC.xpm")));
+			m_view->setCursor(QCursor(loadIcon("HandC.xpm")));
 			break;
 		case modeEyeDropper:
-			qApp->changeOverrideCursor(QCursor(loadIcon("colorpickercursor.png"), 0, 31));
+			m_view->setCursor(QCursor(loadIcon("colorpickercursor.png"), 0, 31));
 			break;
 		case modeLinkFrames:
-			qApp->changeOverrideCursor(QCursor(loadIcon("LinkTextFrame.png"), 0, 31));
+			m_view->setCursor(QCursor(loadIcon("LinkTextFrame.png"), 0, 31));
 			break;
 		case modeMeasurementTool:
 		case modeEditGradientVectors:
@@ -849,10 +849,10 @@ void CanvasMode::setModeCursor()
 		case modeEditArc:
 		case modeEditPolygon:
 		case modeEditSpiral:
-			qApp->changeOverrideCursor(QCursor(Qt::CrossCursor));
+			m_view->setCursor(QCursor(Qt::CrossCursor));
 			break;
 		default:
-			qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+			m_view->setCursor(QCursor(Qt::ArrowCursor));
 			break;
 	}
 }
@@ -906,22 +906,22 @@ void CanvasMode::setResizeCursor(int how, double rot)
 	{
 		case 1:
 		case 2:
-			qApp->changeOverrideCursor(ScResizeCursor(135 + rot));// Qt::SizeFDiagCursor
+			m_view->setCursor(ScResizeCursor(135 + rot));// Qt::SizeFDiagCursor
 			break;
 		case 3:
 		case 4:
-			qApp->changeOverrideCursor(ScResizeCursor(45 + rot));// Qt::SizeBDiagCursor
+			m_view->setCursor(ScResizeCursor(45 + rot));// Qt::SizeBDiagCursor
 			break;
 		case 5:
 		case 8:
-			qApp->changeOverrideCursor(ScResizeCursor(0 + rot));// Qt::SizeVerCursor
+			m_view->setCursor(ScResizeCursor(0 + rot));// Qt::SizeVerCursor
 			break;
 		case 6:
 		case 7:
-			qApp->changeOverrideCursor(ScResizeCursor(90 + rot));// Qt::SizeHorCursor
+			m_view->setCursor(ScResizeCursor(90 + rot));// Qt::SizeHorCursor
 			break;
 		default:
-			qApp->changeOverrideCursor(QCursor(Qt::SizeAllCursor));
+			m_view->setCursor(QCursor(Qt::SizeAllCursor));
 			break;
 	}
 }
@@ -1150,7 +1150,7 @@ void CanvasMode::commonkeyPressEvent_NormalNodeEdit(QKeyEvent *e)
 		if (currKeySeq.matches(scrActions["viewShowContextMenu"]->shortcut()) == QKeySequence::ExactMatch)
 		{
 			ContextMenu* cmen=NULL;
-			qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+			m_view->setCursor(QCursor(Qt::ArrowCursor));
 			if (m_doc->m_Selection->count() == 0)
 			{
 				//CB We should be able to get this calculated by the canvas.... it is already in m_canvas->globalToCanvas(m->globalPos());
@@ -1676,7 +1676,7 @@ void CanvasMode::commonkeyReleaseEvent(QKeyEvent *e)
 	if ((m_doc->appMode == modePanning) && (e->key() == Qt::Key_Control) && (QApplication::mouseButtons() & Qt::RightButton))
 		m_view->requestMode(modeNormal);
 	if (m_doc->appMode == modeMagnifier)
-		qApp->changeOverrideCursor(QCursor(loadIcon("LupeZ.xpm")));
+		m_view->setCursor(QCursor(loadIcon("LupeZ.xpm")));
 	if (e->isAutoRepeat() || !m_arrowKeyDown)
 		return;
 	switch(e->key())

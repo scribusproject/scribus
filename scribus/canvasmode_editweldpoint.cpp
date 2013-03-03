@@ -119,8 +119,6 @@ void CanvasMode_EditWeldPoint::enterEvent(QEvent *)
 
 void CanvasMode_EditWeldPoint::leaveEvent(QEvent *e)
 {
-	if (!m_canvas->m_viewMode.m_MouseButtonPressed)
-		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 }
 
 
@@ -421,7 +419,7 @@ void CanvasMode_EditWeldPoint::mousePressEvent(QMouseEvent *m)
 		}
 	}
 	m_canvas->m_viewMode.m_MouseButtonPressed = true;
-	qApp->changeOverrideCursor(QCursor(Qt::CrossCursor));
+	m_view->setCursor(QCursor(Qt::CrossCursor));
 	m_doc->regionsChanged()->update(getUpdateRect());
 }
 

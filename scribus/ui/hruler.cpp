@@ -226,7 +226,7 @@ void Hruler::mousePressEvent(QMouseEvent *m)
 			ActTab = 0;
 			RulerCode = rc_tab;
 			UpdateTabList();
-			qApp->changeOverrideCursor(QCursor(Qt::SizeHorCursor));
+			qApp->setOverrideCursor(QCursor(Qt::SizeHorCursor));
 			emit DocChanged(false);
 		}
 	}
@@ -234,7 +234,7 @@ void Hruler::mousePressEvent(QMouseEvent *m)
 	{
 		if (currDoc->guidesPrefs().guidesShown)
 		{
-			qApp->changeOverrideCursor(QCursor(SPLITHC));
+			qApp->setOverrideCursor(QCursor(SPLITHC));
 			currView->startGesture(rulerGesture);
 		}
 	}
@@ -317,7 +317,6 @@ void Hruler::mouseReleaseEvent(QMouseEvent *m)
 				tempSelection.addItem(currItem);
 				currDoc->itemSelection_ApplyParagraphStyle(paraStyle, &tempSelection);
 				emit DocChanged(false);
-				qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 			}
 		}
 		RulerCode = rc_none;
@@ -333,6 +332,7 @@ void Hruler::mouseReleaseEvent(QMouseEvent *m)
 		}
 	}
 	Mpressed = false;
+	qApp->restoreOverrideCursor();
 }
 
 void Hruler::enterEvent(QEvent *e)
@@ -451,26 +451,26 @@ void Hruler::mouseMoveEvent(QMouseEvent *m)
 		}
 		if ((!Mpressed) && (m->y() < height()) && (m->y() > 0) && (m->x() > ColStart - 2*currDoc->guidesPrefs().grabRadius) && (m->x() < ColEnd + 2*currDoc->guidesPrefs().grabRadius))
 		{
-			qApp->changeOverrideCursor(QCursor(loadIcon("tab.png"), 3));
+			setCursor(QCursor(loadIcon("tab.png"), 3));
 			switch(findRulerHandle(m->pos(), currDoc->guidesPrefs().grabRadius))
 			{
 				case rc_leftFrameDist: 
-					qApp->changeOverrideCursor(QCursor(Qt::SplitHCursor));
+					setCursor(QCursor(Qt::SplitHCursor));
 					break;
 				case rc_rightFrameDist:
-					qApp->changeOverrideCursor(QCursor(Qt::SplitHCursor));
+					setCursor(QCursor(Qt::SplitHCursor));
 					break;
 				case rc_indentFirst:
-					qApp->changeOverrideCursor(QCursor(Qt::SizeHorCursor));
+					setCursor(QCursor(Qt::SizeHorCursor));
 					break;
 				case rc_leftMargin:
-					qApp->changeOverrideCursor(QCursor(Qt::SizeHorCursor));
+					setCursor(QCursor(Qt::SizeHorCursor));
 					break;
 				case rc_rightMargin:
-					qApp->changeOverrideCursor(QCursor(Qt::SizeHorCursor));
+					setCursor(QCursor(Qt::SizeHorCursor));
 					break;
 				case rc_tab:
-					qApp->changeOverrideCursor(QCursor(Qt::SizeHorCursor));
+					setCursor(QCursor(Qt::SizeHorCursor));
 					break;
 			}
 			Draw(m->x());
@@ -480,10 +480,10 @@ void Hruler::mouseMoveEvent(QMouseEvent *m)
 		}
 		if ((Mpressed) && (RulerCode == rc_tab) && ((m->y() > height()) || (m->y() < 0)))
 		{
-			qApp->changeOverrideCursor(QCursor(loadIcon("DelPoint.png"), 1, 1));
+			setCursor(QCursor(loadIcon("DelPoint.png"), 1, 1));
 			return;
 		}
-		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+		setCursor(QCursor(Qt::ArrowCursor));
 	}
 	else
 	{
@@ -492,14 +492,7 @@ void Hruler::mouseMoveEvent(QMouseEvent *m)
 			rulerGesture->mouseMoveEvent(m);
 		}
 		else
-		{
-			QCursor* cursor = qApp->overrideCursor();
-			Qt::CursorShape shape = cursor ? cursor->shape() : Qt::ArrowCursor;
-			if ((shape == Qt::SplitHCursor) || (shape == Qt::SplitVCursor))
-			{
-				qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
-			}
-		}
+			setCursor(QCursor(Qt::ArrowCursor));
 	}
 }
 

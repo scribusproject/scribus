@@ -72,8 +72,6 @@ void CanvasMode_Magnifier::enterEvent(QEvent *)
 
 void CanvasMode_Magnifier::leaveEvent(QEvent *e)
 {
-	if (!m_canvas->m_viewMode.m_MouseButtonPressed)
-		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 }
 
 
@@ -171,12 +169,12 @@ void CanvasMode_Magnifier::mousePressEvent(QMouseEvent *m)
 	if ((m->modifiers() == Qt::ShiftModifier) || (m->button() == Qt::RightButton))
 	{
 		m_view->Magnify = false;
-		qApp->changeOverrideCursor(QCursor(loadIcon("LupeZm.xpm")));
+		m_view->setCursor(QCursor(loadIcon("LupeZm.xpm")));
 	}
 	else
 	{
 		m_view->Magnify = true;
-		qApp->changeOverrideCursor(QCursor(loadIcon("LupeZ.xpm")));
+		m_view->setCursor(QCursor(loadIcon("LupeZ.xpm")));
 	}
 	Mxp = mousePointDoc.x(); //m->globalPos().x();
 	Myp = mousePointDoc.y(); //m->globalPos().y();
@@ -230,9 +228,9 @@ void CanvasMode_Magnifier::mouseReleaseEvent(QMouseEvent *m)
 			else
 			{
 				if (m->modifiers() & Qt::ShiftModifier)
-					qApp->changeOverrideCursor(QCursor(loadIcon("LupeZm.xpm")));
+					m_view->setCursor(QCursor(loadIcon("LupeZm.xpm")));
 				else
-					qApp->changeOverrideCursor(QCursor(loadIcon("LupeZ.xpm")));
+					m_view->setCursor(QCursor(loadIcon("LupeZ.xpm")));
 			}
 		}
 	}

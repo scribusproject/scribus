@@ -48,7 +48,7 @@ void CellSelect::mousePressEvent(QMouseEvent* event)
 	if (event->button() == Qt::RightButton)
 	{
 		// Show the table popup menu.
-		qApp->changeOverrideCursor(Qt::ArrowCursor);
+		m_view->setCursor(Qt::ArrowCursor);
 		m_view->m_ScMW->scrMenuMgr->runMenuAtPos("ItemTable", event->globalPos());
 	}
 	else

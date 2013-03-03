@@ -354,8 +354,6 @@ void CanvasMode_EditMeshGradient::enterEvent(QEvent *)
 
 void CanvasMode_EditMeshGradient::leaveEvent(QEvent *e)
 {
-	if (!m_canvas->m_viewMode.m_MouseButtonPressed)
-		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 }
 
 
@@ -962,7 +960,7 @@ void CanvasMode_EditMeshGradient::mousePressEvent(QMouseEvent *m)
 	}
 	m_canvas->m_viewMode.m_MouseButtonPressed = true;
 	m_ScMW->propertiesPalette->updateColorSpecialGradient();
-	qApp->changeOverrideCursor(QCursor(Qt::CrossCursor));
+	m_view->setCursor(QCursor(Qt::CrossCursor));
 	m_doc->regionsChanged()->update(itemMatrix.mapRect(QRectF(0, 0, currItem->width(), currItem->height())).adjusted(-currItem->width() / 2.0, -currItem->height() / 2.0, currItem->width(), currItem->height()));
 }
 

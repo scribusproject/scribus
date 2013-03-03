@@ -315,7 +315,7 @@ void PaintManagerDialog::slotRightClick(QPoint p)
 		if ((it->parent() == colorItems) || (it == colorItems))
 		{
 			QMenu *pmen = new QMenu();
-			qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+//			qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 			pmen->addAction( tr("Sort by Name"));
 			pmen->addAction( tr("Sort by Color"));
 			pmen->addAction( tr("Sort by Type"));
@@ -1171,7 +1171,7 @@ void PaintManagerDialog::importColorItems()
 				return;
 			if (!fileName.isEmpty())
 			{
-				qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
+				qApp->setOverrideCursor(QCursor(Qt::WaitCursor));
 				PrefsManager::instance()->prefsFile->getContext("dirs")->set("patterns", fileName.left(fileName.lastIndexOf("/")));
 				QFileInfo fi(fileName);
 				if ((fi.suffix().toLower() == "sce") || (!imgFormats.contains(fi.suffix().toLower())))
@@ -1194,7 +1194,7 @@ void PaintManagerDialog::importColorItems()
 				updateGradientList();
 				updatePatternList();
 				itemSelected(0);
-				qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+				qApp->restoreOverrideCursor();
 			}
 		}
 	}
@@ -1235,7 +1235,7 @@ void PaintManagerDialog::loadPatternDir()
 			mainWin->setStatusBarInfoText( tr("Loading Patterns"));
 			mainWin->mainWindowProgressBar->reset();
 			mainWin->mainWindowProgressBar->setMaximum(d.count() * 2);
-			qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
+			qApp->setOverrideCursor(QCursor(Qt::WaitCursor));
 			qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
 			for (uint dc = 0; dc < d.count(); ++dc)
 			{
@@ -1271,7 +1271,7 @@ void PaintManagerDialog::loadPatternDir()
 			}
 			d.cdUp();
 			dirs->set("patterndir", d.absolutePath());
-			qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+			qApp->restoreOverrideCursor();
 			mainWin->setStatusBarInfoText("");
 			mainWin->mainWindowProgressBar->reset();
 		}

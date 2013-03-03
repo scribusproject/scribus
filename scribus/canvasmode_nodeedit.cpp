@@ -252,17 +252,11 @@ inline bool CanvasMode_NodeEdit::GetItem(PageItem** pi)
 
 void CanvasMode_NodeEdit::enterEvent(QEvent *)
 {
-	if (!m_canvas->m_viewMode.m_MouseButtonPressed)
-	{
-		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
-	}
 }
 
 
 void CanvasMode_NodeEdit::leaveEvent(QEvent *e)
 {
-	if (!m_canvas->m_viewMode.m_MouseButtonPressed)
-		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 }
 
 
@@ -332,9 +326,9 @@ void CanvasMode_NodeEdit::mouseMoveEvent(QMouseEvent *m)
 						MoveGY = true;
 					if (npf.x() < m_doc->currentPage()->xOffset() || 
 						npf.x() >= m_doc->currentPage()->xOffset() + m_doc->currentPage()->width() - 1)
-						qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+						m_view->setCursor(QCursor(Qt::ArrowCursor));
 					else
-						qApp->changeOverrideCursor(QCursor(Qt::SplitVCursor));
+						m_view->setCursor(QCursor(Qt::SplitVCursor));
 					return;
 				}
 			}
@@ -348,13 +342,13 @@ void CanvasMode_NodeEdit::mouseMoveEvent(QMouseEvent *m)
 						MoveGX = true;
 					if (npf.y() < m_doc->currentPage()->yOffset() || 
 						npf.y() >= m_doc->currentPage()->yOffset() + m_doc->currentPage()->height() - 1)
-						qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+						m_view->setCursor(QCursor(Qt::ArrowCursor));
 					else
-						qApp->changeOverrideCursor(QCursor(Qt::SplitHCursor));
+						m_view->setCursor(QCursor(Qt::SplitHCursor));
 					return;
 				}
 			}
-			qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+			m_view->setCursor(QCursor(Qt::ArrowCursor));
 		}
 	}
 }
@@ -1011,11 +1005,11 @@ bool CanvasMode_NodeEdit::handleNodeEditMove(QMouseEvent* m, QRect, PageItem* cu
 			if (m_canvas->hitsCanvasPoint(m->globalPos(), itemPos.map(point)))
 			{
 				if (m_doc->nodeEdit.submode == NodeEditContext::MOVE_POINT)
-					qApp->changeOverrideCursor(QCursor(Qt::SizeAllCursor));
+					m_view->setCursor(QCursor(Qt::SizeAllCursor));
 				if (m_doc->nodeEdit.submode == NodeEditContext::DEL_POINT)
-					qApp->changeOverrideCursor(QCursor(loadIcon("DelPoint.png"), 1, 1));
+					m_view->setCursor(QCursor(loadIcon("DelPoint.png"), 1, 1));
 				if (m_doc->nodeEdit.submode == NodeEditContext::SPLIT_PATH)
-					qApp->changeOverrideCursor(QCursor(loadIcon("Split.png"), 1, 1));
+					m_view->setCursor(QCursor(loadIcon("Split.png"), 1, 1));
 				return true;
 			}
 		}
@@ -1044,13 +1038,13 @@ bool CanvasMode_NodeEdit::handleNodeEditMove(QMouseEvent* m, QRect, PageItem* cu
 					if (m_canvas->hitsCanvasPoint(m->globalPos(), FPoint(pl.x(), pl.y())))
 					{
 						if (m_doc->nodeEdit.submode == NodeEditContext::MOVE_POINT)
-							qApp->changeOverrideCursor(QCursor(loadIcon("HandC.xpm")));
+							m_view->setCursor(QCursor(loadIcon("HandC.xpm")));
 						else if (m_doc->nodeEdit.submode == NodeEditContext::ADD_POINT)
-							qApp->changeOverrideCursor(QCursor(loadIcon("AddPoint.png"), 1, 1));
+							m_view->setCursor(QCursor(loadIcon("AddPoint.png"), 1, 1));
 						else if (m_doc->nodeEdit.submode == NodeEditContext::SPLIT_PATH)
-							qApp->changeOverrideCursor(QCursor(loadIcon("Split.png"), 1, 1));
+							m_view->setCursor(QCursor(loadIcon("Split.png"), 1, 1));
 						else
-							qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+							m_view->setCursor(QCursor(Qt::ArrowCursor));
 						m_doc->nodeEdit.ClRe2 = poi;
 						return true;
 					}
@@ -1058,7 +1052,7 @@ bool CanvasMode_NodeEdit::handleNodeEditMove(QMouseEvent* m, QRect, PageItem* cu
 			}
 		}
 	}
-	qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+	m_view->setCursor(QCursor(Qt::ArrowCursor));
 	return false;
 }
 

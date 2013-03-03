@@ -68,8 +68,6 @@ void FreehandMode::enterEvent(QEvent *)
 
 void FreehandMode::leaveEvent(QEvent *e)
 {
-	if (!m_MouseButtonPressed)
-		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 }
 
 

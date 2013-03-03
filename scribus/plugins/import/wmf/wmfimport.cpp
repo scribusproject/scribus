@@ -686,6 +686,7 @@ bool WMFImport::importWMF(const TransactionSettings& trSettings, int flags)
 			m_Doc->view()->updatesOn(true);
 		m_Doc->setLoading(loadF);
 	}
+	qApp->restoreOverrideCursor();
 	return true;
 }
 

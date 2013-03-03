@@ -139,8 +139,6 @@ void CanvasMode_EditPolygon::enterEvent(QEvent *)
 
 void CanvasMode_EditPolygon::leaveEvent(QEvent *e)
 {
-	if (!m_canvas->m_viewMode.m_MouseButtonPressed)
-		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 }
 
 void CanvasMode_EditPolygon::updateFromItem()
@@ -458,7 +456,7 @@ void CanvasMode_EditPolygon::mousePressEvent(QMouseEvent *m)
 		m_polygonPoint = noPointDefined;
 	if(m_polygonPoint != noPointDefined && UndoManager::undoEnabled())
 		trans = new UndoTransaction(undoManager->beginTransaction(Um::Polygon,Um::IPolygon,Um::EditPolygon,"",Um::IPolygon));
-	qApp->changeOverrideCursor(QCursor(Qt::CrossCursor));
+	m_view->setCursor(QCursor(Qt::CrossCursor));
 	QPainterPath path = itemMatrix.map(RegularPolygonPath(currItem->width(), currItem->height(), polyCorners, polyUseFactor, polyFactor, polyRotation, polyCurvature, polyInnerRot, polyOuterCurvature));
 	m_doc->regionsChanged()->update(path.boundingRect().adjusted(-5, -5, 10, 10));
 }

@@ -1139,7 +1139,7 @@ void SMPStyleWidget::openEnhanced()
 	if (m_enhanced)
 		return;
 
-	QApplication::changeOverrideCursor(QCursor(Qt::WaitCursor));
+	QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 	m_enhanced = new CharSelectEnhanced(this);
 	m_enhanced->setModal(true);
 	connect(m_enhanced, SIGNAL(insertSpecialChars(const QString &)), this, SLOT(insertSpecialChars(const QString &)));
@@ -1156,7 +1156,7 @@ void SMPStyleWidget::openEnhanced()
 		setCurrentComboItem(m_enhanced->fontSelector, currPStyle->charStyle().font().scName());
 	m_enhanced->newFont(m_enhanced->fontSelector->currentIndex());
 	m_enhanced->show();
-	QApplication::changeOverrideCursor(Qt::ArrowCursor);
+	QApplication::restoreOverrideCursor();
 }
 
 void SMPStyleWidget::closeEnhanced(bool show)
