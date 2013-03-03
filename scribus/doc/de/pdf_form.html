@@ -1,104 +1,62 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-	<title>Wie Sie Ihr erstes PDF-Online-Formular mit Scribus erstellen</title>
+	<title>How To Create Your First PDF Web Form with Scribus</title>
 </head>
 <body>
-<h2>Wie Sie Ihr erstes PDF-Online-Formular mit Scribus erstellen</h2>
-<p><em><strong>mit Dank an Maciej Hanski</strong>, der dies freundlicherweise aus dem polnischen Original (mit GNU-Lizenz f&uuml;r freie Dokumentation) &uuml;bersetzt hat.</em></p>
-<p><strong>Die Beispieldatei <code>scribusformphp.tar.gz</code>, ein Tarball-Archiv mit PHP-Datei und einem Beispieldokument, ist erh&auml;ltlich unter http://docs.scribus.net</a></p>
+<h2>PDF Forms</h2>
+<i>Thanks to Maciej Hanski, who kindly translated the original file from Polish to English. The content of this page is licenced under the Free Documentation Licence.</i></p>
+<!--<p>The sample files, <code>scribusformphp.tar.gz</code>, a tarball of a php file and a sample doc, are available from http://docs.scribus.net</a></p>-->
 
-<p>Einer der gr&ouml;&szlig;ten Vorteile von Scribus ist die M&ouml;glichkeit, PDF-Formulare mit eingebetteten JavaScript-Skripten (als Adobe-eigene Version, beschrieben in der Adobe Javascript-Referenz unter http://partners.adobe.com/asn/developer/pdfs/tn/5186AcroJS.pdf) zu erstellen.</p>
+<p>One of the advantages of Scribus is the possibility to create PDF forms with embedded JavaScript scripts (as described in the <a href="http://www.adobe.com/devnet/acrobat/javascript.html">Adobe JavaScript Reference</a>).</p>
 
-<p>Es ist recht einfach, mit Scribus ein neues Formular zu erstellen. Als erstes klicken wir auf die Schaltfl&auml;che &quot;Neues Dokument&quot; oder w&auml;hlen im Men&uuml; unter <strong>Datei</strong> den Punkt  <strong>Neu</strong>.</p>
+<p>It&rsquo;s quite simple to create a new form with Scribus. Start by clicking on the &ldquo;New Document&rdquo; icon or choosing <i>New</i> from the <i>File</i> menu.</p>
 
-<table width="100%"><tr><td align="center"><img src="images/formularz_nowy.png" alt="Create a new doc" title="Create a new doc" /></a></td></tr></table>
+<p>Next, activate the grid (<i>Page &gt; Snap to Grid</i>) and make it visible (<i>View &gt; Show Grid</i>). This will help you to correctly place your form fields on the page. Then create some <a href="WwText.html">text frames</a> as field descriptions.</p>
+<table width="100%"><tr><td align="center"><img src="images/pdf-form-ht1.png" /></td></tr></table>
 
-<br />
-<p>Nachdem wir das Gitternetz (Men&uuml; <strong>Ansicht</strong> -&gt; <strong>Gitter ein</strong>) aktiviert haben, wird es uns dabei helfen, die Formularfelder korrekt auf der Seite auszurichten. F&uuml;r den Titel und die Feldbezeichnungen ben&ouml;tigen wir einige Textrahmen - Nur wenige Klicks auf die Schaltfl&auml;che <strong>[ab]</strong>, und alle Textrahmen erscheinen im Nu.</p>
+<div>Now you can start adding form elements. The toolbox for form elements is available in the Toolbar:
+<table width="100%"><tr><td align="center"><img src="images/pdf-form-ht2.png" /></td></tr></table>
 
-<table width="100%"><tr><td align="center"><img src="images/siatka_menu.png" border="0" alt="null" /></td></tr></table>
+To add a PDF text field, click on the second button from the left and create a text frame. In this sample form, you will need one PDF text field for each entry: &ldquo;Name,&rdquo; &ldquo;Street/No&rdquo; and &ldquo;ZIP Code/Town.&rdquo;. To create a PDF button, use the button at the left of the Toolbar.
 
-<p>Wenn unsere Rahmen mit Text gef&uuml;llt sind, k&ouml;nnen wir ihre Eigenschaften &uuml;ber die  <strong>Eigenschaften</strong>-Palette &auml;ndern, die sich im Men&uuml; unter <strong>Werkzeuge</strong> befindet.</p>
+<table width="100%"><tr><td align="center"><img src="images/pdf-form-ht3.png" /></td></tr></table>
 
-<table width="100%"><tr><td align="center"><img src="images/siatka_jednostki_miar.png"  alt="" /></td></tr></table>
+<p>As you can see in the screenshot above, all PDF form items use <i>blue</i> lines to indicate frame borders. To edit the PDF form properties of a field, right-click and select &ldquo;PDF Options &gt; Field Properties&rdquo;:</p>
+<table width="100%"><tr><td align="center"><img src="images/pdf-form-ht4.png" /></td></tr></table>
+
+<p>The &ldquo;Field Properties&rdquo; dialog is mostly self-explanatory, and it&rsquo;s impossible to explain all options in detail here. For the purpose of this introduction it&rsquo;s important that you assign a unique name to each PDF text field and that the field type is &ldquo;Text.&rdquo; The name is important, as it can be used by external scripts to process the form data. e.g. if you use your form to send data to a website. You can also let Scribus validate the correctness of the data inserted by the user of the PDF, e.g. if a field requires a numerical value. If Scribus&rsquo;s limited validation options are insufficient for your purposes, you can use JavaScript to create more sophisticated ones.</p>
+
+<table width="100%"><tr><td align="center"><img src="images/pdf-form-ht5.png" /></td></tr></table>
+
+<p>To send inserted data from your PDF viewer, you need to add a &ldquo;Submit&rdquo; button to your form. Create a button as described above and open the field properties dialog from the Context Menu:</p>
+
+<table width="100%"><tr><td align="center"><img src="images/pdf-form-ht6.png" /></td></tr></table>
+
+<p>Note that the &ldquo;Action&rdquo; tab allows for much more than just &ldquo;submit&rdquo; actions, as you can see from the drop-down list &ldquo;Type.&rdquo;</p>
+
+<p>When you export your form to PDF, you are advised to choose at least PDF 1.4 in the PDF Export dialog.</p>
 
 
-<br />
+<!--<p>The result of our work can be downloaded from http://docs.scribus.net and tested. In order to submit the form we must open it from within a browser, Netscape 4.* or Mozilla are the safe choices (check the Mozilla plug-ins to see, if the Acrobat Reader plug-in is enabled. If not, you have to symlink it into the Mozilla's plug-in directory. In my particular case, the Mozilla's plug-in directory is  <strong>/usr/lib/mozilla-1.3/plug-in</strong>, and the plug-in to be symlinked into it is <strong>/usr/local/Acrobat5/Browsers/intellinux/nppdf.so</strong>).</p>
 
-<div>Nun k&ouml;nnen wir beginnen, Formularelemente hinzuzuf&uuml;gen: einige Textfelder und eine Schaltfl&auml;che zum Abschicken unseres Formulars. Um ein Feld hinzuzuf&uuml;gen, klicken Sie einfach auf den Pfeil rechts neben dem <strong>OK</strong>, und w&auml;hlen Sie aus der Auflistung einen Typ aus: Schaltfl&auml;che, Textfeld, Kontrollk&auml;stchen, Kombinationsfeld oder Listenfeld.</div>
+<p><strong>My very own impression:</strong> Scribus as a tool for working with PDF forms seems to be more comfortable in use than Adobe Acrobat 5.0 (the only version, I've worked with). It's a lot easier to layout documents with Scribus, since Acrobat only allows you to edit existing documents, but not to create a new document from  scratch. Scribus provides us with the full control over the final results and allows us much more freedom in changing the document's layout. More over, Scribus files can be edited even with a simple text editor, since its file format is entirely XML
+based.</p>-->
+<p>Maciej Hanski, October 2003</br>
+Updated by Christoph Sch&auml;fer, September 2011
+</p>
 
-<br />
-<table width="100%"><tr><td align="center"><img src="images/symbole.png" alt="null" /></td></tr></table>
 
-<p>Das gerade aktive Element des Formulars hat einen Rahmen mit rotem Rand; Sie k&ouml;nnen ein Element aktivieren, indem Sie auf die Schaltfl&auml;che &quot;Ausw&auml;hlen&quot; (die mit dem Pfeilkreuz) und dann auf das gew&uuml;nschte Element klicken.</p>
-<br />
-
-<table width="100%"><tr><td align="center"><img src="images/ulica.png" alt="null" /></td></tr></table>
-
-<br />
- 
-<p>Wenn Sie auf ein Element rechtsklicken, aktivieren Sie ein neues Men&uuml;. Wir w&auml;hlen  <strong>Feldeigenschaften</strong> und definieren Feldnamen (wir brauchen die Feldnamen f&uuml;r unser PHP-Skript, wohin das Formular gesendet wird), Feldtypen (z.B. Zahl, Zeit, Datum) sowie Aktionen, die bei bestimmten Ereignissen ausgef&uuml;hrt werden sollen (Mouse-Enter, Mouse-Exit, onBlur - also beim Verlassen des Elements - usw.).</p>
-
-<br /><br />
-
-<table width="100%"><tr><td align="center"><img src="images/wlasciwosci_pola.png" alt="null"  border="0" /></td></tr></table>
-
-<br />
-
-<p>Hier definieren wir das Feld <strong>No</strong> als Zahl. Der Acrobat Reader wird danach nichts anderes als g&uuml;ltige Eingabe akzeptieren.</p>
-
-<br />
-
-<table width="100%"><tr><td align="center"><img src="images/formularz_pole_num.png" border="0" alt="null" /></td></tr></table>
-
-<br />
-
-<p>Hier definieren wir nun selbst ein Kontrollskript f&uuml;r das Feld <strong>Name</strong>: Nach &Auml;nderung des Feldinhalts wird ein akustisches Signal ert&ouml;nen, und es erscheint eine Warnmeldung (nicht sehr anspruchsvoll, ich wei&szlig;, doch immerhin ausreichend, um die M&ouml;glichkeiten von PDF zu zeigen). Scribus hat einen eigenen einfachen Texteditor, mit dem wir das Skript als separate Datei speichern k&ouml;nnen. Selbstdefinierte Skripte lassen sich nicht nur auf Formularfeld-Ebene, sondern auch als globale Skripte anlegen (<strong>Bearbeiten</strong> -&gt; <strong>JavaScripts</strong>).</p>
-
-<br />
-
-<table width="100%"><tr><td align="center"><img src="images/formularz_js_skrypt.png" alt="null" /></td></tr></table>
-<br />
-
-<p>Wenn das Skript gespeichert und der Editor geschlossen ist, erscheint der Skript-Inhalt unter <strong>Feldeigenschaften</strong>.</p>
-<br />
-
-<table width="100%"><tr><td align="center"><img src="images/formularz_js_sprawdzanie.png" border="0" alt="null" /></td></tr></table>
-
-<br />
-
-<p>Wir m&uuml;ssen noch festlegen, an welchen URL der Inhalt des Formulars gesendet wird (Ein einfaches PHP-Skript an der Zieladresse wird die empfangenen Daten formatieren und darstellen). Unter &quot;Eigenschaften&quot; w&auml;hlen wir f&uuml;r die Schaltfl&auml;che den Aktionstyp <strong>Submit form/Formular abschicken</strong> und geben die Adresse unseres PHP-Skripts ein: <strong>scribus_test.php</strong>. Schlie&szlig;lich markieren wir noch das K&auml;stchen <strong>Daten als HTML &uuml;bertragen</strong> (die andere M&ouml;glichkeit, als FDF-Daten, w&auml;re etwas ganz anderes), und damit sind wir nun fertig.</p>
-
-<br />
-
-<table width="100%"><tr><td align="center"><img src="images/wyslij_formularz.png" alt="null" /></td></tr></table>
-
-<br />
-
-<p>Das einzige, was noch zu tun bleibt, ist der Export des Dokuments nach PDF: Men&uuml;auswahl <strong>Datei -&gt; Export... -&gt;; Export nach PDF...</strong>.<br />Wir w&auml;hlen <strong>Acrobat 5.0</strong> als Dateiformat aus und speichern das Dokument.</p>
-
-<br />
-<table width="100%"><tr><td align="center"><img src="images/formularz_export_PDF.png" border="0" alt="null" /></td></tr></table>
-<br />
-
-<p>Das Ergebnis unserer Arbeit kann von hier heruntergeladen und getestet werden: http://docs.scribus.net. Damit das Formular &uuml;bermittelt werden kann, m&uuml;ssen wir es in einem Browserfenster &ouml;ffnen, wobei Netscape 4.* oder Mozilla die sichersten sind (Kontrollieren Sie die Plugins von Mozilla, um zu sehen, ob das Acrobat Reader-Plugin aktiviert ist. Falls nicht, m&uuml;ssen Sie es mit Mozillas Plugin-Verzeichnis symbolisch verlinken. In meinem Fall hier hei&szlig;t Mozillas Plugin-Verzeichnis <strong>/usr/lib/mozilla-1.3/plug-in</strong>, und das hiermit zu verlinkende Plugin hei&szlig;t <strong>/usr/local/Acrobat5/Browsers/intellinux/nppdf.so</strong>).</p>
-
-<p><strong>Mein ganz pers&ouml;nlicher Eindruck:</strong> Scribus ist als Werkzeug f&uuml;r die Arbeit mit PDF-Formularen komfortabler zu bedienen als Adobe Acrobat 5.0 (der einzigen Version, mit der ich gearbeitet habe). Es ist wesentlich einfacher, mit Scribus ein Dokumentenlayout zu gestalten, denn Acrobat gestattet nur das Bearbeiten existierender Dokumente, ein v&ouml;llig neues Erstellen ist damit nicht m&ouml;glich. Scribus stellt uns die volle Kontrolle &uuml;ber das Endergebnis zur Verf&uuml;gung und l&auml;&szlig;t uns viel mehr Freiheit beim &Auml;ndern eines Dokumentenlayouts. Au&szlig;erdem lassen sich Scribus-Dateien sogar mit einem simplen Texteditor bearbeiten, denn sein Dateiformat basiert v&ouml;llig auf XML.</p>
-<p><em>Maciej Hanski</em> - 22.10.2003</p>
-
-<p><strong>Einige n&uuml;tzliche PDF/JavaScript-Links:</strong></p>
+<h4>Some useful PDF/JavaScript Links</h4>
 <ul>
 	<li><a href="http://www.planetpdf.com/mainpage.asp?WebPageID=229" target="_blank">Planet PDF</a></li>
-	<li><a href="http://partners.adobe.com/asn/developer/pdfs/tn/5186AcroJS.pdf" target="_blank">Acrobat JavaScript Object Specification</a></li>
-	<li><a href="http://ahnews.music.salford.ac.uk/scribus/documentation/pdfs/javascriptpdfa4.pdf" target="_blank">JavaScript and Scribus</a></li>
+	<li><a href="http://www.adobe.com/devnet/acrobat/javascript.html" target="_blank">Acrobat JavaScript Object Specification</a></li>
 </ul>
 
-<p><strong>Einige n&uuml;tzliche CGI/PHP-Links:</strong></p>
+<h4>Some useful CGI/PHP links</h4>
 <ul>
 	<li><a href="http://www.cgi101.com/book/ch4/text.html">http://www.cgi101.com/book/ch4/text.html</a></li>
 	<li><a href="http://www.cgi101.com/book/ch4/post-cgi.html">http://www.cgi101.com/book/ch4/post-cgi.html</a></li>
-	<li><a href="http://www.mkaz.com/reference/php/setup_linux.html">http://www.mkaz.com/reference/php/setup_linux.html</a></li>
 </ul>
 
 </body>

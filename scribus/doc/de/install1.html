@@ -1,37 +1,20 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-	<title>Zugang zum Scribus-Quellcode</title>
+	<title>Compiling Scribus</title>
 </head>
 <body>
-<h2>Zugang zum Scribus-Quellcode</h2>
-<p>Sie k&ouml;nnen gepackte Archive mit der letzten ver&ouml;ffentlichten Scribus-Version bei <a href="http://sourceforge.net/projects/scribus/files/"> Sourceforge</a> herunterladen.</p>
-
-<p>Dank <a href="http://Anduin.net">Anduin.net</a> gibt es auch ein anonymes SVN-Repositorium, das st&uuml;ndlich aktualisiert wird. Die Verwendung dieses Codes wird nur jenen empfohlen, die immer auf dem allerletzten Stand sein wollen und dabei auch Instabilit&auml;ten nicht scheuen.</p>
-
-<p><strong>Der Scribus-1.4-Zweig</strong>. Dieser Zweig enth&auml;lt den Code f&uuml;r die aktuell stabile Version (1.4.x).</p>
-<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
-<pre>
-svn co svn://scribus.info/Scribus/branches/Version135
-</pre>
-oder, wenn die SVN-Ports durch eine Firewall geschlossen sind:
-<pre>
-svn co http://scribus.info/svn/Scribus/branches/Version135
-</pre>
-</td></tr></table></blockquote>
-
-<p><strong>Scribus 1.5svn &ndash; der experimentelle Zweig</strong>. Dieser Zweig enth&auml;lt den Code f&uuml;r die experimentelle Version (1.5svn). Dieser Code kann hochgradig instabil sein, nicht funktionieren oder sich nicht einmal kompilieren lassen!</p>
-<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
-<pre>
-svn co svn://scribus.info/Scribus/trunk
-</pre>
-oder, wenn die SVN-Ports durch eine Firewall geschlossen sind:
-<pre>
-svn co http://scribus.info/svn/Scribus/trunk
-</pre>
-</td></tr></table></blockquote>
-
-<p>Sobald Sie den Quellcode haben, k&ouml;nnen Sie mit den <a href="install4.html">CMake-Anweisungen</a> fortfahren.</p>
+<h2>What this page is about</h2>
+<p>Generally speaking, this page applies to those using some variety of Linux, since with Linux, you have ready access to all the components you need to compile the source code into an binary which you can run on your computer. Here are some brief notes. For details please consult the wiki, where <a href="http://wiki.scribus.net/canvas/Building_SVN_versions_with_CMake">there is a page devoted to explaining the process in detail</a>.</p>
+<p>In case it needs to be mentioned, everything you need is available for free for Linux, but you will almost certainly need to assemble all of the specific components needed for the process. It's a challenge the first time, to be sure, but we think you'll find it worth the effort.</p>
+<h3>subversion (SVN)</h3>
+<p>This is the name of the software Scribus currently uses to maintain the Scribus code, and with it you can obtain the latest code for both the current stable version and development version. Subversion simply downloads the sourcecode and the various instructions needed to compile or build Scribus.</p>
+<h3>cmake</h3>
+<p>Your next step after getting the source is to run cmake, which checks to see that you have all the dependencies (other source code and libraries) needed to compile the source code. So <code>cmake</code> is another piece of software besides <code>subversion</code> that you must have to get and compile Scribus. One particularly useful thing <code>cmake</code> allows is your own personal customizations, which might include a particular spell-checker, putting your Scribus installation in a custom location (which allows for having more than one version on your computer), and maybe limiting the number of languages available, which reduced the time to build Scribus. Refer to the wiki for these details.</p>
+<h3>gcc and gcc++</h3>
+Last but not least, this is the software which literally does the compiling. If <code>cmake</code> says you have all the components, then this should run smoothly.</p>
+<h3>And repeat...</h3>
+Once you've gone through this, you can update your personal repository as often as you want, and recompile Scribus for the most up-to-date version available. Enjoy!</p>
 
 </body>
 </html>
