@@ -57,6 +57,7 @@
 			<submenuitem text="dtp-studio-Farbpaletten" file="color6.html" />
 			<submenuitem text="GiveLife-Farbpaletten" file="color7.html" />
 			<submenuitem text="Spezielle Farbpaletten" file="color8.html" />
+			<submenuitem text="Was ist mit Pantone, HKS usw.?" file="color10.html" />
 		</submenuitem>
 		<submenuitem text="Datenimport" file="importhints.html">
 			<submenuitem text="Bitmap-Dateien (allgemein)" file="importbitmap1.html" />
