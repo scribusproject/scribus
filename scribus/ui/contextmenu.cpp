@@ -441,7 +441,7 @@ void ContextMenu::createMenuItems_Selection()
 			menuEditContents->addAction(m_AP->scrActions["editCopyContents"]);
 		if (m_actionList.contains("editPasteContents"))
 			menuEditContents->addAction(m_AP->scrActions["editPasteContents"]);
-		if (m_actionList.contains("editPasteContentsAbs"))
+		if (currItem->asImageFrame() && m_actionList.contains("editPasteContentsAbs"))
 			menuEditContents->addAction(m_AP->scrActions["editPasteContentsAbs"]);
 	}
 	if (m_actionList.contains("editClearContents"))
