@@ -1,36 +1,39 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Scribus Command Line Reference</title>
+<title>Kommandozeilenbefehle</title>
 </head>
 <body>
-<h4>Scribus Command Line Reference</h4>
-<p>Just like any other program, Scribus can be launched from the command line. Below you find the command line options for Linux/UNIX (including Mac OS X). On other operating systems the parameters may have to be used differently.</p>
+<h4>Kommandozeilenbefehle</h4>
+<p>Wie jedes andere Programm kann auch Scribus von der Kommandozeile aus gestartet werden. Die untenstehende Auflistung der daf&uuml;r verf&uuml;gbaren Optionen bezieht sich auf Linux/UNIX (einschlie&szlig;lich Mac OS X). Auf anderen Systemen m&uuml;ssen die Parameter u.U. anders angegeben werden.</p>
 
 <p>
 <ul>
-<li><code>-l, --lang xx</code><br>
-Overrides the system locale and runs Scribus in language <code>xx</code>. The language is specified with the same POSIX language codes that are used in the <code>LANG</code> and <code>LC_ALL</code> environment variables. For example, English can be selected with &lsquo;en&rsquo; (generic English), &lsquo;en_GB&rsquo; (British English), &lsquo;en_US&rsquo; (American english), etc. Similarly, reformed German can be selected with &lsquo;de&rsquo; or &lsquo;de_DE&rsquo;, traditional German with &lsquo;de_1901&rsquo;, and Swiss German with &lsquo;de_CH&rsquo;.</li>
-<li><code>-la, --langs-available</code><br>
-Prints a list of languages for which user interface translations are available. To use that language run Scribus as <code>scribus -l xx</code> where <code>xx</code> is the short language code.</li>
-<li><code>-v, --version</code><br>
-Prints the Scribus version number and exits.</li>
 <li><code>-f, --file</code><br>
-Opens the specified file. It&rsquo;s possible to simply pass the file name as an unqualified argument instead of using this, though if the name begins with a dash (<code>-</code>) you will need to use <code>--</code>, e.g., <code>scribus -- -myfile.sla</code>.</li>
-<li><code>-h, --help</code><br>
-Prints a brief usage summary.</li>
+&Ouml;ffnet die angegebene Datei. Abweichend davon ist es auch m&ouml;glich, einen Dateinamen einfach als ein unspezifisches Argument anzugeben. F&uuml;r den Fall jedoch, da&szlig; der Dateiname mit einem Bindestrich beginnt (<code>-</code>), mu&szlig; ein doppelter Bindestrich vorangestellt werden, also z.B. <code>scribus -- -meinedatei.sla</code>.</li>
 <li><code>-fi, --font-info </code><br>
-Shows the font file listing as Scribus starts. This can be used for diagnosing missing glyphs within fonts or possibly broken font files.</li>
-<li><code>-pi, --profile-info</code><br>
-Shows the color profiles listing which Scribus can use. This can be used for diagnosing missing or broken color profiles.</li>
-<li><code>-ns, --no-splash</code><br>
-Suppresses display of the splash screen during Scribus start-up.</li>
+Gibt w&auml;hrend des Starts von Scribus eine Liste der Schriftartendateien aus. Dies kann z.B. verwendet werden, um sich fehlende Glyphen oder fehlerhafte Schriftarten anzeigen zu lassen.</li>
+<li><code>-l, --lang xx</code><br>
+Umgeht das systemweite Gebietsschema und startet Scribus in der Sprache <code>xx</code>. Dabei mu&szlig; die Sprache in der POSIX-Schreibweise angegeben werden, in der auch die Umgebungsvariablen <code>LANG</code> und <code>LC_ALL</code> festgelegt sind. So kann z.B. Englisch mit &raquo;en&laquo; angegeben werden, britisches Englisch mit &raquo;en_GB&laquo; und amerikanisches Englisch mit &raquo;en_US&laquo; usw. Desgleichen kann Deutsch (reformierte Rechtschreibung) mit &raquo;de&laquo; oder &raquo;de_DE&laquo; angegeben werden. Die Bezeichnung f&uuml;r die herk&ouml;mmliche Rechtschreibung lautet &raquo;de_1901&laquo; und f&uuml;r Schweizerdeutsch &raquo;de_CH&laquo;.</li>
+<li><code>-h, --help</code><br>
+Gibt eine kurze Zusammenfassung der Optionen aus.</li>
+<li><code>-la, --langs-available</code><br>
+Gibt eine Liste von Sprachen aus, f&uuml;r die eine &Uuml;bersetzung der Benutzeroberfl&auml;che zur Verf&uuml;gung steht. Um eine so gefundene Sprache zu verwenden, gibt man den Befehl <code>scribus -l xx</code> ein, wobei <code>xx</code> f&uuml;r den Sprachencode steht (s.o.).</li>
 <li><code>-nns, --never-splash</code><br>
-Stops the showing of the splashscreen on startup. Writes an empty file called .neversplash in <code>~/.scribus</code>.</li>
+Bewirkt die dauerhafte Unterdr&uuml;ckung des Splashscreens, indem eine leere Datei namens <code>.neversplash</code> im Verzeichnis <code>~/.scribus</code> angelegt wird.</li>
+<li><code>-ns, --no-splash</code><br>
+Unterdr&uuml;ckt die Anzeige des Splashscreens w&auml;hrend des Starts von Scribus.</li>
+<li><code>-pi, --profile-info</code><br>
+Gibt eine Liste der Farbprofile aus, die f&uuml;r Scribus zur Verf&uuml;gung stehen. Dies ist n&uuml;tzlich zum Auffinden fehlender oder fehlerhafter Farbprofile.</li>
+<li><code>-pr, --prefs filename</code><br>
+L&auml;&szlig;t Scribus ein anderes als das Standardverzeichnis zum Laden und Speichern von Voreinstellungen verwenden.</li>
 <li><code>-sb, --swap-buttons</code><br>
-Uses right to left dialog button ordering (e.g. Cancel/No/Yes instead of Yes/No/Cancel)</li>
+Bewirkt eine rechtsl&auml;ufige Anordnung von Schaltfl&auml;chen in manchen Dialogen (z.B. &raquo;Abbrechen/Nein/Ja&laquo; statt &raquo;Ja/Nein/Abbrechen&laquo;.</li>
 <li><code>-u, --upgradecheck</code> <br>
-Downloads a file from our scribus server indicating the latest available versions.</li>
+L&auml;dt eine Textdatei von den Scribus-Servern herunter, um die neueste verf&uuml;gbare Version anzuzeigen.</li>
+<li><code>-v, --version</code><br>
+Gibt lediglich die Versionsnummer von Scribus aus.</li>
 </ul>
+<br>
 </body>
 </html>
