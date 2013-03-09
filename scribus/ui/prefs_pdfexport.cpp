@@ -479,13 +479,12 @@ void Prefs_PDFExport::restoreDefaults(struct ApplicationPrefs *prefsData, const 
 	{
 		solidColorProfileComboBox->addItem(itp.key());
 		if (itp.key() == tp)
-		{
-			if (cmsUse)
-				solidColorProfileComboBox->setCurrentIndex(solidColorProfileComboBox->count()-1);
-		}
+			solidColorProfileComboBox->setCurrentIndex(solidColorProfileComboBox->count()-1);
 	}
-	if (cmsUse)
-		solidColorRenderingIntentComboBox->setCurrentIndex(Opts.Intent);
+	int solidIntent = Opts.Intent;
+	if (Opts.Intent < 0)
+		solidIntent = 1;
+	solidColorRenderingIntentComboBox->setCurrentIndex(solidIntent);
 	QString tp1 = Opts.ImageProf;
 	if (!ScCore->InputProfiles.contains(tp1))
 	{
@@ -501,13 +500,12 @@ void Prefs_PDFExport::restoreDefaults(struct ApplicationPrefs *prefsData, const 
 	{
 		imageProfileComboBox->addItem(itp2.key());
 		if (itp2.key() == tp1)
-		{
-			if (cmsUse)
-				imageProfileComboBox->setCurrentIndex(imageProfileComboBox->count()-1);
-		}
+			imageProfileComboBox->setCurrentIndex(imageProfileComboBox->count()-1);
 	}
-	if (cmsUse)
-		imageRenderingIntentComboBox->setCurrentIndex(Opts.Intent2);
+	int imageIntent = Opts.Intent2;
+	if (imageIntent < 0)
+		imageIntent = 0;
+	imageRenderingIntentComboBox->setCurrentIndex(imageIntent);
 	if (!cmsUse)
 	{
 		//Disabling vis hiding
