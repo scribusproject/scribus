@@ -227,7 +227,7 @@ double ScrSpinBox::valueFromText ( const QString & text ) const
 	}
 //	qDebug() << "TS"<<ts;
 	std::string str(ts.toLocal8Bit().data());
-	double erg(0.0);
+	double erg = this->value();
 
 	int ret = fp.Parse(str, "", true);
 	if(ret < 0)
