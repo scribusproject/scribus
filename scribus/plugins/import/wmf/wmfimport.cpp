@@ -737,7 +737,7 @@ QList<PageItem*> WMFImport::parseWmfCommands(void)
 				str += param;
 				str += " ";
 			}
-			cerr << str.toAscii().data() << endl;
+			cerr << str.toLatin1().data() << endl;
 		}
 	}
 	return elements;

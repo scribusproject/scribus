@@ -96,7 +96,7 @@ int callGS(const QStringList& args_in, const QString device)
 	args += args_in;
 	args.append("-c");
 	args.append("showpage");
-//	qDebug(args.join(" ").toAscii());
+//	qDebug(args.join(" ").toLatin1());
 	return System( getShortPathName(prefsManager->ghostscriptExecutable()), args );
 }
 

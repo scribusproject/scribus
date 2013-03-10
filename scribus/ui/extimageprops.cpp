@@ -134,8 +134,13 @@ ExtImageProps::ExtImageProps( QWidget* parent, ImageInfoRecord *info, PageItem *
 		layerTable->setHorizontalHeaderItem(2, new QTableWidgetItem( tr("Name")));
 		QHeaderView* headerH = layerTable->horizontalHeader();
 		headerH->setStretchLastSection(true);
+#ifdef USE_QT5
+		headerH->setSectionsClickable(false );
+		headerH->setSectionsMovable( false );
+#else
 		headerH->setMovable(false);
 		headerH->setClickable(false);
+#endif
 		if (info->layerInfo.count() == 1)
 		{
 			layerTable->setColumnWidth(1, 40);
@@ -144,8 +149,13 @@ ExtImageProps::ExtImageProps( QWidget* parent, ImageInfoRecord *info, PageItem *
 		layerTable->setSortingEnabled(false);
 		layerTable->setSelectionBehavior( QAbstractItemView::SelectRows );
 		QHeaderView *Header = layerTable->verticalHeader();
+#ifdef USE_QT5
+		Header->setSectionsMovable( false );
+		Header->setSectionResizeMode(QHeaderView::Fixed);
+#else
 		Header->setMovable(false);
 		Header->setResizeMode(QHeaderView::Fixed);
+#endif
 		Header->hide();
 		FlagsSicht.clear();
 		int col2Width = 0;

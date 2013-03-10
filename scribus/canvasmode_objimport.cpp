@@ -23,6 +23,7 @@
 #include <QMouseEvent>
 #include <QPoint>
 #include <QRect>
+#include <QMimeData>
 #include <QDebug>
 
 #include "canvas.h"

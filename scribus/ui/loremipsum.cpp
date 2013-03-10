@@ -153,8 +153,13 @@ LoremManager::LoremManager(ScribusDoc* doc, QWidget* parent) : QDialog( parent )
 	loremList->setRootIsDecorated(true);
 	loremList->setColumnCount(1);
 	loremList->setHeaderLabel( tr("Select Lorem Ipsum"));
+#ifdef USE_QT5
+	loremList->header()->setSectionsClickable( false );
+	loremList->header()->setSectionResizeMode( QHeaderView::ResizeToContents );
+#else
 	loremList->header()->setClickable( false );
 	loremList->header()->setResizeMode( QHeaderView::ResizeToContents );
+#endif
 	loremList->setSelectionMode(QAbstractItemView::SingleSelection);
 	layout3->addWidget( loremList );
 

@@ -19,7 +19,7 @@ static void TagExtender(TIFF *tiff)
 {
 	static const TIFFFieldInfo xtiffFieldInfo[] =
 	{
-		{ 37724, -3, -3, TIFF_UNDEFINED, FIELD_CUSTOM, TRUE, TRUE,   const_cast<char*>("PhotoshopLayerData") }
+		{ 37724, -3, -3, TIFF_UNDEFINED, FIELD_CUSTOM, true, true,   const_cast<char*>("PhotoshopLayerData") }
 	};
 	TIFFMergeFieldInfo(tiff, xtiffFieldInfo, sizeof (xtiffFieldInfo) / sizeof (xtiffFieldInfo[0]));
 }

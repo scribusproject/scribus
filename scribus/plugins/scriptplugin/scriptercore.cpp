@@ -457,7 +457,7 @@ void ScripterCore::slotInteractiveScript(bool visible)
 
 	scrScripterActions["scripterShowConsole"]->setChecked(visible);
 	pcon->setFonts();
-	pcon->setShown(visible);
+	pcon->setVisible(visible);
 
 	QObject::connect( scrScripterActions["scripterShowConsole"], SIGNAL(toggled(bool)) , this, SLOT(slotInteractiveScript(bool)) );
 }
@@ -562,7 +562,7 @@ void ScripterCore::runStartupScript()
 			this->slotRunScriptFile(this->m_startupScript, true);
 		}
 		else
-			qDebug("Startup script enabled, but couln't find script %s.", m_startupScript.toAscii().constData());
+			qDebug("Startup script enabled, but couln't find script %s.", m_startupScript.toLatin1().constData());
 	}
 }
 

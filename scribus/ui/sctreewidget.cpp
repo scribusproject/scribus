@@ -99,7 +99,11 @@ ScTreeWidget::ScTreeWidget(QWidget* pa) : QTreeWidget(pa)
 	setRootIsDecorated(false);
 	setIndentation(0);
 	header()->hide();
+#ifdef USE_QT5
+	header()->setSectionResizeMode(QHeaderView::Stretch);
+#else
 	header()->setResizeMode(QHeaderView::Stretch);
+#endif
 	viewport()->setBackgroundRole(QPalette::Window);
 	setVerticalScrollMode(QAbstractItemView::ScrollPerPixel);
 	m_toolbox_mode = false;

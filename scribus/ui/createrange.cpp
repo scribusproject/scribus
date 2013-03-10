@@ -17,8 +17,7 @@ for which a new license (GPL+exception) is in place.
 #include <QString>
 #include <QTabWidget>
 
-CreateRange::CreateRange(QString currText, int pageCount, QWidget* parent, Qt::WFlags fl )
-	: QDialog(parent, fl),
+CreateRange::CreateRange(QString currText, int pageCount, QWidget* parent) : QDialog(parent),
 	m_PageCount(pageCount),
 	m_RangeType(0),
 	m_BasicRangeType(0)
@@ -38,7 +37,7 @@ CreateRange::CreateRange(QString currText, int pageCount, QWidget* parent, Qt::W
 	advPageGroupSizeSpinBox->setDecimals(0);
 	advPageGroupSizeSpinBox->setSuffix("");
 	if (m_PageCount==1)
-		basicEvenRadioButton->setShown(false);
+		basicEvenRadioButton->setVisible(false);
 	if (currText.length()>0)
 		basicRangeListBox->addItem(currText);
 	// signals and slots connections

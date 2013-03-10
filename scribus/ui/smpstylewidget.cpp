@@ -982,7 +982,7 @@ void SMPStyleWidget::setOpticalMargins(int o, bool inhO, const ParagraphStyle *p
 	}
 	else
 	{
-		optMarginParentButton->setShown(!inhO);
+		optMarginParentButton->setVisible(!inhO);
 
 		if(om == ParagraphStyle::OM_Default)
 			optMarginRadioBoth->setChecked(true,

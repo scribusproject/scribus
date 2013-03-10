@@ -35,7 +35,9 @@ for which a new license (GPL+exception) is in place.
 
 #include "util_ghostscript.h"
 #include "util_icon.h"
-#include "upgradechecker.h"
+#ifndef USE_QT5
+	#include "upgradechecker.h"
+#endif
 #include "langmgr.h"
 
 
@@ -112,8 +114,8 @@ About::About( QWidget* parent, AboutMode diaMode ) : QDialog( parent )
 	buildID = new QLabel( tab );
 	buildID->setAlignment(Qt::AlignCenter);
 	buildID->setTextInteractionFlags(Qt::TextSelectableByMouse);
-	QString BUILD_DAY = "16";
-	QString BUILD_MONTH = CommonStrings::january;
+	QString BUILD_DAY = "10";
+	QString BUILD_MONTH = CommonStrings::march;
 	QString BUILD_YEAR = "2013";
 	QString BUILD_TIME = "";
 	QString BUILD_TZ = "";
@@ -645,6 +647,7 @@ void About::setVisible (bool visible)
 void About::runUpdateCheck()
 {
 	textView5->clear();
+#ifndef USE_QT5
 	UpgradeCheckerGUI uc(textView5);
 	disconnect( checkForUpdateButton, SIGNAL( clicked() ), this, SLOT( runUpdateCheck() ) );
 	connect(checkForUpdateButton, SIGNAL( clicked() ), &uc, SLOT( abort() ));
@@ -652,4 +655,5 @@ void About::runUpdateCheck()
 	uc.fetch();
 	checkForUpdateButton->setText( tr("Check for Updates") );
 	connect( checkForUpdateButton, SIGNAL( clicked() ), this, SLOT( runUpdateCheck() ) );
+#endif
 }

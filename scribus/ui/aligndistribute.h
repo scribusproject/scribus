@@ -56,7 +56,7 @@ class SCRIBUS_API AlignDistributePalette : public ScDockPalette, Ui::AlignDistri
 	Q_OBJECT
 
 public:
-	AlignDistributePalette( QWidget* parent = 0, const char* name = 0, bool modal = FALSE, Qt::WFlags fl = 0 );
+	AlignDistributePalette( QWidget* parent = 0, const char* name = 0);
 	~AlignDistributePalette();
 
 	virtual void setDoc( ScribusDoc* newDoc );

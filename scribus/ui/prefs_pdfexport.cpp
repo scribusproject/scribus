@@ -912,11 +912,11 @@ void Prefs_PDFExport::enableLPI2()
 
 void Prefs_PDFExport::setCustomRenderingWidgetsShown(bool visible)
 {
-	useCustomRenderingCheckBox->setShown(visible);
-	customRenderingColorComboBox->setShown(visible);
-	customRenderingFrequencySpinBox->setShown(visible);
-	customRenderingAngleSpinBox->setShown(visible);
-	customRenderingSpotFunctionComboBox->setShown(visible);
+	useCustomRenderingCheckBox->setVisible(visible);
+	customRenderingColorComboBox->setVisible(visible);
+	customRenderingFrequencySpinBox->setVisible(visible);
+	customRenderingAngleSpinBox->setVisible(visible);
+	customRenderingSpotFunctionComboBox->setVisible(visible);
 }
 
 void Prefs_PDFExport::enableCustomRenderingWidgets(bool enabled)
@@ -929,17 +929,17 @@ void Prefs_PDFExport::enableCustomRenderingWidgets(bool enabled)
 
 void Prefs_PDFExport::setSolidsImagesWidgetsShown(bool visible)
 {
-	solidColorsLabel->setShown(visible);
-	solidColorsLine->setShown(visible);
-	useSolidColorProfileCheckBox->setShown(visible);
-	solidColorProfileComboBox->setShown(visible);
-	solidColorRenderingIntentComboBox->setShown(visible);
-	imagesLabel->setShown(visible);
-	imagesLine->setShown(visible);
-	useImageProfileCheckBox->setShown(visible);
-	doNotUseEmbeddedImageProfileCheckBox->setShown(visible);
-	imageProfileComboBox->setShown(visible);
-	imageRenderingIntentComboBox->setShown(visible);
+	solidColorsLabel->setVisible(visible);
+	solidColorsLine->setVisible(visible);
+	useSolidColorProfileCheckBox->setVisible(visible);
+	solidColorProfileComboBox->setVisible(visible);
+	solidColorRenderingIntentComboBox->setVisible(visible);
+	imagesLabel->setVisible(visible);
+	imagesLine->setVisible(visible);
+	useImageProfileCheckBox->setVisible(visible);
+	doNotUseEmbeddedImageProfileCheckBox->setVisible(visible);
+	imageProfileComboBox->setVisible(visible);
+	imageRenderingIntentComboBox->setVisible(visible);
 }
 
 void Prefs_PDFExport::enableSolidsImagesWidgets(bool enabled)

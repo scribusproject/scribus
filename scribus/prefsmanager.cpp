@@ -940,7 +940,7 @@ void PrefsManager::ReadPrefsXML()
 		if (userprefsContext)
 		{
 			appPrefs.uiPrefs.language = userprefsContext->get("gui_language","");
-			appPrefs.uiPrefs.mainWinState = QByteArray::fromBase64(userprefsContext->get("mainwinstate","").toAscii());
+			appPrefs.uiPrefs.mainWinState = QByteArray::fromBase64(userprefsContext->get("mainwinstate","").toLatin1());
 			//continue here...
 			//Prefs."blah blah" =...
 		}
@@ -994,7 +994,7 @@ void PrefsManager::SavePrefsXML()
 		if (userprefsContext)
 		{
 			userprefsContext->set("gui_language", appPrefs.uiPrefs.language);
-			userprefsContext->set("mainwinstate", QString::fromAscii(appPrefs.uiPrefs.mainWinState.toBase64()));
+			userprefsContext->set("mainwinstate", QString::fromLatin1(appPrefs.uiPrefs.mainWinState.toBase64()));
 			//continue here...
 			//Prefs."blah blah" =...
 		}
@@ -1250,7 +1250,7 @@ void PrefsManager::setKeyEntry(const QString& actName, const QString& cleanMenuT
 			appPrefs.keyShortcutPrefs.KeyActions.insert(actName, ke);
 		}
 		else
-			qDebug("%s", QString("Action Name: %1 does not exist").arg(actName).toAscii().constData());
+			qDebug("%s", QString("Action Name: %1 does not exist").arg(actName).toLatin1().constData());
 	}
 }
 

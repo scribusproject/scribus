@@ -29,7 +29,7 @@ ScTextBrowser::ScTextBrowser( QWidget * parent )
 
 void ScTextBrowser::clear()
 {
-	setHtml(QString::fromAscii("<html></html>"));
+	setHtml(QString::fromLatin1("<html></html>"));
 }
 
 void ScTextBrowser::setSimpleText(const QString& str)

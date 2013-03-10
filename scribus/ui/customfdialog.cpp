@@ -304,8 +304,8 @@ CustomFDialog::CustomFDialog(QWidget *parent, QString wDir, QString caption, QSt
 	fileDialog = new ScFileWidget(this);
 	hboxLayout->addWidget(fileDialog);
 	fileDialog->setIconProvider(new ImIconProvider());
-	fileDialog->setFilter(filter);
-	fileDialog->selectFilter(filter);
+	fileDialog->setNameFilter(filter);
+	fileDialog->selectNameFilter(filter);
 	fileDialog->setDirectory(wDir);
 	vboxLayout1 = new QVBoxLayout;
 	vboxLayout1->setSpacing(0);

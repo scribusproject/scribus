@@ -493,35 +493,39 @@ void ScribusMainWindow::initDefaultValues()
 	palettesStatus[0] = false;
 	guidesStatus[0] = false;
 #ifdef HAVE_OSG
-	QStringList supportedExts;
-	supportedExts << "osg" << "dxf" << "flt" << "ive" << "geo" << "sta" << "stl" << "logo" << "3ds" << "ac" << "obj";
-	QStringList realSupportedExts;
-	QMap<QString, QString> formats;
-	osgDB::FileNameList plugins = osgDB::listAllAvailablePlugins();
-	for(osgDB::FileNameList::iterator itr = plugins.begin(); itr != plugins.end(); ++itr)
-	{
-		osgDB::ReaderWriterInfoList infoList;
-		if (osgDB::queryPlugin(*itr, infoList))
+	#ifdef USE_QT5
+		osgFilterString = tr("All Files (*)");
+	#else
+		QStringList supportedExts;
+		supportedExts << "osg" << "dxf" << "flt" << "ive" << "geo" << "sta" << "stl" << "logo" << "3ds" << "ac" << "obj";
+		QStringList realSupportedExts;
+		QMap<QString, QString> formats;
+		osgDB::FileNameList plugins = osgDB::listAllAvailablePlugins();
+		for(osgDB::FileNameList::iterator itr = plugins.begin(); itr != plugins.end(); ++itr)
 		{
-			for(osgDB::ReaderWriterInfoList::iterator rwi_itr = infoList.begin(); rwi_itr != infoList.end(); ++rwi_itr)
+			osgDB::ReaderWriterInfoList infoList;
+			if (osgDB::queryPlugin(*itr, infoList))
 			{
-				osgDB::ReaderWriterInfo& info = *(*rwi_itr);
-				osgDB::ReaderWriter::FormatDescriptionMap::iterator fdm_itr;
-				for(fdm_itr = info.extensions.begin(); fdm_itr != info.extensions.end(); ++fdm_itr)
+				for(osgDB::ReaderWriterInfoList::iterator rwi_itr = infoList.begin(); rwi_itr != infoList.end(); ++rwi_itr)
 				{
-					if (supportedExts.contains(QString::fromStdString(fdm_itr->first)))
+					osgDB::ReaderWriterInfo& info = *(*rwi_itr);
+					osgDB::ReaderWriter::FormatDescriptionMap::iterator fdm_itr;
+					for(fdm_itr = info.extensions.begin(); fdm_itr != info.extensions.end(); ++fdm_itr)
 					{
-						formats.insert("*." + QString::fromStdString(fdm_itr->first) + " *." + QString::fromStdString(fdm_itr->first).toUpper(), QString::fromStdString(fdm_itr->second) + " (*." + QString::fromStdString(fdm_itr->first) + " *." + QString::fromStdString(fdm_itr->first).toUpper() + ")");
+						if (supportedExts.contains(QString::fromStdString(fdm_itr->first)))
+						{
+							formats.insert("*." + QString::fromStdString(fdm_itr->first) + " *." + QString::fromStdString(fdm_itr->first).toUpper(), QString::fromStdString(fdm_itr->second) + " (*." + QString::fromStdString(fdm_itr->first) + " *." + QString::fromStdString(fdm_itr->first).toUpper() + ")");
+						}
 					}
 				}
 			}
 		}
-	}
-	realSupportedExts = formats.keys();
-	QString docexts = realSupportedExts.join(" ");
-	QStringList longList = formats.values();
-	QString longDesc = longList.join(";;") + ";;";
-	osgFilterString = tr("All Supported Formats (%1);;%2All Files (*)").arg(docexts).arg(longDesc);
+		realSupportedExts = formats.keys();
+		QString docexts = realSupportedExts.join(" ");
+		QStringList longList = formats.values();
+		QString longDesc = longList.join(";;") + ";;";
+		osgFilterString = tr("All Supported Formats (%1);;%2All Files (*)").arg(docexts).arg(longDesc);
+	#endif
 #endif
 }
 
@@ -532,7 +536,11 @@ void ScribusMainWindow::initKeyboardShortcuts()
 	{
 		if ((ScrAction*)(it.value())!=NULL)
 		{
-			QString accelerator=it.value()->shortcut();
+#ifdef USE_QT5
+			QString accelerator = it.value()->shortcut().toString();
+#else
+			QString accelerator = it.value()->shortcut();
+#endif
 			prefsManager->setKeyEntry(it.key(), it.value()->cleanMenuText(), accelerator,0);
 		}
 		//else
@@ -595,7 +603,7 @@ void ScribusMainWindow::initPalettes()
 	docCheckerPalette->installEventFilter(this);
 	docCheckerPalette->hide();
 
-	alignDistributePalette = new AlignDistributePalette(this, "AlignDistributePalette", false);
+	alignDistributePalette = new AlignDistributePalette(this, "AlignDistributePalette");
 	connect( scrActions["toolsAlignDistribute"], SIGNAL(toggled(bool)) , alignDistributePalette, SLOT(setPaletteShown(bool)) );
 	connect( alignDistributePalette, SIGNAL(paletteShown(bool)), scrActions["toolsAlignDistribute"], SLOT(setChecked(bool)));
 	connect( alignDistributePalette, SIGNAL(documentChanged()), this, SLOT(slotDocCh()));
@@ -1321,8 +1329,13 @@ bool ScribusMainWindow::eventFilter( QObject* /*o*/, QEvent *e )
 			keyMod |= Qt::ALT;
 
 		QKeySequence currKeySeq = QKeySequence(k->key() | keyMod);
+#ifdef USE_QT5
+		if (QString(currKeySeq.toString()).isNull())
+			return false;
+#else
 		if (QString(currKeySeq).isNull())
 			return false;
+#endif
 		retVal=true;
 		//Palette actions
 		if (currKeySeq == scrActions["specialToggleAllPalettes"]->shortcut())
@@ -7293,7 +7306,7 @@ void ScribusMainWindow::setItemFSize(int id)
 	else
 	{
 		bool ok = false;
-		Query dia(this, "New", 1, 0, tr("&Size:"), tr("Size"));
+		Query dia(this, "New", 1, tr("&Size:"), tr("Size"));
 		if (dia.exec())
 		{
 			c = qRound(dia.getEditText().toDouble(&ok));
@@ -7321,7 +7334,7 @@ void ScribusMainWindow::setItemShade(int id)
 		}
 		else
 		{
-			Query dia(this, "New", 1, 0, tr("&Shade:"), tr("Shade"));
+			Query dia(this, "New", 1, tr("&Shade:"), tr("Shade"));
 			if (dia.exec())
 			{
 				c = dia.getEditText().toInt(&ok);
@@ -10523,7 +10536,7 @@ void ScribusMainWindow::PutToPatterns()
 		patternsDependingOnThis.prepend(temp);
 	}
 	allItems.clear();
-	Query dia(this, "tt", 1, 0, tr("&Name:"), tr("New Entry"));
+	Query dia(this, "tt", 1, tr("&Name:"), tr("New Entry"));
 	dia.setEditText(patternName, true);
 	dia.setForbiddenList(patternsDependingOnThis);
 	dia.setTestList(doc->docPatterns.keys());
@@ -10645,7 +10658,7 @@ void ScribusMainWindow::ConvertToSymbol()
 		patternsDependingOnThis.prepend(temp);
 	}
 	allItems.clear();
-	Query dia(this, "tt", 1, 0, tr("&Name:"), tr("New Entry"));
+	Query dia(this, "tt", 1, tr("&Name:"), tr("New Entry"));
 	dia.setEditText(patternName, true);
 	dia.setForbiddenList(patternsDependingOnThis);
 	dia.setTestList(doc->docPatterns.keys());

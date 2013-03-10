@@ -1591,7 +1591,7 @@ void ScPageOutput::drawItem_TextFrame( PageItem_TextFrame* item, ScPainterExBase
 		e2 = clip;
 	else
 	{
-		e2 = QRect(qRound(clip.x() + m_doc->minCanvasCoordinate.x()), qRound(clip.y() + m_doc->minCanvasCoordinate.y()), qRound(clip.width()), qRound(clip.height()));
+		e2 = QRect(qRound(clip.x() + m_doc->minCanvasCoordinate.x()), qRound(clip.y() + m_doc->minCanvasCoordinate.y()), clip.width(), clip.height());
 		wm.translate(item->xPos(), item->yPos());
 	}
 	wm.rotate(item->rotation());

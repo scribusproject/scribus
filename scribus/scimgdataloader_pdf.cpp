@@ -104,8 +104,8 @@ bool ScImgDataLoader_PDF::loadPicture(const QString& fn, int page, int gsRes, bo
 		}
 		m_imageInfoRecord.BBoxX = 0;
 		m_imageInfoRecord.BBoxH = m_image.height();
-		m_imageInfoRecord.xres = qRound(gsRes);
-		m_imageInfoRecord.yres = qRound(gsRes);
+		m_imageInfoRecord.xres = gsRes;
+		m_imageInfoRecord.yres = gsRes;
 		m_imageInfoRecord.colorspace = ColorSpaceRGB;
 		m_image.setDotsPerMeterX ((int) (xres / 0.0254));
 		m_image.setDotsPerMeterY ((int) (yres / 0.0254));

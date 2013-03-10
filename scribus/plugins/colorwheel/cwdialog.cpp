@@ -20,8 +20,8 @@ for which a new license (GPL+exception) is in place.
 #include "util_color.h"
 
 
-CWDialog::CWDialog(QWidget* parent, ScribusDoc* doc, const char* name, bool modal, Qt::WFlags fl)
-	: QDialog (parent, fl),
+CWDialog::CWDialog(QWidget* parent, ScribusDoc* doc, const char* name, bool modal)
+	: QDialog (parent),
 	  m_Doc(doc)
 {
 	setupUi(this);

@@ -277,7 +277,7 @@ static int PDFfile_init(PDFfile *self, PyObject * /*args*/, PyObject * /*kwds*/)
 		tf = fi.path()+"/"+fi.baseName()+".pdf";
 	}
 	PyObject *file = NULL;
-	file = PyString_FromString(tf.toAscii());
+	file = PyString_FromString(tf.toLatin1());
 	if (file){
 		Py_DECREF(self->file);
 		self->file = file;
@@ -303,9 +303,9 @@ static int PDFfile_init(PDFfile *self, PyObject * /*args*/, PyObject * /*kwds*/)
 	QList<QString>::Iterator itef;
 	for (itef = tmpEm.begin(); itef != tmpEm.end(); ++itef) {
 // AV: dunno what this is for, but it looks as if it's the only place where HasMetrics is used...
-//		if (PrefsManager::instance()->appPrefs.AvailFonts[(*itef).toAscii()]->HasMetrics) {
+//		if (PrefsManager::instance()->appPrefs.AvailFonts[(*itef).toLatin1()]->HasMetrics) {
 			PyObject *tmp= NULL;
-			tmp = PyString_FromString((*itef).toAscii());
+			tmp = PyString_FromString((*itef).toLatin1());
 			if (tmp) {
 				PyList_Append(self->fonts, tmp);
 // do i need Py_DECREF(tmp) here?
@@ -443,7 +443,7 @@ static int PDFfile_init(PDFfile *self, PyObject * /*args*/, PyObject * /*kwds*/)
 	QMap<QString,LPIData>::Iterator it = ScCore->primaryMainWindow()->doc->pdfOptions().LPISettings.begin();
 	while (it != ScCore->primaryMainWindow()->doc->pdfOptions().LPISettings.end()) {
 		PyObject *tmp;
-		tmp = Py_BuildValue(const_cast<char*>("[siii]"), it.key().toAscii().constData(), it.value().Frequency, it.value().Angle, it.value().SpotFunc);
+		tmp = Py_BuildValue(const_cast<char*>("[siii]"), it.key().toLatin1().constData(), it.value().Frequency, it.value().Angle, it.value().SpotFunc);
 		if (!tmp) {
 			PyErr_SetString(PyExc_SystemError, "Can not initialize 'lpival' attribute");
 			return -1;
@@ -456,7 +456,7 @@ static int PDFfile_init(PDFfile *self, PyObject * /*args*/, PyObject * /*kwds*/)
 	self->lpival = lpival;
 // set owner's password
 	PyObject *owner = NULL;
-	owner = PyString_FromString(ScCore->primaryMainWindow()->doc->pdfOptions().PassOwner.toAscii());
+	owner = PyString_FromString(ScCore->primaryMainWindow()->doc->pdfOptions().PassOwner.toLatin1());
 	if (owner){
 		Py_DECREF(self->owner);
 		self->owner = owner;
@@ -466,7 +466,7 @@ static int PDFfile_init(PDFfile *self, PyObject * /*args*/, PyObject * /*kwds*/)
 	}
 // set user'a password
 	PyObject *user = NULL;
-	user = PyString_FromString(ScCore->primaryMainWindow()->doc->pdfOptions().PassUser.toAscii());
+	user = PyString_FromString(ScCore->primaryMainWindow()->doc->pdfOptions().PassUser.toLatin1());
 	if (user){
 		Py_DECREF(self->user);
 		self->user = user;
@@ -496,7 +496,7 @@ static int PDFfile_init(PDFfile *self, PyObject * /*args*/, PyObject * /*kwds*/)
 	if (!ScCore->InputProfiles.contains(tp))
 		tp = ScCore->primaryMainWindow()->view->Doc->cmsSettings().DefaultSolidColorRGBProfile;
 	PyObject *solidpr = NULL;
-	solidpr = PyString_FromString(tp.toAscii());
+	solidpr = PyString_FromString(tp.toLatin1());
 	if (solidpr){
 		Py_DECREF(self->solidpr);
 		self->solidpr = solidpr;
@@ -508,7 +508,7 @@ static int PDFfile_init(PDFfile *self, PyObject * /*args*/, PyObject * /*kwds*/)
 	if (!ScCore->InputProfiles.contains(tp2))
 		tp2 = ScCore->primaryMainWindow()->view->Doc->cmsSettings().DefaultSolidColorRGBProfile;
 	PyObject *imagepr = NULL;
-	imagepr = PyString_FromString(tp2.toAscii());
+	imagepr = PyString_FromString(tp2.toLatin1());
 	if (imagepr){
 		Py_DECREF(self->imagepr);
 		self->imagepr = imagepr;
@@ -520,7 +520,7 @@ static int PDFfile_init(PDFfile *self, PyObject * /*args*/, PyObject * /*kwds*/)
 	if (!ScCore->PDFXProfiles.contains(tp3))
 		tp3 = ScCore->primaryMainWindow()->view->Doc->cmsSettings().DefaultPrinterProfile;
 	PyObject *printprofc = NULL;
-	printprofc = PyString_FromString(tp3.toAscii());
+	printprofc = PyString_FromString(tp3.toLatin1());
 	if (printprofc){
 		Py_DECREF(self->printprofc);
 		self->printprofc = printprofc;
@@ -530,7 +530,7 @@ static int PDFfile_init(PDFfile *self, PyObject * /*args*/, PyObject * /*kwds*/)
 	}
 	QString tinfo = ScCore->primaryMainWindow()->doc->pdfOptions().Info;
 	PyObject *info = NULL;
-	info = PyString_FromString(tinfo.toAscii());
+	info = PyString_FromString(tinfo.toLatin1());
 	if (info){
 		Py_DECREF(self->info);
 		self->info = info;
@@ -1205,7 +1205,7 @@ static PyObject *PDFfile_save(PDFfile *self)
 		fn  = "Cannot write the File: " + fn;
 		if (!errorMessage.isEmpty())
 			fn += QString("\n%1").arg(errorMessage);
-		PyErr_SetString(PyExc_SystemError, fn.toAscii());
+		PyErr_SetString(PyExc_SystemError, fn.toLatin1());
 		return NULL;
 	}
 //	Py_INCREF(Py_None);

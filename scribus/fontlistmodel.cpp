@@ -27,9 +27,16 @@ FontListModel::FontListModel(QObject * parent, ScribusDoc * doc)
 
 void FontListModel::setFonts(SCFonts f)
 {
+#ifdef USE_QT5
+	beginResetModel();
+#endif
 	m_fonts = f;
 	m_font_values = m_fonts.values();
+#ifdef USE_QT5
+	endResetModel();
+#else
 	reset();
+#endif
 }
 
 int FontListModel::rowCount(const QModelIndex&) const

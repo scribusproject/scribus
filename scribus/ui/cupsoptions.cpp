@@ -65,9 +65,15 @@ CupsOptions::CupsOptions(QWidget* parent, QString Geraet) : QDialog( parent )
 	Table->setHorizontalHeaderItem(1, new QTableWidgetItem( tr("Value")));
 	QHeaderView* headerH = Table->horizontalHeader();
 	headerH->setStretchLastSection(true);
+#ifdef USE_QT5
+	headerH->setSectionsClickable(false );
+	headerH->setSectionsMovable( false );
+	headerH->setSectionResizeMode(QHeaderView::Fixed);
+#else
 	headerH->setMovable(false);
 	headerH->setClickable(false);
 	headerH->setResizeMode(QHeaderView::Fixed);
+#endif
 	Table->setMinimumSize(300, 100);
 #ifdef HAVE_CUPS
 	int i;

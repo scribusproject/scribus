@@ -1762,13 +1762,3 @@ void Cpalette::unitChange(double, double, int unitIndex)
 		CGradDia->unitChange(unitIndex);
 	currentUnit = unitIndex;
 }
-
-void Cpalette::changeEvent(QEvent *e)
-{
-	if (e->type() == QEvent::LanguageChange)
-	{
-		languageChange();
-	}
-	else
-		QWidget::changeEvent(e);
-}

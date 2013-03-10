@@ -433,14 +433,14 @@ PyObject* scribus_setproperty(PyObject* /*self*/, PyObject* args, PyObject* kw)
 			// FIXME: should raise an exception instead of mangling the string when
 			// out of charset chars present.
 			QString utfString = QString::fromUtf8(PyString_AsString(objValue));
-			success = obj->setProperty(propertyName, utfString.toAscii());
+			success = obj->setProperty(propertyName, utfString.toLatin1());
 		}
 		else if (PyUnicode_Check(objValue))
 		{
 			// Get a pointer to the internal buffer of the Py_Unicode object, which is UCS2 formatted
 			const unsigned short * utf16Data = (const unsigned short *)PyUnicode_AS_UNICODE(objValue);
 			// and make a new QString from it (the string is copied)
-			success = obj->setProperty(propertyName, QString::fromUtf16(utf16Data).toAscii());
+			success = obj->setProperty(propertyName, QString::fromUtf16(utf16Data).toLatin1());
 		}
 		else
 			matched = false;

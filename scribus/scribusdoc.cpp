@@ -38,7 +38,7 @@ for which a new license (GPL+exception) is in place.
 #include <QProgressBar>
 #include <QtAlgorithms>
 #include <QTime>
-#include <qtconcurrentmap.h>
+//#include <qtconcurrentmap.h>
 
 #include "canvas.h"
 #include "ui/masterpagepalette.h"
@@ -14178,7 +14178,7 @@ void ScribusDoc::RotateItem(double angle, PageItem *currItem)
 	if (!loading)
 	{
 		QRectF newR(currItem->getBoundingRect());
-		regionsChanged()->update(newR.unite(oldR));
+		regionsChanged()->update(newR.united(oldR));
 	}
 	//emit SetAngle(currItem->rotation());
 }
@@ -14304,12 +14304,12 @@ bool ScribusDoc::SizeItem(double newX, double newY, PageItem *pi, bool fromMP, b
 	if (!loading)
 	{
 		QRectF newR(currItem->getBoundingRect());
-		invalidateRegion(newR.unite(oldR));
+		invalidateRegion(newR.united(oldR));
 	}
 	if ((redraw) && (!loading))
 	{
 		QRectF newR(currItem->getBoundingRect());
-		regionsChanged()->update(newR.unite(oldR));
+		regionsChanged()->update(newR.united(oldR));
 	}
 	if (!fromMP)
 	{
@@ -14558,7 +14558,7 @@ void ScribusDoc::rotateGroup(double angle, FPoint RCenter, Selection* customSele
 	itemSelection->getGroupRect(&gxS, &gyS, &gwS, &ghS);
 //	gxS -= minCanvasCoordinate.x();
 //	gyS -= minCanvasCoordinate.y();
-	regionsChanged()->update(QRectF(gxS-5, gyS-5, gwS+10, ghS+10).unite(oldR));
+	regionsChanged()->update(QRectF(gxS-5, gyS-5, gwS+10, ghS+10).united(oldR));
 }
 
 void ScribusDoc::scaleGroup(double scx, double scy, bool scaleText, Selection* customSelection, bool scaleLine)
@@ -14752,7 +14752,7 @@ void ScribusDoc::scaleGroup(double scx, double scy, bool scaleText, Selection* c
 //	gx -= minCanvasCoordinate.x();
 //	gy -= minCanvasCoordinate.y();
 	updateManager()->setUpdatesEnabled();
-	regionsChanged()->update(QRectF(gx-5, gy-5, gw+10, gh+10).unite(oldR));
+	regionsChanged()->update(QRectF(gx-5, gy-5, gw+10, gh+10).united(oldR));
 	itemSelection->setGroupRect();
 	itemSelection->getGroupRect(&gx, &gy, &gw, &gh);
 	for (uint a = 0; a < selectedItemCount; ++a)

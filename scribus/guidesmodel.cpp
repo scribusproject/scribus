@@ -57,7 +57,7 @@ QVariant GuidesModel::data(const QModelIndex & index, int role) const
 		return pts2value(m_values.at(index.row()) - rule, m_docUnitIndex);
 
 	if (role == Qt::BackgroundColorRole && m_values.at(index.row()) == 0.0)
-		return QVariant(Qt::red);
+		return QVariant(QColor(Qt::red));
 	return QVariant();
 }
 
@@ -90,9 +90,16 @@ QVariant GuidesModel::headerData(int /*section*/, Qt::Orientation orientation, i
 
 void GuidesModel::removeValues(const Guides & v)
 {
+#ifdef USE_QT5
+	beginResetModel();
+#endif
 	foreach(double i, v)
 		m_values.removeAll(value2pts(i, m_docUnitIndex));
+#ifdef USE_QT5
+	endResetModel();
+#else
 	reset();
+#endif
 }
 
 // bool GuidesModel::removeRows(int row, int count, const QModelIndex & parent)
@@ -119,18 +126,32 @@ void GuidesModel::removeValues(const Guides & v)
 void GuidesModel::insertRow()
 {
 // 	insertRows(rowCount(), 1);
+#ifdef USE_QT5
+	beginResetModel();
+#endif
 	if (m_values.contains(0.0))
 		return;
 	m_values.append(0.0);
 	qSort(m_values);
+#ifdef USE_QT5
+	endResetModel();
+#else
 	reset();
+#endif
 }
 
 void GuidesModel::setValues(Guides values)
 {
+#ifdef USE_QT5
+	beginResetModel();
+#endif
 	m_values = values;
 	qSort(m_values);
+#ifdef USE_QT5
+	endResetModel();
+#else
 	reset();
+#endif
 }
 
 Guides GuidesModel::values()
@@ -140,10 +161,17 @@ Guides GuidesModel::values()
 
 void GuidesModel::unitChange(int docUnitIndex, int docUnitDecimals,double offset)
 {
+#ifdef USE_QT5
+	beginResetModel();
+#endif
 	rule = offset;
 	m_docUnitIndex = docUnitIndex;
 	m_docUnitDecimals = docUnitDecimals;
+#ifdef USE_QT5
+	endResetModel();
+#else
 	reset();
+#endif
 }
 
 #if 0

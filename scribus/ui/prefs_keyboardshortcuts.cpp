@@ -160,7 +160,7 @@ void Prefs_KeyboardShortcuts::importKeySet(QString filename)
 		int ecol;
 		if ( !doc.setContent( ts.readAll(), &errorMsg, &eline, &ecol ))
 		{
-			qDebug("%s", QString("Could not open key set file: %1\nError:%2 at line: %3, row: %4").arg(filename).arg(errorMsg).arg(eline).arg(ecol).toAscii().constData());
+			qDebug("%s", QString("Could not open key set file: %1\nError:%2 at line: %3, row: %4").arg(filename).arg(errorMsg).arg(eline).arg(ecol).toLatin1().constData());
 			file1.close();
 			return;
 		}
@@ -269,7 +269,7 @@ QStringList Prefs_KeyboardShortcuts::scanForSets()
 
 			if ( !doc.setContent( &file, &errorMsg, &eline, &ecol ))
 			{
-				qDebug("%s", QString("Could not open key set file: %1\nError:%2 at line: %3, row: %4").arg(keySetsDir[fileCounter]).arg(errorMsg).arg(eline).arg(ecol).toAscii().constData());
+				qDebug("%s", QString("Could not open key set file: %1\nError:%2 at line: %3, row: %4").arg(keySetsDir[fileCounter]).arg(errorMsg).arg(eline).arg(ecol).toLatin1().constData());
 				file.close();
 				continue;
 			}
@@ -288,8 +288,11 @@ QStringList Prefs_KeyboardShortcuts::scanForSets()
 	return QStringList();
 }
 
-QString Prefs_KeyboardShortcuts::getKeyText(int KeyC)
+QString Prefs_KeyboardShortcuts::getKeyText(QKeySequence KeyC)
 {
+#ifdef USE_QT5
+	return KeyC.toString();
+#else
 	if ((KeyC & ~(Qt::META | Qt::CTRL | Qt::ALT | Qt::SHIFT)) == 0)
 		return "";
 	// on OSX Qt translates modifiers to forsaken symbols, arrows and the like
@@ -304,10 +307,14 @@ QString Prefs_KeyboardShortcuts::getKeyText(int KeyC)
 	if ((KeyC & Qt::SHIFT) != 0)
 		res += "Shift+";
 	return res + QString(QKeySequence(KeyC & ~(Qt::META | Qt::CTRL | Qt::ALT | Qt::SHIFT)));
+#endif
 }
 
-QString Prefs_KeyboardShortcuts::getTrKeyText(int KeyC)
+QString Prefs_KeyboardShortcuts::getTrKeyText(QKeySequence KeyC)
 {
+#ifdef USE_QT5
+	return KeyC.toString();
+#else
 	if ((KeyC & ~(Qt::META | Qt::CTRL | Qt::ALT | Qt::SHIFT)) == 0)
 		return "";
 	// on OSX Qt translates modifiers to forsaken symbols, arrows and the like
@@ -322,6 +329,7 @@ QString Prefs_KeyboardShortcuts::getTrKeyText(int KeyC)
 	if ((KeyC & Qt::SHIFT) != 0)
 		res += CommonStrings::shiftModifier + "+";
 	return res + QString(QKeySequence(KeyC & ~(Qt::META | Qt::CTRL | Qt::ALT | Qt::SHIFT)));
+#endif
 }
 
 void Prefs_KeyboardShortcuts::setKeyText()
@@ -384,7 +392,11 @@ void Prefs_KeyboardShortcuts::insertActions()
 			Q_CHECK_PTR(currLVI);
 			lviToActionMap.insert(currLVI, *it);
 			currLVI->setText(0, keyMap[*it].cleanMenuText);
+#ifdef USE_QT5
+			currLVI->setText(1, keyMap[*it].keySequence.toString());
+#else
 			currLVI->setText(1, keyMap[*it].keySequence);
+#endif
 			prevLVI=currLVI;
 		}
 	}
@@ -418,7 +430,11 @@ void Prefs_KeyboardShortcuts::insertActions()
 			Q_CHECK_PTR(currLVI);
 			lviToActionMap.insert(currLVI, *it);
 			currLVI->setText(0, keyMap[*it].cleanMenuText);
+#ifdef USE_QT5
+			currLVI->setText(1, keyMap[*it].keySequence.toString());
+#else
 			currLVI->setText(1, keyMap[*it].keySequence);
+#endif
 			prevLVI=currLVI;
 		}
 	}
@@ -454,7 +470,11 @@ void Prefs_KeyboardShortcuts::dispKey(QTreeWidgetItem* qlvi, QTreeWidgetItem*)
 		QString actionName=lviToActionMap[qlvi];
 		if (actionName.isEmpty())
 			return;
+#ifdef USE_QT5
+		keyDisplay->setText(keyMap[actionName].keySequence.toString());
+#else
 		keyDisplay->setText(keyMap[actionName].keySequence);
+#endif
 		if (keyMap[actionName].keySequence.isEmpty())
 			noKey->setChecked(true);
 		else
@@ -527,13 +547,22 @@ void Prefs_KeyboardShortcuts::keyPressEvent(QKeyEvent *k)
 												.arg(getTrKeyText(keyCode))
 												.arg(getAction(keyCode)),
 											CommonStrings::tr_OK);
+#ifdef USE_QT5
+					selectedLVI->setText(1,keyMap[lviToActionMap[selectedLVI]].keySequence.toString());
+					keyDisplay->setText(keyMap[lviToActionMap[selectedLVI]].keySequence.toString());
+#else
 					selectedLVI->setText(1,keyMap[lviToActionMap[selectedLVI]].keySequence);
 					keyDisplay->setText(keyMap[lviToActionMap[selectedLVI]].keySequence);
+#endif
 				}
 				else
 				{
 					QKeySequence newKeySequence(keyCode);
+#ifdef USE_QT5
+					selectedLVI->setText(1, newKeySequence.toString());
+#else
 					selectedLVI->setText(1, QString(newKeySequence));
+#endif
 					keyMap[lviToActionMap[selectedLVI]].keySequence=newKeySequence;
 					userDef->setChecked(true);
 				}

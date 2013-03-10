@@ -575,7 +575,7 @@ void PaintManagerDialog::editColorItem()
 		{
 			QString patternName = origNames[it->text(0)];
 			QString newName = "";
-			Query dia(this, "tt", 1, 0, tr("&Name:"), tr("Rename Entry"));
+			Query dia(this, "tt", 1, tr("&Name:"), tr("Rename Entry"));
 			dia.setEditText(it->text(0), true);
 			dia.setTestList(dialogPatterns.keys());
 			if (dia.exec())
@@ -1839,7 +1839,7 @@ void PaintManagerDialog::saveDefaults()
 	QTreeWidgetItem* item = LoadColSet->currentItem();
 	QString NameK = item->data(0, Qt::UserRole).toString() + "/" + item->text(0);
 	QString Name = LoadColSet->text();
-	Query* dia = new Query(this, "Name", 1, 0, tr("&Name:"), tr("Choose a Name"));
+	Query* dia = new Query(this, "Name", 1, tr("&Name:"), tr("Choose a Name"));
 	if ((customColSet.contains(NameK)) && (!paletteLocked))
 		dia->setEditText(Name, false);
 	else

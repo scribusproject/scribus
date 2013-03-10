@@ -101,8 +101,14 @@ void CharTableModel::setDoc(ScribusDoc *doc)
 	// repaint only when doc differs
 	if (doc != m_doc)
 	{
+#ifdef USE_QT5
+		beginResetModel();
+		m_doc = doc;
+		endResetModel();
+#else
 		m_doc = doc;
 		reset();
+#endif
 	}
 }
 
@@ -113,6 +119,9 @@ ScFace CharTableModel::fontFace()
 
 void CharTableModel::setCharacters(CharClassDef ch)
 {
+#ifdef USE_QT5
+	beginResetModel();
+#endif
 	m_characters.clear();
 	m_fonts.clear();
 	m_characters = ch;
@@ -120,16 +129,27 @@ void CharTableModel::setCharacters(CharClassDef ch)
 	{
 		m_fonts.append(m_fontInUse);
 	}
+#ifdef USE_QT5
+	endResetModel();
+#else
 	reset();
+#endif
 }
 
 void CharTableModel::setCharactersAndFonts(CharClassDef ch, QStringList fonts)
 {
+#ifdef USE_QT5
+	beginResetModel();
+#endif
 	m_characters.clear();
 	m_fonts.clear();
 	m_characters = ch;
 	m_fonts = fonts;
+#ifdef USE_QT5
+	endResetModel();
+#else
 	reset();
+#endif
 }
 
 void CharTableModel::addCharacter(QString ch)
@@ -142,9 +162,16 @@ void CharTableModel::addCharacter(QString ch)
 	int val = si.toInt(&ok, 10);
 	if (!ok)
 		return;
+#ifdef USE_QT5
+	beginResetModel();
+#endif
 	m_characters.append(val);
 	m_fonts.append(sf);
+#ifdef USE_QT5
+	endResetModel();
+#else
 	reset();
+#endif
 	if (orig < rowCount())
 		emit rowAppended();
 }
@@ -153,8 +180,15 @@ void CharTableModel::setFontInUse(QString font)
 {
 	if (font != m_fontInUse)
 	{
+#ifdef USE_QT5
+		beginResetModel();
+#endif
 		m_fontInUse = font;
+#ifdef USE_QT5
+		endResetModel();
+#else
 		reset();
+#endif
 	}
 }
 
@@ -173,9 +207,16 @@ void CharTableModel::appendUnicode(const QString & s, uint base)
 
 	if ((!m_characters.contains(val)) || (!m_fonts.contains(sf)))
 	{
+#ifdef USE_QT5
+		beginResetModel();
+#endif
 		m_characters.append(val);
 		m_fonts.append(sf);
+#ifdef USE_QT5
+		endResetModel();
+#else
 		reset();
+#endif
 	}
 	else
 	{
@@ -195,9 +236,16 @@ bool CharTableModel::removeCharacter(int index)
 {
 	if (index >= 0 && index < m_characters.size())
 	{
+#ifdef USE_QT5
+		beginResetModel();
+#endif
 		m_characters.removeAt(index);
 		m_fonts.removeAt(index);
+#ifdef USE_QT5
+		endResetModel();
+#else
 		reset();
+#endif
 		return true;
 	}
 //	qDebug("CharTable::deleteOwnCharacter: no char deleted - logical error probably");

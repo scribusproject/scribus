@@ -209,7 +209,7 @@ void PathConnectPlugin::updateEffect(int effectType, int pointOne, int pointTwo,
 	{
 		QRectF oldR(Item1->getBoundingRect());
 		QRectF newR(Item2->getBoundingRect());
-		currDoc->regionsChanged()->update(newR.unite(oldR));
+		currDoc->regionsChanged()->update(newR.united(oldR));
 	}
 	if (effectType != -1)
 		firstUpdate = false;

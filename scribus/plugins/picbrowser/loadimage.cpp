@@ -153,8 +153,8 @@ void loadImagesThread::processLoadImageJob ( int row, QString path, int size, in
 		( *imgInfo ).height = iy;
 		( *imgInfo ).type = image.imgInfo.type;
 		( *imgInfo ).colorspace = image.imgInfo.colorspace;
-		( *imgInfo ).xdpi = qRound ( image.imgInfo.xres );
-		( *imgInfo ).ydpi = qRound ( image.imgInfo.yres );
+		( *imgInfo ).xdpi = image.imgInfo.xres;
+		( *imgInfo ).ydpi = image.imgInfo.yres;
 		( *imgInfo ).layers = image.imgInfo.layerInfo.size();
 		( *imgInfo ).embedded = image.imgInfo.isEmbedded;
 		( *imgInfo ).profileName = image.imgInfo.profileName;

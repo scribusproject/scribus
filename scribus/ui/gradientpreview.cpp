@@ -110,7 +110,7 @@ void GradientPreview::paintEvent(QPaintEvent *e)
 			else
 				pw.setBrush(Qt::blue);
 			QPolygon cr;
-			cr.setPoints(3, qRound(center), 43, qRound(center-4), 56, qRound(center+4), 56);
+			cr.setPoints(3, center, 43, center-4, 56, center+4, 56);
 			pw.drawPolygon(cr);
 		}
 	}

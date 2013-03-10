@@ -29,6 +29,7 @@
 #include <QTimer>
 #include <QToolTip>
 #include <QWidgetAction>
+#include <QDrag>
 #include <QDebug>
 
 #include "canvas.h"

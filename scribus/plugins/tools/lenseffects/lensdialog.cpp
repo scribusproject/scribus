@@ -50,7 +50,11 @@ LensItem::LensItem(QRectF geom, LensDialog *parent) : QGraphicsRectItem(geom)
 #endif
 	setBrush(radialGrad);
 	setFlags(QGraphicsItem::ItemIsMovable | QGraphicsItem::ItemIsSelectable);
+#ifdef USE_QT5
+	acceptHoverEvents();
+#else
 	setAcceptsHoverEvents(true);
+#endif
 }
 
 void LensItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
@@ -295,7 +299,11 @@ void LensDialog::addItemsToScene(Selection* itemSelection, ScribusDoc *doc, QGra
 		{
 			scene.addItem(pItem);
 			pItem->setPos(currItem->xPos() - gx, currItem->yPos() - gy);
+#ifdef USE_QT5
+			pItem->setRotation(currItem->rotation());
+#else
 			pItem->rotate(currItem->rotation());
+#endif
 		}
 		else
 		{

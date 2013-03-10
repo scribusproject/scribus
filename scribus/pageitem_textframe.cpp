@@ -113,7 +113,7 @@ static QRegion itemShape(PageItem* docItem, double xOffset, double yOffset)
 	{
 		QList<uint> Segs;
 		QPolygon Clip2 = FlattenPath(docItem->imageClip, Segs);
-		res = QRegion(pp.map(Clip2)).intersect(QRegion(pp.map(docItem->Clip)));
+		res = QRegion(pp.map(Clip2)).intersected(QRegion(pp.map(docItem->Clip)));
 	}
 	else if ((docItem->textFlowUsesContourLine()) && (docItem->ContourLine.size() != 0))
 	{
@@ -689,7 +689,7 @@ struct LineControl {
 		// check if something gets in the way
 		QRegion lineI = shape.intersected (p.boundingRect());
 		// if the intersection only has 1 rectangle, then nothing gets in the way
-		if (lineI.numRects() == 1)
+		if (lineI.rectCount() == 1)
 		{
 			int   cPos = static_cast<int>(ceil(StartX + morespace));
 			QRect cRect (QPoint(cPos, yAsc), QPoint(cPos, yDesc));

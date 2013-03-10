@@ -573,6 +573,7 @@ void GuideManager::deleteAllGuides_clicked()
 	m_Doc->changed();
 }
 
+#ifndef USE_QT5
 void GuideManager::windowActivationChange(bool oldActive)
 {
 	if (m_Doc)
@@ -583,6 +584,7 @@ void GuideManager::windowActivationChange(bool oldActive)
 	}
 	QDialog::windowActivationChange( oldActive );
 }
+#endif
 
 Guides GuideManager::getAutoVerticals(ScPage * page)
 {

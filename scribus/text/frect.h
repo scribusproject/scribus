@@ -120,10 +120,10 @@ public:
     FRect&  operator|=(const FRect &r);
     FRect&  operator&=(const FRect &r);
 
-    bool   contains( FPoint &p, bool proper=FALSE ) const;
+    bool   contains( FPoint &p, bool proper=false ) const;
     bool   contains( qreal x, qreal y ) const; // inline methods, _don't_ merge these
     bool   contains( qreal x, qreal y, bool proper ) const;
-    bool   contains( const FRect &r, bool proper=FALSE ) const;
+    bool   contains( const FRect &r, bool proper=false ) const;
     FRect  unite( const FRect &r ) const;
     FRect  intersect( const FRect &r ) const;
     bool   intersects( const FRect &r ) const;

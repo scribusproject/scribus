@@ -51,7 +51,7 @@ using namespace std;
 
 void sDebug(QString message)
 {
-	qDebug("%s", message.toAscii().constData());
+	qDebug("%s", message.toLatin1().constData());
 }
 
 int System(const QString exename, const QStringList & args, const QString fileStdErr, const QString fileStdOut, bool* cancel)
@@ -759,7 +759,7 @@ void parsePagesString(QString pages, std::vector<int>* pageNs, int sourcePageCou
 void tDebug(QString message)
 {
 	QDateTime debugTime;
-	qDebug("%s", QString("%1\t%2").arg(debugTime.currentDateTime().toString("hh:mm:ss:zzz")).arg(message).toAscii().constData());
+	qDebug("%s", QString("%1\t%2").arg(debugTime.currentDateTime().toString("hh:mm:ss:zzz")).arg(message).toLatin1().constData());
 }
 
 
@@ -989,8 +989,8 @@ void printBacktrace ( int nFrames )
 				char* outbuf = 0; 
 				size_t length = 0;
 				int status = 0; 
-				outbuf = abi::__cxa_demangle(mName.trimmed().toAscii().data(), outbuf, &length, &status);
-				name = QString::fromAscii( outbuf );
+				outbuf = abi::__cxa_demangle(mName.trimmed().toLatin1().data(), outbuf, &length, &status);
+				name = QString::fromLatin1( outbuf );
 				if(0 == status)
 				{
 //					qDebug()<<"Demangle success["<< length <<"]"<<name;

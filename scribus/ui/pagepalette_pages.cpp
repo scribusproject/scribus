@@ -43,12 +43,22 @@ PagePalette_Pages::PagePalette_Pages(QWidget* parent) : QWidget(parent)
 	masterPageList->setIconSize(QSize(60, 60));
 
 	QHeaderView *Header = pageView->verticalHeader();
+#ifdef USE_QT5
+	Header->setSectionsMovable(false);
+	Header->setSectionResizeMode(QHeaderView::Fixed);
+#else
 	Header->setMovable(false);
 	Header->setResizeMode(QHeaderView::Fixed);
+#endif
 	Header->hide();
 	Header = pageView->horizontalHeader();
+#ifdef USE_QT5
+	Header->setSectionsMovable(false);
+	Header->setSectionResizeMode(QHeaderView::Fixed);
+#else
 	Header->setMovable(false);
 	Header->setResizeMode(QHeaderView::Fixed);
+#endif
 	Header->hide();
 	pageView->setSortingEnabled(false);
 	pageView->setSelectionMode( QAbstractItemView::NoSelection );

@@ -170,7 +170,7 @@ bool ImageInfoRecord::deserialize(const ScImageCacheProxy & cache)
 	exifDataValid = !exifData.isNull();
 	if (exifDataValid)
 	{
-		QByteArray exif = QByteArray::fromBase64(exifData.toAscii());
+		QByteArray exif = QByteArray::fromBase64(exifData.toLatin1());
 		QDataStream es(exif);
 		es.setVersion(dsVersion);
 		qint32 v2;

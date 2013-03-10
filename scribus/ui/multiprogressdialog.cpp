@@ -26,15 +26,13 @@ for which a new license (GPL+exception) is in place.
 
 #include "multiprogressdialog.h"
 
-MultiProgressDialog::MultiProgressDialog(QWidget* parent, Qt::WFlags f)
-: QDialog(parent, f)
+MultiProgressDialog::MultiProgressDialog(QWidget* parent) : QDialog(parent)
 {
 	setupUi(this);
 	connect(buttonCancel, SIGNAL(clicked()), this, SLOT(emitCancel()));
 }
 
-MultiProgressDialog::MultiProgressDialog(const QString& titleText, const QString & cancelButtonText, QWidget* parent, Qt::WFlags f)
-: QDialog(parent, f)
+MultiProgressDialog::MultiProgressDialog(const QString& titleText, const QString & cancelButtonText, QWidget* parent) : QDialog(parent)
 {
 	setupUi(this);
 	setWindowTitle(titleText);

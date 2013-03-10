@@ -57,9 +57,15 @@ Prefs_Fonts::Prefs_Fonts(QWidget* parent, ScribusDoc* doc)
 	fontSubstitutionsTableWidget->setSortingEnabled(false);
 	fontSubstitutionsTableWidget->setSelectionBehavior( QAbstractItemView::SelectRows );
 	QHeaderView *header = fontSubstitutionsTableWidget->horizontalHeader();
+#ifdef USE_QT5
+	header->setSectionsMovable(false);
+	header->setSectionsClickable(false);
+	header->setSectionResizeMode(QHeaderView::Stretch);
+#else
 	header->setMovable(false);
 	header->setClickable(false);
 	header->setResizeMode(QHeaderView::Stretch);
+#endif
 	fontSubstitutionsTableWidget->verticalHeader()->hide();
 	fontSubstitutionsTableWidget->setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding));
 

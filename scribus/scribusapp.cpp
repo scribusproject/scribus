@@ -141,12 +141,15 @@ void ScribusQApp::parseCommandLine()
 	swapDialogButtonOrder=false;
 
 	//Parse for command line information options, and lang
-	for(int i = 1; i < argc(); i++)
+	// Qt5 port: do this in a Qt compatible manner
+	QStringList args = arguments();
+	int argsc = args.count();
+	for(int i = 1; i < argsc; i++)
 	{
-		arg = argv()[i];
+		arg = args[i];
 
-		if ((arg == ARG_LANG || arg == ARG_LANG_SHORT) && (++i < argc())) {
-			lang = argv()[i];
+		if ((arg == ARG_LANG || arg == ARG_LANG_SHORT) && (++i < argsc)) {
+			lang = args[i];
 		}
 		else if (arg == ARG_VERSION || arg == ARG_VERSION_SHORT) {
 			header=true;
@@ -187,21 +190,23 @@ void ScribusQApp::parseCommandLine()
 	if (runtests)
 		RunTests::runTests(testargsc, testargsv);
 #endif
+#ifndef USE_QT5  // currently disabled as it needs a complete rewrite in Qt 5
 	if (runUpgradeCheck)
 	{
 		UpgradeChecker uc;
 		uc.fetch();
 	}
+#endif
 	//Dont run the GUI init process called from main.cpp, and return
 	if (!header)
 		useGUI=true;
 	else
 		return;
 	//We are going to run something other than command line help
-	for(int i = 1; i < argc(); i++) {
-		arg = argv()[i];
+	for(int i = 1; i < argsc; i++) {
+		arg = args[i];
 
-		if ((arg == ARG_LANG || arg == ARG_LANG_SHORT) && (++i < argc())) {
+		if ((arg == ARG_LANG || arg == ARG_LANG_SHORT) && (++i < argsc)) {
 			continue;
 		} else if ( arg == ARG_CONSOLE || arg == ARG_CONSOLE_SHORT ) {
 			continue;
@@ -219,12 +224,12 @@ void ScribusQApp::parseCommandLine()
 			showProfileInfo=true;
 		} else if (arg == ARG_SWAPDIABUTTONS || arg == ARG_SWAPDIABUTTONS_SHORT) {
 			swapDialogButtonOrder=true;
-		} else if ((arg == ARG_DISPLAY || arg==ARG_DISPLAY_SHORT || arg==ARG_DISPLAY_QT) && ++i < argc()) {
+		} else if ((arg == ARG_DISPLAY || arg==ARG_DISPLAY_SHORT || arg==ARG_DISPLAY_QT) && ++i < argsc) {
 			// allow setting of display, QT expect the option -display <display_name> so we discard the
 			// last argument. FIXME: Qt only understands -display not --display and -d , we need to work
 			// around this.
 		} else if (arg == ARG_PREFS || arg == ARG_PREFS_SHORT) {
-			prefsUserFile = QFile::decodeName(argv()[i + 1]);
+			prefsUserFile = QFile::decodeName(args[i + 1].toLocal8Bit());
 			if (!QFileInfo(prefsUserFile).exists()) {
 				showHeader();
 				if (fileName.left(1) == "-" || fileName.left(2) == "--") {
@@ -242,7 +247,7 @@ void ScribusQApp::parseCommandLine()
 		{
 			// Andreas Vox: Qt/Mac has -psn_blah flags that must be accepted.
 		} else {
-			fileName = QFile::decodeName(argv()[i]);
+			fileName = QFile::decodeName(args[i].toLocal8Bit());
 			if (!QFileInfo(fileName).exists()) {
 				showHeader();
 				if (fileName.left(1) == "-" || fileName.left(2) == "--") {

@@ -462,8 +462,8 @@ void PropertiesPalette_Image::setCurrentItem(PageItem *item)
 		imageYOffsetSpinBox->blockSignals(true);
 		imageRotation->blockSignals(true);
 
-		imgEffectsButton->setShown(m_item->PictureIsAvailable && m_item->isRaster);
-		imgExtProperties->setShown(m_item->PictureIsAvailable && m_item->pixm.imgInfo.valid);
+		imgEffectsButton->setVisible(m_item->PictureIsAvailable && m_item->isRaster);
+		imgExtProperties->setVisible(m_item->PictureIsAvailable && m_item->pixm.imgInfo.valid);
 		bool setter = m_item->ScaleType;
 		freeScale->setChecked(setter);
 		frameScale->setChecked(!setter);

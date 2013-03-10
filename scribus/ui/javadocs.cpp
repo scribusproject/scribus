@@ -77,7 +77,7 @@ JavaDocs::JavaDocs(QWidget* parent, ScribusDoc *doc, ScribusView* vie) : QDialog
 void JavaDocs::slotAdd()
 {
 	QString nam;
-	Query dia(this, "tt", 1, 0, tr("&New Script:"), tr("New Script"));
+	Query dia(this, "tt", 1, tr("&New Script:"), tr("New Script"));
 	dia.setEditText( tr("New Script"), false );
 	dia.setTestList(Doc->JavaScripts.keys());
 	if (dia.exec())

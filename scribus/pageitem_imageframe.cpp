@@ -106,7 +106,7 @@ void PageItem_ImageFrame::DrawObj_Item(ScPainter *p, QRectF /*e*/)
 						htmlText.append( tr("Embedded Image") + "\n");
 					else
 						htmlText.append( tr("File:") + " " + fi.fileName() + "\n");
-					htmlText.append( tr("Original PPI:") + " " + QString::number(qRound(pixm.imgInfo.xres))+" x "+QString::number(qRound(pixm.imgInfo.yres)) + "\n");
+					htmlText.append( tr("Original PPI:") + " " + QString::number(pixm.imgInfo.xres)+" x "+QString::number(pixm.imgInfo.yres) + "\n");
 					htmlText.append( tr("Actual PPI:") + " " + QString::number(qRound(72.0 / imageXScale()))+" x "+ QString::number(qRound(72.0 / imageYScale())) + "\n");
 					htmlText.append( tr("Size:") + " " + QString::number(OrigW) + " x " + QString::number(OrigH) + "\n");
 					htmlText.append( tr("Colorspace:") + " ");
@@ -378,7 +378,7 @@ bool PageItem_ImageFrame::createInfoGroup(QFrame *infoGroup, QGridLayout *infoGr
 		
 		oPpiCT->setText( tr("Original PPI:"));
 		infoGroupLayout->addWidget( oPpiCT, 2, 0, Qt::AlignRight );
-		oPpiT->setText(QString::number(qRound(pixm.imgInfo.xres))+" x "+QString::number(qRound(pixm.imgInfo.yres)));
+		oPpiT->setText(QString::number(pixm.imgInfo.xres)+" x "+QString::number(pixm.imgInfo.yres));
 		infoGroupLayout->addWidget( oPpiT, 2, 1 );
 		
 		aPpiCT->setText( tr("Actual PPI:"));
@@ -470,7 +470,7 @@ QString PageItem_ImageFrame::infoDescription()
 			htmlText.append( tr("Embedded Image") + "<br/>");
 		else
 			htmlText.append( tr("File:") + " " + fi.fileName() + "<br/>");
-		htmlText.append( tr("Original PPI:") + " " + QString::number(qRound(pixm.imgInfo.xres))+" x "+QString::number(qRound(pixm.imgInfo.yres)) + "<br/>");
+		htmlText.append( tr("Original PPI:") + " " + QString::number(pixm.imgInfo.xres)+" x "+QString::number(pixm.imgInfo.yres) + "<br/>");
 		htmlText.append( tr("Actual PPI:") + " " + QString::number(qRound(72.0 / imageXScale()))+" x "+ QString::number(qRound(72.0 / imageYScale())) + "<br/>");
 		htmlText.append( tr("Colorspace:") + " ");
 		QString cSpace;

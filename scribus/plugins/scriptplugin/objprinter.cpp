@@ -168,7 +168,7 @@ static int Printer_init(Printer *self, PyObject * /*args*/, PyObject * /*kwds*/)
 		tf = fi.path()+"/"+fi.baseName()+".pdf";
 	}
 	PyObject *file = NULL;
-	file = PyString_FromString(tf.toAscii());
+	file = PyString_FromString(tf.toLatin1());
 	if (file){
 		Py_DECREF(self->file);
 		self->file = file;

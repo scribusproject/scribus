@@ -78,10 +78,16 @@ LayerPalette::LayerPalette(QWidget* parent) : ScDockPalette( parent, "Layers", 0
 
 	QHeaderView *header = Table->horizontalHeader();
 	header->setStretchLastSection(true);
+#ifdef USE_QT5
+	header->setSectionsClickable(false );
+	header->setSectionsMovable( false );
+	header->setSectionResizeMode(QHeaderView::Fixed);
+#else
 	header->setMovable(false);
 	header->setClickable(true);
-	header->setHighlightSections(false);
 	header->setResizeMode(QHeaderView::Fixed);
+#endif
+	header->setHighlightSections(false);
 
 	Table->setColumnWidth(0, 24);
 	Table->setColumnWidth(1, 24);
@@ -93,8 +99,13 @@ LayerPalette::LayerPalette(QWidget* parent) : ScDockPalette( parent, "Layers", 0
 	Table->setSortingEnabled(false);
 	Table->setSelectionBehavior( QAbstractItemView::SelectRows );
 	QHeaderView *Header = Table->verticalHeader();
+#ifdef USE_QT5
+	Header->setSectionsMovable( false );
+	Header->setSectionResizeMode(QHeaderView::Fixed);
+#else
 	Header->setMovable(false);
 	Header->setResizeMode(QHeaderView::Fixed);
+#endif
 	Header->hide();
 	LayerPaletteLayout->addWidget( Table );
 

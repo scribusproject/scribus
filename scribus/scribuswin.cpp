@@ -168,6 +168,7 @@ void ScribusWin::resizeEvent(QResizeEvent *re)
 	statusBar()->setSizeGripEnabled(!isMaximized());
 }
 
+#ifndef USE_QT5
 void ScribusWin::windowActivationChange ( bool oldActive )
 {
 	if( isActiveWindow() )
@@ -176,3 +177,4 @@ void ScribusWin::windowActivationChange ( bool oldActive )
 		currentDir = QDir::currentPath();
 	QMainWindow::windowActivationChange( oldActive );
 }
+#endif

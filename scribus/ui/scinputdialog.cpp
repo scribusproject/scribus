@@ -18,14 +18,13 @@ for which a new license (GPL+exception) is in place.
 #include "util.h"
 #include "util_icon.h"
 
-ScInputDialog::ScInputDialog( QWidget* parent, const char* name, bool modal, Qt::WFlags fl )
-	: QDialog( parent )
+ScInputDialog::ScInputDialog( QWidget* parent, const char* name, bool modal) : QDialog( parent )
 {
 	if ( !name )
 		setObjectName( "ScInputDialog" );
 	setModal(modal);
 	setWindowIcon(QIcon(loadIcon ( "AppIcon.png" )));
-	setSizeGripEnabled( TRUE );
+	setSizeGripEnabled( true );
 	ScInputDialogLayout = new QVBoxLayout( this );
 	ScInputDialogLayout->setMargin(10);
 	ScInputDialogLayout->setSpacing(5);
@@ -48,12 +47,12 @@ ScInputDialog::ScInputDialog( QWidget* parent, const char* name, bool modal, Qt:
 	buttonLayout->addItem(hspacing);
 
 	buttonOk = new QPushButton( this );
-	buttonOk->setAutoDefault( TRUE );
-	buttonOk->setDefault( TRUE );
+	buttonOk->setAutoDefault( true );
+	buttonOk->setDefault( true );
 	buttonLayout->addWidget( buttonOk );
 
 	buttonCancel = new QPushButton( this );
-	buttonCancel->setAutoDefault( TRUE );
+	buttonCancel->setAutoDefault( true );
 	buttonLayout->addWidget( buttonCancel );
 
 	ScInputDialogLayout->addLayout(labelEntryLayout);
@@ -90,7 +89,7 @@ double ScInputDialog::getDouble( const QString &caption, const QString &label, d
 								QString suffix, bool *ok,
 								QWidget *parent, const char *name )
 {
-	ScInputDialog *dlg = new ScInputDialog(parent, name, TRUE);
+	ScInputDialog *dlg = new ScInputDialog(parent, name, true);
 	dlg->setWindowTitle( caption );
 	dlg->entryLabel->setText(label);
 	dlg->entrySpin->setValues(0.0, 1000.0, decimals, num);

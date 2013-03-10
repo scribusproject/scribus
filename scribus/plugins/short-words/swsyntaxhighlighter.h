@@ -8,6 +8,7 @@ for which a new license (GPL+exception) is in place.
 #define SWSYNTAXHIGHLIGHTER_H
 
 #include <QSyntaxHighlighter>
+#include <QTextEdit>
 
 /*! Simple syntax highlighting for configuration editor (QTextEdit).
 \author Petr Vanek, <petr@yarpen.cz>

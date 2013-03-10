@@ -33,7 +33,7 @@ for which a new license (GPL+exception) is in place.
 #include "util_icon.h"
 #include "AdapterWidget.h"
 
-AdapterWidget::AdapterWidget ( QWidget * parent, const char * name, const QGLWidget * shareWidget, Qt::WFlags f ) : QGLWidget ( parent, shareWidget, f )
+AdapterWidget::AdapterWidget ( QWidget * parent, const char * name, const QGLWidget * shareWidget) : QGLWidget ( parent, shareWidget)
 {
 	_gw = new osgViewer::GraphicsWindowEmbedded ( 0,0,width(),height() );
 	setFocusPolicy ( Qt::ClickFocus );
@@ -48,12 +48,12 @@ void AdapterWidget::resizeGL ( int width, int height )
 
 void AdapterWidget::keyPressEvent ( QKeyEvent* event )
 {
-	_gw->getEventQueue()->keyPress ( ( osgGA::GUIEventAdapter::KeySymbol ) * ( event->text().toAscii().data() ) );
+	_gw->getEventQueue()->keyPress ( ( osgGA::GUIEventAdapter::KeySymbol ) * ( event->text().toLatin1().data() ) );
 }
 
 void AdapterWidget::keyReleaseEvent ( QKeyEvent* event )
 {
-	_gw->getEventQueue()->keyRelease ( ( osgGA::GUIEventAdapter::KeySymbol ) * ( event->text().toAscii().data() ) );
+	_gw->getEventQueue()->keyRelease ( ( osgGA::GUIEventAdapter::KeySymbol ) * ( event->text().toLatin1().data() ) );
 }
 
 void AdapterWidget::mousePressEvent ( QMouseEvent* event )

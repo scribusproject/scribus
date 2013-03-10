@@ -46,7 +46,7 @@ class SCRIBUS_API MultiProgressDialog : public QDialog, Ui::MultiProgressDialog
 	Q_OBJECT
 
 	public:
-		MultiProgressDialog(QWidget* parent=0, Qt::WFlags f=0);
+		MultiProgressDialog(QWidget* parent=0);
 		/**
 		 * Create a multi progress bar dialog for long operations with multiple steps. The dialog includes
 		 * one standard progress bar, typically for the overall progress and others may be added easily.
@@ -55,8 +55,7 @@ class SCRIBUS_API MultiProgressDialog : public QDialog, Ui::MultiProgressDialog
 		 * @param parent Parent widget for the dialog, commonly ScMW
 		 * @param f Qt GUI flags
 		 */
-		MultiProgressDialog(const QString& titleText, const QString & cancelButtonText,
-							QWidget* parent=0, Qt::WFlags f=0);
+		MultiProgressDialog(const QString& titleText, const QString & cancelButtonText, QWidget* parent=0);
 		~MultiProgressDialog();
 		
 		/**

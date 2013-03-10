@@ -197,8 +197,8 @@ void ResizeGesture::mouseReleaseEvent(QMouseEvent *m)
 		{
 			for (int i = 0; i < m_doc->m_Selection->count(); ++i)
 				m_doc->m_Selection->itemAt(i)->checkChanges();
-			m_doc->invalidateRegion(m_mousePressBounds.unite(m_bounds));
-			m_doc->regionsChanged()->update(m_mousePressBounds.unite(m_bounds));
+			m_doc->invalidateRegion(m_mousePressBounds.united(m_bounds));
+			m_doc->regionsChanged()->update(m_mousePressBounds.united(m_bounds));
 			m_doc->changed();
 		}
 	}

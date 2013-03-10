@@ -49,8 +49,7 @@ for which a new license (GPL+exception) is in place.
 
 //TODO Distribute with 
 
-AlignDistributePalette::AlignDistributePalette( QWidget* parent, const char* name, bool /*modal*/, Qt::WFlags /*fl*/ )
-	: ScDockPalette( parent, name, 0 )
+AlignDistributePalette::AlignDistributePalette( QWidget* parent, const char* name) : ScDockPalette( parent, name, 0 )
 {
 	setupUi(this);
 	setSizePolicy( QSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum));

@@ -23,6 +23,8 @@ for which a new license (GPL+exception) is in place.
 #include "inlinepalette.h"
 #include <QPainter>
 #include <QByteArray>
+#include <QDrag>
+#include <QMimeData>
 #include "pageitem.h"
 #include "pageitem_table.h"
 #include "pageitem_textframe.h"

@@ -277,7 +277,7 @@ bool PrinterUtil::isPostscriptPrinter( QString printerName)
 	dc = CreateDCW( NULL, (LPCWSTR) printerName.utf16(), NULL, NULL );
 	if ( !dc )
 	{
-		qWarning("isPostscriptPrinter() failed to create device context for %s", printerName.toAscii().data());
+		qWarning("isPostscriptPrinter() failed to create device context for %s", printerName.toLatin1().data());
 		return false;
 	}
 	// test if printer support the POSTSCRIPT_PASSTHROUGH escape code

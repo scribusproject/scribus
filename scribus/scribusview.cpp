@@ -4280,9 +4280,9 @@ void ScribusView::unitChange()
 
 void ScribusView::setRulersShown(bool isShown)
 {
-	vertRuler->setShown(isShown);
-	horizRuler->setShown(isShown);
-	rulerMover->setShown(isShown);
+	vertRuler->setVisible(isShown);
+	horizRuler->setVisible(isShown);
+	rulerMover->setVisible(isShown);
 	int newTopLeftMargin = isShown ? m_vhRulerHW : 0;
 	setViewportMargins(newTopLeftMargin, newTopLeftMargin, 0, 0);
 }

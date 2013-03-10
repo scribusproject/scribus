@@ -859,12 +859,12 @@ QString IconBuffer::readHeader()
 	file->seek(basePos);
 	file->read(buffer, 100);
 	buffer[100] = 0;
-	QString name = QString::fromAscii(buffer);
+	QString name = QString::fromLatin1(buffer);
 	file->seek(basePos + 124);
 	file->read(buffer, 12);
 	buffer[12] = 0;
 	bool ok;
-	len = QString::fromAscii(buffer).toInt(&ok, 8);
+	len = QString::fromLatin1(buffer).toInt(&ok, 8);
 	basePos += 512;
 	return name;
 }

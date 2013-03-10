@@ -40,7 +40,11 @@ class SCRIBUS_API ScDockPalette : public QDockWidget
 	Q_OBJECT
 
 	public:
+#ifdef USE_QT5
+		ScDockPalette( QWidget * parent = NULL, const QString& prefsContext = QString::null, Qt::WindowFlags f = 0 );
+#else
 		ScDockPalette( QWidget * parent = NULL, const QString& prefsContext = QString::null, Qt::WFlags f = 0 );
+#endif
 		~ScDockPalette() {};
 		/** @brief Sample way to grab keystrokes, simply calls superclass at this point */
 		//virtual void keyPressEvent(QKeyEvent *keyEvent);

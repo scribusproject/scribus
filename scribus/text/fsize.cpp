@@ -179,7 +179,7 @@ void FSize::scale( qreal w, qreal h, Qt::AspectRatioMode mode )
 	wd = (qreal)w;
 	ht = (qreal)h;
     } else {
-	bool useHeight = TRUE;
+	bool useHeight = true;
 	qreal w0 = width();
 	qreal h0 = height();
 	qreal rw = h * w0 / h0;

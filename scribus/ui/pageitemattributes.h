@@ -13,7 +13,7 @@ class PageItemAttributes : public QDialog, Ui::PageItemAttributes
 {
     Q_OBJECT
 	public:
-		PageItemAttributes( QWidget* parent = 0, const char* name = 0, bool modal = false, Qt::WFlags fl = 0 );
+		PageItemAttributes( QWidget* parent = 0, const char* name = 0, bool modal = false);
 		~PageItemAttributes();
 
 		virtual ObjAttrVector * getNewAttributes();

@@ -46,13 +46,24 @@ replaceColorsDialog::replaceColorsDialog(QWidget* parent, ColorList &colorList, 
 	rgbIcon = loadIcon("rgb.png", true);
 	spotIcon = loadIcon("spot.png", true);
 	regIcon = loadIcon("register.png", true);
+#ifdef USE_QT5
+	replacementTable->horizontalHeader()->setSectionsClickable(false );
+	replacementTable->horizontalHeader()->setSectionsMovable( false );
+	replacementTable->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+#else
 	replacementTable->horizontalHeader()->setMovable(false);
 	replacementTable->horizontalHeader()->setClickable(false);
 	replacementTable->horizontalHeader()->setResizeMode(QHeaderView::Stretch);
+#endif
 	replacementTable->setHorizontalHeaderItem(0, new QTableWidgetItem( tr("Original")));
 	replacementTable->setHorizontalHeaderItem(1, new QTableWidgetItem( tr("Replacement")));
+#ifdef USE_QT5
+	replacementTable->verticalHeader()->setSectionsMovable( false );
+	replacementTable->verticalHeader()->setSectionResizeMode(QHeaderView::Fixed);
+#else
 	replacementTable->verticalHeader()->setMovable(false);
 	replacementTable->verticalHeader()->setResizeMode(QHeaderView::Fixed);
+#endif
 	replacementTable->verticalHeader()->hide();
 	replacementTable->setIconSize(QSize(60, 15));
 	updateReplacementTable();

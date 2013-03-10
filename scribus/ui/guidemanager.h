@@ -102,7 +102,9 @@ private:
 	/*! \brief Overriden QDialog method to operate selection related widgets.
 	Auto guides tab. It disables the "selection" radio buttons when there
 	is no selection on current page. */
+#ifndef USE_QT5
 	void windowActivationChange(bool oldActive);
+#endif
 
 	/*! \brief Create automatic horizontal guides.
 	Calculates positions of the guides.

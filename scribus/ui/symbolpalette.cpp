@@ -23,6 +23,8 @@ for which a new license (GPL+exception) is in place.
 #include "symbolpalette.h"
 #include <QPainter>
 #include <QByteArray>
+#include <QDrag>
+#include <QMimeData>
 #include "scpattern.h"
 #include "scribusdoc.h"
 #include "scribus.h"

@@ -83,7 +83,7 @@ private:
 	};
 
 	bool PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QString, QMap<uint, FPointArray> > DocFonts, BookMView* vi);
-	void PDF_Begin_Page(const ScPage* pag, QPixmap pm = 0);
+	void PDF_Begin_Page(const ScPage* pag, QPixmap pm);
 	void PDF_End_Page(int physPage);
 	bool PDF_TemplatePage(const ScPage* pag, bool clip = false);
 	bool PDF_ProcessPage(const ScPage* pag, uint PNr, bool clip = false);

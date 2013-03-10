@@ -331,7 +331,7 @@ void PicStatus::imageSelected(QListWidgetItem *ite)
 			else
 				cSpace=colorSpaceText(currItem->pixm.imgInfo.colorspace);
 			displayColorspace->setText(cSpace);
-			displayDPI->setText(QString("%1 x %2").arg(qRound(currItem->pixm.imgInfo.xres)).arg(qRound(currItem->pixm.imgInfo.yres)));
+			displayDPI->setText(QString("%1 x %2").arg(currItem->pixm.imgInfo.xres).arg(currItem->pixm.imgInfo.yres));
 			displayEffDPI->setText(QString("%1 x %2").arg(qRound(72.0 / currItem->imageXScale())).arg(qRound(72.0 / currItem->imageYScale())));
 			displaySizePixel->setText(QString("%1 x %2").arg(currItem->OrigW).arg(currItem->OrigH));
 			displayScale->setText(QString("%1 x %2 %").arg(currItem->imageXScale() * 100 / 72.0 * currItem->pixm.imgInfo.xres, 5, 'f', 1).arg(currItem->imageYScale() * 100 / 72.0 * currItem->pixm.imgInfo.yres, 5, 'f', 1));

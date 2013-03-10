@@ -37,15 +37,18 @@ for which a new license (GPL+exception) is in place.
 #include "scraction.h"
 #include "util_icon.h"
 
+#ifdef USE_QT5
+UndoGui::UndoGui(QWidget* parent, const char* name, Qt::WindowFlags f) : ScDockPalette(parent, name, f)
+#else
 UndoGui::UndoGui(QWidget* parent, const char* name, Qt::WFlags f) : ScDockPalette(parent, name, f)
+#endif
 {
 	setWindowTitle( tr("Action History"));
 }
 
 /*** UndoWidget ***************************************************************/
 
-UndoWidget::UndoWidget(QWidget* parent, const char* name)
-: UndoGui(parent, name)
+UndoWidget::UndoWidget(QWidget* parent, const char* name) : UndoGui(parent, name)
 {
 	/* BnF standard toolbar buttons
 	QHBoxLayout* layout = new QHBoxLayout(this, 0, 0, "layout");
@@ -225,8 +228,7 @@ UndoWidget::~UndoWidget()
 
 /*** UndoPalette **************************************************************/
 
-UndoPalette::UndoPalette(QWidget* parent, const char* name)
-: UndoGui(parent, name)
+UndoPalette::UndoPalette(QWidget* parent, const char* name) : UndoGui(parent, name)
 {
 	setObjectName(QString::fromLocal8Bit(name));
 	setSizePolicy( QSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum));

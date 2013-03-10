@@ -32,6 +32,8 @@ for which a new license (GPL+exception) is in place.
 #include <QToolTip>
 #include <QPainter>
 #include <QProgressDialog>
+#include <QDrag>
+#include <QMimeData>
 
 #include "commonstrings.h"
 #include "cmsettings.h"
@@ -1060,7 +1062,7 @@ bool Biblio::copyObj(int id)
 	BibView* bv = (BibView*)Frame3->widget(id);
 	if (bv->objectMap.contains(nam))
 	{
-		Query dia(this, "tt", 1, 0, tr("&Name:"), tr("New Entry"));
+		Query dia(this, "tt", 1, tr("&Name:"), tr("New Entry"));
 		dia.setValidator(QRegExp("[\\w()]+"));
 		dia.setEditText(nam, true);
 		dia.setTestList(activeBView->objectMap.keys());
@@ -1249,7 +1251,7 @@ void Biblio::renameObj()
 	QPixmap ObjPreview;
 	QListWidgetItem *ite = actItem;
 	QString OldName = ite->text();
-	Query dia(this, "tt", 1, 0, tr("&Name:"), tr("New Name"));
+	Query dia(this, "tt", 1, tr("&Name:"), tr("New Name"));
 	dia.setValidator(QRegExp("[\\w()]+"));
 	dia.setEditText(ite->text(), true);
 	dia.setTestList(activeBView->objectMap.keys());
@@ -1378,7 +1380,7 @@ void Biblio::ObjFromFile(QString path, int testResult)
 			if (activeBView->objectMap.contains(nam))
 				nam += "("+ tmp.setNum(tempCount) + ")";
 		}
-		Query dia(this, "tt", 1, 0, tr("&Name:"), tr("New Entry"));
+		Query dia(this, "tt", 1, tr("&Name:"), tr("New Entry"));
 		dia.setValidator(QRegExp("[\\w()]+"));
 		dia.setEditText(nam, true);
 		dia.setTestList(activeBView->objectMap.keys());
@@ -1506,7 +1508,7 @@ void Biblio::ObjFromMenu(QString text)
 		if (activeBView->objectMap.contains(nam))
 			nam += "("+ tmp.setNum(tempCount) + ")";
 	}
-	Query dia(this, "tt", 1, 0, tr("&Name:"), tr("New Entry"));
+	Query dia(this, "tt", 1, tr("&Name:"), tr("New Entry"));
 	dia.setValidator(QRegExp("[\\w()]+"));
 	dia.setEditText(nam, true);
 	dia.setTestList(activeBView->objectMap.keys());
@@ -1669,7 +1671,7 @@ void Biblio::ObjFromMainMenu(QString text, int scrapID)
 		nam = tr("Object") + tmp.setNum(actBView->objectMap.count());
 	if (actBView->objectMap.contains(nam))
 		nam += "("+ tmp.setNum(tempCount) + ")";
-	Query dia(this, "tt", 1, 0, tr("&Name:"), tr("New Entry"));
+	Query dia(this, "tt", 1, tr("&Name:"), tr("New Entry"));
 	dia.setValidator(QRegExp("[\\w()]+"));
 	dia.setEditText(nam, true);
 	dia.setTestList(activeBView->objectMap.keys());

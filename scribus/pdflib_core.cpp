@@ -1306,7 +1306,7 @@ bool PDFLibCore::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QStrin
 						PutDoc("[ ");
 						for (int ww = 0; ww < glyphWidths.count(); ++ww)
 						{
-							PutDoc(QString::number(qRound(glyphWidths[ww]))+" ");
+							PutDoc(QString::number(glyphWidths[ww])+" ");
 						}
 						PutDoc("]\nendobj\n");
 						uint fontCharProcs = newObject();

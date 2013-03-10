@@ -19,7 +19,7 @@ gtFileDialog::gtFileDialog(const QString& filters, const QStringList& importers,
 
 	fileWidget->setDirectory(wdir);
 	fileWidget->setFileMode(QFileDialog::ExistingFile);
-	fileWidget->setFilter(filters);
+	fileWidget->setNameFilter(filters);
 
 	importerCombo->setToolTip( tr("Choose the importer to use"));
 	importerCombo->addItem( tr("Automatic"));
@@ -66,7 +66,7 @@ void gtFileDialog::loadSettings(void)
 	if (context->contains("filter"))
 	{
 		QString filter = context->get("filter");
-		QStringList filters = fileWidget->filters();
+		QStringList filters = fileWidget->nameFilters();
 		if (!filter.isEmpty() && filters.contains(filter))
 			fileWidget->selectNameFilter(filter);
 	}
@@ -94,7 +94,7 @@ void gtFileDialog::loadSettings(void)
 void gtFileDialog::saveSettings(void)
 {
 	PrefsContext* context = PrefsManager::instance()->prefsFile->getContext("textimport_dialog");
-	context->set("filter"  , fileWidget->selectedFilter());
+	context->set("filter"  , fileWidget->selectedNameFilter());
 	context->set("importer", importerCombo->currentText());
 	context->set("encoding", encodingCombo->currentText());
 	context->set("textonly", textOnlyCheckBox->isChecked());

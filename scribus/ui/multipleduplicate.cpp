@@ -17,9 +17,7 @@ for which a new license (GPL+exception) is in place.
 #include "units.h"
 #include "usertaskstructs.h"
 
-MultipleDuplicate::MultipleDuplicate( int unitIndex, QWidget* parent, Qt::WFlags fl )
-	: QDialog(parent, fl),
-	m_unitIndex(unitIndex)
+MultipleDuplicate::MultipleDuplicate( int unitIndex, QWidget* parent) : QDialog(parent), m_unitIndex(unitIndex)
 {
 	setupUi(this);
 	//set tab order

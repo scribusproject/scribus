@@ -741,7 +741,7 @@ void initscribus(ScribusMainWindow *pl)
 		if (unitGetStrFromIndex(i) == "in")
 			name = PyString_FromString("inch");
 		else
-			name = PyString_FromString(unitGetStrFromIndex(i).toAscii().constData());
+			name = PyString_FromString(unitGetStrFromIndex(i).toLatin1().constData());
 		if (!name)
 		{
 			initscribus_failed(__FILE__, __LINE__);

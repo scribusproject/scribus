@@ -519,8 +519,8 @@ bool ScImgDataLoader_PS::loadPicture(const QString& fn, int page, int gsRes, boo
 		m_image = m_imageInfoRecord.exifInfo.thumbnail;
 		if ((isPhotoshop) && (hasPhotoshopImageData))
 		{
-			m_imageInfoRecord.exifInfo.width = qRound(psXSize);
-			m_imageInfoRecord.exifInfo.height = qRound(psYSize);
+			m_imageInfoRecord.exifInfo.width = psXSize;
+			m_imageInfoRecord.exifInfo.height = psYSize;
 			m_imageInfoRecord.type = ImageType7;
 			if (psMode == 4)
 			{
@@ -620,8 +620,8 @@ bool ScImgDataLoader_PS::loadPicture(const QString& fn, int page, int gsRes, boo
 					m_imageInfoRecord.BBoxX = 0;
 					m_imageInfoRecord.BBoxH = m_image.height();
 				}
-				m_imageInfoRecord.xres = qRound(gsRes);
-				m_imageInfoRecord.yres = qRound(gsRes);
+				m_imageInfoRecord.xres = gsRes;
+				m_imageInfoRecord.yres = gsRes;
 				if ((m_imageInfoRecord.isEmbedded) && (m_profileComponents == 3))
 					m_imageInfoRecord.type = ImageType7;
 				m_imageInfoRecord.colorspace = ColorSpaceRGB;
@@ -691,8 +691,8 @@ bool ScImgDataLoader_PS::loadPicture(const QString& fn, int page, int gsRes, boo
 					m_imageInfoRecord.BBoxX = 0;
 					m_imageInfoRecord.BBoxH = m_image.height();
 				}
-				m_imageInfoRecord.xres = qRound(gsRes);
-				m_imageInfoRecord.yres = qRound(gsRes);
+				m_imageInfoRecord.xres = gsRes;
+				m_imageInfoRecord.yres = gsRes;
 				m_imageInfoRecord.colorspace = ColorSpaceCMYK;
 				m_imageInfoRecord.type = ImageType7;
 				m_image.setDotsPerMeterX ((int) (xres / 0.0254));
@@ -923,7 +923,11 @@ bool ScImgDataLoader_PS::loadPSjpeg(QString fn)
 	else if ( cinfo.output_components == 1 )
 	{
 		m_image = QImage( cinfo.output_width, cinfo.output_height, QImage::Format_Indexed8 );
+#ifdef USE_QT5
+		m_image.setColorCount(256);
+#else
 		m_image.setNumColors(256);
+#endif
 		for (int i=0; i<256; i++)
 			m_image.setColor(i, qRgb(i,i,i));
 	}
@@ -1043,7 +1047,11 @@ bool ScImgDataLoader_PS::loadPSjpeg(QString fn, QImage &tmpImg)
 	else if ( cinfo.output_components == 1 )
 	{
 		tmpImg = QImage( cinfo.output_width, cinfo.output_height, QImage::Format_Indexed8 );
-		tmpImg.setNumColors(256);
+#ifdef USE_QT5
+		m_image.setColorCount(256);
+#else
+		m_image.setNumColors(256);
+#endif
 		for (int i=0; i<256; i++)
 			tmpImg.setColor(i, qRgb(i,i,i));
 		m_pixelFormat = Format_GRAY_8;
@@ -1599,8 +1607,8 @@ void ScImgDataLoader_PS::loadDCS1(QString fn, int gsRes)
 		m_imageInfoRecord.BBoxX = 0;
 		m_imageInfoRecord.BBoxH = m_image.height();
 	}
-	m_imageInfoRecord.xres = qRound(gsRes);
-	m_imageInfoRecord.yres = qRound(gsRes);
+	m_imageInfoRecord.xres = gsRes;
+	m_imageInfoRecord.yres = gsRes;
 	m_imageInfoRecord.colorspace = ColorSpaceCMYK;
 	m_imageInfoRecord.type = ImageType7;
 	m_image.setDotsPerMeterX ((int) (xres / 0.0254));

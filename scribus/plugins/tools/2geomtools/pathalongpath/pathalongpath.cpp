@@ -346,7 +346,7 @@ void PathAlongPathPlugin::updateEffectG(int effectType, double offset, double of
 		currDoc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
 		QRectF oldR(pathItem->getBoundingRect());
 		QRectF newR = QRectF(gx, gy, gw, gh);
-		currDoc->regionsChanged()->update(newR.unite(oldR));
+		currDoc->regionsChanged()->update(newR.united(oldR));
 	}
 	if (effectType != -1)
 		firstUpdate = false;
@@ -388,7 +388,7 @@ void PathAlongPathPlugin::updateEffect(int effectType, double offset, double off
 	{
 		QRectF oldR(pathItem->getBoundingRect());
 		QRectF newR(patternItem->getBoundingRect());
-		currDoc->regionsChanged()->update(newR.unite(oldR));
+		currDoc->regionsChanged()->update(newR.united(oldR));
 	}
 	if (effectType != -1)
 		firstUpdate = false;

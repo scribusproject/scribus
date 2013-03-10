@@ -31,7 +31,7 @@ class CWDialog : public QDialog, Ui::CWDialog
 {
 	Q_OBJECT
 	public:
-		CWDialog( QWidget* parent = 0, ScribusDoc* doc = 0, const char* name = 0, bool modal = FALSE, Qt::WFlags fl = 0 );
+		CWDialog(QWidget* parent = 0, ScribusDoc* doc = 0, const char* name = 0, bool modal = false);
 		~CWDialog();
 	private:
 		/** \brief Configuration structure */

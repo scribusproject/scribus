@@ -40,7 +40,11 @@ class SCRIBUS_API ScrPaletteBase : public QDialog
 	Q_OBJECT
 
 	public:
+#ifdef USE_QT5
+		ScrPaletteBase( QWidget * parent = NULL, const QString& prefsContext = QString::null, bool modal = false, Qt::WindowFlags f = 0 );
+#else
 		ScrPaletteBase( QWidget * parent = NULL, const QString& prefsContext = QString::null, bool modal = false, Qt::WFlags f = 0 );
+#endif
 		~ScrPaletteBase() {};
 		/** @brief Sample way to grab keystrokes, simply calls superclass at this point */
 		//virtual void keyPressEvent(QKeyEvent *keyEvent);

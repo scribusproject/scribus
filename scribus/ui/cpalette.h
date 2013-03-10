@@ -57,8 +57,6 @@ class SCRIBUS_API Cpalette : public QWidget, Ui::colorPalette
 public:
 	Cpalette(QWidget* parent);
 	~Cpalette() {};
-	
-	virtual void changeEvent(QEvent *e);
 
 	void setDocument(ScribusDoc* doc);
 

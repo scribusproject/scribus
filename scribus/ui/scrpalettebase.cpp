@@ -38,8 +38,11 @@ for which a new license (GPL+exception) is in place.
 #include "util.h"
 #include "util_icon.h"
 
-
+#ifdef USE_QT5
+ScrPaletteBase::ScrPaletteBase(  QWidget * parent, const QString& prefsContext, bool modal, Qt::WindowFlags f)
+#else
 ScrPaletteBase::ScrPaletteBase(  QWidget * parent, const QString& prefsContext, bool modal, Qt::WFlags f)
+#endif
 #if QT_VERSION >= 0x040500
 	: QDialog ( parent, f | Qt::Tool | Qt::CustomizeWindowHint
 			| Qt::WindowTitleHint | Qt::WindowMinMaxButtonsHint
@@ -95,7 +98,6 @@ void ScrPaletteBase::setPrefsContext(QString context)
 void ScrPaletteBase::startup()
 {
 	setFontSize();
-//	setShown(visibleOnStartup);
 	if (visibleOnStartup)
 		show();
 	else
@@ -106,7 +108,6 @@ void ScrPaletteBase::startup()
 void ScrPaletteBase::setPaletteShown(bool visible)
 {
 	storeVisibility(visible);
-//	setShown(visible);
 	if (!visible)
 		hide();
 	else if (!isVisible())

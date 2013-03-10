@@ -56,7 +56,7 @@ bool MenuManager::addMenuToMenu(const QString &child, const QString &parent)
 	bool retVal=false;
 	if (child==parent)
 	{
-		qDebug("%s", QString("Cannot add %1 menu to %2 menu (itself)").arg(child, parent).toAscii().constData());
+		qDebug("%s", QString("Cannot add %1 menu to %2 menu (itself)").arg(child, parent).toLatin1().constData());
 		return false;	
 	}
 	if ((menuList.contains(child) && menuList[child]!=NULL) &&
@@ -65,7 +65,6 @@ bool MenuManager::addMenuToMenu(const QString &child, const QString &parent)
 		menuList.insert(child, menuList[child]);
 		retVal=menuList[parent]->insertSubMenu(menuList[child]);
 	}
-	
 	return retVal;
 }
 

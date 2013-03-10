@@ -135,8 +135,8 @@ PatternPropsDialog::PatternPropsDialog(QWidget* parent, int unitIndex, bool isSt
 	QSpacerItem* hspacing = new QSpacerItem(0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum);
 	buttonLayout->addItem(hspacing);
 	buttonOk = new QPushButton( this );
-	buttonOk->setAutoDefault( TRUE );
-	buttonOk->setDefault( TRUE );
+	buttonOk->setAutoDefault( true );
+	buttonOk->setDefault( true );
 	buttonLayout->addWidget( buttonOk );
 	frame3Layout->addLayout( buttonLayout );
 	spinXoffset->setNewUnit(unitIndex);

@@ -1388,7 +1388,7 @@ void CanvasMode::commonkeyPressEvent_NormalNodeEdit(QKeyEvent *e)
 								poly = m.map(poly);
 								QRectF oldR = poly.boundingRect().adjusted(-5, -5, 10, 10);
 								QRectF newR(currItem->getBoundingRect());
-								m_doc->regionsChanged()->update(newR.unite(oldR));
+								m_doc->regionsChanged()->update(newR.united(oldR));
 							}
 							m_doc->nodeEdit.ClRe = storedClRe;
 						}
@@ -1462,7 +1462,7 @@ void CanvasMode::commonkeyPressEvent_NormalNodeEdit(QKeyEvent *e)
 								poly = m.map(poly);
 								QRectF oldR = poly.boundingRect().adjusted(-5, -5, 10, 10);
 								QRectF newR(currItem->getBoundingRect());
-								m_doc->regionsChanged()->update(newR.unite(oldR));
+								m_doc->regionsChanged()->update(newR.united(oldR));
 							}
 							m_doc->nodeEdit.ClRe = storedClRe;
 						}
@@ -1536,7 +1536,7 @@ void CanvasMode::commonkeyPressEvent_NormalNodeEdit(QKeyEvent *e)
 								poly = m.map(poly);
 								QRectF oldR = poly.boundingRect().adjusted(-5, -5, 10, 10);
 								QRectF newR(currItem->getBoundingRect());
-								m_doc->regionsChanged()->update(newR.unite(oldR));
+								m_doc->regionsChanged()->update(newR.united(oldR));
 							}
 							m_doc->nodeEdit.ClRe = storedClRe;
 						}
@@ -1610,7 +1610,7 @@ void CanvasMode::commonkeyPressEvent_NormalNodeEdit(QKeyEvent *e)
 								poly = m.map(poly);
 								QRectF oldR = poly.boundingRect().adjusted(-5, -5, 10, 10);
 								QRectF newR(currItem->getBoundingRect());
-								m_doc->regionsChanged()->update(newR.unite(oldR));
+								m_doc->regionsChanged()->update(newR.united(oldR));
 							}
 							m_doc->nodeEdit.ClRe = storedClRe;
 						}

@@ -24,7 +24,7 @@ RunScriptDialog::RunScriptDialog(QWidget* parent = 0, bool extEnable = false) :
 		fileWidget->setDirectory(scriptDir);
 	else
 		fileWidget->setDirectory(QDir::current());
-	fileWidget->setFilter( tr("Python Scripts (*.py *.PY);; All Files (*)"));
+	fileWidget->setNameFilter( tr("Python Scripts (*.py *.PY);; All Files (*)"));
 
 	if (!extEnable)
 		extChk->setVisible(false);

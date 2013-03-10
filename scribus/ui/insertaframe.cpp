@@ -43,10 +43,6 @@ InsertAFrame::InsertAFrame(QWidget* parent, ScribusDoc *doc) :
 	m_Doc(doc)
 {
 	setupUi(this);
-	//Hide some unused items for now
-// 	radioButtonTable->setShown(false);
-// 	radioButtonShape->setShown(false);
-// 	radioButtonPolygon->setShown(false);
 	
 	placementPagesRangeButton->setIcon(QIcon(loadIcon("ellipsis.png")));
 	
@@ -126,7 +122,7 @@ InsertAFrame::InsertAFrame(QWidget* parent, ScribusDoc *doc) :
 void InsertAFrame::slotSelectType( int id )
 {
 	checkBoxLinkCreatedTextFrames->setEnabled(id==0);
-	radioButtonImageSize->setShown(id==1);
+	radioButtonImageSize->setVisible(id==1);
 	switch (id)
 	{
 		case 0:
