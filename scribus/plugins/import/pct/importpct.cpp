@@ -1532,7 +1532,6 @@ void PctPlug::handleDHVText(QDataStream &ts)
 
 void PctPlug::createTextPath(QByteArray textString)
 {
-	QList<QByteArray> code = QTextCodec::availableCodecs();
 	QTextCodec *codec = QTextCodec::codecForName("Apple Roman");
 	if (!codec)
 	{
