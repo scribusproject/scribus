@@ -11540,7 +11540,8 @@ void ScribusDoc::itemSelection_DeleteItem(Selection* customSelection, bool force
 	}
 	
 	regionsChanged()->update(QRectF());
-	m_View->setCursor(QCursor(Qt::ArrowCursor));
+	if (m_View)
+		m_View->setCursor(QCursor(Qt::ArrowCursor));
 	//CB FIXME remove this and tree.h too
 //	m_ScMW->outlinePalette->BuildTree();
 
