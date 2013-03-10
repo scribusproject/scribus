@@ -1532,7 +1532,14 @@ void PctPlug::handleDHVText(QDataStream &ts)
 
 void PctPlug::createTextPath(QByteArray textString)
 {
+	QList<QByteArray> code = QTextCodec::availableCodecs();
 	QTextCodec *codec = QTextCodec::codecForName("Apple Roman");
+	if (!codec)
+	{
+		codec = QTextCodec::codecForName("macroman");
+		if (!codec)
+			return;
+	}
 	QString string = codec->toUnicode(textString);
 	QFont textFont;
 	if (!fontMap.contains(currentFontID))
