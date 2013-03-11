@@ -164,7 +164,7 @@ About::About( QWidget* parent, AboutMode diaMode ) : QDialog( parent )
 	bu += "-Mac/";
 #  if defined(Q_WS_MACX)
 	bu += "Aqua";
-#  elif define(Q_WS_X11)
+#  elif defined(Q_WS_X11)
 	bu += "X11";
 #  else
 	bu += "?";
