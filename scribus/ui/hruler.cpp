@@ -236,6 +236,7 @@ void Hruler::mousePressEvent(QMouseEvent *m)
 		{
 			qApp->setOverrideCursor(QCursor(SPLITHC));
 			currView->startGesture(rulerGesture);
+			currView->registerMousePress(m->globalPos());
 		}
 	}
 }

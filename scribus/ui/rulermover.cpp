@@ -66,6 +66,7 @@ void RulerMover::mousePressEvent(QMouseEvent *m)
 		Mpressed = true;
 		qApp->setOverrideCursor(QCursor(Qt::CrossCursor));
 		currView->startGesture(rulerGesture);
+		currView->registerMousePress(m->globalPos());
 	}
 	QWidget::mousePressEvent(m);
 }
