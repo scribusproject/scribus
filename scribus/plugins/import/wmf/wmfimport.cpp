@@ -604,6 +604,7 @@ bool WMFImport::importWMF(const TransactionSettings& trSettings, int flags)
 	m_Doc->PageColors.ensureDefaultColors();
 	//m_gc.push( gc );
 	QList<PageItem*> Elements = parseWmfCommands();
+	qApp->restoreOverrideCursor();
 	if (flags & LoadSavePlugin::lfCreateDoc)
 	{
 		m_Doc->documentInfo().setTitle(m_docTitle);
@@ -627,7 +628,6 @@ bool WMFImport::importWMF(const TransactionSettings& trSettings, int flags)
 	m_Doc->scMW()->setScriptRunning(false);
 	if (interactive)
 		m_Doc->setLoading(false);
-	qApp->setOverrideCursor(QCursor(Qt::ArrowCursor));
 	if ((Elements.count() > 0) && (!ret) && (interactive))
 	{
 		if (flags & LoadSavePlugin::lfScripted)
@@ -686,7 +686,6 @@ bool WMFImport::importWMF(const TransactionSettings& trSettings, int flags)
 			m_Doc->view()->updatesOn(true);
 		m_Doc->setLoading(loadF);
 	}
-	qApp->restoreOverrideCursor();
 	return true;
 }
 
