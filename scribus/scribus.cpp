@@ -3320,9 +3320,9 @@ void ScribusMainWindow::HaveNewSel(int SelectedType)
 		{
 			bool setter = !currItem->isGroup();
 			scrMenuMgr->setMenuEnabled("ItemLevel", setter);
-			scrActions["itemDuplicate"]->setEnabled(setter);
-			scrActions["itemMulDuplicate"]->setEnabled(setter);
-			scrActions["itemTransform"]->setEnabled(setter);
+			scrActions["itemDuplicate"]->setEnabled(true);
+			scrActions["itemMulDuplicate"]->setEnabled(true);
+			scrActions["itemTransform"]->setEnabled(true);
 			scrActions["itemDelete"]->setEnabled(true);
 //			scrActions["itemSendToScrapbook"]->setEnabled(setter);
 			scrMenuMgr->setMenuEnabled("itemSendToScrapbook", true);
