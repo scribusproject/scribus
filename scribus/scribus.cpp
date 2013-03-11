@@ -29,6 +29,7 @@ for which a new license (GPL+exception) is in place.
 #include <QColorDialog>
 #include <QCursor>
 #include <QDesktopWidget>
+#include <QDrag>
 #include <QDragEnterEvent>
 #include <QDropEvent>
 #include <QEvent>
