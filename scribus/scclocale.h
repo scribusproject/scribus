@@ -25,7 +25,7 @@
 #include <locale.h>
 #endif
 
-#if defined(Q_WS_WIN)
+#if defined(Q_OS_WIN)
 #define XLocaleType _locale_t
 #else
   #if defined (Q_OS_SOLARIS) || defined (Q_OS_OPENBSD) || defined(Q_OS_FREEBSD) || defined(Q_OS_HAIKU)

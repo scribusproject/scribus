@@ -41,7 +41,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribus.h"
 #include "scribuscore.h"
 #include "scribusdoc.h"
-#ifdef Q_WS_X11
+#ifdef Q_OS_LINUX
 #include <X11/X.h>
 #include <X11/Xlib.h>
 #endif
@@ -686,7 +686,7 @@ void SCFonts::AddFontconfigFonts()
 	FT_Done_FreeType( library );
 }
 
-#elif defined(Q_WS_X11)
+#elif defined(Q_OS_LINUX)
 
 void SCFonts::AddXFontPath()
 {
@@ -859,7 +859,7 @@ void SCFonts::GetFonts(QString pf, bool showFontInfo)
 	AddFontconfigFonts();
 #else
 // on X11 look there:
-#ifdef Q_WS_X11
+#ifdef Q_OS_LINUX
 	AddXFontPath();
 	AddXFontServerPath();
 #endif

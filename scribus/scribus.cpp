@@ -280,7 +280,7 @@ ScribusMainWindow::ScribusMainWindow()
 	UrlLauncher::instance();
 	mainWindowStatusLabel=0;
 	ExternalApp=0;
-#ifdef Q_WS_MAC
+#ifdef Q_OS_MAC
 	noIcon = loadIcon("noicon.xpm");
 #endif
 }

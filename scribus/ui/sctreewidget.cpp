@@ -44,7 +44,7 @@ void ScTreeWidgetDelegate::paint(QPainter *painter, const QStyleOptionViewItem &
         // this is a top-level item.
 		QStyleOptionButton buttonOption;
 		buttonOption.state = option.state;
-#if defined(Q_WS_MAC) || defined(Q_WS_WIN)
+#if defined(Q_OS_MAC) || defined(Q_OS_WIN)
 		buttonOption.state |= QStyle::State_Raised;
 #endif
 		buttonOption.state &= ~QStyle::State_HasFocus;

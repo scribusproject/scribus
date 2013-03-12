@@ -132,7 +132,7 @@ public:
     friend bool operator!=( const FRect &, const FRect & );
 
 private:
-#if defined(Q_WS_X11) || defined(Q_OS_TEMP)
+#if defined(Q_OS_LINUX) || defined(Q_OS_TEMP)
     friend void qt_setCoords( FRect *r, qreal xp1, qreal yp1, qreal xp2, qreal yp2 );
 #endif
 

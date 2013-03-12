@@ -53,7 +53,7 @@ for which a new license (GPL+exception) is in place.
 #include "util_icon.h"
 
 
-#ifdef Q_WS_MAC
+#ifdef Q_OS_MAC
     #define topline 1
 #else
     #define topline 3

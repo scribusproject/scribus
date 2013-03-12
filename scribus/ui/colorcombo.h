@@ -18,7 +18,7 @@ for which a new license (GPL+exception) is in place.
 
 #include <QComboBox>
 
-#ifdef Q_WS_MAC
+#ifdef Q_OS_MAC
 #include <QMacStyle>
 #endif
 
@@ -35,7 +35,7 @@ class SCRIBUS_API ColorCombo : public QComboBox
 
 private:
 
-#ifdef Q_WS_MAC
+#ifdef Q_OS_MAC
 	/// use listbox instead of popupmenu for combo boxes
 	class ScMacStyle : public QMacStyle 
 	{

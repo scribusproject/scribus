@@ -14,7 +14,7 @@ for which a new license (GPL+exception) is in place.
 
 // On Qt/Mac we need CoreFoundation to discover the location
 // of the app bundle.
-#ifdef Q_WS_MAC
+#ifdef Q_OS_MAC
 #include <CoreFoundation/CoreFoundation.h>
 #endif
 
@@ -62,7 +62,7 @@ ScPaths::ScPaths() :
 {
 // On MacOS/X, override the compile-time settings with a location
 // obtained from the system.
-#ifdef Q_WS_MAC
+#ifdef Q_OS_MAC
 	QString pathPtr(bundleDir());
 	qDebug() << QString("scpaths: bundle at %1").arg(pathPtr);
 	m_shareDir = QString("%1/Contents/share/scribus/").arg(pathPtr);
@@ -117,7 +117,7 @@ QString ScPaths::bundleDir(void) const
 {
 	// On MacOS/X, override the compile-time settings with a location
 // obtained from the system.
-#ifdef Q_WS_MAC
+#ifdef Q_OS_MAC
 	// Set up the various app paths to look inside the app bundle
 	CFURLRef pluginRef = CFBundleCopyBundleURL(CFBundleGetMainBundle());
 	CFStringRef macPath = CFURLCopyFileSystemPath(pluginRef, kCFURLPOSIXPathStyle);
@@ -274,7 +274,7 @@ QStringList ScPaths::spellDirs() const
 		foreach (dir, dictDirList)
 			spellDirs.append(progFiles+windowsLOPath + "/" + dir + "/");
 	}
-#elif defined(Q_WS_X11)
+#elif defined(Q_OS_LINUX)
 	d.setPath(linuxHunspellPath);
 	if (d.exists())
 		spellDirs.append(linuxHunspellPath);
@@ -309,7 +309,7 @@ QStringList ScPaths::getSystemProfilesDirs(void)
 	iccProfDirs.append(QDir::homePath()+"/Library/ColorSync/Profiles/");
 	iccProfDirs.append("/System/Library/ColorSync/Profiles/");
 	iccProfDirs.append("/Library/ColorSync/Profiles/");
-#elif defined(Q_WS_X11)
+#elif defined(Q_OS_LINUX)
 	iccProfDirs.append(QDir::homePath()+"/color/icc/");
 	iccProfDirs.append(QDir::homePath()+"/.color/icc/");
 	iccProfDirs.append(QDir::homePath()+"/.local/share/color/icc/");
@@ -372,7 +372,7 @@ QStringList ScPaths::getSystemCreateSwatchesDirs(void)
 #ifdef Q_OS_MAC
 	createDirs.append(QDir::homePath()+"/create/swatches/");
 	createDirs.append(QDir::homePath()+"/.create/swatches/");
-#elif defined(Q_WS_X11)
+#elif defined(Q_OS_LINUX)
 	createDirs.append(QDir::homePath()+"/create/swatches/");
 	createDirs.append(QDir::homePath()+"/.create/swatches/");
 	createDirs.append("/usr/share/create/swatches/");

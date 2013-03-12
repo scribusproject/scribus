@@ -67,7 +67,7 @@ void ActionManager::init(ScribusMainWindow *mw)
 	unicodeCharActionNames=new QStringList();
 	undoManager = UndoManager::instance();
 
-#ifdef Q_WS_MAC
+#ifdef Q_OS_MAC
 	noIcon = loadIcon("noicon.xpm");
 #endif
 
@@ -1295,7 +1295,7 @@ void ActionManager::saveActionShortcutsPreEditMode()
 	{
 		(*scrActions)[*it]->setShortcutContext(Qt::WidgetShortcut);  // in theory, this should be enough, but...
 		(*scrActions)[*it]->saveShortcut();
-#ifdef Q_WS_MAC
+#ifdef Q_OS_MAC
 		if ((*scrActions)[*it]->menu() != NULL)
 			(*scrActions)[*it]->setEnabled(false);
 #endif		
@@ -1313,7 +1313,7 @@ void ActionManager::restoreActionShortcutsPostEditMode()
 	{
 		(*scrActions)[*it]->setShortcutContext(Qt::WindowShortcut);  // see above
 		(*scrActions)[*it]->restoreShortcut();
-#ifdef Q_WS_MAC
+#ifdef Q_OS_MAC
 		(*scrActions)[*it]->setEnabled(true);
 #endif		
 	}

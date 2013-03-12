@@ -263,7 +263,7 @@ bool ScribusCore::usingGUI() const
 bool ScribusCore::isMacGUI() const
 {
 	// Do it statically for now
-#if defined(Q_WS_MAC)
+#if defined(Q_OS_MAC)
 	return true;
 #else
 	return false;
@@ -288,7 +288,7 @@ bool ScribusCore::reverseDialogButtons() const
 	#if defined(_WIN32)
 		return false;
 	//Mac Aqua - switch
-	#elif defined(Q_WS_MAC)
+	#elif defined(Q_OS_MAC)
 		return true;
 	#else
 	//Gnome - switch

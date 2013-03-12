@@ -162,13 +162,6 @@ About::About( QWidget* parent, AboutMode diaMode ) : QDialog( parent )
 	bu += "-Windows";
 #elif defined(Q_OS_MAC)
 	bu += "-Mac/";
-#  if defined(Q_WS_MACX)
-	bu += "Aqua";
-#  elif defined(Q_WS_X11)
-	bu += "X11";
-#  else
-	bu += "?";
-#  endif
 #elif defined(Q_OS_DARWIN)
 	// dunno if anyone uses this...
 	bu += "-Darwin";

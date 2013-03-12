@@ -60,7 +60,7 @@ QString ScFileWidget::selectedFile()
    needed e.g on OpenSuse patched Qt versions */
 void ScFileWidget::accept()
 {
-#ifndef Q_WS_X11
+#ifndef Q_OS_LINUX
 	QFileDialog::accept();
 #endif
 }

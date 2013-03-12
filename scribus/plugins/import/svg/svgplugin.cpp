@@ -506,10 +506,7 @@ void SVGPlug::convert(const TransactionSettings& trSettings, int flags)
 			}
 			tmpSel->setGroupRect();
 			ScElemMimeData* md = ScriXmlDoc::WriteToMimeData(m_Doc, tmpSel);
-/*#ifndef Q_WS_MAC*/
-// see #2526
 			m_Doc->itemSelection_DeleteItem(tmpSel);
-/*#endif*/
 			m_Doc->view()->updatesOn(true);
 			if ((importedColors.count() != 0) && (!((flags & LoadSavePlugin::lfKeepGradients) || (flags & LoadSavePlugin::lfKeepColors) || (flags & LoadSavePlugin::lfKeepPatterns))))
 			{
