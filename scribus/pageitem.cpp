@@ -347,18 +347,21 @@ PageItem::PageItem(const PageItem & other)
 	{
 		QFileInfo inlFi(Pfile);
 		QString ext = inlFi.suffix();
-		tempImageFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_XXXXXX." + ext);
-		tempImageFile->open();
-		QString fileName = getLongPathName(tempImageFile->fileName());
-		tempImageFile->close();
+		QTemporaryFile *tempFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_XXXXXX." + ext);
+		tempFile->setAutoRemove(false);
+		tempFile->open();
+		QString fileName = getLongPathName(tempFile->fileName());
+		tempFile->close();
 		copyFile(Pfile, fileName);
 		Pfile = fileName;
+		delete tempFile;
 		isInlineImage = true;
+		isTempFile = true;
 	}
 	else
 	{
-		tempImageFile = NULL;
 		isInlineImage = false;
+		isTempFile = false;
 	}
 	Parent = NULL;
 	unWeld();
@@ -822,14 +825,14 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 			)
 			pageItemAttributes.append(*objAttrIt);
 	}
-	tempImageFile = NULL;
 	isInlineImage = false;
+	isTempFile = false;
 }
 
 PageItem::~PageItem()
 {
-	if (tempImageFile != NULL)
-		delete tempImageFile;
+	if ((isTempFile) && (!Pfile.isEmpty()))
+		QFile::remove(Pfile);
 	//remove marks
 
 	if (isTextFrame())
@@ -10220,10 +10223,11 @@ void PageItem::setInlineData(QString data)
 	inlineImageData.append(data);
 	if (inlineImageData.size() > 0)
 	{
-		tempImageFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_XXXXXX." + inlineExt);
-		tempImageFile->open();
-		QString fileName = getLongPathName(tempImageFile->fileName());
-		tempImageFile->close();
+		QTemporaryFile *tempFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_XXXXXX." + inlineExt);
+		tempFile->setAutoRemove(false);
+		tempFile->open();
+		QString fileName = getLongPathName(tempFile->fileName());
+		tempFile->close();
 		inlineImageData = qUncompress(QByteArray::fromBase64(inlineImageData));
 		QFile outFil(fileName);
 		if (outFil.open(QIODevice::WriteOnly))
@@ -10231,7 +10235,9 @@ void PageItem::setInlineData(QString data)
 			outFil.write(inlineImageData);
 			outFil.close();
 			isInlineImage = true;
+			isTempFile = true;
 			Pfile = fileName;
+			delete tempFile;
 		}
 	}
 }
@@ -10240,24 +10246,28 @@ void PageItem::makeImageInline()
 {
 	QFileInfo fi(Pfile);
 	QString ext = fi.suffix();
-	tempImageFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_XXXXXX." + ext);
-	tempImageFile->open();
-	QString fileName = getLongPathName(tempImageFile->fileName());
-	tempImageFile->close();
+	QTemporaryFile *tempFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_XXXXXX." + ext);
+	tempFile->setAutoRemove(false);
+	tempFile->open();
+	QString fileName = getLongPathName(tempFile->fileName());
+	tempFile->close();
 	isInlineImage = true;
+	isTempFile = true;
 	copyFile(Pfile, fileName);
 	Pfile = fileName;
+	delete tempFile;
 }
 
 void PageItem::makeImageExternal(QString path)
 {
-	if ((tempImageFile) && (isInlineImage) && (!path.isEmpty()))
+	if ((isTempFile) && (isInlineImage) && (!path.isEmpty()))
 	{
+		QString oldF = Pfile;
 		copyFile(Pfile, path);
 		Pfile = path;
+		QFile::remove(oldF);
 		isInlineImage = false;
-		delete tempImageFile;
-		tempImageFile = NULL;
+		isTempFile = false;
 	}
 }
 

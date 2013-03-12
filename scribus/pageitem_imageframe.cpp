@@ -246,9 +246,9 @@ void PageItem_ImageFrame::clearContents()
 	setFillTransparency(0.0);
 	setLineTransparency(0.0);
 	imageClip.resize(0);
-	if (tempImageFile != NULL)
-		delete tempImageFile;
-	tempImageFile = NULL;
+	if ((isTempFile) && (!Pfile.isEmpty()))
+		QFile::remove(Pfile);
+	isTempFile = false;
 	isInlineImage = false;
 	//				emit UpdtObj(Doc->currentPage->pageNr(), ItemNr);
 }

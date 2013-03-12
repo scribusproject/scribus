@@ -5796,10 +5796,10 @@ bool ScribusDoc::loadPict(QString fn, PageItem *pageItem, bool reload, bool show
 		if ((ScCore->fileWatcher->files().contains(pageItem->Pfile) != 0) && (pageItem->PictureIsAvailable))
 		{
 			ScCore->fileWatcher->removeFile(pageItem->Pfile);
-			if (pageItem->tempImageFile != NULL)
-				delete pageItem->tempImageFile;
-			pageItem->tempImageFile = NULL;
+			QFile::remove(pageItem->Pfile);
+			pageItem->Pfile = "";
 			pageItem->isInlineImage = false;
+			pageItem->isTempFile = false;
 		}
 	}
 	if(!pageItem->loadImage(fn, reload, -1, showMsg))

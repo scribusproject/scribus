@@ -1562,15 +1562,18 @@ void CgmPlug::decodeClass4(QDataStream &ts, quint16 elemID, quint16 paramLen)
 					istr.skipRawData(1);
 			}
 		}
-		ite->tempImageFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_cgm_XXXXXX.png");
-		ite->tempImageFile->open();
-		QString fileName = getLongPathName(ite->tempImageFile->fileName());
-		ite->tempImageFile->close();
+		QTemporaryFile *tempFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_cgm_XXXXXX.png");
+		tempFile->setAutoRemove(false);
+		tempFile->open();
+		QString fileName = getLongPathName(tempFile->fileName());
+		tempFile->close();
 		ite->isInlineImage = true;
+		ite->isTempFile = true;
 		image.save(fileName, "PNG");
 		if ((image.width() < 20) || image.height() < 20)
 			ite->pixm.imgInfo.lowResType = 0;
 		m_Doc->loadPict(fileName, ite);
+		delete tempFile;
 		ite->setImageFlippedH(flipX);
 		ite->setImageFlippedV(flipY);
 		ite->setImageScalingMode(false, false);
@@ -2392,14 +2395,16 @@ void CgmPlug::decodeClass5(QDataStream &ts, quint16 elemID, quint16 paramLen)
 		m_Doc->AdjustItemSize(ite);
 		ite->OldB2 = ite->width();
 		ite->OldH2 = ite->height();
-		ite->tempImageFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_cgm_XXXXXX.png");
-		if (ite->tempImageFile->open())
+		QTemporaryFile *tempFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_cgm_XXXXXX.png");
+		tempFile->setAutoRemove(false);
+		if (tempFile->open())
 		{
-			QString fileName = getLongPathName(ite->tempImageFile->fileName());
+			QString fileName = getLongPathName(tempFile->fileName());
 			if (!fileName.isEmpty())
 			{
-				ite->tempImageFile->close();
+				tempFile->close();
 				ite->isInlineImage = true;
+				ite->isTempFile = true;
 				tmpImg.save(fileName, "PNG");
 				m_Doc->loadPict(fileName, ite);
 				ite->setImageScalingMode(false, true);
@@ -2430,6 +2435,7 @@ void CgmPlug::decodeClass5(QDataStream &ts, quint16 elemID, quint16 paramLen)
 			m_Doc->Items->removeAll(ite);
 			delete ite;
 		}
+		delete tempFile;
 		colorPrecision = t_colorPrecision;
 	//	qDebug() << "PATTERN TABLE" << "Index" << index << "NX" << nx << "NY" << ny;
 	}

@@ -4482,11 +4482,14 @@ void ScribusMainWindow::slotGetClipboardImage()
 					currItem->IRender = doc->cmsSettings().DefaultIntentImages;
 					qApp->setOverrideCursor( QCursor(Qt::WaitCursor) );
 					qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
-					currItem->tempImageFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_XXXXXX.png");
-					currItem->tempImageFile->open();
-					QString fileName = getLongPathName(currItem->tempImageFile->fileName());
-					currItem->tempImageFile->close();
+					QTemporaryFile *tempFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_XXXXXX.png");
+					tempFile->setAutoRemove(false);
+					tempFile->open();
+					QString fileName = getLongPathName(tempFile->fileName());
+					tempFile->close();
+					delete tempFile;
 					currItem->isInlineImage = true;
+					currItem->isTempFile = true;
 					currItem->Pfile = fileName;
 					img.save(fileName, "PNG");
 					doc->loadPict(fileName, currItem, false, true);

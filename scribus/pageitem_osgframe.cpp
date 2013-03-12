@@ -108,12 +108,15 @@ void PageItem_OSGFrame::setImage(QImage &image)
 	}
 	else
 	{
-		tempImageFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_osg_XXXXXX.png");
-		tempImageFile->open();
-		QString imgName = getLongPathName(tempImageFile->fileName());
-		tempImageFile->close();
+		QTemporaryFile *tempFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_osg_XXXXXX.png");
+		tempFile->setAutoRemove(false);
+		tempFile->open();
+		QString imgName = getLongPathName(tempFile->fileName());
+		tempFile->close();
 		image.save(imgName, "PNG");
 		m_Doc->loadPict(imgName, this);
+		delete tempFile;
+		isTempFile = true;
 	}
 	setImageScalingMode(false, true);
 }

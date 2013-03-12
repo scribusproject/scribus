@@ -2499,10 +2499,11 @@ PageItem* Scribus134Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 			{
 				if (inlineImageData.size() > 0)
 				{
-					currItem->tempImageFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_XXXXXX." + inlineImageExt);
-					currItem->tempImageFile->open();
-					QString fileName = getLongPathName(currItem->tempImageFile->fileName());
-					currItem->tempImageFile->close();
+					QTemporaryFile *tempFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_XXXXXX." + inlineImageExt);
+					tempFile->setAutoRemove(false);
+					tempFile->open();
+					QString fileName = getLongPathName(tempFile->fileName());
+					tempFile->close();
 					inlineImageData = qUncompress(QByteArray::fromBase64(inlineImageData));
 					QFile outFil(fileName);
 					if (outFil.open(QIODevice::WriteOnly))
@@ -2511,7 +2512,9 @@ PageItem* Scribus134Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 						outFil.close();
 						currItem->isInlineImage = true;
 						currItem->Pfile = fileName;
+						currItem->isTempFile = true;
 					}
+					delete tempFile;
 				}
 			}
 			else

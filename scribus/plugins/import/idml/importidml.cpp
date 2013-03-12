@@ -2279,15 +2279,17 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, QTransform pT
 						imgExt = "psd";
 					else if (imageType.contains("TIFF", Qt::CaseInsensitive))
 						imgExt = "tif";
-					item->tempImageFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_idml_XXXXXX." + imgExt);
-					if (item->tempImageFile->open())
+					QTemporaryFile *tempFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_idml_XXXXXX." + imgExt);
+					tempFile->setAutoRemove(false);
+					if (tempFile->open())
 					{
-						QString fileName = getLongPathName(item->tempImageFile->fileName());
+						QString fileName = getLongPathName(tempFile->fileName());
 						if (!fileName.isEmpty())
 						{
-							item->tempImageFile->write(imageData);
-							item->tempImageFile->close();
+							tempFile->write(imageData);
+							tempFile->close();
 							item->isInlineImage = true;
+							item->isTempFile = true;
 							item->ScaleType   = true;
 							item->AspectRatio = true;
 							m_Doc->loadPict(fileName, item);
@@ -2296,6 +2298,7 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, QTransform pT
 							item->setImageRotation(-roti);
 						}
 					}
+					delete tempFile;
 				}
 				else
 				{

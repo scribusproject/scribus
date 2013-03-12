@@ -904,13 +904,16 @@ void DrwPlug::decodeCmd(quint8 cmd, int pos)
 				{
 					if (currentItem != NULL)
 					{
-						currentItem->tempImageFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_drw_XXXXXX.png");
-						currentItem->tempImageFile->open();
-						QString fileName = getLongPathName(currentItem->tempImageFile->fileName());
-						currentItem->tempImageFile->close();
+						QTemporaryFile *tempFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_drw_XXXXXX.png");
+						tempFile->setAutoRemove(false);
+						tempFile->open();
+						QString fileName = getLongPathName(tempFile->fileName());
+						tempFile->close();
 						currentItem->isInlineImage = true;
+						currentItem->isTempFile = true;
 						tmpImage.save(fileName, "PNG");
 						m_Doc->loadPict(fileName, currentItem);
+						delete tempFile;
 						currentItem->setImageScalingMode(false, false);
 					}
 					imageValid = false;
@@ -965,7 +968,7 @@ void DrwPlug::decodeCmd(quint8 cmd, int pos)
 			{
 				if (currentItem->asImageFrame())
 				{
-					QString fileName = getLongPathName(currentItem->tempImageFile->fileName());
+					QString fileName = currentItem->Pfile;
 					if (!fileName.isEmpty())
 					{
 						QVector<QRgb> colors;
@@ -1873,11 +1876,14 @@ void DrwPlug::handleGradient(PageItem* currentItem, quint8 patternIndex, QString
 				ScPattern pat = ScPattern();
 				pat.setDoc(m_Doc);
 				PageItem* newItem = new PageItem_ImageFrame(m_Doc, 0, 0, 1, 1, 0, CommonStrings::None, CommonStrings::None);
-				newItem->tempImageFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_drw_XXXXXX.png");
-				newItem->tempImageFile->open();
-				QString fileName = getLongPathName(newItem->tempImageFile->fileName());
-				newItem->tempImageFile->close();
+				QTemporaryFile *tempFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_drw_XXXXXX.png");
+				tempFile->setAutoRemove(false);
+				tempFile->open();
+				QString fileName = getLongPathName(tempFile->fileName());
+				tempFile->close();
+				delete tempFile;
 				newItem->isInlineImage = true;
+				newItem->isTempFile = true;
 				image.setDotsPerMeterY(2834);
 				image.setDotsPerMeterX(2834);
 				image.save(fileName, "PNG");

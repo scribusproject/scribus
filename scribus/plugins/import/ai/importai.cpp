@@ -1445,13 +1445,16 @@ void AIPlug::processData(QString data)
 					ite->setWidthHeight(wh.x(),wh.y());
 					ite->setTextFlowMode(PageItem::TextFlowDisabled);
 					m_Doc->AdjustItemSize(ite);
-					ite->tempImageFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_ai_XXXXXX.pdf");
-					ite->tempImageFile->open();
-					ite->tempImageFile->write(fData);
-					QString imgName = getLongPathName(ite->tempImageFile->fileName());
-					ite->tempImageFile->close();
+					QTemporaryFile *tempFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_ai_XXXXXX.pdf");
+					tempFile->setAutoRemove(false);
+					tempFile->open();
+					tempFile->write(fData);
+					QString imgName = getLongPathName(tempFile->fileName());
+					tempFile->close();
 					ite->isInlineImage = true;
+					ite->isTempFile = true;
 					m_Doc->loadPict(imgName, ite);
+					delete tempFile;
 					if (ite->PictureIsAvailable)
 						ite->setImageXYScale(ite->width() / ite->pixm.width(), ite->height() / ite->pixm.height());
 					ite->setImageFlippedV(true);
@@ -3048,11 +3051,14 @@ void AIPlug::processRaster(QDataStream &ts)
 	uchar *p;
 	uint yCount = 0;
 	quint16 eTag = EXTRASAMPLE_UNASSALPHA;
-	ite->tempImageFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_ai_XXXXXX.tif");
-	ite->tempImageFile->open();
-	QString imgName = getLongPathName(ite->tempImageFile->fileName());
-	ite->tempImageFile->close();
+	QTemporaryFile *tempFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_ai_XXXXXX.tif");
+	tempFile->setAutoRemove(false);
+	tempFile->open();
+	QString imgName = getLongPathName(tempFile->fileName());
+	tempFile->close();
 	ite->isInlineImage = true;
+	ite->isTempFile = true;
+	delete tempFile;
 	TIFF* tif = TIFFOpen(imgName.toLocal8Bit().data(), "w");
 	if (tif)
 	{

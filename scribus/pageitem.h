@@ -1378,7 +1378,7 @@ public:	// Start public variables
 
 		/** Inline Image */
 		bool isInlineImage;
-		QTemporaryFile *tempImageFile;
+		bool isTempFile;
 		//items welding (item follows while item moves which they are connected with)
 		struct weldingInfo
 		{

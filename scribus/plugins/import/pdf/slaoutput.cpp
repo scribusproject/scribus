@@ -2412,14 +2412,16 @@ void SlaOutputDev::drawImageMask(GfxState *state, Object *ref, Stream *str, int 
 	ite->setFillShade(100);
 	ite->setLineShade(100);
 	ite->setFillEvenOdd(false);
-	ite->tempImageFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_pdf_XXXXXX.png");
-	if (ite->tempImageFile->open())
+	QTemporaryFile *tempFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_pdf_XXXXXX.png");
+	tempFile->setAutoRemove(false);
+	if (tempFile->open())
 	{
-		QString fileName = getLongPathName(ite->tempImageFile->fileName());
+		QString fileName = getLongPathName(tempFile->fileName());
 		if (!fileName.isEmpty())
 		{
-			ite->tempImageFile->close();
+			tempFile->close();
 			ite->isInlineImage = true;
+			ite->isTempFile = true;
 			res.save(fileName, "PNG");
 			m_doc->loadPict(fileName, ite);
 			ite->setImageScalingMode(false, true);
@@ -2437,6 +2439,7 @@ void SlaOutputDev::drawImageMask(GfxState *state, Object *ref, Stream *str, int 
 	else
 		m_doc->Items->removeAll(ite);
 	imgStr->close();
+	delete tempFile;
 	delete imgStr;
 	delete image;
 }
@@ -2536,14 +2539,16 @@ void SlaOutputDev::drawSoftMaskedImage(GfxState *state, Object *ref, Stream *str
 	ite->setFillEvenOdd(false);
 	ite->setFillTransparency(1.0 - state->getFillOpacity());
 	ite->setFillBlendmode(getBlendMode(state));
-	ite->tempImageFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_pdf_XXXXXX.png");
-	if (ite->tempImageFile->open())
+	QTemporaryFile *tempFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_pdf_XXXXXX.png");
+	tempFile->setAutoRemove(false);
+	if (tempFile->open())
 	{
-		QString fileName = getLongPathName(ite->tempImageFile->fileName());
+		QString fileName = getLongPathName(tempFile->fileName());
 		if (!fileName.isEmpty())
 		{
-			ite->tempImageFile->close();
+			tempFile->close();
 			ite->isInlineImage = true;
+			ite->isTempFile = true;
 			res.save(fileName, "PNG");
 			m_doc->loadPict(fileName, ite);
 			ite->setImageScalingMode(false, true);
@@ -2560,6 +2565,7 @@ void SlaOutputDev::drawSoftMaskedImage(GfxState *state, Object *ref, Stream *str
 	}
 	else
 		m_doc->Items->removeAll(ite);
+	delete tempFile;
 	delete imgStr;
 	delete[] buffer;
 	delete image;
@@ -2651,14 +2657,16 @@ void SlaOutputDev::drawImage(GfxState *state, Object *ref, Stream *str, int widt
 	ite->setFillEvenOdd(false);
 	ite->setFillTransparency(1.0 - state->getFillOpacity());
 	ite->setFillBlendmode(getBlendMode(state));
-	ite->tempImageFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_pdf_XXXXXX.png");
-	if (ite->tempImageFile->open())
+	QTemporaryFile *tempFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_pdf_XXXXXX.png");
+	tempFile->setAutoRemove(false);
+	if (tempFile->open())
 	{
-		QString fileName = getLongPathName(ite->tempImageFile->fileName());
+		QString fileName = getLongPathName(tempFile->fileName());
 		if (!fileName.isEmpty())
 		{
-			ite->tempImageFile->close();
+			tempFile->close();
 			ite->isInlineImage = true;
+			ite->isTempFile = true;
 			img.save(fileName, "PNG");
 			m_doc->loadPict(fileName, ite);
 			ite->setImageScalingMode(false, true);
@@ -2675,6 +2683,7 @@ void SlaOutputDev::drawImage(GfxState *state, Object *ref, Stream *str, int widt
 	}
 	else
 		m_doc->Items->removeAll(ite);
+	delete tempFile;
 	delete imgStr;
 	delete[] buffer;
 	delete image;
