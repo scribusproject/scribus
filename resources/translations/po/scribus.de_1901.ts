@@ -36370,7 +36370,7 @@ Sie können zwischen &quot;normal&quot; und verschiedenen Formen der Farbenblind
     <message>
         <location filename="../../../scribus/tabpdfoptions.cpp" line="685"/>
         <source>Convert Spot Colors to Process Colors</source>
-        <translation>Konvertiert Schmuckfarben zu Prozeßfarben</translation>
+        <translation type="unfinished">Schmuckfarben in Prozeßfarben umwandeln</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabpdfoptions.cpp" line="385"/>
