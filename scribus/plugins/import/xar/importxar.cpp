@@ -102,13 +102,11 @@ bool XarPlug::readColors(const QString& fNameIn, ColorList &colors)
 			if (opCode == 30)
 			{
 				ts.skipRawData(dataLen);
-				quint64 pos = ts.device()->pos();
 				QtIOCompressor compressor(ts.device(), 6, 1);
 				compressor.setStreamFormat(QtIOCompressor::RawZipFormat);
 				compressor.open(QIODevice::ReadOnly);
 				QDataStream tsc(&compressor);
 				tsc.setByteOrder(QDataStream::LittleEndian);
-				tsc.device()->seek(pos);
 				while (!tsc.atEnd())
 				{
 					tsc >> opCode;
@@ -178,13 +176,11 @@ QImage XarPlug::readThumbnail(QString fName)
 			if (opCode == 30)
 			{
 				ts.skipRawData(dataLen);
-				quint64 pos = ts.device()->pos();
 				QtIOCompressor compressor(ts.device(), 6, 1);
 				compressor.setStreamFormat(QtIOCompressor::RawZipFormat);
 				compressor.open(QIODevice::ReadOnly);
 				QDataStream tsc(&compressor);
 				tsc.setByteOrder(QDataStream::LittleEndian);
-				tsc.device()->seek(pos);
 				while (!tsc.atEnd())
 				{
 					tsc >> opCode;
@@ -598,13 +594,11 @@ void XarPlug::parseXar(QDataStream &ts)
 		if (opCode == 30)
 		{
 			ts.skipRawData(dataLen);
-			quint64 pos = ts.device()->pos();
 			QtIOCompressor compressor(ts.device(), 6, 1);
 			compressor.setStreamFormat(QtIOCompressor::RawZipFormat);
 			compressor.open(QIODevice::ReadOnly);
 			QDataStream tsc(&compressor);
 			tsc.setByteOrder(QDataStream::LittleEndian);
-			tsc.device()->seek(pos);
 			while (!tsc.atEnd())
 			{
 				tsc >> opCode;
