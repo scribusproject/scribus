@@ -628,10 +628,22 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 	layout18->addLayout( layout9 );
 	EffectsDialogLayout->addLayout( layout18 );
 	optionStack->setCurrentIndex(0);
-	createPreview();
 	usedEffects->clearSelection();
 	availableEffects->clearSelection();
 	resize( minimumSizeHint() );
+	ScImage im(image);
+	saveValues(false);
+	im.applyEffect(effectsList, doc->PageColors, false);
+	QPixmap Bild = QPixmap(pixmapLabel1->width(), pixmapLabel1->height());
+	int x = (pixmapLabel1->width() - im.qImage().width()) / 2;
+	int y = (pixmapLabel1->height() - im.qImage().height()) / 2;
+	QPainter p;
+	QBrush b(QColor(205,205,205), loadIcon("testfill.png"));
+	p.begin(&Bild);
+	p.fillRect(0, 0, pixmapLabel1->width(), pixmapLabel1->height(), b);
+	p.drawImage(x, y, im.qImage());
+	p.end();
+	pixmapLabel1->setPixmap( Bild );
 
 	// signals and slots connections
 	connect( okButton, SIGNAL( clicked() ), this, SLOT( leaveOK() ) );
