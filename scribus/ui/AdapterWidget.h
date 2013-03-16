@@ -65,7 +65,11 @@ class ViewerQT : public osgViewer::Viewer, public AdapterWidget
 			setThreadingModel ( osgViewer::Viewer::SingleThreaded );
 
 			connect ( &_timer, SIGNAL ( timeout() ), this, SLOT ( updateGL() ) );
-			_timer.start ( 10 );
+		}
+
+		virtual void showEvent(QShowEvent *)
+		{
+			_timer.start(10);
 		}
 
 		virtual void paintGL()
