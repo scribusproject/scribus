@@ -1324,10 +1324,22 @@ void SlaOutputDev::restoreState(GfxState *state)
 							sing->setWidthHeight(ite->width(), ite->height(), true);
 							sing->groupWidth = ite->width();
 							sing->groupHeight = ite->height();
+							if (sing->isImageFrame())
+							{
+								QTransform ft;
+								ft.translate(-result.boundingRect().x(), -result.boundingRect().y());
+								ft.scale(ite->width() / result.boundingRect().width(), ite->height() / result.boundingRect().height());
+								result = ft.map(result);
+							}
 							sing->PoLine.fromQPainterPath(result);
 							m_doc->AdjustItemSize(sing);
 							if (sing->isGroup())
 								sing->asGroupFrame()->adjustXYPosition();
+							if (sing->isImageFrame())
+							{
+								sing->setImageXYOffset(0, 0);
+								sing->AdjustPictScale();
+							}
 						}
 						delete ite;
 					}
@@ -2412,6 +2424,7 @@ void SlaOutputDev::drawImageMask(GfxState *state, Object *ref, Stream *str, int 
 	ite->setFillShade(100);
 	ite->setLineShade(100);
 	ite->setFillEvenOdd(false);
+	m_doc->AdjustItemSize(ite);
 	QTemporaryFile *tempFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_pdf_XXXXXX.png");
 	tempFile->setAutoRemove(false);
 	if (tempFile->open())
@@ -2424,8 +2437,7 @@ void SlaOutputDev::drawImageMask(GfxState *state, Object *ref, Stream *str, int 
 			ite->isTempFile = true;
 			res.save(fileName, "PNG");
 			m_doc->loadPict(fileName, ite);
-			ite->setImageScalingMode(false, true);
-			m_doc->AdjustItemSize(ite);
+			ite->setImageScalingMode(false, false);
 			m_Elements->append(ite);
 			if (m_groupStack.count() != 0)
 			{
@@ -2539,6 +2551,7 @@ void SlaOutputDev::drawSoftMaskedImage(GfxState *state, Object *ref, Stream *str
 	ite->setFillEvenOdd(false);
 	ite->setFillTransparency(1.0 - state->getFillOpacity());
 	ite->setFillBlendmode(getBlendMode(state));
+	m_doc->AdjustItemSize(ite);
 	QTemporaryFile *tempFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_pdf_XXXXXX.png");
 	tempFile->setAutoRemove(false);
 	if (tempFile->open())
@@ -2551,8 +2564,7 @@ void SlaOutputDev::drawSoftMaskedImage(GfxState *state, Object *ref, Stream *str
 			ite->isTempFile = true;
 			res.save(fileName, "PNG");
 			m_doc->loadPict(fileName, ite);
-			ite->setImageScalingMode(false, true);
-			m_doc->AdjustItemSize(ite);
+			ite->setImageScalingMode(false, false);
 			m_Elements->append(ite);
 			if (m_groupStack.count() != 0)
 			{
@@ -2657,6 +2669,7 @@ void SlaOutputDev::drawImage(GfxState *state, Object *ref, Stream *str, int widt
 	ite->setFillEvenOdd(false);
 	ite->setFillTransparency(1.0 - state->getFillOpacity());
 	ite->setFillBlendmode(getBlendMode(state));
+	m_doc->AdjustItemSize(ite);
 	QTemporaryFile *tempFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_pdf_XXXXXX.png");
 	tempFile->setAutoRemove(false);
 	if (tempFile->open())
@@ -2669,8 +2682,7 @@ void SlaOutputDev::drawImage(GfxState *state, Object *ref, Stream *str, int widt
 			ite->isTempFile = true;
 			img.save(fileName, "PNG");
 			m_doc->loadPict(fileName, ite);
-			ite->setImageScalingMode(false, true);
-			m_doc->AdjustItemSize(ite);
+			ite->setImageScalingMode(false, false);
 			m_Elements->append(ite);
 			if (m_groupStack.count() != 0)
 			{
