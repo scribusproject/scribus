@@ -24,6 +24,9 @@
 #include <QMouseEvent>
 #include <QPoint>
 #include <QRect>
+#ifdef USE_QT5
+	#include <QScreen>
+#endif
 #include <QDebug>
 
 #include "canvas.h"
@@ -116,6 +119,7 @@ void CanvasMode_EyeDropper::mouseMoveEvent(QMouseEvent *m)
 	/*m->accept();
 	if (commonMouseMove(m))
 		return;*/
+	m->accept();
 }
 
 void CanvasMode_EyeDropper::mousePressEvent(QMouseEvent *m)
@@ -139,8 +143,14 @@ void CanvasMode_EyeDropper::mouseReleaseEvent(QMouseEvent *m)
 	releaseMouse();
 
 	m_view->setCursor(QCursor(Qt::ArrowCursor));
-
+#ifdef USE_QT5
+	QPixmap pm;
+	QScreen *screen = QGuiApplication::primaryScreen();
+	if (screen)
+		pm = screen->grabWindow( QApplication::desktop()->winId(), m->globalPos().x(), m->globalPos().y(), 1, 1);
+#else
 	QPixmap pm = QPixmap::grabWindow( QApplication::desktop()->winId(), m->globalPos().x(), m->globalPos().y(), 1, 1);
+#endif
 	QImage i = pm.toImage();
 	QColor selectedColor=i.pixel(0, 0);
 
