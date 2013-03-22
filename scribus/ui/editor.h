@@ -18,6 +18,10 @@ class QVBoxLayout;
 class QAction;
 class ScribusView;
 class PrefsContext;
+#ifdef Q_OS_MAC
+	class QHBoxLayout;
+	class QPushButton;
+#endif
 
 class SCRIBUS_API Editor : public QDialog
 {
@@ -43,6 +47,10 @@ public:
 	QAction* clearAct;
 	QAction* getFieldAct;
 	ScribusView* view;
+#ifdef Q_OS_MAC
+	QPushButton* PushButton1;
+	QPushButton* PushButton2;
+#endif
 
 private slots:
 	void del();
@@ -52,6 +60,9 @@ private slots:
 
 protected:
 	QVBoxLayout* EditorLayout;
+#ifdef Q_OS_MAC
+	QHBoxLayout* Layout1_2;
+#endif
 	PrefsContext* dirs;
 };
 
