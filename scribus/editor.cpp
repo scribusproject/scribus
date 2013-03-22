@@ -21,6 +21,10 @@ for which a new license (GPL+exception) is in place.
 #include <QMenu>
 #include <QMenuBar>
 #include <QAction>
+#ifdef Q_OS_MAC
+	#include <QPushButton>
+	#include <QVBoxLayout>
+#endif
 
 #include "util_icon.h"
 
@@ -86,6 +90,23 @@ Editor::Editor( QWidget* parent, QString daten, ScribusView* vie) : QDialog( par
 	EditTex->setMinimumSize( QSize( 400, 400 ) );
 	EditTex->setPlainText(daten);
 	EditorLayout->addWidget( EditTex );
+#ifdef Q_OS_MAC
+	Layout1_2 = new QHBoxLayout;
+	Layout1_2->setSpacing( 5 );
+	Layout1_2->setMargin( 0 );
+	QSpacerItem* spacerr = new QSpacerItem( 2, 2, QSizePolicy::Expanding, QSizePolicy::Minimum );
+	Layout1_2->addItem( spacerr );
+	PushButton1 = new QPushButton( this );
+	PushButton1->setText( tr( "OK" ) );
+	PushButton1->setDefault( true );
+	Layout1_2->addWidget( PushButton1 );
+	PushButton2 = new QPushButton( this );
+	PushButton2->setText( tr( "Cancel" ) );
+	Layout1_2->addWidget( PushButton2 );
+	EditorLayout->addLayout( Layout1_2 );
+	connect(PushButton1, SIGNAL(clicked()), this, SLOT(accept()));
+	connect(PushButton2, SIGNAL(clicked()), this, SLOT(reject()));
+#endif
 }
 
 void Editor::del()
