@@ -99,14 +99,23 @@ pt_BR=R$ ,€ ,$ ,US$ ,£ , %, ltda., LTDA., S.A., s.a.,nº ,Nº ,apto. ,APTO. ,
 # Brazilian Portguese - FIM
 
 
+# Danish stuff START here
+# Titles
+da= hr., hr, fr., fru, frk., frk,
+# Weight
+da= kg, g, mg, km, m, m2, cm, mm, l, liter, dl, ml,
+# Date and time
+da= kl., kl, d.,
+# Danish stuff - THE END
+
 
 #  German short words START here
 ## Titles and degrees
-de=Dr. ,Prof. ,Hr. ,Hrn. ,Fr. ,Frl. ,Frhr. ,StR ,OStR ,AR ,OAR ,RA ,RAe , MDB, MdB, MDL, MdL, MEP, M.A., M. A.,
+de= Dr. ,Prof. ,Hr. ,Hrn. ,Fr. ,Frl. ,Frhr. ,StR ,OStR ,AR ,OAR ,RA ,RAe , MDB, MdB, MDL, MdL, MEP, M.A., M. A.,
 ## physics and math
 de= t, kg, g, mg, km, m, cm, mm, qm, ha, l, L, hl, HL, cl, dl, min, Min., h, s, Hz, kHz, KHz, MHz, kW, m/s, km/h, MEZ, Mrd., Mrd, Mio., Mio, Bio., PS, rm, U/min, v. H., v.H., %,
 ## Misc
-de=d. h. ,d.h. , a. a. O., a.a.O.,ŕ ,§ ,§§ , EUR, USD, DM, GBP, A. D. , A.D., a. D., a.D.,Abb. ,Best.-Nr. ,Nr. ,No. , d. Ä., d.Ä., d. Gr., d.Gr., d. J., d.J., d. M., d.M., n. M., n.M., n. J., n.J., dgl., et al., e.a., e. a.,gegr. ,i. J. , i. R., Jh., o. ä., o.ä.,rd. , jun., sen., u. d. M., u.d.M., ü. d. M., ü.d.M., v. Chr., v.Chr., n. Chr., n.Chr., v. J., v.J., v. M., v.M., & ,
+de= d. h. ,d.h. , a. a. O., a.a.O.,ŕ ,§ ,§§ , EUR, USD, DM, GBP, A. D. , A.D., a. D., a.D.,Abb. ,Best.-Nr. ,Nr. ,No. , d. Ä., d.Ä., d. Gr., d.Gr., d. J., d.J., d. M., d.M., n. M., n.M., n. J., n.J., dgl., et al., e.a., e. a.,gegr. ,i. J. , i. R., Jh., o. ä., o.ä.,rd. , jun., sen., u. d. M., u.d.M., ü. d. M., ü.d.M., v. Chr., v.Chr., n. Chr., n.Chr., v. J., v.J., v. M., v.M., & ,
 #  German short words - THE END
 
 
@@ -116,17 +125,17 @@ ru= кг, г, м, см, мм, мл, л, гл, с, мс, Вт, кВт, мВт, В
 ## разные знаки и символы валют
 ru= § , & , $, *, €,
 ## академические звания
-ru=проф. , Проф. ,
+ru= проф. , Проф. ,
 ## география
-ru=ул. , корп. ,
+ru= ул. , корп. ,
 ## предлоги, союзы и пр.
-ru=с ,на ,а ,в ,у ,и ,о ,я ,к ,А ,О ,И ,У ,В ,С ,К ,
+ru= с ,на ,а ,в ,у ,и ,о ,я ,к ,А ,О ,И ,У ,В ,С ,К ,
 #  Russian short words - THE END
 
 
 #  Estonian short words START here
 ## Tiitlid ja kõnetused
-et=Hr. ,hr. ,Hr ,hr ,Pr. ,pr. ,Pr ,pr ,Prl. ,prl. ,Prl ,prl ,Sm. ,sm. ,Prof. ,prof. ,Dr. ,dr. , jun., sen.,Kod. ,kod. ,Kod ,kod ,Lp. ,Lp ,lp. ,lp ,V.a. ,
+et= Hr. ,hr. ,Hr ,hr ,Pr. ,pr. ,Pr ,pr ,Prl. ,prl. ,Prl ,prl ,Sm. ,sm. ,Prof. ,prof. ,Dr. ,dr. , jun., sen.,Kod. ,kod. ,Kod ,kod ,Lp. ,Lp ,lp. ,lp ,V.a. ,
 ## Mõõtühikud
 et= t, kg, g, ts, km, m, cm, mm, ha, ml, l, dl, cl, min, sek, Hz, kHz, MHz, km/h, m/s, kW, W, kV, V, mV, A, mA, kWh,
 ## Rahaühikud ja muud märgid
