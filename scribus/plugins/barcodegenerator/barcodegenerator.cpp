@@ -98,6 +98,10 @@ BarcodeGenerator::BarcodeGenerator(QWidget* parent, const char* name)
 								 tr("Variable number of hexadecimal characters"),
 								 "[0-9A-F]*",
 								false, true);
+	map["QR Code"] = BarcodeType("qrcode", "http://www.scribus.net",
+								 tr("Variable number of characters, digits and any symbols."),
+								 ".*",
+								false, false);
 	//    "Symbol"] = "symbol"
 
 	useSamples = true;
@@ -307,7 +311,7 @@ bool BarcodeGenerator::paintBarcode(QString fileName, int dpi)
 		opts += " includecheckintext";
 	if (ui.includeCheck->isChecked() & ui.includeCheck->isEnabled())
 		opts += " includecheck";
-	QString comm("15 10 moveto (%1) (%2) %3");
+	QString comm("15 10 moveto (%1) (%2) /%3 /uk.co.terryburton.bwipp findresource exec");
 	comm = comm.arg(ui.codeEdit->text()).arg(opts).arg(map[ui.bcCombo->currentText()].command);
 	comm = psCommand + comm;
 	QFile f(psFile);
