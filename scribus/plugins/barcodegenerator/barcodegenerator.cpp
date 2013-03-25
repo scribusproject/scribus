@@ -98,6 +98,10 @@ BarcodeGenerator::BarcodeGenerator(QWidget* parent, const char* name)
 								 tr("Variable number of hexadecimal characters"),
 								 "[0-9A-F]*",
 								false, true);
+	map["QR Code"] = BarcodeType("qrcode", "http://www.scribus.net",
+								 tr("Variable number of characters, digits and any symbols."),
+								 ".*",
+								false, false);
 	//    "Symbol"] = "symbol"
 
 	useSamples = true;
