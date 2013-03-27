@@ -66,7 +66,7 @@ void ImportCgmPlugin::languageChange()
 ImportCgmPlugin::~ImportCgmPlugin()
 {
 	unregisterAll();
-};
+}
 
 const QString ImportCgmPlugin::fullTrName() const
 {

@@ -44,28 +44,22 @@ ImportCvgPlugin::ImportCvgPlugin() : LoadSavePlugin(),
 {
 	// Set action info in languageChange, so we only have to do it in one
 	// place. This includes registering file format support.
+	registerFormats();
 	languageChange();
 }
-/*
-void ImportXfigPlugin::addToMainWindowMenu(ScribusMainWindow *mw)
-{
-	importAction->setEnabled(true);
-	connect( importAction, SIGNAL(triggered()), SLOT(import()) );
-	mw->scrMenuMgr->addMenuItem(importAction, "FileImport");
-}
-*/
+
 void ImportCvgPlugin::languageChange()
 {
 	importAction->setText( tr("Import Cvg..."));
-	// (Re)register file format support
-	unregisterAll();
-	registerFormats();
+	FileFormat* fmt = getFormatByExt("cvg");
+	fmt->trName = FormatsManager::instance()->nameOfFormat(FormatsManager::CVG); // Human readable name
+	fmt->filter = FormatsManager::instance()->extensionsForFormat(FormatsManager::CVG); // QFileDialog filter
 }
 
 ImportCvgPlugin::~ImportCvgPlugin()
 {
 	unregisterAll();
-};
+}
 
 const QString ImportCvgPlugin::fullTrName() const
 {

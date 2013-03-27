@@ -47,14 +47,7 @@ ImportSmlPlugin::ImportSmlPlugin() : LoadSavePlugin(),
 	registerFormats();
 	languageChange();
 }
-/*
-void ImportXfigPlugin::addToMainWindowMenu(ScribusMainWindow *mw)
-{
-	importAction->setEnabled(true);
-	connect( importAction, SIGNAL(triggered()), SLOT(import()) );
-	mw->scrMenuMgr->addMenuItem(importAction, "FileImport");
-}
-*/
+
 void ImportSmlPlugin::languageChange()
 {
 	importAction->setText( tr("Import Sml..."));

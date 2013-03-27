@@ -67,7 +67,7 @@ void ImportDrwPlugin::languageChange()
 ImportDrwPlugin::~ImportDrwPlugin()
 {
 	unregisterAll();
-};
+}
 
 const QString ImportDrwPlugin::fullTrName() const
 {

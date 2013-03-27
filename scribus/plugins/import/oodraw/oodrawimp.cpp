@@ -76,17 +76,10 @@ OODrawImportPlugin::OODrawImportPlugin() :
 {
 	// Set action info in languageChange, so we only have to do
 	// it in one place. This includes registering file formats.
+	registerFormats();
 	languageChange();
 }
-/*
-void OODrawImportPlugin::addToMainWindowMenu(ScribusMainWindow *mw)
-{
-	// Then hook up the action
-	importAction->setEnabled(true);
-	connect( importAction, SIGNAL(triggered()), SLOT(import()) );
-	mw->scrMenuMgr->addMenuItem(importAction, "FileImport");
-}
-*/
+
 OODrawImportPlugin::~OODrawImportPlugin()
 {
 	unregisterAll();
@@ -96,9 +89,12 @@ OODrawImportPlugin::~OODrawImportPlugin()
 void OODrawImportPlugin::languageChange()
 {
 	importAction->setText( tr("Import &OpenOffice.org Draw..."));
-	// (Re)register file formats
-	unregisterAll();
-	registerFormats();
+	FileFormat* fmt = getFormatByExt("odg");
+	fmt->trName = tr("OpenDocument 1.0 Draw", "Import/export format name");
+	fmt->filter = tr("OpenDocument 1.0 Draw (*.odg *.ODG)");
+	FileFormat* fmt2 = getFormatByExt("sxd");
+	fmt2->trName = tr("OpenOffice.org 1.x Draw", "Import/export format name");
+	fmt2->filter = tr("OpenOffice.org 1.x Draw (*.sxd *.SXD)");
 }
 
 const QString OODrawImportPlugin::fullTrName() const

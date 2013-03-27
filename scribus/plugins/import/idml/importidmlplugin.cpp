@@ -60,6 +60,9 @@ void ImportIdmlPlugin::languageChange()
 	FileFormat* fmt = getFormatByExt("idml");
 	fmt->trName = tr("Adobe Indesign IDML");
 	fmt->filter = tr("Adobe Indesign IDML (*.idml *.IDML)");
+	FileFormat* fmt2 = getFormatByExt("idms");
+	fmt2->trName = tr("Adobe Indesign IDMS");
+	fmt2->filter = tr("Adobe Indesign IDMS (*.idms *.IDMS)");
 }
 
 ImportIdmlPlugin::~ImportIdmlPlugin()

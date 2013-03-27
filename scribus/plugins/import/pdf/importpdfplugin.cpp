@@ -49,22 +49,25 @@ ImportPdfPlugin::ImportPdfPlugin() : LoadSavePlugin(),
 {
 	// Set action info in languageChange, so we only have to do it in one
 	// place. This includes registering file format support.
+	registerFormats();
 	languageChange();
 }
-/*
-void ImportXfigPlugin::addToMainWindowMenu(ScribusMainWindow *mw)
-{
-	importAction->setEnabled(true);
-	connect( importAction, SIGNAL(triggered()), SLOT(import()) );
-	mw->scrMenuMgr->addMenuItem(importAction, "FileImport");
-}
-*/
+
 void ImportPdfPlugin::languageChange()
 {
 	importAction->setText( tr("Import PDF..."));
-	// (Re)register file format support
-	unregisterAll();
-	registerFormats();
+	FileFormat* fmt = getFormatByExt("pdf");
+	fmt->trName = FormatsManager::instance()->nameOfFormat(FormatsManager::PDF); // Human readable name
+	fmt->filter = FormatsManager::instance()->extensionsForFormat(FormatsManager::PDF); // QFileDialog filter
+	if (ScCore->haveGS())
+	{
+		FileFormat* fmt2 = getFormatByExt("eps");
+		fmt2->trName = FormatsManager::instance()->nameOfFormat(FormatsManager::EPS);
+		fmt2->filter = FormatsManager::instance()->extensionsForFormat(FormatsManager::EPS);
+		FileFormat* fmt3 = getFormatByExt("ps");
+		fmt3->trName = FormatsManager::instance()->nameOfFormat(FormatsManager::PS);
+		fmt3->filter = FormatsManager::instance()->extensionsForFormat(FormatsManager::PS);
+	}
 }
 
 ImportPdfPlugin::~ImportPdfPlugin()

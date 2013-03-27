@@ -44,15 +44,16 @@ ImportPctPlugin::ImportPctPlugin() : LoadSavePlugin(),
 {
 	// Set action info in languageChange, so we only have to do it in one
 	// place. This includes registering file format support.
+	registerFormats();
 	languageChange();
 }
 
 void ImportPctPlugin::languageChange()
 {
 	importAction->setText( tr("Import Pict..."));
-	// (Re)register file format support
-	unregisterAll();
-	registerFormats();
+	FileFormat* fmt = getFormatByExt("pct");
+	fmt->trName = FormatsManager::instance()->nameOfFormat(FormatsManager::PCT); // Human readable name
+	fmt->filter = FormatsManager::instance()->extensionsForFormat(FormatsManager::PCT); // QFileDialog filter
 }
 
 ImportPctPlugin::~ImportPctPlugin()
