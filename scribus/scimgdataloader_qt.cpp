@@ -49,7 +49,7 @@ bool ScImgDataLoader_QT::loadPicture(const QString& fn, int /*page*/, int /*res*
 		m_imageInfoRecord.colorspace = ColorSpaceRGB;
 		if (m_image.depth() == 1)
 			m_imageInfoRecord.colorspace = ColorSpaceMonochrome;
-		else if (m_image.isGrayscale())
+		else if (m_image.isGrayscale() && m_image.depth() <= 16)
 			m_imageInfoRecord.colorspace = ColorSpaceGray;
 		m_image = m_image.convertToFormat(QImage::Format_ARGB32);
 		m_image.setDotsPerMeterX ((int) (xres / 0.0254));
