@@ -128,8 +128,10 @@ void SideBar::mouseReleaseEvent(QMouseEvent *m)
 	CurrentPar = editor->StyledText.nrOfParagraph(p);
 	int pos = editor->StyledText.startOfParagraph( editor->StyledText.nrOfParagraph(p) );
 
+	pmen->clear();
+
 	QString styleName = "";
-	ParaStyleComboBox* paraStyleCombo = new ParaStyleComboBox(this);
+	ParaStyleComboBox* paraStyleCombo = new ParaStyleComboBox(pmen);
 	paraStyleCombo->setDoc(editor->doc);
 	if ((CurrentPar < static_cast<int>(editor->StyledText.nrOfParagraphs())) && (editor->StyledText.length() != 0))
 	{
@@ -139,11 +141,10 @@ void SideBar::mouseReleaseEvent(QMouseEvent *m)
 	}
 	paraStyleCombo->setFormat(styleName);
 	connect(paraStyleCombo, SIGNAL(newStyle(const QString&)), this, SLOT(setPStyle(const QString&)));
-	pmen->clear();
-	paraStyleAct = new QWidgetAction(this);
+	
+	paraStyleAct = new QWidgetAction(pmen);
 	paraStyleAct->setDefaultWidget(paraStyleCombo);
 	pmen->addAction(paraStyleAct);
-	//pmen->addAction( tr("Edit Styles..."), this, SLOT(editStyles()));
 	pmen->exec(QCursor::pos());
 }
 
