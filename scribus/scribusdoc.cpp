@@ -16392,7 +16392,7 @@ void ScribusDoc::setNewPrefs(const ApplicationPrefs& prefsData, const Applicatio
 */
 
 	docHyphenator->slotNewSettings(docPrefsData.hyphPrefs.MinWordLen,
-											!docPrefsData.hyphPrefs.Automatic,
+											docPrefsData.hyphPrefs.Automatic,
 											docPrefsData.hyphPrefs.AutoCheck,
 											docPrefsData.hyphPrefs.HyCount);
 	docHyphenator->ignoredWords = docPrefsData.hyphPrefs.ignoredWords;
