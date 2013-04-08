@@ -8285,6 +8285,8 @@ void ScribusDoc::itemSelection_SetItemGradFill(int typ)
 					}
 					break;
 				default:
+					currItem->selectedMeshPointX = -1;
+					currItem->selectedMeshPointY = 0;
 					break;
 			}
 			if ((typ > 0) && (typ < 8))
