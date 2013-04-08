@@ -8,14 +8,32 @@
 
 <dl>
 
+<dt><a name="-closeMasterPage"><strong>closeMasterPage</strong>(...)</a></dt>
+<dd><code>closeMasterPage()</code>
+<p>Termine l'&eacute;dition du gabarit actif et retourne &agrave; l'&eacute;dition des pages standards. 
+L'&eacute;dition d'un gabarit est initi&eacute;e avec la fonction <a href="#-editMasterPage">editMasterPage()</a>.</p></dd>
+
+<dt><a name="-createMasterPage"><strong>createMasterPage</strong>(...)</a></dt>
+<dd><code>createMasterPage(nomGabarit)</code>
+<p>Cr&eacute;e un nouveau gabarit nomm&eacute; "nomGabarit". L'&eacute;dition d'un gabarit est initi&eacute;e avec la fonction <a href="#-editMasterPage">editMasterPage()</a>.</p></dd>
+
 <dt><a name="-currentPage"><strong>currentPage</strong></a>(...)</dt>
 <dd><code><a href="#-currentPage">currentPage</a>() -&gt; nombre entier</code>
 <p>Retourne le num&eacute;ro de la page de travail courante. Les num&eacute;ros de page sont incr&eacute;ment&eacute;s &agrave; partir de 1, peu importe le premier num&eacute;ro de page affich&eacute; dans votre document. </p></dd>
+
+<dt><a name="-deleteMasterPage"><strong>deleteMasterPage</strong>(...)</a></dt>
+<dd><code>deleteMasterPage(nomGabarit)</code>
+<p>Supprime le gabarit avec le nom sp&eacute;cifi&eacute;.</p></dd>
 	
 <dt><a name="-deletePage"><strong>deletePage</strong></a>(...)</dt>
 <dd><code><a href="#-deletePage">deletePage</a>(nr)</code>
 <p>Supprime la page donn&eacute;e. Inop&eacute;rant si le document contient seulement une page. Les num&eacute;ros de page sont incr&eacute;ment&eacute;s &agrave; partir de 1,peu importe le premier num&eacute;ro de page affich&eacute; dans votre document.</p>
 <p>Peut g&eacute;n&eacute;rer IndexError si le num&eacute;ro de page est hors limites</p></dd>
+
+<dt><a name="-editMasterPage"><strong>editMasterPage</strong>(...)</a></dt>
+<dd><code>editMasterPage(nomGabarit)</code>
+<p>Active l'&eacute;dition des gabarits et ouvre le gabarit avec le nom sp&eacute;cifi&eacute;.
+Lorsque l'&eacute;dition du gabarit est achevée, appelez la fonction <a href="#-closeMasterPage">closeMasterPage()</a>.</p></dd>
 
 <dt><a name="-getAllObjects"><strong>getAllObjects</strong></a>(...)</dt>
 <dd><code><a href="#-getAllObjects">getAllObjects</a>() -&gt; liste</code>
