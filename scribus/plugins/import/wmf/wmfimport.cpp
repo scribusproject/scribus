@@ -538,8 +538,10 @@ bool WMFImport::loadWMF( QBuffer &buffer )
 				m_BBox.setTop ( qMin((int) cmd->params[ 0 ], m_BBox.top()) );
 			}
 			if ( rdFunc == 0x020C && !m_IsPlaceable ) {         // SETWINDOWEXT: dimensions
-				m_BBox.setWidth ( qMax((int) cmd->params[ 1 ], m_BBox.width()) );
-				m_BBox.setHeight( qMax((int) cmd->params[ 0 ], m_BBox.height()));
+				m_BBox.setWidth((int) cmd->params[ 1 ]);
+				m_BBox.setHeight((int) cmd->params[ 0 ]);
+//				m_BBox.setWidth ( qMax((int) cmd->params[ 1 ], m_BBox.width()) );
+//				m_BBox.setHeight( qMax((int) cmd->params[ 0 ], m_BBox.height()));
 			}
 
 			if ( i<rdSize )
@@ -548,6 +550,7 @@ bool WMFImport::loadWMF( QBuffer &buffer )
 				return false;
 			}
 		}
+		m_BBox = m_BBox.normalized();
 		//----- Test records validities
 		m_Valid = (rdFunc == 0) && (m_BBox.width() != 0) && (m_BBox.height() != 0);
 		if ( !m_Valid ) {
