@@ -2762,15 +2762,18 @@ void PageItem_TextFrame::layout()
 				if (inOverflow)
 					current.xPos = realEnd;
 
-				//line break or end of column
-				if (( hl->ch == SpecialChars::PARSEP || hl->ch == SpecialChars::LINEBREAK)
-				    && current.hasDropCap)
+				// line break and drop caps
+				// #11250: in case of a forced line break, we must not stop
+				// the drop cap layout process. This break case such as 
+				// layout of poetry.
+				if (hl->ch == SpecialChars::PARSEP && current.hasDropCap)
 				{
 					current.hasDropCap = false;
 					if (current.yPos < maxDY)
 						current.yPos = maxDY;
 					maxDX = 0;
 				}
+				// end of column
 				if (current.isEndOfCol(desc))
 				{
 					//check if realy line extends bottom margin
