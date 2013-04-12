@@ -2589,46 +2589,58 @@ void SlaOutputDev::drawImage(GfxState *state, Object *ref, Stream *str, int widt
 {
 	ImageStream * imgStr = new ImageStream(str, width, colorMap->getNumPixelComps(), colorMap->getBits());
 	imgStr->reset();
-	unsigned int *dest = 0;
-	unsigned char * buffer = new unsigned char[width * height * 4];
 	QImage * image = 0;
 	if (maskColors)
 	{
+		image = new QImage(width, height, QImage::Format_ARGB32);
 		for (int y = 0; y < height; y++)
 		{
-			dest = (unsigned int *)(buffer + y * 4 * width);
-			Guchar * pix = imgStr->getLine();
-			colorMap->getRGBLine(pix, dest, width);
+			QRgb *s = (QRgb*)(image->scanLine(y));
+			Guchar *pix = imgStr->getLine();
 			for (int x = 0; x < width; x++)
 			{
+				GfxRGB rgb;
+				colorMap->getRGB(pix, &rgb);
+				int Rc = qRound(colToDbl(rgb.r) * 255);
+				int Gc = qRound(colToDbl(rgb.g) * 255);
+				int Bc = qRound(colToDbl(rgb.b) * 255);
+				*s = qRgba(Rc, Gc, Bc, 255);
 				for (int i = 0; i < colorMap->getNumPixelComps(); ++i)
 				{
 					if (pix[i] < maskColors[2*i] * 255 || pix[i] > maskColors[2*i+1] * 255)
 					{
-						*dest = *dest | 0xff000000;
+						*s = *s | 0xff000000;
 						break;
 					}
 				}
+				s++;
 				pix += colorMap->getNumPixelComps();
-				dest++;
 			}
 		}
-		image = new QImage(buffer, width, height, QImage::Format_ARGB32);
 	}
 	else
 	{
+		image = new QImage(width, height, QImage::Format_ARGB32);
 		for (int y = 0; y < height; y++)
 		{
-			dest = (unsigned int *)(buffer + y * 4 * width);
-			Guchar * pix = imgStr->getLine();
-			colorMap->getRGBLine(pix, dest, width);
+			QRgb *s = (QRgb*)(image->scanLine(y));
+			Guchar *pix = imgStr->getLine();
+			for (int x = 0; x < width; x++)
+			{
+				GfxRGB rgb;
+				colorMap->getRGB(pix, &rgb);
+				int Rc = qRound(colToDbl(rgb.r) * 255);
+				int Gc = qRound(colToDbl(rgb.g) * 255);
+				int Bc = qRound(colToDbl(rgb.b) * 255);
+				*s = qRgba(Rc, Gc, Bc, 255);
+				s++;
+				pix += colorMap->getNumPixelComps();
+			}
 		}
-		image = new QImage(buffer, width, height, QImage::Format_RGB32);
 	}
 	if (image == NULL || image->isNull())
 	{
 		delete imgStr;
-		delete[] buffer;
 		delete image;
 		return;
 	}
@@ -2697,7 +2709,6 @@ void SlaOutputDev::drawImage(GfxState *state, Object *ref, Stream *str, int widt
 		m_doc->Items->removeAll(ite);
 	delete tempFile;
 	delete imgStr;
-	delete[] buffer;
 	delete image;
 }
 
