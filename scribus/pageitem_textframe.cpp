@@ -2997,8 +2997,12 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 	}
 	int oldPos = itemText.cursorPosition(); // 15-mar-2004 jjsa for cursor movement with Shift + Arrow key
 	int kk = k->key();
-	int as = k->text()[0].unicode();
 	QString uc = k->text();
+#ifdef Q_OS_HAIKU
+	if (kk == Qt::Key_Return)
+		uc = "\r";
+#endif
+	int as = uc[0].unicode();
 	QString cr, Tcha, Twort;
 	uint Tcoun;
 	int len, pos;
