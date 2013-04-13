@@ -6848,20 +6848,6 @@
 			<File
 				RelativePath="..\..\..\scribus\scdocoutput_ps2.h"
 				>
-				<FileConfiguration
-					Name="Debug-cairo|Win32"
-					>
-					<Tool
-						Name="moc"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-cairo|Win32"
-					>
-					<Tool
-						Name="moc"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\..\scribus\scdomelement.h"
