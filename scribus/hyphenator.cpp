@@ -185,9 +185,9 @@ void Hyphenator::slotHyphenateWord(PageItem* it, const QString& text, int firstC
 				if (rep[i])
 					free(rep[i]);
 			free(rep);
-			free(pos);
-			free(cut);
 		}
+		if (pos) free(pos);
+		if (cut) free(cut);
 		buffer = NULL;
 		rep = NULL;
 		pos = NULL;
@@ -413,9 +413,9 @@ void Hyphenator::slotHyphenate(PageItem* it)
 					if (rep[i])
 						free(rep[i]);
 				free(rep);
-				free(pos);
-				free(cut);
 			}
+			if (pos) free(pos);
+			if (cut) free(cut);
 			buffer = NULL;
 			rep = NULL;
 			pos = NULL;
