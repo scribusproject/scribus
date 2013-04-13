@@ -27,7 +27,7 @@
 
 
 #  English stuff START here
-en=Dr. ,Dr ,Mr. ,Mr ,Mrs. ,Mrs ,Ms. ,Ms ,Prof. ,Prof ,Rev. ,Rev ,
+en= Dr. ,Dr ,Mr. ,Mr ,Mrs. ,Mrs ,Ms. ,Ms ,Prof. ,Prof ,Rev. ,Rev ,
 # claudio's fix en= Kg, kg, g, mg, oz, lb, cwt, km, Km, m, cm, mm,
 en= kg, g, mg, oz, lb, cwt, km, m, cm, mm,
 #  English stuff - THE END
@@ -43,60 +43,6 @@ cs= § , & , $, Kč, *, €,
 ## academic titles
 cs=ing. ,Ing. ,Dr. ,dr. ,mudr. ,Mudr. ,mgr. ,Mgr. ,
 #  Czech short words - THE END
-
-
-#   Polish short words START here
-##  "zawieszone spójniki" (hanging conjunctions)
-pl=a ,i ,o ,w ,u ,z ,A ,E ,I ,O ,W ,U ,Z ,
-## measure units (miary i wagi)
-pl= kg, m, g, l, s, %, zł, km, mm, ft, yd, cm, MM, oz, pd,
-## degrees + ranks (tytuły i stopnie)
-pl=inż. ,dr ,dr. ,doc. ,mgr ,mgr. ,prof. ,post. ,sierż. ,asp. ,kom. ,insp. ,szer. ,kpr. ,plut. ,chor. ,ppor. ,por. ,kpt. ,mjr ,mjr. ,ppłk. ,płk. ,gen. ,
-## bibliographic entries:
-pl=str. ,ryc. ,rys. ,tab. ,art. ,vol. ,nr ,tabl. ,rozdz. ,ss. ,s. ,t. ,z. ,
-## degrees, ranks:
-pl=sir ,prof. ,hab. ,red. ,min. ,przew. ,mgr ,bp ,ks. ,o. ,oo. ,św. ,
-## measure units:
-pl=gr, ha, t, mies, godz, min, sek, mln, mld, tys.,
-#   Polish short words - THE END
-
-
-#  French short words START here
-# Some of these shortwords are incorrect but frequently used...
-fr=Dr. ,Dr ,M. ,M ,Mr ,Mr. ,Mme. ,Mme ,Mlle. ,Mlle ,MM ,MM. ,Prof. ,Prof ,
-## physics and math
-fr= kg, g, km, cm, mm, hl, %, °,
-## Misc
-fr= €,« , », :, $, ;, !, ?,
-#  French short words - THE END
-
-
-#  Slovak short words START here
-## hanging conjunctions (TeX ~)
-sk=K ,k ,S ,s ,V ,v ,Z ,z ,O ,o ,U ,u ,I ,i ,A ,a ,do ,Do ,Ku ,ku ,Na ,na ,
-sk=Nad ,nad ,Od ,od ,Po ,po ,Pod ,pod ,Pre ,pre ,Pred ,pred ,Pri ,pri ,
-sk=So ,so ,Zo ,zo ,Vo ,vo ,Za ,za ,
-## physics and math
-sk= t, kg, g, mg, km, m, cm, mm, ha, l, hl, s, %, Gb, Mb, Kb,
-sk= cl, dl, min, Min., h, s, Hz, kHz, KHz, MHz, kW, m/s, km/h,
-## misc chars 
-sk= § , & , $, Sk, *, €, :, EUR, £, CHF,
-## academic titles
-sk=akad. ,Akad. ,arch. ,Arch. ,art. ,Bc. ,doc. ,Doc. ,Dr. ,Ing. ,JUDr. ,
-sk=Mgr. ,MUDr. ,MVDr. ,PaedDr. ,PharmDr. ,PHDr. ,PhMr. ,prof. ,Prof. ,
-sk=RNDr. ,RSDr. ,ThDr. ,ThLic. ,
-sk= ArtD., CSc., DrSc., PhD.,
-#  Slovak short words - THE END
-
-
-# Português do Brasil começa AQUI
-## pronomes de tratamento
-pt_BR=Sr. ,Sra. ,Srª. ,Dr. ,Dra. ,Drª. ,Prof. ,Profa. ,Profª ,
-## unidades de medida
-pt_BR= µm, nm, mm, cm, dm, m, dam, hm, km, mg, cg, dg, g, dag, hg, kg, pt, pol, V, Kv, W, Kb, Mb, Gb, Tb, seg, min, h, C, F, N, J, W, V, Ω, pol., pol, pts., pts, bps, BPS, dpi, DPI,
-## outros
-pt_BR=R$ ,€ ,$ ,US$ ,£ , %, ltda., LTDA., S.A., s.a.,nº ,Nº ,apto. ,APTO. ,
-# Brazilian Portguese - FIM
 
 
 # Danish stuff START here
@@ -119,20 +65,6 @@ de= d. h. ,d.h. , a. a. O., a.a.O.,ŕ ,§ ,§§ , EUR, USD, DM, GBP, A. D. , A.D
 #  German short words - THE END
 
 
-#  Russian short words START here
-## физические и математические единицы
-ru= кг, г, м, см, мм, мл, л, гл, с, мс, Вт, кВт, мВт, В, А, %,
-## разные знаки и символы валют
-ru= § , & , $, *, €,
-## академические звания
-ru= проф. , Проф. ,
-## география
-ru= ул. , корп. ,
-## предлоги, союзы и пр.
-ru= с ,на ,а ,в ,у ,и ,о ,я ,к ,А ,О ,И ,У ,В ,С ,К ,
-#  Russian short words - THE END
-
-
 #  Estonian short words START here
 ## Tiitlid ja kõnetused
 et= Hr. ,hr. ,Hr ,hr ,Pr. ,pr. ,Pr ,pr ,Prl. ,prl. ,Prl ,prl ,Sm. ,sm. ,Prof. ,prof. ,Dr. ,dr. , jun., sen.,Kod. ,kod. ,Kod ,kod ,Lp. ,Lp ,lp. ,lp ,V.a. ,
@@ -143,6 +75,33 @@ et= EEK, USD,§ , & , $ , €,
 ## Muud lühendid
 et= a., AS , eKr, e.m.a., jj, jm, jms, jmt, jne, jpt, jt, kd, kk, kr, lk , m.a.j., mnt,MTÜ ,nn ,nr ,nt ,n-ö , OÜ , pKr,p.o ,sh , sl,s.o , spl,st ,s.t ,tel. ,tel , tk, tl, tn,v.a , vkj, vms,vrd ,vt. ,vt , õa,õp. ,õpil. ,
 #  Estonian short words - THE END
+
+
+#  French short words START here
+# Some of these shortwords are incorrect but frequently used...
+fr=Dr. ,Dr ,M. ,M ,Mr ,Mr. ,Mme. ,Mme ,Mlle. ,Mlle ,MM ,MM. ,Prof. ,Prof ,
+## physics and math
+fr= kg, g, km, cm, mm, hl, %, °,
+## Misc
+fr= €,« , », :, $, ;, !, ?,
+#  French short words - THE END
+
+
+# Hungarian short words START here – magyar rövid szavak
+## Mondatkezdés sorvégi tiltása
+hu=A ,E ,Ő ,
+## Megszólítás
+hu=Dr. ,dr. ,
+## Pénznemek
+hu= Ft, €, $, £,
+## Egyéb
+hu= §,
+## Gyakori mértékegységek
+hu= kg, m, s, K, cd, mol, dkg, mg, km, cm, mm, g, m/s, °C, t, Hz, kHz, MHz, km/h, kW, W, mA, kWh,
+## Bibliai könyvek
+hu=Ter ,1Móz ,Kiv ,2Móz ,Lev ,3Móz ,Szám ,4Móz ,MTörv ,5Móz ,Józs ,Bír ,Rut ,Ruth ,1Sám ,2Sám ,1Kir ,2Kir ,1Krón ,2Krón ,Ezd ,Ezsdr ,Neh ,Tób ,Jud ,Eszt ,1Mak ,2Mak ,Jób ,Zsolt ,Péld ,Préd ,Én ,Bölcs ,Sir ,Iz ,Ézsa ,Jer ,Siral ,Jsir ,Bár ,Ez ,Dán ,Oz ,Hós ,Jo ,Jóel ,Ám ,Abd ,Jón ,Mik ,Náh ,Hab ,Szof ,Zof ,Ag ,Hag ,Zak ,Mal ,Mt ,Mk ,Lk ,Jn ,ApCsel ,Róm ,1Kor ,2Kor ,Gal ,Ef ,Fil ,Kol ,1Tessz ,2Tessz ,1Tim ,2Tim ,Tit ,Filem ,Zsid ,Jak ,1Pét ,2Pét ,1Jn ,2Jn ,3Jn ,Júd ,Jel ,
+# Hungarian short words – THE END
+
 
 #  Italian short words START here
 ## Titles 
@@ -170,19 +129,63 @@ it=p. ,pp. ,pag. ,pagg. ,par. ,v. ,vol. ,voll. , ed.,tab. , Tab. ,
 it=N° ,
 #  Italian short words - THE END
 
-# Hungarian short words START here – magyar rövid szavak
-## Mondatkezdés sorvégi tiltása
-hu=A ,E ,Ő ,
-## Megszólítás
-hu=Dr. ,dr. ,
-## Pénznemek
-hu= Ft, €, $, £,
-## Egyéb
-hu= §,
-## Gyakori mértékegységek
-hu= kg, m, s, K, cd, mol, dkg, mg, km, cm, mm, g, m/s, °C, t, Hz, kHz, MHz, km/h, kW, W, mA, kWh,
-## Bibliai könyvek
-hu=Ter ,1Móz ,Kiv ,2Móz ,Lev ,3Móz ,Szám ,4Móz ,MTörv ,5Móz ,Józs ,Bír ,Rut ,Ruth ,1Sám ,2Sám ,1Kir ,2Kir ,1Krón ,2Krón ,Ezd ,Ezsdr ,Neh ,Tób ,Jud ,Eszt ,1Mak ,2Mak ,Jób ,Zsolt ,Péld ,Préd ,Én ,Bölcs ,Sir ,Iz ,Ézsa ,Jer ,Siral ,Jsir ,Bár ,Ez ,Dán ,Oz ,Hós ,Jo ,Jóel ,Ám ,Abd ,Jón ,Mik ,Náh ,Hab ,Szof ,Zof ,Ag ,Hag ,Zak ,Mal ,Mt ,Mk ,Lk ,Jn ,ApCsel ,Róm ,1Kor ,2Kor ,Gal ,Ef ,Fil ,Kol ,1Tessz ,2Tessz ,1Tim ,2Tim ,Tit ,Filem ,Zsid ,Jak ,1Pét ,2Pét ,1Jn ,2Jn ,3Jn ,Júd ,Jel ,
-# Hungarian short words – THE END
+
+#   Polish short words START here
+##  "zawieszone spójniki" (hanging conjunctions)
+pl=a ,i ,o ,w ,u ,z ,A ,E ,I ,O ,W ,U ,Z ,
+## measure units (miary i wagi)
+pl= kg, m, g, l, s, %, zł, km, mm, ft, yd, cm, MM, oz, pd,
+## degrees + ranks (tytuły i stopnie)
+pl=inż. ,dr ,dr. ,doc. ,mgr ,mgr. ,prof. ,post. ,sierż. ,asp. ,kom. ,insp. ,szer. ,kpr. ,plut. ,chor. ,ppor. ,por. ,kpt. ,mjr ,mjr. ,ppłk. ,płk. ,gen. ,
+## bibliographic entries:
+pl=str. ,ryc. ,rys. ,tab. ,art. ,vol. ,nr ,tabl. ,rozdz. ,ss. ,s. ,t. ,z. ,
+## degrees, ranks:
+pl=sir ,prof. ,hab. ,red. ,min. ,przew. ,mgr ,bp ,ks. ,o. ,oo. ,św. ,
+## measure units:
+pl=gr, ha, t, mies, godz, min, sek, mln, mld, tys.,
+#   Polish short words - THE END
+
+
+# Português do Brasil começa AQUI
+## pronomes de tratamento
+pt_BR=Sr. ,Sra. ,Srª. ,Dr. ,Dra. ,Drª. ,Prof. ,Profa. ,Profª ,
+## unidades de medida
+pt_BR= µm, nm, mm, cm, dm, m, dam, hm, km, mg, cg, dg, g, dag, hg, kg, pt, pol, V, Kv, W, Kb, Mb, Gb, Tb, seg, min, h, C, F, N, J, W, V, Ω, pol., pol, pts., pts, bps, BPS, dpi, DPI,
+## outros
+pt_BR=R$ ,€ ,$ ,US$ ,£ , %, ltda., LTDA., S.A., s.a.,nº ,Nº ,apto. ,APTO. ,
+# Brazilian Portguese - FIM
+
+
+#  Slovak short words START here
+## hanging conjunctions (TeX ~)
+sk=K ,k ,S ,s ,V ,v ,Z ,z ,O ,o ,U ,u ,I ,i ,A ,a ,do ,Do ,Ku ,ku ,Na ,na ,
+sk=Nad ,nad ,Od ,od ,Po ,po ,Pod ,pod ,Pre ,pre ,Pred ,pred ,Pri ,pri ,
+sk=So ,so ,Zo ,zo ,Vo ,vo ,Za ,za ,
+## physics and math
+sk= t, kg, g, mg, km, m, cm, mm, ha, l, hl, s, %, Gb, Mb, Kb,
+sk= cl, dl, min, Min., h, s, Hz, kHz, KHz, MHz, kW, m/s, km/h,
+## misc chars 
+sk= § , & , $, Sk, *, €, :, EUR, £, CHF,
+## academic titles
+sk=akad. ,Akad. ,arch. ,Arch. ,art. ,Bc. ,doc. ,Doc. ,Dr. ,Ing. ,JUDr. ,
+sk=Mgr. ,MUDr. ,MVDr. ,PaedDr. ,PharmDr. ,PHDr. ,PhMr. ,prof. ,Prof. ,
+sk=RNDr. ,RSDr. ,ThDr. ,ThLic. ,
+sk= ArtD., CSc., DrSc., PhD.,
+#  Slovak short words - THE END
+
+
+#  Russian short words START here
+## физические и математические единицы
+ru= кг, г, м, см, мм, мл, л, гл, с, мс, Вт, кВт, мВт, В, А, %,
+## разные знаки и символы валют
+ru= § , & , $, *, €,
+## академические звания
+ru= проф. , Проф. ,
+## география
+ru= ул. , корп. ,
+## предлоги, союзы и пр.
+ru= с ,на ,а ,в ,у ,и ,о ,я ,к ,А ,О ,И ,У ,В ,С ,К ,
+#  Russian short words - THE END
+
 
 # end of the config file
