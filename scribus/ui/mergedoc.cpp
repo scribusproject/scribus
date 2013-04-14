@@ -75,7 +75,6 @@ MergeDoc::MergeDoc(QWidget* parent, bool importMasterPages, int targetDocPageCou
 		                           "a range of pages or a single page number.") + "</qt>");
 		fromInfoLayout->addWidget( pageNumberData, 1, 1 );
 		fromLabel = new QLabel(this);
-		fromLabel->setText( tr(" from 0"));
 		fromInfoLayout->addWidget( fromLabel, 1, 2 );
 		createPageData = new QCheckBox( this );
 		createPageData->setText( tr("Create Page(s)"));
@@ -169,6 +168,7 @@ void MergeDoc::changeFile()
 				else
 				{
 					pageNumberData->setEnabled(true);
+					pageNumberData->setText("*");
 				}
 				if (!masterPages)
 					fromLabel->setText( tr(" from %1").arg(count));

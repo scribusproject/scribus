@@ -3836,7 +3836,7 @@ bool ScribusMainWindow::slotPageImport()
 			{
 				qApp->setOverrideCursor(QCursor(Qt::ArrowCursor));
 				int scmReturn=ScMessageBox::information(this, tr("Import Page(s)"), "<qt>" +
-				QObject::tr("<p>You are trying to import more pages than there are available in the current document counting from the active page.</p>Choose one of the following:<br>"
+				QObject::tr("<p>You are trying to import more pages than there are available in the current document counting from the active page.</p>Choose one of the following:"
 				"<ul><li><b>Create</b> missing pages</li>"
 				"<li><b>Import</b> pages until the last page</li>"
 				"<li><b>Cancel</b></li></ul>") + "</qt>",
