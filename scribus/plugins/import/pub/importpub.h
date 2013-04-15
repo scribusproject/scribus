@@ -64,7 +64,12 @@ public:
 	ScribusDoc* m_Doc;
 	Selection* tmpSel;
 	QList<PageItem*> *Elements;
-	QStack<QList<PageItem*> > groupStack;
+	struct groupEntry
+	{
+		QList<PageItem*> Items;
+		FPointArray clip;
+	};
+	QStack<groupEntry> groupStack;
 	QStringList *importedColors;
 	QStringList *importedPatterns;
 	double LineW;
@@ -79,6 +84,12 @@ public:
 	double gradientAngle;
 	bool isGradient;
 	VGradient currentGradient;
+	QString gradColor1Str;
+	QColor gradColor1;
+	double gradColor1Trans;
+	QString gradColor2Str;
+	QColor gradColor2;
+	double gradColor2Trans;
 	QVector<double> dashArray;
 	Qt::PenJoinStyle lineJoin;
 	Qt::PenCapStyle lineEnd;

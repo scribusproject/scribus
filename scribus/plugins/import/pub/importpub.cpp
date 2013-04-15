@@ -20,6 +20,7 @@ for which a new license (GPL+exception) is in place.
 #include "color.h"
 #include "commonstrings.h"
 #include "ui/customfdialog.h"
+#include "fileloader.h"
 #include "importpub.h"
 #include "loadsaveplugin.h"
 #include "ui/missing.h"
@@ -114,8 +115,23 @@ void RawPainter::endGraphics()
 
 void RawPainter::startLayer(const ::WPXPropertyList &propList)
 {
+	FPointArray clip;
+	if (propList["svg:clip-path"])
+	{
+		QString svgString = QString(propList["svg:clip-path"]->getStr().cstr());
+		clip.resize(0);
+		clip.svgInit();
+		svgString.replace(",", ".");
+		clip.parseSVG(svgString);
+		QTransform m;
+		m.scale(72.0, 72.0);
+		clip.map(m);
+	}
 	QList<PageItem*> gElements;
-	groupStack.push(gElements);
+	groupEntry gr;
+	gr.clip = clip.copy();
+	gr.Items = gElements;
+	groupStack.push(gr);
 }
 
 void RawPainter::endLayer()
@@ -123,7 +139,8 @@ void RawPainter::endLayer()
 	if (groupStack.count() != 0)
 	{
 		PageItem *ite;
-		QList<PageItem*> gElements = groupStack.pop();
+		groupEntry gr = groupStack.pop();
+		QList<PageItem*> gElements = gr.Items;
 		tmpSel->clear();
 		if (gElements.count() > 0)
 		{
@@ -134,10 +151,42 @@ void RawPainter::endLayer()
 			}
 			ite = m_Doc->groupObjectsSelection(tmpSel);
 			ite->setTextFlowMode(PageItem::TextFlowUsesBoundingBox);
+			if (!gr.clip.isEmpty())
+			{
+				double oldX = ite->xPos();
+				double oldY = ite->yPos();
+				double oldW = ite->width();
+				double oldH = ite->height();
+				double oldgW = ite->groupWidth;
+				double oldgH = ite->groupHeight;
+				ite->PoLine = gr.clip.copy();
+				ite->PoLine.translate(baseX, baseY);
+				FPoint xy = getMinClipF(&ite->PoLine);
+				ite->setXYPos(xy.x(), xy.y(), true);
+				ite->PoLine.translate(-xy.x(), -xy.y());
+				FPoint wh = getMaxClipF(&ite->PoLine);
+				ite->setWidthHeight(wh.x(),wh.y());
+				ite->groupWidth = oldgW * (ite->width() / oldW);
+				ite->groupHeight = oldgH * (ite->height() / oldH);
+				double dx = (ite->xPos() - oldX) / (ite->width() / ite->groupWidth);
+				double dy = (ite->yPos() - oldY) / (ite->height() / ite->groupHeight);
+				for (int em = 0; em < ite->groupItemList.count(); ++em)
+				{
+					PageItem* embedded = ite->groupItemList.at(em);
+					embedded->moveBy(-dx, -dy, true);
+					m_Doc->setRedrawBounding(embedded);
+					embedded->OwnPage = m_Doc->OnPage(embedded);
+				}
+				ite->ClipEdited = true;
+				ite->OldB2 = ite->width();
+				ite->OldH2 = ite->height();
+				ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
+				ite->updateGradientVectors();
+			}
 			Elements->append(ite);
 		}
 		if (groupStack.count() != 0)
-			groupStack.top().append(ite);
+			groupStack.top().Items.append(ite);
 		tmpSel->clear();
 	}
 }
@@ -181,23 +230,33 @@ void RawPainter::setStyle(const ::WPXPropertyList &propList, const ::WPXProperty
 			currentGradient = VGradient(VGradient::linear);
 			currentGradient.clearStops();
 			currentGradient.setRepeatMethod( VGradient::none );
-			WPXPropertyList grad = gradient[0];
-			if (grad["svg:stop-color"])
+			double dr = 1.0 / static_cast<double>(gradient.count());
+			for (unsigned c = 0; c < gradient.count(); c++)
 			{
-				QString stopName = parseColor(QString(grad["svg:stop-color"]->getStr().cstr()));
-				const ScColor& gradC = m_Doc->PageColors[stopName];
-				if(propList["svg:stroke-opacity"])
-					opacity = 1.0 - qMin(1.0, qMax(fromPercentage(QString(propList["svg:stop-opacity"]->getStr().cstr())), 0.0));
-				currentGradient.addStop( ScColorEngine::getRGBColor(gradC, m_Doc), 0, 0.5, opacity, stopName, 100 );
-			}
-			grad = gradient[1];
-			if (grad["svg:stop-color"])
-			{
-				QString stopName = parseColor(QString(grad["svg:stop-color"]->getStr().cstr()));
-				const ScColor& gradC = m_Doc->PageColors[stopName];
-				if(propList["svg:stroke-opacity"])
-					opacity = 1.0 - qMin(1.0, qMax(fromPercentage(QString(propList["svg:stop-opacity"]->getStr().cstr())), 0.0));
-				currentGradient.addStop( ScColorEngine::getRGBColor(gradC, m_Doc), 1, 0.5, opacity, stopName, 100 );
+				WPXPropertyList grad = gradient[c];
+				if (grad["svg:stop-color"])
+				{
+					QString stopName = parseColor(QString(grad["svg:stop-color"]->getStr().cstr()));
+					double rampPoint = dr * c;
+					if(grad["svg:offset"])
+						rampPoint = fromPercentage(QString(grad["svg:offset"]->getStr().cstr()));
+					const ScColor& gradC = m_Doc->PageColors[stopName];
+					if(grad["svg:stop-opacity"])
+						opacity = qMin(1.0, qMax(fromPercentage(QString(grad["svg:stop-opacity"]->getStr().cstr())), 0.0));
+					currentGradient.addStop( ScColorEngine::getRGBColor(gradC, m_Doc), rampPoint, 0.5, opacity, stopName, 100 );
+					if (c == 0)
+					{
+						gradColor1Str = stopName;
+						gradColor1 = ScColorEngine::getRGBColor(gradC, m_Doc);
+						gradColor1Trans = opacity;
+					}
+					else
+					{
+						gradColor2Str = stopName;
+						gradColor2 = ScColorEngine::getRGBColor(gradC, m_Doc);
+						gradColor2Trans = opacity;
+					}
+				}
 			}
 			if (currentGradient.Stops() > 1)
 				isGradient = true;
@@ -212,15 +271,49 @@ void RawPainter::setStyle(const ::WPXPropertyList &propList, const ::WPXProperty
 	}
 	if (propList["svg:stroke-width"])
 		LineW = propList["svg:stroke-width"]->getDouble() * 72.0;
-	if(propList["draw:stroke"] && propList["draw:stroke"]->getStr() == "none")
-		CurrColorStroke = CommonStrings::None;
-	else if(propList["draw:stroke"] && propList["draw:stroke"]->getStr() == "solid")
+	if (propList["draw:stroke"])
 	{
-		if (propList["svg:stroke-color"])
+		if (propList["draw:stroke"]->getStr() == "none")
+			CurrColorStroke = CommonStrings::None;
+		else if ((propList["draw:stroke"]->getStr() == "solid") || (propList["draw:stroke"]->getStr() == "dash"))
 		{
-			CurrColorStroke = parseColor(QString(propList["svg:stroke-color"]->getStr().cstr()));
-			if(propList["svg:stroke-opacity"])
-				CurrStrokeTrans = 1.0 - qMin(1.0, qMax(fromPercentage(QString(propList["svg:stroke-opacity"]->getStr().cstr())), 0.0));
+			if (propList["svg:stroke-color"])
+			{
+				CurrColorStroke = parseColor(QString(propList["svg:stroke-color"]->getStr().cstr()));
+				if(propList["svg:stroke-opacity"])
+					CurrStrokeTrans = 1.0 - qMin(1.0, qMax(fromPercentage(QString(propList["svg:stroke-opacity"]->getStr().cstr())), 0.0));
+			}
+			if (propList["draw:stroke"]->getStr() == "dash")
+			{
+				dashArray.clear();
+				int dashStyle = 0;
+				if (propList["libmspub:dashstyle"])
+					dashStyle = QString(propList["libmspub:dashstyle"]->getStr().cstr()).toInt();
+				if (dashStyle == 0)
+					dashArray.clear();
+				if (dashStyle == 1)
+					dashArray << qMax(3.0*LineW, 0.1) << qMax(1.0*LineW, 0.1);
+				else if (dashStyle == 2)
+					dashArray << qMax(1.0*LineW, 0.1) << qMax(1.0*LineW, 0.1);
+				else if (dashStyle == 3)
+					dashArray << qMax(3.0*LineW, 0.1) << qMax(1.0*LineW, 0.1) << qMax(1.0*LineW, 0.1) << qMax(1.0*LineW, 0.1);
+				else if (dashStyle == 4)
+					dashArray << qMax(3.0*LineW, 0.1) << qMax(1.0*LineW, 0.1) << qMax(1.0*LineW, 0.1) << qMax(1.0*LineW, 0.1) << qMax(1.0*LineW, 0.1) << qMax(1.0*LineW, 0.1);
+				else if (dashStyle == 5)
+					dashArray << qMax(1.0*LineW, 0.1) << qMax(3.0*LineW, 0.1);
+				else if (dashStyle == 6)
+					dashArray << qMax(4.0*LineW, 0.1) << qMax(3.0*LineW, 0.1);
+				else if (dashStyle == 7)
+					dashArray << qMax(8.0*LineW, 0.1) << qMax(3.0*LineW, 0.1);
+				else if (dashStyle == 8)
+					dashArray << qMax(4.0*LineW, 0.1) << qMax(3.0*LineW, 0.1) << qMax(1.0*LineW, 0.1) << qMax(3.0*LineW, 0.1);
+				else if (dashStyle == 9)
+					dashArray << qMax(8.0*LineW, 0.1) << qMax(3.0*LineW, 0.1) << qMax(1.0*LineW, 0.1) << qMax(3.0*LineW, 0.1);
+				else if (dashStyle == 10)
+					dashArray << qMax(8.0*LineW, 0.1) << qMax(3.0*LineW, 0.1) << qMax(1.0*LineW, 0.1) << qMax(3.0*LineW, 0.1) << qMax(1.0*LineW, 0.1) << qMax(3.0*LineW, 0.1);
+			}
+			else
+				dashArray.clear();
 		}
 	}
 	if (propList["svg:stroke-linecap"])
@@ -331,6 +424,47 @@ void RawPainter::drawPolygon(const ::WPXPropertyListVector &vertices)
 					  ite->isTempFile = true;
 					  ite->isInlineImage = true;
 					  m_Doc->loadPict(fileName, ite);
+					  if (m_style["libwpg:rotate"])
+					  {
+						  int rot = QString(m_style["libwpg:rotate"]->getStr().cstr()).toInt();
+						  ite->setImageRotation(rot);
+						  ite->AdjustPictScale();
+					  }
+				  }
+				  delete tempFile;
+			  }
+			  else if (m_style["libwpg:mime-type"]->getStr() == "image/wmf")
+			  {
+				  imgExt = "wmf";
+				  QTemporaryFile *tempFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_pub_XXXXXX." + imgExt);
+				  if (tempFile->open())
+				  {
+					  tempFile->write(imageData);
+					  QString fileName = getLongPathName(tempFile->fileName());
+					  tempFile->close();
+					  FileLoader *fileLoader = new FileLoader(fileName);
+					  int testResult = fileLoader->testFile();
+					  delete fileLoader;
+					  if (testResult != -1)
+					  {
+						  const FileFormat * fmt = LoadSavePlugin::getFormatById(testResult);
+						  if( fmt )
+						  {
+							fmt->loadFile(fileName, LoadSavePlugin::lfUseCurrentPage|LoadSavePlugin::lfInteractive|LoadSavePlugin::lfScripted);
+							if (m_Doc->m_Selection->count() > 0)
+							{
+								PageItem *ite = m_Doc->groupObjectsSelection();
+								QPainterPath ba = Coords.toQPainterPath(true);
+								QRectF baR = ba.boundingRect();
+								ite->setXYPos(baseX + baR.x(), baseY + baR.y(), true);
+								m_Doc->SizeItem(baR.width(), baR.height(), ite, true, true, false);
+								FPoint tp2(getMinClipF(&Coords));
+								Coords.translate(-tp2.x(), -tp2.y());
+								ite->PoLine = Coords.copy();
+								finishItem(ite);
+							}
+						  }
+					  }
 				  }
 				  delete tempFile;
 			  }
@@ -401,7 +535,6 @@ void RawPainter::drawPath(const ::WPXPropertyListVector &path)
 				  ite->PoLine = Coords.copy();
 				  finishItem(ite);
 				  QTemporaryFile *tempFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_pub_XXXXXX." + imgExt);
-				  tempFile->setAutoRemove(false);
 				  if (tempFile->open())
 				  {
 					  tempFile->write(imageData);
@@ -410,6 +543,48 @@ void RawPainter::drawPath(const ::WPXPropertyListVector &path)
 					  ite->isTempFile = true;
 					  ite->isInlineImage = true;
 					  m_Doc->loadPict(fileName, ite);
+					  if (m_style["libwpg:rotate"])
+					  {
+						  int rot = QString(m_style["libwpg:rotate"]->getStr().cstr()).toInt();
+						  ite->setImageRotation(rot);
+						  ite->AdjustPictScale();
+					  }
+				  }
+				  delete tempFile;
+			  }
+			  else if (m_style["libwpg:mime-type"]->getStr() == "image/wmf")
+			  {
+				  imgExt = "wmf";
+				  QTemporaryFile *tempFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_pub_XXXXXX." + imgExt);
+				  tempFile->setAutoRemove(false);
+				  if (tempFile->open())
+				  {
+					  tempFile->write(imageData);
+					  QString fileName = getLongPathName(tempFile->fileName());
+					  tempFile->close();
+					  FileLoader *fileLoader = new FileLoader(fileName);
+					  int testResult = fileLoader->testFile();
+					  delete fileLoader;
+					  if (testResult != -1)
+					  {
+						  const FileFormat * fmt = LoadSavePlugin::getFormatById(testResult);
+						  if( fmt )
+						  {
+							  fmt->loadFile(fileName, LoadSavePlugin::lfUseCurrentPage|LoadSavePlugin::lfInteractive|LoadSavePlugin::lfScripted);
+							  if (m_Doc->m_Selection->count() > 0)
+							  {
+								PageItem *ite = m_Doc->groupObjectsSelection();
+								QPainterPath ba = Coords.toQPainterPath(true);
+								QRectF baR = ba.boundingRect();
+								ite->setXYPos(baseX + baR.x(), baseY + baR.y(), true);
+								m_Doc->SizeItem(baR.width(), baR.height(), ite, true, true, false);
+								FPoint tp2(getMinClipF(&Coords));
+								Coords.translate(-tp2.x(), -tp2.y());
+								ite->PoLine = Coords.copy();
+								finishItem(ite);
+							  }
+						  }
+					  }
 				  }
 				  delete tempFile;
 			  }
@@ -444,10 +619,6 @@ void RawPainter::drawGraphicObject(const ::WPXPropertyList &propList, const ::WP
 		double y = propList["svg:y"]->getDouble() * 72.0;
 		double w = propList["svg:width"]->getDouble() * 72.0;
 		double h = propList["svg:height"]->getDouble() * 72.0;
-		int z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Rectangle, baseX + x, baseY + y, w, h, 0, CurrColorFill, CurrColorStroke, true);
-		PageItem *ite = m_Doc->Items->at(z);
-		ite->PoLine = Coords.copy();
-		finishItem(ite);
 		QByteArray ba(base64.cstr());
 		QByteArray imageData = QByteArray::fromBase64(ba);
 		QString imgExt = "";
@@ -463,6 +634,9 @@ void RawPainter::drawGraphicObject(const ::WPXPropertyList &propList, const ::WP
 			imgExt = "tif";
 		if (!imgExt.isEmpty())
 		{
+			int z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Rectangle, baseX + x, baseY + y, w, h, 0, CurrColorFill, CurrColorStroke, true);
+			PageItem *ite = m_Doc->Items->at(z);
+			finishItem(ite);
 			QTemporaryFile *tempFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_pub_XXXXXX." + imgExt);
 			tempFile->setAutoRemove(false);
 			if (tempFile->open())
@@ -473,8 +647,45 @@ void RawPainter::drawGraphicObject(const ::WPXPropertyList &propList, const ::WP
 				ite->isTempFile = true;
 				ite->isInlineImage = true;
 				m_Doc->loadPict(fileName, ite);
+				if (propList["libwpg:rotate"])
+				{
+					int rot = QString(propList["libwpg:rotate"]->getStr().cstr()).toInt();
+					ite->setImageRotation(rot);
+					ite->AdjustPictScale();
+				}
 			}
 			delete tempFile;
+		}
+		else
+		{
+			if (propList["libwpg:mime-type"]->getStr() == "image/wmf")
+			{
+				imgExt = "wmf";
+				QTemporaryFile *tempFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_pub_XXXXXX." + imgExt);
+				if (tempFile->open())
+				{
+					tempFile->write(imageData);
+					QString fileName = getLongPathName(tempFile->fileName());
+					tempFile->close();
+					FileLoader *fileLoader = new FileLoader(fileName);
+					int testResult = fileLoader->testFile();
+					delete fileLoader;
+					if (testResult != -1)
+					{
+						const FileFormat * fmt = LoadSavePlugin::getFormatById(testResult);
+						if( fmt )
+						{
+							fmt->loadFile(fileName, LoadSavePlugin::lfUseCurrentPage|LoadSavePlugin::lfInteractive|LoadSavePlugin::lfScripted);
+							PageItem *ite = m_Doc->groupObjectsSelection();
+							ite->setTextFlowMode(PageItem::TextFlowUsesBoundingBox);
+							Elements->append(ite);
+							ite->setXYPos(baseX + x, baseY + y, true);
+							m_Doc->SizeItem(w, h, ite, true, true, false);
+						}
+					}
+				}
+				delete tempFile;
+			}
 		}
 	}
 //	qDebug() << "drawGraphicObject";
@@ -752,21 +963,92 @@ void RawPainter::applyFill(PageItem* ite)
 {
 	if(isGradient)
 	{
-		int angle = 0;
-		if (m_style["draw:angle"])
-			angle = qRound(m_style["draw:angle"]->getDouble());
-		double h = ite->height();
-		double w = ite->width();
-		if (angle == 0)
-			ite->setGradientVector(w / 2.0, 0, w / 2.0, h, 0, 0, 1, 0);
-		else if (angle == 90)
-			ite->setGradientVector(w, h / 2.0, 0, h / 2.0, 0, 0, 1, 0);
-		else if (angle == 180)
-			ite->setGradientVector(w / 2.0, h, w / 2.0, 0, 0, 0, 1, 0);
-		else if (angle == 270)
-			ite->setGradientVector(0, h / 2.0, w, h / 2.0, 0, 0, 1, 0);
-		ite->fill_gradient = currentGradient;
-		ite->GrType = 6;
+		QString gradMode = "normal";
+		if (m_style["libmspub:shade"])
+			gradMode = QString(m_style["libmspub:shade"]->getStr().cstr());
+		if (gradMode == "normal")
+		{
+			int angle = 0;
+			if (m_style["draw:angle"])
+				angle = qRound(m_style["draw:angle"]->getDouble());
+			double h = ite->height();
+			double w = ite->width();
+			if (angle == 0)
+				ite->setGradientVector(w / 2.0, h, w / 2.0, 0, 0, 0, 1, 0);
+			else if (angle == -225)
+				ite->setGradientVector(w, 0, 0, h, 0, 0, 1, 0);
+			else if (angle == 45)
+				ite->setGradientVector(w, h, 0, 0, 0, 0, 1, 0);
+			else if (angle == 90)
+				ite->setGradientVector(w, h / 2.0, 0, h / 2.0, 0, 0, 1, 0);
+			else if (angle == 180)
+				ite->setGradientVector(w / 2.0, 0, w / 2.0, h, 0, 0, 1, 0);
+			else if (angle == 270)
+				ite->setGradientVector(0, h / 2.0, w, h / 2.0, 0, 0, 1, 0);
+			ite->fill_gradient = currentGradient;
+			ite->GrType = 6;
+		}
+		else if (gradMode == "center")
+		{
+			QString center = "top-left";
+			FPoint cp = FPoint(0, 0);
+			if (m_style["libmspub:shade-ref-point"])
+				center = QString(m_style["libmspub:shade-ref-point"]->getStr().cstr());
+			if (center == "top-left")
+				cp = FPoint(0, 0);
+			else if (center == "top-right")
+				cp = FPoint(ite->width(), 0);
+			else if (center == "bottom-left")
+				cp = FPoint(0, ite->height());
+			else if (center == "bottom-right")
+				cp = FPoint(ite->width(), ite->height());
+			ite->setDiamondGeometry(FPoint(0, 0), FPoint(ite->width(), 0), FPoint(ite->width(), ite->height()), FPoint(0, ite->height()), cp);
+			ite->fill_gradient.clearStops();
+			QList<VColorStop*> colorStops = currentGradient.colorStops();
+			for( int a = 0; a < colorStops.count() ; a++ )
+			{
+				ite->fill_gradient.addStop(colorStops[a]->color, 1.0 - colorStops[a]->rampPoint, colorStops[a]->midPoint, colorStops[a]->opacity, colorStops[a]->name, colorStops[a]->shade);
+			}
+			ite->GrType = 10;
+
+		}
+		else if (gradMode == "shape")
+		{
+			ite->meshGradientPatches.clear();
+			FPoint center = FPoint(ite->width() / 2.0, ite->height() / 2.0);
+			meshPoint cP;
+			cP.resetTo(center);
+			cP.transparency = gradColor2Trans;
+			cP.shade = 100;
+			cP.colorName = gradColor2Str;
+			cP.color = gradColor2;
+			for (int poi = 0; poi < ite->PoLine.size()-3; poi += 4)
+			{
+				meshGradientPatch patch;
+				patch.BL = cP;
+				patch.BR = cP;
+				if (ite->PoLine.point(poi).x() > 900000)
+					continue;
+				meshPoint tL;
+				tL.resetTo(ite->PoLine.point(poi));
+				tL.controlRight = ite->PoLine.point(poi + 1);
+				tL.transparency = gradColor1Trans;
+				tL.shade = 100;
+				tL.colorName = gradColor1Str;
+				tL.color = gradColor1;
+				meshPoint tR;
+				tR.resetTo(ite->PoLine.point(poi + 2));
+				tR.controlLeft = ite->PoLine.point(poi + 3);
+				tR.transparency = gradColor1Trans;
+				tR.shade = 100;
+				tR.colorName = gradColor1Str;
+				tR.color = gradColor1;
+				patch.TL = tL;
+				patch.TR = tR;
+				ite->meshGradientPatches.append(patch);
+			}
+			ite->GrType = 12;
+		}
 	}
 	if(m_style["draw:fill"] && m_style["draw:fill"]->getStr() == "bitmap")
 	{
@@ -834,14 +1116,17 @@ void RawPainter::finishItem(PageItem* ite)
 	ite->setLineShade(CurrStrokeShade);
 	ite->setLineJoin(lineJoin);
 	ite->setLineEnd(lineEnd);
-	ite->DashValues = dashArray;
+	if (dashArray.count() > 0)
+	{
+		ite->DashValues = dashArray;
+	}
 	FPoint wh = getMaxClipF(&ite->PoLine);
 	ite->setWidthHeight(wh.x(),wh.y());
 	ite->setTextFlowMode(PageItem::TextFlowUsesBoundingBox);
 	m_Doc->AdjustItemSize(ite);
 	ite->OldB2 = ite->width();
 	ite->OldH2 = ite->height();
-	if (isGradient)
+/*	if (isGradient)
 	{
 		ite->fill_gradient = currentGradient;
 		ite->GrType = 6;
@@ -854,14 +1139,14 @@ void RawPainter::finishItem(PageItem* ite)
 		ite->GrEndY = target.y();
 	}
 	else
-	{
+	{*/
 		ite->setFillTransparency(CurrFillTrans);
 		ite->setLineTransparency(CurrStrokeTrans);
-	}
+//	}
 	ite->updateClip();
 	Elements->append(ite);
 	if (groupStack.count() != 0)
-		groupStack.top().append(ite);
+		groupStack.top().Items.append(ite);
 	Coords.resize(0);
 	Coords.svgInit();
 }
