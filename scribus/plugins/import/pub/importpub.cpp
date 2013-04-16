@@ -286,31 +286,29 @@ void RawPainter::setStyle(const ::WPXPropertyList &propList, const ::WPXProperty
 			if (propList["draw:stroke"]->getStr() == "dash")
 			{
 				dashArray.clear();
-				int dashStyle = 0;
-				if (propList["libmspub:dashstyle"])
-					dashStyle = QString(propList["libmspub:dashstyle"]->getStr().cstr()).toInt();
-				if (dashStyle == 0)
-					dashArray.clear();
-				if (dashStyle == 1)
-					dashArray << qMax(3.0*LineW, 0.1) << qMax(1.0*LineW, 0.1);
-				else if (dashStyle == 2)
-					dashArray << qMax(1.0*LineW, 0.1) << qMax(1.0*LineW, 0.1);
-				else if (dashStyle == 3)
-					dashArray << qMax(3.0*LineW, 0.1) << qMax(1.0*LineW, 0.1) << qMax(1.0*LineW, 0.1) << qMax(1.0*LineW, 0.1);
-				else if (dashStyle == 4)
-					dashArray << qMax(3.0*LineW, 0.1) << qMax(1.0*LineW, 0.1) << qMax(1.0*LineW, 0.1) << qMax(1.0*LineW, 0.1) << qMax(1.0*LineW, 0.1) << qMax(1.0*LineW, 0.1);
-				else if (dashStyle == 5)
-					dashArray << qMax(1.0*LineW, 0.1) << qMax(3.0*LineW, 0.1);
-				else if (dashStyle == 6)
-					dashArray << qMax(4.0*LineW, 0.1) << qMax(3.0*LineW, 0.1);
-				else if (dashStyle == 7)
-					dashArray << qMax(8.0*LineW, 0.1) << qMax(3.0*LineW, 0.1);
-				else if (dashStyle == 8)
-					dashArray << qMax(4.0*LineW, 0.1) << qMax(3.0*LineW, 0.1) << qMax(1.0*LineW, 0.1) << qMax(3.0*LineW, 0.1);
-				else if (dashStyle == 9)
-					dashArray << qMax(8.0*LineW, 0.1) << qMax(3.0*LineW, 0.1) << qMax(1.0*LineW, 0.1) << qMax(3.0*LineW, 0.1);
-				else if (dashStyle == 10)
-					dashArray << qMax(8.0*LineW, 0.1) << qMax(3.0*LineW, 0.1) << qMax(1.0*LineW, 0.1) << qMax(3.0*LineW, 0.1) << qMax(1.0*LineW, 0.1) << qMax(3.0*LineW, 0.1);
+				double gap = LineW;
+				if (propList["draw:distance"])
+					gap = propList["draw:distance"]->getDouble() * 72;
+				int dots1 = 0;
+				if (propList["draw:dots1"])
+					dots1 = propList["draw:dots1"]->getInt();
+				double dots1len = LineW;
+				if (propList["draw:dots1-length"])
+					dots1len = propList["draw:dots1-length"]->getDouble() * 72;
+				int dots2 = 0;
+				if (propList["draw:dots2"])
+					dots2 = propList["draw:dots2"]->getInt();
+				double dots2len = LineW;
+				if (propList["draw:dots2-length"])
+					dots2len = propList["draw:dots2-length"]->getDouble() * 72;
+				for (int i = 0; i < dots1; i++)
+				{
+					dashArray << qMax(dots1len, 0.1) << qMax(gap, 0.1);
+				}
+				for (int j = 0; j < dots2; j++)
+				{
+					dashArray << qMax(dots2len, 0.1) << qMax(gap, 0.1);
+				}
 			}
 			else
 				dashArray.clear();
@@ -730,6 +728,10 @@ void RawPainter::endTextObject()
 
 void RawPainter::startTextLine(const ::WPXPropertyList &propList)
 {
+	QString pStyle = CommonStrings::DefaultParagraphStyle;
+	ParagraphStyle newStyle;
+	newStyle.setParent(pStyle);
+	textStyle = newStyle;
 	if (propList["fo:text-align"])
 	{
 		QString align = QString(propList["fo:text-align"]->getStr().cstr());
@@ -801,11 +803,13 @@ void RawPainter::endTextSpan()
 
 void RawPainter::insertText(const ::WPXString &str)
 {
-	if (lineSpSet)
-	{
-		textStyle.setLineSpacingMode(ParagraphStyle::FixedLineSpacing);
-		textStyle.setLineSpacing(m_maxFontSize * m_linespace);
-	}
+//	if (lineSpSet)
+//	{
+//		textStyle.setLineSpacingMode(ParagraphStyle::FixedLineSpacing);
+//		textStyle.setLineSpacing(m_maxFontSize * m_linespace);
+//	}
+//	else
+		textStyle.setLineSpacingMode(ParagraphStyle::AutomaticLineSpacing);
 	WPXString tempUTF8(str, true);
 	QString actText = QString(tempUTF8.cstr());
 	if (actTextItem)
