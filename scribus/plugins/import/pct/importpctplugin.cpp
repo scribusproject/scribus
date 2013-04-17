@@ -59,7 +59,7 @@ void ImportPctPlugin::languageChange()
 ImportPctPlugin::~ImportPctPlugin()
 {
 	unregisterAll();
-};
+}
 
 const QString ImportPctPlugin::fullTrName() const
 {

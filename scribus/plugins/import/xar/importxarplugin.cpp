@@ -59,7 +59,7 @@ void ImportXarPlugin::languageChange()
 ImportXarPlugin::~ImportXarPlugin()
 {
 	unregisterAll();
-};
+}
 
 const QString ImportXarPlugin::fullTrName() const
 {

@@ -84,7 +84,7 @@ OODrawImportPlugin::~OODrawImportPlugin()
 {
 	unregisterAll();
 	// note: importAction is automatically deleted by Qt
-};
+}
 
 void OODrawImportPlugin::languageChange()
 {

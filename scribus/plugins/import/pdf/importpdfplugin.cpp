@@ -73,7 +73,7 @@ void ImportPdfPlugin::languageChange()
 ImportPdfPlugin::~ImportPdfPlugin()
 {
 	unregisterAll();
-};
+}
 
 const QString ImportPdfPlugin::fullTrName() const
 {

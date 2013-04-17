@@ -68,7 +68,7 @@ void ImportIdmlPlugin::languageChange()
 ImportIdmlPlugin::~ImportIdmlPlugin()
 {
 	unregisterAll();
-};
+}
 
 const QString ImportIdmlPlugin::fullTrName() const
 {

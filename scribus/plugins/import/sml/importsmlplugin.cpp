@@ -59,7 +59,7 @@ void ImportSmlPlugin::languageChange()
 ImportSmlPlugin::~ImportSmlPlugin()
 {
 	unregisterAll();
-};
+}
 
 const QString ImportSmlPlugin::fullTrName() const
 {

@@ -62,27 +62,21 @@ WMFImportPlugin::WMFImportPlugin() : LoadSavePlugin(),
 	// Set action info in languageChange, so we only have to do
 	// it in one place. This includes registering file format
 	// support.
+	registerFormats();
 	languageChange();
 }
-/*
-void WMFImportPlugin::addToMainWindowMenu(ScribusMainWindow *mw)
-{
-	importAction->setEnabled(true);
-	connect( importAction, SIGNAL(triggered()), SLOT(import()) );
-	mw->scrMenuMgr->addMenuItem(importAction, "FileImport");
-}
-*/
+
 WMFImportPlugin::~WMFImportPlugin()
 {
 	unregisterAll();
-};
+}
 
 void WMFImportPlugin::languageChange()
 {
 	importAction->setText( tr("Import &WMF..."));
-	// (Re)register file format support.
-	unregisterAll();
-	registerFormats();
+	FileFormat* fmt = getFormatByExt("fig");
+	fmt->trName = FormatsManager::instance()->nameOfFormat(FormatsManager::WMF);
+	fmt->filter = FormatsManager::instance()->extensionsForFormat(FormatsManager::WMF);
 }
 
 const QString WMFImportPlugin::fullTrName() const

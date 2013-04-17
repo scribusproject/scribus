@@ -44,19 +44,20 @@ Scribus12Format::Scribus12Format() :
 {
 	// Set action info in languageChange, so we only have to do
 	// it in one place. This includes registering file formats.
+	registerFormats();
 	languageChange();
 }
 
 Scribus12Format::~Scribus12Format()
 {
 	unregisterAll();
-};
+}
 
 void Scribus12Format::languageChange()
 {
-	//(Re)register file formats.
-	unregisterAll();
-	registerFormats();
+	FileFormat* fmt = getFormatByID(FORMATID_SLA12XIMPORT);
+	fmt->trName = tr("Scribus 1.2.x Document");
+	fmt->filter = fmt->trName + " (*.sla *.SLA *.sla.gz *.SLA.GZ *.scd *.SCD *.scd.gz *.SCD.GZ)";
 }
 
 const QString Scribus12Format::fullTrName() const

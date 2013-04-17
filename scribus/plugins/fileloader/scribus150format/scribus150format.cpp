@@ -59,19 +59,20 @@ Scribus150Format::Scribus150Format() :
 {
 	// Set action info in languageChange, so we only have to do
 	// it in one place. This includes registering file formats.
+	registerFormats();
 	languageChange();
 }
 
 Scribus150Format::~Scribus150Format()
 {
 	unregisterAll();
-};
+}
 
 void Scribus150Format::languageChange()
 {
-	//(Re)register file formats.
-	unregisterAll();
-	registerFormats();
+	FileFormat* fmt = getFormatByID(FORMATID_SLA150IMPORT);
+	fmt->trName = tr("Scribus 1.5.0+ Document");
+	fmt->filter = fmt->trName + " (*.sla *.SLA *.sla.gz *.SLA.GZ *.scd *.SCD *.scd.gz *.SCD.GZ)";
 }
 
 const QString Scribus150Format::fullTrName() const

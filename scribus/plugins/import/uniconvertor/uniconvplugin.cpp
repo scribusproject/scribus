@@ -55,19 +55,21 @@ UniconvImportPlugin::UniconvImportPlugin() : LoadSavePlugin()
 	// Set action info in languageChange, so we only have to do
 	// it in one place. This includes registering file format
 	// support.
+	registerFormats();
 	languageChange();
 }
 
 UniconvImportPlugin::~UniconvImportPlugin()
 {
 	unregisterAll();
-};
+}
 
 void UniconvImportPlugin::languageChange()
 {
-	// (Re)register file format support.
-	unregisterAll();
-	registerFormats();
+	QString name = tr("Uniconvertor Import");
+	FileFormat* fmt = getFormatByID(FORMATID_UNICONVIMPORT);
+	fmt->trName = name;
+	fmt->filter = name + " (" +  FormatsManager::instance()->extensionListForFormat( FormatsManager::UNICONV, 0)+")";
 }
 
 const QString UniconvImportPlugin::fullTrName() const

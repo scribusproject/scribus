@@ -75,6 +75,7 @@ SVGImportPlugin::SVGImportPlugin() : LoadSavePlugin(),
 	// Set action info in languageChange, so we only have to do
 	// it in one place. This includes registering file format
 	// support.
+	registerFormats();
 	languageChange();
 }
 /*
@@ -88,14 +89,14 @@ void SVGImportPlugin::addToMainWindowMenu(ScribusMainWindow *mw)
 SVGImportPlugin::~SVGImportPlugin()
 {
 	unregisterAll();
-};
+}
 
 void SVGImportPlugin::languageChange()
 {
 	importAction->setText( tr("Import &SVG..."));
-	// (Re)register file format support.
-	unregisterAll();
-	registerFormats();
+	FileFormat* fmt = getFormatByExt("svg");
+	fmt->trName = FormatsManager::instance()->nameOfFormat(FormatsManager::SVG);
+	fmt->filter = FormatsManager::instance()->extensionsForFormat(FormatsManager::SVG);
 }
 
 const QString SVGImportPlugin::fullTrName() const

@@ -45,6 +45,15 @@ const FileFormat * LoadSavePlugin::getFormatById(const int id)
 		return &(*it);
 }
 
+FileFormat * LoadSavePlugin::getFormatByID(int id)
+{
+	QList<FileFormat>::iterator it(findFormat(id));
+	if (it == formats.end())
+		return 0;
+	else
+		return &(*it);
+}
+
 FileFormat* LoadSavePlugin::getFormatByExt(const QString ext)
 {
 	QList<FileFormat>::iterator it(findFormat(ext));
@@ -343,34 +352,25 @@ void LoadSavePlugin::unregisterAll()
 }
 
 QList<FileFormat>::iterator
-LoadSavePlugin::findFormat(unsigned int id,
-						   LoadSavePlugin* plug,
-						   QList<FileFormat>::iterator it)
+LoadSavePlugin::findFormat(unsigned int id, LoadSavePlugin* plug, QList<FileFormat>::iterator it)
 {
 	QList<FileFormat>::iterator itEnd(formats.end());
 	for ( ; it != itEnd ; ++it )
 	{
-		if (
-				((*it).formatId == id) &&
-				((plug == 0) || (plug == (*it).plug))
-			)
+		if (((*it).formatId == id) && ((plug == 0) || (plug == (*it).plug)))
 			return it;
 	}
 	return itEnd;
 }
 
 QList<FileFormat>::iterator
-LoadSavePlugin::findFormat(const QString& extension,
-						   LoadSavePlugin* plug,
-						   QList<FileFormat>::iterator it)
+LoadSavePlugin::findFormat(const QString& extension, LoadSavePlugin* plug, QList<FileFormat>::iterator it)
 {
 	QList<FileFormat>::iterator itEnd(formats.end());
 	for ( ; it != itEnd ; ++it )
 	{
-		if (
-			((*it).nameMatch.indexIn(extension)) &&
-				((plug == 0) || (plug == (*it).plug))
-			)
+	//	if (((*it).fileExtensions.contains(extension.toLower())) && ((plug == 0) || (plug == (*it).plug)) )
+		if ( ((*it).nameMatch.indexIn(extension)) && ((plug == 0) || (plug == (*it).plug)) )
 			return it;
 	}
 	return itEnd;

@@ -44,28 +44,22 @@ ImportWpgPlugin::ImportWpgPlugin() : LoadSavePlugin(),
 {
 	// Set action info in languageChange, so we only have to do it in one
 	// place. This includes registering file format support.
+	registerFormats();
 	languageChange();
 }
-/*
-void ImportXfigPlugin::addToMainWindowMenu(ScribusMainWindow *mw)
-{
-	importAction->setEnabled(true);
-	connect( importAction, SIGNAL(triggered()), SLOT(import()) );
-	mw->scrMenuMgr->addMenuItem(importAction, "FileImport");
-}
-*/
+
 void ImportWpgPlugin::languageChange()
 {
 	importAction->setText( tr("Import WPG..."));
-	// (Re)register file format support
-	unregisterAll();
-	registerFormats();
+	FileFormat* fmt = getFormatByExt("wpg");
+	fmt->trName = FormatsManager::instance()->nameOfFormat(FormatsManager::WPG);
+	fmt->filter = FormatsManager::instance()->extensionsForFormat(FormatsManager::WPG);
 }
 
 ImportWpgPlugin::~ImportWpgPlugin()
 {
 	unregisterAll();
-};
+}
 
 const QString ImportWpgPlugin::fullTrName() const
 {

@@ -59,7 +59,7 @@ void ImportShapePlugin::languageChange()
 ImportShapePlugin::~ImportShapePlugin()
 {
 	unregisterAll();
-};
+}
 
 const QString ImportShapePlugin::fullTrName() const
 {
