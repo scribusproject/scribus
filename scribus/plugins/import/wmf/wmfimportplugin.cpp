@@ -74,7 +74,7 @@ WMFImportPlugin::~WMFImportPlugin()
 void WMFImportPlugin::languageChange()
 {
 	importAction->setText( tr("Import &WMF..."));
-	FileFormat* fmt = getFormatByExt("fig");
+	FileFormat* fmt = getFormatByExt("wmf");
 	fmt->trName = FormatsManager::instance()->nameOfFormat(FormatsManager::WMF);
 	fmt->filter = FormatsManager::instance()->extensionsForFormat(FormatsManager::WMF);
 }

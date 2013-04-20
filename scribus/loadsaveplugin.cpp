@@ -325,8 +325,7 @@ void LoadSavePlugin::printFormatList()
 	QList<FileFormat>::const_iterator itEnd(formats.constEnd());
 	for ( ; it != itEnd ; ++it )
 	{
-		qDebug("    Format: Id: %3u, Prio: %3hu, Name: %s",
-				(*it).formatId, (*it).priority, (*it).trName.toLocal8Bit().data() );
+		qDebug("    Format: Id: %3u, Prio: %3hu, Name: %s",  (*it).formatId, (*it).priority, (*it).trName.toLocal8Bit().data() );
 	}
 	qDebug("Done");
 }
