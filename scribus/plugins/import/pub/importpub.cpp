@@ -694,15 +694,26 @@ void RawPainter::startTextObject(const ::WPXPropertyList &propList, const ::WPXP
 {
 	actTextItem = NULL;
 	lineSpSet = false;
+	lineSpIsPT = false;
 	if (propList["svg:x"] && propList["svg:y"] && propList["svg:width"] && propList["svg:height"])
 	{
 		double x = propList["svg:x"]->getDouble() * 72.0;
 		double y = propList["svg:y"]->getDouble() * 72.0;
 		double w = propList["svg:width"]->getDouble() * 72.0;
 		double h = propList["svg:height"]->getDouble() * 72.0;
+		double rot = 0;
+		if (propList["libwpg:rotate"])
+			rot = propList["libwpg:rotate"]->getDouble();
 		int z = m_Doc->itemAdd(PageItem::TextFrame, PageItem::Rectangle, baseX + x, baseY + y, w, h, 0, CurrColorFill, CurrColorStroke, true);
 		PageItem *ite = m_Doc->Items->at(z);
 		finishItem(ite);
+		if (rot != 0)
+		{
+			int rm = m_Doc->RotMode();
+			m_Doc->RotMode(2);
+			m_Doc->RotateItem(rot, ite);
+			m_Doc->RotMode(rm);
+		}
 		if (propList["fo:padding-left"])
 			ite->setTextToFrameDistLeft(propList["fo:padding-left"]->getDouble() * 72.0);
 		if (propList["fo:padding-right"])
@@ -724,6 +735,7 @@ void RawPainter::endTextObject()
 {
 	actTextItem = NULL;
 	lineSpSet = false;
+	lineSpIsPT = false;
 }
 
 void RawPainter::startTextLine(const ::WPXPropertyList &propList)
@@ -744,10 +756,18 @@ void RawPainter::startTextLine(const ::WPXPropertyList &propList)
 		else if (align == "justify")
 			textStyle.setAlignment(ParagraphStyle::Justified);
 	}
+	if (propList["fo:margin-left"])
+		textStyle.setLeftMargin(propList["fo:margin-left"]->getDouble() * 72.0);
+	if (propList["fo:margin-right"])
+		textStyle.setRightMargin(propList["fo:margin-right"]->getDouble() * 72.0);
+	if (propList["fo:text-indent"])
+		textStyle.setFirstIndent(propList["fo:text-indent"]->getDouble() * 72.0);
 	m_maxFontSize = textStyle.charStyle().fontSize() / 10.0;
 	if (propList["fo:line-height"])
 	{
 		m_linespace = propList["fo:line-height"]->getDouble();
+		QString lsp = QString(propList["fo:line-height"]->getStr().cstr());
+		lineSpIsPT = lsp.endsWith("pt");
 		lineSpSet = true;
 	}
 }
@@ -803,12 +823,15 @@ void RawPainter::endTextSpan()
 
 void RawPainter::insertText(const ::WPXString &str)
 {
-//	if (lineSpSet)
-//	{
-//		textStyle.setLineSpacingMode(ParagraphStyle::FixedLineSpacing);
-//		textStyle.setLineSpacing(m_maxFontSize * m_linespace);
-//	}
-//	else
+	if (lineSpSet)
+	{
+		textStyle.setLineSpacingMode(ParagraphStyle::FixedLineSpacing);
+		if (lineSpIsPT)
+			textStyle.setLineSpacing(m_linespace);
+		else
+			textStyle.setLineSpacing(m_maxFontSize * m_linespace);
+	}
+	else
 		textStyle.setLineSpacingMode(ParagraphStyle::AutomaticLineSpacing);
 	WPXString tempUTF8(str, true);
 	QString actText = QString(tempUTF8.cstr());

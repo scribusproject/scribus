@@ -107,6 +107,7 @@ public:
 	double m_linespace;
 	double m_maxFontSize;
 	bool lineSpSet;
+	bool lineSpIsPT;
 };
 /*
 class ScrPainter : public libwpg::WPGPaintInterface
