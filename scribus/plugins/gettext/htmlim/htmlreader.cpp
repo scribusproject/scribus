@@ -222,7 +222,11 @@ bool HTMLReader::startElement(const QString&, const QString&, const QString &nam
 				if (attrValue.indexOf("data:image") < 0)
 					imgline +=  " src: " + attrValue;
 				else
+				{
+					// TODO: correctly emebed the image (just putting the source in the
+					// text frame crashes scribus for big images; ale/20120808)
 					imgline +=  " src: embedded image";
+				}
 			}
 			if (attrs.localName(i) == "alt")
 			{
