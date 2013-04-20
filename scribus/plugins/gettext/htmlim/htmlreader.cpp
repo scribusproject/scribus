@@ -223,7 +223,7 @@ bool HTMLReader::startElement(const QString&, const QString&, const QString &nam
 					imgline +=  " src: " + attrValue;
 				else
 				{
-					// TODO: correctly emebed the image (just putting the source in the
+					// TODO: correctly embed the image (just putting the source in the
 					// text frame crashes scribus for big images; ale/20120808)
 					imgline +=  " src: embedded image";
 				}
