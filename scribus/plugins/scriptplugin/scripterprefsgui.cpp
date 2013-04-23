@@ -32,8 +32,7 @@ ScripterPrefsGui::ScripterPrefsGui(QWidget* parent )
 	extensionScriptsChk->setChecked(scripterCore->extensionsEnabled());
 	// The startup script box should be disabled  if ext scripts are off
 	startupScriptEdit->setEnabled(extensionScriptsChk->isChecked());
-	connect(extensionScriptsChk, SIGNAL(toggled(bool)),
-			startupScriptEdit, SLOT(setEnabled(bool)));
+	startupScriptEdit->setText(scripterCore->startupScript());
 
 	// signals and slots connections
 	connect(extensionScriptsChk, SIGNAL(toggled(bool)), startupScriptEdit, SLOT(setEnabled(bool)));
