@@ -583,7 +583,7 @@ void ScripterCore::initExtensionScripts()
 
 void ScripterCore::runStartupScript()
 {
-	if ((m_enableExtPython) && (!m_startupScript.isNull()))
+	if ((m_enableExtPython) && (!m_startupScript.isEmpty()))
 	{
 		if (QFile::exists(this->m_startupScript))
 		{
