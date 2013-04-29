@@ -133,7 +133,8 @@ bool WMFImportPlugin::import(QString filename, int flags)
 {
 	if (!checkFlags(flags))
 		return false;
-	m_Doc=ScCore->primaryMainWindow()->doc;
+	if (m_Doc == 0)
+		m_Doc = ScCore->primaryMainWindow()->doc;
 	ScribusMainWindow* mw=(m_Doc==0) ? ScCore->primaryMainWindow() : m_Doc->scMW();
 	if (filename.isEmpty())
 	{
