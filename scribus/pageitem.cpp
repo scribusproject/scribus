@@ -4609,6 +4609,8 @@ void PageItem::setLayer(int newLayerID)
 
 void PageItem::checkChanges(bool force)
 {
+	if (m_Doc->view() == NULL)
+		return;
 	bool spreadChanges(false);
 	// has the item been resized
 	if (force || ((oldWidth != m_width || oldHeight != m_height) && shouldCheck()))
