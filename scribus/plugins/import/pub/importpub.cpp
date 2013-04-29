@@ -773,6 +773,7 @@ void RawPainter::drawGraphicObject(const ::WPXPropertyList &propList, const ::WP
 								Elements->append(ite);
 								ite->setXYPos(baseX + x, baseY + y, true);
 								ite->setWidthHeight(w, h, true);
+								ite->updateClip();
 							}
 						}
 					}
