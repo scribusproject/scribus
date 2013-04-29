@@ -108,53 +108,9 @@ public:
 	double m_maxFontSize;
 	bool lineSpSet;
 	bool lineSpIsPT;
+	bool doProcessing;
 };
-/*
-class ScrPainter : public libwpg::WPGPaintInterface
-{
-public:
-	ScrPainter();
 
-	void startGraphics(double imageWidth, double imageHeight);
-	void endGraphics();
-	void startLayer(unsigned int id);
-	void endLayer(unsigned int id);
-	void setPen(const libwpg::WPGPen& pen);
-	void setBrush(const libwpg::WPGBrush& brush);
-	void setFillRule(FillRule rule);
-	void drawRectangle(const libwpg::WPGRect& rect, double rx, double ry);
-	void drawEllipse(const libwpg::WPGPoint& center, double rx, double ry);
-	void drawPolygon(const libwpg::WPGPointArray& vertices, bool closed);
-	void drawPath(const libwpg::WPGPath& path);
-	void drawBitmap(const libwpg::WPGBitmap& bitmap, double hres, double vres);
-	void drawImageObject(const libwpg::WPGBinaryData& binaryData);
-
-	void finishItem(PageItem* ite);
-	QList<PageItem*> Elements;
-	QStringList importedColors;
-	ScribusDoc* m_Doc;
-	double LineW;
-	QString CurrColorFill;
-	QString CurrColorStroke;
-	double CurrStrokeShade;
-	double CurrFillShade;
-	double CurrStrokeTrans;
-	double CurrFillTrans;
-	FPointArray Coords;
-	double baseX, baseY;
-	bool fillrule;
-	double gradientAngle;
-	bool isGradient;
-	bool fillSet;
-	bool strokeSet;
-	VGradient currentGradient;
-	QVector<double> dashArray;
-	Qt::PenJoinStyle lineJoin;
-	Qt::PenCapStyle lineEnd;
-	int flags;
-	bool firstLayer;
-};
-*/
 //! \brief PUB importer plugin
 class PubPlug : public QObject
 {

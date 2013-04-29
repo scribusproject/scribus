@@ -75,6 +75,7 @@ RawPainter::RawPainter(): libwpg::WPGPaintInterface()
 	firstPage = true;
 	actPage = 0;
 	actTextItem = NULL;
+	doProcessing = true;
 }
 
 void RawPainter::startGraphics(const ::WPXPropertyList &propList)
@@ -109,12 +110,16 @@ void RawPainter::startGraphics(const ::WPXPropertyList &propList)
 
 void RawPainter::endGraphics()
 {
+	if (importerFlags & LoadSavePlugin::lfCreateThumbnail)
+		doProcessing = false;
 //	qDebug() << "endGraphics";
 //  printf("RawPainter::endGraphics\n");
 }
 
 void RawPainter::startLayer(const ::WPXPropertyList &propList)
 {
+	if (!doProcessing)
+		return;
 	FPointArray clip;
 	if (propList["svg:clip-path"])
 	{
@@ -136,6 +141,8 @@ void RawPainter::startLayer(const ::WPXPropertyList &propList)
 
 void RawPainter::endLayer()
 {
+	if (!doProcessing)
+		return;
 	if (groupStack.count() != 0)
 	{
 		PageItem *ite;
@@ -193,18 +200,24 @@ void RawPainter::endLayer()
 
 void RawPainter::startEmbeddedGraphics(const ::WPXPropertyList &propList)
 {
+	if (!doProcessing)
+		return;
 	qDebug() << "startEmbeddedGraphics";
 //  printf("RawPainter::startEmbeddedGraphics (%s)\n", getPropString(propList).cstr());
 }
 
 void RawPainter::endEmbeddedGraphics()
 {
+	if (!doProcessing)
+		return;
 //	qDebug() << "endEmbeddedGraphics";
 //  printf("RawPainter::endEmbeddedGraphics \n");
 }
 
 void RawPainter::setStyle(const ::WPXPropertyList &propList, const ::WPXPropertyListVector &gradient)
 {
+	if (!doProcessing)
+		return;
 	m_style.clear();
 	m_style = propList;
 	isGradient = false;
@@ -344,18 +357,46 @@ void RawPainter::setStyle(const ::WPXPropertyList &propList, const ::WPXProperty
 
 void RawPainter::drawRectangle(const ::WPXPropertyList &propList)
 {
-	qDebug() << "drawRectangle";
+	if (!doProcessing)
+		return;
+	if (propList["svg:x"] && propList["svg:y"] && propList["svg:width"] && propList["svg:height"])
+	{
+		double x = propList["svg:x"]->getDouble() * 72.0;
+		double y = propList["svg:y"]->getDouble() * 72.0;
+		double w = propList["svg:width"]->getDouble() * 72.0;
+		double h = propList["svg:height"]->getDouble() * 72.0;
+		int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX + x, baseY + y, w, h, LineW, CurrColorFill, CurrColorStroke, true);
+		PageItem *ite = m_Doc->Items->at(z);
+		finishItem(ite);
+		applyFill(ite);
+	}
+//	qDebug() << "drawRectangle";
 //  printf("RawPainter::drawRectangle (%s)\n", getPropString(propList).cstr());
 }
 
 void RawPainter::drawEllipse(const ::WPXPropertyList &propList)
 {
-	qDebug() << "drawEllipse";
+	if (!doProcessing)
+		return;
+	if (propList["svg:x"] && propList["svg:y"] && propList["svg:width"] && propList["svg:height"])
+	{
+		double x = propList["svg:x"]->getDouble() * 72.0;
+		double y = propList["svg:y"]->getDouble() * 72.0;
+		double w = propList["svg:width"]->getDouble() * 72.0;
+		double h = propList["svg:height"]->getDouble() * 72.0;
+		int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, baseX + x, baseY + y, w, h, LineW, CurrColorFill, CurrColorStroke, true);
+		PageItem *ite = m_Doc->Items->at(z);
+		finishItem(ite);
+		applyFill(ite);
+	}
+//	qDebug() << "drawEllipse";
 //  printf("RawPainter::drawEllipse (%s)\n", getPropString(propList).cstr());
 }
 
 void RawPainter::drawPolyline(const ::WPXPropertyListVector &vertices)
 {
+	if (!doProcessing)
+		return;
 	Coords.resize(0);
 	Coords.svgInit();
 	PageItem *ite;
@@ -375,6 +416,8 @@ void RawPainter::drawPolyline(const ::WPXPropertyListVector &vertices)
 
 void RawPainter::drawPolygon(const ::WPXPropertyListVector &vertices)
 {
+	if (!doProcessing)
+		return;
 	if(vertices.count() < 2)
 		return;
 	Coords.resize(0);
@@ -421,6 +464,20 @@ void RawPainter::drawPolygon(const ::WPXPropertyListVector &vertices)
 					  tempFile->close();
 					  ite->isTempFile = true;
 					  ite->isInlineImage = true;
+					  if (m_style["draw:red"] && m_style["draw:green"] && m_style["draw:blue"])
+					  {
+						  int r = qRound(m_style["draw:red"]->getDouble() * 255);
+						  int g = qRound(m_style["draw:green"]->getDouble() * 255);
+						  int b = qRound(m_style["draw:blue"]->getDouble() * 255);
+						  QString colVal = QString("#%1%2%3").arg(r, 2, 16, QLatin1Char('0')).arg(g, 2, 16, QLatin1Char('0')).arg(b, 2, 16, QLatin1Char('0'));
+						  QString efVal = parseColor(colVal);
+						  efVal += "\n";
+						  struct ImageEffect ef;
+						  efVal += "100";
+						  ef.effectCode = ScImage::EF_COLORIZE;
+						  ef.effectParameters = efVal;
+						  ite->effectsInUse.append(ef);
+					  }
 					  m_Doc->loadPict(fileName, ite);
 					  if (m_style["libwpg:rotate"])
 					  {
@@ -448,6 +505,7 @@ void RawPainter::drawPolygon(const ::WPXPropertyListVector &vertices)
 						  const FileFormat * fmt = LoadSavePlugin::getFormatById(testResult);
 						  if( fmt )
 						  {
+							fmt->setupTargets(m_Doc, 0, 0, 0, &(PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts));
 							fmt->loadFile(fileName, LoadSavePlugin::lfUseCurrentPage|LoadSavePlugin::lfInteractive|LoadSavePlugin::lfScripted);
 							if (m_Doc->m_Selection->count() > 0)
 							{
@@ -455,7 +513,7 @@ void RawPainter::drawPolygon(const ::WPXPropertyListVector &vertices)
 								QPainterPath ba = Coords.toQPainterPath(true);
 								QRectF baR = ba.boundingRect();
 								ite->setXYPos(baseX + baR.x(), baseY + baR.y(), true);
-								m_Doc->SizeItem(baR.width(), baR.height(), ite, true, true, false);
+								ite->setWidthHeight(baR.width(), baR.height(), true);
 								FPoint tp2(getMinClipF(&Coords));
 								Coords.translate(-tp2.x(), -tp2.y());
 								ite->PoLine = Coords.copy();
@@ -481,6 +539,8 @@ void RawPainter::drawPolygon(const ::WPXPropertyListVector &vertices)
 
 void RawPainter::drawPath(const ::WPXPropertyListVector &path)
 {
+	if (!doProcessing)
+		return;
 	bool isClosed = false;
 	QString svgString = "";
 	for(unsigned i=0; i < path.count(); i++)
@@ -540,6 +600,20 @@ void RawPainter::drawPath(const ::WPXPropertyListVector &path)
 					  tempFile->close();
 					  ite->isTempFile = true;
 					  ite->isInlineImage = true;
+					  if (m_style["draw:red"] && m_style["draw:green"] && m_style["draw:blue"])
+					  {
+						  int r = qRound(m_style["draw:red"]->getDouble() * 255);
+						  int g = qRound(m_style["draw:green"]->getDouble() * 255);
+						  int b = qRound(m_style["draw:blue"]->getDouble() * 255);
+						  QString colVal = QString("#%1%2%3").arg(r, 2, 16, QLatin1Char('0')).arg(g, 2, 16, QLatin1Char('0')).arg(b, 2, 16, QLatin1Char('0'));
+						  QString efVal = parseColor(colVal);
+						  efVal += "\n";
+						  struct ImageEffect ef;
+						  efVal += "100";
+						  ef.effectCode = ScImage::EF_COLORIZE;
+						  ef.effectParameters = efVal;
+						  ite->effectsInUse.append(ef);
+					  }
 					  m_Doc->loadPict(fileName, ite);
 					  if (m_style["libwpg:rotate"])
 					  {
@@ -568,6 +642,7 @@ void RawPainter::drawPath(const ::WPXPropertyListVector &path)
 						  const FileFormat * fmt = LoadSavePlugin::getFormatById(testResult);
 						  if( fmt )
 						  {
+							  fmt->setupTargets(m_Doc, 0, 0, 0, &(PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts));
 							  fmt->loadFile(fileName, LoadSavePlugin::lfUseCurrentPage|LoadSavePlugin::lfInteractive|LoadSavePlugin::lfScripted);
 							  if (m_Doc->m_Selection->count() > 0)
 							  {
@@ -575,7 +650,7 @@ void RawPainter::drawPath(const ::WPXPropertyListVector &path)
 								QPainterPath ba = Coords.toQPainterPath(true);
 								QRectF baR = ba.boundingRect();
 								ite->setXYPos(baseX + baR.x(), baseY + baR.y(), true);
-								m_Doc->SizeItem(baR.width(), baR.height(), ite, true, true, false);
+								ite->setWidthHeight(baR.width(), baR.height(), true);
 								FPoint tp2(getMinClipF(&Coords));
 								Coords.translate(-tp2.x(), -tp2.y());
 								ite->PoLine = Coords.copy();
@@ -608,6 +683,8 @@ void RawPainter::drawPath(const ::WPXPropertyListVector &path)
 
 void RawPainter::drawGraphicObject(const ::WPXPropertyList &propList, const ::WPXBinaryData &binaryData)
 {
+	if (!doProcessing)
+		return;
 	if (!propList["libwpg:mime-type"] || propList["libwpg:mime-type"]->getStr().len() <= 0)
 		return;
 	WPXString base64 = binaryData.getBase64Data();
@@ -644,6 +721,20 @@ void RawPainter::drawGraphicObject(const ::WPXPropertyList &propList, const ::WP
 				tempFile->close();
 				ite->isTempFile = true;
 				ite->isInlineImage = true;
+				if (propList["draw:red"] && propList["draw:green"] && propList["draw:blue"])
+				{
+					int r = qRound(propList["draw:red"]->getDouble() * 255);
+					int g = qRound(propList["draw:green"]->getDouble() * 255);
+					int b = qRound(propList["draw:blue"]->getDouble() * 255);
+					QString colVal = QString("#%1%2%3").arg(r, 2, 16, QLatin1Char('0')).arg(g, 2, 16, QLatin1Char('0')).arg(b, 2, 16, QLatin1Char('0'));
+					QString efVal = parseColor(colVal);
+					efVal += "\n";
+					struct ImageEffect ef;
+					efVal += "100";
+					ef.effectCode = ScImage::EF_COLORIZE;
+					ef.effectParameters = efVal;
+					ite->effectsInUse.append(ef);
+				}
 				m_Doc->loadPict(fileName, ite);
 				if (propList["libwpg:rotate"])
 				{
@@ -673,12 +764,16 @@ void RawPainter::drawGraphicObject(const ::WPXPropertyList &propList, const ::WP
 						const FileFormat * fmt = LoadSavePlugin::getFormatById(testResult);
 						if( fmt )
 						{
+							fmt->setupTargets(m_Doc, 0, 0, 0, &(PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts));
 							fmt->loadFile(fileName, LoadSavePlugin::lfUseCurrentPage|LoadSavePlugin::lfInteractive|LoadSavePlugin::lfScripted);
-							PageItem *ite = m_Doc->groupObjectsSelection();
-							ite->setTextFlowMode(PageItem::TextFlowUsesBoundingBox);
-							Elements->append(ite);
-							ite->setXYPos(baseX + x, baseY + y, true);
-							m_Doc->SizeItem(w, h, ite, true, true, false);
+							if (m_Doc->m_Selection->count() > 0)
+							{
+								PageItem *ite = m_Doc->groupObjectsSelection();
+								ite->setTextFlowMode(PageItem::TextFlowUsesBoundingBox);
+								Elements->append(ite);
+								ite->setXYPos(baseX + x, baseY + y, true);
+								ite->setWidthHeight(w, h, true);
+							}
 						}
 					}
 				}
@@ -692,6 +787,8 @@ void RawPainter::drawGraphicObject(const ::WPXPropertyList &propList, const ::WP
 
 void RawPainter::startTextObject(const ::WPXPropertyList &propList, const ::WPXPropertyListVector &path)
 {
+	if (!doProcessing)
+		return;
 	actTextItem = NULL;
 	lineSpSet = false;
 	lineSpIsPT = false;
@@ -733,6 +830,8 @@ void RawPainter::startTextObject(const ::WPXPropertyList &propList, const ::WPXP
 
 void RawPainter::endTextObject()
 {
+	if (!doProcessing)
+		return;
 	actTextItem = NULL;
 	lineSpSet = false;
 	lineSpIsPT = false;
@@ -740,6 +839,8 @@ void RawPainter::endTextObject()
 
 void RawPainter::startTextLine(const ::WPXPropertyList &propList)
 {
+	if (!doProcessing)
+		return;
 	QString pStyle = CommonStrings::DefaultParagraphStyle;
 	ParagraphStyle newStyle;
 	newStyle.setParent(pStyle);
@@ -762,6 +863,15 @@ void RawPainter::startTextLine(const ::WPXPropertyList &propList)
 		textStyle.setRightMargin(propList["fo:margin-right"]->getDouble() * 72.0);
 	if (propList["fo:text-indent"])
 		textStyle.setFirstIndent(propList["fo:text-indent"]->getDouble() * 72.0);
+	if (propList["style:drop-cap"])
+	{
+		textStyle.setDropCapLines(propList["style:drop-cap"]->getInt());
+		textStyle.setHasDropCap(true);
+	}
+	if (propList["fo:margin-bottom"])
+		textStyle.setGapAfter(propList["fo:margin-bottom"]->getDouble() * 72.0);
+	if (propList["fo:margin-top"])
+		textStyle.setGapBefore(propList["fo:margin-top"]->getDouble() * 72.0);
 	m_maxFontSize = textStyle.charStyle().fontSize() / 10.0;
 	if (propList["fo:line-height"])
 	{
@@ -774,6 +884,8 @@ void RawPainter::startTextLine(const ::WPXPropertyList &propList)
 
 void RawPainter::endTextLine()
 {
+	if (!doProcessing)
+		return;
 	int posT = actTextItem->itemText.length();
 	if (posT > 0)
 	{
@@ -787,6 +899,8 @@ void RawPainter::endTextLine()
 
 void RawPainter::startTextSpan(const ::WPXPropertyList &propList)
 {
+	if (!doProcessing)
+		return;
 	textCharStyle = textStyle.charStyle();
 	if (propList["fo:font-size"])
 	{
@@ -823,6 +937,8 @@ void RawPainter::endTextSpan()
 
 void RawPainter::insertText(const ::WPXString &str)
 {
+	if (!doProcessing)
+		return;
 	if (lineSpSet)
 	{
 		textStyle.setLineSpacingMode(ParagraphStyle::FixedLineSpacing);
@@ -1105,6 +1221,20 @@ void RawPainter::applyFill(PageItem* ite)
 				pat.setDoc(m_Doc);
 				int z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, 0, 0, 1, 1, 0, CommonStrings::None, CommonStrings::None, true);
 				PageItem* newItem = m_Doc->Items->at(z);
+				if (m_style["draw:red"] && m_style["draw:green"] && m_style["draw:blue"])
+				{
+					int r = qRound(m_style["draw:red"]->getDouble() * 255);
+					int g = qRound(m_style["draw:green"]->getDouble() * 255);
+					int b = qRound(m_style["draw:blue"]->getDouble() * 255);
+					QString colVal = QString("#%1%2%3").arg(r, 2, 16, QLatin1Char('0')).arg(g, 2, 16, QLatin1Char('0')).arg(b, 2, 16, QLatin1Char('0'));
+					QString efVal = parseColor(colVal);
+					efVal += "\n";
+					struct ImageEffect ef;
+					efVal += "100";
+					ef.effectCode = ScImage::EF_COLORIZE;
+					ef.effectParameters = efVal;
+					ite->effectsInUse.append(ef);
+				}
 				m_Doc->loadPict(fileName, newItem);
 				m_Doc->Items->takeAt(z);
 				newItem->isInlineImage = true;
@@ -1148,28 +1278,13 @@ void RawPainter::finishItem(PageItem* ite)
 		ite->DashValues = dashArray;
 	}
 	FPoint wh = getMaxClipF(&ite->PoLine);
-	ite->setWidthHeight(wh.x(),wh.y());
+	ite->setWidthHeight(wh.x(),wh.y(), true);
 	ite->setTextFlowMode(PageItem::TextFlowUsesBoundingBox);
 	m_Doc->AdjustItemSize(ite);
 	ite->OldB2 = ite->width();
 	ite->OldH2 = ite->height();
-/*	if (isGradient)
-	{
-		ite->fill_gradient = currentGradient;
-		ite->GrType = 6;
-		QTransform m1;
-		m1.rotate(-gradientAngle);
-		ite->GrStartX = 0;
-		ite->GrStartY = 0;
-		QPointF target = m1.map(QPointF(0.0, ite->height()));
-		ite->GrEndX = target.x();
-		ite->GrEndY = target.y();
-	}
-	else
-	{*/
-		ite->setFillTransparency(CurrFillTrans);
-		ite->setLineTransparency(CurrStrokeTrans);
-//	}
+	ite->setFillTransparency(CurrFillTrans);
+	ite->setLineTransparency(CurrStrokeTrans);
 	ite->updateClip();
 	Elements->append(ite);
 	if (groupStack.count() != 0)
