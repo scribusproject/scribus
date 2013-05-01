@@ -820,6 +820,10 @@ void RawPainter::startTextObject(const ::WPXPropertyList &propList, const ::WPXP
 			ite->setTextToFrameDistTop(propList["fo:padding-top"]->getDouble() * 72.0);
 		if (propList["fo:padding-bottom"])
 			ite->setTextToFrameDistBottom(propList["fo:padding-bottom"]->getDouble() * 72.0);
+		if (propList["fo:column-count"])
+			ite->setColumns(propList["fo:column-count"]->getInt());
+		if (propList["fo:padding-bottom"])
+			ite->setColumnGap(propList["fo:column-gap"]->getDouble() * 72.0);
 		ite->setFirstLineOffset(FLOPFontAscent);
 		actTextItem = ite;
 		QString pStyle = CommonStrings::DefaultParagraphStyle;
