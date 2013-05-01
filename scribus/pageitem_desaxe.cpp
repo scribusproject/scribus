@@ -156,13 +156,13 @@ static Xml_attr PageItemXMLAttributes(const PageItem* item)
 		result.insert("RightLine", toXMLString(item->RightLine));
 		result.insert("BottomLine", toXMLString(item->BottomLine));
 		if (item->TopLink != 0)
-			result.insert("TopLINK", "obj" + toXMLString(item->TopLink->getUId()));
+			result.insert("TopLink", "obj" + toXMLString(item->TopLink->getUId()));
 		if (item->LeftLink != 0)
-			result.insert("LeftLINK", "obj" + toXMLString(item->LeftLink->getUId()));
+			result.insert("LeftLink", "obj" + toXMLString(item->LeftLink->getUId()));
 		if (item->RightLink != 0)
-			result.insert("RightLINK", "obj" + toXMLString(item->RightLink->getUId()));
+			result.insert("RightLink", "obj" + toXMLString(item->RightLink->getUId()));
 		if (item->BottomLink != 0)
-			result.insert("BottomLINK", "obj" + toXMLString(item->BottomLink->getUId()));
+			result.insert("BottomLink", "obj" + toXMLString(item->BottomLink->getUId()));
 	}
 	
 //	result.insert("ANNAME", !item->AutoName ? item->itemName() : QString(""));  // not used
