@@ -323,7 +323,7 @@ void LoadSavePlugin::registerFormat(FileFormat & fmt)
 		}
 		formats.insert(it, fmt);
 	}
-	qDebug("Format: Id: %3u, Prio: %3hu, Name: %s", fmt.formatId, fmt.priority, fmt.trName.toLocal8Bit().data() );
+	//qDebug("Format: Id: %3u, Prio: %3hu, Name: %s", fmt.formatId, fmt.priority, fmt.trName.toLocal8Bit().data() );
 	//printFormatList(); // DEBUG
 }
 
