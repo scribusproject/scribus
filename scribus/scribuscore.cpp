@@ -167,8 +167,8 @@ int ScribusCore::initScribusCore(bool showSplash, bool showFontInfo, bool showPr
 	undoManager = UndoManager::instance();
 	fileWatcher = new FileWatcher(this);
 	pluginManager = new PluginManager();
-	setSplashStatus( tr("Initializing Plugins") );
-	pluginManager->initPlugs();
+//	setSplashStatus( tr("Initializing Plugins") );
+//	pluginManager->initPlugs();
 /* #4428, remove block later if ok
 	bool haveFonts=false;
 #ifdef Q_OS_MAC
@@ -193,6 +193,8 @@ int ScribusCore::initScribusCore(bool showSplash, bool showFontInfo, bool showPr
 	m_HaveGS = testGSAvailability();
 	m_HavePngAlpha = testGSDeviceAvailability("pngalpha");
 	m_HaveTiffSep = testGSDeviceAvailability("tiffsep");
+	setSplashStatus( tr("Initializing Plugins") );
+	pluginManager->initPlugs();
 	
 	ScCore->setSplashStatus( tr("Reading Color Profiles") );
 	m_HaveCMS = false;
