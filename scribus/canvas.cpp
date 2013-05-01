@@ -1492,9 +1492,9 @@ void Canvas::DrawPageItems(ScPainter *painter, ScLayer& layer, QRect clip, bool 
 	//then we must be sure that text frames are valid and all notes frames are created before we start drawing
 	if (!notesFramesPass && !m_doc->notesList().isEmpty())
 	{
-	for (int it = 0; it < m_doc->Items->count(); ++it)
-	{
-		currItem = m_doc->Items->at(it);
+		for (int it = 0; it < m_doc->Items->count(); ++it)
+		{
+			currItem = m_doc->Items->at(it);
 			if ( !currItem->isTextFrame()
 				|| currItem->isNoteFrame()
 				|| !currItem->invalid
@@ -1530,9 +1530,9 @@ void Canvas::DrawPageItems(ScPainter *painter, ScLayer& layer, QRect clip, bool 
 		}
 		if (cullingArea.intersects(currItem->getBoundingRect().adjusted(0.0, 0.0, 1.0, 1.0)))
 		{
-//FIXME						if (!evSpon || forceRedraw) 
-//					currItem->invalid = true;
-//						if ((!m_MouseButtonPressed) || (m_doc->appMode == modeEditClip))
+//FIXME		if (!evSpon || forceRedraw) 
+//				currItem->invalid = true;
+//			if ((!m_MouseButtonPressed) || (m_doc->appMode == modeEditClip))
 			if (((m_viewMode.operItemMoving || m_viewMode.drawSelectedItemsWithControls) && currItem->isSelected()))
 			{
 //					qDebug() << "skipping pageitem (move/resizeEdit/selected)" << m_viewMode.operItemMoving << currItem->isSelected();
@@ -1547,12 +1547,12 @@ void Canvas::DrawPageItems(ScPainter *painter, ScLayer& layer, QRect clip, bool 
 			{
 				// I comment it because the "view" should not
 				// alter the "data". And it really prevents optimisation - pm
-// 							if (m_viewMode.forceRedraw)
-// 								currItem->invalidateLayout();
+// 				if (m_viewMode.forceRedraw)
+// 					currItem->invalidateLayout();
 				currItem->DrawObj(painter, cullingArea);
 				currItem->DrawObj_Decoration(painter);
 			}
-//						currItem->Redrawn = true;
+//			currItem->Redrawn = true;
 			if ((currItem->asTextFrame()) && ((currItem->nextInChain() != 0) || (currItem->prevInChain() != 0)))
 			{
 				PageItem *nextItem = currItem;
@@ -1571,7 +1571,6 @@ void Canvas::DrawPageItems(ScPainter *painter, ScLayer& layer, QRect clip, bool 
 			*/
 			if ((m_doc->appMode == modeEdit) && (currItem->isSelected()) && (currItem->itemType() == PageItem::TextFrame))
 			{
-			
 				setupEditHRuler(currItem);
 			}
 		}
