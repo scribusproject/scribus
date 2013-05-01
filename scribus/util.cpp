@@ -1046,6 +1046,11 @@ void convertOldTable(ScribusDoc *m_Doc, PageItem* gItem, QList<PageItem*> &gpL, 
 	m_Doc->dontResize = true;
 	int z = m_Doc->itemAdd(PageItem::Table, PageItem::Unspecified, gItem->xPos(), gItem->yPos(), gItem->width(), gItem->height(), 0.0, CommonStrings::None, CommonStrings::None, true);
 	PageItem_Table* currItem = m_Doc->Items->takeAt(z)->asTable();
+
+	currItem->LayerID = gItem->LayerID;
+	currItem->OwnPage = gItem->OwnPage;
+	currItem->OnMasterPage = gItem->OnMasterPage;
+
 	currItem->insertRows(0, rowHeights.count()-1);
 	m_Doc->dontResize = true;
 	currItem->insertColumns(0, colWidths.count()-1);
@@ -1121,12 +1126,16 @@ void convertOldTable(ScribusDoc *m_Doc, PageItem* gItem, QList<PageItem*> &gpL, 
 		if (groupStackT->count() > 0)
 		{
 			int ii = groupStackT->top().indexOf(gItem);
-			groupStackT->top().replace(ii, currItem);
+			if (ii >= 0)
+				groupStackT->top().replace(ii, currItem);
 		}
 	}
 	while (!gpL.isEmpty())
 	{
-		delete gpL.takeFirst();
+		PageItem* item = gpL.takeFirst();
+		if (item->asTextFrame())
+			item->dropLinks();
+		delete item;
 	}
 	delete gItem;
 }
