@@ -3831,8 +3831,8 @@ void ScribusView::TextToPath()
 							QTransform chma, chma6;
 							uint gl = hl->font().char2CMap(chr);
 							FPoint origin = hl->font().glyphOrigin(gl);
-							x = origin.x() * csi;
-							y = origin.y() * csi;
+							x = origin.x() * csi * hl->glyph.scaleH;
+							y = origin.y() * csi * hl->glyph.scaleV;
 							if ((charStyle.effects() & ScStyle_Underline) || ((charStyle.effects() & ScStyle_UnderlineWords)  && chstr.toUInt() != charStyle.font().char2CMap(QChar(' '))))
 							{
 								double st, lw;
@@ -3883,7 +3883,7 @@ void ScribusView::TextToPath()
 								else
 									wide = hl->font().charWidth(chstr[0], charStyle.fontSize());
 								if (currItem->imageFlippedH())
-									textX = currItem->width() - textX - wide;
+									textX = currItem->width() - textX - bb->width() - x;
 								if (currItem->imageFlippedV())
 									textY = currItem->height() - textY + y - (bb->height() - y);
 								FPoint npo(textX, textY, 0.0, 0.0, currItem->rotation(), 1.0, 1.0);
@@ -3939,11 +3939,7 @@ void ScribusView::TextToPath()
 									double textX = CurX + hl->glyph.xoffset;
 									double textY = ls.y;  // + hl->glyph.yoffset;
 									if (charStyle.effects() & (ScStyle_Subscript | ScStyle_Superscript))
-									{
 										textY += hl->glyph.yoffset;
-										x *= hl->glyph.scaleH;
-										y *= hl->glyph.scaleV;
-									}
 									chma6 = QTransform();
 									if (charStyle.baselineOffset() != 0)
 										textY -= (charStyle.fontSize() / 10.0) * (charStyle.baselineOffset() / 1000.0);
@@ -3952,7 +3948,7 @@ void ScribusView::TextToPath()
 									else
 										wide = hl->font().charWidth(chstr[0], charStyle.fontSize());
 									if (currItem->imageFlippedH())
-										textX = currItem->width() - textX - wide;
+										textX = currItem->width() - textX - bb->width() - x;
 									if (currItem->imageFlippedV())
 										textY = currItem->height() - textY + y - (bb->height() - y);
 									FPoint npo(textX+x, textY-y, 0.0, 0.0, currItem->rotation(), 1.0, 1.0);
@@ -3998,11 +3994,7 @@ void ScribusView::TextToPath()
 								double textX = CurX + hl->glyph.xoffset;
 								double textY = ls.y;  // + hl->glyph.yoffset;
 								if (charStyle.effects() & (ScStyle_Subscript | ScStyle_Superscript))
-								{
 									textY += hl->glyph.yoffset;
-									x *= hl->glyph.scaleH;
-									y *= hl->glyph.scaleV;
-								}
 								chma6 = QTransform();
 								if (charStyle.baselineOffset() != 0)
 									textY -= (charStyle.fontSize() / 10.0) * (charStyle.baselineOffset() / 1000.0);
@@ -4011,7 +4003,7 @@ void ScribusView::TextToPath()
 								else
 									wide = hl->font().charWidth(chstr[0], charStyle.fontSize());
 								if (currItem->imageFlippedH())
-									textX = currItem->width() - textX - wide;
+									textX = currItem->width() - textX - bb->width() - x;
 								if (currItem->imageFlippedV())
 									textY = currItem->height() - textY + y - (bb->height() - y);
 								FPoint npo(textX+x, textY-y, 0.0, 0.0, currItem->rotation(), 1.0, 1.0);
@@ -4073,7 +4065,7 @@ void ScribusView::TextToPath()
 								else
 									wide = hl->font().charWidth(chstr[0], charStyle.fontSize());
 								if (currItem->imageFlippedH())
-									textX = currItem->width() - textX - wide;
+									textX = currItem->width() - textX - bb->width() - x;
 								if (currItem->imageFlippedV())
 									textY = currItem->height() - textY + y - (bb->height() - y);
 								FPoint npo(textX, textY, 0.0, 0.0, currItem->rotation(), 1.0, 1.0);
