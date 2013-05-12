@@ -596,9 +596,10 @@ bool Scribus150Format::loadElements(const QString & data, QString fileDir, int t
 				}
 				m_Doc->DocItems.removeOne(cItem);
 			}
+			bool converted = false;
 			if (isTableIt)
-				convertOldTable(m_Doc, gItem, gpL, &groupStackP, &m_Doc->DocItems);
-			else
+				converted = convertOldTable(m_Doc, gItem, gpL, &groupStackP, &m_Doc->DocItems);
+			if (!converted)
 				gItem->groupItemList = gpL;
 		}
 	}
@@ -627,9 +628,10 @@ bool Scribus150Format::loadElements(const QString & data, QString fileDir, int t
 				}
 				m_Doc->FrameItems.remove(m_Doc->FrameItems.key(cItem));
 			}
+			bool converted = false;
 			if (isTableIt)
-				convertOldTable(m_Doc, gItem, gpL, &groupStackF, NULL);
-			else
+				converted = convertOldTable(m_Doc, gItem, gpL, &groupStackF, NULL);
+			if (!converted)
 				gItem->groupItemList = gpL;
 		}
 	}
@@ -658,9 +660,10 @@ bool Scribus150Format::loadElements(const QString & data, QString fileDir, int t
 				}
 				m_Doc->MasterItems.removeOne(cItem);
 			}
+			bool converted = false;
 			if (isTableIt)
-				convertOldTable(m_Doc, gItem, gpL, &groupStackM, &m_Doc->MasterItems);
-			else
+				converted = convertOldTable(m_Doc, gItem, gpL, &groupStackM, &m_Doc->MasterItems);
+			if (!converted)
 				gItem->groupItemList = gpL;
 		}
 	}
@@ -1113,9 +1116,10 @@ bool Scribus150Format::loadPalette(const QString & fileName)
 				}
 				m_Doc->DocItems.removeOne(cItem);
 			}
+			bool converted = false;
 			if (isTableIt)
-				convertOldTable(m_Doc, gItem, gpL, &groupStackP, &m_Doc->DocItems);
-			else
+				converted = convertOldTable(m_Doc, gItem, gpL, &groupStackP, &m_Doc->DocItems);
+			if (!converted)
 				gItem->groupItemList = gpL;
 		}
 	}
@@ -1144,9 +1148,10 @@ bool Scribus150Format::loadPalette(const QString & fileName)
 				}
 				m_Doc->FrameItems.remove(m_Doc->FrameItems.key(cItem));
 			}
+			bool converted = false;
 			if (isTableIt)
-				convertOldTable(m_Doc, gItem, gpL, &groupStackF, NULL);
-			else
+				converted = convertOldTable(m_Doc, gItem, gpL, &groupStackF, NULL);
+			if (!converted)
 				gItem->groupItemList = gpL;
 		}
 	}
@@ -1175,9 +1180,10 @@ bool Scribus150Format::loadPalette(const QString & fileName)
 				}
 				m_Doc->MasterItems.removeOne(cItem);
 			}
+			bool converted = false;
 			if (isTableIt)
-				convertOldTable(m_Doc, gItem, gpL, &groupStackM, &m_Doc->MasterItems);
-			else
+				converted = convertOldTable(m_Doc, gItem, gpL, &groupStackM, &m_Doc->MasterItems);
+			if (!converted)
 				gItem->groupItemList = gpL;
 		}
 	}
@@ -1805,9 +1811,10 @@ bool Scribus150Format::loadFile(const QString & fileName, const FileFormat & /* 
 				}
 				m_Doc->DocItems.removeOne(cItem);
 			}
+			bool converted = false;
 			if (isTableIt)
-				convertOldTable(m_Doc, gItem, gpL, &groupStackP, &m_Doc->DocItems);
-			else
+				converted = convertOldTable(m_Doc, gItem, gpL, &groupStackP, &m_Doc->DocItems);
+			if (!converted)
 				gItem->groupItemList = gpL;
 		}
 	}
@@ -1836,9 +1843,10 @@ bool Scribus150Format::loadFile(const QString & fileName, const FileFormat & /* 
 				}
 				m_Doc->FrameItems.remove(m_Doc->FrameItems.key(cItem));
 			}
+			bool converted = false;
 			if (isTableIt)
-				convertOldTable(m_Doc, gItem, gpL, &groupStackF, NULL);
-			else
+				converted = convertOldTable(m_Doc, gItem, gpL, &groupStackF, NULL);
+			if (!converted)
 				gItem->groupItemList = gpL;
 		}
 	}
@@ -1867,9 +1875,10 @@ bool Scribus150Format::loadFile(const QString & fileName, const FileFormat & /* 
 				}
 				m_Doc->MasterItems.removeOne(cItem);
 			}
+			bool converted = false;
 			if (isTableIt)
-				convertOldTable(m_Doc, gItem, gpL, &groupStackM, &m_Doc->MasterItems);
-			else
+				converted = convertOldTable(m_Doc, gItem, gpL, &groupStackM, &m_Doc->MasterItems);
+			if (!converted)
 				gItem->groupItemList = gpL;
 		}
 	}
@@ -4202,9 +4211,10 @@ bool Scribus150Format::readPattern(ScribusDoc* doc, ScXmlStreamReader& reader, c
 				}
 				m_Doc->DocItems.removeOne(cItem);
 			}
+			bool converted = false;
 			if (isTableIt)
-				convertOldTable(m_Doc, gItem, gpL, &groupStackP, &m_Doc->DocItems);
-			else
+				converted = convertOldTable(m_Doc, gItem, gpL, &groupStackP, &m_Doc->DocItems);
+			if (!converted)
 				gItem->groupItemList = gpL;
 		}
 	}
@@ -6088,9 +6098,10 @@ bool Scribus150Format::loadPage(const QString & fileName, int pageNumber, bool M
 				}
 				m_Doc->DocItems.removeOne(cItem);
 			}
+			bool converted = false;
 			if (isTableIt)
-				convertOldTable(m_Doc, gItem, gpL, &groupStackP, &m_Doc->DocItems);
-			else
+				converted = convertOldTable(m_Doc, gItem, gpL, &groupStackP, &m_Doc->DocItems);
+			if (!converted)
 				gItem->groupItemList = gpL;
 		}
 	}
@@ -6119,9 +6130,10 @@ bool Scribus150Format::loadPage(const QString & fileName, int pageNumber, bool M
 				}
 				m_Doc->FrameItems.remove(m_Doc->FrameItems.key(cItem));
 			}
+			bool converted = false;
 			if (isTableIt)
-				convertOldTable(m_Doc, gItem, gpL, &groupStackF, NULL);
-			else
+				converted = convertOldTable(m_Doc, gItem, gpL, &groupStackF, NULL);
+			if (!converted)
 				gItem->groupItemList = gpL;
 		}
 	}
