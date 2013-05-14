@@ -369,6 +369,7 @@ void RawPainter::drawRectangle(const ::WPXPropertyList &propList)
 		PageItem *ite = m_Doc->Items->at(z);
 		finishItem(ite);
 		applyFill(ite);
+		applyShadow(ite);
 	}
 //	qDebug() << "drawRectangle";
 //  printf("RawPainter::drawRectangle (%s)\n", getPropString(propList).cstr());
@@ -388,6 +389,7 @@ void RawPainter::drawEllipse(const ::WPXPropertyList &propList)
 		PageItem *ite = m_Doc->Items->at(z);
 		finishItem(ite);
 		applyFill(ite);
+		applyShadow(ite);
 	}
 //	qDebug() << "drawEllipse";
 //  printf("RawPainter::drawEllipse (%s)\n", getPropString(propList).cstr());
@@ -455,38 +457,7 @@ void RawPainter::drawPolygon(const ::WPXPropertyListVector &vertices)
 				  ite = m_Doc->Items->at(z);
 				  ite->PoLine = Coords.copy();
 				  finishItem(ite);
-				  QTemporaryFile *tempFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_pub_XXXXXX." + imgExt);
-				  tempFile->setAutoRemove(false);
-				  if (tempFile->open())
-				  {
-					  tempFile->write(imageData);
-					  QString fileName = getLongPathName(tempFile->fileName());
-					  tempFile->close();
-					  ite->isTempFile = true;
-					  ite->isInlineImage = true;
-					  if (m_style["draw:red"] && m_style["draw:green"] && m_style["draw:blue"])
-					  {
-						  int r = qRound(m_style["draw:red"]->getDouble() * 255);
-						  int g = qRound(m_style["draw:green"]->getDouble() * 255);
-						  int b = qRound(m_style["draw:blue"]->getDouble() * 255);
-						  QString colVal = QString("#%1%2%3").arg(r, 2, 16, QLatin1Char('0')).arg(g, 2, 16, QLatin1Char('0')).arg(b, 2, 16, QLatin1Char('0'));
-						  QString efVal = parseColor(colVal);
-						  efVal += "\n";
-						  struct ImageEffect ef;
-						  efVal += "100";
-						  ef.effectCode = ScImage::EF_COLORIZE;
-						  ef.effectParameters = efVal;
-						  ite->effectsInUse.append(ef);
-					  }
-					  m_Doc->loadPict(fileName, ite);
-					  if (m_style["libwpg:rotate"])
-					  {
-						  int rot = QString(m_style["libwpg:rotate"]->getStr().cstr()).toInt();
-						  ite->setImageRotation(rot);
-						  ite->AdjustPictScale();
-					  }
-				  }
-				  delete tempFile;
+				  insertImage(ite, imgExt, imageData);
 			  }
 			  else if (m_style["libwpg:mime-type"]->getStr() == "image/wmf")
 			  {
@@ -509,7 +480,7 @@ void RawPainter::drawPolygon(const ::WPXPropertyListVector &vertices)
 							fmt->loadFile(fileName, LoadSavePlugin::lfUseCurrentPage|LoadSavePlugin::lfInteractive|LoadSavePlugin::lfScripted);
 							if (m_Doc->m_Selection->count() > 0)
 							{
-								PageItem *ite = m_Doc->groupObjectsSelection();
+								ite = m_Doc->groupObjectsSelection();
 								QPainterPath ba = Coords.toQPainterPath(true);
 								QRectF baR = ba.boundingRect();
 								ite->setXYPos(baseX + baR.x(), baseY + baR.y(), true);
@@ -534,6 +505,7 @@ void RawPainter::drawPolygon(const ::WPXPropertyListVector &vertices)
 			finishItem(ite);
 			applyFill(ite);
 		}
+		applyShadow(ite);
 	}
 }
 
@@ -592,37 +564,7 @@ void RawPainter::drawPath(const ::WPXPropertyListVector &path)
 				  ite = m_Doc->Items->at(z);
 				  ite->PoLine = Coords.copy();
 				  finishItem(ite);
-				  QTemporaryFile *tempFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_pub_XXXXXX." + imgExt);
-				  if (tempFile->open())
-				  {
-					  tempFile->write(imageData);
-					  QString fileName = getLongPathName(tempFile->fileName());
-					  tempFile->close();
-					  ite->isTempFile = true;
-					  ite->isInlineImage = true;
-					  if (m_style["draw:red"] && m_style["draw:green"] && m_style["draw:blue"])
-					  {
-						  int r = qRound(m_style["draw:red"]->getDouble() * 255);
-						  int g = qRound(m_style["draw:green"]->getDouble() * 255);
-						  int b = qRound(m_style["draw:blue"]->getDouble() * 255);
-						  QString colVal = QString("#%1%2%3").arg(r, 2, 16, QLatin1Char('0')).arg(g, 2, 16, QLatin1Char('0')).arg(b, 2, 16, QLatin1Char('0'));
-						  QString efVal = parseColor(colVal);
-						  efVal += "\n";
-						  struct ImageEffect ef;
-						  efVal += "100";
-						  ef.effectCode = ScImage::EF_COLORIZE;
-						  ef.effectParameters = efVal;
-						  ite->effectsInUse.append(ef);
-					  }
-					  m_Doc->loadPict(fileName, ite);
-					  if (m_style["libwpg:rotate"])
-					  {
-						  int rot = QString(m_style["libwpg:rotate"]->getStr().cstr()).toInt();
-						  ite->setImageRotation(rot);
-						  ite->AdjustPictScale();
-					  }
-				  }
-				  delete tempFile;
+				  insertImage(ite, imgExt, imageData);
 			  }
 			  else if (m_style["libwpg:mime-type"]->getStr() == "image/wmf")
 			  {
@@ -646,7 +588,7 @@ void RawPainter::drawPath(const ::WPXPropertyListVector &path)
 							  fmt->loadFile(fileName, LoadSavePlugin::lfUseCurrentPage|LoadSavePlugin::lfInteractive|LoadSavePlugin::lfScripted);
 							  if (m_Doc->m_Selection->count() > 0)
 							  {
-								PageItem *ite = m_Doc->groupObjectsSelection();
+								ite = m_Doc->groupObjectsSelection();
 								QPainterPath ba = Coords.toQPainterPath(true);
 								QRectF baR = ba.boundingRect();
 								ite->setXYPos(baseX + baR.x(), baseY + baR.y(), true);
@@ -671,6 +613,7 @@ void RawPainter::drawPath(const ::WPXPropertyListVector &path)
 			finishItem(ite);
 			applyFill(ite);
 		}
+		applyShadow(ite);
 	}
 	else
 	{
@@ -690,6 +633,7 @@ void RawPainter::drawGraphicObject(const ::WPXPropertyList &propList, const ::WP
 	WPXString base64 = binaryData.getBase64Data();
 	if (propList["svg:x"] && propList["svg:y"] && propList["svg:width"] && propList["svg:height"])
 	{
+		PageItem *ite;
 		double x = propList["svg:x"]->getDouble() * 72.0;
 		double y = propList["svg:y"]->getDouble() * 72.0;
 		double w = propList["svg:width"]->getDouble() * 72.0;
@@ -710,40 +654,9 @@ void RawPainter::drawGraphicObject(const ::WPXPropertyList &propList, const ::WP
 		if (!imgExt.isEmpty())
 		{
 			int z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Rectangle, baseX + x, baseY + y, w, h, 0, CurrColorFill, CurrColorStroke, true);
-			PageItem *ite = m_Doc->Items->at(z);
+			ite = m_Doc->Items->at(z);
 			finishItem(ite);
-			QTemporaryFile *tempFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_pub_XXXXXX." + imgExt);
-			tempFile->setAutoRemove(false);
-			if (tempFile->open())
-			{
-				tempFile->write(imageData);
-				QString fileName = getLongPathName(tempFile->fileName());
-				tempFile->close();
-				ite->isTempFile = true;
-				ite->isInlineImage = true;
-				if (propList["draw:red"] && propList["draw:green"] && propList["draw:blue"])
-				{
-					int r = qRound(propList["draw:red"]->getDouble() * 255);
-					int g = qRound(propList["draw:green"]->getDouble() * 255);
-					int b = qRound(propList["draw:blue"]->getDouble() * 255);
-					QString colVal = QString("#%1%2%3").arg(r, 2, 16, QLatin1Char('0')).arg(g, 2, 16, QLatin1Char('0')).arg(b, 2, 16, QLatin1Char('0'));
-					QString efVal = parseColor(colVal);
-					efVal += "\n";
-					struct ImageEffect ef;
-					efVal += "100";
-					ef.effectCode = ScImage::EF_COLORIZE;
-					ef.effectParameters = efVal;
-					ite->effectsInUse.append(ef);
-				}
-				m_Doc->loadPict(fileName, ite);
-				if (propList["libwpg:rotate"])
-				{
-					int rot = QString(propList["libwpg:rotate"]->getStr().cstr()).toInt();
-					ite->setImageRotation(rot);
-					ite->AdjustPictScale();
-				}
-			}
-			delete tempFile;
+			insertImage(ite, imgExt, imageData);
 		}
 		else
 		{
@@ -768,7 +681,7 @@ void RawPainter::drawGraphicObject(const ::WPXPropertyList &propList, const ::WP
 							fmt->loadFile(fileName, LoadSavePlugin::lfUseCurrentPage|LoadSavePlugin::lfInteractive|LoadSavePlugin::lfScripted);
 							if (m_Doc->m_Selection->count() > 0)
 							{
-								PageItem *ite = m_Doc->groupObjectsSelection();
+								ite = m_Doc->groupObjectsSelection();
 								ite->setTextFlowMode(PageItem::TextFlowUsesBoundingBox);
 								Elements->append(ite);
 								ite->setXYPos(baseX + x, baseY + y, true);
@@ -781,6 +694,7 @@ void RawPainter::drawGraphicObject(const ::WPXPropertyList &propList, const ::WP
 				delete tempFile;
 			}
 		}
+		applyShadow(ite);
 	}
 //	qDebug() << "drawGraphicObject";
 //  printf("RawPainter::drawGraphicObject (%s)\n", getPropString(propList).cstr());
@@ -805,6 +719,7 @@ void RawPainter::startTextObject(const ::WPXPropertyList &propList, const ::WPXP
 		int z = m_Doc->itemAdd(PageItem::TextFrame, PageItem::Rectangle, baseX + x, baseY + y, w, h, 0, CurrColorFill, CurrColorStroke, true);
 		PageItem *ite = m_Doc->Items->at(z);
 		finishItem(ite);
+		applyShadow(ite);
 		if (rot != 0)
 		{
 			int rm = m_Doc->RotMode();
@@ -822,7 +737,7 @@ void RawPainter::startTextObject(const ::WPXPropertyList &propList, const ::WPXP
 			ite->setTextToFrameDistBottom(propList["fo:padding-bottom"]->getDouble() * 72.0);
 		if (propList["fo:column-count"])
 			ite->setColumns(propList["fo:column-count"]->getInt());
-		if (propList["fo:padding-bottom"])
+		if (propList["fo:column-gap"])
 			ite->setColumnGap(propList["fo:column-gap"]->getDouble() * 72.0);
 		ite->setFirstLineOffset(FLOPFontAscent);
 		actTextItem = ite;
@@ -1107,6 +1022,50 @@ QString RawPainter::parseColor( const QString &s )
 	return ret;
 }
 
+void RawPainter::insertImage(PageItem* ite, QString imgExt, QByteArray &imageData)
+{
+	QTemporaryFile *tempFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_pub_XXXXXX." + imgExt);
+	tempFile->setAutoRemove(false);
+	if (tempFile->open())
+	{
+		tempFile->write(imageData);
+		QString fileName = getLongPathName(tempFile->fileName());
+		tempFile->close();
+		ite->isTempFile = true;
+		ite->isInlineImage = true;
+		if (m_style["draw:red"] && m_style["draw:green"] && m_style["draw:blue"])
+		{
+			int r = qRound(m_style["draw:red"]->getDouble() * 255);
+			int g = qRound(m_style["draw:green"]->getDouble() * 255);
+			int b = qRound(m_style["draw:blue"]->getDouble() * 255);
+			QString colVal = QString("#%1%2%3").arg(r, 2, 16, QLatin1Char('0')).arg(g, 2, 16, QLatin1Char('0')).arg(b, 2, 16, QLatin1Char('0'));
+			QString efVal = parseColor(colVal);
+			efVal += "\n";
+			struct ImageEffect ef;
+			efVal += "100";
+			ef.effectCode = ScImage::EF_COLORIZE;
+			ef.effectParameters = efVal;
+			ite->effectsInUse.append(ef);
+		}
+		if (m_style["draw:luminance"])
+		{
+			double per = m_style["draw:luminance"]->getDouble();
+			struct ImageEffect ef;
+			ef.effectCode = ScImage::EF_BRIGHTNESS;
+			ef.effectParameters = QString("%1").arg(qRound((per - 0.5) * 255));
+			ite->effectsInUse.append(ef);
+		}
+		m_Doc->loadPict(fileName, ite);
+		if (m_style["libwpg:rotate"])
+		{
+			int rot = QString(m_style["libwpg:rotate"]->getStr().cstr()).toInt();
+			ite->setImageRotation(rot);
+			ite->AdjustPictScale();
+		}
+	}
+	delete tempFile;
+}
+
 void RawPainter::applyFill(PageItem* ite)
 {
 	if(isGradient)
@@ -1265,6 +1224,52 @@ void RawPainter::applyFill(PageItem* ite)
 				ite->GrType = 8;
 			}
 			delete tempFile;
+		}
+	}
+}
+
+void RawPainter::applyShadow(PageItem* ite)
+{
+	if (ite == NULL)
+		return;
+	if(m_style["draw:shadow"] && m_style["draw:shadow"]->getStr() == "visible")
+	{
+		double xp = ite->xPos();
+		double yp = ite->yPos();
+		double xof = 0.0;
+		double yof = 0.0;
+		if (m_style["draw:shadow-offset-x"])
+			xof = m_style["draw:shadow-offset-x"]->getDouble() * 72.0;
+		if (m_style["draw:shadow-offset-y"])
+			yof = m_style["draw:shadow-offset-y"]->getDouble() * 72.0;
+		xp += xof;
+		yp += yof;
+		QString shadowColor = CurrColorFill;
+		double shadowTrans = 1.0;
+		if (m_style["draw:shadow-color"])
+		{
+			shadowColor = parseColor(QString(m_style["draw:shadow-color"]->getStr().cstr()));
+			if(m_style["draw:shadow-opacity"])
+				shadowTrans = 1.0 - qMin(1.0, qMax(fromPercentage(QString(m_style["draw:shadow-opacity"]->getStr().cstr())), 0.0));
+		}
+		int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, xp, yp, ite->width(), ite->height(), 0, shadowColor, CommonStrings::None, true);
+		PageItem *nite = m_Doc->Items->takeAt(z);
+		nite->PoLine = ite->PoLine.copy();
+		nite->updateClip();
+		nite->setFillTransparency(shadowTrans);
+		nite->ClipEdited = true;
+		nite->FrameType = 3;
+		m_Doc->Items->takeAt(z-1);
+		Elements->takeAt(z-1);
+		m_Doc->Items->append(nite);
+		m_Doc->Items->append(ite);
+		Elements->append(nite);
+		Elements->append(ite);
+		if (groupStack.count() != 0)
+		{
+			groupStack.top().Items.takeAt(z-1);
+			groupStack.top().Items.append(nite);
+			groupStack.top().Items.append(ite);
 		}
 	}
 }

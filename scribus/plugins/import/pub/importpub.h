@@ -58,7 +58,9 @@ public:
 	double fromPercentage(const QString &s );
 	QColor  parseColorN( const QString &rgbColor );
 	QString parseColor( const QString &s );
+	void insertImage(PageItem* ite, QString imgExt, QByteArray &imageData);
 	void applyFill(PageItem* ite);
+	void applyShadow(PageItem* ite);
 	void finishItem(PageItem* ite);
 
 	ScribusDoc* m_Doc;
