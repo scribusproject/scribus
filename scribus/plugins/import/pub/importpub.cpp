@@ -191,9 +191,9 @@ void RawPainter::endLayer()
 				ite->updateGradientVectors();
 			}
 			Elements->append(ite);
+			if (groupStack.count() != 0)
+				groupStack.top().Items.append(ite);
 		}
-		if (groupStack.count() != 0)
-			groupStack.top().Items.append(ite);
 		tmpSel->clear();
 	}
 }
@@ -1073,7 +1073,9 @@ void RawPainter::applyFill(PageItem* ite)
 		QString gradMode = "normal";
 		if (m_style["libmspub:shade"])
 			gradMode = QString(m_style["libmspub:shade"]->getStr().cstr());
-		if (gradMode == "normal")
+		else if (m_style["draw:style"])
+			gradMode = QString(m_style["draw:style"]->getStr().cstr());
+		if ((gradMode == "normal") || (gradMode == "linear"))
 		{
 			int angle = 0;
 			if (m_style["draw:angle"])
@@ -1094,6 +1096,38 @@ void RawPainter::applyFill(PageItem* ite)
 				ite->setGradientVector(0, h / 2.0, w, h / 2.0, 0, 0, 1, 0);
 			ite->fill_gradient = currentGradient;
 			ite->GrType = 6;
+		}
+		else if (gradMode == "radial")
+		{
+			double h = ite->height();
+			double w = ite->width();
+			double cx = 0.0;
+			double cy = 0.0;
+			if (m_style["svg:cx"])
+				cx = m_style["svg:cx"]->getDouble();
+			if (m_style["svg:cy"])
+				cy = m_style["svg:cy"]->getDouble();
+			ite->setGradientVector(cx, cy, w, h / 2.0, cx, cy, 1, 0);
+			ite->fill_gradient = currentGradient;
+			ite->GrType = 7;
+		}
+		else if (gradMode == "square")
+		{
+			double cx = 0.0;
+			double cy = 0.0;
+			if (m_style["svg:cx"])
+				cx = m_style["svg:cx"]->getDouble();
+			if (m_style["svg:cy"])
+				cy = m_style["svg:cy"]->getDouble();
+			FPoint cp = FPoint(cx, cy);
+			ite->setDiamondGeometry(FPoint(0, 0), FPoint(ite->width(), 0), FPoint(ite->width(), ite->height()), FPoint(0, ite->height()), cp);
+			ite->fill_gradient.clearStops();
+			QList<VColorStop*> colorStops = currentGradient.colorStops();
+			for( int a = 0; a < colorStops.count() ; a++ )
+			{
+				ite->fill_gradient.addStop(colorStops[a]->color, 1.0 - colorStops[a]->rampPoint, colorStops[a]->midPoint, colorStops[a]->opacity, colorStops[a]->name, colorStops[a]->shade);
+			}
+			ite->GrType = 10;
 		}
 		else if (gradMode == "center")
 		{
@@ -1117,7 +1151,6 @@ void RawPainter::applyFill(PageItem* ite)
 				ite->fill_gradient.addStop(colorStops[a]->color, 1.0 - colorStops[a]->rampPoint, colorStops[a]->midPoint, colorStops[a]->opacity, colorStops[a]->name, colorStops[a]->shade);
 			}
 			ite->GrType = 10;
-
 		}
 		else if (gradMode == "shape")
 		{
@@ -1267,7 +1300,7 @@ void RawPainter::applyShadow(PageItem* ite)
 		Elements->append(ite);
 		if (groupStack.count() != 0)
 		{
-			groupStack.top().Items.takeAt(z-1);
+			groupStack.top().Items.takeLast();
 			groupStack.top().Items.append(nite);
 			groupStack.top().Items.append(ite);
 		}
