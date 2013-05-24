@@ -119,9 +119,11 @@
 		</i18n>
 	</empty-frame-text>
 	<preamble>
-		\documentclass[a4paper,$scribus_fontsize$]{extarticle}
+		\documentclass[$scribus_fontsize$]{extarticle}
 		\usepackage[utf8]{inputenc}
-		\usepackage[left=0cm,top=0cm,right=0cm,bottom=0cm,nohead,nofoot]{geometry}
+		\usepackage[paperwidth=$scribus_realwidth$ pt,
+		            paperheight=$scribus_realheight$ pt,
+					left=0cm,top=0cm,right=0cm,bottom=0cm,nohead,nofoot]{geometry}
 		\title{Scribus-Latex-File}
 		$scribus_font$
 		$scribus_additionalheaders$
