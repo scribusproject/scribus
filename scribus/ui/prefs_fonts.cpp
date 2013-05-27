@@ -210,6 +210,7 @@ void Prefs_Fonts::restoreDefaults(struct ApplicationPrefs *prefsData)
 			FlagsRepl.append(item);
 			a++;
 		}
+		deleteSubstitutionButton->setEnabled(false);
 		updateFontList();
 }
 
