@@ -1516,6 +1516,7 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, QTransform pT
 	int TextColumnCount = def_TextColumnCount;
 	double TextColumnGutter = def_TextColumnGutter;
 	double TextColumnFixedWidth = def_TextColumnFixedWidth;
+	QString imageFit = "None";
 	PageItem::TextFlowMode textFlow = def_TextFlow;
 	if (itElem.hasAttribute("AppliedObjectStyle"))
 	{
@@ -1792,6 +1793,11 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, QTransform pT
 			{
 				GElements.append(el.at(ec));
 			}
+		}
+		else if (ite.tagName() == "FrameFittingOption")
+		{
+			if (ite.hasAttribute("FittingOnEmptyFrame"))
+				imageFit = ite.attribute("FittingOnEmptyFrame");
 		}
 		else if (ite.tagName() == "TransparencySetting")
 		{
@@ -2290,12 +2296,21 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, QTransform pT
 							tempFile->close();
 							item->isInlineImage = true;
 							item->isTempFile = true;
-							item->ScaleType   = true;
 							item->AspectRatio = true;
+							if (imageFit == "None")
+								item->ScaleType   = true;
+							else if (imageFit == "ContentToFrame")
+								item->ScaleType   = false;
+							else if (imageFit == "Proportionally")
+							{
+								item->ScaleType   = false;
+								item->AspectRatio = false;
+							}
 							m_Doc->loadPict(fileName, item);
 							item->setImageXYOffset(dxi - grOffset.x(), dyi - grOffset.y());
 							item->setImageXYScale(scXi / item->pixm.imgInfo.xres * 72, scYi / item->pixm.imgInfo.xres * 72);
 							item->setImageRotation(-roti);
+							item->AdjustPictScale();
 						}
 					}
 					delete tempFile;
@@ -2310,12 +2325,22 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, QTransform pT
 						fileName = url.toLocalFile().toLocal8Bit();
 					else
 						fileName = fi.fileName().toLocal8Bit();
-					item->ScaleType   = true;
 					item->AspectRatio = true;
+					if (imageFit == "None")
+						item->ScaleType   = true;
+					else if (imageFit == "ContentToFrame")
+						item->ScaleType   = false;
+					else if (imageFit == "Proportionally")
+					{
+						item->ScaleType   = false;
+						item->AspectRatio = false;
+					}
 					m_Doc->loadPict(QUrl::fromPercentEncoding(fileName), item);
 					item->setImageXYScale(scXi / item->pixm.imgInfo.xres * 72, scYi / item->pixm.imgInfo.xres * 72);
 					item->setImageXYOffset((dxi - grOffset.x()) / item->imageXScale(), (dyi - grOffset.y()) / item->imageYScale());
 					item->setImageRotation(-roti);
+					if (imageFit != "None")
+						item->AdjustPictScale();
 				}
 			}
 			GElements.append(m_Doc->Items->takeAt(z));
