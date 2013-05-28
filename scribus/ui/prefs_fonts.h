@@ -30,7 +30,7 @@ class SCRIBUS_API Prefs_Fonts : public Prefs_Pane, Ui::Prefs_Fonts
 
 	public slots:
 		void languageChange();
-		void ReplaceSel(int r, int c);
+		void ReplaceSel();
 		void updateFontList();
 		void DelEntry();
 		void SelectPath(QListWidgetItem *c);

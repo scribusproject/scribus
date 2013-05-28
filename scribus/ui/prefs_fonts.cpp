@@ -110,7 +110,7 @@ Prefs_Fonts::Prefs_Fonts(QWidget* parent, ScribusDoc* doc)
 	}
 
 	// signals and slots connections
-	connect(fontSubstitutionsTableWidget, SIGNAL(cellClicked(int, int)), this, SLOT(ReplaceSel(int, int)));
+	connect(fontSubstitutionsTableWidget, SIGNAL(itemSelectionChanged()), this, SLOT(ReplaceSel()));
 	connect(deleteSubstitutionButton, SIGNAL(clicked()), this, SLOT(DelEntry()));
 
 
@@ -225,9 +225,10 @@ void Prefs_Fonts::saveGuiToPrefs(struct ApplicationPrefs *prefsData) const
 
 }
 
-void Prefs_Fonts::ReplaceSel(int, int)
+void Prefs_Fonts::ReplaceSel()
 {
-	deleteSubstitutionButton->setEnabled(true);
+	int selCount = fontSubstitutionsTableWidget->selectedItems().count();
+	deleteSubstitutionButton->setEnabled(selCount > 0);
 }
 
 void Prefs_Fonts::updateFontList()
@@ -255,11 +256,17 @@ void Prefs_Fonts::updateFontList()
 
 void Prefs_Fonts::DelEntry()
 {
-	int r = fontSubstitutionsTableWidget->currentRow();
-	QString tmp = fontSubstitutionsTableWidget->item(r, 0)->text();
-	fontSubstitutionsTableWidget->removeRow(r);
-	delete FlagsRepl.takeAt(r);
-	RList.remove(tmp);
+	// This works a because selection mode is "Full rows"
+	QList<QTableWidgetItem*> selItems = fontSubstitutionsTableWidget->selectedItems();
+	for (int i = 0; i < selItems.count(); ++i)
+	{
+		QTableWidgetItem* item = selItems.at(i);
+		int r = item->row();
+		QString tmp = fontSubstitutionsTableWidget->item(r, 0)->text();
+		fontSubstitutionsTableWidget->removeRow(r);
+		delete FlagsRepl.takeAt(r);
+		RList.remove(tmp);
+	}
 	deleteSubstitutionButton->setEnabled(false);
 }
 
