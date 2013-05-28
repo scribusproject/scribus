@@ -135,7 +135,7 @@ FontPrefs::FontPrefs( QWidget* parent, bool Hdoc, QString PPath, ScribusDoc* doc
 	addTab( tab3, tr( "Additional &Paths" ) );
 
 	// signals and slots connections
-	connect(Table3, SIGNAL(cellClicked(int, int)), this, SLOT(ReplaceSel(int, int)));
+	connect(Table3, SIGNAL(itemSelectionChanged()), this, SLOT(ReplaceSel()));
 	connect(DelB, SIGNAL(clicked()), this, SLOT(DelEntry()));
 }
 
@@ -144,9 +144,10 @@ void FontPrefs::restoreDefaults()
 	rebuildDialog();
 }
 
-void FontPrefs::ReplaceSel(int, int)
+void FontPrefs::ReplaceSel()
 {
-	DelB->setEnabled(true);
+	int selCount = Table3->selectedItems().count();
+	DelB->setEnabled(selCount > 0);
 }
 
 void FontPrefs::UpdateFliste()
@@ -176,11 +177,17 @@ void FontPrefs::UpdateFliste()
 
 void FontPrefs::DelEntry()
 {
-	int r = Table3->currentRow();
-	QString tmp = Table3->item(r, 0)->text();
-	Table3->removeRow(r);
-	delete FlagsRepl.takeAt(r);
-	RList.remove(tmp);
+	// This works a because selection mode is "Full rows"
+	QList<QTableWidgetItem*> selItems = Table3->selectedItems();
+	for (int i = 0; i < selItems.count(); ++i)
+	{
+		QTableWidgetItem* item = selItems.at(i);
+		int r = item->row();
+		QString tmp = Table3->item(r, 0)->text();
+		Table3->removeRow(r);
+		delete FlagsRepl.takeAt(r);
+		RList.remove(tmp);
+	}
 	DelB->setEnabled(false);
 }
 

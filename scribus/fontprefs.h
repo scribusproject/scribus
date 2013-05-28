@@ -61,7 +61,7 @@ private:
 	ScribusDoc* docc;
 
 public slots:
-	void ReplaceSel(int r, int c);
+	void ReplaceSel();
 	void UpdateFliste();
 	void DelEntry();
 	void SelectPath(QListWidgetItem *c);
