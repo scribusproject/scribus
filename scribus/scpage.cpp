@@ -323,7 +323,7 @@ void ScPage::restorePageItemCreation(ScItemState<PageItem*> *state, bool isUndo)
 	{
 		if (m_Doc->m_Selection->findItem(ite)!=-1)
 		{
-			if (m_Doc->appMode == modeEdit)
+			if (m_Doc->appMode == modeEdit || m_Doc->appMode == modeEditTable)
 				m_Doc->view()->requestMode(modeNormal);
 			m_Doc->m_Selection->removeItem(ite);
 		}
@@ -379,7 +379,7 @@ void ScPage::restorePageItemDeletion(ScItemState< QList<PageItem*> > *state, boo
 		PageItem* ite = itemList.at(id2);
 		if (m_Doc->m_Selection->findItem(ite)!=-1)
 		{
-			if (m_Doc->appMode == modeEdit)
+			if (m_Doc->appMode == modeEdit || m_Doc->appMode == modeEditTable)
 				m_Doc->view()->requestMode(modeNormal);
 			m_Doc->m_Selection->removeItem(ite);
 		}
