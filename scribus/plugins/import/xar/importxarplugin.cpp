@@ -90,7 +90,6 @@ void ImportXarPlugin::registerFormats()
 	fmt.trName = tr("XARA \"*.xar\" File"); // Human readable name
 	fmt.formatId = 0;
 	fmt.filter = tr("XARA \"*.xar\" File (*.xar *.XAR)"); // QFileDialog filter
-	fmt.nameMatch = QRegExp("\\.xar$", Qt::CaseInsensitive);
 	fmt.fileExtensions = QStringList() << "xar";
 	fmt.load = true;
 	fmt.save = false;

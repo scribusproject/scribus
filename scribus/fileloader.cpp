@@ -65,10 +65,6 @@ FileLoader::FileLoader(const QString & fileName) :
 	formatSLA13x(LoadSavePlugin::getFormatById(FORMATID_SLA13XIMPORT)),
 	formatSLA134(LoadSavePlugin::getFormatById(FORMATID_SLA134IMPORT)),
 	formatSLA150(LoadSavePlugin::getFormatById(FORMATID_SLA150IMPORT)),
-	formatPS(LoadSavePlugin::getFormatById(FORMATID_PSIMPORT)),
-	formatSVG(LoadSavePlugin::getFormatById(FORMATID_SVGIMPORT)),
-	formatSXD(LoadSavePlugin::getFormatById(FORMATID_SXDIMPORT)),
-	formatODG(LoadSavePlugin::getFormatById(FORMATID_ODGIMPORT)),
 	prefsManager(PrefsManager::instance()),
 	m_fileName(fileName),
 	m_fileType(-1)
@@ -128,23 +124,18 @@ int FileLoader::testFile()
 	QList<FileFormat>::const_iterator itEnd(fileFormats.constEnd());
 	for ( ; it != itEnd ; ++it )
 	{
-		if (it->nameMatch.indexIn("."+ext)!=-1)
+		if (it->fileExtensions.contains(ext))
 		{
-//  		qDebug() << QString("Match :%1: :.%2: on %3").arg(it->nameMatch.pattern()).arg(ext).arg(it->trName);
 			if (it->plug != 0)
 			{
 				if (it->plug->fileSupported(0, m_fileName))
 				{
-// 					qDebug(QString("File Supported With: %1").arg(it->trName));
 					ret = it->formatId;
 					break;
 				}
 			}
 		}
-// 		else
-// 			qDebug() << QString("No Match :%1: :.%2: on %3").arg(it->nameMatch.pattern()).arg(ext).arg(it->trName);
 	}
-	
 	m_fileType = ret;
 	return ret;
 }

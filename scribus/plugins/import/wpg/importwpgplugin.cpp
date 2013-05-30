@@ -88,9 +88,8 @@ void ImportWpgPlugin::registerFormats()
 {
 	FileFormat fmt(this);
 	fmt.trName = FormatsManager::instance()->nameOfFormat(FormatsManager::WPG); // Human readable name
-	fmt.formatId = FORMATID_WPGIMPORT;
+	fmt.formatId = 0;
 	fmt.filter = FormatsManager::instance()->extensionsForFormat(FormatsManager::WPG); // QFileDialog filter
-	fmt.nameMatch = QRegExp("\\."+FormatsManager::instance()->extensionListForFormat(FormatsManager::WPG, 1)+"$", Qt::CaseInsensitive);
 	fmt.fileExtensions = QStringList() << "wpg";
 	fmt.load = true;
 	fmt.save = false;

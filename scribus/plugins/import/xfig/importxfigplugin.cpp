@@ -88,9 +88,8 @@ void ImportXfigPlugin::registerFormats()
 {
 	FileFormat fmt(this);
 	fmt.trName = FormatsManager::instance()->nameOfFormat(FormatsManager::XFIG); // Human readable name
-	fmt.formatId = FORMATID_XFIGIMPORT;
+	fmt.formatId = 0;
 	fmt.filter = FormatsManager::instance()->extensionsForFormat(FormatsManager::XFIG); // QFileDialog filter
-	fmt.nameMatch = QRegExp("\\."+FormatsManager::instance()->extensionListForFormat(FormatsManager::XFIG, 1)+"$", Qt::CaseInsensitive);
 	fmt.fileExtensions = QStringList() << "fig";
 	fmt.load = true;
 	fmt.save = false;

@@ -55,6 +55,7 @@ public:
 	void endTextSpan();
 	void insertText(const ::WPXString &str);
 	QString constructFontName(QString fontBaseName, QString fontStyle);
+	double valueAsPoint(const WPXProperty *prop);
 	double fromPercentage(const QString &s );
 	QColor  parseColorN( const QString &rgbColor );
 	QString parseColor( const QString &s );

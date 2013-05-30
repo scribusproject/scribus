@@ -125,9 +125,8 @@ void SVGImportPlugin::registerFormats()
 {
 	FileFormat fmt(this);
 	fmt.trName = FormatsManager::instance()->nameOfFormat(FormatsManager::SVG);
-	fmt.formatId = FORMATID_SVGIMPORT;
+	fmt.formatId = 0;
 	fmt.filter = FormatsManager::instance()->extensionsForFormat(FormatsManager::SVG);
- 	fmt.nameMatch = QRegExp("\\."+FormatsManager::instance()->extensionListForFormat(FormatsManager::SVG, 1)+"$", Qt::CaseInsensitive);
 	fmt.fileExtensions = QStringList() << "svg" << "svgz";
 	fmt.load = true;
 	fmt.save = false;

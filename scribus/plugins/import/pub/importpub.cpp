@@ -81,9 +81,9 @@ RawPainter::RawPainter(): libwpg::WPGPaintInterface()
 void RawPainter::startGraphics(const ::WPXPropertyList &propList)
 {
 	if (propList["svg:width"])
-		docWidth = propList["svg:width"]->getDouble() * 72.0;
+		docWidth = valueAsPoint(propList["svg:width"]);
 	if (propList["svg:height"])
-		docHeight = propList["svg:height"]->getDouble() * 72.0;
+		docHeight = valueAsPoint(propList["svg:height"]);
 	if (importerFlags & LoadSavePlugin::lfCreateDoc)
 	{
 		if (!firstPage)
@@ -283,7 +283,7 @@ void RawPainter::setStyle(const ::WPXPropertyList &propList, const ::WPXProperty
 			fillrule = true;
 	}
 	if (propList["svg:stroke-width"])
-		LineW = propList["svg:stroke-width"]->getDouble() * 72.0;
+		LineW = valueAsPoint(propList["svg:stroke-width"]);
 	if (propList["draw:stroke"])
 	{
 		if (propList["draw:stroke"]->getStr() == "none")
@@ -301,19 +301,19 @@ void RawPainter::setStyle(const ::WPXPropertyList &propList, const ::WPXProperty
 				dashArray.clear();
 				double gap = LineW;
 				if (propList["draw:distance"])
-					gap = propList["draw:distance"]->getDouble() * 72;
+					gap = valueAsPoint(propList["draw:distance"]);
 				int dots1 = 0;
 				if (propList["draw:dots1"])
 					dots1 = propList["draw:dots1"]->getInt();
 				double dots1len = LineW;
 				if (propList["draw:dots1-length"])
-					dots1len = propList["draw:dots1-length"]->getDouble() * 72;
+					dots1len = valueAsPoint(propList["draw:dots1-length"]);
 				int dots2 = 0;
 				if (propList["draw:dots2"])
 					dots2 = propList["draw:dots2"]->getInt();
 				double dots2len = LineW;
 				if (propList["draw:dots2-length"])
-					dots2len = propList["draw:dots2-length"]->getDouble() * 72;
+					dots2len = valueAsPoint(propList["draw:dots2-length"]);
 				for (int i = 0; i < dots1; i++)
 				{
 					dashArray << qMax(dots1len, 0.1) << qMax(gap, 0.1);
@@ -361,10 +361,10 @@ void RawPainter::drawRectangle(const ::WPXPropertyList &propList)
 		return;
 	if (propList["svg:x"] && propList["svg:y"] && propList["svg:width"] && propList["svg:height"])
 	{
-		double x = propList["svg:x"]->getDouble() * 72.0;
-		double y = propList["svg:y"]->getDouble() * 72.0;
-		double w = propList["svg:width"]->getDouble() * 72.0;
-		double h = propList["svg:height"]->getDouble() * 72.0;
+		double x = valueAsPoint(propList["svg:x"]);
+		double y = valueAsPoint(propList["svg:y"]);
+		double w = valueAsPoint(propList["svg:width"]);
+		double h = valueAsPoint(propList["svg:height"]);
 		int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX + x, baseY + y, w, h, LineW, CurrColorFill, CurrColorStroke, true);
 		PageItem *ite = m_Doc->Items->at(z);
 		finishItem(ite);
@@ -381,10 +381,10 @@ void RawPainter::drawEllipse(const ::WPXPropertyList &propList)
 		return;
 	if (propList["svg:x"] && propList["svg:y"] && propList["svg:width"] && propList["svg:height"])
 	{
-		double x = propList["svg:x"]->getDouble() * 72.0;
-		double y = propList["svg:y"]->getDouble() * 72.0;
-		double w = propList["svg:width"]->getDouble() * 72.0;
-		double h = propList["svg:height"]->getDouble() * 72.0;
+		double x = valueAsPoint(propList["svg:x"]);
+		double y = valueAsPoint(propList["svg:y"]);
+		double w = valueAsPoint(propList["svg:width"]);
+		double h = valueAsPoint(propList["svg:height"]);
 		int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, baseX + x, baseY + y, w, h, LineW, CurrColorFill, CurrColorStroke, true);
 		PageItem *ite = m_Doc->Items->at(z);
 		finishItem(ite);
@@ -402,10 +402,10 @@ void RawPainter::drawPolyline(const ::WPXPropertyListVector &vertices)
 	Coords.resize(0);
 	Coords.svgInit();
 	PageItem *ite;
-	Coords.svgMoveTo(72 * vertices[0]["svg:x"]->getDouble(), 72 * vertices[0]["svg:y"]->getDouble());
+	Coords.svgMoveTo(valueAsPoint(vertices[0]["svg:x"]), valueAsPoint(vertices[0]["svg:y"]));
 	for(unsigned i = 1; i < vertices.count(); i++)
 	{
-		Coords.svgLineTo(72 * vertices[i]["svg:x"]->getDouble(), 72 * vertices[i]["svg:y"]->getDouble());
+		Coords.svgLineTo(valueAsPoint(vertices[i]["svg:x"]), valueAsPoint(vertices[i]["svg:y"]));
 	}
 	if (Coords.size() > 0)
 	{
@@ -426,10 +426,10 @@ void RawPainter::drawPolygon(const ::WPXPropertyListVector &vertices)
 	Coords.svgInit();
 	PageItem *ite;
 	int z;
-	Coords.svgMoveTo(72 * vertices[0]["svg:x"]->getDouble(), 72 * vertices[0]["svg:y"]->getDouble());
+	Coords.svgMoveTo(valueAsPoint(vertices[0]["svg:x"]), valueAsPoint(vertices[0]["svg:y"]));
 	for(unsigned i = 1; i < vertices.count(); i++)
 	{
-		Coords.svgLineTo(72 * vertices[i]["svg:x"]->getDouble(), 72 * vertices[i]["svg:y"]->getDouble());
+		Coords.svgLineTo(valueAsPoint(vertices[i]["svg:x"]), valueAsPoint(vertices[i]["svg:y"]));
 	}
 	Coords.svgClosePath();
 	if (Coords.size() > 0)
@@ -481,13 +481,38 @@ void RawPainter::drawPolygon(const ::WPXPropertyListVector &vertices)
 							if (m_Doc->m_Selection->count() > 0)
 							{
 								ite = m_Doc->groupObjectsSelection();
+								double rot = 0;
+								if (m_style["libwpg:rotate"])
+									rot = m_style["libwpg:rotate"]->getDouble();
 								QPainterPath ba = Coords.toQPainterPath(true);
 								QRectF baR = ba.boundingRect();
-								ite->setXYPos(baseX + baR.x(), baseY + baR.y(), true);
-								ite->setWidthHeight(baR.width(), baR.height(), true);
-								FPoint tp2(getMinClipF(&Coords));
-								Coords.translate(-tp2.x(), -tp2.y());
-								ite->PoLine = Coords.copy();
+								if (rot != 0)
+								{
+									QTransform mm;
+									mm.translate(baR.width() / 2.0, baR.height() / 2.0);
+									mm.rotate(rot);
+									mm.translate(-baR.width() / 2.0, -baR.height() / 2.0);
+									ba = mm.map(ba);
+									baR = ba.boundingRect();
+									ite->setXYPos(baseX + baR.x(), baseY + baR.y(), true);
+									ite->setWidthHeight(baR.width(), baR.height(), true);
+									Coords.fromQPainterPath(ba, true);
+									FPoint tp2(getMinClipF(&Coords));
+									Coords.translate(-tp2.x(), -tp2.y());
+									ite->PoLine = Coords.copy();
+									int rm = m_Doc->RotMode();
+									m_Doc->RotMode(2);
+									m_Doc->RotateItem(-rot, ite);
+									m_Doc->RotMode(rm);
+								}
+								else
+								{
+									ite->setXYPos(baseX + baR.x(), baseY + baR.y(), true);
+									ite->setWidthHeight(baR.width(), baR.height(), true);
+									FPoint tp2(getMinClipF(&Coords));
+									Coords.translate(-tp2.x(), -tp2.y());
+									ite->PoLine = Coords.copy();
+								}
 								finishItem(ite);
 							}
 						  }
@@ -519,15 +544,15 @@ void RawPainter::drawPath(const ::WPXPropertyListVector &path)
 	{
 		WPXPropertyList propList = path[i];
 		if (propList["libwpg:path-action"] && propList["libwpg:path-action"]->getStr() == "M")
-			svgString += QString("M %1 %2 ").arg(propList["svg:x"]->getDouble() * 72.0).arg(propList["svg:y"]->getDouble() * 72.0);
+			svgString += QString("M %1 %2 ").arg(valueAsPoint(propList["svg:x"])).arg(valueAsPoint(propList["svg:y"]));
 		else if (propList["libwpg:path-action"] && propList["libwpg:path-action"]->getStr() == "L")
-			svgString += QString("L %1 %2 ").arg(propList["svg:x"]->getDouble() * 72.0).arg(propList["svg:y"]->getDouble() * 72.0);
+			svgString += QString("L %1 %2 ").arg(valueAsPoint(propList["svg:x"])).arg(valueAsPoint(propList["svg:y"]));
 		else if (propList["libwpg:path-action"] && propList["libwpg:path-action"]->getStr() == "C")
-			svgString += QString("C %1 %2 %3 %4 %5 %6 ").arg(propList["svg:x1"]->getDouble() * 72.0).arg(propList["svg:y1"]->getDouble() * 72.0).arg(propList["svg:x2"]->getDouble() * 72.0).arg(propList["svg:y2"]->getDouble() * 72.0).arg(propList["svg:x"]->getDouble() * 72.0).arg(propList["svg:y"]->getDouble() * 72.0);
+			svgString += QString("C %1 %2 %3 %4 %5 %6 ").arg(valueAsPoint(propList["svg:x1"])).arg(valueAsPoint(propList["svg:y1"])).arg(valueAsPoint(propList["svg:x2"])).arg(valueAsPoint(propList["svg:y2"])).arg(valueAsPoint(propList["svg:x"])).arg(valueAsPoint(propList["svg:y"]));
 		else if (propList["libwpg:path-action"] && propList["libwpg:path-action"]->getStr() == "Q")
-			svgString += QString("Q %1 %2 %3 %4 ").arg(propList["svg:x1"]->getDouble() * 72.0).arg(propList["svg:y1"]->getDouble() * 72.0).arg(propList["svg:x"]->getDouble() * 72.0).arg(propList["svg:y"]->getDouble() * 72.0);
+			svgString += QString("Q %1 %2 %3 %4 ").arg(valueAsPoint(propList["svg:x1"])).arg(valueAsPoint(propList["svg:y1"])).arg(valueAsPoint(propList["svg:x"])).arg(valueAsPoint(propList["svg:y"]));
 		else if (propList["libwpg:path-action"] && propList["libwpg:path-action"]->getStr() == "A")
-			svgString += QString("A %1 %2 %3 %4 %5 %6 %7") .arg(propList["svg:rx"]->getDouble() * 72.0) .arg(propList["svg:ry"]->getDouble() * 72.0) .arg(propList["libwpg:rotate"] ? propList["libwpg:rotate"]->getDouble() : 0) .arg(propList["libwpg:large-arc"] ? propList["libwpg:large-arc"]->getInt() : 1) .arg(propList["libwpg:sweep"] ? propList["libwpg:sweep"]->getInt() : 1) .arg(propList["svg:x"]->getDouble() * 72.0) .arg(propList["svg:y"]->getDouble() * 72.0);
+			svgString += QString("A %1 %2 %3 %4 %5 %6 %7") .arg(valueAsPoint(propList["svg:rx"])) .arg(valueAsPoint(propList["svg:ry"])).arg(propList["libwpg:rotate"] ? propList["libwpg:rotate"]->getDouble() : 0).arg(propList["libwpg:large-arc"] ? propList["libwpg:large-arc"]->getInt() : 1).arg(propList["libwpg:sweep"] ? propList["libwpg:sweep"]->getInt() : 1).arg(valueAsPoint(propList["svg:x"])).arg(valueAsPoint(propList["svg:y"]));
 		else if ((i >= path.count()-1 && i > 2) && propList["libwpg:path-action"] && propList["libwpg:path-action"]->getStr() == "Z" )
 		{
 			isClosed = true;
@@ -634,10 +659,10 @@ void RawPainter::drawGraphicObject(const ::WPXPropertyList &propList, const ::WP
 	if (propList["svg:x"] && propList["svg:y"] && propList["svg:width"] && propList["svg:height"])
 	{
 		PageItem *ite;
-		double x = propList["svg:x"]->getDouble() * 72.0;
-		double y = propList["svg:y"]->getDouble() * 72.0;
-		double w = propList["svg:width"]->getDouble() * 72.0;
-		double h = propList["svg:height"]->getDouble() * 72.0;
+		double x = valueAsPoint(propList["svg:x"]);
+		double y = valueAsPoint(propList["svg:y"]);
+		double w = valueAsPoint(propList["svg:width"]);
+		double h = valueAsPoint(propList["svg:height"]);
 		QByteArray ba(base64.cstr());
 		QByteArray imageData = QByteArray::fromBase64(ba);
 		QString imgExt = "";
@@ -709,10 +734,10 @@ void RawPainter::startTextObject(const ::WPXPropertyList &propList, const ::WPXP
 	lineSpIsPT = false;
 	if (propList["svg:x"] && propList["svg:y"] && propList["svg:width"] && propList["svg:height"])
 	{
-		double x = propList["svg:x"]->getDouble() * 72.0;
-		double y = propList["svg:y"]->getDouble() * 72.0;
-		double w = propList["svg:width"]->getDouble() * 72.0;
-		double h = propList["svg:height"]->getDouble() * 72.0;
+		double x = valueAsPoint(propList["svg:x"]);
+		double y = valueAsPoint(propList["svg:y"]);
+		double w = valueAsPoint(propList["svg:width"]);
+		double h = valueAsPoint(propList["svg:height"]);
 		double rot = 0;
 		if (propList["libwpg:rotate"])
 			rot = propList["libwpg:rotate"]->getDouble();
@@ -728,17 +753,17 @@ void RawPainter::startTextObject(const ::WPXPropertyList &propList, const ::WPXP
 			m_Doc->RotMode(rm);
 		}
 		if (propList["fo:padding-left"])
-			ite->setTextToFrameDistLeft(propList["fo:padding-left"]->getDouble() * 72.0);
+			ite->setTextToFrameDistLeft(valueAsPoint(propList["fo:padding-left"]));
 		if (propList["fo:padding-right"])
-			ite->setTextToFrameDistRight(propList["fo:padding-right"]->getDouble() * 72.0);
+			ite->setTextToFrameDistRight(valueAsPoint(propList["fo:padding-right"]));
 		if (propList["fo:padding-top"])
-			ite->setTextToFrameDistTop(propList["fo:padding-top"]->getDouble() * 72.0);
+			ite->setTextToFrameDistTop(valueAsPoint(propList["fo:padding-top"]));
 		if (propList["fo:padding-bottom"])
-			ite->setTextToFrameDistBottom(propList["fo:padding-bottom"]->getDouble() * 72.0);
+			ite->setTextToFrameDistBottom(valueAsPoint(propList["fo:padding-bottom"]));
 		if (propList["fo:column-count"])
 			ite->setColumns(propList["fo:column-count"]->getInt());
 		if (propList["fo:column-gap"])
-			ite->setColumnGap(propList["fo:column-gap"]->getDouble() * 72.0);
+			ite->setColumnGap(valueAsPoint(propList["fo:column-gap"]));
 		ite->setFirstLineOffset(FLOPFontAscent);
 		actTextItem = ite;
 		QString pStyle = CommonStrings::DefaultParagraphStyle;
@@ -778,20 +803,20 @@ void RawPainter::startTextLine(const ::WPXPropertyList &propList)
 			textStyle.setAlignment(ParagraphStyle::Justified);
 	}
 	if (propList["fo:margin-left"])
-		textStyle.setLeftMargin(propList["fo:margin-left"]->getDouble() * 72.0);
+		textStyle.setLeftMargin(valueAsPoint(propList["fo:margin-left"]));
 	if (propList["fo:margin-right"])
-		textStyle.setRightMargin(propList["fo:margin-right"]->getDouble() * 72.0);
+		textStyle.setRightMargin(valueAsPoint(propList["fo:margin-right"]));
 	if (propList["fo:text-indent"])
-		textStyle.setFirstIndent(propList["fo:text-indent"]->getDouble() * 72.0);
+		textStyle.setFirstIndent(valueAsPoint(propList["fo:text-indent"]));
 	if (propList["style:drop-cap"])
 	{
 		textStyle.setDropCapLines(propList["style:drop-cap"]->getInt());
 		textStyle.setHasDropCap(true);
 	}
 	if (propList["fo:margin-bottom"])
-		textStyle.setGapAfter(propList["fo:margin-bottom"]->getDouble() * 72.0);
+		textStyle.setGapAfter(valueAsPoint(propList["fo:margin-bottom"]));
 	if (propList["fo:margin-top"])
-		textStyle.setGapBefore(propList["fo:margin-top"]->getDouble() * 72.0);
+		textStyle.setGapBefore(valueAsPoint(propList["fo:margin-top"]));
 	m_maxFontSize = textStyle.charStyle().fontSize() / 10.0;
 	if (propList["fo:line-height"])
 	{
@@ -824,8 +849,8 @@ void RawPainter::startTextSpan(const ::WPXPropertyList &propList)
 	textCharStyle = textStyle.charStyle();
 	if (propList["fo:font-size"])
 	{
-		textCharStyle.setFontSize(propList["fo:font-size"]->getDouble() * 720.0);
-		m_maxFontSize = qMax(m_maxFontSize, propList["fo:font-size"]->getDouble() * 72.0);
+		textCharStyle.setFontSize(valueAsPoint(propList["fo:font-size"]) * 10.0);
+		m_maxFontSize = qMax(m_maxFontSize, valueAsPoint(propList["fo:font-size"]));
 	}
 	if (propList["fo:color"])
 		textCharStyle.setFillColor(parseColor(QString(propList["fo:color"]->getStr().cstr())));
@@ -948,6 +973,17 @@ QString RawPainter::constructFontName(QString fontBaseName, QString fontStyle)
 		}
 	}
 	return fontName;
+}
+
+double RawPainter::valueAsPoint(const WPXProperty *prop)
+{
+	double value = 0.0;
+	QString str = QString(prop->getStr().cstr()).toLower();
+	if (str.endsWith("in"))
+		value = prop->getDouble() * 72.0;
+	else
+		value = prop->getDouble();
+	return value;
 }
 
 double RawPainter::fromPercentage( const QString &s )
@@ -1272,9 +1308,9 @@ void RawPainter::applyShadow(PageItem* ite)
 		double xof = 0.0;
 		double yof = 0.0;
 		if (m_style["draw:shadow-offset-x"])
-			xof = m_style["draw:shadow-offset-x"]->getDouble() * 72.0;
+			xof = valueAsPoint(m_style["draw:shadow-offset-x"]);
 		if (m_style["draw:shadow-offset-y"])
-			yof = m_style["draw:shadow-offset-y"]->getDouble() * 72.0;
+			yof = valueAsPoint(m_style["draw:shadow-offset-y"]);
 		xp += xof;
 		yp += yof;
 		QString shadowColor = CurrColorFill;

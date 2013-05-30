@@ -238,7 +238,7 @@ PictureBrowser::PictureBrowser ( ScribusDoc* doc, QWidget *parent ) : QDialog ( 
 	nameFilters = formatD.split(" ", QString::SkipEmptyParts);
 	nameFilters.append("*.svg");
 
-	QStringList vectorFiles = LoadSavePlugin::getExtensionsForPreview(FORMATID_ODGIMPORT);
+	QStringList vectorFiles = LoadSavePlugin::getExtensionsForPreview(FORMATID_FIRSTUSER);
 	for (int v = 0; v < vectorFiles.count(); v++)
 	{
 		nameFilters.append("*." + vectorFiles[v]);

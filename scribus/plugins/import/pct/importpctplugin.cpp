@@ -88,9 +88,8 @@ void ImportPctPlugin::registerFormats()
 {
 	FileFormat fmt(this);
 	fmt.trName = FormatsManager::instance()->nameOfFormat(FormatsManager::PCT); // Human readable name
-	fmt.formatId = FORMATID_PCTIMPORT;
+	fmt.formatId = 0;
 	fmt.filter = FormatsManager::instance()->extensionsForFormat(FormatsManager::PCT); // QFileDialog filter
-	fmt.nameMatch = QRegExp("\\."+FormatsManager::instance()->extensionListForFormat(FormatsManager::PCT, 1)+"$", Qt::CaseInsensitive);
 	fmt.fileExtensions = QStringList() << "pct" << "pic" << "pict";
 	fmt.load = true;
 	fmt.save = false;
@@ -129,7 +128,8 @@ bool ImportPctPlugin::import(QString fileName, int flags)
 		else
 			return true;
 	}
-	m_Doc=ScCore->primaryMainWindow()->doc;
+	if (m_Doc == 0)
+		m_Doc=ScCore->primaryMainWindow()->doc;
 	UndoTransaction* activeTransaction = NULL;
 	bool emptyDoc = (m_Doc == NULL);
 	bool hasCurrentPage = (m_Doc && m_Doc->currentPage());

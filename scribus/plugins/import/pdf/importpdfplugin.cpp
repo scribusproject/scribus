@@ -102,9 +102,8 @@ void ImportPdfPlugin::registerFormats()
 {
 	FileFormat fmt(this);
 	fmt.trName = FormatsManager::instance()->nameOfFormat(FormatsManager::PDF); // Human readable name
-	fmt.formatId = FORMATID_PDFIMPORT;
+	fmt.formatId = 0;
 	fmt.filter = FormatsManager::instance()->extensionsForFormat(FormatsManager::PDF); // QFileDialog filter
-	fmt.nameMatch = QRegExp("\\."+FormatsManager::instance()->extensionListForFormat(FormatsManager::PDF, 1)+"$", Qt::CaseInsensitive);
 	fmt.fileExtensions = QStringList() << "pdf";
 	fmt.load = true;
 	fmt.save = false;
@@ -117,9 +116,8 @@ void ImportPdfPlugin::registerFormats()
 	{
 		FileFormat fmt2(this);
 		fmt2.trName = FormatsManager::instance()->nameOfFormat(FormatsManager::EPS); // Human readable name
-		fmt2.formatId = FORMATID_EPSIMPORT;
+		fmt2.formatId = 0;
 		fmt2.filter = FormatsManager::instance()->extensionsForFormat(FormatsManager::EPS);// QFileDialog filter
-		fmt2.nameMatch = QRegExp("\\.("+FormatsManager::instance()->extensionListForFormat(FormatsManager::EPS, 1)+")$", Qt::CaseInsensitive);
 		fmt2.fileExtensions = QStringList() << "eps" << "epsf" << "epsi" << "eps2" << "eps3" << "epi" << "ept";
 		fmt2.load = true;
 		fmt2.save = false;
@@ -129,9 +127,8 @@ void ImportPdfPlugin::registerFormats()
 
 		FileFormat fmt3(this);
 		fmt3.trName = FormatsManager::instance()->nameOfFormat(FormatsManager::PS); // Human readable name
-		fmt3.formatId = FORMATID_PSIMPORT;
+		fmt3.formatId = 0;
 		fmt3.filter = FormatsManager::instance()->extensionsForFormat(FormatsManager::PS);// QFileDialog filter
-		fmt3.nameMatch = QRegExp("\\.("+FormatsManager::instance()->extensionListForFormat(FormatsManager::PS, 1)+")$", Qt::CaseInsensitive);
 		fmt3.fileExtensions = QStringList() << "ps";
 		fmt3.load = true;
 		fmt3.save = false;

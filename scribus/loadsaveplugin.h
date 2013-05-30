@@ -232,7 +232,7 @@ class SCRIBUS_API FileFormat
 		// select for this format.
 		QString filter;
 		// Regexp to match filenames for this format
-		QRegExp nameMatch;
+	//	QRegExp nameMatch;
 		// MIME type(s) that should be matched by this format.
 		QStringList mimeTypes;
 		// Extension list supported by format

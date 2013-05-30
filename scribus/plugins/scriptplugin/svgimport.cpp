@@ -30,7 +30,7 @@ PyObject *scribus_placevec(PyObject* /* self */, PyObject* args)
 		return NULL;
 	if(!checkHaveDocument())
 		return NULL;
-	QStringList allFormatsV = LoadSavePlugin::getExtensionsForImport(FORMATID_ODGIMPORT);
+	QStringList allFormatsV = LoadSavePlugin::getExtensionsForImport(FORMATID_FIRSTUSER);
 	QString fName = QString::fromUtf8(Image);
 	QFileInfo fi = QFileInfo(fName);
 	QString ext = fi.suffix().toLower();
@@ -42,7 +42,7 @@ PyObject *scribus_placevec(PyObject* /* self */, PyObject* args)
 	FileLoader *fileLoader = new FileLoader(fName);
 	int testResult = fileLoader->testFile();
 	delete fileLoader;
-	if ((testResult != -1) && (testResult >= FORMATID_ODGIMPORT))
+	if ((testResult != -1) && (testResult >= FORMATID_FIRSTUSER))
 	{
 		const FileFormat * fmt = LoadSavePlugin::getFormatById(testResult);
 		if( fmt )

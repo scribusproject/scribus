@@ -3558,13 +3558,13 @@ void ScribusMainWindow::doPasteRecent(QString data)
 		QFileInfo fi(data);
 		QString formatD(FormatsManager::instance()->extensionListForFormat(FormatsManager::RASTORIMAGES, 1));
 		QStringList rasterFiles = formatD.split("|");
-		QStringList vectorFiles = LoadSavePlugin::getExtensionsForPreview(FORMATID_ODGIMPORT);
+		QStringList vectorFiles = LoadSavePlugin::getExtensionsForPreview(FORMATID_FIRSTUSER);
 		if (vectorFiles.contains(fi.suffix().toLower()))
 		{
 			FileLoader *fileLoader = new FileLoader(data);
 			int testResult = fileLoader->testFile();
 			delete fileLoader;
-			if ((testResult != -1) && (testResult >= FORMATID_ODGIMPORT))
+			if ((testResult != -1) && (testResult >= FORMATID_FIRSTUSER))
 			{
 				const FileFormat * fmt = LoadSavePlugin::getFormatById(testResult);
 				if( fmt )
@@ -3643,7 +3643,7 @@ void ScribusMainWindow::importVectorFile()
 	QString fileName = "";
 	QStringList formats;
 	QString allFormats = tr("All Supported Formats")+" (";
-	int fmtCode = FORMATID_ODGIMPORT;
+	int fmtCode = FORMATID_FIRSTUSER;
 	const FileFormat *fmt = LoadSavePlugin::getFormatById(fmtCode);
 	while (fmt != 0)
 	{
@@ -3695,7 +3695,7 @@ void ScribusMainWindow::importVectorFile()
 			FileLoader *fileLoader = new FileLoader(fileName);
 			int testResult = fileLoader->testFile();
 			delete fileLoader;
-			if ((testResult != -1) && (testResult >= FORMATID_ODGIMPORT))
+			if ((testResult != -1) && (testResult >= FORMATID_FIRSTUSER))
 			{
 				const FileFormat * fmt = LoadSavePlugin::getFormatById(testResult);
 				if( fmt )
@@ -10125,7 +10125,7 @@ void ScribusMainWindow::dragEnterEvent ( QDragEnterEvent* e)
 				FileLoader *fileLoader = new FileLoader(url.path());
 				int testResult = fileLoader->testFile();
 				delete fileLoader;
-				if ((testResult != -1) && (testResult >= FORMATID_ODGIMPORT))
+				if ((testResult != -1) && (testResult >= FORMATID_FIRSTUSER))
 				{
 					accepted = true;
 					break;
@@ -10193,7 +10193,7 @@ void ScribusMainWindow::dropEvent ( QDropEvent * e)
 				FileLoader *fileLoader = new FileLoader(url.path());
 				int testResult = fileLoader->testFile();
 				delete fileLoader;
-				if ((testResult != -1) && (testResult >= FORMATID_ODGIMPORT))
+				if ((testResult != -1) && (testResult >= FORMATID_FIRSTUSER))
 				{
 					QFileInfo fi(url.path());
 					if ( fi.exists() )

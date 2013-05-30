@@ -90,7 +90,6 @@ void ImportShapePlugin::registerFormats()
 	fmt.trName = tr("Dia Shapes \"*.shape\" File"); // Human readable name
 	fmt.formatId = 0;
 	fmt.filter = tr("Dia shapes \"*.shape\" File (*.shape *.SHAPE)"); // QFileDialog filter
-	fmt.nameMatch = QRegExp("\\.shape$", Qt::CaseInsensitive);
 	fmt.fileExtensions = QStringList() << "shape";
 	fmt.load = true;
 	fmt.save = false;

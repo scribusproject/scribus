@@ -90,7 +90,6 @@ void ImportPubPlugin::registerFormats()
 	fmt.trName = tr("MS Publisher");
 	fmt.filter = tr("MS Publisher (*.pub *.PUB)");
 	fmt.formatId = 0;
-	fmt.nameMatch = QRegExp("\\.pub$", Qt::CaseInsensitive);
 	fmt.fileExtensions = QStringList() << "pub";
 	fmt.load = true;
 	fmt.save = false;

@@ -93,9 +93,8 @@ void ImportAIPlugin::registerFormats()
 {
 	FileFormat fmt(this);
 	fmt.trName = FormatsManager::instance()->nameOfFormat(FormatsManager::AI); // Human readable name
-	fmt.formatId = FORMATID_AIIMPORT;
+	fmt.formatId = 0;
 	fmt.filter = FormatsManager::instance()->extensionsForFormat(FormatsManager::AI); // QFileDialog filter
-	fmt.nameMatch = QRegExp("\\."+FormatsManager::instance()->extensionListForFormat(FormatsManager::AI, 1)+"$", Qt::CaseInsensitive);
 	fmt.fileExtensions = QStringList() << "ai";
 	fmt.load = true;
 	fmt.save = false;
@@ -174,7 +173,7 @@ bool ImportAIPlugin::import(QString fileName, int flags)
 				if ((QPushButton *)msgBox.clickedButton() == pdfButton)
 				{
 					//Import PDF
-					const FileFormat *fmt = LoadSavePlugin::getFormatById(FORMATID_PDFIMPORT);
+					const FileFormat *fmt = LoadSavePlugin::getFormatByExt("pdf");
 					if (!fmt)
 					{
 						QMessageBox::warning(ScCore->primaryMainWindow(), CommonStrings::trWarning, tr("The PDF Import plugin could not be found"), 1, 0, 0);

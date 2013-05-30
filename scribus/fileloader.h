@@ -53,10 +53,6 @@ public:
 	const FileFormat * const formatSLA13x;
 	const FileFormat * const formatSLA134;
 	const FileFormat * const formatSLA150;
-	const FileFormat * const formatPS;
-	const FileFormat * const formatSVG;
-	const FileFormat * const formatSXD;
-	const FileFormat * const formatODG;
 
 	static const QString getLoadFilterString();
 private:

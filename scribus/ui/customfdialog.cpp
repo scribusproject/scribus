@@ -80,7 +80,7 @@ ImIconProvider::ImIconProvider() : QFileIconProvider()
 
 QIcon ImIconProvider::icon(const QFileInfo &fi) const
 {
-	QStringList allFormatsV = LoadSavePlugin::getExtensionsForImport(FORMATID_ODGIMPORT);
+	QStringList allFormatsV = LoadSavePlugin::getExtensionsForImport(FORMATID_FIRSTUSER);
 	QString ext = fi.suffix().toLower();
 	if (ext.isEmpty())
 		return QFileIconProvider::icon(fi);
@@ -149,7 +149,7 @@ void FDialogPreview::GenPreview(QString name)
 	formats.append("pat");
 	formats.removeAll("pdf");
 	
-	QStringList allFormatsV = LoadSavePlugin::getExtensionsForPreview(FORMATID_ODGIMPORT);
+	QStringList allFormatsV = LoadSavePlugin::getExtensionsForPreview(FORMATID_FIRSTUSER);
 	if (ext.isEmpty())
 		ext = getImageType(name);
 	if (formats.contains(ext.toUtf8()))
@@ -203,7 +203,7 @@ void FDialogPreview::GenPreview(QString name)
 		FileLoader *fileLoader = new FileLoader(name);
 		int testResult = fileLoader->testFile();
 		delete fileLoader;
-		if ((testResult != -1) && (testResult >= FORMATID_ODGIMPORT))
+		if ((testResult != -1) && (testResult >= FORMATID_FIRSTUSER))
 		{
 			const FileFormat * fmt = LoadSavePlugin::getFormatById(testResult);
 			if( fmt )

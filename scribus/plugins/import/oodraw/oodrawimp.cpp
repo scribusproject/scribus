@@ -124,9 +124,8 @@ void OODrawImportPlugin::registerFormats()
 	QString odtName = tr("OpenDocument 1.0 Draw", "Import/export format name");
 	FileFormat odtformat(this);
 	odtformat.trName = odtName; // Human readable name
-	odtformat.formatId = FORMATID_ODGIMPORT;
+	odtformat.formatId = 0;
 	odtformat.filter = odtName + " (*.odg *.ODG)"; // QFileDialog filter
-	odtformat.nameMatch = QRegExp("\\.odg$", Qt::CaseInsensitive);
 	odtformat.fileExtensions = QStringList() << "odg";
 	odtformat.load = true;
 	odtformat.save = false;
@@ -138,9 +137,8 @@ void OODrawImportPlugin::registerFormats()
 	QString sxdName = tr("OpenOffice.org 1.x Draw", "Import/export format name");
 	FileFormat sxdformat(this);
 	sxdformat.trName = sxdName; // Human readable name
-	sxdformat.formatId = FORMATID_SXDIMPORT;
+	sxdformat.formatId = 0;
 	sxdformat.filter = sxdName + " (*.sxd *.SXD)"; // QFileDialog filter
-	sxdformat.nameMatch = QRegExp("\\.sxd$", Qt::CaseInsensitive);
 	sxdformat.fileExtensions = QStringList() << "sxd";
 	sxdformat.load = true;
 	sxdformat.save = false;

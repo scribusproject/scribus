@@ -1002,7 +1002,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 				FileLoader *fileLoader = new FileLoader(url.toLocalFile());
 				int testResult = fileLoader->testFile();
 				delete fileLoader;
-				if ((testResult != -1) && (testResult >= FORMATID_ODGIMPORT))
+				if ((testResult != -1) && (testResult >= FORMATID_FIRSTUSER))
 					vectorFile = true;
 			}
 		}
@@ -1083,7 +1083,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 						FileLoader *fileLoader = new FileLoader(url.toLocalFile());
 						int testResult = fileLoader->testFile();
 						delete fileLoader;
-						if ((testResult != -1) && (testResult >= FORMATID_ODGIMPORT))
+						if ((testResult != -1) && (testResult >= FORMATID_FIRSTUSER))
 						{
 							const FileFormat * fmt = LoadSavePlugin::getFormatById(testResult);
 							if( fmt )

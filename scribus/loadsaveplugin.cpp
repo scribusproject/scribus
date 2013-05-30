@@ -378,8 +378,7 @@ LoadSavePlugin::findFormat(const QString& extension, LoadSavePlugin* plug, QList
 	QList<FileFormat>::iterator itEnd(formats.end());
 	for ( ; it != itEnd ; ++it )
 	{
-	//	if (((*it).fileExtensions.contains(extension.toLower())) && ((plug == 0) || (plug == (*it).plug)) )
-		if ( ((*it).nameMatch.indexIn(extension)) && ((plug == 0) || (plug == (*it).plug)) )
+		if (((*it).fileExtensions.contains(extension.toLower())) && ((plug == 0) || (plug == (*it).plug)) )
 			return it;
 	}
 	return itEnd;

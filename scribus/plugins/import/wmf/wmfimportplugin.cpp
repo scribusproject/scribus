@@ -105,9 +105,8 @@ void WMFImportPlugin::registerFormats()
 {
 	FileFormat fmt(this);
 	fmt.trName = FormatsManager::instance()->nameOfFormat(FormatsManager::WMF);
-	fmt.formatId = FORMATID_WMFIMPORT;
+	fmt.formatId = 0;
 	fmt.filter = FormatsManager::instance()->extensionsForFormat(FormatsManager::WMF);
-	fmt.nameMatch = QRegExp("\\."+FormatsManager::instance()->extensionListForFormat(FormatsManager::WMF, 1)+"$", Qt::CaseInsensitive);
 	fmt.fileExtensions = QStringList() << "wmf";
 	fmt.load = true;
 	fmt.save = false;

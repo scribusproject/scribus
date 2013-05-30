@@ -1072,7 +1072,7 @@ void PaintManagerDialog::importColorItems()
 			QString fileName;
 			QStringList formats;
 			QString allFormats = tr("All Supported Formats")+" (";
-			int fmtCode = FORMATID_ODGIMPORT;
+			int fmtCode = FORMATID_FIRSTUSER;
 			const FileFormat *fmt = LoadSavePlugin::getFormatById(fmtCode);
 			while (fmt != 0)
 			{
@@ -1304,7 +1304,7 @@ void PaintManagerDialog::loadVectors(QString data)
 		FileLoader *fileLoader = new FileLoader(data);
 		int testResult = fileLoader->testFile();
 		delete fileLoader;
-		if ((testResult != -1) && (testResult >= FORMATID_ODGIMPORT))
+		if ((testResult != -1) && (testResult >= FORMATID_FIRSTUSER))
 		{
 			const FileFormat * fmt = LoadSavePlugin::getFormatById(testResult);
 			if( fmt )

@@ -98,7 +98,6 @@ void ImportDrwPlugin::registerFormats()
 	fmt.trName = tr("Micrografx DRW File"); // Human readable name
 	fmt.formatId = 0;
 	fmt.filter = tr("Micrografx DRW File (*.drw *.DRW)"); // QFileDialog filter
-	fmt.nameMatch = QRegExp("\\.drw$", Qt::CaseInsensitive);
 	fmt.fileExtensions = QStringList() << "drw";
 	fmt.load = true;
 	fmt.save = false;

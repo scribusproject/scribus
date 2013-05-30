@@ -260,7 +260,7 @@ void BarcodeGenerator::okButton_pressed()
 	// no need to call paintBarcode(tmpFile, 300); because
 	// it's created by previous run...
 	hide();
-	const FileFormat * fmt = LoadSavePlugin::getFormatById(FORMATID_PSIMPORT);
+	const FileFormat * fmt = LoadSavePlugin::getFormatByExt("ps");
 
 	QSharedPointer<UndoTransaction> tran;
 	if (UndoManager::undoEnabled())

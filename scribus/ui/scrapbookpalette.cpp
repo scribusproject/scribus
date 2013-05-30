@@ -81,7 +81,7 @@ BibView::BibView(QWidget* parent) : QListWidget(parent)
 
  void BibView::startDrag(Qt::DropActions supportedActions)
  {
-	QStringList vectorFiles = LoadSavePlugin::getExtensionsForPreview(FORMATID_ODGIMPORT);
+	QStringList vectorFiles = LoadSavePlugin::getExtensionsForPreview(FORMATID_FIRSTUSER);
 	QString formatD(FormatsManager::instance()->extensionListForFormat(FormatsManager::RASTORIMAGES, 1));
 	QStringList rasterFiles = formatD.split("|");
 	QString dt = objectMap[currentItem()->text()].Data;
@@ -143,7 +143,7 @@ void BibView::dropEvent(QDropEvent *e)
 	}
 	else if ( e->mimeData()->hasFormat("text/uri-list"))
 	{
-		QStringList vectorFiles = LoadSavePlugin::getExtensionsForPreview(FORMATID_ODGIMPORT);
+		QStringList vectorFiles = LoadSavePlugin::getExtensionsForPreview(FORMATID_FIRSTUSER);
 		QString formatD(FormatsManager::instance()->extensionListForFormat(FormatsManager::RASTORIMAGES, 1));
 		QStringList rasterFiles = formatD.split("|");
 		QList<QUrl> fileUrls = e->mimeData()->urls();
@@ -157,7 +157,7 @@ void BibView::dropEvent(QDropEvent *e)
 				FileLoader *fileLoader = new FileLoader(url.path());
 				int testResult = fileLoader->testFile();
 				delete fileLoader;
-				if ((testResult != -1) && (testResult >= FORMATID_ODGIMPORT) && (fi.exists()))
+				if ((testResult != -1) && (testResult >= FORMATID_FIRSTUSER) && (fi.exists()))
 					emit fileDropped(url.path(), testResult);
 			}
 			else if (rasterFiles.contains(fi.suffix().toLower()))
@@ -347,7 +347,7 @@ void BibView::ReadContents(QString name)
 	fileCount += dd.count();
 	QDir d(name, "*.sce", QDir::Name, QDir::Files | QDir::Readable | QDir::NoSymLinks);
 	fileCount += d.count();
-	QStringList vectorFiles = LoadSavePlugin::getExtensionsForPreview(FORMATID_ODGIMPORT);
+	QStringList vectorFiles = LoadSavePlugin::getExtensionsForPreview(FORMATID_FIRSTUSER);
 	for (int v = 0; v < vectorFiles.count(); v++)
 	{
 		QString ext = "*." + vectorFiles[v];
@@ -448,7 +448,7 @@ void BibView::ReadContents(QString name)
 					FileLoader *fileLoader = new FileLoader(QDir::cleanPath(QDir::toNativeSeparators(name + "/" + d4[dc])));
 					int testResult = fileLoader->testFile();
 					delete fileLoader;
-					if ((testResult != -1) && (testResult >= FORMATID_ODGIMPORT))
+					if ((testResult != -1) && (testResult >= FORMATID_FIRSTUSER))
 					{
 						const FileFormat * fmt = LoadSavePlugin::getFormatById(testResult);
 						if( fmt )
