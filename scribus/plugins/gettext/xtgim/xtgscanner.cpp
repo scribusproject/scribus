@@ -1253,12 +1253,18 @@ scannerMode XtgScanner::previousState()
 
 QChar XtgScanner::lookAhead()
 {
-	return input_Buffer.at ( top );
+	QChar ch = QChar(0);
+	if (top < input_Buffer.length())
+		ch = input_Buffer.at(top);
+	return ch;
 }
 
 QChar XtgScanner::nextSymbol()
 {
-	return input_Buffer.at ( top++ );
+	QChar ch = QChar(0);
+	if (top < input_Buffer.length())
+		ch = input_Buffer.at(top++);
+	return ch;
 }
 
 void XtgScanner::flushText()
@@ -1365,6 +1371,8 @@ void XtgScanner::xtgParse()
 			}
 			currentCharStyle = writer->getCurrentCharStyle();
 		}
+		if (top == input_Buffer.length())
+			break;
 	}
 	writer->appendText(textToAppend);
 	qDebug()<<"Unsupported : "<<unSupported;
