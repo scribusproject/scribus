@@ -34,40 +34,40 @@ FontSelect::FontSelect(QStringList list):QDialog(0)
 	setWindowIcon(QIcon(loadIcon ( "AppIcon.png" )));
 	setWindowTitle( tr("Select Alternate Font"));
 
-        resize(370, 83);
-        layoutWidget = new QWidget(this);
-        layoutWidget->setGeometry(QRect(10, 10, 350, 63));
-        verticalLayout_2 = new QVBoxLayout(layoutWidget);
-        verticalLayout_2->setContentsMargins(0, 0, 0, 0);
-        horizontalLayout_2 = new QHBoxLayout();
-        label = new QLabel(layoutWidget);
+	resize(370, 83);
+	layoutWidget = new QWidget(this);
+	layoutWidget->setGeometry(QRect(10, 10, 350, 63));
+	verticalLayout_2 = new QVBoxLayout(layoutWidget);
+	verticalLayout_2->setContentsMargins(0, 0, 0, 0);
+	horizontalLayout_2 = new QHBoxLayout();
+	label = new QLabel(layoutWidget);
 	label->setText( tr("Font") );
-        label->setMinimumSize(QSize(61, 0));
+	label->setMinimumSize(QSize(61, 0));
 
-        horizontalLayout_2->addWidget(label);
+	horizontalLayout_2->addWidget(label);
 
-        fontList = new QComboBox(layoutWidget);
-        fontList->setMinimumSize(QSize(281, 0));
+	fontList = new QComboBox(layoutWidget);
+	fontList->setMinimumSize(QSize(281, 0));
 	fontList->addItems(list);
 
-        horizontalLayout_2->addWidget(fontList);
+	horizontalLayout_2->addWidget(fontList);
 
 
-        verticalLayout_2->addLayout(horizontalLayout_2);
+	verticalLayout_2->addLayout(horizontalLayout_2);
 
-        horizontalLayout_3 = new QHBoxLayout();
-        horizontalSpacer = new QSpacerItem(128, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+	horizontalLayout_3 = new QHBoxLayout();
+	horizontalSpacer = new QSpacerItem(128, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
-        horizontalLayout_3->addItem(horizontalSpacer);
+	horizontalLayout_3->addItem(horizontalSpacer);
 
-        okButton = new QPushButton("OK",layoutWidget);
-        okButton->setEnabled(true);
-        okButton->setMinimumSize(QSize(105, 0));
+	okButton = new QPushButton("OK",layoutWidget);
+	okButton->setEnabled(true);
+	okButton->setMinimumSize(QSize(105, 0));
 
-        horizontalLayout_3->addWidget(okButton);
+	horizontalLayout_3->addWidget(okButton);
 
-        verticalLayout_2->addLayout(horizontalLayout_3);
-        label->setBuddy(fontList);
+	verticalLayout_2->addLayout(horizontalLayout_3);
+	label->setBuddy(fontList);
 	font = fontList->currentText();
 
 	connect(fontList, SIGNAL(activated(int)), this, SLOT(selectFont()));

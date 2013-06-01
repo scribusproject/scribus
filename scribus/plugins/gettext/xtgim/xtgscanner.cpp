@@ -34,7 +34,7 @@ for which a new license (GPL+exception) is in place.
 
 class ScribusDoc;
 
-XtgScanner::XtgScanner ( QString documentName,TextWriter *wr,QString& buffer, bool textOnly, bool prefix)
+XtgScanner::XtgScanner (QString documentName, TextWriter *wr, QString& buffer, bool textOnly, bool prefix)
 {
 	writer = wr;
 	docname = documentName;
@@ -322,15 +322,11 @@ void XtgScanner::setFont()
 		QList<QString> List = ((*(doc->AllFonts)).keys());
 		QStringList filter = static_cast<QStringList>(List).filter(token);
 		if (!filter.empty())
-		List = filter;
+			List = filter;
 		FontSelect *f = new FontSelect(static_cast<QStringList>(List));
 		if (f->exec())
-		{
 			token = f->setFont();
-			delete f;
-		}
-		else
-			delete f;
+		delete f;
 	}
 	curFontUsed = (*(doc->AllFonts)).value(token);
 	/* Now we check whether isBold=true and isItalic=true. If yes, we will set those */

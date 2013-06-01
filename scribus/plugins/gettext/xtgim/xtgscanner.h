@@ -54,36 +54,36 @@ class XtgScanner
 {
 private:
 	/**
-          \variable Variables based on which scanner works in different modes
-          */
+	 \variable Variables based on which scanner works in different modes
+	 */
 	scannerMode Mode;
 	scannerMode prevMode;
-        /**
-          \variable Variables of the importer
-          */
+	/**
+	 \variable Variables of the importer
+	 */
 	TextWriter* writer;
 	bool importTextOnly;
 	bool usePrefix;
-        QString docname;
+	QString docname;
 	bool readProperties;
-        /**
-          \variable Flag variables used in the scanner
-          */
+	/**
+	 \variable Flag variables used in the scanner
+	 */
 	bool newlineFlag;
 	bool xflag;
-        bool isBold;
-        bool isItalic;
-        /**
-          \variable Input Buffer to which properly encoded file is loaded
-          */
+	bool isBold;
+	bool isItalic;
+	 /**
+	 \variable Input Buffer to which properly encoded file is loaded
+	 */
 	QString input_Buffer;
-        int top;
+	int top;
 
 	ScFace curFontUsed;
 	ScribusDoc* doc;
-        /**
-          \variable current Character and paragraph styles
-          */
+	/**
+	 \variable current Character and paragraph styles
+	 */
 	CharStyle currentCharStyle;
 	ParagraphStyle currentParagraphStyle;
 
@@ -98,9 +98,7 @@ private:
 	/** A QStringList to store the features of defined character Style and defined paragraph Style */
 	QStringList dcsFeatures;
 
-	/** 
-	To store unsupported attributes
-	*/
+	/** To store unsupported attributes */
 	QStringList unSupported;
 	QStringList definedStyles;
 	QStringList definedCStyles;
@@ -109,25 +107,25 @@ private:
 	*/ 
 	QString textToAppend;
 	QString token;
-        QString sfcName; // Name of Style/Fontset/Color to be defined, hence named sfcName
+	QString sfcName; // Name of Style/Fontset/Color to be defined, hence named sfcName
 
 	QHash<QString,void (XtgScanner::*)(void)> tagModeHash;
 	QHash<QString,void (XtgScanner::*)(void)> textModeHash;
 	QHash<QString,void (XtgScanner::*)(void)> nameModeHash;
-        QHash<int,QString> languages;
-        QHash<int,QString> encodings;
+	QHash<int,QString> languages;
+	QHash<int,QString> encodings;
 
 	/** define variable will take the following values : 
-                \brief
-                0	Not a definition
+	 \brief
+		0	Not a definition
 		1	Character Stylesheet Definition
 		2	Paragraph Stylesheet Definition
-          */
+	 */
 	int define;
 	
 public:
-	XtgScanner(QString documentName,TextWriter *wr,QString& buffer, bool textOnly, bool prefix);
-        ~XtgScanner();
+	XtgScanner(QString documentName, TextWriter *wr, QString& buffer, bool textOnly, bool prefix);
+	~XtgScanner();
 
 	/**
 	\brief initialise all hash functions with tokens and corresponding function pointers
@@ -165,26 +163,26 @@ public:
 	\brief This function will return a token which is to be evaluated in parser. Each token will be available in the class member token as a QString.
 	*/
 	QString getToken();
-        /**
-          \brief Function to Slice the string so as to remove the inch character etc
-          */
+	/**
+	 \brief Function to Slice the string so as to remove the inch character etc
+	 */
 	QString sliceString();
-        /**
-          \name applyFeature
-          \brief Function to applyFeature to a character Style
-          */
+	/**
+	 \name applyFeature
+	 \brief Function to applyFeature to a character Style
+	 */
 	void applyFeature(const QString &feature);
-        /**
-          \brief Function which will empty the textToAppend variable by writing into text frame
-          */
+	/**
+	 \brief Function which will empty the textToAppend variable by writing into text frame
+	 */
 	void flushText();
-        /**
-          \brief Function which returns the status of Style whether defined or not
-          */
+	/**
+	 \brief Function which returns the status of Style whether defined or not
+	 */
 	bool styleStatus(QStringList &name,QString &sfcname);
-        /**
-          \brief Function which will show a message box if a Style "name" is not defined in the document
-          */
+	/**
+	 \brief Function which will show a message box if a Style "name" is not defined in the document
+	 */
 	void showWarning(QString &name);
 
 	/** Set Functions for setting the styles */
@@ -230,14 +228,14 @@ public:
 	void setHyphenation();
 	void setPRuleAbove();
 	void setPRuleBelow();
-        void setDropCap();
+	void setDropCap();
 	void setKeepNextPar();
 	void setKeepTogether();
 	void setHangingCSet();
 	void setGlyph();
 	void setTranscodeSeq();
 	void setUnencodedGlyph();
-        void xFlag();
+	void xFlag();
 	void definePStyles();
 	void defineCStyle();
 	void applyCStyle1();
@@ -250,9 +248,9 @@ public:
 	void appendSpChar1();
 	void appendSpChar2();
 	void appendSpChar3();
-        /**
-          Functions used in textMode Hash
-          */
+	/**
+	 Functions used in textMode Hash
+	 */
 	void defNewLine();
 	void defHardReturn();
 	void defFontSet();
@@ -265,7 +263,7 @@ public:
 
 
 protected:
-        void (XtgScanner::*funPointer)(void);
+	void (XtgScanner::*funPointer)(void);
 };
 	
 #endif
