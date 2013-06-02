@@ -51,7 +51,7 @@ private:
 	                 const double x, const double y, const double width,
 	                 const double height, const double w,
 	                 const QString& fill, const QString& outline);
-	void placeImage(const int formatid, const QString & filename, const double x, const double y);
+	void placeImage(const QString formatExt, const QString & filename, const double x, const double y);
 
 	bool isMasterPage;
 	int type();

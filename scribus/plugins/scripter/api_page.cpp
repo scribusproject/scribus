@@ -278,9 +278,9 @@ QObject *PageAPI::newLine(double x, double y, double width, double height)
 // XXX: newPolyLine, bezierline
 
 
-void PageAPI::placeImage(const int formatid, const QString & filename, const double x, const double y)
+void PageAPI::placeImage(const QString formatExt, const QString & filename, const double x, const double y)
 {
-	const FileFormat * fmt = LoadSavePlugin::getFormatById(formatid);
+	const FileFormat * fmt = LoadSavePlugin::getFormatByExt(formatExt);
 	if (fmt)
 	{
 		fmt->loadFile(filename,
@@ -316,7 +316,7 @@ void PageAPI::placeImage(const int formatid, const QString & filename, const dou
  */
 void PageAPI::placeSVG(const QString & filename, const double x, const double y)
 {
-	placeImage(FORMATID_SVGIMPORT, filename, x, y);
+	placeImage("svg", filename, x, y);
 }
 
 
@@ -330,7 +330,7 @@ void PageAPI::placeSVG(const QString & filename, const double x, const double y)
  */
 void PageAPI::placeODG(const QString & filename, const double x, const double y)
 {
-	placeImage(FORMATID_ODGIMPORT, filename, x, y);
+	placeImage("odg", filename, x, y);
 }
 
 
@@ -344,7 +344,7 @@ void PageAPI::placeODG(const QString & filename, const double x, const double y)
  */
 void PageAPI::placeEPS(const QString & filename, const double x, const double y)
 {
-	placeImage(FORMATID_PSIMPORT, filename, x, y);
+	placeImage("ps", filename, x, y);
 }
 
 
@@ -358,7 +358,7 @@ void PageAPI::placeEPS(const QString & filename, const double x, const double y)
  */
 void PageAPI::placeSXD(const QString & filename, const double x, const double y)
 {
-	placeImage(FORMATID_SXDIMPORT, filename, x, y);
+	placeImage("sxd", filename, x, y);
 }
 
 
