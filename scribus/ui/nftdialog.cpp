@@ -25,6 +25,18 @@ nftdialog::nftdialog(QWidget* parent, QString lang) : QDialog(parent)
 	connect(nftGui, SIGNAL(ButtonBoxEnable(bool)), this, SLOT(enableButtonBox(bool)));
 }
 
+bool nftdialog::isTemplateSelected()
+{
+	if (nftGui->currentDocumentTemplate)
+		return true;
+	return false;
+}
+
+nfttemplate* nftdialog::currentTemplate()
+{
+	return (nftGui->currentDocumentTemplate);
+}
+
 void nftdialog::enableButtonBox(bool setter)
 {
 	buttonBox->button(QDialogButtonBox::Ok)->setEnabled(setter);
