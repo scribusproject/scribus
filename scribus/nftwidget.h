@@ -41,8 +41,8 @@ public:
 	void setupSettings(QString lang);
 	~nftwidget();
 private slots: 
-	void setTNails();
 	void setInfo();
+	void setThumbnails();
 	void getCurrentDocumentTemplate(QListWidgetItem* item);
 	void removeTemplate();
 signals:

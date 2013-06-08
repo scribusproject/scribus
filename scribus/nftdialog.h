@@ -17,12 +17,16 @@ for which a new license (GPL+exception) is in place.
 #include "ui_nftdialog.h"
 #include "nftsettings.h"
 
-class nftdialog: public QDialog, public Ui::nftdialog
+class nftdialog: public QDialog, Ui::nftdialog
 {
 	Q_OBJECT
 public:
 	nftdialog(QWidget* parent, QString lang);
 	~nftdialog() {};
+
+	bool isTemplateSelected();
+	nfttemplate* currentTemplate();
+
 public slots:
 	void enableButtonBox(bool);
 };
