@@ -5466,14 +5466,14 @@ int ScribusDoc::itemAddUserFrame(InsertAFrameData &iafData)
 {
 	double x1=0.0,y1=0.0,w1=iafData.width,h1=iafData.height;
 	std::vector<int> pageNs;
-	if (iafData.locationType==0) // On the current page or on a range of pages
+	if (iafData.locationType == 0) // On the current page or on a range of pages
 		pageNs.push_back(currentPage()->pageNr()+1);
 	else if (iafData.locationType==1) // On all pages
 	{
-		parsePagesString(QString("1-%1").arg(DocPages.count()), &pageNs, DocPages.count());
+		parsePagesString(QString("1-%1").arg(Pages->count()), &pageNs, Pages->count());
 	}
 	else
-		parsePagesString(iafData.pageList, &pageNs, DocPages.count());
+		parsePagesString(iafData.pageList, &pageNs, Pages->count());
 	ScPage* oldCurrentPage = currentPage();
 	int z=-2;
 	PageItem *prevItem=0; //Previous item for text frame linking
@@ -5488,7 +5488,7 @@ int ScribusDoc::itemAddUserFrame(InsertAFrameData &iafData)
 															  Um::InsertFrame, "", Um::ICreate));
 	for (uint i=0;i<pageNs.size();++i)
 	{
-		ScPage* targetPage=Pages->at(pageNs[i]-1);
+		ScPage* targetPage = Pages->at(pageNs[i]-1);
 		//We need this for the itemAdd, FIXME later
 		setCurrentPage(targetPage);
 		
@@ -5502,8 +5502,7 @@ int ScribusDoc::itemAddUserFrame(InsertAFrameData &iafData)
 			x1=targetPage->xOffset();
 			y1=targetPage->yOffset();
 		}
-		else
-		if (iafData.positionType==2) // Frame starts at top left of page - bleeds
+		else if (iafData.positionType==2) // Frame starts at top left of page - bleeds
 		{
 			x1=targetPage->xOffset()-docPrefsData.docSetupPrefs.bleeds.Left;
 			y1=targetPage->yOffset()-docPrefsData.docSetupPrefs.bleeds.Top;
@@ -5524,8 +5523,7 @@ int ScribusDoc::itemAddUserFrame(InsertAFrameData &iafData)
 			w1=targetPage->width();
 			h1=targetPage->height();
 		}
-		else
-		if (iafData.sizeType==2) // Frame is size of page + bleed 
+		else if (iafData.sizeType==2) // Frame is size of page + bleed 
 		{
 			w1=targetPage->width()+docPrefsData.docSetupPrefs.bleeds.Right+docPrefsData.docSetupPrefs.bleeds.Left;
 			h1=targetPage->height()+docPrefsData.docSetupPrefs.bleeds.Bottom+docPrefsData.docSetupPrefs.bleeds.Top;
@@ -14404,7 +14402,8 @@ void ScribusDoc::AdjustItemSize(PageItem *currItem, bool includeGroup, bool move
 		double oldgH = currItem->groupHeight;
 		FPointArray Clip;
 		Clip = currItem->PoLine;
-		FPoint tp2(getMinClipF(&Clip));
+		QRectF clipRect = Clip.toQPainterPath(false).boundingRect();
+		FPoint tp2(clipRect.left(), clipRect.top());
 		SizeItem(currItem->width() - tp2.x(), currItem->height() - tp2.y(), currItem, true, false, false);
 		Clip.translate(-tp2.x(), -tp2.y());
 		if (currItem->rotation() != 0)
@@ -14418,7 +14417,7 @@ void ScribusDoc::AdjustItemSize(PageItem *currItem, bool includeGroup, bool move
 			currItem->moveImageInFrame(-tp2.x()/currItem->imageXScale(), 0);
 		if (!currItem->imageFlippedV())
 			currItem->moveImageInFrame(0, -tp2.y()/currItem->imageYScale());
-		FPoint tp(getMaxClipF(&Clip));
+		FPoint tp(clipRect.right(), clipRect.bottom());
 		if (currItem->imageFlippedH())
 			currItem->moveImageInFrame((currItem->width() - tp.x())/currItem->imageXScale(), 0);
 		if (currItem->imageFlippedV())
