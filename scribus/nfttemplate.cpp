@@ -21,61 +21,61 @@ nfttemplate::nfttemplate(QFile* tmplXmlFile, const QString &tmplCategory)
 
 void nfttemplate::remove()
 {
-	if (tmplXml->exists())
+	if (!tmplXml->exists())
+		return;
+
+	QString newTmplXml = "";
+	QString tmp;
+	bool collect = false;
+	tmplXml->open(QIODevice::ReadOnly);
+	QTextStream stream(tmplXml);
+	stream.setCodec("UTF-8");
+	QString line = stream.readLine();
+	while (!line.isNull())
 	{
-		QString newTmplXml = "";
-		QString tmp;
-		bool collect = false;
-		tmplXml->open(QIODevice::ReadOnly);
-		QTextStream stream(tmplXml);
-		stream.setCodec("UTF-8");
-		QString line = stream.readLine();
-		while (!line.isNull())
+		if ((line.indexOf(enCategory) != -1) || collect)
 		{
-			if ((line.indexOf(enCategory) != -1) || collect)
+			collect = true;
+			line += "\n";
+			tmp += line;
+			if (line.indexOf("name") != -1)
 			{
-				collect = true;
-				line += "\n";
-				tmp += line;
-				if (line.indexOf("name") != -1)
-				{
-					if (line.indexOf(name) == -1)
-					{
-						collect = false;
-						newTmplXml += tmp;
-						tmp = "";
-					}
-				} 
-				else if (line.indexOf("file") != -1)
-				{
-					QString shortFile = file.right(file.length() - file.lastIndexOf("/") -1);
-					if (line.indexOf(shortFile) == -1)
-					{
-						collect = false;
-						newTmplXml += tmp;
-						tmp = "";
-					}
-				} 
-				else if (line.indexOf("</template>") != -1)
+				if (line.indexOf(name) == -1)
 				{
 					collect = false;
+					newTmplXml += tmp;
 					tmp = "";
 				}
-			}
-			else
+			} 
+			else if (line.indexOf("file") != -1)
 			{
-				line += "\n";
-				newTmplXml += line;
+				QString shortFile = file.right(file.length() - file.lastIndexOf("/") -1);
+				if (line.indexOf(shortFile) == -1)
+				{
+					collect = false;
+					newTmplXml += tmp;
+					tmp = "";
+				}
+			} 
+			else if (line.indexOf("</template>") != -1)
+			{
+				collect = false;
+				tmp = "";
 			}
-			line = stream.readLine();
 		}
-		tmplXml->close();
-		tmplXml->open(QIODevice::WriteOnly);
-		QTextStream instream(tmplXml);
-		instream.setCodec("UTF-8");
-		instream << newTmplXml;
-		tmplXml->close();
+		else
+		{
+			line += "\n";
+			newTmplXml += line;
+		}
+		line = stream.readLine();
 	}
+	tmplXml->close();
+	tmplXml->open(QIODevice::WriteOnly);
+	QTextStream instream(tmplXml);
+	instream.setCodec("UTF-8");
+	instream << newTmplXml;
+	tmplXml->close();
 }
 
 bool nfttemplate::canWrite()
