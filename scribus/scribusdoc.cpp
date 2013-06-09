@@ -3888,10 +3888,10 @@ int ScribusDoc::itemAddUserFrame(InsertAFrameData &iafData)
 		pageNs.push_back(currentPage()->pageNr()+1);
 	else if (iafData.locationType==1) // On all pages
 	{
-		parsePagesString(QString("1-%1").arg(DocPages.count()), &pageNs, DocPages.count());
+		parsePagesString(QString("1-%1").arg(Pages->count()), &pageNs, Pages->count());
 	}
 	else
-		parsePagesString(iafData.pageList, &pageNs, DocPages.count());
+		parsePagesString(iafData.pageList, &pageNs, Pages->count());
 	Page* oldCurrentPage = currentPage();
 	int z=-2;
 	PageItem *prevItem=0; //Previous item for text frame linking
@@ -3904,7 +3904,7 @@ int ScribusDoc::itemAddUserFrame(InsertAFrameData &iafData)
 															  Um::InsertFrame, "", Um::ICreate));
 	for (uint i=0;i<pageNs.size();++i)
 	{
-		Page* targetPage=Pages->at(pageNs[i]-1);
+		Page* targetPage = Pages->at(pageNs[i]-1);
 		//We need this for the itemAdd, FIXME later
 		setCurrentPage(targetPage);
 		
@@ -3918,8 +3918,7 @@ int ScribusDoc::itemAddUserFrame(InsertAFrameData &iafData)
 			x1=targetPage->xOffset();
 			y1=targetPage->yOffset();
 		}
-		else
-		if (iafData.positionType==2) // Frame starts at top left of page - bleeds
+		else if (iafData.positionType==2) // Frame starts at top left of page - bleeds
 		{
 			x1=targetPage->xOffset()-bleeds.Left;
 			y1=targetPage->yOffset()-bleeds.Top;
@@ -3940,8 +3939,7 @@ int ScribusDoc::itemAddUserFrame(InsertAFrameData &iafData)
 			w1=targetPage->width();
 			h1=targetPage->height();
 		}
-		else
-		if (iafData.sizeType==2) // Frame is size of page + bleed 
+		else if (iafData.sizeType==2) // Frame is size of page + bleed 
 		{
 			w1=targetPage->width()+bleeds.Right+bleeds.Left;
 			h1=targetPage->height()+bleeds.Bottom+bleeds.Top;

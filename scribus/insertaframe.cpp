@@ -255,7 +255,7 @@ void InsertAFrame::slotCreatePageNumberRange( )
 {
 	if (m_Doc!=0)
 	{
-		CreateRange cr(placementPagesLineEdit->text(), m_Doc->DocPages.count(), this);
+		CreateRange cr(placementPagesLineEdit->text(), m_Doc->Pages->count(), this);
 		if (cr.exec())
 		{
 			CreateRangeData crData;
