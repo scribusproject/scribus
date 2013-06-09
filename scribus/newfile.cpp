@@ -365,6 +365,7 @@ void NewDoc::createOpenDocPage()
 	fileDialog = new QFileDialog(openDocFrame, tr("Open"), docDir, formats);
 	fileDialog->setFileMode(QFileDialog::ExistingFile);
 	fileDialog->setAcceptMode(QFileDialog::AcceptOpen);
+	fileDialog->setOption(QFileDialog::DontUseNativeDialog);
 	fileDialog->setReadOnly(true);
 	fileDialog->setSizeGripEnabled(false);
 	fileDialog->setModal(false);
