@@ -7240,7 +7240,7 @@ May raise WrongFrameTypeError if the target frame is not an image frame
     </message>
     <message>
         <source>C&amp;olors...</source>
-        <translation>C&amp;olours...</translation>
+        <translation type="obsolete">C&amp;olours...</translation>
     </message>
     <message>
         <source>Gradients...</source>
@@ -7947,7 +7947,7 @@ May raise WrongFrameTypeError if the target frame is not an image frame
     </message>
     <message>
         <source>Send to Patterns</source>
-        <translation>Send to Patterns</translation>
+        <translation type="obsolete">Send to Patterns</translation>
     </message>
     <message>
         <source>Sticky Tools</source>
@@ -8433,6 +8433,34 @@ May raise WrongFrameTypeError if the target frame is not an image frame
     </message>
     <message>
         <source>Insert PDF Radio Button</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Colors and Fills...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Patterns</source>
+        <translation type="unfinished">Patterns</translation>
+    </message>
+    <message>
+        <source>Inline Items</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Symbol</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Update Document</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Table</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Table</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -9855,6 +9883,10 @@ Configuration invalid</source>
         <source>Select Barcode Type</source>
         <translation type="obsolete">Select Barcode Type</translation>
     </message>
+    <message>
+        <source>Variable number of characters, digits and any symbols.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>BarcodeGeneratorBase</name>
@@ -10101,7 +10133,7 @@ Please choose another.</translation>
     </message>
     <message>
         <source>Save as...</source>
-        <translation>Save as...</translation>
+        <translation type="obsolete">Save as...</translation>
     </message>
     <message>
         <source>Close</source>
@@ -13534,6 +13566,14 @@ failed!</translation>
         <source>Ctrl-V</source>
         <translation>Ctrl-V</translation>
     </message>
+    <message>
+        <source>OK</source>
+        <translation type="unfinished">OK</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished">Cancel</translation>
+    </message>
 </context>
 <context>
     <name>EffectsDialog</name>
@@ -15449,6 +15489,34 @@ converting their vector data into Scribus objects.</source>
     </message>
 </context>
 <context>
+    <name>ImportPubPlugin</name>
+    <message>
+        <source>Import PUB...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>MS Publisher</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>MS Publisher (*.pub *.PUB)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Imports PUB Files</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Imports most MS Publisher files into the current document,
+converting their vector data into Scribus objects.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>All Supported Formats</source>
+        <translation type="unfinished">All Supported Formats</translation>
+    </message>
+</context>
+<context>
     <name>ImportShapePlugin</name>
     <message>
         <source>Import Dia Shapes...</source>
@@ -17335,7 +17403,7 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <source> from 0</source>
-        <translation> from 0</translation>
+        <translation type="obsolete"> from 0</translation>
     </message>
     <message>
         <source>Create Page(s)</source>
@@ -17919,7 +17987,7 @@ If no handle is selected all handles will be reset.</source>
     </message>
     <message>
         <source>&amp;End Editing</source>
-        <translation>&amp;End Editing</translation>
+        <translation type="obsolete">&amp;End Editing</translation>
     </message>
     <message>
         <source>Move Control Points Independently</source>
@@ -18044,6 +18112,18 @@ If no handle is selected all handles will be reset.</source>
     <message>
         <source>Set the Shape to the Clipping Path of the Image</source>
         <translation>Set the Shape to the Clipping Path of the Image</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation type="unfinished">OK</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished">Cancel</translation>
+    </message>
+    <message>
+        <source>Reset all edits</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -18244,6 +18324,14 @@ You cannot switch to different notes style before you apply that new one or pres
     <message>
         <source>The file could not be imported</source>
         <translation>The file could not be imported</translation>
+    </message>
+    <message>
+        <source>OpenDocument 1.0 Draw (*.odg *.ODG)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>OpenOffice.org 1.x Draw (*.sxd *.SXD)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -19742,10 +19830,6 @@ Often used for allowing items to be placed across page spreads</source>
 <context>
     <name>PaintManagerBase</name>
     <message>
-        <source>Manage Paints</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
@@ -19839,6 +19923,10 @@ p, li { white-space: pre-wrap; }
     <message>
         <source>Cancel</source>
         <translation type="unfinished">Cancel</translation>
+    </message>
+    <message>
+        <source>Manage Colors and Fills</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -28433,15 +28521,15 @@ Corners:</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Drop Cap</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Color &amp;&amp; Effects</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Columns &amp;&amp; Text Distances</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Paragraph Effects</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -29095,6 +29183,160 @@ Corners:</translation>
     </message>
 </context>
 <context>
+    <name>PropertyWidget_ParEffect</name>
+    <message>
+        <source>Lines</source>
+        <translation type="unfinished">Lines</translation>
+    </message>
+    <message>
+        <source>Drop Caps</source>
+        <translation type="unfinished">Drop Caps</translation>
+    </message>
+    <message>
+        <source>Bulleted List</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Bullet Char(s)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enhanced char table to choose bullet chars</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Char Table</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Numbered List</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Level</source>
+        <translation type="unfinished">Level</translation>
+    </message>
+    <message>
+        <source>Set</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Format</source>
+        <translation type="unfinished">Format</translation>
+    </message>
+    <message>
+        <source>Start</source>
+        <translation type="unfinished">Start</translation>
+    </message>
+    <message>
+        <source>Prefix</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Suffix</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Offset</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Auto-Indent</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Char Style</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Choose chracter style or leave blank for use default paragraph style</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>No Paragraph Effects</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Numerated List</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>PropertyWidget_ParEffectBase</name>
+    <message>
+        <source>Form</source>
+        <translation type="unfinished">Form</translation>
+    </message>
+    <message>
+        <source>Effect Parameters</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Char Style</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>AutoIndent</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Offset</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Drop Caps</source>
+        <translation type="unfinished">Drop Caps</translation>
+    </message>
+    <message>
+        <source>Number of lines used by the drop cap</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Lines</source>
+        <translation type="unfinished">Lines</translation>
+    </message>
+    <message>
+        <source>Numbered List</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Level</source>
+        <translation type="unfinished">Level</translation>
+    </message>
+    <message>
+        <source>Start</source>
+        <translation type="unfinished">Start</translation>
+    </message>
+    <message>
+        <source>Set</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Format</source>
+        <translation type="unfinished">Format</translation>
+    </message>
+    <message>
+        <source>Prefix</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Suffix</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Bulleted List</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Bullet Char(s)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Char Table</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>PropertyWidget_PathText</name>
     <message>
         <source>Default</source>
@@ -29188,6 +29430,17 @@ Corners:</translation>
     <message>
         <source>Frame</source>
         <translation type="unfinished">Frame</translation>
+    </message>
+</context>
+<context>
+    <name>PubPlug</name>
+    <message>
+        <source>Importing: %1</source>
+        <translation type="unfinished">Importing: %1</translation>
+    </message>
+    <message>
+        <source>Analyzing File:</source>
+        <translation type="unfinished">Analysing File:</translation>
     </message>
 </context>
 <context>
@@ -31042,7 +31295,7 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>&lt;p&gt;You are trying to import more pages than there are available in the current document counting from the active page.&lt;/p&gt;Choose one of the following:&lt;br&gt;&lt;ul&gt;&lt;li&gt;&lt;b&gt;Create&lt;/b&gt; missing pages&lt;/li&gt;&lt;li&gt;&lt;b&gt;Import&lt;/b&gt; pages until the last page&lt;/li&gt;&lt;li&gt;&lt;b&gt;Cancel&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;</source>
-        <translation>&lt;p&gt;You are trying to import more pages than there are available in the current document counting from the active page.&lt;/p&gt;Choose one of the following:&lt;br&gt;&lt;ul&gt;&lt;li&gt;&lt;b&gt;Create&lt;/b&gt; missing pages&lt;/li&gt;&lt;li&gt;&lt;b&gt;Import&lt;/b&gt; pages until the last page&lt;/li&gt;&lt;li&gt;&lt;b&gt;Cancel&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;</translation>
+        <translation type="obsolete">&lt;p&gt;You are trying to import more pages than there are available in the current document counting from the active page.&lt;/p&gt;Choose one of the following:&lt;br&gt;&lt;ul&gt;&lt;li&gt;&lt;b&gt;Create&lt;/b&gt; missing pages&lt;/li&gt;&lt;li&gt;&lt;b&gt;Import&lt;/b&gt; pages until the last page&lt;/li&gt;&lt;li&gt;&lt;b&gt;Cancel&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;</translation>
     </message>
     <message>
         <source>C&amp;reate</source>
@@ -32238,6 +32491,14 @@ Therefore the image may be not correct</source>
         <source>Unaceptable settings for note style</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>PUB Importer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;p&gt;You are trying to import more pages than there are available in the current document counting from the active page.&lt;/p&gt;Choose one of the following:&lt;ul&gt;&lt;li&gt;&lt;b&gt;Create&lt;/b&gt; missing pages&lt;/li&gt;&lt;li&gt;&lt;b&gt;Import&lt;/b&gt; pages until the last page&lt;/li&gt;&lt;li&gt;&lt;b&gt;Cancel&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QTextEdit</name>
@@ -33126,7 +33387,7 @@ Please choose another.</source>
     </message>
     <message>
         <source>Drop Cap Offset</source>
-        <translation type="unfinished">Drop Cap Offset</translation>
+        <translation type="obsolete">Drop Cap Offset</translation>
     </message>
     <message>
         <source>First Line Indent</source>
@@ -33273,10 +33534,6 @@ Expressed as a percentage of the current white space value.</translation>
         <translation>Right Only</translation>
     </message>
     <message>
-        <source>Character Style for Drop Cap:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Orphans and Widows</source>
         <translation type="unfinished"></translation>
     </message>
@@ -33347,6 +33604,114 @@ Expressed as a percentage of the current white space value.</translation>
         <source>Right Only</source>
         <comment>optical margins</comment>
         <translation type="unfinished">Right Only</translation>
+    </message>
+    <message>
+        <source>Paragraph Effects</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Character Style for Effect:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>AutoIndent</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use Parent`s Values</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Bullets</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Bullet Char/String</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Char Table</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Numeration</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Set:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Level</source>
+        <translation type="unfinished">Level</translation>
+    </message>
+    <message>
+        <source>Create New Set:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Nums Format</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Start with</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Prefix</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Suffix</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Restart</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Restart after other format</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Restart after higher level</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enhanced Char Table for inserting customs chars as bullets</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Paragraph Effects Chars Offset</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hang Paragraph Effect before paragraph indent</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Numbering Style</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Document</source>
+        <translation type="unfinished">Document</translation>
+    </message>
+    <message>
+        <source>Section</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Story</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Page</source>
+        <translation type="unfinished">Page</translation>
+    </message>
+    <message>
+        <source>Frame</source>
+        <translation type="unfinished">Frame</translation>
     </message>
 </context>
 <context>
@@ -34994,7 +35359,7 @@ If you save it in this version, it will no longer be readable by older Scribus v
     </message>
     <message>
         <source>Do you really want to clear all your text?</source>
-        <translation>Do you really want to clear all your text?</translation>
+        <translation type="obsolete">Do you really want to clear all your text?</translation>
     </message>
     <message>
         <source>Cannot Delete In-Use Item</source>
@@ -35077,6 +35442,10 @@ Rotation: %4</translation>
     </message>
     <message>
         <source>%1 note style has document as range and provide same numbering style as set %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Do you really want to clear the content of all selected frames?</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -35583,7 +35952,7 @@ Consider using the Preflight Verifier to correct them</translation>
     </message>
     <message>
         <source>Send to Scrapbook</source>
-        <translation type="unfinished">Send to Scrapbook</translation>
+        <translation type="obsolete">Send to Scrapbook</translation>
     </message>
     <message>
         <source>The file may be damaged or may have been produced in a later version of Scribus.</source>
@@ -35662,10 +36031,6 @@ Consider using the Preflight Verifier to correct them</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>%1 selected, Size = %2 x %3</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>%1 Objects selected, Selection Size = %2 x %3</source>
         <translation type="unfinished"></translation>
     </message>
@@ -35715,6 +36080,74 @@ Consider using the Preflight Verifier to correct them</translation>
     </message>
     <message>
         <source>Edit </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Duplicate/Transform</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Grouping</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Locking</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Send to</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Scrapbook</source>
+        <translation type="unfinished">Scrapbook</translation>
+    </message>
+    <message>
+        <source>Adjust</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Image</source>
+        <translation type="unfinished">Image</translation>
+    </message>
+    <message>
+        <source>Text Frame Links</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Path Tools</source>
+        <translation type="unfinished">Path Tools</translation>
+    </message>
+    <message>
+        <source>Welding</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Zoom</source>
+        <translation type="unfinished">Zoom</translation>
+    </message>
+    <message>
+        <source>Preview</source>
+        <translation type="unfinished">Preview</translation>
+    </message>
+    <message>
+        <source>Measures</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Text Frames</source>
+        <translation type="unfinished">Text Frames</translation>
+    </message>
+    <message>
+        <source>Image Frames</source>
+        <translation type="unfinished">Image Frames</translation>
+    </message>
+    <message>
+        <source>Grids and Guides</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>selected, Size</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -36043,7 +36476,7 @@ You can choose between normal and several colour blindness forms</translation>
     </message>
     <message>
         <source>Send to Scrapbook</source>
-        <translation type="unfinished">Send to Scrapbook</translation>
+        <translation type="obsolete">Send to Scrapbook</translation>
     </message>
     <message>
         <source>Do you want to insert the frame into the selected text chain? If so, where would you like to insert it?</source>
@@ -36067,6 +36500,14 @@ You can choose between normal and several colour blindness forms</translation>
     </message>
     <message>
         <source>Insert Mark</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Locking</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Send to</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

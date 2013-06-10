@@ -6899,12 +6899,12 @@ Az exportálandó fájl neve ilyen lesz: dokumentumnév-oldalszám.fájltípus</
 <context>
     <name>FileLoader</name>
     <message>
-        <location filename="../../../scribus/fileloader.cpp" line="450"/>
+        <location filename="../../../scribus/fileloader.cpp" line="441"/>
         <source>Some fonts used by this document have been substituted:</source>
         <translation>A dokumentum néhány betűkészlete helyettesítve van:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/fileloader.cpp" line="454"/>
+        <location filename="../../../scribus/fileloader.cpp" line="445"/>
         <source> was replaced by: </source>
         <translation> cserélve: </translation>
     </message>
@@ -8144,33 +8144,33 @@ converting their vector data into Scribus objects.</source>
         <translation>A legtöbb Illustrator fájlt képes az aktuális dokumentumba importálni, a vektoros adataikat Scribus objektumokká konvertálva.</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/import/ai/importaiplugin.cpp" line="167"/>
+        <location filename="../../../scribus/plugins/import/ai/importaiplugin.cpp" line="166"/>
         <source>This file contains 2 versions of the data.</source>
         <translation>A fájl 2 adattípust tartalmaz.</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/import/ai/importaiplugin.cpp" line="168"/>
+        <location filename="../../../scribus/plugins/import/ai/importaiplugin.cpp" line="167"/>
         <source>Choose which one should be imported</source>
         <translation>Válassza ki, hogy mely kerüljün importálásra</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/import/ai/importaiplugin.cpp" line="170"/>
+        <location filename="../../../scribus/plugins/import/ai/importaiplugin.cpp" line="169"/>
         <source>Use the pdf part</source>
         <translation>PDF rész alkalmazása</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/import/ai/importaiplugin.cpp" line="171"/>
+        <location filename="../../../scribus/plugins/import/ai/importaiplugin.cpp" line="170"/>
         <source>Use the ai part</source>
         <translation>AI rész alkalmazása</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/import/ai/importaiplugin.cpp" line="180"/>
+        <location filename="../../../scribus/plugins/import/ai/importaiplugin.cpp" line="179"/>
         <source>The PDF Import plugin could not be found</source>
         <translation>A PDF importáló bővítény nem található</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/import/ai/importaiplugin.cpp" line="194"/>
-        <location filename="../../../scribus/plugins/import/ai/importaiplugin.cpp" line="214"/>
+        <location filename="../../../scribus/plugins/import/ai/importaiplugin.cpp" line="193"/>
+        <location filename="../../../scribus/plugins/import/ai/importaiplugin.cpp" line="213"/>
         <source>The file could not be imported</source>
         <translation>A fájl nem importálható</translation>
     </message>
@@ -8206,7 +8206,7 @@ converting their vector data into Scribus objects.</source>
         <translation>A legtöbb bináris CGM fájlt képes az aktuális dokumentumba importálni, a vektoros adataikat Scribus objektumokká konvertálva.</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/import/cgm/importcgmplugin.cpp" line="130"/>
+        <location filename="../../../scribus/plugins/import/cgm/importcgmplugin.cpp" line="129"/>
         <source>All Supported Formats</source>
         <translation>Minden támogatott formátum</translation>
     </message>
@@ -8230,7 +8230,7 @@ converting their vector data into Scribus objects.</source>
         <translation>A legtöbb Cvg fájlt képes az aktuális dokumentumba importálni, a vektoros adataikat Scribus objektumokká konvertálva.</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/import/cvg/importcvgplugin.cpp" line="123"/>
+        <location filename="../../../scribus/plugins/import/cvg/importcvgplugin.cpp" line="122"/>
         <source>All Supported Formats</source>
         <translation>Minden támogatott formátum</translation>
     </message>
@@ -8266,7 +8266,7 @@ converting their vector data into Scribus objects.</source>
         <translation>A legtöbb DRW fájlt képes az aktuális dokumentumba importálni, a vektoros adataikat Scribus objektumokká konvertálva.</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/import/drw/importdrwplugin.cpp" line="131"/>
+        <location filename="../../../scribus/plugins/import/drw/importdrwplugin.cpp" line="130"/>
         <source>All Supported Formats</source>
         <translation>Minden támogatott formátum</translation>
     </message>
@@ -8338,18 +8338,18 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <location filename="../../../scribus/plugins/import/idml/importidmlplugin.cpp" line="64"/>
-        <location filename="../../../scribus/plugins/import/idml/importidmlplugin.cpp" line="114"/>
+        <location filename="../../../scribus/plugins/import/idml/importidmlplugin.cpp" line="113"/>
         <source>Adobe Indesign IDMS</source>
         <translation>Adobe Indesign IDMS</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/import/idml/importidmlplugin.cpp" line="65"/>
-        <location filename="../../../scribus/plugins/import/idml/importidmlplugin.cpp" line="115"/>
+        <location filename="../../../scribus/plugins/import/idml/importidmlplugin.cpp" line="114"/>
         <source>Adobe Indesign IDMS (*.idms *.IDMS)</source>
         <translation>Adobe Indesign IDMS (*.idml *.IDMS)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/import/idml/importidmlplugin.cpp" line="149"/>
+        <location filename="../../../scribus/plugins/import/idml/importidmlplugin.cpp" line="147"/>
         <source>All Supported Formats</source>
         <translation>Minden támogatott formátum</translation>
     </message>
@@ -8392,7 +8392,7 @@ converting their vector data into Scribus objects.</source>
         <translation>A legtöbb Mac Pict fájlt képes az aktuális dokumentumba importálni, a vektoros adataikat Scribus objektumokká konvertálva.</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/import/pct/importpctplugin.cpp" line="123"/>
+        <location filename="../../../scribus/plugins/import/pct/importpctplugin.cpp" line="122"/>
         <source>All Supported Formats</source>
         <translation>Minden támogatott formátum</translation>
     </message>
@@ -8416,12 +8416,12 @@ converting their vector data into Scribus objects.</source>
         <translation>A legtöbb PDF fájlt képes az aktuális dokumentumba importálni, a vektoros adataikat Scribus objektumokká konvertálva.</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/import/pdf/importpdfplugin.cpp" line="164"/>
+        <location filename="../../../scribus/plugins/import/pdf/importpdfplugin.cpp" line="161"/>
         <source>All Supported Formats</source>
         <translation>Minden támogatott formátum</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/import/pdf/importpdfplugin.cpp" line="217"/>
+        <location filename="../../../scribus/plugins/import/pdf/importpdfplugin.cpp" line="214"/>
         <source>The Import plugin cannot handle Postscript files</source>
         <translation>Az importáló bővítmény nem képes Postscript fájlokat kezelni</translation>
     </message>
@@ -8457,7 +8457,7 @@ converting their vector data into Scribus objects.</source>
         <translation>A legtöbb MS Publisher fájlt képes az aktuális dokumentumba importálni, a vektoros adataikat Scribus objektumokká konvertálva.</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/import/pub/importpubplugin.cpp" line="125"/>
+        <location filename="../../../scribus/plugins/import/pub/importpubplugin.cpp" line="124"/>
         <source>All Supported Formats</source>
         <translation>Minden támogatott formátum</translation>
     </message>
@@ -8497,7 +8497,7 @@ converting their vector data into Scribus objects.</source>
         <translation>Dia alakzat &quot;*.shape&quot; fájl (*.shape *.SHAPE)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/import/shape/importshapeplugin.cpp" line="124"/>
+        <location filename="../../../scribus/plugins/import/shape/importshapeplugin.cpp" line="123"/>
         <source>All Supported Formats</source>
         <translation>Minden támogatott formátum</translation>
     </message>
@@ -8533,7 +8533,7 @@ converting their vector data into Scribus objects.</source>
         <translation>A legtöbb Kivio rajzsablont képes az aktuális dokumentumba importálni, a vektoros adataikat Scribus objektumokká konvertálva.</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/import/sml/importsmlplugin.cpp" line="124"/>
+        <location filename="../../../scribus/plugins/import/sml/importsmlplugin.cpp" line="123"/>
         <source>All Supported Formats</source>
         <translation>Minden támogatott formátum</translation>
     </message>
@@ -8557,7 +8557,7 @@ converting their vector data into Scribus objects.</source>
         <translation>A legtöbb WPG fájlt képes az aktuális dokumentumba importálni, a vektoros adataikat Scribus objektumokká konvertálva.</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/import/wpg/importwpgplugin.cpp" line="123"/>
+        <location filename="../../../scribus/plugins/import/wpg/importwpgplugin.cpp" line="122"/>
         <source>All Supported Formats</source>
         <translation>Minden támogatott formátum</translation>
     </message>
@@ -8593,7 +8593,7 @@ converting their vector data into Scribus objects.</source>
         <translation>A legtöbb Xara fájlt képes az aktuális dokumentumba importálni, a vektoros adataikat Scribus objektumokká konvertálva.</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/import/xar/importxarplugin.cpp" line="124"/>
+        <location filename="../../../scribus/plugins/import/xar/importxarplugin.cpp" line="123"/>
         <source>All Supported Formats</source>
         <translation>Minden támogatott formátum</translation>
     </message>
@@ -8617,7 +8617,7 @@ converting their vector data into Scribus objects.</source>
         <translation>A legtöbb Xfig fájlt képes az aktuális dokumentumba importálni, a vektoros adataikat Scribus objektumokká konvertálva.</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/import/xfig/importxfigplugin.cpp" line="123"/>
+        <location filename="../../../scribus/plugins/import/xfig/importxfigplugin.cpp" line="122"/>
         <source>All Supported Formats</source>
         <translation>Minden támogatott formátum</translation>
     </message>
@@ -11726,12 +11726,12 @@ Nem lehet átváltani más stílusra, míg nem alkalmazzuk a változásokat, vag
 <context>
     <name>OODPlug</name>
     <message>
-        <location filename="../../../scribus/plugins/import/oodraw/oodrawimp.cpp" line="422"/>
+        <location filename="../../../scribus/plugins/import/oodraw/oodrawimp.cpp" line="420"/>
         <source>This document does not seem to be an OpenOffice Draw file.</source>
         <translation>Ez a dokumentum nem OpenOffice Rajz fájl.</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/import/oodraw/oodrawimp.cpp" line="646"/>
+        <location filename="../../../scribus/plugins/import/oodraw/oodrawimp.cpp" line="644"/>
         <source>Group%1</source>
         <translation>Csoport%1</translation>
     </message>
@@ -11772,18 +11772,18 @@ Nem lehet átváltani más stílusra, míg nem alkalmazzuk a változásokat, vag
     </message>
     <message>
         <location filename="../../../scribus/plugins/import/oodraw/oodrawimp.cpp" line="96"/>
-        <location filename="../../../scribus/plugins/import/oodraw/oodrawimp.cpp" line="138"/>
+        <location filename="../../../scribus/plugins/import/oodraw/oodrawimp.cpp" line="137"/>
         <source>OpenOffice.org 1.x Draw</source>
         <comment>Import/export format name</comment>
         <translation>OpenOffice.org 1.x Ábra</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/import/oodraw/oodrawimp.cpp" line="212"/>
+        <location filename="../../../scribus/plugins/import/oodraw/oodrawimp.cpp" line="210"/>
         <source>This file contains some unsupported features</source>
         <translation>A fájl néhány nem támogatott szolgáltatást tartalmaz</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/import/oodraw/oodrawimp.cpp" line="210"/>
+        <location filename="../../../scribus/plugins/import/oodraw/oodrawimp.cpp" line="208"/>
         <source>The file could not be imported</source>
         <translation>A fájl nem importálható</translation>
     </message>
@@ -17391,8 +17391,8 @@ Kívánja ezt alkalmazni?</translation>
         <translation>A betűkészlet-keresés útvonala csak a Fájl &gt; Beállítások párbeszédablakban állítható be, és csak akkor, ha nincs megnyitott dokumentum. Zárjon be minden dokumentumot, majd használja a Fájl &gt;Beállítások &gt; Betűkészletek palettát a betűkészlet-keresés útvonalának módosítására.</translation>
     </message>
     <message>
-        <location filename="../../../scribus/ui/prefs_fonts.cpp" line="300"/>
-        <location filename="../../../scribus/ui/prefs_fonts.cpp" line="324"/>
+        <location filename="../../../scribus/ui/prefs_fonts.cpp" line="308"/>
+        <location filename="../../../scribus/ui/prefs_fonts.cpp" line="332"/>
         <source>Choose a Directory</source>
         <translation>Válasszon egy mappát</translation>
     </message>
@@ -23412,12 +23412,12 @@ Figyelem: a PDF űrlapok nem kerülnek exportálásra.</translation>
 <context>
     <name>PubPlug</name>
     <message>
-        <location filename="../../../scribus/plugins/import/pub/importpub.cpp" line="1426"/>
+        <location filename="../../../scribus/plugins/import/pub/importpub.cpp" line="1462"/>
         <source>Importing: %1</source>
         <translation>Importálás: %1</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/import/pub/importpub.cpp" line="1429"/>
+        <location filename="../../../scribus/plugins/import/pub/importpub.cpp" line="1465"/>
         <source>Analyzing File:</source>
         <translation>Fájl elemzése:</translation>
     </message>
@@ -24152,7 +24152,7 @@ Check path and filename.</source>
         <translation>Szöveg importálása</translation>
     </message>
     <message>
-        <location filename="../../../scribus/fileloader.cpp" line="87"/>
+        <location filename="../../../scribus/fileloader.cpp" line="83"/>
         <location filename="../../../scribus/gtgettext.cpp" line="161"/>
         <location filename="../../../scribus/scgtplugin.cpp" line="68"/>
         <location filename="../../../scribus/util_formats.cpp" line="217"/>
@@ -24172,11 +24172,11 @@ Check path and filename.</source>
         <translation>Előkészítés...</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/fileloader/scribus12format/scribus12format.cpp" line="1254"/>
-        <location filename="../../../scribus/plugins/fileloader/scribus134format/scribus134format.cpp" line="576"/>
-        <location filename="../../../scribus/plugins/fileloader/scribus13format/scribus13format.cpp" line="1069"/>
-        <location filename="../../../scribus/plugins/fileloader/scribus150format/scribus150format.cpp" line="1192"/>
-        <location filename="../../../scribus/plugins/fileloader/scribus150format/scribus150format.cpp" line="1787"/>
+        <location filename="../../../scribus/plugins/fileloader/scribus12format/scribus12format.cpp" line="1253"/>
+        <location filename="../../../scribus/plugins/fileloader/scribus134format/scribus134format.cpp" line="575"/>
+        <location filename="../../../scribus/plugins/fileloader/scribus13format/scribus13format.cpp" line="1068"/>
+        <location filename="../../../scribus/plugins/fileloader/scribus150format/scribus150format.cpp" line="1191"/>
+        <location filename="../../../scribus/plugins/fileloader/scribus150format/scribus150format.cpp" line="1786"/>
         <source>Background</source>
         <translation>Háttér</translation>
     </message>
@@ -24342,24 +24342,24 @@ Check path and filename.</source>
         <translation>Saját sablonok</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/import/ai/importaiplugin.cpp" line="130"/>
-        <location filename="../../../scribus/plugins/import/cgm/importcgmplugin.cpp" line="130"/>
-        <location filename="../../../scribus/plugins/import/cvg/importcvgplugin.cpp" line="123"/>
-        <location filename="../../../scribus/plugins/import/drw/importdrwplugin.cpp" line="131"/>
-        <location filename="../../../scribus/plugins/import/idml/importidmlplugin.cpp" line="149"/>
+        <location filename="../../../scribus/plugins/import/ai/importaiplugin.cpp" line="129"/>
+        <location filename="../../../scribus/plugins/import/cgm/importcgmplugin.cpp" line="129"/>
+        <location filename="../../../scribus/plugins/import/cvg/importcvgplugin.cpp" line="122"/>
+        <location filename="../../../scribus/plugins/import/drw/importdrwplugin.cpp" line="130"/>
+        <location filename="../../../scribus/plugins/import/idml/importidmlplugin.cpp" line="147"/>
         <location filename="../../../scribus/plugins/import/idml_old/importidml.cpp" line="101"/>
-        <location filename="../../../scribus/plugins/import/oodraw/oodrawimp.cpp" line="174"/>
-        <location filename="../../../scribus/plugins/import/pct/importpctplugin.cpp" line="123"/>
-        <location filename="../../../scribus/plugins/import/pdf/importpdfplugin.cpp" line="164"/>
-        <location filename="../../../scribus/plugins/import/ps/importpsplugin.cpp" line="155"/>
-        <location filename="../../../scribus/plugins/import/pub/importpubplugin.cpp" line="125"/>
-        <location filename="../../../scribus/plugins/import/shape/importshapeplugin.cpp" line="124"/>
-        <location filename="../../../scribus/plugins/import/sml/importsmlplugin.cpp" line="124"/>
-        <location filename="../../../scribus/plugins/import/svg/svgplugin.cpp" line="163"/>
-        <location filename="../../../scribus/plugins/import/wmf/wmfimportplugin.cpp" line="144"/>
-        <location filename="../../../scribus/plugins/import/wpg/importwpgplugin.cpp" line="123"/>
-        <location filename="../../../scribus/plugins/import/xar/importxarplugin.cpp" line="124"/>
-        <location filename="../../../scribus/plugins/import/xfig/importxfigplugin.cpp" line="123"/>
+        <location filename="../../../scribus/plugins/import/oodraw/oodrawimp.cpp" line="172"/>
+        <location filename="../../../scribus/plugins/import/pct/importpctplugin.cpp" line="122"/>
+        <location filename="../../../scribus/plugins/import/pdf/importpdfplugin.cpp" line="161"/>
+        <location filename="../../../scribus/plugins/import/ps/importpsplugin.cpp" line="152"/>
+        <location filename="../../../scribus/plugins/import/pub/importpubplugin.cpp" line="124"/>
+        <location filename="../../../scribus/plugins/import/shape/importshapeplugin.cpp" line="123"/>
+        <location filename="../../../scribus/plugins/import/sml/importsmlplugin.cpp" line="123"/>
+        <location filename="../../../scribus/plugins/import/svg/svgplugin.cpp" line="162"/>
+        <location filename="../../../scribus/plugins/import/wmf/wmfimportplugin.cpp" line="143"/>
+        <location filename="../../../scribus/plugins/import/wpg/importwpgplugin.cpp" line="122"/>
+        <location filename="../../../scribus/plugins/import/xar/importxarplugin.cpp" line="123"/>
+        <location filename="../../../scribus/plugins/import/xfig/importxfigplugin.cpp" line="122"/>
         <source>Open</source>
         <translation>Megnyitás</translation>
     </message>
@@ -25611,7 +25611,7 @@ Külső hivatkozások
     <message>
         <location filename="../../../scribus/plugins/newfromtemplateplugin/nftemplate.cpp" line="117"/>
         <location filename="../../../scribus/scribus.cpp" line="1899"/>
-        <location filename="../../../scribus/scribus.cpp" line="2149"/>
+        <location filename="../../../scribus/scribus.cpp" line="2148"/>
         <source>Document Template: </source>
         <translation>Dokumentumsablon: </translation>
     </message>
@@ -25739,9 +25739,9 @@ lista hiányos a meghívott funkciók miatt.</translation>
         <translation>OpenDocument szöveg dokumentumok</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/fileloader/scribus134format/scribus134format.cpp" line="3174"/>
-        <location filename="../../../scribus/plugins/fileloader/scribus13format/scribus13format.cpp" line="2140"/>
-        <location filename="../../../scribus/plugins/fileloader/scribus150format/scribus150format.cpp" line="5688"/>
+        <location filename="../../../scribus/plugins/fileloader/scribus134format/scribus134format.cpp" line="3173"/>
+        <location filename="../../../scribus/plugins/fileloader/scribus13format/scribus13format.cpp" line="2139"/>
+        <location filename="../../../scribus/plugins/fileloader/scribus150format/scribus150format.cpp" line="5687"/>
         <source>Copy #%1 of </source>
         <translation>#%1 másolata</translation>
     </message>
@@ -25866,22 +25866,22 @@ lista hiányos a meghívott funkciók miatt.</translation>
         <translation>A Scribus 1.5.x fejlesztői verzióját futtatja. A dokumentum, melyen dolgozik, még a Scribus 1.2.x verziójával készült. Elmentve a fájl a Scribus 1.5.x verziójával már nem lehet többé megnyitni a Scribus 1.2.x verzióval. Hogy megőrizze a lehetőséget, hogy 1.2.x alatt is tudja szerkeszteni mentse el más néven. Biztosan folytatható a műveletet?</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="3839"/>
+        <location filename="../../../scribus/scribus.cpp" line="3837"/>
         <source>&lt;p&gt;You are trying to import more pages than there are available in the current document counting from the active page.&lt;/p&gt;Choose one of the following:&lt;ul&gt;&lt;li&gt;&lt;b&gt;Create&lt;/b&gt; missing pages&lt;/li&gt;&lt;li&gt;&lt;b&gt;Import&lt;/b&gt; pages until the last page&lt;/li&gt;&lt;li&gt;&lt;b&gt;Cancel&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;</source>
         <translation>&lt;p&gt;Több oldalt próbált meg importálni, mint ahány rendelkezésre áll a dokumentumban az aktív oldaltól számítva.&lt;/p&gt;Válasszon az alábbiak közül:&lt;ul&gt;&lt;li&gt;Hiányzó oldalak &lt;b&gt;létrehozása&lt;/b&gt;&lt;/li&gt;&lt;li&gt;&lt;b&gt;Importálás&lt;/b&gt; az utolsó oldalig &lt;/li&gt;&lt;li&gt;&lt;b&gt;Mégse&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="3843"/>
+        <location filename="../../../scribus/scribus.cpp" line="3841"/>
         <source>C&amp;reate</source>
         <translation>&amp;Létrehozás</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="3844"/>
+        <location filename="../../../scribus/scribus.cpp" line="3842"/>
         <source>&amp;Import</source>
         <translation>&amp;Importálás</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="4601"/>
+        <location filename="../../../scribus/scribus.cpp" line="4599"/>
         <source>The changes to your document have not been saved and you have requested to revert them. Do you wish to continue?</source>
         <translation>A dokumentum változásai nem lettek elmentve és vissza akarja vonni. Folytatni szeretné?</translation>
     </message>
@@ -25912,7 +25912,7 @@ lista hiányos a meghívott funkciók miatt.</translation>
         <translation>Vonalkód előállító</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/import/oodraw/oodrawimp.cpp" line="174"/>
+        <location filename="../../../scribus/plugins/import/oodraw/oodrawimp.cpp" line="172"/>
         <source>OpenOffice.org Draw (*.sxd *.odg);;All Files (*)</source>
         <translation>OpenOffice.org Rajz (*.sxd *.odg);;Minden fájl (*)</translation>
     </message>
@@ -27109,7 +27109,7 @@ A kép valószínű nem lesz így helyes</translation>
         <translation>Hunspell bővítmény</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribusdoc.cpp" line="18439"/>
+        <location filename="../../../scribus/scribusdoc.cpp" line="18438"/>
         <source>Unaceptable settings for note style</source>
         <translation>Nem elfogadható beállítások a jegyzetstílusok számára</translation>
     </message>
@@ -28797,7 +28797,7 @@ converting their vector data into Scribus objects.</source>
         <translation>A legtöbb SVG fájlt képes az aktuális dokumentumba importálni, a vektoros adataikat Scribus objektumokká konvertálva.</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/import/svg/svgplugin.cpp" line="200"/>
+        <location filename="../../../scribus/plugins/import/svg/svgplugin.cpp" line="199"/>
         <source>The file could not be imported</source>
         <translation>A fájl nem importálható</translation>
     </message>
@@ -28805,7 +28805,7 @@ converting their vector data into Scribus objects.</source>
 <context>
     <name>SVGPlug</name>
     <message>
-        <location filename="../../../scribus/plugins/import/svg/svgplugin.cpp" line="1259"/>
+        <location filename="../../../scribus/plugins/import/svg/svgplugin.cpp" line="1258"/>
         <source>Group%1</source>
         <translation>Csoport%1</translation>
     </message>
@@ -30170,8 +30170,8 @@ converting their vector data into Scribus objects.</source>
         <translation>Scribus 1.2.x dokumentum</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/fileloader/scribus12format/scribus12format.cpp" line="1888"/>
-        <location filename="../../../scribus/plugins/fileloader/scribus12format/scribus12format.cpp" line="2424"/>
+        <location filename="../../../scribus/plugins/fileloader/scribus12format/scribus12format.cpp" line="1887"/>
+        <location filename="../../../scribus/plugins/fileloader/scribus12format/scribus12format.cpp" line="2423"/>
         <source>Copy #%1 of </source>
         <translation>#%1 másolata</translation>
     </message>
@@ -30186,12 +30186,12 @@ converting their vector data into Scribus objects.</source>
         <translation>Lehetővé teszi a Scribus számára 1.2.x formátumú fájlok betöltését.</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/fileloader/scribus12format/scribus12format.cpp" line="483"/>
+        <location filename="../../../scribus/plugins/fileloader/scribus12format/scribus12format.cpp" line="482"/>
         <source>Group%1</source>
         <translation>Csoport%1</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/fileloader/scribus12format/scribus12format.cpp" line="1364"/>
+        <location filename="../../../scribus/plugins/fileloader/scribus12format/scribus12format.cpp" line="1363"/>
         <source>You have opened a file produced by Scribus 1.2.x.
 If you save it in this version, it will no longer be readable by older Scribus versions.</source>
         <translation>Egy olyan fájlt nyitott meg, amelyet a Scribus 1.2.x hozott létre.
@@ -30201,7 +30201,7 @@ Ha elmenti ebben a verzióban, a régebbi Scribus verziók már nem fogják töb
 <context>
     <name>Scribus134Format</name>
     <message>
-        <location filename="../../../scribus/plugins/fileloader/scribus134format/scribus134format.cpp" line="3583"/>
+        <location filename="../../../scribus/plugins/fileloader/scribus134format/scribus134format.cpp" line="3582"/>
         <source>Copy #%1 of </source>
         <translation>#%1 másolata</translation>
     </message>
@@ -30225,7 +30225,7 @@ Ha elmenti ebben a verzióban, a régebbi Scribus verziók már nem fogják töb
 <context>
     <name>Scribus13Format</name>
     <message>
-        <location filename="../../../scribus/plugins/fileloader/scribus13format/scribus13format.cpp" line="2653"/>
+        <location filename="../../../scribus/plugins/fileloader/scribus13format/scribus13format.cpp" line="2652"/>
         <source>Copy #%1 of </source>
         <translation>#%1 másolata</translation>
     </message>
@@ -30246,7 +30246,7 @@ Ha elmenti ebben a verzióban, a régebbi Scribus verziók már nem fogják töb
         <translation>Lehetővé teszi a Scribus számára 1.3.0–1.3.3.x formátumú fájlok betöltését.</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/fileloader/scribus13format/scribus13format.cpp" line="1183"/>
+        <location filename="../../../scribus/plugins/fileloader/scribus13format/scribus13format.cpp" line="1182"/>
         <source>You have opened a file produced by Scribus 1.3.3.x.
 If you save it in this version, it will no longer be readable by older Scribus versions.</source>
         <translation>Egy olyan fájlt nyitott meg, amelyet a Scribus 1.3.3.x hozott létre.
@@ -30272,7 +30272,7 @@ Ha elmenti ebben a verzióban, a régebbi Scribus verziók már nem fogják töb
         <translation>Scribus 1.5.0 dokumentum</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/fileloader/scribus150format/scribus150format.cpp" line="6318"/>
+        <location filename="../../../scribus/plugins/fileloader/scribus150format/scribus150format.cpp" line="6317"/>
         <source>Copy #%1 of </source>
         <translation>#%1 másolata</translation>
     </message>
@@ -30345,27 +30345,27 @@ Ha elmenti ebben a verzióban, a régebbi Scribus verziók már nem fogják töb
         <translation>Háttér</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribusdoc.cpp" line="11434"/>
+        <location filename="../../../scribus/scribusdoc.cpp" line="11432"/>
         <source>Cannot Delete In-Use Item</source>
         <translation>Használatban lévő elem nem törölhető</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribusdoc.cpp" line="11434"/>
+        <location filename="../../../scribus/scribusdoc.cpp" line="11432"/>
         <source>The item %1 is currently being edited by Story Editor. The delete operation will be cancelled</source>
         <translation>%1 elem jelenleg a szövegszerkesztőben szerkesztés alatt áll. Törlés megszakítva</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribusdoc.cpp" line="12094"/>
+        <location filename="../../../scribus/scribusdoc.cpp" line="12092"/>
         <source>Some objects are locked.</source>
         <translation>Néhány objektum zárolt.</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribusdoc.cpp" line="12090"/>
+        <location filename="../../../scribus/scribusdoc.cpp" line="12088"/>
         <source>&amp;Unlock All</source>
         <translation>&amp;Minden zárolás feloldása</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribusdoc.cpp" line="12091"/>
+        <location filename="../../../scribus/scribusdoc.cpp" line="12089"/>
         <source>&amp;Skip locked objects</source>
         <translation>Zárolt objektumok &amp;kihagyása</translation>
     </message>
@@ -30375,7 +30375,7 @@ Ha elmenti ebben a verzióban, a régebbi Scribus verziók már nem fogják töb
         <translation>Hiba történt az ICC profil megnyitásakor, színkezelés nem lesz aktiválva.</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribusdoc.cpp" line="13665"/>
+        <location filename="../../../scribus/scribusdoc.cpp" line="13663"/>
         <source>Number of copies: %1
 Horizontal gap: %2
 Vertical gap: %3</source>
@@ -30385,27 +30385,27 @@ Függőleges térköz: %3</translation>
     </message>
     <message>
         <location filename="../../../scribus/scribusdoc.cpp" line="1041"/>
-        <location filename="../../../scribus/scribusdoc.cpp" line="16420"/>
+        <location filename="../../../scribus/scribusdoc.cpp" line="16419"/>
         <source>Adjusting Colors</source>
         <translation>A színek módosítása</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribusdoc.cpp" line="9057"/>
+        <location filename="../../../scribus/scribusdoc.cpp" line="9055"/>
         <source>remove direct paragraph formatting</source>
         <translation>Közvetlen bekezdésformázás eltávolítása</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribusdoc.cpp" line="9525"/>
+        <location filename="../../../scribus/scribusdoc.cpp" line="9523"/>
         <source>remove direct char formatting</source>
         <translation>Közvetlen karakterformázás eltávolítása</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribusdoc.cpp" line="11350"/>
+        <location filename="../../../scribus/scribusdoc.cpp" line="11348"/>
         <source>Do you really want to clear the content of all selected frames?</source>
         <translation>Valóban törölhető az összes kijelölt keret tartalma?</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribusdoc.cpp" line="13637"/>
+        <location filename="../../../scribus/scribusdoc.cpp" line="13635"/>
         <source>Number of copies: %1
 Horizontal shift: %2
 Vertical shift: %3
@@ -30416,20 +30416,20 @@ Függőleges eltolás: %3
 Forgatás: %4</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribusdoc.cpp" line="14816"/>
-        <location filename="../../../scribus/scribusdoc.cpp" line="14871"/>
-        <location filename="../../../scribus/scribusdoc.cpp" line="15004"/>
+        <location filename="../../../scribus/scribusdoc.cpp" line="14815"/>
+        <location filename="../../../scribus/scribusdoc.cpp" line="14870"/>
+        <location filename="../../../scribus/scribusdoc.cpp" line="15003"/>
         <source>Group%1</source>
         <translation>Csoport%1</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribusdoc.cpp" line="18077"/>
-        <location filename="../../../scribus/scribusdoc.cpp" line="18115"/>
+        <location filename="../../../scribus/scribusdoc.cpp" line="18076"/>
+        <location filename="../../../scribus/scribusdoc.cpp" line="18114"/>
         <source>No Style</source>
         <translation>Nincs stílus megadva</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribusdoc.cpp" line="18433"/>
+        <location filename="../../../scribus/scribusdoc.cpp" line="18432"/>
         <source>%1 note style has document as range and provide same numbering style as set %2</source>
         <translation>A(z) %1 jegyzetstílus tartomány az egész dokumentum és ugyanolyan számozási stílussal rendelkezik, mint a(z) %2</translation>
     </message>
@@ -30453,7 +30453,7 @@ Forgatás: %4</translation>
         <translation>Vágólap betöltése</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="4020"/>
+        <location filename="../../../scribus/scribus.cpp" line="4018"/>
         <source>Fatal Error</source>
         <translation>Végzetes hiba</translation>
     </message>
@@ -30498,244 +30498,244 @@ Forgatás: %4</translation>
         <translation>&amp;Átalakítás</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="8010"/>
+        <location filename="../../../scribus/scribus.cpp" line="8008"/>
         <source>An error occurred while opening monitor profile.
 Former monitor profile will be used.</source>
         <translation>Hiba történt a képernyő színprofiljának megnyitásak.
 Az előző képernyő színprofil marad alkalmazásban.</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="8096"/>
+        <location filename="../../../scribus/scribus.cpp" line="8094"/>
         <source>Ghostscript is not installed on your system, or Scribus is not configured with the path to the software.</source>
         <translation>A Ghostscript nem található a rendszeren, vagy a Scribusban nincs beállítva a helyes útvonal.</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="8099"/>
+        <location filename="../../../scribus/scribus.cpp" line="8097"/>
         <source>Until this is remedied, you cannot import EPS images or use Print Preview. </source>
         <translation>Amíg ez nem kerül javításra, nem lehetséges EPS képeket importálni vagy a nyomtatási képet használni.</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="8101"/>
+        <location filename="../../../scribus/scribus.cpp" line="8099"/>
         <source>Until this is remedied, you cannot import EPS images or use PostScript Print Preview. </source>
         <translation>Amíg ez nem kerül javításra, nem lehetséges EPS képeket importálni vagy a PostScript nyomtatási képet használni.</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="8109"/>
+        <location filename="../../../scribus/scribus.cpp" line="8107"/>
         <source>Ghostscript is missing</source>
         <translation>Hiányzik a Ghostscript</translation>
     </message>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="1923"/>
         <location filename="../../../scribus/scribus.cpp" line="1963"/>
-        <location filename="../../../scribus/scribus.cpp" line="4301"/>
-        <location filename="../../../scribus/scribus.cpp" line="4710"/>
-        <location filename="../../../scribus/scribus.cpp" line="4951"/>
-        <location filename="../../../scribus/scribus.cpp" line="5099"/>
-        <location filename="../../../scribus/scribus.cpp" line="10071"/>
+        <location filename="../../../scribus/scribus.cpp" line="4299"/>
+        <location filename="../../../scribus/scribus.cpp" line="4708"/>
+        <location filename="../../../scribus/scribus.cpp" line="4949"/>
+        <location filename="../../../scribus/scribus.cpp" line="5097"/>
+        <location filename="../../../scribus/scribus.cpp" line="10069"/>
         <source>Ready</source>
         <translation>Kész</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="2713"/>
+        <location filename="../../../scribus/scribus.cpp" line="2711"/>
         <source>Unknown</source>
         <translation>Ismeretlen</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="2717"/>
+        <location filename="../../../scribus/scribus.cpp" line="2715"/>
         <source>Image Frame</source>
         <translation>Képkeret</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="2720"/>
+        <location filename="../../../scribus/scribus.cpp" line="2718"/>
         <source>Text Frame</source>
         <translation>Szövegkeret</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="2723"/>
+        <location filename="../../../scribus/scribus.cpp" line="2721"/>
         <source>Line</source>
         <translation>Vonal</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="2726"/>
+        <location filename="../../../scribus/scribus.cpp" line="2724"/>
         <source>Polygon</source>
         <translation>Sokszög</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="2729"/>
+        <location filename="../../../scribus/scribus.cpp" line="2727"/>
         <source>Polyline</source>
         <translation>Kapcsolódó vonalak</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="2732"/>
+        <location filename="../../../scribus/scribus.cpp" line="2730"/>
         <source>Text on Path</source>
         <translation>Szöveg útvonalon</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="2735"/>
+        <location filename="../../../scribus/scribus.cpp" line="2733"/>
         <source>Latex Frame</source>
         <translation>Latex keret</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="2738"/>
+        <location filename="../../../scribus/scribus.cpp" line="2736"/>
         <source>Symbol</source>
         <translation>Szimbólum</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="2741"/>
+        <location filename="../../../scribus/scribus.cpp" line="2739"/>
         <source>Group</source>
         <translation>Csoportosítás</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="2744"/>
+        <location filename="../../../scribus/scribus.cpp" line="2742"/>
         <source>RegularPolygon</source>
         <translation>Szabályos sokszög</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="2747"/>
+        <location filename="../../../scribus/scribus.cpp" line="2745"/>
         <source>Arc</source>
         <translation>Körív</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="2750"/>
+        <location filename="../../../scribus/scribus.cpp" line="2748"/>
         <source>Spiral</source>
         <translation>Spirál</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="2768"/>
+        <location filename="../../../scribus/scribus.cpp" line="2766"/>
         <source>%1 Objects selected, Selection Size = %2 x %3</source>
         <translation>%1 kijelölt objektum, kijelölés mérete = %2 × %3</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="3671"/>
-        <location filename="../../../scribus/scribus.cpp" line="3790"/>
-        <location filename="../../../scribus/scribus.cpp" line="4399"/>
+        <location filename="../../../scribus/scribus.cpp" line="3669"/>
+        <location filename="../../../scribus/scribus.cpp" line="3788"/>
+        <location filename="../../../scribus/scribus.cpp" line="4397"/>
         <source>Open</source>
         <translation>Megnyitás</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="3809"/>
+        <location filename="../../../scribus/scribus.cpp" line="3807"/>
         <source>Importing Pages...</source>
         <translation>Oldalak importálása...</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="3838"/>
+        <location filename="../../../scribus/scribus.cpp" line="3836"/>
         <source>Import Page(s)</source>
         <translation>Oldal(ak) importálása</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="3880"/>
+        <location filename="../../../scribus/scribus.cpp" line="3878"/>
         <source>Import done</source>
         <translation>Importálás megtörtént</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="3884"/>
+        <location filename="../../../scribus/scribus.cpp" line="3882"/>
         <source>Found nothing to import</source>
         <translation>Nincs mit importálni</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="3975"/>
+        <location filename="../../../scribus/scribus.cpp" line="3973"/>
         <source>File does not exist on the specified path :
 %1</source>
         <translation>Ez a fájl nem létezik: %1</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="4021"/>
+        <location filename="../../../scribus/scribus.cpp" line="4019"/>
         <source>File %1 is not in an acceptable format</source>
         <translation>%1 fájl nem elfogadható formátumú</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="4056"/>
+        <location filename="../../../scribus/scribus.cpp" line="4054"/>
         <source>Loading...</source>
         <translation>Betöltés...</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="4205"/>
+        <location filename="../../../scribus/scribus.cpp" line="4203"/>
         <source> was replaced by: </source>
         <translation> cserélve: </translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="4237"/>
+        <location filename="../../../scribus/scribus.cpp" line="4235"/>
         <source>(converted)</source>
         <translation>(konvertált)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="11130"/>
+        <location filename="../../../scribus/scribus.cpp" line="11128"/>
         <source>Insert new </source>
         <translatorcomment>Csúnya megoldás!</translatorcomment>
         <translation type="unfinished">Beszúrás </translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="11147"/>
-        <location filename="../../../scribus/scribus.cpp" line="11379"/>
+        <location filename="../../../scribus/scribus.cpp" line="11145"/>
+        <location filename="../../../scribus/scribus.cpp" line="11377"/>
         <source>Anchor mark</source>
         <translation>Hivatkozás jelölő</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="11155"/>
-        <location filename="../../../scribus/scribus.cpp" line="11391"/>
+        <location filename="../../../scribus/scribus.cpp" line="11153"/>
+        <location filename="../../../scribus/scribus.cpp" line="11389"/>
         <source>Mark with &lt;%1&gt; variable text</source>
         <translation>Jelölő ezzel a szöveges változóval: &lt;%1&gt;</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="11163"/>
-        <location filename="../../../scribus/scribus.cpp" line="11431"/>
+        <location filename="../../../scribus/scribus.cpp" line="11161"/>
+        <location filename="../../../scribus/scribus.cpp" line="11429"/>
         <source>Mark to %1 item</source>
         <translation type="unfinished">Jelölő ehhez az elemhez: %1</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="11173"/>
-        <location filename="../../../scribus/scribus.cpp" line="11452"/>
+        <location filename="../../../scribus/scribus.cpp" line="11171"/>
+        <location filename="../../../scribus/scribus.cpp" line="11450"/>
         <source>Mark to %1 mark</source>
         <translation type="unfinished">Jelölő ehhez a jelölőhöz: %1</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="11361"/>
+        <location filename="../../../scribus/scribus.cpp" line="11359"/>
         <source>Edit </source>
         <translation>Szerkesztés</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="3645"/>
+        <location filename="../../../scribus/scribus.cpp" line="3643"/>
         <source>All Supported Formats</source>
         <translation>Minden támogatott formátum</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="4639"/>
-        <location filename="../../../scribus/scribus.cpp" line="4705"/>
-        <location filename="../../../scribus/scribus.cpp" line="8373"/>
-        <location filename="../../../scribus/scribus.cpp" line="8507"/>
-        <location filename="../../../scribus/scribus.cpp" line="8529"/>
+        <location filename="../../../scribus/scribus.cpp" line="4637"/>
+        <location filename="../../../scribus/scribus.cpp" line="4703"/>
+        <location filename="../../../scribus/scribus.cpp" line="8371"/>
+        <location filename="../../../scribus/scribus.cpp" line="8505"/>
+        <location filename="../../../scribus/scribus.cpp" line="8527"/>
         <source>Cannot write the file: 
 %1</source>
         <translation>Fájl nem írható: %1</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="4690"/>
-        <location filename="../../../scribus/scribus.cpp" line="5841"/>
-        <location filename="../../../scribus/scribus.cpp" line="8364"/>
+        <location filename="../../../scribus/scribus.cpp" line="4688"/>
+        <location filename="../../../scribus/scribus.cpp" line="5839"/>
+        <location filename="../../../scribus/scribus.cpp" line="8362"/>
         <source>Save As</source>
         <translation>Mentés másként</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="4719"/>
+        <location filename="../../../scribus/scribus.cpp" line="4717"/>
         <source>Saving...</source>
         <translation>Mentés...</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="5007"/>
-        <location filename="../../../scribus/scribus.cpp" line="8225"/>
+        <location filename="../../../scribus/scribus.cpp" line="5005"/>
+        <location filename="../../../scribus/scribus.cpp" line="8223"/>
         <source>Scribus has detected some errors. Consider using the Preflight Verifier to correct them</source>
         <translation>Hibák kerültek elő. Tekintse meg őket az Elővizsgálóval, hogy javítani tudja</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="5040"/>
+        <location filename="../../../scribus/scribus.cpp" line="5038"/>
         <source>Printing...</source>
         <translation>Nyomtatás...</translation>
     </message>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="1014"/>
         <location filename="../../../scribus/scribus.cpp" line="1992"/>
-        <location filename="../../../scribus/scribus.cpp" line="5044"/>
-        <location filename="../../../scribus/scribus.cpp" line="8341"/>
+        <location filename="../../../scribus/scribus.cpp" line="5042"/>
+        <location filename="../../../scribus/scribus.cpp" line="8339"/>
         <source>Document</source>
         <translation>Dokumentum</translation>
     </message>
@@ -30835,196 +30835,196 @@ Az előző képernyő színprofil marad alkalmazásban.</translation>
         <translation>Rácsok és segédvonalak</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="2761"/>
+        <location filename="../../../scribus/scribus.cpp" line="2759"/>
         <source>selected, Size</source>
         <translation type="unfinished">kijelölt, Méret</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="4022"/>
+        <location filename="../../../scribus/scribus.cpp" line="4020"/>
         <source>The file may be damaged or may have been produced in a later version of Scribus.</source>
         <translation>A fájl sérült, vagy lehet, hogy egy későbbi Scribus verzióval lett készítve.</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="4540"/>
+        <location filename="../../../scribus/scribus.cpp" line="4538"/>
         <source>Filename and Path for Image</source>
         <translation>Kép neve és útvonala</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="4540"/>
+        <location filename="../../../scribus/scribus.cpp" line="4538"/>
         <source>All Files (*)</source>
         <translation>Minden fájl (*)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="5087"/>
+        <location filename="../../../scribus/scribus.cpp" line="5085"/>
         <source>Printing failed!</source>
         <translation>Sikertelen nyomtatás!</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="5174"/>
+        <location filename="../../../scribus/scribus.cpp" line="5172"/>
         <source>Cannot Cut In-Use Item</source>
         <translation>A használatban lévő elem nem vágható ki</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="5174"/>
+        <location filename="../../../scribus/scribus.cpp" line="5172"/>
         <source>The item %1 is currently being edited by Story Editor. The cut operation will be cancelled</source>
         <translation>%1 elem jelenleg a szövegszerkesztőben változtatható. A kivágás megszakítva</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="5784"/>
+        <location filename="../../../scribus/scribus.cpp" line="5782"/>
         <source>About Qt</source>
         <translation>A Qt névjegye</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="5797"/>
+        <location filename="../../../scribus/scribus.cpp" line="5795"/>
         <source>Scribus Manual</source>
         <translation>Scribus kézikönyv</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="5841"/>
+        <location filename="../../../scribus/scribus.cpp" line="5839"/>
         <source>Text Files (*.txt);;All Files(*)</source>
         <translation>Szöveg fájlok (*.txt);;Minden fájl (*)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="7316"/>
+        <location filename="../../../scribus/scribus.cpp" line="7314"/>
         <source>&amp;Size:</source>
         <translation>Mér&amp;et:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="7316"/>
+        <location filename="../../../scribus/scribus.cpp" line="7314"/>
         <source>Size</source>
         <translation>Méret</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="7344"/>
+        <location filename="../../../scribus/scribus.cpp" line="7342"/>
         <source>&amp;Shade:</source>
         <translation>&amp;Árnyalat:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="7344"/>
+        <location filename="../../../scribus/scribus.cpp" line="7342"/>
         <source>Shade</source>
         <translation>Árnyalat</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="7411"/>
+        <location filename="../../../scribus/scribus.cpp" line="7409"/>
         <source>No Style</source>
         <translation>Nincs stílus megadva</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="8260"/>
+        <location filename="../../../scribus/scribus.cpp" line="8258"/>
         <source>All</source>
         <translation>Minden</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="8310"/>
+        <location filename="../../../scribus/scribus.cpp" line="8308"/>
         <source>Scribus detected some errors.
 Consider using the Preflight Verifier  to correct them.</source>
         <translation>A Scribus hibákat talált.
 Tekintse meg őket az Elővizsgálóval, hogy javítani tudja.</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="8407"/>
+        <location filename="../../../scribus/scribus.cpp" line="8405"/>
         <source>Detected some errors.
 Consider using the Preflight Verifier to correct them</source>
         <translation>Hibák kerültek elő.
 Tekintse meg őket az Elővizsgálóval, hogy javítani tudja</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="8503"/>
+        <location filename="../../../scribus/scribus.cpp" line="8501"/>
         <source>-Page%1</source>
         <translation>-oldal %1</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="9224"/>
+        <location filename="../../../scribus/scribus.cpp" line="9222"/>
         <source>Some objects are locked.</source>
         <translation>Néhány objektum zárolt.</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="9220"/>
+        <location filename="../../../scribus/scribus.cpp" line="9218"/>
         <source>&amp;Lock All</source>
         <translation>&amp;Minden zárolása</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="2753"/>
+        <location filename="../../../scribus/scribus.cpp" line="2751"/>
         <source>Table</source>
         <translation>Táblázat</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="8104"/>
+        <location filename="../../../scribus/scribus.cpp" line="8102"/>
         <source>Click the Help button to read Scribus-related Ghostscript help and installation instructions.</source>
         <translation>A Súgó gombra való kattintással elérhetőek a Ghostscripttel kapcsolatos információk és telepítési instrukciók.</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="8544"/>
+        <location filename="../../../scribus/scribus.cpp" line="8542"/>
         <source>Locate your PDF viewer</source>
         <translation>Határozza meg a PDF-megjelenítő helyét</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="8755"/>
+        <location filename="../../../scribus/scribus.cpp" line="8753"/>
         <source>Click here to leave symbol edit mode.</source>
         <translation>Ide kattintva lehet kilépni a szimbólum szerkesztési módból.</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="8797"/>
+        <location filename="../../../scribus/scribus.cpp" line="8795"/>
         <source>Editing Symbol: %1</source>
         <translation>Szimbólum szerkesztése: %1</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="8818"/>
-        <location filename="../../../scribus/scribus.cpp" line="8947"/>
-        <location filename="../../../scribus/scribus.cpp" line="9084"/>
+        <location filename="../../../scribus/scribus.cpp" line="8816"/>
+        <location filename="../../../scribus/scribus.cpp" line="8945"/>
+        <location filename="../../../scribus/scribus.cpp" line="9082"/>
         <source>Close</source>
         <translation>Bezárás</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="8899"/>
+        <location filename="../../../scribus/scribus.cpp" line="8897"/>
         <source>Click here to leave inline frame edit mode.</source>
         <translation>Ide kattintva elhagyjuk a beágyazott keret szerkeszését.</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="8926"/>
+        <location filename="../../../scribus/scribus.cpp" line="8924"/>
         <source>Editing Inline Frame</source>
         <translation>Beágyazott keret szerkesztése</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="9046"/>
+        <location filename="../../../scribus/scribus.cpp" line="9044"/>
         <source>Click here to leave master page edit mode.</source>
         <translation>Ide kattintva lehet kilépni a mesteroldal szerkesztési módból.</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="9221"/>
+        <location filename="../../../scribus/scribus.cpp" line="9219"/>
         <source>&amp;Unlock All</source>
         <translation>&amp;Minden zárolás feloldása</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="9906"/>
+        <location filename="../../../scribus/scribus.cpp" line="9904"/>
         <source>Information</source>
         <translation>Információ</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="9906"/>
+        <location filename="../../../scribus/scribus.cpp" line="9904"/>
         <source>The program %1 is already running!</source>
         <translation>%1 program már fut!</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="9945"/>
+        <location filename="../../../scribus/scribus.cpp" line="9943"/>
         <source>The program %1 is missing!</source>
         <translation>%1 program hiányzik!</translation>
     </message>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="1126"/>
-        <location filename="../../../scribus/scribus.cpp" line="10067"/>
+        <location filename="../../../scribus/scribus.cpp" line="10065"/>
         <source>X-Pos:</source>
         <translation>X pozíció:</translation>
     </message>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="1127"/>
-        <location filename="../../../scribus/scribus.cpp" line="10068"/>
+        <location filename="../../../scribus/scribus.cpp" line="10066"/>
         <source>Y-Pos:</source>
         <translation>Y pozíció:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="4475"/>
-        <location filename="../../../scribus/scribus.cpp" line="10273"/>
+        <location filename="../../../scribus/scribus.cpp" line="4473"/>
+        <location filename="../../../scribus/scribus.cpp" line="10271"/>
         <source>Do you really want to replace your existing image?</source>
         <translation>Valóban lecserélhető a létező kép?</translation>
     </message>
@@ -31059,12 +31059,12 @@ Tekintse meg őket az Elővizsgálóval, hogy javítani tudja</translation>
         <translation>Előző beillesztése</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="4688"/>
+        <location filename="../../../scribus/scribus.cpp" line="4686"/>
         <source>Documents (*.sla *.sla.gz);;All Files (*)</source>
         <translation>Dokumentumok (*.sla *.sla.gz);;Minden fájl (*)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="4419"/>
+        <location filename="../../../scribus/scribus.cpp" line="4417"/>
         <source>Do you really want to clear all your text?</source>
         <translation>Valóban törölhető a teljes szöveg?</translation>
     </message>
@@ -31079,12 +31079,12 @@ Tekintse meg őket az Elővizsgálóval, hogy javítani tudja</translation>
         <translation>Online &amp;ismertetők</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="4202"/>
+        <location filename="../../../scribus/scribus.cpp" line="4200"/>
         <source>Some color profiles used by this document are not installed:</source>
         <translation>A dokumentumban használt néhány színprofil nincs telepítve:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="8364"/>
+        <location filename="../../../scribus/scribus.cpp" line="8362"/>
         <source>%1;;All Files (*)</source>
         <translation>%1;;Minden fájl (*)</translation>
     </message>
@@ -31094,47 +31094,47 @@ Tekintse meg őket az Elővizsgálóval, hogy javítani tudja</translation>
         <translation>Felhasználói gyorsbillentyűk alkalmazása</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="8045"/>
+        <location filename="../../../scribus/scribus.cpp" line="8043"/>
         <source>Updating Images</source>
         <translation>Képek frissítése</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="4637"/>
-        <location filename="../../../scribus/scribus.cpp" line="4703"/>
+        <location filename="../../../scribus/scribus.cpp" line="4635"/>
+        <location filename="../../../scribus/scribus.cpp" line="4701"/>
         <source>Your document was saved to a temporary file and could not be moved: 
 %1</source>
         <translation>A dokumentum egy ideiglenes fájlba lett mentve, ezért nem helyezhető át:
 %1</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="5140"/>
+        <location filename="../../../scribus/scribus.cpp" line="5138"/>
         <source>Print engine initialization failed</source>
         <translation>A nyomtató motor előkészítése sikertelen</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="10546"/>
-        <location filename="../../../scribus/scribus.cpp" line="10668"/>
+        <location filename="../../../scribus/scribus.cpp" line="10544"/>
+        <location filename="../../../scribus/scribus.cpp" line="10666"/>
         <source>&amp;Name:</source>
         <translation>&amp;Név:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="10546"/>
-        <location filename="../../../scribus/scribus.cpp" line="10668"/>
+        <location filename="../../../scribus/scribus.cpp" line="10544"/>
+        <location filename="../../../scribus/scribus.cpp" line="10666"/>
         <source>New Entry</source>
         <translation>Új bejegyzés</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="8171"/>
+        <location filename="../../../scribus/scribus.cpp" line="8169"/>
         <source>Ghostscript is missing : PostScript Print Preview is not available</source>
         <translation>A Ghostscript hiányzik: A PostScript nyomtatási kép nem érhető el</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="4003"/>
+        <location filename="../../../scribus/scribus.cpp" line="4001"/>
         <source>Document is already opened</source>
         <translation>A dokumentum már meg van nyitva</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="4004"/>
+        <location filename="../../../scribus/scribus.cpp" line="4002"/>
         <source>This document is already in use.You&apos;ll be switched into its window now.</source>
         <translation>Ez a dokumentum szerkesztés alatt áll. Az ablaka fog megnyílni.</translation>
     </message>
@@ -35618,22 +35618,22 @@ X: %4, Y: %5</translation>
         <translation>Uniconvertor importáló</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/import/uniconvertor/uniconvplugin.cpp" line="163"/>
+        <location filename="../../../scribus/plugins/import/uniconvertor/uniconvplugin.cpp" line="159"/>
         <source>Starting Uniconvertor failed! The executable name in File-&gt;Preferences-&gt;External Tools may be incorrect or the software has been uninstalled since preferences were set. (%1)</source>
         <translation>Az Uniconvertor indítása sikertelen! A programfájl neve a Fájl-&gt;Beállítások-&gt;Külső eszközök oldalon valószínűleg hibás vagy a program eltávolításra került a beállítások módosítása óta. (%1)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/import/uniconvertor/uniconvplugin.cpp" line="172"/>
+        <location filename="../../../scribus/plugins/import/uniconvertor/uniconvplugin.cpp" line="168"/>
         <source>Uniconvertor did not exit correctly: %1</source>
         <translation>Az Uniconvertor nem megfelelően lépett ki: %1</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/import/uniconvertor/uniconvplugin.cpp" line="179"/>
+        <location filename="../../../scribus/plugins/import/uniconvertor/uniconvplugin.cpp" line="175"/>
         <source>Uniconvertor failed to convert the file: %1</source>
         <translation>Uniconvertor sikertelenül konvertálta a fájlt: %1</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/import/uniconvertor/uniconvplugin.cpp" line="187"/>
+        <location filename="../../../scribus/plugins/import/uniconvertor/uniconvplugin.cpp" line="183"/>
         <source>The SVG Import plugin could not be found</source>
         <translation>Az SVG importáló bővítény nem található</translation>
     </message>
@@ -35809,12 +35809,12 @@ converting their vector data into Scribus objects.</source>
         <translation>A legtöbb WMF fájlt képes az aktuális dokumentumba importálni, a vektoros adataikat Scribus objektumokká konvertálva.</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/import/wmf/wmfimportplugin.cpp" line="180"/>
+        <location filename="../../../scribus/plugins/import/wmf/wmfimportplugin.cpp" line="179"/>
         <source>The file could not be imported</source>
         <translation>A fájl nem importálható</translation>
     </message>
     <message>
-        <location filename="../../../scribus/plugins/import/wmf/wmfimportplugin.cpp" line="182"/>
+        <location filename="../../../scribus/plugins/import/wmf/wmfimportplugin.cpp" line="181"/>
         <source>WMF file contains some unsupported features</source>
         <translation>A WMF fájl néhány nem támogatott szolgáltatást tartalmaz</translation>
     </message>
