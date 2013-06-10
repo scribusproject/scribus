@@ -3102,13 +3102,13 @@
         <location filename="../../../scribus/plugins/tools/spellcheck/aspellpluginimpl.cpp" line="97"/>
         <source>Spell Checker Plugin Failed to Initialise.
 Configuration invalid</source>
-        <translation>A helyesírás ellenőrző bővítmény nem indítható. 
+        <translation>A helyesírás-ellenőrző bővítmény nem indítható. 
 Hibás a beállítása</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/tools/spellcheck/aspellpluginimpl.cpp" line="104"/>
         <source>Spell Checker Plugin Failed to Initialise.</source>
-        <translation>A helyesírás ellenőrző bővítmény nem indítható.</translation>
+        <translation>A helyesírás-ellenőrző bővítmény nem indítható.</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/tools/spellcheck/aspellpluginimpl.cpp" line="106"/>
@@ -3258,7 +3258,7 @@ Hibás a beállítása</translation>
     <message>
         <location filename="../../../scribus/plugins/barcodegenerator/barcodegenerator.cpp" line="102"/>
         <source>Variable number of characters, digits and any symbols.</source>
-        <translation type="unfinished"></translation>
+        <translation>Változó számú karakter, szám vagy egyéb más szimbólum.</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/barcodegenerator/barcodegenerator.cpp" line="354"/>
@@ -6950,12 +6950,12 @@ failed!</source>
     <message>
         <location filename="../../../scribus/editor.cpp" line="100"/>
         <source>OK</source>
-        <translation type="unfinished">OK</translation>
+        <translation>OK</translation>
     </message>
     <message>
         <location filename="../../../scribus/editor.cpp" line="104"/>
         <source>Cancel</source>
-        <translation type="unfinished">Mégse</translation>
+        <translation>Mégse</translation>
     </message>
     <message>
         <location filename="../../../scribus/editor.cpp" line="132"/>
@@ -8536,12 +8536,12 @@ Wesselényinél mázol Quitóban</translation>
     <message>
         <location filename="../../../scribus/plugins/tools/hunspellcheck/hunspellplugin.cpp" line="64"/>
         <source>Hunspell-based spell checker</source>
-        <translation type="unfinished"></translation>
+        <translation>Hunspell-alapú helyesírás-ellenőrző</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/tools/hunspellcheck/hunspellplugin.cpp" line="65"/>
         <source>Spell Checker based on the Hunspell libraries</source>
-        <translation type="unfinished"></translation>
+        <translation>Hunspell programkönyvtárra épülő helyesírás-ellenőrző</translation>
     </message>
 </context>
 <context>
