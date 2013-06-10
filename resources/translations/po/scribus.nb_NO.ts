@@ -3366,6 +3366,10 @@ Configuration invalid</source>
         <source>Select Barcode Type</source>
         <translation>Velg strekkode-type</translation>
     </message>
+    <message>
+        <source>Variable number of characters, digits and any symbols.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>BarcodeGeneratorBase</name>
@@ -7532,6 +7536,14 @@ Er du sikker på at du vil overskrive den?
         <source>Ctrl-V</source>
         <translation>Ctrl + V</translation>
     </message>
+    <message>
+        <source>OK</source>
+        <translation type="unfinished">Greit</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished">Avbryt</translation>
+    </message>
 </context>
 <context>
     <name>EffectsDialog</name>
@@ -9223,6 +9235,14 @@ og www.scribus.net for nye versjoner av Scribus.</translation>
     <name>HunspellPlugin</name>
     <message>
         <source>Check Spelling...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hunspell-based spell checker</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Spell Checker based on the Hunspell libraries</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
