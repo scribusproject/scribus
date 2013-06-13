@@ -9831,23 +9831,23 @@ Konfiguration er ugyldig</translation>
     <message>
         <location filename="../../../scribus/plugins/barcodegenerator/barcodegenerator.cpp" line="58"/>
         <source>Variable number of characters, digits and any of the symbols -. *$/+%.</source>
-        <translation>Variabel antal tegn, cifre og  enhver af følgende symboler -. *$/+%.</translation>
+        <translation>Variabelt antal tegn, cifre og enhver af følgende symboler -. *$/+%.</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/barcodegenerator/barcodegenerator.cpp" line="63"/>
         <location filename="../../../scribus/plugins/barcodegenerator/barcodegenerator.cpp" line="67"/>
         <source>Variable number of ASCII characters and special function symbols, starting with the appropriate start character for the initial character set. UCC/EAN-128s must have a mandatory FNC 1 symbol immediately following the start character.</source>
-        <translation>Variabel antal ASCII tegn og specielle funktions symboler, der starter med det rigtige start-tegn for det indledende tegnsæt. UCC/EAN-128s skal have et obligatorisk FNC 1 symbol umiddelbart efter start-tegnet.</translation>
+        <translation>Variabelt antal ASCII tegn og specielle funktions symboler, der starter med det rigtige start-tegn for det indledende tegnsæt. UCC/EAN-128s skal have et obligatorisk FNC 1 symbol umiddelbart efter start-tegnet.</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/barcodegenerator/barcodegenerator.cpp" line="70"/>
         <source>Variable number of digits and any of the symbols -$:/.+ABCD.</source>
-        <translation>Variabel antal cifre og enhver af følgende symboler -$:/.+ABCD.</translation>
+        <translation>Variabelt antal cifre og enhver af følgende symboler -$:/.+ABCD.</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/barcodegenerator/barcodegenerator.cpp" line="78"/>
         <source>Variable number of digits. An ITF-14 is 14 characters and does not have a check digit</source>
-        <translation>Variabel antal cifre. En ITF-14 er på 14 tegn og har ikke et kontrol-ciffer</translation>
+        <translation>Variabelt antal cifre. En ITF-14 er på 14 tegn og har ikke et kontrol-ciffer</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/barcodegenerator/barcodegenerator.cpp" line="74"/>
@@ -9855,22 +9855,22 @@ Konfiguration er ugyldig</translation>
         <location filename="../../../scribus/plugins/barcodegenerator/barcodegenerator.cpp" line="85"/>
         <location filename="../../../scribus/plugins/barcodegenerator/barcodegenerator.cpp" line="93"/>
         <source>Variable number of digits</source>
-        <translation>Variabel antal cifre</translation>
+        <translation>Variabelt antal cifre</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/barcodegenerator/barcodegenerator.cpp" line="89"/>
         <source>Variable number of digits and capital letters</source>
-        <translation>Variabel antal cifre og store bogstaver</translation>
+        <translation>Variabelt antal cifre og store bogstaver</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/barcodegenerator/barcodegenerator.cpp" line="98"/>
         <source>Variable number of hexadecimal characters</source>
-        <translation>Variabel antal hexadecimal tegn</translation>
+        <translation>Variabelt antal hexadecimal tegn</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/barcodegenerator/barcodegenerator.cpp" line="102"/>
         <source>Variable number of characters, digits and any symbols.</source>
-        <translation type="unfinished"></translation>
+        <translation>Variabelt antal tegn, cifre og eventuelle symboler.</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/barcodegenerator/barcodegenerator.cpp" line="354"/>
@@ -14597,12 +14597,12 @@ fejlede!</translation>
     <message>
         <location filename="../../../scribus/editor.cpp" line="100"/>
         <source>OK</source>
-        <translation type="unfinished">OK</translation>
+        <translation>OK</translation>
     </message>
     <message>
         <location filename="../../../scribus/editor.cpp" line="104"/>
         <source>Cancel</source>
-        <translation type="unfinished">Annullér</translation>
+        <translation>Annullér</translation>
     </message>
     <message>
         <location filename="../../../scribus/editor.cpp" line="132"/>
@@ -16592,12 +16592,12 @@ og www.scribus.net for at hente scribus ect.</translation>
     <message>
         <location filename="../../../scribus/plugins/tools/hunspellcheck/hunspellplugin.cpp" line="64"/>
         <source>Hunspell-based spell checker</source>
-        <translation type="unfinished"></translation>
+        <translation>Stavekontrol baseret på Hunspell</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/tools/hunspellcheck/hunspellplugin.cpp" line="65"/>
         <source>Spell Checker based on the Hunspell libraries</source>
-        <translation type="unfinished"></translation>
+        <translation>Stavekontrol baseret på Hunspell bibliotekerne</translation>
     </message>
 </context>
 <context>
