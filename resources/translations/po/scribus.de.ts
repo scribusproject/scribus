@@ -9861,7 +9861,7 @@ Ungültige Konfiguration</translation>
     <message>
         <location filename="../../../scribus/plugins/barcodegenerator/barcodegenerator.cpp" line="58"/>
         <source>Variable number of characters, digits and any of the symbols -. *$/+%.</source>
-        <translation>Kombination aus Buchstaben, ZIffern und den Symbolen -.*$/+%.</translation>
+        <translation>Kombination aus Buchstaben, Ziffern und den Symbolen -.*$/+%.</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/barcodegenerator/barcodegenerator.cpp" line="74"/>
@@ -9884,7 +9884,7 @@ Ungültige Konfiguration</translation>
     <message>
         <location filename="../../../scribus/plugins/barcodegenerator/barcodegenerator.cpp" line="102"/>
         <source>Variable number of characters, digits and any symbols.</source>
-        <translation type="unfinished"></translation>
+        <translation>Kombinationen aus Buchstaben, Ziffern und irgendeinem Symbol.</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/barcodegenerator/barcodegenerator.cpp" line="354"/>
@@ -14669,12 +14669,12 @@ der Datei
     <message>
         <location filename="../../../scribus/editor.cpp" line="100"/>
         <source>OK</source>
-        <translation type="unfinished">OK</translation>
+        <translation>OK</translation>
     </message>
     <message>
         <location filename="../../../scribus/editor.cpp" line="104"/>
         <source>Cancel</source>
-        <translation type="unfinished">Abbrechen</translation>
+        <translation>Abbrechen</translation>
     </message>
     <message>
         <location filename="../../../scribus/editor.cpp" line="132"/>
@@ -16664,12 +16664,12 @@ and www.scribus.net for downloads.</source>
     <message>
         <location filename="../../../scribus/plugins/tools/hunspellcheck/hunspellplugin.cpp" line="64"/>
         <source>Hunspell-based spell checker</source>
-        <translation type="unfinished"></translation>
+        <translation>Auf Hunspell basierende Rechtschreibprüfung</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/tools/hunspellcheck/hunspellplugin.cpp" line="65"/>
         <source>Spell Checker based on the Hunspell libraries</source>
-        <translation type="unfinished"></translation>
+        <translation>Auf Hunspell basierende Rechtschreibprüfung</translation>
     </message>
 </context>
 <context>
@@ -24695,12 +24695,12 @@ erzielen. Zudem reduziert UFR die Gefahr der Übersättigung.</translation>
     <message>
         <location filename="../../../scribus/propertiespalette.cpp" line="5620"/>
         <source>This rule determines the &amp;quot;insideness&amp;quot; of a point on the canvas by drawing a ray from that point to infinity in any direction and counting the number of path segments from the given shape that the ray crosses. If this number is odd, the point is inside, if even, the point is outside.</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../../../scribus/propertiespalette.cpp" line="5621"/>
         <source>This rule determines the &amp;quot;insideness&amp;quot; of a point on the canvas by drawing a ray from that point to infinity in any direction and then examining the places where a segment of the shape crosses the ray. Starting with a count of zero, add one each time a path segment crosses the ray from left to right and subtract one each time a path segment crosses the ray from right to left. If the result is zero then the point is outside the path. Otherwise, it is inside.</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../../../scribus/propertiespalette.cpp" line="5679"/>
@@ -36399,7 +36399,7 @@ Sie können zwischen &quot;normal&quot; und verschiedenen Formen der Farbenblind
     <message>
         <location filename="../../../scribus/tabpdfoptions.cpp" line="685"/>
         <source>Convert Spot Colors to Process Colors</source>
-        <translation type="unfinished">Schmuckfarben in Prozessfarben umwandeln</translation>
+        <translation>Schmuckfarben in Prozessfarben umwandeln</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabpdfoptions.cpp" line="385"/>

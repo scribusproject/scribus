@@ -9858,7 +9858,7 @@ Ungültige Konfiguration</translation>
     <message>
         <location filename="../../../scribus/plugins/barcodegenerator/barcodegenerator.cpp" line="58"/>
         <source>Variable number of characters, digits and any of the symbols -. *$/+%.</source>
-        <translation>Kombination aus Buchstaben, ZIffern und den Symbolen -.*$/+%.</translation>
+        <translation>Kombination aus Buchstaben, Ziffern und einem der Symbole -.*$/+%.</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/barcodegenerator/barcodegenerator.cpp" line="74"/>
@@ -9881,7 +9881,7 @@ Ungültige Konfiguration</translation>
     <message>
         <location filename="../../../scribus/plugins/barcodegenerator/barcodegenerator.cpp" line="102"/>
         <source>Variable number of characters, digits and any symbols.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Kombinationen aus Buchstaben, Ziffern und irgendeinem Symbol.</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/barcodegenerator/barcodegenerator.cpp" line="354"/>
