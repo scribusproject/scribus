@@ -21,7 +21,7 @@ public:
 	~TabPrinter() {};
 	void restoreDefaults(struct ApplicationPrefs *prefsData);
 	void storeValues();
-	void unitChange(QString unit, int docUnitIx, double invUnitConversion);
+	void unitChange(int docUnitIndex);
 private:
 	int docUnitIndex;
 	double unitRatio;

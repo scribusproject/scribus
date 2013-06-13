@@ -2331,7 +2331,7 @@ void TabPDFOptions::OutlineAll()
 	}
 }
 
-void TabPDFOptions::unitChange(QString unit, int docUnitIndex, double invUnitConversion)
+void TabPDFOptions::unitChange(int docUnitIndex)
 {
 	BleedBottom->setNewUnit(docUnitIndex);
 	BleedTop->setNewUnit(docUnitIndex);

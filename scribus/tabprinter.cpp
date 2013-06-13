@@ -169,11 +169,11 @@ void TabPrinter::selOtherComm()
 	}
 }
 
-void TabPrinter::unitChange(QString unit, int docUnitIx, double invUnitConversion)
+void TabPrinter::unitChange(int docUnitIndex)
 {
-	bleedTop->setNewUnit(docUnitIx);
-	bleedBottom->setNewUnit(docUnitIx);
-	bleedLeft->setNewUnit(docUnitIx);
-	bleedRight->setNewUnit(docUnitIx);
-	offsetValue->setNewUnit(docUnitIx);
+	bleedTop->setNewUnit(docUnitIndex);
+	bleedBottom->setNewUnit(docUnitIndex);
+	bleedLeft->setNewUnit(docUnitIndex);
+	bleedRight->setNewUnit(docUnitIndex);
+	offsetValue->setNewUnit(docUnitIndex);
 }

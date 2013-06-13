@@ -60,7 +60,7 @@ public:
 	// Specifically to update doc settings from doc prefs
 	void updateDocumentSettings(ScribusDoc *doc);
 
-	void unitChange(QString unit, int docUnitIndex, double invUnitConversion);
+	void unitChange(int docUnitIndex);
 
 	// GUI member pointers
 	// Remember to initialize these in the initializer list of the ctor when

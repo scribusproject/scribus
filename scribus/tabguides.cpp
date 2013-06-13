@@ -346,17 +346,8 @@ void TabGuides::changeMarginColor()
 	}
 }
 
-void TabGuides::unitChange(QString unit, int docUnitIndex, double invUnitConversion)
+void TabGuides::unitChange(int docUnitIndex)
 {
-	double oldMin, oldMax, val;
-	int decimalsOld;
-	int decimal = unitGetPrecisionFromIndex(docUnitIndex);
-
-	minorSpace->setSuffix(unit);
-	majorSpace->setSuffix(unit);
-	
-	minorSpace->getValues(&oldMin, &oldMax, &decimalsOld, &val);
-	minorSpace->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimal, val * invUnitConversion);
-	majorSpace->getValues(&oldMin, &oldMax, &decimalsOld, &val);
-	majorSpace->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimal, val * invUnitConversion);
+	minorSpace->setNewUnit(docUnitIndex);
+	majorSpace->setNewUnit(docUnitIndex);
 }
