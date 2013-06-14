@@ -9543,7 +9543,7 @@ Configurazione non valida</translation>
     <message>
         <location filename="../../../scribus/plugins/barcodegenerator/barcode.cpp" line="39"/>
         <source>Scribus frontend for Pure PostScript Barcode Writer</source>
-        <translation>Interfaccia Scribus per elaborare codice a barre in puro Postscript</translation>
+        <translation>Interfaccia Scribus per elaborare codice a barre in puro PostScript</translation>
     </message>
 </context>
 <context>
@@ -9625,7 +9625,7 @@ Configurazione non valida</translation>
     <message>
         <location filename="../../../scribus/plugins/barcodegenerator/barcodegenerator.cpp" line="102"/>
         <source>Variable number of characters, digits and any symbols.</source>
-        <translation type="unfinished"></translation>
+        <translation>Numero variabile di caratteri, cifre e simboli.</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/barcodegenerator/barcodegenerator.cpp" line="354"/>
@@ -13718,12 +13718,12 @@ fallita!</translation>
     <message>
         <location filename="../../../scribus/editor.cpp" line="100"/>
         <source>OK</source>
-        <translation type="unfinished">OK</translation>
+        <translation>OK</translation>
     </message>
     <message>
         <location filename="../../../scribus/editor.cpp" line="104"/>
         <source>Cancel</source>
-        <translation type="unfinished">Annulla</translation>
+        <translation>Annulla</translation>
     </message>
     <message>
         <location filename="../../../scribus/editor.cpp" line="132"/>
@@ -15410,12 +15410,12 @@ Usa 72 dpi per immagini da visualizzare su schermo</translation>
     <message>
         <location filename="../../../scribus/plugins/tools/hunspellcheck/hunspellplugin.cpp" line="64"/>
         <source>Hunspell-based spell checker</source>
-        <translation type="unfinished"></translation>
+        <translation>Controllore ortografico basato su Hunspell</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/tools/hunspellcheck/hunspellplugin.cpp" line="65"/>
         <source>Spell Checker based on the Hunspell libraries</source>
-        <translation type="unfinished"></translation>
+        <translation>Controllore ortografico basato sulle librerie Hunspll</translation>
     </message>
 </context>
 <context>
@@ -32525,7 +32525,7 @@ You can choose between normal and several colour blindness forms</translation>
     <message>
         <location filename="../../../scribus/tabpdfoptions.cpp" line="678"/>
         <source>Printer</source>
-        <translation>Stampante</translation>
+        <translation>Tipografia</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabpdfoptions.cpp" line="679"/>
@@ -35969,7 +35969,7 @@ convertendo i dati vettoriali in oggetti Scribus.</translation>
     <message>
         <location filename="../../../scribus/hysettingsBase.ui" line="137"/>
         <source>Length of the smallest word to be hyphenated.</source>
-        <translation>Questa è la lunghezza della parola più breve da sillabare.</translation>
+        <translation>Lunghezza minima delle parole da sillabare.</translation>
     </message>
     <message>
         <location filename="../../../scribus/hysettingsBase.ui" line="147"/>
