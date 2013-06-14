@@ -166,11 +166,9 @@ void ReformDoc::restoreDefaults()
 
 void ReformDoc::unitChange()
 {
-	double oldUnitRatio = unitRatio;
 	docUnitIndex = tabPage->unitCombo->currentIndex();
 	unitRatio = unitGetRatioFromIndex(docUnitIndex);
-	QString suffix = unitGetSuffixFromIndex(docUnitIndex);
-	double invUnitConversion = 1.0 / oldUnitRatio * unitRatio;
+
 	tabPage->unitChange();
 	tabGuides->unitChange(docUnitIndex);
 	tabView->unitChange(docUnitIndex);
