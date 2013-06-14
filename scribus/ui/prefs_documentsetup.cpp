@@ -125,14 +125,6 @@ void Prefs_DocumentSetup::restoreDefaults(struct ApplicationPrefs *prefsData)
 
 	unitRatio = unitGetRatioFromIndex(prefsData->docSetupPrefs.docUnitIndex);
 	setupPageSizes(prefsData);
-//	prefsPageSizeName = prefsData->docSetupPrefs.pageSize;
-//	PageSize *ps=new PageSize(prefsPageSizeName);
-//	pageSizeComboBox->addItems(ps->activeSizeTRList());
-//	pageSizeComboBox->addItem( CommonStrings::trCustomPageSize );
-//	if (prefsData->docSetupPrefs.pageSize == CommonStrings::customPageSize)
-//		setCurrentComboItem(pageSizeComboBox, CommonStrings::trCustomPageSize);
-//	else
-//		setCurrentComboItem(pageSizeComboBox, prefsPageSizeName);
 
 	pageOrientationComboBox->setCurrentIndex(prefsData->docSetupPrefs.pageOrientation);
 	pageUnitsComboBox->setCurrentIndex(prefsData->docSetupPrefs.docUnitIndex);
@@ -189,7 +181,7 @@ void Prefs_DocumentSetup::restoreDefaults(struct ApplicationPrefs *prefsData)
 
 void Prefs_DocumentSetup::saveGuiToPrefs(struct ApplicationPrefs *prefsData) const
 {
-	prefsData->docSetupPrefs.pageSize=prefsPageSizeName;
+	prefsData->docSetupPrefs.pageSize = prefsPageSizeName;
 	prefsData->docSetupPrefs.pageOrientation=pageOrientationComboBox->currentIndex();
 	prefsData->docSetupPrefs.docUnitIndex=pageUnitsComboBox->currentIndex();
 	prefsData->docSetupPrefs.pageWidth=pageW;
@@ -233,20 +225,38 @@ void Prefs_DocumentSetup::setupPageSets()
 
 void Prefs_DocumentSetup::setupPageSizes(struct ApplicationPrefs *prefsData)
 {
-	prefsPageSizeName = prefsData->docSetupPrefs.pageSize;
-	PageSize *ps=new PageSize(prefsPageSizeName);
-	QStringList insertList(ps->activeSizeTRList());
-	if (insertList.indexOf(prefsPageSizeName)==-1)
-		insertList<<prefsPageSizeName;
-	insertList.sort();
-	insertList<<CommonStrings::trCustomPageSize;
-	pageSizeComboBox->clear();
-	pageSizeComboBox->addItems(insertList);
+	PageSize ps(prefsData->docSetupPrefs.pageSize);
+	QStringList insertList(ps.activeSizeList());
+	QStringList insertTrList(ps.activeSizeTRList());
 
-	if (prefsData->docSetupPrefs.pageSize == CommonStrings::customPageSize)
-		setCurrentComboItem(pageSizeComboBox, CommonStrings::trCustomPageSize);
-	else
-		setCurrentComboItem(pageSizeComboBox, prefsPageSizeName);
+	prefsPageSizeName = prefsData->docSetupPrefs.pageSize;
+	if (insertList.indexOf(prefsPageSizeName) ==-1)
+	{
+		insertList << prefsPageSizeName;
+		insertTrList << prefsPageSizeName;
+	}
+
+	QMap<QString, QString> insertMap;
+	for (int i = 0; i < insertTrList.count(); ++i)
+	{
+		QString key = insertTrList.at(i);
+		insertMap[key] = insertList.at(i);
+	}
+	insertTrList.sort();
+
+	pageSizeComboBox->clear();
+	for (int i = 0; i < insertList.count(); ++i)
+	{
+		QString key = insertTrList.at(i);
+		pageSizeComboBox->addItem(key, insertMap[key]);
+	}
+	pageSizeComboBox->addItem(CommonStrings::trCustomPageSize, CommonStrings::customPageSize);
+
+	QString pageSizeName = CommonStrings::trCustomPageSize;
+	int index = pageSizeComboBox->findData(prefsPageSizeName);
+	if (index >= 0)
+		pageSizeName = pageSizeComboBox->itemText(index);
+	setCurrentComboItem(pageSizeComboBox, pageSizeName);
 	marginsWidget->setPageSize(prefsPageSizeName);
 	bleedsWidget->setPageSize(prefsPageSizeName);
 }
