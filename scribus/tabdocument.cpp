@@ -63,19 +63,21 @@ TabDocument::TabDocument(QWidget* parent, const char* name, const bool reform)
 	Layout6->setSpacing( 5 );
 	Layout6->setMargin( 0 );
 
+	PageSize *ps = new PageSize(prefsData->pageSize);
+	QStringList pageSizes   = ps->sizeList();
+	QStringList pageTrSizes = ps->sizeTRList();
+
 	pageSizeComboBox = new QComboBox(GroupSize);
-
-	PageSize *ps=new PageSize(prefsData->pageSize);
-	pageSizeComboBox->addItems(ps->sizeTRList());
-	pageSizeComboBox->addItem( CommonStrings::trCustomPageSize );
+	for (int i = 0; i < pageSizes.count(); ++i)
+		pageSizeComboBox->addItem(pageTrSizes.at(i), pageSizes.at(i));
+	pageSizeComboBox->addItem(CommonStrings::trCustomPageSize, CommonStrings::customPageSize);
 	pageSizeComboBox->setEditable(false);
-
-	QStringList pageSizes=ps->sizeList();
-	int sizeIndex=pageSizes.indexOf(ps->nameTR());
-	if (sizeIndex!=-1)
+	
+	int sizeIndex = pageSizes.indexOf(ps->nameTR());
+	if (sizeIndex != -1)
 		pageSizeComboBox->setCurrentIndex(sizeIndex);
 	else
-		pageSizeComboBox->setCurrentIndex(pageSizeComboBox->count()-1);
+		pageSizeComboBox->setCurrentIndex(pageSizeComboBox->count() - 1);
 	GZText1 = new QLabel( tr( "&Size:" ), GroupSize );
 	GZText1->setBuddy(pageSizeComboBox);
 	Layout6->addWidget( GZText1, 0, 0 );
@@ -213,10 +215,11 @@ void TabDocument::restoreDefaults(struct ApplicationPrefs *prefsData)
 	unitRatio = unitGetRatioFromIndex(prefsData->docUnitIndex);
 
 //	setSize(prefsData->pageSize);
-	if (prefsData->pageSize == CommonStrings::customPageSize)
-		setCurrentComboItem(pageSizeComboBox, CommonStrings::trCustomPageSize);
-	else
-		setCurrentComboItem(pageSizeComboBox, prefsData->pageSize);
+	QString itemText = CommonStrings::trCustomPageSize;
+	int index = pageSizeComboBox->findData(prefsData->pageSize);
+	if (index >= 0)
+		itemText = pageSizeComboBox->itemText(index);
+	setCurrentComboItem(pageSizeComboBox, itemText);
 	prefsPageSizeName = prefsData->pageSize;
 //	setOrien(prefsData->pageOrientation);
 
@@ -251,10 +254,11 @@ void TabDocument::restoreDefaults(ScribusDoc *prefsData)
 	unitRatio = unitGetRatioFromIndex(prefsData->unitIndex());
 
 //	setSize(prefsData->m_pageSize);
-	if (prefsData->m_pageSize == CommonStrings::customPageSize)
-		setCurrentComboItem(pageSizeComboBox, CommonStrings::trCustomPageSize);
-	else
-		setCurrentComboItem(pageSizeComboBox, prefsData->m_pageSize);
+	QString itemText = CommonStrings::trCustomPageSize;
+	int index = pageSizeComboBox->findData(prefsData->m_pageSize);
+	if (index >= 0)
+		itemText = pageSizeComboBox->itemText(index);
+	setCurrentComboItem(pageSizeComboBox, itemText);
 	prefsPageSizeName = prefsData->m_pageSize;
 //	setOrien(prefsData->PageOri);
 
