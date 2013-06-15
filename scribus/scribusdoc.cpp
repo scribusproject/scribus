@@ -14417,12 +14417,11 @@ void ScribusDoc::AdjustItemSize(PageItem *currItem, bool includeGroup, bool move
 			currItem->moveImageInFrame(-tp2.x()/currItem->imageXScale(), 0);
 		if (!currItem->imageFlippedV())
 			currItem->moveImageInFrame(0, -tp2.y()/currItem->imageYScale());
-		FPoint tp(clipRect.right(), clipRect.bottom());
+		FPoint tp(clipRect.width(), clipRect.height());
 		if (currItem->imageFlippedH())
 			currItem->moveImageInFrame((currItem->width() - tp.x())/currItem->imageXScale(), 0);
 		if (currItem->imageFlippedV())
 			currItem->moveImageInFrame(0, (currItem->height() - tp.y())/currItem->imageYScale());
-		SizeItem(tp.x(), tp.y(), currItem, true, false);
 		currItem->PoLine = Clip.copy();
 		if ((currItem->isGroup() || currItem->isSymbol()) && includeGroup)
 		{
