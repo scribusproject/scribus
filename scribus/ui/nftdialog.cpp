@@ -21,6 +21,8 @@ nftdialog::nftdialog(QWidget* parent, QString lang) : QDialog(parent)
 	setModal(true);
 	setWindowIcon(loadIcon("AppIcon.png"));
 	nftGui->setupSettings(lang);
+	buttonBox->button(QDialogButtonBox::Cancel)->setDefault(true);
+	buttonBox->button(QDialogButtonBox::Ok)->setDisabled(true);
 	connect(nftGui, SIGNAL(leaveOK()), this, SLOT(accept()));
 	connect(nftGui, SIGNAL(ButtonBoxEnable(bool)), this, SLOT(enableButtonBox(bool)));
 }
