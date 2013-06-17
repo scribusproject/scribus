@@ -14422,6 +14422,7 @@ void ScribusDoc::AdjustItemSize(PageItem *currItem, bool includeGroup, bool move
 			currItem->moveImageInFrame((currItem->width() - tp.x())/currItem->imageXScale(), 0);
 		if (currItem->imageFlippedV())
 			currItem->moveImageInFrame(0, (currItem->height() - tp.y())/currItem->imageYScale());
+		SizeItem(clipRect.width(), clipRect.height(), currItem, true, false, false);
 		currItem->PoLine = Clip.copy();
 		if ((currItem->isGroup() || currItem->isSymbol()) && includeGroup)
 		{
