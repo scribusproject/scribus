@@ -27,21 +27,26 @@ public:
 	void updatePartPreview(QColor color, double scale);
 	const QString getOtherFillColor();
 	const QString getOtherLineColor();
-	int opMode;
-	bool swapped;
-	int targetColor;
+
 	bool keepItem1;
 	bool keepItem2;
-	QPainterPath input1;
-	QPainterPath input2;
+	bool swapped;
+	int  opMode;
+	int  targetColor;
+
 	QPainterPath result;
 	QPainterPath result1;
 	QPainterPath result2;
 private:
 	QColor getColorFromItem(QString color, QColor in);
-	ScribusDoc* currDoc;
-	PageItem* source1;
-	PageItem* source2;
+
+	ScribusDoc* m_doc;
+	PageItem* m_source1;
+	PageItem* m_source2;
+
+	QPainterPath m_input1;
+	QPainterPath m_input2;
+	
 private slots:
 	void checkKeep();
 	void newOpMode();

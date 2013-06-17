@@ -49,8 +49,10 @@ class PLUGIN_API MeshDistortionPlugin : public ScActionPlugin
 		virtual void deleteAboutData(const AboutData* about) const;
 		virtual void languageChange();
 		virtual void addToMainWindowMenu(ScribusMainWindow *) {};
-		PageItem *patternItem;
-		ScribusDoc* currDoc;
+		
+	private:
+		PageItem *m_patternItem;
+		ScribusDoc* m_doc;
 };
 
 extern "C" PLUGIN_API int meshdistortion_getPluginAPIVersion();

@@ -29,8 +29,8 @@ PictureBrowser::PictureBrowser ( ScribusDoc* doc, QWidget *parent ) : QDialog ( 
 	setupUi ( this );
 
 //set Scribusdoc
-	srcDoc = doc;
-	ScMW = doc->scMW();
+	m_Doc = doc;
+	m_ScMW = doc->scMW();
 
 //load settings
 	pbSettings.load();
@@ -174,7 +174,7 @@ PictureBrowser::PictureBrowser ( ScribusDoc* doc, QWidget *parent ) : QDialog ( 
 	insertPagesCombobox->addItem ( "Current Page", 1 );
 	insertPagesCombobox->addItem ( "All Pages", 0 );
 
-	for ( int i = 0 ; i < ( int ) ( srcDoc->Pages->count() ) ; ++i )
+	for ( int i = 0 ; i < ( int ) ( m_Doc->Pages->count() ) ; ++i )
 	{
 		insertPagesCombobox->addItem ( QString ( "Page %1" ).arg ( i+1 ), 0 );
 	}
@@ -185,9 +185,9 @@ PictureBrowser::PictureBrowser ( ScribusDoc* doc, QWidget *parent ) : QDialog ( 
 
 	PageItem *pItem;
 	QList<PageItem*> allItems;
-	for (int a = 0; a < srcDoc->MasterItems.count(); ++a)
+	for (int a = 0; a < m_Doc->MasterItems.count(); ++a)
 	{
-		PageItem *currItem = srcDoc->MasterItems.at(a);
+		PageItem *currItem = m_Doc->MasterItems.at(a);
 		if (currItem->isGroup())
 			allItems = currItem->getItemList();
 		else
@@ -207,9 +207,9 @@ PictureBrowser::PictureBrowser ( ScribusDoc* doc, QWidget *parent ) : QDialog ( 
 		}
 		allItems.clear();
 	}
-	for (int a = 0; a < srcDoc->Items->count(); ++a)
+	for (int a = 0; a < m_Doc->Items->count(); ++a)
 	{
-		PageItem *currItem = srcDoc->Items->at(a);
+		PageItem *currItem = m_Doc->Items->at(a);
 		if (currItem->isGroup())
 			allItems = currItem->getItemList();
 		else
@@ -317,7 +317,7 @@ void PictureBrowser::previewIconDoubleClicked ( const QModelIndex &index )
 
 	if ( row >= 0 )
 	{
-		ScribusDoc *currentDoc ( ScMW->doc );
+		ScribusDoc *currentDoc ( m_ScMW->doc );
 		Imagedialog *id ( new Imagedialog ( pImages->previewImagesList.at ( row )->fileInformation.absoluteFilePath(), currentDoc ,this ) );
 
 		if ( id )
@@ -434,7 +434,7 @@ void PictureBrowser::actionsGoButtonClicked()
 		iafData.linkToExistingFrame = false;
 		iafData.linkToExistingFramePtr=NULL;
 
-		tmpImage->insertIntoDocument ( srcDoc, iafData );
+		tmpImage->insertIntoDocument ( m_Doc, iafData );
 	}
 	else if ( index == 1 )
 	{
@@ -608,9 +608,9 @@ void PictureBrowser::documentChosen ( QTreeWidgetItem * item, int column )
 	QStringList imageFiles;
 	int id = item->data ( 0, Qt::UserRole ).toInt();
 	QList<PageItem*> allItems;
-	for (int a = 0; a < srcDoc->MasterItems.count(); ++a)
+	for (int a = 0; a < m_Doc->MasterItems.count(); ++a)
 	{
-		PageItem *currItem = srcDoc->MasterItems.at(a);
+		PageItem *currItem = m_Doc->MasterItems.at(a);
 		if (currItem->isGroup())
 			allItems = currItem->getItemList();
 		else
@@ -628,9 +628,9 @@ void PictureBrowser::documentChosen ( QTreeWidgetItem * item, int column )
 		}
 		allItems.clear();
 	}
-	for (int a = 0; a < srcDoc->Items->count(); ++a)
+	for (int a = 0; a < m_Doc->Items->count(); ++a)
 	{
-		PageItem *currItem = srcDoc->Items->at(a);
+		PageItem *currItem = m_Doc->Items->at(a);
 		if (currItem->isGroup())
 			allItems = currItem->getItemList();
 		else
@@ -941,7 +941,7 @@ void PictureBrowser::insertImageButtonClicked()
 		//current page has been selected
 		if ( insertPagesCombobox->checkstate ( 0 ) == 1 )
 		{
-			int currPage = srcDoc->currentPageNumber() + 1;
+			int currPage = m_Doc->currentPageNumber() + 1;
 
 			//prevent double insert, only add current page to pagelist if the page isn't selected yet
 			if ( insertPagesCombobox->checkstate ( currPage + 1 ) == 0 )
@@ -983,7 +983,7 @@ void PictureBrowser::insertImageButtonClicked()
 	iafData.linkToExistingFrame = false;
 	iafData.linkToExistingFramePtr=NULL;
 
-	tmpImage->insertIntoDocument ( srcDoc, iafData );
+	tmpImage->insertIntoDocument ( m_Doc, iafData );
 }
 
 
@@ -1652,7 +1652,7 @@ void PictureBrowser::setSettings()
 
 void PictureBrowser::changedDocument ( ScribusDoc* doc )
 {
-	srcDoc = doc;
+	m_Doc = doc;
 	updateDocumentbrowser();
 	actionsGoButton->setEnabled ( true );
 	insertImageButton->setEnabled ( true );
@@ -1662,7 +1662,7 @@ void PictureBrowser::closedDocument()
 {
 	documentWidget->clear();
 	documentItems.clear();
-	srcDoc = NULL;
+	m_Doc = NULL;
 	pImages->clearPreviewImagesList();
 	updateBrowser ( false, false, false );
 	actionsGoButton->setEnabled ( false );
@@ -1680,7 +1680,7 @@ void PictureBrowser::updateDocumentbrowser()
 
 	QTreeWidgetItem *tmpItem;
 
-	for ( int i = 0 ; i < ( int ) ( srcDoc->Pages->count() ) ; ++i )
+	for ( int i = 0 ; i < ( int ) ( m_Doc->Pages->count() ) ; ++i )
 	{
 		tmpItem = new QTreeWidgetItem ( allpages, QStringList ( QString ( "Page %1" ).arg ( i+1 ) ) );
 		tmpItem->setData ( 0, Qt::UserRole, ( i+1 ) );

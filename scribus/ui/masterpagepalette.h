@@ -46,15 +46,16 @@ protected slots:
 
 private:
 	QListWidget* masterPageListBox;
-	QString sMuster;
 	QToolButton* closeButton;
 	QToolButton* deleteButton;
 	QToolButton* duplicateButton;
 	QToolButton* importButton;
 	QToolButton* newButton;
-	ScribusDoc *currentDoc;
+
+	QString m_masterPage;
+	ScribusDoc *m_doc;
+	ScribusView *m_view;
 	UndoManager *undoManager;
-	ScribusView *currentView;
 
 protected:
 	QVBoxLayout* masterPagesLayout;

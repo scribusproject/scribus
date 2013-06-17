@@ -213,9 +213,10 @@ class PictureBrowser : public QDialog, Ui::PictureBrowser
 		void updateTagImagesTab();
 
 		//current document
-		ScribusDoc* srcDoc;
+		ScribusDoc* m_Doc;
 		// Main window
-		ScribusMainWindow* ScMW;
+		ScribusMainWindow* m_ScMW;
+
 		//the dirmodel for the folderbrowser
 		QDirModel folderModel;
 		//model for QListView containing the previewimages

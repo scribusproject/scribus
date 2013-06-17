@@ -59,8 +59,8 @@ private: // Private attributes
 
 	void drawNumber(QString num, int starty, QPainter *p);
 
-	ScribusDoc *currDoc;
-	ScribusView *currView;
+	ScribusDoc *m_doc;
+	ScribusView *m_view;
 
 public slots: // Public slots
 	/** \brief draw mark

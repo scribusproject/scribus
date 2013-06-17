@@ -52,14 +52,14 @@ signals:
 	void selectionDirty();
 
 private:
-	SMPStyleWidget *pwidget_;
-	ScribusDoc *doc_;
-	bool selectionIsDirty_;
-	double unitRatio_;
-	StyleSet<ParagraphStyle> tmpStyles_;
-	StyleSet<CharStyle> *cstyles_;
-	QList<ParagraphStyle*> selection_;
-	QList<RemoveItem> deleted_;
+	SMPStyleWidget *m_pwidget;
+	ScribusDoc *m_doc;
+	bool m_selectionIsDirty;
+	double m_unitRatio;
+	StyleSet<ParagraphStyle> m_tmpStyles;
+	StyleSet<CharStyle> *m_cstyles;
+	QList<ParagraphStyle*> m_selection;
+	QList<RemoveItem> m_deleted;
 
 	void setupConnections();
 	void removeConnections();
@@ -162,13 +162,13 @@ signals:
 	void selectionDirty();
 
 private:
-	QTabWidget   *widget_;
-	SMCStyleWidget *page_;
-	ScribusDoc   *doc_;
-	StyleSet<CharStyle> tmpStyles_;
-	QList<CharStyle*> selection_;
-	QList<RemoveItem> deleted_;
-	bool selectionIsDirty_;
+	QTabWidget   *m_widget;
+	SMCStyleWidget *m_page;
+	ScribusDoc   *m_doc;
+	StyleSet<CharStyle> m_tmpStyles;
+	QList<CharStyle*> m_selection;
+	QList<RemoveItem> m_deleted;
+	bool m_selectionIsDirty;
 
 	void reloadTmpStyles();
 	void setupConnections();

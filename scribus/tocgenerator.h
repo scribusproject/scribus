@@ -36,7 +36,6 @@ class SCRIBUS_API TOCGenerator : public QObject
 	Q_OBJECT
 	public:
 		TOCGenerator(QObject *parent = NULL, ScribusDoc *doc = NULL);
-		~TOCGenerator();
 		
 		void setDoc(ScribusDoc *doc = NULL);
 		
@@ -45,7 +44,7 @@ class SCRIBUS_API TOCGenerator : public QObject
 
 	private:
 		PageItem* findTargetFrame(const QString &targetFrameName);
-		ScribusDoc *currDoc;
+		ScribusDoc *m_doc;
 };
 
 #endif

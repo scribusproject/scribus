@@ -57,13 +57,16 @@ class PLUGIN_API PathConnectPlugin : public ScActionPlugin
 	private:
 		FPointArray computePath(int pointOne, int pointTwo, int mode, FPointArray &p1, FPointArray &p2);
 		FPointArray reversePath(FPointArray &path);
-		PageItem *Item1;
-		PageItem *Item2;
+
+		PageItem* m_item1;
+		PageItem* m_item2;
+		ScribusDoc* m_doc;
+
 		FPointArray originalPath1;
 		FPointArray originalPath2;
 		double originalXPos;
 		double originalYPos;
-		ScribusDoc* currDoc;
+		
 		bool firstUpdate;
 	private slots:
 		void updateEffect(int effectType, int pointOne, int pointTwo, int mode);

@@ -112,18 +112,18 @@ void MeshDistortionPlugin::deleteAboutData(const AboutData* about) const
 
 bool MeshDistortionPlugin::run(ScribusDoc* doc, QString)
 {
-	currDoc = doc;
-	if (currDoc == 0)
-		currDoc = ScCore->primaryMainWindow()->doc;
-	if (currDoc->m_Selection->count() > 0)
+	m_doc = doc;
+	if (m_doc == 0)
+		m_doc = ScCore->primaryMainWindow()->doc;
+	if (m_doc->m_Selection->count() > 0)
 	{
-		patternItem = currDoc->m_Selection->itemAt(0);
-		MeshDistortionDialog *dia = new MeshDistortionDialog(currDoc->scMW(), currDoc);
+		m_patternItem = m_doc->m_Selection->itemAt(0);
+		MeshDistortionDialog *dia = new MeshDistortionDialog(m_doc->scMW(), m_doc);
 		if (dia->exec())
 		{
 			dia->updateAndExit();
-			currDoc->changed();
-			currDoc->view()->DrawNew();
+			m_doc->changed();
+			m_doc->view()->DrawNew();
 		}
 		delete dia;
 	}

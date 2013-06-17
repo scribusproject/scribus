@@ -112,19 +112,19 @@ void PathConnectPlugin::deleteAboutData(const AboutData* about) const
 
 bool PathConnectPlugin::run(ScribusDoc* doc, QString)
 {
-	currDoc = doc;
+	m_doc = doc;
 	firstUpdate = true;
-	if (currDoc == 0)
-		currDoc = ScCore->primaryMainWindow()->doc;
-	if (currDoc->m_Selection->count() > 1)
+	if (m_doc == 0)
+		m_doc = ScCore->primaryMainWindow()->doc;
+	if (m_doc->m_Selection->count() > 1)
 	{
-		Item1 = currDoc->m_Selection->itemAt(0);
-		Item2 = currDoc->m_Selection->itemAt(1);
-		originalPath1 = Item1->PoLine.copy();
-		originalPath2 = Item2->PoLine.copy();
-		originalXPos = Item1->xPos();
-		originalYPos = Item1->yPos();
-		PathConnectDialog *dia = new PathConnectDialog(currDoc->scMW());
+		m_item1 = m_doc->m_Selection->itemAt(0);
+		m_item2 = m_doc->m_Selection->itemAt(1);
+		originalPath1 = m_item1->PoLine.copy();
+		originalPath2 = m_item2->PoLine.copy();
+		originalXPos = m_item1->xPos();
+		originalYPos = m_item1->yPos();
+		PathConnectDialog *dia = new PathConnectDialog(m_doc->scMW());
 		connect(dia, SIGNAL(updateValues(int, int, int, int)), this, SLOT(updateEffect(int, int, int, int)));
 		if (dia->exec())
 		{
@@ -135,28 +135,28 @@ bool PathConnectPlugin::run(ScribusDoc* doc, QString)
 			if(UndoManager::undoEnabled())
 				trans = new UndoTransaction(UndoManager::instance()->beginTransaction(Um::BezierCurve,Um::ILine,Um::ConnectPath,"",Um::ILine));
 
-			Item1->PoLine = computePath(pointOne, pointTwo, mode, originalPath1, originalPath2);
-			Item1->ClipEdited = true;
-			Item1->FrameType = 3;
-			currDoc->AdjustItemSize(Item1);
-			Item1->OldB2 = Item1->width();
-			Item1->OldH2 = Item1->height();
+			m_item1->PoLine = computePath(pointOne, pointTwo, mode, originalPath1, originalPath2);
+			m_item1->ClipEdited = true;
+			m_item1->FrameType = 3;
+			m_doc->AdjustItemSize(m_item1);
+			m_item1->OldB2 = m_item1->width();
+			m_item1->OldH2 = m_item1->height();
 			if(UndoManager::undoEnabled())
 			{
 				ScItemState<QPair<FPointArray,FPointArray> > *is = new ScItemState<QPair<FPointArray,FPointArray> >(Um::ConnectPath);
 				is->set("CONNECT_PATH","connect_path");
 				is->set("OLDX",originalXPos);
 				is->set("OLDY",originalYPos);
-				is->set("NEWX",Item1->xPos());
-				is->set("NEWY",Item1->yPos());
-				is->setItem(qMakePair(originalPath1,Item1->PoLine));
-				UndoManager::instance()->action(Item1,is);
+				is->set("NEWX",m_item1->xPos());
+				is->set("NEWY",m_item1->yPos());
+				is->setItem(qMakePair(originalPath1, m_item1->PoLine));
+				UndoManager::instance()->action(m_item1,is);
 			}
-			Item1->updateClip();
-			Item1->ContourLine = Item1->PoLine.copy();
-			currDoc->m_Selection->removeItem(Item1);
-			currDoc->itemSelection_DeleteItem();
-			currDoc->changed();
+			m_item1->updateClip();
+			m_item1->ContourLine = m_item1->PoLine.copy();
+			m_doc->m_Selection->removeItem(m_item1);
+			m_doc->itemSelection_DeleteItem();
+			m_doc->changed();
 			if(trans)
 			{
 				trans->commit();
@@ -166,17 +166,17 @@ bool PathConnectPlugin::run(ScribusDoc* doc, QString)
 		}
 		else
 		{
-			Item1->PoLine = originalPath1.copy();
-			Item1->ClipEdited = true;
-			Item1->FrameType = 3;
-			Item1->setXYPos(originalXPos, originalYPos);
-			currDoc->AdjustItemSize(Item1);
-			Item1->OldB2 = Item1->width();
-			Item1->OldH2 = Item1->height();
-			Item1->updateClip();
-			Item1->ContourLine = Item1->PoLine.copy();
+			m_item1->PoLine = originalPath1.copy();
+			m_item1->ClipEdited = true;
+			m_item1->FrameType = 3;
+			m_item1->setXYPos(originalXPos, originalYPos);
+			m_doc->AdjustItemSize(m_item1);
+			m_item1->OldB2 = m_item1->width();
+			m_item1->OldH2 = m_item1->height();
+			m_item1->updateClip();
+			m_item1->ContourLine = m_item1->PoLine.copy();
 		}
-		currDoc->view()->DrawNew();
+		m_doc->view()->DrawNew();
 		delete dia;
 	}
 	return true;
@@ -186,30 +186,30 @@ void PathConnectPlugin::updateEffect(int effectType, int pointOne, int pointTwo,
 {
 	if (effectType == -1)
 	{
-		Item1->PoLine = originalPath1.copy();
-		Item1->ClipEdited = true;
-		Item1->FrameType = 3;
-		Item1->setXYPos(originalXPos, originalYPos);
+		m_item1->PoLine = originalPath1.copy();
+		m_item1->ClipEdited = true;
+		m_item1->FrameType = 3;
+		m_item1->setXYPos(originalXPos, originalYPos);
 		firstUpdate = true;
 	}
 	else
 	{
-		Item1->setXYPos(originalXPos, originalYPos);
-		Item1->PoLine = computePath(pointOne, pointTwo, mode, originalPath1, originalPath2);
-		Item1->ClipEdited = true;
-		Item1->FrameType = 3;
+		m_item1->setXYPos(originalXPos, originalYPos);
+		m_item1->PoLine = computePath(pointOne, pointTwo, mode, originalPath1, originalPath2);
+		m_item1->ClipEdited = true;
+		m_item1->FrameType = 3;
 	}
-	currDoc->AdjustItemSize(Item1);
-	Item1->OldB2 = Item1->width();
-	Item1->OldH2 = Item1->height();
-	Item1->updateClip();
+	m_doc->AdjustItemSize(m_item1);
+	m_item1->OldB2 = m_item1->width();
+	m_item1->OldH2 = m_item1->height();
+	m_item1->updateClip();
 	if (firstUpdate)
-		currDoc->view()->DrawNew();
+		m_doc->view()->DrawNew();
 	else
 	{
-		QRectF oldR(Item1->getBoundingRect());
-		QRectF newR(Item2->getBoundingRect());
-		currDoc->regionsChanged()->update(newR.united(oldR));
+		QRectF oldR(m_item1->getBoundingRect());
+		QRectF newR(m_item2->getBoundingRect());
+		m_doc->regionsChanged()->update(newR.united(oldR));
 	}
 	if (effectType != -1)
 		firstUpdate = false;
@@ -221,12 +221,12 @@ FPointArray PathConnectPlugin::computePath(int pointOne, int pointTwo, int mode,
 	FPointArray path1 = p1.copy();
 	FPointArray path2 = p2.copy();
 	QTransform ma;
-	ma.translate(Item2->xPos(), Item2->yPos());
-	ma.rotate(Item2->rotation());
+	ma.translate(m_item2->xPos(), m_item2->yPos());
+	ma.rotate(m_item2->rotation());
 	path2.map(ma);
 	QTransform ma2;
 	ma2.translate(originalXPos, originalYPos);
-	ma2.rotate(Item1->rotation());
+	ma2.rotate(m_item1->rotation());
 	ma2 = ma2.inverted();
 	path2.map(ma2);
 	FPoint startL1 = path1.point(0);

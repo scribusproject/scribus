@@ -33,31 +33,26 @@ for which a new license (GPL+exception) is in place.
 
 TOCGenerator::TOCGenerator(QObject *parent, ScribusDoc *doc) : QObject(parent)
 {
-	currDoc=doc;
-}
-
-
-TOCGenerator::~TOCGenerator()
-{
+	m_doc = doc;
 }
 
 void TOCGenerator::setDoc(ScribusDoc *doc)
 {
-	currDoc=doc;
+	m_doc = doc;
 }
 
 PageItem* TOCGenerator::findTargetFrame(const QString &targetFrameName)
 {
 	PageItem* targetFrame=NULL;
-	if (currDoc!=NULL)
+	if (m_doc != NULL)
 	{
-		for (int d = 0; d < currDoc->DocItems.count(); ++d)
+		for (int d = 0; d < m_doc->DocItems.count(); ++d)
 		{
-			if (currDoc->DocItems.at(d) !=NULL )
+			if (m_doc->DocItems.at(d) != NULL)
 			{
-				if (currDoc->DocItems.at(d)->itemType()==PageItem::TextFrame && currDoc->DocItems.at(d)->itemName()==targetFrameName)
+				if (m_doc->DocItems.at(d)->itemType()==PageItem::TextFrame && m_doc->DocItems.at(d)->itemName()==targetFrameName)
 				{
-					targetFrame=currDoc->DocItems.at(d);
+					targetFrame=m_doc->DocItems.at(d);
 					break;
 				}
 			}
@@ -68,10 +63,10 @@ PageItem* TOCGenerator::findTargetFrame(const QString &targetFrameName)
 
 void TOCGenerator::generateDefault()
 {
-	if (currDoc==NULL)
+	if (m_doc == NULL)
 		return;
-	Q_ASSERT(!currDoc->masterPageMode());
-	for(ToCSetupVector::Iterator tocSetupIt = currDoc->tocSetups().begin(); tocSetupIt != currDoc->tocSetups().end(); ++tocSetupIt )
+	Q_ASSERT(!m_doc->masterPageMode());
+	for(ToCSetupVector::Iterator tocSetupIt = m_doc->tocSetups().begin(); tocSetupIt != m_doc->tocSetups().end(); ++tocSetupIt )
 	{
 		PageItem* tocFrame = findTargetFrame(tocSetupIt->frameName);
 		if (tocFrame == NULL)
@@ -80,16 +75,16 @@ void TOCGenerator::generateDefault()
 		PageItem *currentDocItem;
 		QMap<QString, QString> tocMap;
 
-		uint *pageCounter = new uint[currDoc->DocPages.count()];
+		uint *pageCounter = new uint[m_doc->DocPages.count()];
 		if (pageCounter == NULL)
 			return;
-		uint pageNumberWidth = QString("%1").arg(currDoc->DocPages.count()).length();
-		for (int i = 0; i < currDoc->DocPages.count(); ++i)
+		uint pageNumberWidth = QString("%1").arg(m_doc->DocPages.count()).length();
+		for (int i = 0; i < m_doc->DocPages.count(); ++i)
 			pageCounter[i] = 0;
 
-		for (int d = 0; d < currDoc->DocItems.count(); ++d)
+		for (int d = 0; d < m_doc->DocItems.count(); ++d)
 		{
-			currentDocItem = currDoc->DocItems.at(d);
+			currentDocItem = m_doc->DocItems.at(d);
 			if (currentDocItem == NULL)
 				continue;
 			//Item not on a page, continue
@@ -104,8 +99,8 @@ void TOCGenerator::generateDefault()
 			if (objAttrs.count() <= 0)
 				continue;
 
-			QString pageID = QString("%1").arg(currentDocItem->OwnPage + currDoc->FirstPnum, pageNumberWidth);
-			QString sectionID = currDoc->getSectionPageNumberForPageIndex(currentDocItem->OwnPage);
+			QString pageID = QString("%1").arg(currentDocItem->OwnPage + m_doc->FirstPnum, pageNumberWidth);
+			QString sectionID = m_doc->getSectionPageNumberForPageIndex(currentDocItem->OwnPage);
 
 			for (int i = 0; i < objAttrs.count(); ++i)
 			{

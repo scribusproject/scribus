@@ -125,9 +125,9 @@ void InlinePalette::handleContextMenue(QPoint p)
 	{
 		actItem = item->data(Qt::UserRole).toInt();
 		bool txFrame = false;
-		if (!currDoc->m_Selection->isEmpty())
+		if (!m_doc->m_Selection->isEmpty())
 		{
-			PageItem* selItem = currDoc->m_Selection->itemAt(0);
+			PageItem* selItem = m_doc->m_Selection->itemAt(0);
 			if ((selItem->isTextFrame() || selItem->isTable()))
 				txFrame = true;
 		}
@@ -137,7 +137,7 @@ void InlinePalette::handleContextMenue(QPoint p)
 			QAction* pasteAct = pmenu->addAction( tr("Paste to Item"));
 			connect(pasteAct, SIGNAL(triggered()), this, SLOT(handlePasteToItem()));
 		}
-		if ((currDoc->appMode != modeEdit) && (currDoc->appMode != modeEditTable))
+		if ((m_doc->appMode != modeEdit) && (m_doc->appMode != modeEditTable))
 		{
 			QAction* editAct = pmenu->addAction( tr("Edit Item"));
 			connect(editAct, SIGNAL(triggered()), this, SLOT(handleEditItem()));
@@ -152,7 +152,7 @@ void InlinePalette::handleContextMenue(QPoint p)
 
 void InlinePalette::handlePasteToItem()
 {
-	PageItem* selItem = currDoc->m_Selection->itemAt(0);
+	PageItem* selItem = m_doc->m_Selection->itemAt(0);
 	PageItem_TextFrame *currItem;
 	if (selItem->isTable())
 		currItem = selItem->asTable()->activeCell().textFrame();
@@ -180,7 +180,7 @@ void InlinePalette::handleDoubleClick(QListWidgetItem *item)
 
 void InlinePalette::handleDeleteItem()
 {
-	currDoc->removeInlineFrame(actItem);
+	m_doc->removeInlineFrame(actItem);
 	QListWidgetItem* item = InlineViewWidget->takeItem(InlineViewWidget->currentRow());
 	delete item;
 	InlineViewWidget->update();
@@ -218,24 +218,24 @@ void InlinePalette::setMainWindow(ScribusMainWindow *mw)
 void InlinePalette::setDoc(ScribusDoc *newDoc)
 {
 	if (m_scMW == NULL)
-		currDoc = NULL;
+		m_doc = NULL;
 	else
-		currDoc = newDoc;
-	if (currDoc == NULL)
+		m_doc = newDoc;
+	if (m_doc == NULL)
 	{
 		InlineViewWidget->clear();
 		setEnabled(true);
 	}
 	else
 	{
-		setEnabled(!currDoc->drawAsPreview);
+		setEnabled(!m_doc->drawAsPreview);
 		updateItemList();
 	}
 }
 
 void InlinePalette::unsetDoc()
 {
-	currDoc = NULL;
+	m_doc = NULL;
 	InlineViewWidget->clear();
 	setEnabled(true);
 }
@@ -250,7 +250,7 @@ void InlinePalette::updateItemList()
 {
 	InlineViewWidget->clear();
 	InlineViewWidget->setWordWrap(true);
-	for (QHash<int, PageItem*>::iterator it = currDoc->FrameItems.begin(); it != currDoc->FrameItems.end(); ++it)
+	for (QHash<int, PageItem*>::iterator it = m_doc->FrameItems.begin(); it != m_doc->FrameItems.end(); ++it)
 	{
 		PageItem *currItem = it.value();
 		QPixmap pm = QPixmap::fromImage(currItem->DrawObj_toImage(48));

@@ -397,7 +397,7 @@ void StyleManager::slotImport()
 				if (dia2->clashRename())
 					styName = lstyle->getUniqueName(aStyle);
 
-				lstyle->tmpLines[styName] = sty;
+				lstyle->m_tmpLines[styName] = sty;
 //#7315 				selected << QPair<QString, QString>(lstyle->typeName(), styName);
 
 				for (int i = 0; i < sty.count(); ++i)

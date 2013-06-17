@@ -177,7 +177,7 @@ void PagePalette::startMasterPageMode(QString masterPage)
 	{
 		ScribusDoc* doc = m_view->Doc;
 		PagePalette_MasterPages* mpWidget = this->masterpageWidget();
-		if (mpWidget->currentView != m_view)
+		if (mpWidget->m_view != m_view)
 			mpWidget->setView(m_view, masterPage);
 		mpWidget->updateMasterPageList(masterPage);
 		if (doc->currentPage()->pageName() != masterPage)

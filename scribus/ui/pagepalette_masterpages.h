@@ -42,9 +42,9 @@ public slots:
 	void selectMasterPage(QString name);
 
 private:
-	QString      currentPage;
-	ScribusDoc  *currentDoc;
-	ScribusView *currentView;
+	QString      m_currentPage;
+	ScribusDoc  *m_doc;
+	ScribusView *m_view;
 
 protected:
 

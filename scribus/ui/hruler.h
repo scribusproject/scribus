@@ -105,8 +105,8 @@ private:
 	int RulerCode;
 	int MouseX;
 
-	ScribusDoc *currDoc;
-	ScribusView *currView;
+	ScribusDoc *m_doc;
+	ScribusView *m_view;
 	
 public slots: // Public slots
 	/** \brief draw mark

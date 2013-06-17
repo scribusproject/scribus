@@ -42,16 +42,16 @@ for which a new license (GPL+exception) is in place.
 
 
 SMParagraphStyle::SMParagraphStyle(StyleSet<CharStyle> *cstyles) : StyleItem(),
-pwidget_(0), doc_(0), selectionIsDirty_(false), unitRatio_(1.0), cstyles_(cstyles)
+m_pwidget(0), m_doc(0), m_selectionIsDirty(false), m_unitRatio(1.0), m_cstyles(cstyles)
 {
-	Q_ASSERT(cstyles_);
-	pwidget_ = new SMPStyleWidget(doc_);
-	Q_CHECK_PTR(pwidget_);
+	Q_ASSERT(m_cstyles);
+	m_pwidget = new SMPStyleWidget(m_doc);
+	Q_CHECK_PTR(m_pwidget);
 }
 
 QTabWidget* SMParagraphStyle::widget()
 {
-	return pwidget_->tabWidget;
+	return m_pwidget->tabWidget;
 }
 
 QString SMParagraphStyle::typeNamePlural()
@@ -66,59 +66,59 @@ QString SMParagraphStyle::typeNameSingular()
 
 void SMParagraphStyle::setCurrentDoc(ScribusDoc *doc)
 {
-	doc_ = doc;
-	if (doc_)
+	m_doc = doc;
+	if (m_doc)
 	{
-		if (pwidget_)
+		if (m_pwidget)
 		{
 			QStringList languageList;
 			LanguageManager::instance()->fillInstalledHyphStringList(&languageList);
-			pwidget_->cpage->fillLangComboFromList(languageList);
-			pwidget_->cpage->fillColorCombo(doc_->PageColors);
-			pwidget_->cpage->fontFace_->RebuildList(doc_);
-			if (unitRatio_ != doc_->unitRatio())
+			m_pwidget->cpage->fillLangComboFromList(languageList);
+			m_pwidget->cpage->fillColorCombo(m_doc->PageColors);
+			m_pwidget->cpage->fontFace_->RebuildList(m_doc);
+			if (m_unitRatio != m_doc->unitRatio())
 				unitChange();
 		}
 	}
 	else
 	{
 		removeConnections();
-		selection_.clear();
-		tmpStyles_.clear();
-		deleted_.clear();
+		m_selection.clear();
+		m_tmpStyles.clear();
+		m_deleted.clear();
 	}
-	if (pwidget_)
-		pwidget_->setDoc(doc);
+	if (m_pwidget)
+		m_pwidget->setDoc(doc);
 }
 
 StyleSet<ParagraphStyle>* SMParagraphStyle::tmpStyles()
 {
-	return &tmpStyles_;
+	return &m_tmpStyles;
 }
 
 QList<StyleName> SMParagraphStyle::styles(bool reloadFromDoc)
 {
 	QList<StyleName> tmpList;
 
-	if (!doc_)
+	if (!m_doc)
 		return tmpList; // no doc available
 
 	if (reloadFromDoc)
 	{
-		deleted_.clear();
+		m_deleted.clear();
 		reloadTmpStyles();
 	}
 
-	for (int i = 0; i < tmpStyles_.count(); ++i)
+	for (int i = 0; i < m_tmpStyles.count(); ++i)
 	{
-		if (tmpStyles_[i].hasName())
+		if (m_tmpStyles[i].hasName())
 		{
-			QString styleName(tmpStyles_[i].displayName());
+			QString styleName(m_tmpStyles[i].displayName());
 			QString parentName(QString::null);
 
-			if (tmpStyles_[i].hasParent())
+			if (m_tmpStyles[i].hasParent())
 			{
-				const Style* parentStyle = tmpStyles_[i].parentStyle();
+				const Style* parentStyle = m_tmpStyles[i].parentStyle();
 				if (parentStyle)
 					parentName = parentStyle->displayName();
 			}
@@ -138,34 +138,34 @@ void SMParagraphStyle::reload()
 
 void SMParagraphStyle::selected(const QStringList &styleNames)
 {
-	if (!doc_)
+	if (!m_doc)
 		return;
 
-	selection_.clear();
-	selectionIsDirty_ = false;
+	m_selection.clear();
+	m_selectionIsDirty = false;
 	removeConnections(); // we don't want to record changes during style setup
 
-	tmpStyles_.invalidate();
+	m_tmpStyles.invalidate();
 
 	QList<ParagraphStyle> pstyles; // get saved styles
 	QList<CharStyle> cstyles;
-	for (int i = 0; i < tmpStyles_.count(); ++i)
-		pstyles << tmpStyles_[i];
-	for (int i = 0; i < cstyles_->count(); ++i)
-		cstyles << (*cstyles_)[i];
+	for (int i = 0; i < m_tmpStyles.count(); ++i)
+		pstyles << m_tmpStyles[i];
+	for (int i = 0; i < m_cstyles->count(); ++i)
+		cstyles << (*m_cstyles)[i];
 
 	int index;
 	for (int i = 0; i < styleNames.count(); ++i)
 	{
-		index = tmpStyles_.find(styleNames[i]);
+		index = m_tmpStyles.find(styleNames[i]);
 		//FIXME: #7133: Use .isDefaultStyle() instead here rather than relying on tr text comparison
 		if (index<0 && styleNames[i]==CommonStrings::trDefaultParagraphStyle)
-			index = tmpStyles_.find(CommonStrings::DefaultParagraphStyle);
+			index = m_tmpStyles.find(CommonStrings::DefaultParagraphStyle);
 		if (index > -1)
-			selection_.append(&tmpStyles_[index]);
+			m_selection.append(&m_tmpStyles[index]);
 	}
 
-	pwidget_->show(selection_, pstyles, cstyles, doc_->unitIndex(), PrefsManager::instance()->appPrefs.hyphPrefs.Language);
+	m_pwidget->show(m_selection, pstyles, cstyles, m_doc->unitIndex(), PrefsManager::instance()->appPrefs.hyphPrefs.Language);
 
 	setupConnections();
 }
@@ -173,10 +173,10 @@ void SMParagraphStyle::selected(const QStringList &styleNames)
 QList<CharStyle> SMParagraphStyle::getCharStyles()
 {
 	QList<CharStyle> charStyles;
-	if (!doc_)
+	if (!m_doc)
 		return charStyles; // no doc available
 
-	const StyleSet<CharStyle> &tmp(doc_->charStyles());
+	const StyleSet<CharStyle> &tmp(m_doc->charStyles());
 	for (int i = 0; i < tmp.count(); ++i)
 		charStyles.append(tmp[i]);
 	return charStyles;
@@ -185,13 +185,13 @@ QList<CharStyle> SMParagraphStyle::getCharStyles()
 QString SMParagraphStyle::fromSelection() const
 {
 	QString lsName(QString::null);
-	if (!doc_)
+	if (!m_doc)
 		return lsName; // no doc available
 
-	for (int i = 0; i < doc_->m_Selection->count(); ++i)
+	for (int i = 0; i < m_doc->m_Selection->count(); ++i)
 	{
 		// wth is going on here
-		PageItem *item = doc_->m_Selection->itemAt(i);
+		PageItem *item = m_doc->m_Selection->itemAt(i);
 
 		QString tmpName = item->itemText.defaultStyle().parent();
 
@@ -210,34 +210,34 @@ QString SMParagraphStyle::fromSelection() const
 
 void SMParagraphStyle::toSelection(const QString &styleName) const
 {
-	if (!doc_)
+	if (!m_doc)
 		return; // nowhere to apply or no doc
 
 	QString realName = styleName;
-	int styleIndex = tmpStyles_.find(styleName);
+	int styleIndex = m_tmpStyles.find(styleName);
 	if (styleIndex < 0 && (styleName == CommonStrings::trDefaultParagraphStyle))
 	{
-		styleIndex = tmpStyles_.find(CommonStrings::DefaultParagraphStyle);
+		styleIndex = m_tmpStyles.find(CommonStrings::DefaultParagraphStyle);
 		if (styleIndex >= 0)
 			realName = CommonStrings::DefaultParagraphStyle;
 	}
 	if (styleIndex >= 0)
 	{
-		doc_->itemSelection_SetNamedParagraphStyle(realName);
+		m_doc->itemSelection_SetNamedParagraphStyle(realName);
 	}
 }
 
 QString SMParagraphStyle::newStyle()
 {
-	if (!doc_)
+	if (!m_doc)
 		return QString::null;
 
 	QString s(getUniqueName( tr("New Style")));
 	ParagraphStyle p;
 	p.setDefaultStyle(false);
 	p.setName(s);
-	p.charStyle().setLanguage(doc_->hyphLanguage());
-	tmpStyles_.create(p);
+	p.charStyle().setLanguage(m_doc->hyphLanguage());
+	m_tmpStyles.create(p);
 	return s;
 }
 
@@ -249,17 +249,17 @@ QString SMParagraphStyle::newStyle(const QString &fromStyle)
 	if (fromStyle==CommonStrings::trDefaultParagraphStyle)
 		copiedStyleName=CommonStrings::DefaultParagraphStyle;
 
-	Q_ASSERT(tmpStyles_.resolve(copiedStyleName));
-	if (!tmpStyles_.resolve(copiedStyleName))
+	Q_ASSERT(m_tmpStyles.resolve(copiedStyleName));
+	if (!m_tmpStyles.resolve(copiedStyleName))
 		return QString::null;
 
 	//Copy the style with the original name
 	QString s(getUniqueName( tr("Clone of %1").arg(fromStyle)));
-	ParagraphStyle p(tmpStyles_.get(copiedStyleName));
+	ParagraphStyle p(m_tmpStyles.get(copiedStyleName));
 	p.setDefaultStyle(false);
 	p.setName(s);
 	p.setShortcut(QString::null); // do not clone the sc
-	tmpStyles_.create(p);
+	m_tmpStyles.create(p);
 
 	return s;
 }
@@ -275,9 +275,9 @@ QString SMParagraphStyle::getUniqueName(const QString &name)
 	{
 start:
 		++id;
-		for (int i = 0; i < tmpStyles_.count(); ++i)
+		for (int i = 0; i < m_tmpStyles.count(); ++i)
 		{
-			if (tmpStyles_[i].name() == s)
+			if (m_tmpStyles[i].name() == s)
 			{
 				s = tr("%1 (%2)", "This for unique name when creating "
 						"a new character style. %1 will be the name "
@@ -294,24 +294,24 @@ start:
 
 void SMParagraphStyle::apply()
 {
-	if (!doc_)
+	if (!m_doc)
 		return;
 	QMap<QString, QString> replacement;
-	for (int i = 0; i < deleted_.count(); ++i)
+	for (int i = 0; i < m_deleted.count(); ++i)
 	{
-		if (deleted_[i].first == deleted_[i].second)
+		if (m_deleted[i].first == m_deleted[i].second)
 			continue;
-		replacement[deleted_[i].first] = deleted_[i].second;
+		replacement[m_deleted[i].first] = m_deleted[i].second;
 	}
-	doc_->redefineStyles(tmpStyles_, false);
-	doc_->replaceStyles(replacement);
+	m_doc->redefineStyles(m_tmpStyles, false);
+	m_doc->replaceStyles(replacement);
 
-	deleted_.clear(); // deletion done at this point
+	m_deleted.clear(); // deletion done at this point
 
-	doc_->scMW()->requestUpdate(reqTextStylesUpdate);
+	m_doc->scMW()->requestUpdate(reqTextStylesUpdate);
 	// Better not call DrawNew() here, as this will cause several unnecessary calls
-	// doc_->view()->DrawNew();
-	doc_->changed();
+	// m_doc->view()->DrawNew();
+	m_doc->changed();
 }
 
 void SMParagraphStyle::editMode(bool isOn)
@@ -322,17 +322,17 @@ void SMParagraphStyle::editMode(bool isOn)
 
 bool SMParagraphStyle::isDefaultStyle(const QString &stylename) const
 {
-	int index = tmpStyles_.find(stylename);
+	int index = m_tmpStyles.find(stylename);
 	bool b=false;
 	if (index > -1)
-		b = tmpStyles_[index].isDefaultStyle();
+		b = m_tmpStyles[index].isDefaultStyle();
 	else
 	{
 		if (CommonStrings::trDefaultParagraphStyle==stylename)
 		{
-			index = tmpStyles_.find(CommonStrings::DefaultParagraphStyle);
+			index = m_tmpStyles.find(CommonStrings::DefaultParagraphStyle);
 			if (index > -1)
-				b = tmpStyles_[index].isDefaultStyle();
+				b = m_tmpStyles[index].isDefaultStyle();
 		}
 	}
 	return b;
@@ -340,15 +340,15 @@ bool SMParagraphStyle::isDefaultStyle(const QString &stylename) const
 
 void SMParagraphStyle::setDefaultStyle(bool ids)
 {
-	Q_ASSERT(selection_.count() == 1);
-	if (selection_.count() != 1)
+	Q_ASSERT(m_selection.count() == 1);
+	if (m_selection.count() != 1)
 		return;
 
-	selection_[0]->setDefaultStyle(ids);
+	m_selection[0]->setDefaultStyle(ids);
 	
-	if (!selectionIsDirty_)
+	if (!m_selectionIsDirty)
 	{
-		selectionIsDirty_ = true;
+		m_selectionIsDirty = true;
 		emit selectionDirty();
 	}
 }
@@ -357,17 +357,17 @@ QString SMParagraphStyle::shortcut(const QString &stylename) const
 {
 	QString s(QString::null);
 
-	int index = tmpStyles_.find(stylename);
+	int index = m_tmpStyles.find(stylename);
 	if (index > -1)
-		s = tmpStyles_[index].shortcut();
+		s = m_tmpStyles[index].shortcut();
 	else
 	{
 		//FIXME: Use isDefaultStyle somehow
 		if (CommonStrings::trDefaultParagraphStyle==stylename)
 		{
-			index = tmpStyles_.find(CommonStrings::DefaultParagraphStyle);
+			index = m_tmpStyles.find(CommonStrings::DefaultParagraphStyle);
 			if (index > -1)
-				s = tmpStyles_[index].shortcut();
+				s = m_tmpStyles[index].shortcut();
 		}
 	}
 
@@ -376,15 +376,15 @@ QString SMParagraphStyle::shortcut(const QString &stylename) const
 
 void SMParagraphStyle::setShortcut(const QString &shortcut)
 {
-	Q_ASSERT(selection_.count() == 1);
-	if (selection_.count() != 1)
+	Q_ASSERT(m_selection.count() == 1);
+	if (m_selection.count() != 1)
 		return;
 
-	selection_[0]->setShortcut(shortcut);
+	m_selection[0]->setShortcut(shortcut);
 
-	if (!selectionIsDirty_)
+	if (!m_selectionIsDirty)
 	{
-		selectionIsDirty_ = true;
+		m_selectionIsDirty = true;
 		emit selectionDirty();
 	}
 }
@@ -393,384 +393,384 @@ void SMParagraphStyle::deleteStyles(const QList<RemoveItem> &removeList)
 {
 	for (int i = 0; i < removeList.count(); ++i)
 	{
-		for (int k = 0; k < selection_.count(); ++k)
+		for (int k = 0; k < m_selection.count(); ++k)
 		{
-			if (selection_[k]->name() == removeList[i].first)
+			if (m_selection[k]->name() == removeList[i].first)
 			{
-				selection_.removeAt(k);
+				m_selection.removeAt(k);
 				break;
 			}
 		}
 
-		int index = tmpStyles_.find(removeList[i].first);
+		int index = m_tmpStyles.find(removeList[i].first);
 		if (index > -1)
-			tmpStyles_.remove(index);
+			m_tmpStyles.remove(index);
 
-		deleted_.append(removeList[i]);
+		m_deleted.append(removeList[i]);
 	}
 }
 
 void SMParagraphStyle::nameChanged(const QString &newName)
 {
-	if (selection_.count() != 1)
+	if (m_selection.count() != 1)
 		return;
 
-	QString oldName(selection_[0]->name());
-	ParagraphStyle p(*selection_[0]);
+	QString oldName(m_selection[0]->name());
+	ParagraphStyle p(*m_selection[0]);
 	p.setName(newName);
-	tmpStyles_.create(p);
-	selection_.clear();
-	selection_.append(&tmpStyles_[tmpStyles_.find(newName)]);
-	for (int j = 0; j < tmpStyles_.count(); ++j)
+	m_tmpStyles.create(p);
+	m_selection.clear();
+	m_selection.append(&m_tmpStyles[m_tmpStyles.find(newName)]);
+	for (int j = 0; j < m_tmpStyles.count(); ++j)
 	{
-		int index = tmpStyles_.find(oldName);
+		int index = m_tmpStyles.find(oldName);
 		if (index > -1)
 		{
-			tmpStyles_.remove(index);
+			m_tmpStyles.remove(index);
 			break;
 		}
 	}
 
-	for (int j = 0; j < tmpStyles_.count(); ++j)
+	for (int j = 0; j < m_tmpStyles.count(); ++j)
 	{
-		if (tmpStyles_[j].parent() == oldName)
-			tmpStyles_[j].setParent(newName);
+		if (m_tmpStyles[j].parent() == oldName)
+			m_tmpStyles[j].setParent(newName);
 	}
 
 	QList<RemoveItem>::iterator it;
-	for (it = deleted_.begin(); it != deleted_.end(); ++it)
+	for (it = m_deleted.begin(); it != m_deleted.end(); ++it)
 	{
 		if (it->second == oldName)
 		{
 			oldName = (*it).first;
-			deleted_.erase(it);
+			m_deleted.erase(it);
 			break;
 		}
 	}
 
 	if (oldName != newName)
-		deleted_.append(RemoveItem(oldName, newName));
+		m_deleted.append(RemoveItem(oldName, newName));
 
-	if (!selectionIsDirty_)
+	if (!m_selectionIsDirty)
 	{
-		selectionIsDirty_ = true;
+		m_selectionIsDirty = true;
 		emit selectionDirty();
 	}
 }
 
 void SMParagraphStyle::languageChange()
 {
-	if (pwidget_)
+	if (m_pwidget)
 	{
-		pwidget_->languageChange();
-		pwidget_->cpage->languageChange();
+		m_pwidget->languageChange();
+		m_pwidget->cpage->languageChange();
 	}
 }
 
 void SMParagraphStyle::unitChange()
 {
-	double oldRatio = unitRatio_;
-	unitRatio_ = doc_->unitRatio();
-	pwidget_->unitChange(oldRatio, unitRatio_, doc_->unitIndex());
+	double oldRatio = m_unitRatio;
+	m_unitRatio = m_doc->unitRatio();
+	m_pwidget->unitChange(oldRatio, m_unitRatio, m_doc->unitIndex());
 }
 
 void SMParagraphStyle::reloadTmpStyles()
 {
-	if (!doc_)
+	if (!m_doc)
 		return;
 
-	selection_.clear();
-	tmpStyles_.clear();
-	deleted_.clear();
-	tmpStyles_.redefine(doc_->paragraphStyles(), true);
-	Q_ASSERT(tmpStyles_.count() > 0);
-	tmpStyles_[0].charStyle().setContext(cstyles_);
+	m_selection.clear();
+	m_tmpStyles.clear();
+	m_deleted.clear();
+	m_tmpStyles.redefine(m_doc->paragraphStyles(), true);
+	Q_ASSERT(m_tmpStyles.count() > 0);
+	m_tmpStyles[0].charStyle().setContext(m_cstyles);
 }
 
 void SMParagraphStyle::setupConnections()
 {
-	if (!pwidget_)
+	if (!m_pwidget)
 		return;
 
 	// paragraph attributes
-	connect(pwidget_->lineSpacingMode_, SIGNAL(activated(int)), this, SLOT(slotLineSpacingMode(int)));
-	connect(pwidget_->lineSpacing_, SIGNAL(valueChanged(double)), this, SLOT(slotLineSpacing()));
-	connect(pwidget_->spaceAbove_, SIGNAL(valueChanged(double)), this, SLOT(slotSpaceAbove()));
-	connect(pwidget_->spaceBelow_, SIGNAL(valueChanged(double)), this, SLOT(slotSpaceBelow()));
-	connect(pwidget_->alignement_->TextL, SIGNAL(clicked()), this, SLOT(slotAlignment()));
-	connect(pwidget_->alignement_->TextR, SIGNAL(clicked()), this, SLOT(slotAlignment()));
-	connect(pwidget_->alignement_->TextC, SIGNAL(clicked()), this, SLOT(slotAlignment()));
-	connect(pwidget_->alignement_->TextB, SIGNAL(clicked()), this, SLOT(slotAlignment()));
-	connect(pwidget_->alignement_->TextF, SIGNAL(clicked()), this, SLOT(slotAlignment()));
-	connect(pwidget_->alignement_->parentButton, SIGNAL(clicked()), this, SLOT(slotAlignment()));
-//	connect(pwidget_->optMarginCombo, SIGNAL(activated(int)), this, SLOT(slotOpticalMargin(int)));
-	connect(pwidget_->optMarginRadioNone, SIGNAL(clicked()), this, SLOT(slotOpticalMarginSelector()));
-	connect(pwidget_->optMarginRadioLeft, SIGNAL(clicked()), this, SLOT(slotOpticalMarginSelector()));
-	connect(pwidget_->optMarginRadioRight, SIGNAL(clicked()), this, SLOT(slotOpticalMarginSelector()));
-	connect(pwidget_->optMarginRadioBoth, SIGNAL(clicked()), this, SLOT(slotOpticalMarginSelector()));
-	connect(pwidget_, SIGNAL(useParentOptMargins()), this, SLOT(slotParentOpticalMargin()));
+	connect(m_pwidget->lineSpacingMode_, SIGNAL(activated(int)), this, SLOT(slotLineSpacingMode(int)));
+	connect(m_pwidget->lineSpacing_, SIGNAL(valueChanged(double)), this, SLOT(slotLineSpacing()));
+	connect(m_pwidget->spaceAbove_, SIGNAL(valueChanged(double)), this, SLOT(slotSpaceAbove()));
+	connect(m_pwidget->spaceBelow_, SIGNAL(valueChanged(double)), this, SLOT(slotSpaceBelow()));
+	connect(m_pwidget->alignement_->TextL, SIGNAL(clicked()), this, SLOT(slotAlignment()));
+	connect(m_pwidget->alignement_->TextR, SIGNAL(clicked()), this, SLOT(slotAlignment()));
+	connect(m_pwidget->alignement_->TextC, SIGNAL(clicked()), this, SLOT(slotAlignment()));
+	connect(m_pwidget->alignement_->TextB, SIGNAL(clicked()), this, SLOT(slotAlignment()));
+	connect(m_pwidget->alignement_->TextF, SIGNAL(clicked()), this, SLOT(slotAlignment()));
+	connect(m_pwidget->alignement_->parentButton, SIGNAL(clicked()), this, SLOT(slotAlignment()));
+//	connect(m_pwidget->optMarginCombo, SIGNAL(activated(int)), this, SLOT(slotOpticalMargin(int)));
+	connect(m_pwidget->optMarginRadioNone, SIGNAL(clicked()), this, SLOT(slotOpticalMarginSelector()));
+	connect(m_pwidget->optMarginRadioLeft, SIGNAL(clicked()), this, SLOT(slotOpticalMarginSelector()));
+	connect(m_pwidget->optMarginRadioRight, SIGNAL(clicked()), this, SLOT(slotOpticalMarginSelector()));
+	connect(m_pwidget->optMarginRadioBoth, SIGNAL(clicked()), this, SLOT(slotOpticalMarginSelector()));
+	connect(m_pwidget, SIGNAL(useParentOptMargins()), this, SLOT(slotParentOpticalMargin()));
 	
-	connect(pwidget_->minSpaceSpin, SIGNAL(valueChanged(double)),this,SLOT(slotMinSpace()));
-	connect(pwidget_->minGlyphExtSpin, SIGNAL(valueChanged(double)),this,SLOT(slotMinGlyphExt()));
-	connect(pwidget_->maxGlyphExtSpin, SIGNAL(valueChanged(double)),this,SLOT(slotMaxGlyphExt()));
+	connect(m_pwidget->minSpaceSpin, SIGNAL(valueChanged(double)),this,SLOT(slotMinSpace()));
+	connect(m_pwidget->minGlyphExtSpin, SIGNAL(valueChanged(double)),this,SLOT(slotMinGlyphExt()));
+	connect(m_pwidget->maxGlyphExtSpin, SIGNAL(valueChanged(double)),this,SLOT(slotMaxGlyphExt()));
 
-	connect(pwidget_, SIGNAL(useParentParaEffects()), this, SLOT(slotParentParaEffects()));
-	connect(pwidget_->dropCapsBox, SIGNAL(toggled(bool)), this, SLOT(slotDropCap(bool)));
-	connect(pwidget_->dropCapLines_, SIGNAL(valueChanged(int)), this, SLOT(slotDropCapLines(int)));
-	connect(pwidget_->parEffectOffset_, SIGNAL(valueChanged(double)), this, SLOT(slotParEffectOffset()));
-	connect(pwidget_->parEffectIndentBox, SIGNAL(toggled(bool)), this, SLOT(slotParEffectIndent(bool)));
-	connect(pwidget_->parEffectCharStyleCombo, SIGNAL(activated(const QString&)), this, SLOT(slotParEffectCharStyle(const QString&)));
+	connect(m_pwidget, SIGNAL(useParentParaEffects()), this, SLOT(slotParentParaEffects()));
+	connect(m_pwidget->dropCapsBox, SIGNAL(toggled(bool)), this, SLOT(slotDropCap(bool)));
+	connect(m_pwidget->dropCapLines_, SIGNAL(valueChanged(int)), this, SLOT(slotDropCapLines(int)));
+	connect(m_pwidget->parEffectOffset_, SIGNAL(valueChanged(double)), this, SLOT(slotParEffectOffset()));
+	connect(m_pwidget->parEffectIndentBox, SIGNAL(toggled(bool)), this, SLOT(slotParEffectIndent(bool)));
+	connect(m_pwidget->parEffectCharStyleCombo, SIGNAL(activated(const QString&)), this, SLOT(slotParEffectCharStyle(const QString&)));
 
-	connect(pwidget_->bulletBox, SIGNAL(toggled(bool)), this, SLOT(slotBullet(bool)));
-	connect(pwidget_->bulletStrEdit_, SIGNAL(editTextChanged(QString)), this, SLOT(slotBulletStr(QString)));
-	connect(pwidget_->numBox, SIGNAL(toggled(bool)), this, SLOT(slotNumeration(bool)));
-	connect(pwidget_->numComboBox, SIGNAL(activated(QString)), this, SLOT(slotNumName(QString)));
-	connect(pwidget_->numLevelSpin, SIGNAL(valueChanged(int)), this, SLOT(slotNumLevel(int)));
-	connect(pwidget_->numFormatCombo, SIGNAL(activated(int)), this, SLOT(slotNumFormat(int)));
-	connect(pwidget_->numStartSpin, SIGNAL(valueChanged(int)), this, SLOT(slotNumStart(int)));
-	connect(pwidget_->numRestartCombo, SIGNAL(activated(int)), this, SLOT(slotNumRestart(int)));
-	connect(pwidget_->numRestartOtherBox, SIGNAL(toggled(bool)), this, SLOT(slotNumOther(bool)));
-	connect(pwidget_->numRestartHigherBox, SIGNAL(toggled(bool)), this, SLOT(slotNumHigher(bool)));
-	connect(pwidget_->numPrefix, SIGNAL(textChanged(QString)), this, SLOT(slotNumPrefix(QString)));
-	connect(pwidget_->numSuffix, SIGNAL(textChanged(QString)), this, SLOT(slotNumSuffix(QString)));
-	connect(pwidget_->numNewLineEdit, SIGNAL(editingFinished()), this, SLOT(slotNumNew()));
-	connect(pwidget_->numNewLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotSelectionDirty()));
+	connect(m_pwidget->bulletBox, SIGNAL(toggled(bool)), this, SLOT(slotBullet(bool)));
+	connect(m_pwidget->bulletStrEdit_, SIGNAL(editTextChanged(QString)), this, SLOT(slotBulletStr(QString)));
+	connect(m_pwidget->numBox, SIGNAL(toggled(bool)), this, SLOT(slotNumeration(bool)));
+	connect(m_pwidget->numComboBox, SIGNAL(activated(QString)), this, SLOT(slotNumName(QString)));
+	connect(m_pwidget->numLevelSpin, SIGNAL(valueChanged(int)), this, SLOT(slotNumLevel(int)));
+	connect(m_pwidget->numFormatCombo, SIGNAL(activated(int)), this, SLOT(slotNumFormat(int)));
+	connect(m_pwidget->numStartSpin, SIGNAL(valueChanged(int)), this, SLOT(slotNumStart(int)));
+	connect(m_pwidget->numRestartCombo, SIGNAL(activated(int)), this, SLOT(slotNumRestart(int)));
+	connect(m_pwidget->numRestartOtherBox, SIGNAL(toggled(bool)), this, SLOT(slotNumOther(bool)));
+	connect(m_pwidget->numRestartHigherBox, SIGNAL(toggled(bool)), this, SLOT(slotNumHigher(bool)));
+	connect(m_pwidget->numPrefix, SIGNAL(textChanged(QString)), this, SLOT(slotNumPrefix(QString)));
+	connect(m_pwidget->numSuffix, SIGNAL(textChanged(QString)), this, SLOT(slotNumSuffix(QString)));
+	connect(m_pwidget->numNewLineEdit, SIGNAL(editingFinished()), this, SLOT(slotNumNew()));
+	connect(m_pwidget->numNewLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotSelectionDirty()));
 
-	connect(pwidget_->keepLinesStart, SIGNAL(valueChanged(int)), this, SLOT(handleKeepLinesStart()));
-	connect(pwidget_->keepLinesEnd, SIGNAL(valueChanged(int)), this, SLOT(handleKeepLinesEnd()));
-	connect(pwidget_->keepTogether, SIGNAL(stateChanged(int)), this, SLOT(handleKeepTogether()));
-	connect(pwidget_->keepWithNext, SIGNAL(stateChanged(int)), this, SLOT(handleKeepWithNext()));
+	connect(m_pwidget->keepLinesStart, SIGNAL(valueChanged(int)), this, SLOT(handleKeepLinesStart()));
+	connect(m_pwidget->keepLinesEnd, SIGNAL(valueChanged(int)), this, SLOT(handleKeepLinesEnd()));
+	connect(m_pwidget->keepTogether, SIGNAL(stateChanged(int)), this, SLOT(handleKeepTogether()));
+	connect(m_pwidget->keepWithNext, SIGNAL(stateChanged(int)), this, SLOT(handleKeepWithNext()));
 
-	connect(pwidget_->tabList_, SIGNAL(tabsChanged()), this, SLOT(slotTabRuler()));
-	connect(pwidget_->tabList_, SIGNAL(mouseReleased()), this, SLOT(slotTabRuler()));
-	connect(pwidget_->tabList_->left_, SIGNAL(valueChanged(double)), this, SLOT(slotLeftIndent()));
-	connect(pwidget_->tabList_->right_, SIGNAL(valueChanged(double)), this, SLOT(slotRightIndent()));
-	connect(pwidget_->tabList_->first_, SIGNAL(valueChanged(double)), this, SLOT(slotFirstLine()));
+	connect(m_pwidget->tabList_, SIGNAL(tabsChanged()), this, SLOT(slotTabRuler()));
+	connect(m_pwidget->tabList_, SIGNAL(mouseReleased()), this, SLOT(slotTabRuler()));
+	connect(m_pwidget->tabList_->left_, SIGNAL(valueChanged(double)), this, SLOT(slotLeftIndent()));
+	connect(m_pwidget->tabList_->right_, SIGNAL(valueChanged(double)), this, SLOT(slotRightIndent()));
+	connect(m_pwidget->tabList_->first_, SIGNAL(valueChanged(double)), this, SLOT(slotFirstLine()));
 
-	connect(pwidget_->parentCombo, SIGNAL(activated(const QString&)), this, SLOT(slotParentChanged(const QString&)));
+	connect(m_pwidget->parentCombo, SIGNAL(activated(const QString&)), this, SLOT(slotParentChanged(const QString&)));
 
 	// character attributes
-	connect(pwidget_->cpage->fontFace_, SIGNAL(fontSelected(QString)), this, SLOT(slotFont(QString)));
-	connect(pwidget_->cpage->effects_, SIGNAL(State(int)), this, SLOT(slotEffects(int)));
-	connect(pwidget_->cpage->effects_->ShadowVal->Xoffset, SIGNAL(valueChanged(double)), this, SLOT(slotEffectProperties()));
-	connect(pwidget_->cpage->effects_->ShadowVal->Yoffset, SIGNAL(valueChanged(double)), this, SLOT(slotEffectProperties()));
-	connect(pwidget_->cpage->effects_->OutlineVal->LWidth, SIGNAL(valueChanged(double)), this, SLOT(slotEffectProperties()));
-	connect(pwidget_->cpage->effects_->UnderlineVal->LPos, SIGNAL(valueChanged(double)), this, SLOT(slotEffectProperties()));
-	connect(pwidget_->cpage->effects_->UnderlineVal->LWidth, SIGNAL(valueChanged(double)), this, SLOT(slotEffectProperties()));
-	connect(pwidget_->cpage->effects_->StrikeVal->LPos, SIGNAL(valueChanged(double)), this, SLOT(slotEffectProperties()));
-	connect(pwidget_->cpage->effects_->StrikeVal->LWidth, SIGNAL(valueChanged(double)), this, SLOT(slotEffectProperties()));
-	connect(pwidget_->cpage->fillColor_, SIGNAL(activated(const QString&)), this, SLOT(slotFillColor()));
-	connect(pwidget_->cpage->fillShade_, SIGNAL(clicked()), this, SLOT(slotFillShade()));
-	connect(pwidget_->cpage->strokeColor_, SIGNAL(activated(const QString&)), this, SLOT(slotStrokeColor()));
-	connect(pwidget_->cpage->strokeShade_, SIGNAL(clicked()), this, SLOT(slotStrokeShade()));
-	connect(pwidget_->cpage->language_, SIGNAL(activated(int)), this, SLOT(slotLanguage()));
-	connect(pwidget_->cpage->fontSize_, SIGNAL(valueChanged(double)), this, SLOT(slotFontSize()));
-	connect(pwidget_->cpage->fontHScale_, SIGNAL(valueChanged(double)), this, SLOT(slotScaleH()));
-	connect(pwidget_->cpage->fontVScale_, SIGNAL(valueChanged(double)), this, SLOT(slotScaleV()));
-	connect(pwidget_->cpage->tracking_, SIGNAL(valueChanged(double)), this, SLOT(slotTracking()));
-	connect(pwidget_->cpage->widthSpaceSpin, SIGNAL(valueChanged(double)), this, SLOT(slotWordTracking()));
-	connect(pwidget_->cpage->baselineOffset_, SIGNAL(valueChanged(double)), this, SLOT(slotBaselineOffset()));
-	connect(pwidget_->cpage->fontFace_, SIGNAL(fontSelected(QString)), this, SLOT(slotFont(QString)));
-	connect(pwidget_->cpage->parentCombo, SIGNAL(activated(const QString&)), this, SLOT(slotCharParentChanged(const QString&)));
+	connect(m_pwidget->cpage->fontFace_, SIGNAL(fontSelected(QString)), this, SLOT(slotFont(QString)));
+	connect(m_pwidget->cpage->effects_, SIGNAL(State(int)), this, SLOT(slotEffects(int)));
+	connect(m_pwidget->cpage->effects_->ShadowVal->Xoffset, SIGNAL(valueChanged(double)), this, SLOT(slotEffectProperties()));
+	connect(m_pwidget->cpage->effects_->ShadowVal->Yoffset, SIGNAL(valueChanged(double)), this, SLOT(slotEffectProperties()));
+	connect(m_pwidget->cpage->effects_->OutlineVal->LWidth, SIGNAL(valueChanged(double)), this, SLOT(slotEffectProperties()));
+	connect(m_pwidget->cpage->effects_->UnderlineVal->LPos, SIGNAL(valueChanged(double)), this, SLOT(slotEffectProperties()));
+	connect(m_pwidget->cpage->effects_->UnderlineVal->LWidth, SIGNAL(valueChanged(double)), this, SLOT(slotEffectProperties()));
+	connect(m_pwidget->cpage->effects_->StrikeVal->LPos, SIGNAL(valueChanged(double)), this, SLOT(slotEffectProperties()));
+	connect(m_pwidget->cpage->effects_->StrikeVal->LWidth, SIGNAL(valueChanged(double)), this, SLOT(slotEffectProperties()));
+	connect(m_pwidget->cpage->fillColor_, SIGNAL(activated(const QString&)), this, SLOT(slotFillColor()));
+	connect(m_pwidget->cpage->fillShade_, SIGNAL(clicked()), this, SLOT(slotFillShade()));
+	connect(m_pwidget->cpage->strokeColor_, SIGNAL(activated(const QString&)), this, SLOT(slotStrokeColor()));
+	connect(m_pwidget->cpage->strokeShade_, SIGNAL(clicked()), this, SLOT(slotStrokeShade()));
+	connect(m_pwidget->cpage->language_, SIGNAL(activated(int)), this, SLOT(slotLanguage()));
+	connect(m_pwidget->cpage->fontSize_, SIGNAL(valueChanged(double)), this, SLOT(slotFontSize()));
+	connect(m_pwidget->cpage->fontHScale_, SIGNAL(valueChanged(double)), this, SLOT(slotScaleH()));
+	connect(m_pwidget->cpage->fontVScale_, SIGNAL(valueChanged(double)), this, SLOT(slotScaleV()));
+	connect(m_pwidget->cpage->tracking_, SIGNAL(valueChanged(double)), this, SLOT(slotTracking()));
+	connect(m_pwidget->cpage->widthSpaceSpin, SIGNAL(valueChanged(double)), this, SLOT(slotWordTracking()));
+	connect(m_pwidget->cpage->baselineOffset_, SIGNAL(valueChanged(double)), this, SLOT(slotBaselineOffset()));
+	connect(m_pwidget->cpage->fontFace_, SIGNAL(fontSelected(QString)), this, SLOT(slotFont(QString)));
+	connect(m_pwidget->cpage->parentCombo, SIGNAL(activated(const QString&)), this, SLOT(slotCharParentChanged(const QString&)));
 }
 
 void SMParagraphStyle::removeConnections()
 {
-	if (!pwidget_)
+	if (!m_pwidget)
 		return;
 
-	disconnect(pwidget_->lineSpacingMode_, SIGNAL(activated(int)), this, SLOT(slotLineSpacingMode(int)));
-	disconnect(pwidget_->lineSpacing_, SIGNAL(valueChanged(double)), this, SLOT(slotLineSpacing()));
-	disconnect(pwidget_->spaceAbove_, SIGNAL(valueChanged(double)), this, SLOT(slotSpaceAbove()));
-	disconnect(pwidget_->spaceBelow_, SIGNAL(valueChanged(double)), this, SLOT(slotSpaceBelow()));
-	disconnect(pwidget_->alignement_->TextL, SIGNAL(clicked()), this, SLOT(slotAlignment()));
-	disconnect(pwidget_->alignement_->TextR, SIGNAL(clicked()), this, SLOT(slotAlignment()));
-	disconnect(pwidget_->alignement_->TextC, SIGNAL(clicked()), this, SLOT(slotAlignment()));
-	disconnect(pwidget_->alignement_->TextB, SIGNAL(clicked()), this, SLOT(slotAlignment()));
-	disconnect(pwidget_->alignement_->TextF, SIGNAL(clicked()), this, SLOT(slotAlignment()));
-	disconnect(pwidget_->alignement_->parentButton, SIGNAL(clicked()), this, SLOT(slotAlignment()));
-//	disconnect(pwidget_->optMarginCombo, SIGNAL(activated(int)), this, SLOT(slotOpticalMargin(int)));
-	disconnect(pwidget_->optMarginRadioNone, SIGNAL(clicked()), this, SLOT(slotOpticalMarginSelector()));
-	disconnect(pwidget_->optMarginRadioLeft, SIGNAL(clicked()), this, SLOT(slotOpticalMarginSelector()));
-	disconnect(pwidget_->optMarginRadioRight, SIGNAL(clicked()), this, SLOT(slotOpticalMarginSelector()));
-	disconnect(pwidget_->optMarginRadioBoth, SIGNAL(clicked()), this, SLOT(slotOpticalMarginSelector()));
+	disconnect(m_pwidget->lineSpacingMode_, SIGNAL(activated(int)), this, SLOT(slotLineSpacingMode(int)));
+	disconnect(m_pwidget->lineSpacing_, SIGNAL(valueChanged(double)), this, SLOT(slotLineSpacing()));
+	disconnect(m_pwidget->spaceAbove_, SIGNAL(valueChanged(double)), this, SLOT(slotSpaceAbove()));
+	disconnect(m_pwidget->spaceBelow_, SIGNAL(valueChanged(double)), this, SLOT(slotSpaceBelow()));
+	disconnect(m_pwidget->alignement_->TextL, SIGNAL(clicked()), this, SLOT(slotAlignment()));
+	disconnect(m_pwidget->alignement_->TextR, SIGNAL(clicked()), this, SLOT(slotAlignment()));
+	disconnect(m_pwidget->alignement_->TextC, SIGNAL(clicked()), this, SLOT(slotAlignment()));
+	disconnect(m_pwidget->alignement_->TextB, SIGNAL(clicked()), this, SLOT(slotAlignment()));
+	disconnect(m_pwidget->alignement_->TextF, SIGNAL(clicked()), this, SLOT(slotAlignment()));
+	disconnect(m_pwidget->alignement_->parentButton, SIGNAL(clicked()), this, SLOT(slotAlignment()));
+//	disconnect(m_pwidget->optMarginCombo, SIGNAL(activated(int)), this, SLOT(slotOpticalMargin(int)));
+	disconnect(m_pwidget->optMarginRadioNone, SIGNAL(clicked()), this, SLOT(slotOpticalMarginSelector()));
+	disconnect(m_pwidget->optMarginRadioLeft, SIGNAL(clicked()), this, SLOT(slotOpticalMarginSelector()));
+	disconnect(m_pwidget->optMarginRadioRight, SIGNAL(clicked()), this, SLOT(slotOpticalMarginSelector()));
+	disconnect(m_pwidget->optMarginRadioBoth, SIGNAL(clicked()), this, SLOT(slotOpticalMarginSelector()));
 	
-	disconnect(pwidget_->minSpaceSpin, SIGNAL(valueChanged(double)),this,SLOT(slotMinSpace()));
-	disconnect(pwidget_->minGlyphExtSpin, SIGNAL(valueChanged(double)),this,SLOT(slotMinGlyphExt()));
-	disconnect(pwidget_->maxGlyphExtSpin, SIGNAL(valueChanged(double)),this,SLOT(slotMaxGlyphExt()));
+	disconnect(m_pwidget->minSpaceSpin, SIGNAL(valueChanged(double)),this,SLOT(slotMinSpace()));
+	disconnect(m_pwidget->minGlyphExtSpin, SIGNAL(valueChanged(double)),this,SLOT(slotMinGlyphExt()));
+	disconnect(m_pwidget->maxGlyphExtSpin, SIGNAL(valueChanged(double)),this,SLOT(slotMaxGlyphExt()));
 	
-	disconnect(pwidget_, SIGNAL(useParentParaEffects()), this, SLOT(slotParentParaEffects()));
-	disconnect(pwidget_->dropCapsBox, SIGNAL(toggled(bool)), this, SLOT(slotDropCap(bool)));
-	disconnect(pwidget_->dropCapLines_, SIGNAL(valueChanged(int)), this, SLOT(slotDropCapLines(int)));
-	disconnect(pwidget_->parEffectOffset_, SIGNAL(valueChanged(double)), this, SLOT(slotParEffectOffset()));
-	disconnect(pwidget_->parEffectIndentBox, SIGNAL(toggled(bool)), this, SLOT(slotParEffectIndent(bool)));
-	disconnect(pwidget_->parEffectCharStyleCombo, SIGNAL(activated(const QString&)), this, SLOT(slotParEffectCharStyle(const QString&)));
+	disconnect(m_pwidget, SIGNAL(useParentParaEffects()), this, SLOT(slotParentParaEffects()));
+	disconnect(m_pwidget->dropCapsBox, SIGNAL(toggled(bool)), this, SLOT(slotDropCap(bool)));
+	disconnect(m_pwidget->dropCapLines_, SIGNAL(valueChanged(int)), this, SLOT(slotDropCapLines(int)));
+	disconnect(m_pwidget->parEffectOffset_, SIGNAL(valueChanged(double)), this, SLOT(slotParEffectOffset()));
+	disconnect(m_pwidget->parEffectIndentBox, SIGNAL(toggled(bool)), this, SLOT(slotParEffectIndent(bool)));
+	disconnect(m_pwidget->parEffectCharStyleCombo, SIGNAL(activated(const QString&)), this, SLOT(slotParEffectCharStyle(const QString&)));
 
-	disconnect(pwidget_->bulletBox, SIGNAL(toggled(bool)), this, SLOT(slotBullet(bool)));
-	disconnect(pwidget_->bulletStrEdit_, SIGNAL(editTextChanged(QString)), this, SLOT(slotBulletStr(QString)));
-	disconnect(pwidget_->numBox, SIGNAL(toggled(bool)), this, SLOT(slotNumeration(bool)));
-	disconnect(pwidget_->numComboBox, SIGNAL(activated(QString)), this, SLOT(slotNumName(QString)));
-	disconnect(pwidget_->numFormatCombo, SIGNAL(activated(int)), this, SLOT(slotNumFormat(int)));
-	disconnect(pwidget_->numLevelSpin, SIGNAL(valueChanged(int)), this, SLOT(slotNumLevel(int)));
-	disconnect(pwidget_->numStartSpin, SIGNAL(valueChanged(int)), this, SLOT(slotNumStart(int)));
-	disconnect(pwidget_->numRestartCombo, SIGNAL(activated(int)), this, SLOT(slotNumRestart(int)));
-	disconnect(pwidget_->numRestartOtherBox, SIGNAL(toggled(bool)), this, SLOT(slotNumOther(bool)));
-	disconnect(pwidget_->numRestartHigherBox, SIGNAL(toggled(bool)), this, SLOT(slotNumHigher(bool)));
-	disconnect(pwidget_->numPrefix, SIGNAL(textChanged(QString)), this, SLOT(slotNumPrefix(QString)));
-	disconnect(pwidget_->numSuffix, SIGNAL(textChanged(QString)), this, SLOT(slotNumSuffix(QString)));
-	disconnect(pwidget_->numNewLineEdit, SIGNAL(editingFinished()), this, SLOT(slotNumNew()));
-	disconnect(pwidget_->numNewLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotSelectionDirty()));
+	disconnect(m_pwidget->bulletBox, SIGNAL(toggled(bool)), this, SLOT(slotBullet(bool)));
+	disconnect(m_pwidget->bulletStrEdit_, SIGNAL(editTextChanged(QString)), this, SLOT(slotBulletStr(QString)));
+	disconnect(m_pwidget->numBox, SIGNAL(toggled(bool)), this, SLOT(slotNumeration(bool)));
+	disconnect(m_pwidget->numComboBox, SIGNAL(activated(QString)), this, SLOT(slotNumName(QString)));
+	disconnect(m_pwidget->numFormatCombo, SIGNAL(activated(int)), this, SLOT(slotNumFormat(int)));
+	disconnect(m_pwidget->numLevelSpin, SIGNAL(valueChanged(int)), this, SLOT(slotNumLevel(int)));
+	disconnect(m_pwidget->numStartSpin, SIGNAL(valueChanged(int)), this, SLOT(slotNumStart(int)));
+	disconnect(m_pwidget->numRestartCombo, SIGNAL(activated(int)), this, SLOT(slotNumRestart(int)));
+	disconnect(m_pwidget->numRestartOtherBox, SIGNAL(toggled(bool)), this, SLOT(slotNumOther(bool)));
+	disconnect(m_pwidget->numRestartHigherBox, SIGNAL(toggled(bool)), this, SLOT(slotNumHigher(bool)));
+	disconnect(m_pwidget->numPrefix, SIGNAL(textChanged(QString)), this, SLOT(slotNumPrefix(QString)));
+	disconnect(m_pwidget->numSuffix, SIGNAL(textChanged(QString)), this, SLOT(slotNumSuffix(QString)));
+	disconnect(m_pwidget->numNewLineEdit, SIGNAL(editingFinished()), this, SLOT(slotNumNew()));
+	disconnect(m_pwidget->numNewLineEdit, SIGNAL(textChanged(QString)), this, SLOT(slotSelectionDirty()));
 	
-	disconnect(pwidget_->parentCombo, SIGNAL(activated(const QString&)), this, SLOT(slotParentChanged(const QString&)));
+	disconnect(m_pwidget->parentCombo, SIGNAL(activated(const QString&)), this, SLOT(slotParentChanged(const QString&)));
 
-	disconnect(pwidget_->keepLinesStart, SIGNAL(valueChanged(int)), this, SLOT(handleKeepLinesStart()));
-	disconnect(pwidget_->keepLinesEnd, SIGNAL(valueChanged(int)), this, SLOT(handleKeepLinesEnd()));
-	disconnect(pwidget_->keepTogether, SIGNAL(stateChanged(int)), this, SLOT(handleKeepTogether()));
-	disconnect(pwidget_->keepWithNext, SIGNAL(stateChanged(int)), this, SLOT(handleKeepWithNext()));
+	disconnect(m_pwidget->keepLinesStart, SIGNAL(valueChanged(int)), this, SLOT(handleKeepLinesStart()));
+	disconnect(m_pwidget->keepLinesEnd, SIGNAL(valueChanged(int)), this, SLOT(handleKeepLinesEnd()));
+	disconnect(m_pwidget->keepTogether, SIGNAL(stateChanged(int)), this, SLOT(handleKeepTogether()));
+	disconnect(m_pwidget->keepWithNext, SIGNAL(stateChanged(int)), this, SLOT(handleKeepWithNext()));
 
-	disconnect(pwidget_->tabList_, SIGNAL(tabsChanged()), this, SLOT(slotTabRuler()));
-	disconnect(pwidget_->tabList_->left_, SIGNAL(valueChanged(double)), this, SLOT(slotLeftIndent()));
-	disconnect(pwidget_->tabList_->right_, SIGNAL(valueChanged(double)), this, SLOT(slotRightIndent()));
-	disconnect(pwidget_->tabList_->first_, SIGNAL(valueChanged(double)), this, SLOT(slotFirstLine()));
+	disconnect(m_pwidget->tabList_, SIGNAL(tabsChanged()), this, SLOT(slotTabRuler()));
+	disconnect(m_pwidget->tabList_->left_, SIGNAL(valueChanged(double)), this, SLOT(slotLeftIndent()));
+	disconnect(m_pwidget->tabList_->right_, SIGNAL(valueChanged(double)), this, SLOT(slotRightIndent()));
+	disconnect(m_pwidget->tabList_->first_, SIGNAL(valueChanged(double)), this, SLOT(slotFirstLine()));
 
-	disconnect(pwidget_->cpage->fontFace_, SIGNAL(fontSelected(QString)), this, SLOT(slotFont(QString)));
-	disconnect(pwidget_->cpage->effects_, SIGNAL(State(int)), this, SLOT(slotEffects(int)));
-	disconnect(pwidget_->cpage->effects_->ShadowVal->Xoffset, SIGNAL(valueChanged(double)), this, SLOT(slotEffectProperties()));
-	disconnect(pwidget_->cpage->effects_->ShadowVal->Yoffset, SIGNAL(valueChanged(double)), this, SLOT(slotEffectProperties()));
-	disconnect(pwidget_->cpage->effects_->OutlineVal->LWidth, SIGNAL(valueChanged(double)), this, SLOT(slotEffectProperties()));
-	disconnect(pwidget_->cpage->effects_->UnderlineVal->LPos, SIGNAL(valueChanged(double)), this, SLOT(slotEffectProperties()));
-	disconnect(pwidget_->cpage->effects_->UnderlineVal->LWidth, SIGNAL(valueChanged(double)), this, SLOT(slotEffectProperties()));
-	disconnect(pwidget_->cpage->effects_->StrikeVal->LPos, SIGNAL(valueChanged(double)), this, SLOT(slotEffectProperties()));
-	disconnect(pwidget_->cpage->effects_->StrikeVal->LWidth, SIGNAL(valueChanged(double)), this, SLOT(slotEffectProperties()));
-	disconnect(pwidget_->cpage->fillColor_, SIGNAL(activated(const QString&)), this, SLOT(slotFillColor()));
-	disconnect(pwidget_->cpage->fillShade_, SIGNAL(clicked()), this, SLOT(slotFillShade()));
-	disconnect(pwidget_->cpage->strokeColor_, SIGNAL(activated(const QString&)), this, SLOT(slotStrokeColor()));
-	disconnect(pwidget_->cpage->strokeShade_, SIGNAL(clicked()), this, SLOT(slotStrokeShade()));
-	disconnect(pwidget_->cpage->language_, SIGNAL(activated(int)), this, SLOT(slotLanguage()));
-	disconnect(pwidget_->cpage->fontSize_, SIGNAL(valueChanged(double)), this, SLOT(slotFontSize()));
-	disconnect(pwidget_->cpage->fontHScale_, SIGNAL(valueChanged(double)), this, SLOT(slotScaleH()));
-	disconnect(pwidget_->cpage->fontVScale_, SIGNAL(valueChanged(double)), this, SLOT(slotScaleV()));
-	disconnect(pwidget_->cpage->tracking_, SIGNAL(valueChanged(double)), this, SLOT(slotTracking()));
-	disconnect(pwidget_->cpage->widthSpaceSpin, SIGNAL(valueChanged(double)), this, SLOT(slotWordTracking()));
-	disconnect(pwidget_->cpage->baselineOffset_, SIGNAL(valueChanged(double)), this, SLOT(slotBaselineOffset()));
-	disconnect(pwidget_->cpage->fontFace_, SIGNAL(fontSelected(QString)), this, SLOT(slotFont(QString)));
-	disconnect(pwidget_->cpage->parentCombo, SIGNAL(activated(const QString&)), this, SLOT(slotCharParentChanged(const QString&)));
+	disconnect(m_pwidget->cpage->fontFace_, SIGNAL(fontSelected(QString)), this, SLOT(slotFont(QString)));
+	disconnect(m_pwidget->cpage->effects_, SIGNAL(State(int)), this, SLOT(slotEffects(int)));
+	disconnect(m_pwidget->cpage->effects_->ShadowVal->Xoffset, SIGNAL(valueChanged(double)), this, SLOT(slotEffectProperties()));
+	disconnect(m_pwidget->cpage->effects_->ShadowVal->Yoffset, SIGNAL(valueChanged(double)), this, SLOT(slotEffectProperties()));
+	disconnect(m_pwidget->cpage->effects_->OutlineVal->LWidth, SIGNAL(valueChanged(double)), this, SLOT(slotEffectProperties()));
+	disconnect(m_pwidget->cpage->effects_->UnderlineVal->LPos, SIGNAL(valueChanged(double)), this, SLOT(slotEffectProperties()));
+	disconnect(m_pwidget->cpage->effects_->UnderlineVal->LWidth, SIGNAL(valueChanged(double)), this, SLOT(slotEffectProperties()));
+	disconnect(m_pwidget->cpage->effects_->StrikeVal->LPos, SIGNAL(valueChanged(double)), this, SLOT(slotEffectProperties()));
+	disconnect(m_pwidget->cpage->effects_->StrikeVal->LWidth, SIGNAL(valueChanged(double)), this, SLOT(slotEffectProperties()));
+	disconnect(m_pwidget->cpage->fillColor_, SIGNAL(activated(const QString&)), this, SLOT(slotFillColor()));
+	disconnect(m_pwidget->cpage->fillShade_, SIGNAL(clicked()), this, SLOT(slotFillShade()));
+	disconnect(m_pwidget->cpage->strokeColor_, SIGNAL(activated(const QString&)), this, SLOT(slotStrokeColor()));
+	disconnect(m_pwidget->cpage->strokeShade_, SIGNAL(clicked()), this, SLOT(slotStrokeShade()));
+	disconnect(m_pwidget->cpage->language_, SIGNAL(activated(int)), this, SLOT(slotLanguage()));
+	disconnect(m_pwidget->cpage->fontSize_, SIGNAL(valueChanged(double)), this, SLOT(slotFontSize()));
+	disconnect(m_pwidget->cpage->fontHScale_, SIGNAL(valueChanged(double)), this, SLOT(slotScaleH()));
+	disconnect(m_pwidget->cpage->fontVScale_, SIGNAL(valueChanged(double)), this, SLOT(slotScaleV()));
+	disconnect(m_pwidget->cpage->tracking_, SIGNAL(valueChanged(double)), this, SLOT(slotTracking()));
+	disconnect(m_pwidget->cpage->widthSpaceSpin, SIGNAL(valueChanged(double)), this, SLOT(slotWordTracking()));
+	disconnect(m_pwidget->cpage->baselineOffset_, SIGNAL(valueChanged(double)), this, SLOT(slotBaselineOffset()));
+	disconnect(m_pwidget->cpage->fontFace_, SIGNAL(fontSelected(QString)), this, SLOT(slotFont(QString)));
+	disconnect(m_pwidget->cpage->parentCombo, SIGNAL(activated(const QString&)), this, SLOT(slotCharParentChanged(const QString&)));
 }
 
 void SMParagraphStyle::slotLineSpacingMode(int mode)
 {
 	ParagraphStyle::LineSpacingMode lsm = static_cast<ParagraphStyle::LineSpacingMode>(mode);
 
-	if (pwidget_->lineSpacingMode_->useParentValue())
-		for (int i = 0; i < selection_.count(); ++i)
-			selection_[i]->resetLineSpacingMode();
+	if (m_pwidget->lineSpacingMode_->useParentValue())
+		for (int i = 0; i < m_selection.count(); ++i)
+			m_selection[i]->resetLineSpacingMode();
 	else
-		for (int i = 0; i < selection_.count(); ++i)
-			selection_[i]->setLineSpacingMode(lsm);
+		for (int i = 0; i < m_selection.count(); ++i)
+			m_selection[i]->setLineSpacingMode(lsm);
 
-	if (!selectionIsDirty_)
+	if (!m_selectionIsDirty)
 	{
-		selectionIsDirty_ = true;
+		m_selectionIsDirty = true;
 		emit selectionDirty();
 	}
 }
 
 void SMParagraphStyle::slotLineSpacing()
 {
-	if (pwidget_->lineSpacing_->useParentValue())
-		for (int i = 0; i < selection_.count(); ++i)
-			selection_[i]->resetLineSpacing();
+	if (m_pwidget->lineSpacing_->useParentValue())
+		for (int i = 0; i < m_selection.count(); ++i)
+			m_selection[i]->resetLineSpacing();
 	else 
 	{
 		double a, b, value;
 		int c;
 
-		pwidget_->lineSpacing_->getValues(&a, &b, &c, &value);
-		for (int i = 0; i < selection_.count(); ++i)
-			selection_[i]->setLineSpacing(value);
+		m_pwidget->lineSpacing_->getValues(&a, &b, &c, &value);
+		for (int i = 0; i < m_selection.count(); ++i)
+			m_selection[i]->setLineSpacing(value);
 	}
 	
-	if (!selectionIsDirty_)
+	if (!m_selectionIsDirty)
 	{
-		selectionIsDirty_ = true;
+		m_selectionIsDirty = true;
 		emit selectionDirty();
 	}
 }
 
 void SMParagraphStyle::slotSpaceAbove()
 {
-	if (pwidget_->spaceAbove_->useParentValue())
-		for (int i = 0; i < selection_.count(); ++i)
-			selection_[i]->resetGapBefore();
+	if (m_pwidget->spaceAbove_->useParentValue())
+		for (int i = 0; i < m_selection.count(); ++i)
+			m_selection[i]->resetGapBefore();
 	else 
 	{
 		double a, b, value;
 		int c;
 
-		pwidget_->spaceAbove_->getValues(&a, &b, &c, &value);
-		for (int i = 0; i < selection_.count(); ++i)
-			selection_[i]->setGapBefore(value);
+		m_pwidget->spaceAbove_->getValues(&a, &b, &c, &value);
+		for (int i = 0; i < m_selection.count(); ++i)
+			m_selection[i]->setGapBefore(value);
 	}
 	
-	if (!selectionIsDirty_)
+	if (!m_selectionIsDirty)
 	{
-		selectionIsDirty_ = true;
+		m_selectionIsDirty = true;
 		emit selectionDirty();
 	}
 }
 
 void SMParagraphStyle::slotSpaceBelow()
 {
-	if (pwidget_->spaceBelow_->useParentValue())
-		for (int i = 0; i < selection_.count(); ++i)
-			selection_[i]->resetGapAfter();
+	if (m_pwidget->spaceBelow_->useParentValue())
+		for (int i = 0; i < m_selection.count(); ++i)
+			m_selection[i]->resetGapAfter();
 	else 
 	{
 		double a, b, value;
 		int c;
 		
-		pwidget_->spaceBelow_->getValues(&a, &b, &c, &value);
-		for (int i = 0; i < selection_.count(); ++i)
-			selection_[i]->setGapAfter(value);
+		m_pwidget->spaceBelow_->getValues(&a, &b, &c, &value);
+		for (int i = 0; i < m_selection.count(); ++i)
+			m_selection[i]->setGapAfter(value);
 	}
 	
-	if (!selectionIsDirty_)
+	if (!m_selectionIsDirty)
 	{
-		selectionIsDirty_ = true;
+		m_selectionIsDirty = true;
 		emit selectionDirty();
 	}
 }
 
 void SMParagraphStyle::slotAlignment()
 {
-	ParagraphStyle::AlignmentType style = static_cast<ParagraphStyle::AlignmentType>(pwidget_->alignement_->getStyle());
-	if (pwidget_->alignement_->useParentValue())
-		for (int i = 0; i < selection_.count(); ++i)
-			selection_[i]->resetAlignment();
+	ParagraphStyle::AlignmentType style = static_cast<ParagraphStyle::AlignmentType>(m_pwidget->alignement_->getStyle());
+	if (m_pwidget->alignement_->useParentValue())
+		for (int i = 0; i < m_selection.count(); ++i)
+			m_selection[i]->resetAlignment();
 	else 
-		for (int i = 0; i < selection_.count(); ++i)
-			selection_[i]->setAlignment(style);
+		for (int i = 0; i < m_selection.count(); ++i)
+			m_selection[i]->setAlignment(style);
 
-	if (!selectionIsDirty_)
+	if (!m_selectionIsDirty)
 	{
-		selectionIsDirty_ = true;
+		m_selectionIsDirty = true;
 		emit selectionDirty();
 	}
 }
 
 void SMParagraphStyle::slotOpticalMargin(int i)
 {
-//	ParagraphStyle::OpticalMarginType omt( static_cast<ParagraphStyle::OpticalMarginType>(pwidget_->optMarginCombo->itemData(i).toInt()));
-//	if (pwidget_->optMarginCombo->useParentValue())
-//		for (int i = 0; i < selection_.count(); ++i)
-//			selection_[i]->resetOpticalMargins();
+//	ParagraphStyle::OpticalMarginType omt( static_cast<ParagraphStyle::OpticalMarginType>(m_pwidget->optMarginCombo->itemData(i).toInt()));
+//	if (m_pwidget->optMarginCombo->useParentValue())
+//		for (int i = 0; i < m_selection.count(); ++i)
+//			m_selection[i]->resetOpticalMargins();
 //	else
-//		for (int i = 0; i < selection_.count(); ++i)
-//			selection_[i]->setOpticalMargins(omt);
+//		for (int i = 0; i < m_selection.count(); ++i)
+//			m_selection[i]->setOpticalMargins(omt);
 //
-//	if (!selectionIsDirty_)
+//	if (!m_selectionIsDirty)
 //	{
-//		selectionIsDirty_ = true;
+//		m_selectionIsDirty = true;
 //		emit selectionDirty();
 //	}
 }
@@ -778,219 +778,219 @@ void SMParagraphStyle::slotOpticalMargin(int i)
 void SMParagraphStyle::slotOpticalMarginSelector()
 {
 	int omt(ParagraphStyle::OM_None);
-	if (false)//(pwidget_->optMarginCombo->useParentValue())
+	if (false)//(m_pwidget->optMarginCombo->useParentValue())
 	{
 	}
 	else
 	{
-// 		if (pwidget_->optMarginRadioNone->isChecked()) omt = aragraphStyle::OM_None;
-		if (pwidget_->optMarginRadioRight->isChecked()) omt = ParagraphStyle::OM_RightHangingPunct;
-		else if (pwidget_->optMarginRadioLeft->isChecked()) omt = ParagraphStyle::OM_LeftHangingPunct;
-		else if (pwidget_->optMarginRadioBoth->isChecked()) omt = ParagraphStyle::OM_Default;
+// 		if (m_pwidget->optMarginRadioNone->isChecked()) omt = aragraphStyle::OM_None;
+		if (m_pwidget->optMarginRadioRight->isChecked()) omt = ParagraphStyle::OM_RightHangingPunct;
+		else if (m_pwidget->optMarginRadioLeft->isChecked()) omt = ParagraphStyle::OM_LeftHangingPunct;
+		else if (m_pwidget->optMarginRadioBoth->isChecked()) omt = ParagraphStyle::OM_Default;
 
-		for (int i = 0; i < selection_.count(); ++i)
-			selection_[i]->setOpticalMargins(omt);
+		for (int i = 0; i < m_selection.count(); ++i)
+			m_selection[i]->setOpticalMargins(omt);
 	}
-	if (!selectionIsDirty_)
+	if (!m_selectionIsDirty)
 	{
-		selectionIsDirty_ = true;
+		m_selectionIsDirty = true;
 		emit selectionDirty();
 	}
 }
 
 void SMParagraphStyle::slotParentOpticalMargin()
 {
-	for (int i = 0; i < selection_.count(); ++i)
-		selection_[i]->resetOpticalMargins();
+	for (int i = 0; i < m_selection.count(); ++i)
+		m_selection[i]->resetOpticalMargins();
 
-	if (!selectionIsDirty_)
+	if (!m_selectionIsDirty)
 	{
-		selectionIsDirty_ = true;
+		m_selectionIsDirty = true;
 		emit selectionDirty();
 	}
 }
 
 void SMParagraphStyle::slotMinSpace()
 {
-	if (pwidget_->minSpaceSpin->useParentValue())
-		for (int i = 0; i < selection_.count(); ++i)
-			selection_[i]->resetMinWordTracking();
+	if (m_pwidget->minSpaceSpin->useParentValue())
+		for (int i = 0; i < m_selection.count(); ++i)
+			m_selection[i]->resetMinWordTracking();
 	else 
 	{
-		double ms(pwidget_->minSpaceSpin->getValue(SC_PERCENT));
-		for (int i = 0; i < selection_.count(); ++i)
-			selection_[i]->setMinWordTracking(ms / 100.0);
+		double ms(m_pwidget->minSpaceSpin->getValue(SC_PERCENT));
+		for (int i = 0; i < m_selection.count(); ++i)
+			m_selection[i]->setMinWordTracking(ms / 100.0);
 	}
 	
-	if (!selectionIsDirty_)
+	if (!m_selectionIsDirty)
 	{
-		selectionIsDirty_ = true;
+		m_selectionIsDirty = true;
 		emit selectionDirty();
 	}
 }
 
 void SMParagraphStyle::slotMinGlyphExt()
 {
-	if (pwidget_->minGlyphExtSpin->useParentValue())
-		for (int i = 0; i < selection_.count(); ++i)
-			selection_[i]->resetMinGlyphExtension();
+	if (m_pwidget->minGlyphExtSpin->useParentValue())
+		for (int i = 0; i < m_selection.count(); ++i)
+			m_selection[i]->resetMinGlyphExtension();
 	else 
 	{
-		double mge(pwidget_->minGlyphExtSpin->getValue(SC_PERCENT));
-		for (int i = 0; i < selection_.count(); ++i)
-			selection_[i]->setMinGlyphExtension(mge / 100.0);
+		double mge(m_pwidget->minGlyphExtSpin->getValue(SC_PERCENT));
+		for (int i = 0; i < m_selection.count(); ++i)
+			m_selection[i]->setMinGlyphExtension(mge / 100.0);
 	}
 	
-	if (!selectionIsDirty_)
+	if (!m_selectionIsDirty)
 	{
-		selectionIsDirty_ = true;
+		m_selectionIsDirty = true;
 		emit selectionDirty();
 	}
 }
 
 void SMParagraphStyle::slotMaxGlyphExt()
 {
-	if (pwidget_->maxGlyphExtSpin->useParentValue())
-		for (int i = 0; i < selection_.count(); ++i)
-			selection_[i]->resetMaxGlyphExtension();
+	if (m_pwidget->maxGlyphExtSpin->useParentValue())
+		for (int i = 0; i < m_selection.count(); ++i)
+			m_selection[i]->resetMaxGlyphExtension();
 	else 
 	{
-		double mge(pwidget_->maxGlyphExtSpin->getValue(SC_PERCENT));
-		for (int i = 0; i < selection_.count(); ++i)
-			selection_[i]->setMaxGlyphExtension(mge / 100.0);
+		double mge(m_pwidget->maxGlyphExtSpin->getValue(SC_PERCENT));
+		for (int i = 0; i < m_selection.count(); ++i)
+			m_selection[i]->setMaxGlyphExtension(mge / 100.0);
 	}
 	
-	if (!selectionIsDirty_)
+	if (!m_selectionIsDirty)
 	{
-		selectionIsDirty_ = true;
+		m_selectionIsDirty = true;
 		emit selectionDirty();
 	}
 }
 
 void SMParagraphStyle::slotDropCap(bool isOn)
 {
-	for (int i = 0; i < selection_.count(); ++i)
+	for (int i = 0; i < m_selection.count(); ++i)
 	{
-		selection_[i]->setHasDropCap(isOn);
+		m_selection[i]->setHasDropCap(isOn);
 		if (isOn)
 		{
-			selection_[i]->setHasBullet(false);
-			selection_[i]->setHasNum(false);
+			m_selection[i]->setHasBullet(false);
+			m_selection[i]->setHasNum(false);
 		}
 	}
 	
-	if (!selectionIsDirty_)
+	if (!m_selectionIsDirty)
 	{
-		selectionIsDirty_ = true;
+		m_selectionIsDirty = true;
 		emit selectionDirty();
 	}
 }
 
 void SMParagraphStyle::slotParentParaEffects()
 {
-	for (int i = 0; i < selection_.count(); ++i)
+	for (int i = 0; i < m_selection.count(); ++i)
 	{
-		selection_[i]->resetHasDropCap();
-		selection_[i]->resetHasBullet();
-		selection_[i]->resetHasNum();
+		m_selection[i]->resetHasDropCap();
+		m_selection[i]->resetHasBullet();
+		m_selection[i]->resetHasNum();
 	}
 	
-	if (!selectionIsDirty_)
+	if (!m_selectionIsDirty)
 	{
-		selectionIsDirty_ = true;
+		m_selectionIsDirty = true;
 		emit selectionDirty();
 	}
 }
 
 void SMParagraphStyle::slotDropCapLines(int lines)
 {
-	if (pwidget_->dropCapLines_->useParentValue())
-		for (int i = 0; i < selection_.count(); ++i)
-			selection_[i]->resetDropCapLines();
+	if (m_pwidget->dropCapLines_->useParentValue())
+		for (int i = 0; i < m_selection.count(); ++i)
+			m_selection[i]->resetDropCapLines();
 	else		
-		for (int i = 0; i < selection_.count(); ++i)
-			selection_[i]->setDropCapLines(lines);
+		for (int i = 0; i < m_selection.count(); ++i)
+			m_selection[i]->setDropCapLines(lines);
 
-	if (!selectionIsDirty_)
+	if (!m_selectionIsDirty)
 	{
-		selectionIsDirty_ = true;
+		m_selectionIsDirty = true;
 		emit selectionDirty();
 	}
 }
 
 void SMParagraphStyle::slotParEffectOffset()
 {
-	if (pwidget_->parEffectOffset_->useParentValue())
-		for (int i = 0; i < selection_.count(); ++i)
-			selection_[i]->resetParEffectOffset();
+	if (m_pwidget->parEffectOffset_->useParentValue())
+		for (int i = 0; i < m_selection.count(); ++i)
+			m_selection[i]->resetParEffectOffset();
 	else 
 	{
 		double a, b, value;
 		int c;
 
-		pwidget_->parEffectOffset_->getValues(&a, &b, &c, &value);
-		value = value / unitRatio_;
-		for (int i = 0; i < selection_.count(); ++i)
-			selection_[i]->setParEffectOffset(value);
+		m_pwidget->parEffectOffset_->getValues(&a, &b, &c, &value);
+		value = value / m_unitRatio;
+		for (int i = 0; i < m_selection.count(); ++i)
+			m_selection[i]->setParEffectOffset(value);
 	}
 	
-	if (!selectionIsDirty_)
+	if (!m_selectionIsDirty)
 	{
-		selectionIsDirty_ = true;
+		m_selectionIsDirty = true;
 		emit selectionDirty();
 	}
 }
 
 void SMParagraphStyle::slotParEffectIndent(bool isOn)
 {
-	if (pwidget_->parEffectIndentBox->useParentValue())
-		for (int i = 0; i < selection_.count(); ++i)
-			selection_[i]->resetParEffectIndent();
+	if (m_pwidget->parEffectIndentBox->useParentValue())
+		for (int i = 0; i < m_selection.count(); ++i)
+			m_selection[i]->resetParEffectIndent();
 	else 
 	{
-		for (int i = 0; i < selection_.count(); ++i)
-			selection_[i]->setParEffectIndent(isOn);
+		for (int i = 0; i < m_selection.count(); ++i)
+			m_selection[i]->setParEffectIndent(isOn);
 	}
 	
-	if (!selectionIsDirty_)
+	if (!m_selectionIsDirty)
 	{
-		selectionIsDirty_ = true;
+		m_selectionIsDirty = true;
 		emit selectionDirty();
 	}
 }
 
 void SMParagraphStyle::slotParEffectCharStyle(const QString& name)
 {
-	if (pwidget_->parEffectCharStyleCombo->useParentValue())
-		for (int i = 0; i < selection_.count(); ++i)
-			selection_[i]->resetPeCharStyleName();
+	if (m_pwidget->parEffectCharStyleCombo->useParentValue())
+		for (int i = 0; i < m_selection.count(); ++i)
+			m_selection[i]->resetPeCharStyleName();
 	else
-		for (int i = 0; i < selection_.count(); ++i)
-			selection_[i]->setPeCharStyleName(name);
+		for (int i = 0; i < m_selection.count(); ++i)
+			m_selection[i]->setPeCharStyleName(name);
 
-	if (!selectionIsDirty_)
+	if (!m_selectionIsDirty)
 	{
-		selectionIsDirty_ = true;
+		m_selectionIsDirty = true;
 		emit selectionDirty();
 	}
 }
 
 void SMParagraphStyle::slotBullet(bool isOn)
 {
-	for (int i = 0; i < selection_.count(); ++i)
+	for (int i = 0; i < m_selection.count(); ++i)
 	{
-		selection_[i]->setHasBullet(isOn);
+		m_selection[i]->setHasBullet(isOn);
 		if (isOn)
 		{
-			selection_[i]->setBulletStr(pwidget_->bulletStrEdit_->currentText());
-			selection_[i]->setHasDropCap(false);
-			selection_[i]->setHasNum(false);
+			m_selection[i]->setBulletStr(m_pwidget->bulletStrEdit_->currentText());
+			m_selection[i]->setHasDropCap(false);
+			m_selection[i]->setHasNum(false);
 		}
 	}
 	
-	if (!selectionIsDirty_)
+	if (!m_selectionIsDirty)
 	{
-		selectionIsDirty_ = true;
+		m_selectionIsDirty = true;
 		emit selectionDirty();
 	}
 }
@@ -1000,34 +1000,34 @@ void SMParagraphStyle::slotBulletStr(const QString &str)
 	QString bstr(str);
 	if (bstr.isEmpty())
 	{
-		bstr = pwidget_->bulletStrEdit_->itemText(0);
-		pwidget_->bulletStrEdit_->setEditText(bstr);
+		bstr = m_pwidget->bulletStrEdit_->itemText(0);
+		m_pwidget->bulletStrEdit_->setEditText(bstr);
 	}
-	for (int i = 0; i < selection_.count(); ++i)
-		selection_[i]->setBulletStr(bstr);
+	for (int i = 0; i < m_selection.count(); ++i)
+		m_selection[i]->setBulletStr(bstr);
 
-	if (!selectionIsDirty_)
+	if (!m_selectionIsDirty)
 	{
-		selectionIsDirty_ = true;
+		m_selectionIsDirty = true;
 		emit selectionDirty();
 	}
 }
 
 void SMParagraphStyle::slotNumeration(bool isOn)
 {
-	for (int i = 0; i < selection_.count(); ++i)
+	for (int i = 0; i < m_selection.count(); ++i)
 	{
-		selection_[i]->setHasNum(isOn);
+		m_selection[i]->setHasNum(isOn);
 		if (isOn)
 		{
-			selection_[i]->setHasDropCap(false);
-			selection_[i]->setHasBullet(false);
+			m_selection[i]->setHasDropCap(false);
+			m_selection[i]->setHasBullet(false);
 		}
 	}
 	
-	if (!selectionIsDirty_)
+	if (!m_selectionIsDirty)
 	{
-		selectionIsDirty_ = true;
+		m_selectionIsDirty = true;
 		emit selectionDirty();
 	}
 }
@@ -1037,175 +1037,175 @@ void SMParagraphStyle::slotNumName(const QString &str)
 	QString bstr(str);
 	if (!str.isEmpty())
 	{
-		for (int i = 0; i < selection_.count(); ++i)
-			selection_[i]->setNumName(bstr);
-		pwidget_->numComboBox->setCurrentItem(pwidget_->numComboBox->findText(selection_[0]->numName()));
-		pwidget_->numLevelSpin->setValue(selection_[0]->numLevel()+1);
-		NumStruct * numS = doc_->numerations.value(selection_[0]->numName());
+		for (int i = 0; i < m_selection.count(); ++i)
+			m_selection[i]->setNumName(bstr);
+		m_pwidget->numComboBox->setCurrentItem(m_pwidget->numComboBox->findText(m_selection[0]->numName()));
+		m_pwidget->numLevelSpin->setValue(m_selection[0]->numLevel()+1);
+		NumStruct * numS = m_doc->numerations.value(m_selection[0]->numName());
 		if (numS)
-			pwidget_->numLevelSpin->setMaximum(numS->m_counters.count()+1);
+			m_pwidget->numLevelSpin->setMaximum(numS->m_counters.count()+1);
 		else
-			pwidget_->numLevelSpin->setMaximum(1);
-		doc_->flag_NumUpdateRequest = true;
+			m_pwidget->numLevelSpin->setMaximum(1);
+		m_doc->flag_NumUpdateRequest = true;
 	}
 
-	if (!selectionIsDirty_)
+	if (!m_selectionIsDirty)
 	{
-		selectionIsDirty_ = true;
+		m_selectionIsDirty = true;
 		emit selectionDirty();
 	}
 }
 
 void SMParagraphStyle::slotNumNew()
 {
-	QString newName = pwidget_->numNewLineEdit->text();
+	QString newName = m_pwidget->numNewLineEdit->text();
 	if (!newName.isEmpty())
 	{
-		for (int i = 0; i < selection_.count(); ++i)
-			selection_[i]->setNumName(newName);
-		doc_->flag_NumUpdateRequest = true;
+		for (int i = 0; i < m_selection.count(); ++i)
+			m_selection[i]->setNumName(newName);
+		m_doc->flag_NumUpdateRequest = true;
 	}
 
-	if (!selectionIsDirty_)
+	if (!m_selectionIsDirty)
 	{
-		selectionIsDirty_ = true;
+		m_selectionIsDirty = true;
 		emit selectionDirty();
 	}
 }
 
 void SMParagraphStyle::slotSelectionDirty()
 {
-	if (!selectionIsDirty_)
+	if (!m_selectionIsDirty)
 	{
-		selectionIsDirty_ = true;
+		m_selectionIsDirty = true;
 		emit selectionDirty();
 	}
 }
 
 void SMParagraphStyle::slotNumFormat(int numFormat)
 {
-	if (pwidget_->numFormatCombo->useParentValue())
-		for (int i = 0; i < selection_.count(); ++i)
-			selection_[i]->resetNumFormat();
+	if (m_pwidget->numFormatCombo->useParentValue())
+		for (int i = 0; i < m_selection.count(); ++i)
+			m_selection[i]->resetNumFormat();
 	else
-		for (int i = 0; i < selection_.count(); ++i)
-			selection_[i]->setNumFormat(numFormat);
+		for (int i = 0; i < m_selection.count(); ++i)
+			m_selection[i]->setNumFormat(numFormat);
 
-	if (!selectionIsDirty_)
+	if (!m_selectionIsDirty)
 	{
-		selectionIsDirty_ = true;
+		m_selectionIsDirty = true;
 		emit selectionDirty();
 	}
 }
 
 void SMParagraphStyle::slotNumLevel(int level)
 {
-	if (pwidget_->numLevelSpin->useParentValue())
-		for (int i = 0; i < selection_.count(); ++i)
-			selection_[i]->resetNumLevel();
+	if (m_pwidget->numLevelSpin->useParentValue())
+		for (int i = 0; i < m_selection.count(); ++i)
+			m_selection[i]->resetNumLevel();
 	else
-		for (int i = 0; i < selection_.count(); ++i)
+		for (int i = 0; i < m_selection.count(); ++i)
 		{
-			selection_[i]->setNumLevel(level-1);
+			m_selection[i]->setNumLevel(level-1);
 		}
 	
 	if (level == 0)
 		slotNumHigher(false);
-	if (!selectionIsDirty_)
+	if (!m_selectionIsDirty)
 	{
-		selectionIsDirty_ = true;
+		m_selectionIsDirty = true;
 		emit selectionDirty();
 	}
 }
 
 void SMParagraphStyle::slotNumPrefix(const QString &str)
 {
-	for (int i = 0; i < selection_.count(); ++i)
-		selection_[i]->setNumPrefix(str);
+	for (int i = 0; i < m_selection.count(); ++i)
+		m_selection[i]->setNumPrefix(str);
 
-	if (!selectionIsDirty_)
+	if (!m_selectionIsDirty)
 	{
-		selectionIsDirty_ = true;
+		m_selectionIsDirty = true;
 		emit selectionDirty();
 	}
 }
 
 void SMParagraphStyle::slotNumSuffix(const QString &str)
 {
-	for (int i = 0; i < selection_.count(); ++i)
-		selection_[i]->setNumSuffix(str);
+	for (int i = 0; i < m_selection.count(); ++i)
+		m_selection[i]->setNumSuffix(str);
 
-	if (!selectionIsDirty_)
+	if (!m_selectionIsDirty)
 	{
-		selectionIsDirty_ = true;
+		m_selectionIsDirty = true;
 		emit selectionDirty();
 	}
 }
 
 void SMParagraphStyle::slotNumStart(int start)
 {
-	if (pwidget_->numStartSpin->useParentValue())
-		for (int i = 0; i < selection_.count(); ++i)
-			selection_[i]->resetNumStart();
+	if (m_pwidget->numStartSpin->useParentValue())
+		for (int i = 0; i < m_selection.count(); ++i)
+			m_selection[i]->resetNumStart();
 	else
-		for (int i = 0; i < selection_.count(); ++i)
-			selection_[i]->setNumStart(start);
+		for (int i = 0; i < m_selection.count(); ++i)
+			m_selection[i]->setNumStart(start);
 
-	if (!selectionIsDirty_)
+	if (!m_selectionIsDirty)
 	{
-		selectionIsDirty_ = true;
+		m_selectionIsDirty = true;
 		emit selectionDirty();
 	}
 }
 
 void SMParagraphStyle::slotNumRestart(int restart)
 {
-	if (pwidget_->numRestartCombo->useParentValue())
-		for (int i = 0; i < selection_.count(); ++i)
-			selection_[i]->resetNumRestart();
+	if (m_pwidget->numRestartCombo->useParentValue())
+		for (int i = 0; i < m_selection.count(); ++i)
+			m_selection[i]->resetNumRestart();
 	else
-		for (int i = 0; i < selection_.count(); ++i)
-			selection_[i]->setNumRestart(restart);
+		for (int i = 0; i < m_selection.count(); ++i)
+			m_selection[i]->setNumRestart(restart);
 
-	if (!selectionIsDirty_)
+	if (!m_selectionIsDirty)
 	{
-		selectionIsDirty_ = true;
+		m_selectionIsDirty = true;
 		emit selectionDirty();
 	}
 }
 
 void SMParagraphStyle::slotNumOther(bool isOn)
 {
-	if (pwidget_->numRestartOtherBox->useParentValue())
-		for (int i = 0; i < selection_.count(); ++i)
-			selection_[i]->resetNumOther();
+	if (m_pwidget->numRestartOtherBox->useParentValue())
+		for (int i = 0; i < m_selection.count(); ++i)
+			m_selection[i]->resetNumOther();
 	else 
 	{
-		for (int i = 0; i < selection_.count(); ++i)
-			selection_[i]->setNumOther(isOn);
+		for (int i = 0; i < m_selection.count(); ++i)
+			m_selection[i]->setNumOther(isOn);
 	}
 	
-	if (!selectionIsDirty_)
+	if (!m_selectionIsDirty)
 	{
-		selectionIsDirty_ = true;
+		m_selectionIsDirty = true;
 		emit selectionDirty();
 	}
 }
 
 void SMParagraphStyle::slotNumHigher(bool isOn)
 {
-	if (pwidget_->numRestartHigherBox->useParentValue())
-		for (int i = 0; i < selection_.count(); ++i)
-			selection_[i]->resetNumHigher();
+	if (m_pwidget->numRestartHigherBox->useParentValue())
+		for (int i = 0; i < m_selection.count(); ++i)
+			m_selection[i]->resetNumHigher();
 	else 
 	{
-		for (int i = 0; i < selection_.count(); ++i)
-			selection_[i]->setNumHigher(isOn);
+		for (int i = 0; i < m_selection.count(); ++i)
+			m_selection[i]->setNumHigher(isOn);
 	}
 	
-	if (!selectionIsDirty_)
+	if (!m_selectionIsDirty)
 	{
-		selectionIsDirty_ = true;
+		m_selectionIsDirty = true;
 		emit selectionDirty();
 	}
 }
@@ -1213,190 +1213,190 @@ void SMParagraphStyle::slotNumHigher(bool isOn)
 
 void SMParagraphStyle::handleKeepLinesStart()
 {
-	if (pwidget_->keepLinesStart->useParentValue())
-		for (int i = 0; i < selection_.count(); ++i)
-			selection_[i]->resetKeepLinesStart();
+	if (m_pwidget->keepLinesStart->useParentValue())
+		for (int i = 0; i < m_selection.count(); ++i)
+			m_selection[i]->resetKeepLinesStart();
 	else 
 	{
-		int value = pwidget_->keepLinesStart->value();
-		for (int i = 0; i < selection_.count(); ++i)
-			selection_[i]->setKeepLinesStart (value);
+		int value = m_pwidget->keepLinesStart->value();
+		for (int i = 0; i < m_selection.count(); ++i)
+			m_selection[i]->setKeepLinesStart (value);
 	}
 	
-	if (!selectionIsDirty_)
+	if (!m_selectionIsDirty)
 	{
-		selectionIsDirty_ = true;
+		m_selectionIsDirty = true;
 		emit selectionDirty();
 	}
 }
 
 void SMParagraphStyle::handleKeepLinesEnd()
 {
-	if (pwidget_->keepLinesEnd->useParentValue())
-		for (int i = 0; i < selection_.count(); ++i)
-			selection_[i]->resetKeepLinesEnd();
+	if (m_pwidget->keepLinesEnd->useParentValue())
+		for (int i = 0; i < m_selection.count(); ++i)
+			m_selection[i]->resetKeepLinesEnd();
 	else 
 	{
-		int value = pwidget_->keepLinesEnd->value();
-		for (int i = 0; i < selection_.count(); ++i)
-			selection_[i]->setKeepLinesEnd (value);
+		int value = m_pwidget->keepLinesEnd->value();
+		for (int i = 0; i < m_selection.count(); ++i)
+			m_selection[i]->setKeepLinesEnd (value);
 	}
 	
-	if (!selectionIsDirty_)
+	if (!m_selectionIsDirty)
 	{
-		selectionIsDirty_ = true;
+		m_selectionIsDirty = true;
 		emit selectionDirty();
 	}
 }
 
 void SMParagraphStyle::handleKeepTogether()
 {
-	if (pwidget_->keepTogether->useParentValue())
-		for (int i = 0; i < selection_.count(); ++i)
-			selection_[i]->resetKeepTogether();
+	if (m_pwidget->keepTogether->useParentValue())
+		for (int i = 0; i < m_selection.count(); ++i)
+			m_selection[i]->resetKeepTogether();
 	else 
 	{
-		bool value = pwidget_->keepTogether->isChecked();
-		for (int i = 0; i < selection_.count(); ++i)
-			selection_[i]->setKeepTogether (value);
+		bool value = m_pwidget->keepTogether->isChecked();
+		for (int i = 0; i < m_selection.count(); ++i)
+			m_selection[i]->setKeepTogether (value);
 	}
 	
-	if (!selectionIsDirty_)
+	if (!m_selectionIsDirty)
 	{
-		selectionIsDirty_ = true;
+		m_selectionIsDirty = true;
 		emit selectionDirty();
 	}
 }
 
 void SMParagraphStyle::handleKeepWithNext()
 {
-	if (pwidget_->keepWithNext->useParentValue())
-		for (int i = 0; i < selection_.count(); ++i)
-			selection_[i]->resetKeepWithNext();
+	if (m_pwidget->keepWithNext->useParentValue())
+		for (int i = 0; i < m_selection.count(); ++i)
+			m_selection[i]->resetKeepWithNext();
 	else 
 	{
-		bool value = pwidget_->keepWithNext->isChecked();
-		for (int i = 0; i < selection_.count(); ++i)
-			selection_[i]->setKeepWithNext (value);
+		bool value = m_pwidget->keepWithNext->isChecked();
+		for (int i = 0; i < m_selection.count(); ++i)
+			m_selection[i]->setKeepWithNext (value);
 	}
 	
-	if (!selectionIsDirty_)
+	if (!m_selectionIsDirty)
 	{
-		selectionIsDirty_ = true;
+		m_selectionIsDirty = true;
 		emit selectionDirty();
 	}
 }
 
 void SMParagraphStyle::slotTabRuler()
 {
-	if (pwidget_->tabList_->useParentTabs())
+	if (m_pwidget->tabList_->useParentTabs())
 	{
-		for (int i = 0; i < selection_.count(); ++i)
-			selection_[i]->resetTabValues();
+		for (int i = 0; i < m_selection.count(); ++i)
+			m_selection[i]->resetTabValues();
 	}
 	else
 	{
-		QList<ParagraphStyle::TabRecord> newTabs = pwidget_->tabList_->getTabVals();
-		for (int i = 0; i < selection_.count(); ++i)
-			selection_[i]->setTabValues(newTabs);
+		QList<ParagraphStyle::TabRecord> newTabs = m_pwidget->tabList_->getTabVals();
+		for (int i = 0; i < m_selection.count(); ++i)
+			m_selection[i]->setTabValues(newTabs);
 	}
 
-	if (!selectionIsDirty_)
+	if (!m_selectionIsDirty)
 	{
-		selectionIsDirty_ = true;
+		m_selectionIsDirty = true;
 		emit selectionDirty();
 	}
 }
 
 void SMParagraphStyle::slotLeftIndent()
 {
-	if (pwidget_->tabList_->useParentLeftIndent())
-		for (int i = 0; i < selection_.count(); ++i)
-			selection_[i]->resetLeftMargin();
+	if (m_pwidget->tabList_->useParentLeftIndent())
+		for (int i = 0; i < m_selection.count(); ++i)
+			m_selection[i]->resetLeftMargin();
 	else 
 	{
 		double a, b, value;
 		int c;
 
-		pwidget_->tabList_->left_->getValues(&a, &b, &c, &value);
-		value = value / unitRatio_;
-		for (int i = 0; i < selection_.count(); ++i)
-			selection_[i]->setLeftMargin(value);
+		m_pwidget->tabList_->left_->getValues(&a, &b, &c, &value);
+		value = value / m_unitRatio;
+		for (int i = 0; i < m_selection.count(); ++i)
+			m_selection[i]->setLeftMargin(value);
 	}
 	
-	if (!selectionIsDirty_)
+	if (!m_selectionIsDirty)
 	{
-		selectionIsDirty_ = true;
+		m_selectionIsDirty = true;
 		emit selectionDirty();
 	}
 }
 
 void SMParagraphStyle::slotRightIndent()
 {
-	if (pwidget_->tabList_->useParentRightIndent())
-		for (int i = 0; i < selection_.count(); ++i)
-			selection_[i]->resetRightMargin();
+	if (m_pwidget->tabList_->useParentRightIndent())
+		for (int i = 0; i < m_selection.count(); ++i)
+			m_selection[i]->resetRightMargin();
 	else 
 	{
 		double a, b, value;
 		int c;
 
-		pwidget_->tabList_->right_->getValues(&a, &b, &c, &value);
-		value = value / unitRatio_;
-		for (int i = 0; i < selection_.count(); ++i)
-			selection_[i]->setRightMargin(value);
+		m_pwidget->tabList_->right_->getValues(&a, &b, &c, &value);
+		value = value / m_unitRatio;
+		for (int i = 0; i < m_selection.count(); ++i)
+			m_selection[i]->setRightMargin(value);
 	}
 	
-	if (!selectionIsDirty_)
+	if (!m_selectionIsDirty)
 	{
-		selectionIsDirty_ = true;
+		m_selectionIsDirty = true;
 		emit selectionDirty();
 	}
 }
 
 void SMParagraphStyle::slotFirstLine()
 {
-	if (pwidget_->tabList_->useParentFirstLine())
-		for (int i = 0; i < selection_.count(); ++i)
-			selection_[i]->resetFirstIndent();
+	if (m_pwidget->tabList_->useParentFirstLine())
+		for (int i = 0; i < m_selection.count(); ++i)
+			m_selection[i]->resetFirstIndent();
 	else 
 	{
 		double a, b, value;
 		int c;
 		
-		pwidget_->tabList_->first_->getValues(&a, &b, &c, &value);
-		value = value / unitRatio_;
-		for (int i = 0; i < selection_.count(); ++i)
-			selection_[i]->setFirstIndent(value);
+		m_pwidget->tabList_->first_->getValues(&a, &b, &c, &value);
+		value = value / m_unitRatio;
+		for (int i = 0; i < m_selection.count(); ++i)
+			m_selection[i]->setFirstIndent(value);
 	}
 	
-	if (!selectionIsDirty_)
+	if (!m_selectionIsDirty)
 	{
-		selectionIsDirty_ = true;
+		m_selectionIsDirty = true;
 		emit selectionDirty();
 	}
 }
 
 void SMParagraphStyle::slotFontSize()
 {
-	if (pwidget_->cpage->fontSize_->useParentValue())
-		for (int i = 0; i < selection_.count(); ++i)
-			selection_[i]->charStyle().resetFontSize();
+	if (m_pwidget->cpage->fontSize_->useParentValue())
+		for (int i = 0; i < m_selection.count(); ++i)
+			m_selection[i]->charStyle().resetFontSize();
 	else
 	{
 		double a, b, value;
 		int c;
 		
-		pwidget_->cpage->fontSize_->getValues(&a, &b, &c, &value);
+		m_pwidget->cpage->fontSize_->getValues(&a, &b, &c, &value);
 		value = value * 10;
-		for (int i = 0; i < selection_.count(); ++i)
-			selection_[i]->charStyle().setFontSize(qRound(value));
+		for (int i = 0; i < m_selection.count(); ++i)
+			m_selection[i]->charStyle().setFontSize(qRound(value));
 	}
 
 
-	if (!selectionIsDirty_)
+	if (!m_selectionIsDirty)
 	{
-		selectionIsDirty_ = true;
+		m_selectionIsDirty = true;
 		emit selectionDirty();
 	}
 }
@@ -1404,18 +1404,18 @@ void SMParagraphStyle::slotFontSize()
 void SMParagraphStyle::slotEffects(int e)
 {
 	StyleFlag s = ScStyle_None;
-	if (pwidget_->cpage->effects_->useParentValue())
+	if (m_pwidget->cpage->effects_->useParentValue())
 	{
-		for (int i = 0; i < selection_.count(); ++i)
+		for (int i = 0; i < m_selection.count(); ++i)
 		{
-			selection_[i]->charStyle().resetFeatures();
-			selection_[i]->charStyle().resetShadowXOffset();
-			selection_[i]->charStyle().resetShadowYOffset();
-			selection_[i]->charStyle().resetOutlineWidth();
-			selection_[i]->charStyle().resetUnderlineOffset();
-			selection_[i]->charStyle().resetUnderlineWidth();
-			selection_[i]->charStyle().resetStrikethruOffset();
-			selection_[i]->charStyle().resetStrikethruWidth();
+			m_selection[i]->charStyle().resetFeatures();
+			m_selection[i]->charStyle().resetShadowXOffset();
+			m_selection[i]->charStyle().resetShadowYOffset();
+			m_selection[i]->charStyle().resetOutlineWidth();
+			m_selection[i]->charStyle().resetUnderlineOffset();
+			m_selection[i]->charStyle().resetUnderlineWidth();
+			m_selection[i]->charStyle().resetStrikethruOffset();
+			m_selection[i]->charStyle().resetStrikethruWidth();
 		}
 	}
 	else
@@ -1424,44 +1424,44 @@ void SMParagraphStyle::slotEffects(int e)
 		int c;
 		
 		s = static_cast<StyleFlag>(e);
-		pwidget_->cpage->effects_->ShadowVal->Xoffset->getValues(&a, &b, &c, &sxo);
+		m_pwidget->cpage->effects_->ShadowVal->Xoffset->getValues(&a, &b, &c, &sxo);
 		sxo *= 10;
-		pwidget_->cpage->effects_->ShadowVal->Yoffset->getValues(&a, &b, &c, &syo);
+		m_pwidget->cpage->effects_->ShadowVal->Yoffset->getValues(&a, &b, &c, &syo);
 		syo *= 10;
 
-		pwidget_->cpage->effects_->OutlineVal->LWidth->getValues(&a, &b, &c, &olw);
+		m_pwidget->cpage->effects_->OutlineVal->LWidth->getValues(&a, &b, &c, &olw);
 		olw *= 10;
 
-		pwidget_->cpage->effects_->UnderlineVal->LPos->getValues(&a, &b, &c, &ulp);
+		m_pwidget->cpage->effects_->UnderlineVal->LPos->getValues(&a, &b, &c, &ulp);
 		ulp *= 10;
-		pwidget_->cpage->effects_->UnderlineVal->LWidth->getValues(&a, &b, &c, &ulw);
+		m_pwidget->cpage->effects_->UnderlineVal->LWidth->getValues(&a, &b, &c, &ulw);
 		ulw *= 10;
 
-		pwidget_->cpage->effects_->StrikeVal->LPos->getValues(&a, &b, &c, &slp);
+		m_pwidget->cpage->effects_->StrikeVal->LPos->getValues(&a, &b, &c, &slp);
 		slp *= 10;
-		pwidget_->cpage->effects_->StrikeVal->LWidth->getValues(&a, &b, &c, &slw);
+		m_pwidget->cpage->effects_->StrikeVal->LWidth->getValues(&a, &b, &c, &slw);
 		slw *= 10;
 
-		for (int i = 0; i < selection_.count(); ++i)
+		for (int i = 0; i < m_selection.count(); ++i)
 		{
 			QStringList feList = s.featureList();
 			feList.removeAll(CharStyle::INHERIT);
-			selection_[i]->charStyle().setFeatures(feList);
-//			selection_[i]->charStyle().setFeatures(s.featureList());
-			selection_[i]->charStyle().setShadowXOffset(qRound(sxo));
-			selection_[i]->charStyle().setShadowYOffset(qRound(syo));
-			selection_[i]->charStyle().setOutlineWidth(qRound(olw));
-			selection_[i]->charStyle().setUnderlineOffset(qRound(ulp));
-			selection_[i]->charStyle().setUnderlineWidth(qRound(ulw));
-			selection_[i]->charStyle().setStrikethruOffset(qRound(slp));
-			selection_[i]->charStyle().setStrikethruWidth(qRound(slw));
+			m_selection[i]->charStyle().setFeatures(feList);
+//			m_selection[i]->charStyle().setFeatures(s.featureList());
+			m_selection[i]->charStyle().setShadowXOffset(qRound(sxo));
+			m_selection[i]->charStyle().setShadowYOffset(qRound(syo));
+			m_selection[i]->charStyle().setOutlineWidth(qRound(olw));
+			m_selection[i]->charStyle().setUnderlineOffset(qRound(ulp));
+			m_selection[i]->charStyle().setUnderlineWidth(qRound(ulw));
+			m_selection[i]->charStyle().setStrikethruOffset(qRound(slp));
+			m_selection[i]->charStyle().setStrikethruWidth(qRound(slw));
 		}
 	}
 
 
-	if (!selectionIsDirty_)
+	if (!m_selectionIsDirty)
 	{
-		selectionIsDirty_ = true;
+		m_selectionIsDirty = true;
 		emit selectionDirty();
 	}
 }
@@ -1471,114 +1471,114 @@ void SMParagraphStyle::slotEffectProperties()
 	double a, b, sxo, syo, olw, ulp, ulw, slp, slw;
 	int c;
 
-	pwidget_->cpage->effects_->ShadowVal->Xoffset->getValues(&a, &b, &c, &sxo);
+	m_pwidget->cpage->effects_->ShadowVal->Xoffset->getValues(&a, &b, &c, &sxo);
 	sxo *= 10;
-	pwidget_->cpage->effects_->ShadowVal->Yoffset->getValues(&a, &b, &c, &syo);
+	m_pwidget->cpage->effects_->ShadowVal->Yoffset->getValues(&a, &b, &c, &syo);
 	syo *= 10;
 
-	pwidget_->cpage->effects_->OutlineVal->LWidth->getValues(&a, &b, &c, &olw);
+	m_pwidget->cpage->effects_->OutlineVal->LWidth->getValues(&a, &b, &c, &olw);
 	olw *= 10;
 
-	pwidget_->cpage->effects_->UnderlineVal->LPos->getValues(&a, &b, &c, &ulp);
+	m_pwidget->cpage->effects_->UnderlineVal->LPos->getValues(&a, &b, &c, &ulp);
 	ulp *= 10;
-	pwidget_->cpage->effects_->UnderlineVal->LWidth->getValues(&a, &b, &c, &ulw);
+	m_pwidget->cpage->effects_->UnderlineVal->LWidth->getValues(&a, &b, &c, &ulw);
 	ulw *= 10;
 
-	pwidget_->cpage->effects_->StrikeVal->LPos->getValues(&a, &b, &c, &slp);
+	m_pwidget->cpage->effects_->StrikeVal->LPos->getValues(&a, &b, &c, &slp);
 	slp *= 10;
-	pwidget_->cpage->effects_->StrikeVal->LWidth->getValues(&a, &b, &c, &slw);
+	m_pwidget->cpage->effects_->StrikeVal->LWidth->getValues(&a, &b, &c, &slw);
 	slw *= 10;
 	
-	for (int i = 0; i < selection_.count(); ++i)
+	for (int i = 0; i < m_selection.count(); ++i)
 	{
-		selection_[i]->charStyle().setShadowXOffset(qRound(sxo));
-		selection_[i]->charStyle().setShadowYOffset(qRound(syo));
-		selection_[i]->charStyle().setOutlineWidth(qRound(olw));
-		selection_[i]->charStyle().setUnderlineOffset(qRound(ulp));
-		selection_[i]->charStyle().setUnderlineWidth(qRound(ulw));
-		selection_[i]->charStyle().setStrikethruOffset(qRound(slp));
-		selection_[i]->charStyle().setStrikethruWidth(qRound(slw));
+		m_selection[i]->charStyle().setShadowXOffset(qRound(sxo));
+		m_selection[i]->charStyle().setShadowYOffset(qRound(syo));
+		m_selection[i]->charStyle().setOutlineWidth(qRound(olw));
+		m_selection[i]->charStyle().setUnderlineOffset(qRound(ulp));
+		m_selection[i]->charStyle().setUnderlineWidth(qRound(ulw));
+		m_selection[i]->charStyle().setStrikethruOffset(qRound(slp));
+		m_selection[i]->charStyle().setStrikethruWidth(qRound(slw));
 	}
 
-	if (!selectionIsDirty_)
+	if (!m_selectionIsDirty)
 	{
-		selectionIsDirty_ = true;
+		m_selectionIsDirty = true;
 		emit selectionDirty();
 	}
 }
 
 void SMParagraphStyle::slotFillColor()
 {
-	if (pwidget_->cpage->fillColor_->useParentValue())
-		for (int i = 0; i < selection_.count(); ++i)
-			selection_[i]->charStyle().resetFillColor();
+	if (m_pwidget->cpage->fillColor_->useParentValue())
+		for (int i = 0; i < m_selection.count(); ++i)
+			m_selection[i]->charStyle().resetFillColor();
 	else {
-		QString c( pwidget_->cpage->fillColor_->currentText());
-		for (int i = 0; i < selection_.count(); ++i)
-			selection_[i]->charStyle().setFillColor(c);
+		QString c( m_pwidget->cpage->fillColor_->currentText());
+		for (int i = 0; i < m_selection.count(); ++i)
+			m_selection[i]->charStyle().setFillColor(c);
 	}
 	
-	if (!selectionIsDirty_)
+	if (!m_selectionIsDirty)
 	{
-		selectionIsDirty_ = true;
+		m_selectionIsDirty = true;
 		emit selectionDirty();
 	}
 }
 
 void SMParagraphStyle::slotFillShade()
 {
-	if (pwidget_->cpage->fillShade_->useParentValue())
-		for (int i = 0; i < selection_.count(); ++i)
-			selection_[i]->charStyle().resetFillShade();
+	if (m_pwidget->cpage->fillShade_->useParentValue())
+		for (int i = 0; i < m_selection.count(); ++i)
+			m_selection[i]->charStyle().resetFillShade();
 	else {
-		int fs = pwidget_->cpage->fillShade_->getValue();
+		int fs = m_pwidget->cpage->fillShade_->getValue();
 
-		for (int i = 0; i < selection_.count(); ++i)
-			selection_[i]->charStyle().setFillShade(fs);
+		for (int i = 0; i < m_selection.count(); ++i)
+			m_selection[i]->charStyle().setFillShade(fs);
 	}
 	
-	if (!selectionIsDirty_)
+	if (!m_selectionIsDirty)
 	{
-		selectionIsDirty_ = true;
+		m_selectionIsDirty = true;
 		emit selectionDirty();
 	}
 }
 
 void SMParagraphStyle::slotStrokeColor()
 {
-	if (pwidget_->cpage->strokeColor_->useParentValue())
-		for (int i = 0; i < selection_.count(); ++i)
-			selection_[i]->charStyle().resetStrokeColor();
+	if (m_pwidget->cpage->strokeColor_->useParentValue())
+		for (int i = 0; i < m_selection.count(); ++i)
+			m_selection[i]->charStyle().resetStrokeColor();
 	else {
-		QString c(pwidget_->cpage->strokeColor_->currentText());
+		QString c(m_pwidget->cpage->strokeColor_->currentText());
 
-		for (int i = 0; i < selection_.count(); ++i)
-			selection_[i]->charStyle().setStrokeColor(c);
+		for (int i = 0; i < m_selection.count(); ++i)
+			m_selection[i]->charStyle().setStrokeColor(c);
 	}
 	
-	if (!selectionIsDirty_)
+	if (!m_selectionIsDirty)
 	{
-		selectionIsDirty_ = true;
+		m_selectionIsDirty = true;
 		emit selectionDirty();
 	}
 }
 
 void SMParagraphStyle::slotStrokeShade()
 {
-	if (pwidget_->cpage->strokeShade_->useParentValue())
-		for (int i = 0; i < selection_.count(); ++i)
-			selection_[i]->charStyle().resetStrokeShade();
+	if (m_pwidget->cpage->strokeShade_->useParentValue())
+		for (int i = 0; i < m_selection.count(); ++i)
+			m_selection[i]->charStyle().resetStrokeShade();
 	else 
 	{
-		int ss = pwidget_->cpage->strokeShade_->getValue();
+		int ss = m_pwidget->cpage->strokeShade_->getValue();
 
-		for (int i = 0; i < selection_.count(); ++i)
-			selection_[i]->charStyle().setStrokeShade(ss);
+		for (int i = 0; i < m_selection.count(); ++i)
+			m_selection[i]->charStyle().setStrokeShade(ss);
 	}
 	
-	if (!selectionIsDirty_)
+	if (!m_selectionIsDirty)
 	{
-		selectionIsDirty_ = true;
+		m_selectionIsDirty = true;
 		emit selectionDirty();
 	}
 }
@@ -1586,154 +1586,154 @@ void SMParagraphStyle::slotStrokeShade()
 void SMParagraphStyle::slotLanguage()
 {
 	QMap<QString,QString>::Iterator it;
-	QString language = doc_->paragraphStyle("").charStyle().language();
+	QString language = m_doc->paragraphStyle("").charStyle().language();
 
-	if (pwidget_->cpage->language_->useParentValue())
+	if (m_pwidget->cpage->language_->useParentValue())
 	{
-		for (int i = 0; i < selection_.count(); ++i)
-			selection_[i]->charStyle().resetLanguage();
+		for (int i = 0; i < m_selection.count(); ++i)
+			m_selection[i]->charStyle().resetLanguage();
 	}
 	else
 	{
-		QString la=LanguageManager::instance()->getAbbrevFromLang(pwidget_->cpage->language_->currentText(), true, false);
+		QString la=LanguageManager::instance()->getAbbrevFromLang(m_pwidget->cpage->language_->currentText(), true, false);
 		if (!la.isEmpty())
 			language=la;
-		for (int i = 0; i < selection_.count(); ++i)
-			selection_[i]->charStyle().setLanguage(language);
+		for (int i = 0; i < m_selection.count(); ++i)
+			m_selection[i]->charStyle().setLanguage(language);
 	}
 
-	if (!selectionIsDirty_)
+	if (!m_selectionIsDirty)
 	{
-		selectionIsDirty_ = true;
+		m_selectionIsDirty = true;
 		emit selectionDirty();
 	}
 }
 
 void SMParagraphStyle::slotScaleH()
 {
-	if (pwidget_->cpage->fontHScale_->useParentValue())
-		for (int i = 0; i < selection_.count(); ++i)
-			selection_[i]->charStyle().resetScaleH();
+	if (m_pwidget->cpage->fontHScale_->useParentValue())
+		for (int i = 0; i < m_selection.count(); ++i)
+			m_selection[i]->charStyle().resetScaleH();
 	else
 	{
 		double a, b, value;
 		int c;
-		pwidget_->cpage->fontHScale_->getValues(&a, &b, &c, &value);
+		m_pwidget->cpage->fontHScale_->getValues(&a, &b, &c, &value);
 		value = value * 10;
-		for (int i = 0; i < selection_.count(); ++i)
-			selection_[i]->charStyle().setScaleH(qRound(value));
+		for (int i = 0; i < m_selection.count(); ++i)
+			m_selection[i]->charStyle().setScaleH(qRound(value));
 	}
 
-	if (!selectionIsDirty_)
+	if (!m_selectionIsDirty)
 	{
-		selectionIsDirty_ = true;
+		m_selectionIsDirty = true;
 		emit selectionDirty();
 	}
 }
 
 void SMParagraphStyle::slotScaleV()
 {
-	if (pwidget_->cpage->fontVScale_->useParentValue())
-		for (int i = 0; i < selection_.count(); ++i)
-			selection_[i]->charStyle().resetScaleV();
+	if (m_pwidget->cpage->fontVScale_->useParentValue())
+		for (int i = 0; i < m_selection.count(); ++i)
+			m_selection[i]->charStyle().resetScaleV();
 	else
 	{
 		double a, b, value;
 		int c;
-		pwidget_->cpage->fontVScale_->getValues(&a, &b, &c, &value);
+		m_pwidget->cpage->fontVScale_->getValues(&a, &b, &c, &value);
 		value = value * 10;
-		for (int i = 0; i < selection_.count(); ++i)
-			selection_[i]->charStyle().setScaleV(qRound(value));
+		for (int i = 0; i < m_selection.count(); ++i)
+			m_selection[i]->charStyle().setScaleV(qRound(value));
 	}
 
-	if (!selectionIsDirty_)
+	if (!m_selectionIsDirty)
 	{
-		selectionIsDirty_ = true;
+		m_selectionIsDirty = true;
 		emit selectionDirty();
 	}
 }
 
 void SMParagraphStyle::slotTracking()
 {
-	if (pwidget_->cpage->tracking_->useParentValue())
-		for (int i = 0; i < selection_.count(); ++i)
-			selection_[i]->charStyle().resetTracking();
+	if (m_pwidget->cpage->tracking_->useParentValue())
+		for (int i = 0; i < m_selection.count(); ++i)
+			m_selection[i]->charStyle().resetTracking();
 	else
 	{
 		double a, b, value;
 		int c;
-		pwidget_->cpage->tracking_->getValues(&a, &b, &c, &value);
+		m_pwidget->cpage->tracking_->getValues(&a, &b, &c, &value);
 		value = value * 10;
-		for (int i = 0; i < selection_.count(); ++i)
-			selection_[i]->charStyle().setTracking(qRound(value));
+		for (int i = 0; i < m_selection.count(); ++i)
+			m_selection[i]->charStyle().setTracking(qRound(value));
 	}
 
-	if (!selectionIsDirty_)
+	if (!m_selectionIsDirty)
 	{
-		selectionIsDirty_ = true;
+		m_selectionIsDirty = true;
 		emit selectionDirty();
 	}
 }
 
 void SMParagraphStyle::slotWordTracking()
 {
-	if (pwidget_->cpage->widthSpaceSpin->useParentValue())
-		for (int i = 0; i < selection_.count(); ++i)
-			selection_[i]->charStyle().resetWordTracking();
+	if (m_pwidget->cpage->widthSpaceSpin->useParentValue())
+		for (int i = 0; i < m_selection.count(); ++i)
+			m_selection[i]->charStyle().resetWordTracking();
 	else
 	{
 		double a, b, value;
 		int c;
-		pwidget_->cpage->widthSpaceSpin->getValues(&a, &b, &c, &value);
+		m_pwidget->cpage->widthSpaceSpin->getValues(&a, &b, &c, &value);
 		value = value / 100.0;
-		for (int i = 0; i < selection_.count(); ++i)
-			selection_[i]->charStyle().setWordTracking(value);
+		for (int i = 0; i < m_selection.count(); ++i)
+			m_selection[i]->charStyle().setWordTracking(value);
 	}
 
-	if (!selectionIsDirty_)
+	if (!m_selectionIsDirty)
 	{
-		selectionIsDirty_ = true;
+		m_selectionIsDirty = true;
 		emit selectionDirty();
 	}
 }
 
 void SMParagraphStyle::slotBaselineOffset()
 {
-	if (pwidget_->cpage->baselineOffset_->useParentValue())
-		for (int i = 0; i < selection_.count(); ++i)
-			selection_[i]->charStyle().resetBaselineOffset();
+	if (m_pwidget->cpage->baselineOffset_->useParentValue())
+		for (int i = 0; i < m_selection.count(); ++i)
+			m_selection[i]->charStyle().resetBaselineOffset();
 	else
 	{
 		double a, b, value;
 		int c;	
-		pwidget_->cpage->baselineOffset_->getValues(&a, &b, &c, &value);
+		m_pwidget->cpage->baselineOffset_->getValues(&a, &b, &c, &value);
 		value = value * 10;
-		for (int i = 0; i < selection_.count(); ++i)
-			selection_[i]->charStyle().setBaselineOffset(qRound(value));
+		for (int i = 0; i < m_selection.count(); ++i)
+			m_selection[i]->charStyle().setBaselineOffset(qRound(value));
 	}
 
-	if (!selectionIsDirty_)
+	if (!m_selectionIsDirty)
 	{
-		selectionIsDirty_ = true;
+		m_selectionIsDirty = true;
 		emit selectionDirty();
 	}
 }
 
 void SMParagraphStyle::slotFont(QString s)
 {
-	if (pwidget_->cpage->fontFace_->useParentFont())
-		for (int i = 0; i < selection_.count(); ++i)
-			selection_[i]->charStyle().resetFont();
+	if (m_pwidget->cpage->fontFace_->useParentFont())
+		for (int i = 0; i < m_selection.count(); ++i)
+			m_selection[i]->charStyle().resetFont();
 	else {
 		ScFace sf = PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts[s];
 		
-		for (int i = 0; i < selection_.count(); ++i)
-			selection_[i]->charStyle().setFont(sf);
+		for (int i = 0; i < m_selection.count(); ++i)
+			m_selection[i]->charStyle().setFont(sf);
 	}
 	
-	if (!selectionIsDirty_)
+	if (!m_selectionIsDirty)
 	{
-		selectionIsDirty_ = true;
+		m_selectionIsDirty = true;
 		emit selectionDirty();
 	}
 }
@@ -1743,17 +1743,17 @@ void SMParagraphStyle::slotParentChanged(const QString &parent)
 	Q_ASSERT(!parent.isNull());
 
 	bool  loop = false, parentLoop = false;
-	const Style* parentStyle = (!parent.isEmpty()) ? tmpStyles_.resolve(parent) : NULL;
+	const Style* parentStyle = (!parent.isEmpty()) ? m_tmpStyles.resolve(parent) : NULL;
 	QStringList sel;
 
-	for (int i = 0; i < selection_.count(); ++i)
+	for (int i = 0; i < m_selection.count(); ++i)
 	{
 		loop = false;
 		// Check if setting parent won't create a loop
 		const Style* pStyle = parentStyle;
 		while (pStyle)
 		{
-			if (pStyle->hasParent() && (pStyle->parent() == selection_[i]->name()))
+			if (pStyle->hasParent() && (pStyle->parent() == m_selection[i]->name()))
 			{
 				loop = parentLoop = true;
 				break;
@@ -1762,11 +1762,11 @@ void SMParagraphStyle::slotParentChanged(const QString &parent)
 		}
 		if (!loop)
 		{
-			selection_[i]->erase(); // reset everything to NOVALUE
-			selection_[i]->setParent(parent);
-			selection_[i]->charStyle().setParent("");
+			m_selection[i]->erase(); // reset everything to NOVALUE
+			m_selection[i]->setParent(parent);
+			m_selection[i]->charStyle().setParent("");
 		}
-		sel << selection_[i]->name();
+		sel << m_selection[i]->name();
 	}
 
 	if (parentLoop)
@@ -1774,9 +1774,9 @@ void SMParagraphStyle::slotParentChanged(const QString &parent)
 
 	selected(sel);
 
-	if (!selectionIsDirty_)
+	if (!m_selectionIsDirty)
 	{
-		selectionIsDirty_ = true;
+		m_selectionIsDirty = true;
 		emit selectionDirty();
 	}
 }
@@ -1787,20 +1787,20 @@ void SMParagraphStyle::slotCharParentChanged(const QString &parent)
 
 	QStringList sel;
 
-	for (int i = 0; i < selection_.count(); ++i)
+	for (int i = 0; i < m_selection.count(); ++i)
 	{
-		selection_[i]->charStyle().erase();
+		m_selection[i]->charStyle().erase();
 		if (parent != QString::null)
-			selection_[i]->charStyle().setParent(parent);
+			m_selection[i]->charStyle().setParent(parent);
 
-		sel << selection_[i]->name();
+		sel << m_selection[i]->name();
 	}
 
 	selected(sel);
 
-	if (!selectionIsDirty_)
+	if (!m_selectionIsDirty)
 	{
-		selectionIsDirty_ = true;
+		m_selectionIsDirty = true;
 		emit selectionDirty();
 	}
 }
@@ -1813,19 +1813,19 @@ SMParagraphStyle::~SMParagraphStyle()
 /******************************************************************************/
 /******************************************************************************/
 
-SMCharacterStyle::SMCharacterStyle() : StyleItem(), widget_(0), page_(0), doc_(0), selectionIsDirty_(false)
+SMCharacterStyle::SMCharacterStyle() : StyleItem(), m_widget(0), m_page(0), m_doc(0), m_selectionIsDirty(false)
 {
-	widget_ = new QTabWidget();
-	Q_CHECK_PTR(widget_);
-	widget_->setContentsMargins(5, 5, 5, 5);//CB the SMCStylePage parent has a 0 value to fit properly onto the pstyle page, so add it here
-	page_ = new SMCStyleWidget();
-	Q_CHECK_PTR(page_);
-	widget_->addTab(page_, tr("Properties"));
+	m_widget = new QTabWidget();
+	Q_CHECK_PTR(m_widget);
+	m_widget->setContentsMargins(5, 5, 5, 5);//CB the SMCStylePage parent has a 0 value to fit properly onto the pstyle page, so add it here
+	m_page = new SMCStyleWidget();
+	Q_CHECK_PTR(m_page);
+	m_widget->addTab(m_page, tr("Properties"));
 }
 
 QTabWidget* SMCharacterStyle::widget()
 {
-	return widget_;
+	return m_widget;
 }
 
 QString SMCharacterStyle::typeNamePlural()
@@ -1840,52 +1840,52 @@ QString SMCharacterStyle::typeNameSingular()
 
 void SMCharacterStyle::setCurrentDoc(ScribusDoc *doc)
 {
-	doc_ = doc;
-	if (doc_)
+	m_doc = doc;
+	if (m_doc)
 	{
-		if (page_)
+		if (m_page)
 		{
 			QStringList languageList;
 			LanguageManager::instance()->fillInstalledHyphStringList(&languageList);
-			page_->fillLangComboFromList(languageList);
-			page_->fillColorCombo(doc_->PageColors);
-			page_->fontFace_->RebuildList(doc_);
+			m_page->fillLangComboFromList(languageList);
+			m_page->fillColorCombo(m_doc->PageColors);
+			m_page->fontFace_->RebuildList(m_doc);
 		}
 	}
 	else
 	{
 		removeConnections();
-		selection_.clear();
-		tmpStyles_.clear();
+		m_selection.clear();
+		m_tmpStyles.clear();
 	}
 
 }
 
 StyleSet<CharStyle>* SMCharacterStyle::tmpStyles()
 {
-	return &tmpStyles_;
+	return &m_tmpStyles;
 }
 
 QList<StyleName> SMCharacterStyle::styles(bool reloadFromDoc)
 {
 	QList<StyleName> tmpList;
 
-	if (!doc_)
+	if (!m_doc)
 		return tmpList; // no doc available
 
 	if (reloadFromDoc)
 		reloadTmpStyles();
 
-	for (int i = 0; i < tmpStyles_.count(); ++i)
+	for (int i = 0; i < m_tmpStyles.count(); ++i)
 	{
-		if (tmpStyles_[i].hasName())
+		if (m_tmpStyles[i].hasName())
 		{
-			QString styleName(tmpStyles_[i].displayName());
+			QString styleName(m_tmpStyles[i].displayName());
 			QString parentName(QString::null);
 
-			if (tmpStyles_[i].hasParent())
+			if (m_tmpStyles[i].hasParent())
 			{
-				const Style* parentStyle = tmpStyles_[i].parentStyle();
+				const Style* parentStyle = m_tmpStyles[i].parentStyle();
 				if (parentStyle)
 					parentName = parentStyle->displayName();
 			}
@@ -1904,40 +1904,40 @@ void SMCharacterStyle::reload()
 
 void SMCharacterStyle::selected(const QStringList &styleNames)
 {
-	selection_.clear();
-	selectionIsDirty_ = false;
+	m_selection.clear();
+	m_selectionIsDirty = false;
 	removeConnections();
 	QList<CharStyle> cstyles;
 
-	tmpStyles_.invalidate();
+	m_tmpStyles.invalidate();
 
-	for (int i = 0; i < tmpStyles_.count(); ++i)
-		cstyles << tmpStyles_[i];
+	for (int i = 0; i < m_tmpStyles.count(); ++i)
+		cstyles << m_tmpStyles[i];
 
 	for (int i = 0; i < styleNames.count(); ++i)
 	{
-		int index = tmpStyles_.find(styleNames[i]);
+		int index = m_tmpStyles.find(styleNames[i]);
 		//FIXME: #7133: Use .isDefaultStyle() instead here rather than relying on tr text comparison
 		if (index<0 && styleNames[i]==CommonStrings::trDefaultCharacterStyle)
-			index = tmpStyles_.find(CommonStrings::DefaultCharacterStyle);
+			index = m_tmpStyles.find(CommonStrings::DefaultCharacterStyle);
 		if (index > -1)
-			selection_.append(&tmpStyles_[index]);
+			m_selection.append(&m_tmpStyles[index]);
 
 	}
-	page_->show(selection_, cstyles, PrefsManager::instance()->appPrefs.hyphPrefs.Language, doc_->unitIndex());
+	m_page->show(m_selection, cstyles, PrefsManager::instance()->appPrefs.hyphPrefs.Language, m_doc->unitIndex());
 	setupConnections();
 }
 
 QString SMCharacterStyle::fromSelection() const
 {
 	QString lsName(QString::null);
-	if (!doc_)
+	if (!m_doc)
 		return lsName; // no doc available
 
-	for (int i = 0; i < doc_->m_Selection->count(); ++i)
+	for (int i = 0; i < m_doc->m_Selection->count(); ++i)
 	{
 		// wth is going on here
-		PageItem *item = doc_->m_Selection->itemAt(i);
+		PageItem *item = m_doc->m_Selection->itemAt(i);
 
 		QString tmpName = item->itemText.defaultStyle().charStyle().parent();
 
@@ -1956,34 +1956,34 @@ QString SMCharacterStyle::fromSelection() const
 
 void SMCharacterStyle::toSelection(const QString &styleName) const
 {
-	if (!doc_)
+	if (!m_doc)
 		return; // nowhere to apply or no doc
 
 	QString realName = styleName;
-	int styleIndex = tmpStyles_.find(styleName);
+	int styleIndex = m_tmpStyles.find(styleName);
 	if (styleIndex < 0 && (styleName == CommonStrings::trDefaultCharacterStyle))
 	{
-		styleIndex = tmpStyles_.find(CommonStrings::DefaultCharacterStyle);
+		styleIndex = m_tmpStyles.find(CommonStrings::DefaultCharacterStyle);
 		if (styleIndex >= 0)
 			realName = CommonStrings::DefaultCharacterStyle;
 	}
 	if (styleIndex >= 0)
 	{
-		doc_->itemSelection_SetNamedCharStyle(realName);
+		m_doc->itemSelection_SetNamedCharStyle(realName);
 	}
 }
 
 QString SMCharacterStyle::newStyle()
 {
-	Q_ASSERT(doc_ && doc_->paragraphStyles().count() > 0);
+	Q_ASSERT(m_doc && m_doc->paragraphStyles().count() > 0);
 
 	QString s = getUniqueName( tr("New Style"));
 	CharStyle c;
 	c.setDefaultStyle(false);
 	c.setName(s);
 	// #7360  - rather here than in CharStyle constructor as we have a pointer to doc.
-	c.setLanguage(doc_->hyphLanguage());
-	tmpStyles_.create(c);
+	c.setLanguage(m_doc->hyphLanguage());
+	m_tmpStyles.create(c);
 	return s;
 }
 
@@ -1995,16 +1995,16 @@ QString SMCharacterStyle::newStyle(const QString &fromStyle)
 	if (fromStyle==CommonStrings::trDefaultCharacterStyle)
 		copiedStyleName=CommonStrings::DefaultCharacterStyle;
 
-	Q_ASSERT(tmpStyles_.resolve(copiedStyleName));
-	if (!tmpStyles_.resolve(copiedStyleName))
+	Q_ASSERT(m_tmpStyles.resolve(copiedStyleName));
+	if (!m_tmpStyles.resolve(copiedStyleName))
 		return QString::null;
 	//Copy the style with the original name
 	QString s(getUniqueName( tr("Clone of %1").arg(fromStyle)));
-	CharStyle c(tmpStyles_.get(copiedStyleName));
+	CharStyle c(m_tmpStyles.get(copiedStyleName));
 	c.setDefaultStyle(false);
 	c.setName(s);
 	c.setShortcut(QString::null);
-	tmpStyles_.create(c);
+	m_tmpStyles.create(c);
 
 	return s;
 }
@@ -2019,9 +2019,9 @@ QString SMCharacterStyle::getUniqueName(const QString &name)
 	{
 start:
 		++id;
-		for (int i = 0; i < tmpStyles_.count(); ++i)
+		for (int i = 0; i < m_tmpStyles.count(); ++i)
 		{
-			if (tmpStyles_[i].name() == s)
+			if (m_tmpStyles[i].name() == s)
 			{
 				s = tr("%1 (%2)", "This for unique name when creating "
 						"a new character style. %1 will be the name "
@@ -2038,26 +2038,26 @@ start:
 
 void SMCharacterStyle::apply()
 {
-	if (!doc_)
+	if (!m_doc)
 		return;
 
 	QMap<QString, QString> replacement;
-	for (int i = 0; i < deleted_.count(); ++i)
+	for (int i = 0; i < m_deleted.count(); ++i)
 	{
-		if (deleted_[i].first == deleted_[i].second)
+		if (m_deleted[i].first == m_deleted[i].second)
 			continue;
-		replacement[deleted_[i].first] = deleted_[i].second;
+		replacement[m_deleted[i].first] = m_deleted[i].second;
 	}
 
-	doc_->redefineCharStyles(tmpStyles_, false);
-	doc_->replaceCharStyles(replacement);
+	m_doc->redefineCharStyles(m_tmpStyles, false);
+	m_doc->replaceCharStyles(replacement);
 
-	deleted_.clear(); // deletion done at this point
+	m_deleted.clear(); // deletion done at this point
 
-	doc_->scMW()->requestUpdate(reqTextStylesUpdate);
+	m_doc->scMW()->requestUpdate(reqTextStylesUpdate);
 	// Better not call DrawNew() here, as this will cause several unnecessary calls
-	// doc_->view()->DrawNew();
-	doc_->changed();
+	// m_doc->view()->DrawNew();
+	m_doc->changed();
 }
 
 void SMCharacterStyle::editMode(bool isOn)
@@ -2068,17 +2068,17 @@ void SMCharacterStyle::editMode(bool isOn)
 
 bool SMCharacterStyle::isDefaultStyle(const QString &stylename) const
 {
-	int index = tmpStyles_.find(stylename);
+	int index = m_tmpStyles.find(stylename);
 	bool b=false;
 	if (index > -1)
-		b = tmpStyles_[index].isDefaultStyle();
+		b = m_tmpStyles[index].isDefaultStyle();
 	else
 	{
 		if (CommonStrings::trDefaultCharacterStyle==stylename)
 		{
-			index = tmpStyles_.find(CommonStrings::DefaultCharacterStyle);
+			index = m_tmpStyles.find(CommonStrings::DefaultCharacterStyle);
 			if (index > -1)
-				b = tmpStyles_[index].isDefaultStyle();
+				b = m_tmpStyles[index].isDefaultStyle();
 		}
 	}
 	return b;
@@ -2086,15 +2086,15 @@ bool SMCharacterStyle::isDefaultStyle(const QString &stylename) const
 
 void SMCharacterStyle::setDefaultStyle(bool ids)
 {
-	Q_ASSERT(selection_.count() == 1);
-	if (selection_.count() != 1)
+	Q_ASSERT(m_selection.count() == 1);
+	if (m_selection.count() != 1)
 		return;
 
-	selection_[0]->setDefaultStyle(ids);
+	m_selection[0]->setDefaultStyle(ids);
 	
-	if (!selectionIsDirty_)
+	if (!m_selectionIsDirty)
 	{
-		selectionIsDirty_ = true;
+		m_selectionIsDirty = true;
 		emit selectionDirty();
 	}
 }
@@ -2102,17 +2102,17 @@ void SMCharacterStyle::setDefaultStyle(bool ids)
 QString SMCharacterStyle::shortcut(const QString &stylename) const
 {
 	QString s(QString::null);
-	int index = tmpStyles_.find(stylename);
+	int index = m_tmpStyles.find(stylename);
 	if (index > -1)
-		s = tmpStyles_[index].shortcut();
+		s = m_tmpStyles[index].shortcut();
 	else
 	{
 		//FIXME: Use isDefaultStyle somehow
 		if (CommonStrings::trDefaultCharacterStyle==stylename)
 		{
-			index = tmpStyles_.find(CommonStrings::DefaultCharacterStyle);
+			index = m_tmpStyles.find(CommonStrings::DefaultCharacterStyle);
 			if (index > -1)
-				s = tmpStyles_[index].shortcut();
+				s = m_tmpStyles[index].shortcut();
 		}
 	}
 	return s;
@@ -2120,15 +2120,15 @@ QString SMCharacterStyle::shortcut(const QString &stylename) const
 
 void SMCharacterStyle::setShortcut(const QString &shortcut)
 {
-	Q_ASSERT(selection_.count() == 1);
-	if (selection_.count() != 1)
+	Q_ASSERT(m_selection.count() == 1);
+	if (m_selection.count() != 1)
 		return;
 
-	selection_[0]->setShortcut(shortcut);
+	m_selection[0]->setShortcut(shortcut);
 
-	if (!selectionIsDirty_)
+	if (!m_selectionIsDirty)
 	{
-		selectionIsDirty_ = true;
+		m_selectionIsDirty = true;
 		emit selectionDirty();
 	}
 }
@@ -2137,76 +2137,76 @@ void SMCharacterStyle::deleteStyles(const QList<RemoveItem> &removeList)
 {
 	for (int i = 0; i < removeList.count(); ++i)
 	{
-		for (int k = 0; k < selection_.count(); ++k)
+		for (int k = 0; k < m_selection.count(); ++k)
 		{
-			if (selection_[k]->name() == removeList[i].first)
+			if (m_selection[k]->name() == removeList[i].first)
 			{
-				selection_.removeAt(k);
+				m_selection.removeAt(k);
 				break;
 			}
 		}
 
-		int index = tmpStyles_.find(removeList[i].first);
+		int index = m_tmpStyles.find(removeList[i].first);
 		if (index > -1)
-			tmpStyles_.remove(index);
-		deleted_ << removeList[i];
+			m_tmpStyles.remove(index);
+		m_deleted << removeList[i];
 	}
 }
 
 void SMCharacterStyle::nameChanged(const QString &newName)
 {
-// 	for (int i = 0; i < selection_.count(); ++i)
-// 		selection_[i]->setName(newName);
+// 	for (int i = 0; i < m_selection.count(); ++i)
+// 		m_selection[i]->setName(newName);
 
-	QString oldName(selection_[0]->name());
-	CharStyle c(*selection_[0]);
+	QString oldName(m_selection[0]->name());
+	CharStyle c(*m_selection[0]);
 	c.setName(newName);
-	tmpStyles_.create(c);
-	selection_.clear();
-	selection_.append(&tmpStyles_[tmpStyles_.find(newName)]);
-	for (int j = 0; j < tmpStyles_.count(); ++j)
+	m_tmpStyles.create(c);
+	m_selection.clear();
+	m_selection.append(&m_tmpStyles[m_tmpStyles.find(newName)]);
+	for (int j = 0; j < m_tmpStyles.count(); ++j)
 	{
-		int index = tmpStyles_.find(oldName);
+		int index = m_tmpStyles.find(oldName);
 		if (index > -1)
 		{
-			tmpStyles_.remove(index);
+			m_tmpStyles.remove(index);
 			break;
 		}
 	}
 
-	for (int j = 0; j < tmpStyles_.count(); ++j)
+	for (int j = 0; j < m_tmpStyles.count(); ++j)
 	{
-		if (tmpStyles_[j].parent() == oldName)
-			tmpStyles_[j].setParent(newName);
+		if (m_tmpStyles[j].parent() == oldName)
+			m_tmpStyles[j].setParent(newName);
 	}
 
 	QList<RemoveItem>::iterator it;
-	for (it = deleted_.begin(); it != deleted_.end(); ++it)
+	for (it = m_deleted.begin(); it != m_deleted.end(); ++it)
 	{
 		if (it->second == oldName)
 		{
 			oldName = (*it).first;
-			deleted_.erase(it);
+			m_deleted.erase(it);
 			break;
 		}
 	}
 
 	if (oldName != newName)
-		deleted_.append(RemoveItem(oldName, newName));
+		m_deleted.append(RemoveItem(oldName, newName));
 
-	if (!selectionIsDirty_)
+	if (!m_selectionIsDirty)
 	{
-		selectionIsDirty_ = true;
+		m_selectionIsDirty = true;
 		emit selectionDirty();
 	}
 }
 
 void SMCharacterStyle::languageChange()
 {
-	if (widget_ && page_)
+	if (m_widget && m_page)
 	{
-		widget_->setTabText(widget_->indexOf(page_), tr("Properties"));
-		page_->languageChange();
+		m_widget->setTabText(m_widget->indexOf(m_page), tr("Properties"));
+		m_page->languageChange();
 	}
 }
 
@@ -2217,107 +2217,107 @@ void SMCharacterStyle::unitChange()
 
 void SMCharacterStyle::reloadTmpStyles()
 {
-	if (!doc_)
+	if (!m_doc)
 		return;
 
-	selection_.clear();
-	tmpStyles_.clear();
-	tmpStyles_.redefine(doc_->charStyles(), true);
+	m_selection.clear();
+	m_tmpStyles.clear();
+	m_tmpStyles.redefine(m_doc->charStyles(), true);
 }
 
 void SMCharacterStyle::setupConnections()
 {
-	if (!page_)
+	if (!m_page)
 		return;
 
-	connect(page_->fontFace_, SIGNAL(fontSelected(QString)), this, SLOT(slotFont(QString)));
-	connect(page_->effects_, SIGNAL(State(int)), this, SLOT(slotEffects(int)));
-	connect(page_->effects_->ShadowVal->Xoffset, SIGNAL(valueChanged(double)),
+	connect(m_page->fontFace_, SIGNAL(fontSelected(QString)), this, SLOT(slotFont(QString)));
+	connect(m_page->effects_, SIGNAL(State(int)), this, SLOT(slotEffects(int)));
+	connect(m_page->effects_->ShadowVal->Xoffset, SIGNAL(valueChanged(double)),
 			   this, SLOT(slotEffectProperties()));
-	connect(page_->effects_->ShadowVal->Yoffset, SIGNAL(valueChanged(double)),
+	connect(m_page->effects_->ShadowVal->Yoffset, SIGNAL(valueChanged(double)),
 			   this, SLOT(slotEffectProperties()));
-	connect(page_->effects_->OutlineVal->LWidth, SIGNAL(valueChanged(double)),
+	connect(m_page->effects_->OutlineVal->LWidth, SIGNAL(valueChanged(double)),
 			   this, SLOT(slotEffectProperties()));
-	connect(page_->effects_->UnderlineVal->LPos, SIGNAL(valueChanged(double)),
+	connect(m_page->effects_->UnderlineVal->LPos, SIGNAL(valueChanged(double)),
 			   this, SLOT(slotEffectProperties()));
-	connect(page_->effects_->UnderlineVal->LWidth, SIGNAL(valueChanged(double)),
+	connect(m_page->effects_->UnderlineVal->LWidth, SIGNAL(valueChanged(double)),
 			   this, SLOT(slotEffectProperties()));
-	connect(page_->effects_->StrikeVal->LPos, SIGNAL(valueChanged(double)),
+	connect(m_page->effects_->StrikeVal->LPos, SIGNAL(valueChanged(double)),
 			   this, SLOT(slotEffectProperties()));
-	connect(page_->effects_->StrikeVal->LWidth, SIGNAL(valueChanged(double)),
+	connect(m_page->effects_->StrikeVal->LWidth, SIGNAL(valueChanged(double)),
 			   this, SLOT(slotEffectProperties()));
-	connect(page_->fillColor_, SIGNAL(activated(const QString&)), this, SLOT(slotFillColor()));
-	connect(page_->fillShade_, SIGNAL(clicked()), this, SLOT(slotFillShade()));
-	connect(page_->strokeColor_, SIGNAL(activated(const QString&)), this, SLOT(slotStrokeColor()));
-	connect(page_->strokeShade_, SIGNAL(clicked()), this, SLOT(slotStrokeShade()));
-	connect(page_->language_, SIGNAL(activated(int)), this, SLOT(slotLanguage()));
-	connect(page_->fontSize_, SIGNAL(valueChanged(double)), this, SLOT(slotFontSize()));
-	connect(page_->fontHScale_, SIGNAL(valueChanged(double)), this, SLOT(slotScaleH()));
-	connect(page_->fontVScale_, SIGNAL(valueChanged(double)), this, SLOT(slotScaleV()));
-	connect(page_->tracking_, SIGNAL(valueChanged(double)), this, SLOT(slotTracking()));
-	connect(page_->widthSpaceSpin, SIGNAL(valueChanged(double)), this, SLOT(slotWordTracking()));
-	connect(page_->baselineOffset_, SIGNAL(valueChanged(double)), this, SLOT(slotBaselineOffset()));
-	connect(page_->fontFace_, SIGNAL(fontSelected(QString)), this, SLOT(slotFont(QString)));
-	connect(page_->parentCombo, SIGNAL(activated(const QString&)),
+	connect(m_page->fillColor_, SIGNAL(activated(const QString&)), this, SLOT(slotFillColor()));
+	connect(m_page->fillShade_, SIGNAL(clicked()), this, SLOT(slotFillShade()));
+	connect(m_page->strokeColor_, SIGNAL(activated(const QString&)), this, SLOT(slotStrokeColor()));
+	connect(m_page->strokeShade_, SIGNAL(clicked()), this, SLOT(slotStrokeShade()));
+	connect(m_page->language_, SIGNAL(activated(int)), this, SLOT(slotLanguage()));
+	connect(m_page->fontSize_, SIGNAL(valueChanged(double)), this, SLOT(slotFontSize()));
+	connect(m_page->fontHScale_, SIGNAL(valueChanged(double)), this, SLOT(slotScaleH()));
+	connect(m_page->fontVScale_, SIGNAL(valueChanged(double)), this, SLOT(slotScaleV()));
+	connect(m_page->tracking_, SIGNAL(valueChanged(double)), this, SLOT(slotTracking()));
+	connect(m_page->widthSpaceSpin, SIGNAL(valueChanged(double)), this, SLOT(slotWordTracking()));
+	connect(m_page->baselineOffset_, SIGNAL(valueChanged(double)), this, SLOT(slotBaselineOffset()));
+	connect(m_page->fontFace_, SIGNAL(fontSelected(QString)), this, SLOT(slotFont(QString)));
+	connect(m_page->parentCombo, SIGNAL(activated(const QString&)),
 	        this, SLOT(slotParentChanged(const QString&)));
 }
 
 void SMCharacterStyle::removeConnections()
 {
-	if (!page_)
+	if (!m_page)
 		return;
 
-	disconnect(page_->fontFace_, SIGNAL(fontSelected(QString)), this, SLOT(slotFont(QString)));
-	disconnect(page_->effects_, SIGNAL(State(int)), this, SLOT(slotEffects(int)));
-	disconnect(page_->effects_->ShadowVal->Xoffset, SIGNAL(valueChanged(double)),
+	disconnect(m_page->fontFace_, SIGNAL(fontSelected(QString)), this, SLOT(slotFont(QString)));
+	disconnect(m_page->effects_, SIGNAL(State(int)), this, SLOT(slotEffects(int)));
+	disconnect(m_page->effects_->ShadowVal->Xoffset, SIGNAL(valueChanged(double)),
 			   this, SLOT(slotEffectProperties()));
-	disconnect(page_->effects_->ShadowVal->Yoffset, SIGNAL(valueChanged(double)),
+	disconnect(m_page->effects_->ShadowVal->Yoffset, SIGNAL(valueChanged(double)),
 			   this, SLOT(slotEffectProperties()));
-	disconnect(page_->effects_->OutlineVal->LWidth, SIGNAL(valueChanged(double)),
+	disconnect(m_page->effects_->OutlineVal->LWidth, SIGNAL(valueChanged(double)),
 			   this, SLOT(slotEffectProperties()));
-	disconnect(page_->effects_->UnderlineVal->LPos, SIGNAL(valueChanged(double)),
+	disconnect(m_page->effects_->UnderlineVal->LPos, SIGNAL(valueChanged(double)),
 			   this, SLOT(slotEffectProperties()));
-	disconnect(page_->effects_->UnderlineVal->LWidth, SIGNAL(valueChanged(double)),
+	disconnect(m_page->effects_->UnderlineVal->LWidth, SIGNAL(valueChanged(double)),
 			   this, SLOT(slotEffectProperties()));
-	disconnect(page_->effects_->StrikeVal->LPos, SIGNAL(valueChanged(double)),
+	disconnect(m_page->effects_->StrikeVal->LPos, SIGNAL(valueChanged(double)),
 			   this, SLOT(slotEffectProperties()));
-	disconnect(page_->effects_->StrikeVal->LWidth, SIGNAL(valueChanged(double)),
+	disconnect(m_page->effects_->StrikeVal->LWidth, SIGNAL(valueChanged(double)),
 			   this, SLOT(slotEffectProperties()));
-	disconnect(page_->fillColor_, SIGNAL(activated(const QString&)), this, SLOT(slotFillColor()));
-	disconnect(page_->fillShade_, SIGNAL(clicked()), this, SLOT(slotFillShade()));
-	disconnect(page_->strokeColor_, SIGNAL(activated(const QString&)), this, SLOT(slotStrokeColor()));
-	disconnect(page_->strokeShade_, SIGNAL(clicked()), this, SLOT(slotStrokeShade()));
-	disconnect(page_->language_, SIGNAL(activated(int)), this, SLOT(slotLanguage()));
-	disconnect(page_->fontSize_, SIGNAL(valueChanged(double)), this, SLOT(slotFontSize()));
-	disconnect(page_->fontHScale_, SIGNAL(valueChanged(double)), this, SLOT(slotScaleH()));
-	disconnect(page_->fontVScale_, SIGNAL(valueChanged(double)), this, SLOT(slotScaleV()));
-	disconnect(page_->tracking_, SIGNAL(valueChanged(double)), this, SLOT(slotTracking()));
-	disconnect(page_->widthSpaceSpin, SIGNAL(valueChanged(double)), this, SLOT(slotWordTracking()));
-	disconnect(page_->baselineOffset_, SIGNAL(valueChanged(double)), this, SLOT(slotBaselineOffset()));
-	disconnect(page_->fontFace_, SIGNAL(fontSelected(QString)), this, SLOT(slotFont(QString)));
-	disconnect(page_->parentCombo, SIGNAL(activated(const QString&)),
+	disconnect(m_page->fillColor_, SIGNAL(activated(const QString&)), this, SLOT(slotFillColor()));
+	disconnect(m_page->fillShade_, SIGNAL(clicked()), this, SLOT(slotFillShade()));
+	disconnect(m_page->strokeColor_, SIGNAL(activated(const QString&)), this, SLOT(slotStrokeColor()));
+	disconnect(m_page->strokeShade_, SIGNAL(clicked()), this, SLOT(slotStrokeShade()));
+	disconnect(m_page->language_, SIGNAL(activated(int)), this, SLOT(slotLanguage()));
+	disconnect(m_page->fontSize_, SIGNAL(valueChanged(double)), this, SLOT(slotFontSize()));
+	disconnect(m_page->fontHScale_, SIGNAL(valueChanged(double)), this, SLOT(slotScaleH()));
+	disconnect(m_page->fontVScale_, SIGNAL(valueChanged(double)), this, SLOT(slotScaleV()));
+	disconnect(m_page->tracking_, SIGNAL(valueChanged(double)), this, SLOT(slotTracking()));
+	disconnect(m_page->widthSpaceSpin, SIGNAL(valueChanged(double)), this, SLOT(slotWordTracking()));
+	disconnect(m_page->baselineOffset_, SIGNAL(valueChanged(double)), this, SLOT(slotBaselineOffset()));
+	disconnect(m_page->fontFace_, SIGNAL(fontSelected(QString)), this, SLOT(slotFont(QString)));
+	disconnect(m_page->parentCombo, SIGNAL(activated(const QString&)),
 			this, SLOT(slotParentChanged(const QString&)));
 }
 
 void SMCharacterStyle::slotFontSize()
 {
-	if (page_->fontSize_->useParentValue())
-		for (int i = 0; i < selection_.count(); ++i)
-			selection_[i]->resetFontSize();
+	if (m_page->fontSize_->useParentValue())
+		for (int i = 0; i < m_selection.count(); ++i)
+			m_selection[i]->resetFontSize();
 	else
 	{
 		double a, b, value;
 		int c;
 
-		page_->fontSize_->getValues(&a, &b, &c, &value);
+		m_page->fontSize_->getValues(&a, &b, &c, &value);
 		value = value * 10;
-		for (int i = 0; i < selection_.count(); ++i)
-			selection_[i]->setFontSize(qRound(value));
+		for (int i = 0; i < m_selection.count(); ++i)
+			m_selection[i]->setFontSize(qRound(value));
 	}
 
-	if (!selectionIsDirty_)
+	if (!m_selectionIsDirty)
 	{
-		selectionIsDirty_ = true;
+		m_selectionIsDirty = true;
 		emit selectionDirty();
 	}
 }
@@ -2325,18 +2325,18 @@ void SMCharacterStyle::slotFontSize()
 void SMCharacterStyle::slotEffects(int e)
 {
 	StyleFlag s = ScStyle_None;
-	if (page_->effects_->useParentValue())
+	if (m_page->effects_->useParentValue())
 	{
-		for (int i = 0; i < selection_.count(); ++i)
+		for (int i = 0; i < m_selection.count(); ++i)
 		{
-			selection_[i]->resetFeatures();
-			selection_[i]->resetShadowXOffset();
-			selection_[i]->resetShadowYOffset();
-			selection_[i]->resetOutlineWidth();
-			selection_[i]->resetUnderlineOffset();
-			selection_[i]->resetUnderlineWidth();
-			selection_[i]->resetStrikethruOffset();
-			selection_[i]->resetStrikethruWidth();
+			m_selection[i]->resetFeatures();
+			m_selection[i]->resetShadowXOffset();
+			m_selection[i]->resetShadowYOffset();
+			m_selection[i]->resetOutlineWidth();
+			m_selection[i]->resetUnderlineOffset();
+			m_selection[i]->resetUnderlineWidth();
+			m_selection[i]->resetStrikethruOffset();
+			m_selection[i]->resetStrikethruWidth();
 		}
 	}
 	else
@@ -2345,44 +2345,44 @@ void SMCharacterStyle::slotEffects(int e)
 		double a, b, sxo, syo, olw, ulp, ulw, slp, slw;
 		int c;
 
-		page_->effects_->ShadowVal->Xoffset->getValues(&a, &b, &c, &sxo);
+		m_page->effects_->ShadowVal->Xoffset->getValues(&a, &b, &c, &sxo);
 		sxo *= 10;
-		page_->effects_->ShadowVal->Yoffset->getValues(&a, &b, &c, &syo);
+		m_page->effects_->ShadowVal->Yoffset->getValues(&a, &b, &c, &syo);
 		syo *= 10;
 
-		page_->effects_->OutlineVal->LWidth->getValues(&a, &b, &c, &olw);
+		m_page->effects_->OutlineVal->LWidth->getValues(&a, &b, &c, &olw);
 		olw *= 10;
 
-		page_->effects_->UnderlineVal->LPos->getValues(&a, &b, &c, &ulp);
+		m_page->effects_->UnderlineVal->LPos->getValues(&a, &b, &c, &ulp);
 		ulp *= 10;
-		page_->effects_->UnderlineVal->LWidth->getValues(&a, &b, &c, &ulw);
+		m_page->effects_->UnderlineVal->LWidth->getValues(&a, &b, &c, &ulw);
 		ulw *= 10;
 
-		page_->effects_->StrikeVal->LPos->getValues(&a, &b, &c, &slp);
+		m_page->effects_->StrikeVal->LPos->getValues(&a, &b, &c, &slp);
 		slp *= 10;
-		page_->effects_->StrikeVal->LWidth->getValues(&a, &b, &c, &slw);
+		m_page->effects_->StrikeVal->LWidth->getValues(&a, &b, &c, &slw);
 		slw *= 10;
 
-		for (int i = 0; i < selection_.count(); ++i)
+		for (int i = 0; i < m_selection.count(); ++i)
 		{
 			QStringList feList = s.featureList();
 			feList.removeAll(CharStyle::INHERIT);
-			selection_[i]->setFeatures(feList);
-//			selection_[i]->setFeatures(s.featureList());
-			selection_[i]->setShadowXOffset(qRound(sxo));
-			selection_[i]->setShadowYOffset(qRound(syo));
-			selection_[i]->setOutlineWidth(qRound(olw));
-			selection_[i]->setUnderlineOffset(qRound(ulp));
-			selection_[i]->setUnderlineWidth(qRound(ulw));
-			selection_[i]->setStrikethruOffset(qRound(slp));
-			selection_[i]->setStrikethruWidth(qRound(slw));
+			m_selection[i]->setFeatures(feList);
+//			m_selection[i]->setFeatures(s.featureList());
+			m_selection[i]->setShadowXOffset(qRound(sxo));
+			m_selection[i]->setShadowYOffset(qRound(syo));
+			m_selection[i]->setOutlineWidth(qRound(olw));
+			m_selection[i]->setUnderlineOffset(qRound(ulp));
+			m_selection[i]->setUnderlineWidth(qRound(ulw));
+			m_selection[i]->setStrikethruOffset(qRound(slp));
+			m_selection[i]->setStrikethruWidth(qRound(slw));
 		}
 	}
 
 
-	if (!selectionIsDirty_)
+	if (!m_selectionIsDirty)
 	{
-		selectionIsDirty_ = true;
+		m_selectionIsDirty = true;
 		emit selectionDirty();
 	}
 }
@@ -2392,114 +2392,114 @@ void SMCharacterStyle::slotEffectProperties()
 	double a, b, sxo, syo, olw, ulp, ulw, slp, slw;
 	int c;
 
-	page_->effects_->ShadowVal->Xoffset->getValues(&a, &b, &c, &sxo);
+	m_page->effects_->ShadowVal->Xoffset->getValues(&a, &b, &c, &sxo);
 	sxo *= 10;
-	page_->effects_->ShadowVal->Yoffset->getValues(&a, &b, &c, &syo);
+	m_page->effects_->ShadowVal->Yoffset->getValues(&a, &b, &c, &syo);
 	syo *= 10;
 
-	page_->effects_->OutlineVal->LWidth->getValues(&a, &b, &c, &olw);
+	m_page->effects_->OutlineVal->LWidth->getValues(&a, &b, &c, &olw);
 	olw *= 10;
 
-	page_->effects_->UnderlineVal->LPos->getValues(&a, &b, &c, &ulp);
+	m_page->effects_->UnderlineVal->LPos->getValues(&a, &b, &c, &ulp);
 	ulp *= 10;
-	page_->effects_->UnderlineVal->LWidth->getValues(&a, &b, &c, &ulw);
+	m_page->effects_->UnderlineVal->LWidth->getValues(&a, &b, &c, &ulw);
 	ulw *= 10;
 
-	page_->effects_->StrikeVal->LPos->getValues(&a, &b, &c, &slp);
+	m_page->effects_->StrikeVal->LPos->getValues(&a, &b, &c, &slp);
 	slp *= 10;
-	page_->effects_->StrikeVal->LWidth->getValues(&a, &b, &c, &slw);
+	m_page->effects_->StrikeVal->LWidth->getValues(&a, &b, &c, &slw);
 	slw *= 10;
 	
-	for (int i = 0; i < selection_.count(); ++i)
+	for (int i = 0; i < m_selection.count(); ++i)
 	{
-		selection_[i]->setShadowXOffset(qRound(sxo));
-		selection_[i]->setShadowYOffset(qRound(syo));
-		selection_[i]->setOutlineWidth(qRound(olw));
-		selection_[i]->setUnderlineOffset(qRound(ulp));
-		selection_[i]->setUnderlineWidth(qRound(ulw));
-		selection_[i]->setStrikethruOffset(qRound(slp));
-		selection_[i]->setStrikethruWidth(qRound(slw));
+		m_selection[i]->setShadowXOffset(qRound(sxo));
+		m_selection[i]->setShadowYOffset(qRound(syo));
+		m_selection[i]->setOutlineWidth(qRound(olw));
+		m_selection[i]->setUnderlineOffset(qRound(ulp));
+		m_selection[i]->setUnderlineWidth(qRound(ulw));
+		m_selection[i]->setStrikethruOffset(qRound(slp));
+		m_selection[i]->setStrikethruWidth(qRound(slw));
 	}
 
-	if (!selectionIsDirty_)
+	if (!m_selectionIsDirty)
 	{
-		selectionIsDirty_ = true;
+		m_selectionIsDirty = true;
 		emit selectionDirty();
 	}
 }
 
 void SMCharacterStyle::slotFillColor()
 {
-	if (page_->fillColor_->useParentValue())
-		for (int i = 0; i < selection_.count(); ++i)
-			selection_[i]->resetFillColor();
+	if (m_page->fillColor_->useParentValue())
+		for (int i = 0; i < m_selection.count(); ++i)
+			m_selection[i]->resetFillColor();
 	else {		
-		QString col(page_->fillColor_->currentText());
+		QString col(m_page->fillColor_->currentText());
 		
-		for (int i = 0; i < selection_.count(); ++i)
-			selection_[i]->setFillColor(col);
+		for (int i = 0; i < m_selection.count(); ++i)
+			m_selection[i]->setFillColor(col);
 	}
 	
-	if (!selectionIsDirty_)
+	if (!m_selectionIsDirty)
 	{
-		selectionIsDirty_ = true;
+		m_selectionIsDirty = true;
 		emit selectionDirty();
 	}
 }
 
 void SMCharacterStyle::slotFillShade()
 {
-	if (page_->fillShade_->useParentValue())
-		for (int i = 0; i < selection_.count(); ++i)
-			selection_[i]->resetFillShade();
+	if (m_page->fillShade_->useParentValue())
+		for (int i = 0; i < m_selection.count(); ++i)
+			m_selection[i]->resetFillShade();
 	else {
-		int fs = page_->fillShade_->getValue();
+		int fs = m_page->fillShade_->getValue();
 
-		for (int i = 0; i < selection_.count(); ++i)
-			selection_[i]->setFillShade(fs);
+		for (int i = 0; i < m_selection.count(); ++i)
+			m_selection[i]->setFillShade(fs);
 	}
 	
-	if (!selectionIsDirty_)
+	if (!m_selectionIsDirty)
 	{
-		selectionIsDirty_ = true;
+		m_selectionIsDirty = true;
 		emit selectionDirty();
 	}
 }
 
 void SMCharacterStyle::slotStrokeColor()
 {
-	if (page_->strokeColor_->useParentValue())
-		for (int i = 0; i < selection_.count(); ++i)
-			selection_[i]->resetStrokeColor();
+	if (m_page->strokeColor_->useParentValue())
+		for (int i = 0; i < m_selection.count(); ++i)
+			m_selection[i]->resetStrokeColor();
 	else {
-		QString c(page_->strokeColor_->currentText());
+		QString c(m_page->strokeColor_->currentText());
 
-		for (int i = 0; i < selection_.count(); ++i)
-			selection_[i]->setStrokeColor(c);
+		for (int i = 0; i < m_selection.count(); ++i)
+			m_selection[i]->setStrokeColor(c);
 	}
 	
-	if (!selectionIsDirty_)
+	if (!m_selectionIsDirty)
 	{
-		selectionIsDirty_ = true;
+		m_selectionIsDirty = true;
 		emit selectionDirty();
 	}
 }
 
 void SMCharacterStyle::slotStrokeShade()
 {
-	if (page_->strokeShade_->useParentValue())
-		for (int i = 0; i < selection_.count(); ++i)
-			selection_[i]->resetStrokeShade();
+	if (m_page->strokeShade_->useParentValue())
+		for (int i = 0; i < m_selection.count(); ++i)
+			m_selection[i]->resetStrokeShade();
 	else {
-		int ss = page_->strokeShade_->getValue();
+		int ss = m_page->strokeShade_->getValue();
 		
-		for (int i = 0; i < selection_.count(); ++i)
-			selection_[i]->setStrokeShade(ss);
+		for (int i = 0; i < m_selection.count(); ++i)
+			m_selection[i]->setStrokeShade(ss);
 	}
 	
-	if (!selectionIsDirty_)
+	if (!m_selectionIsDirty)
 	{
-		selectionIsDirty_ = true;
+		m_selectionIsDirty = true;
 		emit selectionDirty();
 	}
 }
@@ -2507,141 +2507,141 @@ void SMCharacterStyle::slotStrokeShade()
 void SMCharacterStyle::slotLanguage()
 {
 	QMap<QString,QString>::Iterator it;
-	QString language = doc_->paragraphStyle("").charStyle().language();
+	QString language = m_doc->paragraphStyle("").charStyle().language();
 
-	if (page_->language_->useParentValue())
-		for (int i = 0; i < selection_.count(); ++i)
-			selection_[i]->resetLanguage();
+	if (m_page->language_->useParentValue())
+		for (int i = 0; i < m_selection.count(); ++i)
+			m_selection[i]->resetLanguage();
 	else
 	{
-		QString tl(LanguageManager::instance()->getAbbrevFromLang(page_->language_->currentText(), true));
+		QString tl(LanguageManager::instance()->getAbbrevFromLang(m_page->language_->currentText(), true));
 		if (!tl.isEmpty())
 			language=tl;
-		for (int i = 0; i < selection_.count(); ++i)
-			selection_[i]->setLanguage(language);
+		for (int i = 0; i < m_selection.count(); ++i)
+			m_selection[i]->setLanguage(language);
 	}
 
 
-	if (!selectionIsDirty_)
+	if (!m_selectionIsDirty)
 	{
-		selectionIsDirty_ = true;
+		m_selectionIsDirty = true;
 		emit selectionDirty();
 	}
 }
 
 void SMCharacterStyle::slotScaleH()
 {
-	if (page_->fontHScale_->useParentValue())
-		for (int i = 0; i < selection_.count(); ++i)
-			selection_[i]->resetScaleH();
+	if (m_page->fontHScale_->useParentValue())
+		for (int i = 0; i < m_selection.count(); ++i)
+			m_selection[i]->resetScaleH();
 	else
 	{
 		double a, b, value;
 		int c;
 
-		page_->fontHScale_->getValues(&a, &b, &c, &value);
+		m_page->fontHScale_->getValues(&a, &b, &c, &value);
 		value = value * 10;
-		for (int i = 0; i < selection_.count(); ++i)
-			selection_[i]->setScaleH(qRound(value));
+		for (int i = 0; i < m_selection.count(); ++i)
+			m_selection[i]->setScaleH(qRound(value));
 	}
 
 
-	if (!selectionIsDirty_)
+	if (!m_selectionIsDirty)
 	{
-		selectionIsDirty_ = true;
+		m_selectionIsDirty = true;
 		emit selectionDirty();
 	}
 }
 
 void SMCharacterStyle::slotScaleV()
 {
-	if (page_->fontVScale_->useParentValue())
-		for (int i = 0; i < selection_.count(); ++i)
-			selection_[i]->resetScaleV();
+	if (m_page->fontVScale_->useParentValue())
+		for (int i = 0; i < m_selection.count(); ++i)
+			m_selection[i]->resetScaleV();
 	else
 	{
 		double a, b, value;
 		int c;
 
-		page_->fontVScale_->getValues(&a, &b, &c, &value);
+		m_page->fontVScale_->getValues(&a, &b, &c, &value);
 		value = value * 10;
-		for (int i = 0; i < selection_.count(); ++i)
-			selection_[i]->setScaleV(qRound(value));
+		for (int i = 0; i < m_selection.count(); ++i)
+			m_selection[i]->setScaleV(qRound(value));
 	}
 
 
-	if (!selectionIsDirty_)
+	if (!m_selectionIsDirty)
 	{
-		selectionIsDirty_ = true;
+		m_selectionIsDirty = true;
 		emit selectionDirty();
 	}
 }
 
 void SMCharacterStyle::slotTracking()
 {
-	if (page_->tracking_->useParentValue())
-		for (int i = 0; i < selection_.count(); ++i)
-			selection_[i]->resetTracking();
+	if (m_page->tracking_->useParentValue())
+		for (int i = 0; i < m_selection.count(); ++i)
+			m_selection[i]->resetTracking();
 	else
 	{
 		double a, b, value;
 		int c;
 
-		page_->tracking_->getValues(&a, &b, &c, &value);
+		m_page->tracking_->getValues(&a, &b, &c, &value);
 		value = value * 10;
-		for (int i = 0; i < selection_.count(); ++i)
-			selection_[i]->setTracking(qRound(value));
+		for (int i = 0; i < m_selection.count(); ++i)
+			m_selection[i]->setTracking(qRound(value));
 	}
 
-	if (!selectionIsDirty_)
+	if (!m_selectionIsDirty)
 	{
-		selectionIsDirty_ = true;
+		m_selectionIsDirty = true;
 		emit selectionDirty();
 	}
 }
 
 void SMCharacterStyle::slotWordTracking()
 {
-	if (page_->widthSpaceSpin->useParentValue())
-		for (int i = 0; i < selection_.count(); ++i)
-			selection_[i]->resetWordTracking();
+	if (m_page->widthSpaceSpin->useParentValue())
+		for (int i = 0; i < m_selection.count(); ++i)
+			m_selection[i]->resetWordTracking();
 	else
 	{
 		double a, b, value;
 		int c;
 
-		page_->widthSpaceSpin->getValues(&a, &b, &c, &value);
+		m_page->widthSpaceSpin->getValues(&a, &b, &c, &value);
 		value = value / 100.0;
-		for (int i = 0; i < selection_.count(); ++i)
-			selection_[i]->setWordTracking(value);
+		for (int i = 0; i < m_selection.count(); ++i)
+			m_selection[i]->setWordTracking(value);
 	}
 
-	if (!selectionIsDirty_)
+	if (!m_selectionIsDirty)
 	{
-		selectionIsDirty_ = true;
+		m_selectionIsDirty = true;
 		emit selectionDirty();
 	}
 }
 
 void SMCharacterStyle::slotBaselineOffset()
 {
-	if (page_->baselineOffset_->useParentValue())
-		for (int i = 0; i < selection_.count(); ++i)
-			selection_[i]->resetBaselineOffset();
+	if (m_page->baselineOffset_->useParentValue())
+		for (int i = 0; i < m_selection.count(); ++i)
+			m_selection[i]->resetBaselineOffset();
 	else
 	{
 		double a, b, value;
 		int c;
 		
-		page_->baselineOffset_->getValues(&a, &b, &c, &value);
+		m_page->baselineOffset_->getValues(&a, &b, &c, &value);
 		value = value * 10;
-		for (int i = 0; i < selection_.count(); ++i)
-			selection_[i]->setBaselineOffset(qRound(value));
+		for (int i = 0; i < m_selection.count(); ++i)
+			m_selection[i]->setBaselineOffset(qRound(value));
 	}
 
-	if (!selectionIsDirty_)
+	if (!m_selectionIsDirty)
 	{
-		selectionIsDirty_ = true;
+		m_selectionIsDirty = true;
 		emit selectionDirty();
 	}
 }
@@ -2649,19 +2649,19 @@ void SMCharacterStyle::slotBaselineOffset()
 void SMCharacterStyle::slotFont(QString s)
 {
 	ScFace sf;
-	if (page_->fontFace_->useParentFont())
-		for (int i = 0; i < selection_.count(); ++i)
-			selection_[i]->resetFont();
+	if (m_page->fontFace_->useParentFont())
+		for (int i = 0; i < m_selection.count(); ++i)
+			m_selection[i]->resetFont();
 	else {
 		sf = PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts[s];
 
-		for (int i = 0; i < selection_.count(); ++i)
-			selection_[i]->setFont(sf);
+		for (int i = 0; i < m_selection.count(); ++i)
+			m_selection[i]->setFont(sf);
 	}
 	
-	if (!selectionIsDirty_)
+	if (!m_selectionIsDirty)
 	{
-		selectionIsDirty_ = true;
+		m_selectionIsDirty = true;
 		emit selectionDirty();
 	}
 }
@@ -2671,17 +2671,17 @@ void SMCharacterStyle::slotParentChanged(const QString &parent)
 	Q_ASSERT(!parent.isNull());
 
 	bool  loop = false, parentLoop = false;
-	const Style* parentStyle = (!parent.isEmpty()) ? tmpStyles_.resolve(parent) : NULL;
+	const Style* parentStyle = (!parent.isEmpty()) ? m_tmpStyles.resolve(parent) : NULL;
 	QStringList  sel;
 
-	for (int i = 0; i < selection_.count(); ++i)
+	for (int i = 0; i < m_selection.count(); ++i)
 	{
 		loop = false;
 		// Check if setting parent won't create a loop
 		const Style* pStyle = parentStyle;
 		while (pStyle)
 		{
-			if (pStyle->hasParent() && (pStyle->parent() == selection_[i]->name()))
+			if (pStyle->hasParent() && (pStyle->parent() == m_selection[i]->name()))
 			{
 				loop = parentLoop = true;
 				break;
@@ -2690,10 +2690,10 @@ void SMCharacterStyle::slotParentChanged(const QString &parent)
 		}
 		if (!loop)
 		{
-			selection_[i]->erase();
-			selection_[i]->setParent(parent);
+			m_selection[i]->erase();
+			m_selection[i]->setParent(parent);
 		}
-		sel << selection_[i]->name();
+		sel << m_selection[i]->name();
 	}
 
 	if (parentLoop)
@@ -2701,19 +2701,19 @@ void SMCharacterStyle::slotParentChanged(const QString &parent)
 
 	selected(sel);
 
-	if (!selectionIsDirty_)
+	if (!m_selectionIsDirty)
 	{
-		selectionIsDirty_ = true;
+		m_selectionIsDirty = true;
 		emit selectionDirty();
 	}
 }
 
 SMCharacterStyle::~SMCharacterStyle()
 {
-	delete page_;
-	delete widget_;
-	page_ = 0;
-	widget_ = 0;
+	delete m_page;
+	delete m_widget;
+	m_page = 0;
+	m_widget = 0;
 }
 
 
