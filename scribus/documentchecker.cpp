@@ -39,10 +39,11 @@ for which a new license (GPL+exception) is in place.
 
 bool isPartFilledImageFrame(PageItem * currItem)
 {
-    //qDebug() << "X" << currItem->width() << currItem->imageXScale() / 72.0 * currItem->pixm.imgInfo.xres * currItem->pixm.width();
-    //qDebug() << "Y" << currItem->height() << currItem->imageYScale() / 72.0 * currItem->pixm.imgInfo.yres * currItem->pixm.height();
-	return (currItem->height() > currItem->imageYScale() / 72.0 * currItem->pixm.imgInfo.yres * currItem->pixm.height()
-			|| currItem->width() > currItem->imageXScale() / 72.0 * currItem->pixm.imgInfo.xres * currItem->pixm.width());
+	double imageRealWidth  = currItem->imageXScale() * currItem->pixm.imgInfo.lowResScale * currItem->pixm.width();
+	double imageRealHeight = currItem->imageYScale() * currItem->pixm.imgInfo.lowResScale * currItem->pixm.height();
+	qDebug() << "X" << currItem->width() << imageRealWidth;
+    qDebug() << "Y" << currItem->height() << imageRealHeight;
+	return ((currItem->width() - imageRealWidth) > 0.05 || (currItem->height() - imageRealHeight) > 0.05);
 }
 
 
