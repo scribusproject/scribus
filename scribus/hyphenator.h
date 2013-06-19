@@ -46,14 +46,14 @@ public:
 private:
 
 	/*! Embeded reference to the \see ScribusDoc filled by \a dok */
-	ScribusDoc *doc;
+	ScribusDoc *m_doc;
 	/*! Reference to the hyphen dictionary structure. */
-	HyphenDict *hdict;
+	HyphenDict *m_hdict;
 	/*! Flag - if is the dictionary without errors etc. If is it 'false'
 		hyphen aborted. */
-	bool usable;
+	bool m_usable;
 	/*! Qt text codec which handles local characters. */
-	QTextCodec *codec;
+	QTextCodec *m_codec;
 
 	/*!
 		\brief Loads dictionary and fills parameters like \a useAble, \a codec, \a hdict.

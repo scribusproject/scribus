@@ -306,13 +306,13 @@ public:
 		assert( ls.lastItem >= 0 && ls.firstItem - ls.lastItem < 1 );
 		assert( ls.lastItem < length() );
 		m_lines.append(ls);
-		if (lastFrameItem < firstFrameItem) {
-			firstFrameItem = ls.firstItem;
-			lastFrameItem = ls.lastItem;
+		if (m_lastFrameItem < m_firstFrameItem) {
+			m_firstFrameItem = ls.firstItem;
+			m_lastFrameItem = ls.lastItem;
 		}
 		else {
-			firstFrameItem = qMin(firstFrameItem, ls.firstItem);
-			lastFrameItem = qMax(lastFrameItem, ls.lastItem);
+			m_firstFrameItem = qMin(m_firstFrameItem, ls.firstItem);
+			m_lastFrameItem = qMax(m_lastFrameItem, ls.lastItem);
 		}
 	}
 
@@ -326,24 +326,24 @@ public:
 			return;
 		}
 		// fix lastFrameItem
-		if (lastFrameItem != last.lastItem) return;
-		lastFrameItem = m_lines.last().lastItem;
+		if (m_lastFrameItem != last.lastItem) return;
+		m_lastFrameItem = m_lines.last().lastItem;
 	}
 
 	void clearLines() 
 	{ 
 		m_lines.clear(); 
-		firstFrameItem = 0; 
-		lastFrameItem = -1; 
+		m_firstFrameItem = 0; 
+		m_lastFrameItem = -1; 
 	}
 	
-	int firstInFrame() { return firstFrameItem; }
-	int lastInFrame() { return lastFrameItem; }
+	int firstInFrame() { return m_firstFrameItem; }
+	int lastInFrame() { return m_lastFrameItem; }
 
 private:
-	ScribusDoc * doc; 
-	int selFirst, selLast;
-	int firstFrameItem, lastFrameItem;
+	ScribusDoc * m_doc; 
+	int m_selFirst, m_selLast;
+	int m_firstFrameItem, m_lastFrameItem;
 	QList<LineSpec> m_lines;
 	bool m_validLayout;
 	qreal m_magicX;

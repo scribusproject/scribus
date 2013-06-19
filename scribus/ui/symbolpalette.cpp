@@ -200,24 +200,24 @@ void SymbolPalette::setMainWindow(ScribusMainWindow *mw)
 void SymbolPalette::setDoc(ScribusDoc *newDoc)
 {
 	if (m_scMW == NULL)
-		currDoc = NULL;
+		m_doc = NULL;
 	else
-		currDoc = newDoc;
-	if (currDoc == NULL)
+		m_doc = newDoc;
+	if (m_doc == NULL)
 	{
 		SymbolViewWidget->clear();
 		setEnabled(true);
 	}
 	else
 	{
-		setEnabled(!currDoc->drawAsPreview);
+		setEnabled(!m_doc->drawAsPreview);
 		updateSymbolList();
 	}
 }
 
 void SymbolPalette::unsetDoc()
 {
-	currDoc = NULL;
+	m_doc = NULL;
 	SymbolViewWidget->clear();
 	setEnabled(true);
 }
@@ -232,11 +232,11 @@ void SymbolPalette::updateSymbolList()
 {
 	SymbolViewWidget->clear();
 	SymbolViewWidget->setWordWrap(true);
-	QStringList patK = currDoc->docPatterns.keys();
+	QStringList patK = m_doc->docPatterns.keys();
 	qSort(patK);
 	for (int a = 0; a < patK.count(); a++)
 	{
-		ScPattern sp = currDoc->docPatterns.value(patK[a]);
+		ScPattern sp = m_doc->docPatterns.value(patK[a]);
 		QPixmap pm;
 		if (sp.getPattern()->width() >= sp.getPattern()->height())
 			pm = QPixmap::fromImage(sp.getPattern()->scaledToWidth(48, Qt::SmoothTransformation));

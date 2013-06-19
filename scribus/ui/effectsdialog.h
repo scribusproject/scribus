@@ -156,14 +156,9 @@ public:
 	QListWidget* availableEffects;
 	QPushButton* okButton;
 	QPushButton* cancelButton;
-	ScImageEffectList effectsList;
-	QMap<QListWidgetItem*, QString> effectValMap;
 	QListWidgetItem* currentOptions;
-	ScribusDoc* doc;
-	PageItem* currItem;
-	ScImage image;
-	QTime tim;
-	double imageScale;
+
+	ScImageEffectList effectsList;
 
 public slots:
 	virtual void leaveOK();
@@ -181,6 +176,15 @@ public slots:
 	virtual void selectAvailEffectDbl(QListWidgetItem* c);
 
 protected:
+	ScribusDoc* m_doc;
+	PageItem*   m_item;
+
+	ScImage m_image;
+	double  m_imageScale;
+
+	QTime m_time;
+	QMap<QListWidgetItem*, QString> m_effectValMap;
+
 	QHBoxLayout* EffectsDialogLayout;
 	QVBoxLayout* WStackPageLayout;
 	QVBoxLayout* WStackPage3Layout;

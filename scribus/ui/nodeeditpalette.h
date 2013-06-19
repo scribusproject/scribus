@@ -82,8 +82,6 @@ public:
 	QPushButton* resetDefaultButton;
 	void setDoc(ScribusDoc *dc, ScribusView *vi);
 	ScribusDoc* currentDocument() const;
-	ScribusDoc *doc;
-	ScribusView *view;
 
 private slots:
 	void closeEvent(QCloseEvent *);
@@ -135,6 +133,9 @@ protected:
 	QGridLayout *gridLayout;
 	QGridLayout *gridLayout1;
 	QGridLayout *gridLayout2;
+
+	ScribusDoc *m_doc;
+	ScribusView *m_view;
 	
 	double unitRatio;
 	double xPos;

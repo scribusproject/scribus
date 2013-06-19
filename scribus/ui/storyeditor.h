@@ -412,22 +412,21 @@ signals:
 private:
 	//int exec();
 	void changeAlign(int align);
-	int result;
 	bool textDataChanged() const;
 
 	/*! \brief Enables/disables the "smart" selection (#1203) - 10/16/2004 pv */
-	bool smartSelection;
-	int smartSel;
+	bool m_smartSelection;
 
-	ScribusDoc* currDoc;
-	PageItem* currItem;
+	ScribusDoc* m_doc;
+	PageItem* m_item;
 
-	bool textChanged;
-	bool firstSet;
-
-	bool blockUpdate;
-	int CurrPara;
-	int CurrChar;
+	bool m_blockUpdate;
+	bool m_firstSet;
+	bool m_textChanged;
+	
+	int m_result;
+	int m_currPara;
+	int m_currChar;
 
 protected slots:
 	void setBackPref();
@@ -506,6 +505,7 @@ protected:
 	CharSelect *charSelect;
     //! True when there were some glyphs inserted via charSelect
 	bool charSelectUsed;
+
 	void showEvent(QShowEvent *);
 	void hideEvent(QHideEvent *);
 

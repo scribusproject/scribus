@@ -77,7 +77,7 @@ class PLUGIN_API PathAlongPathPlugin : public ScActionPlugin
 		double originalRot;
 		double originalXPos;
 		double originalYPos;
-		ScribusDoc* currDoc;
+		ScribusDoc* m_doc;
 		bool firstUpdate;
 		Geom::Piecewise<Geom::D2<Geom::SBasis> > uskeleton;
 		Geom::Piecewise<Geom::D2<Geom::SBasis> > n;

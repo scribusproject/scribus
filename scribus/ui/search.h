@@ -89,12 +89,6 @@ public:
 	QPushButton* AllReplace;
 	QPushButton* clearButton;
 	QPushButton* Leave;
-	PageItem* Item;
-	ScribusDoc* Doc;
-	uint ReplStart;
-	PrefsContext* prefs;
-	bool NotFound;
-	bool SMode;
 
 public slots:
 	virtual void slotSearch();
@@ -128,6 +122,14 @@ signals:
 	void NewAbs(int);
 
 protected:
+	PageItem*   m_item;
+	ScribusDoc* m_doc;
+
+	uint m_replStart;
+	PrefsContext* m_prefs;
+	bool m_notFound;
+	bool m_itemMode;
+
 	QVBoxLayout* SearchReplaceLayout;
 	QHBoxLayout* SelLayout;
 	QGridLayout* SearchLayout;

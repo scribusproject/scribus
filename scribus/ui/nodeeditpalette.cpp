@@ -20,7 +20,7 @@ for which a new license (GPL+exception) is in place.
 NodePalette::NodePalette( QWidget* parent) : ScrPaletteBase( parent, "nodePalette", false, 0)
 {
 	QSize iconSize = QSize(22, 22);
-	doc=0;
+	m_doc=0;
 	unitRatio=1.0;
 	vboxLayout = new QVBoxLayout(this);
 	vboxLayout->setSpacing(2);
@@ -376,20 +376,20 @@ void NodePalette::disconnectSignals()
 
 void NodePalette::setDoc(ScribusDoc *dc, ScribusView *vi)
 {
-	doc = dc;
-	view = vi;
+	m_doc = dc;
+	m_view = vi;
 
 	unitChange();
 	disconnect(EditCont, SIGNAL(clicked()), this, SLOT(ToggleConMode()));
 	disconnect(AbsMode, SIGNAL(clicked()), this, SLOT(ToggleAbsMode()));
-	if (doc!=0)
+	if (m_doc!=0)
 	{
-		YSpin->setNewUnit(doc->unitIndex());
-		XSpin->setNewUnit(doc->unitIndex());
+		YSpin->setNewUnit(m_doc->unitIndex());
+		XSpin->setNewUnit(m_doc->unitIndex());
 	}
 	AbsMode->setChecked(false);
 	EditCont->setChecked(false);
-	if (doc==0)
+	if (m_doc==0)
 		disconnectSignals();
 	else
 		connectSignals();
@@ -397,16 +397,16 @@ void NodePalette::setDoc(ScribusDoc *dc, ScribusView *vi)
 
 void NodePalette::SplitPoly()
 {
-	if (doc==0)
+	if (m_doc==0)
 		return;
 	MoveN();
-	doc->nodeEdit.submode = NodeEditContext::SPLIT_PATH;
+	m_doc->nodeEdit.submode = NodeEditContext::SPLIT_PATH;
 	PolySplit->setChecked(true);
 }
 
 void NodePalette::IsOpen()
 {
-	if (doc==0)
+	if (m_doc==0)
 		return;
 	PolySplit->setChecked(false);
 	BezierClose->setEnabled(true);
@@ -416,7 +416,7 @@ void NodePalette::IsOpen()
 
 void NodePalette::PolyStatus(int typ, uint size)
 {
-	if (doc==0)
+	if (m_doc==0)
 		return;
 	bool setter;
 	switch (typ)
@@ -439,13 +439,13 @@ void NodePalette::PolyStatus(int typ, uint size)
 
 void NodePalette::CloseBezier()
 {
-	if (doc==0)
+	if (m_doc==0)
 		return;
 	MoveN();
-	PageItem *currItem = doc->m_Selection->itemAt(0);
-	PageItem* newItem = doc->convertItemTo(currItem, PageItem::Polygon);
-	doc->m_Selection->clear();
-	doc->m_Selection->addItem(newItem);
+	PageItem *currItem = m_doc->m_Selection->itemAt(0);
+	PageItem* newItem = m_doc->convertItemTo(currItem, PageItem::Polygon);
+	m_doc->m_Selection->clear();
+	m_doc->m_Selection->addItem(newItem);
 	newItem->update();
 	BezierClose->setEnabled(false);
 	PolySplit->setEnabled(true);
@@ -454,181 +454,181 @@ void NodePalette::CloseBezier()
 
 void NodePalette::doRotCCW()
 {
-	if (doc != 0)
-		view->TransformPoly(0, RotVal->value());
+	if (m_doc != 0)
+		m_view->TransformPoly(0, RotVal->value());
 }
 
 void NodePalette::doRotCW()
 {
-	if (doc != 0)
-		view->TransformPoly(1, RotVal->value());
+	if (m_doc != 0)
+		m_view->TransformPoly(1, RotVal->value());
 }
 
 void NodePalette::doShrink()
 {
-	if (doc != 0)
-		view->TransformPoly(2, 1, scalePercentage->value());
+	if (m_doc != 0)
+		m_view->TransformPoly(2, 1, scalePercentage->value());
 }
 
 void NodePalette::doExpand()
 {
-	if (doc != 0)
-		view->TransformPoly(3, 1, scalePercentage->value());
+	if (m_doc != 0)
+		m_view->TransformPoly(3, 1, scalePercentage->value());
 }
 
 void NodePalette::doReduce()
 {
-	if (doc != 0)
-		view->TransformPoly(8, 1, value2pts(scaleDistance->value(),doc->unitIndex()));
+	if (m_doc != 0)
+		m_view->TransformPoly(8, 1, value2pts(scaleDistance->value(),m_doc->unitIndex()));
 }
 
 void NodePalette::doEnlarge()
 {
-	if (doc != 0)
-		view->TransformPoly(9, 1, value2pts(scaleDistance->value(),doc->unitIndex()));
+	if (m_doc != 0)
+		m_view->TransformPoly(9, 1, value2pts(scaleDistance->value(),m_doc->unitIndex()));
 }
 
 void NodePalette::ShearR()
 {
-	if (doc != 0)
-		view->TransformPoly(5);
+	if (m_doc != 0)
+		m_view->TransformPoly(5);
 }
 
 void NodePalette::ShearL()
 {
-	if (doc != 0)
-		view->TransformPoly(4);
+	if (m_doc != 0)
+		m_view->TransformPoly(4);
 }
 
 void NodePalette::ShearU()
 {
-	if (doc != 0)
-		view->TransformPoly(6);
+	if (m_doc != 0)
+		m_view->TransformPoly(6);
 }
 
 void NodePalette::ShearD()
 {
-	if (doc != 0)
-		view->TransformPoly(7);
+	if (m_doc != 0)
+		m_view->TransformPoly(7);
 }
 
 void NodePalette::MirrorH()
 {
-	if (doc != 0)
-		doc->MirrorPolyH(doc->m_Selection->itemAt(0));
+	if (m_doc != 0)
+		m_doc->MirrorPolyH(m_doc->m_Selection->itemAt(0));
 }
 
 void NodePalette::MirrorV()
 {
-	if (doc != 0)
-		doc->MirrorPolyV(doc->m_Selection->itemAt(0));
+	if (m_doc != 0)
+		m_doc->MirrorPolyV(m_doc->m_Selection->itemAt(0));
 }
 
 void NodePalette::ResetControl()
 {
-	if (doc != 0)
-		doc->nodeEdit.resetControl(doc->m_Selection->itemAt(0));
+	if (m_doc != 0)
+		m_doc->nodeEdit.resetControl(m_doc->m_Selection->itemAt(0));
 }
 
 void NodePalette::Reset1Control()
 {
-	if (doc != 0)
-		doc->nodeEdit.reset1Control(doc->m_Selection->itemAt(0));
+	if (m_doc != 0)
+		m_doc->nodeEdit.reset1Control(m_doc->m_Selection->itemAt(0));
 }
 
 void NodePalette::ResetContour()
 {
-	if (doc != 0)
+	if (m_doc != 0)
 	{
-		PageItem *currItem = doc->m_Selection->itemAt(0);
+		PageItem *currItem = m_doc->m_Selection->itemAt(0);
 		if (UndoManager::undoEnabled())
 		{
 			ScItemState<FPointArray> *is = new ScItemState<FPointArray>(Um::ResetContourLine, "",Um::IBorder);
 			is->set("RESET_CONTOUR", "reset_contour");
-			is->setItem(doc->m_Selection->itemAt(0)->ContourLine);
+			is->setItem(m_doc->m_Selection->itemAt(0)->ContourLine);
 			UndoManager::instance()->action(currItem, is);
 		}
 		//FIXME make an internal item copy poline to contourline member
 		currItem->ContourLine = currItem->PoLine.copy();
 		currItem->ClipEdited = true;
-		view->DrawNew();
+		m_view->DrawNew();
 		emit DocChanged();
 	}
 }
 
 void NodePalette::ResetContourToImageClip()
 {
-	if (doc != 0)
+	if (m_doc != 0)
 	{
-		PageItem *currItem = doc->m_Selection->itemAt(0);
+		PageItem *currItem = m_doc->m_Selection->itemAt(0);
 		currItem->ContourLine = currItem->imageClip.copy();
 		currItem->ClipEdited = true;
-		view->DrawNew();
+		m_view->DrawNew();
 		emit DocChanged();
 	}
 }
 
 void NodePalette::ResetShapeToImageClip()
 {
-	if (doc != 0)
+	if (m_doc != 0)
 	{
-		PageItem *currItem = doc->m_Selection->itemAt(0);
+		PageItem *currItem = m_doc->m_Selection->itemAt(0);
 		currItem->PoLine = currItem->imageClip.copy();
 		currItem->ClipEdited = true;
 		currItem->FrameType = 3;
-		doc->AdjustItemSize(currItem);
+		m_doc->AdjustItemSize(currItem);
 		if (currItem->itemType() == PageItem::PathText)
 			currItem->updatePolyClip();
-		doc->regionsChanged()->update(QRectF());
+		m_doc->regionsChanged()->update(QRectF());
 		emit DocChanged();
 	}
 }
 
 void NodePalette::MovePoint()
 {
-	if (doc==0)
+	if (m_doc==0)
 		return;
-	if (doc->nodeEdit.submode == NodeEditContext::MOVE_POINT)
+	if (m_doc->nodeEdit.submode == NodeEditContext::MOVE_POINT)
 	{
-		PageItem *currItem = doc->m_Selection->itemAt(0);
+		PageItem *currItem = m_doc->m_Selection->itemAt(0);
 		FPoint zp;
-		FPoint np(XSpin->value()/doc->unitRatio(), YSpin->value()/doc->unitRatio());
+		FPoint np(XSpin->value()/m_doc->unitRatio(), YSpin->value()/m_doc->unitRatio());
 		if (AbsMode->isChecked())
 		{
 			if (absToCanvas->isChecked())
 				zp = FPoint(currItem->xPos(), currItem->yPos());
 			else
-				zp = FPoint(currItem->xPos() - doc->currentPage()->xOffset(), currItem->yPos() - doc->currentPage()->yOffset());
+				zp = FPoint(currItem->xPos() - m_doc->currentPage()->xOffset(), currItem->yPos() - m_doc->currentPage()->yOffset());
 			np -= zp;
 		}
-		doc->nodeEdit.moveClipPoint(currItem, np);
-		doc->AdjustItemSize(currItem, true, true);
+		m_doc->nodeEdit.moveClipPoint(currItem, np);
+		m_doc->AdjustItemSize(currItem, true, true);
 		if (currItem->itemType() == PageItem::PathText)
 			currItem->updatePolyClip();
-		doc->regionsChanged()->update(QRectF());
+		m_doc->regionsChanged()->update(QRectF());
 		emit DocChanged();
 	}
 }
 
 void NodePalette::SetSym()
 {
-	if (doc != 0)
-		doc->nodeEdit.MoveSym = true;
+	if (m_doc != 0)
+		m_doc->nodeEdit.MoveSym = true;
 	SymMove->setChecked(true);
 	AsymMove->setChecked(false);
 }
 
 void NodePalette::SetAsym()
 {
-	if (doc != 0)
-		doc->nodeEdit.MoveSym = false;
+	if (m_doc != 0)
+		m_doc->nodeEdit.MoveSym = false;
 	SymMove->setChecked(false);
 	AsymMove->setChecked(true);
 }
 
 void NodePalette::SetXY(double x, double y)
 {
-	if (doc==0)
+	if (m_doc==0)
 		return;
 	FPoint zp(0.0, 0.0);
 	disconnect(XSpin, SIGNAL(valueChanged(double)), this, SLOT(MovePoint()));
@@ -636,19 +636,19 @@ void NodePalette::SetXY(double x, double y)
 	if (AbsMode->isChecked())
 	{
 		if (absToCanvas->isChecked())
-			zp = FPoint(doc->m_Selection->itemAt(0)->xPos(), doc->m_Selection->itemAt(0)->yPos());
+			zp = FPoint(m_doc->m_Selection->itemAt(0)->xPos(), m_doc->m_Selection->itemAt(0)->yPos());
 		else
-			zp = FPoint(doc->m_Selection->itemAt(0)->xPos() - doc->currentPage()->xOffset(), doc->m_Selection->itemAt(0)->yPos() - doc->currentPage()->yOffset());
+			zp = FPoint(m_doc->m_Selection->itemAt(0)->xPos() - m_doc->currentPage()->xOffset(), m_doc->m_Selection->itemAt(0)->yPos() - m_doc->currentPage()->yOffset());
 	}
-	XSpin->setValue((x + zp.x())*doc->unitRatio());
-	YSpin->setValue((y + zp.y())*doc->unitRatio());
+	XSpin->setValue((x + zp.x()) * m_doc->unitRatio());
+	YSpin->setValue((y + zp.y()) * m_doc->unitRatio());
 	connect(XSpin, SIGNAL(valueChanged(double)), this, SLOT(MovePoint()));
 	connect(YSpin, SIGNAL(valueChanged(double)), this, SLOT(MovePoint()));
 }
 
 void NodePalette::ToggleAbsMode()
 {
-	if (doc==0)
+	if (m_doc == 0)
 		return;
 	FPoint zp(0.0, 0.0);
 	disconnect(XSpin, SIGNAL(valueChanged(double)), this, SLOT(MovePoint()));
@@ -656,27 +656,27 @@ void NodePalette::ToggleAbsMode()
 	FPointArray Clip;
 	FPoint np(0.0, 0.0);
 	if (EditCont->isChecked())
-		Clip = doc->m_Selection->itemAt(0)->ContourLine;
+		Clip = m_doc->m_Selection->itemAt(0)->ContourLine;
 	else
-		Clip = doc->m_Selection->itemAt(0)->PoLine;
-	if (doc->nodeEdit.SelNode.count() != 0)
-		np = Clip.point(doc->nodeEdit.SelNode.at(0));
+		Clip = m_doc->m_Selection->itemAt(0)->PoLine;
+	if (m_doc->nodeEdit.SelNode.count() != 0)
+		np = Clip.point(m_doc->nodeEdit.SelNode.at(0));
 	if (AbsMode->isChecked())
 	{
 		XSpin->setMinimum(-16777215);
 		YSpin->setMinimum(-16777215);
 		if (absToCanvas->isChecked())
-			zp = FPoint(doc->m_Selection->itemAt(0)->xPos(), doc->m_Selection->itemAt(0)->yPos());
+			zp = FPoint(m_doc->m_Selection->itemAt(0)->xPos(), m_doc->m_Selection->itemAt(0)->yPos());
 		else
-			zp = FPoint(doc->m_Selection->itemAt(0)->xPos() - doc->currentPage()->xOffset(), doc->m_Selection->itemAt(0)->yPos() - doc->currentPage()->yOffset());
+			zp = FPoint(m_doc->m_Selection->itemAt(0)->xPos() - m_doc->currentPage()->xOffset(), m_doc->m_Selection->itemAt(0)->yPos() - m_doc->currentPage()->yOffset());
 	}
 	else
 	{
 		XSpin->setMinimum(0);
 		YSpin->setMinimum(0);
 	}
-	XSpin->setValue((np.x() + zp.x())*doc->unitRatio());
-	YSpin->setValue((np.y() + zp.y())*doc->unitRatio());
+	XSpin->setValue((np.x() + zp.x()) * m_doc->unitRatio());
+	YSpin->setValue((np.y() + zp.y()) * m_doc->unitRatio());
 	connect(XSpin, SIGNAL(valueChanged(double)), this, SLOT(MovePoint()));
 	connect(YSpin, SIGNAL(valueChanged(double)), this, SLOT(MovePoint()));
 }
@@ -685,9 +685,9 @@ void NodePalette::ToggleConMode()
 {
 	disconnect(XSpin, SIGNAL(valueChanged(double)), this, SLOT(MovePoint()));
 	disconnect(YSpin, SIGNAL(valueChanged(double)), this, SLOT(MovePoint()));
-	if (doc != 0)
+	if (m_doc != 0)
 	{
-		doc->nodeEdit.isContourLine = EditCont->isChecked();
+		m_doc->nodeEdit.isContourLine = EditCont->isChecked();
 		if (EditCont->isChecked())
 		{
 			BezierClose->setEnabled(false);
@@ -714,7 +714,7 @@ void NodePalette::ToggleConMode()
 				YSpin->setMinimum(0);
 			}
 		}
-		view->DrawNew();
+		m_view->DrawNew();
 	}
 	connect(XSpin, SIGNAL(valueChanged(double)), this, SLOT(MovePoint()));
 	connect(YSpin, SIGNAL(valueChanged(double)), this, SLOT(MovePoint()));
@@ -722,10 +722,10 @@ void NodePalette::ToggleConMode()
 
 void NodePalette::HaveNode(bool have, bool mov)
 {
-	if (doc==0)
+	if (m_doc==0)
 		return;
 	bool setter = have ? true : false;
-	if (doc->nodeEdit.SelNode.count() > 1)
+	if (m_doc->nodeEdit.SelNode.count() > 1)
 	{
 		XSpin->setEnabled(false);
 		YSpin->setEnabled(false);
@@ -737,7 +737,7 @@ void NodePalette::HaveNode(bool have, bool mov)
 	}
 	if (setter == true)
 	{
-		if (doc->nodeEdit.EdPoints)
+		if (m_doc->nodeEdit.EdPoints)
 			ResNode->setEnabled(setter);
 		else
 			Res1Node->setEnabled(setter);
@@ -747,7 +747,7 @@ void NodePalette::HaveNode(bool have, bool mov)
 		ResNode->setEnabled(setter);
 		Res1Node->setEnabled(setter);
 	}
-	if (doc->nodeEdit.submode == NodeEditContext::MOVE_POINT)
+	if (m_doc->nodeEdit.submode == NodeEditContext::MOVE_POINT)
 	{
 		disconnect(AsymMove, SIGNAL(clicked()), this, SLOT(SetAsym()));
 		disconnect(SymMove, SIGNAL(clicked()), this, SLOT(SetSym()));
@@ -764,12 +764,12 @@ void NodePalette::HaveNode(bool have, bool mov)
 		connect(AsymMove, SIGNAL(clicked()), this, SLOT(SetAsym()));
 		connect(SymMove, SIGNAL(clicked()), this, SLOT(SetSym()));
 	}
-	if (doc->nodeEdit.submode == NodeEditContext::DEL_POINT)
+	if (m_doc->nodeEdit.submode == NodeEditContext::DEL_POINT)
 	{
 		uint cc;
 		bool leaveEd = false;
-		PageItem*currItem=doc->m_Selection->itemAt(0);
-		if (doc->nodeEdit.isContourLine)
+		PageItem*currItem=m_doc->m_Selection->itemAt(0);
+		if (m_doc->nodeEdit.isContourLine)
 			cc = currItem->ContourLine.size();
 		else
 			cc = currItem->PoLine.size();
@@ -793,16 +793,16 @@ void NodePalette::HaveNode(bool have, bool mov)
 
 void NodePalette::MoveK()
 {
-	if (doc==0)
+	if (m_doc==0)
 		return;
-	doc->nodeEdit.submode = NodeEditContext::MOVE_POINT;
-	doc->nodeEdit.EdPoints = false;
-	doc->nodeEdit.ClRe = -1;
-	doc->nodeEdit.ClRe2 = -1;
-	doc->nodeEdit.SegP1 = -1;
-	doc->nodeEdit.SegP2 = -1;
-	if (doc->m_Selection->count() > 0)
-		doc->m_Selection->itemAt(0)->update();
+	m_doc->nodeEdit.submode = NodeEditContext::MOVE_POINT;
+	m_doc->nodeEdit.EdPoints = false;
+	m_doc->nodeEdit.ClRe = -1;
+	m_doc->nodeEdit.ClRe2 = -1;
+	m_doc->nodeEdit.SegP1 = -1;
+	m_doc->nodeEdit.SegP2 = -1;
+	if (m_doc->m_Selection->count() > 0)
+		m_doc->m_Selection->itemAt(0)->update();
 	SymMove->setEnabled(true);
 	AsymMove->setEnabled(true);
 	Res1Node->setEnabled(true);
@@ -817,16 +817,16 @@ void NodePalette::MoveK()
 
 void NodePalette::MoveN()
 {
-	if (doc==0)
+	if (m_doc==0)
 		return;
-	doc->nodeEdit.submode = NodeEditContext::MOVE_POINT;
-	doc->nodeEdit.EdPoints = true;
-	doc->nodeEdit.ClRe = -1;
-	doc->nodeEdit.ClRe2 = -1;
-	doc->nodeEdit.SegP1 = -1;
-	doc->nodeEdit.SegP2 = -1;
-	if (doc->m_Selection->count() > 0)
-		doc->m_Selection->itemAt(0)->update();
+	m_doc->nodeEdit.submode = NodeEditContext::MOVE_POINT;
+	m_doc->nodeEdit.EdPoints = true;
+	m_doc->nodeEdit.ClRe = -1;
+	m_doc->nodeEdit.ClRe2 = -1;
+	m_doc->nodeEdit.SegP1 = -1;
+	m_doc->nodeEdit.SegP2 = -1;
+	if (m_doc->m_Selection->count() > 0)
+		m_doc->m_Selection->itemAt(0)->update();
 	ResNode->setEnabled(true);
 	AddNode->setEnabled(true);
 	DeleteNode->setEnabled(true);
@@ -841,10 +841,10 @@ void NodePalette::MoveN()
 
 void NodePalette::AddN()
 {
-	if (doc==0)
+	if (m_doc==0)
 		return;
-	doc->nodeEdit.submode = NodeEditContext::ADD_POINT;
-	doc->nodeEdit.EdPoints = true;
+	m_doc->nodeEdit.submode = NodeEditContext::ADD_POINT;
+	m_doc->nodeEdit.EdPoints = true;
 	SymMove->setEnabled(false);
 	AsymMove->setEnabled(false);
 	ResNode->setEnabled(false);
@@ -855,10 +855,10 @@ void NodePalette::AddN()
 
 void NodePalette::DelN()
 {
-	if (doc==0)
+	if (m_doc==0)
 		return;
-	doc->nodeEdit.submode = NodeEditContext::DEL_POINT;
-	doc->nodeEdit.EdPoints = true;
+	m_doc->nodeEdit.submode = NodeEditContext::DEL_POINT;
+	m_doc->nodeEdit.EdPoints = true;
 	SymMove->setEnabled(false);
 	AsymMove->setEnabled(false);
 	ResNode->setEnabled(false);
@@ -869,15 +869,15 @@ void NodePalette::DelN()
 
 void NodePalette::closeEvent(QCloseEvent *ce)
 {
-	if (doc != 0)
+	if (m_doc != 0)
 	{
 		MoveN();
-		doc->nodeEdit.ClRe = -1;
-		doc->nodeEdit.ClRe2 = -1;
-		doc->nodeEdit.SegP1 = -1;
-		doc->nodeEdit.SegP2 = -1;
-		doc->nodeEdit.SelNode.clear();
-		PageItem *currItem = doc->m_Selection->itemAt(0);
+		m_doc->nodeEdit.ClRe = -1;
+		m_doc->nodeEdit.ClRe2 = -1;
+		m_doc->nodeEdit.SegP1 = -1;
+		m_doc->nodeEdit.SegP2 = -1;
+		m_doc->nodeEdit.SelNode.clear();
+		PageItem *currItem = m_doc->m_Selection->itemAt(0);
 		if (currItem->itemType() == PageItem::PathText)
 			currItem->updatePolyClip();
 	}
@@ -889,17 +889,17 @@ void NodePalette::closeEvent(QCloseEvent *ce)
 
 void NodePalette::EndEdit()
 {
-	if (doc != 0)
+	if (m_doc != 0)
 	{
 		MoveN();
-		doc->nodeEdit.ClRe = -1;
-		doc->nodeEdit.ClRe2 = -1;
-		doc->nodeEdit.SegP1 = -1;
-		doc->nodeEdit.SegP2 = -1;
-		doc->nodeEdit.SelNode.clear();
+		m_doc->nodeEdit.ClRe = -1;
+		m_doc->nodeEdit.ClRe2 = -1;
+		m_doc->nodeEdit.SegP1 = -1;
+		m_doc->nodeEdit.SegP2 = -1;
+		m_doc->nodeEdit.SelNode.clear();
 		EditCont->setChecked(false);
 		ToggleConMode();
-		PageItem *currItem = doc->m_Selection->itemAt(0);
+		PageItem *currItem = m_doc->m_Selection->itemAt(0);
 		if (currItem->itemType() == PageItem::PathText)
 			currItem->updatePolyClip();
 	}
@@ -911,21 +911,21 @@ void NodePalette::EndEdit()
 
 void NodePalette::CancelEdit()
 {
-	if (doc != 0)
+	if (m_doc != 0)
 	{
 		MoveN();
-		doc->nodeEdit.ClRe = -1;
-		doc->nodeEdit.ClRe2 = -1;
-		doc->nodeEdit.SegP1 = -1;
-		doc->nodeEdit.SegP2 = -1;
-		doc->nodeEdit.SelNode.clear();
+		m_doc->nodeEdit.ClRe = -1;
+		m_doc->nodeEdit.ClRe2 = -1;
+		m_doc->nodeEdit.SegP1 = -1;
+		m_doc->nodeEdit.SegP2 = -1;
+		m_doc->nodeEdit.SelNode.clear();
 		EditCont->setChecked(false);
 		ToggleConMode();
-		PageItem *currItem = doc->m_Selection->itemAt(0);
+		PageItem *currItem = m_doc->m_Selection->itemAt(0);
 		currItem->setXYPos(xPos, yPos, true);
 		currItem->ContourLine = itemContourPath.copy();
 		currItem->PoLine = itemPath.copy();
-		doc->AdjustItemSize(currItem);
+		m_doc->AdjustItemSize(currItem);
 		if (currItem->itemType() == PageItem::PathText)
 			currItem->updatePolyClip();
 	}
@@ -937,21 +937,21 @@ void NodePalette::CancelEdit()
 
 void NodePalette::ResetToEditDefaults()
 {
-	if (doc != 0)
+	if (m_doc != 0)
 	{
-		doc->nodeEdit.ClRe = -1;
-		doc->nodeEdit.ClRe2 = -1;
-		doc->nodeEdit.SegP1 = -1;
-		doc->nodeEdit.SegP2 = -1;
-		doc->nodeEdit.SelNode.clear();
-		PageItem *currItem = doc->m_Selection->itemAt(0);
+		m_doc->nodeEdit.ClRe = -1;
+		m_doc->nodeEdit.ClRe2 = -1;
+		m_doc->nodeEdit.SegP1 = -1;
+		m_doc->nodeEdit.SegP2 = -1;
+		m_doc->nodeEdit.SelNode.clear();
+		PageItem *currItem = m_doc->m_Selection->itemAt(0);
 		if (EditCont->isChecked())
 			currItem->ContourLine = itemContourPath.copy();
 		else
 		{
 			currItem->setXYPos(xPos, yPos, true);
 			currItem->PoLine = itemPath.copy();
-			doc->AdjustItemSize(currItem);
+			m_doc->AdjustItemSize(currItem);
 		}
 		if (currItem->itemType() == PageItem::PathText)
 			currItem->updatePolyClip();
@@ -1029,13 +1029,13 @@ void NodePalette::languageChange()
 
 void NodePalette::unitChange()
 {
-	if (doc==0)
+	if (m_doc==0)
 		return;
-	unitRatio = doc->unitRatio();
-	scaleDistance->setNewUnit(doc->unitIndex());
+	unitRatio = m_doc->unitRatio();
+	scaleDistance->setNewUnit(m_doc->unitIndex());
 }
 
 ScribusDoc* NodePalette::currentDocument() const
 {
-	return doc;
+	return m_doc;
 }

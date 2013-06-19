@@ -318,11 +318,9 @@ private:
 	int precision;
 	double unitRatio;
 	bool pdfExport;
-	ScribusDoc* const doc;
+	ScribusDoc* const m_Doc;
 	const SCFonts & AllFonts;
 	PDFOptions & Opts;
-	double pageH;
-	double pageB;
 	bool cms;
 	QMap<QString, QString> AnnotationFonts;
 

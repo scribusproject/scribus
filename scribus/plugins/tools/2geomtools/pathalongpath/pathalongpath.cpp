@@ -151,32 +151,32 @@ bool PathAlongPathPlugin::handleSelection(ScribusDoc* doc, int SelectedType)
 bool PathAlongPathPlugin::run(ScribusDoc* doc, QString)
 {
 	firstUpdate = true;
-	currDoc = doc;
+	m_doc = doc;
 	originalPathG.clear();
 	originalRotG.clear();
 	originalXPosG.clear();
 	originalYPosG.clear();
 	patternItemG.clear();
-	if (currDoc == 0)
-		currDoc = ScCore->primaryMainWindow()->doc;
-	if (currDoc->m_Selection->count() > 1)
+	if (m_doc == 0)
+		m_doc = ScCore->primaryMainWindow()->doc;
+	if (m_doc->m_Selection->count() > 1)
 	{
-		if ((currDoc->m_Selection->itemAt(0)->isGroup()) || (currDoc->m_Selection->itemAt(1)->isGroup()))
+		if ((m_doc->m_Selection->itemAt(0)->isGroup()) || (m_doc->m_Selection->itemAt(1)->isGroup()))
 		{
 			selOffs = 0;
-			selCount = currDoc->m_Selection->count() - 1;
-			if (!currDoc->m_Selection->itemAt(0)->isGroup())
+			selCount = m_doc->m_Selection->count() - 1;
+			if (!m_doc->m_Selection->itemAt(0)->isGroup())
 			{
-				pathItem = currDoc->m_Selection->itemAt(0);
+				pathItem = m_doc->m_Selection->itemAt(0);
 				selOffs = 1;
 			}
 			else
-				pathItem = currDoc->m_Selection->itemAt(selCount);
+				pathItem = m_doc->m_Selection->itemAt(selCount);
 			effectPath = pathItem->PoLine.copy();
 			QTransform mp;
 			mp.rotate(pathItem->rotation());
 			effectPath.map(mp);
-			PageItem* bxi = currDoc->m_Selection->itemAt(selOffs);
+			PageItem* bxi = m_doc->m_Selection->itemAt(selOffs);
 			bxi->asGroupFrame()->adjustXYPosition();
 			originalPathG.append(bxi->PoLine.copy());
 			originalXPosG.append(bxi->xPos());
@@ -206,28 +206,28 @@ bool PathAlongPathPlugin::run(ScribusDoc* doc, QString)
 				patternItemG.append(cIte);
 			}
 			QPainterPath tmpPath = effectPath.toQPainterPath(false);
-			PathDialog *dia = new PathDialog(currDoc->scMW(), currDoc->unitIndex(), tmpPath.length(), true);
+			PathDialog *dia = new PathDialog(m_doc->scMW(), m_doc->unitIndex(), tmpPath.length(), true);
 			connect(dia, SIGNAL(updateValues(int, double, double, double, int)), this, SLOT(updateEffectG(int, double, double, double, int)));
 			if (dia->exec())
 			{
 				updateEffectG(dia->effectType, dia->offset, dia->offsetY, dia->gap, dia->rotate);
-				currDoc->changed();
+				m_doc->changed();
 			}
 			else
 			{
 				updateEffectG(-1, dia->offset, dia->offsetY, dia->gap, dia->rotate);
-				currDoc->view()->DrawNew();
+				m_doc->view()->DrawNew();
 			}
 			delete dia;
 		}
 		else
 		{
-			patternItem = currDoc->m_Selection->itemAt(0);
-			pathItem = currDoc->m_Selection->itemAt(1);
+			patternItem = m_doc->m_Selection->itemAt(0);
+			pathItem = m_doc->m_Selection->itemAt(1);
 			if (pathItem->itemType() != PageItem::PolyLine)
 			{
-				patternItem = currDoc->m_Selection->itemAt(1);
-				pathItem = currDoc->m_Selection->itemAt(0);
+				patternItem = m_doc->m_Selection->itemAt(1);
+				pathItem = m_doc->m_Selection->itemAt(0);
 			}
 			effectPath = pathItem->PoLine.copy();
 			QTransform mp;
@@ -238,13 +238,13 @@ bool PathAlongPathPlugin::run(ScribusDoc* doc, QString)
 			originalYPos = patternItem->yPos();
 			originalRot = patternItem->rotation();
 			QPainterPath tmpPath = effectPath.toQPainterPath(false);
-			PathDialog *dia = new PathDialog(currDoc->scMW(), currDoc->unitIndex(), tmpPath.length(), false);
+			PathDialog *dia = new PathDialog(m_doc->scMW(), m_doc->unitIndex(), tmpPath.length(), false);
 			connect(dia, SIGNAL(updateValues(int, double, double, double, int)), this, SLOT(updateEffect(int, double, double, double, int)));
 			if (dia->exec())
 			{
 				updateEffect(dia->effectType, dia->offset, dia->offsetY, dia->gap, dia->rotate);
 				patternItem->ContourLine = patternItem->PoLine.copy();
-				currDoc->changed();
+				m_doc->changed();
 			}
 			else
 			{
@@ -253,11 +253,11 @@ bool PathAlongPathPlugin::run(ScribusDoc* doc, QString)
 				patternItem->FrameType = 3;
 				patternItem->setXYPos(originalXPos, originalYPos);
 				patternItem->setRotation(originalRot);
-				currDoc->AdjustItemSize(patternItem);
+				m_doc->AdjustItemSize(patternItem);
 				patternItem->OldB2 = patternItem->width();
 				patternItem->OldH2 = patternItem->height();
 				patternItem->updateClip();
-				currDoc->view()->DrawNew();
+				m_doc->view()->DrawNew();
 			}
 			delete dia;
 		}
@@ -298,7 +298,7 @@ void PathAlongPathPlugin::updateEffectG(int effectType, double offset, double of
 			patternpwd2 = FPointArray2Piecewise(originalPathG[0], false);
 		else
 			patternpwd2 = FPointArray2Piecewise(originalPathG[0], true);
-		setUpEffect(originaldpwd2, patternpwd2, effectType, offset / currDoc->unitRatio(), offsetY / currDoc->unitRatio(), gap / currDoc->unitRatio(), rotate);
+		setUpEffect(originaldpwd2, patternpwd2, effectType, offset / m_doc->unitRatio(), offsetY / m_doc->unitRatio(), gap / m_doc->unitRatio(), rotate);
 		for (int bx = 0; bx < patternItemG.count(); ++bx)
 		{
 			PageItem* bxi = patternItemG[bx];
@@ -325,7 +325,7 @@ void PathAlongPathPlugin::updateEffectG(int effectType, double offset, double of
 			bxi->setXYPos(pathItem->xPos()+deltaX, pathItem->yPos()+deltaY, true);
 			double oW = bxi->width();
 			double oH = bxi->height();
-			currDoc->AdjustItemSize(bxi, true);
+			m_doc->AdjustItemSize(bxi, true);
 			bxi->OldB2 = bxi->width();
 			bxi->OldH2 = bxi->height();
 			if (bxi->isGroup())
@@ -339,14 +339,14 @@ void PathAlongPathPlugin::updateEffectG(int effectType, double offset, double of
 	}
 	qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 	if (firstUpdate)
-		currDoc->view()->DrawNew();
+		m_doc->view()->DrawNew();
 	else
 	{
 		double gx, gy, gh, gw;
-		currDoc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
+		m_doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
 		QRectF oldR(pathItem->getBoundingRect());
 		QRectF newR = QRectF(gx, gy, gw, gh);
-		currDoc->regionsChanged()->update(newR.united(oldR));
+		m_doc->regionsChanged()->update(newR.united(oldR));
 	}
 	if (effectType != -1)
 		firstUpdate = false;
@@ -371,24 +371,24 @@ void PathAlongPathPlugin::updateEffect(int effectType, double offset, double off
 			patternpwd2 = FPointArray2Piecewise(originalPath, false);
 		else
 			patternpwd2 = FPointArray2Piecewise(originalPath, true);
-		setUpEffect(originaldpwd2, patternpwd2, effectType, offset / currDoc->unitRatio(), offsetY / currDoc->unitRatio(), gap / currDoc->unitRatio(), rotate);
+		setUpEffect(originaldpwd2, patternpwd2, effectType, offset / m_doc->unitRatio(), offsetY / m_doc->unitRatio(), gap / m_doc->unitRatio(), rotate);
 		patternItem->PoLine = doEffect_pwd2(patternpwd2);
 		patternItem->ClipEdited = true;
 		patternItem->FrameType = 3;
 		patternItem->setXYPos(pathItem->xPos(), pathItem->yPos());
 		patternItem->setRotation(0);
 	}
-	currDoc->AdjustItemSize(patternItem, true);
+	m_doc->AdjustItemSize(patternItem, true);
 	patternItem->OldB2 = patternItem->width();
 	patternItem->OldH2 = patternItem->height();
 	patternItem->updateClip();
 	if (firstUpdate)
-		currDoc->view()->DrawNew();
+		m_doc->view()->DrawNew();
 	else
 	{
 		QRectF oldR(pathItem->getBoundingRect());
 		QRectF newR(patternItem->getBoundingRect());
-		currDoc->regionsChanged()->update(newR.united(oldR));
+		m_doc->regionsChanged()->update(newR.united(oldR));
 	}
 	if (effectType != -1)
 		firstUpdate = false;

@@ -98,7 +98,7 @@ signals:
 protected:
 	SymbolView *SymbolViewWidget;
 	QVBoxLayout* PaletteLayout;
-	ScribusDoc *currDoc;
+	ScribusDoc *m_doc;
 	ScribusMainWindow *m_scMW;
 	QStringList editItemNames;
 };
