@@ -6183,7 +6183,7 @@ void ScribusDoc::reformPages(bool moveObjects)
 	if (!isLoading())
 	{
 		undoManager->setUndoEnabled(false);
-		uint docItemsCount=Items->count();
+		uint docItemsCount = Items->count();
 		for (uint ite = 0; ite < docItemsCount; ++ite)
 		{
 			PageItem *item = Items->at(ite);
@@ -6194,21 +6194,32 @@ void ScribusDoc::reformPages(bool moveObjects)
 				else
 					item->OwnPage = OnPage(item);
 			}
+			else if (moveObjects)
+			{
+				oldPg = pageTable[item->OwnPage];
+				item->moveBy(-oldPg.oldXO + Pages->at(oldPg.newPg)->xOffset(), -oldPg.oldYO + Pages->at(oldPg.newPg)->yOffset());
+				item->OwnPage = static_cast<int>(oldPg.newPg);
+				if (item->isGroup())
+				{
+					QList<PageItem*> groupItems = item->groupItemList;
+					while (groupItems.count() > 0)
+					{
+						PageItem* groupItem = groupItems.takeAt(0);
+						if (groupItem->isGroup())
+							groupItems += groupItem->groupItemList;
+						if (groupItem->OwnPage < 0)
+							continue;
+						oldPg = pageTable[item->OwnPage];
+						groupItem->OwnPage = static_cast<int>(oldPg.newPg);
+					}
+				}
+			}
 			else
 			{
-				if (moveObjects)
-				{
-					oldPg = pageTable[item->OwnPage];
-					item->moveBy(-oldPg.oldXO + Pages->at(oldPg.newPg)->xOffset(), -oldPg.oldYO + Pages->at(oldPg.newPg)->yOffset());
-					item->OwnPage = static_cast<int>(oldPg.newPg);
-				}
+				if (item->isGroup())
+					GroupOnPage(item);
 				else
-				{
-					if (item->isGroup())
-						GroupOnPage(item);
-					else
-						item->OwnPage = OnPage(item);
-				}
+					item->OwnPage = OnPage(item);
 			}
 			item->setRedrawBounding();
 		}
