@@ -353,6 +353,27 @@
    <header>ui/linkbutton.h</header>
   </customwidget>
  </customwidgets>
+ <tabstops>
+  <tabstop>imagePageNumber</tabstop>
+  <tabstop>imageXOffsetSpinBox</tabstop>
+  <tabstop>imageYOffsetSpinBox</tabstop>
+  <tabstop>imageRotation</tabstop>
+  <tabstop>freeScale</tabstop>
+  <tabstop>imageXScaleSpinBox</tabstop>
+  <tabstop>imageYScaleSpinBox</tabstop>
+  <tabstop>imgDpiX</tabstop>
+  <tabstop>imgDpiY</tabstop>
+  <tabstop>keepImageWHRatioButton</tabstop>
+  <tabstop>keepImageDPIRatioButton</tabstop>
+  <tabstop>frameScale</tabstop>
+  <tabstop>cbProportional</tabstop>
+  <tabstop>inputProfiles</tabstop>
+  <tabstop>renderIntent</tabstop>
+  <tabstop>compressionMethod</tabstop>
+  <tabstop>compressionQuality</tabstop>
+  <tabstop>imgEffectsButton</tabstop>
+  <tabstop>imgExtProperties</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>
