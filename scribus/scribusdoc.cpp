@@ -6209,7 +6209,7 @@ void ScribusDoc::reformPages(bool moveObjects)
 							groupItems += groupItem->groupItemList;
 						if (groupItem->OwnPage < 0)
 							continue;
-						oldPg = pageTable[item->OwnPage];
+						oldPg = pageTable[groupItem->OwnPage];
 						groupItem->OwnPage = static_cast<int>(oldPg.newPg);
 					}
 				}
