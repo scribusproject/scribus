@@ -420,9 +420,9 @@ private:
 	ScribusDoc* m_doc;
 	PageItem* m_item;
 
-	bool m_blockUpdate;
-	bool m_firstSet;
 	bool m_textChanged;
+	bool m_firstSet;
+	bool m_blockUpdate;
 	
 	int m_result;
 	int m_currPara;
