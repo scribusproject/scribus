@@ -17046,9 +17046,11 @@ void ScribusDoc::updateNumbers(bool updateNumerations)
 							numS->m_counters[l] = numS->m_nums[l].start -1;
 
 				int pos = item->firstInFrame();
+				int last = item->lastInFrame();
+				if (pos > last) continue;
+
 				if ((pos != 0) && (item->itemText.text(pos-1) != SpecialChars::PARSEP))
 					pos = item->itemText.nextParagraph(pos)+1;
-				int last = item->lastInFrame();
 				int len = item->itemText.length();
 				while (pos <= last)
 				{
