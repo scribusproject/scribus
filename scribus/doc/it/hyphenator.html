@@ -1,14 +1,15 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-	<title>Sillabazione</title>
+	<title>Sillabazione e controllo ortografico</title>
 </head>
 <body>
-<h2>Sillabazione</h2>
-<h3>Introduzione</h3>
+<h2>Sillabazione e controllo ortografico</h2>
+<h3>Sillabazione</h3>
+<h4>Introduzione</h4>
 <p>Una delle cause che possono dare al testo un aspetto sgradevole e antiestetico sono i &ldquo;buchi&rdquo; tra le parole, che a loro volta sono la conseguenza della mancanza di sillabazioni nel testo. In generale, pi&ugrave; una riga di testo &egrave; corta, pi&ugrave; &egrave; probabile che contenga &ldquo;buchi&rdquo;. Per questo &egrave; caldamente consigliabile usare la sillabazione per il testo continuo.</p>
 
-<h3>Configurazione</h3>
+<h4>Configurazione</h4>
 <p>Per ottenere i migliori risultati con la sillabazione, dovreste configurare adeguatamente questa funzione. Lo si pu&ograve; fare in <i>File &gt; Impostazioni documento &gt; Sillabazione</i> per il documento attuale e in <i>File &gt; Preferenze &gt; Sillabazione</i> per i nuovi documenti.</p>
 
 <table width="100%"><tr><td align="center"><img src="images/hyphen1.png" align="center" alt="Impostazioni per la sillabazione" /></td></tr></table>
@@ -25,9 +26,23 @@
 </ul>
 <p>I due riquadri inferiori permettono di inserire parole da trattare in modo diverso rispetto a quanto fa la sillabazione automatica. Il riquadro a sinistra (<i>Eccezioni</i>) permette di inserire singole parole che in automatico non vengono sillabate correttamente. Per ciascuna parola si pu&ograve; indicare la sillabazione corretta con trattini (ad esempio: &ldquo;sil-la-ba-zio-ne&rdquo;) e questa sar&agrave; applicata da Scribus.</p>
 <p>Il riquadro a destra ha titolo <i>Elenco termini da ignorare</i>. Le parole inserite in questo riquadro non saranno mai sillabate.</p>
-<h3>Uso</h3>
+<h4>Uso</h4>
 <p>Selezionate una cornice di testo, impostate il tipo di allineamento che preferite, e poi selezionate <i>Utilit&agrave; &gt; Testo sillabato</i> nel men&ugrave;. La sillabazione viene applicata soltanto al testo nella cornice selezionata.</p>
 <p>Nel men&ugrave; <i>Utilit&agrave;</i> si trova anche la funzione opposta: <i>Togli sillabazione</i>. &Egrave; utilizzabile per eliminare la sillabazione dal testo nella cornice selezionata, ma pu&ograve; essere applicata anche a una singola parola: basta selezionare la parola interessata e poi usare il comando nel men&ugrave;.</p>
 <p>L'algoritmo di sillabazione non &egrave; in grado di individuare ogni possibile o ragionevole sillabazione. Per rimediare, potete inserire in determinate parole dei trattini di sillabazione opzionali. In sostanza essi dicono al programma: &ldquo;Dividi le sillabe qui, se possibile&rdquo;, dove &ldquo;possibile&rdquo; significa che la sillabazione non &egrave; impedita da altre impostazioni, come <i>inserire manualmente dei trattini di sillabazione opzionali</i>. Per inserire un trattino di sillabazione opzionale dovete posizionare il cursore nel punto in cui la parola deve essere spezzata e poi dare il comando <i>Inserisci &gt; Carattere &gt; Sillabazione manuale</i>.</p>
+
+<h3>Controllo ortografico</h3>
+<p>Per il controllo ortografico Scribus usa la libreria <a href="http://hunspell.sourceforge.net/">Hunspell</a>, che &egrave; utilizzata anche da altri programmi molto diffusi come LibreOffice, Firefox o InDesign.</p>
+<h4>Configurazione</h4>
+<p>In <i>File &gt; Preferenze &gt; Sillabazione e controllo ortografico</i> si trova una seconda scheda chiamata &ldquo;Controllo ortografico&rdquo;. Questa scheda serve per configurare non le opzioni del controllo ortografico, ma la gestione dei dizionari disponibili.</p>
+<br>
+<table width="100%"><tr><td align="center"><img src="images/hyphen2.png" align="center" alt="Impostazioni del controllo ortografico" /></td></tr></table>
+<p>Se avete gi&agrave; installato un programma che usa Hunspell, come ad esempio LibreOffice, Scribus tenta di rilevare i dizionari installati e di utilizzarli. I dizionari installati sono elencati nella colonna sinistra della scheda, che mostra anche la loro posizione. Per poter utilizzare la colonna di destra dovete avere una connessione a internet, perch&eacute; Scribus scarica un elenco dei dizionari disponibili nel repository freedesktop.org di LibreOffice. Potete selezionare uno o pi&ugrave; dizionari da scaricare. Questi dizionari vengono salvati nella vostra directory utente o nel suo equivalente, nella sottodirectory <code>.scribus/dicts</code>, quindi gli altri programmi non li possono utilizzare, a meno che non li copiate nelle rispettive directory di sistema o di programma.</p>
+<h4>Uso</h4>
+<p>Il controllo ortografico lavora cornice per cornice, quindi, come per la sillabazione, dovete selezionare una cornice di testo prima che Scribus possa controllare la presenza di errori. Il controllo si avvia da &ldquo;Elemento &gt; Controllo ortografico&rdquo;. Una importante differenza tra la sillabazione e il controllo ortografico &egrave; che non potete impostare una lingua predefinita; Scribus utilizza le impostazioni di sistema per la lingua. Se volete usare una lingua diversa, dovete creare un nuovo <a href="WwStyles.html">stile di carattere</a>. Come potete vedere sotto, nella finestra di dialogo del controllo ortografico c'&egrave; un men&ugrave; per la selezione della lingua, ma la scelta funziona solo per la parola indicata, e poi torna alla lingua dello stile di carattere in uso. Le altre funzioni non dovrebbero aver bisogno di spiegazione.</p>
+<br>
+<table width="100%"><tr><td align="center"><img src="images/hyphen3.png" align="center" alt="Finestra del controllo ortografico" /></td></tr></table>
+<br>
+<br>
 </body>
 </html>
