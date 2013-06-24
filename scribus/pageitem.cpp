@@ -1195,7 +1195,7 @@ bool PageItem::testLinkCandidate(PageItem* nxt)
 {
 	if (this->nextInChain() )
 		return false;
-	if (nxt->prevInChain() )
+	if (!nxt || nxt->prevInChain() )
 		return false;
 	for (PageItem* ff=nxt; ff; ff=ff->nextInChain())
 	{
