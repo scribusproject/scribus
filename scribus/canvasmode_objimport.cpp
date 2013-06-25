@@ -162,6 +162,13 @@ void CanvasMode_ObjImport::mousePressEvent(QMouseEvent *m)
 			m_view->DrawNew();
 		return;
 	}
+}
+
+void CanvasMode_ObjImport::mouseReleaseEvent(QMouseEvent *m)
+{
+	m_canvas->m_viewMode.m_MouseButtonPressed = false;
+	m_canvas->resetRenderMode();
+	m->accept();
 	if ((m->button() == Qt::LeftButton) && m_mimeData)
 	{
 		UndoTransaction* undoTransaction = NULL;
@@ -183,13 +190,6 @@ void CanvasMode_ObjImport::mousePressEvent(QMouseEvent *m)
 		// Return to normal mode
 		m_view->requestMode(modeNormal);
 	}
-}
-
-void CanvasMode_ObjImport::mouseReleaseEvent(QMouseEvent *m)
-{
-	m_canvas->m_viewMode.m_MouseButtonPressed = false;
-	m_canvas->resetRenderMode();
-	m->accept();
 //	m_view->stopDragTimer();
 	
 	m_canvas->setRenderModeUseBuffer(false);
