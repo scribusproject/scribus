@@ -40,6 +40,9 @@ void RectSelect::prepare(QPoint start)
 	if (!m_rectangle)
 		m_rectangle = new QRubberBand(QRubberBand::Rectangle);
 	setStart(start);
+#ifdef USE_QT5
+	m_rectangle->setWindowOpacity(0.5);
+#endif
 	m_rectangle->setGeometry(m_start.x(), m_start.y(), 1, 1);
 }
 
