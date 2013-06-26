@@ -168,11 +168,11 @@ bool CollectForOutput::collectDocument()
 	{
 		if (!newName.endsWith(".gz"))
 			newName += ".gz";
-		else
-		{
-			if (newName.endsWith(".gz"))
-				newName = newName.remove(".gz");
-		}
+	}
+	else
+	{
+		if (newName.endsWith(".gz"))
+			newName = newName.remove(".gz");
 	}
 
 	if (!overwrite(ScCore->primaryMainWindow(), newName))
