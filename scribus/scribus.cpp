@@ -9142,6 +9142,8 @@ void ScribusMainWindow::ImageEffects()
 
 QString ScribusMainWindow::Collect(bool compress, bool withFonts, const bool withProfiles, const QString& )
 {
+	if ((doc->hasName) && doc->DocName.endsWith(".gz"))
+		compress=true;
 	CollectForOutput c(doc, withFonts, withProfiles, compress);
 	return c.collect();
 }
