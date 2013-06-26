@@ -10490,33 +10490,37 @@ void ScribusDoc::updatePic()
 		bool toUpdate=false;
 		for (uint i = 0; i < docSelectionCount; ++i)
 		{
-			if (m_Selection->itemAt(i)!=NULL)
+			PageItem* currItem = m_Selection->itemAt(i);
+			if (!currItem)
+				continue;
+			m_updateManager.setUpdatesDisabled();
+			if (currItem->asLatexFrame())
 			{
-				if (m_Selection->itemAt(i)->asLatexFrame())
+				PageItem_LatexFrame *latexframe = currItem->asLatexFrame();
+				latexframe->rerunApplication();
+				toUpdate = true;
+			}
+#ifdef HAVE_OSG
+			else if ((currItem->asImageFrame()) || (currItem->asOSGFrame()))
+#else
+			else if (currItem->asImageFrame())
+#endif
+			{
+				if (currItem->PictureIsAvailable)
 				{
-					PageItem_LatexFrame *latexframe =
-						m_Selection->itemAt(i)->asLatexFrame();
-					latexframe->rerunApplication();
+					int fho = currItem->imageFlippedH();
+					int fvo = currItem->imageFlippedV();
+					double imgX = currItem->imageXOffset();
+					double imgY = currItem->imageYOffset();
+					loadPict(currItem->Pfile, currItem, true);
+					currItem->setImageFlippedH(fho);
+					currItem->setImageFlippedV(fvo);
+					currItem->setImageXOffset(imgX);
+					currItem->setImageYOffset(imgY);
 					toUpdate = true;
 				}
-#ifdef HAVE_OSG
-				else if ((m_Selection->itemAt(i)->asImageFrame()) || (m_Selection->itemAt(i)->asOSGFrame()))
-#else
-				else if (m_Selection->itemAt(i)->asImageFrame())
-#endif
-				{
-					PageItem *currItem = m_Selection->itemAt(i);
-					if (currItem->PictureIsAvailable)
-					{
-						int fho = currItem->imageFlippedH();
-						int fvo = currItem->imageFlippedV();
-						loadPict(currItem->Pfile, currItem, true);
-						currItem->setImageFlippedH(fho);
-						currItem->setImageFlippedV(fvo);
-						toUpdate=true;
-					}
-				}
 			}
+			m_updateManager.setUpdatesEnabled();
 		}
 		if (toUpdate)
 			regionsChanged()->update(QRectF());
@@ -11181,13 +11185,10 @@ void ScribusDoc::itemSelection_ChangePreviewResolution(int id)
 		for (uint i = 0; i < selectedItemCount; ++i)
 		{
 			currItem = m_Selection->itemAt(i);
-			if (currItem!=NULL)
-				if (currItem->asImageFrame())
-				{
-					currItem->setResolution(id);
-					if (!found)
-						found=true;
-				}
+			if (!currItem || !currItem->isImageFrame())
+				continue;
+			currItem->setResolution(id);
+			found = true;
 		}
 		if(activeTransaction)
 		{
