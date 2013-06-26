@@ -124,17 +124,25 @@ int FileLoader::testFile()
 	QList<FileFormat>::const_iterator itEnd(fileFormats.constEnd());
 	for ( ; it != itEnd ; ++it )
 	{
-		if (it->fileExtensions.contains(ext))
+		bool found = false;
+		for (int a = 0; a < it->fileExtensions.count(); a++)
 		{
-			if (it->plug != 0)
+			QString exts = it->fileExtensions[a];
+			if (ext.contains(exts, Qt::CaseInsensitive))
 			{
-				if (it->plug->fileSupported(0, m_fileName))
+				if (it->plug != 0)
 				{
-					ret = it->formatId;
-					break;
+					if (it->plug->fileSupported(0, m_fileName))
+					{
+						ret = it->formatId;
+						found = true;
+						break;
+					}
 				}
 			}
 		}
+		if (found)
+			break;
 	}
 	m_fileType = ret;
 	return ret;
