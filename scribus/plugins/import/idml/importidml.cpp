@@ -1116,6 +1116,14 @@ void IdmlPlug::parseParagraphStyle(const QDomElement& styleElem)
 					QString parentStyle = i.text().remove("$ID/");
 					if (styleTranslate.contains(parentStyle))
 						parentStyle = styleTranslate[parentStyle];
+					else
+					{
+						QString pSty = parentStyle.remove("ParagraphStyle/");
+						if (styleParents.contains(pSty))
+							styleParents[pSty].append(newStyle.name());
+						else
+							styleParents.insert(pSty, QStringList() << newStyle.name());
+					}
 					if (m_Doc->styleExists(parentStyle))
 						newStyle.setParent(parentStyle);
 				}
@@ -1193,6 +1201,18 @@ void IdmlPlug::parseParagraphStyle(const QDomElement& styleElem)
 	tmp.create(newStyle);
 	m_Doc->redefineStyles(tmp, false);
 	styleTranslate.insert(styleElem.attribute("Self").remove("$ID/"), styleElem.attribute("Name").remove("$ID/"));
+	if (styleParents.contains(newStyle.name()))
+	{
+		QStringList desList = styleParents[newStyle.name()];
+		for (int a = 0; a < desList.count(); a++)
+		{
+			ParagraphStyle old = m_Doc->paragraphStyle(desList[a]);
+			old.setParent(newStyle.name());
+			StyleSet<ParagraphStyle>tmp2;
+			tmp2.create(old);
+			m_Doc->redefineStyles(tmp2, false);
+		}
+	}
 }
 
 bool IdmlPlug::parsePreferencesXML(const QDomElement& prElem)

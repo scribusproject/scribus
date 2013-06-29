@@ -143,6 +143,7 @@ private:
 	QMap<QString, QString> layerTranslate;
 	QMap<QString, PageItem*> storyMap;
 	QMap<QString, QString> styleTranslate;
+	QMap<QString, QStringList> styleParents;
 	QMap<QString, QString> charStyleTranslate;
 	QString def_fillColor;
 	QString def_fillGradient;
