@@ -1131,6 +1131,56 @@ void IdmlPlug::parseParagraphStyle(const QDomElement& styleElem)
 						}
 					}
 				}
+				else if (i.tagName() == "TabList")
+				{
+					QList<ParagraphStyle::TabRecord> tbs;
+					newStyle.resetTabValues();
+					for(QDomNode tabl = i.firstChild(); !tabl.isNull(); tabl = tabl.nextSibling() )
+					{
+						QDomElement ta = tabl.toElement();
+						if (ta.tagName() == "ListItem")
+						{
+							ParagraphStyle::TabRecord tb;
+							for(QDomNode tal = ta.firstChild(); !tal.isNull(); tal = tal.nextSibling() )
+							{
+								QDomElement tab = tal.toElement();
+								QString tabVal = tab.text();
+								if (tab.tagName() == "Alignment")
+								{
+									tb.tabType = 0;
+									if (tabVal == "LeftAlign")
+										tb.tabType = 0;
+									else if (tabVal == "CenterAlign")
+										tb.tabType = 4;
+									else if (tabVal == "RightAlign")
+										tb.tabType = 1;
+									else if (tabVal == "Spreadsheet")
+										tb.tabType = 3;
+								}
+								else if (tab.tagName() == "Position")
+								{
+									tb.tabPosition = tabVal.toDouble();
+								}
+								else if (tab.tagName() == "Leader")
+								{
+									tb.tabFillChar = tabVal.isEmpty() ? QChar() : tabVal[0];
+								}
+								else if (tab.tagName() == "AlignmentCharacter")
+								{
+									if (tb.tabType == 3)
+									{
+										if (tabVal.startsWith(","))
+											tb.tabType = 4;
+									}
+								}
+							}
+							tbs.append(tb);
+
+						}
+					}
+					if (tbs.count() > 0)
+						newStyle.setTabValues(tbs);
+				}
 			}
 		}
 	}
