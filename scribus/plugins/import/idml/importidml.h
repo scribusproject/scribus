@@ -94,6 +94,8 @@ private:
 	};
 	QString getNodeValue(QDomNode &baseNode, QString path);
 	bool convert(QString fn);
+	bool parseFontsXML(const QDomElement& grElem);
+	void parseFontsXMLNode(const QDomElement& grNode);
 	bool parseGraphicsXML(const QDomElement& grElem);
 	void parseGraphicsXMLNode(const QDomElement& grNode);
 	bool parseStylesXML(const QDomElement& sElem);
@@ -145,6 +147,7 @@ private:
 	QMap<QString, QString> styleTranslate;
 	QMap<QString, QStringList> styleParents;
 	QMap<QString, QString> charStyleTranslate;
+	QMap<QString, QMap<QString, QString> > fontTranslateMap;
 	QString def_fillColor;
 	QString def_fillGradient;
 	QString def_strokeColor;

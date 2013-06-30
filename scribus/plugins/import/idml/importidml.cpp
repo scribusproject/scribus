@@ -553,6 +553,7 @@ bool IdmlPlug::convert(QString fn)
 						firstLayer = false;
 					}
 				}
+				parseFontsXMLNode(docElem);
 				parseGraphicsXMLNode(docElem);
 				parseStylesXMLNode(docElem);
 				parsePreferencesXMLNode(docElem);
@@ -582,6 +583,14 @@ bool IdmlPlug::convert(QString fn)
 						}
 						layerTranslate.insert(layerSelf, layerName);
 						firstLayer = false;
+					}
+					if (dpg.tagName() == "idPkg:Fonts")
+					{
+						if (!parseFontsXML(dpg))
+						{
+							retVal = false;
+							break;
+						}
 					}
 					if (dpg.tagName() == "idPkg:Graphic")
 					{
@@ -672,6 +681,54 @@ bool IdmlPlug::convert(QString fn)
 	return retVal;
 }
 
+bool IdmlPlug::parseFontsXML(const QDomElement& grElem)
+{
+	QDomElement grNode;
+	QDomDocument grMapDom;
+	if (grElem.hasAttribute("src"))
+	{
+		QByteArray f2;
+		loadRawText(fun->getFile(grElem.attribute("src")), f2);
+		if(grMapDom.setContent(f2))
+			grNode = grMapDom.documentElement();
+		else
+			return false;
+	}
+	else
+	{
+		if (grElem.hasChildNodes())
+			grNode = grElem;
+		else
+			return false;
+	}
+	parseFontsXMLNode(grNode);
+	return true;
+}
+
+void IdmlPlug::parseFontsXMLNode(const QDomElement& grNode)
+{
+	for (QDomNode n = grNode.firstChild(); !n.isNull(); n = n.nextSibling() )
+	{
+		QDomElement e = n.toElement();
+		if (e.tagName() == "FontFamily")
+		{
+			QString family = e.attribute("Name");
+			QMap<QString, QString> styleMap;
+			for(QDomNode gr = e.firstChild(); !gr.isNull(); gr = gr.nextSibling() )
+			{
+				QDomElement grs = gr.toElement();
+				if (grs.tagName() == "Font")
+				{
+					QString styleName = grs.attribute("FontStyleName").remove("$ID/");
+					QString postName = grs.attribute("PostScriptName").remove("$ID/");
+					styleMap.insert(styleName, postName);
+				}
+			}
+			fontTranslateMap.insert(family, styleMap);
+		}
+	}
+}
+
 bool IdmlPlug::parseGraphicsXML(const QDomElement& grElem)
 {
 	QDomElement grNode;
@@ -697,7 +754,7 @@ bool IdmlPlug::parseGraphicsXML(const QDomElement& grElem)
 }
 
 void IdmlPlug::parseGraphicsXMLNode(const QDomElement& grNode)
-	{
+{
 	for (QDomNode n = grNode.firstChild(); !n.isNull(); n = n.nextSibling() )
 	{
 		QDomElement e = n.toElement();
@@ -3000,38 +3057,44 @@ void IdmlPlug::resolveObjectStyle(ObjectStyle &nstyle, QString baseStyleName)
 
 QString IdmlPlug::constructFontName(QString fontBaseName, QString fontStyle)
 {
-	QString fontName;
-	if ((!fontBaseName.isEmpty()) && (!fontStyle.isEmpty()))
+	QString fontName = PrefsManager::instance()->appPrefs.itemToolPrefs.textFont;
+	if (fontTranslateMap.contains(fontBaseName))
 	{
-		fontName = fontBaseName + " " + fontStyle;
-		bool found = false;
-		QString family = fontName;
-		SCFontsIterator it(PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts);
-		for ( ; it.hasNext(); it.next())
+		QMap<QString, QString> styleMap = fontTranslateMap[fontBaseName];
+		if (styleMap.contains(fontStyle))
 		{
-			if ((fontBaseName == it.current().family()) && (fontStyle == it.current().style()))
-				found = true;
-		}
-		if (found)
-			fontName = family;
-		else
-		{
-			if (importerFlags & LoadSavePlugin::lfCreateThumbnail)
-				fontName = PrefsManager::instance()->appPrefs.itemToolPrefs.textFont;
-			else
+			QString postName = styleMap[fontStyle];
+			bool found = false;
+			SCFontsIterator it(PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts);
+			for ( ; it.hasNext(); it.next())
 			{
-				if (!PrefsManager::instance()->appPrefs.fontPrefs.GFontSub.contains(family))
+				if (it.current().psName() == postName)
 				{
-					qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
-					MissingFont *dia = new MissingFont(0, family, m_Doc);
-					dia->exec();
-					fontName = dia->getReplacementFont();
-					delete dia;
-					qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
-					PrefsManager::instance()->appPrefs.fontPrefs.GFontSub[family] = fontName;
+					fontName = it.current().scName();
+					found = true;
+					break;
 				}
+			}
+			if (!found)
+			{
+				if (importerFlags & LoadSavePlugin::lfCreateThumbnail)
+					fontName = PrefsManager::instance()->appPrefs.itemToolPrefs.textFont;
 				else
-					fontName = PrefsManager::instance()->appPrefs.fontPrefs.GFontSub[family];
+				{
+					QString family = fontBaseName + " " + fontStyle;
+					if (!PrefsManager::instance()->appPrefs.fontPrefs.GFontSub.contains(family))
+					{
+						qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+						MissingFont *dia = new MissingFont(0, family, m_Doc);
+						dia->exec();
+						fontName = dia->getReplacementFont();
+						delete dia;
+						qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
+						PrefsManager::instance()->appPrefs.fontPrefs.GFontSub[family] = fontName;
+					}
+					else
+						fontName = PrefsManager::instance()->appPrefs.fontPrefs.GFontSub[family];
+				}
 			}
 		}
 	}
