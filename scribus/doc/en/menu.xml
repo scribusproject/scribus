@@ -56,6 +56,9 @@
 			<submenuitem text="Resene Color Sets" file="color5.html" />
 			<submenuitem text="dtp studio Color Sets" file="color6.html" />
 			<submenuitem text="GiveLife Color System" file="color7.html" />
+			<submenuitem text="Galaxy Gauge Color System" file="color7a.html" />
+			<submenuitem text="Galaxy Color Harmonizer" file="color7b.html" />
+			<submenuitem text="Galaxy Color Emotions" file="color7c.html" />
 			<submenuitem text="Special Purpose Colors" file="color8.html" />
 			<submenuitem text="What about Pantone, HKS and others?" file="color10.html" />
 		</submenuitem>
