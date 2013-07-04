@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SCRIBUSCOLORS Name="Creative Commons 2013">
+ <COLOR RGB="#ededee" NAME="Swatch 1" />
+ <COLOR RGB="#dcddde" NAME="Swatch 2" />
+ <COLOR RGB="#a7a9ac" NAME="Swatch 3" />
+ <COLOR RGB="#636466" NAME="Swatch 4" />
+ <COLOR RGB="#393839" NAME="Swatch 5" />
+ <COLOR RGB="#121513" NAME="Swatch 6" />
+ <COLOR RGB="#fab499" NAME="Swatch 7" />
+ <COLOR RGB="#d13814" NAME="Swatch 8" />
+ <COLOR RGB="#912b10" NAME="Swatch 9" />
+ <COLOR RGB="#5a1c0e" NAME="Swatch 10" />
+ <COLOR RGB="#ffd89e" NAME="Swatch 11" />
+ <COLOR RGB="#ef9421" NAME="Swatch 12" />
+ <COLOR RGB="#a46810" NAME="Swatch 13" />
+ <COLOR RGB="#543d03" NAME="Swatch 14" />
+ <COLOR RGB="#fff3a2" NAME="Swatch 15" />
+ <COLOR RGB="#edd812" NAME="Swatch 16" />
+ <COLOR RGB="#b09a11" NAME="Swatch 17" />
+ <COLOR RGB="#4e4917" NAME="Swatch 43" />
+ <COLOR RGB="#ebe0b2" NAME="Swatch 19" />
+ <COLOR RGB="#b1a24a" NAME="Swatch 20" />
+ <COLOR RGB="#6d6118" NAME="Swatch 21" />
+ <COLOR RGB="#44411f" NAME="Swatch 44" />
+ <COLOR RGB="#e4eba0" NAME="Swatch 23" />
+ <COLOR RGB="#98c807" NAME="Swatch 24" />
+ <COLOR RGB="#627d0f" NAME="Swatch 25" />
+ <COLOR RGB="#3d5024" NAME="Swatch 26" />
+ <COLOR RGB="#e0e4e1" NAME="Swatch 27" />
+ <COLOR RGB="#abb8af" NAME="Swatch 28" />
+ <COLOR RGB="#43594a" NAME="Swatch 29" />
+ <COLOR RGB="#2a372f" NAME="Swatch 30" />
+ <COLOR RGB="#bfceea" NAME="Swatch 31" />
+ <COLOR RGB="#4374b7" NAME="Swatch 32" />
+ <COLOR RGB="#214184" NAME="Swatch 33" />
+ <COLOR RGB="#102548" NAME="Swatch 34" />
+ <COLOR RGB="#d6b4d6" NAME="Swatch 35" />
+ <COLOR RGB="#9628c6" NAME="Swatch 36" />
+ <COLOR RGB="#662978" NAME="Swatch 37" />
+ <COLOR RGB="#42194f" NAME="Swatch 38" />
+ <COLOR RGB="#f7b2cc" NAME="Swatch 39" />
+ <COLOR RGB="#b62b6e" NAME="Swatch 40" />
+ <COLOR RGB="#7b1b53" NAME="Swatch 41" />
+ <COLOR RGB="#4f1035" NAME="Swatch 42" />
+ <COLOR NAME="Black" CMYK="#000000ff"/>
+ <COLOR NAME="Registration" CMYK="#ffffffff" Register="1"/>
+ <COLOR NAME="White" CMYK="#00000000"/>
+</SCRIBUSCOLORS>
+<!--Source: http://wiki.creativecommons.org/Colors. Licence: CC BY 3.0 (http://creativecommons.org/licenses/by/3.0/)-->

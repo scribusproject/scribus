@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SCRIBUSCOLORS Name="Android TM">
+ <COLOR RGB="#33b5e5" NAME="33b5e5" />
+ <COLOR RGB="#0099cc" NAME="0099cc" />
+ <COLOR RGB="#99cc00" NAME="99cc00" />
+ <COLOR RGB="#669900" NAME="669900" />
+ <COLOR RGB="#ff4444" NAME="ff4444" />
+ <COLOR RGB="#cc0000" NAME="cc0000" />
+ <COLOR RGB="#ffbb33" NAME="ffbb33" />
+ <COLOR RGB="#ff8800" NAME="ff8800" />
+ <COLOR RGB="#aa66cc" NAME="AA66CC" />
+ <COLOR RGB="#9933cc" NAME="9933cc" />
+ <COLOR RGB="#000000" NAME="black" />
+ <COLOR RGB="#333333" NAME="333" />
+ <COLOR RGB="#555555" NAME="Swatch 25" />
+ <COLOR RGB="#777777" NAME="777" />
+ <COLOR RGB="#999999" NAME="999" />
+ <COLOR RGB="#aaaaaa" NAME="aaa" />
+ <COLOR RGB="#eeeeee" NAME="Swatch 24" />
+ <COLOR RGB="#ffffff" NAME="Swatch 15" />
+ <COLOR NAME="Black" CMYK="#000000ff"/>
+ <COLOR NAME="Registration" CMYK="#ffffffff" Register="1"/>
+ <COLOR NAME="White" CMYK="#00000000"/>
+</SCRIBUSCOLORS>
+<!--Source: http://developer.android.com/design/downloads/index.html. Licence: CC BY 2.5 (http://creativecommons.org/licenses/by/2.5/-->

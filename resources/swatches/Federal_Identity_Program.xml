@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SCRIBUSCOLORS Name="Federal Identity Program">
+  <COLOR NAME="Black" CMYK="#000000ff" Spot="0" Register="0"/>
+  <COLOR NAME="Blue" CMYK="#ff4d0033" Spot="0" Register="0"/>
+  <COLOR NAME="Dark Grey" CMYK="#000000d9" Spot="0" Register="0"/>
+  <COLOR NAME="FIP Red" CMYK="#00ffff00" Spot="0" Register="0"/>
+  <COLOR NAME="Green" CMYK="#ff00d933" Spot="0" Register="0"/>
+  <COLOR NAME="Light Grey" CMYK="#00000040" Spot="0" Register="0"/>
+  <COLOR NAME="Pewter Grey" CMYK="#00000066" Spot="0" Register="0"/>
+  <COLOR NAME="Registration" CMYK="#ffffffff" Spot="0" Register="1"/>
+  <COLOR NAME="Safety Red" CMYK="#00e5bf00" Spot="0" Register="0"/>
+  <COLOR NAME="White" CMYK="#00000000" Spot="0" Register="0"/>
+  <COLOR NAME="Yellow" CMYK="#001aff00" Spot="0" Register="0"/>
+  <COLOR NAME="Black" CMYK="#000000ff"/>
+  <COLOR NAME="Registration" CMYK="#ffffffff" Register="1"/>
+  <COLOR NAME="White" CMYK="#00000000"/>
+</SCRIBUSCOLORS>
+<!-- Source: http://www.tbs-sct.gc.ca/fip-pcim/spec/T145-eng.asp. Licence: http://www.tbs-sct.gc.ca/tbs-sct/cmn/notices-avis-eng.asp --> -->

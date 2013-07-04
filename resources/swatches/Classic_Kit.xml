@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SCRIBUSCOLORS>
+    <COLOR NAME="Apricot" RGB="#ffc38f"/>
+    <COLOR NAME="Aquamarine" RGB="#c1ffea"/>
+    <COLOR NAME="Bistre" RGB="#35130d"/>
+    <COLOR NAME="Black" CMYK="#000000ff"/>
+    <COLOR NAME="Blue" RGB="#1f75fe"/>
+    <COLOR NAME="Bole" RGB="#64362e"/>
+    <COLOR NAME="Bright chartreuse" RGB="#e7f486"/>
+    <COLOR NAME="Bright french blue" RGB="#78b4ff"/>
+    <COLOR NAME="Bright steel blue" RGB="#abc8ff"/>
+    <COLOR NAME="Burnt sienna" RGB="#66332b"/>
+    <COLOR NAME="CMYK Cyan" RGB="#00ffff"/>
+    <COLOR NAME="CMYK Magenta" RGB="#ff00ff"/>
+    <COLOR NAME="CMYK Yellow" RGB="#ffff00"/>
+    <COLOR NAME="Cadium-yellow" RGB="#fce820"/>
+    <COLOR NAME="Cal Poly Pomona" RGB="#1d3423"/>
+    <COLOR NAME="Celeste" RGB="#b9f5f6"/>
+    <COLOR NAME="Cerise" RGB="#de3163"/>
+    <COLOR NAME="Cerulean frost" RGB="#6daec7"/>
+    <COLOR NAME="Chestnut" RGB="#a3412c"/>
+    <COLOR NAME="Cobalt blue" RGB="#0047ab"/>
+    <COLOR NAME="Columns: 7" RGB="#000000"/>
+    <COLOR NAME="Dark chocolate" RGB="#542a0e"/>
+    <COLOR NAME="Dark cordovan" RGB="#6c2934"/>
+    <COLOR NAME="Dark crimson" RGB="#790523"/>
+    <COLOR NAME="Dark grey blue" RGB="#304577"/>
+    <COLOR NAME="Dark grullo green" RGB="#4a685d"/>
+    <COLOR NAME="Dark salmon" RGB="#e48864"/>
+    <COLOR NAME="Dark slate grey" RGB="#2f4f4f"/>
+    <COLOR NAME="Dark tangerine" RGB="#ffa812"/>
+    <COLOR NAME="Dark thulian pink" RGB="#c14b6e"/>
+    <COLOR NAME="Dark wheat" RGB="#e8cc90"/>
+    <COLOR NAME="Deep carmine" RGB="#a9203e"/>
+    <COLOR NAME="Deep pink" RGB="#ff1493"/>
+    <COLOR NAME="English-red" RGB="#d10000"/>
+    <COLOR NAME="Forest green" RGB="#014421"/>
+    <COLOR NAME="Gray 15" RGB="#262626"/>
+    <COLOR NAME="Gray-asparagus" RGB="#16221d"/>
+    <COLOR NAME="Green-yellow" RGB="#bdf61d"/>
+    <COLOR NAME="Grey 30" RGB="#4d4d4d"/>
+    <COLOR NAME="Grey 50" RGB="#808080"/>
+    <COLOR NAME="Grey 67" RGB="#ababab"/>
+    <COLOR NAME="Grey 85" RGB="#d9d9d9"/>
+    <COLOR NAME="Ice blue" RGB="#d0e7ff"/>
+    <COLOR NAME="Lemon yellow" RGB="#f3fd25"/>
+    <COLOR NAME="Maroon" RGB="#800000"/>
+    <COLOR NAME="Medium dark teal" RGB="#24302d"/>
+    <COLOR NAME="Medium jungle green" RGB="#1e333a"/>
+    <COLOR NAME="Mint" RGB="#77c679"/>
+    <COLOR NAME="Napier green" RGB="#2a8000"/>
+    <COLOR NAME="Olive" RGB="#808000"/>
+    <COLOR NAME="Orange" RGB="#ff8c00"/>
+    <COLOR NAME="Orange-red" RGB="#fc3c03"/>
+    <COLOR NAME="Peach" RGB="#ffe5b4"/>
+    <COLOR NAME="Persian orange" RGB="#d99058"/>
+    <COLOR NAME="Pink" RGB="#ffcbdb"/>
+    <COLOR NAME="Prussian blue" RGB="#003153"/>
+    <COLOR NAME="Purple" RGB="#8a1789"/>
+    <COLOR NAME="RGB Blue" RGB="#0000ff"/>
+    <COLOR NAME="RGB Green" RGB="#00ff00"/>
+    <COLOR NAME="RGB Red" RGB="#e51101"/>
+    <COLOR NAME="Registration" CMYK="#ffffffff" Register="1"/>
+    <COLOR NAME="Rose pink" RGB="#ff66cc"/>
+    <COLOR NAME="Salmon" RGB="#ff8c69"/>
+    <COLOR NAME="Sand" RGB="#c2b280"/>
+    <COLOR NAME="Sea green" RGB="#419c69"/>
+    <COLOR NAME="Sienna" RGB="#b84200"/>
+    <COLOR NAME="Straw" RGB="#f2e3c6"/>
+    <COLOR NAME="Tan" RGB="#d2b48c"/>
+    <COLOR NAME="Teal" RGB="#008080"/>
+    <COLOR NAME="Tiffany green" RGB="#add9ba"/>
+    <COLOR NAME="Timberwolf" RGB="#afcdb6"/>
+    <COLOR NAME="Tomato" RGB="#ff3622"/>
+    <COLOR NAME="Turquoise" RGB="#43aab0"/>
+    <COLOR NAME="Unbleached silk" RGB="#ffdbbc"/>
+    <COLOR NAME="Violet" RGB="#4e278a"/>
+    <COLOR NAME="White" CMYK="#00000000"/>
+    <COLOR NAME="Yellow ochre" RGB="#d8990c"/>
+    <COLOR NAME="Black" CMYK="#000000ff"/>
+    <COLOR NAME="Registration" CMYK="#ffffffff" Register="1"/>
+    <COLOR NAME="White" CMYK="#00000000"/>
+</SCRIBUSCOLORS>
+<!--Created by David Revoy. Licence: CC-0 - Public Domain -->

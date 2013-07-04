@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SCRIBUSCOLORS Name="OpenOffice.org-Galaxy">
+ <COLOR RGB="#c2b0e5" NAME="#C2B0E5" />
+ <COLOR RGB="#8866cc" NAME="#8866CC" />
+ <COLOR RGB="#2e008f" NAME="#2E00F8" />
+ <COLOR RGB="#ffa199" NAME="#FFA199" />
+ <COLOR RGB="#fc5b5b" NAME="#FC5B5B" />
+ <COLOR RGB="#ff0000" NAME="#FF0000" />
+ <COLOR RGB="#c70909" NAME="#C70909" />
+ <COLOR RGB="#8e0000" NAME="#E80000" />
+ <COLOR RGB="#6d0000" NAME="#6D0000" />
+ <COLOR RGB="#ffff9e" NAME="#FFFF9E" />
+ <COLOR RGB="#fff67b" NAME="#FFF67B" />
+ <COLOR RGB="#ffdf24" NAME="#FFDF24" />
+ <COLOR RGB="#ffc726" NAME="#FFC726" />
+ <COLOR RGB="#faa217" NAME="#FAA217" />
+ <COLOR RGB="#f26a00" NAME="#F26A00" />
+ <COLOR RGB="#c69200" NAME="#C69200" />
+ <COLOR RGB="#634900" NAME="#634900" />
+ <COLOR RGB="#314005" NAME="#314005" />
+ <COLOR RGB="#46580b" NAME="#46580B" />
+ <COLOR RGB="#7f7800" NAME="#7F7800" />
+ <COLOR RGB="#b2bc00" NAME="#B2BC00" />
+ <COLOR RGB="#cfff9e" NAME="#CFFF9E" />
+ <COLOR RGB="#8dff1a" NAME="#8DFF1A" />
+ <COLOR RGB="#1cbb04" NAME="#1CBB04" />
+ <COLOR RGB="#128902" NAME="#128902" />
+ <COLOR RGB="#096000" NAME="#096000" />
+ <COLOR RGB="#063e00" NAME="#063E00" />
+ <COLOR RGB="#b8f1ff" NAME="#B8F1FF" />
+ <COLOR RGB="#0fa0ff" NAME="#0FA0FF" />
+ <COLOR RGB="#085dff" NAME="#085DFF" />
+ <COLOR RGB="#0852d4" NAME="#0852D4" />
+ <COLOR RGB="#0646a2" NAME="#0646A2" />
+ <COLOR RGB="#063d80" NAME="#063D80" />
+ <COLOR RGB="#ddedfa" NAME="#DDEDFA" />
+ <COLOR RGB="#a4cef0" NAME="#A4CEF0" />
+ <COLOR RGB="#71c0eb" NAME="#71C0EB" />
+ <COLOR RGB="#0877bc" NAME="#0877BC" />
+ <COLOR RGB="#0877bc" NAME="#005A9B" />
+ <COLOR RGB="#003e6d" NAME="#003E6D" />
+ <COLOR RGB="#dae3ea" NAME="#DAE3EA" />
+ <COLOR RGB="#a3b8cb" NAME="#A3B8CB" />
+ <COLOR RGB="#5382a1" NAME="#5382A1" />
+ <COLOR RGB="#35556b" NAME="#35556B" />
+ <COLOR RGB="#123349" NAME="#123349" />
+ <COLOR RGB="#ffffff" NAME="#FFFFFF" />
+ <COLOR RGB="#edf1f5" NAME="#EDF1F5" />
+ <COLOR RGB="#d8dcdf" NAME="#D8DCDF" />
+ <COLOR RGB="#bec5c9" NAME="#BEC5C9" />
+ <COLOR RGB="#8b97a0" NAME="#8B97A0" />
+ <COLOR RGB="#4b5a66" NAME="#4B5A66" />
+ <COLOR RGB="#29333c" NAME="#29333C" />
+ <COLOR RGB="#151a1f" NAME="#151A1F" />
+ <COLOR RGB="#000000" NAME="#000000" />
+ <COLOR NAME="Black" CMYK="#000000ff"/>
+ <COLOR NAME="Registration" CMYK="#ffffffff" Register="1"/>
+ <COLOR NAME="White" CMYK="#00000000"/>
+</SCRIBUSCOLORS>
+<!-- Source: http://www.openoffice.org/ui/VisualDesign/gifs/color/OpenOffice.org-Galaxy.gpl. Licence: Apache License, Version 2.0 -->
