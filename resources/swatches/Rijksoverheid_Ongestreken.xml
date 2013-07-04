@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SCRIBUSCOLORS Name="Rijksoverheid Ongestreken">
+  <COLOR NAME="Black" CMYK="#000000ff" Spot="0" Register="0"/>
+  <COLOR NAME="Bruin" CMYK="#053dff14" Spot="0" Register="0"/>
+  <COLOR NAME="Donkerbruin" CMYK="#3bf5e085" Spot="0" Register="0"/>
+  <COLOR NAME="Donkergeel" CMYK="#0030e300" Spot="0" Register="0"/>
+  <COLOR NAME="Donkergroen" CMYK="#ed24b394" Spot="0" Register="0"/>
+  <COLOR NAME="Geel" CMYK="#0000e500" Spot="0" Register="0"/>
+  <COLOR NAME="Groen" CMYK="#9600ff00" Spot="0" Register="0"/>
+  <COLOR NAME="Hemelblauw" CMYK="#ff000000" Spot="0" Register="0"/>
+  <COLOR NAME="Lichtblauw" CMYK="#73030003" Spot="0" Register="0"/>
+  <COLOR NAME="Mintgroen" CMYK="#82004d00" Spot="0" Register="0"/>
+  <COLOR NAME="Mosgroen" CMYK="#240dff4a" Spot="0" Register="0"/>
+  <COLOR NAME="Oranje" CMYK="#0094ff00" Spot="0" Register="0"/>
+  <COLOR NAME="Paars" CMYK="#baff0008" Spot="0" Register="0"/>
+  <COLOR NAME="Registration" CMYK="#ffffffff" Spot="0" Register="1"/>
+  <COLOR NAME="Robijnrood" CMYK="#00ff0000" Spot="0" Register="0"/>
+  <COLOR NAME="Rood" CMYK="#00f5ff00" Spot="0" Register="0"/>
+  <COLOR NAME="Roze" CMYK="#037f0000" Spot="0" Register="0"/>
+  <COLOR NAME="Violet" CMYK="#1fff0000" Spot="0" Register="0"/>
+  <COLOR NAME="White" CMYK="#00000000" Spot="0" Register="0"/>
+</SCRIBUSCOLORS>
+<!-- Public Domain -->

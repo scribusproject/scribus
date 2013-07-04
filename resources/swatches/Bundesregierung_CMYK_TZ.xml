@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SCRIBUSCOLORS Name="Bundesregierung CMYK TZ">
+  <COLOR NAME="Black" CMYK="#000000ff" Spot="0" Register="0"/>
+  <COLOR NAME="Blau" CMYK="#ff260026" Spot="0" Register="0"/>
+  <COLOR NAME="Dunkelblau" CMYK="#ff66004d" Spot="0" Register="0"/>
+  <COLOR NAME="Dunkelgrün" CMYK="#ff007f7f" Spot="0" Register="0"/>
+  <COLOR NAME="Dunkelrot" CMYK="#1aff5973" Spot="0" Register="0"/>
+  <COLOR NAME="Gelb" CMYK="#0026ff00" Spot="0" Register="0"/>
+  <COLOR NAME="Grau" CMYK="#66000099" Spot="0" Register="0"/>
+  <COLOR NAME="Grün" CMYK="#7f00ff00" Spot="0" Register="0"/>
+  <COLOR NAME="Hellblau" CMYK="#ff000000" Spot="0" Register="0"/>
+  <COLOR NAME="Orange" CMYK="#0066ff00" Spot="0" Register="0"/>
+  <COLOR NAME="Registration" CMYK="#ffffffff" Spot="0" Register="1"/>
+  <COLOR NAME="Rot" CMYK="#00ff990f" Spot="0" Register="0"/>
+  <COLOR NAME="White" CMYK="#00000000" Spot="0" Register="0"/>
+</SCRIBUSCOLORS>
+<!-- Public Domain -->

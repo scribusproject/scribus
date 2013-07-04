@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <menu>
 	<area text="Willkommen bei Scribus" file="index.html">
-		<submenuitem text="Neues in Scribus 1.4" file="readme.html"/>
+		<submenuitem text="Neues in Scribus 1.4.3" file="readme.html"/>
 		<submenuitem text="Datenblatt" file="specs.html"/>
 	</area>
 	<area text="Dokumentation" file="intro.html">
@@ -12,16 +12,14 @@
 		<submenuitem text="Installation" file="install.html">
 			<submenuitem text="Mac OS X" file="readme-macosx.html"/>
 			<submenuitem text="OS/2 und eComStation" file="readme-os2.html"/>
+			<submenuitem text="Haiku" file="readme-haiku.html"/>
 			<submenuitem text="Windows" file="readme-win32.html"/>
 			<submenuitem text="Scribus-Quellcode und SVN" file="install1.html"/>
-			<submenuitem text="Voraussetzungen" file="install2.html"/>
-			<submenuitem text="Kompilieren mit CMake" file="install4.html"/>
-			<submenuitem text="Kompilieren mit CMake unter OS X" file="install5.html"/>                     
 		</submenuitem>
 		<submenuitem text="Scribus einrichten" file="config.html">
 			<submenuitem text="Konfiguration" file="settings1.html"/>
-			<submenuitem text="Silbentrennung" file="hyphenator.html"/>
-			<submenuitem text="Schriften einrichten" file="fonts1.html"/>
+			<submenuitem text="Silbentrennung und Rechtschreibprüfung" file="hyphenator.html"/>
+			<submenuitem text="Schriften verwalten" file="fonts1.html"/>
 			<submenuitem text="Weiteres zu Schriften" file="fonts2.html"/>
 		</submenuitem>
 		<submenuitem text="Scribus-Grundlagen" file="about2.html">
@@ -45,15 +43,24 @@
 			<submenuitem text="Seitennumerierung" file="pagenumber.html" />
 			<submenuitem text="Umbruchkontrolle" file="short-words.html" />
 		</submenuitem>
-		<submenuitem text="Füllfarben" file="color1.html">
-			<submenuitem text="Füllfarben verwalten" file="color2.html" />
+		<submenuitem text="Für Ausgabe sammeln" file="collect4output.html">
+		</submenuitem>
+                <submenuitem text="Füllfarben bearbeiten" file="color_editing.html">
+			<submenuitem text="Füllfarben bearbeiten und hinzufügen" file="add_colors.html" />
+			<submenuitem text="Das Farbrad" file="colorwheel.html" />
+			<submenuitem text="Farbpaletten verwalten" file="color2.html" />
+		</submenuitem>
+		<submenuitem text="Mitgelieferte Farbpaletten" file="color1.html">
 			<submenuitem text="Open-Source-Farbpaletten" file="color3.html" />
 			<submenuitem text="Nationale/staatliche Farbstandards" file="color4.html" />
 			<submenuitem text="Resene-Farbpaletten" file="color5.html" />
 			<submenuitem text="dtp-studio-Farbpaletten" file="color6.html" />
 			<submenuitem text="GiveLife-Farbpaletten" file="color7.html" />
+			<submenuitem text="Galaxy-Gauge-Farbpaletten" file="color7a.html" />
+			<submenuitem text="Galaxy Color Harmonizer" file="color7b.html" />
+			<submenuitem text="Galaxy Color Emotions" file="color7c.html" />
 			<submenuitem text="Spezielle Farbpaletten" file="color8.html" />
-			<submenuitem text="Das Farbrad" file="colorwheel.html" />
+			<submenuitem text="Was ist mit Pantone, HKS usw.?" file="color10.html" />
 		</submenuitem>
 		<submenuitem text="Datenimport" file="importhints.html">
 			<submenuitem text="Bitmap-Dateien (allgemein)" file="importbitmap1.html" />
@@ -67,8 +74,10 @@
 			<submenuitem text="PDF-Export" file="pdfexport1.html">
 			<submenuitem text="PDF-Versionen" file="pdflavor.html"/>
 			<submenuitem text="PDF-Ausgabeziele" file="pdfexport2.html"/>
+			<submenuitem text="PDF-Export: Bildkompression" file="pdfexport_image.html"/>
 			<submenuitem text="PDF-Export für Bildschirm/Web" file="pdfexport3.html"/>
 			<submenuitem text="PDF-Präsentationen" file="pdfexport4.html"/>
+			<submenuitem text="Links in PDF-Dateien" file="createlinks.html"/>
 			<submenuitem text="PDF-Formulare" file="pdf_form.html"/>
 			<submenuitem text="PDF/X-3" file="pdfx3.html"/>
 		</submenuitem>
@@ -83,10 +92,9 @@
 		</submenuitem>
 		<submenuitem text="DTP-Werkzeugkasten" file="toolbox.html">
 			<submenuitem text="Adobe Reader" file="toolbox1.html"/>
-			<submenuitem text="PDF/PostScript-Werkzeuge" file="toolbox2.html"/>
+			<submenuitem text="PDF/PostScript Tools" file="toolbox2.html"/>
 			<submenuitem text="Ghostscript" file="toolbox5.html"/>
 			<submenuitem text="GSview" file="toolbox6.html"/>
-			<submenuitem text="Advanced Ghostscript &amp; GSView" file="toolbox7.html"/>
 			<submenuitem text="GIMP" file="toolbox4.html"/>
 			<submenuitem text="Krita" file="toolbox15.html"/>
 			<submenuitem text="XnView" file="toolbox13.html"/>
@@ -97,18 +105,20 @@
 			<submenuitem text="Fontmatrix" file="toolbox16.html"/>
 			<submenuitem text="SwatchBooker" file="toolbox17.html"/>
 			<submenuitem text="LibreOffice/OpenOffice.org" file="toolbox18.html"/>
-			<submenuitem text="Kommandozeilenwerkzeuge" file="toolbox19.html"/>
+			<submenuitem text="Commandline Tools" file="toolbox19.html"/>
 		</submenuitem>
-	<area text="Problembehebung" file="fileproblems.html" >
-	</area>
+		<area text="Hilfe!!!" file="help.html" >
+		</area>
+		<area text="Problembehebung" file="fileproblems.html" >
+		</area>
 	</area>
 	<area text="Meine Tutorien" file="tutorials.html" section="tutorials">
 	</area>
 	<area text="Für Entwickler" file="developers.html">
 		<submenuitem text="Scribus-Dokumentformat" file="scribusfileformat.html"/>
 		<submenuitem text="Scripter" file="scripter1.html"/>
-		<submenuitem text="Scripter FAQ" file="scripter-faq.html"/>
-		<submenuitem text="Scripter API" file="scripterapi.html">
+		<submenuitem text="Scripter-FAQ" file="scripter-faq.html"/>
+		<submenuitem text="Scripter-API" file="scripterapi.html">
 			<submenuitem text="Document Commands" file="scripterapi-doc.html"/>
 			<submenuitem text="Page Commands" file="scripterapi-page.html"/>
 			<submenuitem text="Creating &amp; Destroying Objects" file="scripterapi-object.html"/>
@@ -136,7 +146,7 @@
 	</area>
 	<area text="Weitere Informationen" file="otherinfo.html">
 		<submenuitem text="Community" file="resources.html"/>
-		<submenuitem text="Fehlerberichte" file="bugreport.html"/>
+		<submenuitem text="Fehlerberichte und Wünsche" file="bugreport.html"/>
 		<submenuitem text="Mailinglisten" file="mailing_lists.html"/>
 		<submenuitem text="IRC" file="irc.html"/>
 		<submenuitem text="Download" file="download.html"/>

@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SCRIBUSCOLORS Name="LaTeX-Beamer">
+ <COLOR RGB="#181c57" NAME="default outer 1" />
+ <COLOR RGB="#252b82" NAME="default outer 2" />
+ <COLOR RGB="#3139ae" NAME="default outer 3" />
+ <COLOR RGB="#e9e9f2" NAME="default block" />
+ <COLOR RGB="#8d91d0" NAME="default added blue" />
+ <COLOR RGB="#3139ae" NAME="default block header" />
+ <COLOR RGB="#f5e7e7" NAME="default alert block" />
+ <COLOR RGB="#cd8282" NAME="default added red" />
+ <COLOR RGB="#a51d1e" NAME="default alert block header" />
+ <COLOR RGB="#e8eee6" NAME="default example block" />
+ <COLOR RGB="#8aa678" NAME="default added green" />
+ <COLOR RGB="#2b5d0a" NAME="default example block header" />
+ <COLOR RGB="#e4e4e4" NAME="default covered text" />
+ <COLOR RGB="#e0e1f3" NAME="default covered bullet" />
+ <COLOR RGB="#ffffff" NAME="default background" />
+ <COLOR RGB="#000000" NAME="default text" />
+ <COLOR RGB="#c2c3e6" NAME="default light outer 1" />
+ <COLOR RGB="#cccdea" NAME="default light outer 2" />
+ <COLOR RGB="#d6d7ef" NAME="default light outer 3" />
+ <COLOR RGB="#ebebf6" NAME="default light block" />
+ <COLOR RGB="#d6d7ef" NAME="default light block header" />
+ <COLOR RGB="#666ac2" NAME="default light block header text" />
+ <COLOR RGB="#f9e7e7" NAME="default light alert block" />
+ <COLOR RGB="#f4cece" NAME="default light alert block header" />
+ <COLOR RGB="#dd2a2b" NAME="default light alert block header text" />
+ <COLOR RGB="#e9f1e6" NAME="default light example block" />
+ <COLOR RGB="#d2e5cc" NAME="default light example block header" />
+ <COLOR RGB="#3e8213" NAME="default light example block header text" />
+ <COLOR RGB="#e4e4e4" NAME="default light covered text" />
+ <COLOR RGB="#e0e1f3" NAME="default light covered bullet" />
+ <COLOR RGB="#ffffff" NAME="default light background" />
+ <COLOR RGB="#000000" NAME="default light text" />
+ <COLOR RGB="#3d4970" NAME="beetle outer 1" />
+ <COLOR RGB="#404d77" NAME="beetle outer 2" />
+ <COLOR RGB="#43517d" NAME="beetle outer 3" />
+ <COLOR RGB="#55679e" NAME="beetle added blue" />
+ <COLOR RGB="#7382b3" NAME="beetle added blue" />
+ <COLOR RGB="#b4b9cb" NAME="beetle added blue" />
+ <COLOR RGB="#cd8282" NAME="beetle added red" />
+ <COLOR RGB="#bc2122" NAME="beetle alert block header text" />
+ <COLOR RGB="#8aa678" NAME="beetle added green" />
+ <COLOR RGB="#3a7c0e" NAME="beetle example block header text" />
+ <COLOR RGB="#ffffff" NAME="beetle header text" />
+ <COLOR RGB="#cccccc" NAME="beetle added grey" />
+ <COLOR RGB="#a8a8a8" NAME="beetle covered bullet" />
+ <COLOR RGB="#999999" NAME="beetle background" />
+ <COLOR RGB="#828282" NAME="beetle covered text" />
+ <COLOR RGB="#4d4d4d" NAME="beetle added grey" />
+ <COLOR RGB="#000000" NAME="beetle text" />
+ <COLOR RGB="#000837" NAME="albatross outer 1" />
+ <COLOR RGB="#000a4b" NAME="albatross outer 2" />
+ <COLOR RGB="#000d5d" NAME="albatross outer 3" />
+ <COLOR RGB="#00117c" NAME="albatross background" />
+ <COLOR RGB="#000f70" NAME="albatross block" />
+ <COLOR RGB="#000d5d" NAME="albatross block header" />
+ <COLOR RGB="#6c70b8" NAME="albatross header text" />
+ <COLOR RGB="#bec1fc" NAME="albatross bullet" />
+ <COLOR RGB="#1b248f" NAME="albatross covered bullet" />
+ <COLOR RGB="#3e3c5f" NAME="albatross covered text" />
+ <COLOR RGB="#df8f87" NAME="albatross added red" />
+ <COLOR RGB="#ca4436" NAME="albatross alert block header text" />
+ <COLOR RGB="#9dde67" NAME="albatross added green" />
+ <COLOR RGB="#69b628" NAME="albatross example block header text" />
+ <COLOR RGB="#eae385" NAME="albatross text" />
+ <COLOR RGB="#dacf2f" NAME="albatross added yellow" />
+ <COLOR RGB="#ffffff" NAME="albatross added white" />
+ <COLOR RGB="#000000" NAME="fly text" />
+ <COLOR RGB="#404040" NAME="fly added grey" />
+ <COLOR RGB="#808080" NAME="fly outer" />
+ <COLOR RGB="#999999" NAME="fly background" />
+ <COLOR RGB="#cccccc" NAME="fly added grey" />
+ <COLOR RGB="#ffffff" NAME="fly header text" />
+ <COLOR RGB="#a8a8a8" NAME="fly covered bullet" />
+ <COLOR RGB="#828282" NAME="fly covered text" />
+ <COLOR RGB="#dd9090" NAME="fly added red" />
+ <COLOR RGB="#bc2122" NAME="fly alert block header text" />
+ <COLOR RGB="#9cbd86" NAME="fly added green" />
+ <COLOR RGB="#3a7c0e" NAME="fly example block header text" />
+ <COLOR RGB="#989cd7" NAME="fly added blue" />
+ <COLOR RGB="#3139ae" NAME="fly added default blue" />
+ <COLOR RGB="#b3b3b3" NAME="seagull outer 1" />
+ <COLOR RGB="#bfbfbf" NAME="seagull outer 2" />
+ <COLOR RGB="#cccccc" NAME="seagull outer 3" />
+ <COLOR RGB="#e6e6e6" NAME="seagull block" />
+ <COLOR RGB="#d9d9d9" NAME="seagull added grey" />
+ <COLOR RGB="#cccccc" NAME="seagull block header" />
+ <COLOR RGB="#dcdcdc" NAME="seagull covered text" />
+ <COLOR RGB="#f7f7f7" NAME="seagull covered bullet" />
+ <COLOR RGB="#ffffff" NAME="seagull background" />
+ <COLOR RGB="#000000" NAME="seagull text" />
+ <COLOR RGB="#8d1919" NAME="beaver outer frame" />
+ <COLOR RGB="#ad5f5f" NAME="beaver added red" />
+ <COLOR RGB="#cca6a6" NAME="beaver added red" />
+ <COLOR RGB="#d9d9d9" NAME="beaver outer 1" />
+ <COLOR RGB="#ececec" NAME="beaver outer 2" />
+ <COLOR RGB="#f2f2f2" NAME="beaver outer 3" />
+ <COLOR RGB="#8f93cd" NAME="beaver added blue" />
+ <COLOR RGB="#3139ae" NAME="beaver block header text" />
+ <COLOR RGB="#93b47d" NAME="beaver added green" />
+ <COLOR RGB="#3a7c0e" NAME="beaver example block header text" />
+ <COLOR RGB="#c88a8a" NAME="beaver added red" />
+ <COLOR RGB="#a42828" NAME="beaver alert block header text" />
+ <COLOR RGB="#e4e4e4" NAME="beaver covered text" />
+ <COLOR RGB="#e0e1f3" NAME="beaver covered bullet" />
+ <COLOR RGB="#ffffff" NAME="beaver background" />
+ <COLOR RGB="#000000" NAME="beaver text" />
+ <COLOR RGB="#f0c139" NAME="crane outer 1" />
+ <COLOR RGB="#f3c84a" NAME="crane outer 2" />
+ <COLOR RGB="#f4ce5e" NAME="crane outer 3" />
+ <COLOR RGB="#fbedc4" NAME="crane block" />
+ <COLOR RGB="#f5d479" NAME="crane added orange" />
+ <COLOR RGB="#efbb2e" NAME="crane block header" />
+ <COLOR RGB="#f5e7e7" NAME="crane alert block" />
+ <COLOR RGB="#cd8282" NAME="crane added red" />
+ <COLOR RGB="#a51d1e" NAME="crane alert block header" />
+ <COLOR RGB="#e8eee6" NAME="crane example block" />
+ <COLOR RGB="#8aa678" NAME="crane added green" />
+ <COLOR RGB="#2b5d0a" NAME="crane example block header" />
+ <COLOR RGB="#e4e4e4" NAME="crane covered text" />
+ <COLOR RGB="#e0e1f3" NAME="crane covered bullet" />
+ <COLOR RGB="#000c4a" NAME="crane bullet" />
+ <COLOR RGB="#ffffff" NAME="crane background" />
+ <COLOR RGB="#000000" NAME="crane text" />
+ <COLOR RGB="#eca14f" NAME="wolverine outer 1" />
+ <COLOR RGB="#f2bc2e" NAME="wolverine outer 2" />
+ <COLOR RGB="#f8db30" NAME="wolverine outer 3" />
+ <COLOR RGB="#fae330" NAME="wolverine outer 4" />
+ <COLOR RGB="#fdf198" NAME="wolverine added yellow" />
+ <COLOR RGB="#8c93d3" NAME="wolverine added blue" />
+ <COLOR RGB="#1927a6" NAME="wolverine header text" />
+ <COLOR RGB="#a3c592" NAME="wolverine added green" />
+ <COLOR RGB="#488b24" NAME="wolverine example block title" />
+ <COLOR RGB="#e4e4e4" NAME="wolverine covered text" />
+ <COLOR RGB="#e0e1f3" NAME="wolverine covered bullet" />
+ <COLOR RGB="#ffffff" NAME="wolverine background" />
+ <COLOR RGB="#000000" NAME="wolverine text" />
+ <COLOR NAME="Black" CMYK="#000000ff"/>
+ <COLOR NAME="Registration" CMYK="#ffffffff" Register="1"/>
+ <COLOR NAME="White" CMYK="#00000000"/>
+</SCRIBUSCOLORS>
+<!--Copied from Inkscape (www.inkscape.org). Licence: GPL 2-->
