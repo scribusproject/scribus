@@ -160,7 +160,7 @@ void FreehandMode::mouseMoveEvent(QMouseEvent *m)
 			SeRx = newX;
 			SeRy = newY;
 			QPoint startP = m_canvas->canvasToGlobal(m_doc->appMode == modeDrawTable2 ? QPointF(Dxp, Dyp) : QPointF(Mxp, Myp));
-			m_view->redrawMarker->setGeometry(QRect(startP, m->globalPos()).normalized());
+			m_view->redrawMarker->setGeometry(QRect(m_view->mapFromGlobal(startP), m_view->mapFromGlobal(m->globalPos())).normalized());
 			if (!m_view->redrawMarker->isVisible())
 				m_view->redrawMarker->show();
 			m_view->HaveSelRect = true;

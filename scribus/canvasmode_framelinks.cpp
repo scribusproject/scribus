@@ -127,11 +127,8 @@ void CanvasMode_FrameLinks::mouseMoveEvent(QMouseEvent *m)
 	{
 		SeRx = qRound(mousePointDoc.x()); //m_view->translateToDoc(m->x(), m->y()).x());
 		SeRy = qRound(mousePointDoc.y()); //m_view->translateToDoc(m->x(), m->y()).y());
-		/*
-		m_view->redrawMarker->setGeometry(QRect(Mxp, Myp, m->globalPos().x() - Mxp, m->globalPos().y() - Myp).normalized());
-		*/
 		QPoint startP = m_canvas->canvasToGlobal(m_doc->appMode == modeDrawTable2 ? QPointF(Dxp, Dyp) : QPointF(Mxp, Myp));
-		m_view->redrawMarker->setGeometry(QRect(startP, m->globalPos()).normalized());
+		m_view->redrawMarker->setGeometry(QRect(m_view->mapFromGlobal(startP), m_view->mapFromGlobal(m->globalPos())).normalized());
 		if (!m_view->redrawMarker->isVisible())
 			m_view->redrawMarker->show();
 		m_view->HaveSelRect = true;
@@ -141,8 +138,6 @@ void CanvasMode_FrameLinks::mouseMoveEvent(QMouseEvent *m)
 
 void CanvasMode_FrameLinks::mousePressEvent(QMouseEvent *m)
 {
-// 	const double mouseX = m->globalX();
-// 	const double mouseY = m->globalY();
 	const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
 
 	double Rxp = 0;

@@ -475,11 +475,8 @@ void CanvasMode_Edit::mouseMoveEvent(QMouseEvent *m)
 			newY = qRound(mousePointDoc.y()); //m_view->translateToDoc(m->x(), m->y()).y());
 			SeRx = newX;
 			SeRy = newY;
-			/*
-			m_view->redrawMarker->setGeometry(QRect(Mxp, Myp, m->globalPos().x() - Mxp, m->globalPos().y() - Myp).normalized());
-			*/
 			QPoint startP = m_canvas->canvasToGlobal(QPointF(Mxp, Myp));
-			m_view->redrawMarker->setGeometry(QRect(startP, m->globalPos()).normalized());
+			m_view->redrawMarker->setGeometry(QRect(m_view->mapFromGlobal(startP), m_view->mapFromGlobal(m->globalPos())).normalized());
 			if (!m_view->redrawMarker->isVisible())
 				m_view->redrawMarker->show();
 			m_view->HaveSelRect = true;

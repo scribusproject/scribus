@@ -2234,7 +2234,7 @@ QImage PageItem::DrawObj_toImage(double maxSize)
 	double sc = maxSize / qMax(igWidth, igHeight);
 	bool savedFlag = m_Doc->guidesPrefs().framesShown;
 	m_Doc->guidesPrefs().framesShown = false;
-	QImage retImg = QImage(qRound(igWidth * sc), qRound(igHeight * sc), QImage::Format_ARGB32_Premultiplied);
+	QImage retImg = QImage(qMax(qRound(igWidth * sc), 1), qMax(qRound(igHeight * sc), 1), QImage::Format_ARGB32_Premultiplied);
 	retImg.fill( qRgba(0, 0, 0, 0) );
 	ScPainter *painter = new ScPainter(&retImg, retImg.width(), retImg.height(), 1, 0);
 	painter->setZoomFactor(sc);

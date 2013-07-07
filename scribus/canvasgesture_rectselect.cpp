@@ -38,12 +38,12 @@ void RectSelect::leaveEvent(QEvent * e){}
 void RectSelect::prepare(QPoint start)
 {
 	if (!m_rectangle)
-		m_rectangle = new QRubberBand(QRubberBand::Rectangle);
+		m_rectangle = new QRubberBand(QRubberBand::Rectangle, m_view);
 	setStart(start);
 #ifdef USE_QT5
 	m_rectangle->setWindowOpacity(0.5);
 #endif
-	m_rectangle->setGeometry(m_start.x(), m_start.y(), 1, 1);
+	m_rectangle->setGeometry(QRect(m_view->mapFromGlobal(start), m_view->mapFromGlobal(start)));
 }
 
 void RectSelect::clear()
@@ -71,17 +71,15 @@ void RectSelect::setStart(QPoint globalPos)
 
 void RectSelect::setEnd(QPoint globalPos)
 {
-	m_rectangle->setGeometry(QRect(m_start.x(), 
-								   m_start.y(), 
-								   globalPos.x()-m_start.x(), 
-								   globalPos.y()-m_start.y())
-							 .normalized());	
+	m_rectangle->setGeometry(QRect(m_view->mapFromGlobal(m_start), m_view->mapFromGlobal(globalPos)).normalized());
 }
 
 
 QRectF RectSelect::result() const
-{ 
-	return m_canvas->globalToCanvas(m_rectangle->geometry());
+{
+	QRect geom = m_rectangle->geometry().normalized();
+	geom = QRect(m_view->mapToGlobal(geom.topLeft()), m_view->mapToGlobal(geom.bottomRight()));
+	return m_canvas->globalToCanvas(geom);
 }
 
 void RectSelect::mousePressEvent(QMouseEvent *m)

@@ -445,7 +445,7 @@ void CanvasMode_Rotate::mouseMoveEvent(QMouseEvent *m)
 		if ((m_canvas->m_viewMode.m_MouseButtonPressed) && (m->buttons() & Qt::LeftButton))
 		{
 			QPoint startP = m_canvas->canvasToGlobal(m_canvasPressCoord);
-			m_view->redrawMarker->setGeometry(QRect(startP, m->globalPos()).normalized());
+			m_view->redrawMarker->setGeometry(QRect(m_view->mapFromGlobal(startP), m_view->mapFromGlobal(m->globalPos())).normalized());
 			if (!m_view->redrawMarker->isVisible())
 				m_view->redrawMarker->show();
 			m_view->HaveSelRect = true;

@@ -224,14 +224,8 @@ void BezierMode::mouseMoveEvent(QMouseEvent *m)
 				newY = qRound(mousePointDoc.y()); //m_view->translateToDoc(m->x(), m->y()).y());
 				SeRx = newX;
 				SeRy = newY;
-				/*
-				if (m_doc->appMode == modeDrawTable)
-					m_view->redrawMarker->setGeometry(QRect(Dxp, Dyp, m->globalPos().x() - Dxp, m->globalPos().y() - Dyp).normalized());
-				else
-					m_view->redrawMarker->setGeometry(QRect(Mxp, Myp, m->globalPos().x() - Mxp, m->globalPos().y() - Myp).normalized());
-				*/
 				QPoint startP = m_canvas->canvasToGlobal(QPointF(Mxp, Myp));
-				m_view->redrawMarker->setGeometry(QRect(startP, m->globalPos()).normalized());
+				m_view->redrawMarker->setGeometry(QRect(m_view->mapFromGlobal(startP), m_view->mapFromGlobal(m->globalPos())).normalized());
 				if (!m_view->redrawMarker->isVisible())
 					m_view->redrawMarker->show();
 				m_view->HaveSelRect = true;

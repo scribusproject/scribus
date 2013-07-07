@@ -111,8 +111,6 @@ void CanvasMode_Magnifier::mouseDoubleClickEvent(QMouseEvent *m)
 
 void CanvasMode_Magnifier::mouseMoveEvent(QMouseEvent *m)
 {
-// 	const double mouseX = m->globalX();
-// 	const double mouseY = m->globalY();
 	const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
 	
 	m_lastPosWasOverGuide = false;
@@ -126,11 +124,8 @@ void CanvasMode_Magnifier::mouseMoveEvent(QMouseEvent *m)
 		newY = qRound(Myp + ((SeRx - Mxp) * m_view->visibleHeight()) / m_view->visibleWidth());
 		SeRx = newX;
 		SeRy = newY;
-		/*
-		m_view->redrawMarker->setGeometry(QRect(Mxp, Myp, m->globalPos().x() - Mxp, m->globalPos().y() - Myp).normalized());
-		*/
 		QPoint startP = m_canvas->canvasToGlobal(m_doc->appMode == modeDrawTable2 ? QPointF(Dxp, Dyp) : QPointF(Mxp, Myp));
-		m_view->redrawMarker->setGeometry(QRect(startP, m->globalPos()).normalized());
+		m_view->redrawMarker->setGeometry(QRect(m_view->mapFromGlobal(startP), m_view->mapFromGlobal(m->globalPos())).normalized());
 		if (!m_view->redrawMarker->isVisible())
 			m_view->redrawMarker->show();
 		m_view->HaveSelRect = true;
@@ -201,6 +196,7 @@ void CanvasMode_Magnifier::mouseReleaseEvent(QMouseEvent *m)
 		if (m_view->HaveSelRect)
 		{
 			QRect geom = m_view->redrawMarker->geometry().normalized();
+			geom = QRect(m_view->mapToGlobal(geom.topLeft()), m_view->mapToGlobal(geom.bottomRight()));
 			FPoint nx = m_canvas->globalToCanvas(QPoint(geom.x() + geom.width() / 2, geom.y() + geom.height() / 2));
 			double scaleH = m_view->visibleWidth() / static_cast<double>(qMax(geom.width(), 1));
 			double scaleV = m_view->visibleHeight() / static_cast<double>(qMax(geom.height(), 1));

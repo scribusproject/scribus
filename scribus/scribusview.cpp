@@ -326,7 +326,7 @@ ScribusView::ScribusView(QWidget* win, ScribusMainWindow* mw, ScribusDoc *doc) :
 	m_previousMode = -1;
 	redrawMode = 0;
 	redrawCount = 0;
-	redrawMarker = new QRubberBand(QRubberBand::Rectangle);
+	redrawMarker = new QRubberBand(QRubberBand::Rectangle, this);
 #ifdef USE_QT5
 	redrawMarker->setWindowOpacity(0.5);
 #endif
