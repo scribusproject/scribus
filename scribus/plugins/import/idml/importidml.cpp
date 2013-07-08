@@ -2451,7 +2451,13 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, QTransform pT
 					if (fi.exists())
 						fileName = url.toLocalFile().toLocal8Bit();
 					else
+					{
 						fileName = fi.fileName().toLocal8Bit();
+						fileName.prepend("./Links/");
+						QFileInfo fi2(fileName);
+						if (!fi2.exists())
+							fileName = fi.fileName().toLocal8Bit();
+					}
 					item->AspectRatio = true;
 					if (imageFit == "None")
 						item->ScaleType   = true;

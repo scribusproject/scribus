@@ -4038,10 +4038,16 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 		if (docProfileDir.exists())
 			ScCore->getCMSProfilesDir(fi.absolutePath()+"/profiles", false, false);
 
-		QDir docFontDir(fi.absolutePath() + "/fonts");
 		prefsManager->appPrefs.fontPrefs.AvailFonts.AddScalableFonts(fi.absolutePath()+"/", FName);
+		QDir docFontDir(fi.absolutePath() + "/fonts");
 		if (docFontDir.exists())
 			prefsManager->appPrefs.fontPrefs.AvailFonts.AddScalableFonts(fi.absolutePath()+"/fonts", FName);
+		QDir docFontDir2(fi.absolutePath() + "/Fonts");
+		if (docFontDir2.exists())
+			prefsManager->appPrefs.fontPrefs.AvailFonts.AddScalableFonts(fi.absolutePath()+"/Fonts", FName);
+		QDir docFontDir3(fi.absolutePath() + "/Document fonts");
+		if (docFontDir3.exists())
+			prefsManager->appPrefs.fontPrefs.AvailFonts.AddScalableFonts(fi.absolutePath()+"/Document fonts", FName);
 		prefsManager->appPrefs.fontPrefs.AvailFonts.updateFontMap();
 
 		doc=new ScribusDoc();
