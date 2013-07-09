@@ -8209,6 +8209,8 @@ void PageItem::getNamedResources(ResourceCollection& lists) const
 		lists.collectColor(fillColor());
 	else if ((GrType < 8) || (GrType == 10))
 	{
+		if ((!gradientVal.isEmpty()) && (m_Doc->docGradients.contains(gradientVal)))
+			lists.collectGradient(gradientVal);
 		QList<VColorStop*> cstops = fill_gradient.colorStops();
 		for (uint cst = 0; cst < fill_gradient.Stops(); ++cst)
 		{
@@ -8247,6 +8249,8 @@ void PageItem::getNamedResources(ResourceCollection& lists) const
 		lists.collectColor(lineColor());
 	else if (GrTypeStroke < 8)
 	{
+		if ((!gradientStrokeVal.isEmpty()) && (m_Doc->docGradients.contains(gradientStrokeVal)))
+			lists.collectGradient(gradientStrokeVal);
 		QList<VColorStop*> cstops = stroke_gradient.colorStops();
 		for (uint cst = 0; cst < stroke_gradient.Stops(); ++cst)
 		{
