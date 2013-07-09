@@ -5870,7 +5870,7 @@ Configuration invalide.</translation>
     <message>
         <location filename="../../../scribus/plugins/barcodegenerator/barcodegenerator.cpp" line="102"/>
         <source>Variable number of characters, digits and any symbols.</source>
-        <translation type="unfinished"></translation>
+        <translation>Nombre variable de caractères alphabétiques, numériques ou autre symboles.</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/barcodegenerator/barcodegenerator.cpp" line="320"/>
@@ -10584,12 +10584,12 @@ failed!</source>
     <message>
         <location filename="../../../scribus/editor.cpp" line="100"/>
         <source>OK</source>
-        <translation type="unfinished">OK</translation>
+        <translation>OK</translation>
     </message>
     <message>
         <location filename="../../../scribus/editor.cpp" line="104"/>
         <source>Cancel</source>
-        <translation type="unfinished">Annuler</translation>
+        <translation>Annuler</translation>
     </message>
     <message>
         <location filename="../../../scribus/editor.cpp" line="132"/>
@@ -12589,12 +12589,12 @@ and www.scribus.net for downloads.</source>
     <message>
         <location filename="../../../scribus/plugins/tools/hunspellcheck/hunspellplugin.cpp" line="64"/>
         <source>Hunspell-based spell checker</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Correcteur orthographique</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/tools/hunspellcheck/hunspellplugin.cpp" line="65"/>
         <source>Spell Checker based on the Hunspell libraries</source>
-        <translation type="unfinished"></translation>
+        <translation>Correcteur orthographique basé sur la librairie Hunspell</translation>
     </message>
 </context>
 <context>
@@ -19067,7 +19067,7 @@ Veuillez en choisir un autre.</translation>
     <message>
         <location filename="../../../scribus/prefs.cpp" line="90"/>
         <source>Hyphenation and Spelling</source>
-        <translation type="unfinished">Césures et Orthographe</translation>
+        <translation>Césures et Orthographe</translation>
     </message>
     <message>
         <location filename="../../../scribus/prefs.cpp" line="96"/>
@@ -25554,13 +25554,13 @@ Veuillez en choisir un autre.</translation>
     <message>
         <location filename="../../../scribus/smpstylewidget.cpp" line="130"/>
         <source>Lines:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Lignes:</translation>
     </message>
     <message>
         <location filename="../../../scribus/smpstylewidget.cpp" line="149"/>
         <source>None</source>
         <comment>optical margins</comment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Aucune</translation>
     </message>
     <message>
         <location filename="../../../scribus/smpstylewidget.cpp" line="150"/>
@@ -25572,13 +25572,13 @@ Veuillez en choisir un autre.</translation>
         <location filename="../../../scribus/smpstylewidget.cpp" line="151"/>
         <source>Left Only</source>
         <comment>optical margins</comment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">A gauche</translation>
     </message>
     <message>
         <location filename="../../../scribus/smpstylewidget.cpp" line="152"/>
         <source>Right Only</source>
         <comment>optical margins</comment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">A droite</translation>
     </message>
     <message>
         <location filename="../../../scribus/smpstylewidget.ui" line="32"/>
@@ -35378,22 +35378,22 @@ de 0 permet un nombre illimité de césures.</translation>
     <message>
         <location filename="../../../scribus/hysettingsBase.ui" line="302"/>
         <source>Spelling</source>
-        <translation type="unfinished">Orthographe</translation>
+        <translation>Orthographe</translation>
     </message>
     <message>
         <location filename="../../../scribus/hysettingsBase.ui" line="312"/>
         <source>Installed Spelling Dictionaries</source>
-        <translation type="unfinished">Dictionnaires installés</translation>
+        <translation>Dictionnaires installés</translation>
     </message>
     <message>
         <location filename="../../../scribus/hysettingsBase.ui" line="330"/>
         <source>Downloadable Spelling Dictionaries</source>
-        <translation type="unfinished">Dictionnaires téléchargeables</translation>
+        <translation>Dictionnaires téléchargeables</translation>
     </message>
     <message>
         <location filename="../../../scribus/hysettingsBase.ui" line="350"/>
         <source>Downloading</source>
-        <translation type="unfinished">Téléchargement en cours</translation>
+        <translation>Téléchargement en cours</translation>
     </message>
     <message>
         <location filename="../../../scribus/hysettingsBase.ui" line="383"/>
