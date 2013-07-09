@@ -138,6 +138,7 @@ class SCRIBUS_API Selection : public QObject
 		const SelectionList& selectionList() const {return m_SelList;}
 		PageItem *itemAt(int index=0) { return itemAt_(index); }
 		const PageItem *itemAt(int index=0) const { return const_cast<Selection*>(this)->itemAt_(index); }
+		QList<PageItem*> items() const;
 		QStringList getSelectedItemsByName() const;
 		bool isMultipleSelection() const { return (m_SelList.count() > 1); }
 		bool isGUISelection() const { return m_isGUISelection; }

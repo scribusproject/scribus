@@ -245,6 +245,19 @@ PageItem *Selection::itemAt_(int index)
 	return NULL;
 }
 
+QList<PageItem*> Selection::items() const
+{
+	QList<PageItem*> selectedItems;
+	for (int i = 0; i < m_SelList.count(); ++i)
+	{
+		QPointer<PageItem> pi = m_SelList.at(i);
+		if (pi.isNull())
+			continue;
+		selectedItems.append(pi.data());
+	}
+	return selectedItems;
+}
+
 bool Selection::removeFirst()
 {
 	if (!m_SelList.isEmpty())

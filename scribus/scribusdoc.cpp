@@ -14963,7 +14963,9 @@ PageItem * ScribusDoc::itemSelection_GroupObjects(bool changeLock, bool lock, Se
 	UndoTransaction *activeTransaction = NULL;
 	if(UndoManager::undoEnabled())
 		activeTransaction = new UndoTransaction(undoManager->beginTransaction(Um::Selection,Um::IGroup,Um::Group,"",Um::IGroup));
-	uint selectedItemCount = itemSelection->count();
+	QList<PageItem*> selectedItems = itemSelection->items();
+	qStableSort(selectedItems.begin(), selectedItems.end(), compareItemLevel);
+	uint selectedItemCount = selectedItems.count();
 	QString tooltip = Um::ItemsInvolved + "\n";
 	if (selectedItemCount > Um::ItemsInvolvedLimit)
 		tooltip = Um::ItemsInvolved2 + "\n";
@@ -14971,7 +14973,7 @@ PageItem * ScribusDoc::itemSelection_GroupObjects(bool changeLock, bool lock, Se
 	{
 		for (uint c=0; c < selectedItemCount; ++c)
 		{
-			currItem = itemSelection->itemAt(c);
+			currItem = selectedItems.at(c);
 			currItem->setLocked(lock);
 			//if (m_ScMW && ScCore->usingGUI())
 			//	m_ScMW->scrActions["itemLock"]->setChecked(lock);
@@ -14980,10 +14982,10 @@ PageItem * ScribusDoc::itemSelection_GroupObjects(bool changeLock, bool lock, Se
 		}
 	}
 	itemSelection->getVisualGroupRect(&x, &y, &w, &h);
-	int lowestItem = 999999;
-	for (uint a=0; a<selectedItemCount; ++a)
+	int lowestItem = std::numeric_limits<int>::max();
+	for (uint a=0; a < selectedItemCount; ++a)
 	{
-		currItem = itemSelection->itemAt(a);
+		currItem = selectedItems.at(a);
 		currItem->gXpos = currItem->xPos() - x;
 		currItem->gYpos = currItem->yPos() - y;
 		currItem->gWidth = w;
@@ -14996,7 +14998,7 @@ PageItem * ScribusDoc::itemSelection_GroupObjects(bool changeLock, bool lock, Se
 	double maxy = -std::numeric_limits<double>::max();
 	for (uint ep = 0; ep < selectedItemCount; ++ep)
 	{
-		PageItem* currItem = itemSelection->itemAt(ep);
+		PageItem* currItem = selectedItems.at(ep);
 		double x1, x2, y1, y2;
 		currItem->getVisualBoundingRect(&x1, &y1, &x2, &y2);
 		minx = qMin(minx, x1);
@@ -15020,7 +15022,7 @@ PageItem * ScribusDoc::itemSelection_GroupObjects(bool changeLock, bool lock, Se
 	undoManager->setUndoEnabled(true);
 	for (uint c = 0; c < selectedItemCount; ++c)
 	{
-		currItem = itemSelection->itemAt(c);
+		currItem = selectedItems.at(c);
 		int d = Items->indexOf(currItem);
 		groupItem->groupItemList.append(Items->takeAt(d));
 		currItem->Parent = groupItem;
@@ -16837,35 +16839,35 @@ void ScribusDoc::setupNumerations()
 	NumStruct * numS = NULL;
 	for (int i=0; i < docParagraphStyles.count(); ++i)
 	{
-		if (docParagraphStyles[i].hasNum())
+		ParagraphStyle &style = docParagraphStyles[i];
+		if (!style.hasNum())
+			continue;
+
+		QString name = style.numName();
+		if (numerations.contains(name))
+			numS = numerations.value(name);
+		else
 		{
-			ParagraphStyle &style = docParagraphStyles[i];
-			QString name = style.numName();
-			if (numerations.contains(name))
-				numS = numerations.value(name);
-			else
-			{
-				numS = new NumStruct;
-				numS->m_name = name;
-			}
-			num.numFormat = (NumFormat) style.numFormat();
-			num.prefix = style.numPrefix();
-			num.suffix = style.numSuffix();
-			num.start = style.numStart();
-			int level = style.numLevel();
-			if (level >= numS->m_counters.count())
-			{
-				for (int i=numS->m_counters.count(); i <= level; ++i)
-				{
-					numS->m_nums.insert(i,num);
-					numS->m_counters.insert(i, 0);
-				}
-			}
-			numS->m_nums.replace(level, num);
-			numS->m_counters.replace(level, num.start -1);
-			numS->m_lastlevel = -1;
-			numerations.insert(numS->m_name, numS);
+			numS = new NumStruct;
+			numS->m_name = name;
 		}
+		num.numFormat = (NumFormat) style.numFormat();
+		num.prefix = style.numPrefix();
+		num.suffix = style.numSuffix();
+		num.start = style.numStart();
+		int level = style.numLevel();
+		if (level >= numS->m_counters.count())
+		{
+			for (int i=numS->m_counters.count(); i <= level; ++i)
+			{
+				numS->m_nums.insert(i,num);
+				numS->m_counters.insert(i, 0);
+			}
+		}
+		numS->m_nums.replace(level, num);
+		numS->m_counters.replace(level, num.start -1);
+		numS->m_lastlevel = -1;
+		numerations.insert(numS->m_name, numS);
 	}
 
 	if (!numerations.contains("default"))

@@ -879,18 +879,19 @@ void PageItem::setXYPos(const double newXPos, const double newYPos, bool drawing
 	checkChanges();
 }
 
-int PageItem::level()
+int PageItem::level() const
 {
+	PageItem* thisItem = const_cast<PageItem*>(this);
 	if (Parent == NULL)
 	{
 		if (m_Doc)
 		{
 			QList<PageItem*>* items = OnMasterPage.isEmpty() ? &m_Doc->DocItems : &m_Doc->MasterItems;
-			return (items->indexOf(this) + 1);
+			return (items->indexOf(thisItem) + 1);
 		}
 		return 0;
 	}
-	return (Parent->asGroupFrame()->groupItemList.indexOf(this) + 1);
+	return (Parent->asGroupFrame()->groupItemList.indexOf(thisItem) + 1);
 }
 
 void PageItem::moveBy(const double dX, const double dY, bool drawingOnly)
@@ -10476,4 +10477,9 @@ QString PageItem::getItemTextSaxed(int selStart, int selLength)
 	return QString(xml.c_str());
 }
 
-
+bool compareItemLevel(const PageItem* item1, const PageItem* item2)
+{
+	int level1 = item1->level();
+	int level2 = item2->level();
+	return (level1 < level2);
+}
