@@ -2959,6 +2959,10 @@ PageItem* Scribus134Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 			currItem->GrStartY = attrs.valueAsDouble("GRSTARTY", 0.0);
 			currItem->GrEndX   = attrs.valueAsDouble("GRENDX", currItem->width());
 			currItem->GrEndY   = attrs.valueAsDouble("GRENDY", 0.0);
+			currItem->GrFocalX = currItem->GrStartX;
+			currItem->GrFocalY = currItem->GrStartY;
+			currItem->GrScale  = 1.0;
+			currItem->GrSkew  = 0.0;
 			GrColor = attrs.valueAsString("GRCOLOR","");
 			if (!GrColor.isEmpty())
 			{

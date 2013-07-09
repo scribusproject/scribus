@@ -1438,6 +1438,10 @@ void Scribus12Format::GetItemProps(QDomElement *obj, struct CopyPasteBuffer *OB,
 			OB->GrStartY = ScCLocale::toDoubleC(obj->attribute("GRSTARTY"), 0.0);
 			OB->GrEndX = ScCLocale::toDoubleC(obj->attribute("GRENDX"), 0.0);
 			OB->GrEndY = ScCLocale::toDoubleC(obj->attribute("GRENDY"), 0.0);
+			OB->GrFocalX = OB->GrStartX;
+			OB->GrFocalY = OB->GrStartY;
+			OB->GrScale  = 1.0;
+			OB->GrSkew  = 0.0;
 			OB->GrColor = obj->attribute("GRCOLOR","");
 			if (OB->GrColor.isEmpty())
 				OB->GrColor = "Black";
