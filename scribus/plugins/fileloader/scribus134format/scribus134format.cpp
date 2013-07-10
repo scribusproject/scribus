@@ -1871,6 +1871,7 @@ bool Scribus134Format::readObject(ScribusDoc* doc, ScXmlStreamReader& reader, It
 	if (tagName == "FRAMEOBJECT")
 	{
 		doc->addToInlineFrames(doc->Items->takeAt(doc->Items->indexOf(newItem)));
+		newItem->LayerID = doc->firstLayerID();
 	}
 
 	info.item     = newItem;
@@ -3304,6 +3305,7 @@ bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool M
 				if (tagName == "FRAMEOBJECT")
 				{
 					FrameItems.append(m_Doc->Items->takeAt(m_Doc->Items->indexOf(newItem)));
+					newItem->LayerID = m_Doc->firstLayerID();
 				}
 			}
 		}

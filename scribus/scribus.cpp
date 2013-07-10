@@ -4099,7 +4099,6 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 				newActWin(ActWinOld->getSubWin());
 			return false;
 		}
-		inlinePalette->setDoc(doc);
 		symbolPalette->setDoc(doc);
 		outlinePalette->setDoc(doc);
 		fileLoader->informReplacementFonts();
@@ -4301,6 +4300,7 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 		/*qDebug("Time elapsed: %d ms", t.elapsed());*/
 		doc->RePos = false;
 		doc->setModified(false);
+		inlinePalette->setDoc(doc);
 		updateRecent(FName);
 		mainWindowStatusLabel->setText( tr("Ready"));
 		ret = true;

@@ -3644,6 +3644,12 @@ void ScribusDoc::orderedLayerList(QStringList* list)
  	}
 }
 
+int ScribusDoc::firstLayerID()
+{
+	QStringList newNames;
+	orderedLayerList(&newNames);
+	return layerIDFromName(newNames.first());
+}
 
 bool ScribusDoc::renumberLayer(const int layerID, const int newLayerID)
 {
@@ -6584,11 +6590,12 @@ void ScribusDoc::setSymbolEditMode(bool mode, QString symbolName)
 	if (mode)
 	{
 		m_storedLayerID = activeLayer();
-		m_storedLayerLock = layerLocked(0);
-		m_storedLayerVis = layerVisible(0);
-		setActiveLayer(0);
-		setLayerVisible(0, true);
-		setLayerLocked(0, false);
+		int layerID = firstLayerID();
+		m_storedLayerLock = layerLocked(layerID);
+		m_storedLayerVis = layerVisible(layerID);
+		setActiveLayer(layerID);
+		setLayerVisible(layerID, true);
+		setLayerLocked(layerID, false);
 		ScPattern pa = docPatterns[symbolName];
 		currentEditedSymbol = symbolName;
 		ScPage* addedPage = new ScPage(docPrefsData.displayPrefs.scratch.Left, docPrefsData.displayPrefs.scratch.Top, pa.width, pa.height);
@@ -6612,13 +6619,14 @@ void ScribusDoc::setSymbolEditMode(bool mode, QString symbolName)
 		for (int as = 0; as < Items->count(); ++as)
 		{
 			m_Selection->addItem(Items->at(as));
+			Items->at(as)->setLayer(layerID);
 		}
 		moveGroup(addedPage->xOffset(), addedPage->yOffset());
 		if (Items->at(0)->isGroup())
 			Items->at(0)->asGroupFrame()->adjustXYPosition();
 		m_Selection->clear();
 		m_Selection->delaySignalsOff();
-		m_ScMW->changeLayer(0);
+		m_ScMW->changeLayer(layerID);
 		changed();
 	}
 	else
@@ -6637,7 +6645,7 @@ void ScribusDoc::setSymbolEditMode(bool mode, QString symbolName)
 				{
 					itemAdd(PageItem::Group, PageItem::Rectangle, addedPage->xOffset(), addedPage->yOffset(), 10, 10, 0, CommonStrings::None, CommonStrings::None, true);
 					PageItem *groupItem = Items->takeLast();
-					groupItem->setLayer(0);
+					groupItem->setLayer(firstLayerID());
 					Items->insert(0, groupItem);
 					double minx =  std::numeric_limits<double>::max();
 					double miny =  std::numeric_limits<double>::max();
@@ -6722,8 +6730,8 @@ void ScribusDoc::setSymbolEditMode(bool mode, QString symbolName)
 		}
 		delete addedPage;
 		setActiveLayer(m_storedLayerID);
-		setLayerVisible(0, m_storedLayerVis);
-		setLayerLocked(0, m_storedLayerLock);
+		setLayerVisible(m_storedLayerID, m_storedLayerVis);
+		setLayerLocked(m_storedLayerID, m_storedLayerLock);
 		m_ScMW->changeLayer(m_storedLayerID);
 	}
 }
@@ -6736,11 +6744,12 @@ void ScribusDoc::setInlineEditMode(bool mode, int id)
 	if (mode)
 	{
 		m_storedLayerID = activeLayer();
-		m_storedLayerLock = layerLocked(0);
-		m_storedLayerVis = layerVisible(0);
-		setActiveLayer(0);
-		setLayerVisible(0, true);
-		setLayerLocked(0, false);
+		int layerID = firstLayerID();
+		m_storedLayerLock = layerLocked(layerID);
+		m_storedLayerVis = layerVisible(layerID);
+		setActiveLayer(layerID);
+		setLayerVisible(layerID, true);
+		setLayerLocked(layerID, false);
 		PageItem *pa = FrameItems[id];
 		pa->isEmbedded = false;
 		currentEditedIFrame = id;
@@ -6767,13 +6776,14 @@ void ScribusDoc::setInlineEditMode(bool mode, int id)
 		for (int as = 0; as < Items->count(); ++as)
 		{
 			m_Selection->addItem(Items->at(as));
+			Items->at(as)->setLayer(layerID);
 		}
 		moveGroup(addedPage->xOffset(), addedPage->yOffset());
 		if (Items->at(0)->isGroup())
 			Items->at(0)->asGroupFrame()->adjustXYPosition();
 		m_Selection->clear();
 		m_Selection->delaySignalsOff();
-		m_ScMW->changeLayer(0);
+		m_ScMW->changeLayer(layerID);
 		changed();
 	}
 	else
@@ -6792,7 +6802,7 @@ void ScribusDoc::setInlineEditMode(bool mode, int id)
 				{
 					itemAdd(PageItem::Group, PageItem::Rectangle, addedPage->xOffset(), addedPage->yOffset(), 10, 10, 0, CommonStrings::None, CommonStrings::None, true);
 					PageItem *groupItem = Items->takeLast();
-					groupItem->setLayer(0);
+					groupItem->setLayer(firstLayerID());
 					Items->insert(0, groupItem);
 					double minx =  std::numeric_limits<double>::max();
 					double miny =  std::numeric_limits<double>::max();
@@ -6869,8 +6879,8 @@ void ScribusDoc::setInlineEditMode(bool mode, int id)
 		delete addedPage;
 		EditFrameItems.clear();
 		setActiveLayer(m_storedLayerID);
-		setLayerVisible(0, m_storedLayerVis);
-		setLayerLocked(0, m_storedLayerLock);
+		setLayerVisible(m_storedLayerID, m_storedLayerVis);
+		setLayerLocked(m_storedLayerID, m_storedLayerLock);
 		m_ScMW->changeLayer(m_storedLayerID);
 	}
 }

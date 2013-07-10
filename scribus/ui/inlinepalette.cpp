@@ -31,6 +31,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribusdoc.h"
 #include "scribus.h"
 #include "selection.h"
+#include "util_icon.h"
 
 InlineView::InlineView(QWidget* parent) : QListWidget(parent)
 {
@@ -258,6 +259,9 @@ void InlinePalette::updateItemList()
 		pm2.fill(palette().color(QPalette::Base));
 		QPainter p;
 		p.begin(&pm2);
+		QBrush b(QColor(205,205,205), loadIcon("testfill.png"));
+		p.setBrush(b);
+		p.drawRect(0, 0, 50, 50);
 		p.drawPixmap(25 - pm.width() / 2, 25 - pm.height() / 2, pm);
 		p.end();
 		QListWidgetItem *item = new QListWidgetItem(pm2, currItem->itemName(), InlineViewWidget);

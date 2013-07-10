@@ -938,6 +938,7 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 				if (pg.tagName()=="FRAMEOBJECT")
 				{
 					FrameItems.append(m_Doc->Items->takeAt(m_Doc->Items->indexOf(Neu)));
+					Neu->LayerID = m_Doc->firstLayerID();
 				}
 				if (Neu->isTableItem)
 				{
@@ -2327,6 +2328,7 @@ bool Scribus13Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 					if (pg.tagName()=="FRAMEOBJECT")
 					{
 						FrameItems.append(m_Doc->Items->takeAt(m_Doc->Items->indexOf(Neu)));
+						Neu->LayerID = m_Doc->firstLayerID();
 					}
 				}
 				counter++;

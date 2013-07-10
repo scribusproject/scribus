@@ -3589,7 +3589,8 @@ bool Scribus150Format::readObject(ScribusDoc* doc, ScXmlStreamReader& reader, It
 		if (newItem->inlineCharID == -1)
 			FrameItems.append(m_Doc->Items->takeAt(m_Doc->Items->indexOf(newItem)));
 		else
-		doc->FrameItems.insert(newItem->inlineCharID, doc->Items->takeAt(doc->Items->indexOf(newItem)));
+			doc->FrameItems.insert(newItem->inlineCharID, doc->Items->takeAt(doc->Items->indexOf(newItem)));
+		newItem->LayerID = doc->firstLayerID();
 	}
 
 	info.item     = newItem;
@@ -5885,6 +5886,7 @@ bool Scribus150Format::loadPage(const QString & fileName, int pageNumber, bool M
 						FrameItems.append(m_Doc->Items->takeAt(m_Doc->Items->indexOf(newItem)));
 					else
 						m_Doc->FrameItems.insert(newItem->inlineCharID, m_Doc->Items->takeAt(m_Doc->Items->indexOf(newItem)));
+					newItem->LayerID = m_Doc->firstLayerID();
 				}
 				if (groupStack.count() > 0)
 				{
