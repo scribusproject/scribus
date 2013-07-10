@@ -7484,7 +7484,7 @@ void ScribusDoc::sendItemSelectionToBack()
 		}
 	}
 	PageItem *currItem;
-	QMap<int, objOrdHelper> ObjOrder;
+	QMap<int, objOrdHelper> objOrder;
 	int d;
 	for (int c = 0; c < docSelectionCount; ++c)
 	{
@@ -7497,29 +7497,31 @@ void ScribusDoc::sendItemSelectionToBack()
 			{
 				d = currItem->Parent->asGroupFrame()->groupItemList.indexOf(currItem);
 				oHlp.parent = currItem->Parent;
-				ObjOrder.insert(d, oHlp);
-				currItem->Parent->asGroupFrame()->groupItemList.takeAt(d);
+				objOrder.insert(d, oHlp);
 			}
+		}
+		else if (Items->count() > 1)
+		{
+			d = Items->indexOf(currItem);
+			oHlp.parent = NULL;
+			objOrder.insert(d, oHlp);
+		}
+	}
+	QList<objOrdHelper> objIndex = objOrder.values();
+	for (int c = objIndex.count() - 1; c > -1; c--)
+	{
+		objOrdHelper oHlp = objIndex[c];
+		PageItem* objItem = m_Selection->itemAt(oHlp.objNrSel);
+		if (oHlp.parent == NULL)
+		{
+			Items->removeOne(objItem);
+			Items->prepend(objItem);
 		}
 		else
 		{
-			if (Items->count() > 1)
-			{
-				d = Items->indexOf(currItem);
-				oHlp.parent = NULL;
-				ObjOrder.insert(d, oHlp);
-				Items->takeAt(d);
-			}
+			oHlp.parent->asGroupFrame()->groupItemList.removeOne(objItem);
+			oHlp.parent->asGroupFrame()->groupItemList.prepend(objItem);
 		}
-	}
-	QList<objOrdHelper> Oindex = ObjOrder.values();
-	for (int c = static_cast<int>(Oindex.count()-1); c > -1; c--)
-	{
-		objOrdHelper oHlp = Oindex[c];
-		if (oHlp.parent == NULL)
-			Items->prepend(m_Selection->itemAt(oHlp.objNrSel));
-		else
-			oHlp.parent->asGroupFrame()->groupItemList.prepend(m_Selection->itemAt(oHlp.objNrSel));
 	}
 	changed();
 	regionsChanged()->update(QRectF());
@@ -7548,7 +7550,7 @@ void ScribusDoc::bringItemSelectionToFront()
 		}
 	}
 	PageItem *currItem;
-	QMap<int, objOrdHelper> ObjOrder;
+	QMap<int, objOrdHelper> objOrder;
 	int d;
 	for (int c = 0; c < docSelectionCount; ++c)
 	{
@@ -7561,29 +7563,31 @@ void ScribusDoc::bringItemSelectionToFront()
 			{
 				d = currItem->Parent->asGroupFrame()->groupItemList.indexOf(currItem);
 				oHlp.parent = currItem->Parent;
-				ObjOrder.insert(d, oHlp);
-				currItem->Parent->asGroupFrame()->groupItemList.takeAt(d);
+				objOrder.insert(d, oHlp);
 			}
+		}
+		else if (Items->count() > 1)
+		{
+			d = Items->indexOf(currItem);
+			oHlp.parent = NULL;
+			objOrder.insert(d, oHlp);
+		}
+	}
+	QList<objOrdHelper> objIndex = objOrder.values();
+	for (int c = 0; c < objIndex.count(); ++c)
+	{
+		objOrdHelper oHlp = objIndex[c];
+		PageItem* objItem = m_Selection->itemAt(oHlp.objNrSel);
+		if (oHlp.parent == NULL)
+		{
+			Items->removeOne(objItem);
+			Items->append(objItem);
 		}
 		else
 		{
-			if (Items->count() > 1)
-			{
-				d = Items->indexOf(currItem);
-				oHlp.parent = NULL;
-				ObjOrder.insert(d, oHlp);
-				Items->takeAt(d);
-			}
-		}
-	}
-	QList<objOrdHelper> Oindex = ObjOrder.values();
-	for (int c = 0; c <static_cast<int>(Oindex.count()); ++c)
-	{
-		objOrdHelper oHlp = Oindex[c];
-		if (oHlp.parent == NULL)
-			Items->append(m_Selection->itemAt(oHlp.objNrSel));
-		else
+			oHlp.parent->asGroupFrame()->groupItemList.removeOne(objItem);
 			oHlp.parent->asGroupFrame()->groupItemList.append(m_Selection->itemAt(oHlp.objNrSel));
+		}
 	}
 	changed();
 	regionsChanged()->update(QRectF());
