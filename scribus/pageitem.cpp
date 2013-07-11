@@ -9432,12 +9432,12 @@ void PageItem::AdjustPictScale()
 		return;
 	if (OrigW == 0 || OrigH == 0)
 		return;
-//	LocalX = 0;
-//	LocalY = 0;
-//	LocalRot = 0;
 	double xs = m_width / static_cast<double>(OrigW);
 	double ys = m_height / static_cast<double>(OrigH);
-	if (m_imageRotation != 0.0)
+	double imgXOffs = m_imageXOffset;
+	double imgYOffs = m_imageYOffset; 
+	double imageRot = fmod(m_imageRotation, 360);
+	if (imageRot != 0.0)
 	{
 		QRectF br = QRectF(0, 0, OrigW, OrigH);
 		QTransform m;
@@ -9492,6 +9492,11 @@ void PageItem::AdjustPictScale()
 			LocalY = (Height - static_cast<double>(OrigH) * LocalScY) / LocalScY;
 			break;
 	}*/
+	if (m_Doc && m_Doc->isLoading())
+	{
+		m_imageXOffset = imgXOffs;
+		m_imageYOffset = imgYOffs;
+	}
 	if (imageClip.size() != 0)
 	{
 		imageClip = pixm.imgInfo.PDSpathData[pixm.imgInfo.usedPath].copy();
