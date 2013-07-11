@@ -6707,7 +6707,7 @@ May throw ValueError if any of the distances are out of bounds (must be positive
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1463"/>
         <source>Marks...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Note...</translation>
     </message>
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1464"/>
@@ -7015,7 +7015,7 @@ May throw ValueError if any of the distances are out of bounds (must be positive
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1553"/>
         <source>&amp;Symbol</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Simbolo</translation>
     </message>
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1554"/>
@@ -7050,37 +7050,37 @@ May throw ValueError if any of the distances are out of bounds (must be positive
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1563"/>
         <source>Anchor Mark</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nota di riferimento</translation>
     </message>
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1564"/>
         <source>Variable Text</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Testo variabile</translation>
     </message>
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1565"/>
         <source>Reference to Item</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Riferimento a oggetto</translation>
     </message>
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1566"/>
         <source>Reference to Mark</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Riferimento a nota</translation>
     </message>
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1567"/>
         <source>Foot/Endnote</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Note a piè pagina/di chiusura</translation>
     </message>
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1569"/>
         <source>Edit Mark</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Modifica nota</translation>
     </message>
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1570"/>
         <source>Update Marks</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Aggiorna note</translation>
     </message>
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1573"/>
@@ -7520,7 +7520,7 @@ May throw ValueError if any of the distances are out of bounds (must be positive
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1503"/>
         <source>Adjust Group</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Adatta raggruppamento</translation>
     </message>
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1507"/>
@@ -11842,7 +11842,7 @@ Il tasto Inserisci inserisce un carattere (speciale) nell&apos;area di selezione
     <message>
         <location filename="../../../scribus/ui/checkDocument.cpp" line="348"/>
         <source>After Marks update document was changed</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Dopo l&apos;aggiornamento delle note il documento è cambiato</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/checkDocument.cpp" line="384"/>
@@ -12324,7 +12324,7 @@ Vedere la sezione Modifica colori della documentazione per ulteriori dettagli.</
     <message>
         <location filename="../../../scribus/commonstrings.cpp" line="321"/>
         <source>Checkbox</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Casella</translation>
     </message>
     <message>
         <location filename="../../../scribus/commonstrings.cpp" line="322"/>
@@ -18595,7 +18595,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../../scribus/ui/mark2item.cpp" line="19"/>
         <source>Mark to Item</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nota a oggetto</translation>
     </message>
 </context>
 <context>
@@ -18621,18 +18621,18 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../../scribus/ui/mark2mark.cpp" line="15"/>
         <source>Anchors</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Riferimenti</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/mark2mark.cpp" line="27"/>
         <location filename="../../../scribus/ui/mark2mark.cpp" line="71"/>
         <source>Mark to Mark</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nota a nota</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/mark2mark.cpp" line="38"/>
         <source>Mark to Item</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nota a oggetto</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/mark2mark.cpp" line="49"/>
@@ -18663,7 +18663,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../../scribus/ui/markanchor.cpp" line="7"/>
         <source>Anchor Mark</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nota di riferimento</translation>
     </message>
 </context>
 <context>
@@ -18684,7 +18684,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../../scribus/ui/marknote.cpp" line="13"/>
         <source>Insert Foot/Endnote</source>
-        <translation type="unfinished">Inserisci Nota di chiusura/Piè pagina</translation>
+        <translation type="unfinished">Inserisci Nota a piè pagina/di chiusura</translation>
     </message>
 </context>
 <context>
@@ -18697,7 +18697,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../../scribus/ui/marknote.ui" line="65"/>
         <source>Notes Style:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Stile note:</translation>
     </message>
 </context>
 <context>
@@ -18707,31 +18707,31 @@ p, li { white-space: pre-wrap; }
         <location filename="../../../scribus/ui/markvariabletext.cpp" line="52"/>
         <location filename="../../../scribus/ui/markvariabletext.cpp" line="57"/>
         <source>New Mark</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nuova nota</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/markvariabletext.cpp" line="18"/>
         <source>Edit selected Mark`s label. To create new Mark select &quot;New Mark&quot; in drop list and input new label</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Modifica l&apos;etichetta della nota selezionata. Per creare una nuova nota seleziona &quot;Nuova nota&quot; nella drop list e inserisci una nuova etichetta</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/markvariabletext.cpp" line="21"/>
         <location filename="../../../scribus/ui/markvariabletext.cpp" line="34"/>
         <source>Edit variable text</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Modifica testo variabile</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/markvariabletext.cpp" line="22"/>
         <location filename="../../../scribus/ui/markvariabletext.cpp" line="35"/>
         <source>Mark with Variable Text</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nota con testo variabile</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/markvariabletext.cpp" line="31"/>
         <location filename="../../../scribus/ui/markvariabletext.cpp" line="48"/>
         <location filename="../../../scribus/ui/markvariabletext.cpp" line="64"/>
         <source>Edit selected Mark`s label.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Modifica l&apos;etichetta della nota selezionata.</translation>
     </message>
 </context>
 <context>
@@ -18739,7 +18739,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../../scribus/ui/markvariabletext.ui" line="32"/>
         <source>Add new Mark for Variable Text</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Aggiung una nuova nota per Testo variabile</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/markvariabletext.ui" line="40"/>
@@ -18763,38 +18763,38 @@ p, li { white-space: pre-wrap; }
         <location filename="../../../scribus/ui/marksmanager.ui" line="41"/>
         <location filename="../../../scribus/ui/marksmanager.cpp" line="134"/>
         <source>Update All Marks</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Aggiorna tutte le note</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/marksmanager.ui" line="52"/>
         <location filename="../../../scribus/ui/marksmanager.cpp" line="136"/>
         <source>Edit</source>
-        <translation type="unfinished">Modifica</translation>
+        <translation>Modifica</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/marksmanager.ui" line="57"/>
         <source>Delete</source>
-        <translation type="unfinished">Elimina</translation>
+        <translation>Elimina</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/marksmanager.cpp" line="100"/>
         <source>Anchors</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Riferimenti</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/marksmanager.cpp" line="101"/>
         <source>Variable Text</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Testo variabile</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/marksmanager.cpp" line="102"/>
         <source>Marks to Items</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Note a oggetti</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/marksmanager.cpp" line="103"/>
         <source>Marks to Anchors</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Note a riferimenti</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/marksmanager.cpp" line="104"/>
@@ -18804,12 +18804,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../../scribus/ui/marksmanager.cpp" line="132"/>
         <source>Marks Manager</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Gestore note</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/marksmanager.cpp" line="133"/>
         <source>Double click to find mark in text</source>
-        <translation type="unfinished"></translation>
+        <translation>Clicca due volte per trovare la nota nel testo</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/marksmanager.cpp" line="135"/>
@@ -18819,7 +18819,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../../scribus/ui/marksmanager.cpp" line="137"/>
         <source>Edit selected mark</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Modifica la nota selezionata</translation>
     </message>
 </context>
 <context>
@@ -19954,7 +19954,7 @@ If no handle is selected all handles will be reset.</source>
     <message>
         <location filename="../../../scribus/ui/notesstyleseditor.ui" line="26"/>
         <source>Notes Styles Editor</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Editor stili note</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/notesstyleseditor.ui" line="59"/>
@@ -20001,13 +20001,13 @@ If no handle is selected all handles will be reset.</source>
         <location filename="../../../scribus/ui/notesstyleseditor.ui" line="157"/>
         <location filename="../../../scribus/ui/notesstyleseditor.cpp" line="80"/>
         <source>Prefix</source>
-        <translation type="unfinished">Prefisso</translation>
+        <translation>Prefisso</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/notesstyleseditor.ui" line="167"/>
         <location filename="../../../scribus/ui/notesstyleseditor.cpp" line="81"/>
         <source>Suffix</source>
-        <translation type="unfinished">Suffiso</translation>
+        <translation>Suffiso</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/notesstyleseditor.ui" line="184"/>
@@ -20047,7 +20047,7 @@ If no handle is selected all handles will be reset.</source>
         <location filename="../../../scribus/ui/notesstyleseditor.ui" line="280"/>
         <location filename="../../../scribus/ui/notesstyleseditor.cpp" line="88"/>
         <source>Auto Welding</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Saldatura automatica</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/notesstyleseditor.ui" line="294"/>
@@ -20084,7 +20084,7 @@ If no handle is selected all handles will be reset.</source>
     <message>
         <location filename="../../../scribus/ui/notesstyleseditor.cpp" line="35"/>
         <source>Section</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Sezione</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/notesstyleseditor.cpp" line="36"/>
@@ -20141,7 +20141,7 @@ You cannot switch to different notes style before you apply that new one or pres
         <location filename="../../../scribus/ui/notesstyleseditor.cpp" line="178"/>
         <location filename="../../../scribus/ui/notesstyleseditor.cpp" line="233"/>
         <source>default</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">predefinito</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/notesstyleseditor.cpp" line="195"/>
@@ -26337,7 +26337,7 @@ Vuoi usarlo?</translation>
         <location filename="../../../scribus/ui/prefs_fontsbase.ui" line="45"/>
         <location filename="../../../scribus/ui/prefs_fonts.cpp" line="49"/>
         <source>Available Fonts</source>
-        <translation>Caratteri disponibili</translation>
+        <translation>Font disponibili</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_fontsbase.ui" line="67"/>
@@ -26783,8 +26783,7 @@ Un valore uguale a 0 significa sillabazioni illimitate.</translation>
     <message>
         <location filename="../../../scribus/ui/prefs_imagecachebase.ui" line="162"/>
         <source>Compression Level:</source>
-        <translatorcomment>Livello di compressione:</translatorcomment>
-        <translation></translation>
+        <translation>Livello di compressione:</translation>
     </message>
 </context>
 <context>
@@ -28813,7 +28812,7 @@ Un valore uguale a 0 significa sillabazioni illimitate.</translation>
     <message>
         <location filename="../../../scribus/ui/prefs_preflightverifierbase.ui" line="324"/>
         <source>Check for Visible/Printable mismatch in layers</source>
-        <translation>controlla livelli con impostazioni visibile/stampabile non corrispondenti</translation>
+        <translation>Controlla livelli con impostazioni visibile/stampabile non corrispondenti</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_preflightverifierbase.ui" line="331"/>
@@ -32518,7 +32517,7 @@ arrotondati:</translation>
     <message>
         <location filename="../../../scribus/ui/propertiespalette_text.cpp" line="81"/>
         <source>Paragraph Effects</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Effetti paragrafo</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/propertiespalette_text.cpp" line="84"/>
@@ -32703,7 +32702,7 @@ arrotondati:</translation>
     <message>
         <location filename="../../../scribus/ui/propertiespalette_xyz.cpp" line="1304"/>
         <source>Level</source>
-        <translation>Quota</translation>
+        <translation type="unfinished">Livello</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/propertiespalette_xyz.cpp" line="1306"/>
@@ -32788,7 +32787,7 @@ arrotondati:</translation>
     <message>
         <location filename="../../../scribus/ui/propertiespalette_xyz.cpp" line="1330"/>
         <source>Indicates the level the object is on, 1 means the object is at the bottom</source>
-        <translation>Indica la quota dell&apos;oggetto; 1 significa che è in fondo</translation>
+        <translation type="unfinished">Indica il livello dell&apos;oggetto; 1 significa che è in fondo</translation>
     </message>
     <message>
         <source>Indicates the level the object is on, 0 means the object is at the bottom</source>
@@ -32870,7 +32869,7 @@ arrotondati:</translation>
     <message>
         <location filename="../../../scribus/ui/propertiespalette_xyzbase.ui" line="174"/>
         <source>Level</source>
-        <translation>Quota</translation>
+        <translation>Livello</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/propertiespalette_xyzbase.ui" line="238"/>
@@ -33448,7 +33447,7 @@ arrotondati:</translation>
     <message>
         <location filename="../../../scribus/ui/propertywidget_pareffect.cpp" line="556"/>
         <source>Bullet Char(s)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Punto(i)</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/propertywidget_pareffect.cpp" line="557"/>
@@ -33458,7 +33457,7 @@ arrotondati:</translation>
     <message>
         <location filename="../../../scribus/ui/propertywidget_pareffect.cpp" line="558"/>
         <source>Char Table</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Tabella caratteri</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/propertywidget_pareffect.cpp" line="559"/>
@@ -33518,7 +33517,7 @@ arrotondati:</translation>
     <message>
         <location filename="../../../scribus/ui/propertywidget_pareffect.h" line="98"/>
         <source>No Paragraph Effects</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nessun effetto paragrafo</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/propertywidget_pareffect.h" line="101"/>
@@ -33546,7 +33545,7 @@ arrotondati:</translation>
     <message>
         <location filename="../../../scribus/ui/propertywidget_pareffectbase.ui" line="41"/>
         <source>AutoIndent</source>
-        <translation type="unfinished">Rientro automatico</translation>
+        <translation>Rientro automatico</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/propertywidget_pareffectbase.ui" line="61"/>
@@ -33566,7 +33565,7 @@ arrotondati:</translation>
     <message>
         <location filename="../../../scribus/ui/propertywidget_pareffectbase.ui" line="95"/>
         <source>Lines</source>
-        <translation type="unfinished">Linee</translation>
+        <translation>Linee</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/propertywidget_pareffectbase.ui" line="125"/>
@@ -33606,17 +33605,17 @@ arrotondati:</translation>
     <message>
         <location filename="../../../scribus/ui/propertywidget_pareffectbase.ui" line="282"/>
         <source>Bulleted List</source>
-        <translation type="unfinished">Elenco puntato</translation>
+        <translation>Elenco puntato</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/propertywidget_pareffectbase.ui" line="307"/>
         <source>Bullet Char(s)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Punto(i)</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/propertywidget_pareffectbase.ui" line="323"/>
         <source>Char Table</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Tabella caratteri</translation>
     </message>
 </context>
 <context>
@@ -34936,7 +34935,7 @@ Collegamenti esterni
     <message>
         <location filename="../../../scribus/langmgr.cpp" line="131"/>
         <source>Nepali</source>
-        <translation type="unfinished">Nepalese</translation>
+        <translation>Nepalese</translation>
     </message>
     <message>
         <location filename="../../../scribus/langmgr.cpp" line="134"/>
@@ -36251,7 +36250,7 @@ rinunciarvi. Vuoi continuare?</translation>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="718"/>
         <source>You are running a development version of Scribus 1.5.x. The document you are working with was created in Scribus 1.2.x.  Saving the current file under 1.5.x renders it unable to be edited in Scribus 1.2.x versions. To preserve the ability to edit in 1.2.x, save this file under a different name and further edit the newly named file and the original will be untouched. Are you sure you wish to proceed with this operation?</source>
-        <translation type="unfinished">Si sta utilizzando una versione di sviluppo di Scribus 1.3.x. Il documento sul quale state lavorando è stato creato con Scribus 1.2.x. L&apos;operazione di salvataggio con la versione 1.3.x renderà incompatibile questo file con le versioni di Scribus 1.2.x. Per poter continuare a modificarlo con la versione 1.2.x, salvare questo file con un nome diverso, così che il vecchio non sarà modificato. Si vuole veramente procedere con questa operazione?</translation>
+        <translation>Si sta utilizzando una versione di sviluppo di Scribus 1.5.x. Il documento sul quale state lavorando è stato creato con Scribus 1.2.x. L&apos;operazione di salvataggio con la versione 1.5.x renderà incompatibile questo file con le versioni di Scribus 1.2.x. Per poter continuare a modificarlo con la versione 1.2.x, salvare questo file con un nome diverso, così che il vecchio non sarà modificato. Si vuole veramente procedere con questa operazione?</translation>
     </message>
     <message>
         <source>&lt;p&gt;You are trying to import more pages than there are available in the current document counting from the active page.&lt;/p&gt;Choose one of the following:&lt;br&gt;&lt;ul&gt;&lt;li&gt;&lt;b&gt;Create&lt;/b&gt; missing pages&lt;/li&gt;&lt;li&gt;&lt;b&gt;Import&lt;/b&gt; pages until the last page&lt;/li&gt;&lt;li&gt;&lt;b&gt;Cancel&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;</source>
@@ -40449,7 +40448,7 @@ utilizzata invece della configurazione di sistema</translation>
     <message>
         <location filename="../../../scribus/ui/annot.cpp" line="759"/>
         <source>Show/Hide Bookmarks</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Mostra/Nascondi Segnalibri</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/annot.cpp" line="760"/>
@@ -40885,7 +40884,7 @@ utilizzata invece della configurazione di sistema</translation>
     <message>
         <location filename="../../../scribus/ui/scmwmenumanager.cpp" line="40"/>
         <source>&amp;Level</source>
-        <translation>&amp;Quota</translation>
+        <translation>&amp;Livello</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/scmwmenumanager.cpp" line="41"/>
@@ -41261,7 +41260,7 @@ Distanza vert.: %3</translation>
     <message>
         <location filename="../../../scribus/scribusdoc.cpp" line="11348"/>
         <source>Do you really want to clear the content of all selected frames?</source>
-        <translation type="unfinished"></translation>
+        <translation>Vuoi veramente pulire il contenuto delle cornici selezionate?</translation>
     </message>
     <message>
         <location filename="../../../scribus/scribusdoc.cpp" line="13635"/>
@@ -41384,7 +41383,7 @@ Rotazione: %4</translation>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="814"/>
         <source>Level</source>
-        <translation>Quota</translation>
+        <translation type="unfinished">Livello</translation>
     </message>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="819"/>
@@ -41701,7 +41700,7 @@ Utilizzare la Verifica Preliminare per correggerli</translation>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="966"/>
         <source>Marks</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Note</translation>
     </message>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="803"/>
@@ -41716,7 +41715,7 @@ Utilizzare la Verifica Preliminare per correggerli</translation>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="811"/>
         <source>Locking</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Bloccaggio</translation>
     </message>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="821"/>
@@ -41781,7 +41780,7 @@ Utilizzare la Verifica Preliminare per correggerli</translation>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="1019"/>
         <source>Grids and Guides</source>
-        <translation>Griglie e guide</translation>
+        <translation type="unfinished">Griglia e guide</translation>
     </message>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="2711"/>
@@ -41937,7 +41936,7 @@ Utilizzare la Verifica Preliminare per correggerli</translation>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="11128"/>
         <source>Insert new </source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Inserisci nuova</translation>
     </message>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="11145"/>
@@ -42376,7 +42375,7 @@ Utilizzare la Verifica Preliminare per correggerli</translation>
     <message>
         <location filename="../../../scribus/ui/contextmenu.cpp" line="345"/>
         <source>Locking</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Bloccaggio</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/contextmenu.cpp" line="347"/>
@@ -42395,7 +42394,7 @@ Utilizzare la Verifica Preliminare per correggerli</translation>
     <message>
         <location filename="../../../scribus/ui/contextmenu.cpp" line="397"/>
         <source>Le&amp;vel</source>
-        <translation>&amp;Quota</translation>
+        <translation type="unfinished">&amp;Livello</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/contextmenu.cpp" line="420"/>
