@@ -133,7 +133,6 @@ for which a new license (GPL+exception) is in place.
 #include "loadsaveplugin.h"
 #include "fileloader.h"
 #include "plugins/formatidlist.h"
-#include <tiffio.h>
 
 using namespace std;
 
@@ -2926,22 +2925,21 @@ QImage ScribusView::PageToPixmap(int Nr, int maxGr, bool drawFrame)
 				for (uint a = 0; a < pageFromMasterCount; ++a)
 				{
 					currItem = page->FromMaster.at(a);
-					if (currItem->asImageFrame())
-					{
-						if (currItem->PictureIsAvailable)
-						{
-							if (currItem->pixm.imgInfo.lowResType != 0)
-							{
-								changedList.append(qMakePair(currItem, currItem->pixm.imgInfo.lowResType));
-								currItem->pixm.imgInfo.lowResType = 0;
-								int fho = currItem->imageFlippedH();
-								int fvo = currItem->imageFlippedV();
-								Doc->loadPict(currItem->Pfile, currItem, true);
-								currItem->setImageFlippedH(fho);
-								currItem->setImageFlippedV(fvo);
-							}
-						}
-					}
+					if (!currItem->asImageFrame() || !currItem->PictureIsAvailable)
+						continue;
+					if (currItem->pixm.imgInfo.lowResType == 0)
+						continue;
+					changedList.append(qMakePair(currItem, currItem->pixm.imgInfo.lowResType));
+					currItem->pixm.imgInfo.lowResType = 0;
+					int fho = currItem->imageFlippedH();
+					int fvo = currItem->imageFlippedV();
+					double imgX = currItem->imageXOffset();
+					double imgY = currItem->imageYOffset();
+					Doc->loadPict(currItem->Pfile, currItem, true);
+					currItem->setImageFlippedH(fho);
+					currItem->setImageFlippedV(fvo);
+					currItem->setImageXOffset(imgX);
+					currItem->setImageYOffset(imgY);
 				}
 			}
 			if (Doc->Items->count() != 0)
@@ -2951,25 +2949,23 @@ QImage ScribusView::PageToPixmap(int Nr, int maxGr, bool drawFrame)
 				for (int it = 0; it < Doc->Items->count(); ++it)
 				{
 					currItem = Doc->Items->at(it);
-					if (cullingArea.intersects(currItem->getBoundingRect().adjusted(0.0, 0.0, 1.0, 1.0)))
-					{
-						if (currItem->asImageFrame())
-						{
-							if (currItem->PictureIsAvailable)
-							{
-								if (currItem->pixm.imgInfo.lowResType != 0)
-								{
-									changedList.append(qMakePair(currItem, currItem->pixm.imgInfo.lowResType));
-									currItem->pixm.imgInfo.lowResType = 0;
-									int fho = currItem->imageFlippedH();
-									int fvo = currItem->imageFlippedV();
-									Doc->loadPict(currItem->Pfile, currItem, true);
-									currItem->setImageFlippedH(fho);
-									currItem->setImageFlippedV(fvo);
-								}
-							}
-						}
-					}
+					if (!cullingArea.intersects(currItem->getBoundingRect().adjusted(0.0, 0.0, 1.0, 1.0)))
+						continue;
+					if (!currItem->asImageFrame() || !currItem->PictureIsAvailable)
+						continue;
+					if (currItem->pixm.imgInfo.lowResType == 0)
+						continue;
+					changedList.append(qMakePair(currItem, currItem->pixm.imgInfo.lowResType));
+					currItem->pixm.imgInfo.lowResType = 0;
+					int fho = currItem->imageFlippedH();
+					int fvo = currItem->imageFlippedV();
+					double imgX = currItem->imageXOffset();
+					double imgY = currItem->imageYOffset();
+					Doc->loadPict(currItem->Pfile, currItem, true);
+					currItem->setImageFlippedH(fho);
+					currItem->setImageFlippedV(fvo);
+					currItem->setImageXOffset(imgX);
+					currItem->setImageYOffset(imgY);
 				}
 			}
 
@@ -2998,9 +2994,13 @@ QImage ScribusView::PageToPixmap(int Nr, int maxGr, bool drawFrame)
 					currItem->pixm.imgInfo.lowResType = itemPair.second;
 					int fho = currItem->imageFlippedH();
 					int fvo = currItem->imageFlippedV();
+					double imgX = currItem->imageXOffset();
+					double imgY = currItem->imageYOffset();
 					Doc->loadPict(currItem->Pfile, currItem, true);
 					currItem->setImageFlippedH(fho);
 					currItem->setImageFlippedV(fvo);
+					currItem->setImageXOffset(imgX);
+					currItem->setImageYOffset(imgY);
 				}
 			}
 

@@ -9894,15 +9894,18 @@ void ScribusDoc::updatePict(QString name)
 		for (int ii = 0; ii < allItems.count(); ii++)
 		{
 			currItem = allItems.at(ii);
-			if ((currItem->PictureIsAvailable) && (currItem->Pfile == name))
-			{
-				bool fho = currItem->imageFlippedH();
-				bool fvo = currItem->imageFlippedV();
-				loadPict(currItem->Pfile, currItem, true);
-				currItem->setImageFlippedH(fho);
-				currItem->setImageFlippedV(fvo);
-				updated=true;
-			}
+			if ((!currItem->PictureIsAvailable) || (currItem->Pfile != name))
+				continue;
+			bool fho = currItem->imageFlippedH();
+			bool fvo = currItem->imageFlippedV();
+			double imgX = currItem->imageXOffset();
+			double imgY = currItem->imageYOffset();
+			loadPict(currItem->Pfile, currItem, true);
+			currItem->setImageFlippedH(fho);
+			currItem->setImageFlippedV(fvo);
+			currItem->setImageXOffset(imgX);
+			currItem->setImageYOffset(imgY);
+			updated=true;
 		}
 		allItems.clear();
 	}
@@ -9916,15 +9919,18 @@ void ScribusDoc::updatePict(QString name)
 		for (int ii = 0; ii < allItems.count(); ii++)
 		{
 			currItem = allItems.at(ii);
-			if ((currItem->PictureIsAvailable) && (currItem->Pfile == name))
-			{
-				bool fho = currItem->imageFlippedH();
-				bool fvo = currItem->imageFlippedV();
-				loadPict(currItem->Pfile, currItem, true);
-				currItem->setImageFlippedH(fho);
-				currItem->setImageFlippedV(fvo);
-				updated=true;
-			}
+			if ((!currItem->PictureIsAvailable) || (currItem->Pfile != name))
+				continue;
+			bool fho = currItem->imageFlippedH();
+			bool fvo = currItem->imageFlippedV();
+			double imgX = currItem->imageXOffset();
+			double imgY = currItem->imageYOffset();
+			loadPict(currItem->Pfile, currItem, true);
+			currItem->setImageFlippedH(fho);
+			currItem->setImageFlippedV(fvo);
+			currItem->setImageXOffset(imgX);
+			currItem->setImageYOffset(imgY);
+			updated = true;
 		}
 		allItems.clear();
 	}
@@ -9938,15 +9944,18 @@ void ScribusDoc::updatePict(QString name)
 		for (int ii = 0; ii < allItems.count(); ii++)
 		{
 			currItem = allItems.at(ii);
-			if ((currItem->PictureIsAvailable) && (currItem->Pfile == name))
-			{
-				bool fho = currItem->imageFlippedH();
-				bool fvo = currItem->imageFlippedV();
-				loadPict(currItem->Pfile, currItem, true);
-				currItem->setImageFlippedH(fho);
-				currItem->setImageFlippedV(fvo);
-				updated=true;
-			}
+			if ((!currItem->PictureIsAvailable) || (currItem->Pfile != name))
+				continue;
+			bool fho = currItem->imageFlippedH();
+			bool fvo = currItem->imageFlippedV();
+			double imgX = currItem->imageXOffset();
+			double imgY = currItem->imageYOffset();
+			loadPict(currItem->Pfile, currItem, true);
+			currItem->setImageFlippedH(fho);
+			currItem->setImageFlippedV(fvo);
+			currItem->setImageXOffset(imgX);
+			currItem->setImageYOffset(imgY);
+			updated = true;
 		}
 		allItems.clear();
 	}
@@ -9964,15 +9973,18 @@ void ScribusDoc::updatePict(QString name)
 			for (int ii = 0; ii < allItems.count(); ii++)
 			{
 				currItem = allItems.at(ii);
-				if ((currItem->PictureIsAvailable) && (currItem->Pfile == name))
-				{
-					bool fho = currItem->imageFlippedH();
-					bool fvo = currItem->imageFlippedV();
-					loadPict(currItem->Pfile, currItem, true);
-					currItem->setImageFlippedH(fho);
-					currItem->setImageFlippedV(fvo);
-					updated=true;
-				}
+				if ((!currItem->PictureIsAvailable) || (currItem->Pfile != name))
+					continue;
+				bool fho = currItem->imageFlippedH();
+				bool fvo = currItem->imageFlippedV();
+				double imgX = currItem->imageXOffset();
+				double imgY = currItem->imageYOffset();
+				loadPict(currItem->Pfile, currItem, true);
+				currItem->setImageFlippedH(fho);
+				currItem->setImageFlippedV(fvo);
+				currItem->setImageXOffset(imgX);
+				currItem->setImageYOffset(imgY);
+				updated = true;
 			}
 			allItems.clear();
 		}
@@ -10011,26 +10023,22 @@ void ScribusDoc::updatePictDir(QString name)
 		for (int ii = 0; ii < allItems.count(); ii++)
 		{
 			currItem = allItems.at(ii);
-			if (currItem->asImageFrame())
-			{
-				if ((!currItem->PictureIsAvailable) && (!currItem->Pfile.isEmpty()))
-				{
-					QFileInfo fi(currItem->Pfile);
-					if (fi.absolutePath() == name)
-					{
-						if (fi.exists())
-						{
-							bool fho = currItem->imageFlippedH();
-							bool fvo = currItem->imageFlippedV();
-							loadPict(currItem->Pfile, currItem, true);
-							currItem->setImageFlippedH(fho);
-							currItem->setImageFlippedV(fvo);
-							ScCore->fileWatcher->addFile(currItem->Pfile);
-							updated=true;
-						}
-					}
-				}
-			}
+			if (!currItem->asImageFrame() || currItem->PictureIsAvailable || currItem->Pfile.isEmpty())
+				continue;
+			QFileInfo fi(currItem->Pfile);
+			if ((fi.absolutePath() != name) || !fi.exists())
+				continue;
+			bool fho = currItem->imageFlippedH();
+			bool fvo = currItem->imageFlippedV();
+			double imgX = currItem->imageXOffset();
+			double imgY = currItem->imageYOffset();
+			loadPict(currItem->Pfile, currItem, true);
+			currItem->setImageFlippedH(fho);
+			currItem->setImageFlippedV(fvo);
+			currItem->setImageXOffset(imgX);
+			currItem->setImageYOffset(imgY);
+			ScCore->fileWatcher->addFile(currItem->Pfile);
+			updated = true;
 		}
 		allItems.clear();
 	}
@@ -10044,26 +10052,22 @@ void ScribusDoc::updatePictDir(QString name)
 		for (int ii = 0; ii < allItems.count(); ii++)
 		{
 			currItem = allItems.at(ii);
-			if (currItem->asImageFrame())
-			{
-				if ((!currItem->PictureIsAvailable) && (!currItem->Pfile.isEmpty()))
-				{
-					QFileInfo fi(currItem->Pfile);
-					if (fi.absolutePath() == name)
-					{
-						if (fi.exists())
-						{
-							bool fho = currItem->imageFlippedH();
-							bool fvo = currItem->imageFlippedV();
-							loadPict(currItem->Pfile, currItem, true);
-							currItem->setImageFlippedH(fho);
-							currItem->setImageFlippedV(fvo);
-							ScCore->fileWatcher->addFile(currItem->Pfile);
-							updated=true;
-						}
-					}
-				}
-			}
+			if (!currItem->asImageFrame() || currItem->PictureIsAvailable || currItem->Pfile.isEmpty())
+				continue;
+			QFileInfo fi(currItem->Pfile);
+			if ((fi.absolutePath() != name) || !fi.exists())
+				continue;
+			bool fho = currItem->imageFlippedH();
+			bool fvo = currItem->imageFlippedV();
+			double imgX = currItem->imageXOffset();
+			double imgY = currItem->imageYOffset();
+			loadPict(currItem->Pfile, currItem, true);
+			currItem->setImageFlippedH(fho);
+			currItem->setImageFlippedV(fvo);
+			currItem->setImageXOffset(imgX);
+			currItem->setImageYOffset(imgY);
+			ScCore->fileWatcher->addFile(currItem->Pfile);
+			updated = true;
 		}
 		allItems.clear();
 	}
@@ -10077,26 +10081,22 @@ void ScribusDoc::updatePictDir(QString name)
 		for (int ii = 0; ii < allItems.count(); ii++)
 		{
 			currItem = allItems.at(ii);
-			if (currItem->asImageFrame())
-			{
-				if ((!currItem->PictureIsAvailable) && (!currItem->Pfile.isEmpty()))
-				{
-					QFileInfo fi(currItem->Pfile);
-					if (fi.absolutePath() == name)
-					{
-						if (fi.exists())
-						{
-							bool fho = currItem->imageFlippedH();
-							bool fvo = currItem->imageFlippedV();
-							loadPict(currItem->Pfile, currItem, true);
-							currItem->setImageFlippedH(fho);
-							currItem->setImageFlippedV(fvo);
-							ScCore->fileWatcher->addFile(currItem->Pfile);
-							updated=true;
-						}
-					}
-				}
-			}
+			if (!currItem->asImageFrame() || currItem->PictureIsAvailable || currItem->Pfile.isEmpty())
+				continue;
+			QFileInfo fi(currItem->Pfile);
+			if ((fi.absolutePath() != name) || !fi.exists())
+				continue;
+			bool fho = currItem->imageFlippedH();
+			bool fvo = currItem->imageFlippedV();
+			double imgX = currItem->imageXOffset();
+			double imgY = currItem->imageYOffset();
+			loadPict(currItem->Pfile, currItem, true);
+			currItem->setImageFlippedH(fho);
+			currItem->setImageFlippedV(fvo);
+			currItem->setImageXOffset(imgX);
+			currItem->setImageYOffset(imgY);
+			ScCore->fileWatcher->addFile(currItem->Pfile);
+			updated = true;
 		}
 		allItems.clear();
 	}
@@ -10114,26 +10114,22 @@ void ScribusDoc::updatePictDir(QString name)
 			for (int ii = 0; ii < allItems.count(); ii++)
 			{
 				currItem = allItems.at(ii);
-				if (currItem->asImageFrame())
-				{
-					if ((!currItem->PictureIsAvailable) && (!currItem->Pfile.isEmpty()))
-					{
-						QFileInfo fi(currItem->Pfile);
-						if (fi.absolutePath() == name)
-						{
-							if (fi.exists())
-							{
-								bool fho = currItem->imageFlippedH();
-								bool fvo = currItem->imageFlippedV();
-								loadPict(currItem->Pfile, currItem, true);
-								currItem->setImageFlippedH(fho);
-								currItem->setImageFlippedV(fvo);
-								ScCore->fileWatcher->addFile(currItem->Pfile);
-								updated=true;
-							}
-						}
-					}
-				}
+				if (!currItem->asImageFrame() || currItem->PictureIsAvailable || currItem->Pfile.isEmpty())
+					continue;
+				QFileInfo fi(currItem->Pfile);
+				if ((fi.absolutePath() != name) || !fi.exists())
+					continue;
+				bool fho = currItem->imageFlippedH();
+				bool fvo = currItem->imageFlippedV();
+				double imgX = currItem->imageXOffset();
+				double imgY = currItem->imageYOffset();
+				loadPict(currItem->Pfile, currItem, true);
+				currItem->setImageFlippedH(fho);
+				currItem->setImageFlippedV(fvo);
+				currItem->setImageXOffset(imgX);
+				currItem->setImageYOffset(imgY);
+				ScCore->fileWatcher->addFile(currItem->Pfile);
+				updated = true;
 			}
 			allItems.clear();
 			PageItem *ite = pa.items.at(0);
@@ -10249,24 +10245,27 @@ void ScribusDoc::recalcPicturesRes(bool applyNewRes)
 		for (int ii = 0; ii < allItems.count(); ii++)
 		{
 			currItem = allItems.at(ii);
-			if (currItem->PictureIsAvailable)
-			{
-				bool fho = currItem->imageFlippedH();
-				bool fvo = currItem->imageFlippedV();
-				if (applyNewRes)
-					currItem->pixm.imgInfo.lowResType = docPrefsData.itemToolPrefs.imageLowResType;
-				if (currItem->asLatexFrame())
-					currItem->asLatexFrame()->rerunApplication(false);
-				else
-					loadPict(currItem->Pfile, currItem, true);
-				currItem->setImageFlippedH(fho);
-				currItem->setImageFlippedV(fvo);
-				currItem->AdjustPictScale();
-				ca++;
-				m_ScMW->mainWindowProgressBar->setValue(ca);
-				qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
-				if (!docPtr) return;
-			}
+			if (!currItem->PictureIsAvailable)
+				continue;
+			bool fho = currItem->imageFlippedH();
+			bool fvo = currItem->imageFlippedV();
+			double imgX = currItem->imageXOffset();
+			double imgY = currItem->imageYOffset();
+			if (applyNewRes)
+				currItem->pixm.imgInfo.lowResType = docPrefsData.itemToolPrefs.imageLowResType;
+			if (currItem->asLatexFrame())
+				currItem->asLatexFrame()->rerunApplication(false);
+			else
+				loadPict(currItem->Pfile, currItem, true);
+			currItem->setImageFlippedH(fho);
+			currItem->setImageFlippedV(fvo);
+			currItem->setImageXOffset(imgX);
+			currItem->setImageYOffset(imgY);
+			currItem->AdjustPictScale();
+			ca++;
+			m_ScMW->mainWindowProgressBar->setValue(ca);
+			qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
+			if (!docPtr) return;
 		}
 		allItems.clear();
 	}
@@ -10280,24 +10279,27 @@ void ScribusDoc::recalcPicturesRes(bool applyNewRes)
 		for (int ii = 0; ii < allItems.count(); ii++)
 		{
 			currItem = allItems.at(ii);
-			if (currItem->PictureIsAvailable)
-			{
-				bool fho = currItem->imageFlippedH();
-				bool fvo = currItem->imageFlippedV();
-				if (applyNewRes)
-					currItem->pixm.imgInfo.lowResType = docPrefsData.itemToolPrefs.imageLowResType;
-				if (currItem->asLatexFrame())
-					currItem->asLatexFrame()->rerunApplication(false);
-				else
-					loadPict(currItem->Pfile, currItem, true);
-				currItem->setImageFlippedH(fho);
-				currItem->setImageFlippedV(fvo);
-				currItem->AdjustPictScale();
-				ca++;
-				m_ScMW->mainWindowProgressBar->setValue(ca);
-				qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
-				if (!docPtr) return;
-			}
+			if (!currItem->PictureIsAvailable)
+				continue;
+			bool fho = currItem->imageFlippedH();
+			bool fvo = currItem->imageFlippedV();
+			double imgX = currItem->imageXOffset();
+			double imgY = currItem->imageYOffset();
+			if (applyNewRes)
+				currItem->pixm.imgInfo.lowResType = docPrefsData.itemToolPrefs.imageLowResType;
+			if (currItem->asLatexFrame())
+				currItem->asLatexFrame()->rerunApplication(false);
+			else
+				loadPict(currItem->Pfile, currItem, true);
+			currItem->setImageFlippedH(fho);
+			currItem->setImageFlippedV(fvo);
+			currItem->setImageXOffset(imgX);
+			currItem->setImageYOffset(imgY);
+			currItem->AdjustPictScale();
+			ca++;
+			m_ScMW->mainWindowProgressBar->setValue(ca);
+			qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
+			if (!docPtr) return;
 		}
 		allItems.clear();
 	}
@@ -10312,24 +10314,27 @@ void ScribusDoc::recalcPicturesRes(bool applyNewRes)
 		for (int ii = 0; ii < allItems.count(); ii++)
 		{
 			currItem = allItems.at(ii);
-			if (currItem->PictureIsAvailable)
-			{
-				bool fho = currItem->imageFlippedH();
-				bool fvo = currItem->imageFlippedV();
-				if (applyNewRes)
-					currItem->pixm.imgInfo.lowResType = docPrefsData.itemToolPrefs.imageLowResType;
-				if (currItem->asLatexFrame())
-					currItem->asLatexFrame()->rerunApplication(false);
-				else
-					loadPict(currItem->Pfile, currItem, true);
-				currItem->setImageFlippedH(fho);
-				currItem->setImageFlippedV(fvo);
-				currItem->AdjustPictScale();
-				ca++;
-				m_ScMW->mainWindowProgressBar->setValue(ca);
-				qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
-				if (!docPtr) return;
-			}
+			if (!currItem->PictureIsAvailable)
+				continue;
+			bool fho = currItem->imageFlippedH();
+			bool fvo = currItem->imageFlippedV();
+			double imgX = currItem->imageXOffset();
+			double imgY = currItem->imageYOffset();
+			if (applyNewRes)
+				currItem->pixm.imgInfo.lowResType = docPrefsData.itemToolPrefs.imageLowResType;
+			if (currItem->asLatexFrame())
+				currItem->asLatexFrame()->rerunApplication(false);
+			else
+				loadPict(currItem->Pfile, currItem, true);
+			currItem->setImageFlippedH(fho);
+			currItem->setImageFlippedV(fvo);
+			currItem->setImageXOffset(imgX);
+			currItem->setImageYOffset(imgY);
+			currItem->AdjustPictScale();
+			ca++;
+			m_ScMW->mainWindowProgressBar->setValue(ca);
+			qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
+			if (!docPtr) return;
 		}
 		allItems.clear();
 	}
@@ -10348,24 +10353,27 @@ void ScribusDoc::recalcPicturesRes(bool applyNewRes)
 			for (int ii = 0; ii < allItems.count(); ii++)
 			{
 				currItem = allItems.at(ii);
-				if (currItem->PictureIsAvailable)
-				{
-					bool fho = currItem->imageFlippedH();
-					bool fvo = currItem->imageFlippedV();
-					if (applyNewRes)
-						currItem->pixm.imgInfo.lowResType = docPrefsData.itemToolPrefs.imageLowResType;
-					if (currItem->asLatexFrame())
-						currItem->asLatexFrame()->rerunApplication(false);
-					else
-						loadPict(currItem->Pfile, currItem, true);
-					currItem->setImageFlippedH(fho);
-					currItem->setImageFlippedV(fvo);
-					currItem->AdjustPictScale();
-					ca++;
-					m_ScMW->mainWindowProgressBar->setValue(ca);
-					qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
-					if (!docPtr) return;
-				}
+				if (!currItem->PictureIsAvailable)
+					continue;
+				bool fho = currItem->imageFlippedH();
+				bool fvo = currItem->imageFlippedV();
+				double imgX = currItem->imageXOffset();
+				double imgY = currItem->imageYOffset();
+				if (applyNewRes)
+					currItem->pixm.imgInfo.lowResType = docPrefsData.itemToolPrefs.imageLowResType;
+				if (currItem->asLatexFrame())
+					currItem->asLatexFrame()->rerunApplication(false);
+				else
+					loadPict(currItem->Pfile, currItem, true);
+				currItem->setImageFlippedH(fho);
+				currItem->setImageFlippedV(fvo);
+				currItem->setImageXOffset(imgX);
+				currItem->setImageYOffset(imgY);
+				currItem->AdjustPictScale();
+				ca++;
+				m_ScMW->mainWindowProgressBar->setValue(ca);
+				qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
+				if (!docPtr) return;
 			}
 			allItems.clear();
 		}
