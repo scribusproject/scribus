@@ -13,6 +13,7 @@ template.xml
 template.de.xml
 template.es.xml
 template.hu.xml
+template.it.xml
   DESTINATION ${TEMPLATEDIR}
 )
 

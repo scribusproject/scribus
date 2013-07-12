@@ -6712,7 +6712,7 @@ May throw ValueError if any of the distances are out of bounds (must be positive
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1464"/>
         <source>Notes Styles...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Stili note...</translation>
     </message>
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1465"/>
@@ -8138,12 +8138,12 @@ May throw ValueError if any of the distances are out of bounds (must be positive
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1896"/>
         <source>Table</source>
-        <translation type="unfinished">Tabella</translation>
+        <translation>Tabella</translation>
     </message>
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1896"/>
         <source>&amp;Table</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Tabella</translation>
     </message>
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1898"/>
@@ -42365,7 +42365,7 @@ Utilizzare la Verifica Preliminare per correggerli</translation>
     <message>
         <location filename="../../../scribus/ui/contextmenu.cpp" line="175"/>
         <source>Insert Mark</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Inserisci nota</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/contextmenu.cpp" line="323"/>
@@ -48431,7 +48431,7 @@ a %2</translation>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="995"/>
         <source>Insert mark</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Inserisci nota</translation>
     </message>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="996"/>
