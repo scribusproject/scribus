@@ -10,7 +10,7 @@ for which a new license (GPL+exception) is in place.
 
 QString RunScriptDialog::m_lastScriptDir;
 
-RunScriptDialog::RunScriptDialog(QWidget* parent = 0, bool extEnable = false) :
+RunScriptDialog::RunScriptDialog(QWidget* parent, bool extEnable) :
 	QDialog(parent)
 {
 	setupUi(this);
