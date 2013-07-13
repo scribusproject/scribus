@@ -454,6 +454,7 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 						{
 							QTreeWidgetItem * errorText = new QTreeWidgetItem( object, 0 );
 							buildItem(errorText, it3.key(), masterItemErrorsIt.key());
+							masterPageItemMap.insert(errorText, masterItemErrorsIt.key());
 							posMap.insert(object, it3.value());
 						}
 						object->setExpanded( true );
@@ -531,6 +532,7 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 						{
 							QTreeWidgetItem * errorText = new QTreeWidgetItem( object);
 							buildItem(errorText, it3.key(), docItemErrorsIt.key());
+							itemMap.insert(errorText, docItemErrorsIt.key());
 							posMap.insert(object, it3.value());
 						}
 						object->setExpanded( true );
@@ -599,6 +601,7 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 						{
 							QTreeWidgetItem * errorText = new QTreeWidgetItem( object);
 							buildItem(errorText, it3.key(), freeItemsErrorsIt.key());
+							itemMap.insert(errorText, freeItemsErrorsIt.key());
 							posMap.insert(object, it3.value());
 						}
 						object->setExpanded( true );
