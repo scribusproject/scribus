@@ -44,15 +44,19 @@
 			<submenuitem text="Lavorare con le pagine mastro" file="pagetemplate1.html" />
 			<submenuitem text="Numerazione automatica delle pagine" file="pagenumber.html" />
 			<submenuitem text="Il plugin Parole Brevi" file="short-words.html" />
-                </submenuitem>
-                <submenuitem text="Colori a tinta unita" file="color1.html">
+		</submenuitem>
+		<submenuitem text="Colori a tinta unita" file="color1.html">
 			<submenuitem text="Gestire i colori" file="color2.html" />
 			<submenuitem text="Tavolozze di colori open source" file="color3.html" />
 			<submenuitem text="Standard nazionali di colore" file="color4.html" />
 			<submenuitem text="Raccolte colori Resene" file="color5.html" />
 			<submenuitem text="Raccolte colori dtp studio" file="color6.html" />
+			<submenuitem text="GiveLife Color System" file="color7.html" />
+			<submenuitem text="Galaxy Gauge Color System" file="color7a.html" />
+			<submenuitem text="Galaxy Color Harmonizer" file="color7b.html" />
+			<submenuitem text="Galaxy Color Emotions" file="color7c.html" />
 			<submenuitem text="Colori per scopi speciali" file="color8.html" />
-            <submenuitem text="La mappa cromatica" file="colorwheel.html" />
+			<submenuitem text="La mappa cromatica" file="colorwheel.html" />
 		</submenuitem>
 		<submenuitem text="Importare contenuti" file="importhints.html">
 			<submenuitem text="Importare file bitmap" file="importbitmap1.html" />
@@ -72,10 +76,10 @@
 			<submenuitem text="PDF/X-3" file="pdfx3.html"/>
 		</submenuitem>
 		<submenuitem text="Stampare con Scribus" file="print1.html">
-                        <submenuitem text="Strumenti per la stampa (1)" file="print2.html"/>
-                        <submenuitem text="Strumenti per la stampa (2)" file="print3.html"/>
-                        <submenuitem text="Stampa commerciale" file="print4.html"/>
-                </submenuitem>
+				<submenuitem text="Strumenti per la stampa (1)" file="print2.html"/>
+				<submenuitem text="Strumenti per la stampa (2)" file="print3.html"/>
+				<submenuitem text="Stampa commerciale" file="print4.html"/>
+		</submenuitem>
 		<submenuitem text="Gestione del colore" file="cms.html">
 			<submenuitem text="Impostazioni per la gestione del colore" file="cms2.html"/>
 			<submenuitem text="Intenti rendering" file="cms3.html"/>
