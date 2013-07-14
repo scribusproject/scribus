@@ -55,7 +55,10 @@
 		<submenuitem text="Standard nazionali di colore" file="color4.html" />
 		<submenuitem text="Raccolte colori Resene" file="color5.html" />
 		<submenuitem text="Raccolte colori dtp studio" file="color6.html" />
-		<submenuitem text="GiveLife Color System" file="color7.html" />			
+		<submenuitem text="GiveLife Color System" file="color7.html" />
+		<submenuitem text="Galaxy Gauge Color System" file="color7a.html" />
+		<submenuitem text="Galaxy Color Harmonizer" file="color7b.html" />
+		<submenuitem text="Galaxy Color Emotions" file="color7c.html" />
 		<submenuitem text="Colori per scopi speciali" file="color8.html" />
 		<submenuitem text="Dove sono Pantone, HKS e gli altri?" file="color10.html" />
 	</submenuitem>
