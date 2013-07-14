@@ -165,7 +165,7 @@ void LanguageManager::generateInstalledLangList()
 			{
 				langAbbrev = file.completeSuffix().remove(".qm");
 				if ((it=langList.find(langAbbrev))!=langList.end())
-						installedLangList.insert(it.key(), it.value().second);
+					installedLangList.insert(it.key(), it.value().second);
 			}
 		}
 	}
