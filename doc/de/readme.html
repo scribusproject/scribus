@@ -1,22 +1,22 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-	<title>Was ist neu in Scribus 1.4?</title>
+	<title>Was ist neu in Scribus 1.4.3?</title>
 </head>
 <body>
-<h2>Was ist neu in Scribus 1.4?</h2>
-<p>Hier finden Sie einen &Uuml;berblick &uuml;ber die wesentlichen Erweiterungen von Scribus 1.4 im Vergleich zur letzten offiziell stabilen Version 1.3.3.14.</p>
+<h2>Was ist neu in Scribus 1.4.3?</h2>
+<p>Hier finden Sie einen &Uuml;berblick &uuml;ber die wesentlichen Erweiterungen von Scribus 1.4.3 im Vergleich zur letzten offiziell stabilen Version 1.3.3.14.</p>
 
-<p><b><i>Beachten Sie, da&szlig; sich das Dateiformat ge&auml;ndert hat und nicht r&uuml;ckw&auml;rtskompatibel ist. Sie k&ouml;nnen daher Dateien aus Version 1.4 nicht mit 1.3.3.14 oder einer fr&uuml;heren Version &ouml;ffnen.</i></b></p>
+<p><b><i>Beachten Sie, da&szlig; sich das Dateiformat ge&auml;ndert hat und nicht r&uuml;ckw&auml;rtskompatibel ist. Sie k&ouml;nnen daher Dateien aus Version 1.4.3 nicht mit 1.3.3.14 oder einer fr&uuml;heren Version &ouml;ffnen.</i></b></p>
 <h3>Allgemeines</h3>
 <ol>
-<li>Beim ersten Start bietet 1.4 an, eine bestehende Konfiguration einer fr&uuml;heren Version (soweit relevant) zu &uuml;bernehmen. Die Konfigurationsdaten werden jedoch separat gespeichert, so da&szlig; Sie beide Versionen parallel verwenden k&ouml;nnen.</li>
-<li>Sie k&ouml;nnen beide Versionen nebeneinander installieren und parallel starten, aber Sie m&uuml;ssen darauf achten, sie in verschiedenen Verzeichnissen zu installieren. Unter Linux/UNIX hei&szlig;t das beispielsweise, 1.3.3.x nach <code>/opt</code> und 1.4 nach <code>/usr/local</code> oder <code>$home/bin</code> zu installieren. Wenn Sie Scribus aus dem Quellcode kompilieren, k&ouml;nnen Sie dazu <code>-DCMAKE_INSTALL_PREFIX:PATH=</code> verwenden, um das Zielverzeichnis festzulegen. Auf anderen Plattformen k&ouml;nnen Sie das Zielverzeichnis w&auml;hrend des Installationsprozesses der Bin&auml;rpakete ausw&auml;hlen.</li>
+<li>Beim ersten Start bietet 1.4.3 an, eine bestehende Konfiguration einer fr&uuml;heren Version (soweit relevant) zu &uuml;bernehmen. Die Konfigurationsdaten werden jedoch separat gespeichert, so da&szlig; Sie beide Versionen parallel verwenden k&ouml;nnen.</li>
+<li>Sie k&ouml;nnen beide Versionen nebeneinander installieren und parallel starten, aber Sie m&uuml;ssen darauf achten, sie in verschiedenen Verzeichnissen zu installieren. Unter Linux/UNIX hei&szlig;t das beispielsweise, 1.3.3.x nach <code>/opt</code> und 1.4.3 nach <code>/usr/local</code> oder <code>$home/bin</code> zu installieren. Wenn Sie Scribus aus dem Quellcode kompilieren, k&ouml;nnen Sie dazu <code>-DCMAKE_INSTALL_PREFIX:PATH=</code> verwenden, um das Zielverzeichnis festzulegen. Auf anderen Plattformen k&ouml;nnen Sie das Zielverzeichnis w&auml;hrend des Installationsprozesses der Bin&auml;rpakete ausw&auml;hlen.</li>
 </ol>
-<h3>Neues in Scribus 1.4</h3>
+<h3>Neues in Scribus 1.4.3</h3>
 
 <h4>Portierung auf Qt4</h4>
-<p>Die Portierung auf Version 4 des Qt-Toolkits war eine der gr&ouml;&szlig;ten Herausforderungen bei der Entwicklung von Version 1.4, doch der Aufwand hat sich gelohnt, denn er hat es uns erm&ouml;glicht, endlich Versionen f&uuml;r Mac OS&nbsp;X und OS/2 bzw. eComStation anzubieten, die hinsichtlich ihrer Funktionalit&auml;t nicht mehr hinter den Linux- und Windows-Pendants zur&uuml;ckstehen.</p>
+<p>Die Portierung auf Version 4 des Qt-Toolkits war eine der gr&ouml;&szlig;ten Herausforderungen bei der Entwicklung von Version 1.4.x, doch der Aufwand hat sich gelohnt, denn er hat es uns erm&ouml;glicht, endlich Versionen f&uuml;r Mac OS&nbsp;X, Haiku und OS/2 bzw. eComStation anzubieten, die hinsichtlich ihrer Funktionalit&auml;t nicht mehr hinter den Linux- und Windows-Pendants zur&uuml;ckstehen. Dar&uuml;ber hinaus werden die folgenden Betriebssysteme unterst&uuml;tzt: Debian GNU/Hurd, FreeBSD, PC-BSD, NetBSD, OpenBSD, Solaris, OpenIndiana.</p>
 
 <h4>Objektbehandlung</h4>
 <ul>
@@ -51,7 +51,7 @@
 <br>
 <h5><b>Text</b></h5>
 <ul>
-<li>Einfache Rechtschreibpr&uuml;fung mit Hilfe von aspell (nicht verf&uuml;gbar unter Windows, OS/2 und eComStation).</li>
+<li>Rechtschreibpr&uuml;fung mit Hilfe von Hunspell.</li>
 <li>Neue Textvariable: Anzahl der Seiten.</li>
 <li>R&uuml;ckg&auml;ngig/Wiederherstellen steht nun auch f&uuml;r textbezogene Aktionen zur Verf&uuml;gung.</li>
 </ul>
@@ -89,7 +89,7 @@
 <li>Eine Option, s&auml;mtliche F&uuml;llfarben in einem Dokument in einem Schritt zu ersetzen.</li>
 <li>Unterst&uuml;tzung f&uuml;r externe Farbpalettenformate (EPS, AI, PS, SOC, GPL).</li>
 <li>Sperrung von Standardpaletten gegen versehentliche Modifikation.</li>
-<li>Viele neue Farbpaletten, darunter die nationalen bzw. Regierungsstandards von Australien, Frankreich, Japan, Gro&szlig;britannien und den USA; dazu Farbsysteme von Resene&#0174;, dtp studio und GiveLife Color System&reg;.</li>
+<li>Viele neue Farbpaletten, darunter die nationalen bzw. Regierungsstandards von Australien, Frankreich, Japan, Gro&szlig;britannien und den USA; dazu Farbsysteme von Resene&#0174;, dtp studio, GiveLife Color System&reg; und Galaxy Gauge&trade;.</li>
 <li>Neue Verlaufstypen.</li>
 <li>Unterst&uuml;tzung f&uuml;r F&uuml;llmuster: Alle Grafikformate, die Scribus importieren kann, lassen sich als F&uuml;llmuster verwenden.</li>
 <li>Simulation von Farbenblindheit f&uuml;r alle Farben im Dokument.</li>
@@ -128,6 +128,13 @@
 </table>
 <br>
 
+<h4>Strichcodes</h4>
+<p>
+<ul>
+<li>Der Strichcode-Genrator wurde gr&uuml;ndlich und unterst&uuml;tzt jetzt alle wichtigen Formate, darunter auch QR.</li>
+</ul>
+</p>
+
 <h4>Importfilter</h4>
 <ul>
 <li>Sehr viel Arbeit wurde auf neue Importfilter f&uuml;r Vektordaten verwendet, besonders auf den Filter f&uuml;r Adobe Illustrator (AI). Scribus kann nun sowohl EPS- als auch PDF-basierte AI-Dateien importieren. Weitere Filter sind: Windows Metafile (WMF), Xfig (FIG), Calamus Vector Graphics (CVG), Macintosh PICT (PICT), Kivio Stencils (SML) und Dia Shapes (SHAPE).</li></ul>
@@ -163,6 +170,7 @@
   </tbody>
 </table>
 <br>
+
 
 <h4>Ebenen</h4>
 <ul>
