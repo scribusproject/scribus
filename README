@@ -1,12 +1,12 @@
-SCRIBUS 1.4.2
+SCRIBUS 1.4.3
 ----------------------------------------------
 
-1.4.2 is the new stable Scribus version, released January 2013.
+1.4.3 is the new stable Scribus version, released July 2013.
 
-While 1.4.2 is considered to be usable in production, if you have documents made in 1.3.3.x, you may want to keep the latest 1.3.3.14 as a fallback option for older documents due to some changes in layout. 
+While 1.4.3 is considered to be usable in production, if you have documents made in 1.3.3.x, you may want to keep the latest 1.3.3.14 as a fallback option for older documents due to some changes in layout. 
 Both versions can be installed in parallel. Please be aware of the fact that files saved with 1.3.4 or any later version cannot be opened by 1.3.3.x!
 
-If you think you have found a bug in 1.4.2, you can use the Scribus bugtracker (http://bugs.scribus.net) to make us aware of it. Please make sure that the bug hasn't been reported earlier. The bugtracker's search feature can help you to check for issues that have already been submitted.
+If you think you have found a bug in 1.4.3, you can use the Scribus bugtracker (http://bugs.scribus.net) to make us aware of it. Please make sure that the bug hasn't been reported earlier. The bugtracker's search feature can help you to check for issues that have already been submitted.
 
 Compiling from Source
 =====================

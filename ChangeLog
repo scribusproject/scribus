@@ -1,3 +1,57 @@
+Scribus - 1.4.3 (Released 20-07-13) [ View Issues ]
+=======================================
+- 0011674: [Documentation] Another minor DE and EN doc update (jghali) - resolved.
+- 0011485: [Graphics / Image Frames] Popup windows misbehave in Unity (jghali) - resolved.
+- 0011388: [Graphics / Image Frames] Unselected frame outline no longer visible after upgrade to 1.4.2 (jghali) - resolved.
+- 0011672: [Documentation] More EN and DE doc updates (jghali) - closed.
+- 0011669: [Documentation] Minor doc update regarding info files (jghali) - closed.
+- 0011668: [Documentation] Minor doc update for Mac OS 10.7 (jghali) - closed.
+- 0011663: [Translation] Online Help Italian translation (jghali) - closed.
+- 0011604: [User Interface] Remanent "compress" option for "collect for output" (cbradney) - closed.
+- 0011501: [General] Colour palette and colour documentation update for 1.4.3, including Galaxy colours (cbradney) - closed.
+- 0009066: [Story Editor / Text Frames] outsized colour list in properties > font colour (jghali) - closed.
+- 0011463: [Mac OS] OK and Cancel buttons missing in PDF-JavaScript editor (fschmid) - closed.
+- 0011508: [Scripter] Startup Script field in Preference Dialog not functioning (jghali) - closed.
+- 0011484: [Scripter] scripter's createMasterPage() documentation is incorrect (jghali) - closed.
+- 0011620: [Translation] Online help Italian translation - update for 1.4.3 (jghali) - closed.
+- 0011468: [Plug-ins] Addition to scribus-short-words.rc (jghali) - closed.
+- 0011592: [Translation] Updated Russian translation (jghali) - closed.
+- 0011591: [Translation] Italian UI translation update for 1.4.3 (jghali) - closed.
+- 0011588: [Canvas] incorrect page size in preferences (jghali) - closed.
+- 0011589: [Translation] Danish Translation (jghali) - closed.
+- 0011585: [Translation] German TS Update for 1.4.3 (jghali) - closed.
+- 0011587: [Canvas] incorrect measurement unit in guide prefs (jghali) - closed.
+- 0011582: [Translation] Hungarian translation update for 1.4.3 release (jghali) - closed.
+- 0011580: [Graphics / Image Frames] crash when inserting image frame in masterpage mode (jghali) - closed.
+- 0011579: [User Interface] "Open Existing Document" greyed out after cancelling it once (jghali) - closed.
+- 0011552: [User Interface] Selecting all fonts via Ctrl+A and deleting them in the font substitution dialog doesn't work (jghali) - closed.
+- 0009814: [Usability] Latex Render frames fails with documents larger than a4 (jghali) - closed.
+- 0011521: [Translation] Galician translation update (jghali) - closed.
+- 0011520: [Fonts] Convert Text to Outlines disrupts text position if modified (jghali) - closed.
+- 0011443: [Haiku] Return in a text frame doesn't add a new paragraph (jghali) - closed.
+- 0011497: [Translation] Polish translation update for Scribus 1.4.3 (jghali) - closed.
+- 0011015: [Graphics / Image Frames] [PATCH] Explain my hack to avoid importing from HTML the embedded images as text (jghali) - closed.
+- 0011467: [General] [PATCH] Add QR Code Option to Barcode Plugin (jghali) - closed.
+- 0011462: [Translation] Minor translation improvement for 1.4.3 (jghali) - closed.
+- 0011382: [Story Editor / Text Frames] Problem in hyphenation. (jghali) - closed.
+- 0011442: [Build System] Remove aspell plugin from build system as it does not work anyway (cbradney) - closed.
+- 0011438: [Documentation] First doc update for 1.4.3 (gpittman) - closed.
+- 0011440: [Documentation] Second doc update for 1.4.3 (gpittman) - closed.
+- 0011435: [Build System] Scribus patch for Haiku (operating system) (cbradney) - closed.
+- 0011433: [Build System] Make CUPS optional (cbradney) - closed.
+- 0011431: [User Interface] Using the Tab keys seems like a lottery in the Align & Distribute dialog (jghali) - closed.
+- 0011419: [User Interface] File open dialog broken when pressing Escape (jghali) - closed.
+- 0011423: [Scrapbook] scrapbook file with new line is not possible to insert (jghali) - closed.
+- 0011413: [Color Management] Inaccurate on screen gradient display (fschmid) - closed.
+- 0011407: [PDF] PDF checker dont activate correct layer on frame selection. (fschmid) - closed.
+- 0011415: [General] rules show wrong values for unit 'cm' (jghali) - closed.
+- 0011414: [General] wrong unit conversion for gradient vector (linear and radial) (jghali) - closed.
+- 0011404: [-] update the use of PIL to support Pillow (jghali) - closed.
+- 0011387: [Documentation] About box displays outdated texts or none (cbradney) - closed.
+- 0011395: [Build System] 1.4.2 doesn't compile on linux without CUPS (jghali) - closed.
+- 0011397: [General] Insert Bezier Curve makes application crash (jghali) - closed.
+- 0011386: [General] Broken list of language entries in the Hyphenator settings (jghali) - closed.
+
 Scribus - 1.4.2 (Released 13-01-13)
 =======================================
 - 0011262: [Graphics / Image Frames] Scrapbook not working correctly with image frames if images are located on different drive (jghali) - resolved.
