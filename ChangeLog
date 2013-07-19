@@ -1,8 +1,10 @@
 Scribus - 1.4.3 (Released 20-07-13) [ View Issues ]
 =======================================
-- 0011674: [Documentation] Another minor DE and EN doc update (jghali) - resolved.
 - 0011485: [Graphics / Image Frames] Popup windows misbehave in Unity (jghali) - resolved.
 - 0011388: [Graphics / Image Frames] Unselected frame outline no longer visible after upgrade to 1.4.2 (jghali) - resolved.
+- 0011675: [Documentation] Final doc updates for 1.4.3 (jghali) - closed.
+- 0011644: [Build System] Patch to build 1.4.x on FreeBSD (jghali) - closed.
+- 0011674: [Documentation] Another minor DE and EN doc update (jghali) - closed.
 - 0011672: [Documentation] More EN and DE doc updates (jghali) - closed.
 - 0011669: [Documentation] Minor doc update regarding info files (jghali) - closed.
 - 0011668: [Documentation] Minor doc update for Mac OS 10.7 (jghali) - closed.
