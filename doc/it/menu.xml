@@ -1,26 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <menu>
 	<area text="Benvenuti" file="index.html">
-		<submenuitem text="New in Scribus 1.4" file="readme.html"/>
-		<submenuitem text="Specifications" file="specs.html"/>
+		<submenuitem text="Le novità di Scribus 1.4.3" file="readme.html"/>
+		<submenuitem text="Caratteristiche tecniche" file="specs.html"/>
 	</area>
 	<area text="Documentazione" file="intro.html">
 		<submenuitem text="Introduzione" file="documentation.html">
-			<submenuitem text="Editorial Notes" file="editorial.html"/>			
+			<submenuitem text="Note editoriali" file="editorial.html"/>			
 			<submenuitem text="Il team di Scribus" file="about1.html"/>
 		</submenuitem>
 		<submenuitem text="Installazione" file="install.html">
 			<submenuitem text="Mac OS X" file="readme-macosx.html"/>
 			<submenuitem text="OS/2 and eComStation" file="readme-os2.html"/>
+			<submenuitem text="Haiku" file="readme-haiku.html"/>
 			<submenuitem text="Windows" file="readme-win32.html"/>
 			<submenuitem text="Sorgenti di Scribus e SVN" file="install1.html"/>
-			<submenuitem text="Requisiti per la compilazione" file="install2.html"/>
-			<submenuitem text="Compilazione con CMake" file="install4.html"/>
-			<submenuitem text="Compilazione con CMake su OS X" file="install5.html"/>
 		</submenuitem>
 		<submenuitem text="Configurazione" file="config.html">
 			<submenuitem text="Configurazione di Scribus" file="settings1.html"/>
-			<submenuitem text="Sillabazione" file="hyphenator.html"/>
+			<submenuitem text="Sillabazione e controllo ortografico" file="hyphenator.html"/>
 			<submenuitem text="Impostazioni per i caratteri" file="fonts1.html"/>
 			<submenuitem text="Approfondimenti sui caratteri" file="fonts2.html"/>
 		</submenuitem>
@@ -44,66 +42,75 @@
 			<submenuitem text="Lavorare con le pagine mastro" file="pagetemplate1.html" />
 			<submenuitem text="Numerazione automatica delle pagine" file="pagenumber.html" />
 			<submenuitem text="Il plugin Parole Brevi" file="short-words.html" />
-		</submenuitem>
-		<submenuitem text="Colori a tinta unita" file="color1.html">
-			<submenuitem text="Gestire i colori" file="color2.html" />
-			<submenuitem text="Tavolozze di colori open source" file="color3.html" />
-			<submenuitem text="Standard nazionali di colore" file="color4.html" />
-			<submenuitem text="Raccolte colori Resene" file="color5.html" />
-			<submenuitem text="Raccolte colori dtp studio" file="color6.html" />
-			<submenuitem text="GiveLife Color System" file="color7.html" />
-			<submenuitem text="Galaxy Gauge Color System" file="color7a.html" />
-			<submenuitem text="Galaxy Color Harmonizer" file="color7b.html" />
-			<submenuitem text="Galaxy Color Emotions" file="color7c.html" />
-			<submenuitem text="Colori per scopi speciali" file="color8.html" />
-			<submenuitem text="La mappa cromatica" file="colorwheel.html" />
-		</submenuitem>
-		<submenuitem text="Importare contenuti" file="importhints.html">
-			<submenuitem text="Importare file bitmap" file="importbitmap1.html" />
-			<submenuitem text="Importare file di Photoshop" file="psd.html" />
-			<submenuitem text="Importare disegni vettoriali" file="importhints2.html"/>
-			<submenuitem text="Importare file EPS" file="importhints1.html"/>
-			<submenuitem text="Importare file SVG" file="scribus-svg.html" />
-			<submenuitem text="Importare documenti HTML" file="importhints4.html" />
-			<submenuitem text="Importare file OpenOffice.org e ODF" file="importhints3.html" />
-		</submenuitem>
+        </submenuitem>
+        <submenuitem text="Raggruppa per l'output" file="collect4output.html">
+        </submenuitem>
+        <submenuitem text="Modificare i colori" file="color_editing.html">
+		<submenuitem text="Aggiungere e modificare colori" file="add_colors.html" />
+		<submenuitem text="La mappa cromatica" file="colorwheel.html" />
+		<submenuitem text="Gestire le raccolte di colori" file="color2.html" />
+        </submenuitem>                
+        <submenuitem text="Raccolte di colori" file="color1.html">
+		<submenuitem text="Tavolozze di colori open source" file="color3.html" />
+		<submenuitem text="Standard nazionali di colore" file="color4.html" />
+		<submenuitem text="Raccolte colori Resene" file="color5.html" />
+		<submenuitem text="Raccolte colori dtp studio" file="color6.html" />
+		<submenuitem text="GiveLife Color System" file="color7.html" />
+		<submenuitem text="Galaxy Gauge Color System" file="color7a.html" />
+		<submenuitem text="Galaxy Color Harmonizer" file="color7b.html" />
+		<submenuitem text="Galaxy Color Emotions" file="color7c.html" />
+		<submenuitem text="Colori per scopi speciali" file="color8.html" />
+		<submenuitem text="Dove sono Pantone, HKS e gli altri?" file="color10.html" />
+	</submenuitem>
+	<submenuitem text="Importare contenuti" file="importhints.html">
+		<submenuitem text="Importare file bitmap" file="importbitmap1.html" />
+		<submenuitem text="Importare file di Photoshop" file="psd.html" />
+		<submenuitem text="Importare disegni vettoriali" file="importhints2.html"/>
+		<submenuitem text="Importare file EPS" file="importhints1.html"/>
+		<submenuitem text="Importare file SVG" file="scribus-svg.html" />
+		<submenuitem text="Importare documenti HTML" file="importhints4.html" />
+		<submenuitem text="Importare file OpenOffice.org e ODF" file="importhints3.html" />
+	</submenuitem>
 		<submenuitem text="Esportare in formato PDF" file="pdfexport1.html">
-			<submenuitem text="Varianti del formato PDF" file="pdflavor.html"/>
-			<submenuitem text="Destinazioni per l'esportazione PDF" file="pdfexport2.html"/>
-			<submenuitem text="Esportazione PDF per schermo/web" file="pdfexport3.html"/>
-			<submenuitem text="Presentazioni PDF" file="pdfexport4.html"/>
-			<submenuitem text="Formulari PDF" file="pdf_form.html"/>
-			<submenuitem text="PDF/X-3" file="pdfx3.html"/>
-		</submenuitem>
-		<submenuitem text="Stampare con Scribus" file="print1.html">
-				<submenuitem text="Strumenti per la stampa (1)" file="print2.html"/>
-				<submenuitem text="Strumenti per la stampa (2)" file="print3.html"/>
-				<submenuitem text="Stampa commerciale" file="print4.html"/>
-		</submenuitem>
-		<submenuitem text="Gestione del colore" file="cms.html">
-			<submenuitem text="Impostazioni per la gestione del colore" file="cms2.html"/>
-			<submenuitem text="Intenti rendering" file="cms3.html"/>
-		</submenuitem>
-		<submenuitem text="La cassetta degli attrezzi del DTP" file="toolbox.html">
-			<submenuitem text="Adobe Reader" file="toolbox1.html"/>
-			<submenuitem text="Strumenti per PDF e PostScript" file="toolbox2.html"/>
-			<submenuitem text="Ghostscript" file="toolbox5.html"/>
-			<submenuitem text="GSview" file="toolbox6.html"/>
-			<submenuitem text="Advanced Ghostscript &amp; GSView" file="toolbox7.html"/>
-			<submenuitem text="GIMP" file="toolbox4.html"/>
-			<submenuitem text="Krita" file="toolbox15.html"/>
-			<submenuitem text="XnView" file="toolbox13.html"/>
-			<submenuitem text="ImageMagick" file="toolbox8.html"/>
-			<submenuitem text="Inkscape" file="toolbox9.html"/>
-			<submenuitem text="Squiggle" file="toolbox3.html"/>
-			<submenuitem text="LProf" file="toolbox14.html"/>
-			<submenuitem text="Fontmatrix" file="toolbox16.html"/>
-			<submenuitem text="SwatchBooker" file="toolbox17.html"/>
-			<submenuitem text="LibreOffice/OpenOffice.org" file="toolbox18.html"/>
-			<submenuitem text="Strumenti da riga di comando" file="toolbox19.html"/>
-		</submenuitem>
-	</area>
-	<area text="Troubleshooting" file="fileproblems.html" >
+		<submenuitem text="Varianti del formato PDF" file="pdflavor.html"/>
+		<submenuitem text="Destinazioni per l'esportazione PDF" file="pdfexport2.html"/>
+		<submenuitem text="Esportazione PDF: compressione delle immagini" file="pdfexport_image.html"/>			
+		<submenuitem text="Esportazione PDF per schermo/web" file="pdfexport3.html"/>
+		<submenuitem text="Presentazioni PDF" file="pdfexport4.html"/>
+		<submenuitem text="Creare collegamenti nei documenti" file="createlinks.html"/>			
+		<submenuitem text="Formulari PDF" file="pdf_form.html"/>
+		<submenuitem text="PDF/X-3" file="pdfx3.html"/>
+	</submenuitem>
+	<submenuitem text="Stampare con Scribus" file="print1.html">
+		<submenuitem text="Strumenti per la stampa (1)" file="print2.html"/>
+		<submenuitem text="Strumenti per la stampa (2)" file="print3.html"/>
+		<submenuitem text="Stampa commerciale" file="print4.html"/>
+        </submenuitem>
+	<submenuitem text="Gestione del colore" file="cms.html">
+		<submenuitem text="Impostazioni per la gestione del colore" file="cms2.html"/>
+		<submenuitem text="Intenti rendering" file="cms3.html"/>
+	</submenuitem>
+	<submenuitem text="La cassetta degli attrezzi del DTP" file="toolbox.html">
+		<submenuitem text="Adobe Reader" file="toolbox1.html"/>
+		<submenuitem text="Strumenti per PDF e PostScript" file="toolbox2.html"/>
+		<submenuitem text="Ghostscript" file="toolbox5.html"/>
+		<submenuitem text="GSview" file="toolbox6.html"/>
+		<submenuitem text="GIMP" file="toolbox4.html"/>
+		<submenuitem text="Krita" file="toolbox15.html"/>
+		<submenuitem text="XnView" file="toolbox13.html"/>
+		<submenuitem text="ImageMagick" file="toolbox8.html"/>
+		<submenuitem text="Inkscape" file="toolbox9.html"/>
+		<submenuitem text="Squiggle" file="toolbox3.html"/>
+		<submenuitem text="LProf" file="toolbox14.html"/>
+		<submenuitem text="Fontmatrix" file="toolbox16.html"/>
+		<submenuitem text="SwatchBooker" file="toolbox17.html"/>
+		<submenuitem text="LibreOffice/OpenOffice.org" file="toolbox18.html"/>
+		<submenuitem text="Strumenti da riga di comando" file="toolbox19.html"/>
+	</submenuitem>
+        <area text="Aiuto!!" file="help.html" >
+        </area>
+        <area text="Problemi con i file" file="fileproblems.html" >
+        </area>
 	</area>
 	<area text="My Tutorials" file="tutorials.html" section="tutorials">
 	</area>
@@ -140,10 +147,9 @@
 	<area text="Altre informazioni" file="otherinfo.html">
 		<submenuitem text="Comunità e risorse per gli utenti" file="resources.html"/>
 		<submenuitem text="Segnalare un bug" file="bugreport.html"/>
-		<submenuitem text="Mailing List" file="mailing_lists.html"/>
+		<submenuitem text="Mailing list" file="mailing_lists.html"/>
 		<submenuitem text="IRC" file="irc.html"/>
-		<submenuitem text="Download" file="download.html"/>
-		<submenuitem text="Release History" file="releases.html"/>
+		<submenuitem text="Cronologia delle versioni" file="releases.html"/>
 		<submenuitem text="Scribus Copyright" file="scribuscopyright.html"/>
 		<submenuitem text="Documentation Copyright" file="doccopyright.html"/>
 	</area>
