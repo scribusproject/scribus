@@ -1,0 +1,88 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{d52f0b50-d5d1-40dd-91dd-4b5e0d8855cb}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;def;odl;idl;hpj;bat;asm</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{47defb61-6d77-406d-97f9-27df06325e07}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc</Extensions>
+    </Filter>
+    <Filter Include="Generated Moc Files">
+      <UniqueIdentifier>{d2ad710e-1307-44f7-9559-b8ec4cf22b9d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Form Files">
+      <UniqueIdentifier>{dbb88706-515b-4bee-89c7-c63086b96c7b}</UniqueIdentifier>
+      <Extensions>ui</Extensions>
+    </Filter>
+    <Filter Include="Generated Form Files">
+      <UniqueIdentifier>{0615a6a4-49f0-4777-99ab-3fecd5a4a452}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\scribus\plugins\short-words\configuration.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\plugins\short-words\parse.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="shortwordsdll.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\plugins\short-words\shortwords.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\plugins\short-words\swprefsgui.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\plugins\short-words\vlnadialog.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\plugins\short-words\moc_configuration.cpp">
+      <Filter>Generated Moc Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\plugins\short-words\moc_parse.cpp">
+      <Filter>Generated Moc Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\plugins\short-words\moc_shortwords.cpp">
+      <Filter>Generated Moc Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\plugins\short-words\moc_swprefsgui.cpp">
+      <Filter>Generated Moc Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\plugins\short-words\moc_vlnadialog.cpp">
+      <Filter>Generated Moc Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\scribus\plugins\short-words\version.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\plugins\short-words\ui_swdialog.h">
+      <Filter>Generated Form Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <uic Include="..\..\..\scribus\plugins\short-words\swdialog.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+  </ItemGroup>
+  <ItemGroup>
+    <moc Include="..\..\..\scribus\plugins\short-words\configuration.h">
+      <Filter>Header Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\plugins\short-words\parse.h">
+      <Filter>Header Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\plugins\short-words\shortwords.h">
+      <Filter>Header Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\plugins\short-words\swprefsgui.h">
+      <Filter>Header Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\plugins\short-words\vlnadialog.h">
+      <Filter>Header Files</Filter>
+    </moc>
+  </ItemGroup>
+</Project>

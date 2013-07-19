@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{8cbc0bdf-70e3-4492-af6e-a58e4de8272a}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;def;odl;idl;hpj;bat;asm</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{5c2f19c3-b286-4b53-ba89-1872da321e3c}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc</Extensions>
+    </Filter>
+    <Filter Include="Form Files">
+      <UniqueIdentifier>{35fd84e0-56dc-486d-92b5-0619a616e4a8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Generated Form Files">
+      <UniqueIdentifier>{1d68c6af-0059-4000-b919-c87d0c75a553}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Generated Moc Files">
+      <UniqueIdentifier>{e83d47e0-650b-48c5-aa17-a01629920808}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\scribus\plugins\pixmapexport\dialog.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\plugins\pixmapexport\export.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="pixmapexportdll.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\plugins\pixmapexport\moc_dialog.cpp">
+      <Filter>Generated Moc Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\plugins\pixmapexport\moc_export.cpp">
+      <Filter>Generated Moc Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\scribus\plugins\pixmapexport\ui_exportform.h">
+      <Filter>Generated Form Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <uic Include="..\..\..\scribus\plugins\pixmapexport\exportform.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+  </ItemGroup>
+  <ItemGroup>
+    <moc Include="..\..\..\scribus\plugins\pixmapexport\dialog.h">
+      <Filter>Header Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\plugins\pixmapexport\export.h">
+      <Filter>Header Files</Filter>
+    </moc>
+  </ItemGroup>
+</Project>

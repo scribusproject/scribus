@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup
+    Condition="'$(uicBeforeTargets)' == '' and '$(uicAfterTargets)' == '' and '$(ConfigurationType)' != 'Makefile'">
+    <uicBeforeTargets>Midl</uicBeforeTargets>
+    <uicAfterTargets>CustomBuild</uicAfterTargets>
+  </PropertyGroup>
+  <PropertyGroup>
+    <uicDependsOn
+      Condition="'$(ConfigurationType)' != 'Makefile'">_SelectedFiles;$(uicDependsOn)</uicDependsOn>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <uic>
+      <CommandLineTemplate>$(QT4_DIR)\bin\uic.exe [inputs] -o "%(RootDir)%(Directory)\ui_%(Filename).h"</CommandLineTemplate>
+      <Outputs>%(RootDir)%(Directory)\ui_%(Filename).h</Outputs>
+      <ExecutionDescription>Uic'ing %(Filename)%(Extension)</ExecutionDescription>
+      <AdditionalDependencies>$(QT4_DIR)\bin\uic.exe</AdditionalDependencies>
+    </uic>
+  </ItemDefinitionGroup>
+  <PropertyGroup
+    Condition="'$(mocBeforeTargets)' == '' and '$(mocAfterTargets)' == '' and '$(ConfigurationType)' != 'Makefile'">
+    <mocBeforeTargets>Midl</mocBeforeTargets>
+    <mocAfterTargets>CustomBuild</mocAfterTargets>
+  </PropertyGroup>
+  <PropertyGroup>
+    <mocDependsOn
+      Condition="'$(ConfigurationType)' != 'Makefile'">_SelectedFiles;$(mocDependsOn)</mocDependsOn>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <moc>
+      <CommandLineTemplate>$(QT4_DIR)\bin\moc.exe [inputs] -o "%(RootDir)%(Directory)\moc_%(Filename).cpp"</CommandLineTemplate>
+      <Outputs>%(RootDir)%(Directory)\moc_%(Filename).cpp</Outputs>
+      <ExecutionDescription>Moc'ing %(Filename)%(Extension)</ExecutionDescription>
+      <AdditionalDependencies>$(QT4_DIR)\bin\moc.exe</AdditionalDependencies>
+    </moc>
+  </ItemDefinitionGroup>
+  <PropertyGroup
+    Condition="'$(rccBeforeTargets)' == '' and '$(rccAfterTargets)' == '' and '$(ConfigurationType)' != 'Makefile'">
+    <rccBeforeTargets>Midl</rccBeforeTargets>
+    <rccAfterTargets>CustomBuild</rccAfterTargets>
+  </PropertyGroup>
+  <PropertyGroup>
+    <rccDependsOn
+      Condition="'$(ConfigurationType)' != 'Makefile'">_SelectedFiles;$(rccDependsOn)</rccDependsOn>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <rcc>
+      <CommandLineTemplate>$(QT4_DIR)\bin\rcc.exe [inputs] -o "%(RootDir)%(Directory)\rcc_%(Filename).cpp"</CommandLineTemplate>
+      <Outputs>%(RootDir)%(Directory)\rcc_%(Filename).cpp</Outputs>
+      <ExecutionDescription>%(Filename).qrc</ExecutionDescription>
+      <AdditionalDependencies>$(QT4_DIR)\bin\rcc.exe</AdditionalDependencies>
+    </rcc>
+  </ItemDefinitionGroup>
+  <PropertyGroup
+    Condition="'$(lreleaseBeforeTargets)' == '' and '$(lreleaseAfterTargets)' == '' and '$(ConfigurationType)' != 'Makefile'">
+    <lreleaseBeforeTargets>Midl</lreleaseBeforeTargets>
+    <lreleaseAfterTargets>CustomBuild</lreleaseAfterTargets>
+  </PropertyGroup>
+  <PropertyGroup>
+    <lreleaseDependsOn
+      Condition="'$(ConfigurationType)' != 'Makefile'">_SelectedFiles;$(lreleaseDependsOn)</lreleaseDependsOn>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <lrelease>
+      <CommandLineTemplate>$(QT4_DIR)\bin\lrelease.exe [inputs] -qm "$(OutDir)share\translations\%(Filename).qm"</CommandLineTemplate>
+      <Outputs>$(OutDir)share\translations\%(Filename).qm</Outputs>
+      <ExecutionDescription>Lreleasing %(Filename)%(Extension)</ExecutionDescription>
+      <AdditionalDependencies>$(QT4_DIR)\bin\lrelease.exe</AdditionalDependencies>
+    </lrelease>
+  </ItemDefinitionGroup>
+</Project>

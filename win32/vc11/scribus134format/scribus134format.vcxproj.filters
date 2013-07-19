@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{d165ab6f-7c9d-462c-938d-a3992d2bd9e1}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;def;odl;idl;hpj;bat;asm</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{f18a2c7f-e1a8-45cc-9632-6d406c530dfb}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc</Extensions>
+    </Filter>
+    <Filter Include="Generated Moc Files">
+      <UniqueIdentifier>{bc2e9300-5900-4085-b3a4-d5d97b2e9b05}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="scribus134formatdll.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\plugins\fileloader\scribus134format\scribus134format.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\plugins\fileloader\scribus134format\scribus134format_save.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\plugins\fileloader\scribus134format\scribus134formatimpl.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\plugins\fileloader\scribus134format\moc_scribus134format.cpp">
+      <Filter>Generated Moc Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\plugins\fileloader\scribus134format\moc_scribus134formatimpl.cpp">
+      <Filter>Generated Moc Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <moc Include="..\..\..\scribus\plugins\fileloader\scribus134format\scribus134format.h">
+      <Filter>Header Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\plugins\fileloader\scribus134format\scribus134formatimpl.h">
+      <Filter>Header Files</Filter>
+    </moc>
+  </ItemGroup>
+</Project>

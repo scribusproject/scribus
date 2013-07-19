@@ -1,0 +1,229 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug-cairo|Win32">
+      <Configuration>Debug-cairo</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug-cairo|x64">
+      <Configuration>Debug-cairo</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release-cairo|Win32">
+      <Configuration>Release-cairo</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release-cairo|x64">
+      <Configuration>Release-cairo</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{3D406CF3-7B96-4C50-AE65-4B13F3B1FB3E}</ProjectGuid>
+    <RootNamespace>pathfinder</RootNamespace>
+    <Keyword>Win32Proj</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-cairo|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <PlatformToolset>v110</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-cairo|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <PlatformToolset>v110</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug-cairo|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <PlatformToolset>v110</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug-cairo|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <PlatformToolset>v110</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+    <Import Project="..\Scribus-build-rules.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release-cairo|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\Scribus-build-props.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release-cairo|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\Scribus-build-props.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug-cairo|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\Scribus-build-props.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug-cairo|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\Scribus-build-props.props" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>11.0.50727.1</_ProjectFileVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug-cairo|Win32'">
+    <OutDir>..\..\..\..\Scribus-builds\Scribus-vc11-$(Configuration)-$(Platform)\scribus\plugins\</OutDir>
+    <IntDir>..\..\..\..\Scribus-builds\Build-objs-vc11\$(Configuration)-$(Platform)\$(TargetName)\</IntDir>
+    <LinkIncremental>true</LinkIncremental>
+    <TargetName>pathfinder</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug-cairo|x64'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>..\..\..\..\Scribus-builds\Scribus-vc11-$(Configuration)-$(Platform)\scribus\plugins\</OutDir>
+    <IntDir>..\..\..\..\Scribus-builds\Build-objs-vc11\$(Configuration)-$(Platform)\$(TargetName)\</IntDir>
+    <TargetName>pathfinder</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-cairo|Win32'">
+    <OutDir>..\..\..\..\Scribus-builds\Scribus-vc11-$(Configuration)-$(Platform)\scribus\plugins\</OutDir>
+    <IntDir>..\..\..\..\Scribus-builds\Build-objs-vc11\$(Configuration)-$(Platform)\$(TargetName)\</IntDir>
+    <LinkIncremental>false</LinkIncremental>
+    <TargetName>pathfinder</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-cairo|x64'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>..\..\..\..\Scribus-builds\Scribus-vc11-$(Configuration)-$(Platform)\scribus\plugins\</OutDir>
+    <IntDir>..\..\..\..\Scribus-builds\Build-objs-vc11\$(Configuration)-$(Platform)\$(TargetName)\</IntDir>
+    <TargetName>pathfinder</TargetName>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug-cairo|Win32'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>..;..\..\..\scribus;$(QT4_DIR)\include\QtCore;$(QT4_DIR)\include\QtGui;$(QT4_DIR)\include\QtXml;$(QT4_DIR)\include;$(QT4_DIR)\src\3rdparty\zlib;$(LCMS_DIR)\include;$(CAIRO_DIR)\include;$(FREETYPE_DIR)\include;$(LIBJPEG_DIR)\include;$(LIBTIFF_DIR)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_USE_MATH_DEFINES;_USRDLL;_WINDOWS;QT_LARGEFILE_SUPPORT;QT_EDITION=QT_EDITION_DESKTOP;QT_DLL;QT_GUI_LIB;QT_CORE_LIB;QT_THREAD_SUPPORT;HAVE_CAIRO;COMPILE_PLUGIN_AS_DLL;AVOID_WIN32_FILEIO;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>true</MinimalRebuild>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <PrecompiledHeader />
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <DisableSpecificWarnings>4190;4251;4267;4996;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>QtCored4.lib;QtGuid4.lib;QtXmld4.lib;$(FREETYPE_DEBUG_LIB);$(LIBJPEG_DEBUG_LIB);$(LIBTIFF_DEBUG_LIB);scribus-api.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(LCMS_DIR)\lib\$(Platform);$(FREETYPE_DIR)\lib\$(Platform);$(LIBJPEG_DIR)\lib\$(Platform);$(LIBTIFF_DIR)\lib\$(Platform);$(QT4_DIR)\lib;$(OutDir)..;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <DataExecutionPrevention />
+      <ImportLibrary>$(OutDir)pathfinder.lib</ImportLibrary>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug-cairo|x64'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>..;..\..\..\scribus;$(QT4_DIR)\include\QtCore;$(QT4_DIR)\include\QtGui;$(QT4_DIR)\include\QtXml;$(QT4_DIR)\include;$(QT4_DIR)\src\3rdparty\zlib;$(LCMS_DIR)\include;$(CAIRO_DIR)\include;$(FREETYPE_DIR)\include;$(LIBJPEG_DIR)\include;$(LIBTIFF_DIR)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_USE_MATH_DEFINES;_USRDLL;_WINDOWS;QT_LARGEFILE_SUPPORT;QT_EDITION=QT_EDITION_DESKTOP;QT_DLL;QT_GUI_LIB;QT_CORE_LIB;QT_THREAD_SUPPORT;HAVE_CAIRO;COMPILE_PLUGIN_AS_DLL;AVOID_WIN32_FILEIO;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <DisableSpecificWarnings>4190;4251;4267;4996;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>QtCored4.lib;QtGuid4.lib;QtXmld4.lib;$(FREETYPE_DEBUG_LIB);$(LIBJPEG_DEBUG_LIB);$(LIBTIFF_DEBUG_LIB);scribus-api.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(LCMS_DIR)\lib\$(Platform);$(FREETYPE_DIR)\lib\$(Platform);$(LIBJPEG_DIR)\lib\$(Platform);$(LIBTIFF_DIR)\lib\$(Platform);$(QT4_DIR)\lib;$(OutDir)..;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <DataExecutionPrevention>
+      </DataExecutionPrevention>
+      <ImportLibrary>$(OutDir)pathfinder.lib</ImportLibrary>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release-cairo|Win32'">
+    <ClCompile>
+      <Optimization>MinSpace</Optimization>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <OmitFramePointers>true</OmitFramePointers>
+      <AdditionalIncludeDirectories>..;..\..\..\scribus;$(QT4_DIR)\include\QtCore;$(QT4_DIR)\include\QtGui;$(QT4_DIR)\include\QtXml;$(QT4_DIR)\include;$(QT4_DIR)\src\3rdparty\zlib;$(LCMS_DIR)\include;$(CAIRO_DIR)\include;$(FREETYPE_DIR)\include;$(LIBJPEG_DIR)\include;$(LIBTIFF_DIR)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_USE_MATH_DEFINES;_USRDLL;_WINDOWS;QT_LARGEFILE_SUPPORT;QT_EDITION=QT_EDITION_DESKTOP;QT_DLL;QT_GUI_LIB;QT_CORE_LIB;QT_THREAD_SUPPORT;HAVE_CAIRO;COMPILE_PLUGIN_AS_DLL;AVOID_WIN32_FILEIO;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <StringPooling>true</StringPooling>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <PrecompiledHeader />
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <DisableSpecificWarnings>4190;4251;4267;4996;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>QtCore4.lib;QtGui4.lib;QtXml4.lib;$(FREETYPE_RELEASE_LIB);$(LIBJPEG_RELEASE_LIB);$(LIBTIFF_RELEASE_LIB);scribus-api.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(LCMS_DIR)\lib\$(Platform);$(FREETYPE_DIR)\lib\$(Platform);$(LIBJPEG_DIR)\lib\$(Platform);$(LIBTIFF_DIR)\lib\$(Platform);$(QT4_DIR)\lib;$(OutDir)..;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+      <OptimizeReferences>true</OptimizeReferences>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <DataExecutionPrevention />
+      <ImportLibrary>$(OutDir)pathfinder.lib</ImportLibrary>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release-cairo|x64'">
+    <ClCompile>
+      <Optimization>MinSpace</Optimization>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <OmitFramePointers>true</OmitFramePointers>
+      <AdditionalIncludeDirectories>..;..\..\..\scribus;$(QT4_DIR)\include\QtCore;$(QT4_DIR)\include\QtGui;$(QT4_DIR)\include\QtXml;$(QT4_DIR)\include;$(QT4_DIR)\src\3rdparty\zlib;$(LCMS_DIR)\include;$(CAIRO_DIR)\include;$(FREETYPE_DIR)\include;$(LIBJPEG_DIR)\include;$(LIBTIFF_DIR)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_USE_MATH_DEFINES;_USRDLL;_WINDOWS;QT_LARGEFILE_SUPPORT;QT_EDITION=QT_EDITION_DESKTOP;QT_DLL;QT_GUI_LIB;QT_CORE_LIB;QT_THREAD_SUPPORT;HAVE_CAIRO;COMPILE_PLUGIN_AS_DLL;AVOID_WIN32_FILEIO;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <StringPooling>true</StringPooling>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <DisableSpecificWarnings>4190;4251;4267;4996;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>QtCore4.lib;QtGui4.lib;QtXml4.lib;$(FREETYPE_RELEASE_LIB);$(LIBJPEG_RELEASE_LIB);$(LIBTIFF_RELEASE_LIB);scribus-api.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(LCMS_DIR)\lib\$(Platform);$(FREETYPE_DIR)\lib\$(Platform);$(LIBJPEG_DIR)\lib\$(Platform);$(LIBTIFF_DIR)\lib\$(Platform);$(QT4_DIR)\lib;$(OutDir)..;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+      <OptimizeReferences>true</OptimizeReferences>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <DataExecutionPrevention>
+      </DataExecutionPrevention>
+      <ImportLibrary>$(OutDir)pathfinder.lib</ImportLibrary>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="pathfinderdll.cpp" />
+    <ClCompile Include="..\..\..\scribus\plugins\tools\pathfinder\pathfinder.cpp" />
+    <ClCompile Include="..\..\..\scribus\plugins\tools\pathfinder\pathfinderdialog.cpp" />
+    <ClCompile Include="..\..\..\scribus\plugins\tools\pathfinder\moc_pathfinder.cpp" />
+    <ClCompile Include="..\..\..\scribus\plugins\tools\pathfinder\moc_pathfinderdialog.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <moc Include="..\..\..\scribus\plugins\tools\pathfinder\pathfinder.h" />
+    <moc Include="..\..\..\scribus\plugins\tools\pathfinder\pathfinderdialog.h" />
+    <ClInclude Include="..\..\..\scribus\plugins\tools\pathfinder\ui_pathfinderbase.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <uic Include="..\..\..\scribus\plugins\tools\pathfinder\pathfinderbase.ui" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\scribus-exe\scribus.vcxproj">
+      <Project>{b17fcd80-7978-4544-93c4-2fe1ac6fe9f3}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+    <Import Project="..\Scribus-build-rules.targets" />
+  </ImportGroup>
+</Project>

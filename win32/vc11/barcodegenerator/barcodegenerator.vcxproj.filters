@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{1e03c859-73a5-40e0-bd94-206b568f6c92}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;def;odl;idl;hpj;bat;asm</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{8ad79abf-6496-4ffe-91e7-a6dd83954848}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{cae9bba6-f4fb-4f0b-9854-9b22d9fca424}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe</Extensions>
+    </Filter>
+    <Filter Include="Form Files">
+      <UniqueIdentifier>{8c7260fd-d8a4-4704-a785-23cddd61689c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Generated Form Files">
+      <UniqueIdentifier>{6a4fd578-d071-4243-ab29-cdeaa0b29fae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Generated Moc Files">
+      <UniqueIdentifier>{b658fe37-f75d-4f57-8192-746e26d500a3}</UniqueIdentifier>
+      <Extensions>moc_*.cpp</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\scribus\plugins\barcodegenerator\barcode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="barcodegeneratordll.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\plugins\barcodegenerator\barcodegenerator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\plugins\barcodegenerator\moc_barcode.cpp">
+      <Filter>Generated Moc Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\plugins\barcodegenerator\moc_barcodegenerator.cpp">
+      <Filter>Generated Moc Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\scribus\plugins\barcodegenerator\ui_barcodegenerator.h">
+      <Filter>Generated Form Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <uic Include="..\..\..\scribus\plugins\barcodegenerator\barcodegenerator.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+  </ItemGroup>
+  <ItemGroup>
+    <moc Include="..\..\..\scribus\plugins\barcodegenerator\barcode.h">
+      <Filter>Header Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\plugins\barcodegenerator\barcodegenerator.h">
+      <Filter>Header Files</Filter>
+    </moc>
+  </ItemGroup>
+</Project>

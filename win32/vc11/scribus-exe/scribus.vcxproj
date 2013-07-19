@@ -1,0 +1,1594 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug-cairo|Win32">
+      <Configuration>Debug-cairo</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug-cairo|x64">
+      <Configuration>Debug-cairo</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release-cairo|Win32">
+      <Configuration>Release-cairo</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release-cairo|x64">
+      <Configuration>Release-cairo</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{B17FCD80-7978-4544-93C4-2FE1AC6FE9F3}</ProjectGuid>
+    <RootNamespace>Scribus</RootNamespace>
+    <Keyword>Win32Proj</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-cairo|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v110</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-cairo|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v110</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug-cairo|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v110</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug-cairo|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v110</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+    <Import Project="..\Scribus-build-rules.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release-cairo|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\Scribus-build-props.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release-cairo|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\Scribus-build-props.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug-cairo|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\Scribus-build-props.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug-cairo|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\Scribus-build-props.props" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>11.0.50727.1</_ProjectFileVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug-cairo|Win32'">
+    <OutDir>..\..\..\..\Scribus-builds\Scribus-vc11-$(Configuration)-$(Platform)\scribus\</OutDir>
+    <IntDir>..\..\..\..\Scribus-builds\Build-objs-vc11\$(Configuration)-$(Platform)\$(TargetName)\</IntDir>
+    <LinkIncremental>true</LinkIncremental>
+    <TargetName>Scribus</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug-cairo|x64'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>..\..\..\..\Scribus-builds\Scribus-vc11-$(Configuration)-$(Platform)\scribus\</OutDir>
+    <IntDir>..\..\..\..\Scribus-builds\Build-objs-vc11\$(Configuration)-$(Platform)\$(TargetName)\</IntDir>
+    <TargetName>Scribus</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-cairo|Win32'">
+    <OutDir>..\..\..\..\Scribus-builds\Scribus-vc11-$(Configuration)-$(Platform)\scribus\</OutDir>
+    <IntDir>..\..\..\..\Scribus-builds\Build-objs-vc11\$(Configuration)-$(Platform)\$(TargetName)\</IntDir>
+    <LinkIncremental>false</LinkIncremental>
+    <TargetName>Scribus</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-cairo|x64'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>..\..\..\..\Scribus-builds\Scribus-vc11-$(Configuration)-$(Platform)\scribus\</OutDir>
+    <IntDir>..\..\..\..\Scribus-builds\Build-objs-vc11\$(Configuration)-$(Platform)\$(TargetName)\</IntDir>
+    <TargetName>Scribus</TargetName>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug-cairo|Win32'">
+    <ClCompile>
+      <AdditionalOptions>/MP2 %(AdditionalOptions)</AdditionalOptions>
+      <Optimization>Disabled</Optimization>
+      <InlineFunctionExpansion>Default</InlineFunctionExpansion>
+      <IntrinsicFunctions>false</IntrinsicFunctions>
+      <AdditionalIncludeDirectories>..\..\vc11;..\..\..\scribus;..\..\..\scribus\fonts;..\..\..\scribus\text;..\..\..\scribus\styles;..\..\..\scribus\simpletreemodel;..\..\..\scribus\ui;$(QT4_DIR)\include\QtCore;$(QT4_DIR)\include\QtGui;$(QT4_DIR)\include\QtNetwork;$(QT4_DIR)\include\QtXml;$(QT4_DIR)\include;$(QT4_DIR)\src\3rdparty\zlib;$(LCMS_DIR)\include;$(CAIRO_DIR)\include;$(FREETYPE_DIR)\include;$(LIBJPEG_DIR)\include;$(LIBTIFF_DIR)\include;$(PODOFO_DIR)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_USE_MATH_DEFINES;QT_LARGEFILE_SUPPORT;QT_EDITION=QT_EDITION_DESKTOP;QT_DLL;QT_GUI_LIB;QT_CORE_LIB;QT_THREAD_SUPPORT;HAVE_CAIRO;HAVE_CONFIG_H;AVOID_WIN32_FILEIO;COMPILE_SCRIBUS_MAIN_APP;DOCDIR="doc/";ICONDIR="icons/";SAMPLESDIR="samples/";SCRIPTSDIR="scripts/";SHAREDIR="share/";TEMPLATEDIR="templates/";LIBDIR="libs/";PLUGINDIR="plugins";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <IgnoreStandardIncludePath>false</IgnoreStandardIncludePath>
+      <MinimalRebuild>false</MinimalRebuild>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <DisableLanguageExtensions>false</DisableLanguageExtensions>
+      <ForceConformanceInForLoopScope>true</ForceConformanceInForLoopScope>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>scribuspch.h</PrecompiledHeaderFile>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <DisableSpecificWarnings>4005;4244;4251;4258;4267;4996;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <ForcedIncludeFiles>scribuspch.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>QtCored4.lib;QtGuid4.lib;QtNetworkd4.lib;QtXmld4.lib;$(FREETYPE_DEBUG_LIB);$(CAIRO_DEBUG_LIB);$(LIBJPEG_DEBUG_LIB);$(LIBTIFF_DEBUG_LIB);$(LCMS_DEBUG_LIB);mscms.lib;$(PODOFO_DEBUG_LIB);WSock32.Lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(QT4_DIR)\lib;$(LCMS_DIR)\lib\$(Platform);$(FREETYPE_DIR)\lib\$(Platform);$(CAIRO_DIR)\lib\$(Platform);$(LIBJPEG_DIR)\lib\$(Platform);$(LIBTIFF_DIR)\lib\$(Platform);$(PODOFO_DIR)\lib\$(Platform);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AssemblyDebug />
+      <SubSystem>Console</SubSystem>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <DataExecutionPrevention />
+      <ImportLibrary>$(OutDir)scribus-api.lib</ImportLibrary>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug-cairo|x64'">
+    <ClCompile>
+      <AdditionalOptions>/MP2 %(AdditionalOptions)</AdditionalOptions>
+      <Optimization>Disabled</Optimization>
+      <InlineFunctionExpansion>Default</InlineFunctionExpansion>
+      <IntrinsicFunctions>false</IntrinsicFunctions>
+      <AdditionalIncludeDirectories>..\..\vc11;..\..\..\scribus;..\..\..\scribus\fonts;..\..\..\scribus\text;..\..\..\scribus\styles;..\..\..\scribus\simpletreemodel;..\..\..\scribus\ui;$(QT4_DIR)\include\QtCore;$(QT4_DIR)\include\QtGui;$(QT4_DIR)\include\QtNetwork;$(QT4_DIR)\include\QtXml;$(QT4_DIR)\include;$(QT4_DIR)\src\3rdparty\zlib;$(LCMS_DIR)\include;$(CAIRO_DIR)\include;$(FREETYPE_DIR)\include;$(LIBJPEG_DIR)\include;$(LIBTIFF_DIR)\include;$(PODOFO_DIR)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_USE_MATH_DEFINES;QT_LARGEFILE_SUPPORT;QT_EDITION=QT_EDITION_DESKTOP;QT_DLL;QT_GUI_LIB;QT_CORE_LIB;QT_THREAD_SUPPORT;HAVE_CAIRO;HAVE_CONFIG_H;AVOID_WIN32_FILEIO;COMPILE_SCRIBUS_MAIN_APP;DOCDIR="doc/";ICONDIR="icons/";SAMPLESDIR="samples/";SCRIPTSDIR="scripts/";SHAREDIR="share/";TEMPLATEDIR="templates/";LIBDIR="libs/";PLUGINDIR="plugins";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <IgnoreStandardIncludePath>false</IgnoreStandardIncludePath>
+      <MinimalRebuild>false</MinimalRebuild>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <DisableLanguageExtensions>false</DisableLanguageExtensions>
+      <ForceConformanceInForLoopScope>true</ForceConformanceInForLoopScope>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>scribuspch.h</PrecompiledHeaderFile>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <DisableSpecificWarnings>4005;4244;4251;4258;4267;4996;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <ForcedIncludeFiles>scribuspch.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>QtCored4.lib;QtGuid4.lib;QtNetworkd4.lib;QtXmld4.lib;$(FREETYPE_DEBUG_LIB);$(CAIRO_DEBUG_LIB);$(LIBJPEG_DEBUG_LIB);$(LIBTIFF_DEBUG_LIB);$(LCMS_DEBUG_LIB);mscms.lib;$(PODOFO_DEBUG_LIB);WSock32.Lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(QT4_DIR)\lib;$(LCMS_DIR)\lib\$(Platform);$(FREETYPE_DIR)\lib\$(Platform);$(CAIRO_DIR)\lib\$(Platform);$(LIBJPEG_DIR)\lib\$(Platform);$(LIBTIFF_DIR)\lib\$(Platform);$(PODOFO_DIR)\lib\$(Platform);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AssemblyDebug>
+      </AssemblyDebug>
+      <SubSystem>Console</SubSystem>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <DataExecutionPrevention>
+      </DataExecutionPrevention>
+      <ImportLibrary>$(OutDir)scribus-api.lib</ImportLibrary>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release-cairo|Win32'">
+    <ClCompile>
+      <AdditionalOptions>/MP2 %(AdditionalOptions)</AdditionalOptions>
+      <Optimization>MaxSpeed</Optimization>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <OmitFramePointers>true</OmitFramePointers>
+      <AdditionalIncludeDirectories>..\..\vc11;..\..\..\scribus;..\..\..\scribus\fonts;..\..\..\scribus\text;..\..\..\scribus\styles;..\..\..\scribus\simpletreemodel;..\..\..\scribus\ui;$(QT4_DIR)\include\QtCore;$(QT4_DIR)\include\QtGui;$(QT4_DIR)\include\QtNetwork;$(QT4_DIR)\include\QtXml;$(QT4_DIR)\include;$(QT4_DIR)\src\3rdparty\zlib;$(LCMS_DIR)\include;$(CAIRO_DIR)\include;$(FREETYPE_DIR)\include;$(LIBJPEG_DIR)\include;$(LIBTIFF_DIR)\include;$(PODOFO_DIR)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_USE_MATH_DEFINES;_WINDOWS;QT_LARGEFILE_SUPPORT;QT_EDITION=QT_EDITION_DESKTOP;QT_DLL;QT_GUI_LIB;QT_CORE_LIB;QT_THREAD_SUPPORT;HAVE_CAIRO;HAVE_CONFIG_H;AVOID_WIN32_FILEIO;COMPILE_SCRIBUS_MAIN_APP;DOCDIR="doc/";ICONDIR="icons/";SAMPLESDIR="samples/";SCRIPTSDIR="scripts/";SHAREDIR="share/";TEMPLATEDIR="templates/";LIBDIR="libs/";PLUGINDIR="plugins";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <StringPooling>true</StringPooling>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <BufferSecurityCheck>true</BufferSecurityCheck>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <ForceConformanceInForLoopScope>true</ForceConformanceInForLoopScope>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>scribuspch.h</PrecompiledHeaderFile>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <DisableSpecificWarnings>4005;4244;4251;4258;4267;4996;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <ForcedIncludeFiles>scribuspch.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>QtCore4.lib;QtGui4.lib;QtNetwork4.lib;QtXml4.lib;qtmain.lib;$(FREETYPE_RELEASE_LIB);$(CAIRO_RELEASE_LIB);$(LIBJPEG_RELEASE_LIB);$(LIBTIFF_RELEASE_LIB);$(LCMS_RELEASE_LIB);mscms.lib;$(PODOFO_RELEASE_LIB);WSock32.Lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(QT4_DIR)\lib;$(LCMS_DIR)\lib\$(Platform);$(FREETYPE_DIR)\lib\$(Platform);$(CAIRO_DIR)\lib\$(Platform);$(LIBJPEG_DIR)\lib\$(Platform);$(LIBTIFF_DIR)\lib\$(Platform);$(PODOFO_DIR)\lib\$(Platform);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+      <OptimizeReferences>true</OptimizeReferences>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <DataExecutionPrevention />
+      <ImportLibrary>$(OutDir)scribus-api.lib</ImportLibrary>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release-cairo|x64'">
+    <ClCompile>
+      <AdditionalOptions>/MP2 %(AdditionalOptions)</AdditionalOptions>
+      <Optimization>MaxSpeed</Optimization>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <OmitFramePointers>true</OmitFramePointers>
+      <AdditionalIncludeDirectories>..\..\vc11;..\..\..\scribus;..\..\..\scribus\fonts;..\..\..\scribus\text;..\..\..\scribus\styles;..\..\..\scribus\simpletreemodel;..\..\..\scribus\ui;$(QT4_DIR)\include\QtCore;$(QT4_DIR)\include\QtGui;$(QT4_DIR)\include\QtNetwork;$(QT4_DIR)\include\QtXml;$(QT4_DIR)\include;$(QT4_DIR)\src\3rdparty\zlib;$(LCMS_DIR)\include;$(CAIRO_DIR)\include;$(FREETYPE_DIR)\include;$(LIBJPEG_DIR)\include;$(LIBTIFF_DIR)\include;$(PODOFO_DIR)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_USE_MATH_DEFINES;_WINDOWS;QT_LARGEFILE_SUPPORT;QT_EDITION=QT_EDITION_DESKTOP;QT_DLL;QT_GUI_LIB;QT_CORE_LIB;QT_THREAD_SUPPORT;HAVE_CAIRO;HAVE_CONFIG_H;AVOID_WIN32_FILEIO;COMPILE_SCRIBUS_MAIN_APP;DOCDIR="doc/";ICONDIR="icons/";SAMPLESDIR="samples/";SCRIPTSDIR="scripts/";SHAREDIR="share/";TEMPLATEDIR="templates/";LIBDIR="libs/";PLUGINDIR="plugins";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <StringPooling>true</StringPooling>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <BufferSecurityCheck>true</BufferSecurityCheck>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <ForceConformanceInForLoopScope>true</ForceConformanceInForLoopScope>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>scribuspch.h</PrecompiledHeaderFile>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <DisableSpecificWarnings>4005;4244;4251;4258;4267;4996;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <ForcedIncludeFiles>scribuspch.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>QtCore4.lib;QtGui4.lib;QtNetwork4.lib;QtXml4.lib;qtmain.lib;$(FREETYPE_RELEASE_LIB);$(CAIRO_RELEASE_LIB);$(LIBJPEG_RELEASE_LIB);$(LIBTIFF_RELEASE_LIB);$(LCMS_RELEASE_LIB);mscms.lib;$(PODOFO_RELEASE_LIB);WSock32.Lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(QT4_DIR)\lib;$(LCMS_DIR)\lib\$(Platform);$(FREETYPE_DIR)\lib\$(Platform);$(CAIRO_DIR)\lib\$(Platform);$(LIBJPEG_DIR)\lib\$(Platform);$(LIBTIFF_DIR)\lib\$(Platform);$(PODOFO_DIR)\lib\$(Platform);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+      <OptimizeReferences>true</OptimizeReferences>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <DataExecutionPrevention>
+      </DataExecutionPrevention>
+      <ImportLibrary>$(OutDir)scribus-api.lib</ImportLibrary>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\scribus\desaxe\actions.h" />
+    <ClInclude Include="..\..\..\scribus\desaxe\automata.h" />
+    <ClInclude Include="..\..\..\scribus\desaxe\base_actions.h" />
+    <ClInclude Include="..\..\..\scribus\desaxe\desaxe_conf.h" />
+    <ClInclude Include="..\..\..\scribus\desaxe\digester.h" />
+    <ClInclude Include="..\..\..\scribus\desaxe\prog_actions.h" />
+    <ClInclude Include="..\..\..\scribus\desaxe\saxfilter.h" />
+    <ClInclude Include="..\..\..\scribus\desaxe\saxhandler.h" />
+    <ClInclude Include="..\..\..\scribus\desaxe\saxio.h" />
+    <ClInclude Include="..\..\..\scribus\desaxe\saxiohelper.h" />
+    <ClInclude Include="..\..\..\scribus\desaxe\saxXML.h" />
+    <ClInclude Include="..\..\..\scribus\desaxe\simple_actions.h" />
+    <ClInclude Include="..\..\..\scribus\desaxe\uniqueid.h" />
+    <ClInclude Include="..\..\..\scribus\KarbonCurveFit.h" />
+    <moc Include="..\..\..\scribus\about.h" />
+    <moc Include="..\..\..\scribus\aboutplugins.h" />
+    <moc Include="..\..\..\scribus\actionmanager.h" />
+    <moc Include="..\..\..\scribus\adjustcmsdialog.h" />
+    <moc Include="..\..\..\scribus\aligndistribute.h" />
+    <moc Include="..\..\..\scribus\alignselect.h" />
+    <moc Include="..\..\..\scribus\annot.h" />
+    <moc Include="..\..\..\scribus\annota.h" />
+    <ClInclude Include="..\..\..\scribus\annotation.h" />
+    <moc Include="..\..\..\scribus\applytemplatedialog.h" />
+    <moc Include="..\..\..\scribus\arrowchooser.h" />
+    <moc Include="..\..\..\scribus\autoform.h" />
+    <moc Include="..\..\..\scribus\autoformbuttongroup.h" />
+    <moc Include="..\..\..\scribus\basepointwidget.h" />
+    <moc Include="..\..\..\scribus\bookmarkpalette.h" />
+    <moc Include="..\..\..\scribus\bookmwin.h" />
+    <moc Include="..\..\..\scribus\buttonicon.h" />
+    <moc Include="..\..\..\scribus\canvas.h" />
+    <ClInclude Include="..\..\..\scribus\canvasgesture.h" />
+    <ClInclude Include="..\..\..\scribus\canvasgesture_linemove.h" />
+    <ClInclude Include="..\..\..\scribus\canvasgesture_pan.h" />
+    <ClInclude Include="..\..\..\scribus\canvasgesture_rectselect.h" />
+    <ClInclude Include="..\..\..\scribus\canvasgesture_resize.h" />
+    <moc Include="..\..\..\scribus\canvasgesture_rulermove.h" />
+    <moc Include="..\..\..\scribus\canvasmode.h" />
+    <ClInclude Include="..\..\..\scribus\canvasmode_copyproperties.h" />
+    <ClInclude Include="..\..\..\scribus\canvasmode_create.h" />
+    <ClInclude Include="..\..\..\scribus\canvasmode_drawbezier.h" />
+    <ClInclude Include="..\..\..\scribus\canvasmode_drawfreehand.h" />
+    <moc Include="..\..\..\scribus\canvasmode_edit.h" />
+    <ClInclude Include="..\..\..\scribus\canvasmode_editgradient.h" />
+    <ClInclude Include="..\..\..\scribus\canvasmode_eyedropper.h" />
+    <ClInclude Include="..\..\..\scribus\canvasmode_framelinks.h" />
+    <moc Include="..\..\..\scribus\canvasmode_legacy.h" />
+    <ClInclude Include="..\..\..\scribus\canvasmode_magnifier.h" />
+    <moc Include="..\..\..\scribus\canvasmode_measurements.h" />
+    <ClInclude Include="..\..\..\scribus\canvasmode_nodeedit.h" />
+    <moc Include="..\..\..\scribus\canvasmode_normal.h" />
+    <ClInclude Include="..\..\..\scribus\canvasmode_objimport.h" />
+    <ClInclude Include="..\..\..\scribus\canvasmode_panning.h" />
+    <ClInclude Include="..\..\..\scribus\canvasmode_rotate.h" />
+    <moc Include="..\..\..\scribus\charselect.h" />
+    <moc Include="..\..\..\scribus\charselectenhanced.h" />
+    <moc Include="..\..\..\scribus\scescapecatcher.h" />
+    <ClInclude Include="..\..\..\scribus\styles\charstyle.h" />
+    <moc Include="..\..\..\scribus\chartablemodel.h" />
+    <moc Include="..\..\..\scribus\chartableview.h" />
+    <moc Include="..\..\..\scribus\charzoom.h" />
+    <moc Include="..\..\..\scribus\checkDocument.h" />
+    <ClInclude Include="..\..\..\scribus\cmserrorhandling.h" />
+    <ClInclude Include="..\..\..\scribus\cmsettings.h" />
+    <moc Include="..\..\..\scribus\cmsprefs.h" />
+    <moc Include="..\..\..\scribus\cmykfw.h" />
+    <moc Include="..\..\..\scribus\collect4output.h" />
+    <CustomBuild Include="..\..\..\scribus\color.h" />
+    <moc Include="..\..\..\scribus\colorblind.h" />
+    <moc Include="..\..\..\scribus\colorchart.h" />
+    <moc Include="..\..\..\scribus\colorcombo.h" />
+    <moc Include="..\..\..\scribus\colorlistbox.h" />
+    <moc Include="..\..\..\scribus\colorm.h" />
+    <ClInclude Include="..\..\..\scribus\colorsetmanager.h" />
+    <moc Include="..\..\..\scribus\commonstrings.h" />
+    <moc Include="..\..\..\scribus\contextmenu.h" />
+    <moc Include="..\..\..\scribus\ui\copypagetomasterpagedialog.h" />
+    <moc Include="..\..\..\scribus\cpalette.h" />
+    <moc Include="..\..\..\scribus\ui\createrange.h" />
+    <CustomBuild Include="..\..\..\scribus\crypt.h" />
+    <moc Include="..\..\..\scribus\cupsoptions.h" />
+    <moc Include="..\..\..\scribus\curvewidget.h" />
+    <moc Include="..\..\..\scribus\customfdialog.h" />
+    <moc Include="..\..\..\scribus\dasheditor.h" />
+    <moc Include="..\..\..\scribus\dcolor.h" />
+    <moc Include="..\..\..\scribus\deferredtask.h" />
+    <moc Include="..\..\..\scribus\delpages.h" />
+    <moc Include="..\..\..\scribus\docinfo.h" />
+    <moc Include="..\..\..\scribus\docitemattrprefs.h" />
+    <moc Include="..\..\..\scribus\docsections.h" />
+    <ClInclude Include="..\..\..\scribus\documentchecker.h" />
+    <ClInclude Include="..\..\..\scribus\documentinformation.h" />
+    <moc Include="..\..\..\scribus\ui\downloaddictionaries.h" />
+    <moc Include="..\..\..\scribus\editor.h" />
+    <moc Include="..\..\..\scribus\ui\edittoolbar.h" />
+    <moc Include="..\..\..\scribus\effectsdialog.h" />
+    <ClInclude Include="..\..\..\scribus\exif.h" />
+    <moc Include="..\..\..\scribus\extimageprops.h" />
+    <moc Include="..\..\..\scribus\fileloader.h" />
+    <moc Include="..\..\..\scribus\filesearch.h" />
+    <moc Include="..\..\..\scribus\ui\filetoolbar.h" />
+    <ClInclude Include="..\..\..\scribus\fileunzip.h" />
+    <moc Include="..\..\..\scribus\filewatcher.h" />
+    <moc Include="..\..\..\scribus\fontcombo.h" />
+    <moc Include="..\..\..\scribus\fontlistmodel.h" />
+    <moc Include="..\..\..\scribus\fontlistview.h" />
+    <moc Include="..\..\..\scribus\fontprefs.h" />
+    <moc Include="..\..\..\scribus\fontreplacedialog.h" />
+    <ClInclude Include="..\..\..\scribus\fparser.h" />
+    <ClInclude Include="..\..\..\scribus\fpconfig.h" />
+    <ClInclude Include="..\..\..\scribus\fpoint.h" />
+    <ClInclude Include="..\..\..\scribus\fpointarray.h" />
+    <ClInclude Include="..\..\..\scribus\fptypes.h" />
+    <ClInclude Include="..\..\..\scribus\text\frect.h" />
+    <ClInclude Include="..\..\..\scribus\text\fsize.h" />
+    <ClInclude Include="..\..\..\scribus\fonts\ftface.h" />
+    <moc Include="..\..\..\scribus\gradienteditor.h" />
+    <ClInclude Include="..\..\..\scribus\gtaction.h" />
+    <moc Include="..\..\..\scribus\gtdialogs.h" />
+    <moc Include="..\..\..\scribus\gtfiledialog.h" />
+    <ClInclude Include="..\..\..\scribus\gtfont.h" />
+    <ClInclude Include="..\..\..\scribus\gtframestyle.h" />
+    <ClInclude Include="..\..\..\scribus\gtgettext.h" />
+    <ClInclude Include="..\..\..\scribus\gtmeasure.h" />
+    <ClInclude Include="..\..\..\scribus\gtparagraphstyle.h" />
+    <ClInclude Include="..\..\..\scribus\gtstyle.h" />
+    <ClInclude Include="..\..\..\scribus\gtwriter.h" />
+    <moc Include="..\..\..\scribus\guidemanager.h" />
+    <ClInclude Include="..\..\..\scribus\guidemanagercore.h" />
+    <moc Include="..\..\..\scribus\guidesdelegate.h" />
+    <moc Include="..\..\..\scribus\guidesmodel.h" />
+    <moc Include="..\..\..\scribus\helpbrowser.h" />
+    <ClInclude Include="..\..\..\scribus\hnjalloc.h" />
+    <moc Include="..\..\..\scribus\hruler.h" />
+    <moc Include="..\..\..\scribus\hyask.h" />
+    <ClInclude Include="..\..\..\scribus\hyphen.h" />
+    <moc Include="..\..\..\scribus\hyphenator.h" />
+    <moc Include="..\..\..\scribus\hysettings.h" />
+    <ClInclude Include="..\..\..\scribus\icons5.h" />
+    <moc Include="..\..\..\scribus\imageinfodialog.h" />
+    <moc Include="..\..\..\scribus\insertaframe.h" />
+    <moc Include="..\..\..\scribus\insertTable.h" />
+    <moc Include="..\..\..\scribus\inspage.h" />
+    <ClInclude Include="..\..\..\scribus\ioapi.h" />
+    <moc Include="..\..\..\scribus\javadocs.h" />
+    <ClInclude Include="..\..\..\scribus\langmgr.h" />
+    <moc Include="..\..\..\scribus\latexeditor.h" />
+    <moc Include="..\..\..\scribus\latexhelpers.h" />
+    <moc Include="..\..\..\scribus\layers.h" />
+    <ClInclude Include="..\..\..\scribus\linecombo.h" />
+    <ClInclude Include="..\..\..\scribus\styles\linestyle.h" />
+    <ClInclude Include="..\..\..\scribus\linkbutton.h" />
+    <moc Include="..\..\..\scribus\loadsaveplugin.h" />
+    <moc Include="..\..\..\scribus\loremipsum.h" />
+    <moc Include="..\..\..\scribus\margindialog.h" />
+    <moc Include="..\..\..\scribus\marginwidget.h" />
+    <moc Include="..\..\..\scribus\masterpagepalette.h" />
+    <moc Include="..\..\..\scribus\measurements.h" />
+    <moc Include="..\..\..\scribus\menumanager.h" />
+    <moc Include="..\..\..\scribus\mergedoc.h" />
+    <moc Include="..\..\..\scribus\missing.h" />
+    <moc Include="..\..\..\scribus\ui\modetoolbar.h" />
+    <moc Include="..\..\..\scribus\movepage.h" />
+    <moc Include="..\..\..\scribus\multipleduplicate.h" />
+    <moc Include="..\..\..\scribus\multiprogressdialog.h" />
+    <moc Include="..\..\..\scribus\navigator.h" />
+    <moc Include="..\..\..\scribus\newfile.h" />
+    <moc Include="..\..\..\scribus\newtemp.h" />
+    <moc Include="..\..\..\scribus\nftdialog.h" />
+    <ClInclude Include="..\..\..\scribus\nftrcreader.h" />
+    <ClInclude Include="..\..\..\scribus\nftsettings.h" />
+    <ClInclude Include="..\..\..\scribus\nfttemplate.h" />
+    <moc Include="..\..\..\scribus\nftwidget.h" />
+    <moc Include="..\..\..\scribus\nodeeditpalette.h" />
+    <moc Include="..\..\..\scribus\observable.h" />
+    <moc Include="..\..\..\scribus\oneclick.h" />
+    <moc Include="..\..\..\scribus\outlinepalette.h" />
+    <ClInclude Include="..\..\..\scribus\page.h" />
+    <moc Include="..\..\..\scribus\pageitem.h" />
+    <moc Include="..\..\..\scribus\pageitem_imageframe.h" />
+    <moc Include="..\..\..\scribus\pageitem_latexframe.h" />
+    <moc Include="..\..\..\scribus\pageitem_line.h" />
+    <moc Include="..\..\..\scribus\pageitem_pathtext.h" />
+    <moc Include="..\..\..\scribus\pageitem_polygon.h" />
+    <moc Include="..\..\..\scribus\pageitem_polyline.h" />
+    <moc Include="..\..\..\scribus\pageitem_textframe.h" />
+    <moc Include="..\..\..\scribus\pageitemattributes.h" />
+    <moc Include="..\..\..\scribus\pageitempointer.h" />
+    <moc Include="..\..\..\scribus\pagelayout.h" />
+    <moc Include="..\..\..\scribus\pagepalette.h" />
+    <moc Include="..\..\..\scribus\pageselector.h" />
+    <ClInclude Include="..\..\..\scribus\pagesize.h" />
+    <ClInclude Include="..\..\..\scribus\pagestructs.h" />
+    <ClInclude Include="..\..\..\scribus\styles\paragraphstyle.h" />
+    <moc Include="..\..\..\scribus\patterndialog.h" />
+    <moc Include="..\..\..\scribus\pdflib.h" />
+    <moc Include="..\..\..\scribus\pdflib_core.h" />
+    <ClInclude Include="..\..\..\scribus\pdfoptions.h" />
+    <ClInclude Include="..\..\..\scribus\pdfoptionsio.h" />
+    <moc Include="..\..\..\scribus\pdfopts.h" />
+    <moc Include="..\..\..\scribus\ui\pdftoolbar.h" />
+    <moc Include="..\..\..\scribus\picsearch.h" />
+    <moc Include="..\..\..\scribus\picsearchoptions.h" />
+    <moc Include="..\..\..\scribus\picstatus.h" />
+    <moc Include="..\..\..\scribus\pluginmanager.h" />
+    <moc Include="..\..\..\scribus\pluginmanagerprefsgui.h" />
+    <moc Include="..\..\..\scribus\polygonwidget.h" />
+    <moc Include="..\..\..\scribus\polyprops.h" />
+    <moc Include="..\..\..\scribus\prefs.h" />
+    <ClInclude Include="..\..\..\scribus\prefscontext.h" />
+    <moc Include="..\..\..\scribus\prefsdialogbase.h" />
+    <ClInclude Include="..\..\..\scribus\prefsfile.h" />
+    <moc Include="..\..\..\scribus\prefsmanager.h" />
+    <moc Include="..\..\..\scribus\prefspanel.h" />
+    <ClInclude Include="..\..\..\scribus\prefsreader.h" />
+    <ClInclude Include="..\..\..\scribus\prefsstructs.h" />
+    <ClInclude Include="..\..\..\scribus\prefstable.h" />
+    <moc Include="..\..\..\scribus\preview.h" />
+    <moc Include="..\..\..\scribus\printdialog.h" />
+    <moc Include="..\..\..\scribus\propertiespalette.h" />
+    <moc Include="..\..\..\scribus\pslib.h" />
+    <moc Include="..\..\..\scribus\query.h" />
+    <ClInclude Include="..\..\..\scribus\rawimage.h" />
+    <ClInclude Include="..\..\..\scribus\rc4.h" />
+    <moc Include="..\..\..\scribus\reformdoc.h" />
+    <moc Include="..\..\..\scribus\replacecolors.h" />
+    <moc Include="..\..\..\scribus\replaceonecolor.h" />
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="..\..\..\scribus\resourcecollection.h" />
+    <moc Include="..\..\..\scribus\rulermover.h" />
+    <moc Include="..\..\..\scribus\sampleitem.h" />
+    <ClInclude Include="..\..\..\scribus\scclocale.h" />
+    <ClInclude Include="..\..\..\scribus\sccolor.h" />
+    <ClInclude Include="..\..\..\scribus\sccolorengine.h" />
+    <ClInclude Include="..\..\..\scribus\sccolorshade.h" />
+    <ClInclude Include="..\..\..\scribus\sccombobox.h" />
+    <ClInclude Include="..\..\..\scribus\scconfig.h" />
+    <moc Include="..\..\..\scribus\downloadmanager\scdlmgr.h" />
+    <moc Include="..\..\..\scribus\downloadmanager\scdlthread.h" />
+    <ClInclude Include="..\..\..\scribus\scdocoutput.h" />
+    <CustomBuild Include="..\..\..\scribus\scdocoutput_ps2.h">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug-cairo|Win32'">Étape de génération personnalisée en cours</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug-cairo|x64'">Étape de génération personnalisée en cours</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug-cairo|Win32'">
+      </Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug-cairo|x64'">
+      </Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release-cairo|Win32'">Étape de génération personnalisée en cours</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release-cairo|x64'">Étape de génération personnalisée en cours</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release-cairo|Win32'">
+      </Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release-cairo|x64'">
+      </Command>
+    </CustomBuild>
+    <ClInclude Include="..\..\..\scribus\fonts\scface.h" />
+    <ClInclude Include="..\..\..\scribus\fonts\scface_ps.h" />
+    <ClInclude Include="..\..\..\scribus\fonts\scface_ttf.h" />
+    <moc Include="..\..\..\scribus\scfilewidget.h" />
+    <ClInclude Include="..\..\..\scribus\fonts\scfontmetrics.h" />
+    <ClInclude Include="..\..\..\scribus\scfonts.h" />
+    <moc Include="..\..\..\scribus\scgtplugin.h" />
+    <ClInclude Include="..\..\..\scribus\scguardedptr.h" />
+    <ClInclude Include="..\..\..\scribus\scgzfile.h" />
+    <moc Include="..\..\..\scribus\schelptreemodel.h" />
+    <ClInclude Include="..\..\..\scribus\scimage.h" />
+    <ClInclude Include="..\..\..\scribus\scimagestructs.h" />
+    <ClInclude Include="..\..\..\scribus\scimgdataloader.h" />
+    <ClInclude Include="..\..\..\scribus\scimgdataloader_gimp.h" />
+    <ClInclude Include="..\..\..\scribus\scimgdataloader_jpeg.h" />
+    <ClInclude Include="..\..\..\scribus\scimgdataloader_pdf.h" />
+    <ClInclude Include="..\..\..\scribus\scimgdataloader_ps.h" />
+    <ClInclude Include="..\..\..\scribus\scimgdataloader_psd.h" />
+    <ClInclude Include="..\..\..\scribus\scimgdataloader_qt.h" />
+    <ClInclude Include="..\..\..\scribus\scimgdataloader_tiff.h" />
+    <moc Include="..\..\..\scribus\scinputdialog.h" />
+    <CustomBuild Include="..\..\..\scribus\sclayer.h">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug-cairo|Win32'">Étape de génération personnalisée en cours</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug-cairo|x64'">Étape de génération personnalisée en cours</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug-cairo|Win32'">
+      </Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug-cairo|x64'">
+      </Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release-cairo|Win32'">Étape de génération personnalisée en cours</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release-cairo|x64'">Étape de génération personnalisée en cours</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release-cairo|Win32'">
+      </Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release-cairo|x64'">
+      </Command>
+    </CustomBuild>
+    <ClInclude Include="..\..\..\scribus\sclimits.h" />
+    <ClInclude Include="..\..\..\scribus\sclistboxpixmap.h" />
+    <moc Include="..\..\..\scribus\scmenu.h" />
+    <moc Include="..\..\..\scribus\scmessagebox.h" />
+    <ClInclude Include="..\..\..\scribus\scmimedata.h" />
+    <ClInclude Include="..\..\..\scribus\scpageoutput.h" />
+    <ClInclude Include="..\..\..\scribus\scpageoutput_ps2.h" />
+    <ClInclude Include="..\..\..\scribus\scpainter.h" />
+    <ClInclude Include="..\..\..\scribus\scpainterex_cairo.h" />
+    <ClInclude Include="..\..\..\scribus\scpainterex_ps2.h" />
+    <ClInclude Include="..\..\..\scribus\scpainterexbase.h" />
+    <ClInclude Include="..\..\..\scribus\scpaths.h" />
+    <ClInclude Include="..\..\..\scribus\scpattern.h" />
+    <ClInclude Include="..\..\..\scribus\scpixmapcache.h" />
+    <moc Include="..\..\..\scribus\scplugin.h" />
+    <ClInclude Include="..\..\..\scribus\scpreview.h" />
+    <moc Include="..\..\..\scribus\scprintengine.h" />
+    <ClInclude Include="..\..\..\scribus\scprintengine_gdi.h" />
+    <ClInclude Include="..\..\..\scribus\scprintengine_ps.h" />
+    <moc Include="..\..\..\scribus\scraction.h" />
+    <moc Include="..\..\..\scribus\scrapbookpalette.h" />
+    <ClInclude Include="..\..\..\scribus\scresizecursor.h" />
+    <moc Include="..\..\..\scribus\scribus.h" />
+    <ClInclude Include="..\..\..\scribus\scribusapi.h" />
+    <moc Include="..\..\..\scribus\scribusapp.h" />
+    <moc Include="..\..\..\scribus\scribuscore.h" />
+    <moc Include="..\..\..\scribus\scribusdoc.h" />
+    <ClInclude Include="scribuspch.h" />
+    <ClInclude Include="..\..\..\scribus\scribusstructs.h" />
+    <moc Include="..\..\..\scribus\scribusview.h" />
+    <moc Include="..\..\..\scribus\scribuswin.h" />
+    <CustomBuild Include="..\..\..\scribus\scribusXml.h">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug-cairo|Win32'">Étape de génération personnalisée en cours</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug-cairo|x64'">Étape de génération personnalisée en cours</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug-cairo|Win32'">
+      </Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug-cairo|x64'">
+      </Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release-cairo|Win32'">Étape de génération personnalisée en cours</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release-cairo|x64'">Étape de génération personnalisée en cours</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release-cairo|Win32'">
+      </Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release-cairo|x64'">
+      </Command>
+    </CustomBuild>
+    <moc Include="..\..\..\scribus\scrpalettebase.h" />
+    <moc Include="..\..\..\scribus\scrspinbox.h" />
+    <ClInclude Include="..\..\..\scribus\scslainforeader.h" />
+    <ClInclude Include="..\..\..\scribus\scstreamfilter.h" />
+    <ClInclude Include="..\..\..\scribus\scstreamfilter_ascii85.h" />
+    <ClInclude Include="..\..\..\scribus\scstreamfilter_flate.h" />
+    <ClInclude Include="..\..\..\scribus\scstreamfilter_rc4.h" />
+    <moc Include="..\..\..\scribus\sctablewidget.h" />
+    <ClInclude Include="..\..\..\scribus\text\sctext_shared.h" />
+    <moc Include="..\..\..\scribus\sctextbrowser.h" />
+    <ClInclude Include="..\..\..\scribus\sctextstream.h" />
+    <ClInclude Include="..\..\..\scribus\sctextstruct.h" />
+    <moc Include="..\..\..\scribus\sctoolbar.h" />
+    <moc Include="..\..\..\scribus\sctreewidget.h" />
+    <ClInclude Include="..\..\..\scribus\scxmlstreamwriter.h" />
+    <moc Include="..\..\..\scribus\search.h" />
+    <moc Include="..\..\..\scribus\selection.h" />
+    <moc Include="..\..\..\scribus\selectobjects.h" />
+    <moc Include="..\..\..\scribus\selfield.h" />
+    <ClInclude Include="..\..\..\scribus\serializer.h" />
+    <moc Include="..\..\..\scribus\shadebutton.h" />
+    <moc Include="..\..\..\scribus\shortcutwidget.h" />
+    <moc Include="..\..\..\scribus\smalignselect.h" />
+    <moc Include="..\..\..\scribus\smcheckbox.h" />
+    <moc Include="..\..\..\scribus\smcolorcombo.h" />
+    <moc Include="..\..\..\scribus\smcstylewidget.h" />
+    <moc Include="..\..\..\scribus\smfontcomboh.h" />
+    <moc Include="..\..\..\scribus\smlinestyle.h" />
+    <moc Include="..\..\..\scribus\smlinestylewidget.h" />
+    <moc Include="..\..\..\scribus\smpstylewidget.h" />
+    <ClInclude Include="..\..\..\scribus\smradiobutton.h" />
+    <moc Include="..\..\..\scribus\smreplacedia.h" />
+    <moc Include="..\..\..\scribus\smsccombobox.h" />
+    <moc Include="..\..\..\scribus\smscrspinbox.h" />
+    <moc Include="..\..\..\scribus\smshadebutton.h" />
+    <moc Include="..\..\..\scribus\smspinbox.h" />
+    <moc Include="..\..\..\scribus\smstyleimport.h" />
+    <moc Include="..\..\..\scribus\smstyleselect.h" />
+    <moc Include="..\..\..\scribus\smtabruler.h" />
+    <moc Include="..\..\..\scribus\smtextstyles.h" />
+    <moc Include="..\..\..\scribus\spalette.h" />
+    <ClInclude Include="..\..\..\scribus\text\specialchars.h" />
+    <ClInclude Include="..\..\..\scribus\splash.h" />
+    <ClInclude Include="..\..\..\scribus\stencilreader.h" />
+    <moc Include="..\..\..\scribus\storyeditor.h" />
+    <moc Include="..\..\..\scribus\text\storytext.h" />
+    <ClInclude Include="..\..\..\scribus\style.h" />
+    <ClInclude Include="..\..\..\scribus\styles\stylecontext.h" />
+    <ClInclude Include="..\..\..\scribus\styles\stylecontextproxy.h" />
+    <moc Include="..\..\..\scribus\styleitem.h" />
+    <moc Include="..\..\..\scribus\stylemanager.h" />
+    <moc Include="..\..\..\scribus\styleselect.h" />
+    <ClInclude Include="..\..\..\scribus\styles\styleset.h" />
+    <moc Include="..\..\..\scribus\styleview.h" />
+    <moc Include="..\..\..\scribus\tabcheckdoc.h" />
+    <moc Include="..\..\..\scribus\tabdisplay.h" />
+    <moc Include="..\..\..\scribus\tabdocument.h" />
+    <moc Include="..\..\..\scribus\tabexternaltoolswidget.h" />
+    <moc Include="..\..\..\scribus\tabgeneral.h" />
+    <moc Include="..\..\..\scribus\tabguides.h" />
+    <moc Include="..\..\..\scribus\tabkeyboardshortcutswidget.h" />
+    <moc Include="..\..\..\scribus\tabmanager.h" />
+    <moc Include="..\..\..\scribus\tabmiscellaneous.h" />
+    <moc Include="..\..\..\scribus\tabpdfoptions.h" />
+    <moc Include="..\..\..\scribus\tabprinter.h" />
+    <moc Include="..\..\..\scribus\tabruler.h" />
+    <moc Include="..\..\..\scribus\tabscrapbook.h" />
+    <moc Include="..\..\..\scribus\tabtools.h" />
+    <moc Include="..\..\..\scribus\tabtypography.h" />
+    <moc Include="..\..\..\scribus\tocgenerator.h" />
+    <moc Include="..\..\..\scribus\tocindexprefs.h" />
+    <ClInclude Include="..\..\..\scribus\transaction.h" />
+    <CustomBuild Include="..\..\..\scribus\tt\simpletreemodel\treeitem.h">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug-cairo|Win32'">Étape de génération personnalisée en cours</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug-cairo|x64'">Étape de génération personnalisée en cours</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug-cairo|Win32'">
+      </Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug-cairo|x64'">
+      </Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release-cairo|Win32'">Étape de génération personnalisée en cours</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release-cairo|x64'">Étape de génération personnalisée en cours</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release-cairo|Win32'">
+      </Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release-cairo|x64'">
+      </Command>
+    </CustomBuild>
+    <moc Include="..\..\..\scribus\tt\simpletreemodel\treemodel.h" />
+    <moc Include="..\..\..\scribus\undogui.h" />
+    <moc Include="..\..\..\scribus\undomanager.h" />
+    <ClInclude Include="..\..\..\scribus\undoobject.h" />
+    <ClInclude Include="..\..\..\scribus\undostack.h" />
+    <ClInclude Include="..\..\..\scribus\undostate.h" />
+    <moc Include="..\..\..\scribus\unicodesearch.h" />
+    <ClInclude Include="..\..\..\scribus\units.h" />
+    <ClInclude Include="..\..\..\scribus\unzip.h" />
+    <ClInclude Include="..\..\..\scribus\updatemanager.h" />
+    <moc Include="..\..\..\scribus\upgradechecker.h" />
+    <moc Include="..\..\..\scribus\urllauncher.h" />
+    <moc Include="..\..\..\scribus\useprintermarginsdialog.h" />
+    <ClInclude Include="..\..\..\scribus\usertaskstructs.h" />
+    <ClInclude Include="..\..\..\scribus\util.h" />
+    <ClInclude Include="..\..\..\scribus\util_color.h" />
+    <ClInclude Include="..\..\..\scribus\util_file.h" />
+    <ClInclude Include="..\..\..\scribus\util_formats.h" />
+    <ClInclude Include="..\..\..\scribus\util_ghostscript.h" />
+    <ClInclude Include="..\..\..\scribus\util_icon.h" />
+    <ClInclude Include="..\..\..\scribus\util_math.h" />
+    <ClInclude Include="..\..\..\scribus\util_printer.h" />
+    <ClInclude Include="..\..\..\scribus\util_text.h" />
+    <ClInclude Include="..\..\..\scribus\vgradient.h" />
+    <ClInclude Include="..\..\..\scribus\vgradientex.h" />
+    <moc Include="..\..\..\scribus\vruler.h" />
+    <ClInclude Include="..\..\..\scribus\ui_aboutplugins.h" />
+    <ClInclude Include="..\..\..\scribus\ui_aligndistribute.h" />
+    <ClInclude Include="..\..\..\scribus\ui_charselect.h" />
+    <ClInclude Include="..\..\..\scribus\ui_charselectenhanced.h" />
+    <ClInclude Include="..\..\..\scribus\ui_cmsprefsbase.h" />
+    <ClInclude Include="..\..\..\scribus\ui\ui_copypagetomasterpage.h" />
+    <ClInclude Include="..\..\..\scribus\ui\ui_createrange.h" />
+    <ClInclude Include="..\..\..\scribus\ui_docitemattrprefs.h" />
+    <ClInclude Include="..\..\..\scribus\ui_docsections.h" />
+    <ClInclude Include="..\..\..\scribus\ui\ui_downloaddictionaries.h" />
+    <ClInclude Include="..\..\..\scribus\ui_gtfiledialog.h" />
+    <ClInclude Include="..\..\..\scribus\ui_guidemanager.h" />
+    <ClInclude Include="..\..\..\scribus\ui\ui_helpbrowser.h" />
+    <ClInclude Include="..\..\..\scribus\ui_hysettingsBase.h" />
+    <ClInclude Include="..\..\..\scribus\ui_insertaframe.h" />
+    <ClInclude Include="..\..\..\scribus\ui_lensdialogbase.h" />
+    <ClInclude Include="..\..\..\scribus\ui_measurementsbase.h" />
+    <ClInclude Include="..\..\..\scribus\ui_multipleduplicate.h" />
+    <ClInclude Include="..\..\..\scribus\ui_multiprogressdialog.h" />
+    <ClInclude Include="..\..\..\scribus\ui_pageitemattributes.h" />
+    <ClInclude Include="..\..\..\scribus\ui_patterndialog.h" />
+    <ClInclude Include="..\..\..\scribus\ui_picsearch.h" />
+    <ClInclude Include="..\..\..\scribus\ui_picsearchoptions.h" />
+    <ClInclude Include="..\..\..\scribus\ui_picstatus.h" />
+    <ClInclude Include="..\..\..\scribus\ui_pluginmanagerprefsgui.h" />
+    <ClInclude Include="..\..\..\scribus\ui_polygonwidgetbase.h" />
+    <ClInclude Include="..\..\..\scribus\ui_printdialogbase.h" />
+    <ClInclude Include="..\..\..\scribus\ui_replacecolors.h" />
+    <ClInclude Include="..\..\..\scribus\ui_replaceonecolor.h" />
+    <ClInclude Include="..\..\..\scribus\ui_selectobjects.h" />
+    <ClInclude Include="..\..\..\scribus\ui_shortcutwidget.h" />
+    <ClInclude Include="..\..\..\scribus\ui_smcstylewidget.h" />
+    <ClInclude Include="..\..\..\scribus\ui_smlinestylewidget.h" />
+    <ClInclude Include="..\..\..\scribus\ui_smpstylewidget.h" />
+    <ClInclude Include="..\..\..\scribus\ui_smreplacedia.h" />
+    <ClInclude Include="..\..\..\scribus\ui_stylemanager.h" />
+    <ClInclude Include="..\..\..\scribus\ui_tabdisplay.h" />
+    <ClInclude Include="..\..\..\scribus\ui_tabexternaltoolswidget.h" />
+    <ClInclude Include="..\..\..\scribus\ui_tabgeneral.h" />
+    <ClInclude Include="..\..\..\scribus\ui_tabkeyboardshortcutswidget.h" />
+    <ClInclude Include="..\..\..\scribus\ui_tabmiscellaneous.h" />
+    <ClInclude Include="..\..\..\scribus\ui_tabprinter.h" />
+    <ClInclude Include="..\..\..\scribus\ui_tabscrapbook.h" />
+    <ClInclude Include="..\..\..\scribus\ui_tocindexprefs.h" />
+    <ClInclude Include="..\..\..\scribus\ui_unicodesearch.h" />
+    <ClInclude Include="..\..\..\scribus\ui_useprintermarginsdialog.h" />
+    <ClInclude Include="..\win-config.h" />
+    <ClInclude Include="..\..\..\scribus\colormgmt\sccolormgmtengine.h" />
+    <ClInclude Include="..\..\..\scribus\colormgmt\sccolormgmtenginedata.h" />
+    <ClInclude Include="..\..\..\scribus\colormgmt\sccolormgmtstructs.h" />
+    <ClInclude Include="..\..\..\scribus\colormgmt\sccolorprofile.h" />
+    <ClInclude Include="..\..\..\scribus\colormgmt\sccolorprofilecache.h" />
+    <ClInclude Include="..\..\..\scribus\colormgmt\sccolorprofiledata.h" />
+    <ClInclude Include="..\..\..\scribus\colormgmt\sccolortransform.h" />
+    <ClInclude Include="..\..\..\scribus\colormgmt\sccolortransformdata.h" />
+    <ClInclude Include="..\..\..\scribus\colormgmt\sccolortransformpool.h" />
+    <ClInclude Include="..\..\..\scribus\colormgmt\sclcms2colormgmtengineimpl.h" />
+    <ClInclude Include="..\..\..\scribus\colormgmt\sclcms2colorprofileimpl.h" />
+    <ClInclude Include="..\..\..\scribus\colormgmt\sclcms2colortransformimpl.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\scribus\desaxe\digester.cpp" />
+    <ClCompile Include="..\..\..\scribus\desaxe\digester_parse.cpp" />
+    <ClCompile Include="..\..\..\scribus\desaxe\saxfilter.cpp" />
+    <ClCompile Include="..\..\..\scribus\desaxe\saxiohelper.cpp" />
+    <ClCompile Include="..\..\..\scribus\desaxe\saxXML.cpp" />
+    <ClCompile Include="..\..\..\scribus\desaxe\uniqueid.cpp" />
+    <ClCompile Include="..\..\..\scribus\about.cpp" />
+    <ClCompile Include="..\..\..\scribus\aboutplugins.cpp" />
+    <ClCompile Include="..\..\..\scribus\actionmanager.cpp" />
+    <ClCompile Include="..\..\..\scribus\adjustcmsdialog.cpp" />
+    <ClCompile Include="..\..\..\scribus\aligndistribute.cpp" />
+    <ClCompile Include="..\..\..\scribus\alignselect.cpp" />
+    <ClCompile Include="..\..\..\scribus\annot.cpp" />
+    <ClCompile Include="..\..\..\scribus\annota.cpp" />
+    <ClCompile Include="..\..\..\scribus\annotation.cpp" />
+    <ClCompile Include="..\..\..\scribus\applytemplatedialog.cpp" />
+    <ClCompile Include="..\..\..\scribus\arrowchooser.cpp" />
+    <ClCompile Include="..\..\..\scribus\autoform.cpp" />
+    <ClCompile Include="..\..\..\scribus\autoformbuttongroup.cpp" />
+    <ClCompile Include="..\..\..\scribus\basepointwidget.cpp" />
+    <ClCompile Include="..\..\..\scribus\bookmarkpalette.cpp" />
+    <ClCompile Include="..\..\..\scribus\bookmwin.cpp" />
+    <ClCompile Include="..\..\..\scribus\buttonicon.cpp" />
+    <ClCompile Include="..\..\..\scribus\canvas.cpp" />
+    <ClCompile Include="..\..\..\scribus\canvasgesture_linemove.cpp" />
+    <ClCompile Include="..\..\..\scribus\canvasgesture_pan.cpp" />
+    <ClCompile Include="..\..\..\scribus\canvasgesture_rectselect.cpp" />
+    <ClCompile Include="..\..\..\scribus\canvasgesture_resize.cpp" />
+    <ClCompile Include="..\..\..\scribus\canvasgesture_rulermove.cpp" />
+    <ClCompile Include="..\..\..\scribus\canvasmode.cpp" />
+    <ClCompile Include="..\..\..\scribus\canvasmode_copyproperties.cpp" />
+    <ClCompile Include="..\..\..\scribus\canvasmode_create.cpp" />
+    <ClCompile Include="..\..\..\scribus\canvasmode_drawbezier.cpp" />
+    <ClCompile Include="..\..\..\scribus\canvasmode_drawfreehand.cpp" />
+    <ClCompile Include="..\..\..\scribus\canvasmode_edit.cpp" />
+    <ClCompile Include="..\..\..\scribus\canvasmode_editgradient.cpp" />
+    <ClCompile Include="..\..\..\scribus\canvasmode_eyedropper.cpp" />
+    <ClCompile Include="..\..\..\scribus\canvasmode_framelinks.cpp" />
+    <ClCompile Include="..\..\..\scribus\canvasmode_legacy.cpp" />
+    <ClCompile Include="..\..\..\scribus\canvasmode_magnifier.cpp" />
+    <ClCompile Include="..\..\..\scribus\canvasmode_measurements.cpp" />
+    <ClCompile Include="..\..\..\scribus\canvasmode_nodeedit.cpp" />
+    <ClCompile Include="..\..\..\scribus\canvasmode_normal.cpp" />
+    <ClCompile Include="..\..\..\scribus\canvasmode_objimport.cpp" />
+    <ClCompile Include="..\..\..\scribus\canvasmode_panning.cpp" />
+    <ClCompile Include="..\..\..\scribus\canvasmode_rotate.cpp" />
+    <ClCompile Include="..\..\..\scribus\charselect.cpp" />
+    <ClCompile Include="..\..\..\scribus\charselectenhanced.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_scescapecatcher.cpp" />
+    <ClCompile Include="..\..\..\scribus\scescapecatcher.cpp" />
+    <ClCompile Include="..\..\..\scribus\styles\charstyle.cpp" />
+    <ClCompile Include="..\..\..\scribus\chartablemodel.cpp" />
+    <ClCompile Include="..\..\..\scribus\chartableview.cpp" />
+    <ClCompile Include="..\..\..\scribus\charzoom.cpp" />
+    <ClCompile Include="..\..\..\scribus\checkDocument.cpp" />
+    <ClCompile Include="..\..\..\scribus\cmserrorhandling.cpp" />
+    <ClCompile Include="..\..\..\scribus\cmsettings.cpp" />
+    <ClCompile Include="..\..\..\scribus\cmsprefs.cpp" />
+    <ClCompile Include="..\..\..\scribus\cmykfw.cpp" />
+    <ClCompile Include="..\..\..\scribus\collect4output.cpp" />
+    <ClCompile Include="..\..\..\scribus\colorblind.cpp" />
+    <ClCompile Include="..\..\..\scribus\colorchart.cpp" />
+    <ClCompile Include="..\..\..\scribus\colorcombo.cpp" />
+    <ClCompile Include="..\..\..\scribus\colorlistbox.cpp" />
+    <ClCompile Include="..\..\..\scribus\colorm.cpp" />
+    <ClCompile Include="..\..\..\scribus\colorsetmanager.cpp" />
+    <ClCompile Include="..\..\..\scribus\commonstrings.cpp" />
+    <ClCompile Include="..\..\..\scribus\contextmenu.cpp" />
+    <ClCompile Include="..\..\..\scribus\ui\copypagetomasterpagedialog.cpp" />
+    <ClCompile Include="..\..\..\scribus\cpalette.cpp" />
+    <ClCompile Include="..\..\..\scribus\ui\createrange.cpp" />
+    <ClCompile Include="..\..\..\scribus\cupsoptions.cpp" />
+    <ClCompile Include="..\..\..\scribus\curvewidget.cpp" />
+    <ClCompile Include="..\..\..\scribus\customfdialog.cpp" />
+    <ClCompile Include="..\..\..\scribus\dasheditor.cpp" />
+    <ClCompile Include="..\..\..\scribus\dcolor.cpp" />
+    <ClCompile Include="..\..\..\scribus\deferredtask.cpp" />
+    <ClCompile Include="..\..\..\scribus\delpages.cpp" />
+    <ClCompile Include="..\..\..\scribus\docinfo.cpp" />
+    <ClCompile Include="..\..\..\scribus\docitemattrprefs.cpp" />
+    <ClCompile Include="..\..\..\scribus\docsections.cpp" />
+    <ClCompile Include="..\..\..\scribus\documentchecker.cpp" />
+    <ClCompile Include="..\..\..\scribus\documentinformation.cpp" />
+    <ClCompile Include="..\..\..\scribus\ui\downloaddictionaries.cpp" />
+    <ClCompile Include="..\..\..\scribus\editor.cpp" />
+    <ClCompile Include="..\..\..\scribus\ui\edittoolbar.cpp" />
+    <ClCompile Include="..\..\..\scribus\effectsdialog.cpp" />
+    <ClCompile Include="..\..\..\scribus\exif.cpp" />
+    <ClCompile Include="..\..\..\scribus\extimageprops.cpp" />
+    <ClCompile Include="..\..\..\scribus\fileloader.cpp" />
+    <ClCompile Include="..\..\..\scribus\filesearch.cpp" />
+    <ClCompile Include="..\..\..\scribus\ui\filetoolbar.cpp" />
+    <ClCompile Include="..\..\..\scribus\fileunzip.cpp" />
+    <ClCompile Include="..\..\..\scribus\filewatcher.cpp" />
+    <ClCompile Include="..\..\..\scribus\fontcombo.cpp" />
+    <ClCompile Include="..\..\..\scribus\fontlistmodel.cpp" />
+    <ClCompile Include="..\..\..\scribus\fontlistview.cpp" />
+    <ClCompile Include="..\..\..\scribus\fontprefs.cpp" />
+    <ClCompile Include="..\..\..\scribus\fontreplacedialog.cpp" />
+    <ClCompile Include="..\..\..\scribus\fparser.cpp" />
+    <ClCompile Include="..\..\..\scribus\fpoint.cpp" />
+    <ClCompile Include="..\..\..\scribus\fpointarray.cpp" />
+    <ClCompile Include="..\..\..\scribus\fpoptimizer.cpp" />
+    <ClCompile Include="..\..\..\scribus\text\frect.cpp" />
+    <ClCompile Include="..\..\..\scribus\text\fsize.cpp" />
+    <ClCompile Include="..\..\..\scribus\fonts\ftface.cpp" />
+    <ClCompile Include="..\..\..\scribus\gradienteditor.cpp" />
+    <ClCompile Include="..\..\..\scribus\gtaction.cpp" />
+    <ClCompile Include="..\..\..\scribus\gtdialogs.cpp" />
+    <ClCompile Include="..\..\..\scribus\gtfiledialog.cpp" />
+    <ClCompile Include="..\..\..\scribus\gtfont.cpp" />
+    <ClCompile Include="..\..\..\scribus\gtframestyle.cpp" />
+    <ClCompile Include="..\..\..\scribus\gtgettext.cpp" />
+    <ClCompile Include="..\..\..\scribus\gtmeasure.cpp" />
+    <ClCompile Include="..\..\..\scribus\gtparagraphstyle.cpp" />
+    <ClCompile Include="..\..\..\scribus\gtstyle.cpp" />
+    <ClCompile Include="..\..\..\scribus\gtwriter.cpp" />
+    <ClCompile Include="..\..\..\scribus\guidemanager.cpp" />
+    <ClCompile Include="..\..\..\scribus\guidemanagercore.cpp" />
+    <ClCompile Include="..\..\..\scribus\guidesdelegate.cpp" />
+    <ClCompile Include="..\..\..\scribus\guidesmodel.cpp" />
+    <ClCompile Include="..\..\..\scribus\helpbrowser.cpp" />
+    <ClCompile Include="..\..\..\scribus\hnjalloc.c">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug-cairo|Win32'">
+      </PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug-cairo|x64'">
+      </PrecompiledHeader>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug-cairo|Win32'">
+      </PrecompiledHeaderFile>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug-cairo|x64'">
+      </PrecompiledHeaderFile>
+      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Debug-cairo|Win32'">
+      </ForcedIncludeFiles>
+      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Debug-cairo|x64'">
+      </ForcedIncludeFiles>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release-cairo|Win32'">
+      </PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release-cairo|x64'">
+      </PrecompiledHeader>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release-cairo|Win32'">
+      </PrecompiledHeaderFile>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release-cairo|x64'">
+      </PrecompiledHeaderFile>
+      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Release-cairo|Win32'">
+      </ForcedIncludeFiles>
+      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Release-cairo|x64'">
+      </ForcedIncludeFiles>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\hruler.cpp" />
+    <ClCompile Include="..\..\..\scribus\hyask.cpp" />
+    <ClCompile Include="..\..\..\scribus\hyphen.c">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug-cairo|Win32'">
+      </PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug-cairo|x64'">
+      </PrecompiledHeader>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug-cairo|Win32'">
+      </PrecompiledHeaderFile>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug-cairo|x64'">
+      </PrecompiledHeaderFile>
+      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Debug-cairo|Win32'">
+      </ForcedIncludeFiles>
+      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Debug-cairo|x64'">
+      </ForcedIncludeFiles>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release-cairo|Win32'">
+      </PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release-cairo|x64'">
+      </PrecompiledHeader>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release-cairo|Win32'">
+      </PrecompiledHeaderFile>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release-cairo|x64'">
+      </PrecompiledHeaderFile>
+      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Release-cairo|Win32'">
+      </ForcedIncludeFiles>
+      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Release-cairo|x64'">
+      </ForcedIncludeFiles>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\hyphenator.cpp" />
+    <ClCompile Include="..\..\..\scribus\hysettings.cpp" />
+    <ClCompile Include="..\..\..\scribus\imageinfodialog.cpp" />
+    <ClCompile Include="..\..\..\scribus\insertaframe.cpp" />
+    <ClCompile Include="..\..\..\scribus\insertTable.cpp" />
+    <ClCompile Include="..\..\..\scribus\inspage.cpp" />
+    <ClCompile Include="..\..\..\scribus\ioapi.c">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug-cairo|Win32'">
+      </PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug-cairo|x64'">
+      </PrecompiledHeader>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug-cairo|Win32'">
+      </PrecompiledHeaderFile>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug-cairo|x64'">
+      </PrecompiledHeaderFile>
+      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Debug-cairo|Win32'">
+      </ForcedIncludeFiles>
+      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Debug-cairo|x64'">
+      </ForcedIncludeFiles>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release-cairo|Win32'">
+      </PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release-cairo|x64'">
+      </PrecompiledHeader>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release-cairo|Win32'">
+      </PrecompiledHeaderFile>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release-cairo|x64'">
+      </PrecompiledHeaderFile>
+      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Release-cairo|Win32'">
+      </ForcedIncludeFiles>
+      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Release-cairo|x64'">
+      </ForcedIncludeFiles>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\javadocs.cpp" />
+    <ClCompile Include="..\..\..\scribus\KarbonCurveFit.cpp" />
+    <ClCompile Include="..\..\..\scribus\langmgr.cpp" />
+    <ClCompile Include="..\..\..\scribus\latexeditor.cpp" />
+    <ClCompile Include="..\..\..\scribus\latexhelpers.cpp" />
+    <ClCompile Include="..\..\..\scribus\layers.cpp" />
+    <ClCompile Include="..\..\..\scribus\linecombo.cpp" />
+    <ClCompile Include="..\..\..\scribus\styles\linestyle.cpp" />
+    <ClCompile Include="..\..\..\scribus\linkbutton.cpp" />
+    <ClCompile Include="..\..\..\scribus\loadsaveplugin.cpp" />
+    <ClCompile Include="..\..\..\scribus\loremipsum.cpp" />
+    <ClCompile Include="..\..\..\scribus\main_win32.cpp" />
+    <ClCompile Include="..\..\..\scribus\margindialog.cpp" />
+    <ClCompile Include="..\..\..\scribus\marginwidget.cpp" />
+    <ClCompile Include="..\..\..\scribus\masterpagepalette.cpp" />
+    <ClCompile Include="..\..\..\scribus\measurements.cpp" />
+    <ClCompile Include="..\..\..\scribus\menumanager.cpp" />
+    <ClCompile Include="..\..\..\scribus\mergedoc.cpp" />
+    <ClCompile Include="..\..\..\scribus\missing.cpp" />
+    <ClCompile Include="..\..\..\scribus\ui\modetoolbar.cpp" />
+    <ClCompile Include="..\..\..\scribus\movepage.cpp" />
+    <ClCompile Include="..\..\..\scribus\multipleduplicate.cpp" />
+    <ClCompile Include="..\..\..\scribus\multiprogressdialog.cpp" />
+    <ClCompile Include="..\..\..\scribus\navigator.cpp" />
+    <ClCompile Include="..\..\..\scribus\newfile.cpp" />
+    <ClCompile Include="..\..\..\scribus\newtemp.cpp" />
+    <ClCompile Include="..\..\..\scribus\nftdialog.cpp" />
+    <ClCompile Include="..\..\..\scribus\nftrcreader.cpp" />
+    <ClCompile Include="..\..\..\scribus\nftsettings.cpp" />
+    <ClCompile Include="..\..\..\scribus\nfttemplate.cpp" />
+    <ClCompile Include="..\..\..\scribus\nftwidget.cpp" />
+    <ClCompile Include="..\..\..\scribus\nodeeditpalette.cpp" />
+    <ClCompile Include="..\..\..\scribus\observable.cpp" />
+    <ClCompile Include="..\..\..\scribus\oneclick.cpp" />
+    <ClCompile Include="..\..\..\scribus\outlinepalette.cpp" />
+    <ClCompile Include="..\..\..\scribus\page.cpp" />
+    <ClCompile Include="..\..\..\scribus\pageitem.cpp" />
+    <ClCompile Include="..\..\..\scribus\pageitem_desaxe.cpp" />
+    <ClCompile Include="..\..\..\scribus\pageitem_imageframe.cpp" />
+    <ClCompile Include="..\..\..\scribus\pageitem_latexframe.cpp" />
+    <ClCompile Include="..\..\..\scribus\pageitem_line.cpp" />
+    <ClCompile Include="..\..\..\scribus\pageitem_pathtext.cpp" />
+    <ClCompile Include="..\..\..\scribus\pageitem_polygon.cpp" />
+    <ClCompile Include="..\..\..\scribus\pageitem_polyline.cpp" />
+    <ClCompile Include="..\..\..\scribus\pageitem_textframe.cpp" />
+    <ClCompile Include="..\..\..\scribus\pageitemattributes.cpp" />
+    <ClCompile Include="..\..\..\scribus\pageitempointer.cpp" />
+    <ClCompile Include="..\..\..\scribus\pagelayout.cpp" />
+    <ClCompile Include="..\..\..\scribus\pagepalette.cpp" />
+    <ClCompile Include="..\..\..\scribus\pageselector.cpp" />
+    <ClCompile Include="..\..\..\scribus\pagesize.cpp" />
+    <ClCompile Include="..\..\..\scribus\styles\paragraphstyle.cpp" />
+    <ClCompile Include="..\..\..\scribus\patterndialog.cpp" />
+    <ClCompile Include="..\..\..\scribus\pdflib.cpp" />
+    <ClCompile Include="..\..\..\scribus\pdflib_core.cpp" />
+    <ClCompile Include="..\..\..\scribus\pdfoptions.cpp" />
+    <ClCompile Include="..\..\..\scribus\pdfoptionsio.cpp" />
+    <ClCompile Include="..\..\..\scribus\pdfopts.cpp" />
+    <ClCompile Include="..\..\..\scribus\ui\pdftoolbar.cpp" />
+    <ClCompile Include="..\..\..\scribus\picsearch.cpp" />
+    <ClCompile Include="..\..\..\scribus\picsearchoptions.cpp" />
+    <ClCompile Include="..\..\..\scribus\picstatus.cpp" />
+    <ClCompile Include="..\..\..\scribus\pluginmanager.cpp" />
+    <ClCompile Include="..\..\..\scribus\pluginmanagerprefsgui.cpp" />
+    <ClCompile Include="..\..\..\scribus\polygonwidget.cpp" />
+    <ClCompile Include="..\..\..\scribus\polyprops.cpp" />
+    <ClCompile Include="..\..\..\scribus\prefs.cpp" />
+    <ClCompile Include="..\..\..\scribus\prefscontext.cpp" />
+    <ClCompile Include="..\..\..\scribus\prefsdialogbase.cpp" />
+    <ClCompile Include="..\..\..\scribus\prefsfile.cpp" />
+    <ClCompile Include="..\..\..\scribus\prefsmanager.cpp" />
+    <ClCompile Include="..\..\..\scribus\prefspanel.cpp" />
+    <ClCompile Include="..\..\..\scribus\prefsreader.cpp" />
+    <ClCompile Include="..\..\..\scribus\prefstable.cpp" />
+    <ClCompile Include="..\..\..\scribus\preview.cpp" />
+    <ClCompile Include="..\..\..\scribus\printdialog.cpp" />
+    <ClCompile Include="..\..\..\scribus\propertiespalette.cpp" />
+    <ClCompile Include="..\..\..\scribus\pslib.cpp" />
+    <ClCompile Include="..\..\..\scribus\query.cpp" />
+    <ClCompile Include="..\..\..\scribus\rawimage.cpp" />
+    <ClCompile Include="..\..\..\scribus\rc4.c">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug-cairo|Win32'">
+      </PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug-cairo|x64'">
+      </PrecompiledHeader>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug-cairo|Win32'">
+      </PrecompiledHeaderFile>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug-cairo|x64'">
+      </PrecompiledHeaderFile>
+      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Debug-cairo|Win32'">
+      </ForcedIncludeFiles>
+      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Debug-cairo|x64'">
+      </ForcedIncludeFiles>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release-cairo|Win32'">
+      </PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release-cairo|x64'">
+      </PrecompiledHeader>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release-cairo|Win32'">
+      </PrecompiledHeaderFile>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release-cairo|x64'">
+      </PrecompiledHeaderFile>
+      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Release-cairo|Win32'">
+      </ForcedIncludeFiles>
+      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Release-cairo|x64'">
+      </ForcedIncludeFiles>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\reformdoc.cpp" />
+    <ClCompile Include="..\..\..\scribus\replacecolors.cpp" />
+    <ClCompile Include="..\..\..\scribus\replaceonecolor.cpp" />
+    <ClCompile Include="..\..\..\scribus\rulermover.cpp" />
+    <ClCompile Include="..\..\..\scribus\sampleitem.cpp" />
+    <ClCompile Include="..\..\..\scribus\scclocale.cpp" />
+    <ClCompile Include="..\..\..\scribus\sccolor.cpp" />
+    <ClCompile Include="..\..\..\scribus\sccolorengine.cpp" />
+    <ClCompile Include="..\..\..\scribus\sccolorshade.cpp" />
+    <ClCompile Include="..\..\..\scribus\sccombobox.cpp" />
+    <ClCompile Include="..\..\..\scribus\downloadmanager\scdlmgr.cpp" />
+    <ClCompile Include="..\..\..\scribus\downloadmanager\scdlthread.cpp" />
+    <ClCompile Include="..\..\..\scribus\scdocoutput.cpp" />
+    <ClCompile Include="..\..\..\scribus\scdocoutput_ps2.cpp" />
+    <ClCompile Include="..\..\..\scribus\fonts\scface.cpp" />
+    <ClCompile Include="..\..\..\scribus\fonts\scface_ps.cpp" />
+    <ClCompile Include="..\..\..\scribus\fonts\scface_ttf.cpp" />
+    <ClCompile Include="..\..\..\scribus\scfilewidget.cpp" />
+    <ClCompile Include="..\..\..\scribus\fonts\scfontmetrics.cpp" />
+    <ClCompile Include="..\..\..\scribus\scfonts.cpp" />
+    <ClCompile Include="..\..\..\scribus\scgtplugin.cpp" />
+    <ClCompile Include="..\..\..\scribus\scgzfile.cpp" />
+    <ClCompile Include="..\..\..\scribus\schelptreemodel.cpp" />
+    <ClCompile Include="..\..\..\scribus\scimage.cpp" />
+    <ClCompile Include="..\..\..\scribus\scimagestructs.cpp" />
+    <ClCompile Include="..\..\..\scribus\scimgdataloader.cpp" />
+    <ClCompile Include="..\..\..\scribus\scimgdataloader_gimp.cpp" />
+    <ClCompile Include="..\..\..\scribus\scimgdataloader_jpeg.cpp" />
+    <ClCompile Include="..\..\..\scribus\scimgdataloader_pdf.cpp" />
+    <ClCompile Include="..\..\..\scribus\scimgdataloader_ps.cpp" />
+    <ClCompile Include="..\..\..\scribus\scimgdataloader_psd.cpp" />
+    <ClCompile Include="..\..\..\scribus\scimgdataloader_qt.cpp" />
+    <ClCompile Include="..\..\..\scribus\scimgdataloader_tiff.cpp" />
+    <ClCompile Include="..\..\..\scribus\scinputdialog.cpp" />
+    <ClCompile Include="..\..\..\scribus\sclayer.cpp" />
+    <ClCompile Include="..\..\..\scribus\scmenu.cpp" />
+    <ClCompile Include="..\..\..\scribus\scmessagebox.cpp" />
+    <ClCompile Include="..\..\..\scribus\scmimedata.cpp" />
+    <ClCompile Include="..\..\..\scribus\scpageoutput.cpp" />
+    <ClCompile Include="..\..\..\scribus\scpageoutput_ps2.cpp" />
+    <ClCompile Include="..\..\..\scribus\scpainter.cpp" />
+    <ClCompile Include="..\..\..\scribus\scpainterex_cairo.cpp" />
+    <ClCompile Include="..\..\..\scribus\scpainterex_ps2.cpp" />
+    <ClCompile Include="..\..\..\scribus\scpainterexbase.cpp" />
+    <ClCompile Include="..\..\..\scribus\scpaths.cpp" />
+    <ClCompile Include="..\..\..\scribus\scpattern.cpp" />
+    <ClCompile Include="..\..\..\scribus\scplugin.cpp" />
+    <ClCompile Include="..\..\..\scribus\scpreview.cpp" />
+    <ClCompile Include="..\..\..\scribus\scprintengine_gdi.cpp" />
+    <ClCompile Include="..\..\..\scribus\scprintengine_ps.cpp" />
+    <ClCompile Include="..\..\..\scribus\scraction.cpp" />
+    <ClCompile Include="..\..\..\scribus\scrapbookpalette.cpp" />
+    <ClCompile Include="..\..\..\scribus\scresizecursor.cpp" />
+    <ClCompile Include="..\..\..\scribus\scribus.cpp" />
+    <ClCompile Include="..\..\..\scribus\scribusapp.cpp" />
+    <ClCompile Include="..\..\..\scribus\scribuscore.cpp" />
+    <ClCompile Include="..\..\..\scribus\scribusdoc.cpp" />
+    <ClCompile Include="scribuspch.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug-cairo|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug-cairo|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug-cairo|Win32'">scribuspch.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug-cairo|x64'">scribuspch.h</PrecompiledHeaderFile>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release-cairo|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release-cairo|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release-cairo|Win32'">scribuspch.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release-cairo|x64'">scribuspch.h</PrecompiledHeaderFile>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\scribusview.cpp" />
+    <ClCompile Include="..\..\..\scribus\scribuswin.cpp" />
+    <ClCompile Include="..\..\..\scribus\scribusXml.cpp" />
+    <ClCompile Include="..\..\..\scribus\scrpalettebase.cpp" />
+    <ClCompile Include="..\..\..\scribus\scrspinbox.cpp" />
+    <ClCompile Include="..\..\..\scribus\scslainforeader.cpp" />
+    <ClCompile Include="..\..\..\scribus\scstreamfilter.cpp" />
+    <ClCompile Include="..\..\..\scribus\scstreamfilter_ascii85.cpp" />
+    <ClCompile Include="..\..\..\scribus\scstreamfilter_flate.cpp" />
+    <ClCompile Include="..\..\..\scribus\scstreamfilter_rc4.cpp" />
+    <ClCompile Include="..\..\..\scribus\sctablewidget.cpp" />
+    <ClCompile Include="..\..\..\scribus\text\sctext_shared.cpp" />
+    <ClCompile Include="..\..\..\scribus\sctextbrowser.cpp" />
+    <ClCompile Include="..\..\..\scribus\sctextstream.cpp" />
+    <ClCompile Include="..\..\..\scribus\sctextstruct.cpp" />
+    <ClCompile Include="..\..\..\scribus\sctoolbar.cpp" />
+    <ClCompile Include="..\..\..\scribus\sctreewidget.cpp" />
+    <ClCompile Include="..\..\..\scribus\search.cpp" />
+    <ClCompile Include="..\..\..\scribus\selection.cpp" />
+    <ClCompile Include="..\..\..\scribus\selectobjects.cpp" />
+    <ClCompile Include="..\..\..\scribus\selfield.cpp" />
+    <ClCompile Include="..\..\..\scribus\serializer.cpp" />
+    <ClCompile Include="..\..\..\scribus\shadebutton.cpp" />
+    <ClCompile Include="..\..\..\scribus\shortcutwidget.cpp" />
+    <ClCompile Include="..\..\..\scribus\smalignselect.cpp" />
+    <ClCompile Include="..\..\..\scribus\smcheckbox.cpp" />
+    <ClCompile Include="..\..\..\scribus\smcolorcombo.cpp" />
+    <ClCompile Include="..\..\..\scribus\smcstylewidget.cpp" />
+    <ClCompile Include="..\..\..\scribus\smfontcomboh.cpp" />
+    <ClCompile Include="..\..\..\scribus\smlinestyle.cpp" />
+    <ClCompile Include="..\..\..\scribus\smlinestylewidget.cpp" />
+    <ClCompile Include="..\..\..\scribus\smpstylewidget.cpp" />
+    <ClCompile Include="..\..\..\scribus\smradiobutton.cpp" />
+    <ClCompile Include="..\..\..\scribus\smreplacedia.cpp" />
+    <ClCompile Include="..\..\..\scribus\smsccombobox.cpp" />
+    <ClCompile Include="..\..\..\scribus\smscrspinbox.cpp" />
+    <ClCompile Include="..\..\..\scribus\smshadebutton.cpp" />
+    <ClCompile Include="..\..\..\scribus\smspinbox.cpp" />
+    <ClCompile Include="..\..\..\scribus\smstyleimport.cpp" />
+    <ClCompile Include="..\..\..\scribus\smstyleselect.cpp" />
+    <ClCompile Include="..\..\..\scribus\smtabruler.cpp" />
+    <ClCompile Include="..\..\..\scribus\smtextstyles.cpp" />
+    <ClCompile Include="..\..\..\scribus\spalette.cpp" />
+    <ClCompile Include="..\..\..\scribus\text\specialchars.cpp" />
+    <ClCompile Include="..\..\..\scribus\splash.cpp" />
+    <ClCompile Include="..\..\..\scribus\stencilreader.cpp" />
+    <ClCompile Include="..\..\..\scribus\storyeditor.cpp" />
+    <ClCompile Include="..\..\..\scribus\text\storytext.cpp" />
+    <ClCompile Include="..\..\..\scribus\styles\style.cpp" />
+    <ClCompile Include="..\..\..\scribus\styles\stylecontext.cpp" />
+    <ClCompile Include="..\..\..\scribus\styles\stylecontextproxy.cpp" />
+    <ClCompile Include="..\..\..\scribus\styleitem.cpp" />
+    <ClCompile Include="..\..\..\scribus\stylemanager.cpp" />
+    <ClCompile Include="..\..\..\scribus\styleselect.cpp" />
+    <ClCompile Include="..\..\..\scribus\styleview.cpp" />
+    <ClCompile Include="..\..\..\scribus\tabcheckdoc.cpp" />
+    <ClCompile Include="..\..\..\scribus\tabdisplay.cpp" />
+    <ClCompile Include="..\..\..\scribus\tabdocument.cpp" />
+    <ClCompile Include="..\..\..\scribus\tabexternaltoolswidget.cpp" />
+    <ClCompile Include="..\..\..\scribus\tabgeneral.cpp" />
+    <ClCompile Include="..\..\..\scribus\tabguides.cpp" />
+    <ClCompile Include="..\..\..\scribus\tabkeyboardshortcutswidget.cpp" />
+    <ClCompile Include="..\..\..\scribus\tabmanager.cpp" />
+    <ClCompile Include="..\..\..\scribus\tabmiscellaneous.cpp" />
+    <ClCompile Include="..\..\..\scribus\tabpdfoptions.cpp" />
+    <ClCompile Include="..\..\..\scribus\tabprinter.cpp" />
+    <ClCompile Include="..\..\..\scribus\tabruler.cpp" />
+    <ClCompile Include="..\..\..\scribus\tabscrapbook.cpp" />
+    <ClCompile Include="..\..\..\scribus\tabtools.cpp" />
+    <ClCompile Include="..\..\..\scribus\tabtypography.cpp" />
+    <ClCompile Include="..\..\..\scribus\tocgenerator.cpp" />
+    <ClCompile Include="..\..\..\scribus\tocindexprefs.cpp" />
+    <ClCompile Include="..\..\..\scribus\transaction.cpp" />
+    <ClCompile Include="..\..\..\scribus\tt\simpletreemodel\treeitem.cpp" />
+    <ClCompile Include="..\..\..\scribus\tt\simpletreemodel\treemodel.cpp" />
+    <ClCompile Include="..\..\..\scribus\undogui.cpp" />
+    <ClCompile Include="..\..\..\scribus\undomanager.cpp" />
+    <ClCompile Include="..\..\..\scribus\undoobject.cpp" />
+    <ClCompile Include="..\..\..\scribus\undostack.cpp" />
+    <ClCompile Include="..\..\..\scribus\undostate.cpp" />
+    <ClCompile Include="..\..\..\scribus\unicodesearch.cpp" />
+    <ClCompile Include="..\..\..\scribus\units.cpp" />
+    <ClCompile Include="..\..\..\scribus\unzip.c">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug-cairo|Win32'">
+      </PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug-cairo|x64'">
+      </PrecompiledHeader>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug-cairo|Win32'">
+      </PrecompiledHeaderFile>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug-cairo|x64'">
+      </PrecompiledHeaderFile>
+      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Debug-cairo|Win32'">
+      </ForcedIncludeFiles>
+      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Debug-cairo|x64'">
+      </ForcedIncludeFiles>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release-cairo|Win32'">
+      </PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release-cairo|x64'">
+      </PrecompiledHeader>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release-cairo|Win32'">
+      </PrecompiledHeaderFile>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release-cairo|x64'">
+      </PrecompiledHeaderFile>
+      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Release-cairo|Win32'">
+      </ForcedIncludeFiles>
+      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Release-cairo|x64'">
+      </ForcedIncludeFiles>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\updatemanager.cpp" />
+    <ClCompile Include="..\..\..\scribus\upgradechecker.cpp" />
+    <ClCompile Include="..\..\..\scribus\urllauncher.cpp" />
+    <ClCompile Include="..\..\..\scribus\useprintermarginsdialog.cpp" />
+    <ClCompile Include="..\..\..\scribus\util.cpp" />
+    <ClCompile Include="..\..\..\scribus\util_color.cpp" />
+    <ClCompile Include="..\..\..\scribus\util_file.cpp" />
+    <ClCompile Include="..\..\..\scribus\util_formats.cpp" />
+    <ClCompile Include="..\..\..\scribus\util_ghostscript.cpp" />
+    <ClCompile Include="..\..\..\scribus\util_icon.cpp" />
+    <ClCompile Include="..\..\..\scribus\util_math.cpp" />
+    <ClCompile Include="..\..\..\scribus\util_printer.cpp" />
+    <ClCompile Include="..\..\..\scribus\util_text.cpp" />
+    <ClCompile Include="..\..\..\scribus\vgradient.cpp" />
+    <ClCompile Include="..\..\..\scribus\vgradientex.cpp" />
+    <ClCompile Include="..\..\..\scribus\vruler.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_about.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_aboutplugins.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_actionmanager.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_adjustcmsdialog.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_aligndistribute.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_alignselect.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_annot.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_annota.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_applytemplatedialog.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_arrowchooser.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_autoform.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_autoformbuttongroup.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_basepointwidget.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_bookmarkpalette.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_bookmwin.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_buttonicon.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_canvas.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_canvasgesture_rulermove.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_canvasmode.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_canvasmode_edit.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_canvasmode_legacy.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_canvasmode_measurements.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_canvasmode_normal.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_charselect.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_charselectenhanced.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_chartablemodel.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_chartableview.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_charzoom.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_checkDocument.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_cmsprefs.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_cmykfw.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_collect4output.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_colorblind.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_colorchart.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_colorcombo.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_colorlistbox.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_colorm.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_commonstrings.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_contextmenu.cpp" />
+    <ClCompile Include="..\..\..\scribus\ui\moc_copypagetomasterpagedialog.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_cpalette.cpp" />
+    <ClCompile Include="..\..\..\scribus\ui\moc_createrange.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_cupsoptions.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_curvewidget.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_customfdialog.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_dasheditor.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_dcolor.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_deferredtask.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_delpages.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_docinfo.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_docitemattrprefs.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_docsections.cpp" />
+    <ClCompile Include="..\..\..\scribus\ui\moc_downloaddictionaries.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_editor.cpp" />
+    <ClCompile Include="..\..\..\scribus\ui\moc_edittoolbar.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_effectsdialog.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_extimageprops.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_fileloader.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_filesearch.cpp" />
+    <ClCompile Include="..\..\..\scribus\ui\moc_filetoolbar.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_filewatcher.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_fontcombo.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_fontlistmodel.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_fontlistview.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_fontprefs.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_fontreplacedialog.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_gradienteditor.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_gtdialogs.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_gtfiledialog.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_guidemanager.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_guidesdelegate.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_guidesmodel.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_helpbrowser.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_hruler.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_hyask.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_hyphenator.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_hysettings.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_imageinfodialog.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_insertaframe.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_insertTable.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_inspage.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_javadocs.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_latexeditor.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_latexhelpers.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_layers.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_loadsaveplugin.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_loremipsum.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_margindialog.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_marginwidget.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_masterpagepalette.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_measurements.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_menumanager.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_mergedoc.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_missing.cpp" />
+    <ClCompile Include="..\..\..\scribus\ui\moc_modetoolbar.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_movepage.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_multipleduplicate.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_multiprogressdialog.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_navigator.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_newfile.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_newtemp.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_nftdialog.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_nftwidget.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_nodeeditpalette.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_observable.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_oneclick.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_outlinepalette.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_pageitem.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_pageitem_imageframe.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_pageitem_latexframe.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_pageitem_line.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_pageitem_pathtext.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_pageitem_polygon.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_pageitem_polyline.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_pageitem_textframe.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_pageitemattributes.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_pageitempointer.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_pagelayout.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_pagepalette.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_pageselector.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_patterndialog.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_pdflib.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_pdflib_core.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_pdfopts.cpp" />
+    <ClCompile Include="..\..\..\scribus\ui\moc_pdftoolbar.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_picsearch.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_picsearchoptions.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_picstatus.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_pluginmanager.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_pluginmanagerprefsgui.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_polygonwidget.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_polyprops.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_prefs.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_prefsdialogbase.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_prefsmanager.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_prefspanel.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_preview.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_printdialog.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_propertiespalette.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_pslib.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_query.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_reformdoc.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_replacecolors.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_replaceonecolor.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_rulermover.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_sampleitem.cpp" />
+    <ClCompile Include="..\..\..\scribus\downloadmanager\moc_scdlmgr.cpp" />
+    <ClCompile Include="..\..\..\scribus\downloadmanager\moc_scdlthread.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_scfilewidget.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_scgtplugin.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_schelptreemodel.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_scinputdialog.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_scmenu.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_scmessagebox.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_scplugin.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_scprintengine.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_scraction.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_scrapbookpalette.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_scribus.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_scribusapp.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_scribuscore.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_scribusdoc.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_scribusview.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_scribuswin.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_scrpalettebase.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_scrspinbox.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_sctablewidget.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_sctextbrowser.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_sctoolbar.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_sctreewidget.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_search.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_selection.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_selectobjects.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_selfield.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_shadebutton.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_shortcutwidget.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_smalignselect.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_smcheckbox.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_smcolorcombo.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_smcstylewidget.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_smfontcomboh.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_smlinestyle.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_smlinestylewidget.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_smpstylewidget.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_smreplacedia.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_smsccombobox.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_smscrspinbox.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_smshadebutton.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_smspinbox.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_smstyleimport.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_smstyleselect.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_smtabruler.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_smtextstyles.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_spalette.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_storyeditor.cpp" />
+    <ClCompile Include="..\..\..\scribus\text\moc_storytext.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_styleitem.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_stylemanager.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_styleselect.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_styleview.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_tabcheckdoc.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_tabdisplay.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_tabdocument.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_tabexternaltoolswidget.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_tabgeneral.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_tabguides.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_tabkeyboardshortcutswidget.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_tabmanager.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_tabmiscellaneous.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_tabpdfoptions.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_tabprinter.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_tabruler.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_tabscrapbook.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_tabtools.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_tabtypography.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_tocgenerator.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_tocindexprefs.cpp" />
+    <ClCompile Include="..\..\..\scribus\tt\simpletreemodel\moc_treemodel.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_undogui.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_undomanager.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_unicodesearch.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_upgradechecker.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_urllauncher.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_useprintermarginsdialog.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_vruler.cpp" />
+    <ClCompile Include="..\..\..\scribus\colormgmt\sccolormgmtengine.cpp" />
+    <ClCompile Include="..\..\..\scribus\colormgmt\sccolormgmtstructs.cpp" />
+    <ClCompile Include="..\..\..\scribus\colormgmt\sccolorprofile.cpp" />
+    <ClCompile Include="..\..\..\scribus\colormgmt\sccolorprofilecache.cpp" />
+    <ClCompile Include="..\..\..\scribus\colormgmt\sccolorprofiledata.cpp" />
+    <ClCompile Include="..\..\..\scribus\colormgmt\sccolortransform.cpp" />
+    <ClCompile Include="..\..\..\scribus\colormgmt\sccolortransformpool.cpp" />
+    <ClCompile Include="..\..\..\scribus\colormgmt\sclcms2colormgmtengineimpl.cpp" />
+    <ClCompile Include="..\..\..\scribus\colormgmt\sclcms2colorprofileimpl.cpp" />
+    <ClCompile Include="..\..\..\scribus\colormgmt\sclcms2colortransformimpl.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="scribus.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="scribusdoc.ico" />
+    <Image Include="scribusicon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <uic Include="..\..\..\scribus\aboutplugins.ui" />
+    <uic Include="..\..\..\scribus\aligndistribute.ui" />
+    <uic Include="..\..\..\scribus\charselect.ui" />
+    <uic Include="..\..\..\scribus\charselectenhanced.ui" />
+    <uic Include="..\..\..\scribus\cmsprefsbase.ui" />
+    <uic Include="..\..\..\scribus\ui\copypagetomasterpage.ui" />
+    <uic Include="..\..\..\scribus\ui\createrange.ui" />
+    <uic Include="..\..\..\scribus\docitemattrprefs.ui" />
+    <uic Include="..\..\..\scribus\docsections.ui" />
+    <uic Include="..\..\..\scribus\ui\downloaddictionaries.ui" />
+    <uic Include="..\..\..\scribus\gtfiledialog.ui" />
+    <uic Include="..\..\..\scribus\guidemanager.ui" />
+    <uic Include="..\..\..\scribus\ui\helpbrowser.ui" />
+    <uic Include="..\..\..\scribus\hysettingsBase.ui" />
+    <uic Include="..\..\..\scribus\insertaframe.ui" />
+    <uic Include="..\..\..\scribus\latexeditor.ui" />
+    <uic Include="..\..\..\scribus\measurementsbase.ui" />
+    <uic Include="..\..\..\scribus\multipleduplicate.ui" />
+    <uic Include="..\..\..\scribus\multiprogressdialog.ui" />
+    <uic Include="..\..\..\scribus\nftdialog.ui" />
+    <uic Include="..\..\..\scribus\nftwidget.ui" />
+    <uic Include="..\..\..\scribus\pageitemattributes.ui" />
+    <uic Include="..\..\..\scribus\patterndialog.ui" />
+    <uic Include="..\..\..\scribus\picsearch.ui" />
+    <uic Include="..\..\..\scribus\picsearchoptions.ui" />
+    <uic Include="..\..\..\scribus\picstatus.ui" />
+    <uic Include="..\..\..\scribus\pluginmanagerprefsgui.ui" />
+    <uic Include="..\..\..\scribus\polygonwidgetbase.ui" />
+    <uic Include="..\..\..\scribus\printdialogbase.ui" />
+    <uic Include="..\..\..\scribus\replacecolors.ui" />
+    <uic Include="..\..\..\scribus\replaceonecolor.ui" />
+    <uic Include="..\..\..\scribus\selectobjects.ui" />
+    <uic Include="..\..\..\scribus\shortcutwidget.ui" />
+    <uic Include="..\..\..\scribus\smcstylewidget.ui" />
+    <uic Include="..\..\..\scribus\smlinestylewidget.ui" />
+    <uic Include="..\..\..\scribus\smpstylewidget.ui" />
+    <uic Include="..\..\..\scribus\smreplacedia.ui" />
+    <uic Include="..\..\..\scribus\smstyleimport.ui" />
+    <uic Include="..\..\..\scribus\stylemanager.ui" />
+    <uic Include="..\..\..\scribus\tabdisplay.ui" />
+    <uic Include="..\..\..\scribus\tabexternaltoolswidget.ui" />
+    <uic Include="..\..\..\scribus\tabgeneral.ui" />
+    <uic Include="..\..\..\scribus\tabkeyboardshortcutswidget.ui" />
+    <uic Include="..\..\..\scribus\tabmiscellaneous.ui" />
+    <uic Include="..\..\..\scribus\tabprinter.ui" />
+    <uic Include="..\..\..\scribus\tabscrapbook.ui" />
+    <uic Include="..\..\..\scribus\tocindexprefs.ui" />
+    <uic Include="..\..\..\scribus\unicodesearch.ui" />
+    <uic Include="..\..\..\scribus\useprintermarginsdialog.ui" />
+  </ItemGroup>
+  <ItemGroup>
+    <lrelease Include="..\..\..\resources\translations\po\scribus.af.ts" />
+    <lrelease Include="..\..\..\resources\translations\po\scribus.ar.ts" />
+    <lrelease Include="..\..\..\resources\translations\po\scribus.bg.ts" />
+    <lrelease Include="..\..\..\resources\translations\po\scribus.br.ts" />
+    <lrelease Include="..\..\..\resources\translations\po\scribus.ca.ts" />
+    <lrelease Include="..\..\..\resources\translations\po\scribus.cs_CZ.ts" />
+    <lrelease Include="..\..\..\resources\translations\po\scribus.cy.ts" />
+    <lrelease Include="..\..\..\resources\translations\po\scribus.da_DK.ts" />
+    <lrelease Include="..\..\..\resources\translations\po\scribus.de.ts" />
+    <lrelease Include="..\..\..\resources\translations\po\scribus.de_1901.ts" />
+    <lrelease Include="..\..\..\resources\translations\po\scribus.de_CH.ts" />
+    <lrelease Include="..\..\..\resources\translations\po\scribus.el.ts" />
+    <lrelease Include="..\..\..\resources\translations\po\scribus.en_AU.ts" />
+    <lrelease Include="..\..\..\resources\translations\po\scribus.en_GB.ts" />
+    <lrelease Include="..\..\..\resources\translations\po\scribus.en_US.ts" />
+    <lrelease Include="..\..\..\resources\translations\po\scribus.es_ES.ts" />
+    <lrelease Include="..\..\..\resources\translations\po\scribus.et.ts" />
+    <lrelease Include="..\..\..\resources\translations\po\scribus.eu.ts" />
+    <lrelease Include="..\..\..\resources\translations\po\scribus.fi.ts" />
+    <lrelease Include="..\..\..\resources\translations\po\scribus.fr.ts" />
+    <lrelease Include="..\..\..\resources\translations\po\scribus.gl.ts" />
+    <lrelease Include="..\..\..\resources\translations\po\scribus.hu.ts" />
+    <lrelease Include="..\..\..\resources\translations\po\scribus.id.ts" />
+    <lrelease Include="..\..\..\resources\translations\po\scribus.it.ts" />
+    <lrelease Include="..\..\..\resources\translations\po\scribus.ja.ts" />
+    <lrelease Include="..\..\..\resources\translations\po\scribus.ko.ts" />
+    <lrelease Include="..\..\..\resources\translations\po\scribus.lt_LT.ts" />
+    <lrelease Include="..\..\..\resources\translations\po\scribus.nb_NO.ts" />
+    <lrelease Include="..\..\..\resources\translations\po\scribus.nl.ts" />
+    <lrelease Include="..\..\..\resources\translations\po\scribus.pl_PL.ts" />
+    <lrelease Include="..\..\..\resources\translations\po\scribus.pt.ts" />
+    <lrelease Include="..\..\..\resources\translations\po\scribus.pt_BR.ts" />
+    <lrelease Include="..\..\..\resources\translations\po\scribus.ru.ts" />
+    <lrelease Include="..\..\..\resources\translations\po\scribus.sa.ts" />
+    <lrelease Include="..\..\..\resources\translations\po\scribus.sk_SK.ts" />
+    <lrelease Include="..\..\..\resources\translations\po\scribus.sl.ts" />
+    <lrelease Include="..\..\..\resources\translations\po\scribus.sq.ts" />
+    <lrelease Include="..\..\..\resources\translations\po\scribus.sr.ts" />
+    <lrelease Include="..\..\..\resources\translations\po\scribus.sv.ts" />
+    <lrelease Include="..\..\..\resources\translations\po\scribus.th_TH.ts" />
+    <lrelease Include="..\..\..\resources\translations\po\scribus.tr.ts" />
+    <lrelease Include="..\..\..\resources\translations\po\scribus.uk.ts" />
+    <lrelease Include="..\..\..\resources\translations\po\scribus.zh_CN.ts" />
+    <lrelease Include="..\..\..\resources\translations\po\scribus.zh_TW.ts" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+    <Import Project="..\Scribus-build-rules.targets" />
+  </ImportGroup>
+</Project>

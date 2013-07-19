@@ -1,0 +1,133 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ImportGroup Label="PropertySheets">
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros">
+    <QT4_DIR>C:\Libraries-vc11\qt-4.8.4</QT4_DIR>
+    <BOOST_DIR>C:\Libraries-vc11\boost-1.51.0</BOOST_DIR>
+    <CAIRO_DIR>C:\Libraries-vc11\cairo-1.8.6</CAIRO_DIR>
+    <CAIRO_DEBUG_LIB>cairo2d.lib</CAIRO_DEBUG_LIB>
+    <CAIRO_RELEASE_LIB>cairo2.lib</CAIRO_RELEASE_LIB>
+    <FREETYPE_DIR>C:\Libraries-vc11\freetype-2.4.6</FREETYPE_DIR>
+    <FREETYPE_DEBUG_LIB>freetypeD.lib</FREETYPE_DEBUG_LIB>
+    <FREETYPE_RELEASE_LIB>freetype.lib</FREETYPE_RELEASE_LIB>
+    <HUNSPELL_DIR>C:\Libraries-vc11\hunspell-1.3.2</HUNSPELL_DIR>
+    <HUNSPELL_DEBUG_LIB>libhunspell_staticD.lib</HUNSPELL_DEBUG_LIB>
+    <HUNSPELL_RELEASE_LIB>libhunspell_static.lib</HUNSPELL_RELEASE_LIB>
+    <ICONV_DIR>C:\Libraries-vc11\libiconv-1.14</ICONV_DIR>
+    <LCMS_DIR>C:\Libraries-vc11\lcms2-2.3</LCMS_DIR>
+    <LCMS_DEBUG_LIB>lcms2_staticd.lib</LCMS_DEBUG_LIB>
+    <LCMS_RELEASE_LIB>lcms2_static.lib</LCMS_RELEASE_LIB>
+    <LIBJPEG_DIR>C:\Libraries-vc11\libjpeg-8d</LIBJPEG_DIR>
+    <LIBJPEG_DEBUG_LIB>jpeg8d_d.lib</LIBJPEG_DEBUG_LIB>
+    <LIBJPEG_RELEASE_LIB>jpeg8d.lib</LIBJPEG_RELEASE_LIB>
+    <LIBTIFF_DIR>C:\Libraries-vc11\libtiff-3.9.5</LIBTIFF_DIR>
+    <LIBTIFF_DEBUG_LIB>libtiff3_d.lib</LIBTIFF_DEBUG_LIB>
+    <LIBTIFF_RELEASE_LIB>libtiff3.lib</LIBTIFF_RELEASE_LIB>
+    <PODOFO_DIR>C:\Libraries-vc11\podofo-0.9.1</PODOFO_DIR>
+    <PODOFO_DEBUG_LIB>PoDoFoLibD.lib</PODOFO_DEBUG_LIB>
+    <PODOFO_RELEASE_LIB>PoDoFoLib.lib</PODOFO_RELEASE_LIB>
+    <LIBXML2_DIR>C:\Libraries-vc11\libxml2-2.7.8</LIBXML2_DIR>
+    <LIBXML2_DEBUG_LIB>libxml2_d.lib</LIBXML2_DEBUG_LIB>
+    <LIBXML2_RELEASE_LIB>libxml2.lib</LIBXML2_RELEASE_LIB>
+    <PYTHON_DIR>C:\Libraries-vc11\Python-2.7.5</PYTHON_DIR>
+    <PYTHON_DEBUG_LIB>python27_d.lib</PYTHON_DEBUG_LIB>
+    <PYTHON_RELEASE_LIB>python27.lib</PYTHON_RELEASE_LIB>
+  </PropertyGroup>
+  <PropertyGroup>
+    <_ProjectFileVersion>11.0.50727.1</_ProjectFileVersion>
+  </PropertyGroup>
+  <ItemDefinitionGroup />
+  <ItemGroup>
+    <BuildMacro Include="QT4_DIR">
+      <Value>$(QT4_DIR)</Value>
+    </BuildMacro>
+    <BuildMacro Include="BOOST_DIR">
+      <Value>$(BOOST_DIR)</Value>
+    </BuildMacro>
+    <BuildMacro Include="CAIRO_DIR">
+      <Value>$(CAIRO_DIR)</Value>
+    </BuildMacro>
+    <BuildMacro Include="CAIRO_DEBUG_LIB">
+      <Value>$(CAIRO_DEBUG_LIB)</Value>
+    </BuildMacro>
+    <BuildMacro Include="CAIRO_RELEASE_LIB">
+      <Value>$(CAIRO_RELEASE_LIB)</Value>
+    </BuildMacro>
+    <BuildMacro Include="FREETYPE_DIR">
+      <Value>$(FREETYPE_DIR)</Value>
+    </BuildMacro>
+    <BuildMacro Include="FREETYPE_DEBUG_LIB">
+      <Value>$(FREETYPE_DEBUG_LIB)</Value>
+    </BuildMacro>
+    <BuildMacro Include="FREETYPE_RELEASE_LIB">
+      <Value>$(FREETYPE_RELEASE_LIB)</Value>
+    </BuildMacro>
+    <BuildMacro Include="HUNSPELL_DIR">
+      <Value>$(HUNSPELL_DIR)</Value>
+    </BuildMacro>
+    <BuildMacro Include="HUNSPELL_DEBUG_LIB">
+      <Value>$(HUNSPELL_DEBUG_LIB)</Value>
+    </BuildMacro>
+    <BuildMacro Include="HUNSPELL_RELEASE_LIB">
+      <Value>$(HUNSPELL_RELEASE_LIB)</Value>
+    </BuildMacro>
+    <BuildMacro Include="ICONV_DIR">
+      <Value>$(ICONV_DIR)</Value>
+    </BuildMacro>
+    <BuildMacro Include="LCMS_DIR">
+      <Value>$(LCMS_DIR)</Value>
+    </BuildMacro>
+    <BuildMacro Include="LCMS_DEBUG_LIB">
+      <Value>$(LCMS_DEBUG_LIB)</Value>
+    </BuildMacro>
+    <BuildMacro Include="LCMS_RELEASE_LIB">
+      <Value>$(LCMS_RELEASE_LIB)</Value>
+    </BuildMacro>
+    <BuildMacro Include="LIBJPEG_DIR">
+      <Value>$(LIBJPEG_DIR)</Value>
+    </BuildMacro>
+    <BuildMacro Include="LIBJPEG_DEBUG_LIB">
+      <Value>$(LIBJPEG_DEBUG_LIB)</Value>
+    </BuildMacro>
+    <BuildMacro Include="LIBJPEG_RELEASE_LIB">
+      <Value>$(LIBJPEG_RELEASE_LIB)</Value>
+    </BuildMacro>
+    <BuildMacro Include="LIBTIFF_DIR">
+      <Value>$(LIBTIFF_DIR)</Value>
+    </BuildMacro>
+    <BuildMacro Include="LIBTIFF_DEBUG_LIB">
+      <Value>$(LIBTIFF_DEBUG_LIB)</Value>
+    </BuildMacro>
+    <BuildMacro Include="LIBTIFF_RELEASE_LIB">
+      <Value>$(LIBTIFF_RELEASE_LIB)</Value>
+    </BuildMacro>
+    <BuildMacro Include="PODOFO_DIR">
+      <Value>$(PODOFO_DIR)</Value>
+    </BuildMacro>
+    <BuildMacro Include="PODOFO_DEBUG_LIB">
+      <Value>$(PODOFO_DEBUG_LIB)</Value>
+    </BuildMacro>
+    <BuildMacro Include="PODOFO_RELEASE_LIB">
+      <Value>$(PODOFO_RELEASE_LIB)</Value>
+    </BuildMacro>
+    <BuildMacro Include="LIBXML2_DIR">
+      <Value>$(LIBXML2_DIR)</Value>
+    </BuildMacro>
+    <BuildMacro Include="LIBXML2_DEBUG_LIB">
+      <Value>$(LIBXML2_DEBUG_LIB)</Value>
+    </BuildMacro>
+    <BuildMacro Include="LIBXML2_RELEASE_LIB">
+      <Value>$(LIBXML2_RELEASE_LIB)</Value>
+    </BuildMacro>
+    <BuildMacro Include="PYTHON_DIR">
+      <Value>$(PYTHON_DIR)</Value>
+    </BuildMacro>
+    <BuildMacro Include="PYTHON_DEBUG_LIB">
+      <Value>$(PYTHON_DEBUG_LIB)</Value>
+    </BuildMacro>
+    <BuildMacro Include="PYTHON_RELEASE_LIB">
+      <Value>$(PYTHON_RELEASE_LIB)</Value>
+    </BuildMacro>
+  </ItemGroup>
+</Project>

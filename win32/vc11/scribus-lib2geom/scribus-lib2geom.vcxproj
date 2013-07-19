@@ -1,0 +1,240 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug-cairo|Win32">
+      <Configuration>Debug-cairo</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug-cairo|x64">
+      <Configuration>Debug-cairo</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release-cairo|Win32">
+      <Configuration>Release-cairo</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release-cairo|x64">
+      <Configuration>Release-cairo</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{6AC5EDDC-2540-47E0-873E-FE40FB06FBFD}</ProjectGuid>
+    <RootNamespace>scribuslib2geom</RootNamespace>
+    <Keyword>Win32Proj</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-cairo|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <PlatformToolset>v110</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+    <WholeProgramOptimization>false</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-cairo|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <PlatformToolset>v110</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+    <WholeProgramOptimization>false</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug-cairo|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <PlatformToolset>v110</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug-cairo|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <PlatformToolset>v110</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release-cairo|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\Scribus-build-props.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release-cairo|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\Scribus-build-props.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug-cairo|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\Scribus-build-props.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug-cairo|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\Scribus-build-props.props" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>11.0.50727.1</_ProjectFileVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug-cairo|Win32'">
+    <OutDir>..\..\..\..\Scribus-builds\Scribus-vc11-$(Configuration)-$(Platform)\scribus\</OutDir>
+    <IntDir>..\..\..\..\Scribus-builds\Build-objs-vc11\$(Configuration)-$(Platform)\$(TargetName)\</IntDir>
+    <TargetName>scribus-lib2geom</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug-cairo|x64'">
+    <OutDir>..\..\..\..\Scribus-builds\Scribus-vc11-$(Configuration)-$(Platform)\scribus\</OutDir>
+    <IntDir>..\..\..\..\Scribus-builds\Build-objs-vc11\$(Configuration)-$(Platform)\$(TargetName)\</IntDir>
+    <TargetName>scribus-lib2geom</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-cairo|Win32'">
+    <OutDir>..\..\..\..\Scribus-builds\Scribus-vc11-$(Configuration)-$(Platform)\scribus\</OutDir>
+    <IntDir>..\..\..\..\Scribus-builds\Build-objs-vc11\$(Configuration)-$(Platform)\$(TargetName)\</IntDir>
+    <TargetName>scribus-lib2geom</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-cairo|x64'">
+    <OutDir>..\..\..\..\Scribus-builds\Scribus-vc11-$(Configuration)-$(Platform)\scribus\</OutDir>
+    <IntDir>..\..\..\..\Scribus-builds\Build-objs-vc11\$(Configuration)-$(Platform)\$(TargetName)\</IntDir>
+    <TargetName>scribus-lib2geom</TargetName>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug-cairo|Win32'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>..\..\vc11;..\..\..\scribus;..\..\..\scribus\fonts;..\..\..\scribus\text;..\..\..\scribus\styles;..\..\..\scribus\simpletreemodel;..\..\..\scribus\ui;$(QT4_DIR)\include\QtCore;$(QT4_DIR)\include\QtGui;$(QT4_DIR)\include\QtNetwork;$(QT4_DIR)\include\QtXml;$(QT4_DIR)\include;$(QT4_DIR)\src\3rdparty\zlib;$(BOOST_DIR);$(FREETYPE_DIR)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;_USE_MATH_DEFINES;QT_LARGEFILE_SUPPORT;QT_EDITION=QT_EDITION_DESKTOP;QT_DLL;QT_GUI_LIB;QT_CORE_LIB;QT_THREAD_SUPPORT;COMPILE_PLUGIN_AS_DLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>true</MinimalRebuild>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <PrecompiledHeader />
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <DisableSpecificWarnings>4005;4244;4251;4258;4267;4996;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+    <Lib />
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug-cairo|x64'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>..\..\vc11;..\..\..\scribus;..\..\..\scribus\fonts;..\..\..\scribus\text;..\..\..\scribus\styles;..\..\..\scribus\simpletreemodel;..\..\..\scribus\ui;$(QT4_DIR)\include\QtCore;$(QT4_DIR)\include\QtGui;$(QT4_DIR)\include\QtNetwork;$(QT4_DIR)\include\QtXml;$(QT4_DIR)\include;$(QT4_DIR)\src\3rdparty\zlib;$(BOOST_DIR);$(FREETYPE_DIR)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;_USE_MATH_DEFINES;QT_LARGEFILE_SUPPORT;QT_EDITION=QT_EDITION_DESKTOP;QT_DLL;QT_GUI_LIB;QT_CORE_LIB;QT_THREAD_SUPPORT;COMPILE_PLUGIN_AS_DLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <DisableSpecificWarnings>4005;4244;4251;4258;4267;4996;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+    <Lib />
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release-cairo|Win32'">
+    <ClCompile>
+      <Optimization>MaxSpeed</Optimization>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <OmitFramePointers>true</OmitFramePointers>
+      <AdditionalIncludeDirectories>..\..\vc11;..\..\..\scribus;..\..\..\scribus\fonts;..\..\..\scribus\text;..\..\..\scribus\styles;..\..\..\scribus\simpletreemodel;..\..\..\scribus\ui;$(QT4_DIR)\include\QtCore;$(QT4_DIR)\include\QtGui;$(QT4_DIR)\include\QtNetwork;$(QT4_DIR)\include\QtXml;$(QT4_DIR)\include;$(QT4_DIR)\src\3rdparty\zlib;$(BOOST_DIR);$(FREETYPE_DIR)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;_USE_MATH_DEFINES;QT_LARGEFILE_SUPPORT;QT_EDITION=QT_EDITION_DESKTOP;QT_DLL;QT_GUI_LIB;QT_CORE_LIB;QT_THREAD_SUPPORT;COMPILE_PLUGIN_AS_DLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <PrecompiledHeader />
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <DisableSpecificWarnings>4005;4244;4251;4258;4267;4996;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+    <Lib />
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release-cairo|x64'">
+    <ClCompile>
+      <Optimization>MaxSpeed</Optimization>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <OmitFramePointers>true</OmitFramePointers>
+      <AdditionalIncludeDirectories>..\..\vc11;..\..\..\scribus;..\..\..\scribus\fonts;..\..\..\scribus\text;..\..\..\scribus\styles;..\..\..\scribus\simpletreemodel;..\..\..\scribus\ui;$(QT4_DIR)\include\QtCore;$(QT4_DIR)\include\QtGui;$(QT4_DIR)\include\QtNetwork;$(QT4_DIR)\include\QtXml;$(QT4_DIR)\include;$(QT4_DIR)\src\3rdparty\zlib;$(BOOST_DIR);$(FREETYPE_DIR)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;_USE_MATH_DEFINES;QT_LARGEFILE_SUPPORT;QT_EDITION=QT_EDITION_DESKTOP;QT_DLL;QT_GUI_LIB;QT_CORE_LIB;QT_THREAD_SUPPORT;COMPILE_PLUGIN_AS_DLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <DisableSpecificWarnings>4005;4244;4251;4258;4267;4996;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+    <Lib />
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\scribus\plugins\tools\2geomtools\lib2geom\basic-intersection.cpp" />
+    <ClCompile Include="..\..\..\scribus\plugins\tools\2geomtools\lib2geom\bezier-utils.cpp" />
+    <ClCompile Include="..\..\..\scribus\plugins\tools\2geomtools\lib2geom\circle-circle.cpp" />
+    <ClCompile Include="..\..\..\scribus\plugins\tools\2geomtools\lib2geom\conjugate_gradient.cpp" />
+    <ClCompile Include="..\..\..\scribus\plugins\tools\2geomtools\lib2geom\convex-cover.cpp" />
+    <ClCompile Include="..\..\..\scribus\plugins\tools\2geomtools\lib2geom\crossing.cpp" />
+    <ClCompile Include="..\..\..\scribus\plugins\tools\2geomtools\lib2geom\d2-sbasis.cpp" />
+    <ClCompile Include="..\..\..\scribus\plugins\tools\2geomtools\lib2geom\geom.cpp" />
+    <ClCompile Include="..\..\..\scribus\plugins\tools\2geomtools\lib2geom\matrix.cpp" />
+    <ClCompile Include="..\..\..\scribus\plugins\tools\2geomtools\lib2geom\path-intersection.cpp" />
+    <ClCompile Include="..\..\..\scribus\plugins\tools\2geomtools\lib2geom\path.cpp" />
+    <ClCompile Include="..\..\..\scribus\plugins\tools\2geomtools\lib2geom\piecewise.cpp" />
+    <ClCompile Include="..\..\..\scribus\plugins\tools\2geomtools\lib2geom\point.cpp" />
+    <ClCompile Include="..\..\..\scribus\plugins\tools\2geomtools\lib2geom\poly-dk-solve.cpp" />
+    <ClCompile Include="..\..\..\scribus\plugins\tools\2geomtools\lib2geom\poly-laguerre-solve.cpp" />
+    <ClCompile Include="..\..\..\scribus\plugins\tools\2geomtools\lib2geom\poly.cpp" />
+    <ClCompile Include="..\..\..\scribus\plugins\tools\2geomtools\lib2geom\quadtree.cpp" />
+    <ClCompile Include="..\..\..\scribus\plugins\tools\2geomtools\lib2geom\region.cpp" />
+    <ClCompile Include="..\..\..\scribus\plugins\tools\2geomtools\lib2geom\sbasis-2d.cpp" />
+    <ClCompile Include="..\..\..\scribus\plugins\tools\2geomtools\lib2geom\sbasis-geometric.cpp" />
+    <ClCompile Include="..\..\..\scribus\plugins\tools\2geomtools\lib2geom\sbasis-math.cpp" />
+    <ClCompile Include="..\..\..\scribus\plugins\tools\2geomtools\lib2geom\sbasis-poly.cpp" />
+    <ClCompile Include="..\..\..\scribus\plugins\tools\2geomtools\lib2geom\sbasis-roots.cpp" />
+    <ClCompile Include="..\..\..\scribus\plugins\tools\2geomtools\lib2geom\sbasis-to-bezier.cpp" />
+    <ClCompile Include="..\..\..\scribus\plugins\tools\2geomtools\lib2geom\sbasis.cpp" />
+    <ClCompile Include="..\..\..\scribus\plugins\tools\2geomtools\lib2geom\scribushelper.cpp" />
+    <ClCompile Include="..\..\..\scribus\plugins\tools\2geomtools\lib2geom\shape.cpp" />
+    <ClCompile Include="..\..\..\scribus\plugins\tools\2geomtools\lib2geom\solve-bezier-one-d.cpp" />
+    <ClCompile Include="..\..\..\scribus\plugins\tools\2geomtools\lib2geom\solve-bezier-parametric.cpp" />
+    <ClCompile Include="..\..\..\scribus\plugins\tools\2geomtools\lib2geom\svg-path.cpp" />
+    <ClCompile Include="..\..\..\scribus\plugins\tools\2geomtools\lib2geom\sweep.cpp" />
+    <ClCompile Include="..\..\..\scribus\plugins\tools\2geomtools\lib2geom\transforms.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\scribus\plugins\tools\2geomtools\lib2geom\angle.h" />
+    <ClInclude Include="..\..\..\scribus\plugins\tools\2geomtools\lib2geom\basic-intersection.h" />
+    <ClInclude Include="..\..\..\scribus\plugins\tools\2geomtools\lib2geom\bezier-to-sbasis.h" />
+    <ClInclude Include="..\..\..\scribus\plugins\tools\2geomtools\lib2geom\bezier-utils.h" />
+    <ClInclude Include="..\..\..\scribus\plugins\tools\2geomtools\lib2geom\bezier.h" />
+    <ClInclude Include="..\..\..\scribus\plugins\tools\2geomtools\lib2geom\choose.h" />
+    <ClInclude Include="..\..\..\scribus\plugins\tools\2geomtools\lib2geom\circulator.h" />
+    <ClInclude Include="..\..\..\scribus\plugins\tools\2geomtools\lib2geom\concepts.h" />
+    <ClInclude Include="..\..\..\scribus\plugins\tools\2geomtools\lib2geom\conjugate_gradient.h" />
+    <ClInclude Include="..\..\..\scribus\plugins\tools\2geomtools\lib2geom\convex-cover.h" />
+    <ClInclude Include="..\..\..\scribus\plugins\tools\2geomtools\lib2geom\coord.h" />
+    <ClInclude Include="..\..\..\scribus\plugins\tools\2geomtools\lib2geom\crossing.h" />
+    <ClInclude Include="..\..\..\scribus\plugins\tools\2geomtools\lib2geom\d2-sbasis.h" />
+    <ClInclude Include="..\..\..\scribus\plugins\tools\2geomtools\lib2geom\d2.h" />
+    <ClInclude Include="..\..\..\scribus\plugins\tools\2geomtools\lib2geom\exception.h" />
+    <ClInclude Include="..\..\..\scribus\plugins\tools\2geomtools\lib2geom\geom.h" />
+    <ClInclude Include="..\..\..\scribus\plugins\tools\2geomtools\lib2geom\interval.h" />
+    <ClInclude Include="..\..\..\scribus\plugins\tools\2geomtools\lib2geom\isnan.h" />
+    <ClInclude Include="..\..\..\scribus\plugins\tools\2geomtools\lib2geom\linear.h" />
+    <ClInclude Include="..\..\..\scribus\plugins\tools\2geomtools\lib2geom\matrix.h" />
+    <ClInclude Include="..\..\..\scribus\plugins\tools\2geomtools\lib2geom\ord.h" />
+    <ClInclude Include="..\..\..\scribus\plugins\tools\2geomtools\lib2geom\path-intersection.h" />
+    <ClInclude Include="..\..\..\scribus\plugins\tools\2geomtools\lib2geom\path.h" />
+    <ClInclude Include="..\..\..\scribus\plugins\tools\2geomtools\lib2geom\piecewise.h" />
+    <ClInclude Include="..\..\..\scribus\plugins\tools\2geomtools\lib2geom\point-l.h" />
+    <ClInclude Include="..\..\..\scribus\plugins\tools\2geomtools\lib2geom\point-ops.h" />
+    <ClInclude Include="..\..\..\scribus\plugins\tools\2geomtools\lib2geom\point.h" />
+    <ClInclude Include="..\..\..\scribus\plugins\tools\2geomtools\lib2geom\poly-dk-solve.h" />
+    <ClInclude Include="..\..\..\scribus\plugins\tools\2geomtools\lib2geom\poly-laguerre-solve.h" />
+    <ClInclude Include="..\..\..\scribus\plugins\tools\2geomtools\lib2geom\poly.h" />
+    <ClInclude Include="..\..\..\scribus\plugins\tools\2geomtools\lib2geom\quadtree.h" />
+    <ClInclude Include="..\..\..\scribus\plugins\tools\2geomtools\lib2geom\rect.h" />
+    <ClInclude Include="..\..\..\scribus\plugins\tools\2geomtools\lib2geom\region.h" />
+    <ClInclude Include="..\..\..\scribus\plugins\tools\2geomtools\lib2geom\sbasis-2d.h" />
+    <ClInclude Include="..\..\..\scribus\plugins\tools\2geomtools\lib2geom\sbasis-geometric.h" />
+    <ClInclude Include="..\..\..\scribus\plugins\tools\2geomtools\lib2geom\sbasis-math.h" />
+    <ClInclude Include="..\..\..\scribus\plugins\tools\2geomtools\lib2geom\sbasis-poly.h" />
+    <ClInclude Include="..\..\..\scribus\plugins\tools\2geomtools\lib2geom\sbasis-to-bezier.h" />
+    <ClInclude Include="..\..\..\scribus\plugins\tools\2geomtools\lib2geom\sbasis.h" />
+    <ClInclude Include="..\..\..\scribus\plugins\tools\2geomtools\lib2geom\scribushelper.h" />
+    <ClInclude Include="..\..\..\scribus\plugins\tools\2geomtools\lib2geom\shape.h" />
+    <ClInclude Include="..\..\..\scribus\plugins\tools\2geomtools\lib2geom\solver.h" />
+    <ClInclude Include="..\..\..\scribus\plugins\tools\2geomtools\lib2geom\sturm.h" />
+    <ClInclude Include="..\..\..\scribus\plugins\tools\2geomtools\lib2geom\svg-elliptical-arc.h" />
+    <ClInclude Include="..\..\..\scribus\plugins\tools\2geomtools\lib2geom\svg-path.h" />
+    <ClInclude Include="..\..\..\scribus\plugins\tools\2geomtools\lib2geom\sweep.h" />
+    <ClInclude Include="..\..\..\scribus\plugins\tools\2geomtools\lib2geom\transforms.h" />
+    <ClInclude Include="..\..\..\scribus\plugins\tools\2geomtools\lib2geom\utils.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
