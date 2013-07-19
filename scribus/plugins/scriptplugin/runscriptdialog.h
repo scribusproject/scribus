@@ -21,7 +21,7 @@ class RunScriptDialog : public QDialog, public Ui::RunScriptDialog
 	Q_OBJECT
 
 	public:
-		RunScriptDialog(QWidget* parent, bool extEnable);
+		RunScriptDialog(QWidget* parent, bool extEnable = false);
 		~RunScriptDialog();
 
 		//! \brief Check if the user wanted the script run as an extension script
