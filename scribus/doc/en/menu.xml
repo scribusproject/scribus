@@ -149,7 +149,6 @@
 		<submenuitem text="Bug Reports" file="bugreport.html"/>
 		<submenuitem text="Mailing Lists" file="mailing_lists.html"/>
 		<submenuitem text="IRC" file="irc.html"/>
-		<submenuitem text="Download" file="download.html"/>
 		<submenuitem text="Release History" file="releases.html"/>
 		<submenuitem text="Scribus Copyright" file="scribuscopyright.html"/>
 		<submenuitem text="Documentation Copyright" file="doccopyright.html"/>
