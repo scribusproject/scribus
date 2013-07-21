@@ -9712,7 +9712,7 @@ Configurazione non valida</translation>
     <message>
         <location filename="../../../scribus/plugins/barcodegenerator/barcode.cpp" line="22"/>
         <source>&amp;Barcode...</source>
-        <translation>Codice a &amp;Barrre...</translation>
+        <translation>Codice a &amp;Barre...</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/barcodegenerator/barcode.cpp" line="39"/>
@@ -10039,13 +10039,13 @@ Configurazione non valida</translation>
         <location filename="../../../scribus/ui/scrapbookpalette.cpp" line="579"/>
         <location filename="../../../scribus/ui/scrapbookpalette.cpp" line="1756"/>
         <source>Hide Directories</source>
-        <translation type="unfinished">Nascondi cartelle</translation>
+        <translation>Nascondi cartelle</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/scrapbookpalette.cpp" line="589"/>
         <location filename="../../../scribus/ui/scrapbookpalette.cpp" line="1759"/>
         <source>Open Directories in a new tab</source>
-        <translation type="unfinished">Apri cartelle in una nuova scheda</translation>
+        <translation>Apri cartelle in una nuova scheda</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/scrapbookpalette.cpp" line="998"/>
@@ -17311,7 +17311,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../../scribus/ui/insertaframe.ui" line="596"/>
         <source>Source Image:</source>
-        <translation>Immagine fonte:</translation>
+        <translation>Fonte immagine:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/insertaframe.ui" line="636"/>
@@ -17335,7 +17335,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../../scribus/ui/insertaframe.ui" line="554"/>
         <source>Source Document:</source>
-        <translation>Documento fonte:</translation>
+        <translation type="unfinished">Documento fonte:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/insertaframe.ui" line="125"/>
@@ -32517,7 +32517,7 @@ arrotondati:</translation>
     <message>
         <location filename="../../../scribus/ui/propertiespalette_text.cpp" line="81"/>
         <source>Paragraph Effects</source>
-        <translation type="unfinished">Effetti paragrafo</translation>
+        <translation>Effetti paragrafo</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/propertiespalette_text.cpp" line="84"/>
@@ -32702,7 +32702,7 @@ arrotondati:</translation>
     <message>
         <location filename="../../../scribus/ui/propertiespalette_xyz.cpp" line="1304"/>
         <source>Level</source>
-        <translation type="unfinished">Livello</translation>
+        <translation>Livello</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/propertiespalette_xyz.cpp" line="1306"/>
@@ -33148,7 +33148,7 @@ arrotondati:</translation>
     <message>
         <location filename="../../../scribus/ui/propertywidget_dropcap.cpp" line="283"/>
         <source>Choose character style or leave blank for use default paragraph style</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Scegliere uno stile di carattere, o lasciare vuoto per usare lo stile di paragrafo predefinito</translation>
     </message>
     <message>
         <source>Choose chracter style or leave blank for use default paragraph style</source>
@@ -33467,7 +33467,7 @@ arrotondati:</translation>
     <message>
         <location filename="../../../scribus/ui/propertywidget_pareffect.cpp" line="560"/>
         <source>Level</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Livello</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/propertywidget_pareffect.cpp" line="561"/>
@@ -33535,7 +33535,7 @@ arrotondati:</translation>
     <message>
         <location filename="../../../scribus/ui/propertywidget_pareffectbase.ui" line="20"/>
         <source>Effect Parameters</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Parametri effetto</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/propertywidget_pareffectbase.ui" line="26"/>
@@ -33575,7 +33575,7 @@ arrotondati:</translation>
     <message>
         <location filename="../../../scribus/ui/propertywidget_pareffectbase.ui" line="133"/>
         <source>Level</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Livello</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/propertywidget_pareffectbase.ui" line="163"/>
@@ -38696,19 +38696,19 @@ Si prega di sceglierne un altro.</translation>
         <location filename="../../../scribus/ui/smpstylewidget.ui" line="345"/>
         <location filename="../../../scribus/ui/smpstylewidget.cpp" line="163"/>
         <source>Bullets</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Punti</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/smpstylewidget.ui" line="359"/>
         <location filename="../../../scribus/ui/smpstylewidget.cpp" line="166"/>
         <source>Bullet Char/String</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Punto</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/smpstylewidget.ui" line="404"/>
         <location filename="../../../scribus/ui/smpstylewidget.cpp" line="167"/>
         <source>Char Table</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Tabella caratteri</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/smpstylewidget.ui" line="438"/>
@@ -40398,12 +40398,12 @@ utilizzata invece della configurazione di sistema</translation>
     <message>
         <location filename="../../../scribus/ui/annot.cpp" line="749"/>
         <source>Zoom View In</source>
-        <translation type="unfinished">Zoom avanti</translation>
+        <translation type="unfinished">Aumenta zoom</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/annot.cpp" line="750"/>
         <source>Zoom View Out</source>
-        <translation type="unfinished">Zoom indietro</translation>
+        <translation type="unfinished">Riduci zoom</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/annot.cpp" line="751"/>
@@ -40443,7 +40443,7 @@ utilizzata invece della configurazione di sistema</translation>
     <message>
         <location filename="../../../scribus/ui/annot.cpp" line="758"/>
         <source>Full Screen</source>
-        <translation type="unfinished">Schermo intero</translation>
+        <translation>Schermo intero</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/annot.cpp" line="759"/>
@@ -40453,7 +40453,7 @@ utilizzata invece della configurazione di sistema</translation>
     <message>
         <location filename="../../../scribus/ui/annot.cpp" line="760"/>
         <source>Show/Hide Thumbnails</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Mostra/Nascondi Miniature</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/annot.cpp" line="761"/>
@@ -41942,7 +41942,7 @@ Utilizzare la Verifica Preliminare per correggerli</translation>
         <location filename="../../../scribus/scribus.cpp" line="11145"/>
         <location filename="../../../scribus/scribus.cpp" line="11377"/>
         <source>Anchor mark</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nota di riferimento</translation>
     </message>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="11153"/>
@@ -48441,12 +48441,12 @@ a %2</translation>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="997"/>
         <source>Edit mark</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Modifica nota</translation>
     </message>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="998"/>
         <source>Delete mark</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Elimina nota</translation>
     </message>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="999"/>
