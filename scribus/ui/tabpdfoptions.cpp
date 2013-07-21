@@ -48,8 +48,7 @@ for which a new license (GPL+exception) is in place.
 TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,
                                 const SCFonts &AllFonts,
                                 const ProfilesL & PDFXProfiles,
-                                const QMap<QString, int> & DocFonts,
-                                const QList<PDFPresentationData> & Eff,
+								const QMap<QString, int> & DocFonts,
                                 int unitIndex, double PageH, double PageB,
                                 ScribusDoc * mdoc, bool exporting )
 	: QTabWidget( parent ),
@@ -110,7 +109,6 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,
 	// End GUI member pointers
 	// Protected non-gui members
 	PgSel(0),
-	EffVal(Eff),
 	// Protected GUI member pointers
 	actionCombo(0),
 	AllPages(0),
@@ -892,7 +890,7 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,
 	BleedLeft->setMinimum(0);
 	BleedLeft->setMaximum(3000*unitRatio);
 
-	restoreDefaults(Optionen, AllFonts, PDFXProfiles, DocFonts, Eff, unitIndex, PageH, PageB, m_Doc, pdfExport);
+	restoreDefaults(Optionen, AllFonts, PDFXProfiles, DocFonts, unitIndex, PageH, PageB, m_Doc, pdfExport);
 
 	if (m_Doc != 0 && exporting)
 	{
@@ -1018,7 +1016,6 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 									const SCFonts &AllFonts,
 									const ProfilesL & PDFXProfiles,
 									const QMap<QString, int> & DocFonts,
-									const QList<PDFPresentationData> & Eff,
 									int unitIndex, double PageH, double PageB,
 									ScribusDoc * mdoc, bool exporting)
 {
@@ -1201,37 +1198,10 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 		PagePrev->setChecked(false);
 		Pages->clear();
 		QString tmp;
-		struct PDFPresentationData ef;
-		if (EffVal.count() != 0)
+		for (int pg = 0; pg < m_Doc->Pages->count(); ++pg)
 		{
-			for (int pg2 = 0; pg2 < m_Doc->Pages->count(); ++pg2)
-			{
-				Pages->addItem( tr("Page")+" "+tmp.setNum(pg2+1));
-				if (EffVal.count()-1 < pg2)
-				{
-					ef.pageEffectDuration = 1;
-					ef.pageViewDuration = 1;
-					ef.effectType = 0;
-					ef.Dm = 0;
-					ef.M = 0;
-					ef.Di = 0;
-					EffVal.append(ef);
-				}
-			}
-		}
-		else
-		{
-			for (int pg = 0; pg < m_Doc->Pages->count(); ++pg)
-			{
-				Pages->addItem( tr("Page")+" "+tmp.setNum(pg+1));
-				ef.pageEffectDuration = 1;
-				ef.pageViewDuration = 1;
-				ef.effectType = 0;
-				ef.Dm = 0;
-				ef.M = 0;
-				ef.Di = 0;
-				EffVal.append(ef);
-			}
+			Pages->addItem( tr("Page")+" "+tmp.setNum(pg+1));
+			EffVal.append(m_Doc->Pages->at(pg)->PresentVals);
 		}
 		PageTime->setValue(EffVal[0].pageViewDuration);
 		EffectTime->setValue(EffVal[0].pageEffectDuration);

@@ -65,6 +65,7 @@ class PLUGIN_API Scribus13Format : public LoadSavePlugin
 		QMap<QString,QString> ReplacedFonts;
 		QMap<uint,QString> DoVorl;
 		uint VorlC;
+		QList<PDFPresentationData> EffVal;
 };
 
 extern "C" PLUGIN_API int scribus13format_getPluginAPIVersion();

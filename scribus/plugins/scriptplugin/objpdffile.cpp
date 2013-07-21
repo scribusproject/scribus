@@ -401,10 +401,10 @@ static int PDFfile_init(PDFfile *self, PyObject * /*args*/, PyObject * /*kwds*/)
 		PyErr_SetString(PyExc_SystemError, "Can not initialize 'effval' attribute");
 		return -1;
 	}
-	int num2 = ScCore->primaryMainWindow()->doc->pdfOptions().PresentVals.count();
-	for (i = 0; i<num2; ++i) {
+	for (i = 0; i < num; ++i)
+	{
 		PyObject *tmp;
-		PDFPresentationData t = ScCore->primaryMainWindow()->doc->pdfOptions().PresentVals[i];
+		PDFPresentationData t = ScCore->primaryMainWindow()->doc->Pages->at(i)->PresentVals;
 		tmp = Py_BuildValue(const_cast<char*>("[iiiiii]"), t.pageEffectDuration, t.pageViewDuration, t.effectType, t.Dm, t.M, t.Di );
 		if (tmp)
 			PyList_SetItem(effval, i, tmp);
@@ -1087,12 +1087,12 @@ static PyObject *PDFfile_save(PDFfile *self)
 					t.Dm = PyInt_AsLong(PyList_GetItem(ti, 3));
 					t.M = PyInt_AsLong(PyList_GetItem(ti, 4));
 					t.Di = PyInt_AsLong(PyList_GetItem(ti, 5));
-					PresentVals.append(t);
+				//	PresentVals.append(t);
 				} // if ti=NULL
 
 	}
 
-	ScCore->primaryMainWindow()->doc->pdfOptions().PresentVals = PresentVals;
+//	ScCore->primaryMainWindow()->doc->pdfOptions().PresentVals = PresentVals;
 // apply lpival
 	int n2 = PyList_Size(self->lpival);
 	for (int i=0; i<n2; ++i){

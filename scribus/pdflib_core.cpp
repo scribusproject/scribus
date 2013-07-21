@@ -2948,21 +2948,21 @@ void PDFLibCore::PDF_End_Page(int physPage)
 	}
 	if (Options.PresentMode)
 	{
-		if (Options.PresentVals[PgNr].pageViewDuration > 0)
-			PutDoc("/Dur "+QString::number(Options.PresentVals[PgNr].pageViewDuration)+"\n");
-		if (Options.PresentVals[PgNr].effectType != 0)
+		if (ActPageP->PresentVals.pageViewDuration > 0)
+			PutDoc("/Dur "+QString::number(ActPageP->PresentVals.pageViewDuration)+"\n");
+		if (ActPageP->PresentVals.effectType != 0)
 		{
 			PutDoc("/Trans << /Type /Trans\n");
-			PutDoc("/D "+QString::number(Options.PresentVals[PgNr].pageEffectDuration)+"\n");
-			switch (Options.PresentVals[PgNr].effectType)
+			PutDoc("/D "+QString::number(ActPageP->PresentVals.pageEffectDuration)+"\n");
+			switch (ActPageP->PresentVals.effectType)
 			{
 				case 1:
 					PutDoc("/S /Blinds\n");
-					PutDoc(Options.PresentVals[PgNr].Dm == 0 ? "/Dm /H\n" : "/Dm /V\n");
+					PutDoc(ActPageP->PresentVals.Dm == 0 ? "/Dm /H\n" : "/Dm /V\n");
 					break;
 				case 2:
 					PutDoc("/S /Box\n");
-					PutDoc(Options.PresentVals[PgNr].M == 0 ? "/M /I\n" : "/M /O\n");
+					PutDoc(ActPageP->PresentVals.M == 0 ? "/M /I\n" : "/M /O\n");
 					break;
 				case 3:
 					PutDoc("/S /Dissolve\n");
@@ -2970,7 +2970,7 @@ void PDFLibCore::PDF_End_Page(int physPage)
 				case 4:
 					PutDoc("/S /Glitter\n");
 					PutDoc("/Di ");
-					switch (Options.PresentVals[PgNr].Di)
+					switch (ActPageP->PresentVals.Di)
 					{
 						case 0:
 							PutDoc("0");
@@ -2989,13 +2989,13 @@ void PDFLibCore::PDF_End_Page(int physPage)
 					break;
 				case 5:
 					PutDoc("/S /Split\n");
-					PutDoc(Options.PresentVals[PgNr].Dm == 0 ? "/Dm /H\n" : "/Dm /V\n");
-					PutDoc(Options.PresentVals[PgNr].M == 0 ? "/M /I\n" : "/M /O\n");
+					PutDoc(ActPageP->PresentVals.Dm == 0 ? "/Dm /H\n" : "/Dm /V\n");
+					PutDoc(ActPageP->PresentVals.M == 0 ? "/M /I\n" : "/M /O\n");
 					break;
 				case 6:
 					PutDoc("/S /Wipe\n");
 					PutDoc("/Di ");
-					switch (Options.PresentVals[PgNr].Di)
+					switch (ActPageP->PresentVals.Di)
 					{
 						case 0:
 							PutDoc("0");
@@ -3018,7 +3018,7 @@ void PDFLibCore::PDF_End_Page(int physPage)
 				case 7:
 					PutDoc("/S /Push\n");
 					PutDoc("/Di ");
-					switch (Options.PresentVals[PgNr].Di)
+					switch (ActPageP->PresentVals.Di)
 					{
 						case 0:
 							PutDoc("0");
@@ -3041,7 +3041,7 @@ void PDFLibCore::PDF_End_Page(int physPage)
 				case 8:
 					PutDoc("/S /Cover\n");
 					PutDoc("/Di ");
-					switch (Options.PresentVals[PgNr].Di)
+					switch (ActPageP->PresentVals.Di)
 					{
 						case 0:
 							PutDoc("0");
@@ -3064,7 +3064,7 @@ void PDFLibCore::PDF_End_Page(int physPage)
 				case 9:
 					PutDoc("/S /Uncover\n");
 					PutDoc("/Di ");
-					switch (Options.PresentVals[PgNr].Di)
+					switch (ActPageP->PresentVals.Di)
 					{
 						case 0:
 							PutDoc("0");

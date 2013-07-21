@@ -1130,16 +1130,6 @@ void Scribus150Format::writePdfOptions(ScXmlStreamWriter & docu)
 		docu.writeEmptyElement("Subset");
 		docu.writeAttribute("Name", m_Doc->pdfOptions().SubsetList[pdoS]);
 	}
-	for (int pdoE = 0; pdoE < m_Doc->pdfOptions().PresentVals.count(); ++pdoE)
-	{
-		docu.writeEmptyElement("Effekte");
-		docu.writeAttribute("pageEffectDuration", m_Doc->pdfOptions().PresentVals[pdoE].pageEffectDuration);
-		docu.writeAttribute("pageViewDuration", m_Doc->pdfOptions().PresentVals[pdoE].pageViewDuration);
-		docu.writeAttribute("effectType", m_Doc->pdfOptions().PresentVals[pdoE].effectType);
-		docu.writeAttribute("Dm", m_Doc->pdfOptions().PresentVals[pdoE].Dm);
-		docu.writeAttribute("M", m_Doc->pdfOptions().PresentVals[pdoE].M);
-		docu.writeAttribute("Di", m_Doc->pdfOptions().PresentVals[pdoE].Di);
-	}
 	QMap<QString,LPIData>::Iterator itlp;
 	for (itlp = m_Doc->pdfOptions().LPISettings.begin(); itlp != m_Doc->pdfOptions().LPISettings.end(); ++itlp)
 	{
@@ -1505,6 +1495,12 @@ void Scribus150Format::WritePages(ScribusDoc *doc, ScXmlStreamWriter& docu, QPro
 		docu.writeAttribute("AGhorizontalAutoRefer", page->guides.horizontalAutoRefer());
 		docu.writeAttribute("AGverticalAutoRefer", page->guides.verticalAutoRefer());
 		docu.writeAttribute("AGSelection", GuideManagerIO::writeSelection(page));
+		docu.writeAttribute("pageEffectDuration", page->PresentVals.pageEffectDuration);
+		docu.writeAttribute("pageViewDuration", page->PresentVals.pageViewDuration);
+		docu.writeAttribute("effectType", page->PresentVals.effectType);
+		docu.writeAttribute("Dm", page->PresentVals.Dm);
+		docu.writeAttribute("M", page->PresentVals.M);
+		docu.writeAttribute("Di", page->PresentVals.Di);
 		docu.writeEndElement();
 	}
 }

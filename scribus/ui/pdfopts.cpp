@@ -44,12 +44,10 @@ for which a new license (GPL+exception) is in place.
 PDFExportDialog::PDFExportDialog( QWidget* parent, const QString & docFileName,
 								  const QMap<QString, int > & DocFonts,
 								  ScribusView *currView, PDFOptions & pdfOptions,
-								  const QList<PDFPresentationData> & Eff,
 								  const ProfilesL & PDFXProfiles, const SCFonts &AllFonts,
 								  const ProfilesL & printerProfiles)
 	: QDialog( parent ),
 	m_doc(currView->Doc),
-	m_presEffects(Eff),
 	m_opts(pdfOptions),
 	m_unitRatio(currView->Doc->unitRatio()),
 	m_cmsDescriptor(""),
@@ -109,7 +107,7 @@ PDFExportDialog::PDFExportDialog( QWidget* parent, const QString & docFileName,
 	PDFExportLayout->addWidget( Name );
 
 	Options = new TabPDFOptions( this, pdfOptions, AllFonts, PDFXProfiles, DocFonts,
-								Eff, currView->Doc->unitIndex(), currView->Doc->pageHeight(),
+								currView->Doc->unitIndex(), currView->Doc->pageHeight(),
 								currView->Doc->pageWidth(), currView->Doc, true );
 	PDFExportLayout->addWidget( Options );
 	Layout7 = new QHBoxLayout;
@@ -257,7 +255,13 @@ void PDFExportDialog::updateDocOptions()
 	m_opts.pageRangeSelection = Options->AllPages->isChecked() ? 0 : 1;
 	m_opts.pageRangeString = Options->PageNr->text();
 	m_opts.PresentMode = Options->CheckBox10->isChecked();
-	m_opts.PresentVals = m_presEffects;
+	if (m_opts.PresentMode)
+	{
+		for (int pg = 0; pg < m_doc->Pages->count(); ++pg)
+		{
+			m_doc->Pages->at(pg)->PresentVals = m_presEffects[pg];
+		}
+	}
 	m_opts.Articles = Options->Article->isChecked();
 	m_opts.Encrypt = Options->Encry->isChecked();
 	m_opts.UseLPI = Options->UseLPI->isChecked();

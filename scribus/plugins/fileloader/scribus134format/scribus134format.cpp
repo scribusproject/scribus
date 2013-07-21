@@ -577,6 +577,14 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 		layerToSetActive = nl->ID;
 	}
 	m_Doc->setActiveLayer(layerToSetActive);
+	if (!EffVal.isEmpty())
+	{
+		for (int pdoE = 0; pdoE < EffVal.count(); ++pdoE)
+		{
+			if (pdoE < m_Doc->Pages->count())
+				m_Doc->Pages->at(pdoE)->PresentVals = EffVal[pdoE];
+		}
+	}
 
 	// reestablish textframe links
 	if (itemNext.count() != 0)
@@ -1589,7 +1597,7 @@ bool Scribus134Format::readPDFOptions(ScribusDoc* doc, ScXmlStreamReader& reader
 			ef.Dm = attrs.valueAsInt("Dm");
 			ef.M  = attrs.valueAsInt("M");
 			ef.Di = attrs.valueAsInt("Di");
-			doc->pdfOptions().PresentVals.append(ef);
+			EffVal.append(ef);
 		}
 	}
 	return !reader.hasError();

@@ -116,7 +116,6 @@ public:
 	bool doClip;
 	int  RotateDeg;
 	bool PresentMode;
-	QList<PDFPresentationData> PresentVals;
 	QString fileName;
 	bool isGrayscale;
 	bool UseRGB;

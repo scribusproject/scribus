@@ -226,7 +226,7 @@ void PDFOptionsIO::addPresentationData()
 	//   </presentationSettingsEntry>
 	//   ...
 	// </presentationSettings>
-	QDomElement presentationSettings = m_doc.createElement("presentationSettings");
+/*	QDomElement presentationSettings = m_doc.createElement("presentationSettings");
 	m_root.appendChild(presentationSettings);
 	QList<PDFPresentationData>::iterator it;
 	for (it = m_opts->PresentVals.begin(); it != m_opts->PresentVals.end(); ++it)
@@ -241,7 +241,7 @@ void PDFOptionsIO::addPresentationData()
 		addElem(psEntry, "dm", (*it).Dm);
 		addElem(psEntry, "m", (*it).M);
 		addElem(psEntry, "di", (*it).Di);
-	}
+	}*/
 }
 
 // Save PDFOptions::LPISettings

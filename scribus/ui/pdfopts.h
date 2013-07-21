@@ -45,7 +45,6 @@ public:
 	PDFExportDialog( QWidget* parent, const QString & docFileName,
 					 const QMap<QString, int > & DocFonts,
 					 ScribusView * currView, PDFOptions & pdfOptions,
-					 const QList<PDFPresentationData> & Eff,
 					 const ProfilesL & PDFXProfiles, const SCFonts & AllFonts,
 					 const ProfilesL & printerProfiles);
 	~PDFExportDialog() {};

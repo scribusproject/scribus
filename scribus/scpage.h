@@ -97,6 +97,7 @@ public:
 	mutable QList<PageItem*> FromMaster;
 	//! \brief Guides lists and basic operations
 	GuideManagerCore guides;
+	PDFPresentationData PresentVals;
 
 protected:
 	UndoManager * const undoManager;

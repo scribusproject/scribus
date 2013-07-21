@@ -38,20 +38,18 @@ class SCRIBUS_API TabPDFOptions : public QTabWidget
 	Q_OBJECT
 
 public:
-	TabPDFOptions(  QWidget* parent, PDFOptions & Optionen,
-	                const SCFonts &AllFonts,
-	                const ProfilesL & PDFXProfiles,
-	                const QMap<QString, int> & DocFonts,
-	                const QList<PDFPresentationData> & Eff,
-	                int unitIndex, double PageH, double PageB,
-	                ScribusDoc *mdoc = 0, bool exporting = false);
+	TabPDFOptions(QWidget* parent, PDFOptions & Optionen,
+					const SCFonts &AllFonts,
+					const ProfilesL & PDFXProfiles,
+					const QMap<QString, int> & DocFonts,
+					int unitIndex, double PageH, double PageB,
+					ScribusDoc *mdoc = 0, bool exporting = false);
 	~TabPDFOptions() {};
 
 	void restoreDefaults(PDFOptions & Optionen,
 						 const SCFonts &AllFonts,
 						 const ProfilesL & PDFXProfiles,
 						 const QMap<QString, int> & DocFonts,
-						 const QList<PDFPresentationData> & Eff,
 						 int unitIndex, double PageH, double PageB,
 						 ScribusDoc *mdoc, bool exporting);
 

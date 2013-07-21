@@ -147,6 +147,7 @@ class PLUGIN_API Scribus150Format : public LoadSavePlugin
 			NumerationRange NSrange;
 		};
 		QList<NoteFrameData> notesFramesData;
+		QList<PDFPresentationData> EffVal;
 		
 		void updateNames2Ptr(); //after document load items pointers should be updated in markeredItemList
 

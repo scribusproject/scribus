@@ -445,7 +445,6 @@ void PrefsManager::initDefaults()
 	appPrefs.pdfPrefs.RotateDeg = 0;
 	appPrefs.pdfPrefs.PresentMode = false;
 	appPrefs.pdfPrefs.fileName = "";
-	appPrefs.pdfPrefs.PresentVals.clear();
 	appPrefs.pdfPrefs.isGrayscale = false;
 	appPrefs.pdfPrefs.UseRGB = true;
 	appPrefs.pdfPrefs.UseProfiles = false;

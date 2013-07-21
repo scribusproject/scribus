@@ -66,6 +66,7 @@ class PLUGIN_API Scribus12Format : public LoadSavePlugin
 		QMap<long long,int> itemRemap;
 		QMap<int,long long> itemNext;
 		QMap<uint,QString> DoVorl;
+		QList<PDFPresentationData> EffVal;
 		uint VorlC;
 		struct CopyPasteBuffer
 		{

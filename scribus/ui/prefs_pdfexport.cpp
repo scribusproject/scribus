@@ -349,37 +349,10 @@ void Prefs_PDFExport::restoreDefaults(struct ApplicationPrefs *prefsData, const 
 		showPagePreviewsCheckBox->setChecked(false);
 		effectsPageListWidget->clear();
 		QString tmp;
-		struct PDFPresentationData ef;
-		if (EffVal.count() != 0)
+		for (int pg = 0; pg < m_doc->Pages->count(); ++pg)
 		{
-			for (int pg2 = 0; pg2 < m_doc->Pages->count(); ++pg2)
-			{
-				effectsPageListWidget->addItem( tr("Page")+" "+tmp.setNum(pg2+1));
-				if (EffVal.count()-1 < pg2)
-				{
-					ef.pageEffectDuration = 1;
-					ef.pageViewDuration = 1;
-					ef.effectType = 0;
-					ef.Dm = 0;
-					ef.M = 0;
-					ef.Di = 0;
-					EffVal.append(ef);
-				}
-			}
-		}
-		else
-		{
-			for (int pg = 0; pg < m_doc->Pages->count(); ++pg)
-			{
-				effectsPageListWidget->addItem( tr("Page")+" "+tmp.setNum(pg+1));
-				ef.pageEffectDuration = 1;
-				ef.pageViewDuration = 1;
-				ef.effectType = 0;
-				ef.Dm = 0;
-				ef.M = 0;
-				ef.Di = 0;
-				EffVal.append(ef);
-			}
+			effectsPageListWidget->addItem( tr("Page")+" "+tmp.setNum(pg+1));
+			EffVal.append(m_doc->Pages->at(pg)->PresentVals);
 		}
 		displayDurationSpinBox->setValue(EffVal[0].pageViewDuration);
 		effectDurationSpinBox->setValue(EffVal[0].pageEffectDuration);

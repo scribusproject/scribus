@@ -657,7 +657,7 @@ bool PdfPlug::convert(QString fn)
 							}
 						}
 						m_Doc->setPageSize("Custom");
-						m_Doc->pdfOptions().PresentVals.clear();
+					//	m_Doc->pdfOptions().PresentVals.clear();
 						for (uint ap = 0; ap < pageNs.size(); ++ap)
 						{
 							int pp = pageNs[ap];
@@ -738,7 +738,7 @@ bool PdfPlug::convert(QString fn)
 							{
 								m_Doc->pdfOptions().PresentMode = true;
 								PageTransition *pgTrans = new PageTransition(transi);
-								ef.pageViewDuration = pdfDoc->getPage(pp + 1)->getDuration();
+								ef.pageViewDuration = pdfDoc->getPage(pp)->getDuration();
 								ef.pageEffectDuration = pgTrans->getDuration();
 								ef.Dm = pgTrans->getAlignment() == transitionHorizontal ? 0 : 1;
 								ef.M = pgTrans->getDirection() == transitionInward ? 0 : 1;
@@ -778,7 +778,7 @@ bool PdfPlug::convert(QString fn)
 									ef.effectType = 10;
 								delete pgTrans;
 							}
-							m_Doc->pdfOptions().PresentVals.append(ef);
+							m_Doc->currentPage()->PresentVals = ef;
 							trans.free();
 							transi->free();
 						}

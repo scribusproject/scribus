@@ -1232,7 +1232,7 @@ bool Scribus12Format::loadFile(const QString & fileName, const FileFormat & /* f
     					ef.Dm = pdfF.attribute("Dm").toInt();
     					ef.M = pdfF.attribute("M").toInt();
 		    			ef.Di = pdfF.attribute("Di").toInt();
-						m_Doc->pdfOptions().PresentVals.append(ef);
+						EffVal.append(ef);
 					}
 					PFO = PFO.nextSibling();
 				}
@@ -1246,6 +1246,14 @@ bool Scribus12Format::loadFile(const QString & fileName, const FileFormat & /* f
 	//m_Doc->Items = m_Doc->DocItems;
 	m_Doc->setMasterPageMode(false);
 	m_View->reformPages();
+	if (!EffVal.isEmpty())
+	{
+		for (int pdoE = 0; pdoE < EffVal.count(); ++pdoE)
+		{
+			if (pdoE < m_Doc->Pages->count())
+				m_Doc->Pages->at(pdoE)->PresentVals = EffVal[pdoE];
+		}
+	}
 
 	handleOldLayerBehavior(m_Doc);
 	if (m_Doc->layerCount() == 0)
