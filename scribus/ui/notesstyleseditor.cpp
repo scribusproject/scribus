@@ -70,7 +70,7 @@ void NotesStylesEditor::languageChange()
 		ApplyButton->setText(tr("Apply"));
 	}
 	NewButton->setText(tr("Add New Style"));
-	NewButton->setToolTip(tr("New notes style will be add to document only after pressing Apply butoton.\nYou cannot switch to different notes style before you apply that new one or press Cancel button and exit from adding mode."));
+    NewButton->setToolTip(tr("New notes style will be add to document only after pressing Apply button.\nYou cannot switch to different notes style before you apply that new one or press Cancel button and exit from adding mode."));
 	NewNameLabel->setText(tr("New Style Name"));
 	FootRadio->setText(tr("Footnotes"));
 	EndRadio->setText(tr("Endnotes"));
