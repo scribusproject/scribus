@@ -8043,7 +8043,7 @@ May throw ValueError if any of the distances are out of bounds (must be positive
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1644"/>
         <source>Insert &amp;Render Frame</source>
-        <translation>°Inse&amp;risci cornice rendering</translation>
+        <translation>Inse&amp;risci cornice rendering</translation>
     </message>
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1690"/>
@@ -10860,7 +10860,7 @@ Si prega di fornire un nome</translation>
     <message>
         <location filename="../../../scribus/plugins/colorwheel/cwdialog.ui" line="15"/>
         <source>Color Wheel</source>
-        <translation>Mappa cromatica</translation>
+        <translation>Cerchio cromatico</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/colorwheel/cwdialog.ui" line="45"/>
@@ -12318,7 +12318,7 @@ Vedere la sezione Modifica colori della documentazione per ulteriori dettagli.</
     <message>
         <location filename="../../../scribus/commonstrings.cpp" line="320"/>
         <source>Textfield</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Casella di testo</translation>
     </message>
     <message>
         <location filename="../../../scribus/commonstrings.cpp" line="321"/>
@@ -19988,7 +19988,8 @@ If no handle is selected all handles will be reset.</source>
         <location filename="../../../scribus/ui/notesstyleseditor.ui" line="123"/>
         <location filename="../../../scribus/ui/notesstyleseditor.cpp" line="78"/>
         <source>Range</source>
-        <translation type="unfinished"></translation>
+        <translatorcomment>Da definire</translatorcomment>
+        <translation type="unfinished">Portata</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/notesstyleseditor.ui" line="140"/>
@@ -20012,13 +20013,13 @@ If no handle is selected all handles will be reset.</source>
         <location filename="../../../scribus/ui/notesstyleseditor.ui" line="184"/>
         <location filename="../../../scribus/ui/notesstyleseditor.cpp" line="82"/>
         <source>Superscript in text</source>
-        <translation type="unfinished">Come apice nel testo</translation>
+        <translation>Come apice nel testo</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/notesstyleseditor.ui" line="198"/>
         <location filename="../../../scribus/ui/notesstyleseditor.cpp" line="83"/>
         <source>Superscript in notes</source>
-        <translation type="unfinished">Come apice nelle note</translation>
+        <translation>Come apice nelle note</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/notesstyleseditor.ui" line="208"/>
@@ -21683,20 +21684,20 @@ becomes
         <location filename="../../../scribus/pageitem_noteframe.cpp" line="19"/>
         <location filename="../../../scribus/pageitem_noteframe.cpp" line="76"/>
         <source>Endnote frame </source>
-        <translation type="unfinished"></translation>
+        <translation>Cornice di chiusura </translation>
     </message>
     <message>
         <location filename="../../../scribus/pageitem_noteframe.cpp" line="19"/>
         <location filename="../../../scribus/pageitem_noteframe.cpp" line="76"/>
         <source>Footnote frame </source>
-        <translation type="unfinished"></translation>
+        <translation>Cornice a piè pagina </translation>
     </message>
     <message>
         <location filename="../../../scribus/pageitem_noteframe.cpp" line="25"/>
         <location filename="../../../scribus/pageitem_noteframe.cpp" line="82"/>
         <location filename="../../../scribus/pageitem_noteframe.cpp" line="146"/>
         <source>No Style</source>
-        <translation type="unfinished">Nessuno stile</translation>
+        <translation>Nessuno stile</translation>
     </message>
 </context>
 <context>
@@ -22076,7 +22077,7 @@ Spesso utilizzato per permettere il posizionamento degli oggetti sulle pagine af
     <message>
         <location filename="../../../scribus/ui/paintmanagerbase.ui" line="14"/>
         <source>Manage Colors and Fills</source>
-        <translation type="unfinished">Gestisci colori e riempimenti</translation>
+        <translation>Gestisci colori e riempimenti</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/paintmanagerbase.ui" line="32"/>
@@ -23072,37 +23073,37 @@ Il risultato è una combinazione di &quot;Intersezione&quot; ed &quot;Esclusione
     <message>
         <location filename="../../../scribus/plugins/import/pdf/pdfimportoptions.ui" line="14"/>
         <source>PDF-Import</source>
-        <translation type="unfinished">Importa PDF</translation>
+        <translation>Importa PDF</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/import/pdf/pdfimportoptions.ui" line="31"/>
         <source>Importing File:</source>
-        <translation type="unfinished">Importazione file:</translation>
+        <translation>Importazione file:</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/import/pdf/pdfimportoptions.ui" line="44"/>
         <source>TextLabel</source>
-        <translation type="unfinished">Etichetta di testo</translation>
+        <translation>Etichetta di testo</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/import/pdf/pdfimportoptions.ui" line="63"/>
         <source>Page Range</source>
-        <translation type="unfinished"></translation>
+        <translation>Intervallo pagine</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/import/pdf/pdfimportoptions.ui" line="69"/>
         <source>All Pages</source>
-        <translation type="unfinished">Tutte le pagine</translation>
+        <translation>Tutte le pagine</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/import/pdf/pdfimportoptions.ui" line="81"/>
         <source>Single Page</source>
-        <translation type="unfinished">Pagina singola</translation>
+        <translation>Pagina singola</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/import/pdf/pdfimportoptions.ui" line="97"/>
         <source>Choose Pages</source>
-        <translation type="unfinished">Scegli pagine</translation>
+        <translation>Scegli pagine</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/import/pdf/pdfimportoptions.ui" line="140"/>
@@ -25889,7 +25890,7 @@ caricate quelle predefinite.</translation>
     <message>
         <location filename="../../../scribus/ui/prefs_documentsetupbase.ui" line="568"/>
         <source>Undo / Redo</source>
-        <translation>Annulla / ripristina</translation>
+        <translation>Annulla / Ripristina</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_documentsetupbase.ui" line="582"/>
@@ -26405,7 +26406,7 @@ Vuoi usarlo?</translation>
     <message>
         <location filename="../../../scribus/ui/prefs_guidesbase.ui" line="155"/>
         <source>Snap Distance:</source>
-        <translation>Distanza di aggancio:</translation>
+        <translation>Distanza d&apos;aggancio:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_guidesbase.ui" line="162"/>
@@ -30190,8 +30191,7 @@ una singola pagina.</translation>
     <message>
         <location filename="../../../scribus/ui/printdialogbase.ui" line="295"/>
         <source>Print in Color if Available</source>
-        <translation>Stampa a colori se possibile
-</translation>
+        <translation>Stampa a colori se possibile</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/printdialogbase.ui" line="300"/>
@@ -32787,7 +32787,7 @@ arrotondati:</translation>
     <message>
         <location filename="../../../scribus/ui/propertiespalette_xyz.cpp" line="1330"/>
         <source>Indicates the level the object is on, 1 means the object is at the bottom</source>
-        <translation type="unfinished">Indica il livello dell&apos;oggetto; 1 significa che è in fondo</translation>
+        <translation>Indica il livello dell&apos;oggetto; 1 significa che è in fondo</translation>
     </message>
     <message>
         <source>Indicates the level the object is on, 0 means the object is at the bottom</source>
@@ -33530,7 +33530,7 @@ arrotondati:</translation>
     <message>
         <location filename="../../../scribus/ui/propertywidget_pareffectbase.ui" line="14"/>
         <source>Form</source>
-        <translation type="unfinished">Formulario</translation>
+        <translation>Formulario</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/propertywidget_pareffectbase.ui" line="20"/>
@@ -33590,7 +33590,7 @@ arrotondati:</translation>
     <message>
         <location filename="../../../scribus/ui/propertywidget_pareffectbase.ui" line="211"/>
         <source>Format</source>
-        <translation type="unfinished">Formato</translation>
+        <translation>Formato</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/propertywidget_pareffectbase.ui" line="235"/>
@@ -36129,7 +36129,7 @@ forniti nella documentazione delle funzioni.</translation>
     <message>
         <location filename="../../../scribus/plugins/colorwheel/colorwheel.cpp" line="57"/>
         <source>Color Wheel</source>
-        <translation>Mappa cromatica</translation>
+        <translation>Cerchio cromatico</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/fontpreview/fontpreviewplugin.cpp" line="58"/>
@@ -38684,7 +38684,7 @@ Si prega di sceglierne un altro.</translation>
     <message>
         <location filename="../../../scribus/ui/smpstylewidget.ui" line="303"/>
         <source>AutoIndent</source>
-        <translation type="unfinished">Rientro automatico</translation>
+        <translation>Rientro automatico</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/smpstylewidget.ui" line="330"/>
@@ -38708,7 +38708,7 @@ Si prega di sceglierne un altro.</translation>
         <location filename="../../../scribus/ui/smpstylewidget.ui" line="404"/>
         <location filename="../../../scribus/ui/smpstylewidget.cpp" line="167"/>
         <source>Char Table</source>
-        <translation type="unfinished">Tabella caratteri</translation>
+        <translation>Tabella caratteri</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/smpstylewidget.ui" line="438"/>
@@ -38735,13 +38735,13 @@ Si prega di sceglierne un altro.</translation>
     <message>
         <location filename="../../../scribus/ui/smpstylewidget.ui" line="506"/>
         <source>Nums Format</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Formato numeri</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/smpstylewidget.ui" line="526"/>
         <location filename="../../../scribus/ui/smpstylewidget.cpp" line="172"/>
         <source>Start with</source>
-        <translation type="unfinished">Inizia con</translation>
+        <translation>Inizia con</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/smpstylewidget.ui" line="543"/>
@@ -38956,7 +38956,7 @@ Si prega di sceglierne un altro.</translation>
     <message>
         <location filename="../../../scribus/ui/smpstylewidget.cpp" line="260"/>
         <source>Page</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Pagina</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/smpstylewidget.cpp" line="261"/>
@@ -41936,7 +41936,7 @@ Utilizzare la Verifica Preliminare per correggerli</translation>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="11128"/>
         <source>Insert new </source>
-        <translation type="unfinished">Inserisci nuova</translation>
+        <translation>Inserisci nuova </translation>
     </message>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="11145"/>
@@ -41948,13 +41948,13 @@ Utilizzare la Verifica Preliminare per correggerli</translation>
         <location filename="../../../scribus/scribus.cpp" line="11153"/>
         <location filename="../../../scribus/scribus.cpp" line="11389"/>
         <source>Mark with &lt;%1&gt; variable text</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nota con &lt;%1&gt; testo variabile</translation>
     </message>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="11161"/>
         <location filename="../../../scribus/scribus.cpp" line="11429"/>
         <source>Mark to %1 item</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Nota a %1 oggetto</translation>
     </message>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="11171"/>
@@ -47900,7 +47900,7 @@ L2: %3, A2: %4</translation>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="871"/>
         <source>Level down</source>
-        <translation type="unfinished">Sposta più in basso</translation>
+        <translation>Sposta più in basso</translation>
     </message>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="874"/>
@@ -48461,13 +48461,13 @@ a %2</translation>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="1001"/>
         <source>Edit note style</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Modifica stile nota</translation>
     </message>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="1002"/>
         <location filename="../../../scribus/undomanager.cpp" line="1003"/>
         <source>Delete note style</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Elimina stile nota</translation>
     </message>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="1004"/>
