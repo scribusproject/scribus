@@ -175,46 +175,24 @@ QString ScriXmlDoc::WriteElem(ScribusDoc *doc, Selection* selection)
 	{
 		double gx, gy, gw, gh;
 		selection->getGroupRect(&gx, &gy, &gw, &gh);
-		xp = gx - doc->currentPage()->xOffset();
-		yp = gy - doc->currentPage()->yOffset();
+		xp = gx;
+		yp = gy;
 		wp = gw;
 		hp = gh;
 		selection->getVisualGroupRect(&gx, &gy, &selectionWidth, &selectionHeight);
 	}
 	else
 	{
-		if (item->rotation() != 0)
-		{
-			double minx =  std::numeric_limits<double>::max();
-			double miny =  std::numeric_limits<double>::max();
-			double maxx = -std::numeric_limits<double>::max();
-			double maxy = -std::numeric_limits<double>::max();
-			double xpo = item->xPos() - doc->currentPage()->xOffset();
-			double ypo = item->yPos() - doc->currentPage()->yOffset();
-			FPointArray pb(4);
-			pb.setPoint(0, FPoint(xpo, ypo));
-			pb.setPoint(1, FPoint(item->width(), 0.0, xpo, ypo, item->rotation(), 1.0, 1.0));
-			pb.setPoint(2, FPoint(item->width(), item->height(), xpo, ypo, item->rotation(), 1.0, 1.0));
-			pb.setPoint(3, FPoint(0.0, item->height(), xpo, ypo, item->rotation(), 1.0, 1.0));
-			for (uint pc = 0; pc < 4; ++pc)
-			{
-				minx = qMin(minx, pb.point(pc).x());
-				miny = qMin(miny, pb.point(pc).y());
-				maxx = qMax(maxx, pb.point(pc).x());
-				maxy = qMax(maxy, pb.point(pc).y());
-			}
-			wp = maxx - minx;
-			hp = maxy - miny;
-		}
-		else
-		{
-			wp = item->width();
-			hp = item->height();
-		}
-		selectionWidth = item->visualWidth();
-		selectionHeight = item->visualHeight();
-		xp = item->xPos() - doc->currentPage()->xOffset();
-		yp = item->yPos() - doc->currentPage()->yOffset();
+		double minx =  std::numeric_limits<double>::max();
+		double miny =  std::numeric_limits<double>::max();
+		double maxx = -std::numeric_limits<double>::max();
+		double maxy = -std::numeric_limits<double>::max();
+		double x1, x2, y1, y2;
+		item->getVisualBoundingRect(&x1, &y1, &x2, &y2);
+		xp = qMin(minx, x1);
+		yp = qMin(miny, y1);
+		selectionWidth  = wp = qMax(maxx, x2) - xp;
+		selectionHeight = hp = qMax(maxy, y2) - yp;
 	}
 	double scaleI = 50.0 / qMax(selectionWidth, selectionHeight);
 	QImage retImg = QImage(50, 50, QImage::Format_ARGB32_Premultiplied);
@@ -225,12 +203,9 @@ QString ScriXmlDoc::WriteElem(ScribusDoc *doc, Selection* selection)
 	{
 		PageItem* embedded = emG.at(em);
 		painter->save();
-		double x = embedded->xPos();
-		double y = embedded->yPos();
-		embedded->setXYPos(embedded->xPos()- doc->currentPage()->xOffset() - xp, embedded->yPos()- doc->currentPage()->yOffset() - yp, true);
+		painter->translate(-xp, -yp);
 		embedded->invalid = true;
 		embedded->DrawObj(painter, QRectF());
-		embedded->setXYPos(x, y, true);
 		painter->restore();
 	}
 	delete painter;
