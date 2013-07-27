@@ -1532,6 +1532,8 @@ void IdmlPlug::parseSpreadXMLNode(const QDomElement& spNode)
 					baseX = m_Doc->currentPage()->xOffset();
 					baseY = m_Doc->currentPage()->yOffset() + m_Doc->currentPage()->height() / 2.0;
 					firstPage = false;
+					if ((importerFlags & LoadSavePlugin::lfCreateDoc) && spe.hasAttribute("AppliedMaster"))
+						m_Doc->applyMasterPage(spe.attribute("AppliedMaster"), m_Doc->currentPageNumber());
 				}
 			}
 			if ((facingPages) && (pagecount % 2 == 0))
@@ -1558,15 +1560,15 @@ void IdmlPlug::parseSpreadXMLNode(const QDomElement& spNode)
 				}
 			}
 		}
-/*		else if (e.tagName() == "MasterSpread")
+		else if (e.tagName() == "MasterSpread")
 		{
 			m_Doc->setMasterPageMode(true);
+			QString pageNam = e.attribute("Self");
 			for(QDomNode sp = e.firstChild(); !sp.isNull(); sp = sp.nextSibling() )
 			{
 				QDomElement spe = sp.toElement();
 				if (spe.tagName() == "Page")
 				{
-					QString pageNam = spe.attribute("Name") + "_" + spe.attribute("Self");
 					m_Doc->addMasterPage(mpagecount, pageNam);
 					m_Doc->currentPage()->MPageNam = "";
 					m_Doc->view()->addPage(mpagecount, true);
@@ -1599,7 +1601,7 @@ void IdmlPlug::parseSpreadXMLNode(const QDomElement& spNode)
 				}
 			}
 			m_Doc->setMasterPageMode(false);
-		} */
+		}
 	}
 	return;
 }
@@ -2594,6 +2596,7 @@ void IdmlPlug::parseParagraphStyleRange(QDomElement &ste, PageItem* item)
 	}
 	ParagraphStyle newStyle;
 	newStyle.setParent(pStyle);
+	newStyle.setLineSpacingMode(ParagraphStyle::AutomaticLineSpacing);
 	// Apply possible override of paragraph style
 	readParagraphStyleAttributes(newStyle, ste);
 	ParagraphStyle ttx = m_Doc->paragraphStyle(pStyle);
@@ -2836,6 +2839,7 @@ void IdmlPlug::parseCharacterStyleRange(QDomElement &stt, PageItem* item, QStrin
 		item->itemText.insertChars(posC, data);
 		item->itemText.applyStyle(posC, newStyle);
 		item->itemText.applyCharStyle(posC, data.length(), nstyle);
+		posC = item->itemText.length();
 	}
 }
 
