@@ -148,6 +148,7 @@ private:
 	QMap<QString, QStringList> styleParents;
 	QMap<QString, QString> charStyleTranslate;
 	QMap<QString, QMap<QString, QString> > fontTranslateMap;
+	QMap<QString, QStringList> masterSpreads;
 	QString def_fillColor;
 	QString def_fillGradient;
 	QString def_strokeColor;

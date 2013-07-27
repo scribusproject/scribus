@@ -1533,7 +1533,26 @@ void IdmlPlug::parseSpreadXMLNode(const QDomElement& spNode)
 					baseY = m_Doc->currentPage()->yOffset() + m_Doc->currentPage()->height() / 2.0;
 					firstPage = false;
 					if ((importerFlags & LoadSavePlugin::lfCreateDoc) && spe.hasAttribute("AppliedMaster"))
-						m_Doc->applyMasterPage(spe.attribute("AppliedMaster"), m_Doc->currentPageNumber());
+					{
+						QString mSpr = spe.attribute("AppliedMaster");
+						if (masterSpreads.contains(mSpr))
+						{
+							QString mp = CommonStrings::trMasterPageNormal;
+							if (facingPages)
+							{
+								if ((pagecount % 2 == 0) && (masterSpreads[mSpr].count() > 0))
+									mp = mSpr + "_" + masterSpreads[mSpr][0];
+								if ((pagecount % 2 == 1) && (masterSpreads[mSpr].count() > 1))
+									mp = mSpr + "_" + masterSpreads[mSpr][1];
+							}
+							else
+							{
+								if ((masterSpreads[mSpr].count() > 0))
+									mp = mSpr + "_" + masterSpreads[mSpr][0];
+							}
+							m_Doc->applyMasterPage(mp, m_Doc->currentPageNumber());
+						}
+					}
 				}
 			}
 			if ((facingPages) && (pagecount % 2 == 0))
@@ -1564,12 +1583,14 @@ void IdmlPlug::parseSpreadXMLNode(const QDomElement& spNode)
 		{
 			m_Doc->setMasterPageMode(true);
 			QString pageNam = e.attribute("Self");
+			QStringList pages;
 			for(QDomNode sp = e.firstChild(); !sp.isNull(); sp = sp.nextSibling() )
 			{
 				QDomElement spe = sp.toElement();
 				if (spe.tagName() == "Page")
 				{
-					m_Doc->addMasterPage(mpagecount, pageNam);
+					m_Doc->addMasterPage(mpagecount, pageNam + "_" + spe.attribute("Self"));
+					pages.append(spe.attribute("Self"));
 					m_Doc->currentPage()->MPageNam = "";
 					m_Doc->view()->addPage(mpagecount, true);
 					mpagecount++;
@@ -1577,6 +1598,7 @@ void IdmlPlug::parseSpreadXMLNode(const QDomElement& spNode)
 					baseY = m_Doc->currentPage()->yOffset() + m_Doc->currentPage()->height() / 2.0;
 				}
 			}
+			masterSpreads.insert(pageNam, pages);
 			if ((facingPages) && (mpagecount % 2 == 0))
 			{
 				baseX = m_Doc->currentPage()->xOffset() + m_Doc->currentPage()->width();
