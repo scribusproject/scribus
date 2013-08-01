@@ -11074,179 +11074,179 @@
 			Filter="ts"
 			>
 			<File
-				RelativePath="..\..\..\resources\translations\po\scribus.af.ts"
+				RelativePath="..\..\..\resources\translations\scribus.af.ts"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\resources\translations\po\scribus.ar.ts"
+				RelativePath="..\..\..\resources\translations\scribus.ar.ts"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\resources\translations\po\scribus.bg.ts"
+				RelativePath="..\..\..\resources\translations\scribus.bg.ts"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\resources\translations\po\scribus.br.ts"
+				RelativePath="..\..\..\resources\translations\scribus.br.ts"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\resources\translations\po\scribus.ca.ts"
+				RelativePath="..\..\..\resources\translations\scribus.ca.ts"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\resources\translations\po\scribus.cs_CZ.ts"
+				RelativePath="..\..\..\resources\translations\scribus.cs_CZ.ts"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\resources\translations\po\scribus.cy.ts"
+				RelativePath="..\..\..\resources\translations\scribus.cy.ts"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\resources\translations\po\scribus.da_DK.ts"
+				RelativePath="..\..\..\resources\translations\scribus.da_DK.ts"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\resources\translations\po\scribus.de.ts"
+				RelativePath="..\..\..\resources\translations\scribus.de.ts"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\resources\translations\po\scribus.de_1901.ts"
+				RelativePath="..\..\..\resources\translations\scribus.de_1901.ts"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\resources\translations\po\scribus.de_CH.ts"
+				RelativePath="..\..\..\resources\translations\scribus.de_CH.ts"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\resources\translations\po\scribus.el.ts"
+				RelativePath="..\..\..\resources\translations\scribus.el.ts"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\resources\translations\po\scribus.en_AU.ts"
+				RelativePath="..\..\..\resources\translations\scribus.en_AU.ts"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\resources\translations\po\scribus.en_GB.ts"
+				RelativePath="..\..\..\resources\translations\scribus.en_GB.ts"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\resources\translations\po\scribus.en_US.ts"
+				RelativePath="..\..\..\resources\translations\scribus.en_US.ts"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\resources\translations\po\scribus.es_ES.ts"
+				RelativePath="..\..\..\resources\translations\scribus.es_ES.ts"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\resources\translations\po\scribus.et.ts"
+				RelativePath="..\..\..\resources\translations\scribus.et.ts"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\resources\translations\po\scribus.eu.ts"
+				RelativePath="..\..\..\resources\translations\scribus.eu.ts"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\resources\translations\po\scribus.fi.ts"
+				RelativePath="..\..\..\resources\translations\scribus.fi.ts"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\resources\translations\po\scribus.fr.ts"
+				RelativePath="..\..\..\resources\translations\scribus.fr.ts"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\resources\translations\po\scribus.gl.ts"
+				RelativePath="..\..\..\resources\translations\scribus.gl.ts"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\resources\translations\po\scribus.hu.ts"
+				RelativePath="..\..\..\resources\translations\scribus.hu.ts"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\resources\translations\po\scribus.id.ts"
+				RelativePath="..\..\..\resources\translations\scribus.id.ts"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\resources\translations\po\scribus.it.ts"
+				RelativePath="..\..\..\resources\translations\scribus.it.ts"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\resources\translations\po\scribus.ja.ts"
+				RelativePath="..\..\..\resources\translations\scribus.ja.ts"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\resources\translations\po\scribus.ko.ts"
+				RelativePath="..\..\..\resources\translations\scribus.ko.ts"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\resources\translations\po\scribus.lt_LT.ts"
+				RelativePath="..\..\..\resources\translations\scribus.lt_LT.ts"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\resources\translations\po\scribus.nb_NO.ts"
+				RelativePath="..\..\..\resources\translations\scribus.nb_NO.ts"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\resources\translations\po\scribus.nl.ts"
+				RelativePath="..\..\..\resources\translations\scribus.nl.ts"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\resources\translations\po\scribus.pl_PL.ts"
+				RelativePath="..\..\..\resources\translations\scribus.pl_PL.ts"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\resources\translations\po\scribus.pt.ts"
+				RelativePath="..\..\..\resources\translations\scribus.pt.ts"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\resources\translations\po\scribus.pt_BR.ts"
+				RelativePath="..\..\..\resources\translations\scribus.pt_BR.ts"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\resources\translations\po\scribus.ru.ts"
+				RelativePath="..\..\..\resources\translations\scribus.ru.ts"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\resources\translations\po\scribus.sa.ts"
+				RelativePath="..\..\..\resources\translations\scribus.sa.ts"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\resources\translations\po\scribus.sk_SK.ts"
+				RelativePath="..\..\..\resources\translations\scribus.sk_SK.ts"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\resources\translations\po\scribus.sl.ts"
+				RelativePath="..\..\..\resources\translations\scribus.sl.ts"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\resources\translations\po\scribus.sq.ts"
+				RelativePath="..\..\..\resources\translations\scribus.sq.ts"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\resources\translations\po\scribus.sr.ts"
+				RelativePath="..\..\..\resources\translations\scribus.sr.ts"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\resources\translations\po\scribus.sv.ts"
+				RelativePath="..\..\..\resources\translations\scribus.sv.ts"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\resources\translations\po\scribus.th_TH.ts"
+				RelativePath="..\..\..\resources\translations\scribus.th_TH.ts"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\resources\translations\po\scribus.tr.ts"
+				RelativePath="..\..\..\resources\translations\scribus.tr.ts"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\resources\translations\po\scribus.uk.ts"
+				RelativePath="..\..\..\resources\translations\scribus.uk.ts"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\resources\translations\po\scribus.zh_CN.ts"
+				RelativePath="..\..\..\resources\translations\scribus.zh_CN.ts"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\resources\translations\po\scribus.zh_TW.ts"
+				RelativePath="..\..\..\resources\translations\scribus.zh_TW.ts"
 				>
 			</File>
 		</Filter>
