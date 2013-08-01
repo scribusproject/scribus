@@ -280,6 +280,14 @@ void CheckDocument::buildItem(QTreeWidgetItem * item,
 			pageGraveError = true;
 			itemError = true;
 			break;
+		case NotCMYKOrSpot:
+			item->setText(COLUMN_PROBLEM, notCMYKOrSpot);
+			item->setIcon(COLUMN_ITEM, onlyWarning);
+			itemError = true;
+		case FontNotEmbedded:
+			item->setText(COLUMN_PROBLEM, fontNotEmbedded);
+			item->setIcon(COLUMN_ITEM, graveError);
+			itemError = true;
 		default:
 			break;
 	};
@@ -683,6 +691,8 @@ void CheckDocument::languageChange()
 	isGIF = tr("Image is GIF");
 	WrongFont = tr("Annotation uses a non TrueType font");
 	partFilledImageFrame = tr("Image dimension is smaller than its frame");
+	notCMYKOrSpot = tr("Object colorspace is not CMYK or spot");
+	fontNotEmbedded =  tr("Imported document contains non embedded fonts");
 	//isGIFtoolTip = "<qt>" + tr("GIF images are not reccomended for print. See the online docs for more info") + "</qt>";
 }
 
