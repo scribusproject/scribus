@@ -676,6 +676,7 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 				m_Doc->PDF_Options.CompressMethod = (PDFOptions::PDFCompression) pg.attribute("CMethod", "0").toInt();
 				m_Doc->PDF_Options.Quality = pg.attribute("Quality", "0").toInt();
 				m_Doc->PDF_Options.RecalcPic = static_cast<bool>(pg.attribute("RecalcPic").toInt());
+				m_Doc->PDF_Options.embedPDF = pg.attribute("EmbedPDF", "0").toInt();
 				m_Doc->PDF_Options.Bookmarks = static_cast<bool>(pg.attribute("Bookmarks").toInt());
 				if (pg.hasAttribute("firstUse"))
 					m_Doc->PDF_Options.firstUse = static_cast<bool>(pg.attribute("firstUse").toInt());

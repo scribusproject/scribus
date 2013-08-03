@@ -1407,6 +1407,7 @@ void TabPDFOptions::storeValues(PDFOptions& pdfOptions)
 	pdfOptions.Resolution = Resolution->value();
 	pdfOptions.RecalcPic = DSColor->isChecked();
 	pdfOptions.PicRes = ValC->value();
+	pdfOptions.embedPDF  = EmbedPDF->isChecked();
 	pdfOptions.Bookmarks = CheckBM->isChecked();
 	pdfOptions.Binding = ComboBind->currentIndex();
 	pdfOptions.MirrorH = MirrorH->isChecked();
