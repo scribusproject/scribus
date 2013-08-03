@@ -1070,6 +1070,7 @@ void Scribus150Format::writePdfOptions(ScXmlStreamWriter & docu)
 	docu.writeAttribute("Compress", static_cast<int>(m_Doc->pdfOptions().Compress));
 	docu.writeAttribute("CMethod", m_Doc->pdfOptions().CompressMethod);
 	docu.writeAttribute("Quality", m_Doc->pdfOptions().Quality);
+	docu.writeAttribute("EmbedPDF", static_cast<int>(m_Doc->pdfOptions().embedPDF));
 	docu.writeAttribute("MirrorH", static_cast<int>(m_Doc->pdfOptions().MirrorH));
 	docu.writeAttribute("MirrorV", static_cast<int>(m_Doc->pdfOptions().MirrorV));
 	docu.writeAttribute("Clip", static_cast<int>(m_Doc->pdfOptions().doClip));

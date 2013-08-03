@@ -641,6 +641,7 @@ void Prefs_PDFExport::saveGuiToPrefs(struct ApplicationPrefs *prefsData) const
 	prefsData->pdfPrefs.Resolution = epsExportResolutionSpinBox->value();
 	prefsData->pdfPrefs.RecalcPic = maxResolutionLimitCheckBox->isChecked();
 	prefsData->pdfPrefs.PicRes = maxExportResolutionSpinBox->value();
+	prefsData->pdfPrefs.embedPDF = embedPDFAndEPSFilesCheckBox->isChecked();
 	prefsData->pdfPrefs.Bookmarks = includeBookmarksCheckBox->isChecked();
 	prefsData->pdfPrefs.Binding = pageBindingComboBox->currentIndex();
 	prefsData->pdfPrefs.MirrorH = pageMirrorHorizontalToolButton->isChecked();

@@ -3048,6 +3048,7 @@ bool Scribus150Format::readPDFOptions(ScribusDoc* doc, ScXmlStreamReader& reader
 	doc->pdfOptions().CompressMethod = (PDFOptions::PDFCompression)attrs.valueAsInt("CMethod", 0);
 	doc->pdfOptions().Quality    = attrs.valueAsInt("Quality", 0);
 	doc->pdfOptions().RecalcPic  = attrs.valueAsBool("RecalcPic");
+	doc->pdfOptions().embedPDF   = attrs.valueAsBool("EmbedPDF", false);
 	doc->pdfOptions().Bookmarks  = attrs.valueAsBool("Bookmarks");
 	doc->pdfOptions().MirrorH    = attrs.valueAsBool("MirrorH", false);
 	doc->pdfOptions().MirrorV    = attrs.valueAsBool("MirrorV", false);
