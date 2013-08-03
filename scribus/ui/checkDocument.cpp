@@ -284,10 +284,12 @@ void CheckDocument::buildItem(QTreeWidgetItem * item,
 			item->setText(COLUMN_PROBLEM, notCMYKOrSpot);
 			item->setIcon(COLUMN_ITEM, onlyWarning);
 			itemError = true;
+			break;
 		case FontNotEmbedded:
 			item->setText(COLUMN_PROBLEM, fontNotEmbedded);
 			item->setIcon(COLUMN_ITEM, graveError);
 			itemError = true;
+			break;
 		default:
 			break;
 	};

@@ -267,7 +267,7 @@ typedef enum {
 	BlendMode=11,
 	WrongFontInAnnotation=12,
 	NotCMYKOrSpot=13,
-	DeviceColorAndOutputIntend=14,
+	DeviceColorsAndOutputIntent=14,
 	FontNotEmbedded=15,
 	EmbeddedFontIsOpenType=16,
 	OffConflictLayers=17,

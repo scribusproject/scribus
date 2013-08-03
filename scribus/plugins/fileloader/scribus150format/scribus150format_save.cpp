@@ -450,7 +450,10 @@ void Scribus150Format::writeCheckerProfiles(ScXmlStreamWriter & docu)
 		docu.writeAttribute("checkRasterPDF", static_cast<int>(itcp.value().checkRasterPDF));
 		docu.writeAttribute("checkForGIF", static_cast<int>(itcp.value().checkForGIF));
 		docu.writeAttribute("ignoreOffLayers", static_cast<int>(itcp.value().ignoreOffLayers));
-		//docu.writeEndElement();
+		docu.writeAttribute("checkNotCMYKOrSpot", static_cast<int>(itcp.value().checkNotCMYKOrSpot));
+		docu.writeAttribute("checkDeviceColorsAndOutputIntent", static_cast<int>(itcp.value().checkDeviceColorsAndOutputIntent));
+		docu.writeAttribute("checkFontNotEmbedded", static_cast<int>(itcp.value().checkFontNotEmbedded));
+		docu.writeAttribute("checkFontIsOpenType", static_cast<int>(itcp.value().checkFontIsOpenType));
 	}
 }
 

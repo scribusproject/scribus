@@ -2318,6 +2318,7 @@ bool Scribus150Format::readPageSets(ScribusDoc* doc, ScXmlStreamReader& reader)
 bool Scribus150Format::readCheckProfile(ScribusDoc* doc, ScXmlStreamAttributes& attrs)
 {
 	struct CheckerPrefs checkerSettings;
+
 	QString profileName = attrs.valueAsString("Name");
 	if (profileName.isEmpty())
 		return true;
@@ -2336,6 +2337,10 @@ bool Scribus150Format::readCheckProfile(ScribusDoc* doc, ScXmlStreamAttributes& 
 	checkerSettings.checkRasterPDF    = attrs.valueAsBool("checkRasterPDF", true);
 	checkerSettings.checkForGIF       = attrs.valueAsBool("checkForGIF", true);
 	checkerSettings.ignoreOffLayers   = attrs.valueAsBool("ignoreOffLayers", false);
+	checkerSettings.checkNotCMYKOrSpot   = attrs.valueAsBool("checkNotCMYKOrSpot", false);
+	checkerSettings.checkDeviceColorsAndOutputIntent = attrs.valueAsBool("checkDeviceColorsAndOutputIntent", false);
+	checkerSettings.checkFontNotEmbedded = attrs.valueAsBool("checkFontNotEmbedded", false);
+	checkerSettings.checkFontIsOpenType  = attrs.valueAsBool("checkFontIsOpenType", false);
 	doc->set1CheckerProfile(profileName, checkerSettings);
 	return true;
 }
@@ -3613,8 +3618,8 @@ bool Scribus150Format::readObject(ScribusDoc* doc, ScXmlStreamReader& reader, It
 	isNewFormat = attrs.hasAttribute("ItemID");
 	if (isNewFormat)
 	{
-		LinkID.insert(attrs.valueAsInt("ItemID", 0), newItem);
 		info.itemID = attrs.valueAsInt("ItemID", 0);
+		LinkID.insert(info.itemID, newItem);
 	}
 	info.nextItem = attrs.valueAsInt("NEXTITEM", -1);
 	info.ownLink  = newItem->isTableItem ? attrs.valueAsInt("OwnLINK", 0) : 0;

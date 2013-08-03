@@ -1116,6 +1116,10 @@ bool Scribus134Format::readCheckProfile(ScribusDoc* doc, ScXmlStreamAttributes& 
 	checkerSettings.checkForGIF       = attrs.valueAsBool("checkForGIF", true);
 	checkerSettings.ignoreOffLayers   = attrs.valueAsBool("ignoreOffLayers", false);
 	checkerSettings.checkOffConflictLayers = attrs.valueAsBool("checkOffConflictLayers", false);
+	checkerSettings.checkNotCMYKOrSpot     = attrs.valueAsBool("checkNotCMYKOrSpot", false);
+	checkerSettings.checkDeviceColorsAndOutputIntent = attrs.valueAsBool("checkDeviceColorsAndOutputIntent", false);
+	checkerSettings.checkFontNotEmbedded = attrs.valueAsBool("checkFontNotEmbedded", false);
+	checkerSettings.checkFontIsOpenType  = attrs.valueAsBool("checkFontIsOpenType", false);
 	doc->set1CheckerProfile(profileName, checkerSettings);
 	return true;
 }

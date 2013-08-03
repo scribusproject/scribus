@@ -68,7 +68,7 @@ bool DocumentChecker::checkDocument(ScribusDoc *currDoc)
 	checkerSettings.ignoreOffLayers = currDoc->checkerProfiles()[currDoc->curCheckProfile()].ignoreOffLayers;
 	checkerSettings.checkOffConflictLayers = currDoc->checkerProfiles()[currDoc->curCheckProfile()].checkOffConflictLayers;
 	checkerSettings.checkNotCMYKOrSpot = currDoc->checkerProfiles()[currDoc->curCheckProfile()].checkNotCMYKOrSpot;
-	checkerSettings.checkDeviceColorsAndOutputIntend = currDoc->checkerProfiles()[currDoc->curCheckProfile()].checkDeviceColorsAndOutputIntend;
+	checkerSettings.checkDeviceColorsAndOutputIntent = currDoc->checkerProfiles()[currDoc->curCheckProfile()].checkDeviceColorsAndOutputIntent;
 	checkerSettings.checkFontNotEmbedded = currDoc->checkerProfiles()[currDoc->curCheckProfile()].checkFontNotEmbedded;
 	checkerSettings.checkFontIsOpenType = currDoc->checkerProfiles()[currDoc->curCheckProfile()].checkFontIsOpenType;
 	currDoc->docItemErrors.clear();
@@ -238,7 +238,7 @@ bool DocumentChecker::checkDocument(ScribusDoc *currDoc)
 						bool succeeded = analyst.inspectPDF(pageNum, usedColorSpaces, hasTransparency, usedFonts, imgs);
 						if (succeeded)
 						{
-							if (checkerSettings.checkNotCMYKOrSpot || checkerSettings.checkDeviceColorsAndOutputIntend)
+							if (checkerSettings.checkNotCMYKOrSpot || checkerSettings.checkDeviceColorsAndOutputIntent)
 							{
 								eColorSpaceType currPrintProfCS = ColorSpace_Unknown;
 								if (currDoc->HasCMS)
@@ -258,18 +258,18 @@ bool DocumentChecker::checkDocument(ScribusDoc *currDoc)
 										}
 									}
 								}
-								if (checkerSettings.checkDeviceColorsAndOutputIntend && currDoc->HasCMS)
+								if (checkerSettings.checkDeviceColorsAndOutputIntent && currDoc->HasCMS)
 								{
 									for (int i=0; i<usedColorSpaces.size(); ++i)
 									{
 										if (currPrintProfCS == ColorSpace_Cmyk && (usedColorSpaces[i] == CS_DeviceRGB || usedColorSpaces[i] == CS_DeviceGray))
 										{
-											itemError.insert(DeviceColorAndOutputIntend, 0);
+											itemError.insert(DeviceColorsAndOutputIntent, 0);
 											break;
 										}
 										else if (currPrintProfCS == ColorSpace_Rgb && (usedColorSpaces[i] == CS_DeviceCMYK || usedColorSpaces[i] == CS_DeviceGray))
 										{
-											itemError.insert(DeviceColorAndOutputIntend, 0);
+											itemError.insert(DeviceColorsAndOutputIntent, 0);
 											break;
 										}
 									}
@@ -529,7 +529,7 @@ bool DocumentChecker::checkDocument(ScribusDoc *currDoc)
 						bool succeeded = analyst.inspectPDF(pageNum, usedColorSpaces, hasTransparency, usedFonts, imgs);
 						if (succeeded)
 						{
-							if (checkerSettings.checkNotCMYKOrSpot || checkerSettings.checkDeviceColorsAndOutputIntend)
+							if (checkerSettings.checkNotCMYKOrSpot || checkerSettings.checkDeviceColorsAndOutputIntent)
 							{
 								int currPrintProfCS = -1;
 								if (currDoc->HasCMS)
@@ -549,18 +549,18 @@ bool DocumentChecker::checkDocument(ScribusDoc *currDoc)
 										}
 									}
 								}
-								if (checkerSettings.checkDeviceColorsAndOutputIntend && currDoc->HasCMS)
+								if (checkerSettings.checkDeviceColorsAndOutputIntent && currDoc->HasCMS)
 								{
 									for (int i=0; i<usedColorSpaces.size(); ++i)
 									{
 										if (currPrintProfCS == ColorSpace_Cmyk && (usedColorSpaces[i] == CS_DeviceRGB || usedColorSpaces[i] == CS_DeviceGray))
 										{
-											itemError.insert(DeviceColorAndOutputIntend, 0);
+											itemError.insert(DeviceColorsAndOutputIntent, 0);
 											break;
 										}
 										else if (currPrintProfCS == ColorSpace_Rgb && (usedColorSpaces[i] == CS_DeviceCMYK || usedColorSpaces[i] == CS_DeviceGray))
 										{
-											itemError.insert(DeviceColorAndOutputIntend, 0);
+											itemError.insert(DeviceColorsAndOutputIntent, 0);
 											break;
 										}
 									}

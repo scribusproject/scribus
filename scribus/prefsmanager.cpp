@@ -1616,7 +1616,7 @@ bool PrefsManager::WritePref(QString ho)
 		dcVerifierProfile.setAttribute("MinimumResolution",ScCLocale::toQStringC(itcp.value().minResolution));
 		dcVerifierProfile.setAttribute("MaximumResolution",ScCLocale::toQStringC(itcp.value().maxResolution));
 		dcVerifierProfile.setAttribute("CheckNotCMYKOrSpot", static_cast<int>(itcp.value().checkNotCMYKOrSpot));
-		dcVerifierProfile.setAttribute("CheckDeviceColorsAndOutputIntend", static_cast<int>(itcp.value().checkDeviceColorsAndOutputIntend));
+		dcVerifierProfile.setAttribute("CheckDeviceColorsAndOutputIntent", static_cast<int>(itcp.value().checkDeviceColorsAndOutputIntent));
 		dcVerifierProfile.setAttribute("CheckFontNotEmbedded", static_cast<int>(itcp.value().checkFontNotEmbedded));
 		dcVerifierProfile.setAttribute("CheckFontIsOpenType", static_cast<int>(itcp.value().checkFontIsOpenType));
 		elem.appendChild(dcVerifierProfile);
@@ -2324,7 +2324,7 @@ bool PrefsManager::ReadPref(QString ho)
 			checkerSettings.ignoreOffLayers = static_cast<bool>(dc.attribute("IgnoreOffLayers", "0").toInt());
 			checkerSettings.checkOffConflictLayers = static_cast<bool>(dc.attribute("CheckOffConflictLayers", "0").toInt());
 			checkerSettings.checkNotCMYKOrSpot = static_cast<bool>(dc.attribute("CheckNotCMYKOrSpot", "0").toInt());
-			checkerSettings.checkDeviceColorsAndOutputIntend = static_cast<bool>(dc.attribute("CheckDeviceColorsAndOutputIntend", "0").toInt());
+			checkerSettings.checkDeviceColorsAndOutputIntent = static_cast<bool>(dc.attribute("CheckDeviceColorsAndOutputIntent", "0").toInt());
 			checkerSettings.checkFontNotEmbedded = static_cast<bool>(dc.attribute("CheckFontNotEmbedded", "0").toInt());
 			checkerSettings.checkFontIsOpenType = static_cast<bool>(dc.attribute("CheckFontIsOpenType", "0").toInt());
 			appPrefs.verifierPrefs.checkerPrefsList[name] = checkerSettings;
@@ -2639,7 +2639,7 @@ void PrefsManager::initDefaultCheckerPrefs(CheckerPrefsList* cp)
 		checkerSettings.minResolution = 144.0;
 		checkerSettings.maxResolution = 2400.0;
 		checkerSettings.checkNotCMYKOrSpot = false;
-		checkerSettings.checkDeviceColorsAndOutputIntend = false;
+		checkerSettings.checkDeviceColorsAndOutputIntent = false;
 		checkerSettings.checkFontNotEmbedded = false;
 		checkerSettings.checkFontIsOpenType = false;
 		//TODO Stop translating these into settings!!!!!!!!!
@@ -2653,13 +2653,13 @@ void PrefsManager::initDefaultCheckerPrefs(CheckerPrefsList* cp)
 		checkerSettings.checkTransparency = true;
 		checkerSettings.checkAnnotations = true;
 		checkerSettings.minResolution = 144.0;
-		checkerSettings.checkDeviceColorsAndOutputIntend = true;
+		checkerSettings.checkDeviceColorsAndOutputIntent = true;
 		cp->insert( CommonStrings::PDF_X3	, checkerSettings);
 		checkerSettings.checkNotCMYKOrSpot = true;
-		checkerSettings.checkDeviceColorsAndOutputIntend = false;
+		checkerSettings.checkDeviceColorsAndOutputIntent = false;
 		cp->insert( CommonStrings::PDF_X1a	, checkerSettings);
 		checkerSettings.checkNotCMYKOrSpot = false;
-		checkerSettings.checkDeviceColorsAndOutputIntend = true;
+		checkerSettings.checkDeviceColorsAndOutputIntent = true;
 		checkerSettings.checkTransparency = false;
 		checkerSettings.checkFontIsOpenType = false;
 		cp->insert( CommonStrings::PDF_X4	, checkerSettings);
