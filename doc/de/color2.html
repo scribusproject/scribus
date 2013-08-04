@@ -26,24 +26,24 @@
 
 
 <h4>Linux/UNIX</h4>
-<p>If you have installed Scribus with a package management system like RPM, DEB or BSD Ports, the palette files need to be copied to either <code>/usr/lib/scribus/swatches</code> or <code>/usr/local/lib/scribus/swatches</code>. The respective location depends on the configuration of a distribution&rsquo;s package manager.</p>
+<p>If you have installed Scribus with a package management system like RPM, DEB or BSD Ports, the palette files need to be copied to either <code>/usr/lib/scribus/swatches</code> or <code>/usr/local/lib/scribus/swatches</code>. On 64 Bit systems they may be found in <code>/usr/lib64/scribus/swatches</code> or <code>/usr/local/lib64/scribus/swatches</code> respectively if a 64 Bit version has been installed. The actual location depends on the configuration of a distribution&rsquo;s package manager.</p>
 <p>Those who compiled Scribus themselves need to copy the palette files to <code>installation_directory/share/scribus/swatches</code>.</p>
 <p>If you don&rsquo;t have root permissions, you can also copy the files to <code>/home/user_name/.scribus/swatches/locked</code>.</p>
 <p>You have to create the folder <code>locked</code> if doesn&rsquo;t exist.</p>
 <h4>Mac OS X</h4>
 <p>Copy the palettes into the directory <code>/Library/Preferences/Scribus/swatches/locked</code> in your Home directory.</p>
-<p><i>Note that on Mac OS 10.7 the</i> /Library <i>directory is hidden by default. To make it visible, use</i> Go > Go to Folder<i> in Finder, then type</i> ~/Library. <i>Alternatively you can also press the Option key while clicking on</i> Go <i>in Finder. If you want to make the directory permanently visible, open a Terminal and type the following command:</i> chflags nohidden /Users/[username]/Library/.</p>
+<p><i>Note that on Mac OS 10.7 the</i> /Library <i>directory is hidden by default. To make it visible, use</i> Go > Go to Folder<i> in Finder, then type</i> ~/Library. Alternatively you can also press the Option key while clicking on</i> Go <i>in Finder. If you want to make the directory permanently visible, open a Terminal and type the following command:</i> chflags nohidden /Users/[username]/Library/.</p>
 <p>If the folder <code>locked</code> doesn&rsquo;t exist, you have to create it.</p>
 <h4>OS/2 Warp 4 and eComStation</h4>
-<p>Copy the palettes to the directory <code>X:\scribus\lib\swatches\locked</code>.</p>
+<p>Copy the palettes to the directory <code>C:\Scribus-{version}\scribus\lib\swatches\locked</code>.</p>
 <p>If the folder <code>locked</code> doesn&rsquo;t exist, you have to create it.</p>
 <h4>Haiku</h4>
 <p>Copy the palettes to the directory <code>/boot/apps/Scribus/share/scribus/swatches</code> or <code>/boot/home/config/settings/Qt/.scribus/swatches/locked</code>.</p>
 <h4>Windows</h4>
-<p>Copy the files to the folder <code>C:\Program Files\Scribus{version}\share\swatches</code>.</p>
+<p>Copy the files to the folder <code>C:\Program Files\Scribus {version}\share\swatches</code>.</p>
 <p>If you don&rsquo;t have Administrator permissions, you can copy the files to your user directory. On Windows 2000, XP and 2003 this is
-<code>C:\Documents and Settings\username\.scribus\swatches\locked</code>, and on Windows Vista and 7 it&rsquo;s <code>
-C:\Users\username\.scribus\swatches\locked</code>.</p> 
+<code>C:\Documents and Settings\username\Application Data\Scribus\swatches\locked</code>, and on Windows Vista, 7 and 8 it&rsquo;s <code>
+C:\Users\username\AppData\Roaming\Scribus\swatches\locked</code>.</p> 
 <p>If the folder <code>locked</code> doesn&rsquo;t exist, you have to create it.</p>
 <br>
 <br>
