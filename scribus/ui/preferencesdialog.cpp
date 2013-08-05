@@ -119,7 +119,7 @@ PreferencesDialog::PreferencesDialog(QWidget* parent, ApplicationPrefs& prefsDat
 	addItem( tr("Color Management"), loadIcon("blend_16.png"), prefs_ColorManagement);
 	addItem( tr("Printer"), loadIcon("16/printer.png"), prefs_Printer);
 	addItem( tr("PDF Export"), loadIcon("acroread16.png"), prefs_PDFExport);
-	addItem( tr("Preflight Verifier"), loadIcon("checkdoc_16.png"), prefs_PreflightVerifier);
+	addItem( tr("Preflight Verifier"), loadIcon("16/preflight-verifier.png"), prefs_PreflightVerifier);
 	addItem( tr("Document Item Attributes"), loadIcon("docattributes_16.png"), prefs_DocumentItemAttributes);
 	addItem( tr("Tables of Contents"), loadIcon("tabtocindex_16.png"), prefs_TableOfContents);
 	if (doc)
