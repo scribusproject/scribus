@@ -638,7 +638,7 @@ void ScPrintEngine_GDI::setDeviceParams( ScribusDoc* doc, PrintOptions& options,
 	devMode->dmFields = devFlags;
 
 	OpenPrinterW( (LPWSTR) printer.utf16(), &handle, NULL );
-	DocumentPropertiesW( doc->scMW()->winId(), handle, (LPWSTR) printer.utf16(), devMode, devMode, DM_IN_BUFFER | DM_OUT_BUFFER);
+	DocumentPropertiesW( (HWND) doc->scMW()->winId(), handle, (LPWSTR) printer.utf16(), devMode, devMode, DM_IN_BUFFER | DM_OUT_BUFFER);
 	ClosePrinter( handle );
 }
 

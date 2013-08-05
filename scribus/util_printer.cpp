@@ -90,11 +90,11 @@ bool PrinterUtil::getDefaultSettings( QString printerName, QByteArray& devModeA 
 	if(!done)
 		return false;
 	// Get size of DEVMODE structure (public + private data)
-	size = DocumentPropertiesW( ScCore->primaryMainWindow()->winId(), handle, (LPWSTR) printerName.utf16(), NULL, NULL, 0);
+	size = DocumentPropertiesW((HWND) ScCore->primaryMainWindow()->winId(), handle, (LPWSTR) printerName.utf16(), NULL, NULL, 0);
 	// Allocate the memory needed by the DEVMODE structure
 	devModeA.resize( size );
 	// Retrieve printer default settings
-	result = DocumentPropertiesW( ScCore->primaryMainWindow()->winId(), handle, (LPWSTR) printerName.utf16(), (DEVMODEW*) devModeA.data(), NULL, DM_OUT_BUFFER);
+	result = DocumentPropertiesW((HWND) ScCore->primaryMainWindow()->winId(), handle, (LPWSTR) printerName.utf16(), (DEVMODEW*) devModeA.data(), NULL, DM_OUT_BUFFER);
 	// Free the printer handle
 	ClosePrinter( handle );
 	return ( result == IDOK );
@@ -113,18 +113,18 @@ bool PrinterUtil::initDeviceSettings( QString printerName, QByteArray& devModeA 
 	if(!done)
 		return false;
 	// Get size of DEVMODE structure (public + private data)
-	size = DocumentPropertiesW( ScCore->primaryMainWindow()->winId(), handle, (LPWSTR) printerName.utf16(), NULL, NULL, 0);
+	size = DocumentPropertiesW((HWND) ScCore->primaryMainWindow()->winId(), handle, (LPWSTR) printerName.utf16(), NULL, NULL, 0);
 	// Compare size with DevMode structure size
 	if( devModeA.size() == size )
 	{
 		// Merge printer settings
-		result = DocumentPropertiesW( ScCore->primaryMainWindow()->winId(), handle, (LPWSTR) printerName.utf16(), (DEVMODEW*) devModeA.data(), (DEVMODEW*) devModeA.data(), DM_IN_BUFFER | DM_OUT_BUFFER);
+		result = DocumentPropertiesW((HWND) ScCore->primaryMainWindow()->winId(), handle, (LPWSTR) printerName.utf16(), (DEVMODEW*) devModeA.data(), (DEVMODEW*) devModeA.data(), DM_IN_BUFFER | DM_OUT_BUFFER);
 	}
 	else
 	{
 		// Retrieve default settings
 		devModeA.resize( size );
-		result = DocumentPropertiesW( ScCore->primaryMainWindow()->winId(), handle, (LPWSTR) printerName.utf16(), (DEVMODEW*) devModeA.data(), NULL, DM_OUT_BUFFER);
+		result = DocumentPropertiesW((HWND) ScCore->primaryMainWindow()->winId(), handle, (LPWSTR) printerName.utf16(), (DEVMODEW*) devModeA.data(), NULL, DM_OUT_BUFFER);
 	}
 	done = ( result == IDOK);
 	// Free the printer handle
@@ -186,10 +186,10 @@ bool PrinterUtil::getPrinterMarginValues(const QString& printerName, const QStri
 			if( OpenPrinterW( (LPWSTR) printerName.utf16(), &handle, NULL ) )
 			{
 				// Retrieve DEVMODE structure for selected device
-				uint size = DocumentPropertiesW( ScCore->primaryMainWindow()->winId(), handle, (LPWSTR) printerName.utf16(), NULL, NULL, 0);
+				uint size = DocumentPropertiesW((HWND) ScCore->primaryMainWindow()->winId(), handle, (LPWSTR) printerName.utf16(), NULL, NULL, 0);
 				QByteArray devModeW(size, 0);
 				DEVMODEW* devMode = (DEVMODEW*) devModeW.data();
-				DocumentPropertiesW( ScCore->primaryMainWindow()->winId(), handle, (LPWSTR) printerName.utf16(), devMode, NULL, DM_OUT_BUFFER);
+				DocumentPropertiesW((HWND) ScCore->primaryMainWindow()->winId(), handle, (LPWSTR) printerName.utf16(), devMode, NULL, DM_OUT_BUFFER);
 				ClosePrinter( handle );
 				// Set paper size
 				devMode->dmPaperSize = papers[paperIndex];
