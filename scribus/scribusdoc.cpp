@@ -3645,6 +3645,8 @@ void ScribusDoc::recalculateColors()
 	for (int c = 0; c < patterns.count(); ++c)
 	{
 		ScPattern pa = docPatterns[patterns[c]];
+		if (pa.items.count() <= 0)
+			continue;
 		for (int o = 0; o < pa.items.count(); o++)
 		{
 			PageItem *ite = pa.items.at(o);
