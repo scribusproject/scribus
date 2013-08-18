@@ -29346,7 +29346,7 @@ You can choose between normal and several colour blindness forms</translation>
     <message>
         <location filename="../../../scribus/scribusview.cpp" line="362"/>
         <source>Select the visual appearance of the display. You can choose between normal and several color blindness forms</source>
-        <translation>Select the visual appearance of the display. You can choose between normal and several colou blindness forms</translation>
+        <translation>Select the visual appearance of the display. You can choose between normal and several colour blindness forms</translation>
     </message>
     <message>
         <location filename="../../../scribus/scribusview.cpp" line="360"/>
