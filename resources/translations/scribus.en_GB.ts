@@ -36437,7 +36437,7 @@ You can choose between normal and several colour blindness forms</translation>
     </message>
     <message>
         <source>Select the visual appearance of the display. You can choose between normal and several color blindness forms</source>
-        <translation>Select the visual appearance of the display. You can choose between normal and several colou blindness forms</translation>
+        <translation>Select the visual appearance of the display. You can choose between normal and several colour blindness forms</translation>
     </message>
     <message>
         <source>Configure CMS...</source>
