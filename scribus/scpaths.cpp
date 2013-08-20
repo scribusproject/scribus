@@ -97,7 +97,10 @@ ScPaths::ScPaths() :
 	m_templateDir = QString("%1/share/templates/").arg(appPath);
 	m_libDir = QString("%1/libs/").arg(appPath);
 	m_pluginDir = QString("%1/plugins/").arg(appPath);
-	QApplication::setLibraryPaths( QStringList(QString("%1/qtplugins/").arg(appPath)) );
+
+	QString qtpluginDir = QString("%1/qtplugins/").arg(appPath);
+	if (QDir(qtpluginDir).exists())
+		QApplication::setLibraryPaths( QStringList(qtpluginDir) );
 #endif
 	
 // 	if(!m_shareDir.endsWith("/"))        m_shareDir += "/";
