@@ -20,9 +20,9 @@
 	</ToolFiles>
 	<Configurations>
 		<Configuration
-			Name="Debug-cairo|Win32"
-			OutputDirectory="..\..\..\..\Scribus-builds\Scribus-vc9-$(ConfigurationName)\scribus"
-			IntermediateDirectory="..\..\..\..\Scribus-builds\Build-objs-vc9\$(ConfigurationName)\$(TargetName)"
+			Name="Debug|Win32"
+			OutputDirectory="..\..\..\..\Scribus-builds\Scribus-$(ConfigurationName)-$(PlatformName)-vc9\scribus"
+			IntermediateDirectory="..\..\..\..\Scribus-builds\Build-objs\$(ConfigurationName)-$(PlatformName)-vc9\$(TargetName)"
 			ConfigurationType="1"
 			InheritedPropertySheets="..\Scribus-build-props.vsprops"
 			CharacterSet="1"
@@ -125,9 +125,9 @@
 			/>
 		</Configuration>
 		<Configuration
-			Name="Release-cairo|Win32"
-			OutputDirectory="..\..\..\..\Scribus-builds\Scribus-vc9-$(ConfigurationName)\scribus"
-			IntermediateDirectory="..\..\..\..\Scribus-builds\Build-objs-vc9\$(ConfigurationName)\$(TargetName)"
+			Name="Release|Win32"
+			OutputDirectory="..\..\..\..\Scribus-builds\Scribus-$(ConfigurationName)-$(PlatformName)-vc9\scribus"
+			IntermediateDirectory="..\..\..\..\Scribus-builds\Build-objs\$(ConfigurationName)-$(PlatformName)-vc9\$(TargetName)"
 			ConfigurationType="1"
 			InheritedPropertySheets="..\Scribus-build-props.vsprops"
 			CharacterSet="1"
@@ -854,7 +854,7 @@
 				RelativePath="..\..\..\scribus\hnjalloc.c"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
@@ -864,7 +864,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
@@ -886,7 +886,7 @@
 				RelativePath="..\..\..\scribus\hyphen.c"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
@@ -896,7 +896,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
@@ -942,7 +942,7 @@
 				RelativePath="..\..\..\scribus\ioapi.c"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
@@ -952,7 +952,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
@@ -1554,7 +1554,7 @@
 				RelativePath="..\..\..\scribus\rc4.c"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
@@ -1564,7 +1564,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
@@ -1862,7 +1862,7 @@
 				RelativePath=".\scribuspch.cpp"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
@@ -1870,7 +1870,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
@@ -2234,7 +2234,7 @@
 				RelativePath="..\..\..\scribus\unzip.c"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
@@ -2244,7 +2244,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
@@ -2335,14 +2335,14 @@
 				RelativePath="..\..\..\scribus\ui\about.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -2353,14 +2353,14 @@
 				RelativePath="..\..\..\scribus\ui\aboutplugins.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -2371,14 +2371,14 @@
 				RelativePath="..\..\..\scribus\actionmanager.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -2389,14 +2389,14 @@
 				RelativePath="..\..\..\scribus\ui\adjustcmsdialog.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -2407,14 +2407,14 @@
 				RelativePath="..\..\..\scribus\ui\aligndistribute.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -2425,14 +2425,14 @@
 				RelativePath="..\..\..\scribus\ui\alignselect.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -2443,14 +2443,14 @@
 				RelativePath="..\..\..\scribus\ui\annot.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -2461,14 +2461,14 @@
 				RelativePath="..\..\..\scribus\ui\annota.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -2483,14 +2483,14 @@
 				RelativePath="..\..\..\scribus\ui\applytemplatedialog.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -2501,14 +2501,14 @@
 				RelativePath="..\..\..\scribus\ui\arcvectordialog.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -2519,14 +2519,14 @@
 				RelativePath="..\..\..\scribus\ui\arcwidget.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -2537,14 +2537,14 @@
 				RelativePath="..\..\..\scribus\ui\arrowchooser.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -2555,14 +2555,14 @@
 				RelativePath="..\..\..\scribus\ui\autoform.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -2573,14 +2573,14 @@
 				RelativePath="..\..\..\scribus\ui\autoformbuttongroup.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -2591,14 +2591,14 @@
 				RelativePath="..\..\..\scribus\ui\basepointwidget.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -2609,14 +2609,14 @@
 				RelativePath="..\..\..\scribus\ui\bookmarkpalette.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -2627,14 +2627,14 @@
 				RelativePath="..\..\..\scribus\ui\bookmwin.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -2645,14 +2645,14 @@
 				RelativePath="..\..\..\scribus\ui\buttonicon.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -2663,14 +2663,14 @@
 				RelativePath="..\..\..\scribus\canvas.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -2685,14 +2685,14 @@
 				RelativePath="..\..\..\scribus\canvasgesture_cellselect.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -2703,14 +2703,14 @@
 				RelativePath="..\..\..\scribus\canvasgesture_columnresize.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -2737,14 +2737,14 @@
 				RelativePath="..\..\..\scribus\canvasgesture_rowresize.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -2755,14 +2755,14 @@
 				RelativePath="..\..\..\scribus\canvasgesture_rulermove.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -2773,14 +2773,14 @@
 				RelativePath="..\..\..\scribus\canvasgesture_table.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -2791,14 +2791,14 @@
 				RelativePath="..\..\..\scribus\canvasgesture_tableresize.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -2809,14 +2809,14 @@
 				RelativePath="..\..\..\scribus\canvasmode.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -2847,14 +2847,14 @@
 				RelativePath="..\..\..\scribus\canvasmode_edit.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -2865,14 +2865,14 @@
 				RelativePath="..\..\..\scribus\canvasmode_editarc.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -2895,14 +2895,14 @@
 				RelativePath="..\..\..\scribus\canvasmode_editpolygon.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -2913,14 +2913,14 @@
 				RelativePath="..\..\..\scribus\canvasmode_editspiral.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -2931,14 +2931,14 @@
 				RelativePath="..\..\..\scribus\canvasmode_edittable.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -2949,14 +2949,14 @@
 				RelativePath="..\..\..\scribus\canvasmode_editweldpoint.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -2983,14 +2983,14 @@
 				RelativePath="..\..\..\scribus\canvasmode_measurements.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -3005,14 +3005,14 @@
 				RelativePath="..\..\..\scribus\canvasmode_normal.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -3043,14 +3043,14 @@
 				RelativePath="..\..\..\scribus\ui\charselect.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -3061,14 +3061,14 @@
 				RelativePath="..\..\..\scribus\ui\charselectenhanced.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -3083,14 +3083,14 @@
 				RelativePath="..\..\..\scribus\chartablemodel.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -3101,14 +3101,14 @@
 				RelativePath="..\..\..\scribus\chartableview.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -3119,14 +3119,14 @@
 				RelativePath="..\..\..\scribus\ui\charzoom.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -3137,14 +3137,14 @@
 				RelativePath="..\..\..\scribus\ui\checkDocument.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -3155,14 +3155,14 @@
 				RelativePath="..\..\..\scribus\ui\clockwidget.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -3181,14 +3181,14 @@
 				RelativePath="..\..\..\scribus\ui\cmsprefs.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -3199,14 +3199,14 @@
 				RelativePath="..\..\..\scribus\ui\cmykfw.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -3221,14 +3221,14 @@
 				RelativePath="..\..\..\scribus\collect4output.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -3239,14 +3239,14 @@
 				RelativePath="..\..\..\scribus\ui\collectforoutput_ui.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -3257,7 +3257,7 @@
 				RelativePath="..\..\..\scribus\color.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="VCCustomBuildTool"
@@ -3265,7 +3265,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="VCCustomBuildTool"
@@ -3277,14 +3277,14 @@
 				RelativePath="..\..\..\scribus\colorblind.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -3295,14 +3295,14 @@
 				RelativePath="..\..\..\scribus\ui\colorchart.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -3313,14 +3313,14 @@
 				RelativePath="..\..\..\scribus\ui\colorcombo.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -3331,14 +3331,14 @@
 				RelativePath="..\..\..\scribus\ui\colorlistbox.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -3353,14 +3353,14 @@
 				RelativePath="..\..\..\scribus\commonstrings.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -3371,14 +3371,14 @@
 				RelativePath="..\..\..\scribus\ui\contextmenu.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -3389,14 +3389,14 @@
 				RelativePath="..\..\..\scribus\ui\copypagetomasterpagedialog.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -3407,14 +3407,14 @@
 				RelativePath="..\..\..\scribus\ui\cpalette.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -3425,14 +3425,14 @@
 				RelativePath="..\..\..\scribus\ui\createrange.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -3443,7 +3443,7 @@
 				RelativePath="..\..\..\scribus\crypt.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="VCCustomBuildTool"
@@ -3451,7 +3451,7 @@
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="VCCustomBuildTool"
@@ -3463,14 +3463,14 @@
 				RelativePath="..\..\..\scribus\ui\cupsoptions.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -3481,14 +3481,14 @@
 				RelativePath="..\..\..\scribus\ui\curvewidget.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -3499,14 +3499,14 @@
 				RelativePath="..\..\..\scribus\ui\customfdialog.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -3517,14 +3517,14 @@
 				RelativePath="..\..\..\scribus\ui\dasheditor.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -3535,14 +3535,14 @@
 				RelativePath="..\..\..\scribus\ui\dcolor.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -3553,14 +3553,14 @@
 				RelativePath="..\..\..\scribus\deferredtask.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -3571,14 +3571,14 @@
 				RelativePath="..\..\..\scribus\ui\delpages.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -3589,14 +3589,14 @@
 				RelativePath="..\..\..\scribus\docinfo.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -3607,14 +3607,14 @@
 				RelativePath="..\..\..\scribus\documentchecker.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="VCCustomBuildTool"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="VCCustomBuildTool"
@@ -3629,14 +3629,14 @@
 				RelativePath="..\..\..\scribus\ui\editor.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -3647,14 +3647,14 @@
 				RelativePath="..\..\..\scribus\ui\edittoolbar.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -3665,14 +3665,14 @@
 				RelativePath="..\..\..\scribus\ui\effectsdialog.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -3687,14 +3687,14 @@
 				RelativePath="..\..\..\scribus\ui\extimageprops.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -3705,14 +3705,14 @@
 				RelativePath="..\..\..\scribus\fileloader.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -3723,14 +3723,14 @@
 				RelativePath="..\..\..\scribus\filesearch.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -3741,14 +3741,14 @@
 				RelativePath="..\..\..\scribus\ui\filetoolbar.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -3763,14 +3763,14 @@
 				RelativePath="..\..\..\scribus\filewatcher.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -3781,14 +3781,14 @@
 				RelativePath="..\..\..\scribus\ui\fontcombo.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -3799,14 +3799,14 @@
 				RelativePath="..\..\..\scribus\fontlistmodel.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -3817,14 +3817,14 @@
 				RelativePath="..\..\..\scribus\ui\fontlistview.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -3835,14 +3835,14 @@
 				RelativePath="..\..\..\scribus\ui\fontreplacedialog.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -3885,14 +3885,14 @@
 				RelativePath="..\..\..\scribus\ui\gradientaddedit.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -3903,14 +3903,14 @@
 				RelativePath="..\..\..\scribus\ui\gradienteditor.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -3921,14 +3921,14 @@
 				RelativePath="..\..\..\scribus\ui\gradientpreview.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -3939,14 +3939,14 @@
 				RelativePath="..\..\..\scribus\ui\gradientvectordialog.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -3961,14 +3961,14 @@
 				RelativePath="..\..\..\scribus\ui\gtdialogs.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -3979,14 +3979,14 @@
 				RelativePath="..\..\..\scribus\ui\gtfiledialog.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -4025,14 +4025,14 @@
 				RelativePath="..\..\..\scribus\ui\guidemanager.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -4047,14 +4047,14 @@
 				RelativePath="..\..\..\scribus\guidesdelegate.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -4065,14 +4065,14 @@
 				RelativePath="..\..\..\scribus\guidesmodel.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -4083,14 +4083,14 @@
 				RelativePath="..\..\..\scribus\guidesview.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -4101,14 +4101,14 @@
 				RelativePath="..\..\..\scribus\ui\helpbrowser.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -4127,14 +4127,14 @@
 				RelativePath="..\..\..\scribus\ui\hruler.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -4145,14 +4145,14 @@
 				RelativePath="..\..\..\scribus\ui\hyask.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -4167,14 +4167,14 @@
 				RelativePath="..\..\..\scribus\hyphenator.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -4189,14 +4189,14 @@
 				RelativePath="..\..\..\scribus\ui\imageinfodialog.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -4207,14 +4207,14 @@
 				RelativePath="..\..\..\scribus\ui\inlinepalette.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -4225,14 +4225,14 @@
 				RelativePath="..\..\..\scribus\ui\insertaframe.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -4243,14 +4243,14 @@
 				RelativePath="..\..\..\scribus\ui\insertTable.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -4261,14 +4261,14 @@
 				RelativePath="..\..\..\scribus\ui\inserttablecolumnsdialog.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -4279,14 +4279,14 @@
 				RelativePath="..\..\..\scribus\ui\inserttablerowsdialog.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -4297,14 +4297,14 @@
 				RelativePath="..\..\..\scribus\ui\inspage.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -4319,14 +4319,14 @@
 				RelativePath="..\..\..\scribus\ui\javadocs.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -4345,14 +4345,14 @@
 				RelativePath="..\..\..\scribus\ui\latexeditor.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -4363,14 +4363,14 @@
 				RelativePath="..\..\..\scribus\latexhelpers.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -4381,14 +4381,14 @@
 				RelativePath="..\..\..\scribus\ui\layers.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -4399,14 +4399,14 @@
 				RelativePath="..\..\..\scribus\ui\linecombo.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="VCCustomBuildTool"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -4425,14 +4425,14 @@
 				RelativePath="..\..\..\scribus\loadsaveplugin.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -4447,14 +4447,14 @@
 				RelativePath="..\..\..\scribus\ui\loremipsum.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -4465,14 +4465,14 @@
 				RelativePath="..\..\..\scribus\ui\margindialog.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -4483,14 +4483,14 @@
 				RelativePath="..\..\..\scribus\ui\marginpresetlayout.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -4505,14 +4505,14 @@
 				RelativePath="..\..\..\scribus\ui\marginwidget.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -4523,14 +4523,14 @@
 				RelativePath="..\..\..\scribus\ui\mark2item.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -4541,14 +4541,14 @@
 				RelativePath="..\..\..\scribus\ui\mark2mark.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -4559,14 +4559,14 @@
 				RelativePath="..\..\..\scribus\ui\markanchor.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -4577,14 +4577,14 @@
 				RelativePath="..\..\..\scribus\ui\markinsert.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -4595,14 +4595,14 @@
 				RelativePath="..\..\..\scribus\ui\marknote.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -4617,14 +4617,14 @@
 				RelativePath="..\..\..\scribus\ui\marksmanager.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -4635,14 +4635,14 @@
 				RelativePath="..\..\..\scribus\ui\markvariabletext.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -4653,14 +4653,14 @@
 				RelativePath="..\..\..\scribus\ui\masterpagepalette.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -4671,14 +4671,14 @@
 				RelativePath="..\..\..\scribus\ui\measurements.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -4689,14 +4689,14 @@
 				RelativePath="..\..\..\scribus\menumanager.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -4707,14 +4707,14 @@
 				RelativePath="..\..\..\scribus\ui\mergedoc.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -4729,14 +4729,14 @@
 				RelativePath="..\..\..\scribus\ui\missing.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -4747,14 +4747,14 @@
 				RelativePath="..\..\..\scribus\ui\modetoolbar.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -4765,14 +4765,14 @@
 				RelativePath="..\..\..\scribus\ui\movepage.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -4783,14 +4783,14 @@
 				RelativePath="..\..\..\scribus\ui\multipleduplicate.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -4801,14 +4801,14 @@
 				RelativePath="..\..\..\scribus\ui\multiprogressdialog.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -4819,14 +4819,14 @@
 				RelativePath="..\..\..\scribus\navigator.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -4837,14 +4837,14 @@
 				RelativePath="..\..\..\scribus\ui\newfile.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -4855,14 +4855,14 @@
 				RelativePath="..\..\..\scribus\ui\newmarginwidget.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -4873,14 +4873,14 @@
 				RelativePath="..\..\..\scribus\ui\newtemp.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -4891,14 +4891,14 @@
 				RelativePath="..\..\..\scribus\ui\nftdialog.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -4921,14 +4921,14 @@
 				RelativePath="..\..\..\scribus\ui\nftwidget.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -4939,14 +4939,14 @@
 				RelativePath="..\..\..\scribus\ui\nodeeditpalette.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -4957,14 +4957,14 @@
 				RelativePath="..\..\..\scribus\notesstyles.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -4975,14 +4975,14 @@
 				RelativePath="..\..\..\scribus\ui\notesstyleseditor.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -4997,14 +4997,14 @@
 				RelativePath="..\..\..\scribus\observable.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -5015,14 +5015,14 @@
 				RelativePath="..\..\..\scribus\ui\oneclick.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -5033,14 +5033,14 @@
 				RelativePath="..\..\..\scribus\ui\outlinepalette.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -5051,14 +5051,14 @@
 				RelativePath="..\..\..\scribus\pageitem.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -5069,14 +5069,14 @@
 				RelativePath="..\..\..\scribus\pageitem_arc.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -5087,14 +5087,14 @@
 				RelativePath="..\..\..\scribus\pageitem_group.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -5105,14 +5105,14 @@
 				RelativePath="..\..\..\scribus\pageitem_imageframe.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -5123,14 +5123,14 @@
 				RelativePath="..\..\..\scribus\pageitem_latexframe.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -5141,14 +5141,14 @@
 				RelativePath="..\..\..\scribus\pageitem_line.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -5159,14 +5159,14 @@
 				RelativePath="..\..\..\scribus\pageitem_noteframe.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -5177,14 +5177,14 @@
 				RelativePath="..\..\..\scribus\pageitem_pathtext.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -5195,14 +5195,14 @@
 				RelativePath="..\..\..\scribus\pageitem_polygon.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -5213,14 +5213,14 @@
 				RelativePath="..\..\..\scribus\pageitem_polyline.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -5231,14 +5231,14 @@
 				RelativePath="..\..\..\scribus\pageitem_regularpolygon.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -5249,14 +5249,14 @@
 				RelativePath="..\..\..\scribus\pageitem_spiral.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -5267,14 +5267,14 @@
 				RelativePath="..\..\..\scribus\pageitem_symbol.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -5285,14 +5285,14 @@
 				RelativePath="..\..\..\scribus\pageitem_table.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -5303,14 +5303,14 @@
 				RelativePath="..\..\..\scribus\pageitem_textframe.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -5321,14 +5321,14 @@
 				RelativePath="..\..\..\scribus\ui\pageitemattributes.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -5339,14 +5339,14 @@
 				RelativePath="..\..\..\scribus\pageitempointer.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -5357,14 +5357,14 @@
 				RelativePath="..\..\..\scribus\ui\pagelayout.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -5375,14 +5375,14 @@
 				RelativePath="..\..\..\scribus\ui\pagepalette.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -5393,14 +5393,14 @@
 				RelativePath="..\..\..\scribus\ui\pagepalette_masterpages.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -5411,14 +5411,14 @@
 				RelativePath="..\..\..\scribus\ui\pagepalette_pages.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -5429,14 +5429,14 @@
 				RelativePath="..\..\..\scribus\ui\pagepalette_widgets.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -5447,14 +5447,14 @@
 				RelativePath="..\..\..\scribus\ui\pageselector.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -5473,14 +5473,14 @@
 				RelativePath="..\..\..\scribus\ui\paintmanager.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -5495,14 +5495,14 @@
 				RelativePath="..\..\..\scribus\ui\patternpropsdialog.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -5513,14 +5513,14 @@
 				RelativePath="..\..\..\scribus\pdf_analyzer.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -5531,14 +5531,14 @@
 				RelativePath="..\..\..\scribus\pdflib.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -5549,14 +5549,14 @@
 				RelativePath="..\..\..\scribus\pdflib_core.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -5575,14 +5575,14 @@
 				RelativePath="..\..\..\scribus\ui\pdfopts.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -5593,14 +5593,14 @@
 				RelativePath="..\..\..\scribus\ui\pdftoolbar.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -5611,14 +5611,14 @@
 				RelativePath="..\..\..\scribus\ui\picsearch.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -5629,14 +5629,14 @@
 				RelativePath="..\..\..\scribus\ui\picsearchoptions.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -5647,14 +5647,14 @@
 				RelativePath="..\..\..\scribus\ui\picstatus.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -5665,14 +5665,14 @@
 				RelativePath="..\..\..\scribus\pluginmanager.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -5683,14 +5683,14 @@
 				RelativePath="..\..\..\scribus\ui\pluginmanagerprefsgui.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -5701,14 +5701,14 @@
 				RelativePath="..\..\..\scribus\ui\polygonwidget.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -5719,14 +5719,14 @@
 				RelativePath="..\..\..\scribus\ui\polyprops.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -5737,14 +5737,14 @@
 				RelativePath="..\..\..\scribus\ui\preferencesdialog.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -5755,14 +5755,14 @@
 				RelativePath="..\..\..\scribus\ui\prefs_colormanagement.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -5773,14 +5773,14 @@
 				RelativePath="..\..\..\scribus\ui\prefs_display.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -5791,14 +5791,14 @@
 				RelativePath="..\..\..\scribus\ui\prefs_documentinformation.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -5809,14 +5809,14 @@
 				RelativePath="..\..\..\scribus\ui\prefs_documentitemattributes.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -5827,14 +5827,14 @@
 				RelativePath="..\..\..\scribus\ui\prefs_documentsections.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -5845,14 +5845,14 @@
 				RelativePath="..\..\..\scribus\ui\prefs_documentsetup.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -5863,14 +5863,14 @@
 				RelativePath="..\..\..\scribus\ui\prefs_externaltools.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -5881,14 +5881,14 @@
 				RelativePath="..\..\..\scribus\ui\prefs_fonts.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -5899,14 +5899,14 @@
 				RelativePath="..\..\..\scribus\ui\prefs_guides.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -5917,14 +5917,14 @@
 				RelativePath="..\..\..\scribus\ui\prefs_hyphenator.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -5935,14 +5935,14 @@
 				RelativePath="..\..\..\scribus\ui\prefs_imagecache.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -5953,14 +5953,14 @@
 				RelativePath="..\..\..\scribus\ui\prefs_itemtools.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -5971,14 +5971,14 @@
 				RelativePath="..\..\..\scribus\ui\prefs_keyboardshortcuts.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -5989,14 +5989,14 @@
 				RelativePath="..\..\..\scribus\ui\prefs_miscellaneous.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -6007,14 +6007,14 @@
 				RelativePath="..\..\..\scribus\ui\prefs_operatortools.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -6025,14 +6025,14 @@
 				RelativePath="..\..\..\scribus\ui\prefs_pagesizes.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -6043,14 +6043,14 @@
 				RelativePath="..\..\..\scribus\ui\prefs_pane.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -6061,14 +6061,14 @@
 				RelativePath="..\..\..\scribus\ui\prefs_paths.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -6079,14 +6079,14 @@
 				RelativePath="..\..\..\scribus\ui\prefs_pdfexport.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -6097,14 +6097,14 @@
 				RelativePath="..\..\..\scribus\ui\prefs_plugins.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -6115,14 +6115,14 @@
 				RelativePath="..\..\..\scribus\ui\prefs_preflightverifier.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -6133,14 +6133,14 @@
 				RelativePath="..\..\..\scribus\ui\prefs_printer.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -6151,14 +6151,14 @@
 				RelativePath="..\..\..\scribus\ui\prefs_scrapbook.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -6169,14 +6169,14 @@
 				RelativePath="..\..\..\scribus\ui\prefs_spelling.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -6187,14 +6187,14 @@
 				RelativePath="..\..\..\scribus\ui\prefs_tableofcontents.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -6205,14 +6205,14 @@
 				RelativePath="..\..\..\scribus\ui\prefs_typography.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -6223,14 +6223,14 @@
 				RelativePath="..\..\..\scribus\ui\prefs_userinterface.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -6249,14 +6249,14 @@
 				RelativePath="..\..\..\scribus\prefsmanager.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -6267,14 +6267,14 @@
 				RelativePath="..\..\..\scribus\ui\prefspanel.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -6297,14 +6297,14 @@
 				RelativePath="..\..\..\scribus\ui\preview.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -6315,14 +6315,14 @@
 				RelativePath="..\..\..\scribus\ui\printdialog.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -6333,14 +6333,14 @@
 				RelativePath="..\..\..\scribus\ui\propertiespalette.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -6351,14 +6351,14 @@
 				RelativePath="..\..\..\scribus\ui\propertiespalette_group.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -6369,14 +6369,14 @@
 				RelativePath="..\..\..\scribus\ui\propertiespalette_image.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -6387,14 +6387,14 @@
 				RelativePath="..\..\..\scribus\ui\propertiespalette_line.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -6405,14 +6405,14 @@
 				RelativePath="..\..\..\scribus\ui\propertiespalette_shape.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -6423,14 +6423,14 @@
 				RelativePath="..\..\..\scribus\ui\propertiespalette_table.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -6441,14 +6441,14 @@
 				RelativePath="..\..\..\scribus\ui\propertiespalette_text.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -6459,14 +6459,14 @@
 				RelativePath="..\..\..\scribus\ui\propertiespalette_utils.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -6477,14 +6477,14 @@
 				RelativePath="..\..\..\scribus\ui\propertiespalette_xyz.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -6495,14 +6495,14 @@
 				RelativePath="..\..\..\scribus\ui\propertywidget_advanced.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -6513,14 +6513,14 @@
 				RelativePath="..\..\..\scribus\ui\propertywidget_distance.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -6531,14 +6531,14 @@
 				RelativePath="..\..\..\scribus\ui\propertywidget_flop.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -6549,14 +6549,14 @@
 				RelativePath="..\..\..\scribus\ui\propertywidget_optmargins.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -6567,14 +6567,14 @@
 				RelativePath="..\..\..\scribus\ui\propertywidget_orphans.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -6585,14 +6585,14 @@
 				RelativePath="..\..\..\scribus\ui\propertywidget_pareffect.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -6603,14 +6603,14 @@
 				RelativePath="..\..\..\scribus\ui\propertywidget_pathtext.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -6621,14 +6621,14 @@
 				RelativePath="..\..\..\scribus\ui\propertywidget_textcolor.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -6643,14 +6643,14 @@
 				RelativePath="..\..\..\scribus\pslib.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -6661,14 +6661,14 @@
 				RelativePath="..\..\..\scribus\ui\query.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -6687,14 +6687,14 @@
 				RelativePath="..\..\..\scribus\ui\replacecolors.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -6705,14 +6705,14 @@
 				RelativePath="..\..\..\scribus\ui\replaceonecolor.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -6731,14 +6731,14 @@
 				RelativePath="..\..\..\scribus\ui\rulermover.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -6749,14 +6749,14 @@
 				RelativePath="..\..\..\scribus\sampleitem.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -6791,14 +6791,14 @@
 				RelativePath="..\..\..\scribus\downloadmanager\scdlmgr.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -6809,14 +6809,14 @@
 				RelativePath="..\..\..\scribus\downloadmanager\scdlthread.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -6827,14 +6827,14 @@
 				RelativePath="..\..\..\scribus\ui\scdockpalette.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -6857,14 +6857,14 @@
 				RelativePath="..\..\..\scribus\ui\scescapecatcher.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -6887,14 +6887,14 @@
 				RelativePath="..\..\..\scribus\ui\scfilewidget.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -6913,14 +6913,14 @@
 				RelativePath="..\..\..\scribus\scgtplugin.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -6939,14 +6939,14 @@
 				RelativePath="..\..\..\scribus\schelptreemodel.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -6961,14 +6961,14 @@
 				RelativePath="..\..\..\scribus\scimagecachedir.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -6979,14 +6979,14 @@
 				RelativePath="..\..\..\scribus\scimagecachefile.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -6997,14 +6997,14 @@
 				RelativePath="..\..\..\scribus\scimagecachemanager.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -7071,14 +7071,14 @@
 				RelativePath="..\..\..\scribus\ui\scinputdialog.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -7089,14 +7089,14 @@
 				RelativePath="..\..\..\scribus\sclayer.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -7115,14 +7115,14 @@
 				RelativePath="..\..\..\scribus\ui\sclistwidgetdelegate.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -7137,14 +7137,14 @@
 				RelativePath="..\..\..\scribus\ui\scmenu.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -7155,14 +7155,14 @@
 				RelativePath="..\..\..\scribus\ui\scmessagebox.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -7177,14 +7177,14 @@
 				RelativePath="..\..\..\scribus\ui\scmwmenumanager.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -7235,14 +7235,14 @@
 				RelativePath="..\..\..\scribus\scplugin.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -7257,14 +7257,14 @@
 				RelativePath="..\..\..\scribus\scprintengine.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -7283,14 +7283,14 @@
 				RelativePath="..\..\..\scribus\scraction.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -7301,14 +7301,14 @@
 				RelativePath="..\..\..\scribus\ui\scrapbookpalette.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -7323,14 +7323,14 @@
 				RelativePath="..\..\..\scribus\scribus.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -7345,14 +7345,14 @@
 				RelativePath="..\..\..\scribus\scribusapp.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -7363,14 +7363,14 @@
 				RelativePath="..\..\..\scribus\scribuscore.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -7381,14 +7381,14 @@
 				RelativePath="..\..\..\scribus\scribusdoc.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -7407,14 +7407,14 @@
 				RelativePath="..\..\..\scribus\scribusview.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -7425,14 +7425,14 @@
 				RelativePath="..\..\..\scribus\scribuswin.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -7447,14 +7447,14 @@
 				RelativePath="..\..\..\scribus\ui\scrpalettebase.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -7465,14 +7465,14 @@
 				RelativePath="..\..\..\scribus\ui\scrspinbox.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -7507,14 +7507,14 @@
 				RelativePath="..\..\..\scribus\ui\sctablewidget.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -7529,14 +7529,14 @@
 				RelativePath="..\..\..\scribus\ui\sctextbrowser.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -7555,14 +7555,14 @@
 				RelativePath="..\..\..\scribus\ui\sctoolbar.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -7573,14 +7573,14 @@
 				RelativePath="..\..\..\scribus\ui\sctreewidget.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -7599,14 +7599,14 @@
 				RelativePath="..\..\..\scribus\ui\search.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -7617,14 +7617,14 @@
 				RelativePath="..\..\..\scribus\selection.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -7635,14 +7635,14 @@
 				RelativePath="..\..\..\scribus\ui\selectobjects.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -7653,14 +7653,14 @@
 				RelativePath="..\..\..\scribus\ui\selfield.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -7675,14 +7675,14 @@
 				RelativePath="..\..\..\scribus\ui\shadebutton.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -7693,14 +7693,14 @@
 				RelativePath="..\..\..\scribus\ui\shortcutwidget.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -7711,14 +7711,14 @@
 				RelativePath="..\..\..\scribus\ui\smalignselect.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -7729,14 +7729,14 @@
 				RelativePath="..\..\..\scribus\ui\smcellstyle.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -7747,14 +7747,14 @@
 				RelativePath="..\..\..\scribus\ui\smcellstylewidget.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -7765,14 +7765,14 @@
 				RelativePath="..\..\..\scribus\ui\smcheckbox.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -7783,14 +7783,14 @@
 				RelativePath="..\..\..\scribus\ui\smcolorcombo.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -7801,14 +7801,14 @@
 				RelativePath="..\..\..\scribus\ui\smcstylewidget.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -7819,14 +7819,14 @@
 				RelativePath="..\..\..\scribus\ui\smfontcomboh.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -7837,14 +7837,14 @@
 				RelativePath="..\..\..\scribus\ui\smlinestyle.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -7855,14 +7855,14 @@
 				RelativePath="..\..\..\scribus\ui\smlinestylewidget.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -7873,14 +7873,14 @@
 				RelativePath="..\..\..\scribus\ui\smpstylewidget.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -7891,14 +7891,14 @@
 				RelativePath="..\..\..\scribus\ui\smradiobutton.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="VCCustomBuildTool"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="VCCustomBuildTool"
@@ -7909,14 +7909,14 @@
 				RelativePath="..\..\..\scribus\ui\smreplacedia.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -7927,14 +7927,14 @@
 				RelativePath="..\..\..\scribus\ui\smsccombobox.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -7945,14 +7945,14 @@
 				RelativePath="..\..\..\scribus\ui\smscrspinbox.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -7963,14 +7963,14 @@
 				RelativePath="..\..\..\scribus\ui\smshadebutton.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -7981,14 +7981,14 @@
 				RelativePath="..\..\..\scribus\ui\smspinbox.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -7999,14 +7999,14 @@
 				RelativePath="..\..\..\scribus\ui\smstyleimport.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -8017,14 +8017,14 @@
 				RelativePath="..\..\..\scribus\ui\smstyleselect.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -8035,14 +8035,14 @@
 				RelativePath="..\..\..\scribus\ui\smtablestyle.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -8053,14 +8053,14 @@
 				RelativePath="..\..\..\scribus\ui\smtablestylewidget.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -8071,14 +8071,14 @@
 				RelativePath="..\..\..\scribus\ui\smtabruler.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -8089,14 +8089,14 @@
 				RelativePath="..\..\..\scribus\ui\smtextstyles.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -8107,14 +8107,14 @@
 				RelativePath="..\..\..\scribus\ui\spalette.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -8129,14 +8129,14 @@
 				RelativePath="..\..\..\scribus\ui\spiralvectordialog.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -8147,14 +8147,14 @@
 				RelativePath="..\..\..\scribus\ui\spiralwidget.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -8169,14 +8169,14 @@
 				RelativePath="..\..\..\scribus\ui\storyeditor.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -8187,14 +8187,14 @@
 				RelativePath="..\..\..\scribus\text\storytext.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -8217,14 +8217,14 @@
 				RelativePath="..\..\..\scribus\styleitem.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -8235,14 +8235,14 @@
 				RelativePath="..\..\..\scribus\ui\stylemanager.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -8253,14 +8253,14 @@
 				RelativePath="..\..\..\scribus\ui\styleselect.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -8275,14 +8275,14 @@
 				RelativePath="..\..\..\scribus\ui\styleview.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -8293,14 +8293,14 @@
 				RelativePath="..\..\..\scribus\ui\swatchcombo.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -8311,14 +8311,14 @@
 				RelativePath="..\..\..\scribus\ui\symbolpalette.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -8337,14 +8337,14 @@
 				RelativePath="..\..\..\scribus\ui\tablecolumnwidthsdialog.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -8363,14 +8363,14 @@
 				RelativePath="..\..\..\scribus\ui\tablerowheightsdialog.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -8381,14 +8381,14 @@
 				RelativePath="..\..\..\scribus\ui\tablesideselector.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -8407,14 +8407,14 @@
 				RelativePath="..\..\..\scribus\ui\tabmanager.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -8425,14 +8425,14 @@
 				RelativePath="..\..\..\scribus\ui\tabpdfoptions.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -8443,14 +8443,14 @@
 				RelativePath="..\..\..\scribus\ui\tabruler.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -8465,14 +8465,14 @@
 				RelativePath="..\..\..\scribus\tocgenerator.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -8487,14 +8487,14 @@
 				RelativePath="..\..\..\scribus\ui\transformdialog.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -8505,14 +8505,14 @@
 				RelativePath="..\..\..\scribus\ui\transparencypalette.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -8527,14 +8527,14 @@
 				RelativePath="..\..\..\scribus\tt\simpletreemodel\treemodel.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -8545,14 +8545,14 @@
 				RelativePath="..\..\..\scribus\undogui.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -8563,14 +8563,14 @@
 				RelativePath="..\..\..\scribus\undomanager.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -8593,14 +8593,14 @@
 				RelativePath="..\..\..\scribus\ui\unicodesearch.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -8623,14 +8623,14 @@
 				RelativePath="..\..\..\scribus\upgradechecker.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -8641,14 +8641,14 @@
 				RelativePath="..\..\..\scribus\urllauncher.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -8659,14 +8659,14 @@
 				RelativePath="..\..\..\scribus\ui\useprintermarginsdialog.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -8729,14 +8729,14 @@
 				RelativePath="..\..\..\scribus\ui\vruler.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -8747,14 +8747,14 @@
 				RelativePath="..\..\..\scribus\ui\weldedit.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"

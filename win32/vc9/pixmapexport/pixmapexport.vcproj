@@ -20,9 +20,9 @@
 	</ToolFiles>
 	<Configurations>
 		<Configuration
-			Name="Debug-cairo|Win32"
-			OutputDirectory="..\..\..\..\Scribus-builds\Scribus-vc9-$(ConfigurationName)\scribus\plugins"
-			IntermediateDirectory="..\..\..\..\Scribus-builds\Build-objs-vc9\$(ConfigurationName)\$(TargetName)"
+			Name="Debug|Win32"
+			OutputDirectory="..\..\..\..\Scribus-builds\Scribus-$(ConfigurationName)-$(PlatformName)-vc9\scribus\plugins"
+			IntermediateDirectory="..\..\..\..\Scribus-builds\Build-objs\$(ConfigurationName)-$(PlatformName)-vc9\$(TargetName)"
 			ConfigurationType="2"
 			InheritedPropertySheets="..\Scribus-build-props.vsprops"
 			CharacterSet="1"
@@ -115,9 +115,9 @@
 			/>
 		</Configuration>
 		<Configuration
-			Name="Release-cairo|Win32"
-			OutputDirectory="..\..\..\..\Scribus-builds\Scribus-vc9-$(ConfigurationName)\scribus\plugins"
-			IntermediateDirectory="..\..\..\..\Scribus-builds\Build-objs-vc9\$(ConfigurationName)\$(TargetName)"
+			Name="Release|Win32"
+			OutputDirectory="..\..\..\..\Scribus-builds\Scribus-$(ConfigurationName)-$(PlatformName)-vc9\scribus\plugins"
+			IntermediateDirectory="..\..\..\..\Scribus-builds\Build-objs\$(ConfigurationName)-$(PlatformName)-vc9\$(TargetName)"
 			ConfigurationType="2"
 			InheritedPropertySheets="..\Scribus-build-props.vsprops"
 			CharacterSet="1"
@@ -242,14 +242,14 @@
 				RelativePath="..\..\..\scribus\plugins\pixmapexport\dialog.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"
@@ -260,14 +260,14 @@
 				RelativePath="..\..\..\scribus\plugins\pixmapexport\export.h"
 				>
 				<FileConfiguration
-					Name="Debug-cairo|Win32"
+					Name="Debug|Win32"
 					>
 					<Tool
 						Name="moc"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-cairo|Win32"
+					Name="Release|Win32"
 					>
 					<Tool
 						Name="moc"

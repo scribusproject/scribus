@@ -6,15 +6,15 @@
 	>
 	<UserMacro
 		Name="QT4_DIR"
-		Value="F:\Libraries-vc9\qt-4.8.2"
+		Value="F:\Libraries-vc9\qt-4.8.5"
 	/>
 	<UserMacro
 		Name="BOOST_DIR"
-		Value="F:\Libraries-vc9\boost-1.35.0"
+		Value="F:\Libraries-vc9\boost-1.51.0"
 	/>
 	<UserMacro
 		Name="CAIRO_DIR"
-		Value="F:\Libraries-vc9\cairo-1.12.2"
+		Value="F:\Libraries-vc9\cairo-1.12.14"
 	/>
 	<UserMacro
 		Name="CAIRO_DEBUG_LIB"
@@ -26,7 +26,7 @@
 	/>
 	<UserMacro
 		Name="FREETYPE_DIR"
-		Value="F:\Libraries-vc9\freetype-2.4.9"
+		Value="F:\Libraries-vc9\freetype-2.4.12"
 	/>
 	<UserMacro
 		Name="FREETYPE_DEBUG_LIB"
@@ -50,7 +50,7 @@
 	/>
 	<UserMacro
 		Name="ICONV_DIR"
-		Value="F:\Libraries-vc9\iconv-1.9.2"
+		Value="F:\Libraries-vc9\iconv-1.14"
 	/>
 	<UserMacro
 		Name="LCMS_DIR"
@@ -66,31 +66,31 @@
 	/>
 	<UserMacro
 		Name="LIBJPEG_DIR"
-		Value="F:\Libraries-vc9\libjpeg-6b-3"
+		Value="F:\Libraries-vc9\libjpeg-8d"
 	/>
 	<UserMacro
 		Name="LIBJPEG_DEBUG_LIB"
-		Value="libjpeg.a"
+		Value="jpeg8d_d.lib"
 	/>
 	<UserMacro
 		Name="LIBJPEG_RELEASE_LIB"
-		Value="libjpeg.a"
+		Value="jpeg8d.lib"
 	/>
 	<UserMacro
 		Name="LIBTIFF_DIR"
-		Value="F:\Libraries-vc9\libtiff-3.8.2"
+		Value="F:\Libraries-vc9\libtiff-3.9.7"
 	/>
 	<UserMacro
 		Name="LIBTIFF_DEBUG_LIB"
-		Value="libtiff.lib"
+		Value="libtiff3_d.lib"
 	/>
 	<UserMacro
 		Name="LIBTIFF_RELEASE_LIB"
-		Value="libtiff.lib"
+		Value="libtiff3.lib"
 	/>
 	<UserMacro
 		Name="PIXMAN_DIR"
-		Value="F:\Libraries-vc9\pixman-0.24.4"
+		Value="F:\Libraries-vc9\pixman-0.30.0"
 	/>
 	<UserMacro
 		Name="PIXMAN_DEBUG_LIB"
@@ -102,7 +102,7 @@
 	/>
 	<UserMacro
 		Name="PODOFO_DIR"
-		Value="F:\Libraries-vc9\podofo-0.9.1"
+		Value="F:\Libraries-vc9\podofo-0.9.2"
 	/>
 	<UserMacro
 		Name="PODOFO_DEBUG_LIB"
@@ -114,31 +114,19 @@
 	/>
 	<UserMacro
 		Name="LIBXML2_DIR"
-		Value="F:\Libraries-vc9\libxml2-2.6.32+"
+		Value="F:\Libraries-vc9\libxml2-2.9.1"
 	/>
 	<UserMacro
 		Name="LIBXML2_DEBUG_LIB"
-		Value="libxml2.lib"
+		Value="libxml2_d.lib"
 	/>
 	<UserMacro
 		Name="LIBXML2_RELEASE_LIB"
 		Value="libxml2.lib"
 	/>
 	<UserMacro
-		Name="PYTHON_DIR"
-		Value="F:\Libraries-vc9\Python-2.7.1"
-	/>
-	<UserMacro
-		Name="PYTHON_DEBUG_LIB"
-		Value="python27_d.lib"
-	/>
-	<UserMacro
-		Name="PYTHON_RELEASE_LIB"
-		Value="python27.lib"
-	/>
-	<UserMacro
 		Name="POPPLER_DIR"
-		Value="F:\Libraries-vc9\poppler-0.18.4"
+		Value="F:\Libraries-vc9\poppler-0.22.5"
 	/>
 	<UserMacro
 		Name="POPPLER_DEBUG_LIB"
@@ -147,5 +135,17 @@
 	<UserMacro
 		Name="POPPLER_RELEASE_LIB"
 		Value="poppler_static.lib"
+	/>
+	<UserMacro
+		Name="PYTHON_DIR"
+		Value="F:\Libraries-vc9\Python-2.7.5"
+	/>
+	<UserMacro
+		Name="PYTHON_DEBUG_LIB"
+		Value="python27_d.lib"
+	/>
+	<UserMacro
+		Name="PYTHON_RELEASE_LIB"
+		Value="python27.lib"
 	/>
 </VisualStudioPropertySheet>
