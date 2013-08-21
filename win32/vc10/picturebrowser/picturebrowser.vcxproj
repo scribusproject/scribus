@@ -1,0 +1,171 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{5E658CA4-FCD1-43D0-97F3-28859E385F34}</ProjectGuid>
+    <RootNamespace>picturebrowser</RootNamespace>
+    <Keyword>Win32Proj</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <PlatformToolset>v100</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <PlatformToolset>v100</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+    <Import Project="..\Scribus-build-rules.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\Scribus-build-props.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\Scribus-build-props.props" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>11.0.60610.1</_ProjectFileVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>..\..\..\..\Scribus-builds\Scribus-$(Configuration)-$(Platform)-$(PlatformToolset)\scribus\plugins\</OutDir>
+    <IntDir>..\..\..\..\Scribus-builds\Build-objs\$(Configuration)-$(Platform)-$(PlatformToolset)\$(TargetName)\</IntDir>
+    <LinkIncremental>true</LinkIncremental>
+    <TargetName>picturebrowser</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>..\..\..\..\Scribus-builds\Scribus-$(Configuration)-$(Platform)-$(PlatformToolset)\scribus\plugins\</OutDir>
+    <IntDir>..\..\..\..\Scribus-builds\Build-objs\$(Configuration)-$(Platform)-$(PlatformToolset)\$(TargetName)\</IntDir>
+    <LinkIncremental>false</LinkIncremental>
+    <TargetName>picturebrowser</TargetName>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>..;..\..\..\scribus;..\..\..\scribus\ui;$(QT5_DIR)\include\QtANGLE;$(QT5_DIR)\include\QtCore;$(QT5_DIR)\include\QtGui;$(QT5_DIR)\include\QtWidgets;$(QT5_DIR)\include\QtXml;$(QT5_DIR)\include;$(LCMS_DIR)\include;$(CAIRO_DIR)\include;$(FREETYPE_DIR)\include;$(LIBJPEG_DIR)\include;$(LIBTIFF_DIR)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_USE_MATH_DEFINES;_USRDLL;_WINDOWS;QT_EDITION=QT_EDITION_DESKTOP;QT_DLL;QT_GUI_LIB;QT_CORE_LIB;QT_THREAD_SUPPORT;USE_QT5;COMPILE_PLUGIN_AS_DLL;AVOID_WIN32_FILEIO;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>true</MinimalRebuild>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>plugins_pch.h</PrecompiledHeaderFile>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <DisableSpecificWarnings>4190;4251;4267;4996;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <ForcedIncludeFiles>plugins_pch.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>Qt5Cored.lib;Qt5Guid.lib;Qt5Widgetsd.lib;Qt5Xmld.lib;$(FREETYPE_DEBUG_LIB);$(LIBJPEG_DEBUG_LIB);$(LIBTIFF_DEBUG_LIB);$(LCMS_DEBUG_LIB);scribus-api.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(LCMS_DIR)\lib;$(FREETYPE_DIR)\lib;$(LIBJPEG_DIR)\lib;$(LIBTIFF_DIR)\lib;$(QT5_DIR)\lib;$(OutDir)..;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <ProgramDatabaseFile>$(OutDir)picturebrowser.pdb</ProgramDatabaseFile>
+      <SubSystem>Windows</SubSystem>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <DataExecutionPrevention />
+      <ImportLibrary>$(OutDir)picturebrowser.lib</ImportLibrary>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <Optimization>MinSpace</Optimization>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <OmitFramePointers>true</OmitFramePointers>
+      <AdditionalIncludeDirectories>..;..\..\..\scribus;..\..\..\scribus\ui;$(QT5_DIR)\include\QtANGLE;$(QT5_DIR)\include\QtCore;$(QT5_DIR)\include\QtGui;$(QT5_DIR)\include\QtWidgets;$(QT5_DIR)\include\QtXml;$(QT5_DIR)\include;$(LCMS_DIR)\include;$(CAIRO_DIR)\include;$(FREETYPE_DIR)\include;$(LIBJPEG_DIR)\include;$(LIBTIFF_DIR)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_USE_MATH_DEFINES;_USRDLL;_WINDOWS;QT_EDITION=QT_EDITION_DESKTOP;QT_DLL;QT_GUI_LIB;QT_CORE_LIB;QT_THREAD_SUPPORT;USE_QT5;COMPILE_PLUGIN_AS_DLL;AVOID_WIN32_FILEIO;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <StringPooling>true</StringPooling>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>plugins_pch.h</PrecompiledHeaderFile>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <DisableSpecificWarnings>4190;4251;4267;4996;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <ForcedIncludeFiles>plugins_pch.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>Qt5Core.lib;Qt5Gui.lib;Qt5Widgets.lib;Qt5Xml.lib;$(FREETYPE_RELEASE_LIB);$(LIBJPEG_RELEASE_LIB);$(LIBTIFF_RELEASE_LIB);$(LCMS_RELEASE_LIB);scribus-api.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(LCMS_DIR)\lib;$(FREETYPE_DIR)\lib;$(LIBJPEG_DIR)\lib;$(LIBTIFF_DIR)\lib;$(QT5_DIR)\lib;$(OutDir)..;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <ProgramDatabaseFile>$(OutDir)picturebrowser.pdb</ProgramDatabaseFile>
+      <SubSystem>Windows</SubSystem>
+      <OptimizeReferences>true</OptimizeReferences>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <DataExecutionPrevention />
+      <ImportLibrary>$(OutDir)picturebrowser.lib</ImportLibrary>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\scribus\plugins\picbrowser\collection.cpp" />
+    <ClCompile Include="..\..\..\scribus\plugins\picbrowser\findimage.cpp" />
+    <ClCompile Include="..\..\..\scribus\plugins\picbrowser\imagedialog.cpp" />
+    <ClCompile Include="..\..\..\scribus\plugins\picbrowser\iview.cpp" />
+    <ClCompile Include="..\..\..\scribus\plugins\picbrowser\loadimage.cpp" />
+    <ClCompile Include="..\..\..\scribus\plugins\picbrowser\multicombobox.cpp" />
+    <ClCompile Include="..\..\..\scribus\plugins\picbrowser\picturebrowser.cpp" />
+    <ClCompile Include="picturebrowserdll.cpp" />
+    <ClCompile Include="..\..\..\scribus\plugins\picbrowser\picturebrowserplugin.cpp" />
+    <ClCompile Include="..\..\..\scribus\plugins\picbrowser\pictview.cpp" />
+    <ClCompile Include="..\..\..\scribus\plugins\plugins_pch.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\plugins\picbrowser\previewimage.cpp" />
+    <ClCompile Include="..\..\..\scribus\plugins\picbrowser\moc_collection.cpp" />
+    <ClCompile Include="..\..\..\scribus\plugins\picbrowser\moc_findimage.cpp" />
+    <ClCompile Include="..\..\..\scribus\plugins\picbrowser\moc_imagedialog.cpp" />
+    <ClCompile Include="..\..\..\scribus\plugins\picbrowser\moc_loadimage.cpp" />
+    <ClCompile Include="..\..\..\scribus\plugins\picbrowser\moc_multicombobox.cpp" />
+    <ClCompile Include="..\..\..\scribus\plugins\picbrowser\moc_picturebrowser.cpp" />
+    <ClCompile Include="..\..\..\scribus\plugins\picbrowser\moc_picturebrowserplugin.cpp" />
+    <ClCompile Include="..\..\..\scribus\plugins\picbrowser\moc_previewimage.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <moc Include="..\..\..\scribus\plugins\picbrowser\collection.h" />
+    <moc Include="..\..\..\scribus\plugins\picbrowser\findimage.h" />
+    <moc Include="..\..\..\scribus\plugins\picbrowser\imagedialog.h" />
+    <ClInclude Include="..\..\..\scribus\plugins\picbrowser\iview.h" />
+    <moc Include="..\..\..\scribus\plugins\picbrowser\loadimage.h" />
+    <moc Include="..\..\..\scribus\plugins\picbrowser\multicombobox.h" />
+    <moc Include="..\..\..\scribus\plugins\picbrowser\picturebrowser.h" />
+    <moc Include="..\..\..\scribus\plugins\picbrowser\picturebrowserplugin.h" />
+    <ClInclude Include="..\..\..\scribus\plugins\picbrowser\pictview.h" />
+    <ClInclude Include="..\..\..\scribus\plugins\plugins_pch.h" />
+    <moc Include="..\..\..\scribus\plugins\picbrowser\previewimage.h" />
+    <ClInclude Include="..\..\..\scribus\plugins\picbrowser\ui_imagedialog.h" />
+    <ClInclude Include="..\..\..\scribus\plugins\picbrowser\ui_picturebrowser.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <uic Include="..\..\..\scribus\plugins\picbrowser\imagedialog.ui" />
+    <uic Include="..\..\..\scribus\plugins\picbrowser\picturebrowser.ui" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\scribus-main\Scribus.vcxproj">
+      <Project>{b17fcd80-7978-4544-93c4-2fe1ac6fe9f3}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+    <Import Project="..\Scribus-build-rules.targets" />
+  </ImportGroup>
+</Project>

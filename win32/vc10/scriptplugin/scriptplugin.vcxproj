@@ -1,0 +1,208 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{A1C9766A-07E2-4105-A5D9-3AA74B2A220F}</ProjectGuid>
+    <RootNamespace>scriptplugin</RootNamespace>
+    <Keyword>Win32Proj</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <PlatformToolset>v100</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <PlatformToolset>v100</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+    <Import Project="..\Scribus-build-rules.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\Scribus-build-props.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\Scribus-build-props.props" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>11.0.60610.1</_ProjectFileVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>..\..\..\..\Scribus-builds\Scribus-$(Configuration)-$(Platform)-$(PlatformToolset)\scribus\plugins\</OutDir>
+    <IntDir>..\..\..\..\Scribus-builds\Build-objs\$(Configuration)-$(Platform)-$(PlatformToolset)\$(TargetName)\</IntDir>
+    <LinkIncremental>true</LinkIncremental>
+    <TargetName>scriptplugin</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>..\..\..\..\Scribus-builds\Scribus-$(Configuration)-$(Platform)-$(PlatformToolset)\scribus\plugins\</OutDir>
+    <IntDir>..\..\..\..\Scribus-builds\Build-objs\$(Configuration)-$(Platform)-$(PlatformToolset)\$(TargetName)\</IntDir>
+    <LinkIncremental>false</LinkIncremental>
+    <TargetName>scriptplugin</TargetName>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>..;..\..\..\scribus;..\..\..\scribus\ui;$(QT5_DIR)\include\QtANGLE;$(QT5_DIR)\include\QtCore;$(QT5_DIR)\include\QtGui;$(QT5_DIR)\include\QtWidgets;$(QT5_DIR)\include\QtWebKit;$(QT5_DIR)\include\QtWebKitWidgets;$(QT5_DIR)\include\QtXml;$(QT5_DIR)\include;$(LCMS_DIR)\include;$(CAIRO_DIR)\include;$(FREETYPE_DIR)\include;$(LIBJPEG_DIR)\include;$(LIBTIFF_DIR)\include;$(PYTHON_DIR)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_USE_MATH_DEFINES;_USRDLL;_WINDOWS;QT_EDITION=QT_EDITION_DESKTOP;QT_DLL;QT_GUI_LIB;QT_CORE_LIB;QT_THREAD_SUPPORT;USE_QT5;COMPILE_PLUGIN_AS_DLL;AVOID_WIN32_FILEIO;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>true</MinimalRebuild>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>plugins_pch.h</PrecompiledHeaderFile>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <DisableSpecificWarnings>4005;4138;4190;4251;4267;4996;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <ForcedIncludeFiles>plugins_pch.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>Qt5Cored.lib;Qt5Guid.lib;Qt5Webkitd.lib;Qt5Widgetsd.lib;Qt5Xmld.lib;$(FREETYPE_DEBUG_LIB);$(LIBJPEG_DEBUG_LIB);$(LIBTIFF_DEBUG_LIB);$(LCMS_DEBUG_LIB);$(PYTHON_DEBUG_LIB);scribus-api.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(LCMS_DIR)\lib;$(FREETYPE_DIR)\lib;$(LIBJPEG_DIR)\lib;$(LIBTIFF_DIR)\lib;$(PYTHON_DIR)\libs;$(QT5_DIR)\lib;$(OutDir)..;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <ProgramDatabaseFile>$(OutDir)scriptplugin.pdb</ProgramDatabaseFile>
+      <SubSystem>Windows</SubSystem>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <DataExecutionPrevention />
+      <ImportLibrary>$(OutDir)scriptplugin.lib</ImportLibrary>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <Optimization>MinSpace</Optimization>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <OmitFramePointers>true</OmitFramePointers>
+      <AdditionalIncludeDirectories>..;..\..\..\scribus;..\..\..\scribus\ui;$(QT5_DIR)\include\QtANGLE;$(QT5_DIR)\include\QtCore;$(QT5_DIR)\include\QtGui;$(QT5_DIR)\include\QtWidgets;$(QT5_DIR)\include\QtWebKit;$(QT5_DIR)\include\QtWebKitWidgets;$(QT5_DIR)\include\QtXml;$(QT5_DIR)\include;$(LCMS_DIR)\include;$(CAIRO_DIR)\include;$(FREETYPE_DIR)\include;$(LIBJPEG_DIR)\include;$(LIBTIFF_DIR)\include;$(PYTHON_DIR)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_USE_MATH_DEFINES;_USRDLL;_WINDOWS;QT_EDITION=QT_EDITION_DESKTOP;QT_DLL;QT_GUI_LIB;QT_CORE_LIB;QT_THREAD_SUPPORT;USE_QT5;COMPILE_PLUGIN_AS_DLL;AVOID_WIN32_FILEIO;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <StringPooling>true</StringPooling>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>plugins_pch.h</PrecompiledHeaderFile>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <DisableSpecificWarnings>4005;4138;4190;4251;4267;4996;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <ForcedIncludeFiles>plugins_pch.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>Qt5Core.lib;Qt5Gui.lib;Qt5Webkit.lib;Qt5Widgets.lib;Qt5Xml.lib;$(FREETYPE_RELEASE_LIB);$(LIBJPEG_RELEASE_LIB);$(LIBTIFF_RELEASE_LIB);$(LCMS_RELEASE_LIB);$(PYTHON_RELEASE_LIB);scribus-api.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(LCMS_DIR)\lib;$(FREETYPE_DIR)\lib;$(LIBJPEG_DIR)\lib;$(LIBTIFF_DIR)\lib;$(PYTHON_DIR)\libs;$(QT5_DIR)\lib;$(OutDir)..;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <ProgramDatabaseFile>$(OutDir)scriptplugin.pdb</ProgramDatabaseFile>
+      <SubSystem>Windows</SubSystem>
+      <OptimizeReferences>true</OptimizeReferences>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <DataExecutionPrevention />
+      <ImportLibrary>$(OutDir)scriptplugin.lib</ImportLibrary>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\scribus\plugins\scriptplugin\cmdcell.cpp" />
+    <ClCompile Include="..\..\..\scribus\plugins\scriptplugin\cmdcolor.cpp" />
+    <ClCompile Include="..\..\..\scribus\plugins\scriptplugin\cmddialog.cpp" />
+    <ClCompile Include="..\..\..\scribus\plugins\scriptplugin\cmddoc.cpp" />
+    <ClCompile Include="..\..\..\scribus\plugins\scriptplugin\cmdgetprop.cpp" />
+    <ClCompile Include="..\..\..\scribus\plugins\scriptplugin\cmdgetsetprop.cpp" />
+    <ClCompile Include="..\..\..\scribus\plugins\scriptplugin\cmdmani.cpp" />
+    <ClCompile Include="..\..\..\scribus\plugins\scriptplugin\cmdmisc.cpp" />
+    <ClCompile Include="..\..\..\scribus\plugins\scriptplugin\cmdobj.cpp" />
+    <ClCompile Include="..\..\..\scribus\plugins\scriptplugin\cmdpage.cpp" />
+    <ClCompile Include="..\..\..\scribus\plugins\scriptplugin\cmdsetprop.cpp" />
+    <ClCompile Include="..\..\..\scribus\plugins\scriptplugin\cmdstyle.cpp" />
+    <ClCompile Include="..\..\..\scribus\plugins\scriptplugin\cmdtable.cpp" />
+    <ClCompile Include="..\..\..\scribus\plugins\scriptplugin\cmdtext.cpp" />
+    <ClCompile Include="..\..\..\scribus\plugins\scriptplugin\cmdutil.cpp" />
+    <ClCompile Include="..\..\..\scribus\plugins\scriptplugin\guiapp.cpp" />
+    <ClCompile Include="..\..\..\scribus\plugins\scriptplugin\objimageexport.cpp" />
+    <ClCompile Include="..\..\..\scribus\plugins\scriptplugin\objpdffile.cpp" />
+    <ClCompile Include="..\..\..\scribus\plugins\scriptplugin\objprinter.cpp" />
+    <ClCompile Include="..\..\..\scribus\plugins\scriptplugin\pconsole.cpp" />
+    <ClCompile Include="..\..\..\scribus\plugins\plugins_pch.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">plugins_pch.h</PrecompiledHeaderFile>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">plugins_pch.h</PrecompiledHeaderFile>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\plugins\scriptplugin\prefs_scripter.cpp" />
+    <ClCompile Include="..\..\..\scribus\plugins\scriptplugin\runscriptdialog.cpp" />
+    <ClCompile Include="..\..\..\scribus\plugins\scriptplugin\scriptercore.cpp" />
+    <ClCompile Include="..\..\..\scribus\plugins\scriptplugin\scripterprefsgui.cpp" />
+    <ClCompile Include="..\..\..\scribus\plugins\scriptplugin\scriptplugin.cpp" />
+    <ClCompile Include="scriptplugindll.cpp" />
+    <ClCompile Include="..\..\..\scribus\plugins\scriptplugin\svgimport.cpp" />
+    <ClCompile Include="..\..\..\scribus\plugins\scriptplugin\moc_pconsole.cpp" />
+    <ClCompile Include="..\..\..\scribus\plugins\scriptplugin\moc_prefs_scripter.cpp" />
+    <ClCompile Include="..\..\..\scribus\plugins\scriptplugin\moc_runscriptdialog.cpp" />
+    <ClCompile Include="..\..\..\scribus\plugins\scriptplugin\moc_scriptercore.cpp" />
+    <ClCompile Include="..\..\..\scribus\plugins\scriptplugin\moc_scripterprefsgui.cpp" />
+    <ClCompile Include="..\..\..\scribus\plugins\scriptplugin\moc_scriptplugin.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\scribus\plugins\scriptplugin\cmdcell.h" />
+    <ClInclude Include="..\..\..\scribus\plugins\scriptplugin\cmdcolor.h" />
+    <ClInclude Include="..\..\..\scribus\plugins\scriptplugin\cmddialog.h" />
+    <ClInclude Include="..\..\..\scribus\plugins\scriptplugin\cmddoc.h" />
+    <ClInclude Include="..\..\..\scribus\plugins\scriptplugin\cmdgetprop.h" />
+    <ClInclude Include="..\..\..\scribus\plugins\scriptplugin\cmdgetsetprop.h" />
+    <ClInclude Include="..\..\..\scribus\plugins\scriptplugin\cmdmani.h" />
+    <ClInclude Include="..\..\..\scribus\plugins\scriptplugin\cmdmisc.h" />
+    <ClInclude Include="..\..\..\scribus\plugins\scriptplugin\cmdobj.h" />
+    <ClInclude Include="..\..\..\scribus\plugins\scriptplugin\cmdpage.h" />
+    <ClInclude Include="..\..\..\scribus\plugins\scriptplugin\cmdsetprop.h" />
+    <ClInclude Include="..\..\..\scribus\plugins\scriptplugin\cmdstyle.h" />
+    <ClInclude Include="..\..\..\scribus\plugins\scriptplugin\cmdtable.h" />
+    <ClInclude Include="..\..\..\scribus\plugins\scriptplugin\cmdtext.h" />
+    <ClInclude Include="..\..\..\scribus\plugins\scriptplugin\cmdutil.h" />
+    <ClInclude Include="..\..\..\scribus\plugins\scriptplugin\cmdvar.h" />
+    <ClInclude Include="..\..\..\scribus\plugins\scriptplugin\guiapp.h" />
+    <ClInclude Include="..\..\..\scribus\plugins\scriptplugin\objimageexport.h" />
+    <ClInclude Include="..\..\..\scribus\plugins\scriptplugin\objpdffile.h" />
+    <ClInclude Include="..\..\..\scribus\plugins\scriptplugin\objprinter.h" />
+    <moc Include="..\..\..\scribus\plugins\scriptplugin\pconsole.h" />
+    <ClInclude Include="..\..\..\scribus\plugins\plugins_pch.h" />
+    <moc Include="..\..\..\scribus\plugins\scriptplugin\prefs_scripter.h" />
+    <moc Include="..\..\..\scribus\plugins\scriptplugin\runscriptdialog.h" />
+    <moc Include="..\..\..\scribus\plugins\scriptplugin\scriptercore.h" />
+    <moc Include="..\..\..\scribus\plugins\scriptplugin\scripterprefsgui.h" />
+    <moc Include="..\..\..\scribus\plugins\scriptplugin\scriptplugin.h" />
+    <ClInclude Include="..\..\..\scribus\plugins\scriptplugin\svgimport.h" />
+    <ClInclude Include="..\..\..\scribus\plugins\scriptplugin\ui_pconsole.h" />
+    <ClInclude Include="..\..\..\scribus\plugins\scriptplugin\ui_prefs_scripterbase.h" />
+    <ClInclude Include="..\..\..\scribus\plugins\scriptplugin\ui_runscriptdialog.h" />
+    <ClInclude Include="..\..\..\scribus\plugins\scriptplugin\ui_scripterprefsgui.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <uic Include="..\..\..\scribus\plugins\scriptplugin\pconsole.ui" />
+    <uic Include="..\..\..\scribus\plugins\scriptplugin\prefs_scripterbase.ui" />
+    <uic Include="..\..\..\scribus\plugins\scriptplugin\runscriptdialog.ui" />
+    <uic Include="..\..\..\scribus\plugins\scriptplugin\scripterprefsgui.ui" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\scribus-main\Scribus.vcxproj">
+      <Project>{b17fcd80-7978-4544-93c4-2fe1ac6fe9f3}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+    <Import Project="..\Scribus-build-rules.targets" />
+  </ImportGroup>
+</Project>
