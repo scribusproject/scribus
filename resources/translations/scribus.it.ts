@@ -9988,7 +9988,7 @@ Configurazione non valida</translation>
     <message>
         <location filename="../../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="34"/>
         <source>Incl&amp;ude Checksum Digit</source>
-        <translation>Incl&amp;udi cifra controllo</translation>
+        <translation>Incl&amp;udi cifra di controllo</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="47"/>
@@ -14886,7 +14886,7 @@ Usa 72 dpi per immagini da visualizzare su schermo</translation>
     <message>
         <location filename="../../../scribus/fileloader.cpp" line="445"/>
         <source> was replaced by: </source>
-        <translation> è stato sostituito da:</translation>
+        <translation> è stato sostituito da: </translation>
     </message>
 </context>
 <context>
@@ -22004,7 +22004,7 @@ Spesso utilizzato per permettere il posizionamento degli oggetti sulle pagine af
     <message>
         <location filename="../../../scribus/ui/pagepalette_pages.cpp" line="404"/>
         <source>Drag pages or master pages onto the trash to delete them</source>
-        <translation>Per eliminare le pagine normali o le mastro, trascinarle nel cestino</translation>
+        <translation>Per eliminare le pagine normali o mastro, trascinale nel cestino</translation>
     </message>
 </context>
 <context>
@@ -41512,7 +41512,7 @@ Rotazione: %4</translation>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="4203"/>
         <source> was replaced by: </source>
-        <translation>è stato sostituito da:</translation>
+        <translation>è stato sostituito da: </translation>
     </message>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="4235"/>
