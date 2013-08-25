@@ -308,7 +308,7 @@ FT_Error ftIOFunc( FT_Stream stream, unsigned long pos, unsigned char* buffer, u
 
 bool FtFace::glyphNames(QMap<uint, std::pair<QChar, QString> >& GList) const
 {
-	return GlyNames(ftFace(), GList);
+	return GlyphNames(*this, GList);
 }
 
 

@@ -15,6 +15,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "fpoint.h"
 #include "fpointarray.h"
+#include "ftface.h"
 #include "scfontmetrics.h"
 #include "scfonts.h"
 #include "scpage.h"
@@ -22,7 +23,6 @@ for which a new license (GPL+exception) is in place.
 #include "scribusdoc.h"
 #include "style.h"
 #include "util_math.h"
-
 
 // this code contains a set of font related functions
 // that don't really fit within ScFonts.
@@ -321,93 +321,72 @@ QPixmap FontSample(const ScFace& fnt, int s, QString ts, QColor back, bool force
 	return pmr;
 }
 
-/** Same as FontSample() with \n strings support added.
-09/26/2004 petr vanek
-
-QPixmap fontSamples(ScFace * fnt, int s, QString ts, QColor back)
-{
-	QStringList lines = QStringList::split("\n", ts);
-	QPixmap ret(640, 480);
-	QPixmap sample;
-	QPainter *painter = new QPainter(&ret);
-	int y = 0;
-	int x = 0;
-	ret.fill(back);
-	for ( QStringList::Iterator it = lines.begin(); it != lines.end(); ++it )
-	{
-		sample = FontSample(fnt, s, *it, back);
-		if (!sample.isNull())
-			painter->drawPixmap(0, y, sample, 0, 0);
-		y = y + sample.height();
-		if (x < sample.width())
-			x = sample.width();
-	} // for
-	delete(painter);
-	QPixmap final(x, y);
-	if ((x != 0) && (y != 0))
-	{
-		QPainter *fpainter = new QPainter(&final);
-		fpainter->drawPixmap(0, 0, ret, 0, 0, x, y);
-		delete(fpainter);
-	}
-	return final;
-}
-*/
-
-bool GlyNames(FT_Face face, QMap<uint, std::pair<QChar, QString> >& GList)
+bool GlyphNames(const FtFace& fnt, QMap<uint, std::pair<QChar, QString> >& GList)
 {
 	char buf[50];
 	FT_ULong  charcode;
-	FT_UInt gindex;
-	setBestEncoding(face);
-	gindex = 0;
-	charcode = FT_Get_First_Char(face, &gindex );
-	const bool hasPSNames = FT_HAS_GLYPH_NAMES(face);
+	FT_UInt gindex = 0;
+
+	FT_Face face = fnt.ftFace();
+	if (!face)
+		return false;
+
 	if (adobeGlyphNames.empty())
 		readAdobeGlyphNames();
+	
+	// The glyph name table embedded in Truetype fonts is not reliable.
+	// For those fonts we consequently use Adobe Glyph names whenever possible.
+	const bool avoidFntNames = (fnt.formatCode != ScFace::TYPE42 && fnt.typeCode == ScFace::TTF) &&
+	                           (face->charmap && face->charmap->encoding == FT_ENCODING_UNICODE);
+	const bool hasPSNames = FT_HAS_GLYPH_NAMES(face);
+	
 //	qDebug() << "reading metrics for" << face->family_name << face->style_name;
+	charcode = FT_Get_First_Char(face, &gindex );
 	while (gindex != 0)
 	{
 		bool notfound = true;
-		if (hasPSNames)
+		if (hasPSNames && !avoidFntNames)
 			notfound = FT_Get_Glyph_Name(face, gindex, &buf, 50);
 
 		// just in case FT gives empty string or ".notdef"
 		// no valid glyphname except ".notdef" starts with '.'		
 //		qDebug() << "\t" << gindex << " '" << charcode << "' --> '" << (notfound? "notfound" : buf) << "'";
 		if (notfound || buf[0] == '\0' || buf[0] == '.')
-			GList.insert(gindex, std::make_pair(QChar(static_cast<uint>(charcode)),adobeGlyphName(charcode)));
+			GList.insert(gindex, std::make_pair(QChar(static_cast<uint>(charcode)), adobeGlyphName(charcode)));
 		else
-			GList.insert(gindex, std::make_pair(QChar(static_cast<uint>(charcode)),QString(reinterpret_cast<char*>(buf))));
+			GList.insert(gindex, std::make_pair(QChar(static_cast<uint>(charcode)), QString(reinterpret_cast<char*>(buf))));
 			
 		charcode = FT_Get_Next_Char(face, charcode, &gindex );
 	}
+
+	if (!hasPSNames)
+		return true;
+
 	// Let's see if we can find some more...
 	int maxSlot1 = face->num_glyphs;
-	if (hasPSNames)
-		for (int gindex = 1; gindex < maxSlot1; ++gindex)
+	for (int gindex = 1; gindex < maxSlot1; ++gindex)
+	{
+		if (GList.contains(gindex))
+			continue;
+		if (FT_Get_Glyph_Name(face, gindex, &buf, 50))
+			continue;
+		QString glyphname(reinterpret_cast<char*>(buf));
+		if (avoidFntNames && buf[0] != '.' && buf[0] != '\0')
+			glyphname = adobeGlyphName(charcode);
+
+		charcode = 0;
+		QMap<uint,std::pair<QChar,QString> >::Iterator gli;
+		for (gli = GList.begin(); gli != GList.end(); ++gli)
 		{
-			if (!GList.contains(gindex))
+			if (glyphname == gli.value().second)
 			{
-				bool found = ! FT_Get_Glyph_Name(face, gindex, &buf, 50);
-				if (found)
-				{
-					QString glyphname(reinterpret_cast<char*>(buf));
-					charcode = 0;
-					QMap<uint,std::pair<QChar,QString> >::Iterator gli;
-					for (gli = GList.begin(); gli != GList.end(); ++gli)
-					{
-						if (glyphname == gli.value().second)
-						{
-							charcode = gli.value().first.unicode();
-							break;
-						}
-					}
-//					qDebug() << "\tmore: " << gindex << " '" << charcode << "' --> '" << buf << "'";
-					GList.insert(gindex, std::make_pair(QChar(static_cast<uint>(charcode)), glyphname));
-				}
+				charcode = gli.value().first.unicode();
+				break;
 			}
 		}
+//		qDebug() << "\tmore: " << gindex << " '" << charcode << "' --> '" << buf << "'";
+		GList.insert(gindex, std::make_pair(QChar(static_cast<uint>(charcode)), glyphname));
+	}
 			
 	return true;
 }

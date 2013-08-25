@@ -26,13 +26,12 @@ for which a new license (GPL+exception) is in place.
 
 class ScFace;
 class Scribusdoc;
+struct FtFace;
 
-int SCRIBUS_API setBestEncoding(FT_Face face);
+int         SCRIBUS_API setBestEncoding(FT_Face face);
 FPointArray SCRIBUS_API traceChar(FT_Face face, uint chr, int chs, qreal *x, qreal *y, bool *err);
 FPointArray SCRIBUS_API traceGlyph(FT_Face face, uint chr, int chs, qreal *x, qreal *y, bool *err);
-QPixmap SCRIBUS_API FontSample(const ScFace& fnt, int s, QString ts, QColor back, bool force = false);
-//QPixmap SCRIBUS_API fontSamples(const ScFace& fnt, int s, QString ts, QColor back);
-bool SCRIBUS_API GlyNames(FT_Face face, QMap<uint, std::pair<QChar, QString> >& GList);
-
+QPixmap     SCRIBUS_API FontSample(const ScFace& fnt, int s, QString ts, QColor back, bool force = false);
+bool        SCRIBUS_API GlyphNames(const FtFace& fnt, QMap<uint, std::pair<QChar, QString> >& GList);
 
 #endif
