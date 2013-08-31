@@ -17,6 +17,7 @@ for which a new license (GPL+exception) is in place.
 #include "sccolorengine.h"
 #include "util.h"
 #include "util_math.h"
+#include <tiffio.h>
 
 LinkSubmitForm::LinkSubmitForm(Object *actionObj)
 {
@@ -2459,6 +2460,7 @@ void SlaOutputDev::drawImageMask(GfxState *state, Object *ref, Stream *str, int 
 void SlaOutputDev::drawSoftMaskedImage(GfxState *state, Object *ref, Stream *str, int width, int height, GfxImageColorMap *colorMap, GBool interpolate, Stream *maskStr, int maskWidth, int maskHeight,
 				   GfxImageColorMap *maskColorMap, GBool maskInterpolate)
 {
+//	qDebug() << "Masked Image Components" << colorMap->getNumPixelComps();
 	ImageStream * imgStr = new ImageStream(str, width, colorMap->getNumPixelComps(), colorMap->getBits());
 	imgStr->reset();
 	unsigned int *dest = 0;
@@ -2564,7 +2566,7 @@ void SlaOutputDev::drawSoftMaskedImage(GfxState *state, Object *ref, Stream *str
 			ite->isTempFile = true;
 			res.save(fileName, "PNG");
 			m_doc->loadPict(fileName, ite);
-			ite->setImageScalingMode(false, false);
+		//	ite->setImageScalingMode(false, false);
 			m_Elements->append(ite);
 			if (m_groupStack.count() != 0)
 			{
@@ -2588,6 +2590,7 @@ void SlaOutputDev::drawSoftMaskedImage(GfxState *state, Object *ref, Stream *str
 void SlaOutputDev::drawImage(GfxState *state, Object *ref, Stream *str, int width, int height, GfxImageColorMap *colorMap, GBool interpolate, int *maskColors, GBool inlineImg)
 {
 	ImageStream * imgStr = new ImageStream(str, width, colorMap->getNumPixelComps(), colorMap->getBits());
+//	qDebug() << "Image Components" << colorMap->getNumPixelComps() << "Mask" << maskColors;
 	imgStr->reset();
 	QImage * image = 0;
 	if (maskColors)
@@ -2627,12 +2630,25 @@ void SlaOutputDev::drawImage(GfxState *state, Object *ref, Stream *str, int widt
 			Guchar *pix = imgStr->getLine();
 			for (int x = 0; x < width; x++)
 			{
-				GfxRGB rgb;
-				colorMap->getRGB(pix, &rgb);
-				int Rc = qRound(colToDbl(rgb.r) * 255);
-				int Gc = qRound(colToDbl(rgb.g) * 255);
-				int Bc = qRound(colToDbl(rgb.b) * 255);
-				*s = qRgba(Rc, Gc, Bc, 255);
+				if (colorMap->getNumPixelComps() == 4)
+				{
+					GfxCMYK cmyk;
+					colorMap->getCMYK(pix, &cmyk);
+					int Cc = qRound(colToDbl(cmyk.c) * 255);
+					int Mc = qRound(colToDbl(cmyk.m) * 255);
+					int Yc = qRound(colToDbl(cmyk.y) * 255);
+					int Kc = qRound(colToDbl(cmyk.k) * 255);
+					*s = qRgba(Yc, Mc, Cc, Kc);
+				}
+				else
+				{
+					GfxRGB rgb;
+					colorMap->getRGB(pix, &rgb);
+					int Rc = qRound(colToDbl(rgb.r) * 255);
+					int Gc = qRound(colToDbl(rgb.g) * 255);
+					int Bc = qRound(colToDbl(rgb.b) * 255);
+					*s = qRgba(Rc, Gc, Bc, 255);
+				}
 				s++;
 				pix += colorMap->getNumPixelComps();
 			}
@@ -2682,32 +2698,75 @@ void SlaOutputDev::drawImage(GfxState *state, Object *ref, Stream *str, int widt
 	ite->setFillTransparency(1.0 - state->getFillOpacity());
 	ite->setFillBlendmode(getBlendMode(state));
 	m_doc->AdjustItemSize(ite);
-	QTemporaryFile *tempFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_pdf_XXXXXX.png");
-	tempFile->setAutoRemove(false);
-	if (tempFile->open())
+	if (colorMap->getNumPixelComps() == 4)
 	{
-		QString fileName = getLongPathName(tempFile->fileName());
-		if (!fileName.isEmpty())
+		QTemporaryFile *tempFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_pdf_XXXXXX.tif");
+		tempFile->setAutoRemove(false);
+		if (tempFile->open())
 		{
-			tempFile->close();
-			ite->isInlineImage = true;
-			ite->isTempFile = true;
-			img.save(fileName, "PNG");
-			m_doc->loadPict(fileName, ite);
-			ite->setImageScalingMode(false, false);
-			m_Elements->append(ite);
-			if (m_groupStack.count() != 0)
+			QString fileName = getLongPathName(tempFile->fileName());
+			if (!fileName.isEmpty())
 			{
-				m_groupStack.top().Items.append(ite);
-				applyMask(ite);
+				tempFile->close();
+				ite->isInlineImage = true;
+				ite->isTempFile = true;
+				TIFF* tif = TIFFOpen(fileName.toLocal8Bit().data(), "w");
+				if (tif)
+				{
+					TIFFSetField(tif, TIFFTAG_IMAGEWIDTH, img.width());
+					TIFFSetField(tif, TIFFTAG_IMAGELENGTH, img.height());
+					TIFFSetField(tif, TIFFTAG_BITSPERSAMPLE, 8);
+					TIFFSetField(tif, TIFFTAG_SAMPLESPERPIXEL, 4);
+					TIFFSetField(tif, TIFFTAG_PLANARCONFIG, PLANARCONFIG_CONTIG);
+					TIFFSetField(tif, TIFFTAG_PHOTOMETRIC, PHOTOMETRIC_SEPARATED);
+					TIFFSetField(tif, TIFFTAG_COMPRESSION, COMPRESSION_LZW);
+					for (int y = 0; y < img.height(); ++y)
+					{
+						TIFFWriteScanline(tif, img.scanLine(y), y);
+					}
+					TIFFClose(tif);
+					m_doc->loadPict(fileName, ite);
+				}
+				ite->setImageScalingMode(false, false);
+				m_Elements->append(ite);
+				if (m_groupStack.count() != 0)
+				{
+					m_groupStack.top().Items.append(ite);
+					applyMask(ite);
+				}
 			}
+			else
+				m_doc->Items->removeAll(ite);
 		}
-		else
-			m_doc->Items->removeAll(ite);
+		delete tempFile;
 	}
 	else
-		m_doc->Items->removeAll(ite);
-	delete tempFile;
+	{
+		QTemporaryFile *tempFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_pdf_XXXXXX.png");
+		tempFile->setAutoRemove(false);
+		if (tempFile->open())
+		{
+			QString fileName = getLongPathName(tempFile->fileName());
+			if (!fileName.isEmpty())
+			{
+				tempFile->close();
+				ite->isInlineImage = true;
+				ite->isTempFile = true;
+				img.save(fileName, "PNG");
+				m_doc->loadPict(fileName, ite);
+				ite->setImageScalingMode(false, false);
+				m_Elements->append(ite);
+				if (m_groupStack.count() != 0)
+				{
+					m_groupStack.top().Items.append(ite);
+					applyMask(ite);
+				}
+			}
+			else
+				m_doc->Items->removeAll(ite);
+		}
+		delete tempFile;
+	}
 	delete imgStr;
 	delete image;
 }
