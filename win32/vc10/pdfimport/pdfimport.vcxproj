@@ -69,8 +69,8 @@
       <DisableSpecificWarnings>4190;4251;4267;4996;%(DisableSpecificWarnings)</DisableSpecificWarnings>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>Qt5Cored.lib;Qt5Guid.lib;Qt5Widgetsd.lib;Qt5Xmld.lib;$(FREETYPE_DEBUG_LIB);$(LIBJPEG_DEBUG_LIB);$(LIBTIFF_DEBUG_LIB);$(LCMS_DEBUG_LIB);$(POPPLER_DEBUG_LIB);scribus-api.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(LCMS_DIR)\lib;$(FREETYPE_DIR)\lib;$(LIBJPEG_DIR)\lib;$(LIBTIFF_DIR)\lib;$(QT5_DIR)\lib;$(POPPLER_DIR)\lib;$(OutDir)..;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>Qt5Cored.lib;Qt5Guid.lib;Qt5Widgetsd.lib;Qt5Xmld.lib;$(FREETYPE_DEBUG_LIB);$(LIBJPEG_DEBUG_LIB);$(LIBTIFF_DEBUG_LIB);$(LCMS_DEBUG_LIB);$(POPPLER_DEBUG_LIB);$(ZLIB_DEBUG_LIB);scribus-api.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(LCMS_DIR)\lib;$(FREETYPE_DIR)\lib;$(LIBJPEG_DIR)\lib;$(LIBTIFF_DIR)\lib;$(QT5_DIR)\lib;$(POPPLER_DIR)\lib;$(ZLIB_DIR)\lib;$(OutDir)..;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <ProgramDatabaseFile>$(OutDir)importpdf.pdb</ProgramDatabaseFile>
       <SubSystem>Windows</SubSystem>
@@ -97,8 +97,8 @@
       <DisableSpecificWarnings>4190;4251;4267;4996;%(DisableSpecificWarnings)</DisableSpecificWarnings>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>Qt5Core.lib;Qt5Gui.lib;Qt5Widgets.lib;Qt5Xml.lib;$(FREETYPE_RELEASE_LIB);$(LIBJPEG_RELEASE_LIB);$(LIBTIFF_RELEASE_LIB);$(LCMS_RELEASE_LIB);$(POPPLER_RELEASE_LIB);scribus-api.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(LCMS_DIR)\lib;$(FREETYPE_DIR)\lib;$(LIBJPEG_DIR)\lib;$(LIBTIFF_DIR)\lib;$(QT5_DIR)\lib;$(POPPLER_DIR)\lib;$(OutDir)..;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>Qt5Core.lib;Qt5Gui.lib;Qt5Widgets.lib;Qt5Xml.lib;$(FREETYPE_RELEASE_LIB);$(LIBJPEG_RELEASE_LIB);$(LIBTIFF_RELEASE_LIB);$(LCMS_RELEASE_LIB);$(POPPLER_RELEASE_LIB);$(ZLIB_RELEASE_LIB);scribus-api.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(LCMS_DIR)\lib;$(FREETYPE_DIR)\lib;$(LIBJPEG_DIR)\lib;$(LIBTIFF_DIR)\lib;$(QT5_DIR)\lib;$(POPPLER_DIR)\lib;$(ZLIB_DIR)\lib;$(OutDir)..;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <ProgramDatabaseFile>$(OutDir)importpdf.pdb</ProgramDatabaseFile>
       <SubSystem>Windows</SubSystem>
