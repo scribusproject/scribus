@@ -10615,6 +10615,11 @@ void ScribusDoc::itemSelection_GroupObjects(bool changeLock, bool lock, Selectio
 	}
 
 	renumberItemsInListOrder();
+
+	// We delay selection signals here so that currItem->Groups
+	// is updated before signals are sent. Correct update of some
+	// PP widgets depend on that.
+	itemSelection->delaySignalsOn();
 	itemSelection->prependItem(groupItem);
 	selectedItemCount=itemSelection->count();
 	SimpleState *ss = new SimpleState(Um::Group, tooltip);
@@ -10627,6 +10632,8 @@ void ScribusDoc::itemSelection_GroupObjects(bool changeLock, bool lock, Selectio
 		currItem->Groups.push(GroupCounter);
 		ss->set(QString("item%1").arg(a), currItem->uniqueNr);
 	}
+	itemSelection->delaySignalsOff();
+
 	GroupCounter++;
 	regionsChanged()->update(QRectF(gx-5, gy-5, gw+10, gh+10));
 	emit docChanged();
