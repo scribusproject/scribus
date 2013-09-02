@@ -148,7 +148,7 @@ void BezierMode::deactivate(bool flag)
 			target = m_doc->Pages->at(currItem->OwnPage);
 		undoManager->action(target, is);
 	}
-	m_view->redrawMarker->hide();
+	m_view->setRedrawMarkerShown(false);
 }
 
 void BezierMode::mouseDoubleClickEvent(QMouseEvent *m)
@@ -226,8 +226,7 @@ void BezierMode::mouseMoveEvent(QMouseEvent *m)
 				SeRy = newY;
 				QPoint startP = m_canvas->canvasToGlobal(QPointF(Mxp, Myp));
 				m_view->redrawMarker->setGeometry(QRect(m_view->mapFromGlobal(startP), m_view->mapFromGlobal(m->globalPos())).normalized());
-				if (!m_view->redrawMarker->isVisible())
-					m_view->redrawMarker->show();
+				m_view->setRedrawMarkerShown(true);
 				m_view->HaveSelRect = true;
 				return;
 			}

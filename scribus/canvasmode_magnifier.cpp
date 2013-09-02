@@ -97,7 +97,7 @@ void CanvasMode_Magnifier::activate(bool fromGesture)
 void CanvasMode_Magnifier::deactivate(bool forGesture)
 {
 //	qDebug() << "CanvasMode_Magnifier::deactivate" << forGesture;
-	m_view->redrawMarker->hide();
+	m_view->setRedrawMarkerShown(false);
 }
 
 void CanvasMode_Magnifier::mouseDoubleClickEvent(QMouseEvent *m)
@@ -126,8 +126,7 @@ void CanvasMode_Magnifier::mouseMoveEvent(QMouseEvent *m)
 		SeRy = newY;
 		QPoint startP = m_canvas->canvasToGlobal(m_doc->appMode == modeDrawTable2 ? QPointF(Dxp, Dyp) : QPointF(Mxp, Myp));
 		m_view->redrawMarker->setGeometry(QRect(m_view->mapFromGlobal(startP), m_view->mapFromGlobal(m->globalPos())).normalized());
-		if (!m_view->redrawMarker->isVisible())
-			m_view->redrawMarker->show();
+		m_view->setRedrawMarkerShown(true);
 		m_view->HaveSelRect = true;
 	}
 }
@@ -205,10 +204,10 @@ void CanvasMode_Magnifier::mouseReleaseEvent(QMouseEvent *m)
 			if (sc == m_canvas->scale())
 			{
 				m_view->HaveSelRect = false;
-				m_view->redrawMarker->hide();
+				m_view->setRedrawMarkerShown(false);
 				m_view->requestMode(submodePaintingDone);
 			}
-			m_view->redrawMarker->hide();
+			m_view->setRedrawMarkerShown(false);
 		}
 		else
 		{

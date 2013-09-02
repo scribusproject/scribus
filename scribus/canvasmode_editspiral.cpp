@@ -254,7 +254,7 @@ void CanvasMode_EditSpiral::deactivate(bool forGesture)
 	disconnect(VectorDialog, SIGNAL(paletteShown(bool)), this, SLOT(endEditing(bool)));
 	VectorDialog->close();
 	delete VectorDialog;
-	m_view->redrawMarker->hide();
+	m_view->setRedrawMarkerShown(false);
 	m_arcPoint = noPointDefined;
 	disconnect(m_doc, SIGNAL(docChanged()), this, SLOT(updateFromItem()));
 }

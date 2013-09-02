@@ -223,7 +223,7 @@ void CanvasMode_EditPolygon::deactivate(bool forGesture)
 	disconnect(VectorDialog, SIGNAL(paletteShown(bool)), this, SLOT(endEditing(bool)));
 	VectorDialog->close();
 	delete VectorDialog;
-	m_view->redrawMarker->hide();
+	m_view->setRedrawMarkerShown(false);
 	m_polygonPoint = noPointDefined;
 	disconnect(m_doc, SIGNAL(docChanged()), this, SLOT(updateFromItem()));
 }

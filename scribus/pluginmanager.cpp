@@ -314,7 +314,9 @@ bool PluginManager::setupPluginActions(ScribusMainWindow *mw)
 					if ((!ai.subMenuName.isEmpty()) && (!ai.parentMenu.isEmpty()))
 					{
 						if (!mw->scrMenuMgr->menuExists(ai.menu))
+						{
 							mw->scrMenuMgr->createMenu(ai.menu, ai.subMenuName, ai.parentMenu);
+						}
 					}
 					mw->scrMenuMgr->addMenuItem(mw->scrActions[ai.name], ai.menu, true);
 				}
@@ -646,8 +648,9 @@ void PluginManager::languageChange()
 				pluginAction = ScCore->primaryMainWindow()->scrActions[ai.name];
 				if (pluginAction != 0)
 					pluginAction->setText( ai.text );
-				if ((!ai.menu.isEmpty()) && (!ai.subMenuName.isEmpty()))
-					ScCore->primaryMainWindow()->scrMenuMgr->setText(ai.menu, ai.subMenuName);
+//FIXME QT5 port causes disappearing menus, qt 5.1+
+				//if ((!ai.menu.isEmpty()) && (!ai.subMenuName.isEmpty()))
+				//	ScCore->primaryMainWindow()->scrMenuMgr->setText(ai.menu, ai.subMenuName);
 			}
 		}
 	}

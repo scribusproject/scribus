@@ -144,7 +144,7 @@ void CanvasMode_Normal::activate(bool fromGesture)
 void CanvasMode_Normal::deactivate(bool forGesture)
 {
 //	qDebug() << "CanvasMode_Normal::deactivate" << forGesture;
-	m_view->redrawMarker->hide();
+	m_view->setRedrawMarkerShown(false);
 }
 
 void CanvasMode_Normal::mouseDoubleClickEvent(QMouseEvent *m)
@@ -826,8 +826,7 @@ void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 			m_mouseSavedPoint.setXY(newX, newY);
 			QPoint startP = m_canvas->canvasToGlobal(m_mousePressPoint);
 			m_view->redrawMarker->setGeometry(QRect(m_view->mapFromGlobal(startP), m_view->mapFromGlobal(m->globalPos())).normalized());
-			if (!m_view->redrawMarker->isVisible())
-				m_view->redrawMarker->show();
+			m_view->setRedrawMarkerShown(true);
 			m_view->HaveSelRect = true;
 			return;
 		}
@@ -960,7 +959,7 @@ void CanvasMode_Normal::mousePressEvent(QMouseEvent *m)
 		{
 			m_mouseCurrentPoint = m_mousePressPoint = m_mouseSavedPoint = mousePointDoc;
 			m_view->redrawMarker->setGeometry(m->globalPos().x(), m->globalPos().y(), 1, 1);
-			m_view->redrawMarker->show();
+			m_view->setRedrawMarkerShown(true);
 		}
 		else
 		{
@@ -1018,7 +1017,7 @@ void CanvasMode_Normal::mouseReleaseEvent(QMouseEvent *m)
 	m_canvas->m_viewMode.m_MouseButtonPressed = false;
 	m_canvas->resetRenderMode();
 	m->accept();
-	m_view->redrawMarker->hide();
+	m_view->setRedrawMarkerShown(false);
 //	m_view->stopDragTimer();
 	//m_canvas->update(); //ugly in a mouseReleaseEvent!!!!!!!
 	if ((!GetItem(&currItem)) && (m->button() == Qt::RightButton) && (!m_doc->DragP) && (!m_doc->drawAsPreview))

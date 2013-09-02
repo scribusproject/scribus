@@ -9,7 +9,7 @@ for which a new license (GPL+exception) is in place.
 #include <QDebug>
 #include <QDir>
 #include <QDomDocument>
-#include <QHttp>
+#include <QNetworkRequest>
 #include <QTextCodec>
 #include <QTextStream>
 #include <QWidget>
@@ -37,16 +37,12 @@ UpgradeChecker::UpgradeChecker() : QObject()
 
 UpgradeChecker::~UpgradeChecker()
 {
-	if(getter)
-		delete getter;
 }
 
 void UpgradeChecker::init()
 {
 	errorReported=false;
-	userAbort=false;
 	message="";
-	getter=0;
 	updates.clear();
 	version=(VERSION);
 	stability="unstablesvn";
@@ -76,51 +72,68 @@ void UpgradeChecker::fetch()
 	fin=false;
 	
 	rcvdFile=new QFile(tempFile);
-	getter=new QHttp();
-	if (getter!=0 && rcvdFile!=0)
+	networkManager=new QNetworkAccessManager(this);
+	if (networkManager!=0 && rcvdFile!=0)
 	{
-		connect(getter, SIGNAL(responseHeaderReceived(const QHttpResponseHeader &)), this, SLOT(responseHeaderReceived(const QHttpResponseHeader &)));
-		connect(getter, SIGNAL(requestFinished(int, bool)), this, SLOT(requestFinished(int, bool)));
-		connect(getter, SIGNAL(done(bool)), this, SLOT(done(bool)));
-		
 		outputText( tr("No data on your computer will be sent to an external location"));
 		qApp->processEvents();
 		if(rcvdFile->open(QIODevice::ReadWrite))
 		{
 			QString hostname("services.scribus.net");
 			QString filepath("/"+filename);
+			QUrl fileURL(QString("http://%1%2").arg(hostname).arg(filepath));
 			outputText("<b>"+ tr("Attempting to get the Scribus version update file:")+"</b>");
-			outputText(QString("<b>http://%1%2</b>").arg(hostname).arg(filepath));
-			getter->setHost(hostname, QHttp::ConnectionModeHttp);
-			getterID=getter->get(filepath, rcvdFile);
-			
+			outputText(fileURL.toString());
+
+			QNetworkRequest networkRequest(fileURL);
+			networkReply = networkManager->get(networkRequest);
+			connect(networkReply, SIGNAL(finished()), SLOT(downloadFinished()));
+			connect(networkReply, SIGNAL(readyRead()), SLOT(downloadReadyRead()));
+
 			int waitCount=0;
 			while (!fin && waitCount<20)
 			{
-				sleep(1);
-				++waitCount;
-				if (writeToConsole)
-					std::cout << ". " << std::flush;
-				outputText( ".", true );
-				qApp->processEvents();
+					sleep(1);
+					++waitCount;
+					if (writeToConsole)
+							std::cout << ". " << std::flush;
+					outputText( ".", true );
+					qApp->processEvents();
 			}
 			if (writeToConsole)
-				std::cout << std::endl;
+					std::cout << std::endl;
 			if (waitCount>=20)
 			{
-				outputText("<b>"+ tr("Timed out when attempting to get update file.")+"</b>");
-				getter->abort();
+					outputText("<b>"+ tr("Timed out when attempting to get update file.")+"</b>");
 			}
 			rcvdFile->close();
 		}
 		rcvdFile->remove();
 	}
-	delete getter;
 	delete rcvdFile;
-	getter=0;
 	rcvdFile=0;
-	if (!userAbort)
-		outputText( tr("Finished") );
+	outputText( tr("Finished") );
+	networkReply->deleteLater();
+	networkManager->deleteLater();
+}
+
+void UpgradeChecker::downloadFinished()
+{
+	if (networkReply->error())
+		outputText(QString("Failed: %1").arg(qPrintable(networkReply->errorString())));
+	else
+	{
+		rcvdFile->reset();
+		process();
+		fin=true;
+		show(networkReply->error()!=QNetworkReply::NoError);
+	}
+}
+
+
+void UpgradeChecker::downloadReadyRead()
+{
+	rcvdFile->write(networkReply->readAll());
 }
 
 bool UpgradeChecker::process()
@@ -213,11 +226,6 @@ QStringList UpgradeChecker::upgradeData( )
 void UpgradeChecker::show(bool error)
 {
 	outputText("<br/>");
-	if (userAbort)
-	{
-		outputText("<b>"+ tr("Operation canceled")+"</b>");
-		return;
-	}
 	if (error)
 	{
 		outputText("<b>"+ tr("An error occurred while looking for updates for Scribus, please check your internet connection.")+"</b>");
@@ -248,10 +256,19 @@ void UpgradeChecker::outputText(QString text, bool /*noLineFeed*/)
 	qDebug() << outText.toLocal8Bit().data();
 }
 
-UpgradeCheckerGUI::UpgradeCheckerGUI(ScTextBrowser *tb) :
-	UpgradeChecker(),
-	outputWidget(tb)
+
+void UpgradeChecker::reportError(const QString& s)
 {
+	if (!errorReported)
+	{
+		outputText("<br/><b>"+ tr("Error: %1").arg(s)+"</b>");
+		errorReported=true;
+	}
+}
+
+UpgradeCheckerGUI::UpgradeCheckerGUI(ScTextBrowser *tb) : UpgradeChecker()
+{
+	outputWidget=tb;
 	writeToConsole=false;
 }
 
@@ -276,49 +293,3 @@ void UpgradeCheckerGUI::outputText(QString text, bool noLineFeed)
 }
 
 
-void UpgradeChecker::responseHeaderReceived(const QHttpResponseHeader &responseHeader) 
-{
-	if (responseHeader.statusCode() != 200) 
-	{
-		reportError(responseHeader.reasonPhrase());
-		getter->abort();
-	} 
-}
-
-void UpgradeChecker::requestFinished(int id, bool error)
-{
-	if (error)
-		reportError(getter->errorString());
-}
-
-void UpgradeChecker::done(bool error)
-{
-	if (error) 
-		reportError(getter->errorString());
-	else 
-	{
-		if (rcvdFile)
-		{
-			rcvdFile->reset();
-			process();
-		}
-	}
-	fin=true;
-	show(error);
-}
-
-void UpgradeChecker::reportError(const QString& s)
-{
-	if (!errorReported)
-	{
-		outputText("<br/><b>"+ tr("Error: %1").arg(s)+"</b>");
-		errorReported=true;
-	}
-}
-
-void UpgradeChecker::abort()
-{
-	userAbort=true;
-	if (getter)
-		getter->abort();
-}

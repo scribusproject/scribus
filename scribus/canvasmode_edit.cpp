@@ -258,7 +258,7 @@ void CanvasMode_Edit::activate(bool fromGesture)
 
 void CanvasMode_Edit::deactivate(bool forGesture)
 {
-	m_view->redrawMarker->hide();
+	m_view->setRedrawMarkerShown(false);
 	if (!forGesture)
 	{
 		mRulerGuide = -1;
@@ -477,8 +477,7 @@ void CanvasMode_Edit::mouseMoveEvent(QMouseEvent *m)
 			SeRy = newY;
 			QPoint startP = m_canvas->canvasToGlobal(QPointF(Mxp, Myp));
 			m_view->redrawMarker->setGeometry(QRect(m_view->mapFromGlobal(startP), m_view->mapFromGlobal(m->globalPos())).normalized());
-			if (!m_view->redrawMarker->isVisible())
-				m_view->redrawMarker->show();
+			m_view->setRedrawMarkerShown(true);
 			m_view->HaveSelRect = true;
 			return;
 		}
@@ -855,7 +854,7 @@ void CanvasMode_Edit::mouseReleaseEvent(QMouseEvent *m)
 			}
 		}
 		m_view->HaveSelRect = false;
-		m_view->redrawMarker->hide();
+		m_view->setRedrawMarkerShown(false);
 		m_view->updateContents();
 	}
 	if (GetItem(&currItem))

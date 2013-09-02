@@ -147,7 +147,7 @@ void CanvasMode_ImageImport::activate(bool fromGesture)
 
 void CanvasMode_ImageImport::deactivate(bool forGesture)
 {
-	m_view->redrawMarker->hide();
+	m_view->setRedrawMarkerShown(false);
 }
 
 void CanvasMode_ImageImport::mouseDoubleClickEvent(QMouseEvent *m)

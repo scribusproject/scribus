@@ -84,7 +84,7 @@ void CalligraphicMode::activate(bool flag)
 
 void CalligraphicMode::deactivate(bool flag)
 {
-	m_view->redrawMarker->hide();
+	m_view->setRedrawMarkerShown(false);
 }
 
 void CalligraphicMode::mouseDoubleClickEvent(QMouseEvent *m)
@@ -173,8 +173,7 @@ void CalligraphicMode::mouseMoveEvent(QMouseEvent *m)
 			SeRy = newY;
 			QPoint startP = m_canvas->canvasToGlobal(m_doc->appMode == modeDrawTable2 ? QPointF(Dxp, Dyp) : QPointF(Mxp, Myp));
 			m_view->redrawMarker->setGeometry(QRect(m_view->mapFromGlobal(startP), m_view->mapFromGlobal(m->globalPos())).normalized());
-			if (!m_view->redrawMarker->isVisible())
-				m_view->redrawMarker->show();
+			m_view->setRedrawMarkerShown(true);
 			m_view->HaveSelRect = true;
 			return;
 		}

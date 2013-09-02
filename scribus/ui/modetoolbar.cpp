@@ -25,6 +25,7 @@ for which a new license (GPL+exception) is in place.
 #include <QEvent>
 #include <QMenu>
 #include <QPixmap>
+#include <QToolButton>
 
 #include "modetoolbar.h"
 

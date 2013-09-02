@@ -104,7 +104,7 @@ void CanvasMode_FrameLinks::activate(bool fromGesture)
 void CanvasMode_FrameLinks::deactivate(bool forGesture)
 {
 //	qDebug() << "CanvasMode_FrameLinks::deactivate" << forGesture;
-	m_view->redrawMarker->hide();
+	m_view->setRedrawMarkerShown(false);
 }
 
 void CanvasMode_FrameLinks::mouseDoubleClickEvent(QMouseEvent *m)
@@ -129,8 +129,7 @@ void CanvasMode_FrameLinks::mouseMoveEvent(QMouseEvent *m)
 		SeRy = qRound(mousePointDoc.y()); //m_view->translateToDoc(m->x(), m->y()).y());
 		QPoint startP = m_canvas->canvasToGlobal(m_doc->appMode == modeDrawTable2 ? QPointF(Dxp, Dyp) : QPointF(Mxp, Myp));
 		m_view->redrawMarker->setGeometry(QRect(m_view->mapFromGlobal(startP), m_view->mapFromGlobal(m->globalPos())).normalized());
-		if (!m_view->redrawMarker->isVisible())
-			m_view->redrawMarker->show();
+		m_view->setRedrawMarkerShown(true);
 		m_view->HaveSelRect = true;
 		return;
 	}

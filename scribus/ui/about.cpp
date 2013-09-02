@@ -35,9 +35,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "util_ghostscript.h"
 #include "util_icon.h"
-#ifndef USE_QT5
-	#include "upgradechecker.h"
-#endif
+#include "upgradechecker.h"
 #include "langmgr.h"
 
 
@@ -296,6 +294,8 @@ QString About::trAuthorTitle(QString title)
 		result = tr("OS/2&#174;/eComStation&#8482; Port:");
 	else if ( title == "Windows&#174; Port:" )
 		result = tr("Windows&#174; Port:");
+	else if ( title == "Haiku Port:" )
+		result = tr("Haiku Port:");
 	else if ( title == "Contributions from:" )
 		result = tr("Contributions from:");
 	else if ( title == "Official Documentation:" )
@@ -640,13 +640,11 @@ void About::setVisible (bool visible)
 void About::runUpdateCheck()
 {
 	textView5->clear();
-#ifndef USE_QT5
 	UpgradeCheckerGUI uc(textView5);
 	disconnect( checkForUpdateButton, SIGNAL( clicked() ), this, SLOT( runUpdateCheck() ) );
-	connect(checkForUpdateButton, SIGNAL( clicked() ), &uc, SLOT( abort() ));
-	checkForUpdateButton->setText( tr("Abort Update Check") );
+	//connect(checkForUpdateButton, SIGNAL( clicked() ), &uc, SLOT( abort() ));
+	//checkForUpdateButton->setText( tr("Abort Update Check") );
 	uc.fetch();
-	checkForUpdateButton->setText( tr("Check for Updates") );
+	//checkForUpdateButton->setText( tr("Check for Updates") );
 	connect( checkForUpdateButton, SIGNAL( clicked() ), this, SLOT( runUpdateCheck() ) );
-#endif
 }

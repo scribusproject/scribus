@@ -31,6 +31,7 @@
 #include "scribusdoc.h"
 #include "scribusview.h"
 #include "selection.h"
+#include "selectionrubberband.h"
 #include "util.h"
 #include "util_icon.h"
 #include "util_math.h"
@@ -90,7 +91,7 @@ void CanvasMode_CopyProperties::activate(bool fromGesture)
 void CanvasMode_CopyProperties::deactivate(bool forGesture)
 {
 //	qDebug() << "CanvasMode_CopyProperties::deactivate" << forGesture;
-	m_view->redrawMarker->hide();
+	m_view->setRedrawMarkerShown(false);
 }
 
 void CanvasMode_CopyProperties::mouseDoubleClickEvent(QMouseEvent *m)
@@ -111,8 +112,7 @@ void CanvasMode_CopyProperties::mouseMoveEvent(QMouseEvent *m)
 	{
 		QPoint startP = m_canvas->canvasToGlobal(QPointF(Mxp, Myp));
 		m_view->redrawMarker->setGeometry(QRect(startP, m->globalPos()).normalized());
-		if (!m_view->redrawMarker->isVisible())
-			m_view->redrawMarker->show();
+		m_view->setRedrawMarkerShown(true);
 		m_view->HaveSelRect = true;
 		return;
 	}

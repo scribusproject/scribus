@@ -361,9 +361,9 @@ int ScribusMainWindow::initScMW(bool primaryMainWindow)
 //	initKeyboardShortcuts();
 	initMenuBar();
 	initToolBars();
- 	ScCore->pluginManager->setupPluginActions(this);
+	ScCore->pluginManager->setupPluginActions(this);
 	ScCore->pluginManager->enableOnlyStartupPluginActions(this);
- 	ScCore->pluginManager->languageChange();
+	ScCore->pluginManager->languageChange();
 	if (primaryMainWindow)
 		ScCore->setSplashStatus( tr("Applying User Shortcuts") );
 	prefsManager->applyLoadedShortCuts();
@@ -1059,7 +1059,7 @@ void ScribusMainWindow::initMenuBar()
 	//Help menu
 	scrMenuMgr->createMenu("Help", ActionManager::defaultMenuNameEntryTranslated("Help"));
 	scrMenuMgr->addMenuItem(scrActions["helpManual"], "Help", true);
-	scrMenuMgr->addMenuItem(scrActions["helpManual2"], "Help", true);
+	//scrMenuMgr->addMenuItem(scrActions["helpManual2"], "Help", true);
 	scrMenuMgr->addMenuSeparator("Help");
 	scrMenuMgr->addMenuItem(scrActions["helpTooltips"], "Help", true);
 	scrMenuMgr->addMenuSeparator("Help");

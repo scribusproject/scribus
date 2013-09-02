@@ -74,7 +74,7 @@ void CanvasMode_Panning::activate(bool fromGesture)
 
 void CanvasMode_Panning::deactivate(bool forGesture)
 {
-	m_view->redrawMarker->hide();
+	m_view->setRedrawMarkerShown(false);
 }
 
 void CanvasMode_Panning::mouseDoubleClickEvent(QMouseEvent *m)

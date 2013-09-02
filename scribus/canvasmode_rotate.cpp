@@ -173,7 +173,7 @@ void CanvasMode_Rotate::activate(bool fromGesture)
 
 void CanvasMode_Rotate::deactivate(bool)
 {
-	m_view->redrawMarker->hide();
+	m_view->setRedrawMarkerShown(false);
 	m_inItemRotation = false;
 }
 
@@ -446,8 +446,7 @@ void CanvasMode_Rotate::mouseMoveEvent(QMouseEvent *m)
 		{
 			QPoint startP = m_canvas->canvasToGlobal(m_canvasPressCoord);
 			m_view->redrawMarker->setGeometry(QRect(m_view->mapFromGlobal(startP), m_view->mapFromGlobal(m->globalPos())).normalized());
-			if (!m_view->redrawMarker->isVisible())
-				m_view->redrawMarker->show();
+			m_view->setRedrawMarkerShown(true);
 			m_view->HaveSelRect = true;
 		}
 	}

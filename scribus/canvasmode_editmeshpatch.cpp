@@ -310,7 +310,7 @@ void CanvasMode_EditMeshPatch::activate(bool fromGesture)
 
 void CanvasMode_EditMeshPatch::deactivate(bool forGesture)
 {
-	m_view->redrawMarker->hide();
+	m_view->setRedrawMarkerShown(false);
 	m_patchPoint = noPointDefined;
 	m_gradientPoint = noControlPointDefined;
 	m_click_count = 0;

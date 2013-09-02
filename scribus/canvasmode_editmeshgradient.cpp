@@ -378,7 +378,7 @@ void CanvasMode_EditMeshGradient::activate(bool fromGesture)
 
 void CanvasMode_EditMeshGradient::deactivate(bool forGesture)
 {
-	m_view->redrawMarker->hide();
+	m_view->setRedrawMarkerShown(false);
 	selectedMeshPoints.clear();
 	m_gradientPoint = noPointDefined;
 	m_ScMW->propertiesPalette->updateColorSpecialGradient();

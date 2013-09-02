@@ -138,7 +138,7 @@ bool ScrPopupMenu::insertMenuItem(ScrAction *newMenuAction)
 {
 	if (newMenuAction)
 	{
-		
+
 #ifdef Q_OS_MAC
 		bool menuListHasNoIcons = true;
 		// look for ScrAction or ScrPopupMenu from the end of the list
@@ -166,7 +166,7 @@ bool ScrPopupMenu::insertMenuItem(ScrAction *newMenuAction)
 		if (newMenuAction->icon().isNull() && ! menuListHasNoIcons)
 			newMenuAction->setIcon(loadIcon("noicon.xpm"));
 #endif
-		
+
 		menuItemList.append(newMenuAction);
 		localPopupMenu->addAction(newMenuAction);
 		return true;
@@ -283,7 +283,7 @@ bool ScrPopupMenu::repopulateLocalMenu()
 			menuItemList.removeAll(*menuItemListItToDelete);
 			continue;
 		}
-		
+
 		QString menuItemListClassName=listObj->metaObject()->className();
 		if (menuItemListClassName=="ScrAction")
 		{

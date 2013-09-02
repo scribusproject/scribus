@@ -84,6 +84,7 @@ class Selection;
 class UndoManager;
 class UndoTransaction;
 class TransactionSettings;
+#include "selectionrubberband.h"
 
 /**
  * This class provides an incomplete base for your application view.
@@ -174,7 +175,7 @@ public:
 	int redrawMode;
 	int redrawCount;
 	PageItem *redrawItem;
-	QRubberBand *redrawMarker;
+	SelectionRubberBand *redrawMarker;
 	FPoint RCenter;
 	void updatesOn(bool on);
 	//CB This MUST now be called AFTER a call to doc->addPage or doc->addMasterPage as it
@@ -231,6 +232,7 @@ public:
 	void scrollCanvasBy(double deltaX, double deltaY);
 	FPoint canvasOrigin() const;
 	QRectF visibleCanvas() const;
+	void setRedrawMarkerShown(bool shown);
 	
 private:
 	// legacy:

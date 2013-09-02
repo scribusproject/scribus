@@ -101,7 +101,7 @@ void CanvasMode_EyeDropper::activate(bool fromGesture)
 void CanvasMode_EyeDropper::deactivate(bool forGesture)
 {
 //	qDebug() << "CanvasMode_EyeDropper::deactivate" << forGesture;
-	m_view->redrawMarker->hide();
+	m_view->setRedrawMarkerShown(false);
 	releaseMouse();
 }
 

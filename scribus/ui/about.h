@@ -13,7 +13,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "scribusapi.h"
 
-class ScTextBrowser;
+#include "ui/sctextbrowser.h"
 class QLabel;
 class QWidget;
 class QTabWidget;

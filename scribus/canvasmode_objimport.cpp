@@ -114,7 +114,7 @@ void CanvasMode_ObjImport::deactivate(bool forGesture)
 //	qDebug() << "CanvasMode_ObjImport::deactivate" << forGesture;
 	setMimeData(NULL);
 	setTransactionSettings(NULL);
-	m_view->redrawMarker->hide();
+	m_view->setRedrawMarkerShown(false);
 }
 
 void CanvasMode_ObjImport::mouseDoubleClickEvent(QMouseEvent *m)

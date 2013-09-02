@@ -262,7 +262,7 @@ void CanvasMode_EditGradient::activate(bool fromGesture)
 void CanvasMode_EditGradient::deactivate(bool forGesture)
 {
 //	qDebug() << "CanvasMode_EditGradient::deactivate" << forGesture;
-	m_view->redrawMarker->hide();
+	m_view->setRedrawMarkerShown(false);
 }
 
 void CanvasMode_EditGradient::mouseDoubleClickEvent(QMouseEvent *m)
