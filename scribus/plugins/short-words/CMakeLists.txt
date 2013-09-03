@@ -1,30 +1,30 @@
 INCLUDE_DIRECTORIES(
-${CMAKE_SOURCE_DIR}
-${CMAKE_SOURCE_DIR}/scribus
+	${CMAKE_SOURCE_DIR}
+	${CMAKE_SOURCE_DIR}/scribus
 )
 
 SET(SHORTWORDS_PLUGIN_UI_SRC
-  swdialog.ui
-  prefs_shortwordsbase.ui
+	swdialog.ui
+	prefs_shortwordsbase.ui
 )
 
 SET(SHORTWORDS_PLUGIN_MOC_CLASSES
-  configuration.h
-  parse.h
-  prefs_shortwords.h
-  shortwords.h
-  swprefsgui.h
-  swdialog.h
+	configuration.h
+	parse.h
+	prefs_shortwords.h
+	shortwords.h
+	swprefsgui.h
+	swdialog.h
 )
 
 SET(SHORTWORDS_PLUGIN_SOURCES
-  configuration.cpp
-  parse.cpp
-  prefs_shortwords.cpp
-  shortwords.cpp
-  swprefsgui.cpp
-  swsyntaxhighlighter.cpp
-  swdialog.cpp
+	configuration.cpp
+	parse.cpp
+	prefs_shortwords.cpp
+	shortwords.cpp
+	swprefsgui.cpp
+	swsyntaxhighlighter.cpp
+	swdialog.cpp
 )
 
 SET(SCRIBUS_SHORTWORDS_PLUGIN "scribusshortwords")
@@ -33,16 +33,17 @@ QT5_WRAP_UI(SHORTWORDS_PLUGIN_UI_SOURCES ${SHORTWORDS_PLUGIN_UI_SRC} )
 QT5_WRAP_CPP(SHORTWORDS_PLUGIN_MOC_SOURCES ${SHORTWORDS_PLUGIN_MOC_CLASSES})
 
 ADD_LIBRARY(${SCRIBUS_SHORTWORDS_PLUGIN} MODULE
-${SHORTWORDS_PLUGIN_SOURCES}
-${SHORTWORDS_PLUGIN_MOC_SOURCES}
-${SHORTWORDS_PLUGIN_UI_SOURCES})
+	${SHORTWORDS_PLUGIN_SOURCES}
+	${SHORTWORDS_PLUGIN_MOC_SOURCES}
+	${SHORTWORDS_PLUGIN_UI_SOURCES}
+)
 
 TARGET_LINK_LIBRARIES(${SCRIBUS_SHORTWORDS_PLUGIN} ${PLUGIN_LIBRARIES})
 
 INSTALL(TARGETS ${SCRIBUS_SHORTWORDS_PLUGIN}
-  LIBRARY
-  DESTINATION ${PLUGINDIR}
-  PERMISSIONS ${PLUGIN_PERMISSIONS}
+	LIBRARY
+	DESTINATION ${PLUGINDIR}
+	PERMISSIONS ${PLUGIN_PERMISSIONS}
 )
 
 INSTALL(FILES scribus-short-words.rc

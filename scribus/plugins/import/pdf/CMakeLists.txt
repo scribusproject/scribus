@@ -1,25 +1,25 @@
 INCLUDE_DIRECTORIES(
-${CMAKE_SOURCE_DIR}
-${CMAKE_SOURCE_DIR}/scribus
-${POPPLER_INCLUDE_DIR}
+	${CMAKE_SOURCE_DIR}
+	${CMAKE_SOURCE_DIR}/scribus
+	${POPPLER_INCLUDE_DIR}
 )
 
 
 SET(IMPORTPDF_PLUGIN_UI_SRC
-pdfimportoptions.ui
+	pdfimportoptions.ui
 )
 
 SET(IMPORTPDF_PLUGIN_MOC_CLASSES
-  importpdf.h
-  importpdfplugin.h
-  pdfimportoptions.h
+	importpdf.h
+	importpdfplugin.h
+	pdfimportoptions.h
 )
 
 SET(IMPORTPDF_PLUGIN_SOURCES
-  importpdf.cpp
-  importpdfplugin.cpp
-  pdfimportoptions.cpp
-  slaoutput.cpp
+	importpdf.cpp
+	importpdfplugin.cpp
+	pdfimportoptions.cpp
+	slaoutput.cpp
 )
 
 IF(HAVE_POPPLER)
@@ -40,9 +40,9 @@ LINK_DIRECTORIES( /usr/local/lib )
 TARGET_LINK_LIBRARIES(${SCRIBUS_IMPORTPDF_PLUGIN} ${PLUGIN_LIBRARIES} ${POPPLER_LIBRARY})
 
 INSTALL(TARGETS ${SCRIBUS_IMPORTPDF_PLUGIN}
-  LIBRARY
-  DESTINATION ${PLUGINDIR}
-  PERMISSIONS ${PLUGIN_PERMISSIONS}
+	LIBRARY
+	DESTINATION ${PLUGINDIR}
+	PERMISSIONS ${PLUGIN_PERMISSIONS}
 )
 
 ADD_DEPENDENCIES(${SCRIBUS_IMPORTPDF_PLUGIN} ${EXE_NAME})
