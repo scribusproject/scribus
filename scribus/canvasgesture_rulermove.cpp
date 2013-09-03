@@ -37,15 +37,15 @@ void RulerGesture::drawControls(QPainter* p)
 	switch (m_mode)
 	{
 		case HORIZONTAL:
-			p->setPen(QPen(color, 1.0 / m_canvas->scale(), Qt::DashDotLine, Qt::FlatCap, Qt::MiterJoin));
+			p->setPen(QPen(color, 1.0, Qt::DashDotLine, Qt::FlatCap, Qt::MiterJoin));
 			p->drawLine(QPoint(pageOrigin.x(), m_xy.y()), QPoint(pageOrigin.x() + pageSize.width(), m_xy.y()));
 			break;
 		case VERTICAL:
-			p->setPen(QPen(color, 1.0 / m_canvas->scale(), Qt::DashDotLine, Qt::FlatCap, Qt::MiterJoin));
+			p->setPen(QPen(color, 1.0, Qt::DashDotLine, Qt::FlatCap, Qt::MiterJoin));
 			p->drawLine(QPoint(m_xy.x(), pageOrigin.y()), QPoint(m_xy.x(), pageOrigin.y() + pageSize.height()));
 			break;
 		case ORIGIN:
-			p->setPen(QPen(color, 1.0 / m_canvas->scale(), Qt::DotLine, Qt::FlatCap, Qt::MiterJoin));
+			p->setPen(QPen(color, 1.0, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin));
 			p->drawLine(QPoint(m_xy.x(), 0), QPoint(m_xy.x(), m_canvas->height()));
 			p->drawLine(QPoint(0, m_xy.y()), QPoint(m_canvas->width(), m_xy.y()));
 			break;
