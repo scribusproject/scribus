@@ -877,13 +877,6 @@ INSTALL(FILES
   DESTINATION ${MIMELNKDIR}
 )
 
-## PL We may not need this anymore
-#Install the desktop file
-## INSTALL(FILES
- # scribus.desktop
- # #DESTINATION ${DESKTOPDIR}
-#)
-
 #If building an Apple bundle, install these specific files
 IF(APPLEBUNDLE)
   INSTALL(FILES
