@@ -65,13 +65,7 @@ for which a new license (GPL+exception) is in place.
 #include <QUrl>
 #include <QDir>
 #include <QSizeGrip>
-#if QT_VERSION  > 0x030102
-	#define SPLITVC Qt::SplitHCursor
-	#define SPLITHC Qt::SplitVCursor
-#else
-	#define SPLITVC Qt::SplitVCursor
-	#define SPLITHC Qt::SplitHCursor
-#endif
+
 #include "scribus.h"
 
 #include "canvas.h"
@@ -3080,7 +3074,7 @@ void ScribusView::FromHRuler(QMouseEvent *m)
 	if ((pg == -1) || (!QRect(0, 0, visibleWidth(), visibleHeight()).contains(py)))
 		qApp->changeOverrideCursor(QCursor(loadIcon("DelPoint.png")));
 	else
-		qApp->changeOverrideCursor(QCursor(SPLITHC));
+		qApp->changeOverrideCursor(QCursor(Qt::SplitVCursor));
 }
 
 void ScribusView::FromVRuler(QMouseEvent *m)
@@ -3102,7 +3096,7 @@ void ScribusView::FromVRuler(QMouseEvent *m)
 	if ((pg == -1) || (!QRect(0, 0, visibleWidth(), visibleHeight()).contains(py)))
 		qApp->changeOverrideCursor(QCursor(loadIcon("DelPoint.png")));
 	else
-		qApp->changeOverrideCursor(QCursor(SPLITVC));
+		qApp->changeOverrideCursor(QCursor(Qt::SplitHCursor));
 }
 #endif
 

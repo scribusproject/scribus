@@ -41,14 +41,6 @@ for which a new license (GPL+exception) is in place.
 #include "units.h"
 #include "vruler.h"
 
-#if QT_VERSION  > 0x030102
-	#define SPLITVC Qt::SplitHCursor
-#else
-	#define SPLITVC Qt::SplitVCursor
-#endif
-
-
-
 Vruler::Vruler(ScribusView *pa, ScribusDoc *doc) : QWidget(pa)
 {
 	prefsManager=PrefsManager::instance();
@@ -73,7 +65,7 @@ void Vruler::mousePressEvent(QMouseEvent *m)
 	Mpressed = true;
 	if (m_doc->guidesPrefs().guidesShown)
 	{
-		qApp->setOverrideCursor(QCursor(SPLITVC));
+		qApp->setOverrideCursor(QCursor(Qt::SplitHCursor));
 		m_view->startGesture(rulerGesture);
 		m_view->registerMousePress(m->globalPos());
 	}

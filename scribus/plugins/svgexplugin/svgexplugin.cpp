@@ -662,12 +662,10 @@ QDomElement SVGExPlug::processSymbolStroke(PageItem *Item, QString trans)
 	{
 		double currPerc = path.percentAtLength(xpos);
 		double currAngle = path.angleAtPercent(currPerc);
-#if QT_VERSION  >= 0x040400
 		if (currAngle <= 180.0)
 			currAngle *= -1.0;
 		else
 			currAngle = 360.0 - currAngle;
-#endif
 		QPointF currPoint = path.pointAtPercent(currPerc);
 		QTransform trans;
 		trans.translate(currPoint.x(), currPoint.y());

@@ -43,13 +43,6 @@ for which a new license (GPL+exception) is in place.
 #include "selection.h"
 #include "units.h"
 
-
-#if QT_VERSION  > 0x030102
-	#define SPLITHC Qt::SplitVCursor
-#else
-	#define SPLITHC Qt::SplitHCursor
-#endif
-
 #include "util_icon.h"
 
 
@@ -234,7 +227,7 @@ void Hruler::mousePressEvent(QMouseEvent *m)
 	{
 		if (m_doc->guidesPrefs().guidesShown)
 		{
-			qApp->setOverrideCursor(QCursor(SPLITHC));
+			qApp->setOverrideCursor(QCursor(Qt::SplitVCursor));
 			m_view->startGesture(rulerGesture);
 			m_view->registerMousePress(m->globalPos());
 		}

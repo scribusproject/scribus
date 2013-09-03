@@ -30,11 +30,7 @@ class PrefsManager;
 class MarginWidget;
 class ScrSpinBox;
 class ScComboBox;
-#if QT_VERSION  >= 0x040300
-	class QFileDialog;
-#else
-	class CustomFDialog;
-#endif
+class QFileDialog;
 
 class SCRIBUS_API PageLayoutsWidget : public QListWidget
 {
@@ -101,11 +97,7 @@ public:
 	ScrSpinBox* widthSpinBox;
 	ScrSpinBox* heightSpinBox;
 	QFrame* openDocFrame;
-#if QT_VERSION  >= 0x040300
 	QFileDialog *fileDialog;
-#else
-	CustomFDialog *fileDialog;
-#endif
 	QFrame* newFromTempFrame;
 	nftwidget *nftGui;
 	QFrame* recentDocFrame;

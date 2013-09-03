@@ -75,7 +75,6 @@ void ScTableWidget::setCellWidget(int row, int column, QWidget * widget)
 	widgetPositions.insert(widget, QPair<int, int>(row, column));
 }
 
-#if QT_VERSION  >= 0x040300
 void ScTableWidget::removeCellWidget ( int row, int column )
 {
 	QTableWidget::removeCellWidget(row, column);
@@ -93,4 +92,3 @@ void ScTableWidget::removeCellWidget ( int row, int column )
 	if (t!=NULL)
 		widgetPositions.remove(t);
 }
-#endif

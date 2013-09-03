@@ -3178,18 +3178,14 @@ double CgmPlug::getBinaryReal(QDataStream &ts, int realP, int realM)
 	{
 		if (realM == 9)		// 32bit
 		{
-#if QT_VERSION >= 0x040600
 			ts.setFloatingPointPrecision(QDataStream::SinglePrecision);
-#endif
 			float data;
 			ts >> data;
 			val = data;
 		}
 		else
 		{
-#if QT_VERSION >= 0x040600
 			ts.setFloatingPointPrecision(QDataStream::DoublePrecision);
-#endif
 			double data;
 			ts >> data;
 			val = data;

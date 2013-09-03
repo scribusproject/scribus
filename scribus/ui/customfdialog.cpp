@@ -461,11 +461,7 @@ CustomFDialog::CustomFDialog(QWidget *parent, QString wDir, QString caption, QSt
 		if (flags & fdCompressFile)
 			connect(SaveZip, SIGNAL(clicked()), this, SLOT(handleCompress()));
 	}
-#if QT_VERSION >= 0x040600
 	fileDialog->setNameFilterDetailsVisible(false);
-#else
-	fileDialog->setOption(QFileDialog::HideNameFilterDetails);
-#endif
 	extZip = "gz";
 	connect(OKButton, SIGNAL(clicked()), this, SLOT(accept()));
 	connect(CancelB, SIGNAL(clicked()), this, SLOT(reject()));

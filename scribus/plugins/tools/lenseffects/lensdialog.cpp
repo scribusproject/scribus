@@ -60,9 +60,7 @@ void LensItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, 
 	radialGrad.setColorAt(0.0, QColor(255, 0, 0, 127));
 	radialGrad.setColorAt(0.1, QColor(255, 0, 0, 127));
 	radialGrad.setColorAt(1.0, QColor(255, 255, 255, 0));
-#if QT_VERSION  >= 0x040301
 	radialGrad.setCoordinateMode(QGradient::ObjectBoundingMode);
-#endif
 	painter->setBrush(radialGrad);
 	painter->drawEllipse(rect().toRect());
 	if (option->state & QStyle::State_Selected)

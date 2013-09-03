@@ -3724,12 +3724,10 @@ void PSLib::HandleBrushPattern(PageItem *c, QPainterPath &path, ScPage* a, uint 
 	{
 		double currPerc = path.percentAtLength(xpos);
 		double currAngle = path.angleAtPercent(currPerc);
-#if QT_VERSION  >= 0x040400
 		if (currAngle <= 180.0)
 			currAngle *= -1.0;
 		else
 			currAngle = 360.0 - currAngle;
-#endif
 		QPointF currPoint = path.pointAtPercent(currPerc);
 		PS_save();
 		PS_translate(currPoint.x(), -currPoint.y());
