@@ -923,11 +923,7 @@ bool ScImgDataLoader_PS::loadPSjpeg(QString fn)
 	else if ( cinfo.output_components == 1 )
 	{
 		m_image = QImage( cinfo.output_width, cinfo.output_height, QImage::Format_Indexed8 );
-#ifdef USE_QT5
 		m_image.setColorCount(256);
-#else
-		m_image.setNumColors(256);
-#endif
 		for (int i=0; i<256; i++)
 			m_image.setColor(i, qRgb(i,i,i));
 	}
@@ -1047,11 +1043,7 @@ bool ScImgDataLoader_PS::loadPSjpeg(QString fn, QImage &tmpImg)
 	else if ( cinfo.output_components == 1 )
 	{
 		tmpImg = QImage( cinfo.output_width, cinfo.output_height, QImage::Format_Indexed8 );
-#ifdef USE_QT5
 		m_image.setColorCount(256);
-#else
-		m_image.setNumColors(256);
-#endif
 		for (int i=0; i<256; i++)
 			tmpImg.setColor(i, qRgb(i,i,i));
 		m_pixelFormat = Format_GRAY_8;

@@ -37,11 +37,7 @@ for which a new license (GPL+exception) is in place.
 #include "scraction.h"
 #include "util_icon.h"
 
-#ifdef USE_QT5
 UndoGui::UndoGui(QWidget* parent, const char* name, Qt::WindowFlags f) : ScDockPalette(parent, name, f)
-#else
-UndoGui::UndoGui(QWidget* parent, const char* name, Qt::WFlags f) : ScDockPalette(parent, name, f)
-#endif
 {
 	setWindowTitle( tr("Action History"));
 }

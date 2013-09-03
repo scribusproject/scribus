@@ -59,10 +59,6 @@ public:
 	Tpalette(QWidget* parent);
 	~Tpalette() {};
 
-#ifndef USE_QT5
-	virtual void changeEvent(QEvent *e);
-#endif
-
 	void setDocument(ScribusDoc* doc);
 	void setCurrentItem(PageItem* item);
 	void hideSelectionButtons();

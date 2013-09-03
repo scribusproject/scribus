@@ -393,13 +393,8 @@ OutlinePalette::OutlinePalette( QWidget* parent) : ScDockPalette( parent, "Tree"
 	reportDisplay->setRootIsDecorated( true );
 	reportDisplay->setColumnCount(1);
 	reportDisplay->setHeaderLabel( tr("Element"));
-#ifdef USE_QT5
 	reportDisplay->header()->setSectionsClickable(false );
 	reportDisplay->header()->setSectionResizeMode(QHeaderView::ResizeToContents);
-#else
-	reportDisplay->header()->setClickable( false );
-	reportDisplay->header()->setResizeMode( QHeaderView::ResizeToContents );
-#endif
 	reportDisplay->setSortingEnabled(false);
 	reportDisplay->setSelectionMode(QAbstractItemView::ExtendedSelection);
 	reportDisplay->setContextMenuPolicy(Qt::CustomContextMenu);

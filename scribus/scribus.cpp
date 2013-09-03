@@ -533,11 +533,7 @@ void ScribusMainWindow::initKeyboardShortcuts()
 	{
 		if ((ScrAction*)(it.value())!=NULL)
 		{
-#ifdef USE_QT5
 			QString accelerator = it.value()->shortcut().toString();
-#else
-			QString accelerator = it.value()->shortcut();
-#endif
 			prefsManager->setKeyEntry(it.key(), it.value()->cleanMenuText(), accelerator,0);
 		}
 		//else
@@ -1333,13 +1329,8 @@ bool ScribusMainWindow::eventFilter( QObject* /*o*/, QEvent *e )
 			keyMod |= Qt::ALT;
 
 		QKeySequence currKeySeq = QKeySequence(k->key() | keyMod);
-#ifdef USE_QT5
 		if (QString(currKeySeq.toString()).isNull())
 			return false;
-#else
-		if (QString(currKeySeq).isNull())
-			return false;
-#endif
 		retVal=true;
 		//Palette actions
 		if (currKeySeq == scrActions["specialToggleAllPalettes"]->shortcut())

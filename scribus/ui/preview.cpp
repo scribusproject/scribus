@@ -154,13 +154,8 @@ PPreview::PPreview( QWidget* parent, ScribusView *vin, ScribusDoc *docu, QString
 		Table->setHorizontalHeaderItem(1, new QTableWidgetItem( tr("Separation Name")));
 		QHeaderView *header = Table->horizontalHeader();
 		header->setStretchLastSection(true);
-#ifdef USE_QT5
 		header->setSectionsMovable(false);
 		header->setSectionResizeMode(QHeaderView::Fixed);
-#else
-		header->setMovable(false);
-		header->setResizeMode(QHeaderView::Fixed);
-#endif
 		Table->setColumnWidth(0, 24);
 		Table->verticalHeader()->hide();
 		Table->setSelectionMode( QAbstractItemView::NoSelection );

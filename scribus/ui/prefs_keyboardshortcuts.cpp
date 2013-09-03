@@ -290,46 +290,12 @@ QStringList Prefs_KeyboardShortcuts::scanForSets()
 
 QString Prefs_KeyboardShortcuts::getKeyText(QKeySequence KeyC)
 {
-#ifdef USE_QT5
 	return KeyC.toString();
-#else
-	if ((KeyC & ~(Qt::META | Qt::CTRL | Qt::ALT | Qt::SHIFT)) == 0)
-		return "";
-	// on OSX Qt translates modifiers to forsaken symbols, arrows and the like
-	// we prefer plain English
-	QString res;
-	if ((KeyC & Qt::META) != 0)
-		res += "Meta+";
-	if ((KeyC & Qt::CTRL) != 0)
-		res += "Ctrl+";
-	if ((KeyC & Qt::ALT) != 0)
-		res += "Alt+";
-	if ((KeyC & Qt::SHIFT) != 0)
-		res += "Shift+";
-	return res + QString(QKeySequence(KeyC & ~(Qt::META | Qt::CTRL | Qt::ALT | Qt::SHIFT)));
-#endif
 }
 
 QString Prefs_KeyboardShortcuts::getTrKeyText(QKeySequence KeyC)
 {
-#ifdef USE_QT5
 	return KeyC.toString();
-#else
-	if ((KeyC & ~(Qt::META | Qt::CTRL | Qt::ALT | Qt::SHIFT)) == 0)
-		return "";
-	// on OSX Qt translates modifiers to forsaken symbols, arrows and the like
-	// we prefer plain English
-	QString res;
-	if ((KeyC & Qt::META) != 0)
-		res += CommonStrings::metaModifier + "+";
-	if ((KeyC & Qt::CTRL) != 0)
-		res += CommonStrings::controlModifier + "+";
-	if ((KeyC & Qt::ALT) != 0)
-		res += CommonStrings::altModifier + "+";
-	if ((KeyC & Qt::SHIFT) != 0)
-		res += CommonStrings::shiftModifier + "+";
-	return res + QString(QKeySequence(KeyC & ~(Qt::META | Qt::CTRL | Qt::ALT | Qt::SHIFT)));
-#endif
 }
 
 void Prefs_KeyboardShortcuts::setKeyText()
@@ -392,11 +358,7 @@ void Prefs_KeyboardShortcuts::insertActions()
 			Q_CHECK_PTR(currLVI);
 			lviToActionMap.insert(currLVI, *it);
 			currLVI->setText(0, keyMap[*it].cleanMenuText);
-#ifdef USE_QT5
 			currLVI->setText(1, keyMap[*it].keySequence.toString());
-#else
-			currLVI->setText(1, keyMap[*it].keySequence);
-#endif
 			prevLVI=currLVI;
 		}
 	}
@@ -430,11 +392,7 @@ void Prefs_KeyboardShortcuts::insertActions()
 			Q_CHECK_PTR(currLVI);
 			lviToActionMap.insert(currLVI, *it);
 			currLVI->setText(0, keyMap[*it].cleanMenuText);
-#ifdef USE_QT5
 			currLVI->setText(1, keyMap[*it].keySequence.toString());
-#else
-			currLVI->setText(1, keyMap[*it].keySequence);
-#endif
 			prevLVI=currLVI;
 		}
 	}
@@ -470,11 +428,7 @@ void Prefs_KeyboardShortcuts::dispKey(QTreeWidgetItem* qlvi, QTreeWidgetItem*)
 		QString actionName=lviToActionMap[qlvi];
 		if (actionName.isEmpty())
 			return;
-#ifdef USE_QT5
 		keyDisplay->setText(keyMap[actionName].keySequence.toString());
-#else
-		keyDisplay->setText(keyMap[actionName].keySequence);
-#endif
 		if (keyMap[actionName].keySequence.isEmpty())
 			noKey->setChecked(true);
 		else
@@ -547,22 +501,13 @@ void Prefs_KeyboardShortcuts::keyPressEvent(QKeyEvent *k)
 												.arg(getTrKeyText(keyCode))
 												.arg(getAction(keyCode)),
 											CommonStrings::tr_OK);
-#ifdef USE_QT5
 					selectedLVI->setText(1,keyMap[lviToActionMap[selectedLVI]].keySequence.toString());
 					keyDisplay->setText(keyMap[lviToActionMap[selectedLVI]].keySequence.toString());
-#else
-					selectedLVI->setText(1,keyMap[lviToActionMap[selectedLVI]].keySequence);
-					keyDisplay->setText(keyMap[lviToActionMap[selectedLVI]].keySequence);
-#endif
 				}
 				else
 				{
 					QKeySequence newKeySequence(keyCode);
-#ifdef USE_QT5
 					selectedLVI->setText(1, newKeySequence.toString());
-#else
-					selectedLVI->setText(1, QString(newKeySequence));
-#endif
 					keyMap[lviToActionMap[selectedLVI]].keySequence=newKeySequence;
 					userDef->setChecked(true);
 				}

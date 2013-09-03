@@ -63,13 +63,8 @@ CheckDocument::CheckDocument( QWidget* parent, bool modal )
 	checkDocumentLayout->addLayout( layout1 );
 
 	reportDisplay = new QTreeWidget( this );
-#ifdef USE_QT5
 	reportDisplay->header()->setSectionsClickable(false );
 	reportDisplay->header()->setSectionsMovable( false );
-#else
-	reportDisplay->header()->setClickable( false );
-	reportDisplay->header()->setMovable( false );
-#endif
 	reportDisplay->setSortingEnabled(false);
 	reportDisplay->setAlternatingRowColors(true);
 	checkDocumentLayout->addWidget( reportDisplay );

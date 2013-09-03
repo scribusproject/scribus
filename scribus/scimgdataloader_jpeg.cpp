@@ -362,11 +362,7 @@ bool ScImgDataLoader_JPEG::loadPicture(const QString& fn, int /*page*/, int res,
 	else if ( cinfo.output_components == 1 )
 	{
 		m_image = QImage( cinfo.output_width, cinfo.output_height, QImage::Format_Indexed8 );
-#ifdef USE_QT5
 		m_image.setColorCount(256);
-#else
-		m_image.setNumColors(256);
-#endif
 		for (int i=0; i<256; i++)
 			m_image.setColor(i, qRgb(i,i,i));
 	}

@@ -47,11 +47,7 @@ NodeItem::NodeItem(QRectF geom, uint num, MeshDistortionDialog *parent) : QGraph
 	setPen(QPen(Qt::red, 2.0));
 	setFlags(QGraphicsItem::ItemIsMovable | QGraphicsItem::ItemIsSelectable);
 	setZValue(9999999);
-#ifdef USE_QT5
 	acceptHoverEvents();
-#else
-	setAcceptsHoverEvents(true);
-#endif
 	mouseMoving = false;
 	mousePressed = false;
 }
@@ -233,11 +229,7 @@ void MeshDistortionDialog::addItemsToScene(Selection* itemSelection, ScribusDoc 
 		{
 			scene.addItem(pItem);
 			pItem->setPos(currItem->xPos() - gx + deltaX, currItem->yPos() - gy + deltaY);
-#ifdef USE_QT5
 			pItem->setRotation(currItem->rotation());
-#else
-			pItem->rotate(currItem->rotation());
-#endif
 		}
 		else
 		{
@@ -246,11 +238,7 @@ void MeshDistortionDialog::addItemsToScene(Selection* itemSelection, ScribusDoc 
 		//	mm.translate(-parent->xPos(), -parent->yPos());
 		//	pItem->setPos(mm.map(QPointF(currItem->xPos(), currItem->yPos())));
 			pItem->setPos(QPointF(currItem->gXpos, currItem->gYpos));
-#ifdef USE_QT5
 			pItem->setRotation(currItem->rotation());
-#else
-			pItem->rotate(currItem->rotation());
-#endif
 		}
 		QPainterPath pathO = pp;
 		QTransform mmO;

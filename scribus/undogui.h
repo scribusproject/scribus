@@ -67,11 +67,7 @@ public:
 	 * @param name Name of the object
 	 * @param f widget flags
 	 */
-#ifdef USE_QT5
 	UndoGui(QWidget* parent = 0, const char* name = "UndoGui", Qt::WindowFlags f = 0);
-#else
-	UndoGui(QWidget* parent = 0, const char* name = "UndoGui", Qt::WFlags f = 0);
-#endif
 
 	/** @brief Destroys the widget */
 	virtual ~UndoGui() {};

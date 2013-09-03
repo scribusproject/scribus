@@ -240,11 +240,7 @@ QString ScrAction::cleanMenuText()
 
 void ScrAction::setToolTipFromTextAndShortcut()
 {
-#ifdef USE_QT5
 	QString sct(shortcut().toString());
-#else
-	QString sct(shortcut());
-#endif
 	if (sct.isEmpty())
 		QAction::setToolTip("<qt>" + cleanMenuText() + "</qt>");
 	else

@@ -47,15 +47,9 @@ FontReplaceDialog::FontReplaceDialog( QWidget* parent, QMap<QString, QString> *R
 	replacementTable->setSortingEnabled(false);
 	replacementTable->setSelectionBehavior( QAbstractItemView::SelectRows );
 	QHeaderView *header = replacementTable->horizontalHeader();
-#ifdef USE_QT5
 	header->setSectionsClickable(false );
 	header->setSectionsMovable( false );
 	header->setSectionResizeMode(QHeaderView::Stretch);
-#else
-	header->setMovable(false);
-	header->setClickable(false);
-	header->setResizeMode(QHeaderView::Stretch);
-#endif
 	replacementTable->verticalHeader()->hide();
 	replacementTable->setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding));
 	replacementTable->setRowCount(RList->count());

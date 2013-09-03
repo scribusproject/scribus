@@ -190,13 +190,11 @@ void ScribusQApp::parseCommandLine()
 	if (runtests)
 		RunTests::runTests(testargsc, testargsv);
 #endif
-#ifndef USE_QT5  // currently disabled as it needs a complete rewrite in Qt 5
 	if (runUpgradeCheck)
 	{
 		UpgradeChecker uc;
 		uc.fetch();
 	}
-#endif
 	//Dont run the GUI init process called from main.cpp, and return
 	if (!header)
 		useGUI=true;
