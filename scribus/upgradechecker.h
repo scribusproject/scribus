@@ -32,7 +32,7 @@ public:
 	QStringList upgradeData();
 	
 public slots:
-	void abort();
+	//void abort();
 	
 private slots:
 	void downloadFinished();
