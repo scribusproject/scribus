@@ -1014,6 +1014,9 @@
     <ClInclude Include="..\..\..\scribus\colormgmt\sclcms2colortransformimpl.h">
       <Filter>colorMgmt</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\scribus\selectionrubberband.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\scribus\desaxe\digester.cpp">
@@ -3422,6 +3425,15 @@
     <ClCompile Include="..\..\..\scribus\colormgmt\sclcms2colortransformimpl.cpp">
       <Filter>colorMgmt</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\scribus\upgradechecker.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\selectionrubberband.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\moc_upgradechecker.cpp">
+      <Filter>Generated Moc Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Scribus.rc">
@@ -4837,6 +4849,9 @@
       <Filter>Header Files</Filter>
     </moc>
     <moc Include="..\..\..\scribus\ui\weldedit.h">
+      <Filter>Header Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\upgradechecker.h">
       <Filter>Header Files</Filter>
     </moc>
   </ItemGroup>

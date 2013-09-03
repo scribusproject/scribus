@@ -310,6 +310,7 @@
     <ClInclude Include="..\..\..\scribus\canvasmode_panning.h" />
     <ClInclude Include="..\..\..\scribus\canvasmode_rotate.h" />
     <ClInclude Include="..\..\..\scribus\cellarea.h" />
+    <ClInclude Include="..\..\..\scribus\selectionrubberband.h" />
     <ClInclude Include="..\..\..\scribus\styles\cellstyle.h" />
     <moc Include="..\..\..\scribus\ui\charselect.h" />
     <moc Include="..\..\..\scribus\ui\charselectenhanced.h" />
@@ -558,6 +559,7 @@
     <ClInclude Include="..\..\..\scribus\rc4.h" />
     <moc Include="..\..\..\scribus\ui\replacecolors.h" />
     <moc Include="..\..\..\scribus\ui\replaceonecolor.h" />
+    <moc Include="..\..\..\scribus\upgradechecker.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="..\..\..\scribus\resourcecollection.h" />
     <moc Include="..\..\..\scribus\ui\rulermover.h" />
@@ -888,6 +890,8 @@
     <ClCompile Include="..\..\..\scribus\desaxe\saxiohelper.cpp" />
     <ClCompile Include="..\..\..\scribus\desaxe\saxXML.cpp" />
     <ClCompile Include="..\..\..\scribus\desaxe\uniqueid.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_upgradechecker.cpp" />
+    <ClCompile Include="..\..\..\scribus\selectionrubberband.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\about.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\aboutplugins.cpp" />
     <ClCompile Include="..\..\..\scribus\actionmanager.cpp" />
@@ -1352,6 +1356,7 @@
     <ClCompile Include="..\..\..\scribus\scribusapp.cpp" />
     <ClCompile Include="..\..\..\scribus\scribuscore.cpp" />
     <ClCompile Include="..\..\..\scribus\scribusdoc.cpp" />
+    <ClCompile Include="..\..\..\scribus\upgradechecker.cpp" />
     <ClCompile Include="scribuspch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
