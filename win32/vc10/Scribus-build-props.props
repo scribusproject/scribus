@@ -3,9 +3,9 @@
   <ImportGroup Label="PropertySheets">
   </ImportGroup>
   <PropertyGroup Label="UserMacros">
-    <QT5_DIR>F:\Libraries-vcall\Qt\5.1.0\msvc2010</QT5_DIR>
+    <QT5_DIR>F:\Libraries-vcall\Qt\5.1.1\msvc2010</QT5_DIR>
     <BOOST_DIR>F:\Libraries-vc10\boost-1.51.0</BOOST_DIR>
-    <CAIRO_DIR>F:\Libraries-vc10\cairo-1.12.14</CAIRO_DIR>
+    <CAIRO_DIR>F:\Libraries-vc10\cairo-1.12.16</CAIRO_DIR>
     <CAIRO_DEBUG_LIB>cairo2d.lib</CAIRO_DEBUG_LIB>
     <CAIRO_RELEASE_LIB>cairo2.lib</CAIRO_RELEASE_LIB>
     <FREETYPE_DIR>F:\Libraries-vc10\freetype-2.4.12</FREETYPE_DIR>
@@ -24,7 +24,7 @@
     <LIBTIFF_DIR>F:\Libraries-vc10\libtiff-3.9.7</LIBTIFF_DIR>
     <LIBTIFF_DEBUG_LIB>libtiff3_d.lib</LIBTIFF_DEBUG_LIB>
     <LIBTIFF_RELEASE_LIB>libtiff3.lib</LIBTIFF_RELEASE_LIB>
-    <PIXMAN_DIR>F:\Libraries-vc10\pixman-0.30.0</PIXMAN_DIR>
+    <PIXMAN_DIR>F:\Libraries-vc10\pixman-0.30.2</PIXMAN_DIR>
     <PIXMAN_DEBUG_LIB>pixman_d.lib</PIXMAN_DEBUG_LIB>
     <PIXMAN_RELEASE_LIB>pixman.lib</PIXMAN_RELEASE_LIB>
     <PODOFO_DIR>F:\Libraries-vc10\podofo-0.9.1</PODOFO_DIR>
@@ -36,10 +36,10 @@
     <PYTHON_DIR>F:\Libraries-vc10\Python-2.7.5</PYTHON_DIR>
     <PYTHON_DEBUG_LIB>python27_d.lib</PYTHON_DEBUG_LIB>
     <PYTHON_RELEASE_LIB>python27.lib</PYTHON_RELEASE_LIB>
-    <POPPLER_DIR>F:\Libraries-vc10\poppler-0.22.5</POPPLER_DIR>
+    <POPPLER_DIR>F:\Libraries-vc10\poppler-0.24.1</POPPLER_DIR>
     <POPPLER_DEBUG_LIB>poppler_staticD.lib</POPPLER_DEBUG_LIB>
     <POPPLER_RELEASE_LIB>poppler_static.lib</POPPLER_RELEASE_LIB>
-	<ZLIB_DIR>F:\Libraries-vc10\zlib-1.2.7</ZLIB_DIR>
+	<ZLIB_DIR>F:\Libraries-vc10\zlib-1.2.8</ZLIB_DIR>
     <ZLIB_DEBUG_LIB>zlib1d.lib</ZLIB_DEBUG_LIB>
     <ZLIB_RELEASE_LIB>zlib1.lib</ZLIB_RELEASE_LIB>
   </PropertyGroup>

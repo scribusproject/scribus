@@ -58,7 +58,7 @@
     <ClCompile>
       <Optimization>Disabled</Optimization>
       <AdditionalIncludeDirectories>..;..\..\..\scribus;$(QT5_DIR)\include\QtANGLE;$(QT5_DIR)\include\QtCore;$(QT5_DIR)\include\QtGui;$(QT5_DIR)\include\QtWidgets;$(QT5_DIR)\include\QtXml;$(QT5_DIR)\include;$(LCMS_DIR)\include;$(CAIRO_DIR)\include;$(FREETYPE_DIR)\include;$(HUNSPELL_DIR)\include;$(LIBJPEG_DIR)\include;$(LIBTIFF_DIR)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_USE_MATH_DEFINES;_USRDLL;_WINDOWS;QT_EDITION=QT_EDITION_DESKTOP;QT_DLL;QT_GUI_LIB;QT_CORE_LIB;QT_THREAD_SUPPORT;USE_QT5;AVOID_WIN32_FILEIO;COMPILE_PLUGIN_AS_DLL;HUNSPELL_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_USE_MATH_DEFINES;_USRDLL;_WINDOWS;QT_EDITION=QT_EDITION_DESKTOP;QT_DLL;QT_GUI_LIB;QT_CORE_LIB;QT_THREAD_SUPPORT;AVOID_WIN32_FILEIO;COMPILE_PLUGIN_AS_DLL;HUNSPELL_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>true</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
@@ -86,7 +86,7 @@
       <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
       <OmitFramePointers>true</OmitFramePointers>
       <AdditionalIncludeDirectories>..;..\..\..\scribus;$(QT5_DIR)\include\QtANGLE;$(QT5_DIR)\include\QtCore;$(QT5_DIR)\include\QtGui;$(QT5_DIR)\include\QtWidgets;$(QT5_DIR)\include\QtXml;$(QT5_DIR)\include;$(LCMS_DIR)\include;$(CAIRO_DIR)\include;$(FREETYPE_DIR)\include;$(HUNSPELL_DIR)\include;$(LIBJPEG_DIR)\include;$(LIBTIFF_DIR)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_USE_MATH_DEFINES;_USRDLL;_WINDOWS;QT_EDITION=QT_EDITION_DESKTOP;QT_DLL;QT_GUI_LIB;QT_CORE_LIB;QT_THREAD_SUPPORT;USE_QT5;AVOID_WIN32_FILEIO;COMPILE_PLUGIN_AS_DLL;HUNSPELL_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_USE_MATH_DEFINES;_USRDLL;_WINDOWS;QT_EDITION=QT_EDITION_DESKTOP;QT_DLL;QT_GUI_LIB;QT_CORE_LIB;QT_THREAD_SUPPORT;AVOID_WIN32_FILEIO;COMPILE_PLUGIN_AS_DLL;HUNSPELL_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <FunctionLevelLinking>true</FunctionLevelLinking>
