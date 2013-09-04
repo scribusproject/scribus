@@ -110,6 +110,10 @@ PreferencesDialog::PreferencesDialog(QWidget* parent, ApplicationPrefs& prefsDat
 	{
 		addItem( tr("Document Information"), loadIcon("documentinfo.png"), prefs_DocumentInformation);
 	}
+	else
+	{
+		addItem( tr("Page Sizes"), loadIcon("16/page-simple.png"), prefs_PageSizes);
+	}
 	addItem( tr("Guides"), loadIcon("16/edit-guides.png"), prefs_Guides);
 	addItem( tr("Typography"), loadIcon("16/draw-text.png"), prefs_Typography);
 	addItem( tr("Item Tools"), loadIcon("tools_16.png"), prefs_ItemTools);
@@ -137,7 +141,6 @@ PreferencesDialog::PreferencesDialog(QWidget* parent, ApplicationPrefs& prefsDat
 	{
 		addItem( tr("External Tools"), loadIcon("gear_16.png"), prefs_ExternalTools);
 		addItem( tr("Miscellaneous"), loadIcon("misc_16.png"), prefs_Miscellaneous);
-		addItem( tr("Page Sizes"), loadIcon("16/page-simple.png"), prefs_PageSizes);
 		addItem( tr("Plugins"), loadIcon("plugins_16.png"), prefs_Plugins);
 		addItem( tr("Image Cache"), loadIcon("16/image-x-generic.png"), prefs_ImageCache);
 	}

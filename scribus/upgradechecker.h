@@ -31,9 +31,6 @@ public:
 	void show(bool error);
 	QStringList upgradeData();
 	
-public slots:
-	//void abort();
-	
 private slots:
 	void downloadFinished();
 	void downloadReadyRead();
