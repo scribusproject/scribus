@@ -159,7 +159,7 @@ const QString unitGetStrFromIndex(const int index)
 						QObject::tr("p"), 
 						QObject::tr("cm"), 
 						QObject::tr("c"),
-						QObject::trUtf8("\302\260", "degrees, unicode 0xB0"), //degree
+						QObject::tr("\302\260", "degrees, unicode 0xB0"), //degree
 						QObject::tr("%")
 						};
 	return suffix[index];
