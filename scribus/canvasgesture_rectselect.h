@@ -33,7 +33,7 @@ class QInputMethodEvent;
 class QMouseEvent;
 class QKeyEvent;
 class QPainter;
-class QRubberBand;
+class SelectionRubberBand;
 
 /**
   This class realizes rectangle-select on behalf of its parent mode.
@@ -48,7 +48,7 @@ class QRubberBand;
 class SCRIBUS_API RectSelect : public CanvasGesture
 {
 public:
-	explicit RectSelect (CanvasMode* parent) : CanvasGesture(parent), m_start(0,0), m_rectangle(0) {};
+	explicit RectSelect (CanvasMode* parent) : CanvasGesture(parent), m_start(0,0), m_selectionRubberBand(0) {};
 	virtual ~RectSelect() {}
 	
 	void prepare(QPoint globalStartPos);
@@ -73,7 +73,7 @@ private:
 	void setEnd(QPoint globalPos);
 	
 	QPoint m_start;
-	QRubberBand* m_rectangle;
+	SelectionRubberBand* m_selectionRubberBand;
 };
 
 

@@ -19,6 +19,7 @@
 #include "canvasgesture_rectselect.h"
 #include "canvas.h"
 #include "scribusview.h"
+#include "selectionrubberband.h"
 
 #include <QDragEnterEvent>
 #include <QDragMoveEvent>
@@ -37,17 +38,17 @@ void RectSelect::leaveEvent(QEvent * e){}
 
 void RectSelect::prepare(QPoint start)
 {
-	if (!m_rectangle)
-		m_rectangle = new QRubberBand(QRubberBand::Rectangle, m_view);
+	if (!m_selectionRubberBand)
+		m_selectionRubberBand = new SelectionRubberBand(QRubberBand::Rectangle, m_view);
 	setStart(start);
 //FIXME Move to new code like SelectionRubberBand
-	m_rectangle->setWindowOpacity(0.5);
-	m_rectangle->setGeometry(QRect(m_view->mapFromGlobal(start), m_view->mapFromGlobal(start)));
+	m_selectionRubberBand->setWindowOpacity(0.5);
+	m_selectionRubberBand->setGeometry(QRect(m_view->mapFromGlobal(start), m_view->mapFromGlobal(start)));
 }
 
 void RectSelect::clear()
 {
-	m_rectangle->hide();
+	m_selectionRubberBand->hide();
 	m_start = QPoint(0,0);
 }
 
@@ -55,12 +56,12 @@ void RectSelect::clear()
 void RectSelect::activate(bool)
 {
 	prepare(m_start);
-	m_rectangle->show();
+	m_selectionRubberBand->show();
 }
 
 void RectSelect::deactivate(bool)
 {
-	m_rectangle->hide();
+	m_selectionRubberBand->hide();
 }
 
 void RectSelect::setStart(QPoint globalPos)
@@ -70,13 +71,13 @@ void RectSelect::setStart(QPoint globalPos)
 
 void RectSelect::setEnd(QPoint globalPos)
 {
-	m_rectangle->setGeometry(QRect(m_view->mapFromGlobal(m_start), m_view->mapFromGlobal(globalPos)).normalized());
+	m_selectionRubberBand->setGeometry(QRect(m_view->mapFromGlobal(m_start), m_view->mapFromGlobal(globalPos)).normalized());
 }
 
 
 QRectF RectSelect::result() const
 {
-	QRect geom = m_rectangle->geometry().normalized();
+	QRect geom = m_selectionRubberBand->geometry().normalized();
 	geom = QRect(m_view->mapToGlobal(geom.topLeft()), m_view->mapToGlobal(geom.bottomRight()));
 	return m_canvas->globalToCanvas(geom);
 }
