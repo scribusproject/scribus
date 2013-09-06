@@ -9439,12 +9439,12 @@ QString ScribusMainWindow::CFileDialog(QString wDir, QString caption, QString fi
 		dia->setExtension(f.suffix());
 		dia->setZipExtension(f.suffix() + ".gz");
 		dia->setSelection(defNa);
-		if (docom != NULL)
+		if (docom != NULL && dia->SaveZip != NULL)
 			dia->SaveZip->setChecked(*docom);
 	}
 	if (optionFlags & fdDirectoriesOnly)
 	{
-		if (docom != NULL)
+		if (docom != NULL && dia->SaveZip != NULL)
 			dia->SaveZip->setChecked(*docom);
 		if (doFont != NULL)
 			dia->WithFonts->setChecked(*doFont);
@@ -9465,7 +9465,7 @@ QString ScribusMainWindow::CFileDialog(QString wDir, QString caption, QString fi
 		}
 		else
 		{
-			if (docom != NULL)
+			if (docom != NULL && dia->SaveZip != NULL)
 				*docom = dia->SaveZip->isChecked();
 			if (doFont != NULL)
 				*doFont = dia->WithFonts->isChecked();
