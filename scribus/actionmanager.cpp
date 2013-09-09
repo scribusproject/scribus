@@ -184,8 +184,6 @@ void ActionManager::initFileMenuActions()
 	
 	
 	(*scrActions)["fileClose"]->setShortcutContext(Qt::WidgetShortcut);
-
-	(*scrActions)["fileNew"]->setStatusTip(tr("Create a new document"));
 }
 
 void ActionManager::initEditMenuActions()
@@ -1699,7 +1697,8 @@ void ActionManager::languageChange()
 
 	//////
 	//File Menu
-	(*scrActions)["fileNew"]->setStatusTextAndShortcut( tr("&New"));
+	(*scrActions)["fileNew"]->setStatusTextAndShortcut( tr("Create a new document"));
+	/*
 	(*scrActions)["fileNewFromTemplate"]->setStatusTextAndShortcut( tr("New &from Template..."));
 	(*scrActions)["fileOpen"]->setStatusTextAndShortcut( tr("&Open..."));
 	(*scrActions)["fileClose"]->setStatusTextAndShortcut( tr("&Close"));
@@ -1969,6 +1968,7 @@ void ActionManager::languageChange()
 	(*scrActions)["specialToggleAllPalettes"]->setStatusTextAndShortcut( tr("Toggle Palettes"));
 	(*scrActions)["specialToggleAllGuides"]->setStatusTextAndShortcut( tr("Toggle Guides"));
 	(*scrActions)["specialUnicodeSequenceBegin"]->setStatusTextAndShortcut( tr("Insert Unicode Character Begin Sequence"));
+	*/
 	//////
 	languageChangeUnicodeActions(scrActions);
 	languageChangeActions();
