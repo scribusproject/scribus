@@ -247,6 +247,15 @@ void ScrAction::setToolTipFromTextAndShortcut()
 		QAction::setToolTip("<qt>" + cleanMenuText() + " (" + sct + ")" + "</qt>");
 }
 
+void ScrAction::setStatusTextAndShortcut(const QString& statusText)
+{
+	QString sct(shortcut().toString());
+	if (sct.isEmpty())
+		QAction::setStatusTip("<qt>" + statusText + "</qt>");
+	else
+		QAction::setStatusTip("<qt>" + statusText + " (" + sct + ")" + "</qt>");
+}
+
 int ScrAction::getMenuIndex() const
 {
 	return menuIndex;

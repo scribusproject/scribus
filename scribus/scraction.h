@@ -114,6 +114,7 @@ public:
 	QString cleanMenuText();
 
 	void setToolTipFromTextAndShortcut();
+	void setStatusTextAndShortcut(const QString& statusText);
 
 	/*!
 		\author Craig Bradney

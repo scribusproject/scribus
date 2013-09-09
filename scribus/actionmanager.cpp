@@ -184,6 +184,8 @@ void ActionManager::initFileMenuActions()
 	
 	
 	(*scrActions)["fileClose"]->setShortcutContext(Qt::WidgetShortcut);
+
+	(*scrActions)["fileNew"]->setStatusTip(tr("Create a new document"));
 }
 
 void ActionManager::initEditMenuActions()
@@ -1693,6 +1695,281 @@ void ActionManager::languageChange()
 	(*scrActions)["specialToggleAllPalettes"]->setTexts( tr("Toggle Palettes"));
 	(*scrActions)["specialToggleAllGuides"]->setTexts( tr("Toggle Guides"));
 	(*scrActions)["specialUnicodeSequenceBegin"]->setTexts( tr("Insert Unicode Character Begin Sequence"));
+
+
+	//////
+	//File Menu
+	(*scrActions)["fileNew"]->setStatusTextAndShortcut( tr("&New"));
+	(*scrActions)["fileNewFromTemplate"]->setStatusTextAndShortcut( tr("New &from Template..."));
+	(*scrActions)["fileOpen"]->setStatusTextAndShortcut( tr("&Open..."));
+	(*scrActions)["fileClose"]->setStatusTextAndShortcut( tr("&Close"));
+	(*scrActions)["fileSave"]->setStatusTextAndShortcut( tr("&Save"));
+	(*scrActions)["fileSaveAs"]->setStatusTextAndShortcut( tr("Save &As..."));
+	(*scrActions)["fileRevert"]->setStatusTextAndShortcut( tr("Re&vert to Saved"));
+	(*scrActions)["fileCollect"]->setStatusTextAndShortcut( tr("Collect for O&utput..."));
+	(*scrActions)["fileImportText"]->setStatusTextAndShortcut( tr("Get Text..."));
+	(*scrActions)["fileImportAppendText"]->setStatusTextAndShortcut( tr("Append &Text..."));
+	(*scrActions)["fileImportImage"]->setStatusTextAndShortcut( tr("Get Image..."));
+	(*scrActions)["fileImportVector"]->setStatusTextAndShortcut( tr("Get Vector File..."));
+
+	(*scrActions)["fileExportText"]->setStatusTextAndShortcut( tr("Save &Text..."));
+	(*scrActions)["fileExportAsEPS"]->setStatusTextAndShortcut( tr("Save as &EPS..."));
+	(*scrActions)["fileExportAsPDF"]->setStatusTextAndShortcut( tr("Save as P&DF..."));
+//	(*scrActions)["fileDocSetup"]->setStatusTextAndShortcut( tr("Document &Setup (old)..."));
+	(*scrActions)["fileDocSetup150"]->setStatusTextAndShortcut( tr("Document &Setup..."));
+//	(*scrActions)["filePreferences"]->setStatusTextAndShortcut( tr("P&references (old)..."));
+	(*scrActions)["filePreferences150"]->setStatusTextAndShortcut( tr("P&references..."));
+	(*scrActions)["filePrint"]->setStatusTextAndShortcut( tr("&Print..."));
+	(*scrActions)["PrintPreview"]->setStatusTextAndShortcut( tr("Print Previe&w"));
+	(*scrActions)["fileQuit"]->setStatusTextAndShortcut( tr("&Quit"));
+	//Edit Menu
+	(*scrActions)["editUndoAction"]->setStatusTextAndShortcut( tr("&Undo"));
+	(*scrActions)["editRedoAction"]->setStatusTextAndShortcut( tr("&Redo"));
+	(*scrActions)["editActionMode"]->setStatusTextAndShortcut( tr("&Item Action Mode"));
+	(*scrActions)["editCut"]->setStatusTextAndShortcut( tr("Cu&t"));
+	(*scrActions)["editCopy"]->setStatusTextAndShortcut( tr("&Copy"));
+	(*scrActions)["editPaste"]->setStatusTextAndShortcut( tr("&Paste"));
+	(*scrActions)["editCopyContents"]->setStatusTextAndShortcut( tr("&Copy"));
+	(*scrActions)["editPasteContents"]->setStatusTextAndShortcut( tr("&Paste"));
+	(*scrActions)["editPasteContentsAbs"]->setStatusTextAndShortcut( tr("Paste (&Absolute)"));
+	(*scrActions)["editPasteImageFromClipboard"]->setStatusTextAndShortcut( tr("Paste Image from Clipboard"));
+	(*scrActions)["editClearContents"]->setStatusTextAndShortcut( tr("C&lear"));
+	(*scrActions)["editSelectAll"]->setStatusTextAndShortcut( tr("Select &All"));
+	(*scrActions)["editSelectAllOnLayer"]->setStatusTextAndShortcut( tr("Advanced Select All..."));
+	(*scrActions)["editDeselectAll"]->setStatusTextAndShortcut( tr("&Deselect All"));
+	(*scrActions)["editSearchReplace"]->setStatusTextAndShortcut( tr("&Search/Replace..."));
+	(*scrActions)["editEditWithImageEditor"]->setStatusTextAndShortcut( tr("Edit Image..."));
+	(*scrActions)["editEditRenderSource"]->setStatusTextAndShortcut( tr("Edit Source..."));
+	(*scrActions)["editColors"]->setStatusTextAndShortcut( tr("Colors and Fills..."));
+	(*scrActions)["editReplaceColors"]->setStatusTextAndShortcut( tr("Replace Colors..."));
+	(*scrActions)["editStyles"]->setStatusTextAndShortcut( tr("S&tyles..."));
+	(*scrActions)["editMarks"]->setStatusTextAndShortcut( tr("Marks..."));
+	(*scrActions)["editNotesStyles"]->setStatusTextAndShortcut( tr("Notes Styles..."));
+	(*scrActions)["editMasterPages"]->setStatusTextAndShortcut( tr("&Master Pages..."));
+	(*scrActions)["editJavascripts"]->setStatusTextAndShortcut( tr("&JavaScripts..."));
+
+	(*scrActions)["fontSizeOther"]->setStatusTextAndShortcut( tr("&Other..."));
+	(*scrActions)["alignLeft"]->setStatusTextAndShortcut( tr("&Left"));
+	(*scrActions)["alignCenter"]->setStatusTextAndShortcut( tr("&Center"));
+	(*scrActions)["alignRight"]->setStatusTextAndShortcut( tr("&Right"));
+	(*scrActions)["alignBlock"]->setStatusTextAndShortcut( tr("&Block"));
+	(*scrActions)["alignForced"]->setStatusTextAndShortcut( tr("&Forced"));
+
+	(*scrActions)["typeEffectNormal"]->setStatusTextAndShortcut( tr("&Normal"));
+	(*scrActions)["typeEffectUnderline"]->setStatusTextAndShortcut( tr("&Underline"));
+	(*scrActions)["typeEffectUnderlineWords"]->setStatusTextAndShortcut( tr("Underline &Words"));
+	(*scrActions)["typeEffectStrikeThrough"]->setStatusTextAndShortcut( tr("&Strike Through"));
+	(*scrActions)["typeEffectAllCaps"]->setStatusTextAndShortcut( tr("&All Caps"));
+	(*scrActions)["typeEffectSmallCaps"]->setStatusTextAndShortcut( tr("Small &Caps"));
+	(*scrActions)["typeEffectSuperscript"]->setStatusTextAndShortcut( tr("Su&perscript"));
+	(*scrActions)["typeEffectSubscript"]->setStatusTextAndShortcut( tr("Su&bscript"));
+	(*scrActions)["typeEffectOutline"]->setStatusTextAndShortcut( tr("&Outline", "type effect"));
+	(*scrActions)["typeEffectShadow"]->setStatusTextAndShortcut( tr("S&hadow"));
+
+	(*scrActions)["styleImageEffects"]->setStatusTextAndShortcut( tr("&Image Effects"));
+	(*scrActions)["styleTabulators"]->setStatusTextAndShortcut( tr("&Tabulators..."));
+
+	//Item Menu
+	(*scrActions)["itemDuplicate"]->setStatusTextAndShortcut( tr("D&uplicate"));
+	(*scrActions)["itemMulDuplicate"]->setStatusTextAndShortcut( tr("&Multiple Duplicate"));
+	(*scrActions)["itemTransform"]->setStatusTextAndShortcut( tr("&Transform"));
+	(*scrActions)["itemDelete"]->setStatusTextAndShortcut( tr("&Delete"));
+	(*scrActions)["itemGroup"]->setStatusTextAndShortcut( tr("&Group"));
+	(*scrActions)["itemUngroup"]->setStatusTextAndShortcut( tr("&Ungroup"));
+	(*scrActions)["itemGroupAdjust"]->setStatusTextAndShortcut( tr("Adjust Group"));
+	(*scrActions)["itemLock"]->setStatusTextAndShortcut( tr("Is &Locked"));
+	(*scrActions)["itemLockSize"]->setStatusTextAndShortcut( tr("Si&ze is Locked"));
+	(*scrActions)["itemPrintingEnabled"]->setStatusTextAndShortcut( tr("&Printing Enabled"));
+	(*scrActions)["itemFlipH"]->setStatusTextAndShortcut( tr("&Flip Horizontally"));
+	(*scrActions)["itemFlipV"]->setStatusTextAndShortcut( tr("&Flip Vertically"));
+	(*scrActions)["itemLowerToBottom"]->setStatusTextAndShortcut( tr("Lower to &Bottom"));
+	(*scrActions)["itemRaiseToTop"]->setStatusTextAndShortcut( tr("Raise to &Top"));
+	(*scrActions)["itemLower"]->setStatusTextAndShortcut( tr("&Lower"));
+	(*scrActions)["itemRaise"]->setStatusTextAndShortcut( tr("&Raise"));
+	(*scrActions)["itemSendToPattern"]->setStatusTextAndShortcut( tr("Patterns"));
+	(*scrActions)["itemSendToInline"]->setStatusTextAndShortcut( tr("Inline Items"));
+	(*scrActions)["itemAttributes"]->setStatusTextAndShortcut( tr("&Attributes..."));
+	(*scrActions)["itemImageInfo"]->setStatusTextAndShortcut( tr("More Info..."));
+	(*scrActions)["itemImageIsVisible"]->setStatusTextAndShortcut( tr("I&mage Visible"));
+	(*scrActions)["itemUpdateImage"]->setStatusTextAndShortcut( tr("&Update Image"));
+	(*scrActions)["tableInsertRows"]->setStatusTextAndShortcut(tr("Insert Rows..."));
+	(*scrActions)["tableInsertColumns"]->setStatusTextAndShortcut(tr("Insert Columns..."));
+	(*scrActions)["tableDeleteRows"]->setStatusTextAndShortcut(tr("Delete Rows"));
+	(*scrActions)["tableDeleteColumns"]->setStatusTextAndShortcut(tr("Delete Columns"));
+	(*scrActions)["tableMergeCells"]->setStatusTextAndShortcut(tr("Merge Cells"));
+	(*scrActions)["tableSplitCells"]->setStatusTextAndShortcut(tr("Split Cells..."));
+	(*scrActions)["tableSetRowHeights"]->setStatusTextAndShortcut(tr("Set Row Heights..."));
+	(*scrActions)["tableSetColumnWidths"]->setStatusTextAndShortcut(tr("Set Column Widths..."));
+	(*scrActions)["tableDistributeRowsEvenly"]->setStatusTextAndShortcut(tr("Distribute Rows Evenly"));
+	(*scrActions)["tableDistributeColumnsEvenly"]->setStatusTextAndShortcut(tr("Distribute Columns Evenly"));
+	(*scrActions)["tableAdjustFrameToTable"]->setStatusTextAndShortcut(tr("Adjust Frame to Table"));
+	(*scrActions)["tableAdjustTableToFrame"]->setStatusTextAndShortcut(tr("Adjust Table to Frame"));
+	(*scrActions)["itemAdjustFrameHeightToText"]->setStatusTextAndShortcut( tr("Adjust Frame Height to Text"));
+	(*scrActions)["itemAdjustFrameToImage"]->setStatusTextAndShortcut( tr("Adjust Frame to Image"));
+	(*scrActions)["itemAdjustImageToFrame"]->setStatusTextAndShortcut( tr("Adjust Image to Frame"));
+	(*scrActions)["itemToggleInlineImage"]->setStatusTextAndShortcut( tr("Embed Image"));
+	(*scrActions)["itemExtendedImageProperties"]->setStatusTextAndShortcut( tr("Extended Image Properties"));
+	(*scrActions)["itemPreviewLow"]->setStatusTextAndShortcut( tr("&Low Resolution"));
+	(*scrActions)["itemPreviewNormal"]->setStatusTextAndShortcut( tr("&Normal Resolution"));
+	(*scrActions)["itemPreviewFull"]->setStatusTextAndShortcut( tr("&Full Resolution"));
+	(*scrActions)["itemPDFIsBookmark"]->setStatusTextAndShortcut( tr("Is PDF &Bookmark"));
+	(*scrActions)["itemPDFIsAnnotation"]->setStatusTextAndShortcut( tr("Is PDF A&nnotation"));
+	(*scrActions)["itemPDFAnnotationProps"]->setStatusTextAndShortcut( tr("Annotation P&roperties"));
+	(*scrActions)["itemPDFFieldProps"]->setStatusTextAndShortcut( tr("Field P&roperties"));
+	(*scrActions)["itemShapeEdit"]->setStatusTextAndShortcut( tr("&Edit Shape..."));
+	(*scrActions)["itemAttachTextToPath"]->setStatusTextAndShortcut( tr("&Attach Text to Path"));
+	(*scrActions)["itemDetachTextFromPath"]->setStatusTextAndShortcut( tr("&Detach Text from Path"));
+	(*scrActions)["itemCombinePolygons"]->setStatusTextAndShortcut( tr("&Combine Polygons"));
+	(*scrActions)["itemSplitPolygons"]->setStatusTextAndShortcut( tr("Split &Polygons"));
+	(*scrActions)["itemConvertToBezierCurve"]->setStatusTextAndShortcut( tr("&Bezier Curve"));
+	(*scrActions)["itemConvertToImageFrame"]->setStatusTextAndShortcut( tr("&Image Frame"));
+	(*scrActions)["itemConvertToOutlines"]->setStatusTextAndShortcut( tr("&Outlines", "Convert to oulines"));
+	(*scrActions)["itemConvertToPolygon"]->setStatusTextAndShortcut( tr("&Polygon"));
+	(*scrActions)["itemConvertToTextFrame"]->setStatusTextAndShortcut( tr("&Text Frame"));
+	(*scrActions)["itemConvertToSymbolFrame"]->setStatusTextAndShortcut( tr("&Symbol"));
+	(*scrActions)["itemsUnWeld"]->setStatusTextAndShortcut( tr("Unweld items"));
+	(*scrActions)["itemWeld"]->setStatusTextAndShortcut( tr("Weld items"));
+	(*scrActions)["itemEditWeld"]->setStatusTextAndShortcut( tr("Edit weld item"));
+
+	//Insert Menu
+	(*scrActions)["insertFrame"]->setStatusTextAndShortcut( tr("&Frames..."));
+	(*scrActions)["insertGlyph"]->setStatusTextAndShortcut( tr("&Glyph..."));
+	(*scrActions)["insertSampleText"]->setStatusTextAndShortcut( tr("Sample Text"));
+	(*scrActions)["stickyTools"]->setStatusTextAndShortcut( tr("Sticky Tools"));
+	(*scrActions)["insertMarkAnchor"]->setStatusTextAndShortcut( tr("Anchor Mark"));
+	(*scrActions)["insertMarkVariableText"]->setStatusTextAndShortcut( tr("Variable Text"));
+	(*scrActions)["insertMarkItem"]->setStatusTextAndShortcut( tr("Reference to Item"));
+	(*scrActions)["insertMark2Mark"]->setStatusTextAndShortcut( tr("Reference to Mark"));
+	(*scrActions)["insertMarkNote"]->setStatusTextAndShortcut( tr("Foot/Endnote"));
+//	(*scrActions)["insertMarkIndex"]->setStatusTextAndShortcut( tr("Index entry"));
+	(*scrActions)["editMark"]->setStatusTextAndShortcut( tr("Edit Mark"));
+	(*scrActions)["itemUpdateMarks"]->setStatusTextAndShortcut( tr("Update Marks"));
+
+	//Page menu
+	(*scrActions)["pageInsert"]->setStatusTextAndShortcut( tr("&Insert..."));
+	(*scrActions)["pageImport"]->setStatusTextAndShortcut( tr("Im&port..."));
+	(*scrActions)["pageDelete"]->setStatusTextAndShortcut( tr("&Delete..."));
+	(*scrActions)["pageCopy"]->setStatusTextAndShortcut( tr("&Copy..."));
+	(*scrActions)["pageMove"]->setStatusTextAndShortcut( tr("&Move..."));
+	(*scrActions)["pageApplyMasterPage"]->setStatusTextAndShortcut( tr("&Apply Master Page..."));
+	(*scrActions)["pageCopyToMasterPage"]->setStatusTextAndShortcut( tr("Convert to Master Page..."));
+	(*scrActions)["pageManageGuides"]->setStatusTextAndShortcut( tr("Manage &Guides..."));
+	(*scrActions)["pageManageMargins"]->setStatusTextAndShortcut( tr("Manage Page Properties..."));
+
+	//View Menu
+	(*scrActions)["viewFitInWindow"]->setStatusTextAndShortcut( tr("&Fit to Height"));
+	(*scrActions)["viewFitWidth"]->setStatusTextAndShortcut( tr("Fit to Width"));
+	(*scrActions)["viewFit50"]->setStatusTextAndShortcut( tr("&50%"));
+	(*scrActions)["viewFit75"]->setStatusTextAndShortcut( tr("&75%"));
+	(*scrActions)["viewFit100"]->setStatusTextAndShortcut( tr("&100%"));
+	(*scrActions)["viewFit200"]->setStatusTextAndShortcut( tr("&200%"));
+	(*scrActions)["viewFit400"]->setStatusTextAndShortcut( tr("&400%"));
+	(*scrActions)["viewPreviewMode"]->setStatusTextAndShortcut( tr("Preview Mode"));
+	(*scrActions)["viewShowMargins"]->setStatusTextAndShortcut( tr("Show &Margins"));
+	(*scrActions)["viewShowBleeds"]->setStatusTextAndShortcut( tr("Show Bleeds"));
+	(*scrActions)["viewShowFrames"]->setStatusTextAndShortcut( tr("Show &Frames"));
+	(*scrActions)["viewShowLayerMarkers"]->setStatusTextAndShortcut( tr("Show Layer Indicators"));
+	(*scrActions)["viewShowImages"]->setStatusTextAndShortcut( tr("Show &Images"));
+	(*scrActions)["viewShowGrid"]->setStatusTextAndShortcut( tr("Show &Grid"));
+	(*scrActions)["viewShowGuides"]->setStatusTextAndShortcut( tr("Show G&uides"));
+	(*scrActions)["viewShowColumnBorders"]->setStatusTextAndShortcut( tr("Show Text Frame Columns"));
+	(*scrActions)["viewShowBaseline"]->setStatusTextAndShortcut( tr("Show &Baseline Grid"));
+	(*scrActions)["viewShowTextChain"]->setStatusTextAndShortcut( tr("Show &Text Chain"));
+	(*scrActions)["viewShowTextControls"]->setStatusTextAndShortcut( tr("Show Control Characters"));
+	(*scrActions)["viewShowRulers"]->setStatusTextAndShortcut( tr("Show Rulers"));
+	(*scrActions)["viewRulerMode"]->setStatusTextAndShortcut( tr("Rulers Relative to Page"));
+	(*scrActions)["viewSnapToGrid"]->setStatusTextAndShortcut( tr("Sn&ap to Grid"));
+	(*scrActions)["viewSnapToGuides"]->setStatusTextAndShortcut( tr("Sna&p to Guides"));
+	(*scrActions)["viewSnapToElements"]->setStatusTextAndShortcut( tr("Snap to Items"));
+	(*scrActions)["viewShowContextMenu"]->setStatusTextAndShortcut( tr("Show Context Menu"));
+//	(*scrActions)["viewNewView"]->setStatusTextAndShortcut( tr("New View"));
+
+	//Tool menu
+	(*scrActions)["toolsProperties"]->setStatusTextAndShortcut( tr("&Properties"));
+	(*scrActions)["toolsOutline"]->setStatusTextAndShortcut( tr("&Outline", "Document Outline Palette"));
+	(*scrActions)["toolsScrapbook"]->setStatusTextAndShortcut( tr("&Scrapbook"));
+	(*scrActions)["toolsLayers"]->setStatusTextAndShortcut( tr("&Layers"));
+	(*scrActions)["toolsPages"]->setStatusTextAndShortcut( tr("&Arrange Pages"));
+	(*scrActions)["toolsBookmarks"]->setStatusTextAndShortcut( tr("&Bookmarks"));
+	(*scrActions)["toolsMeasurements"]->setStatusTextAndShortcut( tr("&Measurements"));
+	(*scrActions)["toolsActionHistory"]->setStatusTextAndShortcut( tr("Action &History"));
+	(*scrActions)["toolsPreflightVerifier"]->setStatusTextAndShortcut( tr("Preflight &Verifier"));
+	(*scrActions)["toolsAlignDistribute"]->setStatusTextAndShortcut( tr("&Align and Distribute"));
+	(*scrActions)["toolsSymbols"]->setStatusTextAndShortcut( tr("Symbols"));
+	(*scrActions)["toolsInline"]->setStatusTextAndShortcut( tr("Inline Frames"));
+	(*scrActions)["toolsToolbarTools"]->setStatusTextAndShortcut( tr("&Tools"));
+	(*scrActions)["toolsToolbarPDF"]->setStatusTextAndShortcut( tr("P&DF Tools"));
+
+	//toolbar only items
+	(*scrActions)["toolsSelect"]->setStatusTextAndShortcut( tr("Select Item"));
+	(*scrActions)["toolsRotate"]->setStatusTextAndShortcut( tr("Rotate Item"));
+	(*scrActions)["toolsZoom"]->setStatusTextAndShortcut( tr("Zoom in or out"));
+	(*scrActions)["toolsZoomIn"]->setStatusTextAndShortcut( tr("Zoom in"));
+	(*scrActions)["toolsZoomOut"]->setStatusTextAndShortcut( tr("Zoom out"));
+	(*scrActions)["toolsEditContents"]->setStatusTextAndShortcut( tr("Edit Contents of Frame"));
+	(*scrActions)["toolsEditWithStoryEditor"]->setText( tr("Edit Text..."));
+	(*scrActions)["toolsLinkTextFrame"]->setStatusTextAndShortcut( tr("Link Text Frames"));
+	(*scrActions)["toolsUnlinkTextFrame"]->setStatusTextAndShortcut( tr("Unlink Text Frames"));
+	(*scrActions)["toolsUnlinkTextFrameWithTextCopy"]->setStatusTextAndShortcut( tr("Unlink Text Frame with Text Copy"));
+	(*scrActions)["toolsUnlinkTextFrameWithTextCut"]->setStatusTextAndShortcut( tr("Unlink Text Frame with Text Cut"));
+	(*scrActions)["toolsEyeDropper"]->setStatusTextAndShortcut( tr("&Eye Dropper"));
+	(*scrActions)["toolsCopyProperties"]->setStatusTextAndShortcut( tr("Copy Item Properties"));
+
+	(*scrActions)["toolsInsertTextFrame"]->setText( tr("Insert &Text Frame"));
+	(*scrActions)["toolsInsertImageFrame"]->setText( tr("Insert &Image Frame"));
+	(*scrActions)["toolsInsertRenderFrame"]->setText( tr("Insert &Render Frame"));
+	(*scrActions)["toolsInsertTable"]->setText( tr("Insert T&able"));
+	(*scrActions)["toolsInsertShape"]->setText( tr("Insert &Shape"));
+	(*scrActions)["toolsInsertPolygon"]->setText( tr("Insert &Polygon"));
+	(*scrActions)["toolsInsertArc"]->setText( tr("Insert Arc"));
+	(*scrActions)["toolsInsertSpiral"]->setText( tr("Insert Spiral"));
+	(*scrActions)["toolsInsertLine"]->setText( tr("Insert &Line"));
+	(*scrActions)["toolsInsertCalligraphicLine"]->setText( tr("Insert Calligraphic Line"));
+	(*scrActions)["toolsInsertBezier"]->setText( tr("Insert &Bezier Curve"));
+	(*scrActions)["toolsInsertFreehandLine"]->setText( tr("Insert &Freehand Line"));
+
+	(*scrActions)["toolsPDFPushButton"]->setStatusTextAndShortcut( tr("Insert PDF Push Button"));
+	(*scrActions)["toolsPDFRadioButton"]->setStatusTextAndShortcut( tr("Insert PDF Radio Button"));
+	(*scrActions)["toolsPDFTextField"]->setStatusTextAndShortcut( tr("Insert PDF Text Field"));
+	(*scrActions)["toolsPDFCheckBox"]->setStatusTextAndShortcut( tr("Insert PDF Check Box"));
+	(*scrActions)["toolsPDFComboBox"]->setStatusTextAndShortcut( tr("Insert PDF Combo Box"));
+	(*scrActions)["toolsPDFListBox"]->setStatusTextAndShortcut( tr("Insert PDF List Box"));
+	(*scrActions)["toolsPDFAnnotText"]->setStatusTextAndShortcut( tr("Insert Text Annotation"));
+	(*scrActions)["toolsPDFAnnotLink"]->setStatusTextAndShortcut( tr("Insert Link Annotation"));
+#ifdef HAVE_OSG
+	(*scrActions)["toolsPDFAnnot3D"]->setStatusTextAndShortcut( tr("Insert 3D Annotation"));
+#endif
+
+
+	//Extras Menu
+	(*scrActions)["extrasManageImages"]->setStatusTextAndShortcut( tr("&Manage Images"));
+	(*scrActions)["extrasHyphenateText"]->setStatusTextAndShortcut( tr("&Hyphenate Text"));
+	(*scrActions)["extrasDeHyphenateText"]->setStatusTextAndShortcut( tr("Dehyphenate Text"));
+	(*scrActions)["extrasGenerateTableOfContents"]->setStatusTextAndShortcut( tr("&Generate Table Of Contents"));
+	(*scrActions)["extrasUpdateDocument"]->setStatusTextAndShortcut( tr("&Update Document"));
+
+	//Windows Menu
+	(*scrActions)["windowsCascade"]->setText( tr("&Cascade"));
+	(*scrActions)["windowsTile"]->setText( tr("&Tile"));
+
+	//Help Menu
+	(*scrActions)["helpAboutScribus"]->setStatusTextAndShortcut( tr("&About Scribus"));
+	(*scrActions)["helpAboutPlugins"]->setStatusTextAndShortcut( tr("&About Plugins"));
+	(*scrActions)["helpAboutQt"]->setStatusTextAndShortcut( tr("About &Qt"));
+	(*scrActions)["helpTooltips"]->setStatusTextAndShortcut( tr("Toolti&ps"));
+	(*scrActions)["showMouseCoordinates"]->setStatusTextAndShortcut( tr("Move/Resize Value Indicator"));
+	(*scrActions)["helpManual"]->setStatusTextAndShortcut( tr("Scribus &Manual..."));
+	(*scrActions)["helpOnlineWWW"]->setStatusTextAndShortcut( tr("Scribus Homepage"));
+	(*scrActions)["helpOnlineDocs"]->setStatusTextAndShortcut( tr("Scribus Online Documentation"));
+	(*scrActions)["helpOnlineWiki"]->setStatusTextAndShortcut( tr("Scribus Wiki"));
+	(*scrActions)["helpOnlineTutorial1"]->setStatusTextAndShortcut( tr("Getting Started with Scribus"));
+	(*scrActions)["helpCheckUpdates"]->setStatusTextAndShortcut( tr("Check for Updates"));
+
+	//GUI and specials
+	(*scrActions)["specialToggleAllPalettes"]->setStatusTextAndShortcut( tr("Toggle Palettes"));
+	(*scrActions)["specialToggleAllGuides"]->setStatusTextAndShortcut( tr("Toggle Guides"));
+	(*scrActions)["specialUnicodeSequenceBegin"]->setStatusTextAndShortcut( tr("Insert Unicode Character Begin Sequence"));
+	//////
 	languageChangeUnicodeActions(scrActions);
 	languageChangeActions();
 }

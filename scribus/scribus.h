@@ -165,6 +165,7 @@ public:
 	void recalcColors(QProgressBar *dia = 0);
 	void SwitchWin();
 	void RestoreBookMarks();
+	QStringList  scrapbookNames();
 
 	void emergencySave();
 
