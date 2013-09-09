@@ -350,8 +350,6 @@ void ContextMenu::createMenuItems_Selection()
 		QAction *actL = addMenu(menuLocking);
 		actL->setText( ScribusView::tr("Locking"));
 
-		//menuSendTo->addAction(m_AP->scrActions["itemSendToScrapbook"]);
-
 		QAction *actST = addMenu(menuSendTo);
 		actST->setText( ScribusView::tr("Send to"));
 		QAction *actScr = menuSendTo->addMenu(menuScrapbook);
@@ -365,15 +363,8 @@ void ContextMenu::createMenuItems_Selection()
 		{
 			ScrAction *act = new ScrAction( ScrAction::DataInt, QPixmap(), QPixmap(), scrapNames[i], QKeySequence(), this, i);
 			menuScrapbook->addAction(act);
-			//scrScrapActions.insert(scrapNames[i], act);
-			//scrMenuMgr->addMenuItem(act, "itemSendToScrapbook", true);
 			connect(act, SIGNAL(triggeredData(int)), m_ScMW, SLOT(PutScrap(int)));
 		}
-		//QAction *actSl = addMenu(m_AP->scrMenuMgr->getLocalPopupMenu("Locking"));
-		//actSl->setText( ScribusView::tr("Locking"));
-		//QAction *actSc = addMenu(m_AP->scrMenuMgr->getLocalPopupMenu("SendTo"));
-		//actSc->setText( ScribusView::tr("Send to"));
-		//<-- Add Layer Items
 
 		if (m_doc->layerCount() > 1)
 		{
