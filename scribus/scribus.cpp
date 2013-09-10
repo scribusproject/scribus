@@ -3532,6 +3532,8 @@ void ScribusMainWindow::rebuildRecentPasteMenu()
 
 void ScribusMainWindow::pasteFromScrapbook(QString fn)
 {
+	view->dragX = 0;
+	view->dragY = 0;
 	doPasteRecent(scrapbookPalette->activeBView->objectMap[fn].Data);
 }
 
@@ -3596,9 +3598,9 @@ void ScribusMainWindow::doPasteRecent(QString data)
 			doc->SnapGuides = false;
 			doc->SnapElement = false;
 			if ((view->dragX == 0) && (view->dragY == 0))
-				slotElemRead(data, doc->currentPage()->xOffset(), doc->currentPage()->yOffset(), true, false, doc, view);
+				slotElemRead(data, doc->currentPage()->xOffset(), doc->currentPage()->yOffset(), true, true, doc, view);
 			else
-				slotElemRead(data, view->dragX, view->dragY, true, false, doc, view);
+				slotElemRead(data, view->dragX, view->dragY, true, true, doc, view);
 			doc->SnapGrid = savedAlignGrid;
 			doc->SnapGuides = savedAlignGuides;
 			doc->SnapElement = savedAlignElement;

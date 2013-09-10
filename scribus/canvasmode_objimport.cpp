@@ -37,6 +37,7 @@
 #include "scribus.h"
 #include "scribusdoc.h"
 #include "scribusview.h"
+#include "selection.h"
 #include "undomanager.h"
 #include "util.h"
 #include "util_icon.h"
@@ -178,8 +179,15 @@ void CanvasMode_ObjImport::mouseReleaseEvent(QMouseEvent *m)
 		}
 		// Creating QDragEnterEvent outside of Qt is not recommended per docs :S
 		QPoint dropPos = m_view->widget()->mapFromGlobal(m->globalPos());
+		const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
 		QDropEvent dropEvent(dropPos, Qt::CopyAction|Qt::MoveAction, m_mimeData, m->buttons(), m->modifiers());
 		m_view->contentsDropEvent(&dropEvent);
+		if (m_doc->m_Selection->count() > 0)
+		{
+			double gx, gy, gh, gw;
+			m_doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
+			m_doc->moveGroup(mousePointDoc.x() - gx, mousePointDoc.y() -gy, false);
+		}
 		// Commit undo transaction if necessary
 		if (undoTransaction)
 		{

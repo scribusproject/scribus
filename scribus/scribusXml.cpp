@@ -208,6 +208,12 @@ QString ScriXmlDoc::WriteElem(ScribusDoc *doc, Selection* selection)
 		embedded->DrawObj(painter, QRectF());
 		painter->restore();
 	}
+	int pg = doc->OnPage(xp + wp / 2.0, yp + hp / 2.0);
+	if (pg > 0)
+	{
+		xp = xp - doc->getXOffsetForPage(pg);
+		yp = yp - doc->getYOffsetForPage(pg);
+	}
 	delete painter;
 	QBuffer buffer;
 	buffer.open(QIODevice::WriteOnly);
