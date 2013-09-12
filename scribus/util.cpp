@@ -787,11 +787,11 @@ QString readLinefromDataStream(QDataStream &s)
 
 void setCurrentComboItem(QComboBox *box, QString text)
 {
-	box->blockSignals(true);
+	bool sigBlocked = box->blockSignals(true);
 	int ind = box->findText(text);
 	if (ind > -1)
 		box->setCurrentIndex(ind);
-	box->blockSignals(false);
+	box->blockSignals(sigBlocked);
 }
 
 QString readAdobeUniCodeString(QDataStream &s)
