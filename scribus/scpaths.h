@@ -22,7 +22,7 @@ public:
 	static const ScPaths& instance();
 	/**
 	 * @brief Destroy the ScPaths instance, if any.
-	 * @sa ScPaths::instnace()
+	 * @sa ScPaths::instance()
 	 */
 	static void destroy();
 
