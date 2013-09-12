@@ -172,6 +172,12 @@ struct ArrowDesc
 
 struct PDFPresentationData
 {
+	PDFPresentationData() {
+		pageEffectDuration = 1;
+		pageViewDuration = 1;
+		effectType = 0;
+		Dm = M = Di = 0;
+	}
 	int pageEffectDuration;
 	int pageViewDuration;
 	int effectType;
