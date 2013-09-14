@@ -3600,7 +3600,7 @@ void ScribusMainWindow::doPasteRecent(QString data)
 			if ((view->dragX == 0) && (view->dragY == 0))
 				slotElemRead(data, doc->currentPage()->xOffset(), doc->currentPage()->yOffset(), true, true, doc, view);
 			else
-				slotElemRead(data, view->dragX, view->dragY, true, true, doc, view);
+				slotElemRead(data, view->dragX, view->dragY, true, false, doc, view);
 			doc->SnapGrid = savedAlignGrid;
 			doc->SnapGuides = savedAlignGuides;
 			doc->SnapElement = savedAlignElement;

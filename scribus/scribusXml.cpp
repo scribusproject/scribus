@@ -209,7 +209,7 @@ QString ScriXmlDoc::WriteElem(ScribusDoc *doc, Selection* selection)
 		painter->restore();
 	}
 	int pg = doc->OnPage(xp + wp / 2.0, yp + hp / 2.0);
-	if (pg > 0)
+	if (pg > -1)
 	{
 		xp = xp - doc->getXOffsetForPage(pg);
 		yp = yp - doc->getYOffsetForPage(pg);

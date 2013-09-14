@@ -184,8 +184,8 @@ bool Scribus150Format::loadElements(const QString & data, QString fileDir, int t
 	LayerToPaste = toLayer;
 	Xp = Xp_in;
 	Yp = Yp_in;
-//	GrX = 0.0;
-//	GrY = 0.0;
+	GrX = 0.0;
+	GrY = 0.0;
 
 	QMap<int,PageItem*> TableID;
 	QMap<int,PageItem*> TableIDM;
