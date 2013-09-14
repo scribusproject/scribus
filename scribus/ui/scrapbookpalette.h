@@ -24,6 +24,7 @@ class QVBoxLayout;
 class QToolBox;
 class QPixmap;
 class QListWidgetItem;
+class QDomElement;
 
 class SCRIBUS_API BibView : public QListWidget
 {
@@ -33,7 +34,9 @@ public:
 	BibView( QWidget* parent);
 	~BibView() {};
 	void AddObj(QString name, QString daten, QPixmap Bild, bool isDir = false, bool isRaster = false, bool isVector = false);
+	void checkForImg(QDomElement elem, bool &hasImage);
 	void checkAndChange(QString &text, QString nam, QString dir);
+	void checkAndChangeGroups(QDomElement elem, QString dir, QFileInfo fid);
 	void ReadOldContents(QString, QString newName);
 	void ReadContents(QString name);
 	struct Elem

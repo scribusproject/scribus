@@ -179,13 +179,41 @@ void BibView::AddObj(QString name, QString daten, QPixmap Bild, bool isDir, bool
 	objectMap.insert(name, DrElem);
 }
 
+void BibView::checkForImg(QDomElement elem, bool &hasImage)
+{
+	QDomNode DOC = elem.firstChild();
+	while(!DOC.isNull())
+	{
+		QDomElement pg = DOC.toElement();
+		if(pg.tagName() == "PAGEOBJECT")
+		{
+			PageItem::ItemType PType = static_cast<PageItem::ItemType>(pg.attribute("PTYPE").toInt());
+			if ((PType == PageItem::ImageFrame) || (PType == PageItem::TextFrame))
+			{
+				QString Pfile = pg.attribute("PFILE");
+				QString Pfile2 = pg.attribute("PFILE2","");
+				QString Pfile3 = pg.attribute("PFILE3","");
+				if (!Pfile.isEmpty())
+					hasImage = true;
+				if (!Pfile2.isEmpty())
+					hasImage = true;
+				if (!Pfile3.isEmpty())
+					hasImage = true;
+			}
+			else if (PType == PageItem::Group)
+				checkForImg(pg, hasImage);
+		}
+		DOC = DOC.nextSibling();
+	}
+}
+
 void BibView::checkAndChange(QString &text, QString nam, QString dir)
 {
+	bool hasImage = false;
 	QDomDocument docu("scridoc");
 	docu.setContent(text);
 	QDomElement elem = docu.documentElement();
 	QDomNode DOC = elem.firstChild();
-	bool hasImage = false;
 	while(!DOC.isNull())
 	{
 		QDomElement pg = DOC.toElement();
@@ -204,6 +232,8 @@ void BibView::checkAndChange(QString &text, QString nam, QString dir)
 				if (!Pfile3.isEmpty())
 					hasImage = true;
 			}
+			else if (PType == PageItem::Group)
+				checkForImg(pg, hasImage);
 		}
 		DOC = DOC.nextSibling();
 	}
@@ -214,7 +244,7 @@ void BibView::checkAndChange(QString &text, QString nam, QString dir)
 		dd.mkdir(QDir::cleanPath(QDir::toNativeSeparators(dir + "/" + fid.baseName())));
 	}
 	QString source = "";
-	QString target = "";
+	QString fileDir = QDir::homePath();
 	bool first = true;
 	DOC = elem.firstChild();
 	while(!DOC.isNull())
@@ -236,7 +266,7 @@ void BibView::checkAndChange(QString &text, QString nam, QString dir)
 						source = QDir::cleanPath(QDir::toNativeSeparators(Pfile));
 					else
 					{
-						QFileInfo pfi2(QDir::cleanPath(QDir::toNativeSeparators(dir+"/"+Pfile)));
+						QFileInfo pfi2(QDir::cleanPath(QDir::toNativeSeparators(fileDir+"/"+Pfile)));
 						source = pfi2.absoluteFilePath();
 					}
 					QString target = QDir::cleanPath(QDir::toNativeSeparators(dir + "/" + fid.baseName() + "/" + fi.fileName()));
@@ -251,7 +281,7 @@ void BibView::checkAndChange(QString &text, QString nam, QString dir)
 						source = QDir::cleanPath(QDir::toNativeSeparators(Pfile2));
 					else
 					{
-						QFileInfo pfi2(QDir::cleanPath(QDir::toNativeSeparators(dir+"/"+Pfile2)));
+						QFileInfo pfi2(QDir::cleanPath(QDir::toNativeSeparators(fileDir+"/"+Pfile2)));
 						source = pfi2.absoluteFilePath();
 					}
 					QString target = QDir::cleanPath(QDir::toNativeSeparators(dir + "/" + fid.baseName() + "/" + fi.fileName()));
@@ -266,7 +296,7 @@ void BibView::checkAndChange(QString &text, QString nam, QString dir)
 						source = QDir::cleanPath(QDir::toNativeSeparators(Pfile3));
 					else
 					{
-						QFileInfo pfi2(QDir::cleanPath(QDir::toNativeSeparators(dir+"/"+Pfile3)));
+						QFileInfo pfi2(QDir::cleanPath(QDir::toNativeSeparators(fileDir+"/"+Pfile3)));
 						source = pfi2.absoluteFilePath();
 					}
 					QString target = QDir::cleanPath(QDir::toNativeSeparators(dir + "/" + fid.baseName() + "/" + fi.fileName()));
@@ -274,6 +304,10 @@ void BibView::checkAndChange(QString &text, QString nam, QString dir)
 					pg.setAttribute("PFILE3", fid.baseName() + "/" + fi.fileName());
 				}
 				pg.setAttribute("relativePaths", 1);
+			}
+			else if (PType == PageItem::Group)
+			{
+				checkAndChangeGroups(pg, dir, fid);
 			}
 		}
 		DOC = DOC.nextSibling();
@@ -286,6 +320,75 @@ void BibView::checkAndChange(QString &text, QString nam, QString dir)
 	s.setDevice(&f);
 	s.writeRawData(cs.data(), cs.length());
 	f.close();
+}
+
+void BibView::checkAndChangeGroups(QDomElement elem, QString dir, QFileInfo fid)
+{
+	QString source = "";
+	QString fileDir = QDir::homePath();
+	QDomNode DOC = elem.firstChild();
+	while(!DOC.isNull())
+	{
+		QDomElement pg = DOC.toElement();
+		if(pg.tagName() == "PAGEOBJECT")
+		{
+			PageItem::ItemType PType = static_cast<PageItem::ItemType>(pg.attribute("PTYPE").toInt());
+			if ((PType == PageItem::ImageFrame) || (PType == PageItem::TextFrame))
+			{
+				QString Pfile = pg.attribute("PFILE");
+				if (!Pfile.isEmpty())
+				{
+					QFileInfo fi(Pfile);
+					if (fi.isAbsolute())
+						source = QDir::cleanPath(QDir::toNativeSeparators(Pfile));
+					else
+					{
+						QFileInfo pfi2(QDir::cleanPath(QDir::toNativeSeparators(fileDir+"/"+Pfile)));
+						source = pfi2.absoluteFilePath();
+					}
+					QString target = QDir::cleanPath(QDir::toNativeSeparators(dir + "/" + fid.baseName() + "/" + fi.fileName()));
+					copyFile(source, target);
+					pg.setAttribute("PFILE", fid.baseName() + "/" + fi.fileName());
+				}
+				QString Pfile2 = pg.attribute("PFILE2","");
+				if (!Pfile2.isEmpty())
+				{
+					QFileInfo fi(Pfile2);
+					if (fi.isAbsolute())
+						source = QDir::cleanPath(QDir::toNativeSeparators(Pfile2));
+					else
+					{
+						QFileInfo pfi2(QDir::cleanPath(QDir::toNativeSeparators(fileDir+"/"+Pfile2)));
+						source = pfi2.absoluteFilePath();
+					}
+					QString target = QDir::cleanPath(QDir::toNativeSeparators(dir + "/" + fid.baseName() + "/" + fi.fileName()));
+					copyFile(source, target);
+					pg.setAttribute("PFILE2", fid.baseName() + "/" + fi.fileName());
+				}
+				QString Pfile3 = pg.attribute("PFILE3","");
+				if (!Pfile3.isEmpty())
+				{
+					QFileInfo fi(Pfile3);
+					if (fi.isAbsolute())
+						source = QDir::cleanPath(QDir::toNativeSeparators(Pfile3));
+					else
+					{
+						QFileInfo pfi2(QDir::cleanPath(QDir::toNativeSeparators(fileDir+"/"+Pfile3)));
+						source = pfi2.absoluteFilePath();
+					}
+					QString target = QDir::cleanPath(QDir::toNativeSeparators(dir + "/" + fid.baseName() + "/" + fi.fileName()));
+					copyFile(source, target);
+					pg.setAttribute("PFILE3", fid.baseName() + "/" + fi.fileName());
+				}
+				pg.setAttribute("relativePaths", 1);
+			}
+			else if (PType == PageItem::Group)
+			{
+				checkAndChangeGroups(pg, dir, fid);
+			}
+		}
+		DOC = DOC.nextSibling();
+	}
 }
 
 void BibView::ReadOldContents(QString name, QString newName)
