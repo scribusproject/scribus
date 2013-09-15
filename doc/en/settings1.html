@@ -10,130 +10,167 @@
 <li><strong>Document Setup</strong> will refer to the document being edited, and changes made for that document will be saved with the document and apply when it is re-opened. If you have no document open, you cannot select this dialog.</li>
 <li><strong>Preferences</strong> in general changes settings for any future documents. It will be available whether or not you have any documents open. The following descriptions will primarily apply to Preferences, but we will point out differences compared with Document Setup as we go.</li>
 </ul>
+<p>There have been some signficant rearrangements of the dialogs for 1.5.0 &ndash; most settings are the same, but we now see a number of sub-tabs in the various categories.</p>
 <br>
 <br>
 <table cellpadding="5">
 <tr><td width="200" valign="top"><ul>
-<li><a href="#1"><strong>General</strong></a></li>
-<li><a href="#2"><strong>Document</strong></a></li>
-<li><a href="#3"><strong>Guides</strong></a></li>
-<li><a href="#4"><strong>Typography</strong></a></li>
-<li><a href="#5"><strong>Tools</strong></a></li>
-<li><a href="#6"><strong>Hyphenation</strong></a></li>
-<li><a href="#7"><strong>Fonts</strong></a></li>
-<li><a href="#8"><strong>Preflight Verifier</strong></a></li>
+<li><a href="#1"><strong>User Interface</strong></a></li>
+<li><a href="#2"><strong>Paths</strong></a></li>
+<li><a href="#3"><strong>Document Setup</strong></a></li>
+<li><a href="#4"><strong>Page Sizes</strong></a></li>
+<li><a href="#5"><strong>Guides</strong></a></li>
+<li><a href="#6"><strong>Typography</strong></a></li>
+<li><a href="#7"><strong>Item Tools</strong></a></li>
+<li><a href="#8"><strong>Operator Tools</strong></a></li>
+<li><a href="#9"><strong>Hyphenation</strong></a></li>
 </ul></td>
 <td width="300" valign="top"><ul>
 </li>
-<li><a href="#9"><strong>Color Management</strong></a></li>
-<li><a href="#10"><strong>PDF Export</strong></a></li>
-<li><a href="#11"><strong>Document Item Attributes</strong></a></li>
-<li><a href="#11"><strong>Table of Contents and Indexes</strong></a></li>
-<li><a href="#12"><strong>Keyboard Shortcuts</strong></a></li>
-<li><a href="#13"><strong>Scrapbook</strong></a></li>
+<li><a href="#10"><strong>Fonts</strong></a></li>
+<li><a href="#11"><strong>Preflight Verifier</strong></a></li>
+<li><a href="#12"><strong>Color Management</strong></a></li>
+<li><a href="#13"><strong>PDF Export</strong></a></li>
+<li><a href="#14"><strong>Document Item Attributes</strong></a></li>
+<li><a href="#15"><strong>Table of Contents and Indexes</strong></a></li>
+<li><a href="#16"><strong>Keyboard Shortcuts</strong></a></li>
+<li><a href="#17"><strong>Scrapbook</strong></a></li>
 </ul></td>
 <td valign="top"><ul>
-<li><a href="#14"><strong>Display</strong></a></li>
-<li><a href="#15"><strong>External Tools</strong></a></li>
-<li><a href="#16"><strong>Miscellaneous</strong></a></li>
-<li><a href="#17"><strong>Plugins</strong></a></li>
-<li><a href="#18"><strong>Short Words</strong></a></li>
-<li><a href="#19"><strong>Scripter</strong></a></li>
-<li><a href="#20"><strong>Document Information</strong></a></li>
+<li><a href="#18"><strong>Display</strong></a></li>
+<li><a href="#19"><strong>External Tools</strong></a></li>
+<li><a href="#20"><strong>Miscellaneous</strong></a></li>
+<li><a href="#21"><strong>Plugins</strong></a></li>
+<li><a href="#22"><strong>Image Cache</strong></a></li>
+<li><a href="#23"><strong>Short Words</strong></a></li>
+<li><a href="#24"><strong>Scripter</strong></a></li>
+<li><a href="#25"><strong>Document Information</strong></a></li>
 </ul></td></tr>
 </table>
-<h3><a name="1"></a>General (not present in Document Setup)</h3>
+<h3><a name="1"></a>User Interface (not present in Document Setup)</h3>
+<h4>Main Window</h4>
+<p><img src="images/prefs_userinterface_tab1.png" align="center"></p>
 <p>You may have started up Scribus in a particular <strong>Language</strong> &ndash; here we expect to see the system default language, but you can override that setting, which will remain on future startups until you change again.</p>
 <p>The <strong>Theme</strong> will be whatever your main system theme is when none is selected, but otherwise your choices depend on your operating system or desktop environment and its available themes (if any). You can also change the size of the font used in the user interface. The various other settings are straightforward, and experimentation will be your guide.</p>
+<h4>Story Editor</h4>
+<p><img src="images/prefs_userinterface_tab2.png" align="center"></p>
+<p>These settings were previously only found in the Story Editor dialog, but now are also here.</p>
+<h4>Interactivity</h4>
+<p><img src="images/prefs_userinterface_tab3.png" align="center"></p>
+<p>These are mouse settings &ndash; <em>Time before resize or move starts</em> allows for a slight delay between when you click and the operation happens, to avoid unintended moves.<br><em>Wheel jump</em> relates to the number of pixels for each "notch" of the wheel.</p>
+<h4>Startup</h4>
+<p><img src="images/prefs_userinterface_tab4.png" align="center"></p>
+<p>As shown, these default startup behaviors are optional.</p>
+<h3><a name="2"></a>Paths</h3>
+<p><img src="images/prefs_paths.png" align="center"></p>
 <p>The various &ldquo;paths&rdquo; are the default locations Scribus will use. The path for scripts is where Scribus looks when you choose <em>Scripts > Execute Script</em> from the menu bar.</p>
-<table width="90%"><tr><td align="center"><img src="images/prefs_general.png" align="center" alt="Preferences: General" title="General Preferences" width="680"/></td></tr></table>
-<h3><a name="2"></a>Document</h3>
-<p>In Preferences, the various settings here will be those that you see when you create a new document (<em>File > New</em>). In the Document Setup, they will change the current document. The <strong>Page Size</strong> section should be easily understandable, with a large selection of standard sizes to choose from, in addition to <em>Custom</em>. The <strong>Document Layout</strong> choices have been the source of confusion for some. These simply apply to the relative placement of pages on your screen, and each will have the size as indicated, not some subdivision of it. <em>Double Sided</em> would typically be chosen for a book-like layout, and thus the First Page selector at the bottom allows the initial page to be Right or Left. This helps you use the appropriate <a href="pagetemplate1.html">Master Page</a> layout.</p>
-<table width="90%"><tr><td align="center"><img src="images/prefs_document.png" align="center" alt="Default Document Settings" title="Default Document Settings"  width="680" /></td><td width="275"><img src="images/prefs_document1.png" width="250"><p>Here is an example of Double Sided, Right Page as the first (also happens to be two-column). If you print these on a local printer, they will print as individual pages.</td></tr></table>
+<h3><a name="3"></a>Document Setup (not to be confused with the menu selection <em>File > Document Setup</em></h3>
+<p>In Preferences, the various settings here will be those that you see when you create a new document (<em>File > New</em>). With <em>File > Document Setup</em>, they will change the current document.</p>
+<h4>Size</h4>
+<p><img src="images/prefs_documentsetup_tab1.png" align="center"></p>
+<p>The <strong>Page Size</strong> section should be easily understandable, with a large selection of standard sizes to choose from, in addition to <em>Custom</em>.</p>
+<h4>Layout</h4>
+<p><img src="images/prefs_documentsetup_tab2.png" align="center"></p>
+<p>The <strong>Page Layout</strong> choices have been the source of confusion for some. These simply apply to the relative placement of pages on your screen, and each will have the size as indicated, not some subdivision of it. <em>Double Sided</em> would typically be chosen for a book-like layout, and thus the First Page selector at the bottom allows the initial page to be Right or Left. This helps you use the appropriate <a href="pagetemplate1.html">Master Page</a> layout.</p>
+<table width="90%"><tr><td width="275"><img src="images/prefs_document1.png" width="250"><p>Here is an example of Double Sided, Right Page as the first (also happens to be two-column). If you print these on a local printer, they will print as individual pages.</td></tr></table>
+<h4>Margins & Bleeds</h4>
+<p><img src="images/prefs_documentsetup_tab3.png" align="center"></p>
 <p><strong>Preset Layouts</strong> will be available for anything other than Single Page layout. What these represent are some time-honored ways to set the margins of the page, many based on some mathematical approach related to the dimensions of the page. Below we see the contrast of these various methods &ndash; these are all right pages of a double-sided layout.</p>
 <p><table cellpadding="3"><tr>
 <td align="center"><img src="images/prefs_gutenberg.png"><p>Gutenberg</td><td align="center"><img src="images/prefs_magazine.png"><p>Magazine</td><td align="center"><img src="images/prefs_fibonacci.png"><p>Fibonacci</td><td align="center"><img src="images/prefs_goldenmean.png"><p>Golden Mean</td><td align="center"><img src="images/prefs_9parts.png"><p>Nine Parts</td>
 </tr></table>
-<h3><a name="3"></a>Guides</h3>
-<p>Although labeled <strong>Guides</strong>, there are many other settings here, mostly related. Guides can either show above or below your content. <strong>Snapping: Snap Distance</strong> applies when <em>Page > Snap to Guides</em> or <em>Page > Snap to Grid</em> has been selected. <strong>Grab Radius</strong> has to do with the size of the virtual space for grabbing and dragging a frame&rsquo;s handles. As the tooltips indicate, you must shut down and restart Scribus for these to take effect when they are changed.</p>
-<p>This panel sets the default distances and colors, as well as the snap to settings. <strong>Baseline Grids</strong> is the set of horizontal guides which forces text in multiple columns to align horizontally, as shown below. Settings for the distances for baselines are in Paragraph Styles, as well as the next panel <strong>Typography</strong></p>
+<p><strong>Bleeds</strong> are an extra space at the outer edges of your page which are intended to be trimmed off after printing. The bleed area can include registration marks, a color palette, and trim marks, in addition to allowing a graphic to spill into this space so that it fills the post-trimming page completely to the edge of the paper.</p>
+<h4>Saving & Undo</h4>
+<p><img src="images/prefs_documentsetup_tab4.png" align="center"></p>
+<p><em>Save in a compressed format</em> uses the utility <strong>gzip</strong> to make a compression of your file to save space. Rather than your Scribus files ending in <strong>.sla</strong>, they will end with <strong>.sla.gz</strong> instead.</p>
+<p>The other settings here should be self-explanatory.</p>
+<h3><a name="4"></a>Page Sizes</h3>
+<p><img src="images/prefs_pagesizes.png" align="center"></p>
+<p>You may have noticed that even though it was said above that you have a large selection, when you actually first check your selection, it's rather puny. This new category in Preferences explains why. Rather than needing to deal with this entire list in the drop down menu, here you can only show sizes which there is some likelihood that you will need, and you can add as many as you want.</p>
+<h3><a name="5"></a>Guides</h3>
+<p>Although labeled <strong>Guides</strong>, there are many other settings here, mostly related.</p>
+<h4>Placement</h4>
+<p><img src="images/prefs_guides_tab1.png" align="center"></p>
+<p>The meaning of the box in the upper left is to depict the order of visibility of each kind of item. Here in the default situation, <strong>Content Objects</strong> show on top, then <strong>Guides</strong> will appear to be just under them, then the <strong>Grid</strong>, the <strong>Baseline Grid</strong>, and finally underneath everything, the <strong>Margins</strong>. To change this order, click to select one of these, then use the arrows to move it upward or downward in the stack.</p>
+<p>The <strong>Snap Distance</strong> applies when <em>Page > Snap to Guides</em> or <em>Page > Snap to Grid</em> has been selected. <strong>Grab Radius</strong> has to do with the size of the virtual space for grabbing and dragging a frame&rsquo;s handles.</p>
+<p>At the bottom, you can adjust the spacing of the Grid and tne Baseline Grid.</p>
+<h4>Visibility</h4>
+<p><img src="images/prefs_guides_tab2.png" align="center"></p>
+<p>By default, Guides and Margins will show, and the Grid and Baseline Grid will not, but each default setting can be changed here.</p>
+<h4>Colors</h4>
+<p><img src="images/prefs_guides_tab3.png" align="center"></p>
+<p>For adjusting the color of each item.</p>
 
-<table width="90%"><tr><td align="center"><img src="images/prefs_guides.png" alt="Guides and Baseline Grid Settings" align="middle" title="Guides and Baseline Grid Settings" /></td></tr></table>
-<table width="80%"><tr><td valign="top">By default, Guides and Margins will show, but can be changed here, along with the color of each. Major and Minor Grids do not show by default &ndash; here we have changed the default colors so you can easily see the difference in the screenshot to the right, with page edges shown in red, margins in blue, major grid light green, and minor grid in light magenta.
-<p>Finally, at the bottom of the dialog we can choose to show the baseline grid by default, and adjust its default settings.</p>
-<p>Find out more about the baseline grid in <a href="WwText.html#10">Working with Text</a>.</td>
-<td><img src="images/prefs_guides1.png"></td>
-</tr>
+<h3><a name="6"></a>Typography</h3>
+
+<p><table width="90%"><tr><td align="center"><img src="images/prefs_typography.png" align="center" alt="Typography Tab Panel"/></td><td valign="top"><p>Here are the default settings for various typographic features &ndash; subscript, superscript, automatic line spacing and scaling of small capitals.</p>
+<p>In addition, the amount of automatic linespacing can be adjusted relative to the size of the font.</p></td></tr></table>
+
+<h3><a name="7"></a>Item Tools</h3>
+<p>In the Item Tools tabs you can change the defaults for text frames, image frames, shapes, polygons, lines, calligraphic lines, arcs, and spirals. Remember, these are simply the default settings, and can still be altered as needed on the main canvas.</p>
+
+<table>
+<tr><td><p><img src="images/prefs_itemtools_tab1.png" alt="Tools Tab Panel"/></p><p><img src="images/prefs_itemtools_tab3.png" alt="Tools Tab Panel"/></p>
+<p><img src="images/prefs_itemtools_tab5.png" alt="Tools Tab Panel"/></p><p><img src="images/prefs_itemtools_tab7.png" alt="Tools Tab Panel"/></p>
+<p><img src="images/prefs_itemtools_tab8.png" alt="Tools Tab Panel"/></p></td>
+<td valign="top"><p><img src="images/prefs_itemtools_tab2.png"/></p><p><img src="images/prefs_itemtools_tab4.png"></p>
+<p><img src="images/prefs_itemtools_tab6.png"></p></td></tr>
 </table>
 
-<h3><a name="4"></a>Typography</h3>
-<p>Here are the default settings for various typographic features &ndash; subscript, superscript, automatic line spacing and scaling of small capitals.</p>
-<p>In addition, the amount of automatic linespacing can be adjusted relative to the size of the font. <em>Note that the 20% is in addition to the space required for the next line of text, so that the total space from one baseline to the next would be 120% of the font size.</em></p>
-<p><table width="90%"><tr><td align="center"><img src="images/prefs_typog.png" align="center" alt="Typography Tab Panel"/></td></tr></table>
-
-<h3><a name="5"></a>Tools</h3>
-<p>In the Tools tab you can change the defaults for text and image frames, shapes and polygons, and lines. In addition, there are page magnification settings, plus the defaults for duplication and rotation of objects.</p>
-
-<table width="100%">
-<tr><td align="center"><img src="images/prefs_tools.png" alt="Tools Tab Panel"/></td>
-<td><img src="images/prefs_tools1.png"/></tr>
-<tr><td align="center"><img src="images/prefs_tools2.png" alt="Tools Tab Panel"/></td>
-<td><img src="images/prefs_tools3.png"></tr>
-<tr><td align="center" colspan="2"><img src="images/prefs_tools4.png" alt="Tools Tab Panel"/></td></tr>
-<tr><td align="center"><img src="images/prefs_tools5.png">
-<td align="center"><img src="images/prefs_tools6.png" alt="Tools Tab Panel"/></td></tr>
+<h3><a name="8"></a>Operator Tools</h3>
+<p>In 1.5.0, these have been pulled out into their own category.</p>
+<h4>Zoom and Miscellaneous</h4>
+<table cellpadding="5"><tr><td width="40%" valign="bottom"><img src="images/prefs_operatortools_tab1.png"></td>
+<td width="30%"><img src="images/prefs_operatortools_tab2.png"></td></tr>
+<tr><td><p>The default for the <em>Minimum</em> setting can be as low as 1%, while <em>Maximum</em> can go no higher than 3200%. Stepping is shown as a percentage, which only makes sense if you are going to a higher magnification. In contrast to 1.4.x versions, and at least in an upward direction, this is more of a true stepping procedure, so that the magnification jumps in an additive way with this setting. Therefore, starting at 100%, we then jump to 200%, 300%, 400%, and so on. Going downward, it's trickier to explain, but at this setting of 100%, the jumps would be 100%, 50%, 25%, 12.5% and so on.</p></td>
+<td valign="top"><p>Here we have the settings for the amount of shift with the copy when you click <em>Item > Duplicate</em> from the menu. In addition, here is the amount of jump with each click of the rotation tool.</p></td></tr>
 </table>
-<h4>Some notes on Zoom/Magnification</h4>
-<p>The default for the <em>Minimum</em> setting can be as low as 1%, while <em>Maximum</em> can go no higher than 3200%. Stepping is shown as a percentage, which only makes sense if you are going to a higher magnification. It would be better to think of this as a factor, where 200% = a factor of 2. Going upward, and starting at 100%, you then go to a factor of 2 (200%), of 4 (400%), of 8 (800%), and so on up to your maximum. Going downward, you go to a factor of 1/2 (50%), of 1/4 (25%), of 1/8 (12.5%), and so on down to your minimum. If you change your <em>Stepping</em> to 150%, for example, then 1.5 would be your factor.</p>
 
-<p>If what you want to do is to change the starting point, i.e., the default magnification of the page, then use the <em>Adjust Display Size</em> setting, as shown below under <a href="#14"><strong>Display</strong></a>.</p>
-
-<h3><a name="6"></a>Hyphenation</h3>
+<h3><a name="9"></a>Hyphenation</h3>
 <p>Hyphenation details are described here: <a href="hyphenator.html">Hyphenation in Scribus</a>.</p>
 
-<h3><a name="7"></a>Fonts</h3>
+<h3><a name="10"></a>Fonts</h3>
 <p>Selecting and installing fonts correctly is one of the most important configuration items with Scribus, and an extensive set of notes is here: <a href="fonts1.html">Fonts and Scribus</a>. If there is one part of the documentation you really must read, it is this one.</p>
 
-<h3><a name="8"></a>Preflight Verifier</h3>
+<h3><a name="11"></a>Preflight Verifier</h3>
 <p>See the information about <a href="print2.html">Printing Tools</a> to learn more about the configuration options in this panel.</p>
 
-<h3><a name="9"></a>Color Management</h3>
-<p>There are detailed notes on this topic in the <a href="cms.html">Color Management</a> section.
-<table width="90%"><tr><td align="center"><img src="images/prefs_colormgmt.png" alt="Color Management Preferences" title="Color Management Preferences" width="680" /></td></tr></table>
+<h3><a name="12"></a>Color Management</h3>
+<img src="images/prefs_colormanagement.png">
+<p>There are detailed notes on this topic in the <a href="cms.html">Color Management</a> section. Most of these options will not be available unless <em>Activate Color Management</em> is checked. Also, setting the monitor profile is only possible when no document is open.</p>
 <p><em>Note: You will not be able to export to PDF/X-3 if color management is not enabled, and the Preferences settings for this format will likewise not be available.</em></p>
 
-<h3><a name="10"></a>PDF Export</h3>
+<h3><a name="13"></a>PDF Export</h3>
+<table><tr><td><p><img src="images/prefs_pdfexport_tab1.png"></p><p><img src="images/prefs_pdfexport_tab3.png"></p><p><img src="images/prefs_pdfexport_tab5.png"></p></td>
+<td valign="top"><p><img src="images/prefs_pdfexport_tab2.png"></p><p><img src="images/prefs_pdfexport_tab4.png"></p></td></tr>
+</table>
+
 <p>Remember that the settings here simply change the default values for PDF Export. You can still override any settings with the PDF Export dialog. For more info on PDF look at <a href="pdfexport1.html">PDF Export Options</a> and <a href="pdfx3.html">PDF/X-3 and Scribus</a>.</p>
 
-<table width="90%" cellpadding="5"><tr><td align="center"><img src="images/prefs_pdfexport.png" alt="PDF Export Preferences" title="PDF Export Preferences" width="680"/></td></tr>
-<tr><td>New to Scribus 1.4.x is the inclusion of the ability to create bleeds, crop marks, and other printer marks as you export to PDF. Any bleed width is added to the page dimensions you selected when you created your document.
-<p>Note here an example of what you see when you do not have ICC profiles installed &ndash; <strong>PDF/X-3 Output Intent</strong> is not available.</td></tr>
-<tr><td align="center"><img src="images/prefs_pdfexport1.png" alt="PDF Export Preferences" title="PDF Export Preferences"/></td></tr></table>
-
-<h3><a name="11"></a>Documents Item Attributes</h3>
+<h3><a name="14"></a>Documents Item Attributes</h3>
 <p>Aside from storing additional information about a given item, this feature is currently most useful in connection with the creation of a table of contents.</p>
-<h3>Table of Contents and Indexes</h3>
+<h3><a name="15"></a>Table of Contents and Indexes</h3>
 <p>These two subdialogs relate to each other. One use of these features is explained here: <a href="http://wiki.scribus.net/index.php/Creating_a_Table_of_Contents">http://wiki.scribus.net/index.php/Creating_a_Table_of_Contents</a></p>
 
-<h3><a name="12"></a>Keyboard Shortcuts</h3>
+<h3><a name="16"></a>Keyboard Shortcuts</h3>
 
-<table width="90%"><tr><td align="center"><img src="images/prefs_keyboard.png" alt="Setting the Keyboard Shortcuts  for Scribus" title="Setting the Keyboard Shortcuts for Scribus"/></td></tr></table>
+<table width="90%"><tr><td align="center"><img src="images/prefs_keyb_shortcuts.png" alt="Setting the Keyboard Shortcuts  for Scribus" title="Setting the Keyboard Shortcuts for Scribus"/></td></tr></table>
 
 <p>Here you see the various default keyboard shortcuts, which are editable, and many others can be assigned. Moreover, once customized, you can export them into a separate XML file that can be exported and saved separately, along with making it portable to other machines. The default file suffix is .ksxml. This is a Unicode file and should not have issues being transported across platforms, with the only caveat that Macs have an option and command meta key, where Linux, UNIX, OS/2, eComStation and Windows share common keyboards.</p>
 
-<h3><a name="13"></a>Scrapbook</h3>
+<h3><a name="17"></a>Scrapbook</h3>
 <p>With Scrapbooks, you can <em>right button</em> drag and drop frequently used items, including pictures, images and text files for quick placement. Scrapbooks can be saved with a file or independently of a document, as a separate Scrapbook which can be loaded use with many different Documents. Separate Scrapbooks are kept with a <code>.scs</code> designation. This panel sets the defaults for the thumbnail preview size of items in the Scrapbook palette and whether Scrapbooks should be saved automatically when changed.</p>
-<h3><a name="14"></a>Display (not all of these are available in Document Settings)</h3>
-<p>Most of these are pretty straightforward. Depending on the size of your screen, you can use this to adjust the rescale and rearrange your workspace. If you have plenty of space, you may want to adjust the display to accurately reflect your document size by default. Remember, you can adjust the magnification settings in <em>Tools > Zoom</em>.</p>
+<h3><a name="18"></a>Display (not all of these are available in Document Settings)</h3>
+<p>Most of these are pretty straightforward. Depending on the size of your screen, you can use this to adjust the rescale and rearrange your workspace. If you have plenty of space, you may want to adjust the display to accurately reflect your document size by default. <em>Display Scaling</em> can only be adjusted with no document open. Remember, you can adjust the magnification settings in <em>Operator Tools > Zoom</em>.</p>
 
-<table width="90%"><tr><td align="center"><img src="images/prefs_display.png" alt="Display Settings" title="Display Settings" /></td></tr></table>
+<img src="images/prefs_display.png" alt="Display Settings" title="Display Settings" />
 
 <p>The Colors tab allows for customization of the colors used for various screen features, such as marking the margins, grids, and guides. In Document Settings only Fill Color is available. It&rsquo;s also worth mentioning here that the Fill Color only has to do with the <em>appearance</em> of the document background and is not printed or exported to PDF.
-<h3><a name="15"></a>External Tools</h3>
+<h3><a name="19"></a>External Tools</h3>
 <p>This panel enables you to change the default settings for the location of Ghostscript and other external programs. If you have installed Ghostscript before installing Scribus, it is usually detected automatically. If you receive an error message indicating that EPS files cannot be used, this is where the settings can be changed to allow Scribus to find the correct location of Ghostscript.</p>
 <h4>Ghostscript</h4>
 <p><strong>Linux, UNIX, OS/2, eComStation, Haiku and Windows:</strong></p>
-<table width="90%"><tr><td align="center"><img src="images/prefs_exttools.png" alt="External Tools Settings" title="External Tools Settings" width="680" /></td></tr></table>
+<img src="images/prefs_exttools2.png" alt="External Tools Settings" title="External Tools Settings">
 <p>This particular screenshot comes from Linux and is also applicable to other UNIX systems. See the <a href="readme-haiku.html">Haiku</a>, <a href="readme-os2.html">OS/2 and eComStation</a> and <a href="readme-win32.html">Windows</a> specific information for these operating systems. Some additional information about Ghostscript can be found in <a href="toolbox7.html">Advanced Ghostscript.</a></p>
 <p><strong>Mac OS X</strong></p>
 <table width="100%"><tr><td align="center"><img src="images/prefs-mac-1.png" alt="External Tools Settings" title="External Tools Settings" /></td></tr></table>
@@ -147,19 +184,21 @@
 <p>See <a href="WwRenderframes.html">Working with Render Frames</a>.</p>
 
 
-<h3><a name="16"></a>Miscellaneous</h3>
+<h3><a name="20"></a>Miscellaneous</h3>
 <table width="80%"><tr><td align="center"><img src="images/prefs_misc.png" title="Miscellaneous Settings"></td></tr></table>
-<h3><a name="17"></a>Plugins</h3>
+<h3><a name="21"></a>Plugins</h3>
 <p>This is an informational display about the various plug-ins you have at your disposal, how to use them, and where their libraries are located.
-
-<h3><a name="18"></a>Short Words</h3>
+<h3><a name="22"></a>Image Cache</h3>
+<img src="images/prefs_imagecache.png">
+<p>Here is a new feature, allowing you to set up an image cache for faster loading of images on screen rewrites.</p>
+<h3><a name="23"></a>Short Words</h3>
 <img src="images/prefs_shortwords.png">
 <p>Short Words is a plug-in to assist with adding non-breaking spaces to abbreviations like Mr. and measurements like km. Details on configuration and use are here: <a href="short-words.html">Short Words in Scribus</a>. </p>
 
-<h3><a name="19"></a>Scripter</h3>
+<h3><a name="24"></a>Scripter</h3>
 <p>If the <a href="scripter1.html">Scripter plug-in</a> is activated at startup, you will not need to make any changes here to use the included Python scripts.</p>
 <p>Scripter Extensions are special Scripter module or scripts which are loaded at startup to modify the abilities of the Python Scripter plug-in within Scribus. Details are <a href="scripter-extensions.html">here</a>. The Console tab is for choosing syntax highlighting colors within the Scripter Console.</p>
-<h3><a name="20"></a>Document Information (available in Document Settings but not in Preferences)</h3>
+<h3><a name="25"></a>Document Information (available in Document Settings but not in Preferences)</h3>
 See the section on <a href="docinfo.html">Document Information</a>.
 <h3>Where Are the Preferences Files?</h3>
 <p>Scribus&rsquo; preferences are kept in a hidden directory <code>.scribus</code>, the location of which is as follows:
