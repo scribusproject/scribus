@@ -252,7 +252,7 @@ void PropertiesPalette_Group::handleSelectionChanged()
 		setCurrentItem(currItem);
 	}
 	updateGeometry();
-	repaint();
+	//repaint();
 }
 
 void PropertiesPalette_Group::handleUpdateRequest(int updateFlags)

@@ -542,7 +542,7 @@ void PropertiesPalette_XYZ::handleSelectionChanged()
 		setCurrentItem(currItem);
 	}
 	updateGeometry();
-	repaint();
+	//repaint();
 }
 
 void PropertiesPalette_XYZ::unitChange()
@@ -634,15 +634,14 @@ void PropertiesPalette_XYZ::displayWH(double x, double y)
 {
 	if (!m_ScMW || m_ScMW->scriptIsRunning())
 		return;
-	bool tmp = m_haveItem;
-	m_haveItem = false;
 	QTransform ma;
 	QPoint dp;
+	bool sigBlocked1 = widthSpin->blockSignals(true);
+	bool sigBlocked2 = heightSpin->blockSignals(true);
 	if ((m_lineMode) && (m_item->asLine()))
 	{
 		ma.translate(static_cast<double>(xposSpin->value()) / m_unitRatio, static_cast<double>(yposSpin->value()) / m_unitRatio);
 		ma.rotate(static_cast<double>(rotationSpin->value())*(-1));
-		// Qt4 dp = ma * QPoint(static_cast<int>(x), static_cast<int>(y));
 		dp = QPoint(static_cast<int>(x), static_cast<int>(y)) * ma;
 		widthSpin->setValue(dp.x()*m_unitRatio);
 		heightSpin->setValue(dp.y()*m_unitRatio);
@@ -652,20 +651,20 @@ void PropertiesPalette_XYZ::displayWH(double x, double y)
 		widthSpin->setValue(x*m_unitRatio);
 		heightSpin->setValue(y*m_unitRatio);
 	}
-	m_haveItem = tmp;
+	widthSpin->blockSignals(sigBlocked1);
+	heightSpin->blockSignals(sigBlocked2);
 }
 
 void PropertiesPalette_XYZ::displayRotation(double r)
 {
 	if (!m_ScMW || m_ScMW->scriptIsRunning())
 		return;
-	bool tmp = m_haveItem;
 	double rr = r;
 	if (r > 0)
 		rr = 360 - rr;
-	m_haveItem = false;
+	bool sigBlocked = rotationSpin->blockSignals(true);
 	rotationSpin->setValue(fabs(rr));
-	m_haveItem = tmp;
+	rotationSpin->blockSignals(sigBlocked);
 }
 
 void PropertiesPalette_XYZ::handleNewX()

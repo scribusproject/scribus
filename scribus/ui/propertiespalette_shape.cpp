@@ -313,7 +313,7 @@ void PropertiesPalette_Shape::handleSelectionChanged()
 	}
 	setCurrentItem(currItem);
 	updateGeometry();
-	repaint();
+	//repaint();
 }
 
 void PropertiesPalette_Shape::handleUpdateRequest(int updateFlags)

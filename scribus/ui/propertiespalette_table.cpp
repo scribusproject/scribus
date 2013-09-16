@@ -326,7 +326,9 @@ void PropertiesPalette_Table::updateFillControls()
 			if (color == CommonStrings::None)
 				color = CommonStrings::tr_NoneColor;
 			setCurrentComboItem(fillColor, color);
+			bool sigBlocked = fillShade->blockSignals(true);
 			fillShade->setValue(table->fillShade());
+			fillShade->blockSignals(sigBlocked);
 		}
 		else
 		{
@@ -335,7 +337,9 @@ void PropertiesPalette_Table::updateFillControls()
 			if (color == CommonStrings::None)
 				color = CommonStrings::tr_NoneColor;
 			setCurrentComboItem(fillColor, color);
+			bool sigBlocked = fillShade->blockSignals(true);
 			fillShade->setValue(cell.fillShade());
+			fillShade->blockSignals(sigBlocked);
 		}
 	}
 	else
