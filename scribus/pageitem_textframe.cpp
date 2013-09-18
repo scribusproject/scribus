@@ -1503,6 +1503,8 @@ void PageItem_TextFrame::layout()
 		itemText.blockSignals(true);
 		setMaxY(-1);
 		double maxYAsc = 0.0, maxYDesc = 0.0;
+		int regionMinY = 0, regionMaxY= 0;
+
 		double autoLeftIndent = 0.0;
 
 		for (int a = firstInFrame(); a < itLen; ++a)
@@ -2068,14 +2070,19 @@ void PageItem_TextFrame::layout()
 			maxYAsc = qMax(maxYAsc, 0.0);
 			maxYDesc = current.yPos + realDesc;
 
+//			regionMinY = static_cast<int>(floor(maxYAsc));
+//			regionMaxY = static_cast<int>(floor(maxYDesc));
+			regionMinY = qMax(0, static_cast<int>(floor(current.yPos - (asce + offset))));
+			regionMaxY = static_cast<int>(floor(current.yPos + desc));
+
 			if (current.itemsInLine == 0 && !current.afterOverflow)
 			{
 				//start a new line
 				goNoRoom = false;
 
 				// find line`s start
-				pt1 = QPoint(static_cast<int>(floor(current.xPos)), static_cast<int>(floor(maxYAsc)));
-				pt2 = QPoint(static_cast<int>(floor(current.xPos + (style.minGlyphExtension() * wide))), static_cast<int>(floor(maxYDesc)) -1);
+				pt1 = QPoint(static_cast<int>(floor(current.xPos)), regionMinY);
+				pt2 = QPoint(static_cast<int>(floor(current.xPos + (style.minGlyphExtension() * wide))), regionMaxY -1);
 				pt = QRect(pt1, pt2);
 				realEnd = 0;
 				//check if there is overflow at start of line, if so jump behind it and check again
@@ -2102,7 +2109,7 @@ void PageItem_TextFrame::layout()
 					//check if in indent any overflow occurs
 					while (Xpos <= Xend && Xpos < current.colRight)
 					{
-						pt.moveTopLeft(QPoint(static_cast<int>(floor(Xpos)), static_cast<int>(floor(maxYAsc))));
+						pt.moveTopLeft(QPoint(static_cast<int>(floor(Xpos)), regionMinY));
 						if (!regionContainsRect(m_availableRegion, pt))
 						{
 							Xpos = current.xPos = realEnd = findRealOverflowEnd(m_availableRegion, pt, current.colRight);
@@ -2155,7 +2162,12 @@ void PageItem_TextFrame::layout()
 							maxYAsc = current.yPos - realAsce;
 						maxYDesc = current.yPos + realDesc;
 
-						pt.moveTopLeft(QPoint(static_cast<int>(floor(current.xPos)), static_cast<int>(floor(maxYAsc))));
+//						regionMinY = static_cast<int>(floor(maxYAsc));
+//						regionMaxY = static_cast<int>(floor(maxYDesc));
+						regionMinY = static_cast<int>(floor(current.yPos - (asce + offset)));
+						regionMaxY = static_cast<int>(floor(current.yPos + desc));
+
+						pt.moveTopLeft(QPoint(static_cast<int>(floor(current.xPos)), regionMinY));
 						done = false;
 					}
 					if (current.isEndOfCol(realDesc))
@@ -2452,13 +2464,13 @@ void PageItem_TextFrame::layout()
 				{
 					if (hl->effects() & ScStyle_HyphenationPossible || hl->ch == SpecialChars::SHYPHEN)
 					{
-						pt1 = QPoint(charStart,  static_cast<int>(floor(maxYAsc)));
-						pt2 = QPoint(static_cast<int>(charEnd + hyphWidth), static_cast<int>(floor(maxYDesc)) -1);
+						pt1 = QPoint(charStart,  regionMinY);
+						pt2 = QPoint(static_cast<int>(charEnd + hyphWidth), regionMaxY -1);
 					}
 					else
 					{
-						pt1 = QPoint(charStart, static_cast<int>(floor(maxYAsc)));
-						pt2 = QPoint(charEnd, static_cast<int>(floor(maxYDesc)) -1);
+						pt1 = QPoint(charStart, regionMinY);
+						pt2 = QPoint(charEnd, regionMaxY -1);
 					}
 				}
 				else if (!legacy && SpecialChars::isBreakingSpace(hl->ch))
@@ -2468,8 +2480,8 @@ void PageItem_TextFrame::layout()
 				}
 				else
 				{
-					pt1 = QPoint(charStart, static_cast<int>(floor(maxYAsc)));
-					pt2 = QPoint(charEnd, static_cast<int>(floor(maxYDesc)) -1);
+					pt1 = QPoint(charStart, regionMinY);
+					pt2 = QPoint(charEnd, regionMaxY -1);
 				}
 				pt = QRect(pt1, pt2);
 				if (!regionContainsRect(m_availableRegion, pt))
@@ -2635,7 +2647,7 @@ void PageItem_TextFrame::layout()
 				{
 					// find end of line
 					current.breakLine(itemText, style, firstLineOffset(), a);
-					EndX = current.endOfLine(m_availableRegion, style.rightMargin(), static_cast<int>(floor(maxYAsc)), static_cast<int>(floor(maxYDesc)));
+					EndX = current.endOfLine(m_availableRegion, style.rightMargin(), regionMinY, regionMaxY);
 					current.finishLine(EndX);
 					//addLine = true;
 					assert(current.addLine);
@@ -2712,7 +2724,7 @@ void PageItem_TextFrame::layout()
 						current.updateHeightMetrics(itemText);
 						//current.updateLineOffset(itemText, style, firstLineOffset());
 						//current.xPos = current.breakXPos;
-						EndX = current.endOfLine(m_availableRegion, current.rightMargin, static_cast<int>(floor(maxYAsc)), static_cast<int>(floor(maxYDesc)));
+						EndX = current.endOfLine(m_availableRegion, current.rightMargin, regionMinY, regionMaxY);
 						current.finishLine(EndX);
 						
 						hyphWidth = 0.0;
@@ -2958,7 +2970,12 @@ void PageItem_TextFrame::layout()
 			maxYAsc = qMax(maxYAsc, 0.0);
 			maxYDesc = current.yPos + realDesc;
 
-			EndX = current.endOfLine(m_availableRegion, style.rightMargin(), static_cast<int>(floor(maxYAsc)), static_cast<int>(floor(maxYDesc)));
+//			regionMinY = static_cast<int>(floor(maxYAsc));
+//			regionMaxY = static_cast<int>(floor(maxYDesc));
+			regionMinY = static_cast<int>(floor(current.yPos - (asce + offset)));
+			regionMaxY = static_cast<int>(floor(current.yPos + desc));
+
+			EndX = current.endOfLine(m_availableRegion, style.rightMargin(), regionMinY, regionMaxY);
 			current.finishLine(EndX);
 
 			if (opticalMargins & ParagraphStyle::OM_RightHangingPunct)
