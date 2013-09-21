@@ -200,8 +200,16 @@ void BibView::checkForImg(QDomElement elem, bool &hasImage)
 				if (!Pfile3.isEmpty())
 					hasImage = true;
 			}
+			else if (PType == PageItem::OSGFrame)
+			{
+				QString Pfile = pg.attribute("modelFile");
+				if (!Pfile.isEmpty())
+					hasImage = true;
+			}
 			else if (PType == PageItem::Group)
 				checkForImg(pg, hasImage);
+			if (hasImage)
+				break;
 		}
 		DOC = DOC.nextSibling();
 	}
@@ -232,8 +240,16 @@ void BibView::checkAndChange(QString &text, QString nam, QString dir)
 				if (!Pfile3.isEmpty())
 					hasImage = true;
 			}
+			else if (PType == PageItem::OSGFrame)
+			{
+				QString Pfile = pg.attribute("modelFile");
+				if (!Pfile.isEmpty())
+					hasImage = true;
+			}
 			else if (PType == PageItem::Group)
 				checkForImg(pg, hasImage);
+			if (hasImage)
+				break;
 		}
 		DOC = DOC.nextSibling();
 	}
@@ -304,6 +320,24 @@ void BibView::checkAndChange(QString &text, QString nam, QString dir)
 					pg.setAttribute("PFILE3", fid.baseName() + "/" + fi.fileName());
 				}
 				pg.setAttribute("relativePaths", 1);
+			}
+			else if (PType == PageItem::OSGFrame)
+			{
+				QString Pfile = pg.attribute("modelFile");
+				if (!Pfile.isEmpty())
+				{
+					QFileInfo fi(Pfile);
+					if (fi.isAbsolute())
+						source = QDir::cleanPath(QDir::toNativeSeparators(Pfile));
+					else
+					{
+						QFileInfo pfi2(QDir::cleanPath(QDir::toNativeSeparators(fileDir+"/"+Pfile)));
+						source = pfi2.absoluteFilePath();
+					}
+					QString target = QDir::cleanPath(QDir::toNativeSeparators(dir + "/" + fid.baseName() + "/" + fi.fileName()));
+					copyFile(source, target);
+					pg.setAttribute("modelFile", fid.baseName() + "/" + fi.fileName());
+				}
 			}
 			else if (PType == PageItem::Group)
 			{
@@ -381,6 +415,24 @@ void BibView::checkAndChangeGroups(QDomElement elem, QString dir, QFileInfo fid)
 					pg.setAttribute("PFILE3", fid.baseName() + "/" + fi.fileName());
 				}
 				pg.setAttribute("relativePaths", 1);
+			}
+			else if (PType == PageItem::OSGFrame)
+			{
+				QString Pfile = pg.attribute("modelFile");
+				if (!Pfile.isEmpty())
+				{
+					QFileInfo fi(Pfile);
+					if (fi.isAbsolute())
+						source = QDir::cleanPath(QDir::toNativeSeparators(Pfile));
+					else
+					{
+						QFileInfo pfi2(QDir::cleanPath(QDir::toNativeSeparators(fileDir+"/"+Pfile)));
+						source = pfi2.absoluteFilePath();
+					}
+					QString target = QDir::cleanPath(QDir::toNativeSeparators(dir + "/" + fid.baseName() + "/" + fi.fileName()));
+					copyFile(source, target);
+					pg.setAttribute("modelFile", fid.baseName() + "/" + fi.fileName());
+				}
 			}
 			else if (PType == PageItem::Group)
 			{
@@ -1426,6 +1478,19 @@ void Biblio::adjustReferences(QString nam)
 					}
 					pg.setAttribute("relativePaths", 1);
 				}
+				else if (PType == PageItem::OSGFrame)
+				{
+					QString Pfile = pg.attribute("modelFile");
+					if (!Pfile.isEmpty())
+					{
+						QFileInfo fi(Pfile);
+						pg.setAttribute("modelFile", fid.baseName() + "/" + fi.fileName());
+					}
+				}
+				else if (PType == PageItem::Group)
+				{
+					adjustReferencesGroups(pg, fid);
+				}
 			}
 			DOC = DOC.nextSibling();
 		}
@@ -1437,6 +1502,55 @@ void Biblio::adjustReferences(QString nam)
 		s.setDevice(&fl);
 		s.writeRawData(cs.data(), cs.length());
 		fl.close();
+	}
+}
+
+void Biblio::adjustReferencesGroups(QDomElement elem, QFileInfo fid)
+{
+	QDomNode DOC = elem.firstChild();
+	while(!DOC.isNull())
+	{
+		QDomElement pg = DOC.toElement();
+		if(pg.tagName() == "PAGEOBJECT")
+		{
+			PageItem::ItemType PType = static_cast<PageItem::ItemType>(pg.attribute("PTYPE").toInt());
+			if ((PType == PageItem::ImageFrame) || (PType == PageItem::TextFrame))
+			{
+				QString Pfile = pg.attribute("PFILE");
+				if (!Pfile.isEmpty())
+				{
+					QFileInfo fi(Pfile);
+					pg.setAttribute("PFILE", fid.baseName() + "/" + fi.fileName());
+				}
+				QString Pfile2 = pg.attribute("PFILE2","");
+				if (!Pfile2.isEmpty())
+				{
+					QFileInfo fi(Pfile2);
+					pg.setAttribute("PFILE2", fid.baseName() + "/" + fi.fileName());
+				}
+				QString Pfile3 = pg.attribute("PFILE3","");
+				if (!Pfile3.isEmpty())
+				{
+					QFileInfo fi(Pfile3);
+					pg.setAttribute("PFILE3", fid.baseName() + "/" + fi.fileName());
+				}
+				pg.setAttribute("relativePaths", 1);
+			}
+			else if (PType == PageItem::OSGFrame)
+			{
+				QString Pfile = pg.attribute("modelFile");
+				if (!Pfile.isEmpty())
+				{
+					QFileInfo fi(Pfile);
+					pg.setAttribute("modelFile", fid.baseName() + "/" + fi.fileName());
+				}
+			}
+			else if (PType == PageItem::Group)
+			{
+				adjustReferencesGroups(pg, fid);
+			}
+		}
+		DOC = DOC.nextSibling();
 	}
 }
 

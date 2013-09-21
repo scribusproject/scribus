@@ -78,6 +78,7 @@ public:
 	
 	void ObjFromCopyAction(QString text, QString name);
 	void adjustReferences(QString nam);
+	void adjustReferencesGroups(QDomElement elem, QFileInfo fid);
 	void CleanUpTemp();
 	void setScrapbookFileName(QString);
 	const QString getScrapbookFileName();
