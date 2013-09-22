@@ -11581,6 +11581,7 @@ void ScribusMainWindow::setPreviewToolbar()
 #include <QHBoxLayout>
 void ScribusMainWindow::testQTQuick2_1()
 {
+	/*
 	qDebug()<<"Testing Qt Quick 2.0";
 
 	QQuickView qqv;
@@ -11595,4 +11596,5 @@ void ScribusMainWindow::testQTQuick2_1()
 	qqv.setSource(QUrl::fromLocalFile("//Users/craig/scribus/PostTrunk/Scribus/scribus/ui/qtq_test1.qml"));
 	layout->addWidget(container);
 	d.exec();
+	*/
 }
