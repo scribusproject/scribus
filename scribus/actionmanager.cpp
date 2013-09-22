@@ -912,8 +912,6 @@ void ActionManager::initExtrasMenuActions()
 	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
 	name="extrasUpdateDocument";
 	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
-	name="extrasUpdateDocument";
-	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
 	name="extrasTestQTQuick2_1";
 	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
 	connect( (*scrActions)["extrasManageImages"], SIGNAL(triggered()), mainWindow, SLOT(StatusPic()) );
