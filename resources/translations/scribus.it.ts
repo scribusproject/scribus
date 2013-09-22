@@ -32512,7 +32512,7 @@ arrotondati:</translation>
         <location filename="../../../scribus/ui/propertiespalette_text.cpp" line="72"/>
         <location filename="../../../scribus/ui/propertiespalette_text.cpp" line="677"/>
         <source>Color &amp;&amp; Effects</source>
-        <translation>Colore &amp; effetti</translation>
+        <translation>Colore &amp;&amp; Effetti</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/propertiespalette_text.cpp" line="81"/>
@@ -32523,7 +32523,7 @@ arrotondati:</translation>
         <location filename="../../../scribus/ui/propertiespalette_text.cpp" line="84"/>
         <location filename="../../../scribus/ui/propertiespalette_text.cpp" line="680"/>
         <source>Columns &amp;&amp; Text Distances</source>
-        <translation>Colonne &amp; distanze del testo</translation>
+        <translation>Colonne &amp;&amp; Distanze del testo</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/propertiespalette_text.cpp" line="674"/>
@@ -38263,7 +38263,7 @@ Si prega di sceglierne un altro.</translation>
     <message>
         <location filename="../../../scribus/ui/smcstylewidget.cpp" line="88"/>
         <source>Baseline Offset</source>
-        <translation>Sfasamento linee di base</translation>
+        <translation type="unfinished">Spostamento linee di base</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/smcstylewidget.cpp" line="89"/>
@@ -43441,7 +43441,7 @@ You can choose between normal and several colour blindness forms</translation>
         <location filename="../../../scribus/ui/storyeditor.cpp" line="2029"/>
         <location filename="../../../scribus/ui/storyeditor.cpp" line="2033"/>
         <source>Chars: </source>
-        <translation>Caratteri:</translation>
+        <translation>Caratteri: </translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/storyeditor.cpp" line="2030"/>
@@ -43451,7 +43451,7 @@ You can choose between normal and several colour blindness forms</translation>
     <message>
         <location filename="../../../scribus/ui/storyeditor.cpp" line="2031"/>
         <source>Paragraphs: </source>
-        <translation>Paragrafi:</translation>
+        <translation>Paragrafi: </translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/storyeditor.cpp" line="3255"/>
@@ -43915,17 +43915,17 @@ You can choose between normal and several colour blindness forms</translation>
     <message>
         <location filename="../../../scribus/ui/styleselect.cpp" line="269"/>
         <source>Underline Text. Hold down the button momentarily to set line width and displacement options.</source>
-        <translation>Sottolinea testo. Tenere premuto il tasto per impostare lo spessore della linea e lo sfasamento della linea dal testo.</translation>
+        <translation>Sottolinea testo. Tenere premuto il tasto per impostare lo spessore della linea e lo spostamento della linea dal testo.</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/styleselect.cpp" line="270"/>
         <source>Underline Words Only. Hold down the button momentarily to set line width and displacement options.</source>
-        <translation>Sottolinea solo parole. Tenere premuto il tasto per impostare lo spessore della linea e lo sfasamento della linea dal testo.</translation>
+        <translation>Sottolinea solo parole. Tenere premuto il tasto per impostare lo spessore della linea e lo spostamento della linea dal testo.</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/styleselect.cpp" line="275"/>
         <source>Strike Out. Hold down the button momentarily to set line width and displacement options.</source>
-        <translation>Barrato. Tenere premuto il tasto per impostare lo spessore della linea e lo sfasamento della linea sul testo.</translation>
+        <translation>Barrato. Tenere premuto il tasto per impostare lo spessore della linea e lo spostamento della linea sul testo.</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/styleselect.cpp" line="276"/>
