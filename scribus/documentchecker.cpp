@@ -49,7 +49,6 @@ bool isPartFilledImageFrame(PageItem * currItem)
 
 bool DocumentChecker::checkDocument(ScribusDoc *currDoc)
 {
-	QString chstr;
 	struct CheckerPrefs checkerSettings;
 	checkerSettings.ignoreErrors = currDoc->checkerProfiles()[currDoc->curCheckProfile()].ignoreErrors;
 	checkerSettings.autoCheck = currDoc->checkerProfiles()[currDoc->curCheckProfile()].autoCheck;
@@ -71,10 +70,57 @@ bool DocumentChecker::checkDocument(ScribusDoc *currDoc)
 	checkerSettings.checkDeviceColorsAndOutputIntent = currDoc->checkerProfiles()[currDoc->curCheckProfile()].checkDeviceColorsAndOutputIntent;
 	checkerSettings.checkFontNotEmbedded = currDoc->checkerProfiles()[currDoc->curCheckProfile()].checkFontNotEmbedded;
 	checkerSettings.checkFontIsOpenType = currDoc->checkerProfiles()[currDoc->curCheckProfile()].checkFontIsOpenType;
+	checkerSettings.checkOppositePageMaster = currDoc->checkerProfiles()[currDoc->curCheckProfile()].checkOppositePageMaster;
+	currDoc->pageErrors.clear();
 	currDoc->docItemErrors.clear();
 	currDoc->masterItemErrors.clear();
 	currDoc->docLayerErrors.clear();
-	errorCodes itemError;
+
+	checkPages(currDoc, checkerSettings);
+	checkLayers(currDoc, checkerSettings);
+	//update all marks references and check if that changes anything in doc
+	currDoc->setNotesChanged(currDoc->updateMarks(true));
+
+	checkItems(currDoc, checkerSettings);
+
+	return (currDoc->hasPreflightErrors());
+}
+
+void DocumentChecker::checkPages(ScribusDoc *currDoc, struct CheckerPrefs checkerSettings)
+{
+	errorCodes pageError;
+	for (int i=0; i < currDoc->DocPages.count(); ++i )
+	{
+		pageError.clear();
+		PageLocation pageLoc=currDoc->locationOfPage(i);
+		int masterPageNumber = currDoc->MasterNames[currDoc->DocPages[i]->MPageNam];
+		int masterPageLocation=currDoc->MasterPages[masterPageNumber]->LeftPg;
+		bool error=0;
+		if (currDoc->pagePositioning() == singlePage)
+		{
+			if (!(pageLoc==LeftPage && masterPageLocation==0))
+				error=1;
+		}
+		else
+		{
+			if (pageLoc==LeftPage && masterPageLocation==1)
+				error=0;
+			else if (pageLoc==RightPage && masterPageLocation==0)
+				error=0;
+			else if (pageLoc==MiddlePage && masterPageLocation==2)
+				error=0;
+			else
+				error=1;
+		}
+		if (error)
+			pageError.insert(AppliedMasterDifferentSide,0);
+		if (pageError.count() != 0)
+			currDoc->pageErrors.insert(i, pageError);
+	}
+}
+
+void DocumentChecker::checkLayers(ScribusDoc *currDoc, struct CheckerPrefs checkerSettings)
+{
 	errorCodes layerError;
 	int Lnr;
 	ScLayer ll;
@@ -99,9 +145,12 @@ bool DocumentChecker::checkDocument(ScribusDoc *currDoc)
 		if (layerError.count() != 0)
 			currDoc->docLayerErrors.insert(ll.ID, layerError);
 	}
+}
 
-	//update all marks references and check if that changes anything in doc
-	currDoc->setNotesChanged(currDoc->updateMarks(true));
+void DocumentChecker::checkItems(ScribusDoc *currDoc, struct CheckerPrefs checkerSettings)
+{
+	QString chstr;
+	errorCodes itemError;
 
 	QList<PageItem*> allItems;
 	uint masterItemsCount = currDoc->MasterItems.count();
@@ -685,5 +734,4 @@ bool DocumentChecker::checkDocument(ScribusDoc *currDoc)
 		}
 		allItems.clear();
 	}
-	return ((currDoc->docItemErrors.count() != 0) || (currDoc->masterItemErrors.count() != 0) || (currDoc->docLayerErrors.count() != 0));
 }

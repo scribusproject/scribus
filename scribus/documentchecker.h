@@ -39,6 +39,9 @@ class SCRIBUS_API DocumentChecker
 
 		//! Check the passed document for errors, return true on error found
 		static bool checkDocument(ScribusDoc *currDoc);
+		static void checkPages(ScribusDoc *currDoc, struct CheckerPrefs checkerSettings);
+		static void checkLayers(ScribusDoc *currDoc, struct CheckerPrefs checkerSettings);
+		static void checkItems(ScribusDoc *currDoc, struct CheckerPrefs checkerSettings);
 };
 
 #endif

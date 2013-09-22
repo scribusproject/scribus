@@ -140,6 +140,7 @@ protected:
 	QString partFilledImageFrame;
 	QString notCMYKOrSpot;
 	QString fontNotEmbedded;
+	QString appliedMasterDifferentSide;
 
 	//! \brief Flag if is ignore button shown. true = hidden, false = shown.
 	bool noButton;

@@ -278,7 +278,8 @@ typedef enum {
 	EmbeddedFontIsOpenType=16,
 	OffConflictLayers=17,
 	PartFilledImageFrame= 18,
-	MarksChanged = 19
+	MarksChanged = 19,
+	AppliedMasterDifferentSide = 20
 } PreflightError;
 
 typedef QMap<PreflightError, int> errorCodes;

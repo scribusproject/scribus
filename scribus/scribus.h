@@ -539,6 +539,7 @@ public slots:
 	//connected to signal emited by actions when "Update Marks" menu item is triggered
 	void slotUpdateMarks();
 	bool editMarkDlg(Mark *mrk, PageItem_TextFrame* currItem = NULL);
+	void testQTQuick2_1();
 
 signals:
 	void AppModeChanged(int oldMode, int newMode);

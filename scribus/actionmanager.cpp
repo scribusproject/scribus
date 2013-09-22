@@ -912,10 +912,14 @@ void ActionManager::initExtrasMenuActions()
 	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
 	name="extrasUpdateDocument";
 	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
-
+	name="extrasUpdateDocument";
+	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
+	name="extrasTestQTQuick2_1";
+	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
 	connect( (*scrActions)["extrasManageImages"], SIGNAL(triggered()), mainWindow, SLOT(StatusPic()) );
 	connect( (*scrActions)["extrasGenerateTableOfContents"], SIGNAL(triggered()), mainWindow, SLOT(generateTableOfContents()) );
 	connect( (*scrActions)["extrasUpdateDocument"], SIGNAL(triggered()), mainWindow, SLOT(updateDocument()) );
+	connect( (*scrActions)["extrasTestQTQuick2_1"], SIGNAL(triggered()), mainWindow, SLOT(testQTQuick2_1()) );
 }
 
 
@@ -1671,7 +1675,7 @@ void ActionManager::languageChange()
 	(*scrActions)["extrasDeHyphenateText"]->setTexts( tr("Dehyphenate Text"));
 	(*scrActions)["extrasGenerateTableOfContents"]->setTexts( tr("&Generate Table Of Contents"));
 	(*scrActions)["extrasUpdateDocument"]->setTexts( tr("&Update Document"));
-
+	(*scrActions)["extrasTestQTQuick2_1"]->setTexts( tr("Test Qt Quick"));
 	//Windows Menu
 	(*scrActions)["windowsCascade"]->setText( tr("&Cascade"));
 	(*scrActions)["windowsTile"]->setText( tr("&Tile"));
