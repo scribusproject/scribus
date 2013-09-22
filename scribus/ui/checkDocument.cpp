@@ -323,12 +323,10 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 	}
 	else
 	{
-// 		resultError = true;
 		bool hasError = false;
-// 		globalGraveError = false;
 		bool layoutGraveError = false;
 		itemError = false;
-// 		QTreeWidgetItem * pagep = 0;
+
 
 		// MARKS ***********************************************
 		if (doc->notesChanged())
@@ -352,7 +350,7 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 				 docLayerErrorsIt != doc->docLayerErrors.end();
 				 ++docLayerErrorsIt)
 			{
-				QTreeWidgetItem * layer = new QTreeWidgetItem(layerItem);//, pagep );
+				QTreeWidgetItem * layer = new QTreeWidgetItem(layerItem);
 				for (layerErrorsIt = docLayerErrorsIt.value().begin();
 					 layerErrorsIt != docLayerErrorsIt.value().end(); ++layerErrorsIt)
 				{
@@ -376,17 +374,14 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 						default:
 							break;
 					}
-//					errorText->setIcon(COLUMN_ITEM, graveError );
 				}
 				layer->setText(COLUMN_ITEM,tr("Layer \"%1\"").arg(doc->layerName(docLayerErrorsIt.key())));
 				if (layoutGraveError)
 					layer->setIcon(COLUMN_ITEM, graveError );
 				else
 					layer->setIcon(COLUMN_ITEM, onlyWarning );
-				layer->setText(COLUMN_PROBLEM, tr("Issue(s): %1").arg(doc->docLayerErrors[docLayerErrorsIt.key()].count()));
+				layer->setText(COLUMN_PROBLEM, tr("Issues: %1").arg(doc->docLayerErrors[docLayerErrorsIt.key()].count()));
 				layer->setExpanded(true);
-// 				pagep = layer;
-// 				globalGraveError = true;
 			}
 			layerItem->setExpanded(true);
 		}
@@ -408,7 +403,7 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 				page = new QTreeWidgetItem( masterPageRootItem);
 				masterPageMap.insert(page, doc->MasterPages.at(mPage));
 			}
-// 			pagep = page;
+
 			QMap<PageItem*, errorCodes>::Iterator masterItemErrorsIt;
 			for (masterItemErrorsIt = doc->masterItemErrors.begin();
 				 masterItemErrorsIt != doc->masterItemErrors.end();
@@ -472,12 +467,13 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 				page->setText(COLUMN_ITEM, doc->MasterPages.at(mPage)->pageName());
 		}
 		masterPageRootItem->setExpanded(true);
-		masterPageRootItem->setText(COLUMN_PROBLEM, tr("Issue(s): %1").arg(mpErrorCount));
+		masterPageRootItem->setText(COLUMN_PROBLEM, tr("Issues: %1").arg(mpErrorCount));
 		// END of MASTER PAGES
 
 		// PAGES ********************************8
 		for (int aPage = 0; aPage < doc->DocPages.count(); ++aPage)
 		{
+			int pageErrorCount=0;
 			QString tmp;
 			hasError = false;
 			pageGraveError = false;
@@ -503,7 +499,9 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 					QTreeWidgetItem * errorText = new QTreeWidgetItem(page);
 					errorText->setText(COLUMN_PROBLEM, appliedMasterDifferentSide);
 					errorText->setIcon(COLUMN_ITEM, onlyWarning );
+					hasError=true;
 					page->setExpanded( true );
+					++pageErrorCount;
 				}
 			}
 
@@ -533,6 +531,7 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 						it3 = docItemErrorsIt.value().begin();
 						buildItem(object, it3.key(), docItemErrorsIt.key());
 						posMap.insert(object, it3.value());
+						++pageErrorCount;
 					}
 					else
 					{
@@ -542,6 +541,7 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 							buildItem(errorText, it3.key(), docItemErrorsIt.key());
 							itemMap.insert(errorText, docItemErrorsIt.key());
 							posMap.insert(object, it3.value());
+							++pageErrorCount;
 						}
 						object->setExpanded( true );
 					}
@@ -558,6 +558,7 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 				else
 					page->setIcon(COLUMN_ITEM, onlyWarning );
 				page->setExpanded( true );
+				page->setText(COLUMN_PROBLEM, tr( "Issues: %1" ).arg(pageErrorCount) );
 			}
 			else
 			{
@@ -569,7 +570,7 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 		}
 		// END of PAGES
 
-		// FREE ITEMS **********************************************8888
+		// FREE ITEMS **************************************************
 		QMap<PageItem*, errorCodes>::Iterator freeItemsErrorsIt;
 		bool hasfreeItems = false;
 		for (freeItemsErrorsIt = doc->docItemErrors.begin(); freeItemsErrorsIt != doc->docItemErrors.end(); ++freeItemsErrorsIt)
@@ -584,7 +585,7 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 		{
 			bool hasError = false;
 			bool pageGraveError = false;
-			QTreeWidgetItem * freeItem = new QTreeWidgetItem( reportDisplay);//, pagep );
+			QTreeWidgetItem * freeItem = new QTreeWidgetItem( reportDisplay);
 			for (freeItemsErrorsIt = doc->docItemErrors.begin(); freeItemsErrorsIt != doc->docItemErrors.end(); ++freeItemsErrorsIt)
 			{
 				if (doc->OnPage(freeItemsErrorsIt.key()) == -1)
