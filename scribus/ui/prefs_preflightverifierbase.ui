@@ -216,6 +216,13 @@
         </widget>
        </item>
        <item>
+        <widget class="QCheckBox" name="checkEmptyTextFramesCheckBox">
+         <property name="text">
+          <string>Check for empty text frames</string>
+         </property>
+        </widget>
+       </item>
+       <item>
         <widget class="QCheckBox" name="checkTextOverflowCheckBox">
          <property name="text">
           <string>Check for overflow in text frames</string>

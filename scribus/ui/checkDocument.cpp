@@ -280,6 +280,11 @@ void CheckDocument::buildItem(QTreeWidgetItem * item,
 			item->setIcon(COLUMN_ITEM, graveError);
 			itemError = true;
 			break;
+		case EmptyTextFrame:
+			item->setText(COLUMN_PROBLEM, emptyTextFrame);
+			item->setIcon(COLUMN_ITEM, onlyWarning);
+			itemError = true;
+			break;
 		default:
 			break;
 	};
@@ -686,6 +691,7 @@ void CheckDocument::languageChange()
 	fontNotEmbedded =  tr("Imported document contains non embedded fonts");
 	//isGIFtoolTip = "<qt>" + tr("GIF images are not recommended for print. See the online docs for more info") + "</qt>";
 	appliedMasterDifferentSide = tr("Applied master page has different page destination (left, middle, right side)");
+	emptyTextFrame = tr("Empty Image Frame");
 }
 
 void CheckDocument::setIgnoreEnabled(bool state)

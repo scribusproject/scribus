@@ -50,6 +50,8 @@ bool isPartFilledImageFrame(PageItem * currItem)
 bool DocumentChecker::checkDocument(ScribusDoc *currDoc)
 {
 	struct CheckerPrefs checkerSettings;
+	checkerSettings=currDoc->checkerProfiles()[currDoc->curCheckProfile()];
+	/*
 	checkerSettings.ignoreErrors = currDoc->checkerProfiles()[currDoc->curCheckProfile()].ignoreErrors;
 	checkerSettings.autoCheck = currDoc->checkerProfiles()[currDoc->curCheckProfile()].autoCheck;
 	checkerSettings.checkGlyphs = currDoc->checkerProfiles()[currDoc->curCheckProfile()].checkGlyphs;
@@ -72,6 +74,7 @@ bool DocumentChecker::checkDocument(ScribusDoc *currDoc)
 	checkerSettings.checkFontIsOpenType = currDoc->checkerProfiles()[currDoc->curCheckProfile()].checkFontIsOpenType;
 	checkerSettings.checkOppositePageMaster = currDoc->checkerProfiles()[currDoc->curCheckProfile()].checkOppositePageMaster;
 	checkerSettings.checkAppliedMasterDifferentSide = currDoc->checkerProfiles()[currDoc->curCheckProfile()].checkAppliedMasterDifferentSide;
+	*/
 	currDoc->pageErrors.clear();
 	currDoc->docItemErrors.clear();
 	currDoc->masterItemErrors.clear();
@@ -360,6 +363,7 @@ void DocumentChecker::checkItems(ScribusDoc *currDoc, struct CheckerPrefs checke
 	#ifndef NLS_PROTO
 				if ( currItem->frameOverflows() && (checkerSettings.checkOverflow) && (!((currItem->isAnnotation()) && ((currItem->annotation().Type() == Annotation::Combobox) || (currItem->annotation().Type() == Annotation::Listbox)))))
 					itemError.insert(TextOverflow, 0);
+
 				if (currItem->isAnnotation())
 				{
 					ScFace::FontFormat fformat = currItem->itemText.defaultStyle().charStyle().font().format();
@@ -651,6 +655,10 @@ void DocumentChecker::checkItems(ScribusDoc *currDoc, struct CheckerPrefs checke
 	#ifndef NLS_PROTO
 				if ( currItem->frameOverflows() && (checkerSettings.checkOverflow) && (!((currItem->isAnnotation()) && ((currItem->annotation().Type() == Annotation::Combobox) || (currItem->annotation().Type() == Annotation::Listbox)))))
 					itemError.insert(TextOverflow, 0);
+
+				if (checkerSettings.checkEmptyTextFrames && currItem->itemText.length()==0)
+					itemError.insert(EmptyTextFrame, 0);
+
 				if (currItem->isAnnotation())
 				{
 					ScFace::FontFormat fformat = currItem->itemText.defaultStyle().charStyle().font().format();

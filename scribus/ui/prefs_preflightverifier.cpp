@@ -37,6 +37,7 @@ Prefs_PreflightVerifier::Prefs_PreflightVerifier(QWidget* parent, ScribusDoc* do
 	connect(removeProfilePushButton, SIGNAL(clicked()), this, SLOT(delProf()));
 	connect(addProfilePushButton, SIGNAL(clicked()), this, SLOT(addProf()));
 	connect(checkAppliedMasterPageLocationCheckBox, SIGNAL(clicked()), this, SLOT(putProfile()));
+	connect(checkEmptyTextFramesCheckBox, SIGNAL(clicked()), this, SLOT(putProfile()));
 }
 
 Prefs_PreflightVerifier::~Prefs_PreflightVerifier()
@@ -74,6 +75,7 @@ void Prefs_PreflightVerifier::restoreDefaults(struct ApplicationPrefs *prefsData
 	checkNonPrintableLayersCheckBox->setChecked(checkerProfile[prefProfile].ignoreOffLayers);
 	checkVisiblePrintableLayersCheckBox->setChecked(checkerProfile[prefProfile].checkOffConflictLayers);
 	checkAppliedMasterPageLocationCheckBox->setChecked(checkerProfile[prefProfile].checkAppliedMasterDifferentSide);
+	checkEmptyTextFramesCheckBox->setChecked(checkerProfile[prefProfile].checkEmptyTextFrames);
 	minimumResolutionSpinBox->setValue( qRound(checkerProfile[prefProfile].minResolution) );
 	maximumResolutionSpinBox->setValue( qRound(checkerProfile[prefProfile].maxResolution) );
 	currentProfile = prefProfile;

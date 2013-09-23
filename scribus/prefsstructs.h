@@ -54,6 +54,7 @@ struct CheckerPrefs
 	bool checkPartFilledImageFrames;
 	bool checkOppositePageMaster;
 	bool checkAppliedMasterDifferentSide;
+	bool checkEmptyTextFrames;
 };
 
 typedef QMap<QString, CheckerPrefs> CheckerPrefsList;

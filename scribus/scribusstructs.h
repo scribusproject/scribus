@@ -260,26 +260,27 @@ public:
 };
 
 typedef enum {
-	MissingGlyph=1,
-	TextOverflow=2,
-	ObjectNotOnPage=3,
-	MissingImage=4,
-	ImageDPITooLow=5,
-	Transparency=6,
-	PDFAnnotField=7,
-	PlacedPDF=8,
-	ImageDPITooHigh=9,
-	ImageIsGIF=10,
-	BlendMode=11,
-	WrongFontInAnnotation=12,
-	NotCMYKOrSpot=13,
-	DeviceColorsAndOutputIntent=14,
-	FontNotEmbedded=15,
-	EmbeddedFontIsOpenType=16,
-	OffConflictLayers=17,
-	PartFilledImageFrame= 18,
+	MissingGlyph = 1,
+	TextOverflow = 2,
+	ObjectNotOnPage = 3,
+	MissingImage = 4,
+	ImageDPITooLow = 5,
+	Transparency = 6,
+	PDFAnnotField = 7,
+	PlacedPDF = 8,
+	ImageDPITooHigh = 9,
+	ImageIsGIF = 10,
+	BlendMode = 11,
+	WrongFontInAnnotation = 12,
+	NotCMYKOrSpot = 13,
+	DeviceColorsAndOutputIntent = 14,
+	FontNotEmbedded = 15,
+	EmbeddedFontIsOpenType = 16,
+	OffConflictLayers = 17,
+	PartFilledImageFrame = 18,
 	MarksChanged = 19,
-	AppliedMasterDifferentSide = 20
+	AppliedMasterDifferentSide = 20,
+	EmptyTextFrame = 21
 } PreflightError;
 
 typedef QMap<PreflightError, int> errorCodes;

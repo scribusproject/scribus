@@ -1620,6 +1620,7 @@ bool PrefsManager::WritePref(QString ho)
 		dcVerifierProfile.setAttribute("CheckFontNotEmbedded", static_cast<int>(itcp.value().checkFontNotEmbedded));
 		dcVerifierProfile.setAttribute("CheckFontIsOpenType", static_cast<int>(itcp.value().checkFontIsOpenType));
 		dcVerifierProfile.setAttribute("CheckAppliedMasterDifferentSide", static_cast<int>(itcp.value().checkAppliedMasterDifferentSide));
+		dcVerifierProfile.setAttribute("CheckEmptyTextFrames", static_cast<int>(itcp.value().checkEmptyTextFrames));
 		elem.appendChild(dcVerifierProfile);
 	}
 	QDomElement dcColorManagement=docu.createElement("ColorManagement");
@@ -2329,6 +2330,7 @@ bool PrefsManager::ReadPref(QString ho)
 			checkerSettings.checkFontNotEmbedded = static_cast<bool>(dc.attribute("CheckFontNotEmbedded", "0").toInt());
 			checkerSettings.checkFontIsOpenType = static_cast<bool>(dc.attribute("CheckFontIsOpenType", "0").toInt());
 			checkerSettings.checkAppliedMasterDifferentSide = static_cast<bool>(dc.attribute("CheckAppliedMasterDifferentSide", "1").toInt());
+			checkerSettings.checkEmptyTextFrames = static_cast<bool>(dc.attribute("CheckEmptyTextFrames", "1").toInt());
 			appPrefs.verifierPrefs.checkerPrefsList[name] = checkerSettings;
 		}
 		if (dc.tagName()=="Printer")
@@ -2645,6 +2647,7 @@ void PrefsManager::initDefaultCheckerPrefs(CheckerPrefsList* cp)
 		checkerSettings.checkFontNotEmbedded = false;
 		checkerSettings.checkFontIsOpenType = false;
 		checkerSettings.checkAppliedMasterDifferentSide = true;
+		checkerSettings.checkEmptyTextFrames = true;
 		//TODO Stop translating these into settings!!!!!!!!!
 		cp->insert( CommonStrings::PostScript, checkerSettings);
 		checkerSettings.checkFontNotEmbedded = true;
