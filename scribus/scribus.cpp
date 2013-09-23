@@ -11593,7 +11593,7 @@ void ScribusMainWindow::testQTQuick2_1()
 	d.setMinimumSize(300, 200);
 	d.setMaximumSize(300, 200);
 	d.setFocusPolicy(Qt::TabFocus);
-	qqv.setSource(QUrl::fromLocalFile("//Users/craig/scribus/PostTrunk/Scribus/scribus/ui/qtq_test1.qml"));
+	qqv.setSource(QUrl::fromLocalFile("//Users/craig/scribus/PostTrunk/trunkqt5/Scribus/scribus/ui/qtq_test1.qml"));
 	layout->addWidget(container);
 	d.exec();
 	*/

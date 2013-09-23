@@ -53,6 +53,7 @@ struct CheckerPrefs
 	bool checkFontIsOpenType; // embedded PDF might use OpenType font program (only allowed in PDF/X-4 and PDF 1.6)
 	bool checkPartFilledImageFrames;
 	bool checkOppositePageMaster;
+	bool checkAppliedMasterDifferentSide;
 };
 
 typedef QMap<QString, CheckerPrefs> CheckerPrefsList;

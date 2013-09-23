@@ -36,6 +36,7 @@ Prefs_PreflightVerifier::Prefs_PreflightVerifier(QWidget* parent, ScribusDoc* do
 	connect(checkVisiblePrintableLayersCheckBox, SIGNAL(clicked()), this, SLOT(putProfile()));
 	connect(removeProfilePushButton, SIGNAL(clicked()), this, SLOT(delProf()));
 	connect(addProfilePushButton, SIGNAL(clicked()), this, SLOT(addProf()));
+	connect(checkAppliedMasterPageLocationCheckBox, SIGNAL(clicked()), this, SLOT(putProfile()));
 }
 
 Prefs_PreflightVerifier::~Prefs_PreflightVerifier()
@@ -72,6 +73,7 @@ void Prefs_PreflightVerifier::restoreDefaults(struct ApplicationPrefs *prefsData
 	checkGIFsCheckBox->setChecked(checkerProfile[prefProfile].checkForGIF);
 	checkNonPrintableLayersCheckBox->setChecked(checkerProfile[prefProfile].ignoreOffLayers);
 	checkVisiblePrintableLayersCheckBox->setChecked(checkerProfile[prefProfile].checkOffConflictLayers);
+	checkAppliedMasterPageLocationCheckBox->setChecked(checkerProfile[prefProfile].checkAppliedMasterDifferentSide);
 	minimumResolutionSpinBox->setValue( qRound(checkerProfile[prefProfile].minResolution) );
 	maximumResolutionSpinBox->setValue( qRound(checkerProfile[prefProfile].maxResolution) );
 	currentProfile = prefProfile;
@@ -87,7 +89,6 @@ void Prefs_PreflightVerifier::saveGuiToPrefs(struct ApplicationPrefs *prefsData)
 	prefsData->verifierPrefs.showNonPrintingLayerErrors=showNonPrintingLayerErrorsCheckBox->isChecked();
 	prefsData->verifierPrefs.checkerPrefsList = checkerProfile;
 	prefsData->verifierPrefs.curCheckProfile = currentProfileComboBox->currentText();
-
 }
 
 void Prefs_PreflightVerifier::putProfile()
@@ -110,6 +111,7 @@ void Prefs_PreflightVerifier::putProfile()
 		checkerProfile[currentProfile].checkForGIF = checkGIFsCheckBox->isChecked();
 		checkerProfile[currentProfile].ignoreOffLayers = checkNonPrintableLayersCheckBox->isChecked();
 		checkerProfile[currentProfile].checkOffConflictLayers = checkVisiblePrintableLayersCheckBox->isChecked();
+		checkerProfile[currentProfile].checkAppliedMasterDifferentSide = checkAppliedMasterPageLocationCheckBox->isChecked();
 	}
 }
 

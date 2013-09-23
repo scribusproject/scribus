@@ -71,6 +71,7 @@ bool DocumentChecker::checkDocument(ScribusDoc *currDoc)
 	checkerSettings.checkFontNotEmbedded = currDoc->checkerProfiles()[currDoc->curCheckProfile()].checkFontNotEmbedded;
 	checkerSettings.checkFontIsOpenType = currDoc->checkerProfiles()[currDoc->curCheckProfile()].checkFontIsOpenType;
 	checkerSettings.checkOppositePageMaster = currDoc->checkerProfiles()[currDoc->curCheckProfile()].checkOppositePageMaster;
+	checkerSettings.checkAppliedMasterDifferentSide = currDoc->checkerProfiles()[currDoc->curCheckProfile()].checkAppliedMasterDifferentSide;
 	currDoc->pageErrors.clear();
 	currDoc->docItemErrors.clear();
 	currDoc->masterItemErrors.clear();
@@ -92,28 +93,31 @@ void DocumentChecker::checkPages(ScribusDoc *currDoc, struct CheckerPrefs checke
 	for (int i=0; i < currDoc->DocPages.count(); ++i )
 	{
 		pageError.clear();
-		PageLocation pageLoc=currDoc->locationOfPage(i);
-		int masterPageNumber = currDoc->MasterNames[currDoc->DocPages[i]->MPageNam];
-		int masterPageLocation=currDoc->MasterPages[masterPageNumber]->LeftPg;
-		bool error=0;
-		if (currDoc->pagePositioning() == singlePage)
+		if (checkerSettings.checkAppliedMasterDifferentSide)
 		{
-			if (!(pageLoc==LeftPage && masterPageLocation==0))
-				error=1;
-		}
-		else
-		{
-			if (pageLoc==LeftPage && masterPageLocation==1)
-				error=0;
-			else if (pageLoc==RightPage && masterPageLocation==0)
-				error=0;
-			else if (pageLoc==MiddlePage && masterPageLocation==2)
-				error=0;
+			PageLocation pageLoc=currDoc->locationOfPage(i);
+			int masterPageNumber = currDoc->MasterNames[currDoc->DocPages[i]->MPageNam];
+			int masterPageLocation=currDoc->MasterPages[masterPageNumber]->LeftPg;
+			bool error=0;
+			if (currDoc->pagePositioning() == singlePage)
+			{
+				if (!(pageLoc==LeftPage && masterPageLocation==0))
+					error=1;
+			}
 			else
-				error=1;
+			{
+				if (pageLoc==LeftPage && masterPageLocation==1)
+					error=0;
+				else if (pageLoc==RightPage && masterPageLocation==0)
+					error=0;
+				else if (pageLoc==MiddlePage && masterPageLocation==2)
+					error=0;
+				else
+					error=1;
+			}
+			if (error)
+				pageError.insert(AppliedMasterDifferentSide,0);
 		}
-		if (error)
-			pageError.insert(AppliedMasterDifferentSide,0);
 		if (pageError.count() != 0)
 			currDoc->pageErrors.insert(i, pageError);
 	}
