@@ -132,7 +132,7 @@ void MarksManager::languageChange()
 	setWindowTitle(tr("Marks Manager"));
 	listView->setToolTip(tr("Double click to find mark in text"));
 	UpdateButton->setText(tr("Update All Marks"));
-	UpdateButton->setToolTip(tr("Update all refeence texts for all marks"));
+	UpdateButton->setToolTip(tr("Update all reference texts for all marks"));
 	EditButton->setText(tr("Edit"));
 	EditButton->setToolTip(tr("Edit selected mark"));
 	if (m_Doc != NULL)
