@@ -22792,7 +22792,7 @@ Veuillez en choisir un autre.</translation>
     <message>
         <location filename="../../../scribus/ui/preferencesdialog.cpp" line="113"/>
         <source>Guides</source>
-        <translation type="unfinished">Guides</translation>
+        <translation type="unfinished">Repères</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/preferencesdialog.cpp" line="114"/>
@@ -24367,53 +24367,53 @@ Do you want to use this?</source>
         <location filename="../../../scribus/ui/prefs_guides.cpp" line="52"/>
         <location filename="../../../scribus/ui/prefs_guides.cpp" line="115"/>
         <source>Guides</source>
-        <translation type="unfinished">Guides</translation>
+        <translation type="unfinished">Repères</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_guidesbase.ui" line="38"/>
         <source>Placement</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Placement</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_guidesbase.ui" line="50"/>
         <source>Placement:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Placement:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_guidesbase.ui" line="155"/>
         <source>Snap Distance:</source>
-        <translation type="unfinished">Distance de magnétisation :</translation>
+        <translation>Distance de magnétisation :</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_guidesbase.ui" line="162"/>
         <location filename="../../../scribus/ui/prefs_guidesbase.ui" line="182"/>
         <source> px</source>
-        <translation type="unfinished"> px</translation>
+        <translation> px</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_guidesbase.ui" line="175"/>
         <source>Grab Radius:</source>
-        <translation type="unfinished">Rayon d&apos;action :</translation>
+        <translation>Rayon d&apos;action :</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_guidesbase.ui" line="236"/>
         <source>Distances</source>
-        <translation type="unfinished">Distances</translation>
+        <translation>Distances</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_guidesbase.ui" line="264"/>
         <source>Minor Grid Spacing:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Espacement de la grille secondaire:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_guidesbase.ui" line="274"/>
         <source>Baseline Grid Spacing:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Espacement de la grille d&apos;interlignage:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_guidesbase.ui" line="254"/>
         <source>Major Grid Spacing:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Espacement de la grille principale:</translation>
     </message>
     <message>
         <source>Background</source>
@@ -24422,12 +24422,12 @@ Do you want to use this?</source>
     <message>
         <location filename="../../../scribus/ui/prefs_guidesbase.ui" line="284"/>
         <source>Baseline Grid Offset:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Point de départ de la grille d&apos;interlignage :</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_guidesbase.ui" line="325"/>
         <source>Visibility</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Visibilité</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_guidesbase.ui" line="338"/>
@@ -24439,7 +24439,7 @@ Do you want to use this?</source>
     <message>
         <location filename="../../../scribus/ui/prefs_guidesbase.ui" line="347"/>
         <source>Page Grid</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Grille de la page</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_guidesbase.ui" line="370"/>
@@ -24450,37 +24450,37 @@ Do you want to use this?</source>
         <location filename="../../../scribus/ui/prefs_guidesbase.ui" line="402"/>
         <location filename="../../../scribus/ui/prefs_guides.cpp" line="56"/>
         <source>Baseline Grid</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Grile d&apos;interlignage</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_guidesbase.ui" line="423"/>
         <source>Colors</source>
-        <translation type="unfinished">Couleurs</translation>
+        <translation>Couleurs</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_guidesbase.ui" line="434"/>
         <source>Guides:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Repères:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_guidesbase.ui" line="448"/>
         <source>Margins:</source>
-        <translation type="unfinished"></translation>
+        <translation>Marges:</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_guidesbase.ui" line="462"/>
         <source>Major Grid:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Grille principale :</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_guidesbase.ui" line="476"/>
         <source>Minor Grid:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Grille secondaire :</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_guidesbase.ui" line="490"/>
         <source>Baseline Grid:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Grille d&apos;interlignage :</translation>
     </message>
     <message>
         <source>In the Background</source>
@@ -24494,13 +24494,13 @@ Do you want to use this?</source>
         <location filename="../../../scribus/ui/prefs_guides.cpp" line="50"/>
         <location filename="../../../scribus/ui/prefs_guides.cpp" line="113"/>
         <source>Content Objects</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Objets de la page</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_guides.cpp" line="54"/>
         <location filename="../../../scribus/ui/prefs_guides.cpp" line="117"/>
         <source>Grid</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Grilles</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_guides.cpp" line="67"/>
@@ -24515,7 +24515,7 @@ Do you want to use this?</source>
     <message>
         <location filename="../../../scribus/ui/prefs_guides.cpp" line="70"/>
         <source>Place guides in front of or behind objects on the page</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Place les repères en avant plant ou en arrière plan des objets dans la page</translation>
     </message>
     <message>
         <location filename="../../../scribus/ui/prefs_guides.cpp" line="71"/>
@@ -24595,7 +24595,7 @@ Do you want to use this?</source>
     <message>
         <location filename="../../../scribus/ui/prefs_guides.cpp" line="119"/>
         <source>BaselineGrid</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Grille d&apos;interlignage</translation>
     </message>
 </context>
 <context>
@@ -35900,7 +35900,7 @@ Veuillez en choisir un autre.</translation>
     </message>
     <message>
         <source>Guides</source>
-        <translation type="obsolete">Guides</translation>
+        <translation type="obsolete">Repères</translation>
     </message>
     <message>
         <source>Display</source>
