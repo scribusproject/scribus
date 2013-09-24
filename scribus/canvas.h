@@ -189,6 +189,7 @@ public:
 		m_viewMode.redrawPolygon.clear();
 		return m_viewMode.redrawPolygon;
 	}
+	void setForcedRedraw(bool on) { m_viewMode.forceRedraw = on; }
 	void setPreviewMode(bool on) { m_viewMode.previewMode = on; }
 	bool isPreviewMode() const { return m_viewMode.previewMode || m_viewMode.viewAsPreview; }
 	bool usePreviewVisual() const { return m_viewMode.viewAsPreview && m_viewMode.previewVisual != 0; }
