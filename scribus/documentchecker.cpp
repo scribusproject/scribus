@@ -51,30 +51,6 @@ bool DocumentChecker::checkDocument(ScribusDoc *currDoc)
 {
 	struct CheckerPrefs checkerSettings;
 	checkerSettings=currDoc->checkerProfiles()[currDoc->curCheckProfile()];
-	/*
-	checkerSettings.ignoreErrors = currDoc->checkerProfiles()[currDoc->curCheckProfile()].ignoreErrors;
-	checkerSettings.autoCheck = currDoc->checkerProfiles()[currDoc->curCheckProfile()].autoCheck;
-	checkerSettings.checkGlyphs = currDoc->checkerProfiles()[currDoc->curCheckProfile()].checkGlyphs;
-	checkerSettings.checkOrphans = currDoc->checkerProfiles()[currDoc->curCheckProfile()].checkOrphans;
-	checkerSettings.checkOverflow = currDoc->checkerProfiles()[currDoc->curCheckProfile()].checkOverflow;
-	checkerSettings.checkPictures = currDoc->checkerProfiles()[currDoc->curCheckProfile()].checkPictures;
-	checkerSettings.checkResolution = currDoc->checkerProfiles()[currDoc->curCheckProfile()].checkResolution;
-	checkerSettings.checkPartFilledImageFrames = currDoc->checkerProfiles()[currDoc->curCheckProfile()].checkPartFilledImageFrames;
-	checkerSettings.checkTransparency = currDoc->checkerProfiles()[currDoc->curCheckProfile()].checkTransparency;
-	checkerSettings.minResolution = currDoc->checkerProfiles()[currDoc->curCheckProfile()].minResolution;
-	checkerSettings.maxResolution = currDoc->checkerProfiles()[currDoc->curCheckProfile()].maxResolution;
-	checkerSettings.checkAnnotations = currDoc->checkerProfiles()[currDoc->curCheckProfile()].checkAnnotations;
-	checkerSettings.checkRasterPDF = currDoc->checkerProfiles()[currDoc->curCheckProfile()].checkRasterPDF;
-	checkerSettings.checkForGIF = currDoc->checkerProfiles()[currDoc->curCheckProfile()].checkForGIF;
-	checkerSettings.ignoreOffLayers = currDoc->checkerProfiles()[currDoc->curCheckProfile()].ignoreOffLayers;
-	checkerSettings.checkOffConflictLayers = currDoc->checkerProfiles()[currDoc->curCheckProfile()].checkOffConflictLayers;
-	checkerSettings.checkNotCMYKOrSpot = currDoc->checkerProfiles()[currDoc->curCheckProfile()].checkNotCMYKOrSpot;
-	checkerSettings.checkDeviceColorsAndOutputIntent = currDoc->checkerProfiles()[currDoc->curCheckProfile()].checkDeviceColorsAndOutputIntent;
-	checkerSettings.checkFontNotEmbedded = currDoc->checkerProfiles()[currDoc->curCheckProfile()].checkFontNotEmbedded;
-	checkerSettings.checkFontIsOpenType = currDoc->checkerProfiles()[currDoc->curCheckProfile()].checkFontIsOpenType;
-	checkerSettings.checkOppositePageMaster = currDoc->checkerProfiles()[currDoc->curCheckProfile()].checkOppositePageMaster;
-	checkerSettings.checkAppliedMasterDifferentSide = currDoc->checkerProfiles()[currDoc->curCheckProfile()].checkAppliedMasterDifferentSide;
-	*/
 	currDoc->pageErrors.clear();
 	currDoc->docItemErrors.clear();
 	currDoc->masterItemErrors.clear();
