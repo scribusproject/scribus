@@ -147,13 +147,8 @@ About::About( QWidget* parent, AboutMode diaMode ) : QDialog( parent )
 	bu += "*";
 #endif
 	bu += "-";
-#ifdef HAVE_PRIVATE_CAIRO
-	bu += "PC";
-	bu += cairo_version_string();
-#else
 	bu += "C";
 	bu += cairo_version_string();
-#endif
 
 // Some more information if we are not on a 32bit little endian Unix machine
 #if defined(Q_OS_WIN)

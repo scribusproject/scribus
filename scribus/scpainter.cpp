@@ -685,14 +685,12 @@ void ScPainter::fillPathHelper()
 		cairo_pattern_t *pat = NULL;
 		cairo_surface_t *img = NULL;
 		cairo_t *cr = NULL;
-// #ifdef HAVE_PRIVATE_CAIRO
-#if (CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 11, 2)  || HAVE_PRIVATE_CAIRO)
+#if (CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 11, 2))
 		cairo_pattern_t *mpat = NULL;
 #endif
 		if (fill_gradient.type() == VGradient::fourcolor)
 		{
-//#ifdef HAVE_PRIVATE_CAIRO
-#if (CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 11, 2) || HAVE_PRIVATE_CAIRO)
+#if (CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 11, 2))
 			double p1x = gradPatchP1.x();
 			double p1y = gradPatchP1.y();
 			double p2x = gradPatchP2.x();
@@ -786,8 +784,7 @@ void ScPainter::fillPathHelper()
 		}
 		else if (fill_gradient.type() == VGradient::diamond)
 		{
-// #ifdef HAVE_PRIVATE_CAIRO
-#if (CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 11, 2) || HAVE_PRIVATE_CAIRO)
+#if (CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 11, 2))
 			double p1x = gradControlP1.x();
 			double p1y = gradControlP1.y();
 			double p2x = gradControlP2.x();
@@ -1083,8 +1080,7 @@ void ScPainter::fillPathHelper()
 		}
 		else if (fill_gradient.type() == VGradient::mesh)
 		{
-// #ifdef HAVE_PRIVATE_CAIRO
-#if (CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 11, 2) || HAVE_PRIVATE_CAIRO)
+#if (CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 11, 2))
 			double p3x = gradPatchP3.x();
 			double p3y = gradPatchP3.y();
 			img = cairo_surface_create_similar(cairo_get_target(m_cr), CAIRO_CONTENT_COLOR_ALPHA, p3x, p3y);
@@ -1210,8 +1206,7 @@ void ScPainter::fillPathHelper()
 		}
 		else if (fill_gradient.type() == VGradient::freemesh)
 		{
-// #ifdef HAVE_PRIVATE_CAIRO
-#if (CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 11, 2) || HAVE_PRIVATE_CAIRO)
+#if (CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 11, 2))
 			double p3x = gradPatchP3.x();
 			double p3y = gradPatchP3.y();
 			img = cairo_surface_create_similar(cairo_get_target(m_cr), CAIRO_CONTENT_COLOR_ALPHA, p3x, p3y);
@@ -1399,8 +1394,7 @@ void ScPainter::fillPathHelper()
 			cairo_paint_with_alpha (m_cr, fill_trans);
 		}
 		cairo_pattern_destroy (pat);
-// #ifdef HAVE_PRIVATE_CAIRO
-#if (CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 11, 2)  || HAVE_PRIVATE_CAIRO)
+#if (CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 11, 2))
 		if ((fill_gradient.type() == VGradient::fourcolor) || (fill_gradient.type() == VGradient::diamond) || (fill_gradient.type() == VGradient::mesh) || (fill_gradient.type() == VGradient::freemesh))
 		{
 			cairo_surface_destroy(img);

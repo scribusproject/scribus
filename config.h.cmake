@@ -19,7 +19,6 @@
 #cmakedefine CMS_INC @CMS_INC@
 #cmakedefine HAVE_XML 1
 #cmakedefine HAVE_CAIRO 1
-#cmakedefine HAVE_PRIVATE_CAIRO 1
 #cmakedefine HAVE_CUPS 1
 #cmakedefine HAVE_TIFF 1
 #cmakedefine HAVE_LIBZ 1
