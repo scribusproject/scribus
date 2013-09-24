@@ -600,26 +600,14 @@ ENDIF(LIBXML2_FOUND)
 
 #<<LittleCMS
 SET(LCMS_DIR ${CMAKE_MODULE_PATH})
-  FIND_PACKAGE(LCMS)
-  IF(LCMS_FOUND)
-    SET(HAVE_LCMS1 1)
-  ENDIF(LCMS_FOUND)
-FIND_PACKAGE(LCMS2)
+FIND_PACKAGE(LCMS2 REQUIRED)
 IF(LCMS2_FOUND)
   SET(HAVE_LCMS2 1)
   SET(HAVE_CMS 1)
   SET(CMS_INC "\"lcms2.h\"")
   MESSAGE("LittleCMS-2 Library Found OK")
 ELSE(LCMS2_FOUND)
-  FIND_PACKAGE(LCMS REQUIRED)
-  IF(LCMS_FOUND)
-    SET(HAVE_CMS 1)
-    SET(HAVE_LCMS1 1)
-    SET(CMS_INC "\"lcms.h\"")
-    MESSAGE("LittleCMS Library Found OK")
-  ELSE(LCMS_FOUND)
-    MESSAGE(FATAL_ERROR "Could not find the LittleCMS Library")
-  ENDIF(LCMS_FOUND)
+   MESSAGE(FATAL_ERROR "Could not find the LittleCMS 2 Library")
 ENDIF(LCMS2_FOUND)
 #>>LittleCMS
 
@@ -755,6 +743,7 @@ INCLUDE_DIRECTORIES(
   ${FREETYPE_INCLUDE_DIR}
   ${FONTCONFIG_INCLUDE_DIR}
   ${JPEG_INCLUDE_DIR}
+  ${LCMS2_INCLUDE_DIR}
   ${LIBXML2_INCLUDE_DIR}
   ${TIFF_INCLUDE_DIR}
   ${ZLIB_INCLUDE_DIR}
@@ -768,12 +757,6 @@ INCLUDE_DIRECTORIES(
   ${CUPS_INCLUDE_DIR}
 )
 ENDIF (NOT WIN32 AND NOT HAIKU)
-
-IF (LCMS2_FOUND)
-  INCLUDE_DIRECTORIES( ${LCMS2_INCLUDE_DIR} )
-ELSE (LCMS2_FOUND)
-  INCLUDE_DIRECTORIES( ${LCMS_INCLUDE_DIR} )
-ENDIF (LCMS2_FOUND)
 
 ##############################################################################################################
 ########## Uninstall Setup                                                                          ##########
