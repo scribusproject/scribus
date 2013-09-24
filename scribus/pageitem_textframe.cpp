@@ -3821,25 +3821,15 @@ void PageItem_TextFrame::DrawObj_Post(ScPainter *p)
 	}
 	else
 	{
-#if (CAIRO_VERSION < CAIRO_VERSION_ENCODE(1, 9, 4))
-		if (fillBlendmode() != 0)
-			p->endLayer();
-#else
 		if (fillBlendmode() != 0)
 			p->setBlendModeFill(0);
-#endif
 		p->setMaskMode(0);
 		if (!m_Doc->RePos)
 		{
 			if (!isAnnotation() || (isAnnotation() && ((annotation().Type() == 0) || (annotation().Type() > 6))))
 			{
-#if (CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 9, 4))
 				p->setBlendModeStroke(lineBlendmode());
 				p->setPenOpacity(1.0 - lineTransparency());
-#else
-				if (lineBlendmode() != 0)
-					p->beginLayer(1.0 - lineTransparency(), lineBlendmode());
-#endif
 				p->setupPolygon(&PoLine);
 				if (NamedLStyle.isEmpty())
 				{
@@ -3919,13 +3909,8 @@ void PageItem_TextFrame::DrawObj_Post(ScPainter *p)
 						p->strokePath();
 					}
 				}
-#if (CAIRO_VERSION < CAIRO_VERSION_ENCODE(1, 9, 4))
-				if (lineBlendmode() != 0)
-					p->endLayer();
-#else
 				if (lineBlendmode() != 0)
 					p->setBlendModeStroke(0);
-#endif
 			}
 		}
 	}
@@ -3957,23 +3942,13 @@ void PageItem_TextFrame::DrawObj_Decoration(ScPainter *p)
 				p->setPen(PrefsManager::instance()->appPrefs.displayPrefs.frameLockColor, scpInv, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 
 			p->setFillMode(0);
-// Ugly Hack to fix rendering problems with cairo >=1.5.10 && <1.8.0 follows
-	#if ((CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 5, 10)) && (CAIRO_VERSION < CAIRO_VERSION_ENCODE(1, 8, 0)))
-			p->setupSharpPolygon(&PoLine, false);
-	#else
 			p->setupSharpPolygon(&PoLine);
-	#endif
 			p->strokePath();
 		}
 		if ((m_Doc->guidesPrefs().framesShown) && textFlowUsesContourLine() && (ContourLine.size() != 0))
 		{
 			p->setPen(Qt::lightGray, scpInv, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
-// Ugly Hack to fix rendering problems with cairo >=1.5.10 && <1.8.0 follows
-	#if ((CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 5, 10)) && (CAIRO_VERSION < CAIRO_VERSION_ENCODE(1, 8, 0)))
-			p->setupSharpPolygon(&ContourLine, false);
-	#else
 			p->setupSharpPolygon(&ContourLine);
-	#endif
 			p->strokePath();
 		}
 

@@ -25,7 +25,7 @@ ELSE(PREFIX_CAIRO)
     SET(PKG_CAIRO_LIBRARIES ${_libCairoLinkDir})
   ELSE (${CMAKE_MAJOR_VERSION}.${CMAKE_MINOR_VERSION} LESS 2.5)
     INCLUDE(FindPkgConfig)
-    pkg_search_module(CAIRO REQUIRED libcairo>=1.2.0 cairo>=1.2.0)
+    pkg_search_module(CAIRO REQUIRED libcairo>=1.10.0 cairo>=1.10.0)
   ENDIF (${CMAKE_MAJOR_VERSION}.${CMAKE_MINOR_VERSION} LESS 2.5)
 ENDIF(PREFIX_CAIRO)
 
