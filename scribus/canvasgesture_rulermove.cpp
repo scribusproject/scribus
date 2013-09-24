@@ -311,6 +311,9 @@ void RulerGesture::mouseReleaseEvent(QMouseEvent* m)
 		}
 	}
 	m_haveGuide = false;
+	//#9391: Force redraw to get the guide drawn if we draw a guide in an edit mode
+	if (m_ScMW->doc->appMode != modeNormal)
+		m_canvas->setForcedRedraw(true);
 	m_canvas->repaint();
 	m_view->stopGesture();
 	if (m_ScMW->doc->guidesPrefs().guidesShown)
