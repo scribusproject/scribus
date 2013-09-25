@@ -1,5 +1,10 @@
-<body>
-<head><TITLE>Render Frames</TITLE></head>
+<html>
+<head>	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+<title>Render Frames</title></head>
+<style>
+@import "manual.css";
+</style>
 <body>
 <h2>Introduction</h2>
 <p>Since version 1.3.5 Scribus offers a powerful new feature called Render Frames. Originally planned as a means to insert formulas into
@@ -128,10 +133,10 @@ and copying the resulting archive to another machine, Render Frames require the 
 
 <p>To add a new configuration file, click on the &ldquo;Add&nbsp;&hellip;&rdquo; button, which will bring up a file dialog. Select your file and click &ldquo;Open.&rdquo; The file will then be added to your Render Frame configuration.</p>
 <p>By moving entries of XML configuration files in the list up or down, you can change the order of entries in the editor&rsquo;s drop down list. If you want to use a different XML configuration file for a particular markup language (for example, if you need another default preamble for LaTeX frames in a project), you can change the path to the alternative file by clicking on &ldquo;Change&nbsp;&hellip;&rdquo; or simply add a new configuration file with an appropriate name, like &ldquo;MyLateX.&rdquo;</p>
-<br>If you prefer another editor for your markup, for example if you can&rsquo;t live without Emacs or vi, or if the editor window is simply too small for you, you can override the built-in Scribus Render Frame Editor by using another editor like vi or Kate. Just insert the path to the executable file in the text field &ldquo;External Editor.&rdquo; The external editor won&rsquo;t override the Render Frame editor: As soon as you save your markup from the external editor, Scribus &ldquo;intercepts&rdquo; the data and renders the output into the frame or will display error messages in the &ldquo;Program Messages&rdquo; field. The interception also means that any change to the markup text won&rsquo;t be saved anywhere but in your Scribus file. If you haven&rsquo;t specified an external editor in <i>Preferences &lt; Tools</i>, Scribus will display an error message:</p>
-<br></br>
+<p>If you prefer another editor for your markup, for example if you can&rsquo;t live without Emacs or vi, or if the editor window is simply too small for you, you can override the built-in Scribus Render Frame Editor by using another editor like vi or Kate. Just insert the path to the executable file in the text field &ldquo;External Editor.&rdquo; The external editor won&rsquo;t override the Render Frame editor: As soon as you save your markup from the external editor, Scribus &ldquo;intercepts&rdquo; the data and renders the output into the frame or will display error messages in the &ldquo;Program Messages&rdquo; field. The interception also means that any change to the markup text won&rsquo;t be saved anywhere but in your Scribus file. If you haven&rsquo;t specified an external editor in <i>Preferences &lt; Tools</i>, Scribus will display an error message:</p>
+<br />
 <table width="100%"><tr><td align="center"><img src="images/rf-error3.png"/></td></tr></table>
-<br></br>
+<br />
 <p>In addition, you have the option to start with an empty frame. By checking &ldquo;Force DPI,&rdquo; Scribus will render the output of every Render Frame with the resolution set in the spinbox to the right. It's set to 72 dpi by default for performance reasons. If you want to produce a document for professional printing, you will want to choose a higher resolution.</p>
 </body>
 </html>

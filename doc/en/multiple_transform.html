@@ -2,13 +2,17 @@
 
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>Multiple Duplicate and Transform</title>
-</head><body>
+</head>
+<style>
+@import "manual.css";
+</style>
+<body>
 <h2>Multiple Duplicate and Transform</h2>
 <p>Duplicating items on a page with precision is an important feature of every layout or drawing application. While it&lsquo;s always possible to use a simple copy and paste operation to duplicate an object, letting the computer calculate the position of duplicates can make life easier and save a lot of time. Scribus offers two powerful and versatile tools for the creation and the placement of copied items: <b>Multiple Duplicate</b> and <b>Transform</b>. In some ways, these two feature are quite similar, but each allows for slightly different approaches to making multiple copies of some object on your page.
 </p>
 <h3>Multiple Duplicate</h3>
 <p>Let&lsquo;s just mention briefly that <b>Duplicate</b> (<i>Item > Duplicate</i> or Ctrl+D) is a simple operation, making a copy of your selected object, with a displacement of  10 points in each of the X and Y directions. If you wish to specify another form of placement automatically, then use <b>Multiple Duplicate</b> and make just one copy.</p>
-<table width="90%"><tr><td valign="top"><table cellpadding="5px"><tr><td>Prior to 1.3.5, Multiple Duplicate (<i>Item > Multiple Duplicate</i>) was a simple process of making one or more copies of an object with successive X and Y offsets from one copy to the next. It still can work that way, but first we&lsquo;ll have a look at what may be a more useful method &ndash; creating rows and columns. This is not creating a table, but a simple repetitive array of your selected object.<p></p>
+<table width="90%"><tr><td valign="top"><table cellpadding="5px"><tr><td><p>Prior to 1.3.5, Multiple Duplicate (<i>Item > Multiple Duplicate</i>) was a simple process of making one or more copies of an object with successive X and Y offsets from one copy to the next. It still can work that way, but first we&lsquo;ll have a look at what may be a more useful method &ndash; creating rows and columns. This is not creating a table, but a simple repetitive array of your selected object.</p>
 <p>To the right, we see the &ldquo;By Rows and Columns&rdquo; tab. The settings  you see in the dialog will result in the montage you see below. One 
 feature to notice is that &ldquo;Horizontal Gap&rdquo; refers to these <i>vertical spaces</i> between columns.</p>
 </td></tr>
@@ -17,7 +21,7 @@ feature to notice is that &ldquo;Horizontal Gap&rdquo; refers to these <i>vertic
 <td><img src="images/multipledup_rows.png"/></td>
 </tr>
 </table>
-<table width="90%" cellpadding="5"><tbody><tr><td valign="top">Now to the right we see the other tab, &ldquo;By Number of Copies&rdquo;. This works similar to how Multiple Duplicate did in previous versions, but even here we see the option for creating a gap between copies rather than just shifting by some absolute amount, which does still remain an option. The settings here will produce one of the rows you see in the above example. Notice that 3 <i>copies</i> in addition to the original produces 4 columns.<p></p>
+<table width="90%" cellpadding="5"><tbody><tr><td valign="top"><p>Now to the right we see the other tab, &ldquo;By Number of Copies&rdquo;. This works similar to how Multiple Duplicate did in previous versions, but even here we see the option for creating a gap between copies rather than just shifting by some absolute amount, which does still remain an option. The settings here will produce one of the rows you see in the above example. Notice that 3 <i>copies</i> in addition to the original produces 4 columns.</p>
 <p>You may also notice the spinbox labeled <b>Rotation</b> in this dialog, and thus you can also add some rotation to each successive object. In the example below, 3 copies were made, with an 8-point gap and 10° rotation from one to the next.</p>
 <p>The dotted line you see is a horizontal guide placed to show that the axis of rotation is around the basepoint, in this case the upper left 
 corner of the frame. Also see how the content rotates with the frame &ndash; below we will see how <b>Transform</b> is quite different in this regard.</p>
@@ -26,7 +30,7 @@ corner of the frame. Also see how the content rotates with the frame &ndash; bel
 <tr><td colspan="2"><img src="images/multipledup_rotation.png"></td></tr>
 </tbody></table>
 <h3>Transform</h3>
-In its simplest usage, <b>Transform</b> (<i>Item > Transform</i>) can modify an object in one or more of the following ways:
+<p>In its simplest usage, <b>Transform</b> (<i>Item > Transform</i>) can modify an object in one or more of the following ways:</p>
 <ul>
 <li>Scaling</li>
 <li>Translation</li>
