@@ -309,7 +309,7 @@ void CanvasMode_EditTable::drawControls(QPainter* p)
 
 void CanvasMode_EditTable::updateCanvas(bool forceRedraw)
 {
-	m_canvas->m_viewMode.forceRedraw = forceRedraw;
+	m_canvas->setForcedRedraw(forceRedraw);
 	m_canvas->update(m_canvas->canvasToLocal(m_table->getBoundingRect()));
 }
 

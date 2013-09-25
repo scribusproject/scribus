@@ -1736,7 +1736,7 @@ bool CanvasMode_Normal::SeleItem(QMouseEvent *m)
 		}
 		if(pageChanged)
 		{
-			m_canvas->m_viewMode.forceRedraw = true;
+			m_canvas->setForcedRedraw(true);
 			m_canvas->update();
 		}
 		else
@@ -1796,7 +1796,7 @@ bool CanvasMode_Normal::SeleItem(QMouseEvent *m)
 	{
 		if(m_doc->m_Selection->isEmpty())
 		{
-			m_canvas->m_viewMode.forceRedraw = true;
+			m_canvas->setForcedRedraw(true);
 			m_canvas->update();
 		}
 		else
