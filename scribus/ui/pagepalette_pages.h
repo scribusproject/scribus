@@ -51,7 +51,7 @@ public slots:
 	void Rebuild();
 	void markPage(uint nr);
 	void selMasterPage();
-	QPixmap CreateIcon(int nr, QPixmap pixin);
+	QPixmap CreateIcon(int nr, QString mp, QPixmap pixin);
 	void languageChange();
 
 signals:

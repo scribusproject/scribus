@@ -263,7 +263,10 @@ void PagePalette_Pages::rebuildPages()
 	for (int a = 0; a < currView->Doc->DocPages.count(); ++a)
 	{
 		str = currView->Doc->DocPages.at(a)->MPageNam;
-		SeItem *it = new SeItem(str, a, CreateIcon(a, pix));
+		QRegExp Exp ("([A-Z]*[0-9]*)( *[\\.|\\-|_] *)(.*)");
+		if (Exp.indexIn(str) != -1)
+			str = Exp.cap(1);
+		SeItem *it = new SeItem(str, a, CreateIcon(a, str, pix));
 		pageList.append(it);
 		pageView->setItem(rowcounter*rowmult+rowadd, counter*colmult+coladd, (QTableWidgetItem *)it);
 		pageView->setColumnWidth(counter*colmult+coladd, pix.width());
@@ -340,7 +343,7 @@ void PagePalette_Pages::selMasterPage()
 		emit gotoMasterPage(masterPageList->CurItem->text());
 }
 
-QPixmap PagePalette_Pages::CreateIcon(int nr, QPixmap pixin)
+QPixmap PagePalette_Pages::CreateIcon(int nr, QString mp, QPixmap pixin)
 {
 	QPainter p;
 	// Necessary on windows to ensure the pixmap is drawable
@@ -353,18 +356,19 @@ QPixmap PagePalette_Pages::CreateIcon(int nr, QPixmap pixin)
 		p.setBrush(Qt::white);
 		p.setBackground(Qt::white);
 		p.setBackgroundMode(Qt::OpaqueMode);
-		p.setPen(QPen(Qt::black, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
-		p.setFont(QFont("Helvetica", 12, QFont::Bold));
+		p.setPen(QPen(Qt::black, 0, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
+		//p.setFont(QFont("Helvetica", 12, QFont::Bold));
 		//QString tmp = tmp.setNum(nr+1);
 		QString tmp(currView->Doc->getSectionPageNumberForPageIndex(nr));
 		if (tmp.isEmpty())
 			tmp = tmp.setNum(nr+1);
-		QRect b = p.fontMetrics().boundingRect(tmp);
-		QRect c = QRect((ret.width() / 2 - b.width() / 2)-2, (ret.height() / 2 - b.height() / 2)-2, b.width()+4, b.height()+4);
-		p.drawRect(c);
-		QRect d = QRect((ret.width() / 2 - b.width() / 2), (ret.height() / 2 - b.height() / 2), b.width(), b.height());
-		p.setFont(QFont("Helvetica", 10, QFont::Normal));
-		p.drawText(d, Qt::AlignCenter, tmp);
+		//QRect b = p.fontMetrics().boundingRect(tmp);
+		//QRect c = QRect((ret.width() / 2 - b.width() / 2)-2, (ret.height() / 2 - b.height() / 2)-2, b.width()+4, b.height()+4);
+		//p.drawRect(c);
+		//QRect d = QRect((ret.width() / 2 - b.width() / 2), (ret.height() / 2 - b.height() / 2), b.width(), b.height());
+		QRect d = QRect(0, 0, ret.width(), ret.height());
+		p.setFont(QFont("Helvetica", 7, QFont::Normal));
+		p.drawText(d, Qt::AlignCenter, tmp+"\n"+mp);
 		p.end();
 		if( !pixin.mask().isNull() )
 			ret.setMask( pixin.mask() );
