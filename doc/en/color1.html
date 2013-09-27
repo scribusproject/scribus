@@ -13,8 +13,7 @@
 <h3>Why Color Sets?</h3>
 <p>The answer to the question in the headline is closely related to the answer to a more basic question, namely: &ldquo;What is a color?&rdquo; The truth is, there is no simple answer to that question, as a &ldquo;color&rdquo; can be described in hundreds of ways, for example as a combination of wavelengths, a combination of color values within a certain &ldquo;color model&rdquo;, as a category in a framework based on aesthetical rules etc. As a result, many different so-called &ldquo;color models&rdquo; have been developed over the course of time, many of which have become part of a discipline called &ldquo;color science,&rdquo; a science that is itself a &ldquo;meta-science,&rdquo; as it requires input from many different disciplines, including physics, neuro-science, biology, mathematics, engineering, and even art, artisanry or literature. &ldquo;Color&rdquo; is actually one of a few cases, in which artists like Johann Wolfgang von Goethe or Albert Henry Munsell contributed significantly to scientific progress.</p>
 <p>Users of graphics-related programs like Scribus shouldn&rsquo;t be required to learn the ins and outs of color science, although some theoretical knowledge doesn&rsquo;t hurt. On a more basic level, however, some awareness of the issues mentioned above certainly helps a lot when working with colors, and the cartoon below may be a first step to understand what it&rsquo;s all about:</p>
-
-<table width="100%"><tr><td align="center"><img src="images/colrs-caricature.png" title="Color Names &ndash; Courtesy of http://www.thedoghousediaries.com" alt="Color Names &ndash; Courtesy of http://www.thedoghousediaries.com" /></td></tr></table><br>
+<p><img src="images/colrs-caricature.png" title="Color Names &ndash; Courtesy of http://www.thedoghousediaries.com" alt="Color Names &ndash; Courtesy of http://www.thedoghousediaries.com" hspace=20 /></p>
 <p>As is often true with good cartoons, there is some relevant truth behind it, in that there are different levels of differentiating and categorizing colors, which are often highly subjective. Imagine two persons, one in the &ldquo;Girls&rdquo; column, the other in the &ldquo;Boys&rdquo; column, talking on the phone about a color choice for a project &ndash; it will be virtually impossible, since both the (subjective) color names and the color perception are quite different. Thus, pre-defined color sets are actually a way to <b><i>communicate</i></b> about colors without referring to either a subjective color model or sophisticated color science, and using meaningful names for colors within a given color set can facilitate communication about colors even further.</p>
 <p>Creating color sets also helps vendors or projects to define a limited set of colors that are allowed for use, which helps to maintain visual uniformity across publications</p>
 <p>As a practical matter, the colors available in a color palette or colors you create yourself (and thus add to an existing palette) are the only ones that can be used as text, fill, line or gradient colors.</p>
@@ -23,37 +22,30 @@
 <p>Scribus is being shipped with a huge collection of more than 150 useful color sets, also called “palettes” or (somehow misleading) “swatches.” These palettes serve different purposes, all of which will be described in <a href="color3.html">separate documents</a>. There are palettes of different sizes available, ranging from &ldquo;Scribus Basic&rdquo;, a collection of primary RGB and CMYK colors to, for instance, &ldquo;X11,&rdquo; which includes a huge number of (RGB) Colors.</p>
 <p>Color palettes in Scribus can contain four different types of colors, each of which uses a different visual indicator in Scribus color dialogs:</p>
 
-<table border="0">
+<table width="80%" align="center" border="0" cellpadding="8" cellspacing="0">
 	<col width=2*>
 	<col width=2*>
 	<col width=auto>
   <tbody>
     <tr valign=top>
       <td><img src="images/rgb.png"></td>
-      <td> </td>
       <td><p><b>RGB Colors</b>: These colours are defined in the RGB color model. Every color is described by the three primary colors red, green and 	blue.</p></td>
     </tr>
     <tr valign=top>
       <td><img src="images/cmyk.png" align="top"></td>
-      <td></td>
       <td><p><b>CMYK Colors</b>: These colors are defined in the CMYK color model. Every color is described by the four ink colors used in color printing: Cyan, Magenta, Yellow and Key (=Black).</p></td>
     </tr>
     <tr valign=top>
       <td><img src="images/spot.png"></td>
-      <td></td>
       <td><p><b>Spot Colors</b>: These are also referred to as &ldquo;named colors,&rdquo; but since other (RGB/CMYK) colors can also have a name, the term &ldquo;spot color&rdquo; is to be preferred for unambiguousness. While a spot color can be either defined in the RGB or CMYK color model, its main purpose is to be stored with its <i>name</i> in a PDF or PostScript file (hence the term “named color”). The name refers to a real world color reference, like a printed color fan, and a printing company can mix or buy a special ink, which will match exactly the color as specified by the reference. Each spot color requires a separate printing plate, which is why you should use spot colors carefully, because their use makes a printing process more expensive. Typical use cases for spot colors would be very specific hues in corporate logos. The red dot beside a color model icon (RGB or CMYK) indicates that the respective color is a spot color.</p></td>
     </tr>
     <tr valign=top>
       <td><img src="images/register.png"></td>
-	<td></td>
       <td><p><b>Registration Color</b>: This is a special case of a &ldquo;color,&rdquo; which is used for registration marks. The latter are used by printers to determine whether a four-color print run has been successful. While displayed as a CMYK color, it will actually consist of as many colors as there are color separations, one or each printing plate. Each palette can only have one registration color, which is indicated by a &ldquo;bull&rsquo;s eye&rdquo; icon.</p></td>
-      <td></td>
     </tr>
     <tr valign=top>
       <td><img src="images/alert.png"></td>
-	<td></td>
       <td><p>If you are working with activated <a href="cms.html">color management</a>, some or even all colors in a palette may be &ldquo;out of gamut,&rdquo; i.e., depending on a selected ICC profile, a color can&rsquo;t be &ldquo;translated&rdquo; from one color model into another, and a color shift can occur. In such a case you will see a warning sign placed beside the color in the list.</p></td>
-      <td></td>
     </tr>
   </tbody>
 </table>
