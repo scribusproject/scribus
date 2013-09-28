@@ -530,6 +530,7 @@ void RawPainter::drawPolygon(const ::WPXPropertyListVector &vertices)
 			finishItem(ite);
 			applyFill(ite);
 		}
+		applyFlip(ite);
 		applyShadow(ite);
 	}
 }
@@ -638,6 +639,7 @@ void RawPainter::drawPath(const ::WPXPropertyListVector &path)
 			finishItem(ite);
 			applyFill(ite);
 		}
+		applyFlip(ite);
 		applyShadow(ite);
 	}
 	else
@@ -719,6 +721,7 @@ void RawPainter::drawGraphicObject(const ::WPXPropertyList &propList, const ::WP
 				delete tempFile;
 			}
 		}
+		applyFlip(ite);
 		applyShadow(ite);
 	}
 //	qDebug() << "drawGraphicObject";
@@ -752,6 +755,10 @@ void RawPainter::startTextObject(const ::WPXPropertyList &propList, const ::WPXP
 			m_Doc->RotateItem(rot, ite);
 			m_Doc->RotMode(rm);
 		}
+		if (propList["draw-mirror-horizontal"])
+			ite->flipImageH();
+		if (propList["draw-mirror-vertical"])
+			ite->flipImageV();
 		if (propList["fo:padding-left"])
 			ite->setTextToFrameDistLeft(valueAsPoint(propList["fo:padding-left"]));
 		if (propList["fo:padding-right"])
@@ -901,6 +908,10 @@ void RawPainter::insertText(const ::WPXString &str)
 		int posC = actTextItem->itemText.length();
 		if (actText.count() > 0)
 		{
+			actText.replace(QChar(10), SpecialChars::LINEBREAK);
+			actText.replace(QChar(12), SpecialChars::FRAMEBREAK);
+			actText.replace(QChar(30), SpecialChars::NBHYPHEN);
+			actText.replace(QChar(160), SpecialChars::NBSPACE);
 			actTextItem->itemText.insertChars(posC, actText);
 			actTextItem->itemText.applyStyle(posC, textStyle);
 			actTextItem->itemText.applyCharStyle(posC, actText.length(), textCharStyle);
@@ -1340,6 +1351,18 @@ void RawPainter::applyShadow(PageItem* ite)
 			groupStack.top().Items.append(nite);
 			groupStack.top().Items.append(ite);
 		}
+	}
+}
+
+void RawPainter::applyFlip(PageItem* ite)
+{
+	if (m_style["draw:mirror-horizontal"])
+	{
+		ite->setImageFlippedH(true);
+	}
+	if (m_style["draw:mirror-vertical"])
+	{
+		ite->setImageFlippedV(true);
 	}
 }
 
