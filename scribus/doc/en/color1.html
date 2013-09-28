@@ -19,38 +19,38 @@
 <h4>Colors in Scribus Color Palettes</h4>
 <p>Scribus is being shipped with a huge collection of more than 150 useful color sets, also called “palettes” or (somehow misleading) “swatches.” These palettes serve different purposes, all of which will be described in <a href="color3.html">separate documents</a>. There are palettes of different sizes available, ranging from &ldquo;Scribus Basic&rdquo;, a collection of primary RGB and CMYK colors to, for instance, &ldquo;X11,&rdquo; which includes a huge number of (RGB) Colors.</p>
 <p>Color palettes in Scribus can contain four different types of colors, each of which uses a different visual indicator in Scribus color dialogs:</p>
-
-<table border="0">
+<p></p>
+<table border="0" cellpadding="8" width="80%" align="center">
 	<col width=2*>
 	<col width=2*>
 	<col width=auto>
   <tbody>
     <tr valign=top>
       <td><img src="images/rgb.png"></td>
-      <td> </td>
+     
       <td><b>RGB Colors</b>: These colours are defined in the RGB color model. Every color is described by the three primary colors red, green and 	blue.</td>
     </tr>
     <tr valign=top>
       <td><img src="images/cmyk.png" align="top"></td>
-      <td></td>
+      
       <td><b>CMYK Colors</b>: These colors are defined in the CMYK color model. Every color is described by the four ink colors used in color printing: Cyan, Magenta, Yellow and Key (=Black).</td>
     </tr>
     <tr valign=top>
       <td><img src="images/spot.png"></td>
-      <td></td>
+      
       <td><b>Spot Colors</b>: These are also referred to as &ldquo;named colors,&rdquo; but since other (RGB/CMYK) colors can also have a name, the term &ldquo;spot color&rdquo; is to be preferred for unambiguousness. While a spot color can be either defined in the RGB or CMYK color model, its main purpose is to be stored with its <i>name</i> in a PDF or PostScript file (hence the term “named color”). The name refers to a real world color reference, like a printed color fan, and a printing company can mix or buy a special ink, which will match exactly the color as specified by the reference. Each spot color requires a separate printing plate, which is why you should use spot colors carefully, because their use makes a printing process more expensive. Typical use cases for spot colors would be very specific hues in corporate logos. The red dot beside a color model icon (RGB or CMYK) indicates that the respective color is a spot color.</td>
     </tr>
     <tr valign=top>
       <td><img src="images/register.png"></td>
-	<td></td>
+	
       <td><b>Registration Color</b>: This is a special case of a &ldquo;color,&rdquo; which is used for registration marks. The latter are used by printers to determine whether a four-color print run has been successful. While displayed as a CMYK color, it will actually consist of as many colors as there are color separations, one or each printing plate. Each palette can only have one registration color, which is indicated by a &ldquo;bull&rsquo;s eye&rdquo; icon.</td>
-      <td></td>
+      
     </tr>
     <tr valign=top>
       <td><img src="images/alert.png"></td>
-	<td></td>
+	
       <td>If you are working with activated <a href="cms.html">color management</a>, some or even all colors in a palette may be &ldquo;out of gamut,&rdquo; i.e., depending on a selected ICC profile, a color can&rsquo;t be &ldquo;translated&rdquo; from one color model into another, and a color shift can occur. In such a case you will see a warning sign placed beside the color in the list.</td>
-      <td></td>
+      
     </tr>
   </tbody>
 </table>
