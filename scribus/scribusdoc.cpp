@@ -15366,6 +15366,8 @@ void ScribusDoc::removeFromGroup(PageItem* item)
 void ScribusDoc::resizeGroupToContents(PageItem* group)
 {
 	PageItem_Group* currItem = group->asGroupFrame();
+	if (currItem == NULL)
+		return;
 	QPainterPath input1 = currItem->PoLine.toQPainterPath(true);
 	input1.translate(currItem->xPos(), currItem->yPos());
 	if (currItem->fillEvenOdd())

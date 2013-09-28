@@ -269,7 +269,8 @@ bool PdfPlug::import(QString fNameIn, const TransactionSettings& trSettings, int
 		if ((Elements.count() == 1) && (!(importerFlags & LoadSavePlugin::lfCreateDoc)))
 		{
 			PageItem *gr = Elements[0];
-			m_Doc->resizeGroupToContents(gr);
+			if (gr->isGroup())
+				m_Doc->resizeGroupToContents(gr);
 		}
 		if ((Elements.count() > 1) && (!(importerFlags & LoadSavePlugin::lfCreateDoc)))
 		{
