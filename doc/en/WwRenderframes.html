@@ -13,10 +13,8 @@ Scribus documents, the inventor, Hermann Kraus, has enabled the creation of almo
 <h2>Creating a Render Frame</h2>
 <p>To create a Render Frame, click on the Render Frame icon in the menu bar, use <i>Insert&nbsp;&gt; Render Frame</i>, or press D on the keyboard:</p>
 <table width="100%"><tr><td align="center"><img src="images/rf2.png"/></td></tr></table>
-<p>The cursor will then turn into a frame symbol with an L inside:</p>
-<table width="100%"><tr><td align="center"><img src="images/DrawLatexFrame.png"/></td></tr></table>
-<p><br><br>
-</p>
+<table width="70%"><tr><td align="right"><p>The cursor will then turn into a frame symbol with an L inside:</p></td><td align="left"><img src="images/DrawLatexFrame.png" /></td></tr></table>
+
 <p>The next step is to click-drag the frame and let up, just like you would do with a text frame. By default, Scribus will display a welcome message, which indicates that at least the configuration for LaTeX is correct. What you see below is the output from LaTeX, rendered in Scribus. The welcome message will be displayed in the language of the user interface as set in the <a href="settings1.html#1">Preferences</a>. If no translation of the message is available, you will see the English version:</p>
 <table width="100%"><tr><td align="center"><img src="images/rf3.png"/></td></tr></table>
 <p>The screenshot above has been made with the default resolution of 72 dpi, which, obviously, isn&rsquo;t enough for printing. You can easily change the resolution as you&rsquo;ll learn below.</p>
@@ -118,7 +116,7 @@ and copying the resulting archive to another machine, Render Frames require the 
 <p><code>&lt;highlighter&gt; &lt;/highlighter&gt;</code> This part is mainly interesting for programmers, as it allows for the creation of indvidual syntax highlighting schemes by using Regular Expressions. For further information see: <a href="http://docs.kde.org/kde3/en/kdeutils/KRegExpEditor/index.html">http://docs.kde.org/kde3/en/kdeutils/KRegExpEditor/index.html</a> and <a href="http://doc.trolltech.com/4.4/qregexp.html">http://doc.trolltech.com/4.4/qregexp.html</a>.</p>
 <p><code>&lt;empty-frame-text&gt;</code> Here you can enter sample text in the markup language of the program you want to use, for instance:</p>
 <p><code>plot sin(x), (cos(x))**2</code></p>
-</p><code>&lt;preamble&gt;</code> If the markup language you want to use requires a preamble, you can enter it here. It will not be displayed in the editor.</p>
+<p><code>&lt;preamble&gt;</code> If the markup language you want to use requires a preamble, you can enter it here. It will not be displayed in the editor.</p>
 <p><code>&lt;postamble&gt;</code> If the markup language you want to use requires a postamble, you can enter it here. It will not be displayed in the editor.</p>
 <p><code>&lt;tab type="settings"&gt;</code> Here&rsquo;s where translations to existing GUI strings as well as new tabs or other UI elements can be added via simple XML entries, for example:</p>
 <p><code>&lt;title&gt;&lt;i18n&gt;</code>

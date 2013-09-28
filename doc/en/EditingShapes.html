@@ -38,13 +38,14 @@
 <td><img src="images/squat_tux.png" ALIGN=left></td></tr>
 </table>
 <h3>Edit Button</h3>
-<table cellpadding="3"><tr>
+<table cellpadding="3">
+<tr>
 <td align=center width=200><img src="images/shape_edit.png"></td>
-<td><p>Now we get to the main event here, editing a shape/frame with its nodes and control points. When you click the <b>Edit</b> button on the Shape tab, the <b>Nodes</b> dialog to the right pops up and your shape/frame is transformed something like what you see on the left, with these blue and magenta circles.</p>
+<td colspan="2"><p>Now we get to the main event here, editing a shape/frame with its nodes and control points. When you click the <b>Edit</b> button on the Shape tab, the <b>Nodes</b> dialog to the right pops up and your shape/frame is transformed something like what you see on the left, with these blue and magenta circles.</p>
 <p>Something to note at the outset is that generally where there is a sharp corner in a shape you only see the blue nodes, but where there is a smooth curve of some sort, these magenta control points are visible, sticking out like antennae from the node. Actually, all of these nodes have control points, but you don't see them when they are at the same position as the node.</p></td>
-<td rowspan=3 valign=middle><img src="images/nodes_edit.png"></td>
+
 </tr>
-<tr><td></td><td><img src="images/node_edit_close.png" ALIGN=right></td>
+<tr><td></td><td><img src="images/node_edit_close.png" ALIGN=right></td><td rowspan=2 valign="top"><img src="images/nodes_edit.png"></td>
 </tr>
 <tr><td colspan=2><p>As we begin to describe the usage of the shape edit dialog, let's use this numbering scheme to refer to the various buttons on the dialog to the far right. </p>
 <p>When the dialog first comes up, button <b>1</b> will be selected, in which case you can move the blue nodes using the mouse. In addition to moving individual nodes, you can click-drag a line segment between nodes and move the segment along with its nodes. The segment retains its size, shape, and orientation &ndash; adjoining line segments do the adjusting. </p>
@@ -100,8 +101,8 @@
 <td><p>Let's start with this situation, two standard shapes. First, select both shapes, and then select from the menu <br><b>Item > Path Tools > Path Operations...</b>
 <br>If you don't select both shapes, you will not be able to make this menu selection.</p></td>
 </tr><tr>
-<td><img src="images/pathops1.png" alt="pathops1.png" ALIGN=left></td>
-<td><p>What you get from this is the dialog to the left. 
+<td valign="top"><img src="images/pathops1.png" alt="pathops1.png" ALIGN=left></td>
+<td valign="top"><p>What you get from this is the dialog to the left. 
 <br>Notice that a color has been assigned to the doughnut shape. This is merely for clarity to more easily see what will happen. If neither shape had a fill color, they would be assigned contrasting colors. <b>Swap Shapes</b> simply reverses the position of the two shapes, so that the first shape becomes the second.</p>
 <p>Staying with this initial default choice of combining the shapes, we see to the right that we must choose which color the final shape will have &ndash; just as with <i>Combining Polygons</i>, the final shape can only have one set of colors for <b>Fill</b> and <b>Stroke</b>. As you can see, there is an option for choosing other colors for each, using the <b>Custom Colors</b> radio button.</p>
 <p>What about the <b>Keep</b> button? If chosen, this will retain the elements of the shape. Perhaps best to illustrate the difference between the two with the examples below.</p>
@@ -112,7 +113,7 @@
 </tr></table>
 <h4>Other Choices</h4>
 <table>
-<tr><td ALIGN=center><b>Subtraction</b></td><td ALIGN=center><b>Intersection</b></td><td ALIGN=center><b>Exclusion</b></td><td ALIGN=center><b>Break Apart</b></td></tr>
+<tr><td ALIGN=center><p><b>Subtraction</b></p></td><td ALIGN=center><p><b>Intersection</b></p></td><td ALIGN=center><p><b>Exclusion</b></p></td><td ALIGN=center><p><b>Break Apart</b></p></td></tr>
 <tr><td><img src="images/pathops4.png" alt="pathops4.png"></td><td><img src="images/pathops5.png" alt="pathops5.png"></td><td><img src="images/pathops6.png" alt="pathops6.png"></td><td><img src="images/pathops7.png" alt="pathops7.png"></td>
 </tr>
 </table>
