@@ -23,21 +23,21 @@
 			<submenuitem text="Fonts in Depth" file="fonts2.html"/>
 		</submenuitem>
 		<submenuitem text="Scribus Basics" file="about2.html">
-			<submenuitem file="qsg.html" text="Quick Start Guide" />
-			<submenuitem file="cli.html" text="Command Line Reference" />
+			<submenuitem text="Quick Start Guide" file="qsg.html" />
+			<submenuitem text="Command Line Reference" file="cli.html" />
 			<submenuitem text="Keyboard Shortcuts" file="keys.html"/>
 			<submenuitem text="Mouse Shortcuts" file="mouse.html"/>
-			<submenuitem file="docinfo.html" text="Document Information" />
-			<submenuitem file="WwFrames.html" text="Working with Frames" />
-			<submenuitem file="WwText.html" text="Working with Text" />
-			<submenuitem file="WwStyles.html" text="Working with Styles" />
-			<submenuitem file="WwImages.html" text="Working with Images" />
-			<submenuitem file="WwRenderframes.html" text="Working with Render Frames" />
-			<submenuitem file="WwShapes.html" text="Working with Shapes" />
-			<submenuitem file="multiple_transform.html" text="Multiple Duplicate and Transform" />
-			<submenuitem file="EditingShapes.html" text="Editing Shapes" />
-			<submenuitem file="WwLines.html" text="Working with Lines and Line Styles" />
-			<submenuitem file="WwFill.html" text="Working with Fill: Colors, Gradients and Patterns" />
+			<submenuitem text="Document Information" file="docinfo.html" />
+			<submenuitem text="Working with Frames" file="WwFrames.html" />
+			<submenuitem text="Working with Text" file="WwText.html" />
+			<submenuitem text="Working with Styles" file="WwStyles.html" />
+			<submenuitem text="Working with Images" file="WwImages.html" />
+			<submenuitem text="Working with Render Frames" file="WwRenderframes.html" />
+			<submenuitem text="Working with Shapes" file="WwShapes.html" />
+			<submenuitem text="Multiple Duplicate and Transform" file="multiple_transform.html" />
+			<submenuitem text="Editing Shapes" file="EditingShapes.html" />
+			<submenuitem text="Working with Lines and Line Styles" file="WwLines.html" />
+			<submenuitem text="Working with Fill: Colors, Gradients and Patterns" file="WwFill.html" />
 			<submenuitem text="Working with Layers" file="layers.html" />
 			<submenuitem text="Working with Master Pages" file="pagetemplate1.html" />
 			<submenuitem text="Page Numbering" file="pagenumber.html" />
