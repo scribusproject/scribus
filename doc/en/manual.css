@@ -7,5 +7,6 @@ p, blockquote {font-family:dejavu sans,sans-serif; font-size:0.8em;}
 li {font-family:dejavu sans,sans-serif; font-size:0.8em;}
 code {font-size:1.1em;}
 p > code {font-size:1.2em;}
+li > code {font-size:1.2em;}
 dl {font-family:dejavu sans, sans-serif; font-size:1em;}
 pre {font-size:0.9em;}
