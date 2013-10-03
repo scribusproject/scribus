@@ -2164,7 +2164,7 @@ void PageItem_TextFrame::layout()
 
 //						regionMinY = static_cast<int>(floor(maxYAsc));
 //						regionMaxY = static_cast<int>(floor(maxYDesc));
-						regionMinY = static_cast<int>(floor(current.yPos - (asce + offset)));
+						regionMinY = qMax(0,static_cast<int>(floor(current.yPos - (asce + offset))));
 						regionMaxY = static_cast<int>(floor(current.yPos + desc));
 
 						pt.moveTopLeft(QPoint(static_cast<int>(floor(current.xPos)), regionMinY));
@@ -2972,7 +2972,7 @@ void PageItem_TextFrame::layout()
 
 //			regionMinY = static_cast<int>(floor(maxYAsc));
 //			regionMaxY = static_cast<int>(floor(maxYDesc));
-			regionMinY = static_cast<int>(floor(current.yPos - (asce + offset)));
+			regionMinY = qMax(0,static_cast<int>(floor(current.yPos - (asce + offset))));
 			regionMaxY = static_cast<int>(floor(current.yPos + desc));
 
 			EndX = current.endOfLine(m_availableRegion, style.rightMargin(), regionMinY, regionMaxY);
