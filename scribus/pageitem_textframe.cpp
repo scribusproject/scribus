@@ -842,7 +842,7 @@ struct LineControl {
 				asce = (itemText.object(line.firstItem+zc)->height() + itemText.object(line.firstItem+zc)->lineWidth()) * scaleV + offset;
 				desc = 0.0;
 			}
-			else //if (itemText.charStyle(current.line.firstItem+zc).effects() & ScLayout_DropCap == 0)
+			else //if ((itemText.charStyle(current.line.firstItem+zc).effects() & ScLayout_DropCap) == 0)
 			{
 				asce = cStyle.font().realCharAscent(ch, cStyle.fontSize() / 10.0) * scaleV + offset;
 				desc = cStyle.font().realCharDescent(ch, cStyle.fontSize() / 10.0) * scaleV - offset;
