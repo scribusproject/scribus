@@ -188,8 +188,7 @@ void ContextMenu::createMenuItems_Selection()
 			}
 			if (currItem->itemText.cursorPosition() < currItem->itemText.length())
 			{
-				ScText *hl = currItem->itemText.item(currItem->itemText.cursorPosition());
-				if (hl->hasMark())
+                if (currItem->itemText.hasMark(currItem->itemText.cursorPosition()))
 					addAction(m_ScMW->scrActions["editMark"]);
 			}
 		}

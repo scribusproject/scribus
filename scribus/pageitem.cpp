@@ -71,7 +71,6 @@ for which a new license (GPL+exception) is in place.
 #include "scribuswin.h"
 #include "sctextstream.h"
 #include "selection.h"
-#include "text/nlsconfig.h"
 #include "text/storytext.h"
 #include "undomanager.h"
 #include "undostate.h"
@@ -839,9 +838,9 @@ PageItem::~PageItem()
 		{
 			for (int pos=0; pos < itemText.length(); ++pos)
 			{
-				if (itemText.item(pos)->hasMark())
+                if (itemText.hasMark(pos))
 				{
-					Mark* mrk = itemText.item(pos)->mark;
+                    Mark* mrk = itemText.mark(pos);
 					if (!mrk->isType(MARKBullNumType))
 						m_Doc->eraseMark(mrk);
 				}
@@ -1109,7 +1108,6 @@ PageItem * PageItem::frameTextEnd()
 /// returns true if text overflows
 bool PageItem::frameOverflows() const
 {
-#ifndef NLS_PROTO
 	// Fix #6991 : "Text overflow" warning when there is a text underflow in fact
 	/*return NextBox == NULL && itemText.length() > static_cast<int>(MaxChars);*/
 	return ( NextBox == NULL )
@@ -1118,9 +1116,6 @@ bool PageItem::frameOverflows() const
 	       /*&& ( firstChar < MaxChars )*/
 		   && ( firstChar <= MaxChars )
 	       && ( itemText.length() > static_cast<int> ( MaxChars ) );
-#else
-	return false; // FIXME:NLS
-#endif
 }
 
 int PageItem::frameOverflowCount() const
@@ -1185,11 +1180,7 @@ int PageItem::firstInFrame() const
 }
 int PageItem::lastInFrame() const
 {
-#ifndef NLS_PROTO
 	return qMin(signed(MaxChars), itemText.length()) - 1;
-#else
-	return itemText.length() - 1;
-#endif
 }
 
 bool PageItem::testLinkCandidate(PageItem* nxt)
@@ -1416,11 +1407,7 @@ void PageItem::unlinkWithText(bool cutText)
 /// tests if a character is displayed by this frame
 bool PageItem::frameDisplays(int textpos) const
 {
-#ifndef NLS_PROTO
 	return 0 <= textpos && textpos < signed(MaxChars) &&  textpos < itemText.length();
-#else
-	return true; // FIXME:NLS
-#endif
 }
 
 
@@ -2277,9 +2264,9 @@ QString PageItem::ExpandToken(uint base)
 	//check for marks
 	else if (ch == SpecialChars::OBJECT)
 	{
-		ScText* hl = itemText.item(base);
-		if ((hl->mark != NULL) && !hl->mark->isType(MARKAnchorType) && !hl->mark->isType(MARKIndexType))
-			chstr = hl->mark->getString();
+        Mark* mark = itemText.mark(base);
+        if ((mark != NULL) && !mark->isType(MARKAnchorType) && !mark->isType(MARKIndexType))
+            chstr = mark->getString();
 	}
 	return chstr;
 }
@@ -2329,7 +2316,7 @@ double PageItem::layoutGlyphs(const CharStyle& style, const QString& chars, Glyp
 		layout.glyph = font.char2CMap(chars[0].unicode());
 	}
 	double tracking = 0.0;
-	if ( (style.effects() & ScStyle_StartOfLine) == 0)
+	if ( (style.effects() & ScLayout_StartOfLine) == 0)
 		tracking = style.fontSize() * style.tracking() / 10000.0;
 
 	layout.xoffset = tracking;
@@ -2485,7 +2472,7 @@ void PageItem::drawGlyphs(ScPainter *p, const CharStyle& style, GlyphLayout& gly
 		points.map(chma * chma4);
 		p->setupPolygon(&points, true);
 		QColor oldBrush = p->brush();
-		p->setBrush( (style.effects() & ScStyle_SuppressSpace) ? Qt::green
+		p->setBrush( (style.effects() & ScLayout_SuppressSpace) ? Qt::green
 					: PrefsManager::instance()->appPrefs.displayPrefs.controlCharColor);
 		if (stroke)
 		{
@@ -2514,7 +2501,7 @@ void PageItem::drawGlyphs(ScPainter *p, const CharStyle& style, GlyphLayout& gly
 	else if (glyph == (ScFace::CONTROL_GLYPHS + SpecialChars::NBHYPHEN.unicode()))
 		glyph = font.char2CMap(QChar('-'));
 	
-	if (glyph >= ScFace::CONTROL_GLYPHS || (style.effects() & ScStyle_SuppressSpace)) {
+	if (glyph >= ScFace::CONTROL_GLYPHS || (style.effects() & ScLayout_SuppressSpace)) {
 //		qDebug("drawGlyphs: skipping %d", glyph);
 		// all those are empty
 		if (glyphs.more)
@@ -5086,13 +5073,13 @@ void PageItem::restoreWeldItems(SimpleState *state, bool isUndo)
 void PageItem::restoreMarkString(SimpleState *state, bool isUndo)
 {
 	ScItemState< QPair<int,QString> > *is = dynamic_cast<ScItemState< QPair<int,QString> >*>(state);
-	ScText * hl = itemText.item(is->getItem().first);
-	if (!hl->hasMark())
+    Mark * mark = itemText.mark(is->getItem().first);
+    if (!itemText.hasMark(is->getItem().first))
 		return;
 	if (isUndo)
-		hl->mark->setString(is->getItem().second);
+        mark->setString(is->getItem().second);
 	else
-		hl->mark->setString(QString());
+        mark->setString(QString());
 }
 
 bool PageItem::checkGradientUndoRedo(SimpleState *ss, bool isUndo)

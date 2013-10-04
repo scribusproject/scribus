@@ -22,7 +22,8 @@
 class ResourceCollection;
 
 enum StyleFlagValue {
-	ScStyle_Default       = 0,
+    ScStyle_None          = 0,
+    ScStyle_Default       = 0,
     ScStyle_Superscript   = 1,
     ScStyle_Subscript     = 2,
     ScStyle_Outline       = 4,
@@ -33,13 +34,14 @@ enum StyleFlagValue {
     ScStyle_HyphenationPossible=128, //Hyphenation possible here (Soft Hyphen)
     ScStyle_Shadowed      = 256,
     ScStyle_UnderlineWords= 512,
-    ScStyle_Reserved01    = 1024, //free, not used in the moment
-    ScStyle_DropCap       = 2048,
-    ScStyle_SuppressSpace = 4096,//internal use in PageItem (Suppresses spaces when in Block alignment)
-    ScStyle_SoftHyphenVisible=8192, //Soft Hyphen visible at line end
-    ScStyle_StartOfLine   = 16384,
+	xScStyle_Reserved01    = 1024, //free, not used in the moment
+	xScStyle_DropCap       = 2048,
+	xScStyle_SuppressSpace = 4096,//internal use in PageItem (Suppresses spaces when in Block alignment)
+	xScStyle_SoftHyphenVisible=8192, //Soft Hyphen visible at line end
+	xScStyle_StartOfLine   = 16384,
 	ScStyle_UserStyles    = 1919, // == 1024 + 512 + 256 + 64 + 32 + 16 + 8 + 4 + 2 + 1
-	ScStyle_None          = 65535
+    ScStyle_NonUserStyles = 30848, // == 128 + 2048 + 4096 + 8192 + 16384
+    ScStyle_All           = 65535
 };
 
 class SCRIBUS_API StyleFlag

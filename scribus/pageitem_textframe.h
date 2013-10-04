@@ -38,15 +38,6 @@ class ScribusDoc;
 
 typedef QMap<PageItem_NoteFrame*, QList<TextNote *> > NotesInFrameMap;
 
-#include "text/nlsconfig.h"
-
-#ifdef NLS_PROTO
-#include "text/sctextengine.h"
-#include "text/scfont.h"
-#include "sctextstruct.h"
-class ScText;
-class ScStyleRun;
-#endif
 
 //cezaryece: I remove static statement and made it public as this function is used also by PageItem_NoteFrame
 double calculateLineSpacing (const ParagraphStyle &style, PageItem *item);
@@ -88,11 +79,8 @@ public:
 	void setTextAnnotationOpen(bool open);
 
 	double columnWidth();
-#ifdef NLS_PROTO
-	int firstTextItem() const { return itemText.firstFrameItem; }
-	int lastTextItem() const { return itemText.lastFrameItem; }
-#endif
-	//enable/disable marks inserting actions depending on editMode
+
+    //enable/disable marks inserting actions depending on editMode
 	void togleEditModeActions();
 	QRegion availableRegion() { return m_availableRegion; }
 
@@ -105,11 +93,6 @@ protected:
 	//void drawOverflowMarker(ScPainter *p);
 	void drawUnderflowMarker(ScPainter *p);
 	void drawColumnBorders(ScPainter *p);
-
-#ifdef NLS_PROTO
-	void DrawLineItem(ScPainter *p, double width,
-	                  ScScriptItem *item, uint itemIndex);
-#endif
 	
 	bool unicodeTextEditMode;
 	int unicodeInputCount;
@@ -166,7 +149,7 @@ private:
 	NotesInFrameMap updateNotesFrames(QMap<int, Mark*> noteMarksPosMap); //update notes frames content
 	void updateNotesMarks(NotesInFrameMap notesMap);
 	Mark* selectedMark(bool onlySelection = true);
-	TextNote* selectedNoteMark(ScText* &hl, bool onlySelection = true);
+    TextNote* selectedNoteMark(int& foundPos, bool onlySelection = true);
 	TextNote* selectedNoteMark(bool onlySelection = true);
 protected:
 	// set text frame height to last line of text

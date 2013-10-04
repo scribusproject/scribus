@@ -40,11 +40,6 @@ pageitem.cpp  -  description
 #include "styles/paragraphstyle.h"
 #include "desaxe/saxio.h"
 
-#ifdef NLS_CONFORMANCE
-#define NLS_PRIVATE private
-#else
-#define NLS_PRIVATE public
-#endif
 
 class CharStyle;
 class ParagraphStyle;
@@ -164,18 +159,10 @@ class SCRIBUS_API StoryText : public QObject, public SaxIO
 
 	bool hasObject(int pos) const;
  	PageItem* object(int pos) const;
-	bool hasMark(int pos) const;
+    bool hasMark(int pos, Mark* mrk = NULL) const;
 	Mark *mark(int pos) const;
-	
-	int nextCharPos(int c);
-	int prevCharPos(int c);
-	int nextWordPos(int c);
-	int prevWordPos(int c);
-	int nextLinePos(int c, qreal oldX);
-	int prevLinePos(int c, qreal oldX);
-	int nextFramePos(int c);
-	int prevFramePos(int c);
-	
+    void replaceMark(int pos, Mark* mrk);
+
 	// Get charstyle at current cursor position
 	const CharStyle& charStyle() const;
 	// Get charstyle at specific position
@@ -252,6 +239,15 @@ class SCRIBUS_API StoryText : public QObject, public SaxIO
 	int lengthOfSelection() const;
 
 
+// layout helpers
+
+    GlyphLayout* getGlyphs(int pos);
+    const GlyphLayout* getGlyphs(int pos) const;
+	LayoutFlags flags(int pos) const;
+	bool hasFlag(int pos, LayoutFlags flag) const;
+	void setFlag(int pos, LayoutFlags flag);
+	void clearFlag(int pos, LayoutFlags flag);
+
 //  when physical view doesn't match logical view any more:
 
 	/// call this if the shape of an embedded object changes (redos layout)
@@ -266,31 +262,11 @@ public slots:
 	signals:
 		void changed();
 
-public:
-// physical view
-
-	bool overflows() const;
-	/// layouts the text -- FIXME: better interface for this
- 	int layout(int startItem);
- 	uint nrOfItems() const;
-//private:
+private:
  	ScText * item(uint index);
  	const ScText * item(uint index) const;
 public:
 	ScText * item_p(uint index) { return item(index); }
-//	void bidiReorder(uint firstItem, uint lastItem, uint indices[]) const;
-  	/** returns the Unicode string which belongs to this ScScriptItem */
- 	const QString itemText(uint index) const;
- 	/** returns the CharStyle which belongs to this ScScriptItem */
- 	const CharStyle itemStyle(uint index) const;
- 	/// returns the character postion at the start of this item
- 	int startOfItem(uint index) const;
- 	/// returns the character position after this item
- 	int endOfItem(uint index) const;
-// 	const ScTextEngine * engineForRun(uint index) const;
-// 	const ScTextEngine * engineForItem(uint index) const;
-
-// 	ParagraphLayout layouter;
 
  	int screenToPosition(FPoint coord) const;
  	FRect  boundingBox(int pos, uint len = 1) const;

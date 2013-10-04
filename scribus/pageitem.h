@@ -45,7 +45,6 @@ for which a new license (GPL+exception) is in place.
 #include "scimage.h"
 #include "margins.h"
 #include "sctextstruct.h"
-#include "text/nlsconfig.h"
 #include "text/storytext.h"
 #include "undoobject.h"
 #include "vgradient.h"

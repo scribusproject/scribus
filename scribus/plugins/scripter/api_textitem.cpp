@@ -12,6 +12,34 @@ for which a new license (GPL+exception) is in place.'
 #include "hyphenator.h"
 #include "scripterimpl.h"
 
+template<typename T>
+class ApplyCharstyleHelper {
+	PageItem* item;
+	T value;
+public:
+	ApplyCharstyleHelper(PageItem* i, T v) : item(i), value(v) {}
+
+	void apply(void (CharStyle::*f)(T), int p, int len)
+	{
+		CharStyle cs;
+		(cs.*f)(value);
+		if (item->HasSel)
+		{
+			int max = qMax(p+len, item->itemText.length());
+			for (int b = p; b < max; b++)
+			{
+				if (item->itemText.selected(b))
+					item->itemText.applyCharStyle(b, 1, cs);
+			}
+		}
+		else
+		{
+			item->itemText.applyCharStyle(p, len, cs);
+		}
+	}
+
+};
+
 TextAPI::TextAPI(PageItem_TextFrame* inner) : ItemAPI(inner)
 {
 	qDebug() << "TextItemWrapper loaded";
@@ -224,34 +252,40 @@ void TextAPI::setTextColor(QString color)
 {
 	if (!checkHaveDocument())
 		RAISE("No document open");
-	for (int b = 0; b < item->itemText.length(); b++)
-	{
-		//FIXME: doc method
-		if (item->HasSel)
-		{
-			if (item->itemText.selected(b))
-				item->itemText.item(b)->setFillColor(color);
-		}
-		else
-			item->itemText.item(b)->setFillColor(color);
-	}
+
+	ApplyCharstyleHelper<QString>(item, color).apply(&CharStyle::setFillColor, 0, item->itemText.length());
+
+//	for (int b = 0; b < item->itemText.length(); b++)
+//	{
+//		//FIXME: doc method
+//		if (item->HasSel)
+//		{
+//			if (item->itemText.selected(b))
+//				item->itemText.item(b)->setFillColor(color);
+//		}
+//		else
+//			item->itemText.item(b)->setFillColor(color);
+//	}
 }
 
 void TextAPI::setTextStroke(QString color)
 {
 	if (!checkHaveDocument())
 		RAISE("No document open");
-	for (int b = 0; b < item->itemText.length(); b++)
-	{
-		//FIXME:NLS use document method for item
-		if (item->HasSel)
-		{
-			if (item->itemText.selected(b))
-				item->itemText.item(b)->setStrokeColor(color);
-		}
-		else
-			item->itemText.item(b)->setStrokeColor(color);
-	}
+
+	ApplyCharstyleHelper<QString>(item, color).apply(&CharStyle::setStrokeColor, 0, item->itemText.length());
+
+//	for (int b = 0; b < item->itemText.length(); b++)
+//	{
+//		//FIXME:NLS use document method for item
+//		if (item->HasSel)
+//		{
+//			if (item->itemText.selected(b))
+//				item->itemText.item(b)->setStrokeColor(color);
+//		}
+//		else
+//			item->itemText.item(b)->setStrokeColor(color);
+//	}
 }
 
 void TextAPI::setTextScalingV(double value)
@@ -303,16 +337,19 @@ void TextAPI::setTextShade(int w)
 		RAISE("value out of bound. Should be between 0 and 100");
 	}
 	//FIXME:NLS use document method for that
-	for (int b = 0; b < item->itemText.length(); ++b)
-	{
-		if (item->HasSel)
-		{
-			if (item->itemText.selected(b))
-				item->itemText.item(b)->setFillShade(w);
-		}
-		else
-			item->itemText.item(b)->setFillShade(w);
-	}
+
+	ApplyCharstyleHelper<double>(item, w).apply(&CharStyle::setFillShade, 0, item->itemText.length());
+
+//	for (int b = 0; b < item->itemText.length(); ++b)
+//	{
+//		if (item->HasSel)
+//		{
+//			if (item->itemText.selected(b))
+//				item->itemText.item(b)->setFillShade(w);
+//		}
+//		else
+//			item->itemText.item(b)->setFillShade(w);
+//	}
 }
 
 void TextAPI::selectText(int start, int selcount)

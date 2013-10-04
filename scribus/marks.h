@@ -46,7 +46,7 @@ class SCRIBUS_API Mark
 private:
 	Mark() : label(""), OwnPage(-1), typ(MARKNoType), data() {}
 	Mark(const Mark& other) : label(other.label), OwnPage(other.OwnPage), typ(other.typ), data(other.data) {}
-	~Mark() {}
+
 public:
 	QString label;
 	int OwnPage;
@@ -91,6 +91,8 @@ public:
 	bool isUnique() { return ((typ != MARKVariableTextType) && (typ != MARKIndexType) && (typ != MARKBullNumType)); }
 	bool isNoteType() { return ((typ == MARKNoteMasterType) || (typ==MARKNoteFrameType)); }
 	bool isType(const MarkType t) { return t==typ; }
+
+    virtual ~Mark() {}
 
 protected:
 	MarkType typ;

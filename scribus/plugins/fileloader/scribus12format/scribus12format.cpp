@@ -227,7 +227,6 @@ void Scribus12Format::PasteItem(struct CopyPasteBuffer *Buffer, bool drag, bool 
 	//
 	case PageItem::PathText:
 	case PageItem::TextFrame:
-#ifndef NLS_PROTO
 		if (Buffer->PType == PageItem::PathText)
 			z = m_Doc->itemAdd(PageItem::PathText, PageItem::Unspecified, x, y, w, h, pw, CommonStrings::None, Buffer->Pcolor, true);
 		else
@@ -353,7 +352,6 @@ void Scribus12Format::PasteItem(struct CopyPasteBuffer *Buffer, bool drag, bool 
 			currItem->itemText.setDefaultStyle(pstyle);
 		}
 //		undoManager->setUndoEnabled(true);
-#endif
 		break;
 	case PageItem::Line:
 		z = m_Doc->itemAdd(PageItem::Line, PageItem::Unspecified, x, y, w ,0, pw, CommonStrings::None, Buffer->Pcolor2, true);

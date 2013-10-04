@@ -539,7 +539,6 @@ HEADERS += scribus/actionmanager.h \
            scribus/tests/testStoryText.h \
            scribus/text/frect.h \
            scribus/text/fsize.h \
-           scribus/text/nlsconfig.h \
            scribus/text/sctext_shared.h \
            scribus/text/specialchars.h \
            scribus/text/storytext.h \

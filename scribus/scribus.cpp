@@ -229,7 +229,6 @@ for which a new license (GPL+exception) is in place.
 #include "ui/stylemanager.h"
 #include "ui/symbolpalette.h"
 #include "ui/tabmanager.h"
-#include "text/nlsconfig.h"
 #include "tocgenerator.h"
 #include "ui/transformdialog.h"
 #include "ui/transparencypalette.h"
@@ -1200,12 +1199,12 @@ void ScribusMainWindow::setTBvals(PageItem *currItem)
 		//check if mark in cursor place and enable editMark action
 		if (doc->appMode == modeEdit && currItem->itemText.cursorPosition() < currItem->itemText.length())
 		{
-			ScText *hl = currItem->itemText.item(currItem->itemText.cursorPosition());
-			if (hl->hasMark())
+            if (currItem->itemText.hasMark(currItem->itemText.cursorPosition()))
 			{
+                Mark* mark = currItem->itemText.mark(currItem->itemText.cursorPosition());
 				scrActions["editMark"]->setEnabled(true);
-				if ((hl->mark->isType(MARKNoteMasterType) || hl->mark->isType(MARKNoteFrameType)) && (hl->mark->getNotePtr() != NULL))
-					nsEditor->setNotesStyle(hl->mark->getNotePtr()->notesStyle());
+                if ((mark->isType(MARKNoteMasterType) || mark->isType(MARKNoteFrameType)) && (mark->getNotePtr() != NULL))
+                    nsEditor->setNotesStyle(mark->getNotePtr()->notesStyle());
 			}
 			else
 				scrActions["editMark"]->setEnabled(false);
@@ -5377,8 +5376,7 @@ void ScribusMainWindow::slotEditPaste()
 					story->setDoc(doc);
 					for (int pos=story->length() -1; pos >= 0; --pos)
 					{
-						ScText* hl = story->item(pos);
-						if (hl->hasMark() && (hl->mark->isNoteType()))
+                        if (story->hasMark(pos) && (story->mark(pos)->isNoteType()))
 							story->removeChars(pos,1);
 					}
 				}
@@ -10959,7 +10957,7 @@ void ScribusMainWindow::insertMark(MarkType mType)
 		ScItemsState* is = NULL;
 		if (insertMarkDialog(currItem->asTextFrame(), mType, is))
 		{
-			Mark* mrk = currItem->itemText.item(currItem->itemText.cursorPosition() -1)->mark;
+            Mark* mrk = currItem->itemText.mark(currItem->itemText.cursorPosition() -1);
 			view->updatesOn(false);
 			currItem->invalidateLayout();
 			currItem->layout();
@@ -10997,12 +10995,12 @@ void ScribusMainWindow::slotEditMark()
 	PageItem * currItem = doc->m_Selection->itemAt(0);
 	if (currItem->itemText.cursorPosition() < currItem->itemText.length())
 	{
-		ScText *hl = currItem->itemText.item(currItem->itemText.cursorPosition());
-		if (hl->hasMark())
+        if (currItem->itemText.hasMark(currItem->itemText.cursorPosition()))
 		{
-			if (editMarkDlg(hl->mark, currItem->asTextFrame()))
+            Mark* mark = currItem->itemText.mark(currItem->itemText.cursorPosition());
+            if (editMarkDlg(mark, currItem->asTextFrame()))
 			{
-				if (hl->mark->isType(MARKVariableTextType))
+                if (mark->isType(MARKVariableTextType))
 					doc->flag_updateMarksLabels = true;
 				else
 					currItem->invalid = true;
@@ -11011,8 +11009,8 @@ void ScribusMainWindow::slotEditMark()
 				doc->regionsChanged()->update(QRectF());
 				view->DrawNew();
 			}
-			if (hl->mark->isNoteType())
-				nsEditor->setNotesStyle(hl->mark->getNotePtr()->notesStyle());
+            if (mark->isNoteType())
+                nsEditor->setNotesStyle(mark->getNotePtr()->notesStyle());
 		}
 	}
 }
@@ -11399,9 +11397,8 @@ bool ScribusMainWindow::editMarkDlg(Mark *mrk, PageItem_TextFrame* currItem)
 				{
 					if (Mrk != mrk)
 					{
-						ScText* hl = currItem->itemText.item(currItem->itemText.cursorPosition());
-						hl->mark = Mrk;
-						mrk = Mrk;
+                        currItem->itemText.replaceMark(currItem->itemText.cursorPosition(), Mrk);
+                        mrk = Mrk;
 						oldMark = *mrk;
 						replaceMark = true;
 					}
@@ -11423,8 +11420,7 @@ bool ScribusMainWindow::editMarkDlg(Mark *mrk, PageItem_TextFrame* currItem)
 					mrk = doc->newMark();
 					getUniqueName(label,doc->marksLabelsList(mrk->getType()), "_"); //FIX ME here user should be warned that inserted mark`s label was changed
 					mrk->setValues(label, currItem->OwnPage, MARKVariableTextType, d);
-					ScText* hl = currItem->itemText.item(currItem->itemText.cursorPosition());
-					hl->mark = mrk;
+                    currItem->itemText.replaceMark(currItem->itemText.cursorPosition(), mrk);
 					docWasChanged = true;
 					newMark = true;
 				}

@@ -324,28 +324,31 @@ void PageItem_NoteFrame::updateNotesText()
 	Mark* prevMrk = NULL;
 	while (pos < itemText.length())
 	{
-		ScText* hl = itemText.item(pos);
-		if (hl->hasMark() && hl->mark->isType(MARKNoteFrameType))
+        if (itemText.hasMark(pos))
 		{
-			if (prevMrk != NULL)
-			{
-				note = prevMrk->getNotePtr();
-				if (note != NULL)
-				{
-					int offset = 0;
-					if (itemText.text(pos-1) == SpecialChars::PARSEP)
-						++offset;
-					int len = pos - startPos -offset;
-					if (len <= 0)
-						note->setSaxedText("");
-					else
-						note->setSaxedText(getItemTextSaxed(startPos, len));
-					note->textLen = len;
-					itemText.deselectAll();
-				}
-			}
-			prevMrk = hl->mark;
-			startPos = pos +1;
+            Mark* mark = itemText.mark(pos);
+            if  (mark->isType(MARKNoteFrameType))
+            {
+                if (prevMrk != NULL)
+                {
+                    note = prevMrk->getNotePtr();
+                    if (note != NULL)
+                    {
+                        int offset = 0;
+                        if (itemText.text(pos-1) == SpecialChars::PARSEP)
+                            ++offset;
+                        int len = pos - startPos -offset;
+                        if (len <= 0)
+                            note->setSaxedText("");
+                        else
+                            note->setSaxedText(getItemTextSaxed(startPos, len));
+                        note->textLen = len;
+                        itemText.deselectAll();
+                    }
+                }
+                prevMrk = mark;
+                startPos = pos +1;
+            }
 		}
 		++pos;
 	}
@@ -412,10 +415,10 @@ int PageItem_NoteFrame::findNoteCpos(TextNote* note)
 		return -1;
 	for (int pos=0; pos < itemText.length(); ++pos)
 	{
-		ScText* hl = itemText.item(pos);
-		if (hl->hasMark() && hl->mark->isType(MARKNoteFrameType))
+        Mark* mark = itemText.mark(pos);
+        if (itemText.hasMark(pos) && mark->isType(MARKNoteFrameType))
 		{
-			if (hl->mark->getNotePtr() == note)
+            if (mark->getNotePtr() == note)
 				return (pos);
 		}
 	}

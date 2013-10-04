@@ -35,7 +35,6 @@ for which a new license (GPL+exception) is in place.
 #include "util.h"
 #include "util_icon.h"
 #include "util_text.h"
-#include "text/nlsconfig.h"
 
 SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, PageItem* ite, bool mode )
 	: QDialog( parent ),
@@ -308,7 +307,7 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, PageItem* ite, b
 	connect( RFillS, SIGNAL( clicked() ), this, SLOT( enableFillSReplace() ) );
 	connect( RStrokeS, SIGNAL( clicked() ), this, SLOT( enableStrokeSReplace() ) );
 	connect(clearButton, SIGNAL(clicked()), this, SLOT(clear()));
-	
+
 	//tooltips
 	DoSearch->setToolTip( tr( "Search for text or formatting in the current text" ) );
 	DoReplace->setToolTip( tr( "Replace the searched for formatting with the replacement values" ) );
@@ -458,13 +457,13 @@ void SearchReplace::slotDoSearch()
 				if (m_item->itemText.charStyle(a).font().scName() != sFont)
 					found = false;
 			}
-#ifndef NLS_PROTO
+
 			if (SStyle->isChecked())
 			{
 				if (m_item->itemText.paragraphStyle(a).parent() != m_doc->paragraphStyles()[sStyle].name())
 					found = false;
 			}
-#endif
+
 			if (SAlign->isChecked())
 			{
 				if (m_item->itemText.paragraphStyle(a).alignment() != sAlign)
@@ -690,7 +689,7 @@ void SearchReplace::slotDoReplace()
 					for (cs = 0; cs < sear.length(); ++cs)
 						m_item->itemText.replaceChar(m_replStart+cs, repl[cs]);
 					for (cx = cs; cx < repl.length(); ++cx)
-						m_item->itemText.insertChars(m_replStart+cx, repl.mid(cx,1), true); 
+						m_item->itemText.insertChars(m_replStart+cx, repl.mid(cx,1), true);
 					// FIXME:NLS also replace styles!!
 				}
 				else
@@ -729,20 +728,21 @@ void SearchReplace::slotDoReplace()
 			m_doc->itemSelection_SetFontSize(qRound(RSizeVal->value() * 10.0));
 		if (REffect->isChecked())
 		{
-#ifndef NLS_PROTO
-			int s = REffVal->getStyle();
+			int s = REffVal->getStyle() & ScStyle_UserStyles;
 			m_doc->currentStyle.charStyle().setFeatures(static_cast<StyleFlag>(s).featureList()); // ???
 			for (int a = 0; a < m_item->itemText.length(); ++a)
 			{
 				if (m_item->itemText.selected(a))
 				{
-					StyleFlag fl = m_item->itemText.item(a)->effects();
-					fl &= static_cast<StyleFlag>(~1919);
-					fl |= static_cast<StyleFlag>(s);
-					m_item->itemText.item(a)->setFeatures(fl.featureList());
+//                    StyleFlag fl = m_item->itemText.charStyle(a).effects();
+//					fl &= static_cast<StyleFlag>(~1919);
+//					fl |= static_cast<StyleFlag>(s);
+//					m_item->itemText.item(a)->setFeatures(fl.featureList());
+					CharStyle newFeatures;
+					newFeatures.setFeatures(static_cast<StyleFlag>(s).featureList());
+					m_item->itemText.applyCharStyle(a, 1, newFeatures);
 				}
 			}
-#endif
 		}
 		m_item->itemText.deselectAll();
 	}

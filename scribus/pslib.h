@@ -38,9 +38,6 @@ for which a new license (GPL+exception) is in place.
 #include "colormgmt/sccolormgmtengine.h"
 #include "tableborder.h"
 
-#ifdef NLS_PROTO
-class ScText;
-#endif
 
 class ScPage;
 class ScribusDoc;

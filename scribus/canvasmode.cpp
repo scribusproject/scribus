@@ -957,7 +957,7 @@ void CanvasMode::commonDrawTextCursor(QPainter* p, PageItem_TextFrame* textframe
 	textframe->itemText.normalizeCursorPosition();
 	int textCursorPos ( textframe->itemText.cursorPosition() );
 
-	if ( textframe->lastInFrame() >= signed ( textframe->itemText.nrOfItems() )
+	if ( textframe->lastInFrame() >= textframe->itemText.length()
 		 || textframe->itemText.length() == 0 )
 	{
 		dx = textframe->textToFrameDistLeft();
@@ -1032,7 +1032,7 @@ void CanvasMode::commonDrawTextCursor(QPainter* p, PageItem_TextFrame* textframe
 				FRect bbox = textframe->itemText.boundingBox ( textCursorPos );
 				dx = bbox.x();
 				dy = bbox.y();
-				dx += textframe->itemText.item ( textCursorPos )->glyph.wide();
+                dx += textframe->itemText.getGlyphs(textCursorPos)->wide();
 				if ( bbox.height() <= 2 )
 					dy1 = bbox.y() + textframe->itemText.charStyle ( textCursorPos ).fontSize() / 30.0;
 				else
@@ -1044,7 +1044,7 @@ void CanvasMode::commonDrawTextCursor(QPainter* p, PageItem_TextFrame* textframe
 			FRect bbox = textframe->itemText.boundingBox ( textCursorPos );
 			dx = bbox.x();
 			dy = bbox.y();
-			dx += textframe->itemText.item ( textCursorPos )->glyph.wide();
+            dx += textframe->itemText.getGlyphs(textCursorPos)->wide();
 			if ( bbox.height() <= 2 )
 				dy1 = bbox.y() + textframe->itemText.charStyle ( textCursorPos ).fontSize() / 30.0;
 			else

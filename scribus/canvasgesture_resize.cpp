@@ -318,21 +318,20 @@ void ResizeGesture::doResize(bool scaleContent)
 			{
 				for (int aa = 0; aa < currItem->itemText.length(); ++aa)
 				{
+					const CharStyle& oldChStyle(currItem->itemText.charStyle(aa));
+					CharStyle newChStyle;
 #if 0 // hard to decide if it’s batter to scale or to change font size
-					currItem->itemText.item(aa)->setScaleV(
-							qMax(qMin(qRound(currItem->itemText.item(aa)->scaleV()*txtScY), 4000), 100));
-					currItem->itemText.item(aa)->setScaleH(
-							qMax(qMin(qRound(currItem->itemText.item(aa)->scaleH() * txtScX), 4000), 100));
+					newChStyle.setScaleV(qMax(qMin(qRound(oldChStyle.scaleV()*txtScY), 4000), 100));
+					newChStyle.setScaleH(qMax(qMin(qRound(oldChStyle.scaleH() * txtScX), 4000), 100));
 #else
-					currItem->itemText.item(aa)->setFontSize(
-							qMax(qMin(currItem->itemText.item(aa)->fontSize() * txtScY, 4000.0), 1.0));
-					currItem->itemText.item(aa)->setScaleH(
-							qMax(qMin(qRound(currItem->itemText.item(aa)->scaleH() * txtScX / txtScY), 4000), 100));
+					newChStyle.setFontSize(qMax(qMin(oldChStyle.fontSize() * txtScY, 4000.0), 1.0));
+					newChStyle.setScaleH(qMax(qMin(qRound(oldChStyle.scaleH() * txtScX / txtScY), 4000), 100));
 #endif
+					currItem->itemText.applyCharStyle(aa, 1, newChStyle);
 
 					// We need to scale the linespacing _only once_ per paragraph.
 					if((aa == 0) 
-						|| ( SpecialChars::isBreak(currItem->itemText.itemText(aa - 1).at(0))))
+						|| ( SpecialChars::isBreak(currItem->itemText.text(aa - 1))))
 					{
 						ParagraphStyle ps(currItem->itemText.paragraphStyle(aa));
 						double oldLS(currItem->itemText.paragraphStyle(aa).lineSpacing());

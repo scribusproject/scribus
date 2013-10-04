@@ -4326,16 +4326,15 @@ bool Scribus150Format::readItemText(PageItem *obj, ScXmlStreamAttributes& attrs,
 		else if (ch == SpecialChars::SHYPHEN && pos > 0)
 		{
 //			qDebug() << QString("scribus150format: SHYPHEN at %1").arg(pos);
-			ScText* lastItem = obj->itemText.item(pos-1);
 			// double SHY means user provided SHY, single SHY is automatic one
-			if (lastItem->effects() & ScStyle_HyphenationPossible)
+			if (obj->itemText.hasFlag(pos-1, ScLayout_HyphenationPossible))
 			{
-				lastItem->setEffects(lastItem->effects() & ~ScStyle_HyphenationPossible);
+				obj->itemText.clearFlag(pos-1, ScLayout_HyphenationPossible);
 				obj->itemText.insertChars(pos, QString(ch));
 			}
 			else
 			{
-				lastItem->setEffects(lastItem->effects() | ScStyle_HyphenationPossible);
+				obj->itemText.setFlag(pos-1, ScLayout_HyphenationPossible);
 			}
 		}
 		else {

@@ -78,7 +78,6 @@ for which a new license (GPL+exception) is in place.
 #include "styleitem.h"
 //#include "ui/stylemanager.h"
 #include "styleselect.h"
-#include "text/nlsconfig.h"
 #include "units.h"
 #include "util.h"
 #include "util_icon.h"
@@ -178,7 +177,7 @@ void SideBar::paintEvent(QPaintEvent *e)
 		while ((pos1 <= pos2) && (pos1 < editor->StyledText.length()))
 		{
 			paraInfo.first = pos1;
-			if (editor->StyledText.item(pos1)->ch == SpecialChars::PARSEP)
+            if (editor->StyledText.text(pos1) == SpecialChars::PARSEP)
 			{
 				paraInfo.second = pos1;
 				pos1 += 1;

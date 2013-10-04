@@ -14,6 +14,34 @@ for which a new license (GPL+exception) is in place.
 #include "scribusdoc.h"
 #include "hyphenator.h"
 
+template<typename T>
+class ApplyCharstyleHelper {
+	PageItem* item;
+	T value;
+public:
+	ApplyCharstyleHelper(PageItem* i, T v) : item(i), value(v) {}
+
+	void apply(void (CharStyle::*f)(T), int p, int len)
+	{
+		CharStyle cs;
+		(cs.*f)(value);
+		if (item->HasSel)
+		{
+			int max = qMax(p+len, item->itemText.length());
+			for (int b = p; b < max; b++)
+			{
+				if (item->itemText.selected(b))
+					item->itemText.applyCharStyle(b, 1, cs);
+			}
+		}
+		else
+		{
+			item->itemText.applyCharStyle(p, len, cs);
+		}
+	}
+
+};
+
 PyObject *scribus_getfontsize(PyObject* /* self */, PyObject* args)
 {
 	char *Name = const_cast<char*>("");
@@ -699,17 +727,18 @@ PyObject *scribus_settextfill(PyObject* /* self */, PyObject* args)
 	}
 	else
 	{
-		for (int b = 0; b < it->itemText.length(); b++)
-		{
-			//FIXME: doc method
-			if (it->HasSel)
-			{
-				if (it->itemText.selected(b))
-					it->itemText.item(b)->setFillColor(QString::fromUtf8(Color));
-			}
-			else
-				it->itemText.item(b)->setFillColor(QString::fromUtf8(Color));
-		}
+		ApplyCharstyleHelper<QString>(it, QString::fromUtf8(Color)).apply(&CharStyle::setFillColor, 0, it->itemText.length());
+//		for (int b = 0; b < it->itemText.length(); b++)
+//		{
+//			//FIXME: doc method
+//			if (it->HasSel)
+//			{
+//				if (it->itemText.selected(b))
+//					it->itemText.item(b)->setFillColor(QString::fromUtf8(Color));
+//			}
+//			else
+//				it->itemText.item(b)->setFillColor(QString::fromUtf8(Color));
+//		}
 //		it->TxtFill = QString::fromUtf8(Color);
 	}
 //	Py_INCREF(Py_None);
@@ -735,17 +764,18 @@ PyObject *scribus_settextstroke(PyObject* /* self */, PyObject* args)
 	}
 	else
 	{
-		for (int b = 0; b < it->itemText.length(); b++)
-		{
-			//FIXME:NLS use document method for this
-			if (it->HasSel)
-			{
-				if (it->itemText.selected(b))
-					it->itemText.item(b)->setStrokeColor(QString::fromUtf8(Color));
-			}
-			else
-				it->itemText.item(b)->setStrokeColor(QString::fromUtf8(Color));
-		}
+		ApplyCharstyleHelper<QString>(it, QString::fromUtf8(Color)).apply(&CharStyle::setStrokeColor, 0, it->itemText.length());
+//		for (int b = 0; b < it->itemText.length(); b++)
+//		{
+//			//FIXME:NLS use document method for this
+//			if (it->HasSel)
+//			{
+//				if (it->itemText.selected(b))
+//					it->itemText.item(b)->setStrokeColor(QString::fromUtf8(Color));
+//			}
+//			else
+//				it->itemText.item(b)->setStrokeColor(QString::fromUtf8(Color));
+//		}
 //		it->TxtStroke = QString::fromUtf8(Color);
 	}
 //	Py_INCREF(Py_None);
@@ -848,17 +878,18 @@ PyObject *scribus_settextshade(PyObject* /* self */, PyObject* args)
 	}
 	else
 	{
-		//FIXME:NLS use document method for that
-		for (int b = 0; b < it->itemText.length(); ++b)
-		{
-			if (it->HasSel)
-			{
-				if (it->itemText.selected(b))
-					it->itemText.item(b)->setFillShade(w);
-			}
-			else
-				it->itemText.item(b)->setFillShade(w);
-		}
+		ApplyCharstyleHelper<double>(it, w).apply(&CharStyle::setFillShade, 0, it->itemText.length());
+//		//FIXME:NLS use document method for that
+//		for (int b = 0; b < it->itemText.length(); ++b)
+//		{
+//			if (it->HasSel)
+//			{
+//				if (it->itemText.selected(b))
+//					it->itemText.item(b)->setFillShade(w);
+//			}
+//			else
+//				it->itemText.item(b)->setFillShade(w);
+//		}
 //	it->ShTxtFill = w;
 	}
 //	Py_INCREF(Py_None);

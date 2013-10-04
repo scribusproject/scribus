@@ -66,6 +66,23 @@ int GetItem(QString Name)
 	return -1;
 }
 
+namespace {
+	void replaceColors(StoryText& itemText, int pos, QString col, QString rep)
+	{
+		QString fill = itemText.charStyle(pos).fillColor();
+		QString stroke = itemText.charStyle(pos).strokeColor();
+		if (col == fill || col == stroke)
+		{
+			CharStyle cstyle;
+			if (col == fill)
+				cstyle.setFillColor(rep);
+			if (col == stroke)
+				cstyle.setStrokeColor(rep);
+			itemText.applyCharStyle(pos, 1, cstyle);
+		}
+	}
+}
+
 void ReplaceColor(QString col, QString rep)
 {
 	QColor tmpc;
@@ -77,10 +94,7 @@ void ReplaceColor(QString col, QString rep)
 			for (int d = 0; d < ite->itemText.length(); d++)
 			{
 				//FIXME:NLS  that should work on runs
-				if (col == ite->itemText.charStyle(d).fillColor())
-					ite->itemText.item(d)->setFillColor(rep);
-				if (col == ite->itemText.charStyle(d).strokeColor())
-					ite->itemText.item(d)->setStrokeColor(rep);
+				replaceColors(ite->itemText, d, col, rep);
 			}
 		}
 		if (col == ite->fillColor())
@@ -106,10 +120,7 @@ void ReplaceColor(QString col, QString rep)
 			for (int d = 0; d < ite->itemText.length(); d++)
 			{
 				//FIXME: NLS this should work on runs
-				if (col == ite->itemText.charStyle(d).fillColor())
-					ite->itemText.item(d)->setFillColor(rep);
-				if (col == ite->itemText.charStyle(d).strokeColor())
-					ite->itemText.item(d)->setStrokeColor(rep);
+				replaceColors(ite->itemText, d, col, rep);
 			}
 		}
 		if (col == ite->fillColor())

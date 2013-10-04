@@ -12,13 +12,6 @@ for which a new license (GPL+exception) is in place.
 #endif
 
 #include "scribusapi.h"
-#include "text/nlsconfig.h"
-
-#ifdef NLS_CONFORMANCE
-#define NLS_PRIVATE private
-#else
-#define NLS_PRIVATE public
-#endif
 
 #include <QString>
 
@@ -43,6 +36,15 @@ class ScribusDoc;
  *
  */
 
+// from charstlye.h ScStyleFlags
+enum LayoutFlags {
+	ScLayout_None          = 0,
+	ScLayout_HyphenationPossible=128, //Hyphenation possible here (Soft Hyphen)
+	ScLayout_DropCap       = 2048,
+	ScLayout_SuppressSpace = 4096,//internal use in PageItem (Suppresses spaces when in Block alignment)
+	ScLayout_SoftHyphenVisible=8192, //Soft Hyphen visible at line end
+	ScLayout_StartOfLine   = 16384
+};
 
 
 /**
@@ -61,6 +63,9 @@ struct SCRIBUS_API GlyphLayout {
 	
 	GlyphLayout() : xadvance(0.0f), yadvance(0.0f), xoffset(0.0f), yoffset(0.0f),
 		scaleV(1.0), scaleH(1.0), glyph(0), more(NULL) 
+	{ }
+	GlyphLayout(const GlyphLayout& o) : xadvance(o.xadvance), yadvance(o.yadvance), xoffset(o.xoffset), yoffset(o.yoffset),
+		scaleV(o.scaleH), scaleH(o.scaleV), glyph(o.glyph), more(NULL)
 	{ }
 	virtual ~GlyphLayout()
 	{ }
@@ -100,7 +105,7 @@ struct SCRIBUS_API TabLayout : public GlyphLayout
 	QChar fillChar;
 };
 
-#ifndef NLS_PROTO
+
 class SCRIBUS_API ScText : public CharStyle
 {
 public:
@@ -147,7 +152,6 @@ public:
 private:
 	void setNewMark(Mark* mrk);
 };
-#endif
 
 
 /** @brief First Line Offset Policy

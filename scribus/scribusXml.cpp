@@ -40,7 +40,6 @@ for which a new license (GPL+exception) is in place.
 #include "scpage.h"
 #include "scribusdoc.h"
 #include "selection.h"
-#include "text/nlsconfig.h"
 #include "units.h"
 
 #include <iostream>

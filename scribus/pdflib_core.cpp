@@ -78,7 +78,6 @@ for which a new license (GPL+exception) is in place.
 #include "scstreamfilter_flate.h"
 #include "scstreamfilter_rc4.h"
 #include "tableutils.h"
-#include "text/nlsconfig.h"
 #include "util.h"
 #include "util_file.h"
 #include "util_formats.h"
@@ -4907,7 +4906,6 @@ QString PDFLibCore::setTextSt(PageItem *ite, uint PNr, const ScPage* pag)
 	ite->OwnPage = savedOwnPage;
 	if (ite->lineColor() != CommonStrings::None)
 		tabDist += ite->lineWidth() / 2.0;
-#ifndef NLS_PROTO
 	// Loop over each character (!) in the pageItem...
 	if (ite->itemType() == PageItem::TextFrame)
 	{
@@ -4919,16 +4917,16 @@ QString PDFLibCore::setTextSt(PageItem *ite, uint PNr, const ScPage* pag)
 			double CurX = ls.x;
 			for (int d = ls.firstItem; d <= ls.lastItem; ++d)
 			{
-				ScText *hl = ite->itemText.item(d);
+				ScText *hl = ite->itemText.item_p(d);
 				const QChar ch = hl->ch;
 				const CharStyle& chstyle(ite->itemText.charStyle(d));
 				const ParagraphStyle& pstyle(ite->itemText.paragraphStyle(d));
 				if (SpecialChars::isBreak(ch, true) || (ch == QChar(10)))
 					continue;
-				if (chstyle.effects() & ScStyle_SuppressSpace)
+				if (chstyle.effects() & ScLayout_SuppressSpace)
 					continue;
 				tTabValues = pstyle.tabValues();
-				if (chstyle.effects() & ScStyle_StartOfLine)
+				if (chstyle.effects() & ScLayout_StartOfLine)
 					tabCc = 0;
 				if ((ch == SpecialChars::TAB) && (tTabValues.count() != 0))
 				{
@@ -5032,16 +5030,16 @@ QString PDFLibCore::setTextSt(PageItem *ite, uint PNr, const ScPage* pag)
 		double CurX = 0;
 		for (int d = 0; d < ite->maxCharsInFrame(); ++d)
 		{
-			ScText *hl = ite->asPathText()->itemRenderText.item(d);
+			ScText *hl = ite->asPathText()->itemRenderText.item_p(d);
 			const QChar ch = hl->ch;
 			const CharStyle& chstyle(ite->asPathText()->itemRenderText.charStyle(d));
 			const ParagraphStyle& pstyle(ite->asPathText()->itemRenderText.paragraphStyle(d));
 			if (SpecialChars::isBreak(ch, true) || (ch == QChar(10)))
 				continue;
-			if (chstyle.effects() & ScStyle_SuppressSpace)
+			if (chstyle.effects() & ScLayout_SuppressSpace)
 				continue;
 			tTabValues = pstyle.tabValues();
-			if (chstyle.effects() & ScStyle_StartOfLine)
+			if (chstyle.effects() & ScLayout_StartOfLine)
 				tabCc = 0;
 			if ((ch == SpecialChars::TAB) && (tTabValues.count() != 0))
 			{
@@ -5116,7 +5114,6 @@ QString PDFLibCore::setTextSt(PageItem *ite, uint PNr, const ScPage* pag)
 			tabDist = CurX;
 		}
 	}
-#endif
 	if (ite->itemType() == PageItem::TextFrame)
 		tmp += "ET\n"+tmp2;
 	return tmp;
@@ -5124,7 +5121,6 @@ QString PDFLibCore::setTextSt(PageItem *ite, uint PNr, const ScPage* pag)
 
 bool PDFLibCore::setTextCh(PageItem *ite, uint PNr, double x, double y, uint d, QString &tmp, QString &tmp2, ScText *hl, const ParagraphStyle& pstyle, const ScPage* pag)
 {
-#ifndef NLS_PROTO
 	QString output;
 	QString FillColor = "";
 	QString StrokeColor = "";
@@ -5591,7 +5587,6 @@ bool PDFLibCore::setTextCh(PageItem *ite, uint PNr, double x, double y, uint d, 
 		hl2.glyph.more = 0;
 	}
 	return true;
-#endif
 }
 
 QString PDFLibCore::SetColor(const QString& farbe, double Shade)

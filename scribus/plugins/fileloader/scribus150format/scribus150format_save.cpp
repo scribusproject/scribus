@@ -81,8 +81,8 @@ QString Scribus150Format::saveElements(double xp, double yp, double wp, double h
 				uint chr = currItem->itemText.text(e).unicode();
 				if (chr == 25)
 				{
-					if ((currItem->itemText.item(e)->hasObject(m_Doc)) && (!emF.contains(currItem->itemText.item(e)->getItem(m_Doc))))
-						emF.append(currItem->itemText.item(e)->getItem(m_Doc));
+                    if ((currItem->itemText.hasObject(e)) && (!emF.contains(currItem->itemText.object(e))))
+                        emF.append(currItem->itemText.object(e));
 				}
 			}
 		}
@@ -1519,7 +1519,7 @@ namespace { // anon
 		int lastPos = from;
 		for (int i = from; i < to; ++i)
 		{
-			if (itemText.charStyle(i).effects() & ScStyle_HyphenationPossible 
+			if (itemText.hasFlag(i, ScLayout_HyphenationPossible)
 				// duplicate SHYPHEN if already present to indicate a user provided SHYPHEN:
 				|| itemText.text(i) == SpecialChars::SHYPHEN)
 			{
@@ -1591,9 +1591,9 @@ void Scribus150Format::writeITEXTs(ScribusDoc *doc, ScXmlStreamWriter &docu, Pag
 			docu.writeAttribute("Unicode", tmpnum);
 			docu.writeAttribute("COBJ", item->itemText.object(k)->inlineCharID);
 		}
-		else if (ch == SpecialChars::OBJECT && item->itemText.item(k)->mark != NULL)
+        else if (ch == SpecialChars::OBJECT && item->itemText.hasMark(k))
 		{
-			Mark* mark = item->itemText.item(k)->mark;
+            Mark* mark = item->itemText.mark(k);
 			if (!mark->isType(MARKBullNumType))
 			{ //dont save marks for bullets and numbering
 				docu.writeEmptyElement("MARK");

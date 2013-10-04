@@ -416,6 +416,12 @@ void StoryText::removeChars(int pos, uint len)
 		if ((it->ch == SpecialChars::PARSEP)) {
 			removeParSep(i);
 		}
+        if (it->mark != NULL)
+        {
+            delete it->mark;
+            it->mark = NULL;
+        }
+
 //		qDebug("remove char %d at %d", (int) it->ch.unicode(), i);
 		d->takeAt(i);
 		d->len--;
@@ -685,6 +691,31 @@ QString StoryText::plainText() const
 	return result;
 }
 
+
+GlyphLayout* StoryText::getGlyphs(int pos)
+{
+    if (pos < 0)
+        pos += length();
+
+    assert(pos >= 0);
+    assert(pos < length());
+
+	assert((this->d->at(pos)->glyph).scaleH > 0.5);
+	return &(this->d->at(pos)->glyph);
+}
+
+const GlyphLayout* StoryText::getGlyphs(int pos) const
+{
+    if (pos < 0)
+        pos += length();
+
+    assert(pos >= 0);
+    assert(pos < length());
+
+	assert( (const_cast<StoryText *>(this)->d->at(pos)->glyph).scaleH > 0.5);
+	return &(const_cast<StoryText *>(this)->d->at(pos)->glyph);
+}
+
 QChar StoryText::text() const
 {
 	return text(d->cursorPosition);
@@ -775,7 +806,7 @@ PageItem* StoryText::object(int pos) const
 	return that->d->at(pos)->getItem(m_doc);
 }
 
-bool StoryText::hasMark(int pos) const
+bool StoryText::hasMark(int pos, Mark* mrk) const
 {
 	if (pos < 0)
 		pos += length();
@@ -785,7 +816,7 @@ bool StoryText::hasMark(int pos) const
 
 	StoryText* that = const_cast<StoryText *>(this);
 	if (that->d->at(pos)->ch == SpecialChars::OBJECT)
-		return that->d->at(pos)->hasMark();
+        return that->d->at(pos)->hasMark(mrk);
 	return false;
 }
 
@@ -800,6 +831,67 @@ Mark* StoryText::mark(int pos) const
 	StoryText* that = const_cast<StoryText *>(this);
 	return that->d->at(pos)->mark;
 }
+
+
+void StoryText::replaceMark(int pos, Mark* mrk)
+{
+    if (pos < 0)
+        pos += length();
+
+    assert(pos >= 0);
+    assert(pos < length());
+
+    this->d->at(pos)->mark = mrk;
+}
+
+
+LayoutFlags StoryText::flags(int pos) const
+{
+    if (pos < 0)
+        pos += length();
+
+    assert(pos >= 0);
+    assert(pos < length());
+
+    StoryText* that = const_cast<StoryText *>(this);
+	return  static_cast<LayoutFlags>((*that->d->at(pos)).effects().value & ScStyle_NonUserStyles);
+}
+
+bool StoryText::hasFlag(int pos, LayoutFlags flags) const
+{
+    if (pos < 0)
+        pos += length();
+
+    assert(pos >= 0);
+    assert(pos < length());
+    assert(flags & ScStyle_UserStyles == ScStyle_None);
+
+	return (flags & d->at(pos)->effects().value) == flags;
+}
+
+void StoryText::setFlag(int pos, LayoutFlags flags)
+{
+    if (pos < 0)
+        pos += length();
+
+    assert(pos >= 0);
+    assert(pos < length());
+    assert(flags & ScStyle_UserStyles == ScStyle_None);
+
+	d->at(pos)->setEffects(flags | d->at(pos)->effects().value);
+}
+
+void StoryText::clearFlag(int pos, LayoutFlags flags)
+{
+    if (pos < 0)
+        pos += length();
+
+    assert(pos >= 0);
+    assert(pos < length());
+
+	d->at(pos)->setEffects(~(flags & ScStyle_NonUserStyles) & d->at(pos)->effects().value);
+}
+
 
 const CharStyle & StoryText::charStyle() const
 {
@@ -1689,7 +1781,7 @@ void StoryText::invalidateLayout()
 void StoryText::invalidateAll()
 {
 	d->pstyleContext.invalidate();
-	invalidate(0, nrOfItems());
+    invalidate(0, length());
 }
 
 void StoryText::invalidate(int firstItem, int endItem)
@@ -1766,7 +1858,7 @@ FRect StoryText::boundingBox(int pos, uint len) const
 			continue;
 		if (ls.firstItem <= pos) {
 			/*
-			if (ls.lastItem == pos && (item(pos)->effects() & ScStyle_SuppressSpace)  )
+			if (ls.lastItem == pos && (item(pos)->effects() & ScLayout_SuppressSpace)  )
 			{
 				if (i+1 < lines())
 				{
@@ -1816,18 +1908,6 @@ FRect StoryText::boundingBox(int pos, uint len) const
 	return result;
 }
 
-int StoryText::layout(int startItem)
-{
-	//FIXME:NLS
-	return -1;
-}
-
-
-uint StoryText::nrOfItems() const
-{
-	return length();
-}
-
 
 ScText*  StoryText::item(uint itm)
 {
@@ -1843,36 +1923,36 @@ const ScText*  StoryText::item(uint itm) const
 }
 
 
-const QString StoryText::itemText(uint itm) const
-{
+//const QString StoryText::itemText(uint itm) const
+//{
 	
-	assert( static_cast<int>(itm) < length() );
+//	assert( static_cast<int>(itm) < length() );
 
-	return text(itm, 1);
-}
+//	return text(itm, 1);
+//}
 
 
-const CharStyle StoryText::itemStyle(uint itm) const
-{
-	assert( static_cast<int>(itm) < length() );
+//const CharStyle StoryText::itemStyle(uint itm) const
+//{
+//	assert( static_cast<int>(itm) < length() );
 
-	return charStyle(itm);
-}
+//	return charStyle(itm);
+//}
 	
 
-int StoryText::startOfItem(uint itm) const
-{
-	assert( static_cast<int>(itm) < length() );
+//int StoryText::startOfItem(uint itm) const
+//{
+//	assert( static_cast<int>(itm) < length() );
 
-	return itm;
-}
+//	return itm;
+//}
 
-int StoryText::endOfItem(uint itm) const
-{
-	assert( static_cast<int>(itm) < length() );
+//int StoryText::endOfItem(uint itm) const
+//{
+//	assert( static_cast<int>(itm) < length() );
 
-	return itm + 1;
-}
+//	return itm + 1;
+//}
 
 
 using namespace desaxe;
@@ -2065,16 +2145,15 @@ public:
 				if (toInsert > 0)
 					obj->insertChars(obj->length(), txt.mid(lastPos, toInsert));
 				len = obj->length();
-				ScText* lastItem = obj->item(len-1);
 				// qreal SHY means user provided SHY, single SHY is automatic one
-				if (lastItem->effects() & ScStyle_HyphenationPossible)
+				if (obj->hasFlag(len-1, ScLayout_HyphenationPossible))
 				{
-					lastItem->setEffects(lastItem->effects() & ~ScStyle_HyphenationPossible);
+					obj->clearFlag(len-1, ScLayout_HyphenationPossible);
 					obj->insertChars(len, QString(chr));
 				}
 				else
 				{
-					lastItem->setEffects(lastItem->effects() | ScStyle_HyphenationPossible);
+					obj->setFlag(len-1, ScLayout_HyphenationPossible);
 				}
 				lastPos = i + 1;
 			} 

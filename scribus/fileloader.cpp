@@ -39,7 +39,6 @@ for which a new license (GPL+exception) is in place.
 #include "util.h"
 
 #include "plugins/formatidlist.h"
-#include "text/nlsconfig.h"
 #include "ui/guidemanager.h"
 #include "ui/fontreplacedialog.h"
 #include "ui/missing.h"

@@ -18,7 +18,6 @@ for which a new license (GPL+exception) is in place.
 #include <QCursor>
 //Added by qt3to4:
 #include <QPixmap>
-#include "text/nlsconfig.h"
 
 SampleItem::SampleItem() : QObject()
 {
