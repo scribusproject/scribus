@@ -864,7 +864,7 @@ bool StoryText::hasFlag(int pos, LayoutFlags flags) const
 
     assert(pos >= 0);
     assert(pos < length());
-    assert(flags & ScStyle_UserStyles == ScStyle_None);
+    assert((flags & ScStyle_UserStyles) == ScStyle_None);
 
 	return (flags & d->at(pos)->effects().value) == flags;
 }
@@ -876,7 +876,7 @@ void StoryText::setFlag(int pos, LayoutFlags flags)
 
     assert(pos >= 0);
     assert(pos < length());
-    assert(flags & ScStyle_UserStyles == ScStyle_None);
+    assert((flags & ScStyle_UserStyles) == ScStyle_None);
 
 	d->at(pos)->setEffects(flags | d->at(pos)->effects().value);
 }
