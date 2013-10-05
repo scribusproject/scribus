@@ -935,7 +935,7 @@ void CMYKChoose::Verlassen()
 	// if condition 10/21/2004 pv #1191 - just be sure that user cannot create "None" color
 	if (Farbname->text().isEmpty())
 	{
-		QMessageBox::information(this, CommonStrings::trWarning, tr("You cannot create a color without a name\nPlease give it a name"), 0);
+		QMessageBox::information(this, CommonStrings::trWarning, tr("You cannot create a color without a name.\nPlease give it a name"), 0);
 		Farbname->setFocus();
 		Farbname->selectAll();
 		return;
@@ -951,7 +951,7 @@ void CMYKChoose::Verlassen()
 	{
 		if (EColors->contains(Farbname->text()))
 		{
-			QMessageBox::information(this, CommonStrings::trWarning, tr("The name of the color already exists,\nplease choose another one."), CommonStrings::tr_OK, 0, 0, 0, QMessageBox::Ok);
+			QMessageBox::information(this, CommonStrings::trWarning, tr("The name of the color already exists.\nPlease choose another one."), CommonStrings::tr_OK, 0, 0, 0, QMessageBox::Ok);
 			Farbname->selectAll();
 			Farbname->setFocus();
 			return;
