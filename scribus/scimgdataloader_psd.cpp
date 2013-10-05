@@ -652,6 +652,8 @@ bool ScImgDataLoader_PSD::parseLayer( QDataStream & s, const PSDHeader & header 
 	else
 	{
 		s >> numLayers;
+		if (numLayers == 0)
+			return false;
 		loadLayer( s, header);
 	}
 	return true;
