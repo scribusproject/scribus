@@ -5923,8 +5923,6 @@ QString PDFLibCore::PDF_TransparenzFill(PageItem *currItem)
 		else
 			gradient = currItem->mask_gradient;
 		QList<VColorStop*> cstops = gradient.colorStops();
-		StopVec.clear();
-		TransVec.clear();
 		QTransform mpa;
 		if (currItem->isGroup())
 		{
@@ -5936,15 +5934,16 @@ QString PDFLibCore::PDF_TransparenzFill(PageItem *currItem)
 			mpa.translate(0, currItem->height() * scaleY);
 			mpa.scale(scaleX, scaleY);
 		}
-		else
-			mpa.rotate(-currItem->rotation());
+		// #11761 : cause trouble when exporting transparency gradient
+		/*else
+			mpa.rotate(-currItem->rotation());*/
 		if (Gskew == 90)
 			Gskew = 1;
 		else if (Gskew == 180)
 			Gskew = 0;
 		else if (Gskew == 270)
 			Gskew = -1;
-		else if (Gskew == 390)
+		else if (Gskew == 360)
 			Gskew = 0;
 		else
 			Gskew = tan(M_PI / 180.0 * Gskew);
@@ -5969,12 +5968,6 @@ QString PDFLibCore::PDF_TransparenzFill(PageItem *currItem)
 		{
 			double actualStop = cstops.at(cst)->rampPoint;
 			qStopColor = cstops.at(cst)->color;
-			int h, s, v, sneu, vneu;
-			int shad = cstops.at(cst)->shade;
-			qStopColor.getHsv(&h, &s, &v);
-			sneu = s * shad / 100;
-			vneu = 255 - ((255 - v) * shad / 100);
-			qStopColor.setHsv(h, sneu, vneu);
 			double a = cstops.at(cst)->opacity;
 			double r, g, b;
 			qStopColor.getRgbF(&r, &g, &b);
@@ -7917,7 +7910,7 @@ bool PDFLibCore::PDF_GradientFillStroke(QString& output, PageItem *currItem, boo
 		Gskew = 0;
 	else if (Gskew == 270)
 		Gskew = -1;
-	else if (Gskew == 390)
+	else if (Gskew == 360)
 		Gskew = 0;
 	else
 		Gskew = tan(M_PI / 180.0 * Gskew);
