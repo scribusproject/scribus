@@ -466,8 +466,8 @@ void PaintManagerDialog::createNew()
 			if (dia->exec())
 			{
 				dia->Farbe.setSpotColor(dia->Separations->isChecked());
-				m_colorList.insert(dia->Farbname->text(), dia->Farbe);
-				QTreeWidgetItem *lg = updateColorList(dia->Farbname->text());
+				m_colorList.insert(dia->ColorName->text(), dia->Farbe);
+				QTreeWidgetItem *lg = updateColorList(dia->ColorName->text());
 				if (lg != 0)
 				{
 					dataTree->expandItem(lg->parent());
@@ -551,16 +551,16 @@ void PaintManagerDialog::editColorItem()
 			{
 				dia->Farbe.setSpotColor(dia->Separations->isChecked());
 				dia->Farbe.setRegistrationColor(tmpColor.isRegistrationColor());
-				m_colorList[dia->Farbname->text()] = dia->Farbe;
-				if (it->text(0) != dia->Farbname->text())
+				m_colorList[dia->ColorName->text()] = dia->Farbe;
+				if (it->text(0) != dia->ColorName->text())
 				{
-					replaceColorMap.insert(it->text(0), dia->Farbname->text());
+					replaceColorMap.insert(it->text(0), dia->ColorName->text());
 					m_colorList.remove(it->text(0));
 				}
-				updateGradientColors(dia->Farbname->text(), it->text(0));
+				updateGradientColors(dia->ColorName->text(), it->text(0));
 				updateGradientList();
 				updatePatternList();
-				QTreeWidgetItem *lg = updateColorList(dia->Farbname->text());
+				QTreeWidgetItem *lg = updateColorList(dia->ColorName->text());
 				if (lg != 0)
 				{
 					dataTree->expandItem(lg->parent());
@@ -671,16 +671,16 @@ void PaintManagerDialog::duplicateColorItem()
 			{
 				dia->Farbe.setSpotColor(dia->Separations->isChecked());
 				dia->Farbe.setRegistrationColor(tmpColor.isRegistrationColor());
-				m_colorList[dia->Farbname->text()] = dia->Farbe;
-				if (nam != dia->Farbname->text())
+				m_colorList[dia->ColorName->text()] = dia->Farbe;
+				if (nam != dia->ColorName->text())
 				{
-					replaceColorMap.insert(nam, dia->Farbname->text());
+					replaceColorMap.insert(nam, dia->ColorName->text());
 					m_colorList.remove(nam);
 				}
-				updateGradientColors(dia->Farbname->text(), nam);
+				updateGradientColors(dia->ColorName->text(), nam);
 				updateGradientList();
 				updatePatternList();
-				QTreeWidgetItem *lg = updateColorList(dia->Farbname->text());
+				QTreeWidgetItem *lg = updateColorList(dia->ColorName->text());
 				if (lg != 0)
 				{
 					dataTree->expandItem(lg->parent());

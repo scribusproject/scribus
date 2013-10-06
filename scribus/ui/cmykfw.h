@@ -42,7 +42,7 @@ public:
 	CMYKChoose( QWidget* parent, ScribusDoc* doc, ScColor orig, QString name, ColorList *Colors, bool newCol );
 	~CMYKChoose() {};
 	QLabel* TextLabel1;
-	QLineEdit* Farbname;
+	QLineEdit* ColorName;
 	QLabel* TextLabel3;
 	ScComboBox* ComboBox1;
 	QCheckBox* Separations;
@@ -92,21 +92,19 @@ public:
 public slots:
 	void slotRightClick();
 	void setValSLiders(double value);
-	void SetValueS(int val);
-	void ToggleSL();
-	QPixmap SliderPix(int farbe);
-	QPixmap SliderBlack();
-	void SelSwatch();
+	void setValueS(int val);
+	void toggleSL();
+	void selSwatch();
 	void setSpot();
-	void SelModel(const QString& mod);
+	void selModel(const QString& mod);
 	void setColor();
 	void setColor2(int h, int s, bool ende);
-	void SelFromSwatch(QListWidgetItem* c);
+	void selFromSwatch(QListWidgetItem* c);
 	void setValues();
-	void Verlassen();
+	void leave();
 
 protected:
-	QHBoxLayout* CMYKFarbenLayout;
+	QHBoxLayout* CMYKColorLayout;
 	QVBoxLayout* Layout23;
 	QGridLayout* Layout2;
 	QGridLayout* Layout2x;
@@ -125,6 +123,9 @@ protected:
 	QTreeWidgetItem *userSwatches;
 	QTreeWidgetItem *hsvSelector;
 	QStringList customColSet;
+	
+	QPixmap sliderPix(int farbe);
+	QPixmap sliderBlack();
 };
 
 #endif // CMYKFARBEN_H

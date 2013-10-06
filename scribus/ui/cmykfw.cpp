@@ -73,10 +73,10 @@ CMYKChoose::CMYKChoose( QWidget* parent, ScribusDoc* doc, ScColor orig, QString 
 	if ( ScColorEngine::isOutOfGamut(orig, m_doc) )
 		paintAlert(alertIcon, imageN, 2, 2, false);
 	Farbe = orig;
-	QPixmap image0 = SliderPix(180);
-	QPixmap image1 = SliderPix(300);
-	QPixmap image2 = SliderPix(60);
-	QPixmap image3 = SliderBlack();
+	QPixmap image0 = sliderPix(180);
+	QPixmap image1 = sliderPix(300);
+	QPixmap image2 = sliderPix(60);
+	QPixmap image3 = sliderBlack();
 	CMYKColor cmyk;
 	double ccd, cmd, cyd, ckd;
 	ScColorEngine::getCMYKValues(orig, m_doc, cmyk);
@@ -89,9 +89,9 @@ CMYKChoose::CMYKChoose( QWidget* parent, ScribusDoc* doc, ScColor orig, QString 
 	resize( 498, 306 );
 	setWindowTitle( tr( "Edit Color" ) );
 	setWindowIcon(QIcon(loadIcon("AppIcon.png")));
-	CMYKFarbenLayout = new QHBoxLayout( this );
-	CMYKFarbenLayout->setSpacing( 5 );
-	CMYKFarbenLayout->setMargin( 10 );
+	CMYKColorLayout = new QHBoxLayout( this );
+	CMYKColorLayout->setSpacing( 5 );
+	CMYKColorLayout->setMargin( 10 );
 	Layout23 = new QVBoxLayout;
 	Layout23->setSpacing( 5 );
 	Layout23->setMargin( 0 );
@@ -100,11 +100,11 @@ CMYKChoose::CMYKChoose( QWidget* parent, ScribusDoc* doc, ScColor orig, QString 
 	TextLabel1->setMinimumSize( QSize( 200, 22 ) );
 	Layout23->addWidget( TextLabel1 );
 
-	Farbname = new QLineEdit( this );
-	Farbname->setMinimumSize( QSize( 200, 22 ) );
-	Farbname->setText( name );
-	TextLabel1->setBuddy( Farbname );
-	Layout23->addWidget( Farbname );
+	ColorName = new QLineEdit( this );
+	ColorName->setMinimumSize( QSize( 200, 22 ) );
+	ColorName->setText( name );
+	TextLabel1->setBuddy( ColorName );
+	Layout23->addWidget( ColorName );
 
 	TextLabel3 = new QLabel( tr( "Color &Model" ), this );
 	TextLabel3->setMinimumSize( QSize( 100, 22 ) );
@@ -175,7 +175,7 @@ CMYKChoose::CMYKChoose( QWidget* parent, ScribusDoc* doc, ScColor orig, QString 
 	Cancel = new QPushButton( CommonStrings::tr_Cancel, this );
 	Layout21->addWidget( Cancel );
 	Layout23->addLayout( Layout21 );
-	CMYKFarbenLayout->addLayout( Layout23 );
+	CMYKColorLayout->addLayout( Layout23 );
 
 	Frame4 = new QFrame( this );
 	Frame4->setFrameShape( QFrame::NoFrame );
@@ -343,14 +343,14 @@ CMYKChoose::CMYKChoose( QWidget* parent, ScribusDoc* doc, ScColor orig, QString 
 	Frame4Layout->addLayout( Layout2x );
 	QSpacerItem* spacer2 = new QSpacerItem( 2, 2, QSizePolicy::Minimum, QSizePolicy::Expanding );
 	Frame4Layout->addItem( spacer2 );
-	CMYKFarbenLayout->addWidget( Frame4 );
+	CMYKColorLayout->addWidget( Frame4 );
 	int h, s, v;
 	ScColorEngine::getRGBColor(orig, m_doc).getHsv(&h, &s, &v);
 	ColorMap->drawPalette(v);
 	ColorMap->setMark(h, s);
 	Fnam = name;
-	Farbname->selectAll();
-	Farbname->setFocus();
+	ColorName->selectAll();
+	ColorName->setFocus();
 	TabStack->setCurrentIndex(0);
 	setFixedSize(minimumSizeHint());
 	setContextMenuPolicy(Qt::CustomContextMenu);
@@ -358,30 +358,30 @@ CMYKChoose::CMYKChoose( QWidget* parent, ScribusDoc* doc, ScColor orig, QString 
 //	Regist->setToolTip( "<qt>" + tr( "Choosing this will enable printing this on all plates. Registration colors are used for printer marks such as crop marks, registration marks and the like. These are not typically used in the layout itself." ) + "</qt>");
 	Separations->setToolTip( "<qt>" + tr( "Choosing this will make this color a spot color, thus creating another spot when creating plates or separations. This is used most often when a logo or other color needs exact representation or cannot be replicated with CMYK inks. Metallic and fluorescent inks are good examples which cannot be easily replicated with CMYK inks." ) + "</qt>");
 	connect( Cancel, SIGNAL( clicked() ), this, SLOT( reject() ) );
-	connect( Cancel_2, SIGNAL( clicked() ), this, SLOT( Verlassen() ) );
+	connect( Cancel_2, SIGNAL( clicked() ), this, SLOT( leave() ) );
 	connect( CyanSp, SIGNAL( valueChanged(double) ), this, SLOT( setValSLiders(double) ) );
 	connect( MagentaSp, SIGNAL( valueChanged(double) ), this, SLOT( setValSLiders(double) ) );
 	connect( YellowSp, SIGNAL( valueChanged(double) ), this, SLOT( setValSLiders(double) ) );
 	connect( BlackSp, SIGNAL( valueChanged(double) ), this, SLOT( setValSLiders(double) ) );
-	connect( CyanSL, SIGNAL( valueChanged(int) ), this, SLOT( SetValueS(int) ) );
-	connect( MagentaSL, SIGNAL( valueChanged(int) ), this, SLOT( SetValueS(int) ) );
-	connect( YellowSL, SIGNAL( valueChanged(int) ), this, SLOT( SetValueS(int) ) );
-	connect( BlackSL, SIGNAL( valueChanged(int) ), this, SLOT( SetValueS(int) ) );
+	connect( CyanSL, SIGNAL( valueChanged(int) ), this, SLOT( setValueS(int) ) );
+	connect( MagentaSL, SIGNAL( valueChanged(int) ), this, SLOT( setValueS(int) ) );
+	connect( YellowSL, SIGNAL( valueChanged(int) ), this, SLOT( setValueS(int) ) );
+	connect( BlackSL, SIGNAL( valueChanged(int) ), this, SLOT( setValueS(int) ) );
 	connect( CyanSL, SIGNAL( valueChanged(int) ), this, SLOT( setColor() ) );
 	connect( MagentaSL, SIGNAL( valueChanged(int) ), this, SLOT( setColor() ) );
 	connect( YellowSL, SIGNAL( valueChanged(int) ), this, SLOT( setColor() ) );
 	connect( BlackSL, SIGNAL( valueChanged(int) ), this, SLOT( setColor() ) );
 	connect( ColorMap, SIGNAL( ColorVal(int, int, bool)), this, SLOT( setColor2(int, int, bool)));
-	connect( ComboBox1, SIGNAL(activated(const QString&)), this, SLOT(SelModel(const QString&)));
-//	connect( Swatches, SIGNAL(activated(int)), this, SLOT(SelSwatch(int)));
-	connect(Swatches, SIGNAL(activated(const QString &)), this, SLOT(SelSwatch()));
-	connect(ColorSwatch, SIGNAL( itemClicked(QListWidgetItem*) ), this, SLOT( SelFromSwatch(QListWidgetItem*) ) );
+	connect( ComboBox1, SIGNAL(activated(const QString&)), this, SLOT(selModel(const QString&)));
+//	connect( Swatches, SIGNAL(activated(int)), this, SLOT(selSwatch(int)));
+	connect(Swatches, SIGNAL(activated(const QString &)), this, SLOT(selSwatch()));
+	connect(ColorSwatch, SIGNAL( itemClicked(QListWidgetItem*) ), this, SLOT( selFromSwatch(QListWidgetItem*) ) );
 	connect(Separations, SIGNAL(clicked()), this, SLOT(setSpot()));
 //	connect(Regist, SIGNAL(clicked()), this, SLOT(setRegist()));
 	connect(this, SIGNAL(customContextMenuRequested (const QPoint &)), this, SLOT(slotRightClick()));
 	layout()->activate();
 	if (!CMYKmode)
-		SelModel ( tr( "RGB" ));
+		selModel ( tr( "RGB" ));
 	isRegistration = Farbe.isRegistrationColor();
 	if (Farbe.isRegistrationColor())
 	{
@@ -411,12 +411,12 @@ void CMYKChoose::slotRightClick()
 		dynAct = pmen->addAction( tr("Static Color Bars"));
 	else
 		dynAct = pmen->addAction( tr("Dynamic Color Bars"));
-	connect(dynAct, SIGNAL(triggered()), this, SLOT(ToggleSL()));
+	connect(dynAct, SIGNAL(triggered()), this, SLOT(toggleSL()));
 	pmen->exec(QCursor::pos());
 	delete pmen;
 }
 
-void CMYKChoose::SetValueS(int val)
+void CMYKChoose::setValueS(int val)
 {
 	disconnect( CyanSp, SIGNAL( valueChanged(double) ), this, SLOT( setValSLiders(double) ) );
 	disconnect( MagentaSp, SIGNAL( valueChanged(double) ), this, SLOT( setValSLiders(double) ) );
@@ -437,17 +437,17 @@ void CMYKChoose::SetValueS(int val)
 	connect( BlackSp, SIGNAL( valueChanged(double) ), this, SLOT( setValSLiders(double) ) );
 }
 
-void CMYKChoose::ToggleSL()
+void CMYKChoose::toggleSL()
 {
 	dynamic = !dynamic;
-	CyanP->setPixmap(SliderPix(CMYKmode ? 180 : 0));
-	MagentaP->setPixmap(SliderPix(CMYKmode? 300 : 120));
-	YellowP->setPixmap(SliderPix(CMYKmode? 60 : 240));
+	CyanP->setPixmap(sliderPix(CMYKmode ? 180 : 0));
+	MagentaP->setPixmap(sliderPix(CMYKmode? 300 : 120));
+	YellowP->setPixmap(sliderPix(CMYKmode? 60 : 240));
 	if (CMYKmode)
-		BlackP->setPixmap(SliderBlack());
+		BlackP->setPixmap(sliderBlack());
 }
 
-QPixmap CMYKChoose::SliderPix(int farbe)
+QPixmap CMYKChoose::sliderPix(int farbe)
 {
 	RGBColor rgb;
 	CMYKColor cmyk;
@@ -539,7 +539,7 @@ QPixmap CMYKChoose::SliderPix(int farbe)
 	return image0;
 }
 
-QPixmap CMYKChoose::SliderBlack()
+QPixmap CMYKChoose::sliderBlack()
 {
 	QPixmap image0 = QPixmap(255,10);
 	QPainter p;
@@ -563,7 +563,7 @@ QPixmap CMYKChoose::SliderBlack()
 	return image0;
 }
 
-void CMYKChoose::SelSwatch()
+void CMYKChoose::selSwatch()
 {
 	QTreeWidgetItem *c = Swatches->currentItem();
 	if (c == hsvSelector)
@@ -605,26 +605,26 @@ void CMYKChoose::SelSwatch()
 
 void CMYKChoose::setSpot()
 {
-	disconnect( ComboBox1, SIGNAL(activated(const QString&)), this, SLOT(SelModel(const QString&)));
+	disconnect( ComboBox1, SIGNAL(activated(const QString&)), this, SLOT(selModel(const QString&)));
 	if (Separations->isChecked())
 	{
 		ComboBox1->setCurrentIndex( 0 );
 //		Commented out to allow RGB Spot-Colors
-//		SelModel( tr("CMYK"));
+//		selModel( tr("CMYK"));
 	}
-	connect( ComboBox1, SIGNAL(activated(const QString&)), this, SLOT(SelModel(const QString&)));
+	connect( ComboBox1, SIGNAL(activated(const QString&)), this, SLOT(selModel(const QString&)));
 }
 
-void CMYKChoose::SelModel(const QString& mod)
+void CMYKChoose::selModel(const QString& mod)
 {
 	disconnect( CyanSp, SIGNAL( valueChanged(double) ), this, SLOT( setValSLiders(double) ) );
 	disconnect( MagentaSp, SIGNAL( valueChanged(double) ), this, SLOT( setValSLiders(double) ) );
 	disconnect( YellowSp, SIGNAL( valueChanged(double) ), this, SLOT( setValSLiders(double) ) );
 	disconnect( BlackSp, SIGNAL( valueChanged(double) ), this, SLOT( setValSLiders(double) ) );
-	disconnect( CyanSL, SIGNAL( valueChanged(int) ), this, SLOT( SetValueS(int) ) );
-	disconnect( MagentaSL, SIGNAL( valueChanged(int) ), this, SLOT( SetValueS(int) ) );
-	disconnect( YellowSL, SIGNAL( valueChanged(int) ), this, SLOT( SetValueS(int) ) );
-	disconnect( BlackSL, SIGNAL( valueChanged(int) ), this, SLOT( SetValueS(int) ) );
+	disconnect( CyanSL, SIGNAL( valueChanged(int) ), this, SLOT( setValueS(int) ) );
+	disconnect( MagentaSL, SIGNAL( valueChanged(int) ), this, SLOT( setValueS(int) ) );
+	disconnect( YellowSL, SIGNAL( valueChanged(int) ), this, SLOT( setValueS(int) ) );
+	disconnect( BlackSL, SIGNAL( valueChanged(int) ), this, SLOT( setValueS(int) ) );
 	disconnect( CyanSL, SIGNAL( valueChanged(int) ), this, SLOT( setColor() ) );
 	disconnect( MagentaSL, SIGNAL( valueChanged(int) ), this, SLOT( setColor() ) );
 	disconnect( YellowSL, SIGNAL( valueChanged(int) ), this, SLOT( setColor() ) );
@@ -657,10 +657,10 @@ void CMYKChoose::SelModel(const QString& mod)
 		CyanT->setText( tr("C:"));
 		MagentaT->setText( tr("M:"));
 		YellowT->setText( tr("Y:"));
-		CyanP->setPixmap(SliderPix(180));
-		MagentaP->setPixmap(SliderPix(300));
-		YellowP->setPixmap(SliderPix(60));
-		BlackP->setPixmap(SliderBlack());
+		CyanP->setPixmap(sliderPix(180));
+		MagentaP->setPixmap(sliderPix(300));
+		YellowP->setPixmap(sliderPix(60));
+		BlackP->setPixmap(sliderBlack());
 		BlackP->show();
 		BlackSL->show();
 		BlackSp->show();
@@ -696,9 +696,9 @@ void CMYKChoose::SelModel(const QString& mod)
 		CyanT->setText( tr("R:"));
 		MagentaT->setText( tr("G:"));
 		YellowT->setText( tr("B:"));
-		CyanP->setPixmap(SliderPix(0));
-		MagentaP->setPixmap(SliderPix(120));
-		YellowP->setPixmap(SliderPix(240));
+		CyanP->setPixmap(sliderPix(0));
+		MagentaP->setPixmap(sliderPix(120));
+		YellowP->setPixmap(sliderPix(240));
 		Layout2x->setSizeConstraint(QLayout::SetFixedSize);
 		BlackP->hide();
 		BlackSL->hide();
@@ -731,10 +731,10 @@ void CMYKChoose::SelModel(const QString& mod)
 	connect( MagentaSp, SIGNAL( valueChanged(double) ), this, SLOT( setValSLiders(double) ) );
 	connect( YellowSp, SIGNAL( valueChanged(double) ), this, SLOT( setValSLiders(double) ) );
 	connect( BlackSp, SIGNAL( valueChanged(double) ), this, SLOT( setValSLiders(double) ) );
-	connect( CyanSL, SIGNAL( valueChanged(int) ), this, SLOT( SetValueS(int) ) );
-	connect( MagentaSL, SIGNAL( valueChanged(int) ), this, SLOT( SetValueS(int) ) );
-	connect( YellowSL, SIGNAL( valueChanged(int) ), this, SLOT( SetValueS(int) ) );
-	connect( BlackSL, SIGNAL( valueChanged(int) ), this, SLOT( SetValueS(int) ) );
+	connect( CyanSL, SIGNAL( valueChanged(int) ), this, SLOT( setValueS(int) ) );
+	connect( MagentaSL, SIGNAL( valueChanged(int) ), this, SLOT( setValueS(int) ) );
+	connect( YellowSL, SIGNAL( valueChanged(int) ), this, SLOT( setValueS(int) ) );
+	connect( BlackSL, SIGNAL( valueChanged(int) ), this, SLOT( setValueS(int) ) );
 	connect( CyanSL, SIGNAL( valueChanged(int) ), this, SLOT( setColor() ) );
 	connect( MagentaSL, SIGNAL( valueChanged(int) ), this, SLOT( setColor() ) );
 	connect( YellowSL, SIGNAL( valueChanged(int) ), this, SLOT( setColor() ) );
@@ -780,10 +780,10 @@ void CMYKChoose::setColor()
 		tmp.setColor(c, m, y, k);
 		if (dynamic)
 		{
-			CyanP->setPixmap(SliderPix(180));
-			MagentaP->setPixmap(SliderPix(300));
-			YellowP->setPixmap(SliderPix(60));
-			BlackP->setPixmap(SliderBlack());
+			CyanP->setPixmap(sliderPix(180));
+			MagentaP->setPixmap(sliderPix(300));
+			YellowP->setPixmap(sliderPix(60));
+			BlackP->setPixmap(sliderBlack());
 		}
 	}
 	else
@@ -794,9 +794,9 @@ void CMYKChoose::setColor()
 		BlackComp = 255 - v;
 		if (dynamic)
 		{
-			CyanP->setPixmap(SliderPix(0));
-			MagentaP->setPixmap(SliderPix(120));
-			YellowP->setPixmap(SliderPix(240));
+			CyanP->setPixmap(sliderPix(0));
+			MagentaP->setPixmap(sliderPix(120));
+			YellowP->setPixmap(sliderPix(240));
 		}
 	}
 	imageN.fill(ScColorEngine::getDisplayColor(tmp, m_doc) );
@@ -831,27 +831,27 @@ void CMYKChoose::setColor2(int h, int s, bool ende)
 		setValues();
 }
 
-void CMYKChoose::SelFromSwatch(QListWidgetItem* c)
+void CMYKChoose::selFromSwatch(QListWidgetItem* c)
 {
-	disconnect( ComboBox1, SIGNAL(activated(const QString&)), this, SLOT(SelModel(const QString&)));
+	disconnect( ComboBox1, SIGNAL(activated(const QString&)), this, SLOT(selModel(const QString&)));
 	ScColor tmp = CurrSwatch[c->text()];
 	if (isRegistration)
 	{
 		if (tmp.getColorModel() != colorModelCMYK)
 			tmp = ScColorEngine::convertToModel(tmp, m_doc, colorModelCMYK);
-		SelModel( tr("CMYK"));
+		selModel( tr("CMYK"));
 	}
 	else
 	{
 		if (tmp.getColorModel() == colorModelCMYK)
 		{
 			ComboBox1->setCurrentIndex( 0 );
-			SelModel( tr("CMYK"));
+			selModel( tr("CMYK"));
 		}
 		else
 		{
 			ComboBox1->setCurrentIndex( 1 );
-			SelModel( tr("RGB"));
+			selModel( tr("RGB"));
 		}
 	}
 	imageN.fill( ScColorEngine::getDisplayColor(tmp, m_doc) );
@@ -861,9 +861,9 @@ void CMYKChoose::SelFromSwatch(QListWidgetItem* c)
 	Farbe = tmp;
 	setValues();
 	Separations->setChecked(tmp.isSpotColor());
-	if ((isNew) && (!Farbname->isModified()))
-		Farbname->setText(c->text());
-	connect( ComboBox1, SIGNAL(activated(const QString&)), this, SLOT(SelModel(const QString&)));
+	if ((isNew) && (!ColorName->isModified()))
+		ColorName->setText(c->text());
+	connect( ComboBox1, SIGNAL(activated(const QString&)), this, SLOT(selModel(const QString&)));
 }
 
 void CMYKChoose::setValues()
@@ -892,10 +892,10 @@ void CMYKChoose::setValues()
 		BlackSL->setValue(qRound(ck / 2.55));
 		if (dynamic)
 		{
-			CyanP->setPixmap(SliderPix(180));
-			MagentaP->setPixmap(SliderPix(300));
-			YellowP->setPixmap(SliderPix(60));
-			BlackP->setPixmap(SliderBlack());
+			CyanP->setPixmap(sliderPix(180));
+			MagentaP->setPixmap(sliderPix(300));
+			YellowP->setPixmap(sliderPix(60));
+			BlackP->setPixmap(sliderBlack());
 		}
 	}
 	else
@@ -915,9 +915,9 @@ void CMYKChoose::setValues()
 		BlackComp = 255 - v;
 		if (dynamic)
 		{
-			CyanP->setPixmap(SliderPix(0));
-			MagentaP->setPixmap(SliderPix(120));
-			YellowP->setPixmap(SliderPix(240));
+			CyanP->setPixmap(sliderPix(0));
+			MagentaP->setPixmap(sliderPix(120));
+			YellowP->setPixmap(sliderPix(240));
 		}
 	}
 	CyanSp->blockSignals(false);
@@ -930,30 +930,30 @@ void CMYKChoose::setValues()
 	BlackSL->blockSignals(false);
 }
 
-void CMYKChoose::Verlassen()
+void CMYKChoose::leave()
 {
 	// if condition 10/21/2004 pv #1191 - just be sure that user cannot create "None" color
-	if (Farbname->text().isEmpty())
+	if (ColorName->text().isEmpty())
 	{
 		QMessageBox::information(this, CommonStrings::trWarning, tr("You cannot create a color without a name.\nPlease give it a name"), 0);
-		Farbname->setFocus();
-		Farbname->selectAll();
+		ColorName->setFocus();
+		ColorName->selectAll();
 		return;
 	}
-	if (Farbname->text() == CommonStrings::None || Farbname->text() == CommonStrings::tr_NoneColor)
+	if (ColorName->text() == CommonStrings::None || ColorName->text() == CommonStrings::tr_NoneColor)
 	{
-		QMessageBox::information(this, CommonStrings::trWarning, tr("You cannot create a color named \"%1\".\nIt is a reserved name for transparent color").arg(Farbname->text()), 0);
-		Farbname->setFocus();
-		Farbname->selectAll();
+		QMessageBox::information(this, CommonStrings::trWarning, tr("You cannot create a color named \"%1\".\nIt is a reserved name for transparent color").arg(ColorName->text()), 0);
+		ColorName->setFocus();
+		ColorName->selectAll();
 		return;
 	}
-	if ((Fnam != Farbname->text()) || (isNew))
+	if ((Fnam != ColorName->text()) || (isNew))
 	{
-		if (EColors->contains(Farbname->text()))
+		if (EColors->contains(ColorName->text()))
 		{
 			QMessageBox::information(this, CommonStrings::trWarning, tr("The name of the color already exists.\nPlease choose another one."), CommonStrings::tr_OK, 0, 0, 0, QMessageBox::Ok);
-			Farbname->selectAll();
-			Farbname->setFocus();
+			ColorName->selectAll();
+			ColorName->setFocus();
 			return;
 		}
 		else
