@@ -5926,7 +5926,7 @@ QString PDFLibCore::PDF_TransparenzFill(PageItem *currItem)
 		QTransform mpa;
 		if (currItem->isGroup())
 		{
-			mpa.translate(currItem->xPos() - ActPageP->xOffset(), ActPageP->height() - (currItem->yPos() - ActPageP->yOffset()));
+			mpa.translate(currItem->xPos() - ActPageP->xOffset(), currItem->height());
 			mpa.rotate(-currItem->rotation());
 		}
 		else if (currItem->itemType() == PageItem::Symbol)
@@ -6075,7 +6075,7 @@ QString PDFLibCore::PDF_TransparenzFill(PageItem *currItem)
 		if (currItem->isGroup())
 		{
 			QTransform mpa;
-			mpa.translate(currItem->xPos() - ActPageP->xOffset(), ActPageP->height() - (currItem->yPos() - ActPageP->yOffset()));
+			mpa.translate(currItem->xPos() - ActPageP->xOffset(), currItem->height());
 			mpa.rotate(-currItem->rotation());
 			stre += FToStr(mpa.m11())+" "+FToStr(mpa.m12())+" "+FToStr(mpa.m21())+" "+FToStr(mpa.m22())+" "+FToStr(mpa.dx())+" "+FToStr(mpa.dy())+" cm\n";
 		}
