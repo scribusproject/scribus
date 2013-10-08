@@ -73,7 +73,6 @@ void ScribusWin::setView(ScribusView* newView)
 	m_View->previewToolbarButton->setParent(statusFrame);
 	m_View->visualMenu->setParent(statusFrame);
 	statusFrameLayout->addWidget(m_View->unitSwitcher);
-	statusFrameLayout->addWidget(m_View->previewQualitySwitcher);
 	statusFrameLayout->addWidget(m_View->zoomSpinBox);
 	statusFrameLayout->addWidget(m_View->zoomOutToolbarButton);
 	statusFrameLayout->addWidget(m_View->zoomDefaultToolbarButton);
@@ -85,6 +84,7 @@ void ScribusWin::setView(ScribusView* newView)
 	statusFrameLayout->addWidget(m_View->cmsToolbarButton);
 	statusFrameLayout->addWidget(m_View->editOnPreviewToolbarButton);
 	statusFrameLayout->addWidget(m_View->previewToolbarButton);
+	statusFrameLayout->addWidget(m_View->previewQualitySwitcher);
 	statusFrameLayout->addWidget(m_View->visualMenu);
 	statusBar()->addPermanentWidget(statusFrame, 4);
 	currentDir = QDir::currentPath();
