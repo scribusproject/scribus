@@ -25,10 +25,15 @@ for which a new license (GPL+exception) is in place.
 #include <QObject>
 #include <QPoint>
 #include <QMenu>
+#include <QList>
+#include <QMap>
+#include <QPointer>
+#include <QString>
 
 class QMenuBar;
 
 #include "scribusapi.h"
+#include "actionmanager.h"
 class ScrAction;
 class ScrPopupMenu;
 class ScribusMainWindow;
@@ -54,6 +59,7 @@ class SCRIBUS_API MenuManager : public QObject
 		QMenu *getLocalPopupMenu(const QString &menuName);
 		void setMenuEnabled(const QString &menuName, const bool enabled);
 		bool addMenuToMenuBar(const QString &menuName);
+		bool addMenuStringToMenuBar(const QString &menuName);
 		bool addMenuToMenuBarBefore(const QString &, const QString &);
 		bool removeMenuFromMenuBar(const QString &menuName);
 		bool addMenuToWidgetOfAction(const QString &menuName, ScrAction *action);
@@ -69,13 +75,28 @@ class SCRIBUS_API MenuManager : public QObject
 		void generateKeyManList(QStringList *actionNames);
 		bool empty();
 		bool menuExists(const QString &menuName);
-
+		void dumpMenuStrings();
+		void addMenuItemString(const QString& s, const QString &parent);
+		void addMenuItemStringstoMenuBar(const QString &menuName, const QMap<QString, QPointer<ScrAction> > &menuActions);
+		void addMenuItemStringstoMenu(const QString &menuName, QMenu *menuToAddTo, const QMap<QString, QPointer<ScrAction> > &menuActions);
+		void addMenuItemStringstoSpecialMenu(const QString &menuName, const QMap<QString, QPointer<ScrAction> > &menuActions);
+		void clearMenuStrings(const QString &menuName);
+		void addMenuItemStringAfter(const QString &s, const QString &after, const QString &parent);
 	public slots:
 		void languageChange() {};
 
 private:
 	QMenuBar *scribusMenuBar;
 	QMap<QString, ScrPopupMenu *> menuList;
+
+	QMap<QString, QList<QString> > menuStrings;
+	QMap<QString, QString> menuStringTexts;
+	QMap<QString, QMenu*> menuBarMenus;
+	QMenu *recentFileMenu;
+	QMenu *editPasteRecentMenu;
+	QMenu *itemLayerMenu;
+	QMenu *itemSendtoScrapbookMenu;
+	QMenu *windowsMenu;
 };
 
 #endif

@@ -306,7 +306,8 @@ bool PluginManager::setupPluginActions(ScribusMainWindow *mw)
 			// Connect action's activated signal with the plugin's run method
 			it.value().enabled = connect( mw->scrActions[ai.name], SIGNAL(triggeredData(ScribusDoc*)),
 							plugin, SLOT(run(ScribusDoc*)) );
-			//Get the menu manager to add the DLL's menu item to the right menu, after the chosen existing item
+
+			 //Get the menu manager to add the DLL's menu item to the right menu, after the chosen existing item
 			if ( ai.menuAfterName.isEmpty() )
 			{
 				if (!ai.menu.isEmpty())
@@ -318,7 +319,8 @@ bool PluginManager::setupPluginActions(ScribusMainWindow *mw)
 							mw->scrMenuMgr->createMenu(ai.menu, ai.subMenuName, ai.parentMenu);
 						}
 					}
-					mw->scrMenuMgr->addMenuItem(mw->scrActions[ai.name], ai.menu, true);
+//					mw->scrMenuMgr->addMenuItem(mw->scrActions[ai.name], ai.menu, true);
+					mw->scrMenuMgr->addMenuItemString(ai.name, ai.menu);
 				}
 			}
 			else
@@ -333,7 +335,9 @@ bool PluginManager::setupPluginActions(ScribusMainWindow *mw)
 					if (!mw->scrMenuMgr->menuExists(ai.menu))
 						mw->scrMenuMgr->createMenu(ai.menu, ai.subMenuName, ai.parentMenu);
 				}
-				mw->scrMenuMgr->addMenuItemAfter(mw->scrActions[ai.name], ai.menu, true, afterAction);
+				mw->scrMenuMgr->addMenuItemStringAfter(ai.name, ai.menuAfterName, ai.menu);
+//				mw->scrMenuMgr->addMenuItemAfter(mw->scrActions[ai.name], ai.menu, true, afterAction);
+//				mw->scrMenuMgr->addMenuItem(mw->scrActions[ai.name], ai.menu, true);
 			}
 			if (!ai.toolbar.isEmpty())
 			{
@@ -358,6 +362,12 @@ bool PluginManager::setupPluginActions(ScribusMainWindow *mw)
 		}
 
 	}
+	mw->scrMenuMgr->clearMenu("File");
+	mw->scrMenuMgr->addMenuItemStringstoMenuBar("File", mw->scrActions);
+	mw->scrMenuMgr->clearMenu("Item");
+	mw->scrMenuMgr->addMenuItemStringstoMenuBar("Item", mw->scrActions);
+	mw->scrMenuMgr->clearMenu("Extras");
+	mw->scrMenuMgr->addMenuItemStringstoMenuBar("Extras", mw->scrActions);
 	return true;
 }
 
