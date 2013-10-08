@@ -31,7 +31,7 @@ PropertyWidget_ParEffect::PropertyWidget_ParEffect(QWidget *parent) : QFrame(par
 	fillBulletStrEditCombo();
 	fillNumFormatCombo();
 	enableParEffect(false);
-	bulletCharTableButton_->setIcon(loadIcon("22/insert-table.png"));
+	bulletCharTableButton->setIcon(loadIcon("22/insert-table.png"));
 	numStart->setMinimum(1);
 	numStart->setMaximum(9999);
 	numLevelSpin->setMinimum(1);
@@ -67,15 +67,17 @@ void PropertyWidget_ParEffect::setDoc(ScribusDoc *doc)
 		disconnectSignals();
 		return;
 	}
-	fillNumerationsCombo();
 
 	m_unitRatio   = m_doc->unitRatio();
 	m_unitIndex   = m_doc->unitIndex();
-	peOffset_->setSuffix(unitGetSuffixFromIndex(0));
+
+	fillNumerationsCombo();
 
 	connect(m_doc->m_Selection, SIGNAL(selectionChanged()), this, SLOT(handleSelectionChanged()));
 	connect(m_doc             , SIGNAL(docChanged())      , this, SLOT(handleSelectionChanged()));
-	connectSignals();
+
+	// Handle properties update when switching document
+	handleSelectionChanged();
 }
 
 void PropertyWidget_ParEffect::setCurrentItem(PageItem *item)
@@ -84,6 +86,7 @@ void PropertyWidget_ParEffect::setCurrentItem(PageItem *item)
 		setDoc(item->doc());
 
 	m_item = item;
+	disconnectSignals();
 
 	if (!m_item) return;
 
@@ -96,6 +99,7 @@ void PropertyWidget_ParEffect::setCurrentItem(PageItem *item)
 		else if (m_doc->appMode == modeEditTable)
 			m_item->asTable()->activeCell().textFrame()->currentTextProps(parStyle);
 		updateStyle(parStyle);
+		connectSignals();
 	}
 }
 
@@ -107,9 +111,9 @@ void PropertyWidget_ParEffect::unitChange()
 	m_unitRatio = m_doc->unitRatio();
 	m_unitIndex = m_doc->unitIndex();
 
-	peOffset_->blockSignals(true);
-	peOffset_->setNewUnit( m_unitIndex );
-	peOffset_->blockSignals(false);
+	peOffset->blockSignals(true);
+	peOffset->setNewUnit( m_unitIndex );
+	peOffset->blockSignals(false);
 }
 
 void PropertyWidget_ParEffect::fillNumerationsCombo()
@@ -153,8 +157,8 @@ void PropertyWidget_ParEffect::enableDropCap(bool enable)
 }
 void PropertyWidget_ParEffect::enableBullet(bool enable)
 {
-	bulletStrEdit_->setVisible(enable);
-	bulletCharTableButton_->setVisible(enable);
+	bulletStrEdit->setVisible(enable);
+	bulletCharTableButton->setVisible(enable);
 	bullGroup->setVisible(enable);
 	if (enable)
 	{
@@ -179,9 +183,9 @@ void PropertyWidget_ParEffect::enableNum(bool enable)
 }
 void PropertyWidget_ParEffect::enableParEffect(bool enable)
 {
-	peOffset_->setVisible(enable);
+	peOffset->setVisible(enable);
 	peCharStyleCombo->setVisible(enable);
-	peIndent_->setVisible(enable);
+	peIndent->setVisible(enable);
 	peGroup->setVisible(enable);
 	if (!enable)
 	{
@@ -223,7 +227,7 @@ void PropertyWidget_ParEffect::updateStyle(const ParagraphStyle& newPStyle)
 	QString numName = numComboBox->currentText();
 	int nFormat = 0;
 	dropCapLines->setValue(newPStyle.dropCapLines());
-	bulletStrEdit_->setEditText(newPStyle.bulletStr());
+	bulletStrEdit->setEditText(newPStyle.bulletStr());
 	numName = newPStyle.numName();
 	if (numName == "")
 		numName = "<local block>";
@@ -240,8 +244,8 @@ void PropertyWidget_ParEffect::updateStyle(const ParagraphStyle& newPStyle)
 
 	nFormat = newPStyle.numFormat();
 	numFormatCombo->setCurrentIndex(nFormat);
-	peOffset_->setValue(newPStyle.parEffectOffset() * m_unitRatio);
-	peIndent_->setChecked(newPStyle.parEffectIndent());
+	peOffset->setValue(newPStyle.parEffectOffset() * m_unitRatio);
+	peIndent->setChecked(newPStyle.parEffectIndent());
 	displayCharStyle(newPStyle.peCharStyleName());
 
 	enableParEffect(enablePE);
@@ -252,15 +256,15 @@ void PropertyWidget_ParEffect::connectSignals()
 {
 	connect(peCombo, SIGNAL(activated(int)), this, SLOT(handleParEffectUse()), Qt::UniqueConnection);
 	connect(dropCapLines, SIGNAL(valueChanged(int)), this, SLOT(handleDropCapLines(int)), Qt::UniqueConnection);
-	connect(bulletStrEdit_, SIGNAL(editTextChanged(QString)), this, SLOT(handleBulletStr(QString)), Qt::UniqueConnection);
+	connect(bulletStrEdit, SIGNAL(editTextChanged(QString)), this, SLOT(handleBulletStr(QString)), Qt::UniqueConnection);
 	connect(numComboBox, SIGNAL(activated(QString)), this, SLOT(handleNumName(QString)), Qt::UniqueConnection);
 	connect(numLevelSpin, SIGNAL(valueChanged(int)), this, SLOT(handleNumLevel(int)), Qt::UniqueConnection);
 	connect(numFormatCombo, SIGNAL(activated(int)), this, SLOT(handleNumFormat(int)), Qt::UniqueConnection);
 	connect(numPrefix, SIGNAL(textChanged(QString)), this, SLOT(handleNumPrefix(QString)), Qt::UniqueConnection);
 	connect(numSuffix, SIGNAL(textChanged(QString)), this, SLOT(handleNumSuffix(QString)), Qt::UniqueConnection);
 	connect(numStart, SIGNAL(valueChanged(int)), this, SLOT(handleNumStart(int)), Qt::UniqueConnection);
-	connect(peOffset_, SIGNAL(valueChanged(double)), this, SLOT(handlePEOffset(double)), Qt::UniqueConnection);
-	connect(peIndent_, SIGNAL(toggled(bool)), this, SLOT(handlePEIndent(bool)), Qt::UniqueConnection);
+	connect(peOffset, SIGNAL(valueChanged(double)), this, SLOT(handlePEOffset(double)), Qt::UniqueConnection);
+	connect(peIndent, SIGNAL(toggled(bool)), this, SLOT(handlePEIndent(bool)), Qt::UniqueConnection);
 	connect(peCharStyleCombo, SIGNAL(activated(QString)), this, SLOT(handlePECharStyle(QString)), Qt::UniqueConnection);
 }
 
@@ -268,15 +272,15 @@ void PropertyWidget_ParEffect::disconnectSignals()
 {
 	disconnect(peCombo, SIGNAL(activated(int)), this, SLOT(handleParEffectUse()));
 	disconnect(dropCapLines, SIGNAL(valueChanged(int)), this, SLOT(handleDropCapLines(int)));
-	disconnect(bulletStrEdit_, SIGNAL(editTextChanged(QString)), this, SLOT(handleBulletStr(QString)));
+	disconnect(bulletStrEdit, SIGNAL(editTextChanged(QString)), this, SLOT(handleBulletStr(QString)));
 	disconnect(numComboBox, SIGNAL(activated(QString)), this, SLOT(handleNumName(QString)));
 	disconnect(numLevelSpin, SIGNAL(valueChanged(int)), this, SLOT(handleNumLevel(int)));
 	disconnect(numFormatCombo, SIGNAL(activated(int)), this, SLOT(handleNumFormat(int)));
 	disconnect(numPrefix, SIGNAL(textChanged(QString)), this, SLOT(handleNumPrefix(QString)));
 	disconnect(numSuffix, SIGNAL(textChanged(QString)), this, SLOT(handleNumSuffix(QString)));
 	disconnect(numStart, SIGNAL(valueChanged(int)), this, SLOT(handleNumStart(int)));
-	disconnect(peOffset_, SIGNAL(valueChanged(double)), this, SLOT(handlePEOffset(double)));
-	disconnect(peIndent_, SIGNAL(toggled(bool)), this, SLOT(handlePEIndent(bool)));
+	disconnect(peOffset, SIGNAL(valueChanged(double)), this, SLOT(handlePEOffset(double)));
+	disconnect(peIndent, SIGNAL(toggled(bool)), this, SLOT(handlePEIndent(bool)));
 	disconnect(peCharStyleCombo, SIGNAL(activated(QString)), this, SLOT(handlePECharStyle(QString)));
 }
 
@@ -341,7 +345,7 @@ void PropertyWidget_ParEffect::handleParEffectUse()
 	{
 		enableBullet(true);
 		newStyle.setHasBullet(true);
-		QString bStr = bulletStrEdit_->currentText();
+		QString bStr = bulletStrEdit->currentText();
 		if (bStr.isEmpty())
 			bStr = QChar(0x2022);
 		newStyle.setBulletStr(bStr);
@@ -372,8 +376,8 @@ void PropertyWidget_ParEffect::handleParEffectUse()
 		newStyle.setHasBullet(false);
 		newStyle.setHasNum(false);
 	}
-	newStyle.setParEffectOffset(peOffset_->value() / m_unitRatio);
-	newStyle.setParEffectIndent(peIndent_->isChecked());
+	newStyle.setParEffectOffset(peOffset->value() / m_unitRatio);
+	newStyle.setParEffectIndent(peIndent->isChecked());
 	handleChanges(m_item, newStyle);
 }
 
@@ -554,8 +558,8 @@ void PropertyWidget_ParEffect::languageChange()
 	dropCapsGroup->setTitle(tr("Drop Caps"));
 	bullGroup->setTitle(tr("Bulleted List"));
 	bulletCharLabel->setText(tr("Bullet Char(s)"));
-	bulletCharTableButton_->setToolTip(tr("Enhanced char table to choose bullet chars"));
-	bulletCharTableButton_->setText(tr("Char Table"));
+	bulletCharTableButton->setToolTip(tr("Enhanced char table to choose bullet chars"));
+	bulletCharTableButton->setText(tr("Char Table"));
 	numGroup->setTitle(tr("Numbered List"));
 	numLevelLabel->setText(tr("Level"));
 	numComboLabel->setText(tr("Set"));
@@ -564,7 +568,7 @@ void PropertyWidget_ParEffect::languageChange()
 	numPrefixLabel->setText(tr("Prefix"));
 	numSuffixLabel->setText(tr("Suffix"));
 	peOffsetLabel->setText(tr("Offset"));
-	peIndent_->setText(tr("Auto-Indent"));
+	peIndent->setText(tr("Auto-Indent"));
 	peCharStyleLabel->setText(tr("Char Style"));
 	peCharStyleCombo->setToolTip(tr("Choose chracter style or leave blank for use default paragraph style"));
 }
@@ -578,7 +582,7 @@ void PropertyWidget_ParEffect::openEnhanced()
 	m_enhanced = new CharSelectEnhanced(this);
 	m_enhanced->setModal(true);
 	connect(m_enhanced, SIGNAL(insertSpecialChars(const QString &)), this, SLOT(insertSpecialChars(const QString &)));
-	connect(m_enhanced, SIGNAL(paletteShown(bool)), bulletCharTableButton_, SLOT(setChecked(bool)));
+	connect(m_enhanced, SIGNAL(paletteShown(bool)), bulletCharTableButton, SLOT(setChecked(bool)));
 	m_enhanced->setDoc(m_doc);
 	m_enhanced->setEnabled(true);
 	QString styleName = peCharStyleCombo->currentText();
@@ -593,13 +597,13 @@ void PropertyWidget_ParEffect::closeEnhanced(bool show)
 	if (!m_enhanced || show)
 		return;
 	disconnect(m_enhanced, SIGNAL(insertSpecialChars(const QString &)), this, SLOT(insertSpecialChars(const QString &)));
-	disconnect(m_enhanced, SIGNAL(paletteShown(bool)), bulletCharTableButton_, SLOT(setChecked(bool)));
+	disconnect(m_enhanced, SIGNAL(paletteShown(bool)), bulletCharTableButton, SLOT(setChecked(bool)));
 	m_enhanced->close();
 	delete m_enhanced;
 	m_enhanced = NULL;
 }
 
-void PropertyWidget_ParEffect::on_bulletCharTableButton__toggled(bool checked)
+void PropertyWidget_ParEffect::on_bulletCharTableButton_toggled(bool checked)
 {
 	if (m_enhanced && !checked)
 		closeEnhanced();
@@ -608,5 +612,5 @@ void PropertyWidget_ParEffect::on_bulletCharTableButton__toggled(bool checked)
 }
 void PropertyWidget_ParEffect::insertSpecialChars(const QString &chars)
 {
-	bulletStrEdit_->lineEdit()->setText(chars);
+	bulletStrEdit->lineEdit()->setText(chars);
 }

@@ -341,6 +341,11 @@ void PropertiesPalette_Text::setCurrentItem(PageItem *i)
 
 	m_haveItem = true;
 
+	if (!sender())
+	{
+		parEffectWidgets->handleSelectionChanged();
+	}
+
 	if (m_item->asTextFrame() || m_item->asPathText() || m_item->asTable())
 	{
 		ParagraphStyle parStyle =  m_item->itemText.defaultStyle();

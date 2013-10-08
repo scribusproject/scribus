@@ -239,6 +239,9 @@ void PropertiesPalette::setDoc(ScribusDoc *d)
 
 	connect(m_doc->m_Selection, SIGNAL(selectionChanged()), this, SLOT(handleSelectionChanged()));
 	connect(m_doc             , SIGNAL(docChanged())      , this, SLOT(handleSelectionChanged()));
+
+	// Handle properties update when switching document
+	handleSelectionChanged();
 }
 
 void PropertiesPalette::unsetDoc()
@@ -406,13 +409,17 @@ void PropertiesPalette::setCurrentItem(PageItem *i)
 		SelTab(TabStack->currentIndex());
 	}
 
-	xyzPal->handleSelectionChanged();
-	shapePal->handleSelectionChanged();
-	groupPal->handleSelectionChanged();
-	imagePal->handleSelectionChanged();
-	linePal->handleSelectionChanged();
-	textPal->handleSelectionChanged();
-	tablePal->handleSelectionChanged();
+	if (!sender())
+	{
+		xyzPal->handleSelectionChanged();
+		shapePal->handleSelectionChanged();
+		groupPal->handleSelectionChanged();
+		imagePal->handleSelectionChanged();
+		linePal->handleSelectionChanged();
+		textPal->handleSelectionChanged();
+		tablePal->handleSelectionChanged();
+		Cpal->handleSelectionChanged();
+	}
 
 	if (m_item->asOSGFrame())
 	{

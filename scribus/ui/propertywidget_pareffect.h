@@ -65,7 +65,7 @@ public slots:
 	void handlePECharStyle(QString);
 
 private slots:
-	void on_bulletCharTableButton__toggled(bool checked);
+	void on_bulletCharTableButton_toggled(bool checked);
 	void insertSpecialChars(const QString &chars);
 
 private:
@@ -77,13 +77,13 @@ private:
 	void enableParEffect(bool);
 	void fillBulletStrEditCombo()
 	{
-		bulletStrEdit_->clear();
-		bulletStrEdit_->addItem(QChar(0x2022));
-		bulletStrEdit_->addItem("*");
-		bulletStrEdit_->addItem(QChar(0x2013));
-		bulletStrEdit_->setMinimumWidth(50);
-		if (bulletStrEdit_->currentText().isEmpty())
-			bulletStrEdit_->setEditText(QChar(0x2022));
+		bulletStrEdit->clear();
+		bulletStrEdit->addItem(QChar(0x2022));
+		bulletStrEdit->addItem("*");
+		bulletStrEdit->addItem(QChar(0x2013));
+		bulletStrEdit->setMinimumWidth(50);
+		if (bulletStrEdit->currentText().isEmpty())
+			bulletStrEdit->setEditText(QChar(0x2022));
 	}
 
 	void fillNumFormatCombo()
