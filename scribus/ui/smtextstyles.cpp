@@ -493,16 +493,16 @@ void SMParagraphStyle::setupConnections()
 		return;
 
 	// paragraph attributes
-	connect(m_pwidget->lineSpacingMode_, SIGNAL(activated(int)), this, SLOT(slotLineSpacingMode(int)));
-	connect(m_pwidget->lineSpacing_, SIGNAL(valueChanged(double)), this, SLOT(slotLineSpacing()));
-	connect(m_pwidget->spaceAbove_, SIGNAL(valueChanged(double)), this, SLOT(slotSpaceAbove()));
-	connect(m_pwidget->spaceBelow_, SIGNAL(valueChanged(double)), this, SLOT(slotSpaceBelow()));
-	connect(m_pwidget->alignement_->TextL, SIGNAL(clicked()), this, SLOT(slotAlignment()));
-	connect(m_pwidget->alignement_->TextR, SIGNAL(clicked()), this, SLOT(slotAlignment()));
-	connect(m_pwidget->alignement_->TextC, SIGNAL(clicked()), this, SLOT(slotAlignment()));
-	connect(m_pwidget->alignement_->TextB, SIGNAL(clicked()), this, SLOT(slotAlignment()));
-	connect(m_pwidget->alignement_->TextF, SIGNAL(clicked()), this, SLOT(slotAlignment()));
-	connect(m_pwidget->alignement_->parentButton, SIGNAL(clicked()), this, SLOT(slotAlignment()));
+	connect(m_pwidget->lineSpacingMode, SIGNAL(activated(int)), this, SLOT(slotLineSpacingMode(int)));
+	connect(m_pwidget->lineSpacing, SIGNAL(valueChanged(double)), this, SLOT(slotLineSpacing()));
+	connect(m_pwidget->spaceAbove, SIGNAL(valueChanged(double)), this, SLOT(slotSpaceAbove()));
+	connect(m_pwidget->spaceBelow, SIGNAL(valueChanged(double)), this, SLOT(slotSpaceBelow()));
+	connect(m_pwidget->alignement->TextL, SIGNAL(clicked()), this, SLOT(slotAlignment()));
+	connect(m_pwidget->alignement->TextR, SIGNAL(clicked()), this, SLOT(slotAlignment()));
+	connect(m_pwidget->alignement->TextC, SIGNAL(clicked()), this, SLOT(slotAlignment()));
+	connect(m_pwidget->alignement->TextB, SIGNAL(clicked()), this, SLOT(slotAlignment()));
+	connect(m_pwidget->alignement->TextF, SIGNAL(clicked()), this, SLOT(slotAlignment()));
+	connect(m_pwidget->alignement->parentButton, SIGNAL(clicked()), this, SLOT(slotAlignment()));
 //	connect(m_pwidget->optMarginCombo, SIGNAL(activated(int)), this, SLOT(slotOpticalMargin(int)));
 	connect(m_pwidget->optMarginRadioNone, SIGNAL(clicked()), this, SLOT(slotOpticalMarginSelector()));
 	connect(m_pwidget->optMarginRadioLeft, SIGNAL(clicked()), this, SLOT(slotOpticalMarginSelector()));
@@ -516,13 +516,13 @@ void SMParagraphStyle::setupConnections()
 
 	connect(m_pwidget, SIGNAL(useParentParaEffects()), this, SLOT(slotParentParaEffects()));
 	connect(m_pwidget->dropCapsBox, SIGNAL(toggled(bool)), this, SLOT(slotDropCap(bool)));
-	connect(m_pwidget->dropCapLines_, SIGNAL(valueChanged(int)), this, SLOT(slotDropCapLines(int)));
-	connect(m_pwidget->parEffectOffset_, SIGNAL(valueChanged(double)), this, SLOT(slotParEffectOffset()));
+	connect(m_pwidget->dropCapLines, SIGNAL(valueChanged(int)), this, SLOT(slotDropCapLines(int)));
+	connect(m_pwidget->parEffectOffset, SIGNAL(valueChanged(double)), this, SLOT(slotParEffectOffset()));
 	connect(m_pwidget->parEffectIndentBox, SIGNAL(toggled(bool)), this, SLOT(slotParEffectIndent(bool)));
 	connect(m_pwidget->parEffectCharStyleCombo, SIGNAL(activated(const QString&)), this, SLOT(slotParEffectCharStyle(const QString&)));
 
 	connect(m_pwidget->bulletBox, SIGNAL(toggled(bool)), this, SLOT(slotBullet(bool)));
-	connect(m_pwidget->bulletStrEdit_, SIGNAL(editTextChanged(QString)), this, SLOT(slotBulletStr(QString)));
+	connect(m_pwidget->bulletStrEdit, SIGNAL(editTextChanged(QString)), this, SLOT(slotBulletStr(QString)));
 	connect(m_pwidget->numBox, SIGNAL(toggled(bool)), this, SLOT(slotNumeration(bool)));
 	connect(m_pwidget->numComboBox, SIGNAL(activated(QString)), this, SLOT(slotNumName(QString)));
 	connect(m_pwidget->numLevelSpin, SIGNAL(valueChanged(int)), this, SLOT(slotNumLevel(int)));
@@ -541,11 +541,11 @@ void SMParagraphStyle::setupConnections()
 	connect(m_pwidget->keepTogether, SIGNAL(stateChanged(int)), this, SLOT(handleKeepTogether()));
 	connect(m_pwidget->keepWithNext, SIGNAL(stateChanged(int)), this, SLOT(handleKeepWithNext()));
 
-	connect(m_pwidget->tabList_, SIGNAL(tabsChanged()), this, SLOT(slotTabRuler()));
-	connect(m_pwidget->tabList_, SIGNAL(mouseReleased()), this, SLOT(slotTabRuler()));
-	connect(m_pwidget->tabList_->left_, SIGNAL(valueChanged(double)), this, SLOT(slotLeftIndent()));
-	connect(m_pwidget->tabList_->right_, SIGNAL(valueChanged(double)), this, SLOT(slotRightIndent()));
-	connect(m_pwidget->tabList_->first_, SIGNAL(valueChanged(double)), this, SLOT(slotFirstLine()));
+	connect(m_pwidget->tabList, SIGNAL(tabsChanged()), this, SLOT(slotTabRuler()));
+	connect(m_pwidget->tabList, SIGNAL(mouseReleased()), this, SLOT(slotTabRuler()));
+	connect(m_pwidget->tabList->left_, SIGNAL(valueChanged(double)), this, SLOT(slotLeftIndent()));
+	connect(m_pwidget->tabList->right_, SIGNAL(valueChanged(double)), this, SLOT(slotRightIndent()));
+	connect(m_pwidget->tabList->first_, SIGNAL(valueChanged(double)), this, SLOT(slotFirstLine()));
 
 	connect(m_pwidget->parentCombo, SIGNAL(activated(const QString&)), this, SLOT(slotParentChanged(const QString&)));
 
@@ -579,16 +579,16 @@ void SMParagraphStyle::removeConnections()
 	if (!m_pwidget)
 		return;
 
-	disconnect(m_pwidget->lineSpacingMode_, SIGNAL(activated(int)), this, SLOT(slotLineSpacingMode(int)));
-	disconnect(m_pwidget->lineSpacing_, SIGNAL(valueChanged(double)), this, SLOT(slotLineSpacing()));
-	disconnect(m_pwidget->spaceAbove_, SIGNAL(valueChanged(double)), this, SLOT(slotSpaceAbove()));
-	disconnect(m_pwidget->spaceBelow_, SIGNAL(valueChanged(double)), this, SLOT(slotSpaceBelow()));
-	disconnect(m_pwidget->alignement_->TextL, SIGNAL(clicked()), this, SLOT(slotAlignment()));
-	disconnect(m_pwidget->alignement_->TextR, SIGNAL(clicked()), this, SLOT(slotAlignment()));
-	disconnect(m_pwidget->alignement_->TextC, SIGNAL(clicked()), this, SLOT(slotAlignment()));
-	disconnect(m_pwidget->alignement_->TextB, SIGNAL(clicked()), this, SLOT(slotAlignment()));
-	disconnect(m_pwidget->alignement_->TextF, SIGNAL(clicked()), this, SLOT(slotAlignment()));
-	disconnect(m_pwidget->alignement_->parentButton, SIGNAL(clicked()), this, SLOT(slotAlignment()));
+	disconnect(m_pwidget->lineSpacingMode, SIGNAL(activated(int)), this, SLOT(slotLineSpacingMode(int)));
+	disconnect(m_pwidget->lineSpacing, SIGNAL(valueChanged(double)), this, SLOT(slotLineSpacing()));
+	disconnect(m_pwidget->spaceAbove, SIGNAL(valueChanged(double)), this, SLOT(slotSpaceAbove()));
+	disconnect(m_pwidget->spaceBelow, SIGNAL(valueChanged(double)), this, SLOT(slotSpaceBelow()));
+	disconnect(m_pwidget->alignement->TextL, SIGNAL(clicked()), this, SLOT(slotAlignment()));
+	disconnect(m_pwidget->alignement->TextR, SIGNAL(clicked()), this, SLOT(slotAlignment()));
+	disconnect(m_pwidget->alignement->TextC, SIGNAL(clicked()), this, SLOT(slotAlignment()));
+	disconnect(m_pwidget->alignement->TextB, SIGNAL(clicked()), this, SLOT(slotAlignment()));
+	disconnect(m_pwidget->alignement->TextF, SIGNAL(clicked()), this, SLOT(slotAlignment()));
+	disconnect(m_pwidget->alignement->parentButton, SIGNAL(clicked()), this, SLOT(slotAlignment()));
 //	disconnect(m_pwidget->optMarginCombo, SIGNAL(activated(int)), this, SLOT(slotOpticalMargin(int)));
 	disconnect(m_pwidget->optMarginRadioNone, SIGNAL(clicked()), this, SLOT(slotOpticalMarginSelector()));
 	disconnect(m_pwidget->optMarginRadioLeft, SIGNAL(clicked()), this, SLOT(slotOpticalMarginSelector()));
@@ -601,13 +601,13 @@ void SMParagraphStyle::removeConnections()
 	
 	disconnect(m_pwidget, SIGNAL(useParentParaEffects()), this, SLOT(slotParentParaEffects()));
 	disconnect(m_pwidget->dropCapsBox, SIGNAL(toggled(bool)), this, SLOT(slotDropCap(bool)));
-	disconnect(m_pwidget->dropCapLines_, SIGNAL(valueChanged(int)), this, SLOT(slotDropCapLines(int)));
-	disconnect(m_pwidget->parEffectOffset_, SIGNAL(valueChanged(double)), this, SLOT(slotParEffectOffset()));
+	disconnect(m_pwidget->dropCapLines, SIGNAL(valueChanged(int)), this, SLOT(slotDropCapLines(int)));
+	disconnect(m_pwidget->parEffectOffset, SIGNAL(valueChanged(double)), this, SLOT(slotParEffectOffset()));
 	disconnect(m_pwidget->parEffectIndentBox, SIGNAL(toggled(bool)), this, SLOT(slotParEffectIndent(bool)));
 	disconnect(m_pwidget->parEffectCharStyleCombo, SIGNAL(activated(const QString&)), this, SLOT(slotParEffectCharStyle(const QString&)));
 
 	disconnect(m_pwidget->bulletBox, SIGNAL(toggled(bool)), this, SLOT(slotBullet(bool)));
-	disconnect(m_pwidget->bulletStrEdit_, SIGNAL(editTextChanged(QString)), this, SLOT(slotBulletStr(QString)));
+	disconnect(m_pwidget->bulletStrEdit, SIGNAL(editTextChanged(QString)), this, SLOT(slotBulletStr(QString)));
 	disconnect(m_pwidget->numBox, SIGNAL(toggled(bool)), this, SLOT(slotNumeration(bool)));
 	disconnect(m_pwidget->numComboBox, SIGNAL(activated(QString)), this, SLOT(slotNumName(QString)));
 	disconnect(m_pwidget->numFormatCombo, SIGNAL(activated(int)), this, SLOT(slotNumFormat(int)));
@@ -628,10 +628,10 @@ void SMParagraphStyle::removeConnections()
 	disconnect(m_pwidget->keepTogether, SIGNAL(stateChanged(int)), this, SLOT(handleKeepTogether()));
 	disconnect(m_pwidget->keepWithNext, SIGNAL(stateChanged(int)), this, SLOT(handleKeepWithNext()));
 
-	disconnect(m_pwidget->tabList_, SIGNAL(tabsChanged()), this, SLOT(slotTabRuler()));
-	disconnect(m_pwidget->tabList_->left_, SIGNAL(valueChanged(double)), this, SLOT(slotLeftIndent()));
-	disconnect(m_pwidget->tabList_->right_, SIGNAL(valueChanged(double)), this, SLOT(slotRightIndent()));
-	disconnect(m_pwidget->tabList_->first_, SIGNAL(valueChanged(double)), this, SLOT(slotFirstLine()));
+	disconnect(m_pwidget->tabList, SIGNAL(tabsChanged()), this, SLOT(slotTabRuler()));
+	disconnect(m_pwidget->tabList->left_, SIGNAL(valueChanged(double)), this, SLOT(slotLeftIndent()));
+	disconnect(m_pwidget->tabList->right_, SIGNAL(valueChanged(double)), this, SLOT(slotRightIndent()));
+	disconnect(m_pwidget->tabList->first_, SIGNAL(valueChanged(double)), this, SLOT(slotFirstLine()));
 
 	disconnect(m_pwidget->cpage->fontFace_, SIGNAL(fontSelected(QString)), this, SLOT(slotFont(QString)));
 	disconnect(m_pwidget->cpage->effects_, SIGNAL(State(int)), this, SLOT(slotEffects(int)));
@@ -661,7 +661,7 @@ void SMParagraphStyle::slotLineSpacingMode(int mode)
 {
 	ParagraphStyle::LineSpacingMode lsm = static_cast<ParagraphStyle::LineSpacingMode>(mode);
 
-	if (m_pwidget->lineSpacingMode_->useParentValue())
+	if (m_pwidget->lineSpacingMode->useParentValue())
 		for (int i = 0; i < m_selection.count(); ++i)
 			m_selection[i]->resetLineSpacingMode();
 	else
@@ -677,7 +677,7 @@ void SMParagraphStyle::slotLineSpacingMode(int mode)
 
 void SMParagraphStyle::slotLineSpacing()
 {
-	if (m_pwidget->lineSpacing_->useParentValue())
+	if (m_pwidget->lineSpacing->useParentValue())
 		for (int i = 0; i < m_selection.count(); ++i)
 			m_selection[i]->resetLineSpacing();
 	else 
@@ -685,7 +685,7 @@ void SMParagraphStyle::slotLineSpacing()
 		double a, b, value;
 		int c;
 
-		m_pwidget->lineSpacing_->getValues(&a, &b, &c, &value);
+		m_pwidget->lineSpacing->getValues(&a, &b, &c, &value);
 		for (int i = 0; i < m_selection.count(); ++i)
 			m_selection[i]->setLineSpacing(value);
 	}
@@ -699,7 +699,7 @@ void SMParagraphStyle::slotLineSpacing()
 
 void SMParagraphStyle::slotSpaceAbove()
 {
-	if (m_pwidget->spaceAbove_->useParentValue())
+	if (m_pwidget->spaceAbove->useParentValue())
 		for (int i = 0; i < m_selection.count(); ++i)
 			m_selection[i]->resetGapBefore();
 	else 
@@ -707,7 +707,7 @@ void SMParagraphStyle::slotSpaceAbove()
 		double a, b, value;
 		int c;
 
-		m_pwidget->spaceAbove_->getValues(&a, &b, &c, &value);
+		m_pwidget->spaceAbove->getValues(&a, &b, &c, &value);
 		for (int i = 0; i < m_selection.count(); ++i)
 			m_selection[i]->setGapBefore(value);
 	}
@@ -721,7 +721,7 @@ void SMParagraphStyle::slotSpaceAbove()
 
 void SMParagraphStyle::slotSpaceBelow()
 {
-	if (m_pwidget->spaceBelow_->useParentValue())
+	if (m_pwidget->spaceBelow->useParentValue())
 		for (int i = 0; i < m_selection.count(); ++i)
 			m_selection[i]->resetGapAfter();
 	else 
@@ -729,7 +729,7 @@ void SMParagraphStyle::slotSpaceBelow()
 		double a, b, value;
 		int c;
 		
-		m_pwidget->spaceBelow_->getValues(&a, &b, &c, &value);
+		m_pwidget->spaceBelow->getValues(&a, &b, &c, &value);
 		for (int i = 0; i < m_selection.count(); ++i)
 			m_selection[i]->setGapAfter(value);
 	}
@@ -743,8 +743,8 @@ void SMParagraphStyle::slotSpaceBelow()
 
 void SMParagraphStyle::slotAlignment()
 {
-	ParagraphStyle::AlignmentType style = static_cast<ParagraphStyle::AlignmentType>(m_pwidget->alignement_->getStyle());
-	if (m_pwidget->alignement_->useParentValue())
+	ParagraphStyle::AlignmentType style = static_cast<ParagraphStyle::AlignmentType>(m_pwidget->alignement->getStyle());
+	if (m_pwidget->alignement->useParentValue())
 		for (int i = 0; i < m_selection.count(); ++i)
 			m_selection[i]->resetAlignment();
 	else 
@@ -904,7 +904,7 @@ void SMParagraphStyle::slotParentParaEffects()
 
 void SMParagraphStyle::slotDropCapLines(int lines)
 {
-	if (m_pwidget->dropCapLines_->useParentValue())
+	if (m_pwidget->dropCapLines->useParentValue())
 		for (int i = 0; i < m_selection.count(); ++i)
 			m_selection[i]->resetDropCapLines();
 	else		
@@ -920,7 +920,7 @@ void SMParagraphStyle::slotDropCapLines(int lines)
 
 void SMParagraphStyle::slotParEffectOffset()
 {
-	if (m_pwidget->parEffectOffset_->useParentValue())
+	if (m_pwidget->parEffectOffset->useParentValue())
 		for (int i = 0; i < m_selection.count(); ++i)
 			m_selection[i]->resetParEffectOffset();
 	else 
@@ -928,7 +928,7 @@ void SMParagraphStyle::slotParEffectOffset()
 		double a, b, value;
 		int c;
 
-		m_pwidget->parEffectOffset_->getValues(&a, &b, &c, &value);
+		m_pwidget->parEffectOffset->getValues(&a, &b, &c, &value);
 		value = value / m_unitRatio;
 		for (int i = 0; i < m_selection.count(); ++i)
 			m_selection[i]->setParEffectOffset(value);
@@ -982,7 +982,7 @@ void SMParagraphStyle::slotBullet(bool isOn)
 		m_selection[i]->setHasBullet(isOn);
 		if (isOn)
 		{
-			m_selection[i]->setBulletStr(m_pwidget->bulletStrEdit_->currentText());
+			m_selection[i]->setBulletStr(m_pwidget->bulletStrEdit->currentText());
 			m_selection[i]->setHasDropCap(false);
 			m_selection[i]->setHasNum(false);
 		}
@@ -1000,8 +1000,8 @@ void SMParagraphStyle::slotBulletStr(const QString &str)
 	QString bstr(str);
 	if (bstr.isEmpty())
 	{
-		bstr = m_pwidget->bulletStrEdit_->itemText(0);
-		m_pwidget->bulletStrEdit_->setEditText(bstr);
+		bstr = m_pwidget->bulletStrEdit->itemText(0);
+		m_pwidget->bulletStrEdit->setEditText(bstr);
 	}
 	for (int i = 0; i < m_selection.count(); ++i)
 		m_selection[i]->setBulletStr(bstr);
@@ -1289,14 +1289,14 @@ void SMParagraphStyle::handleKeepWithNext()
 
 void SMParagraphStyle::slotTabRuler()
 {
-	if (m_pwidget->tabList_->useParentTabs())
+	if (m_pwidget->tabList->useParentTabs())
 	{
 		for (int i = 0; i < m_selection.count(); ++i)
 			m_selection[i]->resetTabValues();
 	}
 	else
 	{
-		QList<ParagraphStyle::TabRecord> newTabs = m_pwidget->tabList_->getTabVals();
+		QList<ParagraphStyle::TabRecord> newTabs = m_pwidget->tabList->getTabVals();
 		for (int i = 0; i < m_selection.count(); ++i)
 			m_selection[i]->setTabValues(newTabs);
 	}
@@ -1310,7 +1310,7 @@ void SMParagraphStyle::slotTabRuler()
 
 void SMParagraphStyle::slotLeftIndent()
 {
-	if (m_pwidget->tabList_->useParentLeftIndent())
+	if (m_pwidget->tabList->useParentLeftIndent())
 		for (int i = 0; i < m_selection.count(); ++i)
 			m_selection[i]->resetLeftMargin();
 	else 
@@ -1318,7 +1318,7 @@ void SMParagraphStyle::slotLeftIndent()
 		double a, b, value;
 		int c;
 
-		m_pwidget->tabList_->left_->getValues(&a, &b, &c, &value);
+		m_pwidget->tabList->left_->getValues(&a, &b, &c, &value);
 		value = value / m_unitRatio;
 		for (int i = 0; i < m_selection.count(); ++i)
 			m_selection[i]->setLeftMargin(value);
@@ -1333,7 +1333,7 @@ void SMParagraphStyle::slotLeftIndent()
 
 void SMParagraphStyle::slotRightIndent()
 {
-	if (m_pwidget->tabList_->useParentRightIndent())
+	if (m_pwidget->tabList->useParentRightIndent())
 		for (int i = 0; i < m_selection.count(); ++i)
 			m_selection[i]->resetRightMargin();
 	else 
@@ -1341,7 +1341,7 @@ void SMParagraphStyle::slotRightIndent()
 		double a, b, value;
 		int c;
 
-		m_pwidget->tabList_->right_->getValues(&a, &b, &c, &value);
+		m_pwidget->tabList->right_->getValues(&a, &b, &c, &value);
 		value = value / m_unitRatio;
 		for (int i = 0; i < m_selection.count(); ++i)
 			m_selection[i]->setRightMargin(value);
@@ -1356,7 +1356,7 @@ void SMParagraphStyle::slotRightIndent()
 
 void SMParagraphStyle::slotFirstLine()
 {
-	if (m_pwidget->tabList_->useParentFirstLine())
+	if (m_pwidget->tabList->useParentFirstLine())
 		for (int i = 0; i < m_selection.count(); ++i)
 			m_selection[i]->resetFirstIndent();
 	else 
@@ -1364,7 +1364,7 @@ void SMParagraphStyle::slotFirstLine()
 		double a, b, value;
 		int c;
 		
-		m_pwidget->tabList_->first_->getValues(&a, &b, &c, &value);
+		m_pwidget->tabList->first_->getValues(&a, &b, &c, &value);
 		value = value / m_unitRatio;
 		for (int i = 0; i < m_selection.count(); ++i)
 			m_selection[i]->setFirstIndent(value);

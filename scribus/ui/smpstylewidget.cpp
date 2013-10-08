@@ -34,14 +34,14 @@ SMPStyleWidget::SMPStyleWidget(ScribusDoc* doc) : QWidget()
 	spaceAboveLabel->setPixmap( loadIcon("above.png") );
 	spaceBelowLabel->setPixmap( loadIcon("below.png") );
 
-	lineSpacingMode_->addItem( tr("Fixed Linespacing"));
-	lineSpacingMode_->addItem( tr("Automatic Linespacing"));
-	lineSpacingMode_->addItem( tr("Align to Baseline Grid"));
-	connect(lineSpacingMode_, SIGNAL(highlighted(int)), this, SLOT(slotLineSpacingModeChanged(int)));
+	lineSpacingMode->addItem( tr("Fixed Linespacing"));
+	lineSpacingMode->addItem( tr("Automatic Linespacing"));
+	lineSpacingMode->addItem( tr("Align to Baseline Grid"));
+	connect(lineSpacingMode, SIGNAL(highlighted(int)), this, SLOT(slotLineSpacingModeChanged(int)));
 
-	lineSpacing_->setSuffix(unitGetSuffixFromIndex(0));
-	spaceAbove_->setSuffix(unitGetSuffixFromIndex(0));
-	spaceBelow_->setSuffix(unitGetSuffixFromIndex(0));
+	lineSpacing->setSuffix(unitGetSuffixFromIndex(0));
+	spaceAbove->setSuffix(unitGetSuffixFromIndex(0));
+	spaceBelow->setSuffix(unitGetSuffixFromIndex(0));
 
 //	optMarginCombo->addItem(tr("None"), ParagraphStyle::OM_None);
 //	optMarginCombo->addItem(tr("Left Protruding"), ParagraphStyle::OM_LeftProtruding);
@@ -50,18 +50,18 @@ SMPStyleWidget::SMPStyleWidget(ScribusDoc* doc) : QWidget()
 //	optMarginCombo->addItem(tr("Right Hanging Punctuation"), ParagraphStyle::OM_RightHangingPunct);
 //	optMarginCombo->addItem(tr("Default"), ParagraphStyle::OM_Default);
 
-	parEffectOffset_->setSuffix(unitGetSuffixFromIndex(0));
+	parEffectOffset->setSuffix(unitGetSuffixFromIndex(0));
 	
 	fillBulletStrEditCombo();
-	bulletCharTableButton_->setIcon(loadIcon("22/insert-table.png"));
+	bulletCharTableButton->setIcon(loadIcon("22/insert-table.png"));
 	fillNumFormatCombo();
 	numStartSpin->setMinimum(1);
 	numStartSpin->setMaximum(9999);
 	numLevelSpin->setMinimum(1);
 	numLevelSpin->setMaximum(1);
 	fillNumRestartCombo();
-	dropCapLines_->setMinimum(2);
-	dropCapLines_->setMaximum(99);
+	dropCapLines->setMinimum(2);
+	dropCapLines->setMaximum(99);
 
 	minSpaceSpin->setSuffix(unitGetSuffixFromIndex(SC_PERCENT));
 	minGlyphExtSpin->setSuffix(unitGetSuffixFromIndex(SC_PERCENT));
@@ -75,7 +75,7 @@ SMPStyleWidget::SMPStyleWidget(ScribusDoc* doc) : QWidget()
 
 void SMPStyleWidget::slotLineSpacingModeChanged(int i)
 {
-	lineSpacing_->setEnabled(i == 0);
+	lineSpacing->setEnabled(i == 0);
 }
 
 void SMPStyleWidget::changeEvent(QEvent *e)
@@ -96,28 +96,28 @@ void SMPStyleWidget::languageChange()
 // These are for the paragraph style
 
 	parentCombo->setToolTip(      tr("Parent Style"));
-	lineSpacingMode_->setToolTip( tr("Line Spacing Mode"));
-	lineSpacing_->setToolTip(     tr("Line Spacing"));
-	spaceAbove_->setToolTip(      tr("Space Above"));
-	spaceBelow_->setToolTip(      tr("Space Below"));
-	lineSpacingLabel->setToolTip(lineSpacing_->toolTip());
-	spaceAboveLabel->setToolTip(spaceAbove_->toolTip());
-	spaceBelowLabel->setToolTip(spaceBelow_->toolTip());
+	lineSpacingMode->setToolTip( tr("Line Spacing Mode"));
+	lineSpacing->setToolTip(     tr("Line Spacing"));
+	spaceAbove->setToolTip(      tr("Space Above"));
+	spaceBelow->setToolTip(      tr("Space Below"));
+	lineSpacingLabel->setToolTip(lineSpacing->toolTip());
+	spaceAboveLabel->setToolTip(spaceAbove->toolTip());
+	spaceBelowLabel->setToolTip(spaceBelow->toolTip());
 //	optMarginCombo->setToolTip(tr("Activate an optical margins layout"));
 //	optMarginLabel->setToolTip(optMarginCombo->toolTip());
 	//CB Unneeded, gets in the way of single widget tooltips
 	//dropCapsBox->setToolTip(      tr("Enable or disable drop cap"));
-	dropCapLines_->setToolTip(    tr("Drop Cap Lines"));
-	bulletCharTableButton_->setToolTip(tr("Enhanced Char Table for inserting customs chars as bullets"));
-	parEffectOffset_->setToolTip(   tr("Paragraph Effects Chars Offset"));
+	dropCapLines->setToolTip(    tr("Drop Cap Lines"));
+	bulletCharTableButton->setToolTip(tr("Enhanced Char Table for inserting customs chars as bullets"));
+	parEffectOffset->setToolTip(   tr("Paragraph Effects Chars Offset"));
 	parEffectIndentBox->setToolTip(   tr("Hang Paragraph Effect before paragraph indent"));
 	parEffectCharStyleCombo->setToolTip("<qt>" + tr("Choose chracter style or leave blank for use default paragraph style"));
-	alignement_->setToolTip(      tr("Alignment"));
-	tabList_->first_->setToolTip( tr("First Line Indent"));
-	tabList_->left_->setToolTip(  tr("Left Indent"));
-	tabList_->right_->setToolTip( tr("Right Indent"));
+	alignement->setToolTip(      tr("Alignment"));
+	tabList->first_->setToolTip( tr("First Line Indent"));
+	tabList->left_->setToolTip(  tr("Left Indent"));
+	tabList->right_->setToolTip( tr("Right Indent"));
 	//CB Unneeded, gets in the way of single widget tooltips
-	//tabList_->setToolTip(         tr("Tabulators"));
+	//tabList->setToolTip(         tr("Tabulators"));
 	
 	minSpaceSpin->setToolTip(tr("Maximum white space compression allowed.\nExpressed as a percentage of the current white space value."));
 	minSpaceLabel->setToolTip(minSpaceSpin->toolTip());
@@ -137,10 +137,10 @@ void SMPStyleWidget::languageChange()
 /*      End Tooltips               */
 /***********************************/
 
-	lineSpacingMode_->clear();
-	lineSpacingMode_->addItem( tr("Fixed Linespacing"));
-	lineSpacingMode_->addItem( tr("Automatic Linespacing"));
-	lineSpacingMode_->addItem( tr("Align to Baseline Grid"));
+	lineSpacingMode->clear();
+	lineSpacingMode->addItem( tr("Fixed Linespacing"));
+	lineSpacingMode->addItem( tr("Automatic Linespacing"));
+	lineSpacingMode->addItem( tr("Align to Baseline Grid"));
 	
 //	optMarginCombo->clear();
 //	optMarginCombo->addItem(tr("None"), ParagraphStyle::OM_None);
@@ -152,9 +152,9 @@ void SMPStyleWidget::languageChange()
 //
 //	optMarginLabel->setText(tr("Optical Margins:"));
 
-	lineSpacing_->setSuffix(unitGetSuffixFromIndex(0));
-	spaceAbove_->setSuffix(unitGetSuffixFromIndex(0));
-	spaceBelow_->setSuffix(unitGetSuffixFromIndex(0));
+	lineSpacing->setSuffix(unitGetSuffixFromIndex(0));
+	spaceAbove->setSuffix(unitGetSuffixFromIndex(0));
+	spaceBelow->setSuffix(unitGetSuffixFromIndex(0));
 	parentLabel->setText( tr("Based On:"));
 	distancesBox->setTitle( tr("Distances and Alignment"));
 
@@ -164,7 +164,7 @@ void SMPStyleWidget::languageChange()
 	numBox->setTitle(tr("Numeration"));
 	dropCapsLineLabel->setText( tr("Lines:"));
 	bulletCharLabel->setText(tr("Bullet Char/String"));
-	bulletCharTableButton_->setText(tr("Char Table"));
+	bulletCharTableButton->setText(tr("Char Table"));
 	numFormatLabel->setText(tr("Numbering Style"));
 	numLevelLabel->setText(tr("Level"));
 	numPrefixLabel->setText(tr("Prefix"));
@@ -182,8 +182,8 @@ void SMPStyleWidget::languageChange()
 		font1.setPointSize(font1.pointSize() *2);
 	else if (font1.pixelSize())
 		font1.setPixelSize(font1.pixelSize() *2);
-	((QComboBox*) bulletStrEdit_)->setFont(font1);
-	(bulletStrEdit_->lineEdit())->setFont(font1);
+	((QComboBox*) bulletStrEdit)->setFont(font1);
+	(bulletStrEdit->lineEdit())->setFont(font1);
 
 	tabsBox->setTitle( tr("Tabulators and Indentation"));
 	tabWidget->setTabText(0, tr("Properties"));
@@ -207,8 +207,8 @@ void SMPStyleWidget::languageChange()
 
 void SMPStyleWidget::unitChange(double oldRatio, double newRatio, int unitIndex)
 {
-	parEffectOffset_->setNewUnit(unitIndex);
-	tabList_->unitChange(unitIndex);
+	parEffectOffset->setNewUnit(unitIndex);
+	tabList->unitChange(unitIndex);
 }
 
 void SMPStyleWidget::setDoc(ScribusDoc *doc)
@@ -225,13 +225,13 @@ void SMPStyleWidget::setDoc(ScribusDoc *doc)
 
 void SMPStyleWidget::fillBulletStrEditCombo()
 {
-	bulletStrEdit_->clear();
-	bulletStrEdit_->addItem(QChar(0x2022));
-	bulletStrEdit_->addItem("*");
-	bulletStrEdit_->addItem(QChar(0x2013));
-	bulletStrEdit_->setMinimumWidth(50);
-	if (bulletStrEdit_->currentText().isEmpty())
-		bulletStrEdit_->setEditText(QChar(0x2022));
+	bulletStrEdit->clear();
+	bulletStrEdit->addItem(QChar(0x2022));
+	bulletStrEdit->addItem("*");
+	bulletStrEdit->addItem(QChar(0x2013));
+	bulletStrEdit->setMinimumWidth(50);
+	if (bulletStrEdit->currentText().isEmpty())
+		bulletStrEdit->setEditText(QChar(0x2022));
 }
 
 void SMPStyleWidget::fillNumFormatCombo()
@@ -268,7 +268,7 @@ void SMPStyleWidget::checkParEffectState()
 		enable = true;
 
 	parEffectCharStyleCombo->setEnabled(enable);
-	parEffectOffset_->setEnabled(enable);
+	parEffectOffset->setEnabled(enable);
 	parEffectIndentBox->setEnabled(enable);
 }
 
@@ -280,10 +280,10 @@ void SMPStyleWidget::show(ParagraphStyle *pstyle, QList<ParagraphStyle> &pstyles
 	const ParagraphStyle *parent = dynamic_cast<const ParagraphStyle*>(pstyle->parentStyle());
 	hasParent_ = pstyle->hasParent() && parent != NULL && parent->hasName() && pstyle->parent() != "";
 
-	lineSpacingMode_->clear();
-	lineSpacingMode_->addItem( tr("Fixed Linespacing"));
-	lineSpacingMode_->addItem( tr("Automatic Linespacing"));
-	lineSpacingMode_->addItem( tr("Align to Baseline Grid"));
+	lineSpacingMode->clear();
+	lineSpacingMode->addItem( tr("Fixed Linespacing"));
+	lineSpacingMode->addItem( tr("Automatic Linespacing"));
+	lineSpacingMode->addItem( tr("Align to Baseline Grid"));
 	
 //	optMarginCombo->clear();
 //	optMarginCombo->addItem(tr("None"), ParagraphStyle::OM_None);
@@ -305,8 +305,8 @@ void SMPStyleWidget::show(ParagraphStyle *pstyle, QList<ParagraphStyle> &pstyles
 
 	if (hasParent_)
 	{
-		lineSpacingMode_->setCurrentItem(pstyle->lineSpacingMode(), pstyle->isInhLineSpacingMode());
-		lineSpacingMode_->setParentItem(parent->lineSpacingMode());
+		lineSpacingMode->setCurrentItem(pstyle->lineSpacingMode(), pstyle->isInhLineSpacingMode());
+		lineSpacingMode->setParentItem(parent->lineSpacingMode());
 		
 //		optMarginCombo->setCurrentItemByData( pstyle->opticalMargins(),  pstyle->isInhOpticalMargins() );
 //		optMarginCombo->setParentItem(optMarginCombo->getItemIndexForData( parent->opticalMargins()));
@@ -320,18 +320,18 @@ void SMPStyleWidget::show(ParagraphStyle *pstyle, QList<ParagraphStyle> &pstyles
 		maxGlyphExtSpin->setValue(pstyle->maxGlyphExtension() * 100.0,  pstyle->isInhMaxGlyphExtension());
 		maxGlyphExtSpin->setParentValue(parent->maxGlyphExtension());
 
-		lineSpacing_->setValue(pstyle->lineSpacing(), pstyle->isInhLineSpacing());
-		lineSpacing_->setParentValue(parent->lineSpacing());
+		lineSpacing->setValue(pstyle->lineSpacing(), pstyle->isInhLineSpacing());
+		lineSpacing->setParentValue(parent->lineSpacing());
 
-		spaceAbove_->setValue(pstyle->gapBefore(), pstyle->isInhGapBefore());
-		spaceAbove_->setParentValue(parent->gapBefore());
+		spaceAbove->setValue(pstyle->gapBefore(), pstyle->isInhGapBefore());
+		spaceAbove->setParentValue(parent->gapBefore());
 
-		spaceBelow_->setValue(pstyle->gapAfter(), pstyle->isInhGapAfter());
-		spaceBelow_->setParentValue(parent->gapAfter());
+		spaceBelow->setValue(pstyle->gapAfter(), pstyle->isInhGapAfter());
+		spaceBelow->setParentValue(parent->gapAfter());
 
 
-		alignement_->setStyle(pstyle->alignment(), pstyle->isInhAlignment());
-		alignement_->setParentItem(parent->alignment());
+		alignement->setStyle(pstyle->alignment(), pstyle->isInhAlignment());
+		alignement->setParentItem(parent->alignment());
 
 		bool hasParentTabs = pstyle->isInhTabValues();
 		QList<ParagraphStyle::TabRecord> tabs;
@@ -340,17 +340,17 @@ void SMPStyleWidget::show(ParagraphStyle *pstyle, QList<ParagraphStyle> &pstyles
 		else
 			tabs = pstyle->tabValues();
 
-		tabList_->setTabs(tabs, unitIndex, hasParentTabs);
-		tabList_->setParentTabs(parent->tabValues());
+		tabList->setTabs(tabs, unitIndex, hasParentTabs);
+		tabList->setParentTabs(parent->tabValues());
 
-		tabList_->setLeftIndentValue(pstyle->leftMargin() * unitRatio,pstyle->isInhLeftMargin());
-		tabList_->setParentLeftIndent(parent->leftMargin() * unitRatio);
+		tabList->setLeftIndentValue(pstyle->leftMargin() * unitRatio,pstyle->isInhLeftMargin());
+		tabList->setParentLeftIndent(parent->leftMargin() * unitRatio);
 
-		tabList_->setFirstLineValue(pstyle->firstIndent() * unitRatio, pstyle->isInhFirstIndent());
-		tabList_->setParentFirstLine(parent->firstIndent() * unitRatio);
+		tabList->setFirstLineValue(pstyle->firstIndent() * unitRatio, pstyle->isInhFirstIndent());
+		tabList->setParentFirstLine(parent->firstIndent() * unitRatio);
 
-		tabList_->setRightIndentValue(pstyle->rightMargin() * unitRatio, pstyle->isInhRightMargin());
-		tabList_->setParentRightIndent(parent->rightMargin() * unitRatio);
+		tabList->setRightIndentValue(pstyle->rightMargin() * unitRatio, pstyle->isInhRightMargin());
+		tabList->setParentRightIndent(parent->rightMargin() * unitRatio);
 
 		keepLinesStart->setValue (pstyle->keepLinesStart(), pstyle->isInhKeepLinesStart());
 		keepLinesEnd->setValue (pstyle->keepLinesEnd(), pstyle->isInhKeepLinesEnd());
@@ -382,17 +382,17 @@ void SMPStyleWidget::show(ParagraphStyle *pstyle, QList<ParagraphStyle> &pstyles
 
 		dropCapsBox->setChecked(pstyle->hasDropCap());
 		setWidgetBoldFont(dropCapsBox, !pstyle->isInhHasDropCap());
-		dropCapLines_->setValue(pstyle->dropCapLines(), pstyle->isInhDropCapLines());
-		dropCapLines_->setParentValue(parent->dropCapLines());
+		dropCapLines->setValue(pstyle->dropCapLines(), pstyle->isInhDropCapLines());
+		dropCapLines->setParentValue(parent->dropCapLines());
 
-		parEffectOffset_->setValue(pstyle->parEffectOffset() * unitRatio, pstyle->isInhParEffectOffset());
-		parEffectOffset_->setParentValue(parent->parEffectOffset() * unitRatio);
+		parEffectOffset->setValue(pstyle->parEffectOffset() * unitRatio, pstyle->isInhParEffectOffset());
+		parEffectOffset->setParentValue(parent->parEffectOffset() * unitRatio);
 		parEffectIndentBox->setChecked(pstyle->parEffectIndent(),pstyle->isInhParEffectIndent());
 		parEffectIndentBox->setParentValue(parent->parEffectIndent());
 
 		bulletBox->setChecked(pstyle->hasBullet());
 		setWidgetBoldFont(bulletBox, !pstyle->isInhHasBullet());
-		bulletStrEdit_->setEditText(pstyle->bulletStr());
+		bulletStrEdit->setEditText(pstyle->bulletStr());
 		setWidgetBoldFont(bulletCharLabel, !pstyle->isInhBulletStr());
 		numBox->setChecked(pstyle->hasNum());
 		setWidgetBoldFont(numBox, !pstyle->isInhHasNum());
@@ -428,10 +428,10 @@ void SMPStyleWidget::show(ParagraphStyle *pstyle, QList<ParagraphStyle> &pstyles
 	}
 	else
 	{
-		lineSpacingMode_->setCurrentIndex(pstyle->lineSpacingMode());
-		lineSpacing_->setValue(pstyle->lineSpacing());
-		spaceAbove_->setValue(pstyle->gapBefore());
-		spaceBelow_->setValue(pstyle->gapAfter());
+		lineSpacingMode->setCurrentIndex(pstyle->lineSpacingMode());
+		lineSpacing->setValue(pstyle->lineSpacing());
+		spaceAbove->setValue(pstyle->gapBefore());
+		spaceBelow->setValue(pstyle->gapAfter());
 //		optMarginCombo->setCurrentItemByData( pstyle->opticalMargins() );
 		setOpticalMargins(pstyle->opticalMargins());
 		optMarginParentButton->hide();
@@ -439,16 +439,16 @@ void SMPStyleWidget::show(ParagraphStyle *pstyle, QList<ParagraphStyle> &pstyles
 		minGlyphExtSpin->setValue(pstyle->minGlyphExtension() * 100.0);
 		maxGlyphExtSpin->setValue(pstyle->maxGlyphExtension() * 100.0);
 
-		parEffectOffset_->setValue(pstyle->parEffectOffset() * unitRatio);
+		parEffectOffset->setValue(pstyle->parEffectOffset() * unitRatio);
 		parEffectIndentBox->setChecked(pstyle->parEffectIndent());
 		parentParEffectsButton->hide();
 		disconnect(parentParEffectsButton, SIGNAL(clicked()), this, SLOT(slotParentParEffects()));
 		dropCapsBox->setChecked(pstyle->hasDropCap());
 		setWidgetBoldFont(dropCapsBox, false);
-		dropCapLines_->setValue(pstyle->dropCapLines());
+		dropCapLines->setValue(pstyle->dropCapLines());
 		bulletBox->setChecked(pstyle->hasBullet());
 		setWidgetBoldFont(bulletBox, false);
-		bulletStrEdit_->setEditText(pstyle->bulletStr());
+		bulletStrEdit->setEditText(pstyle->bulletStr());
 		setWidgetBoldFont(bulletCharLabel, false);
 		numBox->setChecked(pstyle->hasNum());
 		setWidgetBoldFont(numBox, false);
@@ -473,11 +473,11 @@ void SMPStyleWidget::show(ParagraphStyle *pstyle, QList<ParagraphStyle> &pstyles
 		numRestartOtherBox->setChecked(pstyle->numOther());
 		numRestartHigherBox->setChecked(pstyle->numHigher());
 
-		alignement_->setStyle(pstyle->alignment());
-		tabList_->setTabs(pstyle->tabValues(), unitIndex);
-		tabList_->setLeftIndentValue(pstyle->leftMargin() * unitRatio);
-		tabList_->setFirstLineValue(pstyle->firstIndent() * unitRatio);
-		tabList_->setRightIndentValue(pstyle->rightMargin() * unitRatio);
+		alignement->setStyle(pstyle->alignment());
+		tabList->setTabs(pstyle->tabValues(), unitIndex);
+		tabList->setLeftIndentValue(pstyle->leftMargin() * unitRatio);
+		tabList->setFirstLineValue(pstyle->firstIndent() * unitRatio);
+		tabList->setRightIndentValue(pstyle->rightMargin() * unitRatio);
 
 		keepLinesStart->setValue (pstyle->keepLinesStart());
 		keepLinesEnd->setValue (pstyle->keepLinesEnd());
@@ -485,8 +485,8 @@ void SMPStyleWidget::show(ParagraphStyle *pstyle, QList<ParagraphStyle> &pstyles
 		keepWithNext->setChecked (pstyle->keepWithNext());
 	}
 
-	lineSpacing_->setEnabled(pstyle->lineSpacingMode() == ParagraphStyle::FixedLineSpacing);
-	dropCapLines_->setEnabled(pstyle->hasDropCap());
+	lineSpacing->setEnabled(pstyle->lineSpacingMode() == ParagraphStyle::FixedLineSpacing);
+	dropCapLines->setEnabled(pstyle->hasDropCap());
 
 	checkParEffectState();
 	parEffectCharStyleCombo->clear();
@@ -555,10 +555,10 @@ void SMPStyleWidget::show(QList<ParagraphStyle*> &pstyles, QList<ParagraphStyle>
 
 void SMPStyleWidget::showLineSpacing(QList<ParagraphStyle*> &pstyles)
 {
-	lineSpacingMode_->clear();
-	lineSpacingMode_->addItem( tr("Fixed Linespacing"));
-	lineSpacingMode_->addItem( tr("Automatic Linespacing"));
-	lineSpacingMode_->addItem( tr("Align to Baseline Grid"));
+	lineSpacingMode->clear();
+	lineSpacingMode->addItem( tr("Fixed Linespacing"));
+	lineSpacingMode->addItem( tr("Automatic Linespacing"));
+	lineSpacingMode->addItem( tr("Align to Baseline Grid"));
 
 	int tmpLP = -1;
 	for (int i = 0; i < pstyles.count(); ++i)
@@ -574,12 +574,12 @@ void SMPStyleWidget::showLineSpacing(QList<ParagraphStyle*> &pstyles)
 
 	if (tmpLP == -1)
 	{
-		if (lineSpacingMode_->itemText(lineSpacingMode_->count() - 1) != "")
-			lineSpacingMode_->addItem("");
-		lineSpacingMode_->setCurrentIndex(lineSpacingMode_->count() - 1);
+		if (lineSpacingMode->itemText(lineSpacingMode->count() - 1) != "")
+			lineSpacingMode->addItem("");
+		lineSpacingMode->setCurrentIndex(lineSpacingMode->count() - 1);
 	}
 	else
-		lineSpacingMode_->setCurrentIndex(tmpLP);
+		lineSpacingMode->setCurrentIndex(tmpLP);
 
 	double tmpLS = -1.0;
 	for (int i = 0; i < pstyles.count(); ++i)
@@ -592,11 +592,11 @@ void SMPStyleWidget::showLineSpacing(QList<ParagraphStyle*> &pstyles)
 		else
 			tmpLS = pstyles[i]->lineSpacing();
 	}
-	lineSpacing_->setEnabled(true);
+	lineSpacing->setEnabled(true);
 	if (tmpLS < 0)
-		lineSpacing_->clear();
+		lineSpacing->clear();
 	else
-		lineSpacing_->setValue(tmpLS);
+		lineSpacing->setValue(tmpLS);
 }
 
 void SMPStyleWidget::showSpaceAB(QList<ParagraphStyle*> &pstyles, int unitIndex)
@@ -615,9 +615,9 @@ void SMPStyleWidget::showSpaceAB(QList<ParagraphStyle*> &pstyles, int unitIndex)
 	}
 
 	if (tmpA < 0)
-		spaceAbove_->clear();
+		spaceAbove->clear();
 	else
-		spaceAbove_->setValue(tmpA);
+		spaceAbove->setValue(tmpA);
 
 	tmpA = -1.2;
 	for (int i = 0; i < pstyles.count(); ++i)
@@ -630,9 +630,9 @@ void SMPStyleWidget::showSpaceAB(QList<ParagraphStyle*> &pstyles, int unitIndex)
 	}
 
 	if (tmpA < 0)
-		spaceBelow_->clear();
+		spaceBelow->clear();
 	else
-		spaceBelow_->setValue(tmpA);
+		spaceBelow->setValue(tmpA);
 }
 
 void SMPStyleWidget::showDropCap(QList<ParagraphStyle*> &pstyles, QList<CharStyle> &cstyles, int unitIndex)
@@ -661,12 +661,12 @@ void SMPStyleWidget::showDropCap(QList<ParagraphStyle*> &pstyles, QList<CharStyl
 			lines = pstyles[i]->dropCapLines();
 	}
 	if (lines == -1)
-		dropCapLines_->clear();
+		dropCapLines->clear();
 	else
-		dropCapLines_->setValue(lines);
+		dropCapLines->setValue(lines);
 
 	dropCapsBox->setEnabled(true);
-	dropCapLines_->setEnabled(true);
+	dropCapLines->setEnabled(true);
 	connectPESignals();
 }
 
@@ -697,10 +697,10 @@ void SMPStyleWidget::showBullet(QList<ParagraphStyle *> &pstyles, QList<CharStyl
 		else
 			chStr = pstyles[i]->bulletStr();
 	}
-	bulletStrEdit_->setEditText(chStr);
+	bulletStrEdit->setEditText(chStr);
 
 	connectPESignals();
-	bulletCharTableButton_->setEnabled(true);
+	bulletCharTableButton->setEnabled(true);
 }
 
 void SMPStyleWidget::showNumeration(QList<ParagraphStyle *> &pstyles, QList<CharStyle> &cstyles, int unitIndex)
@@ -749,16 +749,16 @@ void SMPStyleWidget::showAlignment(QList<ParagraphStyle*> &pstyles)
 	{
 		if (a != pstyles[i]->alignment())
 		{
-			if (alignement_->selectedId() > -1 && alignement_->selectedId() < 5)
+			if (alignement->selectedId() > -1 && alignement->selectedId() < 5)
 			{
-				alignement_->buttonGroup->setExclusive(false);
-				alignement_->buttonGroup->button(alignement_->selectedId())->toggle();
-				alignement_->buttonGroup->setExclusive(true);
+				alignement->buttonGroup->setExclusive(false);
+				alignement->buttonGroup->button(alignement->selectedId())->toggle();
+				alignement->buttonGroup->setExclusive(true);
 			}
 			return;
 		}
 	}
-	alignement_->setStyle(a);
+	alignement->setStyle(a);
 }
 
 void SMPStyleWidget::showOpticalMargin(QList< ParagraphStyle * > & pstyles)
@@ -864,7 +864,7 @@ void SMPStyleWidget::showTabs(QList<ParagraphStyle*> &pstyles, int unitIndex)
 			break;
 		}
 	}
-	tabList_->setTabs(t, unitIndex);
+	tabList->setTabs(t, unitIndex);
 
 	double l = -4000.0;
 	for (int i = 0; i < pstyles.count(); ++i)
@@ -879,11 +879,11 @@ void SMPStyleWidget::showTabs(QList<ParagraphStyle*> &pstyles, int unitIndex)
 	}
 	if (l < -3800.0)
 	{
-		tabList_->setLeftIndentValue(0.0);
-		tabList_->left_->clear();
+		tabList->setLeftIndentValue(0.0);
+		tabList->left_->clear();
 	}
 	else
-		tabList_->setLeftIndentValue(l * unitRatio);
+		tabList->setLeftIndentValue(l * unitRatio);
 
 	l = -4000.0;
 	for (int i = 0; i < pstyles.count(); ++i)
@@ -898,11 +898,11 @@ void SMPStyleWidget::showTabs(QList<ParagraphStyle*> &pstyles, int unitIndex)
 	}
 	if (l < -3800.0)
 	{
-		tabList_->setFirstLineValue(0.0);
-		tabList_->first_->clear();
+		tabList->setFirstLineValue(0.0);
+		tabList->first_->clear();
 	}
 	else
-		tabList_->setFirstLineValue(l * unitRatio);
+		tabList->setFirstLineValue(l * unitRatio);
 
 	l = -4000.0;
 	for (int i = 0; i < pstyles.count(); ++i)
@@ -917,11 +917,11 @@ void SMPStyleWidget::showTabs(QList<ParagraphStyle*> &pstyles, int unitIndex)
 	}
 	if (l < -3800.0)
 	{
-		tabList_->setRightIndentData(0.0);
-		tabList_->right_->clear();
+		tabList->setRightIndentData(0.0);
+		tabList->right_->clear();
 	}
 	else
-		tabList_->setRightIndentValue(l * unitRatio);
+		tabList->setRightIndentValue(l * unitRatio);
 
 }
 
@@ -1030,11 +1030,11 @@ void SMPStyleWidget::slotDropCap(bool isOn)
 	disconnectPESignals();
 	if (isOn)
 	{
-		dropCapLines_->setEnabled(true);
+		dropCapLines->setEnabled(true);
 
 		bulletBox->setChecked(false);
-		bulletStrEdit_->setEnabled(false);
-		bulletCharTableButton_->setEnabled(false);
+		bulletStrEdit->setEnabled(false);
+		bulletCharTableButton->setEnabled(false);
 
 		numBox->setChecked(false);
 		numFormatCombo->setEnabled(false);
@@ -1044,7 +1044,7 @@ void SMPStyleWidget::slotDropCap(bool isOn)
 		numNewLineEdit->setEnabled(false);
 	}
 	else
-		dropCapLines_->setEnabled(false);
+		dropCapLines->setEnabled(false);
 	if (hasParent_)
 		parentParEffectsButton->show();
 	checkParEffectState();
@@ -1056,10 +1056,10 @@ void SMPStyleWidget::slotBullets(bool isOn)
 	disconnectPESignals();
 	if (isOn)
 	{
-		bulletStrEdit_->setEnabled(true);
-		if (bulletStrEdit_->currentText().isEmpty())
-			bulletStrEdit_->setEditText(bulletStrEdit_->itemText(0));
-		bulletCharTableButton_->setEnabled(true);
+		bulletStrEdit->setEnabled(true);
+		if (bulletStrEdit->currentText().isEmpty())
+			bulletStrEdit->setEditText(bulletStrEdit->itemText(0));
+		bulletCharTableButton->setEnabled(true);
 
 		numBox->setChecked(false);
 		numFormatCombo->setEnabled(false);
@@ -1069,12 +1069,12 @@ void SMPStyleWidget::slotBullets(bool isOn)
 		numNewLineEdit->setEnabled(false);
 
 		dropCapsBox->setChecked(false);
-		dropCapLines_->setEnabled(false);
+		dropCapLines->setEnabled(false);
 	}
 	else
 	{
-		bulletStrEdit_->setEnabled(false);
-		bulletCharTableButton_->setEnabled(false);
+		bulletStrEdit->setEnabled(false);
+		bulletCharTableButton->setEnabled(false);
 	}
 	if (hasParent_)
 		parentParEffectsButton->show();
@@ -1084,7 +1084,7 @@ void SMPStyleWidget::slotBullets(bool isOn)
 
 void SMPStyleWidget::insertSpecialChars(const QString &chars)
 {
-	bulletStrEdit_->lineEdit()->setText(chars);
+	bulletStrEdit->lineEdit()->setText(chars);
 }
 
 void SMPStyleWidget::slotNumbering(bool isOn)
@@ -1101,11 +1101,11 @@ void SMPStyleWidget::slotNumbering(bool isOn)
 		numNewLineEdit->setEnabled(true);
 
 		bulletBox->setChecked(false);
-		bulletStrEdit_->setEnabled(false);
-		bulletCharTableButton_->setEnabled(false);
+		bulletStrEdit->setEnabled(false);
+		bulletCharTableButton->setEnabled(false);
 
 		dropCapsBox->setChecked(false);
-		dropCapLines_->setEnabled(false);
+		dropCapLines->setEnabled(false);
 	}
 	else
 	{
@@ -1143,7 +1143,7 @@ void SMPStyleWidget::openEnhanced()
 	m_enhanced = new CharSelectEnhanced(this);
 	m_enhanced->setModal(true);
 	connect(m_enhanced, SIGNAL(insertSpecialChars(const QString &)), this, SLOT(insertSpecialChars(const QString &)));
-	connect(m_enhanced, SIGNAL(paletteShown(bool)), bulletCharTableButton_, SLOT(setChecked(bool)));
+	connect(m_enhanced, SIGNAL(paletteShown(bool)), bulletCharTableButton, SLOT(setChecked(bool)));
 	m_enhanced->setDoc(m_Doc);
 	m_enhanced->setEnabled(true);
 	QString styleName = parEffectCharStyleCombo->currentText();
@@ -1164,7 +1164,7 @@ void SMPStyleWidget::closeEnhanced(bool show)
 	if (!m_enhanced || show)
 		return;
 	disconnect(m_enhanced, SIGNAL(insertSpecialChars(const QString &)), this, SLOT(insertSpecialChars(const QString &)));
-	disconnect(m_enhanced, SIGNAL(paletteShown(bool)), bulletCharTableButton_, SLOT(setChecked(bool)));
+	disconnect(m_enhanced, SIGNAL(paletteShown(bool)), bulletCharTableButton, SLOT(setChecked(bool)));
 	m_enhanced->close();
 	delete m_enhanced;
 	m_enhanced = NULL;
@@ -1186,7 +1186,7 @@ void SMPStyleWidget::disconnectPESignals()
 	disconnect(dropCapsBox, SIGNAL(toggled(bool)), this, SLOT(slotDropCap(bool)));
 }
 
-void SMPStyleWidget::on_bulletCharTableButton__toggled(bool checked)
+void SMPStyleWidget::on_bulletCharTableButton_toggled(bool checked)
 {
 	if (m_enhanced && !checked)
 		closeEnhanced();

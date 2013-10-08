@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>798</width>
+    <width>878</width>
     <height>755</height>
    </rect>
   </property>
@@ -84,12 +84,12 @@
                    <string>TextLabel</string>
                   </property>
                   <property name="buddy">
-                   <cstring>lineSpacingMode_</cstring>
+                   <cstring>lineSpacingMode</cstring>
                   </property>
                  </widget>
                 </item>
                 <item>
-                 <widget class="SMScComboBox" name="lineSpacingMode_">
+                 <widget class="SMScComboBox" name="lineSpacingMode">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
                     <horstretch>0</horstretch>
@@ -99,7 +99,7 @@
                  </widget>
                 </item>
                 <item>
-                 <widget class="SMScrSpinBox" name="lineSpacing_">
+                 <widget class="SMScrSpinBox" name="lineSpacing">
                   <property name="minimum">
                    <number>1</number>
                   </property>
@@ -137,12 +137,12 @@
                    <string>TextLabel</string>
                   </property>
                   <property name="buddy">
-                   <cstring>spaceAbove_</cstring>
+                   <cstring>spaceAbove</cstring>
                   </property>
                  </widget>
                 </item>
                 <item>
-                 <widget class="SMScrSpinBox" name="spaceAbove_">
+                 <widget class="SMScrSpinBox" name="spaceAbove">
                   <property name="maximum">
                    <number>300</number>
                   </property>
@@ -177,12 +177,12 @@
                    <string>TextLabel</string>
                   </property>
                   <property name="buddy">
-                   <cstring>spaceBelow_</cstring>
+                   <cstring>spaceBelow</cstring>
                   </property>
                  </widget>
                 </item>
                 <item>
-                 <widget class="SMScrSpinBox" name="spaceBelow_">
+                 <widget class="SMScrSpinBox" name="spaceBelow">
                   <property name="maximum">
                    <number>300</number>
                   </property>
@@ -206,7 +206,7 @@
               <item>
                <layout class="QHBoxLayout">
                 <item>
-                 <widget class="SMAlignSelect" name="alignement_" native="true">
+                 <widget class="SMAlignSelect" name="alignement" native="true">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
                     <horstretch>0</horstretch>
@@ -270,12 +270,12 @@
                    <string>Distance from Text:</string>
                   </property>
                   <property name="buddy">
-                   <cstring>parEffectOffset_</cstring>
+                   <cstring>parEffectOffset</cstring>
                   </property>
                  </widget>
                 </item>
                 <item>
-                 <widget class="SMScrSpinBox" name="parEffectOffset_">
+                 <widget class="SMScrSpinBox" name="parEffectOffset">
                   <property name="minimum">
                    <number>-3000</number>
                   </property>
@@ -361,7 +361,7 @@
                     </widget>
                    </item>
                    <item>
-                    <widget class="SMScComboBox" name="bulletStrEdit_">
+                    <widget class="SMScComboBox" name="bulletStrEdit">
                      <property name="sizePolicy">
                       <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
                        <horstretch>0</horstretch>
@@ -393,7 +393,7 @@
                     </spacer>
                    </item>
                    <item>
-                    <widget class="QPushButton" name="bulletCharTableButton_">
+                    <widget class="QPushButton" name="bulletCharTableButton">
                      <property name="sizePolicy">
                       <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
                        <horstretch>0</horstretch>
@@ -629,12 +629,12 @@
                       <string>&amp;Lines:</string>
                      </property>
                      <property name="buddy">
-                      <cstring>dropCapLines_</cstring>
+                      <cstring>dropCapLines</cstring>
                      </property>
                     </widget>
                    </item>
                    <item>
-                    <widget class="SMSpinBox" name="dropCapLines_">
+                    <widget class="SMSpinBox" name="dropCapLines">
                      <property name="minimum">
                       <number>2</number>
                      </property>
@@ -994,7 +994,7 @@
           <item>
            <layout class="QHBoxLayout">
             <item>
-             <widget class="SMTabruler" name="tabList_" native="true">
+             <widget class="SMTabruler" name="tabList" native="true">
               <property name="sizePolicy">
                <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
                 <horstretch>0</horstretch>
