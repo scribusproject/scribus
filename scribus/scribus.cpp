@@ -1079,7 +1079,7 @@ void ScribusMainWindow::initMenuBar()
 
 	//Window menu
 	scrMenuMgr->createMenu("Windows", ActionManager::defaultMenuNameEntryTranslated("Windows"), QString::null, true);
-	//connect(scrMenuMgr->getLocalPopupMenu("Windows"), SIGNAL(aboutToShow()), this, SLOT(windowsMenuAboutToShow()));
+	connect(scrMenuMgr->getLocalPopupMenu("Windows"), SIGNAL(aboutToShow()), this, SLOT(windowsMenuAboutToShow()));
 	//addDefaultWindowMenuItems();
 
 	//Help menu
@@ -1121,19 +1121,7 @@ void ScribusMainWindow::initMenuBar()
 	menuBar()->addSeparator();
 	scrMenuMgr->addMenuStringToMenuBar("Help");
 	scrMenuMgr->addMenuItemStringstoMenuBar("Help", scrActions);
-//	scrMenuMgr->addMenuToMenuBar("File");
-//	scrMenuMgr->addMenuToMenuBar("Edit");
-//	scrMenuMgr->addMenuToMenuBar("Item");
-//	scrMenuMgr->addMenuToMenuBar("Insert");
-//	scrMenuMgr->addMenuToMenuBar("Page");
-//	scrMenuMgr->addMenuToMenuBar("ItemTable");
-//	scrMenuMgr->addMenuToMenuBar("Extras");
-//	scrMenuMgr->addMenuToMenuBar("View");
-//	scrMenuMgr->addMenuToMenuBar("Windows");
-	menuBar()->addSeparator();
-//	scrMenuMgr->addMenuToMenuBar("Help");
 
-	scrMenuMgr->dumpMenuStrings();
 }
 
 
