@@ -33,6 +33,7 @@ MenuManager::MenuManager(QMenuBar* mb, QObject *parent) : QObject(parent)
 	menuStrings.clear();
 	recentFileMenu=NULL;
 	editPasteRecentMenu=NULL;
+	itemSendtoScrapbookMenu=NULL;
 	windowsMenu=NULL;
 }
 
@@ -197,10 +198,6 @@ void MenuManager::addMenuItemStringstoMenuBar(const QString &menuName, const QMa
 						{
 							itemLayerMenu=subMenu;
 						}
-						else if (menuStrings[menuName].at(i)=="itemSendToScrapbook")
-						{
-							itemSendtoScrapbookMenu=subMenu;
-						}
 						addMenuItemStringstoMenu(menuStrings[menuName].at(i), subMenu, menuActions);
 					}
 				}
@@ -231,7 +228,13 @@ void MenuManager::addMenuItemStringstoMenu(const QString &menuName, QMenu *menuT
 					{
 						QMenu *subMenu=menuToAddTo->addMenu(menuStringTexts[menuStrings[menuName].at(i)]);
 						if (subMenu)
+						{
+							if (menuStrings[menuName].at(i)=="ItemSendToScrapbook")
+							{
+								itemSendtoScrapbookMenu=subMenu;
+							}
 							addMenuItemStringstoMenu(menuStrings[menuName].at(i), subMenu, menuActions);
+						}
 					}
 				}
 			}
@@ -252,6 +255,13 @@ void MenuManager::addMenuItemStringstoSpecialMenu(const QString &menuName, const
 		for( QMap<QString, QPointer<ScrAction> >::ConstIterator it = menuActions.begin(); it!=menuActions.end(); ++it )
 			windowsMenu->addAction(*it);
 	}
+	else if (menuName=="ItemSendToScrapbook" && itemSendtoScrapbookMenu!=NULL)
+	{
+		for( QMap<QString, QPointer<ScrAction> >::ConstIterator it = menuActions.begin(); it!=menuActions.end(); ++it )
+		{
+			itemSendtoScrapbookMenu->addAction(*it);
+		}
+	}
 }
 
 void MenuManager::clearMenuStrings(const QString &menuName)
@@ -263,6 +273,10 @@ void MenuManager::clearMenuStrings(const QString &menuName)
 	else if (menuName=="Windows" && windowsMenu!=NULL)
 	{
 		windowsMenu->clear();
+	}
+	else if (menuName=="ItemSendToScrapbook" && itemSendtoScrapbookMenu!=NULL)
+	{
+		itemSendtoScrapbookMenu->clear();
 	}
 }
 
