@@ -564,14 +564,15 @@ bool SCFonts::AddScalableFont(QString filename, FT_Library &library, QString Doc
 				break;
 			}
 		}
+		if ((++faceindex) >= face->num_faces)
+			break;
 		FT_Done_Face(face);
-		face=NULL;
-		++faceindex;
-		error = FT_New_Face( library, QFile::encodeName(filename), faceindex, &face );
+		face = NULL;
+		error = FT_New_Face(library, QFile::encodeName(filename), faceindex, &face);
 	} //while
 	
 	if (face != 0)
-		FT_Done_Face( face );
+		FT_Done_Face(face);
 	return error && faceindex == 0;
 }
 
