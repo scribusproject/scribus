@@ -1543,35 +1543,38 @@ void PageItem_TextFrame::layout()
 					NotesStyle* nStyle = note->notesStyle();
 						Q_ASSERT(nStyle != NULL);
 					QString chsName = nStyle->marksChStyle();
-					CharStyle newStyle(itemText.charStyle(a));
+					CharStyle currStyle(itemText.charStyle(a));
 					if ((chsName != "") && (chsName != tr("No Style")))
 					{
 						CharStyle marksStyle(m_Doc->charStyle(chsName));
-						if (!newStyle.equiv(marksStyle))
+						if (!currStyle.equiv(marksStyle))
 						{
-							newStyle.setParent(chsName);
-							itemText.applyCharStyle(a, 1, marksStyle);
+							currStyle.setParent(chsName);
+							itemText.applyCharStyle(a, 1, currStyle);
 						}
 					}
-					else
-						itemText.eraseCharStyle(a, 1, newStyle);
 
-					CharStyle haveSuperscript;
+					StyleFlag s(itemText.charStyle(a).effects());
 					if (mark->isType(MARKNoteMasterType))
 					{
 						if (nStyle->isSuperscriptInMaster())
-							haveSuperscript.setEffects(haveSuperscript.effects() | ScStyle_Superscript);
+							s |= ScStyle_Superscript;
 						else
-							haveSuperscript.setEffects(haveSuperscript.effects() & ~ScStyle_Superscript);
+							s &= ~ScStyle_Superscript;
 					}
 					else
 					{
 						if (nStyle->isSuperscriptInNote())
-							haveSuperscript.setEffects(haveSuperscript.effects() | ScStyle_Superscript);
+							s |= ScStyle_Superscript;
 						else
-							haveSuperscript.setEffects(haveSuperscript.effects() & ~ScStyle_Superscript);
+							s &= ~ScStyle_Superscript;
 					}
-					itemText.applyCharStyle(a, 1, haveSuperscript);
+					if (s != itemText.charStyle(a).effects())
+					{
+						CharStyle haveSuperscript;
+						haveSuperscript.setFeatures(s.featureList());
+						itemText.applyCharStyle(a, 1, haveSuperscript);
+					}
 				}
 			}
 			BulNumMode = false;
