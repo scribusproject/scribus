@@ -100,6 +100,7 @@ ApplyMasterPageDialog::ApplyMasterPageDialog( QWidget* parent ) : QDialog( paren
 	fromPageSpinBox->setEnabled( false );
 	fromPageSpinBox->setMinimum( 1 );
 	fromPageSpinBox->setDecimals(0);
+	fromPageSpinBox->setSuffix("");
 	rangeLayout->addWidget( fromPageSpinBox );
 
 	toPageLabel = new QLabel( applyToPageButtonGroup );
@@ -109,6 +110,7 @@ ApplyMasterPageDialog::ApplyMasterPageDialog( QWidget* parent ) : QDialog( paren
 	toPageSpinBox->setEnabled( false );
 	toPageSpinBox->setMinimum( 1 );
 	toPageSpinBox->setDecimals(0);
+	toPageSpinBox->setSuffix("");
 	rangeLayout->addWidget( toPageSpinBox );
 	spacer3 = new QSpacerItem( 1, 1, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	rangeLayout->addItem( spacer3 );
