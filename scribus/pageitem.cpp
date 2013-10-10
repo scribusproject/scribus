@@ -9669,27 +9669,10 @@ bool PageItem::connectToGUI()
 		return false;
 	if (!m_Doc->m_Selection->primarySelectionIs(this))
 		return false;
-	//unused PropertiesPalette* pp=m_Doc->scMW()->propertiesPalette;
-	//connect(this, SIGNAL(myself(PageItem *)), pp, SLOT(setCurrentItem(PageItem *)));
+
 	connect(this, SIGNAL(frameType(int)), m_Doc->scMW(), SLOT(HaveNewSel(int)));
 	connect(this, SIGNAL(frameType(int)), m_Doc, SLOT(selectionChanged()));
-	//connect(this, SIGNAL(frameType(int)), pp, SLOT(handleSelectionChanged()));
-	//connect(this, SIGNAL(frameLocked(bool)), pp, SLOT(setLocked(bool)));
-	//connect(this, SIGNAL(frameSizeLocked(bool)), pp, SLOT(setSizeLocked(bool)));
-	//Shape signals
-	//connect(this, SIGNAL(cornerRadius(double)), pp, SLOT(setRR(double)));
-	//	connect(view, SIGNAL(ItemTextCols(int, double)), propertiesPalette, SLOT(setCols(int, double)));
-	//Line signals
-	//connect(this, SIGNAL(lineWidth(double)), pp, SLOT(setLineWidth(double)));
-	//connect(this, SIGNAL(lineStyleCapJoin(Qt::PenStyle, Qt::PenCapStyle, Qt::PenJoinStyle)), pp, SLOT( setLIvalue(Qt::PenStyle, Qt::PenCapStyle, Qt::PenJoinStyle)));
-	//Frame text signals
-	//connect(this, SIGNAL(lineSpacing(double)), pp, SLOT(setLsp(double)));
-	//connect(this, SIGNAL(textToFrameDistances(double, double, double, double)), pp, SLOT(setTextToFrameDistances(double, double, double, double)));
-	//connect(this, SIGNAL(textKerning(double)), pp, SLOT(setExtra(double)));
-	//connect(this, SIGNAL(textStyle(int)), pp, SLOT(setStil(int)));
 	connect(this, SIGNAL(textStyle(int)), m_Doc->scMW(), SLOT(setStyleEffects(int)));
-	//connect(this, SIGNAL(textFont(const QString&)), pp, SLOT(setFontFace(const QString&)));
-	//connect(this, SIGNAL(textSize(double)), pp, SLOT(setSize(double)));
 
 	return true;
 }
