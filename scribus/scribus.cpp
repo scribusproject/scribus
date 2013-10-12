@@ -361,10 +361,12 @@ int ScribusMainWindow::initScMW(bool primaryMainWindow)
 //	prefsManager->applyLoadedShortCuts();
 //	initKeyboardShortcuts();
 	initMenuBar();
+	createMenuBar();
 	initToolBars();
 	ScCore->pluginManager->setupPluginActions(this);
 	ScCore->pluginManager->enableOnlyStartupPluginActions(this);
 	ScCore->pluginManager->languageChange();
+
 	if (primaryMainWindow)
 		ScCore->setSplashStatus( tr("Applying User Shortcuts") );
 	prefsManager->applyLoadedShortCuts();
@@ -1099,7 +1101,10 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->addMenuItemString("helpAboutScribus", "Help");
 	scrMenuMgr->addMenuItemString("helpAboutPlugins", "Help");
 	scrMenuMgr->addMenuItemString("helpAboutQt", "Help");
+}
 
+void ScribusMainWindow::createMenuBar()
+{
 	scrMenuMgr->addMenuStringToMenuBar("File");
 	scrMenuMgr->addMenuItemStringstoMenuBar("File", scrActions);
 	scrMenuMgr->addMenuStringToMenuBar("Edit");
@@ -1121,7 +1126,6 @@ void ScribusMainWindow::initMenuBar()
 	menuBar()->addSeparator();
 	scrMenuMgr->addMenuStringToMenuBar("Help");
 	scrMenuMgr->addMenuItemStringstoMenuBar("Help", scrActions);
-
 }
 
 

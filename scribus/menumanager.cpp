@@ -58,22 +58,22 @@ bool MenuManager::createMenu(const QString &menuName, const QString &menuText, c
 	return retVal;
 }
 
-bool MenuManager::addMenuToMenu(const QString &child, const QString &parent)
-{
-	bool retVal=false;
-	if (child==parent)
-	{
-		qDebug("%s", QString("Cannot add %1 menu to %2 menu (itself)").arg(child, parent).toLatin1().constData());
-		return false;	
-	}
-	if ((menuList.contains(child) && menuList[child]!=NULL) &&
-		(menuList.contains(parent) && menuList[parent]!=NULL))
-	{
-		menuList.insert(child, menuList[child]);
-		retVal=menuList[parent]->insertSubMenu(menuList[child]);
-	}
-	return retVal;
-}
+//bool MenuManager::addMenuToMenu(const QString &child, const QString &parent)
+//{
+//	bool retVal=false;
+//	if (child==parent)
+//	{
+//		qDebug("%s", QString("Cannot add %1 menu to %2 menu (itself)").arg(child, parent).toLatin1().constData());
+//		return false;
+//	}
+//	if ((menuList.contains(child) && menuList[child]!=NULL) &&
+//		(menuList.contains(parent) && menuList[parent]!=NULL))
+//	{
+//		menuList.insert(child, menuList[child]);
+//		retVal=menuList[parent]->insertSubMenu(menuList[child]);
+//	}
+//	return retVal;
+//}
 
 bool MenuManager::clearMenu(const QString &menuName)
 {
@@ -117,16 +117,16 @@ QMenu *MenuManager::getLocalPopupMenu(const QString &menuName)
 	return NULL;
 }
 
-bool MenuManager::deleteMenu(const QString &menuName, const QString &parent)
-{
-	if (!parent.isNull())
-	{
-		if (menuList[parent] && menuList[parent]->hasSubMenu(menuList[menuName]))
-			menuList[parent]->removeSubMenu(menuList[menuName]);
-	}
-	menuList.remove(menuName);
-	return true;
-}
+//bool MenuManager::deleteMenu(const QString &menuName, const QString &parent)
+//{
+//	if (!parent.isNull())
+//	{
+//		if (menuList[parent] && menuList[parent]->hasSubMenu(menuList[menuName]))
+//			menuList[parent]->removeSubMenu(menuList[menuName]);
+//	}
+//	menuList.remove(menuName);
+//	return true;
+//}
 
 void MenuManager::setMenuEnabled(const QString &menuName, const bool enabled)
 {
@@ -134,20 +134,20 @@ void MenuManager::setMenuEnabled(const QString &menuName, const bool enabled)
 		menuList[menuName]->setEnabled(enabled);
 }
 
-bool MenuManager::addMenuToMenuBar(const QString &menuName)
-{
-	bool retVal=false;
-	if (menuList.contains(menuName) && menuList[menuName]!=NULL)
-	{
-		QAction* t=scribusMenuBar->addMenu(menuList[menuName]->getLocalPopupMenu());
-		if (t!=NULL)
-		{
-			t->setText(menuList[menuName]->getMenuText());
-			retVal=true;
-		}
-	}
-	return retVal;
-}
+//bool MenuManager::addMenuToMenuBar(const QString &menuName)
+//{
+//	bool retVal=false;
+//	if (menuList.contains(menuName) && menuList[menuName]!=NULL)
+//	{
+//		QAction* t=scribusMenuBar->addMenu(menuList[menuName]->getLocalPopupMenu());
+//		if (t!=NULL)
+//		{
+//			t->setText(menuList[menuName]->getMenuText());
+//			retVal=true;
+//		}
+//	}
+//	return retVal;
+//}
 
 bool MenuManager::addMenuStringToMenuBar(const QString &menuName)
 {
@@ -165,51 +165,53 @@ bool MenuManager::addMenuStringToMenuBar(const QString &menuName)
 	return retVal;
 }
 
-bool MenuManager::addMenuToMenuBarBefore(const QString &menuName, const QString &afterMenuName)
-{
-	bool retVal=false;
-	if (menuList.contains(menuName) && menuList[menuName]!=NULL)
-	{
-		if (menuList[afterMenuName])
-		{
-			QAction* t=scribusMenuBar->insertMenu(menuList[afterMenuName]->getLocalPopupMenu()->menuAction(), menuList[menuName]->getLocalPopupMenu());
-			if (t!=NULL)
-			{
-				t->setText(menuList[menuName]->getMenuText());
-				retVal=true;
-			}
-		}
-	}
-	return retVal;
-}
-
-bool MenuManager::addMenuStringToMenuBarBefore(const QString &menuName, const QString &afterMenuName)
+bool MenuManager::addMenuStringToMenuBarBefore(const QString &menuName, const QString &beforeMenuName)
 {
 	bool retVal=false;
 	if (menuStrings.contains(menuName))
 	{
-		QMenu *m=scribusMenuBar->addMenu(menuStringTexts[menuName]);
-		menuBarMenus.insert(menuName, m);
-		if (menuName=="Windows" && m!=NULL)
-		{
-			windowsMenu=m;
+		QList<QAction*> mba=scribusMenuBar->actions();
+		QAction* beforeAct;
+		foreach (beforeAct, mba) {
+			if (beforeMenuName==beforeAct->text().remove('&').remove("..."))
+				break;
 		}
+		QMenu *m=new QMenu(menuName);
+		scribusMenuBar->insertMenu(beforeAct, m);
+		menuBarMenus.insert(menuName, m);
 		retVal=true;
 	}
 	return retVal;
 }
 
-bool MenuManager::removeMenuFromMenuBar(const QString &menuName)
-{
-	bool retVal=false;
-	if (menuList.contains(menuName) && menuList[menuName]!=NULL)
-	{
-		if (menuList[menuName]->getLocalPopupMenu()->menuAction())
-			scribusMenuBar->removeAction(menuList[menuName]->getLocalPopupMenu()->menuAction());
-		retVal=true;
-	}
-	return retVal;
-}
+//bool MenuManager::addMenuToMenuBarBefore(const QString &menuName, const QString &beforeMenuName)
+//{
+//	bool retVal=false;
+//	if (menuList.contains(menuName) && menuList[menuName]!=NULL)
+//	{
+//		if (menuList[beforeMenuName])
+//		{
+//			QAction* t=scribusMenuBar->insertMenu(menuList[beforeMenuName]->getLocalPopupMenu()->menuAction(), menuList[menuName]->getLocalPopupMenu());
+//			if (t!=NULL)
+//			{
+//				t->setText(menuList[menuName]->getMenuText());
+//				retVal=true;
+//			}
+//		}
+//	}
+//	return retVal;
+//}
+//bool MenuManager::removeMenuFromMenuBar(const QString &menuName)
+//{
+//	bool retVal=false;
+//	if (menuList.contains(menuName) && menuList[menuName]!=NULL)
+//	{
+//		if (menuList[menuName]->getLocalPopupMenu()->menuAction())
+//			scribusMenuBar->removeAction(menuList[menuName]->getLocalPopupMenu()->menuAction());
+//		retVal=true;
+//	}
+//	return retVal;
+//}
 
 void MenuManager::addMenuItemStringstoMenuBar(const QString &menuName, const QMap<QString, QPointer<ScrAction> > &menuActions)
 {

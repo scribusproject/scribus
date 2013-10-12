@@ -77,15 +77,23 @@ void ScripterCore::addToMainWindowMenu(ScribusMainWindow *mw)
 {
 	menuMgr = mw->scrMenuMgr;
 	menuMgr->createMenu("Scripter", QObject::tr("&Script"));
-	menuMgr->addMenuToMenuBarBefore("Scripter","Windows");
 	menuMgr->createMenu("ScribusScripts", QObject::tr("&Scribus Scripts"), "Scripter");
-	menuMgr->addMenuItem(scrScripterActions["scripterExecuteScript"], "Scripter", true);
+	menuMgr->addMenuItemString("ScribusScripts", "Scripter");
+	menuMgr->addMenuItemString("scripterExecuteScript", "Scripter");
 	menuMgr->createMenu("RecentScripts", QObject::tr("&Recent Scripts"), "Scripter");
-	menuMgr->addMenuSeparator("Scripter");
-	menuMgr->addMenuItem(scrScripterActions["scripterShowConsole"], "Scripter", true);
-	menuMgr->addMenuItem(scrScripterActions["scripterAboutScript"], "Scripter", true);
+	menuMgr->addMenuItemString("scripterExecuteScript", "Scripter");
+	menuMgr->addMenuItemString("SEPARATOR", "Scripter");
+//	menuMgr->addMenuItem(scrScripterActions["scripterShowConsole"], "Scripter", true);
+//	menuMgr->addMenuItem(scrScripterActions["scripterAboutScript"], "Scripter", true);
+	menuMgr->addMenuItemString("scripterShowConsole", "Scripter");
+	menuMgr->addMenuItemString("scripterAboutScript", "Scripter");
+
+
 	buildScribusScriptsMenu();
 	buildRecentScriptsMenu();
+
+	menuMgr->addMenuStringToMenuBarBefore("Scripter","Windows");
+	menuMgr->addMenuItemStringstoMenuBar("Scripter", scrScripterActions);
 }
 
 void ScripterCore::enableMainWindowMenu()
@@ -120,7 +128,8 @@ void ScripterCore::buildScribusScriptsMenu()
 			QString strippedName=fs.baseName();
 			scrScripterActions.insert(strippedName, new ScrAction( ScrAction::RecentScript, strippedName, QKeySequence(), this));
 			connect( scrScripterActions[strippedName], SIGNAL(triggeredData(QString)), this, SLOT(StdScript(QString)) );
-			menuMgr->addMenuItem(scrScripterActions[strippedName], "ScribusScripts", true);
+			//menuMgr->addMenuItem(scrScripterActions[strippedName], "ScribusScripts", true);
+			menuMgr->addMenuItemString(strippedName, "ScribusScripts");
 		}
 	}
 
@@ -140,7 +149,8 @@ void ScripterCore::rebuildRecentScriptsMenu()
 		strippedName.remove(QDir::separator());
 		scrRecentScriptActions.insert(strippedName, new ScrAction( ScrAction::RecentScript, RecentScripts[m], QKeySequence(), this));
 		connect( scrRecentScriptActions[strippedName], SIGNAL(triggeredData(QString)), this, SLOT(RecentScript(QString)) );
-		menuMgr->addMenuItem(scrRecentScriptActions[strippedName], "RecentScripts", true);
+//		menuMgr->addMenuItem(scrRecentScriptActions[strippedName], "RecentScripts", true);
+		menuMgr->addMenuItemString(strippedName, "RecentScripts");
 	}
 }
 

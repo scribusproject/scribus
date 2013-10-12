@@ -560,6 +560,7 @@ private:
     /** init methods */
 	void initSplash(bool showSplash);
 	void initMenuBar(); // initMenuBar creates the menu_bar and inserts the menuitems
+	void createMenuBar();
 	void addDefaultWindowMenuItems(); // addDefaultWindowMenuItems adds the basic Windows menu items, excluding the actual list of windows
 	void initStatusBar(); // setup the statusbar
 	void initToolBars(); // setup the toolbars
