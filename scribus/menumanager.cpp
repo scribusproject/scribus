@@ -296,35 +296,35 @@ void MenuManager::addMenuItemStringstoMenu(const QString &menuName, QMenu *menuT
 }
 
 
-void MenuManager::addMenuItemStringstoSpecialMenu(const QString &menuName, const QMap<QString, QPointer<ScrAction> > &menuActions)
+void MenuManager::addMenuItemStringstoSpecialMenu(const QString &menuName, const QHash<QString, QPointer<ScrAction> > &menuActions)
 {
 	if (menuName=="FileOpenRecent" && recentFileMenu!=NULL)
 	{
-		for( QMap<QString, QPointer<ScrAction> >::ConstIterator it = menuActions.begin(); it!=menuActions.end(); ++it )
+		for( QHash<QString, QPointer<ScrAction> >::ConstIterator it = menuActions.begin(); it!=menuActions.end(); ++it )
 			recentFileMenu->addAction(*it);
 	}
 	else if (menuName=="Windows" && windowsMenu!=NULL)
 	{
-		for( QMap<QString, QPointer<ScrAction> >::ConstIterator it = menuActions.begin(); it!=menuActions.end(); ++it )
+		for( QHash<QString, QPointer<ScrAction> >::ConstIterator it = menuActions.begin(); it!=menuActions.end(); ++it )
 			windowsMenu->addAction(*it);
 	}
 	else if (menuName=="ItemSendToScrapbook" && itemSendtoScrapbookMenu!=NULL)
 	{
-		for( QMap<QString, QPointer<ScrAction> >::ConstIterator it = menuActions.begin(); it!=menuActions.end(); ++it )
+		for( QHash<QString, QPointer<ScrAction> >::ConstIterator it = menuActions.begin(); it!=menuActions.end(); ++it )
 		{
 			itemSendtoScrapbookMenu->addAction(*it);
 		}
 	}
 	else if (menuName=="ItemLayer" && itemLayerMenu!=NULL)
 	{
-		for( QMap<QString, QPointer<ScrAction> >::ConstIterator it = menuActions.begin(); it!=menuActions.end(); ++it )
+		for( QHash<QString, QPointer<ScrAction> >::ConstIterator it = menuActions.begin(); it!=menuActions.end(); ++it )
 		{
 			itemLayerMenu->addAction(*it);
 		}
 	}
 	else if (menuName=="EditPasteRecent" && editPasteRecentMenu!=NULL)
 	{
-		for( QMap<QString, QPointer<ScrAction> >::ConstIterator it = menuActions.begin(); it!=menuActions.end(); ++it )
+		for( QHash<QString, QPointer<ScrAction> >::ConstIterator it = menuActions.begin(); it!=menuActions.end(); ++it )
 		{
 			editPasteRecentMenu->addAction(*it);
 		}

@@ -80,7 +80,7 @@ class SCRIBUS_API MenuManager : public QObject
 		void addMenuItemString(const QString& s, const QString &parent);
 		void addMenuItemStringstoMenuBar(const QString &menuName, const QMap<QString, QPointer<ScrAction> > &menuActions);
 		void addMenuItemStringstoMenu(const QString &menuName, QMenu *menuToAddTo, const QMap<QString, QPointer<ScrAction> > &menuActions);
-		void addMenuItemStringstoSpecialMenu(const QString &menuName, const QMap<QString, QPointer<ScrAction> > &menuActions);
+		void addMenuItemStringstoSpecialMenu(const QString &menuName, const QHash<QString, QPointer<ScrAction> > &menuActions);
 		void clearMenuStrings(const QString &menuName);
 		void addMenuItemStringAfter(const QString &s, const QString &after, const QString &parent);
 	public slots:

@@ -3903,7 +3903,7 @@ void ScribusMainWindow::rebuildLayersList()
 		Q_ASSERT(found);
 		scrLayersActions[QString("%1").arg((*it).ID)]->setChecked(true);
 
-		for( QMap<QString, QPointer<ScrAction> >::Iterator it = scrLayersActions.begin(); it!=scrLayersActions.end(); ++it )
+		for( QHash<QString, QPointer<ScrAction> >::Iterator it = scrLayersActions.begin(); it!=scrLayersActions.end(); ++it )
 		{
 			//scrMenuMgr->addMenuItem((*it), "ItemLayer", true);
 			connect( (*it), SIGNAL(triggeredData(int)), doc, SLOT(itemSelection_SendToLayer(int)) );
@@ -3917,15 +3917,15 @@ void ScribusMainWindow::updateItemLayerList()
 {
 	if (HaveDoc)
 	{
-		QMap<QString, QPointer<ScrAction> >::Iterator itend=scrLayersActions.end();
-		for( QMap<QString, QPointer<ScrAction> >::Iterator it = scrLayersActions.begin(); it!=itend; ++it )
+		QHash<QString, QPointer<ScrAction> >::Iterator itend=scrLayersActions.end();
+		for( QHash<QString, QPointer<ScrAction> >::Iterator it = scrLayersActions.begin(); it!=itend; ++it )
 		{
 			disconnect( (*it), SIGNAL(triggeredData(int)), 0, 0 );
 			(*it)->setChecked(false);
 		}
 		if (doc->m_Selection->count()>0 && doc->m_Selection->itemAt(0))
 			scrLayersActions[QString("%1").arg(doc->m_Selection->itemAt(0)->LayerID)]->setChecked(true);
-		for( QMap<QString, QPointer<ScrAction> >::Iterator it = scrLayersActions.begin(); it!=itend; ++it )
+		for( QHash<QString, QPointer<ScrAction> >::Iterator it = scrLayersActions.begin(); it!=itend; ++it )
 			connect( (*it), SIGNAL(triggeredData(int)), doc, SLOT(itemSelection_SendToLayer(int)) );
 	}
 }

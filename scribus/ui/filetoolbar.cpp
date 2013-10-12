@@ -49,5 +49,6 @@ void FileToolBar::rebuildRecentFileMenu()
 	foreach (recentFileAction, parent->scrRecentFileActions)
 		m->addAction(recentFileAction);
 	tb->setMenu(m);
-	tb->setPopupMode(QToolButton::MenuButtonPopup);
+//	tb->setPopupMode(QToolButton::MenuButtonPopup);
+	tb->setPopupMode(QToolButton::DelayedPopup);
 }

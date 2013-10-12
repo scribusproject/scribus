@@ -13,6 +13,7 @@ for which a new license (GPL+exception) is in place.
 #include <QMimeData>
 #include <QRegExp>
 #include <QStack>
+#include <QTextDocument>
 #include <QDebug>
 
 #include <cstdlib>
@@ -912,6 +913,9 @@ void RawPainter::insertText(const ::WPXString &str)
 			actText.replace(QChar(12), SpecialChars::FRAMEBREAK);
 			actText.replace(QChar(30), SpecialChars::NBHYPHEN);
 			actText.replace(QChar(160), SpecialChars::NBSPACE);
+			QTextDocument texDoc;
+			texDoc.setHtml(actText);
+			actText = texDoc.toPlainText();
 			actTextItem->itemText.insertChars(posC, actText);
 			actTextItem->itemText.applyStyle(posC, textStyle);
 			actTextItem->itemText.applyCharStyle(posC, actText.length(), textCharStyle);
