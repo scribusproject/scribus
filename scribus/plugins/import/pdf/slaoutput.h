@@ -227,7 +227,7 @@ public:
 				   GBool interpolate,
 				   Stream *maskStr,
 				   int maskWidth, int maskHeight,
-				   GBool maskInvert, GBool maskInterpolate) { qDebug() << "Draw Masked Image"; }
+				   GBool maskInvert, GBool maskInterpolate); // { qDebug() << "Draw Masked Image"; }
 
 	//----- transparency groups and soft masks
 	virtual void beginTransparencyGroup(GfxState *state, double *bbox, GfxColorSpace * /*blendingColorSpace*/, GBool /*isolated*/, GBool /*knockout*/, GBool /*forSoftMask*/);
