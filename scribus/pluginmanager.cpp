@@ -408,7 +408,8 @@ bool PluginManager::setupPluginActions(StoryEditor *sew)
 							if (!sew->seMenuMgr->menuExists(ai.seMenu))
 								sew->seMenuMgr->createMenu(ai.seMenu, ai.subMenuName, ai.parentMenu);
 						}
-						sew->seMenuMgr->addMenuItem(sew->seActions[ai.name], ai.seMenu, true);
+//						sew->seMenuMgr->addMenuItem(sew->seActions[ai.name], ai.seMenu, true);
+						sew->seMenuMgr->addMenuItemString(ai.name, ai.menu);
 					}
 				}
 				else
@@ -422,7 +423,8 @@ bool PluginManager::setupPluginActions(StoryEditor *sew)
 						if (!sew->seMenuMgr->menuExists(ai.seMenu))
 							sew->seMenuMgr->createMenu(ai.seMenu, ai.subMenuName, ai.parentMenu);
 					}
-					sew->seMenuMgr->addMenuItemAfter(sew->seActions[ai.name], ai.seMenu, true, afterAction);
+//					sew->seMenuMgr->addMenuItemAfter(sew->seActions[ai.name], ai.seMenu, true, afterAction);
+					sew->seMenuMgr->addMenuItemStringAfter(ai.name, ai.menuAfterName, ai.menu);
 				}
 			}
 		}

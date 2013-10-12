@@ -61,6 +61,7 @@ class SCRIBUS_API MenuManager : public QObject
 		bool addMenuToMenuBar(const QString &menuName);
 		bool addMenuStringToMenuBar(const QString &menuName);
 		bool addMenuToMenuBarBefore(const QString &, const QString &);
+		bool addMenuStringToMenuBarBefore(const QString &, const QString &);
 		bool removeMenuFromMenuBar(const QString &menuName);
 		bool addMenuToWidgetOfAction(const QString &menuName, ScrAction *action);
 

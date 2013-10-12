@@ -21,6 +21,7 @@ for which a new license (GPL+exception) is in place.
  *                                                                         *
  ***************************************************************************/
 
+#include <QString>
 #include <QToolButton>
 
 #include "filetoolbar.h"
@@ -28,16 +29,25 @@ for which a new license (GPL+exception) is in place.
 #include "scraction.h"
 #include "scribus.h"
 
-FileToolBar::FileToolBar(ScribusMainWindow* parent) : ScToolBar( tr("File"), "File", parent)
+FileToolBar::FileToolBar(ScribusMainWindow* p) : ScToolBar( tr("File"), "File", p)
 {
-	addAction(parent->scrActions["fileNew"]);
-	addAction(parent->scrActions["fileOpen"]);
+	parent=p;
+	addAction(p->scrActions["fileNew"]);
+	addAction(p->scrActions["fileOpen"]);
+	addAction(p->scrActions["fileSave"]);
+	addAction(p->scrActions["fileClose"]);
+	addAction(p->scrActions["filePrint"]);
+	addAction(p->scrActions["toolsPreflightVerifier"]);
+	addAction(p->scrActions["fileExportAsPDF"]);
+}
+
+void FileToolBar::rebuildRecentFileMenu()
+{
 	QToolButton* tb = dynamic_cast<QToolButton*>(widgetForAction(parent->scrActions["fileOpen"]));
-	tb->setMenu(parent->scrMenuMgr->getLocalPopupMenu("FileOpenRecent"));
-	tb->setPopupMode(QToolButton::DelayedPopup);
-	addAction(parent->scrActions["fileSave"]);
-	addAction(parent->scrActions["fileClose"]);
-	addAction(parent->scrActions["filePrint"]);
-	addAction(parent->scrActions["toolsPreflightVerifier"]);
-	addAction(parent->scrActions["fileExportAsPDF"]);
+	QMenu *m=new QMenu(this);
+	ScrAction *recentFileAction;
+	foreach (recentFileAction, parent->scrRecentFileActions)
+		m->addAction(recentFileAction);
+	tb->setMenu(m);
+	tb->setPopupMode(QToolButton::MenuButtonPopup);
 }

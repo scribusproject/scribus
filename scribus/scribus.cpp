@@ -3655,9 +3655,6 @@ void ScribusMainWindow::loadRecent(QString fn)
 void ScribusMainWindow::rebuildRecentFileMenu()
 {
 	scrMenuMgr->clearMenuStrings("FileOpenRecent");
-	for( QMap<QString, QPointer<ScrAction> >::Iterator it = scrRecentFileActions.begin(); it!=scrRecentFileActions.end(); ++it )
-		scrMenuMgr->removeMenuItem((*it), "FileOpenRecent");
-
 	scrRecentFileActions.clear();
 	uint max = qMin(prefsManager->appPrefs.uiPrefs.recentDocCount, RecentDocs.count());
 	QString strippedName, localName;
@@ -3665,18 +3662,19 @@ void ScribusMainWindow::rebuildRecentFileMenu()
 	{
 		strippedName = localName = QDir::toNativeSeparators(RecentDocs[m]);
 		strippedName.remove(QDir::separator());
-		scrRecentFileActions.insert(strippedName, new ScrAction(ScrAction::RecentFile, QPixmap(), QPixmap(), QString("&%1").arg(localName.replace("&","&&")), QKeySequence(), this, 0,0.0,RecentDocs[m]));
+		strippedName.prepend(QString("%1").arg(m+1));
+		scrRecentFileActions.insert(strippedName, new ScrAction(ScrAction::RecentFile, QPixmap(), QPixmap(), QString("%1 &%2").arg(m+1).arg(localName.replace("&","&&")), QKeySequence(), this, 0,0.0,RecentDocs[m]));
 		connect( scrRecentFileActions[strippedName], SIGNAL(triggeredData(QString)), this, SLOT(loadRecent(QString)) );
 //		scrMenuMgr->addMenuItem(scrRecentFileActions[strippedName], "FileOpenRecent", true);
 
 	}
 	scrMenuMgr->addMenuItemStringstoSpecialMenu("FileOpenRecent", scrRecentFileActions);
+	fileToolBar->rebuildRecentFileMenu();
 }
 
 void ScribusMainWindow::rebuildRecentPasteMenu()
 {
-	for( QMap<QString, QPointer<ScrAction> >::Iterator it = scrRecentPasteActions.begin(); it!=scrRecentPasteActions.end(); ++it )
-		scrMenuMgr->removeMenuItem((*it), "EditPasteRecent");
+	scrMenuMgr->clearMenuStrings("EditPasteRecent");
 
 	scrRecentPasteActions.clear();
 	int max = qMin(prefsManager->appPrefs.scrapbookPrefs.numScrapbookCopies, scrapbookPalette->tempBView->objectMap.count());
@@ -3692,9 +3690,10 @@ void ScribusMainWindow::rebuildRecentPasteMenu()
 			QPixmap pm = it.value().Preview;
 			scrRecentPasteActions.insert(strippedName, new ScrAction(ScrAction::RecentPaste, pm, QPixmap(), QString("&%1 %2").arg(m+1).arg(strippedName), QKeySequence(), this, 0,0.0,it.key()));
 			connect( scrRecentPasteActions[strippedName], SIGNAL(triggeredData(QString)), this, SLOT(pasteRecent(QString)) );
-			scrMenuMgr->addMenuItem(scrRecentPasteActions[strippedName], "EditPasteRecent", true);
+//			scrMenuMgr->addMenuItem(scrRecentPasteActions[strippedName], "EditPasteRecent", true);
 			it--;
 		}
+		scrMenuMgr->addMenuItemStringstoSpecialMenu("EditPasteRecent", scrRecentPasteActions);
 	}
 }
 
@@ -3873,8 +3872,7 @@ void ScribusMainWindow::rebuildLayersList()
 {
 	if (HaveDoc)
 	{
-		for( QMap<QString, QPointer<ScrAction> >::Iterator it0 = scrLayersActions.begin(); it0 != scrLayersActions.end(); ++it0 )
-			scrMenuMgr->removeMenuItem((*it0), "ItemLayer");
+		scrMenuMgr->clearMenuStrings("ItemLayer");
 		scrLayersActions.clear();
 		ScLayers::iterator it;
 		if (doc->Layers.count()!= 0)
@@ -3903,9 +3901,11 @@ void ScribusMainWindow::rebuildLayersList()
 
 		for( QMap<QString, QPointer<ScrAction> >::Iterator it = scrLayersActions.begin(); it!=scrLayersActions.end(); ++it )
 		{
-			scrMenuMgr->addMenuItem((*it), "ItemLayer", true);
+			//scrMenuMgr->addMenuItem((*it), "ItemLayer", true);
 			connect( (*it), SIGNAL(triggeredData(int)), doc, SLOT(itemSelection_SendToLayer(int)) );
 		}
+		scrMenuMgr->addMenuItemStringstoSpecialMenu("ItemLayer", scrRecentFileActions);
+
 	}
 }
 
