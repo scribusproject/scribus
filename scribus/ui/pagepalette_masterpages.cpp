@@ -102,7 +102,7 @@ void PagePalette_MasterPages::connectSignals()
 	connect(importButton   , SIGNAL(clicked()), this, SLOT(importPage()));
 	connect(masterPageListBox, SIGNAL(itemClicked(QListWidgetItem*)),
 			 this, SLOT(selectMasterPage(QListWidgetItem*)));
-	connect(masterPageListBox, SIGNAL(itemDoubleClicked(QListWidgetItem*)),
+	connect(masterPageListBox, SIGNAL(itemChanged(QListWidgetItem*)),
 			 this, SLOT(renameMasterPage( QListWidgetItem*)));
 	connect(finishButton   , SIGNAL(released()), this, SIGNAL(finished()));
 }
@@ -115,7 +115,7 @@ void PagePalette_MasterPages::disconnectSignals()
 	disconnect(importButton   , SIGNAL(clicked()), this, SLOT(importPage()));
 	disconnect(masterPageListBox, SIGNAL(itemClicked(QListWidgetItem*)),
 			   this, SLOT(selectMasterPage(QListWidgetItem*)));
-	disconnect(masterPageListBox, SIGNAL(itemDoubleClicked(QListWidgetItem*)),
+	disconnect(masterPageListBox, SIGNAL(itemChanged(QListWidgetItem*)),
 			   this, SLOT(renameMasterPage( QListWidgetItem*)));
 	disconnect(finishButton   , SIGNAL(released()), this, SIGNAL(finished()));
 }
@@ -448,7 +448,26 @@ void PagePalette_MasterPages::updateMasterPageList(QString masterPageName)
 
 	masterPageListBox->clear();
 	for (QMap<QString,int>::Iterator it = m_doc->MasterNames.begin(); it != m_doc->MasterNames.end(); ++it)
-		masterPageListBox->addItem(it.key() == CommonStrings::masterPageNormal ? CommonStrings::trMasterPageNormal : it.key());
+	{
+		QString mpName = it.key();
+		qDebug() << mpName;
+		if (it.key() == CommonStrings::masterPageNormal)
+			CommonStrings::trMasterPageNormal;
+		QListWidgetItem* mpItem = new QListWidgetItem(mpName);
+		if ((mpName != CommonStrings::masterPageNormal)  && (mpName != CommonStrings::trMasterPageNormal) &&
+			(mpName != CommonStrings::masterPageNormalLeft)  && (mpName != CommonStrings::trMasterPageNormalLeft) &&
+			(mpName != CommonStrings::masterPageNormalMiddle) && (mpName != CommonStrings::trMasterPageNormalMiddle) &&
+			(mpName != CommonStrings::masterPageNormalRight)  && (mpName != CommonStrings::trMasterPageNormalRight))
+		{
+			mpItem->setFlags(mpItem->flags() |= Qt::ItemIsEditable);
+		}
+		else
+		{
+			mpItem->setFlags(mpItem->flags() &= ~Qt::ItemIsEditable);
+		}
+		mpItem->setData(Qt::UserRole, it.key());
+		masterPageListBox->addItem(mpItem);
+	}
 	deleteButton->setEnabled(m_doc->MasterNames.count() == 1 ? false : true);
 	if (masterPageName == CommonStrings::masterPageNormal)
 	{
@@ -462,19 +481,45 @@ void PagePalette_MasterPages::updateMasterPageList(QString masterPageName)
 
 void PagePalette_MasterPages::renameMasterPage(QListWidgetItem * item)
 {
-	QString oldName(item->text());
-	if ((oldName == CommonStrings::masterPageNormal) || (oldName == CommonStrings::trMasterPageNormal) || (oldName == CommonStrings::trMasterPageNormalLeft) || (oldName == CommonStrings::trMasterPageNormalMiddle) || (oldName == CommonStrings::trMasterPageNormalRight))
+	bool success = true;
+	QString oldName(item->data(Qt::UserRole).toString());
+	QString newName(item->text());
+	if (oldName == newName)
+		return;
+
+	bool sigBlocked = masterPageListBox->blockSignals(true);
+	if ((newName == CommonStrings::masterPageNormal) || (newName == CommonStrings::trMasterPageNormal) ||
+		(newName == CommonStrings::masterPageNormalLeft)   || (newName == CommonStrings::trMasterPageNormalLeft) ||
+		(newName == CommonStrings::masterPageNormalMiddle) || (newName == CommonStrings::trMasterPageNormalMiddle) ||
+		(newName == CommonStrings::masterPageNormalRight)  || (newName == CommonStrings::trMasterPageNormalRight))
 	{
 		QMessageBox::information( this, tr("Unable to Rename Master Page"), tr("The Normal page is not allowed to be renamed."), QMessageBox::Ok );
+		success = false;
+	}
+	if (newName.isEmpty())
+		success = false;
+
+	if (success)
+		success = m_doc->renameMasterPage(oldName, newName);
+	if (success)
+	{
+		item->setData(Qt::UserRole, newName);
+		masterPageListBox->blockSignals(sigBlocked);
+		updateMasterPageList(newName);
 		return;
 	}
-	bool ok;
-	QString newName = QInputDialog::getText( this, tr("Rename Master Page"), tr("New Name:"), QLineEdit::Normal, oldName, &ok);
-	if (ok && !newName.isEmpty())
-	{
-		if (m_doc->renameMasterPage( oldName, newName))
-			updateMasterPageList(newName);
-	}
+
+	QString masterPageName = oldName;
+	if (masterPageName == CommonStrings::masterPageNormal)
+		masterPageName = CommonStrings::trMasterPageNormal;
+	if (masterPageName == CommonStrings::masterPageNormalLeft)
+		masterPageName = CommonStrings::trMasterPageNormalLeft;
+	if (masterPageName == CommonStrings::masterPageNormalMiddle)
+		masterPageName = CommonStrings::trMasterPageNormalMiddle;
+	if (masterPageName == CommonStrings::masterPageNormalRight)
+		masterPageName = CommonStrings::trMasterPageNormalRight;
+	item->setText(masterPageName);
+	masterPageListBox->blockSignals(sigBlocked);
 }
 
 
