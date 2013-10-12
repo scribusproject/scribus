@@ -1040,8 +1040,8 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->addMenuItemString("viewShowLayerMarkers", "ViewDocument");
 	scrMenuMgr->createMenu("ViewGrids", tr("Grids and Guides"), "View");
 	scrMenuMgr->addMenuItemString("ViewGrids", "View");
-	scrMenuMgr->addMenuItemString("viewShowGrid", "ViewDocument");
-	scrMenuMgr->addMenuItemString("viewShowGuides", "ViewDocument");
+	scrMenuMgr->addMenuItemString("viewShowGrid", "ViewGrids");
+	scrMenuMgr->addMenuItemString("viewShowGuides", "ViewGrids");
 
 	//CB If this is viewNewView imeplemented, it should be on the windows menu
 //	scrMenuMgr->addMenuItem(scrActions["viewNewView"], "View");
