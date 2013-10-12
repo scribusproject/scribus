@@ -812,10 +812,10 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->addMenuItemString("itemLockSize", "Locking");
 	scrMenuMgr->createMenu("ItemLevel", tr("Level"), "Item");
 	scrMenuMgr->addMenuItemString("ItemLevel", "Item");
-	scrMenuMgr->addMenuItemString("itemRaise", "Locking");
-	scrMenuMgr->addMenuItemString("itemLower", "Locking");
-	scrMenuMgr->addMenuItemString("itemRaiseToTop", "Locking");
-	scrMenuMgr->addMenuItemString("itemLowerToBottom", "Locking");
+	scrMenuMgr->addMenuItemString("itemRaise", "ItemLevel");
+	scrMenuMgr->addMenuItemString("itemLower", "ItemLevel");
+	scrMenuMgr->addMenuItemString("itemRaiseToTop", "ItemLevel");
+	scrMenuMgr->addMenuItemString("itemLowerToBottom", "ItemLevel");
 	scrMenuMgr->createMenu("ItemLayer", tr("Send to La&yer"));
 	scrMenuMgr->addMenuItemString("ItemLayer", "Item");
 //	scrMenuMgr->addMenuToMenu("ItemLayer", "Item");
