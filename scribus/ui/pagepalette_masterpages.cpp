@@ -450,9 +450,9 @@ void PagePalette_MasterPages::updateMasterPageList(QString masterPageName)
 	for (QMap<QString,int>::Iterator it = m_doc->MasterNames.begin(); it != m_doc->MasterNames.end(); ++it)
 	{
 		QString mpName = it.key();
-		qDebug() << mpName;
+//		qDebug() << mpName;
 		if (it.key() == CommonStrings::masterPageNormal)
-			CommonStrings::trMasterPageNormal;
+			mpName = CommonStrings::trMasterPageNormal;
 		QListWidgetItem* mpItem = new QListWidgetItem(mpName);
 		if ((mpName != CommonStrings::masterPageNormal)  && (mpName != CommonStrings::trMasterPageNormal) &&
 			(mpName != CommonStrings::masterPageNormalLeft)  && (mpName != CommonStrings::trMasterPageNormalLeft) &&
