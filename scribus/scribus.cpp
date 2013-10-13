@@ -3666,7 +3666,7 @@ void ScribusMainWindow::rebuildRecentFileMenu()
 	{
 		strippedName = localName = QDir::toNativeSeparators(RecentDocs[m]);
 		strippedName.remove(QDir::separator());
-		strippedName.prepend(QString("%1").arg(m+1));
+		strippedName.prepend(QString("%1").arg(m+1, 2, 10, QChar('0')));
 		scrRecentFileActions.insert(strippedName, new ScrAction(ScrAction::RecentFile, QPixmap(), QPixmap(), QString("%1 &%2").arg(m+1).arg(localName.replace("&","&&")), QKeySequence(), this, 0,0.0,RecentDocs[m]));
 		connect( scrRecentFileActions[strippedName], SIGNAL(triggeredData(QString)), this, SLOT(loadRecent(QString)) );
 //		scrMenuMgr->addMenuItem(scrRecentFileActions[strippedName], "FileOpenRecent", true);
@@ -3903,12 +3903,12 @@ void ScribusMainWindow::rebuildLayersList()
 		Q_ASSERT(found);
 		scrLayersActions[QString("%1").arg((*it).ID)]->setChecked(true);
 
-		for( QHash<QString, QPointer<ScrAction> >::Iterator it = scrLayersActions.begin(); it!=scrLayersActions.end(); ++it )
+		for( QMap<QString, QPointer<ScrAction> >::Iterator it = scrLayersActions.begin(); it!=scrLayersActions.end(); ++it )
 		{
 			//scrMenuMgr->addMenuItem((*it), "ItemLayer", true);
 			connect( (*it), SIGNAL(triggeredData(int)), doc, SLOT(itemSelection_SendToLayer(int)) );
 		}
-		scrMenuMgr->addMenuItemStringstoSpecialMenu("ItemLayer", scrRecentFileActions);
+		scrMenuMgr->addMenuItemStringstoSpecialMenu("ItemLayer", scrLayersActions);
 
 	}
 }
@@ -3917,15 +3917,15 @@ void ScribusMainWindow::updateItemLayerList()
 {
 	if (HaveDoc)
 	{
-		QHash<QString, QPointer<ScrAction> >::Iterator itend=scrLayersActions.end();
-		for( QHash<QString, QPointer<ScrAction> >::Iterator it = scrLayersActions.begin(); it!=itend; ++it )
+		QMap<QString, QPointer<ScrAction> >::Iterator itend=scrLayersActions.end();
+		for( QMap<QString, QPointer<ScrAction> >::Iterator it = scrLayersActions.begin(); it!=itend; ++it )
 		{
 			disconnect( (*it), SIGNAL(triggeredData(int)), 0, 0 );
 			(*it)->setChecked(false);
 		}
 		if (doc->m_Selection->count()>0 && doc->m_Selection->itemAt(0))
 			scrLayersActions[QString("%1").arg(doc->m_Selection->itemAt(0)->LayerID)]->setChecked(true);
-		for( QHash<QString, QPointer<ScrAction> >::Iterator it = scrLayersActions.begin(); it!=itend; ++it )
+		for( QMap<QString, QPointer<ScrAction> >::Iterator it = scrLayersActions.begin(); it!=itend; ++it )
 			connect( (*it), SIGNAL(triggeredData(int)), doc, SLOT(itemSelection_SendToLayer(int)) );
 	}
 }

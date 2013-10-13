@@ -236,12 +236,12 @@ public:
 	QProcess *ExternalApp;
 
 	QMap<QString, QPointer<ScrAction> > scrActions;
-	QHash<QString, QPointer<ScrAction> > scrRecentFileActions;
-	QHash<QString, QPointer<ScrAction> > scrWindowsActions;
-	QHash<QString, QPointer<ScrAction> > scrScrapActions;
-	QHash<QString, QPointer<ScrAction> > scrLayersActions;
-	QHash<QString, QPointer<ScrAction> > scrRecentPasteActions;
-	QHash<QString, QPointer<ScToolBar> > scrToolBars;
+	QMap<QString, QPointer<ScrAction> > scrRecentFileActions;
+	QMap<QString, QPointer<ScrAction> > scrWindowsActions;
+	QMap<QString, QPointer<ScrAction> > scrScrapActions;
+	QMap<QString, QPointer<ScrAction> > scrLayersActions;
+	QMap<QString, QPointer<ScrAction> > scrRecentPasteActions;
+	QMap<QString, QPointer<ScToolBar> > scrToolBars;
 	QMultiHash<QString, QActionGroup*> scrActionGroups;
 	ScMWMenuManager* scrMenuMgr;
 	ActionManager* actionManager;
