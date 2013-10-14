@@ -498,7 +498,7 @@ SeItem* SeView::GetPageItem(int pageIndex)
 		{
 			QTableWidgetItem* tbItem = item(i, j);
 			SeItem* pageItem = dynamic_cast<SeItem*>(tbItem);
-			if (pageItem && pageItem->pageNumber == pageIndex)
+			if (pageItem && pageItem->pageNumber == static_cast<uint>(pageIndex))
 				return pageItem;
 		}
 	}
