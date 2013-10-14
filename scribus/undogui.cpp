@@ -75,8 +75,10 @@ UndoWidget::UndoWidget(QWidget* parent, const char* name) : UndoGui(parent, name
 	parent->addAction(ScCore->primaryMainWindow()->scrActions["editRedoAction"]);
 	ScCore->primaryMainWindow()->scrMenuMgr->createMenu("undoButtonMenu", "undoButtonMenu");
 	ScCore->primaryMainWindow()->scrMenuMgr->createMenu("redoButtonMenu", "redoButtonMenu");
-	undoMenu=ScCore->primaryMainWindow()->scrMenuMgr->getLocalPopupMenu("undoButtonMenu");
-	redoMenu=ScCore->primaryMainWindow()->scrMenuMgr->getLocalPopupMenu("redoButtonMenu");
+	//undoMenu=ScCore->primaryMainWindow()->scrMenuMgr->getLocalPopupMenu("undoButtonMenu");
+	//redoMenu=ScCore->primaryMainWindow()->scrMenuMgr->getLocalPopupMenu("redoButtonMenu");
+	undoMenu=ScCore->primaryMainWindow()->scrMenuMgr->undoMenu();
+	redoMenu=ScCore->primaryMainWindow()->scrMenuMgr->redoMenu();
 	ScCore->primaryMainWindow()->scrMenuMgr->addMenuToWidgetOfAction("undoButtonMenu", ScCore->primaryMainWindow()->scrActions["editUndoAction"]);
 	ScCore->primaryMainWindow()->scrMenuMgr->addMenuToWidgetOfAction("redoButton/*Menu*/", ScCore->primaryMainWindow()->scrActions["editRedoAction"]);
 

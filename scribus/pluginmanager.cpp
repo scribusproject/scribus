@@ -285,7 +285,7 @@ bool PluginManager::setupPluginActions(ScribusMainWindow *mw)
 	Q_CHECK_PTR(mw);
 	ScActionPlugin* plugin = 0;
 
-	mw->scrMenuMgr->addMenuSeparator("Extras");
+	mw->scrMenuMgr->addMenuItemString("SEPARATOR", "Extras");
 	for (PluginMap::Iterator it = pluginMap.begin(); it != pluginMap.end(); ++it)
 	{
 		if (it.value().plugin->inherits("ScActionPlugin"))

@@ -84,6 +84,7 @@ class SCRIBUS_API ActionManager : public QObject
 		void enableUnicodeActions(QMap<QString, QPointer<ScrAction> > *actionMap, bool enabled, const QString& fontName=QString::null);
 		void setPDFActions(ScribusView *);
 		
+		void setStartupActionsEnabled(bool enabled);
 	public slots:
 		void languageChange();
 		void handleMultipleSelections(bool isMultiple);

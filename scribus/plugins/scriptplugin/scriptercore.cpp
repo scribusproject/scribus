@@ -138,9 +138,7 @@ void ScripterCore::buildScribusScriptsMenu()
 
 void ScripterCore::rebuildRecentScriptsMenu()
 {
-	for( QMap<QString, QPointer<ScrAction> >::Iterator it = scrRecentScriptActions.begin(); it!=scrRecentScriptActions.end(); ++it )
-		menuMgr->removeMenuItem((*it), "RecentScripts");
-
+	menuMgr->clearMenu("RecentScripts");
 	scrRecentScriptActions.clear();
 	uint max = qMin(PrefsManager::instance()->appPrefs.uiPrefs.recentDocCount, RecentScripts.count());
 	for (uint m = 0; m < max; ++m)
@@ -149,7 +147,6 @@ void ScripterCore::rebuildRecentScriptsMenu()
 		strippedName.remove(QDir::separator());
 		scrRecentScriptActions.insert(strippedName, new ScrAction( ScrAction::RecentScript, RecentScripts[m], QKeySequence(), this));
 		connect( scrRecentScriptActions[strippedName], SIGNAL(triggeredData(QString)), this, SLOT(RecentScript(QString)) );
-//		menuMgr->addMenuItem(scrRecentScriptActions[strippedName], "RecentScripts", true);
 		menuMgr->addMenuItemString(strippedName, "RecentScripts");
 	}
 }
@@ -170,7 +167,7 @@ void ScripterCore::buildRecentScriptsMenu()
 				strippedName.remove(QDir::separator());
 				scrRecentScriptActions.insert(strippedName, new ScrAction( ScrAction::RecentScript, SavedRecentScripts[m], QKeySequence(), this));
 				connect( scrRecentScriptActions[strippedName], SIGNAL(triggeredData(QString)), this, SLOT(RecentScript(QString)) );
-				menuMgr->addMenuItem(scrRecentScriptActions[strippedName], "RecentScripts", true);
+				menuMgr->addMenuItemString(strippedName, "RecentScripts");
 			}
 		}
 	}
