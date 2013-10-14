@@ -35,7 +35,6 @@ class QMenuBar;
 #include "scribusapi.h"
 #include "actionmanager.h"
 class ScrAction;
-class ScrPopupMenu;
 class ScribusMainWindow;
 
 /**
@@ -81,7 +80,6 @@ class SCRIBUS_API MenuManager : public QObject
 
 private:
 	QMenuBar *scribusMenuBar;
-	QMap<QString, ScrPopupMenu *> menuList;
 
 	QMap<QString, QList<QString> > menuStrings;
 	QMap<QString, QString> menuStringTexts;

@@ -29,7 +29,6 @@ for which a new license (GPL+exception) is in place.
 MenuManager::MenuManager(QMenuBar* mb, QObject *parent) : QObject(parent)
 {
 	scribusMenuBar=mb;
-	menuList.clear();
 	menuStrings.clear();
 	recentFileMenu=NULL;
 	editPasteRecentMenu=NULL;
@@ -52,13 +51,6 @@ bool MenuManager::createMenu(const QString &menuName, const QString &menuText, c
 	QList<QString> menuEntries;
 	menuStrings.insert(menuName, menuEntries);
 	menuStringTexts.insert(menuName, menuText);
-	ScrPopupMenu *newMenu = new ScrPopupMenu(NULL, menuName, menuText, parent);
-	if (newMenu)
-	{
-		menuList.insert(menuName, newMenu);
-		if (!parent.isNull() && menuList[parent])
-			retVal=menuList[parent]->insertSubMenu(newMenu);
-	}
 	return retVal;
 }
 
@@ -281,25 +273,26 @@ void MenuManager::clearMenuStrings(const QString &menuName)
 bool MenuManager::addMenuToWidgetOfAction(const QString &menuName, ScrAction *action)
 {
 	bool retVal=false;
-	if (menuList.contains(menuName) && menuList[menuName]!=NULL && action!=NULL)
+	/*if (menuList.contains(menuName) && menuList[menuName]!=NULL && action!=NULL)
 	{
-		/* //qt4 cb replace with qwidgetaction or similar
-		QWidget *w=action->getWidgetAddedTo();
-		if (w)
-		{
-			QString menuItemListClassName=w->className();
-			if (menuItemListClassName=="QToolButton")
-			{
-				QToolButton *toolButton=dynamic_cast<QToolButton *>(w);
-				if (toolButton!=NULL)
-				{
-					toolButton->setPopup(menuList[menuName]->getLocalPopupMenu());
-					retVal=true;
-				}
-			}
-		}
-		*/
+		 //qt4 cb replace with qwidgetaction or similar
+//		QWidget *w=action->getWidgetAddedTo();
+//		if (w)
+//		{
+//			QString menuItemListClassName=w->className();
+//			if (menuItemListClassName=="QToolButton")
+//			{
+//				QToolButton *toolButton=dynamic_cast<QToolButton *>(w);
+//				if (toolButton!=NULL)
+//				{
+//					toolButton->setPopup(menuList[menuName]->getLocalPopupMenu());
+//					retVal=true;
+//				}
+//			}
+//		}
+
 	}
+*/
 	return retVal;
 }
 
@@ -322,19 +315,23 @@ void MenuManager::addMenuItemStringAfter(const QString& s, const QString& after,
 bool MenuManager::removeMenuItem(ScrAction *menuAction, const QString &parent)
 {
 	bool retVal=false;
-	if (menuList.contains(parent) && menuList[parent]!=NULL)
+	/*
+	 if (menuList.contains(parent) && menuList[parent]!=NULL)
 		retVal=menuList[parent]->removeMenuItem(menuAction);
+	*/
 	return retVal;
 }
 
 void MenuManager::runMenuAtPos(const QString &menuName, const QPoint position)
 {
+	/*
 	if (menuList.contains(menuName) && menuList[menuName]!=NULL)
 	{	
 		QMenu *popupmenu=menuList[menuName]->getLocalPopupMenu();
 		if (popupmenu)
 			popupmenu->exec(position);
 	}
+	*/
 }
 
 // Used to generate a list of entries from the menu system into the keyboard shortcut manager

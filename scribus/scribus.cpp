@@ -281,6 +281,7 @@ ScribusMainWindow::ScribusMainWindow()
 	mainWindowStatusLabel=0;
 	ExternalApp=0;
 #ifdef Q_OS_MAC
+	ScQApp->setAttribute(Qt::AA_DontShowIconsInMenus);
 	noIcon = loadIcon("noicon.xpm");
 #endif
 }
@@ -1076,11 +1077,9 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->addMenuItemString("extrasUpdateDocument", "Extras");
 	scrMenuMgr->addMenuItemString("itemUpdateMarks", "Extras");
 	scrMenuMgr->addMenuItemString("extrasTestQTQuick2_1", "Extras");
-	connect(scrMenuMgr->getLocalPopupMenu("Extras"), SIGNAL(aboutToShow()), this, SLOT(extrasMenuAboutToShow()));
 
 	//Window menu
 	scrMenuMgr->createMenu("Windows", ActionManager::defaultMenuNameEntryTranslated("Windows"), QString::null, true);
-	connect(scrMenuMgr->getLocalPopupMenu("Windows"), SIGNAL(aboutToShow()), this, SLOT(windowsMenuAboutToShow()));
 	//addDefaultWindowMenuItems();
 
 	//Help menu
@@ -1125,6 +1124,9 @@ void ScribusMainWindow::createMenuBar()
 	menuBar()->addSeparator();
 	scrMenuMgr->addMenuStringToMenuBar("Help");
 	scrMenuMgr->addMenuItemStringstoMenuBar("Help", scrActions);
+	connect(scrMenuMgr->getLocalPopupMenu("Extras"), SIGNAL(aboutToShow()), this, SLOT(extrasMenuAboutToShow()));
+	connect(scrMenuMgr->getLocalPopupMenu("Windows"), SIGNAL(aboutToShow()), this, SLOT(windowsMenuAboutToShow()));
+
 }
 
 
