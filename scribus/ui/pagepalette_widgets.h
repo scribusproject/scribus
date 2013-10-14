@@ -96,8 +96,10 @@ class SCRIBUS_API SeView : public QTableWidget
 public:
 	SeView(QWidget* parent);
 	~SeView() {};
+
 	void ClearPix();
 	int GetPage(int r, int c, bool *last);
+	SeItem* GetPageItem(int pageIndex);
 
 public slots:
 	void ToggleNam();

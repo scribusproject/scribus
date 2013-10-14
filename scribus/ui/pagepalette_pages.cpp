@@ -75,7 +75,7 @@ PagePalette_Pages::PagePalette_Pages(QWidget* parent) : QWidget(parent)
 	connect(pageView  , SIGNAL(Click(int, int, int))   , this, SLOT(pageView_gotoPage(int, int, int)));
 	connect(pageView  , SIGNAL(movePage(int, int))     , this, SLOT(pageView_movePage(int, int)));
 	connect(pageView  , SIGNAL(DelPage(int))           , m_scMW, SLOT(deletePage2(int)));
-	connect(pageView  , SIGNAL(UseTemp(QString, int))  , m_scMW, SLOT(Apply_MasterPage(QString, int)));
+	connect(pageView  , SIGNAL(UseTemp(QString, int))  , this, SLOT(pageView_applyMasterPage(QString, int)));
 	connect(pageView  , SIGNAL(NewPage(int, QString))  , m_scMW, SLOT(slotNewPageP(int, QString)));
 	connect(trash     , SIGNAL(DelPage(int))           , m_scMW, SLOT(deletePage2(int)));
 	connect(trash     , SIGNAL(DelMaster(QString))     , this, SLOT(deleteMasterPage(QString)));
@@ -119,6 +119,15 @@ void PagePalette_Pages::deleteMasterPage(QString tmp)
 		currView->setContentsPos(storedViewXCoor, storedViewYCoor);
 		currView->DrawNew();
 	}
+}
+
+void PagePalette_Pages::pageView_applyMasterPage(QString masterpageName, int pageIndex)
+{
+	m_scMW->Apply_MasterPage(masterpageName, pageIndex);
+
+	SeItem* pageItem = pageView->GetPageItem(pageIndex);
+	if (pageItem)
+		pageItem->setIcon(createIcon(pageIndex, masterpageName, pix));
 }
 
 void PagePalette_Pages::pageView_movePage(int r, int c)
@@ -263,10 +272,7 @@ void PagePalette_Pages::rebuildPages()
 	for (int a = 0; a < currView->Doc->DocPages.count(); ++a)
 	{
 		str = currView->Doc->DocPages.at(a)->MPageNam;
-		QRegExp Exp ("([A-Z]*[0-9]*)( *[\\.|\\-|_] *)(.*)");
-		if (Exp.indexIn(str) != -1)
-			str = Exp.cap(1);
-		SeItem *it = new SeItem(str, a, CreateIcon(a, str, pix));
+		SeItem *it = new SeItem(str, a, createIcon(a, str, pix));
 		pageList.append(it);
 		pageView->setItem(rowcounter*rowmult+rowadd, counter*colmult+coladd, (QTableWidgetItem *)it);
 		pageView->setColumnWidth(counter*colmult+coladd, pix.width());
@@ -343,7 +349,7 @@ void PagePalette_Pages::selMasterPage()
 		emit gotoMasterPage(masterPageList->CurItem->text());
 }
 
-QPixmap PagePalette_Pages::CreateIcon(int nr, QString mp, QPixmap pixin)
+QPixmap PagePalette_Pages::createIcon(int nr, QString masterPage, QPixmap pixin)
 {
 	QPainter p;
 	// Necessary on windows to ensure the pixmap is drawable
@@ -362,13 +368,12 @@ QPixmap PagePalette_Pages::CreateIcon(int nr, QString mp, QPixmap pixin)
 		QString tmp(currView->Doc->getSectionPageNumberForPageIndex(nr));
 		if (tmp.isEmpty())
 			tmp = tmp.setNum(nr+1);
-		//QRect b = p.fontMetrics().boundingRect(tmp);
-		//QRect c = QRect((ret.width() / 2 - b.width() / 2)-2, (ret.height() / 2 - b.height() / 2)-2, b.width()+4, b.height()+4);
-		//p.drawRect(c);
-		//QRect d = QRect((ret.width() / 2 - b.width() / 2), (ret.height() / 2 - b.height() / 2), b.width(), b.height());
+		QRegExp Exp ("([A-Z]*[0-9]*)( *[\\.|\\-|_] *)(.*)");
+		if (Exp.indexIn(masterPage) != -1)
+			masterPage = Exp.cap(1);
 		QRect d = QRect(0, 0, ret.width(), ret.height());
 		p.setFont(QFont("Helvetica", 7, QFont::Normal));
-		p.drawText(d, Qt::AlignCenter, tmp+"\n"+mp);
+		p.drawText(d, Qt::AlignCenter, tmp+"\n"+masterPage);
 		p.end();
 		if( !pixin.mask().isNull() )
 			ret.setMask( pixin.mask() );

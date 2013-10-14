@@ -488,6 +488,23 @@ int SeView::GetPage(int r, int c, bool *last)
 	return ret;
 }
 
+SeItem* SeView::GetPageItem(int pageIndex)
+{
+	int rows = this->rowCount();
+	int columns = this->columnCount();
+	for (int i = 0; i < rows; ++i)
+	{
+		for (int j = 0; j < columns; ++j)
+		{
+			QTableWidgetItem* tbItem = item(i, j);
+			SeItem* pageItem = dynamic_cast<SeItem*>(tbItem);
+			if (pageItem && pageItem->pageNumber == pageIndex)
+				return pageItem;
+		}
+	}
+	return 0;
+}
+
 /* Der Muelleimer */
 TrashBin::TrashBin(QWidget * parent) : QLabel(parent)
 {
