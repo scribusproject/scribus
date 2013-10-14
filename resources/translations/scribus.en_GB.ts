@@ -7062,7 +7062,7 @@ May raise WrongFrameTypeError if the target frame is not an image frame
     </message>
     <message>
         <source>Abort Update Check</source>
-        <translation>Abort Update Check</translation>
+        <translation type="obsolete">Abort Update Check</translation>
     </message>
     <message>
         <source>Developer Blog</source>
@@ -7087,6 +7087,10 @@ May raise WrongFrameTypeError if the target frame is not an image frame
     <message>
         <source>Unable to open %1 file. Please check your install directory or the Scribus website for %1 information.</source>
         <translation>Unable to open %1 file. Please check your install directory or the Scribus website for %1 information.</translation>
+    </message>
+    <message>
+        <source>Haiku Port:</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -8462,6 +8466,178 @@ May raise WrongFrameTypeError if the target frame is not an image frame
     <message>
         <source>&amp;Table</source>
         <translation>&amp;Table</translation>
+    </message>
+    <message>
+        <source>Test Qt Quick</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Copy</source>
+        <translation type="unfinished">Copy</translation>
+    </message>
+    <message>
+        <source>Cut</source>
+        <translation type="unfinished">Cut</translation>
+    </message>
+    <message>
+        <source>Paste</source>
+        <translation type="unfinished">Paste</translation>
+    </message>
+    <message>
+        <source>Redo</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Undo</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Close the current document</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Export the document to PDF</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Create a new document</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Open an existing document</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Print the document</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save the current document</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Copy item properties</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Edit contents of a frame</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Edit text in the Story Editor</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Eye Dropper</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Insert an arc</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Insert a bezier curve</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Insert a calligraphic line</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Insert a freehand line</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Insert an image frame</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Insert a line</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Insert a polygon</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Insert a render frame</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Insert a shape</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Insert a spiral</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Insert a table</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Insert a text frame</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Link text frames</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Measurements</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Insert link annotation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Insert text annotation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Insert PDF check box</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Insert PDF combo box</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Insert PDF list box</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Insert PDF push button</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Insert PDF radio button</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Insert PDF text field</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Analyse the document for issues prior to exporting to PDF</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Rotate an item</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Select an item</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unlink text frames</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Insert 3D annotation</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -10676,7 +10852,7 @@ It is a reserved name for transparent colour</translation>
     <message>
         <source>The name of the color already exists,
 please choose another one.</source>
-        <translation>The name of the colour already exists,
+        <translation type="obsolete">The name of the colour already exists,
 please choose another one.</translation>
     </message>
     <message>
@@ -10690,7 +10866,7 @@ please choose another one.</translation>
     <message>
         <source>You cannot create a color without a name
 Please give it a name</source>
-        <translation>You cannot create a colour without a namePlease give it a name</translation>
+        <translation type="obsolete">You cannot create a colour without a namePlease give it a name</translation>
     </message>
     <message>
         <source>HSV Color Map</source>
@@ -10703,6 +10879,16 @@ Please give it a name</source>
     <message>
         <source>User Swatches</source>
         <translation>User Swatches</translation>
+    </message>
+    <message>
+        <source>You cannot create a color without a name.
+Please give it a name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The name of the color already exists.
+Please choose another one.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -11556,10 +11742,6 @@ The Insert key inserts a Glyph into the Selection below and the Delete key remov
         <translation>Print/Visible Mismatch</translation>
     </message>
     <message>
-        <source>Issue(s): %1</source>
-        <translation></translation>
-    </message>
-    <message>
         <source>Master Pages</source>
         <translation>Master Pages</translation>
     </message>
@@ -11586,6 +11768,22 @@ currently %2 x %3 DPI</translation>
     <message>
         <source>After Marks update document was changed</source>
         <translation>After Marks update document was changed</translation>
+    </message>
+    <message>
+        <source>Issues: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Object colorspace is not CMYK or spot</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Imported document contains non embedded fonts</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Applied master page has different page destination (left, middle, right side)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -14460,11 +14658,15 @@ Use 72 dpi for Images intended for the Screen</translation>
     </message>
     <message>
         <source>Enabling this tells Scribus to use these replacements for missing fonts permanently in all future layouts. This can be reverted or changed in Edit &gt; Preferences &gt; Fonts.</source>
-        <translation>Enabling this tells Scribus to use these replacements for missing fonts permanently in all future layouts. This can be reverted or changed in Edit &gt; Preferences &gt; Fonts.</translation>
+        <translation type="obsolete">Enabling this tells Scribus to use these replacements for missing fonts permanently in all future layouts. This can be reverted or changed in Edit &gt; Preferences &gt; Fonts.</translation>
     </message>
     <message>
         <source>If you select OK, then save, these substitutions are made permanent in the document.</source>
         <translation>If you select OK, then save, these substitutions are made permanent in the document.</translation>
+    </message>
+    <message>
+        <source>Enabling this tells Scribus to use these replacements for missing fonts permanently in all future layouts. This can be reverted or changed in File &gt; Preferences &gt; Fonts.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -17192,11 +17394,11 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <source>Anchors</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Anchors</translation>
     </message>
     <message>
         <source>Variable Text</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Variable Text</translation>
     </message>
     <message>
         <source>Marks to Items</source>
@@ -17219,11 +17421,11 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Update all refeence texts for all marks</source>
+        <source>Edit selected mark</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Edit selected mark</source>
+        <source>Update all reference texts for all marks</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -18254,11 +18456,6 @@ If no handle is selected all handles will be reset.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>New notes style will be add to document only after pressing Apply butoton.
-You cannot switch to different notes style before you apply that new one or press Cancel button and exit from adding mode.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Mark`s Character Style</source>
         <translation type="unfinished"></translation>
     </message>
@@ -18288,6 +18485,11 @@ You cannot switch to different notes style before you apply that new one or pres
     </message>
     <message>
         <source>Notes Styles Editor is in adding new notes style mode. After pressing Cancel button Notes Styles Editor switch into normal notes styles edit mode.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>New notes style will be add to document only after pressing Apply button.
+You cannot switch to different notes style before you apply that new one or press Cancel button and exit from adding mode.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -19184,15 +19386,15 @@ You cannot switch to different notes style before you apply that new one or pres
     </message>
     <message>
         <source>Arc</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Arc</translation>
     </message>
     <message>
         <source>Spiral</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Spiral</translation>
     </message>
     <message>
         <source>Table</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Table</translation>
     </message>
 </context>
 <context>
@@ -19732,11 +19934,11 @@ Often used for allowing items to be placed across page spreads</source>
     </message>
     <message>
         <source>Rename Master Page</source>
-        <translation type="unfinished">Rename Master Page</translation>
+        <translation type="obsolete">Rename Master Page</translation>
     </message>
     <message>
         <source>New Name:</source>
-        <translation type="unfinished">New Name:</translation>
+        <translation type="obsolete">New Name:</translation>
     </message>
 </context>
 <context>
@@ -19950,11 +20152,11 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <source>Scribus Swatches</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Scribus Swatches</translation>
     </message>
     <message>
         <source>User Swatches</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">User Swatches</translation>
     </message>
     <message>
         <source>Merge Color Set</source>
@@ -19966,7 +20168,7 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <source>Sort by Color</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Sort by Colour</translation>
     </message>
     <message>
         <source>Sort by Type</source>
@@ -21811,7 +22013,7 @@ Please choose another one.</source>
     </message>
     <message>
         <source>End Edit</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">End Edit</translation>
     </message>
 </context>
 <context>
@@ -23892,11 +24094,11 @@ A value of 0 means unlimited hyphenations.</translation>
     </message>
     <message>
         <source>Arc</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Arc</translation>
     </message>
     <message>
         <source>Spiral</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Spiral</translation>
     </message>
 </context>
 <context>
@@ -25256,6 +25458,14 @@ A value of 0 means unlimited hyphenations.</translation>
     </message>
     <message>
         <source>Check for part filled image frames</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Check for empty text frames</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Check if applied master page location is the same as each page&apos;s location</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -28416,7 +28626,7 @@ Corners:</translation>
     </message>
     <message>
         <source>Fill</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Fill</translation>
     </message>
     <message>
         <source>Styles</source>
@@ -28424,7 +28634,7 @@ Corners:</translation>
     </message>
     <message>
         <source>Table</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Table</translation>
     </message>
     <message>
         <source>Cells</source>
@@ -31720,7 +31930,7 @@ Therefore the image may be not correct</translation>
     <message>
         <source>°</source>
         <comment>degrees, unicode 0xB0</comment>
-        <translation>°</translation>
+        <translation type="obsolete">°</translation>
     </message>
     <message>
         <source>WMF Import</source>
@@ -32497,15 +32707,20 @@ Therefore the image may be not correct</source>
         <translation type="unfinished">You are running a development version of Scribus 1.3.x. The document you are working with was created in Scribus 1.2.x.  Saving the current file under 1.3.x renders it unable to be edited in Scribus 1.2.x versions. To preserve the ability to edit in 1.2.x, save this file under a different name and further edit the newly named file and the original will be untouched. Are you sure you wish to proceed with this operation? {1.5.?} {1.2.?} {1.5.?} {1.2.?} {1.2.?}</translation>
     </message>
     <message>
-        <source>Unaceptable settings for note style</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>PUB Importer</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>&lt;p&gt;You are trying to import more pages than there are available in the current document counting from the active page.&lt;/p&gt;Choose one of the following:&lt;ul&gt;&lt;li&gt;&lt;b&gt;Create&lt;/b&gt; missing pages&lt;/li&gt;&lt;li&gt;&lt;b&gt;Import&lt;/b&gt; pages until the last page&lt;/li&gt;&lt;li&gt;&lt;b&gt;Cancel&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unacceptable settings for note style</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Â°</source>
+        <comment>degrees, unicode 0xB0</comment>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -35908,7 +36123,7 @@ Consider using the Preflight Verifier to correct them</translation>
     </message>
     <message>
         <source>Online &amp;Tutorials</source>
-        <translation>Online &amp;Tutorials</translation>
+        <translation type="obsolete">Online &amp;Tutorials</translation>
     </message>
     <message>
         <source>Some color profiles used by this document are not installed:</source>
@@ -35985,7 +36200,7 @@ Consider using the Preflight Verifier to correct them</translation>
     </message>
     <message>
         <source>Table</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Table</translation>
     </message>
     <message>
         <source>Unknown</source>
@@ -36033,11 +36248,11 @@ Consider using the Preflight Verifier to correct them</translation>
     </message>
     <message>
         <source>Arc</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Arc</translation>
     </message>
     <message>
         <source>Spiral</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Spiral</translation>
     </message>
     <message>
         <source>%1 Objects selected, Selection Size = %2 x %3</source>
@@ -36295,7 +36510,7 @@ Consider using the Preflight Verifier to correct them</translation>
     </message>
     <message>
         <source>&amp;Paste</source>
-        <translation>&amp;Paste</translation>
+        <translation type="obsolete">&amp;Paste</translation>
     </message>
     <message>
         <source>File: </source>
@@ -36497,7 +36712,7 @@ You can choose between normal and several colour blindness forms</translation>
     </message>
     <message>
         <source>End Edit</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">End Edit</translation>
     </message>
     <message>
         <source>Enable/disable editing the Preview Mode</source>
@@ -36517,6 +36732,14 @@ You can choose between normal and several colour blindness forms</translation>
     </message>
     <message>
         <source>Send to</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Scrapbook</source>
+        <translation type="unfinished">Scrapbook</translation>
+    </message>
+    <message>
+        <source>&amp;Paste Here</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -37127,11 +37350,11 @@ You can choose between normal and several colour blindness forms</translation>
     </message>
     <message>
         <source>Start Angle:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Start Angle:</translation>
     </message>
     <message>
         <source>End Angle:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">End Angle:</translation>
     </message>
     <message>
         <source>Factor:</source>
@@ -37143,7 +37366,7 @@ You can choose between normal and several colour blindness forms</translation>
     </message>
     <message>
         <source>End Edit</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">End Edit</translation>
     </message>
 </context>
 <context>
@@ -37154,11 +37377,11 @@ You can choose between normal and several colour blindness forms</translation>
     </message>
     <message>
         <source>Start Angle:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Start Angle:</translation>
     </message>
     <message>
         <source>End Angle:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">End Angle:</translation>
     </message>
     <message>
         <source>Factor:</source>
@@ -42110,7 +42333,7 @@ Error:%2 at line: %3, row: %4</translation>
     </message>
     <message>
         <source>Operation canceled</source>
-        <translation>Operation cancelled</translation>
+        <translation type="obsolete">Operation cancelled</translation>
     </message>
     <message>
         <source>This list may contain development/unstable versions.</source>
