@@ -238,7 +238,7 @@ About::About( QWidget* parent, AboutMode diaMode ) : QDialog( parent )
 	{
 		QTextStream inTS(&licenceFile);
 		QString licenceText = inTS.readAll();
-		textViewLicence->setSimpleText(licenceText);
+		textViewLicence->setSimpleText("<pre>"+licenceText+"</pre>");
 	} 
 	
 	//Add tab widget to about window
