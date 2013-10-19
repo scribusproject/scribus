@@ -50,7 +50,7 @@ for which a new license (GPL+exception) is in place.
 #include <QMouseEvent>
 #include <QPixmap>
 #include <QProgressBar>
-#include <QQuickView>
+//#include <QQuickView>
 #include <QRegExp>
 #include <QStyleFactory>
 #include <QTableWidget>
@@ -442,7 +442,8 @@ int ScribusMainWindow::initScMW(bool primaryMainWindow)
 				Cpfad = csm.userPaletteFileFromName(prefsManager->appPrefs.colorPrefs.DColorSet);
 			else
 				Cpfad = csm.paletteFileFromName(prefsManager->appPrefs.colorPrefs.DColorSet);
-			csm.loadPalette(Cpfad, m_doc, prefsManager->appPrefs.colorPrefs.DColors, prefsManager->appPrefs.defaultGradients, prefsManager->appPrefs.defaultPatterns, false);
+			if (!Cpfad.isEmpty())
+				csm.loadPalette(Cpfad, m_doc, prefsManager->appPrefs.colorPrefs.DColors, prefsManager->appPrefs.defaultGradients, prefsManager->appPrefs.defaultPatterns, false);
 		}
 	}
 	actionManager->setStartupActionsEnabled(false);
@@ -2061,7 +2062,8 @@ ScribusDoc *ScribusMainWindow::doFileNew(double width, double height, double top
 				Cpfad = csm.userPaletteFileFromName(prefsManager->appPrefs.colorPrefs.DColorSet);
 			else
 				Cpfad = csm.paletteFileFromName(prefsManager->appPrefs.colorPrefs.DColorSet);
-			csm.loadPalette(Cpfad, doc, colorList, gradientsList, patternsList, false);
+			if (!Cpfad.isEmpty())
+				csm.loadPalette(Cpfad, doc, colorList, gradientsList, patternsList, false);
 			doc->PageColors = colorList;
 			doc->docGradients = gradientsList;
 			doc->docPatterns = patternsList;
