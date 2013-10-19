@@ -61,7 +61,11 @@ Prefs_Plugins::Prefs_Plugins(QWidget* parent, ScribusDoc* doc)
 					men = scMW->scrMenuMgr->getLocalPopupMenu(ai.parentMenu)->title().remove(QRegExp("&(?!&)")) + " -> ";
 			}
 			if (scMW->scrMenuMgr->menuExists(ai.menu))
-				men += scMW->scrMenuMgr->getLocalPopupMenu(ai.menu)->title().remove(QRegExp("&(?!&)")) + " -> ";
+			{
+				QMenu *m=scMW->scrMenuMgr->getLocalPopupMenu(ai.menu);
+				if (m)
+					men += m->title().remove(QRegExp("&(?!&)")) + " -> ";
+			}
 			i1->setText(men + QString("%1").arg(scMW->scrActions[ai.name]->text().remove(QRegExp("&(?!&)"))));
 		}
 		pluginTable->setItem(i, 1, i1);
