@@ -35,7 +35,7 @@ void ScTextBrowser::clear()
 void ScTextBrowser::setSimpleText(const QString& str)
 {
 	if(!str.isEmpty())
-		setHtml(QString::fromLocal8Bit("<html><body>%1</body></html>").arg(str));
+		setContent(str.toUtf8(), QLatin1String("text/plain; charset=utf-8"));
 	else
 		clear();
 }

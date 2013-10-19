@@ -237,8 +237,10 @@ About::About( QWidget* parent, AboutMode diaMode ) : QDialog( parent )
 	else
 	{
 		QTextStream inTS(&licenceFile);
+		inTS.setAutoDetectUnicode(true);
+		inTS.setCodec("UTF-8");
 		QString licenceText = inTS.readAll();
-		textViewLicence->setSimpleText("<pre>"+licenceText+"</pre>");
+		textViewLicence->setSimpleText(licenceText);
 	} 
 	
 	//Add tab widget to about window
