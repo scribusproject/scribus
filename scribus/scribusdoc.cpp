@@ -10506,49 +10506,49 @@ void ScribusDoc::removePict(QString name)
 
 void ScribusDoc::updatePic()
 {
-//TODO? Getting the pointer with m_Selection->itemAt(i) over and over again in the loop 
-// seems to be a waste of ressources
-	uint docSelectionCount=m_Selection->count();
-	if (docSelectionCount > 0)
+	//TODO? Getting the pointer with m_Selection->itemAt(i) over and over again in the loop 
+	// seems to be a waste of ressources
+	uint docSelectionCount = m_Selection->count();
+	if (docSelectionCount <= 0)
+		return;
+
+	bool toUpdate=false;
+	for (uint i = 0; i < docSelectionCount; ++i)
 	{
-		bool toUpdate=false;
-		for (uint i = 0; i < docSelectionCount; ++i)
+		PageItem* currItem = m_Selection->itemAt(i);
+		if (!currItem)
+			continue;
+		m_updateManager.setUpdatesDisabled();
+		if (currItem->asLatexFrame())
 		{
-			PageItem* currItem = m_Selection->itemAt(i);
-			if (!currItem)
-				continue;
-			m_updateManager.setUpdatesDisabled();
-			if (currItem->asLatexFrame())
+			PageItem_LatexFrame *latexframe = currItem->asLatexFrame();
+			latexframe->rerunApplication();
+			toUpdate = true;
+		}
+#ifdef HAVE_OSG
+		else if ((currItem->asImageFrame()) || (currItem->asOSGFrame()))
+#else
+		else if (currItem->asImageFrame())
+#endif
+		{
+			if (currItem->PictureIsAvailable)
 			{
-				PageItem_LatexFrame *latexframe = currItem->asLatexFrame();
-				latexframe->rerunApplication();
+				int fho = currItem->imageFlippedH();
+				int fvo = currItem->imageFlippedV();
+				double imgX = currItem->imageXOffset();
+				double imgY = currItem->imageYOffset();
+				loadPict(currItem->Pfile, currItem, true);
+				currItem->setImageFlippedH(fho);
+				currItem->setImageFlippedV(fvo);
+				currItem->setImageXOffset(imgX);
+				currItem->setImageYOffset(imgY);
 				toUpdate = true;
 			}
-#ifdef HAVE_OSG
-			else if ((currItem->asImageFrame()) || (currItem->asOSGFrame()))
-#else
-			else if (currItem->asImageFrame())
-#endif
-			{
-				if (currItem->PictureIsAvailable)
-				{
-					int fho = currItem->imageFlippedH();
-					int fvo = currItem->imageFlippedV();
-					double imgX = currItem->imageXOffset();
-					double imgY = currItem->imageYOffset();
-					loadPict(currItem->Pfile, currItem, true);
-					currItem->setImageFlippedH(fho);
-					currItem->setImageFlippedV(fvo);
-					currItem->setImageXOffset(imgX);
-					currItem->setImageYOffset(imgY);
-					toUpdate = true;
-				}
-			}
-			m_updateManager.setUpdatesEnabled();
 		}
-		if (toUpdate)
-			regionsChanged()->update(QRectF());
+		m_updateManager.setUpdatesEnabled();
 	}
+	if (toUpdate)
+		regionsChanged()->update(QRectF());
 }
 
 
