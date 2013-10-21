@@ -91,12 +91,12 @@ bool ScripterImpl::cleanup()
 QObject *ScripterImpl::fromVariant(const QVariant& v)
 {
 
-	if (qVariantCanConvert< QWidget* >(v))
+	if (v.canConvert< QWidget* >())
 	{
 		QObject* obj = qvariant_cast< QWidget* >(v);
 		return obj;
 	}
-	else if (qVariantCanConvert< QObject* >(v))
+	else if (v.canConvert< QObject* >())
 	{
 		QObject* obj = qvariant_cast< QObject* >(v);
 		return obj;
