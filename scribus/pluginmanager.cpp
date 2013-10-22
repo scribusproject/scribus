@@ -321,6 +321,7 @@ bool PluginManager::setupPluginActions(ScribusMainWindow *mw)
 					}
 //					mw->scrMenuMgr->addMenuItem(mw->scrActions[ai.name], ai.menu, true);
 					mw->scrMenuMgr->addMenuItemString(ai.name, ai.menu);
+					qDebug()<<ai.name<<ai.menu;
 				}
 			}
 			else
@@ -362,8 +363,11 @@ bool PluginManager::setupPluginActions(ScribusMainWindow *mw)
 		}
 
 	}
+	//CB maybe we should just call mw->createMenuBar() here instead...
 	mw->scrMenuMgr->clearMenu("File");
 	mw->scrMenuMgr->addMenuItemStringstoMenuBar("File", mw->scrActions);
+	mw->scrMenuMgr->clearMenu("Insert");
+	mw->scrMenuMgr->addMenuItemStringstoMenuBar("Insert", mw->scrActions);
 	mw->scrMenuMgr->clearMenu("Item");
 	mw->scrMenuMgr->addMenuItemStringstoMenuBar("Item", mw->scrActions);
 	mw->scrMenuMgr->clearMenu("Extras");
