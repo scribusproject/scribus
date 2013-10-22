@@ -50,6 +50,7 @@ class SCRIBUS_API ScrPaletteBase : public QDialog
 	public slots:
 		virtual void setPaletteShown(bool);
 		virtual void setFontSize();
+		virtual int exec() { return QDialog::exec();}
 		int exec(QWidget* newParent);
 		
 	signals:
