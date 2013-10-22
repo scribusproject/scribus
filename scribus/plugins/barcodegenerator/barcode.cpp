@@ -18,7 +18,7 @@ Barcode::~Barcode() {};
 
 void Barcode::languageChange()
 {
-	m_actionInfo.name = "Barcode Generator";
+	m_actionInfo.name = "BarcodeGenerator";
 	m_actionInfo.text = tr("&Barcode...");
 	m_actionInfo.menu = "Insert";
 	m_actionInfo.enabledOnStartup = false;
