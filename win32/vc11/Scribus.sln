@@ -106,6 +106,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "pdfimport", "pdfimport\pdfi
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "hunspellcheck", "hunspellcheck\hunspellcheck.vcxproj", "{C5268DFD-7CC5-4829-A354-82446B4E07AF}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "vivaimport", "vivaimport\vivaimport.vcxproj", "{91E5BE81-FF13-4AEB-85AC-F88527F4260D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -538,6 +540,14 @@ Global
 		{C5268DFD-7CC5-4829-A354-82446B4E07AF}.Release|Win32.Build.0 = Release|Win32
 		{C5268DFD-7CC5-4829-A354-82446B4E07AF}.Release|x64.ActiveCfg = Release|x64
 		{C5268DFD-7CC5-4829-A354-82446B4E07AF}.Release|x64.Build.0 = Release|x64
+		{91E5BE81-FF13-4AEB-85AC-F88527F4260D}.Debug|Win32.ActiveCfg = Debug|Win32
+		{91E5BE81-FF13-4AEB-85AC-F88527F4260D}.Debug|Win32.Build.0 = Debug|Win32
+		{91E5BE81-FF13-4AEB-85AC-F88527F4260D}.Debug|x64.ActiveCfg = Debug|x64
+		{91E5BE81-FF13-4AEB-85AC-F88527F4260D}.Debug|x64.Build.0 = Debug|x64
+		{91E5BE81-FF13-4AEB-85AC-F88527F4260D}.Release|Win32.ActiveCfg = Release|Win32
+		{91E5BE81-FF13-4AEB-85AC-F88527F4260D}.Release|Win32.Build.0 = Release|Win32
+		{91E5BE81-FF13-4AEB-85AC-F88527F4260D}.Release|x64.ActiveCfg = Release|x64
+		{91E5BE81-FF13-4AEB-85AC-F88527F4260D}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
