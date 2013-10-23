@@ -320,6 +320,37 @@ void PageSize::generateSizeList()
 	info.pageUnitIndex=SC_MM;
 	info.trSizeName=QObject::tr("DLE");
 	pageSizeList.insert("DLE", info); 
+	// additional page sizes used by Viva Designer
+	//Compact Disc
+	info.width=mm2pts(119.9);
+	info.height=mm2pts(120.7);
+	info.pageUnitIndex=SC_MM;
+	info.trSizeName=QObject::tr("Compact Disc");
+	pageSizeList.insert("Compact Disc", info);
+	//Letter Half
+	info.width=mm2pts(139.7);
+	info.height=mm2pts(215.9);
+	info.pageUnitIndex=SC_MM;
+	info.trSizeName=QObject::tr("Letter Half");
+	pageSizeList.insert("Letter Half", info);
+	//US Letter
+	info.width=mm2pts(215.9);
+	info.height=mm2pts(279.4);
+	info.pageUnitIndex=SC_MM;
+	info.trSizeName=QObject::tr("US Letter");
+	pageSizeList.insert("US Letter", info);
+	//US Legal
+	info.width=mm2pts(215.9);
+	info.height=mm2pts(355.6);
+	info.pageUnitIndex=SC_MM;
+	info.trSizeName=QObject::tr("US Legal");
+	pageSizeList.insert("US Legal", info);
+	//11x17
+	info.width=in2pts(11);
+	info.height=in2pts(17);
+	info.pageUnitIndex=SC_IN;
+	info.trSizeName=QObject::tr("11x17");
+	pageSizeList.insert("11x17", info);
 	//Executive
 	//Folio
 	//Ledger

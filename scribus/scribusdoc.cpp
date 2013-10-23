@@ -5357,69 +5357,69 @@ int ScribusDoc::itemAdd(const PageItem::ItemType itemType, const PageItem::ItemF
 		//for items that do not have/need a frameType for creation.
 		case PageItem::ImageFrame:
 			newItem = new PageItem_ImageFrame(this, x, y, b, h, w, docPrefsData.itemToolPrefs.imageFillColor, docPrefsData.itemToolPrefs.imageStrokeColor);
-			Q_ASSERT(frameType==PageItem::Rectangle || frameType==PageItem::Unspecified);
+//			Q_ASSERT(frameType==PageItem::Rectangle || frameType==PageItem::Unspecified);
 			break;
 		case PageItem::TextFrame:
 			if (noteFrame)
 				newItem = new PageItem_NoteFrame(this, x, y, b, h, w, CommonStrings::None, outline);
 			else
 			newItem = new PageItem_TextFrame(this, x, y, b, h, w, CommonStrings::None, outline);
-			Q_ASSERT(frameType==PageItem::Rectangle || frameType==PageItem::Unspecified);
+//			Q_ASSERT(frameType==PageItem::Rectangle || frameType==PageItem::Unspecified);
 			break;
 		case PageItem::Line:
 			{
 				//CB 5521 Remove false minimum line width
 				double lineWidth = w; // == 0.0 ? 1.0 : w;
 				newItem = new PageItem_Line(this, x, y, b, h, lineWidth, CommonStrings::None, outline);
-				Q_ASSERT(frameType==PageItem::Unspecified);
+//				Q_ASSERT(frameType==PageItem::Unspecified);
 			}
 			break;
 		case PageItem::Table:
 			newItem = new PageItem_Table(this, x, y, b, h, w, fill, outline);
-			Q_ASSERT(frameType==PageItem::Rectangle || frameType==PageItem::Unspecified);
+//			Q_ASSERT(frameType==PageItem::Rectangle || frameType==PageItem::Unspecified);
 			break;
 		case PageItem::Polygon:
 			newItem = new PageItem_Polygon(this, x, y, b, h, w, fill, outline);
-			Q_ASSERT(frameType==PageItem::Rectangle || frameType==PageItem::Ellipse || frameType==PageItem::Unspecified);
+//			Q_ASSERT(frameType==PageItem::Rectangle || frameType==PageItem::Ellipse || frameType==PageItem::Unspecified);
 			break;
 		case PageItem::PolyLine:
 			newItem = new PageItem_PolyLine(this, x, y, b, h, w, fill, outline);
-			Q_ASSERT(frameType==PageItem::Unspecified);
+//			Q_ASSERT(frameType==PageItem::Unspecified);
 			break;
 		case PageItem::PathText:
 			//Currently used only in fileloader
 			newItem = new PageItem_PathText(this, x, y, b, h, w, fill, outline);
-			Q_ASSERT(frameType==PageItem::Unspecified);
+//			Q_ASSERT(frameType==PageItem::Unspecified);
 			break;
 		case PageItem::LatexFrame:
 			newItem = new PageItem_LatexFrame(this, x, y, b, h, w, docPrefsData.itemToolPrefs.imageFillColor, docPrefsData.itemToolPrefs.imageStrokeColor);
-			Q_ASSERT(frameType==PageItem::Rectangle || frameType==PageItem::Unspecified);
+//			Q_ASSERT(frameType==PageItem::Rectangle || frameType==PageItem::Unspecified);
 			break;
 #ifdef HAVE_OSG
 		case PageItem::OSGFrame:
 			newItem = new PageItem_OSGFrame(this, x, y, b, h, w, docPrefsData.itemToolPrefs.imageFillColor, docPrefsData.itemToolPrefs.imageStrokeColor);
-			Q_ASSERT(frameType==PageItem::Rectangle || frameType==PageItem::Unspecified);
+//			Q_ASSERT(frameType==PageItem::Rectangle || frameType==PageItem::Unspecified);
 			break;
 #endif
 		case PageItem::Symbol:
 			newItem = new PageItem_Symbol(this, x, y, b, h, w, CommonStrings::None, CommonStrings::None);
-			Q_ASSERT(frameType==PageItem::Rectangle || frameType==PageItem::Unspecified);
+//			Q_ASSERT(frameType==PageItem::Rectangle || frameType==PageItem::Unspecified);
 			break;
 		case PageItem::Group:
 			newItem = new PageItem_Group(this, x, y, b, h, w, CommonStrings::None, CommonStrings::None);
-			Q_ASSERT(frameType==PageItem::Rectangle || frameType==PageItem::Unspecified);
+//			Q_ASSERT(frameType==PageItem::Rectangle || frameType==PageItem::Unspecified);
 			break;
 		case PageItem::RegularPolygon:
 			newItem = new PageItem_RegularPolygon(this, x, y, b, h, w, fill, outline);
-			Q_ASSERT(frameType==PageItem::Rectangle || frameType==PageItem::Ellipse || frameType==PageItem::Unspecified);
+//			Q_ASSERT(frameType==PageItem::Rectangle || frameType==PageItem::Ellipse || frameType==PageItem::Unspecified);
 			break;
 		case PageItem::Arc:
 			newItem = new PageItem_Arc(this, x, y, b, h, w, fill, outline);
-			Q_ASSERT(frameType==PageItem::Rectangle || frameType==PageItem::Ellipse || frameType==PageItem::Unspecified);
+//			Q_ASSERT(frameType==PageItem::Rectangle || frameType==PageItem::Ellipse || frameType==PageItem::Unspecified);
 			break;
 		case PageItem::Spiral:
 			newItem = new PageItem_Spiral(this, x, y, b, h, w, fill, outline);
-			Q_ASSERT(frameType==PageItem::Unspecified);
+//			Q_ASSERT(frameType==PageItem::Unspecified);
 			break;
 		default:
 //			qDebug() << "unknown item type";
