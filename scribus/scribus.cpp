@@ -1826,7 +1826,7 @@ void ScribusMainWindow::closeEvent(QCloseEvent *ce)
 				newActWin(windows.at(i));
 				tw = ActWin;
 				slotSelect();
-				ActWin->close();
+				tws->close();
 				if (tw == ActWin)
 				{
 					ce->ignore();
@@ -5197,14 +5197,21 @@ bool ScribusMainWindow::doPrint(PrintOptions &options, QString& error)
 
 void ScribusMainWindow::slotFileQuit()
 {
-	propertiesPalette->unsetDoc();
+	// #11803 : Not necessary, done via closeEvent() if required.
+	// Unsetting doc from palette is premature if doc is in a 
+	// special mode, eg. symbol edition or inline fram edition
+	// Disconnection of toolbar signals is also done by closeEvent()
+	// whean appropriate, ie only if all docs have been closed. 
+	/*propertiesPalette->unsetDoc();
 	symbolPalette->unsetDoc();
 	inlinePalette->unsetDoc();
-	ScCore->pluginManager->savePreferences();
 	fileToolBar->connectPrefsSlot(false);
 	editToolBar->connectPrefsSlot(false);
 	modeToolBar->connectPrefsSlot(false);
-	pdfToolBar->connectPrefsSlot(false);
+	pdfToolBar->connectPrefsSlot(false);*/
+
+	ScCore->pluginManager->savePreferences();
+
 	close();
 }
 

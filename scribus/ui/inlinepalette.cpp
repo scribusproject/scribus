@@ -251,6 +251,8 @@ void InlinePalette::updateItemList()
 {
 	InlineViewWidget->clear();
 	InlineViewWidget->setWordWrap(true);
+	if (!m_doc)
+		return;
 	for (QHash<int, PageItem*>::iterator it = m_doc->FrameItems.begin(); it != m_doc->FrameItems.end(); ++it)
 	{
 		PageItem *currItem = it.value();

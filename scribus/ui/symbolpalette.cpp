@@ -232,6 +232,9 @@ void SymbolPalette::updateSymbolList()
 {
 	SymbolViewWidget->clear();
 	SymbolViewWidget->setWordWrap(true);
+	if (!m_doc)
+		return;
+
 	QStringList patK = m_doc->docPatterns.keys();
 	qSort(patK);
 	for (int a = 0; a < patK.count(); a++)
