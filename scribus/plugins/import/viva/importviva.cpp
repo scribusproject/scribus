@@ -1634,21 +1634,39 @@ void VivaPlug::parseTextXML(const QDomElement& obNode, StoryText &itemText, int 
 											for(QDomNode stcesp = stcet.firstChild(); !stcesp.isNull(); stcesp = stcesp.nextSibling() )
 											{
 												QDomElement stcespt = stcesp.toElement();
+												int count = stcespt.text().length();
 												if (stcespt.tagName() == "vt:plain-text")
 													itemText.insertChars(posC, stcespt.text());
 												else if (stcespt.tagName() == "vt:lf")
+												{
+													count = 1;
 													itemText.insertChars(posC, SpecialChars::LINEBREAK);
+												}
 												else if (stcespt.tagName() == "vt:soft-hyphen")
+												{
+													count = 1;
 													itemText.insertChars(posC, SpecialChars::SHYPHEN);
+												}
 												else if (stcespt.tagName() == "vt:space")
 												{
 													if (stcespt.attribute("vt:br") == "false")
+													{
+														count = 1;
 														itemText.insertChars(posC, SpecialChars::NBSPACE);
+													}
 												}
 												else if (stcespt.tagName() == "vt:variable")
 												{
 													if (stcespt.attribute("vt:type") == "Viva Technology/Page Number")
+													{
+														count = 1;
 														itemText.insertChars(posC, SpecialChars::PAGENUMBER);
+													}
+													else if (stcespt.attribute("vt:type") == "Viva Technology/Number of Pages")
+													{
+														count = 1;
+														itemText.insertChars(posC, SpecialChars::PAGECOUNT);
+													}
 												/*	else if (stcespt.attribute("vt:type") == "Viva Technology/TextEngine/Date")
 													{
 														QDomNode anc = stcespt.firstChild();
@@ -1666,7 +1684,7 @@ void VivaPlug::parseTextXML(const QDomElement& obNode, StoryText &itemText, int 
 															else
 																decomdata = data;
 														}
-													}*/
+													} */
 												}
 												else if (stcespt.tagName() == "vt:anchoring-object")
 												{
@@ -1688,11 +1706,18 @@ void VivaPlug::parseTextXML(const QDomElement& obNode, StoryText &itemText, int 
 															}
 														}
 													}
+													count = 1;
 												}
 												else if (stcespt.tagName() == "vt:tab")
+												{
+													count = 1;
 													itemText.insertChars(posC, SpecialChars::TAB);
-												itemText.applyStyle(posC, tmpStyle);
-												itemText.applyCharStyle(posC, stcespt.text().length(), tmpCStyle);
+												}
+												if (count != 0)
+												{
+													itemText.applyStyle(posC, tmpStyle);
+													itemText.applyCharStyle(posC, count, tmpCStyle);
+												}
 												posC = itemText.length();
 											}
 										}
