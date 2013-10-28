@@ -11092,6 +11092,8 @@ void ScribusMainWindow::slotUpdateMarks()
 
 void ScribusMainWindow::slotInsertMarkNote()
 {
+	if (!HaveDoc)
+		return;
 	if (doc->m_docNotesStylesList.count() == 1)
 	{ //fast insert note with the only default notes style avaiable
 		PageItem* currItem = doc->m_Selection->itemAt(0);

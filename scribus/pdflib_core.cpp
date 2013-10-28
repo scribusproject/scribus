@@ -6274,7 +6274,7 @@ bool PDFLibCore::PDF_PatternFillStroke(QString& output, PageItem *currItem, int 
 		}
 	}
 	double patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY, patternSpace;
-	bool mirrorX, mirrorY;
+	bool mirrorX=false, mirrorY=false;
 	if (kind == 0)
 	{
 		currItem->patternTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY);
