@@ -37,6 +37,7 @@ MenuManager::MenuManager(QMenuBar* mb, QObject *parent) : QObject(parent)
 	windowsMenu=NULL;
 	m_undoMenu=new QMenu("undo");
 	m_redoMenu=new QMenu("redo");
+	rememberedMenus.clear();
 }
 
 MenuManager::~MenuManager()
@@ -45,12 +46,16 @@ MenuManager::~MenuManager()
 	m_redoMenu->deleteLater();
 }
 
-bool MenuManager::createMenu(const QString &menuName, const QString &menuText, const QString parent, bool checkable)
+bool MenuManager::createMenu(const QString &menuName, const QString &menuText, const QString parent, bool checkable, bool rememberMenu)
 {
 	bool retVal=false;
 	QList<QString> menuEntries;
 	menuStrings.insert(menuName, menuEntries);
 	menuStringTexts.insert(menuName, menuText);
+	if (rememberMenu)
+	{
+		rememberedMenus.insert(menuName, NULL);
+	}
 	return retVal;
 }
 
@@ -148,6 +153,10 @@ void MenuManager::addMenuItemStringstoMenuBar(const QString &menuName, const QMa
 					if (menuStrings.contains(menuStrings[menuName].at(i)))
 					{
 						QMenu *subMenu=menuBarMenus[menuName]->addMenu(menuStringTexts[menuStrings[menuName].at(i)]);
+						if (rememberedMenus.contains(menuStrings[menuName].at(i)))
+						{
+							rememberedMenus.insert(menuStrings[menuName].at(i), subMenu);
+						}
 						if (menuStrings[menuName].at(i)=="FileOpenRecent")
 						{
 							recentFileMenu=subMenu;
@@ -187,6 +196,10 @@ void MenuManager::addMenuItemStringstoMenu(const QString &menuName, QMenu *menuT
 						QMenu *subMenu=menuToAddTo->addMenu(menuStringTexts[menuStrings[menuName].at(i)]);
 						if (subMenu)
 						{
+							if (rememberedMenus.contains(menuStrings[menuName].at(i)))
+							{
+								rememberedMenus.insert(menuStrings[menuName].at(i), subMenu);
+							}
 							if (menuStrings[menuName].at(i)=="ItemSendToScrapbook")
 							{
 								itemSendtoScrapbookMenu=subMenu;
@@ -206,6 +219,13 @@ void MenuManager::addMenuItemStringstoMenu(const QString &menuName, QMenu *menuT
 			}
 		}
 	}
+}
+
+void MenuManager::addMenuItemStringstoRememberedMenu(const QString &menuName, const QMap<QString, QPointer<ScrAction> > &menuActions)
+{
+	if (rememberedMenus.contains(menuName))
+		if (rememberedMenus.value(menuName)!=NULL)
+			addMenuItemStringstoMenu(menuName, rememberedMenus.value(menuName), menuActions);
 }
 
 
@@ -246,6 +266,12 @@ void MenuManager::addMenuItemStringstoSpecialMenu(const QString &menuName, const
 
 void MenuManager::clearMenuStrings(const QString &menuName)
 {
+	if (rememberedMenus.contains(menuName))
+	{
+		if (rememberedMenus.value(menuName)!=NULL)
+			rememberedMenus.value(menuName)->clear();
+	}
+	else
 	if (menuName=="FileOpenRecent" && recentFileMenu!=NULL)
 	{
 		recentFileMenu->clear();

@@ -80,20 +80,19 @@ void ScripterCore::addToMainWindowMenu(ScribusMainWindow *mw)
 	menuMgr->createMenu("ScribusScripts", QObject::tr("&Scribus Scripts"), "Scripter");
 	menuMgr->addMenuItemString("ScribusScripts", "Scripter");
 	menuMgr->addMenuItemString("scripterExecuteScript", "Scripter");
-	menuMgr->createMenu("RecentScripts", QObject::tr("&Recent Scripts"), "Scripter");
+	menuMgr->createMenu("RecentScripts", QObject::tr("&Recent Scripts"), "Scripter", false, true);
+	menuMgr->addMenuItemString("RecentScripts", "Scripter");
 	menuMgr->addMenuItemString("scripterExecuteScript", "Scripter");
 	menuMgr->addMenuItemString("SEPARATOR", "Scripter");
-//	menuMgr->addMenuItem(scrScripterActions["scripterShowConsole"], "Scripter", true);
-//	menuMgr->addMenuItem(scrScripterActions["scripterAboutScript"], "Scripter", true);
 	menuMgr->addMenuItemString("scripterShowConsole", "Scripter");
 	menuMgr->addMenuItemString("scripterAboutScript", "Scripter");
 
-
 	buildScribusScriptsMenu();
-	buildRecentScriptsMenu();
 
 	menuMgr->addMenuStringToMenuBarBefore("Scripter","Windows");
 	menuMgr->addMenuItemStringstoMenuBar("Scripter", scrScripterActions);
+	RecentScripts = SavedRecentScripts;
+	rebuildRecentScriptsMenu();
 }
 
 void ScripterCore::enableMainWindowMenu()
@@ -128,17 +127,14 @@ void ScripterCore::buildScribusScriptsMenu()
 			QString strippedName=fs.baseName();
 			scrScripterActions.insert(strippedName, new ScrAction( ScrAction::RecentScript, strippedName, QKeySequence(), this));
 			connect( scrScripterActions[strippedName], SIGNAL(triggeredData(QString)), this, SLOT(StdScript(QString)) );
-			//menuMgr->addMenuItem(scrScripterActions[strippedName], "ScribusScripts", true);
 			menuMgr->addMenuItemString(strippedName, "ScribusScripts");
 		}
 	}
-
-
 }
 
 void ScripterCore::rebuildRecentScriptsMenu()
 {
-	menuMgr->clearMenu("RecentScripts");
+	menuMgr->clearMenuStrings("RecentScripts");
 	scrRecentScriptActions.clear();
 	uint max = qMin(PrefsManager::instance()->appPrefs.uiPrefs.recentDocCount, RecentScripts.count());
 	for (uint m = 0; m < max; ++m)
@@ -149,8 +145,10 @@ void ScripterCore::rebuildRecentScriptsMenu()
 		connect( scrRecentScriptActions[strippedName], SIGNAL(triggeredData(QString)), this, SLOT(RecentScript(QString)) );
 		menuMgr->addMenuItemString(strippedName, "RecentScripts");
 	}
+	menuMgr->addMenuItemStringstoRememberedMenu("RecentScripts", scrRecentScriptActions);
 }
 
+/*
 void ScripterCore::buildRecentScriptsMenu()
 {
 	RecentScripts = SavedRecentScripts;
@@ -170,8 +168,10 @@ void ScripterCore::buildRecentScriptsMenu()
 				menuMgr->addMenuItemString(strippedName, "RecentScripts");
 			}
 		}
+		menuMgr->addMenuItemStringstoRememberedMenu("RecentScripts", scrRecentScriptActions);
 	}
 }
+*/
 
 void ScripterCore::FinishScriptRun()
 {
@@ -493,7 +493,10 @@ void ScripterCore::ReadPlugPrefs()
 	}
 	// Load recent scripts from the prefs
 	for (int i = 0; i < prefRecentScripts->getRowCount(); i++)
-		SavedRecentScripts.append(prefRecentScripts->get(i,0));
+	{
+		QString rs(prefRecentScripts->get(i,0));
+		SavedRecentScripts.append(rs);
+	}
 	// then get more general preferences
 	m_enableExtPython = prefs->getBool("extensionscripts",false);
 	m_importAllNames = prefs->getBool("importall",true);
@@ -516,7 +519,9 @@ void ScripterCore::SavePlugPrefs()
 		return;
 	}
 	for (int i = 0; i < RecentScripts.count(); i++)
+	{
 		prefRecentScripts->set(i, 0, RecentScripts[i]);
+	}
 	// then save more general preferences
 	prefs->set("extensionscripts", m_enableExtPython);
 	prefs->set("importall", m_importAllNames);

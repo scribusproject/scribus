@@ -68,7 +68,7 @@ protected:
 	void SavePlugPrefs();
 	void rebuildRecentScriptsMenu();
 	void buildScribusScriptsMenu();
-	void buildRecentScriptsMenu();
+	//void buildRecentScriptsMenu();
 	void rebuildScribusScriptsMenu();
 
 	//Internal members

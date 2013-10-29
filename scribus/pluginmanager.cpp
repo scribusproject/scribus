@@ -319,9 +319,7 @@ bool PluginManager::setupPluginActions(ScribusMainWindow *mw)
 							mw->scrMenuMgr->createMenu(ai.menu, ai.subMenuName, ai.parentMenu);
 						}
 					}
-//					mw->scrMenuMgr->addMenuItem(mw->scrActions[ai.name], ai.menu, true);
 					mw->scrMenuMgr->addMenuItemString(ai.name, ai.menu);
-					qDebug()<<ai.name<<ai.menu;
 				}
 			}
 			else
@@ -337,8 +335,6 @@ bool PluginManager::setupPluginActions(ScribusMainWindow *mw)
 						mw->scrMenuMgr->createMenu(ai.menu, ai.subMenuName, ai.parentMenu);
 				}
 				mw->scrMenuMgr->addMenuItemStringAfter(ai.name, ai.menuAfterName, ai.menu);
-//				mw->scrMenuMgr->addMenuItemAfter(mw->scrActions[ai.name], ai.menu, true, afterAction);
-//				mw->scrMenuMgr->addMenuItem(mw->scrActions[ai.name], ai.menu, true);
 			}
 			if (!ai.toolbar.isEmpty())
 			{
