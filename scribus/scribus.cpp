@@ -827,7 +827,7 @@ void ScribusMainWindow::initMenuBar()
 //	scrMenuMgr->addMenuToMenu("ItemLayer", "Item");
 	scrMenuMgr->createMenu("SendTo", tr("Send to"), "Item");
 	scrMenuMgr->addMenuItemString("SendTo", "Item");
-	scrMenuMgr->createMenu("ItemSendToScrapbook", tr("Scrapbook"));
+	scrMenuMgr->createMenu("ItemSendToScrapbook", tr("Scrapbook"),"",false,true);
 	scrMenuMgr->addMenuItemString("ItemSendToScrapbook", "SendTo");
 //	scrMenuMgr->addMenuToMenu("itemSendToScrapbook", "SendTo");
 	scrMenuMgr->addMenuItemString("itemSendToPattern", "SendTo");
@@ -3308,15 +3308,17 @@ void ScribusMainWindow::HaveNewSel(int SelectedType)
 		updateItemLayerList();
 		QStringList scrapNames = scrapbookPalette->getOpenScrapbooksNames();
 		scrapNames.removeAt(1);
-		scrMenuMgr->clearMenuStrings("itemSendToScrapbook");
+		scrMenuMgr->clearMenuStrings("ItemSendToScrapbook");
 		scrScrapActions.clear();
 		for (int i = 0; i < scrapNames.count(); i++)
 		{
 			ScrAction *act = new ScrAction( ScrAction::DataInt, QPixmap(), QPixmap(), scrapNames[i], QKeySequence(), this, i);
 			scrScrapActions.insert(scrapNames[i], act);
 			connect(act, SIGNAL(triggeredData(int)), this, SLOT(PutScrap(int)));
+			scrMenuMgr->addMenuItemString(scrapNames[i], "ItemSendToScrapbook");
 		}
-		scrMenuMgr->addMenuItemStringstoSpecialMenu("ItemSendToScrapbook", scrScrapActions);
+		scrMenuMgr->addMenuItemStringstoRememberedMenu("ItemSendToScrapbook", scrScrapActions);
+
 		//propertiesPalette->textFlowsAroundFrame->setChecked(currItem->textFlowsAroundFrame());
 		propertiesPalette->setTextFlowMode(currItem->textFlowMode());
 		scrActions["itemLock"]->setEnabled(true);

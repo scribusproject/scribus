@@ -90,7 +90,6 @@ private:
 	QMenu *recentFileMenu;
 	QMenu *editPasteRecentMenu;
 	QMenu *itemLayerMenu;
-	QMenu *itemSendtoScrapbookMenu;
 	QMenu *windowsMenu;
 	//some hacks to keep undo menu functioning for now
 	QMenu *m_undoMenu;

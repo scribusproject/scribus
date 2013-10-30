@@ -148,31 +148,6 @@ void ScripterCore::rebuildRecentScriptsMenu()
 	menuMgr->addMenuItemStringstoRememberedMenu("RecentScripts", scrRecentScriptActions);
 }
 
-/*
-void ScripterCore::buildRecentScriptsMenu()
-{
-	RecentScripts = SavedRecentScripts;
-	scrRecentScriptActions.clear();
-	if (SavedRecentScripts.count() != 0)
-	{
-		uint max = qMin(PrefsManager::instance()->appPrefs.uiPrefs.recentDocCount, SavedRecentScripts.count());
-		for (uint m = 0; m < max; ++m)
-		{
-			QFileInfo fd(SavedRecentScripts[m]);
-			if (fd.exists())
-			{
-				QString strippedName=SavedRecentScripts[m];
-				strippedName.remove(QDir::separator());
-				scrRecentScriptActions.insert(strippedName, new ScrAction( ScrAction::RecentScript, SavedRecentScripts[m], QKeySequence(), this));
-				connect( scrRecentScriptActions[strippedName], SIGNAL(triggeredData(QString)), this, SLOT(RecentScript(QString)) );
-				menuMgr->addMenuItemString(strippedName, "RecentScripts");
-			}
-		}
-		menuMgr->addMenuItemStringstoRememberedMenu("RecentScripts", scrRecentScriptActions);
-	}
-}
-*/
-
 void ScripterCore::FinishScriptRun()
 {
 	ScribusMainWindow* ScMW=ScCore->primaryMainWindow();

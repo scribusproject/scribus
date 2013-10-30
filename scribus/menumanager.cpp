@@ -33,7 +33,6 @@ MenuManager::MenuManager(QMenuBar* mb, QObject *parent) : QObject(parent)
 	recentFileMenu=NULL;
 	editPasteRecentMenu=NULL;
 	itemLayerMenu=NULL;
-	itemSendtoScrapbookMenu=NULL;
 	windowsMenu=NULL;
 	m_undoMenu=new QMenu("undo");
 	m_redoMenu=new QMenu("redo");
@@ -200,10 +199,6 @@ void MenuManager::addMenuItemStringstoMenu(const QString &menuName, QMenu *menuT
 							{
 								rememberedMenus.insert(menuStrings[menuName].at(i), subMenu);
 							}
-							if (menuStrings[menuName].at(i)=="ItemSendToScrapbook")
-							{
-								itemSendtoScrapbookMenu=subMenu;
-							}
 							else if (menuStrings[menuName].at(i)=="ItemLayer")
 							{
 								itemLayerMenu=subMenu;
@@ -231,6 +226,18 @@ void MenuManager::addMenuItemStringstoRememberedMenu(const QString &menuName, co
 
 void MenuManager::addMenuItemStringstoSpecialMenu(const QString &menuName, const QMap<QString, QPointer<ScrAction> > &menuActions)
 {
+	if (rememberedMenus.contains(menuName))
+	{
+		if (rememberedMenus.value(menuName)!=NULL)
+		{
+			if (menuName=="ItemSendToScrapbook")
+			{
+				for( QMap<QString, QPointer<ScrAction> >::ConstIterator it = menuActions.begin(); it!=menuActions.end(); ++it )
+					rememberedMenus.value(menuName)->addAction(*it);
+			}
+		}
+	}
+	else
 	if (menuName=="FileOpenRecent" && recentFileMenu!=NULL)
 	{
 		for( QMap<QString, QPointer<ScrAction> >::ConstIterator it = menuActions.begin(); it!=menuActions.end(); ++it )
@@ -240,13 +247,6 @@ void MenuManager::addMenuItemStringstoSpecialMenu(const QString &menuName, const
 	{
 		for( QMap<QString, QPointer<ScrAction> >::ConstIterator it = menuActions.begin(); it!=menuActions.end(); ++it )
 			windowsMenu->addAction(*it);
-	}
-	else if (menuName=="ItemSendToScrapbook" && itemSendtoScrapbookMenu!=NULL)
-	{
-		for( QMap<QString, QPointer<ScrAction> >::ConstIterator it = menuActions.begin(); it!=menuActions.end(); ++it )
-		{
-			itemSendtoScrapbookMenu->addAction(*it);
-		}
 	}
 	else if (menuName=="ItemLayer" && itemLayerMenu!=NULL)
 	{
@@ -279,10 +279,6 @@ void MenuManager::clearMenuStrings(const QString &menuName)
 	else if (menuName=="Windows" && windowsMenu!=NULL)
 	{
 		windowsMenu->clear();
-	}
-	else if (menuName=="ItemSendToScrapbook" && itemSendtoScrapbookMenu!=NULL)
-	{
-		itemSendtoScrapbookMenu->clear();
 	}
 	else if (menuName=="ItemLayer" && itemLayerMenu!=NULL)
 	{
