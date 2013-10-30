@@ -392,6 +392,8 @@ bool SlaOutputDev::handleLinkAnnot(Annot* annota, double xCoor, double yCoor, do
 {
 	AnnotLink *anl = (AnnotLink*)annota;
 	LinkAction *act = anl->getAction();
+	if (!act)
+		return false;
 	bool validLink = false;
 	int pagNum = 0;
 	int xco = 0;
