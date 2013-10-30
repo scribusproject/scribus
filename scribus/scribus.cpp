@@ -734,7 +734,7 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->addMenuItemString("fileNewFromTemplate", "File");
 	scrMenuMgr->addMenuItemString("fileOpen", "File");
 	scrMenuMgr->addMenuItemString("FileOpenRecent", "File");
-	scrMenuMgr->createMenu("FileOpenRecent", tr("Open &Recent"), "File");
+	scrMenuMgr->createMenu("FileOpenRecent", tr("Open &Recent"), "File", false, true);
 	scrMenuMgr->addMenuItemString("SEPARATOR", "File");
 	scrMenuMgr->addMenuItemString("fileClose", "File");
 	scrMenuMgr->addMenuItemString("fileSave", "File");
@@ -773,7 +773,7 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->addMenuItemString("editCut", "Edit");
 	scrMenuMgr->addMenuItemString("editCopy", "Edit");
 	scrMenuMgr->addMenuItemString("editPaste", "Edit");
-	scrMenuMgr->createMenu("EditPasteRecent", tr("Paste Recent"), "Edit");
+	scrMenuMgr->createMenu("EditPasteRecent", tr("Paste Recent"), "Edit",false,true);
 	scrMenuMgr->createMenu("EditContents", tr("Contents"), "Edit");
 	scrMenuMgr->addMenuItemString("editCopyContents", "EditContents");
 	scrMenuMgr->addMenuItemString("editPasteContents", "EditContents");
@@ -822,7 +822,7 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->addMenuItemString("itemLower", "ItemLevel");
 	scrMenuMgr->addMenuItemString("itemRaiseToTop", "ItemLevel");
 	scrMenuMgr->addMenuItemString("itemLowerToBottom", "ItemLevel");
-	scrMenuMgr->createMenu("ItemLayer", tr("Send to La&yer"));
+	scrMenuMgr->createMenu("ItemLayer", tr("Send to La&yer"), "",false, true);
 	scrMenuMgr->addMenuItemString("ItemLayer", "Item");
 //	scrMenuMgr->addMenuToMenu("ItemLayer", "Item");
 	scrMenuMgr->createMenu("SendTo", tr("Send to"), "Item");
@@ -1120,7 +1120,7 @@ void ScribusMainWindow::createMenuBar()
 	scrMenuMgr->addMenuItemStringstoMenuBar("Extras", scrActions);
 	scrMenuMgr->addMenuStringToMenuBar("View");
 	scrMenuMgr->addMenuItemStringstoMenuBar("View", scrActions);
-	scrMenuMgr->addMenuStringToMenuBar("Windows");
+	scrMenuMgr->addMenuStringToMenuBar("Windows", true);
 	addDefaultWindowMenuItems();
 	menuBar()->addSeparator();
 	scrMenuMgr->addMenuStringToMenuBar("Help");
@@ -2214,8 +2214,6 @@ void ScribusMainWindow::newView()
 
 void ScribusMainWindow::windowsMenuAboutToShow()
 {
-	//for( QMap<QString, QPointer<ScrAction> >::Iterator it = scrWindowsActions.begin(); it!=scrWindowsActions.end(); ++it )
-	//	scrMenuMgr->removeMenuItem((*it), "Windows");
 	scrWindowsActions.clear();
 	addDefaultWindowMenuItems();
 	QList<QMdiSubWindow *> windows = mdiArea->subWindowList();
@@ -2233,12 +2231,11 @@ void ScribusMainWindow::windowsMenuAboutToShow()
 			scrWindowsActions.insert(docInWindow, new ScrAction( ScrAction::Window, QPixmap(), QPixmap(), docInWindow, QKeySequence(), this, i));
 			scrWindowsActions[docInWindow]->setToggleAction(true);
 			connect( scrWindowsActions[docInWindow], SIGNAL(triggeredData(int)), this, SLOT(windowsMenuActivated(int)) );
-//			if (windowCount>1)
-//				scrMenuMgr->addMenuItem(scrWindowsActions[docInWindow], "Windows", true);
 			scrWindowsActions[docInWindow]->setChecked(mdiArea->activeSubWindow() == windows.at(i));
+			scrMenuMgr->addMenuItemString(docInWindow, "Windows");
 		}
 		if (windowCount>1)
-			scrMenuMgr->addMenuItemStringstoSpecialMenu("Windows", scrWindowsActions);
+			scrMenuMgr->addMenuItemStringstoRememberedMenu("Windows", scrWindowsActions);
 	}
 }
 
@@ -3555,8 +3552,9 @@ void ScribusMainWindow::rebuildRecentFileMenu()
 		strippedName.prepend(QString("%1").arg(m+1, 2, 10, QChar('0')));
 		scrRecentFileActions.insert(strippedName, new ScrAction(ScrAction::RecentFile, QPixmap(), QPixmap(), QString("%1 &%2").arg(m+1).arg(localName.replace("&","&&")), QKeySequence(), this, 0,0.0,RecentDocs[m]));
 		connect( scrRecentFileActions[strippedName], SIGNAL(triggeredData(QString)), this, SLOT(loadRecent(QString)) );
+		scrMenuMgr->addMenuItemString(strippedName, "FileOpenRecent");
 	}
-	scrMenuMgr->addMenuItemStringstoSpecialMenu("FileOpenRecent", scrRecentFileActions);
+	scrMenuMgr->addMenuItemStringstoRememberedMenu("FileOpenRecent", scrRecentFileActions);
 	fileToolBar->rebuildRecentFileMenu();
 }
 
@@ -3578,10 +3576,10 @@ void ScribusMainWindow::rebuildRecentPasteMenu()
 			QPixmap pm = it.value().Preview;
 			scrRecentPasteActions.insert(strippedName, new ScrAction(ScrAction::RecentPaste, pm, QPixmap(), QString("&%1 %2").arg(m+1).arg(strippedName), QKeySequence(), this, 0,0.0,it.key()));
 			connect( scrRecentPasteActions[strippedName], SIGNAL(triggeredData(QString)), this, SLOT(pasteRecent(QString)) );
-//			scrMenuMgr->addMenuItem(scrRecentPasteActions[strippedName], "EditPasteRecent", true);
+			scrMenuMgr->addMenuItemString(strippedName, "EditPasteRecent");
 			it--;
 		}
-		scrMenuMgr->addMenuItemStringstoSpecialMenu("EditPasteRecent", scrRecentPasteActions);
+		scrMenuMgr->addMenuItemStringstoRememberedMenu("EditPasteRecent", scrRecentPasteActions);
 	}
 }
 
@@ -3789,11 +3787,10 @@ void ScribusMainWindow::rebuildLayersList()
 
 		for( QMap<QString, QPointer<ScrAction> >::Iterator it = scrLayersActions.begin(); it!=scrLayersActions.end(); ++it )
 		{
-			//scrMenuMgr->addMenuItem((*it), "ItemLayer", true);
+			scrMenuMgr->addMenuItemString(it.key(), "ItemLayer");
 			connect( (*it), SIGNAL(triggeredData(int)), doc, SLOT(itemSelection_SendToLayer(int)) );
 		}
-		scrMenuMgr->addMenuItemStringstoSpecialMenu("ItemLayer", scrLayersActions);
-
+		scrMenuMgr->addMenuItemStringstoRememberedMenu("ItemLayer", scrLayersActions);
 	}
 }
 
