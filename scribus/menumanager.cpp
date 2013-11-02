@@ -113,7 +113,8 @@ bool MenuManager::addMenuStringToMenuBarBefore(const QString &menuName, const QS
 	{
 		QList<QAction*> mba=scribusMenuBar->actions();
 		QAction* beforeAct;
-		foreach (beforeAct, mba) {
+		foreach (beforeAct, mba)
+		{
 			if (beforeMenuName==beforeAct->text().remove('&').remove("..."))
 				break;
 		}
@@ -201,46 +202,6 @@ void MenuManager::addMenuItemStringstoRememberedMenu(const QString &menuName, co
 	if (rememberedMenus.contains(menuName))
 		if (rememberedMenus.value(menuName)!=NULL)
 			addMenuItemStringstoMenu(menuName, rememberedMenus.value(menuName), menuActions);
-}
-
-
-void MenuManager::addMenuItemStringstoSpecialMenu(const QString &menuName, const QMap<QString, QPointer<ScrAction> > &menuActions)
-{
-	if (rememberedMenus.contains(menuName))
-	{
-		if (rememberedMenus.value(menuName)!=NULL)
-		{
-			if (menuName=="ItemSendToScrapbook")
-			{
-				for( QMap<QString, QPointer<ScrAction> >::ConstIterator it = menuActions.begin(); it!=menuActions.end(); ++it )
-					rememberedMenus.value(menuName)->addAction(*it);
-			}
-			else if (menuName=="Windows")
-			{
-				for( QMap<QString, QPointer<ScrAction> >::ConstIterator it = menuActions.begin(); it!=menuActions.end(); ++it )
-					rememberedMenus.value(menuName)->addAction(*it);
-			}
-			else if (menuName=="FileOpenRecent")
-			{
-				for( QMap<QString, QPointer<ScrAction> >::ConstIterator it = menuActions.begin(); it!=menuActions.end(); ++it )
-					rememberedMenus.value(menuName)->addAction(*it);
-			}
-			else if (menuName=="EditPasteRecent")
-			{
-				for( QMap<QString, QPointer<ScrAction> >::ConstIterator it = menuActions.begin(); it!=menuActions.end(); ++it )
-				{
-					rememberedMenus.value(menuName)->addAction(*it);
-				}
-			}
-			else if (menuName=="ItemLayer")
-			{
-				for( QMap<QString, QPointer<ScrAction> >::ConstIterator it = menuActions.begin(); it!=menuActions.end(); ++it )
-				{
-					rememberedMenus.value(menuName)->addAction(*it);
-				}
-			}
-		}
-	}
 }
 
 void MenuManager::clearMenuStrings(const QString &menuName)
