@@ -35,7 +35,7 @@ void PictureBrowserPlugin::languageChange()
 	// Menu
 	m_actionInfo.menu = "Extras";
 	// If needed, what item to add the menu item after
-	//m_actionInfo.menuAfterName = "ColorWheel"
+	m_actionInfo.menuAfterName = "extrasManageImages";
 	// If needed, the keyboard shortcut for the plugin
 	//m_actionInfo.keySequence = "CTRL+ALT+F3"
 	// Should the menu item be enabled when the app starts

@@ -1071,12 +1071,14 @@ void ScribusMainWindow::initMenuBar()
 
 	//Extra menu
 	scrMenuMgr->createMenu("Extras", ActionManager::defaultMenuNameEntryTranslated("Extras"));
-	scrMenuMgr->addMenuItemString("extrasManageImages", "Extras");
 	scrMenuMgr->addMenuItemString("extrasHyphenateText", "Extras");
 	scrMenuMgr->addMenuItemString("extrasDeHyphenateText", "Extras");
 	scrMenuMgr->addMenuItemString("extrasGenerateTableOfContents", "Extras");
-	scrMenuMgr->addMenuItemString("extrasUpdateDocument", "Extras");
 	scrMenuMgr->addMenuItemString("itemUpdateMarks", "Extras");
+	scrMenuMgr->addMenuItemString("SEPARATOR", "Extras");
+	scrMenuMgr->addMenuItemString("extrasManageImages", "Extras");
+	scrMenuMgr->addMenuItemString("SEPARATOR", "Extras");
+	scrMenuMgr->addMenuItemString("extrasUpdateDocument", "Extras");
 	scrMenuMgr->addMenuItemString("extrasTestQTQuick2_1", "Extras");
 
 	//Window menu

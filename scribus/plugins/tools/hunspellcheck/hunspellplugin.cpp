@@ -33,6 +33,7 @@ void HunspellPlugin::languageChange()
 	m_actionInfo.text = tr("Check Spelling...");
 	// Menu
 	m_actionInfo.menu = "Extras";
+	m_actionInfo.menuAfterName = "extrasDeHyphenateText";
 	// Story Editor Menu
 	m_actionInfo.seMenu = "Edit";
 	// If needed, what item to add the menu item after
