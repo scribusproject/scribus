@@ -15360,8 +15360,13 @@ void ScribusDoc::removeFromGroup(PageItem* item)
 	item->setXYPos(nX, nY, true);
 	item->rotateBy(-gRot);
 	item->setLineWidth(item->lineWidth() * qMax(grScXi, grScYi));
-	item->setImageXScale(item->imageXScale() * grScXi);
-	item->setImageYScale(item->imageYScale() * grScYi);
+	if (!item->ScaleType)
+		item->AdjustPictScale();
+	else
+	{
+		item->setImageXScale(item->imageXScale() * grScXi);
+		item->setImageYScale(item->imageYScale() * grScYi);
+	}
 	if (item->asPathText())
 		item->updatePolyClip();
 	else
