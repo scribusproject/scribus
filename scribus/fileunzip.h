@@ -44,7 +44,7 @@ class SCRIBUS_API FileUnzip
 {
 private:
 	QString zipFile;
-	QList<QTemporaryFile*> tempFileList;
+	QList<QString> tempFileList;
 public:
 	FileUnzip(QString zipFilePath);
 	~FileUnzip();

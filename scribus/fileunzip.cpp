@@ -93,10 +93,12 @@ QString FileUnzip::getFile(QString name)
 		QTemporaryFile *tempImageFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_zip_XXXXXX.dat");
 		if (tempImageFile == NULL)
 				return NULL;
+		tempImageFile->setAutoRemove(false);
 		tempImageFile->open();
 		QString fname = getLongPathName(tempImageFile->fileName());
 		tempImageFile->close();
-		tempFileList.append(tempImageFile);
+		delete tempImageFile;
+		tempFileList.append(fname);
 		QDir::setCurrent(QDir::tempPath());
 		unzFile uf = unzOpenFile(zipFile);
 		int ret = do_extract_onefile(uf, name, fname, NULL);
@@ -135,7 +137,7 @@ FileUnzip::~FileUnzip()
 {
 	for (int a = 0; a < tempFileList.count(); a++)
 	{
-		delete tempFileList[a];
+		QFile::remove(tempFileList[a]);
 	}
 }
 
