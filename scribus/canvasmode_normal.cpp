@@ -1326,6 +1326,7 @@ void CanvasMode_Normal::mouseReleaseEvent(QMouseEvent *m)
 
 void CanvasMode_Normal::handleCheckBoxPress(PageItem* currItem)
 {
+	m_view->m_AnnotChanged = true;
 	currItem->annotation().setOnState(true);
 	currItem->update();
 	if (currItem->annotation().ActionType() == Annotation::Action_JavaScript)
@@ -1344,6 +1345,7 @@ void CanvasMode_Normal::handlePushButtonPress(PageItem* currItem)
 
 void CanvasMode_Normal::handleRadioButtonPress(PageItem* currItem)
 {
+	m_view->m_AnnotChanged = true;
 	if (currItem->Parent != NULL)
 	{
 		PageItem *group = currItem->Parent->asGroupFrame();
@@ -1378,6 +1380,7 @@ void CanvasMode_Normal::handleRadioButtonPress(PageItem* currItem)
 
 void CanvasMode_Normal::handleCheckBoxRelease(PageItem* currItem)
 {
+	m_view->m_AnnotChanged = true;
 	currItem->annotation().setOnState(false);
 	currItem->annotation().setCheckState(!currItem->annotation().IsChecked());
 	if (currItem->annotation().ActionType() == Annotation::Action_JavaScript)
@@ -1388,6 +1391,7 @@ void CanvasMode_Normal::handleCheckBoxRelease(PageItem* currItem)
 
 void CanvasMode_Normal::handlePushButtonRelease(PageItem* currItem)
 {
+	m_view->m_AnnotChanged = true;
 	currItem->annotation().setOnState(false);
 	currItem->update();
 	switch (currItem->annotation().ActionType())
@@ -1419,6 +1423,7 @@ void CanvasMode_Normal::handlePushButtonRelease(PageItem* currItem)
 
 void CanvasMode_Normal::handleRadioButtonRelease(PageItem* currItem)
 {
+	m_view->m_AnnotChanged = true;
 	if (currItem->Parent != NULL)
 	{
 		PageItem *group = currItem->Parent->asGroupFrame();

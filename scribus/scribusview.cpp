@@ -443,6 +443,7 @@ void ScribusView::togglePreviewEdit()
 {
 	Doc->editOnPreview = !Doc->editOnPreview;
 	m_ScMW->setPreviewToolbar();
+	m_EditModeWasOn = true;
 	DrawNew();
 }
 
@@ -456,6 +457,9 @@ void ScribusView::togglePreview()
 	bool recalc = false;
 	Doc->editOnPreview = false;
 	editOnPreviewToolbarButton->setChecked(false);
+	m_AnnotChanged = false;
+	m_EditModeWasOn = false;
+	m_ChangedState = Doc->isModified();
 	if (m_canvas->m_viewMode.viewAsPreview)
 	{
 		editOnPreviewToolbarButton->show();
@@ -474,7 +478,8 @@ void ScribusView::togglePreview()
 	}
 	else
 	{
-		Doc->ResetFormFields();
+		if (m_AnnotChanged)
+			Doc->ResetFormFields();
 		editOnPreviewToolbarButton->hide();
 		Doc->guidesPrefs().framesShown = storedFramesShown;
 		Doc->guidesPrefs().showControls = storedShowControls;
@@ -511,6 +516,8 @@ void ScribusView::togglePreview()
 	if (docPtr) // document may have been destroyed in-between
 	{
 		DrawNew();
+		if ((!m_EditModeWasOn) && (!m_AnnotChanged))
+			Doc->setModified(m_ChangedState);
 	}
 	undoManager->setUndoEnabled(true);
 }

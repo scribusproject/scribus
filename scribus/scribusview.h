@@ -174,6 +174,9 @@ public:
 	int editStrokeGradient;
 	int redrawMode;
 	int redrawCount;
+	bool m_AnnotChanged;
+	bool m_EditModeWasOn;
+	bool m_ChangedState;
 	PageItem *redrawItem;
 	SelectionRubberBand *redrawMarker;
 	FPoint RCenter;
