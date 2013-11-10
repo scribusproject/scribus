@@ -454,7 +454,7 @@ PageItem* Canvas::itemUnderCursor(QPoint globalPos, PageItem* itemAbove, bool al
 					if (currItem->isGroup() && allowInGroup)
 					{
 						currItem->asGroupFrame()->adjustXYPosition();
-						PageItem* ret = itemInGroup(currItem, itemPos, mouseArea);
+						PageItem* ret = itemInGroup(currItem, mouseArea);
 						if (ret != NULL)
 							return ret;
 					}
@@ -498,7 +498,7 @@ PageItem* Canvas::itemUnderCursor(QPoint globalPos, PageItem* itemAbove, bool al
 				if (currItem->isGroup() && allowInGroup)
 				{
 					currItem->asGroupFrame()->adjustXYPosition();
-					PageItem* ret = itemInGroup(currItem, itemPos, mouseArea);
+					PageItem* ret = itemInGroup(currItem, mouseArea);
 					if (ret != NULL)
 					{
 						if ((m_doc->drawAsPreview && !m_doc->editOnPreview) && !ret->isAnnotation())
@@ -535,31 +535,27 @@ bool Canvas::cursorOverFrameControl(QPoint globalPos, QRectF targetRect, PageIte
 	return tg.contains(QPointF(mp.x(), mp.y()));
 }
 
-PageItem* Canvas::itemInGroup(PageItem* group, QTransform itemPos, QRectF mouseArea) const
+PageItem* Canvas::itemInGroup(PageItem* group, QRectF mouseArea) const
 {
 	int currNr = group->groupItemList.count() - 1;
 	while (currNr >= 0)
 	{
 		PageItem* embedded = group->groupItemList.at(currNr);
-		QPainterPath currPath(itemPos.map(QPointF(0, 0)));
-		currPath.lineTo(itemPos.map(QPointF(embedded->width(), 0)));
-		currPath.lineTo(itemPos.map(QPointF(embedded->width(), embedded->height())));
-		currPath.lineTo(itemPos.map(QPointF(0, embedded->height())));
+		QTransform itemPosN = embedded->getTransform();
+		QPainterPath currPath(itemPosN.map(QPointF(0, 0)));
+		currPath.lineTo(itemPosN.map(QPointF(embedded->width(), 0)));
+		currPath.lineTo(itemPosN.map(QPointF(embedded->width(), embedded->height())));
+		currPath.lineTo(itemPosN.map(QPointF(0, embedded->height())));
 		currPath.closeSubpath();
-		currPath.translate(embedded->gXpos, embedded->gYpos);
 		QPainterPath currClip;
-		currClip.addPolygon(itemPos.map(QPolygonF(embedded->Clip)));
+		currClip.addPolygon(itemPosN.map(QPolygonF(embedded->Clip)));
 		currClip.closeSubpath();
 		currClip.translate(embedded->gXpos, embedded->gYpos);
 		if (currPath.intersects(mouseArea) || currClip.intersects(mouseArea))
 		{
 			if (embedded->isGroup())
 			{
-				QTransform itemPosG = itemPos;
-				QTransform eTrans = embedded->getGroupTransform();
-				itemPosG *= eTrans;
-				itemPosG.scale(group->width() / group->groupWidth, group->height() / group->groupHeight);
-				PageItem* ret = itemInGroup(embedded, itemPosG, mouseArea);
+				PageItem* ret = itemInGroup(embedded, mouseArea);
 				if (ret != NULL)
 					return ret;
 			}
