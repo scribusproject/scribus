@@ -16,7 +16,6 @@ for which a new license (GPL+exception) is in place.
 class QString;
 class ScColor;
 class PrefsManager;
-class QDomDocument;
 
 class SCRIBUS_API ScPreview
 {

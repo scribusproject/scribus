@@ -23,7 +23,6 @@ for which a new license (GPL+exception) is in place.
 #include <QDir>
 #include <QFileInfo>
 #include <QMessageBox>
-#include <QDomDocument>
 #include <QToolTip>
 #include <QTextStream>
 #include <QSpacerItem>

@@ -31,7 +31,6 @@ for which a new license (GPL+exception) is in place.
 #include <QAction>
 // #include <QDebug>
 #include <QDir>
-#include <QDomDocument>
 #include <QEvent>
 #include <QFileDialog>
 #include <QFileInfo>
