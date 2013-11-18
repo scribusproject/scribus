@@ -688,6 +688,11 @@ void NodePalette::ToggleConMode()
 	if (m_doc != 0)
 	{
 		m_doc->nodeEdit.isContourLine = EditCont->isChecked();
+		m_doc->nodeEdit.submode = NodeEditContext::MOVE_POINT;
+		m_doc->nodeEdit.ClRe = -1;
+		m_doc->nodeEdit.ClRe2 = -1;
+		m_doc->nodeEdit.SegP1 = -1;
+		m_doc->nodeEdit.SegP2 = -1;
 		if (EditCont->isChecked())
 		{
 			BezierClose->setEnabled(false);
