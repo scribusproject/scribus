@@ -15367,6 +15367,18 @@ void ScribusDoc::removeFromGroup(PageItem* item)
 		item->setImageXScale(item->imageXScale() * grScXi);
 		item->setImageYScale(item->imageYScale() * grScYi);
 	}
+	if (item->GrType == 8)
+	{
+		double psx, psy, pox, poy, prot, pskx, psky;
+		item->patternTransform(psx, psy, pox, poy, prot, pskx, psky);
+		item->setPatternTransform(psx * grScXi, psy * grScYi, pox, poy, prot, pskx, psky);
+	}
+	if ((item->GrMask == 3) || (item->GrMask == 6) || (item->GrMask == 7) || (item->GrMask == 8))
+	{
+		double psx, psy, pox, poy, prot, pskx, psky;
+		item->maskTransform(psx, psy, pox, poy, prot, pskx, psky);
+		item->setMaskTransform(psx * grScXi, psy * grScYi, pox, poy, prot, pskx, psky);
+	}
 	if (item->asPathText())
 		item->updatePolyClip();
 	else
