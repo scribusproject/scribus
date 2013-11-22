@@ -37,7 +37,10 @@ void Prefs_PageSizes::restoreDefaults(struct ApplicationPrefs *prefsData)
 {
 	PageSize ps(prefsData->docSetupPrefs.pageSize);
 	QStringList sl(ps.sizeTRList());
+	activeSizesListWidget->clear();
 	activeSizesListWidget->addItems(ps.activeSizeTRList());
+	
+	availableSizesListWidget->clear();
 	for (int i = 0; i < sl.count(); ++i)
 	{
 		if (activeSizesListWidget->findItems(sl.at(i), Qt::MatchExactly).isEmpty())
