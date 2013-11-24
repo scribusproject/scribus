@@ -891,6 +891,12 @@ bool FPointArray::parseSVG(const QString& svgPath)
 			relative = false;
 			switch( command )
 			{
+			case 'f':
+			case 'F':
+				{
+					ptr = getCoord( ptr, tox );
+					break;
+				}
 			case 'm':
 				relative = true;
 			case 'M':
