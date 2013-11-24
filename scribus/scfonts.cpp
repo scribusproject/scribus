@@ -303,6 +303,148 @@ void getSFontType(FT_Face face, ScFace::FontType & type)
 	}
 } 
 
+ScFace SCFonts::LoadScalableFont(const QString &filename)
+{
+	ScFace t;
+	if (filename.isEmpty())
+		return t;
+	FT_Library library = NULL;
+	bool error;
+	error = FT_Init_FreeType( &library );
+	QFileInfo fi(filename);
+	if (!fi.exists())
+		return t;
+	bool Subset = false;
+	char *buf[50];
+	QString glyName = "";
+	ScFace::FontFormat format;
+	ScFace::FontType   type;
+	FT_Face         face = NULL;
+	error = FT_New_Face(library, QFile::encodeName(filename), 0, &face);
+	if (error)
+	{
+		if (face != NULL)
+			FT_Done_Face(face);
+		FT_Done_FreeType( library );
+		return t;
+	}
+	getFontFormat(face, format, type);
+	if (format == ScFace::UNKNOWN_FORMAT)
+	{
+		if (face != NULL)
+			FT_Done_Face(face);
+		FT_Done_FreeType( library );
+		return t;
+	}
+	bool HasNames = FT_HAS_GLYPH_NAMES(face);
+	if (!error)
+	{
+		FT_UInt gindex = 0;
+		FT_ULong charcode = FT_Get_First_Char( face, &gindex );
+		while ( gindex != 0 )
+		{
+			error = FT_Load_Glyph( face, gindex, FT_LOAD_NO_SCALE | FT_LOAD_NO_BITMAP );
+			if (error)
+			{
+				if (face != NULL)
+					FT_Done_Face( face );
+				FT_Done_FreeType( library );
+				return t;
+			}
+			FT_Get_Glyph_Name(face, gindex, buf, 50);
+			QString newName = QString(reinterpret_cast<char*>(buf));
+			if (newName == glyName)
+			{
+				HasNames = false;
+				Subset = true;
+			}
+			glyName = newName;
+			charcode = FT_Get_Next_Char( face, charcode, &gindex );
+		}
+	}
+	int faceindex=0;
+	QString fam(face->family_name);
+	QString sty(face->style_name);
+	if (sty == "Regular")
+	{
+		switch (face->style_flags)
+		{
+			case 0:
+				break;
+			case 1:
+				sty = "Italic";
+				break;
+			case 2:
+				sty = "Bold";
+				break;
+			case 3:
+				sty = "Bold Italic";
+				break;
+			default:
+				break;
+		}
+	}
+	QString ts(fam + " " + sty);
+	const char* psName = FT_Get_Postscript_Name(face);
+	QString qpsName;
+	if (psName)
+		qpsName = QString(psName);
+	else
+		qpsName = ts;
+	if (t.isNone())
+	{
+		switch (format)
+		{
+			case ScFace::PFA:
+				t = ScFace(new ScFace_pfa(fam, sty, "", ts, qpsName, filename, faceindex));
+				t.subset(Subset);
+				break;
+			case ScFace::PFB:
+				t = ScFace(new ScFace_pfb(fam, sty, "", ts, qpsName, filename, faceindex));
+				t.subset(Subset);
+				break;
+			case ScFace::SFNT:
+				t = ScFace(new ScFace_ttf(fam, sty, "", ts, qpsName, filename, faceindex));
+				getSFontType(face, t.m->typeCode);
+				if (t.type() == ScFace::OTF)
+					t.subset(true);
+				else
+					t.subset(Subset);
+				break;
+			case ScFace::TTCF:
+				t = ScFace(new ScFace_ttf(fam, sty, "", ts, qpsName, filename, faceindex));
+				t.m->formatCode = ScFace::TTCF;
+				t.m->typeCode = ScFace::TTF;
+				if (t.type() == ScFace::OTF)
+					t.subset(true);
+				else
+					t.subset(Subset);
+				break;
+			case ScFace::TYPE42:
+				t = ScFace(new ScFace_ttf(fam, sty, "", ts, qpsName, filename, faceindex));
+				getSFontType(face, t.m->typeCode);
+				if (t.type() == ScFace::OTF)
+					t.subset(true);
+				else
+					t.subset(Subset);
+				break;
+			default:
+			/* catching any types not handled above to silence compiler */
+				break;
+		}
+		t.m->hasNames = HasNames;
+		t.embedPs(true);
+		t.usable(true);
+		t.m->status = ScFace::UNKNOWN;
+		if (face->num_glyphs > 2048)
+			t.subset(true);
+	}
+	setBestEncoding(face);
+	FT_Done_Face(face);
+	FT_Done_FreeType( library );
+	return t;
+}
+
 // Load a single font into the library from the passed filename. Returns true on error.
 bool SCFonts::AddScalableFont(QString filename, FT_Library &library, QString DocName)
 {

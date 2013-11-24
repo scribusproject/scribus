@@ -40,6 +40,7 @@ class SCRIBUS_API SCFonts : public QMap<QString,ScFace>
 		~SCFonts();
 		void updateFontMap();
 		void GetFonts(QString pf, bool showFontInfo=false);
+		ScFace LoadScalableFont(const QString &filename);
 		void AddScalableFonts(const QString& path, QString DocName = "");
 		/// Returns a font with that name; creates a replacement font if not found
 		const ScFace& findFont(const QString& fontName, ScribusDoc* doc = NULL);
