@@ -482,7 +482,7 @@ SET(SCRIBUS_MOC_CLASSES
   ui/copypagetomasterpagedialog.h
   ui/createrange.h
   ui/edittoolbar.h
-  ui/filetoolbar.h  
+  ui/filetoolbar.h
   ui/modetoolbar.h
   ui/pdftoolbar.h
   ui/unicodesearch.h
@@ -985,6 +985,7 @@ LINK_DIRECTORIES(
   ${CMAKE_CURRENT_BINARY_DIR}/text
   ${CMAKE_CURRENT_BINARY_DIR}/third_party/wpg
   ${CMAKE_CURRENT_BINARY_DIR}/third_party/pgf
+  ${CMAKE_CURRENT_BINARY_DIR}/third_party/zip
 )
 
 IF(WITH_TESTS)
@@ -1018,6 +1019,7 @@ ENDIF (HAVE_BOOST)
 SET(SCRIBUS_WPG_LIB "scribus_wpg_lib")
 
 SET(SCRIBUS_PGF_LIB "scribus_pgf_lib")
+SET(SCRIBUS_ZIP_LIB "scribus_zip_lib")
 
 INCLUDE_DIRECTORIES(
   ${CMAKE_SOURCE_DIR}
@@ -1188,13 +1190,14 @@ TARGET_LINK_LIBRARIES(${EXE_NAME}
   ${SCRIBUS_FONTS_LIB}
   ${SCRIBUS_WPG_LIB}
   ${SCRIBUS_PGF_LIB}
+  ${SCRIBUS_ZIP_LIB}
   ${LCMS2_LIBRARIES}
 )
 
 IF(WITH_TESTS)
-  TARGET_LINK_LIBRARIES(${EXE_NAME} 
+  TARGET_LINK_LIBRARIES(${EXE_NAME}
   	${QT_QTTEST_LIBRARY}
-	${SCRIBUS_TESTS_LIB} 
+	${SCRIBUS_TESTS_LIB}
   )
 ENDIF(WITH_TESTS)
 
@@ -1268,7 +1271,7 @@ IF(APPLEBUNDLE)
 #  )
 
 #  INSTALL(
-#	CODE "SET(input_file ${CMAKE_INSTALL_PREFIX}/MacOS/${EXE_NAME})"  
+#	CODE "SET(input_file ${CMAKE_INSTALL_PREFIX}/MacOS/${EXE_NAME})"
 #	SCRIPT ${CMAKE_MODULE_PATH}/ScribusIngestOSXBundleLibraries.cmake )
 ELSE(APPLEBUNDLE)
   IF(WIN32)
@@ -1287,8 +1290,8 @@ ENDIF(APPLEBUNDLE)
 #Install our header files, selected from all existing dirs, excluding unwanted directories and svn files
 IF(NOT WANT_NOHEADERINSTALL)
   MESSAGE(STATUS "Source header files will be installed")
-  INSTALL(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/ DESTINATION ${INCLUDEDIR} 
-    FILES_MATCHING 
+  INSTALL(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/ DESTINATION ${INCLUDEDIR}
+    FILES_MATCHING
     PATTERN "*.h"
     PATTERN "dicts" EXCLUDE
     PATTERN "doc" EXCLUDE
@@ -1297,7 +1300,7 @@ IF(NOT WANT_NOHEADERINSTALL)
     PATTERN "icon*" EXCLUDE
     PATTERN "manpages" EXCLUDE
     PATTERN "old" EXCLUDE
-    PATTERN ".svn" EXCLUDE 
+    PATTERN ".svn" EXCLUDE
   )
 ELSE(NOT WANT_NOHEADERINSTALL)
   MESSAGE(STATUS "No source header files will be installed")
