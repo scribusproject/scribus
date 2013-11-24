@@ -63,7 +63,7 @@ class ZipPrivate : public QObject
 
 public:
     // uLongf from zconf.h
-    typedef uLongf crc_t;
+    typedef z_crc_t crc_t;
 
 	ZipPrivate();
 	virtual ~ZipPrivate();
