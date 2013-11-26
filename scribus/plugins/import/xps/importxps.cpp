@@ -491,7 +491,10 @@ void XpsPlug::parseDocReference(QString designMap)
 						else
 						{
 							if (!PageReference.startsWith(path))
+							{
 								PageReference = path + "/" + PageReference;
+								PageReference = QDir::cleanPath(PageReference);
+							}
 							parsePageReference(PageReference);
 						}
 					}
@@ -545,7 +548,10 @@ void XpsPlug::parseDocReference(QString designMap)
 							else
 							{
 								if (!PageReference.startsWith(path))
+								{
 									PageReference = path + "/" + PageReference;
+									PageReference = QDir::cleanPath(PageReference);
+								}
 								parsePageReference(PageReference);
 							}
 						}
@@ -648,7 +654,10 @@ void XpsPlug::parsePageReference(QString designMap)
 								else
 								{
 									if (!resFile.startsWith(path))
+									{
 										resFile = path + "/" + resFile;
+										resFile = QDir::cleanPath(resFile);
+									}
 									parseResourceFile(resFile);
 								}
 							}
@@ -813,7 +822,10 @@ PageItem* XpsPlug::parseObjectXML(QDomElement &dpg, QString path)
 		else
 		{
 			if (!fontUrl.startsWith(path))
+			{
 				fontUrl = path + "/" + fontUrl;
+				fontUrl = QDir::cleanPath(fontUrl);
+			}
 		}
 		ScFace iteFont = loadFontByName(fontUrl);
 		if (iteFont.usable())
@@ -1123,7 +1135,10 @@ PageItem* XpsPlug::parseObjectXML(QDomElement &dpg, QString path)
 							else
 							{
 								if (!resFile.startsWith(path))
+								{
 									resFile = path + "/" + resFile;
+									resFile = QDir::cleanPath(resFile);
+								}
 								parseResourceFile(resFile);
 							}
 						}
@@ -1201,7 +1216,7 @@ PageItem* XpsPlug::parseObjectXML(QDomElement &dpg, QString path)
 					retObj->OldH2 = retObj->height();
 				}
 				if ((obState.transform.dx() != 0.0) || (obState.transform.dy() != 0))
-					retObj->moveBy((double)obState.transform.dx(), (double)obState.transform.dy(), true);
+					retObj->moveBy((double)(obState.transform.dx() * obState.transform.m11()) * conversionFactor, (double)(obState.transform.dy() * obState.transform.m22()) * conversionFactor, true);
 				if (obState.maskTyp != 0)
 				{
 					double xp = retObj->xPos() - m_Doc->currentPage()->xOffset();
@@ -1304,7 +1319,10 @@ void XpsPlug::parseFillXML(QDomElement &spe, QString path, ObjState &obState)
 			else
 			{
 				if (!obState.imagePath.startsWith(path))
+				{
 					obState.imagePath = path + "/" + obState.imagePath;
+					obState.imagePath = QDir::cleanPath(obState.imagePath);
+				}
 			}
 			if (eog.hasAttribute("Opacity"))
 			{

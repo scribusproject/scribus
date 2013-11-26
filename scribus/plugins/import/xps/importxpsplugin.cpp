@@ -60,6 +60,9 @@ void ImportXpsPlugin::languageChange()
 	FileFormat* fmt = getFormatByExt("xps");
 	fmt->trName = tr("Microsoft XPS");
 	fmt->filter = tr("Microsoft XPS (*.xps *.XPS)");
+	FileFormat* fmt2 = getFormatByExt("oxps");
+	fmt2->trName = tr("Open XML Paper");
+	fmt2->filter = tr("Open XML Paper (*.oxps *.OXPS)");
 }
 
 ImportXpsPlugin::~ImportXpsPlugin()
@@ -77,8 +80,8 @@ const ScActionPlugin::AboutData* ImportXpsPlugin::getAboutData() const
 {
 	AboutData* about = new AboutData;
 	about->authors = "Franz Schmid <franz@scribus.info>";
-	about->shortDescription = tr("Imports XPS Files");
-	about->description = tr("Imports most XPS files into the current document,\nconverting their vector data into Scribus objects.");
+	about->shortDescription = tr("Imports XPS and Open XML Paper Files");
+	about->description = tr("Imports most XPS and Open XML Paper files into the current document,\nconverting their vector data into Scribus objects.");
 	about->license = "GPL";
 	Q_CHECK_PTR(about);
 	return about;
@@ -101,10 +104,23 @@ void ImportXpsPlugin::registerFormats()
 	fmt.save = false;
 	fmt.thumb = true;
 	fmt.colorReading = false;
-	fmt.mimeTypes = QStringList() << "application/oxps" << "application/vnd.ms-xpsdocument";
+	fmt.mimeTypes = QStringList() << "application/vnd.ms-xpsdocument";
 	fmt.mimeTypes.append("");
 	fmt.priority = 64; // Priority
 	registerFormat(fmt);
+	FileFormat fmt2(this);
+	fmt2.trName = tr("Open XML Paper");
+	fmt2.filter = tr("Open XML Paper (*.oxps *.OXPS)");
+	fmt2.formatId = 0;
+	fmt2.fileExtensions = QStringList() << "oxps";
+	fmt2.load = true;
+	fmt2.save = false;
+	fmt2.thumb = true;
+	fmt2.colorReading = false;
+	fmt2.mimeTypes = QStringList() << "application/oxps";
+	fmt2.mimeTypes.append("");
+	fmt2.priority = 64; // Priority
+	registerFormat(fmt2);
 }
 
 bool ImportXpsPlugin::fileSupported(QIODevice* /* file */, const QString & fileName) const
@@ -127,7 +143,7 @@ bool ImportXpsPlugin::import(QString fileName, int flags)
 		flags |= lfInteractive;
 		PrefsContext* prefs = PrefsManager::instance()->prefsFile->getPluginContext("importxps");
 		QString wdir = prefs->get("wdir", ".");
-		CustomFDialog diaf(ScCore->primaryMainWindow(), wdir, QObject::tr("Open"), tr("All Supported Formats")+" (*.xps *.XPS);;All Files (*)");
+		CustomFDialog diaf(ScCore->primaryMainWindow(), wdir, QObject::tr("Open"), tr("All Supported Formats")+" (*.oxps *.OXPS *.xps *.XPS);;All Files (*)");
 		if (diaf.exec())
 		{
 			fileName = diaf.selectedFile();
