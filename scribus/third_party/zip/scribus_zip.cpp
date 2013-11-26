@@ -98,6 +98,17 @@ bool ScZipHandler::read(QString fileName, QByteArray &buf)
 	return retVal;
 }
 
+bool ScZipHandler::write(QString dirName)
+{
+	bool retVal = false;
+	if (m_zi != NULL)
+	{
+		Zip::ErrorCode ec = m_zi->addDirectory(dirName, "", Zip::IgnoreRoot);
+		retVal = (ec == Zip::Ok);
+	}
+	return retVal;
+}
+
 QStringList ScZipHandler::files()
 {
 	QStringList retVal = QStringList();

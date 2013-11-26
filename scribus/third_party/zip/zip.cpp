@@ -398,6 +398,7 @@ Zip::ErrorCode ZipPrivate::addDirectory(const QString& path, const QString& root
 
     const QDir::Filters dir_filter =
             QDir::Files |
+			QDir::Hidden |
             QDir::Dirs |
             QDir::NoDotAndDotDot |
             QDir::NoSymLinks;
