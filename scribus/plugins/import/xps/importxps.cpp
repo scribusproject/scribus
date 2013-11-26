@@ -1510,7 +1510,7 @@ void XpsPlug::parsePathDataXML(QDomElement &spe, ObjState &obState, bool forClip
 QString XpsPlug::parsePathGeometryXML(QDomElement &spe)
 {
 	QString svgString = "";
-	for(QDomElement dpg = spe.firstChildElement(); !spe.isNull(); spe = dpg.nextSiblingElement() )
+	for(QDomElement dpg = spe.firstChildElement(); !dpg.isNull(); dpg = dpg.nextSiblingElement() )
 	{
 		if (dpg.tagName() == "PathFigure")
 		{
