@@ -62,12 +62,7 @@ class ZipPrivate : public QObject
     Q_OBJECT
 
 public:
-#if defined _WIN32
-    // uLongf from zconf.h
-    typedef z_crc_t crc_t;
-#else
-	typedef uLongf crc_t;
-#endif
+	typedef z_crc_t crc_t;
 	ZipPrivate();
 	virtual ~ZipPrivate();
 
