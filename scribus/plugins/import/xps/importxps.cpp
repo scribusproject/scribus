@@ -1093,13 +1093,7 @@ PageItem* XpsPlug::parseObjectXML(QDomElement &dpg, QString path)
 		for(QDomNode sp = dpg.firstChild(); !sp.isNull(); sp = sp.nextSibling() )
 		{
 			QDomElement spe = sp.toElement();
-			if ((spe.tagName() == "Path") || (spe.tagName() == "Glyphs") || (spe.tagName() == "Canvas"))
-			{
-				PageItem* ite = parseObjectXML(spe, path);
-				if (ite != NULL)
-					GElements.append(ite);
-			}
-			else if (spe.tagName() == "Canvas.RenderTransform")
+			if (spe.tagName() == "Canvas.RenderTransform")
 			{
 				for(QDomNode obg = spe.firstChild(); !obg.isNull(); obg = obg.nextSibling() )
 				{
@@ -1114,6 +1108,12 @@ PageItem* XpsPlug::parseObjectXML(QDomElement &dpg, QString path)
 						obState.transform = QTransform(a, b, c, d, e * conversionFactor, f * conversionFactor);
 					}
 				}
+			}
+			else if ((spe.tagName() == "Path") || (spe.tagName() == "Glyphs") || (spe.tagName() == "Canvas"))
+			{
+				PageItem* ite = parseObjectXML(spe, path);
+				if (ite != NULL)
+					GElements.append(ite);
 			}
 			else if (spe.tagName() == "Canvas.OpacityMask")
 				parseOpacityXML(spe, path, obState);
@@ -1190,10 +1190,10 @@ PageItem* XpsPlug::parseObjectXML(QDomElement &dpg, QString path)
 				maxx = qMax(maxx, x2);
 				maxy = qMax(maxy, y2);
 			}
-			double gx = minx;
-			double gy = miny;
-			double gw = maxx - minx;
-			double gh = maxy - miny;
+			double gx = qMin(baseX, minx);
+			double gy = qMin(baseY, miny);
+			double gw = maxx - qMin(baseX, minx);
+			double gh = maxy - qMin(baseY, miny);
 			int z = m_Doc->itemAdd(PageItem::Group, PageItem::Rectangle, gx, gy, gw, gh, 0, CommonStrings::None, CommonStrings::None, true);
 			if (z >= 0)
 			{
@@ -1205,18 +1205,14 @@ PageItem* XpsPlug::parseObjectXML(QDomElement &dpg, QString path)
 				retObj->OldH2 = retObj->height();
 				retObj->updateClip();
 				m_Doc->groupObjectsToItem(retObj, GElements);
-				m_Doc->AdjustItemSize(retObj);
-				if ((obState.transform.m11() != 1.0) || (obState.transform.m22() != 1.0))
-				{
-					retObj->PoLine.scale(obState.transform.m11(), obState.transform.m22());
-					FPoint wh = getMaxClipF(&retObj->PoLine);
-					retObj->setWidthHeight(wh.x(),wh.y());
-					m_Doc->AdjustItemSize(retObj, true);
-					retObj->OldB2 = retObj->width();
-					retObj->OldH2 = retObj->height();
-				}
+				retObj->PoLine.scale(obState.transform.m11(), obState.transform.m22());
+				FPoint wh = getMaxClipF(&retObj->PoLine);
+				retObj->setWidthHeight(wh.x(),wh.y());
+				m_Doc->AdjustItemSize(retObj, true);
+				retObj->OldB2 = retObj->width();
+				retObj->OldH2 = retObj->height();
 				if ((obState.transform.dx() != 0.0) || (obState.transform.dy() != 0))
-					retObj->moveBy((double)(obState.transform.dx() * obState.transform.m11()) * conversionFactor, (double)(obState.transform.dy() * obState.transform.m22()) * conversionFactor, true);
+					retObj->moveBy((double)(obState.transform.dx()), (double)(obState.transform.dy()), true);
 				if (obState.maskTyp != 0)
 				{
 					double xp = retObj->xPos() - m_Doc->currentPage()->xOffset();
