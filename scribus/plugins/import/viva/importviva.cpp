@@ -1140,8 +1140,8 @@ PageItem* VivaPlug::parseObjectDetailsXML(const QDomElement& obNode, int baseTyp
 								opa = 0;
 							else
 								opa = 1.0 - (eo.text().toDouble() / 100.0);
-							fillOpacity = 1.0 - ((1.0 - fillOpacity) * opa);
-							strokeOpacity = 1.0 - ((1.0 - strokeOpacity) * opa);
+							fillOpacity = 1.0 - ((1.0 - fillOpacity) * (1.0 - opa));
+							strokeOpacity = 1.0 - ((1.0 - strokeOpacity) * (1.0 * opa));
 						}
 						else if (eo.tagName() == "vo:cornerRadius")
 							cornerRadius = parseUnit(eo.text());
