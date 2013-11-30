@@ -56,7 +56,7 @@ QString ScFileWidget::selectedFile()
 	return l.at(0);
 }
 
-/* Hack to make the previews in our Fildialogs useable again
+/* Hack to make the previews in our file dialogs useable again
    needed e.g on OpenSuse patched Qt versions */
 void ScFileWidget::accept()
 {
