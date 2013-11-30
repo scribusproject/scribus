@@ -210,7 +210,7 @@ QRegion PageItem_TextFrame::calcAvailableRegion()
 			Mp = m_Doc->MasterPages.at(m_Doc->MasterNames[OnMasterPage]);
 			Dp = m_Doc->Pages->at(savedOwnPage);
 			if (Parent != NULL)
-				thisList = this->asGroupFrame()->groupItemList;
+				thisList = Parent->asGroupFrame()->groupItemList;
 			else
 				thisList = m_Doc->MasterItems;
 			int thisid = thisList.indexOf(this);
