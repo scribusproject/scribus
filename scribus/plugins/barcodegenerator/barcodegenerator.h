@@ -113,9 +113,12 @@ class BarcodeGenerator : public QDialog
 		/*! \brief Perform BarcodeCheckType checks here
 		\param s new string */
 		bool codeEdit_check(const QString & s);
+		void qrOptionsEnabled(bool);
+		void initializeQROptions();
 
 	protected slots:
 		void bcComboChanged();
+		void bcComboChanged(int);
 		void textCheck_changed();
 		void guardCheck_changed();
 		void includeCheck_stateChanged(int state);
