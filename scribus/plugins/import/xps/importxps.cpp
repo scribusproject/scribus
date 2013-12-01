@@ -102,24 +102,21 @@ QImage XpsPlug::readThumbnail(QString fName)
 			QDomElement docElem = designMapDom.documentElement();
 			for(QDomElement drawPag = docElem.firstChildElement(); !drawPag.isNull(); drawPag = drawPag.nextSiblingElement())
 			{
-				if (drawPag.tagName() == "Relationship")
+				if (drawPag.tagName() != "Relationship")
+					continue;
+				if ((!drawPag.hasAttribute("Target")) || (!drawPag.hasAttribute("Type")))
+					continue;
+				if (drawPag.attribute("Type") != "http://schemas.openxmlformats.org/package/2006/relationships/metadata/thumbnail")
+					continue;
+				QString thumbRef = drawPag.attribute("Target");
+				if (thumbRef.startsWith("/"))
+					thumbRef = thumbRef.mid(1);
+				QByteArray im;
+				if (uz->read(thumbRef, im))
 				{
-					if ((drawPag.hasAttribute("Target")) && (drawPag.hasAttribute("Type")))
-					{
-						if (drawPag.attribute("Type") == "http://schemas.openxmlformats.org/package/2006/relationships/metadata/thumbnail")
-						{
-							QString thumbRef = drawPag.attribute("Target");
-							if (thumbRef.startsWith("/"))
-								thumbRef = thumbRef.mid(1);
-							QByteArray im;
-							if (uz->read(thumbRef, im))
-							{
-								tmp = QImage::fromData(im);
-								found = true;
-								break;
-							}
-						}
-					}
+					tmp = QImage::fromData(im);
+					found = true;
+					break;
 				}
 			}
 		}
