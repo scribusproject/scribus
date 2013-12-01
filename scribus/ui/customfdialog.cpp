@@ -22,6 +22,7 @@ for which a new license (GPL+exception) is in place.
  *                                                                         *
  ***************************************************************************/
 
+#include <QApplication>
 #include <QCheckBox>
 #include <QComboBox>
 #include <QDir>
@@ -490,6 +491,13 @@ void CustomFDialog::togglePreview()
 		if (!sel.isEmpty())
 			pw->GenPreview(QDir::fromNativeSeparators(sel[0]));
 	}
+	qApp->processEvents();
+	pw->setVisible(!previewIsShown);
+	qApp->processEvents();
+	pw->setVisible(previewIsShown);
+	fileDialog->repaint();
+	qApp->processEvents();
+	repaint();
 }
 
 void CustomFDialog::setSelection(QString sel)
