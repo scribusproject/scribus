@@ -82,6 +82,8 @@ void HunspellDialog::goToNextWord(int i)
 		sentenceTextEdit->clear();
 		changePushButton->setEnabled(false);
 		changeAllPushButton->setEnabled(false);
+		ignoreOncePushButton->setEnabled(false);
+		ignoreAllPushButton->setEnabled(false);
 		return;
 	}
 	else
@@ -100,11 +102,13 @@ void HunspellDialog::goToNextWord(int i)
 
 void HunspellDialog::ignoreAllWords()
 {
-	QString wordToIgnore=m_wfList->at(wfListIndex).w;
+	if (wfListIndex < 0 || wfListIndex >= m_wfList->count())
+		return;
+	QString wordToIgnore = m_wfList->at(wfListIndex).w;
 	//Do we start from 0 or from the instance of the word where we are... 0 for now
-	for(int i=0;i<m_wfList->count();++i)
-		if(m_wfList->at(i).w==wordToIgnore)
-			(*m_wfList)[i].ignore=true;
+	for (int i = 0; i < m_wfList->count(); ++i)
+		if (m_wfList->at(i).w == wordToIgnore)
+			(*m_wfList)[i].ignore = true;
 	goToNextWord();
 }
 
