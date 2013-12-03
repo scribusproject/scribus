@@ -491,6 +491,7 @@ void CustomFDialog::togglePreview()
 		if (!sel.isEmpty())
 			pw->GenPreview(QDir::fromNativeSeparators(sel[0]));
 	}
+	// #11856: Hack to avoid file dialog widget turning black with Qt5
 	qApp->processEvents();
 	pw->setVisible(!previewIsShown);
 	qApp->processEvents();
