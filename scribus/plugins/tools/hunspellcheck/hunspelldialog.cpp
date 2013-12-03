@@ -85,6 +85,8 @@ void HunspellDialog::goToNextWord(int i)
 		sentenceTextEdit->clear();
 		changePushButton->setEnabled(false);
 		changeAllPushButton->setEnabled(false);
+		ignoreOncePushButton->setEnabled(false);
+		ignoreAllPushButton->setEnabled(false);
 		return;
 	}
 	else
@@ -98,16 +100,17 @@ void HunspellDialog::goToNextWord(int i)
 	sentence.insert(currWF.end-sentencePos+currWF.changeOffset,"</b></font>");
 	sentence.insert(currWF.start-sentencePos+currWF.changeOffset,"<font color=red><b>");
 	sentenceTextEdit->setText(sentence);
-
 }
 
 void HunspellDialog::ignoreAllWords()
 {
-	QString wordToIgnore=m_wfList->at(wfListIndex).w;
+	if (wfListIndex < 0 || wfListIndex >= m_wfList->count())
+		return;
+	QString wordToIgnore = m_wfList->at(wfListIndex).w;
 	//Do we start from 0 or from the instance of the word where we are... 0 for now
-	for(int i=0;i<m_wfList->count();++i)
-		if(m_wfList->at(i).w==wordToIgnore)
-			(*m_wfList)[i].ignore=true;
+	for(int i = 0; i < m_wfList->count(); ++i)
+		if (m_wfList->at(i).w == wordToIgnore)
+			(*m_wfList)[i].ignore = true;
 	goToNextWord();
 }
 
