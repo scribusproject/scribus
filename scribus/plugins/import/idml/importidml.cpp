@@ -3252,6 +3252,7 @@ QString IdmlPlug::constructFontName(QString fontBaseName, QString fontStyle)
 				else
 				{
 					QString family = fontBaseName + " " + fontStyle;
+					family = family.remove("$ID/");
 					if (!PrefsManager::instance()->appPrefs.fontPrefs.GFontSub.contains(family))
 					{
 						qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
