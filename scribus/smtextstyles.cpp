@@ -1126,9 +1126,11 @@ void SMParagraphStyle::slotFillColor()
 		for (int i = 0; i < selection_.count(); ++i)
 			selection_[i]->charStyle().resetFillColor();
 	else {
-		QString c( pwidget_->cpage->fillColor_->currentText());
+		QString col( pwidget_->cpage->fillColor_->currentText());
+		if (col == CommonStrings::tr_NoneColor)
+			col = CommonStrings::None;
 		for (int i = 0; i < selection_.count(); ++i)
-			selection_[i]->charStyle().setFillColor(c);
+			selection_[i]->charStyle().setFillColor(col);
 	}
 	
 	if (!selectionIsDirty_)
@@ -1163,10 +1165,11 @@ void SMParagraphStyle::slotStrokeColor()
 		for (int i = 0; i < selection_.count(); ++i)
 			selection_[i]->charStyle().resetStrokeColor();
 	else {
-		QString c(pwidget_->cpage->strokeColor_->currentText());
-
+		QString col(pwidget_->cpage->strokeColor_->currentText());
+		if (col == CommonStrings::tr_NoneColor)
+			col = CommonStrings::None;
 		for (int i = 0; i < selection_.count(); ++i)
-			selection_[i]->charStyle().setStrokeColor(c);
+			selection_[i]->charStyle().setStrokeColor(col);
 	}
 	
 	if (!selectionIsDirty_)
@@ -2050,7 +2053,8 @@ void SMCharacterStyle::slotFillColor()
 			selection_[i]->resetFillColor();
 	else {		
 		QString col(page_->fillColor_->currentText());
-		
+		if (col == CommonStrings::tr_NoneColor)
+			col = CommonStrings::None;
 		for (int i = 0; i < selection_.count(); ++i)
 			selection_[i]->setFillColor(col);
 	}
@@ -2087,10 +2091,11 @@ void SMCharacterStyle::slotStrokeColor()
 		for (int i = 0; i < selection_.count(); ++i)
 			selection_[i]->resetStrokeColor();
 	else {
-		QString c(page_->strokeColor_->currentText());
-
+		QString col(page_->strokeColor_->currentText());
+		if (col == CommonStrings::tr_NoneColor)
+			col = CommonStrings::None;
 		for (int i = 0; i < selection_.count(); ++i)
-			selection_[i]->setStrokeColor(c);
+			selection_[i]->setStrokeColor(col);
 	}
 	
 	if (!selectionIsDirty_)
