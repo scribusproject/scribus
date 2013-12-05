@@ -43,7 +43,7 @@ ScToolBar::ScToolBar(const QString& name, const QString &prefName, QMainWindow *
   m_name(QString("ToolBar-%1").arg(prefName))
 {
 	m_prefs=PrefsManager::instance()->prefsFile->getContext(m_name);
-	setObjectName(name);
+	setObjectName(prefName);
 // 	hide();
 	parentMW=parent;
 	

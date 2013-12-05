@@ -338,7 +338,7 @@ bool PluginManager::setupPluginActions(ScribusMainWindow *mw)
 			}
 			if (!ai.toolbar.isEmpty())
 			{
-				QString tbName = QString("ToolBar-%1").arg(ai.toolbar);
+				QString tbName = ai.toolbar;
 				if (mw->scrToolBars.contains(tbName))
 					mw->scrToolBars[tbName]->addAction(mw->scrActions[ai.name]);
 				else
