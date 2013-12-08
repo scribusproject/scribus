@@ -236,7 +236,8 @@ public:
 	virtual void setSoftMask(GfxState * /*state*/, double * /*bbox*/, GBool /*alpha*/, Function * /*transferFunc*/, GfxColor * /*backdropColor*/);
 	virtual void clearSoftMask(GfxState * /*state*/);
 
-//	virtual void updateFillColor(GfxState *state);
+	virtual void updateFillColor(GfxState *state);
+	virtual void updateStrokeColor(GfxState *state);
 	virtual void updateFont(GfxState *state);
 	//----- text drawing
 	virtual void beginTextObject(GfxState *state);
@@ -266,7 +267,9 @@ private:
 	QString UnicodeParsedString(GooString *s1);
 	bool pathIsClosed;
 	QString CurrColorFill;
+	int CurrFillShade;
 	QString CurrColorStroke;
+	int CurrStrokeShade;
 	Qt::PenCapStyle PLineEnd;
 	Qt::PenJoinStyle PLineJoin;
 	QVector<double> DashValues;

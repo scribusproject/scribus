@@ -1479,6 +1479,18 @@ void SlaOutputDev::clearSoftMask(GfxState * /*state*/)
 	}
 }
 
+void SlaOutputDev::updateFillColor(GfxState *state)
+{
+	CurrFillShade = 100;
+	CurrColorFill = getColor(state->getFillColorSpace(), state->getFillColor(), &CurrFillShade);
+}
+
+void SlaOutputDev::updateStrokeColor(GfxState *state)
+{
+	CurrStrokeShade = 100;
+	CurrColorStroke = getColor(state->getStrokeColorSpace(), state->getStrokeColor(), &CurrStrokeShade);
+}
+
 void SlaOutputDev::clip(GfxState *state)
 {
 //	qDebug() << "Clip";
@@ -1586,15 +1598,13 @@ void SlaOutputDev::stroke(GfxState *state)
 	ctm = state->getCTM();
 	double xCoor = m_doc->currentPage()->xOffset();
 	double yCoor = m_doc->currentPage()->yOffset();
-	int shade = 100;
-	CurrColorStroke = getColor(state->getStrokeColorSpace(), state->getStrokeColor(), &shade);
 	QString output = convertPath(state->getPath());
 	getPenState(state);
 	if ((m_Elements->count() != 0) && (output == Coords))			// Path is the same as in last fill
 	{
 		PageItem* ite = m_Elements->last();
 		ite->setLineColor(CurrColorStroke);
-		ite->setLineShade(shade);
+		ite->setLineShade(CurrStrokeShade);
 		ite->setLineEnd(PLineEnd);
 		ite->setLineJoin(PLineJoin);
 		ite->setLineWidth(state->getTransformedLineWidth());
@@ -1629,7 +1639,7 @@ void SlaOutputDev::stroke(GfxState *state)
 				{
 					lItem->setLineColor(CurrColorStroke);
 					lItem->setLineWidth(state->getTransformedLineWidth());
-					lItem->setLineShade(shade);
+					lItem->setLineShade(CurrStrokeShade);
 					lItem->setLineTransparency(1.0 - state->getStrokeOpacity());
 					lItem->setLineBlendmode(getBlendMode(state));
 					lItem->setLineEnd(PLineEnd);
@@ -1641,7 +1651,7 @@ void SlaOutputDev::stroke(GfxState *state)
 				}
 				else
 				{
-					ite->setLineShade(shade);
+					ite->setLineShade(CurrStrokeShade);
 					ite->setLineTransparency(1.0 - state->getStrokeOpacity());
 					ite->setLineBlendmode(getBlendMode(state));
 					ite->setLineEnd(PLineEnd);
@@ -1656,7 +1666,7 @@ void SlaOutputDev::stroke(GfxState *state)
 			}
 			else
 			{
-				ite->setLineShade(shade);
+				ite->setLineShade(CurrStrokeShade);
 				ite->setLineTransparency(1.0 - state->getStrokeOpacity());
 				ite->setLineBlendmode(getBlendMode(state));
 				ite->setLineEnd(PLineEnd);
@@ -1679,8 +1689,6 @@ void SlaOutputDev::fill(GfxState *state)
 	ctm = state->getCTM();
 	double xCoor = m_doc->currentPage()->xOffset();
 	double yCoor = m_doc->currentPage()->yOffset();
-	int shade = 100;
-	CurrColorFill = getColor(state->getFillColorSpace(), state->getFillColor(), &shade);
 	FPointArray out;
 	QString output = convertPath(state->getPath());
 	out.parseSVG(output);
@@ -1699,7 +1707,7 @@ void SlaOutputDev::fill(GfxState *state)
 		ite->PoLine = out.copy();
 		ite->ClipEdited = true;
 		ite->FrameType = 3;
-		ite->setFillShade(shade);
+		ite->setFillShade(CurrFillShade);
 		ite->setLineShade(100);
 		ite->setFillEvenOdd(false);
 		ite->setFillTransparency(1.0 - state->getFillOpacity());
@@ -1725,8 +1733,6 @@ void SlaOutputDev::eoFill(GfxState *state)
 	ctm = state->getCTM();
 	double xCoor = m_doc->currentPage()->xOffset();
 	double yCoor = m_doc->currentPage()->yOffset();
-	int shade = 100;
-	CurrColorFill = getColor(state->getFillColorSpace(), state->getFillColor(), &shade);
 	FPointArray out;
 	QString output = convertPath(state->getPath());
 	out.parseSVG(output);
@@ -1745,7 +1751,7 @@ void SlaOutputDev::eoFill(GfxState *state)
 		ite->PoLine = out.copy();
 		ite->ClipEdited = true;
 		ite->FrameType = 3;
-		ite->setFillShade(shade);
+		ite->setFillShade(CurrFillShade);
 		ite->setLineShade(100);
 		ite->setFillEvenOdd(true);
 		ite->setFillTransparency(1.0 - state->getFillOpacity());
@@ -1825,7 +1831,6 @@ GBool SlaOutputDev::axialShadedFill(GfxState *state, GfxAxialShading *shading, d
 	GrEndY = gr.point(1).y() - crect.y();
 	double xCoor = m_doc->currentPage()->xOffset();
 	double yCoor = m_doc->currentPage()->yOffset();
-	CurrColorFill = getColor(state->getFillColorSpace(), state->getFillColor(), &shade);
 	QString output = QString("M %1 %2").arg(0.0).arg(0.0);
 	output += QString("L %1 %2").arg(crect.width()).arg(0.0);
 	output += QString("L %1 %2").arg(crect.width()).arg(crect.height());
@@ -1838,7 +1843,7 @@ GBool SlaOutputDev::axialShadedFill(GfxState *state, GfxAxialShading *shading, d
 	PageItem* ite = m_doc->Items->at(z);
 	ite->ClipEdited = true;
 	ite->FrameType = 3;
-	ite->setFillShade(shade);
+	ite->setFillShade(CurrFillShade);
 	ite->setLineShade(100);
 	ite->setFillEvenOdd(false);
 	ite->setFillTransparency(1.0 - state->getFillOpacity());
@@ -1928,7 +1933,6 @@ GBool SlaOutputDev::radialShadedFill(GfxState *state, GfxRadialShading *shading,
 	GrFocalY = gr.point(2).y() - crect.y();
 	double xCoor = m_doc->currentPage()->xOffset();
 	double yCoor = m_doc->currentPage()->yOffset();
-	CurrColorFill = getColor(state->getFillColorSpace(), state->getFillColor(), &shade);
 	QString output = QString("M %1 %2").arg(0.0).arg(0.0);
 	output += QString("L %1 %2").arg(crect.width()).arg(0.0);
 	output += QString("L %1 %2").arg(crect.width()).arg(crect.height());
@@ -1941,7 +1945,7 @@ GBool SlaOutputDev::radialShadedFill(GfxState *state, GfxRadialShading *shading,
 	PageItem* ite = m_doc->Items->at(z);
 	ite->ClipEdited = true;
 	ite->FrameType = 3;
-	ite->setFillShade(shade);
+	ite->setFillShade(CurrFillShade);
 	ite->setLineShade(100);
 	ite->setFillEvenOdd(false);
 	ite->setFillTransparency(1.0 - state->getFillOpacity());
@@ -1966,8 +1970,6 @@ GBool SlaOutputDev::gouraudTriangleShadedFill(GfxState *state, GfxGouraudTriangl
 {
 	double xCoor = m_doc->currentPage()->xOffset();
 	double yCoor = m_doc->currentPage()->yOffset();
-	int shade = 100;
-	CurrColorFill = getColor(state->getFillColorSpace(), state->getFillColor(), &shade);
 	double xmin, ymin, xmax, ymax;
 	// get the clip region bbox
 	state->getClipBBox(&xmin, &ymin, &xmax, &ymax);
@@ -1988,7 +1990,7 @@ GBool SlaOutputDev::gouraudTriangleShadedFill(GfxState *state, GfxGouraudTriangl
 	PageItem* ite = m_doc->Items->at(z);
 	ite->ClipEdited = true;
 	ite->FrameType = 3;
-	ite->setFillShade(100);
+	ite->setFillShade(CurrFillShade);
 	ite->setLineShade(100);
 	ite->setFillEvenOdd(false);
 	ite->setFillTransparency(1.0 - state->getFillOpacity());
@@ -2007,6 +2009,7 @@ GBool SlaOutputDev::gouraudTriangleShadedFill(GfxState *state, GfxGouraudTriangl
 	double x0, y0, x1, y1, x2, y2;
 	for (int i = 0; i < shading->getNTriangles(); i++)
 	{
+		int shade = 100;
 		meshGradientPatch patchM;
 		shading->getTriangle(i, &x0, &y0, &color[0],  &x1, &y1, &color[1],  &x2, &y2, &color[2]);
 		patchM.BL.resetTo(FPoint(x0, y0));
@@ -2048,8 +2051,6 @@ GBool SlaOutputDev::patchMeshShadedFill(GfxState *state, GfxPatchMeshShading *sh
 //	qDebug() << "mesh shaded fill";
 	double xCoor = m_doc->currentPage()->xOffset();
 	double yCoor = m_doc->currentPage()->yOffset();
-	int shade = 100;
-	CurrColorFill = getColor(state->getFillColorSpace(), state->getFillColor(), &shade);
 	double xmin, ymin, xmax, ymax;
 	// get the clip region bbox
 	state->getClipBBox(&xmin, &ymin, &xmax, &ymax);
@@ -2070,7 +2071,7 @@ GBool SlaOutputDev::patchMeshShadedFill(GfxState *state, GfxPatchMeshShading *sh
 	PageItem* ite = m_doc->Items->at(z);
 	ite->ClipEdited = true;
 	ite->FrameType = 3;
-	ite->setFillShade(shade);
+	ite->setFillShade(CurrFillShade);
 	ite->setLineShade(100);
 	ite->setFillEvenOdd(false);
 	ite->setFillTransparency(1.0 - state->getFillOpacity());
@@ -2089,6 +2090,7 @@ GBool SlaOutputDev::patchMeshShadedFill(GfxState *state, GfxPatchMeshShading *sh
 	ite->meshGradientPatches.clear();
 	for (int i = 0; i < shading->getNPatches(); i++)
 	{
+		int shade = 100;
 		GfxPatch *patch = shading->getPatch(i);
 		GfxColor color;
 		meshGradientPatch patchM;
@@ -2271,8 +2273,6 @@ GBool SlaOutputDev::tilingPatternFill(GfxState *state, Gfx * /*gfx*/, Catalog *c
 	}
 	double xCoor = m_doc->currentPage()->xOffset();
 	double yCoor = m_doc->currentPage()->yOffset();
-	int shade = 100;
-	CurrColorFill = getColor(state->getFillColorSpace(), state->getFillColor(), &shade);
 	double xmin, ymin, xmax, ymax;
 	// get the clip region bbox
 	state->getClipBBox(&xmin, &ymin, &xmax, &ymax);
@@ -2290,7 +2290,7 @@ GBool SlaOutputDev::tilingPatternFill(GfxState *state, Gfx * /*gfx*/, Catalog *c
 	ite = m_doc->Items->at(z);
 	ite->ClipEdited = true;
 	ite->FrameType = 3;
-	ite->setFillShade(shade);
+	ite->setFillShade(CurrFillShade);
 	ite->setLineShade(100);
 	ite->setFillEvenOdd(false);
 	ite->setFillTransparency(1.0 - state->getFillOpacity());
@@ -2364,9 +2364,7 @@ void SlaOutputDev::drawImageMask(GfxState *state, Object *ref, Stream *str, int 
 			}
 		}
 	}
-	int shade = 100;
-	CurrColorFill = getColor(state->getFillColorSpace(), state->getFillColor(), &shade);
-	QColor backColor = ScColorEngine::getShadeColorProof(m_doc->PageColors[CurrColorFill], m_doc, shade);
+	QColor backColor = ScColorEngine::getShadeColorProof(m_doc->PageColors[CurrColorFill], m_doc, CurrFillShade);
 	QImage res = QImage(width, height, QImage::Format_ARGB32);
 	res.fill(backColor.rgb());
 	unsigned char cc, cm, cy, ck;
@@ -3549,8 +3547,6 @@ void SlaOutputDev::drawChar(GfxState *state, double x, double y, double dx, doub
 			m_ctm = QTransform(ctm[0], ctm[1], ctm[2], ctm[3], ctm[4], ctm[5]);
 			double xCoor = m_doc->currentPage()->xOffset();
 			double yCoor = m_doc->currentPage()->yOffset();
-			int shade = 100;
-			CurrColorFill = getColor(state->getFillColorSpace(), state->getFillColor(), &shade);
 			FPointArray textPath;
 			textPath.fromQPainterPath(qPath);
 			FPoint wh = textPath.WidthHeight();
@@ -3567,7 +3563,7 @@ void SlaOutputDev::drawChar(GfxState *state, double x, double y, double dx, doub
 				ite->PoLine = textPath.copy();
 				ite->ClipEdited = true;
 				ite->FrameType = 3;
-				ite->setFillShade(shade);
+				ite->setFillShade(CurrFillShade);
 				ite->setFillEvenOdd(false);
 				ite->setFillTransparency(1.0 - state->getFillOpacity());
 				ite->setFillBlendmode(getBlendMode(state));
@@ -3577,12 +3573,11 @@ void SlaOutputDev::drawChar(GfxState *state, double x, double y, double dx, doub
 				m_doc->AdjustItemSize(ite);
 				if ((render & 3) == 1 || (render & 3) == 2)
 				{
-					CurrColorStroke = getColor(state->getStrokeColorSpace(), state->getStrokeColor(), &shade);
 					ite->setLineColor(CurrColorStroke);
 					ite->setLineWidth(state->getTransformedLineWidth());
 					ite->setLineTransparency(1.0 - state->getStrokeOpacity());
 					ite->setLineBlendmode(getBlendMode(state));
-					ite->setLineShade(shade);
+					ite->setLineShade(CurrStrokeShade);
 				}
 				m_Elements->append(ite);
 				if (m_groupStack.count() != 0)
@@ -3621,8 +3616,6 @@ GBool SlaOutputDev::beginType3Char(GfxState *state, double x, double y, double d
 		QTransform mm;
 		mm.translate(0, -pat.height * tline.length());
 		mm = orig_ctm * mm;
-		int shade = 100;
-		CurrColorFill = getColor(state->getFillColorSpace(), state->getFillColor(), &shade);
 		int z = 0;
 		if (m_Font_Pattern_Map[fRefID].colored)
 			z = m_doc->itemAdd(PageItem::Symbol, PageItem::Unspecified, xCoor + mm.dx(), yCoor + mm.dy(), pat.width * tline.length(), pat.height * tline.length(), 0, CommonStrings::None, CommonStrings::None, true);
@@ -3636,7 +3629,7 @@ GBool SlaOutputDev::beginType3Char(GfxState *state, double x, double y, double d
 		m_doc->RotMode(3);
 		m_doc->RotateItem(-tline.angle(), b);
 		m_doc->RotMode(0);
-		b->setFillShade(shade);
+		b->setFillShade(CurrFillShade);
 		b->setFillEvenOdd(false);
 		b->setFillTransparency(1.0 - state->getFillOpacity());
 		b->setFillBlendmode(getBlendMode(state));
@@ -3647,7 +3640,7 @@ GBool SlaOutputDev::beginType3Char(GfxState *state, double x, double y, double d
 			b->setPattern(m_Font_Pattern_Map[fRefID].pattern);
 		else
 		{
-			b->setFillShade(shade);
+			b->setFillShade(CurrFillShade);
 			b->setPatternMask(m_Font_Pattern_Map[fRefID].pattern);
 			b->setMaskTransform(b->width() / pat.width * 100, b->height() / pat.height * 100, 0, 0, 0, 0, 0);
 			b->setMaskType(3);
@@ -3724,8 +3717,8 @@ void SlaOutputDev::endType3Char(GfxState *state)
 			QTransform mm;
 			mm.translate(0, -pat.height * tline.length());
 			mm = f3e.ctm * mm;
-			int shade = 100;
-			CurrColorFill = getColor(state->getFillColorSpace(), state->getFillColor(), &shade);
+		//	int shade = 100;
+		//	CurrColorFill = getColor(state->getFillColorSpace(), state->getFillColor(), &shade);
 			int z = 0;
 			if (f3e.colored)
 				z = m_doc->itemAdd(PageItem::Symbol, PageItem::Unspecified, xCoor + mm.dx(), yCoor + mm.dy(), pat.width * tline.length(), pat.height * tline.length(), 0, CommonStrings::None, CommonStrings::None, true);
@@ -3749,7 +3742,7 @@ void SlaOutputDev::endType3Char(GfxState *state)
 				b->setPattern(id);
 			else
 			{
-				b->setFillShade(shade);
+				b->setFillShade(CurrFillShade);
 				b->setPatternMask(id);
 				b->setMaskTransform(b->width() / pat.width * 100, b->height() / pat.height * 100, 0, 0, 0, 0, 0);
 				b->setMaskType(3);
