@@ -100,6 +100,8 @@ private:
 		int itemType;
 		Qt::PenCapStyle CapStyle;
 		Qt::PenJoinStyle JoinStyle;
+		QVector<double> DashPattern;
+		double DashOffset;
 	};
 	bool convert(QString fn);
 	void parseDocSequence(QString designMap);

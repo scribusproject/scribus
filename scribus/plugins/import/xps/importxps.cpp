@@ -714,6 +714,8 @@ PageItem* XpsPlug::parseObjectXML(QDomElement &dpg, QString path)
 	obState.patternMask = "";
 	obState.CapStyle = Qt::FlatCap;
 	obState.JoinStyle = Qt::MiterJoin;
+	obState.DashOffset = 0;
+	obState.DashPattern.clear();
 	QString itemName = "";
 	QString itemTarget = "";
 	if (dpg.hasAttribute("Name"))
@@ -767,6 +769,22 @@ PageItem* XpsPlug::parseObjectXML(QDomElement &dpg, QString path)
 			obState.JoinStyle = Qt::BevelJoin;
 		else
 			obState.JoinStyle = Qt::MiterJoin;
+	}
+	if (dpg.hasAttribute("StrokeDashOffset"))
+		obState.DashOffset = dpg.attribute("StrokeDashOffset", "0.0").toDouble();
+	if (dpg.hasAttribute("StrokeDashArray"))
+	{
+		QString trans = dpg.attribute("StrokeDashArray", "");
+		if (!trans.isEmpty())
+		{
+			ScTextStream list(&trans, QIODevice::ReadOnly);
+			while (!list.atEnd())
+			{
+				double d;
+				list >> d;
+				obState.DashPattern.append(d);
+			}
+		}
 	}
 	if (dpg.hasAttribute("Clip"))
 	{
@@ -1217,6 +1235,11 @@ PageItem* XpsPlug::parseObjectXML(QDomElement &dpg, QString path)
 					retObj->setMaskGradient(obState.gradientMask);
 					retObj->setMaskVector(obState.maskStart.x() - xp, obState.maskStart.y() - yp, obState.maskEnd.x() - xp, obState.maskEnd.y() - yp, obState.maskFocus.x() - xp, obState.maskFocus.y() - yp, obState.maskScale, 0);
 					retObj->setMaskType(obState.maskTyp);
+				}
+				if ((obState.transform.m12() != 0.0) || (obState.transform.m21() != 0))
+				{
+					QLineF line = obState.transform.map(QLineF(0.0, 0.0, 1.0, 0.0));
+					retObj->setRotation(-line.angle(), true);
 				}
 				retObj->OwnPage = m_Doc->OnPage(retObj);
 				m_Doc->GroupOnPage(retObj);
@@ -1754,6 +1777,16 @@ void XpsPlug::finishItem(PageItem* item, ObjState &obState)
 	}
 	if (!obState.patternStroke.isEmpty())
 		item->setStrokePattern(obState.patternStroke);
+	if (!obState.DashPattern.isEmpty())
+	{
+		item->setDashOffset(obState.DashOffset);
+		QVector<double> pattern(obState.DashPattern.count());
+		for (int i = 0; i < obState.DashPattern.count(); ++i)
+		{
+			pattern[i] = obState.DashPattern[i] * obState.LineW;
+		}
+		item->setDashes(pattern);
+	}
 }
 
 QString XpsPlug::handleColor(QString rgbColor, double &opacity)
