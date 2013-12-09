@@ -223,6 +223,7 @@ SlaOutputDev::SlaOutputDev(ScribusDoc* doc, QList<PageItem*> *Elements, QStringL
 	xref = NULL;
 	m_fontEngine = 0;
 	m_font = 0;
+	m_formWidgets = 0;
 	updateGUICounter = 0;
 	layersSetByOCG = false;
 	cropOffsetX = 0;
@@ -534,331 +535,329 @@ bool SlaOutputDev::handleWidgetAnnot(Annot* annota, double xCoor, double yCoor, 
 {
 	bool retVal = false;
 	bool found = false;
+
+	if (!m_formWidgets)
+		return false;
+
 	int formcount = m_formWidgets->getNumWidgets();
 	for (int i = 0; i < formcount; ++i)
 	{
 		FormWidget *fm = m_formWidgets->getWidget(i);
-		if (fm)
+		if (!fm)
+			continue;
+		AnnotWidget *ano = fm->getWidgetAnnotation();
+		if (!ano)
+			continue;
+		if (ano != (AnnotWidget*) annota)
+			continue;
+		found = true;
+		int wtyp = -1;
+		if (fm->getType() == formButton)
 		{
-			AnnotWidget *ano = fm->getWidgetAnnotation();
-			if (ano)
+			FormWidgetButton *btn = (FormWidgetButton*)fm;
+			if (btn)
 			{
-				if (ano == (AnnotWidget*)annota)
+				if (btn->getButtonType() == formButtonCheck)
 				{
-					found = true;
-					int wtyp = -1;
-					if (fm->getType() == formButton)
-					{
-						FormWidgetButton *btn = (FormWidgetButton*)fm;
-						if (btn)
-						{
-							if (btn->getButtonType() == formButtonCheck)
-							{
-								wtyp = Annotation::Checkbox;
-								retVal = true;
-							}
-							else if (btn->getButtonType() == formButtonPush)
-							{
-								wtyp = Annotation::Button;
-								retVal = true;
-							}
-							else if (btn->getButtonType() == formButtonRadio)
-							{
-								wtyp = Annotation::RadioButton;
-								retVal = true;
-							}
-						}
-					}
-					else if (fm->getType() == formText)
-					{
-						wtyp = Annotation::Textfield;
-						retVal = true;
-					}
-					else if (fm->getType() == formChoice)
-					{
-						FormWidgetChoice *btn = (FormWidgetChoice*)fm;
-						if (btn)
-						{
-							if (btn->isCombo())
-							{
-								wtyp = Annotation::Combobox;
-								retVal = true;
-							}
-							else if (btn->isListBox())
-							{
-								wtyp = Annotation::Listbox;
-								retVal = true;
-							}
-						}
-					}
-					if (retVal)
-					{
-						AnnotAppearanceCharacs *achar = ano->getAppearCharacs();
-						bool fgFound = false;
-						bool bgFound = false;
-						if (achar)
-						{
-							AnnotColor *bgCol = achar->getBackColor();
-							if (bgCol)
-							{
-								bgFound = true;
-								CurrColorFill = getAnnotationColor(bgCol);
-							}
-							else
-								CurrColorFill = CommonStrings::None;
-							AnnotColor *fgCol = achar->getBorderColor();
-							if (fgCol)
-							{
-								fgFound = true;
-								CurrColorStroke = getAnnotationColor(fgCol);
-							}
-							else
-							{
-								fgCol = achar->getBackColor();
-								if (fgCol)
-									CurrColorStroke = getAnnotationColor(fgCol);
-								else
-									CurrColorStroke = CommonStrings::None;
-							}
-						}
-						QString CurrColorText = "Black";
-						double fontSize = 12;
-						QString fontName = "";
-						QString itemText = "";
-						AnnotAppearance *apa = annota->getAppearStreams();
-						if (apa || !achar)
-						{
-							AnoOutputDev *Adev = new AnoOutputDev(m_doc, m_importedColors);
-							Gfx *gfx;
-#ifdef POPPLER_VERSION
-							gfx = new Gfx(pdfDoc, Adev, pdfDoc->getPage(m_actPage)->getResourceDict(), annota->getRect(), NULL);
-#else
-							gfx = new Gfx(xref, Adev, pdfDoc->getPage(m_actPage)->getResourceDict(), catalog, annota->getRect(), NULL);
-#endif
-							ano->draw(gfx, false);
-							if (!bgFound)
-								CurrColorFill = Adev->CurrColorFill;
-							if (!fgFound)
-								CurrColorStroke = Adev->CurrColorStroke;
-							CurrColorText = Adev->CurrColorText;
-							fontSize = Adev->m_fontSize;
-							fontName = UnicodeParsedString(Adev->m_fontName);
-							itemText = UnicodeParsedString(Adev->m_itemText);
-							delete gfx;
-							delete Adev;
-						}
-						int z = m_doc->itemAdd(PageItem::TextFrame, PageItem::Rectangle, xCoor, yCoor, width, height, 0, CurrColorFill, CommonStrings::None, true);
-						PageItem *ite = m_doc->Items->at(z);
-						int flg = annota->getFlags();
-						if (!(flg & 16))
-							ite->setRotation(rotate, true);
-						ite->ClipEdited = true;
-						ite->FrameType = 3;
-						ite->setFillEvenOdd(false);
-						ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
-						ite->ContourLine = ite->PoLine.copy();
-						ite->setTextFlowMode(PageItem::TextFlowDisabled);
-						m_Elements->append(ite);
-						if (m_groupStack.count() != 0)
-						{
-							m_groupStack.top().Items.append(ite);
-							applyMask(ite);
-						}
-						ite->setIsAnnotation(true);
-						ite->AutoName = false;
-						AnnotBorder *brd = annota->getBorder();
-						if (brd)
-						{
-							int bsty = brd->getStyle();
-							if (bsty == AnnotBorder::borderDashed)
-								bsty = 1;
-							else if (bsty == AnnotBorder::borderBeveled)
-								bsty = 3;
-							else if (bsty == AnnotBorder::borderInset)
-								bsty = 4;
-							else if (bsty == AnnotBorder::borderUnderlined)
-								bsty = 2;
-							ite->annotation().setBsty(bsty);
-							ite->annotation().setBorderColor(CurrColorStroke);
-							ite->annotation().setBwid(qRound(brd->getWidth()));
-						}
-						else
-						{
-							ite->annotation().setBsty(0);
-							ite->annotation().setBorderColor(CommonStrings::None);
-							ite->annotation().setBwid(0);
-						}
-						QString tmTxt = "";
-						tmTxt = UnicodeParsedString(fm->getPartialName());
-						if (!tmTxt.isEmpty())
-							ite->setItemName(tmTxt);
-						tmTxt = "";
-						tmTxt = UnicodeParsedString(fm->getAlternateUiName());
-						if (!tmTxt.isEmpty())
-							ite->annotation().setToolTip(tmTxt);
-						tmTxt = "";
-						if (achar)
-						{
-							tmTxt = UnicodeParsedString(achar->getRolloverCaption());
-							if (!tmTxt.isEmpty())
-								ite->annotation().setRollOver(tmTxt);
-							tmTxt = "";
-							tmTxt = UnicodeParsedString(achar->getAlternateCaption());
-							if (!tmTxt.isEmpty())
-								ite->annotation().setDown(tmTxt);
-						}
-						ite->annotation().setType(wtyp);
-						ite->annotation().setFlag(0);
-						if (flg & 2)
-							ite->annotation().setVis(1);
-						if (flg & 32)
-							ite->annotation().setVis(3);
-						if (wtyp == Annotation::Button)
-						{
-							ite->setFillColor(CurrColorFill);
-							if (achar)
-								ite->itemText.insertChars(UnicodeParsedString(achar->getNormalCaption()));
-							else
-								ite->itemText.insertChars(itemText);
-							applyTextStyle(ite, fontName, CurrColorText, fontSize);
-							ite->annotation().addToFlag(Annotation::Flag_PushButton);
-							FormWidgetButton *btn = (FormWidgetButton*)fm;
-							if (!btn->isReadOnly())
-								ite->annotation().addToFlag(Annotation::Flag_Edit);
-							handleActions(ite, ano);
-						}
-						else if (wtyp == Annotation::Textfield)
-						{
-							FormWidgetText *btn = (FormWidgetText*)fm;
-							if (btn)
-							{
-								ite->itemText.insertChars(UnicodeParsedString(btn->getContent()));
-								applyTextStyle(ite, fontName, CurrColorText, fontSize);
-								if (btn->isMultiline())
-									ite->annotation().addToFlag(Annotation::Flag_Multiline);
-								if (btn->isPassword())
-									ite->annotation().addToFlag(Annotation::Flag_Password);
-								if (btn->noSpellCheck())
-									ite->annotation().addToFlag(Annotation::Flag_DoNotSpellCheck);
-								if (btn->noScroll())
-									ite->annotation().addToFlag(Annotation::Flag_DoNotScroll);
-								int mxLen = btn->getMaxLen();
-								if (mxLen > 0)
-									ite->annotation().setMaxChar(mxLen);
-								else
-									ite->annotation().setMaxChar(-1);
-								if (!btn->isReadOnly())
-									ite->annotation().addToFlag(Annotation::Flag_Edit);
-								handleActions(ite, ano);
-							}
-						}
-						else if (wtyp == Annotation::Checkbox)
-						{
-							FormWidgetButton *btn = (FormWidgetButton*)fm;
-							if (btn)
-							{
-								ite->annotation().setIsChk(btn->getState());
-								ite->annotation().setCheckState(ite->annotation().IsChk());
-								handleActions(ite, ano);
-								if (itemText == "4")
-									ite->annotation().setChkStil(0);
-								else if (itemText == "5")
-									ite->annotation().setChkStil(1);
-								else if (itemText == "F")
-									ite->annotation().setChkStil(2);
-								else if (itemText == "l")
-									ite->annotation().setChkStil(3);
-								else if (itemText == "H")
-									ite->annotation().setChkStil(4);
-								else if (itemText == "n")
-									ite->annotation().setChkStil(5);
-								else
-									ite->annotation().setChkStil(0);
-								if (!btn->isReadOnly())
-									ite->annotation().addToFlag(Annotation::Flag_Edit);
-							}
-						}
-						else if ((wtyp == Annotation::Combobox) || (wtyp == Annotation::Listbox))
-						{
-							FormWidgetChoice *btn = (FormWidgetChoice*)fm;
-							if (btn)
-							{
-								if (wtyp == 5)
-									ite->annotation().addToFlag(Annotation::Flag_Combo);
-								int co = btn->getNumChoices();
-								if (co > 0)
-								{
-									QString inh = UnicodeParsedString(btn->getChoice(0));
-									for (int a = 1; a < co; a++)
-									{
-										inh += "\n" + UnicodeParsedString(btn->getChoice(a));
-									}
-									ite->itemText.insertChars(inh);
-								}
-								applyTextStyle(ite, fontName, CurrColorText, fontSize);
-								if (!btn->isReadOnly())
-									ite->annotation().addToFlag(Annotation::Flag_Edit);
-								handleActions(ite, ano);
-							}
-						}
-						else if (wtyp == Annotation::RadioButton)
-						{
-							FormWidgetButton *btn = (FormWidgetButton*)fm;
-							if (btn)
-							{
-								ite->setItemName( CommonStrings::itemName_RadioButton + QString("%1").arg(m_doc->TotalItems));
-								ite->annotation().setIsChk(btn->getState());
-								ite->annotation().setCheckState(ite->annotation().IsChk());
-								handleActions(ite, ano);
-								m_radioButtons.insert(annota->getRef().num, ite);
-							}
-						}
-					}
-					break;
+					wtyp = Annotation::Checkbox;
+					retVal = true;
+				}
+				else if (btn->getButtonType() == formButtonPush)
+				{
+					wtyp = Annotation::Button;
+					retVal = true;
+				}
+				else if (btn->getButtonType() == formButtonRadio)
+				{
+					wtyp = Annotation::RadioButton;
+					retVal = true;
 				}
 			}
 		}
+		else if (fm->getType() == formText)
+		{
+			wtyp = Annotation::Textfield;
+			retVal = true;
+		}
+		else if (fm->getType() == formChoice)
+		{
+			FormWidgetChoice *btn = (FormWidgetChoice*)fm;
+			if (btn)
+			{
+				if (btn->isCombo())
+				{
+					wtyp = Annotation::Combobox;
+					retVal = true;
+				}
+				else if (btn->isListBox())
+				{
+					wtyp = Annotation::Listbox;
+					retVal = true;
+				}
+			}
+		}
+		if (retVal)
+		{
+			AnnotAppearanceCharacs *achar = ano->getAppearCharacs();
+			bool fgFound = false;
+			bool bgFound = false;
+			if (achar)
+			{
+				AnnotColor *bgCol = achar->getBackColor();
+				if (bgCol)
+				{
+					bgFound = true;
+					CurrColorFill = getAnnotationColor(bgCol);
+				}
+				else
+					CurrColorFill = CommonStrings::None;
+				AnnotColor *fgCol = achar->getBorderColor();
+				if (fgCol)
+				{
+					fgFound = true;
+					CurrColorStroke = getAnnotationColor(fgCol);
+				}
+				else
+				{
+					fgCol = achar->getBackColor();
+					if (fgCol)
+						CurrColorStroke = getAnnotationColor(fgCol);
+					else
+						CurrColorStroke = CommonStrings::None;
+				}
+			}
+			QString CurrColorText = "Black";
+			double fontSize = 12;
+			QString fontName = "";
+			QString itemText = "";
+			AnnotAppearance *apa = annota->getAppearStreams();
+			if (apa || !achar)
+			{
+				AnoOutputDev *Adev = new AnoOutputDev(m_doc, m_importedColors);
+				Gfx *gfx;
+#ifdef POPPLER_VERSION
+				gfx = new Gfx(pdfDoc, Adev, pdfDoc->getPage(m_actPage)->getResourceDict(), annota->getRect(), NULL);
+#else
+				gfx = new Gfx(xref, Adev, pdfDoc->getPage(m_actPage)->getResourceDict(), catalog, annota->getRect(), NULL);
+#endif
+				ano->draw(gfx, false);
+				if (!bgFound)
+					CurrColorFill = Adev->CurrColorFill;
+				if (!fgFound)
+					CurrColorStroke = Adev->CurrColorStroke;
+				CurrColorText = Adev->CurrColorText;
+				fontSize = Adev->m_fontSize;
+				fontName = UnicodeParsedString(Adev->m_fontName);
+				itemText = UnicodeParsedString(Adev->m_itemText);
+				delete gfx;
+				delete Adev;
+			}
+			int z = m_doc->itemAdd(PageItem::TextFrame, PageItem::Rectangle, xCoor, yCoor, width, height, 0, CurrColorFill, CommonStrings::None, true);
+			PageItem *ite = m_doc->Items->at(z);
+			int flg = annota->getFlags();
+			if (!(flg & 16))
+				ite->setRotation(rotate, true);
+			ite->ClipEdited = true;
+			ite->FrameType = 3;
+			ite->setFillEvenOdd(false);
+			ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
+			ite->ContourLine = ite->PoLine.copy();
+			ite->setTextFlowMode(PageItem::TextFlowDisabled);
+			m_Elements->append(ite);
+			if (m_groupStack.count() != 0)
+			{
+				m_groupStack.top().Items.append(ite);
+				applyMask(ite);
+			}
+			ite->setIsAnnotation(true);
+			ite->AutoName = false;
+			AnnotBorder *brd = annota->getBorder();
+			if (brd)
+			{
+				int bsty = brd->getStyle();
+				if (bsty == AnnotBorder::borderDashed)
+					bsty = 1;
+				else if (bsty == AnnotBorder::borderBeveled)
+					bsty = 3;
+				else if (bsty == AnnotBorder::borderInset)
+					bsty = 4;
+				else if (bsty == AnnotBorder::borderUnderlined)
+					bsty = 2;
+				ite->annotation().setBsty(bsty);
+				ite->annotation().setBorderColor(CurrColorStroke);
+				ite->annotation().setBwid(qRound(brd->getWidth()));
+			}
+			else
+			{
+				ite->annotation().setBsty(0);
+				ite->annotation().setBorderColor(CommonStrings::None);
+				ite->annotation().setBwid(0);
+			}
+			QString tmTxt = "";
+			tmTxt = UnicodeParsedString(fm->getPartialName());
+			if (!tmTxt.isEmpty())
+				ite->setItemName(tmTxt);
+			tmTxt = "";
+			tmTxt = UnicodeParsedString(fm->getAlternateUiName());
+			if (!tmTxt.isEmpty())
+				ite->annotation().setToolTip(tmTxt);
+			tmTxt = "";
+			if (achar)
+			{
+				tmTxt = UnicodeParsedString(achar->getRolloverCaption());
+				if (!tmTxt.isEmpty())
+					ite->annotation().setRollOver(tmTxt);
+				tmTxt = "";
+				tmTxt = UnicodeParsedString(achar->getAlternateCaption());
+				if (!tmTxt.isEmpty())
+					ite->annotation().setDown(tmTxt);
+			}
+			ite->annotation().setType(wtyp);
+			ite->annotation().setFlag(0);
+			if (flg & 2)
+				ite->annotation().setVis(1);
+			if (flg & 32)
+				ite->annotation().setVis(3);
+			if (wtyp == Annotation::Button)
+			{
+				ite->setFillColor(CurrColorFill);
+				if (achar)
+					ite->itemText.insertChars(UnicodeParsedString(achar->getNormalCaption()));
+				else
+					ite->itemText.insertChars(itemText);
+				applyTextStyle(ite, fontName, CurrColorText, fontSize);
+				ite->annotation().addToFlag(Annotation::Flag_PushButton);
+				FormWidgetButton *btn = (FormWidgetButton*)fm;
+				if (!btn->isReadOnly())
+					ite->annotation().addToFlag(Annotation::Flag_Edit);
+				handleActions(ite, ano);
+			}
+			else if (wtyp == Annotation::Textfield)
+			{
+				FormWidgetText *btn = (FormWidgetText*)fm;
+				if (btn)
+				{
+					ite->itemText.insertChars(UnicodeParsedString(btn->getContent()));
+					applyTextStyle(ite, fontName, CurrColorText, fontSize);
+					if (btn->isMultiline())
+						ite->annotation().addToFlag(Annotation::Flag_Multiline);
+					if (btn->isPassword())
+						ite->annotation().addToFlag(Annotation::Flag_Password);
+					if (btn->noSpellCheck())
+						ite->annotation().addToFlag(Annotation::Flag_DoNotSpellCheck);
+					if (btn->noScroll())
+						ite->annotation().addToFlag(Annotation::Flag_DoNotScroll);
+					int mxLen = btn->getMaxLen();
+					if (mxLen > 0)
+						ite->annotation().setMaxChar(mxLen);
+					else
+						ite->annotation().setMaxChar(-1);
+					if (!btn->isReadOnly())
+						ite->annotation().addToFlag(Annotation::Flag_Edit);
+					handleActions(ite, ano);
+				}
+			}
+			else if (wtyp == Annotation::Checkbox)
+			{
+				FormWidgetButton *btn = (FormWidgetButton*)fm;
+				if (btn)
+				{
+					ite->annotation().setIsChk(btn->getState());
+					ite->annotation().setCheckState(ite->annotation().IsChk());
+					handleActions(ite, ano);
+					if (itemText == "4")
+						ite->annotation().setChkStil(0);
+					else if (itemText == "5")
+						ite->annotation().setChkStil(1);
+					else if (itemText == "F")
+						ite->annotation().setChkStil(2);
+					else if (itemText == "l")
+						ite->annotation().setChkStil(3);
+					else if (itemText == "H")
+						ite->annotation().setChkStil(4);
+					else if (itemText == "n")
+						ite->annotation().setChkStil(5);
+					else
+						ite->annotation().setChkStil(0);
+					if (!btn->isReadOnly())
+						ite->annotation().addToFlag(Annotation::Flag_Edit);
+				}
+			}
+			else if ((wtyp == Annotation::Combobox) || (wtyp == Annotation::Listbox))
+			{
+				FormWidgetChoice *btn = (FormWidgetChoice*)fm;
+				if (btn)
+				{
+					if (wtyp == 5)
+						ite->annotation().addToFlag(Annotation::Flag_Combo);
+					int co = btn->getNumChoices();
+					if (co > 0)
+					{
+						QString inh = UnicodeParsedString(btn->getChoice(0));
+						for (int a = 1; a < co; a++)
+						{
+							inh += "\n" + UnicodeParsedString(btn->getChoice(a));
+						}
+						ite->itemText.insertChars(inh);
+					}
+					applyTextStyle(ite, fontName, CurrColorText, fontSize);
+					if (!btn->isReadOnly())
+						ite->annotation().addToFlag(Annotation::Flag_Edit);
+					handleActions(ite, ano);
+				}
+			}
+			else if (wtyp == Annotation::RadioButton)
+			{
+				FormWidgetButton *btn = (FormWidgetButton*)fm;
+				if (btn)
+				{
+					ite->setItemName( CommonStrings::itemName_RadioButton + QString("%1").arg(m_doc->TotalItems));
+					ite->annotation().setIsChk(btn->getState());
+					ite->annotation().setCheckState(ite->annotation().IsChk());
+					handleActions(ite, ano);
+					m_radioButtons.insert(annota->getRef().num, ite);
+				}
+			}
+		}
+		break;
 	}
 	if (!found)
 	{
 		Object obj1;
 		Ref refa = annota->getRef();
 		Object *act = xref->fetch(refa.num, refa.gen, &obj1);
-		if (act)
+		if (act && act->isDict())
 		{
-			if (act->isDict())
+			Dict* dict = act->getDict();
+			Object obj2;
+			//childs
+			if (dict->lookup("Kids", &obj2)->isArray())
 			{
-				Dict* dict = act->getDict();
-				Object obj2;
-				//childs
-				if (dict->lookup("Kids", &obj2)->isArray())
+				// Load children
+				QList<int> radList;
+				for (int i = 0 ; i < obj2.arrayGetLength(); i++)
 				{
-				  // Load children
-					QList<int> radList;
-					for (int i = 0 ; i < obj2.arrayGetLength(); i++)
+					Object childRef, childObj;
+					if (!obj2.arrayGetNF(i, &childRef)->isRef())
 					{
-						Object childRef, childObj;
-						if (!obj2.arrayGetNF(i, &childRef)->isRef())
-						{
-							childRef.free();
-							continue;
-						}
-						if (!obj2.arrayGet(i, &childObj)->isDict())
-						{
-							childObj.free();
-							childRef.free();
-							continue;
-						}
-						const Ref ref = childRef.getRef();
-						radList.append(ref.num);
+						childRef.free();
+						continue;
+					}
+					if (!obj2.arrayGet(i, &childObj)->isDict())
+					{
 						childObj.free();
 						childRef.free();
+						continue;
 					}
-					QString tmTxt = UnicodeParsedString(annota->getName());
-					m_radioMap.insert(tmTxt, radList);
+					const Ref ref = childRef.getRef();
+					radList.append(ref.num);
+					childObj.free();
+					childRef.free();
 				}
-				obj2.free();
+				QString tmTxt = UnicodeParsedString(annota->getName());
+				m_radioMap.insert(tmTxt, radList);
 			}
+			obj2.free();
 		}
 		obj1.free();
 	}
