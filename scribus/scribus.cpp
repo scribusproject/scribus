@@ -824,12 +824,10 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->addMenuItemString("itemLowerToBottom", "ItemLevel");
 	scrMenuMgr->createMenu("ItemLayer", tr("Send to La&yer"), "",false, true);
 	scrMenuMgr->addMenuItemString("ItemLayer", "Item");
-//	scrMenuMgr->addMenuToMenu("ItemLayer", "Item");
 	scrMenuMgr->createMenu("SendTo", tr("Send to"), "Item");
 	scrMenuMgr->addMenuItemString("SendTo", "Item");
 	scrMenuMgr->createMenu("ItemSendToScrapbook", tr("Scrapbook"),"",false,true);
 	scrMenuMgr->addMenuItemString("ItemSendToScrapbook", "SendTo");
-//	scrMenuMgr->addMenuToMenu("itemSendToScrapbook", "SendTo");
 	scrMenuMgr->addMenuItemString("itemSendToPattern", "SendTo");
 	scrMenuMgr->addMenuItemString("itemSendToInline", "SendTo");
 	scrMenuMgr->createMenu("Adjust", tr("Adjust"), "Item");
@@ -851,7 +849,6 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->addMenuItemString("itemPreviewNormal", "ItemPreviewSettings");
 	scrMenuMgr->addMenuItemString("itemPreviewFull", "ItemPreviewSettings");
 	scrMenuMgr->createMenu("ItemPDFOptions", tr("&PDF Options"));
-//	scrMenuMgr->addMenuToMenu("ItemPDFOptions", "Item");
 	scrMenuMgr->addMenuItemString("ItemPDFOptions", "Item");
 	scrMenuMgr->addMenuItemString("itemPDFIsAnnotation", "ItemPDFOptions");
 	scrMenuMgr->addMenuItemString("itemPDFIsBookmark", "ItemPDFOptions");
@@ -859,11 +856,11 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->addMenuItemString("itemPDFFieldProps", "ItemPDFOptions");
 	scrMenuMgr->createMenu("ItemConvertTo", tr("C&onvert To"), "Item");
 	scrMenuMgr->addMenuItemString("ItemConvertTo", "Item");
-	scrMenuMgr->addMenuItemString("itemConvertToBezierCurve", "ItemConvertTo");
-	scrMenuMgr->addMenuItemString("itemConvertToImageFrame", "ItemConvertTo");
-	scrMenuMgr->addMenuItemString("itemConvertToOutlines", "ItemConvertTo");
-	scrMenuMgr->addMenuItemString("itemConvertToPolygon", "ItemConvertTo");
 	scrMenuMgr->addMenuItemString("itemConvertToTextFrame", "ItemConvertTo");
+	scrMenuMgr->addMenuItemString("itemConvertToImageFrame", "ItemConvertTo");
+	scrMenuMgr->addMenuItemString("itemConvertToPolygon", "ItemConvertTo");
+	scrMenuMgr->addMenuItemString("itemConvertToBezierCurve", "ItemConvertTo");
+	scrMenuMgr->addMenuItemString("itemConvertToOutlines", "ItemConvertTo");
 	scrMenuMgr->addMenuItemString("itemConvertToSymbolFrame", "ItemConvertTo");
 	scrMenuMgr->createMenu("TextLinking", tr("Text Frame Links"), "Item");
 	scrMenuMgr->addMenuItemString("TextLinking", "Item");
@@ -883,8 +880,8 @@ void ScribusMainWindow::initMenuBar()
 
 	scrMenuMgr->createMenu("Weld", tr("Welding"), "Item");
 	scrMenuMgr->addMenuItemString("Weld", "Item");
-	scrMenuMgr->addMenuItemString("itemsUnWeld", "Weld");
 	scrMenuMgr->addMenuItemString("itemWeld", "Weld");
+	scrMenuMgr->addMenuItemString("itemsUnWeld", "Weld");
 	scrMenuMgr->addMenuItemString("itemEditWeld", "Weld");
 
 	//scrMenuMgr->addMenuItem(scrActions["editMark"], "Item", false);

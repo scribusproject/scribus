@@ -406,9 +406,9 @@ void ContextMenu::createMenuItems_Selection()
 	//<-- Add Level Item
 	if (!currItem->locked())
 	{
-		menuLevel->addAction(m_ScMW->scrActions["itemRaiseToTop"]);
 		menuLevel->addAction(m_ScMW->scrActions["itemRaise"]);
 		menuLevel->addAction(m_ScMW->scrActions["itemLower"]);
+		menuLevel->addAction(m_ScMW->scrActions["itemRaiseToTop"]);
 		menuLevel->addAction(m_ScMW->scrActions["itemLowerToBottom"]);
 		if (menuLevel->actions().count()>0)
 		{

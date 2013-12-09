@@ -1553,9 +1553,9 @@ void ActionManager::languageChange()
 	(*scrActions)["itemConvertToPolygon"]->setTexts( tr("&Polygon"));
 	(*scrActions)["itemConvertToTextFrame"]->setTexts( tr("&Text Frame"));
 	(*scrActions)["itemConvertToSymbolFrame"]->setTexts( tr("&Symbol"));
-	(*scrActions)["itemsUnWeld"]->setTexts( tr("Unweld items"));
-	(*scrActions)["itemWeld"]->setTexts( tr("Weld items"));
-	(*scrActions)["itemEditWeld"]->setTexts( tr("Edit weld item"));
+	(*scrActions)["itemsUnWeld"]->setTexts( tr("Unweld Items"));
+	(*scrActions)["itemWeld"]->setTexts( tr("Weld Items"));
+	(*scrActions)["itemEditWeld"]->setTexts( tr("Edit Welded Item"));
 
 	//Insert Menu
 	(*scrActions)["insertFrame"]->setTexts( tr("&Frames..."));
