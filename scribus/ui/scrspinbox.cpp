@@ -63,9 +63,9 @@ void ScrSpinBox::setValue(double val)
 
 void ScrSpinBox::showValue(double val)
 {
-	this->blockSignals(true);
+	bool sigBlocked = this->blockSignals(true);
 	setValue(val);
-	this->blockSignals(false);
+	this->blockSignals(sigBlocked);
 }
 
 
