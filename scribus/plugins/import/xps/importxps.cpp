@@ -1241,6 +1241,7 @@ PageItem* XpsPlug::parseObjectXML(QDomElement &dpg, QString path)
 					QLineF line = obState.transform.map(QLineF(0.0, 0.0, 1.0, 0.0));
 					retObj->setRotation(-line.angle(), true);
 				}
+				m_Doc->resizeGroupToContents(retObj);
 				retObj->OwnPage = m_Doc->OnPage(retObj);
 				m_Doc->GroupOnPage(retObj);
 				m_Doc->Items->removeLast();
@@ -1776,7 +1777,10 @@ void XpsPlug::finishItem(PageItem* item, ObjState &obState)
 		item->setStrokeGradientType(obState.strokeTyp);
 	}
 	if (!obState.patternStroke.isEmpty())
+	{
+		item->GrTypeStroke = 8;
 		item->setStrokePattern(obState.patternStroke);
+	}
 	if (!obState.DashPattern.isEmpty())
 	{
 		item->setDashOffset(obState.DashOffset);
