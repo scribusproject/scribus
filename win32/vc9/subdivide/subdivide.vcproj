@@ -21,8 +21,8 @@
 	<Configurations>
 		<Configuration
 			Name="Debug-cairo|Win32"
-			OutputDirectory="..\..\..\..\Scribus-builds\Scribus-vc9-$(ConfigurationName)\scribus\plugins"
-			IntermediateDirectory="..\..\..\..\Scribus-builds\build-objs-vc9\$(ConfigurationName)\$(TargetName)"
+			OutputDirectory="..\..\..\..\Scribus-builds\Scribus-$(ConfigurationName)-$(PlatformName)-vc9\scribus\plugins"
+			IntermediateDirectory="..\..\..\..\Scribus-builds\Build-objs\$(ConfigurationName)-$(PlatformName)-vc9\$(TargetName)"
 			ConfigurationType="2"
 			InheritedPropertySheets="..\Scribus-build-props.vsprops"
 			CharacterSet="1"
@@ -116,8 +116,8 @@
 		</Configuration>
 		<Configuration
 			Name="Release-cairo|Win32"
-			OutputDirectory="..\..\..\..\Scribus-builds\Scribus-vc9-$(ConfigurationName)\scribus\plugins"
-			IntermediateDirectory="..\..\..\..\Scribus-builds\build-objs-vc9\$(ConfigurationName)\$(TargetName)"
+			OutputDirectory="..\..\..\..\Scribus-builds\Scribus-$(ConfigurationName)-$(PlatformName)-vc9\scribus\plugins"
+			IntermediateDirectory="..\..\..\..\Scribus-builds\Build-objs\$(ConfigurationName)-$(PlatformName)-vc9\$(TargetName)"
 			ConfigurationType="2"
 			InheritedPropertySheets="..\Scribus-build-props.vsprops"
 			CharacterSet="1"
