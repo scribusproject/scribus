@@ -15408,6 +15408,8 @@ void ScribusDoc::resizeGroupToContents(PageItem* group)
 	double oldX = currItem->xPos();
 	double oldY = currItem->yPos();
 	int gcount = currItem->groupItemList.count();
+	double scw = currItem->width() / currItem->groupWidth;
+	double sch = currItem->height() / currItem->groupHeight;
 	for (int c = 0; c < gcount; c++)
 	{
 		PageItem* gItem = currItem->groupItemList.at(c);
@@ -15420,16 +15422,17 @@ void ScribusDoc::resizeGroupToContents(PageItem* group)
 		maxy = qMax(maxy, y2);
 	}
 	QTransform groupTrans = group->getTransform();
+	groupTrans.scale(scw, sch);
 	QPointF newXY = groupTrans.map(QPointF(minx - oldX, miny - oldY));
 	currItem->setXYPos(minx, miny, true);
-	currItem->setWidthHeight(maxx - minx, maxy - miny, true);
+	currItem->setWidthHeight((maxx - minx) * scw, (maxy - miny) * sch, true);
 	currItem->groupWidth = maxx - minx;
 	currItem->groupHeight = maxy - miny;
 	for (int c = 0; c < gcount; c++)
 	{
 		PageItem* gItem = currItem->groupItemList.at(c);
-		gItem->gXpos = gItem->xPos() - currItem->xPos();
-		gItem->gYpos = gItem->yPos() - currItem->yPos();
+		gItem->gXpos = (gItem->xPos() - currItem->xPos());
+		gItem->gYpos = (gItem->yPos() - currItem->yPos());
 		gItem->gWidth = maxx - minx;
 		gItem->gHeight = maxy - miny;
 	}
