@@ -15401,21 +15401,17 @@ void ScribusDoc::resizeGroupToContents(PageItem* group)
 	PageItem_Group* currItem = group->asGroupFrame();
 	if (currItem == NULL)
 		return;
-	QPainterPath input1 = currItem->PoLine.toQPainterPath(true);
-	input1.translate(currItem->xPos(), currItem->yPos());
-	if (currItem->fillEvenOdd())
-		input1.setFillRule(Qt::OddEvenFill);
-	else
-		input1.setFillRule(Qt::WindingFill);
 	double minx =  std::numeric_limits<double>::max();
 	double miny =  std::numeric_limits<double>::max();
 	double maxx = -std::numeric_limits<double>::max();
 	double maxy = -std::numeric_limits<double>::max();
+	double oldX = currItem->xPos();
+	double oldY = currItem->yPos();
 	int gcount = currItem->groupItemList.count();
 	for (int c = 0; c < gcount; c++)
 	{
 		PageItem* gItem = currItem->groupItemList.at(c);
-		gItem->setXYPos(currItem->xPos() + gItem->gXpos, currItem->yPos() + gItem->gYpos, true);
+		gItem->setXYPos(oldX + gItem->gXpos, oldY + gItem->gYpos, true);
 		double x1, x2, y1, y2;
 		gItem->getVisualBoundingRect(&x1, &y1, &x2, &y2);
 		minx = qMin(minx, x1);
@@ -15423,8 +15419,8 @@ void ScribusDoc::resizeGroupToContents(PageItem* group)
 		maxx = qMax(maxx, x2);
 		maxy = qMax(maxy, y2);
 	}
-	double oldW = currItem->width();
-	double oldH = currItem->height();
+	QTransform groupTrans = group->getTransform();
+	QPointF newXY = groupTrans.map(QPointF(minx - oldX, miny - oldY));
 	currItem->setXYPos(minx, miny, true);
 	currItem->setWidthHeight(maxx - minx, maxy - miny, true);
 	currItem->groupWidth = maxx - minx;
@@ -15432,24 +15428,13 @@ void ScribusDoc::resizeGroupToContents(PageItem* group)
 	for (int c = 0; c < gcount; c++)
 	{
 		PageItem* gItem = currItem->groupItemList.at(c);
-		gItem->gXpos = gItem->xPos() - minx;
-		gItem->gYpos = gItem->yPos() - miny;
+		gItem->gXpos = gItem->xPos() - currItem->xPos();
+		gItem->gYpos = gItem->yPos() - currItem->yPos();
 		gItem->gWidth = maxx - minx;
 		gItem->gHeight = maxy - miny;
 	}
+	currItem->setXYPos(newXY.x(), newXY.y(), true);
 	currItem->SetRectFrame();
-	if ((currItem->width() < oldW) || (currItem->height() < oldH))
-	{
-		QPainterPath input2 = currItem->PoLine.toQPainterPath(true);
-		input2.translate(currItem->xPos(), currItem->yPos());
-		if (currItem->fillEvenOdd())
-			input2.setFillRule(Qt::OddEvenFill);
-		else
-			input2.setFillRule(Qt::WindingFill);
-		QPainterPath result = input1.intersected(input2);
-		result.translate(-currItem->xPos(), -currItem->yPos());
-		currItem->PoLine.fromQPainterPath(result, true);
-	}
 	currItem->adjustXYPosition();
 }
 
