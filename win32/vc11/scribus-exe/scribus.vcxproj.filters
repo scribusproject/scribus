@@ -705,7 +705,16 @@
     <ClInclude Include="..\..\..\scribus\colormgmt\sclcms2colortransformimpl.h">
       <Filter>colormgmt</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\scribus\scescapecatcher.h">
+    <ClInclude Include="..\..\..\scribus\scdocoutput_ps2.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\sclayer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\scribusXml.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\tt\simpletreemodel\treeitem.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -3501,24 +3510,15 @@
     <moc Include="..\..\..\scribus\vruler.h">
       <Filter>Header Files</Filter>
     </moc>
+    <moc Include="..\..\..\scribus\scescapecatcher.h">
+      <Filter>Header Files</Filter>
+    </moc>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="..\..\..\scribus\color.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
     <CustomBuild Include="..\..\..\scribus\crypt.h">
-      <Filter>Header Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="..\..\..\scribus\scdocoutput_ps2.h">
-      <Filter>Header Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="..\..\..\scribus\sclayer.h">
-      <Filter>Header Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="..\..\..\scribus\scribusXml.h">
-      <Filter>Header Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="..\..\..\scribus\tt\simpletreemodel\treeitem.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
   </ItemGroup>

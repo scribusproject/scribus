@@ -70,23 +70,23 @@
     <_ProjectFileVersion>11.0.50727.1</_ProjectFileVersion>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug-cairo|Win32'">
-    <OutDir>..\..\..\..\Scribus-builds\Scribus-vc11-$(Configuration)-$(Platform)\scribus\</OutDir>
-    <IntDir>..\..\..\..\Scribus-builds\Build-objs-vc11\$(Configuration)-$(Platform)\$(TargetName)\</IntDir>
+    <OutDir>..\..\..\..\Scribus-builds\Scribus-$(Configuration)-$(Platform)-$(PlatformToolset)\scribus\</OutDir>
+    <IntDir>..\..\..\..\Scribus-builds\Build-objs\$(Configuration)-$(Platform)-$(PlatformToolset)\$(TargetName)\</IntDir>
     <TargetName>scribus-lib2geom</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug-cairo|x64'">
-    <OutDir>..\..\..\..\Scribus-builds\Scribus-vc11-$(Configuration)-$(Platform)\scribus\</OutDir>
-    <IntDir>..\..\..\..\Scribus-builds\Build-objs-vc11\$(Configuration)-$(Platform)\$(TargetName)\</IntDir>
+    <OutDir>..\..\..\..\Scribus-builds\Scribus-$(Configuration)-$(Platform)-$(PlatformToolset)\scribus\</OutDir>
+    <IntDir>..\..\..\..\Scribus-builds\Build-objs\$(Configuration)-$(Platform)-$(PlatformToolset)\$(TargetName)\</IntDir>
     <TargetName>scribus-lib2geom</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-cairo|Win32'">
-    <OutDir>..\..\..\..\Scribus-builds\Scribus-vc11-$(Configuration)-$(Platform)\scribus\</OutDir>
-    <IntDir>..\..\..\..\Scribus-builds\Build-objs-vc11\$(Configuration)-$(Platform)\$(TargetName)\</IntDir>
+    <OutDir>..\..\..\..\Scribus-builds\Scribus-$(Configuration)-$(Platform)-$(PlatformToolset)\scribus\</OutDir>
+    <IntDir>..\..\..\..\Scribus-builds\Build-objs\$(Configuration)-$(Platform)-$(PlatformToolset)\$(TargetName)\</IntDir>
     <TargetName>scribus-lib2geom</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-cairo|x64'">
-    <OutDir>..\..\..\..\Scribus-builds\Scribus-vc11-$(Configuration)-$(Platform)\scribus\</OutDir>
-    <IntDir>..\..\..\..\Scribus-builds\Build-objs-vc11\$(Configuration)-$(Platform)\$(TargetName)\</IntDir>
+    <OutDir>..\..\..\..\Scribus-builds\Scribus-$(Configuration)-$(Platform)-$(PlatformToolset)\scribus\</OutDir>
+    <IntDir>..\..\..\..\Scribus-builds\Build-objs\$(Configuration)-$(Platform)-$(PlatformToolset)\$(TargetName)\</IntDir>
     <TargetName>scribus-lib2geom</TargetName>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug-cairo|Win32'">

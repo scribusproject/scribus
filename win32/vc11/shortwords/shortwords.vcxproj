@@ -69,27 +69,27 @@
     <_ProjectFileVersion>11.0.50727.1</_ProjectFileVersion>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug-cairo|Win32'">
-    <OutDir>..\..\..\..\Scribus-builds\Scribus-vc11-$(Configuration)-$(Platform)\scribus\plugins\</OutDir>
-    <IntDir>..\..\..\..\Scribus-builds\Build-objs-vc11\$(Configuration)-$(Platform)\$(TargetName)\</IntDir>
+    <OutDir>..\..\..\..\Scribus-builds\Scribus-$(Configuration)-$(Platform)-$(PlatformToolset)\scribus\plugins\</OutDir>
+    <IntDir>..\..\..\..\Scribus-builds\Build-objs\$(Configuration)-$(Platform)-$(PlatformToolset)\$(TargetName)\</IntDir>
     <LinkIncremental>true</LinkIncremental>
     <TargetName>scribusshortwords</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug-cairo|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <OutDir>..\..\..\..\Scribus-builds\Scribus-vc11-$(Configuration)-$(Platform)\scribus\plugins\</OutDir>
-    <IntDir>..\..\..\..\Scribus-builds\Build-objs-vc11\$(Configuration)-$(Platform)\$(TargetName)\</IntDir>
+    <OutDir>..\..\..\..\Scribus-builds\Scribus-$(Configuration)-$(Platform)-$(PlatformToolset)\scribus\plugins\</OutDir>
+    <IntDir>..\..\..\..\Scribus-builds\Build-objs\$(Configuration)-$(Platform)-$(PlatformToolset)\$(TargetName)\</IntDir>
     <TargetName>scribusshortwords</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-cairo|Win32'">
-    <OutDir>..\..\..\..\Scribus-builds\Scribus-vc11-$(Configuration)-$(Platform)\scribus\plugins\</OutDir>
-    <IntDir>..\..\..\..\Scribus-builds\Build-objs-vc11\$(Configuration)-$(Platform)\$(TargetName)\</IntDir>
+    <OutDir>..\..\..\..\Scribus-builds\Scribus-$(Configuration)-$(Platform)-$(PlatformToolset)\scribus\plugins\</OutDir>
+    <IntDir>..\..\..\..\Scribus-builds\Build-objs\$(Configuration)-$(Platform)-$(PlatformToolset)\$(TargetName)\</IntDir>
     <LinkIncremental>false</LinkIncremental>
     <TargetName>scribusshortwords</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-cairo|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <OutDir>..\..\..\..\Scribus-builds\Scribus-vc11-$(Configuration)-$(Platform)\scribus\plugins\</OutDir>
-    <IntDir>..\..\..\..\Scribus-builds\Build-objs-vc11\$(Configuration)-$(Platform)\$(TargetName)\</IntDir>
+    <OutDir>..\..\..\..\Scribus-builds\Scribus-$(Configuration)-$(Platform)-$(PlatformToolset)\scribus\plugins\</OutDir>
+    <IntDir>..\..\..\..\Scribus-builds\Build-objs\$(Configuration)-$(Platform)-$(PlatformToolset)\$(TargetName)\</IntDir>
     <TargetName>scribusshortwords</TargetName>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug-cairo|Win32'">

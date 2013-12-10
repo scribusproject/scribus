@@ -71,27 +71,27 @@
     <_ProjectFileVersion>11.0.50727.1</_ProjectFileVersion>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug-cairo|Win32'">
-    <OutDir>..\..\..\..\Scribus-builds\Scribus-vc11-$(Configuration)-$(Platform)\scribus\</OutDir>
-    <IntDir>..\..\..\..\Scribus-builds\Build-objs-vc11\$(Configuration)-$(Platform)\$(TargetName)\</IntDir>
+    <OutDir>..\..\..\..\Scribus-builds\Scribus-$(Configuration)-$(Platform)-$(PlatformToolset)\scribus\</OutDir>
+    <IntDir>..\..\..\..\Scribus-builds\Build-objs\$(Configuration)-$(Platform)-$(PlatformToolset)\$(TargetName)\</IntDir>
     <LinkIncremental>true</LinkIncremental>
     <TargetName>Scribus</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug-cairo|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <OutDir>..\..\..\..\Scribus-builds\Scribus-vc11-$(Configuration)-$(Platform)\scribus\</OutDir>
-    <IntDir>..\..\..\..\Scribus-builds\Build-objs-vc11\$(Configuration)-$(Platform)\$(TargetName)\</IntDir>
+    <OutDir>..\..\..\..\Scribus-builds\Scribus-$(Configuration)-$(Platform)-$(PlatformToolset)\scribus\</OutDir>
+    <IntDir>..\..\..\..\Scribus-builds\Build-objs\$(Configuration)-$(Platform)-$(PlatformToolset)\$(TargetName)\</IntDir>
     <TargetName>Scribus</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-cairo|Win32'">
-    <OutDir>..\..\..\..\Scribus-builds\Scribus-vc11-$(Configuration)-$(Platform)\scribus\</OutDir>
-    <IntDir>..\..\..\..\Scribus-builds\Build-objs-vc11\$(Configuration)-$(Platform)\$(TargetName)\</IntDir>
+    <OutDir>..\..\..\..\Scribus-builds\Scribus-$(Configuration)-$(Platform)-$(PlatformToolset)\scribus\</OutDir>
+    <IntDir>..\..\..\..\Scribus-builds\Build-objs\$(Configuration)-$(Platform)-$(PlatformToolset)\$(TargetName)\</IntDir>
     <LinkIncremental>false</LinkIncremental>
     <TargetName>Scribus</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release-cairo|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <OutDir>..\..\..\..\Scribus-builds\Scribus-vc11-$(Configuration)-$(Platform)\scribus\</OutDir>
-    <IntDir>..\..\..\..\Scribus-builds\Build-objs-vc11\$(Configuration)-$(Platform)\$(TargetName)\</IntDir>
+    <OutDir>..\..\..\..\Scribus-builds\Scribus-$(Configuration)-$(Platform)-$(PlatformToolset)\scribus\</OutDir>
+    <IntDir>..\..\..\..\Scribus-builds\Build-objs\$(Configuration)-$(Platform)-$(PlatformToolset)\$(TargetName)\</IntDir>
     <TargetName>Scribus</TargetName>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug-cairo|Win32'">
@@ -137,7 +137,6 @@
       <AdditionalIncludeDirectories>..\..\vc11;..\..\..\scribus;..\..\..\scribus\fonts;..\..\..\scribus\text;..\..\..\scribus\styles;..\..\..\scribus\simpletreemodel;..\..\..\scribus\ui;$(QT4_DIR)\include\QtCore;$(QT4_DIR)\include\QtGui;$(QT4_DIR)\include\QtNetwork;$(QT4_DIR)\include\QtXml;$(QT4_DIR)\include;$(QT4_DIR)\src\3rdparty\zlib;$(LCMS_DIR)\include;$(CAIRO_DIR)\include;$(FREETYPE_DIR)\include;$(LIBJPEG_DIR)\include;$(LIBTIFF_DIR)\include;$(PODOFO_DIR)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_USE_MATH_DEFINES;QT_EDITION=QT_EDITION_DESKTOP;QT_DLL;QT_GUI_LIB;QT_CORE_LIB;QT_THREAD_SUPPORT;HAVE_CAIRO;HAVE_CONFIG_H;AVOID_WIN32_FILEIO;COMPILE_SCRIBUS_MAIN_APP;DOCDIR="doc/";ICONDIR="icons/";SAMPLESDIR="samples/";SCRIPTSDIR="scripts/";SHAREDIR="share/";TEMPLATEDIR="templates/";LIBDIR="libs/";PLUGINDIR="plugins";%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <IgnoreStandardIncludePath>false</IgnoreStandardIncludePath>
-      <MinimalRebuild>false</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <DisableLanguageExtensions>false</DisableLanguageExtensions>
@@ -475,20 +474,7 @@
     <moc Include="..\..\..\scribus\downloadmanager\scdlmgr.h" />
     <moc Include="..\..\..\scribus\downloadmanager\scdlthread.h" />
     <ClInclude Include="..\..\..\scribus\scdocoutput.h" />
-    <CustomBuild Include="..\..\..\scribus\scdocoutput_ps2.h">
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug-cairo|Win32'">Étape de génération personnalisée en cours</Message>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug-cairo|x64'">Étape de génération personnalisée en cours</Message>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug-cairo|Win32'">
-      </Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug-cairo|x64'">
-      </Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release-cairo|Win32'">Étape de génération personnalisée en cours</Message>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release-cairo|x64'">Étape de génération personnalisée en cours</Message>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release-cairo|Win32'">
-      </Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release-cairo|x64'">
-      </Command>
-    </CustomBuild>
+    <ClInclude Include="..\..\..\scribus\scdocoutput_ps2.h" />
     <ClInclude Include="..\..\..\scribus\fonts\scface.h" />
     <ClInclude Include="..\..\..\scribus\fonts\scface_ps.h" />
     <ClInclude Include="..\..\..\scribus\fonts\scface_ttf.h" />
@@ -510,20 +496,7 @@
     <ClInclude Include="..\..\..\scribus\scimgdataloader_qt.h" />
     <ClInclude Include="..\..\..\scribus\scimgdataloader_tiff.h" />
     <moc Include="..\..\..\scribus\scinputdialog.h" />
-    <CustomBuild Include="..\..\..\scribus\sclayer.h">
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug-cairo|Win32'">Étape de génération personnalisée en cours</Message>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug-cairo|x64'">Étape de génération personnalisée en cours</Message>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug-cairo|Win32'">
-      </Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug-cairo|x64'">
-      </Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release-cairo|Win32'">Étape de génération personnalisée en cours</Message>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release-cairo|x64'">Étape de génération personnalisée en cours</Message>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release-cairo|Win32'">
-      </Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release-cairo|x64'">
-      </Command>
-    </CustomBuild>
+    <ClInclude Include="..\..\..\scribus\sclayer.h" />
     <ClInclude Include="..\..\..\scribus\sclimits.h" />
     <ClInclude Include="..\..\..\scribus\sclistboxpixmap.h" />
     <moc Include="..\..\..\scribus\scmenu.h" />
@@ -555,20 +528,7 @@
     <ClInclude Include="..\..\..\scribus\scribusstructs.h" />
     <moc Include="..\..\..\scribus\scribusview.h" />
     <moc Include="..\..\..\scribus\scribuswin.h" />
-    <CustomBuild Include="..\..\..\scribus\scribusXml.h">
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug-cairo|Win32'">Étape de génération personnalisée en cours</Message>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug-cairo|x64'">Étape de génération personnalisée en cours</Message>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug-cairo|Win32'">
-      </Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug-cairo|x64'">
-      </Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release-cairo|Win32'">Étape de génération personnalisée en cours</Message>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release-cairo|x64'">Étape de génération personnalisée en cours</Message>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release-cairo|Win32'">
-      </Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release-cairo|x64'">
-      </Command>
-    </CustomBuild>
+    <ClInclude Include="..\..\..\scribus\scribusXml.h" />
     <moc Include="..\..\..\scribus\scrpalettebase.h" />
     <moc Include="..\..\..\scribus\scrspinbox.h" />
     <ClInclude Include="..\..\..\scribus\scslainforeader.h" />
@@ -641,20 +601,7 @@
     <moc Include="..\..\..\scribus\tocgenerator.h" />
     <moc Include="..\..\..\scribus\tocindexprefs.h" />
     <ClInclude Include="..\..\..\scribus\transaction.h" />
-    <CustomBuild Include="..\..\..\scribus\tt\simpletreemodel\treeitem.h">
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug-cairo|Win32'">Étape de génération personnalisée en cours</Message>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug-cairo|x64'">Étape de génération personnalisée en cours</Message>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug-cairo|Win32'">
-      </Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug-cairo|x64'">
-      </Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release-cairo|Win32'">Étape de génération personnalisée en cours</Message>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release-cairo|x64'">Étape de génération personnalisée en cours</Message>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release-cairo|Win32'">
-      </Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release-cairo|x64'">
-      </Command>
-    </CustomBuild>
+    <ClInclude Include="..\..\..\scribus\tt\simpletreemodel\treeitem.h" />
     <moc Include="..\..\..\scribus\tt\simpletreemodel\treemodel.h" />
     <moc Include="..\..\..\scribus\undogui.h" />
     <moc Include="..\..\..\scribus\undomanager.h" />
