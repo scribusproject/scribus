@@ -1660,6 +1660,7 @@ PageItem* XpsPlug::addClip(PageItem* retObj, ObjState &obState)
 		QList<PageItem*> GElements;
 		GElements.append(retObj);
 		m_Doc->groupObjectsToItem(itemg, GElements);
+		m_Doc->resizeGroupToContents(itemg);
 		m_Doc->GroupOnPage(itemg);
 		retObj = itemg;
 		m_Doc->Items->removeLast();
