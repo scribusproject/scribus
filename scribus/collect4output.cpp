@@ -23,6 +23,7 @@ for which a new license (GPL+exception) is in place.
 #include "scpattern.h"
 #include "util_file.h"
 
+#include <QDebug>
 #include <QDir>
 #include <QMap>
 #include <QMessageBox>
@@ -465,7 +466,22 @@ QString CollectForOutput::collectFile(QString oldFile, QString newFile)
 	}
 	if (copy)
 	{
-		copyFileAtomic(oldFile, m_outputDirectory + "images/" + newFile);
+		QString outFile(m_outputDirectory + "images/" + newFile);
+		bool success=copyFileAtomic(oldFile, outFile);
+		if (!success)
+			qDebug()<<"CollectForOutput::collectFile copyFileAtomic failed for"<<oldFile<<"to"<<outFile;
+		else
+		{
+			QFile of(outFile);
+			if (of.exists())
+			{
+				bool permsSet=of.setPermissions(QFile::permissions(oldFile));
+				if (!permsSet)
+					qDebug()<<"Unable to set permissions successfully while collecting for output on"<<outFile;
+			}
+			else
+				qDebug()<<"Unable to set permissions successfully while collecting for output on"<<outFile<<"as the file does not exist";
+		}
 	}
 	collectedFiles[newFile] = oldFile;
 	return m_outputDirectory + "images/" + newFile;
