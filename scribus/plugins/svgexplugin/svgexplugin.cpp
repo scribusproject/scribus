@@ -1860,7 +1860,7 @@ QString SVGExPlug::handleMask(PageItem *Item, double xOffset, double yOffset)
 		}
 		else if ((Item->GrMask == 1) || (Item->GrMask == 2) || (Item->GrMask == 4) || (Item->GrMask == 5))
 		{
-			if ((Item->GrMask == 6) || (Item->GrMask == 4))
+			if ((Item->GrMask == 1) || (Item->GrMask == 4))
 			{
 				grad = docu.createElement("linearGradient");
 				grad.setAttribute("x1", FToStr(Item->GrMaskStartX));
