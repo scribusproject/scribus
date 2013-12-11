@@ -15401,12 +15401,21 @@ void ScribusDoc::resizeGroupToContents(PageItem* group)
 	PageItem_Group* currItem = group->asGroupFrame();
 	if (currItem == NULL)
 		return;
+	QTransform groupTrans = group->getTransform();
+	QPainterPath input1 = currItem->PoLine.toQPainterPath(true);
+	if (currItem->fillEvenOdd())
+		input1.setFillRule(Qt::OddEvenFill);
+	else
+		input1.setFillRule(Qt::WindingFill);
+	input1 = groupTrans.map(input1);
 	double minx =  std::numeric_limits<double>::max();
 	double miny =  std::numeric_limits<double>::max();
 	double maxx = -std::numeric_limits<double>::max();
 	double maxy = -std::numeric_limits<double>::max();
 	double oldX = currItem->xPos();
 	double oldY = currItem->yPos();
+	double oldW = currItem->width();
+	double oldH = currItem->height();
 	int gcount = currItem->groupItemList.count();
 	double scw = currItem->width() / currItem->groupWidth;
 	double sch = currItem->height() / currItem->groupHeight;
@@ -15421,7 +15430,6 @@ void ScribusDoc::resizeGroupToContents(PageItem* group)
 		maxx = qMax(maxx, x2);
 		maxy = qMax(maxy, y2);
 	}
-	QTransform groupTrans = group->getTransform();
 	groupTrans.scale(scw, sch);
 	QPointF newXY = groupTrans.map(QPointF(minx - oldX, miny - oldY));
 	currItem->setXYPos(minx, miny, true);
@@ -15438,7 +15446,22 @@ void ScribusDoc::resizeGroupToContents(PageItem* group)
 	}
 	currItem->setXYPos(newXY.x(), newXY.y(), true);
 	currItem->SetRectFrame();
+	currItem->ClipEdited = true;
+	currItem->FrameType = 3;
 	currItem->adjustXYPosition();
+	if ((currItem->width() != oldW) || (currItem->height() != oldH))
+	{
+		QTransform groupTrans2 = group->getTransform();
+		QPainterPath input2 = currItem->PoLine.toQPainterPath(true);
+		if (currItem->fillEvenOdd())
+			input2.setFillRule(Qt::OddEvenFill);
+		else
+			input2.setFillRule(Qt::WindingFill);
+		input2 = groupTrans2.map(input2);
+		QPainterPath result = input1.intersected(input2);
+		result = groupTrans2.inverted().map(result);
+		currItem->PoLine.fromQPainterPath(result, true);
+	}
 }
 
 void ScribusDoc::itemSelection_resizeGroupToContents(Selection* customSelection)
