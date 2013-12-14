@@ -35,7 +35,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "scribusapi.h"
 
-typedef std::vector<QStringList*> Table;
+typedef std::vector<QStringList> Table;
 
 class SCRIBUS_API PrefsTable
 {
