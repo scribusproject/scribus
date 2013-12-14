@@ -59,6 +59,7 @@ class SCRIBUS_API LocaleManager
 	
 public:
 	static LocaleManager* instance();
+	static void deleteInstance();
 
 	const QString getUnitFromLocale(QString);
 	void printSelectedForLocale(const QString &locale);

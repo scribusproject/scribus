@@ -62,7 +62,11 @@ ScribusCore::ScribusCore() : QObject(), defaultEngine(colorMgmtEngineFactory.cre
 
 ScribusCore::~ScribusCore()
 {
-// 	delete m_PaletteParent;
+	while (ScMWList.count() > 0)
+	{
+		ScribusMainWindow *mainWindow = ScMWList.takeAt(0);
+		delete mainWindow;
+	}
 }
 
 #ifndef NDEBUG

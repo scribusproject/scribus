@@ -33,6 +33,7 @@ for which a new license (GPL+exception) is in place.
 #include "scpaths.h"
 
 LocaleManager * LocaleManager::m_instance = 0;
+
 LocaleManager * LocaleManager::instance()
 {
 	if(!m_instance)
@@ -42,6 +43,13 @@ LocaleManager * LocaleManager::instance()
 		m_instance->init();
 	}
 	return m_instance;
+}
+
+void LocaleManager::deleteInstance()
+{
+	if (m_instance)
+		delete m_instance;
+	m_instance = 0;
 }
 
 void LocaleManager::init()

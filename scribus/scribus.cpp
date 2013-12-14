@@ -454,6 +454,8 @@ int ScribusMainWindow::initScMW(bool primaryMainWindow)
 
 ScribusMainWindow::~ScribusMainWindow()
 {
+	if (actionManager)
+		delete actionManager;
 	delete m_doc;
 }
 
@@ -1862,11 +1864,10 @@ void ScribusMainWindow::closeEvent(QCloseEvent *ce)
 	if (!emergencyActivated)
 		prefsManager->SavePrefs();
 	UndoManager::deleteInstance();
-	PrefsManager::deleteInstance();
 	FormatsManager::deleteInstance();
 	UrlLauncher::deleteInstance();
 //	qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
-	qApp->exit(0);
+	ce->accept();
 }
 
 void ScribusMainWindow::requestUpdate(int val)
