@@ -50,6 +50,18 @@ for which a new license (GPL+exception) is in place.
 */
 struct TransactionData : public Transaction::TransactionStateBase
 {
+	TransactionData() {
+		transactionObject = 0;
+		transactionState = 0;
+	}
+
+	~TransactionData() {
+		if (transactionObject)
+			delete transactionObject;
+		if (transactionState)
+			delete transactionState;
+	}
+
 	int stackLevel;
 	UndoManager* UM;
 	UndoObject* transactionObject;  // will be DummyUndoObject
