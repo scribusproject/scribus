@@ -17,6 +17,13 @@ ScDLManager::ScDLManager(QObject *parent)
 	connect(thread, SIGNAL(finished()), this, SIGNAL(finished()));
 }
 
+ScDLManager::~ScDLManager()
+{
+	// Per Qt doc, deleting a running thread will probably result in a program crash.
+	if (thread && !thread->isRunning())
+		delete thread;
+}
+
 void ScDLManager::addURL(const QUrl &url, bool overwrite, const QString& location)
 {
 	thread->addURL(url, overwrite, location);
