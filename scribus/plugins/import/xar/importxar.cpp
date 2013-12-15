@@ -280,6 +280,7 @@ bool XarPlug::import(QString fNameIn, const TransactionSettings& trSettings, int
 	docHeight = h;
 	baseX = 0;
 	baseY = 0;
+	pagecount = 1;
 	if (!interactive || (flags & LoadSavePlugin::lfInsertPage))
 	{
 		m_Doc->setPage(docWidth, docHeight, 0, 0, 0, 0, 0, 0, false, false);
@@ -648,6 +649,16 @@ void XarPlug::handleTags(quint32 tag, quint32 dataLen, QDataStream &ts)
 		addToAtomic(dataLen, ts);
 	else if (tag == 45)
 		handleSpreadInfo(ts);
+	else if (tag == 44)
+	{
+		handleFirstPage(ts);
+		ts.skipRawData(dataLen);
+	}
+	else if (tag == 4131)
+	{
+		handlePage(ts);
+		ts.skipRawData(dataLen);
+	}
 	else if (tag == 48)
 		handleLayerInfo(ts);
 	else if (tag == 50)
@@ -3182,7 +3193,12 @@ void XarPlug::handleLayerInfo(QDataStream &ts)
 	if (importerFlags & LoadSavePlugin::lfCreateDoc)
 	{
 		if (!firstLayer)
-			currentLayer = m_Doc->addLayer(XarName, true);
+		{
+			QStringList newNames;
+			m_Doc->orderedLayerList(&newNames);
+			if (!newNames.contains(XarName))
+				currentLayer = m_Doc->addLayer(XarName, true);
+		}
 		else
 			m_Doc->changeLayerName(currentLayer, XarName);
 		m_Doc->setLayerVisible(currentLayer, layerFlags & 1);
@@ -3202,20 +3218,53 @@ void XarPlug::handleSpreadInfo(QDataStream &ts)
 	ts >> spreadFlags;
 	double w = pgWidth / 1000.0;
 	double h = pgHeight / 1000.0;
+	docWidth = w;
+	docHeight = h;
 //	double m = margin / 1000.0;
 //	double b = bleed / 1000.0;
+//	qDebug() << "Spread Info Width" << w << "Height" << h << "Margin" << m << "Bleed" << b;
 	if (importerFlags & LoadSavePlugin::lfCreateDoc)
 	{
-		m_Doc->setPage(w, h, 0, 0, 0, 0, 0, 0, false, false);
-		if (w > h)
-			m_Doc->setPageOrientation(1);
-		else
-			m_Doc->setPageOrientation(0);
+		m_Doc->setPage(docWidth, docHeight, 0, 0, 0, 0, 1, 0, false, false);
 		m_Doc->setPageSize("Custom");
-		m_Doc->changePageMargins(0, 0, 0, 0, h, w, h, w, m_Doc->pageOrientation(), m_Doc->pageSize(), m_Doc->currentPage()->pageNr(), 0);
+		m_Doc->currentPage()->m_pageSize = "Custom";
+		m_Doc->currentPage()->setInitialHeight(docHeight);
+		m_Doc->currentPage()->setInitialWidth(docWidth);
+		m_Doc->currentPage()->setHeight(docHeight);
+		m_Doc->currentPage()->setWidth(docWidth);
+		m_Doc->currentPage()->initialMargins.Top = 0;
+		m_Doc->currentPage()->initialMargins.Bottom = 0;
+		m_Doc->currentPage()->initialMargins.Left = 0;
+		m_Doc->currentPage()->initialMargins.Right = 0;
+		m_Doc->reformPages(true);
 	}
-	docHeight = h;
-	docWidth = w;
+}
+
+void XarPlug::handleFirstPage(QDataStream &ts)
+{
+	qDebug() << "Page Record";
+}
+
+void XarPlug::handlePage(QDataStream &ts)
+{
+	if (importerFlags & LoadSavePlugin::lfCreateDoc)
+	{
+		m_Doc->addPage(pagecount);
+		m_Doc->currentPage()->m_pageSize = "Custom";
+		m_Doc->currentPage()->setInitialHeight(docHeight);
+		m_Doc->currentPage()->setInitialWidth(docWidth);
+		m_Doc->currentPage()->setHeight(docHeight);
+		m_Doc->currentPage()->setWidth(docWidth);
+		m_Doc->currentPage()->initialMargins.Top = 0;
+		m_Doc->currentPage()->initialMargins.Bottom = 0;
+		m_Doc->currentPage()->initialMargins.Left = 0;
+		m_Doc->currentPage()->initialMargins.Right = 0;
+		m_Doc->currentPage()->MPageNam = CommonStrings::trMasterPageNormal;
+		m_Doc->view()->addPage(pagecount, true);
+		pagecount++;
+	//	baseX = m_Doc->currentPage()->xOffset();
+	//	baseY = m_Doc->currentPage()->yOffset();
+	}
 }
 
 void XarPlug::handleComplexColor(QDataStream &ts)

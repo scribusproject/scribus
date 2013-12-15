@@ -317,6 +317,8 @@ private:
 	bool handlePathRel(QDataStream &ts, quint32 len);
 	void handleLayerInfo(QDataStream &ts);
 	void handleSpreadInfo(QDataStream &ts);
+	void handleFirstPage(QDataStream &ts);
+	void handlePage(QDataStream &ts);
 	void handleComplexColor(QDataStream &ts);
 	void handleColorRGB(QDataStream &ts);
 	double decodeColorComponent(quint32 data);
@@ -334,6 +336,7 @@ private:
 	double baseX, baseY;
 	double docWidth;
 	double docHeight;
+	int pagecount;
 	double TextX;
 	double TextY;
 	double textRotation;
