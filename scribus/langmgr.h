@@ -32,17 +32,17 @@ for which a new license (GPL+exception) is in place.
 
 typedef std::pair<QString, QString> langPair;
 
-
-
 class SCRIBUS_API LanguageManager
 {
-	static LanguageManager* m_instance;
 	LanguageManager() {};
 	~LanguageManager();
+
 	void init(bool generateInstalledList = true);
 	
 public:
 	static LanguageManager* instance();
+	static void deleteInstance();
+
 	void languageChange();
 	QStringList languageList(bool getTranslated=true);
 	
@@ -63,7 +63,9 @@ public:
 	const QString getHyphFilename(const QString& langAbbrev);
 	int langTableIndex(const QString& abbrev);
 
-	private:
+private:
+	static LanguageManager* m_instance;
+
 	QList <LangDef> langTable;
 
 	void generateLangList();

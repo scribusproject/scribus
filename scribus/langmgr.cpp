@@ -32,6 +32,7 @@ for which a new license (GPL+exception) is in place.
 #include "scpaths.h"
 
 LanguageManager * LanguageManager::m_instance = 0;
+
 LanguageManager * LanguageManager::instance()
 {
 	if(!m_instance)
@@ -41,6 +42,13 @@ LanguageManager * LanguageManager::instance()
 		m_instance->init();
 	}
 	return m_instance;
+}
+
+void LanguageManager::deleteInstance()
+{
+	if (m_instance)
+		delete m_instance;
+	m_instance = 0;
 }
 
 void LanguageManager::languageChange()
