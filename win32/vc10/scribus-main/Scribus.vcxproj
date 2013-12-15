@@ -65,7 +65,6 @@
       <AdditionalIncludeDirectories>..\..\vc10;..\..\..\scribus;..\..\..\scribus\colormgmt;..\..\..\scribus\fonts;..\..\..\scribus\text;..\..\..\scribus\styles;..\..\..\scribus\simpletreemodel;..\..\..\scribus\ui;$(QT5_DIR)\include\QtANGLE;$(QT5_DIR)\include\QtCore;$(QT5_DIR)\include\QtGui;$(QT5_DIR)\include\QtNetwork;$(QT5_DIR)\include\QtPrintSupport;$(QT5_DIR)\include\QtWebKit;$(QT5_DIR)\include\QtWebKitWidgets;$(QT5_DIR)\include\QtWidgets;$(QT5_DIR)\include\QtXml;$(QT5_DIR)\include;$(CAIRO_DIR)\include;$(LCMS_DIR)\include;$(FREETYPE_DIR)\include;$(LIBJPEG_DIR)\include;$(LIBTIFF_DIR)\include;$(PODOFO_DIR)\include;$(ZLIB_DIR)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_USE_MATH_DEFINES;QT_EDITION=QT_EDITION_DESKTOP;QT_DLL;QT_GUI_LIB;QT_CORE_LIB;QT_THREAD_SUPPORT;HAVE_CONFIG_H;AVOID_WIN32_FILEIO;COMPILE_SCRIBUS_MAIN_APP;DOCDIR="doc/";ICONDIR="icons/";SAMPLESDIR="samples/";SCRIPTSDIR="scripts/";SHAREDIR="share/";TEMPLATEDIR="templates/";LIBDIR="libs/";PLUGINDIR="plugins";%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <IgnoreStandardIncludePath>false</IgnoreStandardIncludePath>
-      <MinimalRebuild>false</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <DisableLanguageExtensions>false</DisableLanguageExtensions>
@@ -215,7 +214,7 @@
     <ClInclude Include="..\..\..\scribus\collapsedtablepainter.h" />
     <moc Include="..\..\..\scribus\collect4output.h" />
     <moc Include="..\..\..\scribus\ui\collectforoutput_ui.h" />
-    <CustomBuild Include="..\..\..\scribus\color.h" />
+    <ClInclude Include="..\..\..\scribus\color.h" />
     <moc Include="..\..\..\scribus\colorblind.h" />
     <moc Include="..\..\..\scribus\ui\colorchart.h" />
     <moc Include="..\..\..\scribus\ui\colorcombo.h" />
@@ -226,7 +225,7 @@
     <moc Include="..\..\..\scribus\ui\copypagetomasterpagedialog.h" />
     <moc Include="..\..\..\scribus\ui\cpalette.h" />
     <moc Include="..\..\..\scribus\ui\createrange.h" />
-    <CustomBuild Include="..\..\..\scribus\crypt.h" />
+    <ClInclude Include="..\..\..\scribus\crypt.h" />
     <moc Include="..\..\..\scribus\ui\cupsoptions.h" />
     <moc Include="..\..\..\scribus\ui\curvewidget.h" />
     <moc Include="..\..\..\scribus\ui\customfdialog.h" />
@@ -235,7 +234,7 @@
     <moc Include="..\..\..\scribus\deferredtask.h" />
     <moc Include="..\..\..\scribus\ui\delpages.h" />
     <moc Include="..\..\..\scribus\docinfo.h" />
-    <CustomBuild Include="..\..\..\scribus\documentchecker.h" />
+    <ClInclude Include="..\..\..\scribus\documentchecker.h" />
     <ClInclude Include="..\..\..\scribus\documentinformation.h" />
     <moc Include="..\..\..\scribus\ui\editor.h" />
     <moc Include="..\..\..\scribus\ui\edittoolbar.h" />
@@ -565,7 +564,7 @@
     <moc Include="..\..\..\scribus\ui\smlinestyle.h" />
     <moc Include="..\..\..\scribus\ui\smlinestylewidget.h" />
     <moc Include="..\..\..\scribus\ui\smpstylewidget.h" />
-    <CustomBuild Include="..\..\..\scribus\ui\smradiobutton.h" />
+    <ClInclude Include="..\..\..\scribus\ui\smradiobutton.h" />
     <moc Include="..\..\..\scribus\ui\smreplacedia.h" />
     <moc Include="..\..\..\scribus\ui\smsccombobox.h" />
     <moc Include="..\..\..\scribus\ui\smscrspinbox.h" />
