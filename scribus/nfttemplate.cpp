@@ -10,25 +10,25 @@ for which a new license (GPL+exception) is in place.
 #include "nfttemplate.h"
 #include <QFileInfo>
 
-nfttemplate::nfttemplate(QFile* tmplXmlFile, const QString &tmplCategory) 
+nfttemplate::nfttemplate(QString tmplFilePath, const QString &tmplCategory)
+	: tmplXml(tmplFilePath)
 {
-	tmplXml = tmplXmlFile;
 	templateCategory = tmplCategory;
-	isWritable = tmplXml->open(QIODevice::WriteOnly | QIODevice::ReadOnly);
-	tmplXml->close();
+	isWritable = tmplXml.open(QIODevice::WriteOnly | QIODevice::ReadOnly);
+	tmplXml.close();
 	isDeleted = false;
 }
 
 void nfttemplate::remove()
 {
-	if (!tmplXml->exists())
+	if (!tmplXml.exists())
 		return;
 
 	QString newTmplXml = "";
 	QString tmp;
 	bool collect = false;
-	tmplXml->open(QIODevice::ReadOnly);
-	QTextStream stream(tmplXml);
+	tmplXml.open(QIODevice::ReadOnly);
+	QTextStream stream(&tmplXml);
 	stream.setCodec("UTF-8");
 	QString line = stream.readLine();
 	while (!line.isNull())
@@ -70,12 +70,12 @@ void nfttemplate::remove()
 		}
 		line = stream.readLine();
 	}
-	tmplXml->close();
-	tmplXml->open(QIODevice::WriteOnly);
-	QTextStream instream(tmplXml);
+	tmplXml.close();
+	tmplXml.open(QIODevice::WriteOnly);
+	QTextStream instream(&tmplXml);
 	instream.setCodec("UTF-8");
 	instream << newTmplXml;
-	tmplXml->close();
+	tmplXml.close();
 }
 
 bool nfttemplate::canWrite()
