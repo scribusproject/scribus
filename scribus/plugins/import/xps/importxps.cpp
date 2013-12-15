@@ -1220,14 +1220,21 @@ PageItem* XpsPlug::parseObjectXML(QDomElement &dpg, QString path)
 				retObj->OldH2 = retObj->height();
 				retObj->updateClip();
 				m_Doc->groupObjectsToItem(retObj, GElements);
-				retObj->PoLine.scale(obState.transform.m11(), obState.transform.m22());
+				double scX = 1.0;
+				double scY = 1.0;
+				double rot = 0.0;
+				double dx = 0.0;
+				double dy = 0.0;
+				getTransformValuesFromMatrix( obState.transform, scX, scY, rot, dx, dy);
+				if ((scX != 1.0) || (scY != 1.0))
+					retObj->PoLine.scale(scX, scY);
 				FPoint wh = getMaxClipF(&retObj->PoLine);
 				retObj->setWidthHeight(wh.x(),wh.y());
 				m_Doc->AdjustItemSize(retObj, true);
 				retObj->OldB2 = retObj->width();
 				retObj->OldH2 = retObj->height();
-				if ((obState.transform.dx() != 0.0) || (obState.transform.dy() != 0))
-					retObj->moveBy((double)(obState.transform.dx()), (double)(obState.transform.dy()), true);
+				if ((dx != 0.0) || (dy != 0.0))
+					retObj->moveBy(dx, dy, true);
 				if (obState.maskTyp != 0)
 				{
 					double xp = retObj->xPos() - m_Doc->currentPage()->xOffset();
@@ -1236,11 +1243,8 @@ PageItem* XpsPlug::parseObjectXML(QDomElement &dpg, QString path)
 					retObj->setMaskVector(obState.maskStart.x() - xp, obState.maskStart.y() - yp, obState.maskEnd.x() - xp, obState.maskEnd.y() - yp, obState.maskFocus.x() - xp, obState.maskFocus.y() - yp, obState.maskScale, 0);
 					retObj->setMaskType(obState.maskTyp);
 				}
-				if ((obState.transform.m12() != 0.0) || (obState.transform.m21() != 0))
-				{
-					QLineF line = obState.transform.map(QLineF(0.0, 0.0, 1.0, 0.0));
-					retObj->setRotation(-line.angle(), true);
-				}
+				if (rot != 0)
+					retObj->setRotation(-rot, true);
 				m_Doc->resizeGroupToContents(retObj);
 				retObj->OwnPage = m_Doc->OnPage(retObj);
 				m_Doc->GroupOnPage(retObj);
