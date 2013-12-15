@@ -467,9 +467,10 @@ QString CollectForOutput::collectFile(QString oldFile, QString newFile)
 	if (copy)
 	{
 		QString outFile(m_outputDirectory + "images/" + newFile);
-		bool success=copyFileAtomic(oldFile, outFile);
+		bool success = copyFileAtomic(oldFile, outFile);
 		if (!success)
 			qDebug()<<"CollectForOutput::collectFile copyFileAtomic failed for"<<oldFile<<"to"<<outFile;
+#ifndef Q_OS_WIN32
 		else
 		{
 			QFile of(outFile);
@@ -482,6 +483,7 @@ QString CollectForOutput::collectFile(QString oldFile, QString newFile)
 			else
 				qDebug()<<"Unable to set permissions successfully while collecting for output on"<<outFile<<"as the file does not exist";
 		}
+#endif
 	}
 	collectedFiles[newFile] = oldFile;
 	return m_outputDirectory + "images/" + newFile;
