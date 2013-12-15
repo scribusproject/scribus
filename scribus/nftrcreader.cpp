@@ -79,7 +79,7 @@ bool nftrcreader::startElement(const QString&, const QString&, const QString &na
 				enCat = attrs.value(i);
 			}
 		}
-		tmpTemplate = new nfttemplate(new QFile(currentFile), category); // create a new template
+		tmpTemplate = new nfttemplate(currentFile, category); // create a new template
 		tmpTemplate->enCategory = enCat;
 	}
 
@@ -138,8 +138,15 @@ bool nftrcreader::endElement(const QString&, const QString&, const QString &name
 	{ // new template starts here
 		inTemplate = false;
 		if (tmpTemplate != NULL) // If we have a template already created
+		{
 			if (tmpTemplate->isValid()) // and the template really exists push
 				templates->push_back(tmpTemplate); // it to the templates vector and start a new one
+			else
+			{
+				delete tmpTemplate;
+				tmpTemplate = 0;
+			}
+		}
 	}
 	if (inTemplate) {
 		if (inName && name == "name")
