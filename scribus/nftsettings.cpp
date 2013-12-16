@@ -23,34 +23,26 @@ nftsettings::nftsettings(QString guilang)
 
 void nftsettings::read()
 {
-	handler = new nftrcreader(&templates,scribusUserHome);
-	reader = new QXmlSimpleReader();
-	reader->setContentHandler(handler);
+	nftrcreader reader(&templates ,scribusUserHome);
 
-	addTemplates(scribusShare);
-	addTemplates(scribusUserHome+"/templates");
+	addTemplates(reader, scribusShare);
+	addTemplates(reader, scribusUserHome+"/templates");
 	QString userTemplateDir(PrefsManager::instance()->appPrefs.pathPrefs.documentTemplates);
 	if (userTemplateDir.right(1) == "/")
 		userTemplateDir.chop(1);
 	if ((!userTemplateDir.isNull()) && (!userTemplateDir.isEmpty()))
-		addTemplates(userTemplateDir);
+		addTemplates(reader, userTemplateDir);
 }
 
-void nftsettings::addTemplates(QString dir) // dir will be searched for a sub folder called templates
+void nftsettings::addTemplates(nftrcreader& reader, QString dir) // dir will be searched for a sub folder called templates
 {
 	// Add templates from the dir itself
 	QString tmplFile = findTemplateXml(dir);
-	QFile* tmplxml = new QFile(QDir::toNativeSeparators(tmplFile));
-	handler->setSourceDir(dir);
-	handler->setSourceFile(tmplFile);
-	if (tmplxml->exists())
-	{
-		QXmlInputSource* source = new QXmlInputSource(tmplxml);
-		reader->parse(source);
-		delete source;
-	}
-	delete tmplxml;
-	
+	QString tmplFilePath = QDir::toNativeSeparators(tmplFile);
+	reader.setSourceDir(dir);
+	reader.setSourceFile(tmplFile);
+	if (QFile::exists(tmplFilePath))
+		reader.parse(tmplFilePath);
 	
 	// And from all the subdirectories. template.xml file is only searched one dir level deeper than the dir
 	QDir tmpldir(dir);
@@ -61,16 +53,11 @@ void nftsettings::addTemplates(QString dir) // dir will be searched for a sub fo
 		for (int i = 0; i < dirs.size(); ++i)
 		{
 			tmplFile = findTemplateXml(dir + "/" + dirs[i]);
-			QFile* tmplxml = new QFile(QDir::toNativeSeparators(tmplFile));
-			handler->setSourceDir(dir+"/"+dirs[i]);
-			handler->setSourceFile(tmplFile);
-			if (tmplxml->exists())
-			{
-				QXmlInputSource* source = new QXmlInputSource(tmplxml);
-				reader->parse(source);
-				delete source;
-			}
-			delete tmplxml;
+			tmplFilePath = QDir::toNativeSeparators(tmplFile);
+			reader.setSourceDir(dir+"/"+dirs[i]);
+			reader.setSourceFile(tmplFile);
+			if (QFile::exists(tmplFilePath))
+				reader.parse(tmplFilePath);
 		}
 	}
 }
@@ -92,8 +79,6 @@ QString nftsettings::findTemplateXml(QString dir)
 
 nftsettings::~ nftsettings()
 {
-	delete reader;
-	delete handler;
 	for (uint i = 0; i < templates.size(); ++i)
 	{
 		if (templates[i] != NULL)
