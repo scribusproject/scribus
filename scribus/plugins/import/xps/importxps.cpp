@@ -364,6 +364,7 @@ bool XpsPlug::import(QString fNameIn, const TransactionSettings& trSettings, int
 		if (!(flags & LoadSavePlugin::lfLoadAsPattern))
 			m_Doc->view()->updatesOn(true);
 		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+		success = false;
 	}
 	if (interactive)
 		m_Doc->setLoading(false);
@@ -412,18 +413,15 @@ bool XpsPlug::convert(QString fn)
 		if (progressDialog)
 			progressDialog->close();
 	}
+
+	retVal = false;
 	if (uz->contains("FixedDocSeq.fdseq"))
-	{
-		parseDocSequence("FixedDocSeq.fdseq");
-		resolveLinks();
-	}
+		retVal = parseDocSequence("FixedDocSeq.fdseq");
 	else if (uz->contains("FixedDocumentSequence.fdseq"))
-	{
-		parseDocSequence("FixedDocumentSequence.fdseq");
+		retVal = parseDocSequence("FixedDocumentSequence.fdseq");
+	if (retVal)
 		resolveLinks();
-	}
-	else
-		retVal = false;
+
 	uz->close();
 	delete uz;
 	if (progressDialog)
@@ -431,138 +429,142 @@ bool XpsPlug::convert(QString fn)
 	return retVal;
 }
 
-void XpsPlug::parseDocSequence(QString designMap)
+bool XpsPlug::parseDocSequence(QString designMap)
 {
 	QByteArray f;
 	QDomDocument designMapDom;
 	if (!uz->read(designMap, f))
-		return;
-	if(designMapDom.setContent(f))
+		return false;
+	if (!designMapDom.setContent(f))
+		return false;
+
+	bool parsed = false;
+	QString DocumentReference = "";
+	QDomElement docElem = designMapDom.documentElement();
+	for(QDomNode drawPag = docElem.firstChild(); !drawPag.isNull(); drawPag = drawPag.nextSibling() )
 	{
-		QString DocumentReference = "";
-		QDomElement docElem = designMapDom.documentElement();
-		for(QDomNode drawPag = docElem.firstChild(); !drawPag.isNull(); drawPag = drawPag.nextSibling() )
+		QDomElement dpg = drawPag.toElement();
+		if (dpg.tagName() == "DocumentReference")
 		{
-			QDomElement dpg = drawPag.toElement();
-			if (dpg.tagName() == "DocumentReference")
+			if (dpg.hasAttribute("Source"))
 			{
-				if (dpg.hasAttribute("Source"))
-				{
-					DocumentReference = dpg.attribute("Source", "");
-					if (DocumentReference.startsWith("/"))
-						DocumentReference = DocumentReference.mid(1);
-					parseDocReference(DocumentReference);
-				}
+				DocumentReference = dpg.attribute("Source", "");
+				if (DocumentReference.startsWith("/"))
+					DocumentReference = DocumentReference.mid(1);
+				parsed = parseDocReference(DocumentReference);
+				if (!parsed) break;
 			}
 		}
 	}
+	return parsed;
 }
 
-void XpsPlug::parseDocReference(QString designMap)
+bool XpsPlug::parseDocReference(QString designMap)
 {
 	QByteArray f;
 	QFileInfo fi(designMap);
 	QString path = fi.path();
-	if (uz->read(designMap, f))
+	if (!uz->read(designMap, f))
+		return false;
+
+	QDomDocument designMapDom;
+	if (!designMapDom.setContent(f))
+		return false;
+
+	QString PageReference = "";
+	QDomElement docElem = designMapDom.documentElement();
+	if (importerFlags & LoadSavePlugin::lfCreateThumbnail)
 	{
-		QDomDocument designMapDom;
-		if(designMapDom.setContent(f))
+		QDomNodeList pgList = docElem.childNodes();
+		QDomNode drawPag = pgList.item(0);
+		QDomElement dpg = drawPag.toElement();
+		if (dpg.tagName() == "PageContent")
 		{
-			QString PageReference = "";
-			QDomElement docElem = designMapDom.documentElement();
-			if (importerFlags & LoadSavePlugin::lfCreateThumbnail)
+			if (dpg.hasAttribute("Source"))
 			{
-				QDomNodeList pgList = docElem.childNodes();
-				QDomNode drawPag = pgList.item(0);
-				QDomElement dpg = drawPag.toElement();
-				if (dpg.tagName() == "PageContent")
+				PageReference = dpg.attribute("Source", "");
+				if (PageReference.startsWith("/"))
 				{
-					if (dpg.hasAttribute("Source"))
-					{
-						PageReference = dpg.attribute("Source", "");
-						if (PageReference.startsWith("/"))
-						{
-							PageReference = PageReference.mid(1);
-							parsePageReference(PageReference);
-						}
-						else
-						{
-							if (!PageReference.startsWith(path))
-							{
-								PageReference = path + "/" + PageReference;
-								PageReference = QDir::cleanPath(PageReference);
-							}
-							parsePageReference(PageReference);
-						}
-					}
+					PageReference = PageReference.mid(1);
+					parsePageReference(PageReference);
 				}
-			}
-			else
-			{
-				std::vector<int> pageNs;
-				QString pageString = "*";
-				int pgCount = 0;
-				int maxPages = docElem.childNodes().count();
-				if (((interactive) || (importerFlags & LoadSavePlugin::lfCreateDoc)) && (maxPages > 1))
+				else
 				{
-					if (progressDialog)
-						progressDialog->hide();
-					qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
-					XpsImportOptions *optImp = new XpsImportOptions(ScCore->primaryMainWindow());
-					optImp->setUpOptions(m_FileName, 1, maxPages, interactive);
-					optImp->exec();
-					pageString = optImp->getPagesString();
-					delete optImp;
-					qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
-					if (progressDialog)
-						progressDialog->show();
-					qApp->processEvents();
-				}
-				parsePagesString(pageString, &pageNs, maxPages);
-				if (pageString != "*")
-					maxPages = pageNs.size();
-				if (progressDialog)
-				{
-					progressDialog->setTotalSteps("GI", maxPages);
-					progressDialog->setProgress("GI", pgCount);
-					qApp->processEvents();
-				}
-				QDomNodeList pgList = docElem.childNodes();
-				for (uint ap = 0; ap < pageNs.size(); ++ap)
-				{
-					QDomNode drawPag = pgList.item(pageNs[ap] - 1);
-					QDomElement dpg = drawPag.toElement();
-					if (dpg.tagName() == "PageContent")
+					if (!PageReference.startsWith(path))
 					{
-						if (dpg.hasAttribute("Source"))
-						{
-							PageReference = dpg.attribute("Source", "");
-							if (PageReference.startsWith("/"))
-							{
-								PageReference = PageReference.mid(1);
-								parsePageReference(PageReference);
-							}
-							else
-							{
-								if (!PageReference.startsWith(path))
-								{
-									PageReference = path + "/" + PageReference;
-									PageReference = QDir::cleanPath(PageReference);
-								}
-								parsePageReference(PageReference);
-							}
-						}
+						PageReference = path + "/" + PageReference;
+						PageReference = QDir::cleanPath(PageReference);
 					}
-					pgCount++;
-					if (progressDialog)
-					{
-						progressDialog->setProgress("GI", pgCount);
-						qApp->processEvents();
-					}
+					parsePageReference(PageReference);
 				}
 			}
 		}
 	}
+	else
+	{
+		std::vector<int> pageNs;
+		QString pageString = "*";
+		int pgCount = 0;
+		int maxPages = docElem.childNodes().count();
+		if (((interactive) || (importerFlags & LoadSavePlugin::lfCreateDoc)) && (maxPages > 1))
+		{
+			if (progressDialog)
+				progressDialog->hide();
+			qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+			XpsImportOptions optImp(ScCore->primaryMainWindow());
+			optImp.setUpOptions(m_FileName, 1, maxPages, interactive);
+			if (optImp.exec() != QDialog::Accepted)
+				return false;
+			pageString = optImp.getPagesString();
+			qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
+			if (progressDialog)
+				progressDialog->show();
+			qApp->processEvents();
+		}
+		parsePagesString(pageString, &pageNs, maxPages);
+		if (pageString != "*")
+			maxPages = pageNs.size();
+		if (progressDialog)
+		{
+			progressDialog->setTotalSteps("GI", maxPages);
+			progressDialog->setProgress("GI", pgCount);
+			qApp->processEvents();
+		}
+		QDomNodeList pgList = docElem.childNodes();
+		for (uint ap = 0; ap < pageNs.size(); ++ap)
+		{
+			QDomNode drawPag = pgList.item(pageNs[ap] - 1);
+			QDomElement dpg = drawPag.toElement();
+			if (dpg.tagName() == "PageContent")
+			{
+				if (dpg.hasAttribute("Source"))
+				{
+					PageReference = dpg.attribute("Source", "");
+					if (PageReference.startsWith("/"))
+					{
+						PageReference = PageReference.mid(1);
+						parsePageReference(PageReference);
+					}
+					else
+					{
+						if (!PageReference.startsWith(path))
+						{
+							PageReference = path + "/" + PageReference;
+							PageReference = QDir::cleanPath(PageReference);
+						}
+						parsePageReference(PageReference);
+					}
+				}
+			}
+			pgCount++;
+			if (progressDialog)
+			{
+				progressDialog->setProgress("GI", pgCount);
+				qApp->processEvents();
+			}
+		}
+	}
+	return true;
 }
 
 void XpsPlug::parsePageReference(QString designMap)

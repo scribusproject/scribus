@@ -168,7 +168,7 @@ bool ImportXpsPlugin::import(QString fileName, int flags)
 		activeTransaction = new UndoTransaction(UndoManager::instance()->beginTransaction(trSettings));
 	XpsPlug *dia = new XpsPlug(m_Doc, flags);
 	Q_CHECK_PTR(dia);
-	dia->import(fileName, trSettings, flags);
+	bool ret = dia->import(fileName, trSettings, flags);
 	if (activeTransaction)
 	{
 		activeTransaction->commit();
@@ -178,7 +178,7 @@ bool ImportXpsPlugin::import(QString fileName, int flags)
 	if (emptyDoc || !(flags & lfInteractive) || !(flags & lfScripted))
 		UndoManager::instance()->setUndoEnabled(true);
 	delete dia;
-	return true;
+	return ret;
 }
 
 QImage ImportXpsPlugin::readThumbnail(const QString& fileName)
