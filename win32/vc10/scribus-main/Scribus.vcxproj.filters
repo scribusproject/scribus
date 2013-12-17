@@ -237,9 +237,6 @@
     <ClInclude Include="..\..\..\scribus\hyphen.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\scribus\icons5.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\scribus\ioapi.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -657,9 +654,6 @@
     <ClInclude Include="..\..\..\scribus\ui\ui_gradienteditor.h">
       <Filter>Generated Form Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\scribus\ui\ui_gradientmanager.h">
-      <Filter>Generated Form Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\scribus\ui\ui_gradientvectorbase.h">
       <Filter>Generated Form Files</Filter>
     </ClInclude>
@@ -675,9 +669,6 @@
     <ClInclude Include="..\..\..\scribus\ui\ui_helpbrowsernavigation.h">
       <Filter>Generated Form Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\scribus\ui\ui_hysettingsBase.h">
-      <Filter>Generated Form Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\scribus\ui\ui_insertaframe.h">
       <Filter>Generated Form Files</Filter>
     </ClInclude>
@@ -685,9 +676,6 @@
       <Filter>Generated Form Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\scribus\ui\ui_inserttablerowsdialog.h">
-      <Filter>Generated Form Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\scribus\ui_lensdialogbase.h">
       <Filter>Generated Form Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\scribus\ui\ui_mark2item.h">
@@ -816,12 +804,6 @@
     <ClInclude Include="..\..\..\scribus\ui\ui_prefs_scrapbookbase.h">
       <Filter>Generated Form Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\scribus\ui\ui_prefs_scripterbase.h">
-      <Filter>Generated Form Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\scribus\ui\ui_prefs_shortwordsbase.h">
-      <Filter>Generated Form Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\scribus\ui\ui_prefs_spellingbase.h">
       <Filter>Generated Form Files</Filter>
     </ClInclude>
@@ -865,9 +847,6 @@
       <Filter>Generated Form Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\scribus\ui\ui_propertywidget_flopbase.h">
-      <Filter>Generated Form Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\scribus\ui\ui_propertywidget_linebase.h">
       <Filter>Generated Form Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\scribus\ui\ui_propertywidget_optmarginsbase.h">

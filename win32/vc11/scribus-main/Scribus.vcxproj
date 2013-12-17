@@ -397,7 +397,6 @@
     <moc Include="..\..\..\scribus\ui\hyask.h" />
     <ClInclude Include="..\..\..\scribus\hyphen.h" />
     <moc Include="..\..\..\scribus\hyphenator.h" />
-    <ClInclude Include="..\..\..\scribus\icons5.h" />
     <moc Include="..\..\..\scribus\ui\imageinfodialog.h" />
     <moc Include="..\..\..\scribus\ui\inlinepalette.h" />
     <moc Include="..\..\..\scribus\ui\insertaframe.h" />
@@ -763,17 +762,14 @@
     <ClInclude Include="..\..\..\scribus\ui\ui_createrange.h" />
     <ClInclude Include="..\..\..\scribus\ui\ui_gradientaddedit.h" />
     <ClInclude Include="..\..\..\scribus\ui\ui_gradienteditor.h" />
-    <ClInclude Include="..\..\..\scribus\ui\ui_gradientmanager.h" />
     <ClInclude Include="..\..\..\scribus\ui\ui_gradientvectorbase.h" />
     <ClInclude Include="..\..\..\scribus\ui\ui_gtfiledialog.h" />
     <ClInclude Include="..\..\..\scribus\ui\ui_guidemanager.h" />
     <ClInclude Include="..\..\..\scribus\ui\ui_helpbrowser.h" />
     <ClInclude Include="..\..\..\scribus\ui\ui_helpbrowsernavigation.h" />
-    <ClInclude Include="..\..\..\scribus\ui\ui_hysettingsBase.h" />
     <ClInclude Include="..\..\..\scribus\ui\ui_insertaframe.h" />
     <ClInclude Include="..\..\..\scribus\ui\ui_inserttablecolumnsdialog.h" />
     <ClInclude Include="..\..\..\scribus\ui\ui_inserttablerowsdialog.h" />
-    <ClInclude Include="..\..\..\scribus\ui_lensdialogbase.h" />
     <ClInclude Include="..\..\..\scribus\ui\ui_mark2item.h" />
     <ClInclude Include="..\..\..\scribus\ui\ui_mark2mark.h" />
     <ClInclude Include="..\..\..\scribus\ui\ui_markanchor.h" />
@@ -816,8 +812,6 @@
     <ClInclude Include="..\..\..\scribus\ui\ui_prefs_preflightverifierbase.h" />
     <ClInclude Include="..\..\..\scribus\ui\ui_prefs_printerbase.h" />
     <ClInclude Include="..\..\..\scribus\ui\ui_prefs_scrapbookbase.h" />
-    <ClInclude Include="..\..\..\scribus\ui\ui_prefs_scripterbase.h" />
-    <ClInclude Include="..\..\..\scribus\ui\ui_prefs_shortwordsbase.h" />
     <ClInclude Include="..\..\..\scribus\ui\ui_prefs_spellingbase.h" />
     <ClInclude Include="..\..\..\scribus\ui\ui_prefs_tableofcontentsbase.h" />
     <ClInclude Include="..\..\..\scribus\ui\ui_prefs_typographybase.h" />
@@ -833,7 +827,6 @@
     <ClInclude Include="..\..\..\scribus\ui\ui_propertywidget_advancedbase.h" />
     <ClInclude Include="..\..\..\scribus\ui\ui_propertywidget_distancebase.h" />
     <ClInclude Include="..\..\..\scribus\ui\ui_propertywidget_flopbase.h" />
-    <ClInclude Include="..\..\..\scribus\ui\ui_propertywidget_linebase.h" />
     <ClInclude Include="..\..\..\scribus\ui\ui_propertywidget_optmarginsbase.h" />
     <ClInclude Include="..\..\..\scribus\ui\ui_propertywidget_orphansbase.h" />
     <ClInclude Include="..\..\..\scribus\ui\ui_propertywidget_pareffectbase.h" />
