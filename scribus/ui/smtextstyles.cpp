@@ -1810,7 +1810,8 @@ void SMParagraphStyle::slotCharParentChanged(const QString &parent)
 
 SMParagraphStyle::~SMParagraphStyle()
 {
-
+	delete m_pwidget;
+	m_pwidget = 0;
 }
 
 /******************************************************************************/

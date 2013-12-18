@@ -1385,4 +1385,10 @@ StyleManager::~StyleManager()
 	m_prefs->set("InitY", y());
 	storeVisibility(this->isVisible());
 	storePosition();
+
+	while (m_items.count() > 0)
+	{
+		StyleItem* styleItem = m_items.takeAt(0);
+		delete styleItem;
+	}
 }
