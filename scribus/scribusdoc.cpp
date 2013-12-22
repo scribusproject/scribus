@@ -4790,7 +4790,7 @@ bool ScribusDoc::applyMasterPage(const QString& pageName, const int pageNumber)
 	{
 		// PV - apply auto guides from MP only if there are no auto guides
 		// on original page
-		if (Ap->guides.horizontalAutoCount() != 0 || Ap->guides.horizontalAutoCount() != 0)
+		if (Ap->guides.horizontalAutoCount() != 0 || Ap->guides.verticalAutoCount() != 0)
 			Mp->guides.copy(&Ap->guides, GuideManagerCore::Standard);
 		else
 			Mp->guides.copy(&Ap->guides);
