@@ -1207,10 +1207,10 @@ PageItem* XpsPlug::parseObjectXML(QDomElement &dpg, QString path)
 				maxx = qMax(maxx, x2);
 				maxy = qMax(maxy, y2);
 			}
-			double gx = qMin(baseX, minx);
-			double gy = qMin(baseY, miny);
-			double gw = maxx - qMin(baseX, minx);
-			double gh = maxy - qMin(baseY, miny);
+			double gx = minx;
+			double gy = miny;
+			double gw = maxx - minx;
+			double gh = maxy - miny;
 			int z = m_Doc->itemAdd(PageItem::Group, PageItem::Rectangle, gx, gy, gw, gh, 0, CommonStrings::None, CommonStrings::None, true);
 			if (z >= 0)
 			{
@@ -1228,6 +1228,9 @@ PageItem* XpsPlug::parseObjectXML(QDomElement &dpg, QString path)
 				double dx = 0.0;
 				double dy = 0.0;
 				getTransformValuesFromMatrix( obState.transform, scX, scY, rot, dx, dy);
+				QLineF transp = QLineF(0, 0, retObj->xPos() - m_Doc->currentPage()->xOffset(), retObj->yPos() - m_Doc->currentPage()->yOffset());
+				transp = obState.transform.map(transp);
+				retObj->setXYPos(transp.p2().x() + m_Doc->currentPage()->xOffset(), transp.p2().y() + m_Doc->currentPage()->yOffset());
 				if ((scX != 1.0) || (scY != 1.0))
 					retObj->PoLine.scale(scX, scY);
 				FPoint wh = getMaxClipF(&retObj->PoLine);
@@ -1235,8 +1238,6 @@ PageItem* XpsPlug::parseObjectXML(QDomElement &dpg, QString path)
 				m_Doc->AdjustItemSize(retObj, true);
 				retObj->OldB2 = retObj->width();
 				retObj->OldH2 = retObj->height();
-				if ((dx != 0.0) || (dy != 0.0))
-					retObj->moveBy(dx, dy, true);
 				if (obState.maskTyp != 0)
 				{
 					double xp = retObj->xPos() - m_Doc->currentPage()->xOffset();
@@ -1247,7 +1248,6 @@ PageItem* XpsPlug::parseObjectXML(QDomElement &dpg, QString path)
 				}
 				if (rot != 0)
 					retObj->setRotation(-rot, true);
-				m_Doc->resizeGroupToContents(retObj);
 				retObj->OwnPage = m_Doc->OnPage(retObj);
 				m_Doc->GroupOnPage(retObj);
 				m_Doc->Items->removeLast();
