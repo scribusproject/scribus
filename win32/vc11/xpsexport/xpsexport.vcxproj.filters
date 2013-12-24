@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{2981713d-a6c1-43d2-ba6f-5becc205e1b3}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;def;odl;idl;hpj;bat;asm</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{b30cadb0-c823-4ea4-be3c-32fb99bd6731}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc</Extensions>
+    </Filter>
+    <Filter Include="Generated Moc Files">
+      <UniqueIdentifier>{c98672ea-9335-4c21-8fde-a3baf9ba933c}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\scribus\plugins\xpsexport\xpsexplugin.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\plugins\xpsexport\moc_xpsexplugin.cpp">
+      <Filter>Generated Moc Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <moc Include="..\..\..\scribus\plugins\xpsexport\xpsexplugin.h">
+      <Filter>Header Files</Filter>
+    </moc>
+  </ItemGroup>
+</Project>
