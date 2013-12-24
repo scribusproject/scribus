@@ -3593,169 +3593,47 @@ void SlaOutputDev::drawChar(GfxState *state, double x, double y, double dx, doub
 GBool SlaOutputDev::beginType3Char(GfxState *state, double x, double y, double dx, double dy, CharCode code, Unicode *u, int uLen)
 {
 //	qDebug() << "beginType3Char";
-	double *ctm;
-	ctm = state->getCTM();
-	QTransform orig_ctm = QTransform(ctm[0], ctm[1], ctm[2], ctm[3], ctm[4], ctm[5]);
 	GfxFont *gfxFont;
-	GfxFontType fontType;
 	if (!(gfxFont = state->getFont()))
 		return gTrue;
-	fontType = gfxFont->getType();
-	if (fontType != fontType3)
+	if (gfxFont->getType() != fontType3)
 		return gTrue;
-	Ref* fref = gfxFont->getID();
-	QString fRefID = QString("Font_%1_%2").arg(fref->num).arg(code);
-	if (m_Font_Pattern_Map.contains(fRefID))
-	{
-		QLineF cline = QLineF(0, 0, 1, 0);
-		QLineF tline = orig_ctm.map(cline);
-		double xCoor = m_doc->currentPage()->xOffset();
-		double yCoor = m_doc->currentPage()->yOffset();
-		ScPattern pat = m_doc->docPatterns[m_Font_Pattern_Map[fRefID].pattern];
-		QTransform mm;
-		mm.translate(0, -pat.height * tline.length());
-		mm = orig_ctm * mm;
-		int z = 0;
-		if (m_Font_Pattern_Map[fRefID].colored)
-			z = m_doc->itemAdd(PageItem::Symbol, PageItem::Unspecified, xCoor + mm.dx(), yCoor + mm.dy(), pat.width * tline.length(), pat.height * tline.length(), 0, CommonStrings::None, CommonStrings::None, true);
-		else
-			z = m_doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, xCoor + mm.dx(), yCoor + mm.dy(), pat.width * tline.length(), pat.height * tline.length(), 0, CurrColorFill, CommonStrings::None, true);
-		PageItem *b = m_doc->Items->at(z);
-		b->setWidth(pat.width * tline.length());
-		b->setHeight(pat.height * tline.length());
-		b->OldB2 = b->width();
-		b->OldH2 = b->height();
-		m_doc->RotMode(3);
-		m_doc->RotateItem(-tline.angle(), b);
-		m_doc->RotMode(0);
-		b->setFillShade(CurrFillShade);
-		b->setFillEvenOdd(false);
-		b->setFillTransparency(1.0 - state->getFillOpacity());
-		b->setFillBlendmode(getBlendMode(state));
-		b->setLineEnd(PLineEnd);
-		b->setLineJoin(PLineJoin);
-		b->setTextFlowMode(PageItem::TextFlowDisabled);
-		if (m_Font_Pattern_Map[fRefID].colored)
-			b->setPattern(m_Font_Pattern_Map[fRefID].pattern);
-		else
-		{
-			b->setFillShade(CurrFillShade);
-			b->setPatternMask(m_Font_Pattern_Map[fRefID].pattern);
-			b->setMaskTransform(b->width() / pat.width * 100, b->height() / pat.height * 100, 0, 0, 0, 0, 0);
-			b->setMaskType(3);
-		}
-		m_Elements->append(b);
-		if (m_groupStack.count() != 0)
-		{
-			m_groupStack.top().Items.append(b);
-		}
-		return gTrue;
-	}
-	else
-	{
-		F3Entry f3e;
-		f3e.ctm = orig_ctm;
-		f3e.glyphRef = fRefID;
-		f3e.colored = false;
-		m_F3Stack.push(f3e);
-		ctm = state->getTextMat();
-		state->setCTM(ctm[0], ctm[1], ctm[2], ctm[3], 0, 0);
-		pushGroup();
-		return gFalse;
-	}
+	F3Entry f3e;
+	f3e.colored = false;
+	m_F3Stack.push(f3e);
+	pushGroup();
+	return gFalse;
 }
 
 void SlaOutputDev::endType3Char(GfxState *state)
 {
 //	qDebug() << "endType3Char";
-	double *ctm;
-	ctm = state->getCTM();
+	F3Entry f3e = m_F3Stack.pop();
 	groupEntry gElements = m_groupStack.pop();
 	m_doc->m_Selection->clear();
 	if (gElements.Items.count() > 0)
 	{
+		m_doc->m_Selection->delaySignalsOn();
 		for (int dre = 0; dre < gElements.Items.count(); ++dre)
 		{
 			m_doc->m_Selection->addItem(gElements.Items.at(dre), true);
 			m_Elements->removeAll(gElements.Items.at(dre));
 		}
-		m_doc->itemSelection_FlipV();
 		PageItem *ite;
 		if (m_doc->m_Selection->count() > 1)
 			ite = m_doc->groupObjectsSelection();
 		else
 			ite = m_doc->m_Selection->itemAt(0);
-		ite->setFillTransparency(1.0 - state->getFillOpacity());
-		ite->setFillBlendmode(getBlendMode(state));
-		m_doc->m_Selection->clear();
-		ScPattern pat = ScPattern();
-		pat.setDoc(m_doc);
-		m_doc->DoDrawing = true;
-		pat.pattern = ite->DrawObj_toImage(qMax(ite->width(), ite->height()));
-		pat.xoffset = 0;
-		pat.yoffset = 0;
-		m_doc->DoDrawing = false;
-		pat.width = ite->width();
-		pat.height = ite->height();
-		ite->gXpos = 0;
-		ite->gYpos = 0;
-		ite->setXYPos(ite->gXpos, ite->gYpos, true);
-		pat.items.append(ite);
-		m_doc->Items->removeAll(ite);
-		QString id = QString("Pattern_from_PDF_%1T").arg(m_doc->docPatterns.count() + 1);
-		m_doc->addPattern(id, pat);
-		tmpSel->clear();
-		if (m_F3Stack.count() > 0)
+		if (!f3e.colored)
 		{
-			F3Entry f3e = m_F3Stack.pop();
-			state->setCTM(f3e.ctm.m11(), f3e.ctm.m12(), f3e.ctm.m21(), f3e.ctm.m22(), f3e.ctm.dx(), f3e.ctm.dy());
-			QLineF cline = QLineF(0, 0, 1, 0);
-			QLineF tline = f3e.ctm.map(cline);
-			double xCoor = m_doc->currentPage()->xOffset();
-			double yCoor = m_doc->currentPage()->yOffset();
-			QTransform mm;
-			mm.translate(0, -pat.height * tline.length());
-			mm = f3e.ctm * mm;
-		//	int shade = 100;
-		//	CurrColorFill = getColor(state->getFillColorSpace(), state->getFillColor(), &shade);
-			int z = 0;
-			if (f3e.colored)
-				z = m_doc->itemAdd(PageItem::Symbol, PageItem::Unspecified, xCoor + mm.dx(), yCoor + mm.dy(), pat.width * tline.length(), pat.height * tline.length(), 0, CommonStrings::None, CommonStrings::None, true);
-			else
-				z = m_doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, xCoor + mm.dx(), yCoor + mm.dy(), pat.width * tline.length(), pat.height * tline.length(), 0, CurrColorFill, CommonStrings::None, true);
-			PageItem *b = m_doc->Items->at(z);
-			b->setWidth(pat.width * tline.length());
-			b->setHeight(pat.height * tline.length());
-			b->OldB2 = b->width();
-			b->OldH2 = b->height();
-			m_doc->RotMode(3);
-			m_doc->RotateItem(-tline.angle(), b);
-			m_doc->RotMode(0);
-			b->setFillEvenOdd(false);
-			b->setFillTransparency(1.0 - state->getFillOpacity());
-			b->setFillBlendmode(getBlendMode(state));
-			b->setLineEnd(PLineEnd);
-			b->setLineJoin(PLineJoin);
-			b->setTextFlowMode(PageItem::TextFlowDisabled);
-			if (f3e.colored)
-				b->setPattern(id);
-			else
-			{
-				b->setFillShade(CurrFillShade);
-				b->setPatternMask(id);
-				b->setMaskTransform(b->width() / pat.width * 100, b->height() / pat.height * 100, 0, 0, 0, 0, 0);
-				b->setMaskType(3);
-			}
-			m_Elements->append(b);
-			if (m_groupStack.count() != 0)
-			{
-				m_groupStack.top().Items.append(b);
-			}
-			F3GlyphEntry gid;
-			gid.colored = f3e.colored;
-			gid.pattern = id;
-			m_Font_Pattern_Map.insert(f3e.glyphRef, gid);
+			m_doc->itemSelection_SetItemBrush(CurrColorFill);
+			m_doc->itemSelection_SetItemBrushShade(CurrFillShade);
+			m_doc->itemSelection_SetItemFillTransparency(1.0 - state->getFillOpacity());
+			m_doc->itemSelection_SetItemFillBlend(getBlendMode(state));
 		}
+		m_Elements->append(ite);
+		m_doc->m_Selection->clear();
+		m_doc->m_Selection->delaySignalsOff();
 	}
 }
 

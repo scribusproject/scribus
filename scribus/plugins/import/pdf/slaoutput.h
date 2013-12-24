@@ -298,17 +298,9 @@ private:
 	QTransform m_ctm;
 	struct F3Entry
 	{
-		QTransform ctm;
-		QString glyphRef;
 		bool colored;
 	};
 	QStack<F3Entry> m_F3Stack;
-	struct F3GlyphEntry
-	{
-		QString pattern;
-		bool colored;
-	};
-	QMap<QString, F3GlyphEntry> m_Font_Pattern_Map;
 	struct mContent
 	{
 		QString name;
