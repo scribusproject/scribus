@@ -115,6 +115,11 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "xpsimport", "xpsimport\xpsi
 		{6CC39EED-B1E2-4209-8F65-0E6242EE63E5} = {6CC39EED-B1E2-4209-8F65-0E6242EE63E5}
 	EndProjectSection
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "xpsexport", "xpsexport\xpsexport.vcxproj", "{62362ECA-AD5B-41D7-8862-585ABF3CB5F1}"
+	ProjectSection(ProjectDependencies) = postProject
+		{6CC39EED-B1E2-4209-8F65-0E6242EE63E5} = {6CC39EED-B1E2-4209-8F65-0E6242EE63E5}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -345,6 +350,10 @@ Global
 		{5433CF53-02D2-4603-AD86-3F26A2934E1E}.Debug|Win32.Build.0 = Debug|Win32
 		{5433CF53-02D2-4603-AD86-3F26A2934E1E}.Release|Win32.ActiveCfg = Release|Win32
 		{5433CF53-02D2-4603-AD86-3F26A2934E1E}.Release|Win32.Build.0 = Release|Win32
+		{62362ECA-AD5B-41D7-8862-585ABF3CB5F1}.Debug|Win32.ActiveCfg = Debug|Win32
+		{62362ECA-AD5B-41D7-8862-585ABF3CB5F1}.Debug|Win32.Build.0 = Debug|Win32
+		{62362ECA-AD5B-41D7-8862-585ABF3CB5F1}.Release|Win32.ActiveCfg = Release|Win32
+		{62362ECA-AD5B-41D7-8862-585ABF3CB5F1}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
