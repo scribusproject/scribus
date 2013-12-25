@@ -710,7 +710,6 @@ PageItem* CreateMode::doCreateNewObject(void)
 			z = m_doc->itemAddArea(PageItem::Arc, PageItem::Unspecified, Rxp, Ryp, m_doc->itemToolPrefs().shapeLineWidth, m_doc->itemToolPrefs().shapeFillColor, m_doc->itemToolPrefs().lineColor, true);
 		else
 			z = m_doc->itemAdd(PageItem::Arc, PageItem::Unspecified, Rxp, Ryp, Rxpd, Rypd, m_doc->itemToolPrefs().shapeLineWidth, m_doc->itemToolPrefs().shapeFillColor, m_doc->itemToolPrefs().lineColor, true);
-		m_doc->AdjustItemSize(m_doc->Items->at(z));
 		m_doc->setRedrawBounding(m_doc->Items->at(z));
 		break;
 	case modeDrawSpiral:

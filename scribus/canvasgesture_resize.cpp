@@ -365,9 +365,6 @@ void ResizeGesture::doResize(bool scaleContent)
 			item->arcWidth += dw * dscw;
 			item->arcHeight += dh * dsch;
 			item->recalcPath();
-			FPoint tp2(getMinClipF(&currItem->PoLine));
-			currItem->PoLine.translate(-tp2.x(), -tp2.y());
-			m_doc->AdjustItemSize(currItem);
 		}
 		if (currItem->isSpiral())
 		{
