@@ -15389,6 +15389,13 @@ void ScribusDoc::removeFromGroup(PageItem* item)
 		item->maskTransform(psx, psy, pox, poy, prot, pskx, psky);
 		item->setMaskTransform(psx * grScXi, psy * grScYi, pox, poy, prot, pskx, psky);
 	}
+	if (item->isArc())
+	{
+		PageItem_Arc* ite = item->asArc();
+		ite->arcWidth = ite->arcWidth * grScXi;
+		ite->arcHeight = ite->arcHeight * grScYi;
+		ite->recalcPath();
+	}
 	if (item->asPathText())
 		item->updatePolyClip();
 	else
