@@ -33,9 +33,6 @@
     <ClCompile Include="..\..\..\scribus\plugins\short-words\shortwords.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="shortwordsdll.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\scribus\plugins\short-words\swdialog.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

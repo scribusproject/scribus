@@ -27,9 +27,6 @@
     <ClCompile Include="..\..\..\scribus\plugins\tools\2geomtools\meshdistortion\meshdistortiondialog.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="meshdistortiondll.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\scribus\plugins\tools\2geomtools\meshdistortion\moc_meshdistortion.cpp">
       <Filter>Generated Moc Files</Filter>
     </ClCompile>

@@ -27,9 +27,6 @@
     <ClCompile Include="..\..\..\scribus\plugins\tools\lenseffects\lenseffects.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="lenseffectsdll.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\scribus\plugins\tools\lenseffects\moc_lensdialog.cpp">
       <Filter>Generated Moc Files</Filter>
     </ClCompile>

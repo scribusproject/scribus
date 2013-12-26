@@ -17,9 +17,6 @@
     <ClCompile Include="..\..\..\scribus\plugins\fileloader\scribus12format\scribus12format.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="scribus12formatdll.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\scribus\plugins\fileloader\scribus12format\scribus12formatimpl.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

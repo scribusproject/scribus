@@ -23,9 +23,6 @@
     <ClCompile Include="..\..\..\scribus\plugins\fontpreview\fontpreview.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="fontpreviewdll.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\scribus\plugins\fontpreview\fontpreviewplugin.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

@@ -27,9 +27,6 @@
     <ClCompile Include="..\..\..\scribus\plugins\tools\pathconnect\pathconnectdialog.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="pathconnectdll.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\scribus\plugins\tools\pathconnect\moc_pathconnect.cpp">
       <Filter>Generated Moc Files</Filter>
     </ClCompile>

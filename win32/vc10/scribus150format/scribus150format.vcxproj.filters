@@ -20,9 +20,6 @@
     <ClCompile Include="..\..\..\scribus\plugins\fileloader\scribus150format\scribus150format_save.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="scribus150formatdll.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\scribus\plugins\fileloader\scribus150format\scribus150formatimpl.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

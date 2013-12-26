@@ -24,9 +24,6 @@
     <ClCompile Include="..\..\..\scribus\plugins\tools\flattenpath\flattenpath.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="flattenpathdll.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\scribus\plugins\tools\flattenpath\moc_flattenpath.cpp">
       <Filter>Generated Moc Files</Filter>
     </ClCompile>

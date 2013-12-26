@@ -23,9 +23,6 @@
     <ClCompile Include="..\..\..\scribus\plugins\import\xar\qtiocompressor.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="xarimportdll.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\scribus\plugins\import\xar\moc_importxar.cpp">
       <Filter>Generated Moc Files</Filter>
     </ClCompile>

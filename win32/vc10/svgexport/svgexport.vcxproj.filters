@@ -17,9 +17,6 @@
     <ClCompile Include="..\..\..\scribus\plugins\svgexplugin\svgexplugin.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="svgexportdll.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\scribus\plugins\svgexplugin\moc_svgexplugin.cpp">
       <Filter>Generated Moc Files</Filter>
     </ClCompile>

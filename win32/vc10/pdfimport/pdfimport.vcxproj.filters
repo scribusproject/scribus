@@ -27,9 +27,6 @@
     <ClCompile Include="..\..\..\scribus\plugins\import\pdf\importpdfplugin.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="pdfimportdll.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\scribus\plugins\import\pdf\pdfimportoptions.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

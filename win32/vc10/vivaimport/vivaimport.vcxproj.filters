@@ -20,9 +20,6 @@
     <ClCompile Include="..\..\..\scribus\plugins\import\viva\importvivaplugin.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="vivaimportdll.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\scribus\plugins\import\viva\moc_importviva.cpp">
       <Filter>Generated Moc Files</Filter>
     </ClCompile>

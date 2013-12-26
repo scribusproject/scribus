@@ -17,9 +17,6 @@
     <ClCompile Include="..\..\..\scribus\plugins\import\oodraw\oodrawimp.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="oodrawimportdll.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\scribus\plugins\import\oodraw\stylestack.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

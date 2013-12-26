@@ -20,9 +20,6 @@
     <ClCompile Include="..\..\..\scribus\plugins\import\shape\importshapeplugin.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="shapeimportdll.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\scribus\plugins\import\shape\moc_importshape.cpp">
       <Filter>Generated Moc Files</Filter>
     </ClCompile>

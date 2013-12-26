@@ -20,9 +20,6 @@
     <ClCompile Include="..\..\..\scribus\plugins\import\pct\importpctplugin.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="pctimportdll.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\scribus\plugins\import\pct\moc_importpct.cpp">
       <Filter>Generated Moc Files</Filter>
     </ClCompile>

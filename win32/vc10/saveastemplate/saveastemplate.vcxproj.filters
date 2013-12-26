@@ -27,9 +27,6 @@
     <ClCompile Include="..\..\..\scribus\plugins\saveastemplateplugin\satemplate.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="saveastemplatedll.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\scribus\plugins\saveastemplateplugin\moc_satdialog.cpp">
       <Filter>Generated Moc Files</Filter>
     </ClCompile>

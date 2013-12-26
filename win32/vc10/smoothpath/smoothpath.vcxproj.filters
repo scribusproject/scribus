@@ -24,9 +24,6 @@
     <ClCompile Include="..\..\..\scribus\plugins\tools\smoothpath\smoothpath.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="smoothpathdll.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\scribus\plugins\tools\smoothpath\moc_smoothpath.cpp">
       <Filter>Generated Moc Files</Filter>
     </ClCompile>

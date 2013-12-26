@@ -17,9 +17,6 @@
     <ClCompile Include="..\..\..\scribus\plugins\gettext\odtim\contentreader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="gettext-odtimdll.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\scribus\plugins\gettext\odtim\odtdia.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

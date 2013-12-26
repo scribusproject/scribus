@@ -99,9 +99,6 @@
     <ClCompile Include="..\..\..\scribus\plugins\scriptplugin\scriptplugin.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="scriptplugindll.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\scribus\plugins\scriptplugin\svgimport.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

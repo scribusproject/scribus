@@ -21,9 +21,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="hunspellcheckdll.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\scribus\plugins\tools\hunspellcheck\hunspelldialog.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

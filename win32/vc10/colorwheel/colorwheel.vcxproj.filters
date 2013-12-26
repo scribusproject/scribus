@@ -24,9 +24,6 @@
     <ClCompile Include="..\..\..\scribus\plugins\colorwheel\colorwheel.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="colorwheeldll.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\scribus\plugins\colorwheel\colorwheelwidget.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

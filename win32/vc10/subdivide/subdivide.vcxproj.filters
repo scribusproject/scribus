@@ -24,9 +24,6 @@
     <ClCompile Include="..\..\..\scribus\plugins\tools\subdivide\subdivide.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="subdividedll.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\scribus\plugins\tools\subdivide\moc_subdivide.cpp">
       <Filter>Generated Moc Files</Filter>
     </ClCompile>
