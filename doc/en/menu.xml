@@ -1,21 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <menu>
 	<area text="Welcome" file="index.html">
-		<submenuitem text="New in Scribus 1.4.3" file="readme.html"/>
+		<submenuitem text="New in Scribus 1.6" file="readme.html"/>
 		<submenuitem text="Specification" file="specs.html"/>
 	</area>
 	<area text="Documentation" file="intro.html">
 		<submenuitem text="Introduction" file="documentation.html">
 			<submenuitem text="Editorial Notes" file="editorial.html"/>
 			<submenuitem text="About the Team" file="about1.html"/>
-		</submenuitem>
-		<submenuitem text="Installation" file="install.html">
-			<submenuitem text="Mac OS X" file="readme-macosx.html"/>
-			<submenuitem text="OS/2 and eComStation" file="readme-os2.html"/>
-			<submenuitem text="Haiku" file="readme-haiku.html"/>
-			<submenuitem text="Windows" file="readme-win32.html"/>
-			<submenuitem text="Scribus Source and SVN" file="install1.html"/>
-		</submenuitem>
 		<submenuitem text="Setup" file="config.html">
 			<submenuitem text="Configuring Scribus" file="settings1.html"/>
 			<submenuitem text="Hyphenation and Spellchecking" file="hyphenator.html"/>
@@ -31,6 +23,7 @@
 			<submenuitem text="Working with Frames" file="WwFrames.html" />
 			<submenuitem text="Working with Text" file="WwText.html" />
 			<submenuitem text="Working with Styles" file="WwStyles.html" />
+			<submenuitem text="Working with Tables" file="WwTables.html" />
 			<submenuitem text="Working with Images" file="WwImages.html" />
 			<submenuitem text="Working with Render Frames" file="WwRenderframes.html" />
 			<submenuitem text="Working with Shapes" file="WwShapes.html" />
@@ -42,9 +35,6 @@
 			<submenuitem text="Working with Master Pages" file="pagetemplate1.html" />
 			<submenuitem text="Page Numbering" file="pagenumber.html" />
 			<submenuitem text="The Short Words Plug-in" file="short-words.html" />
-		</submenuitem>
-		<submenuitem text="Collect for Output" file="collect4output.html">
-		</submenuitem>
                 <submenuitem text="Editing Colors" file="color_editing.html">
 			<submenuitem text="Adding and Editing Colors" file="add_colors.html" />
 			<submenuitem text="The Color Wheel" file="colorwheel.html" />
@@ -63,23 +53,44 @@
 			<submenuitem text="What about Pantone, HKS and others?" file="color10.html" />
 		</submenuitem>
 		<submenuitem text="Importing" file="importhints.html">
+			<submenuitem text="Importing Output Formats" file="importoutput.html" />
+			<submenuitem text="Importing DTP Formats" file="importdtp.html" />
 			<submenuitem text="Importing Bitmap Files" file="importbitmap1.html" />
 			<submenuitem text="Importing Photoshop Files" file="psd.html" />
+			<submenuitem text="GraphicsMagick" file="importhints4.html" />
+			<submenuitem text="Rasterizing Files" file="importhintsraster.html" />
 			<submenuitem text="Importing Vector Drawings" file="importhints2.html"/>
-			<submenuitem text="Importing EPS" file="importhints1.html"/>
-			<submenuitem text="Importing SVG" file="scribus-svg.html" />
-			<submenuitem text="Importing HTML" file="importhints4.html" />
-			<submenuitem text="Importing OpenOffice.org and ODF Files" file="importhints3.html" />
-		</submenuitem>
+			<submenuitem text="Importing CGM Files" file="importcgm.html" />
+			<submenuitem text="Importing EPS and Illustrator Files" file="importhints1.html"/>
+			<submenuitem text="Importing FIG Files" file="importfig.html" />
+			<submenuitem text="Importing SVG Files" file="scribus-svg.html" />
+			<submenuitem text="Importing Xara Files" file="importxar.html" />
+			<submenuitem text="Importing Clipart Formats" file="importclipart.html" />
+			<submenuitem text="UniConvertor" file="importucv.html" />
+			<submenuitem text="Importing Text" file="importhints4.html" />
+			<submenuitem text="The Text Filter" file="textfilter.html"/>
+			<submenuitem text="Importing OpenOffice.org Writer and ODF Files" file="importhints3.html" />
+			<submenuitem text="Importing Word and Palm PDB Files" file="importword.html" />
+			<submenuitem text="Importing HTML Files" file="importhints4.html" />
+			<submenuitem text="Importing XPress Tag Files" file="importxtg.html" />
+			<submenuitem text="Importing 3D Files" file="import3d.html" />
+			<submenuitem text="Importing Other Formats" file="importhints-misc.html" />
+			
+		<submenuitem text="Exporting" file="export.html">
+			<submenuitem text="Collect for Output" file="collect4output.html">
 			<submenuitem text="Exporting to PDF" file="pdfexport1.html">
 			<submenuitem text="PDF Flavors" file="pdflavor.html"/>
 			<submenuitem text="PDF Export Targets" file="pdfexport2.html"/>
 			<submenuitem text="PDF Export: Image Compression" file="pdfexport_image.html"/>
 			<submenuitem text="PDF Export for Screen/Web" file="pdfexport3.html"/>
 			<submenuitem text="PDF Presentations" file="pdfexport4.html"/>
+			<submenuitem text="3D PDF" file="pdf3d.html" />
 			<submenuitem text="Creating Document Links" file="createlinks.html"/>
 			<submenuitem text="PDF Forms" file="pdf_form.html"/>
-			<submenuitem text="PDF/X-3" file="pdfx3.html"/>
+			<submenuitem text="PDF/X" file="pdfx.html"/>
+			<submenuitem text="Exporting XPS Files" file="xps-export.html"/>
+			<submenuitem text="Exporting Vector Files" file="export-vector.html"/>
+			<submenuitem text="Exporting Bitmap Files" file="export-bitmap.html"/>
 		</submenuitem>
 		<submenuitem text="Printing with Scribus" file="print1.html">
 			<submenuitem text="Printing Tools (1)" file="print2.html"/>
@@ -101,6 +112,7 @@
 			<submenuitem text="ImageMagick" file="toolbox8.html"/>
 			<submenuitem text="Inkscape" file="toolbox9.html"/>
 			<submenuitem text="Squiggle" file="toolbox3.html"/>
+			<submenuitem text="DrawView" file="toolbox20.html" />
 			<submenuitem text="LProf" file="toolbox14.html"/>
 			<submenuitem text="Fontmatrix" file="toolbox16.html"/>
 			<submenuitem text="SwatchBooker" file="toolbox17.html"/>
