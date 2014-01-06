@@ -2716,6 +2716,8 @@ void ScribusMainWindow::HaveNewDoc()
 void ScribusMainWindow::HaveNewSel(int SelectedType)
 {
 	PageItem *currItem = NULL;
+	if (doc == NULL)
+		return;
 	const uint docSelectionCount=doc->m_Selection->count();
 	if (SelectedType != -1)
 	{
