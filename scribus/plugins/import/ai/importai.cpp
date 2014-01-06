@@ -182,7 +182,8 @@ QImage AIPlug::readThumbnail(QString fNameIn)
 		tmpSel->setGroupRect();
 		double xs = tmpSel->width();
 		double ys = tmpSel->height();
-		tmpImage = Elements.at(0)->DrawObj_toImage(500);
+		if (Elements.count() > 0)
+			tmpImage = Elements.at(0)->DrawObj_toImage(500);
 		tmpImage.setText("XSize", QString("%1").arg(xs));
 		tmpImage.setText("YSize", QString("%1").arg(ys));
 		m_Doc->m_Selection->delaySignalsOff();
