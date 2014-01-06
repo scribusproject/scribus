@@ -994,6 +994,12 @@ void StyleManager::insertShortcutPage(QTabWidget *twidget)
 
 void StyleManager::slotNameChanged(const QString& name)
 {
+	if (m_item && name.isEmpty())
+	{
+		okButton->setEnabled(false);
+		applyButton->setEnabled(false);
+		return;
+	}
 	if (m_item && !nameIsUnique(name))
 	{
 		uniqueLabel->show();
@@ -1007,7 +1013,6 @@ void StyleManager::slotNameChanged(const QString& name)
 		okButton->setEnabled(true);
 		applyButton->setEnabled(true);
 	}
-
 
 	if (m_item)
 	{
