@@ -15,6 +15,10 @@
     <Filter Include="Generated Form Files">
       <UniqueIdentifier>{1d2ad7ef-563a-4431-b6ce-7591574764b0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Form Files">
+      <UniqueIdentifier>{008c4329-61f9-4fec-ba4c-5d512f391a68}</UniqueIdentifier>
+      <Extensions>ui</Extensions>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\scribus\plugins\import\xps\importxps.cpp">
@@ -49,7 +53,12 @@
   </ItemGroup>
   <ItemGroup>
     <uic Include="..\..\..\scribus\plugins\import\xps\xpsimportoptions.ui">
-      <Filter>Generated Form Files</Filter>
+      <Filter>Form Files</Filter>
     </uic>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\scribus\plugins\import\xps\ui_xpsimportoptions.h">
+      <Filter>Generated Form Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

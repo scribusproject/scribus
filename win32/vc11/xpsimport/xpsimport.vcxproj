@@ -230,6 +230,9 @@
   <ItemGroup>
     <uic Include="..\..\..\scribus\plugins\import\xps\xpsimportoptions.ui" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\scribus\plugins\import\xps\ui_xpsimportoptions.h" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
     <Import Project="..\Scribus-build-rules.targets" />
