@@ -263,6 +263,7 @@ bool ScGzFile::readFromFile(const QString& filename, QByteArray& bArray, uint ma
 			break;
 	}
 	gzFile.close();
+	bArray.truncate(bytesRead);
 	return (bArray.size() > 0);
 }
 
