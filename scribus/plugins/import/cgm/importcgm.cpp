@@ -493,17 +493,17 @@ bool CgmPlug::convert(QString fn)
 		{
 			if (backgroundSet)
 			{
-				m_Doc->m_Selection->clear();
-				m_Doc->m_Selection->delaySignalsOn();
+				tmpSel->clear();
+				tmpSel->delaySignalsOn();
 				for (int dre=0; dre<Elements.count(); ++dre)
 				{
-					m_Doc->m_Selection->addItem(Elements.at(dre), true);
+					tmpSel->addItem(Elements.at(dre), true);
 				}
-				m_Doc->m_Selection->delaySignalsOff();
-				m_Doc->m_Selection->setGroupRect();
+				tmpSel->setGroupRect();
 				double gx, gy, gw, gh;
-				m_Doc->m_Selection->getVisualGroupRect(&gx, &gy, &gw, &gh);
-				m_Doc->m_Selection->clear();
+				tmpSel->getVisualGroupRect(&gx, &gy, &gw, &gh);
+				tmpSel->clear();
+				tmpSel->delaySignalsOff();
 				int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, gx, gy, gw, gh, 0, backgroundColor, CommonStrings::None, true);
 				PageItem *ite = m_Doc->Items->takeAt(z);
 				Elements.prepend(ite);
@@ -817,6 +817,15 @@ void CgmPlug::decodeClass1(QDataStream &ts, quint16 elemID, quint16 paramLen)
 	else if (elemID == 12)
 	{
 		qDebug() << "METAFILE DEFAULTS REPLACEMENT" << paramLen;
+	/*	quint16 data, elemClass, elemID, paramLenN;
+		ts >> data;
+		elemClass = (data & 0xF000) >> 12;
+		elemID    = (data & 0x0FE0) >>  5;
+		paramLenN  = data & 0x001F;
+		if (paramLenN == 31)
+			ts >> paramLenN;
+		qDebug() << "CGM Command Class" << elemClass << "ID" << elemID << "ParamLen" << paramLenN;
+		decodeBinary(ts, elemClass, elemID, paramLenN);*/
 	}
 	else if (elemID == 13)
 	{
@@ -1606,7 +1615,7 @@ void CgmPlug::decodeClass4(QDataStream &ts, quint16 elemID, quint16 paramLen)
 			ite->PoLine.translate(m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset());
 			finishItem(ite, false);
 		}
- 		// qDebug() << "RECTANGLE";
+	//	qDebug() << "RECTANGLE";
 	}
 	else if (elemID == 12)
 	{
