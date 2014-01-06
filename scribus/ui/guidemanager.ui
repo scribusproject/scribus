@@ -163,7 +163,7 @@
           <item row="0" column="1">
            <widget class="ScrSpinBox" name="horizontalAutoCountSpin">
             <property name="suffix">
-             <string> </string>
+             <string/>
             </property>
             <property name="minimum">
              <number>0</number>
@@ -252,6 +252,9 @@
           </item>
           <item row="0" column="1">
            <widget class="ScrSpinBox" name="verticalAutoCountSpin">
+            <property name="suffix">
+             <string/>
+            </property>
             <property name="minimum">
              <number>0</number>
             </property>
