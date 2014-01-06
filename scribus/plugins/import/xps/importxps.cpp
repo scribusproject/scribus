@@ -89,6 +89,7 @@ QImage XpsPlug::readThumbnail(QString fName)
 		delete uz;
 		if (progressDialog)
 			progressDialog->close();
+		return QImage();
 	}
 	bool found = false;
 	if (uz->contains("_rels/.rels"))
@@ -412,6 +413,7 @@ bool XpsPlug::convert(QString fn)
 		delete uz;
 		if (progressDialog)
 			progressDialog->close();
+		return false;
 	}
 
 	retVal = false;
