@@ -236,8 +236,7 @@ UnZip::ErrorCode UnzipPrivate::openArchive(QIODevice* dev)
     }
 
     if (ec != UnZip::Ok)
-        closeArchive();
-
+		closeArchive();
     return ec;
 }
 
@@ -323,10 +322,17 @@ UnZip::ErrorCode UnzipPrivate::parseLocalHeaderRecord(const QString& path, const
     if (szName == 0)
         return UnZip::HeaderConsistencyError;
 
+	memset(buffer2, 0, szName);
     if (device->read(buffer2, szName) != szName)
         return UnZip::ReadFailed;
 
-    QString filename = QString::fromLatin1(buffer2, szName);
+	QString filename = "";
+	for (quint16 fc = 0; fc < szName; fc++)
+	{
+		if (buffer2[fc] > 0)
+			filename.append(QChar(buffer2[fc]));
+	}
+//    QString filename = QString::fromLatin1(buffer2, szName);
     if (filename != path) {
         qDebug() << "Filename in local header mismatches.";
         return UnZip::HeaderConsistencyError;
@@ -551,11 +557,19 @@ UnZip::ErrorCode UnzipPrivate::parseCentralDirectoryRecord()
     }
 
     QString filename;
+	memset(buffer2, 0, szName);
     if (device->read(buffer2, szName) != szName) {
         ec = UnZip::ReadFailed;
         skipEntry = true;
-    } else {
-        filename = QString::fromLatin1(buffer2, szName);
+	}
+	else
+	{
+		filename = "";
+		for (quint16 fc = 0; fc < szName; fc++)
+		{
+			if (buffer2[fc] > 0)
+				filename.append(QChar(buffer2[fc]));
+		}
     }
 
     // Unsupported features if version is bigger than UNZIP_VERSION
