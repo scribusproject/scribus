@@ -491,11 +491,11 @@ class TkCalendar(Frame):
         self.langLabel = Label(self, text='Select language:')
 
         self.langFrame = Frame(self)
-        self.langFrame.pack()
-        self.langScrollbar = Scrollbar(self.langFrame)
-        self.langScrollbar.pack(fill=Y, side=RIGHT)
+        self.langFrame.grid()
+        self.langScrollbar = Scrollbar(self.langFrame, orient=VERTICAL)
+        self.langScrollbar.grid(row=0, column=1, sticky=N+S)
         self.langListbox = Listbox(self.langFrame, selectmode=SINGLE, height=10, yscrollcommand=self.langScrollbar.set)
-        self.langListbox.pack(fill=X,side=LEFT)
+        self.langListbox.grid(row=0, column=0, sticky=N+S+E+W)
         self.langScrollbar.config(command=self.langListbox.yview)
 
         keys = localization.keys()
