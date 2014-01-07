@@ -1093,9 +1093,12 @@ void CanvasMode::commonDrawTextCursor(QPainter* p, PageItem_TextFrame* textframe
 		cPen.setColor ( ScColorEngine::getRGBColor ( m_doc->PageColors[textframe->itemText.charStyle ( textCursorPos ).fillColor() ], m_doc ) );
 	}
 	//handle Right to Left writing
-	if ( textframe->reversed() )
+	if (textframe->imageFlippedH())
+		dx = textframe->width() - dx;
+	if (textframe->imageFlippedV())
 	{
-		dx=textframe->width()-dx;
+		dy  = textframe->height() - dy;
+		dy1 = textframe->height() - dy1;
 	}
 	p->save();
 	p->setTransform(textframe->getTransform(), true);

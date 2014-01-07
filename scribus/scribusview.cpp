@@ -1682,24 +1682,22 @@ bool ScribusView::slotSetCurs(int x, int y)
 		// #9592 : layout must be valid here, or screenToPosition() may crash
 		if (textFrame->invalid)
 			textFrame->layout();
+
 		double sx, sy;
 		getScaleFromMatrix(mm, sx, sy);
 		QTransform ms;
 		ms.scale(sx, sy);
-		if(textFrame->reversed())
-		{ //handle Right to Left writing
-			FPoint point(textFrame->width() * mm.m11() - (canvasPoint.x() - textFramePoint.x()), canvasPoint.y() - textFramePoint.y());
-			point = point.transformPoint(ms, true);
-			textFrame->itemText.setCursorPosition(textFrame->itemText.length() == 0 ? 0 :
-				textFrame->itemText.screenToPosition(point));
-		}
-		else
-		{
-			FPoint point(canvasPoint.x() - textFramePoint.x(), canvasPoint.y() - textFramePoint.y());
-			point = point.transformPoint(ms, true);
-			textFrame->itemText.setCursorPosition(textFrame->itemText.length() == 0 ? 0 :
-				textFrame->itemText.screenToPosition(point));
-		}
+
+		double px = canvasPoint.x() - textFramePoint.x();
+		double py = canvasPoint.y() - textFramePoint.y();
+		if (textFrame->imageFlippedH())
+			px = textFrame->width() * mm.m11() - px;
+		if (textFrame->imageFlippedV())
+			py = textFrame->height() * mm.m22() - py;
+		FPoint point(px, py);
+		point = point.transformPoint(ms, true);
+		textFrame->itemText.setCursorPosition(textFrame->itemText.length() == 0 ? 0 :
+			textFrame->itemText.screenToPosition(point));
 
 		if (textFrame->itemText.length() > 0)
 		{
