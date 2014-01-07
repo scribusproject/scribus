@@ -544,7 +544,8 @@ void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 						}
 						double gx, gy, gh, gw;
 						m_objectDeltaPos.setXY(dX, dY);
-						m_doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
+					//	m_doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
+						m_doc->m_Selection->getVisualGroupRect(&gx, &gy, &gw, &gh);
 						// #10677 : temporary hack : we need to introduce the
 						// concept of item snapping points to handle better
 						// the various types of items
@@ -628,7 +629,8 @@ void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 				{
 					double gx, gy, gh, gw;
 					m_doc->m_Selection->setGroupRect();
-					m_doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
+				//	m_doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
+					m_doc->m_Selection->getVisualGroupRect(&gx, &gy, &gw, &gh);
 					int dX=qRound(newX - m_mousePressPoint.x()), dY=qRound(newY - m_mousePressPoint.y());
 					erf = true;
 					if (m->modifiers() & Qt::ControlModifier)
@@ -1083,7 +1085,7 @@ void CanvasMode_Normal::mouseReleaseEvent(QMouseEvent *m)
 				m_doc->moveGroup(m_objectDeltaPos.x(), m_objectDeltaPos.y());
 				m_doc->m_Selection->setGroupRect();
 				double gx, gy, gh, gw;
-				m_doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
+				m_doc->m_Selection->getVisualGroupRect(&gx, &gy, &gw, &gh);
 				double nx = gx;
 				double ny = gy;
 				if (!m_doc->ApplyGuides(&nx, &ny) && !m_doc->ApplyGuides(&nx, &ny,true))
@@ -1101,7 +1103,7 @@ void CanvasMode_Normal::mouseReleaseEvent(QMouseEvent *m)
 				}
 				m_doc->moveGroup(nx-gx, ny-gy, false);
 				m_doc->m_Selection->setGroupRect();
-				m_doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
+				m_doc->m_Selection->getVisualGroupRect(&gx, &gy, &gw, &gh);
 				nx = gx+gw;
 				ny = gy+gh;
 				if (m_doc->ApplyGuides(&nx, &ny) && !m_doc->ApplyGuides(&nx, &ny,true))

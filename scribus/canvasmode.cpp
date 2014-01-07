@@ -583,6 +583,20 @@ void CanvasMode::drawOutline(QPainter* p, double scalex, double scaley, double d
 					p->save();
 					p->setBrush(m_brush["outline"]);
 					p->setPen(m_pen["outline"]);
+					p->translate(currItem->visualXPos(), currItem->visualYPos());
+					p->translate(deltax, deltay);
+					if (currItem->rotation() != 0)
+					{
+						p->setRenderHint(QPainter::Antialiasing);
+						p->rotate(currItem->rotation());
+					}
+					p->scale(scalex, scaley);
+					p->drawRect(QRectF(0.0, 0.0, currItem->visualWidth()+1.0, currItem->visualHeight()+1.0));
+					p->restore();
+
+					p->save();
+					p->setBrush(m_brush["outline"]);
+					p->setPen(m_pen["outline"]);
 					p->translate(currItem->xPos(), currItem->yPos());
 					p->translate(deltax, deltay);
 					if (currItem->rotation() != 0)
@@ -654,6 +668,19 @@ void CanvasMode::drawOutline(QPainter* p, double scalex, double scaley, double d
 						}
 #endif  // GESTURE_FRAME_PREVIEW
 						{
+							p->save();
+							p->setBrush(m_brush["outline"]);
+							p->setPen(m_pen["outline"]);
+							p->translate(currItem->visualXPos(), currItem->visualYPos());
+							p->translate(deltax, deltay);
+							if (currItem->rotation() != 0)
+							{
+								p->setRenderHint(QPainter::Antialiasing);
+								p->rotate(currItem->rotation());
+							}
+							p->scale(scalex, scaley);
+							p->drawRect(QRectF(0.0, 0.0, currItem->visualWidth()+1.0, currItem->visualHeight()+1.0));
+							p->restore();
 							p->save();
 							p->setBrush(m_brush["outline"]);
 							p->setPen(m_pen["outline"]);
