@@ -731,10 +731,11 @@ bool importColorsFromFile(QString fileName, ColorList &EditColors, QHash<QString
 						{
 							EditColors.tryAddColor(it.key(), it.value());
 						}
+						return (EditColors.count() != oldCount);
 					}
 				}
 			}
-			else if (ext == "acb")			// Adobe color book format
+			if (ext == "acb")			// Adobe color book format
 			{
 				QFile fiC(fileName);
 				if (fiC.open(QIODevice::ReadOnly))
