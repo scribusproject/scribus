@@ -315,15 +315,17 @@ void CanvasMode_Edit::drawTextCursor ( QPainter *p, PageItem_TextFrame* textfram
 			cPen.setColor ( ScColorEngine::getRGBColor ( m_doc->PageColors[textframe->itemText.charStyle ( textCursorPos ).fillColor() ], m_doc ) );
 		}
 		//handle Right to Left writing
-		if ( textframe->reversed() )
+		if (textframe->imageFlippedH())
+			dx = textframe->width() - dx;
+		if (textframe->imageFlippedV())
 		{
-			dx=textframe->width()-dx;
+			dy  = textframe->height() - dy;
+			dy1 = textframe->height() - dy1;
 		}
 
 		p->save();
 		p->translate ( textframe->xPos(), textframe->yPos() );
 		p->rotate ( textframe->rotation() );
-
 
 		p->setPen ( cPen );
 		p->setRenderHint ( QPainter::Antialiasing, true );

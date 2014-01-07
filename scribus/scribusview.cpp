@@ -1715,8 +1715,10 @@ bool ScribusView::slotSetCurs(int x, int y)
 				transform.inverted().map(pf.x(), pf.y(), &tx, &ty);
 				point.setXY(tx, ty);
 			}
-			if (currItem->reversed())
+			if (currItem->imageFlippedH())
 				point.setX(currItem->width() - point.x());
+			if (currItem->imageFlippedV())
+				point.setY(currItem->height() - point.y());
 			currItem->itemText.setCursorPosition( currItem->itemText.length() == 0 ? 0 :
 				currItem->itemText.screenToPosition(point) );
 
