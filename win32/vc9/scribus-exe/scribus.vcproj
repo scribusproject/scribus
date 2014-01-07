@@ -3508,10 +3508,6 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\icons5.h"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\scribus\imageinfodialog.h"
 				>
 				<FileConfiguration
