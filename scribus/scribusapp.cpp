@@ -101,7 +101,7 @@ ScribusQApp::ScribusQApp( int & argc, char ** argv ) : QApplication(argc, argv),
 	ScQApp = this;
 	ScCore = 0;
 	m_scDLMgr = 0;
-
+	m_ScCore = NULL;
 	initDLMgr();
 }
 
