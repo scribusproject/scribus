@@ -124,7 +124,37 @@ void ResizeGesture::deactivate(bool forgesture)
 void ResizeGesture::drawControls(QPainter* p) 
 {
 	QColor drawColor = qApp->palette().color(QPalette::Active, QPalette::Highlight);
-	QRect localRect = m_canvas->canvasToLocal(m_bounds.normalized());
+	QRect localRect;
+	switch (m_handle)
+	{
+		case Canvas::NORTHWEST:
+			localRect = m_canvas->canvasToLocal(m_bounds.normalized().adjusted(0, 0, -m_extraX, -m_extraY));
+			break;
+		case Canvas::WEST:
+			localRect = m_canvas->canvasToLocal(m_bounds.normalized().adjusted(0, -m_extraY, -m_extraX, -m_extraY));
+			break;
+		case Canvas::NORTH:
+			localRect = m_canvas->canvasToLocal(m_bounds.normalized().adjusted(-m_extraX, 0, -m_extraX, -m_extraY));
+			break;
+		case Canvas::NORTHEAST:
+			localRect = m_canvas->canvasToLocal(m_bounds.normalized().adjusted(-m_extraX, 0, 0, -m_extraY));
+			break;
+		case Canvas::EAST:
+			localRect = m_canvas->canvasToLocal(m_bounds.normalized().adjusted(-m_extraX, -m_extraY, 0, -m_extraY));
+			break;
+		case Canvas::SOUTHEAST:
+			localRect = m_canvas->canvasToLocal(m_bounds.normalized().adjusted(-m_extraX, -m_extraY, 0, 0));
+			break;
+		case Canvas::SOUTH:
+			localRect = m_canvas->canvasToLocal(m_bounds.normalized().adjusted(-m_extraX, -m_extraY, -m_extraX, 0));
+			break;
+		case Canvas::SOUTHWEST:
+			localRect = m_canvas->canvasToLocal(m_bounds.normalized().adjusted(0, -m_extraY, -m_extraX, 0));
+			break;
+		default:
+			break;
+	}
+//	QRect localRect = m_canvas->canvasToLocal(m_bounds.normalized().adjusted(-m_extraX, -m_extraY, 0, 0));
 	p->save();
 	if (m_rotation != 0)
 	{
@@ -150,7 +180,6 @@ void ResizeGesture::drawControls(QPainter* p)
 			QTransform m;
 			m.translate(localRect.x(), localRect.y());
 			m.scale(localRect.width() / currItem->width(), localRect.height() / currItem->height());
-			QTransform mm = currItem->getTransform();
 			if (currItem->imageFlippedH())
 			{
 				m.translate(currItem->width(), 0);
@@ -354,6 +383,46 @@ void ResizeGesture::doResize(bool scaleContent)
 		currItem->moveBy(-dx, -dy, true);
 		currItem->setWidth(newBounds.width() / m_scaleX - m_extraWidth);
 		currItem->setHeight(newBounds.height() / m_scaleY - m_extraHeight);
+
+		switch (m_handle)
+		{
+			case Canvas::NORTH:
+				currItem->moveBy(0, m_extraY, true);
+				currItem->setHeight(currItem->height() - m_extraY);
+				break;
+			case Canvas::NORTHEAST:
+				currItem->moveBy(0, m_extraY, true);
+				currItem->setHeight(currItem->height() - m_extraY);
+				currItem->setWidth(currItem->width() + m_extraX);
+				break;
+			case Canvas::EAST:
+				currItem->setWidth(currItem->width() + m_extraX);
+				break;
+			case Canvas::SOUTHEAST:
+				currItem->setWidth(currItem->width() + m_extraX);
+				currItem->setHeight(currItem->height() + m_extraY);
+				break;
+			case Canvas::SOUTH:
+				currItem->setHeight(currItem->height() + m_extraY);
+				break;
+			case Canvas::SOUTHWEST:
+				currItem->moveBy(m_extraX, 0, true);
+				currItem->setWidth(currItem->width() - m_extraX);
+				currItem->setHeight(currItem->height() + m_extraY);
+				break;
+			case Canvas::WEST:
+				currItem->moveBy(m_extraX, 0, true);
+				currItem->setWidth(currItem->width() - m_extraX);
+				break;
+			case Canvas::NORTHWEST:
+				currItem->moveBy(m_extraX, m_extraY, true);
+				currItem->setWidth(currItem->width() - m_extraX);
+				currItem->setHeight(currItem->height() - m_extraY);
+				break;
+			default:
+				break;
+		}
+
 		if (currItem->imageFlippedH())
 			currItem->moveBy(-currItem->width(), 0);
 		if (currItem->imageFlippedV())
@@ -435,7 +504,7 @@ void ResizeGesture::adjustBounds(QMouseEvent *m)
 			ySnap = y;
 //		if (m_doc->ApplyGuides(&x, &y))
 //			qDebug() << "guides applied:" << snappedPoint.x() << snappedPoint.y() << "to" << x << y;
-		if (m_handle == Canvas::NORTH || m_handle == Canvas::SOUTH) 
+		if (m_handle == Canvas::NORTH || m_handle == Canvas::SOUTH)
 			// only snap on y-axis
 			docPoint = FPoint(docPoint.x(), y);
 		else if (m_handle == Canvas::EAST || m_handle == Canvas::WEST)
