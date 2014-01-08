@@ -1,0 +1,49 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<title>Importing Output Formats</title>
+</head>
+<style>
+@import "manual.css";
+</style>
+<body>
+<h2>Importing Output Formats</h2>
+<h3>What is an &ldquo;Output Format&rdquo;?</h3>
+<p>No matter how much time is being spent on writing import or export filters for a particular file format, it&rsquo;s almost impossible to guarantee a 100% identical display/output on two different computers, simply because there are too many uncertainties, like software features or installed fonts. This is generally accepted (and actually a feature) for content we view in a web-browser. In print, however, it is unacceptable, not the least since typesetters and designers spend a lot of time refining graphics and text down to percentages of points. Hence the development of so-called output or exchange formats, whose content will look <i>exactly</i> the same on every computer. The price to pay for the reliability of the output used to be a lack of editability of those files, especially PDF. This limitation, as well as demands from users, presented a challenge to software developers and resulted in specialized programs that enabled the editing of file formats that were explictly designed to be uneditable. As of version 1.6, Scribus has joined this club.</p>
+
+<h3>PostScript (PS)</h3>
+<p>For a long time the standard output/exchange format for printing was <b>PostScript</b>, which is actually a full-fledged programming language, but more commonly known as a <i>page description language</i>. In PostScript, every page in a document, as well as the page&rsquo;s content and other data like colors or color profiles is stored exactly as seen by the user of the generating software.</p>
+
+<h3>Portable Document Format (PDF)</h3>
+<p>A major downside of the PostScript format is the file size, especially when PS files comprise many high-resolution graphics. The developer of PostScript, Adobe Systems, thus invented a more modern format, which was orginally based on PS but has seen many enhancements beyond the restrictions of its predecessor: the <b>Portable Document Format (PDF)</b>. While PostScript more or less describes a document on a per-page base, a PDF document is some kind of database that not only allows much smaller file sizes, but also enables faster access to the content of the files. Over time Adobe developed and advertised PDF from &ldquo;digital paper&rdquo; for office use, to a PostScript replacement. In recent years many other features, like <a href="pdf_form.html">digital forms</a>, <a href="pdfexport4.html">presentation effects</a>, embedding of videos or <a href="import3d.html">3D graphics</a> have been added, and Scribus already supports a substantial amount of those, both in import and in export. Whereas the PDF format was orginally invented by Adobe Systems, standardization has been handed over to the most important international standards body, ISO. Subsets of the PDF standard, like PDF/E are being worked on by other international organizations.</p>
+
+<h3>(Open) XML Paper Specification (XPS, OXPS)</h3>
+<p>The stellar ascent of XML and the related use of ZIP containers for complex XML-based documents with multiple types of content (e.g. <a href="importhints3.html">OpenDocument</a>) resulted in the development of an XML-based container format called <b>XML Paper Specification (XPS)</b> by Microsoft. XPS isn&rsquo;t as versatile as PDF and focusses very much on the orginal purpose of PostScript/PDF, which is describing the content of pages as precisely as possible. XPS files allow for different color models (RGB, CMYK, spot colors) and font embedding. However, in contrast to PostScript and PDF, XPS doesn&rsquo;t support the legacy <a href="fonts2.html">PostScript font format</a>, only TTF and OTF fonts. In 2009, Microsoft transferred the further development of the specification to the standardization body ECMA International, which has added significant changes and also renamed the file extension to <b>OXPS</b>. Since then, the formats are no longer compatible, but Scribus can import both versions. One of the biggest advantages of XPS/OXPS is its support of most, if not all, <i>graphics</i> features of MS Office components, so Scribus users can reliably import and modify documents created by MS Word or MS PowerPoint if XPS/OXPS is being used as an exchange format.</p>
+
+<h3>Importing and Opening Files</h3>
+<p>As with files from other DTP programs and vector files, output formats can either imported into an existing document or directly opened for further editing. In both cases you will be presented an import dialog, but if you are trying to import a file, you cannot select a range of pages, only a single page. Another difference between opening and importing is that in <i>opened</i> files you can select items directly for editing, while imported files are being imported as a single group. Thus, imported files need to be ungrouped before single elements can be edited.</p>
+
+<p>If a file has been created with one or more PostScript/PDF &ldquo;box&rdquo; types, you can decide to crop the file to one of those boxes.</p>
+<br>
+<table width="100%"><tr><td align="center"><img src="images/import-pdf1.png" alt="The PostScript/PDF import dialog"  title="The PostScript/PDF import dialog" /></td></tr></table><br>
+<h3>Caveats</h3>
+
+<h4>PostScript</h4>
+<p>The major caveat of PostScript import is that text cannot be imported as such but will instead be converted to vector drawings. The reason for this behavior is the desire to preserve the original layout 100%, which would be impossible if text could be edited. There is one exception, though, namely text annotations and hyperlinks, which may also be saved in a PostScript document. These items will be imported as text frames, while their content will not, but at least it&rsquo;s possible to add new text to those frames. All other items (image frames and vector drawings) can be edited with the usual tools.</p>
+
+<p> A major improvement in Scribus 1.6 is its ability to store bitmap images in a SLA file. As a consequence, importing PostScript files and other formats that allow for embedding images will no longer result in countless temporary bitmap files written to your hard drive.</p>
+
+<p> Scribus will import <i>all</i> colors in their orginal color model (RGB, CMYK, or spot colors, the latter being imported with their original names).</p>
+
+<h4>PDF</h4>
+<p>In addition to the issues and features regarding PostScript, unique PDF features, even if supported by Scribus during export won&rsquo;t survive import, among them <a href="layers.html">layers</a>, <a href="pdfexport4.html">presentation effects</a>, or <a href="import3d.html">3D graphics</a>. <a href="pdf_form.html">PDF form elements</a>, on the other hand, will be imported as such.</p>
+<br>
+<table width="100%"><tr><td align="center"><img src="images/import-pdf2.png" alt="A PDF file after import into Scribus"  title="A PDF file after import into Scribus" /></td></tr></table><br>
+
+<h4>XPS/OXPS</h4>
+<p>Most of what has been said about PDF is also true for XPS/OXPS files. There is, however, another caveat related to colors. As of Windows Vista XPS isn&rsquo;t just another file format, it&rsquo;s also at the core of the Windows printing system, replacing GDI+. This means that, unless you are cooperating with a company that uses sophisticated XPS software, all colors will be in RGB, simply because almost all desktop printers expect this color space. This will definitely be the case if an XPS/OXPS file has been created using the native Windows XPS printer driver. Thus, if you need CMYK or spot colors to be preserved, XPS/OXPS probably shouldn&rsquo;t be your format of choice.</p>
+
+<br>
+<br>
+</body>
+</html>
