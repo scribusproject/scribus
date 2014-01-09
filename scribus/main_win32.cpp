@@ -102,7 +102,7 @@ int main(int argc, char *argv[])
 */
 int mainApp(ScribusQApp& app)
 {
-	int appRetVal;
+	int appRetVal = 0;
 #ifndef _DEBUG
 	__try
 	{
