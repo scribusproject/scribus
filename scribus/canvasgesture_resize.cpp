@@ -479,13 +479,13 @@ void ResizeGesture::adjustBounds(QMouseEvent *m)
 	QPointF oldXY = m_bounds.topLeft();
 	// proportional resize
 	bool constrainRatio = ((m->modifiers() & Qt::ControlModifier) != Qt::NoModifier);
-	
+/*
 	if (m_mousePressPoint == m->globalPos())
 	{
 		m_bounds = m_mousePressBounds;
 		return;
 	}
-
+*/
 	// snap to grid	+ snap to guides
 	xSnap = 0;
 	ySnap = 0;
@@ -768,5 +768,6 @@ void ResizeGesture::mousePressEvent(QMouseEvent *m)
 		prepare(m_handle);
 		m->accept();
 		m_mousePressBounds = m_bounds;
+		adjustBounds(m);
 	}
 }
