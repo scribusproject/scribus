@@ -19,6 +19,8 @@ for which a new license (GPL+exception) is in place.
  *                                                                         *
  ***************************************************************************/
 
+#include <QDebug>
+
 #include "actionmanager.h"
 #include "ui/scmwmenumanager.h"
 
@@ -55,4 +57,5 @@ void ScMWMenuManager::languageChange()
 	setText("Help", ActionManager::defaultMenuNameEntryTranslated("Help"));
 	setText("Alignment", tr("&Alignment"));
 	setText("HelpOnlineTutorials", tr("Online &Tutorials"));
+	MenuManager::languageChange();
 }

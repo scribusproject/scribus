@@ -126,6 +126,12 @@ bool MenuManager::addMenuStringToMenuBarBefore(const QString &menuName, const QS
 	return retVal;
 }
 
+void MenuManager::clear()
+{
+	menuStrings.clear();
+	rememberedMenus.clear();
+}
+
 
 void MenuManager::addMenuItemStringstoMenuBar(const QString &menuName, const QMap<QString, QPointer<ScrAction> > &menuActions)
 {
@@ -326,13 +332,25 @@ bool MenuManager::menuExists(const QString &menuName)
 void MenuManager::dumpMenuStrings()
 {
 	QMapIterator<QString, QList<QString> > i(menuStrings);
-	while (i.hasNext()) {
+	while (i.hasNext())
+	{
 		i.next();
 		qDebug() << "Menu name:"<<i.key();// << ": " << i.value() << endl;
 
 		QListIterator<QString> li (i.value());
-		while (li.hasNext()) {
+		while (li.hasNext())
+		{
 			qDebug() << "Menu entry:"<<li.next();
 		}
+	}
+}
+
+void MenuManager::languageChange()
+{
+	foreach (const QString &menuName, menuBarMenus.keys())
+	{
+		QMenu *m=menuBarMenus.value(menuName);
+		if (m)
+			m->setTitle(menuStringTexts[menuName]);
 	}
 }

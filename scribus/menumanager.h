@@ -62,6 +62,7 @@ class SCRIBUS_API MenuManager : public QObject
 		QMenu *getLocalPopupMenu(const QString &menuName);
 		bool addMenuStringToMenuBar(const QString &menuName, bool rememberMenu=false);
 		bool addMenuStringToMenuBarBefore(const QString &, const QString &beforeMenuName);
+		void clear();
 		bool clearMenu(const QString &menuName);
 		bool empty();
 		bool menuExists(const QString &menuName);
@@ -76,9 +77,9 @@ class SCRIBUS_API MenuManager : public QObject
 		QMenu *redoMenu() {return m_redoMenu;}
 
 	public slots:
-		void languageChange() {};
+		void languageChange();
 
-private:
+protected:
 	QMenuBar *scribusMenuBar;
 
 	QMap<QString, QList<QString> > menuStrings;

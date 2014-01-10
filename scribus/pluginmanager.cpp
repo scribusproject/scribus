@@ -285,7 +285,7 @@ bool PluginManager::setupPluginActions(ScribusMainWindow *mw)
 	Q_CHECK_PTR(mw);
 	ScActionPlugin* plugin = 0;
 
-	mw->scrMenuMgr->addMenuItemString("SEPARATOR", "Extras");
+	//mw->scrMenuMgr->addMenuItemString("SEPARATOR", "Extras");
 	for (PluginMap::Iterator it = pluginMap.begin(); it != pluginMap.end(); ++it)
 	{
 		if (it.value().plugin->inherits("ScActionPlugin"))
@@ -660,9 +660,8 @@ void PluginManager::languageChange()
 				pluginAction = ScCore->primaryMainWindow()->scrActions[ai.name];
 				if (pluginAction != 0)
 					pluginAction->setText( ai.text );
-//FIXME QT5 port causes disappearing menus, qt 5.1+
-				//if ((!ai.menu.isEmpty()) && (!ai.subMenuName.isEmpty()))
-				//	ScCore->primaryMainWindow()->scrMenuMgr->setText(ai.menu, ai.subMenuName);
+				if ((!ai.menu.isEmpty()) && (!ai.subMenuName.isEmpty()))
+					ScCore->primaryMainWindow()->scrMenuMgr->setText(ai.menu, ai.subMenuName);
 			}
 		}
 	}
