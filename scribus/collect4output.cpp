@@ -357,7 +357,23 @@ bool CollectForOutput::collectFonts()
 	for (it3 = m_Doc->UsedFonts.begin(); it3 != it3end; ++it3)
 	{
 		QFileInfo itf(prefsManager->appPrefs.fontPrefs.AvailFonts[it3.key()].fontFilePath());
-		copyFileAtomic(prefsManager->appPrefs.fontPrefs.AvailFonts[it3.key()].fontFilePath(), m_outputDirectory + "fonts/" + itf.fileName());
+		QString oldFileITF(prefsManager->appPrefs.fontPrefs.AvailFonts[it3.key()].fontFilePath());
+		QString outFileITF(m_outputDirectory + "fonts/" + itf.fileName());
+		bool success = copyFileAtomic(oldFileITF, outFileITF);
+		if (!success)
+			qDebug()<<"CollectForOutput::collectFile copyFileAtomic failed for"<<oldFileITF<<"to"<<outFileITF;
+		else
+		{
+			QFile of(outFileITF);
+			if (of.exists())
+			{
+				bool permsSet=of.setPermissions(QFile::permissions(oldFileITF));
+				if (!permsSet)
+					qDebug()<<"Unable to set permissions successfully while collecting for output on"<<outFileITF;
+			}
+			else
+				qDebug()<<"Unable to set permissions successfully while collecting for output on"<<outFileITF<<"as the file does not exist";
+		}
 		if (prefsManager->appPrefs.fontPrefs.AvailFonts[it3.key()].type() == ScFace::TYPE1)
 		{
 			QStringList metrics;
@@ -380,7 +396,22 @@ bool CollectForOutput::collectFonts()
 			{
 				QString origAFM = metrics[a];
 				QFileInfo fi(origAFM);
-				copyFileAtomic(origAFM, m_outputDirectory + "fonts/" + fi.fileName());
+				QString outFileAFM(m_outputDirectory + "fonts/" + fi.fileName());
+				bool success = copyFileAtomic(origAFM, outFileAFM);
+				if (!success)
+					qDebug()<<"CollectForOutput::collectFile copyFileAtomic failed for"<<origAFM<<"to"<<outFileAFM;
+				else
+				{
+					QFile of(outFileAFM);
+					if (of.exists())
+					{
+						bool permsSet=of.setPermissions(QFile::permissions(origAFM));
+						if (!permsSet)
+							qDebug()<<"Unable to set permissions successfully while collecting for output on"<<outFileAFM;
+					}
+					else
+						qDebug()<<"Unable to set permissions successfully while collecting for output on"<<outFileAFM<<"as the file does not exist";
+				}
 			}
 		}
 		if (uiCollect)
@@ -438,8 +469,23 @@ bool CollectForOutput::collectProfiles()
 	for (ProfilesL::Iterator it = docProfiles.begin(); it != itend; ++it)
 	{
 		QString profileName(it.key());
-		QString profilePath(it.value());
-		copyFileAtomic(profilePath, m_outputDirectory + "profiles/" + QFileInfo(profilePath).fileName());
+		QString oldFile(it.value());
+		QString outFile(m_outputDirectory + "profiles/" + QFileInfo(oldFile).fileName());
+		bool success = copyFileAtomic(oldFile, outFile);
+		if (!success)
+			qDebug()<<"CollectForOutput::collectFile copyFileAtomic failed for"<<oldFile<<"to"<<outFile;
+		else
+		{
+			QFile of(outFile);
+			if (of.exists())
+			{
+				bool permsSet=of.setPermissions(QFile::permissions(oldFile));
+				if (!permsSet)
+					qDebug()<<"Unable to set permissions successfully while collecting for output on"<<outFile;
+			}
+			else
+				qDebug()<<"Unable to set permissions successfully while collecting for output on"<<outFile<<"as the file does not exist";
+		}
 		if (uiCollect)
 			emit profilesCollected(c++);
 	}
