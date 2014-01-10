@@ -44,12 +44,14 @@ public:
 		FontSize(16.0),
 		LineHeight(15.0),
 		LineWidth(0.0),
+		LineWidth2(0.0),
 		FontStretch(1.0),
 		FontKerning(0.0),
 		FontBold(false),
 		FontUnderline(false),
 		FontItalic(false),
 		TextAlignment(0),
+		TextLeftIndent(0),
 		FillCol(CommonStrings::None),
 		fillRule(true),
 		FillGradient(VGradient::linear),
@@ -136,12 +138,14 @@ public:
 	double FontSize;
 	double LineHeight;
 	double LineWidth;
+	double LineWidth2;
 	double FontStretch;
 	double FontKerning;
 	bool FontBold;
 	bool FontUnderline;
 	bool FontItalic;
 	int TextAlignment;
+	double TextLeftIndent;
 	QString FillCol;
 	bool fillRule;
 	VGradient FillGradient;
@@ -265,6 +269,8 @@ private:
 	void handleTextFont(QDataStream &ts);
 	void handleTextString(QDataStream &ts, quint32 dataLen);
 	void handleTextChar(QDataStream &ts);
+	void handleTextWrap(QDataStream &ts);
+	void handleTextIndent(QDataStream &ts);
 	void handleLineInfo(QDataStream &ts);
 	void handleTextAlignment(quint32 tag);
 	void handleTextTracking(QDataStream &ts);
@@ -379,7 +385,6 @@ private:
 		bool FontBold;
 		bool FontUnderline;
 		bool FontItalic;
-		bool newLine;
 		QString FillCol;
 		VGradient FillGradient;
 		VGradient StrokeGradient;
@@ -446,11 +451,17 @@ private:
 		double patternMaskSkewX;
 		double patternMaskSkewY;
 	};
+	struct XarTextLine
+	{
+		QList<XarText> textData;
+	};
+
 	QByteArray imageData;
 	QList<PageItem*> Elements;
 	QList<quint32> atomicTags;
 	QList<quint32> ignoreableTags;
 	QList<XarText> textData;
+	QList<XarTextLine> textLines;
 	QMap<qint32, XarColor> XarColorMap;
 	QMap<qint32, PageItem*> pathMap;
 	QMap<quint32, QString> brushRef;
