@@ -354,6 +354,7 @@ ScribusView::ScribusView(QWidget* win, ScribusMainWindow* mw, ScribusDoc *doc) :
 	endEditButton->setVisible(false);
 	connect(endEditButton, SIGNAL(clicked()), m_ScMW, SLOT(slotFileClose()));
 	editOnPreviewToolbarButton->hide();
+	m_oldSnapToElem = Doc->SnapElement;
 	languageChange();
 }
 
@@ -4400,7 +4401,10 @@ bool ScribusView::eventFilter(QObject *obj, QEvent *event)
 	{
 		QKeyEvent* m = static_cast<QKeyEvent*> (event);
 		if(m->key() == Qt::Key_Shift)
+		{
+			m_oldSnapToElem = Doc->SnapElement;
 			m_ScMW->SetSnapElements(false);
+		}
 		if (m_canvasMode->handleKeyEvents())
 			m_canvasMode->keyPressEvent(m);
 		else
@@ -4411,7 +4415,7 @@ bool ScribusView::eventFilter(QObject *obj, QEvent *event)
 	{
 		QKeyEvent* m = static_cast<QKeyEvent*> (event);
 		if(m->key() == Qt::Key_Shift)
-			m_ScMW->SetSnapElements(true);
+			m_ScMW->SetSnapElements(m_oldSnapToElem);
 		if (m_canvasMode->handleKeyEvents())
 			m_canvasMode->keyReleaseEvent(m);
 		else
