@@ -123,12 +123,6 @@
     <moc Include="..\..\..\scribus\plugins\import\xar\importxarplugin.h" />
     <moc Include="..\..\..\scribus\plugins\import\xar\qtiocompressor.h" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\idmlimport\idmlimport.vcxproj">
-      <Project>{6f97694c-76d9-4b1e-9c38-22fa260ab347}</Project>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
     <Import Project="..\Scribus-build-rules.targets" />

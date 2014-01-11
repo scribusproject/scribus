@@ -208,7 +208,6 @@
   <ItemGroup>
     <ClCompile Include="..\..\..\scribus\plugins\fileloader\scribus150format\scribus150format.cpp" />
     <ClCompile Include="..\..\..\scribus\plugins\fileloader\scribus150format\scribus150format_save.cpp" />
-    <ClCompile Include="scribus150formatdll.cpp" />
     <ClCompile Include="..\..\..\scribus\plugins\fileloader\scribus150format\scribus150formatimpl.cpp" />
     <ClCompile Include="..\..\..\scribus\plugins\fileloader\scribus150format\moc_scribus150format.cpp" />
     <ClCompile Include="..\..\..\scribus\plugins\fileloader\scribus150format\moc_scribus150formatimpl.cpp" />
@@ -216,12 +215,6 @@
   <ItemGroup>
     <moc Include="..\..\..\scribus\plugins\fileloader\scribus150format\scribus150format.h" />
     <moc Include="..\..\..\scribus\plugins\fileloader\scribus150format\scribus150formatimpl.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\scribus-main\Scribus.vcxproj">
-      <Project>{b17fcd80-7978-4544-93c4-2fe1ac6fe9f3}</Project>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

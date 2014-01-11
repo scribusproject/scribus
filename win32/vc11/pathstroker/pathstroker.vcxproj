@@ -207,17 +207,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\scribus\plugins\tools\pathstroker\pathstroker.cpp" />
-    <ClCompile Include="pathstrokerdll.cpp" />
     <ClCompile Include="..\..\..\scribus\plugins\tools\pathstroker\moc_pathstroker.cpp" />
   </ItemGroup>
   <ItemGroup>
     <moc Include="..\..\..\scribus\plugins\tools\pathstroker\pathstroker.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\scribus-main\Scribus.vcxproj">
-      <Project>{b17fcd80-7978-4544-93c4-2fe1ac6fe9f3}</Project>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

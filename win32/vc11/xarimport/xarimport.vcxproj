@@ -209,7 +209,6 @@
     <ClCompile Include="..\..\..\scribus\plugins\import\xar\importxar.cpp" />
     <ClCompile Include="..\..\..\scribus\plugins\import\xar\importxarplugin.cpp" />
     <ClCompile Include="..\..\..\scribus\plugins\import\xar\qtiocompressor.cpp" />
-    <ClCompile Include="xarimportdll.cpp" />
     <ClCompile Include="..\..\..\scribus\plugins\import\xar\moc_importxar.cpp" />
     <ClCompile Include="..\..\..\scribus\plugins\import\xar\moc_importxarplugin.cpp" />
     <ClCompile Include="..\..\..\scribus\plugins\import\xar\moc_qtiocompressor.cpp" />
@@ -218,12 +217,6 @@
     <moc Include="..\..\..\scribus\plugins\import\xar\importxar.h" />
     <moc Include="..\..\..\scribus\plugins\import\xar\importxarplugin.h" />
     <moc Include="..\..\..\scribus\plugins\import\xar\qtiocompressor.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\idmlimport\idmlimport.vcxproj">
-      <Project>{6f97694c-76d9-4b1e-9c38-22fa260ab347}</Project>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

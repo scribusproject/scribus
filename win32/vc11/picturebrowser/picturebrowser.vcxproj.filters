@@ -47,9 +47,6 @@
     <ClCompile Include="..\..\..\scribus\plugins\picbrowser\picturebrowser.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="picturebrowserdll.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\scribus\plugins\picbrowser\picturebrowserplugin.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

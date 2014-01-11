@@ -27,9 +27,6 @@
     <ClCompile Include="..\..\..\scribus\plugins\import\xps\importxpsplugin.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="xpsimportdll.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\scribus\plugins\import\xps\moc_importxps.cpp">
       <Filter>Generated Moc Files</Filter>
     </ClCompile>

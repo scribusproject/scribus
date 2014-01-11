@@ -206,18 +206,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="uniconvimportdll.cpp" />
     <ClCompile Include="..\..\..\scribus\plugins\import\uniconvertor\uniconvplugin.cpp" />
     <ClCompile Include="..\..\..\scribus\plugins\import\uniconvertor\moc_uniconvplugin.cpp" />
   </ItemGroup>
   <ItemGroup>
     <moc Include="..\..\..\scribus\plugins\import\uniconvertor\uniconvplugin.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\scribus-main\Scribus.vcxproj">
-      <Project>{b17fcd80-7978-4544-93c4-2fe1ac6fe9f3}</Project>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -207,19 +207,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\scribus\plugins\import\oodraw\oodrawimp.cpp" />
-    <ClCompile Include="oodrawimportdll.cpp" />
     <ClCompile Include="..\..\..\scribus\plugins\import\oodraw\stylestack.cpp" />
     <ClCompile Include="..\..\..\scribus\plugins\import\oodraw\moc_oodrawimp.cpp" />
   </ItemGroup>
   <ItemGroup>
     <moc Include="..\..\..\scribus\plugins\import\oodraw\oodrawimp.h" />
     <ClInclude Include="..\..\..\scribus\plugins\import\oodraw\stylestack.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\scribus-main\Scribus.vcxproj">
-      <Project>{b17fcd80-7978-4544-93c4-2fe1ac6fe9f3}</Project>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

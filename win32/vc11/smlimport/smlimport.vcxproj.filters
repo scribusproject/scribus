@@ -20,9 +20,6 @@
     <ClCompile Include="..\..\..\scribus\plugins\import\sml\importsmlplugin.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="smlimportdll.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\scribus\plugins\import\sml\moc_importsml.cpp">
       <Filter>Generated Moc Files</Filter>
     </ClCompile>

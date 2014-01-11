@@ -24,9 +24,6 @@
     <ClCompile Include="..\..\..\scribus\plugins\tools\2geomtools\pathalongpath\pathalongpath.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="pathalongpathdll.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\scribus\plugins\tools\2geomtools\pathalongpath\pathdialog.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

@@ -31,9 +31,6 @@
     <ClCompile Include="..\..\..\scribus\plugins\barcodegenerator\barcodegenerator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="barcodegeneratordll.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\scribus\plugins\barcodegenerator\moc_barcode.cpp">
       <Filter>Generated Moc Files</Filter>
     </ClCompile>

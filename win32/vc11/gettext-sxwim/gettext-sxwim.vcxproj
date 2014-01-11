@@ -207,7 +207,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\scribus\plugins\gettext\sxwim\contentreader.cpp" />
-    <ClCompile Include="gettext-sxwimdll.cpp" />
     <ClCompile Include="..\..\..\scribus\plugins\gettext\sxwim\stylereader.cpp" />
     <ClCompile Include="..\..\..\scribus\plugins\gettext\sxwim\sxwdia.cpp" />
     <ClCompile Include="..\..\..\scribus\plugins\gettext\sxwim\sxwim.cpp" />
@@ -218,12 +217,6 @@
     <ClInclude Include="..\..\..\scribus\plugins\gettext\sxwim\stylereader.h" />
     <moc Include="..\..\..\scribus\plugins\gettext\sxwim\sxwdia.h" />
     <ClInclude Include="..\..\..\scribus\plugins\gettext\sxwim\sxwim.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\scribus-main\Scribus.vcxproj">
-      <Project>{b17fcd80-7978-4544-93c4-2fe1ac6fe9f3}</Project>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

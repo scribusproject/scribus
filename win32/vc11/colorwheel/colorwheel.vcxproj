@@ -207,7 +207,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\scribus\plugins\colorwheel\colorwheel.cpp" />
-    <ClCompile Include="colorwheeldll.cpp" />
     <ClCompile Include="..\..\..\scribus\plugins\colorwheel\colorwheelwidget.cpp" />
     <ClCompile Include="..\..\..\scribus\plugins\colorwheel\cwdialog.cpp" />
     <ClCompile Include="..\..\..\scribus\plugins\colorwheel\moc_colorwheel.cpp" />
@@ -222,12 +221,6 @@
   </ItemGroup>
   <ItemGroup>
     <uic Include="..\..\..\scribus\plugins\colorwheel\cwdialog.ui" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\scribus-main\Scribus.vcxproj">
-      <Project>{b17fcd80-7978-4544-93c4-2fe1ac6fe9f3}</Project>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -19,7 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{2182965D-6857-4429-8AC5-6AF8CD30DF60}</ProjectGuid>
+    <ProjectGuid>{032B1946-315A-47B3-96EA-673BFC8317E3}</ProjectGuid>
     <RootNamespace>pagesimport</RootNamespace>
     <Keyword>Win32Proj</Keyword>
   </PropertyGroup>

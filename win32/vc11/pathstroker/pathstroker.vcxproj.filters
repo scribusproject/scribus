@@ -24,9 +24,6 @@
     <ClCompile Include="..\..\..\scribus\plugins\tools\pathstroker\pathstroker.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="pathstrokerdll.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\scribus\plugins\tools\pathstroker\moc_pathstroker.cpp">
       <Filter>Generated Moc Files</Filter>
     </ClCompile>

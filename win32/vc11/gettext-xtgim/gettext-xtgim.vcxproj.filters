@@ -18,9 +18,6 @@
     <ClCompile Include="..\..\..\scribus\plugins\gettext\xtgim\fontselectdialog.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="gettext-xtgimdll.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\scribus\plugins\gettext\xtgim\xtgdialog.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

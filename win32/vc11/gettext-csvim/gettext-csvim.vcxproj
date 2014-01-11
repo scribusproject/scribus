@@ -208,18 +208,11 @@
   <ItemGroup>
     <ClCompile Include="..\..\..\scribus\plugins\gettext\csvim\csvdia.cpp" />
     <ClCompile Include="..\..\..\scribus\plugins\gettext\csvim\csvim.cpp" />
-    <ClCompile Include="gettext-csvimdll.cpp" />
     <ClCompile Include="..\..\..\scribus\plugins\gettext\csvim\moc_csvdia.cpp" />
   </ItemGroup>
   <ItemGroup>
     <moc Include="..\..\..\scribus\plugins\gettext\csvim\csvdia.h" />
     <ClInclude Include="..\..\..\scribus\plugins\gettext\csvim\csvim.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\scribus-main\Scribus.vcxproj">
-      <Project>{b17fcd80-7978-4544-93c4-2fe1ac6fe9f3}</Project>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

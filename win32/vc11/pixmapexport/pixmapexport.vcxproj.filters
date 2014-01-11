@@ -26,9 +26,6 @@
     <ClCompile Include="..\..\..\scribus\plugins\pixmapexport\export.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="pixmapexportdll.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\scribus\plugins\pixmapexport\moc_dialog.cpp">
       <Filter>Generated Moc Files</Filter>
     </ClCompile>

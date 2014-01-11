@@ -20,9 +20,6 @@
     <ClCompile Include="..\..\..\scribus\plugins\import\wmf\wmfimport.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="wmfimportdll.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\scribus\plugins\import\wmf\wmfimportplugin.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

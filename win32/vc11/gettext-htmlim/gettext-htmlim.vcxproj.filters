@@ -11,9 +11,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="gettext-htmlimdll.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\scribus\plugins\gettext\htmlim\htmlim.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

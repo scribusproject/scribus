@@ -124,16 +124,6 @@
   <ItemGroup>
     <uic Include="..\..\..\scribus\plugins\tools\2geomtools\pathalongpath\pathdialogbase.ui" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\scribus-lib2geom\scribus-lib2geom.vcxproj">
-      <Project>{6ac5eddc-2540-47e0-873e-fe40fb06fbfd}</Project>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-    </ProjectReference>
-    <ProjectReference Include="..\scribus-main\Scribus.vcxproj">
-      <Project>{b17fcd80-7978-4544-93c4-2fe1ac6fe9f3}</Project>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
     <Import Project="..\Scribus-build-rules.targets" />

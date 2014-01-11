@@ -24,9 +24,6 @@
     <ClCompile Include="..\..\..\scribus\plugins\tools\pathcut\pathcut.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="pathcutdll.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\scribus\plugins\tools\pathcut\moc_pathcut.cpp">
       <Filter>Generated Moc Files</Filter>
     </ClCompile>

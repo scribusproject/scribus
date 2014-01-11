@@ -219,7 +219,6 @@
     <ClCompile Include="..\..\..\scribus\plugins\picbrowser\loadimage.cpp" />
     <ClCompile Include="..\..\..\scribus\plugins\picbrowser\multicombobox.cpp" />
     <ClCompile Include="..\..\..\scribus\plugins\picbrowser\picturebrowser.cpp" />
-    <ClCompile Include="picturebrowserdll.cpp" />
     <ClCompile Include="..\..\..\scribus\plugins\picbrowser\picturebrowserplugin.cpp" />
     <ClCompile Include="..\..\..\scribus\plugins\picbrowser\pictview.cpp" />
     <ClCompile Include="..\..\..\scribus\plugins\plugins_pch.cpp">
@@ -256,12 +255,6 @@
   <ItemGroup>
     <uic Include="..\..\..\scribus\plugins\picbrowser\imagedialog.ui" />
     <uic Include="..\..\..\scribus\plugins\picbrowser\picturebrowser.ui" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\scribus-main\Scribus.vcxproj">
-      <Project>{b17fcd80-7978-4544-93c4-2fe1ac6fe9f3}</Project>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

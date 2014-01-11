@@ -207,7 +207,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\scribus\plugins\gettext\odtim\contentreader.cpp" />
-    <ClCompile Include="gettext-odtimdll.cpp" />
     <ClCompile Include="..\..\..\scribus\plugins\gettext\odtim\odtdia.cpp" />
     <ClCompile Include="..\..\..\scribus\plugins\gettext\odtim\odtim.cpp" />
     <ClCompile Include="..\..\..\scribus\plugins\gettext\odtim\stylereader.cpp" />
@@ -218,12 +217,6 @@
     <moc Include="..\..\..\scribus\plugins\gettext\odtim\odtdia.h" />
     <ClInclude Include="..\..\..\scribus\plugins\gettext\odtim\odtim.h" />
     <ClInclude Include="..\..\..\scribus\plugins\gettext\odtim\stylereader.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\scribus-main\Scribus.vcxproj">
-      <Project>{b17fcd80-7978-4544-93c4-2fe1ac6fe9f3}</Project>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

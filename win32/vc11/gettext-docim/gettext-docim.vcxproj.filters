@@ -17,9 +17,6 @@
     <ClCompile Include="..\..\..\scribus\plugins\gettext\docim\docim.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="gettext-docimdll.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\scribus\plugins\gettext\docim\moc_docim.cpp">
       <Filter>Generated Moc Files</Filter>
     </ClCompile>

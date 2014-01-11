@@ -208,23 +208,12 @@
   <ItemGroup>
     <ClCompile Include="..\..\..\scribus\plugins\import\wpg\importwpg.cpp" />
     <ClCompile Include="..\..\..\scribus\plugins\import\wpg\importwpgplugin.cpp" />
-    <ClCompile Include="wpgimportdll.cpp" />
     <ClCompile Include="..\..\..\scribus\plugins\import\wpg\moc_importwpg.cpp" />
     <ClCompile Include="..\..\..\scribus\plugins\import\wpg\moc_importwpgplugin.cpp" />
   </ItemGroup>
   <ItemGroup>
     <moc Include="..\..\..\scribus\plugins\import\wpg\importwpg.h" />
     <moc Include="..\..\..\scribus\plugins\import\wpg\importwpgplugin.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\scribus-main\Scribus.vcxproj">
-      <Project>{b17fcd80-7978-4544-93c4-2fe1ac6fe9f3}</Project>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-    </ProjectReference>
-    <ProjectReference Include="..\scribus-wpg\scribus-wpg.vcxproj">
-      <Project>{50c264a1-2ce7-46a3-8c79-cbc714c49510}</Project>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

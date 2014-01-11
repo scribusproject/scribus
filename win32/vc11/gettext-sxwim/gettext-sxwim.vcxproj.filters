@@ -17,9 +17,6 @@
     <ClCompile Include="..\..\..\scribus\plugins\gettext\sxwim\contentreader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="gettext-sxwimdll.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\scribus\plugins\gettext\sxwim\stylereader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

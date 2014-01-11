@@ -210,7 +210,6 @@
     <ClCompile Include="..\..\..\scribus\plugins\short-words\parse.cpp" />
     <ClCompile Include="..\..\..\scribus\plugins\short-words\prefs_shortwords.cpp" />
     <ClCompile Include="..\..\..\scribus\plugins\short-words\shortwords.cpp" />
-    <ClCompile Include="shortwordsdll.cpp" />
     <ClCompile Include="..\..\..\scribus\plugins\short-words\swdialog.cpp" />
     <ClCompile Include="..\..\..\scribus\plugins\short-words\swprefsgui.cpp" />
     <ClCompile Include="..\..\..\scribus\plugins\short-words\swsyntaxhighlighter.cpp" />
@@ -235,12 +234,6 @@
   <ItemGroup>
     <uic Include="..\..\..\scribus\plugins\short-words\prefs_shortwordsbase.ui" />
     <uic Include="..\..\..\scribus\plugins\short-words\swdialog.ui" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\scribus-main\Scribus.vcxproj">
-      <Project>{b17fcd80-7978-4544-93c4-2fe1ac6fe9f3}</Project>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

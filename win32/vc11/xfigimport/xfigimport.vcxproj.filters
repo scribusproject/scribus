@@ -20,9 +20,6 @@
     <ClCompile Include="..\..\..\scribus\plugins\import\xfig\importxfigplugin.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="xfigimportdll.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\scribus\plugins\import\xfig\moc_importxfig.cpp">
       <Filter>Generated Moc Files</Filter>
     </ClCompile>

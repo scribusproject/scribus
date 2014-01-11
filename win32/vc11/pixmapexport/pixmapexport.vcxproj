@@ -208,7 +208,6 @@
   <ItemGroup>
     <ClCompile Include="..\..\..\scribus\plugins\pixmapexport\dialog.cpp" />
     <ClCompile Include="..\..\..\scribus\plugins\pixmapexport\export.cpp" />
-    <ClCompile Include="pixmapexportdll.cpp" />
     <ClCompile Include="..\..\..\scribus\plugins\pixmapexport\moc_dialog.cpp" />
     <ClCompile Include="..\..\..\scribus\plugins\pixmapexport\moc_export.cpp" />
   </ItemGroup>
@@ -219,12 +218,6 @@
   </ItemGroup>
   <ItemGroup>
     <uic Include="..\..\..\scribus\plugins\pixmapexport\exportform.ui" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\scribus-main\Scribus.vcxproj">
-      <Project>{b17fcd80-7978-4544-93c4-2fe1ac6fe9f3}</Project>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

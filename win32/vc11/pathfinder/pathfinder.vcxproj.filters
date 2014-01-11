@@ -27,9 +27,6 @@
     <ClCompile Include="..\..\..\scribus\plugins\tools\pathfinder\pathfinderdialog.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="pathfinderdll.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\scribus\plugins\tools\pathfinder\moc_pathfinder.cpp">
       <Filter>Generated Moc Files</Filter>
     </ClCompile>

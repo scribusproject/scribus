@@ -20,9 +20,6 @@
     <ClCompile Include="..\..\..\scribus\plugins\gettext\csvim\csvim.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="gettext-csvimdll.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\scribus\plugins\gettext\csvim\moc_csvdia.cpp">
       <Filter>Generated Moc Files</Filter>
     </ClCompile>
