@@ -105,18 +105,32 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "pdfimport", "pdfimport\pdfimport.vcxproj", "{F58AF6DE-330F-48F5-97BB-ED2F30401712}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "hunspellcheck", "hunspellcheck\hunspellcheck.vcxproj", "{C5268DFD-7CC5-4829-A354-82446B4E07AF}"
+	ProjectSection(ProjectDependencies) = postProject
+		{B17FCD80-7978-4544-93C4-2FE1AC6FE9F3} = {B17FCD80-7978-4544-93C4-2FE1AC6FE9F3}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "vivaimport", "vivaimport\vivaimport.vcxproj", "{91E5BE81-FF13-4AEB-85AC-F88527F4260D}"
+	ProjectSection(ProjectDependencies) = postProject
+		{B17FCD80-7978-4544-93C4-2FE1AC6FE9F3} = {B17FCD80-7978-4544-93C4-2FE1AC6FE9F3}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "scribus-zip", "scribus-zip\scribus-zip.vcxproj", "{6CC39EED-B1E2-4209-8F65-0E6242EE63E5}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "xpsimport", "xpsimport\xpsimport.vcxproj", "{5433CF53-02D2-4603-AD86-3F26A2934E1E}"
 	ProjectSection(ProjectDependencies) = postProject
+		{B17FCD80-7978-4544-93C4-2FE1AC6FE9F3} = {B17FCD80-7978-4544-93C4-2FE1AC6FE9F3}
 		{6CC39EED-B1E2-4209-8F65-0E6242EE63E5} = {6CC39EED-B1E2-4209-8F65-0E6242EE63E5}
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "xpsexport", "xpsexport\xpsexport.vcxproj", "{62362ECA-AD5B-41D7-8862-585ABF3CB5F1}"
 	ProjectSection(ProjectDependencies) = postProject
+		{B17FCD80-7978-4544-93C4-2FE1AC6FE9F3} = {B17FCD80-7978-4544-93C4-2FE1AC6FE9F3}
+		{6CC39EED-B1E2-4209-8F65-0E6242EE63E5} = {6CC39EED-B1E2-4209-8F65-0E6242EE63E5}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "pagesimport", "pagesimport\pagesimport.vcxproj", "{032B1946-315A-47B3-96EA-673BFC8317E3}"
+	ProjectSection(ProjectDependencies) = postProject
+		{B17FCD80-7978-4544-93C4-2FE1AC6FE9F3} = {B17FCD80-7978-4544-93C4-2FE1AC6FE9F3}
 		{6CC39EED-B1E2-4209-8F65-0E6242EE63E5} = {6CC39EED-B1E2-4209-8F65-0E6242EE63E5}
 	EndProjectSection
 EndProject
@@ -354,6 +368,10 @@ Global
 		{62362ECA-AD5B-41D7-8862-585ABF3CB5F1}.Debug|Win32.Build.0 = Debug|Win32
 		{62362ECA-AD5B-41D7-8862-585ABF3CB5F1}.Release|Win32.ActiveCfg = Release|Win32
 		{62362ECA-AD5B-41D7-8862-585ABF3CB5F1}.Release|Win32.Build.0 = Release|Win32
+		{032B1946-315A-47B3-96EA-673BFC8317E3}.Debug|Win32.ActiveCfg = Debug|Win32
+		{032B1946-315A-47B3-96EA-673BFC8317E3}.Debug|Win32.Build.0 = Debug|Win32
+		{032B1946-315A-47B3-96EA-673BFC8317E3}.Release|Win32.ActiveCfg = Release|Win32
+		{032B1946-315A-47B3-96EA-673BFC8317E3}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

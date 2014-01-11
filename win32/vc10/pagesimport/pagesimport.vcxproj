@@ -11,8 +11,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{91E5BE81-FF13-4AEB-85AC-F88527F4260D}</ProjectGuid>
-    <RootNamespace>vivaimport</RootNamespace>
+    <ProjectGuid>{032B1946-315A-47B3-96EA-673BFC8317E3}</ProjectGuid>
+    <RootNamespace>pagesimport</RootNamespace>
     <Keyword>Win32Proj</Keyword>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -46,13 +46,13 @@
     <OutDir>..\..\..\..\Scribus-builds\Scribus-$(Configuration)-$(Platform)-$(PlatformToolset)\scribus\plugins\</OutDir>
     <IntDir>..\..\..\..\Scribus-builds\Build-objs\$(Configuration)-$(Platform)-$(PlatformToolset)\$(TargetName)\</IntDir>
     <LinkIncremental>true</LinkIncremental>
-    <TargetName>importviva</TargetName>
+    <TargetName>importpages</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <OutDir>..\..\..\..\Scribus-builds\Scribus-$(Configuration)-$(Platform)-$(PlatformToolset)\scribus\plugins\</OutDir>
     <IntDir>..\..\..\..\Scribus-builds\Build-objs\$(Configuration)-$(Platform)-$(PlatformToolset)\$(TargetName)\</IntDir>
     <LinkIncremental>false</LinkIncremental>
-    <TargetName>importviva</TargetName>
+    <TargetName>importpages</TargetName>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -69,14 +69,14 @@
       <DisableSpecificWarnings>4190;4251;4267;4996;%(DisableSpecificWarnings)</DisableSpecificWarnings>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>Qt5Cored.lib;Qt5Guid.lib;Qt5Widgetsd.lib;Qt5Xmld.lib;$(FREETYPE_DEBUG_LIB);$(LIBJPEG_DEBUG_LIB);$(LIBTIFF_DEBUG_LIB);$(LCMS_DEBUG_LIB);scribus-api.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(LCMS_LIB_DIR);$(FREETYPE_LIB_DIR);$(LIBJPEG_LIB_DIR);$(LIBTIFF_LIB_DIR);$(QT5_DIR)\lib;$(OutDir)..;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>Qt5Cored.lib;Qt5Guid.lib;Qt5Widgetsd.lib;Qt5Xmld.lib;$(FREETYPE_DEBUG_LIB);$(LIBJPEG_DEBUG_LIB);$(LIBTIFF_DEBUG_LIB);$(LCMS_DEBUG_LIB);$(ZLIB_DEBUG_LIB);scribus-api.lib;scribus-zip.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(LCMS_LIB_DIR);$(FREETYPE_LIB_DIR);$(LIBJPEG_LIB_DIR);$(LIBTIFF_LIB_DIR);$(QT5_DIR)\lib;$(ZLIB_LIB_DIR);$(OutDir)..;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <ProgramDatabaseFile>$(OutDir)importviva.pdb</ProgramDatabaseFile>
+      <ProgramDatabaseFile>$(OutDir)importpages.pdb</ProgramDatabaseFile>
       <SubSystem>Windows</SubSystem>
       <RandomizedBaseAddress>false</RandomizedBaseAddress>
       <DataExecutionPrevention />
-      <ImportLibrary>$(OutDir)importviva.lib</ImportLibrary>
+      <ImportLibrary>$(OutDir)importpages.lib</ImportLibrary>
       <TargetMachine>MachineX86</TargetMachine>
     </Link>
   </ItemDefinitionGroup>
@@ -97,28 +97,28 @@
       <DisableSpecificWarnings>4190;4251;4267;4996;%(DisableSpecificWarnings)</DisableSpecificWarnings>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>Qt5Core.lib;Qt5Gui.lib;Qt5Widgets.lib;Qt5Xml.lib;$(FREETYPE_RELEASE_LIB);$(LIBJPEG_RELEASE_LIB);$(LIBTIFF_RELEASE_LIB);$(LCMS_RELEASE_LIB);scribus-api.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(LCMS_LIB_DIR);$(FREETYPE_LIB_DIR);$(LIBJPEG_LIB_DIR);$(LIBTIFF_LIB_DIR);$(QT5_DIR)\lib;$(OutDir)..;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>Qt5Core.lib;Qt5Gui.lib;Qt5Widgets.lib;Qt5Xml.lib;$(FREETYPE_RELEASE_LIB);$(LIBJPEG_RELEASE_LIB);$(LIBTIFF_RELEASE_LIB);$(LCMS_RELEASE_LIB);$(ZLIB_RELEASE_LIB);scribus-api.lib;scribus-zip.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(LCMS_LIB_DIR);$(FREETYPE_LIB_DIR);$(LIBJPEG_LIB_DIR);$(LIBTIFF_LIB_DIR);$(QT5_DIR)\lib;$(ZLIB_LIB_DIR);$(OutDir)..;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <ProgramDatabaseFile>$(OutDir)importviva.pdb</ProgramDatabaseFile>
+      <ProgramDatabaseFile>$(OutDir)importpages.pdb</ProgramDatabaseFile>
       <SubSystem>Windows</SubSystem>
       <OptimizeReferences>true</OptimizeReferences>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <RandomizedBaseAddress>false</RandomizedBaseAddress>
       <DataExecutionPrevention />
-      <ImportLibrary>$(OutDir)importviva.lib</ImportLibrary>
+      <ImportLibrary>$(OutDir)importpages.lib</ImportLibrary>
       <TargetMachine>MachineX86</TargetMachine>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\scribus\plugins\import\viva\importviva.cpp" />
-    <ClCompile Include="..\..\..\scribus\plugins\import\viva\importvivaplugin.cpp" />
-    <ClCompile Include="..\..\..\scribus\plugins\import\viva\moc_importviva.cpp" />
-    <ClCompile Include="..\..\..\scribus\plugins\import\viva\moc_importvivaplugin.cpp" />
+    <ClCompile Include="..\..\..\scribus\plugins\import\pages\importpages.cpp" />
+    <ClCompile Include="..\..\..\scribus\plugins\import\pages\importpagesplugin.cpp" />
+    <ClCompile Include="..\..\..\scribus\plugins\import\pages\moc_importpages.cpp" />
+    <ClCompile Include="..\..\..\scribus\plugins\import\pages\moc_importpagesplugin.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <moc Include="..\..\..\scribus\plugins\import\viva\importviva.h" />
-    <moc Include="..\..\..\scribus\plugins\import\viva\importvivaplugin.h" />
+    <moc Include="..\..\..\scribus\plugins\import\pages\importpages.h" />
+    <moc Include="..\..\..\scribus\plugins\import\pages\importpagesplugin.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

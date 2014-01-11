@@ -14,24 +14,24 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\scribus\plugins\import\viva\importviva.cpp">
+    <ClCompile Include="..\..\..\scribus\plugins\import\pages\importpages.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\scribus\plugins\import\viva\importvivaplugin.cpp">
+    <ClCompile Include="..\..\..\scribus\plugins\import\pages\importpagesplugin.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\scribus\plugins\import\viva\moc_importviva.cpp">
+    <ClCompile Include="..\..\..\scribus\plugins\import\pages\moc_importpages.cpp">
       <Filter>Generated Moc Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\scribus\plugins\import\viva\moc_importvivaplugin.cpp">
+    <ClCompile Include="..\..\..\scribus\plugins\import\pages\moc_importpagesplugin.cpp">
       <Filter>Generated Moc Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <moc Include="..\..\..\scribus\plugins\import\viva\importviva.h">
+    <moc Include="..\..\..\scribus\plugins\import\pages\importpages.h">
       <Filter>Header Files</Filter>
     </moc>
-    <moc Include="..\..\..\scribus\plugins\import\viva\importvivaplugin.h">
+    <moc Include="..\..\..\scribus\plugins\import\pages\importpagesplugin.h">
       <Filter>Header Files</Filter>
     </moc>
   </ItemGroup>

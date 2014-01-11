@@ -206,7 +206,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="hunspellcheckdll.cpp" />
     <ClCompile Include="..\..\..\scribus\plugins\tools\hunspellcheck\hunspelldialog.cpp" />
     <ClCompile Include="..\..\..\scribus\plugins\tools\hunspellcheck\hunspelldict.cpp" />
     <ClCompile Include="..\..\..\scribus\plugins\tools\hunspellcheck\hunspellplugin.cpp" />
@@ -225,12 +224,6 @@
   </ItemGroup>
   <ItemGroup>
     <uic Include="..\..\..\scribus\plugins\tools\hunspellcheck\hunspelldialogbase.ui" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\scribus-main\Scribus.vcxproj">
-      <Project>{b17fcd80-7978-4544-93c4-2fe1ac6fe9f3}</Project>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

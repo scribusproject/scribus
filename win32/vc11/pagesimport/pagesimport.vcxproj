@@ -19,8 +19,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{5433CF53-02D2-4603-AD86-3F26A2934E1E}</ProjectGuid>
-    <RootNamespace>xpsimport</RootNamespace>
+    <ProjectGuid>{2182965D-6857-4429-8AC5-6AF8CD30DF60}</ProjectGuid>
+    <RootNamespace>pagesimport</RootNamespace>
     <Keyword>Win32Proj</Keyword>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -72,25 +72,25 @@
     <OutDir>..\..\..\..\Scribus-builds\Scribus-$(Configuration)-$(Platform)-$(PlatformToolset)\scribus\plugins\</OutDir>
     <IntDir>..\..\..\..\Scribus-builds\Build-objs\$(Configuration)-$(Platform)-$(PlatformToolset)\$(TargetName)\</IntDir>
     <LinkIncremental>true</LinkIncremental>
-    <TargetName>importxps</TargetName>
+    <TargetName>importpages</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <OutDir>..\..\..\..\Scribus-builds\Scribus-$(Configuration)-$(Platform)-$(PlatformToolset)\scribus\plugins\</OutDir>
     <IntDir>..\..\..\..\Scribus-builds\Build-objs\$(Configuration)-$(Platform)-$(PlatformToolset)\$(TargetName)\</IntDir>
     <LinkIncremental>true</LinkIncremental>
-    <TargetName>importxps</TargetName>
+    <TargetName>importpages</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <OutDir>..\..\..\..\Scribus-builds\Scribus-$(Configuration)-$(Platform)-$(PlatformToolset)\scribus\plugins\</OutDir>
     <IntDir>..\..\..\..\Scribus-builds\Build-objs\$(Configuration)-$(Platform)-$(PlatformToolset)\$(TargetName)\</IntDir>
     <LinkIncremental>false</LinkIncremental>
-    <TargetName>importxps</TargetName>
+    <TargetName>importpages</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <OutDir>..\..\..\..\Scribus-builds\Scribus-$(Configuration)-$(Platform)-$(PlatformToolset)\scribus\plugins\</OutDir>
     <IntDir>..\..\..\..\Scribus-builds\Build-objs\$(Configuration)-$(Platform)-$(PlatformToolset)\$(TargetName)\</IntDir>
     <LinkIncremental>false</LinkIncremental>
-    <TargetName>importxps</TargetName>
+    <TargetName>importpages</TargetName>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -110,11 +110,11 @@
       <AdditionalDependencies>Qt5Cored.lib;Qt5Guid.lib;Qt5Widgetsd.lib;Qt5Xmld.lib;$(FREETYPE_DEBUG_LIB);$(LIBJPEG_DEBUG_LIB);$(LIBTIFF_DEBUG_LIB);$(LCMS_DEBUG_LIB);$(ZLIB_DEBUG_LIB);scribus-api.lib;scribus-zip.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(LCMS_LIB_DIR);$(FREETYPE_LIB_DIR);$(LIBJPEG_LIB_DIR);$(LIBTIFF_LIB_DIR);$(QT5_DIR)\lib;$(ZLIB_LIB_DIR);$(OutDir)..;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <ProgramDatabaseFile>$(OutDir)importxps.pdb</ProgramDatabaseFile>
+      <ProgramDatabaseFile>$(OutDir)importpages.pdb</ProgramDatabaseFile>
       <SubSystem>Windows</SubSystem>
       <RandomizedBaseAddress>false</RandomizedBaseAddress>
       <DataExecutionPrevention />
-      <ImportLibrary>$(OutDir)importxps.lib</ImportLibrary>
+      <ImportLibrary>$(OutDir)importpages.lib</ImportLibrary>
       <TargetMachine>MachineX86</TargetMachine>
     </Link>
   </ItemDefinitionGroup>
@@ -136,12 +136,12 @@
       <AdditionalDependencies>Qt5Cored.lib;Qt5Guid.lib;Qt5Widgetsd.lib;Qt5Xmld.lib;$(FREETYPE_DEBUG_LIB);$(LIBJPEG_DEBUG_LIB);$(LIBTIFF_DEBUG_LIB);$(LCMS_DEBUG_LIB);$(ZLIB_DEBUG_LIB);scribus-api.lib;scribus-zip.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(LCMS_LIB_DIR);$(FREETYPE_LIB_DIR);$(LIBJPEG_LIB_DIR);$(LIBTIFF_LIB_DIR);$(QT5_DIR)\lib;$(ZLIB_LIB_DIR);$(OutDir)..;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <ProgramDatabaseFile>$(OutDir)importxps.pdb</ProgramDatabaseFile>
+      <ProgramDatabaseFile>$(OutDir)importpages.pdb</ProgramDatabaseFile>
       <SubSystem>Windows</SubSystem>
       <RandomizedBaseAddress>false</RandomizedBaseAddress>
       <DataExecutionPrevention>
       </DataExecutionPrevention>
-      <ImportLibrary>$(OutDir)importxps.lib</ImportLibrary>
+      <ImportLibrary>$(OutDir)importpages.lib</ImportLibrary>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -164,13 +164,13 @@
       <AdditionalDependencies>Qt5Core.lib;Qt5Gui.lib;Qt5Widgets.lib;Qt5Xml.lib;$(FREETYPE_RELEASE_LIB);$(LIBJPEG_RELEASE_LIB);$(LIBTIFF_RELEASE_LIB);$(LCMS_RELEASE_LIB);$(ZLIB_RELEASE_LIB);scribus-api.lib;scribus-zip.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(LCMS_LIB_DIR);$(FREETYPE_LIB_DIR);$(LIBJPEG_LIB_DIR);$(LIBTIFF_LIB_DIR);$(QT5_DIR)\lib;$(ZLIB_LIB_DIR);$(OutDir)..;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <ProgramDatabaseFile>$(OutDir)importxps.pdb</ProgramDatabaseFile>
+      <ProgramDatabaseFile>$(OutDir)importpages.pdb</ProgramDatabaseFile>
       <SubSystem>Windows</SubSystem>
       <OptimizeReferences>true</OptimizeReferences>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <RandomizedBaseAddress>false</RandomizedBaseAddress>
       <DataExecutionPrevention />
-      <ImportLibrary>$(OutDir)importxps.lib</ImportLibrary>
+      <ImportLibrary>$(OutDir)importpages.lib</ImportLibrary>
       <TargetMachine>MachineX86</TargetMachine>
     </Link>
   </ItemDefinitionGroup>
@@ -195,37 +195,25 @@
       <AdditionalDependencies>Qt5Core.lib;Qt5Gui.lib;Qt5Widgets.lib;Qt5Xml.lib;$(FREETYPE_RELEASE_LIB);$(LIBJPEG_RELEASE_LIB);$(LIBTIFF_RELEASE_LIB);$(LCMS_RELEASE_LIB);$(ZLIB_RELEASE_LIB);scribus-api.lib;scribus-zip.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(LCMS_LIB_DIR);$(FREETYPE_LIB_DIR);$(LIBJPEG_LIB_DIR);$(LIBTIFF_LIB_DIR);$(QT5_DIR)\lib;$(ZLIB_LIB_DIR);$(OutDir)..;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <ProgramDatabaseFile>$(OutDir)importxps.pdb</ProgramDatabaseFile>
+      <ProgramDatabaseFile>$(OutDir)importpages.pdb</ProgramDatabaseFile>
       <SubSystem>Windows</SubSystem>
       <OptimizeReferences>true</OptimizeReferences>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <RandomizedBaseAddress>false</RandomizedBaseAddress>
       <DataExecutionPrevention>
       </DataExecutionPrevention>
-      <ImportLibrary>$(OutDir)importxps.lib</ImportLibrary>
+      <ImportLibrary>$(OutDir)importpages.lib</ImportLibrary>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\scribus\plugins\import\xps\importxps.cpp" />
-    <ClCompile Include="..\..\..\scribus\plugins\import\xps\importxpsplugin.cpp" />
-    <ClCompile Include="..\..\..\scribus\plugins\import\xps\moc_xpsimportoptions.cpp" />
-    <ClCompile Include="..\..\..\scribus\plugins\import\xps\xpsimportoptions.cpp" />
-    <ClCompile Include="xpsimportdll.cpp" />
-    <ClCompile Include="..\..\..\scribus\plugins\import\xps\moc_importxps.cpp" />
-    <ClCompile Include="..\..\..\scribus\plugins\import\xps\moc_importxpsplugin.cpp" />
+    <ClCompile Include="..\..\..\scribus\plugins\import\pages\importpages.cpp" />
+    <ClCompile Include="..\..\..\scribus\plugins\import\pages\importpagesplugin.cpp" />
+    <ClCompile Include="..\..\..\scribus\plugins\import\pages\moc_importpages.cpp" />
+    <ClCompile Include="..\..\..\scribus\plugins\import\pages\moc_importpagesplugin.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <moc Include="..\..\..\scribus\plugins\import\xps\importxps.h" />
-    <moc Include="..\..\..\scribus\plugins\import\xps\importxpsplugin.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <moc Include="..\..\..\scribus\plugins\import\xps\xpsimportoptions.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <uic Include="..\..\..\scribus\plugins\import\xps\xpsimportoptions.ui" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="..\..\..\scribus\plugins\import\xps\ui_xpsimportoptions.h" />
+    <moc Include="..\..\..\scribus\plugins\import\pages\importpages.h" />
+    <moc Include="..\..\..\scribus\plugins\import\pages\importpagesplugin.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
