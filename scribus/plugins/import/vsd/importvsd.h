@@ -1,0 +1,170 @@
+/*
+For general Scribus (>=1.3.2) copyright and licensing information please refer
+to the COPYING file provided with the program. Following this notice may exist
+a copyright and/or license notice that predates the release of Scribus 1.3.2
+for which a new license (GPL+exception) is in place.
+*/
+#ifndef IMPORTVSD_H
+#define IMPORTVSD_H
+
+#include <QObject>
+#include <QString>
+
+#include "pluginapi.h"
+#include "pageitem.h"
+#include "sccolor.h"
+#include "fpointarray.h"
+#include "vgradient.h"
+#include <QList>
+#include <QTransform>
+#include <QMultiMap>
+#include <QVector>
+
+#include <libvisio/libvisio.h>
+#include <libwpd-stream/libwpd-stream.h>
+#include <libwpd/libwpd.h>
+#include <libwpg/libwpg.h>
+
+class MultiProgressDialog;
+class ScribusDoc;
+class Selection;
+class TransactionSettings;
+
+class RawVsdPainter : public libwpg::WPGPaintInterface
+{
+public:
+	RawVsdPainter();
+	void startGraphics(const ::WPXPropertyList &propList);
+	void endGraphics();
+	void startLayer(const ::WPXPropertyList &propList);
+	void endLayer();
+	void startEmbeddedGraphics(const ::WPXPropertyList &propList);
+	void endEmbeddedGraphics();
+	void setStyle(const ::WPXPropertyList &propList, const ::WPXPropertyListVector &gradient);
+	void drawRectangle(const ::WPXPropertyList &propList);
+	void drawEllipse(const ::WPXPropertyList &propList);
+	void drawPolyline(const ::WPXPropertyListVector &vertices);
+	void drawPolygon(const ::WPXPropertyListVector &vertices);
+	void drawPath(const ::WPXPropertyListVector &path);
+	void drawGraphicObject(const ::WPXPropertyList &propList, const ::WPXBinaryData &binaryData);
+	void startTextObject(const ::WPXPropertyList &propList, const ::WPXPropertyListVector &path);
+	void endTextObject();
+	void startTextLine(const ::WPXPropertyList &propList);
+	void endTextLine();
+	void startTextSpan(const ::WPXPropertyList &propList);
+	void endTextSpan();
+	void insertText(const ::WPXString &str);
+	QString constructFontName(QString fontBaseName, QString fontStyle);
+	double valueAsPoint(const WPXProperty *prop);
+	double fromPercentage(const QString &s );
+	QColor  parseColorN( const QString &rgbColor );
+	QString parseColor( const QString &s );
+	void insertImage(PageItem* ite, QString imgExt, QByteArray &imageData);
+	void applyFill(PageItem* ite);
+	void applyShadow(PageItem* ite);
+	void finishItem(PageItem* ite);
+
+	ScribusDoc* m_Doc;
+	Selection* tmpSel;
+	QList<PageItem*> *Elements;
+	struct groupEntry
+	{
+		QList<PageItem*> Items;
+		FPointArray clip;
+	};
+	QStack<groupEntry> groupStack;
+	QStringList *importedColors;
+	QStringList *importedPatterns;
+	double LineW;
+	QString CurrColorFill;
+	QString CurrColorStroke;
+	double CurrStrokeShade;
+	double CurrFillShade;
+	double CurrStrokeTrans;
+	double CurrFillTrans;
+	FPointArray Coords;
+	bool fillrule;
+	double gradientAngle;
+	bool isGradient;
+	VGradient currentGradient;
+	QString gradColor1Str;
+	QColor gradColor1;
+	double gradColor1Trans;
+	QString gradColor2Str;
+	QColor gradColor2;
+	double gradColor2Trans;
+	QVector<double> dashArray;
+	Qt::PenJoinStyle lineJoin;
+	Qt::PenCapStyle lineEnd;
+	double baseX, baseY;
+	double docWidth;
+	double docHeight;
+	int importerFlags;
+	bool firstPage;
+	QString baseLayer;
+	int actPage;
+	WPXPropertyList m_style;
+	PageItem *actTextItem;
+	ParagraphStyle textStyle;
+	CharStyle textCharStyle;
+	double m_linespace;
+	double m_maxFontSize;
+	bool lineSpSet;
+	bool lineSpIsPT;
+	bool doProcessing;
+};
+
+//! \brief CDR importer plugin
+class VsdPlug : public QObject
+{
+	Q_OBJECT
+
+public:
+	/*!
+	\author Franz Schmid
+	\date
+	\brief Create the Cdr importer window.
+	\param fName QString
+	\param flags combination of loadFlags
+	\param showProgress if progress must be displayed
+	\retval EPSPlug plugin
+	*/
+	VsdPlug( ScribusDoc* doc, int flags );
+	~VsdPlug();
+
+	/*!
+	\author Franz Schmid
+	\date
+	\brief Perform import.
+	\param fn QString
+	\param trSettings undo transaction settings
+	\param flags combination of loadFlags
+	\param showProgress if progress must be displayed
+	\retval bool true if import was ok
+	 */
+	bool import(QString fn, const TransactionSettings& trSettings, int flags, bool showProgress = true);
+	QImage readThumbnail(QString fn);
+
+private:
+	bool convert(QString fn);
+
+	QList<PageItem*> Elements;
+	double baseX, baseY;
+	double docWidth;
+	double docHeight;
+
+	QStringList importedColors;
+	QStringList importedPatterns;
+
+	bool interactive;
+	MultiProgressDialog * progressDialog;
+	bool cancel;
+	ScribusDoc* m_Doc;
+	Selection* tmpSel;
+	int importerFlags;
+
+public slots:
+	void cancelRequested() { cancel = true; }
+};
+
+#endif
