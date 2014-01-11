@@ -48,6 +48,7 @@ ScPainter::ScPainter( QImage *target, unsigned int w, unsigned int h, double tra
 	svgMode = false;
 	m_image = target;
 	m_matrix = QTransform();
+	zoomStack.clear();
 	cairo_surface_t *img = cairo_image_surface_create_for_data(m_image->bits(), CAIRO_FORMAT_ARGB32, w, h, w*4);
 	m_cr = cairo_create(img);
 	cairo_save( m_cr );
@@ -475,11 +476,14 @@ QFont ScPainter::font()
 void ScPainter::save()
 {
 	cairo_save( m_cr );
+	zoomStack.push(m_zoomFactor);
 }
 
 void ScPainter::restore()
 {
 	cairo_restore( m_cr );
+	if (!zoomStack.isEmpty())
+		m_zoomFactor = zoomStack.pop();
 }
 
 void ScPainter::setRasterOp(int blendMode)

@@ -159,6 +159,7 @@ private:
 	QImage imageQ;
 
 	QStack<layerProp> Layers;
+	QStack<double> zoomStack;
 	QImage *m_image;
 	double  m_layerTransparency;
 	int  m_blendMode;
