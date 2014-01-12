@@ -13969,9 +13969,14 @@ void ScribusDoc::getClosestElementBorder(double xin, double yin, double *xout, d
 	QMap<double, uint> tmpGuidesSel;
 	double viewScale=m_View->scale();
 	QList<PageItem*> item = getAllItems(*Items);
+	PageItem *parentI = NULL;
+	if (m_Selection->count() > 0)
+		parentI = m_Selection->itemAt(0)->Parent;
 	for(int i=0;i<item.size();i++)
 	{
 		if(m_Selection->containsItem(item.at(i)) || item.at(i)->OwnPage != OnPage(xin,yin))
+			continue;
+		else if (item.at(i)->Parent != parentI)
 			continue;
 		else if (fabs(item.at(i)->yPos() - yin) < (prefsData().guidesPrefs.guideRad / viewScale))
 			tmpGuidesSel.insert(fabs(item.at(i)->yPos() - yin), i*3);
@@ -13994,6 +13999,8 @@ void ScribusDoc::getClosestElementBorder(double xin, double yin, double *xout, d
 	for(int i=0;i<item.size();i++)
 	{
 		if(m_Selection->containsItem(item.at(i)) || item.at(i)->OwnPage != OnPage(xin,yin))
+			continue;
+		else if (item.at(i)->Parent != parentI)
 			continue;
 		else if (fabs(item.at(i)->xPos() - xin) < (prefsData().guidesPrefs.guideRad / viewScale))
 			tmpGuidesSel.insert(fabs(item.at(i)->xPos() - xin), i*3);
