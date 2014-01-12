@@ -56,10 +56,10 @@ ImportPagesPlugin::ImportPagesPlugin() : LoadSavePlugin(),
 
 void ImportPagesPlugin::languageChange()
 {
-	importAction->setText( tr("Import Mac Pages..."));
+	importAction->setText( tr("Import iWorks Pages..."));
 	FileFormat* fmt = getFormatByExt("pages");
-	fmt->trName = tr("Mac Pages");
-	fmt->filter = tr("Mac Pages (*.pages *.PAGES)");
+	fmt->trName = tr("iWorks Pages");
+	fmt->filter = tr("iWorks Pages (*.pages *.PAGES)");
 }
 
 ImportPagesPlugin::~ImportPagesPlugin()
@@ -77,8 +77,8 @@ const ScActionPlugin::AboutData* ImportPagesPlugin::getAboutData() const
 {
 	AboutData* about = new AboutData;
 	about->authors = "Franz Schmid <franz@scribus.info>";
-	about->shortDescription = tr("Imports Mac Pages Files");
-	about->description = tr("Imports most Mac Pages files into the current document,\nconverting their vector data into Scribus objects.");
+	about->shortDescription = tr("Imports iWorks Pages Files");
+	about->description = tr("Imports most iWorks Pages files into the current document,\nconverting their vector data into Scribus objects.");
 	about->license = "GPL";
 	Q_CHECK_PTR(about);
 	return about;
@@ -93,8 +93,8 @@ void ImportPagesPlugin::deleteAboutData(const AboutData* about) const
 void ImportPagesPlugin::registerFormats()
 {
 	FileFormat fmt(this);
-	fmt.trName = tr("Mac Pages");
-	fmt.filter = tr("Mac Pages (*.pages *.PAGES)");
+	fmt.trName = tr("iWorks Pages");
+	fmt.filter = tr("iWorks Pages (*.pages *.PAGES)");
 	fmt.formatId = 0;
 	fmt.fileExtensions = QStringList() << "pages";
 	fmt.load = true;
