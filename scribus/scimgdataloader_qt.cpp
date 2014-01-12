@@ -10,6 +10,7 @@ for which a new license (GPL+exception) is in place.
 #include <QImageReader>
 #include <QList>
 #include "scimgdataloader_qt.h"
+#include "util_formats.h"
 
 ScImgDataLoader_QT::ScImgDataLoader_QT(void) : ScImgDataLoader()
 {
@@ -35,7 +36,16 @@ bool ScImgDataLoader_QT::loadPicture(const QString& fn, int /*page*/, int /*res*
 	if (!QFile::exists(fn))
 		return false;
 	initialize();
-	if (m_image.load(fn))
+	bool loadOK = false;
+	QString ext2 = getImageType(fn);
+	if (!ext2.isEmpty())
+	{
+		ext2 = ext2.toUpper();
+		loadOK = m_image.load(fn, ext2.toLatin1());
+	}
+	else
+		loadOK = m_image.load(fn);
+	if (loadOK)
 	{
 		m_imageInfoRecord.type = ImageTypeOther;
 		m_imageInfoRecord.exifDataValid = false;

@@ -1966,6 +1966,9 @@ bool ScImage::getAlpha(QString fn, int page, QByteArray& alpha, bool PDF, bool p
 		return false;
 	alpha.resize(0);
 	QString ext = fi.suffix().toLower();
+	QString ext2 = getImageType(fn);
+	if (ext.isEmpty() || (ext2 != ext))
+		ext = ext2;
 	QList<QByteArray> fmtList = QImageReader::supportedImageFormats();
 	QStringList fmtImg;
 	for (int i = 0; i < fmtList.count(); i++)
@@ -2102,6 +2105,9 @@ void ScImage::getEmbeddedProfile(const QString & fn, QByteArray *profile, int *c
 	if (!fi.exists())
 		return;
 	QString ext = fi.suffix().toLower();
+	QString ext2 = getImageType(fn);
+	if (ext.isEmpty() || (ext2 != ext))
+		ext = ext2;
 
 	if (extensionIndicatesPSD(ext))
 		pDataLoader = new ScImgDataLoader_PSD();
@@ -2236,10 +2242,9 @@ bool ScImage::loadPicture(const QString & fn, int page, const CMSettings& cmSett
 		if (cspace != ColorSpace_Rgb && cspace != ColorSpace_Cmyk)
 			return false;
 	}
-
-	if (ext.isEmpty())
-		ext = getImageType(fn);
-
+	QString ext2 = getImageType(fn);
+	if (ext.isEmpty() || (ext2 != ext))
+		ext = ext2;
 	if (extensionIndicatesPDF(ext))
 	{
 		pDataLoader.reset( new ScImgDataLoader_PDF() );
