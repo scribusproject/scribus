@@ -196,6 +196,7 @@ public:
 
 ScribusDoc::ScribusDoc() : UndoObject( tr("Document")), Observable<ScribusDoc>(NULL),
 	m_hasGUI(false),
+	docFilePermissions(QFileDevice::ReadOwner|QFileDevice::WriteOwner),
 	appPrefsData(PrefsManager::instance()->appPrefs),
 	docPrefsData(PrefsManager::instance()->appPrefs),
 	undoManager(UndoManager::instance()),
@@ -310,6 +311,7 @@ ScribusDoc::ScribusDoc() : UndoObject( tr("Document")), Observable<ScribusDoc>(N
 
 ScribusDoc::ScribusDoc(const QString& docName, int unitindex, const PageSize& pagesize, const MarginStruct& margins, const DocPagesSetup& pagesSetup) : UndoObject( tr("Document")),
 	m_hasGUI(false),
+	docFilePermissions(QFileDevice::ReadOwner|QFileDevice::WriteOwner),
 	appPrefsData(PrefsManager::instance()->appPrefs),
 	docPrefsData(PrefsManager::instance()->appPrefs),
 	undoManager(UndoManager::instance()),

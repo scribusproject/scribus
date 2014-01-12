@@ -36,6 +36,7 @@ for which a new license (GPL+exception) is in place.
 #include <QRectF>
 #include <QStringList>
 #include <QTimer>
+#include <QFile>
 
 #include "gtgettext.h" //CB For the ImportSetup struct and itemadduserframe
 #include "scribusapi.h"
@@ -1181,11 +1182,13 @@ public:
 	void removeInlineFrame(int fIndex);
 	void checkItemForFrames(PageItem *it, int fIndex);
 	bool hasPreflightErrors();
+	QFileDevice::Permissions filePermissions() { return docFilePermissions; }
+	void saveFilePermissions(QFileDevice::Permissions p) { docFilePermissions=p; }
 
 protected:
 	void addSymbols();
 	void applyPrefsPageSizingAndMargins(bool resizePages, bool resizeMasterPages, bool resizePageMargins, bool resizeMasterPageMargins);
-
+	QFileDevice::Permissions docFilePermissions;
 	bool m_hasGUI;
 	ApplicationPrefs& appPrefsData;
 	ApplicationPrefs docPrefsData;

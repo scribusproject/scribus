@@ -4099,6 +4099,7 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 		prefsManager->appPrefs.fontPrefs.AvailFonts.updateFontMap();
 
 		doc=new ScribusDoc();
+		doc->saveFilePermissions(QFile::permissions(fileName));
 		doc->is12doc=is12doc;
 		doc->appMode = modeNormal;
 		doc->HasCMS = false;
