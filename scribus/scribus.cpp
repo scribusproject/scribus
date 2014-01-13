@@ -378,7 +378,10 @@ int ScribusMainWindow::initScMW(bool primaryMainWindow)
 	mdiArea->setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
 	mdiArea->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
 	if (prefsManager->appPrefs.uiPrefs.useTabs)
+	{
 		mdiArea->setViewMode(QMdiArea::TabbedView);
+		mdiArea->setTabsClosable(true);
+	}
 	else
 		mdiArea->setViewMode(QMdiArea::SubWindowView);
 	setCentralWidget( mdiArea );
