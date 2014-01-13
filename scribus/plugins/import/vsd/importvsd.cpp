@@ -13,6 +13,7 @@ for which a new license (GPL+exception) is in place.
 #include <QMimeData>
 #include <QRegExp>
 #include <QStack>
+#include <QTextDocument>
 #include <QDebug>
 
 #include <cstdlib>
@@ -286,9 +287,22 @@ void RawVsdPainter::setStyle(const ::WPXPropertyList &propList, const ::WPXPrope
 			currentGradient = VGradient(VGradient::linear);
 			currentGradient.clearStops();
 			currentGradient.setRepeatMethod( VGradient::none );
-			currentGradient.addStop( ScColorEngine::getRGBColor(m_Doc->PageColors[gradColor1Str], m_Doc), 0.0, 0.5, opacity, gradColor1Str, 100 );
-			currentGradient.addStop( ScColorEngine::getRGBColor(m_Doc->PageColors[gradColor2Str], m_Doc), 1.0, 0.5, opacity, gradColor2Str, 100 );
-			isGradient = true;
+
+			if (propList["draw:style"])
+			{
+				if (QString(propList["draw:style"]->getStr().cstr()) == "axial")
+				{
+					currentGradient.addStop( ScColorEngine::getRGBColor(m_Doc->PageColors[gradColor1Str], m_Doc), 0.0, 0.5, opacity, gradColor1Str, 100 );
+					currentGradient.addStop( ScColorEngine::getRGBColor(m_Doc->PageColors[gradColor2Str], m_Doc), 0.5, 0.5, opacity, gradColor2Str, 100 );
+					currentGradient.addStop( ScColorEngine::getRGBColor(m_Doc->PageColors[gradColor1Str], m_Doc), 1.0, 0.5, opacity, gradColor1Str, 100 );
+				}
+				else
+				{
+					currentGradient.addStop( ScColorEngine::getRGBColor(m_Doc->PageColors[gradColor1Str], m_Doc), 0.0, 0.5, opacity, gradColor1Str, 100 );
+					currentGradient.addStop( ScColorEngine::getRGBColor(m_Doc->PageColors[gradColor2Str], m_Doc), 1.0, 0.5, opacity, gradColor2Str, 100 );
+				}
+				isGradient = true;
+			}
 		}
 	}
 	if(propList["svg:fill-rule"])
@@ -808,7 +822,8 @@ void RawVsdPainter::startTextLine(const ::WPXPropertyList &propList)
 		textStyle.setGapAfter(valueAsPoint(propList["fo:margin-bottom"]));
 	if (propList["fo:margin-top"])
 		textStyle.setGapBefore(valueAsPoint(propList["fo:margin-top"]));
-	m_maxFontSize = textStyle.charStyle().fontSize() / 10.0;
+//	m_maxFontSize = textStyle.charStyle().fontSize() / 10.0;
+	m_maxFontSize = 1.0;
 	if (propList["fo:line-height"])
 	{
 		m_linespace = propList["fo:line-height"]->getDouble();
@@ -892,6 +907,14 @@ void RawVsdPainter::insertText(const ::WPXString &str)
 		int posC = actTextItem->itemText.length();
 		if (actText.count() > 0)
 		{
+			actText.replace(QChar(10), SpecialChars::LINEBREAK);
+			actText.replace(QChar(12), SpecialChars::FRAMEBREAK);
+			actText.replace(QChar(30), SpecialChars::NBHYPHEN);
+			actText.replace(QChar(160), SpecialChars::NBSPACE);
+			QTextDocument texDoc;
+			texDoc.setHtml(actText);
+			actText = texDoc.toPlainText();
+			actText = actText.trimmed();
 			actTextItem->itemText.insertChars(posC, actText);
 			actTextItem->itemText.applyStyle(posC, textStyle);
 			actTextItem->itemText.applyCharStyle(posC, actText.length(), textCharStyle);
@@ -1100,7 +1123,7 @@ void RawVsdPainter::applyFill(PageItem* ite)
 		QString gradMode = "linear";
 		if (m_style["draw:style"])
 			gradMode = QString(m_style["draw:style"]->getStr().cstr());
-		if (gradMode == "linear")
+		if ((gradMode == "linear") || (gradMode == "axial"))
 		{
 			int angle = 0;
 			if (m_style["draw:angle"])
