@@ -8024,7 +8024,10 @@ void ScribusMainWindow::slotPrefsOrg()
 		}
 		emit UpdateRequest(reqDefFontListUpdate);
 		if (prefsManager->appPrefs.uiPrefs.useTabs)
+		{
 			mdiArea->setViewMode(QMdiArea::TabbedView);
+			mdiArea->setTabsClosable(true);
+		}
 		else
 			mdiArea->setViewMode(QMdiArea::SubWindowView);
 		bool shadowChanged = oldPrefs.displayPrefs.showPageShadow != prefsManager->showPageShadow();
