@@ -825,7 +825,8 @@ void RawPainter::startTextLine(const ::WPXPropertyList &propList)
 		textStyle.setGapAfter(valueAsPoint(propList["fo:margin-bottom"]));
 	if (propList["fo:margin-top"])
 		textStyle.setGapBefore(valueAsPoint(propList["fo:margin-top"]));
-	m_maxFontSize = textStyle.charStyle().fontSize() / 10.0;
+//	m_maxFontSize = textStyle.charStyle().fontSize() / 10.0;
+	m_maxFontSize = 1.0;
 	if (propList["fo:line-height"])
 	{
 		m_linespace = propList["fo:line-height"]->getDouble();
@@ -916,6 +917,7 @@ void RawPainter::insertText(const ::WPXString &str)
 			QTextDocument texDoc;
 			texDoc.setHtml(actText);
 			actText = texDoc.toPlainText();
+			actText = actText.trimmed();
 			actTextItem->itemText.insertChars(posC, actText);
 			actTextItem->itemText.applyStyle(posC, textStyle);
 			actTextItem->itemText.applyCharStyle(posC, actText.length(), textCharStyle);
