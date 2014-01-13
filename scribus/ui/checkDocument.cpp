@@ -679,6 +679,7 @@ void CheckDocument::languageChange()
 	notOnPage = tr("Object is not on a Page");
 	missingImg = tr("Missing Image");
 	emptyImg = tr("Empty Image Frame");
+	emptyTextFrame = tr("Empty Text Frame");
 	lowDPI = tr("Image resolution below %1 DPI,\ncurrently %2 x %3 DPI");
 	highDPI = tr("Image resolution above %1 DPI,\ncurrently %2 x %3 DPI");
 	transpar = tr("Object has transparency");
@@ -691,7 +692,6 @@ void CheckDocument::languageChange()
 	fontNotEmbedded =  tr("Imported document contains non embedded fonts");
 	//isGIFtoolTip = "<qt>" + tr("GIF images are not recommended for print. See the online docs for more info") + "</qt>";
 	appliedMasterDifferentSide = tr("Applied master page has different page destination (left, middle, right side)");
-	emptyTextFrame = tr("Empty Image Frame");
 }
 
 void CheckDocument::setIgnoreEnabled(bool state)
