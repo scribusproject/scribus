@@ -362,6 +362,7 @@ bool CollectForOutput::collectFonts()
 		bool success = copyFileAtomic(oldFileITF, outFileITF);
 		if (!success)
 			qDebug()<<"CollectForOutput::collectFile copyFileAtomic failed for"<<oldFileITF<<"to"<<outFileITF;
+#ifndef Q_OS_WIN32
 		else
 		{
 			QFile of(outFileITF);
@@ -374,6 +375,7 @@ bool CollectForOutput::collectFonts()
 			else
 				qDebug()<<"Unable to set permissions successfully while collecting for output on"<<outFileITF<<"as the file does not exist";
 		}
+#endif
 		if (prefsManager->appPrefs.fontPrefs.AvailFonts[it3.key()].type() == ScFace::TYPE1)
 		{
 			QStringList metrics;
@@ -400,6 +402,7 @@ bool CollectForOutput::collectFonts()
 				bool success = copyFileAtomic(origAFM, outFileAFM);
 				if (!success)
 					qDebug()<<"CollectForOutput::collectFile copyFileAtomic failed for"<<origAFM<<"to"<<outFileAFM;
+#ifndef Q_OS_WIN32
 				else
 				{
 					QFile of(outFileAFM);
@@ -412,6 +415,7 @@ bool CollectForOutput::collectFonts()
 					else
 						qDebug()<<"Unable to set permissions successfully while collecting for output on"<<outFileAFM<<"as the file does not exist";
 				}
+#endif
 			}
 		}
 		if (uiCollect)
@@ -474,6 +478,7 @@ bool CollectForOutput::collectProfiles()
 		bool success = copyFileAtomic(oldFile, outFile);
 		if (!success)
 			qDebug()<<"CollectForOutput::collectFile copyFileAtomic failed for"<<oldFile<<"to"<<outFile;
+#ifndef Q_OS_WIN32
 		else
 		{
 			QFile of(outFile);
@@ -486,6 +491,7 @@ bool CollectForOutput::collectProfiles()
 			else
 				qDebug()<<"Unable to set permissions successfully while collecting for output on"<<outFile<<"as the file does not exist";
 		}
+#endif
 		if (uiCollect)
 			emit profilesCollected(c++);
 	}
