@@ -370,7 +370,8 @@ void RawPainter::drawRectangle(const ::WPXPropertyList &propList)
 		PageItem *ite = m_Doc->Items->at(z);
 		finishItem(ite);
 		applyFill(ite);
-		applyShadow(ite);
+		if (CurrColorFill != CommonStrings::None)
+			applyShadow(ite);
 	}
 //	qDebug() << "drawRectangle";
 //  printf("RawPainter::drawRectangle (%s)\n", getPropString(propList).cstr());
@@ -390,7 +391,8 @@ void RawPainter::drawEllipse(const ::WPXPropertyList &propList)
 		PageItem *ite = m_Doc->Items->at(z);
 		finishItem(ite);
 		applyFill(ite);
-		applyShadow(ite);
+		if (CurrColorFill != CommonStrings::None)
+			applyShadow(ite);
 	}
 //	qDebug() << "drawEllipse";
 //  printf("RawPainter::drawEllipse (%s)\n", getPropString(propList).cstr());
@@ -532,7 +534,8 @@ void RawPainter::drawPolygon(const ::WPXPropertyListVector &vertices)
 			applyFill(ite);
 		}
 		applyFlip(ite);
-		applyShadow(ite);
+		if (CurrColorFill != CommonStrings::None)
+			applyShadow(ite);
 	}
 }
 
@@ -641,7 +644,8 @@ void RawPainter::drawPath(const ::WPXPropertyListVector &path)
 			applyFill(ite);
 		}
 		applyFlip(ite);
-		applyShadow(ite);
+		if (CurrColorFill != CommonStrings::None)
+			applyShadow(ite);
 	}
 	else
 	{
@@ -723,7 +727,8 @@ void RawPainter::drawGraphicObject(const ::WPXPropertyList &propList, const ::WP
 			}
 		}
 		applyFlip(ite);
-		applyShadow(ite);
+		if (CurrColorFill != CommonStrings::None)
+			applyShadow(ite);
 	}
 //	qDebug() << "drawGraphicObject";
 //  printf("RawPainter::drawGraphicObject (%s)\n", getPropString(propList).cstr());
