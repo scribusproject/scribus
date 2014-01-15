@@ -1615,12 +1615,16 @@ void PageItem::DrawObj(ScPainter *p, QRectF cullingArea)
 void PageItem::DrawObj_Pre(ScPainter *p)
 {
 	p->save();
+	double lwCorr = m_lineWidth;
+	double sc = p->zoomFactor();
+	if ((m_lineWidth * sc) < 1)
+		lwCorr = 0;
 	if (!isEmbedded)
 		p->translate(m_xPos, m_yPos);
 	p->rotate(m_rotation);
 	if (m_Doc->layerOutline(LayerID))
 	{
-		p->setPen(m_Doc->layerMarker(LayerID), 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+		p->setPen(m_Doc->layerMarker(LayerID), 0, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 		p->setFillMode(ScPainter::None);
 		p->setBrushOpacity(1.0);
 		p->setPenOpacity(1.0);
@@ -1630,7 +1634,7 @@ void PageItem::DrawObj_Pre(ScPainter *p)
 		if (!isGroup())
 		{
 			p->setBlendModeFill(fillBlendmode());
-			p->setLineWidth(m_lineWidth);
+			p->setLineWidth(lwCorr);
 			if (GrType != 0)
 			{
 				if (GrType == 8)
@@ -1742,7 +1746,7 @@ void PageItem::DrawObj_Pre(ScPainter *p)
 			}
 			if ((lineColor() != CommonStrings::None) || (!patternStrokeVal.isEmpty()) || (GrTypeStroke > 0))
 			{
-				p->setPen(strokeQColor, m_lineWidth, PLineArt, PLineEnd, PLineJoin);
+				p->setPen(strokeQColor, lwCorr, PLineArt, PLineEnd, PLineJoin);
 				if (DashValues.count() != 0)
 					p->setDash(DashValues, DashOffset);
 			}
@@ -1793,11 +1797,15 @@ void PageItem::DrawObj_Pre(ScPainter *p)
 void PageItem::DrawObj_Post(ScPainter *p)
 {
 	bool doStroke=true;
+	double lwCorr = m_lineWidth;
+	double sc = p->zoomFactor();
+	if ((m_lineWidth * sc) < 1)
+		lwCorr = 0;
 	if (m_Doc->layerOutline(LayerID))
 	{
 		if (itemType()!=Line)
 		{
-			p->setPen(m_Doc->layerMarker(LayerID), 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+			p->setPen(m_Doc->layerMarker(LayerID), 0, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 			p->setFillMode(ScPainter::None);
 			p->setBrushOpacity(1.0);
 			p->setPenOpacity(1.0);
@@ -1839,7 +1847,7 @@ void PageItem::DrawObj_Post(ScPainter *p)
 				p->setPenOpacity(1.0 - lineTransparency());
 				if ((lineColor() != CommonStrings::None) || (!patternStrokeVal.isEmpty()) || (GrTypeStroke > 0))
 				{
-					p->setPen(strokeQColor, m_lineWidth, PLineArt, PLineEnd, PLineJoin);
+					p->setPen(strokeQColor, lwCorr, PLineArt, PLineEnd, PLineJoin);
 					if (DashValues.count() != 0)
 						p->setDash(DashValues, DashOffset);
 				}
@@ -1896,7 +1904,7 @@ void PageItem::DrawObj_Post(ScPainter *p)
 					else if (lineColor() != CommonStrings::None)
 					{
 						p->setStrokeMode(ScPainter::Solid);
-						p->setPen(strokeQColor, m_lineWidth, PLineArt, PLineEnd, PLineJoin);
+						p->setPen(strokeQColor, lwCorr, PLineArt, PLineEnd, PLineJoin);
 						if (DashValues.count() != 0)
 							p->setDash(DashValues, DashOffset);
 						p->strokePath();
