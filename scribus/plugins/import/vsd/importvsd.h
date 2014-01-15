@@ -62,6 +62,7 @@ public:
 	void insertImage(PageItem* ite, QString imgExt, QByteArray &imageData);
 	void applyFill(PageItem* ite);
 	void applyShadow(PageItem* ite);
+	void applyArrows(PageItem* ite);
 	void finishItem(PageItem* ite);
 
 	ScribusDoc* m_Doc;
