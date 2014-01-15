@@ -381,6 +381,7 @@ int ScribusMainWindow::initScMW(bool primaryMainWindow)
 	{
 		mdiArea->setViewMode(QMdiArea::TabbedView);
 		mdiArea->setTabsClosable(true);
+		mdiArea->setDocumentMode(true);
 	}
 	else
 		mdiArea->setViewMode(QMdiArea::SubWindowView);
@@ -8027,6 +8028,7 @@ void ScribusMainWindow::slotPrefsOrg()
 		{
 			mdiArea->setViewMode(QMdiArea::TabbedView);
 			mdiArea->setTabsClosable(true);
+			mdiArea->setDocumentMode(true);
 		}
 		else
 			mdiArea->setViewMode(QMdiArea::SubWindowView);

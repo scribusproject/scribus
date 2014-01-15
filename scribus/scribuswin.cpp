@@ -112,6 +112,8 @@ void ScribusWin::slotAutoSave()
 
 void ScribusWin::closeEvent(QCloseEvent *ce)
 {
+	activateWindow();
+	m_MainWindow->newActWin(getSubWin());
 	if (m_Doc->symbolEditMode())
 	{
 		m_MainWindow->editSymbolEnd();
@@ -148,7 +150,7 @@ void ScribusWin::closeEvent(QCloseEvent *ce)
 			{
 				if (m_MainWindow->slotFileSave())
 				{
-					if (m_Doc==m_MainWindow->storyEditor->currentDocument())
+					if (m_Doc == m_MainWindow->storyEditor->currentDocument())
 						m_MainWindow->storyEditor->close();
 				}
 				else
