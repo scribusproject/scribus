@@ -1327,19 +1327,22 @@ void RawVsdPainter::applyArrows(PageItem* ite)
 				if ((End.x() != Vector.x()) || (End.y() != Vector.y()))
 				{
 					double r = atan2(End.y()-Vector.y(),End.x()-Vector.x())*(180.0/M_PI);
+					QPointF refP = QPointF(br.width() / 2.0, 0);
 					QTransform m;
 					m.translate(br.width() / 2.0, br.height() / 2.0);
 					m.rotate(r + 90);
 					m.translate(-br.width() / 2.0, -br.height() / 2.0);
 					m.scale(EndArrowWidth / br.width(), EndArrowWidth / br.width());
 					EndArrow.map(m);
+					refP = m.map(refP);
 					QPainterPath pa2 = EndArrow.toQPainterPath(true);
 					QRectF br2 = pa2.boundingRect();
 					QTransform m2;
 					FPoint grOffset2(getMinClipF(&EndArrow));
 					m2.translate(-grOffset2.x(), -grOffset2.y());
-					m2.translate(-br2.width() / 2.0, -br2.height() / 2.0);
 					EndArrow.map(m2);
+					refP = m2.map(refP);
+					EndArrow.translate(-refP.x(), -refP.y());
 					QTransform arrowTrans;
 					arrowTrans.translate(-m_Doc->currentPage()->xOffset(), -m_Doc->currentPage()->yOffset());
 					arrowTrans.translate(End.x() + ite->xPos(), End.y() + ite->yPos());
@@ -1375,19 +1378,22 @@ void RawVsdPainter::applyArrows(PageItem* ite)
 				if ((Start.x() != Vector.x()) || (Start.y() != Vector.y()))
 				{
 					double r = atan2(Start.y()-Vector.y(),Start.x()-Vector.x())*(180.0/M_PI);
+					QPointF refP = QPointF(br.width() / 2.0, 0);
 					QTransform m;
 					m.translate(br.width() / 2.0, br.height() / 2.0);
 					m.rotate(r + 90);
 					m.translate(-br.width() / 2.0, -br.height() / 2.0);
 					m.scale(EndArrowWidth / br.width(), EndArrowWidth / br.width());
 					EndArrow.map(m);
+					refP = m.map(refP);
 					QPainterPath pa2 = EndArrow.toQPainterPath(true);
 					QRectF br2 = pa2.boundingRect();
 					QTransform m2;
 					FPoint grOffset2(getMinClipF(&EndArrow));
 					m2.translate(-grOffset2.x(), -grOffset2.y());
-					m2.translate(-br2.width() / 2.0, -br2.height() / 2.0);
 					EndArrow.map(m2);
+					refP = m2.map(refP);
+					EndArrow.translate(-refP.x(), -refP.y());
 					QTransform arrowTrans;
 					arrowTrans.translate(-m_Doc->currentPage()->xOffset(), -m_Doc->currentPage()->yOffset());
 					arrowTrans.translate(Start.x() + ite->xPos(), Start.y() + ite->yPos());
