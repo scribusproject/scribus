@@ -1911,6 +1911,8 @@ void PageItem::DrawObj_Post(ScPainter *p)
 					}
 					else
 						no_stroke = true;
+					if (lineTransparency() > 0.9)
+						no_stroke = true;
 				}
 				else
 				{

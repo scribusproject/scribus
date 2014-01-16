@@ -1141,7 +1141,7 @@ PageItem* VivaPlug::parseObjectDetailsXML(const QDomElement& obNode, int baseTyp
 							else
 								opa = 1.0 - (eo.text().toDouble() / 100.0);
 							fillOpacity = 1.0 - ((1.0 - fillOpacity) * (1.0 - opa));
-							strokeOpacity = 1.0 - ((1.0 - strokeOpacity) * (1.0 * opa));
+							strokeOpacity = 1.0 - ((1.0 - strokeOpacity) * (1.0 - opa));
 						}
 						else if (eo.tagName() == "vo:cornerRadius")
 							cornerRadius = parseUnit(eo.text());
@@ -1403,10 +1403,26 @@ PageItem* VivaPlug::parseObjectDetailsXML(const QDomElement& obNode, int baseTyp
 		}
 		else
 			item->FrameType = 3;
-		item->setFillColor(fillColor);
-		item->setLineColor(strokeColor);
-		item->setFillShade(fillTint);
-		item->setLineShade(strokeTint);
+		if (fillTint == 0)
+		{
+			item->setFillColor(CommonStrings::None);
+			item->setFillShade(100);
+		}
+		else
+		{
+			item->setFillColor(fillColor);
+			item->setFillShade(fillTint);
+		}
+		if (strokeTint == 0)
+		{
+			item->setLineColor(CommonStrings::None);
+			item->setLineShade(100);
+		}
+		else
+		{
+			item->setLineColor(strokeColor);
+			item->setLineShade(strokeTint);
+		}
 		if (baseType == 1)
 			item->setFillTransparency(imageOpacity);
 		else
