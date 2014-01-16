@@ -1732,14 +1732,8 @@ bool PSLib::ProcessItem(ScribusDoc* Doc, ScPage* a, PageItem* c, uint PNr, bool 
 				PS_scale(1, -1);
 			}
 			if (c->imageClip.size() != 0)
-			{
-				SetClipPath(&c->imageClip);
-				PS_closepath();
-				PS_clip(true);
-			}
-			SetClipPath(&c->PoLine);
-			PS_closepath();
-			PS_clip(true);
+				SetPathAndClip(c->imageClip, true);
+			SetPathAndClip(c->PoLine, true);
 			if ((c->PictureIsAvailable) && (!c->Pfile.isEmpty()))
 			{
 				bool imageOk = false;
@@ -2548,9 +2542,7 @@ bool PSLib::ProcessItem(ScribusDoc* Doc, ScPage* a, PageItem* c, uint PNr, bool 
 			{
 				ScPattern pat = m_Doc->docPatterns[c->pattern()];
 				PS_save();
-				SetClipPath(&c->PoLine);
-				PS_closepath();
-				PS_clip(c->fillRule);
+				SetPathAndClip(c->PoLine, c->fillRule);
 				if (c->imageFlippedH())
 				{
 					PS_translate(c->width(), 0);
@@ -2577,9 +2569,7 @@ bool PSLib::ProcessItem(ScribusDoc* Doc, ScPage* a, PageItem* c, uint PNr, bool 
 			break;
 		case PageItem::Group:
 			PS_save();
-			SetClipPath(&c->PoLine);
-			PS_closepath();
-			PS_clip(c->fillRule);
+			SetPathAndClip(c->PoLine, c->fillRule);
 			if (c->imageFlippedH())
 			{
 				PS_translate(c->width(), 0);
@@ -5447,36 +5437,46 @@ void PSLib::SetClipPath(FPointArray *c, bool poly)
 	FPoint np, np1, np2, np3, np4, firstP;
 	bool nPath = true;
 	bool first = true;
-	if (c->size() > 3)
+	if (c->size() <= 3)
+		return;
+
+	for (int poi=0; poi < c->size()-3; poi += 4)
 	{
-		for (int poi=0; poi < c->size()-3; poi += 4)
+		if (c->point(poi).x() > 900000)
 		{
-			if (c->point(poi).x() > 900000)
-			{
-				nPath = true;
-				continue;
-			}
-			if (nPath)
-			{
-				np = c->point(poi);
-				if ((!first) && (poly) && (np4 == firstP))
-					PS_closepath();
-				PS_moveto(np.x(), -np.y());
-				nPath = false;
-				first = false;
-				firstP = np;
-				np4 = np;
-			}
-			np = c->point(poi);
-			np1 = c->point(poi+1);
-			np2 = c->point(poi+3);
-			np3 = c->point(poi+2);
-			if ((np == np1) && (np2 == np3))
-				PS_lineto(np3.x(), -np3.y());
-			else
-				PS_curve(np1.x(), -np1.y(), np2.x(), -np2.y(), np3.x(), -np3.y());
-			np4 = np3;
+			nPath = true;
+			continue;
 		}
+		if (nPath)
+		{
+			np = c->point(poi);
+			if ((!first) && (poly) && (np4 == firstP))
+				PS_closepath();
+			PS_moveto(np.x(), -np.y());
+			nPath = false;
+			first = false;
+			firstP = np;
+			np4 = np;
+		}
+		np = c->point(poi);
+		np1 = c->point(poi+1);
+		np2 = c->point(poi+3);
+		np3 = c->point(poi+2);
+		if ((np == np1) && (np2 == np3))
+			PS_lineto(np3.x(), -np3.y());
+		else
+			PS_curve(np1.x(), -np1.y(), np2.x(), -np2.y(), np3.x(), -np3.y());
+		np4 = np3;
+	}
+}
+
+void PSLib::SetPathAndClip(FPointArray &path, bool clipRule)
+{
+	if (path.size() > 3)
+	{
+		SetClipPath(&path);
+		PS_closepath();
+		PS_clip(clipRule);
 	}
 }
 
