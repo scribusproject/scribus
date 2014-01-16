@@ -5109,7 +5109,7 @@ void PageItem_TextFrame::drawOverflowMarker(ScPainter *p)
 
 void PageItem_TextFrame::drawColumnBorders(ScPainter *p)
 {
-	p->setPen(Qt::black, 0, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+	p->setPen(Qt::gray, 0, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 	p->setPenOpacity(1.0);
 	p->setBrush(Qt::white);
 	p->setBrushOpacity(1.0);
@@ -5123,16 +5123,16 @@ void PageItem_TextFrame::drawColumnBorders(ScPainter *p)
 	if (lineColor() != CommonStrings::None)
 		lineCorr = m_lineWidth / 2.0;
 	if (m_textDistanceMargins.Top + lineCorr!=0.0)
-		p->drawSharpLine(FPoint(0, m_textDistanceMargins.Top + lineCorr), FPoint(m_width, m_textDistanceMargins.Top + lineCorr));
+		p->drawSharpLine(FPoint(m_textDistanceMargins.Left + lineCorr, m_textDistanceMargins.Top + lineCorr), FPoint(m_width - m_textDistanceMargins.Right - lineCorr, m_textDistanceMargins.Top + lineCorr));
 	if (m_textDistanceMargins.Bottom + lineCorr!=0.0)
-		p->drawSharpLine(FPoint(0, m_height - m_textDistanceMargins.Bottom - lineCorr), FPoint(m_width, m_height - m_textDistanceMargins.Bottom - lineCorr));
+		p->drawSharpLine(FPoint(m_textDistanceMargins.Left + lineCorr, m_height - m_textDistanceMargins.Bottom - lineCorr), FPoint(m_width - m_textDistanceMargins.Right - lineCorr, m_height - m_textDistanceMargins.Bottom - lineCorr));
 	while(curCol < Cols)
 	{
 		colLeft=(colWidth + ColGap) * curCol + m_textDistanceMargins.Left + lineCorr;
 		if (colLeft != 0.0)
-			p->drawSharpLine(FPoint(colLeft, 0), FPoint(colLeft, 0 + m_height));
+			p->drawSharpLine(FPoint(colLeft, m_textDistanceMargins.Top + lineCorr), FPoint(colLeft, m_height - m_textDistanceMargins.Bottom - lineCorr));
 		if (colLeft + colWidth != m_width)
-			p->drawSharpLine(FPoint(colLeft + colWidth, 0), FPoint(colLeft + colWidth, 0 + m_height));
+			p->drawSharpLine(FPoint(colLeft + colWidth, m_textDistanceMargins.Top + lineCorr), FPoint(colLeft + colWidth, m_height - m_textDistanceMargins.Bottom - lineCorr));
 		++curCol;
 	}
 
