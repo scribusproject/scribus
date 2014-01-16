@@ -504,6 +504,7 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 					QTreeWidgetItem * errorText = new QTreeWidgetItem(page);
 					errorText->setText(COLUMN_PROBLEM, appliedMasterDifferentSide);
 					errorText->setIcon(COLUMN_ITEM, onlyWarning );
+					pageMap.insert(errorText, doc->DocPages.at(aPage));
 					hasError=true;
 					page->setExpanded( true );
 					++pageErrorCount;
