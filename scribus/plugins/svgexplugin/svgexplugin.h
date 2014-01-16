@@ -103,6 +103,7 @@ private:
 	\retval QString Clipping Path
 	*/
 	QString SetClipPath(FPointArray *ite, bool closed);
+	QDomElement createClipPathElement(FPointArray *ite, QDomElement* pathElem = 0);
 	/*!
 	\author Franz Schmid
 	\brief Converts double to string
