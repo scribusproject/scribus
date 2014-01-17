@@ -1,0 +1,53 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<title>Importing Clipart and Business Graphics Files</title>
+</head>
+<style>
+@import "manual.css";
+</style>
+<body>
+<h2>Importing Clip Art and Business Graphics Files</h2>
+<p>The term &ldquo;clip art&rdquo; can have different meanings, depending on who&rsquo;s being asked. In the context of Scribus &ldquo;clip art&rdquo; refers to a special category of technically and artistically less sophisticated vector graphics. Clipart graphics are often being used (and shipped for use) with &ldquo;office&rdquo; suites, as well as simple drawing programs. Distribution and use with program suites like Microsoft Office, WordPerfect Office or LibreOffice resulted in this category of file formats being ubiqitous.</p>
+<br>
+<table width="100%"><tr><td align="center"><img src="images/importwmf.png" alt="An imported WMF clip art file in Scribus."  title="An imported WMF clip art file in Scribus." /></td></tr></table><br>
+<p>&ldquo;Business graphics&rdquo; is another subcategory of vector files. These graphics will be output by programs specialized in visualizing things like business processes, organizational charts, software architecture etc. Well-known programs in this area are Microsoft Viso or its Open Source equivalent Dia.</p>
+<br>
+<table width="100%"><tr><td align="center"><img src="images/importvisio.png" alt="A multi-page MS Visio file opened in Scribus."  title="A multi-page MS Visio file opened in Scribus." /></td></tr></table><br>
+<p>Clip art and business graphics share several characteristics, the most important of which is the absence of CMYK and spot colors, since the file formats don&rsquo;t support these color models. Both graphics types also use <a href="importhints.html">much less sophisticated</a> vector curves than, for instance, AI or SVG. Moreover, most formats listed below can contain vector and bitmap data, and some even text/fonts. Exceptions to this rule are: CVG, SHAPE, and SML.</p>
+
+<h3>Supported Formats</h3>
+<ul>
+<li><b>Calamus Vector Graphics (CVG):</b> CVG files aren&rsquo;t exactly clip art formats as defined above, but rather vector graphics designed for use with the DTP veteran Calamus, which was first released for the Atari platform in 1987. Given the capacity of computers back then, CVG graphics are nothing more than primitive greyscale graphics.</li>
+<li><b>DIA Shapes (SHAPE):</b> While Scribus cannot (yet) import native DIA files, a subset, namely DIA shapes, can be imported.</li>
+<li><b>Kivio Stencils (SML):</b> Kivio is the predecessor to the Flow component of the Calligra office suite. Wheras Flow nowadays uses the ODG format (see below), Kivio had its own XML-based format, which can&rsquo;t be imported into Scribus. As with DIA shapes, however, Kivio&rsquo;s drawing primitives (&ldquo;stencils&rdquo;) can be loaded.</b></li>
+<li><b>Macintosh Picture (PICT):</b> The PICT format is Apple&rsquo;s equivalent to Microsoft&rsquo;s WMF (see below).</li>
+<li><b>Micrografx Draw (DRW):</b> Micrografx was a vendor of popular graphics programs during the 90&rsquo;s, and one of its successful products was the vector drawing/DTP software Draw. One of the reasons for its popularity was probably the huge collection of templates shipped with the software, which means there are potentially thousands of vector drawings in the DRW format available. Despite being a pure vector drawing/DTP program, native Draw files are technically clip art files, because Micrografx never targeted professional customers.</li>
+<li><b>Microsoft Visio (VSD, VXD, VSDX):</b> The most popular software for creating business graphics is probably Microsoft Visio. Thanks to to the efforts of the <a href="https://gitorious.org/re-lab/">RE-lab</a> and <a href="http://www.freedesktop.org/wiki/Software/libvisio/">freedesktop.org/LibreOffice</a>, Scribus can import files created by Visio from version 2000 up to the present.</li>
+<li><b>OpenDocument Drawing (ODG):</b> In the open standard OpenDocument there exists only one file format for both clip art and business graphics files, namely OpenDocument Graphics (ODG). ODG is being used as a native file format by, among others, Apache OpenOffice, LibreOffice, and Calligra.</li>
+<li><b>OpenOffice.org 1.x Drawing (SXD):</b> The graphics format SXD (StarOffice XML Drawing) was the native graphics format of the now discontinued StarOffice suite since version 6 and its Open Source equivalent OpenOffice.org. The OpenDocument Graphics file format (ODG) is based on SXD.</li>
+<li><b>Windows Metafile (WMF):</b> As the name suggests, the WMF format was originally tied to Microsoft&rsquo;s Windows platform, and it&rsquo;s actually little more than a memory dump of graphics data as handled internally by earlier versions of Windows. The ubiquity of Windows and MS Office (which used WMF for clip art files), however, resulted in the ubiquity of WMF as well.</li>
+<li><b>WordPerfect Graphics (WPG):</b> WPG files are the equivalent of WMF and PICT for the WordPerfect Office Suite. Wheras WPG files originally only comprised low-resolution bitmap files, newer versions provide features similar to PICT and WMF. Scribus can import both flavors.</li>
+</ul>
+
+<h2>Caveats</h2>
+<ul>
+<li>Text remains editable only in the file formats ODG, SXD, VSD, VDX, VSDX. Import of the other formats mentioned above will result in text converted to vector curves.</li>
+<li>Layers in Visio files aren&rsquo;t supported yet.</li>
+<li>Connectors and other StarOffice/OpenOffice.org/LibreOffice graphics features (e.g. 3D effects) aren&rsquo;t supported yet. Workaround: Use the <a href="importhints3.html">built-in EPS export</a> if you want to import a file that uses them into Scribus.</li>
+</ul>
+
+<hr>
+See also:
+<ul>
+<li><a href="importhints2.html">Importing Vector Drawings</a></li>
+<li><a href="importbitmap1.html">Importing Bitmap Files</a></li>
+<li><a href="importGraphMag.html">GraphicsMagick</a></li>
+<li><a href="importhints3.html">Importing OpenOffice.org and ODF Files</a></li>
+<li><a href="toolbox18.html">LibreOffice/Apache OpenOffice</a></li>
+<li><a href="toolbox20.html">DrawView</a></li>
+</ul>
+<br>
+<br>
+</body>
+</html>
