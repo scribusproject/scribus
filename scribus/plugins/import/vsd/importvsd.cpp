@@ -752,37 +752,40 @@ void RawVsdPainter::startTextObject(const ::WPXPropertyList &propList, const ::W
 		double rot = 0;
 		if (propList["libwpg:rotate"])
 			rot = propList["libwpg:rotate"]->getDouble();
-		int z = m_Doc->itemAdd(PageItem::TextFrame, PageItem::Rectangle, baseX + x, baseY + y, w, h, 0, CurrColorFill, CurrColorStroke, true);
-		PageItem *ite = m_Doc->Items->at(z);
-		CurrFillTrans = 0;
-		CurrStrokeTrans = 0;
-		finishItem(ite);
-		applyShadow(ite);
-		if (rot != 0)
+		if ((w != 0) && (h != 0))
 		{
-			int rm = m_Doc->RotMode();
-			m_Doc->RotMode(2);
-			m_Doc->RotateItem(rot, ite);
-			m_Doc->RotMode(rm);
+			int z = m_Doc->itemAdd(PageItem::TextFrame, PageItem::Rectangle, baseX + x, baseY + y, w, h, 0, CurrColorFill, CurrColorStroke, true);
+			PageItem *ite = m_Doc->Items->at(z);
+			CurrFillTrans = 0;
+			CurrStrokeTrans = 0;
+			finishItem(ite);
+			applyShadow(ite);
+			if (rot != 0)
+			{
+				int rm = m_Doc->RotMode();
+				m_Doc->RotMode(2);
+				m_Doc->RotateItem(rot, ite);
+				m_Doc->RotMode(rm);
+			}
+			if (propList["fo:padding-left"])
+				ite->setTextToFrameDistLeft(valueAsPoint(propList["fo:padding-left"]));
+			if (propList["fo:padding-right"])
+				ite->setTextToFrameDistRight(valueAsPoint(propList["fo:padding-right"]));
+			if (propList["fo:padding-top"])
+				ite->setTextToFrameDistTop(valueAsPoint(propList["fo:padding-top"]));
+			if (propList["fo:padding-bottom"])
+				ite->setTextToFrameDistBottom(valueAsPoint(propList["fo:padding-bottom"]));
+			if (propList["fo:column-count"])
+				ite->setColumns(propList["fo:column-count"]->getInt());
+			if (propList["fo:column-gap"])
+				ite->setColumnGap(valueAsPoint(propList["fo:column-gap"]));
+			ite->setFirstLineOffset(FLOPFontAscent);
+			actTextItem = ite;
+			QString pStyle = CommonStrings::DefaultParagraphStyle;
+			ParagraphStyle newStyle;
+			newStyle.setParent(pStyle);
+			textStyle = newStyle;
 		}
-		if (propList["fo:padding-left"])
-			ite->setTextToFrameDistLeft(valueAsPoint(propList["fo:padding-left"]));
-		if (propList["fo:padding-right"])
-			ite->setTextToFrameDistRight(valueAsPoint(propList["fo:padding-right"]));
-		if (propList["fo:padding-top"])
-			ite->setTextToFrameDistTop(valueAsPoint(propList["fo:padding-top"]));
-		if (propList["fo:padding-bottom"])
-			ite->setTextToFrameDistBottom(valueAsPoint(propList["fo:padding-bottom"]));
-		if (propList["fo:column-count"])
-			ite->setColumns(propList["fo:column-count"]->getInt());
-		if (propList["fo:column-gap"])
-			ite->setColumnGap(valueAsPoint(propList["fo:column-gap"]));
-		ite->setFirstLineOffset(FLOPFontAscent);
-		actTextItem = ite;
-		QString pStyle = CommonStrings::DefaultParagraphStyle;
-		ParagraphStyle newStyle;
-		newStyle.setParent(pStyle);
-		textStyle = newStyle;
 	}
 }
 
@@ -845,6 +848,8 @@ void RawVsdPainter::endTextLine()
 {
 	if (!doProcessing)
 		return;
+	if (actTextItem == NULL)
+		return;
 	int posT = actTextItem->itemText.length();
 	if (posT > 0)
 	{
@@ -859,6 +864,8 @@ void RawVsdPainter::endTextLine()
 void RawVsdPainter::startTextSpan(const ::WPXPropertyList &propList)
 {
 	if (!doProcessing)
+		return;
+	if (actTextItem == NULL)
 		return;
 	textCharStyle = textStyle.charStyle();
 	if (propList["fo:font-size"])
