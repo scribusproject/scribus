@@ -471,12 +471,7 @@ void XPSExPlug::writeItemOnPage(double xOffset, double yOffset, PageItem *Item, 
 					}
 					FPointArray path = Item->PoLine.copy();
 					path.scale(conversionFactor, conversionFactor);
-					QString pa = SetClipPath(&path, true);
-					if (Item->fillRule)
-						pa.prepend("F 0 ");
-					else
-						pa.prepend("F 1 ");
-					ob.setAttribute("Clip", pa);
+					SetClipAttr(ob, &path, Item->fillRule);
 					QTransform mpx;
 					mpx.translate(xOffset * conversionFactor, yOffset * conversionFactor);
 					mpx.scale(Item->width() / Item->groupWidth, Item->height() / Item->groupHeight);
@@ -1434,12 +1429,7 @@ void XPSExPlug::processSymbolItem(double xOffset, double yOffset, PageItem *Item
 	QDomElement ob = p_docu.createElement("Canvas");
 	FPointArray path = Item->PoLine.copy();
 	path.scale(conversionFactor, conversionFactor);
-	QString pa = SetClipPath(&path, true);
-	if (Item->fillRule)
-		pa.prepend("F 0 ");
-	else
-		pa.prepend("F 1 ");
-	ob.setAttribute("Clip", pa);
+	SetClipAttr(ob, &path, Item->fillRule);
 	ScPattern pat = m_Doc->docPatterns[Item->pattern()];
 	QTransform mpx;
 	mpx.translate(xOffset * conversionFactor, yOffset * conversionFactor);
@@ -2516,42 +2506,55 @@ QString XPSExPlug::SetColor(QString farbe, int shad, double transparency)
 	return "#" + alpha + color;
 }
 
+void XPSExPlug::SetClipAttr(QDomElement &elem, FPointArray *ite, bool fillRule)
+{
+	QString pathStr = SetClipPath(ite, true);
+	if (pathStr.length() > 0)
+	{
+		if (fillRule)
+			pathStr.prepend("F 0 ");
+		else
+			pathStr.prepend("F 1 ");
+		elem.setAttribute("Clip", pathStr);
+	}
+}
+
 QString XPSExPlug::SetClipPath(FPointArray *ite, bool closed)
 {
-	QString tmp = "";
+	QString tmp;
 	FPoint np, np1, np2, np3, np4, firstP;
 	bool nPath = true;
 	bool first = true;
-	if (ite->size() > 3)
+	if (ite->size() <= 3)
+		return tmp;
+
+	for (int poi=0; poi<ite->size()-3; poi += 4)
 	{
-		for (int poi=0; poi<ite->size()-3; poi += 4)
+		if (ite->point(poi).x() > 900000)
 		{
-			if (ite->point(poi).x() > 900000)
-			{
-				nPath = true;
-				continue;
-			}
-			if (nPath)
-			{
-				np = ite->point(poi);
-				if ((!first) && (closed) && (np4 == firstP))
-					tmp += "Z ";
-				tmp += QString("M%1,%2 ").arg(np.x()).arg(np.y());
-				nPath = false;
-				first = false;
-				firstP = np;
-				np4 = np;
-			}
-			np = ite->point(poi);
-			np1 = ite->point(poi+1);
-			np2 = ite->point(poi+3);
-			np3 = ite->point(poi+2);
-			if ((np == np1) && (np2 == np3))
-				tmp += QString("L%1,%2 ").arg(np3.x()).arg(np3.y());
-			else
-				tmp += QString("C%1,%2 %3,%4 %5,%6 ").arg(np1.x()).arg(np1.y()).arg(np2.x()).arg(np2.y()).arg(np3.x()).arg(np3.y());
-			np4 = np3;
+			nPath = true;
+			continue;
 		}
+		if (nPath)
+		{
+			np = ite->point(poi);
+			if ((!first) && (closed) && (np4 == firstP))
+				tmp += "Z ";
+			tmp += QString("M%1,%2 ").arg(np.x()).arg(np.y());
+			nPath = false;
+			first = false;
+			firstP = np;
+			np4 = np;
+		}
+		np = ite->point(poi);
+		np1 = ite->point(poi+1);
+		np2 = ite->point(poi+3);
+		np3 = ite->point(poi+2);
+		if ((np == np1) && (np2 == np3))
+			tmp += QString("L%1,%2 ").arg(np3.x()).arg(np3.y());
+		else
+			tmp += QString("C%1,%2 %3,%4 %5,%6 ").arg(np1.x()).arg(np1.y()).arg(np2.x()).arg(np2.y()).arg(np3.x()).arg(np3.y());
+		np4 = np3;
 	}
 	if (closed)
 		tmp += "Z";

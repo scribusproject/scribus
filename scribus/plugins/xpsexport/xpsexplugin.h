@@ -94,6 +94,7 @@ private:
 	void getFillStyle(PageItem *Item, QDomElement &parentElem, QDomElement &rel_root, double xOffset, double yOffset, bool withTransparency = true);
 	void handleMask(int type, PageItem *Item, QDomElement &parentElem, QDomElement &rel_root, double xOffset, double yOffset);
 	QString SetColor(QString farbe, int shad, double transparency);
+	void    SetClipAttr(QDomElement &elem, FPointArray *ite, bool fillRule);
 	QString SetClipPath(FPointArray *ite, bool closed);
 	void writeDocRels();
 	void writeCore();
