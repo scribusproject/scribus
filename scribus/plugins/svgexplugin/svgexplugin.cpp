@@ -378,10 +378,26 @@ void SVGExPlug::ProcessItemOnPage(double xOffset, double yOffset, PageItem *Item
 					if (Item->fillTransparency() != 0)
 						ob.setAttribute("opacity", FToStr(1.0 - Item->fillTransparency()));
 				}
-				QString tr = trans + QString(" scale(%1, %2)").arg(Item->width() / Item->groupWidth).arg(Item->height() / Item->groupHeight);
+				QString tr = trans;
+				if (Item->imageFlippedH())
+				{
+					tr += QString(" translate(%1, 0.0)").arg(Item->width());
+					tr += QString(" scale(-1.0, 1.0)");
+				}
+				if (Item->imageFlippedV())
+				{
+					tr += QString(" translate(0.0, %1)").arg(Item->height());
+					tr += QString(" scale(1.0, -1.0)");
+				}
+				tr += QString(" scale(%1, %2)").arg(Item->width() / Item->groupWidth).arg(Item->height() / Item->groupHeight);
 				ob.setAttribute("transform", tr);
 				ob.setAttribute("style", "fill:none; stroke:none");
-				QDomElement obc = createClipPathElement(&Item->PoLine);
+				FPointArray clipPath = Item->PoLine;
+				QTransform transform;
+				transform.scale(Item->width() / Item->groupWidth, Item->height() / Item->groupHeight);
+				transform = transform.inverted();
+				clipPath.map(transform);
+				QDomElement obc = createClipPathElement(&clipPath);
 				if (!obc.isNull())
 					ob.setAttribute("clip-path", "url(#"+ obc.attribute("id") + ")");
 				if (Item->fillRule)
