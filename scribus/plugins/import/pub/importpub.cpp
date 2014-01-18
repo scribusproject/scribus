@@ -492,9 +492,11 @@ void RawPainter::drawPolygon(const ::WPXPropertyListVector &vertices)
 								if (rot != 0)
 								{
 									QTransform mm;
+									mm.translate(baR.x(), baR.y());
 									mm.translate(baR.width() / 2.0, baR.height() / 2.0);
 									mm.rotate(rot);
 									mm.translate(-baR.width() / 2.0, -baR.height() / 2.0);
+									mm.translate(-baR.x(), -baR.y());
 									ba = mm.map(ba);
 									baR = ba.boundingRect();
 									ite->setXYPos(baseX + baR.x(), baseY + baR.y(), true);
