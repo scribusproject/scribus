@@ -713,13 +713,13 @@ QDomElement SVGExPlug::processSymbolStroke(PageItem *Item, QString trans)
 QDomElement SVGExPlug::processSymbolItem(PageItem *Item, QString trans)
 {
 	QDomElement ob;
+	ScPattern pat = m_Doc->docPatterns[Item->pattern()];
 	ob = docu.createElement("use");
 	ob.setAttribute("x", "0");
 	ob.setAttribute("y", "0");
-	ob.setAttribute("width", FToStr(Item->width()));
-	ob.setAttribute("height", FToStr(Item->height()));
+	ob.setAttribute("width", FToStr(pat.width));
+	ob.setAttribute("height", FToStr(pat.height));
 	ob.setAttribute("xlink:href", "#S"+Item->pattern());
-	ScPattern pat = m_Doc->docPatterns[Item->pattern()];
 	QString tr = trans + QString(" scale(%1, %2)").arg(Item->width() / pat.width).arg(Item->height() / pat.height);
 	ob.setAttribute("transform", tr);
 	return ob;
