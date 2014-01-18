@@ -154,7 +154,8 @@ void ResizeGesture::drawControls(QPainter* p)
 		default:
 			break;
 	}
-//	QRect localRect = m_canvas->canvasToLocal(m_bounds.normalized().adjusted(-m_extraX, -m_extraY, 0, 0));
+	if (m_doc->m_Selection->isMultipleSelection())
+		localRect = m_canvas->canvasToLocal(m_bounds.normalized());
 	p->save();
 	if (m_rotation != 0)
 	{
