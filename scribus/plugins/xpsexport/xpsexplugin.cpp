@@ -471,6 +471,7 @@ void XPSExPlug::writeItemOnPage(double xOffset, double yOffset, PageItem *Item, 
 					}
 					FPointArray path = Item->PoLine.copy();
 					path.scale(conversionFactor, conversionFactor);
+					path.scale(Item->groupWidth / Item->width(), Item->groupHeight / Item->height());
 					SetClipAttr(ob, &path, Item->fillRule);
 					QTransform mpx;
 					mpx.translate(xOffset * conversionFactor, yOffset * conversionFactor);
@@ -1428,9 +1429,10 @@ void XPSExPlug::processSymbolItem(double xOffset, double yOffset, PageItem *Item
 {
 	QDomElement ob = p_docu.createElement("Canvas");
 	FPointArray path = Item->PoLine.copy();
-	path.scale(conversionFactor, conversionFactor);
-	SetClipAttr(ob, &path, Item->fillRule);
 	ScPattern pat = m_Doc->docPatterns[Item->pattern()];
+	path.scale(conversionFactor, conversionFactor);
+	path.scale(pat.width / Item->width(), pat.height / Item->height());
+	SetClipAttr(ob, &path, Item->fillRule);
 	QTransform mpx;
 	mpx.translate(xOffset * conversionFactor, yOffset * conversionFactor);
 	mpx.scale(Item->width() / pat.width, Item->height() / pat.height);
