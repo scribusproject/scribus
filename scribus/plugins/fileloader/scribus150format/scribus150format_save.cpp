@@ -422,8 +422,12 @@ bool Scribus150Format::saveFile(const QString & fileName, const FileFormat & /* 
 	}
 	else if (QFile::exists(tmpFileName))
 		QFile::remove(tmpFileName);
-	if (writeSucceed) 
+	if (writeSucceed)
 		QFile::remove(tmpFileName);
+#ifdef Q_OS_UNIX
+	if (writeSucceed)
+		QFile::setPermissions(fileName, m_Doc->filePermissions());
+#endif
 	return writeSucceed;
 }
 
