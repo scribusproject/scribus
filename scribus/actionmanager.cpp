@@ -2510,6 +2510,8 @@ void ActionManager::setStartupActionsEnabled(bool enabled)
 	(*scrActions)["editSearchReplace"]->setEnabled(false);
 	(*scrActions)["editMasterPages"]->setEnabled(false);
 	(*scrActions)["editJavascripts"]->setEnabled(false);
+	(*scrActions)["editEditWithImageEditor"]->setEnabled(false);
+	(*scrActions)["editEditRenderSource"]->setEnabled(false);
 	(*scrActions)["toolsPreflightVerifier"]->setEnabled(false);
 	(*scrActions)["extrasHyphenateText"]->setEnabled(false);
 	(*scrActions)["extrasDeHyphenateText"]->setEnabled(false);

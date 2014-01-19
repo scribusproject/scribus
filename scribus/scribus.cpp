@@ -805,8 +805,7 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->addMenuItemString("editJavascripts", "Edit");
 	scrMenuMgr->setMenuEnabled("EditPasteRecent", false);
 	scrMenuMgr->setMenuEnabled("EditContents", false);
-	scrMenuMgr->setMenuEnabled("editEditWithImageEditor", false);
-	scrMenuMgr->setMenuEnabled("editEditRenderSource", false);
+
 
 	//Item Menu
 	scrMenuMgr->createMenu("Item", ActionManager::defaultMenuNameEntryTranslated("Item"));
