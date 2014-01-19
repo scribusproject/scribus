@@ -24,9 +24,9 @@ public:
 	bool useParentValue();
 
 private:
-	bool   hasParent_;
-	bool   useParentValue_;
-	bool   pValue_;
+	bool   m_hasParent;
+	bool   m_useParentValue;
+	bool   m_pValue;
 	void setFont(bool wantBold);
 
 private slots:

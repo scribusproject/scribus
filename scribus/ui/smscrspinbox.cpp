@@ -9,27 +9,27 @@ for which a new license (GPL+exception) is in place.
 
 SMScrSpinBox::SMScrSpinBox(QWidget *pa, int s)
 : ScrSpinBox(pa, s),
-  hasParent_(false),
-  useParentValue_(false),
-  pValue_(0.0)
+  m_hasParent(false),
+  m_useParentValue(false),
+  m_pValue(0.0)
 {
 	
 }
 
 SMScrSpinBox::SMScrSpinBox(double minValue, double maxValue, QWidget *pa, int s)
 : ScrSpinBox(minValue, maxValue, pa, s),
-  hasParent_(false),
-  useParentValue_(false),
-  pValue_(0.0)
+  m_hasParent(false),
+  m_useParentValue(false),
+  m_pValue(0.0)
 {
 	
 }
 
 SMScrSpinBox::SMScrSpinBox(QWidget *parent, const char * name)
 : ScrSpinBox(parent, 0),
-  hasParent_(false),
-  useParentValue_(false),
-  pValue_(0.0)
+  m_hasParent(false),
+  m_useParentValue(false),
+  m_pValue(0.0)
 {
 	
 }
@@ -37,8 +37,8 @@ SMScrSpinBox::SMScrSpinBox(QWidget *parent, const char * name)
 void SMScrSpinBox::setValue(double val)
 {
 	disconnect(this, SIGNAL(valueChanged(double)), this, SLOT(slotValueChanged()));
-	hasParent_ = false;
-	pValue_ = 0.0;
+	m_hasParent = false;
+	m_pValue = 0.0;
 	setFont(false);
 
 	ScrSpinBox::setValue(val);
@@ -47,8 +47,8 @@ void SMScrSpinBox::setValue(double val)
 void SMScrSpinBox::setValue(double val, bool isParentVal)
 {
 	disconnect(this, SIGNAL(valueChanged(double)), this, SLOT(slotValueChanged()));
-	hasParent_ = true;
-	pValue_ = val;
+	m_hasParent = true;
+	m_pValue = val;
 	setFont(!isParentVal);
 
 	ScrSpinBox::setValue(val);
@@ -64,25 +64,25 @@ void SMScrSpinBox::clear()
 
 void SMScrSpinBox::setParentValue(double val)
 {
-	hasParent_ = true;
-	pValue_ = val;
+	m_hasParent = true;
+	m_pValue = val;
 }
 
 bool SMScrSpinBox::useParentValue()
 {
-	bool ret = useParentValue_;
-	useParentValue_ = false;
+	bool ret = m_useParentValue;
+	m_useParentValue = false;
 	return ret;
 }
 
 void SMScrSpinBox::interpretText()
 {
 // 	QString t = text();
-// 	if (hasParent_ && (t == "" || t.isEmpty() || t == QString::null))
-	if (hasParent_ && text().isEmpty())
+// 	if (m_hasParent && (t == "" || t.isEmpty() || t == QString::null))
+	if (m_hasParent && text().isEmpty())
 	{
-		useParentValue_ = true;
-		setValue(pValue_, true);
+		m_useParentValue = true;
+		setValue(m_pValue, true);
 	}
 	ScrSpinBox::interpretText();
 }
@@ -96,6 +96,6 @@ void SMScrSpinBox::setFont(bool wantBold)
 
 void SMScrSpinBox::slotValueChanged()
 {
-	if(hasParent_)
+	if(m_hasParent)
 		setFont(true);
 }

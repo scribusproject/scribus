@@ -10,9 +10,9 @@ for which a new license (GPL+exception) is in place.
 
 SMShadeButton::SMShadeButton(QWidget *parent)
 : ShadeButton(parent),
-  hasParent_(false),
-  useParentValue_(false),
-  pValue_(0)
+  m_hasParent(false),
+  m_useParentValue(false),
+  m_pValue(0)
 {
 	
 }
@@ -21,16 +21,16 @@ void SMShadeButton::setValue(int i)
 {
 	disconnect(this, SIGNAL(pressed()), this, SLOT(currentChanged()));
 	setFont(false);
-	hasParent_ = false;
-	pValue_ = 0;
+	m_hasParent = false;
+	m_pValue = 0;
 	ShadeButton::setValue(i);
 }
 
 void SMShadeButton::setValue(int i, bool isParentValue)
 {
 	disconnect(this, SIGNAL(pressed()), this, SLOT(currentChanged()));
-	hasParent_ = true;
-	pValue_ = i;
+	m_hasParent = true;
+	m_pValue = i;
 	setFont(!isParentValue);
 	ShadeButton::setValue(i);
 	connect(this, SIGNAL(pressed()), this, SLOT(currentChanged()));
@@ -38,18 +38,18 @@ void SMShadeButton::setValue(int i, bool isParentValue)
 
 void SMShadeButton::setParentValue(int i)
 {
-	hasParent_ = true;
-	pValue_ = i;
+	m_hasParent = true;
+	m_pValue = i;
 }
 
 bool SMShadeButton::useParentValue()
 {
-	bool ret = useParentValue_;
-	useParentValue_ = false;
+	bool ret = m_useParentValue;
+	m_useParentValue = false;
 
 	if (ret)
 	{
-		setValue(pValue_, true);
+		setValue(m_pValue, true);
 		QList<QAction*> actList = FillSh->actions();
 		FillSh->removeAction(actList.last());
 	}
@@ -68,7 +68,7 @@ void SMShadeButton::setFont(bool wantBold)
 
 void SMShadeButton::currentChanged()
 {
-	if (hasParent_)
+	if (m_hasParent)
 	{
 		setFont(true);
 		QString upv = tr("Use Parent Value");
@@ -80,7 +80,7 @@ void SMShadeButton::currentChanged()
 
 void SMShadeButton::slotUseParent()
 {
-	useParentValue_ = true;
+	m_useParentValue = true;
 	QList<QAction*> actList = FillSh->actions();
 	FillSh->removeAction(actList.last());
 	emit clicked();

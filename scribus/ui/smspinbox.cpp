@@ -9,9 +9,9 @@ for which a new license (GPL+exception) is in place.
 
 SMSpinBox::SMSpinBox(QWidget *parent)
 : QSpinBox(parent),
-  hasParent_(false),
-  useParentValue_(false),
-  pValue_(0)
+  m_hasParent(false),
+  m_useParentValue(false),
+  m_pValue(0)
 {
 
 }
@@ -19,8 +19,8 @@ SMSpinBox::SMSpinBox(QWidget *parent)
 void SMSpinBox::setValue(int val)
 {
 	disconnect(this, SIGNAL(valueChanged(int)), this, SLOT(slotValueChanged()));
-	hasParent_ = false;
-	pValue_ = 0;
+	m_hasParent = false;
+	m_pValue = 0;
 	setFont(false);
 
 	QSpinBox::setValue(val);
@@ -29,8 +29,8 @@ void SMSpinBox::setValue(int val)
 void SMSpinBox::setValue(int val, bool isParentVal)
 {
 	disconnect(this, SIGNAL(valueChanged(int)), this, SLOT(slotValueChanged()));
-	hasParent_ = true;
-	pValue_ = val;
+	m_hasParent = true;
+	m_pValue = val;
 	setFont(!isParentVal);
 
 	QSpinBox::setValue(val);
@@ -46,25 +46,25 @@ void SMSpinBox::clear()
 
 void SMSpinBox::setParentValue(int val)
 {
-	hasParent_ = true;
-	pValue_ = val;
+	m_hasParent = true;
+	m_pValue = val;
 }
 
 bool SMSpinBox::useParentValue()
 {
-	bool ret = useParentValue_;
-	useParentValue_ = false;
+	bool ret = m_useParentValue;
+	m_useParentValue = false;
 	return ret;
 }
 
 void SMSpinBox::interpretText()
 {
 // 	QString t = text();
-// 	if (hasParent_ && (t == "" || t.isEmpty() || t == QString::null))
-	if (hasParent_ && text().isEmpty())
+// 	if (m_hasParent && (t == "" || t.isEmpty() || t == QString::null))
+	if (m_hasParent && text().isEmpty())
 	{
-		useParentValue_ = true;
-		setValue(pValue_, true);
+		m_useParentValue = true;
+		setValue(m_pValue, true);
 	}
 	QSpinBox::interpretText();
 }
@@ -78,6 +78,6 @@ void SMSpinBox::setFont(bool wantBold)
 
 void SMSpinBox::slotValueChanged()
 {
-	if(hasParent_)
+	if(m_hasParent)
 		setFont(true);
 }

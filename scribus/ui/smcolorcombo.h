@@ -30,10 +30,10 @@ public:
 	bool useParentValue();
 
 private:
-	bool   hasParent_;
-	bool   useParentValue_;
-	int    pItem_;
-	QString pText_;
+	bool   m_hasParent;
+	bool   m_useParentValue;
+	int    m_pItem;
+	QString m_pText;
 	void setFont(bool wantBold);
 
 private slots:

@@ -10,9 +10,9 @@ for which a new license (GPL+exception) is in place.
 
 SMAlignSelect::SMAlignSelect(QWidget *parent)
 : AlignSelect(parent),
-  hasParent_(false),
-  useParentStyle_(false),
-  pStyle_(0)
+  m_hasParent(false),
+  m_useParentStyle(false),
+  m_pStyle(0)
 {
 	parentButton = new QToolButton(this);
 	parentButton->setMaximumSize( QSize( 22, 22 ) );
@@ -29,8 +29,8 @@ void SMAlignSelect::setStyle(int i)
 	disconnect(this, SIGNAL(State(int)), this, SLOT(styleChanged()));
 	disconnect(parentButton, SIGNAL(pressed()), this, SLOT(pbPressed()));
 	setFont(false);
-	hasParent_ = false;
-	pStyle_ = 0;
+	m_hasParent = false;
+	m_pStyle = 0;
 	parentButton->hide();
 	AlignSelect::setStyle(i);
 }
@@ -39,8 +39,8 @@ void SMAlignSelect::setStyle(int i, bool isParentValue)
 {
 	disconnect(this, SIGNAL(State(int)), this, SLOT(styleChanged()));
 	disconnect(parentButton, SIGNAL(pressed()), this, SLOT(pbPressed()));
-	hasParent_ = true;
-	pStyle_ = i;
+	m_hasParent = true;
+	m_pStyle = i;
 	setFont(!isParentValue);
 	if (isParentValue)
 		parentButton->hide();
@@ -54,16 +54,16 @@ void SMAlignSelect::setStyle(int i, bool isParentValue)
 
 void SMAlignSelect::setParentItem(int i)
 {
-	hasParent_ = true;
-	pStyle_ = i;
+	m_hasParent = true;
+	m_pStyle = i;
 }
 
 bool SMAlignSelect::useParentValue()
 {
-	bool ret = useParentStyle_;
-	useParentStyle_ = false;
+	bool ret = m_useParentStyle;
+	m_useParentStyle = false;
 	if (ret)
-		setStyle(pStyle_, true);
+		setStyle(m_pStyle, true);
 
 	return ret;
 }
@@ -77,7 +77,7 @@ void SMAlignSelect::setFont(bool wantBold)
 
 void SMAlignSelect::styleChanged()
 {
-	if (hasParent_)
+	if (m_hasParent)
 	{
 		setFont(true);
 		parentButton->show();
@@ -86,5 +86,5 @@ void SMAlignSelect::styleChanged()
 
 void SMAlignSelect::pbPressed()
 {
-	useParentStyle_ = true;
+	m_useParentStyle = true;
 }

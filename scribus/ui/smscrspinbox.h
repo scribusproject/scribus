@@ -32,9 +32,9 @@ protected:
 	void interpretText();
 
 private:
-	bool   hasParent_;
-	bool   useParentValue_;
-	double pValue_;
+	bool   m_hasParent;
+	bool   m_useParentValue;
+	double m_pValue;
 	void setFont(bool wantBold);
 
 private slots:

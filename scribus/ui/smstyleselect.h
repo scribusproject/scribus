@@ -27,9 +27,9 @@ public:
 	QToolButton *parentButton;
 
 private:
-	bool   hasParent_;
-	bool   useParentStyle_;
-	int    pStyle_;
+	bool   m_hasParent;
+	bool   m_useParentStyle;
+	int    m_pStyle;
 	void setFont(bool wantBold);
 
 private slots:

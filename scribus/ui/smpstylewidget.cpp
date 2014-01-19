@@ -364,10 +364,10 @@ void SMPStyleWidget::show(ParagraphStyle *pstyle, QList<ParagraphStyle> &pstyles
 		keepWithNext->setParentValue (parent->keepWithNext());
 		
 //Effects Gropup Box
-		parentDC_ = parent->hasDropCap();
-		parentBul_ = parent->hasBullet();
-		parentNum_ = parent->hasNum();
-		//parentParEffects_ = (parentDC_ || parentBul_ || parentNum_);
+		m_parentDC = parent->hasDropCap();
+		m_parentBul = parent->hasBullet();
+		m_parentNum = parent->hasNum();
+		//parentParEffects_ = (m_parentDC || m_parentBul || m_parentNum);
 		if (pstyle->isInhHasDropCap() && pstyle->isInhHasBullet() && pstyle->isInhHasNum())
 		{
 			parentParEffectsButton->hide();
@@ -1124,9 +1124,9 @@ void SMPStyleWidget::slotParentParEffects()
 {
 	disconnectPESignals();
 	parentParEffectsButton->hide();
-	dropCapsBox->setChecked(parentDC_);
-	bulletBox->setChecked(parentBul_);
-	numBox->setChecked(parentNum_);
+	dropCapsBox->setChecked(m_parentDC);
+	bulletBox->setChecked(m_parentBul);
+	numBox->setChecked(m_parentNum);
 	emit useParentParaEffects();
 	connectPESignals();
 }

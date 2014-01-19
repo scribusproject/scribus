@@ -10,9 +10,9 @@ for which a new license (GPL+exception) is in place.
 
 SMStyleSelect::SMStyleSelect(QWidget *parent)
 : StyleSelect(parent),
-  hasParent_(false),
-  useParentStyle_(false),
-  pStyle_(0)
+  m_hasParent(false),
+  m_useParentStyle(false),
+  m_pStyle(0)
 {
 	parentButton = new QToolButton(this);
 	parentButton->setMaximumSize(QSize(22, 22));
@@ -36,8 +36,8 @@ void SMStyleSelect::setStyle(int i)
 	disconnect(StrikeVal->LWidth, SIGNAL(valueChanged(double)), this, SLOT(styleChanged()));
 	disconnect(parentButton, SIGNAL(pressed()), this, SLOT(pbPressed()));
 	setFont(false);
-	hasParent_ = false;
-	pStyle_ = 0;
+	m_hasParent = false;
+	m_pStyle = 0;
 	parentButton->hide();
 	StyleSelect::setStyle(i);
 }
@@ -53,8 +53,8 @@ void SMStyleSelect::setStyle(int i, bool isParentValue)
 	disconnect(StrikeVal->LPos, SIGNAL(valueChanged(double)), this, SLOT(styleChanged()));
 	disconnect(StrikeVal->LWidth, SIGNAL(valueChanged(double)), this, SLOT(styleChanged()));
 	disconnect(parentButton, SIGNAL(pressed()), this, SLOT(pbPressed()));
-	hasParent_ = true;
-	pStyle_ = i;
+	m_hasParent = true;
+	m_pStyle = i;
 	setFont(!isParentValue);
 	if (isParentValue)
 		parentButton->hide();
@@ -75,16 +75,16 @@ void SMStyleSelect::setStyle(int i, bool isParentValue)
 
 void SMStyleSelect::setParentItem(int i)
 {
-	hasParent_ = true;
-	pStyle_ = i;
+	m_hasParent = true;
+	m_pStyle = i;
 }
 
 bool SMStyleSelect::useParentValue()
 {
-	bool ret = useParentStyle_;
-	useParentStyle_ = false;
+	bool ret = m_useParentStyle;
+	m_useParentStyle = false;
 	if (ret)
-		setStyle(pStyle_, true);
+		setStyle(m_pStyle, true);
 
 	return ret;
 }
@@ -106,7 +106,7 @@ void SMStyleSelect::setFont(bool wantBold)
 
 void SMStyleSelect::styleChanged()
 {
-	if (hasParent_)
+	if (m_hasParent)
 	{
 		setFont(true);
 		parentButton->show();
@@ -115,6 +115,6 @@ void SMStyleSelect::styleChanged()
 
 void SMStyleSelect::pbPressed()
 {
-	useParentStyle_ = true;
+	m_useParentStyle = true;
 	emit State(getStyle());
 }

@@ -9,9 +9,9 @@ for which a new license (GPL+exception) is in place.
 
 SMCheckBox::SMCheckBox(QWidget *parent)
 : QCheckBox(parent),
-  hasParent_(false),
-  useParentValue_(false),
-  pValue_(false)
+  m_hasParent(false),
+  m_useParentValue(false),
+  m_pValue(false)
 {
 
 }
@@ -19,8 +19,8 @@ SMCheckBox::SMCheckBox(QWidget *parent)
 void SMCheckBox::setChecked(bool val)
 {
 	disconnect(this, SIGNAL(stateChanged(int)), this, SLOT(slotStateChanged(int)));
-	hasParent_ = false;
-	pValue_ = false;
+	m_hasParent = false;
+	m_pValue = false;
 	setFont(false);
 
 	QCheckBox::setChecked(val);
@@ -29,8 +29,8 @@ void SMCheckBox::setChecked(bool val)
 void SMCheckBox::setChecked(bool val, bool isParentVal)
 {
 	disconnect(this, SIGNAL(stateChanged(int)), this, SLOT(slotStateChanged(int)));
-	hasParent_ = true;
-	pValue_ = val;
+	m_hasParent = true;
+	m_pValue = val;
 	setFont(!isParentVal);
 
 	QCheckBox::setChecked(val);
@@ -39,14 +39,14 @@ void SMCheckBox::setChecked(bool val, bool isParentVal)
 
 void SMCheckBox::setParentValue(bool val)
 {
-	hasParent_ = true;
-	pValue_ = val;
+	m_hasParent = true;
+	m_pValue = val;
 }
 
 bool SMCheckBox::useParentValue()
 {
-	bool ret = useParentValue_;
-	useParentValue_ = false;
+	bool ret = m_useParentValue;
+	m_useParentValue = false;
 	return ret;
 }
 
@@ -59,6 +59,6 @@ void SMCheckBox::setFont(bool wantBold)
 
 void SMCheckBox::slotStateChanged(int)
 {
-	if(hasParent_)
+	if(m_hasParent)
 		setFont(true);
 }

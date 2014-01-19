@@ -11,19 +11,19 @@ for which a new license (GPL+exception) is in place.
 
 SMColorCombo::SMColorCombo(QWidget *parent)
 : ColorCombo(parent),
-  hasParent_(false),
-  useParentValue_(false),
-  pItem_(0)
+  m_hasParent(false),
+  m_useParentValue(false),
+  m_pItem(0)
 {
 	
 }
 
 SMColorCombo::SMColorCombo(bool rw, QWidget* parent)
 : ColorCombo(rw, parent),
-  hasParent_(false),
-  useParentValue_(false),
-  pItem_(0),
-  pText_(QString::null)
+  m_hasParent(false),
+  m_useParentValue(false),
+  m_pItem(0),
+  m_pText(QString::null)
 {
 	
 }
@@ -32,18 +32,18 @@ void SMColorCombo::setCurrentItem(int i)
 {
 	disconnect(this, SIGNAL(highlighted(int)), this, SLOT(currentChanged()));
 	setFont(false);
-	hasParent_ = false;
-	pItem_ = 0;
-	pText_ = QString::null;
+	m_hasParent = false;
+	m_pItem = 0;
+	m_pText = QString::null;
 	ColorCombo::setCurrentIndex(i);
 }
 
 void SMColorCombo::setCurrentItem(int i, bool isParentValue)
 {
 	disconnect(this, SIGNAL(highlighted(int)), this, SLOT(currentChanged()));
-	hasParent_ = true;
-	pItem_ = i;
-	pText_ = QString::null;
+	m_hasParent = true;
+	m_pItem = i;
+	m_pText = QString::null;
 	ColorCombo::setCurrentIndex(i);
 	setFont(!isParentValue);
 	connect(this, SIGNAL(highlighted(int)), this, SLOT(currentChanged()));
@@ -53,9 +53,9 @@ void SMColorCombo::setCurrentText(const QString &s)
 {
 	disconnect(this, SIGNAL(highlighted(int)), this, SLOT(currentChanged()));
 	setFont(false);
-	hasParent_ = false;
-	pItem_ = -1;
-	pText_ = s;
+	m_hasParent = false;
+	m_pItem = -1;
+	m_pText = s;
 	setCurrentComboItem(this, s);
 	connect(this, SIGNAL(highlighted(int)), this, SLOT(currentChanged()));
 }
@@ -63,9 +63,9 @@ void SMColorCombo::setCurrentText(const QString &s)
 void SMColorCombo::setCurrentText(const QString &s, bool isParentValue)
 {
 	disconnect(this, SIGNAL(highlighted(int)), this, SLOT(currentChanged()));
-	hasParent_ = true;
-	pItem_ = -1;
-	pText_ = s;
+	m_hasParent = true;
+	m_pItem = -1;
+	m_pText = s;
 	setCurrentComboItem(this, s);
 	setFont(!isParentValue);
 	connect(this, SIGNAL(highlighted(int)), this, SLOT(currentChanged()));
@@ -73,33 +73,33 @@ void SMColorCombo::setCurrentText(const QString &s, bool isParentValue)
 
 void SMColorCombo::setParentItem(int i)
 {
-	hasParent_ = true;
-	pItem_ = i;
-	pText_ = QString::null;
+	m_hasParent = true;
+	m_pItem = i;
+	m_pText = QString::null;
 }
 
 void SMColorCombo::setParentText(const QString &s)
 {
-	hasParent_ = true;
-	pText_ = s;
+	m_hasParent = true;
+	m_pText = s;
 }
 
 bool SMColorCombo::useParentValue()
 {
 	bool ret = false;
 
-	if (useParentValue_ && hasParent_)
+	if (m_useParentValue && m_hasParent)
 	{
 		ret = currentIndex() == (count() - 1);
 		if (ret)
 		{
 			removeItem(count() - 1);
 			setFont(false);
-			if (!pText_.isNull())
-				setCurrentText(pText_, true);
+			if (!m_pText.isNull())
+				setCurrentText(m_pText, true);
 			else
-				setCurrentItem(pItem_, true);
-			useParentValue_ = false;
+				setCurrentItem(m_pItem, true);
+			m_useParentValue = false;
 		}
 	}
 
@@ -115,10 +115,10 @@ void SMColorCombo::setFont(bool wantBold)
 
 void SMColorCombo::currentChanged()
 {
-	if (hasParent_ && !useParentValue_)
+	if (m_hasParent && !m_useParentValue)
 	{
 		setFont(true);
 		addItem( tr("Use Parent Value"));
-		useParentValue_ = true;
+		m_useParentValue = true;
 	}
 }
