@@ -410,7 +410,7 @@ void SMCellStyle::setupConnections()
 	if (!m_page)
 		return;
 	connect(m_page->fillColor, SIGNAL(activated(const QString&)), this, SLOT(slotFillColor()));
-	connect(m_page->fillShade_, SIGNAL(clicked()), this, SLOT(slotFillShade()));
+	connect(m_page->fillShade, SIGNAL(clicked()), this, SLOT(slotFillShade()));
 	connect(m_page->parentCombo, SIGNAL(activated(const QString&)), this, SLOT(slotParentChanged(const QString&)));
 }
 
@@ -419,7 +419,7 @@ void SMCellStyle::removeConnections()
 	if (!m_page)
 		return;
 	disconnect(m_page->fillColor, SIGNAL(activated(const QString&)), this, SLOT(slotFillColor()));
-	disconnect(m_page->fillShade_, SIGNAL(clicked()), this, SLOT(slotFillShade()));
+	disconnect(m_page->fillShade, SIGNAL(clicked()), this, SLOT(slotFillShade()));
 	disconnect(m_page->parentCombo, SIGNAL(activated(const QString&)), this, SLOT(slotParentChanged(const QString&)));
 }
 
@@ -447,7 +447,7 @@ void SMCellStyle::slotFillColor()
 
 void SMCellStyle::slotFillShade()
 {
-	if (m_page->fillShade_->useParentValue())
+	if (m_page->fillShade->useParentValue())
 	{
 		for (int i = 0; i < m_selection.count(); ++i)
 		{
@@ -456,7 +456,7 @@ void SMCellStyle::slotFillShade()
 	}
 	else
 	{
-		int fs = m_page->fillShade_->getValue();
+		int fs = m_page->fillShade->getValue();
 		for (int i = 0; i < m_selection.count(); ++i)
 		{
 			m_selection[i]->setFillShade(fs);

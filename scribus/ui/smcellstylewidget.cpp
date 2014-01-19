@@ -17,7 +17,7 @@ SMCellStyleWidget::SMCellStyleWidget(QWidget *parent) : QWidget()
 	fillColorIcon->setPixmap(loadIcon("16/color-fill.png"));
 	fillColor->addItem(CommonStrings::tr_NoneColor);
 	fillShadeLabel->setPixmap( loadIcon("shade.png") );
-	fillShade_->setToolTip( tr("Fill Shade"));
+	fillShade->setToolTip( tr("Fill Shade"));
 }
 
 SMCellStyleWidget::~SMCellStyleWidget()
@@ -27,9 +27,7 @@ SMCellStyleWidget::~SMCellStyleWidget()
 void SMCellStyleWidget::changeEvent(QEvent *e)
 {
 	if (e->type() == QEvent::LanguageChange)
-	{
 		languageChange();
-	}
 	else
 		QWidget::changeEvent(e);
 }
@@ -47,13 +45,13 @@ void SMCellStyleWidget::show(CellStyle *cellStyle, QList<CellStyle> &cellStyles,
 	{
 		fillColor->setCurrentText(cellStyle->fillColor(), cellStyle->isInhFillColor());
 		fillColor->setParentText(parent->fillColor());
-		fillShade_->setValue(qRound(cellStyle->fillShade()), cellStyle->isInhFillShade());
-		fillShade_->setParentValue(qRound(parent->fillShade()));
+		fillShade->setValue(qRound(cellStyle->fillShade()), cellStyle->isInhFillShade());
+		fillShade->setParentValue(qRound(parent->fillShade()));
 	}
 	else
 	{
 		fillColor->setCurrentText(cellStyle->fillColor());
-		fillShade_->setValue(qRound(cellStyle->fillShade()));
+		fillShade->setValue(qRound(cellStyle->fillShade()));
 	}
 	parentCombo->clear();
 	parentCombo->addItem( cellStyle->isDefaultStyle()? tr("A default style cannot be assigned a parent style") : "");
@@ -108,9 +106,9 @@ void SMCellStyleWidget::showColors(const QList<CellStyle*> &cellStyles)
 			d = cellStyles[i]->fillShade();
 	}
 	if (d == -30000)
-		fillShade_->setText( tr("Shade"));
+		fillShade->setText( tr("Shade"));
 	else
-		fillShade_->setValue(qRound(d));
+		fillShade->setValue(qRound(d));
 	QString s;
 	QString emptyString;
 	for (int i = 0; i < cellStyles.count(); ++i)

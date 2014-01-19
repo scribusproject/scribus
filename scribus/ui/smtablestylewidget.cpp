@@ -26,9 +26,7 @@ SMTableStyleWidget::~SMTableStyleWidget()
 void SMTableStyleWidget::changeEvent(QEvent *e)
 {
 	if (e->type() == QEvent::LanguageChange)
-	{
 		languageChange();
-	}
 	else
 		QWidget::changeEvent(e);
 }
@@ -45,13 +43,13 @@ void SMTableStyleWidget::show(TableStyle *tableStyle, QList<TableStyle> &tableSt
 	{
 		fillColor->setCurrentText(tableStyle->fillColor(), tableStyle->isInhFillColor());
 		fillColor->setParentText(parent->fillColor());
-		fillShade_->setValue(qRound(tableStyle->fillShade()), tableStyle->isInhFillShade());
-		fillShade_->setParentValue(qRound(parent->fillShade()));
+		fillShade->setValue(qRound(tableStyle->fillShade()), tableStyle->isInhFillShade());
+		fillShade->setParentValue(qRound(parent->fillShade()));
 	}
 	else
 	{
 		fillColor->setCurrentText(tableStyle->fillColor());
-		fillShade_->setValue(qRound(tableStyle->fillShade()));
+		fillShade->setValue(qRound(tableStyle->fillShade()));
 	}
 	parentCombo->clear();
 	parentCombo->addItem( tableStyle->isDefaultStyle()? tr("A default style cannot be assigned a parent style") : "");
@@ -106,9 +104,9 @@ void SMTableStyleWidget::showColors(const QList<TableStyle*> &tableStyles)
 			d = tableStyles[i]->fillShade();
 	}
 	if (d == -30000)
-		fillShade_->setText( tr("Shade"));
+		fillShade->setText( tr("Shade"));
 	else
-		fillShade_->setValue(qRound(d));
+		fillShade->setValue(qRound(d));
 	QString s;
 	QString emptyString;
 	for (int i = 0; i < tableStyles.count(); ++i)
@@ -134,7 +132,7 @@ void SMTableStyleWidget::showColors(const QList<TableStyle*> &tableStyles)
 void SMTableStyleWidget::languageChange()
 {
 	fillColor->setToolTip( tr("Fill Color"));
-	fillShade_->setToolTip( tr("Fill Shade"));
+	fillShade->setToolTip( tr("Fill Shade"));
 }
 
 void SMTableStyleWidget::fillFillColorCombo(ColorList &colors)

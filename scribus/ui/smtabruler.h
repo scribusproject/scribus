@@ -51,15 +51,15 @@ public:
 	SMScrSpinBox *right_;
 
 private:
-	QList<ParagraphStyle::TabRecord> pTabs_;
+	QList<ParagraphStyle::TabRecord> m_pTabs;
 	int  m_unitIndex;
-	QToolButton *parentButton_;
-	bool hasParent_;
-	bool tabsChanged_;
-	bool useParentTabs_;
-	bool isSetupRight_;
-	bool isSetupLeft_;
-	bool isSetupFirst_;
+	QToolButton *m_parentButton;
+	bool m_hasParent;
+	bool m_tabsChanged;
+	bool m_useParentTabs;
+	bool m_isSetupRight;
+	bool m_isSetupLeft;
+	bool m_isSetupFirst;
 
 private slots:
 	void slotTabsChanged();

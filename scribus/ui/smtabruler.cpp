@@ -15,18 +15,18 @@ SMTabruler::SMTabruler(QWidget* parent, bool haveFirst, int dEin,
 					   QList<ParagraphStyle::TabRecord> Tabs, double wid)
 : Tabruler(parent, haveFirst, dEin, Tabs, wid)
 {
-	parentButton_ = new QToolButton(this);
-	Q_CHECK_PTR(parentButton_);
-	parentButton_->setText( tr(" Parent Tabs "));
-	indentLayout->addWidget(parentButton_);
-	parentButton_->hide();
+	m_parentButton = new QToolButton(this);
+	Q_CHECK_PTR(m_parentButton);
+	m_parentButton->setText( tr(" Parent Tabs "));
+	indentLayout->addWidget(m_parentButton);
+	m_parentButton->hide();
 	QFont f(font());
 	f.setBold(true);
-	parentButton_->setFont(f);
-	connect(parentButton_, SIGNAL(clicked()), this, SLOT(pbClicked()));
-	hasParent_ = false;
-	tabsChanged_ = false;
-	useParentTabs_ = false;
+	m_parentButton->setFont(f);
+	connect(m_parentButton, SIGNAL(clicked()), this, SLOT(pbClicked()));
+	m_hasParent = false;
+	m_tabsChanged = false;
+	m_useParentTabs = false;
 	first_ = new SMScrSpinBox(-3000, 4000, this, dEin);
 	Q_CHECK_PTR(first_);
 	left_ = new SMScrSpinBox(0, 4000, this, dEin);
@@ -87,8 +87,8 @@ void SMTabruler::setTabs(QList<ParagraphStyle::TabRecord> Tabs, int unitIndex)
 {
 	disconnect(this, SIGNAL(tabsChanged()), this, SLOT(slotTabsChanged()));
 	disconnect(this, SIGNAL(mouseReleased()), this, SLOT(slotTabsChanged()));
-	hasParent_ = false;
-	parentButton_->hide();
+	m_hasParent = false;
+	m_parentButton->hide();
 	Tabruler::setTabs(Tabs, unitIndex);
 	Tabruler::repaint();
 	first_->setNewUnit(unitIndex);
@@ -101,12 +101,12 @@ void SMTabruler::setTabs(QList<ParagraphStyle::TabRecord> Tabs, int unitIndex, b
 {
 	disconnect(this, SIGNAL(tabsChanged()), this, SLOT(slotTabsChanged()));
 	disconnect(this, SIGNAL(mouseReleased()), this, SLOT(slotTabsChanged()));
-	hasParent_  = true;
+	m_hasParent  = true;
 	m_unitIndex = unitIndex;
 	if (isParentValue)
-		parentButton_->hide();
+		m_parentButton->hide();
 	else
-		parentButton_->show();
+		m_parentButton->show();
 	Tabruler::setTabs(Tabs, unitIndex);
 	Tabruler::repaint();
 	first_->setNewUnit(unitIndex);
@@ -120,8 +120,8 @@ void SMTabruler::setTabs(QList<ParagraphStyle::TabRecord> Tabs, int unitIndex, b
 
 void SMTabruler::setParentTabs(QList<ParagraphStyle::TabRecord> Tabs)
 {
-	hasParent_ = true;
-	pTabs_ = Tabs;
+	m_hasParent = true;
+	m_pTabs = Tabs;
 }
 
 void SMTabruler::setFirstLineValue(double t)
@@ -153,7 +153,7 @@ void SMTabruler::setFirstLineValue(double t, bool isParentValue)
 	disconnect(first_, SIGNAL(valueChanged(double)), this, SLOT(firstValueChanged()));
 	disconnect(right_, SIGNAL(valueChanged(double)), this, SLOT(rightValueChanged()));
 	disconnect(left_, SIGNAL(valueChanged(double)), this, SLOT(leftValueChanged()));
-	isSetupFirst_ = true;
+	m_isSetupFirst = true;
 	first_->setValue(t, isParentValue);
 	firstLineData->setValue(t);
 	setLeftIndent();
@@ -201,7 +201,7 @@ void SMTabruler::setLeftIndentValue(double t, bool isParentValue)
 	disconnect(first_, SIGNAL(valueChanged(double)), this, SLOT(firstValueChanged()));
 	disconnect(right_, SIGNAL(valueChanged(double)), this, SLOT(rightValueChanged()));
 	disconnect(left_, SIGNAL(valueChanged(double)), this, SLOT(leftValueChanged()));
-	isSetupLeft_ = true;
+	m_isSetupLeft = true;
 	left_->setValue(t, isParentValue);
 	leftIndentData->setValue(t);
 	setLeftIndent();
@@ -249,7 +249,7 @@ void SMTabruler::setRightIndentValue(double t, bool isParentValue)
 	disconnect(first_, SIGNAL(valueChanged(double)), this, SLOT(firstValueChanged()));
 	disconnect(right_, SIGNAL(valueChanged(double)), this, SLOT(rightValueChanged()));
 	disconnect(left_, SIGNAL(valueChanged(double)), this, SLOT(leftValueChanged()));
-	isSetupRight_ = true;
+	m_isSetupRight = true;
 	right_->setValue(t, isParentValue);
 	rightIndentData->setValue(t);
 	setLeftIndent();
@@ -270,16 +270,16 @@ void SMTabruler::setParentRightIndent(double t)
 
 bool SMTabruler::useParentTabs()
 {
-	bool ret = useParentTabs_;
-	if (ret && hasParent_)
+	bool ret = m_useParentTabs;
+	if (ret && m_hasParent)
 	{
-		setTabs(pTabs_, m_unitIndex, true);
+		setTabs(m_pTabs, m_unitIndex, true);
 		Tabruler::repaint();
-		parentButton_->hide();
+		m_parentButton->hide();
 	}
-	else if (hasParent_)
+	else if (m_hasParent)
 	{
-		parentButton_->show();
+		m_parentButton->show();
 	}
 
 	return ret;
@@ -302,18 +302,18 @@ bool SMTabruler::useParentRightIndent()
 
 void SMTabruler::slotTabsChanged()
 {
-	if (hasParent_)
+	if (m_hasParent)
 	{
-		useParentTabs_ = false;
-		tabsChanged_ = true;
+		m_useParentTabs = false;
+		m_tabsChanged = true;
 	}
 }
 
 void SMTabruler::pbClicked()
 {
-	if (hasParent_)
+	if (m_hasParent)
 	{
-		useParentTabs_ = true;
+		m_useParentTabs = true;
 		emit mouseReleased();
 	}
 }
@@ -326,12 +326,12 @@ void SMTabruler::leftDataChanged()
 	double a, b, value;
 	int c;
 	leftIndentData->getValues(&a, &b, &c, &value);
-	if (hasParent_ && !isSetupLeft_)
+	if (m_hasParent && !m_isSetupLeft)
 		left_->setValue(value, false);
-	else if (!hasParent_)
+	else if (!m_hasParent)
 		left_->setValue(value);
 
-	isSetupLeft_ = false;
+	m_isSetupLeft = false;
 	connect(first_, SIGNAL(valueChanged(double)), this, SLOT(firstValueChanged()));
 	connect(right_, SIGNAL(valueChanged(double)), this, SLOT(rightValueChanged()));
 	connect(left_, SIGNAL(valueChanged(double)), this, SLOT(leftValueChanged()));
@@ -345,12 +345,12 @@ void SMTabruler::rightDataChanged()
 	double a, b, value;
 	int c;
 	rightIndentData->getValues(&a, &b, &c, &value);
-	if (hasParent_ && !isSetupRight_)
+	if (m_hasParent && !m_isSetupRight)
 		right_->setValue(value, false);
-	else if (!hasParent_)
+	else if (!m_hasParent)
 		right_->setValue(value);
 
-	isSetupRight_ = false;
+	m_isSetupRight = false;
 	connect(first_, SIGNAL(valueChanged(double)), this, SLOT(firstValueChanged()));
 	connect(right_, SIGNAL(valueChanged(double)), this, SLOT(rightValueChanged()));
 	connect(left_, SIGNAL(valueChanged(double)), this, SLOT(leftValueChanged()));
@@ -364,12 +364,12 @@ void SMTabruler::firstDataChanged()
 	double a, b, value;
 	int c;
 	firstLineData->getValues(&a, &b, &c, &value);
-	if (hasParent_ && !isSetupFirst_)
+	if (m_hasParent && !m_isSetupFirst)
 		first_->setValue(value, false);
-	else if (!hasParent_)
+	else if (!m_hasParent)
 		first_->setValue(value);
 
-	isSetupFirst_ = false;
+	m_isSetupFirst = false;
 	connect(first_, SIGNAL(valueChanged(double)), this, SLOT(firstValueChanged()));
 	connect(right_, SIGNAL(valueChanged(double)), this, SLOT(rightValueChanged()));
 	connect(left_, SIGNAL(valueChanged(double)), this, SLOT(leftValueChanged()));
@@ -387,7 +387,7 @@ void SMTabruler::firstValueChanged()
 	setFirstLine();
 	setLeftIndent();
 	setRightIndent();
-	isSetupFirst_ = true;
+	m_isSetupFirst = true;
 //	connect(firstLineData, SIGNAL(valueChanged(double)), this, SLOT(firstDataChanged()));
 //	connect(rightIndentData, SIGNAL(valueChanged(double)), this, SLOT(rightDataChanged()));
 //	connect(leftIndentData, SIGNAL(valueChanged(double)), this, SLOT(leftDataChanged()));
@@ -405,7 +405,7 @@ void SMTabruler::leftValueChanged()
 	setLeftIndent();
 //	setFirstLine();
 	setRightIndent();
-	isSetupLeft_ = true;
+	m_isSetupLeft = true;
 //	connect(firstLineData, SIGNAL(valueChanged(double)), this, SLOT(firstDataChanged()));
 //	connect(rightIndentData, SIGNAL(valueChanged(double)), this, SLOT(rightDataChanged()));
 	connect(leftIndentData, SIGNAL(valueChanged(double)), this, SLOT(leftDataChanged()));
@@ -423,7 +423,7 @@ void SMTabruler::rightValueChanged()
 	setLeftIndent();
 	setFirstLine();
 	setRightIndent();
-	isSetupRight_ = true;
+	m_isSetupRight = true;
 	connect(firstLineData, SIGNAL(valueChanged(double)), this, SLOT(firstDataChanged()));
 	connect(rightIndentData, SIGNAL(valueChanged(double)), this, SLOT(rightDataChanged()));
 	connect(leftIndentData, SIGNAL(valueChanged(double)), this, SLOT(leftDataChanged()));
