@@ -63,6 +63,7 @@ public:
 	void applyFill(PageItem* ite);
 	void applyShadow(PageItem* ite);
 	void applyFlip(PageItem* ite);
+	void recolorItem(PageItem* ite, QString efVal);
 	void finishItem(PageItem* ite);
 
 	ScribusDoc* m_Doc;

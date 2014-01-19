@@ -479,47 +479,56 @@ void RawPainter::drawPolygon(const ::WPXPropertyListVector &vertices)
 						  const FileFormat * fmt = LoadSavePlugin::getFormatById(testResult);
 						  if( fmt )
 						  {
-							fmt->setupTargets(m_Doc, 0, 0, 0, &(PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts));
-							fmt->loadFile(fileName, LoadSavePlugin::lfUseCurrentPage|LoadSavePlugin::lfInteractive|LoadSavePlugin::lfScripted);
-							if (m_Doc->m_Selection->count() > 0)
-							{
-								ite = m_Doc->groupObjectsSelection();
-								double rot = 0;
-								if (m_style["libwpg:rotate"])
-									rot = m_style["libwpg:rotate"]->getDouble();
-								QPainterPath ba = Coords.toQPainterPath(true);
-								QRectF baR = ba.boundingRect();
-								if (rot != 0)
-								{
-									QTransform mm;
-									mm.translate(baR.x(), baR.y());
-									mm.translate(baR.width() / 2.0, baR.height() / 2.0);
-									mm.rotate(rot);
-									mm.translate(-baR.width() / 2.0, -baR.height() / 2.0);
-									mm.translate(-baR.x(), -baR.y());
-									ba = mm.map(ba);
-									baR = ba.boundingRect();
-									ite->setXYPos(baseX + baR.x(), baseY + baR.y(), true);
-									ite->setWidthHeight(baR.width(), baR.height(), true);
-									Coords.fromQPainterPath(ba, true);
-									FPoint tp2(getMinClipF(&Coords));
-									Coords.translate(-tp2.x(), -tp2.y());
-									ite->PoLine = Coords.copy();
-									int rm = m_Doc->RotMode();
-									m_Doc->RotMode(2);
-									m_Doc->RotateItem(-rot, ite);
-									m_Doc->RotMode(rm);
-								}
-								else
-								{
-									ite->setXYPos(baseX + baR.x(), baseY + baR.y(), true);
-									ite->setWidthHeight(baR.width(), baR.height(), true);
-									FPoint tp2(getMinClipF(&Coords));
-									Coords.translate(-tp2.x(), -tp2.y());
-									ite->PoLine = Coords.copy();
-								}
-								finishItem(ite);
-							}
+							  fmt->setupTargets(m_Doc, 0, 0, 0, &(PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts));
+							  fmt->loadFile(fileName, LoadSavePlugin::lfUseCurrentPage|LoadSavePlugin::lfInteractive|LoadSavePlugin::lfScripted);
+							  if (m_Doc->m_Selection->count() > 0)
+							  {
+								  ite = m_Doc->groupObjectsSelection();
+								  double rot = 0;
+								  if (m_style["libwpg:rotate"])
+									  rot = m_style["libwpg:rotate"]->getDouble();
+								  QPainterPath ba = Coords.toQPainterPath(true);
+								  QRectF baR = ba.boundingRect();
+								  if (rot != 0)
+								  {
+									  QTransform mm;
+									  mm.translate(baR.x(), baR.y());
+									  mm.translate(baR.width() / 2.0, baR.height() / 2.0);
+									  mm.rotate(rot);
+									  mm.translate(-baR.width() / 2.0, -baR.height() / 2.0);
+									  mm.translate(-baR.x(), -baR.y());
+									  ba = mm.map(ba);
+									  baR = ba.boundingRect();
+									  ite->setXYPos(baseX + baR.x(), baseY + baR.y(), true);
+									  ite->setWidthHeight(baR.width(), baR.height(), true);
+									  Coords.fromQPainterPath(ba, true);
+									  FPoint tp2(getMinClipF(&Coords));
+									  Coords.translate(-tp2.x(), -tp2.y());
+									  ite->PoLine = Coords.copy();
+									  int rm = m_Doc->RotMode();
+									  m_Doc->RotMode(2);
+									  m_Doc->RotateItem(-rot, ite);
+									  m_Doc->RotMode(rm);
+								  }
+								  else
+								  {
+									  ite->setXYPos(baseX + baR.x(), baseY + baR.y(), true);
+									  ite->setWidthHeight(baR.width(), baR.height(), true);
+									  FPoint tp2(getMinClipF(&Coords));
+									  Coords.translate(-tp2.x(), -tp2.y());
+									  ite->PoLine = Coords.copy();
+								  }
+								  finishItem(ite);
+								  if (m_style["draw:red"] && m_style["draw:green"] && m_style["draw:blue"])
+								  {
+									  int r = qRound(m_style["draw:red"]->getDouble() * 255);
+									  int g = qRound(m_style["draw:green"]->getDouble() * 255);
+									  int b = qRound(m_style["draw:blue"]->getDouble() * 255);
+									  QString colVal = QString("#%1%2%3").arg(r, 2, 16, QLatin1Char('0')).arg(g, 2, 16, QLatin1Char('0')).arg(b, 2, 16, QLatin1Char('0'));
+									  QString efVal = parseColor(colVal);
+									  recolorItem(ite, efVal);
+								  }
+							  }
 						  }
 					  }
 				  }
@@ -656,6 +665,15 @@ void RawPainter::drawPath(const ::WPXPropertyListVector &path)
 									  ite->PoLine = Coords.copy();
 								  }
 								  finishItem(ite);
+								  if (m_style["draw:red"] && m_style["draw:green"] && m_style["draw:blue"])
+								  {
+									  int r = qRound(m_style["draw:red"]->getDouble() * 255);
+									  int g = qRound(m_style["draw:green"]->getDouble() * 255);
+									  int b = qRound(m_style["draw:blue"]->getDouble() * 255);
+									  QString colVal = QString("#%1%2%3").arg(r, 2, 16, QLatin1Char('0')).arg(g, 2, 16, QLatin1Char('0')).arg(b, 2, 16, QLatin1Char('0'));
+									  QString efVal = parseColor(colVal);
+									  recolorItem(ite, efVal);
+								  }
 							  }
 						  }
 					  }
@@ -778,6 +796,15 @@ void RawPainter::drawGraphicObject(const ::WPXPropertyList &propList, const ::WP
 									ite->PoLine = Coords.copy();
 								}
 								finishItem(ite);
+								if (m_style["draw:red"] && m_style["draw:green"] && m_style["draw:blue"])
+								{
+									int r = qRound(m_style["draw:red"]->getDouble() * 255);
+									int g = qRound(m_style["draw:green"]->getDouble() * 255);
+									int b = qRound(m_style["draw:blue"]->getDouble() * 255);
+									QString colVal = QString("#%1%2%3").arg(r, 2, 16, QLatin1Char('0')).arg(g, 2, 16, QLatin1Char('0')).arg(b, 2, 16, QLatin1Char('0'));
+									QString efVal = parseColor(colVal);
+									recolorItem(ite, efVal);
+								}
 							}
 						}
 					}
@@ -1433,6 +1460,36 @@ void RawPainter::applyFlip(PageItem* ite)
 	if (m_style["draw:mirror-vertical"])
 	{
 		ite->setImageFlippedV(true);
+	}
+}
+
+void RawPainter::recolorItem(PageItem* ite, QString efVal)
+{
+	if (ite->itemType() != PageItem::Group)
+	{
+		if (ite->fillColor() != CommonStrings::None)
+		{
+			QColor fill = ScColorEngine::getShadeColorProof(m_Doc->PageColors[ite->fillColor()], m_Doc, ite->fillShade());
+			double k = 100.0 - qMin((0.3 * fill.redF() + 0.59 * fill.greenF() + 0.11 * fill.blueF()) * 100.0, 100.0);
+			ite->setFillColor(efVal);
+			ite->setFillShade(k);
+		}
+		if (ite->lineColor() != CommonStrings::None)
+		{
+			QColor line = ScColorEngine::getShadeColorProof(m_Doc->PageColors[ite->lineColor()], m_Doc, ite->lineShade());
+			double k2 = 100.0 - qMin((0.3 * line.redF() + 0.59 * line.greenF() + 0.11 * line.blueF()) * 100.0, 100.0);
+			ite->setLineColor(efVal);
+			ite->setLineShade(k2);
+		}
+	}
+	else
+	{
+		PageItem* grItem = ite->asGroupFrame();
+		for (int a = 0; a < grItem->groupItemList.count(); a++)
+		{
+			ite = grItem->groupItemList[a];
+			recolorItem(ite, efVal);
+		}
 	}
 }
 
