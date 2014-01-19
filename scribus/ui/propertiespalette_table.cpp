@@ -69,14 +69,31 @@ void PropertiesPalette_Table::setMainWindow(ScribusMainWindow* mainWindow)
 
 void PropertiesPalette_Table::setDocument(ScribusDoc *doc)
 {
+	if (m_doc)
+	{
+		disconnect(m_doc->m_Selection, SIGNAL(selectionChanged()), this, SLOT(handleSelectionChanged()));
+		disconnect(m_doc             , SIGNAL(docChanged())      , this, SLOT(handleSelectionChanged()));
+	}
+
 	m_doc = doc;
+
 	tableStyleCombo->setDoc(m_doc);
 	cellStyleCombo->setDoc(m_doc);
+
+	connect(m_doc->m_Selection, SIGNAL(selectionChanged()), this, SLOT(handleSelectionChanged()));
+	connect(m_doc             , SIGNAL(docChanged())      , this, SLOT(handleSelectionChanged()));
 }
 
 void PropertiesPalette_Table::unsetDocument()
 {
+	if (m_doc)
+	{
+		disconnect(m_doc->m_Selection, SIGNAL(selectionChanged()), this, SLOT(handleSelectionChanged()));
+		disconnect(m_doc             , SIGNAL(docChanged())      , this, SLOT(handleSelectionChanged()));
+	}
+
 	m_doc = 0;
+
 	tableStyleCombo->setDoc(m_doc);
 	cellStyleCombo->setDoc(m_doc);
 }

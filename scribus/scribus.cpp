@@ -9008,7 +9008,6 @@ void ScribusMainWindow::editInlineEnd()
 	doc->maxCanvasCoordinate = doc->stored_maxCanvasCoordinate;
 	view->setScale(storedViewScale);
 	view->hideInlinePage();
-	propertiesPalette->unsetItem();
 	if (m_WasAutoSave)
 	{
 		doc->setAutoSave(true);
