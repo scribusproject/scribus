@@ -805,6 +805,8 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->addMenuItemString("editJavascripts", "Edit");
 	scrMenuMgr->setMenuEnabled("EditPasteRecent", false);
 	scrMenuMgr->setMenuEnabled("EditContents", false);
+	scrMenuMgr->setMenuEnabled("editEditWithImageEditor", false);
+	scrMenuMgr->setMenuEnabled("editEditRenderSource", false);
 
 	//Item Menu
 	scrMenuMgr->createMenu("Item", ActionManager::defaultMenuNameEntryTranslated("Item"));
@@ -4923,7 +4925,8 @@ bool ScribusMainWindow::DoFileClose()
 		scrActions["editSearchReplace"]->setEnabled(false);
 		scrActions["editMasterPages"]->setEnabled(false);
 		scrActions["editJavascripts"]->setEnabled(false);
-
+		scrActions["editEditWithImageEditor"]->setEnabled(false);
+		scrActions["editEditRenderSource"]->setEnabled(false);
 		//scrActions["toolsPreflightVerifier"]->setEnabled(false);
 
 		scrActions["extrasHyphenateText"]->setEnabled(false);
