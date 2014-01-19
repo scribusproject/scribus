@@ -350,7 +350,7 @@ void MenuManager::languageChange()
 	foreach (const QString &menuName, menuBarMenus.keys())
 	{
 		QMenu *m=menuBarMenus.value(menuName);
-		if (m)
+		if (m && menuStringTexts.contains(menuName))
 			m->setTitle(menuStringTexts[menuName]);
 	}
 }

@@ -50,7 +50,10 @@ for which a new license (GPL+exception) is in place.
 #include <QMouseEvent>
 #include <QPixmap>
 #include <QProgressBar>
-//#include <QQuickView>
+//<<QML testing
+#include <QHBoxLayout>
+#include <QQuickView>
+//>>
 #include <QRegExp>
 #include <QStyleFactory>
 #include <QTableWidget>
@@ -11648,22 +11651,21 @@ void ScribusMainWindow::setPreviewToolbar()
 	HaveNewSel(-1);
 }
 
-#include <QHBoxLayout>
+
 void ScribusMainWindow::testQTQuick2_1()
 {
 	/*
 	qDebug()<<"Testing Qt Quick 2.0";
 
 	QQuickView qqv;
-
-
 	QDialog d(this);
 	QHBoxLayout *layout = new QHBoxLayout(&d);
 	QWidget *container = createWindowContainer(&qqv, this);
 	d.setMinimumSize(300, 200);
 	d.setMaximumSize(300, 200);
 	d.setFocusPolicy(Qt::TabFocus);
-	qqv.setSource(QUrl::fromLocalFile("//Users/craig/scribus/PostTrunk/trunkqt5/Scribus/scribus/ui/qtq_test1.qml"));
+	qqv.setSource(QUrl::fromLocalFile(ScPaths::instance().qmlDir() + "qtq_test1.qml"));
+
 	layout->addWidget(container);
 	d.exec();
 	*/

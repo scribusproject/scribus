@@ -48,6 +48,8 @@ public:
 	const QString& templateDir() const;
 	/** @brief Return path to the Scribus share directory */
 	const QString& shareDir() const;
+	/** @brief Return path to the Scribus QML directory */
+	const QString& qmlDir() const;
 
 	/** @brief Return path to the translations directory */
 	QString translationDir() const;
@@ -95,13 +97,14 @@ protected:
 
 	// Members to hold system paths
 	QString m_docDir;
-	QString m_iconDir;
 	QString m_fontDir;
+	QString m_iconDir;
 	QString m_libDir;
 	QString m_pluginDir;
+	QString m_qmlDir;
 	QString m_sampleScriptDir;
 	QString m_scriptDir;
-	QString m_templateDir;
 	QString m_shareDir;
+	QString m_templateDir;
 };
 #endif
