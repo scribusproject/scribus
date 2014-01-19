@@ -45,7 +45,7 @@ SMParagraphStyle::SMParagraphStyle(StyleSet<CharStyle> *cstyles) : StyleItem(),
 m_pwidget(0), m_doc(0), m_selectionIsDirty(false), m_unitRatio(1.0), m_cstyles(cstyles)
 {
 	Q_ASSERT(m_cstyles);
-	m_pwidget = new SMPStyleWidget(m_doc);
+	m_pwidget = new SMPStyleWidget(m_doc, m_cstyles);
 	Q_CHECK_PTR(m_pwidget);
 }
 

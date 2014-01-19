@@ -24,9 +24,11 @@ static bool isEqual(double a, double b)
 }
 
 
-SMPStyleWidget::SMPStyleWidget(ScribusDoc* doc) : QWidget()
+SMPStyleWidget::SMPStyleWidget(ScribusDoc* doc, StyleSet<CharStyle> *cstyles) : QWidget()
 {
 	m_Doc = doc;
+	m_cstyles = cstyles;
+
 	setupUi(this);
 	//Not used yet
 // 	optMarginCheckLeftProtruding->setVisible(false);
@@ -1149,7 +1151,7 @@ void SMPStyleWidget::openEnhanced()
 	QString styleName = parEffectCharStyleCombo->currentText();
 	if (styleName != tr("No Style") && !styleName.isEmpty())
 	{
-		CharStyle chStyle = m_Doc->charStyle(styleName);
+		CharStyle chStyle = m_cstyles->get(styleName);
 		setCurrentComboItem(m_enhanced->fontSelector, chStyle.font().scName());
 	}
 	else if (currPStyle)
