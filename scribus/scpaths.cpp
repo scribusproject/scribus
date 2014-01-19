@@ -100,7 +100,7 @@ ScPaths::ScPaths() :
 	m_templateDir = QString("%1/share/templates/").arg(appPath);
 	m_libDir = QString("%1/libs/").arg(appPath);
 	m_pluginDir = QString("%1/plugins/").arg(appPath);
-	m_iconDir = QString("%1/share/qml/").arg(appPath);
+	m_qmlDir = QString("%1/share/qml/").arg(appPath);
 
 	QString qtpluginDir = QString("%1/qtplugins/").arg(appPath);
 	if (QDir(qtpluginDir).exists())
