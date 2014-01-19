@@ -1188,8 +1188,8 @@ public:
 protected:
 	void addSymbols();
 	void applyPrefsPageSizingAndMargins(bool resizePages, bool resizeMasterPages, bool resizePageMargins, bool resizeMasterPageMargins);
-	QFileDevice::Permissions docFilePermissions;
 	bool m_hasGUI;
+	QFileDevice::Permissions docFilePermissions;
 	ApplicationPrefs& appPrefsData;
 	ApplicationPrefs docPrefsData;
 	UndoManager * const undoManager;
