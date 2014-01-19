@@ -620,15 +620,42 @@ void RawPainter::drawPath(const ::WPXPropertyListVector &path)
 							  fmt->loadFile(fileName, LoadSavePlugin::lfUseCurrentPage|LoadSavePlugin::lfInteractive|LoadSavePlugin::lfScripted);
 							  if (m_Doc->m_Selection->count() > 0)
 							  {
-								ite = m_Doc->groupObjectsSelection();
-								QPainterPath ba = Coords.toQPainterPath(true);
-								QRectF baR = ba.boundingRect();
-								ite->setXYPos(baseX + baR.x(), baseY + baR.y(), true);
-								ite->setWidthHeight(baR.width(), baR.height(), true);
-								FPoint tp2(getMinClipF(&Coords));
-								Coords.translate(-tp2.x(), -tp2.y());
-								ite->PoLine = Coords.copy();
-								finishItem(ite);
+								  ite = m_Doc->groupObjectsSelection();
+								  double rot = 0;
+								  if (m_style["libwpg:rotate"])
+									  rot = m_style["libwpg:rotate"]->getDouble();
+								  QPainterPath ba = Coords.toQPainterPath(true);
+								  QRectF baR = ba.boundingRect();
+								  if (rot != 0)
+								  {
+									  QTransform mm;
+									  mm.translate(baR.x(), baR.y());
+									  mm.translate(baR.width() / 2.0, baR.height() / 2.0);
+									  mm.rotate(rot);
+									  mm.translate(-baR.width() / 2.0, -baR.height() / 2.0);
+									  mm.translate(-baR.x(), -baR.y());
+									  ba = mm.map(ba);
+									  baR = ba.boundingRect();
+									  ite->setXYPos(baseX + baR.x(), baseY + baR.y(), true);
+									  ite->setWidthHeight(baR.width(), baR.height(), true);
+									  Coords.fromQPainterPath(ba, true);
+									  FPoint tp2(getMinClipF(&Coords));
+									  Coords.translate(-tp2.x(), -tp2.y());
+									  ite->PoLine = Coords.copy();
+									  int rm = m_Doc->RotMode();
+									  m_Doc->RotMode(2);
+									  m_Doc->RotateItem(-rot, ite);
+									  m_Doc->RotMode(rm);
+								  }
+								  else
+								  {
+									  ite->setXYPos(baseX + baR.x(), baseY + baR.y(), true);
+									  ite->setWidthHeight(baR.width(), baR.height(), true);
+									  FPoint tp2(getMinClipF(&Coords));
+									  Coords.translate(-tp2.x(), -tp2.y());
+									  ite->PoLine = Coords.copy();
+								  }
+								  finishItem(ite);
 							  }
 						  }
 					  }
@@ -716,11 +743,41 @@ void RawPainter::drawGraphicObject(const ::WPXPropertyList &propList, const ::WP
 							if (m_Doc->m_Selection->count() > 0)
 							{
 								ite = m_Doc->groupObjectsSelection();
-								ite->setTextFlowMode(PageItem::TextFlowUsesBoundingBox);
-								Elements->append(ite);
-								ite->setXYPos(baseX + x, baseY + y, true);
-								ite->setWidthHeight(w, h, true);
-								ite->updateClip();
+								double rot = 0;
+								if (m_style["libwpg:rotate"])
+									rot = m_style["libwpg:rotate"]->getDouble();
+								QPainterPath ba = Coords.toQPainterPath(true);
+								QRectF baR = ba.boundingRect();
+								if (rot != 0)
+								{
+									QTransform mm;
+									mm.translate(baR.x(), baR.y());
+									mm.translate(baR.width() / 2.0, baR.height() / 2.0);
+									mm.rotate(rot);
+									mm.translate(-baR.width() / 2.0, -baR.height() / 2.0);
+									mm.translate(-baR.x(), -baR.y());
+									ba = mm.map(ba);
+									baR = ba.boundingRect();
+									ite->setXYPos(baseX + baR.x(), baseY + baR.y(), true);
+									ite->setWidthHeight(baR.width(), baR.height(), true);
+									Coords.fromQPainterPath(ba, true);
+									FPoint tp2(getMinClipF(&Coords));
+									Coords.translate(-tp2.x(), -tp2.y());
+									ite->PoLine = Coords.copy();
+									int rm = m_Doc->RotMode();
+									m_Doc->RotMode(2);
+									m_Doc->RotateItem(-rot, ite);
+									m_Doc->RotMode(rm);
+								}
+								else
+								{
+									ite->setXYPos(baseX + baR.x(), baseY + baR.y(), true);
+									ite->setWidthHeight(baR.width(), baR.height(), true);
+									FPoint tp2(getMinClipF(&Coords));
+									Coords.translate(-tp2.x(), -tp2.y());
+									ite->PoLine = Coords.copy();
+								}
+								finishItem(ite);
 							}
 						}
 					}
