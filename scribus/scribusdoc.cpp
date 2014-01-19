@@ -13978,22 +13978,22 @@ void ScribusDoc::getClosestElementBorder(double xin, double yin, double *xout, d
 			continue;
 		else if (item.at(i)->Parent != parentI)
 			continue;
-		else if (fabs(item.at(i)->yPos() - yin) < (prefsData().guidesPrefs.guideRad / viewScale))
-			tmpGuidesSel.insert(fabs(item.at(i)->yPos() - yin), i*3);
-		else if (fabs(item.at(i)->yPos() + item.at(i)->height() - yin) < (prefsData().guidesPrefs.guideRad / viewScale))
-			tmpGuidesSel.insert(fabs(item.at(i)->yPos() + item.at(i)->height() - yin), i*3+1);
-		else if (fabs(item.at(i)->yPos() + item.at(i)->height()/2 - yin) < (prefsData().guidesPrefs.guideRad / viewScale))
-			tmpGuidesSel.insert(fabs(item.at(i)->yPos() + item.at(i)->height()/2 - yin), i*3+2);
+		else if (fabs(item.at(i)->visualYPos() - yin) < (prefsData().guidesPrefs.guideRad / viewScale))
+			tmpGuidesSel.insert(fabs(item.at(i)->visualYPos() - yin), i*3);
+		else if (fabs(item.at(i)->visualYPos() + item.at(i)->visualHeight() - yin) < (prefsData().guidesPrefs.guideRad / viewScale))
+			tmpGuidesSel.insert(fabs(item.at(i)->visualYPos() + item.at(i)->visualHeight() - yin), i*3+1);
+		else if (fabs(item.at(i)->visualYPos() + item.at(i)->visualHeight()/2 - yin) < (prefsData().guidesPrefs.guideRad / viewScale))
+			tmpGuidesSel.insert(fabs(item.at(i)->visualYPos() + item.at(i)->visualHeight()/2 - yin), i*3+2);
 	}
 	if (tmpGuidesSel.count() != 0)
 	{
 		*GyM = tmpGuidesSel.begin().value();
 		if(*GyM%3==0)
-			*yout = item.at(*GyM/3)->yPos() - page->yOffset();
+			*yout = item.at(*GyM/3)->visualYPos() - page->yOffset();
 		else if(*GyM%3==1)
-			*yout = item.at(*GyM/3)->yPos() + item.at(*GyM/3)->height() -page->yOffset();
+			*yout = item.at(*GyM/3)->visualYPos() + item.at(*GyM/3)->visualHeight() -page->yOffset();
 		else if(*GyM%3==2)
-			*yout = item.at(*GyM/3)->yPos() + item.at(*GyM/3)->height()/2 -page->yOffset();
+			*yout = item.at(*GyM/3)->visualYPos() + item.at(*GyM/3)->visualHeight()/2 -page->yOffset();
 	}
 	tmpGuidesSel.clear();
 	for(int i=0;i<item.size();i++)
@@ -14002,22 +14002,22 @@ void ScribusDoc::getClosestElementBorder(double xin, double yin, double *xout, d
 			continue;
 		else if (item.at(i)->Parent != parentI)
 			continue;
-		else if (fabs(item.at(i)->xPos() - xin) < (prefsData().guidesPrefs.guideRad / viewScale))
-			tmpGuidesSel.insert(fabs(item.at(i)->xPos() - xin), i*3);
-		else if (fabs(item.at(i)->xPos() + item.at(i)->width() - xin) < (prefsData().guidesPrefs.guideRad / viewScale))
-			tmpGuidesSel.insert(fabs(item.at(i)->xPos() + item.at(i)->width() - xin), i*3+1);
-		else if (fabs(item.at(i)->xPos() + item.at(i)->width()/2 - xin) < (prefsData().guidesPrefs.guideRad / viewScale))
-			tmpGuidesSel.insert(fabs(item.at(i)->xPos() + item.at(i)->width()/2 - xin), i*3+2);
+		else if (fabs(item.at(i)->visualXPos() - xin) < (prefsData().guidesPrefs.guideRad / viewScale))
+			tmpGuidesSel.insert(fabs(item.at(i)->visualXPos() - xin), i*3);
+		else if (fabs(item.at(i)->visualXPos() + item.at(i)->visualWidth() - xin) < (prefsData().guidesPrefs.guideRad / viewScale))
+			tmpGuidesSel.insert(fabs(item.at(i)->visualXPos() + item.at(i)->visualWidth() - xin), i*3+1);
+		else if (fabs(item.at(i)->visualXPos() + item.at(i)->visualWidth()/2 - xin) < (prefsData().guidesPrefs.guideRad / viewScale))
+			tmpGuidesSel.insert(fabs(item.at(i)->visualXPos() + item.at(i)->visualWidth()/2 - xin), i*3+2);
 	}
 	if (tmpGuidesSel.count() != 0)
 	{
 		*GxM = tmpGuidesSel.begin().value();
 		if(*GxM%3==0)
-			*xout = item.at(*GxM/3)->xPos() -page->xOffset();
+			*xout = item.at(*GxM/3)->visualXPos() -page->xOffset();
 		else if(*GxM%3==1)
-			*xout = item.at(*GxM/3)->xPos() + item.at(*GxM/3)->width() -page->xOffset();
+			*xout = item.at(*GxM/3)->visualXPos() + item.at(*GxM/3)->visualWidth() -page->xOffset();
 		else if(*GxM%3==2)
-			*xout = item.at(*GxM/3)->xPos() + item.at(*GxM/3)->width()/2 -page->xOffset();
+			*xout = item.at(*GxM/3)->visualXPos() + item.at(*GxM/3)->visualWidth()/2 -page->xOffset();
 	}
 }
 
