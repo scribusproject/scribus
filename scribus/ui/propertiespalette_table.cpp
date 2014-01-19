@@ -90,8 +90,10 @@ void PropertiesPalette_Table::setItem(PageItem* item)
 
 void PropertiesPalette_Table::unsetItem()
 {
-	if ((m_item) && (m_item->isTable()))
-		disconnect(m_item->asTable(), SIGNAL(selectionChanged()), this, SLOT(handleCellSelectionChanged()));
+	disconnect(this, SLOT(handleCellSelectionChanged()));
+
+//	if ((m_item) && (m_item->isTable()))
+//		disconnect(m_item->asTable(), SIGNAL(selectionChanged()), this, SLOT(handleCellSelectionChanged()));
 	m_item = 0;
 }
 

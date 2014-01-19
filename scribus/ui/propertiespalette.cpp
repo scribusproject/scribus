@@ -308,7 +308,8 @@ PageItem* PropertiesPalette::currentItemFromSelection()
 
 	if (m_doc)
 	{
-		currentItem = m_doc->m_Selection->itemAt(0);
+		if (m_doc->m_Selection->count() > 0)
+			currentItem = m_doc->m_Selection->itemAt(0);
 	/*	if (m_doc->m_Selection->count() > 1)
 		{
 			int lowestItem = 999999;
