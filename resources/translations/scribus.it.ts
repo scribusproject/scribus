@@ -7188,7 +7188,7 @@ May throw ValueError if any of the distances are out of bounds (must be positive
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1609"/>
         <source>Snap to Items</source>
-        <translation>Aggancia a elementi</translation>
+        <translation>Aggancia agli elementi</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1614"/>
@@ -8652,7 +8652,7 @@ May throw ValueError if any of the distances are out of bounds (must be positive
     <message>
         <location filename="../../scribus/ui/aligndistribute.cpp" line="174"/>
         <source>None Selected</source>
-        <translation>Nessuno selezionato</translation>
+        <translation>Nessuna selezionata</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/aligndistribute.cpp" line="176"/>
@@ -13929,7 +13929,7 @@ Vedere la sezione Modifica colori della documentazione per ulteriori dettagli.</
     <message>
         <location filename="../../scribus/docinfo.cpp" line="111"/>
         <source>F&amp;ormat:</source>
-        <translation>F&amp;ormat:</translation>
+        <translation>F&amp;ormato:</translation>
     </message>
     <message>
         <location filename="../../scribus/docinfo.cpp" line="118"/>
@@ -19199,7 +19199,7 @@ p, li { white-space: pre-wrap; }
         <source>Length:</source>
         <translation type="obsolete">Length:</translation>
     </message>
-    <message utf8="true">
+    <message>
         <location filename="../../scribus/ui/measurements.cpp" line="50"/>
         <source> °</source>
         <translation> °</translation>
@@ -22868,22 +22868,22 @@ ambedue i punti finali devono essere fuori del poligono</translation>
         <source>Rotate Objects by:</source>
         <translation>Ruota oggetti di:</translation>
     </message>
-    <message utf8="true">
+    <message>
         <location filename="../../scribus/plugins/tools/2geomtools/pathalongpath/pathdialogbase.ui" line="80"/>
         <source>0°</source>
         <translation>0°</translation>
     </message>
-    <message utf8="true">
+    <message>
         <location filename="../../scribus/plugins/tools/2geomtools/pathalongpath/pathdialogbase.ui" line="85"/>
         <source>90°</source>
         <translation>90°</translation>
     </message>
-    <message utf8="true">
+    <message>
         <location filename="../../scribus/plugins/tools/2geomtools/pathalongpath/pathdialogbase.ui" line="90"/>
         <source>180°</source>
         <translation>180°</translation>
     </message>
-    <message utf8="true">
+    <message>
         <location filename="../../scribus/plugins/tools/2geomtools/pathalongpath/pathdialogbase.ui" line="95"/>
         <source>270°</source>
         <translation>270°</translation>
@@ -24158,7 +24158,7 @@ Sceglierne un&apos;altra.</translation>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="921"/>
         <source>Format:</source>
-        <translation>Format:</translation>
+        <translation>Formato:</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="935"/>
@@ -25744,7 +25744,7 @@ Si vuole migrarli nella nuova versione di Scribus?</translation>
     <message>
         <location filename="../../scribus/ui/prefs_documentinformationbase.ui" line="178"/>
         <source>Format:</source>
-        <translation>Format:</translation>
+        <translation>Formato:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_documentinformationbase.ui" line="188"/>
@@ -27956,7 +27956,7 @@ Un valore uguale a 0 significa sillabazioni illimitate.</translation>
         <source>Angle:</source>
         <translation>Angolo:</translation>
     </message>
-    <message utf8="true">
+    <message>
         <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="950"/>
         <source> °</source>
         <translation> °</translation>
@@ -37294,7 +37294,7 @@ Therefore the image may be not correct</translation>
         <source>Xfig File</source>
         <translation>File Xfig</translation>
     </message>
-    <message utf8="true">
+    <message>
         <location filename="../../scribus/langmgr.cpp" line="132"/>
         <source>Norwegian (Bokmål)</source>
         <translation>Norvegese (Bokmål)</translation>
