@@ -605,7 +605,7 @@ void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 						{
 							m_doc->m_Selection->setGroupRect();
 							double gx, gy, gh, gw, gxo, gyo;
-							m_doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
+							m_doc->m_Selection->getVisualGroupRect(&gx, &gy, &gw, &gh);
 							gx += m_objectDeltaPos.x();
 							gy += m_objectDeltaPos.y();
 							gxo = gx;
@@ -691,7 +691,7 @@ void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 					if (m_doc->SnapGrid)
 					{
 						double gx, gy, gh, gw, gxo, gyo;
-						m_doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
+						m_doc->m_Selection->getVisualGroupRect(&gx, &gy, &gw, &gh);
 						gx += m_objectDeltaPos.x();
 						gy += m_objectDeltaPos.y();
 						gxo = gx;
@@ -1122,7 +1122,7 @@ void CanvasMode_Normal::mouseReleaseEvent(QMouseEvent *m)
 					{
 						m_doc->m_Selection->setGroupRect();
 						double gx, gy, gh, gw, gxo, gyo;
-						m_doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
+						m_doc->m_Selection->getVisualGroupRect(&gx, &gy, &gw, &gh);
 						gxo = gx;
 						gyo = gy;
 						FPoint npx = m_doc->ApplyGridF(FPoint(gx, gy));
