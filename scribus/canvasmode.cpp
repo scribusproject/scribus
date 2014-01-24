@@ -558,6 +558,7 @@ void CanvasMode::drawOutline(QPainter* p, double scalex, double scaley, double d
 						p->rotate(currItem->rotation());
 					}
 					p->scale(scalex, scaley);
+					p->drawRect(QRectF(0.0, 0.0, currItem->visualWidth(), currItem->visualHeight()));
 					PageItem_Group* gItem = currItem->asGroupFrame();
 					uint itemCountG = gItem->groupItemList.count();
 					if (itemCountG < m_canvas->moveWithFullOutlinesThreshold)
@@ -591,7 +592,7 @@ void CanvasMode::drawOutline(QPainter* p, double scalex, double scaley, double d
 						p->rotate(currItem->rotation());
 					}
 					p->scale(scalex, scaley);
-					p->drawRect(QRectF(0.0, 0.0, currItem->visualWidth()+1.0, currItem->visualHeight()+1.0));
+					p->drawRect(QRectF(0.0, 0.0, currItem->visualWidth(), currItem->visualHeight()));
 					p->restore();
 
 					p->save();
@@ -679,7 +680,7 @@ void CanvasMode::drawOutline(QPainter* p, double scalex, double scaley, double d
 								p->rotate(currItem->rotation());
 							}
 							p->scale(scalex, scaley);
-							p->drawRect(QRectF(0.0, 0.0, currItem->visualWidth()+1.0, currItem->visualHeight()+1.0));
+							p->drawRect(QRectF(0.0, 0.0, currItem->visualWidth(), currItem->visualHeight()));
 							p->restore();
 							p->save();
 							p->setBrush(m_brush["outline"]);
@@ -708,7 +709,7 @@ void CanvasMode::drawOutline(QPainter* p, double scalex, double scaley, double d
 						p->setRenderHint(QPainter::Antialiasing);
 						p->rotate(currItem->rotation());
 					}
-					p->drawRect(QRectF(0.0, 0.0, currItem->width()+1.0, currItem->height()+1.0));
+					p->drawRect(QRectF(0.0, 0.0, currItem->visualWidth(), currItem->visualHeight()));
 				}
 				p->restore();
 			}
