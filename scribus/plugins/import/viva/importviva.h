@@ -143,7 +143,7 @@ private:
 	void parseAttributeSetsXML(const QDomElement& obNode);
 	void parseStylesheetsXML(const QDomElement& obNode);
 	void applyParagraphAttrs(ParagraphStyle &newStyle, AttributeSet &pAttrs);
-	void applyCharacterAttrs(CharStyle &tmpCStyle, AttributeSet &pAttrs);
+	void applyCharacterAttrs(CharStyle &tmpCStyle, ParagraphStyle &newStyle, AttributeSet &pAttrs);
 	QString constructFontName(QString fontBaseName, QString fontStyle);
 	QPointF intersectBoundingRect(PageItem *item, QLineF gradientVector);
 

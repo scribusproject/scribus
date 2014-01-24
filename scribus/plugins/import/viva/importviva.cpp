@@ -1618,7 +1618,7 @@ void VivaPlug::parseTextXML(const QDomElement& obNode, StoryText &itemText, int 
 			if (eo.hasAttribute("vt:story-attribute-set"))
 			{
 				applyParagraphAttrs(newStyle, AttributeSets[eo.attribute("vt:story-attribute-set")]);
-				applyCharacterAttrs(newStyle.charStyle(), AttributeSets[eo.attribute("vt:story-attribute-set")]);
+				applyCharacterAttrs(newStyle.charStyle(), newStyle, AttributeSets[eo.attribute("vt:story-attribute-set")]);
 			}
 			for(QDomNode stx = eo.firstChild(); !stx.isNull(); stx = stx.nextSibling() )
 			{
@@ -1658,7 +1658,7 @@ void VivaPlug::parseTextXML(const QDomElement& obNode, StoryText &itemText, int 
 										{
 											CharStyle tmpCStyle = tmpStyle.charStyle();
 											if (stcet.hasAttribute("vt:character-attribute-set"))
-												applyCharacterAttrs(tmpCStyle, AttributeSets[stcet.attribute("vt:character-attribute-set")]);
+												applyCharacterAttrs(tmpCStyle, tmpStyle, AttributeSets[stcet.attribute("vt:character-attribute-set")]);
 											for(QDomNode stcesp = stcet.firstChild(); !stcesp.isNull(); stcesp = stcesp.nextSibling() )
 											{
 												QDomElement stcespt = stcesp.toElement();
@@ -2010,7 +2010,7 @@ void VivaPlug::parseStylesheetsXML(const QDomElement& obNode)
 				parseAttributeSetXML(stxe, attrs);
 			}
 			applyParagraphAttrs(newStyle, attrs);
-			applyCharacterAttrs(newStyle.charStyle(), attrs);
+			applyCharacterAttrs(newStyle.charStyle(), newStyle, attrs);
 			StyleSet<ParagraphStyle>tmp;
 			tmp.create(newStyle);
 			m_Doc->redefineStyles(tmp, false);
@@ -2046,6 +2046,8 @@ void VivaPlug::applyParagraphAttrs(ParagraphStyle &newStyle, AttributeSet &pAttr
 		newStyle.setLineSpacingMode(ParagraphStyle::FixedLineSpacing);
 		newStyle.setLineSpacing(parseUnit(pAttrs.lineSpacing.value));
 	}
+	else
+		newStyle.setLineSpacingMode(ParagraphStyle::AutomaticLineSpacing);
 	if (pAttrs.firstLineIndent.valid)
 		newStyle.setFirstIndent(parseUnit(pAttrs.firstLineIndent.value));
 	if (pAttrs.indent.valid)
@@ -2094,10 +2096,17 @@ void VivaPlug::applyParagraphAttrs(ParagraphStyle &newStyle, AttributeSet &pAttr
 	}
 }
 
-void VivaPlug::applyCharacterAttrs(CharStyle &tmpCStyle, AttributeSet &pAttrs)
+void VivaPlug::applyCharacterAttrs(CharStyle &tmpCStyle, ParagraphStyle &newStyle, AttributeSet &pAttrs)
 {
 	if (pAttrs.fontSize.valid)
+	{
 		tmpCStyle.setFontSize(pAttrs.fontSize.value.toInt() * 10);
+		if (pAttrs.lineSpacing.valid)
+		{
+			if (pAttrs.fontSize.value.toInt() > parseUnit(pAttrs.lineSpacing.value))
+				newStyle.setLineSpacingMode(ParagraphStyle::AutomaticLineSpacing);
+		}
+	}
 	if (pAttrs.fontFullName.valid)
 		tmpCStyle.setFont((*m_Doc->AllFonts)[pAttrs.fontFullName.value]);
 	if (pAttrs.fontColor.valid)
