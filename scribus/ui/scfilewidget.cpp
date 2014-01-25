@@ -16,6 +16,7 @@ for which a new license (GPL+exception) is in place.
 
 ScFileWidget::ScFileWidget(QWidget * parent) : QFileDialog(parent, Qt::Widget)
 {
+	setOption(QFileDialog::DontUseNativeDialog);
 	setSizeGripEnabled(false);
 	setModal(false);
 	setViewMode(QFileDialog::List);
