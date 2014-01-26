@@ -154,6 +154,7 @@ private:
 	QByteArray ComputeMD5(const QString& in);
 	QByteArray ComputeRC4Key(int ObjNum);
 
+	QString PDF_PutSoftShadow(PageItem* ite, const ScPage* pag);
 	bool    PDF_ProcessItem(QString& output, PageItem* ite, const ScPage* pag, uint PNr, bool embedded = false, bool pattern = false);
 	void    PDF_Bookmark(PageItem *currItem, double ypos);
 	bool    PDF_PatternFillStroke(QString& output, PageItem *currItem, int kind = 0, bool forArrow = false);

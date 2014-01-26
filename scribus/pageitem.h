@@ -261,6 +261,7 @@ public: // Start public functions
 	QImage DrawObj_toImage(QList<PageItem*> &emG, double scaling);
 	void DrawObj_Embedded(ScPainter *p, QRectF e, const CharStyle& style, PageItem* cembedded);
 	void DrawStrokePattern(ScPainter *p, QPainterPath &path);
+	void DrawSoftShadow(ScPainter *p);
 	/**
 	 * @brief Set or get the redraw bounding box of the item, moved from the View
 	 */
@@ -643,6 +644,31 @@ public: // Start public functions
 	//
 	bool overprint() const { return doOverprint; }
 	void setOverprint(bool val);
+
+	// soft shadow
+	void setHasSoftShadow(bool val) { m_hasSoftShadow = val; }
+	bool hasSoftShadow() { return m_hasSoftShadow; }
+
+	void setSoftShadowColor(const QString &newColor) { m_softShadowColor = newColor; }
+	QString softShadowColor() { return m_softShadowColor; }
+
+	void setSoftShadowShade(int val) { m_softShadowShade = val; }
+	int softShadowShade() { return m_softShadowShade; }
+
+	void setSoftShadowBlurRadius(double val) { m_softShadowBlurRadius = val; }
+	double softShadowBlurRadius() { return m_softShadowBlurRadius; }
+
+	void setSoftShadowXOffset(double val) { m_softShadowXOffset = val; }
+	double softShadowXOffset() { return m_softShadowXOffset; }
+
+	void setSoftShadowYOffset(double val) { m_softShadowYOffset = val; }
+	double softShadowYOffset() { return m_softShadowYOffset; }
+
+	void setSoftShadowOpacity(double val) { m_softShadowOpacity = val; }
+	double softShadowOpacity() { return m_softShadowOpacity; }
+
+	void setSoftShadowBlendMode(int val) { m_softShadowBlendMode = val; }
+	double softShadowBlendMode() { return m_softShadowBlendMode; }
 
 	int frameType() const { return FrameType; } ///< rect / oval / round / other
 	void setFrameType(int val) { FrameType = val; }
@@ -1255,6 +1281,14 @@ public:	// Start public variables
 	VGradient fill_gradient;
 	bool fillRule;
 	bool doOverprint;
+	bool m_hasSoftShadow;
+	QString m_softShadowColor;
+	int m_softShadowShade;
+	double m_softShadowBlurRadius;
+	double m_softShadowXOffset;
+	double m_softShadowYOffset;
+	double m_softShadowOpacity;
+	int m_softShadowBlendMode;
 	/* Additions for Table Support */
 	/* now deprecated with the new PageItem_Table */
 		PageItem* LeftLink;

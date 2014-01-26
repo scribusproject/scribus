@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>PropertiesPalette_ShadowBase</class>
+ <widget class="QWidget" name="PropertiesPalette_ShadowBase">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>233</width>
+    <height>232</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QCheckBox" name="hasSoftShadow">
+     <property name="text">
+      <string>Object has a soft shadow</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <layout class="QGridLayout" name="gridLayout">
+     <item row="0" column="0">
+      <widget class="QLabel" name="label">
+       <property name="text">
+        <string>X-Offset:</string>
+       </property>
+       <property name="buddy">
+        <cstring>softShadowXOffset</cstring>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1">
+      <widget class="ScrSpinBox" name="softShadowXOffset"/>
+     </item>
+     <item row="1" column="0">
+      <widget class="QLabel" name="label_2">
+       <property name="text">
+        <string>Y-Offset:</string>
+       </property>
+       <property name="buddy">
+        <cstring>softShadowYOffset</cstring>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1">
+      <widget class="ScrSpinBox" name="softShadowYOffset"/>
+     </item>
+     <item row="2" column="0">
+      <widget class="QLabel" name="label_4">
+       <property name="text">
+        <string>Color:</string>
+       </property>
+       <property name="buddy">
+        <cstring>softShadowColor</cstring>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="1">
+      <widget class="ColorCombo" name="softShadowColor"/>
+     </item>
+     <item row="3" column="0">
+      <widget class="QLabel" name="label_5">
+       <property name="text">
+        <string>Shade:</string>
+       </property>
+       <property name="buddy">
+        <cstring>softShadowShade</cstring>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="0">
+      <widget class="QLabel" name="label_6">
+       <property name="text">
+        <string>Opacity:</string>
+       </property>
+       <property name="buddy">
+        <cstring>softShadowOpacity</cstring>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="1">
+      <widget class="ScrSpinBox" name="softShadowOpacity">
+       <property name="suffix">
+        <string> %</string>
+       </property>
+       <property name="maximum">
+        <number>100</number>
+       </property>
+       <property name="value">
+        <number>100</number>
+       </property>
+      </widget>
+     </item>
+     <item row="5" column="0">
+      <widget class="QLabel" name="label_7">
+       <property name="text">
+        <string>Blendmode:</string>
+       </property>
+       <property name="buddy">
+        <cstring>softShadowBlendMode</cstring>
+       </property>
+      </widget>
+     </item>
+     <item row="5" column="1">
+      <widget class="ScComboBox" name="softShadowBlendMode">
+       <item>
+        <property name="text">
+         <string>Normal</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Darken</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Lighten</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Multiply</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Screen</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Overlay</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Hard Light</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Soft Light</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Difference</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Exclusion</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Color Dodge</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Color Burn</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Hue</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Saturation</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Color</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Luminosity</string>
+        </property>
+       </item>
+      </widget>
+     </item>
+     <item row="6" column="0">
+      <widget class="QLabel" name="label_3">
+       <property name="text">
+        <string>Blur:</string>
+       </property>
+       <property name="buddy">
+        <cstring>softShadowBlurRadius</cstring>
+       </property>
+      </widget>
+     </item>
+     <item row="6" column="1">
+      <widget class="ScrSpinBox" name="softShadowBlurRadius">
+       <property name="suffix">
+        <string> px</string>
+       </property>
+       <property name="maximum">
+        <number>20</number>
+       </property>
+       <property name="value">
+        <number>5</number>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="1">
+      <widget class="ScrSpinBox" name="softShadowShade">
+       <property name="suffix">
+        <string> %</string>
+       </property>
+       <property name="maximum">
+        <number>100</number>
+       </property>
+       <property name="value">
+        <number>100</number>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>ScrSpinBox</class>
+   <extends>QSpinBox</extends>
+   <header location="global">ui/scrspinbox.h</header>
+  </customwidget>
+  <customwidget>
+   <class>ScComboBox</class>
+   <extends>QComboBox</extends>
+   <header>ui/sccombobox.h</header>
+  </customwidget>
+  <customwidget>
+   <class>ColorCombo</class>
+   <extends>QComboBox</extends>
+   <header>ui/colorcombo.h</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>

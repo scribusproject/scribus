@@ -517,12 +517,12 @@ void XPSExPlug::handleImageFallBack(double xOffset, double yOffset, PageItem *It
 	path.lineTo(0, bounds.height());
 	path.closeSubpath();
 	QTransform mpx;
-	if (Item->rotation() != 0.0)
-	{
-		mpx.translate(xOffset * conversionFactor, yOffset * conversionFactor);
-		mpx.rotate(Item->rotation());
-		mpx.translate(-xOffset * conversionFactor, -yOffset * conversionFactor);
-	}
+//	if (Item->rotation() != 0.0)
+//	{
+//		mpx.translate(xOffset * conversionFactor, yOffset * conversionFactor);
+//		mpx.rotate(Item->rotation());
+//		mpx.translate(-xOffset * conversionFactor, -yOffset * conversionFactor);
+//	}
 	QTransform mpp;
 	mpp.translate((Item->visualXPos() - m_Doc->currentPage()->xOffset()) * conversionFactor, (Item->visualYPos() - m_Doc->currentPage()->yOffset()) * conversionFactor);
 	mpp.scale(conversionFactor, conversionFactor);
@@ -535,8 +535,8 @@ void XPSExPlug::handleImageFallBack(double xOffset, double yOffset, PageItem *It
 	else
 		pa.prepend("F 1 ");
 	ob.setAttribute("Data", pa);
-	if (Item->rotation() != 0.0)
-		ob.setAttribute("RenderTransform", MatrixToStr(mpx));
+//	if (Item->rotation() != 0.0)
+//		ob.setAttribute("RenderTransform", MatrixToStr(mpx));
 	QDomElement obf = p_docu.createElement("Path.Fill");
 	QDomElement gr = p_docu.createElement("ImageBrush");
 	double maxSize = qMax(Item->visualWidth(), Item->visualHeight());
@@ -2770,6 +2770,8 @@ bool XPSExPlug::checkForFallback(PageItem *Item)
 	if (Item->fillBlendmode() != 0)
 		ret = true;
 	if (Item->lineBlendmode() != 0)
+		ret = true;
+	if (Item->hasSoftShadow())
 		ret = true;
 	return ret;
 }

@@ -3445,6 +3445,130 @@ QString PDFLibCore::Write_TransparencyGroup(double trans, int blend, QString &da
 	return retString;
 }
 
+QString PDFLibCore::PDF_PutSoftShadow(PageItem* ite, const ScPage *pag)
+{
+	if (Options.Version < PDFOptions::PDFVersion_14 || !ite->hasSoftShadow() || ite->softShadowColor() == CommonStrings::None || !ite->printEnabled())
+		return "";
+	QString tmp("q\n");
+	double softShadowDPI = Options.Resolution;
+	int pixelRadius = qRound(ite->softShadowBlurRadius() / 72.0 * softShadowDPI);
+	tmp += "1 0 0 1 ";
+	tmp += FToStr(ite->softShadowXOffset() - ite->softShadowBlurRadius())+" ";
+	tmp += FToStr(-ite->softShadowYOffset() - ite->softShadowBlurRadius())+" cm\n";
+	tmp += "1 0 0 1 0 " + FToStr(-(ite->height() + ite->visualLineWidth()))+" cm\n";
+	tmp += FToStr(ite->width() + ite->visualLineWidth() + 2 * ite->softShadowBlurRadius()) + " 0 0 " + FToStr(ite->height() + ite->visualLineWidth() + 2 * ite->softShadowBlurRadius())+" 0 0 cm\n" ;
+
+	double savRot = ite->rotation();
+	ite->setRotation(0, true);
+	double maxSize = qMax(ite->visualWidth(), ite->visualHeight());
+	maxSize = qMin(3000.0, maxSize * (softShadowDPI / 72.0));
+	bool savedShadow = ite->hasSoftShadow();
+	ite->setHasSoftShadow(false);
+	QImage imgC = ite->DrawObj_toImage(maxSize);
+	ite->setRotation(savRot, true);
+	ite->setHasSoftShadow(savedShadow);
+
+	imgC = imgC.copy(-pixelRadius,-pixelRadius,imgC.width()+2*pixelRadius,imgC.height()+2*pixelRadius); // Add border
+	ScImage img = imgC.alphaChannel().convertToFormat(QImage::Format_RGB32);
+
+	ImageEffect eff;
+	ScImageEffectList el;
+	eff.effectCode = ScImage::EF_BLUR;
+	eff.effectParameters = QString("%1 1.0").arg(pixelRadius);
+	el.append(eff);
+	img.applyEffect(el,ite->doc()->PageColors,false);
+
+	uint maskObj = newObject();
+	StartObj(maskObj);
+	PutDoc("<<\n/Type /XObject\n/Subtype /Image\n");
+	PutDoc("/Width "+QString::number(img.width())+"\n");
+	PutDoc("/Height "+QString::number(img.height())+"\n");
+	PutDoc("/ColorSpace /DeviceGray\n");
+	PutDoc("/BitsPerComponent 8\n");
+	uint lengthObj = newObject();
+	PutDoc("/Length "+QString::number(lengthObj)+" 0 R\n");
+	PutDoc("/Filter /FlateDecode\n");
+	PutDoc(">>\nstream\n");
+	int bytesWritten = WriteFlateImageToStream(img, maskObj, ColorSpaceGray, false);
+	PutDoc("\nendstream\nendobj\n");
+	StartObj(lengthObj);
+	PutDoc(QString("    %1\n").arg(bytesWritten));
+	PutDoc("endobj\n");
+
+	uint colObj = newObject();
+	StartObj(colObj);
+	PutDoc("<<\n/Type /XObject\n/Subtype /Image\n");
+	PutDoc("/Width 1\n");
+	PutDoc("/Height 1\n");
+	PutDoc("/Interpolate false\n");
+	PutDoc("/BitsPerComponent 8\n");
+	PutDoc("/SMask "+QString::number(maskObj)+" 0 R\n");
+
+	ScImage col(1,1);
+	QString colstr = SetColor(ite->softShadowColor(), ite->softShadowShade());
+	if (Options.isGrayscale)
+	{
+		double gf;
+		int g;
+		QTextStream ts(&colstr, QIODevice::ReadOnly);
+		ts >> gf;
+		g = round(gf*255);
+		col.imgInfo.colorspace = ColorSpaceGray;
+		col.qImagePtr()->setPixel(0,0,qRgba(g,g,g,255));
+		PutDoc("/ColorSpace /DeviceGray\n");
+		PutDoc("/Length 1\n");
+		PutDoc(">>\nstream\n");
+		WriteImageToStream(col, colObj, ColorSpaceGray, true);
+		PutDoc("\nendstream\nendobj\n");
+	}
+	else if (Options.UseRGB)
+	{
+		double r,g,b;
+		QTextStream ts(&colstr, QIODevice::ReadOnly);
+		ts >> r;
+		ts >> g;
+		ts >> b;
+		col.imgInfo.colorspace = ColorSpaceRGB;
+		col.qImagePtr()->setPixel(0,0,qRgba(round(r*255),round(g*255),round(b*255),255));
+		PutDoc("/ColorSpace /DeviceRGB\n");
+		PutDoc("/Length 3\n");
+		PutDoc(">>\nstream\n");
+		WriteImageToStream(col, colObj, ColorSpaceRGB, false);
+		PutDoc("\nendstream\nendobj\n");
+	}
+	else //CMYK
+	{
+		double c,m,y,k;
+		QTextStream ts(&colstr, QIODevice::ReadOnly);
+		ts >> c;
+		ts >> m;
+		ts >> y;
+		ts >> k;
+		col.imgInfo.colorspace = ColorSpaceCMYK;
+		col.qImagePtr()->setPixel(0,0,qRgba(round(c*255),round(m*255),round(y*255),round(k*255)));
+		PutDoc("/ColorSpace /DeviceCMYK\n");
+		PutDoc("/Length 4\n");
+		PutDoc(">>\nstream\n");
+		WriteImageToStream(col, colObj, ColorSpaceCMYK, false);
+		PutDoc("\nendstream\nendobj\n");
+	}
+
+	QString colRes = ResNam+QString::number(ResCount);
+	Seite.ImgObjects[colRes] = colObj;
+	ResCount++;
+
+	QString ShName = ResNam+QString::number(ResCount);
+	ResCount++;
+	Transpar[ShName] = writeGState("/ca "+FToStr(1.0 - ite->softShadowOpacity())+"\n"
+								   + "/AIS false\n/OPM 1\n"
+								   + "/BM /" + blendMode(ite->softShadowBlendMode()) + "\n");
+
+	tmp += "/"+ShName+" gs\n";
+
+	tmp += "/"+colRes+" Do Q\n";
+	return tmp;
+}
+
 /**
  * Fill this.output with the QString representation of the item.
  * Checks if the item can be represented in the chosen PDF version, based on some of its caracteristics
@@ -3582,6 +3706,7 @@ bool PDFLibCore::PDF_ProcessItem(QString& output, PageItem* ite, const ScPage* p
 			sr = 0;
 		tmp += FToStr(cr)+" "+FToStr(sr)+" "+FToStr(-sr)+" "+FToStr(cr)+" 0 0 cm\n";
 	}
+	tmp += PDF_PutSoftShadow(ite,pag);
 	switch (ite->itemType())
 	{
 		case PageItem::ImageFrame:

@@ -7750,6 +7750,33 @@ void ScribusDoc::itemSelection_RaiseItem()
 	}
 }
 
+void ScribusDoc::itemSelection_SetSoftShadow(bool has, QString color, double dx, double dy, double radius, int shade, double opac, int blend)
+{
+	if (color == CommonStrings::tr_NoneColor)
+		color = CommonStrings::None;
+	uint selectedItemCount = m_Selection->count();
+	if (selectedItemCount != 0)
+	{
+		for (uint a = 0; a < selectedItemCount; ++a)
+		{
+			PageItem *currItem = m_Selection->itemAt(a);
+			currItem->setHasSoftShadow(has);
+			currItem->setSoftShadowColor(color);
+			currItem->setSoftShadowXOffset(dx);
+			currItem->setSoftShadowYOffset(dy);
+			currItem->setSoftShadowBlurRadius(radius);
+			currItem->setSoftShadowShade(shade);
+			currItem->setSoftShadowOpacity(opac);
+			currItem->setSoftShadowBlendMode(blend);
+			QRectF newRect = currItem->getVisualBoundingRect().adjusted(-dx, -dy, dx, dy);
+			currItem->invalidateLayout();
+			regionsChanged()->update(newRect);
+		}
+	}
+	changed();
+
+}
+
 void ScribusDoc::itemSelection_SetLineWidth(double w)
 {
 	uint selectedItemCount=m_Selection->count();

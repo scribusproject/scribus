@@ -193,6 +193,14 @@ PageItem::PageItem(const PageItem & other)
 	fill_gradient(other.fill_gradient),
 	fillRule(other.fillRule),
 	doOverprint(other.doOverprint),
+	m_hasSoftShadow(other.m_hasSoftShadow),
+	m_softShadowColor(other.m_softShadowColor),
+	m_softShadowShade(other.m_softShadowShade),
+	m_softShadowBlurRadius(other.m_softShadowBlurRadius),
+	m_softShadowXOffset(other.m_softShadowXOffset),
+	m_softShadowYOffset(other.m_softShadowYOffset),
+	m_softShadowOpacity(other.m_softShadowOpacity),
+	m_softShadowBlendMode(other.m_softShadowBlendMode),
 	LeftLink(other.LeftLink),
 	RightLink(other.RightLink),
 	TopLink(other.TopLink),
@@ -824,6 +832,15 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	}
 	isInlineImage = false;
 	isTempFile = false;
+
+	m_hasSoftShadow = false;
+	m_softShadowColor = "Black";
+	m_softShadowShade = 100;
+	m_softShadowBlurRadius = 5.0;
+	m_softShadowXOffset = 5.0;
+	m_softShadowYOffset = 5.0;
+	m_softShadowOpacity = 0.0;
+	m_softShadowBlendMode = 0;
 }
 
 PageItem::~PageItem()
@@ -1633,6 +1650,8 @@ void PageItem::DrawObj_Pre(ScPainter *p)
 	{
 		if (!isGroup())
 		{
+			if (hasSoftShadow())
+				DrawSoftShadow(p);
 			p->setBlendModeFill(fillBlendmode());
 			p->setLineWidth(lwCorr);
 			if (GrType != 0)
@@ -2171,6 +2190,39 @@ void PageItem::DrawStrokePattern(ScPainter *p, QPainterPath &path)
 		p->restore();
 	}
 	p->newPath();
+}
+
+void PageItem::DrawSoftShadow(ScPainter *p)
+{
+	if (m_softShadowColor == CommonStrings::None)
+		return;
+	if ((itemType() == PathText) || (itemType() == Symbol) || (itemType() == Group) || (itemType() == Line) || (itemType() == PolyLine) || (itemType() == Spiral))
+		return;
+	double lwCorr = m_lineWidth;
+	double sc = p->zoomFactor();
+	if ((m_lineWidth * sc) < 1)
+		lwCorr = 0;
+	const ScColor& col = m_Doc->PageColors[m_softShadowColor];
+	QColor tmp = ScColorEngine::getShadeColorProof(col, m_Doc, m_softShadowShade);
+	if (m_Doc->viewAsPreview)
+	{
+		VisionDefectColor defect;
+		tmp = defect.convertDefect(tmp, m_Doc->previewVisual);
+	}
+	p->save();
+	FPointArray sh = PoLine.copy();
+	sh.translate(m_softShadowXOffset, m_softShadowYOffset);
+	p->beginLayer(1.0 - m_softShadowOpacity, m_softShadowBlendMode);
+	p->setupPolygon(&sh);
+	p->setBrush(tmp);
+	p->setFillMode(ScPainter::Solid);
+	p->setStrokeMode(ScPainter::Solid);
+	p->setPen(tmp, lwCorr, PLineArt, PLineEnd, PLineJoin);
+	p->fillPath();
+	p->strokePath();
+	p->blurAlpha(m_softShadowBlurRadius);
+	p->endLayer();
+	p->restore();
 }
 
 QImage PageItem::DrawObj_toImage(double maxSize)

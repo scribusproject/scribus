@@ -1448,6 +1448,30 @@ void RawPainter::applyShadow(PageItem* ite)
 			groupStack.top().Items.append(nite);
 			groupStack.top().Items.append(ite);
 		}
+/*
+		double xof = 0.0;
+		double yof = 0.0;
+		if (m_style["draw:shadow-offset-x"])
+			xof = valueAsPoint(m_style["draw:shadow-offset-x"]);
+		if (m_style["draw:shadow-offset-y"])
+			yof = valueAsPoint(m_style["draw:shadow-offset-y"]);
+		QString shadowColor = CurrColorFill;
+		double shadowTrans = 1.0;
+		if (m_style["draw:shadow-color"])
+		{
+			shadowColor = parseColor(QString(m_style["draw:shadow-color"]->getStr().cstr()));
+			if(m_style["draw:shadow-opacity"])
+				shadowTrans = 1.0 - qMin(1.0, qMax(fromPercentage(QString(m_style["draw:shadow-opacity"]->getStr().cstr())), 0.0));
+		}
+		ite->setHasSoftShadow(true);
+		ite->setSoftShadowColor(shadowColor);
+		ite->setSoftShadowXOffset(xof);
+		ite->setSoftShadowYOffset(yof);
+		ite->setSoftShadowBlurRadius(5);
+		ite->setSoftShadowShade(100);
+		ite->setSoftShadowOpacity(shadowTrans);
+		ite->setSoftShadowBlendMode(0);
+*/
 	}
 }
 
