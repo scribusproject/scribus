@@ -2537,7 +2537,8 @@ bool PDFLibCore::PDF_TemplatePage(const ScPage* pag, bool )
 						{
 							QString tmpD = "";
 							PutPage("q\n");
-							PutPage(SetPathAndClip(ite));
+							if (ite->groupClipping())
+								PutPage(SetPathAndClip(ite));
 							if (ite->imageFlippedH())
 								PutPage("-1 0 0 1 "+FToStr(ite->width())+" 0 cm\n");
 							if (ite->imageFlippedV())
@@ -3350,7 +3351,8 @@ QString PDFLibCore::Write_TransparencyGroup(double trans, int blend, QString &da
 				scaleH = controlItem->groupHeight / controlItem->height();
 			else
 				scaleH = 1.0 / (controlItem->groupHeight / controlItem->height());
-			PutDoc("/BBox [ "+FToStr(0)+" "+FToStr(-controlItem->height() * scaleH)+" "+FToStr(controlItem->groupWidth * scaleW)+" "+FToStr(controlItem->groupHeight * scaleH)+" ]\n");
+		//	PutDoc("/BBox [ "+FToStr(0)+" "+FToStr(-controlItem->height() * scaleH)+" "+FToStr(controlItem->groupWidth * scaleW)+" "+FToStr(controlItem->groupHeight * scaleH)+" ]\n");
+			PutDoc("/BBox [ "+FToStr(0)+" "+FToStr(-controlItem->height() * scaleH)+" "+FToStr(ActPageP->width())+" "+FToStr(controlItem->groupHeight * scaleH)+" ]\n");
 		}
 		if (controlItem->isSymbol())
 		{
@@ -4331,7 +4333,8 @@ bool PDFLibCore::PDF_ProcessItem(QString& output, PageItem* ite, const ScPage* p
 			{
 				QString tmpD = "";
 				tmp += "q\n";
-				tmp += SetPathAndClip(ite);
+				if (ite->groupClipping())
+					tmp += SetPathAndClip(ite);
 				if (ite->imageFlippedH())
 					tmp += "-1 0 0 1 "+FToStr(ite->width())+" 0 cm\n";
 				if (ite->imageFlippedV())

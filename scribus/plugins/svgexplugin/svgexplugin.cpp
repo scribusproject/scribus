@@ -392,18 +392,21 @@ void SVGExPlug::ProcessItemOnPage(double xOffset, double yOffset, PageItem *Item
 				tr += QString(" scale(%1, %2)").arg(Item->width() / Item->groupWidth).arg(Item->height() / Item->groupHeight);
 				ob.setAttribute("transform", tr);
 				ob.setAttribute("style", "fill:none; stroke:none");
-				FPointArray clipPath = Item->PoLine;
-				QTransform transform;
-				transform.scale(Item->width() / Item->groupWidth, Item->height() / Item->groupHeight);
-				transform = transform.inverted();
-				clipPath.map(transform);
-				QDomElement obc = createClipPathElement(&clipPath);
-				if (!obc.isNull())
-					ob.setAttribute("clip-path", "url(#"+ obc.attribute("id") + ")");
-				if (Item->fillRule)
-					ob.setAttribute("clip-rule", "evenodd");
-				else
-					ob.setAttribute("clip-rule", "nonzero");
+				if (Item->groupClipping())
+				{
+					FPointArray clipPath = Item->PoLine;
+					QTransform transform;
+					transform.scale(Item->width() / Item->groupWidth, Item->height() / Item->groupHeight);
+					transform = transform.inverted();
+					clipPath.map(transform);
+					QDomElement obc = createClipPathElement(&clipPath);
+					if (!obc.isNull())
+						ob.setAttribute("clip-path", "url(#"+ obc.attribute("id") + ")");
+					if (Item->fillRule)
+						ob.setAttribute("clip-rule", "evenodd");
+					else
+						ob.setAttribute("clip-rule", "nonzero");
+				}
 				for (int em = 0; em < Item->groupItemList.count(); ++em)
 				{
 					PageItem* embed = Item->groupItemList.at(em);

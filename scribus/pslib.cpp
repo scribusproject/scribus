@@ -2569,7 +2569,8 @@ bool PSLib::ProcessItem(ScribusDoc* Doc, ScPage* a, PageItem* c, uint PNr, bool 
 			break;
 		case PageItem::Group:
 			PS_save();
-			SetPathAndClip(c->PoLine, c->fillRule);
+			if (c->groupClipping())
+				SetPathAndClip(c->PoLine, c->fillRule);
 			if (c->imageFlippedH())
 			{
 				PS_translate(c->width(), 0);

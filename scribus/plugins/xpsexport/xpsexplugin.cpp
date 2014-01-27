@@ -469,10 +469,13 @@ void XPSExPlug::writeItemOnPage(double xOffset, double yOffset, PageItem *Item, 
 						if (Item->fillTransparency() != 0)
 							ob.setAttribute("Opacity", FToStr(1.0 - Item->fillTransparency()));
 					}
-					FPointArray path = Item->PoLine.copy();
-					path.scale(conversionFactor, conversionFactor);
-					path.scale(Item->groupWidth / Item->width(), Item->groupHeight / Item->height());
-					SetClipAttr(ob, &path, Item->fillRule);
+					if (Item->groupClipping())
+					{
+						FPointArray path = Item->PoLine.copy();
+						path.scale(conversionFactor, conversionFactor);
+						path.scale(Item->groupWidth / Item->width(), Item->groupHeight / Item->height());
+						SetClipAttr(ob, &path, Item->fillRule);
+					}
 					QTransform mpx;
 					mpx.translate(xOffset * conversionFactor, yOffset * conversionFactor);
 					mpx.scale(Item->width() / Item->groupWidth, Item->height() / Item->groupHeight);
