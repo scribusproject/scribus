@@ -93,7 +93,7 @@ PropertiesPalette::PropertiesPalette( QWidget* parent) : ScDockPalette( parent, 
 	idXYZItem = TabStack->addItem( xyzPal, "X, Y, &Z" );
 
 	shadowPal = new PropertiesPalette_Shadow( this );
-	idShadowItem = TabStack->addItem( shadowPal, "Soft Shadow" );
+	idShadowItem = TabStack->addItem( shadowPal, "Drop Shadow" );
 
 	shapePal = new PropertiesPalette_Shape( this );
 	idShapeItem = TabStack->addItem( shapePal, "&Shape" );
@@ -286,7 +286,7 @@ void PropertiesPalette::unsetDoc()
 	Tpal->setDocument(NULL);
 
 	m_haveItem = false;
-	for (int ws = 1; ws < 9; ++ws)
+	for (int ws = 1; ws < 10; ++ws)
 		TabStack->setItemEnabled(ws, false);
 	TabStack->widget(0)->setEnabled(false);
 	TabStack->setItemEnabled(idXYZItem, false);
@@ -422,6 +422,7 @@ void PropertiesPalette::setCurrentItem(PageItem *i)
 	if (!sender())
 	{
 		xyzPal->handleSelectionChanged();
+		shadowPal->handleSelectionChanged();
 		shapePal->handleSelectionChanged();
 		groupPal->handleSelectionChanged();
 		imagePal->handleSelectionChanged();
@@ -524,6 +525,8 @@ void  PropertiesPalette::handleSelectionChanged()
 			}
 			else
 			{
+				TabStack->setItemEnabled(idXYZItem, true);
+				TabStack->setItemEnabled(idShadowItem, true);
 				TabStack->setItemEnabled(idShapeItem, true);
 				TabStack->setItemEnabled(idTextItem, false);
 				TabStack->setItemEnabled(idImageItem, true);
@@ -911,7 +914,7 @@ void PropertiesPalette::languageChange()
 	TabStack->setItemText(idXYZItem, tr("X, Y, &Z"));
 	TabStack->setItemText(idTextItem, tr("&Text"));
 	TabStack->setItemText(idImageItem, tr("&Image"));
-	TabStack->setItemText(idShadowItem, tr("Soft Shadow"));
+	TabStack->setItemText(idShadowItem, tr("Drop Shadow"));
 	TabStack->setItemText(idShapeItem, tr("&Shape"));
 	TabStack->setItemText(idLineItem, tr("&Line"));
 	TabStack->setItemText(idColorsItem, tr("&Colors"));
