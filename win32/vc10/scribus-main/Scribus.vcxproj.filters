@@ -828,6 +828,9 @@
     <ClInclude Include="..\..\..\scribus\ui\ui_propertiespalette_linebase.h">
       <Filter>Generated Form Files</Filter>
     </ClInclude>
+	<ClInclude Include="..\..\..\scribus\ui\ui_propertiespalette_shadowbase.h">
+      <Filter>Generated Form Files</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\..\scribus\ui\ui_propertiespalette_shapebase.h">
       <Filter>Generated Form Files</Filter>
     </ClInclude>
@@ -1851,6 +1854,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\scribus\ui\propertiespalette_line.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+	<ClCompile Include="..\..\..\scribus\ui\propertiespalette_shadow.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\scribus\ui\propertiespalette_shape.cpp">
@@ -3056,6 +3062,9 @@
     <ClCompile Include="..\..\..\scribus\ui\moc_propertiespalette_line.cpp">
       <Filter>Generated Moc Files</Filter>
     </ClCompile>
+	<ClCompile Include="..\..\..\scribus\ui\moc_propertiespalette_shadow.cpp">
+      <Filter>Generated Moc Files</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\..\scribus\ui\moc_propertiespalette_shape.cpp">
       <Filter>Generated Moc Files</Filter>
     </ClCompile>
@@ -3666,6 +3675,9 @@
       <Filter>Form Files</Filter>
     </uic>
     <uic Include="..\..\..\scribus\ui\propertiespalette_linebase.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+	<uic Include="..\..\..\scribus\ui\propertiespalette_shadowbase.ui">
       <Filter>Form Files</Filter>
     </uic>
     <uic Include="..\..\..\scribus\ui\propertiespalette_shapebase.ui">
@@ -4522,6 +4534,9 @@
       <Filter>Header Files</Filter>
     </moc>
     <moc Include="..\..\..\scribus\ui\propertiespalette_line.h">
+      <Filter>Header Files</Filter>
+    </moc>
+	<moc Include="..\..\..\scribus\ui\propertiespalette_shadow.h">
       <Filter>Header Files</Filter>
     </moc>
     <moc Include="..\..\..\scribus\ui\propertiespalette_shape.h">
