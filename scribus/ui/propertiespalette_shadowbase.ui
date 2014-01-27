@@ -17,7 +17,7 @@
    <item>
     <widget class="QCheckBox" name="hasSoftShadow">
      <property name="text">
-      <string>Object has a soft shadow</string>
+      <string>Object has a drop shadow</string>
      </property>
     </widget>
    </item>

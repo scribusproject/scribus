@@ -297,7 +297,7 @@ void PropertiesPalette_Shadow::changeEvent(QEvent *e)
 
 void PropertiesPalette_Shadow::languageChange()
 {
-	hasSoftShadow->setText( tr("Object has a soft shadow"));
+	hasSoftShadow->setText( tr("Object has a drop shadow"));
 	label->setText( tr("X-Offset:"));
 	label_2->setText( tr("Y-Offset:"));
 	label_3->setText( tr("Blur:"));
