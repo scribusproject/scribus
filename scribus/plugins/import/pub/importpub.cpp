@@ -152,12 +152,16 @@ void RawPainter::endLayer()
 		tmpSel->clear();
 		if (gElements.count() > 0)
 		{
+			bool groupClip = true;
 			for (int dre = 0; dre < gElements.count(); ++dre)
 			{
 				tmpSel->addItem(gElements.at(dre), true);
 				Elements->removeAll(gElements.at(dre));
+				if (gElements.at(dre)->hasSoftShadow())
+					groupClip = false;
 			}
 			ite = m_Doc->groupObjectsSelection(tmpSel);
+			ite->setGroupClipping(groupClip);
 			ite->setTextFlowMode(PageItem::TextFlowUsesBoundingBox);
 			if (!gr.clip.isEmpty())
 			{
@@ -1411,7 +1415,7 @@ void RawPainter::applyShadow(PageItem* ite)
 		return;
 	if(m_style["draw:shadow"] && m_style["draw:shadow"]->getStr() == "visible")
 	{
-		double xp = ite->xPos();
+/*		double xp = ite->xPos();
 		double yp = ite->yPos();
 		double xof = 0.0;
 		double yof = 0.0;
@@ -1448,7 +1452,7 @@ void RawPainter::applyShadow(PageItem* ite)
 			groupStack.top().Items.append(nite);
 			groupStack.top().Items.append(ite);
 		}
-/*
+*/
 		double xof = 0.0;
 		double yof = 0.0;
 		if (m_style["draw:shadow-offset-x"])
@@ -1471,7 +1475,7 @@ void RawPainter::applyShadow(PageItem* ite)
 		ite->setSoftShadowShade(100);
 		ite->setSoftShadowOpacity(shadowTrans);
 		ite->setSoftShadowBlendMode(0);
-*/
+
 	}
 }
 
