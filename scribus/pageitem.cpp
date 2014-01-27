@@ -341,7 +341,8 @@ PageItem::PageItem(const PageItem & other)
 	m_imageYOffset(other.m_imageYOffset),
 	m_imageRotation(other.m_imageRotation),
 	m_isReversed(other.m_isReversed),
-	firstLineOffsetP(other.firstLineOffsetP)
+	firstLineOffsetP(other.firstLineOffsetP),
+	m_groupClips(other.m_groupClips)
 {
 	QString tmp;
 	m_Doc->TotalItems++;
@@ -841,6 +842,7 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	m_softShadowYOffset = 5.0;
 	m_softShadowOpacity = 0.0;
 	m_softShadowBlendMode = 0;
+	m_groupClips = true;
 }
 
 PageItem::~PageItem()
@@ -2220,7 +2222,7 @@ void PageItem::DrawSoftShadow(ScPainter *p)
 	p->setPen(tmp, lwCorr, PLineArt, PLineEnd, PLineJoin);
 	p->fillPath();
 	p->strokePath();
-	p->blurAlpha(m_softShadowBlurRadius);
+	p->blur(m_softShadowBlurRadius);
 	p->endLayer();
 	p->restore();
 }
