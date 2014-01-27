@@ -4609,6 +4609,7 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 		break;
 	}
 
+	currItem->setGroupClipping(attrs.valueAsBool("groupClips", true));
 	currItem->FrameType = attrs.valueAsInt("FRTYPE", 0);
 	int startArrowIndex = attrs.valueAsInt("startArrowIndex", 0);
 	if ((startArrowIndex < 0) || (startArrowIndex > static_cast<int>(doc->arrowStyles().size())))

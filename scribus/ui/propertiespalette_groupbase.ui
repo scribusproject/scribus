@@ -15,10 +15,19 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_3">
    <property name="spacing">
-    <number>2</number>
+    <number>3</number>
    </property>
-   <property name="margin">
-    <number>2</number>
+   <property name="leftMargin">
+    <number>3</number>
+   </property>
+   <property name="topMargin">
+    <number>3</number>
+   </property>
+   <property name="rightMargin">
+    <number>3</number>
+   </property>
+   <property name="bottomMargin">
+    <number>3</number>
    </property>
    <item>
     <widget class="QGroupBox" name="shapeGroup">
@@ -32,7 +41,16 @@
       <property name="spacing">
        <number>5</number>
       </property>
-      <property name="margin">
+      <property name="leftMargin">
+       <number>2</number>
+      </property>
+      <property name="topMargin">
+       <number>2</number>
+      </property>
+      <property name="rightMargin">
+       <number>2</number>
+      </property>
+      <property name="bottomMargin">
        <number>2</number>
       </property>
       <item>
@@ -81,7 +99,16 @@
       <property name="spacing">
        <number>2</number>
       </property>
-      <property name="margin">
+      <property name="leftMargin">
+       <number>2</number>
+      </property>
+      <property name="topMargin">
+       <number>2</number>
+      </property>
+      <property name="rightMargin">
+       <number>2</number>
+      </property>
+      <property name="bottomMargin">
        <number>2</number>
       </property>
       <item>
@@ -105,7 +132,7 @@
          <enum>Qt::ToolButtonTextBesideIcon</enum>
         </property>
         <attribute name="buttonGroup">
-         <string>textFlowBtnGroup</string>
+         <string notr="true">textFlowBtnGroup</string>
         </attribute>
        </widget>
       </item>
@@ -130,7 +157,7 @@
          <enum>Qt::ToolButtonTextBesideIcon</enum>
         </property>
         <attribute name="buttonGroup">
-         <string>textFlowBtnGroup</string>
+         <string notr="true">textFlowBtnGroup</string>
         </attribute>
        </widget>
       </item>
@@ -155,7 +182,7 @@
          <enum>Qt::ToolButtonTextBesideIcon</enum>
         </property>
         <attribute name="buttonGroup">
-         <string>textFlowBtnGroup</string>
+         <string notr="true">textFlowBtnGroup</string>
         </attribute>
        </widget>
       </item>
@@ -180,7 +207,7 @@
          <enum>Qt::ToolButtonTextBesideIcon</enum>
         </property>
         <attribute name="buttonGroup">
-         <string>textFlowBtnGroup</string>
+         <string notr="true">textFlowBtnGroup</string>
         </attribute>
        </widget>
       </item>
@@ -205,7 +232,7 @@
          <enum>Qt::ToolButtonTextBesideIcon</enum>
         </property>
         <attribute name="buttonGroup">
-         <string>textFlowBtnGroup</string>
+         <string notr="true">textFlowBtnGroup</string>
         </attribute>
        </widget>
       </item>
@@ -224,7 +251,16 @@
       <property name="spacing">
        <number>5</number>
       </property>
-      <property name="margin">
+      <property name="leftMargin">
+       <number>2</number>
+      </property>
+      <property name="topMargin">
+       <number>2</number>
+      </property>
+      <property name="rightMargin">
+       <number>2</number>
+      </property>
+      <property name="bottomMargin">
        <number>2</number>
       </property>
       <item>
@@ -283,6 +319,13 @@
     </widget>
    </item>
    <item>
+    <widget class="QCheckBox" name="clipGroups">
+     <property name="text">
+      <string>Group clips Contents</string>
+     </property>
+    </widget>
+   </item>
+   <item>
     <widget class="QGroupBox" name="transparencyGroup">
      <property name="title">
       <string>Transparency</string>
@@ -294,7 +337,16 @@
       <property name="spacing">
        <number>2</number>
       </property>
-      <property name="margin">
+      <property name="leftMargin">
+       <number>2</number>
+      </property>
+      <property name="topMargin">
+       <number>2</number>
+      </property>
+      <property name="rightMargin">
+       <number>2</number>
+      </property>
+      <property name="bottomMargin">
        <number>2</number>
       </property>
       <item>

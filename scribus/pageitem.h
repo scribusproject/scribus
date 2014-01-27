@@ -1168,6 +1168,8 @@ public: // Start public functions
 	void rotateWelded(double dR, double oldRot);
 	void setWeldPoint(double DX, double DY, PageItem *pItem); 	///< added for autowelding feature of notes frames, setting welding point with given pItem to given coords
 	QString getItemTextSaxed(int selStart, int selLength); ///< used by notes frames to get content of notes from itemText
+	bool groupClipping() { return m_groupClips; }
+	void setGroupClipping(bool val) { m_groupClips = val; }
 
 		// End public functions
 
@@ -1762,6 +1764,7 @@ protected: // Start protected variables
 	double m_imageRotation; ///< Image rotation in frame
 	bool m_isReversed; ///< Is the frame is reversed?
 	FirstLineOffsetPolicy firstLineOffsetP;
+	bool m_groupClips;
 
 			// End protected variables
 

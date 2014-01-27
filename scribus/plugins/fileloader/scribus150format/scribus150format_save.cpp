@@ -2776,6 +2776,7 @@ void Scribus150Format::SetItemProps(ScXmlStreamWriter& docu, PageItem* item, con
 	{
 		docu.writeAttribute("groupWidth", item->groupWidth);
 		docu.writeAttribute("groupHeight", item->groupHeight);
+		docu.writeAttribute("groupClips", item->groupClipping());
 	}
 	if (item->DashValues.count() != 0)
 	{

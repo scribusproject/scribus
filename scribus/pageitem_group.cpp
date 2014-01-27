@@ -185,7 +185,10 @@ void PageItem_Group::DrawObj_Item(ScPainter *p, QRectF /*e*/)
 	else
 		p->setMaskMode(0);
 	p->setFillRule(fillRule);
-	p->beginLayer(1.0 - fillTransparency(), fillBlendmode(), &PoLine);
+	if (m_groupClips)
+		p->beginLayer(1.0 - fillTransparency(), fillBlendmode(), &PoLine);
+	else
+		p->beginLayer(1.0 - fillTransparency(), fillBlendmode());
 	p->setMaskMode(0);
 	p->scale(m_width / groupWidth, m_height / groupHeight);
 	for (int em = 0; em < groupItemList.count(); ++em)
