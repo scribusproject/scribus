@@ -3512,7 +3512,7 @@ QString PDFLibCore::PDF_PutSoftShadow(PageItem* ite, const ScPage *pag)
 		int g;
 		QTextStream ts(&colstr, QIODevice::ReadOnly);
 		ts >> gf;
-		g = round(gf*255);
+		g = qRound(gf * 255);
 		col.imgInfo.colorspace = ColorSpaceGray;
 		col.qImagePtr()->setPixel(0,0,qRgba(g,g,g,255));
 		PutDoc("/ColorSpace /DeviceGray\n");
@@ -3529,7 +3529,7 @@ QString PDFLibCore::PDF_PutSoftShadow(PageItem* ite, const ScPage *pag)
 		ts >> g;
 		ts >> b;
 		col.imgInfo.colorspace = ColorSpaceRGB;
-		col.qImagePtr()->setPixel(0,0,qRgba(round(r*255),round(g*255),round(b*255),255));
+		col.qImagePtr()->setPixel(0, 0, qRgba(qRound(r*255), qRound(g*255), qRound(b*255), 255));
 		PutDoc("/ColorSpace /DeviceRGB\n");
 		PutDoc("/Length 3\n");
 		PutDoc(">>\nstream\n");
@@ -3545,7 +3545,7 @@ QString PDFLibCore::PDF_PutSoftShadow(PageItem* ite, const ScPage *pag)
 		ts >> y;
 		ts >> k;
 		col.imgInfo.colorspace = ColorSpaceCMYK;
-		col.qImagePtr()->setPixel(0,0,qRgba(round(c*255),round(m*255),round(y*255),round(k*255)));
+		col.qImagePtr()->setPixel(0, 0, qRgba(qRound(c*255), qRound(m*255), qRound(y*255), qRound(k*255)));
 		PutDoc("/ColorSpace /DeviceCMYK\n");
 		PutDoc("/Length 4\n");
 		PutDoc(">>\nstream\n");
