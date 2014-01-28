@@ -405,7 +405,7 @@ void XPSExPlug::writeItemOnPage(double xOffset, double yOffset, PageItem *Item, 
 		case PageItem::RegularPolygon:
 		case PageItem::Spiral:
 			if (checkForFallback(Item))
-				handleImageFallBack(xOffset, yOffset, Item, parentElem, rel_root);
+				handleImageFallBack(Item, parentElem, rel_root);
 			else
 			{
 				processPolyItem(xOffset, yOffset, Item, parentElem, rel_root);
@@ -415,7 +415,7 @@ void XPSExPlug::writeItemOnPage(double xOffset, double yOffset, PageItem *Item, 
 			break;
 		case PageItem::Line:
 			if (checkForFallback(Item))
-				handleImageFallBack(xOffset, yOffset, Item, parentElem, rel_root);
+				handleImageFallBack(Item, parentElem, rel_root);
 			else
 			{
 				processLineItem(xOffset, yOffset, Item, parentElem, rel_root);
@@ -426,31 +426,31 @@ void XPSExPlug::writeItemOnPage(double xOffset, double yOffset, PageItem *Item, 
 		case PageItem::ImageFrame:
 		case PageItem::LatexFrame:
 			if (checkForFallback(Item))
-				handleImageFallBack(xOffset, yOffset, Item, parentElem, rel_root);
+				handleImageFallBack(Item, parentElem, rel_root);
 			else
 				processImageItem(xOffset, yOffset, Item, parentElem, rel_root);
 			break;
 		case PageItem::TextFrame:
 			if (checkForFallback(Item))
-				handleImageFallBack(xOffset, yOffset, Item, parentElem, rel_root);
+				handleImageFallBack(Item, parentElem, rel_root);
 			else
 				processTextItem(xOffset, yOffset, Item, parentElem, rel_root);
 			break;
 		case PageItem::PathText:
 			if (checkForFallback(Item))
-				handleImageFallBack(xOffset, yOffset, Item, parentElem, rel_root);
+				handleImageFallBack(Item, parentElem, rel_root);
 			else
 				processPathTextItem(xOffset, yOffset, Item, parentElem, rel_root);
 			break;
 		case PageItem::Table:
 			if (checkForFallback(Item))
-				handleImageFallBack(xOffset, yOffset, Item, parentElem, rel_root);
+				handleImageFallBack(Item, parentElem, rel_root);
 			else
 				processTableItem(xOffset, yOffset, Item, parentElem, rel_root);
 			break;
 		case PageItem::Symbol:
 			if (checkForFallback(Item))
-				handleImageFallBack(xOffset, yOffset, Item, parentElem, rel_root);
+				handleImageFallBack(Item, parentElem, rel_root);
 			else
 				processSymbolItem(xOffset, yOffset, Item, parentElem, rel_root);
 			break;
@@ -458,7 +458,7 @@ void XPSExPlug::writeItemOnPage(double xOffset, double yOffset, PageItem *Item, 
 			if (Item->groupItemList.count() > 0)
 			{
 				if (checkForFallback(Item))
-					handleImageFallBack(xOffset, yOffset, Item, parentElem, rel_root);
+					handleImageFallBack(Item, parentElem, rel_root);
 				else
 				{
 					QDomElement ob = p_docu.createElement("Canvas");
@@ -504,30 +504,26 @@ void XPSExPlug::writeItemOnPage(double xOffset, double yOffset, PageItem *Item, 
 			}
 			break;
 		default:
-			handleImageFallBack(xOffset, yOffset, Item, parentElem, rel_root);
+			handleImageFallBack(Item, parentElem, rel_root);
 			break;
 	}
 }
 
-void XPSExPlug::handleImageFallBack(double xOffset, double yOffset, PageItem *Item, QDomElement &parentElem, QDomElement &rel_root)
+void XPSExPlug::handleImageFallBack(PageItem *Item, QDomElement &parentElem, QDomElement &rel_root)
 {
 	QDomElement ob = p_docu.createElement("Path");
-	QRectF bounds = Item->getVisualBoundingRect();
+	double maxAdd = 0;
+	if (Item->hasSoftShadow())
+		maxAdd = qMax(fabs(Item->softShadowXOffset()), fabs(Item->softShadowYOffset())) + Item->softShadowBlurRadius();
+	QRectF bounds = Item->getVisualBoundingRect().adjusted(-maxAdd, -maxAdd, maxAdd, maxAdd);
 	QPainterPath path;
 	path.moveTo(0, 0);
 	path.lineTo(bounds.width(), 0);
 	path.lineTo(bounds.width(), bounds.height());
 	path.lineTo(0, bounds.height());
 	path.closeSubpath();
-	QTransform mpx;
-//	if (Item->rotation() != 0.0)
-//	{
-//		mpx.translate(xOffset * conversionFactor, yOffset * conversionFactor);
-//		mpx.rotate(Item->rotation());
-//		mpx.translate(-xOffset * conversionFactor, -yOffset * conversionFactor);
-//	}
 	QTransform mpp;
-	mpp.translate((Item->visualXPos() - m_Doc->currentPage()->xOffset()) * conversionFactor, (Item->visualYPos() - m_Doc->currentPage()->yOffset()) * conversionFactor);
+	mpp.translate((Item->visualXPos() - m_Doc->currentPage()->xOffset() - maxAdd) * conversionFactor, (Item->visualYPos() - m_Doc->currentPage()->yOffset() - maxAdd) * conversionFactor);
 	mpp.scale(conversionFactor, conversionFactor);
 	path = mpp.map(path);
 	FPointArray fPath;
@@ -538,11 +534,9 @@ void XPSExPlug::handleImageFallBack(double xOffset, double yOffset, PageItem *It
 	else
 		pa.prepend("F 1 ");
 	ob.setAttribute("Data", pa);
-//	if (Item->rotation() != 0.0)
-//		ob.setAttribute("RenderTransform", MatrixToStr(mpx));
 	QDomElement obf = p_docu.createElement("Path.Fill");
 	QDomElement gr = p_docu.createElement("ImageBrush");
-	double maxSize = qMax(Item->visualWidth(), Item->visualHeight());
+	double maxSize = qMax(bounds.width(), bounds.height());
 	maxSize = qMin(3000.0, maxSize * (m_dpi / 72.0));
 	QImage tmpImg = Item->DrawObj_toImage(maxSize);
 	tmpImg.save(baseDir + "/Resources/Images/" + QString("%1.png").arg(imageCounter), "PNG");
@@ -551,7 +545,7 @@ void XPSExPlug::handleImageFallBack(double xOffset, double yOffset, PageItem *It
 	gr.setAttribute("ViewportUnits", "Absolute");
 	gr.setAttribute("Viewport", "0,0,1,1");
 	gr.setAttribute("Viewbox", QString("0, 0, %1, %2").arg(tmpImg.width()).arg(tmpImg.height()));
-	gr.setAttribute("Viewport", QString("%1, %2, %3, %4").arg((Item->visualXPos() - m_Doc->currentPage()->xOffset()) * conversionFactor).arg((Item->visualYPos() - m_Doc->currentPage()->yOffset()) * conversionFactor).arg(bounds.width() * conversionFactor).arg(bounds.height() * conversionFactor));
+	gr.setAttribute("Viewport", QString("%1, %2, %3, %4").arg((Item->visualXPos() - m_Doc->currentPage()->xOffset() - maxAdd) * conversionFactor).arg((Item->visualYPos() - m_Doc->currentPage()->yOffset() - maxAdd) * conversionFactor).arg(bounds.width() * conversionFactor).arg(bounds.height() * conversionFactor));
 	gr.setAttribute("ImageSource", "/Resources/Images/" + QString("%1.png").arg(imageCounter));
 	QDomElement rel = r_docu.createElement("Relationship");
 	rel.setAttribute("Id", QString("rIDi%1").arg(imageCounter));

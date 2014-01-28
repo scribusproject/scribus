@@ -2222,7 +2222,7 @@ void PageItem::DrawSoftShadow(ScPainter *p)
 	p->setPen(tmp, lwCorr, PLineArt, PLineEnd, PLineJoin);
 	p->fillPath();
 	p->strokePath();
-	p->blur(m_softShadowBlurRadius);
+	p->blur(m_softShadowBlurRadius * sc);
 	p->endLayer();
 	p->restore();
 }
@@ -2236,10 +2236,13 @@ QImage PageItem::DrawObj_toImage(double maxSize)
 	double maxy = -std::numeric_limits<double>::max();
 	double x1, x2, y1, y2;
 	getVisualBoundingRect(&x1, &y1, &x2, &y2);
-	minx = qMin(minx, x1);
-	miny = qMin(miny, y1);
-	maxx = qMax(maxx, x2);
-	maxy = qMax(maxy, y2);
+	double maxAdd = 0;
+	if (hasSoftShadow())
+		maxAdd = qMax(fabs(softShadowXOffset()), fabs(softShadowYOffset())) + softShadowBlurRadius();
+	minx = qMin(minx, x1) - maxAdd;
+	miny = qMin(miny, y1) - maxAdd;
+	maxx = qMax(maxx, x2) + maxAdd;
+	maxy = qMax(maxy, y2) + maxAdd;
 	double igXpos = xPos() - minx;
 	double igYpos = yPos() - miny;
 	double igWidth = maxx - minx;

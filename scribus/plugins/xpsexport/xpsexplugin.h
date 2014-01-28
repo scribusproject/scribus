@@ -76,7 +76,7 @@ private:
 	void writePage(QDomElement &doc_root, QDomElement &rel_root, ScPage *Page);
 	void writePageLayer(QDomElement &doc_root, QDomElement &rel_root, ScPage *page, ScLayer& layer);
 	void writeItemOnPage(double xOffset, double yOffset, PageItem *Item, QDomElement &parentElem, QDomElement &rel_root);
-	void handleImageFallBack(double xOffset, double yOffset, PageItem *Item, QDomElement &parentElem, QDomElement &rel_root);
+	void handleImageFallBack(PageItem *Item, QDomElement &parentElem, QDomElement &rel_root);
 	void processPolyItem(double xOffset, double yOffset, PageItem *Item, QDomElement &parentElem, QDomElement &rel_root);
 	void processLineItem(double xOffset, double yOffset, PageItem *Item, QDomElement &parentElem, QDomElement &rel_root);
 	void processImageItem(double xOffset, double yOffset, PageItem *Item, QDomElement &parentElem, QDomElement &rel_root);
