@@ -1872,18 +1872,6 @@ Hvis objektet «name» tilhører en gruppe blir hele gruppen flyttet.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Unweld items</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Weld items</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Edit weld item</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>&amp;Frames...</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2149,6 +2137,18 @@ Hvis objektet «name» tilhører en gruppe blir hele gruppen flyttet.
     </message>
     <message>
         <source>Insert 3D annotation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unweld Items</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Weld Items</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Edit Welded Item</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -3775,11 +3775,15 @@ Configuration invalid</source>
     </message>
     <message>
         <source>&amp;Barcode...</source>
-        <translation>&amp;Strekkode …</translation>
+        <translation type="obsolete">&amp;Strekkode …</translation>
     </message>
     <message>
         <source>Scribus frontend for Pure PostScript Barcode Writer</source>
         <translation>Scribusgrensesnitt for å lage strekkoder i ren postscript</translation>
+    </message>
+    <message>
+        <source>Insert Barcode</source>
+        <translation type="unfinished">Sett inn strekkoden</translation>
     </message>
 </context>
 <context>
@@ -3998,6 +4002,22 @@ Configuration invalid</source>
     <message>
         <source>&amp;Include Text in Barcode</source>
         <translation>&amp;Ta med tekst i strekkoden</translation>
+    </message>
+    <message>
+        <source>Options</source>
+        <translation type="unfinished">Innstillinger</translation>
+    </message>
+    <message>
+        <source>&amp;Format:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Error &amp;checking:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Minimum error checking; raised opportunistically if size of symbol is not increased</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -5638,6 +5658,10 @@ Nå %2 x %3 ppt</translation>
     </message>
     <message>
         <source>Applied master page has different page destination (left, middle, right side)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Empty Text Frame</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -10731,6 +10755,34 @@ dokumentet, ved å konvertere deres vektordata til scribusobjekter.</translation
     </message>
 </context>
 <context>
+    <name>ImportPagesPlugin</name>
+    <message>
+        <source>Import iWorks Pages...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>iWorks Pages</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>iWorks Pages (*.pages *.PAGES)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Imports iWorks Pages Files</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Imports most iWorks Pages files into the current document,
+converting their vector data into Scribus objects.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>All Supported Formats</source>
+        <translation type="unfinished">Alle støttede formater</translation>
+    </message>
+</context>
+<context>
     <name>ImportPctPlugin</name>
     <message>
         <source>Import Pict...</source>
@@ -10864,6 +10916,62 @@ converting their vector data into Scribus objects.</source>
     </message>
 </context>
 <context>
+    <name>ImportVivaPlugin</name>
+    <message>
+        <source>Import Viva...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Viva Designer XML</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Viva Designer XML (*.xml *.XML)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Imports Viva Files</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Imports most Viva files into the current document,
+converting their vector data into Scribus objects.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>All Supported Formats</source>
+        <translation type="unfinished">Alle støttede formater</translation>
+    </message>
+</context>
+<context>
+    <name>ImportVsdPlugin</name>
+    <message>
+        <source>Import Visio...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>MS Visio</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>MS Visio (*.vsd *.VSD *.vdx *.VDX *.vsdx *.VSDX)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Imports MS Visio Files</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Imports most MS Visio files into the current document,
+converting their vector data into Scribus objects.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>All Supported Formats</source>
+        <translation type="unfinished">Alle støttede formater</translation>
+    </message>
+</context>
+<context>
     <name>ImportWpgPlugin</name>
     <message>
         <source>Import WPG...</source>
@@ -10930,6 +11038,42 @@ dokumentet, ved å konvertere deres vektordata til scribusobjekter.</translation
     <message>
         <source>All Supported Formats</source>
         <translation>Alle støttede formater</translation>
+    </message>
+</context>
+<context>
+    <name>ImportXpsPlugin</name>
+    <message>
+        <source>Import Xps...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Microsoft XPS</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Microsoft XPS (*.xps *.XPS)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Open XML Paper</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Open XML Paper (*.oxps *.OXPS)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Imports XPS and Open XML Paper Files</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Imports most XPS and Open XML Paper files into the current document,
+converting their vector data into Scribus objects.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>All Supported Formats</source>
+        <translation type="unfinished">Alle støttede formater</translation>
     </message>
 </context>
 <context>
@@ -17401,6 +17545,21 @@ Often used for allowing items to be placed across page spreads</source>
     <message>
         <source>E</source>
         <translation type="obsolete">E</translation>
+    </message>
+</context>
+<context>
+    <name>PagesPlug</name>
+    <message>
+        <source>Importing: %1</source>
+        <translation type="unfinished">Importerer: %1</translation>
+    </message>
+    <message>
+        <source>Analyzing File:</source>
+        <translation type="unfinished">Analyserer fila:</translation>
+    </message>
+    <message>
+        <source>Generating Items</source>
+        <translation type="unfinished">Lager objekter</translation>
     </message>
 </context>
 <context>
@@ -26309,6 +26468,10 @@ Corners:</source>
         <source>T&amp;able</source>
         <translation type="unfinished">&amp;Tabell</translation>
     </message>
+    <message>
+        <source>Drop Shadow</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>PropertiesPalette_Group</name>
@@ -26394,10 +26557,6 @@ Corners:</source>
         <translation type="unfinished">Ikke i bruk</translation>
     </message>
     <message>
-        <source>textFlowBtnGroup</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Use &amp;Frame Shape</source>
         <translation type="unfinished"></translation>
     </message>
@@ -26429,6 +26588,10 @@ Corners:</source>
     <message>
         <source>Non Zero</source>
         <translation type="unfinished">Ikke null</translation>
+    </message>
+    <message>
+        <source>Group clips Contents</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -26915,6 +27078,156 @@ Corners:</source>
     <message>
         <source>Line at the Left</source>
         <translation type="obsolete">Linje til venstre</translation>
+    </message>
+</context>
+<context>
+    <name>PropertiesPalette_Shadow</name>
+    <message>
+        <source>Object has a drop shadow</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>X-Offset:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Y-Offset:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Blur:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color:</source>
+        <translation type="unfinished">Farge:</translation>
+    </message>
+    <message>
+        <source>Shade:</source>
+        <translation type="unfinished">Skygge:</translation>
+    </message>
+    <message>
+        <source>Opacity:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Blendmode:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> pt</source>
+        <translation type="unfinished"> pt</translation>
+    </message>
+</context>
+<context>
+    <name>PropertiesPalette_ShadowBase</name>
+    <message>
+        <source>Form</source>
+        <translation type="unfinished">Skjema</translation>
+    </message>
+    <message>
+        <source>Object has a drop shadow</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>X-Offset:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Y-Offset:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color:</source>
+        <translation type="unfinished">Farge:</translation>
+    </message>
+    <message>
+        <source>Shade:</source>
+        <translation type="unfinished">Skygge:</translation>
+    </message>
+    <message>
+        <source>Opacity:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> %</source>
+        <translation type="unfinished"> %</translation>
+    </message>
+    <message>
+        <source>Blendmode:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Normal</source>
+        <translation type="unfinished">Normal</translation>
+    </message>
+    <message>
+        <source>Darken</source>
+        <translation type="unfinished">Mørkne</translation>
+    </message>
+    <message>
+        <source>Lighten</source>
+        <translation type="unfinished">Lysne</translation>
+    </message>
+    <message>
+        <source>Multiply</source>
+        <translation type="unfinished">Mangfoldiggjør</translation>
+    </message>
+    <message>
+        <source>Screen</source>
+        <translation type="unfinished">Skjerm</translation>
+    </message>
+    <message>
+        <source>Overlay</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hard Light</source>
+        <translation type="unfinished">Hardt lys</translation>
+    </message>
+    <message>
+        <source>Soft Light</source>
+        <translation type="unfinished">Mykt lys</translation>
+    </message>
+    <message>
+        <source>Difference</source>
+        <translation type="unfinished">Forskjell</translation>
+    </message>
+    <message>
+        <source>Exclusion</source>
+        <translation type="unfinished">Utelukkelse</translation>
+    </message>
+    <message>
+        <source>Color Dodge</source>
+        <translation type="unfinished">Fargeskygging</translation>
+    </message>
+    <message>
+        <source>Color Burn</source>
+        <translation type="unfinished">Fargebrenning</translation>
+    </message>
+    <message>
+        <source>Hue</source>
+        <translation type="unfinished">Fargetone</translation>
+    </message>
+    <message>
+        <source>Saturation</source>
+        <translation type="unfinished">Metning</translation>
+    </message>
+    <message>
+        <source>Color</source>
+        <translation type="unfinished">Farge</translation>
+    </message>
+    <message>
+        <source>Luminosity</source>
+        <translation type="unfinished">Lyshetsgrad</translation>
+    </message>
+    <message>
+        <source>Blur:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> px</source>
+        <translation type="unfinished"> px</translation>
     </message>
 </context>
 <context>
@@ -31578,6 +31891,66 @@ is not exhaustive due to exceptions from called functions.
     <message>
         <source>Â°</source>
         <comment>degrees, unicode 0xB0</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Compact Disc</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Letter Half</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>US Letter</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>US Legal</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>11x17</source>
+        <translation type="unfinished">2A17 {11x?}</translation>
+    </message>
+    <message>
+        <source>Pages Importer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Viva Importer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>MS Visio Importer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Xps Importer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>XPS Export</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Microsoft XPS (*.xps *.XPS);;All Files (*)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Output Settings:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Low Resolution</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Medium Resolution</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>High Resolution</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -42878,6 +43251,77 @@ Du må velge et annet navn.</translation>
     </message>
 </context>
 <context>
+    <name>UnZip</name>
+    <message>
+        <source>ZIP operation completed successfully.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Failed to initialize or load zlib library.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>zlib library error.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unable to create or open file.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Partially corrupted archive. Some files might be extracted.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Corrupted archive.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Wrong password.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>No archive has been created yet.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>File or directory does not exist.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>File read error.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>File write error.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>File seek error.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unable to create a directory.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Invalid device.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Invalid or incompatible zip archive.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Inconsistent headers. Archive might be corrupted.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unknown error.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>UnderlineValues</name>
     <message>
         <source>Auto</source>
@@ -44099,6 +44543,21 @@ Would you like to start the system&apos;s default browser instead?</source>
     </message>
 </context>
 <context>
+    <name>VivaPlug</name>
+    <message>
+        <source>Importing: %1</source>
+        <translation type="unfinished">Importerer: %1</translation>
+    </message>
+    <message>
+        <source>Analyzing File:</source>
+        <translation type="unfinished">Analyserer fila:</translation>
+    </message>
+    <message>
+        <source>Generating Items</source>
+        <translation type="unfinished">Lager objekter</translation>
+    </message>
+</context>
+<context>
     <name>VlnaDialog</name>
     <message>
         <source>Short Words</source>
@@ -44186,6 +44645,17 @@ Languages</source>
     <message>
         <source>Short Words</source>
         <translation type="obsolete">Kortord</translation>
+    </message>
+</context>
+<context>
+    <name>VsdPlug</name>
+    <message>
+        <source>Importing: %1</source>
+        <translation type="unfinished">Importerer: %1</translation>
+    </message>
+    <message>
+        <source>Analyzing File:</source>
+        <translation type="unfinished">Analyserer fila:</translation>
     </message>
 </context>
 <context>
@@ -44350,6 +44820,21 @@ converting their vector data into Scribus objects.</source>
     </message>
 </context>
 <context>
+    <name>XPSExportPlugin</name>
+    <message>
+        <source>Save as XPS...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Exports XPS Files</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Exports the current document into an XPS file.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>XarPlug</name>
     <message>
         <source>Importing: %1</source>
@@ -44385,6 +44870,52 @@ converting their vector data into Scribus objects.</source>
     <message>
         <source>Generating Items</source>
         <translation>Lager objekter</translation>
+    </message>
+</context>
+<context>
+    <name>XpsImportOptions</name>
+    <message>
+        <source>XPS Import</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Importing File:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>TextLabel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Page Range</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>All Pages</source>
+        <translation type="unfinished">Alle sidene</translation>
+    </message>
+    <message>
+        <source>Single Page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Choose Pages</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>XpsPlug</name>
+    <message>
+        <source>Importing: %1</source>
+        <translation type="unfinished">Importerer: %1</translation>
+    </message>
+    <message>
+        <source>Analyzing File:</source>
+        <translation type="unfinished">Analyserer fila:</translation>
+    </message>
+    <message>
+        <source>Generating Items</source>
+        <translation type="unfinished">Lager objekter</translation>
     </message>
 </context>
 <context>
@@ -44447,6 +44978,49 @@ converting their vector data into Scribus objects.</source>
     <message>
         <source>&amp;Close</source>
         <translation type="obsolete">&amp;Lukk</translation>
+    </message>
+</context>
+<context>
+    <name>Zip</name>
+    <message>
+        <source>ZIP operation completed successfully.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Failed to initialize or load zlib library.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>zlib library error.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unable to create or open file.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>No archive has been created yet.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>File or directory does not exist.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>File read error.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>File write error.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>File seek error.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unknown error.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
