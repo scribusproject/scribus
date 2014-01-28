@@ -2107,6 +2107,7 @@ bool PDFLibCore::PDF_TemplatePage(const ScPage* pag, bool )
 						sr = 0;
 					PutPage(FToStr(cr)+" "+FToStr(sr)+" "+FToStr(-sr)+" "+FToStr(cr)+" 0 0 cm\n");
 				}
+				PutPage(PDF_PutSoftShadow(ite,pag));
 				switch (ite->itemType())
 				{
 					case PageItem::ImageFrame:
