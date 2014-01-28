@@ -895,6 +895,7 @@ PageItem* VivaPlug::parseObjectXML(const QDomElement& obNode)
 				double miny =  std::numeric_limits<double>::max();
 				double maxx = -std::numeric_limits<double>::max();
 				double maxy = -std::numeric_limits<double>::max();
+				bool groupClip = true;
 				for (int ep = 0; ep < GElements.count(); ++ep)
 				{
 					PageItem* currItem = GElements.at(ep);
@@ -904,6 +905,8 @@ PageItem* VivaPlug::parseObjectXML(const QDomElement& obNode)
 					miny = qMin(miny, y1);
 					maxx = qMax(maxx, x2);
 					maxy = qMax(maxy, y2);
+					if (currItem->hasSoftShadow())
+						groupClip = false;
 				}
 				double gx = minx;
 				double gy = miny;
@@ -920,6 +923,7 @@ PageItem* VivaPlug::parseObjectXML(const QDomElement& obNode)
 					retObj->OldH2 = retObj->height();
 					retObj->updateClip();
 					m_Doc->groupObjectsToItem(retObj, GElements);
+					retObj->setGroupClipping(groupClip);
 					retObj->moveBy(ob_xpos, ob_ypos, true);
 					m_Doc->AdjustItemSize(retObj);
 					retObj->OwnPage = m_Doc->OnPage(retObj);
@@ -986,6 +990,13 @@ PageItem* VivaPlug::parseObjectDetailsXML(const QDomElement& obNode, int baseTyp
 	double textMarginBottom = 0.0;
 	double textColumnGap = 0.0;
 	int textColumnCount = 1;
+	bool hasShadow = false;
+	double shadowX = 0.0;
+	double shadowY = 0.0;
+	double shadowBlur = 0.0;
+	double shadowOpacity = 0.0;
+	int shadowTint = 100;
+	QString shadowColor = "Black";
 	StoryText itemText;
 	itemText.clear();
 	PageItem::TextFlowMode textFlow = PageItem::TextFlowDisabled;
@@ -1227,6 +1238,42 @@ PageItem* VivaPlug::parseObjectDetailsXML(const QDomElement& obNode, int baseTyp
 				}
 				else if (eog.tagName() == "vo:shadow")
 				{
+					hasShadow = true;
+					double shadowAngle = 0;
+					double shadowOffset = 0;
+					for(QDomElement spo = eog.firstChildElement(); !spo.isNull(); spo = spo.nextSiblingElement() )
+					{
+						if (spo.tagName() == "uni:color")
+							shadowColor = colorTranslate[spo.text()];
+						else if (spo.tagName() == "uni:opacity")
+						{
+							if (spo.text() == "transparent")
+								shadowOpacity = 1;
+							else if (spo.text() == "opaque")
+								shadowOpacity = 0;
+							else
+								shadowOpacity = 1.0 - (spo.text().toDouble() / 100.0);
+						}
+						else if (spo.tagName() == "uni:density")
+						{
+							if (spo.text() == "transparent")
+								shadowTint = 0;
+							else if (spo.text() == "opaque")
+								shadowTint = 100;
+							else
+								shadowTint = spo.text().toInt();
+						}
+						else if (spo.tagName() == "uni:angle")
+							shadowAngle = spo.text().toDouble();
+						else if (spo.tagName() == "uni:offset")
+							shadowOffset = parseUnit(spo.text());
+						else if (spo.tagName() == "uni:softValue")
+							shadowBlur = parseUnit(spo.text());
+					}
+					QLineF oLine = QLineF(0, 0, shadowOffset, 0);
+					oLine.setAngle(shadowAngle - 180.0);
+					shadowX = oLine.p2().x();
+					shadowY = oLine.p2().y();
 				}
 			}
 		}
@@ -1547,6 +1594,17 @@ PageItem* VivaPlug::parseObjectDetailsXML(const QDomElement& obNode, int baseTyp
 		item->updateClip();
 		item->OwnPage = m_Doc->OnPage(item);
 		item->ContourLine = item->PoLine.copy();
+		if (hasShadow)
+		{
+			item->setHasSoftShadow(true);
+			item->setSoftShadowColor(shadowColor);
+			item->setSoftShadowXOffset(shadowX);
+			item->setSoftShadowYOffset(shadowY);
+			item->setSoftShadowBlurRadius(shadowBlur);
+			item->setSoftShadowShade(shadowTint);
+			item->setSoftShadowOpacity(shadowOpacity);
+			item->setSoftShadowBlendMode(0);
+		}
 		if (baseType == 1)
 		{
 			item->AspectRatio = true;
