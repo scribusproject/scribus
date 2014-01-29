@@ -201,6 +201,7 @@ bool SVGExPlug::doExport( QString fName, SVGOptions &Opts )
 	ClipCount = 0;
 	PattCount = 0;
 	MaskCount = 0;
+	FilterCount = 0;
 	docu = QDomDocument("svgdoc");
 	QString vo = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
 	QString st = "<svg></svg>";
@@ -329,6 +330,7 @@ void SVGExPlug::ProcessPageLayer(ScPage *page, ScLayer& layer)
 
 void SVGExPlug::ProcessItemOnPage(double xOffset, double yOffset, PageItem *Item, QDomElement *parentElem)
 {
+	processDropShadow(xOffset, yOffset, Item, parentElem);
 	QDomElement ob;
 	QString trans = "translate("+FToStr(xOffset)+", "+FToStr(yOffset)+")";
 	if (Item->rotation() != 0)
@@ -660,6 +662,106 @@ void SVGExPlug::paintBorder(const TableBorder& border, const QPointF& start, con
 		cl.setAttribute("style", stroke);
 		ob.appendChild(cl);
 	}
+}
+
+void SVGExPlug::processDropShadow(double xOffset, double yOffset, PageItem *Item, QDomElement *parentElem)
+{
+	if (!Item->hasSoftShadow())
+		return;
+	QDomElement ob;
+	QString trans = "translate("+FToStr(xOffset + Item->softShadowXOffset())+", "+FToStr(yOffset + Item->softShadowYOffset())+")";
+	if (Item->rotation() != 0)
+		trans += " rotate("+FToStr(Item->rotation())+")";
+	QString fill = "fill:none;";
+	if (Item->fillColor() != CommonStrings::None)
+		fill = "fill:"+SetColor(Item->softShadowColor(), Item->softShadowShade())+";";
+	if (Item->softShadowOpacity() != 0)
+		fill += " fill-opacity:"+FToStr(1.0 - Item->softShadowOpacity())+";";
+		QString stroke = "";
+	if (Item->lineColor() != CommonStrings::None)
+		stroke += "stroke:"+SetColor(Item->softShadowColor(), Item->softShadowShade())+";";
+	else
+		stroke += "stroke:none;";
+	if (Item->softShadowOpacity() != 0)
+		stroke += "stroke-opacity:"+FToStr(1.0 - Item->softShadowOpacity())+";";
+	if (Item->lineWidth() != 0.0)
+		stroke = "stroke-width:"+FToStr(Item->lineWidth())+";";
+	else
+		stroke = "stroke-width:1px;";
+	stroke += " stroke-linecap:";
+	switch (Item->PLineEnd)
+	{
+		case Qt::FlatCap:
+			stroke += "butt;";
+			break;
+		case Qt::SquareCap:
+			stroke += "square;";
+			break;
+		case Qt::RoundCap:
+			stroke += "round;";
+			break;
+		default:
+			stroke += "butt;";
+			break;
+	}
+	stroke += " stroke-linejoin:";
+	switch (Item->PLineJoin)
+	{
+		case Qt::MiterJoin:
+			stroke += "miter;";
+			break;
+		case Qt::BevelJoin:
+			stroke += "bevel;";
+			break;
+		case Qt::RoundJoin:
+			stroke += "round;";
+			break;
+		default:
+			stroke += "miter;";
+			break;
+	}
+	stroke += " stroke-dasharray:";
+	if (Item->DashValues.count() != 0)
+	{
+		QVector<double>::iterator it;
+		for ( it = Item->DashValues.begin(); it != Item->DashValues.end(); ++it )
+		{
+			stroke += IToStr(static_cast<int>(*it))+" ";
+		}
+		stroke += "; stroke-dashoffset:"+IToStr(static_cast<int>(Item->DashOffset))+";";
+	}
+	else
+	{
+		if (Item->PLineArt == Qt::SolidLine)
+			stroke += "none;";
+		else
+		{
+			QString Da = getDashString(Item->PLineArt, Item->lineWidth());
+			if (Da.isEmpty())
+				stroke += "none;";
+			else
+				stroke += Da.replace(" ", ", ")+";";
+		}
+	}
+
+	QString ID = "Filter"+IToStr(FilterCount);
+	QDomElement filter = docu.createElement("filter");
+	filter.setAttribute("id", ID);
+	QDomElement ob2 = docu.createElement("feGaussianBlur");
+	ob2.setAttribute("id", "feGaussianBlur"+IToStr(FilterCount));
+	ob2.setAttribute("in", "SourceGraphic");
+	ob2.setAttribute("stdDeviation", FToStr(Item->softShadowBlurRadius()));
+	ob2.setAttribute("result", "blur");
+	filter.appendChild(ob2);
+	globalDefs.appendChild(filter);
+	FilterCount++;
+
+	ob = docu.createElement("path");
+	ob.setAttribute("d", SetClipPath(&Item->PoLine, true));
+	ob.setAttribute("transform", trans);
+	ob.setAttribute("style", fill + stroke + "filter:url(#"+ID+")");
+	parentElem->appendChild(ob);
+	return;
 }
 
 QDomElement SVGExPlug::processSymbolStroke(PageItem *Item, QString trans)
