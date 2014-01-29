@@ -345,9 +345,9 @@ void ScPage::restorePageItemCreation(ScItemState<PageItem*> *state, bool isUndo)
 			m_Doc->view()->Deselect(true);
 		m_Doc->Items->append(ite);
 		ite->OwnPage = m_Doc->OnPage(ite);
-		if ((stateCode == 0) || (stateCode == 2))
-			update();
 	}
+	if ((stateCode == 0) || (stateCode == 2))
+		update();
 	m_Doc->setMasterPageMode(oldMPMode);
 	m_Doc->m_Selection->delaySignalsOff();
 }
