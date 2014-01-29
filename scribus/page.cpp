@@ -241,9 +241,9 @@ void Page::restorePageItemCreation(ItemState<PageItem*> *state, bool isUndo)
 			m_Doc->view()->Deselect(true);
 		m_Doc->Items->append(ite);
 		ite->ItemNr = m_Doc->Items->count()-1;
-		if ((stateCode == 0) || (stateCode == 2))
-			update();
 	}
+	if ((stateCode == 0) || (stateCode == 2))
+		update();
 	m_Doc->setMasterPageMode(oldMPMode);
 	m_Doc->m_Selection->delaySignalsOff();
 }
