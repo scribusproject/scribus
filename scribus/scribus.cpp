@@ -1238,32 +1238,40 @@ void ScribusMainWindow::setStatusBarInfoText(QString newText)
 void ScribusMainWindow::setTBvals(PageItem *currItem)
 {
 	scrActions["editMark"]->setEnabled(false);
-	if (currItem->itemText.length() != 0)
+	
+	PageItem* item  = currItem;
+	bool inEditMode = (doc->appMode == modeEdit);
+	if (doc->appMode == modeEditTable)
 	{
-//		int ChPos = qMin(currItem->CPos, static_cast<int>(currItem->itemText.length()-1));
-		const ParagraphStyle& currPStyle( (doc->appMode == modeEdit) ? currItem->currentStyle() : currItem->itemText.defaultStyle());
-		setAlignmentValue(currPStyle.alignment());
-		propertiesPalette->textPal->displayParStyle(currPStyle.parent());
-		propertiesPalette->textPal->displayCharStyle(currItem->currentCharStyle().parent());
-		doc->currentStyle = currItem->currentStyle();
-		// #8112 : do not use operator= here as it does not update style features
-		doc->currentStyle.charStyle().setStyle( currItem->currentCharStyle() );
-		emit TextStyle(doc->currentStyle);
-		// to go: (av)
-		propertiesPalette->textPal->updateStyle(doc->currentStyle);
-		//check if mark in cursor place and enable editMark action
-		if (doc->appMode == modeEdit && currItem->itemText.cursorPosition() < currItem->itemText.length())
+		if (currItem->isTable())
+			item = currItem->asTable()->activeCell().textFrame();
+		inEditMode = item->isTextFrame();
+	}
+	if (!item || item->itemText.length() <= 0)
+		return;
+
+	const ParagraphStyle& currPStyle( inEditMode ? item->currentStyle() : item->itemText.defaultStyle());
+	setAlignmentValue(currPStyle.alignment());
+	propertiesPalette->textPal->displayParStyle(currPStyle.parent());
+	propertiesPalette->textPal->displayCharStyle(item->currentCharStyle().parent());
+	doc->currentStyle = item->currentStyle();
+	// #8112 : do not use operator= here as it does not update style features
+	doc->currentStyle.charStyle().setStyle(item->currentCharStyle());
+	emit TextStyle(doc->currentStyle);
+	// to go: (av)
+	propertiesPalette->textPal->updateStyle(doc->currentStyle);
+	//check if mark in cursor place and enable editMark action
+	if (doc->appMode == modeEdit && item->itemText.cursorPosition() < item->itemText.length())
+	{
+        if (item->itemText.hasMark(item->itemText.cursorPosition()))
 		{
-            if (currItem->itemText.hasMark(currItem->itemText.cursorPosition()))
-			{
-                Mark* mark = currItem->itemText.mark(currItem->itemText.cursorPosition());
-				scrActions["editMark"]->setEnabled(true);
-                if ((mark->isType(MARKNoteMasterType) || mark->isType(MARKNoteFrameType)) && (mark->getNotePtr() != NULL))
-                    nsEditor->setNotesStyle(mark->getNotePtr()->notesStyle());
-			}
-			else
-				scrActions["editMark"]->setEnabled(false);
+            Mark* mark = item->itemText.mark(item->itemText.cursorPosition());
+			scrActions["editMark"]->setEnabled(true);
+            if ((mark->isType(MARKNoteMasterType) || mark->isType(MARKNoteFrameType)) && (mark->getNotePtr() != NULL))
+                nsEditor->setNotesStyle(mark->getNotePtr()->notesStyle());
 		}
+		else
+			scrActions["editMark"]->setEnabled(false);
 	}
 }
 
@@ -10785,14 +10793,14 @@ void ScribusMainWindow::ConvertToSymbol()
 	int d = -1;
 	double sx = minx;
 	double sy = miny;
-	if (currItem->Parent == NULL)
-		d = doc->Items->indexOf(currItem);
-	else
+	if (currItem->isGroupChild())
 	{
 		sx = currItem->gXpos;
 		sy = currItem->gYpos;
-		d = currItem->Parent->asGroupFrame()->groupItemList.indexOf(currItem);
+		d = currItem->parentGroup()->groupItemList.indexOf(currItem);
 	}
+	else
+		d = doc->Items->indexOf(currItem);
 	currItem->gXpos = currItem->xPos() - minx;
 	currItem->gYpos = currItem->yPos() - miny;
 	currItem->setXYPos(currItem->gXpos, currItem->gYpos, true);
@@ -10800,10 +10808,10 @@ void ScribusMainWindow::ConvertToSymbol()
 	PageItem* groupItem = doc->Items->takeAt(z);
 	groupItem->setPattern(patternName);
 	groupItem->Parent = currItem->Parent;
-	if (currItem->Parent == NULL)
-		doc->Items->replace(d, groupItem);
+	if (currItem->isGroupChild())
+		currItem->parentGroup()->groupItemList.replace(d, groupItem);
 	else
-		currItem->Parent->asGroupFrame()->groupItemList.replace(d, groupItem);
+		doc->Items->replace(d, groupItem);
 	doc->m_Selection->delaySignalsOff();
 	propertiesPalette->updateColorList();
 	symbolPalette->updateSymbolList();

@@ -130,21 +130,11 @@ void OutlineWidget::dropEvent(QDropEvent *e)
 				OutlineTreeItem *itemBe = (OutlineTreeItem*)itemPl->child(itemPl->indexOfChild(it) + 1);
 				if ((itemBe->type == 1) || (itemBe->type == 3) || (itemBe->type == 4))
 				{
-					if (item->PageItemObject->Parent == NULL)
-						item->DocObject->Items->takeAt(item->DocObject->Items->indexOf(item->PageItemObject));
-					else
+					if (item->PageItemObject->isGroupChild())
 						item->DocObject->removeFromGroup(item->PageItemObject);
-					if (itemBe->PageItemObject->Parent == NULL)
-					{
-						int d = item->DocObject->Items->indexOf(itemBe->PageItemObject);
-						item->DocObject->Items->insert(d+1, item->PageItemObject);
-						if (itemPl->type == 5)
-							item->PageItemObject->setLayer(itemPl->LayerID);
-						double xx = item->PageItemObject->xPos() - itemPar->PageObject->xOffset() + itemPg->PageObject->xOffset();
-						double yy = item->PageItemObject->yPos() - itemPar->PageObject->yOffset() + itemPg->PageObject->yOffset();
-						item->PageItemObject->setXYPos(xx, yy);
-					}
 					else
+						item->DocObject->Items->removeOne(item->PageItemObject);
+					if (itemBe->PageItemObject->isGroupChild())
 					{
 						PageItem* group = itemBe->PageItemObject->Parent;
 						int d = group->groupItemList.indexOf(itemBe->PageItemObject);
@@ -154,6 +144,16 @@ void OutlineWidget::dropEvent(QDropEvent *e)
 						item->DocObject->addToGroup(group, item->PageItemObject);
 						group->groupItemList.insert(d, item->PageItemObject);
 						item->PageItemObject->setLayer(group->LayerID);
+					}
+					else
+					{
+						int d = item->DocObject->Items->indexOf(itemBe->PageItemObject);
+						item->DocObject->Items->insert(d+1, item->PageItemObject);
+						if (itemPl->type == 5)
+							item->PageItemObject->setLayer(itemPl->LayerID);
+						double xx = item->PageItemObject->xPos() - itemPar->PageObject->xOffset() + itemPg->PageObject->xOffset();
+						double yy = item->PageItemObject->yPos() - itemPar->PageObject->yOffset() + itemPg->PageObject->yOffset();
+						item->PageItemObject->setXYPos(xx, yy);
 					}
 					item->PageItemObject->setRedrawBounding();
 					item->DocObject->setModified(true);
@@ -179,7 +179,7 @@ void OutlineWidget::dropEvent(QDropEvent *e)
 		//		itemPl->insertChild(0, itemPl->takeChild(itemPl->indexOfChild(it)));
 				if ((itemPl->type == 2) || (itemPl->type == 5))
 				{
-					if (item->PageItemObject->Parent != NULL)
+					if (item->PageItemObject->isGroupChild())
 					{
 						item->DocObject->removeFromGroup(item->PageItemObject);
 						item->DocObject->Items->append(item->PageItemObject);
@@ -195,10 +195,10 @@ void OutlineWidget::dropEvent(QDropEvent *e)
 					OutlineTreeItem *itemBe = (OutlineTreeItem*)it->parent();
 					if ((itemBe->type == 1) || (itemBe->type == 3) || (itemBe->type == 4))
 					{
-						if (item->PageItemObject->Parent == NULL)
-							item->DocObject->Items->takeAt(item->DocObject->Items->indexOf(item->PageItemObject));
-						else
+						if (item->PageItemObject->isGroupChild())
 							item->DocObject->removeFromGroup(item->PageItemObject);
+						else
+							item->DocObject->Items->removeOne(item->PageItemObject);
 						PageItem* group = itemBe->PageItemObject;
 						double xx = item->PageItemObject->xPos() - itemPar->PageObject->xOffset() + itemPg->PageObject->xOffset();
 						double yy = item->PageItemObject->yPos() - itemPar->PageObject->yOffset() + itemPg->PageObject->yOffset();

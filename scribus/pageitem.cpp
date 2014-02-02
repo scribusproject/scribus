@@ -45,13 +45,14 @@ for which a new license (GPL+exception) is in place.
 #include "desaxe/saxXML.h"
 #include "marks.h"
 
-#include "pageitem_group.h"
-#include "pageitem_regularpolygon.h"
 #include "pageitem_arc.h"
-#include "pageitem_spiral.h"
-#include "pageitem_textframe.h"
+#include "pageitem_group.h"
 #include "pageitem_noteframe.h"
 #include "pageitem_latexframe.h"
+#include "pageitem_regularpolygon.h"
+#include "pageitem_textframe.h"
+#include "pageitem_spiral.h"
+#include "pageitem_table.h"
 #include "prefsmanager.h"
 
 #include "resourcecollection.h"
@@ -872,6 +873,16 @@ PageItem::~PageItem()
 //			unWeldChild();
 }
 
+bool PageItem::isGroupChild() const
+{
+	return (dynamic_cast<PageItem_Group*>(Parent) != NULL);
+}
+
+bool PageItem::isTableCell() const
+{
+	return (dynamic_cast<PageItem_Table*>(Parent) != NULL);
+}
+
 void PageItem::setXPos(const double newXPos, bool drawingOnly)
 {
 	m_xPos = newXPos;
@@ -900,7 +911,7 @@ void PageItem::setXYPos(const double newXPos, const double newYPos, bool drawing
 int PageItem::level() const
 {
 	PageItem* thisItem = const_cast<PageItem*>(this);
-	if (Parent == NULL)
+	if (!isGroupChild())
 	{
 		if (m_Doc)
 		{
@@ -4710,23 +4721,23 @@ void PageItem::resizeUndoAction()
 	{
 		SimpleState *ss = new SimpleState(Um::Resize,
 						   QString(Um::ResizeFromTo).arg(oldWidth).arg(oldHeight).arg(m_width).arg(m_height),
-                                          Um::IResize);
+						           Um::IResize);
 		if (!isNoteFrame() || !asNoteFrame()->isAutoWidth())
 		{
-		ss->set("OLD_WIDTH", oldWidth);
-		ss->set("NEW_WIDTH", m_width);
+			ss->set("OLD_WIDTH", oldWidth);
+			ss->set("NEW_WIDTH", m_width);
 		}
 		if (!isNoteFrame() || !asNoteFrame()->isAutoHeight())
 		{
 			ss->set("OLD_HEIGHT", oldHeight);
-		ss->set("NEW_HEIGHT", m_height);
+			ss->set("NEW_HEIGHT", m_height);
 		}
 		if (!isNoteFrame() || !asNoteFrame()->isAutoWelded())
 		{
-		ss->set("OLD_RXPOS", oldXpos);
-		ss->set("OLD_RYPOS", oldYpos);
-		ss->set("NEW_RXPOS", m_xPos);
-		ss->set("NEW_RYPOS", m_yPos);
+			ss->set("OLD_RXPOS", oldXpos);
+			ss->set("OLD_RYPOS", oldYpos);
+			ss->set("NEW_RXPOS", m_xPos);
+			ss->set("NEW_RYPOS", m_yPos);
 		}
 		ss->set("OLD_RROT", oldRot);
 		ss->set("NEW_RROT", m_rotation);
@@ -4753,20 +4764,20 @@ void PageItem::rotateUndoAction()
 	{
 		SimpleState *ss = new SimpleState(Um::Rotate,
 										  QString(Um::FromTo).arg(oldRot).arg(m_rotation),
-                                          Um::IRotate);
+										  Um::IRotate);
 		ss->set("OLD_ROT", oldRot);
 		ss->set("NEW_ROT", m_rotation);
 		if (!isNoteFrame() || !asNoteFrame()->isAutoWelded())
 		{
-		ss->set("OLD_RXPOS", oldXpos);
-		ss->set("OLD_RYPOS", oldYpos);
-		ss->set("NEW_RXPOS", m_xPos);
-		ss->set("NEW_RYPOS", m_yPos);
+			ss->set("OLD_RXPOS", oldXpos);
+			ss->set("OLD_RYPOS", oldYpos);
+			ss->set("NEW_RXPOS", m_xPos);
+			ss->set("NEW_RYPOS", m_yPos);
 		}
 		if (!isNoteFrame() || !asNoteFrame()->isAutoHeight())
 		{
-		ss->set("OLD_RHEIGHT", oldHeight);
-		ss->set("NEW_RHEIGHT", m_height);
+			ss->set("OLD_RHEIGHT", oldHeight);
+			ss->set("NEW_RHEIGHT", m_height);
 		}
 		if (!isNoteFrame() || !asNoteFrame()->isAutoWidth())
 		{
@@ -8416,11 +8427,11 @@ QTransform PageItem::getTransform() const
 QTransform PageItem::getCombinedTransform() const
 {
 	QTransform result;
-	if (Parent != NULL)
+	if (isGroupChild())
 	{
 		QList<const PageItem*> itList;
 		const PageItem* ite = this;
-		while (ite->Parent != NULL)
+		while (ite->isGroupChild())
 		{
 			itList.prepend(ite);
 			ite = ite->Parent;

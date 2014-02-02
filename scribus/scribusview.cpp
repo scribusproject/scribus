@@ -4116,12 +4116,10 @@ void ScribusView::TextToPath()
 		}
 		tmpSelection.clear();
 		int ind = -1;
-		if (currItem->Parent == NULL)
-			ind = Doc->Items->indexOf(currItem);
+		if (currItem->isGroupChild())
+			ind = currItem->parentGroup()->groupItemList.indexOf(currItem);
 		else
-		{
-			ind = currItem->Parent->asGroupFrame()->groupItemList.indexOf(currItem);
-		}
+			ind = Doc->Items->indexOf(currItem);
 		if (newGroupedItems.count() > 1)
 		{
 			double minx =  std::numeric_limits<double>::max();
@@ -4147,18 +4145,18 @@ void ScribusView::TextToPath()
 			gItem->Parent = currItem->Parent;
 			gItem->gXpos = currItem->gXpos;
 			gItem->gYpos = currItem->gYpos;
-			if (currItem->Parent == NULL)
-				Doc->Items->insert(ind+1, gItem);
+			if (currItem->isGroupChild())
+				currItem->parentGroup()->groupItemList.insert(ind+1, gItem);
 			else
-				currItem->Parent->asGroupFrame()->groupItemList.insert(ind+1, gItem);
+				Doc->Items->insert(ind+1, gItem);
 		}
 		else if (newGroupedItems.count() > 0)
 		{
 			newGroupedItems.at(0)->Parent = currItem->Parent;
-			if (currItem->Parent == NULL)
-				Doc->Items->insert(ind+1, newGroupedItems.at(0));
+			if (currItem->isGroupChild())
+				currItem->parentGroup()->groupItemList.insert(ind+1, newGroupedItems.at(0));
 			else
-				currItem->Parent->asGroupFrame()->groupItemList.insert(ind+1, newGroupedItems.at(0));
+				Doc->Items->insert(ind+1, newGroupedItems.at(0));
 		}
 		int toDeleteItemCount=delItems.count();
 		if (toDeleteItemCount != 0)

@@ -33,6 +33,7 @@ TableCell::TableCell(int row, int column, PageItem_Table *table) : d(new TableCe
 	// Create a text frame for the cell.
 	d->textFrame = new PageItem_TextFrame(d->table->m_Doc,
 		0, 0, 0, 0, 0, CommonStrings::None, CommonStrings::None);
+	d->textFrame->Parent = table;
 
 	setValid(true);
 	setRow(row);

@@ -93,7 +93,7 @@ static QRegion itemShape(PageItem* docItem, double xOffset, double yOffset)
 {
 	QRegion res;
 	QTransform pp;
-	if (docItem->Parent != NULL)
+	if (docItem->isGroupChild())
 		pp.translate(docItem->gXpos, docItem->gYpos);
 	else
 		pp.translate(docItem->xPos() - xOffset, docItem->yPos() - yOffset);
@@ -101,7 +101,7 @@ static QRegion itemShape(PageItem* docItem, double xOffset, double yOffset)
 	if (docItem->textFlowUsesBoundingBox())
 	{
 		QRectF bb = docItem->getVisualBoundingRect();
-		if (docItem->Parent != 0)
+		if (docItem->isGroupChild())
 		{
 			bb.translate(-docItem->xPos(), -docItem->yPos());
 			bb.translate(docItem->gXpos, docItem->gYpos);
@@ -183,11 +183,11 @@ static QRegion itemShape(PageItem* docItem, double xOffset, double yOffset)
 QRegion PageItem_TextFrame::calcAvailableRegion()
 {
 	QRegion result(this->Clip);
-	if ((!isEmbedded) || (Parent != NULL))
+	if ((!isEmbedded) || (isGroupChild()))
 	{
 		bool invertible(false);
 		QTransform canvasToLocalMat;
-		if (Parent != NULL)
+		if (isGroupChild())
 			canvasToLocalMat.translate(gXpos, gYpos);
 		else
 			canvasToLocalMat.translate(m_xPos, m_yPos);
@@ -209,7 +209,7 @@ QRegion PageItem_TextFrame::calcAvailableRegion()
 				return result;
 			Mp = m_Doc->MasterPages.at(m_Doc->MasterNames[OnMasterPage]);
 			Dp = m_Doc->Pages->at(savedOwnPage);
-			if (Parent != NULL)
+			if (isGroupChild())
 				thisList = Parent->asGroupFrame()->groupItemList;
 			else
 				thisList = m_Doc->MasterItems;
@@ -250,7 +250,7 @@ QRegion PageItem_TextFrame::calcAvailableRegion()
 		else
 		{
 			int thisid = 0;
-			if (Parent != NULL)
+			if (isGroupChild())
 			{
 				thisid = Parent->asGroupFrame()->groupItemList.indexOf(this);
 				docItemsCount = Parent->asGroupFrame()->groupItemList.count();

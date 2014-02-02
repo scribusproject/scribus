@@ -213,13 +213,11 @@ PageItem* PropertiesPalette_Text::currentItemFromSelection()
 	if (m_doc)
 	{
 		if (m_doc->m_Selection->count() > 1)
-		{
 			currentItem = m_doc->m_Selection->itemAt(0);
-		}
 		else if (m_doc->m_Selection->count() == 1)
-		{
 			currentItem = m_doc->m_Selection->itemAt(0);
-		}
+		if (currentItem  && currentItem->isTable() && m_doc->appMode == modeEditTable)
+			currentItem = currentItem->asTable()->activeCell().textFrame();
 	}
 
 	return currentItem;
@@ -343,16 +341,15 @@ void PropertiesPalette_Text::setCurrentItem(PageItem *i)
 
 	if (!sender())
 	{
+		colorWidgets->handleSelectionChanged();
+		distanceWidgets->handleSelectionChanged();
 		parEffectWidgets->handleSelectionChanged();
 	}
 
 	if (m_item->asTextFrame() || m_item->asPathText() || m_item->asTable())
 	{
 		ParagraphStyle parStyle =  m_item->itemText.defaultStyle();
-		if (m_doc->appMode == modeEdit)
-			m_item->currentTextProps(parStyle);
-		else if (m_doc->appMode == modeEditTable)
-			m_item->asTable()->activeCell().textFrame()->currentTextProps(parStyle);
+		m_item->currentTextProps(parStyle);
 		updateStyle(parStyle);
 	}
 	if (m_item->asOSGFrame())
@@ -387,17 +384,11 @@ void PropertiesPalette_Text::handleLineSpacingMode(int id)
 {
 	if ((m_haveDoc) && (m_haveItem))
 	{
-		PageItem *i2 = m_item;
-		if (m_doc->appMode == modeEditTable)
-			i2 = m_item->asTable()->activeCell().textFrame();
-		if (i2 != NULL)
-		{
-			Selection tempSelection(this, false);
-			tempSelection.addItem(i2, true);
-			m_doc->itemSelection_SetLineSpacingMode(id, &tempSelection);
-			updateStyle(((m_doc->appMode == modeEdit) || (m_doc->appMode == modeEditTable)) ? i2->currentStyle() : i2->itemText.defaultStyle());
-			m_doc->regionsChanged()->update(QRect());
-		}
+		Selection tempSelection(this, false);
+		tempSelection.addItem(m_item, true);
+		m_doc->itemSelection_SetLineSpacingMode(id, &tempSelection);
+		updateStyle(((m_doc->appMode == modeEdit) || (m_doc->appMode == modeEditTable)) ? m_item->currentStyle() : m_item->itemText.defaultStyle());
+		m_doc->regionsChanged()->update(QRect());
 	}
 }
 
@@ -405,20 +396,15 @@ void PropertiesPalette_Text::displayLineSpacing(double r)
 {
 	if (!m_ScMW || m_ScMW->scriptIsRunning())
 		return;
+	bool inEditMode = (m_doc->appMode == modeEdit || m_doc->appMode == modeEditTable);
 	bool tmp = m_haveItem;
 	m_haveItem = false;
-	lineSpacing->setValue(r);
-	PageItem *i2 = m_item;
-	if (m_doc->appMode == modeEditTable)
-		i2 = m_item->asTable()->activeCell().textFrame();
-	if (i2 != NULL)
+	lineSpacing->showValue(r);
+	const ParagraphStyle& curStyle(m_haveItem && inEditMode ? m_item->currentStyle() : m_item->itemText.defaultStyle());
+	if (tmp)
 	{
-		const ParagraphStyle& curStyle(tmp && m_doc->appMode == modeEdit? i2->currentStyle() : i2->itemText.defaultStyle());
-		if (tmp)
-		{
-			setupLineSpacingSpinbox(curStyle.lineSpacingMode(), r);
-			lineSpacingModeCombo->setCurrentIndex(curStyle.lineSpacingMode());
-		}
+		setupLineSpacingSpinbox(curStyle.lineSpacingMode(), r);
+		lineSpacingModeCombo->setCurrentIndex(curStyle.lineSpacingMode());
 	}
 	m_haveItem = tmp;
 }
@@ -567,45 +553,27 @@ void PropertiesPalette_Text::handleLineSpacing()
 {
 	if (!m_haveDoc || !m_haveItem || !m_ScMW || m_ScMW->scriptIsRunning())
 		return;
-	PageItem *i2 = m_item;
-	if (m_doc->appMode == modeEditTable)
-		i2 = m_item->asTable()->activeCell().textFrame();
-	if (i2 != NULL)
-	{
-		Selection tempSelection(this, false);
-		tempSelection.addItem(i2, true);
-		m_doc->itemSelection_SetLineSpacing(lineSpacing->value(), &tempSelection);
-	}
+	Selection tempSelection(this, false);
+	tempSelection.addItem(m_item, true);
+	m_doc->itemSelection_SetLineSpacing(lineSpacing->value(), &tempSelection);
 }
 
 void PropertiesPalette_Text::handleFontSize()
 {
 	if (!m_haveDoc || !m_haveItem || !m_ScMW || m_ScMW->scriptIsRunning())
 		return;
-	PageItem *i2 = m_item;
-	if (m_doc->appMode == modeEditTable)
-		i2 = m_item->asTable()->activeCell().textFrame();
-	if (i2 != NULL)
-	{
-		Selection tempSelection(this, false);
-		tempSelection.addItem(i2, true);
-		m_doc->itemSelection_SetFontSize(qRound(fontSize->value()*10.0), &tempSelection);
-	}
+	Selection tempSelection(this, false);
+	tempSelection.addItem(m_item, true);
+	m_doc->itemSelection_SetFontSize(qRound(fontSize->value()*10.0), &tempSelection);
 }
 
 void PropertiesPalette_Text::handleAlignement(int a)
 {
 	if (!m_haveDoc || !m_haveItem || !m_ScMW || m_ScMW->scriptIsRunning())
 		return;
-	PageItem *i2 = m_item;
-	if (m_doc->appMode == modeEditTable)
-		i2 = m_item->asTable()->activeCell().textFrame();
-	if (i2 != NULL)
-	{
-		Selection tempSelection(this, false);
-		tempSelection.addItem(i2, true);
-		m_doc->itemSelection_SetAlignment(a, &tempSelection);
-	}
+	Selection tempSelection(this, false);
+	tempSelection.addItem(m_item, true);
+	m_doc->itemSelection_SetAlignment(a, &tempSelection);
 }
 
 void PropertiesPalette_Text::handleTextFont(QString c)
@@ -617,42 +585,24 @@ void PropertiesPalette_Text::handleTextFont(QString c)
 
 void PropertiesPalette_Text::doClearCStyle()
 {
-	if (!m_ScMW || m_ScMW->scriptIsRunning())
+	if (!m_ScMW || m_ScMW->scriptIsRunning() || !m_haveDoc || !m_haveItem)
 		return;
-	if (m_haveDoc)
-	{
-		PageItem *i2 = m_item;
-		if (m_doc->appMode == modeEditTable)
-			i2 = m_item->asTable()->activeCell().textFrame();
-		if (i2 != NULL)
-		{
-			Selection tempSelection(this, false);
-			tempSelection.addItem(i2, true);
-			m_doc->itemSelection_EraseCharStyle(&tempSelection);
-		}
-	}
+	Selection tempSelection(this, false);
+	tempSelection.addItem(m_item, true);
+	m_doc->itemSelection_EraseCharStyle(&tempSelection);
 }
 
 
 void PropertiesPalette_Text::doClearPStyle()
 {
-	if (!m_ScMW || m_ScMW->scriptIsRunning())
+	if (!m_ScMW || m_ScMW->scriptIsRunning() || !m_haveDoc || !m_haveItem)
 		return;
-	if (m_haveDoc)
-	{
-		PageItem *i2 = m_item;
-		if (m_doc->appMode == modeEditTable)
-			i2 = m_item->asTable()->activeCell().textFrame();
-		if (i2 != NULL)
-		{
-			Selection tempSelection(this, false);
-			tempSelection.addItem(i2, true);
-			m_doc->itemSelection_ClearBulNumStrings(&tempSelection);
-			m_doc->itemSelection_EraseParagraphStyle(&tempSelection);
-			CharStyle emptyCStyle;
-			m_doc->itemSelection_SetCharStyle(emptyCStyle, &tempSelection);
-		}
-	}
+	Selection tempSelection(this, false);
+	tempSelection.addItem(m_item, true);
+	m_doc->itemSelection_ClearBulNumStrings(&tempSelection);
+	m_doc->itemSelection_EraseParagraphStyle(&tempSelection);
+	CharStyle emptyCStyle;
+	m_doc->itemSelection_SetCharStyle(emptyCStyle, &tempSelection);
 }
 
 void PropertiesPalette_Text::updateColorList()
@@ -721,24 +671,18 @@ void PropertiesPalette_Text::handleFirstLinePolicy(int radioFlop)
 {
 	if (!m_ScMW || m_ScMW->scriptIsRunning() || !m_haveDoc || !m_haveItem)
 		return;
-	PageItem *i2 = m_item;
+	if( radioFlop == PropertyWidget_Flop::RealHeightID)
+		m_item->setFirstLineOffset(FLOPRealGlyphHeight);
+	else if( radioFlop == PropertyWidget_Flop::FontAscentID)
+		m_item->setFirstLineOffset(FLOPFontAscent);
+	else if( radioFlop == PropertyWidget_Flop::LineSpacingID)
+		m_item->setFirstLineOffset(FLOPLineSpacing);
+	else if( radioFlop == PropertyWidget_Flop::BaselineGridID)
+		m_item->setFirstLineOffset(FLOPBaselineGrid);
+	m_item->update();
 	if (m_doc->appMode == modeEditTable)
-		i2 = m_item->asTable()->activeCell().textFrame();
-	if (i2 != NULL)
-	{
-		if( radioFlop == PropertyWidget_Flop::RealHeightID)
-			i2->setFirstLineOffset(FLOPRealGlyphHeight);
-		else if( radioFlop == PropertyWidget_Flop::FontAscentID)
-			i2->setFirstLineOffset(FLOPFontAscent);
-		else if( radioFlop == PropertyWidget_Flop::LineSpacingID)
-			i2->setFirstLineOffset(FLOPLineSpacing);
-		else if( radioFlop == PropertyWidget_Flop::BaselineGridID)
-			i2->setFirstLineOffset(FLOPBaselineGrid);
-		i2->update();
-		if (m_doc->appMode == modeEditTable)
-			m_item->asTable()->update();
-		else
-			m_item->update();
-		m_doc->regionsChanged()->update(QRect());
-	}
+		m_item->parentTable()->update();
+	else
+		m_item->update();
+	m_doc->regionsChanged()->update(QRect());
 }

@@ -243,12 +243,15 @@ public: // Start public functions
 	virtual bool isTable()			const { return false; } ///< Return true if Table item, otherwise false
 	virtual bool isTextFrame()		const { return false; } ///< Return true if Text item, otherwise false
 
+	virtual bool isGroupChild() const;
+	virtual bool isTableCell() const;
+
+	PageItem_Group* parentGroup() const { return (Parent ? Parent->asGroupFrame() : NULL); }
+	PageItem_Table* parentTable() const { return (Parent ? Parent->asTable() : NULL); }
 
 	virtual void applicableActions(QStringList& actionList) = 0;
 	virtual QString infoDescription();
 	virtual bool createInfoGroup(QFrame *, QGridLayout *) {return false;}
-
-
 
 	//<< ********* Functions related to drawing the item *********
 

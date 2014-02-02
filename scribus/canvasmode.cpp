@@ -361,7 +361,7 @@ void CanvasMode::drawSelection(QPainter* psx, bool drawHandles)
 			psx->setBrush(m_brush["selection"]);
 			double lineAdjust(psx->pen().width()/m_canvas->scale());
 			double x, y, w, h;
-			if (currItem->Parent != NULL)
+			if (currItem->isGroupChild())
 			{
 				QTransform t = currItem->getCombinedTransform();
 				double sx, sy;

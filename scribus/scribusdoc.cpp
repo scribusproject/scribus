@@ -6343,7 +6343,7 @@ PageItem* ScribusDoc::convertItemTo(PageItem *currItem, PageItem::ItemType newTy
 	// wtf ?? why not simply
 	PageItem *oldItem = currItem;
 	uint oldItemNr;
-	if (currItem->Parent != NULL)
+	if (currItem->isGroupChild())
 		oldItemNr = currItem->Parent->asGroupFrame()->groupItemList.indexOf(currItem);
 	else
 		oldItemNr = Items->indexOf(currItem);
@@ -6489,7 +6489,7 @@ PageItem* ScribusDoc::convertItemTo(PageItem *currItem, PageItem::ItemType newTy
 	//	Items->at(a)->ItemNr = a;
 //	Items->insert(oldItem->ItemNr, newItem);
 	newItem->uniqueNr = oldItem->uniqueNr;
-	if (oldItem->Parent != NULL)
+	if (oldItem->isGroupChild())
 	{
 		oldItem->Parent->asGroupFrame()->groupItemList.replace(oldItemNr, newItem);
 		newItem->Parent = oldItem->Parent;
@@ -7501,7 +7501,7 @@ void ScribusDoc::sendItemSelectionToBack()
 		objOrdHelper oHlp;
 		currItem = m_Selection->itemAt(c);
 		oHlp.objNrSel = c;
-		if (currItem->Parent != NULL)
+		if (currItem->isGroupChild())
 		{
 			if (currItem->Parent->asGroupFrame()->groupItemList.count() > 1)
 			{
@@ -7567,7 +7567,7 @@ void ScribusDoc::bringItemSelectionToFront()
 		objOrdHelper oHlp;
 		currItem = m_Selection->itemAt(c);
 		oHlp.objNrSel = c;
-		if (currItem->Parent != NULL)
+		if (currItem->isGroupChild())
 		{
 			if (currItem->Parent->asGroupFrame()->groupItemList.count() > 1)
 			{
@@ -7626,10 +7626,10 @@ void ScribusDoc::itemSelection_LowerItem()
 		}
 	}
 	QList<PageItem*> *itemList;
-	if (m_Selection->itemAt(0)->Parent == NULL)
-		itemList = Items;
+	if (m_Selection->itemAt(0)->isGroupChild())
+		itemList = &(m_Selection->itemAt(0)->parentGroup()->groupItemList);
 	else
-		itemList = &(m_Selection->itemAt(0)->Parent->asGroupFrame()->groupItemList);
+		itemList = Items;
 	int low = itemList->count();
 	int high = 0;
 	int d;
@@ -7698,10 +7698,10 @@ void ScribusDoc::itemSelection_RaiseItem()
 		}
 	}
 	QList<PageItem*> *itemList;
-	if (m_Selection->itemAt(0)->Parent == NULL)
-		itemList = Items;
+	if (m_Selection->itemAt(0)->isGroupChild())
+		itemList = &(m_Selection->itemAt(0)->parentGroup()->groupItemList);
 	else
-		itemList = &(m_Selection->itemAt(0)->Parent->asGroupFrame()->groupItemList);
+		itemList = Items;
 	int low = itemList->count();
 	int high = 0;
 	int d;
@@ -15242,15 +15242,15 @@ void ScribusDoc::itemSelection_UnGroupObjects(Selection* customSelection)
 		{
 			PageItem* gItem = currItem->groupItemList.last();
 			removeFromGroup(gItem);
-			if (currItem->Parent == NULL)
-			{
-				Items->insert(d, gItem);
-				gItem->OwnPage = OnPage(gItem);
-			}
-			else
+			if (currItem->isGroupChild())
 			{
 				addToGroup(currItem->Parent, gItem);
 				list->insert(d, gItem);
+			}
+			else
+			{
+				Items->insert(d, gItem);
+				gItem->OwnPage = OnPage(gItem);
 			}
 			itemSelection->addItem(gItem);
 		}
@@ -15321,7 +15321,7 @@ void ScribusDoc::addToGroup(PageItem* group, PageItem* item)
 	item->gXpos = d.p2().x();
 	item->gYpos = d.p2().y();
 	SizeItem(item->width() * (1.0 / grScXi), item->height() * (1.0 / grScYi), item, false, true, false);
-	if (item->Parent != NULL)
+	if (item->isGroupChild())
 		item->Parent->groupItemList.removeAll(item);
 	else
 		Items->removeAll(item);
@@ -15362,7 +15362,7 @@ void ScribusDoc::addToGroup(PageItem* group, PageItem* item)
 
 void ScribusDoc::removeFromGroup(PageItem* item)
 {
-	if (item->Parent == NULL)
+	if (!item->isGroupChild())
 		return;
 	PageItem* group = item->Parent;
 	QTransform itemTrans = item->getTransform();

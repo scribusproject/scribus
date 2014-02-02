@@ -419,7 +419,7 @@ void PropertiesPalette::setCurrentItem(PageItem *i)
 		SelTab(TabStack->currentIndex());
 	}
 
-	if (!sender())
+	if (!sender() || (m_doc->appMode == modeEditTable))
 	{
 		xyzPal->handleSelectionChanged();
 		shadowPal->handleSelectionChanged();

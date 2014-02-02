@@ -313,7 +313,7 @@ void ResizeGesture::doResize(bool scaleContent)
 			QPointF itPos = mm.map(QPointF(0, 0));
 			double dx = ((newBounds.x() + m_extraX) - itPos.x());
 			double dy = ((newBounds.y() + m_extraY) - itPos.y());
-			if (currItem->Parent != 0)
+			if (currItem->isGroupChild())
 			{
 				double sx, sy;
 				getScaleFromMatrix(mm, sx, sy);

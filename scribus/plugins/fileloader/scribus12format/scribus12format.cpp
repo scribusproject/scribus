@@ -1322,15 +1322,12 @@ bool Scribus12Format::loadFile(const QString & fileName, const FileFormat & /* f
 		for (int ii = 0; ii < allItems.count(); ii++)
 		{
 			PageItem* gItem = allItems[ii];
-			if (gItem->isGroup())
+			if (gItem->isGroup() && gItem->groupItemList[0]->isTableItem)
 			{
-				if (gItem->groupItemList[0]->isTableItem)
-				{
-					if (gItem->Parent == NULL)
-						convertOldTable(m_Doc, gItem, gItem->groupItemList, NULL, &m_Doc->DocItems);
-					else
-						convertOldTable(m_Doc, gItem, gItem->groupItemList, NULL, &(gItem->asGroupFrame()->groupItemList));
-				}
+				if (gItem->isGroupChild())
+					convertOldTable(m_Doc, gItem, gItem->groupItemList, NULL, &(gItem->asGroupFrame()->groupItemList));
+				else
+					convertOldTable(m_Doc, gItem, gItem->groupItemList, NULL, &m_Doc->DocItems);
 			}
 		}
 		allItems.clear();
@@ -1346,15 +1343,12 @@ bool Scribus12Format::loadFile(const QString & fileName, const FileFormat & /* f
 		for (int ii = 0; ii < allItems.count(); ii++)
 		{
 			PageItem* gItem = allItems[ii];
-			if (gItem->isGroup())
+			if (gItem->isGroup() && gItem->groupItemList[0]->isTableItem)
 			{
-				if (gItem->groupItemList[0]->isTableItem)
-				{
-					if (gItem->Parent == NULL)
-						convertOldTable(m_Doc, gItem, gItem->groupItemList, NULL, &m_Doc->MasterItems);
-					else
-						convertOldTable(m_Doc, gItem, gItem->groupItemList, NULL, &(gItem->asGroupFrame()->groupItemList));
-				}
+				if (gItem->isGroupChild())
+					convertOldTable(m_Doc, gItem, gItem->groupItemList, NULL, &(gItem->asGroupFrame()->groupItemList));
+				else
+					convertOldTable(m_Doc, gItem, gItem->groupItemList, NULL, &m_Doc->MasterItems);
 			}
 		}
 		allItems.clear();
@@ -2129,15 +2123,12 @@ bool Scribus12Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 					for (int ii = 0; ii < allItems.count(); ii++)
 					{
 						PageItem* gItem = allItems[ii];
-						if (gItem->isGroup())
+						if (gItem->isGroup() && gItem->groupItemList[0]->isTableItem)
 						{
-							if (gItem->groupItemList[0]->isTableItem)
-							{
-								if (gItem->Parent == NULL)
-									convertOldTable(m_Doc, gItem, gItem->groupItemList, NULL, &m_Doc->DocItems);
-								else
-									convertOldTable(m_Doc, gItem, gItem->groupItemList, NULL, &(gItem->asGroupFrame()->groupItemList));
-							}
+							if (gItem->isGroupChild())
+								convertOldTable(m_Doc, gItem, gItem->groupItemList, NULL, &(gItem->asGroupFrame()->groupItemList));
+							else
+								convertOldTable(m_Doc, gItem, gItem->groupItemList, NULL, &m_Doc->DocItems);
 						}
 					}
 					allItems.clear();
@@ -2153,15 +2144,12 @@ bool Scribus12Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 					for (int ii = 0; ii < allItems.count(); ii++)
 					{
 						PageItem* gItem = allItems[ii];
-						if (gItem->isGroup())
+						if (gItem->isGroup() && gItem->groupItemList[0]->isTableItem)
 						{
-							if (gItem->groupItemList[0]->isTableItem)
-							{
-								if (gItem->Parent == NULL)
-									convertOldTable(m_Doc, gItem, gItem->groupItemList, NULL, &m_Doc->MasterItems);
-								else
-									convertOldTable(m_Doc, gItem, gItem->groupItemList, NULL, &(gItem->asGroupFrame()->groupItemList));
-							}
+							if (gItem->isGroupChild())
+								convertOldTable(m_Doc, gItem, gItem->groupItemList, NULL, &(gItem->asGroupFrame()->groupItemList));
+							else
+								convertOldTable(m_Doc, gItem, gItem->groupItemList, NULL, &m_Doc->MasterItems);
 						}
 					}
 					allItems.clear();

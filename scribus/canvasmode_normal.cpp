@@ -1348,7 +1348,7 @@ void CanvasMode_Normal::handlePushButtonPress(PageItem* currItem)
 void CanvasMode_Normal::handleRadioButtonPress(PageItem* currItem)
 {
 	m_view->m_AnnotChanged = true;
-	if (currItem->Parent != NULL)
+	if (currItem->isGroupChild())
 	{
 		PageItem *group = currItem->Parent->asGroupFrame();
 		for (int a = 0; a < group->groupItemList.count(); a++)
@@ -1426,7 +1426,7 @@ void CanvasMode_Normal::handlePushButtonRelease(PageItem* currItem)
 void CanvasMode_Normal::handleRadioButtonRelease(PageItem* currItem)
 {
 	m_view->m_AnnotChanged = true;
-	if (currItem->Parent != NULL)
+	if (currItem->isGroupChild())
 	{
 		PageItem *group = currItem->Parent->asGroupFrame();
 		for (int a = 0; a < group->groupItemList.count(); a++)
