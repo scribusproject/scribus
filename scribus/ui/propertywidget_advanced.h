@@ -49,10 +49,10 @@ public slots:
 	void languageChange();
 	void unitChange() {};
 
-	void displayBaseLineOffset(double e);
-	void displayTextScaleH(double e);
-	void displayTextScaleV(double e);
-	void displayTracking(double e);
+	void showBaseLineOffset(double e);
+	void showTextScaleH(double e);
+	void showTextScaleV(double e);
+	void showTracking(double e);
 
 	void updateCharStyle(const CharStyle& charStyle);
 	void updateStyle(const ParagraphStyle& newCurrent);

@@ -100,8 +100,8 @@ private:
 	};
 
 private:
-	void displayTableStyle(const QString& name);
-	void displayCellStyle(const QString& name);
+	void showTableStyle(const QString& name);
+	void showCellStyle(const QString& name);
 	/// Updates the list of border lines from the current border.
 	void updateBorderLineList();
 	/// Updates the current item in the list of border lines.

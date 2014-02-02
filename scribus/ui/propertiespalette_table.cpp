@@ -146,14 +146,14 @@ void PropertiesPalette_Table::handleCellSelectionChanged()
 	updateStyleControls();
 }
 
-void PropertiesPalette_Table::displayTableStyle(const QString& name)
+void PropertiesPalette_Table::showTableStyle(const QString& name)
 {
 	bool blocked = tableStyleCombo->blockSignals(true);
 	tableStyleCombo->setFormat(name);
 	tableStyleCombo->blockSignals(blocked);
 }
 
-void PropertiesPalette_Table::displayCellStyle(const QString& name)
+void PropertiesPalette_Table::showCellStyle(const QString& name)
 {
 	bool blocked = cellStyleCombo->blockSignals(true);
 	cellStyleCombo->setFormat(name);
@@ -172,14 +172,14 @@ void PropertiesPalette_Table::updateStyleControls()
 		// Fill in values.
 		if (m_doc->appMode != modeEditTable)
 		{
-			displayTableStyle(table->style());
+			showTableStyle(table->style());
 			cellStyleCombo->setEnabled(false);
 			buttonClearCellStyle->setEnabled(false);
 		}
 		else
 		{
-//			displayTableStyle(table->style());
-			displayCellStyle(table->activeCell().style());
+//			showTableStyle(table->style());
+			showCellStyle(table->activeCell().style());
 		}
 	}
 	else
@@ -197,7 +197,7 @@ void PropertiesPalette_Table::setTableStyle(const QString &name)
 		return;
 	m_item->asTable()->setStyle(name);
 	m_item->asTable()->update();
-	displayTableStyle(name);
+	showTableStyle(name);
 }
 
 void PropertiesPalette_Table::setCellStyle(const QString &name)
@@ -208,7 +208,7 @@ void PropertiesPalette_Table::setCellStyle(const QString &name)
 	m_item->asTable()->activeCell().setStyle(name);
 	m_doc->dontResize = true;
 	m_item->asTable()->update();
-	displayCellStyle(name);
+	showCellStyle(name);
 }
 
 void PropertiesPalette_Table::on_sideSelector_selectionChanged()

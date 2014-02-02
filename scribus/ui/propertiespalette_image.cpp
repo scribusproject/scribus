@@ -317,7 +317,7 @@ void PropertiesPalette_Image::showCMSOptions()
 		colorMgmtGroup->setVisible(ScCore->haveCMS() && m_doc->cmsSettings().CMSinUse);
 }
 
-void PropertiesPalette_Image::displayImageRotation(double rot)
+void PropertiesPalette_Image::showImageRotation(double rot)
 {
 	if (!m_ScMW || m_ScMW->scriptIsRunning())
 		return;
@@ -327,7 +327,7 @@ void PropertiesPalette_Image::displayImageRotation(double rot)
 	imageRotation->showValue(fabs(rrR));
 }
 
-void PropertiesPalette_Image::displayScaleAndOffset(double scx, double scy, double x, double y)
+void PropertiesPalette_Image::showScaleAndOffset(double scx, double scy, double x, double y)
 {
 	if (!m_ScMW || m_ScMW->scriptIsRunning())
 		return;
@@ -511,7 +511,7 @@ void PropertiesPalette_Image::setCurrentItem(PageItem *item)
 	}
 	m_haveItem = true;
 
-	displayScaleAndOffset(m_item->imageXScale(), m_item->imageYScale(), m_item->imageXOffset(), m_item->imageYOffset());
+	showScaleAndOffset(m_item->imageXScale(), m_item->imageYScale(), m_item->imageXOffset(), m_item->imageYOffset());
 	double rrR = m_item->imageRotation();
 	if (m_item->imageRotation() > 0)
 		rrR = 360 - rrR;

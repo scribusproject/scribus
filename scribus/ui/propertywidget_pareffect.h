@@ -21,7 +21,7 @@ public:
 	void updateStyle(const ParagraphStyle& newPStyle);
 	void updateCharStyles();
 
-	void displayCharStyle(const QString& name);
+	void showCharStyle(const QString& name);
 	void connectSignals();
 	void disconnectSignals();
 	CharSelectEnhanced * m_enhanced;

@@ -56,14 +56,14 @@ public slots:
 	void languageChange();
 	void unitChange();
 
-	void displayXY(double x, double y);
-	void displayWH(double x, double y);
-	void displayRotation(double r);
-	void displayLocked(bool);
-	void displaySizeLocked(bool);
-	void displayPrintingEnabled(bool);
-	void displayFlippedH(bool);
-	void displayFlippedV(bool);
+	void showXY(double x, double y);
+	void showWH(double x, double y);
+	void showRotation(double r);
+	void showLocked(bool);
+	void showSizeLocked(bool);
+	void showPrintingEnabled(bool);
+	void showFlippedH(bool);
+	void showFlippedV(bool);
 
 	void handleAppModeChanged(int oldMode, int mode);
 	void handleSelectionChanged();

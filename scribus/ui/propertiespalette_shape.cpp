@@ -350,7 +350,7 @@ void PropertiesPalette_Shape::setCurrentItem(PageItem *item)
 		customShape->setIcon(customShape->getIconPixmap(m_item->FrameType-2));
 
 	roundRect->setValue(m_item->cornerRadius()*m_unitRatio);
-	displayTextFlowMode(m_item->textFlowMode());
+	showTextFlowMode(m_item->textFlowMode());
 
 	if (m_item->asPathText())
 	{
@@ -397,7 +397,7 @@ void PropertiesPalette_Shape::setCurrentItem(PageItem *item)
 		customShape->setEnabled(false);
 	}
 	m_haveItem = true;
-	displayTextFlowMode(m_item->textFlowMode());
+	showTextFlowMode(m_item->textFlowMode());
 }
 
 void PropertiesPalette_Shape::handleTextFlow()
@@ -519,7 +519,7 @@ void PropertiesPalette_Shape::handleNewShape(int f, int c, qreal *vals)
 	}
 }
 
-void PropertiesPalette_Shape::displayTextFlowMode(PageItem::TextFlowMode mode)
+void PropertiesPalette_Shape::showTextFlowMode(PageItem::TextFlowMode mode)
 {
 	if (!m_ScMW || m_ScMW->scriptIsRunning() || !m_haveItem)
 		return;

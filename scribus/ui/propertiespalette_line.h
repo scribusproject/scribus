@@ -62,8 +62,8 @@ public slots:
 	void handleSelectionChanged();
 	void handleUpdateRequest(int);
 
-	void displayLineWidth(double s);
-	void displayLineValues(Qt::PenStyle p, Qt::PenCapStyle pc, Qt::PenJoinStyle pj);
+	void showLineWidth(double s);
+	void showLineValues(Qt::PenStyle p, Qt::PenCapStyle pc, Qt::PenJoinStyle pj);
 
 	void languageChange();
 	void unitChange();

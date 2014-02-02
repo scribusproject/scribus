@@ -207,12 +207,12 @@ void PropertyWidget_TextColor::updateCharStyle(const CharStyle& charStyle)
 	if (!m_ScMW || m_ScMW->scriptIsRunning())
 		return;
 
-	displayOutlineW  (charStyle.outlineWidth());
-	displayShadowOffset(charStyle.shadowXOffset(), charStyle.shadowYOffset());
-	displayTextColors(charStyle.strokeColor(), charStyle.fillColor(), charStyle.strokeShade(), charStyle.fillShade());
-	displayTextEffects(charStyle.effects());
-	displayStrikeThru(charStyle.strikethruOffset()  , charStyle.strikethruWidth());
-	displayUnderline (charStyle.underlineOffset(), charStyle.underlineWidth());
+	showOutlineW  (charStyle.outlineWidth());
+	showShadowOffset(charStyle.shadowXOffset(), charStyle.shadowYOffset());
+	showTextColors(charStyle.strokeColor(), charStyle.fillColor(), charStyle.strokeShade(), charStyle.fillShade());
+	showTextEffects(charStyle.effects());
+	showStrikeThru(charStyle.strikethruOffset()  , charStyle.strikethruWidth());
+	showUnderline (charStyle.underlineOffset(), charStyle.underlineWidth());
 }
 
 void PropertyWidget_TextColor::updateStyle(const ParagraphStyle& newCurrent)
@@ -222,22 +222,22 @@ void PropertyWidget_TextColor::updateStyle(const ParagraphStyle& newCurrent)
 
 	const CharStyle& charStyle = newCurrent.charStyle();
 
-	displayOutlineW  (charStyle.outlineWidth());
-	displayShadowOffset(charStyle.shadowXOffset(), charStyle.shadowYOffset());
-	displayTextColors(charStyle.strokeColor(), charStyle.fillColor(), charStyle.strokeShade(), charStyle.fillShade());
-	displayTextEffects(charStyle.effects());
-	displayStrikeThru(charStyle.strikethruOffset()  , charStyle.strikethruWidth());
-	displayUnderline (charStyle.underlineOffset(), charStyle.underlineWidth());
+	showOutlineW  (charStyle.outlineWidth());
+	showShadowOffset(charStyle.shadowXOffset(), charStyle.shadowYOffset());
+	showTextColors(charStyle.strokeColor(), charStyle.fillColor(), charStyle.strokeShade(), charStyle.fillShade());
+	showTextEffects(charStyle.effects());
+	showStrikeThru(charStyle.strikethruOffset()  , charStyle.strikethruWidth());
+	showUnderline (charStyle.underlineOffset(), charStyle.underlineWidth());
 }
 
-void PropertyWidget_TextColor::displayOutlineW(double x)
+void PropertyWidget_TextColor::showOutlineW(double x)
 {
 	if (!m_ScMW || m_ScMW->scriptIsRunning())
 		return;
 	textEffects->OutlineVal->LWidth->showValue(x / 10.0);
 }
 
-void PropertyWidget_TextColor::displayShadowOffset(double x, double y)
+void PropertyWidget_TextColor::showShadowOffset(double x, double y)
 {
 	if (!m_ScMW || m_ScMW->scriptIsRunning())
 		return;
@@ -245,7 +245,7 @@ void PropertyWidget_TextColor::displayShadowOffset(double x, double y)
 	textEffects->ShadowVal->Yoffset->showValue(y / 10.0);
 }
 
-void PropertyWidget_TextColor::displayStrikeThru(double p, double w)
+void PropertyWidget_TextColor::showStrikeThru(double p, double w)
 {
 	if (!m_ScMW || m_ScMW->scriptIsRunning())
 		return;
@@ -253,7 +253,7 @@ void PropertyWidget_TextColor::displayStrikeThru(double p, double w)
 	textEffects->StrikeVal->LWidth->showValue(w / 10.0);
 }
 
-void PropertyWidget_TextColor::displayTextColors(QString p, QString b, double shp, double shb)
+void PropertyWidget_TextColor::showTextColors(QString p, QString b, double shp, double shb)
 {
 	if (!m_doc || !m_item || !m_ScMW || m_ScMW->scriptIsRunning())
 		return;
@@ -285,7 +285,7 @@ void PropertyWidget_TextColor::displayTextColors(QString p, QString b, double sh
 	strokeColor->setCurrentIndex(c);
 }
 
-void PropertyWidget_TextColor::displayTextEffects(int s)
+void PropertyWidget_TextColor::showTextEffects(int s)
 {
 	if (!m_ScMW || m_ScMW->scriptIsRunning())
 		return;
@@ -447,7 +447,7 @@ void PropertyWidget_TextColor::handleTypeStyle(int s)
 	}
 }
 
-void PropertyWidget_TextColor::displayUnderline(double p, double w)
+void PropertyWidget_TextColor::showUnderline(double p, double w)
 {
 	if (!m_ScMW || m_ScMW->scriptIsRunning())
 		return;

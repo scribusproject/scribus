@@ -1252,8 +1252,8 @@ void ScribusMainWindow::setTBvals(PageItem *currItem)
 
 	const ParagraphStyle& currPStyle( inEditMode ? item->currentStyle() : item->itemText.defaultStyle());
 	setAlignmentValue(currPStyle.alignment());
-	propertiesPalette->textPal->displayParStyle(currPStyle.parent());
-	propertiesPalette->textPal->displayCharStyle(item->currentCharStyle().parent());
+	propertiesPalette->textPal->showParStyle(currPStyle.parent());
+	propertiesPalette->textPal->showCharStyle(item->currentCharStyle().parent());
 	doc->currentStyle = item->currentStyle();
 	// #8112 : do not use operator= here as it does not update style features
 	doc->currentStyle.charStyle().setStyle(item->currentCharStyle());
@@ -2450,7 +2450,7 @@ void ScribusMainWindow::SwitchWin()
 	propertiesPalette->setDoc(doc);
 	marksManager->setDoc(doc);
 	nsEditor->setDoc(doc);
-	//propertiesPalette->Cpal->displayGradient(0);
+	//propertiesPalette->Cpal->showGradient(0);
 	pagePalette->setView(view);
 	layerPalette->setDoc(doc);
 	guidePalette->setDoc(doc);
@@ -2666,7 +2666,7 @@ void ScribusMainWindow::HaveNewDoc()
 	marksManager->setDoc(doc);
 	symbolPalette->setDoc(doc);
 	inlinePalette->setDoc(doc);
-//	propertiesPalette->Cpal->displayGradient(0);
+//	propertiesPalette->Cpal->showGradient(0);
 //	propertiesPalette->updateColorList();
 	pagePalette->setView(view);
 	layerPalette->setDoc(doc);
@@ -3073,8 +3073,8 @@ void ScribusMainWindow::HaveNewSel(int SelectedType)
 		{
 			scrMenuMgr->setMenuEnabled("InsertMark",false);
 			doc->currentStyle = currItem->itemText.defaultStyle();
-			propertiesPalette->textPal->displayParStyle(doc->currentStyle.parent());
-			propertiesPalette->textPal->displayCharStyle(doc->currentStyle.charStyle().parent());
+			propertiesPalette->textPal->showParStyle(doc->currentStyle.parent());
+			propertiesPalette->textPal->showCharStyle(doc->currentStyle.charStyle().parent());
 			emit TextStyle(doc->currentStyle);
 			// to go: (av)
 			propertiesPalette->textPal->updateStyle(doc->currentStyle);
@@ -3155,8 +3155,8 @@ void ScribusMainWindow::HaveNewSel(int SelectedType)
 		else
 		{
 			doc->currentStyle = currItem->itemText.defaultStyle();
-			propertiesPalette->textPal->displayParStyle(doc->currentStyle.parent());
-			propertiesPalette->textPal->displayCharStyle(doc->currentStyle.charStyle().parent());
+			propertiesPalette->textPal->showParStyle(doc->currentStyle.parent());
+			propertiesPalette->textPal->showCharStyle(doc->currentStyle.charStyle().parent());
 			emit TextStyle(doc->currentStyle);
 			// to go: (av)
 			propertiesPalette->textPal->updateStyle(doc->currentStyle);
@@ -4299,7 +4299,7 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 			doc->cmsSettings().CMSinUse = false;
 		}
 //		propertiesPalette->updateColorList();
-//		propertiesPalette->Cpal->displayGradient(0);
+//		propertiesPalette->Cpal->showGradient(0);
 		if (fileLoader->fileType() > FORMATID_NATIVEIMPORTEND)
 		{
 			doc->setName(FName+ tr("(converted)"));
@@ -4312,7 +4312,7 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 		doc->setMasterPageMode(false);
 		//IL doc->setHyphLanguage(GetLang(doc->hyphLanguage()));
 		HaveNewDoc();
-//		propertiesPalette->Cpal->displayGradient(0);
+//		propertiesPalette->Cpal->showGradient(0);
 //		propertiesPalette->updateCList();
 		doc->hasName = true;
 		if (doc->MasterPages.count() == 0)
@@ -4565,7 +4565,7 @@ void ScribusMainWindow::slotGetClipboardImage()
 					currItem->Pfile = fileName;
 					img.save(fileName, "PNG");
 					doc->loadPict(fileName, currItem, false, true);
-					propertiesPalette->imagePal->displayScaleAndOffset(currItem->imageXScale(), currItem->imageYScale(), currItem->imageXOffset(), currItem->imageYOffset());
+					propertiesPalette->imagePal->showScaleAndOffset(currItem->imageXScale(), currItem->imageYScale(), currItem->imageXOffset(), currItem->imageYOffset());
 					qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
 					view->DrawNew();
 					emit UpdateRequest(reqColorsUpdate | reqCmsOptionsUpdate);
@@ -7397,7 +7397,7 @@ void ScribusMainWindow::setItemFSize(int id)
 				doc->itemSelection_SetFontSize(c*10);
 		}
 	}
-	propertiesPalette->textPal->displayFontSize(c*10);
+	propertiesPalette->textPal->showFontSize(c*10);
 }
 
 //CB-->Doc partly
@@ -7738,7 +7738,7 @@ void ScribusMainWindow::setNewAlignment(int a)
 	{
 //		doc->currentStyle.setAlignment(static_cast<ParagraphStyle::AlignmentType>(a));
 		doc->itemSelection_SetAlignment(a);
-		propertiesPalette->textPal->displayAlignment(a);
+		propertiesPalette->textPal->showAlignment(a);
 		PageItem *currItem = doc->m_Selection->itemAt(0);
 		setTBvals(currItem);
 	}
@@ -7780,7 +7780,7 @@ void ScribusMainWindow::setAlignmentValue(int a)
 {
 //	doc->currentStyle = doc->docParagraphStyles[a];
 //	doc->currentStyle.setAlignment(static_cast<ParagraphStyle::AlignmentType>(a<5 ? a : 0));
-	propertiesPalette->textPal->displayAlignment(a);
+	propertiesPalette->textPal->showAlignment(a);
 	QString alignment[] = {"Left", "Center", "Right", "Block", "Forced"};
 	for (int b=0; b<5; ++b)
 	{

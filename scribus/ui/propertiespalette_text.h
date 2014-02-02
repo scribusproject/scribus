@@ -82,13 +82,13 @@ public slots:
 	void languageChange();
 	void unitChange();
 
-	void displayAlignment(int e);
-	void displayCharStyle(const QString& name);
-	void displayFontFace(const QString&);
-	void displayFontSize(double s);
-	void displayFirstLinePolicy(FirstLineOffsetPolicy);
-	void displayLineSpacing(double r);
-	void displayParStyle(const QString& name);
+	void showAlignment(int e);
+	void showCharStyle(const QString& name);
+	void showFontFace(const QString&);
+	void showFontSize(double s);
+	void showFirstLinePolicy(FirstLineOffsetPolicy);
+	void showLineSpacing(double r);
+	void showParStyle(const QString& name);
 	
 	void setupLineSpacingSpinbox(int mode, double value);
 	

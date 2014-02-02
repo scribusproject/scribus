@@ -135,7 +135,7 @@ void PropertyWidget_ParEffect::updateCharStyles()
 	peCharStyleCombo->updateFormatList();
 }
 
-void PropertyWidget_ParEffect::displayCharStyle(const QString& name)
+void PropertyWidget_ParEffect::showCharStyle(const QString& name)
 {
 	bool blocked = peCharStyleCombo->blockSignals(true);
 	peCharStyleCombo->setFormat(name);
@@ -246,7 +246,7 @@ void PropertyWidget_ParEffect::updateStyle(const ParagraphStyle& newPStyle)
 	numFormatCombo->setCurrentIndex(nFormat);
 	peOffset->setValue(newPStyle.parEffectOffset() * m_unitRatio);
 	peIndent->setChecked(newPStyle.parEffectIndent());
-	displayCharStyle(newPStyle.peCharStyleName());
+	showCharStyle(newPStyle.peCharStyleName());
 
 	enableParEffect(enablePE);
 	connectSignals ();

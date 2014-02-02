@@ -49,7 +49,7 @@ public slots:
 	void languageChange();
 	void unitChange() {};
 
-	void displayOpticalMargins(const ParagraphStyle& pStyle);
+	void showOpticalMargins(const ParagraphStyle& pStyle);
 
 private slots:
 	void handleOpticalMargins();

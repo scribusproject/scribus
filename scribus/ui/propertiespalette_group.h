@@ -27,7 +27,7 @@ public:
 
 	virtual void changeEvent(QEvent *e);
 
-	void displayTextFlowMode(PageItem::TextFlowMode mode);
+	void showTextFlowMode(PageItem::TextFlowMode mode);
 
 	void updateColorList();
 	void updateColorSpecialGradient();

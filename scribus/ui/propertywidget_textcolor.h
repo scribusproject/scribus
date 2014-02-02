@@ -47,12 +47,12 @@ public slots:
 	void languageChange();
 	void unitChange() {};
 
-	void displayOutlineW(double x);
-	void displayShadowOffset(double x, double y);
-	void displayStrikeThru(double p, double w);
-	void displayTextColors(QString p, QString b, double shp, double shb);
-	void displayTextEffects(int s);
-	void displayUnderline(double p, double w);
+	void showOutlineW(double x);
+	void showShadowOffset(double x, double y);
+	void showStrikeThru(double p, double w);
+	void showTextColors(QString p, QString b, double shp, double shb);
+	void showTextEffects(int s);
+	void showUnderline(double p, double w);
 
 	void updateCharStyle(const CharStyle& charStyle);
 	void updateStyle(const ParagraphStyle& newCurrent);

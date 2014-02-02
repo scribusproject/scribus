@@ -332,8 +332,8 @@ void PropertiesPalette_Line::setCurrentItem(PageItem *item)
 
 	m_haveItem = true;
 
-	displayLineWidth(m_item->lineWidth());
-	displayLineValues(m_item->lineStyle(), m_item->lineEnd(), m_item->lineJoin());
+	showLineWidth(m_item->lineWidth());
+	showLineValues(m_item->lineStyle(), m_item->lineEnd(), m_item->lineJoin());
 
 	if (m_item->asOSGFrame())
 	{
@@ -384,7 +384,7 @@ void PropertiesPalette_Line::updateLineStyles(ScribusDoc *dd)
 	lineStyles->blockSignals(false);
 }
 
-void PropertiesPalette_Line::displayLineWidth(double s)
+void PropertiesPalette_Line::showLineWidth(double s)
 {
 	if (!m_ScMW || m_ScMW->scriptIsRunning())
 		return;
@@ -406,7 +406,7 @@ void PropertiesPalette_Line::displayLineWidth(double s)
 	}
 }
 
-void PropertiesPalette_Line::displayLineValues(Qt::PenStyle p, Qt::PenCapStyle pc, Qt::PenJoinStyle pj)
+void PropertiesPalette_Line::showLineValues(Qt::PenStyle p, Qt::PenCapStyle pc, Qt::PenJoinStyle pj)
 {
 	if (!m_ScMW || m_ScMW->scriptIsRunning())
 		return;

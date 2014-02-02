@@ -68,8 +68,8 @@ public slots:
 	void handleSelectionChanged();
 	void handleUpdateRequest(int updateFlags);
 
-	void displayImageRotation(double rot);
-	void displayScaleAndOffset(double scx, double scy, double x, double y);
+	void showImageRotation(double rot);
+	void showScaleAndOffset(double scx, double scy, double x, double y);
 
 	void languageChange();
 	void unitChange();

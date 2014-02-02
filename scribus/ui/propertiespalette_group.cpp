@@ -339,10 +339,10 @@ void PropertiesPalette_Group::setCurrentItem(PageItem *item)
 		textFlowUsesContourLine->setEnabled(true);
 		textFlowUsesImageClipping->setEnabled(false);
 	}
-	displayTextFlowMode(m_item->textFlowMode());
+	showTextFlowMode(m_item->textFlowMode());
 }
 
-void PropertiesPalette_Group::displayTextFlowMode(PageItem::TextFlowMode mode)
+void PropertiesPalette_Group::showTextFlowMode(PageItem::TextFlowMode mode)
 {
 	if (!m_ScMW || m_ScMW->scriptIsRunning() || !m_haveItem)
 		return;

@@ -306,7 +306,7 @@ void PropertiesPalette_Text::setCurrentItem(PageItem *i)
 	m_haveItem = false;
 	m_item = i;
 
-	displayFirstLinePolicy(m_item->firstLineOffset());
+	showFirstLinePolicy(m_item->firstLineOffset());
 
 	if ((m_item->isGroup()) && (!m_item->isSingleSel))
 	{
@@ -392,7 +392,7 @@ void PropertiesPalette_Text::handleLineSpacingMode(int id)
 	}
 }
 
-void PropertiesPalette_Text::displayLineSpacing(double r)
+void PropertiesPalette_Text::showLineSpacing(double r)
 {
 	if (!m_ScMW || m_ScMW->scriptIsRunning())
 		return;
@@ -409,7 +409,7 @@ void PropertiesPalette_Text::displayLineSpacing(double r)
 	m_haveItem = tmp;
 }
 
-void PropertiesPalette_Text::displayFontFace(const QString& newFont)
+void PropertiesPalette_Text::showFontFace(const QString& newFont)
 {
 	if (!m_ScMW || m_ScMW->scriptIsRunning())
 		return;
@@ -421,14 +421,14 @@ void PropertiesPalette_Text::displayFontFace(const QString& newFont)
 	m_haveItem = tmp;
 }
 
-void PropertiesPalette_Text::displayFontSize(double s)
+void PropertiesPalette_Text::showFontSize(double s)
 {
 	if (!m_ScMW || m_ScMW->scriptIsRunning())
 		return;
 	fontSize->showValue(s / 10.0);
 }
 
-void PropertiesPalette_Text::displayFirstLinePolicy( FirstLineOffsetPolicy f )
+void PropertiesPalette_Text::showFirstLinePolicy( FirstLineOffsetPolicy f )
 {
 	if(f == FLOPFontAscent)
 		flopBox->flopFontAscent->setChecked(true);
@@ -471,8 +471,8 @@ void PropertiesPalette_Text::updateCharStyle(const CharStyle& charStyle)
 	advancedWidgets->updateCharStyle(charStyle);
 	colorWidgets->updateCharStyle(charStyle);
 
-	displayFontFace(charStyle.font().scName());
-	displayFontSize(charStyle.fontSize());
+	showFontFace(charStyle.font().scName());
+	showFontSize(charStyle.fontSize());
 }
 
 void PropertiesPalette_Text::updateStyle(const ParagraphStyle& newCurrent)
@@ -488,8 +488,8 @@ void PropertiesPalette_Text::updateStyle(const ParagraphStyle& newCurrent)
 	orphanBox->updateStyle (newCurrent);
 	parEffectWidgets->updateStyle(newCurrent);
 
-	displayFontFace(charStyle.font().scName());
-	displayFontSize(charStyle.fontSize());
+	showFontFace(charStyle.font().scName());
+	showFontSize(charStyle.fontSize());
 
 	bool tmp = m_haveItem;
 	m_haveItem = false;
@@ -520,7 +520,7 @@ void PropertiesPalette_Text::updateTextStyles()
 	charStyleCombo->updateFormatList();
 }
 
-void PropertiesPalette_Text::displayAlignment(int e)
+void PropertiesPalette_Text::showAlignment(int e)
 {
 	if (!m_ScMW || m_ScMW->scriptIsRunning())
 		return;
@@ -531,7 +531,7 @@ void PropertiesPalette_Text::displayAlignment(int e)
 	m_haveItem = tmp;
 }
 
-void PropertiesPalette_Text::displayCharStyle(const QString& name)
+void PropertiesPalette_Text::showCharStyle(const QString& name)
 {
 	if (!m_ScMW || m_ScMW->scriptIsRunning())
 		return;
@@ -540,7 +540,7 @@ void PropertiesPalette_Text::displayCharStyle(const QString& name)
 	charStyleCombo->blockSignals(blocked);
 }
 
-void PropertiesPalette_Text::displayParStyle(const QString& name)
+void PropertiesPalette_Text::showParStyle(const QString& name)
 {
 	if (!m_ScMW || m_ScMW->scriptIsRunning())
 		return;

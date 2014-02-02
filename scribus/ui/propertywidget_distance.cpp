@@ -148,7 +148,7 @@ void PropertyWidget_Distance::setCurrentItem(PageItem *item)
 		columnGapLabel->setEnabled(true);
 	}
 
-	displayTextDistances(textItem->textToFrameDistLeft(), textItem->textToFrameDistTop(), textItem->textToFrameDistBottom(), textItem->textToFrameDistRight());
+	showTextDistances(textItem->textToFrameDistLeft(), textItem->textToFrameDistTop(), textItem->textToFrameDistBottom(), textItem->textToFrameDistRight());
 	connectSignals();
 }
 
@@ -223,7 +223,7 @@ void PropertyWidget_Distance::handleUpdateRequest(int /*updateFlags*/)
 	// Nothing to do in this widget
 }
 
-void PropertyWidget_Distance::displayColumns(int r, double g)
+void PropertyWidget_Distance::showColumns(int r, double g)
 {
 	if (!m_ScMW || m_ScMW->scriptIsRunning())
 		return;
@@ -263,7 +263,7 @@ void PropertyWidget_Distance::displayColumns(int r, double g)
 	columnGap->blockSignals(cGapSigWasBlocked);
 }
 
-void PropertyWidget_Distance::displayTextDistances(double left, double top, double bottom, double right)
+void PropertyWidget_Distance::showTextDistances(double left, double top, double bottom, double right)
 {
 	leftDistance->showValue(left * m_unitRatio);
 	topDistance->showValue(top * m_unitRatio);
@@ -283,8 +283,8 @@ void PropertyWidget_Distance::handleColumns()
 	if (textItem)
 	{
 		textItem->setColumns(static_cast<int>(columns->value()));
-		displayColumns(textItem->Cols, textItem->ColGap);
-		//this is already done in displayColumns()
+		showColumns(textItem->Cols, textItem->ColGap);
+		//this is already done in showColumns()
 		/*if (static_cast<int>(columns->value()) == 1)
 		{
 			columnGap->setEnabled(false);
@@ -339,7 +339,7 @@ void PropertyWidget_Distance::handleGapSwitch()
 	if (m_doc->appMode == modeEditTable)
 		textItem = m_item->asTable()->activeCell().textFrame();
 	if (textItem != NULL)
-		displayColumns(textItem->Cols, textItem->ColGap);
+		showColumns(textItem->Cols, textItem->ColGap);
 
 	int index = columnGapLabel->currentIndex();
 	columnGap->setToolTip((index == 0) ? tr( "Distance between columns" ) : tr( "Column width" ));
@@ -391,7 +391,7 @@ void PropertyWidget_Distance::handleTextDistances()
 	double top    = topDistance->value() / m_unitRatio;
 	double bottom = bottomDistance->value() / m_unitRatio;
 	textItem->setTextToFrameDist(left, right, top, bottom);
-	displayColumns(textItem->Cols, textItem->ColGap);
+	showColumns(textItem->Cols, textItem->ColGap);
 
 	textItem->update();
 	if (m_doc->appMode == modeEditTable)

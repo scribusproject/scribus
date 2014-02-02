@@ -168,28 +168,28 @@ void PropertyWidget_Advanced::handleSelectionChanged()
 	repaint();
 }
 
-void PropertyWidget_Advanced::displayBaseLineOffset(double e)
+void PropertyWidget_Advanced::showBaseLineOffset(double e)
 {
 	if (!m_ScMW || m_ScMW->scriptIsRunning())
 		return;
 	textBase->showValue(e / 10.0);
 }
 
-void PropertyWidget_Advanced::displayTextScaleH(double e)
+void PropertyWidget_Advanced::showTextScaleH(double e)
 {
 	if (!m_ScMW || m_ScMW->scriptIsRunning())
 		return;
 	scaleH->showValue(e / 10.0);
 }
 
-void PropertyWidget_Advanced::displayTextScaleV(double e)
+void PropertyWidget_Advanced::showTextScaleV(double e)
 {
 	if (!m_ScMW || m_ScMW->scriptIsRunning())
 		return;
 	scaleV->showValue(e / 10.0);
 }
 
-void PropertyWidget_Advanced::displayTracking(double e)
+void PropertyWidget_Advanced::showTracking(double e)
 {
 	if (!m_ScMW || m_ScMW->scriptIsRunning())
 		return;
@@ -329,10 +329,10 @@ void PropertyWidget_Advanced::updateCharStyle(const CharStyle& charStyle)
 	if (!m_ScMW || m_ScMW->scriptIsRunning())
 		return;
 
-	displayTextScaleH(charStyle.scaleH());
-	displayTextScaleV(charStyle.scaleV());
-	displayTracking(charStyle.tracking());
-	displayBaseLineOffset(charStyle.baselineOffset());
+	showTextScaleH(charStyle.scaleH());
+	showTextScaleV(charStyle.scaleV());
+	showTracking(charStyle.tracking());
+	showBaseLineOffset(charStyle.baselineOffset());
 
 	normWordTrackingSpinBox->showValue(charStyle.wordTracking() * 100.0);
 }
@@ -344,10 +344,10 @@ void PropertyWidget_Advanced::updateStyle(const ParagraphStyle& newCurrent)
 
 	const CharStyle& charStyle = newCurrent.charStyle();
 
-	displayTextScaleH(charStyle.scaleH());
-	displayTextScaleV(charStyle.scaleV());
-	displayTracking(charStyle.tracking());
-	displayBaseLineOffset(charStyle.baselineOffset());
+	showTextScaleH(charStyle.scaleH());
+	showTextScaleV(charStyle.scaleV());
+	showTracking(charStyle.tracking());
+	showBaseLineOffset(charStyle.baselineOffset());
 
 	minWordTrackingSpinBox->showValue(newCurrent.minWordTracking() * 100.0);
 	normWordTrackingSpinBox->showValue(newCurrent.charStyle().wordTracking() * 100.0);

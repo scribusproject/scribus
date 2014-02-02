@@ -233,10 +233,10 @@ void Cpalette::setCurrentItem(PageItem* item)
 		return;
 
 	updateCList();
-	displayOverprint(currentItem->doOverprint ? 1 : 0);
-	displayColorValues(currentItem->lineColor(), currentItem->fillColor(), currentItem->lineShade(), currentItem->fillShade());
-	displayGradient(currentItem->gradientType());
-	displayGradientStroke(currentItem->strokeGradientType());
+	showOverprint(currentItem->doOverprint ? 1 : 0);
+	showColorValues(currentItem->lineColor(), currentItem->fillColor(), currentItem->lineShade(), currentItem->fillShade());
+	showGradient(currentItem->gradientType());
+	showGradientStroke(currentItem->strokeGradientType());
 	gradEdit->setGradient(currentItem->fill_gradient);
 	gradEditStroke->setGradient(currentItem->stroke_gradient);
 	if (!currentItem->gradient().isEmpty())
@@ -376,7 +376,7 @@ void Cpalette::setDocument(ScribusDoc* doc)
 
 	if (oldDoc != currentDoc)
 	{
-		displayGradient(0);
+		showGradient(0);
 	}
 }
 
@@ -474,7 +474,7 @@ void Cpalette::toggleColorDisplay()
 	}
 }
 
-void Cpalette::displayOverprint(int val)
+void Cpalette::showOverprint(int val)
 {
 	bool sigBlocked = overPrintCombo->blockSignals(true);
 	overPrintCombo->setCurrentIndex(val);
@@ -538,7 +538,7 @@ void Cpalette::handleStrokeGradient()
 	}
 }
 
-void Cpalette::displayColorValues(QString stroke, QString fill, int sShade, int fShade)
+void Cpalette::showColorValues(QString stroke, QString fill, int sShade, int fShade)
 {
 	bool sigBlocked1 = fillShade->blockSignals(true);
 	bool sigBlocked2 = strokeShade->blockSignals(true);
@@ -907,7 +907,7 @@ void Cpalette::slotGradStroke(int number)
 	strokeModeStack->setCurrentIndex(number);
 }
 
-void Cpalette::displayGradient(int number)
+void Cpalette::showGradient(int number)
 {
 	bool sigBlocked = fillModeCombo->blockSignals(true);
 	if (number==-1)
@@ -998,7 +998,7 @@ void Cpalette::displayGradient(int number)
 	fillModeCombo->blockSignals(sigBlocked);
 }
 
-void Cpalette::displayGradientStroke(int number)
+void Cpalette::showGradientStroke(int number)
 {
 	bool sigBlocked = strokeModeCombo->blockSignals(true);
 	if (number==-1 || number == 0)
