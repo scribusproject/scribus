@@ -4045,7 +4045,9 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 	QList<QMdiSubWindow *> windows = mdiArea->subWindowList();
 	ScribusWin* ActWinOld = NULL;
 	if (windows.count() != 0)
+	{
 		ActWinOld = ActWin;
+	}
 
 	// PV - 5780: Scribus doesn't track what documents are already opened
 	// The goal of this part of code is to disallow user to open one
@@ -4150,6 +4152,7 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 			delete fileLoader;
 // 			delete view;
 			delete doc;
+			doc=NULL;
 			mdiArea->removeSubWindow(w->getSubWin());
 			delete w;
 			view=NULL;
@@ -4161,7 +4164,14 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 			ActWin = NULL;
 			undoManager->setUndoEnabled(true);
 			if (windows.count() != 0)
+			{
 				newActWin(ActWinOld->getSubWin());
+				if (ActWin)
+				{
+					if ((mdiArea->subWindowList().isEmpty()) || (mdiArea->subWindowList().count() == 1))
+						ActWin->showMaximized();
+				}
+			}
 			return false;
 		}
 		symbolPalette->setDoc(doc);
