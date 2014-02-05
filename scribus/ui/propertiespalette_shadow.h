@@ -7,6 +7,80 @@ for which a new license (GPL+exception) is in place.
 #ifndef PROPERTIESPALETTE_SHADOW_H
 #define PROPERTIESPALETTE_SHADOW_H
 
+#include "scribusapi.h"
+#include "scguardedptr.h"
+
+#include "proptree.h"
+#include <QVBoxLayout>
+
+class PageItem;
+class ScribusDoc;
+class Selection;
+class ScribusMainWindow;
+
+class SCRIBUS_API PropertiesPalette_Shadow : public PropTreeWidget
+{
+	Q_OBJECT
+
+public:
+	PropertiesPalette_Shadow(QWidget* parent);
+	~PropertiesPalette_Shadow() {};
+
+	virtual void changeEvent(QEvent *e);
+	void updateColorList();
+
+private:
+
+	PageItem* currentItemFromSelection();
+
+public slots:
+	void setMainWindow(ScribusMainWindow *mw);
+
+	void setDoc(ScribusDoc *d);
+	void setCurrentItem(PageItem *i);
+	void unsetDoc();
+	void unsetItem();
+
+	void languageChange();
+	void unitChange();
+	void handleSelectionChanged();
+	void handleUpdateRequest(int);
+
+private slots:
+	void handleNewValues();
+	void handleShadow(bool value);
+	void handleNewXOffset(double value);
+	void handleNewYOffset(double value);
+	void handleNewBlur(double value);
+	void handleNewColor(QString value);
+	void handleNewShade(double value);
+	void handleNewOpacity(double value);
+	void handleNewBlendmode(int value);
+
+protected slots:
+	void updateSpinBoxConstants();
+
+protected:
+	PropTreeItem *hasSoftShadow;
+	PropTreeItem *softShadowXOffset;
+	PropTreeItem *softShadowYOffset;
+	PropTreeItem *softShadowBlurRadius;
+	PropTreeItem *colorProps;
+	PropTreeItem *softShadowColor;
+	PropTreeItem *softShadowShade;
+	PropTreeItem *softShadowOpacity;
+	PropTreeItem *softShadowBlendMode;
+	ScribusMainWindow *m_ScMW;
+
+	bool      m_haveDoc;
+	bool      m_haveItem;
+	double    m_unitRatio;
+	int       m_unitIndex;
+	PageItem *m_item;
+	ScGuardedPtr<ScribusDoc> m_doc;
+};
+
+/*
 #include "ui_propertiespalette_shadowbase.h"
 
 #include "scribusapi.h"
@@ -30,7 +104,7 @@ public:
 
 	virtual void changeEvent(QEvent *e);
 
-	/** @brief Returns true if there is a user action going on at the moment of call. */
+//	 @brief Returns true if there is a user action going on at the moment of call.
 	bool userActionOn(); // not yet implemented!!! This is needed badly.
                          // When user releases the mouse button or arrow key, changes must be checked
                          // and if in ScribusView a groupTransaction has been started it must be also
@@ -76,5 +150,5 @@ protected:
 	UserActionSniffer *userActionSniffer;
 	void installSniffer(ScrSpinBox *spinBox);
 };
-
+*/
 #endif

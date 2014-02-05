@@ -138,7 +138,7 @@ SET(SCRIBUS_UI_SRC
   ui/propertiespalette_groupbase.ui
   ui/propertiespalette_imagebase.ui
   ui/propertiespalette_linebase.ui
-  ui/propertiespalette_shadowbase.ui
+#  ui/propertiespalette_shadowbase.ui
   ui/propertiespalette_shapebase.ui
   ui/propertiespalette_tablebase.ui
   ui/propertiespalette_textbase.ui
@@ -419,6 +419,7 @@ SET(SCRIBUS_MOC_CLASSES
   ui/propertywidget_orphans.h
   ui/propertywidget_pathtext.h
   ui/propertywidget_textcolor.h
+  ui/proptree.h
   ui/query.h
   ui/replacecolors.h
   ui/replaceonecolor.h
@@ -867,6 +868,7 @@ SET(SCRIBUS_SOURCES
   ui/propertywidget_pathtext.cpp
   ui/propertywidget_textcolor.cpp
   ui/propertywidgetbase.cpp
+  ui/proptree.cpp
   ui/query.cpp
   ui/replacecolors.cpp
   ui/replaceonecolor.cpp

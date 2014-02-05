@@ -30,7 +30,6 @@ for which a new license (GPL+exception) is in place.
 
 #include "sctreewidget.h"
 
-
 ScTreeWidgetDelegate::ScTreeWidgetDelegate(QTreeWidget *view, QWidget *parent) : QItemDelegate(parent), m_view(view)
 {
 }
@@ -130,9 +129,12 @@ QTreeWidgetItem* ScTreeWidget::addWidget(QString title, QWidget* widget)
 	QTreeWidgetItem *item2 = new QTreeWidgetItem(item1);
 	item2->setFlags(Qt::ItemIsEnabled);
 // hack to work around a bug in Qt-4.3.4
-	widget->layout()->activate();
-	widget->setMinimumSize(widget->layout()->minimumSize());
-	item2->setSizeHint(0, widget->layout()->minimumSize());
+	if (widget->layout())
+	{
+		widget->layout()->activate();
+		widget->setMinimumSize(widget->layout()->minimumSize());
+		item2->setSizeHint(0, widget->layout()->minimumSize());
+	}
 // end hack
 	setItemWidget(item2, 0, widget);
 	QKeySequence newMnemonic = QKeySequence::mnemonic(title);
