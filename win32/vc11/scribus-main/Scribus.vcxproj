@@ -560,6 +560,7 @@
     <moc Include="..\..\..\scribus\ui\replacecolors.h" />
     <moc Include="..\..\..\scribus\ui\replaceonecolor.h" />
     <moc Include="..\..\..\scribus\upgradechecker.h" />
+    <moc Include="..\..\..\scribus\ui\proptree.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="..\..\..\scribus\resourcecollection.h" />
     <moc Include="..\..\..\scribus\ui\rulermover.h" />
@@ -1137,6 +1138,7 @@
     <ClCompile Include="..\..\..\scribus\ui\mergedoc.cpp" />
     <ClCompile Include="..\..\..\scribus\mesh.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\missing.cpp" />
+    <ClCompile Include="..\..\..\scribus\ui\moc_proptree.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\modetoolbar.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\movepage.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\multipleduplicate.cpp" />
@@ -1253,6 +1255,7 @@
     <ClCompile Include="..\..\..\scribus\ui\propertywidget_textcolor.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\propertywidgetbase.cpp" />
     <ClCompile Include="..\..\..\scribus\pslib.cpp" />
+    <ClCompile Include="..\..\..\scribus\ui\proptree.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\query.cpp" />
     <ClCompile Include="..\..\..\scribus\rawimage.cpp" />
     <ClCompile Include="..\..\..\scribus\rc4.c">

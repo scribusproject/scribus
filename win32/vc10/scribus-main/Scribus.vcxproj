@@ -447,6 +447,7 @@
     <moc Include="..\..\..\scribus\ui\replacecolors.h" />
     <moc Include="..\..\..\scribus\ui\replaceonecolor.h" />
     <moc Include="..\..\..\scribus\upgradechecker.h" />
+    <moc Include="..\..\..\scribus\ui\proptree.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="..\..\..\scribus\resourcecollection.h" />
     <moc Include="..\..\..\scribus\ui\rulermover.h" />
@@ -708,7 +709,7 @@
     <ClInclude Include="..\..\..\scribus\ui\ui_propertiespalette_groupbase.h" />
     <ClInclude Include="..\..\..\scribus\ui\ui_propertiespalette_imagebase.h" />
     <ClInclude Include="..\..\..\scribus\ui\ui_propertiespalette_linebase.h" />
-	<ClInclude Include="..\..\..\scribus\ui\ui_propertiespalette_shadowbase.h" />
+    <ClInclude Include="..\..\..\scribus\ui\ui_propertiespalette_shadowbase.h" />
     <ClInclude Include="..\..\..\scribus\ui\ui_propertiespalette_shapebase.h" />
     <ClInclude Include="..\..\..\scribus\ui\ui_propertiespalette_tablebase.h" />
     <ClInclude Include="..\..\..\scribus\ui\ui_propertiespalette_textbase.h" />
@@ -988,6 +989,7 @@
     <ClCompile Include="..\..\..\scribus\ui\mergedoc.cpp" />
     <ClCompile Include="..\..\..\scribus\mesh.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\missing.cpp" />
+    <ClCompile Include="..\..\..\scribus\ui\moc_proptree.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\modetoolbar.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\movepage.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\multipleduplicate.cpp" />
@@ -1088,7 +1090,7 @@
     <ClCompile Include="..\..\..\scribus\ui\propertiespalette_group.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\propertiespalette_image.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\propertiespalette_line.cpp" />
-	<ClCompile Include="..\..\..\scribus\ui\propertiespalette_shadow.cpp" />
+    <ClCompile Include="..\..\..\scribus\ui\propertiespalette_shadow.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\propertiespalette_shape.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\propertiespalette_table.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\propertiespalette_text.cpp" />
@@ -1104,6 +1106,7 @@
     <ClCompile Include="..\..\..\scribus\ui\propertywidget_textcolor.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\propertywidgetbase.cpp" />
     <ClCompile Include="..\..\..\scribus\pslib.cpp" />
+    <ClCompile Include="..\..\..\scribus\ui\proptree.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\query.cpp" />
     <ClCompile Include="..\..\..\scribus\rawimage.cpp" />
     <ClCompile Include="..\..\..\scribus\rc4.c">
@@ -1520,7 +1523,7 @@
     <ClCompile Include="..\..\..\scribus\ui\moc_propertiespalette_group.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\moc_propertiespalette_image.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\moc_propertiespalette_line.cpp" />
-	<ClCompile Include="..\..\..\scribus\ui\moc_propertiespalette_shadow.cpp" />
+    <ClCompile Include="..\..\..\scribus\ui\moc_propertiespalette_shadow.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\moc_propertiespalette_shape.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\moc_propertiespalette_table.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\moc_propertiespalette_text.cpp" />
@@ -1726,7 +1729,7 @@
     <uic Include="..\..\..\scribus\ui\propertiespalette_groupbase.ui" />
     <uic Include="..\..\..\scribus\ui\propertiespalette_imagebase.ui" />
     <uic Include="..\..\..\scribus\ui\propertiespalette_linebase.ui" />
-	<uic Include="..\..\..\scribus\ui\propertiespalette_shadowbase.ui" />
+    <uic Include="..\..\..\scribus\ui\propertiespalette_shadowbase.ui" />
     <uic Include="..\..\..\scribus\ui\propertiespalette_shapebase.ui" />
     <uic Include="..\..\..\scribus\ui\propertiespalette_tablebase.ui" />
     <uic Include="..\..\..\scribus\ui\propertiespalette_textbase.ui" />
