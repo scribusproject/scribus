@@ -1315,7 +1315,7 @@ void RawPainter::applyFill(PageItem* ite)
 				meshGradientPatch patch;
 				patch.BL = cP;
 				patch.BR = cP;
-				if (ite->PoLine.point(poi).x() > 900000)
+				if (ite->PoLine.isMarker(poi))
 					continue;
 				meshPoint tL;
 				tL.resetTo(ite->PoLine.point(poi));

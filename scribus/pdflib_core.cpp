@@ -1225,10 +1225,10 @@ bool PDFLibCore::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QStrin
 				UsedFontsP.insert(it.key(), "/Fo"+QString::number(a));
 				uint SubFonts = 0;
 				int glyphCount = 0;
-				double minx = 999999.9;
-				double miny = 999999.9;
-				double maxx = -999999.9;
-				double maxy = -999999.9;
+				double minx =  std::numeric_limits<double>::max();
+				double miny =  std::numeric_limits<double>::max();
+				double maxx = -std::numeric_limits<double>::max();
+				double maxy = -std::numeric_limits<double>::max();
 				QList<uint> glyphWidths;
 				QStringList charProcs;
 				QString encoding = "<< /Type /Encoding\n/Differences [ 0\n";
@@ -1252,7 +1252,7 @@ bool PDFLibCore::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QStrin
 						gly.translate(0, 1000);
 						for (int poi = 0; poi < gly.size()-3; poi += 4)
 						{
-							if (gly.point(poi).x() > 900000)
+							if (gly.isMarker(poi))
 							{
 								fon += "h\n";
 								nPath = true;
@@ -1339,10 +1339,10 @@ bool PDFLibCore::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QStrin
 //						glyphMapping.clear();
 						glyphCount = 0;
 						++SubFonts;
-						minx = 999999.9;
-						miny = 999999.9;
-						maxx = -999999.9;
-						maxy = -999999.9;
+						minx =  std::numeric_limits<double>::max();
+						miny =  std::numeric_limits<double>::max();
+						maxx = -std::numeric_limits<double>::max();
+						maxy = -std::numeric_limits<double>::max();
 						encoding = "<< /Type /Encoding\n/Differences [ 0\n";
 					}
 				}
@@ -1366,7 +1366,7 @@ bool PDFLibCore::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QStrin
 						gly.map(mat);
 						for (int poi = 0; poi < gly.size()-3; poi += 4)
 						{
-							if (gly.point(poi).x() > 900000)
+							if (gly.isMarker(poi))
 							{
 								fon += "h\n";
 								nPath = true;
@@ -5472,7 +5472,7 @@ bool PDFLibCore::setTextCh(PageItem *ite, uint PNr, double x, double y, uint d, 
 					{
 						for (int poi=0; poi<gly.size()-3; poi += 4)
 						{
-							if (gly.point(poi).x() > 900000)
+							if (gly.isMarker(poi))
 							{
 								tmp2 += "h\n";
 								nPath = true;
@@ -5577,7 +5577,7 @@ bool PDFLibCore::setTextCh(PageItem *ite, uint PNr, double x, double y, uint d, 
 					{
 						for (int poi=0; poi<gly.size()-3; poi += 4)
 						{
-							if (gly.point(poi).x() > 900000)
+							if (gly.isMarker(poi))
 							{
 								tmp2 += "h\n";
 								nPath = true;
@@ -5866,7 +5866,7 @@ QString PDFLibCore::SetClipPath(PageItem *ite, bool poly)
 
 	for (int poi=0; poi<ite->PoLine.size()-3; poi += 4)
 	{
-		if (ite->PoLine.point(poi).x() > 900000)
+		if (ite->PoLine.isMarker(poi))
 		{
 			nPath = true;
 			continue;
@@ -5910,7 +5910,7 @@ QString PDFLibCore::SetClipPathArray(FPointArray *ite, bool poly)
 
 	for (int poi=0; poi<ite->size()-3; poi += 4)
 	{
-		if (ite->point(poi).x() > 900000)
+		if (ite->isMarker(poi))
 		{
 			nPath = true;
 			continue;
@@ -5952,7 +5952,7 @@ QString PDFLibCore::SetClipPathImage(PageItem *ite)
 	bool nPath = true;
 	for (int poi=0; poi<ite->imageClip.size()-3; poi += 4)
 	{
-		if (ite->imageClip.point(poi).x() > 900000)
+		if (ite->imageClip.isMarker(poi))
 		{
 			tmp += "h\n";
 			nPath = true;

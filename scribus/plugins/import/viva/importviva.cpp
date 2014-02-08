@@ -1514,7 +1514,7 @@ PageItem* VivaPlug::parseObjectDetailsXML(const QDomElement& obNode, int baseTyp
 					meshGradientPatch patch;
 					patch.BL = cP;
 					patch.BR = cP;
-					if (item->PoLine.point(poi).x() > 900000)
+					if (item->PoLine.isMarker(poi))
 						continue;
 					meshPoint tL;
 					tL.resetTo(item->PoLine.point(poi));

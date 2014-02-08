@@ -33,6 +33,7 @@ for which a new license (GPL+exception) is in place.
 #include <QVector>
 
 #include "util.h"
+#include "sclimits.h"
 
 using namespace std;
 
@@ -183,7 +184,7 @@ void FPointArray::translate( double dx, double dy )
 	pend += QVector<FPoint>::count();
 	for (Iterator p = begin(); p != pend; p++)
 	{
-		if (p->x() < 900000)
+		if (!isMarkerI(p))
 			*p += pt;
 	}
 }
@@ -194,9 +195,8 @@ void FPointArray::scale( double sx, double sy )
 	pend += QVector<FPoint>::count();
 	for (Iterator p = begin(); p != pend; p++)
 	{
-		if (p->x() < 900000) {
+		if (!isMarkerI(p))
 			p->setXY(p->x() * sx, p->y() * sy);
-		}
 	}
 }
 
@@ -213,7 +213,7 @@ FPoint FPointArray::WidthHeight() const
 	miny = maxy = pd->yp;
 	for ( ++pd; pd != pend; ++pd )
 	{	// find min+max x and y
-		if (pd->xp > 900000)
+		if (isMarkerI(pd))
 		{
 			continue;
 		}
@@ -244,7 +244,7 @@ void FPointArray::map( QTransform m )
 	pend += QVector<FPoint>::count();
 	for (Iterator p = begin(); p != pend; p++)
 	{
-		if (p->xp > 900000)
+		if (isMarkerD(p->xp, p->yp))
 		{
 			mx = p->xp;
 			my = p->yp;
@@ -261,10 +261,27 @@ void FPointArray::map( QTransform m )
 
 void FPointArray::setMarker()
 {
-	addQuadPoint(999999.0, 999999.0,
-				999999.0, 999999.0,
-				999999.0, 999999.0,
-				999999.0, 999999.0);
+	double maxVal = std::numeric_limits<double>::max() / 2.0;
+	addQuadPoint(maxVal, maxVal, maxVal, maxVal, maxVal, maxVal, maxVal, maxVal);
+}
+
+bool FPointArray::isMarker(int pos) const
+{
+	double maxVal = std::numeric_limits<double>::max() / 3.0;
+	const FPoint& p = QVector<FPoint>::at(pos);
+	return ((p.x() >= maxVal) && (p.y() >= maxVal));
+}
+
+bool FPointArray::isMarkerI(ConstIterator p) const
+{
+	double maxVal = std::numeric_limits<double>::max() / 3.0;
+	return ((p->xp >= maxVal) && (p->yp >= maxVal));
+}
+
+bool FPointArray::isMarkerD(double x, double y) const
+{
+	double maxVal = std::numeric_limits<double>::max() / 3.0;
+	return ((x >= maxVal) && (y >= maxVal));
 }
 
 void FPointArray::addPoint(double x, double y)
@@ -485,7 +502,7 @@ QString FPointArray::svgPath(bool closed) const
 	{
 		for (int poi=0; poi < size()-3; poi += 4)
 		{
-			if (point(poi).x() > 900000)
+			if (isMarker(poi))
 			{
 				nPath = true;
 				continue;
@@ -527,7 +544,7 @@ QPainterPath FPointArray::toQPainterPath(bool closed)
 	{
 		for (int poi = 0; poi < size()-3; poi += 4)
 		{
-			if (point(poi).x() > 900000)
+			if (isMarker(poi))
 			{
 				nPath = true;
 				continue;

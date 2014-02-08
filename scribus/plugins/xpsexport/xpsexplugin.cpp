@@ -2529,7 +2529,7 @@ QString XPSExPlug::SetClipPath(FPointArray *ite, bool closed)
 
 	for (int poi=0; poi<ite->size()-3; poi += 4)
 	{
-		if (ite->point(poi).x() > 900000)
+		if (ite->isMarker(poi))
 		{
 			nPath = true;
 			continue;

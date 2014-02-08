@@ -91,7 +91,7 @@ void CanvasMode_NodeEdit::drawControls(QPainter* p)
 	{
 		for (int poi=0; poi<cli.size()-3; poi += 4)
 		{
-			if (cli.point(poi).x() > 900000)
+			if (cli.isMarker(poi))
 				continue;
 			p->setPen(QPen(Qt::blue, onePerScale, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
 			FPoint a1 = cli.point(poi);
@@ -110,7 +110,7 @@ void CanvasMode_NodeEdit::drawControls(QPainter* p)
 	// draw points
 	for (int a = 0; a < cli.size()-1; a += 2)
 	{
-		if (cli.point(a).x() > 900000)
+		if (cli.isMarker(a))
 			continue;
 		if (m_doc->nodeEdit.EdPoints)
 		{
@@ -198,7 +198,7 @@ void CanvasMode_NodeEdit::activate(bool fromGesture)
 		}
 		for (int a = 0; a < Clip.size(); ++a)
 		{
-			if (Clip.point(a).x() > 900000)
+			if (Clip.isMarker(a))
 				continue;
 			FPoint np = Clip.point(a);
 			FPoint npf2 = np.transformPoint(pm2, false);
@@ -564,7 +564,7 @@ void CanvasMode_NodeEdit::handleNodeEditPress(QMouseEvent* m, QRect)
 	{
 		for (int n = m_doc->nodeEdit.ClRe; n < Clip.size(); ++n)
 		{
-			if (Clip.point(n).x() > 900000)
+			if (Clip.isMarker(n))
 			{
 				EndInd = n;
 				break;
@@ -574,7 +574,7 @@ void CanvasMode_NodeEdit::handleNodeEditPress(QMouseEvent* m, QRect)
 		{
 			if (n2 == 0)
 				break;
-			if (Clip.point(n2).x() > 900000)
+			if (Clip.isMarker(n2))
 			{
 				StartInd = n2 + 1;
 				break;
@@ -665,7 +665,7 @@ void CanvasMode_NodeEdit::handleNodeEditPress(QMouseEvent* m, QRect)
 				StartInd = 0;
 				for (int n = m_doc->nodeEdit.ClRe; n < Clip.size(); ++n)
 				{
-					if (Clip.point(n).x() > 900000)
+					if (Clip.isMarker(n))
 					{
 						EndInd = n;
 						break;
@@ -677,7 +677,7 @@ void CanvasMode_NodeEdit::handleNodeEditPress(QMouseEvent* m, QRect)
 					{
 						if (n2 == 0)
 							break;
-						if (Clip.point(n2).x() > 900000)
+						if (Clip.isMarker(n2))
 						{
 							StartInd = n2 + 1;
 							break;

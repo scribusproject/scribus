@@ -121,7 +121,7 @@ bool SubdividePlugin::run(ScribusDoc* doc, QString)
 				uint psize = currItem->ContourLine.size();
 				for (uint a = 0; a < psize-3; a += 4)
 				{
-					if (currItem->ContourLine.point(a).x() > 900000)
+					if (currItem->ContourLine.isMarker(a))
 					{
 						points.setMarker();
 						continue;
@@ -165,7 +165,7 @@ bool SubdividePlugin::run(ScribusDoc* doc, QString)
 				uint psize = currItem->PoLine.size();
 				for (uint a = 0; a < psize-3; a += 4)
 				{
-					if (currItem->PoLine.point(a).x() > 900000)
+					if (currItem->PoLine.isMarker(a))
 					{
 						points.setMarker();
 						continue;

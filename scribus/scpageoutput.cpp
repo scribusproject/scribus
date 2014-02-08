@@ -1270,7 +1270,7 @@ void ScPageOutput::drawItem_PolyLine( PageItem_PolyLine* item, ScPainterExBase* 
 				Start = item->PoLine.point(n);
 				firstp = false;
 			}
-			if (item->PoLine.point(n).x() > 900000)
+			if (item->PoLine.isMarker(n))
 			{
 				cli.addPoint(item->PoLine.point(n-2));
 				cli.addPoint(item->PoLine.point(n-2));
@@ -1436,7 +1436,7 @@ void ScPageOutput::drawItem_Spiral( PageItem_Spiral* item, ScPainterExBase* pain
 				Start = item->PoLine.point(n);
 				firstp = false;
 			}
-			if (item->PoLine.point(n).x() > 900000)
+			if (item->PoLine.isMarker(n))
 			{
 				cli.addPoint(item->PoLine.point(n-2));
 				cli.addPoint(item->PoLine.point(n-2));

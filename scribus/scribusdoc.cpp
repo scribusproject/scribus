@@ -2519,7 +2519,7 @@ void ScribusDoc::addSymbols()
 	symNewLine.addQuadPoint(0.96875, 3.125, 0.96875, 3.125, 6.75, 3.125, 6.75, 3.125);
 	symNewLine.addQuadPoint(6.75, 3.125, 6.75, 3.125, 6.51562, 2.625, 6.51562, 2.625);
 	symNewLine.addQuadPoint(6.51562, 2.625, 6.51562, 2.625, 6.51562, 2.625, 6.51562, 2.625);
-	symNewLine.addQuadPoint(999999, 999999, 999999, 999999, 999999, 999999, 999999, 999999);
+	symNewLine.setMarker();
 	symNewLine.addQuadPoint(6.875, 0, 6.875, 0, 6.51562, 0, 6.51562, 0);
 	symNewLine.addQuadPoint(6.51562, 0, 6.51562, 0, 6.51562, 2.84375, 6.51562, 2.84375);
 	symNewLine.addQuadPoint(6.51562, 2.84375, 6.51562, 2.84375, 6.75, 3.125, 6.51562, 3.125);
@@ -13514,7 +13514,7 @@ void ScribusDoc::invalidateLayer(int layerID)
 		{
 			ite = allItems.at(ii);
 			if (ite->LayerID == layerID)
-				ite->invalidateLayout();
+					ite->invalidateLayout();
 		}
 		allItems.clear();
 	}
@@ -15620,7 +15620,7 @@ void ScribusDoc::itemSelection_SplitItems(Selection* /*customSelection*/)
 		m_Selection->addItem(currItem);
 		for (uint a = EndInd-1; a > 0; --a)
 		{
-			if (currItem->PoLine.point(a).x() > 900000)
+			if (currItem->PoLine.isMarker(a))
 			{
 				StartInd = a + 1;
 				bb = new PageItem_Polygon(*currItem);
@@ -16043,7 +16043,7 @@ void NodeEditContext::moveClipPoint(PageItem *currItem, FPoint ip)
 	uint StartInd = 0;
 	for (int n = ClRe; n < Clip.size(); ++n)
 	{
-		if (Clip.point(n).x() > 900000)
+		if (Clip.isMarker(n))
 		{
 			EndInd = n;
 			break;
@@ -16055,7 +16055,7 @@ void NodeEditContext::moveClipPoint(PageItem *currItem, FPoint ip)
 		{
 			if (n2 == 0)
 				break;
-			if (Clip.point(n2).x() > 900000)
+			if (Clip.isMarker(n2))
 			{
 				StartInd = n2 + 1;
 				break;
@@ -16273,7 +16273,7 @@ void NodeEditContext::resetControl(PageItem* currItem)
 	int StartInd = 0;
 	for (int n = ClRe; n < Clip.size(); ++n)
 	{
-		if (Clip.point(n).x() > 900000)
+		if (Clip.isMarker(n))
 		{
 			EndInd = n;
 			break;
@@ -16285,7 +16285,7 @@ void NodeEditContext::resetControl(PageItem* currItem)
 		{
 			if (n2 == 0)
 				break;
-			if (Clip.point(n2).x() > 900000)
+			if (Clip.isMarker(n2))
 			{
 				StartInd = n2 + 1;
 				break;

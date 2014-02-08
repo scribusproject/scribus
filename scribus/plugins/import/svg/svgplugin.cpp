@@ -1648,8 +1648,16 @@ QList<PageItem*> SVGPlug::parsePolyline(const QDomElement &e)
 			ite->PoLine.svgClosePath();
 		else
 			ite->convertTo(PageItem::PolyLine);
-		finishNode(e, ite);
-		PElements.append(ite);
+		if (ite->PoLine.size() < 4)
+		{
+			tmpSel->addItem(ite);
+			m_Doc->itemSelection_DeleteItem(tmpSel);
+		}
+		else
+		{
+			finishNode(e, ite);
+			PElements.append(ite);
+		}
 	}
 	delete( m_gc.pop() );
 	return PElements;

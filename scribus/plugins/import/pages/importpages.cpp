@@ -200,6 +200,7 @@ bool PagesPlug::import(QString fNameIn, const TransactionSettings& trSettings, i
 	bool ret = false;
 	firstPage = true;
 	pagecount = 1;
+	mpagecount = 0;
 	QFileInfo fi = QFileInfo(fName);
 	if ( !ScCore->usingGUI() )
 	{
@@ -389,10 +390,8 @@ bool PagesPlug::convert(QString fn)
 	bool retVal = true;
 	importedColors.clear();
 	importedPatterns.clear();
-	m_objStyles.clear();
-	m_parStyles.clear();
-	m_chrStyles.clear();
-	m_layoutStyles.clear();
+	m_StyleSheets.clear();
+	m_currentStyleSheet = "";
 	if(progressDialog)
 	{
 		progressDialog->setOverallProgress(2);
@@ -488,9 +487,53 @@ bool PagesPlug::parseDocReference(QString designMap, bool compressed)
 			baseX = m_Doc->currentPage()->xOffset();
 			baseY = m_Doc->currentPage()->yOffset();
 		}
+		else if (drawPag.tagName() == "sl:section-prototypes")
+		{
+			for(QDomElement sp = drawPag.firstChildElement(); !sp.isNull(); sp = sp.nextSiblingElement() )
+			{
+				if (sp.tagName() == "sl:prototype")
+				{
+					QString pageNam = sp.attribute("sl:name");
+					if (!pageNam.isEmpty())
+					{
+						if (importerFlags & LoadSavePlugin::lfCreateDoc)
+						{
+							m_Doc->setMasterPageMode(true);
+							ScPage *oldCur = m_Doc->currentPage();
+							ScPage *addedPage = m_Doc->addMasterPage(mpagecount, pageNam);
+							m_Doc->setCurrentPage(addedPage);
+							addedPage->MPageNam = "";
+							m_Doc->view()->addPage(mpagecount, true);
+							baseX = addedPage->xOffset();
+							baseY = addedPage->yOffset();
+							mpagecount++;
+							for(QDomElement spd = sp.firstChildElement(); !spd.isNull(); spd = spd.nextSiblingElement() )
+							{
+								if (spd.tagName() == "sl:stylesheet")
+								{
+									parseStyleSheets(spd);
+									m_currentStyleSheet = spd.attribute("sfa:ID");
+								}
+								else if (spd.tagName() == "sl:drawables")
+								{
+									for(QDomElement spe = spd.firstChildElement(); !spe.isNull(); spe = spe.nextSiblingElement() )
+									{
+										if (spe.tagName() == "sl:page-group")
+											parsePageReference(spe);
+									}
+								}
+							}
+							m_Doc->setCurrentPage(oldCur);
+							m_Doc->setMasterPageMode(false);
+						}
+					}
+				}
+			}
+		}
 		else if (drawPag.tagName() == "sl:stylesheet")
 		{
 			parseStyleSheets(drawPag);
+			m_currentStyleSheet = drawPag.attribute("sfa:ID");
 		}
 		else if (drawPag.tagName() == "sl:drawables")
 		{
@@ -544,12 +587,109 @@ bool PagesPlug::parseDocReference(QString designMap, bool compressed)
 				}
 			}
 		}
+		else if (drawPag.tagName() == "sf:text-storage")
+		{
+			for(QDomElement spf = drawPag.firstChildElement(); !spf.isNull(); spf = spf.nextSiblingElement() )
+			{
+				if (spf.tagName() == "sf:stylesheet-ref")
+				{
+					m_currentStyleSheet = spf.attribute("sfa:IDREF");
+				}
+				else if (spf.tagName() == "sf:text-body")
+				{
+					int txPage = 0;
+					StoryText itemText;
+					itemText.clear();
+					itemText.setDoc(m_Doc);
+					int posC = 0;
+					QString pStyle = CommonStrings::DefaultParagraphStyle;
+					ParagraphStyle newStyle;
+					newStyle.setDefaultStyle(false);
+					newStyle.setParent(pStyle);
+					ParagraphStyle ttx = m_Doc->paragraphStyle(pStyle);
+					CharStyle nstyle = ttx.charStyle();
+					newStyle.setLineSpacingMode(ParagraphStyle::FixedLineSpacing);
+					newStyle.setLineSpacing(nstyle.fontSize() / 10.0);
+					itemText.setDefaultStyle(newStyle);
+					for(QDomElement spg = spf.firstChildElement(); !spg.isNull(); spg = spg.nextSiblingElement() )
+					{
+						if (spg.tagName() == "sf:container-hint")
+						{
+							txPage = spg.attribute("sf:page-index").toInt();
+						}
+						else if (spg.tagName() == "sf:p")
+						{
+							ParagraphStyle tmpStyle = newStyle;
+							if (!spg.attribute("sf:style").isEmpty())
+							{
+								if (m_Doc->styleExists(spg.attribute("sf:style")))
+									tmpStyle = m_Doc->paragraphStyle(spg.attribute("sf:style"));
+								else
+								{
+									tmpStyle.setName(spg.attribute("sf:style"));
+									applyParagraphAttrs(tmpStyle, tmpStyle.charStyle(), spg.attribute("sf:style"));
+									StyleSet<ParagraphStyle>tmp;
+									tmp.create(tmpStyle);
+									m_Doc->redefineStyles(tmp, false);
+								}
+							}
+							int totalCount = 0;
+							if (spg.hasChildNodes())
+							{
+								for(QDomElement sph = spg.firstChildElement(); !sph.isNull(); sph = sph.nextSiblingElement() )
+								{
+									totalCount += sph.text().length();
+									if (sph.tagName() == "sf:container-hint")
+									{
+										txPage = sph.attribute("sf:page-index").toInt();
+									}
+								}
+							}
+							int count = spg.text().length();
+							QString tgText = spg.text();
+							tgText = tgText.left(count - totalCount);
+							if (tgText.length() > 0)
+							{
+								itemText.insertChars(posC, tgText);
+								itemText.applyStyle(posC, tmpStyle);
+								itemText.applyCharStyle(posC, count - totalCount, tmpStyle.charStyle());
+								posC = itemText.length();
+							}
+							if (spg.hasChildNodes())
+							{
+								for(QDomElement sph = spg.firstChildElement(); !sph.isNull(); sph = sph.nextSiblingElement() )
+								{
+									if (sph.tagName() == "sf:span")
+									{
+										CharStyle tmpCStyle = tmpStyle.charStyle();
+										applyCharAttrs(tmpCStyle, sph.attribute("sf:style"));
+										int count = sph.text().length();
+										if (count > 0)
+										{
+											itemText.insertChars(posC, sph.text());
+											itemText.applyStyle(posC, tmpStyle);
+											itemText.applyCharStyle(posC, count, tmpCStyle);
+											posC = itemText.length();
+										}
+									}
+								}
+							}
+							itemText.insertChars(posC, SpecialChars::PARSEP);
+							itemText.applyStyle(posC, tmpStyle);
+							posC = itemText.length();
+						}
+					}
+				}
+			}
+		}
 	}
 	return true;
 }
 
 void PagesPlug::parseStyleSheets(QDomElement &drawPag)
 {
+	QString sheetName = drawPag.attribute("sfa:ID");
+	StyleSheet styleSH;
 	for(QDomElement sp = drawPag.firstChildElement(); !sp.isNull(); sp = sp.nextSiblingElement() )
 	{
 		if ((sp.tagName() == "sf:styles") || (sp.tagName() == "sf:anon-styles"))
@@ -652,11 +792,11 @@ void PagesPlug::parseStyleSheets(QDomElement &drawPag)
 					QString i = spd.attribute("sf:ident");
 					QString i2 = spd.attribute("sf:name");
 					if (!id.isEmpty())
-						m_chrStyles.insert(id, currStyle);
+						styleSH.m_chrStyles.insert(id, currStyle);
 					else if (!i.isEmpty())
-						m_chrStyles.insert(i, currStyle);
+						styleSH.m_chrStyles.insert(i, currStyle);
 					else if (!i2.isEmpty())
-						m_chrStyles.insert(i2, currStyle);
+						styleSH.m_chrStyles.insert(i2, currStyle);
 				}
 				if (spd.tagName() == "sf:paragraphstyle")
 				{
@@ -763,11 +903,11 @@ void PagesPlug::parseStyleSheets(QDomElement &drawPag)
 					QString i = spd.attribute("sf:ident");
 					QString i2 = spd.attribute("sf:name");
 					if (!id.isEmpty())
-						m_parStyles.insert(id, currStyle);
+						styleSH.m_parStyles.insert(id, currStyle);
 					else if (!i.isEmpty())
-						m_parStyles.insert(i, currStyle);
+						styleSH.m_parStyles.insert(i, currStyle);
 					else if (!i2.isEmpty())
-						m_parStyles.insert(i2, currStyle);
+						styleSH.m_parStyles.insert(i2, currStyle);
 				}
 				else if (spd.tagName() == "sf:layoutstyle")
 				{
@@ -801,11 +941,11 @@ void PagesPlug::parseStyleSheets(QDomElement &drawPag)
 					QString i = spd.attribute("sf:ident");
 					QString i2 = spd.attribute("sf:name");
 					if (!id.isEmpty())
-						m_layoutStyles.insert(id, currStyle);
+						styleSH.m_layoutStyles.insert(id, currStyle);
 					else if (!i.isEmpty())
-						m_layoutStyles.insert(i, currStyle);
+						styleSH.m_layoutStyles.insert(i, currStyle);
 					else if (!i2.isEmpty())
-						m_layoutStyles.insert(i2, currStyle);
+						styleSH.m_layoutStyles.insert(i2, currStyle);
 				}
 				else if (spd.tagName() == "sf:graphic-style")
 				{
@@ -970,15 +1110,16 @@ void PagesPlug::parseStyleSheets(QDomElement &drawPag)
 					QString i = spd.attribute("sf:ident");
 					QString i2 = spd.attribute("sf:name");
 					if (!id.isEmpty())
-						m_objStyles.insert(id, currStyle);
+						styleSH.m_objStyles.insert(id, currStyle);
 					else if (!i.isEmpty())
-						m_objStyles.insert(i, currStyle);
+						styleSH.m_objStyles.insert(i, currStyle);
 					else if (!i2.isEmpty())
-						m_objStyles.insert(i2, currStyle);
+						styleSH.m_objStyles.insert(i2, currStyle);
 				}
 			}
 		}
 	}
+	m_StyleSheets.insert(sheetName, styleSH);
 }
 
 void PagesPlug::parsePageReference(QDomElement &drawPag)
@@ -1418,17 +1559,20 @@ PageItem* PagesPlug::addClip(PageItem* retObj, ObjState &obState)
 
 void PagesPlug::applyParagraphAttrs(ParagraphStyle &newStyle, CharStyle &tmpCStyle, QString pAttrs)
 {
-	if (m_parStyles.contains(pAttrs))
+	if (!m_StyleSheets.contains(m_currentStyleSheet))
+		return;
+	StyleSheet currSH = m_StyleSheets[m_currentStyleSheet];
+	if (currSH.m_parStyles.contains(pAttrs))
 	{
 		ParStyle actStyle;
-		ParStyle currStyle = m_parStyles[pAttrs];
+		ParStyle currStyle = currSH.m_parStyles[pAttrs];
 		QStringList parents;
 		while (currStyle.parentStyle.valid)
 		{
-			if (m_parStyles.contains(currStyle.parentStyle.value))
+			if (currSH.m_parStyles.contains(currStyle.parentStyle.value))
 			{
 				parents.prepend(currStyle.parentStyle.value);
-				currStyle = m_parStyles[currStyle.parentStyle.value];
+				currStyle = currSH.m_parStyles[currStyle.parentStyle.value];
 			}
 			else
 				break;
@@ -1438,7 +1582,7 @@ void PagesPlug::applyParagraphAttrs(ParagraphStyle &newStyle, CharStyle &tmpCSty
 		{
 			for (int p = 0; p < parents.count(); p++)
 			{
-				currStyle = m_parStyles[parents[p]];
+				currStyle = currSH.m_parStyles[parents[p]];
 				if (currStyle.fontName.valid)
 					actStyle.fontName = AttributeValue(currStyle.fontName.value);
 				if (currStyle.fontSize.valid)
@@ -1474,17 +1618,20 @@ void PagesPlug::applyParagraphAttrs(ParagraphStyle &newStyle, CharStyle &tmpCSty
 
 void PagesPlug::applyCharAttrs(CharStyle &tmpCStyle, QString pAttrs)
 {
-	if (m_chrStyles.contains(pAttrs))
+	if (!m_StyleSheets.contains(m_currentStyleSheet))
+		return;
+	StyleSheet currSH = m_StyleSheets[m_currentStyleSheet];
+	if (currSH.m_chrStyles.contains(pAttrs))
 	{
 		ChrStyle actStyle;
-		ChrStyle currStyle = m_chrStyles[pAttrs];
+		ChrStyle currStyle = currSH.m_chrStyles[pAttrs];
 		QStringList parents;
 		while (currStyle.parentStyle.valid)
 		{
-			if (m_chrStyles.contains(currStyle.parentStyle.value))
+			if (currSH.m_chrStyles.contains(currStyle.parentStyle.value))
 			{
 				parents.prepend(currStyle.parentStyle.value);
-				currStyle = m_chrStyles[currStyle.parentStyle.value];
+				currStyle = currSH.m_chrStyles[currStyle.parentStyle.value];
 			}
 			else
 				break;
@@ -1494,7 +1641,7 @@ void PagesPlug::applyCharAttrs(CharStyle &tmpCStyle, QString pAttrs)
 		{
 			for (int p = 0; p < parents.count(); p++)
 			{
-				currStyle = m_chrStyles[parents[p]];
+				currStyle = currSH.m_chrStyles[parents[p]];
 				if (currStyle.fontName.valid)
 					actStyle.fontName = AttributeValue(currStyle.fontName.value);
 				if (currStyle.fontSize.valid)
@@ -1523,138 +1670,142 @@ void PagesPlug::finishItem(PageItem* item, ObjState &obState)
 	item->OldH2 = item->height();
 	item->updateClip();
 	item->OwnPage = m_Doc->OnPage(item);
-	if (!obState.layoutStyleRef.isEmpty())
+	if (m_StyleSheets.contains(m_currentStyleSheet))
 	{
-		if (m_layoutStyles.contains(obState.layoutStyleRef))
+		StyleSheet currSH = m_StyleSheets[m_currentStyleSheet];
+		if (!obState.layoutStyleRef.isEmpty())
 		{
-			LayoutStyle actStyle;
-			LayoutStyle currStyle = m_layoutStyles[obState.layoutStyleRef];
-			QStringList parents;
-			while (currStyle.parentStyle.valid)
+			if (currSH.m_layoutStyles.contains(obState.layoutStyleRef))
 			{
-				if (m_layoutStyles.contains(currStyle.parentStyle.value))
+				LayoutStyle actStyle;
+				LayoutStyle currStyle = currSH.m_layoutStyles[obState.layoutStyleRef];
+				QStringList parents;
+				while (currStyle.parentStyle.valid)
 				{
-					parents.prepend(currStyle.parentStyle.value);
-					currStyle = m_layoutStyles[currStyle.parentStyle.value];
+					if (currSH.m_layoutStyles.contains(currStyle.parentStyle.value))
+					{
+						parents.prepend(currStyle.parentStyle.value);
+						currStyle = currSH.m_layoutStyles[currStyle.parentStyle.value];
+					}
+					else
+						break;
 				}
-				else
-					break;
-			}
-			parents.append(obState.layoutStyleRef);
-			double textMarginLeft = 0.0;
-			double textMarginRight = 0.0;
-			double textMarginTop = 0.0;
-			double textMarginBottom = 0.0;
-			double textColumnGap = 0.0;
-			int textColumnCount = 1;
-			if (!parents.isEmpty())
-			{
-				for (int p = 0; p < parents.count(); p++)
+				parents.append(obState.layoutStyleRef);
+				double textMarginLeft = 0.0;
+				double textMarginRight = 0.0;
+				double textMarginTop = 0.0;
+				double textMarginBottom = 0.0;
+				double textColumnGap = 0.0;
+				int textColumnCount = 1;
+				if (!parents.isEmpty())
 				{
-					currStyle = m_layoutStyles[parents[p]];
-					if (currStyle.Extra.valid)
-						actStyle.Extra = AttributeValue(currStyle.Extra.value);
-					if (currStyle.RExtra.valid)
-						actStyle.RExtra = AttributeValue(currStyle.RExtra.value);
-					if (currStyle.TExtra.valid)
-						actStyle.TExtra = AttributeValue(currStyle.TExtra.value);
-					if (currStyle.BExtra.valid)
-						actStyle.BExtra = AttributeValue(currStyle.BExtra.value);
-					if (currStyle.TextColumnGutter.valid)
-						actStyle.TextColumnGutter = AttributeValue(currStyle.TextColumnGutter.value);
-					if (currStyle.TextColumnCount.valid)
-						actStyle.TextColumnCount = AttributeValue(currStyle.TextColumnCount.value);
+					for (int p = 0; p < parents.count(); p++)
+					{
+						currStyle = currSH.m_layoutStyles[parents[p]];
+						if (currStyle.Extra.valid)
+							actStyle.Extra = AttributeValue(currStyle.Extra.value);
+						if (currStyle.RExtra.valid)
+							actStyle.RExtra = AttributeValue(currStyle.RExtra.value);
+						if (currStyle.TExtra.valid)
+							actStyle.TExtra = AttributeValue(currStyle.TExtra.value);
+						if (currStyle.BExtra.valid)
+							actStyle.BExtra = AttributeValue(currStyle.BExtra.value);
+						if (currStyle.TextColumnGutter.valid)
+							actStyle.TextColumnGutter = AttributeValue(currStyle.TextColumnGutter.value);
+						if (currStyle.TextColumnCount.valid)
+							actStyle.TextColumnCount = AttributeValue(currStyle.TextColumnCount.value);
+					}
 				}
+				if (actStyle.Extra.valid)
+					textMarginLeft = actStyle.Extra.value.toDouble();
+				if (actStyle.RExtra.valid)
+					textMarginRight = actStyle.RExtra.value.toDouble();
+				if (actStyle.TExtra.valid)
+					textMarginTop = actStyle.TExtra.value.toDouble();
+				if (actStyle.BExtra.valid)
+					textMarginBottom = actStyle.BExtra.value.toDouble();
+				if (actStyle.TextColumnGutter.valid)
+					textColumnGap = actStyle.TextColumnGutter.value.toDouble();
+				if (actStyle.TextColumnCount.valid)
+					textColumnCount = actStyle.TextColumnCount.value.toInt();
+				item->setTextToFrameDist(textMarginLeft, textMarginRight, textMarginTop, textMarginBottom);
+				item->setColumns(textColumnCount);
+				item->setColumnGap(textColumnGap);
 			}
-			if (actStyle.Extra.valid)
-				textMarginLeft = actStyle.Extra.value.toDouble();
-			if (actStyle.RExtra.valid)
-				textMarginRight = actStyle.RExtra.value.toDouble();
-			if (actStyle.TExtra.valid)
-				textMarginTop = actStyle.TExtra.value.toDouble();
-			if (actStyle.BExtra.valid)
-				textMarginBottom = actStyle.BExtra.value.toDouble();
-			if (actStyle.TextColumnGutter.valid)
-				textColumnGap = actStyle.TextColumnGutter.value.toDouble();
-			if (actStyle.TextColumnCount.valid)
-				textColumnCount = actStyle.TextColumnCount.value.toInt();
-			item->setTextToFrameDist(textMarginLeft, textMarginRight, textMarginTop, textMarginBottom);
-			item->setColumns(textColumnCount);
-			item->setColumnGap(textColumnGap);
 		}
-	}
-	if (!obState.styleRef.isEmpty())
-	{
-		if (m_objStyles.contains(obState.styleRef))
+		if (!obState.styleRef.isEmpty())
 		{
-			ObjStyle actStyle;
-			ObjStyle currStyle = m_objStyles[obState.styleRef];
-			QStringList parents;
-			while (currStyle.parentStyle.valid)
+			if (currSH.m_objStyles.contains(obState.styleRef))
 			{
-				if (m_objStyles.contains(currStyle.parentStyle.value))
+				ObjStyle actStyle;
+				ObjStyle currStyle = currSH.m_objStyles[obState.styleRef];
+				QStringList parents;
+				while (currStyle.parentStyle.valid)
 				{
-					parents.prepend(currStyle.parentStyle.value);
-					currStyle = m_objStyles[currStyle.parentStyle.value];
+					if (currSH.m_objStyles.contains(currStyle.parentStyle.value))
+					{
+						parents.prepend(currStyle.parentStyle.value);
+						currStyle = currSH.m_objStyles[currStyle.parentStyle.value];
+					}
+					else
+						break;
 				}
-				else
-					break;
-			}
-			parents.append(obState.styleRef);
-			if (!parents.isEmpty())
-			{
-				for (int p = 0; p < parents.count(); p++)
+				parents.append(obState.styleRef);
+				if (!parents.isEmpty())
 				{
-					currStyle = m_objStyles[parents[p]];
-					if (currStyle.CurrColorFill.valid)
-						actStyle.CurrColorFill = AttributeValue(currStyle.CurrColorFill.value);
-					if (currStyle.CurrColorStroke.valid)
-						actStyle.CurrColorStroke = AttributeValue(currStyle.CurrColorStroke.value);
-					if (currStyle.fillOpacity.valid)
-						actStyle.fillOpacity = AttributeValue(currStyle.fillOpacity.value);
-					if (currStyle.strokeOpacity.valid)
-						actStyle.strokeOpacity = AttributeValue(currStyle.strokeOpacity.value);
-					if (currStyle.opacity.valid)
-						actStyle.opacity = AttributeValue(currStyle.opacity.value);
-					if (currStyle.LineW.valid)
-						actStyle.LineW = AttributeValue(currStyle.LineW.value);
-					if (currStyle.CapStyle.valid)
-						actStyle.CapStyle = AttributeValue(currStyle.CapStyle.value);
-					if (currStyle.JoinStyle.valid)
-						actStyle.JoinStyle = AttributeValue(currStyle.JoinStyle.value);
+					for (int p = 0; p < parents.count(); p++)
+					{
+						currStyle = currSH.m_objStyles[parents[p]];
+						if (currStyle.CurrColorFill.valid)
+							actStyle.CurrColorFill = AttributeValue(currStyle.CurrColorFill.value);
+						if (currStyle.CurrColorStroke.valid)
+							actStyle.CurrColorStroke = AttributeValue(currStyle.CurrColorStroke.value);
+						if (currStyle.fillOpacity.valid)
+							actStyle.fillOpacity = AttributeValue(currStyle.fillOpacity.value);
+						if (currStyle.strokeOpacity.valid)
+							actStyle.strokeOpacity = AttributeValue(currStyle.strokeOpacity.value);
+						if (currStyle.opacity.valid)
+							actStyle.opacity = AttributeValue(currStyle.opacity.value);
+						if (currStyle.LineW.valid)
+							actStyle.LineW = AttributeValue(currStyle.LineW.value);
+						if (currStyle.CapStyle.valid)
+							actStyle.CapStyle = AttributeValue(currStyle.CapStyle.value);
+						if (currStyle.JoinStyle.valid)
+							actStyle.JoinStyle = AttributeValue(currStyle.JoinStyle.value);
+					}
 				}
-			}
-			if (actStyle.CurrColorFill.valid)
-				item->setFillColor(actStyle.CurrColorFill.value);
-			if (actStyle.CurrColorStroke.valid)
-				item->setLineColor(actStyle.CurrColorStroke.value);
-			if (actStyle.fillOpacity.valid)
-				item->setFillTransparency(actStyle.fillOpacity.value.toDouble());
-			if (actStyle.strokeOpacity.valid)
-				item->setLineTransparency(actStyle.strokeOpacity.value.toDouble());
-			if (actStyle.LineW.valid)
-				item->setLineWidth(actStyle.LineW.value.toDouble());
-			if (actStyle.CapStyle.valid)
-			{
-				if (actStyle.CapStyle.value == "butt")
-					item->setLineEnd(Qt::FlatCap);
-				else if (actStyle.CapStyle.value == "round")
-					item->setLineEnd(Qt::RoundCap);
-				else if (actStyle.CapStyle.value == "square")
-					item->setLineEnd(Qt::SquareCap);
-				else
-					item->setLineEnd(Qt::FlatCap);
-			}
-			if (actStyle.JoinStyle.valid)
-			{
-				if (actStyle.JoinStyle.value == "miter")
-					item->setLineJoin(Qt::MiterJoin);
-				else if (actStyle.JoinStyle.value == "round")
-					item->setLineJoin(Qt::RoundJoin);
-				else if (actStyle.JoinStyle.value == "bevel")
-					item->setLineJoin(Qt::BevelJoin);
-				else
-					item->setLineJoin(Qt::MiterJoin);
+				if (actStyle.CurrColorFill.valid)
+					item->setFillColor(actStyle.CurrColorFill.value);
+				if (actStyle.CurrColorStroke.valid)
+					item->setLineColor(actStyle.CurrColorStroke.value);
+				if (actStyle.fillOpacity.valid)
+					item->setFillTransparency(actStyle.fillOpacity.value.toDouble());
+				if (actStyle.strokeOpacity.valid)
+					item->setLineTransparency(actStyle.strokeOpacity.value.toDouble());
+				if (actStyle.LineW.valid)
+					item->setLineWidth(actStyle.LineW.value.toDouble());
+				if (actStyle.CapStyle.valid)
+				{
+					if (actStyle.CapStyle.value == "butt")
+						item->setLineEnd(Qt::FlatCap);
+					else if (actStyle.CapStyle.value == "round")
+						item->setLineEnd(Qt::RoundCap);
+					else if (actStyle.CapStyle.value == "square")
+						item->setLineEnd(Qt::SquareCap);
+					else
+						item->setLineEnd(Qt::FlatCap);
+				}
+				if (actStyle.JoinStyle.valid)
+				{
+					if (actStyle.JoinStyle.value == "miter")
+						item->setLineJoin(Qt::MiterJoin);
+					else if (actStyle.JoinStyle.value == "round")
+						item->setLineJoin(Qt::RoundJoin);
+					else if (actStyle.JoinStyle.value == "bevel")
+						item->setLineJoin(Qt::BevelJoin);
+					else
+						item->setLineJoin(Qt::MiterJoin);
+				}
 			}
 		}
 	}

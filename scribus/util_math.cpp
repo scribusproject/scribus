@@ -400,7 +400,7 @@ QPolygon FlattenPath(const FPointArray& ina, QList<uint> &Segs)
 	{
 		for (int poi=0; poi<ina.size()-3; poi += 4)
 		{
-			if (ina.point(poi).x() > 900000) // && cli.size() > 0)
+			if (ina.isMarker(poi)) // && cli.size() > 0)
 			{
 //				outa << cli.point(cli.size()-1);
 				Segs.append(outa.size());
@@ -434,7 +434,7 @@ FPoint getMaxClipF(FPointArray* Clip)
 	for (uint c = 0; c < clipSize; ++c)
 	{
 		np = Clip->point(c);
-		if (np.x() > 900000)
+		if (Clip->isMarker(c))
 			continue;
 		if (np.x() > mx)
 			mx = np.x();
@@ -454,7 +454,7 @@ FPoint getMinClipF(FPointArray* Clip)
 	for (uint c = 0; c < clipSize; ++c)
 	{
 		np = Clip->point(c);
-		if (np.x() > 900000)
+		if (Clip->isMarker(c))
 			continue;
 		if (np.x() < mx)
 			mx = np.x();

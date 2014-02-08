@@ -160,6 +160,14 @@ private:
 		QString styleRef;
 		QString layoutStyleRef;
 	};
+	struct StyleSheet
+	{
+		QHash<QString, ObjStyle> m_objStyles;
+		QHash<QString, ParStyle> m_parStyles;
+		QHash<QString, ChrStyle> m_chrStyles;
+		QHash<QString, LayoutStyle> m_layoutStyles;
+	};
+
 	bool convert(QString fn);
 	bool parseDocReference(QString designMap, bool compressed);
 	void parseStyleSheets(QDomElement &drawPag);
@@ -182,6 +190,7 @@ private:
 	QStringList importedPatterns;
 	bool firstPage;
 	int pagecount;
+	int mpagecount;
 	double topMargin;
 	double leftMargin;
 	double rightMargin;
@@ -190,10 +199,8 @@ private:
 	double pgGap;
 	QString papersize;
 	QHash<int, QString> imageResources;
-	QHash<QString, ObjStyle> m_objStyles;
-	QHash<QString, ParStyle> m_parStyles;
-	QHash<QString, ChrStyle> m_chrStyles;
-	QHash<QString, LayoutStyle> m_layoutStyles;
+	QHash<QString, StyleSheet> m_StyleSheets;
+	QString m_currentStyleSheet;
 
 	PageItem* addClip(PageItem* retObj, ObjState &obState);
 

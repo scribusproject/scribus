@@ -75,7 +75,7 @@ void PageItem_Spiral::DrawObj_Item(ScPainter *p, QRectF /*e*/)
 					Start = PoLine.point(n);
 					firstp = false;
 				}
-				if (PoLine.point(n).x() > 900000)
+				if (PoLine.isMarker(n))
 				{
 					cli.addPoint(PoLine.point(n-2));
 					cli.addPoint(PoLine.point(n-2));

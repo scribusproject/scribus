@@ -64,6 +64,9 @@ public:
 	FPointArray &operator=( const FPointArray &a );
 	FPointArray copy() const;
 	void setMarker();
+	bool isMarker(int pos) const;
+	bool isMarkerI(ConstIterator p) const;
+	bool isMarkerD(double x, double y) const;
 	void addPoint(double x, double y);
 	void addPoint(FPoint p);
 	bool hasLastQuadPoint(double x1, double y1, double x2, double y2, double x3, double y3, double x4, double y4) const;

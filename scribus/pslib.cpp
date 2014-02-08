@@ -170,7 +170,7 @@ PSLib::PSLib(PrintOptions &options, bool psart, SCFonts &AllFonts, QMap<QString,
 				{
 					for (int poi = 0; poi < ig.value().size()-3; poi += 4)
 					{
-						if (ig.value().point(poi).x() > 900000)
+						if (ig.value().isMarker(poi))
 						{
 							FontDesc += "cl\n";
 							nPath = true;
@@ -1463,10 +1463,10 @@ int PSLib::CreatePS(ScribusDoc* Doc, PrintOptions &options)
 	uint docSelectionCount=Doc->m_Selection->count();
 	if ((!psExport) && (docSelectionCount != 0))
 	{
-		double minx = 999999.9;
-		double miny = 999999.9;
-		double maxx = -999999.9;
-		double maxy = -999999.9;
+		double minx =  std::numeric_limits<double>::max();
+		double miny =  std::numeric_limits<double>::max();
+		double maxx = -std::numeric_limits<double>::max();
+		double maxy = -std::numeric_limits<double>::max();
 		for (uint ep = 0; ep < docSelectionCount; ++ep)
 		{
 			PageItem* currItem = Doc->m_Selection->itemAt(ep);
@@ -5443,7 +5443,7 @@ void PSLib::SetClipPath(FPointArray *c, bool poly)
 
 	for (int poi=0; poi < c->size()-3; poi += 4)
 	{
-		if (c->point(poi).x() > 900000)
+		if (c->isMarker(poi))
 		{
 			nPath = true;
 			continue;

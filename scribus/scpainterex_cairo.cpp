@@ -557,7 +557,7 @@ void ScPainterEx_Cairo::setupPolygon(FPointArray *points, bool closed)
 	newPath();
 	for (int poi=0; poi<points->size()-3; poi += 4)
 	{
-		if (points->point(poi).x() > 900000)
+		if (points->isMarker(poi))
 		{
 			nPath = true;
 			continue;

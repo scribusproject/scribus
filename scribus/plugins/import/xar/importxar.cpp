@@ -3650,10 +3650,10 @@ void XarPlug::popGraphicContext()
 			}
 			else
 			{
-				double minx = 999999.9;
-				double miny = 999999.9;
-				double maxx = -999999.9;
-				double maxy = -999999.9;
+				double minx =  std::numeric_limits<double>::max();
+				double miny =  std::numeric_limits<double>::max();
+				double maxx = -std::numeric_limits<double>::max();
+				double maxy = -std::numeric_limits<double>::max();
 				PageItem* groupItem = Elements.at(gg.index);
 				for (int a = gg.index+1; a < Elements.count(); ++a)
 				{

@@ -114,7 +114,7 @@ std::vector<Geom::Path> FPointArray2geomPath(FPointArray &p, bool closed)
 	{
 		for (int poi=0; poi < p.size()-3; poi += 4)
 		{
-			if (p.point(poi).x() > 900000)
+			if (p.isMarker(poi))
 			{
 				if (closed)
 					ret.close();
