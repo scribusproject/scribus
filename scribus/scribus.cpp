@@ -55,6 +55,7 @@ for which a new license (GPL+exception) is in place.
 #include <QQuickView>
 //>>
 #include <QRegExp>
+#include <QScopedPointer>
 #include <QStyleFactory>
 #include <QTableWidget>
 #include <QTextCodec>
@@ -7308,21 +7309,22 @@ void ScribusMainWindow::movePage()
 {
 	if (HaveDoc && doc->appMode == modeEditClip)
 		view->requestMode(submodeEndNodeEdit);
-	MovePages *dia = new MovePages(this, doc->currentPage()->pageNr()+1, doc->Pages->count(), true);
+	int currentPage = doc->currentPage()->pageNr();
+	QScopedPointer<MovePages> dia(new MovePages(this, currentPage + 1, doc->Pages->count(), true));
 	if (dia->exec())
 	{
 		int from = dia->getFromPage();
 		int to = dia->getToPage();
 		int wie = dia->getWhere();
 		int wo = dia->getWherePage();
-		if (from != wo || (wie == 2 && to != signed(doc->Pages->count()) ) )
-		{
-			doc->movePage(from-1, to, wo-1, wie);
-			updateGUIAfterPagesChanged();
-		}
+		if ((wie < 2) && (from <= wo) && (wo <= to))
+			return;
+		if (wie == 2 && to == signed(doc->Pages->count()))
+			return;
+		doc->movePage(from-1, to, wo-1, wie);
+		updateGUIAfterPagesChanged();
 		doc->updateEndnotesFrames();
 	}
-	delete dia;
 }
 
 void ScribusMainWindow::copyPage()

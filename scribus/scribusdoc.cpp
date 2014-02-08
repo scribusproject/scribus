@@ -2847,24 +2847,26 @@ void ScribusDoc::restoreMovePage(SimpleState *state, bool isUndo)
 
 	if (isUndo)
 	{
-		int newPageDest=fromPage;
-		int newPageFrom=0;
-		int newPageTo  =0;
-		int newPosition=0;
-		int pagesMoved=toPage-fromPage;
+		int newPageDest = fromPage;
+		int newPageFrom = 0;
+		int newPageTo   = 0;
+		int newPosition = 0;
+		int pagesMoved  = toPage - fromPage;
 		switch (position)
 		{
 		case 0: //Before Page
-			newPageFrom=dest-pagesMoved;
+			newPageDest = (toPage <= dest) ? fromPage : toPage;
+			newPageFrom = (toPage <= dest) ? (dest - pagesMoved) : dest;
 			break;
 		case 1: //After Page
-			newPageFrom=dest-pagesMoved+1;
+			newPageDest = (toPage <= dest) ? fromPage : toPage;
+			newPageFrom = (toPage <= dest) ? (dest-pagesMoved + 1) : (dest + 1);
 			break;
 		case 2: //To End
-			newPageFrom=Pages->count()-pagesMoved;
+			newPageFrom = Pages->count() - pagesMoved;
 			break;
 		}
-		newPageTo=newPageFrom+pagesMoved;
+		newPageTo = newPageFrom + pagesMoved;
 		movePage(newPageFrom, newPageTo, newPageDest, newPosition);
 	}
 	else
