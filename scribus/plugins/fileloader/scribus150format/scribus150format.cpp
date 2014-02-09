@@ -5267,11 +5267,11 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 	currItem->setHasSoftShadow(attrs.valueAsBool("HASSOFTSHADOW", false));
 	currItem->setSoftShadowXOffset(attrs.valueAsDouble("SOFTSHADOWXOFFSET", 5.0));
 	currItem->setSoftShadowYOffset(attrs.valueAsDouble("SOFTSHADOWYOFFSET", 5.0));
-	currItem->setSoftShadowColor(attrs.valueAsString("SOFTSHADOWCOLOR", CommonStrings::None));
+	currItem->setSoftShadowColor(attrs.valueAsString("SOFTSHADOWCOLOR", "Black"));
 	currItem->setSoftShadowShade(attrs.valueAsInt("SOFTSHADOWSHADE", 100));
 	currItem->setSoftShadowBlurRadius(attrs.valueAsDouble("SOFTSHADOWBLURRADIUS", 5.0));
 	currItem->setSoftShadowBlendMode(attrs.valueAsInt("SOFTSHADOWBLENDMODE", 0));
-	currItem->setSoftShadowOpacity(attrs.valueAsDouble("SOFTSHADOWOPACITY", 1.0));
+	currItem->setSoftShadowOpacity(attrs.valueAsDouble("SOFTSHADOWOPACITY", 0.0));
 
 	//currItem->setRedrawBounding();
 	//currItem->OwnPage = view->OnPage(currItem);
