@@ -1573,10 +1573,7 @@ void Scribus150Format::writeITEXTs(ScribusDoc *doc, ScXmlStreamWriter &docu, Pag
 			if  (k - lastPos > 0)
 			{
 				docu.writeEmptyElement("ITEXT");
-				/*if (item->asPathText()) // seems to cause problems when loading pathtext elements
-					putCStylePT(docu, lastStyle);
-				else*/
-					putCStyle(docu, lastStyle);
+				putCStyle(docu, lastStyle);
 				docu.writeAttribute("CH", textWithSoftHyphens(item->itemText, lastPos, k));
 			}
 			lastStyle = style1;
@@ -1587,10 +1584,7 @@ void Scribus150Format::writeITEXTs(ScribusDoc *doc, ScXmlStreamWriter &docu, Pag
 		{
 			// each obj in its own ITEXT for now
 			docu.writeEmptyElement("ITEXT");
-			/*if (item->asPathText()) // seems to cause problems when loading pathtext elements
-				putCStylePT(docu, lastStyle);
-			else*/
-				putCStyle(docu, lastStyle);
+			putCStyle(docu, lastStyle);
 			tmpnum.setNum(ch.unicode());
 			docu.writeAttribute("Unicode", tmpnum);
 			docu.writeAttribute("COBJ", item->itemText.object(k)->inlineCharID);
@@ -1619,13 +1613,25 @@ void Scribus150Format::writeITEXTs(ScribusDoc *doc, ScXmlStreamWriter &docu, Pag
 		else if (ch == SpecialChars::FRAMEBREAK)
 			docu.writeEmptyElement("breakframe");
 		else if (ch == SpecialChars::NBHYPHEN)
+		{
 			docu.writeEmptyElement("nbhyphen");
+			putCStyle(docu, lastStyle);
+		}
 		else if (ch == SpecialChars::NBSPACE)
+		{
 			docu.writeEmptyElement("nbspace");
+			putCStyle(docu, lastStyle);
+		}
 		else if (ch == SpecialChars::ZWNBSPACE)
+		{
 			docu.writeEmptyElement("zwnbspace");
+			putCStyle(docu, lastStyle);
+		}
 		else if (ch == SpecialChars::ZWSPACE)
+		{
 			docu.writeEmptyElement("zwspace");
+			putCStyle(docu, lastStyle);
+		}
 		else if (ch == SpecialChars::PAGENUMBER) 
 		{
 			docu.writeEmptyElement("var");

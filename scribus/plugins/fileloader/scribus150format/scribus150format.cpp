@@ -3764,13 +3764,41 @@ bool Scribus150Format::readObject(ScribusDoc* doc, ScXmlStreamReader& reader, It
 		else if (tName == "breakframe")
 			newItem->itemText.insertChars(newItem->itemText.length(), SpecialChars::FRAMEBREAK);
 		else if (tName == "nbhyphen")
+		{
+			CharStyle newStyle;
 			newItem->itemText.insertChars(newItem->itemText.length(), SpecialChars::NBHYPHEN);
+			readCharacterStyleAttrs(doc, tAtt, newStyle);
+			newItem->itemText.setCharStyle(newItem->itemText.length()-1, 1, newStyle);
+			lastStyle->StyleStart = newItem->itemText.length()-1;
+			lastStyle->Style = newStyle;
+		}
 		else if (tName == "nbspace")
+		{
+			CharStyle newStyle;
 			newItem->itemText.insertChars(newItem->itemText.length(), SpecialChars::NBSPACE);
+			readCharacterStyleAttrs(doc, tAtt, newStyle);
+			newItem->itemText.setCharStyle(newItem->itemText.length()-1, 1, newStyle);
+			lastStyle->StyleStart = newItem->itemText.length()-1;
+			lastStyle->Style = newStyle;
+		}
 		else if (tName == "zwnbspace")
+		{
+			CharStyle newStyle;
 			newItem->itemText.insertChars(newItem->itemText.length(), SpecialChars::ZWNBSPACE);
+			readCharacterStyleAttrs(doc, tAtt, newStyle);
+			newItem->itemText.setCharStyle(newItem->itemText.length()-1, 1, newStyle);
+			lastStyle->StyleStart = newItem->itemText.length()-1;
+			lastStyle->Style = newStyle;
+		}
 		else if (tName == "zwspace")
+		{
+			CharStyle newStyle;
 			newItem->itemText.insertChars(newItem->itemText.length(), SpecialChars::ZWSPACE);
+			readCharacterStyleAttrs(doc, tAtt, newStyle);
+			newItem->itemText.setCharStyle(newItem->itemText.length()-1, 1, newStyle);
+			lastStyle->StyleStart = newItem->itemText.length()-1;
+			lastStyle->Style = newStyle;
+		}
 		else if (tName == "var")
 		{
 			CharStyle newStyle;
