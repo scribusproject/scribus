@@ -8107,7 +8107,8 @@ bool PDFLibCore::PDF_GradientFillStroke(QString& output, PageItem *currItem, boo
 	if (((Options.Version >= PDFOptions::PDFVersion_14) || (Options.Version == PDFOptions::PDFVersion_X4)) && (transparencyFound))
 	{
 		QTransform mpM;
-		mpM.rotate(-currItem->rotation());
+		//#12058: cause problems with rotated objects
+		//mpM.rotate(-currItem->rotation());
 		if (GType == 6)
 		{
 			mpM.translate(StartX, -StartY);
