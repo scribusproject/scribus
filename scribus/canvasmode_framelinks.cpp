@@ -186,7 +186,7 @@ void CanvasMode_FrameLinks::mousePressEvent(QMouseEvent *m)
 					if (bb->prevInChain() != NULL)
 					{
 						QMessageBox msgBox(QMessageBox::Question, tr("Linking Text Frames"),
-										   "<qt>" + ScribusView::tr("Do you want to insert the frame into the selected text chain? If so, where would you like to insert it?") + "<qt>");
+										   "<qt>" + ScribusView::tr("You are trying to insert a frame into an existing text chain, where would you like to insert it?") + "<qt>");
 						//QMessageBox msgBox;
 						QPushButton *cancelButton = msgBox.addButton(CommonStrings::tr_Cancel, QMessageBox::RejectRole);
 						QPushButton *beforeButton = msgBox.addButton(tr("Before"), QMessageBox::AcceptRole);
@@ -196,6 +196,8 @@ void CanvasMode_FrameLinks::mousePressEvent(QMouseEvent *m)
 							break;
 						if ((QPushButton *) msgBox.clickedButton() == beforeButton)
 						{
+							if (currItem->prevInChain())
+								currItem->prevInChain()->unlink();
 							PageItem *prev = bb->prevInChain();
 							prev->unlink();
 							prev->link(currItem);
@@ -204,6 +206,8 @@ void CanvasMode_FrameLinks::mousePressEvent(QMouseEvent *m)
 						{
 							if (bb->nextInChain() != NULL)
 							{
+								if (currItem->prevInChain())
+									currItem->prevInChain()->unlink();
 								PageItem *next = bb->nextInChain();
 								bb->unlink();
 								bb->link(currItem);
@@ -217,6 +221,8 @@ void CanvasMode_FrameLinks::mousePressEvent(QMouseEvent *m)
 							}
 						}
 					}
+					if (bb->prevInChain())
+						bb->prevInChain()->unlink();
 					currItem->link(bb);
 					int cid = m_doc->Items->indexOf(currItem);
 					int bid = m_doc->Items->indexOf(bb);
