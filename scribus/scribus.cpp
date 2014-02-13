@@ -3051,8 +3051,7 @@ void ScribusMainWindow::HaveNewSel(int SelectedType)
 			scrActions["toolsUnlinkTextFrameWithTextCopy"]->setEnabled(false);
 			scrActions["toolsUnlinkTextFrameWithTextCut"]->setEnabled(false);
 		}
-		if (currItem->nextInChain() == 0)
-			scrActions["toolsLinkTextFrame"]->setEnabled(true);
+		scrActions["toolsLinkTextFrame"]->setEnabled(!currItem->nextInChain());
 //		if (doc->masterPageMode())
 //			scrActions["toolsLinkTextFrame"]->setEnabled(false);
 		if (doc->appMode == modeEdit)
