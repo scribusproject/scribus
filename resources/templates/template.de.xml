@@ -56,7 +56,7 @@
 		<author>Petr Vaněk</author>
 		<email>petr@yarpen.cz</email>
 	</template>
-	<template category="PDF Präsentationen">
+	<template category="PDF-Präsentationen">
 		<name>Blau_Orange</name>
 		<file>pres_backgr_1/blue_orange_vector.sla.gz</file>
 		<tnail>pres_backgr_1/blue_orange_vectortn.png</tnail>
@@ -70,7 +70,7 @@
 		<author>Dhananjay Garg</author>
 		<email></email>
 	</template>
-	<template category="PDF Präsentationen">
+	<template category="PDF-Präsentationen">
 		<name>Flutlicht</name>
 		<file>pres_backgr_2/flood_light.sla.gz</file>
 		<tnail>pres_backgr_2/flood_lighttn.png</tnail>
@@ -84,7 +84,7 @@
 		<author>Dhananjay Garg</author>
 		<email></email>
 	</template>
-	<template category="PDF Präsentationen">
+	<template category="PDF-Präsentationen">
 		<name>Glaswellen</name>
 		<file>pres_backgr_3/glass_ripples.sla.gz</file>
 		<tnail>pres_backgr_3/glass_ripplestn.png</tnail>
@@ -98,7 +98,7 @@
 		<author>Dhananjay Garg</author>
 		<email></email>
 	</template>
-	<template category="PDF Präsentationen">
+	<template category="PDF-Präsentationen">
 		<name>Bokeh</name>
 		<file>pres_backgr_4/bokeh.sla.gz</file>
 		<tnail>pres_backgr_4/Bokehtn.png</tnail>
