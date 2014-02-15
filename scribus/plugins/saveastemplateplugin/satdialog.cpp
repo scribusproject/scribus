@@ -179,13 +179,11 @@ void SATDialog::setupCategories()
 	addCategories(scribusHome + "/templates");
 	addCategories(scribusShare); 
 	QString userTemplateDir(PrefsManager::instance()->appPrefs.documentTemplatesDir);
-	if ((!userTemplateDir.isNull()) && (!userTemplateDir.isEmpty()))
+	if (!userTemplateDir.isEmpty())
 		addCategories(userTemplateDir);
 
-	QStringList list;
-	QMap<QString, QString>::ConstIterator it;
-	for (it = cats.constBegin(); it != cats.constEnd(); ++it)
-		list.append(it.value());
+	QStringList list = cats.values();
+	list.removeDuplicates();
 	list.sort();
 	catsCombo->addItem("");
 	catsCombo->addItems(list);
