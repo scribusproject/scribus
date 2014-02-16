@@ -623,6 +623,50 @@ PageItem* OdgPlug::parseLine(const QDomElement &e)
 		parseTransform(&retObj->PoLine, e.attribute("draw:transform"));
 	finishItem(retObj, tmpOStyle);
 	m_Doc->Items->removeLast();
+	if ((!tmpOStyle.startMarkerName.isEmpty()) || (!tmpOStyle.endMarkerName.isEmpty()))
+	{
+		QList<PageItem*> GElements;
+		GElements.append(retObj);
+		PageItem* startArrow = applyStartArrow(retObj, tmpOStyle);
+		if (startArrow != NULL)
+			GElements.append(startArrow);
+		PageItem* endArrow = applyEndArrow(retObj, tmpOStyle);
+		if (endArrow != NULL)
+			GElements.append(endArrow);
+		if (GElements.count() > 1)
+		{
+			double minx =  std::numeric_limits<double>::max();
+			double miny =  std::numeric_limits<double>::max();
+			double maxx = -std::numeric_limits<double>::max();
+			double maxy = -std::numeric_limits<double>::max();
+			for (int ep = 0; ep < GElements.count(); ++ep)
+			{
+				PageItem* currItem = GElements.at(ep);
+				double x1, x2, y1, y2;
+				currItem->getVisualBoundingRect(&x1, &y1, &x2, &y2);
+				minx = qMin(minx, x1);
+				miny = qMin(miny, y1);
+				maxx = qMax(maxx, x2);
+				maxy = qMax(maxy, y2);
+			}
+			double gx = minx;
+			double gy = miny;
+			double gw = maxx - minx;
+			double gh = maxy - miny;
+			int z = m_Doc->itemAdd(PageItem::Group, PageItem::Rectangle, gx, gy, gw, gh, 0, CommonStrings::None, CommonStrings::None, true);
+			retObj = m_Doc->Items->at(z);
+			retObj->ClipEdited = true;
+			retObj->FrameType = 3;
+			retObj->setFillEvenOdd(false);
+			retObj->OldB2 = retObj->width();
+			retObj->OldH2 = retObj->height();
+			retObj->updateClip();
+			m_Doc->groupObjectsToItem(retObj, GElements);
+			retObj->OwnPage = m_Doc->OnPage(retObj);
+			m_Doc->GroupOnPage(retObj);
+			m_Doc->Items->removeLast();
+		}
+	}
 	return retObj;
 }
 
@@ -706,6 +750,50 @@ PageItem* OdgPlug::parsePolyline(QDomElement &e)
 		parseTransform(&retObj->PoLine, e.attribute("draw:transform"));
 	finishItem(retObj, tmpOStyle);
 	m_Doc->Items->removeLast();
+	if ((!tmpOStyle.startMarkerName.isEmpty()) || (!tmpOStyle.endMarkerName.isEmpty()))
+	{
+		QList<PageItem*> GElements;
+		GElements.append(retObj);
+		PageItem* startArrow = applyStartArrow(retObj, tmpOStyle);
+		if (startArrow != NULL)
+			GElements.append(startArrow);
+		PageItem* endArrow = applyEndArrow(retObj, tmpOStyle);
+		if (endArrow != NULL)
+			GElements.append(endArrow);
+		if (GElements.count() > 1)
+		{
+			double minx =  std::numeric_limits<double>::max();
+			double miny =  std::numeric_limits<double>::max();
+			double maxx = -std::numeric_limits<double>::max();
+			double maxy = -std::numeric_limits<double>::max();
+			for (int ep = 0; ep < GElements.count(); ++ep)
+			{
+				PageItem* currItem = GElements.at(ep);
+				double x1, x2, y1, y2;
+				currItem->getVisualBoundingRect(&x1, &y1, &x2, &y2);
+				minx = qMin(minx, x1);
+				miny = qMin(miny, y1);
+				maxx = qMax(maxx, x2);
+				maxy = qMax(maxy, y2);
+			}
+			double gx = minx;
+			double gy = miny;
+			double gw = maxx - minx;
+			double gh = maxy - miny;
+			int z = m_Doc->itemAdd(PageItem::Group, PageItem::Rectangle, gx, gy, gw, gh, 0, CommonStrings::None, CommonStrings::None, true);
+			retObj = m_Doc->Items->at(z);
+			retObj->ClipEdited = true;
+			retObj->FrameType = 3;
+			retObj->setFillEvenOdd(false);
+			retObj->OldB2 = retObj->width();
+			retObj->OldH2 = retObj->height();
+			retObj->updateClip();
+			m_Doc->groupObjectsToItem(retObj, GElements);
+			retObj->OwnPage = m_Doc->OnPage(retObj);
+			m_Doc->GroupOnPage(retObj);
+			m_Doc->Items->removeLast();
+		}
+	}
 	return retObj;
 }
 
@@ -748,6 +836,53 @@ PageItem* OdgPlug::parsePath(QDomElement &e)
 			retObj->setRotation(r, true);
 		finishItem(retObj, tmpOStyle);
 		m_Doc->Items->removeLast();
+		if (itype == PageItem::PolyLine)
+		{
+			if ((!tmpOStyle.startMarkerName.isEmpty()) || (!tmpOStyle.endMarkerName.isEmpty()))
+			{
+				QList<PageItem*> GElements;
+				GElements.append(retObj);
+				PageItem* startArrow = applyStartArrow(retObj, tmpOStyle);
+				if (startArrow != NULL)
+					GElements.append(startArrow);
+				PageItem* endArrow = applyEndArrow(retObj, tmpOStyle);
+				if (endArrow != NULL)
+					GElements.append(endArrow);
+				if (GElements.count() > 1)
+				{
+					double minx =  std::numeric_limits<double>::max();
+					double miny =  std::numeric_limits<double>::max();
+					double maxx = -std::numeric_limits<double>::max();
+					double maxy = -std::numeric_limits<double>::max();
+					for (int ep = 0; ep < GElements.count(); ++ep)
+					{
+						PageItem* currItem = GElements.at(ep);
+						double x1, x2, y1, y2;
+						currItem->getVisualBoundingRect(&x1, &y1, &x2, &y2);
+						minx = qMin(minx, x1);
+						miny = qMin(miny, y1);
+						maxx = qMax(maxx, x2);
+						maxy = qMax(maxy, y2);
+					}
+					double gx = minx;
+					double gy = miny;
+					double gw = maxx - minx;
+					double gh = maxy - miny;
+					int z = m_Doc->itemAdd(PageItem::Group, PageItem::Rectangle, gx, gy, gw, gh, 0, CommonStrings::None, CommonStrings::None, true);
+					retObj = m_Doc->Items->at(z);
+					retObj->ClipEdited = true;
+					retObj->FrameType = 3;
+					retObj->setFillEvenOdd(false);
+					retObj->OldB2 = retObj->width();
+					retObj->OldH2 = retObj->height();
+					retObj->updateClip();
+					m_Doc->groupObjectsToItem(retObj, GElements);
+					retObj->OwnPage = m_Doc->OnPage(retObj);
+					m_Doc->GroupOnPage(retObj);
+					m_Doc->Items->removeLast();
+				}
+			}
+		}
 	}
 	return retObj;
 }
@@ -1186,6 +1321,10 @@ void OdgPlug::parseStyles(QDomElement &sp)
 					currStyle.fillOpacity = AttributeValue(spe.attribute("draw:opacity", ""));
 					currStyle.gradientName = AttributeValue(spe.attribute("draw:fill-gradient-name", ""));
 					currStyle.dashName = AttributeValue(spe.attribute("draw:stroke-dash", ""));
+					currStyle.startMarkerName = AttributeValue(spe.attribute("draw:marker-start", ""));
+					currStyle.startMarkerWidth = AttributeValue(spe.attribute("draw:marker-start-width", ""));
+					currStyle.endMarkerName = AttributeValue(spe.attribute("draw:marker-end", ""));
+					currStyle.endMarkerWidth = AttributeValue(spe.attribute("draw:marker-end-width", ""));
 				}
 				else if (spe.tagName() == "style:paragraph-properties")
 				{
@@ -1257,6 +1396,14 @@ void OdgPlug::resovleStyle(ObjStyle &tmpOStyle, QString pAttrs)
 					actStyle.markerViewBox = AttributeValue(currStyle.markerViewBox.value);
 				if (currStyle.markerPath.valid)
 					actStyle.markerPath = AttributeValue(currStyle.markerPath.value);
+				if (currStyle.startMarkerName.valid)
+					actStyle.startMarkerName = AttributeValue(currStyle.startMarkerName.value);
+				if (currStyle.startMarkerWidth.valid)
+					actStyle.startMarkerWidth = AttributeValue(currStyle.startMarkerWidth.value);
+				if (currStyle.endMarkerName.valid)
+					actStyle.endMarkerName = AttributeValue(currStyle.endMarkerName.value);
+				if (currStyle.endMarkerWidth.valid)
+					actStyle.endMarkerWidth = AttributeValue(currStyle.endMarkerWidth.value);
 				if (currStyle.stroke_dash_distance.valid)
 					actStyle.stroke_dash_distance = AttributeValue(currStyle.stroke_dash_distance.value);
 				if (currStyle.stroke_dash_dots1.valid)
@@ -1498,6 +1645,40 @@ void OdgPlug::resovleStyle(ObjStyle &tmpOStyle, QString pAttrs)
 			tmpOStyle.gradientCenterY = parseUnit(actStyle.gradientCenterY.value);
 		if (actStyle.gradientType.valid)
 			tmpOStyle.gradientType = actStyle.gradientType.value;
+		if (actStyle.markerViewBox.valid)
+		{
+			QString viewbox = actStyle.markerViewBox.value;
+			QStringList points = viewbox.replace( QRegExp(","), " ").simplified().split( ' ', QString::SkipEmptyParts );
+			tmpOStyle.markerViewBox = QRectF(ScCLocale::toDoubleC(points[0]), ScCLocale::toDoubleC(points[1]), ScCLocale::toDoubleC(points[2]), ScCLocale::toDoubleC(points[3]));
+		}
+		else
+			tmpOStyle.markerViewBox = QRectF();
+		if (actStyle.markerPath.valid)
+		{
+			FPointArray mPath;
+			mPath.svgInit();
+			mPath.parseSVG(actStyle.markerPath.value);
+			if (tmpOStyle.markerViewBox != QRect())
+			{
+				QRectF clipRect = mPath.toQPainterPath(false).boundingRect();
+				QTransform mat;
+				double vw = tmpOStyle.markerViewBox.width();
+				double vh = tmpOStyle.markerViewBox.height();
+				double sx = (vw != 0.0) ? (clipRect.width() / vw) : 1;
+				double sy = (vh != 0.0) ? (clipRect.height() / vh) : 1;
+				mat.scale(sx, sy);
+				mPath.map(mat);
+			}
+			tmpOStyle.markerPath = mPath.toQPainterPath(true);
+		}
+		if (actStyle.startMarkerName.valid)
+			tmpOStyle.startMarkerName = actStyle.startMarkerName.value;
+		if (actStyle.startMarkerWidth.valid)
+			tmpOStyle.startMarkerWidth = parseUnit(actStyle.startMarkerWidth.value);
+		if (actStyle.endMarkerName.valid)
+			tmpOStyle.endMarkerName = actStyle.endMarkerName.value;
+		if (actStyle.endMarkerWidth.valid)
+			tmpOStyle.endMarkerWidth = parseUnit(actStyle.endMarkerWidth.value);
 	}
 }
 
@@ -1699,6 +1880,135 @@ QPointF OdgPlug::intersectBoundingRect(PageItem *item, QLineF gradientVector)
 	else if (gradientVector.intersect(QLineF(0, item->height(), 0, 0), &interPoint) == QLineF::BoundedIntersection)
 		gradEnd = interPoint;
 	return gradEnd;
+}
+
+PageItem* OdgPlug::applyStartArrow(PageItem* ite, ObjStyle &obState)
+{
+	PageItem *iteS = NULL;
+	if (!obState.startMarkerName.isEmpty())
+	{
+		ObjStyle mStyle;
+		resovleStyle(mStyle, obState.startMarkerName);
+		QPainterPath pa = mStyle.markerPath;
+		FPointArray EndArrow;
+		EndArrow.fromQPainterPath(pa);
+		QRectF br = pa.boundingRect();
+		double EndArrowWidth = obState.startMarkerWidth;
+		if (EndArrowWidth > 0)
+		{
+			FPoint Start = ite->PoLine.point(0);
+			for (int xx = 1; xx < ite->PoLine.size(); xx += 2)
+			{
+				FPoint Vector = ite->PoLine.point(xx);
+				if ((Start.x() != Vector.x()) || (Start.y() != Vector.y()))
+				{
+					double r = atan2(Start.y()-Vector.y(),Start.x()-Vector.x())*(180.0/M_PI);
+					QPointF refP = QPointF(br.width() / 2.0, 0);
+					QTransform m;
+					m.translate(br.width() / 2.0, br.height() / 2.0);
+					m.rotate(r + 90);
+					m.translate(-br.width() / 2.0, -br.height() / 2.0);
+					m.scale(EndArrowWidth / br.width(), EndArrowWidth / br.width());
+					EndArrow.map(m);
+					refP = m.map(refP);
+					QPainterPath pa2 = EndArrow.toQPainterPath(true);
+					QRectF br2 = pa2.boundingRect();
+					QTransform m2;
+					FPoint grOffset2(getMinClipF(&EndArrow));
+					m2.translate(-grOffset2.x(), -grOffset2.y());
+					EndArrow.map(m2);
+					refP = m2.map(refP);
+					EndArrow.translate(-refP.x(), -refP.y());
+					QTransform arrowTrans;
+					arrowTrans.translate(-m_Doc->currentPage()->xOffset(), -m_Doc->currentPage()->yOffset());
+					arrowTrans.translate(Start.x() + ite->xPos(), Start.y() + ite->yPos());
+					EndArrow.map(arrowTrans);
+					int zS = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, 0, obState.CurrColorStroke, CommonStrings::None, true);
+					iteS = m_Doc->Items->at(zS);
+					iteS->PoLine = EndArrow.copy();
+					iteS->ClipEdited = true;
+					iteS->FrameType = 3;
+					FPoint wh = getMaxClipF(&iteS->PoLine);
+					iteS->setWidthHeight(wh.x(), wh.y());
+					iteS->Clip = FlattenPath(ite->PoLine, ite->Segments);
+					m_Doc->AdjustItemSize(ite, true);
+					iteS->setFillEvenOdd(false);
+					iteS->OldB2 = iteS->width();
+					iteS->OldH2 = iteS->height();
+					iteS->updateClip();
+					iteS->OwnPage = m_Doc->OnPage(iteS);
+					iteS->setFillTransparency(obState.strokeOpacity);
+					m_Doc->Items->removeLast();
+					break;
+				}
+			}
+		}
+
+	}
+	return iteS;
+}
+
+PageItem* OdgPlug::applyEndArrow(PageItem* ite, ObjStyle &obState)
+{
+	PageItem *iteS = NULL;
+	if (!obState.endMarkerName.isEmpty())
+	{
+		ObjStyle mStyle;
+		resovleStyle(mStyle, obState.endMarkerName);
+		double EndArrowWidth = obState.endMarkerWidth;
+		QPainterPath pa = mStyle.markerPath;
+		FPointArray EndArrow;
+		EndArrow.fromQPainterPath(pa);
+		QRectF br = pa.boundingRect();
+		if (EndArrowWidth > 0)
+		{
+			FPoint End = ite->PoLine.point(ite->PoLine.size()-2);
+			for (uint xx = ite->PoLine.size()-1; xx > 0; xx -= 2)
+			{
+				FPoint Vector = ite->PoLine.point(xx);
+				if ((End.x() != Vector.x()) || (End.y() != Vector.y()))
+				{
+					double r = atan2(End.y()-Vector.y(),End.x()-Vector.x())*(180.0/M_PI);
+					QPointF refP = QPointF(br.width() / 2.0, 0);
+					QTransform m;
+					m.translate(br.width() / 2.0, br.height() / 2.0);
+					m.rotate(r + 90);
+					m.translate(-br.width() / 2.0, -br.height() / 2.0);
+					m.scale(EndArrowWidth / br.width(), EndArrowWidth / br.width());
+					EndArrow.map(m);
+					refP = m.map(refP);
+					QTransform m2;
+					FPoint grOffset2(getMinClipF(&EndArrow));
+					m2.translate(-grOffset2.x(), -grOffset2.y());
+					EndArrow.map(m2);
+					refP = m2.map(refP);
+					EndArrow.translate(-refP.x(), -refP.y());
+					QTransform arrowTrans;
+					arrowTrans.translate(-m_Doc->currentPage()->xOffset(), -m_Doc->currentPage()->yOffset());
+					arrowTrans.translate(End.x() + ite->xPos(), End.y() + ite->yPos());
+					EndArrow.map(arrowTrans);
+					int zE = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, 0, obState.CurrColorStroke, CommonStrings::None, true);
+					iteS = m_Doc->Items->at(zE);
+					iteS->PoLine = EndArrow.copy();
+					iteS->ClipEdited = true;
+					iteS->FrameType = 3;
+					FPoint wh = getMaxClipF(&iteS->PoLine);
+					iteS->setWidthHeight(wh.x(), wh.y());
+					iteS->Clip = FlattenPath(ite->PoLine, ite->Segments);
+					m_Doc->AdjustItemSize(ite, true);
+					iteS->setFillEvenOdd(false);
+					iteS->OldB2 = iteS->width();
+					iteS->OldH2 = iteS->height();
+					iteS->updateClip();
+					iteS->OwnPage = m_Doc->OnPage(iteS);
+					iteS->setFillTransparency(obState.strokeOpacity);
+					m_Doc->Items->removeLast();
+					break;
+				}
+			}
+		}
+	}
+	return iteS;
 }
 
 void OdgPlug::finishItem(PageItem* item, ObjStyle &obState)

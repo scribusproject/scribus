@@ -40,6 +40,10 @@ public:
 	ObjStyle() :
 	  markerViewBox(),
 	  markerPath(),
+	  startMarkerName(""),
+	  startMarkerWidth(0.0),
+	  endMarkerName(""),
+	  endMarkerWidth(0.0),
 	  stroke_dash_distance(0.0),
 	  stroke_dash_dots1(1),
 	  stroke_dash_dots1_length(0.0),
@@ -82,6 +86,10 @@ public:
 	  {}
 	QRectF							markerViewBox;
 	QPainterPath					markerPath;
+	QString							startMarkerName;
+	double							startMarkerWidth;
+	QString							endMarkerName;
+	double							endMarkerWidth;
 	double							stroke_dash_distance;
 	int								stroke_dash_dots1;
 	double							stroke_dash_dots1_length;
@@ -159,6 +167,10 @@ private:
 		AttributeValue parentStyle;
 		AttributeValue markerViewBox;
 		AttributeValue markerPath;
+		AttributeValue startMarkerName;
+		AttributeValue startMarkerWidth;
+		AttributeValue endMarkerName;
+		AttributeValue endMarkerWidth;
 		AttributeValue stroke_dash_distance;
 		AttributeValue stroke_dash_dots1;
 		AttributeValue stroke_dash_dots1_length;
@@ -224,6 +236,8 @@ private:
 	QString parseColor( const QString &s );
 	QString constructFontName(QString fontBaseName, QString fontStyle);
 	QPointF intersectBoundingRect(PageItem *item, QLineF gradientVector);
+	PageItem* applyStartArrow(PageItem* item, ObjStyle &obState);
+	PageItem* applyEndArrow(PageItem* ite, ObjStyle &obState);
 	void finishItem(PageItem* item, ObjStyle &obState);
 	PageItem* addClip(PageItem* retObj, ObjStyle &obState);
 	QList<PageItem*> Elements;
