@@ -38,6 +38,29 @@ class  ScribusView;
 class  ScStreamFilter;
 struct CopyPasteBuffer;
 
+class AttributeValue
+{
+	public:
+		AttributeValue() : valid(false),  value("")
+		{
+		}
+		AttributeValue(QString val)
+		{
+			if (val.isEmpty() || (val == ""))
+			{
+				valid = false;
+				value = QString();
+			}
+			else
+			{
+				valid = true;
+				value = val;
+			}
+		}
+		bool valid;
+		QString value;
+};
+
 // class Foi;
 
 /*! \brief Compare double values by pre-multiplying by 10000 and converting to long if possible.

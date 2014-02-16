@@ -19,6 +19,7 @@ for which a new license (GPL+exception) is in place.
 #include "sctextstruct.h"
 #include "text/storytext.h"
 #include "fpointarray.h"
+#include "util.h"
 #include <QList>
 #include <QTransform>
 #include <QMultiMap>
@@ -32,19 +33,6 @@ class MultiProgressDialog;
 class ScribusDoc;
 class Selection;
 class TransactionSettings;
-
-class AttributeValue
-{
-	public:
-		AttributeValue() : valid(false),  value("")
-		{
-		}
-		AttributeValue(QString val) : valid(true),  value(val)
-		{
-		}
-		bool valid;
-		QString value;
-};
 
 //! \brief Viva importer plugin
 class VivaPlug : public QObject

@@ -898,6 +898,7 @@ bool FPointArray::parseSVG(const QString& svgPath)
 		double contrlx, contrly, curx, cury, subpathx, subpathy, tox, toy, x1, y1, x2, y2, xc, yc;
 		double px1, py1, px2, py2, px3, py3;
 		bool relative;
+		int moveCount = 0;
 		svgInit();
 		char command = *(ptr++), lastCommand = ' ';
 		subpathx = subpathy = curx = cury = contrlx = contrly = 0.0;
@@ -924,6 +925,7 @@ bool FPointArray::parseSVG(const QString& svgPath)
 					subpathx = curx = relative ? curx + tox : tox;
 					subpathy = cury = relative ? cury + toy : toy;
 					svgMoveTo(curx, cury );
+					moveCount++;
 					break;
 				}
 			case 'l':
@@ -1098,11 +1100,11 @@ bool FPointArray::parseSVG(const QString& svgPath)
 				contrly = cury;
 			}
 		}
-		if ((lastCommand != 'z') && (lastCommand != 'Z'))
+		if (((lastCommand != 'z') && (lastCommand != 'Z')) || (moveCount > 1))
 			ret = true;
 		if (size() > 2)
 		{
-			if ((point(0).x() == point(size()-2).x()) && (point(0).y() == point(size()-2).y()))
+			if ((point(0).x() == point(size()-2).x()) && (point(0).y() == point(size()-2).y()) && (moveCount == 1))
 				ret = false;
 		}
 	}

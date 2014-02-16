@@ -11674,6 +11674,11 @@ void ScribusMainWindow::setPreviewToolbar()
 void ScribusMainWindow::testQTQuick2_1()
 {
 	/*
+	QQuickView *qqv = new QQuickView;
+	qqv->setSource(QUrl::fromLocalFile(ScPaths::instance().qmlDir() + "qtq_test1.qml"));
+	qqv->show();
+	*/
+	/*
 	qDebug()<<"Testing Qt Quick 2.0";
 
 	QQuickView qqv;

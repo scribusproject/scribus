@@ -17,6 +17,7 @@ for which a new license (GPL+exception) is in place.
 #include "pageitem.h"
 #include "sccolor.h"
 #include "fpointarray.h"
+#include "util.h"
 #include <QList>
 #include <QTransform>
 #include <QMultiMap>
@@ -31,19 +32,6 @@ class ScribusDoc;
 class Selection;
 class TransactionSettings;
 class ScZipHandler;
-
-class AttributeValue
-{
-	public:
-		AttributeValue() : valid(false),  value("")
-		{
-		}
-		AttributeValue(QString val) : valid(true),  value(val)
-		{
-		}
-		bool valid;
-		QString value;
-};
 
 class PagesPlug : public QObject
 {

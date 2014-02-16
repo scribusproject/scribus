@@ -89,9 +89,9 @@ OODrawImportPlugin::~OODrawImportPlugin()
 void OODrawImportPlugin::languageChange()
 {
 	importAction->setText( tr("Import &OpenOffice.org Draw..."));
-	FileFormat* fmt = getFormatByExt("odg");
-	fmt->trName = tr("OpenDocument 1.0 Draw", "Import/export format name");
-	fmt->filter = tr("OpenDocument 1.0 Draw (*.odg *.ODG)");
+//	FileFormat* fmt = getFormatByExt("odg");
+//	fmt->trName = tr("OpenDocument 1.0 Draw", "Import/export format name");
+//	fmt->filter = tr("OpenDocument 1.0 Draw (*.odg *.ODG)");
 	FileFormat* fmt2 = getFormatByExt("sxd");
 	fmt2->trName = tr("OpenOffice.org 1.x Draw", "Import/export format name");
 	fmt2->filter = tr("OpenOffice.org 1.x Draw (*.sxd *.SXD)");
@@ -121,18 +121,18 @@ void OODrawImportPlugin::deleteAboutData(const AboutData* about) const
 
 void OODrawImportPlugin::registerFormats()
 {
-	QString odtName = tr("OpenDocument 1.0 Draw", "Import/export format name");
-	FileFormat odtformat(this);
-	odtformat.trName = odtName; // Human readable name
-	odtformat.formatId = 0;
-	odtformat.filter = odtName + " (*.odg *.ODG)"; // QFileDialog filter
-	odtformat.fileExtensions = QStringList() << "odg";
-	odtformat.load = true;
-	odtformat.save = false;
-	odtformat.thumb = true;
-	odtformat.mimeTypes = QStringList("application/vnd.oasis.opendocument.graphics"); // MIME types
-	odtformat.priority = 64; // Priority
-	registerFormat(odtformat);
+//	QString odtName = tr("OpenDocument 1.0 Draw", "Import/export format name");
+//	FileFormat odtformat(this);
+//	odtformat.trName = odtName; // Human readable name
+//	odtformat.formatId = 0;
+//	odtformat.filter = odtName + " (*.odg *.ODG)"; // QFileDialog filter
+//	odtformat.fileExtensions = QStringList() << "odg";
+//	odtformat.load = true;
+//	odtformat.save = false;
+//	odtformat.thumb = true;
+//	odtformat.mimeTypes = QStringList("application/vnd.oasis.opendocument.graphics"); // MIME types
+//	odtformat.priority = 64; // Priority
+//	registerFormat(odtformat);
 
 	QString sxdName = tr("OpenOffice.org 1.x Draw", "Import/export format name");
 	FileFormat sxdformat(this);
@@ -169,7 +169,7 @@ bool OODrawImportPlugin::import(QString fileName, int flags)
 		flags |= lfInteractive;
 		PrefsContext* prefs = PrefsManager::instance()->prefsFile->getPluginContext("OODrawImport");
 		QString wdir = prefs->get("wdir", ".");
-		CustomFDialog diaf(ScCore->primaryMainWindow(), wdir, QObject::tr("Open"), QObject::tr("OpenOffice.org Draw (*.sxd *.odg);;All Files (*)"));
+		CustomFDialog diaf(ScCore->primaryMainWindow(), wdir, QObject::tr("Open"), QObject::tr("OpenOffice.org Draw (*.sxd *.SXD);;All Files (*)"));
 		if (diaf.exec())
 		{
 			fileName = diaf.selectedFile();
@@ -291,7 +291,7 @@ QImage OODPlug::readThumbnail(QString fileName )
 			drawPagePNode = body.namedItem( "office:drawing" );
 		}
 	}
-	else 
+	else
 		drawPagePNode = body;
 	StyleStack::Mode mode = isOODraw2 ? StyleStack::OODraw2x : StyleStack::OODraw1x;
 	m_styleStack.setMode( mode );
@@ -426,7 +426,7 @@ bool OODPlug::convert(const TransactionSettings& trSettings, int flags)
 			drawPagePNode = body.namedItem( "office:drawing" );
 		}
 	}
-	else 
+	else
 		drawPagePNode = body;
 	StyleStack::Mode mode = isOODraw2 ? StyleStack::OODraw2x : StyleStack::OODraw1x;
 	m_styleStack.setMode( mode );
@@ -951,7 +951,7 @@ void OODPlug::parseStyle(OODrawStyle& oostyle, const QDomElement &e)
 			if( m_styleStack.hasAttribute("svg:stroke-color"))
 				oostyle.strokeColor = parseColor(m_styleStack.attribute("svg:stroke-color"));
 			if( m_styleStack.hasAttribute( "svg:stroke-opacity" ) )
-				oostyle.strokeTrans = ScCLocale::toDoubleC(m_styleStack.attribute( "svg:stroke-opacity" ).remove( '%' )) / 100.0;
+				oostyle.strokeTrans = 1.0 - ScCLocale::toDoubleC(m_styleStack.attribute( "svg:stroke-opacity" ).remove( '%' )) / 100.0;
 			if( m_styleStack.attribute( "draw:stroke" ) == "dash" )
 			{
 				QString style = m_styleStack.attribute( "draw:stroke-dash" );
@@ -984,7 +984,7 @@ void OODPlug::parseStyle(OODrawStyle& oostyle, const QDomElement &e)
 			if( m_styleStack.hasAttribute( "draw:fill-color" ) )
 				oostyle.fillColor = parseColor( m_styleStack.attribute("draw:fill-color"));
 			if( m_styleStack.hasAttribute( "draw:transparency" ) )
-				oostyle.fillTrans = ScCLocale::toDoubleC(m_styleStack.attribute( "draw:transparency" ).remove( '%' )) / 100.0;
+				oostyle.fillTrans = 1.0 - ScCLocale::toDoubleC(m_styleStack.attribute( "draw:transparency" ).remove( '%' )) / 100.0;
 		}
 		else if( fill == "gradient" )
 		{
