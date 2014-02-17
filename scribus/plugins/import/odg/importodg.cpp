@@ -813,9 +813,6 @@ PageItem* OdgPlug::parsePath(QDomElement &e)
 		double y = parseUnit(e.attribute("svg:y")) ;
 		double w = parseUnit(e.attribute("svg:width"));
 		double h = parseUnit(e.attribute("svg:height"));
-		double r = 0.0;
-		if (e.hasAttribute("draw:transform"))
-			parseTransform(e.attribute("draw:transform"), &r, &x, &y);
 		int z = m_Doc->itemAdd(itype, PageItem::Unspecified, baseX + x, baseY + y, w, h, tmpOStyle.LineW, tmpOStyle.CurrColorFill, tmpOStyle.CurrColorStroke, true);
 		retObj = m_Doc->Items->at(z);
 		retObj->PoLine = pArray.copy();
@@ -833,7 +830,7 @@ PageItem* OdgPlug::parsePath(QDomElement &e)
 		FPoint tp2(clipRect.left(), clipRect.top());
 		retObj->PoLine.translate(-tp2.x(), -tp2.y());
 		if (e.hasAttribute("draw:transform"))
-			retObj->setRotation(r, true);
+			parseTransform(&retObj->PoLine, e.attribute("draw:transform"));
 		finishItem(retObj, tmpOStyle);
 		m_Doc->Items->removeLast();
 		if (itype == PageItem::PolyLine)
@@ -1930,8 +1927,7 @@ PageItem* OdgPlug::applyStartArrow(PageItem* ite, ObjStyle &obState)
 					iteS->FrameType = 3;
 					FPoint wh = getMaxClipF(&iteS->PoLine);
 					iteS->setWidthHeight(wh.x(), wh.y());
-					iteS->Clip = FlattenPath(ite->PoLine, ite->Segments);
-					m_Doc->AdjustItemSize(ite, true);
+					m_Doc->AdjustItemSize(iteS, true);
 					iteS->setFillEvenOdd(false);
 					iteS->OldB2 = iteS->width();
 					iteS->OldH2 = iteS->height();
@@ -1994,8 +1990,7 @@ PageItem* OdgPlug::applyEndArrow(PageItem* ite, ObjStyle &obState)
 					iteS->FrameType = 3;
 					FPoint wh = getMaxClipF(&iteS->PoLine);
 					iteS->setWidthHeight(wh.x(), wh.y());
-					iteS->Clip = FlattenPath(ite->PoLine, ite->Segments);
-					m_Doc->AdjustItemSize(ite, true);
+					m_Doc->AdjustItemSize(iteS, true);
 					iteS->setFillEvenOdd(false);
 					iteS->OldB2 = iteS->width();
 					iteS->OldH2 = iteS->height();
@@ -2024,6 +2019,11 @@ void OdgPlug::finishItem(PageItem* item, ObjStyle &obState)
 	item->OldH2 = item->height();
 	item->updateClip();
 	item->OwnPage = m_Doc->OnPage(item);
+	if (item->isTextFrame())
+	{
+		item->setFillColor(obState.CurrColorFill);
+		item->setLineColor(obState.CurrColorStroke);
+	}
 	item->setFillTransparency(obState.fillOpacity);
 	item->setLineTransparency(obState.strokeOpacity);
 	if (obState.stroke_type == 2)
@@ -2163,6 +2163,51 @@ void OdgPlug::finishItem(PageItem* item, ObjStyle &obState)
 			item->GrEndX = gradientVectorE.p2().x();
 			item->GrEndY = gradientVectorE.p2().y();
 			item->updateGradientVectors();
+		}
+		else if (gStyle.gradientType == "square")
+		{
+			item->fill_gradient = VGradient(VGradient::radial);
+			item->fill_gradient.clearStops();
+			item->fill_gradient.setRepeatMethod( VGradient::none );
+			const ScColor& gradC = m_Doc->PageColors[gStyle.gradientEndColor];
+			item->fill_gradient.addStop(ScColorEngine::getRGBColor(gradC, m_Doc), 0.0, 0.5, 1.0, gStyle.gradientEndColor, gStyle.gradientEndShade);
+			const ScColor& gradC2 = m_Doc->PageColors[gStyle.gradientStartColor];
+			item->fill_gradient.addStop(ScColorEngine::getRGBColor(gradC2, m_Doc), 1.0 - gStyle.gradientBorder, 0.5, 1.0, gStyle.gradientStartColor, gStyle.gradientStartShade);
+			FPoint cp = FPoint(item->width() * gStyle.gradientCenterX, item->height()* gStyle.gradientCenterY);
+			double gLen = qMin(item->width(), item->height()) / 2.0;
+			QLineF p1 = QLineF(cp.x(), cp.y(), cp.x() - gLen, cp.y() - gLen);
+			p1.setAngle(p1.angle() + gStyle.gradientAngle);
+			QLineF p2 = QLineF(cp.x(), cp.y(), cp.x() + gLen, cp.y() - gLen);
+			p2.setAngle(p2.angle() + gStyle.gradientAngle);
+			QLineF p3 = QLineF(cp.x(), cp.y(), cp.x() + gLen, cp.y() + gLen);
+			p3.setAngle(p3.angle() + gStyle.gradientAngle);
+			QLineF p4 = QLineF(cp.x(), cp.y(), cp.x() - gLen, cp.y() + gLen);
+			p4.setAngle(p4.angle() + gStyle.gradientAngle);
+			item->setDiamondGeometry(FPoint(p1.p2().x(), p1.p2().y()), FPoint(p2.p2().x(), p2.p2().y()), FPoint(p3.p2().x(), p3.p2().y()), FPoint(p4.p2().x(), p4.p2().y()), cp);
+			item->GrType = 10;
+		}
+		else if (gStyle.gradientType == "rectangular")
+		{
+			item->fill_gradient = VGradient(VGradient::radial);
+			item->fill_gradient.clearStops();
+			item->fill_gradient.setRepeatMethod( VGradient::none );
+			const ScColor& gradC = m_Doc->PageColors[gStyle.gradientEndColor];
+			item->fill_gradient.addStop(ScColorEngine::getRGBColor(gradC, m_Doc), 0.0, 0.5, 1.0, gStyle.gradientEndColor, gStyle.gradientEndShade);
+			const ScColor& gradC2 = m_Doc->PageColors[gStyle.gradientStartColor];
+			item->fill_gradient.addStop(ScColorEngine::getRGBColor(gradC2, m_Doc), 1.0 - gStyle.gradientBorder, 0.5, 1.0, gStyle.gradientStartColor, gStyle.gradientStartShade);
+			FPoint cp = FPoint(item->width() * gStyle.gradientCenterX, item->height()* gStyle.gradientCenterY);
+			double gLenW = item->width() / 2.0;
+			double gLenH = item->height() / 2.0;
+			QLineF p1 = QLineF(cp.x(), cp.y(), cp.x() - gLenW, cp.y() - gLenH);
+			p1.setAngle(p1.angle() + gStyle.gradientAngle);
+			QLineF p2 = QLineF(cp.x(), cp.y(), cp.x() + gLenW, cp.y() - gLenH);
+			p2.setAngle(p2.angle() + gStyle.gradientAngle);
+			QLineF p3 = QLineF(cp.x(), cp.y(), cp.x() + gLenW, cp.y() + gLenH);
+			p3.setAngle(p3.angle() + gStyle.gradientAngle);
+			QLineF p4 = QLineF(cp.x(), cp.y(), cp.x() - gLenW, cp.y() + gLenH);
+			p4.setAngle(p4.angle() + gStyle.gradientAngle);
+			item->setDiamondGeometry(FPoint(p1.p2().x(), p1.p2().y()), FPoint(p2.p2().x(), p2.p2().y()), FPoint(p3.p2().x(), p3.p2().y()), FPoint(p4.p2().x(), p4.p2().y()), cp);
+			item->GrType = 10;
 		}
 	}
 /*	if (m_StyleSheets.contains(m_currentStyleSheet))
