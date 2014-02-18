@@ -7245,17 +7245,17 @@ May throw ValueError if any of the distances are out of bounds (must be positive
         <location filename="../../scribus/actionmanager.cpp" line="1632"/>
         <location filename="../../scribus/actionmanager.cpp" line="1742"/>
         <source>Zoom in or out</source>
-        <translation>Aumenta o riduci zoom</translation>
+        <translation>Zoom avanti o indietro</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1633"/>
         <source>Zoom in</source>
-        <translation>Aumenta zoom</translation>
+        <translation>Zoom avanti</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1634"/>
         <source>Zoom out</source>
-        <translation>Riduci zoom</translation>
+        <translation>Zoom indietro</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1635"/>
@@ -7541,7 +7541,7 @@ May throw ValueError if any of the distances are out of bounds (must be positive
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1516"/>
         <source>Inline Items</source>
-        <translation>Elementi inline</translation>
+        <translation>Elementi in linea</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1556"/>
@@ -7572,7 +7572,7 @@ May throw ValueError if any of the distances are out of bounds (must be positive
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1625"/>
         <source>Inline Frames</source>
-        <translation>Cornici inline</translation>
+        <translation>Cornici in linea</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1768"/>
@@ -7679,7 +7679,7 @@ May throw ValueError if any of the distances are out of bounds (must be positive
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1657"/>
         <source>Insert PDF Push Button</source>
-        <translation>Inserisci pulsante PDF</translation>
+        <translation>Inserisci bottone PDF</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1659"/>
@@ -7752,12 +7752,12 @@ May throw ValueError if any of the distances are out of bounds (must be positive
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1586"/>
         <source>&amp;Fit to Height</source>
-        <translation>&amp;Adatta all&apos;altezza</translation>
+        <translation>&amp;Adatta altezza</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1587"/>
         <source>Fit to Width</source>
-        <translation>Adatta alla larghezza</translation>
+        <translation>Adatta larghezza</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1595"/>
@@ -7992,7 +7992,7 @@ May throw ValueError if any of the distances are out of bounds (must be positive
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1735"/>
         <source>Insert PDF push button</source>
-        <translation>Inserisci pulsante PDF</translation>
+        <translation>Inserisci bottone PDF</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1736"/>
@@ -8027,6 +8027,7 @@ May throw ValueError if any of the distances are out of bounds (must be positive
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1744"/>
         <source>Insert 3D annotation</source>
+        <translatorcomment>PDF</translatorcomment>
         <translation type="unfinished">Inserisci annotazione 3D</translation>
     </message>
     <message>
@@ -10257,7 +10258,7 @@ Configurazione non valida</translation>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="362"/>
         <source>Minimum error checking; raised opportunistically if size of symbol is not increased</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Controllo errore minimo; aumentato opportunisticamente se la dimensione del simbolo non è incrementata</translation>
     </message>
 </context>
 <context>
@@ -11114,7 +11115,7 @@ Si prega di fornire un nome</translation>
     <message>
         <location filename="../../scribus/plugins/colorwheel/cwdialog.ui" line="15"/>
         <source>Color Wheel</source>
-        <translation>Cerchio cromatico</translation>
+        <translation>Mappa cromatica</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/colorwheel/cwdialog.ui" line="45"/>
@@ -11985,7 +11986,7 @@ Il tasto Inserisci inserisce un carattere (speciale) nell&apos;area di selezione
     <message>
         <location filename="../../scribus/ui/checkDocument.cpp" line="692"/>
         <source>Object colorspace is not CMYK or spot</source>
-        <translation type="unfinished">Lo spazio colore non è CMYK o a tinta piatta</translation>
+        <translation>Lo spazio colore non è CMYK o a tinta piatta</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/checkDocument.cpp" line="693"/>
@@ -12493,7 +12494,7 @@ Vedere la sezione Modifica colori della documentazione per ulteriori dettagli.</
     <message>
         <location filename="../../scribus/plugins/colorwheel/colorwheel.cpp" line="48"/>
         <source>&amp;Color Wheel...</source>
-        <translation>Cerchio &amp;cromatico...</translation>
+        <translation>Mappa &amp;cromatica...</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/colorwheel/colorwheel.cpp" line="66"/>
@@ -12550,7 +12551,7 @@ Vedere la sezione Modifica colori della documentazione per ulteriori dettagli.</
     <message>
         <location filename="../../scribus/commonstrings.cpp" line="302"/>
         <source>PDF 3D Annotation</source>
-        <translation type="unfinished">Annotazione PDF 3D</translation>
+        <translation>Annotazione PDF 3D</translation>
     </message>
     <message>
         <location filename="../../scribus/commonstrings.cpp" line="303"/>
@@ -12590,7 +12591,7 @@ Vedere la sezione Modifica colori della documentazione per ulteriori dettagli.</
     <message>
         <location filename="../../scribus/commonstrings.cpp" line="318"/>
         <source>Button</source>
-        <translation>Pulsante</translation>
+        <translation>Bottone</translation>
     </message>
     <message>
         <location filename="../../scribus/commonstrings.cpp" line="319"/>
@@ -17526,7 +17527,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../scribus/ui/inlinepalette.cpp" line="287"/>
         <source>Inline Frames</source>
-        <translation>Cornici inline</translation>
+        <translation>Cornici in linea</translation>
     </message>
 </context>
 <context>
@@ -18599,12 +18600,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../scribus/plugins/tools/lenseffects/lensdialogbase.ui" line="95"/>
         <source>Zoom In</source>
-        <translation>Aumenta zoom</translation>
+        <translation>Zoom avanti</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/lenseffects/lensdialogbase.ui" line="105"/>
         <source>Zoom Out</source>
-        <translation>Riduci zoom</translation>
+        <translation>Zoom indietro</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/lenseffects/lensdialogbase.ui" line="138"/>
@@ -19584,12 +19585,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../scribus/plugins/tools/2geomtools/meshdistortion/meshdistortiondialog.ui" line="41"/>
         <source>Zoom In</source>
-        <translation>Aumenta zoom</translation>
+        <translation>Zoom avanti</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/2geomtools/meshdistortion/meshdistortiondialog.ui" line="51"/>
         <source>Zoom Out</source>
-        <translation>Riduci zoom</translation>
+        <translation>Zoom indietro</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/2geomtools/meshdistortion/meshdistortiondialog.ui" line="82"/>
@@ -21099,7 +21100,7 @@ Non puoi passare a un differente stile note prima di applicare quello nuovo o pr
     <message>
         <location filename="../../scribus/ui/outlinepalette.cpp" line="1061"/>
         <source>Inline Frame</source>
-        <translation>Cornice inline</translation>
+        <translation>Cornice in linea</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/outlinepalette.cpp" line="1135"/>
@@ -21515,17 +21516,17 @@ Non puoi passare a un differente stile note prima di applicare quello nuovo o pr
     <message>
         <location filename="../../scribus/ui/preview.cpp" line="313"/>
         <source>Fit to Width</source>
-        <translation>Adatta alla larghezza</translation>
+        <translation>Adatta larghezza</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/preview.cpp" line="314"/>
         <source>Fit to Height</source>
-        <translation>Adatta all&apos;altezza</translation>
+        <translation>Adatta altezza</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/preview.cpp" line="315"/>
         <source>Fit to Page</source>
-        <translation>Adatta alla pagina</translation>
+        <translation>Adatta pagina</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/preview.cpp" line="357"/>
@@ -24274,12 +24275,12 @@ Sceglierne un&apos;altra.</translation>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="611"/>
         <source>Zoom in</source>
-        <translation>Aumenta zoom</translation>
+        <translation>Zoom avanti</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="639"/>
         <source>Zoom out</source>
-        <translation>Riduci zoom</translation>
+        <translation>Zoom indietro</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="446"/>
@@ -33358,7 +33359,7 @@ arrotondati:</translation>
     <message>
         <location filename="../../scribus/ui/propertiespalette_xyz.cpp" line="1296"/>
         <source>Level</source>
-        <translation>Livello</translation>
+        <translation>Quota</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_xyz.cpp" line="1298"/>
@@ -33525,7 +33526,8 @@ arrotondati:</translation>
     <message>
         <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="174"/>
         <source>Level</source>
-        <translation>Livello</translation>
+        <translatorcomment>Non confondere con livello</translatorcomment>
+        <translation>Quota</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="238"/>
@@ -36795,7 +36797,7 @@ forniti nella documentazione delle funzioni.</translation>
     <message>
         <location filename="../../scribus/plugins/colorwheel/colorwheel.cpp" line="58"/>
         <source>Color Wheel</source>
-        <translation>Cerchio cromatico</translation>
+        <translation>Mappa cromatica</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/fontpreview/fontpreviewplugin.cpp" line="59"/>
@@ -37226,27 +37228,27 @@ forniti nella documentazione delle funzioni.</translation>
     <message>
         <location filename="../../scribus/pagesize.cpp" line="328"/>
         <source>Compact Disc</source>
-        <translation type="unfinished"></translation>
+        <translation>Compact Disc</translation>
     </message>
     <message>
         <location filename="../../scribus/pagesize.cpp" line="334"/>
         <source>Letter Half</source>
-        <translation type="unfinished"></translation>
+        <translation>Letter Half</translation>
     </message>
     <message>
         <location filename="../../scribus/pagesize.cpp" line="340"/>
         <source>US Letter</source>
-        <translation type="unfinished">US Letter</translation>
+        <translation>US Letter</translation>
     </message>
     <message>
         <location filename="../../scribus/pagesize.cpp" line="346"/>
         <source>US Legal</source>
-        <translation type="unfinished">US Legal</translation>
+        <translation>US Legal</translation>
     </message>
     <message>
         <location filename="../../scribus/pagesize.cpp" line="352"/>
         <source>11x17</source>
-        <translation type="unfinished">11x17</translation>
+        <translation>11x17</translation>
     </message>
     <message>
         <location filename="../../scribus/scimgdataloader_tiff.cpp" line="966"/>
@@ -38339,7 +38341,7 @@ Pertanto l&apos;immagine potrebbe essere non corretta</translation>
     <message>
         <location filename="../../scribus/plugins/xpsexport/xpsexplugin.cpp" line="106"/>
         <source>XPS Export</source>
-        <translation type="unfinished">Esporta XPS</translation>
+        <translation>Esporta XPS</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/xpsexport/xpsexplugin.cpp" line="134"/>
@@ -38354,17 +38356,17 @@ Pertanto l&apos;immagine potrebbe essere non corretta</translation>
     <message>
         <location filename="../../scribus/plugins/xpsexport/xpsexplugin.cpp" line="142"/>
         <source>Low Resolution</source>
-        <translation type="unfinished">Risoluzione bassa</translation>
+        <translation>Risoluzione bassa</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/xpsexport/xpsexplugin.cpp" line="143"/>
         <source>Medium Resolution</source>
-        <translation type="unfinished">Risoluzione media</translation>
+        <translation>Risoluzione media</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/xpsexport/xpsexplugin.cpp" line="144"/>
         <source>High Resolution</source>
-        <translation type="unfinished">Risoluzione alta</translation>
+        <translation>Risoluzione alta</translation>
     </message>
 </context>
 <context>
@@ -40255,13 +40257,13 @@ Espresso come percentuale del valore dello spazio vuoto corrente.</translation>
     <message>
         <location filename="../../scribus/plugins/svgexplugin/svgexplugin.cpp" line="141"/>
         <source>Save Images inline</source>
-        <translation>Salva le immagini inline</translation>
+        <translation>Salva le immagini in linea</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/svgexplugin/svgexplugin.cpp" line="142"/>
         <source>Adds all Images on the Page inline to the SVG.
 Caution: this will increase the file size!</source>
-        <translation>Aggiungi tutte le immagini sulla pagina inline al file SVG.
+        <translation>Aggiungi tutte le immagini sulla pagina in linea al file SVG.
 Attenzione: questo aumenterà la dimensione del file!</translation>
     </message>
     <message>
@@ -40909,7 +40911,7 @@ convertendo i dati vettoriali in oggetti Scribus.</translation>
         <location filename="../../scribus/ui/annot.cpp" line="542"/>
         <location filename="../../scribus/ui/annot.cpp" line="2177"/>
         <source>Named</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Definita</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.cpp" line="578"/>
@@ -41100,57 +41102,57 @@ convertendo i dati vettoriali in oggetti Scribus.</translation>
     <message>
         <location filename="../../scribus/ui/annot.cpp" line="741"/>
         <source>Fit Page</source>
-        <translation type="unfinished">Adatta pagina</translation>
+        <translation>Adatta pagina</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.cpp" line="742"/>
         <source>Fit Width</source>
-        <translation type="unfinished">Adatta larghezza</translation>
+        <translation>Adatta larghezza</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.cpp" line="743"/>
         <source>Fit Height</source>
-        <translation type="unfinished">Adatta altezza</translation>
+        <translation>Adatta altezza</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.cpp" line="744"/>
         <source>Fit Visible</source>
-        <translation type="unfinished">Adatta visibile</translation>
+        <translation>Adatta visibile</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.cpp" line="745"/>
         <source>Single Page</source>
-        <translation type="unfinished">Pagina singola</translation>
+        <translation>Pagina singola</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.cpp" line="746"/>
         <source>Two Pages</source>
-        <translation type="unfinished">Due pagine</translation>
+        <translation>Due pagine</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.cpp" line="747"/>
         <source>One Column</source>
-        <translation type="unfinished">Una colonna</translation>
+        <translation>Una colonna</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.cpp" line="748"/>
         <source>Two Columns</source>
-        <translation type="unfinished">Due colonne</translation>
+        <translation>Due colonne</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.cpp" line="749"/>
         <source>Zoom View In</source>
-        <translation>Aumenta zoom</translation>
+        <translation>Zoom avanti</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.cpp" line="750"/>
         <source>Zoom View Out</source>
-        <translation>Riduci zoom</translation>
+        <translation>Zoom indietro</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.cpp" line="751"/>
         <source>Zoom To</source>
-        <translation type="unfinished">Zoom a</translation>
+        <translation>Zoom a</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.cpp" line="752"/>
@@ -41205,22 +41207,22 @@ convertendo i dati vettoriali in oggetti Scribus.</translation>
     <message>
         <location filename="../../scribus/ui/annot.cpp" line="762"/>
         <source>Show/Hide Toolbar Commenting</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Mostra/Nascondi barra degli strumenti Commenti</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.cpp" line="763"/>
         <source>Show/Hide Toolbar Edit</source>
-        <translation type="unfinished"></translation>
+        <translation>Mostra/Nascondi barra degli strumenti Modifica</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.cpp" line="764"/>
         <source>Show/Hide Toolbar File</source>
-        <translation type="unfinished"></translation>
+        <translation>Mostra/Nascondi barra degli strumenti File</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.cpp" line="765"/>
         <source>Show/Hide Toolbar Find</source>
-        <translation type="unfinished"></translation>
+        <translation>Mostra/Nascondi barra degli strumenti Trova</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.cpp" line="766"/>
@@ -41230,22 +41232,22 @@ convertendo i dati vettoriali in oggetti Scribus.</translation>
     <message>
         <location filename="../../scribus/ui/annot.cpp" line="767"/>
         <source>Show/Hide Toolbar Measuring</source>
-        <translation type="unfinished"></translation>
+        <translation>Mostra/Nascondi barra degli strumenti Misura</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.cpp" line="768"/>
         <source>Show/Hide Toolbar Data</source>
-        <translation type="unfinished"></translation>
+        <translation>Mostra/Nascondi barra degli strumenti Dati</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.cpp" line="769"/>
         <source>Show/Hide Toolbar Page Display</source>
-        <translation type="unfinished"></translation>
+        <translation>Mostra/Nascondi barra degli strumenti Visualizzazione pagina</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.cpp" line="770"/>
         <source>Show/Hide Toolbar Navigation</source>
-        <translation type="unfinished"></translation>
+        <translation>Mostra/Nascondi barra degli strumenti Navigazione</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.cpp" line="771"/>
@@ -41260,32 +41262,33 @@ convertendo i dati vettoriali in oggetti Scribus.</translation>
     <message>
         <location filename="../../scribus/ui/annot.cpp" line="773"/>
         <source>Show/Hide Toolbar Basic Tools</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Mostra/Nascondi barra degli strumenti Basilari</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.cpp" line="774"/>
         <source>Show/Hide Toolbar Tasks</source>
-        <translation type="unfinished"></translation>
+        <translation>Mostra/Nascondi barra degli strumenti Task</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.cpp" line="775"/>
         <source>Show/Hide Toolbar Typewriter</source>
-        <translation type="unfinished"></translation>
+        <translation>Mostra/Nascondi barra degli strumenti Typewriter</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.cpp" line="776"/>
         <source>Show/Hide Articles</source>
-        <translation type="unfinished"></translation>
+        <translation>Mostra/Nascondi Articoli</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.cpp" line="777"/>
         <source>Show/Hide File Attachment</source>
-        <translation type="unfinished"></translation>
+        <translation>Mostra/Nascondi Allegati</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.cpp" line="778"/>
         <source>Show/Hide Annot Manager</source>
-        <translation type="unfinished"></translation>
+        <translatorcomment>da verificare</translatorcomment>
+        <translation type="unfinished">Mostra/Nascondi Gestore annotazioni</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.cpp" line="779"/>
@@ -41295,17 +41298,18 @@ convertendo i dati vettoriali in oggetti Scribus.</translation>
     <message>
         <location filename="../../scribus/ui/annot.cpp" line="780"/>
         <source>Show/Hide Optional Content</source>
-        <translation type="unfinished"></translation>
+        <translatorcomment>da verificare</translatorcomment>
+        <translation type="unfinished">Mostra/Nascondi Contenuto opzionale</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.cpp" line="781"/>
         <source>Show/Hide Model Tree</source>
-        <translation type="unfinished"></translation>
+        <translation>Mostra/Nascondi Albero modello</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.cpp" line="782"/>
         <source>Show/Hide Signatures</source>
-        <translation type="unfinished"></translation>
+        <translation>Mostra/Nascondi Firme</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.cpp" line="788"/>
@@ -41626,7 +41630,7 @@ convertendo i dati vettoriali in oggetti Scribus.</translation>
     <message>
         <location filename="../../scribus/ui/scmwmenumanager.cpp" line="42"/>
         <source>&amp;Level</source>
-        <translation>&amp;Livello</translation>
+        <translation>&amp;Quota</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/scmwmenumanager.cpp" line="43"/>
@@ -42125,7 +42129,7 @@ Rotazione: %4</translation>
     <message>
         <location filename="../../scribus/scribus.cpp" line="829"/>
         <source>Level</source>
-        <translation>Livello</translation>
+        <translation>Quota</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="835"/>
@@ -42645,12 +42649,12 @@ Utilizzare la Verifica Preliminare per correggerli</translation>
     <message>
         <location filename="../../scribus/scribus.cpp" line="8976"/>
         <source>Click here to leave inline frame edit mode.</source>
-        <translation>Clicca qui per uscire dalla modalità modifica cornice inline.</translation>
+        <translation>Clicca qui per uscire dalla modalità modifica cornice in linea.</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="9003"/>
         <source>Editing Inline Frame</source>
-        <translation>Modifica cornice inline</translation>
+        <translation>Modifica cornice in linea</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="9123"/>
@@ -43142,7 +43146,7 @@ Utilizzare la Verifica Preliminare per correggerli</translation>
     <message>
         <location filename="../../scribus/ui/contextmenu.cpp" line="416"/>
         <source>Le&amp;vel</source>
-        <translation>&amp;Livello</translation>
+        <translation>&amp;Quota</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/contextmenu.cpp" line="439"/>
@@ -48535,7 +48539,7 @@ L&apos;impostazione ai livelli 1 o 2 può generare file molto grandi</translatio
     <message>
         <location filename="../../scribus/third_party/zip/unzip.cpp" line="1207"/>
         <source>Invalid device.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Dispositivo non valido.</translation>
     </message>
     <message>
         <location filename="../../scribus/third_party/zip/unzip.cpp" line="1208"/>
@@ -48545,7 +48549,7 @@ L&apos;impostazione ai livelli 1 o 2 può generare file molto grandi</translatio
     <message>
         <location filename="../../scribus/third_party/zip/unzip.cpp" line="1209"/>
         <source>Inconsistent headers. Archive might be corrupted.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Header inconsistenti. L&apos;archivio potrebbe essere danneggiato.</translation>
     </message>
     <message>
         <location filename="../../scribus/third_party/zip/unzip.cpp" line="1213"/>
