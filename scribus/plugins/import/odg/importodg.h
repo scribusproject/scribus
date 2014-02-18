@@ -42,8 +42,10 @@ public:
 	  markerPath(),
 	  startMarkerName(""),
 	  startMarkerWidth(0.0),
+	  startMarkerCentered(false),
 	  endMarkerName(""),
 	  endMarkerWidth(0.0),
+	  endMarkerCentered(false),
 	  stroke_dash_distance(0.0),
 	  stroke_dash_dots1(1),
 	  stroke_dash_dots1_length(0.0),
@@ -92,8 +94,10 @@ public:
 	QPainterPath					markerPath;
 	QString							startMarkerName;
 	double							startMarkerWidth;
+	bool							startMarkerCentered;
 	QString							endMarkerName;
 	double							endMarkerWidth;
+	bool							endMarkerCentered;
 	double							stroke_dash_distance;
 	int								stroke_dash_dots1;
 	double							stroke_dash_dots1_length;
@@ -177,8 +181,10 @@ private:
 		AttributeValue markerPath;
 		AttributeValue startMarkerName;
 		AttributeValue startMarkerWidth;
+		AttributeValue startMarkerCentered;
 		AttributeValue endMarkerName;
 		AttributeValue endMarkerWidth;
+		AttributeValue endMarkerCentered;
 		AttributeValue stroke_dash_distance;
 		AttributeValue stroke_dash_dots1;
 		AttributeValue stroke_dash_dots1_length;

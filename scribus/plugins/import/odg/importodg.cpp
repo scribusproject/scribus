@@ -1324,8 +1324,10 @@ void OdgPlug::parseStyles(QDomElement &sp)
 					currStyle.dashName = AttributeValue(spe.attribute("draw:stroke-dash", ""));
 					currStyle.startMarkerName = AttributeValue(spe.attribute("draw:marker-start", ""));
 					currStyle.startMarkerWidth = AttributeValue(spe.attribute("draw:marker-start-width", ""));
+					currStyle.startMarkerCentered = AttributeValue(spe.attribute("draw:marker-start-center", ""));
 					currStyle.endMarkerName = AttributeValue(spe.attribute("draw:marker-end", ""));
 					currStyle.endMarkerWidth = AttributeValue(spe.attribute("draw:marker-end-width", ""));
+					currStyle.endMarkerCentered = AttributeValue(spe.attribute("draw:marker-end-center", ""));
 				}
 				else if (spe.tagName() == "style:paragraph-properties")
 				{
@@ -1401,10 +1403,14 @@ void OdgPlug::resovleStyle(ObjStyle &tmpOStyle, QString pAttrs)
 					actStyle.startMarkerName = AttributeValue(currStyle.startMarkerName.value);
 				if (currStyle.startMarkerWidth.valid)
 					actStyle.startMarkerWidth = AttributeValue(currStyle.startMarkerWidth.value);
+				if (currStyle.startMarkerCentered.valid)
+					actStyle.startMarkerCentered = AttributeValue(currStyle.startMarkerCentered.value);
 				if (currStyle.endMarkerName.valid)
 					actStyle.endMarkerName = AttributeValue(currStyle.endMarkerName.value);
 				if (currStyle.endMarkerWidth.valid)
 					actStyle.endMarkerWidth = AttributeValue(currStyle.endMarkerWidth.value);
+				if (currStyle.endMarkerCentered.valid)
+					actStyle.endMarkerCentered = AttributeValue(currStyle.endMarkerCentered.value);
 				if (currStyle.stroke_dash_distance.valid)
 					actStyle.stroke_dash_distance = AttributeValue(currStyle.stroke_dash_distance.value);
 				if (currStyle.stroke_dash_dots1.valid)
@@ -1692,10 +1698,14 @@ void OdgPlug::resovleStyle(ObjStyle &tmpOStyle, QString pAttrs)
 			tmpOStyle.startMarkerName = actStyle.startMarkerName.value;
 		if (actStyle.startMarkerWidth.valid)
 			tmpOStyle.startMarkerWidth = parseUnit(actStyle.startMarkerWidth.value);
+		if (actStyle.startMarkerCentered.valid)
+			tmpOStyle.startMarkerCentered = actStyle.startMarkerCentered.value == "true";
 		if (actStyle.endMarkerName.valid)
 			tmpOStyle.endMarkerName = actStyle.endMarkerName.value;
 		if (actStyle.endMarkerWidth.valid)
 			tmpOStyle.endMarkerWidth = parseUnit(actStyle.endMarkerWidth.value);
+		if (actStyle.endMarkerCentered.valid)
+			tmpOStyle.endMarkerCentered = actStyle.endMarkerCentered.value == "true";
 	}
 }
 
@@ -1920,7 +1930,11 @@ PageItem* OdgPlug::applyStartArrow(PageItem* ite, ObjStyle &obState)
 				if ((Start.x() != Vector.x()) || (Start.y() != Vector.y()))
 				{
 					double r = atan2(Start.y()-Vector.y(),Start.x()-Vector.x())*(180.0/M_PI);
-					QPointF refP = QPointF(br.width() / 2.0, 0);
+					QPointF refP;
+					if (obState.startMarkerCentered)
+						refP = QPointF(br.width() / 2.0, br.height() / 2.0);
+					else
+						refP = QPointF(br.width() / 2.0, 0);
 					QTransform m;
 					m.translate(br.width() / 2.0, br.height() / 2.0);
 					m.rotate(r + 90);
@@ -1985,7 +1999,11 @@ PageItem* OdgPlug::applyEndArrow(PageItem* ite, ObjStyle &obState)
 				if ((End.x() != Vector.x()) || (End.y() != Vector.y()))
 				{
 					double r = atan2(End.y()-Vector.y(),End.x()-Vector.x())*(180.0/M_PI);
-					QPointF refP = QPointF(br.width() / 2.0, 0);
+					QPointF refP;
+					if (obState.endMarkerCentered)
+						refP = QPointF(br.width() / 2.0, br.height() / 2.0);
+					else
+						refP = QPointF(br.width() / 2.0, 0);
 					QTransform m;
 					m.translate(br.width() / 2.0, br.height() / 2.0);
 					m.rotate(r + 90);
