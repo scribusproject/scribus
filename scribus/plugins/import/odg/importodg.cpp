@@ -460,6 +460,16 @@ bool OdgPlug::parseDocReferenceXML(QDomDocument &designMapDom)
 		}
 		else if ((drawPag.tagName() == "office:styles") || (drawPag.tagName() == "office:automatic-styles"))
 			parseStyles(drawPag);
+		if (drawPag.tagName() == "office:master-styles")
+		{
+			DrawStyle currStyle;
+			for(QDomElement spf = drawPag.firstChildElement(); !spf.isNull(); spf = spf.nextSiblingElement() )
+			{
+				if (spf.tagName() == "style:master-page")
+					currStyle.page_layout_name = AttributeValue(spf.attribute("style:page-layout-name"));
+				m_Styles.insert(spf.attribute("style:name"), currStyle);
+			}
+		}
 		else if (drawPag.tagName() == "office:body")
 		{
 			for(QDomElement sp = drawPag.firstChildElement(); !sp.isNull(); sp = sp.nextSiblingElement() )
@@ -994,6 +1004,108 @@ PageItem* OdgPlug::parseFrame(QDomElement &e)
 										m_Doc->Items->removeLast();
 									}
 								}
+							}
+						}
+					}
+				}
+			}
+			else if (n.hasChildNodes())
+			{
+				for(QDomElement nc = n.firstChildElement(); !nc.isNull(); nc = nc.nextSiblingElement())
+				{
+					if (nc.tagName() == "office:binary-data")
+					{
+						QString ext = "";
+						QByteArray buf = QByteArray::fromBase64(nc.text().toLatin1());
+						if ((buf[0] == '%') && (buf[1] == '!') && (buf[2] == 'P') && (buf[3] == 'S') && (buf[4] == '-') && (buf[5] == 'A'))
+							ext = "eps";
+						else if ((buf[0] == '\xC5') && (buf[1] == '\xD0') && (buf[2] == '\xD3') && (buf[3] == '\xC6'))
+							ext = "eps";
+						else if ((buf[0] == 'G') && (buf[1] == 'I') && (buf[2] == 'F') && (buf[3] == '8'))
+							ext = "gif";
+						else if ((buf[0] == '\xFF') && (buf[1] == '\xD8') && (buf[2] == '\xFF'))
+							ext = "jpg";
+						else if ((buf[0] == '%') && (buf[1] == 'P') && (buf[2] == 'D') && (buf[3] == 'F'))
+							ext = "pdf";
+						else if ((buf[0] == 'P') && (buf[1] == 'G') && (buf[2] == 'F'))
+							ext = "pgf";
+						else if ((buf[0] == '\x89') && (buf[1] == 'P') && (buf[2] == 'N') && (buf[3] == 'G'))
+							ext = "png";
+						else if ((buf[0] == '8') && (buf[1] == 'B') && (buf[2] == 'P') && (buf[3] == 'S'))
+							ext = "psd";
+						else if (((buf[0] == 'I') && (buf[1] == 'I') && (buf[2] == '\x2A')) || ((buf[0] == 'M') && (buf[1] == 'M') && (buf[3] == '\x2A')))
+							ext = "tif";
+						else if ((buf[0] == '/') && (buf[1] == '*') && (buf[2] == ' ') && (buf[3] == 'X') && (buf[4] == 'P') && (buf[5] == 'M'))
+							ext = "xpm";
+						else if ((buf[0] == '\xD7') && (buf[1] == '\xCD') && (buf[2] == '\xC6') && (buf[3] == '\x9A'))
+							ext = "wmf";
+						else if ((buf[0] == '<') && (buf[1] == '?') && (buf[2] == 'x') && (buf[3] == 'm') && (buf[4] == 'l'))
+							ext = "svg";
+						if (!ext.isEmpty())
+						{
+							if ((ext == "eps") || (ext == "wmf") || (ext == "svg"))
+							{
+								QTemporaryFile *tempFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_odg_XXXXXX." + ext);
+								tempFile->setAutoRemove(false);
+								if (tempFile->open())
+								{
+									QString fileName = getLongPathName(tempFile->fileName());
+									if (!fileName.isEmpty())
+									{
+										tempFile->write(buf);
+										tempFile->close();
+										FileLoader *fileLoader = new FileLoader(fileName);
+										int testResult = fileLoader->testFile();
+										delete fileLoader;
+										if (testResult != -1)
+										{
+											const FileFormat * fmt = LoadSavePlugin::getFormatById(testResult);
+											if( fmt )
+											{
+												m_Doc->m_Selection->clear();
+												fmt->setupTargets(m_Doc, 0, 0, 0, &(PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts));
+												fmt->loadFile(fileName, LoadSavePlugin::lfUseCurrentPage|LoadSavePlugin::lfInteractive|LoadSavePlugin::lfScripted);
+												if (m_Doc->m_Selection->count() > 0)
+												{
+													retObj = m_Doc->groupObjectsSelection();
+													retObj->setTextFlowMode(PageItem::TextFlowUsesBoundingBox);
+													retObj->setXYPos(baseX + x, baseY + y, true);
+													retObj->setWidthHeight(w, h, true);
+													retObj->updateClip();
+												}
+												m_Doc->m_Selection->clear();
+												m_Doc->Items->removeLast();
+											}
+										}
+									}
+								}
+							}
+							else
+							{
+								int z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, baseX+x, baseY+y, w, h, tmpOStyle.LineW, tmpOStyle.CurrColorFill, tmpOStyle.CurrColorStroke, true);
+								retObj = m_Doc->Items->at(z);
+								if (e.hasAttribute("draw:transform"))
+									retObj->setRotation(r, true);
+								finishItem(retObj, tmpOStyle);
+								QTemporaryFile *tempFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_odg_XXXXXX." + ext);
+								tempFile->setAutoRemove(false);
+								if (tempFile->open())
+								{
+									QString fileName = getLongPathName(tempFile->fileName());
+									if (!fileName.isEmpty())
+									{
+										tempFile->write(buf);
+										tempFile->close();
+										retObj->isInlineImage = true;
+										retObj->isTempFile = true;
+										retObj->AspectRatio = false;
+										retObj->ScaleType   = false;
+										m_Doc->loadPict(fileName, retObj);
+										retObj->AdjustPictScale();
+									}
+								}
+								delete tempFile;
+								m_Doc->Items->removeLast();
 							}
 						}
 					}
