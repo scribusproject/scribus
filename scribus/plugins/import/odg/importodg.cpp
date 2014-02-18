@@ -1144,22 +1144,41 @@ void OdgPlug::parseText(QDomElement &elem, PageItem* item, ObjStyle& tmpOStyle)
 			tmpStyle.setGapAfter(pStyle.margin_bottom);
 			tmpStyle.setGapBefore(pStyle.margin_top);
 			double maxFsize = 0.0;
-			for(QDomElement sp = para.firstChildElement(); !sp.isNull(); sp = sp.nextSiblingElement())
+			if (para.firstChildElement().isNull())
 			{
-				ObjStyle cStyle;
-				resovleStyle(cStyle, sp.attribute("text:style-name"));
 				CharStyle tmpCStyle = tmpStyle.charStyle();
-				tmpCStyle.setFont((*m_Doc->AllFonts)[cStyle.fontName]);
-				tmpCStyle.setFontSize(cStyle.fontSize * 10);
-				tmpCStyle.setFillColor(cStyle.CurrColorText);
-				maxFsize = qMax(maxFsize, cStyle.fontSize);
-				QString txt = sp.text().trimmed();
+				tmpCStyle.setFont((*m_Doc->AllFonts)[tmpOStyle.fontName]);
+				tmpCStyle.setFontSize(tmpOStyle.fontSize * 10);
+				tmpCStyle.setFillColor(tmpOStyle.CurrColorText);
+				maxFsize = qMax(maxFsize, tmpOStyle.fontSize);
+				QString txt = para.text().trimmed();
 				if (txt.length() > 0)
 				{
 					item->itemText.insertChars(posC, txt);
 					item->itemText.applyStyle(posC, tmpStyle);
 					item->itemText.applyCharStyle(posC, txt.length(), tmpCStyle);
 					posC = item->itemText.length();
+				}
+			}
+			else
+			{
+				for(QDomElement sp = para.firstChildElement(); !sp.isNull(); sp = sp.nextSiblingElement())
+				{
+					ObjStyle cStyle;
+					resovleStyle(cStyle, sp.attribute("text:style-name"));
+					CharStyle tmpCStyle = tmpStyle.charStyle();
+					tmpCStyle.setFont((*m_Doc->AllFonts)[cStyle.fontName]);
+					tmpCStyle.setFontSize(cStyle.fontSize * 10);
+					tmpCStyle.setFillColor(cStyle.CurrColorText);
+					maxFsize = qMax(maxFsize, cStyle.fontSize);
+					QString txt = sp.text().trimmed();
+					if (txt.length() > 0)
+					{
+						item->itemText.insertChars(posC, txt);
+						item->itemText.applyStyle(posC, tmpStyle);
+						item->itemText.applyCharStyle(posC, txt.length(), tmpCStyle);
+						posC = item->itemText.length();
+					}
 				}
 			}
 			if (pStyle.lineHeight < 0.0)
