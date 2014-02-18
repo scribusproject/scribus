@@ -82,7 +82,11 @@ public:
 	  gradientCenterX(0.0),
 	  gradientCenterY(0.0),
 	  gradientType("linear"),
-	  gradientName("")
+	  gradientName(""),
+	  hasShadow(false),
+	  shadowX(0.0),
+	  shadowY(0.0),
+	  shadowTrans(0.0)
 	  {}
 	QRectF							markerViewBox;
 	QPainterPath					markerPath;
@@ -129,6 +133,10 @@ public:
 	double							gradientCenterY;
 	QString							gradientType;
 	QString							gradientName;
+	bool							hasShadow;
+	double							shadowX;
+	double							shadowY;
+	double							shadowTrans;
 };
 
 class OdgPlug : public QObject
@@ -209,6 +217,10 @@ private:
 		AttributeValue gradientCenterY;
 		AttributeValue gradientType;
 		AttributeValue gradientName;
+		AttributeValue hasShadow;
+		AttributeValue shadowX;
+		AttributeValue shadowY;
+		AttributeValue shadowTrans;
 	};
 
 	bool convert(QString fn);

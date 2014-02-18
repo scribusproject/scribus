@@ -1313,6 +1313,10 @@ void OdgPlug::parseStyles(QDomElement &sp)
 					currStyle.strokeMode = AttributeValue(spe.attribute("draw:stroke", ""));
 					currStyle.CurrColorStroke = AttributeValue(spe.attribute("svg:stroke-color", ""));
 					currStyle.CurrColorShadow = AttributeValue(spe.attribute("draw:shadow-color", ""));
+					currStyle.hasShadow = AttributeValue(spe.attribute("draw:shadow", ""));
+					currStyle.shadowX = AttributeValue(spe.attribute("draw:shadow-offset-x", ""));
+					currStyle.shadowY = AttributeValue(spe.attribute("draw:shadow-offset-y", ""));
+					currStyle.shadowTrans = AttributeValue(spe.attribute("draw:shadow-opacity", ""));
 					currStyle.strokeOpacity = AttributeValue(spe.attribute("svg:stroke-opacity", ""));
 					currStyle.LineW = AttributeValue(spe.attribute("svg:stroke-width", ""));
 					currStyle.fillOpacity = AttributeValue(spe.attribute("draw:opacity", ""));
@@ -1423,6 +1427,14 @@ void OdgPlug::resovleStyle(ObjStyle &tmpOStyle, QString pAttrs)
 					actStyle.CurrColorStroke = AttributeValue(currStyle.CurrColorStroke.value);
 				if (currStyle.CurrColorShadow.valid)
 					actStyle.CurrColorShadow = AttributeValue(currStyle.CurrColorShadow.value);
+				if (currStyle.hasShadow.valid)
+					actStyle.hasShadow = AttributeValue(currStyle.hasShadow.value);
+				if (currStyle.shadowX.valid)
+					actStyle.shadowX = AttributeValue(currStyle.shadowX.value);
+				if (currStyle.shadowY.valid)
+					actStyle.shadowY = AttributeValue(currStyle.shadowY.value);
+				if (currStyle.shadowTrans.valid)
+					actStyle.shadowTrans = AttributeValue(currStyle.shadowTrans.value);
 				if (currStyle.fillOpacity.valid)
 					actStyle.fillOpacity = AttributeValue(currStyle.fillOpacity.value);
 				if (currStyle.strokeOpacity.valid)
@@ -1547,6 +1559,14 @@ void OdgPlug::resovleStyle(ObjStyle &tmpOStyle, QString pAttrs)
 		}
 		if (actStyle.CurrColorShadow.valid)
 			tmpOStyle.CurrColorShadow = parseColor(actStyle.CurrColorShadow.value);
+		if (actStyle.hasShadow.valid)
+			tmpOStyle.hasShadow = actStyle.hasShadow.value == "visible";
+		if (actStyle.shadowX.valid)
+			tmpOStyle.shadowX = parseUnit(actStyle.shadowX.value);
+		if (actStyle.shadowY.valid)
+			tmpOStyle.shadowY = parseUnit(actStyle.shadowY.value);
+		if (actStyle.shadowTrans.valid)
+			tmpOStyle.shadowTrans = 1.0 - parseUnit(actStyle.shadowTrans.value);
 		if (actStyle.fillOpacity.valid)
 			tmpOStyle.fillOpacity = 1.0 - parseUnit(actStyle.fillOpacity.value);
 		if (actStyle.strokeOpacity.valid)
@@ -2210,188 +2230,15 @@ void OdgPlug::finishItem(PageItem* item, ObjStyle &obState)
 			item->GrType = 10;
 		}
 	}
-/*	if (m_StyleSheets.contains(m_currentStyleSheet))
+	if (obState.hasShadow)
 	{
-		StyleSheet currSH = m_StyleSheets[m_currentStyleSheet];
-		if (!obState.layoutStyleRef.isEmpty())
-		{
-			if (currSH.m_layoutStyles.contains(obState.layoutStyleRef))
-			{
-				LayoutStyle actStyle;
-				LayoutStyle currStyle = currSH.m_layoutStyles[obState.layoutStyleRef];
-				QStringList parents;
-				while (currStyle.parentStyle.valid)
-				{
-					if (currSH.m_layoutStyles.contains(currStyle.parentStyle.value))
-					{
-						parents.prepend(currStyle.parentStyle.value);
-						currStyle = currSH.m_layoutStyles[currStyle.parentStyle.value];
-					}
-					else
-						break;
-				}
-				parents.append(obState.layoutStyleRef);
-				double textMarginLeft = 0.0;
-				double textMarginRight = 0.0;
-				double textMarginTop = 0.0;
-				double textMarginBottom = 0.0;
-				double textColumnGap = 0.0;
-				int textColumnCount = 1;
-				if (!parents.isEmpty())
-				{
-					for (int p = 0; p < parents.count(); p++)
-					{
-						currStyle = currSH.m_layoutStyles[parents[p]];
-						if (currStyle.Extra.valid)
-							actStyle.Extra = AttributeValue(currStyle.Extra.value);
-						if (currStyle.RExtra.valid)
-							actStyle.RExtra = AttributeValue(currStyle.RExtra.value);
-						if (currStyle.TExtra.valid)
-							actStyle.TExtra = AttributeValue(currStyle.TExtra.value);
-						if (currStyle.BExtra.valid)
-							actStyle.BExtra = AttributeValue(currStyle.BExtra.value);
-						if (currStyle.TextColumnGutter.valid)
-							actStyle.TextColumnGutter = AttributeValue(currStyle.TextColumnGutter.value);
-						if (currStyle.TextColumnCount.valid)
-							actStyle.TextColumnCount = AttributeValue(currStyle.TextColumnCount.value);
-					}
-				}
-				if (actStyle.Extra.valid)
-					textMarginLeft = actStyle.Extra.value.toDouble();
-				if (actStyle.RExtra.valid)
-					textMarginRight = actStyle.RExtra.value.toDouble();
-				if (actStyle.TExtra.valid)
-					textMarginTop = actStyle.TExtra.value.toDouble();
-				if (actStyle.BExtra.valid)
-					textMarginBottom = actStyle.BExtra.value.toDouble();
-				if (actStyle.TextColumnGutter.valid)
-					textColumnGap = actStyle.TextColumnGutter.value.toDouble();
-				if (actStyle.TextColumnCount.valid)
-					textColumnCount = actStyle.TextColumnCount.value.toInt();
-				item->setTextToFrameDist(textMarginLeft, textMarginRight, textMarginTop, textMarginBottom);
-				item->setColumns(textColumnCount);
-				item->setColumnGap(textColumnGap);
-			}
-		}
-		if (!obState.styleRef.isEmpty())
-		{
-			if (currSH.m_objStyles.contains(obState.styleRef))
-			{
-				ObjStyle actStyle;
-				ObjStyle currStyle = currSH.m_objStyles[obState.styleRef];
-				QStringList parents;
-				while (currStyle.parentStyle.valid)
-				{
-					if (currSH.m_objStyles.contains(currStyle.parentStyle.value))
-					{
-						parents.prepend(currStyle.parentStyle.value);
-						currStyle = currSH.m_objStyles[currStyle.parentStyle.value];
-					}
-					else
-						break;
-				}
-				parents.append(obState.styleRef);
-				if (!parents.isEmpty())
-				{
-					for (int p = 0; p < parents.count(); p++)
-					{
-						currStyle = currSH.m_objStyles[parents[p]];
-						if (currStyle.CurrColorFill.valid)
-							actStyle.CurrColorFill = AttributeValue(currStyle.CurrColorFill.value);
-						if (currStyle.CurrColorStroke.valid)
-							actStyle.CurrColorStroke = AttributeValue(currStyle.CurrColorStroke.value);
-						if (currStyle.fillOpacity.valid)
-							actStyle.fillOpacity = AttributeValue(currStyle.fillOpacity.value);
-						if (currStyle.strokeOpacity.valid)
-							actStyle.strokeOpacity = AttributeValue(currStyle.strokeOpacity.value);
-						if (currStyle.opacity.valid)
-							actStyle.opacity = AttributeValue(currStyle.opacity.value);
-						if (currStyle.LineW.valid)
-							actStyle.LineW = AttributeValue(currStyle.LineW.value);
-						if (currStyle.CapStyle.valid)
-							actStyle.CapStyle = AttributeValue(currStyle.CapStyle.value);
-						if (currStyle.JoinStyle.valid)
-							actStyle.JoinStyle = AttributeValue(currStyle.JoinStyle.value);
-					}
-				}
-				if (actStyle.CurrColorFill.valid)
-					item->setFillColor(actStyle.CurrColorFill.value);
-				if (actStyle.CurrColorStroke.valid)
-					item->setLineColor(actStyle.CurrColorStroke.value);
-				if (actStyle.fillOpacity.valid)
-					item->setFillTransparency(actStyle.fillOpacity.value.toDouble());
-				if (actStyle.strokeOpacity.valid)
-					item->setLineTransparency(actStyle.strokeOpacity.value.toDouble());
-				if (actStyle.LineW.valid)
-					item->setLineWidth(actStyle.LineW.value.toDouble());
-				if (actStyle.CapStyle.valid)
-				{
-					if (actStyle.CapStyle.value == "butt")
-						item->setLineEnd(Qt::FlatCap);
-					else if (actStyle.CapStyle.value == "round")
-						item->setLineEnd(Qt::RoundCap);
-					else if (actStyle.CapStyle.value == "square")
-						item->setLineEnd(Qt::SquareCap);
-					else
-						item->setLineEnd(Qt::FlatCap);
-				}
-				if (actStyle.JoinStyle.valid)
-				{
-					if (actStyle.JoinStyle.value == "miter")
-						item->setLineJoin(Qt::MiterJoin);
-					else if (actStyle.JoinStyle.value == "round")
-						item->setLineJoin(Qt::RoundJoin);
-					else if (actStyle.JoinStyle.value == "bevel")
-						item->setLineJoin(Qt::BevelJoin);
-					else
-						item->setLineJoin(Qt::MiterJoin);
-				}
-			}
-		}
-	}*/
-/*	double xp = item->xPos() - m_Doc->currentPage()->xOffset();
-	double yp = item->yPos() - m_Doc->currentPage()->yOffset();
-	if (obState.fillGradientTyp != 0)
-	{
-		item->fill_gradient = obState.currentGradient;
-		item->setGradientVector(obState.gradientStart.x() - xp, obState.gradientStart.y() - yp, obState.gradientEnd.x() - xp, obState.gradientEnd.y() - yp, obState.gradientFocus.x() - xp, obState.gradientFocus.y() - yp, obState.gradientScale, 0);
-		item->setGradientType(obState.fillGradientTyp);
+		item->setHasSoftShadow(true);
+		item->setSoftShadowColor(obState.CurrColorShadow);
+		item->setSoftShadowXOffset(obState.shadowX);
+		item->setSoftShadowYOffset(obState.shadowY);
+		item->setSoftShadowBlurRadius(0);
+		item->setSoftShadowShade(100);
+		item->setSoftShadowOpacity(obState.shadowTrans);
+		item->setSoftShadowBlendMode(0);
 	}
-	else if (!obState.patternName.isEmpty())
-	{
-		item->setPattern(obState.patternName);
-		item->GrType = 8;
-	}
-	if (obState.maskTyp != 0)
-	{
-		item->setMaskGradient(obState.gradientMask);
-		item->setMaskVector(obState.maskStart.x() - xp, obState.maskStart.y() - yp, obState.maskEnd.x() - xp, obState.maskEnd.y() - yp, obState.maskFocus.x() - xp, obState.maskFocus.y() - yp, obState.maskScale, 0);
-		item->setMaskType(obState.maskTyp);
-	}
-	if (!obState.patternMask.isEmpty())
-	{
-		item->setPatternMask(obState.patternMask);
-		item->setMaskType(obState.maskTyp);
-	}
-	if (obState.strokeTyp != 0)
-	{
-		item->setStrokeGradient(obState.gradientStroke);
-		item->setStrokeGradientVector(obState.strokeStart.x() - xp, obState.strokeStart.y() - yp, obState.strokeEnd.x() - xp, obState.strokeEnd.y() - yp, obState.strokeFocus.x() - xp, obState.strokeFocus.y() - yp, obState.strokeScale, 0);
-		item->setStrokeGradientType(obState.strokeTyp);
-	}
-	if (!obState.patternStroke.isEmpty())
-	{
-		item->GrTypeStroke = 8;
-		item->setStrokePattern(obState.patternStroke);
-	}
-	if (!obState.DashPattern.isEmpty())
-	{
-		item->setDashOffset(obState.DashOffset);
-		QVector<double> pattern(obState.DashPattern.count());
-		for (int i = 0; i < obState.DashPattern.count(); ++i)
-		{
-			pattern[i] = obState.DashPattern[i] * obState.LineW;
-		}
-		item->setDashes(pattern);
-	}*/
 }
