@@ -338,7 +338,7 @@ bool OdgPlug::convert(QString fn)
 
 	QFileInfo fi = QFileInfo(fn);
 	QString ext = fi.suffix().toLower();
-	if (ext == "fodg")
+	if ((ext == "fodg") || (ext == "fodp"))
 	{
 		QByteArray f;
 		loadRawText(fn, f);
@@ -474,7 +474,7 @@ bool OdgPlug::parseDocReferenceXML(QDomDocument &designMapDom)
 		{
 			for(QDomElement sp = drawPag.firstChildElement(); !sp.isNull(); sp = sp.nextSiblingElement() )
 			{
-				if (sp.tagName() == "office:drawing")
+				if ((sp.tagName() == "office:drawing") || (sp.tagName() == "office:presentation"))
 				{
 					for(QDomElement spp = sp.firstChildElement(); !spp.isNull(); spp = spp.nextSiblingElement() )
 					{
@@ -606,12 +606,122 @@ PageItem* OdgPlug::parseObj(QDomElement &draw)
 		retObj = parseLine(draw);
 	else if (draw.tagName() == "draw:frame")
 		retObj = parseFrame(draw);
+	else if (draw.tagName() == "draw:measure")
+		retObj = parseMeasure(draw);
 	else
 		qDebug() << "Unhandled Tag" << draw.tagName();
 	return retObj;
 }
 
-PageItem* OdgPlug::parseLine(const QDomElement &e)
+PageItem* OdgPlug::parseMeasure(QDomElement &e)
+{
+	ObjStyle tmpOStyle;
+	PageItem *retObj = NULL;
+	QList<PageItem*> GElements;
+	double x1 = e.attribute( "svg:x1" ).isEmpty() ? 0.0 : parseUnit( e.attribute( "svg:x1" ) );
+	double y1 = e.attribute( "svg:y1" ).isEmpty() ? 0.0 : parseUnit( e.attribute( "svg:y1" ) );
+	double x2 = e.attribute( "svg:x2" ).isEmpty() ? 0.0 : parseUnit( e.attribute( "svg:x2" ) );
+	double y2 = e.attribute( "svg:y2" ).isEmpty() ? 0.0 : parseUnit( e.attribute( "svg:y2" ) );
+	resovleStyle(tmpOStyle, e.attribute("draw:style-name"));
+	if (tmpOStyle.measureDist == 0)
+		tmpOStyle.measureDist = tmpOStyle.fontSize;
+	QLineF refLine = QLineF(x1, y1, x2, y2);
+	QLineF normRef = refLine.normalVector();
+	normRef.setLength(tmpOStyle.measureDist);
+	double dx = normRef.p2().x() - refLine.p1().x();
+	double dy = normRef.p2().y() - refLine.p1().y();
+	retObj = parseLine(e);
+	if (retObj != NULL)
+	{
+		retObj->moveBy(dx, dy, true);
+		GElements.append(retObj);
+	}
+	normRef.setLength(tmpOStyle.measureDist + tmpOStyle.fontSize * 1.2);
+	if (normRef.length() != 0)
+	{
+		int z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, tmpOStyle.LineW, CommonStrings::None, tmpOStyle.CurrColorStroke, true);
+		retObj = m_Doc->Items->at(z);
+		retObj->PoLine.resize(4);
+		retObj->PoLine.setPoint(0, FPoint(x1, y1));
+		retObj->PoLine.setPoint(1, FPoint(x1, y1));
+		retObj->PoLine.setPoint(2, FPoint(normRef.p2().x(), normRef.p2().y()));
+		retObj->PoLine.setPoint(3, FPoint(normRef.p2().x(), normRef.p2().y()));
+		if (e.hasAttribute("draw:transform"))
+			parseTransform(&retObj->PoLine, e.attribute("draw:transform"));
+		finishItem(retObj, tmpOStyle);
+		m_Doc->Items->removeLast();
+		GElements.append(retObj);
+	}
+	QLineF refLine2 = QLineF(x2, y2, x1, y1);
+	QLineF normRef2 = refLine2.normalVector();
+	normRef2.setAngle(normRef2.angle() + 180);
+	normRef2.setLength(tmpOStyle.measureDist + tmpOStyle.fontSize / 2.0);
+	if (normRef2.length() != 0)
+	{
+		int z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, tmpOStyle.LineW, CommonStrings::None, tmpOStyle.CurrColorStroke, true);
+		retObj = m_Doc->Items->at(z);
+		retObj->PoLine.resize(4);
+		retObj->PoLine.setPoint(0, FPoint(x2, y2));
+		retObj->PoLine.setPoint(1, FPoint(x2, y2));
+		retObj->PoLine.setPoint(2, FPoint(normRef2.p2().x(), normRef2.p2().y()));
+		retObj->PoLine.setPoint(3, FPoint(normRef2.p2().x(), normRef2.p2().y()));
+		if (e.hasAttribute("draw:transform"))
+			parseTransform(&retObj->PoLine, e.attribute("draw:transform"));
+		finishItem(retObj, tmpOStyle);
+		m_Doc->Items->removeLast();
+		GElements.append(retObj);
+	}
+	normRef2.setLength(tmpOStyle.measureDist + tmpOStyle.fontSize * 1.2);
+	QLineF textLine = QLineF(normRef.p2(), normRef2.p2());
+	if (textLine.length() != 0)
+	{
+		int z = m_Doc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, baseX+normRef.p2().x(), baseY+normRef.p2().y(), textLine.length(), tmpOStyle.fontSize * 1.2, tmpOStyle.LineW, tmpOStyle.CurrColorFill, tmpOStyle.CurrColorStroke, true);
+		retObj = m_Doc->Items->at(z);
+		retObj->setTextToFrameDist(0.0, 0.0, 0.0, 0.0);
+		retObj->setTextFlowMode(PageItem::TextFlowDisabled);
+		finishItem(retObj, tmpOStyle);
+		retObj->setRotation(-textLine.angle(), true);
+		parseText(e, retObj, tmpOStyle);
+		m_Doc->Items->removeLast();
+		GElements.append(retObj);
+	}
+	if (GElements.count() > 1)
+	{
+		double minx =  std::numeric_limits<double>::max();
+		double miny =  std::numeric_limits<double>::max();
+		double maxx = -std::numeric_limits<double>::max();
+		double maxy = -std::numeric_limits<double>::max();
+		for (int ep = 0; ep < GElements.count(); ++ep)
+		{
+			PageItem* currItem = GElements.at(ep);
+			double x1, x2, y1, y2;
+			currItem->getVisualBoundingRect(&x1, &y1, &x2, &y2);
+			minx = qMin(minx, x1);
+			miny = qMin(miny, y1);
+			maxx = qMax(maxx, x2);
+			maxy = qMax(maxy, y2);
+		}
+		double gx = minx;
+		double gy = miny;
+		double gw = maxx - minx;
+		double gh = maxy - miny;
+		int z = m_Doc->itemAdd(PageItem::Group, PageItem::Rectangle, gx, gy, gw, gh, 0, CommonStrings::None, CommonStrings::None, true);
+		retObj = m_Doc->Items->at(z);
+		retObj->ClipEdited = true;
+		retObj->FrameType = 3;
+		retObj->setFillEvenOdd(false);
+		retObj->OldB2 = retObj->width();
+		retObj->OldH2 = retObj->height();
+		retObj->updateClip();
+		m_Doc->groupObjectsToItem(retObj, GElements);
+		retObj->OwnPage = m_Doc->OnPage(retObj);
+		m_Doc->GroupOnPage(retObj);
+		m_Doc->Items->removeLast();
+	}
+	return retObj;
+}
+
+PageItem* OdgPlug::parseLine( QDomElement &e)
 {
 	ObjStyle tmpOStyle;
 	PageItem *retObj = NULL;
@@ -1119,11 +1229,11 @@ PageItem* OdgPlug::parseFrame(QDomElement &e)
 void OdgPlug::parseText(QDomElement &elem, PageItem* item, ObjStyle& tmpOStyle)
 {
 	int posC = 0;
-	QString pStyle = CommonStrings::DefaultParagraphStyle;
+	QString pStyleD = CommonStrings::DefaultParagraphStyle;
 	ParagraphStyle newStyle;
 	newStyle.setDefaultStyle(false);
-	newStyle.setParent(pStyle);
-	ParagraphStyle ttx = m_Doc->paragraphStyle(pStyle);
+	newStyle.setParent(pStyleD);
+	ParagraphStyle ttx = m_Doc->paragraphStyle(pStyleD);
 	CharStyle nstyle = ttx.charStyle();
 	newStyle.setLineSpacingMode(ParagraphStyle::AutomaticLineSpacing);
 	newStyle.setLineSpacing(nstyle.fontSize() / 10.0);
@@ -1459,6 +1569,7 @@ void OdgPlug::parseStyles(QDomElement &sp)
 					currStyle.endMarkerName = AttributeValue(spe.attribute("draw:marker-end", ""));
 					currStyle.endMarkerWidth = AttributeValue(spe.attribute("draw:marker-end-width", ""));
 					currStyle.endMarkerCentered = AttributeValue(spe.attribute("draw:marker-end-center", ""));
+					currStyle.measureDist = AttributeValue(spe.attribute("draw:line-distance"));
 				}
 				else if (spe.tagName() == "style:paragraph-properties")
 				{
@@ -1626,6 +1737,8 @@ void OdgPlug::resovleStyle(ObjStyle &tmpOStyle, QString pAttrs)
 					actStyle.gradientName = AttributeValue(currStyle.gradientName.value);
 				if (currStyle.dashName.valid)
 					actStyle.dashName = AttributeValue(currStyle.dashName.value);
+				if (currStyle.measureDist.valid)
+					actStyle.measureDist = AttributeValue(currStyle.measureDist.value);
 			}
 		}
 		tmpOStyle.stroke_dash_distance = -1;
@@ -1837,6 +1950,8 @@ void OdgPlug::resovleStyle(ObjStyle &tmpOStyle, QString pAttrs)
 			tmpOStyle.endMarkerWidth = parseUnit(actStyle.endMarkerWidth.value);
 		if (actStyle.endMarkerCentered.valid)
 			tmpOStyle.endMarkerCentered = actStyle.endMarkerCentered.value == "true";
+		if (actStyle.measureDist.valid)
+			tmpOStyle.measureDist = parseUnit(actStyle.measureDist.value);
 	}
 }
 

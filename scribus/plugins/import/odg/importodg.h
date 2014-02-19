@@ -88,7 +88,8 @@ public:
 	  hasShadow(false),
 	  shadowX(0.0),
 	  shadowY(0.0),
-	  shadowTrans(0.0)
+	  shadowTrans(0.0),
+	  measureDist(0.0)
 	  {}
 	QRectF							markerViewBox;
 	QPainterPath					markerPath;
@@ -141,6 +142,7 @@ public:
 	double							shadowX;
 	double							shadowY;
 	double							shadowTrans;
+	double							measureDist;
 };
 
 class OdgPlug : public QObject
@@ -227,6 +229,7 @@ private:
 		AttributeValue shadowX;
 		AttributeValue shadowY;
 		AttributeValue shadowTrans;
+		AttributeValue measureDist;
 	};
 
 	bool convert(QString fn);
@@ -235,7 +238,8 @@ private:
 	bool parseDocReference(QString designMap);
 	bool parseDocReferenceXML(QDomDocument &designMapDom);
 	PageItem* parseObj(QDomElement &draw);
-	PageItem* parseLine(const QDomElement &e);
+	PageItem* parseMeasure(QDomElement &e);
+	PageItem* parseLine(QDomElement &e);
 	PageItem* parseEllipse(QDomElement &e);
 	PageItem* parseRect(QDomElement &e);
 	PageItem* parsePolygon(QDomElement &e);
