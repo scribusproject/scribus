@@ -56,10 +56,13 @@ ImportOdgPlugin::ImportOdgPlugin() : LoadSavePlugin(),
 
 void ImportOdgPlugin::languageChange()
 {
-	importAction->setText( tr("Import Open Document Draw..."));
+	importAction->setText( tr("Import ODF Document..."));
 	FileFormat* fmt = getFormatByExt("odg");
-	fmt->trName = tr("Open Document Draw", "Import/export format name");
-	fmt->filter = tr("Open Document Draw (*.odg *.ODG *.fodg *.FODG)");
+	fmt->trName = tr("ODF Drawing", "Import/export format name");
+	fmt->filter = tr("ODF Drawing (*.odg *.ODG *.fodg *.FODG)");
+	FileFormat* fmt2 = getFormatByExt("odp");
+	fmt2->trName = tr("ODF Presentation", "Import/export format name");
+	fmt2->filter = tr("ODF Presentation (*.odp *.ODP *.fodp *.FODP)");
 }
 
 ImportOdgPlugin::~ImportOdgPlugin()
@@ -77,8 +80,8 @@ const ScActionPlugin::AboutData* ImportOdgPlugin::getAboutData() const
 {
 	AboutData* about = new AboutData;
 	about->authors = "Franz Schmid <franz@scribus.info>";
-	about->shortDescription = tr("Imports Open Document Draw Files");
-	about->description = tr("Imports most Open Document Draw files into the current document,\nconverting their vector data into Scribus objects.");
+	about->shortDescription = tr("Imports ODF Drawing Files");
+	about->description = tr("Imports most ODF Drawing files into the current document,\nconverting their vector data into Scribus objects.");
 	about->license = "GPL";
 	Q_CHECK_PTR(about);
 	return about;
@@ -93,8 +96,8 @@ void ImportOdgPlugin::deleteAboutData(const AboutData* about) const
 void ImportOdgPlugin::registerFormats()
 {
 	FileFormat fmt(this);
-	fmt.trName = tr("Open Document Draw", "Import/export format name");
-	fmt.filter = tr("Open Document Draw (*.odg *.ODG *.fodg *.FODG)");
+	fmt.trName = tr("ODF Drawing", "Import/export format name");
+	fmt.filter = tr("ODF Drawing (*.odg *.ODG *.fodg *.FODG)");
 	fmt.formatId = 0;
 	fmt.fileExtensions = QStringList() << "odg" << "fodg";
 	fmt.load = true;
@@ -105,6 +108,19 @@ void ImportOdgPlugin::registerFormats()
 	fmt.mimeTypes.append("application/vnd.oasis.opendocument.graphics");
 	fmt.priority = 64; // Priority
 	registerFormat(fmt);
+	FileFormat fmt2(this);
+	fmt2.trName = tr("ODF Presentation", "Import/export format name");
+	fmt2.filter = tr("ODF Presentation (*.odp *.ODP *.fodp *.FODP)");
+	fmt2.formatId = 0;
+	fmt2.fileExtensions = QStringList() << "odp" << "fodp";
+	fmt2.load = true;
+	fmt2.save = false;
+	fmt2.thumb = true;
+	fmt2.colorReading = false;
+	fmt2.mimeTypes = QStringList();
+	fmt2.mimeTypes.append("application/vnd.oasis.opendocument.presentation");
+	fmt2.priority = 64; // Priority
+	registerFormat(fmt2);
 }
 
 bool ImportOdgPlugin::fileSupported(QIODevice* /* file */, const QString & fileName) const
@@ -127,7 +143,7 @@ bool ImportOdgPlugin::import(QString fileName, int flags)
 		flags |= lfInteractive;
 		PrefsContext* prefs = PrefsManager::instance()->prefsFile->getPluginContext("importodg");
 		QString wdir = prefs->get("wdir", ".");
-		CustomFDialog diaf(ScCore->primaryMainWindow(), wdir, QObject::tr("Open"), tr("All Supported Formats")+" (*.odg *.ODG *.fodg *.FODG);;All Files (*)");
+		CustomFDialog diaf(ScCore->primaryMainWindow(), wdir, QObject::tr("Open"), tr("All Supported Formats")+" (*.odg *.ODG *.fodg *.FODG *.odp *.ODP *.fodp *.FODP);;All Files (*)");
 		if (diaf.exec())
 		{
 			fileName = diaf.selectedFile();
