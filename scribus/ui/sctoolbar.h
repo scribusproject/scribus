@@ -54,9 +54,6 @@ public:
 // 	void storeDockPosition();
 // 	void moveDock();
 	void initVisibility();
-	
-signals:
-	void visibilityChanged(bool);
 
 public slots:
 	void languageChange();
@@ -88,8 +85,6 @@ private:
 // 	void initPrefsButton();
 // 	void storeDockPositions();
 // 	void moveDocks();
-	void hideEvent(QHideEvent * e);
-	void showEvent(QShowEvent * e);
 
 	enum Orientation { Vert, Hor };
 };
