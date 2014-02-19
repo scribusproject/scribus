@@ -730,7 +730,7 @@ PageItem* OdgPlug::parseLine( QDomElement &e)
 	double x2 = e.attribute( "svg:x2" ).isEmpty() ? 0.0 : parseUnit( e.attribute( "svg:x2" ) );
 	double y2 = e.attribute( "svg:y2" ).isEmpty() ? 0.0 : parseUnit( e.attribute( "svg:y2" ) );
 	resovleStyle(tmpOStyle, e.attribute("draw:style-name"));
-	if ((tmpOStyle.fill_type == 0) && (tmpOStyle.stroke_type == 0))
+	if (tmpOStyle.stroke_type == 0)
 		return retObj;
 	int z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, tmpOStyle.LineW, CommonStrings::None, tmpOStyle.CurrColorStroke, true);
 	retObj = m_Doc->Items->at(z);
@@ -860,7 +860,7 @@ PageItem* OdgPlug::parsePolyline(QDomElement &e)
 	ObjStyle tmpOStyle;
 	PageItem *retObj = NULL;
 	resovleStyle(tmpOStyle, e.attribute("draw:style-name"));
-	if ((tmpOStyle.fill_type == 0) && (tmpOStyle.stroke_type == 0))
+	if (tmpOStyle.stroke_type == 0)
 		return retObj;
 	int z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, tmpOStyle.LineW, CommonStrings::None, tmpOStyle.CurrColorStroke, true);
 	retObj = m_Doc->Items->at(z);
