@@ -89,7 +89,16 @@ public:
 	  shadowX(0.0),
 	  shadowY(0.0),
 	  shadowTrans(0.0),
-	  measureDist(0.0)
+	  measureDist(0.0),
+	  patternName(""),
+	  patternPath(""),
+	  patternData(),
+	  patternWidth(0.0),
+	  patternHeight(0.0),
+	  patternX(0.0),
+	  patternY(0.0),
+	  patternDim_W_in_Percent(false),
+	  patternDim_H_in_Percent(false)
 	  {}
 	QRectF							markerViewBox;
 	QPainterPath					markerPath;
@@ -143,6 +152,15 @@ public:
 	double							shadowY;
 	double							shadowTrans;
 	double							measureDist;
+	QString							patternName;
+	QString							patternPath;
+	QByteArray						patternData;
+	double							patternWidth;
+	double							patternHeight;
+	double							patternX;
+	double							patternY;
+	bool							patternDim_W_in_Percent;
+	bool							patternDim_H_in_Percent;
 };
 
 class OdgPlug : public QObject
@@ -230,6 +248,13 @@ private:
 		AttributeValue shadowY;
 		AttributeValue shadowTrans;
 		AttributeValue measureDist;
+		AttributeValue patternName;
+		AttributeValue patternPath;
+		AttributeValue patternData;
+		AttributeValue patternWidth;
+		AttributeValue patternHeight;
+		AttributeValue patternX;
+		AttributeValue patternY;
 	};
 
 	bool convert(QString fn);

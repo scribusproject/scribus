@@ -1542,6 +1542,28 @@ void OdgPlug::parseStyles(QDomElement &sp)
 			else
 				m_Styles.insert(id2, currStyle);
 		}
+		else if (spd.tagName() == "draw:fill-image")
+		{
+			DrawStyle currStyle;
+			currStyle.patternPath = AttributeValue(spd.attribute("xlink:href", ""));
+			if (!currStyle.patternPath.valid)
+			{
+				if (spd.hasChildNodes())
+				{
+					for(QDomElement nc = spd.firstChildElement(); !nc.isNull(); nc = nc.nextSiblingElement())
+					{
+						if (nc.tagName() == "office:binary-data")
+							currStyle.patternData = AttributeValue(nc.text());
+					}
+				}
+			}
+			QString id = spd.attribute("draw:display-name");
+			QString id2 = spd.attribute("draw:name");
+			if (id2.isEmpty())
+				m_Styles.insert(id, currStyle);
+			else
+				m_Styles.insert(id2, currStyle);
+		}
 		else if (spd.tagName() == "style:style")
 		{
 			DrawStyle currStyle;
@@ -1570,6 +1592,11 @@ void OdgPlug::parseStyles(QDomElement &sp)
 					currStyle.endMarkerWidth = AttributeValue(spe.attribute("draw:marker-end-width", ""));
 					currStyle.endMarkerCentered = AttributeValue(spe.attribute("draw:marker-end-center", ""));
 					currStyle.measureDist = AttributeValue(spe.attribute("draw:line-distance"));
+					currStyle.patternName = AttributeValue(spe.attribute("draw:fill-image-name", ""));
+					currStyle.patternWidth = AttributeValue(spe.attribute("draw:fill-image-width", ""));
+					currStyle.patternHeight = AttributeValue(spe.attribute("draw:fill-image-height", ""));
+					currStyle.patternX = AttributeValue(spe.attribute("draw:fill-image-ref-point-x", ""));
+					currStyle.patternY = AttributeValue(spe.attribute("draw:fill-image-ref-point-y", ""));
 				}
 				else if (spe.tagName() == "style:paragraph-properties")
 				{
@@ -1739,6 +1766,20 @@ void OdgPlug::resovleStyle(ObjStyle &tmpOStyle, QString pAttrs)
 					actStyle.dashName = AttributeValue(currStyle.dashName.value);
 				if (currStyle.measureDist.valid)
 					actStyle.measureDist = AttributeValue(currStyle.measureDist.value);
+				if (currStyle.patternName.valid)
+					actStyle.patternName = AttributeValue(currStyle.patternName.value);
+				if (currStyle.patternPath.valid)
+					actStyle.patternPath = AttributeValue(currStyle.patternPath.value);
+				if (currStyle.patternData.valid)
+					actStyle.patternData = AttributeValue(currStyle.patternData.value);
+				if (currStyle.patternWidth.valid)
+					actStyle.patternWidth = AttributeValue(currStyle.patternWidth.value);
+				if (currStyle.patternHeight.valid)
+					actStyle.patternHeight = AttributeValue(currStyle.patternHeight.value);
+				if (currStyle.patternX.valid)
+					actStyle.patternX = AttributeValue(currStyle.patternX.value);
+				if (currStyle.patternY.valid)
+					actStyle.patternY = AttributeValue(currStyle.patternY.value);
 			}
 		}
 		tmpOStyle.stroke_dash_distance = -1;
@@ -1781,7 +1822,11 @@ void OdgPlug::resovleStyle(ObjStyle &tmpOStyle, QString pAttrs)
 					tmpOStyle.gradientName = actStyle.gradientName.value;
 			}
 			else if (actStyle.fillMode.value == "bitmap")
+			{
 				tmpOStyle.fill_type = 3;
+				if (actStyle.patternName.valid)
+					tmpOStyle.patternName = actStyle.patternName.value;
+			}
 			else if (actStyle.fillMode.value == "hatch")
 				tmpOStyle.fill_type = 4;
 		}
@@ -1952,6 +1997,34 @@ void OdgPlug::resovleStyle(ObjStyle &tmpOStyle, QString pAttrs)
 			tmpOStyle.endMarkerCentered = actStyle.endMarkerCentered.value == "true";
 		if (actStyle.measureDist.valid)
 			tmpOStyle.measureDist = parseUnit(actStyle.measureDist.value);
+		if (actStyle.patternPath.valid)
+			tmpOStyle.patternPath = actStyle.patternPath.value;
+		if (actStyle.patternData.valid)
+			tmpOStyle.patternData = actStyle.patternData.value.toLatin1();
+		if (actStyle.patternWidth.valid)
+		{
+			tmpOStyle.patternWidth = parseUnit(actStyle.patternWidth.value);
+			if (actStyle.patternWidth.value.contains("%"))
+				tmpOStyle.patternDim_W_in_Percent = true;
+		}
+		else
+			tmpOStyle.patternWidth = -1;
+		if (actStyle.patternHeight.valid)
+		{
+			tmpOStyle.patternHeight = parseUnit(actStyle.patternHeight.value);
+			if (actStyle.patternHeight.value.contains("%"))
+				tmpOStyle.patternDim_H_in_Percent = true;
+		}
+		else
+			tmpOStyle.patternHeight = -1;
+		if (actStyle.patternX.valid)
+			tmpOStyle.patternX = parseUnit(actStyle.patternX.value);
+		else
+			tmpOStyle.patternX = -1;
+		if (actStyle.patternY.valid)
+			tmpOStyle.patternY = parseUnit(actStyle.patternY.value);
+		else
+			tmpOStyle.patternY = -1;
 	}
 }
 
@@ -2492,6 +2565,198 @@ void OdgPlug::finishItem(PageItem* item, ObjStyle &obState)
 			p4.setAngle(p4.angle() + gStyle.gradientAngle);
 			item->setDiamondGeometry(FPoint(p1.p2().x(), p1.p2().y()), FPoint(p2.p2().x(), p2.p2().y()), FPoint(p3.p2().x(), p3.p2().y()), FPoint(p4.p2().x(), p4.p2().y()), cp);
 			item->GrType = 10;
+		}
+	}
+	else if (obState.fill_type == 3)
+	{
+		ObjStyle gStyle;
+		resovleStyle(gStyle, obState.patternName);
+		QString patternName = "Pattern_" + obState.patternName;
+		if (m_Doc->docPatterns.contains(patternName))
+		{
+			ScPattern pat = m_Doc->docPatterns[patternName];
+			double sy = 100.0;
+			if (obState.patternDim_H_in_Percent)
+				sy = obState.patternHeight * 100.0;
+			else
+			{
+				if (obState.patternHeight > 0.0)
+					sy = obState.patternHeight / pat.height * 100.0;
+			}
+			double sx = 100.0;
+			if (obState.patternDim_W_in_Percent)
+				sx = obState.patternWidth * 100.0;
+			else
+			{
+				if (obState.patternWidth > 0.0)
+					sx = obState.patternWidth / pat.width * 100.0;
+			}
+			double dx = 0;
+			if (obState.patternX > 0.0)
+				dx = pat.width * obState.patternX;
+			double dy = 0;
+			if (obState.patternY > 0.0)
+				dy = pat.height * obState.patternY;
+			item->setPatternTransform(sx, sy, dx, dy, 0, 0, 0);
+			item->setPattern(patternName);
+			item->GrType = 8;
+		}
+		else
+		{
+			if (!gStyle.patternPath.isEmpty())
+			{
+				QByteArray f;
+				if (uz->read(gStyle.patternPath, f))
+				{
+					QFileInfo fi(gStyle.patternPath);
+					QTemporaryFile *tempFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_odg_XXXXXX." + fi.suffix());
+					tempFile->setAutoRemove(false);
+					if (tempFile->open())
+					{
+						QString fileName = getLongPathName(tempFile->fileName());
+						if (!fileName.isEmpty())
+						{
+							tempFile->write(f);
+							tempFile->close();
+							ScPattern pat = ScPattern();
+							pat.setDoc(m_Doc);
+							int z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, 0, 0, 1, 1, 0, CommonStrings::None, CommonStrings::None, true);
+							PageItem* newItem = m_Doc->Items->at(z);
+							m_Doc->loadPict(fileName, newItem);
+							m_Doc->Items->takeAt(z);
+							newItem->isInlineImage = true;
+							newItem->isTempFile = true;
+							pat.width = newItem->pixm.qImage().width();
+							pat.height = newItem->pixm.qImage().height();
+							pat.scaleX = (72.0 / newItem->pixm.imgInfo.xres) * newItem->pixm.imgInfo.lowResScale;
+							pat.scaleY = (72.0 / newItem->pixm.imgInfo.xres) * newItem->pixm.imgInfo.lowResScale;
+							pat.pattern = newItem->pixm.qImage().copy();
+							newItem->setWidth(pat.pattern.width());
+							newItem->setHeight(pat.pattern.height());
+							newItem->SetRectFrame();
+							newItem->gXpos = 0.0;
+							newItem->gYpos = 0.0;
+							newItem->gWidth = pat.pattern.width();
+							newItem->gHeight = pat.pattern.height();
+							pat.items.append(newItem);
+							patternName = patternName.trimmed().simplified().replace(" ", "_");
+							m_Doc->addPattern(patternName, pat);
+							item->setPattern(patternName);
+							double sy = 100.0;
+							if (obState.patternDim_H_in_Percent)
+								sy = obState.patternHeight * 100.0;
+							else
+							{
+								if (obState.patternHeight > 0.0)
+									sy = obState.patternHeight / pat.height * 100.0;
+							}
+							double sx = 100.0;
+							if (obState.patternDim_W_in_Percent)
+								sx = obState.patternWidth * 100.0;
+							else
+							{
+								if (obState.patternWidth > 0.0)
+									sx = obState.patternWidth / pat.width * 100.0;
+							}
+							double dx = 0;
+							if (obState.patternX > 0.0)
+								dx = pat.width * obState.patternX;
+							double dy = 0;
+							if (obState.patternY > 0.0)
+								dy = pat.height * obState.patternY;
+							item->setPatternTransform(sx, sy, dx, dy, 0, 0, 0);
+							item->GrType = 8;
+						}
+					}
+					delete tempFile;
+				}
+			}
+			else if (!gStyle.patternData.isEmpty())
+			{
+				QString ext = "";
+				QByteArray buf = QByteArray::fromBase64(gStyle.patternData);
+				if ((buf[0] == '%') && (buf[1] == '!') && (buf[2] == 'P') && (buf[3] == 'S') && (buf[4] == '-') && (buf[5] == 'A'))
+					ext = "eps";
+				else if ((buf[0] == '\xC5') && (buf[1] == '\xD0') && (buf[2] == '\xD3') && (buf[3] == '\xC6'))
+					ext = "eps";
+				else if ((buf[0] == 'G') && (buf[1] == 'I') && (buf[2] == 'F') && (buf[3] == '8'))
+					ext = "gif";
+				else if ((buf[0] == '\xFF') && (buf[1] == '\xD8') && (buf[2] == '\xFF'))
+					ext = "jpg";
+				else if ((buf[0] == 'P') && (buf[1] == 'G') && (buf[2] == 'F'))
+					ext = "pgf";
+				else if ((buf[0] == '\x89') && (buf[1] == 'P') && (buf[2] == 'N') && (buf[3] == 'G'))
+					ext = "png";
+				else if ((buf[0] == '8') && (buf[1] == 'B') && (buf[2] == 'P') && (buf[3] == 'S'))
+					ext = "psd";
+				else if (((buf[0] == 'I') && (buf[1] == 'I') && (buf[2] == '\x2A')) || ((buf[0] == 'M') && (buf[1] == 'M') && (buf[3] == '\x2A')))
+					ext = "tif";
+				else if ((buf[0] == '/') && (buf[1] == '*') && (buf[2] == ' ') && (buf[3] == 'X') && (buf[4] == 'P') && (buf[5] == 'M'))
+					ext = "xpm";
+				if (!ext.isEmpty())
+				{
+					QTemporaryFile *tempFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_odg_XXXXXX." + ext);
+					tempFile->setAutoRemove(false);
+					if (tempFile->open())
+					{
+						QString fileName = getLongPathName(tempFile->fileName());
+						if (!fileName.isEmpty())
+						{
+							tempFile->write(buf);
+							tempFile->close();
+							ScPattern pat = ScPattern();
+							pat.setDoc(m_Doc);
+							int z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, 0, 0, 1, 1, 0, CommonStrings::None, CommonStrings::None, true);
+							PageItem* newItem = m_Doc->Items->at(z);
+							m_Doc->loadPict(fileName, newItem);
+							m_Doc->Items->takeAt(z);
+							newItem->isInlineImage = true;
+							newItem->isTempFile = true;
+							pat.width = newItem->pixm.qImage().width();
+							pat.height = newItem->pixm.qImage().height();
+							pat.scaleX = (72.0 / newItem->pixm.imgInfo.xres) * newItem->pixm.imgInfo.lowResScale;
+							pat.scaleY = (72.0 / newItem->pixm.imgInfo.xres) * newItem->pixm.imgInfo.lowResScale;
+							pat.pattern = newItem->pixm.qImage().copy();
+							newItem->setWidth(pat.pattern.width());
+							newItem->setHeight(pat.pattern.height());
+							newItem->SetRectFrame();
+							newItem->gXpos = 0.0;
+							newItem->gYpos = 0.0;
+							newItem->gWidth = pat.pattern.width();
+							newItem->gHeight = pat.pattern.height();
+							pat.items.append(newItem);
+							patternName = patternName.trimmed().simplified().replace(" ", "_");
+							m_Doc->addPattern(patternName, pat);
+							item->setPattern(patternName);
+							double sy = 100.0;
+							if (obState.patternDim_H_in_Percent)
+								sy = obState.patternHeight * 100.0;
+							else
+							{
+								if (obState.patternHeight > 0.0)
+									sy = obState.patternHeight / pat.height * 100.0;
+							}
+							double sx = 100.0;
+							if (obState.patternDim_W_in_Percent)
+								sx = obState.patternWidth * 100.0;
+							else
+							{
+								if (obState.patternWidth > 0.0)
+									sx = obState.patternWidth / pat.width * 100.0;
+							}
+							double dx = 0;
+							if (obState.patternX > 0.0)
+								dx = pat.width * obState.patternX;
+							double dy = 0;
+							if (obState.patternY > 0.0)
+								dy = pat.height * obState.patternY;
+							item->setPatternTransform(sx, sy, dx, dy, 0, 0, 0);
+							item->GrType = 8;
+						}
+					}
+					delete tempFile;
+				}
+			}
 		}
 	}
 	if (obState.hasShadow)
