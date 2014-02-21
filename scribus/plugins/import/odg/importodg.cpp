@@ -1320,6 +1320,76 @@ void OdgPlug::parseText(QDomElement &elem, PageItem* item, ObjStyle& tmpOStyle)
 							else if (kind == "unit")
 								txt += " " + sp.text().trimmed();
 						}
+						else if (sp.tagName() == "text:list-item")
+						{
+							for(QDomElement paral = sp.firstChildElement(); !paral.isNull(); paral = paral.nextSiblingElement())
+							{
+								ObjStyle plStyle = tmpOStyle;
+								if (paral.hasAttribute("text:style-name"))
+									resovleStyle(plStyle, paral.attribute("text:style-name"));
+								ParagraphStyle tmpStyle = newStyle;
+								tmpStyle.setAlignment(plStyle.textAlign);
+								tmpStyle.setLeftMargin(plStyle.margin_left);
+								tmpStyle.setRightMargin(plStyle.margin_right);
+								tmpStyle.setFirstIndent(plStyle.textIndent);
+								tmpStyle.setGapAfter(plStyle.margin_bottom);
+								tmpStyle.setGapBefore(plStyle.margin_top);
+								for(QDomNode spnl = paral.firstChild(); !spnl.isNull(); spnl = spnl.nextSibling())
+								{
+									CharStyle tmpCStyle = tmpStyle.charStyle();
+									QDomElement spl = spnl.toElement();
+									ObjStyle clStyle = plStyle;
+									if (spnl.isElement() && (spl.tagName() == "text:span"))
+									{
+										if (spl.hasAttribute("text:style-name"))
+											resovleStyle(clStyle, spl.attribute("text:style-name"));
+									}
+									tmpCStyle.setFont((*m_Doc->AllFonts)[clStyle.fontName]);
+									tmpCStyle.setFontSize(clStyle.fontSize * 10);
+									tmpCStyle.setFillColor(clStyle.CurrColorText);
+									maxFsize = qMax(maxFsize, clStyle.fontSize);
+									if ((clStyle.textPos.startsWith("super")) || (clStyle.textPos.startsWith("sub")))
+									{
+										StyleFlag styleEffects = tmpCStyle.effects();
+										if (clStyle.textPos.startsWith("super"))
+											styleEffects |= ScStyle_Superscript;
+										else
+											styleEffects |= ScStyle_Subscript;
+										tmpCStyle.setFeatures(styleEffects.featureList());
+									}
+									if (spnl.isElement())
+									{
+										if (spl.tagName() == "text:span")
+										{
+											if (spl.tagName() == "text:s")
+												txt = " ";
+											else if (spl.tagName() == "text:tab")
+												txt = SpecialChars::TAB;
+											else if (spl.tagName() == "text:line-break")
+												txt = SpecialChars::LINEBREAK;
+											else
+												txt = spl.text().trimmed();
+										}
+									}
+									else if (spnl.isText())
+									{
+										QDomText t = spnl.toText();
+										txt = t.data().trimmed();
+									}
+									if (txt.length() > 0)
+									{
+										item->itemText.insertChars(posC, txt);
+										item->itemText.applyStyle(posC, tmpStyle);
+										item->itemText.applyCharStyle(posC, txt.length(), tmpCStyle);
+										posC = item->itemText.length();
+										txt = "";
+									}
+								}
+								item->itemText.insertChars(posC, SpecialChars::PARSEP);
+								item->itemText.applyStyle(posC, tmpStyle);
+								posC = item->itemText.length();
+							}
+						}
 					}
 					else if (spn.isText())
 					{
