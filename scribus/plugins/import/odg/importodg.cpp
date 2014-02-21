@@ -1240,12 +1240,15 @@ void OdgPlug::parseText(QDomElement &elem, PageItem* item, ObjStyle& tmpOStyle)
 	item->itemText.clear();
 	item->itemText.setDefaultStyle(newStyle);
 	item->setFirstLineOffset(FLOPFontAscent);
+	ObjStyle pStyle = tmpOStyle;
+	if (elem.hasAttribute("text:style-name"))
+		resovleStyle(pStyle, elem.attribute("text:style-name"));
 	for(QDomElement para = elem.firstChildElement(); !para.isNull(); para = para.nextSiblingElement())
 	{
-		if (para.hasAttributes() && para.hasChildNodes())
+		if (para.hasChildNodes())
 		{
-			ObjStyle pStyle;
-			resovleStyle(pStyle, para.attribute("text:style-name"));
+			if (para.hasAttribute("text:style-name"))
+				resovleStyle(pStyle, para.attribute("text:style-name"));
 			ParagraphStyle tmpStyle = newStyle;
 			tmpStyle.setAlignment(pStyle.textAlign);
 			tmpStyle.setLeftMargin(pStyle.margin_left);
@@ -1272,16 +1275,57 @@ void OdgPlug::parseText(QDomElement &elem, PageItem* item, ObjStyle& tmpOStyle)
 			}
 			else
 			{
-				for(QDomElement sp = para.firstChildElement(); !sp.isNull(); sp = sp.nextSiblingElement())
+				for(QDomNode spn = para.firstChild(); !spn.isNull(); spn = spn.nextSibling())
 				{
-					ObjStyle cStyle;
-					resovleStyle(cStyle, sp.attribute("text:style-name"));
 					CharStyle tmpCStyle = tmpStyle.charStyle();
+					QDomElement sp = spn.toElement();
+					ObjStyle cStyle = pStyle;
+					if (spn.isElement() && (sp.tagName() == "text:span"))
+					{
+						if (sp.hasAttribute("text:style-name"))
+							resovleStyle(cStyle, sp.attribute("text:style-name"));
+					}
 					tmpCStyle.setFont((*m_Doc->AllFonts)[cStyle.fontName]);
 					tmpCStyle.setFontSize(cStyle.fontSize * 10);
 					tmpCStyle.setFillColor(cStyle.CurrColorText);
 					maxFsize = qMax(maxFsize, cStyle.fontSize);
-					QString txt = sp.text().trimmed();
+					if ((cStyle.textPos.startsWith("super")) || (cStyle.textPos.startsWith("sub")))
+					{
+						StyleFlag styleEffects = tmpCStyle.effects();
+						if (cStyle.textPos.startsWith("super"))
+							styleEffects |= ScStyle_Superscript;
+						else
+							styleEffects |= ScStyle_Subscript;
+						tmpCStyle.setFeatures(styleEffects.featureList());
+					}
+					QString txt = "";
+					if (spn.isElement())
+					{
+						if (sp.tagName() == "text:span")
+						{
+							if (sp.tagName() == "text:s")
+								txt = " ";
+							else if (sp.tagName() == "text:tab")
+								txt = SpecialChars::TAB;
+							else if (sp.tagName() == "text:line-break")
+								txt = SpecialChars::LINEBREAK;
+							else
+								txt = sp.text().trimmed();
+						}
+						else if (sp.tagName() == "text:measure")
+						{
+							QString kind = sp.attribute("text:kind");
+							if (kind == "value")
+								txt += sp.text().trimmed();
+							else if (kind == "unit")
+								txt += " " + sp.text().trimmed();
+						}
+					}
+					else if (spn.isText())
+					{
+						QDomText t = spn.toText();
+						txt = t.data().trimmed();
+					}
 					if (txt.length() > 0)
 					{
 						item->itemText.insertChars(posC, txt);
@@ -1319,6 +1363,15 @@ void OdgPlug::parseText(QDomElement &elem, PageItem* item, ObjStyle& tmpOStyle)
 			tmpCStyle.setFont((*m_Doc->AllFonts)[tmpOStyle.fontName]);
 			tmpCStyle.setFontSize(tmpOStyle.fontSize * 10);
 			tmpCStyle.setFillColor(tmpOStyle.CurrColorText);
+			if ((tmpOStyle.textPos.startsWith("super")) || (tmpOStyle.textPos.startsWith("sub")))
+			{
+				StyleFlag styleEffects = tmpCStyle.effects();
+				if (tmpOStyle.textPos.startsWith("super"))
+					styleEffects |= ScStyle_Superscript;
+				else
+					styleEffects |= ScStyle_Subscript;
+				tmpCStyle.setFeatures(styleEffects.featureList());
+			}
 			if (tmpOStyle.lineHeight < 0.0)
 				tmpStyle.setLineSpacingMode(ParagraphStyle::AutomaticLineSpacing);
 			else
@@ -1615,6 +1668,7 @@ void OdgPlug::parseStyles(QDomElement &sp)
 						currStyle.fontName = AttributeValue(spe.attribute("fo:font-family", ""));
 					currStyle.fontSize = AttributeValue(spe.attribute("fo:font-size", ""));
 					currStyle.fontColor = AttributeValue(spe.attribute("fo:color", ""));
+					currStyle.textPos = AttributeValue(spe.attribute("style:text-position", ""));
 				}
 			}
 			currStyle.parentStyle = AttributeValue(spd.attribute("style:parent-style-name", ""));
@@ -1738,6 +1792,8 @@ void OdgPlug::resovleStyle(ObjStyle &tmpOStyle, QString pAttrs)
 					actStyle.textIndent = AttributeValue(currStyle.textIndent.value);
 				if (currStyle.textAlign.valid)
 					actStyle.textAlign = AttributeValue(currStyle.textAlign.value);
+				if (currStyle.textPos.valid)
+					actStyle.textPos = AttributeValue(currStyle.textPos.value);
 				if (currStyle.lineHeight.valid)
 					actStyle.lineHeight = AttributeValue(currStyle.lineHeight.value);
 				if (currStyle.fontColor.valid)
@@ -1924,6 +1980,8 @@ void OdgPlug::resovleStyle(ObjStyle &tmpOStyle, QString pAttrs)
 			else if (attValue == "justify")
 				tmpOStyle.textAlign = ParagraphStyle::Justified;
 		}
+		if (actStyle.textPos.valid)
+			tmpOStyle.textPos = actStyle.textPos.value;
 		if (actStyle.lineHeight.valid)
 		{
 			if (actStyle.lineHeight.value == "normal")

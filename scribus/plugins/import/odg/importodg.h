@@ -64,6 +64,7 @@ public:
 	  fontSize(10.0),
 	  textIndent(0.0),
 	  textAlign(ParagraphStyle::Leftaligned),
+	  textPos(""),
 	  lineHeight(1.0),
 	  absLineHeight(false),
 	  margin_top(0.0),
@@ -126,6 +127,7 @@ public:
 	double							fontSize;
 	double							textIndent;
 	ParagraphStyle::AlignmentType	textAlign;    // 0 = left
+	QString							textPos;
 	double							lineHeight;
 	bool							absLineHeight;
 	double							margin_top;
@@ -225,6 +227,7 @@ private:
 		AttributeValue fontSize;
 		AttributeValue textIndent;
 		AttributeValue textAlign;
+		AttributeValue textPos;
 		AttributeValue lineHeight;
 		AttributeValue margin_top;
 		AttributeValue margin_bottom;
