@@ -34,6 +34,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "importodg.h"
 #include "fileloader.h"
+#include "fparser.h"
 #include "loadsaveplugin.h"
 #include "pageitem_table.h"
 #include "pagesize.h"
@@ -608,8 +609,171 @@ PageItem* OdgPlug::parseObj(QDomElement &draw)
 		retObj = parseFrame(draw);
 	else if (draw.tagName() == "draw:measure")
 		retObj = parseMeasure(draw);
+	else if (draw.tagName() == "draw:custom-shape")
+		retObj = parseCustomShape(draw);
 	else
 		qDebug() << "Unhandled Tag" << draw.tagName();
+	return retObj;
+}
+
+PageItem* OdgPlug::parseCustomShape(QDomElement &e)
+{
+	ObjStyle tmpOStyle;
+	PageItem *retObj = NULL;
+	QList<PageItem*> GElements;
+	double x = parseUnit(e.attribute("svg:x"));
+	double y = parseUnit(e.attribute("svg:y")) ;
+	double w = parseUnit(e.attribute("svg:width"));
+	double h = parseUnit(e.attribute("svg:height"));
+	resovleStyle(tmpOStyle, e.attribute("draw:style-name"));
+	if ((tmpOStyle.fill_type == 0) && (tmpOStyle.stroke_type == 0))
+		return retObj;
+	for(QDomElement p = e.firstChildElement(); !p.isNull(); p = p.nextSiblingElement())
+	{
+		if (p.tagName() == "draw:enhanced-geometry")
+		{
+			FunctionParser fpa;
+			double vx = 0;
+			double vy = 0;
+			double vw = 1;
+			double vh = 1;
+			parseViewBox(p, &vx, &vy, &vw, &vh);
+			fpa.AddConstant("top", vy);
+			fpa.AddConstant("bottom", vh);
+			fpa.AddConstant("left", vx);
+			fpa.AddConstant("right", vw);
+			fpa.AddConstant("width", vw - vx);
+			fpa.AddConstant("height", vh - vy);
+			fpa.AddConstant("xstretch", parseUnit(e.attribute("draw:path-stretchpoint-x", "0")));
+			fpa.AddConstant("ystretch", parseUnit(e.attribute("draw:path-stretchpoint-y", "0")));
+			fpa.AddConstant("hasfill", tmpOStyle.fill_type == 0 ? 0 : 1);
+			fpa.AddConstant("hasstroke", tmpOStyle.stroke_type == 0 ? 0 : 1);
+			fpa.AddConstant("pi", M_PI);
+			QString enhPath = p.attribute("draw:enhanced-path");
+			QMap<QString, QString> func_Results;
+			QMap<QString, QString> modi_Values;
+			QString mods = p.attribute("draw:modifiers");
+			ScTextStream Code(&mods, QIODevice::ReadOnly);
+			int modCount = 0;
+			while (!Code.atEnd())
+			{
+				double d;
+				Code >> d;
+				QString modName = QString("Const_%1").arg(modCount);
+				fpa.AddConstant(modName.toStdString(), d);
+				modi_Values.insert(QString("$%1").arg(modCount), QString("%1").arg(d));
+				modCount++;
+			}
+			if (p.hasChildNodes())
+			{
+				for(QDomElement f = p.firstChildElement(); !f.isNull(); f = f.nextSiblingElement())
+				{
+					if (f.tagName() == "draw:equation")
+					{
+						QString formName = f.attribute("draw:name");
+						QString formula = f.attribute("draw:formula", "0");
+						formula.replace("$", "Const_");
+						formula.replace("?", "Func_");
+						double erg = 0;
+						int ret = fpa.Parse(formula.toStdString(), "", false);
+						if(ret < 0)
+							erg = fpa.Eval(NULL);
+						func_Results.insert("?" + formName, QString("%1").arg(erg));
+						formName.prepend("Func_");
+						fpa.AddConstant(formName.toStdString(), erg);
+					}
+				}
+			}
+			if (!modi_Values.isEmpty())
+			{
+				QMapIterator<QString, QString> it(modi_Values);
+				it.toBack();
+				while (it.hasPrevious())
+				{
+					it.previous();
+					enhPath.replace(it.key(), it.value());
+				}
+			}
+			if (!func_Results.isEmpty())
+			{
+				QMapIterator<QString, QString> it(func_Results);
+				it.toBack();
+				while (it.hasPrevious())
+				{
+					it.previous();
+					enhPath.replace(it.key(), it.value());
+				}
+			}
+			QStringList paths = enhPath.split("N", QString::SkipEmptyParts);
+			if (!paths.isEmpty())
+			{
+				for (int a = 0; a < paths.count(); a++)
+				{
+					FPointArray pArray;
+					pArray.svgInit();
+					bool filled = true;
+					bool stroked = true;
+					PageItem::ItemType itype = parseEnhPath(paths[a], pArray, filled, stroked) ? PageItem::PolyLine : PageItem::Polygon;
+					if (pArray.size() > 3)
+					{
+						QString fillC = tmpOStyle.CurrColorFill;
+						if (!filled)
+							fillC = CommonStrings::None;
+						QString strokeC = tmpOStyle.CurrColorStroke;
+						if (!stroked)
+							strokeC = CommonStrings::None;
+						int z = m_Doc->itemAdd(itype, PageItem::Unspecified, baseX + x, baseY + y, w, h, tmpOStyle.LineW, fillC, strokeC, true);
+						retObj = m_Doc->Items->at(z);
+						retObj->PoLine = pArray.copy();
+						retObj->setFillEvenOdd(true);
+						QTransform mat;
+						double sx = (vw != 0.0) ? (w / vw) : w;
+						double sy = (vh != 0.0) ? (h / vh) : h;
+						mat.scale(sx, sy);
+						retObj->PoLine.map(mat);
+						if (e.hasAttribute("draw:transform"))
+							parseTransform(&retObj->PoLine, e.attribute("draw:transform"));
+						finishItem(retObj, tmpOStyle);
+						GElements.append(retObj);
+						m_Doc->Items->removeLast();
+					}
+				}
+				if (GElements.count() > 1)
+				{
+					double minx =  std::numeric_limits<double>::max();
+					double miny =  std::numeric_limits<double>::max();
+					double maxx = -std::numeric_limits<double>::max();
+					double maxy = -std::numeric_limits<double>::max();
+					for (int ep = 0; ep < GElements.count(); ++ep)
+					{
+						PageItem* currItem = GElements.at(ep);
+						double x1, x2, y1, y2;
+						currItem->getVisualBoundingRect(&x1, &y1, &x2, &y2);
+						minx = qMin(minx, x1);
+						miny = qMin(miny, y1);
+						maxx = qMax(maxx, x2);
+						maxy = qMax(maxy, y2);
+					}
+					double gx = minx;
+					double gy = miny;
+					double gw = maxx - minx;
+					double gh = maxy - miny;
+					int z = m_Doc->itemAdd(PageItem::Group, PageItem::Rectangle, gx, gy, gw, gh, 0, CommonStrings::None, CommonStrings::None, true);
+					retObj = m_Doc->Items->at(z);
+					retObj->ClipEdited = true;
+					retObj->FrameType = 3;
+					retObj->setFillEvenOdd(false);
+					retObj->OldB2 = retObj->width();
+					retObj->OldH2 = retObj->height();
+					retObj->updateClip();
+					m_Doc->groupObjectsToItem(retObj, GElements);
+					retObj->OwnPage = m_Doc->OnPage(retObj);
+					m_Doc->GroupOnPage(retObj);
+					m_Doc->Items->removeLast();
+				}
+			}
+		}
+	}
 	return retObj;
 }
 
@@ -2189,6 +2353,257 @@ double OdgPlug::parseUnit(const QString &unit)
 	return value;
 }
 
+const char * OdgPlug::getCoord( const char *ptr, double &number )
+{
+	int integer, exponent;
+	double decimal, frac;
+	int sign, expsign;
+
+	exponent = 0;
+	integer = 0;
+	frac = 1.0;
+	decimal = 0;
+	sign = 1;
+	expsign = 1;
+
+	// read the sign
+	if(*ptr == '+')
+		ptr++;
+	else if(*ptr == '-')
+	{
+		ptr++;
+		sign = -1;
+	}
+
+	// read the integer part
+	while(*ptr != '\0' && *ptr >= '0' && *ptr <= '9')
+		integer = (integer * 10) + *(ptr++) - '0';
+	if(*ptr == '.') // read the decimals
+	{
+		ptr++;
+		while(*ptr != '\0' && *ptr >= '0' && *ptr <= '9')
+			decimal += (*(ptr++) - '0') * (frac *= 0.1);
+	}
+
+	if(*ptr == 'e' || *ptr == 'E') // read the exponent part
+	{
+		ptr++;
+
+		// read the sign of the exponent
+		if(*ptr == '+')
+			ptr++;
+		else if(*ptr == '-')
+		{
+			ptr++;
+			expsign = -1;
+		}
+
+		exponent = 0;
+		while(*ptr != '\0' && *ptr >= '0' && *ptr <= '9')
+		{
+			exponent *= 10;
+			exponent += *ptr - '0';
+			ptr++;
+		}
+	}
+	number = integer + decimal;
+	number *= sign * pow( static_cast<double>(10), static_cast<double>( expsign * exponent ) );
+
+	// skip the following space
+	if(*ptr == ' ')
+		ptr++;
+
+	return ptr;
+}
+
+bool OdgPlug::parseEnhPath(const QString& svgPath, FPointArray &result, bool &fill, bool &stroke)
+{
+	QString d = svgPath;
+	d = d.replace( QRegExp( "," ), " ");
+	bool ret = false;
+	fill = true;
+	stroke = true;
+	if( !d.isEmpty() )
+	{
+		QPainterPath pPath;
+		d = d.simplified();
+		QByteArray pathData = d.toLatin1();
+		const char *ptr = pathData.constData();
+		const char *end = pathData.constData() + pathData.length() + 1;
+		double contrlx, contrly, curx, cury, subpathx, subpathy, tox, toy, x1, y1, x2, y2, xc, yc;
+		double px1, py1, px2, py2, px3, py3;
+		int moveCount = 0;
+		result.svgInit();
+		char command = *(ptr++), lastCommand = ' ';
+		subpathx = subpathy = curx = cury = contrlx = contrly = 0.0;
+		while( ptr < end )
+		{
+			if( *ptr == ' ' )
+				ptr++;
+			switch( command )
+			{
+			case 'A':
+			case 'B':
+				{
+					ptr = getCoord( ptr, tox );
+					ptr = getCoord( ptr, toy );
+					ptr = getCoord( ptr, px1 );
+					ptr = getCoord( ptr, py1 );
+					ptr = getCoord( ptr, px2 );
+					ptr = getCoord( ptr, py2 );
+					ptr = getCoord( ptr, px3 );
+					ptr = getCoord( ptr, py3 );
+					double startA = QLineF(QPointF((px1 + tox) / 2.0, (py1 + toy) / 2.0), QPointF(px2, py2)).angle();
+					double endA = QLineF(QPointF((px1 + tox) / 2.0, (py1 + toy) / 2.0), QPointF(px3, py3)).angle();
+					if (command == 'B')
+						pPath.moveTo(px2, py2);
+					pPath.arcTo(QRectF(QPointF(tox, toy), QPointF(px1, py1)), startA, endA - startA);
+					break;
+				}
+			case 'C':
+				{
+					ptr = getCoord( ptr, x1 );
+					ptr = getCoord( ptr, y1 );
+					ptr = getCoord( ptr, x2 );
+					ptr = getCoord( ptr, y2 );
+					ptr = getCoord( ptr, tox );
+					ptr = getCoord( ptr, toy );
+					result.svgCurveToCubic(x1, y1, x2, y2, tox, toy);
+					pPath.cubicTo(x1, y1, x2, y2, tox, toy);
+					contrlx = x2;
+					contrly = y2;
+					curx = tox;
+					cury = toy;
+					break;
+				}
+			case 'F':
+				{
+					fill = false;
+					break;
+				}
+			case 'L':
+				{
+					ptr = getCoord( ptr, tox );
+					ptr = getCoord( ptr, toy );
+					curx = tox;
+					cury = toy;
+					result.svgLineTo( curx, cury );
+					pPath.lineTo(tox, toy);
+					break;
+				}
+			case 'M':
+				{
+					ptr = getCoord( ptr, tox );
+					ptr = getCoord( ptr, toy );
+					subpathx = curx = tox;
+					subpathy = cury = toy;
+					result.svgMoveTo(curx, cury );
+					pPath.moveTo(tox, toy);
+					moveCount++;
+					break;
+				}
+			case 'Q':
+				{
+					ptr = getCoord( ptr, x1 );
+					ptr = getCoord( ptr, y1 );
+					ptr = getCoord( ptr, tox );
+					ptr = getCoord( ptr, toy );
+					px1 = (curx + 2 * x1) * (1.0 / 3.0);
+					py1 = (cury + 2 * y1) * (1.0 / 3.0);
+					px2 = (tox + 2 * x1) * (1.0 / 3.0);
+					py2 = (toy + 2 * y1) * (1.0 / 3.0);
+					px3 = tox;
+					py3 = toy;
+					result.svgCurveToCubic( px1, py1, px2, py2, px3, py3 );
+					pPath.quadTo(x1, y1, tox, toy);
+					contrlx = (tox + 2 * x1) * (1.0 / 3.0);
+					contrly = (toy + 2 * y1) * (1.0 / 3.0);
+					curx = tox;
+					cury = toy;
+					break;
+				}
+			case 'S':
+				{
+					stroke = false;
+					break;
+				}
+			case 'T':
+			case 'U':
+				{
+					ptr = getCoord(ptr, px1);
+					ptr = getCoord(ptr, py1);
+					ptr = getCoord(ptr, px2);
+					ptr = getCoord(ptr, py2);
+					ptr = getCoord(ptr, tox);
+					ptr = getCoord(ptr, toy);
+					if (command == 'U')
+						pPath.arcMoveTo(px1 - px2, py1 - py2, px2 * 2, py2 * 2, tox);
+					pPath.arcTo(px1 - px2, py1 - py2, px2 * 2, py2 * 2, tox, toy - tox);
+					break;
+				}
+			case 'V':
+			case 'W':
+				{
+					ptr = getCoord( ptr, tox );
+					ptr = getCoord( ptr, toy );
+					ptr = getCoord( ptr, px1 );
+					ptr = getCoord( ptr, py1 );
+					ptr = getCoord( ptr, px2 );
+					ptr = getCoord( ptr, py2 );
+					ptr = getCoord( ptr, px3 );
+					ptr = getCoord( ptr, py3 );
+					double startA = QLineF(QPointF((px1 + tox) / 2.0, (py1 + toy) / 2.0), QPointF(px2, py2)).angle();
+					double endA = QLineF(QPointF((px1 + tox) / 2.0, (py1 + toy) / 2.0), QPointF(px3, py3)).angle();
+					if (command == 'V')
+						pPath.moveTo(px2, py2);
+					pPath.arcTo(QRectF(QPointF(tox, toy), QPointF(px1, py1)), startA, endA - startA);
+					break;
+				}
+			case 'X':
+			case 'Y':
+				{
+					ptr = getCoord( ptr, tox );
+					ptr = getCoord( ptr, toy );
+				//	qDebug() << "Command X and Y not implemented yet";
+					break;
+				}
+			case 'Z':
+				{
+					curx = subpathx;
+					cury = subpathy;
+					result.svgClosePath();
+					pPath.closeSubpath();
+					break;
+				}
+			}
+			lastCommand = command;
+			if(*ptr == '+' || *ptr == '-' || (*ptr >= '0' && *ptr <= '9'))
+			{
+				// there are still coords in this command
+				if(command == 'M')
+					command = 'L';
+			}
+			else
+				command = *(ptr++);
+
+			if( lastCommand != 'C' && lastCommand != 'S' && lastCommand != 'Q' && lastCommand != 'T')
+			{
+				contrlx = curx;
+				contrly = cury;
+			}
+		}
+		if ((lastCommand != 'Z') || (moveCount > 1))
+			ret = true;
+		if (result.size() > 2)
+		{
+			if ((result.point(0).x() == result.point(result.size()-2).x()) && (result.point(0).y() == result.point(result.size()-2).y()) && (moveCount == 1))
+				ret = false;
+		}
+		result.fromQPainterPath(pPath, !ret);
+	}
+	return ret;
+}
+
 PageItem* OdgPlug::addClip(PageItem* retObj, ObjStyle &obState)
 {
 	/*if (!obState.clipPath.isEmpty())
@@ -2499,7 +2914,6 @@ void OdgPlug::finishItem(PageItem* item, ObjStyle &obState)
 	item->setWidthHeight(wh.x(), wh.y());
 	item->Clip = FlattenPath(item->PoLine, item->Segments);
 	m_Doc->AdjustItemSize(item, true);
-	item->setFillEvenOdd(false);
 	item->OldB2 = item->width();
 	item->OldH2 = item->height();
 	item->updateClip();

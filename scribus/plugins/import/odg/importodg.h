@@ -266,6 +266,7 @@ private:
 	bool parseDocReference(QString designMap);
 	bool parseDocReferenceXML(QDomDocument &designMapDom);
 	PageItem* parseObj(QDomElement &draw);
+	PageItem* parseCustomShape(QDomElement &e);
 	PageItem* parseMeasure(QDomElement &e);
 	PageItem* parseLine(QDomElement &e);
 	PageItem* parseEllipse(QDomElement &e);
@@ -282,6 +283,8 @@ private:
 	void parseStyles(QDomElement &sp);
 	void resovleStyle(ObjStyle &tmpOStyle, QString pAttrs);
 	double parseUnit(const QString &unit);
+	const char * getCoord( const char *ptr, double &number );
+	bool parseEnhPath(const QString& svgPath, FPointArray &result, bool &fill, bool &stroke);
 	QColor parseColorN( const QString &rgbColor );
 	QString parseColor( const QString &s );
 	QString constructFontName(QString fontBaseName, QString fontStyle);
