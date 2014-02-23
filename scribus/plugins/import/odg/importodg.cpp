@@ -635,9 +635,10 @@ PageItem* OdgPlug::parseCustomShape(QDomElement &e)
 			FunctionParser fpa;
 			double vx = 0;
 			double vy = 0;
-			double vw = 1;
-			double vh = 1;
-			parseViewBox(p, &vx, &vy, &vw, &vh);
+			double vw = 21600;
+			double vh = 21600;
+			if (p.hasAttribute("svg:viewBox"))
+				parseViewBox(p, &vx, &vy, &vw, &vh);
 			fpa.AddConstant("top", vy);
 			fpa.AddConstant("bottom", vh);
 			fpa.AddConstant("left", vx);
@@ -666,6 +667,7 @@ PageItem* OdgPlug::parseCustomShape(QDomElement &e)
 			}
 			if (p.hasChildNodes())
 			{
+				QMap<QString, QString> formulaMap;
 				for(QDomElement f = p.firstChildElement(); !f.isNull(); f = f.nextSiblingElement())
 				{
 					if (f.tagName() == "draw:equation")
@@ -674,13 +676,43 @@ PageItem* OdgPlug::parseCustomShape(QDomElement &e)
 						QString formula = f.attribute("draw:formula", "0");
 						formula.replace("$", "Const_");
 						formula.replace("?", "Func_");
-						double erg = 0;
-						int ret = fpa.Parse(formula.toStdString(), "", false);
-						if(ret < 0)
-							erg = fpa.Eval(NULL);
-						func_Results.insert("?" + formName, QString("%1").arg(erg));
-						formName.prepend("Func_");
-						fpa.AddConstant(formName.toStdString(), erg);
+						formula.replace("if(", "if(0<");
+						formulaMap.insert(formName, formula);
+					}
+				}
+				if (!formulaMap.isEmpty())
+				{
+					int maxTry = formulaMap.count() + 1;
+					int actTry = 0;
+					bool allResOK = false;
+					while (!allResOK)
+					{
+						allResOK = true;
+						QMap<QString, QString>::iterator itf = formulaMap.begin();
+						while (itf != formulaMap.end())
+						{
+							double erg = 0;
+							int ret = fpa.Parse(itf.value().toStdString(), "", false);
+							if(ret < 0)
+							{
+								QString formNam = itf.key();
+								erg = fpa.Eval(NULL);
+								func_Results.insert("?" + formNam + " ", QString("%1 ").arg(erg));
+								formNam.prepend("Func_");
+								fpa.AddConstant(formNam.toStdString(), erg);
+								itf = formulaMap.erase(itf);
+							}
+							else
+							{
+								++itf;
+								allResOK = false;
+							}
+						}
+						actTry++;
+						if (actTry > maxTry)
+							break;
+						if (formulaMap.isEmpty())
+							break;
 					}
 				}
 			}
@@ -769,7 +801,18 @@ PageItem* OdgPlug::parseCustomShape(QDomElement &e)
 					m_Doc->groupObjectsToItem(retObj, GElements);
 					retObj->OwnPage = m_Doc->OnPage(retObj);
 					m_Doc->GroupOnPage(retObj);
+					if (p.hasAttribute("draw:mirror-horizontal") && (p.attribute("draw:mirror-horizontal") == "true"))
+						retObj->flipImageH();
+					if (p.hasAttribute("draw:mirror-vertical") && (p.attribute("draw:mirror-vertical") == "true"))
+						retObj->flipImageV();
 					m_Doc->Items->removeLast();
+				}
+				else
+				{
+					if (p.hasAttribute("draw:mirror-horizontal") && (p.attribute("draw:mirror-horizontal") == "true"))
+						m_Doc->MirrorPolyH(retObj);
+					if (p.hasAttribute("draw:mirror-vertical") && (p.attribute("draw:mirror-vertical") == "true"))
+						m_Doc->MirrorPolyV(retObj);
 				}
 			}
 		}
@@ -2425,17 +2468,19 @@ bool OdgPlug::parseEnhPath(const QString& svgPath, FPointArray &result, bool &fi
 	stroke = true;
 	if( !d.isEmpty() )
 	{
+		bool xDir = true;
+		bool yDir = false;
+		double rad2deg = 180.0/M_PI;
 		QPainterPath pPath;
 		d = d.simplified();
 		QByteArray pathData = d.toLatin1();
 		const char *ptr = pathData.constData();
 		const char *end = pathData.constData() + pathData.length() + 1;
-		double contrlx, contrly, curx, cury, subpathx, subpathy, tox, toy, x1, y1, x2, y2, xc, yc;
+		double tox, toy, x1, y1, x2, y2;
 		double px1, py1, px2, py2, px3, py3;
 		int moveCount = 0;
 		result.svgInit();
 		char command = *(ptr++), lastCommand = ' ';
-		subpathx = subpathy = curx = cury = contrlx = contrly = 0.0;
 		while( ptr < end )
 		{
 			if( *ptr == ' ' )
@@ -2444,6 +2489,8 @@ bool OdgPlug::parseEnhPath(const QString& svgPath, FPointArray &result, bool &fi
 			{
 			case 'A':
 			case 'B':
+			case 'V':
+			case 'W':
 				{
 					ptr = getCoord( ptr, tox );
 					ptr = getCoord( ptr, toy );
@@ -2453,11 +2500,43 @@ bool OdgPlug::parseEnhPath(const QString& svgPath, FPointArray &result, bool &fi
 					ptr = getCoord( ptr, py2 );
 					ptr = getCoord( ptr, px3 );
 					ptr = getCoord( ptr, py3 );
-					double startA = QLineF(QPointF((px1 + tox) / 2.0, (py1 + toy) / 2.0), QPointF(px2, py2)).angle();
-					double endA = QLineF(QPointF((px1 + tox) / 2.0, (py1 + toy) / 2.0), QPointF(px3, py3)).angle();
-					if (command == 'B')
-						pPath.moveTo(px2, py2);
-					pPath.arcTo(QRectF(QPointF(tox, toy), QPointF(px1, py1)), startA, endA - startA);
+					bool lineTo = ((command == 'A') || (command == 'W'));
+					bool clockwise = ((command == 'W') || (command == 'V'));
+					QRectF bbox = QRectF(QPointF(tox, toy), QPointF(px1, py1)).normalized();
+					QPointF center = bbox.center();
+					double rx = 0.5 * bbox.width();
+					double ry = 0.5 * bbox.height();
+					if (rx == 0)
+						rx = 1;
+					if (ry == 0)
+						ry = 1;
+					QPointF startRadialVector = QPointF(px2, py2) - center;
+					QPointF endRadialVector = QPointF(px3, py3) - center;
+					// convert from ellipse space to unit-circle space
+					double x0 = startRadialVector.x() / rx;
+					double y0 = startRadialVector.y() / ry;
+
+					double x1 = endRadialVector.x() / rx;
+					double y1 = endRadialVector.y() / ry;
+
+					double startAngle = angleFromPoint(QPointF(x0,y0));
+					double stopAngle = angleFromPoint(QPointF(x1,y1));
+
+					// we are moving counter-clockwise to the end angle
+					double sweepAngle = radSweepAngle(startAngle, stopAngle, clockwise);
+					// compute the starting point to draw the line to
+					// as the point x3 y3 is not on the ellipse, spec says the point define radial vector
+					QPointF startPoint(rx * cos(startAngle), ry * sin(2*M_PI - startAngle));
+
+					// if A or W is first command in enhanced path
+					// move to the starting point
+					bool isFirstCommandInPath = (pPath.elementCount() == 0);
+					bool isFirstCommandInSubpath = lastCommand == 'Z';
+					if (lineTo && !isFirstCommandInPath && !isFirstCommandInSubpath)
+						pPath.lineTo(center + startPoint);
+					else
+						pPath.moveTo(center + startPoint);
+					arcTo(pPath, pPath.currentPosition(), rx, ry, startAngle * rad2deg, sweepAngle * rad2deg);
 					break;
 				}
 			case 'C':
@@ -2468,12 +2547,7 @@ bool OdgPlug::parseEnhPath(const QString& svgPath, FPointArray &result, bool &fi
 					ptr = getCoord( ptr, y2 );
 					ptr = getCoord( ptr, tox );
 					ptr = getCoord( ptr, toy );
-					result.svgCurveToCubic(x1, y1, x2, y2, tox, toy);
 					pPath.cubicTo(x1, y1, x2, y2, tox, toy);
-					contrlx = x2;
-					contrly = y2;
-					curx = tox;
-					cury = toy;
 					break;
 				}
 			case 'F':
@@ -2485,9 +2559,6 @@ bool OdgPlug::parseEnhPath(const QString& svgPath, FPointArray &result, bool &fi
 				{
 					ptr = getCoord( ptr, tox );
 					ptr = getCoord( ptr, toy );
-					curx = tox;
-					cury = toy;
-					result.svgLineTo( curx, cury );
 					pPath.lineTo(tox, toy);
 					break;
 				}
@@ -2495,9 +2566,6 @@ bool OdgPlug::parseEnhPath(const QString& svgPath, FPointArray &result, bool &fi
 				{
 					ptr = getCoord( ptr, tox );
 					ptr = getCoord( ptr, toy );
-					subpathx = curx = tox;
-					subpathy = cury = toy;
-					result.svgMoveTo(curx, cury );
 					pPath.moveTo(tox, toy);
 					moveCount++;
 					break;
@@ -2508,18 +2576,7 @@ bool OdgPlug::parseEnhPath(const QString& svgPath, FPointArray &result, bool &fi
 					ptr = getCoord( ptr, y1 );
 					ptr = getCoord( ptr, tox );
 					ptr = getCoord( ptr, toy );
-					px1 = (curx + 2 * x1) * (1.0 / 3.0);
-					py1 = (cury + 2 * y1) * (1.0 / 3.0);
-					px2 = (tox + 2 * x1) * (1.0 / 3.0);
-					py2 = (toy + 2 * y1) * (1.0 / 3.0);
-					px3 = tox;
-					py3 = toy;
-					result.svgCurveToCubic( px1, py1, px2, py2, px3, py3 );
 					pPath.quadTo(x1, y1, tox, toy);
-					contrlx = (tox + 2 * x1) * (1.0 / 3.0);
-					contrly = (toy + 2 * y1) * (1.0 / 3.0);
-					curx = tox;
-					cury = toy;
 					break;
 				}
 			case 'S':
@@ -2536,42 +2593,44 @@ bool OdgPlug::parseEnhPath(const QString& svgPath, FPointArray &result, bool &fi
 					ptr = getCoord(ptr, py2);
 					ptr = getCoord(ptr, tox);
 					ptr = getCoord(ptr, toy);
-					if (command == 'U')
-						pPath.arcMoveTo(px1 - px2, py1 - py2, px2 * 2, py2 * 2, tox);
-					pPath.arcTo(px1 - px2, py1 - py2, px2 * 2, py2 * 2, tox, toy - tox);
-					break;
-				}
-			case 'V':
-			case 'W':
-				{
-					ptr = getCoord( ptr, tox );
-					ptr = getCoord( ptr, toy );
-					ptr = getCoord( ptr, px1 );
-					ptr = getCoord( ptr, py1 );
-					ptr = getCoord( ptr, px2 );
-					ptr = getCoord( ptr, py2 );
-					ptr = getCoord( ptr, px3 );
-					ptr = getCoord( ptr, py3 );
-					double startA = QLineF(QPointF((px1 + tox) / 2.0, (py1 + toy) / 2.0), QPointF(px2, py2)).angle();
-					double endA = QLineF(QPointF((px1 + tox) / 2.0, (py1 + toy) / 2.0), QPointF(px3, py3)).angle();
-					if (command == 'V')
-						pPath.moveTo(px2, py2);
-					pPath.arcTo(QRectF(QPointF(tox, toy), QPointF(px1, py1)), startA, endA - startA);
+					bool lineTo = (command == 'T');
+					const QPointF &radii = QPointF(px2, py2);
+					const QPointF &angles = QPointF(tox, toy) / (180.0/M_PI);
+					QPointF start(radii.x() * cos(angles.x()), -1 * radii.y() * sin(angles.x()));
+					double sweepAngle = degSweepAngle(tox, toy, false);
+					if (lineTo)
+						pPath.lineTo(QPointF(px1, py1) + start);
+					else
+						pPath.moveTo(QPointF(px1, py1) + start);
+					arcTo(pPath, pPath.currentPosition(), radii.x(), radii.y(), tox, sweepAngle);
 					break;
 				}
 			case 'X':
+				{
+					ptr = getCoord( ptr, tox );
+					ptr = getCoord( ptr, toy );
+					double rx = tox - pPath.currentPosition().x();
+					double ry = toy - pPath.currentPosition().y();
+					double startAngle = xDir ? (ry > 0.0 ? 90.0 : 270.0) : (rx < 0.0 ? 0.0 : 180.0);
+					double sweepAngle = xDir ? (rx*ry < 0.0 ? 90.0 : -90.0) : (rx*ry > 0.0 ? 90.0 : -90.0);
+					arcTo(pPath, pPath.currentPosition(), fabs(rx), fabs(ry), startAngle, sweepAngle);
+					xDir = !xDir;
+					break;
+				}
 			case 'Y':
 				{
 					ptr = getCoord( ptr, tox );
 					ptr = getCoord( ptr, toy );
-				//	qDebug() << "Command X and Y not implemented yet";
+					double rx = tox - pPath.currentPosition().x();
+					double ry = toy - pPath.currentPosition().y();
+					double startAngle = yDir ? (ry > 0.0 ? 90.0 : 270.0) : (rx < 0.0 ? 0.0 : 180.0);
+					double sweepAngle = yDir ? (rx*ry < 0.0 ? 90.0 : -90.0) : (rx*ry > 0.0 ? 90.0 : -90.0);
+					arcTo(pPath, pPath.currentPosition(), fabs(rx), fabs(ry), startAngle, sweepAngle);
+					yDir = !yDir;
 					break;
 				}
 			case 'Z':
 				{
-					curx = subpathx;
-					cury = subpathy;
-					result.svgClosePath();
 					pPath.closeSubpath();
 					break;
 				}
@@ -2584,24 +2643,133 @@ bool OdgPlug::parseEnhPath(const QString& svgPath, FPointArray &result, bool &fi
 					command = 'L';
 			}
 			else
-				command = *(ptr++);
-
-			if( lastCommand != 'C' && lastCommand != 'S' && lastCommand != 'Q' && lastCommand != 'T')
 			{
-				contrlx = curx;
-				contrly = cury;
+				command = *(ptr++);
+				xDir = true;
+				yDir = false;
 			}
 		}
 		if ((lastCommand != 'Z') || (moveCount > 1))
 			ret = true;
-		if (result.size() > 2)
-		{
-			if ((result.point(0).x() == result.point(result.size()-2).x()) && (result.point(0).y() == result.point(result.size()-2).y()) && (moveCount == 1))
-				ret = false;
-		}
 		result.fromQPainterPath(pPath, !ret);
 	}
 	return ret;
+}
+
+double OdgPlug::angleFromPoint(const QPointF &point)
+{
+	double angle = atan2(point.y(), point.x());
+	if (angle < 0.0)
+		angle += 2*M_PI;
+	return 2*M_PI - angle;
+}
+
+double OdgPlug::radSweepAngle(double start, double stop, bool clockwise)
+{
+	double sweepAngle = stop - start;
+	if (fabs(sweepAngle) < 0.1) {
+		return 2*M_PI;
+	}
+	if (clockwise) {
+		// we are moving clockwise to the end angle
+		if (stop > start)
+			sweepAngle = (stop - start) - 2*M_PI;
+	} else {
+		// we are moving counter-clockwise to the stop angle
+		if (start > stop)
+			sweepAngle = 2*M_PI - (start-stop);
+	}
+
+   return sweepAngle;
+}
+
+double OdgPlug::degSweepAngle(double start, double stop, bool clockwise)
+{
+	double sweepAngle = stop - start;
+	if (fabs(sweepAngle) < 0.1) {
+		return 360.0;
+	}
+	if (clockwise) {
+		// we are moving clockwise to the end angle
+		if (stop > start)
+			sweepAngle = (stop - start) - 360.0;
+	} else {
+		// we are moving counter-clockwise to the stop angle
+		if (start > stop)
+			sweepAngle = 360.0 - (start-stop);
+	}
+   return sweepAngle;
+}
+
+void OdgPlug::arcTo(QPainterPath &path, QPointF startpoint, double rx, double ry, double startAngle, double sweepAngle)
+{
+	QPointF curvePoints[12];
+	int pointCnt = arcToCurve(rx, ry, startAngle, sweepAngle, startpoint, curvePoints);
+	for (int i = 0; i < pointCnt; i += 3)
+	{
+		path.cubicTo(curvePoints[i], curvePoints[i+1], curvePoints[i+2]);
+	}
+	return;
+}
+
+int OdgPlug::arcToCurve(double rx, double ry, double startAngle, double sweepAngle, const QPointF & offset, QPointF * curvePoints)
+{
+	int pointCnt = 0;
+
+	// check Parameters
+	if (sweepAngle == 0)
+		return pointCnt;
+	if (sweepAngle > 360)
+		sweepAngle = 360;
+	else if (sweepAngle < -360)
+		sweepAngle = - 360;
+
+	if (rx == 0 || ry == 0) {
+		//TODO
+	}
+
+	// split angles bigger than 90° so that it gives a good aproximation to the circle
+	double parts = ceil(qAbs(sweepAngle / 90.0));
+
+	double sa_rad = startAngle * M_PI / 180.0;
+	double partangle = sweepAngle / parts;
+	double endangle = startAngle + partangle;
+	double se_rad = endangle * M_PI / 180.0;
+	double sinsa = sin(sa_rad);
+	double cossa = cos(sa_rad);
+	double kappa = 4.0 / 3.0 * tan((se_rad - sa_rad) / 4);
+
+	// startpoint is at the last point is the path but when it is closed
+	// it is at the first point
+	QPointF startpoint(offset);
+
+	//center berechnen
+	QPointF center(startpoint - QPointF(cossa * rx, -sinsa * ry));
+
+	//kDebug(30006) <<"kappa" << kappa <<"parts" << parts;;
+
+	for (int part = 0; part < parts; ++part) {
+		// start tangent
+		curvePoints[pointCnt++] = QPointF(startpoint - QPointF(sinsa * rx * kappa, cossa * ry * kappa));
+
+		double sinse = sin(se_rad);
+		double cosse = cos(se_rad);
+
+		// end point
+		QPointF endpoint(center + QPointF(cosse * rx, -sinse * ry));
+		// end tangent
+		curvePoints[pointCnt++] = QPointF(endpoint - QPointF(-sinse * rx * kappa, -cosse * ry * kappa));
+		curvePoints[pointCnt++] = endpoint;
+
+		// set the endpoint as next start point
+		startpoint = endpoint;
+		sinsa = sinse;
+		cossa = cosse;
+		endangle += partangle;
+		se_rad = endangle * M_PI / 180.0;
+	}
+
+	return pointCnt;
 }
 
 PageItem* OdgPlug::addClip(PageItem* retObj, ObjStyle &obState)
