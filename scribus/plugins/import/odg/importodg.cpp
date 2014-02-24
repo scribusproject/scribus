@@ -639,6 +639,10 @@ PageItem* OdgPlug::parseCustomShape(QDomElement &e)
 			double vh = 21600;
 			if (p.hasAttribute("svg:viewBox"))
 				parseViewBox(p, &vx, &vy, &vw, &vh);
+			if (vw == 0)
+				vw = 21600;
+			if (vh == 0)
+				vh = 21600;
 			fpa.AddConstant("top", vy);
 			fpa.AddConstant("bottom", vh);
 			fpa.AddConstant("left", vx);
@@ -649,6 +653,8 @@ PageItem* OdgPlug::parseCustomShape(QDomElement &e)
 			fpa.AddConstant("ystretch", parseUnit(e.attribute("draw:path-stretchpoint-y", "0")));
 			fpa.AddConstant("hasfill", tmpOStyle.fill_type == 0 ? 0 : 1);
 			fpa.AddConstant("hasstroke", tmpOStyle.stroke_type == 0 ? 0 : 1);
+			fpa.AddConstant("logheight", vh);
+			fpa.AddConstant("logwidth", vw);
 			fpa.AddConstant("pi", M_PI);
 			QString enhPath = p.attribute("draw:enhanced-path");
 			QMap<QString, QString> func_Results;
@@ -736,6 +742,8 @@ PageItem* OdgPlug::parseCustomShape(QDomElement &e)
 					enhPath.replace(it.key(), it.value());
 				}
 			}
+			if (enhPath.contains("?"))
+				return retObj;
 			QStringList paths = enhPath.split("N", QString::SkipEmptyParts);
 			if (!paths.isEmpty())
 			{
@@ -1153,9 +1161,6 @@ PageItem* OdgPlug::parsePath(QDomElement &e)
 		double sy = (vh != 0.0) ? (h / vh) : h;
 		mat.scale(sx, sy);
 		retObj->PoLine.map(mat);
-		QRectF clipRect = retObj->PoLine.toQPainterPath(false).boundingRect();
-		FPoint tp2(clipRect.left(), clipRect.top());
-		retObj->PoLine.translate(-tp2.x(), -tp2.y());
 		if (e.hasAttribute("draw:transform"))
 			parseTransform(&retObj->PoLine, e.attribute("draw:transform"));
 		finishItem(retObj, tmpOStyle);
