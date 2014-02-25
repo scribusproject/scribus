@@ -628,6 +628,8 @@ PageItem* OdgPlug::parseCustomShape(QDomElement &e)
 	resovleStyle(tmpOStyle, e.attribute("draw:style-name"));
 	if ((tmpOStyle.fill_type == 0) && (tmpOStyle.stroke_type == 0))
 		return retObj;
+	bool has_Text = false;
+	QPolygonF texAreaPoints;
 	for(QDomElement p = e.firstChildElement(); !p.isNull(); p = p.nextSiblingElement())
 	{
 		if (p.tagName() == "draw:enhanced-geometry")
@@ -657,6 +659,9 @@ PageItem* OdgPlug::parseCustomShape(QDomElement &e)
 			fpa.AddConstant("logwidth", vw);
 			fpa.AddConstant("pi", M_PI);
 			QString enhPath = p.attribute("draw:enhanced-path");
+			QString textArea = p.attribute("draw:text-areas");
+			if (!textArea.isEmpty())
+				textArea.append(" ");
 			QMap<QString, QString> func_Results;
 			QMap<QString, QString> modi_Values;
 			QString mods = p.attribute("draw:modifiers");
@@ -740,10 +745,23 @@ PageItem* OdgPlug::parseCustomShape(QDomElement &e)
 				{
 					it.previous();
 					enhPath.replace(it.key(), it.value());
+					if (!textArea.isEmpty())
+						textArea.replace(it.key(), it.value());
 				}
 			}
 			if (enhPath.contains("?"))
 				return retObj;
+			QTransform mat;
+			double sx = (vw != 0.0) ? (w / vw) : w;
+			double sy = (vh != 0.0) ? (h / vh) : h;
+			mat.scale(sx, sy);
+			if (!textArea.isEmpty())
+			{
+				QStringList points = textArea.replace( QRegExp(","), " ").simplified().split( ' ', QString::SkipEmptyParts );
+				texAreaPoints.append(QPointF(ScCLocale::toDoubleC(points[0]), ScCLocale::toDoubleC(points[1])));
+				texAreaPoints.append(QPointF(ScCLocale::toDoubleC(points[2]), ScCLocale::toDoubleC(points[3])));
+				texAreaPoints = mat.map(texAreaPoints);
+			}
 			QStringList paths = enhPath.split("N", QString::SkipEmptyParts);
 			if (!paths.isEmpty())
 			{
@@ -766,10 +784,6 @@ PageItem* OdgPlug::parseCustomShape(QDomElement &e)
 						retObj = m_Doc->Items->at(z);
 						retObj->PoLine = pArray.copy();
 						retObj->setFillEvenOdd(true);
-						QTransform mat;
-						double sx = (vw != 0.0) ? (w / vw) : w;
-						double sy = (vh != 0.0) ? (h / vh) : h;
-						mat.scale(sx, sy);
 						retObj->PoLine.map(mat);
 						if (e.hasAttribute("draw:transform"))
 							parseTransform(&retObj->PoLine, e.attribute("draw:transform"));
@@ -779,52 +793,51 @@ PageItem* OdgPlug::parseCustomShape(QDomElement &e)
 					}
 				}
 				if (GElements.count() > 1)
-				{
-					double minx =  std::numeric_limits<double>::max();
-					double miny =  std::numeric_limits<double>::max();
-					double maxx = -std::numeric_limits<double>::max();
-					double maxy = -std::numeric_limits<double>::max();
-					for (int ep = 0; ep < GElements.count(); ++ep)
-					{
-						PageItem* currItem = GElements.at(ep);
-						double x1, x2, y1, y2;
-						currItem->getVisualBoundingRect(&x1, &y1, &x2, &y2);
-						minx = qMin(minx, x1);
-						miny = qMin(miny, y1);
-						maxx = qMax(maxx, x2);
-						maxy = qMax(maxy, y2);
-					}
-					double gx = minx;
-					double gy = miny;
-					double gw = maxx - minx;
-					double gh = maxy - miny;
-					int z = m_Doc->itemAdd(PageItem::Group, PageItem::Rectangle, gx, gy, gw, gh, 0, CommonStrings::None, CommonStrings::None, true);
-					retObj = m_Doc->Items->at(z);
-					retObj->ClipEdited = true;
-					retObj->FrameType = 3;
-					retObj->setFillEvenOdd(false);
-					retObj->OldB2 = retObj->width();
-					retObj->OldH2 = retObj->height();
-					retObj->updateClip();
-					m_Doc->groupObjectsToItem(retObj, GElements);
-					retObj->OwnPage = m_Doc->OnPage(retObj);
-					m_Doc->GroupOnPage(retObj);
-					if (p.hasAttribute("draw:mirror-horizontal") && (p.attribute("draw:mirror-horizontal") == "true"))
-						retObj->flipImageH();
-					if (p.hasAttribute("draw:mirror-vertical") && (p.attribute("draw:mirror-vertical") == "true"))
-						retObj->flipImageV();
-					m_Doc->Items->removeLast();
-				}
-				else
-				{
-					if (p.hasAttribute("draw:mirror-horizontal") && (p.attribute("draw:mirror-horizontal") == "true"))
-						m_Doc->MirrorPolyH(retObj);
-					if (p.hasAttribute("draw:mirror-vertical") && (p.attribute("draw:mirror-vertical") == "true"))
-						m_Doc->MirrorPolyV(retObj);
-				}
+					retObj = groupObjects(GElements);
+				if (p.hasAttribute("draw:mirror-horizontal") && (p.attribute("draw:mirror-horizontal") == "true"))
+					m_Doc->MirrorPolyH(retObj);
+				if (p.hasAttribute("draw:mirror-vertical") && (p.attribute("draw:mirror-vertical") == "true"))
+					m_Doc->MirrorPolyV(retObj);
 			}
 		}
+		else if (p.tagName() == "text:p")
+		{
+			if (p.hasChildNodes())
+				has_Text = true;
+		}
 	}
+	if (has_Text)
+	{
+		double r = 0.0;
+		if (e.hasAttribute("draw:transform"))
+			parseTransform(e.attribute("draw:transform"), &r, &x, &y);
+		double tx = x;
+		double ty = y;
+		double tw = w;
+		double th = h;
+		if (!texAreaPoints.isEmpty())
+		{
+			QTransform rmat;
+			rmat.rotate(r);
+			QPointF rt = rmat.map(texAreaPoints[0]);
+			tx += rt.x();
+			ty += rt.y();
+			tw = texAreaPoints[1].x() - texAreaPoints[0].x();
+			th = texAreaPoints[1].y() - texAreaPoints[0].y();
+		}
+		int z = m_Doc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, baseX+tx, baseY+ty, tw, th, 0, CommonStrings::None, CommonStrings::None, true);
+		retObj = m_Doc->Items->at(z);
+		retObj->setTextToFrameDist(0.0, 0.0, 0.0, 0.0);
+		retObj->setTextFlowMode(PageItem::TextFlowDisabled);
+		finishItem(retObj, tmpOStyle);
+		parseText(e, retObj, tmpOStyle);
+		if (e.hasAttribute("draw:transform"))
+			retObj->setRotation(r, true);
+		m_Doc->Items->removeLast();
+		GElements.append(retObj);
+	}
+	if (GElements.count() > 1)
+		retObj = groupObjects(GElements);
 	return retObj;
 }
 
@@ -892,6 +905,7 @@ PageItem* OdgPlug::parseMeasure(QDomElement &e)
 	{
 		int z = m_Doc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, baseX+normRef.p2().x(), baseY+normRef.p2().y(), textLine.length(), tmpOStyle.fontSize * 1.2, tmpOStyle.LineW, tmpOStyle.CurrColorFill, tmpOStyle.CurrColorStroke, true);
 		retObj = m_Doc->Items->at(z);
+		retObj->setFillColor(tmpOStyle.CurrColorFill);
 		retObj->setTextToFrameDist(0.0, 0.0, 0.0, 0.0);
 		retObj->setTextFlowMode(PageItem::TextFlowDisabled);
 		finishItem(retObj, tmpOStyle);
@@ -901,38 +915,7 @@ PageItem* OdgPlug::parseMeasure(QDomElement &e)
 		GElements.append(retObj);
 	}
 	if (GElements.count() > 1)
-	{
-		double minx =  std::numeric_limits<double>::max();
-		double miny =  std::numeric_limits<double>::max();
-		double maxx = -std::numeric_limits<double>::max();
-		double maxy = -std::numeric_limits<double>::max();
-		for (int ep = 0; ep < GElements.count(); ++ep)
-		{
-			PageItem* currItem = GElements.at(ep);
-			double x1, x2, y1, y2;
-			currItem->getVisualBoundingRect(&x1, &y1, &x2, &y2);
-			minx = qMin(minx, x1);
-			miny = qMin(miny, y1);
-			maxx = qMax(maxx, x2);
-			maxy = qMax(maxy, y2);
-		}
-		double gx = minx;
-		double gy = miny;
-		double gw = maxx - minx;
-		double gh = maxy - miny;
-		int z = m_Doc->itemAdd(PageItem::Group, PageItem::Rectangle, gx, gy, gw, gh, 0, CommonStrings::None, CommonStrings::None, true);
-		retObj = m_Doc->Items->at(z);
-		retObj->ClipEdited = true;
-		retObj->FrameType = 3;
-		retObj->setFillEvenOdd(false);
-		retObj->OldB2 = retObj->width();
-		retObj->OldH2 = retObj->height();
-		retObj->updateClip();
-		m_Doc->groupObjectsToItem(retObj, GElements);
-		retObj->OwnPage = m_Doc->OnPage(retObj);
-		m_Doc->GroupOnPage(retObj);
-		m_Doc->Items->removeLast();
-	}
+		retObj = groupObjects(GElements);
 	return retObj;
 }
 
@@ -969,38 +952,7 @@ PageItem* OdgPlug::parseLine( QDomElement &e)
 		if (endArrow != NULL)
 			GElements.append(endArrow);
 		if (GElements.count() > 1)
-		{
-			double minx =  std::numeric_limits<double>::max();
-			double miny =  std::numeric_limits<double>::max();
-			double maxx = -std::numeric_limits<double>::max();
-			double maxy = -std::numeric_limits<double>::max();
-			for (int ep = 0; ep < GElements.count(); ++ep)
-			{
-				PageItem* currItem = GElements.at(ep);
-				double x1, x2, y1, y2;
-				currItem->getVisualBoundingRect(&x1, &y1, &x2, &y2);
-				minx = qMin(minx, x1);
-				miny = qMin(miny, y1);
-				maxx = qMax(maxx, x2);
-				maxy = qMax(maxy, y2);
-			}
-			double gx = minx;
-			double gy = miny;
-			double gw = maxx - minx;
-			double gh = maxy - miny;
-			int z = m_Doc->itemAdd(PageItem::Group, PageItem::Rectangle, gx, gy, gw, gh, 0, CommonStrings::None, CommonStrings::None, true);
-			retObj = m_Doc->Items->at(z);
-			retObj->ClipEdited = true;
-			retObj->FrameType = 3;
-			retObj->setFillEvenOdd(false);
-			retObj->OldB2 = retObj->width();
-			retObj->OldH2 = retObj->height();
-			retObj->updateClip();
-			m_Doc->groupObjectsToItem(retObj, GElements);
-			retObj->OwnPage = m_Doc->OnPage(retObj);
-			m_Doc->GroupOnPage(retObj);
-			m_Doc->Items->removeLast();
-		}
+			retObj = groupObjects(GElements);
 	}
 	return retObj;
 }
@@ -1096,38 +1048,7 @@ PageItem* OdgPlug::parsePolyline(QDomElement &e)
 		if (endArrow != NULL)
 			GElements.append(endArrow);
 		if (GElements.count() > 1)
-		{
-			double minx =  std::numeric_limits<double>::max();
-			double miny =  std::numeric_limits<double>::max();
-			double maxx = -std::numeric_limits<double>::max();
-			double maxy = -std::numeric_limits<double>::max();
-			for (int ep = 0; ep < GElements.count(); ++ep)
-			{
-				PageItem* currItem = GElements.at(ep);
-				double x1, x2, y1, y2;
-				currItem->getVisualBoundingRect(&x1, &y1, &x2, &y2);
-				minx = qMin(minx, x1);
-				miny = qMin(miny, y1);
-				maxx = qMax(maxx, x2);
-				maxy = qMax(maxy, y2);
-			}
-			double gx = minx;
-			double gy = miny;
-			double gw = maxx - minx;
-			double gh = maxy - miny;
-			int z = m_Doc->itemAdd(PageItem::Group, PageItem::Rectangle, gx, gy, gw, gh, 0, CommonStrings::None, CommonStrings::None, true);
-			retObj = m_Doc->Items->at(z);
-			retObj->ClipEdited = true;
-			retObj->FrameType = 3;
-			retObj->setFillEvenOdd(false);
-			retObj->OldB2 = retObj->width();
-			retObj->OldH2 = retObj->height();
-			retObj->updateClip();
-			m_Doc->groupObjectsToItem(retObj, GElements);
-			retObj->OwnPage = m_Doc->OnPage(retObj);
-			m_Doc->GroupOnPage(retObj);
-			m_Doc->Items->removeLast();
-		}
+			retObj = groupObjects(GElements);
 	}
 	return retObj;
 }
@@ -1178,38 +1099,7 @@ PageItem* OdgPlug::parsePath(QDomElement &e)
 				if (endArrow != NULL)
 					GElements.append(endArrow);
 				if (GElements.count() > 1)
-				{
-					double minx =  std::numeric_limits<double>::max();
-					double miny =  std::numeric_limits<double>::max();
-					double maxx = -std::numeric_limits<double>::max();
-					double maxy = -std::numeric_limits<double>::max();
-					for (int ep = 0; ep < GElements.count(); ++ep)
-					{
-						PageItem* currItem = GElements.at(ep);
-						double x1, x2, y1, y2;
-						currItem->getVisualBoundingRect(&x1, &y1, &x2, &y2);
-						minx = qMin(minx, x1);
-						miny = qMin(miny, y1);
-						maxx = qMax(maxx, x2);
-						maxy = qMax(maxy, y2);
-					}
-					double gx = minx;
-					double gy = miny;
-					double gw = maxx - minx;
-					double gh = maxy - miny;
-					int z = m_Doc->itemAdd(PageItem::Group, PageItem::Rectangle, gx, gy, gw, gh, 0, CommonStrings::None, CommonStrings::None, true);
-					retObj = m_Doc->Items->at(z);
-					retObj->ClipEdited = true;
-					retObj->FrameType = 3;
-					retObj->setFillEvenOdd(false);
-					retObj->OldB2 = retObj->width();
-					retObj->OldH2 = retObj->height();
-					retObj->updateClip();
-					m_Doc->groupObjectsToItem(retObj, GElements);
-					retObj->OwnPage = m_Doc->OnPage(retObj);
-					m_Doc->GroupOnPage(retObj);
-					m_Doc->Items->removeLast();
-				}
+					retObj = groupObjects(GElements);
 			}
 		}
 	}
@@ -1237,6 +1127,7 @@ PageItem* OdgPlug::parseFrame(QDomElement &e)
 				return retObj;
 			int z = m_Doc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, baseX+x, baseY+y, w, h, tmpOStyle.LineW, tmpOStyle.CurrColorFill, tmpOStyle.CurrColorStroke, true);
 			retObj = m_Doc->Items->at(z);
+			retObj->setFillColor(tmpOStyle.CurrColorFill);
 			retObj->setTextToFrameDist(0.0, 0.0, 0.0, 0.0);
 			retObj->setTextFlowMode(PageItem::TextFlowDisabled);
 			if (e.hasAttribute("draw:transform"))
@@ -1457,6 +1348,8 @@ void OdgPlug::parseText(QDomElement &elem, PageItem* item, ObjStyle& tmpOStyle)
 		resovleStyle(pStyle, elem.attribute("text:style-name"));
 	for(QDomElement para = elem.firstChildElement(); !para.isNull(); para = para.nextSiblingElement())
 	{
+		if (para.tagName() != "text:p")
+			continue;
 		if (para.hasChildNodes())
 		{
 			if (para.hasAttribute("text:style-name"))
@@ -2777,32 +2670,38 @@ int OdgPlug::arcToCurve(double rx, double ry, double startAngle, double sweepAng
 	return pointCnt;
 }
 
-PageItem* OdgPlug::addClip(PageItem* retObj, ObjStyle &obState)
+PageItem* OdgPlug::groupObjects(QList<PageItem *> &GElements)
 {
-	/*if (!obState.clipPath.isEmpty())
+	double minx =  std::numeric_limits<double>::max();
+	double miny =  std::numeric_limits<double>::max();
+	double maxx = -std::numeric_limits<double>::max();
+	double maxy = -std::numeric_limits<double>::max();
+	for (int ep = 0; ep < GElements.count(); ++ep)
 	{
-		int z = m_Doc->itemAdd(PageItem::Group, PageItem::Rectangle, baseX, baseY, 10, 10, 0, CommonStrings::None, CommonStrings::None, true);
-		PageItem *itemg = m_Doc->Items->at(z);
-		itemg->PoLine.fromQPainterPath(obState.clipPath);
-		FPoint wh = getMaxClipF(&itemg->PoLine);
-		itemg->setWidthHeight(wh.x(),wh.y());
-		m_Doc->AdjustItemSize(itemg, true);
-		itemg->ClipEdited = true;
-		itemg->FrameType = 3;
-		itemg->setFillEvenOdd(false);
-		itemg->OldB2 = itemg->width();
-		itemg->OldH2 = itemg->height();
-		itemg->updateClip();
-		itemg->OwnPage = m_Doc->OnPage(itemg);
-		itemg->ContourLine = itemg->PoLine.copy();
-		QList<PageItem*> GElements;
-		GElements.append(retObj);
-		m_Doc->groupObjectsToItem(itemg, GElements);
-		m_Doc->resizeGroupToContents(itemg);
-		m_Doc->GroupOnPage(itemg);
-		retObj = itemg;
-		m_Doc->Items->removeLast();
-	}*/
+		PageItem* currItem = GElements.at(ep);
+		double x1, x2, y1, y2;
+		currItem->getVisualBoundingRect(&x1, &y1, &x2, &y2);
+		minx = qMin(minx, x1);
+		miny = qMin(miny, y1);
+		maxx = qMax(maxx, x2);
+		maxy = qMax(maxy, y2);
+	}
+	double gx = minx;
+	double gy = miny;
+	double gw = maxx - minx;
+	double gh = maxy - miny;
+	int z = m_Doc->itemAdd(PageItem::Group, PageItem::Rectangle, gx, gy, gw, gh, 0, CommonStrings::None, CommonStrings::None, true);
+	PageItem* retObj = m_Doc->Items->at(z);
+	retObj->ClipEdited = true;
+	retObj->FrameType = 3;
+	retObj->setFillEvenOdd(false);
+	retObj->OldB2 = retObj->width();
+	retObj->OldH2 = retObj->height();
+	retObj->updateClip();
+	m_Doc->groupObjectsToItem(retObj, GElements);
+	retObj->OwnPage = m_Doc->OnPage(retObj);
+	m_Doc->GroupOnPage(retObj);
+	m_Doc->Items->removeLast();
 	return retObj;
 }
 
@@ -3091,11 +2990,6 @@ void OdgPlug::finishItem(PageItem* item, ObjStyle &obState)
 	item->OldH2 = item->height();
 	item->updateClip();
 	item->OwnPage = m_Doc->OnPage(item);
-	if (item->isTextFrame())
-	{
-		item->setFillColor(obState.CurrColorFill);
-		item->setLineColor(obState.CurrColorStroke);
-	}
 	item->setFillTransparency(obState.fillOpacity);
 	item->setLineTransparency(obState.strokeOpacity);
 	if (obState.stroke_type == 2)

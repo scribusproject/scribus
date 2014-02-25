@@ -296,8 +296,8 @@ private:
 	QPointF intersectBoundingRect(PageItem *item, QLineF gradientVector);
 	PageItem* applyStartArrow(PageItem* item, ObjStyle &obState);
 	PageItem* applyEndArrow(PageItem* ite, ObjStyle &obState);
+	PageItem* groupObjects(QList<PageItem*> &GElements);
 	void finishItem(PageItem* item, ObjStyle &obState);
-	PageItem* addClip(PageItem* retObj, ObjStyle &obState);
 	QList<PageItem*> Elements;
 	double baseX, baseY;
 	double docWidth;
