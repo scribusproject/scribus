@@ -52,7 +52,7 @@ for which a new license (GPL+exception) is in place.
 #include <QProgressBar>
 //<<QML testing
 #include <QHBoxLayout>
-#include <QQuickView>
+//#include <QQuickView>
 //>>
 #include <QRegExp>
 #include <QScopedPointer>
@@ -1708,46 +1708,6 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 					return;
 				}
 				break;
-			}
-		}
-		/** Now if we have an item selected
-		 * - In normal mode we can:
-		 * -- Use backspace or delete to delete the item
-		 * -- In edit mode of an image frame, use the arrow keys to resize the image:
-		 		(flows to pageitem_imageframe for control)
-		 		Alt right arrow, move right side of image outwards (expand)
-		 		Alt left arrow, move right side inwards (shrink)
-		 		Alt down arrow, move bottom side downwards (expand)
-		 		Alt up arrow, move top side inwards (shrink)
-		 */
-		if (doc->m_Selection->count() != 0)
-		{
-			PageItem *currItem = doc->m_Selection->itemAt(0);
-			if (doc->appMode == modeEdit)
-			{
-				if (currItem->asImageFrame() && !currItem->locked())
-				{
-					currItem->handleModeEditKey(k, keyrep);
-				}
-//FIXME:av		view->oldCp = currItem->CPos;
-				if (currItem->isTextFrame())
-				{
-					bool kr=keyrep;
-					view->canvasMode()->keyPressEvent(k); //Hack for 1.4.x for stopping the cursor blinking while moving about
-					currItem->handleModeEditKey(k, keyrep);
-					if (currItem->isAutoNoteFrame() && currItem->asNoteFrame()->notesList().isEmpty())
-					{
-						if (!currItem->asNoteFrame()->isEndNotesFrame())
-						{
-							currItem->asNoteFrame()->masterFrame()->invalidateLayout(false);
-							currItem->asNoteFrame()->masterFrame()->updateLayout();
-						}
-					}
-					keyrep=kr;
-				}
-				if (!currItem->isTextFrame() || (currItem->isAutoNoteFrame() && currItem->asNoteFrame()->notesList().isEmpty()))
-					slotDocCh(false);
-				doc->regionsChanged()->update(QRectF());
 			}
 		}
 	}

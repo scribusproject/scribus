@@ -50,7 +50,8 @@ public:
 	virtual void mouseReleaseEvent(QMouseEvent *m);
 	virtual void mouseMoveEvent(QMouseEvent *m);
 	virtual void mousePressEvent(QMouseEvent *m);
-
+	
+	virtual bool handleKeyEvents() { return true; }	
 	virtual void keyPressEvent(QKeyEvent *e);
 
 	virtual void drawControls(QPainter* p);
@@ -76,6 +77,7 @@ private:
 	bool m_lastPosWasOverGuide;
 	double mRulerGuide;
 	bool m_longCursorTime;
+	bool m_keyRepeat;
 
 private slots:
 	void blinkTextCursor();

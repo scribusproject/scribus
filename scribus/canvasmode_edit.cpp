@@ -37,6 +37,7 @@
 #include "fpoint.h"
 #include "fpointarray.h"
 #include "hyphenator.h"
+#include "pageitem_noteframe.h"
 #include "pageitem_textframe.h"
 #include "prefscontext.h"
 #include "prefsfile.h"
@@ -72,6 +73,7 @@ CanvasMode_Edit::CanvasMode_Edit(ScribusView* view) : CanvasMode(view), m_ScMW(v
 	connect(view->horizRuler, SIGNAL(MarkerMoved(double, double)), this, SLOT(rulerPreview(double, double)));
 	mRulerGuide = -1;
 	m_longCursorTime=false;
+	m_keyRepeat = false;
 }
 
 inline bool CanvasMode_Edit::GetItem(PageItem** pi)
@@ -95,31 +97,57 @@ void CanvasMode_Edit::blinkTextCursor()
 
 void CanvasMode_Edit::keyPressEvent(QKeyEvent *e)
 {
+	if (m_keyRepeat)
+		return;
+	m_keyRepeat = true;
+
 	PageItem* currItem;
-	if (GetItem(&currItem))
+	if (!GetItem(&currItem))
 	{
-		PageItem_TextFrame* textframe = currItem->asTextFrame();
-		if (textframe)
-		{
-			m_cursorVisible=true;
-			int kk = e->key();
-			switch (kk)
-			{
-				case Qt::Key_PageUp:
-				case Qt::Key_PageDown:
-				case Qt::Key_Up:
-				case Qt::Key_Down:
-				case Qt::Key_Home:
-				case Qt::Key_End:
-					m_longCursorTime=true;
-					break;
-				default:
-					m_longCursorTime=false;
-					break;
-			}
-			blinkTextCursor();
-		}
+		m_keyRepeat = false;
+		return;
 	}
+
+	if (currItem->asImageFrame() && !currItem->locked())
+	{
+		currItem->handleModeEditKey(e, m_keyRepeat);
+	}
+	if (currItem->asTextFrame())
+	{
+		bool oldKeyRepeat = m_keyRepeat;
+
+		m_cursorVisible = true;
+		switch (e->key())
+		{
+			case Qt::Key_PageUp:
+			case Qt::Key_PageDown:
+			case Qt::Key_Up:
+			case Qt::Key_Down:
+			case Qt::Key_Home:
+			case Qt::Key_End:
+				m_longCursorTime=true;
+				break;
+			default:
+				m_longCursorTime=false;
+				break;
+		}
+		blinkTextCursor();
+
+		currItem->handleModeEditKey(e, m_keyRepeat);
+		if (currItem->isAutoNoteFrame() && currItem->asNoteFrame()->notesList().isEmpty())
+		{
+			if (!currItem->asNoteFrame()->isEndNotesFrame())
+			{
+				currItem->asNoteFrame()->masterFrame()->invalidateLayout(false);
+				currItem->asNoteFrame()->masterFrame()->updateLayout();
+			}
+		}
+		m_keyRepeat = oldKeyRepeat;
+		if (!currItem->isTextFrame() || (currItem->isAutoNoteFrame() && currItem->asNoteFrame()->notesList().isEmpty()))
+			m_ScMW->slotDocCh(false);
+		m_doc->regionsChanged()->update(QRectF());
+	}
+	m_keyRepeat = false;
 }
 
 
