@@ -464,6 +464,9 @@ void SMParagraphStyle::languageChange()
 	{
 		m_pwidget->languageChange();
 		m_pwidget->cpage->languageChange();
+		QStringList languageList;
+		LanguageManager::instance()->fillInstalledHyphStringList(&languageList);
+		m_pwidget->cpage->fillLangComboFromList(languageList);
 	}
 }
 

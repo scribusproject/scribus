@@ -278,22 +278,22 @@ void SMCStyleWidget::show(CharStyle *cstyle, QList<CharStyle> &cstyles, const QS
 	for (int i = 0; i < language_->count(); ++i)
 	{
 		QString ltAbbrev=LanguageManager::instance()->getAbbrevFromLang(language_->itemText(i), true, false);
-		//qDebug()<<"ltabbrev"<<ltAbbrev<<language_->itemText(i);
+//		qDebug()<<"ltabbrev"<<ltAbbrev<<language_->itemText(i);
 		if (ltAbbrev == clang)
 			ci = i;
 		
 		if (hasParent && ltAbbrev == plang)
 			pi = i;
 		tl=defLang;
-		//qDebug() << i << language_->itemText(i) << defLang << langMap_[defLang] << tl;
+//		qDebug() << i << language_->itemText(i) << defLang << langMap_[defLang] << tl;
 		if (ltAbbrev == defLang || ltAbbrev == tl)
-// 		{
+//		{
 			di = i;
-			//qDebug() << "match on:" << di;
-// 		}
+//			qDebug() << "match on:" << di;
+//		}
 	}
 
-	//qDebug() << QString("SMCStyleWidget::show(): deflan='%1'->'%2'").arg(defLang).arg(langMap_[defLang]);
+	qDebug() << QString("SMCStyleWidget::show(): deflan='%1'->'%2'").arg(defLang).arg(langMap_[defLang]);
 	Q_ASSERT(di != -1);
 
 	if (hasParent)
