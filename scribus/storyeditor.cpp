@@ -918,7 +918,7 @@ void SEditor::setEffects(int effects)
 {
 	QTextCursor tCursor = textCursor();
 	setEffects(tCursor, effects);
-	//setTextCursor(tCursor);
+	setTextCursor(tCursor);
 }
 
 void SEditor::setEffects(QTextCursor& tCursor, int effects)
@@ -2079,9 +2079,10 @@ void StoryEditor::setCurrentDocumentAndItem(ScribusDoc *doc, PageItem *item)
 	currDoc=doc;
 	textChanged=false;
 	AlignTools->paraStyleCombo->setDoc(currDoc);
-	StrokeTools->setCurrentDocument(currDoc);
 	FillTools->setCurrentDocument(currDoc);
+	StrokeTools->setCurrentDocument(currDoc);
 	Editor->setCurrentDocument(currDoc);
+	StyleTools->SetStyle(0);
 	currItem = item;
 	if (currItem!=NULL)
 	{
