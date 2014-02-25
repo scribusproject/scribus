@@ -998,7 +998,7 @@ void SearchReplace::readPrefs()
 	SFont->setChecked(m_prefs->getBool("SFont", false));
 	SStyle->setChecked(m_prefs->getBool("SStyle", false));
 	SAlign->setChecked(m_prefs->getBool("SAlign", false));
-	SText->setChecked(m_prefs->getBool("SText", false));
+	SText->setChecked(m_prefs->getBool("SText", true));
 	SEffect->setChecked(m_prefs->getBool("SEffect", false));
 	REffect->setChecked(m_prefs->getBool("REffect", false));
 	STextVal->setText(m_prefs->get("STextVal", ""));
@@ -1022,7 +1022,7 @@ void SearchReplace::readPrefs()
 	RFont->setChecked(m_prefs->getBool("RFont", false));
 	RStyle->setChecked(m_prefs->getBool("RStyle", false));
 	RAlign->setChecked(m_prefs->getBool("RAlign", false));
-	RText->setChecked(m_prefs->getBool("RText", false));
+	RText->setChecked(m_prefs->getBool("RText", true));
 	RTextVal->setText(m_prefs->get("RTextVal", ""));
 	tmp = m_prefs->getInt("RStyleVal", findParagraphStyle(m_doc, m_doc->currentStyle));
 	if (tmp < 0 || tmp >= RStyleVal->count())
