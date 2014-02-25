@@ -810,7 +810,7 @@ void NodePalette::MoveK()
 		m_doc->m_Selection->itemAt(0)->update();
 	SymMove->setEnabled(true);
 	AsymMove->setEnabled(true);
-	Res1Node->setEnabled(true);
+	Res1Node->setEnabled(false);
 	ResNode->setEnabled(false);
 	AddNode->setEnabled(false);
 	DeleteNode->setEnabled(false);

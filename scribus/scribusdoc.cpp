@@ -16201,7 +16201,7 @@ void NodeEditContext::moveClipPoint(PageItem *currItem, FPoint ip)
 void NodeEditContext::reset1Control(PageItem* currItem)
 {
 	ScribusDoc* Doc = currItem->doc();
-	if (ClRe % 2 == 0)
+	if ((ClRe < 0) || (ClRe % 2 == 0))
 		return;
 	UndoManager* undoManager = UndoManager::instance();
 
