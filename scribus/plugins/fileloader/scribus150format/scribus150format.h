@@ -30,6 +30,7 @@ class  ScribusDoc;
 class  ScXmlStreamAttributes;
 class  ScXmlStreamReader;
 class  ScXmlStreamWriter;
+class  StoryText;
 
 class PLUGIN_API Scribus150Format : public LoadSavePlugin
 {
@@ -111,8 +112,10 @@ class PLUGIN_API Scribus150Format : public LoadSavePlugin
 		void readNamedCharacterStyleAttrs(ScribusDoc *doc, ScXmlStreamAttributes& attrs, CharStyle & newStyle);
 		bool readDocItemAttributes(ScribusDoc *doc, ScXmlStreamReader& reader);
 		bool readHyphen(ScribusDoc *doc, ScXmlStreamReader& reader);
+		bool readStoryText(ScribusDoc *doc, ScXmlStreamReader& reader, PageItem* item);
 		bool readItemText(PageItem* item, ScXmlStreamAttributes& attrs, LastStyles* last);
 		bool readItemTableData(PageItem_Table* item, ScXmlStreamReader& reader, ScribusDoc *doc);
+		bool readItemTableCell(PageItem_Table* item, ScXmlStreamReader& reader, ScribusDoc *doc);
 		bool readLatexInfo(PageItem_LatexFrame* item, ScXmlStreamReader& reader);
 		void readLayers(ScLayer& layer, ScXmlStreamAttributes& attrs);
 		bool readMultiline(multiLine& ml, ScXmlStreamReader& reader);
@@ -165,11 +168,11 @@ class PLUGIN_API Scribus150Format : public LoadSavePlugin
 		void writeTableStyles(ScXmlStreamWriter& docu);
 		void writeCellStyles(ScXmlStreamWriter& docu);
 		void putPStyle(ScXmlStreamWriter& docu, const ParagraphStyle & style, const QString &nodeName);
-		void putCStylePT(ScXmlStreamWriter& docu, const CharStyle & style);
 		void putCStyle(ScXmlStreamWriter& docu, const CharStyle & style);
 		void putNamedCStyle(ScXmlStreamWriter& docu, const CharStyle & style);
 		void putTableStyle(ScXmlStreamWriter& docu, const TableStyle & style);
 		void putCellStyle(ScXmlStreamWriter& docu, const CellStyle & style);
+		void writeStoryText(ScribusDoc *doc, ScXmlStreamWriter&, PageItem* item);
 		void writeITEXTs(ScribusDoc *doc, ScXmlStreamWriter&, PageItem* item);
 		void writeLayers(ScXmlStreamWriter& docu);
 		void writePrintOptions(ScXmlStreamWriter& docu);
