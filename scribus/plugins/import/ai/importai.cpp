@@ -2548,6 +2548,7 @@ void AIPlug::processData(QString data)
 					ite = m_Doc->Items->at(z);
 					ite->setTextToFrameDist(0.0, 0.0, 0.0, 0.0);
 					ite->itemText.append(textData);
+					ite->itemText.trim();
 					double xpos = ite->xPos();
 					double ypos = ite->yPos();
 					ite->setWidthHeight(qMax(ite->width(), maxWidth), qMax(ite->height(), maxHeight));

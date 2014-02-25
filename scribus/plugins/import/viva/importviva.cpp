@@ -1642,6 +1642,7 @@ PageItem* VivaPlug::parseObjectDetailsXML(const QDomElement& obNode, int baseTyp
 			item->setColumnGap(textColumnGap);
 			if (itemText.length() > 0)
 				item->itemText.append(itemText);
+			item->itemText.trim();
 		}
 		item->setLocked(locked);
 		item->setSizeLocked(resizeable);

@@ -2734,6 +2734,7 @@ void IdmlPlug::parseStoryXMLNode(const QDomElement& stNode)
 					}
 				}
 			}
+			item->itemText.trim();
 		}
 	}
 	return;

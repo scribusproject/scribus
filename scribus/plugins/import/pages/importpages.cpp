@@ -1519,6 +1519,7 @@ PageItem* PagesPlug::parseObjReference(QDomElement &draw)
 			if (itemText.length() > 0)
 			{
 				retObj->itemText.append(itemText);
+				retObj->itemText.trim();
 			}
 			finishItem(retObj, obState);
 			retObj = m_Doc->Items->takeAt(z);

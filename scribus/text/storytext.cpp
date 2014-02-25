@@ -393,7 +393,7 @@ void StoryText::removeParSep(int pos)
 	// demote this parsep so the assert code in replaceCharStyleContextInParagraph()
 	// doesnt choke:
 	it->ch = 0;
-	d->replaceCharStyleContextInParagraph(pos, paragraphStyle(pos+1).charStyleContext());	
+	d->replaceCharStyleContextInParagraph(pos, paragraphStyle(pos+1).charStyleContext());
 }
 
 void StoryText::removeChars(int pos, uint len)
@@ -441,6 +441,31 @@ void StoryText::removeChars(int pos, uint len)
 		m_selLast  = -1;
 	}
 	invalidate(pos, length());
+}
+
+void StoryText::trim()
+{
+	if (length() < 2)
+		return;
+	int posCount = 0;
+	int pos = static_cast<int>(length()) - 1;
+	for ( int i = static_cast<int>(length()) - 1; i >= 0; --i )
+	{
+		ScText *it = d->at(i);
+		if ((it->ch != SpecialChars::PARSEP))
+			break;
+		else
+		{
+			pos--;
+			posCount++;
+		}
+	}
+	if (posCount > 0)
+	{
+		ParagraphStyle pst = paragraphStyle(pos);
+		removeChars(pos+1, posCount-1);
+		applyStyle(pos, pst);
+	}
 }
 
 void StoryText::insertChars(QString txt, bool applyNeighbourStyle) //, const CharStyle & charstyle)

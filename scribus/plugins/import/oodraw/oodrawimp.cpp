@@ -1136,6 +1136,7 @@ PageItem* OODPlug::parseTextSpans(const QDomElement& elm, PageItem* item)
 PageItem* OODPlug::finishNodeParsing(const QDomElement &elm, PageItem* item, OODrawStyle& oostyle)
 {
 	item->setTextToFrameDist(0.0, 0.0, 0.0, 0.0);
+	item->itemText.trim();
 //	bool firstPa = false;
 	QString drawID = elm.attribute("draw:name");
 	item = parseTextP(elm, item);

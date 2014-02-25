@@ -880,6 +880,8 @@ void RawPainter::endTextObject()
 {
 	if (!doProcessing)
 		return;
+	if (actTextItem)
+		actTextItem->itemText.trim();
 	actTextItem = NULL;
 	lineSpSet = false;
 	lineSpIsPT = false;

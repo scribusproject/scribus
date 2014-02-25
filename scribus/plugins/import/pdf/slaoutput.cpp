@@ -386,6 +386,7 @@ bool SlaOutputDev::handleTextAnnot(Annot* annota, double xCoor, double yCoor, do
 		ite->annotation().setIcon(Annotation::Icon_Note);
 	ite->setItemName( CommonStrings::itemName_TextAnnotation + QString("%1").arg(m_doc->TotalItems));
 	ite->itemText.insertChars(UnicodeParsedString(annota->getContents()));
+	ite->itemText.trim();
 	return true;
 }
 
@@ -739,6 +740,7 @@ bool SlaOutputDev::handleWidgetAnnot(Annot* annota, double xCoor, double yCoor, 
 				{
 					ite->itemText.insertChars(UnicodeParsedString(btn->getContent()));
 					applyTextStyle(ite, fontName, CurrColorText, fontSize);
+					ite->itemText.trim();
 					if (btn->isMultiline())
 						ite->annotation().addToFlag(Annotation::Flag_Multiline);
 					if (btn->isPassword())

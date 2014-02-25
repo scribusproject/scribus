@@ -120,6 +120,8 @@ class SCRIBUS_API StoryText : public QObject, public SaxIO
 	void append(const StoryText& other) { insert(length(), other, false); }
 	// Remove len chars at specific position
  	void removeChars(int pos, uint len);
+	// Removes trailing empty paragraphs
+	void trim();
 	// Insert chars at current cursor position
 	void insertChars(QString txt, bool applyNeighbourStyle = false);
 	// Insert chars ar specific position

@@ -1348,7 +1348,7 @@ void OdgPlug::parseText(QDomElement &elem, PageItem* item, ObjStyle& tmpOStyle)
 		resovleStyle(pStyle, elem.attribute("text:style-name"));
 	for(QDomElement para = elem.firstChildElement(); !para.isNull(); para = para.nextSiblingElement())
 	{
-		if (para.tagName() != "text:p")
+		if ((para.tagName() != "text:p") && (para.tagName() != "text:list"))
 			continue;
 		if (para.hasChildNodes())
 		{
@@ -1569,6 +1569,7 @@ void OdgPlug::parseText(QDomElement &elem, PageItem* item, ObjStyle& tmpOStyle)
 			posC = item->itemText.length();
 		}
 	}
+	item->itemText.trim();
 }
 
 void OdgPlug::parseTransform(const QString &transform, double *rotation, double *transX, double *transY)

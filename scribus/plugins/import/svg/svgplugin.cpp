@@ -625,6 +625,7 @@ void SVGPlug::finishNode( const QDomNode &e, PageItem* item)
 		{
 			//QTransform mm = gc->matrix;
 			item->setLineWidth(item->lineWidth() * (coeff1 + coeff2) / 2.0);
+			item->itemText.trim();
 		}
 		break;
 	default:
