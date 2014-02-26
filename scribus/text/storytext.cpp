@@ -452,13 +452,13 @@ void StoryText::trim()
 	for ( int i = static_cast<int>(length()) - 1; i >= 0; --i )
 	{
 		ScText *it = d->at(i);
-		if ((it->ch != SpecialChars::PARSEP))
-			break;
-		else
+		if ((it->ch == SpecialChars::PARSEP) || (it->ch.isSpace()))
 		{
 			pos--;
 			posCount++;
 		}
+		else
+			break;
 	}
 	if (posCount > 0)
 	{
