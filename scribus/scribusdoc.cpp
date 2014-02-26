@@ -16257,6 +16257,8 @@ void NodeEditContext::reset1Control(PageItem* currItem)
 void NodeEditContext::resetControl(PageItem* currItem)
 {
 	ScribusDoc* Doc = currItem->doc();
+	if (ClRe < 0)
+		return;
 	UndoManager* undoManager = UndoManager::instance();
 	
 	// do no record anything else but the core reset points action

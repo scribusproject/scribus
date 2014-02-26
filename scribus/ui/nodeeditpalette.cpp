@@ -832,7 +832,7 @@ void NodePalette::MoveN()
 	m_doc->nodeEdit.SegP2 = -1;
 	if (m_doc->m_Selection->count() > 0)
 		m_doc->m_Selection->itemAt(0)->update();
-	ResNode->setEnabled(true);
+	ResNode->setEnabled(false);
 	AddNode->setEnabled(true);
 	DeleteNode->setEnabled(true);
 	SymMove->setEnabled(false);
