@@ -2114,6 +2114,8 @@ void OdgPlug::resovleStyle(ObjStyle &tmpOStyle, QString pAttrs)
 		}
 		if (actStyle.fontSize.valid)
 			tmpOStyle.fontSize = parseUnit(actStyle.fontSize.value);
+		if (actStyle.fontColor.valid)
+			tmpOStyle.CurrColorText = parseColor(actStyle.fontColor.value);
 		if (actStyle.margin_top.valid)
 			tmpOStyle.margin_top = parseUnit(actStyle.margin_top.value);
 		if (actStyle.margin_bottom.valid)
