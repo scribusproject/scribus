@@ -9281,6 +9281,8 @@ void ScribusDoc::itemSelection_ApplyParagraphStyle(const ParagraphStyle & newSty
 	for (uint aa = 0; aa < selectedItemCount; ++aa)
 	{
 		PageItem *currItem = itemSelection->itemAt(aa);
+		if (currItem->isTable() && appMode == modeEditTable)
+			currItem = currItem->asTable()->activeCell().textFrame();
 		int currItemTextCount = currItem->itemText.length();
 		if ((currItemTextCount == 0) || ((appMode != modeEdit) && (appMode != modeEditTable)))
 		{
@@ -9372,6 +9374,8 @@ void ScribusDoc::itemSelection_ApplyCharStyle(const CharStyle & newStyle, Select
 	for (uint aa = 0; aa < selectedItemCount; ++aa)
 	{
 		PageItem *currItem = itemSelection->itemAt(aa);
+		if (currItem->isTable() && appMode == modeEditTable)
+			currItem = currItem->asTable()->activeCell().textFrame();
 //		int currItemTextCount = currItem->lastInFrame() + 1 - currItem->firstInFrame();
 //		if (currItemTextCount > 0 && ( appMode == modeEdit || !FRAMESELECTION_EDITS_DEFAULTSTYLE))
 		int currItemTextCount = currItem->itemText.length();
