@@ -611,8 +611,77 @@ PageItem* OdgPlug::parseObj(QDomElement &draw)
 		retObj = parseMeasure(draw);
 	else if (draw.tagName() == "draw:custom-shape")
 		retObj = parseCustomShape(draw);
+	else if (draw.tagName() == "draw:connector")
+		retObj = parseConnector(draw);
+	else if (draw.tagName() == "office:forms")
+		retObj = parseForm(draw);
 	else
 		qDebug() << "Unhandled Tag" << draw.tagName();
+	return retObj;
+}
+
+PageItem* OdgPlug::parseForm(QDomElement &e)
+{
+	PageItem *retObj = NULL;
+	if (e.hasChildNodes())
+		qDebug() << "Unhandled Tag" << e.tagName();
+	return retObj;
+}
+
+PageItem* OdgPlug::parseConnector(QDomElement &e)
+{
+	ObjStyle tmpOStyle;
+	PageItem *retObj = NULL;
+	resovleStyle(tmpOStyle, e.attribute("draw:style-name"));
+	if ((tmpOStyle.fill_type == 0) && (tmpOStyle.stroke_type == 0))
+		return retObj;
+	if (e.hasAttribute("svg:d"))
+	{
+		double x1 = parseUnit(e.attribute("svg:x1"));
+		double y1 = parseUnit(e.attribute("svg:y1"));
+		double x2 = parseUnit(e.attribute("svg:x2"));
+		double y2 = parseUnit(e.attribute("svg:y2"));
+		double w = fabs(x2 - x1);
+		double h = fabs(y2 - y1);
+		FPointArray pArray;
+		pArray.svgInit();
+		pArray.parseSVG(e.attribute("svg:d"));
+		if (pArray.size() > 3)
+		{
+			int z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, tmpOStyle.LineW, CommonStrings::None, tmpOStyle.CurrColorStroke, true);
+			retObj = m_Doc->Items->at(z);
+			retObj->PoLine = pArray.copy();
+			QTransform mat;
+			double vx = 0;
+			double vy = 0;
+			double vw = 1;
+			double vh = 1;
+			parseViewBox(e, &vx, &vy, &vw, &vh);
+			double sx = (vw != 0.0) ? (w / vw) : w;
+			double sy = (vh != 0.0) ? (h / vh) : h;
+			mat.scale(sx, sy);
+			retObj->PoLine.map(mat);
+			if (e.hasAttribute("draw:transform"))
+				parseTransform(&retObj->PoLine, e.attribute("draw:transform"));
+			finishItem(retObj, tmpOStyle);
+			m_Doc->Items->removeLast();
+			if ((!tmpOStyle.startMarkerName.isEmpty()) || (!tmpOStyle.endMarkerName.isEmpty()))
+			{
+				QList<PageItem*> GElements;
+				GElements.append(retObj);
+				PageItem* startArrow = applyStartArrow(retObj, tmpOStyle);
+				if (startArrow != NULL)
+					GElements.append(startArrow);
+				PageItem* endArrow = applyEndArrow(retObj, tmpOStyle);
+				if (endArrow != NULL)
+					GElements.append(endArrow);
+				if (GElements.count() > 1)
+					retObj = groupObjects(GElements);
+			}
+		}
+	}
+	else if (e.hasAttribute("svg:x1") && e.hasAttribute("svg:x2") && e.hasAttribute("svg:y1") && e.hasAttribute("svg:y2"))
+		retObj = parseLine(e);
 	return retObj;
 }
 

@@ -266,6 +266,8 @@ private:
 	bool parseDocReference(QString designMap);
 	bool parseDocReferenceXML(QDomDocument &designMapDom);
 	PageItem* parseObj(QDomElement &draw);
+	PageItem* parseForm(QDomElement &e);
+	PageItem* parseConnector(QDomElement &e);
 	PageItem* parseCustomShape(QDomElement &e);
 	PageItem* parseMeasure(QDomElement &e);
 	PageItem* parseLine(QDomElement &e);
