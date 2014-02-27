@@ -50,7 +50,7 @@
 #define HAVE_PODOFO 1
 
 /* Define if you have the development files for podofo */
-#define HVAE_POPPLER 1
+#define HAVE_POPPLER 1
 
 /* Define if you have the development files for python */
 #define HAVE_PYTHON 1
