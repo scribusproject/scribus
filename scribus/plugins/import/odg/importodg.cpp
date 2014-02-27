@@ -632,7 +632,7 @@ PageItem* OdgPlug::parseConnector(QDomElement &e)
 {
 	ObjStyle tmpOStyle;
 	PageItem *retObj = NULL;
-	resovleStyle(tmpOStyle, e.attribute("draw:style-name"));
+	resovleStyle(tmpOStyle, getStyleName(e));
 	if ((tmpOStyle.fill_type == 0) && (tmpOStyle.stroke_type == 0))
 		return retObj;
 	if (e.hasAttribute("svg:d"))
@@ -694,7 +694,7 @@ PageItem* OdgPlug::parseCustomShape(QDomElement &e)
 	double y = parseUnit(e.attribute("svg:y")) ;
 	double w = parseUnit(e.attribute("svg:width"));
 	double h = parseUnit(e.attribute("svg:height"));
-	resovleStyle(tmpOStyle, e.attribute("draw:style-name"));
+	resovleStyle(tmpOStyle, getStyleName(e));
 	if ((tmpOStyle.fill_type == 0) && (tmpOStyle.stroke_type == 0))
 		return retObj;
 	bool has_Text = false;
@@ -919,7 +919,7 @@ PageItem* OdgPlug::parseMeasure(QDomElement &e)
 	double y1 = e.attribute( "svg:y1" ).isEmpty() ? 0.0 : parseUnit( e.attribute( "svg:y1" ) );
 	double x2 = e.attribute( "svg:x2" ).isEmpty() ? 0.0 : parseUnit( e.attribute( "svg:x2" ) );
 	double y2 = e.attribute( "svg:y2" ).isEmpty() ? 0.0 : parseUnit( e.attribute( "svg:y2" ) );
-	resovleStyle(tmpOStyle, e.attribute("draw:style-name"));
+	resovleStyle(tmpOStyle, getStyleName(e));
 	if (tmpOStyle.measureDist == 0)
 		tmpOStyle.measureDist = tmpOStyle.fontSize;
 	QLineF refLine = QLineF(x1, y1, x2, y2);
@@ -996,7 +996,7 @@ PageItem* OdgPlug::parseLine( QDomElement &e)
 	double y1 = e.attribute( "svg:y1" ).isEmpty() ? 0.0 : parseUnit( e.attribute( "svg:y1" ) );
 	double x2 = e.attribute( "svg:x2" ).isEmpty() ? 0.0 : parseUnit( e.attribute( "svg:x2" ) );
 	double y2 = e.attribute( "svg:y2" ).isEmpty() ? 0.0 : parseUnit( e.attribute( "svg:y2" ) );
-	resovleStyle(tmpOStyle, e.attribute("draw:style-name"));
+	resovleStyle(tmpOStyle, getStyleName(e));
 	if (tmpOStyle.stroke_type == 0)
 		return retObj;
 	int z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, tmpOStyle.LineW, CommonStrings::None, tmpOStyle.CurrColorStroke, true);
@@ -1034,7 +1034,7 @@ PageItem* OdgPlug::parseEllipse(QDomElement &e)
 	double y = parseUnit(e.attribute("svg:y")) ;
 	double w = parseUnit(e.attribute("svg:width"));
 	double h = parseUnit(e.attribute("svg:height"));
-	resovleStyle(tmpOStyle, e.attribute("draw:style-name"));
+	resovleStyle(tmpOStyle, getStyleName(e));
 	if ((tmpOStyle.fill_type == 0) && (tmpOStyle.stroke_type == 0))
 		return retObj;
 	int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, baseX+x, baseY+y, w, h, tmpOStyle.LineW, tmpOStyle.CurrColorFill, tmpOStyle.CurrColorStroke, true);
@@ -1055,7 +1055,7 @@ PageItem* OdgPlug::parseRect(QDomElement &e)
 	double w = parseUnit(e.attribute("svg:width"));
 	double h = parseUnit(e.attribute("svg:height"));
 	double corner = parseUnit(e.attribute("draw:corner-radius"));
-	resovleStyle(tmpOStyle, e.attribute("draw:style-name"));
+	resovleStyle(tmpOStyle, getStyleName(e));
 	if ((tmpOStyle.fill_type == 0) && (tmpOStyle.stroke_type == 0))
 		return retObj;
 	int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX+x, baseY+y, w, h, tmpOStyle.LineW, tmpOStyle.CurrColorFill, tmpOStyle.CurrColorStroke, true);
@@ -1077,7 +1077,7 @@ PageItem* OdgPlug::parsePolygon(QDomElement &e)
 {
 	ObjStyle tmpOStyle;
 	PageItem *retObj = NULL;
-	resovleStyle(tmpOStyle, e.attribute("draw:style-name"));
+	resovleStyle(tmpOStyle, getStyleName(e));
 	if ((tmpOStyle.fill_type == 0) && (tmpOStyle.stroke_type == 0))
 		return retObj;
 	int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, tmpOStyle.LineW, tmpOStyle.CurrColorFill, tmpOStyle.CurrColorStroke, true);
@@ -1095,7 +1095,7 @@ PageItem* OdgPlug::parsePolyline(QDomElement &e)
 {
 	ObjStyle tmpOStyle;
 	PageItem *retObj = NULL;
-	resovleStyle(tmpOStyle, e.attribute("draw:style-name"));
+	resovleStyle(tmpOStyle, getStyleName(e));
 	if (tmpOStyle.stroke_type == 0)
 		return retObj;
 	int z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, tmpOStyle.LineW, CommonStrings::None, tmpOStyle.CurrColorStroke, true);
@@ -1126,7 +1126,7 @@ PageItem* OdgPlug::parsePath(QDomElement &e)
 {
 	ObjStyle tmpOStyle;
 	PageItem *retObj = NULL;
-	resovleStyle(tmpOStyle, e.attribute("draw:style-name"));
+	resovleStyle(tmpOStyle, getStyleName(e));
 	if ((tmpOStyle.fill_type == 0) && (tmpOStyle.stroke_type == 0))
 		return retObj;
 	FPointArray pArray;
@@ -1186,7 +1186,7 @@ PageItem* OdgPlug::parseFrame(QDomElement &e)
 	double r = 0.0;
 	if (e.hasAttribute("draw:transform"))
 		parseTransform(e.attribute("draw:transform"), &r, &x, &y);
-	resovleStyle(tmpOStyle, e.attribute("draw:style-name"));
+	resovleStyle(tmpOStyle, getStyleName(e));
 	QDomElement n = e.firstChildElement();
 	if (!n.isNull())
 	{
@@ -1938,6 +1938,16 @@ void OdgPlug::parseStyles(QDomElement &sp)
 			m_Styles.insert(spd.attribute("style:name"), currStyle);
 		}
 	}
+}
+
+QString OdgPlug::getStyleName(QDomElement &e)
+{
+	QString styleName = "standard";
+	if (e.hasAttribute("draw:style-name"))
+		styleName = e.attribute("draw:style-name");
+	else if (e.hasAttribute("presentation:style-name"))
+		styleName = e.attribute("presentation:style-name");
+	return styleName;
 }
 
 void OdgPlug::resovleStyle(ObjStyle &tmpOStyle, QString pAttrs)

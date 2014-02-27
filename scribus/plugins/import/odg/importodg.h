@@ -283,6 +283,7 @@ private:
 	void parseViewBox( const QDomElement& object, double *x, double *y, double *w, double *h );
 	void appendPoints(FPointArray *composite, const QDomElement& object, bool closePath);
 	void parseStyles(QDomElement &sp);
+	QString getStyleName(QDomElement &e);
 	void resovleStyle(ObjStyle &tmpOStyle, QString pAttrs);
 	double parseUnit(const QString &unit);
 	const char * getCoord( const char *ptr, double &number );
