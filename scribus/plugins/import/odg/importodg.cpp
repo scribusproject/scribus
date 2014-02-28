@@ -637,12 +637,6 @@ PageItem* OdgPlug::parseConnector(QDomElement &e)
 		return retObj;
 	if (e.hasAttribute("svg:d"))
 	{
-		double x1 = parseUnit(e.attribute("svg:x1"));
-		double y1 = parseUnit(e.attribute("svg:y1"));
-		double x2 = parseUnit(e.attribute("svg:x2"));
-		double y2 = parseUnit(e.attribute("svg:y2"));
-		double w = fabs(x2 - x1);
-		double h = fabs(y2 - y1);
 		FPointArray pArray;
 		pArray.svgInit();
 		pArray.parseSVG(e.attribute("svg:d"));
@@ -652,14 +646,7 @@ PageItem* OdgPlug::parseConnector(QDomElement &e)
 			retObj = m_Doc->Items->at(z);
 			retObj->PoLine = pArray.copy();
 			QTransform mat;
-			double vx = 0;
-			double vy = 0;
-			double vw = 1;
-			double vh = 1;
-			parseViewBox(e, &vx, &vy, &vw, &vh);
-			double sx = (vw != 0.0) ? (w / vw) : w;
-			double sy = (vh != 0.0) ? (h / vh) : h;
-			mat.scale(sx, sy);
+			mat.scale(72.0 / 2540.0, 72.0 / 2540.0);
 			retObj->PoLine.map(mat);
 			if (e.hasAttribute("draw:transform"))
 				parseTransform(&retObj->PoLine, e.attribute("draw:transform"));
