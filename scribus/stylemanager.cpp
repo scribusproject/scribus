@@ -602,18 +602,18 @@ void StyleManager::slotRightClick(/*StyleViewItem *item, */const QPoint &point/*
 		loadType(m_styleClassesPS[item->rootName()]);
 
 		// Add "Apply" menu entry
-		if(m_selectedStyleAction)
+		if (m_selectedStyleAction)
 		{
 			m_rightClickPopup->removeAction(m_selectedStyleAction);
 			m_selectedStyleAction = 0;
 		}
-		if(styleView->selectedItems().count() == 1)
+		if (styleView->selectedItems().count() == 1)
 		{
 			QString key = item->rootName() + SEPARATOR + item->text(NAME_COL);
-			if(m_styleActions.contains(key))
+			if (m_styleActions.contains(key))
 			{
 				m_selectedStyleAction = m_styleActions[key];
-				if(m_selectedStyleAction)
+				if (m_selectedStyleAction)
 				{
 					m_rightClickPopup->insertAction( m_rightClickPopup->actions().first(), m_selectedStyleAction);
 				}
@@ -634,7 +634,7 @@ void StyleManager::slotRightClick(/*StyleViewItem *item, */const QPoint &point/*
 		m_rcType = m_styleClassesPS[item->text(0)];
 		loadType(m_rcType);
 		
-		if(m_selectedStyleAction)
+		if (m_selectedStyleAction)
 		{
 			m_rightClickPopup->removeAction(m_selectedStyleAction);
 			m_selectedStyleAction = 0;
@@ -650,7 +650,7 @@ void StyleManager::slotRightClick(/*StyleViewItem *item, */const QPoint &point/*
 		m_rcpCloneId->setEnabled(false);
 //		m_rcpToScrapId->setEnabled(false);
 		
-		if(m_selectedStyleAction)
+		if (m_selectedStyleAction)
 		{
 			m_rightClickPopup->removeAction(m_selectedStyleAction);
 			m_selectedStyleAction = 0;
@@ -877,7 +877,7 @@ void StyleManager::addNewType(StyleItem *item, bool loadFromDoc)
 				continue;
 
 			m_styleActions[key] =
-					new ScrAction(ScrAction::DataQString, QPixmap(), QPixmap(), tr("&Apply") ,	shortcutValue, m_doc->view(), 0, 0.0, key);
+					new ScrAction(ScrAction::DataQString, QPixmap(), QPixmap(), tr("&Apply"), shortcutValue, m_doc->view(), 0, 0.0, key);
 			connect(m_styleActions[key], SIGNAL(triggeredData(QString)),
 					this, SLOT(slotApplyStyle(QString)));
 		}
@@ -1036,9 +1036,14 @@ void StyleManager::updateActionName(const QString &oldName, const QString &newNa
 	{
 		ScrAction *a = m_styleActions[oldKey];
 		disconnect(a, SIGNAL(triggeredData(QString)), this, SLOT(slotApplyStyle(QString)));
-		ScrAction *b = new ScrAction(ScrAction::DataQString, QPixmap(), QPixmap(), "",
+		ScrAction *b = new ScrAction(ScrAction::DataQString, QPixmap(), QPixmap(), tr("&Apply"),
 			               a->shortcut(), m_doc->view(), 0, 0.0, newKey);
 		m_styleActions.remove(oldKey);
+		if (m_selectedStyleAction == a)
+		{
+			m_rightClickPopup->removeAction(m_selectedStyleAction);
+			m_selectedStyleAction = 0;
+		}
 		delete a;
 		m_styleActions[newKey] = b;
 		connect(b, SIGNAL(triggeredData(QString)), this, SLOT(slotApplyStyle(QString)));
@@ -1071,7 +1076,7 @@ void StyleManager::slotShortcutChanged(const QString& shortcut)
 	else
 	{
 		m_styleActions[key] =
-			new ScrAction(ScrAction::DataQString, QPixmap(), QPixmap(), "", shortcut, m_doc->view(), 0, 0.0, key);
+			new ScrAction(ScrAction::DataQString, QPixmap(), QPixmap(), tr("&Apply"), shortcut, m_doc->view(), 0, 0.0, key);
 		connect(m_styleActions[key], SIGNAL(triggeredData(QString)),
 		        this, SLOT(slotApplyStyle(QString)));
 	}
