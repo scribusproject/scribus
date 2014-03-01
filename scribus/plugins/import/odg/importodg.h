@@ -65,6 +65,12 @@ public:
 	  textIndent(0.0),
 	  textAlign(ParagraphStyle::Leftaligned),
 	  textPos(""),
+	  textOutline(""),
+	  textUnderline(false),
+	  textUnderlineWords(false),
+	  textUnderlineColor(CommonStrings::None),
+	  textStrikeThrough(false),
+	  textShadow(false),
 	  lineHeight(1.0),
 	  absLineHeight(false),
 	  margin_top(0.0),
@@ -128,6 +134,12 @@ public:
 	double							textIndent;
 	ParagraphStyle::AlignmentType	textAlign;    // 0 = left
 	QString							textPos;
+	QString							textOutline;
+	bool							textUnderline;
+	bool							textUnderlineWords;
+	QString							textUnderlineColor;
+	bool							textStrikeThrough;
+	bool							textShadow;
 	double							lineHeight;
 	bool							absLineHeight;
 	double							margin_top;
@@ -228,6 +240,12 @@ private:
 		AttributeValue textIndent;
 		AttributeValue textAlign;
 		AttributeValue textPos;
+		AttributeValue textOutline;
+		AttributeValue textUnderline;
+		AttributeValue textUnderlineWords;
+		AttributeValue textUnderlineColor;
+		AttributeValue textStrikeThrough;
+		AttributeValue textShadow;
 		AttributeValue lineHeight;
 		AttributeValue margin_top;
 		AttributeValue margin_bottom;
@@ -278,6 +296,9 @@ private:
 	PageItem* parsePath(QDomElement &e);
 	PageItem* parseFrame(QDomElement &e);
 	void parseText(QDomElement &elem, PageItem* item, ObjStyle& tmpOStyle);
+	void insertChars(PageItem *item, QString &txt, ParagraphStyle &tmpStyle, CharStyle &tmpCStyle, int &posC);
+	void applyCharacterStyle(CharStyle &tmpCStyle, ObjStyle &oStyle);
+	void applyParagraphStyle(ParagraphStyle &tmpStyle, ObjStyle &oStyle);
 	void parseTransform(const QString &transform, double *rotation, double *transX, double *transY);
 	void parseTransform(FPointArray *composite, const QString &transform);
 	void parseViewBox( const QDomElement& object, double *x, double *y, double *w, double *h );

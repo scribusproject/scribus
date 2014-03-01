@@ -1404,6 +1404,7 @@ void OdgPlug::parseText(QDomElement &elem, PageItem* item, ObjStyle& tmpOStyle)
 		resovleStyle(pStyle, elem.attribute("text:style-name"));
 	for(QDomElement para = elem.firstChildElement(); !para.isNull(); para = para.nextSiblingElement())
 	{
+		pStyle = tmpOStyle;
 		if ((para.tagName() != "text:p") && (para.tagName() != "text:list"))
 			continue;
 		if (para.hasChildNodes())
@@ -1411,28 +1412,15 @@ void OdgPlug::parseText(QDomElement &elem, PageItem* item, ObjStyle& tmpOStyle)
 			if (para.hasAttribute("text:style-name"))
 				resovleStyle(pStyle, para.attribute("text:style-name"));
 			ParagraphStyle tmpStyle = newStyle;
-			tmpStyle.setAlignment(pStyle.textAlign);
-			tmpStyle.setLeftMargin(pStyle.margin_left);
-			tmpStyle.setRightMargin(pStyle.margin_right);
-			tmpStyle.setFirstIndent(pStyle.textIndent);
-			tmpStyle.setGapAfter(pStyle.margin_bottom);
-			tmpStyle.setGapBefore(pStyle.margin_top);
+			applyParagraphStyle(tmpStyle, pStyle);
 			double maxFsize = 0.0;
 			if (para.firstChildElement().isNull())
 			{
 				CharStyle tmpCStyle = tmpStyle.charStyle();
-				tmpCStyle.setFont((*m_Doc->AllFonts)[tmpOStyle.fontName]);
-				tmpCStyle.setFontSize(tmpOStyle.fontSize * 10);
-				tmpCStyle.setFillColor(tmpOStyle.CurrColorText);
+				applyCharacterStyle(tmpCStyle, tmpOStyle);
 				maxFsize = qMax(maxFsize, tmpOStyle.fontSize);
-				QString txt = para.text().trimmed();
-				if (txt.length() > 0)
-				{
-					item->itemText.insertChars(posC, txt);
-					item->itemText.applyStyle(posC, tmpStyle);
-					item->itemText.applyCharStyle(posC, txt.length(), tmpCStyle);
-					posC = item->itemText.length();
-				}
+				QString txt = para.text();
+				insertChars(item, txt, tmpStyle, tmpCStyle, posC);
 			}
 			else
 			{
@@ -1446,19 +1434,8 @@ void OdgPlug::parseText(QDomElement &elem, PageItem* item, ObjStyle& tmpOStyle)
 						if (sp.hasAttribute("text:style-name"))
 							resovleStyle(cStyle, sp.attribute("text:style-name"));
 					}
-					tmpCStyle.setFont((*m_Doc->AllFonts)[cStyle.fontName]);
-					tmpCStyle.setFontSize(cStyle.fontSize * 10);
-					tmpCStyle.setFillColor(cStyle.CurrColorText);
+					applyCharacterStyle(tmpCStyle, cStyle);
 					maxFsize = qMax(maxFsize, cStyle.fontSize);
-					if ((cStyle.textPos.startsWith("super")) || (cStyle.textPos.startsWith("sub")))
-					{
-						StyleFlag styleEffects = tmpCStyle.effects();
-						if (cStyle.textPos.startsWith("super"))
-							styleEffects |= ScStyle_Superscript;
-						else
-							styleEffects |= ScStyle_Subscript;
-						tmpCStyle.setFeatures(styleEffects.featureList());
-					}
 					QString txt = "";
 					if (spn.isElement())
 					{
@@ -1471,15 +1448,15 @@ void OdgPlug::parseText(QDomElement &elem, PageItem* item, ObjStyle& tmpOStyle)
 							else if (sp.tagName() == "text:line-break")
 								txt = SpecialChars::LINEBREAK;
 							else
-								txt = sp.text().trimmed();
+								txt = sp.text();
 						}
 						else if (sp.tagName() == "text:measure")
 						{
 							QString kind = sp.attribute("text:kind");
 							if (kind == "value")
-								txt += sp.text().trimmed();
+								txt += sp.text();
 							else if (kind == "unit")
-								txt += " " + sp.text().trimmed();
+								txt += " " + sp.text();
 						}
 						else if (sp.tagName() == "text:list-item")
 						{
@@ -1489,12 +1466,7 @@ void OdgPlug::parseText(QDomElement &elem, PageItem* item, ObjStyle& tmpOStyle)
 								if (paral.hasAttribute("text:style-name"))
 									resovleStyle(plStyle, paral.attribute("text:style-name"));
 								ParagraphStyle tmpStyle = newStyle;
-								tmpStyle.setAlignment(plStyle.textAlign);
-								tmpStyle.setLeftMargin(plStyle.margin_left);
-								tmpStyle.setRightMargin(plStyle.margin_right);
-								tmpStyle.setFirstIndent(plStyle.textIndent);
-								tmpStyle.setGapAfter(plStyle.margin_bottom);
-								tmpStyle.setGapBefore(plStyle.margin_top);
+								applyParagraphStyle(tmpStyle, plStyle);
 								for(QDomNode spnl = paral.firstChild(); !spnl.isNull(); spnl = spnl.nextSibling())
 								{
 									CharStyle tmpCStyle = tmpStyle.charStyle();
@@ -1505,19 +1477,8 @@ void OdgPlug::parseText(QDomElement &elem, PageItem* item, ObjStyle& tmpOStyle)
 										if (spl.hasAttribute("text:style-name"))
 											resovleStyle(clStyle, spl.attribute("text:style-name"));
 									}
-									tmpCStyle.setFont((*m_Doc->AllFonts)[clStyle.fontName]);
-									tmpCStyle.setFontSize(clStyle.fontSize * 10);
-									tmpCStyle.setFillColor(clStyle.CurrColorText);
+									applyCharacterStyle(tmpCStyle, clStyle);
 									maxFsize = qMax(maxFsize, clStyle.fontSize);
-									if ((clStyle.textPos.startsWith("super")) || (clStyle.textPos.startsWith("sub")))
-									{
-										StyleFlag styleEffects = tmpCStyle.effects();
-										if (clStyle.textPos.startsWith("super"))
-											styleEffects |= ScStyle_Superscript;
-										else
-											styleEffects |= ScStyle_Subscript;
-										tmpCStyle.setFeatures(styleEffects.featureList());
-									}
 									if (spnl.isElement())
 									{
 										if (spl.tagName() == "text:span")
@@ -1529,22 +1490,14 @@ void OdgPlug::parseText(QDomElement &elem, PageItem* item, ObjStyle& tmpOStyle)
 											else if (spl.tagName() == "text:line-break")
 												txt = SpecialChars::LINEBREAK;
 											else
-												txt = spl.text().trimmed();
+												txt = spl.text();
 										}
 									}
 									else if (spnl.isText())
 									{
 										QDomText t = spnl.toText();
-										txt = t.data().trimmed();
 									}
-									if (txt.length() > 0)
-									{
-										item->itemText.insertChars(posC, txt);
-										item->itemText.applyStyle(posC, tmpStyle);
-										item->itemText.applyCharStyle(posC, txt.length(), tmpCStyle);
-										posC = item->itemText.length();
-										txt = "";
-									}
+									insertChars(item, txt, tmpStyle, tmpCStyle, posC);
 								}
 								item->itemText.insertChars(posC, SpecialChars::PARSEP);
 								item->itemText.applyStyle(posC, tmpStyle);
@@ -1555,15 +1508,9 @@ void OdgPlug::parseText(QDomElement &elem, PageItem* item, ObjStyle& tmpOStyle)
 					else if (spn.isText())
 					{
 						QDomText t = spn.toText();
-						txt = t.data().trimmed();
+						txt = t.data();
 					}
-					if (txt.length() > 0)
-					{
-						item->itemText.insertChars(posC, txt);
-						item->itemText.applyStyle(posC, tmpStyle);
-						item->itemText.applyCharStyle(posC, txt.length(), tmpCStyle);
-						posC = item->itemText.length();
-					}
+					insertChars(item, txt, tmpStyle, tmpCStyle, posC);
 				}
 			}
 			if (pStyle.lineHeight < 0.0)
@@ -1582,27 +1529,11 @@ void OdgPlug::parseText(QDomElement &elem, PageItem* item, ObjStyle& tmpOStyle)
 		}
 		else
 		{
-			QString txt = para.text().trimmed();
+			QString txt = para.text();
 			ParagraphStyle tmpStyle = newStyle;
-			tmpStyle.setAlignment(tmpOStyle.textAlign);
-			tmpStyle.setLeftMargin(tmpOStyle.margin_left);
-			tmpStyle.setRightMargin(tmpOStyle.margin_right);
-			tmpStyle.setFirstIndent(tmpOStyle.textIndent);
-			tmpStyle.setGapAfter(tmpOStyle.margin_bottom);
-			tmpStyle.setGapBefore(tmpOStyle.margin_top);
+			applyParagraphStyle(tmpStyle, tmpOStyle);
 			CharStyle tmpCStyle = tmpStyle.charStyle();
-			tmpCStyle.setFont((*m_Doc->AllFonts)[tmpOStyle.fontName]);
-			tmpCStyle.setFontSize(tmpOStyle.fontSize * 10);
-			tmpCStyle.setFillColor(tmpOStyle.CurrColorText);
-			if ((tmpOStyle.textPos.startsWith("super")) || (tmpOStyle.textPos.startsWith("sub")))
-			{
-				StyleFlag styleEffects = tmpCStyle.effects();
-				if (tmpOStyle.textPos.startsWith("super"))
-					styleEffects |= ScStyle_Superscript;
-				else
-					styleEffects |= ScStyle_Subscript;
-				tmpCStyle.setFeatures(styleEffects.featureList());
-			}
+			applyCharacterStyle(tmpCStyle, tmpOStyle);
 			if (tmpOStyle.lineHeight < 0.0)
 				tmpStyle.setLineSpacingMode(ParagraphStyle::AutomaticLineSpacing);
 			else
@@ -1613,19 +1544,82 @@ void OdgPlug::parseText(QDomElement &elem, PageItem* item, ObjStyle& tmpOStyle)
 				else
 					tmpStyle.setLineSpacing(tmpOStyle.lineHeight * tmpOStyle.fontSize);
 			}
-			if (txt.length() > 0)
-			{
-				item->itemText.insertChars(posC, txt);
-				item->itemText.applyStyle(posC, tmpStyle);
-				item->itemText.applyCharStyle(posC, txt.length(), tmpCStyle);
-				posC = item->itemText.length();
-			}
+			insertChars(item, txt, tmpStyle, tmpCStyle, posC);
 			item->itemText.insertChars(posC, SpecialChars::PARSEP);
 			item->itemText.applyStyle(posC, tmpStyle);
 			posC = item->itemText.length();
 		}
 	}
 	item->itemText.trim();
+}
+
+void OdgPlug::insertChars(PageItem *item, QString &txt, ParagraphStyle &tmpStyle, CharStyle &tmpCStyle, int &posC)
+{
+	if (txt.length() > 0)
+	{
+		item->itemText.insertChars(posC, txt);
+		item->itemText.applyStyle(posC, tmpStyle);
+		item->itemText.applyCharStyle(posC, txt.length(), tmpCStyle);
+		posC = item->itemText.length();
+		txt = "";
+	}
+}
+
+void OdgPlug::applyCharacterStyle(CharStyle &tmpCStyle, ObjStyle &oStyle)
+{
+	tmpCStyle.setFont((*m_Doc->AllFonts)[oStyle.fontName]);
+	tmpCStyle.setFontSize(oStyle.fontSize * 10);
+	tmpCStyle.setFillColor(oStyle.CurrColorText);
+	StyleFlag styleEffects = tmpCStyle.effects();
+	if ((oStyle.textPos.startsWith("super")) || (oStyle.textPos.startsWith("sub")))
+	{
+		if (oStyle.textPos.startsWith("super"))
+			styleEffects |= ScStyle_Superscript;
+		else
+			styleEffects |= ScStyle_Subscript;
+	}
+	if (oStyle.textOutline == "true")
+	{
+		styleEffects |= ScStyle_Outline;
+		tmpCStyle.setOutlineWidth(30);
+		tmpCStyle.setFillColor("White");
+		tmpCStyle.setStrokeColor(oStyle.CurrColorText);
+	}
+	if (oStyle.textUnderline)
+	{
+		styleEffects |= ScStyle_Underline;
+		tmpCStyle.setUnderlineOffset(-1);
+		tmpCStyle.setUnderlineWidth(-1);
+		tmpCStyle.setStrokeColor(oStyle.textUnderlineColor);
+	}
+	if (oStyle.textStrikeThrough)
+	{
+		if (oStyle.textUnderlineWords)
+			styleEffects |= ScStyle_UnderlineWords;
+		else
+			styleEffects |= ScStyle_Strikethrough;
+		tmpCStyle.setStrikethruOffset(-1);
+		tmpCStyle.setStrikethruWidth(-1);
+		tmpCStyle.setStrokeColor(oStyle.CurrColorText);
+	}
+	if (oStyle.textShadow)
+	{
+		styleEffects |= ScStyle_Shadowed;
+		tmpCStyle.setShadowXOffset(30);
+		tmpCStyle.setShadowYOffset(-30);
+		tmpCStyle.setStrokeColor(oStyle.CurrColorText);
+	}
+	tmpCStyle.setFeatures(styleEffects.featureList());
+}
+
+void OdgPlug::applyParagraphStyle(ParagraphStyle &tmpStyle, ObjStyle &oStyle)
+{
+	tmpStyle.setAlignment(oStyle.textAlign);
+	tmpStyle.setLeftMargin(oStyle.margin_left);
+	tmpStyle.setRightMargin(oStyle.margin_right);
+	tmpStyle.setFirstIndent(oStyle.textIndent);
+	tmpStyle.setGapAfter(oStyle.margin_bottom);
+	tmpStyle.setGapBefore(oStyle.margin_top);
 }
 
 void OdgPlug::parseTransform(const QString &transform, double *rotation, double *transX, double *transY)
@@ -1901,6 +1895,12 @@ void OdgPlug::parseStyles(QDomElement &sp)
 					currStyle.fontSize = AttributeValue(spe.attribute("fo:font-size", ""));
 					currStyle.fontColor = AttributeValue(spe.attribute("fo:color", ""));
 					currStyle.textPos = AttributeValue(spe.attribute("style:text-position", ""));
+					currStyle.textOutline = AttributeValue(spe.attribute("style:text-outline", ""));
+					currStyle.textUnderline = AttributeValue(spe.attribute("style:text-underline-style", ""));
+					currStyle.textUnderlineWords = AttributeValue(spe.attribute("style:text-underline-mode", ""));
+					currStyle.textUnderlineColor = AttributeValue(spe.attribute("style:text-underline-color", ""));
+					currStyle.textStrikeThrough = AttributeValue(spe.attribute("style:text-line-through-style", ""));
+					currStyle.textShadow = AttributeValue(spe.attribute("fo:text-shadow", ""));
 				}
 			}
 			currStyle.parentStyle = AttributeValue(spd.attribute("style:parent-style-name", ""));
@@ -2036,6 +2036,18 @@ void OdgPlug::resovleStyle(ObjStyle &tmpOStyle, QString pAttrs)
 					actStyle.textAlign = AttributeValue(currStyle.textAlign.value);
 				if (currStyle.textPos.valid)
 					actStyle.textPos = AttributeValue(currStyle.textPos.value);
+				if (currStyle.textOutline.valid)
+					actStyle.textOutline = AttributeValue(currStyle.textOutline.value);
+				if (currStyle.textUnderline.valid)
+					actStyle.textUnderline = AttributeValue(currStyle.textUnderline.value);
+				if (currStyle.textUnderlineWords.valid)
+					actStyle.textUnderlineWords = AttributeValue(currStyle.textUnderlineWords.value);
+				if (currStyle.textUnderlineColor.valid)
+					actStyle.textUnderlineColor = AttributeValue(currStyle.textUnderlineColor.value);
+				if (currStyle.textStrikeThrough.valid)
+					actStyle.textStrikeThrough = AttributeValue(currStyle.textStrikeThrough.value);
+				if (currStyle.textShadow.valid)
+					actStyle.textShadow = AttributeValue(currStyle.textShadow.value);
 				if (currStyle.lineHeight.valid)
 					actStyle.lineHeight = AttributeValue(currStyle.lineHeight.value);
 				if (currStyle.fontColor.valid)
@@ -2226,6 +2238,23 @@ void OdgPlug::resovleStyle(ObjStyle &tmpOStyle, QString pAttrs)
 		}
 		if (actStyle.textPos.valid)
 			tmpOStyle.textPos = actStyle.textPos.value;
+		if (actStyle.textOutline.valid)
+			tmpOStyle.textOutline = actStyle.textOutline.value;
+		if (actStyle.textUnderline.valid)
+			tmpOStyle.textUnderline = actStyle.textUnderline.value != "none";
+		if (actStyle.textUnderlineWords.valid)
+			tmpOStyle.textUnderlineWords = actStyle.textUnderlineWords.value != "continuous";
+		if (actStyle.textUnderlineColor.valid)
+		{
+			if (actStyle.textUnderlineColor.value == "font-color")
+				tmpOStyle.textUnderlineColor = tmpOStyle.CurrColorText;
+			else
+				tmpOStyle.textUnderlineColor = parseColor(actStyle.textUnderlineColor.value);
+		}
+		if (actStyle.textStrikeThrough.valid)
+			tmpOStyle.textStrikeThrough = actStyle.textStrikeThrough.value != "none";
+		if (actStyle.textShadow.valid)
+			tmpOStyle.textShadow = true;
 		if (actStyle.lineHeight.valid)
 		{
 			if (actStyle.lineHeight.value == "normal")
