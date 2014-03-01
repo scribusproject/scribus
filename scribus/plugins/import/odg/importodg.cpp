@@ -418,8 +418,50 @@ bool OdgPlug::parseStyleSheetsXML(QDomDocument &designMapDom)
 			for(QDomElement spf = sp.firstChildElement(); !spf.isNull(); spf = spf.nextSiblingElement() )
 			{
 				if (spf.tagName() == "style:master-page")
+				{
 					currStyle.page_layout_name = AttributeValue(spf.attribute("style:page-layout-name"));
-				m_Styles.insert(spf.attribute("style:name"), currStyle);
+					QString backGroundStyle = spf.attribute("draw:style-name", "");
+					m_Styles.insert(spf.attribute("style:name"), currStyle);
+					if (importerFlags & LoadSavePlugin::lfCreateDoc)
+					{
+						m_Doc->setMasterPageMode(true);
+						ScPage *oldCur = m_Doc->currentPage();
+						ScPage *addedPage = m_Doc->addMasterPage(mpagecount, spf.attribute("style:name"));
+						m_Doc->setCurrentPage(addedPage);
+						addedPage->MPageNam = "";
+						m_Doc->view()->addPage(mpagecount, true);
+						baseX = addedPage->xOffset();
+						baseY = addedPage->yOffset();
+						mpagecount++;
+						ObjStyle tmpOStyle;
+						resovleStyle(tmpOStyle, spf.attribute("style:name"));
+						m_Doc->currentPage()->m_pageSize = "Custom";
+						m_Doc->currentPage()->setInitialHeight(tmpOStyle.page_height);
+						m_Doc->currentPage()->setInitialWidth(tmpOStyle.page_width);
+						m_Doc->currentPage()->setHeight(tmpOStyle.page_height);
+						m_Doc->currentPage()->setWidth(tmpOStyle.page_width);
+						m_Doc->currentPage()->initialMargins.Top = tmpOStyle.margin_top;
+						m_Doc->currentPage()->initialMargins.Bottom = tmpOStyle.margin_bottom;
+						m_Doc->currentPage()->initialMargins.Left = tmpOStyle.margin_left;
+						m_Doc->currentPage()->initialMargins.Right = tmpOStyle.margin_right;
+						if (!backGroundStyle.isEmpty())
+						{
+							ObjStyle tmpBStyle;
+							resovleStyle(tmpBStyle, backGroundStyle);
+							int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX, baseY, tmpOStyle.page_width, tmpOStyle.page_height, 0, tmpBStyle.CurrColorFill, CommonStrings::None, true);
+							PageItem *retObj = m_Doc->Items->at(z);
+							finishItem(retObj, tmpBStyle);
+						}
+						for(QDomElement spm = spf.firstChildElement(); !spm.isNull(); spm = spm.nextSiblingElement() )
+						{
+							PageItem* retObj = parseObj(spm);
+							if (retObj != NULL)
+								m_Doc->Items->append(retObj);
+						}
+						m_Doc->setCurrentPage(oldCur);
+						m_Doc->setMasterPageMode(false);
+					}
+				}
 			}
 		}
 	}
@@ -522,6 +564,7 @@ bool OdgPlug::parseDocReferenceXML(QDomDocument &designMapDom)
 									m_Doc->view()->addPage(pagecount, true);
 									pagecount++;
 								}
+								m_Doc->applyMasterPage(spp.attribute("draw:master-page-name"), m_Doc->currentPageNumber());
 							}
 							firstPage = false;
 							baseX = m_Doc->currentPage()->xOffset();
@@ -632,6 +675,7 @@ PageItem* OdgPlug::parseConnector(QDomElement &e)
 {
 	ObjStyle tmpOStyle;
 	PageItem *retObj = NULL;
+	resovleStyle(tmpOStyle, "standard");
 	resovleStyle(tmpOStyle, getStyleName(e));
 	if ((tmpOStyle.fill_type == 0) && (tmpOStyle.stroke_type == 0))
 		return retObj;
@@ -681,6 +725,7 @@ PageItem* OdgPlug::parseCustomShape(QDomElement &e)
 	double y = parseUnit(e.attribute("svg:y")) ;
 	double w = parseUnit(e.attribute("svg:width"));
 	double h = parseUnit(e.attribute("svg:height"));
+	resovleStyle(tmpOStyle, "standard");
 	resovleStyle(tmpOStyle, getStyleName(e));
 	if ((tmpOStyle.fill_type == 0) && (tmpOStyle.stroke_type == 0))
 		return retObj;
@@ -906,6 +951,7 @@ PageItem* OdgPlug::parseMeasure(QDomElement &e)
 	double y1 = e.attribute( "svg:y1" ).isEmpty() ? 0.0 : parseUnit( e.attribute( "svg:y1" ) );
 	double x2 = e.attribute( "svg:x2" ).isEmpty() ? 0.0 : parseUnit( e.attribute( "svg:x2" ) );
 	double y2 = e.attribute( "svg:y2" ).isEmpty() ? 0.0 : parseUnit( e.attribute( "svg:y2" ) );
+	resovleStyle(tmpOStyle, "standard");
 	resovleStyle(tmpOStyle, getStyleName(e));
 	if (tmpOStyle.measureDist == 0)
 		tmpOStyle.measureDist = tmpOStyle.fontSize;
@@ -983,6 +1029,7 @@ PageItem* OdgPlug::parseLine( QDomElement &e)
 	double y1 = e.attribute( "svg:y1" ).isEmpty() ? 0.0 : parseUnit( e.attribute( "svg:y1" ) );
 	double x2 = e.attribute( "svg:x2" ).isEmpty() ? 0.0 : parseUnit( e.attribute( "svg:x2" ) );
 	double y2 = e.attribute( "svg:y2" ).isEmpty() ? 0.0 : parseUnit( e.attribute( "svg:y2" ) );
+	resovleStyle(tmpOStyle, "standard");
 	resovleStyle(tmpOStyle, getStyleName(e));
 	if (tmpOStyle.stroke_type == 0)
 		return retObj;
@@ -1021,6 +1068,7 @@ PageItem* OdgPlug::parseEllipse(QDomElement &e)
 	double y = parseUnit(e.attribute("svg:y")) ;
 	double w = parseUnit(e.attribute("svg:width"));
 	double h = parseUnit(e.attribute("svg:height"));
+	resovleStyle(tmpOStyle, "standard");
 	resovleStyle(tmpOStyle, getStyleName(e));
 	if ((tmpOStyle.fill_type == 0) && (tmpOStyle.stroke_type == 0))
 		return retObj;
@@ -1042,6 +1090,7 @@ PageItem* OdgPlug::parseRect(QDomElement &e)
 	double w = parseUnit(e.attribute("svg:width"));
 	double h = parseUnit(e.attribute("svg:height"));
 	double corner = parseUnit(e.attribute("draw:corner-radius"));
+	resovleStyle(tmpOStyle, "standard");
 	resovleStyle(tmpOStyle, getStyleName(e));
 	if ((tmpOStyle.fill_type == 0) && (tmpOStyle.stroke_type == 0))
 		return retObj;
@@ -1064,6 +1113,7 @@ PageItem* OdgPlug::parsePolygon(QDomElement &e)
 {
 	ObjStyle tmpOStyle;
 	PageItem *retObj = NULL;
+	resovleStyle(tmpOStyle, "standard");
 	resovleStyle(tmpOStyle, getStyleName(e));
 	if ((tmpOStyle.fill_type == 0) && (tmpOStyle.stroke_type == 0))
 		return retObj;
@@ -1082,6 +1132,7 @@ PageItem* OdgPlug::parsePolyline(QDomElement &e)
 {
 	ObjStyle tmpOStyle;
 	PageItem *retObj = NULL;
+	resovleStyle(tmpOStyle, "standard");
 	resovleStyle(tmpOStyle, getStyleName(e));
 	if (tmpOStyle.stroke_type == 0)
 		return retObj;
@@ -1113,6 +1164,7 @@ PageItem* OdgPlug::parsePath(QDomElement &e)
 {
 	ObjStyle tmpOStyle;
 	PageItem *retObj = NULL;
+	resovleStyle(tmpOStyle, "standard");
 	resovleStyle(tmpOStyle, getStyleName(e));
 	if ((tmpOStyle.fill_type == 0) && (tmpOStyle.stroke_type == 0))
 		return retObj;
@@ -1173,6 +1225,7 @@ PageItem* OdgPlug::parseFrame(QDomElement &e)
 	double r = 0.0;
 	if (e.hasAttribute("draw:transform"))
 		parseTransform(e.attribute("draw:transform"), &r, &x, &y);
+	resovleStyle(tmpOStyle, "standard");
 	resovleStyle(tmpOStyle, getStyleName(e));
 	QDomElement n = e.firstChildElement();
 	if (!n.isNull())
@@ -1901,6 +1954,13 @@ void OdgPlug::parseStyles(QDomElement &sp)
 					currStyle.textUnderlineColor = AttributeValue(spe.attribute("style:text-underline-color", ""));
 					currStyle.textStrikeThrough = AttributeValue(spe.attribute("style:text-line-through-style", ""));
 					currStyle.textShadow = AttributeValue(spe.attribute("fo:text-shadow", ""));
+				}
+				else if (spe.tagName() == "style:drawing-page-properties")
+				{
+					currStyle.fillMode = AttributeValue(spe.attribute("draw:fill", ""));
+					currStyle.CurrColorFill = AttributeValue(spe.attribute("draw:fill-color", ""));
+					currStyle.patternName = AttributeValue(spe.attribute("draw:fill-image-name", ""));
+					currStyle.gradientName = AttributeValue(spe.attribute("draw:fill-gradient-name", ""));
 				}
 			}
 			currStyle.parentStyle = AttributeValue(spd.attribute("style:parent-style-name", ""));
