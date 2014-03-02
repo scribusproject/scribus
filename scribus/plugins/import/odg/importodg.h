@@ -105,7 +105,13 @@ public:
 	  patternX(0.0),
 	  patternY(0.0),
 	  patternDim_W_in_Percent(false),
-	  patternDim_H_in_Percent(false)
+	  patternDim_H_in_Percent(false),
+	  hatchName(""),
+	  hatchColor(""),
+	  hatchDistance(0.0),
+	  hatchRotation(0.0),
+	  hatchStyle(""),
+	  hatchSolidFill(false)
 	  {}
 	QRectF							markerViewBox;
 	QPainterPath					markerPath;
@@ -175,6 +181,12 @@ public:
 	double							patternY;
 	bool							patternDim_W_in_Percent;
 	bool							patternDim_H_in_Percent;
+	QString							hatchName;
+	QString							hatchColor;
+	double							hatchDistance;
+	double							hatchRotation;
+	QString							hatchStyle;
+	bool							hatchSolidFill;
 };
 
 class OdgPlug : public QObject
@@ -276,6 +288,12 @@ private:
 		AttributeValue patternHeight;
 		AttributeValue patternX;
 		AttributeValue patternY;
+		AttributeValue hatchName;
+		AttributeValue hatchColor;
+		AttributeValue hatchDistance;
+		AttributeValue hatchRotation;
+		AttributeValue hatchStyle;
+		AttributeValue hatchSolidFill;
 	};
 
 	bool convert(QString fn);

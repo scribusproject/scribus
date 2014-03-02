@@ -48,6 +48,7 @@ for which a new license (GPL+exception) is in place.
 #include "scconfig.h"
 #include "scgzfile.h"
 #include "scmimedata.h"
+#include "scpainter.h"
 #include "scpaths.h"
 #include "scribus.h"
 #include "scribusXml.h"
@@ -1874,6 +1875,20 @@ void OdgPlug::parseStyles(QDomElement &sp)
 			else
 				m_Styles.insert(id2, currStyle);
 		}
+		else if (spd.tagName() == "draw:hatch")
+		{
+			DrawStyle currStyle;
+			currStyle.hatchColor = AttributeValue(spd.attribute("draw:color", ""));
+			currStyle.hatchDistance = AttributeValue(spd.attribute("draw:distance", ""));
+			currStyle.hatchRotation = AttributeValue(spd.attribute("draw:rotation", ""));
+			currStyle.hatchStyle = AttributeValue(spd.attribute("draw:style", ""));
+			QString id = spd.attribute("draw:display-name");
+			QString id2 = spd.attribute("draw:name");
+			if (id2.isEmpty())
+				m_Styles.insert(id, currStyle);
+			else
+				m_Styles.insert(id2, currStyle);
+		}
 		else if (spd.tagName() == "draw:fill-image")
 		{
 			DrawStyle currStyle;
@@ -1929,6 +1944,8 @@ void OdgPlug::parseStyles(QDomElement &sp)
 					currStyle.patternHeight = AttributeValue(spe.attribute("draw:fill-image-height", ""));
 					currStyle.patternX = AttributeValue(spe.attribute("draw:fill-image-ref-point-x", ""));
 					currStyle.patternY = AttributeValue(spe.attribute("draw:fill-image-ref-point-y", ""));
+					currStyle.hatchName = AttributeValue(spe.attribute("draw:fill-hatch-name", ""));
+					currStyle.hatchSolidFill = AttributeValue(spe.attribute("draw:fill-hatch-solid", ""));
 				}
 				else if (spe.tagName() == "style:paragraph-properties")
 				{
@@ -1961,6 +1978,8 @@ void OdgPlug::parseStyles(QDomElement &sp)
 					currStyle.CurrColorFill = AttributeValue(spe.attribute("draw:fill-color", ""));
 					currStyle.patternName = AttributeValue(spe.attribute("draw:fill-image-name", ""));
 					currStyle.gradientName = AttributeValue(spe.attribute("draw:fill-gradient-name", ""));
+					currStyle.hatchName = AttributeValue(spe.attribute("draw:fill-hatch-name", ""));
+					currStyle.hatchSolidFill = AttributeValue(spe.attribute("draw:fill-hatch-solid", ""));
 				}
 			}
 			currStyle.parentStyle = AttributeValue(spd.attribute("style:parent-style-name", ""));
@@ -2150,6 +2169,18 @@ void OdgPlug::resovleStyle(ObjStyle &tmpOStyle, QString pAttrs)
 					actStyle.patternX = AttributeValue(currStyle.patternX.value);
 				if (currStyle.patternY.valid)
 					actStyle.patternY = AttributeValue(currStyle.patternY.value);
+				if (currStyle.hatchName.valid)
+					actStyle.hatchName = AttributeValue(currStyle.hatchName.value);
+				if (currStyle.hatchColor.valid)
+					actStyle.hatchColor = AttributeValue(currStyle.hatchColor.value);
+				if (currStyle.hatchDistance.valid)
+					actStyle.hatchDistance = AttributeValue(currStyle.hatchDistance.value);
+				if (currStyle.hatchRotation.valid)
+					actStyle.hatchRotation = AttributeValue(currStyle.hatchRotation.value);
+				if (currStyle.hatchStyle.valid)
+					actStyle.hatchStyle = AttributeValue(currStyle.hatchStyle.value);
+				if (currStyle.hatchSolidFill.valid)
+					actStyle.hatchSolidFill = AttributeValue(currStyle.hatchSolidFill.value);
 			}
 		}
 		tmpOStyle.stroke_dash_distance = -1;
@@ -2198,7 +2229,11 @@ void OdgPlug::resovleStyle(ObjStyle &tmpOStyle, QString pAttrs)
 					tmpOStyle.patternName = actStyle.patternName.value;
 			}
 			else if (actStyle.fillMode.value == "hatch")
+			{
 				tmpOStyle.fill_type = 4;
+				if (actStyle.hatchName.valid)
+					tmpOStyle.hatchName = actStyle.hatchName.value;
+			}
 		}
 		if (actStyle.CurrColorStroke.valid)
 		{
@@ -2416,6 +2451,16 @@ void OdgPlug::resovleStyle(ObjStyle &tmpOStyle, QString pAttrs)
 			tmpOStyle.patternY = parseUnit(actStyle.patternY.value);
 		else
 			tmpOStyle.patternY = -1;
+		if (actStyle.hatchColor.valid)
+			tmpOStyle.hatchColor = parseColor(actStyle.hatchColor.value);
+		if (actStyle.hatchDistance.valid)
+			tmpOStyle.hatchDistance = parseUnit(actStyle.hatchDistance.value);
+		if (actStyle.hatchRotation.valid)
+			tmpOStyle.hatchRotation = actStyle.hatchRotation.value.toDouble() / 10.0;
+		if (actStyle.hatchStyle.valid)
+			tmpOStyle.hatchStyle = actStyle.hatchStyle.value;
+		if (actStyle.hatchSolidFill.valid)
+			tmpOStyle.hatchSolidFill = actStyle.hatchSolidFill.value == "true";
 	}
 }
 
@@ -3524,6 +3569,122 @@ void OdgPlug::finishItem(PageItem* item, ObjStyle &obState)
 					delete tempFile;
 				}
 			}
+		}
+	}
+	else if (obState.fill_type == 4)
+	{
+		ObjStyle gStyle;
+		resovleStyle(gStyle, obState.hatchName);
+		QString patternName = "Hatch_" + obState.hatchName;
+		if (m_Doc->docPatterns.contains(patternName))
+		{
+			item->setPattern(patternName);
+			item->GrType = 8;
+		}
+		else
+		{
+			ScPattern pat = ScPattern();
+			pat.setDoc(m_Doc);
+			int patB = qRound(fabs(sin(gStyle.hatchRotation / 180.0 * M_PI)) * gStyle.hatchDistance * 8);
+			if (patB == 0)
+				patB = qRound(gStyle.hatchDistance * 4);
+			int patH = fabs(cos(gStyle.hatchRotation / 180.0 * M_PI)) * gStyle.hatchDistance * 8;
+			if (patH == 0)
+				patH = qRound(gStyle.hatchDistance * 4);
+			int hw = qMax(patB, patH);
+			QImage retImg = QImage(patB * 3, patH * 3, QImage::Format_ARGB32_Premultiplied);
+			if (obState.hatchSolidFill)
+			{
+				const ScColor& col = m_Doc->PageColors[obState.CurrColorFill];
+				QColor tmp = ScColorEngine::getShadeColorProof(col, m_Doc, 100);
+				retImg.fill(tmp.rgba());
+			}
+			else
+				retImg.fill( qRgba(0, 0, 0, 0) );
+			ScPainter *painter = new ScPainter(&retImg, retImg.width(), retImg.height(), 1, 0);
+			const ScColor& col = m_Doc->PageColors[gStyle.hatchColor];
+			QColor tmp = ScColorEngine::getShadeColorProof(col, m_Doc, 100);
+			painter->setPen(tmp, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+			painter->setStrokeMode(ScPainter::Solid);
+			painter->setFillMode(ScPainter::None);
+			painter->setBlendModeStroke(0);
+			painter->translate(patB / 2, patH / 2);
+			painter->setZoomFactor(2);
+			painter->rotate(-gStyle.hatchRotation);
+			painter->save();
+			double xlen = sqrt((hw * 2) * (hw * 2)) * 2;
+			double dist = 0;
+			while (dist < sqrt((hw * 2) * (hw * 2)) * 3)
+			{
+				painter->drawLine(QPointF(-xlen * 2, dist), QPointF(xlen * 2, dist));
+				painter->drawLine(QPointF(-xlen * 2, -dist), QPointF(xlen * 2, -dist));
+				dist += gStyle.hatchDistance;
+			}
+			painter->restore();
+			if ((gStyle.hatchStyle == "double") || (gStyle.hatchStyle == "triple"))
+			{
+				painter->save();
+				painter->rotate(90);
+				dist = 0;
+				while (dist < sqrt((hw * 2) * (hw * 2)) * 3)
+				{
+					painter->drawLine(QPointF(-xlen * 2, dist), QPointF(xlen * 2, dist));
+					painter->drawLine(QPointF(-xlen * 2, -dist), QPointF(xlen * 2, -dist));
+					dist += gStyle.hatchDistance;
+				}
+				painter->restore();
+			}
+			if (gStyle.hatchStyle == "triple")
+			{
+				painter->save();
+				painter->rotate(135);
+				dist = 0;
+				while (dist < sqrt((hw * 2) * (hw * 2)) * 3)
+				{
+					painter->drawLine(QPointF(-xlen * 2, dist), QPointF(xlen * 2, dist));
+					painter->drawLine(QPointF(-xlen * 2, -dist), QPointF(xlen * 2, -dist));
+					dist += gStyle.hatchDistance;
+				}
+				painter->restore();
+			}
+			painter->end();
+			delete painter;
+			QImage patImg = retImg.copy(patB, patH, patB, patH).scaled(patB / 2, patH / 2);
+			QTemporaryFile *tempFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_odg_XXXXXX.png");
+			tempFile->setAutoRemove(false);
+			if (tempFile->open())
+			{
+				QString fileName = getLongPathName(tempFile->fileName());
+				if (!fileName.isEmpty())
+				{
+					tempFile->close();
+					patImg.save(fileName, "PNG");
+					int z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, 0, 0, patImg.width(), patImg.height(), 0, CommonStrings::None, CommonStrings::None, true);
+					PageItem* newItem = m_Doc->Items->at(z);
+					newItem->pixm.imgInfo.lowResType = 0;
+					m_Doc->loadPict(fileName, newItem);
+					newItem->isInlineImage = true;
+					newItem->isTempFile = true;
+					m_Doc->Items->takeAt(z);
+					pat.width = newItem->pixm.qImage().width();
+					pat.height = newItem->pixm.qImage().height();
+					pat.scaleX = 1;
+					pat.scaleY = 1;
+					pat.pattern = newItem->pixm.qImage().copy();
+					newItem->setWidth(pat.pattern.width());
+					newItem->setHeight(pat.pattern.height());
+					newItem->SetRectFrame();
+					newItem->gXpos = 0.0;
+					newItem->gYpos = 0.0;
+					newItem->gWidth = pat.pattern.width();
+					newItem->gHeight = pat.pattern.height();
+					pat.items.append(newItem);
+					m_Doc->addPattern(patternName, pat);
+					item->setPattern(patternName);
+					item->GrType = 8;
+				}
+			}
+			delete tempFile;
 		}
 	}
 	if (obState.hasShadow)
