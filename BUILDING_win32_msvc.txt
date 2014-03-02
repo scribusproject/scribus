@@ -53,14 +53,14 @@ xcopy %SCRIBUS_SRC_PATH%\resources\dicts %SCRIBUS_INSTALL_PATH%\share\dicts /s /
 xcopy %SCRIBUS_SRC_PATH%\resources\editorconfig %SCRIBUS_INSTALL_PATH%\share\editorconfig /s /y
 xcopy %SCRIBUS_SRC_PATH%\resources\icons %SCRIBUS_INSTALL_PATH%\share\icons /s /y /D
 xcopy %SCRIBUS_SRC_PATH%\resources\loremipsum %SCRIBUS_INSTALL_PATH%\share\loremipsum /s /y
-xcopy %SCRIBUS_SRC_PATH%\resources\profiles %SCRIBUS_INSTALL_PATH%\libs\profiles /s /y
-xcopy %SCRIBUS_SRC_PATH%\resources\swatches %SCRIBUS_INSTALL_PATH%\libs\swatches /s /y
+xcopy %SCRIBUS_SRC_PATH%\resources\profiles %SCRIBUS_INSTALL_PATH%\share\profiles /s /y
+xcopy %SCRIBUS_SRC_PATH%\resources\swatches %SCRIBUS_INSTALL_PATH%\share\swatches /s /y
 xcopy %SCRIBUS_SRC_PATH%\resources\templates %SCRIBUS_INSTALL_PATH%\share\templates /s /y /D
  copy %SCRIBUS_SRC_PATH%\scribus\plugins\tools\pathcut\*.png %SCRIBUS_INSTALL_PATH%\share\icons\ /y
  copy %SCRIBUS_SRC_PATH%\scribus\plugins\tools\pathfinder\*.png %SCRIBUS_INSTALL_PATH%\share\icons\ /y
 xcopy %SCRIBUS_SRC_PATH%\scribus\plugins\scriptplugin\scripts %SCRIBUS_INSTALL_PATH%\share\scripts /s /y /D
 xcopy %SCRIBUS_SRC_PATH%\scribus\plugins\scriptplugin\samples %SCRIBUS_INSTALL_PATH%\share\samples /s /y
-copy %SCRIBUS_SRC_PATH%\scribus\plugins\psimport\import.prolog %SCRIBUS_INSTALL_PATH%\libs\import.prolog
+copy %SCRIBUS_SRC_PATH%\scribus\plugins\import\ps\import.prolog %SCRIBUS_INSTALL_PATH%\libs\import.prolog
 copy %SCRIBUS_SRC_PATH%\scribus\plugins\barcodegenerator\barcode.ps %SCRIBUS_INSTALL_PATH%\share\plugins\barcode.ps
 copy %SCRIBUS_SRC_PATH%\scribus\unicodemap\unicodenameslist.txt %SCRIBUS_INSTALL_PATH%\share\unicodenameslist.txt
 del %SCRIBUS_BUILD_ROOT%\*CMake* /s
