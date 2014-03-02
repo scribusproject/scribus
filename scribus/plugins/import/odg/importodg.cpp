@@ -1879,6 +1879,23 @@ void OdgPlug::parseStyles(QDomElement &sp)
 			else
 				m_Styles.insert(id2, currStyle);
 		}
+		else if (spd.tagName() == "draw:opacity")
+		{
+			DrawStyle currStyle;
+			currStyle.gradientAngle = AttributeValue(spd.attribute("draw:angle", ""));
+			currStyle.gradientBorder = AttributeValue(spd.attribute("draw:border", ""));
+			currStyle.opacityEnd = AttributeValue(spd.attribute("draw:end", ""));
+			currStyle.opacityStart = AttributeValue(spd.attribute("draw:start", ""));
+			currStyle.gradientCenterX = AttributeValue(spd.attribute("draw:cx", ""));
+			currStyle.gradientCenterY = AttributeValue(spd.attribute("draw:cy", ""));
+			currStyle.gradientType = AttributeValue(spd.attribute("draw:style", ""));
+			QString id = spd.attribute("draw:display-name");
+			QString id2 = spd.attribute("draw:name");
+			if (id2.isEmpty())
+				m_Styles.insert(id, currStyle);
+			else
+				m_Styles.insert(id2, currStyle);
+		}
 		else if (spd.tagName() == "draw:hatch")
 		{
 			DrawStyle currStyle;
@@ -1950,6 +1967,7 @@ void OdgPlug::parseStyles(QDomElement &sp)
 					currStyle.patternY = AttributeValue(spe.attribute("draw:fill-image-ref-point-y", ""));
 					currStyle.hatchName = AttributeValue(spe.attribute("draw:fill-hatch-name", ""));
 					currStyle.hatchSolidFill = AttributeValue(spe.attribute("draw:fill-hatch-solid", ""));
+					currStyle.opacityName = AttributeValue(spe.attribute("draw:opacity-name", ""));
 				}
 				else if (spe.tagName() == "style:paragraph-properties")
 				{
@@ -1984,6 +2002,7 @@ void OdgPlug::parseStyles(QDomElement &sp)
 					currStyle.gradientName = AttributeValue(spe.attribute("draw:fill-gradient-name", ""));
 					currStyle.hatchName = AttributeValue(spe.attribute("draw:fill-hatch-name", ""));
 					currStyle.hatchSolidFill = AttributeValue(spe.attribute("draw:fill-hatch-solid", ""));
+					currStyle.opacityName = AttributeValue(spe.attribute("draw:opacity-name", ""));
 				}
 			}
 			currStyle.parentStyle = AttributeValue(spd.attribute("style:parent-style-name", ""));
@@ -2185,6 +2204,12 @@ void OdgPlug::resovleStyle(ObjStyle &tmpOStyle, QString pAttrs)
 					actStyle.hatchStyle = AttributeValue(currStyle.hatchStyle.value);
 				if (currStyle.hatchSolidFill.valid)
 					actStyle.hatchSolidFill = AttributeValue(currStyle.hatchSolidFill.value);
+				if (currStyle.opacityName.valid)
+					actStyle.opacityName = AttributeValue(currStyle.opacityName.value);
+				if (currStyle.opacityEnd.valid)
+					actStyle.opacityEnd = AttributeValue(currStyle.opacityEnd.value);
+				if (currStyle.opacityStart.valid)
+					actStyle.opacityStart = AttributeValue(currStyle.opacityStart.value);
 			}
 		}
 		tmpOStyle.stroke_dash_distance = -1;
@@ -2465,6 +2490,12 @@ void OdgPlug::resovleStyle(ObjStyle &tmpOStyle, QString pAttrs)
 			tmpOStyle.hatchStyle = actStyle.hatchStyle.value;
 		if (actStyle.hatchSolidFill.valid)
 			tmpOStyle.hatchSolidFill = actStyle.hatchSolidFill.value == "true";
+		if (actStyle.opacityName.valid)
+			tmpOStyle.opacityName = actStyle.opacityName.value;
+		if (actStyle.opacityEnd.valid)
+			tmpOStyle.opacityEnd = parseUnit(actStyle.opacityEnd.value) * 100.0;
+		if (actStyle.opacityStart.valid)
+			tmpOStyle.opacityStart = parseUnit(actStyle.opacityStart.value) * 100.0;
 	}
 }
 
@@ -3689,6 +3720,84 @@ void OdgPlug::finishItem(PageItem* item, ObjStyle &obState)
 				}
 			}
 			delete tempFile;
+		}
+	}
+	if (!obState.opacityName.isEmpty())
+	{
+		ObjStyle gStyle;
+		resovleStyle(gStyle, obState.opacityName);
+		if (gStyle.gradientType == "linear")
+		{
+			double angle = gStyle.gradientAngle + 90;
+			VGradient maskGradient;
+			maskGradient = VGradient(VGradient::linear);
+			maskGradient.clearStops();
+			maskGradient.setRepeatMethod( VGradient::none );
+			maskGradient.addStop(ScColorEngine::getShadeColorProof(m_Doc->PageColors["Black"], m_Doc, gStyle.opacityStart), 0.0, 0.5, 1.0, "Black", gStyle.opacityStart);
+			maskGradient.addStop(ScColorEngine::getShadeColorProof(m_Doc->PageColors["Black"], m_Doc, gStyle.opacityEnd), 1.0 - gStyle.gradientBorder, 0.5, 1.0, "Black", gStyle.opacityEnd);
+			QLineF gradientVectorE;
+			gradientVectorE.setP1(QPointF(item->width() / 2.0, item->height() / 2.0));
+			gradientVectorE.setAngle(angle);
+			gradientVectorE.setLength(sqrt(item->width() * item->width() + item->height() * item->height()) / 2.0 + 1.0);
+			QPointF gradEnd = intersectBoundingRect(item, gradientVectorE);
+			QLineF gradientVectorS;
+			gradientVectorS.setP1(QPointF(item->width() / 2.0, item->height() / 2.0));
+			gradientVectorS.setAngle(angle + 180);
+			gradientVectorS.setLength(sqrt(item->width() * item->width() + item->height() * item->height()) / 2.0 + 1.0);
+			QPointF gradStart = intersectBoundingRect(item, gradientVectorS);
+			item->setMaskGradient(maskGradient);
+			item->setMaskVector(gradStart.x(), gradStart.y(), gradEnd.x(), gradEnd.y(), gradStart.x(), gradStart.y(), 1, 0);
+			item->setMaskType(4);
+		}
+		else if (gStyle.gradientType == "axial")
+		{
+			double angle = gStyle.gradientAngle + 90;
+			VGradient maskGradient;
+			maskGradient = VGradient(VGradient::linear);
+			maskGradient.clearStops();
+			maskGradient.setRepeatMethod( VGradient::none );
+			maskGradient.addStop(ScColorEngine::getShadeColorProof(m_Doc->PageColors["Black"], m_Doc, gStyle.opacityEnd), 1.0  + (gStyle.gradientBorder / 2.0), 0.5, 1.0, "Black", gStyle.opacityEnd);
+			maskGradient.addStop(ScColorEngine::getShadeColorProof(m_Doc->PageColors["Black"], m_Doc, gStyle.opacityStart), 0.0, 0.5, 1.0, "Black", gStyle.opacityStart);
+			maskGradient.addStop(ScColorEngine::getShadeColorProof(m_Doc->PageColors["Black"], m_Doc, gStyle.opacityEnd), 1.0 - (gStyle.gradientBorder / 2.0), 0.5, 1.0, "Black", gStyle.opacityEnd);
+			QLineF gradientVectorE;
+			gradientVectorE.setP1(QPointF(item->width() / 2.0, item->height() / 2.0));
+			gradientVectorE.setAngle(angle);
+			gradientVectorE.setLength(sqrt(item->width() * item->width() + item->height() * item->height()) / 2.0 + 1.0);
+			QPointF gradEnd = intersectBoundingRect(item, gradientVectorE);
+			QLineF gradientVectorS;
+			gradientVectorS.setP1(QPointF(item->width() / 2.0, item->height() / 2.0));
+			gradientVectorS.setAngle(angle + 180);
+			gradientVectorS.setLength(sqrt(item->width() * item->width() + item->height() * item->height()) / 2.0 + 1.0);
+			QPointF gradStart = intersectBoundingRect(item, gradientVectorS);
+			item->setMaskGradient(maskGradient);
+			item->setMaskVector(gradStart.x(), gradStart.y(), gradEnd.x(), gradEnd.y(), gradStart.x(), gradStart.y(), 1, 0);
+			item->setGradientType(4);
+		}
+		else if (gStyle.gradientType == "radial")
+		{
+			VGradient maskGradient;
+			maskGradient = VGradient(VGradient::radial);
+			maskGradient.clearStops();
+			maskGradient.setRepeatMethod( VGradient::none );
+			maskGradient.addStop(ScColorEngine::getShadeColorProof(m_Doc->PageColors["Black"], m_Doc, gStyle.opacityStart), 0.0, 0.5, 1.0, "Black", gStyle.opacityStart);
+			maskGradient.addStop(ScColorEngine::getShadeColorProof(m_Doc->PageColors["Black"], m_Doc, gStyle.opacityEnd), 1.0 - gStyle.gradientBorder, 0.5, 1.0, "Black", gStyle.opacityEnd);
+			double GrStartX = item->width() * gStyle.gradientCenterX;
+			double GrStartY = item->height()* gStyle.gradientCenterY;
+			double GrEndX = 0;
+			double GrEndY = 0;
+			if (item->width() >= item->height())
+			{
+				GrEndX = item->width();
+				GrEndY = item->height() / 2.0;
+			}
+			else
+			{
+				GrEndX = item->width() / 2.0;
+				GrEndY = item->height();
+			}
+			item->setMaskGradient(maskGradient);
+			item->setMaskVector(GrStartX, GrStartY, GrEndX, GrEndY, GrStartX, GrStartY, 1, 0);
+			item->setMaskType(5);
 		}
 	}
 	if (obState.hasShadow)

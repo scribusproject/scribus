@@ -111,7 +111,10 @@ public:
 	  hatchDistance(0.0),
 	  hatchRotation(0.0),
 	  hatchStyle(""),
-	  hatchSolidFill(false)
+	  hatchSolidFill(false),
+	  opacityName(""),
+	  opacityEnd(1.0),
+	  opacityStart(0.0)
 	  {}
 	QRectF							markerViewBox;
 	QPainterPath					markerPath;
@@ -187,6 +190,9 @@ public:
 	double							hatchRotation;
 	QString							hatchStyle;
 	bool							hatchSolidFill;
+	QString							opacityName;
+	double							opacityEnd;
+	double							opacityStart;
 };
 
 class OdgPlug : public QObject
@@ -294,6 +300,9 @@ private:
 		AttributeValue hatchRotation;
 		AttributeValue hatchStyle;
 		AttributeValue hatchSolidFill;
+		AttributeValue opacityName;
+		AttributeValue opacityEnd;
+		AttributeValue opacityStart;
 	};
 
 	bool convert(QString fn);
