@@ -70,7 +70,7 @@ void nftwidget::setupListItems()
 	{
 		if (!settings->templates[i]->isDeleted)
 		{
-			ListItem* tmp = new ListItem(settings->templates[i], NULL);
+			ListItem* tmp = new ListItem(settings->templates[i], (QListWidgetItem *) NULL);
 			iconItems.push_back(tmp);
 		}
 	}
