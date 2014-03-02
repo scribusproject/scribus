@@ -3647,9 +3647,9 @@ void OdgPlug::finishItem(PageItem* item, ObjStyle &obState)
 			painter->setZoomFactor(2);
 			painter->rotate(-gStyle.hatchRotation);
 			painter->save();
-			double xlen = sqrt((hw * 2) * (hw * 2)) * 2;
+			double xlen = sqrt((hw * 2.0) * (hw * 2.0)) * 2.0;
 			double dist = 0;
-			while (dist < sqrt((hw * 2) * (hw * 2)) * 3)
+			while (dist < sqrt((hw * 2.0) * (hw * 2.0)) * 3.0)
 			{
 				painter->drawLine(QPointF(-xlen * 2, dist), QPointF(xlen * 2, dist));
 				painter->drawLine(QPointF(-xlen * 2, -dist), QPointF(xlen * 2, -dist));
@@ -3661,7 +3661,7 @@ void OdgPlug::finishItem(PageItem* item, ObjStyle &obState)
 				painter->save();
 				painter->rotate(90);
 				dist = 0;
-				while (dist < sqrt((hw * 2) * (hw * 2)) * 3)
+				while (dist < sqrt((hw * 2.0) * (hw * 2.0)) * 3.0)
 				{
 					painter->drawLine(QPointF(-xlen * 2, dist), QPointF(xlen * 2, dist));
 					painter->drawLine(QPointF(-xlen * 2, -dist), QPointF(xlen * 2, -dist));
@@ -3674,7 +3674,7 @@ void OdgPlug::finishItem(PageItem* item, ObjStyle &obState)
 				painter->save();
 				painter->rotate(45);
 				dist = 0;
-				while (dist < sqrt((hw * 2) * (hw * 2)) * 3)
+				while (dist < sqrt((hw * 2.0) * (hw * 2.0)) * 3.0)
 				{
 					painter->drawLine(QPointF(-xlen * 2, dist), QPointF(xlen * 2, dist));
 					painter->drawLine(QPointF(-xlen * 2, -dist), QPointF(xlen * 2, -dist));
