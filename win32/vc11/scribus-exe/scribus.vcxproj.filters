@@ -216,9 +216,6 @@
     <ClInclude Include="..\..\..\scribus\hyphen.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\scribus\icons5.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\scribus\ioapi.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -571,9 +568,6 @@
       <Filter>Generated Form Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\scribus\ui_insertaframe.h">
-      <Filter>Generated Form Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\scribus\ui_lensdialogbase.h">
       <Filter>Generated Form Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\scribus\ui_measurementsbase.h">

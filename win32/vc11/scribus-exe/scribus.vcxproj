@@ -372,7 +372,6 @@
     <ClInclude Include="..\..\..\scribus\hyphen.h" />
     <moc Include="..\..\..\scribus\hyphenator.h" />
     <moc Include="..\..\..\scribus\hysettings.h" />
-    <ClInclude Include="..\..\..\scribus\icons5.h" />
     <moc Include="..\..\..\scribus\imageinfodialog.h" />
     <moc Include="..\..\..\scribus\insertaframe.h" />
     <moc Include="..\..\..\scribus\insertTable.h" />
@@ -643,7 +642,6 @@
     <ClInclude Include="..\..\..\scribus\ui\ui_helpbrowser.h" />
     <ClInclude Include="..\..\..\scribus\ui_hysettingsBase.h" />
     <ClInclude Include="..\..\..\scribus\ui_insertaframe.h" />
-    <ClInclude Include="..\..\..\scribus\ui_lensdialogbase.h" />
     <ClInclude Include="..\..\..\scribus\ui_measurementsbase.h" />
     <ClInclude Include="..\..\..\scribus\ui_multipleduplicate.h" />
     <ClInclude Include="..\..\..\scribus\ui_multiprogressdialog.h" />
