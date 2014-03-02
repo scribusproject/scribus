@@ -1192,7 +1192,11 @@ PageItem* OdgPlug::parsePath(QDomElement &e)
 		mat.scale(sx, sy);
 		retObj->PoLine.map(mat);
 		if (e.hasAttribute("draw:transform"))
+		{
+			FPoint tp2(getMinClipF(&retObj->PoLine));
+			retObj->PoLine.translate(-tp2.x(), -tp2.y());
 			parseTransform(&retObj->PoLine, e.attribute("draw:transform"));
+		}
 		finishItem(retObj, tmpOStyle);
 		m_Doc->Items->removeLast();
 		if (itype == PageItem::PolyLine)
@@ -3637,7 +3641,7 @@ void OdgPlug::finishItem(PageItem* item, ObjStyle &obState)
 			if (gStyle.hatchStyle == "triple")
 			{
 				painter->save();
-				painter->rotate(135);
+				painter->rotate(45);
 				dist = 0;
 				while (dist < sqrt((hw * 2) * (hw * 2)) * 3)
 				{
