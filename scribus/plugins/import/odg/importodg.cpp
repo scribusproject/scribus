@@ -3809,6 +3809,36 @@ void OdgPlug::finishItem(PageItem* item, ObjStyle &obState)
 			item->setMaskVector(GrStartX, GrStartY, GrEndX, GrEndY, GrStartX, GrStartY, 1, 0);
 			item->setMaskType(5);
 		}
+		else if (gStyle.gradientType == "ellipsoid")
+		{
+			VGradient maskGradient;
+			maskGradient = VGradient(VGradient::radial);
+			maskGradient.clearStops();
+			maskGradient.setRepeatMethod( VGradient::none );
+			maskGradient.addStop(ScColorEngine::getShadeColorProof(m_Doc->PageColors["Black"], m_Doc, gStyle.opacityStart), 0.0, 0.5, 1.0, "Black", gStyle.opacityStart);
+			maskGradient.addStop(ScColorEngine::getShadeColorProof(m_Doc->PageColors["Black"], m_Doc, gStyle.opacityEnd), 1.0 - gStyle.gradientBorder, 0.5, 1.0, "Black", gStyle.opacityEnd);
+			double GrStartX = item->width() * gStyle.gradientCenterX;
+			double GrStartY = item->height()* gStyle.gradientCenterY;
+			double GrEndX = 0;
+			double GrEndY = 0;
+			if (item->width() >= item->height())
+			{
+				GrEndX = item->width();
+				GrEndY = item->height() / 2.0;
+			}
+			else
+			{
+				GrEndX = item->width() / 2.0;
+				GrEndY = item->height();
+			}
+			QLineF gradientVectorE = QLineF(GrStartX, GrStartY, GrEndX, GrEndY);
+			gradientVectorE.setAngle(gStyle.gradientAngle);
+			GrEndX = gradientVectorE.p2().x();
+			GrEndY = gradientVectorE.p2().y();
+			item->setMaskGradient(maskGradient);
+			item->setMaskVector(GrStartX, GrStartY, GrEndX, GrEndY, GrStartX, GrStartY, 1, 0);
+			item->setMaskType(5);
+		}
 	}
 	if (obState.hasShadow)
 	{
