@@ -311,6 +311,7 @@ public slots:
 	void loadRecent(QString fn);
 	void rebuildRecentFileMenu();
 	void rebuildRecentPasteMenu();
+	void rebuildScrapbookMenu();
 	void pasteRecent(QString fn);
 	void pasteFromScrapbook(QString fn);
 	void importVectorFile();

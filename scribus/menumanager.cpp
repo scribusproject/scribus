@@ -215,7 +215,9 @@ void MenuManager::clearMenuStrings(const QString &menuName)
 	if (rememberedMenus.contains(menuName))
 	{
 		if (rememberedMenus.value(menuName)!=NULL)
+		{
 			rememberedMenus.value(menuName)->clear();
+		}
 	}
 }
 

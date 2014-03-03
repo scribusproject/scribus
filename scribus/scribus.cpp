@@ -3281,18 +3281,7 @@ void ScribusMainWindow::HaveNewSel(int SelectedType)
 	{
 		actionManager->setPDFActions(view);
 		updateItemLayerList();
-		QStringList scrapNames = scrapbookPalette->getOpenScrapbooksNames();
-		scrapNames.removeAt(1);
-		scrMenuMgr->clearMenuStrings("ItemSendToScrapbook");
-		scrScrapActions.clear();
-		for (int i = 0; i < scrapNames.count(); i++)
-		{
-			ScrAction *act = new ScrAction( ScrAction::DataInt, QPixmap(), QPixmap(), scrapNames[i], QKeySequence(), this, i);
-			scrScrapActions.insert(scrapNames[i], act);
-			connect(act, SIGNAL(triggeredData(int)), this, SLOT(PutScrap(int)));
-			scrMenuMgr->addMenuItemString(scrapNames[i], "ItemSendToScrapbook");
-		}
-		scrMenuMgr->addMenuItemStringstoRememberedMenu("ItemSendToScrapbook", scrScrapActions);
+		rebuildScrapbookMenu();
 
 		//propertiesPalette->textFlowsAroundFrame->setChecked(currItem->textFlowsAroundFrame());
 		propertiesPalette->setTextFlowMode(currItem->textFlowMode());
@@ -3559,6 +3548,25 @@ void ScribusMainWindow::rebuildRecentPasteMenu()
 		}
 		scrMenuMgr->addMenuItemStringstoRememberedMenu("EditPasteRecent", scrRecentPasteActions);
 	}
+}
+
+void ScribusMainWindow::rebuildScrapbookMenu()
+{
+	qDebug()<<"Clearing scrapbook menu";
+	scrMenuMgr->clearMenuStrings("ItemSendToScrapbook");
+	scrScrapActions.clear();
+	if (!HaveDoc)
+		return;
+	QStringList scrapNames = scrapbookPalette->getOpenScrapbooksNames();
+	scrapNames.removeAt(1);
+	for (int i = 0; i < scrapNames.count(); i++)
+	{
+		ScrAction *act = new ScrAction( ScrAction::DataInt, QPixmap(), QPixmap(), scrapNames[i], QKeySequence(), this, i);
+		scrScrapActions.insert(scrapNames[i], act);
+		connect(act, SIGNAL(triggeredData(int)), this, SLOT(PutScrap(int)));
+		scrMenuMgr->addMenuItemString(scrapNames[i], "ItemSendToScrapbook");
+	}
+	scrMenuMgr->addMenuItemStringstoRememberedMenu("ItemSendToScrapbook", scrScrapActions);
 }
 
 void ScribusMainWindow::pasteFromScrapbook(QString fn)
@@ -4850,6 +4858,7 @@ bool ScribusMainWindow::DoFileClose()
 	outlinePalette->unsetDoc();
 	alignDistributePalette->setDoc(NULL);
 	//>>
+
 	if ((mdiArea->subWindowList().isEmpty()) || (mdiArea->subWindowList().count() == 1))
 	{
 		PluginManager& pluginManager(PluginManager::instance());
@@ -5031,7 +5040,7 @@ bool ScribusMainWindow::DoFileClose()
 	}
 
 	updateTableMenuActions();
-
+	rebuildScrapbookMenu();
 	return true;
 }
 
@@ -9599,6 +9608,8 @@ void ScribusMainWindow::SetShortCut()
 
 void ScribusMainWindow::PutScrap(int scID)
 {
+	if (!HaveDoc)
+		return;
 	ScriXmlDoc ss;
 	QString objectString = ss.WriteElem(doc, doc->m_Selection);
 	QDomDocument docu("scridoc");
