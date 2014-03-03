@@ -20,6 +20,8 @@ for which a new license (GPL+exception) is in place.
 #include <QRegExp>
 #include <QStack>
 #include <QUrl>
+#include <QXmlInputSource>
+#include <QXmlSimpleReader>
 #include <QDebug>
 
 #if defined(_MSC_VER) && !defined(_USE_MATH_DEFINES)
@@ -384,10 +386,14 @@ bool OdgPlug::parseStyleSheets(QString designMap)
 	QDomDocument designMapDom;
 	if (!uz->read(designMap, f))
 		return false;
+	QXmlInputSource xmlSource;
+	xmlSource.setData(f);
+	QXmlSimpleReader xmlReader;
+	xmlReader.setFeature("http://xml.org/sax/features/namespace-prefixes", true);
 	QString errorMsg = "";
 	int errorLine = 0;
 	int errorColumn = 0;
-	if (!designMapDom.setContent(f, &errorMsg, &errorLine, &errorColumn))
+	if (!designMapDom.setContent(&xmlSource, &xmlReader, &errorMsg, &errorLine, &errorColumn))
 	{
 		qDebug() << "Error loading File" << errorMsg << "at Line" << errorLine << "Column" << errorColumn;
 		return false;
@@ -475,10 +481,14 @@ bool OdgPlug::parseDocReference(QString designMap)
 	QDomDocument designMapDom;
 	if (!uz->read(designMap, f))
 		return false;
+	QXmlInputSource xmlSource;
+	xmlSource.setData(f);
+	QXmlSimpleReader xmlReader;
+	xmlReader.setFeature("http://xml.org/sax/features/namespace-prefixes", true);
 	QString errorMsg = "";
 	int errorLine = 0;
 	int errorColumn = 0;
-	if (!designMapDom.setContent(f, &errorMsg, &errorLine, &errorColumn))
+	if (!designMapDom.setContent(&xmlSource, &xmlReader, &errorMsg, &errorLine, &errorColumn))
 	{
 		qDebug() << "Error loading File" << errorMsg << "at Line" << errorLine << "Column" << errorColumn;
 		return false;
