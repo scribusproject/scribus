@@ -356,6 +356,7 @@ void ScPage::restorePageItemDeletion(ScItemState< QList<PageItem*> > *state, boo
 {
 	if (!state)
 		return;
+	int stateCode = state->transactionCode;
 	QList<PageItem*> itemList = state->getItem();
 	int id = state->getInt("ITEMID");
 	int id2 = state->getInt("ID");
@@ -377,7 +378,6 @@ void ScPage::restorePageItemDeletion(ScItemState< QList<PageItem*> > *state, boo
 			PageItem* ite = itemList.at(i);
 			m_Doc->view()->SelectItem(ite);
 		}
- 		update();
 	}
 	else
 	{
@@ -392,8 +392,10 @@ void ScPage::restorePageItemDeletion(ScItemState< QList<PageItem*> > *state, boo
 		tmpSelection.addItem(ite);
 		m_Doc->itemSelection_DeleteItem(&tmpSelection);
 	}
-	m_Doc->m_Selection->delaySignalsOff();
+	if ((stateCode == 0) || (stateCode == 2))
+		update();
 	m_Doc->setMasterPageMode(oldMPMode);
+	m_Doc->m_Selection->delaySignalsOff();
 }
 
 void ScPage::restorePageItemConversion(ScItemState<std::pair<PageItem*, PageItem*> >*state, bool isUndo)

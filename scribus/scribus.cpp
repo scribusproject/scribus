@@ -3552,7 +3552,6 @@ void ScribusMainWindow::rebuildRecentPasteMenu()
 
 void ScribusMainWindow::rebuildScrapbookMenu()
 {
-	qDebug()<<"Clearing scrapbook menu";
 	scrMenuMgr->clearMenuStrings("ItemSendToScrapbook");
 	scrScrapActions.clear();
 	if (!HaveDoc)
