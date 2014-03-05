@@ -763,8 +763,8 @@ PageItem* OdgPlug::parseCustomShape(QDomElement &e)
 			fpa.AddConstant("right", vw);
 			fpa.AddConstant("width", vw - vx);
 			fpa.AddConstant("height", vh - vy);
-			fpa.AddConstant("xstretch", parseUnit(e.attribute("draw:path-stretchpoint-x", "0")));
-			fpa.AddConstant("ystretch", parseUnit(e.attribute("draw:path-stretchpoint-y", "0")));
+			fpa.AddConstant("xstretch", parseUnit(p.attribute("draw:path-stretchpoint-x", "0")));
+			fpa.AddConstant("ystretch", parseUnit(p.attribute("draw:path-stretchpoint-y", "0")));
 			fpa.AddConstant("hasfill", tmpOStyle.fill_type == 0 ? 0 : 1);
 			fpa.AddConstant("hasstroke", tmpOStyle.stroke_type == 0 ? 0 : 1);
 			fpa.AddConstant("logheight", vh);
@@ -896,7 +896,58 @@ PageItem* OdgPlug::parseCustomShape(QDomElement &e)
 						retObj = m_Doc->Items->at(z);
 						retObj->PoLine = pArray.copy();
 						retObj->setFillEvenOdd(true);
-						retObj->PoLine.map(mat);
+						double stretchScale = 1.0;
+						bool hasStretch = false;
+						if ((w > h) && p.hasAttribute("draw:path-stretchpoint-x"))
+						{
+							double stretch = parseUnit(p.attribute("draw:path-stretchpoint-x", "0"));
+							FPoint tp2(getMaxClipF(&retObj->PoLine));
+							stretchScale = w / h;
+							double endX = tp2.x() * stretchScale;
+							double delX = endX - tp2.x();
+							for (int ap = 0; ap < retObj->PoLine.size(); ap++)
+							{
+								FPoint pt = retObj->PoLine[ap];
+								if (pt.x() > stretch)
+								{
+									if (pt.x() == tp2.x())
+										retObj->PoLine[ap].setX(endX);
+									else
+										retObj->PoLine[ap].setX(pt.x() + delX);
+								}
+							}
+							stretchScale = h / 21600.0;
+							hasStretch = true;
+						}
+						if ((h > w) && p.hasAttribute("draw:path-stretchpoint-y"))
+						{
+							double stretch = parseUnit(p.attribute("draw:path-stretchpoint-y", "0"));
+							FPoint tp2(getMaxClipF(&retObj->PoLine));
+							stretchScale = h / w;
+							double endY = tp2.y() * stretchScale;
+							double delY = endY - tp2.y();
+							for (int ap = 0; ap < retObj->PoLine.size(); ap++)
+							{
+								FPoint pt = retObj->PoLine[ap];
+								if (pt.y() > stretch)
+								{
+									if (pt.y() == tp2.y())
+										retObj->PoLine[ap].setY(endY);
+									else
+										retObj->PoLine[ap].setY(pt.y() + delY);
+								}
+							}
+							stretchScale = w / 21600.0;
+							hasStretch = true;
+						}
+						if (hasStretch)
+						{
+							QTransform smat;
+							smat.scale(stretchScale, stretchScale);
+							retObj->PoLine.map(smat);
+						}
+						else
+							retObj->PoLine.map(mat);
 						if (e.hasAttribute("draw:transform"))
 							parseTransform(&retObj->PoLine, e.attribute("draw:transform"));
 						finishItem(retObj, tmpOStyle);
