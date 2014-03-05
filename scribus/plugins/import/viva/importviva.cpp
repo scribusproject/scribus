@@ -438,6 +438,7 @@ void VivaPlug::parseSettingsXML(const QDomElement& grNode)
 		double pgGap = m_Doc->PageSpa;
 		papersize = "Custom";
 		QString paperOrien = "portrait";
+		bool hasPageSize = false;
 		for (QDomNode n = grNode.firstChild(); !n.isNull(); n = n.nextSibling() )
 		{
 			QDomElement e = n.toElement();
@@ -459,17 +460,35 @@ void VivaPlug::parseSettingsXML(const QDomElement& grNode)
 				papersize = e.text();
 			else if (e.tagName() == "vd:pageOrientation")
 				paperOrien = e.text();
+			else if (e.tagName() == "vd:pageSize")
+			{
+				docWidth = parseUnit(e.attribute("vd:width", "0"));
+				docHeight = parseUnit(e.attribute("vd:height", "0"));
+				hasPageSize = true;
+			}
 		}
 		PageSize ps(papersize);
-		if (paperOrien.startsWith("portrait"))
+		if (hasPageSize)
 		{
-			docWidth = ps.width();
-			docHeight = ps.height();
+			if (!paperOrien.startsWith("portrait"))
+			{
+				double tmp = docWidth;
+				docWidth = docHeight;
+				docHeight = tmp;
+			}
 		}
 		else
 		{
-			docHeight = ps.width();
-			docWidth = ps.height();
+			if (paperOrien.startsWith("portrait"))
+			{
+				docWidth = ps.width();
+				docHeight = ps.height();
+			}
+			else
+			{
+				docHeight = ps.width();
+				docWidth = ps.height();
+			}
 		}
 		m_Doc->setPage(docWidth, docHeight, topMargin, leftMargin, rightMargin, bottomMargin, pgCols, pgGap, false, facingPages);
 		m_Doc->setPageSize(papersize);
