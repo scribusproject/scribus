@@ -212,9 +212,6 @@
   <ItemGroup>
     <moc Include="..\..\..\scribus\plugins\gettext\docim\docim.h" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="ReadMe.txt" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
     <Import Project="..\Scribus-build-rules.targets" />

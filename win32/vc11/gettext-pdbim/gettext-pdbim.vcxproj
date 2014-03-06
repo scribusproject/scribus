@@ -211,9 +211,6 @@
   <ItemGroup>
     <ClInclude Include="..\..\..\scribus\plugins\gettext\pdbim\pdbim.h" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="ReadMe.txt" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
     <Import Project="..\Scribus-build-rules.targets" />
