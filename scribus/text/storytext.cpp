@@ -416,11 +416,6 @@ void StoryText::removeChars(int pos, uint len)
 		if ((it->ch == SpecialChars::PARSEP)) {
 			removeParSep(i);
 		}
-        if (it->mark != NULL)
-        {
-            delete it->mark;
-            it->mark = NULL;
-        }
 
 //		qDebug("remove char %d at %d", (int) it->ch.unicode(), i);
 		d->takeAt(i);
