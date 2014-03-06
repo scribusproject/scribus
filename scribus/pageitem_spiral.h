@@ -49,6 +49,9 @@ public:
 	double spiralStartAngle;    //! angle where the spiral starts
 	double spiralEndAngle;    //! angle the spiral spans
 	double spiralFactor;	//! factor the spiral gets smaller
+
+	virtual void getBoundingRect(double *x1, double *y1, double *x2, double *y2) const;
+	virtual void getVisualBoundingRect(double *x1, double *y1, double *x2, double *y2) const;
 	
 protected:
 	virtual void DrawObj_Item(ScPainter *p, QRectF e);

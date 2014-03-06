@@ -437,3 +437,14 @@ QString PageItem_PathText::infoDescription()
 {
 	return QString();
 }
+
+void PageItem_PathText::getVisualBoundingRect(double * x1, double * y1, double * x2, double * y2) const
+{
+	PageItem::getVisualBoundingRect(x1, y1, x2, y2);
+	QRectF totalRect(QPointF(*x1, *y1), QPointF(*x2, *y2));
+	QTransform clipTrans;
+	clipTrans.translate(m_xPos, m_yPos);
+	clipTrans.rotate(m_rotation);
+	totalRect = totalRect.united(QRectF(clipTrans.mapRect(Clip.boundingRect())));
+	totalRect.getCoords(x1, y1, x2, y2);
+}

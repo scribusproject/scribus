@@ -48,6 +48,8 @@ public:
 	virtual QString infoDescription();
 	StoryText itemRenderText;
 
+	virtual void getVisualBoundingRect(double *x1, double *y1, double *x2, double *y2) const;
+
 protected:
 	virtual void DrawObj_Item(ScPainter *p, QRectF e);
 

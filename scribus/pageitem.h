@@ -275,11 +275,13 @@ public: // Start public functions
 	//added switch for not updating welded items - used by notes frames with automatic size adjusted
 	void updateClip(bool updateWelded = true);
 	void convertClip();
-	void getBoundingRect(double *x1, double *y1, double *x2, double *y2) const;
-	void getVisualBoundingRect(double *x1, double *y1, double *x2, double *y2) const;
+	
 	QRectF getBoundingRect() const;
 	QRectF getCurrentBoundingRect(double moreSpace = 0.0) const;
 	QRectF getVisualBoundingRect() const;
+
+	virtual void getBoundingRect(double *x1, double *y1, double *x2, double *y2) const;
+	virtual void getVisualBoundingRect(double *x1, double *y1, double *x2, double *y2) const;
 
 
 	//>> ********* Functions related to drawing the item *********
