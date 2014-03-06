@@ -10022,7 +10022,7 @@ void ScribusMainWindow::callImageEditor()
 
 void ScribusMainWindow::slotCharSelect()
 {
-	charPalette->show();
+	charPalette->setVisible(scrActions["insertGlyph"]->isChecked());
 }
 
 void ScribusMainWindow::setUndoMode(bool isObjectSpecific)
