@@ -894,7 +894,11 @@ PageItem* VivaPlug::parseObjectXML(const QDomElement& obNode)
 			{
 				QDomElement eog = obg.toElement();
 				if (eog.tagName() == "vo:object")
-					GElements.append(parseObjectXML(eog));
+				{
+					PageItem *gItem = parseObjectXML(eog);
+					if (gItem != NULL)
+						GElements.append(gItem);
+				}
 				else if (eog.tagName() == "vo:transformation")
 				{
 					for(QDomNode spo = eog.firstChild(); !spo.isNull(); spo = spo.nextSibling() )
@@ -2177,7 +2181,7 @@ void VivaPlug::applyCharacterAttrs(CharStyle &tmpCStyle, ParagraphStyle &newStyl
 {
 	if (pAttrs.fontSize.valid)
 	{
-		tmpCStyle.setFontSize(pAttrs.fontSize.value.toInt() * 10);
+		tmpCStyle.setFontSize(pAttrs.fontSize.value.toDouble() * 10);
 		if (pAttrs.lineSpacing.valid)
 		{
 			if (pAttrs.fontSize.value.toInt() > parseUnit(pAttrs.lineSpacing.value))
