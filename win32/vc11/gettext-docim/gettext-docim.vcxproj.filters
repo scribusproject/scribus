@@ -25,9 +25,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="ReadMe.txt" />
-  </ItemGroup>
-  <ItemGroup>
     <moc Include="..\..\..\scribus\plugins\gettext\docim\docim.h">
       <Filter>Header Files</Filter>
     </moc>

@@ -6787,10 +6787,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\scribus\ui_lensdialogbase.h"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\scribus\ui_measurementsbase.h"
 				>
 			</File>

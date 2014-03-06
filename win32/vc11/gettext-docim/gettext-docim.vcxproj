@@ -209,9 +209,6 @@
     <moc Include="..\..\..\scribus\plugins\gettext\docim\docim.h" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="ReadMe.txt" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\scribus-exe\scribus.vcxproj">
       <Project>{b17fcd80-7978-4544-93c4-2fe1ac6fe9f3}</Project>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
