@@ -106,6 +106,7 @@ public:
 	  patternY(0.0),
 	  patternDim_W_in_Percent(false),
 	  patternDim_H_in_Percent(false),
+	  patternStretch(""),
 	  hatchName(""),
 	  hatchColor(""),
 	  hatchDistance(0.0),
@@ -184,6 +185,7 @@ public:
 	double							patternY;
 	bool							patternDim_W_in_Percent;
 	bool							patternDim_H_in_Percent;
+	QString							patternStretch;
 	QString							hatchName;
 	QString							hatchColor;
 	double							hatchDistance;
@@ -294,6 +296,7 @@ private:
 		AttributeValue patternHeight;
 		AttributeValue patternX;
 		AttributeValue patternY;
+		AttributeValue patternStretch;
 		AttributeValue hatchName;
 		AttributeValue hatchColor;
 		AttributeValue hatchDistance;
