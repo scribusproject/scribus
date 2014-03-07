@@ -874,6 +874,7 @@ PageItem* OdgPlug::parseCustomShape(QDomElement &e)
 				texAreaPoints.append(QPointF(ScCLocale::toDoubleC(points[2]), ScCLocale::toDoubleC(points[3])));
 				texAreaPoints = mat.map(texAreaPoints);
 			}
+			QString shapeType = p.attribute("draw:type");
 			QStringList paths = enhPath.split("N", QString::SkipEmptyParts);
 			if (!paths.isEmpty())
 			{
@@ -889,6 +890,82 @@ PageItem* OdgPlug::parseCustomShape(QDomElement &e)
 						QString fillC = tmpOStyle.CurrColorFill;
 						if (!filled)
 							fillC = CommonStrings::None;
+						else
+						{
+							if (shapeType == "can")
+							{
+								if (a == 1)
+									fillC = modifyColor(fillC, false, 110);
+							}
+							else if (shapeType == "cube")
+							{
+								if (a == 1)
+									fillC = modifyColor(fillC, false, 110);
+								else if (a == 2)
+									fillC = modifyColor(fillC, true, 120);
+							}
+							else if (shapeType == "paper")
+							{
+								if (a == 1)
+									fillC = modifyColor(fillC, true, 120);
+							}
+							else if (shapeType == "smiley")
+							{
+								if (a == 1)
+									fillC = modifyColor(fillC, true, 120);
+								else if (a == 2)
+									fillC = modifyColor(fillC, true, 120);
+							}
+							else if (shapeType == "quad-bevel")
+							{
+								if (a == 1)
+									fillC = modifyColor(fillC, false, 110);
+								else if (a == 2)
+									fillC = modifyColor(fillC, true, 150);
+								else if (a == 3)
+									fillC = modifyColor(fillC, true, 120);
+								else if (a == 4)
+									fillC = modifyColor(fillC, false, 120);
+							}
+							else if (shapeType == "col-60da8460")
+							{
+								if (a == 1)
+									fillC = modifyColor(fillC, true, 150);
+								else if (a == 2)
+									fillC = modifyColor(fillC, true, 300);
+								else if (a == 3)
+									fillC = modifyColor(fillC, false, 120);
+								else if (a == 4)
+									fillC = modifyColor(fillC, false, 120);
+								else if (a == 5)
+									fillC = modifyColor(fillC, false, 120);
+							}
+							else if (shapeType == "col-502ad400")
+							{
+								if (a == 1)
+									fillC = modifyColor(fillC, false, 110);
+								else if (a == 2)
+									fillC = modifyColor(fillC, true, 120);
+								else if (a == 3)
+									fillC = modifyColor(fillC, false, 120);
+								else if (a == 4)
+									fillC = modifyColor(fillC, false, 120);
+							}
+							else if (shapeType == "vertical-scroll")
+							{
+								if (a == 1)
+									fillC = modifyColor(fillC, true, 120);
+								else if (a == 2)
+									fillC = modifyColor(fillC, true, 120);
+							}
+							else if (shapeType == "horizontal-scroll")
+							{
+								if (a == 1)
+									fillC = modifyColor(fillC, true, 120);
+								else if (a == 2)
+									fillC = modifyColor(fillC, true, 120);
+							}
+						}
 						QString strokeC = tmpOStyle.CurrColorStroke;
 						if (!stroked)
 							strokeC = CommonStrings::None;
@@ -3007,6 +3084,25 @@ PageItem* OdgPlug::groupObjects(QList<PageItem *> &GElements)
 	m_Doc->GroupOnPage(retObj);
 	m_Doc->Items->removeLast();
 	return retObj;
+}
+
+QString OdgPlug::modifyColor(QString name, bool darker, int amount)
+{
+	const ScColor& col = m_Doc->PageColors[name];
+	QColor c = ScColorEngine::getShadeColorProof(col, m_Doc, 100);
+	QColor mo;
+	if (darker)
+		mo = c.darker(amount);
+	else
+		mo = c.lighter(amount);
+	ScColor tmp;
+	tmp.fromQColor(mo);
+	tmp.setSpotColor(false);
+	tmp.setRegistrationColor(false);
+	QString fNam = m_Doc->PageColors.tryAddColor("FromOdg"+mo.name(), tmp);
+	if (fNam == "FromOdg"+mo.name())
+		importedColors.append(fNam);
+	return fNam;
 }
 
 QColor OdgPlug::parseColorN( const QString &rgbColor )
