@@ -6819,6 +6819,7 @@ void ScribusMainWindow::setAppMode(int mode)
 		// Restore/save action shortcuts when entering/leaving table edit mode.
 		if (mode != modeEditTable && oldMode == modeEditTable)
 		{
+			outlinePalette->setEnabled(true);
 			charPalette->setEnabled(false, 0);
 			enableTextActions(&scrActions, false);
 			scrActions["insertSampleText"]->setEnabled(false);
@@ -6827,6 +6828,7 @@ void ScribusMainWindow::setAppMode(int mode)
 		}
 		else if (mode == modeEditTable && oldMode != modeEditTable)
 		{
+			outlinePalette->setEnabled(false);
 			charPalette->setEnabled(true, currItem);
 			scrActions["insertSampleText"]->setEnabled(true);
 			scrActions["toolsEditWithStoryEditor"]->setEnabled(true);
@@ -7029,6 +7031,7 @@ void ScribusMainWindow::setAppMode(int mode)
 			case modeEditPolygon:
 			case modeEditSpiral:
 				view->setCursor(QCursor(Qt::CrossCursor));
+				outlinePalette->setEnabled(false);
 				break;
 			default:
 				view->setCursor(QCursor(Qt::ArrowCursor));
@@ -7046,6 +7049,7 @@ void ScribusMainWindow::setAppMode(int mode)
 		if (mode == modeNormal)
 		{
 			propertiesPalette->setGradientEditMode(false);
+			outlinePalette->setEnabled(true);
 		}
 		if (mode == modeLinkFrames)
 			doc->ElemToLink = doc->m_Selection->itemAt(0);
