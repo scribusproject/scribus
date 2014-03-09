@@ -1069,6 +1069,7 @@ PageItem* OdgPlug::parseCustomShape(QDomElement &e)
 		retObj = m_Doc->Items->at(z);
 		retObj->setTextToFrameDist(0.0, 0.0, 0.0, 0.0);
 		retObj->setTextFlowMode(PageItem::TextFlowDisabled);
+		retObj->setVerticalAlignment(tmpOStyle.verticalAlignment);
 		finishItem(retObj, tmpOStyle);
 		parseText(e, retObj, tmpOStyle);
 		if (e.hasAttribute("draw:transform"))
@@ -1382,6 +1383,7 @@ PageItem* OdgPlug::parseFrame(QDomElement &e)
 			retObj->setFillColor(tmpOStyle.CurrColorFill);
 			retObj->setTextToFrameDist(0.0, 0.0, 0.0, 0.0);
 			retObj->setTextFlowMode(PageItem::TextFlowDisabled);
+			retObj->setVerticalAlignment(tmpOStyle.verticalAlignment);
 			if (e.hasAttribute("draw:transform"))
 				retObj->setRotation(r, true);
 			finishItem(retObj, tmpOStyle);
@@ -2107,6 +2109,7 @@ void OdgPlug::parseStyles(QDomElement &sp)
 					currStyle.hatchName = AttributeValue(spe.attribute("draw:fill-hatch-name", ""));
 					currStyle.hatchSolidFill = AttributeValue(spe.attribute("draw:fill-hatch-solid", ""));
 					currStyle.opacityName = AttributeValue(spe.attribute("draw:opacity-name", ""));
+					currStyle.verticalAlignment = AttributeValue(spe.attribute("draw:textarea-vertical-align", ""));
 				}
 				else if (spe.tagName() == "style:paragraph-properties")
 				{
@@ -2351,6 +2354,8 @@ void OdgPlug::resovleStyle(ObjStyle &tmpOStyle, QString pAttrs)
 					actStyle.opacityEnd = AttributeValue(currStyle.opacityEnd.value);
 				if (currStyle.opacityStart.valid)
 					actStyle.opacityStart = AttributeValue(currStyle.opacityStart.value);
+				if (currStyle.verticalAlignment.valid)
+					actStyle.verticalAlignment = AttributeValue(currStyle.verticalAlignment.value);
 			}
 		}
 		tmpOStyle.stroke_dash_distance = -1;
@@ -2500,6 +2505,13 @@ void OdgPlug::resovleStyle(ObjStyle &tmpOStyle, QString pAttrs)
 				tmpOStyle.textAlign = ParagraphStyle::Rightaligned;
 			else if (attValue == "justify")
 				tmpOStyle.textAlign = ParagraphStyle::Justified;
+		}
+		if (actStyle.verticalAlignment.valid)
+		{
+			if (actStyle.verticalAlignment.value == "middle")
+				tmpOStyle.verticalAlignment = 1;
+			else if (actStyle.verticalAlignment.value == "bottom")
+				tmpOStyle.verticalAlignment = 2;
 		}
 		if (actStyle.textPos.valid)
 			tmpOStyle.textPos = actStyle.textPos.value;
@@ -3558,12 +3570,90 @@ void OdgPlug::finishItem(PageItem* item, ObjStyle &obState)
 			item->fill_gradient.clearStops();
 			item->fill_gradient.setRepeatMethod( VGradient::none );
 			const ScColor& gradC = m_Doc->PageColors[gStyle.gradientEndColor];
-			item->fill_gradient.addStop(ScColorEngine::getRGBColor(gradC, m_Doc), 0.0, 0.5, 1.0, gStyle.gradientEndColor, gStyle.gradientEndShade);
+			QColor gradColor1 = ScColorEngine::getRGBColor(gradC, m_Doc);
+			item->fill_gradient.addStop(gradColor1, 0.0, 0.5, 1.0, gStyle.gradientEndColor, gStyle.gradientEndShade);
 			const ScColor& gradC2 = m_Doc->PageColors[gStyle.gradientStartColor];
-			item->fill_gradient.addStop(ScColorEngine::getRGBColor(gradC2, m_Doc), 1.0 - gStyle.gradientBorder, 0.5, 1.0, gStyle.gradientStartColor, gStyle.gradientStartShade);
+			QColor gradColor2 = ScColorEngine::getRGBColor(gradC2, m_Doc);
+			item->fill_gradient.addStop(gradColor2, 1.0 - gStyle.gradientBorder, 0.5, 1.0, gStyle.gradientStartColor, gStyle.gradientStartShade);
 			FPoint cp = FPoint(item->width() * gStyle.gradientCenterX, item->height()* gStyle.gradientCenterY);
 			double gLenW = item->width() / 2.0;
 			double gLenH = item->height() / 2.0;
+/*
+			QPointF P1 = QPointF(0.0, 0.0);
+			QPointF P2 = QPointF(item->width(), 0.0);
+			QPointF P3 = QPointF(item->width(), item->height());
+			QPointF P4 = QPointF(0.0, item->height());
+			QLineF L1 = QLineF(0.0, 0.0, item->width(), 0.0);
+			L1.setAngle(-45);
+			QLineF LCW = QLineF(0.0, item->height() / 2.0, item->width(), item->height() / 2.0);
+			QPointF P5;
+			LCW.intersect(L1, &P5);
+			QPointF P6 = QPointF(item->width() - P5.x(), P5.y());
+			QPolygonF pPoints;
+			pPoints << P1 << P2 << P3 << P4 << P5 << P6;
+			QTransform mat;
+			pPoints.translate(-item->width() / 2.0, -item->height() / 2.0);
+			mat.translate(item->width() * gStyle.gradientCenterX, item->height()* gStyle.gradientCenterY);
+			mat.rotate(-gStyle.gradientAngle);
+			mat.scale(1.0 - gStyle.gradientBorder, 1.0 - gStyle.gradientBorder);
+			pPoints = mat.map(pPoints);
+			P1 = pPoints[0];
+			P2 = pPoints[1];
+			P3 = pPoints[2];
+			P4 = pPoints[3];
+			P5 = pPoints[4];
+			P6 = pPoints[5];
+			item->meshGradientPatches.clear();
+			meshGradientPatch patch1;
+			meshPoint outer;
+			outer.resetTo(FPoint(P1.x(), P1.y()));
+			outer.transparency = 1.0;
+			outer.shade = gStyle.gradientStartShade;
+			outer.colorName = gStyle.gradientStartColor;
+			outer.color = gradColor2;
+			patch1.TL = outer;
+			outer.resetTo(FPoint(P2.x(), P2.y()));
+			patch1.TR = outer;
+			meshPoint inner;
+			inner.resetTo(FPoint(P6.x(), P6.y()));
+			inner.transparency = 1.0;
+			inner.shade = gStyle.gradientEndShade;
+			inner.colorName = gStyle.gradientEndColor;
+			inner.color = gradColor1;
+			patch1.BR = inner;
+			inner.resetTo(FPoint(P5.x(), P5.y()));
+			patch1.BL = inner;
+			item->meshGradientPatches.append(patch1);
+
+			outer.resetTo(FPoint(P2.x(), P2.y()));
+			patch1.TL = outer;
+			outer.resetTo(FPoint(P3.x(), P3.y()));
+			patch1.TR = outer;
+			inner.resetTo(FPoint(P6.x(), P6.y()));
+			patch1.BL = inner;
+			patch1.BR = inner;
+			item->meshGradientPatches.append(patch1);
+
+			inner.resetTo(FPoint(P5.x(), P5.y()));
+			patch1.TL = inner;
+			inner.resetTo(FPoint(P6.x(), P6.y()));
+			patch1.TR = inner;
+			outer.resetTo(FPoint(P4.x(), P4.y()));
+			patch1.BL = outer;
+			outer.resetTo(FPoint(P3.x(), P3.y()));
+			patch1.BR = outer;
+			item->meshGradientPatches.append(patch1);
+
+			outer.resetTo(FPoint(P4.x(), P4.y()));
+			patch1.BL = outer;
+			outer.resetTo(FPoint(P1.x(), P1.y()));
+			patch1.TL = outer;
+			inner.resetTo(FPoint(P5.x(), P5.y()));
+			patch1.BR = inner;
+			patch1.TR = inner;
+			item->meshGradientPatches.append(patch1);
+			item->GrType = 12;
+*/
 			QLineF p1 = QLineF(cp.x(), cp.y(), cp.x() - gLenW, cp.y() - gLenH);
 			p1.setAngle(p1.angle() + gStyle.gradientAngle);
 			QLineF p2 = QLineF(cp.x(), cp.y(), cp.x() + gLenW, cp.y() - gLenH);

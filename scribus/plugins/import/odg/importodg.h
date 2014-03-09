@@ -77,6 +77,7 @@ public:
 	  margin_bottom(0.0),
 	  margin_left(0.0),
 	  margin_right(0.0),
+	  verticalAlignment(0),
 	  page_width(595.0),
 	  page_height(841.0),
 	  page_layout_name(""),
@@ -156,6 +157,7 @@ public:
 	double							margin_bottom;
 	double							margin_left;
 	double							margin_right;
+	int								verticalAlignment;
 	double							page_width;
 	double							page_height;
 	QString							page_layout_name;
@@ -271,6 +273,7 @@ private:
 		AttributeValue margin_bottom;
 		AttributeValue margin_left;
 		AttributeValue margin_right;
+		AttributeValue verticalAlignment;
 		AttributeValue page_width;
 		AttributeValue page_height;
 		AttributeValue page_layout_name;
