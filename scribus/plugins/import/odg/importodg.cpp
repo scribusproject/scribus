@@ -2519,7 +2519,7 @@ void OdgPlug::resovleStyle(ObjStyle &tmpOStyle, QString pAttrs)
 		if (actStyle.textStrikeThrough.valid)
 			tmpOStyle.textStrikeThrough = actStyle.textStrikeThrough.value != "none";
 		if (actStyle.textShadow.valid)
-			tmpOStyle.textShadow = true;
+			tmpOStyle.textShadow = actStyle.textShadow.value != "none";
 		if (actStyle.lineHeight.valid)
 		{
 			if (actStyle.lineHeight.value == "normal")
