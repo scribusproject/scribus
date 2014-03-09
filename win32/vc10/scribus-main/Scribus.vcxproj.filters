@@ -3440,6 +3440,12 @@
     <ClCompile Include="..\..\..\scribus\ui\proptree.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\scribus\appmodehelper.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\moc_appmodehelper.cpp">
+      <Filter>Generated Moc Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Scribus.rc">
@@ -4867,6 +4873,9 @@
       <Filter>Header Files</Filter>
     </moc>
     <moc Include="..\..\..\scribus\ui\proptree.h">
+      <Filter>Header Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\appmodehelper.h">
       <Filter>Header Files</Filter>
     </moc>
   </ItemGroup>

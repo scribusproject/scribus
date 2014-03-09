@@ -126,6 +126,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <moc Include="..\..\..\scribus\appmodehelper.h" />
     <ClInclude Include="..\..\..\scribus\desaxe\actions.h" />
     <ClInclude Include="..\..\..\scribus\desaxe\automata.h" />
     <ClInclude Include="..\..\..\scribus\desaxe\base_actions.h" />
@@ -767,12 +768,14 @@
     <ClInclude Include="..\..\..\scribus\colormgmt\sclcms2colortransformimpl.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\scribus\appmodehelper.cpp" />
     <ClCompile Include="..\..\..\scribus\desaxe\digester.cpp" />
     <ClCompile Include="..\..\..\scribus\desaxe\digester_parse.cpp" />
     <ClCompile Include="..\..\..\scribus\desaxe\saxfilter.cpp" />
     <ClCompile Include="..\..\..\scribus\desaxe\saxiohelper.cpp" />
     <ClCompile Include="..\..\..\scribus\desaxe\saxXML.cpp" />
     <ClCompile Include="..\..\..\scribus\desaxe\uniqueid.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_appmodehelper.cpp" />
     <ClCompile Include="..\..\..\scribus\moc_upgradechecker.cpp" />
     <ClCompile Include="..\..\..\scribus\selectionrubberband.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\about.cpp" />
