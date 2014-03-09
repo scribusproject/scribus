@@ -72,7 +72,7 @@ PageItem_TextFrame::PageItem_TextFrame(ScribusDoc *pa, double x, double y, doubl
 	unicodeInputCount = 0;
 	unicodeInputString = "";
 	m_origAnnotPos = QRectF(xPos(), yPos(), width(), height());
-
+	verticalAlign = 0;
 	connect(&itemText,SIGNAL(changed()), this, SLOT(slotInvalidateLayout()));
 }
 
@@ -85,7 +85,7 @@ PageItem_TextFrame::PageItem_TextFrame(const PageItem & p) : PageItem(p)
 	unicodeInputString = "";
 	m_notesFramesMap.clear();
 	m_origAnnotPos = QRectF(xPos(), yPos(), width(), height());
-
+	verticalAlign = 0;
 	connect(&itemText,SIGNAL(changed()), this, SLOT(slotInvalidateLayout()));
 }
 
@@ -3043,6 +3043,24 @@ void PageItem_TextFrame::layout()
 		}
 	}
 	MaxChars = itemText.length();
+	if ((verticalAlign > 0) && (NextBox == NULL))
+	{
+		int vertAlign = verticalAlign;
+		double topDist = m_textDistanceMargins.Top;
+		double hAdjust = 0;
+		if (verticalAlign == 1)
+			hAdjust = (height() - (m_textDistanceMargins.Bottom + lineCorr) - maxY) / 2.0;
+		else if (verticalAlign == 2)
+			hAdjust = (height() - (m_textDistanceMargins.Bottom + lineCorr) - maxY);
+		if (hAdjust > 0)
+		{
+			m_textDistanceMargins.Top += hAdjust;
+			verticalAlign = 0;
+			layout();
+			m_textDistanceMargins.Top = topDist;
+			verticalAlign = vertAlign;
+		}
+	}
 	invalid = false;
 	if (!isNoteFrame() && (!m_Doc->notesList().isEmpty() || m_Doc->notesChanged()))
 	{ //if notes are used

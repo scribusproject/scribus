@@ -2255,6 +2255,7 @@ void Scribus150Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 					docu.writeAttribute("TextDistTop", textFrame->textToFrameDistTop());
 					docu.writeAttribute("TextDistBottom", textFrame->textToFrameDistBottom());
 					docu.writeAttribute("TextDistRight", textFrame->textToFrameDistRight());
+					docu.writeAttribute("TextVertAlign", textFrame->verticalAlignment());
 					docu.writeAttribute("Flop", textFrame->firstLineOffset());
 
 					QString cstyle = cell.style();
@@ -2634,6 +2635,7 @@ void Scribus150Format::SetItemProps(ScXmlStreamWriter& docu, PageItem* item, con
 		docu.writeAttribute("TEXTRA",item->textToFrameDistTop());
 		docu.writeAttribute("BEXTRA",item->textToFrameDistBottom());
 		docu.writeAttribute("REXTRA",item->textToFrameDistRight());
+		docu.writeAttribute("VAlign", item->verticalAlignment());
 		docu.writeAttribute("FLOP",item->firstLineOffset()); // here I think this FLOP "cher à mon cœur" is legitimate!
 		docu.writeAttribute("PLTSHOW", item->PoShow ? 1 : 0);
 		docu.writeAttribute("BASEOF", item->BaseOffs);

@@ -4952,6 +4952,7 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 								attrs.valueAsDouble("REXTRA", 0.0),
 								attrs.valueAsDouble("TEXTRA", 0.0),
 								attrs.valueAsDouble("BEXTRA", 0.0));
+	currItem->setVerticalAlignment(attrs.valueAsInt("VAlign", 0));
 	currItem->setFirstLineOffset(static_cast<FirstLineOffsetPolicy>(attrs.valueAsInt("FLOP")));
 
 	currItem->PLineArt  = Qt::PenStyle(attrs.valueAsInt("PLINEART", 0));
@@ -5588,6 +5589,7 @@ bool Scribus150Format::readItemTableCell(PageItem_Table* item, ScXmlStreamReader
 							tAtt.valueAsDouble("TextDistTop", 0.0),
 							tAtt.valueAsDouble("TextDistBottom", 0.0),
 							tAtt.valueAsDouble("TextDistRight", 0.0));
+		newItem->setVerticalAlignment(tAtt.valueAsInt("TextVertAlign", 0));
 		newItem->setFirstLineOffset(static_cast<FirstLineOffsetPolicy>(tAtt.valueAsInt("Flop")));
 	}
 

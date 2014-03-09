@@ -149,6 +149,7 @@ void PropertyWidget_Distance::setCurrentItem(PageItem *item)
 	}
 
 	showTextDistances(textItem->textToFrameDistLeft(), textItem->textToFrameDistTop(), textItem->textToFrameDistBottom(), textItem->textToFrameDistRight());
+	verticalAlign->setCurrentIndex(textItem->verticalAlignment());
 	connectSignals();
 }
 
@@ -162,6 +163,7 @@ void PropertyWidget_Distance::connectSignals()
 	connect(rightDistance , SIGNAL(valueChanged(double)), this, SLOT(handleTextDistances()), Qt::UniqueConnection);
 	connect(bottomDistance, SIGNAL(valueChanged(double)), this, SLOT(handleTextDistances()), Qt::UniqueConnection);
 	connect(tabsButton    , SIGNAL(clicked())           , this, SLOT(handleTabs()), Qt::UniqueConnection);
+	connect(verticalAlign , SIGNAL(activated(int))      , this, SLOT(handleVAlign()), Qt::UniqueConnection);
 }
 
 void PropertyWidget_Distance::disconnectSignals()
@@ -174,6 +176,7 @@ void PropertyWidget_Distance::disconnectSignals()
 	disconnect(rightDistance , SIGNAL(valueChanged(double)), this, SLOT(handleTextDistances()));
 	disconnect(bottomDistance, SIGNAL(valueChanged(double)), this, SLOT(handleTextDistances()));
 	disconnect(tabsButton    , SIGNAL(clicked())           , this, SLOT(handleTabs()));
+	disconnect(verticalAlign , SIGNAL(activated(int))      , this, SLOT(handleVAlign()));
 }
 
 void PropertyWidget_Distance::configureWidgets(void)
@@ -345,6 +348,23 @@ void PropertyWidget_Distance::handleGapSwitch()
 	columnGap->setToolTip((index == 0) ? tr( "Distance between columns" ) : tr( "Column width" ));
 }
 
+void PropertyWidget_Distance::handleVAlign()
+{
+	if (!m_doc || !m_item || !m_ScMW || m_ScMW->scriptIsRunning())
+		return;
+	PageItem *textItem = m_item;
+	if (m_doc->appMode == modeEditTable)
+		textItem = m_item->asTable()->activeCell().textFrame();
+	if (textItem != NULL)
+	{
+		textItem->setVerticalAlignment(verticalAlign->currentIndex());
+		textItem->update();
+		if (m_doc->appMode == modeEditTable)
+			m_item->asTable()->update();
+		m_doc->regionsChanged()->update(QRect());
+	}
+}
+
 void PropertyWidget_Distance::handleTabs()
 {
 	if (m_doc && m_item)
@@ -412,6 +432,13 @@ void PropertyWidget_Distance::changeEvent(QEvent *e)
 void PropertyWidget_Distance::languageChange()
 {
 	columnsLabel->setText( tr("Colu&mns:"));
+
+	int oldAliLabel = verticalAlign->currentIndex();
+	verticalAlign->clear();
+	verticalAlign->addItem( tr("Top"));
+	verticalAlign->addItem( tr("Middle"));
+	verticalAlign->addItem( tr("Bottom"));
+	verticalAlign->setCurrentIndex(oldAliLabel);
 
 	int oldcolgapLabel = columnGapLabel->currentIndex();
 	columnGapLabel->clear();

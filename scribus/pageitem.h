@@ -705,6 +705,7 @@ public: // Start public functions
 	double columnGap() const { return ColGap; }
 	double gridOffset() const;
 	double gridDistance() const;
+	int verticalAlignment();
 	void setTextToFrameDistLeft(double);
 	void setTextToFrameDistRight(double);
 	void setTextToFrameDistTop(double);
@@ -713,6 +714,7 @@ public: // Start public functions
 	void setColumnGap(double);
 	void setGridOffset(double);
 	void setGridDistance(double);
+	void setVerticalAlignment(int);
 	FirstLineOffsetPolicy firstLineOffset()const;
 	void setFirstLineOffset(FirstLineOffsetPolicy);
 	/**
@@ -1604,6 +1606,7 @@ protected: // Start protected variables
 	uint MaxChars;
 	bool m_sampleItem; ///< Used to not draw the frame for sample items
 	MarginStruct m_textDistanceMargins; ///< Left, Top, Bottom, Right distances of text from the frame
+	int verticalAlign;
 	/**
 	 * @brief Frame Type, eg line, text frame, etc.
 	 *

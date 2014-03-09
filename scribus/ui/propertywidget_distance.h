@@ -57,6 +57,7 @@ private slots:
 	void handleColumnGap();
 	void handleGapSwitch();
 	void handleTabs();
+	void handleVAlign();
 	void handleTextDistances();
 };
 

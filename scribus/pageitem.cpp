@@ -293,6 +293,7 @@ PageItem::PageItem(const PageItem & other)
 	MaxChars(0),   // since the layout is invalid now
 	m_sampleItem(false),
 	m_textDistanceMargins(other.m_textDistanceMargins),
+	verticalAlign(other.verticalAlign),
 	m_ItemType(other.m_ItemType),
 	AnName(other.AnName),
 	gradientVal(other.gradientVal),
@@ -488,6 +489,7 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	CurX = 0;
 	CurY = 0;
 	m_textDistanceMargins=m_Doc->itemToolPrefs().textDistances;
+	verticalAlign = 0;
 	firstChar = 0;
 	MaxChars = 0;
 	m_sampleItem = false;
@@ -1594,6 +1596,18 @@ void PageItem::setColumnGap(double gap)
 		undoManager->action(this, ss);
 	}
 	ColGap = gap;
+}
+
+int PageItem::verticalAlignment()
+{
+	return verticalAlign;
+}
+
+void PageItem::setVerticalAlignment(int val)
+{
+	if (val == verticalAlign)
+		return;
+	verticalAlign = val;
 }
 
 void PageItem::setCornerRadius(double newRadius)
