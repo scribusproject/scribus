@@ -171,7 +171,7 @@ void PagePalette::startMasterPageMode(QString masterPage)
 		stackedWidget->addWidget(mpWidget);
 
 		connect(mpWidget, SIGNAL(removePage(int )), m_scMW, SLOT(deletePage2(int )));
-		connect(mpWidget, SIGNAL(finished())      , m_scMW, SLOT(manageMasterPagesEnd()));
+		connect(mpWidget, SIGNAL(finished())      , m_scMW, SLOT(editMasterPagesEnd()));
 	}
 	else
 	{
