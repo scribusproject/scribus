@@ -7435,6 +7435,7 @@ bool PDFLibCore::PDF_DiamondGradientFill(QString& output, PageItem *c)
 		else
 			PutDoc("/ColorSpace /DeviceCMYK\n");
 	}
+	PutDoc("/Background [" + Gcolors.last() + "]\n");
 	PutDoc("/BitsPerCoordinate 32\n");
 	PutDoc("/BitsPerComponent 16\n");
 	PutDoc("/BitsPerFlag 8\n");
