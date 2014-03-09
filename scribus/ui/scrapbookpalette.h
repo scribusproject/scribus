@@ -83,6 +83,7 @@ public:
 	void setScrapbookFileName(QString);
 	const QString getScrapbookFileName();
 	const int objectCount();
+	bool tempHasContents();
 	void readContents(QString);
 	void readTempContents(QString);
 	void readOldContents(QString, QString);

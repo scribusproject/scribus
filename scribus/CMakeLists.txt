@@ -182,6 +182,7 @@ SET(SCRIBUS_UI_SRC
 
 SET(SCRIBUS_MOC_CLASSES
   actionmanager.h
+  appmodehelper.h
   canvas.h
   canvasgesture_cellselect.h
   canvasgesture_columnresize.h
@@ -499,6 +500,7 @@ SET(SCRIBUS_MOC_CLASSES
 
 SET(SCRIBUS_SOURCES
   actionmanager.cpp
+  appmodehelper.cpp
   canvas.cpp
   canvasgesture_cellselect.cpp
   canvasgesture_columnresize.cpp

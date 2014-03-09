@@ -863,6 +863,11 @@ const int Biblio::objectCount()
 	return activeBView->objectMap.count();
 }
 
+bool Biblio::tempHasContents()
+{
+	return (!tempBView->objectMap.isEmpty());
+}
+
 void Biblio::readOldContents(QString fileName, QString newName)
 {
 	activeBView->ReadOldContents(fileName, newName);

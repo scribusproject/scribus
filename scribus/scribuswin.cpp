@@ -128,7 +128,7 @@ void ScribusWin::closeEvent(QCloseEvent *ce)
 	}
 	else if (m_Doc->masterPageMode())
 	{
-		m_MainWindow->manageMasterPagesEnd();
+		m_MainWindow->editMasterPagesEnd();
 		ce->ignore();
 		return;
 	}

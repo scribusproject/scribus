@@ -58,6 +58,7 @@ class QToolButton;
 #include "scribusview.h"
 #include "scribusdoc.h"
 #include "ui/customfdialog.h"
+#include "appmodehelper.h"
 
 class ActionManager;
 class AlignDistributePalette;
@@ -232,6 +233,7 @@ public:
 	ScribusWin* ActWin;
 	QClipboard *ClipB;
 	QString LoadEnc;
+	AppModeHelper appModeHelper;
 
 	QProcess *ExternalApp;
 
@@ -288,8 +290,8 @@ public slots:
 	void editSymbolEnd();
 	void editInlineStart(int id);
 	void editInlineEnd();
-	void manageMasterPages(QString temp = "");
-	void manageMasterPagesEnd();
+	void editMasterPagesStart(QString temp = "");
+	void editMasterPagesEnd();
 	/** \brief generate a new document in the current view */
 	bool slotFileNew();
 	void newFileFromTemplate();

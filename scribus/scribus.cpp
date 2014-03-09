@@ -341,6 +341,7 @@ int ScribusMainWindow::initScMW(bool primaryMainWindow)
 	scrWindowsActions.clear();
 	scrLayersActions.clear();
 	scrScrapActions.clear();
+	appModeHelper.setScrActions(&scrActions);
 	actionManager = new ActionManager(this);
 	scrMenuMgr = new ScMWMenuManager(menuBar(), actionManager);
 	prefsManager = PrefsManager::instance();
@@ -672,12 +673,12 @@ void ScribusMainWindow::initPalettes()
 	connect(docCheckerPalette, SIGNAL(selectElementByItem(PageItem *, bool)), this, SLOT(selectItemsFromOutlines(PageItem *, bool)));
 	connect(docCheckerPalette, SIGNAL(selectElement(PageItem *, bool, int)), this, SLOT(selectItemFromOutlines(PageItem *, bool, int)));
 	connect(docCheckerPalette, SIGNAL(selectPage(int)), this, SLOT(selectPagesFromOutlines(int)));
-	connect(docCheckerPalette, SIGNAL(selectMasterPage(QString)), this, SLOT(manageMasterPages(QString)));
+	connect(docCheckerPalette, SIGNAL(selectMasterPage(QString)), this, SLOT(editMasterPagesStart(QString)));
 //	connect(outlinePalette, SIGNAL(selectElement(int, int, bool)), this, SLOT(selectItemsFromOutlines(int, int, bool)));
 	connect(outlinePalette, SIGNAL(selectElementByItem(PageItem *, bool)), this, SLOT(selectItemsFromOutlines(PageItem *, bool)));
 	connect(outlinePalette, SIGNAL(editElementByItem(PageItem *)), this, SLOT(editItemsFromOutlines(PageItem *)));
 	connect(outlinePalette, SIGNAL(selectPage(int)), this, SLOT(selectPagesFromOutlines(int)));
-	connect(outlinePalette, SIGNAL(selectMasterPage(QString)), this, SLOT(manageMasterPages(QString)));
+	connect(outlinePalette, SIGNAL(selectMasterPage(QString)), this, SLOT(editMasterPagesStart(QString)));
 //	connect(propertiesPalette, SIGNAL(EditLSt()), this, SLOT(slotEditLineStyles()));
 //	connect(nodePalette, SIGNAL(paletteClosed()), propertiesPalette, SLOT(endEdit2()));
 	connect(nodePalette, SIGNAL(paletteClosed()), this, SLOT(slotSelect()));
@@ -4794,7 +4795,7 @@ bool ScribusMainWindow::slotFileClose()
 	}
 	else if (doc->masterPageMode())
 	{
-		manageMasterPagesEnd();
+		editMasterPagesEnd();
 		return true;
 	}
 	ScribusWin* tw = ActWin;
@@ -6551,42 +6552,7 @@ void ScribusMainWindow::ToggleFrameEdit()
 		connect(view, SIGNAL(HavePoint(bool, bool)), nodePalette, SLOT(HaveNode(bool, bool)));
 		doc->nodeEdit.reset();
 //done elsewhere now		doc->appMode = modeEditClip;
-		scrActions["toolsSelect"]->setEnabled(false);
-		scrActions["toolsRotate"]->setEnabled(false);
-		scrActions["toolsEditContents"]->setEnabled(false);
-		scrActions["toolsEditWithStoryEditor"]->setEnabled(false);
-		scrActions["toolsZoom"]->setEnabled(false);
-		scrActions["toolsInsertTextFrame"]->setEnabled(false);
-		scrActions["toolsInsertImageFrame"]->setEnabled(false);
-		scrActions["toolsInsertTable"]->setEnabled(false);
-		scrActions["toolsInsertShape"]->setEnabled(false);
-		scrActions["toolsInsertLine"]->setEnabled(false);
-		scrActions["toolsInsertBezier"]->setEnabled(false);
-		scrActions["toolsInsertFreehandLine"]->setEnabled(false);
-		scrActions["toolsInsertCalligraphicLine"]->setEnabled(false);
-		scrActions["toolsInsertPolygon"]->setEnabled(false);
-		scrActions["toolsInsertArc"]->setEnabled(false);
-		scrActions["toolsInsertSpiral"]->setEnabled(false);
-		scrActions["toolsInsertRenderFrame"]->setEnabled(false);
-		scrActions["toolsLinkTextFrame"]->setEnabled(false);
-		scrActions["toolsUnlinkTextFrame"]->setEnabled(false);
-		scrActions["toolsUnlinkTextFrameWithTextCopy"]->setEnabled(false);
-		scrActions["toolsUnlinkTextFrameWithTextCut"]->setEnabled(false);
-		scrActions["toolsMeasurements"]->setEnabled(false);
-		scrActions["toolsCopyProperties"]->setEnabled(false);
-		scrActions["toolsEyeDropper"]->setEnabled(false);
-		scrActions["toolsPDFPushButton"]->setEnabled(false);
-		scrActions["toolsPDFRadioButton"]->setEnabled(false);
-		scrActions["toolsPDFTextField"]->setEnabled(false);
-		scrActions["toolsPDFCheckBox"]->setEnabled(false);
-		scrActions["toolsPDFComboBox"]->setEnabled(false);
-		scrActions["toolsPDFListBox"]->setEnabled(false);
-		scrActions["toolsPDFAnnotText"]->setEnabled(false);
-		scrActions["toolsPDFAnnotLink"]->setEnabled(false);
-#ifdef HAVE_OSG
-		scrActions["toolsPDFAnnot3D"]->setEnabled(false);
-#endif
-		scrActions["itemDelete"]->setEnabled(false);
+		appModeHelper.setFrameEditMode(true);
 		layerPalette->setEnabled(false);
 		outlinePalette->setEnabled(false);
 		guidePalette->setEnabled(false);
@@ -6639,43 +6605,10 @@ void ScribusMainWindow::NoFrameEdit()
 	actionManager->disconnectModeActions();
 	nodePalette->setDoc(0,0);
 	nodePalette->hide();
-//	qDebug() << "nodepalette hide";
-	scrActions["toolsSelect"]->setEnabled(true);
+	appModeHelper.setFrameEditMode(false);
 	scrActions["toolsSelect"]->setChecked(true);
-	scrActions["toolsRotate"]->setEnabled(true);
-	scrActions["toolsZoom"]->setEnabled(true);
-	scrActions["toolsInsertTextFrame"]->setEnabled(true);
-	scrActions["toolsInsertImageFrame"]->setEnabled(true);
-	scrActions["toolsInsertTable"]->setEnabled(true);
-	scrActions["toolsInsertShape"]->setEnabled(true);
-	scrActions["toolsInsertLine"]->setEnabled(true);
-	scrActions["toolsInsertBezier"]->setEnabled(true);
-	scrActions["toolsInsertFreehandLine"]->setEnabled(true);
-	scrActions["toolsInsertCalligraphicLine"]->setEnabled(true);
-	scrActions["toolsInsertPolygon"]->setEnabled(true);
-	scrActions["toolsInsertArc"]->setEnabled(true);
-	scrActions["toolsInsertSpiral"]->setEnabled(true);
-	scrActions["toolsInsertRenderFrame"]->setEnabled(true);
-	scrActions["toolsPDFPushButton"]->setEnabled(true);
-	scrActions["toolsPDFRadioButton"]->setEnabled(true);
-	scrActions["toolsPDFTextField"]->setEnabled(true);
-	scrActions["toolsPDFCheckBox"]->setEnabled(true);
-	scrActions["toolsPDFComboBox"]->setEnabled(true);
-	scrActions["toolsPDFListBox"]->setEnabled(true);
-	scrActions["toolsPDFAnnotText"]->setEnabled(true);
-	scrActions["toolsPDFAnnotLink"]->setEnabled(true);
-#ifdef HAVE_OSG
-	scrActions["toolsPDFAnnot3D"]->setEnabled(true);
-#endif
 	scrActions["toolsEditContents"]->setChecked(false);
 	scrActions["toolsEditWithStoryEditor"]->setChecked(false);
-	scrActions["toolsMeasurements"]->setEnabled(true);
-	scrActions["toolsCopyProperties"]->setEnabled(true);
-	scrActions["toolsEyeDropper"]->setEnabled(true);
-	scrActions["toolsUnlinkTextFrame"]->setEnabled(true);
-	scrActions["toolsUnlinkTextFrameWithTextCopy"]->setEnabled(true);
-	scrActions["toolsUnlinkTextFrameWithTextCut"]->setEnabled(true);
-	scrActions["itemDelete"]->setEnabled(true);
 	scrActions["itemShapeEdit"]->setChecked(false);
 	layerPalette->setEnabled(true);
 	outlinePalette->setEnabled(true);
@@ -8808,40 +8741,12 @@ void ScribusMainWindow::editSymbolStart(QString temp)
 		doc->stored_minCanvasCoordinate = doc->minCanvasCoordinate;
 		doc->stored_maxCanvasCoordinate = doc->maxCanvasCoordinate;
 		view->showSymbolPage(temp);
-		scrActions["pageInsert"]->setEnabled(false);
-		scrActions["pageImport"]->setEnabled(false);
-		scrActions["pageDelete"]->setEnabled(false);
-		scrActions["pageCopy"]->setEnabled(false);
-		scrActions["pageMove"]->setEnabled(false);
-		scrActions["pageApplyMasterPage"]->setEnabled(false);
-		scrActions["pageCopyToMasterPage"]->setEnabled(false);
-		scrActions["editMasterPages"]->setEnabled(false);
-		scrActions["fileNew"]->setEnabled(false);
-		scrActions["fileNewFromTemplate"]->setEnabled(false);
-		scrActions["fileOpen"]->setEnabled(false);
-		scrActions["fileSave"]->setEnabled(false);
+		appModeHelper.setSymbolEditMode(true, doc);
 		scrActions["fileClose"]->setToolTip( tr("Click here to leave symbol edit mode."));
 		scrActions["fileClose"]->setIcon(loadIcon("22/exit.png"));
 		scrMenuMgr->setMenuEnabled("FileOpenRecent", false);
-		scrActions["fileRevert"]->setEnabled(false);
-		scrActions["fileDocSetup150"]->setEnabled(false);
-		scrActions["filePrint"]->setEnabled(false);
-		scrActions["fileCollect"]->setEnabled(false);
-		scrActions["fileSaveAs"]->setEnabled(false);
 		scrMenuMgr->setMenuEnabled("FileExport", false);
-		scrActions["fileExportAsEPS"]->setEnabled(false);
-		scrActions["fileExportAsPDF"]->setEnabled(false);
-		scrActions["PrintPreview"]->setEnabled(false);
-		scrActions["toolsPDFPushButton"]->setEnabled(false);
-		scrActions["toolsPDFRadioButton"]->setEnabled(false);
-		scrActions["toolsPDFTextField"]->setEnabled(false);
-		scrActions["toolsPDFCheckBox"]->setEnabled(false);
-		scrActions["toolsPDFComboBox"]->setEnabled(false);
-		scrActions["toolsPDFListBox"]->setEnabled(false);
-		scrActions["toolsPDFAnnotText"]->setEnabled(false);
-#ifdef HAVE_OSG
-		scrActions["toolsPDFAnnot3D"]->setEnabled(false);
-#endif
+
 		pagePalette->enablePalette(false);
 		layerPalette->setEnabled(false);
 		patternsDependingOnThis.clear();
@@ -8878,43 +8783,14 @@ void ScribusMainWindow::editSymbolEnd()
 		doc->restartAutoSaveTimer();
 	}
 	slotSelect();
-	scrActions["editMasterPages"]->setEnabled(true);
-	scrActions["fileNew"]->setEnabled(true);
-	scrActions["fileNewFromTemplate"]->setEnabled(true);
-	scrActions["fileOpen"]->setEnabled(true);
-	scrActions["fileClose"]->setEnabled(true);
+	appModeHelper.setSymbolEditMode(false, doc);
 	scrActions["fileClose"]->setToolTip( tr("Close"));
 	scrActions["fileClose"]->setIcon(loadIcon("22/close.png"));
-	scrActions["fileSave"]->setEnabled(!doc->isConverted);
 	scrMenuMgr->setMenuEnabled("FileOpenRecent", true);
-	scrActions["fileRevert"]->setEnabled(true);
-	scrActions["fileDocSetup150"]->setEnabled(true);
-	scrActions["filePrint"]->setEnabled(true);
-	scrActions["fileCollect"]->setEnabled(true);
-	scrActions["fileSaveAs"]->setEnabled(true);
 	scrMenuMgr->setMenuEnabled("FileExport", true);
-	scrActions["fileExportAsEPS"]->setEnabled(true);
-	scrActions["fileExportAsPDF"]->setEnabled(true);
+
 	if ( ScCore->haveGS() || ScCore->isWinGUI() )
 		scrActions["PrintPreview"]->setEnabled(true);
-	scrActions["pageInsert"]->setEnabled(true);
-	scrActions["pageCopy"]->setEnabled(true);
-	scrActions["pageImport"]->setEnabled(true);
-	scrActions["pageApplyMasterPage"]->setEnabled(true);
-	scrActions["pageCopyToMasterPage"]->setEnabled(true);
-	bool setter = doc->DocPages.count() > 1 ? true : false;
-	scrActions["pageDelete"]->setEnabled(setter);
-	scrActions["pageMove"]->setEnabled(setter);
-	scrActions["toolsPDFPushButton"]->setEnabled(true);
-	scrActions["toolsPDFRadioButton"]->setEnabled(true);
-	scrActions["toolsPDFTextField"]->setEnabled(true);
-	scrActions["toolsPDFCheckBox"]->setEnabled(true);
-	scrActions["toolsPDFComboBox"]->setEnabled(true);
-	scrActions["toolsPDFListBox"]->setEnabled(true);
-	scrActions["toolsPDFAnnotText"]->setEnabled(true);
-#ifdef HAVE_OSG
-	scrActions["toolsPDFAnnot3D"]->setEnabled(true);
-#endif
 	pagePalette->enablePalette(true);
 	pagePalette->rebuildMasters();
 	view->setScale(storedViewScale);
@@ -8952,40 +8828,11 @@ void ScribusMainWindow::editInlineStart(int id)
 		doc->stored_minCanvasCoordinate = doc->minCanvasCoordinate;
 		doc->stored_maxCanvasCoordinate = doc->maxCanvasCoordinate;
 		view->showInlinePage(id);
-		scrActions["pageInsert"]->setEnabled(false);
-		scrActions["pageImport"]->setEnabled(false);
-		scrActions["pageDelete"]->setEnabled(false);
-		scrActions["pageCopy"]->setEnabled(false);
-		scrActions["pageMove"]->setEnabled(false);
-		scrActions["pageApplyMasterPage"]->setEnabled(false);
-		scrActions["pageCopyToMasterPage"]->setEnabled(false);
-		scrActions["editMasterPages"]->setEnabled(false);
-		scrActions["fileNew"]->setEnabled(false);
-		scrActions["fileNewFromTemplate"]->setEnabled(false);
-		scrActions["fileOpen"]->setEnabled(false);
-		scrActions["fileSave"]->setEnabled(false);
+		appModeHelper.setInlineEditMode(true, doc);
 		scrActions["fileClose"]->setToolTip( tr("Click here to leave inline frame edit mode."));
 		scrActions["fileClose"]->setIcon(loadIcon("22/exit.png"));
 		scrMenuMgr->setMenuEnabled("FileOpenRecent", false);
-		scrActions["fileRevert"]->setEnabled(false);
-		scrActions["fileDocSetup150"]->setEnabled(false);
-		scrActions["filePrint"]->setEnabled(false);
-		scrActions["fileCollect"]->setEnabled(false);
-		scrActions["fileSaveAs"]->setEnabled(false);
 		scrMenuMgr->setMenuEnabled("FileExport", false);
-		scrActions["fileExportAsEPS"]->setEnabled(false);
-		scrActions["fileExportAsPDF"]->setEnabled(false);
-		scrActions["PrintPreview"]->setEnabled(false);
-		scrActions["toolsPDFPushButton"]->setEnabled(false);
-		scrActions["toolsPDFRadioButton"]->setEnabled(false);
-		scrActions["toolsPDFTextField"]->setEnabled(false);
-		scrActions["toolsPDFCheckBox"]->setEnabled(false);
-		scrActions["toolsPDFComboBox"]->setEnabled(false);
-		scrActions["toolsPDFListBox"]->setEnabled(false);
-		scrActions["toolsPDFAnnotText"]->setEnabled(false);
-#ifdef HAVE_OSG
-		scrActions["toolsPDFAnnot3D"]->setEnabled(false);
-#endif
 		pagePalette->enablePalette(false);
 		layerPalette->setEnabled(false);
 		inlinePalette->editingStart(id);
@@ -9007,43 +8854,11 @@ void ScribusMainWindow::editInlineEnd()
 		doc->restartAutoSaveTimer();
 	}
 	slotSelect();
-	scrActions["editMasterPages"]->setEnabled(true);
-	scrActions["fileNew"]->setEnabled(true);
-	scrActions["fileNewFromTemplate"]->setEnabled(true);
-	scrActions["fileOpen"]->setEnabled(true);
-	scrActions["fileClose"]->setEnabled(true);
+	appModeHelper.setInlineEditMode(false, doc);
 	scrActions["fileClose"]->setToolTip( tr("Close"));
 	scrActions["fileClose"]->setIcon(loadIcon("22/close.png"));
-	scrActions["fileSave"]->setEnabled(!doc->isConverted);
 	scrMenuMgr->setMenuEnabled("FileOpenRecent", true);
-	scrActions["fileRevert"]->setEnabled(true);
-	scrActions["fileDocSetup150"]->setEnabled(true);
-	scrActions["filePrint"]->setEnabled(true);
-	scrActions["fileCollect"]->setEnabled(true);
-	scrActions["fileSaveAs"]->setEnabled(true);
 	scrMenuMgr->setMenuEnabled("FileExport", true);
-	scrActions["fileExportAsEPS"]->setEnabled(true);
-	scrActions["fileExportAsPDF"]->setEnabled(true);
-	if ( ScCore->haveGS() || ScCore->isWinGUI() )
-		scrActions["PrintPreview"]->setEnabled(true);
-	scrActions["pageInsert"]->setEnabled(true);
-	scrActions["pageCopy"]->setEnabled(true);
-	scrActions["pageImport"]->setEnabled(true);
-	scrActions["pageApplyMasterPage"]->setEnabled(true);
-	scrActions["pageCopyToMasterPage"]->setEnabled(true);
-	bool setter = doc->DocPages.count() > 1 ? true : false;
-	scrActions["pageDelete"]->setEnabled(setter);
-	scrActions["pageMove"]->setEnabled(setter);
-	scrActions["toolsPDFPushButton"]->setEnabled(true);
-	scrActions["toolsPDFRadioButton"]->setEnabled(true);
-	scrActions["toolsPDFTextField"]->setEnabled(true);
-	scrActions["toolsPDFCheckBox"]->setEnabled(true);
-	scrActions["toolsPDFComboBox"]->setEnabled(true);
-	scrActions["toolsPDFListBox"]->setEnabled(true);
-	scrActions["toolsPDFAnnotText"]->setEnabled(true);
-#ifdef HAVE_OSG
-	scrActions["toolsPDFAnnot3D"]->setEnabled(true);
-#endif
 	pagePalette->enablePalette(true);
 	pagePalette->rebuildMasters();
 	view->setScale(storedViewScale);
@@ -9062,7 +8877,7 @@ void ScribusMainWindow::editInlineEnd()
 	updateActiveWindowCaption(doc->DocName);
 }
 
-void ScribusMainWindow::manageMasterPages(QString temp)
+void ScribusMainWindow::editMasterPagesStart(QString temp)
 {
 	if (!HaveDoc)
 		return;
@@ -9099,40 +8914,14 @@ void ScribusMainWindow::manageMasterPages(QString temp)
 		pagePalette->show();
 		scrActions["toolsPages"]->setChecked(true);
 	}
-	scrActions["pageInsert"]->setEnabled(false);
-	scrActions["pageImport"]->setEnabled(false);
-	scrActions["pageDelete"]->setEnabled(false);
-	scrActions["pageCopy"]->setEnabled(false);
-	scrActions["pageMove"]->setEnabled(false);
-	scrActions["pageApplyMasterPage"]->setEnabled(false);
-	scrActions["pageCopyToMasterPage"]->setEnabled(false);
-	scrActions["editMasterPages"]->setEnabled(false);
-	scrActions["fileNew"]->setEnabled(false);
-	scrActions["fileNewFromTemplate"]->setEnabled(false);
-	scrActions["fileOpen"]->setEnabled(false);
-	scrActions["fileClose"]->setEnabled(true);
+	appModeHelper.setMasterPageEditMode(true, doc);
+	scrMenuMgr->setMenuEnabled("FileOpenRecent", false);
 	scrActions["fileClose"]->setToolTip( tr("Click here to leave master page edit mode."));
 	scrActions["fileClose"]->setIcon(loadIcon("22/exit.png"));
-	scrMenuMgr->setMenuEnabled("FileOpenRecent", false);
-	scrActions["fileRevert"]->setEnabled(false);
-	scrActions["fileDocSetup150"]->setEnabled(false);
-	scrActions["filePrint"]->setEnabled(false);
-	scrActions["PrintPreview"]->setEnabled(false);
-	scrActions["toolsPDFPushButton"]->setEnabled(false);
-	scrActions["toolsPDFRadioButton"]->setEnabled(false);
-	scrActions["toolsPDFTextField"]->setEnabled(false);
-	scrActions["toolsPDFCheckBox"]->setEnabled(false);
-	scrActions["toolsPDFComboBox"]->setEnabled(false);
-	scrActions["toolsPDFListBox"]->setEnabled(false);
-	scrActions["toolsPDFAnnotText"]->setEnabled(false);
-#ifdef HAVE_OSG
-	scrActions["toolsPDFAnnot3D"]->setEnabled(false);
-#endif
-	scrActions["viewPreviewMode"]->setEnabled(false);
 	view->previewToolbarButton->setEnabled(false);
 }
 
-void ScribusMainWindow::manageMasterPagesEnd()
+void ScribusMainWindow::editMasterPagesEnd()
 {
 	view->setScale(storedViewScale);
 	doc->minCanvasCoordinate = doc->stored_minCanvasCoordinate;
@@ -9144,40 +8933,10 @@ void ScribusMainWindow::manageMasterPagesEnd()
 		doc->restartAutoSaveTimer();
 	}
 	slotSelect();
-	scrActions["editMasterPages"]->setEnabled(true);
-	scrActions["fileNew"]->setEnabled(true);
-	scrActions["fileNewFromTemplate"]->setEnabled(true);
-	scrActions["fileOpen"]->setEnabled(true);
-	scrActions["fileClose"]->setEnabled(true);
+	appModeHelper.setMasterPageEditMode(false, doc);
 	scrActions["fileClose"]->setToolTip( tr("Close"));
 	scrActions["fileClose"]->setIcon(loadIcon("22/close.png"));
-	scrActions["fileSave"]->setEnabled(!doc->isConverted);
 	scrMenuMgr->setMenuEnabled("FileOpenRecent", true);
-	scrActions["fileRevert"]->setEnabled(true);
-//	scrActions["fileDocSetup"]->setEnabled(true);
-	scrActions["fileDocSetup150"]->setEnabled(true);
-	scrActions["filePrint"]->setEnabled(true);
-	if ( ScCore->haveGS() || ScCore->isWinGUI() )
-		scrActions["PrintPreview"]->setEnabled(true);
-	scrActions["pageInsert"]->setEnabled(true);
-	scrActions["pageCopy"]->setEnabled(true);
-	scrActions["pageImport"]->setEnabled(true);
-	scrActions["pageApplyMasterPage"]->setEnabled(true);
-	scrActions["pageCopyToMasterPage"]->setEnabled(true);
-	bool setter = doc->DocPages.count() > 1 ? true : false;
-	scrActions["pageDelete"]->setEnabled(setter);
-	scrActions["pageMove"]->setEnabled(setter);
-	scrActions["toolsPDFPushButton"]->setEnabled(true);
-	scrActions["toolsPDFRadioButton"]->setEnabled(true);
-	scrActions["toolsPDFTextField"]->setEnabled(true);
-	scrActions["toolsPDFCheckBox"]->setEnabled(true);
-	scrActions["toolsPDFComboBox"]->setEnabled(true);
-	scrActions["toolsPDFListBox"]->setEnabled(true);
-	scrActions["toolsPDFAnnotText"]->setEnabled(true);
-#ifdef HAVE_OSG
-	scrActions["toolsPDFAnnot3D"]->setEnabled(true);
-#endif
-	scrActions["viewPreviewMode"]->setEnabled(true);
 	view->previewToolbarButton->setEnabled(true);
 	uint pageCount=doc->DocPages.count();
 	for (uint c=0; c<pageCount; ++c)
@@ -9491,7 +9250,7 @@ void ScribusMainWindow::StatusPic()
 	{
 		PicStatus *dia = new PicStatus(this, doc);
 		connect(dia, SIGNAL(selectPage(int)), this, SLOT(selectPagesFromOutlines(int)));
-		connect(dia, SIGNAL(selectMasterPage(QString)), this, SLOT(manageMasterPages(QString)));
+		connect(dia, SIGNAL(selectMasterPage(QString)), this, SLOT(editMasterPagesStart(QString)));
 		connect(dia, SIGNAL(selectElementByItem(PageItem *, bool)), this, SLOT(selectItemsFromOutlines(PageItem *, bool)));
 //		connect(dia, SIGNAL(refreshItem(PageItem*)), view, SLOT(RefreshItem(PageItem*)));
 		dia->exec();
@@ -9652,54 +9411,10 @@ void ScribusMainWindow::changeLayer(int )
 	view->setLayerMenuText(doc->activeLayerName());
 	view->DrawNew();
 	bool setter = !doc->layerLocked( doc->activeLayer() );
-	scrActions["editPaste"]->setEnabled((ScMimeData::clipboardHasScribusData() || (scrapbookPalette->tempBView->objectMap.count() > 0)) && (setter));
 	scrMenuMgr->setMenuEnabled("EditPasteRecent", ((scrapbookPalette->tempBView->objectMap.count() > 0) && (setter)));
-	scrActions["editSelectAll"]->setEnabled(setter);
-	scrActions["editSelectAllOnLayer"]->setEnabled(setter);
-	scrActions["editDeselectAll"]->setEnabled(false);
 	scrMenuMgr->setMenuEnabled("Insert", setter);
-	scrActions["insertFrame"]->setEnabled(setter);
-	scrActions["toolsSelect"]->setEnabled(setter);
-	scrActions["toolsInsertTextFrame"]->setEnabled(setter);
-	scrActions["toolsInsertImageFrame"]->setEnabled(setter);
-	scrActions["toolsInsertTable"]->setEnabled(setter);
-	scrActions["toolsInsertShape"]->setEnabled(setter);
-	scrActions["toolsInsertLine"]->setEnabled(setter);
-	scrActions["toolsInsertBezier"]->setEnabled(setter);
-	scrActions["toolsInsertFreehandLine"]->setEnabled(setter);
-	scrActions["toolsInsertCalligraphicLine"]->setEnabled(setter);
-	scrActions["toolsInsertPolygon"]->setEnabled(setter);
-	scrActions["toolsInsertArc"]->setEnabled(setter);
-	scrActions["toolsInsertSpiral"]->setEnabled(setter);
-	scrActions["toolsInsertRenderFrame"]->setEnabled(setter);
-	if (doc->masterPageMode())
-	{
-		scrActions["toolsPDFPushButton"]->setEnabled(false);
-		scrActions["toolsPDFRadioButton"]->setEnabled(false);
-		scrActions["toolsPDFTextField"]->setEnabled(false);
-		scrActions["toolsPDFCheckBox"]->setEnabled(false);
-		scrActions["toolsPDFComboBox"]->setEnabled(false);
-		scrActions["toolsPDFListBox"]->setEnabled(false);
-		scrActions["toolsPDFAnnotText"]->setEnabled(false);
-#ifdef HAVE_OSG
-		scrActions["toolsPDFAnnot3D"]->setEnabled(false);
-#endif
-	}
-	else
-	{
-		scrActions["toolsPDFPushButton"]->setEnabled(setter);
-		scrActions["toolsPDFRadioButton"]->setEnabled(setter);
-		scrActions["toolsPDFTextField"]->setEnabled(setter);
-		scrActions["toolsPDFCheckBox"]->setEnabled(setter);
-		scrActions["toolsPDFComboBox"]->setEnabled(setter);
-		scrActions["toolsPDFListBox"]->setEnabled(setter);
-		scrActions["toolsPDFAnnotText"]->setEnabled(setter);
-#ifdef HAVE_OSG
-		scrActions["toolsPDFAnnot3D"]->setEnabled(setter);
-#endif
-	}
-	scrActions["toolsPDFAnnotLink"]->setEnabled(setter);
 	scrMenuMgr->setMenuEnabled("ItemLayer", doc->layerCount() > 1);
+	appModeHelper.changeLayer(doc, (ScMimeData::clipboardHasScribusData() || (scrapbookPalette->tempHasContents())));
 }
 
 void ScribusMainWindow::showLayer()
@@ -10166,7 +9881,7 @@ void ScribusMainWindow::closeActiveWindowMasterPageEditor()
 		return;
 	if(doc->masterPageMode())
 	{
-		manageMasterPagesEnd();
+		editMasterPagesEnd();
 		qApp->processEvents();
 	}
 }
