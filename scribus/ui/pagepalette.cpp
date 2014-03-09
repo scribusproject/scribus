@@ -40,7 +40,7 @@ PagePalette::PagePalette(QWidget* parent) : ScDockPalette(parent, "PagePalette",
 
 	setWidget(stackedWidget);
 
-	connect(pageWidget, SIGNAL(gotoMasterPage(QString)), m_scMW, SLOT(manageMasterPages(QString)));
+	connect(pageWidget, SIGNAL(gotoMasterPage(QString)), m_scMW, SLOT(editMasterPagesStart(QString)));
 	
 	Rebuild();
 	languageChange();
