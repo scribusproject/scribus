@@ -71,7 +71,7 @@
    <item>
     <widget class="QPushButton" name="finishButton">
      <property name="text">
-      <string>&lt;&lt;&lt; Return to pages edition</string>
+      <string>&lt;&lt;&lt; Return to Pages Edition</string>
      </property>
     </widget>
    </item>
