@@ -7262,6 +7262,7 @@ bool PDFLibCore::PDF_DiamondGradientFill(QString& output, PageItem *c)
 		PutDoc("/BitsPerCoordinate 32\n");
 		PutDoc("/BitsPerComponent 16\n");
 		PutDoc("/BitsPerFlag 8\n");
+		PutDoc("/Background [1]\n");
 		QByteArray vertStreamT;
 		QDataStream vst(&vertStreamT, QIODevice::WriteOnly);
 		vst.setByteOrder(QDataStream::BigEndian);
@@ -7619,22 +7620,6 @@ bool PDFLibCore::PDF_DiamondGradientFill(QString& output, PageItem *c)
 		PutDoc(">>\nstream\n"+EncStream(colorDesc, spotObject)+"\nendstream\nendobj\n");
 	}
 	QString tmp;
-	tmp += "q\n";
-	if (((Options.Version >= PDFOptions::PDFVersion_14) || (Options.Version == PDFOptions::PDFVersion_X4)) && (transparencyFound))
-	{
-		QString ShName = ResNam+QString::number(ResCount);
-		ResCount++;
-		Transpar[ShName] = writeGState("/ca "+FToStr(TransVec.last())+"\n/SMask /None\n/AIS false\n/OPM 1\n");
-		tmp += "/"+ShName+" gs\n";
-	}
-	tmp += putColor(colorNames.last(), colorShades.last(), true);
-	tmp += SetPathAndClip(c);
-	tmp += FToStr(c->GrControl1.x())+" "+FToStr(-c->GrControl1.y())+" m\n";
-	tmp += FToStr(c->GrControl2.x())+" "+FToStr(-c->GrControl2.y())+" l\n";
-	tmp += FToStr(c->GrControl3.x())+" "+FToStr(-c->GrControl3.y())+" l\n";
-	tmp += FToStr(c->GrControl4.x())+" "+FToStr(-c->GrControl4.y())+" l\n";
-	tmp += "h\nf*\n";
-	tmp += "Q\n";
 	if (((Options.Version >= PDFOptions::PDFVersion_14) || (Options.Version == PDFOptions::PDFVersion_X4)) && (transparencyFound))
 		tmp += "/"+TRes+" gs\n";
 	tmp += "/Pattern cs\n";
