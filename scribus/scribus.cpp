@@ -4294,7 +4294,21 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 //		propertiesPalette->updateCList();
 		doc->hasName = true;
 		if (doc->MasterPages.count() == 0)
-			doc->addMasterPage(0, CommonStrings::masterPageNormal);
+		{
+			ScPage *docPage = doc->Pages->at(0);
+			ScPage *addedPage = doc->addMasterPage(0, CommonStrings::masterPageNormal);
+			addedPage->m_pageSize = docPage->m_pageSize;
+			addedPage->setInitialHeight(docPage->height());
+			addedPage->setInitialWidth(docPage->width());
+			addedPage->setHeight(docPage->height());
+			addedPage->setWidth(docPage->width());
+			addedPage->initialMargins.Top = docPage->initialMargins.Top;
+			addedPage->initialMargins.Bottom = docPage->initialMargins.Bottom;
+			addedPage->initialMargins.Left = docPage->initialMargins.Left;
+			addedPage->initialMargins.Right = docPage->initialMargins.Right;
+			addedPage->LeftPg = docPage->LeftPg;
+			addedPage->setOrientation(docPage->orientation());
+		}
 		//Add doc sections if we have none
 		if (doc->sections().count()==0)
 		{
