@@ -3404,6 +3404,8 @@ void OdgPlug::finishItem(PageItem* item, ObjStyle &obState)
 	item->OwnPage = m_Doc->OnPage(item);
 	item->setFillTransparency(obState.fillOpacity);
 	item->setLineTransparency(obState.strokeOpacity);
+	item->setStartArrowIndex(0);
+	item->setEndArrowIndex(0);
 	if (obState.stroke_type == 2)
 	{
 		ObjStyle dStyle;
