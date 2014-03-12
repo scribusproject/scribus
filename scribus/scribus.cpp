@@ -341,8 +341,8 @@ int ScribusMainWindow::initScMW(bool primaryMainWindow)
 	scrWindowsActions.clear();
 	scrLayersActions.clear();
 	scrScrapActions.clear();
-	appModeHelper.setScrActions(&scrActions);
 	actionManager = new ActionManager(this);
+	appModeHelper.setup(actionManager, &scrActions);
 	scrMenuMgr = new ScMWMenuManager(menuBar(), actionManager);
 	prefsManager = PrefsManager::instance();
 	formatsManager = FormatsManager::instance();
@@ -2821,7 +2821,7 @@ void ScribusMainWindow::HaveNewSel(int SelectedType)
 		scrActions["itemPreviewFull"]->setChecked(false);
 	}
 	if ((SelectedType==-1) || (SelectedType!=-1 && !currItem->asTextFrame()))
-		enableTextActions(&scrActions, false);
+		appModeHelper.enableTextActions(false);
 	scrActions["insertSampleText"]->setEnabled(false);
 
 	view->horizRuler->textMode(false);
@@ -3024,7 +3024,7 @@ void ScribusMainWindow::HaveNewSel(int SelectedType)
 			charPalette->setEnabled(true, currItem);
 			if (currItem->asTextFrame())
 			{
-				enableTextActions(&scrActions, true, currItem->currentStyle().charStyle().font().scName());
+				appModeHelper.enableTextActions(true, currItem->currentStyle().charStyle().font().scName());
 				currItem->asTextFrame()->togleEditModeActions();
 			}
 			view->horizRuler->setItem(currItem);
@@ -3054,7 +3054,7 @@ void ScribusMainWindow::HaveNewSel(int SelectedType)
 		{
 			charPalette->setEnabled(true, currItem);
 			PageItem *i2 = currItem->asTable()->activeCell().textFrame();
-			enableTextActions(&scrActions, true, i2->currentCharStyle().font().scName());
+			appModeHelper.enableTextActions(true, i2->currentCharStyle().font().scName());
 			scrActions["insertSampleText"]->setEnabled(true);
 			scrActions["toolsEditWithStoryEditor"]->setEnabled(true);
 		}
@@ -6768,7 +6768,7 @@ void ScribusMainWindow::setAppMode(int mode)
 		{
 			outlinePalette->setEnabled(true);
 			charPalette->setEnabled(false, 0);
-			enableTextActions(&scrActions, false);
+			appModeHelper.enableTextActions(false);
 			scrActions["insertSampleText"]->setEnabled(false);
 			scrActions["toolsEditWithStoryEditor"]->setEnabled(false);
 			actionManager->restoreActionShortcutsPostEditMode();
@@ -6780,7 +6780,7 @@ void ScribusMainWindow::setAppMode(int mode)
 			scrActions["insertSampleText"]->setEnabled(true);
 			scrActions["toolsEditWithStoryEditor"]->setEnabled(true);
 			PageItem *i2 = currItem->asTable()->activeCell().textFrame();
-			enableTextActions(&scrActions, true, i2->currentCharStyle().font().scName());
+			appModeHelper.enableTextActions(true, i2->currentCharStyle().font().scName());
 			actionManager->saveActionShortcutsPreEditMode();
 		}
 		if (oldMode == modeEdit)
@@ -6794,7 +6794,7 @@ void ScribusMainWindow::setAppMode(int mode)
 			{
 				currItem->update();
 				if (currItem->asTextFrame())
-					enableTextActions(&scrActions, false);
+					appModeHelper.enableTextActions(false);
 				//		scrMenuMgr->setMenuEnabled("Item", true);
 				scrActions["itemDuplicate"]->setEnabled(true);
 				scrActions["itemMulDuplicate"]->setEnabled(true);
@@ -6840,7 +6840,7 @@ void ScribusMainWindow::setAppMode(int mode)
 			charPalette->setEnabled(true, currItem);
 			if (currItem!=NULL && currItem->asTextFrame())
 			{
-				enableTextActions(&scrActions, true, currItem->currentCharStyle().font().scName());
+				appModeHelper.enableTextActions(true, currItem->currentCharStyle().font().scName());
 				currItem->asTextFrame()->togleEditModeActions();
 			}
 			if (ScMimeData::clipboardHasScribusData())
@@ -6889,7 +6889,7 @@ void ScribusMainWindow::setAppMode(int mode)
 		}
 		//disable text action which work only text frame in edit mode
 		if ((mode != modeEdit) || !currItem->isTextFrame())
-			enableTextActions(&scrActions, false);
+			appModeHelper.enableTextActions(false);
 		int docSelectionCount=doc->m_Selection->count();
 		if (mode == modeDrawBezierLine)
 		{
@@ -10665,26 +10665,6 @@ void ScribusMainWindow::slotReplaceColors()
 	}
 }
 
-void ScribusMainWindow::enableTextActions(QMap<QString, QPointer<ScrAction> > *actionMap, bool enabled, const QString& fontName)
-{
-	scrActions["insertGlyph"]->setEnabled(enabled);
-	actionManager->enableUnicodeActions(actionMap, enabled, fontName);
-	scrMenuMgr->setMenuEnabled("InsertChar", enabled);
-	scrMenuMgr->setMenuEnabled("InsertQuote", enabled);
-	scrMenuMgr->setMenuEnabled("InsertSpace", enabled);
-	scrMenuMgr->setMenuEnabled("InsertLigature", enabled);
-	scrMenuMgr->setMenuEnabled("InsertMark", enabled);
-	if (!enabled)
-	{
-		scrActions["insertMarkVariableText"]->setEnabled(false);
-		scrActions["insertMarkAnchor"]->setEnabled(false);
-		scrActions["insertMarkItem"]->setEnabled(false);
-		scrActions["insertMark2Mark"]->setEnabled(false);
-		scrActions["insertMarkNote"]->setEnabled(false);
-		scrActions["editMark"]->setEnabled(false);
-	}
-}
-
 void ScribusMainWindow::updateGUIAfterPagesChanged()
 {
 	view->DrawNew();
@@ -11198,8 +11178,8 @@ bool ScribusMainWindow::editMarkDlg(Mark *mrk, PageItem_TextFrame* currItem)
 				{
 					if (Mrk != mrk)
 					{
-                        currItem->itemText.replaceMark(currItem->itemText.cursorPosition(), Mrk);
-                        mrk = Mrk;
+						currItem->itemText.replaceMark(currItem->itemText.cursorPosition(), Mrk);
+						mrk = Mrk;
 						oldMark = *mrk;
 						replaceMark = true;
 					}

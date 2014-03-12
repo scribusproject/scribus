@@ -22,10 +22,12 @@ AppModeHelper::AppModeHelper(QObject *parent) :
     QObject(parent)
 {
 	scrActions=NULL;
+	actMgr=NULL;
 }
 
-void AppModeHelper::setScrActions(QMap<QString, QPointer<ScrAction> > *scra)
+void AppModeHelper::setup(ActionManager* am, QMap<QString, QPointer<ScrAction> > *scra)
 {
+	actMgr=am;
 	scrActions=scra;
 }
 
@@ -230,4 +232,19 @@ void AppModeHelper::changeLayer(ScribusDoc *doc, bool clipScrapHaveData)
 	(*scrActions)["toolsPDFListBox"]->setEnabled(setter2);
 	(*scrActions)["toolsPDFAnnotText"]->setEnabled(setter2);
 	(*scrActions)["toolsPDFAnnotLink"]->setEnabled(setter);
+}
+
+void AppModeHelper::enableTextActions(bool enabled, const QString& fontName)
+{
+	(*scrActions)["insertGlyph"]->setEnabled(enabled);
+	actMgr->enableUnicodeActions(scrActions, enabled, fontName);
+	if (!enabled)
+	{
+		(*scrActions)["insertMarkVariableText"]->setEnabled(false);
+		(*scrActions)["insertMarkAnchor"]->setEnabled(false);
+		(*scrActions)["insertMarkItem"]->setEnabled(false);
+		(*scrActions)["insertMark2Mark"]->setEnabled(false);
+		(*scrActions)["insertMarkNote"]->setEnabled(false);
+		(*scrActions)["editMark"]->setEnabled(false);
+	}
 }

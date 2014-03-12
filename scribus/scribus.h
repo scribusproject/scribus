@@ -516,8 +516,6 @@ public slots:
 	void slotItemTransform();
 	//! \brief manages paints
 	void managePaints();
-	//! \brief enable or disable the unicode actions and their menus
-	void enableTextActions(QMap<QString, QPointer<ScrAction> > *actionMap, bool enabled, const QString& fontName=QString::null);
 	//! \brief allow SE to get the SM for edit stlyes
 	StyleManager *styleMgr() const {return styleManager;};
 	//! \brief drawnew, call palettes to update for new page layout

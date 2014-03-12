@@ -33,12 +33,14 @@ class AppModeHelper : public QObject
 
 	public:
 		explicit AppModeHelper(QObject *parent = 0);
-		void setScrActions(QMap<QString, QPointer<ScrAction> > *);
+		void setup(ActionManager* am, QMap<QString, QPointer<ScrAction> > *);
 		void setFrameEditMode(bool b);
 		void setSymbolEditMode(bool b, ScribusDoc* doc);
 		void setInlineEditMode(bool b, ScribusDoc* doc);
 		void setMasterPageEditMode(bool b, ScribusDoc *doc);
 		void changeLayer(ScribusDoc *doc, bool clipScrapHaveData);
+		//! \brief enable or disable the unicode actions and their menus
+		void enableTextActions(bool enabled, const QString& fontName=QString::null);
 
 	signals:
 
@@ -46,6 +48,7 @@ class AppModeHelper : public QObject
 
 	protected:
 		QMap<QString, QPointer<ScrAction> > *scrActions;
+		ActionManager* actMgr;
 };
 
 #endif // APPMODEHELPER_H
