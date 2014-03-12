@@ -123,7 +123,7 @@ bool Scribus150Format::fileSupported(QIODevice* /* file */, const QString & file
 	QByteArray docBytes("");
 	if(fileName.right(2) == "gz")
 	{
-		if (!ScGzFile::readFromFile(fileName, docBytes, 4096))
+		if (!ScGzFile::readFromFile(fileName, docBytes, 1024))
 		{
 			// FIXME: Needs better error return
 			return false;
@@ -4277,9 +4277,28 @@ bool Scribus150Format::readPattern(ScribusDoc* doc, ScXmlStreamReader& reader, c
 		PageItem* currItem = doc->Items->at(itemCount1), *newItem;
 		pat.pattern = currItem->DrawObj_toImage(qMax(pat.width, pat.height));
 		pat.pattern = pat.pattern.copy(-pat.xoffset, -pat.yoffset, pat.width, pat.height);
+		double minx =  std::numeric_limits<double>::max();
+		double miny =  std::numeric_limits<double>::max();
+		double maxx = -std::numeric_limits<double>::max();
+		double maxy = -std::numeric_limits<double>::max();
+		for (uint as = itemCount1; as < itemCount2; ++as)
+		{
+			currItem = doc->Items->at(as);
+			double x1, x2, y1, y2;
+			currItem->getVisualBoundingRect(&x1, &y1, &x2, &y2);
+			minx = qMin(minx, x1);
+			miny = qMin(miny, y1);
+			maxx = qMax(maxx, x2);
+			maxy = qMax(maxy, y2);
+		}
 		for (uint as = itemCount1; as < itemCount2; ++as)
 		{
 			newItem = doc->Items->takeAt(itemCount1);
+			newItem->gXpos = newItem->xPos() - minx;
+			newItem->gYpos = newItem->yPos() - miny;
+			newItem->gWidth = maxx - minx;
+			newItem->gHeight = maxy - miny;
+			newItem->setXYPos(newItem->gXpos, newItem->gYpos, true);
 			newItem->moveBy(pat.xoffset, pat.yoffset, true);
 			newItem->gXpos += pat.xoffset;
 			newItem->gYpos += pat.yoffset;
