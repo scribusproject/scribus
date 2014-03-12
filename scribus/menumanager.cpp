@@ -86,8 +86,10 @@ QMenu *MenuManager::getLocalPopupMenu(const QString &menuName)
 
 void MenuManager::setMenuEnabled(const QString &menuName, const bool enabled)
 {
-	if (menuBarMenus.contains(menuName) && menuBarMenus.value(menuName)!=NULL)
-		menuBarMenus.value(menuName)->setEnabled(enabled);
+	return;
+	// OSX UI rules don't allow this so let's not do it elsewhere.
+	//if (menuBarMenus.contains(menuName) && menuBarMenus.value(menuName)!=NULL)
+	//	menuBarMenus.value(menuName)->setEnabled(enabled);
 }
 
 bool MenuManager::addMenuStringToMenuBar(const QString &menuName, bool rememberMenu)
