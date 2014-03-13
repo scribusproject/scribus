@@ -48,9 +48,10 @@
 #define QTIOCOMPRESSOR_H
 
 #include <QtCore/QIODevice>
+#include "scribusapi.h"
 
 class QtIOCompressorPrivate;
-class QtIOCompressor : public QIODevice
+class SCRIBUS_API QtIOCompressor : public QIODevice
 {
 Q_OBJECT
 public:
