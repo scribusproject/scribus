@@ -3553,6 +3553,8 @@ void OdgPlug::finishItem(PageItem* item, ObjStyle &obState)
 			item->fill_gradient.addStop(ScColorEngine::getRGBColor(gradC, m_Doc), 0.0, 0.5, 1.0, gStyle.gradientEndColor, gStyle.gradientEndShade);
 			const ScColor& gradC2 = m_Doc->PageColors[gStyle.gradientStartColor];
 			item->fill_gradient.addStop(ScColorEngine::getRGBColor(gradC2, m_Doc), 1.0 - gStyle.gradientBorder, 0.5, 1.0, gStyle.gradientStartColor, gStyle.gradientStartShade);
+			if (gStyle.gradientBorder != 0)
+				item->fill_gradient.addStop(ScColorEngine::getRGBColor(gradC2, m_Doc), 1.0, 0.5, 1.0, gStyle.gradientStartColor, gStyle.gradientStartShade);
 			FPoint cp = FPoint(item->width() * gStyle.gradientCenterX, item->height()* gStyle.gradientCenterY);
 			double gLen = qMin(item->width(), item->height()) / 2.0;
 			QLineF p1 = QLineF(cp.x(), cp.y(), cp.x() - gLen, cp.y() - gLen);
@@ -3577,6 +3579,8 @@ void OdgPlug::finishItem(PageItem* item, ObjStyle &obState)
 			const ScColor& gradC2 = m_Doc->PageColors[gStyle.gradientStartColor];
 			QColor gradColor2 = ScColorEngine::getRGBColor(gradC2, m_Doc);
 			item->fill_gradient.addStop(gradColor2, 1.0 - gStyle.gradientBorder, 0.5, 1.0, gStyle.gradientStartColor, gStyle.gradientStartShade);
+			if (gStyle.gradientBorder != 0)
+				item->fill_gradient.addStop(ScColorEngine::getRGBColor(gradC2, m_Doc), 1.0, 0.5, 1.0, gStyle.gradientStartColor, gStyle.gradientStartShade);
 			FPoint cp = FPoint(item->width() * gStyle.gradientCenterX, item->height()* gStyle.gradientCenterY);
 			double gLenW = item->width() / 2.0;
 			double gLenH = item->height() / 2.0;
