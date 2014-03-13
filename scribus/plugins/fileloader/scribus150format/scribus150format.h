@@ -214,6 +214,7 @@ class PLUGIN_API Scribus150Format : public LoadSavePlugin
 		double GrY;
 		QString clipPath;
 		bool isNewFormat;
+		QFile aFile;
 };
 
 extern "C" PLUGIN_API int scribus150format_getPluginAPIVersion();

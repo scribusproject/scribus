@@ -244,6 +244,7 @@ SET(SCRIBUS_MOC_CLASSES
   pluginmanager.h
   prefsmanager.h
   pslib.h
+  qtiocompressor.h
   sampleitem.h
   scgtplugin.h
   schelptreemodel.h
@@ -622,6 +623,7 @@ SET(SCRIBUS_SOURCES
   prefsreader.cpp
   prefstable.cpp
   pslib.cpp
+  qtiocompressor.cpp
   rawimage.cpp
   rc4.c
   sampleitem.cpp

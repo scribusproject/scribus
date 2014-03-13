@@ -131,6 +131,7 @@ class PLUGIN_API Scribus134Format : public LoadSavePlugin
 
 		int itemCount;
 		int itemCountM;
+		QFile aFile;
 };
 
 extern "C" PLUGIN_API int scribus134format_getPluginAPIVersion();

@@ -13,6 +13,7 @@ for which a new license (GPL+exception) is in place.
 #include "ui/missing.h"
 #include "pageitem_group.h"
 #include "prefsmanager.h"
+#include "qtiocompressor.h"
 #include "scconfig.h"
 #include "scribusdoc.h"
 #include "scribusview.h"
@@ -111,11 +112,14 @@ bool Scribus13Format::fileSupported(QIODevice* /* file */, const QString & fileN
 	QByteArray docBytes("");
 	if(fileName.right(2) == "gz")
 	{
-		if (!ScGzFile::readFromFile(fileName, docBytes, 4096))
-		{
-			// FIXME: Needs better error return
+		QFile file(fileName);
+		QtIOCompressor compressor(&file);
+		compressor.setStreamFormat(QtIOCompressor::GzipFormat);
+		compressor.open(QIODevice::ReadOnly);
+		docBytes = compressor.read(1024);
+		compressor.close();
+		if (docBytes.isEmpty())
 			return false;
-		}
 	}
 	else
 	{
@@ -132,11 +136,14 @@ QString Scribus13Format::readSLA(const QString & fileName)
 	QByteArray docBytes("");
 	if(fileName.right(2) == "gz")
 	{
-		if (!ScGzFile::readFromFile(fileName, docBytes))
-		{
-			// FIXME: Needs better error return
+		QFile file(fileName);
+		QtIOCompressor compressor(&file);
+		compressor.setStreamFormat(QtIOCompressor::GzipFormat);
+		compressor.open(QIODevice::ReadOnly);
+		docBytes = compressor.readAll();
+		compressor.close();
+		if (docBytes.isEmpty())
 			return QString::null;
-		}
 	}
 	else
 	{

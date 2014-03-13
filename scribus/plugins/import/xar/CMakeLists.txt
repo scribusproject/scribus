@@ -4,13 +4,13 @@ INCLUDE_DIRECTORIES(
 )
 
 SET(IMPORTXAR_PLUGIN_MOC_CLASSES
-	qtiocompressor.h
+#	qtiocompressor.h
 	importxar.h
 	importxarplugin.h
 )
 
 SET(IMPORTXAR_PLUGIN_SOURCES
-	qtiocompressor.cpp
+#	qtiocompressor.cpp
 	importxar.cpp
 	importxarplugin.cpp
 )

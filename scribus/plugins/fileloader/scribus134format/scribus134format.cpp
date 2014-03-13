@@ -15,6 +15,7 @@ for which a new license (GPL+exception) is in place.
 #include "pageitem_latexframe.h"
 #include "pageitem_table.h"
 #include "prefsmanager.h"
+#include "qtiocompressor.h"
 #include "scclocale.h"
 #include "scconfig.h"
 #include "sccolorengine.h"
@@ -115,11 +116,14 @@ bool Scribus134Format::fileSupported(QIODevice* /* file */, const QString & file
 	QByteArray docBytes("");
 	if(fileName.right(2) == "gz")
 	{
-		if (!ScGzFile::readFromFile(fileName, docBytes, 4096))
-		{
-			// FIXME: Needs better error return
+		QFile file(fileName);
+		QtIOCompressor compressor(&file);
+		compressor.setStreamFormat(QtIOCompressor::GzipFormat);
+		compressor.open(QIODevice::ReadOnly);
+		docBytes = compressor.read(1024);
+		compressor.close();
+		if (docBytes.isEmpty())
 			return false;
-		}
 	}
 	else
 	{
@@ -148,12 +152,15 @@ QIODevice* Scribus134Format::slaReader(const QString & fileName)
 	QIODevice* ioDevice = 0;
 	if(fileName.right(2) == "gz")
 	{
-		ioDevice = new ScGzFile(fileName);
-		if (!ioDevice->open(QIODevice::ReadOnly))
+		aFile.setFileName(fileName);
+		QtIOCompressor *compressor = new QtIOCompressor(&aFile);
+		compressor->setStreamFormat(QtIOCompressor::GzipFormat);
+		if (!compressor->open(QIODevice::ReadOnly))
 		{
-			delete ioDevice;
+			delete compressor;
 			return NULL;
 		}
+		ioDevice = compressor;
 	}
 	else
 	{
