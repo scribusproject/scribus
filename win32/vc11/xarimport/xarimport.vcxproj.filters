@@ -20,16 +20,10 @@
     <ClCompile Include="..\..\..\scribus\plugins\import\xar\importxarplugin.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\scribus\plugins\import\xar\qtiocompressor.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\scribus\plugins\import\xar\moc_importxar.cpp">
       <Filter>Generated Moc Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\scribus\plugins\import\xar\moc_importxarplugin.cpp">
-      <Filter>Generated Moc Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\scribus\plugins\import\xar\moc_qtiocompressor.cpp">
       <Filter>Generated Moc Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -38,9 +32,6 @@
       <Filter>Header Files</Filter>
     </moc>
     <moc Include="..\..\..\scribus\plugins\import\xar\importxarplugin.h">
-      <Filter>Header Files</Filter>
-    </moc>
-    <moc Include="..\..\..\scribus\plugins\import\xar\qtiocompressor.h">
       <Filter>Header Files</Filter>
     </moc>
   </ItemGroup>
