@@ -48,7 +48,6 @@ for which a new license (GPL+exception) is in place.
 #include "scclocale.h"
 #include "sccolorengine.h"
 #include "scconfig.h"
-#include "scgzfile.h"
 #include "scmimedata.h"
 #include "scpainter.h"
 #include "scpaths.h"

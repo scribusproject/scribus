@@ -27,7 +27,6 @@ for which a new license (GPL+exception) is in place.
 #include "util_math.h"
 #include "util_text.h"
 #include "scclocale.h"
-#include "scgzfile.h"
 #include "scribuscore.h"
 #include <QCursor>
 // #include <QDebug>
