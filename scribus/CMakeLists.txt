@@ -636,7 +636,6 @@ SET(SCRIBUS_SOURCES
   scdomelement.cpp
   scfonts.cpp
   scgtplugin.cpp
-  scgzfile.cpp
   schelptreemodel.cpp
   scimage.cpp
   scimagecacheproxy.cpp

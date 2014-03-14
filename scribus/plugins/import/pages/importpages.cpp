@@ -40,11 +40,11 @@ for which a new license (GPL+exception) is in place.
 #include "prefsfile.h"
 #include "prefsmanager.h"
 #include "prefstable.h"
+#include "qtiocompressor.h"
 #include "rawimage.h"
 #include "scclocale.h"
 #include "sccolorengine.h"
 #include "scconfig.h"
-#include "scgzfile.h"
 #include "scmimedata.h"
 #include "scpaths.h"
 #include "scribus.h"
@@ -433,7 +433,13 @@ bool PagesPlug::parseDocReference(QString designMap, bool compressed)
 		QString fname = getLongPathName(tmpFile->fileName());
 		tmpFile->write(f);
 		tmpFile->close();
-		if (!ScGzFile::readFromFile(fname, f))
+		QFile file(fname);
+		QtIOCompressor compressor(&file);
+		compressor.setStreamFormat(QtIOCompressor::GzipFormat);
+		compressor.open(QIODevice::ReadOnly);
+		f = compressor.readAll();
+		compressor.close();
+		if (f.isEmpty())
 		{
 			delete tmpFile;
 			return false;

@@ -14,6 +14,7 @@ for which a new license (GPL+exception) is in place.
 #include "commonstrings.h"
 #include "ui/missing.h"
 #include "prefsmanager.h"
+#include "qtiocompressor.h"
 #include "resourcecollection.h"
 #include "scconfig.h"
 #include "scpattern.h"
@@ -35,7 +36,6 @@ for which a new license (GPL+exception) is in place.
 #include "util.h"
 #include "util_math.h"
 #include "util_color.h"
-#include "scgzfile.h"
 #include <QCursor>
 #include <QFileInfo>
 #include <QList>
@@ -184,7 +184,12 @@ bool Scribus150Format::saveFile(const QString & fileName, const FileFormat & /* 
 
 	std::auto_ptr<QIODevice> outputFile;
 	if (fileName.toLower().right(2) == "gz")
-		outputFile.reset( new ScGzFile(tmpFileName) );
+	{
+		aFile.setFileName(tmpFileName);
+		QtIOCompressor *compressor = new QtIOCompressor(&aFile);
+		compressor->setStreamFormat(QtIOCompressor::GzipFormat);
+		outputFile.reset(compressor);
+	}
 	else
 		outputFile.reset( new QFile(tmpFileName) );
 
@@ -406,11 +411,10 @@ bool Scribus150Format::saveFile(const QString & fileName, const FileFormat & /* 
 	
 	bool  writeSucceed = false;
 	const QFile* qFile = dynamic_cast<QFile*>(outputFile.get());
-	const ScGzFile* gzFile = dynamic_cast<ScGzFile*>(outputFile.get());
 	if (qFile)
 		writeSucceed = (qFile->error() == QFile::NoError);
-	else if (gzFile)
-		writeSucceed = !gzFile->errorOccurred();
+	else
+		writeSucceed = true;
 	outputFile->close();
 
 	if (writeSucceed)

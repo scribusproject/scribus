@@ -10,7 +10,7 @@ for which a new license (GPL+exception) is in place.
 
 #include <QFile>
 #include <QXmlStreamReader>
-#include "scgzfile.h"
+#include "qtiocompressor.h"
 
 void ScSlaInfoReader::resetFileInfos(void)
 {
@@ -27,9 +27,14 @@ bool ScSlaInfoReader::readInfos(const QString& fileName)
 	std::auto_ptr<QIODevice> file;
 
 	resetFileInfos();
-
+	QFile aFile;
 	if (fileName.right(2).toLower() == "gz")
-		file.reset( new ScGzFile(fileName) );
+	{
+		aFile.setFileName(fileName);
+		QtIOCompressor *compressor = new QtIOCompressor(&aFile);
+		compressor->setStreamFormat(QtIOCompressor::GzipFormat);
+		file.reset(compressor);
+	}
 	else
 		file.reset( new QFile(fileName) );
 

@@ -32,7 +32,6 @@ for which a new license (GPL+exception) is in place.
 #include "util_math.h"
 #include "util_color.h"
 #include "util_text.h"
-#include "scgzfile.h"
 #ifdef HAVE_OSG
 	#include "pageitem_osgframe.h"
 #endif

@@ -24,10 +24,10 @@ for which a new license (GPL+exception) is in place.
 #include "pageitem.h"
 #include "prefsfile.h"
 #include "prefsmanager.h"
+#include "qtiocompressor.h"
 #include "sccolorengine.h"
 #include "scclocale.h"
 #include "scconfig.h"
-#include "scgzfile.h"
 #include "sclimits.h"
 #include "scmimedata.h"
 #include "scpaths.h"
@@ -342,11 +342,13 @@ bool SVGPlug::loadData(QString fName)
 	}
 	if ((fName.right(2) == "gz") || (isCompressed))
 	{
-		ScGzFile file(fName);
-		if (!file.open(QIODevice::ReadOnly))
+		QFile file(fName);
+		QtIOCompressor compressor(&file);
+		compressor.setStreamFormat(QtIOCompressor::GzipFormat);
+		if (!compressor.open(QIODevice::ReadOnly))
 			return false;
-		success = inpdoc.setContent(&file);
-		file.close();
+		success = inpdoc.setContent(&compressor);
+		compressor.close();
 	}
 	else
 	{

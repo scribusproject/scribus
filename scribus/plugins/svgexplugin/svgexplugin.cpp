@@ -42,7 +42,7 @@ for which a new license (GPL+exception) is in place.
 #include "prefsmanager.h"
 #include "prefsfile.h"
 #include "prefscontext.h"
-#include "scgzfile.h"
+#include "qtiocompressor.h"
 #include "scpage.h"
 #include "scpattern.h"
 #include "scribuscore.h"
@@ -261,9 +261,15 @@ bool SVGExPlug::doExport( QString fName, SVGOptions &Opts )
 	if(Options.compressFile)
 	{
 		// zipped saving
-		QByteArray array(docu.toString().toUtf8());
-		if (!ScGzFile::writeToFile(fName, array, vo.toUtf8().data()))
-			return false;
+		QString wr = vo;
+		wr += docu.toString();
+		QByteArray utf8wr = wr.toUtf8();
+		QFile file(fName);
+		QtIOCompressor compressor(&file);
+		compressor.setStreamFormat(QtIOCompressor::GzipFormat);
+		compressor.open(QIODevice::WriteOnly);
+		compressor.write(utf8wr);
+		compressor.close();
 	}
 	else
 	{
