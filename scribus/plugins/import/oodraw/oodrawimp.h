@@ -146,9 +146,6 @@ protected:
 	QDomDocument inpMeta;
 	QHash<QString,QDomElement*> m_styles, m_draws;
 	StyleStack m_styleStack;
-	QString stylePath;
-	QString contentPath;
-	QString metaPath;
 	double CurrX, CurrY, StartX, StartY;
 	int PathLen;
 	bool FirstM, WasM, PathClosed, HaveMeta;

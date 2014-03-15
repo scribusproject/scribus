@@ -23,6 +23,7 @@ for which a new license (GPL+exception) is in place.
 #include "unzip.h"
 #include "scribus_zip.h"
 #include "util.h"
+#include "scpaths.h"
 
 ScZipHandler::ScZipHandler(bool forWrite)
 {
@@ -105,6 +106,29 @@ bool ScZipHandler::write(QString dirName)
 	{
 		Zip::ErrorCode ec = m_zi->addDirectory(dirName, "", Zip::IgnoreRoot);
 		retVal = (ec == Zip::Ok);
+	}
+	return retVal;
+}
+
+bool ScZipHandler::extract(QString name, QString path)
+{
+	bool retVal = false;
+	if (m_uz != NULL)
+	{
+		QString pwd = QDir::currentPath();
+		QString outDir;
+		if (path.isNull())
+			outDir = ScPaths::getTempFileDir();
+		else
+			outDir=path;
+		QFile f(outDir);
+		QFileInfo fi(f);
+		if (!fi.isWritable())
+			outDir = ScPaths::getApplicationDataDir();
+		QDir::setCurrent(outDir);
+		UnZip::ErrorCode ec = m_uz->extractFile(name, outDir, UnZip::SkipPaths);
+		retVal = (ec == UnZip::Ok);
+		QDir::setCurrent(pwd);
 	}
 	return retVal;
 }

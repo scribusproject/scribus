@@ -16,7 +16,6 @@ for which a new license (GPL+exception) is in place.
 #include "pluginapi.h"
 #include "pageitem.h"
 #include "sccolor.h"
-#include "fileunzip.h"
 #include "fpointarray.h"
 #include <QList>
 #include <QTransform>
@@ -26,6 +25,8 @@ for which a new license (GPL+exception) is in place.
 #include <QString>
 #include <QDomDocument>
 #include <QDomElement>
+
+#include "third_party/zip/scribus_zip.h"
 
 class MultiProgressDialog;
 class ScribusDoc;
@@ -186,7 +187,7 @@ private:
 	QMap<QString, PageItem*> frameTargets;
 	QMap<QString, ObjectStyle> ObjectStyles;
 
-	FileUnzip *fun;
+	ScZipHandler *fun;
 
 public slots:
 	void cancelRequested() { cancel = true; }

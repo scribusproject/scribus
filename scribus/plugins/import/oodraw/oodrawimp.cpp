@@ -22,7 +22,6 @@ for which a new license (GPL+exception) is in place.
 
 #include "color.h"
 #include "commonstrings.h"
-#include "fileunzip.h"
 #include "fpointarray.h"
 #include "ui/scmwmenumanager.h"
 #include "pageitem.h"
@@ -47,6 +46,7 @@ for which a new license (GPL+exception) is in place.
 #include "util.h"
 #include "util_icon.h"
 #include "util_math.h"
+#include "third_party/zip/scribus_zip.h"
 
 
 using namespace std;
@@ -242,26 +242,26 @@ QImage OODPlug::readThumbnail(QString fileName )
 	QByteArray f, f2, f3;
 	if ( !QFile::exists(fileName) )
 		return QImage();
-	FileUnzip* fun = new FileUnzip(fileName);
-	stylePath   = fun->getFile("styles.xml");
-	contentPath = fun->getFile("content.xml");
-	metaPath = fun->getFile("meta.xml");
-	// Qt4 NULL -> isNull()
-	if ((!stylePath.isNull()) && (!contentPath.isNull()))
+	ScZipHandler* fun = new ScZipHandler();
+	if (!fun->open(fileName))
 	{
-		HaveMeta = false;
-		QString docname = fileName.right(fileName.length() - fileName.lastIndexOf("/") - 1);
-		docname = docname.left(docname.lastIndexOf("."));
-		loadRawText(stylePath, f);
-		loadRawText(contentPath, f2);
-		HaveMeta = false;
-		if (!metaPath.isEmpty())
-		{
-			loadRawText(metaPath, f3);
-			HaveMeta = inpMeta.setContent(f3);
-		}
+		delete fun;
+		return QImage();
 	}
+	if (fun->contains("styles.xml"))
+		fun->read("styles.xml", f);
+	if (fun->contains("content.xml"))
+		fun->read("content.xml", f2);
+	if (fun->contains("meta.xml"))
+		fun->read("meta.xml", f3);
 	delete fun;
+	HaveMeta = inpMeta.setContent(f3);
+	QString docname = fileName.right(fileName.length() - fileName.lastIndexOf("/") - 1);
+	docname = docname.left(docname.lastIndexOf("."));
+	if (f.isEmpty())
+		return QImage();
+	if (f2.isEmpty())
+		return QImage();
 	if(!inpStyles.setContent(f))
 		return QImage();
 	if(!inpContents.setContent(f2))
@@ -365,26 +365,26 @@ bool OODPlug::import(QString fileName, const TransactionSettings& trSettings, in
 	QByteArray f, f2, f3;
 	if ( !QFile::exists(fileName) )
 		return false;
-	FileUnzip* fun = new FileUnzip(fileName);
-	stylePath   = fun->getFile("styles.xml");
-	contentPath = fun->getFile("content.xml");
-	metaPath = fun->getFile("meta.xml");
-	// Qt4 NULL -> isNull()
-	if ((!stylePath.isNull()) && (!contentPath.isNull()))
+	ScZipHandler* fun = new ScZipHandler();
+	if (!fun->open(fileName))
 	{
-		HaveMeta = false;
-		QString docname = fileName.right(fileName.length() - fileName.lastIndexOf("/") - 1);
-		docname = docname.left(docname.lastIndexOf("."));
-		loadRawText(stylePath, f);
-		loadRawText(contentPath, f2);
-		HaveMeta = false;
-		if (!metaPath.isEmpty())
-		{
-			loadRawText(metaPath, f3);
-			HaveMeta = inpMeta.setContent(f3);
-		}
+		delete fun;
+		return false;
 	}
+	if (fun->contains("styles.xml"))
+		fun->read("styles.xml", f);
+	if (fun->contains("content.xml"))
+		fun->read("content.xml", f2);
+	if (fun->contains("meta.xml"))
+		fun->read("meta.xml", f3);
 	delete fun;
+	HaveMeta = inpMeta.setContent(f3);
+	QString docname = fileName.right(fileName.length() - fileName.lastIndexOf("/") - 1);
+	docname = docname.left(docname.lastIndexOf("."));
+	if (f.isEmpty())
+		return false;
+	if (f2.isEmpty())
+		return false;
 	if(!inpStyles.setContent(f))
 		return false;
 	if(!inpContents.setContent(f2))

@@ -17,13 +17,13 @@ for which a new license (GPL+exception) is in place.
 
 
 #include "prefs_spelling.h"
-#include "fileunzip.h"
 #include "langmgr.h"
 #include "prefsstructs.h"
 #include "scribusdoc.h"
 #include "util_icon.h"
 #include "util.h"
 #include "util_file.h"
+#include "third_party/zip/scribus_zip.h"
 
 #include "scribusapp.h"
 #include "scpaths.h"
@@ -185,13 +185,17 @@ void Prefs_Spelling::downloadSpellDictsFinished()
 		if (d.filetype=="zip")
 		{
 			//qDebug()<<"zip data found"<<filename;
-			FileUnzip fun(filename);
-			foreach (QString s, files)
+			ScZipHandler* fun = new ScZipHandler();
+			if (fun->open(filename))
 			{
-				//qDebug()<<"Unzipping"<<userDictDir+s;
-				QString data = fun.getFileToPath(s, userDictDir);
-				allFileList.removeOne(s);
+				foreach (QString s, files)
+				{
+					//qDebug()<<"Unzipping"<<userDictDir+s;
+					fun->extract(s, userDictDir);
+					allFileList.removeOne(s);
+				}
 			}
+			delete fun;
 		}
 		if (d.filetype=="plain")
 		{

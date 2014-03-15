@@ -31,16 +31,17 @@ for which a new license (GPL+exception) is in place.
 #endif
 
 #include <QStringList>
+#include <QTemporaryDir>
 
 #include <scribusstructs.h>
 #include "prefsmanager.h"
 #include <prefsfile.h>
 #include <prefscontext.h>
 #include <prefstable.h>
-#include "fileunzip.h"
 #include "stylereader.h"
 #include "contentreader.h"
 #include "odtdia.h"
+#include "third_party/zip/scribus_zip.h"
 
 QString FileFormatName()
 {
@@ -91,20 +92,27 @@ OdtIm::OdtIm(QString fileName, QString enc, gtWriter* w, bool textOnly)
 	filename = fileName;
 	writer = w;
 	writer->setUpdateParagraphStyles(update);
-	FileUnzip* fun = new FileUnzip(fileName);
-	stylePath   = fun->getFile(STYLE);
-	contentPath = fun->getFile(CONTENT);
-	// Qt4 NULL -> isNull()
-	if ((!stylePath.isNull()) && (!contentPath.isNull()))
+	ScZipHandler* fun = new ScZipHandler();
+	if (fun->open(fileName))
 	{
-		QString docname = filename.right(filename.length() - filename.lastIndexOf("/") - 1);
-		docname = docname.left(docname.lastIndexOf("."));
-		StyleReader *sreader = new StyleReader(docname, writer, textOnly, prefix, pack);
-		sreader->parse(stylePath);
-		ContentReader *creader = new ContentReader(docname, sreader, writer, textOnly);
-		creader->parse(contentPath);
-		delete sreader;
-		delete creader;
+		QTemporaryDir *dir = new QTemporaryDir();
+		QString baseDir = dir->path();
+		fun->extract(STYLE, baseDir);
+		fun->extract(CONTENT, baseDir);
+		stylePath   = baseDir + "/" + STYLE;
+		contentPath = baseDir + "/" + CONTENT;
+		if ((!stylePath.isNull()) && (!contentPath.isNull()))
+		{
+			QString docname = filename.right(filename.length() - filename.lastIndexOf("/") - 1);
+			docname = docname.left(docname.lastIndexOf("."));
+			StyleReader *sreader = new StyleReader(docname, writer, textOnly, prefix, pack);
+			sreader->parse(stylePath);
+			ContentReader *creader = new ContentReader(docname, sreader, writer, textOnly);
+			creader->parse(contentPath);
+			delete sreader;
+			delete creader;
+		}
+		delete dir;
 	}
 	delete fun;
 }

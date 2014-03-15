@@ -557,7 +557,6 @@ SET(SCRIBUS_SOURCES
   exif.cpp
   fileloader.cpp
   filesearch.cpp
-  fileunzip.cpp
   filewatcher.cpp
   ui/fontcombo.cpp
   fontlistmodel.cpp
@@ -702,7 +701,6 @@ SET(SCRIBUS_SOURCES
   undostack.cpp
   undostate.cpp
   units.cpp
-  unzip.c
   updatemanager.cpp
   upgradechecker.cpp
   urllauncher.cpp

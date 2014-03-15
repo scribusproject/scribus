@@ -35,6 +35,7 @@ class ScZipHandler
 		bool contains(QString fileName);
 		bool read(QString fileName, QByteArray &buf);
 		bool write(QString dirName);
+		bool extract(QString name, QString path);
 		QStringList files();
 	private:
 		UnZip* m_uz;

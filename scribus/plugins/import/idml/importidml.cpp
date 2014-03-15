@@ -105,25 +105,28 @@ QImage IdmlPlug::readThumbnail(QString fName)
 {
 	QImage tmp;
 	QByteArray f;
-	QString designMap;
 	if ( !QFile::exists(fName) )
 		return QImage();
 	QFileInfo fi = QFileInfo(fName);
 	QString ext = fi.suffix().toLower();
 	if (ext == "idml")
 	{
-		fun = new FileUnzip(fName);
-		designMap = fun->getFile("designmap.xml");
+		fun = new ScZipHandler();
+		if (!fun->open(fName))
+		{
+			delete fun;
+			return QImage();
+		}
+		if (fun->contains("designmap.xml"))
+			fun->read("designmap.xml", f);
+		delete fun;
 	}
 	else if (ext == "idms")
 	{
-		designMap = fName;
-		fun = NULL;
+		loadRawText(fName, f);
 	}
-	if (!designMap.isNull())
+	if (!f.isEmpty())
 	{
-		loadRawText(designMap, f);
-		delete fun;
 		if(!designMapDom.setContent(f))
 			return QImage();
 		bool found = false;
@@ -220,22 +223,25 @@ bool IdmlPlug::readColors(const QString& fNameIn, ColorList & colors)
 	m_Doc->addPage(0);
 	m_Doc->setGUI(false, ScCore->primaryMainWindow(), 0);
 	QByteArray f;
-	QString designMap;
 	QFileInfo fi = QFileInfo(fNameIn);
 	QString ext = fi.suffix().toLower();
 	if (ext == "idml")
 	{
-		fun = new FileUnzip(fNameIn);
-		designMap = fun->getFile("designmap.xml");
+		fun = new ScZipHandler();
+		if (!fun->open(fNameIn))
+		{
+			delete fun;
+			return false;
+		}
+		if (fun->contains("designmap.xml"))
+			fun->read("designmap.xml", f);
 	}
 	else if (ext == "idms")
 	{
-		designMap = fNameIn;
-		fun = NULL;
+		loadRawText(fNameIn, f);
 	}
-	if (!designMap.isNull())
+	if (!f.isEmpty())
 	{
-		loadRawText(designMap, f);
 		if(designMapDom.setContent(f))
 		{
 			QDomElement docElem = designMapDom.documentElement();
@@ -510,22 +516,25 @@ bool IdmlPlug::convert(QString fn)
 	bool retVal = true;
 	bool firstSpread = true;
 	QByteArray f;
-	QString designMap;
 	QFileInfo fi = QFileInfo(fn);
 	QString ext = fi.suffix().toLower();
 	if (ext == "idml")
 	{
-		fun = new FileUnzip(fn);
-		designMap = fun->getFile("designmap.xml");
+		fun = new ScZipHandler();
+		if (!fun->open(fn))
+		{
+			delete fun;
+			return false;
+		}
+		if (fun->contains("designmap.xml"))
+			fun->read("designmap.xml", f);
 	}
 	else if (ext == "idms")
 	{
-		designMap = fn;
-		fun = NULL;
+		loadRawText(fn, f);
 	}
-	if (!designMap.isNull())
+	if (!f.isEmpty())
 	{
-		loadRawText(designMap, f);
 		if(designMapDom.setContent(f))
 		{
 			QDomElement docElem = designMapDom.documentElement();
@@ -690,7 +699,7 @@ bool IdmlPlug::parseFontsXML(const QDomElement& grElem)
 	if (grElem.hasAttribute("src"))
 	{
 		QByteArray f2;
-		loadRawText(fun->getFile(grElem.attribute("src")), f2);
+		fun->read(grElem.attribute("src"), f2);
 		if(grMapDom.setContent(f2))
 			grNode = grMapDom.documentElement();
 		else
@@ -738,7 +747,7 @@ bool IdmlPlug::parseGraphicsXML(const QDomElement& grElem)
 	if (grElem.hasAttribute("src"))
 	{
 		QByteArray f2;
-		loadRawText(fun->getFile(grElem.attribute("src")), f2);
+		fun->read(grElem.attribute("src"), f2);
 		if(grMapDom.setContent(f2))
 			grNode = grMapDom.documentElement();
 		else
@@ -864,7 +873,7 @@ bool IdmlPlug::parseStylesXML(const QDomElement& sElem)
 	if (sElem.hasAttribute("src"))
 	{
 		QByteArray f2;
-		loadRawText(fun->getFile(sElem.attribute("src")), f2);
+		fun->read(sElem.attribute("src"), f2);
 		if(sMapDom.setContent(f2))
 			sNode = sMapDom.documentElement();
 		else
@@ -1287,7 +1296,7 @@ bool IdmlPlug::parsePreferencesXML(const QDomElement& prElem)
 	if (prElem.hasAttribute("src"))
 	{
 		QByteArray f2;
-		loadRawText(fun->getFile(prElem.attribute("src")), f2);
+		fun->read(prElem.attribute("src"), f2);
 		if(prMapDom.setContent(f2))
 			prNode = prMapDom.documentElement();
 		else
@@ -1500,7 +1509,7 @@ bool IdmlPlug::parseSpreadXML(const QDomElement& spElem)
 	if (spElem.hasAttribute("src"))
 	{
 		QByteArray f2;
-		loadRawText(fun->getFile(spElem.attribute("src")), f2);
+		fun->read(spElem.attribute("src"), f2);
 		if(spMapDom.setContent(f2))
 			spNode = spMapDom.documentElement();
 		else
@@ -2690,7 +2699,7 @@ bool IdmlPlug::parseStoryXML(const QDomElement& stElem)
 	if (stElem.hasAttribute("src"))
 	{
 		QByteArray f2;
-		loadRawText(fun->getFile(stElem.attribute("src")), f2);
+		fun->read(stElem.attribute("src"), f2);
 		if(stMapDom.setContent(f2))
 			stNode = stMapDom.documentElement();
 		else
