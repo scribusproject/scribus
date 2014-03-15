@@ -324,6 +324,82 @@ void AppModeHelper::mainWindowHasNewDoc(ScribusDoc *doc, bool clipScrapHaveData)
 	(*scrActions)["pageManageMargins"]->setEnabled(true);
 }
 
+void AppModeHelper::mainWindowSwitchWin(ScribusDoc *doc)
+{
+	(*scrActions)["fileClose"]->setEnabled(true);
+	if (doc->masterPageMode() || doc->symbolEditMode() || doc->inlineEditMode())
+	{
+		(*scrActions)["pageInsert"]->setEnabled(false);
+		(*scrActions)["pageDelete"]->setEnabled(false);
+		(*scrActions)["pageCopy"]->setEnabled(false);
+		(*scrActions)["pageMove"]->setEnabled(false);
+		(*scrActions)["pageApplyMasterPage"]->setEnabled(false);
+		(*scrActions)["pageCopyToMasterPage"]->setEnabled(false);
+		(*scrActions)["editMasterPages"]->setEnabled(false);
+		(*scrActions)["fileNew"]->setEnabled(false);
+		(*scrActions)["fileNewFromTemplate"]->setEnabled(false);
+		if (doc->symbolEditMode() || doc->inlineEditMode())
+		{
+			(*scrActions)["fileCollect"]->setEnabled(false);
+			(*scrActions)["fileSaveAs"]->setEnabled(false);
+			(*scrActions)["fileExportAsEPS"]->setEnabled(false);
+			(*scrActions)["fileExportAsPDF"]->setEnabled(false);
+			(*scrActions)["fileSave"]->setEnabled(false);
+		}
+		else
+			(*scrActions)["fileSave"]->setEnabled(!doc->isConverted);
+		(*scrActions)["fileOpen"]->setEnabled(false);
+		(*scrActions)["fileRevert"]->setEnabled(false);
+		(*scrActions)["toolsPDFPushButton"]->setEnabled(false);
+		(*scrActions)["toolsPDFRadioButton"]->setEnabled(false);
+		(*scrActions)["toolsPDFTextField"]->setEnabled(false);
+		(*scrActions)["toolsPDFCheckBox"]->setEnabled(false);
+		(*scrActions)["toolsPDFComboBox"]->setEnabled(false);
+		(*scrActions)["toolsPDFListBox"]->setEnabled(false);
+		(*scrActions)["toolsPDFAnnotText"]->setEnabled(false);
+#ifdef HAVE_OSG
+		(*scrActions)["toolsPDFAnnot3D"]->setEnabled(false);
+#endif
+	}
+	else
+	{
+		(*scrActions)["editMasterPages"]->setEnabled(true);
+		(*scrActions)["fileNew"]->setEnabled(true);
+		(*scrActions)["fileNewFromTemplate"]->setEnabled(true);
+		(*scrActions)["fileOpen"]->setEnabled(true);
+		(*scrActions)["fileClose"]->setEnabled(true);
+		(*scrActions)["fileSave"]->setEnabled(!doc->isConverted);
+		(*scrActions)["fileRevert"]->setEnabled(false);
+
+		if (!doc->isModified())
+		{
+			bool setter = doc->DocPages.count() > 1 ? true : false;
+			(*scrActions)["pageDelete"]->setEnabled(setter);
+			(*scrActions)["pageMove"]->setEnabled(setter);
+		}
+		(*scrActions)["pageInsert"]->setEnabled(true);
+		(*scrActions)["pageImport"]->setEnabled(true);
+		(*scrActions)["pageCopy"]->setEnabled(true);
+		(*scrActions)["pageApplyMasterPage"]->setEnabled(true);
+		(*scrActions)["pageCopyToMasterPage"]->setEnabled(true);
+		(*scrActions)["pageManageGuides"]->setEnabled(true);
+		(*scrActions)["pageManageMargins"]->setEnabled(true);
+
+		(*scrActions)["fileSaveAs"]->setEnabled(true);
+		(*scrActions)["fileCollect"]->setEnabled(true);
+		(*scrActions)["toolsPDFPushButton"]->setEnabled(true);
+		(*scrActions)["toolsPDFRadioButton"]->setEnabled(true);
+		(*scrActions)["toolsPDFTextField"]->setEnabled(true);
+		(*scrActions)["toolsPDFCheckBox"]->setEnabled(true);
+		(*scrActions)["toolsPDFComboBox"]->setEnabled(true);
+		(*scrActions)["toolsPDFListBox"]->setEnabled(true);
+		(*scrActions)["toolsPDFAnnotText"]->setEnabled(true);
+#ifdef HAVE_OSG
+		(*scrActions)["toolsPDFAnnot3D"]->setEnabled(true);
+#endif
+	}
+}
+
 void AppModeHelper::enableTextActions(bool enabled, const QString& fontName)
 {
 	(*scrActions)["insertGlyph"]->setEnabled(enabled);

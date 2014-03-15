@@ -40,6 +40,7 @@ class AppModeHelper : public QObject
 		void setMasterPageEditMode(bool b, ScribusDoc *doc);
 		void changeLayer(ScribusDoc *doc, bool clipScrapHaveData);
 		void mainWindowHasNewDoc(ScribusDoc *doc, bool clipScrapHaveData);
+		void mainWindowSwitchWin(ScribusDoc *doc);
 		//! \brief enable or disable the unicode actions and their menus
 		void enableTextActions(bool enabled, const QString& fontName=QString::null);
 
