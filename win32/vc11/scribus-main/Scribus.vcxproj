@@ -588,7 +588,6 @@
     <ClInclude Include="..\..\..\scribus\scfonts.h" />
     <moc Include="..\..\..\scribus\scgtplugin.h" />
     <ClInclude Include="..\..\..\scribus\scguardedptr.h" />
-    <ClInclude Include="..\..\..\scribus\scgzfile.h" />
     <moc Include="..\..\..\scribus\schelptreemodel.h" />
     <ClInclude Include="..\..\..\scribus\scimage.h" />
     <moc Include="..\..\..\scribus\scimagecachedir.h" />
@@ -1313,7 +1312,6 @@
     <ClCompile Include="..\..\..\scribus\fonts\scfontmetrics.cpp" />
     <ClCompile Include="..\..\..\scribus\scfonts.cpp" />
     <ClCompile Include="..\..\..\scribus\scgtplugin.cpp" />
-    <ClCompile Include="..\..\..\scribus\scgzfile.cpp" />
     <ClCompile Include="..\..\..\scribus\schelptreemodel.cpp" />
     <ClCompile Include="..\..\..\scribus\scimage.cpp" />
     <ClCompile Include="..\..\..\scribus\scimagecachedir.cpp" />
