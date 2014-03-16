@@ -1,6 +1,9 @@
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual C++ Express 2010
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "scribus-main", "scribus-main\Scribus.vcxproj", "{B17FCD80-7978-4544-93C4-2FE1AC6FE9F3}"
+	ProjectSection(ProjectDependencies) = postProject
+		{6CC39EED-B1E2-4209-8F65-0E6242EE63E5} = {6CC39EED-B1E2-4209-8F65-0E6242EE63E5}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "svgexport", "svgexport\svgexport.vcxproj", "{9652EA11-AFA0-4CDF-88AC-7912C653EFE6}"
 	ProjectSection(ProjectDependencies) = postProject
