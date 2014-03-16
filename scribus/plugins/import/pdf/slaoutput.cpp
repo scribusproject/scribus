@@ -1328,13 +1328,15 @@ void SlaOutputDev::restoreState(GfxState *state)
 							sing->setWidthHeight(ite->width(), ite->height(), true);
 							sing->groupWidth = ite->width();
 							sing->groupHeight = ite->height();
-							if (sing->isImageFrame())
+						/*	if (sing->isImageFrame())
 							{
 								QTransform ft;
 								ft.translate(-result.boundingRect().x(), -result.boundingRect().y());
 								ft.scale(ite->width() / result.boundingRect().width(), ite->height() / result.boundingRect().height());
 								result = ft.map(result);
-							}
+							}*/
+							sing->ClipEdited = true;
+							sing->FrameType = 3;
 							sing->PoLine.fromQPainterPath(result);
 							m_doc->AdjustItemSize(sing);
 							if (sing->isGroup())
@@ -2536,7 +2538,7 @@ void SlaOutputDev::drawSoftMaskedImage(GfxState *state, Object *ref, Stream *str
 	}
 	else
 	{
-		mm.reset();
+//		mm.reset();
 		if (sx < 0)
 			mm.scale(-1, 1);
 		if (sy < 0)
@@ -2671,7 +2673,7 @@ void SlaOutputDev::drawMaskedImage(GfxState *state, Object *ref, Stream *str,  i
 	}
 	else
 	{
-		mm.reset();
+//		mm.reset();
 		if (sx < 0)
 			mm.scale(-1, 1);
 		if (sy < 0)
@@ -2815,7 +2817,7 @@ void SlaOutputDev::drawImage(GfxState *state, Object *ref, Stream *str, int widt
 	}
 	else
 	{
-		mm.reset();
+//		mm.reset();
 		if (sx < 0)
 			mm.scale(-1, 1);
 		if (sy < 0)
