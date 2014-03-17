@@ -944,7 +944,7 @@ void OutlinePalette::createContextMenu(PageItem * currItem, double mx, double my
 	if (m_MainWindow==NULL || currDoc==NULL)
 		return;
 	ContextMenu* cmen=NULL;
-	qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+//	qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 	if(currItem!=NULL)
 		cmen = new ContextMenu(*(currDoc->m_Selection), m_MainWindow, currDoc);
 	else

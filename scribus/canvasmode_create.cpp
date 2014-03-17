@@ -176,8 +176,7 @@ void CreateMode::enterEvent(QEvent *)
 
 void CreateMode::leaveEvent(QEvent *e)
 {
-	if (!m_MouseButtonPressed)
-		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+
 }
 
 
@@ -724,7 +723,7 @@ PageItem* CreateMode::doCreateNewObject(void)
 			m_doc->AdjustItemSize(currItem);
 			currItem->Clip = FlattenPath(currItem->PoLine, currItem->Segments);
 			/*
-			qApp->changeOverrideCursor(QCursor(Qt::SizeFDiagCursor));
+			m_view->setCursor(QCursor(Qt::SizeFDiagCursor));
 			m_doc->m_Selection->clear();
 			m_doc->m_Selection->addItem(currItem);
 			currItem->update();
@@ -825,7 +824,7 @@ PageItem* CreateMode::doCreateNewObject(void)
 				m_view->requestMode(submodePaintingDone);
 				break;
 			}
-			qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+			//qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 			InsertTable *dia = new InsertTable(m_view, static_cast<int>(Th / 6), static_cast<int>(Tw / 6));
 			if (!dia->exec())
 			{
@@ -933,7 +932,7 @@ bool CreateMode::doOneClick(FPoint& startPoint, FPoint& endPoint)
 		originPoint = sizes->getInt("OriginL", 0);
 	}
 
-	qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+	//qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 	OneClick *dia = new OneClick(m_view, ScribusView::tr("Enter Object Size"), m_doc->unitIndex(), xSize, ySize, doRemember, originPoint, lmode);
 	if (dia->exec())
 	{
@@ -1013,22 +1012,22 @@ bool CreateMode::doOneClick(FPoint& startPoint, FPoint& endPoint)
 // 	{
 // 		case 1:
 // 		case 2:
-// 			qApp->changeOverrideCursor(QCursor(Qt::SizeFDiagCursor));
+// 			m_view->setCursor(QCursor(Qt::SizeFDiagCursor));
 // 			break;
 // 		case 3:
 // 		case 4:
-// 			qApp->changeOverrideCursor(QCursor(Qt::SizeBDiagCursor));
+// 			m_view->setCursor(QCursor(Qt::SizeBDiagCursor));
 // 			break;
 // 		case 5:
 // 		case 8:
-// 			qApp->changeOverrideCursor(QCursor(Qt::SizeVerCursor));
+// 			m_view->setCursor(QCursor(Qt::SizeVerCursor));
 // 			break;
 // 		case 6:
 // 		case 7:
-// 			qApp->changeOverrideCursor(QCursor(Qt::SizeHorCursor));
+// 			m_view->setCursor(QCursor(Qt::SizeHorCursor));
 // 			break;
 // 		default:
-// 			qApp->changeOverrideCursor(QCursor(Qt::SizeAllCursor));
+// 			m_view->setCursor(QCursor(Qt::SizeAllCursor));
 // 			break;
 // 	}
 // }

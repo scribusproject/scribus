@@ -82,12 +82,11 @@ void CanvasMode_ObjImport::enterEvent(QEvent *)
 		setModeCursor();
 		return;
 	}
-	qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 }
 
 void CanvasMode_ObjImport::leaveEvent(QEvent *e)
 {
-	qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+
 }
 
 

@@ -143,8 +143,6 @@ int ScribusCore::startGUI(bool showSplash, bool showFontInfo, bool showProfileIn
 		scribus->slotRaiseOnlineHelp();
 	}
 
-	qApp->setOverrideCursor(QCursor(Qt::ArrowCursor));
-
 	// A hook for plugins and scripts to trigger on. Some plugins and scripts
 	// require the app to be fully set up (in particular, the main window to be
 	// built and shown) before running their setup.

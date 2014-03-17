@@ -55,8 +55,8 @@ void SeList::mouseReleaseEvent(QMouseEvent *m)
 	if (m->button() == Qt::RightButton)
 	{
 		QMenu *pmen = new QMenu();
-		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
-        QAction *px = pmen->addAction( tr("Show Page Previews"), this, SLOT(toggleThumbnail()));
+//		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+		QAction *px = pmen->addAction( tr("Show Page Previews"), this, SLOT(toggleThumbnail()));
 		px->setCheckable(true);
 		if (Thumb)
 			px->setChecked(true);

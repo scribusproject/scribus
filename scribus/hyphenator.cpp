@@ -226,7 +226,7 @@ void Hyphenator::slotHyphenate(PageItem* it)
 	QString found2 = "";
 	rememberedWords.clear();
 	//uint maxC = it->itemText.length() - 1;
-	qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
+	qApp->setOverrideCursor(QCursor(Qt::WaitCursor));
 	QRegExp wordBoundary("\\w");
 	QRegExp whiteSpace("\\s|\\W|\\d|\\n|\\r|\\t");
 	while ((firstC+Ccount < signed(text.length())) && (firstC != -1) && 
@@ -424,7 +424,7 @@ void Hyphenator::slotHyphenate(PageItem* it)
 		if (Ccount == 0)
 			Ccount++;
 	}
-	qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+	qApp->restoreOverrideCursor();
 	doc->DoDrawing = true;
 	rememberedWords.clear();
 }
@@ -443,6 +443,5 @@ void Hyphenator::slotDeHyphenate(PageItem* it)
 		uint a = it->itemText.length();
 		it->itemText.hyphenateWord(0, a, NULL);
 	}
-	qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 	doc->DoDrawing = true;
 }

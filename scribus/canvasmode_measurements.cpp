@@ -38,12 +38,12 @@ MeasurementsMode::MeasurementsMode(ScribusView* view) : CanvasMode(view), m_star
 
 void MeasurementsMode::enterEvent(QEvent *)
 {
-	qApp->changeOverrideCursor(QCursor(Qt::CrossCursor));
+	m_view->setCursor(QCursor(Qt::CrossCursor));
 }
 
 void MeasurementsMode::leaveEvent(QEvent *)
 {
-	qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+
 }
 
 void MeasurementsMode::setActive(bool active)

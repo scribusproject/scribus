@@ -574,6 +574,9 @@ QCursor CanvasMode::modeCursor()
 		case modeEyeDropper:
 			cursor = QCursor(loadIcon("colorpickercursor.png"), 0, 32);
 			break;
+		case modeLinkFrames:
+			cursor = QCursor(loadIcon("LinkTextFrame.png"), 0, 31);
+			break;
 		case modeMeasurementTool:
 		case modeEditGradientVectors:
 		case modeInsertPDFButton:
@@ -595,7 +598,7 @@ QCursor CanvasMode::modeCursor()
 void CanvasMode::setModeCursor()
 {
 	QCursor cursor = modeCursor();
-	qApp->changeOverrideCursor(cursor);
+	m_view->setCursor(cursor);
 }
 
 #ifdef GESTURE_FRAME_PREVIEW
@@ -621,22 +624,22 @@ void CanvasMode::setResizeCursor(int how, double rot)
 	{
 		case 1:
 		case 2:
-			qApp->changeOverrideCursor(ScResizeCursor(135 + rot));// Qt::SizeFDiagCursor
+			m_view->setCursor(ScResizeCursor(135 + rot));// Qt::SizeFDiagCursor
 			break;
 		case 3:
 		case 4:
-			qApp->changeOverrideCursor(ScResizeCursor(45 + rot));// Qt::SizeBDiagCursor
+			m_view->setCursor(ScResizeCursor(45 + rot));// Qt::SizeBDiagCursor
 			break;
 		case 5:
 		case 8:
-			qApp->changeOverrideCursor(ScResizeCursor(0 + rot));// Qt::SizeVerCursor
+			m_view->setCursor(ScResizeCursor(0 + rot));// Qt::SizeVerCursor
 			break;
 		case 6:
 		case 7:
-			qApp->changeOverrideCursor(ScResizeCursor(90 + rot));// Qt::SizeHorCursor
+			m_view->setCursor(ScResizeCursor(90 + rot));// Qt::SizeHorCursor
 			break;
 		default:
-			qApp->changeOverrideCursor(QCursor(Qt::SizeAllCursor));
+			m_view->setCursor(QCursor(Qt::SizeAllCursor));
 			break;
 	}
 }

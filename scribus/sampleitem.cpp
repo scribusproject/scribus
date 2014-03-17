@@ -29,7 +29,7 @@ SampleItem::SampleItem(ScribusDoc* doc) :
 
 	if (doc==0)
 	{
-		qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
+		qApp->setOverrideCursor(QCursor(Qt::WaitCursor));
 		// FIXME: main preformance issue here! PV
 		m_Doc=ScCore->primaryMainWindow()->doFileNew(//pageWidth, pageHeight,
 									0,0,
@@ -42,13 +42,15 @@ SampleItem::SampleItem(ScribusDoc* doc) :
 									1, 1, 1,
 									//orientation, firstPageNr, "Custom", requires gui, page count, showview);
 									1, 1, "custom", false, 1, false);
-		//m_Doc = new ScribusDoc();
 		Q_ASSERT(m_Doc!=0);
 		if (!m_Doc)
+		{
+			qApp->restoreOverrideCursor();
 			return;
+		}
 		m_Doc->pageSets[1/*pagesType*/].FirstPage = 1;//firstPageOrder;
 		used = false;
-		qApp->changeOverrideCursor(Qt::ArrowCursor);
+		qApp->restoreOverrideCursor();
 	}
 	// tmp colors. to be removed in descrictor
 	m_Doc->PageColors.insert("__blackforpreview__", ScColor(0, 0, 0, 255));

@@ -152,7 +152,7 @@ bool PctPlug::import(QString fNameIn, const TransactionSettings& trSettings, int
 	m_Doc->DoDrawing = false;
 	m_Doc->view()->updatesOn(false);
 	m_Doc->scMW()->setScriptRunning(true);
-	qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
+	qApp->setOverrideCursor(QCursor(Qt::WaitCursor));
 	QString CurDirP = QDir::currentPath();
 	QDir::setCurrent(fi.path());
 	if (convert(fName))
@@ -302,6 +302,7 @@ bool PctPlug::import(QString fNameIn, const TransactionSettings& trSettings, int
 	//CB If we have a gui we must refresh it if we have used the progressbar
 	if ((showProgress) && (!interactive))
 		m_Doc->view()->DrawNew();
+	qApp->restoreOverrideCursor();
 	return success;
 }
 

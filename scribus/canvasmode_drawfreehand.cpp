@@ -99,8 +99,7 @@ void FreehandMode::enterEvent(QEvent *)
 
 void FreehandMode::leaveEvent(QEvent *e)
 {
-	if (!m_MouseButtonPressed)
-		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+
 }
 
 
@@ -425,7 +424,7 @@ void FreehandMode::mouseReleaseEvent(QMouseEvent *m)
 					doCreate = true;
 				else
 				{
-					qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+					m_view->setCursor(QCursor(Qt::ArrowCursor));
 					OneClick *dia = new OneClick(m_view, ScribusView::tr("Enter Object Size"), m_doc->unitIndex(), xSize, ySize, doRemember, originPoint, lmode);
 					if (dia->exec())
 					{
@@ -537,7 +536,7 @@ void FreehandMode::mouseReleaseEvent(QMouseEvent *m)
 				m_view->MidButt = false;
 				shiftSelItems = false;
 				m_view->updateCanvas();
-				qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+				m_view->setCursor(QCursor(Qt::ArrowCursor));
 			}
 		}
 		if (m_view->moveTimerElapsed() && (GetItem(&currItem)))
@@ -904,7 +903,7 @@ void FreehandMode::mouseReleaseEvent(QMouseEvent *m)
 		{
 			if (!PrefsManager::instance()->appPrefs.stickyTools)
 			{
-//				qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+//				m_view->setCursor(QCursor(Qt::ArrowCursor));
 				m_view->requestMode(modeNormal);
 //				m_view->requestMode(submodePaintingDone);
 			}

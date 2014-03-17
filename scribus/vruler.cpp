@@ -73,7 +73,7 @@ void Vruler::mousePressEvent(QMouseEvent *m)
 	Mpressed = true;
 	if (currDoc->guidesSettings.guidesShown)
 	{
-		qApp->changeOverrideCursor(QCursor(SPLITVC));
+		qApp->setOverrideCursor(QCursor(SPLITVC));
 		currView->startGesture(rulerGesture);
 	}
 }
@@ -83,6 +83,7 @@ void Vruler::mouseReleaseEvent(QMouseEvent *m)
 	if (Mpressed)
 	{
 		rulerGesture->mouseReleaseEvent(m);
+		qApp->restoreOverrideCursor();
 		Mpressed = false;
 	}
 }
@@ -90,18 +91,7 @@ void Vruler::mouseReleaseEvent(QMouseEvent *m)
 void Vruler::mouseMoveEvent(QMouseEvent *m)
 {
 	if (Mpressed)
-	{
 		rulerGesture->mouseMoveEvent(m);
-	}
-	else
-	{
-		QCursor* cursor = qApp->overrideCursor();
-		Qt::CursorShape shape = cursor ? cursor->shape() : Qt::ArrowCursor;
-		if ((shape == Qt::SplitHCursor) || (shape == Qt::SplitVCursor))
-		{
-			qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
-		}
-	}
 }
 
 void Vruler::paintEvent(QPaintEvent *e)

@@ -41,13 +41,13 @@ void GetText(QString filename, QString encoding, bool /* textOnly */, gtWriter *
 {
 	if (filename.isNull())
 		return;
-	qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
+	qApp->setOverrideCursor(QCursor(Qt::WaitCursor));
 	ScCore->primaryMainWindow()->mainWindowProgressBar->reset();
 	PdbIm *im = new PdbIm(filename, encoding, writer);
 	im->write();
 	delete im;
 	ScCore->primaryMainWindow()->mainWindowProgressBar->reset();
-	qApp->changeOverrideCursor(Qt::ArrowCursor);
+	qApp->restoreOverrideCursor();
 }
 
 

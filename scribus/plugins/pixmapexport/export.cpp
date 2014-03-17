@@ -128,7 +128,7 @@ bool PixmapExportPlugin::run(ScribusDoc* doc, QString target)
 			return false;
 		}
 
-		QApplication::changeOverrideCursor(QCursor(Qt::WaitCursor));
+		QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 		doc->scMW()->mainWindowProgressBar->reset();
 		bool res;
 		if (dia->onePageRadio->isChecked())
@@ -142,8 +142,7 @@ bool PixmapExportPlugin::run(ScribusDoc* doc, QString target)
 			res = ex->exportInterval(doc, pageNs);
 		}
 		doc->scMW()->mainWindowProgressBar->reset();
-		QApplication::changeOverrideCursor(Qt::ArrowCursor);
-//		QApplication::restoreOverrideCursor();
+		QApplication::restoreOverrideCursor();
 		if (res)
 			doc->scMW()->setStatusBarInfoText( tr("Export successful"));
 	}
@@ -200,12 +199,12 @@ bool ExportBitmap::exportPage(ScribusDoc* doc, uint pageNr, bool single = true)
 		doFileSave = false;
 		QString fn = QDir::toNativeSeparators(fileName);
 //		QApplication::restoreOverrideCursor();
-		QApplication::changeOverrideCursor(Qt::ArrowCursor);
+		QApplication::setOverrideCursor(Qt::ArrowCursor);
 		over = QMessageBox::question(doc->scMW(), tr("File exists. Overwrite?"),
 				fn +"\n"+ tr("exists already. Overwrite?"),
 				// hack for multiple overwriting (petr) 
 				(single == true) ? QMessageBox::Yes | QMessageBox::No : QMessageBox::Yes | QMessageBox::No | QMessageBox::YesToAll);
-		QApplication::changeOverrideCursor(QCursor(Qt::WaitCursor));
+		QApplication::restoreOverrideCursor();
 		if (over == QMessageBox::Yes || over == QMessageBox::YesToAll)
 			doFileSave = true;
 		if (over == QMessageBox::YesToAll)

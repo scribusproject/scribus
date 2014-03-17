@@ -25,30 +25,18 @@
 
 PanGesture::PanGesture (CanvasMode* parent) : CanvasGesture(parent)
 {
-	m_haveCursor = false;
+
 }
 
 void PanGesture::activate(bool fromGesture)
 {
-//	qDebug() << "PanGesture::activate" << flag;
-	m_haveCursor = (qApp->overrideCursor() != NULL);
-	if ( (!fromGesture) && qApp->overrideCursor())
-	{
-		m_haveCursor = true;
-		m_cursor = *(qApp->overrideCursor());
-	}
-	else
-	{
-		m_haveCursor = false;
-	}
-	qApp->changeOverrideCursor(QCursor(loadIcon("HandC.xpm")));
+	m_cursor = m_view->cursor();
+	m_view->setCursor(QCursor(loadIcon("HandC.xpm")));
 }
 
 void PanGesture::deactivate(bool forgesture)
 {
-//	qDebug() << "PanGesture::deactivate" << forgesture;
-	if (m_haveCursor)
-		qApp->changeOverrideCursor(m_cursor);
+	m_view->setCursor(m_cursor);
 }
 
 void PanGesture::drawControls(QPainter* p)

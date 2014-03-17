@@ -183,8 +183,7 @@ void CanvasMode_Rotate::enterEvent(QEvent *)
 
 void CanvasMode_Rotate::leaveEvent(QEvent *)
 {
-	if (!m_canvas->m_viewMode.m_MouseButtonPressed)
-		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+
 }
 
 void CanvasMode_Rotate::mousePressEvent(QMouseEvent *m)
@@ -409,7 +408,7 @@ void CanvasMode_Rotate::mouseMoveEvent(QMouseEvent *m)
 					{
 						setResizeCursor(how);
 					}
-					qApp->changeOverrideCursor(QCursor(loadIcon("Rotieren2.png")));
+					m_view->setCursor(QCursor(loadIcon("Rotieren2.png")));
 				}
 				else
 				{
@@ -430,7 +429,7 @@ void CanvasMode_Rotate::mouseMoveEvent(QMouseEvent *m)
 					tx = p.mapRect(QRect(0, 0, static_cast<int>(currItem->width()), static_cast<int>(currItem->height())));
 					if ((tx.intersects(mpo)) && (!currItem->locked()))
 					{
-						qApp->changeOverrideCursor(QCursor(loadIcon("Rotieren2.png")));
+						m_view->setCursor(QCursor(loadIcon("Rotieren2.png")));
 						if (!currItem->sizeLocked())
 							m_view->HandleCurs(currItem, mpo);
 					}
@@ -459,7 +458,6 @@ void CanvasMode_Rotate::mouseMoveEvent(QMouseEvent *m)
 void CanvasMode_Rotate::createContextMenu(PageItem* currItem, double mx, double my)
 {
 	ContextMenu* cmen=NULL;
-	qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 	m_view->setObjectUndoMode();
 	m_canvasPressCoord.setXY(mx, my);
 	if(currItem!=NULL)
@@ -472,28 +470,3 @@ void CanvasMode_Rotate::createContextMenu(PageItem* currItem, double mx, double 
 	delete cmen;
 }
 
-// void CanvasMode_Rotate::setResizeCursor(int how)
-// {
-// 	switch (how)
-// 	{
-// 		case 1:
-// 		case 2:
-// 			qApp->changeOverrideCursor(QCursor(Qt::SizeFDiagCursor));
-// 			break;
-// 		case 3:
-// 		case 4:
-// 			qApp->changeOverrideCursor(QCursor(Qt::SizeBDiagCursor));
-// 			break;
-// 		case 5:
-// 		case 8:
-// 			qApp->changeOverrideCursor(QCursor(Qt::SizeVerCursor));
-// 			break;
-// 		case 6:
-// 		case 7:
-// 			qApp->changeOverrideCursor(QCursor(Qt::SizeHorCursor));
-// 			break;
-// 		default:
-// 			qApp->changeOverrideCursor(QCursor(Qt::SizeAllCursor));
-// 			break;
-// 	}
-// }

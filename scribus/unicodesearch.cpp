@@ -201,7 +201,7 @@ void UnicodeSearch::itemChosen(const QModelIndex & index)
 
 void UnicodeSearch::searchEdit_returnPressed()
 {
-	QApplication::changeOverrideCursor(QCursor(Qt::WaitCursor));
+	QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 	QString s(searchEdit->text());
 	if (s.isEmpty())
 		m_proxyModel->setFilterRegExp(QRegExp("*",
@@ -216,7 +216,7 @@ void UnicodeSearch::searchEdit_returnPressed()
 	}
 	tableView->setFocus(Qt::OtherFocusReason);
 	tableView->selectRow(0);
-	QApplication::changeOverrideCursor(Qt::ArrowCursor);
+	QApplication::restoreOverrideCursor();
 }
 
 void UnicodeSearch::hideEvent(QHideEvent * e)

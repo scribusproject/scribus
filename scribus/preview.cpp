@@ -909,7 +909,7 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 	QPixmap Bild;
 	double b = doc->Pages->at(Seite)->width() * Res / 72.0;
 	double h = doc->Pages->at(Seite)->height() * Res / 72.0;
-	qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
+	qApp->setOverrideCursor(QCursor(Qt::WaitCursor));
 	if ((Seite != APage) || (EnableCMYK->isChecked() != CMode) || (SMode != scaleBox->currentIndex())
 	        || (AntiAlias->isChecked() != GsAl) || (((AliasTr->isChecked() != Trans) || (EnableGCR->isChecked() != GMode))
 			&& (!EnableCMYK->isChecked()))
@@ -1285,7 +1285,7 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 	}
 	else
 		Bild = QPixmap::fromImage(image);
-	qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+	qApp->restoreOverrideCursor();
 	getUserSelection(Seite);
 	return Bild;
 }
@@ -1328,7 +1328,7 @@ void PPreview::getUserSelection(int page)
 void PPreview::imageLoadError(QPixmap &Bild, int page)
 {
 	Bild = QPixmap(1,1);
-	qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+	qApp->restoreOverrideCursor();
 	getUserSelection(page);
 }
 

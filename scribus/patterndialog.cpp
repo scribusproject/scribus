@@ -158,7 +158,7 @@ void PatternDialog::loadPatternDir()
 			mainWin->setStatusBarInfoText( tr("Loading Patterns"));
 			mainWin->mainWindowProgressBar->reset();
 			mainWin->mainWindowProgressBar->setMaximum(d.count() * 2);
-			qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
+			qApp->setOverrideCursor(QCursor(Qt::WaitCursor));
 			qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
 			for (uint dc = 0; dc < d.count(); ++dc)
 			{
@@ -194,7 +194,7 @@ void PatternDialog::loadPatternDir()
 			}
 			d.cdUp();
 			dirs->set("patterndir", d.absolutePath());
-			qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+			qApp->restoreOverrideCursor();
 			mainWin->setStatusBarInfoText("");
 			mainWin->mainWindowProgressBar->reset();
 		}

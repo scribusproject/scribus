@@ -219,7 +219,7 @@ bool EPSPlug::import(QString fName, const TransactionSettings &trSettings, int f
 	m_Doc->DoDrawing = false;
 	m_Doc->view()->updatesOn(false);
 	m_Doc->scMW()->setScriptRunning(true);
-	qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
+	qApp->setOverrideCursor(QCursor(Qt::WaitCursor));
 	QString CurDirP = QDir::currentPath();
 	QDir::setCurrent(fi.path());
 	if (convert(fName, x, y, b, h))
@@ -362,6 +362,7 @@ bool EPSPlug::import(QString fName, const TransactionSettings &trSettings, int f
 	//CB If we have a gui we must refresh it if we have used the progressbar
 	if ((showProgress) && (!interactive))
 		m_Doc->view()->DrawNew();
+	qApp->restoreOverrideCursor();
 	return success;
 }
 

@@ -334,17 +334,16 @@ bool BarcodeGenerator::paintBarcode(QString fileName, int dpi)
 	gargs.append( QString("-r%1").arg(dpi) );
 	gargs.append( QString("-sOutputFile=%1").arg(fileName) );
 	gargs.append( psFile );
-	qApp->changeOverrideCursor(Qt::WaitCursor);
+	qApp->setOverrideCursor(Qt::WaitCursor);
 	int gs = callGS(gargs);
 	bool retval = true;
 	if (gs != 0)
 		retval = false;
-	qApp->changeOverrideCursor(Qt::ArrowCursor);
-//	qApp->restoreOverrideCursor();
+	qApp->restoreOverrideCursor();
 	// setup only preview
 	if (fileName != tmpFile)
 		return retval;
-    if (gs == 0)
+	if (gs == 0)
 	{
 		ui.sampleLabel->setPixmap(QPixmap(fileName));
 		ui.okButton->setEnabled(true);

@@ -358,12 +358,9 @@ void MasterPagesPalette::importPage()
 	{
 		if (currentDoc->appMode == modeEditClip)
 			currentView->requestMode(submodeEndNodeEdit);
-		qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
+		qApp->setOverrideCursor(QCursor(Qt::WaitCursor));
 		int nr = currentDoc->Pages->count();
-		//currentDoc->pageCount = 0;
-		//atf = currentDoc->usesAutomaticTextFrames();
-		//currentDoc->setUsesAutomaticTextFrames(false);
-		//emit createNew(nr);
+
 		QString MasterPageName(dia->getMasterPageNameText());
 		QString MasterPageName2(MasterPageName);
 		int copyC = 1;
@@ -378,23 +375,11 @@ void MasterPagesPalette::importPage()
 		//FileLoader::PasteItem as this call doesnt pass in the new destination page
 		currentDoc->scMW()->loadPage(dia->getFromDoc(), dia->getMasterPageNameItem(), true, MasterPageName2);
 		qApp->processEvents();
-		/*
-		MasterPageName = currentDoc->Pages->at(nr)->PageNam;
-		MasterPageName2 = MasterPageName;
-		int copyC = 1;
-		while (currentDoc->MasterNames.contains(MasterPageName2))
-		{
-			MasterPageName2 = tr("Copy #%1 of ").arg(copyC)+MasterPageName;
-			copyC++;
-		}
-		currentDoc->MasterNames.insert(MasterPageName2, nr);
-		currentDoc->Pages->at(nr)->setPageName(MasterPageName2);
-		currentDoc->Pages->at(nr)->MPageNam = "";
-		*/
+
 		updateMasterPageList(MasterPageName2);
 		//currentDoc->setUsesAutomaticTextFrames(atf);
 		currentView->showMasterPage(currentDoc->MasterNames[MasterPageName2]);
-		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+		qApp->restoreOverrideCursor();
 		//currentDoc->MasterPages = currentDoc->Pages;
 	}
 	delete dia;

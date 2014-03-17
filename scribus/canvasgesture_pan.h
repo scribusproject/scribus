@@ -38,7 +38,6 @@ public:
 	virtual void drawControls(QPainter*);
 	
 private:
-	bool    m_haveCursor;
 	QCursor m_cursor;
 	QPointF m_canvasRefPoint;
 };

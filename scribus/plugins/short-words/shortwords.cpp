@@ -120,7 +120,7 @@ bool ShortWordsPlugin::run(ScribusDoc* doc, QString target)
 	SWDialog *dlg = new SWDialog(doc->scMW());
 	if (dlg->exec() == QDialog::Accepted) {
 		SWParse *parse = new SWParse();
-		QApplication::changeOverrideCursor(QCursor(Qt::WaitCursor));
+		QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 		if (!dlg->useStyleLang())
 			parse->lang = dlg->lang();
 		else
@@ -144,7 +144,7 @@ bool ShortWordsPlugin::run(ScribusDoc* doc, QString target)
 		delete parse;
 		// redraw document
 		doc->view()->DrawNew();
-		QApplication::changeOverrideCursor(Qt::ArrowCursor);
+		QApplication::restoreOverrideCursor();
 		doc->scMW()->setStatusBarInfoText(QObject::tr("Short Words processing. Done.", "short words plugin"));
 		doc->scMW()->mainWindowProgressBar->reset();
 		// set page where user calls vlna

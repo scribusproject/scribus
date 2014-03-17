@@ -1250,7 +1250,7 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 	{
 		if ((doc->appMode == modeMagnifier) && (kk == Qt::Key_Shift))
 		{
-			qApp->changeOverrideCursor(QCursor(loadIcon("LupeZm.xpm")));
+			view->setCursor(QCursor(loadIcon("LupeZm.xpm")));
 			return;
 		}
 	}
@@ -1349,7 +1349,6 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 		if (currKeySeq.matches(scrActions["viewShowContextMenu"]->shortcut()) == QKeySequence::ExactMatch)
 		{
 			ContextMenu* cmen=NULL;
-			qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 			if (doc->m_Selection->count() == 0)
 			{
 				//CB We should be able to get this calculated by the canvas.... it is already in m_canvas->globalToCanvas(m->globalPos());
@@ -1937,7 +1936,7 @@ void ScribusMainWindow::keyReleaseEvent(QKeyEvent *k)
 	if (HaveDoc)
 	{
 		if (doc->appMode == modeMagnifier)
-			qApp->changeOverrideCursor(QCursor(loadIcon("LupeZ.xpm")));
+			view->setCursor(QCursor(loadIcon("LupeZ.xpm")));
 	}
 	if (k->isAutoRepeat() || !_arrowKeyDown)
 		return;
@@ -2039,7 +2038,7 @@ void ScribusMainWindow::closeEvent(QCloseEvent *ce)
 	PrefsManager::deleteInstance();
 	FormatsManager::deleteInstance();
 	UrlLauncher::deleteInstance();
-	qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+//	qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 	qApp->exit(0);
 }
 
@@ -2384,7 +2383,7 @@ void ScribusMainWindow::newFileFromTemplate()
 	nftdialog* nftdia = new nftdialog(this, ScCore->getGuiLanguage());
 	if (nftdia->exec() && nftdia->isTemplateSelected())
 	{
-		qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
+		qApp->setOverrideCursor(QCursor(Qt::WaitCursor));
 		nfttemplate* currentTemplate = nftdia->currentTemplate();
 		if (loadDoc(QDir::cleanPath(currentTemplate->file)))
 		{
@@ -2395,7 +2394,7 @@ void ScribusMainWindow::newFileFromTemplate()
 			QDir::setCurrent(PrefsManager::instance()->documentDir());
 			removeRecent(QDir::cleanPath(currentTemplate->file));
 		}
-		qApp->changeOverrideCursor(Qt::ArrowCursor);
+		qApp->restoreOverrideCursor();
 	}
 	delete nftdia;
 }
@@ -2616,10 +2615,10 @@ void ScribusMainWindow::docSetup(ReformDoc* dia)
 	{
 		setStatusBarInfoText( tr("Updating Images"));
 		mainWindowProgressBar->reset();
-		qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
+		qApp->setOverrideCursor(QCursor(Qt::WaitCursor));
 		qApp->processEvents();
 		doc->recalcPicturesRes(true);
-		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+		qApp->restoreOverrideCursor();
 		setStatusBarInfoText("");
 		mainWindowProgressBar->reset();
 		view->previewQualitySwitcher->blockSignals(true);
@@ -3749,7 +3748,7 @@ bool ScribusMainWindow::slotPageImport()
 	if (dia->exec())
 	{
 		mainWindowStatusLabel->setText( tr("Importing Pages..."));
-		qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
+		qApp->setOverrideCursor(QCursor(Qt::WaitCursor));
 		std::vector<int> pageNs;
 		parsePagesString(dia->getPageNumbers(), &pageNs, dia->getPageCounter());
 		int startPage=0, nrToImport=pageNs.size();
@@ -3776,7 +3775,7 @@ bool ScribusMainWindow::slotPageImport()
 			startPage = doc->currentPage()->pageNr() + 1;
 			if (nrToImport > (doc->DocPages.count() - doc->currentPage()->pageNr()))
 			{
-				qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+				qApp->setOverrideCursor(QCursor(Qt::ArrowCursor));
 				int scmReturn=ScMessageBox::information(this, tr("Import Page(s)"), "<qt>" +
 				QObject::tr("<p>You are trying to import more pages than there are available in the current document counting from the active page.</p>Choose one of the following:<br>"
 				"<ul><li><b>Create</b> missing pages</li>"
@@ -3800,7 +3799,7 @@ bool ScribusMainWindow::slotPageImport()
 						mainWindowStatusLabel->setText("");
 						break;
 				}
-				qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
+				qApp->restoreOverrideCursor();
 			}
 		}
 		if (doIt)
@@ -3827,7 +3826,7 @@ bool ScribusMainWindow::slotPageImport()
 				doIt = false;
 			}
 		}
-		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+		qApp->restoreOverrideCursor();
 		ret = doIt;
 	}
 	delete dia;
@@ -3908,7 +3907,7 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 		                           CommonStrings::tr_OK);
 		return false;
 	}
-	qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
+	qApp->setOverrideCursor(QCursor(Qt::WaitCursor));
 	if (HaveDoc)
 		outlinePalette->buildReopenVals();
 	bool ret = false;
@@ -3931,7 +3930,7 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 
 		if (docNameUnmodified == platfName)
 		{
-			qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+			qApp->restoreOverrideCursor();
 			QMessageBox::information(this, tr("Document is already opened"),
 			                         tr("This document is already in use."
 			                            "You'll be switched into its window now."));
@@ -3948,7 +3947,7 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 		if (testResult == -1)
 		{
 			delete fileLoader;
-			qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+			qApp->restoreOverrideCursor();
 			QString title = tr("Fatal Error") ;
 			QString msg = "<qt>"+ tr("File %1 is not in an acceptable format").arg(FName)+"</qt>";
 			QString infoMsg = "<qt>" + tr("The file may be damaged or may have been produced in a later version of Scribus.") + "</qt>"; 
@@ -4009,7 +4008,7 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 			view=NULL;
 			doc=NULL;
 			setScriptRunning(false);
-			qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+			qApp->restoreOverrideCursor();
 			mainWindowStatusLabel->setText("");
 			mainWindowProgressBar->reset();
 			ActWin = NULL;
@@ -4262,7 +4261,7 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 	}
 	undoManager->switchStack(doc->DocName);
 	pagePalette->Rebuild();
-	qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+	qApp->restoreOverrideCursor();
 	undoManager->setUndoEnabled(true);
 	doc->setModified(false);
 	return ret;
@@ -4302,7 +4301,7 @@ void ScribusMainWindow::slotGetContent()
 				currItem->UseEmbedded = true;
 				currItem->IProfile = doc->CMSSettings.DefaultImageRGBProfile;
 				currItem->IRender = doc->CMSSettings.DefaultIntentImages;
-				qApp->changeOverrideCursor( QCursor(Qt::WaitCursor) );
+				qApp->setOverrideCursor( QCursor(Qt::WaitCursor) );
 				qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
 				doc->LoadPict(fileName, currItem->ItemNr, false, true);
 				//view->AdjustPictScale(currItem, false);
@@ -4314,6 +4313,7 @@ void ScribusMainWindow::slotGetContent()
 				propertiesPalette->updateColorList();
 				propertiesPalette->ShowCMS();
 				currItem->emitAllToGUI();
+				qApp->restoreOverrideCursor();
 			}
 		}
 		if (currItem->asTextFrame())
@@ -4391,7 +4391,7 @@ void ScribusMainWindow::slotGetClipboardImage()
 					currItem->UseEmbedded = true;
 					currItem->IProfile = doc->CMSSettings.DefaultImageRGBProfile;
 					currItem->IRender = doc->CMSSettings.DefaultIntentImages;
-					qApp->changeOverrideCursor( QCursor(Qt::WaitCursor) );
+					qApp->setOverrideCursor( QCursor(Qt::WaitCursor) );
 					qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
 					currItem->tempImageFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_XXXXXX.png");
 					currItem->tempImageFile->open();
@@ -4408,6 +4408,7 @@ void ScribusMainWindow::slotGetClipboardImage()
 					propertiesPalette->updateColorList();
 					propertiesPalette->ShowCMS();
 					currItem->emitAllToGUI();
+					qApp->restoreOverrideCursor();
 				}
 			}
 		}
@@ -4886,7 +4887,7 @@ void ScribusMainWindow::slotReallyPrint()
 	if (printer->exec())
 	{
 		ReOrderText(doc, view);
-		qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
+		qApp->setOverrideCursor(QCursor(Qt::WaitCursor));
 		doc->Print_Options.pageNumbers.clear();
 		if (printer->doPrintCurrentPage())
 			doc->Print_Options.pageNumbers.push_back(doc->currentPage()->pageNr()+1);
@@ -4899,18 +4900,17 @@ void ScribusMainWindow::slotReallyPrint()
 		}
 		PrinterUsed = true;
 		done = doPrint(doc->Print_Options, printError);
+		qApp->restoreOverrideCursor();
 		if (!done)
 		{
 			QString message = tr("Printing failed!");
 			if (!printError.isEmpty())
 				message += QString("\n%1").arg(printError);
-			qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 			QMessageBox::warning(this, CommonStrings::trWarning, message, CommonStrings::tr_OK);
 		}
 		else
 			doc->Print_Options.firstUse = false;
 		getDefaultPrinter(PDef.Pname, PDef.Pname, PDef.Command);
-		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 	}
 	printDinUse = false;
 	disconnect(printer, SIGNAL(doPreview()), this, SLOT(doPrintPreview()));
@@ -4924,12 +4924,13 @@ bool ScribusMainWindow::doPrint(PrintOptions &options, QString& error)
 	QString filename(options.filename);
 	if (options.toFile)
 	{
-		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+		qApp->setOverrideCursor(QCursor(Qt::ArrowCursor));
 		if (!overwrite(this, filename))
 		{
+			qApp->restoreOverrideCursor();
 			return true;
 		}
-		qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
+		qApp->restoreOverrideCursor();
 	}
 	ScCore->fileWatcher->forceScan();
 	ScCore->fileWatcher->stop();
@@ -5791,7 +5792,7 @@ void ScribusMainWindow::addNewPages(int wo, int where, int numPages, double heig
 		--wot;
 	else if (where==2)
 		wot=doc->Pages->count();
-	qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
+	qApp->setOverrideCursor(QCursor(Qt::WaitCursor));
 	view->updatesOn(false);
 	Page* currentPage = doc->currentPage();
 	for (cc = 0; cc < numPages; ++cc)
@@ -5809,7 +5810,7 @@ void ScribusMainWindow::addNewPages(int wo, int where, int numPages, double heig
 	}
 	doc->setCurrentPage(currentPage);
 	view->updatesOn(true);
-	qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+	qApp->restoreOverrideCursor();
 	//Use wo, the dialog currently returns a page Index +1 due to old numbering scheme, function now does the -1 as required
 	doc->changed();
 	doc->addPageToSection(wo, where, numPages);
@@ -6619,51 +6620,54 @@ void ScribusMainWindow::setAppMode(int mode)
 			case modeDrawShapes:
 				if (docSelectionCount!=0)
 					view->Deselect(true);
-				qApp->changeOverrideCursor(QCursor(loadIcon("DrawFrame.xpm")));
+				view->setCursor(QCursor(loadIcon("DrawFrame.xpm")));
 				break;
 			case modeDrawImage:
 				if (docSelectionCount!=0)
 					view->Deselect(true);
-				qApp->changeOverrideCursor(QCursor(loadIcon("DrawImageFrame.xpm")));
+				view->setCursor(QCursor(loadIcon("DrawImageFrame.xpm")));
 				break;
 			case modeDrawLatex:
 				if (docSelectionCount!=0)
 					view->Deselect(true);
-				qApp->changeOverrideCursor(QCursor(loadIcon("DrawLatexFrame.xpm")));
+				view->setCursor(QCursor(loadIcon("DrawLatexFrame.xpm")));
 				break;
 			case modeDrawText:
 				if (docSelectionCount!=0)
 					view->Deselect(true);
-				qApp->changeOverrideCursor(QCursor(loadIcon("DrawTextFrame.xpm")));
+				view->setCursor(QCursor(loadIcon("DrawTextFrame.xpm")));
 				break;
 			case modeDrawTable:
 				if (docSelectionCount!=0)
 					view->Deselect(true);
-				qApp->changeOverrideCursor(QCursor(loadIcon("DrawTable.xpm")));
+				view->setCursor(QCursor(loadIcon("DrawTable.xpm")));
 				break;
 			case modeDrawRegularPolygon:
 				if (docSelectionCount!=0)
 					view->Deselect(true);
-				qApp->changeOverrideCursor(QCursor(loadIcon("DrawPolylineFrame.xpm")));
+				view->setCursor(QCursor(loadIcon("DrawPolylineFrame.xpm")));
 				break;
 			case modeMagnifier:
 				if (docSelectionCount!=0)
 					view->Deselect(true);
 				view->Magnify = true;
-				qApp->changeOverrideCursor(QCursor(loadIcon("LupeZ.xpm")));
+				view->setCursor(QCursor(loadIcon("LupeZ.xpm")));
 				break;
 			case modePanning:
-				qApp->changeOverrideCursor(QCursor(loadIcon("HandC.xpm")));
+				view->setCursor(QCursor(loadIcon("HandC.xpm")));
 				break;
 			case modeDrawLine:
 			case modeDrawBezierLine:
-				qApp->changeOverrideCursor(QCursor(Qt::CrossCursor));
+				view->setCursor(QCursor(Qt::CrossCursor));
 				break;
 			case modeDrawFreehandLine:
-				qApp->changeOverrideCursor(QCursor(loadIcon("DrawFreeLine.png"), 0, 32));
+				view->setCursor(QCursor(loadIcon("DrawFreeLine.png"), 0, 32));
 				break;
 			case modeEyeDropper:
-				qApp->changeOverrideCursor(QCursor(loadIcon("colorpickercursor.png"), 0, 32));
+				view->setCursor(QCursor(loadIcon("colorpickercursor.png"), 0, 32));
+				break;
+			case modeLinkFrames:
+				view->setCursor(QCursor(loadIcon("LinkTextFrame.png"), 0, 31));
 				break;
 			case modeInsertPDFButton:
 			case modeInsertPDFTextfield:
@@ -6674,14 +6678,14 @@ void ScribusMainWindow::setAppMode(int mode)
 			case modeInsertPDFLinkAnnotation:
 				if (docSelectionCount!=0)
 					view->Deselect(true);
-				qApp->changeOverrideCursor(QCursor(Qt::CrossCursor));
+				view->setCursor(QCursor(Qt::CrossCursor));
 				break;
 			case modeMeasurementTool:
 			case modeEditGradientVectors:
-				qApp->changeOverrideCursor(QCursor(Qt::CrossCursor));
+				view->setCursor(QCursor(Qt::CrossCursor));
 				break;
 			default:
-				qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+				view->setCursor(QCursor(Qt::ArrowCursor));
 			break;
 		}
 		if (mode == modeDrawShapes)
@@ -7962,7 +7966,6 @@ bool ScribusMainWindow::DoSaveAsEps(QString fn, QString& error)
 	QStringList spots;
 	bool return_value = true;
 	ReOrderText(doc, view);
-	qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
 	QMap<QString, QMap<uint, FPointArray> > ReallyUsed;
 	ReallyUsed.clear();
 	doc->getUsedFonts(ReallyUsed);
@@ -7994,6 +7997,7 @@ bool ScribusMainWindow::DoSaveAsEps(QString fn, QString& error)
 	PSLib *dd = new PSLib(options, false, prefsManager->appPrefs.AvailFonts, ReallyUsed, usedColors, false, true);
 	if (dd != NULL)
 	{
+		qApp->setOverrideCursor(QCursor(Qt::WaitCursor));
 		if (dd->PS_set_file(fn))
 		{
 			int psRet = dd->CreatePS(doc, options);
@@ -8006,7 +8010,7 @@ bool ScribusMainWindow::DoSaveAsEps(QString fn, QString& error)
 		else
 			return_value = false;
 		delete dd;
-		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+		qApp->restoreOverrideCursor();
 	}
 	ScCore->fileWatcher->start();
 	return return_value;
@@ -8179,7 +8183,7 @@ void ScribusMainWindow::doSaveAsPDF()
 	PDFExportDialog dia(this, doc->DocName, ReallyUsed, view, doc->PDF_Options, doc->PDF_Options.PresentVals, ScCore->PDFXProfiles, prefsManager->appPrefs.AvailFonts, doc->unitRatio(), ScCore->PrinterProfiles);
 	if (dia.exec())
 	{
-		qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
+		qApp->setOverrideCursor(QCursor(Qt::WaitCursor));
 		dia.updateDocOptions();
 		doc->PDF_Options.firstUse = false;
 		ReOrderText(doc, view);
@@ -8217,7 +8221,7 @@ void ScribusMainWindow::doSaveAsPDF()
 				QString realName = QDir::toNativeSeparators(path+"/"+name+ tr("-Page%1").arg(pageNs[aa], 3, 10, QChar('0'))+"."+ext);
 				if (!getPDFDriver(realName, nam, components, pageNs2, thumbs, errorMsg, &cancelled))
 				{
-					qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+					qApp->restoreOverrideCursor();
 					QString message = tr("Cannot write the file: \n%1").arg(doc->PDF_Options.fileName);
 					if (!errorMsg.isEmpty())
 						message = QString("%1\n%2").arg(message).arg(errorMsg);
@@ -8248,7 +8252,7 @@ void ScribusMainWindow::doSaveAsPDF()
 		}
 		if (doc->PDF_Options.useDocBleeds)
 			doc->PDF_Options.bleeds = optBleeds;
-		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+		qApp->restoreOverrideCursor();
 	}
 }
 
@@ -9351,7 +9355,7 @@ void ScribusMainWindow::callImageEditor()
 
 void ScribusMainWindow::slotCharSelect()
 {
-	charPalette->show();
+	charPalette->setVisible(scrActions["insertGlyph"]->isChecked());
 }
 
 void ScribusMainWindow::setUndoMode(bool isObjectSpecific)
@@ -9649,7 +9653,7 @@ void ScribusMainWindow::slotEditPasteContents(int absolute)
 				imageItem->IProfile = doc->CMSSettings.DefaultImageRGBProfile;
 				imageItem->IRender  = doc->CMSSettings.DefaultIntentImages;
 				imageItem->effectsInUse = contentsBuffer.effects;
-				qApp->changeOverrideCursor( QCursor(Qt::WaitCursor) );
+				qApp->setOverrideCursor( QCursor(Qt::WaitCursor) );
 				qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
 				doc->loadPict(contentsBuffer.contentsFileName, imageItem);
 				imageItem->AdjustPictScale();
@@ -9668,6 +9672,7 @@ void ScribusMainWindow::slotEditPasteContents(int absolute)
 				propertiesPalette->updateColorList();
 				propertiesPalette->ShowCMS();
 				currItem->emitAllToGUI();
+				qApp->restoreOverrideCursor();
 			}
 		}
 	}

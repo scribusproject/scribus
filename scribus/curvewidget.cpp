@@ -188,7 +188,7 @@ void KCurve::mousePressEvent ( QMouseEvent * e )
 			m_grabOffsetX = m_grab_point.x() - x;
 			m_grabOffsetY = m_grab_point.y() - curveVal;
 			m_grab_point = FPoint(x + m_grabOffsetX, curveVal + m_grabOffsetY);
-			qApp->changeOverrideCursor(QCursor(Qt::CrossCursor));
+			setCursor(QCursor(Qt::CrossCursor));
 		}
 	}
 	else
@@ -196,7 +196,7 @@ void KCurve::mousePressEvent ( QMouseEvent * e )
 		if(fabs(y - closest_point.y()) * width() > 5)
 			return;
 		m_dragging = true;
-		qApp->changeOverrideCursor(QCursor(Qt::CrossCursor));
+		setCursor(QCursor(Qt::CrossCursor));
 	}
 	// Determine the leftmost and rightmost points.
 	m_leftmost = 0;
@@ -223,7 +223,7 @@ void KCurve::mouseReleaseEvent ( QMouseEvent * e )
 {
 	if (e->button() != Qt::LeftButton)
 		return;
-	qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+	setCursor(QCursor(Qt::ArrowCursor));
 	m_dragging = false;
 	repaint();
 	emit modified();
@@ -251,13 +251,13 @@ void KCurve::mouseMoveEvent ( QMouseEvent * e )
 			p = m_points.point(cc);
 		}
 		if (distance * width() > 5 || ydistance * height() > 5)
-			qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+			setCursor(QCursor(Qt::ArrowCursor));
 		else
-			qApp->changeOverrideCursor(QCursor(Qt::CrossCursor));
+			setCursor(QCursor(Qt::CrossCursor));
 	}
 	else  // Else, drag the selected point
 	{
-		qApp->changeOverrideCursor(QCursor(Qt::CrossCursor));
+		setCursor(QCursor(Qt::CrossCursor));
 		x += m_grabOffsetX;
 		y += m_grabOffsetY;
 		if (x <= m_leftmost)
@@ -312,11 +312,6 @@ void KCurve::setLinear(bool setter)
 bool KCurve::isLinear()
 {
 	return m_linear;
-}
-
-void KCurve::leaveEvent( QEvent * )
-{
-	qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 }
 
 CurveWidget::CurveWidget( QWidget* parent ) : QWidget( parent )

@@ -108,7 +108,7 @@ bool TransformEffectPlugin::run(ScribusDoc* doc, QString)
 		TransformDialog *dia = new TransformDialog(currDoc->scMW(), currDoc);
 		if (dia->exec())
 		{
-			qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
+			qApp->setOverrideCursor(QCursor(Qt::WaitCursor));
 			int nrOfCopies = dia->getCount();
 			QMatrix matrix = dia->getTransformMatrix();
 			int baseP = dia->getBasepoint();
@@ -257,7 +257,7 @@ bool TransformEffectPlugin::run(ScribusDoc* doc, QString)
 				currDoc->scMW()->setScriptRunning(false);
 				currDoc->m_Selection->connectItemToGUI();
 			}
-			qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+			qApp->restoreOverrideCursor();
 			currDoc->view()->DrawNew();
 			currDoc->changed();
 		}

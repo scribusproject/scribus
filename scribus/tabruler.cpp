@@ -170,6 +170,7 @@ void RulerT::mousePressEvent(QMouseEvent *m)
 {
 	QRect fpo;
 	mousePressed = true;
+	qApp->setOverrideCursor(QCursor(Qt::ArrowCursor));
 	rulerCode = 0;
 	if (haveInd)
 	{
@@ -230,6 +231,7 @@ void RulerT::mousePressEvent(QMouseEvent *m)
 void RulerT::mouseReleaseEvent(QMouseEvent *m)
 {
 	mousePressed = false;
+	qApp->restoreOverrideCursor();
 	if ((m->y() < height()) && (m->y() > 0))
 	{
 		if (rulerCode == 3)
@@ -259,7 +261,6 @@ void RulerT::mouseReleaseEvent(QMouseEvent *m)
 			else
 				emit noTabs();
 			repaint();
-			qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 		}
 	}
 	rulerCode = 0;
@@ -314,19 +315,19 @@ void RulerT::mouseMoveEvent(QMouseEvent *m)
 	}
 	if ((!mousePressed) && (m->y() < height()) && (m->y() > 0) && (m->x() > 0) && (m->x() < width()))
 	{
-		qApp->changeOverrideCursor(QCursor(loadIcon("tab.png"), 3));
+		setCursor(QCursor(loadIcon("tab.png"), 3));
 		if (haveInd)
 		{
 			fpo = QRect(static_cast<int>(firstLine+leftIndent-offset)-4, 0, 8, 12);
 			if (fpo.contains(m->pos()))
 			{
-				qApp->changeOverrideCursor(QCursor(Qt::SizeHorCursor));
+				setCursor(QCursor(Qt::SizeHorCursor));
 				return;
 			}
 			fpo = QRect(static_cast<int>(leftIndent-offset)-4, 12, 8, 12);
 			if (fpo.contains(m->pos()))
 			{
-				qApp->changeOverrideCursor(QCursor(Qt::SizeHorCursor));
+				setCursor(QCursor(Qt::SizeHorCursor));
 				return;
 			}
 		}
@@ -337,7 +338,7 @@ void RulerT::mouseMoveEvent(QMouseEvent *m)
 				fpo = QRect(static_cast<int>(tabValues[yg].tabPosition-offset)-3, 15, 8, 8);
 				if (fpo.contains(m->pos()))
 				{
-					qApp->changeOverrideCursor(QCursor(Qt::SizeHorCursor));
+					setCursor(QCursor(Qt::SizeHorCursor));
 					return;
 				}
 			}
@@ -347,10 +348,13 @@ void RulerT::mouseMoveEvent(QMouseEvent *m)
 
 void RulerT::leaveEvent(QEvent*)
 {
-	if ((mousePressed) && (rulerCode == 3))
-		qApp->changeOverrideCursor(QCursor(loadIcon("DelPoint.png"), 1, 1));
-	else
-		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+	if (mousePressed)
+	{
+		if (rulerCode == 3)
+			qApp->changeOverrideCursor(QCursor(loadIcon("DelPoint.png"), 1, 1));
+		else
+			qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+	}
 }
 
 void RulerT::updateTabList()

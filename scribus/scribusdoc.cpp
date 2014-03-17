@@ -828,7 +828,7 @@ void ScribusDoc::enableCMS(bool enable)
 	m_ScMW->mainWindowProgressBar->reset();
 	int cc = PageColors.count() + MasterItems.count() + DocItems.count();
 	m_ScMW->mainWindowProgressBar->setMaximum(cc);
-	qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
+	qApp->setOverrideCursor(QCursor(Qt::WaitCursor));
 	bool oldCM = CMSSettings.CMSinUse;
 	bool newCM = enable;
 	CloseCMSProfiles();
@@ -865,7 +865,7 @@ void ScribusDoc::enableCMS(bool enable)
 		HasCMS = false;
 	}
 	m_ScMW->mainWindowProgressBar->setValue(cc);
-	qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+	qApp->restoreOverrideCursor();
 	m_ScMW->setStatusBarInfoText("");
 	m_ScMW->mainWindowProgressBar->reset();
 }
@@ -3972,7 +3972,7 @@ int ScribusDoc::itemAddUserFrame(InsertAFrameData &iafData)
 					currItem->UseEmbedded = true;
 					currItem->IProfile = CMSSettings.DefaultImageRGBProfile;
 					currItem->IRender = CMSSettings.DefaultIntentImages;
-					qApp->changeOverrideCursor( QCursor(Qt::WaitCursor) );
+					qApp->setOverrideCursor( QCursor(Qt::WaitCursor) );
 					qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
 					loadPict(iafData.source, currItem, false, true);
 					if (iafData.sizeType==3) //Frame is size of imported image
@@ -3984,7 +3984,7 @@ int ScribusDoc::itemAddUserFrame(InsertAFrameData &iafData)
 						currItem->updateClip();
 					}
 					qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
-					qApp->changeOverrideCursor(Qt::ArrowCursor);
+					qApp->restoreOverrideCursor();
 				}
 			}
 			if (iafData.frameType==PageItem::TextFrame)
@@ -7824,7 +7824,7 @@ void ScribusDoc::itemSelection_DeleteItem(Selection* customSelection, bool force
 	}
 	
 	regionsChanged()->update(QRectF());
-	qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+	m_View->setCursor(QCursor(Qt::ArrowCursor));
 	//CB FIXME remove this and tree.h too
 //	m_ScMW->outlinePalette->BuildTree();
 

@@ -52,8 +52,7 @@ void CanvasMode_Panning::enterEvent(QEvent *)
 
 void CanvasMode_Panning::leaveEvent(QEvent *e)
 {
-	if (!m_canvas->m_viewMode.m_MouseButtonPressed)
-		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+
 }
 
 

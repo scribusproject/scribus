@@ -131,8 +131,7 @@ void BezierMode::enterEvent(QEvent *)
 
 void BezierMode::leaveEvent(QEvent *e)
 {
-	if (!m_MouseButtonPressed)
-		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+
 }
 
 
@@ -321,7 +320,7 @@ void BezierMode::mousePressEvent(QMouseEvent *m)
 		currItem = m_doc->Items->at(z);
 		m_doc->m_Selection->clear();
 		m_doc->m_Selection->addItem(currItem);
-		qApp->changeOverrideCursor(QCursor(Qt::CrossCursor));
+		m_view->setCursor(QCursor(Qt::CrossCursor));
 		m_canvas->setRenderModeFillBuffer();
 		inItemCreation = true;
 	}
@@ -423,7 +422,7 @@ void BezierMode::mouseReleaseEvent(QMouseEvent *m)
 		
 		if (!PrefsManager::instance()->appPrefs.stickyTools)
 		{
-//			qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+//			m_view->setCursor(QCursor(Qt::ArrowCursor));
 			m_view->requestMode(modeNormal);
 //			m_view->requestMode(submodePaintingDone);
 		}

@@ -74,8 +74,7 @@ void CanvasMode_EyeDropper::enterEvent(QEvent *)
 
 void CanvasMode_EyeDropper::leaveEvent(QEvent *e)
 {
-	if (!m_canvas->m_viewMode.m_MouseButtonPressed)
-		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+
 }
 
 
@@ -140,7 +139,7 @@ void CanvasMode_EyeDropper::mouseReleaseEvent(QMouseEvent *m)
 
 	releaseMouse();
 
-	qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+	m_view->setCursor(QCursor(Qt::ArrowCursor));
 
 	QPixmap pm = QPixmap::grabWindow( QApplication::desktop()->winId(), m->globalPos().x(), m->globalPos().y(), 1, 1);
 	QImage i = pm.toImage();

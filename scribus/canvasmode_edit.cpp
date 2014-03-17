@@ -351,8 +351,7 @@ void CanvasMode_Edit::enterEvent(QEvent *)
 
 void CanvasMode_Edit::leaveEvent(QEvent *e)
 {
-	if (!m_canvas->m_viewMode.m_MouseButtonPressed)
-		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+
 }
 
 void CanvasMode_Edit::activate(bool fromGesture)
@@ -557,15 +556,15 @@ void CanvasMode_Edit::mouseMoveEvent(QMouseEvent *m)
 					if(hitTest == Canvas::INSIDE)
 					{
 						if (currItem->asTextFrame())
-							qApp->changeOverrideCursor(QCursor(Qt::IBeamCursor));
+							m_view->setCursor(QCursor(Qt::IBeamCursor));
 						if (currItem->asImageFrame())
-							qApp->changeOverrideCursor(QCursor(loadIcon("HandC.xpm")));
+							m_view->setCursor(QCursor(loadIcon("HandC.xpm")));
 					}
 				}
 				else
 				{
 // 					setModeCursor();
-					qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+					m_view->setCursor(QCursor(Qt::ArrowCursor));
 				}
 			}
 		}
@@ -643,7 +642,7 @@ void CanvasMode_Edit::mousePressEvent(QMouseEvent *m)
 					else
 					{
 						m_view->requestMode(submodePaintingDone);
-						qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+						m_view->setCursor(QCursor(Qt::ArrowCursor));
 					}
 					if (currItem->asTextFrame())
 					{
@@ -654,7 +653,7 @@ void CanvasMode_Edit::mousePressEvent(QMouseEvent *m)
 				else
 				{
 					m_view->requestMode(submodePaintingDone);
-					qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+					m_view->setCursor(QCursor(Qt::ArrowCursor));
 				}
 				m_doc->m_Selection->delaySignalsOff();
 				if (wantNormal)
@@ -772,13 +771,13 @@ void CanvasMode_Edit::mousePressEvent(QMouseEvent *m)
 				else
 				{
 					m_view->requestMode(submodePaintingDone);
-					qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+					m_view->setCursor(QCursor(Qt::ArrowCursor));
 				}
 			}
 			else
 			{
 				m_view->requestMode(submodePaintingDone);
-				qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+				m_view->setCursor(QCursor(Qt::ArrowCursor));
 			}
 		}
 	}
@@ -1183,11 +1182,11 @@ bool CanvasMode_Edit::SeleItem(QMouseEvent *m)
 		{
 			frameResizeHandle = m_canvas->frameHitTest(QPointF(mousePointDoc.x(),mousePointDoc.y()), currItem);
 			if ((frameResizeHandle == Canvas::INSIDE) && (!currItem->locked()))
-				qApp->changeOverrideCursor(QCursor(Qt::SizeAllCursor));
+				m_view->setCursor(QCursor(Qt::SizeAllCursor));
 		}
 		else
 		{
-			qApp->changeOverrideCursor(QCursor(Qt::SizeAllCursor));
+			m_view->setCursor(QCursor(Qt::SizeAllCursor));
 			m_canvas->m_viewMode.operItemResizing = false;
 		}
 		return true;
@@ -1203,7 +1202,7 @@ bool CanvasMode_Edit::SeleItem(QMouseEvent *m)
 void CanvasMode_Edit::createContextMenu(PageItem* currItem, double mx, double my)
 {
 	ContextMenu* cmen=NULL;
-	qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+	m_view->setCursor(QCursor(Qt::ArrowCursor));
 	m_view->setObjectUndoMode();
 	Mxp = mx;
 	Myp = my;

@@ -272,7 +272,7 @@ bool PathAlongPathPlugin::run(ScribusDoc* doc, QString)
 
 void PathAlongPathPlugin::updateEffectG(int effectType, double offset, double offsetY, double gap, int rotate)
 {
-	qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
+	qApp->setOverrideCursor(QCursor(Qt::WaitCursor));
 	if (effectType == -1)
 	{
 		for (int bx = 0; bx < patternItemG.count(); ++bx)
@@ -334,7 +334,7 @@ void PathAlongPathPlugin::updateEffectG(int effectType, double offset, double of
 			bxi->ContourLine = bxi->PoLine.copy();
 		}
 	}
-	qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+	qApp->restoreOverrideCursor();
 	if (firstUpdate)
 		currDoc->view()->DrawNew();
 	else
