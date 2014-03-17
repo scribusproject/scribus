@@ -427,10 +427,7 @@ int ScribusMainWindow::initScMW(bool primaryMainWindow)
 		scrActions["SaveAsDocumentTemplate"]->setEnabled(false);
 
 	connect(ScCore->fileWatcher, SIGNAL(fileDeleted(QString )), this, SLOT(removeRecentFromWatcher(QString)));
-//	connect(this, SIGNAL(TextStyle(const ParagraphStyle&)), propertiesPalette, SLOT(updateStyle(const ParagraphStyle&)));
-//	connect(this, SIGNAL(TextEffects(int)), propertiesPalette, SLOT(setStil(int)));
 	connect(ClipB, SIGNAL(dataChanged()), this, SLOT(ClipChange()));
-//	connect(ClipB, SIGNAL(selectionChanged()), this, SLOT(ClipChange()));
 	setAcceptDrops(true);
 	QCoreApplication::instance()->installEventFilter(this);
 	scrActions["toolsSelect"]->setChecked(true);
@@ -574,8 +571,6 @@ void ScribusMainWindow::initPalettes()
 	propertiesPalette->setMainWindow(this);
 	connect( scrActions["toolsProperties"], SIGNAL(toggled(bool)) , propertiesPalette, SLOT(setPaletteShown(bool)) );
 	connect( propertiesPalette, SIGNAL(paletteShown(bool)), scrActions["toolsProperties"], SLOT(setChecked(bool)));
-	//CB dont need this until we have a doc...
-	//propertiesPalette->Cpal->setColors(prefsManager->colorSet());
 	emit UpdateRequest(reqDefFontListUpdate);
 	propertiesPalette->installEventFilter(this);
 	nodePalette = new NodePalette(this);
@@ -600,12 +595,7 @@ void ScribusMainWindow::initPalettes()
 	connect( scrActions["toolsBookmarks"], SIGNAL(toggled(bool)) , bookmarkPalette, SLOT(setPaletteShown(bool)) );
 	connect( bookmarkPalette, SIGNAL(paletteShown(bool)), scrActions["toolsBookmarks"], SLOT(setChecked(bool)));
 	bookmarkPalette->installEventFilter(this);
-//	measurementPalette = new Measurements(this);
-//	connect( scrActions["toolsMeasurements"], SIGNAL(toggled(bool)) , measurementPalette, SLOT(setPaletteShown(bool)) );
 	connect( scrActions["toolsMeasurements"], SIGNAL(toggledData(bool, int)) , this, SLOT(setAppModeByToggle(bool, int)) );
-//	connect( measurementPalette, SIGNAL(paletteShown(bool)), scrActions["toolsMeasurements"], SLOT(setChecked(bool)));
-//	measurementPalette->installEventFilter(this);
-//	measurementPalette->hide();
 	docCheckerPalette = new CheckDocument(this, false);
 	connect( scrActions["toolsPreflightVerifier"], SIGNAL(toggled(bool)) , docCheckerPalette, SLOT(setPaletteShown(bool)) );
 	connect( scrActions["toolsPreflightVerifier"], SIGNAL(toggled(bool)) , this, SLOT(docCheckToggle(bool)) );
@@ -895,8 +885,6 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->addMenuItemString("itemWeld", "Weld");
 	scrMenuMgr->addMenuItemString("itemsUnWeld", "Weld");
 	scrMenuMgr->addMenuItemString("itemEditWeld", "Weld");
-
-	//scrMenuMgr->addMenuItem(scrActions["editMark"], "Item", false);
 	scrMenuMgr->addMenuItemString("editMark", "Item");
 
 	//Insert menu
@@ -1092,7 +1080,6 @@ void ScribusMainWindow::initMenuBar()
 
 	//Window menu
 	scrMenuMgr->createMenu("Windows", ActionManager::defaultMenuNameEntryTranslated("Windows"), QString::null, true);
-	//addDefaultWindowMenuItems();
 
 	//Help menu
 	scrMenuMgr->createMenu("Help", ActionManager::defaultMenuNameEntryTranslated("Help"));
@@ -1265,12 +1252,12 @@ void ScribusMainWindow::setTBvals(PageItem *currItem)
 	//check if mark in cursor place and enable editMark action
 	if (doc->appMode == modeEdit && item->itemText.cursorPosition() < item->itemText.length())
 	{
-        if (item->itemText.hasMark(item->itemText.cursorPosition()))
+		if (item->itemText.hasMark(item->itemText.cursorPosition()))
 		{
-            Mark* mark = item->itemText.mark(item->itemText.cursorPosition());
+			Mark* mark = item->itemText.mark(item->itemText.cursorPosition());
 			scrActions["editMark"]->setEnabled(true);
-            if ((mark->isType(MARKNoteMasterType) || mark->isType(MARKNoteFrameType)) && (mark->getNotePtr() != NULL))
-                nsEditor->setNotesStyle(mark->getNotePtr()->notesStyle());
+			if ((mark->isType(MARKNoteMasterType) || mark->isType(MARKNoteFrameType)) && (mark->getNotePtr() != NULL))
+				nsEditor->setNotesStyle(mark->getNotePtr()->notesStyle());
 		}
 		else
 			scrActions["editMark"]->setEnabled(false);
@@ -1405,56 +1392,7 @@ bool ScribusMainWindow::eventFilter( QObject* /*o*/, QEvent *e )
 		if (currKeySeq == scrActions["specialToggleAllGuides"]->shortcut())
 			scrActions["specialToggleAllGuides"]->activate(QAction::Trigger);
 		else
-// CB These were moved to ActionManager via the setShortcutContext(Qt::ApplicationShortcut) calls, leaving for notes for now
-// 		if (currKeySeq == scrActions["toolsProperties"]->accel())
-// 			scrActions["toolsProperties"]->toggle();
-// 		else
-// 		if (currKeySeq == scrActions["toolsOutline"]->accel())
-// 			scrActions["toolsOutline"]->toggle();
-// 		else
-// 		if (currKeySeq == scrActions["toolsScrapbook"]->accel())
-// 			scrActions["toolsScrapbook"]->toggle();
-// 		else
-// 		if (currKeySeq == scrActions["toolsLayers"]->accel())
-// 			scrActions["toolsLayers"]->toggle();
-// 		else
-// 		if (currKeySeq == scrActions["toolsPages"]->accel())
-// 			scrActions["toolsPages"]->toggle();
-// 		else
-// 		if (currKeySeq == scrActions["toolsBookmarks"]->accel())
-// 			scrActions["toolsBookmarks"]->toggle();
-// 		else
-// 		if (currKeySeq == scrActions["toolsActionHistory"]->accel())
-// 			scrActions["toolsActionHistory"]->toggle();
-// 		else
-// 		if (currKeySeq == scrActions["toolsPreflightVerifier"]->accel())
-// 			scrActions["toolsPreflightVerifier"]->toggle();
-// 		else
-// 		if (currKeySeq == scrActions["toolsAlignDistribute"]->accel())
-// 			scrActions["toolsAlignDistribute"]->toggle();
-// 		else
-		//Edit actions
-/*		if (currKeySeq == scrActions["editStyles"]->shortcut())
-			scrActions["editStyles"]->toggle();
-		else
-		if (currKeySeq == scrActions["editUndoAction"]->shortcut() && scrActions["editUndoAction"]->isEnabled())
-			scrActions["editUndoAction"]->activate(QAction::Trigger);
-		else
-		if (currKeySeq == scrActions["editRedoAction"]->shortcut() && scrActions["editRedoAction"]->isEnabled())
-			scrActions["editRedoAction"]->activate(QAction::Trigger);
-		else
-		//Other actions
-		if (currKeySeq == scrActions["fileQuit"]->shortcut())
-			scrActions["fileQuit"]->activate(QAction::Trigger);
-		else
-		//Zoom actions
-		if (currKeySeq == scrActions["toolsZoomIn"]->shortcut())
-			scrActions["toolsZoomIn"]->activate(QAction::Trigger);
-		else
-		if (currKeySeq == scrActions["toolsZoomOut"]->shortcut())
-			scrActions["toolsZoomOut"]->activate(QAction::Trigger);
-		else */
-		retVal=false;
+			retVal=false;
 	}
 	else
 		retVal=false;
@@ -1780,10 +1718,8 @@ void ScribusMainWindow::changeEvent(QEvent *e)
 void ScribusMainWindow::closeEvent(QCloseEvent *ce)
 {
 	//Do not quit if Preferences or new doc window is open
-//	Preferences *prefsWin = findChild<Preferences *>(QString::fromLocal8Bit("PreferencesWindow"));
 	PreferencesDialog *prefsDialog = findChild<PreferencesDialog *>(QString::fromLocal8Bit("PreferencesDialog"));
 	NewDoc *newDocWin = findChild<NewDoc *>(QString::fromLocal8Bit("NewDocumentWindow"));
-//	if (prefsWin!=NULL || prefsDialog!=NULL || newDocWin!=NULL)
 	if (prefsDialog!=NULL || newDocWin!=NULL)
 	{
 		ce->ignore();
@@ -2308,10 +2244,7 @@ void ScribusMainWindow::newActWin(QMdiSubWindow *w)
 		actionManager->disconnectNewViewActions();
 		disconnect(view, SIGNAL(signalGuideInformation(int, qreal)), alignDistributePalette, SLOT(setGuide(int, qreal)));
 		if (ScCore->usingGUI())
-		{
 			disconnect(doc->m_Selection, SIGNAL(selectionIsMultiple(bool)), 0, 0);
-			//disconnect(doc->m_Selection, SIGNAL(empty()), 0, 0);
-		}
 	}
 
 	view = ActWin->view();
@@ -2334,7 +2267,6 @@ void ScribusMainWindow::newActWin(QMdiSubWindow *w)
 		view->requestMode(doc->appMode);
 	}
 	view->setFocus();
-//	mdiArea->setScrollBarsEnabled(!(w->isMaximized()));
 	scrActions["viewShowMargins"]->setChecked(doc->guidesPrefs().marginsShown);
 	scrActions["viewShowBleeds"]->setChecked(doc->guidesPrefs().showBleed);
 	scrActions["viewShowFrames"]->setChecked(doc->guidesPrefs().framesShown);
@@ -2408,11 +2340,9 @@ void ScribusMainWindow::windowsMenuActivated(int id)
 void ScribusMainWindow::SwitchWin()
 {
 	updateActiveWindowCaption(doc->DocName);
-// 	scrActions["shade100"]->setChecked(true);
 	propertiesPalette->setDoc(doc);
 	marksManager->setDoc(doc);
 	nsEditor->setDoc(doc);
-	//propertiesPalette->Cpal->showGradient(0);
 	pagePalette->setView(view);
 	layerPalette->setDoc(doc);
 	guidePalette->setDoc(doc);
@@ -2452,14 +2382,11 @@ void ScribusMainWindow::HaveNewDoc()
 
 	//Update palettes
 	updateActiveWindowCaption(doc->DocName);
-// 	scrActions["shade100"]->setChecked(true);
 	propertiesPalette->setDoc(doc);
 	nsEditor->setDoc(doc);
 	marksManager->setDoc(doc);
 	symbolPalette->setDoc(doc);
 	inlinePalette->setDoc(doc);
-//	propertiesPalette->Cpal->showGradient(0);
-//	propertiesPalette->updateColorList();
 	pagePalette->setView(view);
 	layerPalette->setDoc(doc);
 	guidePalette->setDoc(doc);
@@ -2486,22 +2413,10 @@ void ScribusMainWindow::HaveNewDoc()
 	connect(view, SIGNAL(ItemGeom()), propertiesPalette->xyzPal, SLOT(handleSelectionChanged()), Qt::UniqueConnection);
 	connect(view, SIGNAL(ChBMText(PageItem *)), this, SLOT(BookMarkTxT(PageItem *)), Qt::UniqueConnection);
 	connect(view, SIGNAL(HaveSel(int)), this, SLOT(HaveNewSel(int)), Qt::UniqueConnection);
-//	connect(view, SIGNAL(SetAngle(double)), propertiesPalette, SLOT(setR(double)), Qt::UniqueConnection);
-//	connect(view, SIGNAL(SetSizeValue(double)), propertiesPalette, SLOT(setLineWidth(double)), Qt::UniqueConnection);
-//	connect(view, SIGNAL(SetLocalValues(double, double, double, double)), propertiesPalette, SLOT(setScaleAndOffset(double, double, double, double)), Qt::UniqueConnection);
-//	connect(view, SIGNAL(SetLineArt(Qt::PenStyle, Qt::PenCapStyle, Qt::PenJoinStyle)), propertiesPalette, SLOT( setLIvalue(Qt::PenStyle, Qt::PenCapStyle, Qt::PenJoinStyle)), Qt::UniqueConnection);
-//	connect(view, SIGNAL(ItemTextAttr(double)), propertiesPalette, SLOT(setLsp(double)), Qt::UniqueConnection);
-//	connect(view, SIGNAL(ItemTextCols(int, double)), propertiesPalette, SLOT(setCols(int, double)), Qt::UniqueConnection);
-//	connect(view, SIGNAL(SetDistValues(double, double, double, double)), propertiesPalette, SLOT(setTextToFrameDistances(double, double, double, double)), Qt::UniqueConnection);
-	//connect(view, SIGNAL(ItemRadius(double)), propertiesPalette, SLOT(setRR(double)), Qt::UniqueConnection);
-//	connect(view, SIGNAL(Amode(int)), this, SLOT(setAppMode(int)), Qt::UniqueConnection);
 	connect(view, SIGNAL(PaintingDone()), this, SLOT(slotSelect()), Qt::UniqueConnection);
 	connect(view, SIGNAL(DocChanged()), this, SLOT(slotDocCh()), Qt::UniqueConnection);
-	//connect(view, SIGNAL(HavePoint(bool, bool)), nodePalette, SLOT(HaveNode(bool, bool)), Qt::UniqueConnection);
 	connect(view, SIGNAL(MousePos(double, double)), this, SLOT(setStatusBarMousePosition(double, double)), Qt::UniqueConnection);
-	//connect(view, SIGNAL(ItemRadius(double)), propertiesPalette, SLOT(setRR(double)), Qt::UniqueConnection);
 	connect(view, SIGNAL(ItemCharStyle(const CharStyle&)), propertiesPalette->textPal, SLOT(updateCharStyle(const CharStyle&)), Qt::UniqueConnection);
-//	connect(view, SIGNAL(ItemTextEffects(int)), propertiesPalette, SLOT(setStil(int)), Qt::UniqueConnection);
 	connect(view, SIGNAL(ItemTextEffects(int)), this, SLOT(setStyleEffects(int)), Qt::UniqueConnection);
 	connect(view, SIGNAL(ItemTextAlign(int))  , this, SLOT(setAlignmentValue(int)), Qt::UniqueConnection);
 	connect(view, SIGNAL(HasTextSel()), this, SLOT(EnableTxEdit()), Qt::UniqueConnection);
@@ -2516,8 +2431,6 @@ void ScribusMainWindow::HaveNewDoc()
 	connect(view, SIGNAL(AddBM(PageItem *)), this, SLOT(AddBookMark(PageItem *)), Qt::UniqueConnection);
 	connect(view, SIGNAL(DelBM(PageItem *)), this, SLOT(DelBookMark(PageItem *)), Qt::UniqueConnection);
 	connect(view, SIGNAL(DoGroup()), this, SLOT(GroupObj()), Qt::UniqueConnection);
-//	connect(view, SIGNAL(EndNodeEdit()), this, SLOT(ToggleFrameEdit()), Qt::UniqueConnection);
-//	connect(view, SIGNAL(LevelChanged(uint )), propertiesPalette, SLOT(setLevel(uint)), Qt::UniqueConnection);
 	connect(view, SIGNAL(callGimp()), this, SLOT(callImageEditor()), Qt::UniqueConnection);
 }
 
@@ -2531,23 +2444,6 @@ void ScribusMainWindow::HaveNewSel(int SelectedType)
 	{
 		if (docSelectionCount != 0)
 			currItem = doc->m_Selection->itemAt(0);
-	//	{
-	//		int lowestItem = 999999;
-	//		for (int a = 0; a < doc->m_Selection->count(); ++a)
-	//		{
-	//			currItem = doc->m_Selection->itemAt(a);
-	//			lowestItem = qMin(lowestItem, doc->Items->indexOf(currItem));
-	//		}
-	//		currItem = doc->Items->at(lowestItem);
-	//		if ((docSelectionCount == 1) && currItem && currItem->asImageFrame())
-	//			isRaster = currItem->isRaster;
-//			doc->m_Selection->removeItem(currItem);
-//			doc->m_Selection->prependItem(currItem);
-//			currItem = doc->m_Selection->itemAt(0);
-	//		assert(currItem);
-//			if (!currItem)
-//				SelectedType=-1;
-	//	}
 		else
 			SelectedType = -1;
 	}
@@ -4615,7 +4511,6 @@ bool ScribusMainWindow::DoFileSave(const QString& fileName, QString* savedFileNa
 	{
 		updateActiveWindowCaption(fileName);
 		undoManager->renameStack(fileName);
-// 		scrActions["fileSave"]->setEnabled(false);
 		scrActions["fileRevert"]->setEnabled(false);
 		updateRecent(fileName);
 	}
@@ -4643,7 +4538,6 @@ bool ScribusMainWindow::slotFileClose()
 		return true;
 	}
 	ScribusWin* tw = ActWin;
-//	ActWin->close();
 	mdiArea->closeActiveSubWindow();
 	if (tw == ActWin)
 		return false;
@@ -4660,21 +4554,6 @@ bool ScribusMainWindow::DoFileClose()
 	actionManager->disconnectNewDocActions();
 	actionManager->disconnectNewViewActions();
 	disconnect(view, SIGNAL(signalGuideInformation(int, qreal)), alignDistributePalette, SLOT(setGuide(int, qreal)));
-	/*CB currently unused
-	if (doc->viewCount > 1)
-	{
-		--doc->viewCount;
-		closeActiveWindowMasterPageEditor();
-		slotSelect();
-		disconnect(ScCore->fileWatcher, SIGNAL(fileChanged(QString )), doc, SLOT(updatePict(QString)));
-		disconnect(ScCore->fileWatcher, SIGNAL(fileDeleted(QString )), doc, SLOT(removePict(QString)));
-		view->close();
-		delete view;
-		view = NULL;
-		doc = NULL;
-		ActWin = NULL;
-		return true;
-	}*/
 	undoManager->removeStack(doc->DocName);
 	closeActiveWindowMasterPageEditor();
 	slotSelect();
@@ -4687,7 +4566,6 @@ bool ScribusMainWindow::DoFileClose()
 	if (ScCore->haveCMS())
 		doc->CloseCMSProfiles();
 	//<<Palettes
-//	propertiesPalette->NewSel(-1);
 	propertiesPalette->unsetDoc();
 	inlinePalette->unsetDoc();
 	symbolPalette->unsetDoc();
@@ -4708,9 +4586,6 @@ bool ScribusMainWindow::DoFileClose()
 		PluginManager& pluginManager(PluginManager::instance());
 		pluginManager.enableOnlyStartupPluginActions(this);
 		appModeHelper.mainWindowCloseLastDoc();
-
-		//CB dont need this until we have a doc...
-		//propertiesPalette->Cpal->setColors(prefsManager->colorSet());
 		mainWindowStatusLabel->setText( tr("Ready"));
 		PrinterUsed = false;
 	}
@@ -4907,21 +4782,7 @@ bool ScribusMainWindow::doPrint(PrintOptions &options, QString& error)
 
 void ScribusMainWindow::slotFileQuit()
 {
-	// #11803 : Not necessary, done via closeEvent() if required.
-	// Unsetting doc from palette is premature if doc is in a 
-	// special mode, eg. symbol edition or inline fram edition
-	// Disconnection of toolbar signals is also done by closeEvent()
-	// whean appropriate, ie only if all docs have been closed. 
-	/*propertiesPalette->unsetDoc();
-	symbolPalette->unsetDoc();
-	inlinePalette->unsetDoc();
-	fileToolBar->connectPrefsSlot(false);
-	editToolBar->connectPrefsSlot(false);
-	modeToolBar->connectPrefsSlot(false);
-	pdfToolBar->connectPrefsSlot(false);*/
-
 	ScCore->pluginManager->savePreferences();
-
 	close();
 }
 
@@ -5126,11 +4987,6 @@ void ScribusMainWindow::slotEditPaste()
 				currItem->deleteSelectedTextFromFrame();
 			}
 
-			/*if (currItem->CPos < 0)
-				currItem->CPos = 0;
-			if (currItem->CPos > currItem->itemText.length())
-				currItem->CPos = currItem->itemText.length();*/
-
 			if (ScMimeData::clipboardHasScribusText())
 			{
 				Serializer *textSerializer = doc->textSerializer();
@@ -5148,7 +5004,7 @@ void ScribusMainWindow::slotEditPaste()
 					story->setDoc(doc);
 					for (int pos=story->length() -1; pos >= 0; --pos)
 					{
-                        if (story->hasMark(pos) && (story->mark(pos)->isNoteType()))
+						if (story->hasMark(pos) && (story->mark(pos)->isNoteType()))
 							story->removeChars(pos,1);
 					}
 				}
@@ -5526,14 +5382,12 @@ void ScribusMainWindow::EnableTxEdit()
 {
 	scrActions["editCut"]->setEnabled(true);
 	scrActions["editCopy"]->setEnabled(true);
-	//scrActions["editClearContents"]->setEnabled(true);
 }
 
 void ScribusMainWindow::DisableTxEdit()
 {
 	scrActions["editCut"]->setEnabled(false);
 	scrActions["editCopy"]->setEnabled(false);
-	//scrActions["editClearContents"]->setEnabled(false);
 }
 
 void ScribusMainWindow::slotHelpAbout()
@@ -5959,26 +5813,25 @@ void ScribusMainWindow::toggleUndoPalette()
 
 void ScribusMainWindow::TogglePics()
 {
-	if (doc)
+	if (!doc)
+		return;
+	doc->guidesPrefs().showPic = !doc->guidesPrefs().showPic;
+	QList<PageItem*> allItems;
+	for (int a = 0; a < doc->Items->count(); ++a)
 	{
-		doc->guidesPrefs().showPic = !doc->guidesPrefs().showPic;
-		QList<PageItem*> allItems;
-		for (int a = 0; a < doc->Items->count(); ++a)
+		PageItem *currItem = doc->Items->at(a);
+		if (currItem->isGroup())
+			allItems = currItem->asGroupFrame()->getItemList();
+		else
+			allItems.append(currItem);
+		for (int ii = 0; ii < allItems.count(); ii++)
 		{
-			PageItem *currItem = doc->Items->at(a);
-			if (currItem->isGroup())
-				allItems = currItem->asGroupFrame()->getItemList();
-			else
-				allItems.append(currItem);
-			for (int ii = 0; ii < allItems.count(); ii++)
-			{
-				PageItem* item = allItems.at(ii);
-				if (item->asImageFrame())
-					item->setImageShown(doc->guidesPrefs().showPic);
-			}
+			PageItem* item = allItems.at(ii);
+			if (item->asImageFrame())
+				item->setImageShown(doc->guidesPrefs().showPic);
 		}
-		view->DrawNew();
 	}
+	view->DrawNew();
 }
 
 void ScribusMainWindow::ToggleAllGuides()
@@ -6197,29 +6050,26 @@ void ScribusMainWindow::ToggleRulerMode()
 
 void ScribusMainWindow::ToggleUGrid()
 {
-	if (doc)
-	{
-		doc->SnapGrid = !doc->SnapGrid;
-		slotDocCh();
-	}
+	if (!doc)
+		return;
+	doc->SnapGrid = !doc->SnapGrid;
+	slotDocCh();
 }
 
 void ScribusMainWindow::ToggleUGuides()
 {
-	if (doc)
-	{
-		doc->SnapGuides = !doc->SnapGuides;
-		slotDocCh();
-	}
+	if (!doc)
+		return;
+	doc->SnapGuides = !doc->SnapGuides;
+	slotDocCh();
 }
 
 void ScribusMainWindow::ToggleUElements()
 {
-	if (doc)
-	{
-		doc->SnapElement = !doc->SnapElement;
-		slotDocCh();
-	}
+	if (!doc)
+		return;
+	doc->SnapElement = !doc->SnapElement;
+	slotDocCh();
 }
 
 void ScribusMainWindow::SetSnapElements(bool b)
@@ -6234,14 +6084,8 @@ void ScribusMainWindow::toggleNodeEdit()
 	if (!doc)
 		return;
 
-	if (doc->appMode == modeEditClip)
-	{
-		view->requestMode(submodeEndNodeEdit);
-	}
-	else
-	{
-		view->requestMode(modeEditClip);
-	}
+	int i = (doc->appMode == modeEditClip) ? submodeEndNodeEdit : modeEditClip;
+	view->requestMode(i);
 }
 
 void ScribusMainWindow::ToggleFrameEdit()
@@ -6790,7 +6634,6 @@ void ScribusMainWindow::setItemTypeStyle(int id)
 void ScribusMainWindow::setStyleEffects(int s)
 {
 	int c = s & 1919;
-//	doc->currentStyle.charStyle().setFeatures(static_cast<StyleFlag>(c).featureList());
 	scrActions["typeEffectNormal"]->setChecked(c==0);
 	scrActions["typeEffectSuperscript"]->setChecked(c & 1);
 	scrActions["typeEffectSubscript"]->setChecked(c & 2);
@@ -6808,7 +6651,6 @@ void ScribusMainWindow::setItemEffects(int h)
 {
 	if (!doc->m_Selection->isEmpty())
 	{
-//		doc->currentStyle.charStyle().setFeatures(static_cast<StyleFlag>(h).featureList());
 		setStyleEffects(h);
 		doc->itemSelection_SetEffects(h);
 	}
@@ -6997,10 +6839,6 @@ void ScribusMainWindow::changePageMargins()
 				Apply_MasterPage(dia->masterPage(), doc->currentPage()->pageNr());
 		}
 		doc->updateEndnotesFrames();
-		//CB: Moved to changePageMargins for #2338
-		//doc->currentPage()->marginPreset = dia->getMarginPreset();
-		//view->reformPages(dia->getMoveObjects());
-		//view->DrawNew();
 	}
 	delete dia;
 }
@@ -7063,310 +6901,11 @@ void ScribusMainWindow::setItemShade(int id)
 	}
 }
 
-#if 0
-//CB still called from SE
-void ScribusMainWindow::saveStyles(StilFormate *dia)
-{
-	QList<uint> ers;
-	QString nn;
-// 	PageItem* ite = 0;
-	bool ff;
-	uint nr;
-	ers.clear();
-	/*FIXME:NLS
-	ers.append(0);
-	ers.append(1);
-	ers.append(2);
-	ers.append(3);
-	ers.append(4);
-	for (uint a=5; a<doc->docParagraphStyles.count(); ++a)
-*/
-	for (uint a=0; a<doc->paragraphStyles().count(); ++a)
-	{
-		ff = false;
-		nn = doc->paragraphStyles()[a].name();
-		for (uint b=0; b<dia->TempVorl.count(); ++b)
-		{
-			if (nn == dia->TempVorl[b].name())
-			{
-				nr = b;
-				ff = true;
-				break;
-			}
-		}
-		if (ff)
-			ers.append(nr);
-		else
-		{
-			for (uint b=0; b<dia->TempVorl.count(); ++b)
-			{
-				if (doc->paragraphStyles()[a].equiv(dia->TempVorl[b]))
-				{
-					nr = b;
-					ff = true;
-					break;
-				}
-			}
-			if (ff)
-				ers.append(nr);
-			else
-			{
-				if (dia->ReplaceList.count() != 0)
-				{
-					QString ne = dia->ReplaceList[nn];
-					if (ne == tr("No Style"))
-						ers.append(0);
-					else
-					{
-						for (uint b=0; b<dia->TempVorl.count(); ++b)
-						{
-							if (ne == dia->TempVorl[b].name())
-							{
-								nr = b;
-								ff = true;
-								break;
-							}
-						}
-						if (ff)
-							ers.append(nr);
-						else
-							ers.append(0);
-					}
-				}
-				else
-					ers.append(0);
-			}
-		}
-	}
-// 	uint counter = 0;
-/*
-	for (uint lc = 0; lc < 3; ++lc)
-	{
-		switch (lc)
-		{
-			case 0:
-				counter = doc->MasterItems.count();
-				break;
-			case 1:
-				counter = doc->DocItems.count();
-				break;
-			case 2:
-				counter = doc->FrameItems.count();
-				break;
-		}
-		for (uint d=0; d< counter; ++d)
-		{
-			switch (lc)
-			{
-				case 0:
-					ite = doc->MasterItems.at(d);
-					break;
-				case 1:
-					ite = doc->DocItems.at(d);
-					break;
-				case 2:
-					ite = doc->FrameItems.at(d);
-					break;
-			}
-			if (ite->asTextFrame())
-			{
-				CharStyle lastStyle;
-				int lastStyleStart = 0;
-				int lastParaStyle = -1;
-				for (int e=0; e<ite->itemText.length(); ++e)
-				{
-					const ParagraphStyle origStyle(ite->itemText.paragraphStyle(e));
-					int cabori = findParagraphStyle(doc, origStyle);
-					assert (cabori >= 0 && cabori < doc->docParagraphStyles.count() );
-					int cabneu = ers[cabori];
-					assert (cabneu >= 0 && cabneu < dia->TempVorl.count() );
-					CharStyle newStyle;
-					if (cabori > 4)
-					{
-						if (cabneu > 0)
-						{
-							if (ite->itemText.charStyle(e).font() == doc->docParagraphStyles[cabori].charStyle().font())
-								newStyle.setFont(dia->TempVorl[cabneu].charStyle().font());
-							if (ite->itemText.charStyle(e).fontSize() == doc->docParagraphStyles[cabori].charStyle().fontSize())
-								newStyle.setFontSize(dia->TempVorl[cabneu].charStyle().fontSize());
-							if ((ite->itemText.charStyle(e).effects() & 1919 ) == doc->docParagraphStyles[cabori].charStyle().effects())
-							{
-								StyleFlag fl = static_cast<StyleFlag>(ite->itemText.charStyle(e).effects() & ~1919);
-								fl |= dia->TempVorl[cabneu].charStyle().effects();
-								newStyle.setEffects(fl);
-							}
-							if (ite->itemText.charStyle(e).fillColor() == doc->docParagraphStyles[cabori].charStyle().fillColor())
-								newStyle.setFillColor(dia->TempVorl[cabneu].charStyle().fillColor());
-							if (ite->itemText.charStyle(e).fillShade() == doc->docParagraphStyles[cabori].charStyle().fillShade())
-								newStyle.setFillShade(dia->TempVorl[cabneu].charStyle().fillShade());
-							if (ite->itemText.charStyle(e).strokeColor() == doc->docParagraphStyles[cabori].charStyle().strokeColor())
-								newStyle.setStrokeColor(dia->TempVorl[cabneu].charStyle().strokeColor());
-							if (ite->itemText.charStyle(e).strokeShade() == doc->docParagraphStyles[cabori].charStyle().strokeShade())
-								newStyle.setStrokeShade(dia->TempVorl[cabneu].charStyle().strokeShade());
-							if (ite->itemText.charStyle(e).shadowXOffset() == doc->docParagraphStyles[cabori].charStyle().shadowXOffset())
-								newStyle.setShadowXOffset(dia->TempVorl[cabneu].charStyle().shadowXOffset());
-							if (ite->itemText.charStyle(e).shadowYOffset() == doc->docParagraphStyles[cabori].charStyle().shadowYOffset())
-								newStyle.setShadowYOffset(dia->TempVorl[cabneu].charStyle().shadowYOffset());
-							if (ite->itemText.charStyle(e).outlineWidth() == doc->docParagraphStyles[cabori].charStyle().outlineWidth())
-								newStyle.setOutlineWidth(dia->TempVorl[cabneu].charStyle().outlineWidth());
-							if (ite->itemText.charStyle(e).underlineOffset() == doc->docParagraphStyles[cabori].charStyle().underlineOffset())
-								newStyle.setUnderlineOffset(dia->TempVorl[cabneu].charStyle().underlineOffset());
-							if (ite->itemText.charStyle(e).underlineWidth() == doc->docParagraphStyles[cabori].charStyle().underlineWidth())
-								newStyle.setUnderlineWidth(dia->TempVorl[cabneu].charStyle().underlineWidth());
-							if (ite->itemText.charStyle(e).strikethruOffset() == doc->docParagraphStyles[cabori].charStyle().strikethruOffset())
-								newStyle.setStrikethruOffset(dia->TempVorl[cabneu].charStyle().strikethruOffset());
-							if (ite->itemText.charStyle(e).strikethruWidth() == doc->docParagraphStyles[cabori].charStyle().strikethruWidth())
-								newStyle.setStrikethruWidth(dia->TempVorl[cabneu].charStyle().strikethruWidth());
-							if (ite->itemText.charStyle(e).scaleH() == doc->docParagraphStyles[cabori].charStyle().scaleH())
-								newStyle.setScaleH(dia->TempVorl[cabneu].charStyle().scaleH());
-							if (ite->itemText.charStyle(e).scaleV() == doc->docParagraphStyles[cabori].charStyle().scaleV())
-								newStyle.setScaleV(dia->TempVorl[cabneu].charStyle().scaleV());
-							if (ite->itemText.charStyle(e).baselineOffset() == doc->docParagraphStyles[cabori].charStyle().baselineOffset())
-								newStyle.setBaselineOffset(dia->TempVorl[cabneu].charStyle().baselineOffset());
-							if (ite->itemText.charStyle(e).tracking() == doc->docParagraphStyles[cabori].charStyle().tracking())
-								newStyle.setTracking(dia->TempVorl[cabneu].charStyle().tracking());
-						}
-						else
-						{
-							newStyle = ite->itemText.defaultStyle().charStyle();
-								//.cstyle & static_cast<StyleFlag>(~1919);
-							//newStyle.cstyle |= static_cast<StyleFlag>(ite->TxTStyle);
-						}
-						if (newStyle != lastStyle || lastParaStyle != cabneu) {
-							ite->itemText.applyCharStyle(lastStyleStart, e-lastStyleStart, lastStyle);
-							lastStyle = newStyle;
-							lastStyleStart = e;
-							lastParaStyle = cabneu;
-						}
-						if (ite->itemText.text(e) == SpecialChars::PARSEP && cabneu >= 0) {
-							ite->itemText.applyStyle(e, dia->TempVorl[cabneu]);
-						}
-					}
-					else if (lastParaStyle >= 0) {
-						ite->itemText.applyCharStyle(lastStyleStart, e-lastStyleStart, lastStyle);
-						lastStyle = newStyle;
-						lastStyleStart = e;
-						lastParaStyle = -1;
-					}
-				}
-				if (ite->itemText.length() > 0) {
-					ite->itemText.applyCharStyle(lastStyleStart, ite->itemText.length()-lastStyleStart, lastStyle);
-					if (lastParaStyle >=0 )
-						ite->itemText.applyStyle(ite->itemText.length()-1, dia->TempVorl[lastParaStyle]);
-				}
-			}
-		}
-	}
- */
-	if (CurrStED != NULL)
-	{
-/*		if (CurrStED->Editor->StyledText.count() != 0)
-		{
-			for (uint pa = 0; pa < CurrStED->Editor->StyledText.count(); ++pa)
-			{
-				SEditor::ChList *chars;
-				chars = CurrStED->Editor->StyledText.at(pa);
-				(*CurrStED->Editor->ParagStyles.at(pa)) = ers[CurrStED->Editor->ParagStyles[pa]];
-
-				int cabneu = 0;
-				for (uint e = 0; e < chars->count(); ++e)
-				{
-					int cabori = chars->at(e)->cab;
-					assert (cabore >= 0 && cabori < doc->docParagraphStyles.count());
-					cabneu = ers[cabori];
-					assert (cabneu >= 0 && cabneu < dia->TempVorl.count() );
-					if (cabori > 4)
-					{
-						if (cabneu > 0)
-						{
-							if (chars->at(e)->charStyle.font().scName() == doc->docParagraphStyles[cabori].charStyle().font().scName())
-								chars->at(e)->charStyle.setFont(dia->TempVorl[cabneu].charStyle().font());
-							if (chars->at(e)->charStyle.fontSize() == doc->docParagraphStyles[cabori].charStyle().fontSize())
-								chars->at(e)->charStyle.setFontSize(dia->TempVorl[cabneu].charStyle().fontSize());
-							if ((chars->at(e)->charStyle.effects() & static_cast<StyleFlag>(1919) ) == doc->docParagraphStyles[cabori].charStyle().effects())
-							{
-								StyleFlag fl = chars->at(e)->charStyle.effects();
-								fl&= static_cast<StyleFlag>(~1919);
-								fl |= dia->TempVorl[cabneu].charStyle().effects();
-								chars->at(e)->charStyle.setFeatures(fl.featureList());
-							}
-							if (chars->at(e)->charStyle.fillColor() == doc->docParagraphStyles[cabori].charStyle().fillColor())
-								chars->at(e)->charStyle.setFillColor(dia->TempVorl[cabneu].charStyle().fillColor());
-							if (chars->at(e)->charStyle.fillShade() == doc->docParagraphStyles[cabori].charStyle().fillShade())
-								chars->at(e)->charStyle.setFillShade(dia->TempVorl[cabneu].charStyle().fillShade());
-							if (chars->at(e)->charStyle.strokeColor() == doc->docParagraphStyles[cabori].charStyle().strokeColor())
-								chars->at(e)->charStyle.setStrokeColor(dia->TempVorl[cabneu].charStyle().strokeColor());
-							if (chars->at(e)->charStyle.strokeShade() == doc->docParagraphStyles[cabori].charStyle().strokeShade())
-								chars->at(e)->charStyle.setStrokeShade(dia->TempVorl[cabneu].charStyle().strokeShade());
-							if (chars->at(e)->charStyle.shadowXOffset() == doc->docParagraphStyles[cabori].charStyle().shadowXOffset())
-								chars->at(e)->charStyle.setShadowXOffset(dia->TempVorl[cabneu].charStyle().shadowXOffset());
-							if (chars->at(e)->charStyle.shadowYOffset() == doc->docParagraphStyles[cabori].charStyle().shadowYOffset())
-								chars->at(e)->charStyle.setShadowYOffset(dia->TempVorl[cabneu].charStyle().shadowYOffset());
-							if (chars->at(e)->charStyle.outlineWidth() == doc->docParagraphStyles[cabori].charStyle().outlineWidth())
-								chars->at(e)->charStyle.setOutlineWidth(dia->TempVorl[cabneu].charStyle().outlineWidth());
-							if (chars->at(e)->charStyle.underlineOffset() == doc->docParagraphStyles[cabori].charStyle().underlineOffset())
-								chars->at(e)->charStyle.setUnderlineOffset(dia->TempVorl[cabneu].charStyle().underlineOffset());
-							if (chars->at(e)->charStyle.underlineWidth() == doc->docParagraphStyles[cabori].charStyle().underlineWidth())
-								chars->at(e)->charStyle.setUnderlineWidth(dia->TempVorl[cabneu].charStyle().underlineWidth());
-							if (chars->at(e)->charStyle.strikethruOffset() == doc->docParagraphStyles[cabori].charStyle().strikethruOffset())
-								chars->at(e)->charStyle.setStrikethruOffset(dia->TempVorl[cabneu].charStyle().strikethruOffset());
-							if (chars->at(e)->charStyle.strikethruWidth() == doc->docParagraphStyles[cabori].charStyle().strikethruWidth())
-								chars->at(e)->charStyle.setStrikethruWidth(dia->TempVorl[cabneu].charStyle().strikethruWidth());
-							if (chars->at(e)->charStyle.scaleH() == doc->docParagraphStyles[cabori].charStyle().scaleH())
-								chars->at(e)->charStyle.setScaleH(dia->TempVorl[cabneu].charStyle().scaleH());
-							if (chars->at(e)->charStyle.scaleV() == doc->docParagraphStyles[cabori].charStyle().scaleV())
-								chars->at(e)->charStyle.setScaleV(dia->TempVorl[cabneu].charStyle().scaleV());
-							if (chars->at(e)->charStyle.baselineOffset() == doc->docParagraphStyles[cabori].charStyle().baselineOffset())
-								chars->at(e)->charStyle.setBaselineOffset(dia->TempVorl[cabneu].charStyle().baselineOffset());
-							if (chars->at(e)->charStyle.tracking() == doc->docParagraphStyles[cabori].charStyle().tracking())
-								chars->at(e)->charStyle.setTracking(dia->TempVorl[cabneu].charStyle().tracking());
-						}
-						else
-						{
-							chars->at(e)->charStyle = ite->itemText.defaultStyle().charStyle();
-						}
-						chars->at(e)->cab = cabneu;
-					}
-				}
-
-			}
-			CurrStED->Editor->currentParaStyle = ers[CurrStED->Editor->currentParaStyle];
-		}
-	*/
-	}
-	doc->redefineStyles(dia->TempVorl);
-	if (CurrStED != NULL)
-	{
-		if (CurrStED->Editor->StyledText.length() != 0)
-			CurrStED->Editor->updateAll();
-	}
-	for (uint a=0; a<doc->paragraphStyles().count(); ++a)
-	{
-		if (!doc->paragraphStyles()[a].charStyle().font().isNone())
-		{
-			QString nf = doc->paragraphStyles()[a].charStyle().font().scName();
-			if (!doc->UsedFonts.contains(nf))
-			{
-				if (doc->AddFont(nf)) //, prefsManager->appPrefs.fontPrefs.AvailFonts[nf]->Font))
-				{
-				}
-//				else
-//FIXME					doc->paragraphStyles()[a].charStyle().setFont((prefsManager->appPrefs.fontPrefs.AvailFonts[doc->toolSettings.textFont]));
-			}
-		}
-	}
-
-	emit UpdateRequest(reqColorsUpdate | reqTextStylesUpdate);
-	view->DrawNew();
-	slotDocCh();
-}
-#endif
 //CB-->Doc
 void ScribusMainWindow::setNewAlignment(int a)
 {
 	if (HaveDoc)
 	{
-//		doc->currentStyle.setAlignment(static_cast<ParagraphStyle::AlignmentType>(a));
 		doc->itemSelection_SetAlignment(a);
 		propertiesPalette->textPal->showAlignment(a);
 		PageItem *currItem = doc->m_Selection->itemAt(0);
@@ -7378,13 +6917,7 @@ void ScribusMainWindow::setNewParStyle(const QString& name)
 {
 	if (HaveDoc)
 	{
-/*		if (name.isEmpty())
-		{
-			doc->itemSelection_SetNamedParagraphStyle(name);
-			doc->itemSelection_EraseParagraphStyle();
-		}
-		else */
-			doc->itemSelection_SetNamedParagraphStyle(name);
+		doc->itemSelection_SetNamedParagraphStyle(name);
 		PageItem *currItem = doc->m_Selection->itemAt(0);
 		setTBvals(currItem);
 	}
@@ -7394,13 +6927,7 @@ void ScribusMainWindow::setNewCharStyle(const QString& name)
 {
 	if (HaveDoc)
 	{
-/*		if (name.isEmpty())
-		{
-			doc->itemSelection_SetNamedCharStyle(name);
-			doc->itemSelection_EraseCharStyle();
-		}
-		else */
-			doc->itemSelection_SetNamedCharStyle(name);
+		doc->itemSelection_SetNamedCharStyle(name);
 		PageItem *currItem = doc->m_Selection->itemAt(0);
 		setTBvals(currItem);
 	}
@@ -7440,7 +6967,6 @@ void ScribusMainWindow::MakeFrame(int f, int c, double *vals)
 		currItem->FrameType = f+2;
 		break;
 	}
-	//propertiesPalette->setCurrentItem(currItem);
 	currItem->update();
 	slotDocCh();
 }
@@ -7506,12 +7032,7 @@ void ScribusMainWindow::editItemsFromOutlines(PageItem *ite)
 	if (!doc->m_Selection->isEmpty())
 	{
 		if (doc->m_Selection->itemAt(0) != ite)
-		{
-			if (ite->isGroup())
-				selectItemsFromOutlines(ite, true);
-			else
-				selectItemsFromOutlines(ite, false);
-		}
+			selectItemsFromOutlines(ite, ite->isGroup());
 	}
 	if (ite->asLatexFrame())
 	{
