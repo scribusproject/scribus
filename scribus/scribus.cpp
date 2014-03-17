@@ -2564,43 +2564,43 @@ void ScribusMainWindow::HaveNewSel(int SelectedType)
 		switch (currItem->itemType())
 		{
 			case 2:
-				whatSel = tr("Image Frame");
+				whatSel = CommonStrings::itemType_ImageFrame;
 				break;
 			case 4:
-				whatSel = tr("Text Frame");
+				whatSel = CommonStrings::itemType_TextFrame;
 				break;
 			case 5:
-				whatSel = tr("Line");
+				whatSel = CommonStrings::itemType_Line;
 				break;
 			case 6:
-				whatSel = tr("Polygon");
+				whatSel = CommonStrings::itemType_Polygon;
 				break;
 			case 7:
-				whatSel = tr("Polyline");
+				whatSel = CommonStrings::itemType_Polyline;
 				break;
 			case 8:
-				whatSel = tr("Text on Path");
+				whatSel = CommonStrings::itemType_PathText;
 				break;
 			case 9:
-				whatSel = tr("Latex Frame");
+				whatSel = CommonStrings::itemType_LatexFrame;
 				break;
 			case 11:
-				whatSel = tr("Symbol");
+				whatSel = CommonStrings::itemType_Symbol;
 				break;
 			case 12:
-				whatSel = tr("Group");
+				whatSel = CommonStrings::itemType_Group;
 				break;
 			case 13:
-				whatSel = tr("RegularPolygon");
+				whatSel = CommonStrings::itemType_RegularPolygon;
 				break;
 			case 14:
-				whatSel = tr("Arc");
+				whatSel = CommonStrings::itemType_Arc;
 				break;
 			case 15:
-				whatSel = tr("Spiral");
+				whatSel = CommonStrings::itemType_Spiral;
 				break;
 			case 16:
-				whatSel = tr("Table");
+				whatSel = CommonStrings::itemType_Table;
 				break;
 			default:
 				whatSel = "Unknown";
