@@ -400,6 +400,122 @@ void AppModeHelper::mainWindowSwitchWin(ScribusDoc *doc)
 	}
 }
 
+void AppModeHelper::mainWindowCloseLastDoc()
+{
+	(*scrActions)["fileDocSetup150"]->setEnabled(false);
+	(*scrActions)["filePrint"]->setEnabled(false);
+	(*scrActions)["fileSave"]->setEnabled(false);
+	(*scrActions)["fileSaveAs"]->setEnabled(false);
+	(*scrActions)["fileRevert"]->setEnabled(false);
+	(*scrActions)["fileCollect"]->setEnabled(false);
+	(*scrActions)["fileClose"]->setEnabled(false);
+	(*scrActions)["PrintPreview"]->setEnabled(false);
+	if ((*scrActions)["SaveAsDocumentTemplate"])
+		(*scrActions)["SaveAsDocumentTemplate"]->setEnabled(false);
+	(*scrActions)["fileExportAsPDF"]->setEnabled(false);
+	(*scrActions)["fileExportText"]->setEnabled(false);
+	(*scrActions)["fileExportAsEPS"]->setEnabled(false);
+	(*scrActions)["fileImportText"]->setEnabled(false);
+	(*scrActions)["fileImportText2"]->setEnabled(false);
+	(*scrActions)["fileImportImage"]->setEnabled(false);
+	(*scrActions)["fileImportAppendText"]->setEnabled(false);
+	(*scrActions)["pageInsert"]->setEnabled(false);
+	(*scrActions)["pageImport"]->setEnabled(false);
+	(*scrActions)["pageDelete"]->setEnabled(false);
+	(*scrActions)["pageImport"]->setEnabled(false);
+	(*scrActions)["pageMove"]->setEnabled(false);
+	(*scrActions)["pageCopy"]->setEnabled(false);
+	(*scrActions)["pageApplyMasterPage"]->setEnabled(false);
+	(*scrActions)["pageCopyToMasterPage"]->setEnabled(false);
+	(*scrActions)["pageManageGuides"]->setEnabled(false);
+	(*scrActions)["pageManageMargins"]->setEnabled(false);
+	(*scrActions)["editUndoAction"]->setEnabled(false);
+	(*scrActions)["editRedoAction"]->setEnabled(false);
+	(*scrActions)["editCut"]->setEnabled(false);
+	(*scrActions)["editCopy"]->setEnabled(false);
+	(*scrActions)["editPaste"]->setEnabled(false);
+	(*scrActions)["editClearContents"]->setEnabled(false);
+	(*scrActions)["editSelectAll"]->setEnabled(false);
+	(*scrActions)["editSelectAllOnLayer"]->setEnabled(false);
+	(*scrActions)["editDeselectAll"]->setEnabled(false);
+	(*scrActions)["editReplaceColors"]->setEnabled(false);
+	(*scrActions)["editStyles"]->setEnabled(false);
+	(*scrActions)["editMarks"]->setEnabled(false);
+	(*scrActions)["editNotesStyles"]->setEnabled(false);
+	(*scrActions)["editSearchReplace"]->setEnabled(false);
+	(*scrActions)["editMasterPages"]->setEnabled(false);
+	(*scrActions)["editJavascripts"]->setEnabled(false);
+	(*scrActions)["editEditWithImageEditor"]->setEnabled(false);
+	(*scrActions)["editEditRenderSource"]->setEnabled(false);
+	(*scrActions)["extrasHyphenateText"]->setEnabled(false);
+	(*scrActions)["extrasDeHyphenateText"]->setEnabled(false);
+	(*scrActions)["viewFitInWindow"]->setEnabled(false);
+	(*scrActions)["viewFitWidth"]->setEnabled(false);
+	(*scrActions)["viewFit50"]->setEnabled(false);
+	(*scrActions)["viewFit75"]->setEnabled(false);
+	(*scrActions)["viewFit100"]->setEnabled(false);
+	(*scrActions)["viewFit200"]->setEnabled(false);
+	(*scrActions)["viewFit400"]->setEnabled(false);
+	(*scrActions)["viewSnapToGuides"]->setChecked(false);
+	(*scrActions)["viewSnapToElements"]->setChecked(false);
+	(*scrActions)["viewSnapToGrid"]->setChecked(false);
+	(*scrActions)["viewShowRulers"]->setEnabled(false);
+	(*scrActions)["insertFrame"]->setEnabled(false);
+	(*scrActions)["itemDuplicate"]->setEnabled(false);
+	(*scrActions)["itemMulDuplicate"]->setEnabled(false);
+	(*scrActions)["itemTransform"]->setEnabled(false);
+	(*scrActions)["itemDelete"]->setEnabled(false);
+	(*scrActions)["itemRaise"]->setEnabled(false);
+	(*scrActions)["itemLower"]->setEnabled(false);
+	(*scrActions)["itemRaiseToTop"]->setEnabled(false);
+	(*scrActions)["itemLowerToBottom"]->setEnabled(false);
+	(*scrActions)["itemSendToPattern"]->setEnabled(false);
+	(*scrActions)["itemSendToInline"]->setEnabled(false);
+	(*scrActions)["itemAdjustFrameToImage"]->setEnabled(false);
+	(*scrActions)["itemAdjustImageToFrame"]->setEnabled(false);
+	(*scrActions)["itemExtendedImageProperties"]->setEnabled(false);
+	(*scrActions)["itemUpdateImage"]->setEnabled(false);
+	(*scrActions)["itemPreviewLow"]->setEnabled(false);
+	(*scrActions)["itemPreviewNormal"]->setEnabled(false);
+	(*scrActions)["itemPreviewFull"]->setEnabled(false);
+	(*scrActions)["itemAttributes"]->setEnabled(false);
+	(*scrActions)["toolsSelect"]->setEnabled(false);
+	(*scrActions)["toolsRotate"]->setEnabled(false);
+	(*scrActions)["toolsEditContents"]->setEnabled(false);
+	(*scrActions)["toolsEditWithStoryEditor"]->setEnabled(false);
+	(*scrActions)["toolsZoom"]->setEnabled(false);
+	(*scrActions)["toolsInsertTextFrame"]->setEnabled(false);
+	(*scrActions)["toolsInsertImageFrame"]->setEnabled(false);
+	(*scrActions)["toolsInsertShape"]->setEnabled(false);
+	(*scrActions)["toolsInsertLine"]->setEnabled(false);
+	(*scrActions)["toolsInsertBezier"]->setEnabled(false);
+	(*scrActions)["toolsInsertFreehandLine"]->setEnabled(false);
+	(*scrActions)["toolsInsertCalligraphicLine"]->setEnabled(false);
+	(*scrActions)["toolsInsertPolygon"]->setEnabled(false);
+	(*scrActions)["toolsInsertArc"]->setEnabled(false);
+	(*scrActions)["toolsInsertSpiral"]->setEnabled(false);
+	(*scrActions)["toolsInsertRenderFrame"]->setEnabled(false);
+	(*scrActions)["toolsInsertTable"]->setEnabled(false);
+	(*scrActions)["toolsLinkTextFrame"]->setEnabled(false);
+	(*scrActions)["toolsUnlinkTextFrame"]->setEnabled(false);
+	(*scrActions)["toolsUnlinkTextFrameWithTextCopy"]->setEnabled(false);
+	(*scrActions)["toolsUnlinkTextFrameWithTextCut"]->setEnabled(false);
+	(*scrActions)["toolsMeasurements"]->setEnabled(false);
+	(*scrActions)["toolsCopyProperties"]->setEnabled(false);
+	(*scrActions)["toolsEyeDropper"]->setEnabled(false);
+	(*scrActions)["toolsPDFPushButton"]->setEnabled(false);
+	(*scrActions)["toolsPDFRadioButton"]->setEnabled(false);
+	(*scrActions)["toolsPDFTextField"]->setEnabled(false);
+	(*scrActions)["toolsPDFCheckBox"]->setEnabled(false);
+	(*scrActions)["toolsPDFComboBox"]->setEnabled(false);
+	(*scrActions)["toolsPDFListBox"]->setEnabled(false);
+	(*scrActions)["toolsPDFAnnotText"]->setEnabled(false);
+	(*scrActions)["toolsPDFAnnotLink"]->setEnabled(false);
+#ifdef HAVE_OSG
+	(*scrActions)["toolsPDFAnnot3D"]->setEnabled(false);
+#endif
+}
+
 void AppModeHelper::enableTextActions(bool enabled, const QString& fontName)
 {
 	(*scrActions)["insertGlyph"]->setEnabled(enabled);
