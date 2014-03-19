@@ -139,32 +139,81 @@ bool ScImgDataLoader_TIFF::testAlphaChannelAvailability(const QString& fn, int /
 {
 	int  test;
 	bool success = false;
+
+	QByteArray byteOrder(2, ' ');
+	QFile fo(fn);
+	if (fo.open(QIODevice::ReadOnly))
+	{
+		fo.read(byteOrder.data(), 1);
+		fo.close();
+	}
+
 	TIFFSetTagExtender(TagExtender);
 	TIFF* tif = TIFFOpen(fn.toLocal8Bit(), "r");
-	if(tif)
+	if (!tif)
+		return false;
+
+	uint16 extrasamples, *extratypes;
+	hasAlpha = false;
+	do
 	{
-		uint16 extrasamples, *extratypes;
-		hasAlpha = false;
-		do
+		if (TIFFGetField (tif, TIFFTAG_EXTRASAMPLES, &extrasamples, &extratypes) == 1)
 		{
-			if (TIFFGetField (tif, TIFFTAG_EXTRASAMPLES, &extrasamples, &extratypes) == 1)
+			for (int i = 0; i < extrasamples; ++i)
 			{
-				for (int i = 0; i < extrasamples; ++i)
+				if (extratypes[i] != EXTRASAMPLE_UNSPECIFIED)
 				{
-					if (extratypes[i] != EXTRASAMPLE_UNSPECIFIED)
+					hasAlpha = true;
+					break;
+				}
+			}
+		}
+		test = TIFFReadDirectory(tif);
+	}
+	while (test == 1);
+
+	if (hasAlpha)
+	{
+		TIFFClose(tif);
+		return true;
+	}
+
+	unsigned int PhotoshopLen2 = 0;
+	unsigned char* PhotoshopBuffer2;
+	int gotField = TIFFGetField(tif, 37724, &PhotoshopLen2, &PhotoshopBuffer2);
+	if (gotField && (PhotoshopLen2 > 40))
+	{
+		m_imageInfoRecord.layerInfo.clear();
+		QByteArray arrayPhot = QByteArray::fromRawData((const char*)PhotoshopBuffer2, PhotoshopLen2);
+		QDataStream s(&arrayPhot, QIODevice::ReadOnly);
+		if (byteOrder[0] == 'M')
+			s.setByteOrder(QDataStream::BigEndian);
+		else
+			s.setByteOrder(QDataStream::LittleEndian);
+
+		QList<PSDLayer> layerInfo;
+		if (loadLayerInfo(s, layerInfo))
+		{
+			int layer = 0;
+			for (int layer = 0; layer < layerInfo.count(); ++layer)
+			{
+				const PSDLayer& psdLayer = layerInfo.at(layer);
+				uint channel_num = psdLayer.channelLen.count();
+				for (uint channel = 0; channel < channel_num; ++channel)
+				{
+					if (psdLayer.channelType[channel] == -1)
 					{
 						hasAlpha = true;
 						break;
 					}
 				}
+				if (hasAlpha) break;
 			}
-			test = TIFFReadDirectory(tif);
 		}
-		while (test == 1);
-		TIFFClose(tif);
-		success = true;
 	}
-	return success;
+
+	TIFFClose(tif);
+	return true;
 }
 
 void ScImgDataLoader_TIFF::unmultiplyRGBA(RawImage *image)
@@ -765,200 +814,70 @@ bool ScImgDataLoader_TIFF::loadPicture(const QString& fn, int page, int res, boo
 				}
 			}
 		}
+
 		unsigned int PhotoshopLen2 = 0;
 		unsigned char* PhotoshopBuffer2;
-		if (TIFFGetField(tif, 37724, &PhotoshopLen2, &PhotoshopBuffer2) )
+		int gotField = TIFFGetField(tif, 37724, &PhotoshopLen2, &PhotoshopBuffer2);
+		if (gotField && (PhotoshopLen2 > 40))
 		{
-			if (PhotoshopLen2 > 40)
+			m_imageInfoRecord.layerInfo.clear();
+			QByteArray arrayPhot = QByteArray::fromRawData((const char*)PhotoshopBuffer2, PhotoshopLen2);
+			QDataStream s(&arrayPhot,QIODevice::ReadOnly);
+			if (byteOrder[0] == 'M')
+				s.setByteOrder( QDataStream::BigEndian );
+			else
+				s.setByteOrder( QDataStream::LittleEndian );
+
+			failedPS = !loadLayerInfo(s, m_imageInfoRecord.layerInfo); 
+			if (!failedPS)
 			{
-				m_imageInfoRecord.layerInfo.clear();
-				QByteArray arrayPhot = QByteArray::fromRawData((const char*)PhotoshopBuffer2, PhotoshopLen2);
-				QDataStream s(&arrayPhot,QIODevice::ReadOnly);
-				if (byteOrder[0] == 'M')
-					s.setByteOrder( QDataStream::BigEndian );
-				else
-					s.setByteOrder( QDataStream::LittleEndian );
-				uint addRes, layerinfo, channelLen, signature, extradata, layermasksize, layerRange, dummy;
-				int top, left, bottom, right;
-				short numLayers, numChannels;
-				short channelType;
-				uchar blendKey[4];
-				uchar opacity, clipping, flags, filler;
-				QString layerName, blend;
-				struct PSDLayer lay;
-				do
+				int chans = 4;
+				int numChannels = m_imageInfoRecord.layerInfo.last().channelType.count();
+				int numLayers = m_imageInfoRecord.layerInfo.count();
+				PSDHeader fakeHeader;
+				fakeHeader.width = widtht;
+				fakeHeader.height = heightt;
+				fakeHeader.channel_count = numChannels;
+				fakeHeader.depth = 8;
+				if (photometric == PHOTOMETRIC_SEPARATED)
 				{
-					if(s.atEnd())
-					{
-						m_imageInfoRecord.layerInfo.clear();
-						failedPS = true;
-						break;
-					}
-					s >> signature;
+					isCMYK = true;
+					fakeHeader.color_mode = CM_CMYK;
+					chans = 5;
 				}
-				while (signature != 0x4c617972);
-				if (!failedPS)
+				else if (samplesperpixel == 1)
 				{
-					s >> layerinfo;
-					s >> numLayers;
-					if (numLayers < 0)
-						numLayers = -numLayers;
-					if (numLayers != 0)
-					{
-						for (int layer = 0; layer < numLayers; layer++)
-						{
-							s >> top;
-							lay.ypos = top;
-							s >> left;
-							lay.xpos = left;
-							s >> bottom;
-							lay.height = bottom - top;
-							s >> right;
-							lay.width = right - left;
-							s >> numChannels;
-							if (numChannels > 6)	// we don't support images with more than 6 channels yet
-							{
-								m_imageInfoRecord.layerInfo.clear();
-								failedPS = true;
-								break;
-							}
-							lay.channelType.clear();
-							lay.channelLen.clear();
-							for (int channels = 0; channels < numChannels; channels++)
-							{
-								s >> channelType;
-								s >> channelLen;
-								lay.channelType.append(channelType);
-								lay.channelLen.append(channelLen);
-							}
-							s >> signature;
-							blend = "";
-							for( int i = 0; i < 4; i++ )
-							{
-								s >> blendKey[i];
-								if (byteOrder[0] == 'M')
-									blend.append(QChar(blendKey[i]));
-								else
-									blend.prepend(QChar(blendKey[i]));
-							}
-							lay.blend = blend;
-							s >> opacity;
-							lay.opacity = opacity;
-							s >> clipping;
-							lay.clipping = clipping;
-							s >> flags;
-							if (flags & 8)
-							{
-								if (flags & 16)	// Unknown combination of layer flags, probably an adjustment or effects layer
-								{
-									m_imageInfoRecord.layerInfo.clear();
-									failedPS = true;
-									break;
-								}
-							}
-							lay.flags = flags;
-							s >> filler;
-							s >> extradata;
-							s >> layermasksize;
-							lay.maskYpos = 0;
-							lay.maskXpos = 0;
-							lay.maskHeight = 0;
-							lay.maskWidth = 0;
-							if (layermasksize != 0)
-							{
-								s >> lay.maskYpos;
-								s >> lay.maskXpos;
-								s >> dummy;
-								lay.maskHeight = dummy - lay.maskYpos;
-								s >> dummy;
-								lay.maskWidth = dummy - lay.maskXpos;
-								s >> dummy;
-							}
-							s >> layerRange;
-							s.device()->seek( s.device()->pos() + layerRange );
-							lay.layerName = getLayerString(s);
-							m_imageInfoRecord.layerInfo.append(lay);
-							s >> signature;
-							if( signature == 0x3842494D )
-							{
-								while (signature == 0x3842494D )
-								{
-									s >> signature;
-									s >> addRes;
-									s.device()->seek( s.device()->pos() + addRes );
-									s >> signature;
-								}
-								s.device()->seek( s.device()->pos() - 4 );
-							}
-							else
-							{
-								s.device()->seek( s.device()->pos() - 2 );
-								s >> signature;
-								if( signature == 0x3842494D )
-								{
-									while (signature == 0x3842494D )
-									{
-										s >> signature;
-										s >> addRes;
-										s.device()->seek( s.device()->pos() + addRes );
-										s >> signature;
-									}
-									s.device()->seek( s.device()->pos() - 4 );
-								}
-								else
-									s.device()->seek( s.device()->pos() - 6 );
-							}
-						}
-					}
-				}
-				if (!failedPS)
-				{
-					int chans = 4;
-//					bilevel = false;
-					PSDHeader fakeHeader;
-					fakeHeader.width = widtht;
-					fakeHeader.height = heightt;
-					fakeHeader.channel_count = numChannels;
-					fakeHeader.depth = 8;
-					if (photometric == PHOTOMETRIC_SEPARATED)
-					{
-						isCMYK = true;
-						fakeHeader.color_mode = CM_CMYK;
-						chans = 5;
-					}
-					else if (samplesperpixel == 1)
-					{
-						fakeHeader.color_mode = CM_GRAYSCALE;
-						isCMYK = false;
-						chans = 4;
-					}
-					else
-					{
-						fakeHeader.color_mode = CM_RGB;
-						isCMYK = false;
-						chans = 4;
-					}
-					if( !r_image.create( widtht, heightt, chans ))
-						return false;
-					r_image.fill(0);
-					bool firstLayer = true;
-					for (int layer = 0; layer < numLayers; layer++)
-					{
-						loadLayerChannels( s, fakeHeader, m_imageInfoRecord.layerInfo, layer, &firstLayer );
-					}
-					arrayPhot.clear();
-					TIFFClose(tif);
-					foundPS = true;
-					if (m_imageInfoRecord.layerInfo.count() == 1)
-						m_imageInfoRecord.layerInfo.clear();
+					fakeHeader.color_mode = CM_GRAYSCALE;
+					isCMYK = false;
+					chans = 4;
 				}
 				else
 				{
-					arrayPhot.clear();
-					getLayers(fn, page);
+					fakeHeader.color_mode = CM_RGB;
+					isCMYK = false;
+					chans = 4;
 				}
+				if( !r_image.create( widtht, heightt, chans ))
+					return false;
+				r_image.fill(0);
+				bool firstLayer = true;
+				for (int layer = 0; layer < numLayers; layer++)
+				{
+					loadLayerChannels( s, fakeHeader, m_imageInfoRecord.layerInfo, layer, &firstLayer );
+				}
+				arrayPhot.clear();
+				TIFFClose(tif);
+				foundPS = true;
+				if (m_imageInfoRecord.layerInfo.count() == 1)
+					m_imageInfoRecord.layerInfo.clear();
+			}
+			else
+			{
+				arrayPhot.clear();
+				getLayers(fn, page);
 			}
 		}
+
 		if( xres <= 1.0 || yres <= 1.0 )
 		{
 			xres = yres = 72.0;
@@ -1249,6 +1168,152 @@ bool ScImgDataLoader_TIFF::loadChannel( QDataStream & s, const PSDHeader & heade
 	}
 	s.device()->seek( base+layerInfo[layer].channelLen[channel] );
 	return true;
+}
+
+bool ScImgDataLoader_TIFF::loadLayerInfo(QDataStream & s, QList<PSDLayer> &layerInfo)
+{
+	bool failedPS = false;
+	uint addRes, layerinfo, channelLen, signature, extradata, layermasksize, layerRange, dummy;
+	int top, left, bottom, right;
+	short numLayers, numChannels;
+	short channelType;
+	uchar blendKey[4];
+	uchar opacity, clipping, flags, filler;
+	QString layerName, blend;
+
+	layerInfo.clear();
+
+	struct PSDLayer lay;
+	do
+	{
+		if(s.atEnd())
+		{
+			layerInfo.clear();
+			failedPS = true;
+			break;
+		}
+		s >> signature;
+	}
+	while (signature != 0x4c617972);
+
+	if (failedPS)
+		return false;
+
+	s >> layerinfo;
+	s >> numLayers;
+	if (numLayers < 0)
+		numLayers = -numLayers;
+	if (numLayers == 0)
+		return true;
+
+	QDataStream::ByteOrder byteOrder = s.byteOrder();
+
+	for (int layer = 0; layer < numLayers; layer++)
+	{
+		s >> top;
+		lay.ypos = top;
+		s >> left;
+		lay.xpos = left;
+		s >> bottom;
+		lay.height = bottom - top;
+		s >> right;
+		lay.width = right - left;
+		s >> numChannels;
+		if (numChannels > 6)	// we don't support images with more than 6 channels yet
+		{
+			m_imageInfoRecord.layerInfo.clear();
+			failedPS = true;
+			break;
+		}
+		lay.channelType.clear();
+		lay.channelLen.clear();
+		for (int channels = 0; channels < numChannels; channels++)
+		{
+			s >> channelType;
+			s >> channelLen;
+			lay.channelType.append(channelType);
+			lay.channelLen.append(channelLen);
+		}
+		s >> signature;
+		blend = "";
+		for( int i = 0; i < 4; i++ )
+		{
+			s >> blendKey[i];
+			if (byteOrder == QDataStream::BigEndian)
+				blend.append(QChar(blendKey[i]));
+			else
+				blend.prepend(QChar(blendKey[i]));
+		}
+		lay.blend = blend;
+		s >> opacity;
+		lay.opacity = opacity;
+		s >> clipping;
+		lay.clipping = clipping;
+		s >> flags;
+		if (flags & 8)
+		{
+			if (flags & 16)	// Unknown combination of layer flags, probably an adjustment or effects layer
+			{
+				layerInfo.clear();
+				failedPS = true;
+				break;
+			}
+		}
+		lay.flags = flags;
+		s >> filler;
+		s >> extradata;
+		s >> layermasksize;
+		lay.maskYpos = 0;
+		lay.maskXpos = 0;
+		lay.maskHeight = 0;
+		lay.maskWidth = 0;
+		if (layermasksize != 0)
+		{
+			s >> lay.maskYpos;
+			s >> lay.maskXpos;
+			s >> dummy;
+			lay.maskHeight = dummy - lay.maskYpos;
+			s >> dummy;
+			lay.maskWidth = dummy - lay.maskXpos;
+			s >> dummy;
+		}
+		s >> layerRange;
+		s.device()->seek( s.device()->pos() + layerRange );
+		lay.layerName = getLayerString(s);
+		layerInfo.append(lay);
+		s >> signature;
+		if( signature == 0x3842494D )
+		{
+			while (signature == 0x3842494D )
+			{
+				s >> signature;
+				s >> addRes;
+				s.device()->seek( s.device()->pos() + addRes );
+				s >> signature;
+			}
+			s.device()->seek( s.device()->pos() - 4 );
+		}
+		else
+		{
+			s.device()->seek( s.device()->pos() - 2 );
+			s >> signature;
+			if( signature == 0x3842494D )
+			{
+				while (signature == 0x3842494D )
+				{
+					s >> signature;
+					s >> addRes;
+					s.device()->seek( s.device()->pos() + addRes );
+					s >> signature;
+				}
+				s.device()->seek( s.device()->pos() - 4 );
+			}
+			else
+				s.device()->seek( s.device()->pos() - 6 );
+		}
+	}
+
+	return (!failedPS && (layerInfo.count() >= 0));
 }
 
 bool ScImgDataLoader_TIFF::loadLayerChannels( QDataStream & s, const PSDHeader & header, QList<PSDLayer> &layerInfo, uint layer, bool* firstLayer)
