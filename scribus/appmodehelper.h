@@ -42,6 +42,7 @@ class AppModeHelper : public QObject
 		void mainWindowHasNewDoc(ScribusDoc *doc, bool clipScrapHaveData);
 		void mainWindowSwitchWin(ScribusDoc *doc);
 		void mainWindowCloseLastDoc();
+		void setPreviewMode(bool b);
 		//! \brief enable or disable the unicode actions and their menus
 		void enableTextActions(bool enabled, const QString& fontName=QString::null);
 

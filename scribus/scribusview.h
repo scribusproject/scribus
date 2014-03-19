@@ -262,8 +262,6 @@ public slots: // Public slots
 	void togglePreview();
 	void unitChange();
 	void setRulersShown(bool isShown);
-	void slotUpdateContents();
-	void slotUpdateContents(const QRect &r);
   /** Zooms in or out */
 	void slotZoom100();
   /** Zooms in */

@@ -516,6 +516,21 @@ void AppModeHelper::mainWindowCloseLastDoc()
 #endif
 }
 
+void AppModeHelper::setPreviewMode(bool b)
+{
+	bool b2=!b;
+	(*scrActions)["viewPreviewMode"]->setChecked(b);
+	(*scrActions)["viewShowMargins"]->setEnabled(b2);
+	(*scrActions)["viewShowFrames"]->setEnabled(b2);
+	(*scrActions)["viewShowLayerMarkers"]->setEnabled(b2);
+	(*scrActions)["viewShowGrid"]->setEnabled(b2);
+	(*scrActions)["viewShowGuides"]->setEnabled(b2);
+	(*scrActions)["viewShowColumnBorders"]->setEnabled(b2);
+	(*scrActions)["viewShowBaseline"]->setEnabled(b);
+	(*scrActions)["viewShowTextChain"]->setEnabled(b2);
+	(*scrActions)["viewShowTextControls"]->setEnabled(b2);
+}
+
 void AppModeHelper::enableTextActions(bool enabled, const QString& fontName)
 {
 	(*scrActions)["insertGlyph"]->setEnabled(enabled);
