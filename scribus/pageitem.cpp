@@ -6499,7 +6499,7 @@ void PageItem::restoreCornerRadius(SimpleState *state, bool isUndo)
 	Selection tmpSelection(doc()->m_Selection);
 	doc()->m_Selection->clear();
 	doc()->m_Selection->addItem(this);
-	doc()->scMW()->view->SetFrameRounded();
+	doc()->setFrameRounded();
 	*(doc()->m_Selection) = tmpSelection;
 }
 

@@ -358,7 +358,7 @@ PyObject *scribus_setcornerrad(PyObject* /* self */, PyObject* args)
 	currItem->setCornerRadius(w);
 	currItem->SetFrameRound();
 	ScCore->primaryMainWindow()->doc->setRedrawBounding(currItem);
-	ScCore->primaryMainWindow()->view->SetFrameRounded();
+	ScCore->primaryMainWindow()->doc->setFrameRounded();
 	Py_RETURN_NONE;
 }
 

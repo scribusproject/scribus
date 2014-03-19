@@ -1652,7 +1652,7 @@ void ScribusView::TransformPoly(int mode, int rot, double scaling)
 bool ScribusView::slotSetCurs(int x, int y)
 {
 	PageItem *item;
-	if (!GetItem(&item))
+	if (!Doc->getItem(&item))
 		return false;
 
 	PageItem_TextFrame *textFrame;
@@ -1839,15 +1839,6 @@ void ScribusView::SelectItem(PageItem *currItem, bool draw, bool single)
 			//EmitValues(currItem);
 			//currItem->emitAllToGUI();
 	}
-}
-
-bool ScribusView::GetItem(PageItem **currItem, int nr)
-{
-	int n=nr;
-	if (n == -1)
-		n=0;
-	*(currItem) = Doc->m_Selection->itemAt(n);
-	return (*(currItem)!=NULL);
 }
 
 //CB Remove bookmark interaction here, item/doc should do it
@@ -3234,50 +3225,6 @@ void ScribusView::SetXGuide(QMouseEvent *m, int oldIndex)
 }
 #endif
 
-//CB-->Doc
-void ScribusView::SetFrameRect()
-{
-	Doc->nodeEdit.deselect();
-	PageItem *currItem;
-	if (GetItem(&currItem))
-	{
-		currItem->SetRectFrame();
-		Doc->setRedrawBounding(currItem);
-		updateContents(currItem->getRedrawBounding(m_canvas->scale()));
-	}
-}
-
-//CB-->Doc
-void ScribusView::SetFrameRounded()
-{
-	Doc->nodeEdit.deselect();
-	PageItem *currItem;
-	if (GetItem(&currItem))
-	{
-		if (currItem->cornerRadius() == 0)
-		{
-			SetFrameRect();
-			return;
-		}
-		currItem->SetFrameRound();
-		Doc->setRedrawBounding(currItem);
-		updateContents(currItem->getRedrawBounding(m_canvas->scale()));
-	}
-}
-
-//CB-->Doc
-void ScribusView::SetFrameOval()
-{
-	Doc->nodeEdit.deselect();
-	PageItem *currItem;
-	if (GetItem(&currItem))
-	{
-		currItem->SetOvalFrame();
-		Doc->setRedrawBounding(currItem);
-		updateContents(currItem->getRedrawBounding(m_canvas->scale()));
-	}
-}
-
 void ScribusView::editExtendedImageProperties()
 {
 	if (Doc->m_Selection->count() != 0)
@@ -3390,7 +3337,7 @@ void ScribusView::ToPathText()
 void ScribusView::FromPathText()
 {
 	PageItem *currItem;
-	if (GetItem(&currItem))
+	if (Doc->getItem(&currItem))
 	{
 		Deselect(true);
 		PageItem* newItem=Doc->convertItemTo(currItem, PageItem::TextFrame);

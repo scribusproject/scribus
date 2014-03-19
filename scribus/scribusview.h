@@ -208,13 +208,9 @@ public:
 	void TransformPoly(int mode, int rot = 1, double scaling = 1.0);
 	bool slotSetCurs(int x, int y);
 	void HandleCurs(PageItem *currItem, QRect mpo);
-	bool GetItem(PageItem **b, int nr = -1);
 	void Deselect(bool prop = true);
 	void SelectItemNr(uint nr, bool draw = true, bool single = false);
 	void SelectItem(PageItem *pi, bool draw = true, bool single = false);
-	void SetFrameRect();
-	void SetFrameRounded();
-	void SetFrameOval();
 	void rememberOldZoomLocation(int mx=0, int my=0);
 	bool groupTransactionStarted() { return m_groupTransactions > 0; }
 	void startGroupTransaction(const QString &actionName = "",

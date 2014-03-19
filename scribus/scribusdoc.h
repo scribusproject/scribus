@@ -1077,17 +1077,17 @@ public:
 	void itemSelection_SetRenderIntent(int intentIndex, Selection* customSelection=0);
 	void itemSelection_SetCompressionMethod(int cmIndex, Selection* customSelection=0);
 	void itemSelection_SetCompressionQuality(int cqIndex, Selection* customSelection=0);
-
-	
-//	void chAbStyle(PageItem *currItem, int s);
-
 	void itemSelection_SetTracking(int us, Selection* customSelection=0);
 	void itemSelection_SetFontSize(int size, Selection* customSelection=0);
 	//void FlipImageH();
 	//void FlipImageV();
 	void MirrorPolyH(PageItem *currItem);
 	void MirrorPolyV(PageItem *currItem);
-	
+	bool getItem(PageItem **currItem, int nr = -1);
+	void setFrameRect();
+	void setFrameRounded();
+	void setFrameOval();
+
 	void setRedrawBounding(PageItem *currItem);
 	void adjustCanvas(FPoint minPos, FPoint maxPos, bool absolute = false);
 	struct PicResMapped

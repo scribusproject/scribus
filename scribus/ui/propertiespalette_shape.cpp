@@ -478,8 +478,9 @@ void PropertiesPalette_Shape::handleCornerRadius()
 	if (!m_haveDoc || !m_haveItem || !m_ScMW || m_ScMW->scriptIsRunning())
 		return;
 	m_item->setCornerRadius(roundRect->value() / m_unitRatio);
-	m_ScMW->view->SetFrameRounded();
+	m_doc->setFrameRounded();
 	m_doc->changed();
+	//called from setFrameRounded already!
 	m_doc->regionsChanged()->update(QRect());
 }
 

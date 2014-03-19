@@ -9851,6 +9851,56 @@ void ScribusDoc::MirrorPolyV(PageItem* currItem)
 	changed();
 }
 
+bool ScribusDoc::getItem(PageItem **currItem, int nr)
+{
+	int n=nr;
+	if (n == -1)
+		n=0;
+	*(currItem) = m_Selection->itemAt(n);
+	return (*(currItem)!=NULL);
+}
+
+void ScribusDoc::setFrameRect()
+{
+	nodeEdit.deselect();
+	PageItem *currItem;
+	if (getItem(&currItem))
+	{
+		currItem->SetRectFrame();
+		setRedrawBounding(currItem);
+		regionsChanged()->update(currItem->getRedrawBounding(1.0));
+	}
+}
+
+void ScribusDoc::setFrameRounded()
+{
+	nodeEdit.deselect();
+	PageItem *currItem;
+	if (getItem(&currItem))
+	{
+		if (currItem->cornerRadius() == 0)
+		{
+			setFrameRect();
+			return;
+		}
+		currItem->SetFrameRound();
+		setRedrawBounding(currItem);
+		regionsChanged()->update(currItem->getRedrawBounding(1.0));
+	}
+}
+
+void ScribusDoc::setFrameOval()
+{
+	nodeEdit.deselect();
+	PageItem *currItem;
+	if (getItem(&currItem))
+	{
+		currItem->SetOvalFrame();
+		setRedrawBounding(currItem);
+		regionsChanged()->update(currItem->getRedrawBounding(1.0));
+	}
+}
+
 
 void ScribusDoc::setRedrawBounding(PageItem *currItem)
 {
