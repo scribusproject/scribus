@@ -123,6 +123,7 @@ private slots:
 signals:
 	void updateRecentMenue();
 	void pasteToActualPage(QString);
+	void scrapbookListChanged();
 
 protected:
 	QToolBox* Frame3;

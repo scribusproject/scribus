@@ -956,6 +956,7 @@ void Biblio::NewLib()
 		connect(activeBView, SIGNAL(fileDropped(QString, int)), this, SLOT(ObjFromFile(QString, int)));
 		connect(activeBView, SIGNAL(customContextMenuRequested (const QPoint &)), this, SLOT(HandleMouse(QPoint)));
 		connect(activeBView, SIGNAL(itemDoubleClicked(QListWidgetItem *)), this, SLOT(handleDoubleClick(QListWidgetItem *)));
+		emit scrapbookListChanged();
 	}
 }
 
@@ -1008,6 +1009,7 @@ void Biblio::closeLib()
 		connect(activeBView, SIGNAL(fileDropped(QString, int)), this, SLOT(ObjFromFile(QString, int)));
 		connect(activeBView, SIGNAL(customContextMenuRequested (const QPoint &)), this, SLOT(HandleMouse(QPoint)));
 		connect(activeBView, SIGNAL(itemDoubleClicked(QListWidgetItem *)), this, SLOT(handleDoubleClick(QListWidgetItem *)));
+		emit scrapbookListChanged();
 	}
 }
 
