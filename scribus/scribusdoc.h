@@ -1408,6 +1408,8 @@ signals:
 	void rotationMode(int);
 	void updateEditItem();
 	void updateAutoSaveClock();
+	void addBookmark(PageItem *);
+	void deleteBookmark(PageItem *);
 	
 public slots:
 	void selectionChanged();
@@ -1415,6 +1417,8 @@ public slots:
 	void itemSelection_ToggleSizeLock();
 	void itemSelection_ToggleImageShown();
 	void itemSelection_TogglePrintEnabled();
+	void itemSelection_ToggleBookMark(Selection* customSelection=0);
+	void itemSelection_ToggleAnnotation(Selection* customSelection=0);
 	void itemSelection_Transform(int nrOfCopies, QTransform matrix, int basepoint);
 	void itemSelection_ChangePreviewResolution(int id);
 

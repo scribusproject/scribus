@@ -9036,6 +9036,98 @@ void ScribusDoc::itemSelection_SetFontSize(int size, Selection* customSelection)
 	}*/
 }
 
+void ScribusDoc::itemSelection_ToggleBookMark(Selection *customSelection)
+{
+	Selection* itemSelection = (customSelection!=0) ? customSelection : m_Selection;
+	assert(itemSelection!=0);
+	uint selectedItemCount=itemSelection->count();
+	if (selectedItemCount == 0)
+		return;
+
+	for (uint a = 0; a < selectedItemCount; ++a)
+	{
+		UndoTransaction* activeTransaction = NULL;
+		if (UndoManager::undoEnabled())
+			activeTransaction = new UndoTransaction(undoManager->beginTransaction());
+		PageItem* currItem = itemSelection->itemAt(a);
+		if (currItem->asTextFrame())
+		{
+			if (currItem->OwnPage != -1)
+			{
+				bool old = currItem->isBookmark;
+				currItem->setIsBookMark(!currItem->isBookmark);
+				if (currItem->isBookmark)
+				{
+					currItem->setIsAnnotation(false);
+					emit addBookmark(currItem);
+				}
+				else
+				{
+					if (old)
+						emit deleteBookmark(currItem);
+				}
+			}
+		}
+		if (activeTransaction){
+			activeTransaction->commit(Um::Selection,
+									  Um::IGroup,
+									  Um::ActionPDF,
+									  "",
+									  Um::IGroup);
+			delete activeTransaction;
+			activeTransaction = NULL;
+		}
+	}
+	m_ScMW->actionManager->setPDFActions(m_View);
+	changed();
+}
+
+void ScribusDoc::itemSelection_ToggleAnnotation(Selection *customSelection)
+{
+	Selection* itemSelection = (customSelection!=0) ? customSelection : m_Selection;
+	assert(itemSelection!=0);
+	uint selectedItemCount=itemSelection->count();
+	if (selectedItemCount == 0)
+		return;
+
+	for (uint a = 0; a < selectedItemCount; ++a)
+	{
+		UndoTransaction* activeTransaction = NULL;
+		if (UndoManager::undoEnabled())
+			activeTransaction = new UndoTransaction(undoManager->beginTransaction());
+		PageItem* currItem = itemSelection->itemAt(a);
+		if (currItem->asTextFrame())
+		{
+			bool old = currItem->isBookmark;
+			currItem->setIsAnnotation(!currItem->isAnnotation());
+			if (currItem->isAnnotation())
+			{
+				currItem->AutoName = false;
+				if (m_masterPageMode)
+				{
+					currItem->annotation().setType(Annotation::Link);
+					currItem->annotation().setZiel(0);
+					currItem->annotation().setAction("0 0");
+				}
+				if (old)
+					emit deleteBookmark(currItem);
+				currItem->isBookmark = false;
+			}
+		}
+		if (activeTransaction){
+			activeTransaction->commit(Um::Selection,
+									  Um::IGroup,
+									  Um::ActionPDF,
+									  "",
+									  Um::IGroup);
+			delete activeTransaction;
+			activeTransaction = NULL;
+		}
+	}
+	m_ScMW->actionManager->setPDFActions(m_View);
+	changed();
+}
+
 void ScribusDoc::itemSelection_SetParagraphStyle(const ParagraphStyle & newStyle, Selection* customSelection)
 {
 	Selection* itemSelection = (customSelection!=0) ? customSelection : m_Selection;

@@ -1400,8 +1400,8 @@ void ActionManager::setPDFActions(ScribusView *currView)
 		(*scrActions)["itemPDFAnnotationProps"]->setEnabled(false);
 		(*scrActions)["itemPDFFieldProps"]->setEnabled(false);
 	}
-	connect( (*scrActions)["itemPDFIsAnnotation"], SIGNAL(triggered()), currView, SLOT(ToggleAnnotation()) );
-	connect( (*scrActions)["itemPDFIsBookmark"], SIGNAL(triggered()), currView, SLOT(ToggleBookmark()) );
+	connect( (*scrActions)["itemPDFIsAnnotation"], SIGNAL(triggered()), mainWindow->doc, SLOT(itemSelection_ToggleAnnotation()) );
+	connect( (*scrActions)["itemPDFIsBookmark"], SIGNAL(triggered()), mainWindow->doc, SLOT(itemSelection_ToggleBookMark()) );
 }
 
 void ActionManager::changeEvent(QEvent *e)
