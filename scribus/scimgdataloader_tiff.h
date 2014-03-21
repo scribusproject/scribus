@@ -34,7 +34,8 @@ protected:
 	void blendOntoTarget(RawImage *tmp, int layOpa, QString layBlend, bool cmyk, bool useMask);
 	QString getLayerString(QDataStream & s);
 	bool loadChannel( QDataStream & s, const PSDHeader & header, QList<PSDLayer> &layerInfo, uint layer, int channel, int component, RawImage &tmpImg);
-	bool loadLayerChannels( QDataStream & s, const PSDHeader & header, QList<PSDLayer> &layerInfo, uint layer, bool* firstLayer);
+	bool loadLayerInfo(QDataStream & s, QList<PSDLayer> &layerInfo);
+	bool loadLayerChannels(QDataStream & s, const PSDHeader & header, QList<PSDLayer> &layerInfo, uint layer, bool* firstLayer);
 
 	bool testAlphaChannelAvailability(const QString& fn, int page, bool& hasAlpha);
 	void unmultiplyRGBA(RawImage *image);
