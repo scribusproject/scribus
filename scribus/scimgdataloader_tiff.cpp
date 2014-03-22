@@ -138,7 +138,6 @@ int ScImgDataLoader_TIFF::getLayers(const QString& fn, int /*page*/)
 bool ScImgDataLoader_TIFF::testAlphaChannelAvailability(const QString& fn, int /*page*/, bool& hasAlpha)
 {
 	int  test;
-	bool success = false;
 
 	QByteArray byteOrder(2, ' ');
 	QFile fo(fn);
@@ -194,7 +193,6 @@ bool ScImgDataLoader_TIFF::testAlphaChannelAvailability(const QString& fn, int /
 		QList<PSDLayer> layerInfo;
 		if (loadLayerInfo(s, layerInfo))
 		{
-			int layer = 0;
 			for (int layer = 0; layer < layerInfo.count(); ++layer)
 			{
 				const PSDLayer& psdLayer = layerInfo.at(layer);
