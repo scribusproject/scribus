@@ -6882,6 +6882,10 @@ Se avsnittet «Endre farger» i dokumentasjonen for flere detaljer.</translation
         <source>Gradient</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Hatch</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>CreateMode</name>
@@ -10722,6 +10726,44 @@ converting their vector data into Scribus objects.</source>
     </message>
 </context>
 <context>
+    <name>ImportOdgPlugin</name>
+    <message>
+        <source>Import ODF Document...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>ODF Drawing</source>
+        <comment>Import/export format name</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>ODF Drawing (*.odg *.ODG *.fodg *.FODG)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>ODF Presentation</source>
+        <comment>Import/export format name</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>ODF Presentation (*.odp *.ODP *.fodp *.FODP)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Imports ODF Drawing Files</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Imports most ODF Drawing files into the current document,
+converting their vector data into Scribus objects.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>All Supported Formats</source>
+        <translation type="unfinished">Alle støttede formater</translation>
+    </message>
+</context>
+<context>
     <name>ImportPSPlugin</name>
     <message>
         <source>Import &amp;EPS/PS...</source>
@@ -14473,6 +14515,10 @@ Hvis du bruker motstående, kan dette brukes til å få rettinnbindingsmarg.</tr
         <source>&amp;Right:</source>
         <translation type="unfinished">&amp;Høyre:</translation>
     </message>
+    <message>
+        <source>Ensure all margins have the same value</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>NewTm</name>
@@ -14874,7 +14920,7 @@ You cannot switch to different notes style before you apply that new one or pres
     <message>
         <source>OpenDocument 1.0 Draw</source>
         <comment>Import/export format name</comment>
-        <translation>OpenDocument 1.0 Draw</translation>
+        <translation type="obsolete">OpenDocument 1.0 Draw</translation>
     </message>
     <message>
         <source>OpenOffice.org 1.x Draw</source>
@@ -14888,10 +14934,6 @@ You cannot switch to different notes style before you apply that new one or pres
     <message>
         <source>The file could not be imported</source>
         <translation>Klarte ikke å importere fila</translation>
-    </message>
-    <message>
-        <source>OpenDocument 1.0 Draw (*.odg *.ODG)</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>OpenOffice.org 1.x Draw (*.sxd *.SXD)</source>
@@ -15094,6 +15136,21 @@ You cannot switch to different notes style before you apply that new one or pres
     <message>
         <source>Import 3-D Model</source>
         <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>OdgPlug</name>
+    <message>
+        <source>Importing: %1</source>
+        <translation type="unfinished">Importerer: %1</translation>
+    </message>
+    <message>
+        <source>Analyzing File:</source>
+        <translation type="unfinished">Analyserer fila:</translation>
+    </message>
+    <message>
+        <source>Generating Items</source>
+        <translation type="unfinished">Lager objekter</translation>
     </message>
 </context>
 <context>
@@ -17350,7 +17407,7 @@ Often used for allowing items to be placed across page spreads</source>
         <translation type="unfinished">Skjema</translation>
     </message>
     <message>
-        <source>&lt;&lt;&lt; Return to pages edition</source>
+        <source>&lt;&lt;&lt; Return to Pages Edition</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -27083,10 +27140,6 @@ Corners:</source>
 <context>
     <name>PropertiesPalette_Shadow</name>
     <message>
-        <source>Object has a drop shadow</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>X-Offset:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -27116,7 +27169,79 @@ Corners:</source>
     </message>
     <message>
         <source> pt</source>
-        <translation type="unfinished"> pt</translation>
+        <translation type="obsolete"> pt</translation>
+    </message>
+    <message>
+        <source>Has Drop Shadow</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Black</source>
+        <translation type="unfinished">Svart</translation>
+    </message>
+    <message>
+        <source>Normal</source>
+        <translation type="unfinished">Normal</translation>
+    </message>
+    <message>
+        <source>Darken</source>
+        <translation type="unfinished">Mørkne</translation>
+    </message>
+    <message>
+        <source>Lighten</source>
+        <translation type="unfinished">Lysne</translation>
+    </message>
+    <message>
+        <source>Multiply</source>
+        <translation type="unfinished">Mangfoldiggjør</translation>
+    </message>
+    <message>
+        <source>Screen</source>
+        <translation type="unfinished">Skjerm</translation>
+    </message>
+    <message>
+        <source>Overlay</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hard Light</source>
+        <translation type="unfinished">Hardt lys</translation>
+    </message>
+    <message>
+        <source>Soft Light</source>
+        <translation type="unfinished">Mykt lys</translation>
+    </message>
+    <message>
+        <source>Difference</source>
+        <translation type="unfinished">Forskjell</translation>
+    </message>
+    <message>
+        <source>Exclusion</source>
+        <translation type="unfinished">Utelukkelse</translation>
+    </message>
+    <message>
+        <source>Color Dodge</source>
+        <translation type="unfinished">Fargeskygging</translation>
+    </message>
+    <message>
+        <source>Color Burn</source>
+        <translation type="unfinished">Fargebrenning</translation>
+    </message>
+    <message>
+        <source>Hue</source>
+        <translation type="unfinished">Fargetone</translation>
+    </message>
+    <message>
+        <source>Saturation</source>
+        <translation type="unfinished">Metning</translation>
+    </message>
+    <message>
+        <source>Color</source>
+        <translation type="unfinished">Farge</translation>
+    </message>
+    <message>
+        <source>Luminosity</source>
+        <translation type="unfinished">Lyshetsgrad</translation>
     </message>
 </context>
 <context>
@@ -27915,6 +28040,18 @@ Corners:</source>
         <source>Column width</source>
         <translation type="unfinished">Kolonnebredde</translation>
     </message>
+    <message>
+        <source>Top</source>
+        <translation type="unfinished">Toppen</translation>
+    </message>
+    <message>
+        <source>Middle</source>
+        <translation type="unfinished">I midten</translation>
+    </message>
+    <message>
+        <source>Bottom</source>
+        <translation type="unfinished">Bunnen</translation>
+    </message>
 </context>
 <context>
     <name>PropertyWidget_DistanceBase</name>
@@ -27953,6 +28090,22 @@ Corners:</source>
     <message>
         <source>T&amp;abulators...</source>
         <translation type="unfinished">&amp;Tabulatorer …</translation>
+    </message>
+    <message>
+        <source>Vertical Alignment</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Top</source>
+        <translation type="unfinished">Toppen</translation>
+    </message>
+    <message>
+        <source>Middle</source>
+        <translation type="unfinished">I midten</translation>
+    </message>
+    <message>
+        <source>Bottom</source>
+        <translation type="unfinished">Bunnen</translation>
     </message>
 </context>
 <context>
@@ -30696,7 +30849,7 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>OpenOffice.org Draw (*.sxd *.odg);;All Files (*)</source>
-        <translation>OpenOffice.org Draw (*.sxd *.odg);;Alle filer (*)</translation>
+        <translation type="obsolete">OpenOffice.org Draw (*.sxd *.odg);;Alle filer (*)</translation>
     </message>
     <message>
         <source>Word Documents</source>
@@ -31951,6 +32104,18 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>High Resolution</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Anii</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Open Document Importer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>OpenOffice.org Draw (*.sxd *.SXD);;All Files (*)</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -36928,7 +37093,7 @@ Rotasjon: %4</translation>
     </message>
     <message>
         <source>No Style</source>
-        <translation>Ingen stil</translation>
+        <translation type="obsolete">Ingen stil</translation>
     </message>
     <message>
         <source>The following programs are missing:</source>
@@ -37165,60 +37330,32 @@ Former monitor profile will be used.</source>
         <translation type="unfinished">Lukk</translation>
     </message>
     <message>
-        <source>Table</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Unknown</source>
         <translation type="unfinished">Ukjent</translation>
     </message>
     <message>
         <source>Image Frame</source>
-        <translation type="unfinished">Bilderamme</translation>
+        <translation type="obsolete">Bilderamme</translation>
     </message>
     <message>
         <source>Text Frame</source>
-        <translation type="unfinished">Tekstramme</translation>
+        <translation type="obsolete">Tekstramme</translation>
     </message>
     <message>
         <source>Line</source>
-        <translation type="unfinished">Linje</translation>
+        <translation type="obsolete">Linje</translation>
     </message>
     <message>
         <source>Polygon</source>
-        <translation type="unfinished">Mangekant</translation>
+        <translation type="obsolete">Mangekant</translation>
     </message>
     <message>
         <source>Polyline</source>
-        <translation type="unfinished">Flerdelt linje</translation>
-    </message>
-    <message>
-        <source>Text on Path</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Latex Frame</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Symbol</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Flerdelt linje</translation>
     </message>
     <message>
         <source>Group</source>
-        <translation type="unfinished">Grupper</translation>
-    </message>
-    <message>
-        <source>RegularPolygon</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Arc</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Spiral</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Grupper</translation>
     </message>
     <message>
         <source>%1 Objects selected, Selection Size = %2 x %3</source>
@@ -37740,10 +37877,6 @@ Former monitor profile will be used.</source>
         <translation>Velg kvaliteten på forhåndsvisningen av bildene</translation>
     </message>
     <message>
-        <source>Do you want to insert the frame into the selected text chain? If so, where would you like to insert it?</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>You are trying to link a non-empty frame to frame which is already linked.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -37777,6 +37910,10 @@ Former monitor profile will be used.</source>
     </message>
     <message>
         <source>&amp;Paste Here</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You are trying to insert a frame into an existing text chain, where would you like to insert it?</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -45167,6 +45304,38 @@ converting their vector data into Scribus objects.</source>
     <message>
         <source>Patch Mesh</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Distance:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Angle:</source>
+        <translation type="unfinished">Vinkel:</translation>
+    </message>
+    <message>
+        <source>Type:</source>
+        <translation type="unfinished">Type:</translation>
+    </message>
+    <message>
+        <source>Single</source>
+        <translation type="unfinished">Enkel</translation>
+    </message>
+    <message>
+        <source>Double</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Triple</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Line Color:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Background</source>
+        <translation type="unfinished">Bakgrunn</translation>
     </message>
 </context>
 <context>

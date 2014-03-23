@@ -12916,6 +12916,10 @@ See the Edit Colours section of the documentation for more details.</translation
         <source>Gradient</source>
         <translation>Gradient</translation>
     </message>
+    <message>
+        <source>Hatch</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>CreateMode</name>
@@ -15670,6 +15674,44 @@ converting their vector data into Scribus objects.</translation>
     </message>
 </context>
 <context>
+    <name>ImportOdgPlugin</name>
+    <message>
+        <source>Import ODF Document...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>ODF Drawing</source>
+        <comment>Import/export format name</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>ODF Drawing (*.odg *.ODG *.fodg *.FODG)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>ODF Presentation</source>
+        <comment>Import/export format name</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>ODF Presentation (*.odp *.ODP *.fodp *.FODP)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Imports ODF Drawing Files</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Imports most ODF Drawing files into the current document,
+converting their vector data into Scribus objects.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>All Supported Formats</source>
+        <translation type="unfinished">All Supported Formats</translation>
+    </message>
+</context>
+<context>
     <name>ImportPSPlugin</name>
     <message>
         <source>Import PostScript...</source>
@@ -18301,6 +18343,10 @@ If no handle is selected all handles will be reset.</source>
         <source>&amp;Right:</source>
         <translation>&amp;Right:</translation>
     </message>
+    <message>
+        <source>Ensure all margins have the same value</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>NodePalette</name>
@@ -18677,7 +18723,7 @@ You cannot switch to different notes style before you apply that new one or pres
     <message>
         <source>OpenDocument 1.0 Draw</source>
         <comment>Import/export format name</comment>
-        <translation>OpenDocument 1.0 Draw</translation>
+        <translation type="obsolete">OpenDocument 1.0 Draw</translation>
     </message>
     <message>
         <source>OpenOffice.org 1.x Draw</source>
@@ -18691,10 +18737,6 @@ You cannot switch to different notes style before you apply that new one or pres
     <message>
         <source>The file could not be imported</source>
         <translation>The file could not be imported</translation>
-    </message>
-    <message>
-        <source>OpenDocument 1.0 Draw (*.odg *.ODG)</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>OpenOffice.org 1.x Draw (*.sxd *.SXD)</source>
@@ -18913,6 +18955,21 @@ You cannot switch to different notes style before you apply that new one or pres
     <message>
         <source>Import 3-D Model</source>
         <translation type="unfinished">Import 3-D Model</translation>
+    </message>
+</context>
+<context>
+    <name>OdgPlug</name>
+    <message>
+        <source>Importing: %1</source>
+        <translation type="unfinished">Importing: %1</translation>
+    </message>
+    <message>
+        <source>Analyzing File:</source>
+        <translation type="unfinished">Analysing File:</translation>
+    </message>
+    <message>
+        <source>Generating Items</source>
+        <translation type="unfinished">Generating Items</translation>
     </message>
 </context>
 <context>
@@ -20104,7 +20161,7 @@ Often used for allowing items to be placed across page spreads</source>
         <translation type="unfinished">Form</translation>
     </message>
     <message>
-        <source>&lt;&lt;&lt; Return to pages edition</source>
+        <source>&lt;&lt;&lt; Return to Pages Edition</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -28619,10 +28676,6 @@ Corners:</translation>
 <context>
     <name>PropertiesPalette_Shadow</name>
     <message>
-        <source>Object has a drop shadow</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>X-Offset:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -28652,7 +28705,79 @@ Corners:</translation>
     </message>
     <message>
         <source> pt</source>
-        <translation type="unfinished"> pt</translation>
+        <translation type="obsolete"> pt</translation>
+    </message>
+    <message>
+        <source>Has Drop Shadow</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Black</source>
+        <translation type="unfinished">Black</translation>
+    </message>
+    <message>
+        <source>Normal</source>
+        <translation type="unfinished">Normal</translation>
+    </message>
+    <message>
+        <source>Darken</source>
+        <translation type="unfinished">Darken</translation>
+    </message>
+    <message>
+        <source>Lighten</source>
+        <translation type="unfinished">Lighten</translation>
+    </message>
+    <message>
+        <source>Multiply</source>
+        <translation type="unfinished">Multiply</translation>
+    </message>
+    <message>
+        <source>Screen</source>
+        <translation type="unfinished">Screen</translation>
+    </message>
+    <message>
+        <source>Overlay</source>
+        <translation type="unfinished">Overlay</translation>
+    </message>
+    <message>
+        <source>Hard Light</source>
+        <translation type="unfinished">Hard Light</translation>
+    </message>
+    <message>
+        <source>Soft Light</source>
+        <translation type="unfinished">Soft Light</translation>
+    </message>
+    <message>
+        <source>Difference</source>
+        <translation type="unfinished">Difference</translation>
+    </message>
+    <message>
+        <source>Exclusion</source>
+        <translation type="unfinished">Exclusion</translation>
+    </message>
+    <message>
+        <source>Color Dodge</source>
+        <translation type="unfinished">Colour Dodge</translation>
+    </message>
+    <message>
+        <source>Color Burn</source>
+        <translation type="unfinished">Colour Burn</translation>
+    </message>
+    <message>
+        <source>Hue</source>
+        <translation type="unfinished">Hue</translation>
+    </message>
+    <message>
+        <source>Saturation</source>
+        <translation type="unfinished">Saturation</translation>
+    </message>
+    <message>
+        <source>Color</source>
+        <translation type="unfinished">Colour</translation>
+    </message>
+    <message>
+        <source>Luminosity</source>
+        <translation type="unfinished">Luminosity</translation>
     </message>
 </context>
 <context>
@@ -29446,6 +29571,18 @@ Corners:</translation>
         <source>Column width</source>
         <translation type="unfinished">Column width</translation>
     </message>
+    <message>
+        <source>Top</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Middle</source>
+        <translation type="unfinished">Middle</translation>
+    </message>
+    <message>
+        <source>Bottom</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>PropertyWidget_DistanceBase</name>
@@ -29484,6 +29621,22 @@ Corners:</translation>
     <message>
         <source>T&amp;abulators...</source>
         <translation type="unfinished">T&amp;abulators...</translation>
+    </message>
+    <message>
+        <source>Vertical Alignment</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Top</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Middle</source>
+        <translation type="unfinished">Middle</translation>
+    </message>
+    <message>
+        <source>Bottom</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -31859,7 +32012,7 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>OpenOffice.org Draw (*.sxd *.odg);;All Files (*)</source>
-        <translation>OpenOffice.org Draw (*.sxd *.odg);;All Files (*)</translation>
+        <translation type="obsolete">OpenOffice.org Draw (*.sxd *.odg);;All Files (*)</translation>
     </message>
     <message>
         <source>Word Documents</source>
@@ -33106,6 +33259,18 @@ Therefore the image may be not correct</source>
     </message>
     <message>
         <source>High Resolution</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Anii</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Open Document Importer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>OpenOffice.org Draw (*.sxd *.SXD);;All Files (*)</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -36334,7 +36499,7 @@ Rotation: %4</translation>
     </message>
     <message>
         <source>No Style</source>
-        <translation>No Style</translation>
+        <translation type="obsolete">No Style</translation>
     </message>
     <message>
         <source>An error occurred while opening monitor profile.
@@ -36585,7 +36750,7 @@ Consider using the Preflight Verifier to correct them</translation>
     </message>
     <message>
         <source>Table</source>
-        <translation type="unfinished">Table</translation>
+        <translation type="obsolete">Table</translation>
     </message>
     <message>
         <source>Unknown</source>
@@ -36593,51 +36758,39 @@ Consider using the Preflight Verifier to correct them</translation>
     </message>
     <message>
         <source>Image Frame</source>
-        <translation type="unfinished">Image Frame</translation>
+        <translation type="obsolete">Image Frame</translation>
     </message>
     <message>
         <source>Text Frame</source>
-        <translation type="unfinished">Text Frame</translation>
+        <translation type="obsolete">Text Frame</translation>
     </message>
     <message>
         <source>Line</source>
-        <translation type="unfinished">Line</translation>
+        <translation type="obsolete">Line</translation>
     </message>
     <message>
         <source>Polygon</source>
-        <translation type="unfinished">Polygon</translation>
+        <translation type="obsolete">Polygon</translation>
     </message>
     <message>
         <source>Polyline</source>
-        <translation type="unfinished">Polyline</translation>
-    </message>
-    <message>
-        <source>Text on Path</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Latex Frame</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Polyline</translation>
     </message>
     <message>
         <source>Symbol</source>
-        <translation type="unfinished">Symbol</translation>
+        <translation type="obsolete">Symbol</translation>
     </message>
     <message>
         <source>Group</source>
-        <translation type="unfinished">Group</translation>
-    </message>
-    <message>
-        <source>RegularPolygon</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Group</translation>
     </message>
     <message>
         <source>Arc</source>
-        <translation type="unfinished">Arc</translation>
+        <translation type="obsolete">Arc</translation>
     </message>
     <message>
         <source>Spiral</source>
-        <translation type="unfinished">Spiral</translation>
+        <translation type="obsolete">Spiral</translation>
     </message>
     <message>
         <source>%1 Objects selected, Selection Size = %2 x %3</source>
@@ -37088,10 +37241,6 @@ You can choose between normal and several colour blindness forms</translation>
         <translation type="obsolete">Send to Scrapbook</translation>
     </message>
     <message>
-        <source>Do you want to insert the frame into the selected text chain? If so, where would you like to insert it?</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>You are trying to link a non-empty frame to frame which is already linked.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -37125,6 +37274,10 @@ You can choose between normal and several colour blindness forms</translation>
     </message>
     <message>
         <source>&amp;Paste Here</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You are trying to insert a frame into an existing text chain, where would you like to insert it?</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -43267,6 +43420,38 @@ converting their vector data into Scribus objects.</translation>
     <message>
         <source>Patch Mesh</source>
         <translation>Patch Mesh</translation>
+    </message>
+    <message>
+        <source>Distance:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Angle:</source>
+        <translation type="unfinished">Angle:</translation>
+    </message>
+    <message>
+        <source>Type:</source>
+        <translation type="unfinished">Type:</translation>
+    </message>
+    <message>
+        <source>Single</source>
+        <translation type="unfinished">Single</translation>
+    </message>
+    <message>
+        <source>Double</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Triple</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Line Color:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Background</source>
+        <translation type="unfinished">Background</translation>
     </message>
 </context>
 <context>
