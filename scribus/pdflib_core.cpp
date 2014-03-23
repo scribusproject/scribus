@@ -2127,15 +2127,27 @@ bool PDFLibCore::PDF_TemplatePage(const ScPage* pag, bool )
 									if (!PDF_PatternFillStroke(tmpOut, ite))
 										return false;
 								}
+								else if (ite->GrType == 14)
+								{
+									if (!PDF_HatchFill(tmpOut, ite))
+										return false;
+								}
 								else
 								{
 									if (!PDF_GradientFillStroke(tmpOut, ite))
 										return false;
 								}
-								PutPage(tmpOut);
+								if (ite->GrType != 14)
+									PutPage(tmpOut);
 							}
-							PutPage(SetClipPath(ite));
-							PutPage(ite->fillRule ? "h\nf*\n" : "h\nf\n");
+							else
+							{
+								if (ite->fillColor() != CommonStrings::None)
+								{
+									PutPage(SetClipPath(ite));
+									PutPage(ite->fillRule ? "h\nf*\n" : "h\nf\n");
+								}
+							}
 						}
 						PutPage("q\n");
 						if (ite->imageFlippedH())
@@ -2295,6 +2307,11 @@ bool PDFLibCore::PDF_TemplatePage(const ScPage* pag, bool )
 								if (!PDF_PatternFillStroke(tmpOut, ite))
 									return false;
 							}
+							else if (ite->GrType == 14)
+							{
+								if (!PDF_HatchFill(tmpOut, ite))
+									return false;
+							}
 							else
 							{
 								if (!PDF_GradientFillStroke(tmpOut, ite))
@@ -2302,9 +2319,14 @@ bool PDFLibCore::PDF_TemplatePage(const ScPage* pag, bool )
 							}
 							if (!tmpOut.isEmpty())
 							{
-								PutPage(tmpOut);
-								PutPage(SetClipPath(ite));
-								PutPage(ite->fillRule ? "h\nf*\n" : "h\nf\n");
+								if (ite->GrType == 14)
+									PutPage(tmpOut);
+								else
+								{
+									PutPage(tmpOut);
+									PutPage(SetClipPath(ite));
+									PutPage(ite->fillRule ? "h\nf*\n" : "h\nf\n");
+								}
 							}
 						}
 						else
@@ -2384,6 +2406,11 @@ bool PDFLibCore::PDF_TemplatePage(const ScPage* pag, bool )
 									if (!PDF_PatternFillStroke(tmpOut, ite))
 										return false;
 								}
+								else if (ite->GrType == 14)
+								{
+									if (!PDF_HatchFill(tmpOut, ite))
+										return false;
+								}
 								else
 								{
 									if (!PDF_GradientFillStroke(tmpOut, ite))
@@ -2391,9 +2418,14 @@ bool PDFLibCore::PDF_TemplatePage(const ScPage* pag, bool )
 								}
 								if (!tmpOut.isEmpty())
 								{
-									PutPage(tmpOut);
-									PutPage(SetClipPath(ite));
-									PutPage(ite->fillRule ? "h\nf*\n" : "h\nf\n");
+									if (ite->GrType == 14)
+										PutPage(tmpOut);
+									else
+									{
+										PutPage(tmpOut);
+										PutPage(SetClipPath(ite));
+										PutPage(ite->fillRule ? "h\nf*\n" : "h\nf\n");
+									}
 								}
 							}
 							else
@@ -3741,6 +3773,11 @@ bool PDFLibCore::PDF_ProcessItem(QString& output, PageItem* ite, const ScPage* p
 						if (!PDF_PatternFillStroke(tmpOut, ite))
 							return false;
 					}
+					else if (ite->GrType == 14)
+					{
+						if (!PDF_HatchFill(tmpOut, ite))
+							return false;
+					}
 					else
 					{
 						if (!PDF_GradientFillStroke(tmpOut, ite))
@@ -3748,15 +3785,23 @@ bool PDFLibCore::PDF_ProcessItem(QString& output, PageItem* ite, const ScPage* p
 					}
 					if (!tmpOut.isEmpty())
 					{
-						tmp += tmpOut;
-						tmp += SetClipPath(ite);
-						tmp += (ite->fillRule ? "h\nf*\n" : "h\nf\n");
+						if (ite->GrType == 14)
+							tmp += tmpOut;
+						else
+						{
+							tmp += tmpOut;
+							tmp += SetClipPath(ite);
+							tmp += (ite->fillRule ? "h\nf*\n" : "h\nf\n");
+						}
 					}
 				}
 				else
 				{
-					tmp += SetClipPath(ite);
-					tmp += (ite->fillRule ? "h\nf*\n" : "h\nf\n");
+					if (ite->fillColor() != CommonStrings::None)
+					{
+						tmp += SetClipPath(ite);
+						tmp += (ite->fillRule ? "h\nf*\n" : "h\nf\n");
+					}
 				}
 			}
 			tmp += "q\n";
@@ -3854,6 +3899,11 @@ bool PDFLibCore::PDF_ProcessItem(QString& output, PageItem* ite, const ScPage* p
 						if (!PDF_PatternFillStroke(tmpOut, ite))
 							return false;
 					}
+					else if (ite->GrType == 14)
+					{
+						if (!PDF_HatchFill(tmpOut, ite))
+							return false;
+					}
 					else
 					{
 						if (!PDF_GradientFillStroke(tmpOut, ite))
@@ -3861,15 +3911,23 @@ bool PDFLibCore::PDF_ProcessItem(QString& output, PageItem* ite, const ScPage* p
 					}
 					if (!tmpOut.isEmpty())
 					{
-						tmp += tmpOut;
-						tmp += SetClipPath(ite);
-						tmp += (ite->fillRule ? "h\nf*\n" : "h\nf\n");
+						if (ite->GrType == 14)
+							tmp += tmpOut;
+						else
+						{
+							tmp += tmpOut;
+							tmp += SetClipPath(ite);
+							tmp += (ite->fillRule ? "h\nf*\n" : "h\nf\n");
+						}
 					}
 				}
 				else
 				{
-					tmp += SetClipPath(ite);
-					tmp += (ite->fillRule ? "h\nf*\n" : "h\nf\n");
+					if (ite->fillColor() != CommonStrings::None)
+					{
+						tmp += SetClipPath(ite);
+						tmp += (ite->fillRule ? "h\nf*\n" : "h\nf\n");
+					}
 				}
 			}
 			tmp += "q\n";
@@ -4021,6 +4079,11 @@ bool PDFLibCore::PDF_ProcessItem(QString& output, PageItem* ite, const ScPage* p
 					if (!PDF_PatternFillStroke(tmpOut, ite))
 						return false;
 				}
+				else if (ite->GrType == 14)
+				{
+					if (!PDF_HatchFill(tmpOut, ite))
+						return false;
+				}
 				else
 				{
 					if (!PDF_GradientFillStroke(tmpOut, ite))
@@ -4028,9 +4091,14 @@ bool PDFLibCore::PDF_ProcessItem(QString& output, PageItem* ite, const ScPage* p
 				}
 				if (!tmpOut.isEmpty())
 				{
-					tmp += tmpOut;
-					tmp += SetClipPath(ite);
-					tmp += (ite->fillRule ? "h\nf*\n" : "h\nf\n");
+					if (ite->GrType == 14)
+						tmp += tmpOut;
+					else
+					{
+						tmp += tmpOut;
+						tmp += SetClipPath(ite);
+						tmp += (ite->fillRule ? "h\nf*\n" : "h\nf\n");
+					}
 				}
 			}
 			else
@@ -4111,6 +4179,11 @@ bool PDFLibCore::PDF_ProcessItem(QString& output, PageItem* ite, const ScPage* p
 						if (!PDF_PatternFillStroke(tmpOut, ite))
 							return false;
 					}
+					else if (ite->GrType == 14)
+					{
+						if (!PDF_HatchFill(tmpOut, ite))
+							return false;
+					}
 					else
 					{
 						if (!PDF_GradientFillStroke(tmpOut, ite))
@@ -4118,9 +4191,14 @@ bool PDFLibCore::PDF_ProcessItem(QString& output, PageItem* ite, const ScPage* p
 					}
 					if (!tmpOut.isEmpty())
 					{
-						tmp += tmpOut;
-						tmp += SetClipPath(ite);
-						tmp += (ite->fillRule ? "h\nf*\n" : "h\nf\n");
+						if (ite->GrType == 14)
+							tmp += tmpOut;
+						else
+						{
+							tmp += tmpOut;
+							tmp += SetClipPath(ite);
+							tmp += (ite->fillRule ? "h\nf*\n" : "h\nf\n");
+						}
 					}
 				}
 				else
@@ -6338,6 +6416,89 @@ QString PDFLibCore::PDF_TransparenzStroke(PageItem *currItem)
 								   + "/BM /" + blendMode(currItem->lineBlendmode()) + "\n");
 	QString tmp("/"+ShName+" gs\n");
 	return tmp;
+}
+
+bool PDFLibCore::PDF_HatchFill(QString& output, PageItem *currItem)
+{
+	output += "q\n1 w\n[] 0 d\n0 J\n0 j\n";
+	if ((currItem->hatchBackground != CommonStrings::None) && (currItem->hatchUseBackground))
+	{
+		output += putColor(currItem->hatchBackground, 100, true);
+		output += SetClipPath(currItem);
+		output += (currItem->fillRule ? "h\nf*\n" : "h\nf\n");
+	}
+	if (currItem->hatchForeground != CommonStrings::None)
+		output += putColor(currItem->hatchForeground, 100, false);
+	output += SetPathAndClip(currItem);
+	QTransform mpa;
+	mpa.translate(currItem->width() / 2.0, -currItem->height() / 2.0);
+	output += FToStr(mpa.m11())+" "+FToStr(mpa.m12())+" "+FToStr(mpa.m21())+" "+FToStr(mpa.m22())+" "+FToStr(mpa.dx())+" "+FToStr(mpa.dy())+" cm\n";
+	double lineLen = sqrt((currItem->width() / 2.0) * (currItem->width() / 2.0) + (currItem->height() / 2.0) * (currItem->height() / 2.0));
+	double dist = 0.0;
+	output += "q\n";
+	QTransform mp;
+	mp.rotate(currItem->hatchAngle);
+	output += FToStr(mp.m11())+" "+FToStr(mp.m12())+" "+FToStr(mp.m21())+" "+FToStr(mp.m22())+" "+FToStr(mp.dx())+" "+FToStr(mp.dy())+" cm\n";
+	while (dist < lineLen)
+	{
+		output += FToStr(-lineLen) + " " + FToStr(dist) + " m\n";
+		output += FToStr(lineLen)+ " " + FToStr(dist) + " l\n";
+		output += "S\n";
+		if (dist > 0)
+		{
+			output += FToStr(-lineLen) + " " + FToStr(-dist) + " m\n";
+			output += FToStr(lineLen)+ " " + FToStr(-dist) + " l\n";
+			output += "S\n";
+		}
+		dist += currItem->hatchDistance;
+	}
+	output += "Q\n";
+	dist = 0;
+	if ((currItem->hatchType == 1) || (currItem->hatchType == 2))
+	{
+		output += "q\n";
+		QTransform mp;
+		mp.rotate(currItem->hatchAngle + 90);
+		output += FToStr(mp.m11())+" "+FToStr(mp.m12())+" "+FToStr(mp.m21())+" "+FToStr(mp.m22())+" "+FToStr(mp.dx())+" "+FToStr(mp.dy())+" cm\n";
+		while (dist < lineLen)
+		{
+			output += FToStr(-lineLen) + " " + FToStr(dist) + " m\n";
+			output += FToStr(lineLen)+ " " + FToStr(dist) + " l\n";
+			output += "S\n";
+			if (dist > 0)
+			{
+				output += FToStr(-lineLen) + " " + FToStr(-dist) + " m\n";
+				output += FToStr(lineLen)+ " " + FToStr(-dist) + " l\n";
+				output += "S\n";
+			}
+			dist += currItem->hatchDistance;
+		}
+		output += "Q\n";
+	}
+	if (currItem->hatchType == 2)
+	{
+		dist = 0;
+		output += "q\n";
+		QTransform mp;
+		mp.rotate(currItem->hatchAngle - 45);
+		output += FToStr(mp.m11())+" "+FToStr(mp.m12())+" "+FToStr(mp.m21())+" "+FToStr(mp.m22())+" "+FToStr(mp.dx())+" "+FToStr(mp.dy())+" cm\n";
+		while (dist < lineLen)
+		{
+			output += FToStr(-lineLen) + " " + FToStr(dist * sqrt(2.0)) + " m\n";
+			output += FToStr(lineLen)+ " " + FToStr(dist * sqrt(2.0)) + " l\n";
+			output += "S\n";
+			if (dist > 0)
+			{
+				output += FToStr(-lineLen) + " " + FToStr(-dist * sqrt(2.0)) + " m\n";
+				output += FToStr(lineLen)+ " " + FToStr(-dist * sqrt(2.0)) + " l\n";
+				output += "S\n";
+			}
+			dist += currItem->hatchDistance;
+		}
+		output += "Q\n";
+	}
+	output += "Q\n";
+	return true;
 }
 
 bool PDFLibCore::PDF_PatternFillStroke(QString& output, PageItem *currItem, int kind, bool forArrow)

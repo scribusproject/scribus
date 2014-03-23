@@ -34,7 +34,7 @@ class SCRIBUS_API ScPainter
 public:
 	ScPainter( QImage *target, unsigned int w, unsigned int h, double transparency = 1.0, int blendmode = 0 );
 	virtual ~ScPainter();
-	enum FillMode { None, Solid, Gradient, Pattern };
+	enum FillMode { None, Solid, Gradient, Pattern, Hatch };
 	virtual void beginLayer(double transparency, int blendmode, FPointArray *clipArray = 0);
 	virtual void endLayer();
 	virtual void setAntialiasing(bool enable);
@@ -77,6 +77,8 @@ public:
 	virtual void setDiamondGeometry(FPoint p1, FPoint p2, FPoint p3, FPoint p4, FPoint c1, FPoint c2, FPoint c3, FPoint c4, FPoint c5);
 	virtual void setMeshGradient(FPoint p1, FPoint p2, FPoint p3, FPoint p4, QList<QList<meshPoint> > meshArray);
 	virtual void setMeshGradient(FPoint p1, FPoint p2, FPoint p3, FPoint p4, QList<meshGradientPatch> meshPatches);
+
+	virtual void setHatchParameters(int mode, double distance, double angle, bool useBackground, QColor background, QColor foreground, double width, double height);
 
 	virtual void setClipPath();
 
@@ -179,7 +181,7 @@ private:
 	QColor m_fill;
 	double fill_trans;
 	bool m_fillRule;
-	int fillMode;				// 0 = none, 1 = solid, 2 = gradient 3 = pattern
+	int fillMode;				// 0 = none, 1 = solid, 2 = gradient 3 = pattern 4 = hatch
 	int gradientMode;		// 1 = linear, 2 = radial, 3 = 4colour
 	double patternScaleX;
 	double patternScaleY;
@@ -207,6 +209,14 @@ private:
 	QColor gradPatchColor4;
 	QList<QList<meshPoint> > meshGradientArray;
 	QList<meshGradientPatch> meshGradientPatches;
+	double hatchAngle;
+	double hatchDistance;
+	int hatchType;				// 0 = single 1 = double 2 = triple
+	bool hatchUseBackground;
+	QColor hatchBackground;
+	QColor hatchForeground;
+	double hatchWidth;
+	double hatchHeight;
 	/*! \brief Stroking */
 	QColor m_stroke;
 	double stroke_trans;

@@ -1714,7 +1714,9 @@ bool PSLib::ProcessItem(ScribusDoc* Doc, ScPage* a, PageItem* c, uint PNr, bool 
 			{
 				SetClipPath(&c->PoLine);
 				PS_closepath();
-				if ((c->GrType != 0) && (master == false))
+				if (c->GrType == 14)
+					PS_HatchFill(c, gcr);
+				else if ((c->GrType != 0) && (master == false))
 					HandleGradientFillStroke(c, gcr, false);
 				else
 					putColor(c->fillColor(), c->fillShade(), true);
@@ -1828,7 +1830,9 @@ bool PSLib::ProcessItem(ScribusDoc* Doc, ScPage* a, PageItem* c, uint PNr, bool 
 			{
 				SetClipPath(&c->PoLine);
 				PS_closepath();
-				if ((c->GrType != 0) && (master == false))
+				if (c->GrType == 14)
+					PS_HatchFill(c, gcr);
+				else if ((c->GrType != 0) && (master == false))
 					HandleGradientFillStroke(c, gcr, false);
 				else
 					putColor(c->fillColor(), c->fillShade(), true);
@@ -1971,7 +1975,9 @@ bool PSLib::ProcessItem(ScribusDoc* Doc, ScPage* a, PageItem* c, uint PNr, bool 
 				SetClipPath(&c->PoLine);
 				PS_closepath();
 				fillRule = c->fillRule;
-				if (c->GrType != 0)
+				if (c->GrType == 14)
+					PS_HatchFill(c, gcr);
+				else if (c->GrType != 0)
 					HandleGradientFillStroke(c, gcr, false);
 				else
 					putColor(c->fillColor(), c->fillShade(), true);
@@ -2024,7 +2030,9 @@ bool PSLib::ProcessItem(ScribusDoc* Doc, ScPage* a, PageItem* c, uint PNr, bool 
 				SetClipPath(&c->PoLine);
 				PS_closepath();
 				fillRule = c->fillRule;
-				if (c->GrType != 0)
+				if (c->GrType == 14)
+					PS_HatchFill(c, gcr);
+				else if (c->GrType != 0)
 					HandleGradientFillStroke(c, gcr, false);
 				else
 					putColor(c->fillColor(), c->fillShade(), true);
@@ -3137,7 +3145,9 @@ bool PSLib::ProcessMasterPageLayer(ScribusDoc* Doc, ScPage* page, ScLayer& layer
 				{
 					SetClipPath(&ite->PoLine);
 					PS_closepath();
-					if (ite->GrType != 0)
+					if (ite->GrType == 14)
+						PS_HatchFill(ite, gcr);
+					else if (ite->GrType != 0)
 						HandleGradientFillStroke(ite, gcr, false);
 					else
 						putColor(ite->fillColor(), ite->fillShade(), true);
@@ -4777,6 +4787,95 @@ void PSLib::HandleGradientFillStroke(PageItem *c, bool gcr, bool stroke, bool fo
 			else
 				PutStream("fill\n");
 		}
+	}
+}
+
+void PSLib::PS_HatchFill(PageItem *currItem, bool gcr)
+{
+	PS_save();
+	QVector<double> dum;
+	int h, s, v, k;
+	PS_setlinewidth(1);
+	PS_setcapjoin(Qt::FlatCap, Qt::MiterJoin);
+	PS_setdash(Qt::SolidLine, 0, dum);
+	if ((currItem->hatchBackground != CommonStrings::None) && (currItem->hatchUseBackground))
+	{
+		SetColor(currItem->hatchBackground, 100, &h, &s, &v, &k, gcr);
+		PS_setcmykcolor_fill(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
+		putColor(currItem->hatchBackground, 100, true);
+		SetPathAndClip(currItem->PoLine, currItem->fillRule);
+	}
+	else
+		PS_clip(currItem->fillRule);
+	if (currItem->hatchForeground != CommonStrings::None)
+	{
+		SetColor(currItem->hatchForeground, 100, &h, &s, &v, &k, gcr);
+		PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
+	}
+	PS_translate(currItem->width() / 2.0, -currItem->height() / 2.0);
+	double lineLen = sqrt((currItem->width() / 2.0) * (currItem->width() / 2.0) + (currItem->height() / 2.0) * (currItem->height() / 2.0));
+	double dist = 0.0;
+	PS_save();
+	PS_rotate(currItem->hatchAngle);
+	while (dist < lineLen)
+	{
+		PS_moveto(-lineLen, dist);
+		PS_lineto(lineLen, dist);
+		putColor(currItem->hatchForeground, 100, false);
+		if (dist > 0)
+		{
+			PS_moveto(-lineLen, -dist);
+			PS_lineto(lineLen, -dist);
+			putColor(currItem->hatchForeground, 100, false);
+		}
+		dist += currItem->hatchDistance;
+	}
+	PS_restore();
+	dist = 0.0;
+	if ((currItem->hatchType == 1) || (currItem->hatchType == 2))
+	{
+		PS_save();
+		PS_rotate(currItem->hatchAngle + 90);
+		while (dist < lineLen)
+		{
+			PS_moveto(-lineLen, dist);
+			PS_lineto(lineLen, dist);
+			putColor(currItem->hatchForeground, 100, false);
+			if (dist > 0)
+			{
+				PS_moveto(-lineLen, -dist);
+				PS_lineto(lineLen, -dist);
+				putColor(currItem->hatchForeground, 100, false);
+			}
+			dist += currItem->hatchDistance;
+		}
+		PS_restore();
+	}
+	dist = 0.0;
+	if (currItem->hatchType == 2)
+	{
+		PS_save();
+		PS_rotate(currItem->hatchAngle - 45);
+		while (dist < lineLen)
+		{
+			PS_moveto(-lineLen, dist * sqrt(2.0));
+			PS_lineto(lineLen, dist * sqrt(2.0));
+			putColor(currItem->hatchForeground, 100, false);
+			if (dist > 0)
+			{
+				PS_moveto(-lineLen, -dist * sqrt(2.0));
+				PS_lineto(lineLen, -dist * sqrt(2.0));
+				putColor(currItem->hatchForeground, 100, false);
+			}
+			dist += currItem->hatchDistance;
+		}
+		PS_restore();
+	}
+	PS_restore();
+	if (currItem->lineColor() != CommonStrings::None)
+	{
+		SetColor(currItem->lineColor(), currItem->lineShade(), &h, &s, &v, &k, gcr);
+		PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
 	}
 }
 

@@ -42,6 +42,7 @@ ScPainter::ScPainter( QImage *target, unsigned int w, unsigned int h, double tra
 	PLineJoin = Qt::MiterJoin;
 	fill_gradient = VGradient(VGradient::linear);
 	stroke_gradient = VGradient(VGradient::linear);
+	setHatchParameters(0, 2, 0, false, QColor(), QColor(), 0.0, 0.0);
 	m_zoomFactor = 1;
 	layeredMode = true;
 	imageMode = true;
@@ -389,6 +390,18 @@ void ScPainter::setMeshGradient(FPoint p1, FPoint p2, FPoint p3, FPoint p4, QLis
 	gradPatchP2 = p2;
 	gradPatchP3 = p3;
 	gradPatchP4 = p4;
+}
+
+void ScPainter::setHatchParameters(int mode, double distance, double angle, bool useBackground, QColor background, QColor foreground, double width, double height)
+{
+	hatchType = mode;
+	hatchDistance = distance;
+	hatchAngle = angle;
+	hatchUseBackground = useBackground;
+	hatchBackground = background;
+	hatchForeground = foreground;
+	hatchWidth = width;
+	hatchHeight = height;
 }
 
 void ScPainter::fillPath()
@@ -1454,6 +1467,96 @@ void ScPainter::fillPathHelper()
 		cairo_pattern_destroy (m_pat);
 		cairo_surface_destroy (image2);
 		cairo_set_antialias(m_cr, CAIRO_ANTIALIAS_DEFAULT);
+	}
+	else if (fillMode == 4)
+	{
+		cairo_path_t *path;
+		path = cairo_copy_path(m_cr);
+		cairo_push_group(m_cr);
+		if (hatchUseBackground && hatchBackground.isValid())
+		{
+			double r2, g2, b2;
+			hatchBackground.getRgbF(&r2, &g2, &b2);
+			cairo_set_source_rgb(m_cr, r2, g2, b2);
+			cairo_fill_preserve(m_cr);
+		}
+		double r, g, b;
+		hatchForeground.getRgbF(&r, &g, &b);
+		cairo_clip_preserve (m_cr);
+		cairo_set_line_width( m_cr, 1 );
+		cairo_set_source_rgb(m_cr, r, g, b);
+		translate(hatchWidth / 2.0, hatchHeight / 2.0);
+		double lineLen = sqrt((hatchWidth / 2.0) * (hatchWidth / 2.0) + (hatchHeight / 2.0) * (hatchHeight / 2.0));
+		double dist = 0.0;
+		while (dist < lineLen)
+		{
+			cairo_save( m_cr );
+			rotate(-hatchAngle);
+			newPath();
+			moveTo(-lineLen, dist);
+			lineTo(lineLen, dist);
+			cairo_stroke( m_cr );
+			if (dist > 0)
+			{
+				newPath();
+				moveTo(-lineLen, -dist);
+				lineTo(lineLen, -dist);
+				cairo_stroke( m_cr );
+			}
+			cairo_restore( m_cr );
+			if ((hatchType == 1) || (hatchType == 2))
+			{
+				cairo_save( m_cr );
+				rotate(-hatchAngle + 90);
+				newPath();
+				moveTo(-lineLen, dist);
+				lineTo(lineLen, dist);
+				cairo_stroke( m_cr );
+				if (dist > 0)
+				{
+					newPath();
+					moveTo(-lineLen, -dist);
+					lineTo(lineLen, -dist);
+					cairo_stroke( m_cr );
+				}
+				cairo_restore( m_cr );
+			}
+			if (hatchType == 2)
+			{
+				cairo_save( m_cr );
+				rotate(-hatchAngle + 45);
+				double dDist = dist * sqrt(2.0);
+				newPath();
+				moveTo(-lineLen, dDist);
+				lineTo(lineLen, dDist);
+				cairo_stroke( m_cr );
+				if (dist > 0)
+				{
+					newPath();
+					moveTo(-lineLen, -dDist);
+					lineTo(lineLen, -dDist);
+					cairo_stroke( m_cr );
+				}
+				cairo_restore( m_cr );
+			}
+			dist += hatchDistance;
+		}
+		cairo_pop_group_to_source (m_cr);
+		setRasterOp(m_blendModeFill);
+		if (maskMode > 0)
+		{
+			cairo_pattern_t *patM = getMaskPattern();
+			cairo_pattern_set_filter(patM, CAIRO_FILTER_FAST);
+			cairo_mask(m_cr, patM);
+			if ((maskMode == 2) || (maskMode == 4) || (maskMode == 5) || (maskMode == 6))
+				cairo_surface_destroy(imageMask);
+			cairo_pattern_destroy(patM);
+		}
+		else
+			cairo_paint_with_alpha (m_cr, fill_trans);
+		newPath();
+		cairo_append_path(m_cr, path);
+		cairo_path_destroy(path);
 	}
 	cairo_restore( m_cr );
 	cairo_set_operator(m_cr, CAIRO_OPERATOR_OVER);

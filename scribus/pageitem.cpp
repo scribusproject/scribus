@@ -285,6 +285,12 @@ PageItem::PageItem(const PageItem & other)
 	patternMaskMirrorY(other.patternMaskMirrorY),
 	patternMaskVal(other.patternMaskVal),
 	mask_gradient(other.mask_gradient),
+	hatchAngle(other.hatchAngle),
+	hatchDistance(other.hatchDistance),
+	hatchType(other.hatchType),
+	hatchUseBackground(other.hatchUseBackground),
+	hatchBackground(other.hatchBackground),
+	hatchForeground(other.hatchForeground),
 	// protected
 	undoManager(other.undoManager),
 	BackBox(NULL),  // otherwise other.BackBox->NextBox would be inconsistent
@@ -344,7 +350,9 @@ PageItem::PageItem(const PageItem & other)
 	m_imageRotation(other.m_imageRotation),
 	m_isReversed(other.m_isReversed),
 	firstLineOffsetP(other.firstLineOffsetP),
-	m_groupClips(other.m_groupClips)
+	m_groupClips(other.m_groupClips),
+	hatchBackgroundQ(other.hatchBackgroundQ),
+	hatchForegroundQ(other.hatchForegroundQ)
 {
 	QString tmp;
 	m_Doc->TotalItems++;
@@ -846,6 +854,14 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	m_softShadowOpacity = 0.0;
 	m_softShadowBlendMode = 0;
 	m_groupClips = true;
+	hatchAngle = 0;
+	hatchDistance = 2;
+	hatchType = 0;
+	hatchUseBackground = false;
+	hatchBackground = CommonStrings::None;
+	hatchBackgroundQ = QColor();
+	hatchForeground = "Black";
+	hatchForegroundQ = qcol;
 }
 
 PageItem::~PageItem()
@@ -1721,6 +1737,13 @@ void PageItem::DrawObj_Pre(ScPainter *p)
 						FPoint pG4 = FPoint(0, height());
 						p->set4ColorGeometry(pG1, pG2, pG3, pG4, GrControl1, GrControl2, GrControl3, GrControl4);
 						p->set4ColorColors(GrColorP1QColor, GrColorP2QColor, GrColorP3QColor, GrColorP4QColor);
+					}
+					else if (GrType == 14)
+					{
+						if (fillColor() != CommonStrings::None)
+							p->setBrush(fillQColor);
+						p->setFillMode(ScPainter::Hatch);
+						p->setHatchParameters(hatchType, hatchDistance, hatchAngle, hatchUseBackground, hatchBackgroundQ, hatchForegroundQ, width(), height());
 					}
 					else
 					{
@@ -4158,6 +4181,46 @@ void PageItem::setFillQColor()
 	{
 		VisionDefectColor defect;
 		fillQColor = defect.convertDefect(fillQColor, m_Doc->previewVisual);
+	}
+}
+
+void PageItem::setHatchParameters(int mode, double distance, double angle, bool useBackground, QString background, QString foreground)
+{
+	hatchType = mode;
+	hatchDistance = distance;
+	hatchAngle = angle;
+	hatchUseBackground = useBackground;
+	hatchBackground = background;
+	hatchForeground = foreground;
+	if (background != CommonStrings::None)
+	{
+		if (!m_Doc->PageColors.contains(background))
+			hatchBackgroundQ = QColor();
+		else
+		{
+			const ScColor& col = m_Doc->PageColors[background];
+			hatchBackgroundQ = ScColorEngine::getShadeColorProof(col, m_Doc, 100);
+			if (m_Doc->viewAsPreview)
+			{
+				VisionDefectColor defect;
+				hatchBackgroundQ = defect.convertDefect(hatchBackgroundQ, m_Doc->previewVisual);
+			}
+		}
+	}
+	if (foreground != CommonStrings::None)
+	{
+		if (!m_Doc->PageColors.contains(foreground))
+			hatchForegroundQ = QColor();
+		else
+		{
+			const ScColor& col = m_Doc->PageColors[foreground];
+			hatchForegroundQ = ScColorEngine::getShadeColorProof(col, m_Doc, 100);
+			if (m_Doc->viewAsPreview)
+			{
+				VisionDefectColor defect;
+				hatchForegroundQ = defect.convertDefect(hatchForegroundQ, m_Doc->previewVisual);
+			}
+		}
 	}
 }
 

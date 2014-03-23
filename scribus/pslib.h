@@ -122,6 +122,7 @@ class SCRIBUS_API PSLib : public QObject
 		virtual void ProcessPage(ScribusDoc* Doc, ScPage* a, uint PNr, bool sep = false, bool farb = true, bool ic = false, bool gcr = true);
 		virtual bool ProcessMasterPageLayer(ScribusDoc* Doc, ScPage* a, ScLayer& ll, uint PNr, bool sep = false, bool farb = true, bool ic = false, bool gcr = true);
 		virtual bool ProcessPageLayer(ScribusDoc* Doc, ScPage* a, ScLayer& ll, uint PNr, bool sep = false, bool farb = true, bool ic = false, bool gcr = true);
+		virtual void PS_HatchFill(PageItem *currItem, bool gcr);
 		virtual void drawArrow(PageItem *ite, QTransform &arrowTrans, int arrowIndex, bool gcr);
 		virtual void putColor(const QString& color, double shade, bool fill);
 		virtual void putColorNoDraw(const QString& color, double shade, bool gcr);

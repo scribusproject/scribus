@@ -126,6 +126,7 @@ public slots:
 	void changePatternProps();
 	void changePatternPropsStroke();
 	void toggleStrokePattern();
+	void changeHatchProps();
 	void unitChange(double, double, int unitIndex);
 signals:
 	void NewPen(QString);

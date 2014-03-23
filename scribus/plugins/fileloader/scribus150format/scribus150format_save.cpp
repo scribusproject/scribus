@@ -1785,6 +1785,15 @@ void Scribus150Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 				{
 					docu.writeAttribute("GMAX", item->meshGradientPatches.count());
 				}
+				else if (item->GrType == 14)
+				{
+					docu.writeAttribute("HatchMode", item->hatchType);
+					docu.writeAttribute("HatchDist", item->hatchDistance);
+					docu.writeAttribute("HatchAngle", item->hatchAngle);
+					docu.writeAttribute("HatchSolidB", item->hatchUseBackground);
+					docu.writeAttribute("HatchBackG", item->hatchBackground);
+					docu.writeAttribute("HatchForeC", item->hatchForeground);
+				}
 				else
 				{
 					docu.writeAttribute("GRSTARTX", item->GrStartX);
@@ -1919,7 +1928,7 @@ void Scribus150Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 
 		if (item->isWelded())
 		{
-			bool isWelded = false;
+			// bool isWelded = false;
 			for (int i = 0 ; i <  item->weldList.count(); i++)
 			{
 				PageItem::weldingInfo wInf = item->weldList.at(i);
@@ -1972,7 +1981,7 @@ void Scribus150Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 				docu.writeAttribute("Fill", tabCh);
 			}
 		}
-		if (((item->GrType > 0) && (item->GrType != 8) && (item->GrType != 9) && (item->GrType != 11)) && (item->gradient().isEmpty()))
+		if (((item->GrType > 0) && (item->GrType != 8) && (item->GrType != 9) && (item->GrType != 11) && (item->GrType != 14)) && (item->gradient().isEmpty()))
 		{
 			QList<VColorStop*> cstops = item->fill_gradient.colorStops();
 			for (uint cst = 0; cst < item->fill_gradient.Stops(); ++cst)

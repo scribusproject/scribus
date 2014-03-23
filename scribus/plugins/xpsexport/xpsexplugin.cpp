@@ -562,6 +562,8 @@ void XPSExPlug::processPolyItem(double xOffset, double yOffset, PageItem *Item, 
 {
 	if (((Item->GrType != 0) || (Item->fillColor() != CommonStrings::None)) || ((Item->GrTypeStroke != 0) || (Item->lineColor() != CommonStrings::None) || !Item->NamedLStyle.isEmpty()))
 	{
+		if (Item->GrType == 14)
+			processHatchFill(xOffset, yOffset, Item, parentElem, rel_root);
 		bool closedPath;
 		if ((Item->itemType() == PageItem::Polygon) || (Item->itemType() == PageItem::RegularPolygon) || (Item->itemType() == PageItem::Arc))
 			closedPath = true;
@@ -584,9 +586,12 @@ void XPSExPlug::processPolyItem(double xOffset, double yOffset, PageItem *Item, 
 		else
 			pa.prepend("F 1 ");
 		ob.setAttribute("Data", pa);
-		if (Item->GrMask > 0)
-			handleMask(3, Item, ob, rel_root, xOffset, yOffset);
-		getFillStyle(Item, ob, rel_root, xOffset, yOffset);
+		if (Item->GrType != 14)
+		{
+			if (Item->GrMask > 0)
+				handleMask(3, Item, ob, rel_root, xOffset, yOffset);
+			getFillStyle(Item, ob, rel_root, xOffset, yOffset);
+		}
 		if (Item->NamedLStyle.isEmpty())
 		{
 			if ((!Item->strokePattern().isEmpty()) && (Item->patternStrokePath))
@@ -666,6 +671,8 @@ void XPSExPlug::processLineItem(double xOffset, double yOffset, PageItem *Item, 
 
 void XPSExPlug::processImageItem(double xOffset, double yOffset, PageItem *Item, QDomElement &parentElem, QDomElement &rel_root)
 {
+	if (Item->GrType == 14)
+		processHatchFill(xOffset, yOffset, Item, parentElem, rel_root);
 	FPointArray path = Item->PoLine.copy();
 	path.translate(xOffset, yOffset);
 	path.scale(conversionFactor, conversionFactor);
@@ -683,19 +690,22 @@ void XPSExPlug::processImageItem(double xOffset, double yOffset, PageItem *Item,
 		mpx.translate(-xOffset * conversionFactor, -yOffset * conversionFactor);
 		grp.setAttribute("RenderTransform", MatrixToStr(mpx));
 	}
-	if (Item->GrMask > 0)
-		handleMask(1, Item, grp, rel_root, xOffset, yOffset);
-	else
+	if (Item->GrType != 14)
 	{
-		if (Item->fillTransparency() != 0)
-			grp.setAttribute("Opacity", FToStr(1.0 - Item->fillTransparency()));
-	}
-	if ((Item->GrType != 0) || (Item->fillColor() != CommonStrings::None))
-	{
-		QDomElement ob = p_docu.createElement("Path");
-		ob.setAttribute("Data", pa);
-		getFillStyle(Item, ob, rel_root, xOffset, yOffset, false);
-		grp.appendChild(ob);
+		if (Item->GrMask > 0)
+			handleMask(1, Item, grp, rel_root, xOffset, yOffset);
+		else
+		{
+			if (Item->fillTransparency() != 0)
+				grp.setAttribute("Opacity", FToStr(1.0 - Item->fillTransparency()));
+		}
+		if ((Item->GrType != 0) || (Item->fillColor() != CommonStrings::None))
+		{
+			QDomElement ob = p_docu.createElement("Path");
+			ob.setAttribute("Data", pa);
+			getFillStyle(Item, ob, rel_root, xOffset, yOffset, false);
+			grp.appendChild(ob);
+		}
 	}
 	if ((Item->PictureIsAvailable) && (!Item->Pfile.isEmpty()))
 	{
@@ -793,6 +803,8 @@ void XPSExPlug::processTextItem(double xOffset, double yOffset, PageItem *Item, 
 {
 	if (Item->isAnnotation())
 		return;
+	if (Item->GrType == 14)
+		processHatchFill(xOffset, yOffset, Item, parentElem, rel_root);
 	FPointArray path = Item->PoLine.copy();
 	path.scale(conversionFactor, conversionFactor);
 	QString pa = SetClipPath(&path, true);
@@ -823,41 +835,44 @@ void XPSExPlug::processTextItem(double xOffset, double yOffset, PageItem *Item, 
 	grp.setAttribute("RenderTransform", MatrixToStr(mpx));
 	if (Item->isBookmark)
 		grp.setAttribute("Name", Item->itemName());
-	if (Item->GrMask > 0)
-		handleMask(1, Item, grp, rel_root, xOffset, yOffset);
-	else
+	if (Item->GrType != 14)
 	{
-		if (Item->fillTransparency() != 0)
-			grp.setAttribute("Opacity", FToStr(1.0 - Item->fillTransparency()));
-	}
-	if ((Item->GrType != 0) || (Item->fillColor() != CommonStrings::None))
-	{
-		FPointArray pathi = Item->PoLine.copy();
-		if (Item->imageFlippedH() || Item->imageFlippedV())
-		{
-			QTransform mpi;
-			if (Item->imageFlippedH())
-			{
-				mpi.translate(Item->width(), 0);
-				mpi.scale(-1, 1);
-			}
-			if (Item->imageFlippedV())
-			{
-				mpi.translate(0, Item->height());
-				mpi.scale(1, -1);
-			}
-			pathi.map(mpi);
-		}
-		pathi.scale(conversionFactor, conversionFactor);
-		QString pai = SetClipPath(&pathi, true);
-		if (Item->fillRule)
-			pai.prepend("F 0 ");
+		if (Item->GrMask > 0)
+			handleMask(1, Item, grp, rel_root, xOffset, yOffset);
 		else
-			pai.prepend("F 1 ");
-		QDomElement ob = p_docu.createElement("Path");
-		ob.setAttribute("Data", pai);
-		getFillStyle(Item, ob, rel_root, xOffset, yOffset, false);
-		grp.appendChild(ob);
+		{
+			if (Item->fillTransparency() != 0)
+				grp.setAttribute("Opacity", FToStr(1.0 - Item->fillTransparency()));
+		}
+		if ((Item->GrType != 0) || (Item->fillColor() != CommonStrings::None))
+		{
+			FPointArray pathi = Item->PoLine.copy();
+			if (Item->imageFlippedH() || Item->imageFlippedV())
+			{
+				QTransform mpi;
+				if (Item->imageFlippedH())
+				{
+					mpi.translate(Item->width(), 0);
+					mpi.scale(-1, 1);
+				}
+				if (Item->imageFlippedV())
+				{
+					mpi.translate(0, Item->height());
+					mpi.scale(1, -1);
+				}
+				pathi.map(mpi);
+			}
+			pathi.scale(conversionFactor, conversionFactor);
+			QString pai = SetClipPath(&pathi, true);
+			if (Item->fillRule)
+				pai.prepend("F 0 ");
+			else
+				pai.prepend("F 1 ");
+			QDomElement ob = p_docu.createElement("Path");
+			ob.setAttribute("Data", pai);
+			getFillStyle(Item, ob, rel_root, xOffset, yOffset, false);
+			grp.appendChild(ob);
+		}
 	}
 	for (uint ll=0; ll < Item->itemText.lines(); ++ll)
 	{
@@ -1717,6 +1732,147 @@ void XPSExPlug::paintBorder(const TableBorder& border, const QPointF& start, con
 			cl.setAttribute("StrokeThickness", FToStr(1.0 * conversionFactor));
 		ob.appendChild(cl);
 	}
+}
+
+void XPSExPlug::processHatchFill(double xOffset, double yOffset, PageItem *Item, QDomElement &parentElem, QDomElement &rel_root)
+{
+	QDomElement obC = p_docu.createElement("Canvas");
+	FPointArray path = Item->PoLine.copy();
+	path.scale(conversionFactor, conversionFactor);
+	SetClipAttr(obC, &path, Item->fillRule);
+	if (Item->GrMask > 0)
+		handleMask(1, Item, obC, rel_root, xOffset, yOffset);
+	else
+	{
+		if (Item->fillTransparency() != 0)
+			obC.setAttribute("Opacity", FToStr(1.0 - Item->fillTransparency()));
+	}
+	QTransform mpo;
+	mpo.translate(xOffset * conversionFactor, yOffset * conversionFactor);
+	if (Item->rotation() != 0.0)
+		mpo.rotate(Item->rotation());
+	obC.setAttribute("RenderTransform", MatrixToStr(mpo));
+	if (Item->hatchUseBackground)
+	{
+		FPointArray path;
+		path.svgInit();
+		path.svgMoveTo(0, 0);
+		path.svgLineTo(Item->width(), 0);
+		path.svgLineTo(Item->width(), Item->height());
+		path.svgLineTo(0, Item->height());
+		path.svgClosePath();
+		path.scale(conversionFactor, conversionFactor);
+		QString pa = SetClipPath(&path, true);
+		QDomElement cl = p_docu.createElement("Path");
+		cl.setAttribute("Data", pa);
+		cl.setAttribute("Fill", SetColor(Item->hatchBackground, 100, 0));
+		obC.appendChild(cl);
+	}
+	double lineLen = sqrt((Item->width() / 2.0) * (Item->width() / 2.0) + (Item->height() / 2.0) * (Item->height() / 2.0)) * conversionFactor;
+	double dist = 0.0;
+	while (dist < lineLen)
+	{
+		QTransform mpx;
+		mpx.translate((Item->width() / 2.0) * conversionFactor, (Item->height() / 2.0) * conversionFactor);
+		if (Item->hatchAngle != 0.0)
+			mpx.rotate(-Item->hatchAngle);
+		QDomElement ob = p_docu.createElement("Path");
+		ob.setAttribute("StrokeThickness", FToStr(conversionFactor));
+		ob.setAttribute("StrokeDashCap", "Flat");
+		ob.setAttribute("StrokeEndLineCap", "Flat");
+		ob.setAttribute("StrokeStartLineCap", "Flat");
+		ob.setAttribute("StrokeLineJoin", "Miter");
+		ob.setAttribute("Stroke", SetColor(Item->hatchForeground, 100, 0));
+		ob.setAttribute("Data", QString("M %1, %2 L %3, %4").arg(-lineLen).arg(dist).arg(lineLen).arg(dist));
+		ob.setAttribute("RenderTransform", MatrixToStr(mpx));
+		obC.appendChild(ob);
+		if (dist > 0)
+		{
+			QDomElement ob = p_docu.createElement("Path");
+			ob.setAttribute("StrokeThickness", FToStr(conversionFactor));
+			ob.setAttribute("StrokeDashCap", "Flat");
+			ob.setAttribute("StrokeEndLineCap", "Flat");
+			ob.setAttribute("StrokeStartLineCap", "Flat");
+			ob.setAttribute("StrokeLineJoin", "Miter");
+			ob.setAttribute("Stroke", SetColor(Item->hatchForeground, 100, 0));
+			ob.setAttribute("Data", QString("M %1, %2 L %3, %4").arg(-lineLen).arg(-dist).arg(lineLen).arg(-dist));
+			ob.setAttribute("RenderTransform", MatrixToStr(mpx));
+			obC.appendChild(ob);
+		}
+		dist += Item->hatchDistance * conversionFactor;
+	}
+	if ((Item->hatchType == 1) || (Item->hatchType == 2))
+	{
+		dist = 0.0;
+		while (dist < lineLen)
+		{
+			QTransform mpx;
+			mpx.translate((Item->width() / 2.0) * conversionFactor, (Item->height() / 2.0) * conversionFactor);
+			if (Item->hatchAngle != 0.0)
+				mpx.rotate(-Item->hatchAngle + 90);
+			QDomElement ob = p_docu.createElement("Path");
+			ob.setAttribute("StrokeThickness", FToStr(conversionFactor));
+			ob.setAttribute("StrokeDashCap", "Flat");
+			ob.setAttribute("StrokeEndLineCap", "Flat");
+			ob.setAttribute("StrokeStartLineCap", "Flat");
+			ob.setAttribute("StrokeLineJoin", "Miter");
+			ob.setAttribute("Stroke", SetColor(Item->hatchForeground, 100, 0));
+			ob.setAttribute("Data", QString("M %1, %2 L %3, %4").arg(-lineLen).arg(dist).arg(lineLen).arg(dist));
+			ob.setAttribute("RenderTransform", MatrixToStr(mpx));
+			obC.appendChild(ob);
+			if (dist > 0)
+			{
+				QDomElement ob = p_docu.createElement("Path");
+				ob.setAttribute("StrokeThickness", FToStr(conversionFactor));
+				ob.setAttribute("StrokeDashCap", "Flat");
+				ob.setAttribute("StrokeEndLineCap", "Flat");
+				ob.setAttribute("StrokeStartLineCap", "Flat");
+				ob.setAttribute("StrokeLineJoin", "Miter");
+				ob.setAttribute("Stroke", SetColor(Item->hatchForeground, 100, 0));
+				ob.setAttribute("Data", QString("M %1, %2 L %3, %4").arg(-lineLen).arg(-dist).arg(lineLen).arg(-dist));
+				ob.setAttribute("RenderTransform", MatrixToStr(mpx));
+				obC.appendChild(ob);
+			}
+			dist += Item->hatchDistance * conversionFactor;
+		}
+	}
+	if (Item->hatchType == 2)
+	{
+		dist = 0.0;
+		while (dist < lineLen)
+		{
+			double dDist = dist * sqrt(2.0);
+			QTransform mpx;
+			mpx.translate((Item->width() / 2.0) * conversionFactor, (Item->height() / 2.0) * conversionFactor);
+			if (Item->hatchAngle != 0.0)
+				mpx.rotate(-Item->hatchAngle + 45);
+			QDomElement ob = p_docu.createElement("Path");
+			ob.setAttribute("StrokeThickness", FToStr(conversionFactor));
+			ob.setAttribute("StrokeDashCap", "Flat");
+			ob.setAttribute("StrokeEndLineCap", "Flat");
+			ob.setAttribute("StrokeStartLineCap", "Flat");
+			ob.setAttribute("StrokeLineJoin", "Miter");
+			ob.setAttribute("Stroke", SetColor(Item->hatchForeground, 100, 0));
+			ob.setAttribute("Data", QString("M %1, %2 L %3, %4").arg(-lineLen).arg(dDist).arg(lineLen).arg(dDist));
+			ob.setAttribute("RenderTransform", MatrixToStr(mpx));
+			obC.appendChild(ob);
+			if (dist > 0)
+			{
+				QDomElement ob = p_docu.createElement("Path");
+				ob.setAttribute("StrokeThickness", FToStr(conversionFactor));
+				ob.setAttribute("StrokeDashCap", "Flat");
+				ob.setAttribute("StrokeEndLineCap", "Flat");
+				ob.setAttribute("StrokeStartLineCap", "Flat");
+				ob.setAttribute("StrokeLineJoin", "Miter");
+				ob.setAttribute("Stroke", SetColor(Item->hatchForeground, 100, 0));
+				ob.setAttribute("Data", QString("M %1, %2 L %3, %4").arg(-lineLen).arg(-dDist).arg(lineLen).arg(-dDist));
+				ob.setAttribute("RenderTransform", MatrixToStr(mpx));
+				obC.appendChild(ob);
+			}
+			dist += Item->hatchDistance * conversionFactor;
+		}
+	}
+	parentElem.appendChild(obC);
 }
 
 void XPSExPlug::processSymbolStroke(double xOffset, double yOffset, PageItem *Item, QDomElement &parentElem, QDomElement &rel_root)

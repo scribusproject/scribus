@@ -85,6 +85,7 @@ private:
 	void processSymbolItem(double xOffset, double yOffset, PageItem *Item, QDomElement &parentElem, QDomElement &rel_root);
 	void processTableItem(double xOffset, double yOffset, PageItem *Item, QDomElement &parentElem, QDomElement &rel_root);
 	void paintBorder(const TableBorder &border, const QPointF &start, const QPointF &end, const QPointF &startOffsetFactors, const QPointF &endOffsetFactors, QDomElement &ob);
+	void processHatchFill(double xOffset, double yOffset, PageItem *Item, QDomElement &parentElem, QDomElement &rel_root);
 	void processSymbolStroke(double xOffset, double yOffset, PageItem *Item, QDomElement &parentElem, QDomElement &rel_root);
 	void processArrows(double xOffset, double yOffset, PageItem *Item, QDomElement &parentElem, QDomElement &rel_root);
 	void drawArrow(double xOffset, double yOffset, PageItem *Item, QDomElement &parentElem, QDomElement &rel_root, FPointArray &arrow);

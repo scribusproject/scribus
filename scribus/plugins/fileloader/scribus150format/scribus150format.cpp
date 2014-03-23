@@ -5314,6 +5314,16 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 				currItem->meshGradientPatches.append(patchM);
 			}
 		}
+		else if (currItem->GrType == 14)
+		{
+			int hatchType = attrs.valueAsInt("HatchMode", 0);
+			double hatchDistance = attrs.valueAsDouble("HatchDist", 2);
+			double hatchAngle = attrs.valueAsDouble("HatchAngle", 0);
+			bool hatchUseBackground = attrs.valueAsBool("HatchSolidB", false);
+			QString hatchBackground = attrs.valueAsString("HatchBackG", CommonStrings::None);
+			QString hatchForeground = attrs.valueAsString("HatchForeC", CommonStrings::None);
+			currItem->setHatchParameters(hatchType, hatchDistance, hatchAngle, hatchUseBackground, hatchBackground, hatchForeground);
+		}
 		else
 		{
 			currItem->GrStartX = attrs.valueAsDouble("GRSTARTX", 0.0);
@@ -5358,7 +5368,7 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 			}
 		}
 	}
-	if (((currItem->GrType != 0) && (currItem->GrType != 8)) && (currItem->gradient().isEmpty()))
+	if (((currItem->GrType != 0) && (currItem->GrType != 8) && (currItem->GrType != 14)) && (currItem->gradient().isEmpty()))
 	{
 		currItem->fill_gradient.clearStops();
 		if ((!GrColor.isEmpty()) && (!GrColor2.isEmpty()))

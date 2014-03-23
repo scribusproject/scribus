@@ -78,6 +78,7 @@ Cpalette::Cpalette(QWidget* parent) : QWidget(parent)
 	setupUi(this);
 	fillModeCombo->addItem( tr("Solid") );
 	fillModeCombo->addItem( tr("Gradient") );
+	fillModeCombo->addItem( tr("Hatch") );
 	fillShade->setDecimals(0);
 	strokeShade->setDecimals(0);
 	color1Alpha->setDecimals(0);
@@ -106,6 +107,11 @@ Cpalette::Cpalette(QWidget* parent) : QWidget(parent)
 	
 	tabFillStroke->setCurrentIndex(0);
 	setCurrentItem(0);
+	hatchAngle->setDecimals(0);
+	hatchAngle->setNewUnit(6);
+	hatchDist->setDecimals(0);
+	hatchDist->setNewUnit(0);
+	hatchDist->setValues(1, 1000, 0, 1);
 	/*editFillColorSelector->setChecked(true);
 	editFillColorSelectorButton();*/
 }
@@ -161,6 +167,11 @@ void Cpalette::connectSignals()
 	connect(strokeModeCombo    , SIGNAL(currentIndexChanged(int)), this, SLOT(slotGradStroke(int)));
 	connect(tabFillStroke      , SIGNAL(currentChanged(int)), this, SLOT(fillStrokeSelector(int)));
 	connect(transparencyMeshPoint, SIGNAL(valueChanged(double)), this, SLOT(updateMeshPoint()));
+	connect(hatchAngle, SIGNAL(valueChanged(double)), this, SLOT(changeHatchProps()));
+	connect(hatchDist, SIGNAL(valueChanged(double)), this, SLOT(changeHatchProps()));
+	connect(hatchType, SIGNAL(activated(int)), this, SLOT(changeHatchProps()));
+	connect(hatchBackground, SIGNAL(activated(int)), this, SLOT(changeHatchProps()));
+	connect(hatchLineColor, SIGNAL(activated(int)), this, SLOT(changeHatchProps()));
 }
 
 void Cpalette::disconnectSignals()
@@ -214,6 +225,11 @@ void Cpalette::disconnectSignals()
 	disconnect(strokeShade    , SIGNAL(valueChanged(double)), this, SIGNAL(NewPenShade(double)));
 	disconnect(tabFillStroke      , SIGNAL(currentChanged(int)), this, SLOT(fillStrokeSelector(int)));
 	disconnect(transparencyMeshPoint, SIGNAL(valueChanged(double)), this, SLOT(updateMeshPoint()));
+	disconnect(hatchAngle, SIGNAL(valueChanged(double)), this, SLOT(changeHatchProps()));
+	disconnect(hatchDist, SIGNAL(valueChanged(double)), this, SLOT(changeHatchProps()));
+	disconnect(hatchType, SIGNAL(activated(int)), this, SLOT(changeHatchProps()));
+	disconnect(hatchBackground, SIGNAL(activated(int)), this, SLOT(changeHatchProps()));
+	disconnect(hatchLineColor, SIGNAL(activated(int)), this, SLOT(changeHatchProps()));
 }
 
 void Cpalette::setCurrentItem(PageItem* item)
@@ -392,15 +408,15 @@ void Cpalette::enablePatterns(bool enable)
 {
 	if (enable)
 	{
-		if (fillModeCombo->count() < 3)
+		if (fillModeCombo->count() < 4)
 			fillModeCombo->addItem( tr("Pattern") );
 		if (strokeModeCombo->count() < 3)
 			strokeModeCombo->addItem( tr("Pattern") );
 	}
 	else
 	{
-		if (fillModeCombo->count() == 3)
-			fillModeCombo->removeItem(2);
+		if (fillModeCombo->count() == 4)
+			fillModeCombo->removeItem(3);
 		if (strokeModeCombo->count() == 3)
 			strokeModeCombo->removeItem(2);
 	}
@@ -458,6 +474,8 @@ void Cpalette::updateCList()
 		colorListFill->currentItem()->setSelected(false);
 	if (colorListStroke->currentItem())
 		colorListStroke->currentItem()->setSelected(false);
+	hatchLineColor->updateBox(colorList, ColorCombo::fancyPixmaps, false);
+	hatchBackground->updateBox(colorList, ColorCombo::fancyPixmaps, true);
 
 	colorListStroke->blockSignals(sigBlocked1);
 	colorListFill->blockSignals(sigBlocked2);
@@ -984,6 +1002,22 @@ void Cpalette::showGradient(int number)
 		}
 		fillModeCombo->setCurrentIndex(1);
 	}
+	else if (number == 14)
+	{
+		fillModeCombo->setCurrentIndex(2);
+		hatchAngle->setValue(currentItem->hatchAngle);
+		hatchDist->setValue(currentItem->hatchDistance * unitGetRatioFromIndex(currentUnit));
+		hatchType->setCurrentIndex(currentItem->hatchType);
+		if ((currentItem->hatchForeground != CommonStrings::None) && (!currentItem->hatchForeground.isEmpty()))
+			setCurrentComboItem(hatchLineColor, currentItem->hatchForeground);
+		if (currentItem->hatchUseBackground)
+		{
+			if (!currentItem->hatchBackground.isEmpty())
+				setCurrentComboItem(hatchBackground, currentItem->hatchBackground);
+		}
+		else
+			setCurrentComboItem(hatchBackground, CommonStrings::None);
+	}
 	else
 	{
 		if (patternList->count() == 0)
@@ -992,7 +1026,7 @@ void Cpalette::showGradient(int number)
 			emit NewGradient(0);
 		}
 		else
-			fillModeCombo->setCurrentIndex(2);
+			fillModeCombo->setCurrentIndex(3);
 	}
 	fillModeStack->setCurrentIndex( fillModeCombo->currentIndex() );
 	fillModeCombo->blockSignals(sigBlocked);
@@ -1115,6 +1149,22 @@ void Cpalette::slotGrad(int number)
 		namedGradient->blockSignals(sigBlocked3);
 	}
 	else if (number == 2)
+	{
+		hatchAngle->setValue(currentItem->hatchAngle);
+		hatchDist->setValue(currentItem->hatchDistance * unitGetRatioFromIndex(currentUnit));
+		hatchType->setCurrentIndex(currentItem->hatchType);
+		if ((currentItem->hatchForeground != CommonStrings::None) && (!currentItem->hatchForeground.isEmpty()))
+			setCurrentComboItem(hatchLineColor, currentItem->hatchForeground);
+		if (currentItem->hatchUseBackground)
+		{
+			if (!currentItem->hatchBackground.isEmpty())
+				setCurrentComboItem(hatchBackground, currentItem->hatchBackground);
+		}
+		else
+			setCurrentComboItem(hatchBackground, CommonStrings::None);
+		emit NewGradient(14);
+	}
+	else if (number == 3)
 		emit NewGradient(8);
 	else
 		emit NewGradient(0);
@@ -1692,7 +1742,7 @@ void Cpalette::changePatternProps()
 	m_Pattern_mirrorX = dia->FlipH->isChecked();
 	m_Pattern_mirrorY = dia->FlipV->isChecked();
 	delete dia;
-	fillModeCombo->setCurrentIndex(2);
+	fillModeCombo->setCurrentIndex(3);
 	emit NewGradient(8);
 }
 
@@ -1751,6 +1801,22 @@ void Cpalette::changePatternPropsStroke()
 	delete dia;
 }
 
+void Cpalette::changeHatchProps()
+{
+	QString color1 = hatchLineColor->currentText();
+	if (color1 == CommonStrings::tr_NoneColor)
+		color1 = CommonStrings::None;
+	QString color2 = hatchBackground->currentText();
+	if (color2 == CommonStrings::tr_NoneColor)
+		color2 = CommonStrings::None;
+	bool useB = (color2 != CommonStrings::None);
+	double angle = hatchAngle->value();
+	double dist = hatchDist->value() / unitGetRatioFromIndex(currentUnit);
+	currentItem->setHatchParameters(hatchType->currentIndex(), dist, angle, useB, color2, color1);
+	currentItem->update();
+	currentDoc->regionsChanged()->update(QRect());
+}
+
 void Cpalette::toggleStrokePattern()
 {
 	emit NewPatternTypeS(followsPath->isChecked());
@@ -1760,5 +1826,6 @@ void Cpalette::unitChange(double, double, int unitIndex)
 {
 	if (CGradDia)
 		CGradDia->unitChange(unitIndex);
+	hatchDist->setNewUnit(unitIndex);
 	currentUnit = unitIndex;
 }

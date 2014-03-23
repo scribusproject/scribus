@@ -83,6 +83,7 @@ private:
 	void ProcessItemOnPage(double xOffset, double yOffset, PageItem *Item, QDomElement *parentElem);
 	void paintBorder(const TableBorder& border, const QPointF& start, const QPointF& end, const QPointF& startOffsetFactors, const QPointF& endOffsetFactors, QDomElement &ob);
 	QString processDropShadow(PageItem *Item);
+	QDomElement processHatchFill(PageItem *Item, QString transl = "");
 	QDomElement processSymbolStroke(PageItem *Item, QString trans);
 	QDomElement processSymbolItem(PageItem *Item, QString trans);
 	QDomElement processPolyItem(PageItem *Item, QString trans, QString fill, QString stroke);

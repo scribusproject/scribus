@@ -3583,7 +3583,7 @@ void OdgPlug::finishItem(PageItem* item, ObjStyle &obState)
 			FPoint cp = FPoint(item->width() * gStyle.gradientCenterX, item->height()* gStyle.gradientCenterY);
 			double gLenW = item->width() / 2.0;
 			double gLenH = item->height() / 2.0;
-/*
+
 			QPointF P1 = QPointF(0.0, 0.0);
 			QPointF P2 = QPointF(item->width(), 0.0);
 			QPointF P3 = QPointF(item->width(), item->height());
@@ -3608,6 +3608,25 @@ void OdgPlug::finishItem(PageItem* item, ObjStyle &obState)
 			P4 = pPoints[3];
 			P5 = pPoints[4];
 			P6 = pPoints[5];
+/*
+			QPointF cpL = QPointF(item->width() * gStyle.gradientCenterX, item->height()* gStyle.gradientCenterY);
+			double lineLen = sqrt(gLenW * gLenW + gLenH * gLenH) * 2.0;
+			QLineF iLineP1 = QLineF(cpL, P1);
+			iLineP1.setLength(lineLen);
+			P1 = intersectBoundingRect(item, iLineP1);
+			QLineF iLineP2 = QLineF(cpL, P2);
+			iLineP2.setLength(lineLen);
+			P2 = intersectBoundingRect(item, iLineP2);
+			QLineF iLineP3 = QLineF(cpL, P3);
+			iLineP3.setLength(lineLen);
+			P3 = intersectBoundingRect(item, iLineP3);
+			QLineF iLineP4 = QLineF(cpL, P4);
+			iLineP4.setLength(lineLen);
+			P4 = intersectBoundingRect(item, iLineP4);
+			item->setDiamondGeometry(FPoint(P1.x(), P1.y()), FPoint(P2.x(), P2.y()), FPoint(P3.x(), P3.y()), FPoint(P4.x(), P4.y()), cp);
+			item->GrType = 10;
+*/
+/*
 			item->meshGradientPatches.clear();
 			meshGradientPatch patch1;
 			meshPoint outer;
@@ -3659,6 +3678,7 @@ void OdgPlug::finishItem(PageItem* item, ObjStyle &obState)
 			item->meshGradientPatches.append(patch1);
 			item->GrType = 12;
 */
+
 			QLineF p1 = QLineF(cp.x(), cp.y(), cp.x() - gLenW, cp.y() - gLenH);
 			p1.setAngle(p1.angle() + gStyle.gradientAngle);
 			QLineF p2 = QLineF(cp.x(), cp.y(), cp.x() + gLenW, cp.y() - gLenH);
@@ -3891,7 +3911,14 @@ void OdgPlug::finishItem(PageItem* item, ObjStyle &obState)
 	{
 		ObjStyle gStyle;
 		resovleStyle(gStyle, obState.hatchName);
-		QString patternName = "Hatch_" + obState.hatchName;
+		int hatchS = 0;
+		if (gStyle.hatchStyle == "double")
+			hatchS = 1;
+		else if (gStyle.hatchStyle == "triple")
+			hatchS = 2;
+		item->setHatchParameters(hatchS, gStyle.hatchDistance, gStyle.hatchRotation, obState.hatchSolidFill, obState.CurrColorFill, gStyle.hatchColor);
+		item->GrType = 14;
+	/*	QString patternName = "Hatch_" + obState.hatchName;
 		if (m_Doc->docPatterns.contains(patternName))
 		{
 			item->setPattern(patternName);
@@ -4001,7 +4028,7 @@ void OdgPlug::finishItem(PageItem* item, ObjStyle &obState)
 				}
 			}
 			delete tempFile;
-		}
+		} */
 	}
 	if (!obState.opacityName.isEmpty())
 	{

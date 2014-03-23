@@ -844,6 +844,8 @@ public: // Start public functions
 	 */
 	void setLineTransparency(double newTransparency);
 
+	void setHatchParameters(int mode, double distance, double angle, bool useBackground, QString background, QString foreground);
+
 	/** @brief Get the name of the stroke pattern of the object */
 	QString strokePattern() const { return patternStrokeVal; }
 
@@ -1187,7 +1189,7 @@ public:	// Start public variables
 	double gYpos;
 	double gWidth;
 	double gHeight;
-	int GrType; ///< used values 6 = linear, 7 = radial, 8 = pattern, 9 = 4 color gradient, 10 = diamond, 11 = mesh gradient
+	int GrType; ///< used values 6 = linear, 7 = radial, 8 = pattern, 9 = 4 color gradient, 10 = diamond, 11,12,13 = mesh gradient, 14 = hatch
 	double GrStartX;
 	double GrStartY;
 	double GrEndX;
@@ -1429,6 +1431,12 @@ public:	// Start public variables
 			int weldID;
 		};
 		QList<weldingInfo> weldList;
+		double hatchAngle;
+		double hatchDistance;
+		int hatchType;				// 0 = single 1 = double 2 = triple
+		bool hatchUseBackground;
+		QString hatchBackground;
+		QString hatchForeground;
 
 		// End public variables
 
@@ -1773,6 +1781,8 @@ protected: // Start protected variables
 	bool m_isReversed; ///< Is the frame is reversed?
 	FirstLineOffsetPolicy firstLineOffsetP;
 	bool m_groupClips;
+	QColor hatchBackgroundQ;
+	QColor hatchForegroundQ;
 
 			// End protected variables
 

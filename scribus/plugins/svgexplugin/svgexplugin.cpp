@@ -715,6 +715,113 @@ QString SVGExPlug::processDropShadow(PageItem *Item)
 	return "filter:url(#"+ID+");";
 }
 
+QDomElement SVGExPlug::processHatchFill(PageItem *Item, QString transl)
+{
+	QDomElement ob;
+	ob = docu.createElement("g");
+	if (!transl.isEmpty())
+		ob.setAttribute("transform", transl);
+	QDomElement obc = createClipPathElement(&Item->PoLine);
+	if (!obc.isNull())
+		ob.setAttribute("clip-path", "url(#"+ obc.attribute("id") + ")");
+	if (Item->fillRule)
+		ob.setAttribute("clip-rule", "evenodd");
+	else
+		ob.setAttribute("clip-rule", "nonzero");
+	if (Item->hatchUseBackground)
+	{
+		QDomElement ob2 = docu.createElement("path");
+		ob2.setAttribute("d", SetClipPath(&Item->PoLine, true));
+		ob2.setAttribute("fill", SetColor(Item->hatchBackground, 100));
+		ob.appendChild(ob2);
+	}
+	QString stroke = "";
+	stroke += "stroke-width:1;";
+	stroke += " stroke-linecap:butt;";
+	stroke += " stroke-linejoin:miter;";
+	double lineLen = sqrt((Item->width() / 2.0) * (Item->width() / 2.0) + (Item->height() / 2.0) * (Item->height() / 2.0));
+	double dist = 0.0;
+	while (dist < lineLen)
+	{
+		QTransform mpx;
+		mpx.translate(Item->width() / 2.0, Item->height() / 2.0);
+		if (Item->hatchAngle != 0.0)
+			mpx.rotate(-Item->hatchAngle);
+		QDomElement ob3 = docu.createElement("path");
+		ob3.setAttribute("transform", MatrixToStr(mpx));
+		ob3.setAttribute("d", QString("M %1, %2 L %3, %4").arg(-lineLen).arg(dist).arg(lineLen).arg(dist));
+		ob3.setAttribute("stroke", SetColor(Item->hatchForeground, 100));
+		ob3.setAttribute("style", stroke);
+		ob.appendChild(ob3);
+		if (dist > 0)
+		{
+			QDomElement ob4 = docu.createElement("path");
+			ob4.setAttribute("transform", MatrixToStr(mpx));
+			ob4.setAttribute("d", QString("M %1, %2 L %3, %4").arg(-lineLen).arg(-dist).arg(lineLen).arg(-dist));
+			ob4.setAttribute("stroke", SetColor(Item->hatchForeground, 100));
+			ob4.setAttribute("style", stroke);
+			ob.appendChild(ob4);
+		}
+		dist += Item->hatchDistance;
+	}
+	if ((Item->hatchType == 1) || (Item->hatchType == 2))
+	{
+		dist = 0.0;
+		while (dist < lineLen)
+		{
+			QTransform mpx;
+			mpx.translate(Item->width() / 2.0, Item->height() / 2.0);
+			if (Item->hatchAngle != 0.0)
+				mpx.rotate(-Item->hatchAngle + 90);
+			QDomElement ob3 = docu.createElement("path");
+			ob3.setAttribute("transform", MatrixToStr(mpx));
+			ob3.setAttribute("d", QString("M %1, %2 L %3, %4").arg(-lineLen).arg(dist).arg(lineLen).arg(dist));
+			ob3.setAttribute("stroke", SetColor(Item->hatchForeground, 100));
+			ob3.setAttribute("style", stroke);
+			ob.appendChild(ob3);
+			if (dist > 0)
+			{
+				QDomElement ob4 = docu.createElement("path");
+				ob4.setAttribute("transform", MatrixToStr(mpx));
+				ob4.setAttribute("d", QString("M %1, %2 L %3, %4").arg(-lineLen).arg(-dist).arg(lineLen).arg(-dist));
+				ob4.setAttribute("stroke", SetColor(Item->hatchForeground, 100));
+				ob4.setAttribute("style", stroke);
+				ob.appendChild(ob4);
+			}
+			dist += Item->hatchDistance;
+		}
+	}
+	if (Item->hatchType == 2)
+	{
+		dist = 0.0;
+		while (dist < lineLen)
+		{
+			double dDist = dist * sqrt(2.0);
+			QTransform mpx;
+			mpx.translate(Item->width() / 2.0, Item->height() / 2.0);
+			if (Item->hatchAngle != 0.0)
+				mpx.rotate(-Item->hatchAngle + 45);
+			QDomElement ob3 = docu.createElement("path");
+			ob3.setAttribute("transform", MatrixToStr(mpx));
+			ob3.setAttribute("d", QString("M %1, %2 L %3, %4").arg(-lineLen).arg(dDist).arg(lineLen).arg(dDist));
+			ob3.setAttribute("stroke", SetColor(Item->hatchForeground, 100));
+			ob3.setAttribute("style", stroke);
+			ob.appendChild(ob3);
+			if (dist > 0)
+			{
+				QDomElement ob4 = docu.createElement("path");
+				ob4.setAttribute("transform", MatrixToStr(mpx));
+				ob4.setAttribute("d", QString("M %1, %2 L %3, %4").arg(-lineLen).arg(-dDist).arg(lineLen).arg(-dDist));
+				ob4.setAttribute("stroke", SetColor(Item->hatchForeground, 100));
+				ob4.setAttribute("style", stroke);
+				ob.appendChild(ob4);
+			}
+			dist += Item->hatchDistance;
+		}
+	}
+	return ob;
+}
+
 QDomElement SVGExPlug::processSymbolStroke(PageItem *Item, QString trans)
 {
 	QDomElement ob;
@@ -794,28 +901,66 @@ QDomElement SVGExPlug::processPolyItem(PageItem *Item, QString trans, QString fi
 		if ((!Item->strokePattern().isEmpty()) && (Item->patternStrokePath))
 		{
 			ob = docu.createElement("g");
+			if (Item->GrType == 14)
+			{
+				QDomElement ob1 = processHatchFill(Item, trans);
+				ob.appendChild(ob1);
+			}
 			QDomElement ob2 = docu.createElement("path");
 			ob2.setAttribute("d", SetClipPath(&Item->PoLine, closedPath));
 			ob2.setAttribute("transform", trans);
-			ob2.setAttribute("style", fill);
+			if (Item->GrType != 14)
+				ob2.setAttribute("style", fill);
+			else
+			{
+				QString drS = processDropShadow(Item);
+				if (!drS.isEmpty())
+					ob2.setAttribute("style", "fill:none;" + drS);
+			}
 			ob.appendChild(ob2);
 			ob.appendChild(processSymbolStroke(Item, trans));
 		}
 		else
 		{
-			ob = docu.createElement("path");
-			ob.setAttribute("d", SetClipPath(&Item->PoLine, closedPath));
-			ob.setAttribute("transform", trans);
-			ob.setAttribute("style", fill + stroke);
+			if (Item->GrType == 14)
+			{
+				ob = docu.createElement("g");
+				ob.setAttribute("transform", trans);
+				QDomElement ob1 = processHatchFill(Item);
+				ob.appendChild(ob1);
+				QDomElement ob2 = docu.createElement("path");
+				ob2.setAttribute("d", SetClipPath(&Item->PoLine, closedPath));
+				ob2.setAttribute("style", stroke + "fill:none;" + processDropShadow(Item));
+				ob.appendChild(ob2);
+			}
+			else
+			{
+				ob = docu.createElement("path");
+				ob.setAttribute("d", SetClipPath(&Item->PoLine, closedPath));
+				ob.setAttribute("transform", trans);
+				ob.setAttribute("style", fill + stroke);
+			}
 		}
 	}
 	else
 	{
 		ob = docu.createElement("g");
 		ob.setAttribute("transform", trans);
+		if (Item->GrType == 14)
+		{
+			QDomElement ob1 = processHatchFill(Item);
+			ob.appendChild(ob1);
+		}
 		QDomElement ob2 = docu.createElement("path");
 		ob2.setAttribute("d", SetClipPath(&Item->PoLine, closedPath));
-		ob2.setAttribute("style", fill);
+		if (Item->GrType != 14)
+			ob2.setAttribute("style", fill);
+		else
+		{
+			QString drS = processDropShadow(Item);
+			if (!drS.isEmpty())
+				ob2.setAttribute("style", "fill:none;" + drS);
+		}
 		ob.appendChild(ob2);
 		multiLine ml = m_Doc->MLineStyles[Item->NamedLStyle];
 		for (int it = ml.size()-1; it > -1; it--)
@@ -868,10 +1013,21 @@ QDomElement SVGExPlug::processImageItem(PageItem *Item, QString trans, QString f
 	ob.setAttribute("transform", trans);
 	if ((Item->fillColor() != CommonStrings::None) || (Item->GrType != 0))
 	{
-		QDomElement ob1 = docu.createElement("path");
-		ob1.setAttribute("d", SetClipPath(&Item->PoLine, true));
-		ob1.setAttribute("style", fill);
-		ob.appendChild(ob1);
+		if (Item->GrType == 14)
+		{
+			QDomElement ob1 = processHatchFill(Item);
+			ob.appendChild(ob1);
+			QString drS = processDropShadow(Item);
+			if (!drS.isEmpty())
+				ob.setAttribute("style", "fill:none;" + drS);
+		}
+		else
+		{
+			QDomElement ob1 = docu.createElement("path");
+			ob1.setAttribute("d", SetClipPath(&Item->PoLine, true));
+			ob1.setAttribute("style", fill);
+			ob.appendChild(ob1);
+		}
 	}
 	if ((Item->PictureIsAvailable) && (!Item->Pfile.isEmpty()))
 	{
@@ -992,10 +1148,21 @@ QDomElement SVGExPlug::processTextItem(PageItem *Item, QString trans, QString fi
 	ob.setAttribute("transform", trans);
 	if ((Item->fillColor() != CommonStrings::None) || (Item->GrType != 0))
 	{
-		QDomElement ob1 = docu.createElement("path");
-		ob1.setAttribute("d", SetClipPath(&Item->PoLine, true));
-		ob1.setAttribute("style", fill);
-		ob.appendChild(ob1);
+		if (Item->GrType == 14)
+		{
+			QDomElement ob1 = processHatchFill(Item);
+			ob.appendChild(ob1);
+			QString drS = processDropShadow(Item);
+			if (!drS.isEmpty())
+				ob.setAttribute("style", "fill:none;" + drS);
+		}
+		else
+		{
+			QDomElement ob1 = docu.createElement("path");
+			ob1.setAttribute("d", SetClipPath(&Item->PoLine, true));
+			ob1.setAttribute("style", fill);
+			ob.appendChild(ob1);
+		}
 	}
 	double x, y, wide;
 	QString chstr;
