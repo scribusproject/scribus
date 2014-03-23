@@ -407,7 +407,8 @@ bool FileLoader::postLoad(ScribusDoc* currDoc)
 			currDoc->docHyphenator->MinWordLen=currDoc->hyphMinimumWordLength();
 			currDoc->docHyphenator->HyCount=currDoc->hyphConsecutiveLines();
 	}
-
+	if (ReplacedFonts.isEmpty())
+		return true;
 	ReplacedFonts = currDoc->AllFonts->getSubstitutions(ReplacedFonts.keys());
 	if (ReplacedFonts.count() != 0)
 	{
