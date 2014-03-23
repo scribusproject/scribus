@@ -331,7 +331,7 @@ void ContextMenu::createMenuItems_Selection()
 			act->setText( ScribusView::tr("Le&vel"));
 			menuLevel->addAction(m_AP->scrActions["itemRaise"]);
 			menuLevel->addAction(m_AP->scrActions["itemLower"]);
-            menuLevel->addAction(m_AP->scrActions["itemRaiseToTop"]);
+			menuLevel->addAction(m_AP->scrActions["itemRaiseToTop"]);
 			menuLevel->addAction(m_AP->scrActions["itemLowerToBottom"]);
 		}
 	}
