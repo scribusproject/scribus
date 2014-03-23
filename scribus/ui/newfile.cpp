@@ -387,6 +387,7 @@ void NewDoc::createOpenDocPage()
 	connect(keyCatcher, SIGNAL(escapePressed()), this, SLOT(reject()));
 
 	connect(fileDialog, SIGNAL(filesSelected(const QStringList &)), this, SLOT(openFile()));
+	connect(fileDialog, SIGNAL(rejected()), this, SLOT(reject()));
 }
 
 void NewDoc::openFile()
