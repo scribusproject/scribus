@@ -5622,14 +5622,14 @@ void PropertiesPalette::languageChange()
 	/*textFlowOptions->setToolTip( tr("Make text in lower frames flow around the object shape")); */
 	textFlowDisabled->setToolTip( tr("Disable text flow from lower frames around object"));
 	textFlowUsesFrameShape->setToolTip( tr("Use the frame shape for text flow of text frames below the object."));
-	textFlowUsesBoundingBox->setToolTip(  "<qt>" + tr("Use the bounding box, which is always rectangular, instead of the frame's shape for text flow of text frames below the object. ") + "</qt>" );
-	textFlowUsesContourLine->setToolTip(  "<qt>" + tr("When chosen, the contour line can be edited with the Edit Shape Tool on the palette further above. When edited via the shape palette, this becomes a second separate line originally based on the frame's shape for text flow of text frames below the object. T") + "</qt>" );
-	textFlowUsesImageClipping->setToolTip(  "<qt>" + tr("Use the clipping path of the image") + "</qt>" );
+	textFlowUsesBoundingBox->setToolTip(  "<qt>" + tr("Use the bounding box, which is always rectangular, instead of the frame's shape for text flow of text frames below the object.") + "</qt>" );
+	textFlowUsesContourLine->setToolTip(  "<qt>" + tr("When chosen, the contour line can be edited with the Edit Shape Tool on the palette further above. When edited via the shape palette, this becomes a second separate line originally based on the frame's shape for text flow of text frames below the object.") + "</qt>" );
+	textFlowUsesImageClipping->setToolTip(  "<qt>" + tr("Use the clipping path of the image.") + "</qt>" );
 	textFlowDisabled2->setToolTip( tr("Disable text flow from lower frames around object"));
 	textFlowUsesFrameShape2->setToolTip( tr("Use the frame shape for text flow of text frames below the object."));
-	textFlowUsesBoundingBox2->setToolTip(  "<qt>" + tr("Use the bounding box, which is always rectangular, instead of the frame's shape for text flow of text frames below the object. ") + "</qt>" );
-	textFlowUsesContourLine2->setToolTip(  "<qt>" + tr("When chosen, the contour line can be edited with the Edit Shape Tool on the palette further above. When edited via the shape palette, this becomes a second separate line originally based on the frame's shape for text flow of text frames below the object. T") + "</qt>" );
-	textFlowUsesImageClipping2->setToolTip(  "<qt>" + tr("Use the clipping path of the image") + "</qt>" );
+	textFlowUsesBoundingBox2->setToolTip(  "<qt>" + tr("Use the bounding box, which is always rectangular, instead of the frame's shape for text flow of text frames below the object.") + "</qt>" );
+	textFlowUsesContourLine2->setToolTip(  "<qt>" + tr("When chosen, the contour line can be edited with the Edit Shape Tool on the palette further above. When edited via the shape palette, this becomes a second separate line originally based on the frame's shape for text flow of text frames below the object.") + "</qt>" );
+	textFlowUsesImageClipping2->setToolTip(  "<qt>" + tr("Use the clipping path of the image.") + "</qt>" );
 
 	//Fonts->setToolTip( tr("Font of selected text or object"));
 	Size->setToolTip( tr("Font Size"));
