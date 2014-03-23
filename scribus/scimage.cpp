@@ -2243,7 +2243,7 @@ bool ScImage::loadPicture(const QString & fn, int page, const CMSettings& cmSett
 			return false;
 	}
 	QString ext2 = getImageType(fn);
-	if (ext.isEmpty() || (ext2 != ext))
+	if (ext.isEmpty() || (!ext2.isEmpty() && (ext2 != ext)))
 		ext = ext2;
 	if (extensionIndicatesPDF(ext))
 	{

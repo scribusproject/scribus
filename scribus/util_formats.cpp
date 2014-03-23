@@ -322,10 +322,10 @@ QString getImageType(QString filename)
 	QFileInfo fi(f);
 	if (fi.exists())
 	{
-		QByteArray buf(20, ' ');
+		QByteArray buf(24, ' ');
 		if (f.open(QIODevice::ReadOnly))
 		{
-			f.read(buf.data(), 20);
+			f.read(buf.data(), 24);
 			if ((buf[0] == '%') && (buf[1] == '!') && (buf[2] == 'P') && (buf[3] == 'S') && (buf[4] == '-') && (buf[5] == 'A'))
 				ret = "eps";
 			else if ((buf[0] == '\xC5') && (buf[1] == '\xD0') && (buf[2] == '\xD3') && (buf[3] == '\xC6'))
@@ -334,6 +334,8 @@ QString getImageType(QString filename)
 				ret = "gif";
 			else if ((buf[0] == '\xFF') && (buf[1] == '\xD8') && (buf[2] == '\xFF'))
 				ret = "jpg";
+			else if ((buf[20] == 'G') && (buf[21] == 'P') && (buf[22] == 'A') && (buf[23] == 'T'))
+				ret = "pat";
 			else if ((buf[0] == '%') && (buf[1] == 'P') && (buf[2] == 'D') && (buf[3] == 'F'))
 				ret = "pdf";
 			else if ((buf[0] == 'P') && (buf[1] == 'G') && (buf[2] == 'F'))
