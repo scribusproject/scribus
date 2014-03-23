@@ -8660,11 +8660,15 @@ This is not a direct translation, but a norwegian pangram,</comment>
     </message>
     <message>
         <source>Enabling this tells Scribus to use these replacements for missing fonts permanently in all future layouts. This can be reverted or changed in Edit &gt; Preferences &gt; Fonts.</source>
-        <translation>Hvis du skrur dette på vil Scribus bruke disse erstatningene for manglende skrifttyper også senere. Du kan angre eller endre dette i «Fil → Instillinger → Skrifttyper».</translation>
+        <translation type="obsolete">Hvis du skrur dette på vil Scribus bruke disse erstatningene for manglende skrifttyper også senere. Du kan angre eller endre dette i «Fil → Instillinger → Skrifttyper».</translation>
     </message>
     <message>
         <source>If you select OK, then save, these substitutions are made permanent in the document.</source>
         <translation>Hvis du velger «Greit» og lagrer, så vil disse erstatningene gjøres permanente i dette dokumentet.</translation>
+    </message>
+    <message>
+        <source>Enabling this tells Scribus to use these replacements for missing fonts permanently in all future layouts. This can be reverted or changed in File &gt; Preferences &gt; Fonts.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -18700,7 +18704,7 @@ Corners:</source>
     </message>
     <message>
         <source>Use the bounding box, which is always rectangular, instead of the frame&apos;s shape for text flow of text frames below the object. </source>
-        <translation>Bruk grenseboksen, som alltid er rektangulær, istedenfor rammeformen til tekstflyt på rammer på et lavere lag enn den valgte.</translation>
+        <translation type="obsolete">Bruk grenseboksen, som alltid er rektangulær, istedenfor rammeformen til tekstflyt på rammer på et lavere lag enn den valgte.</translation>
     </message>
     <message>
         <source>Transparency Settings</source>
@@ -18788,7 +18792,7 @@ Corners:</source>
     </message>
     <message>
         <source>When chosen, the contour line can be edited with the Edit Shape Tool on the palette further above. When edited via the shape palette, this becomes a second separate line originally based on the frame&apos;s shape for text flow of text frames below the object. T</source>
-        <translation>Hvis dette er på kan konturlinjene redigeres med verktøyet «Endre form» (se ovenfor). Dette blir da en ny linje, som til å begynne med er basert på rammeformen, og kan brukes til tekstflyt for rammer som er på lavere lag.</translation>
+        <translation type="obsolete">Hvis dette er på kan konturlinjene redigeres med verktøyet «Endre form» (se ovenfor). Dette blir da en ny linje, som til å begynne med er basert på rammeformen, og kan brukes til tekstflyt for rammer som er på lavere lag.</translation>
     </message>
     <message>
         <source>Default</source>
@@ -18846,7 +18850,7 @@ Corners:</source>
     </message>
     <message>
         <source>Use the clipping path of the image</source>
-        <translation type="unfinished">
+        <translation type="obsolete">
             </translation>
     </message>
     <message>
@@ -19015,6 +19019,18 @@ Corners:</source>
     </message>
     <message>
         <source>This rule determines the &amp;quot;insideness&amp;quot; of a point on the canvas by drawing a ray from that point to infinity in any direction and then examining the places where a segment of the shape crosses the ray. Starting with a count of zero, add one each time a path segment crosses the ray from left to right and subtract one each time a path segment crosses the ray from right to left. If the result is zero then the point is outside the path. Otherwise, it is inside.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use the bounding box, which is always rectangular, instead of the frame&apos;s shape for text flow of text frames below the object.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>When chosen, the contour line can be edited with the Edit Shape Tool on the palette further above. When edited via the shape palette, this becomes a second separate line originally based on the frame&apos;s shape for text flow of text frames below the object.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use the clipping path of the image.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -21951,6 +21967,10 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>Nepali</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Anii</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
