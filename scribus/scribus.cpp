@@ -4750,12 +4750,13 @@ bool ScribusMainWindow::doPrint(PrintOptions &options, QString& error)
 	QString filename(options.filename);
 	if (options.toFile)
 	{
-		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+		qApp->setOverrideCursor(QCursor(Qt::ArrowCursor));
 		if (!overwrite(this, filename))
 		{
+			qApp->restoreOverrideCursor();
 			return true;
 		}
-		qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
+		qApp->restoreOverrideCursor();
 	}
 	ScCore->fileWatcher->forceScan();
 	ScCore->fileWatcher->stop();
@@ -5468,7 +5469,7 @@ void ScribusMainWindow::SaveText()
 		wdir = prefsManager->prefsFile->getContext("dirs")->get("save_text", prefsDocDir);
 	else
 		wdir = prefsManager->prefsFile->getContext("dirs")->get("save_text", ".");
-	QString fn = CFileDialog( wdir, tr("Save As"), tr("Text Files (*.txt);;All Files(*)"), "", fdShowCodecs|fdHidePreviewCheckBox);
+	QString fn = CFileDialog( wdir, tr("Save As"), tr("Text Files (*.txt);;All Files (*)"), "", fdShowCodecs|fdHidePreviewCheckBox);
 	if (!fn.isEmpty())
 	{
 		prefsManager->prefsFile->getContext("dirs")->set("save_text", fn.left(fn.lastIndexOf("/")));
