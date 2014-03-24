@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="en_GB">
+<TS version="2.1" language="en_GB">
 <context>
     <name></name>
     <message>
@@ -14834,7 +14834,7 @@ Use 72 dpi for Images intended for the Screen</translation>
     <message>
         <location filename="../../../scribus/fontreplacedialog.cpp" line="84"/>
         <source>Enabling this tells Scribus to use these replacements for missing fonts permanently in all future layouts. This can be reverted or changed in File &gt; Preferences &gt; Fonts.</source>
-        <translation type="unfinished"></translation>
+        <translation>Enabling this tells Scribus to use these replacements for missing fonts permanently in all future layouts. This can be reverted or changed in File &gt; Preferences &gt; Fonts.</translation>
     </message>
     <message>
         <location filename="../../../scribus/fontreplacedialog.cpp" line="40"/>
@@ -17486,7 +17486,7 @@ p, li { white-space: pre-wrap; }
         <source>Length:</source>
         <translation type="obsolete">Length:</translation>
     </message>
-    <message utf8="both">
+    <message>
         <location filename="../../../scribus/measurements.cpp" line="50"/>
         <source> °</source>
         <translation> °</translation>
@@ -19822,22 +19822,22 @@ both end points must lie outside of the polygon</source>
         <source>Rotate Objects by:</source>
         <translation>Rotate Objects by:</translation>
     </message>
-    <message utf8="true">
+    <message>
         <location filename="../../../scribus/plugins/tools/2geomtools/pathalongpath/pathdialogbase.ui" line="80"/>
         <source>0°</source>
         <translation>0°</translation>
     </message>
-    <message utf8="true">
+    <message>
         <location filename="../../../scribus/plugins/tools/2geomtools/pathalongpath/pathdialogbase.ui" line="85"/>
         <source>90°</source>
         <translation>90°</translation>
     </message>
-    <message utf8="true">
+    <message>
         <location filename="../../../scribus/plugins/tools/2geomtools/pathalongpath/pathdialogbase.ui" line="90"/>
         <source>180°</source>
         <translation>180°</translation>
     </message>
-    <message utf8="true">
+    <message>
         <location filename="../../../scribus/plugins/tools/2geomtools/pathalongpath/pathdialogbase.ui" line="95"/>
         <source>270°</source>
         <translation>270°</translation>
@@ -22238,19 +22238,19 @@ Note: PDF Forms will not be exported.</source>
         <location filename="../../../scribus/propertiespalette.cpp" line="5625"/>
         <location filename="../../../scribus/propertiespalette.cpp" line="5630"/>
         <source>Use the bounding box, which is always rectangular, instead of the frame&apos;s shape for text flow of text frames below the object.</source>
-        <translation type="unfinished"></translation>
+        <translation>Use the bounding box, which is always rectangular, instead of the frame&apos;s shape for text flow of text frames below the object.</translation>
     </message>
     <message>
         <location filename="../../../scribus/propertiespalette.cpp" line="5626"/>
         <location filename="../../../scribus/propertiespalette.cpp" line="5631"/>
         <source>When chosen, the contour line can be edited with the Edit Shape Tool on the palette further above. When edited via the shape palette, this becomes a second separate line originally based on the frame&apos;s shape for text flow of text frames below the object.</source>
-        <translation type="unfinished"></translation>
+        <translation>When chosen, the contour line can be edited with the Edit Shape Tool on the palette further above. When edited via the shape palette, this becomes a second separate line originally based on the frame&apos;s shape for text flow of text frames below the object.</translation>
     </message>
     <message>
         <location filename="../../../scribus/propertiespalette.cpp" line="5627"/>
         <location filename="../../../scribus/propertiespalette.cpp" line="5632"/>
         <source>Use the clipping path of the image.</source>
-        <translation type="unfinished"></translation>
+        <translation>Use the clipping path of the image.</translation>
     </message>
     <message>
         <location filename="../../../scribus/propertiespalette.cpp" line="5679"/>
@@ -24162,7 +24162,7 @@ External Links</translation>
     <message>
         <location filename="../../../scribus/langmgr.cpp" line="65"/>
         <source>Anii</source>
-        <translation type="unfinished"></translation>
+        <translation>Anii</translation>
     </message>
     <message>
         <location filename="../../../scribus/langmgr.cpp" line="76"/>
@@ -24232,7 +24232,7 @@ External Links</translation>
         <source>Lithuanian</source>
         <translation>Lithuanian</translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Norwegian (BokmÃ¥l)</source>
         <translation type="obsolete">Norwegian (Bokmäl)</translation>
     </message>
@@ -26272,7 +26272,7 @@ Therefore the image may be not correct</translation>
         <source>Xfig File</source>
         <translation>Xfig File</translation>
     </message>
-    <message utf8="true">
+    <message>
         <location filename="../../../scribus/langmgr.cpp" line="119"/>
         <location filename="../../../scribus/langmgr.cpp" line="120"/>
         <source>Norwegian (Bokmål)</source>
