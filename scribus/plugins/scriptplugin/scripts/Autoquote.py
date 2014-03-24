@@ -226,7 +226,7 @@ while c <= (textlen -1):
                 scribus.messageBox("Oups !", 'Incohérence dans les enchainements de guillemets ouvrant et fermant. Une guillement fermante manque avant la position '+str(c) +'\nOn continue quand même', 
                         scribus.ICON_WARNING, scribus.BUTTON_OK)
             else:
-                scribus.messageBox("Oops!", 'The text is inconsistent. Closing doublequote missing before position '+str(c), 
+                scribus.messageBox("Oops!", 'The text is inconsistent. Closing double quotes missing before position '+str(c), 
                         scribus.ICON_WARNING, scribus.BUTTON_OK)
         lastchange='open'
         if ((replace_existing == 1) and (nextchar != spacenquotes) and (alafin==0)):
@@ -242,7 +242,7 @@ while c <= (textlen -1):
                 scribus.messageBox("Oups !", 'Incohérence dans les enchainements de guillemets ouvrant et fermant. Une guillemet ouvrante manque avant la position '+str(c) +'\nOn continue quand même', 
                         scribus.ICON_WARNING, scribus.BUTTON_OK)
             else:
-                scribus.messageBox("Oops!", 'The text is inconsistent. Opening doublequote missing before position '+str(c), 
+                scribus.messageBox("Oops!", 'The text is inconsistent. Opening double quotes missing before position '+str(c), 
                         scribus.ICON_WARNING, scribus.BUTTON_OK)
         lastchange = 'close'
         if ((replace_existing == 1)  and (prevchar != spacenquotes) and (c > 1)):
