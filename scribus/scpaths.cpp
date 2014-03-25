@@ -324,9 +324,11 @@ QStringList ScPaths::getSystemProfilesDirs(void)
 #elif defined(Q_OS_LINUX)
 	iccProfDirs.append(QDir::homePath()+"/color/icc/");
 	iccProfDirs.append(QDir::homePath()+"/.color/icc/");
+	iccProfDirs.append(QDir::homePath()+"/.local/share/icc/");
 	iccProfDirs.append(QDir::homePath()+"/.local/share/color/icc/");
 	iccProfDirs.append("/usr/share/color/icc/");
 	iccProfDirs.append("/usr/local/share/color/icc/");
+	iccProfDirs.append("/var/lib/color/icc/");
 #elif defined(_WIN32)
 	// On Windows it's more complicated, profiles location depends on OS version
 	WCHAR sysDir[MAX_PATH + 1];
