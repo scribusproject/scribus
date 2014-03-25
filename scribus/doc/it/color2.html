@@ -27,12 +27,13 @@
 <p>Di seguito indichiamo le directory di installazione per i sistemi operativi su cui Scribus funziona:</p>
 
 <h4>Linux/UNIX:</h4>
-<p>Se avete installato Scribus per mezzo di un sistema di gestione dei pacchetti come RPM, DEB o BSD Ports, i file delle raccolte devono essere copiati in <code>/usr/lib/scribus/swatches</code> o <code>/usr/local/lib/scribus/swatches</code>. L'esatta posizione dipende dalla configurazione del gestore di pacchetti di ciascuna distribuzione.</p>
+<p>Se avete installato Scribus per mezzo di un sistema di gestione dei pacchetti come RPM, DEB o BSD Ports, i file delle raccolte devono essere copiati in <code>/usr/lib/scribus/swatches</code> o <code>/usr/local/lib/scribus/swatches</code>. Sui sistemi a 64 bit si trovano in <code>/usr/lib64/scribus/swatches</code> o <code>/usr/local/lib64/scribus/swatches</code> se &grave; stata installata una versione a 64 bit. La posizione effettiva dipende dalla configurazione del gestore di pacchetti di ciascuna distribuzione.</p>
 <p>Se avete compilato Scribus personalmente dovete copiare i file delle raccolte in <code>installation_directory/lib/scribus/swatches</code>.</p>
 <p>Se non avete permessi di root, potete anche copiare i file in <code>/home/user_name/.scribus/swatches/locked</code>.</p>
 <p>Se la cartella <code>locked</code> non esiste, dovrete crearla.</p>
 <h4>Mac OS X</h4>
 <p>Copiate le raccolte nella directory <code>/Library/Preferences/Scribus/swatches/locked</code> nella vostra home directory.</p>
+<p><i>Su Mac OS 10.7 la directory</i> /Library <i>&egrave; nascosta per impostazione predefinita. Per renderla visibile, usate il comando</i> Vai > Vai alla cartella<i> in Finder, poi digitate</i> ~/Library. In alternativa potete premere il tasto Option mentre fate clic su</i> Vai <i>in Finder. Se volete rendere la directory permanentemente visibile, aprite il Terminale e date il seguente comando:</i> chflags nohidden /Users/[username]/Library/.</p>
 <p>Se la cartella <code>locked</code> non esiste, dovrete crearla.</p>
 <h4>OS/2 Warp 4 ed eComStation</h4>
 <p>Copiate le raccolte nella directory <code>%HOME%\.scribus\swatches\locked</code>.</p>
@@ -40,8 +41,8 @@
 <h4>Haiku</h4>
 <p>Copiate le raccolte nella directory <code>/boot/apps/Scribus/share/scribus/swatches</code> o in <code>/boot/home/config/settings/Qt/.scribus/swatches/locked</code>.</p>
 <h4>Windows</h4>
-<p>Copiate i file nella cartella <code>C:\Programmi\Scribus{version}\share\swatches</code>.</p>
-<p>Se non avete permessi di amministratore, potete copiare i file nella vostra cartella utente. Su Windows 2000, XP e 2003 essa &egrave; <code>C:\Documents and Settings\username\.scribus\swatches\locked</code> e su Windows Vista e 7 essa &egrave; <code>C:\Users\username\.scribus\swatches\locked</code>.</p>
+<p>Copiate i file nella cartella <code>C:\Programmi\Scribus {version}\share\swatches</code>.</p>
+<p>Se non avete permessi di amministratore, potete copiare i file nella vostra cartella utente. Su Windows 2000, XP e 2003 essa &egrave; <code>C:\Documents and Settings\username\Application Data\Scribus\swatches\locked</code> e su Windows Vista, 7 e 8 essa &egrave; <code>C:\Users\username\AppData\Roaming\Scribus\swatches\locked</code>.</p>
 <p>Se la cartella <code>locked</code> non esiste, dovrete crearla.</p>
 <br>
 </body>
