@@ -646,6 +646,7 @@ SET(SCRIBUS_SOURCES
   scimgdataloader.cpp
   scimgdataloader_gimp.cpp
   scimgdataloader_jpeg.cpp
+  scimgdataloader_ora.cpp
   scimgdataloader_pdf.cpp
   scimgdataloader_pgf.cpp
   scimgdataloader_pict.cpp

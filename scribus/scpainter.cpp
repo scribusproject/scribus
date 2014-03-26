@@ -533,6 +533,12 @@ void ScPainter::setRasterOp(int blendMode)
 		cairo_set_operator(m_cr, CAIRO_OPERATOR_HSL_COLOR);
 	else if (blendMode == 15)
 		cairo_set_operator(m_cr, CAIRO_OPERATOR_HSL_LUMINOSITY);
+	else if (blendMode == 16)
+		cairo_set_operator(m_cr, CAIRO_OPERATOR_ADD);
+	else if (blendMode == 17)
+		cairo_set_operator(m_cr, CAIRO_OPERATOR_DEST_IN);
+	else if (blendMode == 18)
+		cairo_set_operator(m_cr, CAIRO_OPERATOR_DEST_OUT);
 	else
 		cairo_set_operator(m_cr, CAIRO_OPERATOR_OVER);
 }

@@ -34,6 +34,7 @@ FormatsManager::FormatsManager()
 	m_fmts.insert(FormatsManager::CVG,  QStringList() << "cvg");
 	m_fmts.insert(FormatsManager::WPG,  QStringList() << "wpg");
 	m_fmts.insert(FormatsManager::BMP,  QStringList() << "bmp");
+	m_fmts.insert(FormatsManager::ORA,  QStringList() << "ora");
 #ifdef GMAGICK_FOUND
 	m_fmts.insert(FormatsManager::GMAGICK, QStringList() << "xbm" << "tga" << "ptif" << "ppm" << "pnm" << "pgm" << "pcds" << "pcd" << "pbm" << "mng" << "ico" << "gif" << "fax" << "dpx" << "bmp" << "xcf");
 #endif
@@ -58,6 +59,7 @@ FormatsManager::FormatsManager()
 	m_fmtNames[FormatsManager::CVG]  = QObject::tr("Calamus CVG File");
 	m_fmtNames[FormatsManager::WPG]  = QObject::tr("Word Perfect WPG File");
 	m_fmtNames[FormatsManager::BMP]  = QObject::tr("BMP");
+	m_fmtNames[FormatsManager::ORA]  = QObject::tr("Open Raster Files");
 #ifdef GMAGICK_FOUND
 	m_fmtNames[FormatsManager::GMAGICK] = QObject::tr("GraphicsMagick File");
 #endif
@@ -82,6 +84,7 @@ FormatsManager::FormatsManager()
 	m_fmtMimeTypes.insert(FormatsManager::CVG,  QStringList() << "");
 	m_fmtMimeTypes.insert(FormatsManager::WPG,  QStringList() << "");
 	m_fmtMimeTypes.insert(FormatsManager::PCT,  QStringList() << "");
+	m_fmtMimeTypes.insert(FormatsManager::ORA,  QStringList() << "");
 			
 	QMapIterator<int, QStringList> i(m_fmts);
 	while (i.hasNext()) 

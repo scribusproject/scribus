@@ -37,14 +37,14 @@ class SCRIBUS_API FormatsManager
 
 		enum ScImageFormatType
 		{
-			ALLIMAGES 		= 1|2|4|8|16|32|64|128|256|512|1024|2048|4096|8192|16384|32768|524288|1048576,
+			ALLIMAGES 		= 1|2|4|8|16|32|64|128|256|512|1024|2048|4096|8192|16384|32768|524288|1048576|2097152,
 #ifdef GMAGICK_FOUND
-			IMAGESIMGFRAME	= 1|2|4|16|32|64|128|256|512|65536|1048576,  // all Types suitable for Image Frames
+			IMAGESIMGFRAME	= 1|2|4|16|32|64|128|256|512|65536|1048576|2097152,  // all Types suitable for Image Frames
 #else
-			IMAGESIMGFRAME	= 1|2|4|16|32|64|128|256|512|262144|524288|1048576,  // all Types suitable for Image Frames
+			IMAGESIMGFRAME	= 1|2|4|16|32|64|128|256|512|262144|524288|1048576|2097152,  // all Types suitable for Image Frames
 #endif
 			VECTORIMAGES	= 1|64|1024|2048|16384|32768|131072|262144,  // All pure vector image types
-			RASTORIMAGES	= 2|4|8|32|128|256|512|65536|524288|1048576,  // All pure rastor image types
+			RASTORIMAGES	= 2|4|8|32|128|256|512|65536|524288|1048576|2097152,  // All pure rastor image types
 			EPS				= 1,      // Encapsulated PostScript
 			GIF				= 2,      // GIF files
 			JPEG			= 4,      // JPEG
@@ -67,7 +67,8 @@ class SCRIBUS_API FormatsManager
 			UNICONV			= 131072, // UniConvertor
 			PCT				= 262144,  // Mac Pict
 			BMP				= 524288,  // BMP
-			PGF				= 1048576  // PGF
+			PGF				= 1048576, // PGF
+			ORA				= 2097152  // ORA
 		};
 	
 /*

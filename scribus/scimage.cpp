@@ -16,6 +16,7 @@ for which a new license (GPL+exception) is in place.
 #include "scimgdataloader_gmagick.h"
 #endif
 #include "scimgdataloader_jpeg.h"
+#include "scimgdataloader_ora.h"
 #include "scimgdataloader_pict.h"
 #include "scimgdataloader_ps.h"
 #include "scimgdataloader_psd.h"
@@ -2246,17 +2247,11 @@ bool ScImage::loadPicture(const QString & fn, int page, const CMSettings& cmSett
 	if (ext.isEmpty() || (!ext2.isEmpty() && (ext2 != ext)))
 		ext = ext2;
 	if (extensionIndicatesPDF(ext))
-	{
 		pDataLoader.reset( new ScImgDataLoader_PDF() );
-	}
 	else if (extensionIndicatesEPSorPS(ext))
-	{
 		pDataLoader.reset( new ScImgDataLoader_PS() );
-	}
 	else if (extensionIndicatesTIFF(ext))
-	{
 		pDataLoader.reset( new ScImgDataLoader_TIFF() );
-	}
 	else if (extensionIndicatesPSD(ext))
 	{
 		pDataLoader.reset( new ScImgDataLoader_PSD() );
@@ -2272,6 +2267,8 @@ bool ScImage::loadPicture(const QString & fn, int page, const CMSettings& cmSett
 		pDataLoader.reset( new ScImgDataLoader_PICT() );
 	else if (ext == "wpg")
 		pDataLoader.reset( new ScImgDataLoader_WPG() );
+	else if (ext == "ora")
+		pDataLoader.reset( new ScImgDataLoader_ORA() );
 #ifdef GMAGICK_FOUND
 	else if (fmtImg.contains(ext))
 		pDataLoader.reset( new ScImgDataLoader_QT() );
