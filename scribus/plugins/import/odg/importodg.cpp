@@ -99,7 +99,10 @@ QImage OdgPlug::readThumbnail(QString fName)
 	{
 		QByteArray im;
 		if (!uz->read("Thumbnails/thumbnail.png", im))
+		{
+			delete uz;
 			return QImage();
+		}
 		tmp = QImage::fromData(im);
 		int xs = 0;
 		int ys = 0;
