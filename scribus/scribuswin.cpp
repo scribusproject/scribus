@@ -91,23 +91,11 @@ void ScribusWin::setView(ScribusView* newView)
 	setCentralWidget(newView);
 }
 
-void ScribusWin::slotAutoSave()
+void ScribusWin::slotSaved(QString newName)
 {
-	if ((m_Doc->hasName) && (m_Doc->isModified()))
-	{
-		//#8081 : change behavior of autosave, autosave writes now to an .autosave file
-		//instead of overwriting source document
-		//moveFile(m_Doc->DocName, m_Doc->DocName+".bak");
-		FileLoader fl(m_Doc->DocName);
-		if (fl.saveFile(m_Doc->DocName+".autosave", m_Doc, 0))
-		{
-			//#8081 related : do not unset modified flag until user really save file
-			//m_Doc->setModified(false);
-			setWindowTitle(QDir::toNativeSeparators(m_Doc->DocName));
-			qApp->processEvents();
-			emit AutoSaved();
-		}
-	}
+	setWindowTitle(QDir::toNativeSeparators(newName));
+	qApp->processEvents();
+	emit AutoSaved(); //TODO: to update the main window title, do this from the doc?
 }
 
 void ScribusWin::closeEvent(QCloseEvent *ce)

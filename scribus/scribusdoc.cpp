@@ -45,7 +45,6 @@ for which a new license (GPL+exception) is in place.
 #include "colorblind.h"
 #include "commonstrings.h"
 #include "desaxe/digester.h"
-//#include "desaxe/saxXML.h"
 #include "fileloader.h"
 #include "filewatcher.h"
 #include "fpoint.h"
@@ -10062,11 +10061,25 @@ void ScribusDoc::connectDocSignals()
 		{
 			connect(this, SIGNAL(docChanged()), m_ScMW, SLOT(slotDocCh()));
 			connect(this, SIGNAL(firstSelectedItemType(int)), m_ScMW, SLOT(HaveNewSel(int)));
-			connect(autoSaveTimer, SIGNAL(timeout()), WinHan, SLOT(slotAutoSave()));
+			connect(this, SIGNAL(saved(QString)), WinHan, SLOT(slotSaved(QString)));
+			connect(autoSaveTimer, SIGNAL(timeout()), this, SLOT(slotAutoSave()));
 		}
 	}
 }
 
+void ScribusDoc::disconnectDocSignals()
+{
+	if (ScCore->usingGUI())
+	{
+		if (m_hasGUI)
+		{
+			disconnect(this, SIGNAL(docChanged()), m_ScMW, SLOT(slotDocCh()));
+			disconnect(this, SIGNAL(firstSelectedItemType(int)), m_ScMW, SLOT(HaveNewSel(int)));
+			disconnect(this, SIGNAL(saved(QString)), WinHan, SLOT(slotSaved(QString)));
+			disconnect(autoSaveTimer, SIGNAL(timeout()), this, SLOT(slotAutoSave()));
+		}
+	}
+}
 
 //CB Same as RecalcPicturesRes apart from the name checking, which should be able to be removed
 void ScribusDoc::updatePict(QString name)
@@ -17098,6 +17111,16 @@ void ScribusDoc::restartAutoSaveTimer()
 	if (docPrefsData.docSetupPrefs.AutoSave)
 		autoSaveTimer->start(docPrefsData.docSetupPrefs.AutoSaveTime);
 	emit updateAutoSaveClock();
+}
+
+void ScribusDoc::slotAutoSave()
+{
+	if (hasName && isModified())
+	{
+		FileLoader fl(DocName);
+		if (fl.saveFile(DocName+".autosave", this, 0))
+			emit saved(DocName);
+	}
 }
 
 void ScribusDoc::setupNumerations()

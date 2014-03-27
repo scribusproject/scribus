@@ -1127,6 +1127,7 @@ public:
 	};
 	void recalcPicturesRes(bool applyNewRes = false);
 	void connectDocSignals();
+	void disconnectDocSignals();
 	void removeLayer(int l, bool dl = false); //FIXME: Make protected once scripter function no longer uses this directly
 	/*! \brief We call changed() whenever the document needs to know it has been changed.
 	 *  If the document is the primary document in a main window, it will signal to enable/disable
@@ -1385,6 +1386,7 @@ signals:
 	 * @brief Let the document tell whatever is listening that it has changed
 	 */
 	void docChanged();
+	void saved(QString name);
 	void updateContents();
 	void updateContents(const QRect &r);
 	void refreshItem(PageItem *);
@@ -1784,6 +1786,9 @@ public slots:
 	void itemSelection_EditWeld();
 	void restartAutoSaveTimer();
 
+protected slots:
+	void slotAutoSave();
+
 //auto-numerations
 public:
 	QMap<QString, NumStruct*> numerations;
@@ -1803,6 +1808,7 @@ public:
 	void SubmitForm();
 	void ImportData();
 	void ResetFormFields();
+
 };
 
 Q_DECLARE_METATYPE(ScribusDoc*);

@@ -4565,8 +4565,9 @@ bool ScribusMainWindow::DoFileClose()
 	closeActiveWindowMasterPageEditor();
 	slotSelect();
 	doc->autoSaveTimer->stop();
-	disconnect(doc->autoSaveTimer, SIGNAL(timeout()), doc->WinHan, SLOT(slotAutoSave()));
-	disconnect(doc->WinHan, SIGNAL(AutoSaved()), this, SLOT(slotAutoSaved()));
+	doc->disconnectDocSignals();
+	disconnect(doc, SIGNAL(saved(QString)));
+	disconnect(doc->WinHan, SIGNAL(AutoSaved()));
 	disconnect(ScCore->fileWatcher, SIGNAL(fileChanged(QString )), doc, SLOT(updatePict(QString)));
 	disconnect(ScCore->fileWatcher, SIGNAL(fileDeleted(QString )), doc, SLOT(removePict(QString)));
 	disconnect(ScCore->fileWatcher, SIGNAL(dirChanged(QString )), doc, SLOT(updatePictDir(QString )));

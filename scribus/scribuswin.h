@@ -60,8 +60,8 @@ public:
 	bool menuStatus(int index) const { if (index>=0 && index <=6) return MenuStat[index]; else return false; }
 	
 public slots:
-	void slotAutoSave();
-	
+	void slotSaved(QString newName);
+
 signals:
 	void AutoSaved();
 
