@@ -116,13 +116,12 @@ void Prefs_Display::restoreDefaults(struct ApplicationPrefs *prefsData)
 	pageGapHorizontalSpinBox->setNewUnit(docUnitIndex);
 	pageGapVerticalSpinBox->setNewUnit(docUnitIndex);
 
-
 	scratchSpaceLeftSpinBox->setValue(prefsData->displayPrefs.scratch.Left * unitRatio);
 	scratchSpaceRightSpinBox->setValue(prefsData->displayPrefs.scratch.Right * unitRatio);
 	scratchSpaceTopSpinBox->setValue(prefsData->displayPrefs.scratch.Top * unitRatio);
 	scratchSpaceBottomSpinBox->setValue(prefsData->displayPrefs.scratch.Bottom * unitRatio);
-	pageGapHorizontalSpinBox->setValue(prefsData->displayPrefs.pageGapHorizontal);
-	pageGapVerticalSpinBox->setValue(prefsData->displayPrefs.pageGapVertical);
+	pageGapHorizontalSpinBox->setValue(prefsData->displayPrefs.pageGapHorizontal * unitRatio);
+	pageGapVerticalSpinBox->setValue(prefsData->displayPrefs.pageGapVertical * unitRatio);
 
 	QPixmap pm(100, 30);
 	pm.fill(prefsData->displayPrefs.paperColor);
@@ -409,12 +408,12 @@ void Prefs_Display::saveGuiToPrefs(struct ApplicationPrefs *prefsData) const
 	prefsData->displayPrefs.showVerifierWarningsOnCanvas=showVerifierWarningsOnCanvasCheckBox->isChecked();
 	prefsData->displayPrefs.showAutosaveClockOnCanvas=showAutosaveClockOnCanvasCheckBox->isChecked();
 	double unitRatio = unitGetRatioFromIndex(docUnitIndex);
-	prefsData->displayPrefs.scratch.Left=scratchSpaceLeftSpinBox->value()/unitRatio;
-	prefsData->displayPrefs.scratch.Right=scratchSpaceRightSpinBox->value()/unitRatio;
-	prefsData->displayPrefs.scratch.Top=scratchSpaceTopSpinBox->value()/unitRatio;
-	prefsData->displayPrefs.scratch.Bottom=scratchSpaceBottomSpinBox->value()/unitRatio;
-	prefsData->displayPrefs.pageGapHorizontal=pageGapHorizontalSpinBox->value();
-	prefsData->displayPrefs.pageGapVertical=pageGapVerticalSpinBox->value();
+	prefsData->displayPrefs.scratch.Left=scratchSpaceLeftSpinBox->value() / unitRatio;
+	prefsData->displayPrefs.scratch.Right=scratchSpaceRightSpinBox->value() / unitRatio;
+	prefsData->displayPrefs.scratch.Top=scratchSpaceTopSpinBox->value() / unitRatio;
+	prefsData->displayPrefs.scratch.Bottom=scratchSpaceBottomSpinBox->value() / unitRatio;
+	prefsData->displayPrefs.pageGapHorizontal=pageGapHorizontalSpinBox->value() / unitRatio;
+	prefsData->displayPrefs.pageGapVertical=pageGapVerticalSpinBox->value() / unitRatio;
 
 	prefsData->displayPrefs.paperColor=colorPaper;
 	prefsData->displayPrefs.scratchColor=colorScratch;
