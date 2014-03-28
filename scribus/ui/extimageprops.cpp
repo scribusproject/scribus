@@ -64,6 +64,9 @@ ExtImageProps::ExtImageProps( QWidget* parent, ImageInfoRecord *info, PageItem *
 	blendModes.insert("smud", tr("Exclusion"));
 	blendModes.insert("div ", tr("Color Dodge"));
 	blendModes.insert("idiv", tr("Color Burn"));
+	blendModes.insert("plus", tr("Plus"));
+	blendModes.insert("dsti", tr("Destination In"));
+	blendModes.insert("dsto", tr("Destination Out"));
 	blendModesRev.clear();
 	blendModesRev.insert( tr("Normal"), "norm");
 	blendModesRev.insert( tr("Darken"), "dark");
@@ -82,6 +85,9 @@ ExtImageProps::ExtImageProps( QWidget* parent, ImageInfoRecord *info, PageItem *
 	blendModesRev.insert( tr("Exclusion"), "smud");
 	blendModesRev.insert( tr("Color Dodge"), "div ");
 	blendModesRev.insert( tr("Color Burn"), "idiv");
+	blendModesRev.insert( tr("Plus"), "plus");
+	blendModesRev.insert( tr("Destination In"), "dsti");
+	blendModesRev.insert( tr("Destination Out"), "dsto");
 	propsTab = new QTabWidget( this );
 	QPalette palette;
 	palette.setColor(backgroundRole(), Qt::white);
@@ -116,6 +122,9 @@ ExtImageProps::ExtImageProps( QWidget* parent, ImageInfoRecord *info, PageItem *
 		blendMode->addItem( tr("Exclusion"));
 		blendMode->addItem( tr("Color Dodge"));
 		blendMode->addItem( tr("Color Burn"));
+		blendMode->addItem( tr("Plus"));
+		blendMode->addItem( tr("Destination In"));
+		blendMode->addItem( tr("Destination Out"));
 		layout1->addWidget( blendMode );
 		textLabel2 = new QLabel( tab );
 		textLabel2->setText( tr( "Opacity:" ) );

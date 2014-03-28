@@ -8,9 +8,10 @@ for which a new license (GPL+exception) is in place.
 #define SCIMGDATALOADER_ORA_H
 
 #include "scimgdataloader.h"
+#include "scpainter.h"
+#include "third_party/zip/scribus_zip.h"
 #include <QDomDocument>
 #include <QDomElement>
-#include <QStack>
 
 class ScImgDataLoader_ORA : public ScImgDataLoader
 {
@@ -22,17 +23,11 @@ public:
 	virtual bool loadPicture(const QString& fn, int page, int res, bool thumbnail);
 protected:
 	void initSupportedFormatList();
-	struct oraLayer
-	{
-		int x;
-		int y;
-		double opacity;
-		bool visible;
-		QString compositeOp;
-		QString fileName;
-	};
-	QStack<oraLayer> OraLayerStack;
-	void parseStackXML(QDomElement &elem);
+	void parseStackXML(QDomElement &elem, ScPainter *painter, ScZipHandler *uz);
+	int blendModeToInt(QString compositeOp);
+	QString blendModeToString(QString compositeOp);
+	int inSubLayer;
+	int layerCount;
 };
 
 #endif

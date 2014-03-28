@@ -1998,6 +1998,12 @@ bool ScImage::getAlpha(QString fn, int page, QByteArray& alpha, bool PDF, bool p
 		if	(pDataLoader.get())
 			pDataLoader->setRequest(imgInfo.isRequest, imgInfo.RequestProps);
 	}
+	else if (ext == "ora")
+	{
+		pDataLoader.reset( new ScImgDataLoader_ORA() );
+		if	(pDataLoader.get())
+			pDataLoader->setRequest(imgInfo.isRequest, imgInfo.RequestProps);
+	}
 	else if (ext == "pat")
 		pDataLoader.reset( new ScImgDataLoader_GIMP() );
 	else if (ext == "pgf")
@@ -2268,7 +2274,10 @@ bool ScImage::loadPicture(const QString & fn, int page, const CMSettings& cmSett
 	else if (ext == "wpg")
 		pDataLoader.reset( new ScImgDataLoader_WPG() );
 	else if (ext == "ora")
+	{
 		pDataLoader.reset( new ScImgDataLoader_ORA() );
+		pDataLoader->setRequest(imgInfo.isRequest, imgInfo.RequestProps);
+	}
 #ifdef GMAGICK_FOUND
 	else if (fmtImg.contains(ext))
 		pDataLoader.reset( new ScImgDataLoader_QT() );
