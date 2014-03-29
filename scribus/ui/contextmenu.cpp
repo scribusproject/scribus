@@ -168,7 +168,17 @@ void ContextMenu::createMenuItems_Selection()
 		if (m_actionList.contains("editEditRenderSource"))
 		{
 			addSeparator();
+#ifdef HAVE_OSG
+			if (currItem->isOSGFrame())
+			{
+				QAction *act = addAction( tr("Edit 3D-Annotation..."));
+				connect(act, SIGNAL(triggered()), m_ScMW, SLOT(callImageEditor()));
+			}
+			else
+				addAction(m_ScMW->scrActions["editEditRenderSource"]);
+#else
 			addAction(m_ScMW->scrActions["editEditRenderSource"]);
+#endif
 		}
 		if (m_doc->appMode == modeEdit)
 		{
