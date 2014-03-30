@@ -171,7 +171,7 @@ void ContextMenu::createMenuItems_Selection()
 #ifdef HAVE_OSG
 			if (currItem->isOSGFrame())
 			{
-				QAction *act = addAction( tr("Edit 3D-Annotation..."));
+				QAction *act = addAction( tr("Edit 3D Annotation..."));
 				connect(act, SIGNAL(triggered()), m_ScMW, SLOT(callImageEditor()));
 			}
 			else
