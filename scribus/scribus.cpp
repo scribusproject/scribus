@@ -4137,6 +4137,8 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 		doc->NrItems = bookmarkPalette->BView->NrItems;
 		doc->First = bookmarkPalette->BView->First;
 		doc->Last = bookmarkPalette->BView->Last;
+		if (doc->drawAsPreview)
+			view->togglePreview();
 	}
 	else
 	{
@@ -6092,8 +6094,9 @@ void ScribusMainWindow::toggleNodeEdit()
 {
 	if (!doc)
 		return;
-
-	int i = (doc->appMode == modeEditClip) ? submodeEndNodeEdit : modeEditClip;
+	int i = modeEditClip;
+	if (doc->appMode == modeEditClip)
+		i = submodeEndNodeEdit;
 	view->requestMode(i);
 }
 

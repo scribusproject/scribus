@@ -158,7 +158,6 @@ bool Scribus150Format::savePalette(const QString & fileName)
 
 bool Scribus150Format::saveFile(const QString & fileName, const FileFormat & /* fmt */)
 {
-	QString text, tf, tf2, tc, tc2;
 	m_lastSavedFile = "";
 
 	// #11279: Image links get corrupted when symlinks involved
@@ -289,12 +288,21 @@ bool Scribus150Format::saveFile(const QString & fileName, const FileFormat & /* 
 	docu.writeAttribute("SHOWGRID", static_cast<int>(m_Doc->guidesPrefs().gridShown));
 	docu.writeAttribute("SHOWGUIDES", static_cast<int>(m_Doc->guidesPrefs().guidesShown));
 	docu.writeAttribute("showcolborders", static_cast<int>(m_Doc->guidesPrefs().colBordersShown));
-	docu.writeAttribute("SHOWFRAME", static_cast<int>(m_Doc->guidesPrefs().framesShown));
+	docu.writeAttribute("previewMode", static_cast<int>(m_Doc->drawAsPreview));
+	if (m_Doc->drawAsPreview)
+	{
+		docu.writeAttribute("SHOWFRAME", static_cast<int>(m_View->storedFramesShown));
+		docu.writeAttribute("SHOWControl", static_cast<int>(m_View->storedShowControls));
+	}
+	else
+	{
+		docu.writeAttribute("SHOWFRAME", static_cast<int>(m_Doc->guidesPrefs().framesShown));
+		docu.writeAttribute("SHOWControl", static_cast<int>(m_Doc->guidesPrefs().showControls));
+	}
 	docu.writeAttribute("SHOWLAYERM", static_cast<int>(m_Doc->guidesPrefs().layerMarkersShown));
 	docu.writeAttribute("SHOWMARGIN", static_cast<int>(m_Doc->guidesPrefs().marginsShown));
 	docu.writeAttribute("SHOWBASE", static_cast<int>(m_Doc->guidesPrefs().baselineGridShown));
 	docu.writeAttribute("SHOWPICT", static_cast<int>(m_Doc->guidesPrefs().showPic));
-	docu.writeAttribute("SHOWControl", static_cast<int>(m_Doc->guidesPrefs().showControls));
 	docu.writeAttribute("SHOWLINK", static_cast<int>(m_Doc->guidesPrefs().linkShown));
 	docu.writeAttribute("rulerMode", static_cast<int>(m_Doc->guidesPrefs().rulerMode));
 	docu.writeAttribute("showrulers", static_cast<int>(m_Doc->guidesPrefs().rulersShown));
