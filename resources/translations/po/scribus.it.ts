@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="it_IT" sourcelanguage="en">
+<TS version="2.1" language="it_IT" sourcelanguage="en">
 <context>
     <name></name>
     <message>
@@ -28983,7 +28983,7 @@ Utilizzare la Verifica Preliminare per correggerli</translation>
         <location filename="../../../scribus/scribus.cpp" line="4542"/>
         <source>Your document was saved to a temporary file and could not be moved: 
 %1</source>
-        <translation>Il documento è stato salvato in un file temporaneo è non è stato possibile spostarlo:
+        <translation>Il documento è stato salvato in un file temporaneo e non è stato possibile spostarlo:
 %1</translation>
     </message>
     <message>
