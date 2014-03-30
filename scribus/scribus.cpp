@@ -7226,6 +7226,7 @@ void ScribusMainWindow::slotPrefsOrg()
 					int h = qRound(qMin(scw_v->visibleHeight() / scw_v->scale(), scw->doc()->currentPage()->height()));
 					scw_v->rememberOldZoomLocation(w / 2 + x,h / 2 + y);
 					scw_v->zoom((scw_v->scale() / oldPrefs.displayPrefs.displayScale) * prefsManager->displayScale());
+					scw_v->zoomSpinBox->setMaximum(doc->opToolPrefs().magMax);
 				}
 				if (shadowChanged)
 					scw->view()->DrawNew();

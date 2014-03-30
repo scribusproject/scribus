@@ -262,7 +262,7 @@ void PrefsManager::initDefaults()
 	appPrefs.itemToolPrefs.lineStartArrow = 0;
 	appPrefs.itemToolPrefs.lineEndArrow = 0;
 	appPrefs.opToolPrefs.magMin = 1;
-	appPrefs.opToolPrefs.magMax = 3200;
+	appPrefs.opToolPrefs.magMax = 32000;
 	appPrefs.opToolPrefs.magStep = 25;
 	qDebug()<<ScQApp->currGUILanguage();
 	appPrefs.docSetupPrefs.docUnitIndex = unitIndexFromString(LocaleManager::instance()->unitForLocale(ScQApp->currGUILanguage()));
@@ -2156,7 +2156,7 @@ bool PrefsManager::ReadPref(QString ho)
 		if (dc.tagName()=="OperatorTools")
 		{
 			appPrefs.opToolPrefs.magMin  = dc.attribute("MinimumMagnification", "1").toInt();
-			appPrefs.opToolPrefs.magMax  = dc.attribute("MaximumMagnification", "3200").toInt();
+			appPrefs.opToolPrefs.magMax  = dc.attribute("MaximumMagnification", "32000").toInt();
 			appPrefs.opToolPrefs.magStep = dc.attribute("MagnificationStep", "25").toInt();
 			if (appPrefs.opToolPrefs.magStep < 0)
 				appPrefs.opToolPrefs.magStep = 25;

@@ -196,7 +196,7 @@ ScribusView::ScribusView(QWidget* win, ScribusMainWindow* mw, ScribusDoc *doc) :
 // 	setCurrentComboItem(previewQualitySwitcher, tr("Normal"));
 	previewQualitySwitcher->setCurrentIndex(Prefs->itemToolPrefs.imageLowResType);
 
-	zoomSpinBox = new ScrSpinBox( 1, 3200, this, 6 );
+	zoomSpinBox = new ScrSpinBox( 1, 32000, this, 6 );
 	zoomSpinBox->setTabAdvance(false);
 	zoomSpinBox->setFont(fo);
 	zoomSpinBox->setValue( 100 );
@@ -4130,7 +4130,7 @@ void ScribusView::setScale(const double newScale)
 	double v2=Doc->opToolPrefs().magMax*Prefs->displayPrefs.displayScale/100.0;
 	if (Scale > v2)
 		Scale=v2;
-	double v3=32*Prefs->displayPrefs.displayScale;
+	double v3=320*Prefs->displayPrefs.displayScale;
 	if (Scale > v3)
 		Scale=v3;
 
@@ -4384,7 +4384,7 @@ void ScribusView::zoom(int canvasX, int canvasY, double scale, bool preservePoin
 {
 	QPoint canvasPoint;
 	QPoint globalPoint = m_canvas->canvasToGlobal(QPointF(canvasX, canvasY));
-	double newScale    = (scale > 32*Prefs->displayPrefs.displayScale) ? (32*Prefs->displayPrefs.displayScale) : scale;
+	double newScale    = (scale > (Prefs->opToolPrefs.magMax / 100) * Prefs->displayPrefs.displayScale) ? ((Prefs->opToolPrefs.magMax / 100) * Prefs->displayPrefs.displayScale) : scale;
 	undoManager->setUndoEnabled(false);
 	updatesOn(false);
 	setScale(newScale);
