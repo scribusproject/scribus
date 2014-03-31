@@ -527,7 +527,7 @@ void CanvasMode_NodeEdit::handleNodeEditPress(QMouseEvent* m, QRect)
 	for (int a=0; a < signed(Clip.size()); ++a)
 	{
 		if (((m_doc->nodeEdit.EdPoints) && (a % 2 != 0)) || ((!m_doc->nodeEdit.EdPoints) && (a % 2 == 0)))
-				continue;
+			continue;
 		QPointF npf = pm2.map(Clip.pointQF(a));
 		if (m_canvas->hitsCanvasPoint(m->globalPos(), npf))
 		{
@@ -581,11 +581,11 @@ void CanvasMode_NodeEdit::handleNodeEditPress(QMouseEvent* m, QRect)
 			}
 		}
 	}
-	if ((m_doc->nodeEdit.submode == NodeEditContext::SPLIT_PATH) && (m_doc->nodeEdit.ClRe2 != -1))
+	if (m_doc->nodeEdit.submode == NodeEditContext::SPLIT_PATH)
 	{
 		if (!m_doc->nodeEdit.EdPoints)
 			return;
-		if (!m_doc->nodeEdit.hasNodeSelected())	// We don't have a Point, try to add one onto the current curve segment
+		if ((!m_doc->nodeEdit.hasNodeSelected()) && (m_doc->nodeEdit.ClRe2 != -1)) // We don't have a Point, try to add one onto the current curve segment
 		{
 			bool foundP = false;
 			uint seg = 0;
