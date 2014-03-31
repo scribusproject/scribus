@@ -5289,9 +5289,11 @@ void ScribusMainWindow::SelectAllOnLayer()
 
 void ScribusMainWindow::SelectAll(bool docWideSelect)
 {
-	if (doc->appMode == modeEdit)
+	if (doc->appMode == modeEdit || doc->appMode == modeEditTable)
 	{
 		PageItem *currItem = doc->m_Selection->itemAt(0);
+		if (doc->appMode == modeEditTable)
+			currItem = currItem->asTable()->activeCell().textFrame();
 		PageItem *nextItem = currItem;
 		nextItem->itemText.selectAll();
 		while (nextItem != 0)
@@ -5356,11 +5358,13 @@ void ScribusMainWindow::SelectAll(bool docWideSelect)
 
 void ScribusMainWindow::deselectAll()
 {
-	if (doc->appMode == modeEdit)
+	if (doc->appMode == modeEdit || doc->appMode == modeEditTable)
 	{
 		if (doc->m_Selection->isEmpty())
 			return;
 		PageItem *currItem = doc->m_Selection->itemAt(0);
+		if (doc->appMode == modeEditTable)
+			currItem = currItem->asTable()->activeCell().textFrame();
 		if (currItem->asTextFrame())
 		{
 			currItem->itemText.deselectAll();
