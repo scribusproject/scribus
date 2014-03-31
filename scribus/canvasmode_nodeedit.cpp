@@ -581,7 +581,7 @@ void CanvasMode_NodeEdit::handleNodeEditPress(QMouseEvent* m, QRect)
 			}
 		}
 	}
-	if (m_doc->nodeEdit.submode == NodeEditContext::SPLIT_PATH)
+	if ((m_doc->nodeEdit.submode == NodeEditContext::SPLIT_PATH) && (m_doc->nodeEdit.ClRe2 != -1))
 	{
 		if (!m_doc->nodeEdit.EdPoints)
 			return;
