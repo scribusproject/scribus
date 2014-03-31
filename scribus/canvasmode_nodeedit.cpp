@@ -507,7 +507,7 @@ void CanvasMode_NodeEdit::handleNodeEditPress(QMouseEvent* m, QRect)
 	{
 		if (!m_doc->nodeEdit.EdPoints)
 			return;
-		if (!m_doc->nodeEdit.hasNodeSelected())	// We don't have a Point, try to add one onto the current curve segment
+		if ((!m_doc->nodeEdit.hasNodeSelected()) && (m_doc->nodeEdit.ClRe2 != -1)) // We don't have a Point, try to add one onto the current curve segment
 		{
 			bool foundP = false;
 			uint seg = 0;
