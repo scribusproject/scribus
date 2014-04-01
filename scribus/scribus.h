@@ -167,7 +167,7 @@ public:
 	void SwitchWin();
 	void RestoreBookMarks();
 	QStringList  scrapbookNames();
-
+	void updateLayerMenu();
 	void emergencySave();
 
 	/**
@@ -206,6 +206,32 @@ public:
 
 
 	QProgressBar* mainWindowProgressBar;
+	ScrSpinBox* zoomSpinBox; //zoom spinbox at bottom of view
+	PageSelector* pageSelector; //Page selector at bottom of view
+#if OPTION_USE_QTOOLBUTTON
+	QToolButton *zoomDefaultToolbarButton;
+	QToolButton *zoomOutToolbarButton;
+	QToolButton *zoomInToolbarButton;
+	QToolButton *cmsToolbarButton;
+	QToolButton *previewToolbarButton;
+	QToolButton *editOnPreviewToolbarButton;
+#else
+	QPushButton *zoomDefaultToolbarButton;
+	QPushButton *zoomOutToolbarButton;
+	QPushButton *zoomInToolbarButton;
+	QPushButton *cmsToolbarButton;
+	QPushButton *previewToolbarButton;
+	QPushButton *editOnPreviewToolbarButton;
+#endif
+	QComboBox *layerMenu; //Menu for layers at bottom of view
+	QComboBox *unitSwitcher; //Menu for units at bottom of view
+	QComboBox *previewQualitySwitcher; //Menu for image preview quality
+	QComboBox *visualMenu;
+
+
+	QMenu *cmsAdjustMenu;
+	QAction *idCmsAdjustMenu;
+
 	QLabel* mainWindowXPosLabel;
 	QLabel* mainWindowXPosDataLabel;
 	QLabel* mainWindowYPosLabel;
@@ -252,6 +278,7 @@ public:
 
 public slots:
 	void languageChange();
+	void statusBarLanguageChange();
 	void specialActionKeyEvent(const QString& actionName, int unicodevalue);
 	void newView();
 	void ToggleStickyTools();
@@ -283,7 +310,10 @@ public slots:
 	void PutToPatterns();
 	void ConvertToSymbol();
 	void changeLayer(int);
+	void setLayerMenuText(const QString &);
 	void showLayer();
+	void setMenTxt(int Seite);
+	void setCurrentPage(int p);
 	void ManageJava();
 	void editSelectedSymbolStart();
 	void editSymbolStart(QString temp);
@@ -297,7 +327,7 @@ public slots:
 	void newFileFromTemplate();
 	bool slotPageImport();
 	bool loadPage(QString fileName, int Nr, bool Mpa, const QString& renamedPageName=QString::null);
-
+	void GotoLa(int l);
 	void slotGetContent();
 	void slotGetContent2(); // kk2006
 	void slotGetClipboardImage();
@@ -541,6 +571,8 @@ public slots:
 	void slotUpdateMarks();
 	bool editMarkDlg(Mark *mrk, PageItem_TextFrame* currItem = NULL);
 	void testQTQuick2_1();
+	void adjustCMS();
+	void changePreviewQuality(int index);
 
 signals:
 	void AppModeChanged(int oldMode, int newMode);
@@ -548,6 +580,7 @@ signals:
 //deprecated: (av)
 	void TextEffects(int);
 	void UpdateRequest(int updateFlags);
+	void changeLayers(int);
 
 protected:
 	/*!

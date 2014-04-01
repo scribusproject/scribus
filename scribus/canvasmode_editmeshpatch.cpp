@@ -339,7 +339,7 @@ void CanvasMode_EditMeshPatch::keyPressEvent(QKeyEvent *e)
 	}
 
 	Qt::KeyboardModifiers buttonModifiers = e->modifiers();
-	if ((!m_view->zoomSpinBox->hasFocus()) && (!m_view->pageSelector->hasFocus()))
+	if ((!m_view->m_ScMW->zoomSpinBox->hasFocus()) && (!m_view->m_ScMW->pageSelector->hasFocus()))
 	{
 		if (m_doc->m_Selection->count() != 0)
 		{

@@ -120,30 +120,9 @@ public:
 	void stopGesture();
 	
   /** Vergroesserungseingabefeld */
-	ScrSpinBox* zoomSpinBox; //zoom spinbox at bottom of view
-	PageSelector* pageSelector; //Page selector at bottom of view
 	RulerMover *rulerMover; //Widget between the two rulers for dragging the ruler origin
 	Hruler *horizRuler;
 	Vruler *vertRuler;
-#if OPTION_USE_QTOOLBUTTON
-	QToolButton *zoomDefaultToolbarButton;
-	QToolButton *zoomOutToolbarButton;
-	QToolButton *zoomInToolbarButton;
-	QToolButton *cmsToolbarButton;
-	QToolButton *previewToolbarButton;
-	QToolButton *editOnPreviewToolbarButton;
-#else
-	QPushButton *zoomDefaultToolbarButton;
-	QPushButton *zoomOutToolbarButton;
-	QPushButton *zoomInToolbarButton;
-	QPushButton *cmsToolbarButton;
-	QPushButton *previewToolbarButton;
-	QPushButton *editOnPreviewToolbarButton;
-#endif
-	QComboBox *layerMenu; //Menu for layers at bottom of view
-	QComboBox *unitSwitcher; //Menu for units at bottom of view
-	QComboBox *previewQualitySwitcher; //Menu for image preview quality
-	QComboBox *visualMenu;
 	ClockWidget *clockLabel;
 	QPushButton *endEditButton;
   /** Dokument zu dem die Seite gehoert */
@@ -187,7 +166,6 @@ public:
 
 	void reformPages(bool moveObjects = true);
 	void reformPagesView();
-	void updateLayerMenu();
 	void showMasterPage(int nr);
 	void hideMasterPage();
 	void showSymbolPage(QString symbolName);
@@ -269,19 +247,10 @@ public slots: // Public slots
 	void slotZoomOut(int mx=0,int my=0);
   /** Redraws everything */
 	void DrawNew();
-	void setMenTxt(int Seite);
-	void setLayerMenuText(const QString &);
 	void GotoPa(int Seite);
 	void GotoLa(int l);
 	void GotoPage(int Seite);
 	void ChgUnit(int art);
-
-	/*! \brief Change canvas preview quality for image items.
-	Called by previewQualitySwitcher (signal).
-	See void ScribusDoc::allItems_ChangePreviewResolution(int id)
-	for changing itself
-	*/
-	void changePreviewQuality(int index);
 
 	void SetCPo(double x, double y);
 	void SetCCPo(double x, double y);
@@ -306,8 +275,6 @@ private: // Private attributes
 	int m_previousMode;
 	QMenu *pmen3;
 	QMenu *pmenResolution;
-	QMenu *cmsAdjustMenu;
-	QAction *idCmsAdjustMenu;
 	QPoint m_pressLocation;
 	QTime m_moveTimer;
 	QTimer *m_dragTimer;

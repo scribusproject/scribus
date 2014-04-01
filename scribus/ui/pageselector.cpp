@@ -169,6 +169,12 @@ int PageSelector::getCurrentPage()
 	return APage;
 }
 
+void PageSelector::setCurrentPage(int i)
+{
+//	int j=qMax(LastPG, i);
+//	APage
+}
+
 void PageSelector::GotoPgE(int a)
 {
 	clearFocus();
@@ -190,7 +196,8 @@ void PageSelector::GotoPage()
 
 void PageSelector::GotoPg(int a)
 {
-	disconnect( PageCombo, SIGNAL( activated(int) ), this, SLOT( GotoPgE(int) ) );
+	//disconnect( PageCombo, SIGNAL( activated(int) ), this, SLOT( GotoPgE(int) ) );
+	PageCombo->blockSignals(true);
 	PageCombo->setCurrentIndex(a);
 	setCurrentComboItem(PageCombo, QString::number(a+1));
 	APage = a+1;
@@ -208,7 +215,8 @@ void PageSelector::GotoPg(int a)
 		Forward->setEnabled(false);
 		Last->setEnabled(false);
 	}
-	connect( PageCombo, SIGNAL( activated(int) ), this, SLOT( GotoPgE(int) ) );
+	PageCombo->blockSignals(false);
+	//connect( PageCombo, SIGNAL( activated(int) ), this, SLOT( GotoPgE(int) ) );
 }
 
 void PageSelector::setMaximum(int a)

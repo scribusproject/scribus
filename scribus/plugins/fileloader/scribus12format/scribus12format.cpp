@@ -1360,7 +1360,7 @@ bool Scribus12Format::loadFile(const QString & fileName, const FileFormat & /* f
 		allItems.clear();
 	}
 	
-	setCurrentComboItem(m_View->unitSwitcher, unitGetStrFromIndex(m_Doc->unitIndex()));
+	setCurrentComboItem(m_ScMW->unitSwitcher, unitGetStrFromIndex(m_Doc->unitIndex()));
 	if (m_mwProgressBar!=0)
 		m_mwProgressBar->setValue(DOC.childNodes().count());
 

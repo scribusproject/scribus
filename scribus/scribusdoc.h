@@ -1347,6 +1347,7 @@ public:
 	bool viewAsPreview;
 	bool editOnPreview;
 	int previewVisual;
+	int previewQuality;
 	struct OpenNodesList
 	{
 		int type;
@@ -1412,6 +1413,7 @@ signals:
 	void updateAutoSaveClock();
 	void addBookmark(PageItem *);
 	void deleteBookmark(PageItem *);
+	void changeLayers(int);
 	
 public slots:
 	void selectionChanged();

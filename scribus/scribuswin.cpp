@@ -44,7 +44,6 @@ ScribusWin::ScribusWin(QWidget* parent, ScribusDoc* doc) : QMainWindow(parent)
 	setWindowIcon(loadIcon("AppIcon2.png"));
 	setAttribute(Qt::WA_DeleteOnClose);
 	m_Doc = doc;
-	currentDir = QDir::currentPath();
 }
 
 void ScribusWin::setMainWindow(ScribusMainWindow *mw)
@@ -57,38 +56,8 @@ void ScribusWin::setView(ScribusView* newView)
 	m_View = newView;
 	++m_Doc->viewCount;
 	winIndex = ++m_Doc->viewID;
-	statusFrame = new QFrame(this);
-	statusFrameLayout = new QHBoxLayout(statusFrame);
-	statusFrameLayout->setMargin(0);
-	statusFrameLayout->setSpacing(0);
-	m_View->unitSwitcher->setParent(statusFrame);
-	m_View->previewQualitySwitcher->setParent(statusFrame);
-	m_View->layerMenu->setParent(statusFrame);
-	m_View->zoomOutToolbarButton->setParent(statusFrame);
-	m_View->zoomDefaultToolbarButton->setParent(statusFrame);
-	m_View->zoomInToolbarButton->setParent(statusFrame);
-	m_View->pageSelector->setParent(statusFrame);
-	m_View->zoomSpinBox->setParent(statusFrame);
-	m_View->cmsToolbarButton->setParent(statusFrame);
-	m_View->previewToolbarButton->setParent(statusFrame);
-	m_View->visualMenu->setParent(statusFrame);
-	statusFrameLayout->addWidget(m_View->unitSwitcher);
-	statusFrameLayout->addWidget(m_View->zoomSpinBox);
-	statusFrameLayout->addWidget(m_View->zoomOutToolbarButton);
-	statusFrameLayout->addWidget(m_View->zoomDefaultToolbarButton);
-	statusFrameLayout->addWidget(m_View->zoomInToolbarButton);
-	statusFrameLayout->addWidget(m_View->pageSelector);
-	statusFrameLayout->addWidget(m_View->layerMenu);
-	QSpacerItem* spacer = new QSpacerItem( 2, 2, QSizePolicy::Expanding, QSizePolicy::Minimum );
-	statusFrameLayout->addItem( spacer );
-	statusFrameLayout->addWidget(m_View->cmsToolbarButton);
-	statusFrameLayout->addWidget(m_View->editOnPreviewToolbarButton);
-	statusFrameLayout->addWidget(m_View->previewToolbarButton);
-	statusFrameLayout->addWidget(m_View->previewQualitySwitcher);
-	statusFrameLayout->addWidget(m_View->visualMenu);
-	statusBar()->addPermanentWidget(statusFrame, 4);
-	currentDir = QDir::currentPath();
 	setCentralWidget(newView);
+	setStatusBar(0);
 }
 
 void ScribusWin::slotSaved(QString newName)

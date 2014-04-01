@@ -56,8 +56,6 @@ public:
 	ScribusDoc* doc() const { return m_Doc;}
 	QMdiSubWindow* getSubWin() { return subWindow; }
 	void setSubWin(QMdiSubWindow *win) { subWindow = win; }
-	void setMenuStatus(int index, bool value) { if (index>=0 && index <=6) MenuStat[index]=value;}
-	bool menuStatus(int index) const { if (index>=0 && index <=6) return MenuStat[index]; else return false; }
 	
 public slots:
 	void slotSaved(QString newName);
@@ -66,14 +64,12 @@ signals:
 	void AutoSaved();
 
 protected:
-	QString currentDir;
 	QHBoxLayout* statusFrameLayout;
 	ScribusMainWindow* m_MainWindow;
 	ScribusView* m_View;
 	ScribusDoc* m_Doc;
-	QFrame *statusFrame;
+	//QFrame *statusFrame;
 	QMdiSubWindow* subWindow;
-	bool MenuStat[7];
 	int winIndex;
 };
 

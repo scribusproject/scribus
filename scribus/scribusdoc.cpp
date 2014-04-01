@@ -294,6 +294,7 @@ ScribusDoc::ScribusDoc() : UndoObject( tr("Document")), Observable<ScribusDoc>(N
 	viewAsPreview = false;
 	editOnPreview = false;
 	previewVisual = -1;
+	previewQuality = 1;
 	dontResize = false;
 	//create default numeration
 	NumStruct * numS = new NumStruct;
@@ -415,6 +416,7 @@ ScribusDoc::ScribusDoc(const QString& docName, int unitindex, const PageSize& pa
 	viewAsPreview = false;
 	editOnPreview = false;
 	previewVisual = -1;
+	previewQuality = 1;
 	dontResize = false;
 	currentEditedTextframe = NULL;
 }
@@ -10808,8 +10810,7 @@ void ScribusDoc::removeLayer(int l, bool dl)
 	tmpSelection.clear();
 	//FIXME signal these
 	m_ScMW->rebuildLayersList();
-	//FIXME: stop using m_View
-	m_View->updateLayerMenu();
+	m_ScMW->updateLayerMenu();
 	setActiveLayer(newLayerID);
 }
 

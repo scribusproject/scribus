@@ -1158,7 +1158,7 @@ void CanvasMode_Normal::mouseReleaseEvent(QMouseEvent *m)
 			if (currItem->OwnPage != -1)
 			{
 				m_doc->setCurrentPage(m_doc->Pages->at(currItem->OwnPage));
-				m_view->setMenTxt(currItem->OwnPage);
+				m_view->m_ScMW->setMenTxt(currItem->OwnPage);
 			}
 			//CB done with emitAllToGUI
 			//emit HaveSel(currItem->itemType());
@@ -1191,7 +1191,7 @@ void CanvasMode_Normal::mouseReleaseEvent(QMouseEvent *m)
 					if (docCurrPageNo != i)
 					{
 						m_doc->setCurrentPage(m_doc->Pages->at(i));
-						m_view->setMenTxt(i);
+						m_view->m_ScMW->setMenTxt(i);
 					}
 					break;
 				}
@@ -1283,8 +1283,8 @@ void CanvasMode_Normal::mouseReleaseEvent(QMouseEvent *m)
 		}
 	}
 	//Make sure the Zoom spinbox and page selector dont have focus if we click on the canvas
-	m_view->zoomSpinBox->clearFocus();
-	m_view->pageSelector->clearFocus();
+	m_view->m_ScMW->zoomSpinBox->clearFocus();
+	m_view->m_ScMW->pageSelector->clearFocus();
 	if (m_doc->m_Selection->count() > 0)
 	{
 		if (m_doc->m_Selection->itemAt(0) != 0) // is there the old clip stored for the undo action
@@ -1694,7 +1694,7 @@ bool CanvasMode_Normal::SeleItem(QMouseEvent *m)
 			if (m_doc->currentPageNumber() != pgNum)
 			{
 				m_doc->setCurrentPage(m_doc->Pages->at(unsigned(pgNum)));
-				m_view->setMenTxt(unsigned(pgNum));
+				m_view->m_ScMW->setMenTxt(unsigned(pgNum));
 				pageChanged = true;
 			}
 		}

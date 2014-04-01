@@ -143,6 +143,7 @@ for which a new license (GPL+exception) is in place.
 #include "serializer.h"
 #include "ui/about.h"
 #include "ui/aboutplugins.h"
+#include "ui/adjustcmsdialog.h"
 #include "ui/aligndistribute.h"
 #include "ui/annot.h"
 #include "ui/annota.h"
@@ -399,6 +400,7 @@ int ScribusMainWindow::initScMW(bool primaryMainWindow)
 
 	prefsManager->setupMainWindow(this);
 
+	previewQualitySwitcher->setCurrentIndex(prefsManager->appPrefs.itemToolPrefs.imageLowResType);
 	if (primaryMainWindow)
 		ScCore->setSplashStatus( tr("Initializing Story Editor") );
 	storyEditor = new StoryEditor(this);
@@ -1160,16 +1162,145 @@ void ScribusMainWindow::addDefaultWindowMenuItems()
 
 void ScribusMainWindow::initStatusBar()
 {
+	QFont fo = QFont(font());
+	int posi = fo.pointSize() - (ScCore->isWinGUI() ? 1 : 2);
+	fo.setPointSize(posi);
+	unitSwitcher = new QComboBox( this );
+	unitSwitcher->setFocusPolicy(Qt::NoFocus);
+	unitSwitcher->setFont(fo);
+	int maxUindex = unitGetMaxIndex() - 2;
+	for (int i = 0; i <= maxUindex; ++i)
+		unitSwitcher->addItem(unitGetStrFromIndex(i));
+	zoomSpinBox = new ScrSpinBox( 1, 32000, this, 6 );
+	zoomSpinBox->setTabAdvance(false);
+	zoomSpinBox->setFont(fo);
+	zoomSpinBox->setValue( 100 );
+	zoomSpinBox->setSingleStep(10);
+	zoomSpinBox->setFocusPolicy(Qt::ClickFocus);
+	zoomSpinBox->setSuffix( tr( " %" ) );
+	layerMenu = new QComboBox( this );
+	layerMenu->setEditable(false);
+	layerMenu->setFont(fo);
+	layerMenu->setFocusPolicy(Qt::NoFocus);
+	layerMenu->setSizeAdjustPolicy(QComboBox::AdjustToContents);
+	visualMenu = new QComboBox( this );
+	visualMenu->setFocusPolicy(Qt::NoFocus);
+	visualMenu->setFont(fo);
+	visualMenu->setEnabled(false);
+	visualMenu->setSizeAdjustPolicy(QComboBox::AdjustToContents);
+
+	pageSelector = new PageSelector(this, 1);
+	pageSelector->setFont(fo);
+	pageSelector->setFocusPolicy(Qt::ClickFocus);
+
+#if OPTION_USE_QTOOLBUTTON
+	zoomOutToolbarButton = new QToolButton(this);
+	zoomDefaultToolbarButton = new QToolButton(this);
+	zoomInToolbarButton = new QToolButton(this);
+	zoomDefaultToolbarButton->setAutoRaise(OPTION_FLAT_BUTTON);
+	zoomOutToolbarButton->setAutoRaise(OPTION_FLAT_BUTTON);
+	zoomInToolbarButton->setAutoRaise(OPTION_FLAT_BUTTON);
+	zoomInToolbarButton->setDefaultAction(scrActions["toolsZoomIn"]);
+	zoomOutToolbarButton->setDefaultAction(scrActions["toolsZoomOut"]);
+	cmsToolbarButton = new QToolButton(this);
+	previewToolbarButton = new QToolButton(this);
+	cmsToolbarButton->setAutoRaise(OPTION_FLAT_BUTTON);
+	cmsToolbarButton->setCheckable(true);
+	QIcon ic2;
+	ic2.addPixmap(loadIcon("cmsOff.png"), QIcon::Normal, QIcon::Off);
+	ic2.addPixmap(loadIcon("cmsOn.png"), QIcon::Normal, QIcon::On);
+	cmsToolbarButton->setIcon(ic2);
+	previewToolbarButton->setAutoRaise(OPTION_FLAT_BUTTON);
+	previewToolbarButton->setCheckable(true);
+	QIcon ic;
+	ic.addPixmap(loadIcon("previewOff.png"), QIcon::Normal, QIcon::Off);
+	ic.addPixmap(loadIcon("previewOn.png"), QIcon::Normal, QIcon::On);
+	previewToolbarButton->setIcon(ic);
+	editOnPreviewToolbarButton = new QToolButton(this);
+	editOnPreviewToolbarButton->setAutoRaise(OPTION_FLAT_BUTTON);
+	editOnPreviewToolbarButton->setCheckable(true);
+	QIcon ic3;
+	ic3.addPixmap(loadIcon("16/editdoc.png"), QIcon::Normal, QIcon::Off);
+	ic3.addPixmap(loadIcon("16/editdoc.png"), QIcon::Normal, QIcon::On);
+	editOnPreviewToolbarButton->setIcon(ic3);
+#else
+	zoomDefaultToolbarButton = new QPushButton(this);
+	zoomDefaultToolbarButton->setFocusPolicy(Qt::NoFocus);
+	zoomDefaultToolbarButton->setDefault( false );
+	zoomDefaultToolbarButton->setAutoDefault( false );
+	zoomDefaultToolbarButton->setFlat(OPTION_FLAT_BUTTON);
+	zoomOutToolbarButton = new QPushButton(this);
+	zoomOutToolbarButton->setFocusPolicy(Qt::NoFocus);
+	zoomOutToolbarButton->setDefault( false );
+	zoomOutToolbarButton->setAutoDefault( false );
+	zoomOutToolbarButton->setFlat(OPTION_FLAT_BUTTON);
+	zoomInToolbarButton = new QPushButton(this);
+	zoomInToolbarButton->setFocusPolicy(Qt::NoFocus);
+	zoomInToolbarButton->setDefault( false );
+	zoomInToolbarButton->setAutoDefault( false );
+	zoomInToolbarButton->setFlat(OPTION_FLAT_BUTTON);
+	zoomInToolbarButton->addAction(m_ScMW->scrActions["toolsZoomIn"]);
+	zoomOutToolbarButton->addAction(m_ScMW->scrActions["toolsZoomOut"]);
+	cmsToolbarButton = new QPushButton(this);
+	cmsToolbarButton->setFocusPolicy(Qt::NoFocus);
+	cmsToolbarButton->setDefault( false );
+	cmsToolbarButton->setAutoDefault( false );
+	cmsToolbarButton->setFlat(OPTION_FLAT_BUTTON);
+	cmsToolbarButton->setIcon(loadIcon("cmsOn.png"));
+	previewToolbarButton = new QPushButton(this);
+	previewToolbarButton->setFocusPolicy(Qt::NoFocus);
+	previewToolbarButton->setDefault( false );
+	previewToolbarButton->setAutoDefault( false );
+	previewToolbarButton->setFlat(OPTION_FLAT_BUTTON);
+	previewToolbarButton->setIcon(loadIcon("previewOn.png"));
+	editOnPreviewToolbarButton = new QPushButton(this);
+	editOnPreviewToolbarButton->setFocusPolicy(Qt::NoFocus);
+	editOnPreviewToolbarButton->setDefault( false );
+	editOnPreviewToolbarButton->setAutoDefault( false );
+	editOnPreviewToolbarButton->setFlat(OPTION_FLAT_BUTTON);
+	editOnPreviewToolbarButton->setIcon(loadIcon("16/editdoc.png"));
+#endif
+	zoomDefaultToolbarButton->setIcon(QIcon(loadIcon("16/zoom-original.png")));
+	zoomOutToolbarButton->setIcon(QIcon(loadIcon("16/zoom-out.png")));
+	zoomInToolbarButton->setIcon(QIcon(loadIcon("16/zoom-in.png")));
+	cmsAdjustMenu = new QMenu();
+	idCmsAdjustMenu = cmsAdjustMenu->addAction( "Configure CMS...", this, SLOT(adjustCMS()));
+	cmsToolbarButton->setMenu(cmsAdjustMenu);
+#if OPTION_USE_QTOOLBUTTON
+	cmsToolbarButton->setPopupMode(QToolButton::DelayedPopup);
+#endif
+	previewQualitySwitcher = new QComboBox( this );
+	previewQualitySwitcher->setFocusPolicy(Qt::NoFocus);
+	previewQualitySwitcher->setFont(fo);
+	previewQualitySwitcher->addItem(tr("High"));
+	previewQualitySwitcher->addItem(tr("Normal"));
+	previewQualitySwitcher->addItem(tr("Low"));
+
+
 	mainWindowStatusLabel = new QLabel( "           ", statusBar());
 	mainWindowProgressBar = new QProgressBar(statusBar());
 	mainWindowProgressBar->setAlignment(Qt::AlignHCenter);
 	mainWindowProgressBar->setFixedWidth( 100 );
 	mainWindowProgressBar->reset();
-	mainWindowXPosLabel = new QLabel( tr("X-Pos:"), statusBar());
-	mainWindowYPosLabel = new QLabel( tr("Y-Pos:"), statusBar());
+	mainWindowXPosLabel = new QLabel( tr("X:"), statusBar());
+	mainWindowYPosLabel = new QLabel( tr("Y:"), statusBar());
 	mainWindowXPosDataLabel = new QLabel( "        ", statusBar());
 	mainWindowYPosDataLabel = new QLabel( "        ", statusBar());
 
+	statusBarLanguageChange();
+
+	statusBar()->addPermanentWidget(unitSwitcher,0);
+	statusBar()->addPermanentWidget(zoomSpinBox,0);
+	statusBar()->addPermanentWidget(zoomOutToolbarButton,0);
+	statusBar()->addPermanentWidget(zoomDefaultToolbarButton,0);
+	statusBar()->addPermanentWidget(zoomInToolbarButton,0);
+	statusBar()->addPermanentWidget(layerMenu,0);
+	statusBar()->addPermanentWidget(pageSelector,0);
+	statusBar()->addPermanentWidget(cmsToolbarButton,0);
+	statusBar()->addPermanentWidget(editOnPreviewToolbarButton,0);
+	statusBar()->addPermanentWidget(previewToolbarButton,0);
+	statusBar()->addPermanentWidget(previewQualitySwitcher,0);
+	statusBar()->addPermanentWidget(visualMenu,0);
 	statusBar()->addPermanentWidget(mainWindowStatusLabel, 6);
 	statusBar()->addPermanentWidget(mainWindowProgressBar, 0);
 	statusBar()->addPermanentWidget(mainWindowXPosLabel, 0);
@@ -1177,6 +1308,8 @@ void ScribusMainWindow::initStatusBar()
 	statusBar()->addPermanentWidget(mainWindowYPosLabel, 0);
 	statusBar()->addPermanentWidget(mainWindowYPosDataLabel, 1);
 	connect(statusBar(), SIGNAL(messageChanged(const QString &)), this, SLOT(setTempStatusBarText(const QString &)));
+
+	editOnPreviewToolbarButton->hide();
 }
 
 
@@ -1518,7 +1651,7 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 	}
 	Qt::KeyboardModifiers buttonModifiers = k->modifiers();
 	/**If we have a doc and we are not changing the page or zoom level in the status bar */
-	if ((HaveDoc) && (!view->zoomSpinBox->hasFocus()) && (!view->pageSelector->hasFocus()))
+	if ((HaveDoc) && (!zoomSpinBox->hasFocus()) && (!pageSelector->hasFocus()))
 	{
 		//Show our context menu
 		QKeySequence currKeySeq = QKeySequence(kk | keyMod);
@@ -1684,7 +1817,7 @@ void ScribusMainWindow::keyReleaseEvent(QKeyEvent *k)
 		case Qt::Key_Up:
 		case Qt::Key_Down:
 			_arrowKeyDown = false;
-			if ((HaveDoc) && (!view->zoomSpinBox->hasFocus()) && (!view->pageSelector->hasFocus()))
+			if ((HaveDoc) && (!zoomSpinBox->hasFocus()) && (!pageSelector->hasFocus()))
 			{
 				int docSelectionCount=doc->m_Selection->count();
 				if ((docSelectionCount != 0) && (doc->appMode == modeEditClip) && (doc->nodeEdit.hasNodeSelected()))
@@ -2080,7 +2213,7 @@ ScribusDoc *ScribusMainWindow::doFileNew(double width, double height, double top
 		connect(doc, SIGNAL(updateAutoSaveClock()), view->clockLabel, SLOT(resetTime()));
 		view->clockLabel->resetTime();
 		//scrActions["fileSave"]->setEnabled(false);
-		tempView->cmsToolbarButton->setChecked(tempDoc->HasCMS);
+		cmsToolbarButton->setChecked(tempDoc->HasCMS);
 		undoManager->switchStack(tempDoc->DocName);
 		styleManager->setDoc(tempDoc);
 		marksManager->setDoc(tempDoc);
@@ -2230,11 +2363,23 @@ void ScribusMainWindow::newActWin(QMdiSubWindow *w)
 		disconnect(undoManager, SIGNAL(undoRedoDone()) , doc->view(), SLOT(DrawNew()));
 		disconnect(doc, SIGNAL(addBookmark(PageItem *)), this, SLOT(AddBookMark(PageItem *)));
 		disconnect(doc, SIGNAL(deleteBookmark(PageItem *)), this, SLOT(DelBookMark(PageItem *)));
-
+		disconnect(unitSwitcher, SIGNAL(activated(int)), doc->view(), SLOT(ChgUnit(int)));
+		disconnect(zoomSpinBox, SIGNAL(valueChanged(double)), doc->view(), SLOT(setZoom()));
+		disconnect(zoomDefaultToolbarButton, SIGNAL(clicked()), doc->view(), SLOT(slotZoom100()));
+		disconnect(zoomOutToolbarButton, SIGNAL(clicked()), doc->view(), SLOT(slotZoomOut()));
+		disconnect(zoomInToolbarButton, SIGNAL(clicked()), doc->view(), SLOT(slotZoomIn()));
+		disconnect(layerMenu, SIGNAL(activated(int)), doc->view(), SLOT(GotoLa(int)));
+		disconnect(previewToolbarButton, SIGNAL(clicked()), doc->view(), SLOT(togglePreview()));
+		disconnect(editOnPreviewToolbarButton, SIGNAL(clicked()), doc->view(), SLOT(togglePreviewEdit()));
+		disconnect(cmsToolbarButton, SIGNAL(clicked()), doc->view(), SLOT(toggleCMS()));
+		disconnect(previewQualitySwitcher, SIGNAL(activated(int)), this, SLOT(changePreviewQuality(int)));
+		disconnect(visualMenu, SIGNAL(activated(int)), doc->view(), SLOT(switchPreviewVisual(int)));
+		disconnect(pageSelector);
 	}
 
 	doc = ActWin->doc();
 	undoManager->switchStack(doc->DocName);
+
 
 	if ((doc != NULL) && doc->hasGUI())
 	{
@@ -2243,7 +2388,25 @@ void ScribusMainWindow::newActWin(QMdiSubWindow *w)
 		connect(undoManager, SIGNAL(undoRedoDone()) , doc->view(), SLOT(DrawNew()));
 		connect(doc, SIGNAL(addBookmark(PageItem *)), this, SLOT(AddBookMark(PageItem *)));
 		connect(doc, SIGNAL(deleteBookmark(PageItem *)), this, SLOT(DelBookMark(PageItem *)));
-
+		connect(unitSwitcher, SIGNAL(activated(int)), doc->view(), SLOT(ChgUnit(int)));
+		connect(zoomSpinBox, SIGNAL(valueChanged(double)), doc->view(), SLOT(setZoom()));
+		connect(zoomDefaultToolbarButton, SIGNAL(clicked()), doc->view(), SLOT(slotZoom100()));
+		connect(zoomOutToolbarButton, SIGNAL(clicked()), doc->view(), SLOT(slotZoomOut()));
+		connect(zoomInToolbarButton, SIGNAL(clicked()), doc->view(), SLOT(slotZoomIn()));
+		connect(layerMenu, SIGNAL(activated(int)), doc->view(), SLOT(GotoLa(int)));
+		previewToolbarButton->setChecked(doc->drawAsPreview);
+		visualMenu->setEnabled(doc->drawAsPreview);
+		connect(previewToolbarButton, SIGNAL(clicked()), doc->view(), SLOT(togglePreview()));
+		connect(editOnPreviewToolbarButton, SIGNAL(clicked()), doc->view(), SLOT(togglePreviewEdit()));
+		cmsToolbarButton->setChecked(doc->HasCMS);
+		connect(cmsToolbarButton, SIGNAL(clicked()), doc->view(), SLOT(toggleCMS()));
+		previewQualitySwitcher->setCurrentIndex(doc->previewQuality);
+		connect(previewQualitySwitcher, SIGNAL(activated(int)), this, SLOT(changePreviewQuality(int)));
+		visualMenu->setCurrentIndex(doc->previewVisual);
+		connect(visualMenu, SIGNAL(activated(int)), doc->view(), SLOT(switchPreviewVisual(int)));
+		pageSelector->setMaximum(doc->masterPageMode() ? 1 : doc->Pages->count());
+		setMenTxt(doc->currentPageNumber());
+		connect(pageSelector, SIGNAL(GotoPage(int)), this, SLOT(setCurrentPage(int)));
 	}
 
 	if (view!=NULL)
@@ -2255,6 +2418,9 @@ void ScribusMainWindow::newActWin(QMdiSubWindow *w)
 	}
 
 	view = ActWin->view();
+
+	zoomSpinBox->setValue(view->scale() * 100.0 / PrefsManager::instance()->appPrefs.displayPrefs.displayScale);
+	connect(zoomSpinBox, SIGNAL(valueChanged(double)), doc->view(), SLOT(setZoom()));
 	actionManager->connectNewViewActions(view);
 	actionManager->disconnectNewDocActions();
 	actionManager->connectNewDocActions(doc);
@@ -2358,8 +2524,8 @@ void ScribusMainWindow::SwitchWin()
 	symbolPalette->setDoc(doc);
 	inlinePalette->setDoc(doc);
 	rebuildLayersList();
-	view->updateLayerMenu();
-	view->setLayerMenuText(doc->activeLayerName());
+	updateLayerMenu();
+	setLayerMenuText(doc->activeLayerName());
 	//Do not set this!, it doesnt get valid pointers unless its in EditClip mode and its not
 	//if we are switching windows #4357
 	//nodePalette->setDoc(doc, view);
@@ -2402,8 +2568,8 @@ void ScribusMainWindow::HaveNewDoc()
 	if (outlinePalette->isVisible())
 		outlinePalette->BuildTree();
 	rebuildLayersList();
-	view->updateLayerMenu();
-	view->setLayerMenuText(doc->activeLayerName());
+	updateLayerMenu();
+	setLayerMenuText(doc->activeLayerName());
 	slotChangeUnit(doc->unitIndex());
 	windowsMenuAboutToShow();
 
@@ -2412,6 +2578,7 @@ void ScribusMainWindow::HaveNewDoc()
 	// Use Qt::UniqueConnection here to avoid multiple identical signal connections
 	connect(view, SIGNAL(changeUN(int)), this, SLOT(slotChangeUnit(int)), Qt::UniqueConnection);
 	connect(view, SIGNAL(changeLA(int)), layerPalette, SLOT(markActiveLayer(int)), Qt::UniqueConnection);
+	connect(this, SIGNAL(changeLayers(int)), layerPalette, SLOT(markActiveLayer(int)), Qt::UniqueConnection);
 	connect(view->horizRuler, SIGNAL(MarkerMoved(double, double)), this, SLOT(setStatusBarTextPosition(double, double)), Qt::UniqueConnection);
 	connect(view->horizRuler, SIGNAL(DocChanged(bool)), this, SLOT(slotDocCh(bool)), Qt::UniqueConnection);
 	connect(view, SIGNAL(ClipPo(double, double)), nodePalette, SLOT(SetXY(double, double)), Qt::UniqueConnection);
@@ -3711,7 +3878,7 @@ bool ScribusMainWindow::loadPage(QString fileName, int Nr, bool Mpa, const QStri
 //		}
 		slotDocCh();
 		rebuildLayersList();
-		view->updateLayerMenu();
+		updateLayerMenu();
 		layerPalette->rebuildList();
 		doc->setLoading(false);
 		ret = true;
@@ -3878,7 +4045,8 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 		symbolPalette->setDoc(doc);
 		outlinePalette->setDoc(doc);
 		fileLoader->informReplacementFonts();
-		setCurrentComboItem(view->unitSwitcher, unitGetStrFromIndex(doc->unitIndex()));
+		setCurrentComboItem(unitSwitcher, unitGetStrFromIndex(doc->unitIndex()));
+		zoomSpinBox->setValue(view->scale());
 		view->unitChange();
 		setScriptRunning(false);
 		view->Deselect(true);
@@ -4118,7 +4286,7 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 		doc->updateNumbers(true);
 		emit UpdateRequest(reqNumUpdate);
 		doc->setCurrentPage(doc->DocPages.at(0));
-		view->cmsToolbarButton->setChecked(doc->HasCMS);
+		cmsToolbarButton->setChecked(doc->HasCMS);
 		view->zoom();
 		view->GotoPage(0);
 		connect(mdiArea, SIGNAL(subWindowActivated(QMdiSubWindow *)), this, SLOT(newActWin(QMdiSubWindow *)));
@@ -5663,6 +5831,7 @@ void ScribusMainWindow::slotNewPage(int w, const QString& masterPageName, bool m
 {
 	doc->addPage(w, masterPageName, true);
 	view->addPage(w, mov);
+	setMenTxt(w);
 }
 
 
@@ -6138,8 +6307,8 @@ void ScribusMainWindow::ToggleFrameEdit()
 		symbolPalette->setEnabled(false);
 		styleManager->setEnabled(false);
 		alignDistributePalette->setEnabled(false);
-		view->pageSelector->setEnabled(false);
-		view->layerMenu->setEnabled(false);
+		pageSelector->setEnabled(false);
+		layerMenu->setEnabled(false);
 		if (!doc->m_Selection->isEmpty())
 		{
 			PageItem *currItem = doc->m_Selection->itemAt(0);
@@ -6195,8 +6364,8 @@ void ScribusMainWindow::NoFrameEdit()
 	alignDistributePalette->setEnabled(true);
 	symbolPalette->setEnabled(true);
 	inlinePalette->setEnabled(true);
-	view->pageSelector->setEnabled(true);
-	view->layerMenu->setEnabled(true);
+	pageSelector->setEnabled(true);
+	layerMenu->setEnabled(true);
 // 	bool tmpClip = doc->EditClip; // for enabling undo if exiting shape edit mode
 	if (HaveDoc)
 	{
@@ -6345,8 +6514,8 @@ void ScribusMainWindow::setAppMode(int mode)
 		}
 		if (oldMode == modeEdit)
 		{
-			view->zoomSpinBox->setFocusPolicy(Qt::ClickFocus);
-			view->pageSelector->setFocusPolicy(Qt::ClickFocus);
+			zoomSpinBox->setFocusPolicy(Qt::ClickFocus);
+			pageSelector->setFocusPolicy(Qt::ClickFocus);
 			scrActions["editClearContents"]->setEnabled(false);
 			charPalette->setEnabled(false, 0);
 //			view->slotDoCurs(false);
@@ -6735,7 +6904,8 @@ void ScribusMainWindow::deletePage(int from, int to)
 	}
 	if (tmpSelection.count() != 0)
 		doc->itemSelection_DeleteItem(&tmpSelection);
-	disconnect(view->pageSelector, SIGNAL(GotoPage(int)), view, SLOT(GotoPa(int)));
+	//disconnect(view->pageSelector, SIGNAL(GotoPage(int)), view, SLOT(GotoPa(int)));
+	pageSelector->blockSignals(true);
 	view->updatesOn(false);
 	for (int a = to - 1; a >= from - 1; a--)
 	{
@@ -6762,8 +6932,9 @@ void ScribusMainWindow::deletePage(int from, int to)
 		if (!isMasterPage) // Master pages are not added to sections when created
 			doc->removePageFromSection(a);
 	}
-	view->pageSelector->setMaximum(doc->Pages->count());
-	connect(view->pageSelector, SIGNAL(GotoPage(int)), view, SLOT(GotoPa(int)));
+	pageSelector->setMaximum(doc->Pages->count());
+	//connect(view->pageSelector, SIGNAL(GotoPage(int)), view, SLOT(GotoPa(int)));
+	pageSelector->blockSignals(false);
 	undoManager->setUndoEnabled(false); // ugly hack to disable object moving when undoing page deletion
 	view->reformPagesView();
 	undoManager->setUndoEnabled(true); // ugly hack continues
@@ -7230,7 +7401,7 @@ void ScribusMainWindow::slotPrefsOrg()
 					int h = qRound(qMin(scw_v->visibleHeight() / scw_v->scale(), scw->doc()->currentPage()->height()));
 					scw_v->rememberOldZoomLocation(w / 2 + x,h / 2 + y);
 					scw_v->zoom((scw_v->scale() / oldPrefs.displayPrefs.displayScale) * prefsManager->displayScale());
-					scw_v->zoomSpinBox->setMaximum(doc->opToolPrefs().magMax);
+					zoomSpinBox->setMaximum(doc->opToolPrefs().magMax);
 				}
 				if (shadowChanged)
 					scw->view()->DrawNew();
@@ -7298,9 +7469,9 @@ void ScribusMainWindow::slotDocSetup()
 			qApp->restoreOverrideCursor();
 			setStatusBarInfoText("");
 			mainWindowProgressBar->reset();
-			view->previewQualitySwitcher->blockSignals(true);
-			view->previewQualitySwitcher->setCurrentIndex(doc->itemToolPrefs().imageLowResType);
-			view->previewQualitySwitcher->blockSignals(false);
+			previewQualitySwitcher->blockSignals(true);
+			previewQualitySwitcher->setCurrentIndex(doc->itemToolPrefs().imageLowResType);
+			previewQualitySwitcher->blockSignals(false);
 		}
 		if (oldDocPrefs.typoPrefs != newDocPrefs.typoPrefs)
 		{
@@ -7322,7 +7493,7 @@ void ScribusMainWindow::slotDocSetup()
 		scrActions["viewRulerMode"]->setChecked(doc->guidesPrefs().rulerMode);
 		scrActions["extrasGenerateTableOfContents"]->setEnabled(doc->hasTOCSetup());
 		scrActions["extrasUpdateDocument"]->setEnabled(true);
-		view->cmsToolbarButton->setChecked(doc->HasCMS);
+		cmsToolbarButton->setChecked(doc->HasCMS);
 		//doc emits changed() via this
 		doc->setMasterPageMode(true);
 		view->reformPages();
@@ -7890,6 +8061,33 @@ QStringList ScribusMainWindow::scrapbookNames()
 	return scrapbookPalette->getOpenScrapbooksNames();
 }
 
+void ScribusMainWindow::updateLayerMenu()
+{
+	disconnect(layerMenu, SIGNAL(activated(int)), this, SLOT(GotoLa(int)));
+	layerMenu->clear();
+	QStringList newNames;
+	doc->orderedLayerList(&newNames);
+	for (QStringList::Iterator it=newNames.begin(); it!=newNames.end(); ++it)
+	{
+		QPixmap pm(20,15);
+		pm.fill(doc->Layers.layerByName(*it)->markerColor);
+		layerMenu->addItem(pm, *it);
+	}
+	connect(layerMenu, SIGNAL(activated(int)), this, SLOT(GotoLa(int)));
+}
+
+
+void ScribusMainWindow::GotoLa(int l)
+{
+	int level = doc->layerCount()-l-1;
+	int layerID=doc->layerIDFromLevel(level);
+	if (layerID==-1)
+		return;
+	doc->setActiveLayer(layerID);
+	changeLayer(doc->activeLayer());
+	emit changeLayers(layerID);
+}
+
 //CB-->Doc, stop _storing_ bookmarks in the palette
 void ScribusMainWindow::StoreBookmarks()
 {
@@ -7947,7 +8145,7 @@ void ScribusMainWindow::slotChangeUnit(int unitIndex, bool draw)
 	}
 
 	doc->setUnitIndex(unitIndex);
-	setCurrentComboItem(view->unitSwitcher, unitGetStrFromIndex(doc->unitIndex()));
+	setCurrentComboItem(unitSwitcher, unitGetStrFromIndex(doc->unitIndex()));
 	view->unitChange();
 	propertiesPalette->unitChange();
 	nodePalette->unitChange();
@@ -8170,7 +8368,7 @@ void ScribusMainWindow::editMasterPagesStart(QString temp)
 	scrMenuMgr->setMenuEnabled("FileOpenRecent", false);
 	scrActions["fileClose"]->setToolTip( tr("Click here to leave master page edit mode."));
 	scrActions["fileClose"]->setIcon(loadIcon("22/exit.png"));
-	view->previewToolbarButton->setEnabled(false);
+	previewToolbarButton->setEnabled(false);
 }
 
 void ScribusMainWindow::editMasterPagesEnd()
@@ -8189,7 +8387,7 @@ void ScribusMainWindow::editMasterPagesEnd()
 	scrActions["fileClose"]->setToolTip( tr("Close"));
 	scrActions["fileClose"]->setIcon(loadIcon("22/close.png"));
 	scrMenuMgr->setMenuEnabled("FileOpenRecent", true);
-	view->previewToolbarButton->setEnabled(true);
+	previewToolbarButton->setEnabled(true);
 	uint pageCount=doc->DocPages.count();
 	for (uint c=0; c<pageCount; ++c)
 		Apply_MasterPage(doc->DocPages.at(c)->MPageNam, c, false);
@@ -8659,8 +8857,10 @@ void ScribusMainWindow::changeLayer(int )
 	rebuildLayersList();
 	layerPalette->rebuildList();
 	layerPalette->markActiveLayer();
-	view->updateLayerMenu();
-	view->setLayerMenuText(doc->activeLayerName());
+	updateLayerMenu();
+	setLayerMenuText(doc->activeLayerName());
+	updateLayerMenu();
+	setLayerMenuText(doc->activeLayerName());
 	view->DrawNew();
 	bool setter = !doc->layerLocked( doc->activeLayer() );
 	scrMenuMgr->setMenuEnabled("EditPasteRecent", ((scrapbookPalette->tempBView->objectMap.count() > 0) && (setter)));
@@ -8669,9 +8869,45 @@ void ScribusMainWindow::changeLayer(int )
 	appModeHelper.changeLayer(doc, (ScMimeData::clipboardHasScribusData() || (scrapbookPalette->tempHasContents())));
 }
 
+void ScribusMainWindow::setLayerMenuText(const QString &layerName)
+{
+	disconnect(layerMenu, SIGNAL(activated(int)), this, SLOT(GotoLa(int)));
+	if (layerMenu->count() != 0)
+		setCurrentComboItem(layerMenu, layerName);
+	connect(layerMenu, SIGNAL(activated(int)), this, SLOT(GotoLa(int)));
+}
+
 void ScribusMainWindow::showLayer()
 {
 	view->DrawNew();
+}
+
+//TODO: use this only from this class, or just from doc->setcurrentpage
+void ScribusMainWindow::setMenTxt(int Seite)
+{
+	if (scriptIsRunning())
+		return;
+	//disconnect(pageSelector);
+	pageSelector->blockSignals(true);
+	pageSelector->setMaximum(doc->masterPageMode() ? 1 : doc->Pages->count());
+	if ((!doc->isLoading()) && (!doc->masterPageMode()))
+		pageSelector->GotoPg(Seite);
+	pageSelector->blockSignals(false);
+	//connect(pageSelector, SIGNAL(GotoPage(int)), doc->view(), SLOT(GotoPa(int)));
+}
+
+void ScribusMainWindow::setCurrentPage(int p)
+{
+	qDebug()<<"Requested Page:"<<p;
+	doc->view()->Deselect();
+	int p0=p-1; //p is what the user see.. p0 is our count from 0
+	doc->setCurrentPage(doc->Pages->at(p0));
+	if (scriptIsRunning())
+		return;
+	setMenTxt(p0);
+	doc->view()->SetCPo(doc->currentPage()->xOffset() - 10, doc->currentPage()->yOffset() - 10);
+	HaveNewSel(-1);
+	doc->view()->setFocus();
 }
 
 void ScribusMainWindow::initHyphenator()
@@ -9104,13 +9340,40 @@ void ScribusMainWindow::languageChange()
 			scrMenuMgr->languageChange();
 		if (undoManager!=NULL)
 			undoManager->languageChange();
-
-		mainWindowXPosLabel->setText( tr("X-Pos:"));
-		mainWindowYPosLabel->setText( tr("Y-Pos:"));
-		mainWindowXPosDataLabel->setText("         ");
-		mainWindowYPosDataLabel->setText("         ");
-		mainWindowStatusLabel->setText( tr("Ready"));
+		statusBarLanguageChange();
 	}
+}
+
+void ScribusMainWindow::statusBarLanguageChange()
+{
+	zoomSpinBox->setToolTip( tr("Current zoom level"));
+	zoomDefaultToolbarButton->setToolTip( tr("Zoom to 100%"));
+	zoomOutToolbarButton->setToolTip( tr("Zoom out by the stepping value in Tools preferences"));
+	zoomInToolbarButton->setToolTip( tr("Zoom in by the stepping value in Tools preferences"));
+	layerMenu->setToolTip( tr("Select the current layer"));
+	unitSwitcher->setToolTip( tr("Select the current unit"));
+	cmsToolbarButton->setToolTip( tr("Enable/disable Color Management"));
+	idCmsAdjustMenu->setText( tr("Configure CMS..."));
+	previewToolbarButton->setToolTip( tr("Enable/disable the Preview Mode"));
+	editOnPreviewToolbarButton->setToolTip( tr("Enable/disable editing the Preview Mode"));
+	mainWindowXPosLabel->setText( tr("X:"));
+	mainWindowYPosLabel->setText( tr("Y:"));
+	mainWindowXPosDataLabel->setText("         ");
+	mainWindowYPosDataLabel->setText("         ");
+	mainWindowStatusLabel->setText( tr("Ready"));
+
+	previewQualitySwitcher->setToolTip( tr("Select the image preview quality"));
+	visualMenu->setToolTip( tr("Select the visual appearance of the display. You can choose between normal and several color blindness forms"));
+
+	visualMenu->blockSignals(true);
+	visualMenu->clear();
+	visualMenu->addItem(CommonStrings::trVisionNormal);
+	visualMenu->addItem(CommonStrings::trVisionProtanopia);
+	visualMenu->addItem(CommonStrings::trVisionDeuteranopia);
+	visualMenu->addItem(CommonStrings::trVisionTritanopia);
+	visualMenu->addItem(CommonStrings::trVisionFullColorBlind);
+	visualMenu->setCurrentIndex(0);
+	visualMenu->blockSignals(false);
 }
 
 void ScribusMainWindow::setDefaultPrinter(const QString& name, const QString& file, const QString& command)
@@ -10616,4 +10879,30 @@ void ScribusMainWindow::testQTQuick2_1()
 	layout->addWidget(container);
 	d.exec();
 	*/
+}
+
+void ScribusMainWindow::adjustCMS()
+{
+	if (!HaveDoc)
+		return;
+	AdjustCmsDialog* dia = new AdjustCmsDialog(this, doc);
+	if (dia->exec())
+	{
+		dia->tabColorManagement->updateDocSettings(doc);
+		if (dia->tabColorManagement->changed)
+		{
+			doc->enableCMS(doc->cmsSettings().CMSinUse);
+			cmsToolbarButton->setChecked(doc->HasCMS);
+			requestUpdate(reqCmsOptionsUpdate);
+			doc->view()->DrawNew();
+		}
+	}
+	delete dia;
+}
+
+void ScribusMainWindow::changePreviewQuality(int index)
+{
+	doc->previewQuality=index;
+	doc->allItems_ChangePreviewResolution(index);
+	doc->view()->DrawNew();
 }

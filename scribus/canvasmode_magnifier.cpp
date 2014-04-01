@@ -236,6 +236,6 @@ void CanvasMode_Magnifier::mouseReleaseEvent(QMouseEvent *m)
 	m_canvas->m_viewMode.operItemResizing = false;
 	m_view->MidButt = false;
 	//Make sure the Zoom spinbox and page selector dont have focus if we click on the canvas
-	m_view->zoomSpinBox->clearFocus();
-	m_view->pageSelector->clearFocus();
+	m_view->m_ScMW->zoomSpinBox->clearFocus();
+	m_view->m_ScMW->pageSelector->clearFocus();
 }

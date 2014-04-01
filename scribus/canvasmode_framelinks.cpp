@@ -309,8 +309,8 @@ void CanvasMode_FrameLinks::mouseReleaseEvent(QMouseEvent *m)
 	for (int i = 0; i < m_doc->m_Selection->count(); ++i)
 		m_doc->m_Selection->itemAt(i)->checkChanges(true);
 	//Make sure the Zoom spinbox and page selector dont have focus if we click on the canvas
-	m_view->zoomSpinBox->clearFocus();
-	m_view->pageSelector->clearFocus();
+	m_view->m_ScMW->zoomSpinBox->clearFocus();
+	m_view->m_ScMW->pageSelector->clearFocus();
 }
 
 void CanvasMode_FrameLinks::selectPage(QMouseEvent *m)
@@ -331,7 +331,7 @@ void CanvasMode_FrameLinks::selectPage(QMouseEvent *m)
 			if (docCurrPageNo != j)
 			{
 				m_doc->setCurrentPage(m_doc->Pages->at(j));
-				m_view->setMenTxt(j);
+				m_view->m_ScMW->setMenTxt(j);
 				m_view->DrawNew();
 			}
 		}
@@ -396,7 +396,7 @@ bool CanvasMode_FrameLinks::SeleItem(QMouseEvent *m)
 			if (m_doc->currentPageNumber() != pgNum)
 			{
 				m_doc->setCurrentPage(m_doc->Pages->at(unsigned(pgNum)));
-				m_view->setMenTxt(unsigned(pgNum));
+				m_view->m_ScMW->setMenTxt(unsigned(pgNum));
 				m_view->DrawNew();
 			}
 		}

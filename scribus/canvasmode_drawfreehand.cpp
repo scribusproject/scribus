@@ -308,8 +308,8 @@ void FreehandMode::mouseReleaseEvent(QMouseEvent *m)
 		m_doc->itemAddCommit(m_doc->m_Selection->itemAt(0));
 	}
 	//Make sure the Zoom spinbox and page selector dont have focus if we click on the canvas
-	m_view->zoomSpinBox->clearFocus();
-	m_view->pageSelector->clearFocus();
+	m_view->m_ScMW->zoomSpinBox->clearFocus();
+	m_view->m_ScMW->pageSelector->clearFocus();
 	if (m_doc->m_Selection->itemAt(0) != 0) // is there the old clip stored for the undo action
 	{
 		currItem = m_doc->m_Selection->itemAt(0);
@@ -336,7 +336,7 @@ void FreehandMode::selectPage(QMouseEvent *m)
 			if (docCurrPageNo != j)
 			{
 				m_doc->setCurrentPage(m_doc->Pages->at(j));
-				m_view->setMenTxt(j);
+				m_view->m_ScMW->setMenTxt(j);
 				m_view->DrawNew();
 			}
 		}
