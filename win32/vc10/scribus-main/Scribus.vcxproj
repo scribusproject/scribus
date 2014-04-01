@@ -199,6 +199,7 @@
     <ClInclude Include="..\..\..\scribus\canvasmode_rotate.h" />
     <ClInclude Include="..\..\..\scribus\cellarea.h" />
     <moc Include="..\..\..\scribus\qtiocompressor.h" />
+    <ClInclude Include="..\..\..\scribus\scimgdataloader_ora.h" />
     <ClInclude Include="..\..\..\scribus\selectionrubberband.h" />
     <ClInclude Include="..\..\..\scribus\styles\cellstyle.h" />
     <moc Include="..\..\..\scribus\ui\charselect.h" />
@@ -777,6 +778,7 @@
     <ClCompile Include="..\..\..\scribus\moc_qtiocompressor.cpp" />
     <ClCompile Include="..\..\..\scribus\moc_upgradechecker.cpp" />
     <ClCompile Include="..\..\..\scribus\qtiocompressor.cpp" />
+    <ClCompile Include="..\..\..\scribus\scimgdataloader_ora.cpp" />
     <ClCompile Include="..\..\..\scribus\selectionrubberband.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\about.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\aboutplugins.cpp" />
