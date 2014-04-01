@@ -312,7 +312,7 @@ public slots:
 	void changeLayer(int);
 	void setLayerMenuText(const QString &);
 	void showLayer();
-	void setMenTxt(int Seite);
+	void slotSetCurrentPage(int Seite);
 	void setCurrentPage(int p);
 	void ManageJava();
 	void editSelectedSymbolStart();

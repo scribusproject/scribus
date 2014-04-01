@@ -463,7 +463,7 @@ void BezierMode::selectPage(QMouseEvent *m)
 			if (docCurrPageNo != j)
 			{
 				m_doc->setCurrentPage(m_doc->Pages->at(j));
-				m_view->m_ScMW->setMenTxt(j);
+				m_view->m_ScMW->slotSetCurrentPage(j);
 				m_view->DrawNew();
 			}
 		}

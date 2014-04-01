@@ -36,43 +36,44 @@ public:
 	void focusPolicy(Qt::FocusPolicy policy);
 	void setFont ( const QFont & );
 	int getCurrentPage();
-	void setCurrentPage(int i);
 
 #if OPTION_USE_QTOOLBUTTON
-	QToolButton* Start;
-	QToolButton* Back;
-	QToolButton* Forward;
-	QToolButton* Last;
+	QToolButton* startButton;
+	QToolButton* backButton;
+	QToolButton* forwardButton;
+	QToolButton* lastButton;
 #else
-	QPushButton* Start;
-	QPushButton* Back;
-	QPushButton* Forward;
-	QPushButton* Last;
+	QPushButton* startButton;
+	QPushButton* backButton;
+	QPushButton* forwardButton;
+	QPushButton* lastButton;
 #endif
-	
-	ScComboBox* PageCombo;
-	QIntValidator *m_validator;
-	int LastPG;
-	int APage;
+
+
 
 public slots:
-	virtual void GotoPg(int);
-	virtual void setMaximum(int);
+	virtual void setGUIForPage(int i);
+	virtual void setMaximum(int i);
 	void languageChange();
 	void clearFocus();
 
 private slots:
 	virtual void GotoPgE(int);
 	virtual void GotoPage();
-	virtual void ToStart();
-	virtual void ToEnd();
-	virtual void goBk();
-	virtual void goFw();
+	virtual void goToStart();
+	virtual void goToEnd();
+	virtual void goBackward();
+	virtual void goForward();
 
 protected:
-	QHBoxLayout* PageSelectorLayout;
-	QLabel *PageCount;
+	QHBoxLayout *PageSelectorLayout;
+	QLabel *pageCountLabel;
 	QString PageCountString;
+	int m_lastPage;
+	int m_currentPage;
+
+	ScComboBox *m_pageCombo;
+	QIntValidator *m_validator;
 
 signals:
 	void GotoPage(int);

@@ -2405,7 +2405,7 @@ void ScribusMainWindow::newActWin(QMdiSubWindow *w)
 		visualMenu->setCurrentIndex(doc->previewVisual);
 		connect(visualMenu, SIGNAL(activated(int)), doc->view(), SLOT(switchPreviewVisual(int)));
 		pageSelector->setMaximum(doc->masterPageMode() ? 1 : doc->Pages->count());
-		setMenTxt(doc->currentPageNumber());
+		slotSetCurrentPage(doc->currentPageNumber());
 		connect(pageSelector, SIGNAL(GotoPage(int)), this, SLOT(setCurrentPage(int)));
 	}
 
@@ -5831,7 +5831,7 @@ void ScribusMainWindow::slotNewPage(int w, const QString& masterPageName, bool m
 {
 	doc->addPage(w, masterPageName, true);
 	view->addPage(w, mov);
-	setMenTxt(w);
+	slotSetCurrentPage(w);
 }
 
 
@@ -8883,28 +8883,25 @@ void ScribusMainWindow::showLayer()
 }
 
 //TODO: use this only from this class, or just from doc->setcurrentpage
-void ScribusMainWindow::setMenTxt(int Seite)
+void ScribusMainWindow::slotSetCurrentPage(int Seite)
 {
 	if (scriptIsRunning())
 		return;
-	//disconnect(pageSelector);
 	pageSelector->blockSignals(true);
 	pageSelector->setMaximum(doc->masterPageMode() ? 1 : doc->Pages->count());
 	if ((!doc->isLoading()) && (!doc->masterPageMode()))
-		pageSelector->GotoPg(Seite);
+		pageSelector->setGUIForPage(Seite);
 	pageSelector->blockSignals(false);
-	//connect(pageSelector, SIGNAL(GotoPage(int)), doc->view(), SLOT(GotoPa(int)));
 }
 
 void ScribusMainWindow::setCurrentPage(int p)
 {
-	qDebug()<<"Requested Page:"<<p;
 	doc->view()->Deselect();
-	int p0=p-1; //p is what the user see.. p0 is our count from 0
+	int p0=p-1; //p is what the user sees.. p0 is our count from 0
 	doc->setCurrentPage(doc->Pages->at(p0));
 	if (scriptIsRunning())
 		return;
-	setMenTxt(p0);
+	slotSetCurrentPage(p0);
 	doc->view()->SetCPo(doc->currentPage()->xOffset() - 10, doc->currentPage()->yOffset() - 10);
 	HaveNewSel(-1);
 	doc->view()->setFocus();

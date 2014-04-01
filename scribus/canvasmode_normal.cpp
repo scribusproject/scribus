@@ -1158,7 +1158,7 @@ void CanvasMode_Normal::mouseReleaseEvent(QMouseEvent *m)
 			if (currItem->OwnPage != -1)
 			{
 				m_doc->setCurrentPage(m_doc->Pages->at(currItem->OwnPage));
-				m_view->m_ScMW->setMenTxt(currItem->OwnPage);
+				m_view->m_ScMW->slotSetCurrentPage(currItem->OwnPage);
 			}
 			//CB done with emitAllToGUI
 			//emit HaveSel(currItem->itemType());
@@ -1191,7 +1191,7 @@ void CanvasMode_Normal::mouseReleaseEvent(QMouseEvent *m)
 					if (docCurrPageNo != i)
 					{
 						m_doc->setCurrentPage(m_doc->Pages->at(i));
-						m_view->m_ScMW->setMenTxt(i);
+						m_view->m_ScMW->slotSetCurrentPage(i);
 					}
 					break;
 				}
@@ -1694,7 +1694,7 @@ bool CanvasMode_Normal::SeleItem(QMouseEvent *m)
 			if (m_doc->currentPageNumber() != pgNum)
 			{
 				m_doc->setCurrentPage(m_doc->Pages->at(unsigned(pgNum)));
-				m_view->m_ScMW->setMenTxt(unsigned(pgNum));
+				m_view->m_ScMW->slotSetCurrentPage(unsigned(pgNum));
 				pageChanged = true;
 			}
 		}

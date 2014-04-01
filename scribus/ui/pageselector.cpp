@@ -23,58 +23,24 @@ for which a new license (GPL+exception) is in place.
 #include "util_icon.h"
 #include "util.h"
 
-// QIntValidator does it better for us... PV
-// class PageValidator : public QValidator
-// {
-// public:
-// 	PageValidator(int min, int max, QObject * parent);
-// 	void fixup(QString & input) const;
-// 	State validate(QString & input, int & pos) const;
-// private:
-// 	QRegExp rx;
-// 	QRegExp rx2;
-// 	PageSelector * pageSelector;
-// };
-// 
-// PageValidator::PageValidator(int /* min */, int /* max */, QObject * parent) : QValidator
-// (parent), rx("^([0-9]+).*"), rx2("^[0-9]+$") 
-// {
-// 	pageSelector = static_cast<PageSelector*>(parent);
-// }
-// 
-// QValidator::State PageValidator::validate(QString & input, int & /* pos */) const
-// {
-// 	if (rx2.indexIn(input) == 0 && pageSelector->PageCombo->itemText(input.toInt()-1) == input)
-// 		return Acceptable;
-// 	else
-// 		return Intermediate;
-// }
-// 
-// void PageValidator::fixup(QString & input) const
-// {
-// 	if (rx.indexIn(input) == 0)
-// 		input = const_cast<QRegExp &>(rx).cap(1);
-// }
-// 	
-
 PageSelector::PageSelector( QWidget* parent, int maxPg ) : QWidget( parent, 0 )
 {
 	PageCountString = "%1" ;
-	LastPG = maxPg;
-	APage = 1;
+	m_lastPage = maxPg;
+	m_currentPage = 1;
 	PageSelectorLayout = new QHBoxLayout( this );
 	PageSelectorLayout->setMargin(0);
 	PageSelectorLayout->setSpacing(1);
 
 #if OPTION_USE_QTOOLBUTTON
-	Start = new QToolButton( this );
-	Start->setAutoRaise(OPTION_FLAT_BUTTON);
-	Back = new QToolButton( this );
-	Back->setAutoRaise(OPTION_FLAT_BUTTON);
-	Forward = new QToolButton( this );
-	Forward->setAutoRaise(OPTION_FLAT_BUTTON);
-	Last = new QToolButton( this );
-	Last->setAutoRaise(OPTION_FLAT_BUTTON);
+	startButton = new QToolButton( this );
+	startButton->setAutoRaise(OPTION_FLAT_BUTTON);
+	backButton = new QToolButton( this );
+	backButton->setAutoRaise(OPTION_FLAT_BUTTON);
+	forwardButton = new QToolButton( this );
+	forwardButton->setAutoRaise(OPTION_FLAT_BUTTON);
+	lastButton = new QToolButton( this );
+	lastButton->setAutoRaise(OPTION_FLAT_BUTTON);
 #else
 	Start = new QPushButton( this );
 	Start->setDefault( false );
@@ -93,93 +59,90 @@ PageSelector::PageSelector( QWidget* parent, int maxPg ) : QWidget( parent, 0 )
 	Last->setAutoDefault( false );
 	Last->setFlat(OPTION_FLAT_BUTTON);
 #endif
-	Start->setIcon(QIcon(loadIcon("16/go-first.png")));
-	Start->setFocusPolicy(Qt::NoFocus);
-	PageSelectorLayout->addWidget( Start );
+	startButton->setIcon(QIcon(loadIcon("16/go-first.png")));
+	startButton->setFocusPolicy(Qt::NoFocus);
+	PageSelectorLayout->addWidget( startButton );
 
-	Back->setIcon(QIcon(loadIcon("16/go-previous.png")));
-	Back->setFocusPolicy(Qt::NoFocus);
-	Back->setAutoRepeat(true);
-	PageSelectorLayout->addWidget( Back );
+	backButton->setIcon(QIcon(loadIcon("16/go-previous.png")));
+	backButton->setFocusPolicy(Qt::NoFocus);
+	backButton->setAutoRepeat(true);
+	PageSelectorLayout->addWidget( backButton );
 
-// 	v = new PageValidator(1, LastPG, this);
-	m_validator = new QIntValidator(1, LastPG, this);
-	PageCombo = new ScComboBox( this );
-	PageCombo->setEditable(true);
-	PageCombo->setDuplicatesEnabled( false );
-	PageCombo->lineEdit()->setAlignment(Qt::AlignHCenter);
-	for (int a = 0; a < LastPG; ++a)
+	m_validator = new QIntValidator(1, m_lastPage, this);
+	m_pageCombo = new ScComboBox( this );
+	m_pageCombo->setEditable(true);
+	m_pageCombo->setDuplicatesEnabled( false );
+	m_pageCombo->lineEdit()->setAlignment(Qt::AlignHCenter);
+	for (int i = 0; i < m_lastPage; ++i)
 	{
-		PageCombo->addItem(QString::number(a+1));
+		m_pageCombo->addItem(QString::number(i+1));
 	}
-	PageCombo->setValidator(m_validator);
-	PageCombo->setMinimumSize(fontMetrics().width( "999" )+20, 20);
-	PageCombo->setFocusPolicy(Qt::ClickFocus);
-	PageSelectorLayout->addWidget( PageCombo );
+	m_pageCombo->setValidator(m_validator);
+	m_pageCombo->setMinimumSize(fontMetrics().width( "999" )+20, 20);
+	m_pageCombo->setFocusPolicy(Qt::ClickFocus);
+	PageSelectorLayout->addWidget( m_pageCombo );
 	
-	PageCount = new QLabel(PageCountString.arg(LastPG), this);
-	PageSelectorLayout->addWidget(PageCount);
+	pageCountLabel = new QLabel(PageCountString.arg(m_lastPage), this);
+	PageSelectorLayout->addWidget(pageCountLabel);
 			
-	Forward->setIcon(QIcon(loadIcon("16/go-next.png")));
-	Forward->setFocusPolicy(Qt::NoFocus);
-	Forward->setAutoRepeat(true);
-	PageSelectorLayout->addWidget( Forward );
+	forwardButton->setIcon(QIcon(loadIcon("16/go-next.png")));
+	forwardButton->setFocusPolicy(Qt::NoFocus);
+	forwardButton->setAutoRepeat(true);
+	PageSelectorLayout->addWidget( forwardButton );
 
-	Last->setIcon(QIcon(loadIcon("16/go-last.png")));
-	Last->setFocusPolicy(Qt::NoFocus);
-	PageSelectorLayout->addWidget( Last );
-	Forward->setEnabled(true);
-	Last->setEnabled(true);
-	Back->setEnabled(false);
-	Start->setEnabled(false);
-	if (APage == LastPG)
+	lastButton->setIcon(QIcon(loadIcon("16/go-last.png")));
+	lastButton->setFocusPolicy(Qt::NoFocus);
+	PageSelectorLayout->addWidget( lastButton );
+	forwardButton->setEnabled(true);
+	lastButton->setEnabled(true);
+	backButton->setEnabled(false);
+	startButton->setEnabled(false);
+	if (m_currentPage == m_lastPage)
 	{
-		Forward->setEnabled(false);
-		Last->setEnabled(false);
+		forwardButton->setEnabled(false);
+		lastButton->setEnabled(false);
 	}
 
 	languageChange();
 	// signals and slots connections
-	connect( PageCombo, SIGNAL( activated(int) ), this, SLOT( GotoPgE(int) ) );
-	connect( Back, SIGNAL( clicked() ), this, SLOT( goBk() ) );
-	connect( Start, SIGNAL( clicked() ), this, SLOT( ToStart() ) );
-	connect( Forward, SIGNAL( clicked() ), this, SLOT( goFw() ) );
-	connect( Last, SIGNAL( clicked() ), this, SLOT( ToEnd() ) );
+	connect( m_pageCombo, SIGNAL( activated(int) ), this, SLOT( GotoPgE(int) ) );
+	connect( backButton, SIGNAL( clicked() ), this, SLOT( goBackward()) );
+	connect( startButton, SIGNAL( clicked() ), this, SLOT( goToStart() ) );
+	connect( forwardButton, SIGNAL( clicked() ), this, SLOT( goForward() ) );
+	connect( lastButton, SIGNAL( clicked() ), this, SLOT( goToEnd() ) );
 }
 
 bool PageSelector::hasFocus()
 {
-	return PageCombo->hasFocus();
+	return m_pageCombo->hasFocus();
 }
 
+void PageSelector::clearFocus()
+{
+	m_pageCombo->clearFocus();
+}
 
 void PageSelector::focusPolicy(Qt::FocusPolicy policy)
 {
-	PageCombo->setFocusPolicy(policy);
+	m_pageCombo->setFocusPolicy(policy);
 }
 
 void PageSelector::setFont ( const QFont &fo )
 {
-	PageCount->setFont(fo);
+	pageCountLabel->setFont(fo);
 	QWidget::setFont(fo);
 }
 
 int PageSelector::getCurrentPage()
 {
-	return APage;
+	return m_currentPage;
 }
 
-void PageSelector::setCurrentPage(int i)
-{
-//	int j=qMax(LastPG, i);
-//	APage
-}
-
-void PageSelector::GotoPgE(int a)
+void PageSelector::GotoPgE(int i)
 {
 	clearFocus();
-	GotoPg(a);
-	emit GotoPage(a+1);
+	setGUIForPage(i);
+	emit GotoPage(i+1);
 }
 
 void PageSelector::GotoPage()
@@ -188,81 +151,68 @@ void PageSelector::GotoPage()
 	int p = rx.cap(1).toInt();
 	if (p < 1)
 		p=1;
-	if (p > LastPG)
-		p = LastPG;
-	GotoPg(p-1);
+	if (p > m_lastPage)
+		p = m_lastPage;
+	setGUIForPage(p-1);
 	emit GotoPage(p);
 }
 
-void PageSelector::GotoPg(int a)
+void PageSelector::setGUIForPage(int i)
 {
-	//disconnect( PageCombo, SIGNAL( activated(int) ), this, SLOT( GotoPgE(int) ) );
-	PageCombo->blockSignals(true);
-	PageCombo->setCurrentIndex(a);
-	setCurrentComboItem(PageCombo, QString::number(a+1));
-	APage = a+1;
-	Back->setEnabled(true);
-	Start->setEnabled(true);
-	Forward->setEnabled(true);
-	Last->setEnabled(true);
-	if (a == 0)
-	{
-		Back->setEnabled(false);
-		Start->setEnabled(false);
-	}
-	if (a == LastPG-1)
-	{
-		Forward->setEnabled(false);
-		Last->setEnabled(false);
-	}
-	PageCombo->blockSignals(false);
-	//connect( PageCombo, SIGNAL( activated(int) ), this, SLOT( GotoPgE(int) ) );
+	m_pageCombo->blockSignals(true);
+	m_pageCombo->setCurrentIndex(i);
+	setCurrentComboItem(m_pageCombo, QString::number(i+1));
+	m_currentPage = i+1;
+	backButton->setEnabled(i != 0);
+	startButton->setEnabled(i != 0);
+	forwardButton->setEnabled(i != m_lastPage-1);
+	lastButton->setEnabled(i != m_lastPage-1);
+	m_pageCombo->blockSignals(false);
 }
 
-void PageSelector::setMaximum(int a)
+void PageSelector::setMaximum(int i)
 {
-	disconnect( PageCombo, SIGNAL( activated(int) ), this, SLOT( GotoPgE(int) ) );
-	PageCombo->clear();
-	LastPG = a;
-//	v->setTop(LastPG);
-	m_validator->setRange(1, LastPG);
-	for (int b = 0; b < LastPG; ++b)
+	m_pageCombo->blockSignals(true);
+	m_pageCombo->clear();
+	m_lastPage = i;
+	m_validator->setRange(1, m_lastPage);
+	for (int b = 0; b < m_lastPage; ++b)
 	{
-		PageCombo->addItem(QString::number(b+1));
+		m_pageCombo->addItem(QString::number(b+1));
 	}
-	setCurrentComboItem(PageCombo, QString::number(APage));
-	PageCount->setText(PageCountString.arg(LastPG));
-	connect( PageCombo, SIGNAL( activated(int) ), this, SLOT( GotoPgE(int) ) );
+	setCurrentComboItem(m_pageCombo, QString::number(m_currentPage));
+	pageCountLabel->setText(PageCountString.arg(m_lastPage));
+	m_pageCombo->blockSignals(false);
 }
 
-void PageSelector::ToStart()
+void PageSelector::goToStart()
 {
-	if (APage == 1)
+	if (m_currentPage == 1)
 		return;
 	GotoPgE(0);
 }
 
-void PageSelector::ToEnd()
+void PageSelector::goToEnd()
 {
-	if (APage == LastPG)
+	if (m_currentPage == m_lastPage)
 		return;
-	GotoPgE(LastPG-1);
+	GotoPgE(m_lastPage-1);
 }
 
-void PageSelector::goBk()
+void PageSelector::goBackward()
 {
-	APage--;
-	if (APage < 1)
-		APage = 1;
-	GotoPgE(APage-1);
+	m_currentPage--;
+	if (m_currentPage < 1)
+		m_currentPage = 1;
+	GotoPgE(m_currentPage-1);
 }
 
-void PageSelector::goFw()
+void PageSelector::goForward()
 {
-	APage++;
-	if (APage > LastPG)
-		APage = LastPG;
-	GotoPgE(APage-1);
+	m_currentPage++;
+	if (m_currentPage > m_lastPage)
+		m_currentPage = m_lastPage;
+	GotoPgE(m_currentPage-1);
 }
 
 void PageSelector::changeEvent(QEvent *e)
@@ -275,19 +225,15 @@ void PageSelector::changeEvent(QEvent *e)
 
 void PageSelector::languageChange()
 {
-	Start->setToolTip( tr("Go to the first page") );
-	Back->setToolTip( tr("Go to the previous page") );
-	Forward->setToolTip( tr("Go to the next page") );
-	Last->setToolTip( tr("Go to the last page") );
-	PageCombo->setToolTip( tr("Select the current page") );
+	startButton->setToolTip( tr("Go to the first page") );
+	backButton->setToolTip( tr("Go to the previous page") );
+	forwardButton->setToolTip( tr("Go to the next page") );
+	lastButton->setToolTip( tr("Go to the last page") );
+	m_pageCombo->setToolTip( tr("Select the current page") );
 	PageCountString =  tr(" of %1", "number of pages in document");
-	PageCount->setText(PageCountString.arg(LastPG));
-	disconnect( PageCombo, SIGNAL( activated(int) ), this, SLOT( GotoPgE(int) ) );
-	setCurrentComboItem(PageCombo, QString::number(APage));
-	connect( PageCombo, SIGNAL( activated(int) ), this, SLOT( GotoPgE(int) ) );
+	pageCountLabel->setText(PageCountString.arg(m_lastPage));
+	disconnect( m_pageCombo, SIGNAL( activated(int) ), this, SLOT( GotoPgE(int) ) );
+	setCurrentComboItem(m_pageCombo, QString::number(m_currentPage));
+	connect( m_pageCombo, SIGNAL( activated(int) ), this, SLOT( GotoPgE(int) ) );
 }
 
-void PageSelector::clearFocus()
-{
-	PageCombo->clearFocus();	
-}

@@ -1139,7 +1139,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 					if (docCurrPageNo != i)
 					{
 						Doc->setCurrentPage(Doc->Pages->at(i));
-						m_ScMW->setMenTxt(i);
+						m_ScMW->slotSetCurrentPage(i);
 						DrawNew();
 					}
 					break;
@@ -2001,7 +2001,7 @@ ScPage* ScribusView::addPage(int nr, bool mov)
 	//Note this picks up the new page or master page depending on the mode.
 //	reformPages(mov);
 	Doc->reformPages(mov);
-	m_ScMW->setMenTxt(nr);
+	m_ScMW->slotSetCurrentPage(nr);
 	m_canvas->m_viewMode.m_MouseButtonPressed = false;
 	Doc->DragP = false;
 	Doc->leaveDrag = false;
@@ -2032,7 +2032,7 @@ void ScribusView::reformPagesView()
 	if (!Doc->isLoading())
 	{
 		setRulerPos(contentsX(), contentsY());
-		m_ScMW->setMenTxt(Doc->currentPage()->pageNr());
+		m_ScMW->slotSetCurrentPage(Doc->currentPage()->pageNr());
 	}
 }
 
@@ -2325,7 +2325,7 @@ void ScribusView::DrawNew()
 	m_canvas->resetRenderMode();
 	updateContents();
 	setRulerPos(contentsX(), contentsY());
-	m_ScMW->setMenTxt(Doc->currentPage()->pageNr());
+	m_ScMW->slotSetCurrentPage(Doc->currentPage()->pageNr());
 	disconnect(m_ScMW->zoomSpinBox, SIGNAL(valueChanged(double)), this, SLOT(setZoom()));
 	m_ScMW->zoomSpinBox->setValue(m_canvas->scale()/Prefs->displayPrefs.displayScale*100);
 	connect(m_ScMW->zoomSpinBox, SIGNAL(valueChanged(double)), this, SLOT(setZoom()));
@@ -2382,7 +2382,7 @@ void ScribusView::GotoPage(int Seite)
 	Doc->setCurrentPage(Doc->Pages->at(Seite));
 	if (m_ScMW->scriptIsRunning())
 		return;
-	m_ScMW->setMenTxt(Seite);
+	m_ScMW->slotSetCurrentPage(Seite);
 	SetCPo(Doc->currentPage()->xOffset() - 10, Doc->currentPage()->yOffset() - 10);
 	m_ScMW->HaveNewSel(-1);
 }
