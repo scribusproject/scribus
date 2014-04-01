@@ -265,7 +265,6 @@ public slots: // Public slots
 	void Bezier2Poly();
 	void PasteToPage();
 	void TextToPath();
-	void adjustCMS();
 
 //for linking frame after draw new frame
 private:
