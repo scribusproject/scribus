@@ -15819,7 +15819,7 @@ Brug 72 dpi for billeder, der er beregnet til skærmen</translation>
     <message>
         <location filename="../../../scribus/fontreplacedialog.cpp" line="84"/>
         <source>Enabling this tells Scribus to use these replacements for missing fonts permanently in all future layouts. This can be reverted or changed in File &gt; Preferences &gt; Fonts.</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktivering af dette får Scribus til at bruge disse erstatninger for manglende fonte permanent i alle fremtidige layouts. Det kan blive ført tilbage eller ændres i Fil &gt; præferencer &gt; fonte.</translation>
     </message>
     <message>
         <location filename="../../../scribus/fontreplacedialog.cpp" line="40"/>
@@ -24284,19 +24284,19 @@ Bemærk: PDF forme vil ikke blive eksporteret.</translation>
         <location filename="../../../scribus/propertiespalette.cpp" line="5625"/>
         <location filename="../../../scribus/propertiespalette.cpp" line="5630"/>
         <source>Use the bounding box, which is always rectangular, instead of the frame&apos;s shape for text flow of text frames below the object.</source>
-        <translation type="unfinished"></translation>
+        <translation>Brug indbindingsboksen, som altid er rektangulær, i stedet for rammens form for tekst-flydning af tekstrammer bagved objektet.</translation>
     </message>
     <message>
         <location filename="../../../scribus/propertiespalette.cpp" line="5626"/>
         <location filename="../../../scribus/propertiespalette.cpp" line="5631"/>
         <source>When chosen, the contour line can be edited with the Edit Shape Tool on the palette further above. When edited via the shape palette, this becomes a second separate line originally based on the frame&apos;s shape for text flow of text frames below the object.</source>
-        <translation type="unfinished"></translation>
+        <translation>Når dette er valgt, kan omridslinjen redigeres med rediger form værktøjet på paletten længere oppe. Når linjen er redigeret via formpaletten, så bliver det en anden separat linje originalt baseret på rammens form for flydning af tekst under objektet.</translation>
     </message>
     <message>
         <location filename="../../../scribus/propertiespalette.cpp" line="5627"/>
         <location filename="../../../scribus/propertiespalette.cpp" line="5632"/>
         <source>Use the clipping path of the image.</source>
-        <translation type="unfinished"></translation>
+        <translation>Brug billedets fritlægningsmaske.</translation>
     </message>
     <message>
         <location filename="../../../scribus/propertiespalette.cpp" line="5679"/>
@@ -26222,7 +26222,7 @@ Ekstern Lænker</translation>
     <message>
         <location filename="../../../scribus/langmgr.cpp" line="65"/>
         <source>Anii</source>
-        <translation type="unfinished"></translation>
+        <translation>Anii</translation>
     </message>
     <message>
         <location filename="../../../scribus/langmgr.cpp" line="76"/>
@@ -37822,7 +37822,7 @@ Niveau 1 eller 2 kan give meget store filer</translation>
     <message>
         <location filename="../../../scribus/plugins/tools/transform/transformeffect.cpp" line="87"/>
         <source>Apply multiple transformations at once</source>
-        <translation>Andvend adskillige forvandlinger på en gang</translation>
+        <translation>Anvend adskillige forvandlinger på en gang</translation>
     </message>
 </context>
 <context>
