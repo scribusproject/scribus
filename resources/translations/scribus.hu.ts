@@ -5665,7 +5665,7 @@ currently %2 x %3 DPI</source>
     <message>
         <location filename="../../scribus/ui/cpalette.cpp" line="81"/>
         <source>Hatch</source>
-        <translation type="unfinished"></translation>
+        <translation>Vonalkázás</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/cpalette.cpp" line="654"/>
@@ -8660,49 +8660,49 @@ converting their vector data into Scribus objects.</source>
     <message>
         <location filename="../../scribus/plugins/import/odg/importodgplugin.cpp" line="59"/>
         <source>Import ODF Document...</source>
-        <translation type="unfinished"></translation>
+        <translation>ODF dokumentum importálása...</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/odg/importodgplugin.cpp" line="61"/>
         <location filename="../../scribus/plugins/import/odg/importodgplugin.cpp" line="99"/>
         <source>ODF Drawing</source>
         <comment>Import/export format name</comment>
-        <translation type="unfinished"></translation>
+        <translation>ODF-rajz</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/odg/importodgplugin.cpp" line="62"/>
         <location filename="../../scribus/plugins/import/odg/importodgplugin.cpp" line="100"/>
         <source>ODF Drawing (*.odg *.ODG *.fodg *.FODG)</source>
-        <translation type="unfinished"></translation>
+        <translation>ODF-rajz (*.odg *.ODG *.fodg *.FODG)</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/odg/importodgplugin.cpp" line="64"/>
         <location filename="../../scribus/plugins/import/odg/importodgplugin.cpp" line="112"/>
         <source>ODF Presentation</source>
         <comment>Import/export format name</comment>
-        <translation type="unfinished"></translation>
+        <translation>ODF-bemutató</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/odg/importodgplugin.cpp" line="65"/>
         <location filename="../../scribus/plugins/import/odg/importodgplugin.cpp" line="113"/>
         <source>ODF Presentation (*.odp *.ODP *.fodp *.FODP)</source>
-        <translation type="unfinished"></translation>
+        <translation>ODF-bemutató (*.odp *.ODP *.fodp *.FODP)</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/odg/importodgplugin.cpp" line="83"/>
         <source>Imports ODF Drawing Files</source>
-        <translation type="unfinished"></translation>
+        <translation>ODF-rajz fájlok importálása</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/odg/importodgplugin.cpp" line="84"/>
         <source>Imports most ODF Drawing files into the current document,
 converting their vector data into Scribus objects.</source>
-        <translation type="unfinished"></translation>
+        <translation>A legtöbb ODF-rajz fájlt képes az aktuális dokumentumba importálni, a vektoros adataikat Scribus objektumokká konvertálva.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/odg/importodgplugin.cpp" line="146"/>
         <source>All Supported Formats</source>
-        <translation type="unfinished">Minden támogatott formátum</translation>
+        <translation>Minden támogatott formátum</translation>
     </message>
 </context>
 <context>
@@ -8735,13 +8735,13 @@ converting their vector data into Scribus objects.</source>
         <location filename="../../scribus/plugins/import/pages/importpagesplugin.cpp" line="61"/>
         <location filename="../../scribus/plugins/import/pages/importpagesplugin.cpp" line="96"/>
         <source>iWorks Pages</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/pages/importpagesplugin.cpp" line="62"/>
         <location filename="../../scribus/plugins/import/pages/importpagesplugin.cpp" line="97"/>
         <source>iWorks Pages (*.pages *.PAGES)</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/pages/importpagesplugin.cpp" line="80"/>
@@ -8936,13 +8936,13 @@ converting their vector data into Scribus objects.</source>
         <location filename="../../scribus/plugins/import/viva/importvivaplugin.cpp" line="61"/>
         <location filename="../../scribus/plugins/import/viva/importvivaplugin.cpp" line="96"/>
         <source>Viva Designer XML</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/viva/importvivaplugin.cpp" line="62"/>
         <location filename="../../scribus/plugins/import/viva/importvivaplugin.cpp" line="97"/>
         <source>Viva Designer XML (*.xml *.XML)</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/viva/importvivaplugin.cpp" line="80"/>
@@ -8972,13 +8972,13 @@ converting their vector data into Scribus objects.</source>
         <location filename="../../scribus/plugins/import/vsd/importvsdplugin.cpp" line="55"/>
         <location filename="../../scribus/plugins/import/vsd/importvsdplugin.cpp" line="90"/>
         <source>MS Visio</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/vsd/importvsdplugin.cpp" line="56"/>
         <location filename="../../scribus/plugins/import/vsd/importvsdplugin.cpp" line="91"/>
         <source>MS Visio (*.vsd *.VSD *.vdx *.VDX *.vsdx *.VSDX)</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/vsd/importvsdplugin.cpp" line="74"/>
@@ -9092,25 +9092,25 @@ converting their vector data into Scribus objects.</source>
         <location filename="../../scribus/plugins/import/xps/importxpsplugin.cpp" line="61"/>
         <location filename="../../scribus/plugins/import/xps/importxpsplugin.cpp" line="99"/>
         <source>Microsoft XPS</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/xps/importxpsplugin.cpp" line="62"/>
         <location filename="../../scribus/plugins/import/xps/importxpsplugin.cpp" line="100"/>
         <source>Microsoft XPS (*.xps *.XPS)</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/xps/importxpsplugin.cpp" line="64"/>
         <location filename="../../scribus/plugins/import/xps/importxpsplugin.cpp" line="112"/>
         <source>Open XML Paper</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/xps/importxpsplugin.cpp" line="65"/>
         <location filename="../../scribus/plugins/import/xps/importxpsplugin.cpp" line="113"/>
         <source>Open XML Paper (*.oxps *.OXPS)</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/xps/importxpsplugin.cpp" line="83"/>
@@ -11737,7 +11737,7 @@ Ha nincs kijelölve egy köröcske, az összes alaphelyzetbe lesz állítva.</tr
     <message>
         <location filename="../../scribus/ui/newmarginwidgetbase.ui" line="137"/>
         <source>Ensure all margins have the same value</source>
-        <translation type="unfinished"></translation>
+        <translation>Biztosítja, hogy minden margó azonos értékű</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/newmarginwidgetbase.ui" line="140"/>
@@ -13866,7 +13866,7 @@ Gyakran csak arra használatos, hogy az oldalak a teljes rajzvásznat elfoglalj�
     <message>
         <location filename="../../scribus/ui/pagepalette_masterpagesbase.ui" line="74"/>
         <source>&lt;&lt;&lt; Return to Pages Edition</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;&lt;&lt; Vissza az oldalak szerkesztéséhez</translation>
     </message>
     <message>
         <source>&lt;&lt;&lt; Return to pages edition</source>
@@ -22471,7 +22471,7 @@ Figyelem: a PDF űrlapok nem kerülnek exportálásra.</translation>
         <location filename="../../scribus/ui/propertiespalette_shadow.cpp" line="36"/>
         <location filename="../../scribus/ui/propertiespalette_shadow.cpp" line="428"/>
         <source>Has Drop Shadow</source>
-        <translation type="unfinished"></translation>
+        <translation>Van vetett árnyéka</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shadow.cpp" line="39"/>
@@ -22500,7 +22500,7 @@ Figyelem: a PDF űrlapok nem kerülnek exportálásra.</translation>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shadow.cpp" line="58"/>
         <source>Black</source>
-        <translation type="unfinished">Fekete</translation>
+        <translation>Fekete</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shadow.cpp" line="60"/>
@@ -22525,82 +22525,82 @@ Figyelem: a PDF űrlapok nem kerülnek exportálásra.</translation>
         <location filename="../../scribus/ui/propertiespalette_shadow.cpp" line="436"/>
         <location filename="../../scribus/ui/propertiespalette_shadow.cpp" line="453"/>
         <source>Normal</source>
-        <translation type="unfinished">Normál</translation>
+        <translation>Normál</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shadow.cpp" line="437"/>
         <source>Darken</source>
-        <translation type="unfinished">Sötétítés</translation>
+        <translation>Sötétítés</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shadow.cpp" line="438"/>
         <source>Lighten</source>
-        <translation type="unfinished">Világosítás</translation>
+        <translation>Világosítás</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shadow.cpp" line="439"/>
         <source>Multiply</source>
-        <translation type="unfinished">Szorzás</translation>
+        <translation>Szorzás</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shadow.cpp" line="440"/>
         <source>Screen</source>
-        <translation type="unfinished">Kivetítés</translation>
+        <translation>Kivetítés</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shadow.cpp" line="441"/>
         <source>Overlay</source>
-        <translation type="unfinished">Átfedés</translation>
+        <translation>Átfedés</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shadow.cpp" line="442"/>
         <source>Hard Light</source>
-        <translation type="unfinished">Kemény fény</translation>
+        <translation>Kemény fény</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shadow.cpp" line="443"/>
         <source>Soft Light</source>
-        <translation type="unfinished">Lágy fény</translation>
+        <translation>Lágy fény</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shadow.cpp" line="444"/>
         <source>Difference</source>
-        <translation type="unfinished">Különbség</translation>
+        <translation>Különbség</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shadow.cpp" line="445"/>
         <source>Exclusion</source>
-        <translation type="unfinished">Kivétel</translation>
+        <translation>Kivétel</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shadow.cpp" line="446"/>
         <source>Color Dodge</source>
-        <translation type="unfinished">Színfakítás</translation>
+        <translation>Színfakítás</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shadow.cpp" line="447"/>
         <source>Color Burn</source>
-        <translation type="unfinished">Színégetés</translation>
+        <translation>Színégetés</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shadow.cpp" line="448"/>
         <source>Hue</source>
-        <translation type="unfinished">Színezet</translation>
+        <translation>Színezet</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shadow.cpp" line="449"/>
         <source>Saturation</source>
-        <translation type="unfinished">Telítettség</translation>
+        <translation>Telítettség</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shadow.cpp" line="450"/>
         <source>Color</source>
-        <translation type="unfinished">Szín</translation>
+        <translation>Szín</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shadow.cpp" line="451"/>
         <source>Luminosity</source>
-        <translation type="unfinished">Fényintenzitás</translation>
+        <translation>Fényintenzitás</translation>
     </message>
 </context>
 <context>
@@ -23517,17 +23517,17 @@ Figyelem: a PDF űrlapok nem kerülnek exportálásra.</translation>
     <message>
         <location filename="../../scribus/ui/propertywidget_distance.cpp" line="438"/>
         <source>Top</source>
-        <translation type="unfinished"></translation>
+        <translation>Felülre</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_distance.cpp" line="439"/>
         <source>Middle</source>
-        <translation type="unfinished">Középső</translation>
+        <translation>Középre</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_distance.cpp" line="440"/>
         <source>Bottom</source>
-        <translation type="unfinished"></translation>
+        <translation>Alulra</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_distance.cpp" line="445"/>
@@ -23626,22 +23626,22 @@ Figyelem: a PDF űrlapok nem kerülnek exportálásra.</translation>
     <message>
         <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="41"/>
         <source>Vertical Alignment</source>
-        <translation type="unfinished"></translation>
+        <translation>Függőleges igazítás</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="49"/>
         <source>Top</source>
-        <translation type="unfinished"></translation>
+        <translation>Felülre</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="54"/>
         <source>Middle</source>
-        <translation type="unfinished">Középső</translation>
+        <translation>Középre</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="59"/>
         <source>Bottom</source>
-        <translation type="unfinished"></translation>
+        <translation>Alulra</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="67"/>
@@ -25434,7 +25434,7 @@ Külső hivatkozások
     <message>
         <location filename="../../scribus/langmgr.cpp" line="94"/>
         <source>Anii</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="111"/>
@@ -26719,7 +26719,7 @@ lista hiányos a meghívott funkciók miatt.</translation>
     <message>
         <location filename="../../scribus/plugins/import/oodraw/oodrawimp.cpp" line="172"/>
         <source>OpenOffice.org Draw (*.sxd *.SXD);;All Files (*)</source>
-        <translation type="unfinished"></translation>
+        <translation>OpenOffice.org Rajz (*.sxd *.SXD);;Minden fájl (*)</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="103"/>
@@ -28104,7 +28104,7 @@ A kép valószínű nem lesz így helyes</translation>
     <message>
         <location filename="../../scribus/plugins/import/odg/importodgplugin.cpp" line="75"/>
         <source>Open Document Importer</source>
-        <translation type="unfinished"></translation>
+        <translation>OpenDocument importáló</translation>
     </message>
 </context>
 <context>
@@ -37274,42 +37274,42 @@ converting their vector data into Scribus objects.</source>
     <message>
         <location filename="../../scribus/ui/colorpalette.ui" line="598"/>
         <source>Distance:</source>
-        <translation type="unfinished"></translation>
+        <translation>Távolság:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorpalette.ui" line="608"/>
         <source>Angle:</source>
-        <translation type="unfinished">Szög:</translation>
+        <translation>Szög:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorpalette.ui" line="618"/>
         <source>Type:</source>
-        <translation type="unfinished">Típus:</translation>
+        <translation>Típus:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorpalette.ui" line="626"/>
         <source>Single</source>
-        <translation type="unfinished">Egyszeres</translation>
+        <translation>Szimpla</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorpalette.ui" line="631"/>
         <source>Double</source>
-        <translation type="unfinished"></translation>
+        <translation>Dupla</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorpalette.ui" line="636"/>
         <source>Triple</source>
-        <translation type="unfinished"></translation>
+        <translation>Tripla</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorpalette.ui" line="644"/>
         <source>Line Color:</source>
-        <translation type="unfinished">Vonalszín:</translation>
+        <translation>Vonalszín:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorpalette.ui" line="654"/>
         <source>Background</source>
-        <translation type="unfinished">Háttér</translation>
+        <translation>Háttér</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorpalette.ui" line="1023"/>
