@@ -5727,84 +5727,9 @@ bool Scribus150Format::readItemTableCell(PageItem_Table* item, ScXmlStreamReader
 			PageItem* newItem = item->cellAt(row, col).textFrame();
 			readStoryText(doc, reader, newItem);
 		}
-		else if (reader.name() == "ITEXT")
+		else
 		{
-			ScXmlStreamAttributes tAttT = reader.scAttributes();
-			readItemText(item->cellAt(row, col).textFrame(), tAttT, &lastStyle);
-		}
-		else if (reader.name() == "para")
-		{
-			PageItem* newItem = item->cellAt(row, col).textFrame();
-			newItem->itemText.insertChars(newItem->itemText.length(), SpecialChars::PARSEP);
-			ParagraphStyle newStyle;
-			readParagraphStyle(doc, reader, newStyle);
-			newItem->itemText.setStyle(newItem->itemText.length()-1, newStyle);
-			newItem->itemText.setCharStyle(newItem->itemText.length()-1, 1, lastStyle.Style);
-		}
-		else if (reader.name() == "trail")
-		{
-			PageItem* newItem = item->cellAt(row, col).textFrame();
-			ParagraphStyle newStyle;
-			readParagraphStyle(doc, reader, newStyle);
-			newItem->itemText.setStyle(newItem->itemText.length(), newStyle);
-		}
-		else if (reader.name() == "tab")
-		{
-			PageItem* newItem = item->cellAt(row, col).textFrame();
-			CharStyle newStyle;
-			newItem->itemText.insertChars(newItem->itemText.length(), SpecialChars::TAB);
-			readCharacterStyleAttrs(doc, tAtt, newStyle);
-			newItem->itemText.setCharStyle(newItem->itemText.length()-1, 1, newStyle);
-			lastStyle.StyleStart = newItem->itemText.length()-1;
-			lastStyle.Style = newStyle;
-		}
-		else if (reader.name() == "breakline")
-		{
-			PageItem* newItem = item->cellAt(row, col).textFrame();
-			newItem->itemText.insertChars(newItem->itemText.length(), SpecialChars::LINEBREAK);
-		}
-		else if (reader.name() == "breakcol")
-		{
-			PageItem* newItem = item->cellAt(row, col).textFrame();
-			newItem->itemText.insertChars(newItem->itemText.length(), SpecialChars::COLBREAK);
-		}
-		else if (reader.name() == "breakframe")
-		{
-			PageItem* newItem = item->cellAt(row, col).textFrame();
-			newItem->itemText.insertChars(newItem->itemText.length(), SpecialChars::FRAMEBREAK);
-		}
-		else if (reader.name() == "nbhyphen")
-		{
-			PageItem* newItem = item->cellAt(row, col).textFrame();
-			newItem->itemText.insertChars(newItem->itemText.length(), SpecialChars::NBHYPHEN);
-		}
-		else if (reader.name() == "nbspace")
-		{
-			PageItem* newItem = item->cellAt(row, col).textFrame();
-			newItem->itemText.insertChars(newItem->itemText.length(), SpecialChars::NBSPACE);
-		}
-		else if (reader.name() == "zwnbspace")
-		{
-			PageItem* newItem = item->cellAt(row, col).textFrame();
-			newItem->itemText.insertChars(newItem->itemText.length(), SpecialChars::ZWNBSPACE);
-		}
-		else if (reader.name() == "zwspace")
-		{
-			PageItem* newItem = item->cellAt(row, col).textFrame();
-			newItem->itemText.insertChars(newItem->itemText.length(), SpecialChars::ZWSPACE);
-		}
-		else if (reader.name() == "var")
-		{
-			PageItem* newItem = item->cellAt(row, col).textFrame();
-			CharStyle newStyle;
-			if (tAtt.value("name") == "pgno")
-				newItem->itemText.insertChars(newItem->itemText.length(), SpecialChars::PAGENUMBER);
-			else
-				newItem->itemText.insertChars(newItem->itemText.length(), SpecialChars::PAGECOUNT);
-			readCharacterStyleAttrs(doc, tAtt, newStyle);
-			newItem->itemText.setCharStyle(newItem->itemText.length()-1, 1, newStyle);
-			lastStyle.StyleStart = newItem->itemText.length()-1;
-			lastStyle.Style = newStyle;
+			reader.skipCurrentElement();
 		}
 	}
 

@@ -2361,7 +2361,6 @@ void Scribus150Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 					}
 					//End Cell
 					
-
 					writeStoryText(doc, docu, cell.textFrame());
 					docu.writeEndElement();
 				}
