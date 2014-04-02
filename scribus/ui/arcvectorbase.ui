@@ -10,7 +10,7 @@
     <x>0</x>
     <y>0</y>
     <width>176</width>
-    <height>147</height>
+    <height>153</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -77,6 +77,9 @@
        <property name="decimals">
         <number>1</number>
        </property>
+       <property name="minimum">
+        <double>1.000000000000000</double>
+       </property>
        <property name="maximum">
         <double>99999.000000000000000</double>
        </property>
@@ -93,6 +96,9 @@
       <widget class="ScrSpinBox" name="arcWidth">
        <property name="decimals">
         <number>1</number>
+       </property>
+       <property name="minimum">
+        <double>1.000000000000000</double>
        </property>
        <property name="maximum">
         <double>99999.000000000000000</double>

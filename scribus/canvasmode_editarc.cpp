@@ -332,30 +332,33 @@ void CanvasMode_EditArc::mouseMoveEvent(QMouseEvent *m)
 			nSweep += 360;
 		double nWidth = sPoint.x() - widthPoint.x();
 		double nHeight = sPoint.y() - heightPoint.y();
-		pp.moveTo(sPoint);
-		pp.arcTo(QRectF(sPoint.x() - nWidth, sPoint.y() - nHeight, nWidth * 2, nHeight * 2), startAngle, nSweep);
-		pp.closeSubpath();
-		FPointArray ar;
-		ar.fromQPainterPath(pp);
-		if (m_arcPoint == useControlStart)
+		if ((nWidth > 0) && (nHeight > 0))
 		{
-			startPoint = ar.pointQF(2);
-			QLineF stLinA = QLineF(smPoint, itemMatrix.map(startPoint));
-			m_canvas->displayRotHUD(m->globalPos(), 360.0 - stLinA.angle());
+			pp.moveTo(sPoint);
+			pp.arcTo(QRectF(sPoint.x() - nWidth, sPoint.y() - nHeight, nWidth * 2, nHeight * 2), startAngle, nSweep);
+			pp.closeSubpath();
+			FPointArray ar;
+			ar.fromQPainterPath(pp);
+			if (m_arcPoint == useControlStart)
+			{
+				startPoint = ar.pointQF(2);
+				QLineF stLinA = QLineF(smPoint, itemMatrix.map(startPoint));
+				m_canvas->displayRotHUD(m->globalPos(), 360.0 - stLinA.angle());
+			}
+			else if (m_arcPoint == useControlSweep)
+			{
+				endPoint = ar.pointQF(ar.size() - 4);
+				QLineF stLinA = QLineF(smPoint, itemMatrix.map(endPoint));
+				m_canvas->displayRotHUD(m->globalPos(), 360.0 - stLinA.angle());
+			}
+			QLineF res = QLineF(centerPoint, startPoint);
+			QLineF swe = QLineF(centerPoint, endPoint);
+			VectorDialog->setValues(res.angle(), swe.angle(), nHeight * 2, nWidth * 2);
+			blockUpdateFromItem(true);
+			currItem->update();
+			blockUpdateFromItem(false);
+			m_doc->regionsChanged()->update(itemMatrix.mapRect(QRectF(0, 0, currItem->width(), currItem->height())).adjusted(-currItem->width() / 2.0, -currItem->height() / 2.0, currItem->width(), currItem->height()));
 		}
-		else if (m_arcPoint == useControlSweep)
-		{
-			endPoint = ar.pointQF(ar.size() - 4);
-			QLineF stLinA = QLineF(smPoint, itemMatrix.map(endPoint));
-			m_canvas->displayRotHUD(m->globalPos(), 360.0 - stLinA.angle());
-		}
-		QLineF res = QLineF(centerPoint, startPoint);
-		QLineF swe = QLineF(centerPoint, endPoint);
-		VectorDialog->setValues(res.angle(), swe.angle(), nHeight * 2, nWidth * 2);
-		blockUpdateFromItem(true);
-		currItem->update();
-		blockUpdateFromItem(false);
-		m_doc->regionsChanged()->update(itemMatrix.mapRect(QRectF(0, 0, currItem->width(), currItem->height())).adjusted(-currItem->width() / 2.0, -currItem->height() / 2.0, currItem->width(), currItem->height()));
 	}
 	Mxp = newX;
 	Myp = newY;
