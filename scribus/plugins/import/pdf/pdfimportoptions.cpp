@@ -78,7 +78,7 @@ void PdfImportOptions::setUpOptions(QString fileName, int actPage, int numPages,
 		ui->allPages->setChecked(true);
 	ui->pageRangeString->setText("");
 	ui->pgSelect->setMaximum(numPages);
-	ui->pgSelect->GotoPg(actPage - 1);
+	ui->pgSelect->setGUIForPage(actPage - 1);
 	m_maxPage = numPages;
 	updatePreview(actPage);
 	connect(ui->pgSelect, SIGNAL(GotoPage(int)), this, SLOT(updatePreview(int)));
@@ -96,7 +96,7 @@ void PdfImportOptions::updateFromCrop()
 
 void PdfImportOptions::updateFromSpinBox(int pg)
 {
-	ui->pgSelect->GotoPg(pg - 1);
+	ui->pgSelect->setGUIForPage(pg - 1);
 }
 
 void PdfImportOptions::updatePreview(int pg)
