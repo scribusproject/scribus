@@ -3110,10 +3110,10 @@ void ScribusView::TextToPath()
 					y = 0.0;
 					//ScText * hl = currItem->asPathText()->itemRenderText.item_p(a);
 					const CharStyle& charStyle(currItem->asPathText()->itemRenderText.charStyle(a));
-                    const PathData& pdata(currItem->textLayout.point(a));
-                    const GlyphLayout* glyphs = currItem->asPathText()->itemRenderText.getGlyphs(a);
-                    LayoutFlags flags = currItem->asPathText()->itemRenderText.flags(a);
-                    
+					const PathData& pdata(currItem->textLayout.point(a));
+					const GlyphLayout* glyphs = currItem->asPathText()->itemRenderText.getGlyphs(a);
+					LayoutFlags flags = currItem->asPathText()->itemRenderText.flags(a);
+					
 					chstr = currItem->asPathText()->itemRenderText.text(a,1);
 					if ((chstr == SpecialChars::PARSEP) || (chstr == SpecialChars::OLD_NBSPACE))
 						continue;
