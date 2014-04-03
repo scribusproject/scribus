@@ -100,6 +100,14 @@ void CanvasMode_Edit::keyPressEvent(QKeyEvent *e)
 	if (m_keyRepeat)
 		return;
 	m_keyRepeat = true;
+	e->accept();
+
+	if (e->key() == Qt::Key_Escape)
+	{
+		// Go back to normal mode.
+		m_view->requestMode(modeNormal);
+		return;
+	}
 
 	PageItem* currItem;
 	if (!GetItem(&currItem))
