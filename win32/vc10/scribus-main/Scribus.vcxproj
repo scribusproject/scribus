@@ -280,6 +280,7 @@
     <moc Include="..\..\..\scribus\guidesmodel.h" />
     <moc Include="..\..\..\scribus\guidesview.h" />
     <moc Include="..\..\..\scribus\ui\helpbrowser.h" />
+    <ClInclude Include="..\..\..\scribus\text\textlayout.h" />
     <ClInclude Include="..\..\..\scribus\ui\helpnavigation.h" />
     <ClInclude Include="..\..\..\scribus\hnjalloc.h" />
     <moc Include="..\..\..\scribus\ui\hruler.h" />
@@ -780,6 +781,7 @@
     <ClCompile Include="..\..\..\scribus\qtiocompressor.cpp" />
     <ClCompile Include="..\..\..\scribus\scimgdataloader_ora.cpp" />
     <ClCompile Include="..\..\..\scribus\selectionrubberband.cpp" />
+    <ClCompile Include="..\..\..\scribus\text\textlayout.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\about.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\aboutplugins.cpp" />
     <ClCompile Include="..\..\..\scribus\actionmanager.cpp" />

@@ -993,6 +993,9 @@
     <ClInclude Include="..\..\..\scribus\scimgdataloader_ora.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\scribus\text\textlayout.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\scribus\desaxe\digester.cpp">
@@ -3426,6 +3429,9 @@
       <Filter>Generated Moc Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\scribus\scimgdataloader_ora.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\text\textlayout.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
