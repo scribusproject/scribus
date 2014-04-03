@@ -1503,26 +1503,25 @@ bool ScribusView::slotSetCurs(int x, int y)
 	else
 		return false;
 
-
 	if (m_canvas->frameHitTest(canvasPoint, textFrame) == Canvas::INSIDE)
 	{
 		// #9592 : layout must be valid here, or screenToPosition() may crash
 		if (textFrame->invalid)
 			textFrame->layout();
 
-		double sx, sy;
-		getScaleFromMatrix(mm, sx, sy);
-		QTransform ms;
-		ms.scale(sx, sy);
-
 		double px = canvasPoint.x() - textFramePoint.x();
 		double py = canvasPoint.y() - textFramePoint.y();
-		if (textFrame->imageFlippedH())
-			px = textFrame->width() * mm.m11() - px;
-		if (textFrame->imageFlippedV())
-			py = textFrame->height() * mm.m22() - py;
 		FPoint point(px, py);
-		point = point.transformPoint(ms, true);
+		if (mm.isInvertible() && textFrame->itemText.length() > 0)
+		{
+			qreal tx = 0, ty = 0;
+			mm.inverted().map(canvasPoint.x(), canvasPoint.y(), &tx, &ty);
+			point.setXY(tx, ty);
+		}
+		if (textFrame->imageFlippedH())
+			point.setX(textFrame->width() - point.x());
+		if (textFrame->imageFlippedV())
+			point.setY(textFrame->height() - point.y());
 		textFrame->itemText.setCursorPosition(textFrame->itemText.length() == 0 ? 0 :
 			textFrame->itemText.screenToPosition(point));
 
