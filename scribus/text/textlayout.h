@@ -18,6 +18,8 @@
 
 #include <QList>
 
+#include "scribusapi.h"
+
 #include "fpoint.h"
 #include "frect.h"
 #include "scpainter.h"
@@ -53,7 +55,7 @@ struct PathData
 	structure and the lines' glyph layouts. It will use some of the layouters above to create a Box.
     It listens to change events from the StoryText and the PageItem and will update the layout accordingly.
  */
-class TextLayout
+class SCRIBUS_API TextLayout
 {
 public:
 	TextLayout(StoryText* text, PageItem* frame);
