@@ -1718,17 +1718,17 @@ void ScPainter::drawImage( QImage *image)
 	cairo_surface_t *image2  = cairo_image_surface_create_for_data ((uchar*)image->bits(), CAIRO_FORMAT_RGB24, image->width(), image->height(), image->width()*4);
 	cairo_surface_t *image3 = cairo_image_surface_create_for_data ((uchar*)image->bits(), CAIRO_FORMAT_ARGB32, image->width(), image->height(), image->width()*4);
 	cairo_set_source_surface (m_cr, image2, 0, 0);
-	cairo_pattern_set_filter(cairo_get_source(m_cr), CAIRO_FILTER_FAST);
+	cairo_pattern_set_filter(cairo_get_source(m_cr), CAIRO_FILTER_GOOD);
     cairo_mask_surface (m_cr, image3, 0, 0);
 	cairo_surface_destroy (image2);
 	cairo_surface_destroy (image3);
 	cairo_pop_group_to_source (m_cr);
-	cairo_pattern_set_filter(cairo_get_source(m_cr), CAIRO_FILTER_FAST);
+	cairo_pattern_set_filter(cairo_get_source(m_cr), CAIRO_FILTER_GOOD);
 	setRasterOp(m_blendModeFill);
 	if (maskMode > 0)
 	{
 		cairo_pattern_t *patM = getMaskPattern();
-		cairo_pattern_set_filter(patM, CAIRO_FILTER_FAST);
+		cairo_pattern_set_filter(patM, CAIRO_FILTER_GOOD);
 		cairo_mask(m_cr, patM);
 		if ((maskMode == 2) || (maskMode == 4) || (maskMode == 5) || (maskMode == 6))
 			cairo_surface_destroy(imageMask);

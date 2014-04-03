@@ -2403,16 +2403,20 @@ void SlaOutputDev::drawImageMask(GfxState *state, Object *ref, Stream *str, int 
 	{
 		mm.reset();
 		mm.rotate(-tline.angle());
+		res = res.transformed(mm);
 	}
 	else
 	{
-		mm.reset();
-		if (sx < 0)
-			mm.scale(-1, 1);
-		if (sy < 0)
-			mm.scale(1, -1);
+		if ((sx < 0) || (sy < 0))
+		{
+			mm.reset();
+			if (sx < 0)
+				mm.scale(-1, 1);
+			if (sy < 0)
+				mm.scale(1, -1);
+			res = res.transformed(mm);
+		}
 	}
-	res = res.transformed(mm);
 	if (res.isNull())
 	{
 		delete imgStr;
@@ -2535,16 +2539,19 @@ void SlaOutputDev::drawSoftMaskedImage(GfxState *state, Object *ref, Stream *str
 	{
 		mm.reset();
 		mm.rotate(-tline.angle());
+		res = res.transformed(mm);
 	}
 	else
 	{
-//		mm.reset();
-		if (sx < 0)
-			mm.scale(-1, 1);
-		if (sy < 0)
-			mm.scale(1, -1);
+		if ((sx < 0) || (sy < 0))
+		{
+			if (sx < 0)
+				mm.scale(-1, 1);
+			if (sy < 0)
+				mm.scale(1, -1);
+			res = res.transformed(mm);
+		}
 	}
-	res = res.transformed(mm);
 	int z = m_doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, xCoor + trect.x(), yCoor + trect.y(), trect.width(), trect.height(), 0, CommonStrings::None, CommonStrings::None, true);
 	PageItem* ite = m_doc->Items->at(z);
 	ite->SetRectFrame();
@@ -2670,16 +2677,19 @@ void SlaOutputDev::drawMaskedImage(GfxState *state, Object *ref, Stream *str,  i
 	{
 		mm.reset();
 		mm.rotate(-tline.angle());
+		res = res.transformed(mm);
 	}
 	else
 	{
-//		mm.reset();
-		if (sx < 0)
-			mm.scale(-1, 1);
-		if (sy < 0)
-			mm.scale(1, -1);
+		if ((sx < 0) || (sy < 0))
+		{
+			if (sx < 0)
+				mm.scale(-1, 1);
+			if (sy < 0)
+				mm.scale(1, -1);
+			res = res.transformed(mm);
+		}
 	}
-	res = res.transformed(mm);
 	int z = m_doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, xCoor + trect.x(), yCoor + trect.y(), trect.width(), trect.height(), 0, CommonStrings::None, CommonStrings::None, true);
 	PageItem* ite = m_doc->Items->at(z);
 	ite->SetRectFrame();
@@ -2809,21 +2819,25 @@ void SlaOutputDev::drawImage(GfxState *state, Object *ref, Stream *str, int widt
 	QRectF trect = m_ctm.mapRect(crect);
 	double sx = m_ctm.m11();
 	double sy = m_ctm.m22();
+	QImage img = image->copy();
 	QTransform mm = QTransform(ctm[0] / width, ctm[1] / width, -ctm[2] / height, -ctm[3] / height, 0, 0);
 	if ((mm.type() == QTransform::TxShear) || (mm.type() == QTransform::TxRotate))
 	{
 		mm.reset();
 		mm.rotate(-tline.angle());
+		img = image->transformed(mm);
 	}
 	else
 	{
-//		mm.reset();
-		if (sx < 0)
-			mm.scale(-1, 1);
-		if (sy < 0)
-			mm.scale(1, -1);
+		if ((sx < 0) || (sy < 0))
+		{
+			if (sx < 0)
+				mm.scale(-1, 1);
+			if (sy < 0)
+				mm.scale(1, -1);
+			img = image->transformed(mm);
+		}
 	}
-	QImage img = image->transformed(mm);
 	int z = m_doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, xCoor + trect.x(), yCoor + trect.y(), trect.width(), trect.height(), 0, CommonStrings::None, CommonStrings::None, true);
 	PageItem* ite = m_doc->Items->at(z);
 	ite->SetRectFrame();
