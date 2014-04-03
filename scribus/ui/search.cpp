@@ -486,7 +486,7 @@ void SearchReplace::slotDoSearch()
 			}
 			if (SEffect->isChecked())
 			{
-				if ((m_item->itemText.charStyle(a).effects() & 1919) != sEff)
+				if ((m_item->itemText.charStyle(a).effects() & ScStyle_UserStyles) != sEff)
 					found = false;
 			}
 			if (SFill->isChecked())
@@ -572,7 +572,7 @@ void SearchReplace::slotDoSearch()
 						found = false;
 					if (SFillS->isChecked() && (charStyle.fillShade() != sFillSh))
 						found = false;
-					if (SEffect->isChecked() && ((charStyle.effects() & 1919) != sEff))
+					if (SEffect->isChecked() && ((charStyle.effects() & ScStyle_UserStyles) != sEff))
 						found = false;
 				}
 			} while(!found);
@@ -604,7 +604,7 @@ void SearchReplace::slotDoSearch()
 					found = false;
 				if (SStrokeS->isChecked() && (charStyle.strokeShade() != sStrokeSh))
 					found = false;
-				if (SEffect->isChecked() && ((charStyle.effects() & 1919) != sEff))
+				if (SEffect->isChecked() && ((charStyle.effects() & ScStyle_UserStyles) != sEff))
 					found = false;
 				if (found && (firstChar < 0))
 					firstChar = i;

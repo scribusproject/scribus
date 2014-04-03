@@ -410,7 +410,8 @@ HEADERS += scribus/actionmanager.h \
            scribus/text/sctext_shared.h \
            scribus/text/specialchars.h \
            scribus/text/storytext.h \
-           scribus/ui/about.h \
+		   scribus/text/textlayout.h \
+		   scribus/ui/about.h \
            scribus/ui/aboutplugins.h \
            scribus/ui/AdapterWidget.h \
            scribus/ui/adjustcmsdialog.h \
@@ -1425,7 +1426,8 @@ SOURCES += scribus/actionmanager.cpp \
            scribus/text/sctext_shared.cpp \
            scribus/text/specialchars.cpp \
            scribus/text/storytext.cpp \
-           scribus/ui/about.cpp \
+		   scribus/text/textlayout.cpp \
+		   scribus/ui/about.cpp \
            scribus/ui/aboutplugins.cpp \
            scribus/ui/AdapterWidget.cpp \
            scribus/ui/adjustcmsdialog.cpp \

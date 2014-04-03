@@ -1003,12 +1003,12 @@ void CanvasMode::commonDrawTextCursor(QPainter* p, PageItem_TextFrame* textframe
 		if (textCursorChar == SpecialChars::PARSEP || textCursorChar == SpecialChars::LINEBREAK)
 		{
 			// The cursor must be moved to the beginning of the next line
-			FRect bbox = textframe->itemText.boundingBox ( textCursorPos );
+			FRect bbox = textframe->textLayout.boundingBox ( textCursorPos );
 			double lineSpacing(textframe->itemText.paragraphStyle(textCursorPos).lineSpacing());
 
 			// take care if cursor is not in first column
 			int curCol(1);
-			double ccPos(textframe->itemText.boundingBox ( textCursorPos ).x());
+			double ccPos(textframe->textLayout.boundingBox ( textCursorPos ).x());
 			double leftOffset(textframe->textToFrameDistLeft());
 			for(int ci(1); ci <= textframe->columns(); ++ci)
 			{
@@ -1037,7 +1037,7 @@ void CanvasMode::commonDrawTextCursor(QPainter* p, PageItem_TextFrame* textframe
 			// We want to position the cursor at the beginning of the next column, if any.
 			// At first we need to know in which column the cursor is.
 			int curCol(1);
-			double ccPos(textframe->itemText.boundingBox ( textCursorPos ).x());
+			double ccPos(textframe->textLayout.boundingBox ( textCursorPos ).x());
 			double leftOffset(textframe->textToFrameDistLeft());
 			for(int ci(1); ci <= textframe->columns(); ++ci)
 			{
@@ -1053,11 +1053,11 @@ void CanvasMode::commonDrawTextCursor(QPainter* p, PageItem_TextFrame* textframe
 			{
 				dx = (textframe->columnWidth() * curCol) + (textframe->columnGap() * curCol)  + leftOffset;
 				dy = textframe->textToFrameDistTop();
-				dy1 = textframe->textToFrameDistTop() + textframe->itemText.boundingBox ( textCursorPos ).height();
+				dy1 = textframe->textToFrameDistTop() + textframe->textLayout.boundingBox ( textCursorPos ).height();
 			}
 			else // there is no column after the current column
 			{
-				FRect bbox = textframe->itemText.boundingBox ( textCursorPos );
+				FRect bbox = textframe->textLayout.boundingBox ( textCursorPos );
 				dx = bbox.x();
 				dy = bbox.y();
                 dx += textframe->itemText.getGlyphs(textCursorPos)->wide();
@@ -1069,7 +1069,7 @@ void CanvasMode::commonDrawTextCursor(QPainter* p, PageItem_TextFrame* textframe
 		}
 		else
 		{
-			FRect bbox = textframe->itemText.boundingBox ( textCursorPos );
+			FRect bbox = textframe->textLayout.boundingBox ( textCursorPos );
 			dx = bbox.x();
 			dy = bbox.y();
             dx += textframe->itemText.getGlyphs(textCursorPos)->wide();
@@ -1083,7 +1083,7 @@ void CanvasMode::commonDrawTextCursor(QPainter* p, PageItem_TextFrame* textframe
 	}
 	else
 	{
-		FRect bbox = textframe->itemText.boundingBox ( textCursorPos );
+		FRect bbox = textframe->textLayout.boundingBox ( textCursorPos );
 		dx = bbox.x();
 		dy = bbox.y();
 		if ( bbox.height() <= 2 )

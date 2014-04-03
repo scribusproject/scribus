@@ -1068,7 +1068,7 @@ void ScPageOutput::drawItem_Line( PageItem_Line* item, ScPainterExBase* painter,
 void ScPageOutput::drawItem_PathText( PageItem_PathText* item, ScPainterExBase* painter, const QRect& clip )
 {
 	QString chstr;
-	ScText *hl;
+	//ScText *hl;
 	FPoint point = FPoint(0, 0);
 	FPoint tangent = FPoint(0, 0);
 	double CurX = item->textToFrameDistLeft(); // item->CurX = item->textToFrameDistLeft()
@@ -1118,7 +1118,7 @@ void ScPageOutput::drawItem_PathText( PageItem_PathText* item, ScPainterExBase* 
 		if (a < itemText.length()-1)
 			chstr += itemText.text(a+1, 1);
         glyphs->yadvance = 0;
-        item->layoutGlyphs(itemText.charStyle(a), chstr, *glyphs);
+        item->layoutGlyphs(itemText.charStyle(a), chstr, itemText.flags(a), *glyphs);
         glyphs->shrink();
         if (item->itemText.hasObject(a))
             totalTextLen += (item->itemText.object(a)->width() + item->itemText.object(a)->lineWidth()) * glyphs->scaleH;
@@ -1149,6 +1149,8 @@ void ScPageOutput::drawItem_PathText( PageItem_PathText* item, ScPainterExBase* 
 	for (int a = item->firstInFrame(); a < itemText.length(); ++a)
 	{
         GlyphLayout* glyphs = itemText.getGlyphs(a);
+        PathData* pdata = &(item->textLayout.point(a));
+        
         chstr = itemText.text(a,1);
 		if (chstr[0] == SpecialChars::PAGENUMBER || chstr[0] == SpecialChars::PARSEP || chstr[0] == SpecialChars::PAGECOUNT
 			|| chstr[0] == SpecialChars::TAB || chstr[0] == SpecialChars::LINEBREAK)
@@ -1156,7 +1158,7 @@ void ScPageOutput::drawItem_PathText( PageItem_PathText* item, ScPainterExBase* 
 		if (a < itemText.length()-1)
 			chstr += itemText.text(a+1, 1);
         glyphs->yadvance = 0;
-        item->layoutGlyphs(itemText.charStyle(a), chstr, *glyphs);
+        item->layoutGlyphs(itemText.charStyle(a), chstr, itemText.flags(a), *glyphs);
         glyphs->shrink();                                                           // HACK
 		// Unneeded now that glyph xadvance is set appropriately for inline objects by PageItem_TextFrame::layout() - JG
 		/*if (hl->hasObject())
@@ -1185,12 +1187,12 @@ void ScPageOutput::drawItem_PathText( PageItem_PathText* item, ScPainterExBase* 
 		tangent = FPoint(cos(currAngle * M_PI / 180.0), sin(currAngle * M_PI / 180.0));
 		point = FPoint(currPoint.x(), currPoint.y());
 
-        hl = itemText.item_p(a);
+        //hl = itemText.item_p(a);
         glyphs->xoffset = 0;
-		hl->PtransX = point.x();
-		hl->PtransY = point.y();
-		hl->PRot    = currAngle * M_PI / 180.0;
-		hl->PDx     = dx;
+		pdata->PtransX = point.x();
+		pdata->PtransY = point.y();
+		pdata->PRot    = currAngle * M_PI / 180.0;
+		pdata->PDx     = dx;
 		QTransform trafo = QTransform( 1, 0, 0, -1, -dx, 0 );
 		if (item->textPathFlipped)
 			trafo *= QTransform(1, 0, 0, -1, 0, 0);
@@ -1624,9 +1626,9 @@ void ScPageOutput::drawItem_TextFrame( PageItem_TextFrame* item, ScPainterExBase
 			painter->scale(1, -1);
 		}
 
-		for (uint ll=0; ll < item->itemText.lines(); ++ll)
+		for (uint ll=0; ll < item->textLayout.lines(); ++ll)
 		{
-			LineSpec ls = item->itemText.line(ll);
+			LineSpec ls = item->textLayout.line(ll);
 			double CurX = ls.x;
 			for (a = ls.firstItem; a <= ls.lastItem; ++a)
 			{

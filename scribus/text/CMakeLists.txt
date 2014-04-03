@@ -12,6 +12,7 @@ SET(SCRIBUS_TEXT_MOC_CLASSES
 SET(SCRIBUS_TEXT_LIB_SOURCES
 	specialchars.cpp
 	storytext.cpp
+	textlayout.cpp
 	sctext_shared.cpp
 	fsize.cpp
 	frect.cpp

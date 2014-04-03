@@ -51,19 +51,6 @@ class ScText_Shared;
 class ResourceCollection;
  
 
-struct LineSpec 
-{
-	qreal x;
-	qreal y;
-	qreal width;
-	qreal ascent;
-	qreal descent;
-	qreal colLeft;
-	
-	int firstItem;
-	int lastItem;
-	qreal naturalWidth;
-};
 
 /**
  * This class holds the text of a Scribus textframe and pointers to its
@@ -220,12 +207,12 @@ class SCRIBUS_API StoryText : public QObject, public SaxIO
 
 // these need valid layout:
 
-	int startOfLine(int pos);
-	int endOfLine(int pos);
-	int prevLine(int pos);
-	int nextLine(int pos);
-	int startOfFrame(int pos);
-	int endOfFrame(int pos);
+//	int startOfLine(int pos);
+//	int endOfLine(int pos);
+//	int prevLine(int pos);
+//	int nextLine(int pos);
+//	int startOfFrame(int pos);
+//	int endOfFrame(int pos);
 
 // selection
 
@@ -261,71 +248,32 @@ public slots:
 	/// call this if some logical style changes (redos shaping and layout)
  	void invalidateAll();
 
-	signals:
+signals:
 		void changed();
 
 private:
  	ScText * item(uint index);
  	const ScText * item(uint index) const;
-public:
-	ScText * item_p(uint index) { return item(index); }
 
- 	int screenToPosition(FPoint coord) const;
- 	FRect  boundingBox(int pos, uint len = 1) const;
+//public:
+//	ScText * item_p(uint index) { return item(index); }
 
-	uint lines() const { return (uint) m_lines.count(); }
+// 	int screenToPosition(FPoint coord) const;
+// 	FRect  boundingBox(int pos, uint len = 1) const;
+
+//	uint lines() const { return (uint) m_lines.count(); }
 	
-	LineSpec line(uint i) const { return m_lines[i]; }
+//	LineSpec line(uint i) const { return m_lines[i]; }
 	
-	void appendLine(const LineSpec& ls) 
-	{ 
-		assert( ls.firstItem >= 0 );
-		assert( ls.firstItem < length() );
-		assert( ls.lastItem >= 0 && ls.firstItem - ls.lastItem < 1 );
-		assert( ls.lastItem < length() );
-		m_lines.append(ls);
-		if (m_lastFrameItem < m_firstFrameItem) {
-			m_firstFrameItem = ls.firstItem;
-			m_lastFrameItem = ls.lastItem;
-		}
-		else {
-			m_firstFrameItem = qMin(m_firstFrameItem, ls.firstItem);
-			m_lastFrameItem = qMax(m_lastFrameItem, ls.lastItem);
-		}
-	}
-
-	// Remove the last line from the list. Used when we need to backtrack on the layouting.
-	void removeLastLine ()
-	{
-		if (m_lines.isEmpty()) return;
-		LineSpec last = m_lines.takeLast ();
-		if (m_lines.isEmpty()) {
-			clearLines();
-			return;
-		}
-		// fix lastFrameItem
-		if (m_lastFrameItem != last.lastItem) return;
-		m_lastFrameItem = m_lines.last().lastItem;
-	}
-
-	void clearLines() 
-	{ 
-		m_lines.clear(); 
-		m_firstFrameItem = 0; 
-		m_lastFrameItem = -1; 
-	}
-	
-	int firstInFrame() { return m_firstFrameItem; }
-	int lastInFrame() { return m_lastFrameItem; }
 
 private:
 	ScribusDoc * m_doc; 
 	int m_selFirst, m_selLast;
-	int m_firstFrameItem, m_lastFrameItem;
-	QList<LineSpec> m_lines;
-	bool m_validLayout;
-	qreal m_magicX;
-	int m_lastMagicPos;
+//	int m_firstFrameItem, m_lastFrameItem;
+//	QList<LineSpec> m_lines;
+//	bool m_validLayout;
+//	qreal m_magicX;
+//	int m_lastMagicPos;
 
 	QString textWithSoftHyphens (int pos, uint len) const;
 	void    insertCharsWithSoftHyphens(int pos, QString txt, bool applyNeighbourStyle = false);

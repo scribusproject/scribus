@@ -111,21 +111,16 @@ class SCRIBUS_API ScText : public CharStyle
 public:
 	ParagraphStyle* parstyle; // only for parseps
 	GlyphLayout glyph;
-	float PtransX;
-	float PtransY;
-	float PRot;
-	float PDx;
 	int embedded;
 	Mark* mark;
 	QChar ch;
 	ScText() : 
 		CharStyle(),
 		parstyle(NULL), glyph(), 
-		PtransX(0.0f), PtransY(0.0f), PRot(0.0f), PDx(0.0f), embedded(0), mark(NULL), ch() {}
+		embedded(0), mark(NULL), ch() {}
 	ScText(const ScText& other) : 
 		CharStyle(other),
 		parstyle(NULL), glyph(other.glyph), 
-		PtransX(other.PtransX), PtransY(other.PtransY), PRot(other.PRot), PDx(other.PDx), 
 		embedded(other.embedded), mark(NULL), ch(other.ch)
 	{
 		glyph.more = NULL;

@@ -46,6 +46,7 @@ for which a new license (GPL+exception) is in place.
 #include "margins.h"
 #include "sctextstruct.h"
 #include "text/storytext.h"
+#include "text/textlayout.h"
 #include "undoobject.h"
 #include "vgradient.h"
 #include "mesh.h"
@@ -392,9 +393,9 @@ public: // Start public functions
 	/// Return current text properties (current char + paragraph properties)
 	void currentTextProps(ParagraphStyle& parStyle) const;
 	// deprecated:
-	double layoutGlyphs(const CharStyle& style, const QString& chars, GlyphLayout& layout);
+	double layoutGlyphs(const CharStyle& style, const QString& chars, LayoutFlags flags, GlyphLayout& layout);
 	void SetQColor(QColor *tmp, QString farbe, double shad);
-	void drawGlyphs(ScPainter *p, const CharStyle& style, GlyphLayout& glyphs );
+	void drawGlyphs(ScPainter *p, const CharStyle& style, LayoutFlags flags, GlyphLayout& glyphs );
 	void DrawPolyL(QPainter *p, QPolygon pts);
 	QString ExpandToken(uint base);
 	const FPointArray shape() const { return PoLine; }
@@ -1269,7 +1270,8 @@ public:	// Start public variables
 	double BBoxH; ///< Bounding Box-H
 	double CurX; ///< Zeichen X-Position
 	double CurY; ///< Zeichen Y-Position
-	StoryText itemText; ///< Text des Elements
+	StoryText itemText; ///< Text of element
+	TextLayout textLayout;
 	bool isBookmark; ///< Flag for PDF Bookmark
 	bool Dirty; ///< Flag for redraw in EditMode
 	bool invalid; ///< Flag indicates that layout has changed (eg. for textlayout)

@@ -842,7 +842,7 @@ struct LineControl {
 				asce = (itemText.object(line.firstItem+zc)->height() + itemText.object(line.firstItem+zc)->lineWidth()) * scaleV + offset;
 				desc = 0.0;
 			}
-			else //if ((itemText.charStyle(current.line.firstItem+zc).effects() & ScLayout_DropCap) == 0)
+			else //if ((itemText.flags(current.line.firstItem+zc) & ScLayout_DropCap) == 0)
 			{
 				asce = cStyle.font().realCharAscent(ch, cStyle.fontSize() / 10.0) * scaleV + offset;
 				desc = cStyle.font().realCharDescent(ch, cStyle.fontSize() / 10.0) * scaleV - offset;
@@ -1089,7 +1089,7 @@ static void indentLine(StoryText& itemText, LineSpec& line, double leftIndent)
 //static double opticalLeftMargin(const StoryText& itemText, const LineSpec& line)
 //{
 //	int b = line.firstItem;
-//	while (b < line.lastItem && (itemText.item(b)->effects() & ScLayout_SuppressSpace))
+//	while (b < line.lastItem && (itemText.flags(b)) & ScLayout_SuppressSpace))
 //		   ++b;
 //
 //	double chs = itemText.charStyle(b).fontSize() * (itemText.charStyle(b).scaleH() / 1000.0);
@@ -1224,12 +1224,12 @@ bool PageItem_TextFrame::moveLinesFromPreviousFrame ()
 	PageItem_TextFrame* prev = dynamic_cast<PageItem_TextFrame*>(BackBox);
 	if (!prev) return false;
 	if (!prev->incompleteLines) return false;   // no incomplete lines - nothing to do
-	int pos = itemText.lastInFrame();
+	int pos = textLayout.endOfFrame()-1;
 	QChar lastChar = itemText.text (pos);
 	// qDebug()<<"pos is"<<pos<<", length is"<<itemText.length()<<", incomplete is "<<prev->incompleteLines;
 	if ((pos != itemText.length()-1) && (!SpecialChars::isBreak (lastChar, true)))
 		return false;  // the paragraph isn't ending yet
-	int lines = itemText.lines();  // lines added to the current frame
+	int lines = textLayout.lines();  // lines added to the current frame
 
 	ParagraphStyle style = itemText.paragraphStyle (pos);
 	int need = style.keepLinesEnd () + 1;
@@ -1248,7 +1248,7 @@ bool PageItem_TextFrame::moveLinesFromPreviousFrame ()
 	// Okay, move the starting/ending character
 	int startingPos = prev->incompletePositions[prev->incompleteLines - pull];
 	for (int i = 0; i < pull; ++i)
-		prev->itemText.removeLastLine();
+		prev->textLayout.removeLastLine();
 	firstChar = prev->MaxChars = startingPos;
 	// keep the remaining incomplete lines flagged as such
 	// this ensures that if pulling one line won't be enough, the subsequent call to layout() will pull more
@@ -1261,7 +1261,7 @@ bool PageItem_TextFrame::moveLinesFromPreviousFrame ()
 void PageItem_TextFrame::adjustParagraphEndings ()
 {
 	// More text to go - let's apply paragraph flowing options - orphans/widows, etc
-	int pos = itemText.lastInFrame();
+	int pos = textLayout.endOfFrame() - 1;
 	if (pos >= itemText.length() - 1) return;
 
 	ParagraphStyle style = itemText.paragraphStyle (pos);
@@ -1271,11 +1271,11 @@ void PageItem_TextFrame::adjustParagraphEndings ()
 	if (keepWithNext || (!SpecialChars::isBreak (lastChar, true))) {
 		// paragraph continues in the next frame, or needs to be kept with the next one
 		// check how many lines are in this frame
-		int lineStart = itemText.startOfLine (pos);
+		int lineStart = textLayout.startOfLine (pos);
 		incompleteLines = 1;
 		incompletePositions.prepend (lineStart);
 		while (lineStart > paragraphStart) {
-			lineStart = itemText.startOfLine (lineStart - 1);
+			lineStart = textLayout.startOfLine (lineStart - 1);
 			incompleteLines++;
 			incompletePositions.prepend (lineStart);
 		}
@@ -1290,8 +1290,8 @@ void PageItem_TextFrame::adjustParagraphEndings ()
 		if (pull) {
 			// push this paragraph to the next frame
 			for (int i = 0; i < pull; ++i)
-				itemText.removeLastLine();
-			MaxChars = itemText.lastInFrame() + 1;
+				textLayout.removeLastLine();
+			MaxChars = textLayout.endOfFrame();
 			incompleteLines = 0;
 			incompletePositions.clear();
 		}
@@ -1359,7 +1359,7 @@ void PageItem_TextFrame::layout()
 	int    DropLines = 0;
 	int    DropLinesCount = 0;
 
-	itemText.clearLines();
+	textLayout.clear();
 	incompleteLines = 0;
 	incompletePositions.clear();
 
@@ -1787,7 +1787,7 @@ void PageItem_TextFrame::layout()
 				itemText.clearFlag(a, ScLayout_StartOfLine);
 			}
 			glyphs->yadvance = 0;
-			layoutGlyphs(charStyle, chstr, *glyphs);
+			layoutGlyphs(charStyle, chstr, itemText.flags(a), *glyphs);
 
 			// find out width, ascent and descent of char
 			if (HasObject)
@@ -2829,7 +2829,7 @@ void PageItem_TextFrame::layout()
 						}
 						fillInTabLeaders(itemText, current.line);
 						//if right margin is set we temporally save line, not append it
-						itemText.appendLine(current.line);
+						textLayout.appendLine(current.line);
 						setMaxY(maxYDesc);
 						current.restartIndex = current.line.lastItem +1;
 						a = current.restartIndex -1;
@@ -3031,7 +3031,7 @@ void PageItem_TextFrame::layout()
 			current.startOfCol = false;
 			goNextColumn = false;
 
-			itemText.appendLine(current.line);
+			textLayout.appendLine(current.line);
 			setMaxY(maxYDesc);
 			current.startOfCol = false;
 
@@ -3667,9 +3667,9 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRectF cullingArea)
 		assert( firstInFrame() >= 0 );
 		assert( lastInFrame() < itemText.length() );
 		LineSpec ls;
-		for (uint ll=0; ll < itemText.lines(); ++ll)
+		for (uint ll=0; ll < textLayout.lines(); ++ll)
 		{
-			ls = itemText.line(ll);
+			ls = textLayout.line(ll);
 			double CurX = ls.x;
 
 			// Draw text selection rectangles
@@ -3821,10 +3821,10 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRectF cullingArea)
 							if (m_Doc->guidesPrefs().showControls && itemText.hasMark(a) && (glyphs->glyph != SpecialChars::OBJECT))
 							{
 								GlyphLayout markGlyph;
-								layoutGlyphs(charStyle,SpecialChars::OBJECT, markGlyph);
-								drawGlyphs(p, charStyle, markGlyph);
+								layoutGlyphs(charStyle, SpecialChars::OBJECT, ScLayout_None, markGlyph);
+								drawGlyphs(p, charStyle, ScLayout_None, markGlyph);
 							}
-							drawGlyphs(p, charStyle, *glyphs);
+							drawGlyphs(p, charStyle, itemText.flags(a), *glyphs);
 						}
 						p->restore();//RE4
 					}
@@ -4241,12 +4241,12 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 			pos = len-1;
 		if ( (buttonModifiers & Qt::ControlModifier) == 0 )
 		{
-			pos = itemText.startOfLine(pos);
+			pos = textLayout.startOfLine(pos);
 		}
 		else
 		{
 			//Control Home for start of frame text
-			pos = itemText.startOfFrame(pos);
+			pos = textLayout.startOfFrame();
 		}
 		itemText.setCursorPosition(pos);
 		if ( buttonModifiers & Qt::ShiftModifier )
@@ -4262,12 +4262,12 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 			break; // at end of frame
 		if ( (buttonModifiers & Qt::ControlModifier) == 0 )
 		{
-			itemText.setCursorPosition( itemText.endOfLine(itemText.cursorPosition()) );
+			itemText.setCursorPosition( textLayout.endOfLine(itemText.cursorPosition()) );
 		}
 		else
 		{
 			//Control End for end of frame text
-			itemText.setCursorPosition( itemText.endOfFrame(itemText.cursorPosition()) );
+			itemText.setCursorPosition( textLayout.endOfFrame() );
 		}
 		if ( buttonModifiers & Qt::ShiftModifier )
 			ExpandSel(1, oldPos);
@@ -4288,7 +4288,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 		{
 			if (itemText.cursorPosition() <= lastInFrame())
 			{
-				itemText.setCursorPosition( itemText.nextLine(itemText.cursorPosition()) );
+				itemText.setCursorPosition( textLayout.nextLine(itemText.cursorPosition()) );
 				if ( buttonModifiers & Qt::ShiftModifier )
 				{
 					if ( buttonModifiers & Qt::AltModifier )
@@ -4296,7 +4296,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 					ExpandSel(1, oldPos);
 				}
 				else
-					if ((itemText.lines() > 0) && (oldPos >= itemText.line(itemText.lines()-1).firstItem) && (itemText.cursorPosition() >= lastInFrame()) && (NextBox != 0))
+					if ((textLayout.lines() > 0) && (oldPos >= textLayout.line(textLayout.lines()-1).firstItem) && (itemText.cursorPosition() >= lastInFrame()) && (NextBox != 0))
 					{
 						if (NextBox->frameDisplays(itemText.cursorPosition()))
 						{
@@ -4339,7 +4339,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 			{
 				if (itemText.cursorPosition() > lastInFrame() || itemText.cursorPosition() >= itemText.length())
 					itemText.setCursorPosition(lastInFrame());
-				itemText.setCursorPosition( itemText.prevLine(itemText.cursorPosition()) );
+				itemText.setCursorPosition( textLayout.prevLine(itemText.cursorPosition()) );
 				if ( buttonModifiers & Qt::ShiftModifier )
 				{
 					if ( buttonModifiers & Qt::AltModifier )
@@ -4347,7 +4347,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 					ExpandSel(-1, oldPos);
 				}
 				else
-					if ((itemText.lines() > 0) && (oldPos <= itemText.line(0).lastItem) && (itemText.cursorPosition()  == firstInFrame()) && (BackBox != 0))
+					if ((textLayout.lines() > 0) && (oldPos <= textLayout.line(0).lastItem) && (itemText.cursorPosition()  == firstInFrame()) && (BackBox != 0))
 					{
 						view->Deselect(true);
 						// TODO position at the right place in previous frame
@@ -4379,7 +4379,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 			//currItem = currItem->BackBox;
 		}
 		else
-			itemText.setCursorPosition( itemText.startOfFrame(itemText.cursorPosition()) );
+			itemText.setCursorPosition( textLayout.startOfFrame() );
 		if ( buttonModifiers & Qt::ShiftModifier )
 			ExpandSel(-1, oldPos);
 		m_Doc->scMW()->setTBvals(this);
@@ -4393,7 +4393,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 			//currItem = currItem->BackBox;
 		}
 		else
-			itemText.setCursorPosition( itemText.endOfFrame(itemText.cursorPosition()) );
+			itemText.setCursorPosition( textLayout.endOfFrame() );
 		if ( buttonModifiers & Qt::ShiftModifier )
 			ExpandSel(1, oldPos);
 		m_Doc->scMW()->setTBvals(this);
@@ -4430,10 +4430,10 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 		if ((itemText.cursorPosition() > 0) && (itemText.cursorPosition() >= lastInFrame())) // I do not see how its possible, may be dead code - pm
 		{
 			itemText.setCursorPosition( lastInFrame() );
-//			if (itemText.charStyle(CPos-1).effects() & ScLayout_SuppressSpace)
+//			if (itemText.flags(CPos-1) & ScLayout_SuppressSpace)
 //			{
 //				--CPos;
-				while ((itemText.cursorPosition() > 1) && (itemText.charStyle().effects() & ScLayout_SuppressSpace) && (itemText.charStyle(itemText.cursorPosition() - 1).effects() & ScLayout_SuppressSpace))
+				while ((itemText.cursorPosition() > 1) && (itemText.flags(itemText.cursorPosition() - 1) & ScLayout_SuppressSpace))
 				{
 					itemText.setCursorPosition(-1, true);
 					if (itemText.cursorPosition() == 0)
@@ -4443,7 +4443,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 		}
 		else
 		{
-			while ((itemText.cursorPosition() > 1) && (itemText.charStyle().effects() & ScLayout_SuppressSpace) && (itemText.charStyle(itemText.cursorPosition() - 1).effects() & ScLayout_SuppressSpace))
+			while ((itemText.cursorPosition() > 1) && (itemText.flags(itemText.cursorPosition() - 1) & ScLayout_SuppressSpace))
 			{
 				itemText.setCursorPosition(-1, true);
 				if (itemText.cursorPosition() == 0)
@@ -5192,7 +5192,7 @@ bool PageItem_TextFrame::createInfoGroup(QFrame *infoGroup, QGridLayout *infoGro
 
 	linesCT->setText(tr("Lines: "));
 	infoGroupLayout->addWidget( linesCT, 2, 0, Qt::AlignRight );
-	linesT->setText(QString::number(itemText.lines()));
+	linesT->setText(QString::number(textLayout.lines()));
 	infoGroupLayout->addWidget( linesT, 2, 1 );
 
 
@@ -5266,7 +5266,7 @@ void PageItem_TextFrame::applicableActions(QStringList & actionList)
 		actionList << "itemConvertToPolygon";
 	}
 	actionList << "itemConvertToOutlines";
-	if (itemText.lines() != 0)
+	if (textLayout.lines() != 0)
 	{
 		actionList << "editClearContents";
 		actionList << "itemAdjustFrameHeightToText";

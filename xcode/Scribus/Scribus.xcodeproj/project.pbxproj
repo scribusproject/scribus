@@ -1875,6 +1875,11 @@
 		8808DFA4123238D100B95A3F /* vgradient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = vgradient.h; path = ../../scribus/vgradient.h; sourceTree = SOURCE_ROOT; };
 		8808DFA5123238D100B95A3F /* vgradientex.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = vgradientex.cpp; path = ../../scribus/vgradientex.cpp; sourceTree = SOURCE_ROOT; };
 		8808DFA6123238D100B95A3F /* vgradientex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = vgradientex.h; path = ../../scribus/vgradientex.h; sourceTree = SOURCE_ROOT; };
+		8885481918EB18920063510D /* textlayout.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = textlayout.cpp; sourceTree = "<group>"; };
+		8885481A18EB18920063510D /* textlayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = textlayout.h; sourceTree = "<group>"; };
+		8885481C18EB38300063510D /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
+		8885481D18EB38300063510D /* xpsexplugin.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = xpsexplugin.cpp; sourceTree = "<group>"; };
+		8885481E18EB38300063510D /* xpsexplugin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xpsexplugin.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -2503,6 +2508,7 @@
 		8808D94F123238CF00B95A3F /* plugins */ = {
 			isa = PBXGroup;
 			children = (
+				8885481B18EB38300063510D /* xpsexport */,
 				8808D950123238CF00B95A3F /* barcodegenerator */,
 				8808D958123238CF00B95A3F /* CMakeLists.txt */,
 				8808D959123238CF00B95A3F /* colorwheel */,
@@ -3580,6 +3586,8 @@
 		8808DC53123238D000B95A3F /* text */ = {
 			isa = PBXGroup;
 			children = (
+				8885481918EB18920063510D /* textlayout.cpp */,
+				8885481A18EB18920063510D /* textlayout.h */,
 				8808DC54123238D000B95A3F /* CMakeLists.txt */,
 				8808DC55123238D000B95A3F /* frect.cpp */,
 				8808DC56123238D000B95A3F /* frect.h */,
@@ -4447,6 +4455,16 @@
 			path = ../../scribus/unicodemap;
 			sourceTree = SOURCE_ROOT;
 		};
+		8885481B18EB38300063510D /* xpsexport */ = {
+			isa = PBXGroup;
+			children = (
+				8885481C18EB38300063510D /* CMakeLists.txt */,
+				8885481D18EB38300063510D /* xpsexplugin.cpp */,
+				8885481E18EB38300063510D /* xpsexplugin.h */,
+			);
+			path = xpsexport;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXLegacyTarget section */
@@ -4499,7 +4517,14 @@
 			isa = PBXProject;
 			buildConfigurationList = 1DEB919308733D9F0010E9CD /* Build configuration list for PBXProject "Scribus" */;
 			compatibilityVersion = "Xcode 3.1";
+			developmentRegion = English;
 			hasScannedForEncodings = 1;
+			knownRegions = (
+				English,
+				Japanese,
+				French,
+				German,
+			);
 			mainGroup = 08FB7794FE84155DC02AAC07 /* Scribus */;
 			projectDirPath = "";
 			projectRoot = "";

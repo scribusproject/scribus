@@ -768,7 +768,7 @@ public:
 	/**
 	 * @brief Sets up the ScText defaults from the document
 	 */
-	void setScTextDefaultsFromDoc(ScText *);
+	//void setScTextDefaultsFromDoc(ScText *);
 	/**
 	 * @brief Copies a normal page to be a master pages
 	 */

@@ -1166,21 +1166,25 @@ QDomElement SVGExPlug::processTextItem(PageItem *Item, QString trans, QString fi
 	}
 	double x, y, wide;
 	QString chstr;
-	for (uint ll=0; ll < Item->itemText.lines(); ++ll)
+	for (uint ll=0; ll < Item->textLayout.lines(); ++ll)
 	{
-		LineSpec ls = Item->itemText.line(ll);
+		LineSpec ls = Item->textLayout.line(ll);
 		double CurX = ls.x;
 		for (int a = ls.firstItem; a <= ls.lastItem; ++a)
 		{
 			x = 0.0;
 			y = 0.0;
-			ScText * hl = Item->itemText.item_p(a);
+			//ScText * hl = Item->itemText.item_p(a);
 			const CharStyle& charStyle(Item->itemText.charStyle(a));
+            const GlyphLayout* glyphs = Item->itemText.getGlyphs(a);
+            PageItem* embItem = Item->itemText.hasObject(a)? Item->itemText.object(a) : NULL;
+            LayoutFlags flags = Item->itemText.flags(a);
+            
 			chstr = Item->itemText.text(a,1);
 			if ((chstr == QChar(13)) || (chstr == QChar(29)))
 			{
 				if (chstr == QChar(29))
-					CurX += hl->glyph.wide();
+					CurX += glyphs->wide();
 				continue;
 			}
 			if (chstr == QChar(30))
@@ -1188,20 +1192,20 @@ QDomElement SVGExPlug::processTextItem(PageItem *Item, QString trans, QString fi
 				chstr = Item->ExpandToken(a);
 				if (chstr == QChar(32))
 				{
-					CurX += hl->glyph.wide();
+					CurX += glyphs->wide();
 					continue;
 				}
 			}
 			double chs = charStyle.fontSize();
-			if (hl->effects() & ScStyle_SmallCaps)
+			if (charStyle.effects() & ScStyle_SmallCaps)
 			{
 				if (chstr.toUpper() != chstr)
 				{
-					chs = qMax(static_cast<int>(hl->fontSize() * m_Doc->typographicPrefs().valueSmallCaps / 100), 1);
+					chs = qMax(static_cast<int>(charStyle.fontSize() * m_Doc->typographicPrefs().valueSmallCaps / 100), 1);
 					chstr = chstr.toUpper();
 				}
 			}
-			else if (hl->effects() & ScStyle_AllCaps)
+			else if (charStyle.effects() & ScStyle_AllCaps)
 				chstr = chstr.toUpper();
 			uint chr = chstr[0].unicode();
 			QTransform chma, chma2, chma3, chma4, chma6;
@@ -1212,20 +1216,20 @@ QDomElement SVGExPlug::processTextItem(PageItem *Item, QString trans, QString fi
 				sca.translate(-Item->xPos(), -Item->yPos());
 				trafo *= sca;
 			}
-			chma.scale(hl->glyph.scaleH * charStyle.fontSize() / 100.00, hl->glyph.scaleV * charStyle.fontSize() / 100.0);
+			chma.scale(glyphs->scaleH * charStyle.fontSize() / 100.00, glyphs->scaleV * charStyle.fontSize() / 100.0);
 			if (Item->reversed())
 			{
 				if (a < Item->itemText.length()-1)
-					wide = hl->font().charWidth(chstr[0], hl->fontSize(), Item->itemText.text(a+1));
+					wide = charStyle.font().charWidth(chstr[0], charStyle.fontSize(), Item->itemText.text(a+1));
 				else
-					wide = hl->font().charWidth(chstr[0], hl->fontSize());
+					wide = charStyle.font().charWidth(chstr[0], charStyle.fontSize());
 				chma3.scale(-1, 1);
 				chma3.translate(-wide, 0);
 			}
-			chma4.translate(0, Item->BaseOffs - (charStyle.fontSize() / 10.0) * hl->glyph.scaleV);
+			chma4.translate(0, Item->BaseOffs - (charStyle.fontSize() / 10.0) * glyphs->scaleV);
 			if (charStyle.effects() & (ScStyle_Subscript | ScStyle_Superscript | ScLayout_DropCap))
-				chma6.translate(0, hl->glyph.yoffset);
-			if (hl->baselineOffset() != 0)
+				chma6.translate(0, glyphs->yoffset);
+			if (charStyle.baselineOffset() != 0)
 				chma6.translate(0, (-charStyle.fontSize() / 10.0) * (charStyle.baselineOffset() / 1000.0));
 			QTransform finalMat = chma * chma2 * chma3 * chma4 * chma6 * trafo;
 			if (Item->rotation() != 0)
@@ -1234,16 +1238,16 @@ QDomElement SVGExPlug::processTextItem(PageItem *Item, QString trans, QString fi
 				sca.translate(Item->xPos(), Item->yPos());
 				finalMat *= sca;
 			}
-			if (hl->hasObject(m_Doc))
+			if (embItem != NULL)
 			{
-				ob.appendChild(processInlineItem(CurX + hl->glyph.xoffset, ls.y + hl->glyph.yoffset, finalMat, hl, false, trans));
-				CurX += (hl->getItem(m_Doc)->width() + hl->getItem(m_Doc)->lineWidth()) * hl->glyph.scaleH;
+				ob.appendChild(processInlineItem(CurX + glyphs->xoffset, ls.y + glyphs->yoffset, finalMat, embItem, charStyle, false, trans));
+				CurX += (embItem->width() + embItem->lineWidth()) * glyphs->scaleH;
 			}
 			else
 			{
 				QString glName;
 				if (chstr > QChar(32))
-					glName = handleGlyph(chr, hl);
+					glName = handleGlyph(chr, charStyle);
 				if ((charStyle.effects() & ScStyle_Shadowed) && (charStyle.strokeColor() != CommonStrings::None) && (chstr > QChar(32)))
 				{
 					QTransform sha = finalMat;
@@ -1253,18 +1257,18 @@ QDomElement SVGExPlug::processTextItem(PageItem *Item, QString trans, QString fi
 					QDomElement ob2 = docu.createElement("use");
 					ob2.setAttribute("xlink:href", "#" + glName);
 					ob2.setAttribute("transform", MatrixToStr(sha));
-					ob2.setAttribute("style", "fill:"+SetColor(hl->strokeColor(), hl->strokeShade())+";" + "stroke:none;");
+					ob2.setAttribute("style", "fill:"+SetColor(charStyle.strokeColor(), charStyle.strokeShade())+";" + "stroke:none;");
 					ob.appendChild(ob2);
 				}
-				QChar chstc = hl->ch;
-				if (((charStyle.effects() & ScStyle_Underline) && !SpecialChars::isBreak(chstc))
-					|| ((charStyle.effects() & ScStyle_UnderlineWords) && !chstc.isSpace() && !SpecialChars::isBreak(chstc)))
+				
+				if (((charStyle.effects() & ScStyle_Underline) && !SpecialChars::isBreak(chstr[0]))
+					|| ((charStyle.effects() & ScStyle_UnderlineWords) && !chstr[0].isSpace() && !SpecialChars::isBreak(chstr[0])))
 				{
 					x = CurX;
 					y = ls.y;
-					double Ulen = hl->glyph.xadvance;
+					double Ulen = glyphs->xadvance;
 					double Upos, lw, kern;
-					if (charStyle.effects() & ScLayout_StartOfLine)
+					if (flags & ScLayout_StartOfLine)
 						kern = 0;
 					else
 						kern = charStyle.fontSize() * charStyle.tracking() / 10000.0;
@@ -1288,9 +1292,9 @@ QDomElement SVGExPlug::processTextItem(PageItem *Item, QString trans, QString fi
 						Upos += (charStyle.fontSize() / 10.0) * (charStyle.baselineOffset() / 1000.0);
 					QDomElement ob6 = docu.createElement("path");
 					if (charStyle.effects() & ScStyle_Subscript)
-						ob6.setAttribute("d", QString("M %1 %2 L%3 %4").arg(x + hl->glyph.xoffset-kern).arg(y + hl->glyph.yoffset - Upos).arg(x + hl->glyph.xoffset+Ulen).arg(y + hl->glyph.yoffset - Upos));
+						ob6.setAttribute("d", QString("M %1 %2 L%3 %4").arg(x + glyphs->xoffset-kern).arg(y + glyphs->yoffset - Upos).arg(x + glyphs->xoffset+Ulen).arg(y + glyphs->yoffset - Upos));
 					else
-						ob6.setAttribute("d", QString("M %1 %2 L%3 %4").arg(x + hl->glyph.xoffset-kern).arg(y - Upos).arg(x + hl->glyph.xoffset+Ulen).arg(y - Upos));
+						ob6.setAttribute("d", QString("M %1 %2 L%3 %4").arg(x + glyphs->xoffset-kern).arg(y - Upos).arg(x + glyphs->xoffset+Ulen).arg(y - Upos));
 					QString sT = "stroke:none;";
 					if (charStyle.fillColor() != CommonStrings::None)
 					{
@@ -1305,12 +1309,12 @@ QDomElement SVGExPlug::processTextItem(PageItem *Item, QString trans, QString fi
 					QDomElement ob3 = docu.createElement("use");
 					ob3.setAttribute("xlink:href", "#" + glName);
 					ob3.setAttribute("transform", MatrixToStr(finalMat));
-					QString fT = "fill:"+SetColor(hl->fillColor(), hl->fillShade())+";";
+					QString fT = "fill:"+SetColor(charStyle.fillColor(), charStyle.fillShade())+";";
 					QString sT = "stroke:none;";
 					if (charStyle.effects() & ScStyle_Outline)
 					{
-						sT = "stroke:"+SetColor(hl->strokeColor(), hl->strokeShade())+";";
-						sT += " stroke-width:"+FToStr(chs * hl->outlineWidth() / 10000.0)+";";
+						sT = "stroke:"+SetColor(charStyle.strokeColor(), charStyle.strokeShade())+";";
+						sT += " stroke-width:"+FToStr(chs * charStyle.outlineWidth() / 10000.0)+";";
 					}
 					ob3.setAttribute("style", fT + sT);
 					ob.appendChild(ob3);
@@ -1319,9 +1323,9 @@ QDomElement SVGExPlug::processTextItem(PageItem *Item, QString trans, QString fi
 				{
 					x = CurX;
 					y = ls.y;
-					double Ulen = hl->glyph.xadvance;
+					double Ulen = glyphs->xadvance;
 					double Upos, lw, kern;
-					if (charStyle.effects() & ScLayout_StartOfLine)
+					if (flags & ScLayout_StartOfLine)
 						kern = 0;
 					else
 						kern = charStyle.fontSize() * charStyle.tracking() / 10000.0;
@@ -1342,9 +1346,9 @@ QDomElement SVGExPlug::processTextItem(PageItem *Item, QString trans, QString fi
 						lw = qMax(charStyle.font().strokeWidth(charStyle.fontSize() / 10.0), 1.0);
 					}
 					if (charStyle.baselineOffset() != 0)
-						Upos += (charStyle.fontSize() / 10.0) * hl->glyph.scaleV * (charStyle.baselineOffset() / 1000.0);
+						Upos += (charStyle.fontSize() / 10.0) * glyphs->scaleV * (charStyle.baselineOffset() / 1000.0);
 					QDomElement ob7 = docu.createElement("path");
-					ob7.setAttribute("d", QString("M %1 %2 L%3 %4").arg(x + hl->glyph.xoffset-kern).arg(y + hl->glyph.yoffset - Upos).arg(x + hl->glyph.xoffset+Ulen).arg(y + hl->glyph.yoffset - Upos));
+					ob7.setAttribute("d", QString("M %1 %2 L%3 %4").arg(x + glyphs->xoffset-kern).arg(y + glyphs->yoffset - Upos).arg(x + glyphs->xoffset+Ulen).arg(y + glyphs->yoffset - Upos));
 					QString sT = "stroke:none;";
 					if (charStyle.fillColor() != CommonStrings::None)
 					{
@@ -1354,7 +1358,7 @@ QDomElement SVGExPlug::processTextItem(PageItem *Item, QString trans, QString fi
 					ob7.setAttribute("style", "fill:none;" + sT);
 					ob.appendChild(ob7);
 				}
-				CurX += hl->glyph.wide();
+				CurX += glyphs->wide();
 			}
 		}
 	}
@@ -1417,10 +1421,15 @@ QDomElement SVGExPlug::processPathTextItem(PageItem *Item, QString trans, QStrin
 	QString chstr;
 	for (int a = 0; a < Item->asPathText()->itemRenderText.length(); ++a)
 	{
-		ScText *hl = Item->asPathText()->itemRenderText.item_p(a);
+		//ScText *hl = Item->asPathText()->itemRenderText.item_p(a);
 		const CharStyle& charStyle(Item->asPathText()->itemRenderText.charStyle(a));
+		const GlyphLayout* glyphs = Item->asPathText()->itemRenderText.getGlyphs(a);
+        const PathData* pdata = &(Item->textLayout.point(a));
+        PageItem* embItem = Item->itemText.hasObject(a)? Item->itemText.object(a) : NULL;
+        LayoutFlags flags = Item->itemText.flags(a);
+        
 		chstr = Item->asPathText()->itemRenderText.text(a,1);
-		if ((chstr == QChar(13)) || (chstr == QChar(29)))
+        if ((chstr == QChar(13)) || (chstr == QChar(29)))
 			continue;
 		if (chstr == QChar(30))
 		{
@@ -1429,26 +1438,27 @@ QDomElement SVGExPlug::processPathTextItem(PageItem *Item, QString trans, QStrin
 				continue;
 		}
 		double chs = charStyle.fontSize();
-		if (hl->effects() & ScStyle_SmallCaps)
+		if (charStyle.effects() & ScStyle_SmallCaps)
 		{
 			if (chstr.toUpper() != chstr)
 			{
-				chs = qMax(static_cast<int>(hl->fontSize() * m_Doc->typographicPrefs().valueSmallCaps / 100), 1);
+				chs = qMax(static_cast<int>(charStyle.fontSize() * m_Doc->typographicPrefs().valueSmallCaps / 100), 1);
 				chstr = chstr.toUpper();
 			}
 		}
-		else if (hl->effects() & ScStyle_AllCaps)
+		else if (charStyle.effects() & ScStyle_AllCaps)
 			chstr = chstr.toUpper();
 		uint chr = chstr[0].unicode();
-		QPointF tangt = QPointF( cos(hl->PRot), sin(hl->PRot) );
+        
+		QPointF tangt = QPointF( cos(pdata->PRot), sin(pdata->PRot) );
 		QTransform chma, chma2, chma3, chma4, chma6;
-		QTransform trafo = QTransform( 1, 0, 0, -1, -hl->PDx, 0 );
+		QTransform trafo = QTransform( 1, 0, 0, -1, -pdata->PDx, 0 );
 		if (Item->textPathFlipped)
 			trafo *= QTransform(1, 0, 0, -1, 0, 0);
 		if (Item->textPathType == 0)
-			trafo *= QTransform( tangt.x(), tangt.y(), tangt.y(), -tangt.x(), hl->PtransX, hl->PtransY );
+			trafo *= QTransform( tangt.x(), tangt.y(), tangt.y(), -tangt.x(), pdata->PtransX, pdata->PtransY );
 		else if (Item->textPathType == 1)
-			trafo *= QTransform(1, 0, 0, -1, hl->PtransX, hl->PtransY );
+			trafo *= QTransform(1, 0, 0, -1, pdata->PtransX, pdata->PtransY );
 		else if (Item->textPathType == 2)
 		{
 			double a = 1;
@@ -1459,14 +1469,14 @@ QDomElement SVGExPlug::processPathTextItem(PageItem *Item, QString trans, QStrin
 				b = 1;
 			}
 			if (fabs(tangt.x()) > 0.1)
-				trafo *= QTransform( a, (tangt.y() / tangt.x()) * b, 0, -1, hl->PtransX, hl->PtransY ); // ID's Skew mode
+				trafo *= QTransform( a, (tangt.y() / tangt.x()) * b, 0, -1, pdata->PtransX, pdata->PtransY ); // ID's Skew mode
 			else
-				trafo *= QTransform( a, 6 * b, 0, -1, hl->PtransX, hl->PtransY );
+				trafo *= QTransform( a, 6 * b, 0, -1, pdata->PtransX, pdata->PtransY );
 		}
-		if (hl->hasObject(m_Doc))
+		if (embItem != NULL)
 		{
 			QTransform finalMat = chma * chma2 * chma3 * chma4 * chma6 * trafo;
-			ob.appendChild(processInlineItem(0, 0, finalMat, hl, true, trans));
+			ob.appendChild(processInlineItem(0, 0, finalMat, embItem, charStyle, true, trans));
 		}
 		else
 		{
@@ -1476,20 +1486,20 @@ QDomElement SVGExPlug::processPathTextItem(PageItem *Item, QString trans, QStrin
 				sca.translate(-Item->xPos(), -Item->yPos());
 				trafo *= sca;
 			}
-			chma.scale(hl->glyph.scaleH * charStyle.fontSize() / 100.00, hl->glyph.scaleV * charStyle.fontSize() / 100.0);
+			chma.scale(glyphs->scaleH * charStyle.fontSize() / 100.00, glyphs->scaleV * charStyle.fontSize() / 100.0);
 			if (Item->reversed())
 			{
 				if (a < Item->itemText.length()-1)
-					wide = hl->font().charWidth(chstr[0], hl->fontSize(), Item->itemText.text(a+1));
+					wide = charStyle.font().charWidth(chstr[0], charStyle.fontSize(), Item->itemText.text(a+1));
 				else
-					wide = hl->font().charWidth(chstr[0], hl->fontSize());
+					wide = charStyle.font().charWidth(chstr[0], charStyle.fontSize());
 				chma3.scale(-1, 1);
 				chma3.translate(-wide, 0);
 			}
-			chma4.translate(0, Item->BaseOffs - (charStyle.fontSize() / 10.0) * hl->glyph.scaleV);
+			chma4.translate(0, Item->BaseOffs - (charStyle.fontSize() / 10.0) * glyphs->scaleV);
 			if (charStyle.effects() & (ScStyle_Subscript | ScStyle_Superscript | ScLayout_DropCap))
-				chma6.translate(0, hl->glyph.yoffset);
-			if (hl->baselineOffset() != 0)
+				chma6.translate(0, glyphs->yoffset);
+			if (charStyle.baselineOffset() != 0)
 				chma6.translate(0, (-charStyle.fontSize() / 10.0) * (charStyle.baselineOffset() / 1000.0));
 			QTransform finalMat = chma * chma2 * chma3 * chma4 * chma6 * trafo;
 			if (Item->rotation() != 0)
@@ -1498,9 +1508,9 @@ QDomElement SVGExPlug::processPathTextItem(PageItem *Item, QString trans, QStrin
 				sca.translate(Item->xPos(), Item->yPos());
 				finalMat *= sca;
 			}
-			QChar chstc = hl->ch;
-			if (((charStyle.effects() & ScStyle_Underline) && !SpecialChars::isBreak(chstc))
-				|| ((charStyle.effects() & ScStyle_UnderlineWords) && !chstc.isSpace() && !SpecialChars::isBreak(chstc)))
+
+			if (((charStyle.effects() & ScStyle_Underline) && !SpecialChars::isBreak(chstr[0]))
+				|| ((charStyle.effects() & ScStyle_UnderlineWords) && !chstr[0].isSpace() && !SpecialChars::isBreak(chstr[0])))
 			{
 				QTransform stro = chma2 * chma3 * chma6 * trafo;
 				if (Item->rotation() != 0)
@@ -1509,9 +1519,9 @@ QDomElement SVGExPlug::processPathTextItem(PageItem *Item, QString trans, QStrin
 					sca.translate(Item->xPos(), Item->yPos());
 					stro *= sca;
 				}
-				double Ulen = hl->glyph.xadvance;
+				double Ulen = glyphs->xadvance;
 				double Upos, Uwid, kern;
-				if (hl->effects() & ScLayout_StartOfLine)
+				if (flags & ScLayout_StartOfLine)
 					kern = 0;
 				else
 					kern = charStyle.fontSize() * charStyle.tracking() / 10000.0;
@@ -1536,9 +1546,9 @@ QDomElement SVGExPlug::processPathTextItem(PageItem *Item, QString trans, QStrin
 				QDomElement ob8 = docu.createElement("path");
 				ob8.setAttribute("transform", MatrixToStr(stro));
 				if (charStyle.effects() & ScStyle_Subscript)
-					ob8.setAttribute("d", QString("M %1 %2 L%3 %4").arg(hl->glyph.xoffset-kern).arg(-Upos).arg(hl->glyph.xoffset+Ulen).arg(-Upos));
+					ob8.setAttribute("d", QString("M %1 %2 L%3 %4").arg(glyphs->xoffset-kern).arg(-Upos).arg(glyphs->xoffset+Ulen).arg(-Upos));
 				else
-					ob8.setAttribute("d", QString("M %1 %2 L%3 %4").arg(hl->glyph.xoffset-kern).arg(-(Upos + hl->glyph.yoffset)).arg(hl->glyph.xoffset+Ulen).arg(-(Upos + hl->glyph.yoffset)));
+					ob8.setAttribute("d", QString("M %1 %2 L%3 %4").arg(glyphs->xoffset-kern).arg(-(Upos + glyphs->yoffset)).arg(glyphs->xoffset+Ulen).arg(-(Upos + glyphs->yoffset)));
 				QString sT = "stroke:none;";
 				if (charStyle.fillColor() != CommonStrings::None)
 				{
@@ -1550,7 +1560,7 @@ QDomElement SVGExPlug::processPathTextItem(PageItem *Item, QString trans, QStrin
 			}
 			if (chstr > QChar(32))
 			{
-				QString glName = handleGlyph(chr, hl);
+				QString glName = handleGlyph(chr, charStyle);
 				if ((charStyle.effects() & ScStyle_Shadowed) && (charStyle.strokeColor() != CommonStrings::None))
 				{
 					QTransform sha = finalMat;
@@ -1560,18 +1570,18 @@ QDomElement SVGExPlug::processPathTextItem(PageItem *Item, QString trans, QStrin
 					QDomElement ob2 = docu.createElement("use");
 					ob2.setAttribute("xlink:href", "#" + glName);
 					ob2.setAttribute("transform", MatrixToStr(sha));
-					ob2.setAttribute("style", "fill:"+SetColor(hl->strokeColor(), hl->strokeShade())+";" + "stroke:none;");
+					ob2.setAttribute("style", "fill:"+SetColor(charStyle.strokeColor(), charStyle.strokeShade())+";" + "stroke:none;");
 					ob.appendChild(ob2);
 				}
 				QDomElement ob1 = docu.createElement("use");
 				ob1.setAttribute("xlink:href", "#" + glName);
 				ob1.setAttribute("transform", MatrixToStr(finalMat));
-				QString fT = "fill:"+SetColor(hl->fillColor(), hl->fillShade())+";";
+				QString fT = "fill:"+SetColor(charStyle.fillColor(), charStyle.fillShade())+";";
 				QString sT = "stroke:none;";
 				if (charStyle.effects() & ScStyle_Outline)
 				{
-					sT = "stroke:"+SetColor(hl->strokeColor(), hl->strokeShade())+";";
-					sT += " stroke-width:"+FToStr(chs * hl->outlineWidth() / 10000.0)+";";
+					sT = "stroke:"+SetColor(charStyle.strokeColor(), charStyle.strokeShade())+";";
+					sT += " stroke-width:"+FToStr(chs * charStyle.outlineWidth() / 10000.0)+";";
 				}
 				ob1.setAttribute("style", fT + sT);
 				ob.appendChild(ob1);
@@ -1585,9 +1595,9 @@ QDomElement SVGExPlug::processPathTextItem(PageItem *Item, QString trans, QStrin
 					sca.translate(Item->xPos(), Item->yPos());
 					stro *= sca;
 				}
-				double Ulen = hl->glyph.xadvance;
+				double Ulen = glyphs->xadvance;
 				double Upos, Uwid, kern;
-				if (hl->effects() & ScLayout_StartOfLine)
+				if (flags & ScLayout_StartOfLine)
 					kern = 0;
 				else
 					kern = charStyle.fontSize() * charStyle.tracking() / 10000.0;
@@ -1611,7 +1621,7 @@ QDomElement SVGExPlug::processPathTextItem(PageItem *Item, QString trans, QStrin
 					Upos += (charStyle.fontSize() / 10.0) * (charStyle.baselineOffset() / 1000.0);
 				QDomElement ob7 = docu.createElement("path");
 				ob7.setAttribute("transform", MatrixToStr(stro));
-				ob7.setAttribute("d", QString("M %1 %2 L%3 %4").arg(hl->glyph.xoffset-kern).arg(-Upos).arg(hl->glyph.xoffset+Ulen).arg(-Upos));
+				ob7.setAttribute("d", QString("M %1 %2 L%3 %4").arg(glyphs->xoffset-kern).arg(-Upos).arg(glyphs->xoffset+Ulen).arg(-Upos));
 				QString sT = "stroke:none;";
 				if (charStyle.fillColor() != CommonStrings::None)
 				{
@@ -1626,10 +1636,14 @@ QDomElement SVGExPlug::processPathTextItem(PageItem *Item, QString trans, QStrin
 	return ob;
 }
 
-QDomElement SVGExPlug::processInlineItem(double xpos, double ypos, QTransform &finalMat, ScText *hl, bool pathT, QString trans)
+QDomElement SVGExPlug::processInlineItem(double xpos, double ypos, QTransform &finalMat, PageItem* embItem, const CharStyle & charStyle, bool pathT, QString trans)
 {
-	const CharStyle & charStyle(*hl);
-	QList<PageItem*> emG = hl->getGroupedItems(m_Doc);
+	QList<PageItem*> emG;
+    if (embItem->isGroup())
+        emG = embItem->getItemList();
+    else 
+        emG.append(embItem);
+    
 	QDomElement layerGroup = docu.createElement("g");
 	if (pathT)
 		layerGroup.setAttribute("transform", MatrixToStr(finalMat));
@@ -1687,15 +1701,15 @@ QDomElement SVGExPlug::processInlineItem(double xpos, double ypos, QTransform &f
 	return layerGroup;
 }
 
-QString SVGExPlug::handleGlyph(uint chr, ScText *hl)
+QString SVGExPlug::handleGlyph(uint chr, const CharStyle& cStyle)
 {
 	if (chr == 32)
 		return "SPACE";
-	QString glName = QString("Gl%1%2").arg(hl->font().psName().simplified().replace(QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" )).arg(chr);
+	QString glName = QString("Gl%1%2").arg(cStyle.font().psName().simplified().replace(QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" )).arg(chr);
 	if (glyphNames.contains(glName))
 		return glName;
-	uint gl = hl->font().char2CMap(chr);
-	FPointArray pts = hl->font().glyphOutline(gl);
+	uint gl = cStyle.font().char2CMap(chr);
+	FPointArray pts = cStyle.font().glyphOutline(gl);
 	QDomElement ob = docu.createElement("path");
 	ob.setAttribute("d", SetClipPath(&pts, true));
 	ob.setAttribute("id", glName);

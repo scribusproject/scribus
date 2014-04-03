@@ -127,7 +127,7 @@ PyObject *scribus_gettextlines(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot get number of lines of non-text frame.","python error").toLocal8Bit().constData());
 		return NULL;
 	}
-	return PyInt_FromLong(static_cast<long>(i->itemText.lines()));
+	return PyInt_FromLong(static_cast<long>(i->textLayout.lines()));
 }
 
 PyObject *scribus_getcolumns(PyObject* /* self */, PyObject* args)

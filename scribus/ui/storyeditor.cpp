@@ -2586,7 +2586,7 @@ void StoryEditor::updateProps(int p, int ch)
 		Editor->prevFont = Editor->CurrFont;
 		Editor->CurrFont = charStyle.font().scName();
 		Editor->CurrFontSize = charStyle.fontSize();
-		Editor->CurrentEffects = charStyle.effects() & static_cast<StyleFlag>(1919);
+		Editor->CurrentEffects = charStyle.effects() & static_cast<StyleFlag>(ScStyle_UserStyles);
 		Editor->CurrTextKern   = charStyle.tracking();
 		Editor->CurrTextScale  = charStyle.scaleH();
 		Editor->CurrTextScaleV = charStyle.scaleV();
@@ -2953,7 +2953,8 @@ void StoryEditor::updateTextFrame()
 	Editor->saveItemText(nextItem);
 	// #9180 : force relayout here, it appears that relayout is sometime disabled
 	// to speed up selection, but re layout() cannot be avoided here
-	nextItem->asTextFrame()->invalidateLayout(true);
+	if (nextItem->asTextFrame())
+        nextItem->asTextFrame()->invalidateLayout(true);
 	nextItem->layout();
 #if 0
 	QList<PageItem*> FrameItemsDel;

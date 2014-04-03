@@ -1523,7 +1523,7 @@ bool ScribusView::slotSetCurs(int x, int y)
 		if (textFrame->imageFlippedV())
 			point.setY(textFrame->height() - point.y());
 		textFrame->itemText.setCursorPosition(textFrame->itemText.length() == 0 ? 0 :
-			textFrame->itemText.screenToPosition(point));
+			textFrame->textLayout.screenToPosition(point));
 
 		if (textFrame->itemText.length() > 0)
 		{
@@ -3108,8 +3108,12 @@ void ScribusView::TextToPath()
 					pts.resize(0);
 					x = 0.0;
 					y = 0.0;
-					ScText * hl = currItem->asPathText()->itemRenderText.item_p(a);
+					//ScText * hl = currItem->asPathText()->itemRenderText.item_p(a);
 					const CharStyle& charStyle(currItem->asPathText()->itemRenderText.charStyle(a));
+                    const PathData& pdata(currItem->textLayout.point(a));
+                    const GlyphLayout* glyphs = currItem->asPathText()->itemRenderText.getGlyphs(a);
+                    LayoutFlags flags = currItem->asPathText()->itemRenderText.flags(a);
+                    
 					chstr = currItem->asPathText()->itemRenderText.text(a,1);
 					if ((chstr == SpecialChars::PARSEP) || (chstr == SpecialChars::OLD_NBSPACE))
 						continue;
@@ -3132,15 +3136,15 @@ void ScribusView::TextToPath()
 						chstr = chstr[0].toUpper();
 	//					double csi = static_cast<double>(chs) / 100.0;
 					uint chr = chstr[0].unicode();
-					QPointF tangt = QPointF( cos(hl->PRot), sin(hl->PRot) );
+					QPointF tangt = QPointF( cos(pdata.PRot), sin(pdata.PRot) );
 					QTransform chma, chma2, chma3, chma4, chma6;
-					QTransform trafo = QTransform( 1, 0, 0, -1, -hl->PDx, 0 );
+					QTransform trafo = QTransform( 1, 0, 0, -1, -pdata.PDx, 0 );
 					if (currItem->textPathFlipped)
 						trafo *= QTransform(1, 0, 0, -1, 0, 0);
 					if (currItem->textPathType == 0)
-						trafo *= QTransform( tangt.x(), tangt.y(), tangt.y(), -tangt.x(), hl->PtransX, hl->PtransY );
+						trafo *= QTransform( tangt.x(), tangt.y(), tangt.y(), -tangt.x(), pdata.PtransX, pdata.PtransY );
 					else if (currItem->textPathType == 1)
-						trafo *= QTransform(1, 0, 0, -1, hl->PtransX, hl->PtransY );
+						trafo *= QTransform(1, 0, 0, -1, pdata.PtransX, pdata.PtransY );
 					else if (currItem->textPathType == 2)
 					{
 						double a = 1;
@@ -3151,11 +3155,11 @@ void ScribusView::TextToPath()
 							b = 1;
 						}
 						if (fabs(tangt.x()) > 0.1)
-							trafo *= QTransform( a, (tangt.y() / tangt.x()) * b, 0, -1, hl->PtransX, hl->PtransY ); // ID's Skew mode
+							trafo *= QTransform( a, (tangt.y() / tangt.x()) * b, 0, -1, pdata.PtransX, pdata.PtransY ); // ID's Skew mode
 						else
-							trafo *= QTransform( a, 6 * b, 0, -1, hl->PtransX, hl->PtransY );
+							trafo *= QTransform( a, 6 * b, 0, -1, pdata.PtransX, pdata.PtransY );
 					}
-					//trafo *= QTransform( hl->PtransX, hl->PtransY, hl->PtransY, -hl->PtransX, hl->glyph.xoffset, hl->glyph.yoffset);
+					//trafo *= QTransform( hl->PtransX, hl->PtransY, hl->PtransY, -hl->PtransX, glyphs->xoffset, glyphs->yoffset);
 					if (currItem->rotation() != 0)
 					{
 						QTransform sca;
@@ -3163,7 +3167,7 @@ void ScribusView::TextToPath()
 						sca.rotate(currItem->rotation());
 						trafo *= sca;
 					}
-					chma.scale(hl->glyph.scaleH * charStyle.fontSize() / 100.00, hl->glyph.scaleV * charStyle.fontSize() / 100.0);
+					chma.scale(glyphs->scaleH * charStyle.fontSize() / 100.00, glyphs->scaleV * charStyle.fontSize() / 100.0);
 					if (currItem->reversed())
 					{
 						if (a < currItem->asPathText()->itemRenderText.length()-1)
@@ -3173,9 +3177,9 @@ void ScribusView::TextToPath()
 						chma3.scale(-1, 1);
 						chma3.translate(-wide, 0);
 					}
-					chma4.translate(0, currItem->BaseOffs - (charStyle.fontSize() / 10.0) * hl->glyph.scaleV);
+					chma4.translate(0, currItem->BaseOffs - (charStyle.fontSize() / 10.0) * glyphs->scaleV);
 					if (charStyle.effects() & (ScStyle_Subscript | ScStyle_Superscript))
-						chma6.translate(0, hl->glyph.yoffset);
+						chma6.translate(0, glyphs->yoffset);
 					if (charStyle.baselineOffset() != 0)
 						chma6.translate(0, (-charStyle.fontSize() / 10.0) * (charStyle.baselineOffset() / 1000.0));
 					uint gl = charStyle.font().char2CMap(chr);
@@ -3186,7 +3190,7 @@ void ScribusView::TextToPath()
 						sca.translate(currItem->xPos(), currItem->yPos());
 						pts.map(sca);
 					}
-					QChar chstc = hl->ch;
+					QChar chstc = chstr[0];
 					if (((charStyle.effects() & ScStyle_Underline) && !SpecialChars::isBreak(chstc))
 						|| ((charStyle.effects() & ScStyle_UnderlineWords) && !chstc.isSpace() && !SpecialChars::isBreak(chstc)))
 					{
@@ -3197,9 +3201,9 @@ void ScribusView::TextToPath()
 							sca.translate(currItem->xPos(), currItem->yPos());
 							stro *= sca;
 						}
-						double Ulen = hl->glyph.xadvance;
+						double Ulen = glyphs->xadvance;
 						double Upos, Uwid, kern;
-						if (charStyle.effects() & ScLayout_StartOfLine)
+						if (flags & ScLayout_StartOfLine)
 							kern = 0;
 						else
 							kern = charStyle.fontSize() * charStyle.tracking() / 10000.0;
@@ -3232,13 +3236,13 @@ void ScribusView::TextToPath()
 						FPoint start, stop;
 						if (charStyle.effects() & ScStyle_Subscript)
 						{
-							start = FPoint(hl->glyph.xoffset-kern, -Upos);
-							stop = FPoint(hl->glyph.xoffset+Ulen, -Upos);
+							start = FPoint(glyphs->xoffset-kern, -Upos);
+							stop = FPoint(glyphs->xoffset+Ulen, -Upos);
 						}
 						else
 						{
-							start = FPoint(hl->glyph.xoffset-kern, -(Upos + hl->glyph.yoffset));
-							stop = FPoint(hl->glyph.xoffset+Ulen, -(Upos + hl->glyph.yoffset));
+							start = FPoint(glyphs->xoffset-kern, -(Upos + glyphs->yoffset));
+							stop = FPoint(glyphs->xoffset+Ulen, -(Upos + glyphs->yoffset));
 						}
 						bb->PoLine.resize(0);
 						bb->PoLine.addQuadPoint(start, start, stop, stop);
@@ -3346,9 +3350,9 @@ void ScribusView::TextToPath()
 							sca.translate(currItem->xPos(), currItem->yPos());
 							stro *= sca;
 						}
-						double Ulen = hl->glyph.xadvance;
+						double Ulen = glyphs->xadvance;
 						double Upos, Uwid, kern;
-						if (charStyle.effects() & ScLayout_StartOfLine)
+						if (flags & ScLayout_StartOfLine)
 							kern = 0;
 						else
 							kern = charStyle.fontSize() * charStyle.tracking() / 10000.0;
@@ -3378,8 +3382,8 @@ void ScribusView::TextToPath()
 						bb->setLocked(currItem->locked());
 						bb->NamedLStyle = currItem->NamedLStyle;
 						bb->setItemName(currItem->itemName()+"+S"+ccounter.setNum(a));
-						FPoint start = FPoint(hl->glyph.xoffset-kern, -Upos);
-						FPoint stop = FPoint(hl->glyph.xoffset+Ulen, -Upos);
+						FPoint start = FPoint(glyphs->xoffset-kern, -Upos);
+						FPoint stop = FPoint(glyphs->xoffset+Ulen, -Upos);
 						bb->PoLine.resize(0);
 						bb->PoLine.addQuadPoint(start, start, stop, stop);
 						bb->PoLine.map(stro);
@@ -3401,9 +3405,9 @@ void ScribusView::TextToPath()
 			}
 			else
 			{
-				for (uint ll=0; ll < currItem->itemText.lines(); ++ll)
+				for (uint ll=0; ll < currItem->textLayout.lines(); ++ll)
 				{
-					LineSpec ls = currItem->itemText.line(ll);
+					LineSpec ls = currItem->textLayout.line(ll);
 					double CurX = ls.x;
 					for (int a = ls.firstItem; a <= ls.lastItem; ++a)
 					{

@@ -5225,12 +5225,12 @@ void ScribusDoc::recalculateColors()
 }
 
 
-void ScribusDoc::setScTextDefaultsFromDoc(ScText *sctextdata)
-{
-	if (sctextdata==NULL)
-		return;
-	reinterpret_cast<CharStyle&>(*sctextdata) = currentStyle.charStyle();
-}
+//void ScribusDoc::setScTextDefaultsFromDoc(ScText *sctextdata)
+//{
+//	if (sctextdata==NULL)
+//		return;
+//	reinterpret_cast<CharStyle&>(*sctextdata) = currentStyle.charStyle();
+//}
 
 bool ScribusDoc::copyPageToMasterPage(const int pageNumber, const int leftPage, const int maxLeftPage,  const QString& masterPageName, bool copyFromAppliedMaster)
 {

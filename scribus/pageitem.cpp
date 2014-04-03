@@ -176,6 +176,7 @@ PageItem::PageItem(const PageItem & other)
 	CurX(other.CurX),
 	CurY(other.CurY),
 	itemText(other.itemText),
+	textLayout(&itemText, this),
 	isBookmark(other.isBookmark),
 	HasSel(other.HasSel),
 	isAutoText(other.isAutoText),
@@ -393,6 +394,7 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	OverrideCompressionQuality(false),
 	CompressionQualityIndex(0),
 	itemText(pa),
+	textLayout(&itemText, this),
 	undoManager(UndoManager::instance()),
 	lineShadeVal(100),
 	fillShadeVal(100),
@@ -2410,12 +2412,12 @@ void PageItem::SetQColor(QColor *tmp, QString farbe, double shad)
     sets xadvance to the advance width without kerning. If more than one glyph
     is generated, kerning is included in all but the last xadvance.
 */
-double PageItem::layoutGlyphs(const CharStyle& style, const QString& chars, GlyphLayout& layout)
+double PageItem::layoutGlyphs(const CharStyle& style, const QString& chars, LayoutFlags flags, GlyphLayout& layout)
 {
 	double retval = 0.0;
 	const ScFace font = style.font();
 	double asce = font.ascent(style.fontSize() / 10.0);
-	int chst = style.effects() & 1919;
+	int chst = style.effects() & ScStyle_UserStyles;
 /*	if (chars[0] == SpecialChars::ZWSPACE ||
 		chars[0] == SpecialChars::ZWNBSPACE ||
 		chars[0] == SpecialChars::NBSPACE ||
@@ -2434,7 +2436,7 @@ double PageItem::layoutGlyphs(const CharStyle& style, const QString& chars, Glyp
 		layout.glyph = font.char2CMap(chars[0].unicode());
 	}
 	double tracking = 0.0;
-	if ( (style.effects() & ScLayout_StartOfLine) == 0)
+	if ( (flags & ScLayout_StartOfLine) == 0)
 		tracking = style.fontSize() * style.tracking() / 10000.0;
 
 	layout.xoffset = tracking;
@@ -2503,7 +2505,7 @@ double PageItem::layoutGlyphs(const CharStyle& style, const QString& chars, Glyp
 
 	if (chars.length() > 1) {
 		layout.grow();
-		layoutGlyphs(style, chars.mid(1), *layout.more);
+		layoutGlyphs(style, chars.mid(1), ScLayout_None, *layout.more);
 		layout.xadvance += font.glyphKerning(layout.glyph, layout.more->glyph, style.fontSize() / 10) * layout.scaleH;
 		if (layout.more->yadvance > layout.yadvance)
 			layout.yadvance = layout.more->yadvance;
@@ -2514,7 +2516,7 @@ double PageItem::layoutGlyphs(const CharStyle& style, const QString& chars, Glyp
 	return retval;
 }
 
-void PageItem::drawGlyphs(ScPainter *p, const CharStyle& style, GlyphLayout& glyphs)
+void PageItem::drawGlyphs(ScPainter *p, const CharStyle& style, LayoutFlags flags, GlyphLayout& glyphs)
 {
 	uint glyph = glyphs.glyph;
 	const ScFace font = style.font();
@@ -2590,7 +2592,7 @@ void PageItem::drawGlyphs(ScPainter *p, const CharStyle& style, GlyphLayout& gly
 		points.map(chma * chma4);
 		p->setupPolygon(&points, true);
 		QColor oldBrush = p->brush();
-		p->setBrush( (style.effects() & ScLayout_SuppressSpace) ? Qt::green
+		p->setBrush( (flags & ScLayout_SuppressSpace) ? Qt::green
 					: PrefsManager::instance()->appPrefs.displayPrefs.controlCharColor);
 		if (stroke)
 		{
@@ -2609,7 +2611,7 @@ void PageItem::drawGlyphs(ScPainter *p, const CharStyle& style, GlyphLayout& gly
 		if (glyphs.more)
 		{
 			p->translate(glyphs.xadvance, 0);
-			drawGlyphs(p, style, *glyphs.more);
+			drawGlyphs(p, style, ScLayout_None, *glyphs.more);
 		}			
 		return;
 	}
@@ -2625,7 +2627,7 @@ void PageItem::drawGlyphs(ScPainter *p, const CharStyle& style, GlyphLayout& gly
 		if (glyphs.more)
 		{
 			p->translate(glyphs.xadvance, 0);
-			drawGlyphs(p, style, *glyphs.more);
+			drawGlyphs(p, style, ScLayout_None, *glyphs.more);
 		}			
 		return;
 	}
@@ -2707,7 +2709,7 @@ void PageItem::drawGlyphs(ScPainter *p, const CharStyle& style, GlyphLayout& gly
 				if (glyphs.more)
 				{
 					p->translate(glyphs.xadvance, 0);
-					drawGlyphs(p, style, *glyphs.more);
+					drawGlyphs(p, style, ScLayout_None, *glyphs.more);
 				}
 				return;
 			}
@@ -2790,7 +2792,7 @@ void PageItem::drawGlyphs(ScPainter *p, const CharStyle& style, GlyphLayout& gly
 	if (glyphs.more)
 	{
 		p->translate(glyphs.xadvance, 0);
-		drawGlyphs(p, style, *glyphs.more);
+		drawGlyphs(p, style, ScLayout_None, *glyphs.more);
 	}
 }
 

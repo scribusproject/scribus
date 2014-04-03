@@ -119,10 +119,12 @@ private:
 	QMap<QString, QString> xps_fontMap;
 	struct txtRunItem
 	{
-		ScText* hl;
+        QChar chr;
+        GlyphLayout* glyphs;
 		CharStyle style;
 		int index;
 		double CurX;
+        PageItem* embItem;
 	};
 	double m_dpi;
 };

@@ -53,10 +53,10 @@ StoryText::StoryText(ScribusDoc * doc_) : m_doc(doc_)
 	m_selFirst = 0;
 	m_selLast = -1;
 	
-	m_firstFrameItem = 0;
-	m_lastFrameItem = -1;
-	m_magicX = 0.0;
-	m_lastMagicPos = -1;
+//	m_firstFrameItem = 0;
+//	m_lastFrameItem = -1;
+//	m_magicX = 0.0;
+//	m_lastMagicPos = -1;
 	
 	d->len = 0;
 	invalidateAll();
@@ -69,10 +69,10 @@ StoryText::StoryText() : m_doc(NULL)
 	m_selFirst = 0;
 	m_selLast = -1;
 	
-	m_firstFrameItem = 0;
-	m_lastFrameItem = -1;
-	m_magicX = 0.0;
-	m_lastMagicPos = -1;
+//	m_firstFrameItem = 0;
+//	m_lastFrameItem = -1;
+//	m_magicX = 0.0;
+//	m_lastMagicPos = -1;
 }
 
 StoryText::StoryText(const StoryText & other) : QObject(), SaxIO(), m_doc(other.m_doc)
@@ -88,10 +88,10 @@ StoryText::StoryText(const StoryText & other) : QObject(), SaxIO(), m_doc(other.
 	m_selFirst = 0;
 	m_selLast = -1;
 	
-	m_firstFrameItem = 0;
-	m_lastFrameItem = -1;
-	m_magicX = 0.0;
-	m_lastMagicPos = -1;
+//	m_firstFrameItem = 0;
+//	m_lastFrameItem = -1;
+//	m_magicX = 0.0;
+//	m_lastMagicPos = -1;
 
 	invalidateLayout();
 }
@@ -152,8 +152,8 @@ StoryText& StoryText::operator= (const StoryText & other)
 	m_selFirst = 0;
 	m_selLast = -1;
 	
-	m_firstFrameItem = 0;
-	m_lastFrameItem = -1;
+//	m_firstFrameItem = 0;
+//	m_lastFrameItem = -1;
 
 	invalidateLayout();
 	return *this;
@@ -186,8 +186,8 @@ void StoryText::clear()
 	m_selFirst = 0;
 	m_selLast = -1;
 
-	m_firstFrameItem = 0;
-	m_lastFrameItem = -1;
+//	m_firstFrameItem = 0;
+//	m_lastFrameItem = -1;
 	
 	d->defaultStyle.erase();
 	d->trailingStyle.erase();
@@ -360,7 +360,7 @@ void StoryText::insert(int pos, const StoryText& other, bool onlySelection)
  */
 void StoryText::insertParSep(int pos)
 {
-	ScText* it = item_p(pos);
+	ScText* it = item(pos);
 	if(!it->parstyle) {
 		it->parstyle = new ParagraphStyle(paragraphStyle(pos+1));
 		it->parstyle->setContext( & d->pstyleContext);
@@ -382,7 +382,7 @@ void StoryText::insertParSep(int pos)
  */
 void StoryText::removeParSep(int pos)
 {
-	ScText* it = item_p(pos);
+	ScText* it = item(pos);
 	if (it->parstyle) {
 //		const CharStyle* oldP = & it->parstyle->charStyle();
 //		const CharStyle* newP = & that->paragraphStyle(pos+1).charStyle();
@@ -870,7 +870,7 @@ LayoutFlags StoryText::flags(int pos) const
     if (pos < 0)
         pos += length();
 
-    assert(pos >= 0);
+	assert(pos >= 0);
     assert(pos < length());
 
     StoryText* that = const_cast<StoryText *>(this);
@@ -1519,104 +1519,7 @@ QString StoryText::wordAt(int pos) const
 	return result;
 }
 
-// these need valid layout:
 
-int StoryText::startOfLine(int pos)
-{
-	for (int i=0; i < m_lines.count(); ++i) {
-		const LineSpec & ls(m_lines.at(i));
-		if (ls.firstItem <= pos && pos <= ls.lastItem)
-			return ls.firstItem;
-	}
-	return 0;
-}
-int StoryText::endOfLine(int pos)
-{
-	for (int i=0; i < m_lines.count(); ++i) {
-		const LineSpec & ls(m_lines.at(i));
-		if (ls.firstItem <= pos && pos <= ls.lastItem)
-			return text(ls.lastItem) == SpecialChars::PARSEP ? ls.lastItem : 
-				text(ls.lastItem) == ' ' ? ls.lastItem : ls.lastItem + 1;
-	}
-	return length();
-}
-int StoryText::prevLine(int pos)
-{
-	for (int i=0; i < m_lines.count(); ++i) 
-	{
-		// find line for pos
-		const LineSpec & ls(m_lines.at(i));
-		if (ls.firstItem <= pos && pos <= ls.lastItem) 
-		{
-			if (i == 0)
-				return startOfLine(pos);
-			// find current xpos
-			qreal xpos = 0.0;
-			for (int j = ls.firstItem; j < pos; ++j)
-				xpos += item(j)->glyph.wide();
-			if (pos != m_lastMagicPos || xpos > m_magicX)
-				m_magicX = xpos;
-			const LineSpec & ls2(m_lines.at(i-1));
-			// find new cpos
-			xpos = 0.0;
-			for (int j = ls2.firstItem; j <= ls2.lastItem; ++j) 
-			{
-				xpos += item(j)->glyph.wide();
-				if (xpos > m_magicX) {
-					m_lastMagicPos = j;
-					return j;
-				}
-			}
-			m_lastMagicPos = ls2.lastItem;
-			return ls2.lastItem;
-		}
-	}
-	return m_firstFrameItem;
-}
-
-int StoryText::nextLine(int pos)
-{
-	for (int i=0; i < m_lines.count(); ++i) 
-	{
-		// find line for pos
-		const LineSpec & ls(m_lines.at(i));
-		if (ls.firstItem <= pos && pos <= ls.lastItem) 
-		{
-			if (i+1 == m_lines.count())
-				return endOfLine(pos);
-			// find current xpos
-			qreal xpos = 0.0;
-			for (int j = ls.firstItem; j < pos; ++j)
-				xpos += item(j)->glyph.wide();
-			if (pos != m_lastMagicPos || xpos > m_magicX)
-				m_magicX = xpos;
-			const LineSpec & ls2(m_lines.at(i+1));
-			// find new cpos
-			xpos = 0.0;
-			for (int j = ls2.firstItem; j <= ls2.lastItem; ++j) 
-			{
-				xpos += item(j)->glyph.wide();
-				if (xpos > m_magicX) {
-					m_lastMagicPos = j;
-					return j;
-				}
-			}
-			m_lastMagicPos = ls2.lastItem + 1;
-			return ls2.lastItem + 1;
-		}
-	}
-	return m_lastFrameItem;
-}
-
-int StoryText::startOfFrame(int pos) 
-{
-	return m_firstFrameItem;
-}
-
-int StoryText::endOfFrame(int pos)
-{
-	return m_lastFrameItem + 1;
-}
 
 // selection
 
@@ -1828,102 +1731,6 @@ void StoryText::validate()
 }
 */
 
-int StoryText::screenToPosition(FPoint coord) const
-{
-	qreal maxx = coord.x() - 1.0;
-	for (unsigned int i=0; i < lines(); ++i)
-	{
-		LineSpec ls = line(i);
-//		qDebug() << QString("screenToPosition: (%1,%2) -> y %3 - %4 + %5").arg(coord.x()).arg(coord.y()).arg(ls.y).arg(ls.ascent).arg(ls.descent);
-		if (ls.y + ls.descent < coord.y())
-			continue;
-		qreal xpos = ls.x;
-		for (int j = ls.firstItem; j <= ls.lastItem; ++j)
-		{
-//				qDebug() << QString("screenToPosition: (%1,%2) -> x %3 + %4").arg(coord.x()).arg(coord.y()).arg(xpos).arg(item(j)->glyph.wide());
-			qreal width = item(j)->glyph.wide();
-			xpos += width;
-			if (xpos >= coord.x())
-			{
-				if (hasObject(j))
-					return j;
-				else
-					return xpos - width/2 > coord.x() ? j : j+1;
-			}
-		}
-		if (xpos > maxx)
-			maxx = xpos;
-		if (xpos + 1.0 > coord.x()) // allow 1pt after end of line
-			return ls.lastItem + 1;
-		else if (coord.x() <= ls.x + ls.width) // last line of paragraph?
-			return ((ls.lastItem == m_lastFrameItem) ? (ls.lastItem + 1) : ls.lastItem);
-		else if (xpos < ls.x + 0.01 && maxx >= coord.x()) // check for empty line
-			return ls.firstItem;
-	}
-	return qMax(m_lastFrameItem+1, m_firstFrameItem);
-}
-
-
-FRect StoryText::boundingBox(int pos, uint len) const
-{
-	FRect result;
-	LineSpec ls;
-	for (uint i=0; i < lines(); ++i)
-	{
-		ls = line(i);
-		if (ls.lastItem < pos)
-			continue;
-		if (ls.firstItem <= pos) {
-			/*
-			if (ls.lastItem == pos && (item(pos)->effects() & ScLayout_SuppressSpace)  )
-			{
-				if (i+1 < lines())
-				{
-					ls = line(i+1);
-					result.setRect(ls.x, ls.y - ls.ascent, 1, ls.ascent + ls.descent);
-				}
-				else
-				{
-					ls = line(lines()-1);
-					const ParagraphStyle& pstyle(paragraphStyle(pos));
-					result.setRect(ls.x, ls.y + pstyle.lineSpacing() - ls.ascent, 1, ls.ascent + ls.descent);
-				}
-			}
-			else */
-			{
-				qreal xpos = ls.x;
-				for (int j = ls.firstItem; j < pos; ++j)
-				{
-					if (hasObject(j))
-						xpos += (object(j)->width() + object(j)->lineWidth()) * item(j)->glyph.scaleH;
-					else
-						xpos += item(j)->glyph.wide();
-				}
-				qreal finalw = 1;
-				if (hasObject(pos))
-					finalw = (object(pos)->width() + object(pos)->lineWidth()) * item(pos)->glyph.scaleH;
-				else
-					finalw = item(pos)->glyph.wide();
-				const CharStyle& cs(charStyle(pos));
-				qreal desc = -cs.font().descent(cs.fontSize() / 10.0);
-				qreal asce = cs.font().ascent(cs.fontSize() / 10.0);
-				result.setRect(xpos, ls.y - asce, pos < length()? finalw : 1, desc+asce);
-			}
-			return result;
-		}
-	}
-	const ParagraphStyle& pstyle(paragraphStyle(qMin(pos, length()))); // rather the trailing style than a segfault.
-	if (lines() > 0)
-	{
-		ls = line(lines()-1);		
-		result.setRect(ls.x, ls.y + pstyle.lineSpacing() - ls.ascent, 1, ls.ascent + ls.descent);
-	}
-	else
-	{
-		result.setRect(1, 1, 1, pstyle.lineSpacing());
-	}	
-	return result;
-}
 
 
 ScText*  StoryText::item(uint itm)
