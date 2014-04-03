@@ -2076,11 +2076,14 @@ void PageItem::DrawObj_Decoration(ScPainter *p)
 			{
 				double ofx = m_width - 22.0;
 				double ofy = m_height - 22.0;
-				p->save();
-				p->translate(ofx, ofy);
-				QImage ico = loadIcon("22/dialog-warning.png").toImage();
-				p->drawImage(&ico);
-				p->restore();
+				if ((m_width > 40) && (m_height > 40))
+				{
+					p->save();
+					p->translate(ofx, ofy);
+					QImage ico = loadIcon("22/dialog-warning.png").toImage();
+					p->drawImage(&ico);
+					p->restore();
+				}
 			}
 		}
 		if ((m_Doc->guidesPrefs().layerMarkersShown) && (m_Doc->layerCount() > 1) && (!m_Doc->layerOutline(LayerID)) && (isGroup()) && (!m_Doc->drawAsPreview))
