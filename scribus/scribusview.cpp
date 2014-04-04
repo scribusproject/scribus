@@ -1494,9 +1494,11 @@ bool ScribusView::slotSetCurs(int x, int y)
 	{
 		// Move to cell under cursor and position the text cursor.
 		PageItem_Table *table = item->asTable();
-		table->moveTo(table->cellAt(m_canvas->globalToCanvas(QPoint(x,y)).toQPointF()));
+		QPointF tablePoint = m_canvas->globalToCanvas(QPoint(x, y)).toQPointF();
+		table->moveTo(table->cellAt(tablePoint));
 		textFrame = table->activeCell().textFrame();
-		canvasPoint = table->getTransform().inverted().map(m_canvas->globalToCanvas(QPoint(x, y)).toQPointF()) - table->gridOffset();
+		mm = textFrame->getTransform();
+		canvasPoint = table->getTransform().inverted().map(tablePoint) - table->gridOffset();
 	}
 	else if (item->isImageFrame())
 		return true;
