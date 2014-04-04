@@ -160,7 +160,7 @@ void SMPStyleWidget::languageChange()
 	parentLabel->setText( tr("Based On:"));
 	distancesBox->setTitle( tr("Distances and Alignment"));
 
-	parEffectsBox->setTitle(tr("Paragraph Effects"));
+	//parEffectsBox->setTitle(tr("Paragraph Effects"));
 	dropCapsBox->setTitle( tr("Drop Caps"));
 	bulletBox->setTitle(tr("Bullets"));
 	numBox->setTitle(tr("Numeration"));
@@ -189,13 +189,14 @@ void SMPStyleWidget::languageChange()
 
 	tabsBox->setTitle( tr("Tabulators and Indentation"));
 	tabWidget->setTabText(0, tr("Properties"));
-	tabWidget->setTabText(1, tr("Character Style"));
+	tabWidget->setTabText(1, tr("Paragraph Effects"));
+	tabWidget->setTabText(2, tr("Character Style"));
 	
 	advSettingsGroupBox->setTitle( tr("Advanced Settings"));
-	minSpaceLabel->setText( tr("Min. Space Width:"));
-	glyphExtensionLabel->setText( tr("Glyph Extension"));
-	minGlyphExtLabel->setText( tr("Min:", "Glyph Extension"));
-	maxGlyphExtLabel->setText (tr("Max:", "Glyph Extension"));
+	minSpaceLabel->setText( tr("Minimum Space Width:"));
+	glyphExtensionLabel->setText( tr("Glyph Extension "));
+	minGlyphExtLabel->setText( tr("Minimum:", "Glyph Extension"));
+	maxGlyphExtLabel->setText (tr("Maximum:", "Glyph Extension"));
 
 	opticalMarginsGroupBox->setTitle( tr("Optical Margins"));
 	optMarginRadioNone->setText( tr("None","optical margins") );

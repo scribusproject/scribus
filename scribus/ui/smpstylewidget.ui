@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>878</width>
-    <height>755</height>
+    <width>695</width>
+    <height>522</height>
    </rect>
   </property>
   <layout class="QVBoxLayout">
@@ -49,741 +49,362 @@
         </layout>
        </item>
        <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_5">
-         <item>
-          <layout class="QVBoxLayout" name="verticalLayout_2">
-           <item>
-            <widget class="QGroupBox" name="distancesBox">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="font">
-              <font>
-               <weight>50</weight>
-               <bold>false</bold>
-              </font>
-             </property>
-             <property name="title">
-              <string>Distances and Alignment</string>
-             </property>
-             <layout class="QVBoxLayout">
+        <layout class="QGridLayout" name="gridLayout">
+         <item row="0" column="0">
+          <widget class="QGroupBox" name="distancesBox">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="title">
+            <string>Alignment and Distances</string>
+           </property>
+           <layout class="QVBoxLayout" name="verticalLayout_2">
+            <item>
+             <layout class="QHBoxLayout">
               <item>
-               <layout class="QHBoxLayout">
-                <item>
-                 <widget class="QLabel" name="lineSpacingLabel">
-                  <property name="maximumSize">
-                   <size>
-                    <width>22</width>
-                    <height>22</height>
-                   </size>
-                  </property>
-                  <property name="text">
-                   <string>TextLabel</string>
-                  </property>
-                  <property name="buddy">
-                   <cstring>lineSpacingMode</cstring>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="SMScComboBox" name="lineSpacingMode">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="SMScrSpinBox" name="lineSpacing">
-                  <property name="minimum">
-                   <number>1</number>
-                  </property>
-                  <property name="maximum">
-                   <number>300</number>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <spacer>
-                  <property name="orientation">
-                   <enum>Qt::Horizontal</enum>
-                  </property>
-                  <property name="sizeHint" stdset="0">
-                   <size>
-                    <width>40</width>
-                    <height>20</height>
-                   </size>
-                  </property>
-                 </spacer>
-                </item>
-               </layout>
+               <widget class="SMAlignSelect" name="alignement" native="true">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+               </widget>
               </item>
               <item>
-               <layout class="QHBoxLayout">
-                <item>
-                 <widget class="QLabel" name="spaceAboveLabel">
-                  <property name="maximumSize">
-                   <size>
-                    <width>22</width>
-                    <height>22</height>
-                   </size>
-                  </property>
-                  <property name="text">
-                   <string>TextLabel</string>
-                  </property>
-                  <property name="buddy">
-                   <cstring>spaceAbove</cstring>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="SMScrSpinBox" name="spaceAbove">
-                  <property name="maximum">
-                   <number>300</number>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <spacer>
-                  <property name="orientation">
-                   <enum>Qt::Horizontal</enum>
-                  </property>
-                  <property name="sizeHint" stdset="0">
-                   <size>
-                    <width>40</width>
-                    <height>20</height>
-                   </size>
-                  </property>
-                 </spacer>
-                </item>
-               </layout>
-              </item>
-              <item>
-               <layout class="QHBoxLayout">
-                <item>
-                 <widget class="QLabel" name="spaceBelowLabel">
-                  <property name="maximumSize">
-                   <size>
-                    <width>22</width>
-                    <height>22</height>
-                   </size>
-                  </property>
-                  <property name="text">
-                   <string>TextLabel</string>
-                  </property>
-                  <property name="buddy">
-                   <cstring>spaceBelow</cstring>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="SMScrSpinBox" name="spaceBelow">
-                  <property name="maximum">
-                   <number>300</number>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <spacer>
-                  <property name="orientation">
-                   <enum>Qt::Horizontal</enum>
-                  </property>
-                  <property name="sizeHint" stdset="0">
-                   <size>
-                    <width>40</width>
-                    <height>20</height>
-                   </size>
-                  </property>
-                 </spacer>
-                </item>
-               </layout>
-              </item>
-              <item>
-               <layout class="QHBoxLayout">
-                <item>
-                 <widget class="SMAlignSelect" name="alignement" native="true">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <spacer>
-                  <property name="orientation">
-                   <enum>Qt::Horizontal</enum>
-                  </property>
-                  <property name="sizeHint" stdset="0">
-                   <size>
-                    <width>211</width>
-                    <height>20</height>
-                   </size>
-                  </property>
-                 </spacer>
-                </item>
-               </layout>
+               <spacer>
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>0</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
               </item>
              </layout>
-            </widget>
-           </item>
-           <item>
-            <widget class="QGroupBox" name="parEffectsBox">
-             <property name="title">
-              <string>Paragraph Effects</string>
-             </property>
-             <layout class="QVBoxLayout" name="verticalLayout_6">
+            </item>
+            <item>
+             <layout class="QHBoxLayout">
               <item>
-               <layout class="QHBoxLayout" name="horizontalLayout_13">
-                <item>
-                 <widget class="QLabel" name="parEffectCharStyleComboLabel">
-                  <property name="text">
-                   <string>Character Style for Effect:</string>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="SMScComboBox" name="parEffectCharStyleCombo"/>
-                </item>
-                <item>
-                 <spacer name="spacer_6">
-                  <property name="orientation">
-                   <enum>Qt::Horizontal</enum>
-                  </property>
-                  <property name="sizeHint" stdset="0">
-                   <size>
-                    <width>40</width>
-                    <height>20</height>
-                   </size>
-                  </property>
-                 </spacer>
-                </item>
-                <item>
-                 <widget class="QLabel" name="distFromTextLabel">
-                  <property name="text">
-                   <string>Distance from Text:</string>
-                  </property>
-                  <property name="buddy">
-                   <cstring>parEffectOffset</cstring>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="SMScrSpinBox" name="parEffectOffset">
-                  <property name="minimum">
-                   <number>-3000</number>
-                  </property>
-                  <property name="maximum">
-                   <number>3000</number>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <spacer>
-                  <property name="orientation">
-                   <enum>Qt::Horizontal</enum>
-                  </property>
-                  <property name="sizeHint" stdset="0">
-                   <size>
-                    <width>40</width>
-                    <height>20</height>
-                   </size>
-                  </property>
-                 </spacer>
-                </item>
-                <item>
-                 <widget class="SMCheckBox" name="parEffectIndentBox">
-                  <property name="text">
-                   <string>AutoIndent</string>
-                  </property>
-                 </widget>
-                </item>
-               </layout>
+               <widget class="QLabel" name="lineSpacingLabel">
+                <property name="maximumSize">
+                 <size>
+                  <width>22</width>
+                  <height>22</height>
+                 </size>
+                </property>
+                <property name="text">
+                 <string>TextLabel</string>
+                </property>
+                <property name="buddy">
+                 <cstring>lineSpacingMode</cstring>
+                </property>
+               </widget>
               </item>
               <item>
-               <layout class="QHBoxLayout" name="horizontalLayout_12">
-                <item>
-                 <spacer name="spacer_10">
-                  <property name="orientation">
-                   <enum>Qt::Horizontal</enum>
-                  </property>
-                  <property name="sizeHint" stdset="0">
-                   <size>
-                    <width>40</width>
-                    <height>20</height>
-                   </size>
-                  </property>
-                 </spacer>
-                </item>
-                <item>
-                 <widget class="QToolButton" name="parentParEffectsButton">
-                  <property name="enabled">
-                   <bool>true</bool>
-                  </property>
-                  <property name="text">
-                   <string>Use Parent`s Values</string>
-                  </property>
-                 </widget>
-                </item>
-               </layout>
-              </item>
-              <item>
-               <widget class="QGroupBox" name="bulletBox">
+               <widget class="SMScComboBox" name="lineSpacingMode">
                 <property name="sizePolicy">
-                 <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
+                 <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
                   <horstretch>0</horstretch>
                   <verstretch>0</verstretch>
                  </sizepolicy>
                 </property>
-                <property name="title">
-                 <string>Bullets</string>
-                </property>
-                <property name="checkable">
-                 <bool>true</bool>
-                </property>
-                <property name="checked">
-                 <bool>false</bool>
-                </property>
-                <layout class="QVBoxLayout" name="verticalLayout">
-                 <item>
-                  <layout class="QHBoxLayout" name="horizontalLayout_7">
-                   <item>
-                    <widget class="QLabel" name="bulletCharLabel">
-                     <property name="text">
-                      <string>Bullet Char/String</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
-                    <widget class="SMScComboBox" name="bulletStrEdit">
-                     <property name="sizePolicy">
-                      <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
-                       <horstretch>0</horstretch>
-                       <verstretch>0</verstretch>
-                      </sizepolicy>
-                     </property>
-                     <property name="minimumSize">
-                      <size>
-                       <width>50</width>
-                       <height>0</height>
-                      </size>
-                     </property>
-                     <property name="editable">
-                      <bool>true</bool>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
-                    <spacer name="spacer">
-                     <property name="orientation">
-                      <enum>Qt::Horizontal</enum>
-                     </property>
-                     <property name="sizeHint" stdset="0">
-                      <size>
-                       <width>40</width>
-                       <height>20</height>
-                      </size>
-                     </property>
-                    </spacer>
-                   </item>
-                   <item>
-                    <widget class="QPushButton" name="bulletCharTableButton">
-                     <property name="sizePolicy">
-                      <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
-                       <horstretch>0</horstretch>
-                       <verstretch>0</verstretch>
-                      </sizepolicy>
-                     </property>
-                     <property name="text">
-                      <string>Char Table</string>
-                     </property>
-                     <property name="checkable">
-                      <bool>true</bool>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
-                    <spacer name="spacer_2">
-                     <property name="orientation">
-                      <enum>Qt::Horizontal</enum>
-                     </property>
-                     <property name="sizeHint" stdset="0">
-                      <size>
-                       <width>40</width>
-                       <height>20</height>
-                      </size>
-                     </property>
-                    </spacer>
-                   </item>
-                  </layout>
-                 </item>
-                </layout>
                </widget>
               </item>
               <item>
-               <widget class="QGroupBox" name="numBox">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
-                  <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
-                 </sizepolicy>
+               <widget class="SMScrSpinBox" name="lineSpacing">
+                <property name="minimum">
+                 <number>1</number>
                 </property>
-                <property name="title">
-                 <string>Numeration</string>
+                <property name="maximum">
+                 <number>300</number>
                 </property>
-                <property name="checkable">
-                 <bool>true</bool>
-                </property>
-                <property name="checked">
-                 <bool>false</bool>
-                </property>
-                <layout class="QVBoxLayout" name="verticalLayout_5">
-                 <item>
-                  <layout class="QHBoxLayout" name="horizontalLayout_9">
-                   <item>
-                    <widget class="QLabel" name="numComboLabel">
-                     <property name="text">
-                      <string>Set:</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
-                    <widget class="SMScComboBox" name="numComboBox">
-                     <property name="currentIndex">
-                      <number>-1</number>
-                     </property>
-                     <property name="minimumContentsLength">
-                      <number>10</number>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
-                    <widget class="QLabel" name="numLevelLabel">
-                     <property name="text">
-                      <string>Level</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
-                    <widget class="SMSpinBox" name="numLevelSpin"/>
-                   </item>
-                   <item>
-                    <spacer name="horizontalSpacer_4">
-                     <property name="orientation">
-                      <enum>Qt::Horizontal</enum>
-                     </property>
-                     <property name="sizeHint" stdset="0">
-                      <size>
-                       <width>40</width>
-                       <height>20</height>
-                      </size>
-                     </property>
-                    </spacer>
-                   </item>
-                   <item>
-                    <widget class="QLabel" name="numNewLabel">
-                     <property name="text">
-                      <string>Create New Set:</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
-                    <widget class="QLineEdit" name="numNewLineEdit"/>
-                   </item>
-                  </layout>
-                 </item>
-                 <item>
-                  <layout class="QHBoxLayout" name="horizontalLayout_10">
-                   <item>
-                    <widget class="QLabel" name="numFormatLabel">
-                     <property name="text">
-                      <string>Nums Format</string>
-                     </property>
-                     <property name="buddy">
-                      <cstring>numFormatCombo</cstring>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
-                    <widget class="SMScComboBox" name="numFormatCombo">
-                     <property name="sizePolicy">
-                      <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-                       <horstretch>0</horstretch>
-                       <verstretch>0</verstretch>
-                      </sizepolicy>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
-                    <widget class="QLabel" name="numStartLabel">
-                     <property name="text">
-                      <string>Start with</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
-                    <widget class="SMSpinBox" name="numStartSpin">
-                     <property name="maximum">
-                      <number>99999</number>
-                     </property>
-                     <property name="value">
-                      <number>1</number>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
-                    <widget class="QLabel" name="numPrefixLabel">
-                     <property name="text">
-                      <string>Prefix</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
-                    <widget class="QLineEdit" name="numPrefix"/>
-                   </item>
-                   <item>
-                    <widget class="QLabel" name="numSuffixLabel">
-                     <property name="text">
-                      <string>Suffix</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
-                    <widget class="QLineEdit" name="numSuffix"/>
-                   </item>
-                  </layout>
-                 </item>
-                 <item>
-                  <layout class="QHBoxLayout" name="horizontalLayout_8">
-                   <item>
-                    <widget class="QLabel" name="numRestartLabel">
-                     <property name="text">
-                      <string>Restart</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
-                    <widget class="SMScComboBox" name="numRestartCombo"/>
-                   </item>
-                   <item>
-                    <spacer name="horizontalSpacer_3">
-                     <property name="orientation">
-                      <enum>Qt::Horizontal</enum>
-                     </property>
-                     <property name="sizeHint" stdset="0">
-                      <size>
-                       <width>40</width>
-                       <height>20</height>
-                      </size>
-                     </property>
-                    </spacer>
-                   </item>
-                   <item>
-                    <widget class="SMCheckBox" name="numRestartOtherBox">
-                     <property name="text">
-                      <string>Restart after other format</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
-                    <widget class="SMCheckBox" name="numRestartHigherBox">
-                     <property name="text">
-                      <string>Restart after higher level</string>
-                     </property>
-                    </widget>
-                   </item>
-                  </layout>
-                 </item>
-                </layout>
                </widget>
               </item>
               <item>
-               <widget class="QGroupBox" name="dropCapsBox">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
-                  <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
-                 </sizepolicy>
+               <spacer>
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
                 </property>
-                <property name="title">
-                 <string>Drop Caps</string>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>0</width>
+                  <height>20</height>
+                 </size>
                 </property>
-                <property name="checkable">
-                 <bool>true</bool>
-                </property>
-                <property name="checked">
-                 <bool>true</bool>
-                </property>
-                <layout class="QVBoxLayout">
-                 <item>
-                  <layout class="QHBoxLayout">
-                   <item>
-                    <widget class="QLabel" name="dropCapsLineLabel">
-                     <property name="text">
-                      <string>&amp;Lines:</string>
-                     </property>
-                     <property name="buddy">
-                      <cstring>dropCapLines</cstring>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
-                    <widget class="SMSpinBox" name="dropCapLines">
-                     <property name="minimum">
-                      <number>2</number>
-                     </property>
-                     <property name="maximum">
-                      <number>20</number>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
-                    <spacer name="horizontalSpacer_2">
-                     <property name="orientation">
-                      <enum>Qt::Horizontal</enum>
-                     </property>
-                     <property name="sizeHint" stdset="0">
-                      <size>
-                       <width>40</width>
-                       <height>20</height>
-                      </size>
-                     </property>
-                    </spacer>
-                   </item>
-                  </layout>
-                 </item>
-                </layout>
-               </widget>
+               </spacer>
               </item>
              </layout>
-            </widget>
-           </item>
-           <item>
-            <spacer>
-             <property name="orientation">
-              <enum>Qt::Vertical</enum>
-             </property>
-             <property name="sizeType">
-              <enum>QSizePolicy::MinimumExpanding</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>272</width>
-               <height>13</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-          </layout>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_5">
+              <item>
+               <widget class="QLabel" name="spaceAboveLabel">
+                <property name="maximumSize">
+                 <size>
+                  <width>22</width>
+                  <height>22</height>
+                 </size>
+                </property>
+                <property name="text">
+                 <string>TextLabel</string>
+                </property>
+                <property name="buddy">
+                 <cstring>spaceAbove</cstring>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="SMScrSpinBox" name="spaceAbove">
+                <property name="maximum">
+                 <number>300</number>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <spacer>
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>0</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item>
+               <widget class="QLabel" name="spaceBelowLabel">
+                <property name="maximumSize">
+                 <size>
+                  <width>22</width>
+                  <height>22</height>
+                 </size>
+                </property>
+                <property name="text">
+                 <string>TextLabel</string>
+                </property>
+                <property name="buddy">
+                 <cstring>spaceBelow</cstring>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="SMScrSpinBox" name="spaceBelow">
+                <property name="maximum">
+                 <number>300</number>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <spacer>
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>0</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+             </layout>
+            </item>
+           </layout>
+          </widget>
          </item>
-         <item>
-          <layout class="QVBoxLayout" name="verticalLayout_3">
-           <item>
-            <widget class="QGroupBox" name="opticalMarginsGroupBox">
-             <property name="font">
-              <font>
-               <weight>50</weight>
-               <bold>false</bold>
-              </font>
-             </property>
-             <property name="title">
-              <string>Optical Margins</string>
-             </property>
-             <layout class="QFormLayout" name="formLayout">
-              <property name="fieldGrowthPolicy">
-               <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
+         <item row="0" column="1">
+          <widget class="QGroupBox" name="textFlowBox">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="title">
+            <string>Orphans and Widows</string>
+           </property>
+           <layout class="QVBoxLayout" name="verticalLayout_3">
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_11">
+              <item>
+               <widget class="QLabel" name="keepLabelStart">
+                <property name="toolTip">
+                 <string>Ensure that first lines of a paragraph won't end up separated from the rest (known as widow/orphan control)</string>
+                </property>
+                <property name="text">
+                 <string>Don't separate first</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="SMSpinBox" name="keepLinesStart">
+                <property name="suffix">
+                 <string> lines</string>
+                </property>
+                <property name="maximum">
+                 <number>10</number>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <spacer name="horizontalSpacer_5">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>0</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_14">
+              <item>
+               <widget class="QLabel" name="keepLabelEnd">
+                <property name="text">
+                 <string>Don't separate last</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="SMSpinBox" name="keepLinesEnd">
+                <property name="suffix">
+                 <string> lines</string>
+                </property>
+                <property name="maximum">
+                 <number>10</number>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <spacer name="horizontalSpacer_6">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>0</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <widget class="SMCheckBox" name="keepTogether">
+              <property name="text">
+               <string>Do not split paragraph</string>
               </property>
-              <item row="4" column="1">
-               <layout class="QHBoxLayout" name="horizontalLayout_4">
-                <item>
-                 <widget class="QPushButton" name="optMarginDefaultButton">
-                  <property name="text">
-                   <string>Reset to Default</string>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QPushButton" name="optMarginParentButton">
-                  <property name="text">
-                   <string>Use Parent Value</string>
-                  </property>
-                 </widget>
-                </item>
-               </layout>
-              </item>
-              <item row="0" column="1">
-               <widget class="SMRadioButton" name="optMarginRadioNone">
+             </widget>
+            </item>
+            <item>
+             <widget class="SMCheckBox" name="keepWithNext">
+              <property name="text">
+               <string>Keep with next paragraph</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+         <item row="1" column="0">
+          <widget class="QGroupBox" name="opticalMarginsGroupBox">
+           <property name="title">
+            <string>Optical Margins</string>
+           </property>
+           <layout class="QGridLayout" name="gridLayout_3">
+            <item row="1" column="1" rowspan="3">
+             <widget class="SMRadioButton" name="optMarginRadioRight">
+              <property name="text">
+               <string>Right Only</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="0" rowspan="2">
+             <widget class="SMRadioButton" name="optMarginRadioNone">
+              <property name="text">
+               <string>None</string>
+              </property>
+              <property name="checked">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item row="4" column="0" colspan="2">
+             <layout class="QHBoxLayout" name="horizontalLayout_4">
+              <item>
+               <widget class="QPushButton" name="optMarginDefaultButton">
                 <property name="text">
-                 <string>None</string>
-                </property>
-                <property name="checked">
-                 <bool>true</bool>
+                 <string>Reset to Default</string>
                 </property>
                </widget>
               </item>
-              <item row="1" column="1">
-               <widget class="SMRadioButton" name="optMarginRadioBoth">
+              <item>
+               <widget class="QPushButton" name="optMarginParentButton">
                 <property name="text">
-                 <string>Both Sides</string>
-                </property>
-               </widget>
-              </item>
-              <item row="2" column="1">
-               <widget class="SMRadioButton" name="optMarginRadioLeft">
-                <property name="text">
-                 <string>Left Only</string>
-                </property>
-               </widget>
-              </item>
-              <item row="3" column="1">
-               <widget class="SMRadioButton" name="optMarginRadioRight">
-                <property name="text">
-                 <string>Right Only</string>
+                 <string>Use Parent Value</string>
                 </property>
                </widget>
               </item>
              </layout>
-            </widget>
-           </item>
-           <item>
-            <widget class="QGroupBox" name="advSettingsGroupBox">
-             <property name="enabled">
-              <bool>true</bool>
-             </property>
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="minimumSize">
-              <size>
-               <width>0</width>
-               <height>163</height>
-              </size>
-             </property>
-             <property name="title">
-              <string>Advanced Settings</string>
-             </property>
-             <layout class="QGridLayout" name="gridLayout">
-              <item row="0" column="0">
-               <layout class="QHBoxLayout" name="horizontalLayout">
-                <property name="sizeConstraint">
-                 <enum>QLayout::SetDefaultConstraint</enum>
-                </property>
-                <property name="topMargin">
-                 <number>0</number>
-                </property>
-                <property name="bottomMargin">
-                 <number>0</number>
-                </property>
-                <item>
+            </item>
+            <item row="2" column="0">
+             <widget class="SMRadioButton" name="optMarginRadioLeft">
+              <property name="text">
+               <string>Left Only</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="1">
+             <widget class="SMRadioButton" name="optMarginRadioBoth">
+              <property name="text">
+               <string>Both Sides</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+         <item row="1" column="1">
+          <widget class="QGroupBox" name="advSettingsGroupBox">
+           <property name="enabled">
+            <bool>true</bool>
+           </property>
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="minimumSize">
+            <size>
+             <width>0</width>
+             <height>0</height>
+            </size>
+           </property>
+           <property name="title">
+            <string>Advanced Settings</string>
+           </property>
+           <layout class="QVBoxLayout" name="verticalLayout_7">
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout">
+              <item>
+               <layout class="QGridLayout" name="gridLayout_2">
+                <item row="0" column="0">
                  <widget class="QLabel" name="minSpaceLabel">
                   <property name="text">
                    <string>TextLabel</string>
@@ -793,12 +414,12 @@
                   </property>
                  </widget>
                 </item>
-                <item>
+                <item row="0" column="1">
                  <widget class="SMScrSpinBox" name="minSpaceSpin">
                   <property name="minimumSize">
                    <size>
                     <width>0</width>
-                    <height>32</height>
+                    <height>0</height>
                    </size>
                   </property>
                   <property name="baseSize">
@@ -809,31 +430,14 @@
                   </property>
                  </widget>
                 </item>
-                <item>
-                 <spacer name="horizontalSpacer">
-                  <property name="orientation">
-                   <enum>Qt::Horizontal</enum>
+                <item row="1" column="0">
+                 <widget class="QLabel" name="glyphExtensionLabel">
+                  <property name="text">
+                   <string>TextLabel</string>
                   </property>
-                  <property name="sizeHint" stdset="0">
-                   <size>
-                    <width>40</width>
-                    <height>20</height>
-                   </size>
-                  </property>
-                 </spacer>
+                 </widget>
                 </item>
-               </layout>
-              </item>
-              <item row="1" column="0">
-               <widget class="QLabel" name="glyphExtensionLabel">
-                <property name="text">
-                 <string>TextLabel</string>
-                </property>
-               </widget>
-              </item>
-              <item row="2" column="0">
-               <layout class="QHBoxLayout" name="horizontalLayout_6">
-                <item>
+                <item row="1" column="1">
                  <layout class="QHBoxLayout" name="horizontalLayout_2">
                   <item>
                    <widget class="QLabel" name="minGlyphExtLabel">
@@ -850,14 +454,14 @@
                     <property name="minimumSize">
                      <size>
                       <width>0</width>
-                      <height>32</height>
+                      <height>0</height>
                      </size>
                     </property>
                    </widget>
                   </item>
                  </layout>
                 </item>
-                <item>
+                <item row="2" column="1">
                  <layout class="QHBoxLayout" name="horizontalLayout_3">
                   <item>
                    <widget class="QLabel" name="maxGlyphExtLabel">
@@ -874,7 +478,7 @@
                     <property name="minimumSize">
                      <size>
                       <width>0</width>
-                      <height>32</height>
+                      <height>0</height>
                      </size>
                     </property>
                    </widget>
@@ -883,99 +487,36 @@
                 </item>
                </layout>
               </item>
-             </layout>
-            </widget>
-           </item>
-           <item>
-            <widget class="Line" name="line">
-             <property name="orientation">
-              <enum>Qt::Horizontal</enum>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QGroupBox" name="textFlowBox">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="title">
-              <string>Orphans and Widows</string>
-             </property>
-             <layout class="QGridLayout" name="gridLayout_2">
-              <item row="1" column="1">
-               <widget class="SMSpinBox" name="keepLinesEnd">
-                <property name="suffix">
-                 <string> lines</string>
+              <item>
+               <spacer name="horizontalSpacer_7">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
                 </property>
-                <property name="maximum">
-                 <number>10</number>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>13</width>
+                  <height>20</height>
+                 </size>
                 </property>
-               </widget>
-              </item>
-              <item row="1" column="0">
-               <widget class="QLabel" name="keepLabelEnd">
-                <property name="text">
-                 <string>Don't separate last</string>
-                </property>
-               </widget>
-              </item>
-              <item row="0" column="1">
-               <widget class="SMSpinBox" name="keepLinesStart">
-                <property name="suffix">
-                 <string> lines</string>
-                </property>
-                <property name="maximum">
-                 <number>10</number>
-                </property>
-               </widget>
-              </item>
-              <item row="0" column="0">
-               <widget class="QLabel" name="keepLabelStart">
-                <property name="toolTip">
-                 <string>Ensure that first lines of a paragraph won't end up separated from the rest (known as widow/orphan control)</string>
-                </property>
-                <property name="text">
-                 <string>Don't separate first</string>
-                </property>
-               </widget>
-              </item>
-              <item row="2" column="0" colspan="2">
-               <widget class="SMCheckBox" name="keepTogether">
-                <property name="text">
-                 <string>Do not split paragraph</string>
-                </property>
-               </widget>
-              </item>
-              <item row="3" column="0" colspan="2">
-               <widget class="SMCheckBox" name="keepWithNext">
-                <property name="text">
-                 <string>Keep with next paragraph</string>
-                </property>
-               </widget>
+               </spacer>
               </item>
              </layout>
-            </widget>
-           </item>
-           <item>
-            <spacer>
-             <property name="orientation">
-              <enum>Qt::Vertical</enum>
-             </property>
-             <property name="sizeType">
-              <enum>QSizePolicy::Expanding</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>270</width>
-               <height>16</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-          </layout>
+            </item>
+            <item>
+             <spacer name="verticalSpacer_3">
+              <property name="orientation">
+               <enum>Qt::Vertical</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>20</width>
+                <height>13</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+           </layout>
+          </widget>
          </item>
         </layout>
        </item>
@@ -1036,7 +577,452 @@
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="TabPage">
+     <widget class="QWidget" name="tabParagraphEffects">
+      <attribute name="title">
+       <string>Paragraph Effects</string>
+      </attribute>
+      <layout class="QVBoxLayout" name="verticalLayout_6">
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_12">
+         <item>
+          <widget class="QLabel" name="parEffectCharStyleComboLabel">
+           <property name="text">
+            <string>Character Style for Effect:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="SMScComboBox" name="parEffectCharStyleCombo"/>
+         </item>
+         <item>
+          <spacer name="spacer_6">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <widget class="QLabel" name="distFromTextLabel">
+           <property name="text">
+            <string>Distance from Text:</string>
+           </property>
+           <property name="buddy">
+            <cstring>parEffectOffset</cstring>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="SMScrSpinBox" name="parEffectOffset">
+           <property name="minimum">
+            <number>-3000</number>
+           </property>
+           <property name="maximum">
+            <number>3000</number>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <spacer>
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <widget class="SMCheckBox" name="parEffectIndentBox">
+           <property name="text">
+            <string>AutoIndent</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_15">
+         <item>
+          <spacer name="spacer_10">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <widget class="QToolButton" name="parentParEffectsButton">
+           <property name="enabled">
+            <bool>true</bool>
+           </property>
+           <property name="text">
+            <string>Use Parent's Values</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <widget class="QGroupBox" name="bulletBox">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="title">
+          <string>Bullets</string>
+         </property>
+         <property name="checkable">
+          <bool>true</bool>
+         </property>
+         <property name="checked">
+          <bool>false</bool>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout">
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_7">
+            <item>
+             <widget class="QLabel" name="bulletCharLabel">
+              <property name="text">
+               <string>Bullet Char/String</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="SMScComboBox" name="bulletStrEdit">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="minimumSize">
+               <size>
+                <width>50</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="editable">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <spacer name="spacer">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item>
+             <widget class="QPushButton" name="bulletCharTableButton">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="text">
+               <string>Char Table</string>
+              </property>
+              <property name="checkable">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <spacer name="spacer_2">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QGroupBox" name="numBox">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="title">
+          <string>Numeration</string>
+         </property>
+         <property name="checkable">
+          <bool>true</bool>
+         </property>
+         <property name="checked">
+          <bool>false</bool>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_5">
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_9">
+            <item>
+             <widget class="QLabel" name="numComboLabel">
+              <property name="text">
+               <string>Set:</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="SMScComboBox" name="numComboBox">
+              <property name="currentIndex">
+               <number>-1</number>
+              </property>
+              <property name="minimumContentsLength">
+               <number>10</number>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="numLevelLabel">
+              <property name="text">
+               <string>Level</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="SMSpinBox" name="numLevelSpin"/>
+            </item>
+            <item>
+             <spacer name="horizontalSpacer_4">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item>
+             <widget class="QLabel" name="numNewLabel">
+              <property name="text">
+               <string>Create New Set:</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLineEdit" name="numNewLineEdit"/>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_10">
+            <item>
+             <widget class="QLabel" name="numFormatLabel">
+              <property name="text">
+               <string>Nums Format</string>
+              </property>
+              <property name="buddy">
+               <cstring>numFormatCombo</cstring>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="SMScComboBox" name="numFormatCombo">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="numStartLabel">
+              <property name="text">
+               <string>Start with</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="SMSpinBox" name="numStartSpin">
+              <property name="maximum">
+               <number>99999</number>
+              </property>
+              <property name="value">
+               <number>1</number>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="numPrefixLabel">
+              <property name="text">
+               <string>Prefix</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLineEdit" name="numPrefix"/>
+            </item>
+            <item>
+             <widget class="QLabel" name="numSuffixLabel">
+              <property name="text">
+               <string>Suffix</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLineEdit" name="numSuffix"/>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_8">
+            <item>
+             <widget class="QLabel" name="numRestartLabel">
+              <property name="text">
+               <string>Restart</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="SMScComboBox" name="numRestartCombo"/>
+            </item>
+            <item>
+             <spacer name="horizontalSpacer_3">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item>
+             <widget class="SMCheckBox" name="numRestartOtherBox">
+              <property name="text">
+               <string>Restart after other format</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="SMCheckBox" name="numRestartHigherBox">
+              <property name="text">
+               <string>Restart after higher level</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QGroupBox" name="dropCapsBox">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="title">
+          <string>Drop Caps</string>
+         </property>
+         <property name="checkable">
+          <bool>true</bool>
+         </property>
+         <property name="checked">
+          <bool>true</bool>
+         </property>
+         <layout class="QVBoxLayout" name="_2">
+          <item>
+           <layout class="QHBoxLayout" name="_3">
+            <item>
+             <widget class="QLabel" name="dropCapsLineLabel">
+              <property name="text">
+               <string>&amp;Lines:</string>
+              </property>
+              <property name="buddy">
+               <cstring>dropCapLines</cstring>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="SMSpinBox" name="dropCapLines">
+              <property name="minimum">
+               <number>2</number>
+              </property>
+              <property name="maximum">
+               <number>20</number>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <spacer name="horizontalSpacer_2">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <spacer name="verticalSpacer_2">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>0</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
+      <zorder>dropCapsBox</zorder>
+      <zorder>numBox</zorder>
+      <zorder>bulletBox</zorder>
+     </widget>
+     <widget class="QWidget" name="tabCharacterStyle">
       <attribute name="title">
        <string>Ch&amp;aracter Style</string>
       </attribute>
@@ -1044,7 +1030,16 @@
        <property name="spacing">
         <number>5</number>
        </property>
-       <property name="margin">
+       <property name="leftMargin">
+        <number>0</number>
+       </property>
+       <property name="topMargin">
+        <number>0</number>
+       </property>
+       <property name="rightMargin">
+        <number>0</number>
+       </property>
+       <property name="bottomMargin">
         <number>0</number>
        </property>
        <item>
