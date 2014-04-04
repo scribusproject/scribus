@@ -14,7 +14,7 @@
    <item>
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="tab">
       <attribute name="title">
@@ -583,100 +583,6 @@
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout_6">
        <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_12">
-         <item>
-          <widget class="QLabel" name="parEffectCharStyleComboLabel">
-           <property name="text">
-            <string>Character Style for Effect:</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="SMScComboBox" name="parEffectCharStyleCombo"/>
-         </item>
-         <item>
-          <spacer name="spacer_6">
-           <property name="orientation">
-            <enum>Qt::Horizontal</enum>
-           </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>40</width>
-             <height>20</height>
-            </size>
-           </property>
-          </spacer>
-         </item>
-         <item>
-          <widget class="QLabel" name="distFromTextLabel">
-           <property name="text">
-            <string>Distance from Text:</string>
-           </property>
-           <property name="buddy">
-            <cstring>parEffectOffset</cstring>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="SMScrSpinBox" name="parEffectOffset">
-           <property name="minimum">
-            <number>-3000</number>
-           </property>
-           <property name="maximum">
-            <number>3000</number>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <spacer>
-           <property name="orientation">
-            <enum>Qt::Horizontal</enum>
-           </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>40</width>
-             <height>20</height>
-            </size>
-           </property>
-          </spacer>
-         </item>
-         <item>
-          <widget class="SMCheckBox" name="parEffectIndentBox">
-           <property name="text">
-            <string>AutoIndent</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-       <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_15">
-         <item>
-          <spacer name="spacer_10">
-           <property name="orientation">
-            <enum>Qt::Horizontal</enum>
-           </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>40</width>
-             <height>20</height>
-            </size>
-           </property>
-          </spacer>
-         </item>
-         <item>
-          <widget class="QToolButton" name="parentParEffectsButton">
-           <property name="enabled">
-            <bool>true</bool>
-           </property>
-           <property name="text">
-            <string>Use Parent's Values</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-       <item>
         <widget class="QGroupBox" name="bulletBox">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
@@ -1005,6 +911,100 @@
         </widget>
        </item>
        <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_12">
+         <item>
+          <widget class="QLabel" name="parEffectCharStyleComboLabel">
+           <property name="text">
+            <string>Character Style for Effect:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="SMScComboBox" name="parEffectCharStyleCombo"/>
+         </item>
+         <item>
+          <spacer name="spacer_6">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <widget class="QLabel" name="distFromTextLabel">
+           <property name="text">
+            <string>Distance from Text:</string>
+           </property>
+           <property name="buddy">
+            <cstring>parEffectOffset</cstring>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="SMScrSpinBox" name="parEffectOffset">
+           <property name="minimum">
+            <number>-3000</number>
+           </property>
+           <property name="maximum">
+            <number>3000</number>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <spacer>
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <widget class="SMCheckBox" name="parEffectIndentBox">
+           <property name="text">
+            <string>AutoIndent</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_15">
+         <item>
+          <spacer name="spacer_10">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <widget class="QToolButton" name="parentParEffectsButton">
+           <property name="enabled">
+            <bool>true</bool>
+           </property>
+           <property name="text">
+            <string>Use Parent's Values</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
         <spacer name="verticalSpacer_2">
          <property name="orientation">
           <enum>Qt::Vertical</enum>
@@ -1021,6 +1021,8 @@
       <zorder>dropCapsBox</zorder>
       <zorder>numBox</zorder>
       <zorder>bulletBox</zorder>
+      <zorder></zorder>
+      <zorder></zorder>
      </widget>
      <widget class="QWidget" name="tabCharacterStyle">
       <attribute name="title">
