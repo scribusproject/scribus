@@ -97,15 +97,15 @@ Rectangle {
 
         Label {
             id: label1
-            x: 20
-            y: 20
+            x: 5
+            y: 5
             text: qsTr("X:")
             font.pixelSize: 10
         }
         SpinBox {
             id: xSpinBox
-            x: 40
-            y: 18
+            x: 25
+            y: 3
             font.pixelSize: 10
             decimals:2
             style: SpinBoxStyle{
@@ -120,15 +120,15 @@ Rectangle {
 
         Label {
             id: label2
-            x: 20
-            y: 40
+            x: 5
+            y: 25
             text: qsTr("Y:")
             font.pixelSize: 10
         }
         SpinBox {
             id: ySpinBox
-            x: 40
-            y: 38
+            x: 25
+            y: 23
             font.pixelSize: 10
             decimals:2
             style: SpinBoxStyle{
@@ -143,15 +143,15 @@ Rectangle {
 
         Label {
             id: labelW
-            x: 120
-            y: 40
+            x: 105
+            y: 5
             text: qsTr("W:")
             font.pixelSize: 10
         }
         SpinBox {
             id: wSpinBox
-            x: 140
-            y: 38
+            x: 125
+            y: 3
             font.pixelSize: 10
             decimals:2
             style: SpinBoxStyle{
@@ -166,15 +166,15 @@ Rectangle {
 
         Label {
             id: labelH
-            x: 120
-            y: 20
+            x: 105
+            y: 25
             text: qsTr("H:")
             font.pixelSize: 10
         }
         SpinBox {
             id: hSpinBox
-            x: 140
-            y: 18
+            x: 125
+            y: 23
             font.pixelSize: 10
             decimals:2
             style: SpinBoxStyle{

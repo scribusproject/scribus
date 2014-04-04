@@ -10884,6 +10884,7 @@ void ScribusMainWindow::testQTQuick2_1()
 	//container->deleteLater();
 	//layout->deleteLater();
 
+	qqview->setFlags(Qt::Tool);
 	qqview->show();
 
 //	qDebug() << "Property value:" << QQmlProperty::read(object, "someNumber").toInt();
