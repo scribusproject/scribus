@@ -1,8 +1,9 @@
 import QtQuick 2.2
 import QtQuick.Controls 1.1
 import QtQuick.Controls.Styles 1.1
-import QtQuick.Layouts 1.0
+//import QtQuick.Layouts 1.0
 
+/*
 ApplicationWindow {
     width: 360
     height: 360
@@ -20,8 +21,12 @@ ApplicationWindow {
             MenuItem { text: "Paste" }
         }
     }
+    */
+Rectangle {
+    width: 300
+    height: 200
     Text {
-        text: qsTr("Hello World")
+      //  text: qsTr("Hello World")
         anchors.centerIn: parent
     }
     MouseArea {
@@ -31,7 +36,7 @@ ApplicationWindow {
         anchors.topMargin: 0
         anchors.fill: parent
         onClicked: {
-            Qt.quit();
+            Qt.close();
         }
 
         CheckBox {
@@ -195,5 +200,39 @@ ApplicationWindow {
             }
         }
 
+    }
+
+
+
+    CheckBox {
+        x: 204
+        y: 110
+        text: "Close"
+        style: CheckBoxStyle {
+            indicator: Rectangle {
+                    implicitWidth: 10
+                    implicitHeight: 10
+                    radius: 1
+                    border.color: control.activeFocus ? "darkblue" : "gray"
+                    border.width: 1
+                    Rectangle {
+                        visible: control.checked
+                        color: "#555"
+                        border.color: "#333"
+                        radius: 1
+                        anchors.margins: 2
+                        anchors.fill: parent
+                    }
+            }
+            label: Text {
+                text: "Close"
+                font.pixelSize: 10
+                font.italic: true
+                color: "red"
+            }
+        }
+        onClicked: {
+            Qt.close();
+        }
     }
 }

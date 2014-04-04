@@ -52,7 +52,9 @@ for which a new license (GPL+exception) is in place.
 #include <QProgressBar>
 //<<QML testing
 #include <QHBoxLayout>
-//#include <QQuickView>
+#include <QQuickView>
+#include <QQmlEngine>
+#include <QQmlComponent>
 //>>
 #include <QRegExp>
 #include <QScopedPointer>
@@ -10861,26 +10863,31 @@ void ScribusMainWindow::setPreviewToolbar()
 
 void ScribusMainWindow::testQTQuick2_1()
 {
-	/*
-	QQuickView *qqv = new QQuickView;
-	qqv->setSource(QUrl::fromLocalFile(ScPaths::instance().qmlDir() + "qtq_test1.qml"));
-	qqv->show();
-	*/
-	/*
+
 	qDebug()<<"Testing Qt Quick 2.0";
 
-	QQuickView qqv;
-	QDialog d(this);
-	QHBoxLayout *layout = new QHBoxLayout(&d);
-	QWidget *container = createWindowContainer(&qqv, this);
-	d.setMinimumSize(300, 200);
-	d.setMaximumSize(300, 200);
-	d.setFocusPolicy(Qt::TabFocus);
-	qqv.setSource(QUrl::fromLocalFile(ScPaths::instance().qmlDir() + "qtq_test1.qml"));
+	QQuickView *qqview = new QQuickView();
+	qqview->resize(300,200);
+	//QDialog d(this);
+	//QHBoxLayout *layout = new QHBoxLayout(&d);
+	//QWidget *container = createWindowContainer(view);
+	//d.setMinimumSize(200, 200);
+	//d.setMaximumSize(400, 400);
+	//d.setFocusPolicy(Qt::TabFocus);
 
-	layout->addWidget(container);
-	d.exec();
-	*/
+	qqview->setSource(QUrl::fromLocalFile(ScPaths::instance().qmlDir() + "qtq_test1.qml"));
+
+	//	QObject *object = qqv.rootObject();
+	//layout->addWidget(container);
+	//d.exec();
+
+	//container->deleteLater();
+	//layout->deleteLater();
+
+	qqview->show();
+
+//	qDebug() << "Property value:" << QQmlProperty::read(object, "someNumber").toInt();
+
 }
 
 void ScribusMainWindow::adjustCMS()
