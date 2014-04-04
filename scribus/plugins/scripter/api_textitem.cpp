@@ -143,7 +143,7 @@ QString TextAPI::text()
 
 int TextAPI::textLines()
 {
-	return item->itemText.lines();
+	return item->textLayout.lines();
 }
 
 int TextAPI::textLength()

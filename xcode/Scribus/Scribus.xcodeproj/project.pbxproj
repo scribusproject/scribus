@@ -1875,6 +1875,20 @@
 		8808DFA4123238D100B95A3F /* vgradient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = vgradient.h; path = ../../scribus/vgradient.h; sourceTree = SOURCE_ROOT; };
 		8808DFA5123238D100B95A3F /* vgradientex.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = vgradientex.cpp; path = ../../scribus/vgradientex.cpp; sourceTree = SOURCE_ROOT; };
 		8808DFA6123238D100B95A3F /* vgradientex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = vgradientex.h; path = ../../scribus/vgradientex.h; sourceTree = SOURCE_ROOT; };
+		88628C1C18EEE57700325969 /* api_color.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = api_color.cpp; sourceTree = "<group>"; };
+		88628C1D18EEE57700325969 /* api_color.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = api_color.h; sourceTree = "<group>"; };
+		88628C1E18EEE57700325969 /* api_imageexport.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = api_imageexport.cpp; sourceTree = "<group>"; };
+		88628C1F18EEE57700325969 /* api_imageexport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = api_imageexport.h; sourceTree = "<group>"; };
+		88628C2018EEE57700325969 /* api_imageitem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = api_imageitem.cpp; sourceTree = "<group>"; };
+		88628C2118EEE57700325969 /* api_imageitem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = api_imageitem.h; sourceTree = "<group>"; };
+		88628C2218EEE57700325969 /* api_layer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = api_layer.cpp; sourceTree = "<group>"; };
+		88628C2318EEE57700325969 /* api_layer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = api_layer.h; sourceTree = "<group>"; };
+		88628C2418EEE57700325969 /* api_printer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = api_printer.cpp; sourceTree = "<group>"; };
+		88628C2518EEE57700325969 /* api_printer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = api_printer.h; sourceTree = "<group>"; };
+		88628C2618EEE57700325969 /* api_textitem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = api_textitem.cpp; sourceTree = "<group>"; };
+		88628C2718EEE57700325969 /* api_textitem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = api_textitem.h; sourceTree = "<group>"; };
+		88628C2818EEE57700325969 /* utils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = utils.cpp; sourceTree = "<group>"; };
+		88628C2918EEE57700325969 /* utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = utils.h; sourceTree = "<group>"; };
 		8885481918EB18920063510D /* textlayout.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = textlayout.cpp; sourceTree = "<group>"; };
 		8885481A18EB18920063510D /* textlayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = textlayout.h; sourceTree = "<group>"; };
 		8885481C18EB38300063510D /* CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
@@ -3103,6 +3117,20 @@
 		8808DA76123238CF00B95A3F /* scripter */ = {
 			isa = PBXGroup;
 			children = (
+				88628C1C18EEE57700325969 /* api_color.cpp */,
+				88628C1D18EEE57700325969 /* api_color.h */,
+				88628C1E18EEE57700325969 /* api_imageexport.cpp */,
+				88628C1F18EEE57700325969 /* api_imageexport.h */,
+				88628C2018EEE57700325969 /* api_imageitem.cpp */,
+				88628C2118EEE57700325969 /* api_imageitem.h */,
+				88628C2218EEE57700325969 /* api_layer.cpp */,
+				88628C2318EEE57700325969 /* api_layer.h */,
+				88628C2418EEE57700325969 /* api_printer.cpp */,
+				88628C2518EEE57700325969 /* api_printer.h */,
+				88628C2618EEE57700325969 /* api_textitem.cpp */,
+				88628C2718EEE57700325969 /* api_textitem.h */,
+				88628C2818EEE57700325969 /* utils.cpp */,
+				88628C2918EEE57700325969 /* utils.h */,
 				8808DA77123238CF00B95A3F /* api_dialogs.cpp */,
 				8808DA78123238CF00B95A3F /* api_dialogs.h */,
 				8808DA79123238CF00B95A3F /* api_document.cpp */,
