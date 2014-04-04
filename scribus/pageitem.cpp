@@ -5162,6 +5162,8 @@ void PageItem::restore(UndoState *state, bool isUndo)
 	m_Doc->SnapElement = SnapElementBackup;
 	m_Doc->SnapGrid = SnapGridBackup;
 	m_Doc->SnapGuides = SnapGuidesBackup;
+	if (state->transactionCode == 0 || state->transactionCode == 2)
+		this->update();
 }
 
 void PageItem::restoreConnectPath(SimpleState *state, bool isUndo)
