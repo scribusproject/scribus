@@ -389,7 +389,7 @@ bool ScImgDataLoader_PS::parseData(QString fn)
 								fakeHeader.height = qRound(h);
 								parseRessourceData(strPhot, fakeHeader, psdata.size());
 								m_imageInfoRecord.valid = (m_imageInfoRecord.PDSpathData.size()) > 0 ? true : false;
-								if (m_imageInfoRecord.PDSpathData.size() > 0)
+							/*	if (m_imageInfoRecord.PDSpathData.size() > 0)
 								{
 									QTransform mm;
 									mm.scale(m_imageInfoRecord.xres / 72.0, m_imageInfoRecord.yres / 72.0);
@@ -398,7 +398,7 @@ bool ScImgDataLoader_PS::parseData(QString fn)
 									{
 										it.value().map(mm);
 									}
-								}
+								}*/
 								isPhotoshop = true;
 								break;
 							}
