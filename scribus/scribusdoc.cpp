@@ -9902,6 +9902,16 @@ bool ScribusDoc::ApplyGuides(double *x, double *y)
 			*x = page->width() - page->Margins.Right+page->xOffset();
 			ret = true;
 		}
+		if (fabs(page->width() + page->xOffset() - *x) < (guidesSettings.guideRad * invViewScale))
+		{
+			*x = page->width() + page->xOffset();
+			ret = true;
+		}
+		if (fabs(page->xOffset() - *x) < (guidesSettings.guideRad * invViewScale))
+		{
+			*x = page->xOffset();
+			ret = true;
+		}
 		if (fabs(page->Margins.Top + page->yOffset() - *y) < (guidesSettings.guideRad * invViewScale))
 		{
 			*y = page->Margins.Top+page->yOffset();
@@ -9910,6 +9920,16 @@ bool ScribusDoc::ApplyGuides(double *x, double *y)
 		if (fabs((page->height() - page->Margins.Bottom)+page->yOffset() - *y) < (guidesSettings.guideRad * invViewScale))
 		{
 			*y = page->height() - page->Margins.Bottom+page->yOffset();
+			ret = true;
+		}
+		if (fabs(page->height() + page->yOffset() - *y) < (guidesSettings.guideRad * invViewScale))
+		{
+			*y = page->height() + page->yOffset();
+			ret = true;
+		}
+		if (fabs(page->yOffset() - *y) < (guidesSettings.guideRad * invViewScale))
+		{
+			*y = page->yOffset();
 			ret = true;
 		}
 	}
