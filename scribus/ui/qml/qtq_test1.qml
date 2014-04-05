@@ -176,7 +176,7 @@ Rectangle {
         }
         SpinBox {
             id: hSpinBox
-            objectName: "wSpinBox"
+            objectName: "hSpinBox"
             x: 125
             y: 23
             font.pixelSize: 10
