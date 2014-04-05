@@ -104,6 +104,7 @@ Rectangle {
         }
         SpinBox {
             id: xSpinBox
+            objectName: "xSpinBox"
             x: 25
             y: 3
             font.pixelSize: 10
@@ -127,6 +128,7 @@ Rectangle {
         }
         SpinBox {
             id: ySpinBox
+            objectName: "ySpinBox"
             x: 25
             y: 23
             font.pixelSize: 10
@@ -150,6 +152,7 @@ Rectangle {
         }
         SpinBox {
             id: wSpinBox
+            objectName: "wSpinBox"
             x: 125
             y: 3
             font.pixelSize: 10
@@ -173,6 +176,7 @@ Rectangle {
         }
         SpinBox {
             id: hSpinBox
+            objectName: "wSpinBox"
             x: 125
             y: 23
             font.pixelSize: 10
@@ -202,12 +206,11 @@ Rectangle {
 
     }
 
-
-
     CheckBox {
         x: 204
         y: 110
-        text: "Close"
+        objectName: "closeCheckBox"
+
         style: CheckBoxStyle {
             indicator: Rectangle {
                     implicitWidth: 10
@@ -230,9 +233,6 @@ Rectangle {
                 font.italic: true
                 color: "red"
             }
-        }
-        onClicked: {
-            Qt.close();
         }
     }
 }

@@ -55,6 +55,8 @@ for which a new license (GPL+exception) is in place.
 #include <QQuickView>
 #include <QQmlEngine>
 #include <QQmlComponent>
+#include <QQuickItem>
+#include <QQmlProperty>
 //>>
 #include <QRegExp>
 #include <QScopedPointer>
@@ -10863,32 +10865,49 @@ void ScribusMainWindow::setPreviewToolbar()
 
 void ScribusMainWindow::testQTQuick2_1()
 {
-
 	qDebug()<<"Testing Qt Quick 2.0";
 
-	QQuickView *qqview = new QQuickView();
-	qqview->resize(300,200);
-	//QDialog d(this);
-	//QHBoxLayout *layout = new QHBoxLayout(&d);
-	//QWidget *container = createWindowContainer(view);
-	//d.setMinimumSize(200, 200);
-	//d.setMaximumSize(400, 400);
-	//d.setFocusPolicy(Qt::TabFocus);
-
+	qqview = new QQuickView();
 	qqview->setSource(QUrl::fromLocalFile(ScPaths::instance().qmlDir() + "qtq_test1.qml"));
-
-	//	QObject *object = qqv.rootObject();
-	//layout->addWidget(container);
-	//d.exec();
-
-	//container->deleteLater();
-	//layout->deleteLater();
-
 	qqview->setFlags(Qt::Tool);
+	qqview->setResizeMode(QQuickView::SizeViewToRootObject);
+	QObject *rootObject = dynamic_cast<QObject*>(qqview->rootObject());
+	QObject *q_closeCheckBox = rootObject->findChild<QObject*>("closeCheckBox");
+	QObject *q_xSpinBox = rootObject->findChild<QObject*>("xSpinBox");
+	QObject *q_ySpinBox = rootObject->findChild<QObject*>("ySpinBox");
+
+
+	connect(q_xSpinBox, SIGNAL(editingFinished()), this, SLOT(testQT_slot4()));
+	connect(q_ySpinBox, SIGNAL(valueChanged(int)), this, SLOT(testQT_slot3(int)));
+	connect(q_closeCheckBox, SIGNAL(clicked()), this, SLOT(testQT_slot4()));
 	qqview->show();
 
-//	qDebug() << "Property value:" << QQmlProperty::read(object, "someNumber").toInt();
+}
 
+void ScribusMainWindow::testQT_slot1(QString s)
+{
+	qDebug()<<"Signal data:"<<s;
+}
+
+void ScribusMainWindow::testQT_slot2(double d)
+{
+	qDebug()<<"Signal data:"<<d;
+}
+
+void ScribusMainWindow::testQT_slot3(int i)
+{
+	qDebug()<<"Signal data:"<<i;
+}
+
+void ScribusMainWindow::testQT_slot4()
+{
+	qDebug()<<"Signal data empty but received";
+	QObject *rootObject = dynamic_cast<QObject*>(qqview->rootObject());
+	QObject *q_xSpinBox = rootObject->findChild<QObject*>("xSpinBox");
+	//if (q_xSpinBox==sender())
+	{
+		qDebug()<<"qov"<<q_xSpinBox->property("value").toDouble();
+	}
 }
 
 void ScribusMainWindow::adjustCMS()

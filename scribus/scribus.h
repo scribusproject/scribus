@@ -40,6 +40,7 @@ for which a new license (GPL+exception) is in place.
 #include <QPixmap>
 #include <QPointer>
 #include <QProcess>
+#include <QQuickView>
 #include <QString>
 
 class QCloseEvent;
@@ -571,6 +572,10 @@ public slots:
 	void slotUpdateMarks();
 	bool editMarkDlg(Mark *mrk, PageItem_TextFrame* currItem = NULL);
 	void testQTQuick2_1();
+	void testQT_slot1(QString);
+	void testQT_slot2(double);
+	void testQT_slot3(int);
+	void testQT_slot4();
 	void adjustCMS();
 	void changePreviewQuality(int index);
 
@@ -674,6 +679,8 @@ private:
 	int m_marksCount; //remember marks count from last call
 	bool m_WasAutoSave;
 	bool m_pagePalVisible;
+
+	QQuickView *qqview;
 };
 
 #endif
