@@ -293,8 +293,7 @@ ScribusDoc::ScribusDoc() : UndoObject( tr("Document")), Observable<ScribusDoc>(N
 	drawAsPreview = false;
 	viewAsPreview = false;
 	editOnPreview = false;
-	previewVisual = -1;
-	previewQuality = 1;
+	previewVisual = 0;
 	dontResize = false;
 	//create default numeration
 	NumStruct * numS = new NumStruct;
@@ -415,8 +414,7 @@ ScribusDoc::ScribusDoc(const QString& docName, int unitindex, const PageSize& pa
 	drawAsPreview = false;
 	viewAsPreview = false;
 	editOnPreview = false;
-	previewVisual = -1;
-	previewQuality = 1;
+	previewVisual = 0;
 	dontResize = false;
 	currentEditedTextframe = NULL;
 }
@@ -10597,6 +10595,11 @@ void ScribusDoc::recalcPicturesRes(bool applyNewRes)
 	regionsChanged()->update(QRectF());
 	changed();
 	m_ScMW->mainWindowProgressBar->reset();
+}
+
+int ScribusDoc::previewQuality()
+{
+	return itemToolPrefs().imageLowResType;
 }
 
 

@@ -1126,6 +1126,7 @@ public:
 		int m_lowResType;
 	};
 	void recalcPicturesRes(bool applyNewRes = false);
+	int previewQuality();
 	void connectDocSignals();
 	void disconnectDocSignals();
 	void removeLayer(int l, bool dl = false); //FIXME: Make protected once scripter function no longer uses this directly
@@ -1347,7 +1348,6 @@ public:
 	bool viewAsPreview;
 	bool editOnPreview;
 	int previewVisual;
-	int previewQuality;
 	struct OpenNodesList
 	{
 		int type;

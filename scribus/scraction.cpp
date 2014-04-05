@@ -251,9 +251,12 @@ void ScrAction::setStatusTextAndShortcut(const QString& statusText)
 {
 	QString sct(shortcut().toString());
 	if (sct.isEmpty())
-		QAction::setStatusTip("<qt>" + statusText + "</qt>");
+		QAction::setStatusTip(statusText);
 	else
-		QAction::setStatusTip("<qt>" + statusText + " (" + sct + ")" + "</qt>");
+		QAction::setStatusTip(statusText + " (" + sct + ")");
+	//	QAction::setStatusTip("<qt>" + statusText + "</qt>");
+	//else
+	//	QAction::setStatusTip("<qt>" + statusText + " (" + sct + ")" + "</qt>");
 }
 
 int ScrAction::getMenuIndex() const

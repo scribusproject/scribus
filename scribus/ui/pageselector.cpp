@@ -42,22 +42,21 @@ PageSelector::PageSelector( QWidget* parent, int maxPg ) : QWidget( parent, 0 )
 	lastButton = new QToolButton( this );
 	lastButton->setAutoRaise(OPTION_FLAT_BUTTON);
 #else
-	Start = new QPushButton( this );
-	Start->setDefault( false );
-	Start->setAutoDefault( false );
-	Start->setFlat(OPTION_FLAT_BUTTON);
-	Back = new QPushButton( this );
-	Back->setDefault( false );
-	Back->setAutoDefault( false );
-	Back->setFlat(OPTION_FLAT_BUTTON);
-	Forward = new QPushButton( this );
-	Forward->setDefault( false );
-	Forward->setAutoDefault( false );
-	Forward->setFlat(OPTION_FLAT_BUTTON);
-	Last = new QPushButton( this );
-	Last->setDefault( false );
-	Last->setAutoDefault( false );
-	Last->setFlat(OPTION_FLAT_BUTTON);
+	startButton = new QPushButton( this );
+	startButton->setDefault( false );
+	startButton->setAutoDefault( false );
+	startButton->setFlat(OPTION_FLAT_BUTTON);
+	backButton = new QPushButton( this );
+	backButton->setDefault( false );
+	backButton->setAutoDefault( false );
+	backButton->setFlat(OPTION_FLAT_BUTTON);
+	forwardButton->setDefault( false );
+	forwardButton->setAutoDefault( false );
+	forwardButton->setFlat(OPTION_FLAT_BUTTON);
+	lastButton = new QPushButton( this );
+	lastButton->setDefault( false );
+	lastButton->setAutoDefault( false );
+	lastButton->setFlat(OPTION_FLAT_BUTTON);
 #endif
 	startButton->setIcon(QIcon(loadIcon("16/go-first.png")));
 	startButton->setFocusPolicy(Qt::NoFocus);

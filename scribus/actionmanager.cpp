@@ -644,7 +644,11 @@ void ActionManager::initViewMenuActions()
 	name="viewFit400";
 	scrActions->insert(name, new ScrAction(ScrAction::DataDouble, QPixmap(), QPixmap(), "", defaultKey(name), mainWindow, 0, 400.0));
 	name="viewPreviewMode";
-	scrActions->insert(name, new ScrAction(ScrAction::DataDouble, QPixmap(), QPixmap(), "", defaultKey(name), mainWindow, 0, 20.0));
+	scrActions->insert(name, new ScrAction(loadIcon("previewOn.png"), loadIcon("previewOn.png"), "", defaultKey(name), mainWindow));
+	name="viewEditInPreview";
+	scrActions->insert(name, new ScrAction(loadIcon("16/editdoc.png"), loadIcon("16/editdoc.png"), "", defaultKey(name), mainWindow));
+	name="viewToggleCMS";
+	scrActions->insert(name, new ScrAction(loadIcon("cmsOn.png"), loadIcon("cmsOn.png"), "", defaultKey(name), mainWindow));
 	name="viewShowMargins";
 	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
 	name="viewShowBleeds";
@@ -681,9 +685,20 @@ void ActionManager::initViewMenuActions()
 	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
 	name="showMouseCoordinates";
 	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
+
+	name="viewToggleCM";
+	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
+//	name="viewVisionNormal";
+//	name="viewVisionProtanopia";
+//	name="viewVisionDeuteranopia";
+//	name="viewVisionTritanopia";
+//	name="viewVisionFullColorBlind";
+
 //	scrActions->insert("viewNewView", new ScrAction("", defaultKey(name), mainWindow));
 
 	(*scrActions)["viewPreviewMode"]->setToggleAction(true);
+	(*scrActions)["viewEditInPreview"]->setToggleAction(true);
+	(*scrActions)["viewToggleCMS"]->setToggleAction(true);
 	(*scrActions)["viewShowMargins"]->setToggleAction(true);
 	(*scrActions)["viewShowBleeds"]->setToggleAction(true);
 	(*scrActions)["viewShowFrames"]->setToggleAction(true);
@@ -703,6 +718,8 @@ void ActionManager::initViewMenuActions()
 	(*scrActions)["showMouseCoordinates"]->setToggleAction(true);
 
 	(*scrActions)["viewPreviewMode"]->setChecked(false);
+	(*scrActions)["viewEditInPreview"]->setChecked(false);
+	(*scrActions)["viewToggleCMS"]->setChecked(false);
 	(*scrActions)["viewShowMargins"]->setChecked(true);
 	(*scrActions)["viewShowBleeds"]->setChecked(true);
 	(*scrActions)["viewShowFrames"]->setChecked(true);
@@ -773,6 +790,8 @@ void ActionManager::initToolsMenuActions()
 	name="toolsToolbarTools";
 	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
 	name="toolsToolbarPDF";
+	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
+	name="toolsToolbarView";
 	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
 
 	//toolbar only items
@@ -875,6 +894,7 @@ void ActionManager::initToolsMenuActions()
 	(*scrActions)["toolsInline"]->setToggleAction(true);
 	(*scrActions)["toolsToolbarTools"]->setToggleAction(true);
 	(*scrActions)["toolsToolbarPDF"]->setToggleAction(true);
+	(*scrActions)["toolsToolbarView"]->setToggleAction(true);
 
 	*modeActionNames << "toolsSelect" << "toolsInsertTextFrame" << "toolsInsertImageFrame" << "toolsInsertTable";
 	*modeActionNames << "toolsInsertShape" << "toolsInsertPolygon" << "toolsInsertArc" << "toolsInsertSpiral" << "toolsInsertLine" << "toolsInsertBezier";
@@ -1127,10 +1147,8 @@ void ActionManager::initSpecialActions()
 	QString name;
 	//GUI
 	name="specialToggleAllPalettes";
-//	scrActions->insert(name, new ScrAction(ScrAction::DataQString, QPixmap(), QPixmap(), "", defaultKey(name), mainWindow, 0,0.0,name));
 	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
 	name="specialToggleAllGuides";
-//	scrActions->insert(name, new ScrAction(ScrAction::DataQString, QPixmap(), QPixmap(), "", defaultKey(name), mainWindow, 0,0.0,name));
 	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
 	name="specialUnicodeSequenceBegin";
 	scrActions->insert(name, new ScrAction( "", defaultKey(name), mainWindow));
@@ -1238,7 +1256,10 @@ void ActionManager::connectNewDocActions(ScribusDoc *currDoc)
 
 void ActionManager::disconnectNewViewActions()
 {
+	//qDebug()<<"disconnectNewViewActions"<<mainWindow->doc->DocName;
 	disconnect( (*scrActions)["viewPreviewMode"], 0, 0, 0);
+	disconnect( (*scrActions)["viewEditInPreview"], 0, 0, 0);
+	disconnect( (*scrActions)["viewToggleCMS"], 0, 0, 0);
 	disconnect( (*scrActions)["toolsZoomIn"], 0, 0, 0);
 	disconnect( (*scrActions)["toolsZoomOut"], 0, 0, 0);
 	disconnect( (*scrActions)["itemImageIsVisible"], 0, 0, 0);
@@ -1252,14 +1273,17 @@ void ActionManager::disconnectNewViewActions()
 	disconnect( (*scrActions)["itemConvertToTextFrame"], 0, 0, 0);
 	disconnect( (*scrActions)["itemAttachTextToPath"], 0, 0, 0);
 	disconnect( (*scrActions)["itemDetachTextFromPath"], 0, 0, 0);
-	disconnect( (*scrActions)["itemExtendedImageProperties"], 0, 0, 0 );
+	disconnect( (*scrActions)["itemExtendedImageProperties"], 0, 0, 0);
 }
 
 void ActionManager::connectNewViewActions(ScribusView *currView)
 {
 	if (currView==NULL)
 		return;
-	connect( (*scrActions)["viewPreviewMode"], SIGNAL(triggered()), currView, SLOT(togglePreview()) );
+	//qDebug()<<"connectNewViewActions"<<currView->Doc->DocName;
+	connect( (*scrActions)["viewPreviewMode"], SIGNAL(toggled(bool)), currView, SLOT(togglePreview(bool)) );
+	connect( (*scrActions)["viewEditInPreview"], SIGNAL(toggled(bool)), currView, SLOT(togglePreviewEdit(bool)) );
+	connect( (*scrActions)["viewToggleCMS"], SIGNAL(toggled(bool)), currView, SLOT(toggleCMS(bool)));
 	connect( (*scrActions)["toolsZoomIn"], SIGNAL(triggered()) , currView, SLOT(slotZoomIn()) );
 	connect( (*scrActions)["toolsZoomOut"], SIGNAL(triggered()) , currView, SLOT(slotZoomOut()) );
 	connect( (*scrActions)["itemConvertToBezierCurve"], SIGNAL(triggered()), currView, SLOT(ToBezierFrame()) );
@@ -1591,6 +1615,8 @@ void ActionManager::languageChange()
 	(*scrActions)["viewFit200"]->setTexts( tr("&200%"));
 	(*scrActions)["viewFit400"]->setTexts( tr("&400%"));
 	(*scrActions)["viewPreviewMode"]->setTexts( tr("Preview Mode"));
+	(*scrActions)["viewEditInPreview"]->setTexts( tr("Edit in Preview Mode") );
+	(*scrActions)["viewToggleCMS"]->setTexts( tr("Toggle Color Management System"));
 	(*scrActions)["viewShowMargins"]->setTexts( tr("Show &Margins"));
 	(*scrActions)["viewShowBleeds"]->setTexts( tr("Show Bleeds"));
 	(*scrActions)["viewShowFrames"]->setTexts( tr("Show &Frames"));
@@ -1625,6 +1651,7 @@ void ActionManager::languageChange()
 	(*scrActions)["toolsInline"]->setTexts( tr("Inline Frames"));
 	(*scrActions)["toolsToolbarTools"]->setTexts( tr("&Tools"));
 	(*scrActions)["toolsToolbarPDF"]->setTexts( tr("P&DF Tools"));
+	(*scrActions)["toolsToolbarView"]->setTexts( tr("&View Tools"));
 
 	//toolbar only items
 	(*scrActions)["toolsSelect"]->setTexts( tr("Select Item"));
@@ -2222,6 +2249,8 @@ void ActionManager::createDefaultMenus()
 		<< "viewFit200"
 		<< "viewFit400"
 		<< "viewPreviewMode"
+		<< "viewEditInPreview"
+		<< "viewToggleCMS"
 		<< "viewShowMargins"
 		<< "viewShowBleeds"
 		<< "viewShowFrames"
@@ -2276,7 +2305,8 @@ void ActionManager::createDefaultMenus()
 		<< "toolsSymbols"
 		<< "toolsInline"
 		<< "toolsToolbarTools"
-		<< "toolsToolbarPDF";
+		<< "toolsToolbarPDF"
+		<< "toolsToolbarView";
 	//Help
 	++itmenu;
 	itmenu->second

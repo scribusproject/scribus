@@ -116,6 +116,7 @@ for which a new license (GPL+exception) is in place.
 #include "ui/scrapbookpalette.h"
 #include "ui/storyeditor.h"
 #include "ui/symbolpalette.h"
+#include "ui/viewtoolbar.h"
 #include "ui/vruler.h"
 #include "undomanager.h"
 #include "units.h"
@@ -257,9 +258,9 @@ void ScribusView::languageChange()
 	endEditButton->setToolTip( tr("Click here to leave this special edit mode."));
 }
 
-void ScribusView::toggleCMS()
+void ScribusView::toggleCMS(bool cmsOn)
 {
-	Doc->enableCMS(!Doc->HasCMS);
+	Doc->enableCMS(cmsOn);
 	m_ScMW->requestUpdate(reqCmsOptionsUpdate);
 	DrawNew();
 }
@@ -275,30 +276,31 @@ void ScribusView::switchPreviewVisual(int vis)
 	DrawNew();
 }
 
-void ScribusView::togglePreviewEdit()
+void ScribusView::togglePreviewEdit(bool edit)
 {
-	Doc->editOnPreview = !Doc->editOnPreview;
+	Doc->editOnPreview = edit;
 	m_ScMW->setPreviewToolbar();
 	m_EditModeWasOn = true;
 	DrawNew();
 }
 
-void ScribusView::togglePreview()
+void ScribusView::togglePreview(bool inPreview)
 {
 	this->requestMode(modeNormal);
 	Deselect(true);
 	undoManager->setUndoEnabled(false);
-	m_canvas->m_viewMode.viewAsPreview = !m_canvas->m_viewMode.viewAsPreview;
-	Doc->drawAsPreview = m_canvas->m_viewMode.viewAsPreview;
+	m_canvas->m_viewMode.viewAsPreview = inPreview;
+	Doc->drawAsPreview = inPreview;
 	bool recalc = false;
 	Doc->editOnPreview = false;
-	m_ScMW->editOnPreviewToolbarButton->setChecked(false);
+	m_ScMW->scrActions["viewEditInPreview"]->setChecked(false);
 	m_AnnotChanged = false;
 	m_EditModeWasOn = false;
 	m_ChangedState = Doc->isModified();
-	if (m_canvas->m_viewMode.viewAsPreview)
+
+	if (inPreview)
 	{
-		m_ScMW->editOnPreviewToolbarButton->show();
+		m_ScMW->scrActions["viewEditInPreview"]->setEnabled(true);
 		storedFramesShown = Doc->guidesPrefs().framesShown;
 		Doc->guidesPrefs().framesShown = false;
 		storedShowControls = Doc->guidesPrefs().showControls;
@@ -316,30 +318,24 @@ void ScribusView::togglePreview()
 	{
 		if (m_AnnotChanged)
 			Doc->ResetFormFields();
-		m_ScMW->editOnPreviewToolbarButton->hide();
+		m_ScMW->scrActions["viewEditInPreview"]->setEnabled(false);
 		Doc->guidesPrefs().framesShown = storedFramesShown;
 		Doc->guidesPrefs().showControls = storedShowControls;
-		m_ScMW->visualMenu->blockSignals(true);
-		if (m_ScMW->visualMenu->currentIndex() != Doc->previewVisual)
+		if (m_ScMW->viewToolBar->visualMenu->currentIndex() != Doc->previewVisual)
 			recalc = true;
 		m_canvas->m_viewMode.previewVisual = 0;
 		Doc->previewVisual = 0;
-		m_ScMW->visualMenu->setCurrentIndex(0);
-		m_ScMW->visualMenu->blockSignals(false);
+		m_ScMW->viewToolBar->setDoc(Doc);
 	}
-	m_ScMW->appModeHelper.setPreviewMode(m_canvas->m_viewMode.viewAsPreview);
+	m_ScMW->appModeHelper.setPreviewMode(inPreview);
 	m_ScMW->setPreviewToolbar();
-#if OPTION_USE_QTOOLBUTTON
-	m_ScMW->previewToolbarButton->setChecked(m_canvas->m_viewMode.viewAsPreview);
-#endif
-	m_ScMW->visualMenu->setEnabled(m_canvas->m_viewMode.viewAsPreview);
+	m_ScMW->viewToolBar->setViewPreviewMode(inPreview);
 	ScGuardedPtr<ScribusDoc> docPtr = Doc->guardedPtr();
 	if (recalc)
 	{
 		Doc->recalculateColors();
 		Doc->recalcPicturesRes();
 	}
-//	repaintContents(QRect());
 	if (docPtr) // document may have been destroyed in-between
 	{
 		DrawNew();

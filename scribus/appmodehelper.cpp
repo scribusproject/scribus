@@ -519,7 +519,6 @@ void AppModeHelper::mainWindowCloseLastDoc()
 void AppModeHelper::setPreviewMode(bool b)
 {
 	bool b2=!b;
-	(*scrActions)["viewPreviewMode"]->setChecked(b);
 	(*scrActions)["viewShowMargins"]->setEnabled(b2);
 	(*scrActions)["viewShowFrames"]->setEnabled(b2);
 	(*scrActions)["viewShowLayerMarkers"]->setEnabled(b2);

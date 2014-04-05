@@ -491,6 +491,7 @@ SET(SCRIBUS_MOC_CLASSES
   ui/filetoolbar.h
   ui/modetoolbar.h
   ui/pdftoolbar.h
+  ui/viewtoolbar.h
   ui/unicodesearch.h
   ui/useprintermarginsdialog.h
   ui/vruler.h
@@ -946,6 +947,7 @@ SET(SCRIBUS_SOURCES
   ui/helpnavigation.cpp
   ui/modetoolbar.cpp
   ui/pdftoolbar.cpp
+  ui/viewtoolbar.cpp
   ui/unicodesearch.cpp
   ui/vruler.cpp
   ui/useprintermarginsdialog.cpp

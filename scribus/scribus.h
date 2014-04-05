@@ -106,6 +106,7 @@ class TOCGenerator;
 class UndoManager;
 class UndoPalette;
 class UndoState;
+class ViewToolBar;
 
 
 extern SCRIBUS_API ScribusQApp* ScQApp;
@@ -213,26 +214,18 @@ public:
 	QToolButton *zoomDefaultToolbarButton;
 	QToolButton *zoomOutToolbarButton;
 	QToolButton *zoomInToolbarButton;
-	QToolButton *cmsToolbarButton;
-	QToolButton *previewToolbarButton;
-	QToolButton *editOnPreviewToolbarButton;
 #else
 	QPushButton *zoomDefaultToolbarButton;
 	QPushButton *zoomOutToolbarButton;
 	QPushButton *zoomInToolbarButton;
-	QPushButton *cmsToolbarButton;
-	QPushButton *previewToolbarButton;
-	QPushButton *editOnPreviewToolbarButton;
 #endif
 	QComboBox *layerMenu; //Menu for layers at bottom of view
 	QComboBox *unitSwitcher; //Menu for units at bottom of view
-	QComboBox *previewQualitySwitcher; //Menu for image preview quality
-	QComboBox *visualMenu;
-
-
-	QMenu *cmsAdjustMenu;
-	QAction *idCmsAdjustMenu;
-
+	EditToolBar *editToolBar;
+	FileToolBar *fileToolBar;
+	ModeToolBar* modeToolBar;
+	PDFToolBar* pdfToolBar;
+	ViewToolBar* viewToolBar;
 	QLabel* mainWindowXPosLabel;
 	QLabel* mainWindowXPosDataLabel;
 	QLabel* mainWindowYPosLabel;
@@ -576,7 +569,7 @@ public slots:
 	void testQT_slot2(double);
 	void testQT_slot3(int);
 	void testQT_slot4();
-	void adjustCMS();
+	//void adjustCMS();
 	void changePreviewQuality(int index);
 
 signals:
@@ -619,10 +612,7 @@ private:
 	QLabel* mainWindowStatusLabel;
 	QString statusLabelText;
 	QPixmap noIcon;
-	EditToolBar *editToolBar;
-	FileToolBar *fileToolBar;
-	ModeToolBar* modeToolBar;
-	PDFToolBar* pdfToolBar;
+
 	QToolButton* DatOpe;
 	QToolButton* DatSav;
 	QToolButton* DatClo;

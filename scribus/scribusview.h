@@ -234,10 +234,10 @@ public: // for now
 
 public slots: // Public slots
 	void languageChange();
-	void toggleCMS();
+	void toggleCMS(bool cmsOn);
 	void switchPreviewVisual(int vis);
-	void togglePreviewEdit();
-	void togglePreview();
+	void togglePreviewEdit(bool edit);
+	void togglePreview(bool inPreview);
 	void unitChange();
 	void setRulersShown(bool isShown);
   /** Zooms in or out */
