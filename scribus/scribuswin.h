@@ -25,10 +25,7 @@ for which a new license (GPL+exception) is in place.
 #define SCRIBUSWIN_H
 
 #include <QMainWindow>
-#include <QFrame>
 #include <QCloseEvent>
-#include <QResizeEvent>
-#include <QHBoxLayout>
 #include <QMdiSubWindow>
 
 class ScribusDoc;
@@ -49,7 +46,6 @@ public:
 	ScribusWin(QWidget* parent, ScribusDoc* doc);
 	~ScribusWin() {};
 	void closeEvent(QCloseEvent *ce);
-	void resizeEvent(QResizeEvent *re);
 	void setView(ScribusView* newView);
 	void setMainWindow(ScribusMainWindow *);
 	ScribusView* view() const { return m_View;}
@@ -64,11 +60,9 @@ signals:
 	void AutoSaved();
 
 protected:
-	QHBoxLayout* statusFrameLayout;
 	ScribusMainWindow* m_MainWindow;
 	ScribusView* m_View;
 	ScribusDoc* m_Doc;
-	//QFrame *statusFrame;
 	QMdiSubWindow* subWindow;
 	int winIndex;
 };

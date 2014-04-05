@@ -121,9 +121,3 @@ void ScribusWin::closeEvent(QCloseEvent *ce)
 	}
 	ce->accept();
 }
-
-void ScribusWin::resizeEvent(QResizeEvent *re)
-{
-	statusBar()->setSizeGripEnabled(!isMaximized());
-}
-
