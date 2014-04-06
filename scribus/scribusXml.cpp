@@ -1851,8 +1851,8 @@ QString ScriXmlDoc::WriteElem(ScribusDoc *doc, ScribusView *view, Selection* sel
 	{
 		double gx, gy, gw, gh;
 		selection->getGroupRect(&gx, &gy, &gw, &gh);
-		xp = gx - doc->currentPage()->xOffset();
-		yp = gy - doc->currentPage()->yOffset();
+		xp = gx;
+		yp = gy;
 		writer.writeAttribute("W", gw);
 		writer.writeAttribute("H", gh);
 		selection->getVisualGroupRect(&gx, &gy, &selectionWidth, &selectionHeight);
@@ -1865,32 +1865,23 @@ QString ScriXmlDoc::WriteElem(ScribusDoc *doc, ScribusView *view, Selection* sel
 			double miny =  std::numeric_limits<double>::max();
 			double maxx = -std::numeric_limits<double>::max();
 			double maxy = -std::numeric_limits<double>::max();
-			double xpo = item->xPos() - doc->currentPage()->xOffset();
-			double ypo = item->yPos() - doc->currentPage()->yOffset();
-			FPointArray pb(4);
-			pb.setPoint(0, FPoint(xpo, ypo));
-			pb.setPoint(1, FPoint(item->width(), 0.0, xpo, ypo, item->rotation(), 1.0, 1.0));
-			pb.setPoint(2, FPoint(item->width(), item->height(), xpo, ypo, item->rotation(), 1.0, 1.0));
-			pb.setPoint(3, FPoint(0.0, item->height(), xpo, ypo, item->rotation(), 1.0, 1.0));
-			for (uint pc = 0; pc < 4; ++pc)
-			{
-				minx = qMin(minx, pb.point(pc).x());
-				miny = qMin(miny, pb.point(pc).y());
-				maxx = qMax(maxx, pb.point(pc).x());
-				maxy = qMax(maxy, pb.point(pc).y());
-			}
+			item->getVisualBoundingRect(&minx, &miny, &maxx, &maxy);
+			selectionWidth  = maxx - minx;
+			selectionHeight = maxy - miny;
+			xp = minx;
+			yp = miny;
 			writer.writeAttribute("W", maxx - minx);
 			writer.writeAttribute("H", maxy - miny);
 		}
 		else
 		{
+			selectionWidth  = item->visualWidth();
+			selectionHeight = item->visualHeight();
+			xp = item->xPos();
+			yp = item->yPos();
 			writer.writeAttribute("W", item->width());
 			writer.writeAttribute("H", item->height());
 		}
-		selectionWidth = item->visualWidth();
-		selectionHeight = item->visualHeight();
-		xp = item->xPos() - doc->currentPage()->xOffset();
-		yp = item->yPos() - doc->currentPage()->yOffset();
 	}
 	writer.writeAttribute("XP", xp);
 	writer.writeAttribute("YP", yp);
@@ -1911,7 +1902,7 @@ QString ScriXmlDoc::WriteElem(ScribusDoc *doc, ScribusView *view, Selection* sel
 			painter->save();
 			FPointArray cl = embedded->PoLine.copy();
 			QMatrix mm;
-			mm.translate(embedded->gXpos, embedded->gYpos);
+			mm.translate(embedded->xPos() - xp, embedded->yPos() - yp);
 			mm.rotate(embedded->rotation());
 			cl.map( mm );
 			painter->beginLayer(1.0 - embedded->fillTransparency(), embedded->fillBlendmode(), &cl);
@@ -1919,12 +1910,9 @@ QString ScriXmlDoc::WriteElem(ScribusDoc *doc, ScribusView *view, Selection* sel
 			continue;
 		}
 		painter->save();
-		double x = embedded->xPos();
-		double y = embedded->yPos();
-		embedded->setXYPos(embedded->xPos()- doc->currentPage()->xOffset() - xp, embedded->yPos()- doc->currentPage()->yOffset() - yp, true);
+		painter->translate(-xp, -yp);
 		embedded->invalid = true;
 		embedded->DrawObj(painter, QRectF());
-		embedded->setXYPos(x, y, true);
 		painter->restore();
 		if (groupStack.count() != 0)
 		{
