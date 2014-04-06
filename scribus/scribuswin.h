@@ -24,8 +24,8 @@ for which a new license (GPL+exception) is in place.
 #ifndef SCRIBUSWIN_H
 #define SCRIBUSWIN_H
 
-#include <QMainWindow>
 #include <QCloseEvent>
+#include <QMainWindow>
 #include <QMdiSubWindow>
 
 class ScribusDoc;
@@ -33,7 +33,6 @@ class ScribusMainWindow;
 class ScribusView;
 
 #include "scribusapi.h"
-class MasterPagesPalette;
 /**
   *@author Franz Schmid
   */
@@ -50,21 +49,22 @@ public:
 	void setMainWindow(ScribusMainWindow *);
 	ScribusView* view() const { return m_View;}
 	ScribusDoc* doc() const { return m_Doc;}
-	QMdiSubWindow* getSubWin() { return subWindow; }
-	void setSubWin(QMdiSubWindow *win) { subWindow = win; }
+	QMdiSubWindow* getSubWin() { return m_subWindow; }
+	void setSubWin(QMdiSubWindow *win) { m_subWindow = win; }
 	
 public slots:
 	void slotSaved(QString newName);
 
 signals:
-	void AutoSaved();
+	void autoSaved();
 
 protected:
-	ScribusMainWindow* m_MainWindow;
-	ScribusView* m_View;
-	ScribusDoc* m_Doc;
-	QMdiSubWindow* subWindow;
-	int winIndex;
+	QMdiSubWindow *m_subWindow;
+	ScribusDoc *m_Doc;
+	ScribusMainWindow *m_MainWindow;
+	ScribusView *m_View;
+	int m_winIndex;
+
 };
 
 #endif

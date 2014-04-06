@@ -22,22 +22,14 @@ for which a new license (GPL+exception) is in place.
  ***************************************************************************/
 
 #include "scribuswin.h"
-#include "scribus.h"
-#include "commonstrings.h"
-#include "fileloader.h"
-#include "ui/pagepalette.h"
-#include "ui/pageselector.h"
-#include "ui/scrspinbox.h"
-#include "ui/storyeditor.h"
-#include "util.h"
-#include "util_file.h"
-#include "util_icon.h"
 
 #include <QApplication>
-#include <QCloseEvent>
-#include <QDir>
-#include <QFileInfo>
 #include <QMessageBox>
+
+#include "scribus.h"
+#include "commonstrings.h"
+#include "ui/storyeditor.h"
+#include "util_icon.h"
 
 ScribusWin::ScribusWin(QWidget* parent, ScribusDoc* doc) : QMainWindow(parent)
 {
@@ -55,7 +47,7 @@ void ScribusWin::setView(ScribusView* newView)
 {
 	m_View = newView;
 	++m_Doc->viewCount;
-	winIndex = ++m_Doc->viewID;
+	m_winIndex = ++m_Doc->viewID;
 	setCentralWidget(newView);
 	setStatusBar(0);
 }
@@ -64,7 +56,7 @@ void ScribusWin::slotSaved(QString newName)
 {
 	setWindowTitle(QDir::toNativeSeparators(newName));
 	qApp->processEvents();
-	emit AutoSaved(); //TODO: to update the main window title, do this from the doc?
+	emit autoSaved(); //TODO: to update the main window title, do this from the doc?
 }
 
 void ScribusWin::closeEvent(QCloseEvent *ce)
