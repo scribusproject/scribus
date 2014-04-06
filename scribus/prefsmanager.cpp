@@ -1391,10 +1391,10 @@ bool PrefsManager::WritePref(QString ho)
 	elem.appendChild(deSE);
 
 	QDomElement deDisplay=docu.createElement("Display");
-	deDisplay.setAttribute("ScratchBottom", appPrefs.displayPrefs.scratch.Bottom);
-	deDisplay.setAttribute("ScratchLeft", appPrefs.displayPrefs.scratch.Left);
-	deDisplay.setAttribute("ScratchRight", appPrefs.displayPrefs.scratch.Right);
-	deDisplay.setAttribute("ScratchTop", appPrefs.displayPrefs.scratch.Top);
+	deDisplay.setAttribute("ScratchBottom", ScCLocale::toQStringC(appPrefs.displayPrefs.scratch.Bottom));
+	deDisplay.setAttribute("ScratchLeft", ScCLocale::toQStringC(appPrefs.displayPrefs.scratch.Left));
+	deDisplay.setAttribute("ScratchRight", ScCLocale::toQStringC(appPrefs.displayPrefs.scratch.Right));
+	deDisplay.setAttribute("ScratchTop", ScCLocale::toQStringC(appPrefs.displayPrefs.scratch.Top));
 	deDisplay.setAttribute("PageGapHorizontal", ScCLocale::toQStringC(appPrefs.displayPrefs.pageGapHorizontal));
 	deDisplay.setAttribute("PageGapVertical", ScCLocale::toQStringC(appPrefs.displayPrefs.pageGapVertical));
 	deDisplay.setAttribute("ShowPageShadow",static_cast<int>(appPrefs.displayPrefs.showPageShadow));
