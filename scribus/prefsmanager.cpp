@@ -1275,10 +1275,10 @@ bool PrefsManager::WritePref(QString filename)
 	dc.setAttribute("rulersShown", static_cast<int>(appPrefs.guidesSettings.rulersShown));
 	dc.setAttribute("showBleed", static_cast<int>(appPrefs.guidesSettings.showBleed));
 	dc.setAttribute("rulerMode", static_cast<int>(appPrefs.guidesSettings.rulerMode));
-	dc.setAttribute("ScratchBottom", appPrefs.scratch.Bottom);
-	dc.setAttribute("ScratchLeft", appPrefs.scratch.Left);
-	dc.setAttribute("ScratchRight", appPrefs.scratch.Right);
-	dc.setAttribute("ScratchTop", appPrefs.scratch.Top);
+	dc.setAttribute("ScratchBottom", ScCLocale::toQStringC(appPrefs.scratch.Bottom));
+	dc.setAttribute("ScratchLeft", ScCLocale::toQStringC(appPrefs.scratch.Left));
+	dc.setAttribute("ScratchRight", ScCLocale::toQStringC(appPrefs.scratch.Right));
+	dc.setAttribute("ScratchTop", ScCLocale::toQStringC(appPrefs.scratch.Top));
 	dc.setAttribute("GapHorizontal", ScCLocale::toQStringC(appPrefs.GapHorizontal));
 	dc.setAttribute("GapVertical", ScCLocale::toQStringC(appPrefs.GapVertical));
 	dc.setAttribute("STECOLOR", appPrefs.STEcolor.name());
