@@ -569,6 +569,11 @@ void CanvasMode::drawOutline(QPainter* p, double scalex, double scaley, double d
 							p->save();
 							currItem = gItem->groupItemList.at(cg);
 							p->translate(currItem->gXpos, currItem->gYpos);
+							if (currItem->rotation() != 0)
+							{
+								p->setRenderHint(QPainter::Antialiasing);
+								p->rotate(currItem->rotation());
+							}
 							currItem->DrawPolyL(p, currItem->Clip);
 							p->restore();
 						}
