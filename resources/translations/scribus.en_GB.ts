@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="en_GB">
+<TS version="2.1" language="en_GB">
 <context>
     <name></name>
     <message>
@@ -7090,7 +7090,7 @@ May raise WrongFrameTypeError if the target frame is not an image frame
     </message>
     <message>
         <source>Haiku Port:</source>
-        <translation type="unfinished"></translation>
+        <translation>Haiku Port:</translation>
     </message>
 </context>
 <context>
@@ -8469,67 +8469,67 @@ May raise WrongFrameTypeError if the target frame is not an image frame
     </message>
     <message>
         <source>Test Qt Quick</source>
-        <translation type="unfinished"></translation>
+        <translation>Test Qt Quick</translation>
     </message>
     <message>
         <source>Copy</source>
-        <translation type="unfinished">Copy</translation>
+        <translation>Copy</translation>
     </message>
     <message>
         <source>Cut</source>
-        <translation type="unfinished">Cut</translation>
+        <translation>Cut</translation>
     </message>
     <message>
         <source>Paste</source>
-        <translation type="unfinished">Paste</translation>
+        <translation>Paste</translation>
     </message>
     <message>
         <source>Redo</source>
-        <translation type="unfinished"></translation>
+        <translation>Redo</translation>
     </message>
     <message>
         <source>Undo</source>
-        <translation type="unfinished"></translation>
+        <translation>Undo</translation>
     </message>
     <message>
         <source>Close the current document</source>
-        <translation type="unfinished"></translation>
+        <translation>Close the current document</translation>
     </message>
     <message>
         <source>Export the document to PDF</source>
-        <translation type="unfinished"></translation>
+        <translation>Export the document to PDF</translation>
     </message>
     <message>
         <source>Create a new document</source>
-        <translation type="unfinished"></translation>
+        <translation>Create a new document</translation>
     </message>
     <message>
         <source>Open an existing document</source>
-        <translation type="unfinished"></translation>
+        <translation>Open an existing document</translation>
     </message>
     <message>
         <source>Print the document</source>
-        <translation type="unfinished"></translation>
+        <translation>Print the document</translation>
     </message>
     <message>
         <source>Save the current document</source>
-        <translation type="unfinished"></translation>
+        <translation>Save the current document</translation>
     </message>
     <message>
         <source>Copy item properties</source>
-        <translation type="unfinished"></translation>
+        <translation>Copy item properties</translation>
     </message>
     <message>
         <source>Edit contents of a frame</source>
-        <translation type="unfinished"></translation>
+        <translation>Edit contents of a frame</translation>
     </message>
     <message>
         <source>Edit text in the Story Editor</source>
-        <translation type="unfinished"></translation>
+        <translation>Edit text in the Story Editor</translation>
     </message>
     <message>
         <source>Eye Dropper</source>
-        <translation type="unfinished"></translation>
+        <translation>Eye Dropper</translation>
     </message>
     <message>
         <source>Insert an arc</source>
@@ -17744,7 +17744,7 @@ p, li { white-space: pre-wrap; }
         <source>Length:</source>
         <translation type="obsolete">Length:</translation>
     </message>
-    <message utf8="both">
+    <message>
         <source> °</source>
         <translation type="unfinished"> °</translation>
     </message>
@@ -20705,19 +20705,19 @@ both end points must lie outside of the polygon</source>
         <source>Rotate Objects by:</source>
         <translation>Rotate Objects by:</translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>0°</source>
         <translation>0°</translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>90°</source>
         <translation>90°</translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>180°</source>
         <translation>180°</translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>270°</source>
         <translation>270°</translation>
     </message>
@@ -24816,7 +24816,7 @@ A value of 0 means unlimited hyphenations.</translation>
         <source>Angle:</source>
         <translation>Angle:</translation>
     </message>
-    <message utf8="true">
+    <message>
         <source> °</source>
         <translation> °</translation>
     </message>
@@ -26404,7 +26404,7 @@ A value of 0 means unlimited hyphenations.</translation>
     </message>
     <message>
         <source>Background Color:</source>
-        <translation type="unfinished"></translation>
+        <translation>Background Colour:</translation>
     </message>
 </context>
 <context>
@@ -27047,7 +27047,7 @@ Note: PDF Forms will not be exported.</source>
     </message>
     <message>
         <source>Length:</source>
-        <translation type="unfinished">Length:</translation>
+        <translation>Length:</translation>
     </message>
 </context>
 <context>
@@ -28064,11 +28064,11 @@ Corners:</translation>
     </message>
     <message>
         <source>T&amp;able</source>
-        <translation type="unfinished"></translation>
+        <translation>T&amp;able</translation>
     </message>
     <message>
         <source>Drop Shadow</source>
-        <translation type="unfinished"></translation>
+        <translation>Drop Shadow</translation>
     </message>
 </context>
 <context>
@@ -28079,312 +28079,312 @@ Corners:</translation>
     </message>
     <message>
         <source>Shape</source>
-        <translation type="unfinished">Shape</translation>
+        <translation>Shape</translation>
     </message>
     <message>
         <source>Text &amp;Flow Around Frame</source>
-        <translation type="unfinished">Text &amp;Flow Around Frame</translation>
+        <translation>Text &amp;Flow Around Frame</translation>
     </message>
     <message>
         <source>Disabled</source>
-        <translation type="unfinished">Disabled</translation>
+        <translation>Disabled</translation>
     </message>
     <message>
         <source>Use Frame &amp;Shape</source>
-        <translation type="unfinished">Use Frame &amp;Shape</translation>
+        <translation>Use Frame &amp;Shape</translation>
     </message>
     <message>
         <source>Use &amp;Bounding Box</source>
-        <translation type="unfinished">Use &amp;Bounding Box</translation>
+        <translation>Use &amp;Bounding Box</translation>
     </message>
     <message>
         <source>&amp;Use Contour Line</source>
-        <translation type="unfinished">&amp;Use Contour Line</translation>
+        <translation>&amp;Use Contour Line</translation>
     </message>
     <message>
         <source>Use Image Clip Path</source>
-        <translation type="unfinished">Use Image Clip Path</translation>
+        <translation>Use Image Clip Path</translation>
     </message>
     <message>
         <source>Disable text flow from lower frames around object</source>
-        <translation type="unfinished">Disable text flow from lower frames around object</translation>
+        <translation>Disable text flow from lower frames around object</translation>
     </message>
     <message>
         <source>Use the frame shape for text flow of text frames below the object.</source>
-        <translation type="unfinished">Use the frame shape for text flow of text frames below the object.</translation>
+        <translation>Use the frame shape for text flow of text frames below the object.</translation>
     </message>
     <message>
         <source>Use the bounding box, which is always rectangular, instead of the frame&apos;s shape for text flow of text frames below the object. </source>
-        <translation type="unfinished">Use the bounding box, which is always rectangular, instead of the frame&apos;s shape for text flow of text frames below the object. </translation>
+        <translation>Use the bounding box, which is always rectangular, instead of the frame&apos;s shape for text flow of text frames below the object. </translation>
     </message>
     <message>
         <source>When chosen, the contour line can be edited with the Edit Shape Tool on the palette further above. When edited via the shape palette, this becomes a second separate line originally based on the frame&apos;s shape for text flow of text frames below the object.</source>
-        <translation type="unfinished">When chosen, the contour line can be edited with the Edit Shape Tool on the palette further above. When edited via the shape palette, this becomes a second separate line originally based on the frame&apos;s shape for text flow of text frames below the object.</translation>
+        <translation>When chosen, the contour line can be edited with the Edit Shape Tool on the palette further above. When edited via the shape palette, this becomes a second separate line originally based on the frame&apos;s shape for text flow of text frames below the object.</translation>
     </message>
     <message>
         <source>Use the clipping path of the image</source>
-        <translation type="unfinished">Use the clipping path of the image</translation>
+        <translation>Use the clipping path of the image</translation>
     </message>
 </context>
 <context>
     <name>PropertiesPalette_GroupBase</name>
     <message>
         <source>Form</source>
-        <translation type="unfinished">Form</translation>
+        <translation>Form</translation>
     </message>
     <message>
         <source>Shape</source>
-        <translation type="unfinished">Shape</translation>
+        <translation>Shape</translation>
     </message>
     <message>
         <source>...</source>
-        <translation type="unfinished">...</translation>
+        <translation>...</translation>
     </message>
     <message>
         <source>&amp;Edit...</source>
-        <translation type="unfinished">&amp;Edit...</translation>
+        <translation>&amp;Edit...</translation>
     </message>
     <message>
         <source>Text Flow Around Frame</source>
-        <translation type="unfinished"></translation>
+        <translation>Text Flow Around Frame</translation>
     </message>
     <message>
         <source>Disabled</source>
-        <translation type="unfinished">Disabled</translation>
+        <translation>Disabled</translation>
     </message>
     <message>
         <source>Use &amp;Frame Shape</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Use &amp;Bounding Box</source>
-        <translation type="unfinished">Use &amp;Bounding Box</translation>
+        <translation>Use &amp;Bounding Box</translation>
     </message>
     <message>
         <source>&amp;Use Contour Line</source>
-        <translation type="unfinished">&amp;Use Contour Line</translation>
+        <translation>&amp;Use Contour Line</translation>
     </message>
     <message>
         <source>Use Image Clip Path</source>
-        <translation type="unfinished">Use Image Clip Path</translation>
+        <translation>Use Image Clip Path</translation>
     </message>
     <message>
         <source>Transparency</source>
-        <translation type="unfinished">Transparency</translation>
+        <translation>Transparency</translation>
     </message>
     <message>
         <source>Fill Rule</source>
-        <translation type="unfinished">Fill Rule</translation>
+        <translation>Fill Rule</translation>
     </message>
     <message>
         <source>Even-Odd</source>
-        <translation type="unfinished">Even-Odd</translation>
+        <translation>Even-Odd</translation>
     </message>
     <message>
         <source>Non Zero</source>
-        <translation type="unfinished">Non Zero</translation>
+        <translation>Non Zero</translation>
     </message>
     <message>
         <source>Group clips Contents</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
 </context>
 <context>
     <name>PropertiesPalette_Image</name>
     <message>
         <source>Auto</source>
-        <translation type="unfinished">Auto</translation>
+        <translation>Auto</translation>
     </message>
     <message>
         <source>Actual X-DPI:</source>
-        <translation type="unfinished">Actual X-DPI:</translation>
+        <translation>Actual X-DPI:</translation>
     </message>
     <message>
         <source>Actual Y-DPI:</source>
-        <translation type="unfinished">Actual Y-DPI:</translation>
+        <translation>Actual Y-DPI:</translation>
     </message>
     <message>
         <source>&amp;X-Pos:</source>
-        <translation type="unfinished">&amp;X-Pos:</translation>
+        <translation>&amp;X-Pos:</translation>
     </message>
     <message>
         <source>&amp;Y-Pos:</source>
-        <translation type="unfinished">&amp;Y-Pos:</translation>
+        <translation>&amp;Y-Pos:</translation>
     </message>
     <message>
         <source>X-Sc&amp;ale:</source>
-        <translation type="unfinished">X-Sc&amp;ale:</translation>
+        <translation>X-Sc&amp;ale:</translation>
     </message>
     <message>
         <source>Y-Scal&amp;e:</source>
-        <translation type="unfinished">Y-Scal&amp;e:</translation>
+        <translation>Y-Scal&amp;e:</translation>
     </message>
     <message>
         <source>&amp;Free Scaling</source>
-        <translation type="unfinished">&amp;Free Scaling</translation>
+        <translation>&amp;Free Scaling</translation>
     </message>
     <message>
         <source>&amp;Page Number:</source>
-        <translation type="unfinished">&amp;Page Number:</translation>
+        <translation>&amp;Page Number:</translation>
     </message>
     <message>
         <source>Rotation:</source>
-        <translation type="unfinished">Rotation:</translation>
+        <translation>Rotation:</translation>
     </message>
     <message>
         <source>P&amp;roportional</source>
-        <translation type="unfinished">P&amp;roportional</translation>
+        <translation>P&amp;roportional</translation>
     </message>
     <message>
         <source>Image Effects</source>
-        <translation type="unfinished">Image Effects</translation>
+        <translation>Image Effects</translation>
     </message>
     <message>
         <source>Extended Properties</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Input Profile:</source>
-        <translation type="unfinished">Input Profile:</translation>
+        <translation>Input Profile:</translation>
     </message>
     <message>
         <source>Rendering Intent:</source>
-        <translation type="unfinished">Rendering Intent:</translation>
+        <translation>Rendering Intent:</translation>
     </message>
     <message>
         <source>Method:</source>
-        <translation type="unfinished"></translation>
+        <translation>Method:</translation>
     </message>
     <message>
         <source>Quality:</source>
-        <translation type="unfinished"></translation>
+        <translation>Quality:</translation>
     </message>
     <message>
         <source>Perceptual</source>
-        <translation type="unfinished">Perceptual</translation>
+        <translation>Perceptual</translation>
     </message>
     <message>
         <source>Relative Colorimetric</source>
-        <translation type="unfinished">Relative Colourimetric</translation>
+        <translation>Relative Colourimetric</translation>
     </message>
     <message>
         <source>Saturation</source>
-        <translation type="unfinished">Saturation</translation>
+        <translation>Saturation</translation>
     </message>
     <message>
         <source>Absolute Colorimetric</source>
-        <translation type="unfinished">Absolute Colourimetric</translation>
+        <translation>Absolute Colourimetric</translation>
     </message>
     <message>
         <source>Global</source>
-        <translation type="unfinished">Global</translation>
+        <translation>Global</translation>
     </message>
     <message>
         <source>Automatic</source>
-        <translation type="unfinished">Automatic</translation>
+        <translation>Automatic</translation>
     </message>
     <message>
         <source>Lossy - JPEG</source>
-        <translation type="unfinished">Lossy - JPEG</translation>
+        <translation>Lossy - JPEG</translation>
     </message>
     <message>
         <source>Lossless - Zip</source>
-        <translation type="unfinished">Lossless - Zip</translation>
+        <translation>Lossless - Zip</translation>
     </message>
     <message>
         <source>None</source>
-        <translation type="unfinished">None</translation>
+        <translation>None</translation>
     </message>
     <message>
         <source>Maximum</source>
-        <translation type="unfinished">Maximum</translation>
+        <translation>Maximum</translation>
     </message>
     <message>
         <source>High</source>
-        <translation type="unfinished">High</translation>
+        <translation>High</translation>
     </message>
     <message>
         <source>Medium</source>
-        <translation type="unfinished">Medium</translation>
+        <translation>Medium</translation>
     </message>
     <message>
         <source>Low</source>
-        <translation type="unfinished">Low</translation>
+        <translation>Low</translation>
     </message>
     <message>
         <source>Minimum</source>
-        <translation type="unfinished">Minimum</translation>
+        <translation>Minimum</translation>
     </message>
     <message>
         <source> %</source>
-        <translation type="unfinished"> %</translation>
+        <translation> %</translation>
     </message>
     <message>
         <source> pt</source>
-        <translation type="unfinished"> pt</translation>
+        <translation> pt</translation>
     </message>
     <message>
         <source>Horizontal offset of image within frame</source>
-        <translation type="unfinished">Horizontal offset of image within frame</translation>
+        <translation>Horizontal offset of image within frame</translation>
     </message>
     <message>
         <source>Vertical offset of image within frame</source>
-        <translation type="unfinished">Vertical offset of image within frame</translation>
+        <translation>Vertical offset of image within frame</translation>
     </message>
     <message>
         <source>Resize the image horizontally</source>
-        <translation type="unfinished">Resize the image horizontally</translation>
+        <translation>Resize the image horizontally</translation>
     </message>
     <message>
         <source>Resize the image vertically</source>
-        <translation type="unfinished">Resize the image vertically</translation>
+        <translation>Resize the image vertically</translation>
     </message>
     <message>
         <source>Keep the X and Y scaling the same</source>
-        <translation type="unfinished">Keep the X and Y scaling the same</translation>
+        <translation>Keep the X and Y scaling the same</translation>
     </message>
     <message>
         <source>Allow the image to be a different size to the frame</source>
-        <translation type="unfinished">Allow the image to be a different size to the frame</translation>
+        <translation>Allow the image to be a different size to the frame</translation>
     </message>
     <message>
         <source>Make the image fit within the size of the frame</source>
-        <translation type="unfinished">Make the image fit within the size of the frame</translation>
+        <translation>Make the image fit within the size of the frame</translation>
     </message>
     <message>
         <source>Effective horizontal DPI of the image after scaling</source>
-        <translation type="unfinished">Effective horizontal DPI of the image after scaling</translation>
+        <translation>Effective horizontal DPI of the image after scaling</translation>
     </message>
     <message>
         <source>Effective vertical DPI of the image after scaling</source>
-        <translation type="unfinished">Effective vertical DPI of the image after scaling</translation>
+        <translation>Effective vertical DPI of the image after scaling</translation>
     </message>
     <message>
         <source>Use image proportions rather than those of the frame</source>
-        <translation type="unfinished">Use image proportions rather than those of the frame</translation>
+        <translation>Use image proportions rather than those of the frame</translation>
     </message>
     <message>
         <source>Source profile of the image</source>
-        <translation type="unfinished">Source profile of the image</translation>
+        <translation>Source profile of the image</translation>
     </message>
     <message>
         <source>Rendering intent for the image</source>
-        <translation type="unfinished">Rendering intent for the image</translation>
+        <translation>Rendering intent for the image</translation>
     </message>
     <message>
         <source>Compression method used in PDF export for the image</source>
-        <translation type="unfinished">Compression method used in PDF export for the image</translation>
+        <translation>Compression method used in PDF export for the image</translation>
     </message>
     <message>
         <source>Compression quality used in PDF export for the image</source>
-        <translation type="unfinished">Compression quality used in PDF export for the image</translation>
+        <translation>Compression quality used in PDF export for the image</translation>
     </message>
 </context>
 <context>
     <name>PropertiesPalette_ImageBase</name>
     <message>
         <source>Form</source>
-        <translation type="unfinished">Form</translation>
+        <translation>Form</translation>
     </message>
     <message>
         <source>X-Pos:</source>
@@ -30978,7 +30978,7 @@ External Links</translation>
         <source>Lithuanian</source>
         <translation>Lithuanian</translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Norwegian (BokmÃ¥l)</source>
         <translation type="obsolete">Norwegian (BokmÃ¥l)</translation>
     </message>
@@ -32643,7 +32643,7 @@ Therefore the image may be not correct</translation>
         <source>Xfig File</source>
         <translation>Xfig File</translation>
     </message>
-    <message utf8="true">
+    <message>
         <source>Norwegian (Bokmål)</source>
         <translation type="unfinished">Norwegian (Bokmål)</translation>
     </message>
@@ -43236,43 +43236,43 @@ converting their vector data into Scribus objects.</translation>
     <name>Zip</name>
     <message>
         <source>ZIP operation completed successfully.</source>
-        <translation type="unfinished"></translation>
+        <translation>ZIP operation completed successfully.</translation>
     </message>
     <message>
         <source>Failed to initialize or load zlib library.</source>
-        <translation type="unfinished"></translation>
+        <translation>Failed to initialise or load zlib library.</translation>
     </message>
     <message>
         <source>zlib library error.</source>
-        <translation type="unfinished"></translation>
+        <translation>zlib library error.</translation>
     </message>
     <message>
         <source>Unable to create or open file.</source>
-        <translation type="unfinished"></translation>
+        <translation>Unable to create or open file.</translation>
     </message>
     <message>
         <source>No archive has been created yet.</source>
-        <translation type="unfinished"></translation>
+        <translation>No archive has been created yet.</translation>
     </message>
     <message>
         <source>File or directory does not exist.</source>
-        <translation type="unfinished"></translation>
+        <translation>File or directory does not exist.</translation>
     </message>
     <message>
         <source>File read error.</source>
-        <translation type="unfinished"></translation>
+        <translation>File read error.</translation>
     </message>
     <message>
         <source>File write error.</source>
-        <translation type="unfinished"></translation>
+        <translation>File write error.</translation>
     </message>
     <message>
         <source>File seek error.</source>
-        <translation type="unfinished"></translation>
+        <translation>File seek error.</translation>
     </message>
     <message>
         <source>Unknown error.</source>
-        <translation type="unfinished"></translation>
+        <translation>Unknown error.</translation>
     </message>
 </context>
 <context>
@@ -43423,35 +43423,35 @@ converting their vector data into Scribus objects.</translation>
     </message>
     <message>
         <source>Distance:</source>
-        <translation type="unfinished"></translation>
+        <translation>Distance:</translation>
     </message>
     <message>
         <source>Angle:</source>
-        <translation type="unfinished">Angle:</translation>
+        <translation>Angle:</translation>
     </message>
     <message>
         <source>Type:</source>
-        <translation type="unfinished">Type:</translation>
+        <translation>Type:</translation>
     </message>
     <message>
         <source>Single</source>
-        <translation type="unfinished">Single</translation>
+        <translation>Single</translation>
     </message>
     <message>
         <source>Double</source>
-        <translation type="unfinished"></translation>
+        <translation>Double</translation>
     </message>
     <message>
         <source>Triple</source>
-        <translation type="unfinished"></translation>
+        <translation>Triple</translation>
     </message>
     <message>
         <source>Line Color:</source>
-        <translation type="unfinished"></translation>
+        <translation>Line Colour:</translation>
     </message>
     <message>
         <source>Background</source>
-        <translation type="unfinished">Background</translation>
+        <translation>Background</translation>
     </message>
 </context>
 <context>
