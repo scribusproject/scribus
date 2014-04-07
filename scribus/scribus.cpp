@@ -10866,6 +10866,8 @@ void ScribusMainWindow::adjustCMS()
 
 void ScribusMainWindow::changePreviewQuality(int index)
 {
+	if (!HaveDoc)
+		return;
 	doc->allItems_ChangePreviewResolution(index);
 	doc->view()->DrawNew();
 }
