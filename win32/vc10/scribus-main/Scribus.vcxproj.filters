@@ -3446,6 +3446,12 @@
     <ClCompile Include="..\..\..\scribus\text\textlayout.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\moc_viewtoolbar.cpp">
+      <Filter>Generated Moc Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\viewtoolbar.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Scribus.rc">
@@ -4879,6 +4885,9 @@
       <Filter>Header Files</Filter>
     </moc>
     <moc Include="..\..\..\scribus\qtiocompressor.h">
+      <Filter>Header Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\viewtoolbar.h">
       <Filter>Header Files</Filter>
     </moc>
   </ItemGroup>

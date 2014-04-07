@@ -564,6 +564,7 @@
     <moc Include="..\..\..\scribus\ui\replaceonecolor.h" />
     <moc Include="..\..\..\scribus\upgradechecker.h" />
     <moc Include="..\..\..\scribus\ui\proptree.h" />
+    <moc Include="..\..\..\scribus\ui\viewtoolbar.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="..\..\..\scribus\resourcecollection.h" />
     <moc Include="..\..\..\scribus\ui\rulermover.h" />
@@ -1145,6 +1146,7 @@
     <ClCompile Include="..\..\..\scribus\mesh.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\missing.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\moc_proptree.cpp" />
+    <ClCompile Include="..\..\..\scribus\ui\moc_viewtoolbar.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\modetoolbar.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\movepage.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\multipleduplicate.cpp" />
@@ -1360,6 +1362,7 @@
     <ClCompile Include="..\..\..\scribus\scribusapp.cpp" />
     <ClCompile Include="..\..\..\scribus\scribuscore.cpp" />
     <ClCompile Include="..\..\..\scribus\scribusdoc.cpp" />
+    <ClCompile Include="..\..\..\scribus\ui\viewtoolbar.cpp" />
     <ClCompile Include="..\..\..\scribus\upgradechecker.cpp" />
     <ClCompile Include="scribuspch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

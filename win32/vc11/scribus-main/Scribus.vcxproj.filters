@@ -996,6 +996,9 @@
     <ClInclude Include="..\..\..\scribus\text\textlayout.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\scribus\ui\viewtoolbar.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\scribus\desaxe\digester.cpp">
@@ -3433,6 +3436,12 @@
     </ClCompile>
     <ClCompile Include="..\..\..\scribus\text\textlayout.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\viewtoolbar.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\moc_viewtoolbar.cpp">
+      <Filter>Generated Moc Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
