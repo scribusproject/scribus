@@ -2169,7 +2169,7 @@ ScribusDoc *ScribusMainWindow::doFileNew(double width, double height, double top
 	}
 	if (requiresGUI)
 	{
-		connect(w, SIGNAL(AutoSaved()), this, SLOT(slotAutoSaved()));
+		connect(w, SIGNAL(autoSaved()), this, SLOT(slotAutoSaved()));
 		connect(ScCore->fileWatcher, SIGNAL(fileChanged(QString)), tempDoc, SLOT(updatePict(QString)));
 		connect(ScCore->fileWatcher, SIGNAL(fileDeleted(QString)), tempDoc, SLOT(removePict(QString)));
 		connect(ScCore->fileWatcher, SIGNAL(dirChanged(QString )), tempDoc, SLOT(updatePictDir(QString )));
