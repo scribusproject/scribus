@@ -2747,6 +2747,9 @@ void ScribusMainWindow::SwitchWin()
 		scrActions["toolsPDFAnnotText"]->setEnabled(true);
 		pagePalette->enablePalette(true);
 	}
+	scrActions["viewSnapToGrid"]->setChecked(doc->useRaster);
+	scrActions["viewSnapToGuides"]->setChecked(doc->SnapGuides);
+
 	scrMenuMgr->setMenuEnabled("ItemLayer", doc->layerCount() > 1);
 }
 
