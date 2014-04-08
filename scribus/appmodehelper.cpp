@@ -398,6 +398,10 @@ void AppModeHelper::mainWindowSwitchWin(ScribusDoc *doc)
 		(*scrActions)["toolsPDFAnnot3D"]->setEnabled(true);
 #endif
 	}
+
+	(*scrActions)["viewSnapToGrid"]->setChecked(doc->SnapGrid);
+	(*scrActions)["viewSnapToGuides"]->setChecked(doc->SnapGuides);
+	(*scrActions)["viewSnapToElements"]->setChecked(doc->SnapElement);
 }
 
 void AppModeHelper::mainWindowCloseLastDoc()
