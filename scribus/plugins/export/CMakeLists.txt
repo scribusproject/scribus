@@ -1,1 +1,3 @@
-#ADD_SUBDIRECTORY(blah)
+ADD_SUBDIRECTORY(pixmapexport)
+ADD_SUBDIRECTORY(svgexplugin)
+ADD_SUBDIRECTORY(xpsexport)
