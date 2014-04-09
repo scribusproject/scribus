@@ -1341,7 +1341,7 @@ void PaintManagerDialog::loadVectors(QString data)
 		miny = qMin(miny, y1);
 		maxx = qMax(maxx, x2);
 		maxy = qMax(maxy, y2);
-		pat.pattern = currItem->DrawObj_toImage(qMax(maxx - minx, maxy - miny));
+		pat.pattern = currItem->DrawObj_toImage(qMin(qMax(maxx - minx, maxy - miny), 500.0));
 		pat.width = maxx - minx;
 		pat.height = maxy - miny;
 		currItem->setXYPos(0, 0, true);

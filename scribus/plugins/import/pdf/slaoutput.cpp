@@ -1404,7 +1404,7 @@ void SlaOutputDev::endTransparencyGroup(GfxState *state)
 				ScPattern pat = ScPattern();
 				pat.setDoc(m_doc);
 				m_doc->DoDrawing = true;
-				pat.pattern = ite->DrawObj_toImage(qMax(ite->width(), ite->height()));
+				pat.pattern = ite->DrawObj_toImage(qMin(qMax(ite->width(), ite->height()), 500.0));
 				pat.xoffset = 0;
 				pat.yoffset = 0;
 				m_doc->DoDrawing = false;
@@ -2258,7 +2258,7 @@ GBool SlaOutputDev::tilingPatternFill(GfxState *state, Gfx * /*gfx*/, Catalog *c
 		ScPattern pat = ScPattern();
 		pat.setDoc(m_doc);
 		m_doc->DoDrawing = true;
-		pat.pattern = ite->DrawObj_toImage(qMax(ite->width(), ite->height()));
+		pat.pattern = ite->DrawObj_toImage(qMin(qMax(ite->width(), ite->height()), 500.0));
 		pat.xoffset = 0;
 		pat.yoffset = 0;
 		m_doc->DoDrawing = false;

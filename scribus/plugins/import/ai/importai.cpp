@@ -2744,7 +2744,7 @@ void AIPlug::processPattern(QDataStream &ts)
 						PageItem* currItem = tmpSel->itemAt(0);
 						currItem->setItemName(currentPatternDefName);
 						m_Doc->DoDrawing = true;
-						QImage tmpImg = currItem->DrawObj_toImage(qMax(qRound(patternX2 - patternX1), qRound(patternY2 - patternY1)));
+						QImage tmpImg = currItem->DrawObj_toImage(qMin(qMax(qRound(patternX2 - patternX1), qRound(patternY2 - patternY1)), 500));
 						if (!tmpImg.isNull())
 						{
 							QImage retImg = QImage(qRound(patternX2 - patternX1), qRound(patternY2 - patternY1), QImage::Format_ARGB32_Premultiplied);
@@ -2888,7 +2888,7 @@ void AIPlug::processSymbol(QDataStream &ts, bool sym)
 					PageItem* currItem = tmpSel->itemAt(0);
 					currItem->setItemName(currentPatternDefName);
 					m_Doc->DoDrawing = true;
-					pat.pattern = currItem->DrawObj_toImage(qMax(tmpSel->width(), tmpSel->height()));
+					pat.pattern = currItem->DrawObj_toImage(qMin(qMax(tmpSel->width(), tmpSel->height()), 500.0));
 					if (!pat.pattern.isNull())
 					{
 						pat.width = tmpSel->width();

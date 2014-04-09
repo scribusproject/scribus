@@ -1470,7 +1470,7 @@ void XpsPlug::parseFillXML(QDomElement &spe, QString path, ObjState &obState)
 								ScPattern pat = ScPattern();
 								pat.setDoc(m_Doc);
 								m_Doc->DoDrawing = true;
-								QImage tmpImg = item->DrawObj_toImage(qMax(item->width(), item->height()));
+								QImage tmpImg = item->DrawObj_toImage(qMin(qMax(item->width(), item->height()), 500.0));
 								if (!tmpImg.isNull())
 								{
 									QImage retImg = QImage(qRound(Viewport_x2 * conversionFactor), qRound(Viewport_y2 * conversionFactor), QImage::Format_ARGB32_Premultiplied);

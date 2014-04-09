@@ -9818,7 +9818,7 @@ void ScribusMainWindow::PutToPatterns()
 	miny = qMin(miny, y1);
 	maxx = qMax(maxx, x2);
 	maxy = qMax(maxy, y2);
-	pat.pattern = currItem->DrawObj_toImage(qMax(maxx - minx, maxy - miny));
+	pat.pattern = currItem->DrawObj_toImage(qMin(qMax(maxx - minx, maxy - miny), 500.0));
 	pat.width = maxx - minx;
 	pat.height = maxy - miny;
 	pat.items.append(currItem);
@@ -9929,7 +9929,7 @@ void ScribusMainWindow::ConvertToSymbol()
 	miny = qMin(miny, y1);
 	maxx = qMax(maxx, x2);
 	maxy = qMax(maxy, y2);
-	pat.pattern = currItem->DrawObj_toImage(qMax(maxx - minx, maxy - miny));
+	pat.pattern = currItem->DrawObj_toImage(qMin(qMax(maxx - minx, maxy - miny), 500.0));
 	pat.width = maxx - minx;
 	pat.height = maxy - miny;
 	pat.items.append(currItem);

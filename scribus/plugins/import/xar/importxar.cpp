@@ -3691,7 +3691,7 @@ void XarPlug::popGraphicContext()
 				if (gg.isBrush)
 				{
 					m_Doc->DoDrawing = true;
-					QImage tmpImg = groupItem->DrawObj_toImage(qMax(groupItem->width(), groupItem->height()));
+					QImage tmpImg = groupItem->DrawObj_toImage(qMin(qMax(groupItem->width(), groupItem->height()), 500.0));
 					ScPattern pat = ScPattern();
 					pat.setDoc(m_Doc);
 					pat.width = groupItem->width();

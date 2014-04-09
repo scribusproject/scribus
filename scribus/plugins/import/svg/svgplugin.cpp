@@ -2830,7 +2830,7 @@ void SVGPlug::parseMarker(const QDomElement &b)
 			currItem->gXpos = currItem->xPos() - minx;
 			currItem->gYpos = currItem->yPos() - miny;
 			currItem->setXYPos(currItem->gXpos, currItem->gYpos, true);
-			pat.pattern = currItem->DrawObj_toImage(qMax(maxx - minx, maxy - miny));
+			pat.pattern = currItem->DrawObj_toImage(qMin(qMax(maxx - minx, maxy - miny), 500.0));
 			pat.width = maxx - minx;
 			pat.height = maxy - miny;
 			m_Doc->DoDrawing = false;
@@ -2877,7 +2877,7 @@ void SVGPlug::parsePattern(const QDomElement &b)
 			pat.setDoc(m_Doc);
 			PageItem* currItem = GElements.at(0);
 			m_Doc->DoDrawing = true;
-			pat.pattern = currItem->DrawObj_toImage(qMax(wpat, hpat));
+			pat.pattern = currItem->DrawObj_toImage(qMin(qMax(wpat, hpat), 500.0));
 			double xOrg = 0.0;
 			double yOrg = 0.0;
 			if (inGroupXOrigin < 0.0)

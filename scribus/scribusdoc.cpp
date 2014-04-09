@@ -5218,7 +5218,7 @@ void ScribusDoc::recalculateColors()
 		miny = qMin(miny, y1);
 		maxx = qMax(maxx, x2);
 		maxy = qMax(maxy, y2);
-		docPatterns[patterns[c]].pattern = ite->DrawObj_toImage(qMax(maxx - minx, maxy - miny));
+		docPatterns[patterns[c]].pattern = ite->DrawObj_toImage(qMin(qMax(maxx - minx, maxy - miny), 500.0));
 	}
 }
 
@@ -6704,7 +6704,7 @@ void ScribusDoc::setSymbolEditMode(bool mode, QString symbolName)
 			currItem->gXpos = currItem->xPos() - minx;
 			currItem->gYpos = currItem->yPos() - miny;
 			currItem->setXYPos(currItem->gXpos, currItem->gYpos, true);
-			docPatterns[currentEditedSymbol].pattern = currItem->DrawObj_toImage(qMax(maxx - minx, maxy - miny));
+			docPatterns[currentEditedSymbol].pattern = currItem->DrawObj_toImage(qMin(qMax(maxx - minx, maxy - miny), 500.0));
 			docPatterns[currentEditedSymbol].width = maxx - minx;
 			docPatterns[currentEditedSymbol].height = maxy - miny;
 		}
@@ -6716,7 +6716,7 @@ void ScribusDoc::setSymbolEditMode(bool mode, QString symbolName)
 				PageItem *currItem = Items->at(0);
 				double x1, x2, y1, y2;
 				currItem->getVisualBoundingRect(&x1, &y1, &x2, &y2);
-				docPatterns[m_ScMW->patternsDependingOnThis[a]].pattern = currItem->DrawObj_toImage(qMax(x2 - x1, y2 - y1));
+				docPatterns[m_ScMW->patternsDependingOnThis[a]].pattern = currItem->DrawObj_toImage(qMin(qMax(x2 - x1, y2 - y1), 500.0));
 			}
 		}
 		if (masterPageMode())
@@ -10201,8 +10201,7 @@ void ScribusDoc::updatePict(QString name)
 		miny = qMin(miny, y1);
 		maxx = qMax(maxx, x2);
 		maxy = qMax(maxy, y2);
-		docPatterns[patterns[c]].pattern = ite->DrawObj_toImage(qMax(maxx - minx, maxy - miny));
-//		docPatterns[patterns[c]].pattern = ite->DrawObj_toImage(pa.items, 1.0);
+		docPatterns[patterns[c]].pattern = ite->DrawObj_toImage(qMin(qMax(maxx - minx, maxy - miny), 500.0));
 	}
 	if (updated)
 	{
@@ -10345,7 +10344,7 @@ void ScribusDoc::updatePictDir(QString name)
 			miny = qMin(miny, y1);
 			maxx = qMax(maxx, x2);
 			maxy = qMax(maxy, y2);
-			docPatterns[patterns[c]].pattern = ite->DrawObj_toImage(qMax(maxx - minx, maxy - miny));
+			docPatterns[patterns[c]].pattern = ite->DrawObj_toImage(qMin(qMax(maxx - minx, maxy - miny), 500.0));
 		}
 	}
 	if (updated)
@@ -10590,7 +10589,7 @@ void ScribusDoc::recalcPicturesRes(bool applyNewRes)
 		miny = qMin(miny, y1);
 		maxx = qMax(maxx, x2);
 		maxy = qMax(maxy, y2);
-		docPatterns[patterns[c]].pattern = ite->DrawObj_toImage(qMax(maxx - minx, maxy - miny));
+		docPatterns[patterns[c]].pattern = ite->DrawObj_toImage(qMin(qMax(maxx - minx, maxy - miny), 500.0));
 	}
 	regionsChanged()->update(QRectF());
 	changed();
@@ -10698,8 +10697,7 @@ void ScribusDoc::removePict(QString name)
 		miny = qMin(miny, y1);
 		maxx = qMax(maxx, x2);
 		maxy = qMax(maxy, y2);
-		docPatterns[patterns[c]].pattern = ite->DrawObj_toImage(qMax(maxx - minx, maxy - miny));
-//		docPatterns[patterns[c]].pattern = ite->DrawObj_toImage(pa.items, 1.0);
+		docPatterns[patterns[c]].pattern = ite->DrawObj_toImage(qMin(qMax(maxx - minx, maxy - miny), 500.0));
 	}
 	if (updated)
 	{
