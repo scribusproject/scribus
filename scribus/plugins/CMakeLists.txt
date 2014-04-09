@@ -1,3 +1,4 @@
+ADD_SUBDIRECTORY(export)
 ADD_SUBDIRECTORY(import)
 ADD_SUBDIRECTORY(barcodegenerator)
 ADD_SUBDIRECTORY(colorwheel)
