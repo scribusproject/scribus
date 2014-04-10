@@ -24,6 +24,7 @@ for which a new license (GPL+exception) is in place.
 #include <QString>
 
 #include "scpattern.h"
+#include "scpainter.h"
 #include "pageitem.h"
 #include "pageitem_imageframe.h"
 #include "scribusdoc.h"
@@ -83,4 +84,29 @@ void ScPattern::setPattern(QString name)
 	else
 		pattern = QImage();
 	m_doc->setLoading(false);
+}
+
+void ScPattern::createPreview()
+{
+	double sc = 500.0 / qMax(width, height);
+	bool savedFlag = m_doc->guidesPrefs().framesShown;
+	m_doc->guidesPrefs().framesShown = false;
+	pattern = QImage(qRound(width * sc), qRound(height * sc), QImage::Format_ARGB32_Premultiplied);
+	pattern.fill( qRgba(0, 0, 0, 0) );
+	ScPainter *painter = new ScPainter(&pattern, pattern.width(), pattern.height(), 1, 0);
+	painter->setZoomFactor(sc);
+	for (int em = 0; em < items.count(); ++em)
+	{
+		PageItem* embedded = items.at(em);
+		painter->save();
+		painter->translate(embedded->gXpos, embedded->gYpos);
+		embedded->isEmbedded = true;
+		embedded->invalid = true;
+		embedded->DrawObj(painter, QRectF());
+		embedded->isEmbedded = false;
+		painter->restore();
+	}
+	painter->end();
+	delete painter;
+	m_doc->guidesPrefs().framesShown = savedFlag;
 }

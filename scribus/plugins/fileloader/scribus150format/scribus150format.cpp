@@ -4282,8 +4282,6 @@ bool Scribus150Format::readPattern(ScribusDoc* doc, ScXmlStreamReader& reader, c
 	if (itemCount2 > itemCount1)
 	{
 		PageItem* currItem = doc->Items->at(itemCount1), *newItem;
-		pat.pattern = currItem->DrawObj_toImage(qMax(pat.width, pat.height));
-		pat.pattern = pat.pattern.copy(-pat.xoffset, -pat.yoffset, pat.width, pat.height);
 		double minx =  std::numeric_limits<double>::max();
 		double miny =  std::numeric_limits<double>::max();
 		double maxx = -std::numeric_limits<double>::max();
@@ -4311,6 +4309,7 @@ bool Scribus150Format::readPattern(ScribusDoc* doc, ScXmlStreamReader& reader, c
 			newItem->gYpos += pat.yoffset;
 			pat.items.append(newItem);
 		}
+		pat.createPreview();
 	}
 	doc->docPatterns.insert(patternName, pat);
 

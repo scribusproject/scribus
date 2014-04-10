@@ -2211,9 +2211,7 @@ bool Scribus134Format::readPattern(ScribusDoc* doc, ScXmlStreamReader& reader, c
 	uint itemCount2 = m_Doc->Items->count();
 	if (itemCount2 > itemCount1)
 	{
-		PageItem* currItem = doc->Items->at(itemCount1), *newItem;
-		pat.pattern = currItem->DrawObj_toImage(qMax(pat.width, pat.height));
-		pat.pattern = pat.pattern.copy(-pat.xoffset, -pat.yoffset, pat.width, pat.height);
+		PageItem* newItem;
 		for (uint as = itemCount1; as < itemCount2; ++as)
 		{
 			newItem = doc->Items->takeAt(itemCount1);
@@ -2222,6 +2220,7 @@ bool Scribus134Format::readPattern(ScribusDoc* doc, ScXmlStreamReader& reader, c
 			newItem->gYpos += pat.yoffset;
 			pat.items.append(newItem);
 		}
+		pat.createPreview();
 	}
 	doc->docPatterns.insert(patternName, pat);
 
