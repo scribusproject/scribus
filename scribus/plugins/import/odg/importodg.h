@@ -369,6 +369,7 @@ private:
 	QStringList importedColors;
 	QStringList importedPatterns;
 	bool firstPage;
+	bool firstLayer;
 	int pagecount;
 	int mpagecount;
 	double topMargin;
@@ -379,6 +380,7 @@ private:
 	double pgGap;
 	QHash<QString, QString> m_fontMap;
 	QHash<QString, DrawStyle> m_Styles;
+	QHash<QString, int> m_Layers;
 
 
 	FPointArray Coords;

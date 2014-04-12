@@ -335,6 +335,8 @@ bool OdgPlug::convert(QString fn)
 	importedColors.clear();
 	importedPatterns.clear();
 	m_Styles.clear();
+	m_Layers.clear();
+	firstLayer = true;
 	if(progressDialog)
 	{
 		progressDialog->setOverallProgress(2);
@@ -471,6 +473,38 @@ bool OdgPlug::parseStyleSheetsXML(QDomDocument &designMapDom)
 						m_Doc->setMasterPageMode(false);
 					}
 				}
+				else if (spf.tagName() == "draw:layer-set")
+				{
+					if (importerFlags & LoadSavePlugin::lfCreateDoc)
+					{
+						for(QDomElement spp = spf.firstChildElement(); !spp.isNull(); spp = spp.nextSiblingElement() )
+						{
+							if (spp.tagName() == "draw:layer")
+							{
+								QString layerName = spp.attribute("draw:name");
+								if (!layerName.isEmpty())
+								{
+									if (!firstLayer)
+									{
+										QStringList newNames;
+										m_Doc->orderedLayerList(&newNames);
+										if (!newNames.contains(layerName))
+										{
+											int currentLayer = m_Doc->addLayer(layerName);
+											m_Layers.insert(layerName, currentLayer);
+										}
+									}
+									else
+									{
+										m_Doc->changeLayerName(m_Doc->firstLayerID(), layerName);
+										m_Layers.insert(layerName, m_Doc->firstLayerID());
+									}
+									firstLayer = false;
+								}
+							}
+						}
+					}
+				}
 			}
 		}
 	}
@@ -518,12 +552,85 @@ bool OdgPlug::parseDocReferenceXML(QDomDocument &designMapDom)
 			parseStyles(drawPag);
 		if (drawPag.tagName() == "office:master-styles")
 		{
-			DrawStyle currStyle;
 			for(QDomElement spf = drawPag.firstChildElement(); !spf.isNull(); spf = spf.nextSiblingElement() )
 			{
 				if (spf.tagName() == "style:master-page")
+				{
+					DrawStyle currStyle;
 					currStyle.page_layout_name = AttributeValue(spf.attribute("style:page-layout-name"));
-				m_Styles.insert(spf.attribute("style:name"), currStyle);
+					m_Styles.insert(spf.attribute("style:name"), currStyle);
+					if (importerFlags & LoadSavePlugin::lfCreateDoc)
+					{
+						m_Doc->setMasterPageMode(true);
+						ScPage *oldCur = m_Doc->currentPage();
+						ScPage *addedPage = m_Doc->addMasterPage(mpagecount, spf.attribute("style:name"));
+						m_Doc->setCurrentPage(addedPage);
+						addedPage->MPageNam = "";
+						m_Doc->view()->addPage(mpagecount, true);
+						baseX = addedPage->xOffset();
+						baseY = addedPage->yOffset();
+						mpagecount++;
+						ObjStyle tmpOStyle;
+						resovleStyle(tmpOStyle, spf.attribute("style:name"));
+						m_Doc->currentPage()->m_pageSize = "Custom";
+						m_Doc->currentPage()->setInitialHeight(tmpOStyle.page_height);
+						m_Doc->currentPage()->setInitialWidth(tmpOStyle.page_width);
+						m_Doc->currentPage()->setHeight(tmpOStyle.page_height);
+						m_Doc->currentPage()->setWidth(tmpOStyle.page_width);
+						m_Doc->currentPage()->initialMargins.Top = tmpOStyle.margin_top;
+						m_Doc->currentPage()->initialMargins.Bottom = tmpOStyle.margin_bottom;
+						m_Doc->currentPage()->initialMargins.Left = tmpOStyle.margin_left;
+						m_Doc->currentPage()->initialMargins.Right = tmpOStyle.margin_right;
+						if (!currStyle.page_layout_name.value.isEmpty())
+						{
+							ObjStyle tmpBStyle;
+							resovleStyle(tmpBStyle, currStyle.page_layout_name.value);
+							int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX, baseY, tmpOStyle.page_width, tmpOStyle.page_height, 0, tmpBStyle.CurrColorFill, CommonStrings::None, true);
+							PageItem *retObj = m_Doc->Items->at(z);
+							finishItem(retObj, tmpBStyle);
+						}
+						for(QDomElement spm = spf.firstChildElement(); !spm.isNull(); spm = spm.nextSiblingElement() )
+						{
+							PageItem* retObj = parseObj(spm);
+							if (retObj != NULL)
+								m_Doc->Items->append(retObj);
+						}
+						m_Doc->setCurrentPage(oldCur);
+						m_Doc->setMasterPageMode(false);
+					}
+				}
+				else if (spf.tagName() == "draw:layer-set")
+				{
+					if (importerFlags & LoadSavePlugin::lfCreateDoc)
+					{
+						for(QDomElement spp = spf.firstChildElement(); !spp.isNull(); spp = spp.nextSiblingElement() )
+						{
+							if (spp.tagName() == "draw:layer")
+							{
+								QString layerName = spp.attribute("draw:name");
+								if (!layerName.isEmpty())
+								{
+									if (!firstLayer)
+									{
+										QStringList newNames;
+										m_Doc->orderedLayerList(&newNames);
+										if (!newNames.contains(layerName))
+										{
+											int currentLayer = m_Doc->addLayer(layerName);
+											m_Layers.insert(layerName, currentLayer);
+										}
+									}
+									else
+									{
+										m_Doc->changeLayerName(m_Doc->firstLayerID(), layerName);
+										m_Layers.insert(layerName, m_Doc->firstLayerID());
+									}
+									firstLayer = false;
+								}
+							}
+						}
+					}
+				}
 			}
 		}
 		else if (drawPag.tagName() == "office:body")
@@ -609,11 +716,15 @@ PageItem* OdgPlug::parseObj(QDomElement &draw)
 	if (draw.tagName() == "draw:g")
 	{
 		QList<PageItem*> GElements;
+		int gLayer = -1;
 		for(QDomElement spd = draw.firstChildElement(); !spd.isNull(); spd = spd.nextSiblingElement() )
 		{
 			PageItem* ite = parseObj(spd);
 			if (ite != NULL)
+			{
 				GElements.append(ite);
+				gLayer = ite->LayerID;
+			}
 		}
 		if (GElements.count() > 0)
 		{
@@ -647,6 +758,8 @@ PageItem* OdgPlug::parseObj(QDomElement &draw)
 			retObj->OwnPage = m_Doc->OnPage(retObj);
 			m_Doc->GroupOnPage(retObj);
 			m_Doc->Items->removeLast();
+			if (gLayer > -1)
+				retObj->setLayer(gLayer);
 		}
 	}
 	else if (draw.tagName() == "draw:polygon")
@@ -673,6 +786,14 @@ PageItem* OdgPlug::parseObj(QDomElement &draw)
 		retObj = parseForm(draw);
 	else
 		qDebug() << "Unhandled Tag" << draw.tagName();
+	if (retObj != NULL)
+	{
+		if (draw.hasAttribute("draw:layer"))
+		{
+			if (m_Layers.contains(draw.attribute("draw:layer")))
+				retObj->setLayer(m_Layers[draw.attribute("draw:layer")]);
+		}
+	}
 	return retObj;
 }
 
@@ -740,9 +861,17 @@ PageItem* OdgPlug::parseCustomShape(QDomElement &e)
 	double h = parseUnit(e.attribute("svg:height"));
 	resovleStyle(tmpOStyle, "standard");
 	resovleStyle(tmpOStyle, getStyleName(e));
-	if ((tmpOStyle.fill_type == 0) && (tmpOStyle.stroke_type == 0))
-		return retObj;
 	bool has_Text = false;
+	for(QDomElement p = e.firstChildElement(); !p.isNull(); p = p.nextSiblingElement())
+	{
+		if (p.tagName() == "text:p")
+		{
+			if (p.hasChildNodes())
+				has_Text = true;
+		}
+	}
+	if ((tmpOStyle.fill_type == 0) && (tmpOStyle.stroke_type == 0) && (!has_Text))
+		return retObj;
 	QPolygonF texAreaPoints;
 	for(QDomElement p = e.firstChildElement(); !p.isNull(); p = p.nextSiblingElement())
 	{
@@ -1041,11 +1170,6 @@ PageItem* OdgPlug::parseCustomShape(QDomElement &e)
 				if (p.hasAttribute("draw:mirror-vertical") && (p.attribute("draw:mirror-vertical") == "true"))
 					m_Doc->MirrorPolyV(retObj);
 			}
-		}
-		else if (p.tagName() == "text:p")
-		{
-			if (p.hasChildNodes())
-				has_Text = true;
 		}
 	}
 	if (has_Text)
