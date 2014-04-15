@@ -14,15 +14,15 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\scribus\plugins\svgexplugin\svgexplugin.cpp">
+    <ClCompile Include="..\..\..\scribus\plugins\export\svgexplugin\svgexplugin.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\scribus\plugins\svgexplugin\moc_svgexplugin.cpp">
+    <ClCompile Include="..\..\..\scribus\plugins\export\svgexplugin\moc_svgexplugin.cpp">
       <Filter>Generated Moc Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <moc Include="..\..\..\scribus\plugins\svgexplugin\svgexplugin.h">
+    <moc Include="..\..\..\scribus\plugins\export\svgexplugin\svgexplugin.h">
       <Filter>Header Files</Filter>
     </moc>
   </ItemGroup>

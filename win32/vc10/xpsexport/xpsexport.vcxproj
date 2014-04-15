@@ -111,11 +111,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\scribus\plugins\xpsexport\xpsexplugin.cpp" />
-    <ClCompile Include="..\..\..\scribus\plugins\xpsexport\moc_xpsexplugin.cpp" />
+    <ClCompile Include="..\..\..\scribus\plugins\export\xpsexport\xpsexplugin.cpp" />
+    <ClCompile Include="..\..\..\scribus\plugins\export\xpsexport\moc_xpsexplugin.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <moc Include="..\..\..\scribus\plugins\xpsexport\xpsexplugin.h" />
+    <moc Include="..\..\..\scribus\plugins\export\xpsexport\xpsexplugin.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -111,18 +111,18 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\scribus\plugins\pixmapexport\dialog.cpp" />
-    <ClCompile Include="..\..\..\scribus\plugins\pixmapexport\export.cpp" />
-    <ClCompile Include="..\..\..\scribus\plugins\pixmapexport\moc_dialog.cpp" />
-    <ClCompile Include="..\..\..\scribus\plugins\pixmapexport\moc_export.cpp" />
+    <ClCompile Include="..\..\..\scribus\plugins\export\pixmapexport\dialog.cpp" />
+    <ClCompile Include="..\..\..\scribus\plugins\export\pixmapexport\export.cpp" />
+    <ClCompile Include="..\..\..\scribus\plugins\export\pixmapexport\moc_dialog.cpp" />
+    <ClCompile Include="..\..\..\scribus\plugins\export\pixmapexport\moc_export.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <moc Include="..\..\..\scribus\plugins\pixmapexport\dialog.h" />
-    <moc Include="..\..\..\scribus\plugins\pixmapexport\export.h" />
-    <ClInclude Include="..\..\..\scribus\plugins\pixmapexport\ui_exportform.h" />
+    <moc Include="..\..\..\scribus\plugins\export\pixmapexport\dialog.h" />
+    <moc Include="..\..\..\scribus\plugins\export\pixmapexport\export.h" />
+    <ClInclude Include="..\..\..\scribus\plugins\export\pixmapexport\ui_exportform.h" />
   </ItemGroup>
   <ItemGroup>
-    <uic Include="..\..\..\scribus\plugins\pixmapexport\exportform.ui" />
+    <uic Include="..\..\..\scribus\plugins\export\pixmapexport\exportform.ui" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
