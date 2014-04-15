@@ -19444,8 +19444,8 @@ sicer glede na predmet.</translation>
     </message>
     <message>
         <location filename="../../../scribus/pdfopts.cpp" line="129"/>
-        <source>The save button will be disabled if you are trying to export PDF/X-3 and the info string is missing from the PDF/X-3 tab.</source>
-        <translation>Gumb Shrani bo onemogočen, če poskušate izvoziti kot PDF/X-3 in manjkajo podatki v poljih zavihka PDF/X-3.</translation>
+        <source>The save button will be disabled if you are trying to export PDF/X and the info string is missing from the PDF/X tab.</source>
+        <translation>Gumb Shrani bo onemogočen, če poskušate izvoziti kot PDF/X in manjkajo podatki v poljih zavihka PDF/X.</translation>
     </message>
     <message>
         <location filename="../../../scribus/pdfopts.cpp" line="159"/>
@@ -19711,9 +19711,9 @@ Leaving this unchecked will render them at their native resolution.</source>
         <translation type="obsolete">Največja</translation>
     </message>
     <message>
-        <source>Mandatory string for PDF/X-3 or the PDF will fail
-PDF/X-3 conformance. We recommend you use the title of the document.</source>
-        <translation type="obsolete">Ključna beseda za PDF/X-3, sicer izvoz ne uspe pravilno.
+        <source>Mandatory string for PDF/X or the PDF will fail
+PDF/X conformance. We recommend you use the title of the document.</source>
+        <translation type="obsolete">Ključna beseda za PDF/X, sicer izvoz ne uspe pravilno.
 Predlagamo, da uporabite naslov dokumenta.</translation>
     </message>
     <message>
@@ -19877,8 +19877,8 @@ Nekateri pregledovalniki jih lahko uporabijo za pregledovanje.</translation>
         <translation type="obsolete">Samodejno:</translation>
     </message>
     <message>
-        <source>PDF/X-3 Output Intent</source>
-        <translation type="obsolete">Namen upodobitve PDF/X-3</translation>
+        <source>PDF/X Output Intent</source>
+        <translation type="obsolete">Namen upodobitve PDF/X</translation>
     </message>
     <message>
         <source>Effects</source>
@@ -39847,8 +39847,8 @@ Uporabite le, če veste da vam po uvozu ne bo treba več urejati besedila.</tran
     </message>
     <message>
         <location filename="../../../scribus/tabpdfoptions.cpp" line="849"/>
-        <source>PDF/X-3 Output Intent</source>
-        <translation>Namen upodobitve PDF/X-3</translation>
+        <source>PDF/X Output Intent</source>
+        <translation>Namen upodobitve PDF/X</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabpdfoptions.cpp" line="859"/>
@@ -40106,9 +40106,9 @@ sistemih.</translation>
         <translation>Izvozni profil za tiskanje. Če je mogoče, izberite profil v povezavi z vašim tiskalnikom.</translation>
     </message>
     <message>
-        <source>Mandatory string for PDF/X-3 or the PDF will fail
-PDF/X-3 conformance. We recommend you use the title of the document.</source>
-        <translation type="obsolete">Ključna beseda za PDF/X-3, sicer izvoz ne uspe pravilno.
+        <source>Mandatory string for PDF/X or the PDF will fail
+PDF/X conformance. We recommend you use the title of the document.</source>
+        <translation type="obsolete">Ključna beseda za PDF/X, sicer izvoz ne uspe pravilno.
 Predlagamo, da uporabite naslov dokumenta.</translation>
     </message>
     <message>
@@ -40304,8 +40304,8 @@ Opozorilo: PDF enkripcija ni tako zanesljiva kot GPG ali PGP enkripcija in vsebu
     </message>
     <message>
         <location filename="../../../scribus/tabpdfoptions.cpp" line="1001"/>
-        <source>Mandatory string for PDF/X-3 or the PDF will fail PDF/X-3 conformance. We recommend you use the title of the document.</source>
-        <translation>Obvezen niz za PDF/X-3, sicer izvoz ne bo v skladu s standardom PDF/X-3. Predlagamo, da uporabite naslov dokumenta.</translation>
+        <source>Mandatory string for PDF/X or the PDF will fail PDF/X conformance. We recommend you use the title of the document.</source>
+        <translation>Obvezen niz za PDF/X, sicer izvoz ne bo v skladu s standardom PDF/X. Predlagamo, da uporabite naslov dokumenta.</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabpdfoptions.cpp" line="548"/>

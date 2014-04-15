@@ -11501,8 +11501,8 @@ If no handle is selected all handles will be reset.</source>
     </message>
     <message>
         <location filename="../../../scribus/pdfopts.cpp" line="129"/>
-        <source>The save button will be disabled if you are trying to export PDF/X-3 and the info string is missing from the PDF/X-3 tab.</source>
-        <translation type="unfinished">Diweredekaet e vo an afell &apos;enrollañ&apos; mar klaskit ezporzhiañ e mentrezh PDF/X-3et gant hedad stlennoù an ivinell PDF/X-3 goullo.</translation>
+        <source>The save button will be disabled if you are trying to export PDF/X and the info string is missing from the PDF/X tab.</source>
+        <translation type="unfinished">Diweredekaet e vo an afell &apos;enrollañ&apos; mar klaskit ezporzhiañ e mentrezh PDF/X et gant hedad stlennoù an ivinell PDF/X goullo.</translation>
     </message>
     <message>
         <location filename="../../../scribus/pdfopts.cpp" line="159"/>
@@ -24471,8 +24471,8 @@ Consider using the Preflight Verifier to correct them</source>
     </message>
     <message>
         <location filename="../../../scribus/tabpdfoptions.cpp" line="849"/>
-        <source>PDF/X-3 Output Intent</source>
-        <translation type="unfinished">Ec&apos;hank PDF/X-3</translation>
+        <source>PDF/X Output Intent</source>
+        <translation type="unfinished">Ec&apos;hank PDF/X</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabpdfoptions.cpp" line="859"/>
@@ -24681,8 +24681,8 @@ Consider using the Preflight Verifier to correct them</source>
     </message>
     <message>
         <location filename="../../../scribus/tabpdfoptions.cpp" line="1001"/>
-        <source>Mandatory string for PDF/X-3 or the PDF will fail PDF/X-3 conformance. We recommend you use the title of the document.</source>
-        <translation type="unfinished">Hedad ret evit PDF/X-3 a-hend-all ne vo ket sur ar genfurmded PDF/X-3. Ober gant titl an teul zo erbedet.</translation>
+        <source>Mandatory string for PDF/X or the PDF will fail PDF/X conformance. We recommend you use the title of the document.</source>
+        <translation type="unfinished">Hedad ret evit PDF/X a-hend-all ne vo ket sur ar genfurmded PDF/X. Ober gant titl an teul zo erbedet.</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabpdfoptions.cpp" line="995"/>

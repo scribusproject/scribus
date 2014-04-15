@@ -18609,8 +18609,8 @@ Se nessuna maniglia è selezionata, tutte sono riportate alla posizione iniziale
     </message>
     <message>
         <location filename="../../../scribus/pdfopts.cpp" line="129"/>
-        <source>The save button will be disabled if you are trying to export PDF/X-3 and the info string is missing from the PDF/X-3 tab.</source>
-        <translation>Il pulsante per il salvataggio viene disabilitato se si cerca di esportare in formato PDF/X-3 e manca la stringa informativa nella scheda PDF/X-3.</translation>
+        <source>The save button will be disabled if you are trying to export PDF/X and the info string is missing from the PDF/X tab.</source>
+        <translation>Il pulsante per il salvataggio viene disabilitato se si cerca di esportare in formato PDF/X e manca la stringa informativa nella scheda PDF/X.</translation>
     </message>
     <message>
         <location filename="../../../scribus/pdfopts.cpp" line="159"/>
@@ -32650,7 +32650,7 @@ You can choose between normal and several colour blindness forms</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabpdfoptions.cpp" line="849"/>
-        <source>PDF/X-3 Output Intent</source>
+        <source>PDF/X Output Intent</source>
         <translation>Destinazione output PDF/X-3</translation>
     </message>
     <message>
@@ -32890,8 +32890,8 @@ You can choose between normal and several colour blindness forms</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabpdfoptions.cpp" line="1001"/>
-        <source>Mandatory string for PDF/X-3 or the PDF will fail PDF/X-3 conformance. We recommend you use the title of the document.</source>
-        <translation>Stringa obbligatoria per PDF/X-3 oppure il file PDF non sarà conforme al PDF/X-3. Si consiglia di usare il titolo del documento.</translation>
+        <source>Mandatory string for PDF/X or the PDF will fail PDF/X conformance. We recommend you use the title of the document.</source>
+        <translation>Stringa obbligatoria per PDF/X oppure il file PDF non sarà conforme al PDF/X. Si consiglia di usare il titolo del documento.</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabpdfoptions.cpp" line="548"/>

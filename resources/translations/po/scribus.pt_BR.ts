@@ -4104,8 +4104,8 @@ por favor, escolha outro.</translation>
         <translation type="obsolete">Miras de impressão</translation>
     </message>
     <message>
-        <source>Mandatory string for PDF/X-3 or the PDF will fail PDF/X-3 conformance. We recommend you use the title of the document.</source>
-        <translation type="obsolete">Informação obrigatória para o PDF/X-3 ou o PDF terá problemascom a conformação PDF/X-3. Nós recomendamos o uso do título do seu documento.</translation>
+        <source>Mandatory string for PDF/X or the PDF will fail PDF/X conformance. We recommend you use the title of the document.</source>
+        <translation type="obsolete">Informação obrigatória para o PDF/X ou o PDF terá problemascom a conformação PDF/X. Nós recomendamos o uso do título do seu documento.</translation>
     </message>
     <message>
         <source>Left to Right</source>
@@ -8573,8 +8573,8 @@ It is a reserved name for transparent color</source>
         <translation type="obsolete">Filtros de texto</translation>
     </message>
     <message>
-        <source>The save button will be disabled if you are trying to export PDF/X-3 and the info string is missing from the PDF/X-3 tab.</source>
-        <translation type="obsolete">O botão salvar será desactivado se você estiver tentando exportar para PDF/X-3 e a string de informação não aparecerá na aba PDF/X-3.</translation>
+        <source>The save button will be disabled if you are trying to export PDF/X and the info string is missing from the PDF/X tab.</source>
+        <translation type="obsolete">O botão salvar será desactivado se você estiver tentando exportar para PDF/X e a string de informação não aparecerá na aba PDF/X.</translation>
     </message>
     <message>
         <source>Column gap out of bounds, must be positive.</source>
@@ -10108,8 +10108,8 @@ Considere usar o verificador pré-vôo para corrigi-los</translation>
         <translation type="obsolete">&amp;Qualidade:</translation>
     </message>
     <message>
-        <source>PDF/X-3 Output Intent</source>
-        <translation type="obsolete">Intenção de saída PDF/X-3</translation>
+        <source>PDF/X Output Intent</source>
+        <translation type="obsolete">Intenção de saída PDF/X</translation>
     </message>
     <message>
         <source>Manage Page Properties...</source>
@@ -27148,8 +27148,8 @@ If no handle is selected all handles will be reset.</source>
     </message>
     <message>
         <location filename="../../../scribus/pdfopts.cpp" line="129"/>
-        <source>The save button will be disabled if you are trying to export PDF/X-3 and the info string is missing from the PDF/X-3 tab.</source>
-        <translation>O botão salvar será desactivado se você estiver tentando exportar para PDF/X-3 e a string de informação não aparecerá na aba PDF/X-3.</translation>
+        <source>The save button will be disabled if you are trying to export PDF/X and the info string is missing from the PDF/X tab.</source>
+        <translation>O botão salvar será desactivado se você estiver tentando exportar para PDF/X e a string de informação não aparecerá na aba PDF/X.</translation>
     </message>
     <message>
         <location filename="../../../scribus/pdfopts.cpp" line="159"/>
@@ -42447,8 +42447,8 @@ quando o PDF estiver aberto:</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabpdfoptions.cpp" line="849"/>
-        <source>PDF/X-3 Output Intent</source>
-        <translation>Intenção de saída PDF/X-3</translation>
+        <source>PDF/X Output Intent</source>
+        <translation>Intenção de saída PDF/X</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabpdfoptions.cpp" line="859"/>
@@ -42681,8 +42681,8 @@ quando o PDF estiver aberto:</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabpdfoptions.cpp" line="1001"/>
-        <source>Mandatory string for PDF/X-3 or the PDF will fail PDF/X-3 conformance. We recommend you use the title of the document.</source>
-        <translation>Informação obrigatória para o PDF/X-3 ou o PDF terá problemas com a conformidade PDF/X-3. Recomendamos o uso do título do seu documento.</translation>
+        <source>Mandatory string for PDF/X or the PDF will fail PDF/X conformance. We recommend you use the title of the document.</source>
+        <translation>Informação obrigatória para o PDF/X ou o PDF terá problemas com a conformidade PDF/X. Recomendamos o uso do título do seu documento.</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabpdfoptions.cpp" line="995"/>

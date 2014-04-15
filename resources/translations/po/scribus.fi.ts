@@ -16991,8 +16991,8 @@ If no handle is selected all handles will be reset.</source>
     </message>
     <message>
         <location filename="../../../scribus/pdfopts.cpp" line="129"/>
-        <source>The save button will be disabled if you are trying to export PDF/X-3 and the info string is missing from the PDF/X-3 tab.</source>
-        <translation>Tallenna-painike ei ole käytössä, jos yrität tallentaa PDF/X-3 -muodossa ja infotekstiä ei ole annettu PDF/X-3 -välilehdellä.</translation>
+        <source>The save button will be disabled if you are trying to export PDF/X and the info string is missing from the PDF/X tab.</source>
+        <translation>Tallenna-painike ei ole käytössä, jos yrität tallentaa PDF/X -muodossa ja infotekstiä ei ole annettu PDF/X -välilehdellä.</translation>
     </message>
     <message>
         <location filename="../../../scribus/pdfopts.cpp" line="159"/>
@@ -30112,8 +30112,8 @@ Käytä tarkastustyökalua korjataksesi ne.</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabpdfoptions.cpp" line="849"/>
-        <source>PDF/X-3 Output Intent</source>
-        <translation>PDF/X-3 tuloste</translation>
+        <source>PDF/X Output Intent</source>
+        <translation>PDF/X tuloste</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabpdfoptions.cpp" line="859"/>
@@ -30342,8 +30342,8 @@ Käytä tarkastustyökalua korjataksesi ne.</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabpdfoptions.cpp" line="1001"/>
-        <source>Mandatory string for PDF/X-3 or the PDF will fail PDF/X-3 conformance. We recommend you use the title of the document.</source>
-        <translation>Pakollinen merkkijono PDF/X-3 -tiedostolle. Ilman tätä PDF-tiedosto ei ole PDF/X-3 -yhteensopiva. Suosituksemme on käyttää asiakirjan otsikkoa.</translation>
+        <source>Mandatory string for PDF/X or the PDF will fail PDF/X conformance. We recommend you use the title of the document.</source>
+        <translation>Pakollinen merkkijono PDF/X -tiedostolle. Ilman tätä PDF-tiedosto ei ole PDF/X -yhteensopiva. Suosituksemme on käyttää asiakirjan otsikkoa.</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabpdfoptions.cpp" line="341"/>

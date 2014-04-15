@@ -11481,8 +11481,8 @@ If no handle is selected all handles will be reset.</source>
     </message>
     <message>
         <location filename="../../../scribus/pdfopts.cpp" line="129"/>
-        <source>The save button will be disabled if you are trying to export PDF/X-3 and the info string is missing from the PDF/X-3 tab.</source>
-        <translation>保存按钮将被禁用因为你试图输出 PDF/X-3 和 PDF/X-3 标签中缺少信息字符串。</translation>
+        <source>The save button will be disabled if you are trying to export PDF/X and the info string is missing from the PDF/X tab.</source>
+        <translation>保存按钮将被禁用因为你试图输出 PDF/X 和 PDF/X 标签中缺少信息字符串。</translation>
     </message>
     <message>
         <location filename="../../../scribus/pdfopts.cpp" line="159"/>
@@ -24453,8 +24453,8 @@ when PDF document is opened:</source>
     </message>
     <message>
         <location filename="../../../scribus/tabpdfoptions.cpp" line="849"/>
-        <source>PDF/X-3 Output Intent</source>
-        <translation>PDF/X-3 输出意向</translation>
+        <source>PDF/X Output Intent</source>
+        <translation>PDF/X 输出意向</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabpdfoptions.cpp" line="859"/>
@@ -24663,8 +24663,8 @@ when PDF document is opened:</source>
     </message>
     <message>
         <location filename="../../../scribus/tabpdfoptions.cpp" line="1001"/>
-        <source>Mandatory string for PDF/X-3 or the PDF will fail PDF/X-3 conformance. We recommend you use the title of the document.</source>
-        <translation>PDF/X-3或 PDF 的命令字符串会引发 PDF/X-3相应错误。我们推荐你使用文档标题。</translation>
+        <source>Mandatory string for PDF/X or the PDF will fail PDF/X conformance. We recommend you use the title of the document.</source>
+        <translation>PDF/X或 PDF 的命令字符串会引发 PDF/X相应错误。我们推荐你使用文档标题。</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabpdfoptions.cpp" line="995"/>

@@ -159,6 +159,24 @@ static inline QString FToStr(double c)
 	return QString::number(c, 'f', 5);
 };
 
+bool PDFLibCore::PDF_IsPDFX()
+{
+	if (Options.Version == PDFOptions::PDFVersion_X1a)
+		return true;
+	if (Options.Version == PDFOptions::PDFVersion_X3)
+		return true;
+	return false;
+}
+
+bool PDFLibCore::PDF_IsPDFX(PDFOptions::PDFVersion ver)
+{
+	if (ver == PDFOptions::PDFVersion_X1a)
+		return true;
+	if (ver == PDFOptions::PDFVersion_X3)
+		return true;
+	return false;
+}
+
 bool PDFLibCore::doExport(const QString& fn, const QString& nam, int Components,
 					  const std::vector<int> & pageNs, const QMap<int,QPixmap> & thumbs)
 {
@@ -239,7 +257,7 @@ bool PDFLibCore::doExport(const QString& fn, const QString& nam, int Components,
 		ret = true;//Even when aborting we return true. Dont want that "couldnt write msg"
 		if (!abortExport)
 		{
-			if (doc.PDF_Options.Version == PDFOptions::PDFVersion_X3)
+			if (PDF_IsPDFX(doc.PDF_Options.Version))
 				ret = PDF_End_Doc(ScCore->PrinterProfiles[doc.PDF_Options.PrintProf], nam, Components);
 			else
 				ret = PDF_End_Doc();
@@ -740,6 +758,7 @@ bool PDFLibCore::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QStrin
 		ObjCounter = 9;
 	switch (Options.Version)
 	{
+		case PDFOptions::PDFVersion_X1a:
 		case PDFOptions::PDFVersion_X3:
 		case PDFOptions::PDFVersion_13:
 			PutDoc("%PDF-1.3\n");
@@ -751,14 +770,14 @@ bool PDFLibCore::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QStrin
 			PutDoc("%PDF-1.5\n");
 			break;
 	}
-	if (Options.Version == PDFOptions::PDFVersion_X3)
+	if ((Options.Version == PDFOptions::PDFVersion_X1a) || (Options.Version == PDFOptions::PDFVersion_X3))
 		ObjCounter++;
 	PutDoc("%\xc7\xec\x8f\xa2\n");
 	StartObj(1);
 	PutDoc("<<\n/Type /Catalog\n/Outlines 3 0 R\n/Pages 4 0 R\n/Dests 5 0 R\n/AcroForm 6 0 R\n/Names 7 0 R\n/Threads 8 0 R\n");
 	if ((Options.Version == PDFOptions::PDFVersion_15) && (Options.useLayers))
 		PutDoc("/OCProperties 9 0 R\n");
-	if (Options.Version == PDFOptions::PDFVersion_X3)
+	if ((Options.Version == PDFOptions::PDFVersion_X1a) || (Options.Version == PDFOptions::PDFVersion_X3))
 		PutDoc("/OutputIntents [ "+QString::number(ObjCounter-1)+" 0 R ]\n");
 	PutDoc("/PageLayout ");
 	switch (Options.PageLayout)
@@ -876,7 +895,7 @@ bool PDFLibCore::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QStrin
 	PutDoc("<<\n/Creator " + EncString("Scribus "+QString(VERSION), 2) + "\n");
 	PutDoc("/Producer " + EncString("Scribus PDF Library "+QString(VERSION), 2) + "\n");
 	QString docTitle = doc.documentInfo.getTitle();
-	if ((Options.Version == PDFOptions::PDFVersion_X3) && (docTitle.isEmpty()))
+	if ((PDF_IsPDFX()) && (docTitle.isEmpty()))
 		PutDoc("/Title " + EncStringUTF16(doc.DocName, 2) + "\n");
 	else
 		PutDoc("/Title " + EncStringUTF16(doc.documentInfo.getTitle(), 2) + "\n");
@@ -885,6 +904,11 @@ bool PDFLibCore::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QStrin
 	PutDoc("/Keywords " + EncStringUTF16(doc.documentInfo.getKeywords(), 2) + "\n");
 	PutDoc("/CreationDate " + EncString(Datum, 2) + "\n");
 	PutDoc("/ModDate " + EncString(Datum, 2) + "\n");
+	if (Options.Version == PDFOptions::PDFVersion_X1a)
+	{
+		PutDoc("/GTS_PDFXVersion (PDF/X-1:2001)\n");
+		PutDoc("/GTS_PDFXConformance (PDF/X-1a:2001)\n");
+	}
 	if (Options.Version == PDFOptions::PDFVersion_X3)
 		PutDoc("/GTS_PDFXVersion (PDF/X-3:2002)\n");
 	PutDoc("/Trapped /False\n>>\nendobj\n");
@@ -892,7 +916,7 @@ bool PDFLibCore::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QStrin
 		XRef.append(bytesWritten());
 	if ((Options.Version == PDFOptions::PDFVersion_15) && (Options.useLayers))
 		XRef.append(bytesWritten());
-	if (Options.Version == PDFOptions::PDFVersion_X3)
+	if ((Options.Version == PDFOptions::PDFVersion_X1a) || (Options.Version == PDFOptions::PDFVersion_X3))
 		XRef.append(bytesWritten());
 	if (Options.Encrypt)
 	{
@@ -1612,7 +1636,7 @@ bool PDFLibCore::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QStrin
 		Transpar[HTName] = writeGState("/HT "+QString::number(halftones)+" 0 R\n");
 		ResCount++;
 	}
-	if ((doc.HasCMS) && (Options.UseProfiles))
+	if ((doc.HasCMS) && (Options.UseProfiles) && (Options.Version != PDFOptions::PDFVersion_X1a))
 	{
 		uint iccProfileObject = newObject();
 		StartObj(iccProfileObject);
@@ -3327,10 +3351,8 @@ bool PDFLibCore::PDF_ProcessItem(QString& output, PageItem* ite, const Page* pag
 			}
 			break;
 		case PageItem::TextFrame:
-//			qDebug() << "case TextFrame";
-			if ((ite->isAnnotation()) && (Options.Version != PDFOptions::PDFVersion_X3))
+			if ((ite->isAnnotation()) && (!PDF_IsPDFX()))
 			{
-//				qDebug() << "Annotation";
 				if (!PDF_Annotation(ite, PNr))
 					return false;
 				break;
@@ -7618,7 +7640,7 @@ bool PDFLibCore::PDF_End_Doc(const QString& PrintPr, const QString& Name, int Co
 		PutDoc("]\n");
 		PutDoc(">>\nendobj\n");
 	}
-	if (Options.Version == PDFOptions::PDFVersion_X3)
+	if (PDF_IsPDFX())
 	{
 		StartObj(ObjCounter);
 		ObjCounter++;

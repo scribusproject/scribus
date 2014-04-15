@@ -72,17 +72,17 @@ PrefsManager::~PrefsManager()
 
 PrefsManager* PrefsManager::instance()
 {
-    if (_instance == 0)
-        _instance = new PrefsManager();
+	if (_instance == 0)
+		_instance = new PrefsManager();
 
-    return _instance;
+	return _instance;
 }
 
 void PrefsManager::deleteInstance()
 {
-    if (_instance)
-        delete _instance;
-    _instance = 0;
+	if (_instance)
+		delete _instance;
+	_instance = 0;
 }
 
 
@@ -948,8 +948,8 @@ void PrefsManager::ReadPrefsXML()
 		{
 			appPrefs.guiLanguage = userprefsContext->get("gui_language","");
 			appPrefs.mainWinState = QByteArray::fromBase64(userprefsContext->get("mainwinstate","").toAscii());
-            //continue here...
-            //Prefs."blah blah" =...
+			//continue here...
+			//Prefs."blah blah" =...
 		}
 		if (prefsFile->hasContext("print_options"))
 		{
@@ -1002,8 +1002,8 @@ void PrefsManager::SavePrefsXML()
 		{
 			userprefsContext->set("gui_language", appPrefs.guiLanguage);
 			userprefsContext->set("mainwinstate", QString::fromAscii(appPrefs.mainWinState.toBase64()));
-            //continue here...
-            //Prefs."blah blah" =...
+			//continue here...
+			//Prefs."blah blah" =...
 		}
 		prefsFile->write();
 	}
@@ -2434,7 +2434,8 @@ void PrefsManager::initDefaultCheckerPrefs(CheckerPrefsList* cp)
 		checkerSettings.checkTransparency = true;
 		checkerSettings.checkAnnotations = true;
 		checkerSettings.minResolution = 144.0;
-		cp->insert( CommonStrings::PDF_X3    , checkerSettings);
+		cp->insert( CommonStrings::PDF_X1a  , checkerSettings);
+		cp->insert( CommonStrings::PDF_X3   , checkerSettings);
 	}
 }
 

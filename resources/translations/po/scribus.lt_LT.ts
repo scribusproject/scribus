@@ -13190,8 +13190,8 @@ konvertuoja jų vektorinius objektus į „Scribus“ objektus.</translation>
     </message>
     <message>
         <location filename="../../../scribus/pdfopts.cpp" line="129"/>
-        <source>The save button will be disabled if you are trying to export PDF/X-3 and the info string is missing from the PDF/X-3 tab.</source>
-        <translation type="unfinished">Įrašymo mygtukas bus neveiksnus, jei bandysite eksportuoti „PDF/X-3“ ir kortelės „PDF/X-3“ informacinė eilutė yra tuščia.</translation>
+        <source>The save button will be disabled if you are trying to export PDF/X and the info string is missing from the PDF/X tab.</source>
+        <translation type="unfinished">Įrašymo mygtukas bus neveiksnus, jei bandysite eksportuoti „PDF/X“ ir kortelės „PDF/X“ informacinė eilutė yra tuščia.</translation>
     </message>
     <message>
         <location filename="../../../scribus/pdfopts.cpp" line="159"/>
@@ -19001,8 +19001,8 @@ Nulis reiškia, kad neribojama.</translation>
         <translation type="obsolete">Naudoti dokumento užlaidas</translation>
     </message>
     <message>
-        <source>PDF/X-3 Output Intent</source>
-        <translation type="obsolete">PDF/X-3 skirtas išvedimas</translation>
+        <source>PDF/X Output Intent</source>
+        <translation type="obsolete">PDF/X skirtas išvedimas</translation>
     </message>
     <message>
         <source>Output Profile:</source>
@@ -32315,8 +32315,8 @@ pertempk šabloną į langą žemiau.</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabpdfoptions.cpp" line="849"/>
-        <source>PDF/X-3 Output Intent</source>
-        <translation type="unfinished">PDF/X-3 skirtas išvedimas</translation>
+        <source>PDF/X Output Intent</source>
+        <translation type="unfinished">PDF/X skirtas išvedimas</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabpdfoptions.cpp" line="859"/>
@@ -32559,8 +32559,8 @@ pertempk šabloną į langą žemiau.</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabpdfoptions.cpp" line="1001"/>
-        <source>Mandatory string for PDF/X-3 or the PDF will fail PDF/X-3 conformance. We recommend you use the title of the document.</source>
-        <translation type="unfinished">Privaloma „PDF/X-3“ eilutė; be jos PDF dokumentas neatitiks „PDF/X-3“ reikalavimų. Rekomenduojame naudoti dokumento pavadinimą.</translation>
+        <source>Mandatory string for PDF/X or the PDF will fail PDF/X conformance. We recommend you use the title of the document.</source>
+        <translation type="unfinished">Privaloma „PDF/X“ eilutė; be jos PDF dokumentas neatitiks „PDF/X“ reikalavimų. Rekomenduojame naudoti dokumento pavadinimą.</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabpdfoptions.cpp" line="548"/>

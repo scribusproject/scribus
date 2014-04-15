@@ -11537,8 +11537,8 @@ If no handle is selected all handles will be reset.</source>
     </message>
     <message>
         <location filename="../../../scribus/pdfopts.cpp" line="129"/>
-        <source>The save button will be disabled if you are trying to export PDF/X-3 and the info string is missing from the PDF/X-3 tab.</source>
-        <translation>PDF/X-3タブから、PDF/X-3をエクスポートする際に情報が見つからない場合、保存ボタンが無効になります。</translation>
+        <source>The save button will be disabled if you are trying to export PDF/X and the info string is missing from the PDF/X tab.</source>
+        <translation>PDF/Xタブから、PDF/Xをエクスポートする際に情報が見つからない場合、保存ボタンが無効になります。</translation>
     </message>
     <message>
         <location filename="../../../scribus/pdfopts.cpp" line="159"/>
@@ -24564,8 +24564,8 @@ Consider using the Preflight Verifier to correct them</source>
     </message>
     <message>
         <location filename="../../../scribus/tabpdfoptions.cpp" line="849"/>
-        <source>PDF/X-3 Output Intent</source>
-        <translation>PDF/X-3 出力インテント</translation>
+        <source>PDF/X Output Intent</source>
+        <translation>PDF/X 出力インテント</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabpdfoptions.cpp" line="862"/>
@@ -24749,8 +24749,8 @@ Consider using the Preflight Verifier to correct them</source>
     </message>
     <message>
         <location filename="../../../scribus/tabpdfoptions.cpp" line="1001"/>
-        <source>Mandatory string for PDF/X-3 or the PDF will fail PDF/X-3 conformance. We recommend you use the title of the document.</source>
-        <translation>PDF/X-3またはPDFでの強制的な文字列はPDF/X-3の整合性を損ないます。ドキュメントのタイトルを使用することをお薦めします。</translation>
+        <source>Mandatory string for PDF/X or the PDF will fail PDF/X conformance. We recommend you use the title of the document.</source>
+        <translation>PDF/XまたはPDFでの強制的な文字列はPDF/Xの整合性を損ないます。ドキュメントのタイトルを使用することをお薦めします。</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabpdfoptions.cpp" line="995"/>

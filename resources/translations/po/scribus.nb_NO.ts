@@ -13040,8 +13040,8 @@ ellers måles koordinatene i forhold til objektet.</translation>
         <translation>Dette lar deg eksportere en side med sitt eget navn for hver side i dokumentet. Sidetallene legges til automatisk. Dette er mest nyttig hvis du vil trykke filene på et trykkeri.</translation>
     </message>
     <message>
-        <source>The save button will be disabled if you are trying to export PDF/X-3 and the info string is missing from the PDF/X-3 tab.</source>
-        <translation>Lagreknappen vil være utilgjengelig hvis du prøver å eksportere som PDF/X-3 og det mangler en informasjonsstreng på PDF/X-3-fanebladet.</translation>
+        <source>The save button will be disabled if you are trying to export PDF/X and the info string is missing from the PDF/X tab.</source>
+        <translation>Lagreknappen vil være utilgjengelig hvis du prøver å eksportere som PDF/X og det mangler en informasjonsstreng på PDF/X-fanebladet.</translation>
     </message>
     <message>
         <source>%1 does not exists and will be created, continue?</source>
@@ -13327,8 +13327,8 @@ ellers måles koordinatene i forhold til objektet.</translation>
         <translation type="obsolete">Ikke bruk innebygde ICC-profiler</translation>
     </message>
     <message>
-        <source>PDF/X-3 Output Intent</source>
-        <translation type="obsolete">Visning for PDF/X-3</translation>
+        <source>PDF/X Output Intent</source>
+        <translation type="obsolete">Visning for PDF/X</translation>
     </message>
     <message>
         <source>Trim Box</source>
@@ -13549,10 +13549,10 @@ Velg «Trykk» hvis du skal skrive ut på en 4 fargers CMYK-skriver.</translatio
         <translation type="obsolete">Utgivelse profil for utskrift. hvis mulig, få noe rådgiving fra din skriver når du velger.</translation>
     </message>
     <message>
-        <source>Mandatory string for PDF/X-3 or the PDF will fail
-PDF/X-3 conformance. We recommend you use the title of the document.</source>
-        <translation type="obsolete">Nødvendig tekstbit for PDF/X-3. Ellers vil PDF-fila ikke
-følge PDF/X3-conformance. Vi foreslår at du bruker dokumentets tittel.</translation>
+        <source>Mandatory string for PDF/X or the PDF will fail
+PDF/X conformance. We recommend you use the title of the document.</source>
+        <translation type="obsolete">Nødvendig tekstbit for PDF/X. Ellers vil PDF-fila ikke
+følge PDF/X-conformance. Vi foreslår at du bruker dokumentets tittel.</translation>
     </message>
     <message>
         <source>Distance for bleed from the top of the physical page</source>
@@ -29449,8 +29449,8 @@ med jevne mellomrom</translation>
         <translation>&amp;Farge</translation>
     </message>
     <message>
-        <source>PDF/X-3 Output Intent</source>
-        <translation>Tilpass visningen til PDF/X-3</translation>
+        <source>PDF/X Output Intent</source>
+        <translation>Tilpass visningen til PDF/X</translation>
     </message>
     <message>
         <source>&amp;Info String:</source>
@@ -29647,8 +29647,8 @@ Otherwise, your exported PDF may not print properly and is truly not portable ac
             </translation>
     </message>
     <message>
-        <source>Mandatory string for PDF/X-3 or the PDF will fail
-PDF/X-3 conformance. We recommend you use the title of the document.</source>
+        <source>Mandatory string for PDF/X or the PDF will fail
+PDF/X conformance. We recommend you use the title of the document.</source>
         <translation type="obsolete">
             </translation>
     </message>
@@ -29756,9 +29756,9 @@ sikkerhetsfunksjonen i den eksporterte PDF-fila</translation>
         <translation>Dette er en avansert innstilling som ikke er tilgjengelig som standard. Du bør bare bruke dette hvis trykkeriet ber spesielt om det og du vet nøyaktig hvilke innstillinger du trenger. Hvis du gjør det feil kan det hende pdf-fila ikke kan skrives ut på rett vis, eller at den ikke blir overførbar mellom ulike operativsystemer.</translation>
     </message>
     <message>
-        <source>Mandatory string for PDF/X-3 or the PDF will fail PDF/X-3 conformance. We recommend you use the title of the document.</source>
-        <translation>Nødvendig tekstbit for PDF/X-3. Ellers vil PDF-fila ikke
-følge PDF/X3-standarden. Det kan være lurt å bruke tittelen på dokumentet.</translation>
+        <source>Mandatory string for PDF/X or the PDF will fail PDF/X conformance. We recommend you use the title of the document.</source>
+        <translation>Nødvendig tekstbit for PDF/X. Ellers vil PDF-fila ikke
+følge PDF/X-standarden. Det kan være lurt å bruke tittelen på dokumentet.</translation>
     </message>
     <message>
         <source>Display Settings</source>

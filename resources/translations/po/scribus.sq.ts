@@ -4144,10 +4144,10 @@ që kjo mund të krijojë kartela të stërmëdha</translation>
         <translation type="obsolete">Profil burim i pamjes</translation>
     </message>
     <message>
-        <source>Mandatory string for PDF/X-3 or the PDF will fail
-PDF/X-3 conformance. We recommend you use the title of the document.</source>
-        <translation type="obsolete">Vargu i detyrueshëm për PDF/X-3 ose PDF do të dalë
-përputhjes me PDF/X-3. Ju këshillojmë të përdorni titullin e dokumentit.</translation>
+        <source>Mandatory string for PDF/X or the PDF will fail
+PDF/X conformance. We recommend you use the title of the document.</source>
+        <translation type="obsolete">Vargu i detyrueshëm për PDF/X ose PDF do të dalë
+përputhjes me PDF/X. Ju këshillojmë të përdorni titullin e dokumentit.</translation>
     </message>
     <message>
         <source>Left to Right</source>
@@ -7230,7 +7230,7 @@ Kjo lyp profile shumë të saktë dhe shërben vetëm si sinjalizim.</translatio
         <translation type="obsolete">&amp;Cilësi:</translation>
     </message>
     <message>
-        <source>PDF/X-3 Output Intent</source>
+        <source>PDF/X Output Intent</source>
         <translation type="obsolete">Ruajtje përfundimesh e suksesshme</translation>
     </message>
     <message>
@@ -25630,7 +25630,7 @@ përndryshe Koordinatat janë relative te Objekti.</translation>
     </message>
     <message>
         <location filename="../../../scribus/pdfopts.cpp" line="129"/>
-        <source>The save button will be disabled if you are trying to export PDF/X-3 and the info string is missing from the PDF/X-3 tab.</source>
+        <source>The save button will be disabled if you are trying to export PDF/X and the info string is missing from the PDF/X tab.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -26095,7 +26095,7 @@ përndryshe Koordinatat janë relative te Objekti.</translation>
         <translation type="obsolete">Ngj&amp;yrë</translation>
     </message>
     <message>
-        <source>PDF/X-3 Output Intent</source>
+        <source>PDF/X Output Intent</source>
         <translation type="obsolete">Ruajtje përfundimesh e suksesshme</translation>
     </message>
     <message>
@@ -26339,10 +26339,10 @@ Përndryshe, PDF-ja që eksportuat mund të mos shtypet si duhet dhe as të jet�
         <translation type="obsolete">Profil përfundimesh për shtypjen. Nëse mundet, merrni ca udhëzime prej shtypësit tuaj rreth përzgjedhjes së profilit.</translation>
     </message>
     <message>
-        <source>Mandatory string for PDF/X-3 or the PDF will fail
-PDF/X-3 conformance. We recommend you use the title of the document.</source>
-        <translation type="obsolete">Vargu i detyrueshëm për PDF/X-3 ose PDF do të dalë jo në(new line)
-përputhje me PDF/X-3. Ju këshillojmë të përdorni titullin e dokumentit.</translation>
+        <source>Mandatory string for PDF/X or the PDF will fail
+PDF/X conformance. We recommend you use the title of the document.</source>
+        <translation type="obsolete">Vargu i detyrueshëm për PDF/X ose PDF do të dalë jo në(new line)
+përputhje me PDF/X. Ju këshillojmë të përdorni titullin e dokumentit.</translation>
     </message>
     <message>
         <source>Save as</source>
@@ -43936,7 +43936,7 @@ të mos kërkojë ripohimin tuaj sërish</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabpdfoptions.cpp" line="849"/>
-        <source>PDF/X-3 Output Intent</source>
+        <source>PDF/X Output Intent</source>
         <translation type="unfinished">Ruajtje përfundimesh e suksesshme</translation>
     </message>
     <message>
@@ -44218,7 +44218,7 @@ Zgjidhni Shtypës kur shtypet vërtet me një shtypës 4 ngjyrësh CMYK.</transl
     </message>
     <message>
         <location filename="../../../scribus/tabpdfoptions.cpp" line="1001"/>
-        <source>Mandatory string for PDF/X-3 or the PDF will fail PDF/X-3 conformance. We recommend you use the title of the document.</source>
+        <source>Mandatory string for PDF/X or the PDF will fail PDF/X conformance. We recommend you use the title of the document.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

@@ -18952,8 +18952,8 @@ Scribus.</translation>
     </message>
     <message>
         <location filename="../../../scribus/pdfopts.cpp" line="129"/>
-        <source>The save button will be disabled if you are trying to export PDF/X-3 and the info string is missing from the PDF/X-3 tab.</source>
-        <translation>Кнопка запису буде недоступна, якщо Ви намагаєтеся експортувати PDF/X-3 і інформаційний рядок відсутній з закладки PDF/X-3.</translation>
+        <source>The save button will be disabled if you are trying to export PDF/X and the info string is missing from the PDF/X tab.</source>
+        <translation>Кнопка запису буде недоступна, якщо Ви намагаєтеся експортувати PDF/X і інформаційний рядок відсутній з закладки PDF/X.</translation>
     </message>
     <message>
         <location filename="../../../scribus/pdfopts.cpp" line="159"/>
@@ -34476,8 +34476,8 @@ Scribus виконає пошук в системних директоріях �
     </message>
     <message>
         <location filename="../../../scribus/tabpdfoptions.cpp" line="849"/>
-        <source>PDF/X-3 Output Intent</source>
-        <translation>Призначення вихідного документу PDF/X-3</translation>
+        <source>PDF/X Output Intent</source>
+        <translation>Призначення вихідного документу PDF/X</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabpdfoptions.cpp" line="859"/>
@@ -34736,8 +34736,8 @@ Scribus виконає пошук в системних директоріях �
     </message>
     <message>
         <location filename="../../../scribus/tabpdfoptions.cpp" line="1001"/>
-        <source>Mandatory string for PDF/X-3 or the PDF will fail PDF/X-3 conformance. We recommend you use the title of the document.</source>
-        <translation>Обов&apos;язкова установка для PDF/X-3. В іншому випадку PDF не відповідатиме вимогам PDF/X-3. Ми рекомендуємо використання заголовку документа.</translation>
+        <source>Mandatory string for PDF/X or the PDF will fail PDF/X conformance. We recommend you use the title of the document.</source>
+        <translation>Обов&apos;язкова установка для PDF/X. В іншому випадку PDF не відповідатиме вимогам PDF/X. Ми рекомендуємо використання заголовку документа.</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabpdfoptions.cpp" line="548"/>

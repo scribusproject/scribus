@@ -18625,8 +18625,8 @@ Ak nie je vybraný  žiadny riadiacich bod, všetky budú vynulované.</translat
     </message>
     <message>
         <location filename="../../../scribus/pdfopts.cpp" line="129"/>
-        <source>The save button will be disabled if you are trying to export PDF/X-3 and the info string is missing from the PDF/X-3 tab.</source>
-        <translation>Tlačidlo pre uloženie bude zakázané, pokiaľ sa pokúsite exportovať PDF/X-3 a bude chýbať informačný reťazec z karty PDF/X-3.</translation>
+        <source>The save button will be disabled if you are trying to export PDF/X and the info string is missing from the PDF/X tab.</source>
+        <translation>Tlačidlo pre uloženie bude zakázané, pokiaľ sa pokúsite exportovať PDF/X a bude chýbať informačný reťazec z karty PDF/X.</translation>
     </message>
     <message>
         <location filename="../../../scribus/pdfopts.cpp" line="159"/>
@@ -32621,8 +32621,8 @@ You can choose between normal and several colour blindness forms</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabpdfoptions.cpp" line="849"/>
-        <source>PDF/X-3 Output Intent</source>
-        <translation>Výstup do PDF/X-3</translation>
+        <source>PDF/X Output Intent</source>
+        <translation>Výstup do PDF/X</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabpdfoptions.cpp" line="859"/>
@@ -32861,8 +32861,8 @@ You can choose between normal and several colour blindness forms</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabpdfoptions.cpp" line="1001"/>
-        <source>Mandatory string for PDF/X-3 or the PDF will fail PDF/X-3 conformance. We recommend you use the title of the document.</source>
-        <translation>Povinný reťazec pre PDF/X-3 - inak PDF nebude spĺňať špecifikáciu PDF/X-3. Doporučujeme použiť názov dokumentu.</translation>
+        <source>Mandatory string for PDF/X or the PDF will fail PDF/X conformance. We recommend you use the title of the document.</source>
+        <translation>Povinný reťazec pre PDF/X - inak PDF nebude spĺňať špecifikáciu PDF/X. Doporučujeme použiť názov dokumentu.</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabpdfoptions.cpp" line="548"/>

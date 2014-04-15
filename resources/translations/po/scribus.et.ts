@@ -14515,8 +14515,8 @@ Kui pidet pole valitud, lähtestatakse kõik pidemed.</translation>
     </message>
     <message>
         <location filename="../../../scribus/pdfopts.cpp" line="129"/>
-        <source>The save button will be disabled if you are trying to export PDF/X-3 and the info string is missing from the PDF/X-3 tab.</source>
-        <translation>Salvestamisnupp ei ole aktiivne, kui püüad eksportida PDF/X-3 ning PDF/X-3 kaardil puudub infostring.</translation>
+        <source>The save button will be disabled if you are trying to export PDF/X and the info string is missing from the PDF/X tab.</source>
+        <translation>Salvestamisnupp ei ole aktiivne, kui püüad eksportida PDF/X ning PDF/X kaardil puudub infostring.</translation>
     </message>
     <message>
         <source>Save as</source>
@@ -30616,8 +30616,8 @@ käivitatav JavaScript:</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabpdfoptions.cpp" line="849"/>
-        <source>PDF/X-3 Output Intent</source>
-        <translation>PDF/X-3 väljundviis</translation>
+        <source>PDF/X Output Intent</source>
+        <translation>PDF/X väljundviis</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabpdfoptions.cpp" line="859"/>
@@ -30845,8 +30845,8 @@ käivitatav JavaScript:</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabpdfoptions.cpp" line="1001"/>
-        <source>Mandatory string for PDF/X-3 or the PDF will fail PDF/X-3 conformance. We recommend you use the title of the document.</source>
-        <translation>PDF/X-3 kohustuslik string, mille puudumisel PDF/X-3 ei vasta nõuetele. Soovitatav on kasutada siin dokumendi pealkirja.</translation>
+        <source>Mandatory string for PDF/X or the PDF will fail PDF/X conformance. We recommend you use the title of the document.</source>
+        <translation>PDF/X kohustuslik string, mille puudumisel PDF/X ei vasta nõuetele. Soovitatav on kasutada siin dokumendi pealkirja.</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabpdfoptions.cpp" line="995"/>

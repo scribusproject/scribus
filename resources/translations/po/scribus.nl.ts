@@ -11632,8 +11632,8 @@ Als er geen ankerpunt geselecteerd is, zullen alle ankerpunten worden teruggezet
     </message>
     <message>
         <location filename="../../../scribus/pdfopts.cpp" line="129"/>
-        <source>The save button will be disabled if you are trying to export PDF/X-3 and the info string is missing from the PDF/X-3 tab.</source>
-        <translation type="unfinished">De knop Opslaan wordt uitgeschakeld bij export naar PDF/X3 als de info-string ontbreekt op de PDF/X3-tab.</translation>
+        <source>The save button will be disabled if you are trying to export PDF/X and the info string is missing from the PDF/X tab.</source>
+        <translation type="unfinished">De knop Opslaan wordt uitgeschakeld bij export naar PDF/X als de info-string ontbreekt op de PDF/X-tab.</translation>
     </message>
     <message>
         <location filename="../../../scribus/pdfopts.cpp" line="159"/>
@@ -24599,8 +24599,8 @@ Gebruik Preflight Controle om deze te herstellen</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabpdfoptions.cpp" line="849"/>
-        <source>PDF/X-3 Output Intent</source>
-        <translation type="unfinished">PDF/X3 Output-intentie</translation>
+        <source>PDF/X Output Intent</source>
+        <translation type="unfinished">PDF/X Output-intentie</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabpdfoptions.cpp" line="859"/>
@@ -24840,8 +24840,8 @@ Gebruik Preflight Controle om deze te herstellen</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabpdfoptions.cpp" line="1001"/>
-        <source>Mandatory string for PDF/X-3 or the PDF will fail PDF/X-3 conformance. We recommend you use the title of the document.</source>
-        <translation>Voorgeschreven regel voor PDF/X-3 bij niet invullen voldoet de PDF/X-3 niet aan de eisen. Wij adviseren de titel van het document te gebruiken.</translation>
+        <source>Mandatory string for PDF/X or the PDF will fail PDF/X conformance. We recommend you use the title of the document.</source>
+        <translation>Voorgeschreven regel voor PDF/X bij niet invullen voldoet de PDF/X niet aan de eisen. Wij adviseren de titel van het document te gebruiken.</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabpdfoptions.cpp" line="548"/>

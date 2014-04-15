@@ -21654,8 +21654,8 @@ Pàgina, i sinó Coordenades Relatives a l&apos;Objecte.</translation>
     </message>
     <message>
         <location filename="../../../scribus/pdfopts.cpp" line="129"/>
-        <source>The save button will be disabled if you are trying to export PDF/X-3 and the info string is missing from the PDF/X-3 tab.</source>
-        <translation>El botó de desar es desactivarà si estas triant d&apos;exportar a un PDF/X-3 i la cadena d&apos;informació dels tabuladors PDF/X-3 es perd.</translation>
+        <source>The save button will be disabled if you are trying to export PDF/X and the info string is missing from the PDF/X tab.</source>
+        <translation>El botó de desar es desactivarà si estas triant d&apos;exportar a un PDF/X i la cadena d&apos;informació dels tabuladors PDF/X es perd.</translation>
     </message>
     <message>
         <location filename="../../../scribus/pdfopts.cpp" line="159"/>
@@ -22135,8 +22135,8 @@ Pàgina, i sinó Coordenades Relatives a l&apos;Objecte.</translation>
         <translation type="obsolete">C&amp;olor</translation>
     </message>
     <message>
-        <source>PDF/X-3 Output Intent</source>
-        <translation type="obsolete">Sortida a PDF/X-3 </translation>
+        <source>PDF/X Output Intent</source>
+        <translation type="obsolete">Sortida a PDF/X </translation>
     </message>
     <message>
         <source>&amp;Info String:</source>
@@ -22396,10 +22396,10 @@ Altrament, el teu PDF no s&apos;imprimirà correctament i no serà portable entr
         <translation type="obsolete">Perfil de sortida per impressió. Si pots, demana consells al teu impressor sobre la tria de perfils.</translation>
     </message>
     <message>
-        <source>Mandatory string for PDF/X-3 or the PDF will fail
-PDF/X-3 conformance. We recommend you use the title of the document.</source>
-        <translation type="obsolete">Cadena obligatòria per PDF/X3 o el PDF fallarà.
-Ajustos PDF/X-3. Recomanem fer servir el títol del document.</translation>
+        <source>Mandatory string for PDF/X or the PDF will fail
+PDF/X conformance. We recommend you use the title of the document.</source>
+        <translation type="obsolete">Cadena obligatòria per PDF/ o el PDF fallarà.
+Ajustos PDF/X. Recomanem fer servir el títol del document.</translation>
     </message>
     <message>
         <source>Distance for bleed from the top of the physical page</source>
@@ -42023,8 +42023,8 @@ després d&apos;importar-lo.</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabpdfoptions.cpp" line="849"/>
-        <source>PDF/X-3 Output Intent</source>
-        <translation>Sortida a PDF/X-3 </translation>
+        <source>PDF/X Output Intent</source>
+        <translation>Sortida a PDF/X </translation>
     </message>
     <message>
         <location filename="../../../scribus/tabpdfoptions.cpp" line="859"/>
@@ -42289,10 +42289,10 @@ Altrament, el teu PDF no s&apos;imprimirà correctament i no serà portable entr
         <translation>Perfil de sortida per impressió. Si pots, demana consells al teu impressor sobre la tria de perfils.</translation>
     </message>
     <message>
-        <source>Mandatory string for PDF/X-3 or the PDF will fail
-PDF/X-3 conformance. We recommend you use the title of the document.</source>
-        <translation type="obsolete">Cadena obligatòria per PDF/X3 o el PDF fallarà.
-Ajustos PDF/X-3. Recomanem fer servir el títol del document.</translation>
+        <source>Mandatory string for PDF/X or the PDF will fail
+PDF/X conformance. We recommend you use the title of the document.</source>
+        <translation type="obsolete">Cadena obligatòria per PDF/X o el PDF fallarà.
+Ajustos PDF/X. Recomanem fer servir el títol del document.</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabpdfoptions.cpp" line="995"/>
@@ -42424,8 +42424,8 @@ Ajustos PDF/X-3. Recomanem fer servir el títol del document.</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabpdfoptions.cpp" line="1001"/>
-        <source>Mandatory string for PDF/X-3 or the PDF will fail PDF/X-3 conformance. We recommend you use the title of the document.</source>
-        <translation>Cadena obligatòria pels PDF/X-3 per poder complir els requeriments. Es recomana fer servir el títol del document.</translation>
+        <source>Mandatory string for PDF/X or the PDF will fail PDF/X conformance. We recommend you use the title of the document.</source>
+        <translation>Cadena obligatòria pels PDF/X per poder complir els requeriments. Es recomana fer servir el títol del document.</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabpdfoptions.cpp" line="548"/>

@@ -19164,8 +19164,8 @@ komertzialetako.</translation>
     </message>
     <message>
         <location filename="../../../scribus/pdfopts.cpp" line="129"/>
-        <source>The save button will be disabled if you are trying to export PDF/X-3 and the info string is missing from the PDF/X-3 tab.</source>
-        <translation>Gorde botoia desgaitu egingo da PDF/X-3 formatura esportatzen saiatzean, eta informazioaren katea galdu egingo da PDF/X-3 fitxatik.</translation>
+        <source>The save button will be disabled if you are trying to export PDF/X and the info string is missing from the PDF/X tab.</source>
+        <translation>Gorde botoia desgaitu egingo da PDF/X formatura esportatzen saiatzean, eta informazioaren katea galdu egingo da PDF/X fitxatik.</translation>
     </message>
     <message>
         <location filename="../../../scribus/pdfopts.cpp" line="159"/>
@@ -34777,8 +34777,8 @@ eta /usr/local/share/color/icc direktorioetan begiratuko du.</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabpdfoptions.cpp" line="849"/>
-        <source>PDF/X-3 Output Intent</source>
-        <translation>PDF/X-3 irteera</translation>
+        <source>PDF/X Output Intent</source>
+        <translation>PDF/X irteera</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabpdfoptions.cpp" line="859"/>
@@ -35043,8 +35043,8 @@ batentzako, edo orrialde bakar batentzako izan daiteke.</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabpdfoptions.cpp" line="1001"/>
-        <source>Mandatory string for PDF/X-3 or the PDF will fail PDF/X-3 conformance. We recommend you use the title of the document.</source>
-        <translation>PDF/X-3 moduaren derrigorrezko katea, bestela PDFak huts egingo du PDF/X-3 betetzean. Dokumentuaren titulua erabiltzea gomendatzen dugu.</translation>
+        <source>Mandatory string for PDF/X or the PDF will fail PDF/X conformance. We recommend you use the title of the document.</source>
+        <translation>PDF/X moduaren derrigorrezko katea, bestela PDFak huts egingo du PDF/X betetzean. Dokumentuaren titulua erabiltzea gomendatzen dugu.</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabpdfoptions.cpp" line="548"/>

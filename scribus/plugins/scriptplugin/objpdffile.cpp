@@ -1104,9 +1104,10 @@ static PyObject *PDFfile_save(PDFfile *self)
 			ScCore->primaryMainWindow()->doc->PDF_Options.SolidProf = PyString_AsString(self->solidpr);
 			ScCore->primaryMainWindow()->doc->PDF_Options.ImageProf = PyString_AsString(self->imagepr);
 			ScCore->primaryMainWindow()->doc->PDF_Options.PrintProf = PyString_AsString(self->printprofc);
-			if (ScCore->primaryMainWindow()->doc->PDF_Options.Version == PDFOptions::PDFVersion_X3)
+			if (ScCore->primaryMainWindow()->doc->PDF_Options.Version == PDFOptions::PDFVersion_X1a ||
+				ScCore->primaryMainWindow()->doc->PDF_Options.Version == PDFOptions::PDFVersion_X3)
 			{
-// Where does compiler find cms function when I have not included header for it
+				// Where does compiler find cms function when I have not included header for it
 				ScColorProfile hIn;
 				hIn = ScColorMgmtEngine::openProfileFromFile(ScCore->PrinterProfiles[ScCore->primaryMainWindow()->doc->PDF_Options.PrintProf]);
 				nam = hIn.productDescription();

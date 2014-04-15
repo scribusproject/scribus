@@ -24515,8 +24515,8 @@ otherwise Coordinates are relative to the Object.</source>
     </message>
     <message>
         <location filename="../../../scribus/pdfopts.cpp" line="129"/>
-        <source>The save button will be disabled if you are trying to export PDF/X-3 and the info string is missing from the PDF/X-3 tab.</source>
-        <translation>O botón gardar desactivarase se tenta exportar PDF/X-3 e falta a cadea info da lapela PDF/X-3.</translation>
+        <source>The save button will be disabled if you are trying to export PDF/X and the info string is missing from the PDF/X tab.</source>
+        <translation>O botón gardar desactivarase se tenta exportar PDF/X e falta a cadea info da lapela PDF/X.</translation>
     </message>
     <message>
         <location filename="../../../scribus/pdfopts.cpp" line="159"/>
@@ -25282,10 +25282,10 @@ Se non, o seu PDF exportado pode non imprimirse correctamente e con certeza non 
         <translation type="obsolete">Perfil de saída para a impresión. De ser posíbel, solicite orientación na imprenta sobre a selección de perfís.</translation>
     </message>
     <message>
-        <source>Mandatory string for PDF/X-3 or the PDF will fail
-PDF/X-3 conformance. We recommend you use the title of the document.</source>
-        <translation type="obsolete">Cadea obrigatoria para PDF/X-3 ou o PDF fallará
-na conformidade con PDF/X-3. Recomendamos que use o título do documento.</translation>
+        <source>Mandatory string for PDF/X or the PDF will fail
+PDF/X conformance. We recommend you use the title of the document.</source>
+        <translation type="obsolete">Cadea obrigatoria para PDF/X ou o PDF fallará
+na conformidade con PDF/X. Recomendamos que use o título do documento.</translation>
     </message>
     <message>
         <source>Distance for bleed from the top of the physical page</source>
@@ -45646,8 +45646,8 @@ Selector de Estilo de Texto</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabpdfoptions.cpp" line="849"/>
-        <source>PDF/X-3 Output Intent</source>
-        <translation>Intención de saída PDF/X-3</translation>
+        <source>PDF/X Output Intent</source>
+        <translation>Intención de saída PDF/X</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabpdfoptions.cpp" line="859"/>
@@ -45911,10 +45911,10 @@ Se non, o seu PDF exportado pode non imprimirse correctamente e con certeza non 
         <translation>Perfil de saída para a impresión. De ser posíbel, solicite orientación na imprenta sobre a selección de perfís.</translation>
     </message>
     <message>
-        <source>Mandatory string for PDF/X-3 or the PDF will fail
-PDF/X-3 conformance. We recommend you use the title of the document.</source>
-        <translation type="obsolete">Cadea obrigatoria para PDF/X-3 ou o PDF fallará
-na conformidade con PDF/X-3. Recomendamos que use o título do documento.</translation>
+        <source>Mandatory string for PDF/X or the PDF will fail
+PDF/X conformance. We recommend you use the title of the document.</source>
+        <translation type="obsolete">Cadea obrigatoria para PDF/X ou o PDF fallará
+na conformidade con PDF/X. Recomendamos que use o título do documento.</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabpdfoptions.cpp" line="995"/>
@@ -46041,8 +46041,8 @@ na conformidade con PDF/X-3. Recomendamos que use o título do documento.</trans
     </message>
     <message>
         <location filename="../../../scribus/tabpdfoptions.cpp" line="1001"/>
-        <source>Mandatory string for PDF/X-3 or the PDF will fail PDF/X-3 conformance. We recommend you use the title of the document.</source>
-        <translation>Cadea obrigatoria para PDF/X-3 ou o PDF non será conforme con PDF/X-3. Recomendamos que utilice o título do documento.</translation>
+        <source>Mandatory string for PDF/X or the PDF will fail PDF/X conformance. We recommend you use the title of the document.</source>
+        <translation>Cadea obrigatoria para PDF/X ou o PDF non será conforme con PDF/X. Recomendamos que utilice o título do documento.</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabpdfoptions.cpp" line="548"/>

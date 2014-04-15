@@ -18279,7 +18279,7 @@ otherwise Coordinates are relative to the Object.</translation>
     </message>
     <message>
         <location filename="../../../scribus/pdfopts.cpp" line="129"/>
-        <source>The save button will be disabled if you are trying to export PDF/X-3 and the info string is missing from the PDF/X-3 tab.</source>
+        <source>The save button will be disabled if you are trying to export PDF/X and the info string is missing from the PDF/X tab.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -18532,8 +18532,8 @@ otherwise Coordinates are relative to the Object.</translation>
         <translation type="obsolete">Don&apos;t use embedded ICC profiles</translation>
     </message>
     <message>
-        <source>PDF/X-3 Output Intent</source>
-        <translation type="obsolete">PDF/X-3 Output Intent</translation>
+        <source>PDF/X Output Intent</source>
+        <translation type="obsolete">PDF/X Output Intent</translation>
     </message>
     <message>
         <source>Trim Box</source>
@@ -18796,10 +18796,10 @@ Choose Printer when printing to a true 4 colour CMYK printer.</translation>
         <translation type="obsolete">Output profile for printing. If possible, get some guidance from your printer on profile selection.</translation>
     </message>
     <message>
-        <source>Mandatory string for PDF/X-3 or the PDF will fail
-PDF/X-3 conformance. We recommend you use the title of the document.</source>
-        <translation type="obsolete">Mandatory string for PDF/X-3 or the PDF will fail
-PDF/X-3 conformance. We recommend you use the title of the document.</translation>
+        <source>Mandatory string for PDF/X or the PDF will fail
+PDF/X conformance. We recommend you use the title of the document.</source>
+        <translation type="obsolete">Mandatory string for PDF/X or the PDF will fail
+PDF/X conformance. We recommend you use the title of the document.</translation>
     </message>
     <message>
         <source>Compression levels: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%)</source>
@@ -36348,8 +36348,8 @@ never ask your confirmation again</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabpdfoptions.cpp" line="849"/>
-        <source>PDF/X-3 Output Intent</source>
-        <translation type="unfinished">PDF/X-3 Output Intent</translation>
+        <source>PDF/X Output Intent</source>
+        <translation type="unfinished">PDF/X Output Intent</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabpdfoptions.cpp" line="859"/>
@@ -36545,7 +36545,7 @@ never ask your confirmation again</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabpdfoptions.cpp" line="1001"/>
-        <source>Mandatory string for PDF/X-3 or the PDF will fail PDF/X-3 conformance. We recommend you use the title of the document.</source>
+        <source>Mandatory string for PDF/X or the PDF will fail PDF/X conformance. We recommend you use the title of the document.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

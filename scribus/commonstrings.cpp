@@ -145,6 +145,7 @@ QString CommonStrings::trPostScript = "";
 QString CommonStrings::PDF_1_3      = "";
 QString CommonStrings::PDF_1_4      = "";
 QString CommonStrings::PDF_1_5      = "";
+QString CommonStrings::PDF_X1a      = "";
 QString CommonStrings::PDF_X3       = "";
 
 QString CommonStrings::PostScript1   = "";
@@ -382,6 +383,7 @@ void CommonStrings::languageChange()
 	CommonStrings::PDF_1_3      = "PDF 1.3";
 	CommonStrings::PDF_1_4      = "PDF 1.4";
 	CommonStrings::PDF_1_5      = "PDF 1.5";
+	CommonStrings::PDF_X1a      = "PDF/X-1a";
 	CommonStrings::PDF_X3       = "PDF/X-3";
 
 	CommonStrings::PostScript1   = "PostScript Level 1";

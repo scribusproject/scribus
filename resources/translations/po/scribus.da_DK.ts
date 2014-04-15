@@ -20376,8 +20376,8 @@ Hvis ingen håndtag er markerede, så nulstilles alle håndtag.</translation>
     </message>
     <message>
         <location filename="../../../scribus/pdfopts.cpp" line="129"/>
-        <source>The save button will be disabled if you are trying to export PDF/X-3 and the info string is missing from the PDF/X-3 tab.</source>
-        <translation>Gem-knappen bliver deaktiveret, hvis du prøver at eksportere PDF/X-3 og info-strengen mangler på PDF/X-3 fanebladet.</translation>
+        <source>The save button will be disabled if you are trying to export PDF/X and the info string is missing from the PDF/X tab.</source>
+        <translation>Gem-knappen bliver deaktiveret, hvis du prøver at eksportere PDF/X og info-strengen mangler på PDF/X fanebladet.</translation>
     </message>
     <message>
         <location filename="../../../scribus/pdfopts.cpp" line="159"/>
@@ -35647,8 +35647,8 @@ Du kan vælge mellem normal og adskillige former for farveblindhed</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabpdfoptions.cpp" line="849"/>
-        <source>PDF/X-3 Output Intent</source>
-        <translation>Hensigt med PDF/X-3 udskrift</translation>
+        <source>PDF/X Output Intent</source>
+        <translation>Hensigt med PDF/X udskrift</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabpdfoptions.cpp" line="859"/>
@@ -35878,8 +35878,8 @@ Du kan vælge mellem normal og adskillige former for farveblindhed</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabpdfoptions.cpp" line="1001"/>
-        <source>Mandatory string for PDF/X-3 or the PDF will fail PDF/X-3 conformance. We recommend you use the title of the document.</source>
-        <translation>Obligatorisk streng for PDF/X-3. Skal udfyldes for at overholde reglerne for PDF/X-3. Vi anbefaler at bruge titlen på dokumentet. </translation>
+        <source>Mandatory string for PDF/X or the PDF will fail PDF/X conformance. We recommend you use the title of the document.</source>
+        <translation>Obligatorisk streng for PDF/X. Skal udfyldes for at overholde reglerne for PDF/X. Vi anbefaler at bruge titlen på dokumentet. </translation>
     </message>
     <message>
         <location filename="../../../scribus/tabpdfoptions.cpp" line="341"/>

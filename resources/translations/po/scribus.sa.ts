@@ -11497,8 +11497,8 @@ If no handle is selected all handles will be reset.</source>
     </message>
     <message>
         <location filename="../../../scribus/pdfopts.cpp" line="129"/>
-        <source>The save button will be disabled if you are trying to export PDF/X-3 and the info string is missing from the PDF/X-3 tab.</source>
-        <translation type="unfinished">यदि त्वं PDF/X-3 निर्याणं कर्तुं यतसे, अपि च, PDF/X-3 टैब् मध्ये सूचनाक्षरसमूहः अनुपस्थितः, तर्हि सञ्चयपिञ्जः निष्प्रकारितः भविष्यति।</translation>
+        <source>The save button will be disabled if you are trying to export PDF/X and the info string is missing from the PDF/X tab.</source>
+        <translation type="unfinished">यदि त्वं PDF/X निर्याणं कर्तुं यतसे, अपि च, PDF/X टैब् मध्ये सूचनाक्षरसमूहः अनुपस्थितः, तर्हि सञ्चयपिञ्जः निष्प्रकारितः भविष्यति।</translation>
     </message>
     <message>
         <location filename="../../../scribus/pdfopts.cpp" line="159"/>
@@ -24473,8 +24473,8 @@ when PDF document is opened:</source>
     </message>
     <message>
         <location filename="../../../scribus/tabpdfoptions.cpp" line="849"/>
-        <source>PDF/X-3 Output Intent</source>
-        <translation type="unfinished">PDF/X-3 औट्पुट् आशयः</translation>
+        <source>PDF/X Output Intent</source>
+        <translation type="unfinished">PDF/X औट्पुट् आशयः</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabpdfoptions.cpp" line="859"/>
@@ -24683,8 +24683,8 @@ when PDF document is opened:</source>
     </message>
     <message>
         <location filename="../../../scribus/tabpdfoptions.cpp" line="1001"/>
-        <source>Mandatory string for PDF/X-3 or the PDF will fail PDF/X-3 conformance. We recommend you use the title of the document.</source>
-        <translation type="unfinished">PDF/X-3 कृते आवश्यकः अक्षरसमूहः, अथवा, PDF PDF/X-3 औचित्यं त्रुट्यति। त्वं लेख्यपत्रस्य शीर्षकम् उपयोजय इति वयम् उपदिशामः।</translation>
+        <source>Mandatory string for PDF/X or the PDF will fail PDF/X conformance. We recommend you use the title of the document.</source>
+        <translation type="unfinished">PDF/X कृते आवश्यकः अक्षरसमूहः, अथवा, PDF PDF/X औचित्यं त्रुट्यति। त्वं लेख्यपत्रस्य शीर्षकम् उपयोजय इति वयम् उपदिशामः।</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabpdfoptions.cpp" line="995"/>

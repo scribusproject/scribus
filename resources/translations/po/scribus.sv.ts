@@ -16337,8 +16337,8 @@ annars används koordinater relativt objektet.</translation>
     </message>
     <message>
         <location filename="../../../scribus/pdfopts.cpp" line="129"/>
-        <source>The save button will be disabled if you are trying to export PDF/X-3 and the info string is missing from the PDF/X-3 tab.</source>
-        <translation>Spara-knappen fungerar inte om du försöker exportera till PDF/X-3 och info-strängen saknas i PDF/X-3 fliken.</translation>
+        <source>The save button will be disabled if you are trying to export PDF/X and the info string is missing from the PDF/X tab.</source>
+        <translation>Spara-knappen fungerar inte om du försöker exportera till PDF/X och info-strängen saknas i PDF/X fliken.</translation>
     </message>
     <message>
         <location filename="../../../scribus/pdfopts.cpp" line="159"/>
@@ -16818,8 +16818,8 @@ annars används koordinater relativt objektet.</translation>
         <translation type="obsolete">Fä&amp;rg</translation>
     </message>
     <message>
-        <source>PDF/X-3 Output Intent</source>
-        <translation type="obsolete">PDF/X-3 Utmatningsavsikt</translation>
+        <source>PDF/X Output Intent</source>
+        <translation type="obsolete">PDF/X Utmatningsavsikt</translation>
     </message>
     <message>
         <source>&amp;Info String:</source>
@@ -17078,10 +17078,10 @@ Annars riskerar din exporterade PDF-fil att inte tryckas korrekt och portabilite
         <translation type="obsolete">Utmatningsprofil för utskrift. Om möjligt bör du rådgöra med din tryckare för korrekt val av profil.</translation>
     </message>
     <message>
-        <source>Mandatory string for PDF/X-3 or the PDF will fail
-PDF/X-3 conformance. We recommend you use the title of the document.</source>
-        <translation type="obsolete">Obligatorisk sträng för PDF/X-3 annars följer inte PDF-filen(new line)
-reglerna för PDF/X-3. Vi rekommenderar att du använder dokumentets titel.</translation>
+        <source>Mandatory string for PDF/X or the PDF will fail
+PDF/X conformance. We recommend you use the title of the document.</source>
+        <translation type="obsolete">Obligatorisk sträng för PDF/X annars följer inte PDF-filen(new line)
+reglerna för PDF/X. Vi rekommenderar att du använder dokumentets titel.</translation>
     </message>
     <message>
         <source>Distance for bleed from the top of the physical page</source>
@@ -35840,8 +35840,8 @@ dokument från OpenOffice.org och aldrig mer fråga igen</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabpdfoptions.cpp" line="849"/>
-        <source>PDF/X-3 Output Intent</source>
-        <translation>PDF/X-3 Utmatningsavsikt</translation>
+        <source>PDF/X Output Intent</source>
+        <translation>PDF/X Utmatningsavsikt</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabpdfoptions.cpp" line="859"/>
@@ -36099,10 +36099,10 @@ Annars riskerar din exporterade PDF-fil att inte tryckas korrekt och portabilite
         <translation>Utmatningsprofil för utskrift. Om möjligt bör du rådgöra med din tryckare för korrekt val av profil.</translation>
     </message>
     <message>
-        <source>Mandatory string for PDF/X-3 or the PDF will fail
-PDF/X-3 conformance. We recommend you use the title of the document.</source>
-        <translation type="obsolete">Obligatorisk sträng för PDF/X-3 annars följer inte PDF-filen(new line)
-reglerna för PDF/X-3. Vi rekommenderar att du använder dokumentets titel.</translation>
+        <source>Mandatory string for PDF/X or the PDF will fail
+PDF/X conformance. We recommend you use the title of the document.</source>
+        <translation type="obsolete">Obligatorisk sträng för PDF/X annars följer inte PDF-filen(new line)
+reglerna för PDF/X. Vi rekommenderar att du använder dokumentets titel.</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabpdfoptions.cpp" line="995"/>
@@ -36235,7 +36235,7 @@ reglerna för PDF/X-3. Vi rekommenderar att du använder dokumentets titel.</tra
     </message>
     <message>
         <location filename="../../../scribus/tabpdfoptions.cpp" line="1001"/>
-        <source>Mandatory string for PDF/X-3 or the PDF will fail PDF/X-3 conformance. We recommend you use the title of the document.</source>
+        <source>Mandatory string for PDF/X or the PDF will fail PDF/X conformance. We recommend you use the title of the document.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

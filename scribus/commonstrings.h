@@ -234,6 +234,7 @@ public:
 	static QString PDF_1_3;
 	static QString PDF_1_4;
 	static QString PDF_1_5;
+	static QString PDF_X1a;
 	static QString PDF_X3;
 
 	static QString PostScript1;

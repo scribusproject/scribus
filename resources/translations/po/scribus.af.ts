@@ -14257,7 +14257,7 @@ gebruik, anders is koördinate relatief tot die objek.</translation>
     </message>
     <message>
         <location filename="../../../scribus/pdfopts.cpp" line="129"/>
-        <source>The save button will be disabled if you are trying to export PDF/X-3 and the info string is missing from the PDF/X-3 tab.</source>
+        <source>The save button will be disabled if you are trying to export PDF/X and the info string is missing from the PDF/X tab.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -14738,8 +14738,8 @@ gebruik, anders is koördinate relatief tot die objek.</translation>
         <translation type="obsolete">&amp;Kleur</translation>
     </message>
     <message>
-        <source>PDF/X-3 Output Intent</source>
-        <translation type="obsolete">PDF/X-3 uitvoer doel</translation>
+        <source>PDF/X Output Intent</source>
+        <translation type="obsolete">PDF/X uitvoer doel</translation>
     </message>
     <message>
         <source>&amp;Info String:</source>
@@ -14994,9 +14994,9 @@ Otherwise, your exported PDF may not print properly and is truly not portable ac
         <translation type="obsolete">Uitvoerprofiel vir drukwerk. Indien moontlik, probeer leiding by u drukker te kry.</translation>
     </message>
     <message>
-        <source>Mandatory string for PDF/X-3 or the PDF will fail
-PDF/X-3 conformance. We recommend you use the title of the document.</source>
-        <translation type="obsolete">Verpligte string vir PDF/X-3, anders voldoen PDF nie aan PDF/X-3 standaard nie. Ons beveel die dokument titel aan.</translation>
+        <source>Mandatory string for PDF/X or the PDF will fail
+PDF/X conformance. We recommend you use the title of the document.</source>
+        <translation type="obsolete">Verpligte string vir PDF/X, anders voldoen PDF nie aan PDF/X standaard nie. Ons beveel die dokument titel aan.</translation>
     </message>
     <message>
         <source>Distance for bleed from the top of the physical page</source>
@@ -32358,8 +32358,8 @@ aan te maken, een sjabloon na de bladsyweergave hieronder.</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabpdfoptions.cpp" line="849"/>
-        <source>PDF/X-3 Output Intent</source>
-        <translation type="unfinished">PDF/X-3 uitvoer doel</translation>
+        <source>PDF/X Output Intent</source>
+        <translation type="unfinished">PDF/X uitvoer doel</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabpdfoptions.cpp" line="859"/>
@@ -32605,9 +32605,9 @@ Otherwise, your exported PDF may not print properly and is truly not portable ac
         <translation type="unfinished">Uitvoerprofiel vir drukwerk. Indien moontlik, probeer leiding by u drukker te kry.</translation>
     </message>
     <message>
-        <source>Mandatory string for PDF/X-3 or the PDF will fail
-PDF/X-3 conformance. We recommend you use the title of the document.</source>
-        <translation type="obsolete">Verpligte string vir PDF/X-3, anders voldoen PDF nie aan PDF/X-3 standaard nie. Ons beveel die dokument titel aan.</translation>
+        <source>Mandatory string for PDF/X or the PDF will fail
+PDF/X conformance. We recommend you use the title of the document.</source>
+        <translation type="obsolete">Verpligte string vir PDF/X, anders voldoen PDF nie aan PDF/X standaard nie. Ons beveel die dokument titel aan.</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabpdfoptions.cpp" line="995"/>
@@ -32736,7 +32736,7 @@ PDF/X-3 conformance. We recommend you use the title of the document.</source>
     </message>
     <message>
         <location filename="../../../scribus/tabpdfoptions.cpp" line="1001"/>
-        <source>Mandatory string for PDF/X-3 or the PDF will fail PDF/X-3 conformance. We recommend you use the title of the document.</source>
+        <source>Mandatory string for PDF/X or the PDF will fail PDF/X conformance. We recommend you use the title of the document.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

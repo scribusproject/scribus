@@ -14384,7 +14384,7 @@ os arall, mae Cyfesurynnau yn berthnasol i&apos;r Gwrthrych.</translation>
     </message>
     <message>
         <location filename="../../../scribus/pdfopts.cpp" line="129"/>
-        <source>The save button will be disabled if you are trying to export PDF/X-3 and the info string is missing from the PDF/X-3 tab.</source>
+        <source>The save button will be disabled if you are trying to export PDF/X and the info string is missing from the PDF/X tab.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -14637,8 +14637,8 @@ os arall, mae Cyfesurynnau yn berthnasol i&apos;r Gwrthrych.</translation>
         <translation type="obsolete">Peidio â defnyddio proffilau ICC caeth</translation>
     </message>
     <message>
-        <source>PDF/X-3 Output Intent</source>
-        <translation type="obsolete">Bwriad Allbwn PDF/X-3</translation>
+        <source>PDF/X Output Intent</source>
+        <translation type="obsolete">Bwriad Allbwn PDF/X</translation>
     </message>
     <message>
         <source>Trim Box</source>
@@ -14890,10 +14890,10 @@ Dewiswch Argraffydd wrth argraffu i argraffydd CMYK 4-lliw go iawn.</translation
         <translation type="obsolete">Proffil allbwn ar gyfer argraffu.  Os bosibl, gofynnwch i&apos;ch argraffydd am ei gyngor ynglyn â dewis proffil.</translation>
     </message>
     <message>
-        <source>Mandatory string for PDF/X-3 or the PDF will fail
-PDF/X-3 conformance. We recommend you use the title of the document.</source>
-        <translation type="obsolete">Llinyn gorfodol ar gyfer PDF/X-3, neu fydd y PDF yn methu
-cydymffurfiad PDF/X-3.  Argymhellir defnyddio teitl y ddogfen.</translation>
+        <source>Mandatory string for PDF/X or the PDF will fail
+PDF/X conformance. We recommend you use the title of the document.</source>
+        <translation type="obsolete">Llinyn gorfodol ar gyfer PDF/X, neu fydd y PDF yn methu
+cydymffurfiad PDF/X.  Argymhellir defnyddio teitl y ddogfen.</translation>
     </message>
     <message>
         <source>Distance for bleed from the top of the physical page</source>
@@ -32374,8 +32374,8 @@ drag a Template to the Pageview below.</source>
     </message>
     <message>
         <location filename="../../../scribus/tabpdfoptions.cpp" line="849"/>
-        <source>PDF/X-3 Output Intent</source>
-        <translation type="unfinished">Bwriad Allbwn PDF/X-3</translation>
+        <source>PDF/X Output Intent</source>
+        <translation type="unfinished">Bwriad Allbwn PDF/X</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabpdfoptions.cpp" line="859"/>
@@ -32635,10 +32635,10 @@ gludadwy dros gysodau.</translation>
         <translation type="unfinished">Proffil allbwn ar gyfer argraffu.  Os bosibl, gofynnwch i&apos;ch argraffydd am ei gyngor ynglyn â dewis proffil.</translation>
     </message>
     <message>
-        <source>Mandatory string for PDF/X-3 or the PDF will fail
-PDF/X-3 conformance. We recommend you use the title of the document.</source>
-        <translation type="obsolete">Llinyn gorfodol ar gyfer PDF/X-3, neu fydd y PDF yn methu
-cydymffurfiad PDF/X-3.  Argymhellir defnyddio teitl y ddogfen.</translation>
+        <source>Mandatory string for PDF/X or the PDF will fail
+PDF/X conformance. We recommend you use the title of the document.</source>
+        <translation type="obsolete">Llinyn gorfodol ar gyfer PDF/X, neu fydd y PDF yn methu
+cydymffurfiad PDF/X.  Argymhellir defnyddio teitl y ddogfen.</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabpdfoptions.cpp" line="995"/>
@@ -32767,7 +32767,7 @@ cydymffurfiad PDF/X-3.  Argymhellir defnyddio teitl y ddogfen.</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabpdfoptions.cpp" line="1001"/>
-        <source>Mandatory string for PDF/X-3 or the PDF will fail PDF/X-3 conformance. We recommend you use the title of the document.</source>
+        <source>Mandatory string for PDF/X or the PDF will fail PDF/X conformance. We recommend you use the title of the document.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

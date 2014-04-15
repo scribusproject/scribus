@@ -16562,8 +16562,8 @@ If no handle is selected all handles will be reset.</source>
     </message>
     <message>
         <location filename="../../../scribus/pdfopts.cpp" line="129"/>
-        <source>The save button will be disabled if you are trying to export PDF/X-3 and the info string is missing from the PDF/X-3 tab.</source>
-        <translation>El botón salvar será desactivado si intentas exportar PDF/X-3 y la cadenada de información está vacía en la pestaña PDFX/X-3.</translation>
+        <source>The save button will be disabled if you are trying to export PDF/X and the info string is missing from the PDF/X tab.</source>
+        <translation>El botón salvar será desactivado si intentas exportar PDF/X y la cadenada de información está vacía en la pestaña PDFX/X.</translation>
     </message>
     <message>
         <location filename="../../../scribus/pdfopts.cpp" line="159"/>
@@ -30096,8 +30096,8 @@ Puedes elegir entre normar y diversas formas de problemas de visión</translatio
     </message>
     <message>
         <location filename="../../../scribus/tabpdfoptions.cpp" line="849"/>
-        <source>PDF/X-3 Output Intent</source>
-        <translation>Prueba de salida de PDF/X-3</translation>
+        <source>PDF/X Output Intent</source>
+        <translation>Prueba de salida de PDF/X</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabpdfoptions.cpp" line="859"/>
@@ -30336,8 +30336,8 @@ Puedes elegir entre normar y diversas formas de problemas de visión</translatio
     </message>
     <message>
         <location filename="../../../scribus/tabpdfoptions.cpp" line="1001"/>
-        <source>Mandatory string for PDF/X-3 or the PDF will fail PDF/X-3 conformance. We recommend you use the title of the document.</source>
-        <translation>Cadena mandatoria para PDF/X-3 o el PDF fallará en la compatibilidad con PDF/X-3. Recomendamos usar el título del documento.</translation>
+        <source>Mandatory string for PDF/X or the PDF will fail PDF/X conformance. We recommend you use the title of the document.</source>
+        <translation>Cadena mandatoria para PDF/X o el PDF fallará en la compatibilidad con PDF/X. Recomendamos usar el título del documento.</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabpdfoptions.cpp" line="548"/>
