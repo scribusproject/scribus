@@ -6,6 +6,7 @@ for which a new license (GPL+exception) is in place.
 */
 
 #include "scpainter.h"
+#include "scpattern.h"
 #include "util_color.h"
 #include "util.h"
 #include "util_math.h"

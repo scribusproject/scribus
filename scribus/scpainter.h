@@ -22,8 +22,9 @@ for which a new license (GPL+exception) is in place.
 #include "fpoint.h"
 #include "fpointarray.h"
 #include "vgradient.h"
-#include "scpattern.h"
 #include "mesh.h"
+
+class ScPattern;
 
 typedef struct _cairo cairo_t;
 typedef struct _cairo_surface cairo_surface_t;

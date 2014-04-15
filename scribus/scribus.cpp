@@ -2333,7 +2333,8 @@ void ScribusMainWindow::newActWin(QMdiSubWindow *w)
 		disconnect(layerMenu, SIGNAL(activated(int)), doc->view(), SLOT(GotoLa(int)));
 		disconnect(viewToolBar->previewQualitySwitcher, SIGNAL(activated(int)), this, SLOT(changePreviewQuality(int)));
 		disconnect(viewToolBar->visualMenu, SIGNAL(activated(int)), doc->view(), SLOT(switchPreviewVisual(int)));
-		disconnect(pageSelector);
+		disconnect(pageSelector, 0, 0, 0);
+		pageSelector->setEnabled(false);
 	}
 
 	doc = ActWin->doc();
@@ -2367,6 +2368,7 @@ void ScribusMainWindow::newActWin(QMdiSubWindow *w)
 		pageSelector->setMaximum(doc->masterPageMode() ? 1 : doc->Pages->count());
 		slotSetCurrentPage(doc->currentPageNumber());
 		connect(pageSelector, SIGNAL(GotoPage(int)), this, SLOT(setCurrentPage(int)));
+		pageSelector->setEnabled(true);
 	}
 
 	if (view!=NULL)
@@ -4765,7 +4767,10 @@ bool ScribusMainWindow::DoFileClose()
 		else
 			QDir::setCurrent( QDir::homePath() );
 	}
-
+	disconnect(pageSelector, 0 ,0 ,0);
+	pageSelector->setMaximum(1);
+	pageSelector->setEnabled(false);
+	updateLayerMenu();
 	updateTableMenuActions();
 	rebuildScrapbookMenu();
 	return true;
@@ -8023,6 +8028,8 @@ void ScribusMainWindow::updateLayerMenu()
 {
 	disconnect(layerMenu, SIGNAL(activated(int)), this, SLOT(GotoLa(int)));
 	layerMenu->clear();
+	if (doc==NULL)
+		return;
 	QStringList newNames;
 	doc->orderedLayerList(&newNames);
 	for (QStringList::Iterator it=newNames.begin(); it!=newNames.end(); ++it)
@@ -8037,6 +8044,8 @@ void ScribusMainWindow::updateLayerMenu()
 
 void ScribusMainWindow::GotoLa(int l)
 {
+	if (doc==NULL)
+		return;
 	int level = doc->layerCount()-l-1;
 	int layerID=doc->layerIDFromLevel(level);
 	if (layerID==-1)
@@ -8815,8 +8824,6 @@ void ScribusMainWindow::changeLayer(int )
 	rebuildLayersList();
 	layerPalette->rebuildList();
 	layerPalette->markActiveLayer();
-	updateLayerMenu();
-	setLayerMenuText(doc->activeLayerName());
 	updateLayerMenu();
 	setLayerMenuText(doc->activeLayerName());
 	view->DrawNew();
