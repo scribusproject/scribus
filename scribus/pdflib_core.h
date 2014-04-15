@@ -29,6 +29,7 @@ class PrefsContext;
 class MultiProgressDialog;
 class ScText;
 
+#include "pdfoptions.h"
 #include "scribusstructs.h"
 #include "scimagestructs.h"
 
