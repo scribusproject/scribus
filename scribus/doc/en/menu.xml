@@ -79,6 +79,7 @@
 			<submenuitem text="PDF Presentations" file="pdfexport4.html"/>
 			<submenuitem text="Creating Document Links" file="createlinks.html"/>
 			<submenuitem text="PDF Forms" file="pdf_form.html"/>
+			<submenuitem text="PDF/X-1a" file="pdfx1a.html"/>
 			<submenuitem text="PDF/X-3" file="pdfx3.html"/>
 		</submenuitem>
 		<submenuitem text="Printing with Scribus" file="print1.html">
