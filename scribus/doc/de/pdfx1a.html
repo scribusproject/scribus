@@ -7,53 +7,53 @@
 @import "manual.css";
 </style>
 <body>
-<h2>PDF/X-1a</h2>
-<h3>What is PDF/X?</h3>
-<p>Creating commercial &ldquo;press-ready&rdquo; PDFs has historically been fraught with errors, especially for users unfamiliar with the nuances of PostScript, PDF distilling and varying capabilities of plate-setters or digital presses. The saying &ldquo;It is hard to create a good PDF, but really easy to mess up&rdquo; has a great deal of truth. The more common usage of the Adobe Acrobat Distiller family of applications for PDF creation has typically required knowledge of at least some of the close to 100 Distiller parameters.</p>
-<p>In European countries, the concept of PDF/X has been more widely and earlier adopted than in North America. Much of the push for these standards has come primarily from German and Swiss companies, many of which are worldwide leaders in press and high-end digital imaging technology.</p>
-<p>The creation of PDF/X is, in part, an attempt to provide end users and creators with a vendor-neutral measuring stick to vet files as suitable for professional printing or exchange with service bureaus. Essentially, PDF/X files are files that on the one hand only permit a certain subset of PDF features, and on the other hand make the enabling of others mandatory.</p>
+<h2>PDF/X</h2>
+<h3>Was ist PDF/X?</h3> 
+<p>Die Ausgabe von PDF-Dateien für den kommerziellen Druck war in der Vergangenheit ziemlich fehleranf&auml;llig, besonders wenn Anwender nicht mit den Feinheiten von PostScript, dem &raquo;Destillieren&laquo; von PDFs und den verschiedenen Leistungsmerkmalen von Plattenbelichtern oder Digitaldruckmaschinen vertraut waren. Die Redensart &raquo;Es ist schwer, eine gute PDF-Datei zu erzeugen, aber kinderleicht, es zu vermasseln&laquo;, enth&auml;lt mehr als nur K&ouml;rnchen Wahrheit. Die typischen Anwendungsf&auml;lle f&uuml;r den Acrobat Distiller erforderten normalerweise die Kenntnis wenigstens einiger der beinahe hundert Distiller-Optionen.</p>
+<p>In europ&auml;ischen L&auml;ndern ist PDF/X weiter verbreitet als in Nordamerika. Es waren vor allem deutsche und Schweizer Firmen, die hinter der Durchsetzung dieses Konzepts standen, weil viele von ihnen Weltmarktf&uuml;hrer im Bereich Drucktechnik sind.</p>
+<p>Mit PDF/X sollte unter anderem Endanwendern und Vorstufenexperten ein herstellerneutraler Ma&szlig;stab an die Hand gegeben werden, anhand dessen sie Dateien auf ihre Tauglichkeit f&uuml;r professionellen Druck oder dem Austausch mit Service-B&uuml;ros &uuml;berpr&uuml;fen k&ouml;nnen. Im wesentlichen handelt es sich bei PDF/X-Dateien um PDFs, die nur eine Untermenge von PDF-Optionen zulassen und andere Optionen zur Pflicht machen.</p>
 
-<h3>What are the Differences Between PDF-X Versions?</h3>
+<h3>Was sind die Unterschiede zwischen den verschiedenen PDF-X-Versionen?</h3>
 <ul>
-<li><b>PDF/X-1a</b> requires the following: The color space to be CMYK, greyscale, or spot colors, all the fonts are embedded, and the settings within PDF indicate whether it is either pre-trapped or not. Think of this as a blind hand-off, as there is no certainty of how it will output. PDF/X-1a is widely used in North America.</li>
-<li><b>PDF/X-2</b> is a looser standard &ndash; but with the requirement for more knowledge between the supplier and receiver of the file. Fonts are not required to be embedded, and it is possible to use OPI (Open Pre-Press Interface). PDF/X-2 also allows device-independent color spaces, like CIE&nbsp;L*a*b*, to be used. PDF/X-2 is rarely supported by any commercial printer.</li>
-<li><b>PDF/X-3</b> is based on PDF 1.3 and requires ICC color profiles to be resident in the PDF. This allows for RGB colors to be used in the PDF, as these will be converted to CMYK using ICC profiles as late as possible in the printing process.</li>
-<li><b>PDF/X-4</b> is based on PDF 1.4 and allows for using a major PDF 1.4 feature &ndash; transparency &ndash; in a PDF/X file. PDF/X versions prior to X-4 do not support transparency. Support for PDF/X-4 will be added in future Scribus versions and is already in testing.</li>
-<li><b>PDF/X-5</b> is based on PDF 1.5 and enables the use of PDF layers in PDF/X files. Support for PDF/X-5 will be added in future Scribus versions.</li>
+<li><b>PDF/X-1a</b> erfordert folgendes: Das Farbmodell mu&szlig; CMYK, Graustufen oder Schmuckfarbe sein. Alle Schriften m&uuml;ssen eingebettet werden, und die PDF-Datei mu&szlig; Informationen zur &Uuml;berf&uuml;llung enthalten. Stellen Sie sich die Verwendung von PDF/X-1a am besten als eine Art &raquo;blinde &Uuml;bergabe&laquo; vor, denn es ist nicht m&ouml;glich, das Druckergebnis sicher vorherzusagen. PDF/X-1a ist in Nordamerika weit verbreitet.</li>
+<li><b>PDF/X-2</b> ist ein weniger strenger Standard, der aber noch mehr Detailinformationen sowohl auf seiten des Anlieferers als auch des Verarbeiters einer Datei erfordert. Schriften m&uuml;ssen nicht eingebettet werden, und es ist m&ouml;glich, das &raquo;Open Pre-Press Interface&laquo; (OPI) zu verwenden. PDF/X-2 erlaubt die Verwendung ger&auml;teunabh&auml;ngiger Farbmodelle wie CIE&nbsp;L*a*b*, wird aber von kaum einer Druckerei und auch nicht von Scribus unterst&uuml;tzt.</li>
+<li><b>PDF/X-3</b> basiert auf PDF 1.3 und erfordert die Einbettung von ICC-Farbprofilen in eine PDF-Datei. Auf diese Weise k&ouml;nnen RGB-Farben in der PDF-Datei gespeichert werden, denn diese werden erst am Ende des Produktionsprozesses mit Hilfe des Farbprofils nach CMYK umgerechnet.</li>
+<li><b>PDF/X-4</b> basiert auf PDF 1.4 und erm&ouml;glicht die Verwendung einer wichtigen PDF-1.4-Funktion, n&auml;mlich Transparenzen, in einer PDF/X-Datei, was in fr&uuml;heren Versionen noch nicht m&ouml;glich war. In der n&auml;chsten Scribus-Version wird der Export nach PDF/X-4 m&ouml;glich sein.</li>
+<li><b>PDF/X-5</b> basiert auf PDF 1.5 und erlaubt die Verwendung von PDF-Ebenen. Eine Export-Option nach PDF/X-5 wird in einer sp&auml;teren Scribus-Version verf&uuml;gbar sein.</li>
 </ul>
 
-<h3>How Do I Test and Certify that Scribus PDF Files are Truly PDF/X Compliant?</h3>
+<h3>Wie lassen sich von Scribus erzeugte PDF/X-Dateien auf ihre Normgerechtheit &uuml;berpr&uuml;fen?</h3>
 <ol>
-<li>Some specialist PDF software including Enfocus PitStop Pro and the full version of PDF Inspektor can perform detailed pre-flight checks on PDF. Acrobat Professional can also verify and pre-flight PDF/X files.</li>
-<li>Another option is the <a href="m www.altonatestsuite.com">Altona Suite</a>.</li>
+<li>Es gibt einige Spezialprogramme wie Enfocus PitStop Pro oder PDF Inspektor, die eine detaillierte Vorstufen&uuml;berpr&uuml;fung durchf&uuml;hren k&ouml;nnen, und auch mit Acrobat Professional lassen sich PDF/X-Dateien auf Standardkonformit&auml;t testen.</li>
+<li>Eine andere Option ist die <a href="m www.altonatestsuite.com">Altona Suite</a>.</li>
 </ol>
 
-<h3>PDF/X Links:</h3>
+<h3>PDF/X-Links:</h3>
 <p><a href="http://www.pdfx.info">http://pdfx.info</a></p>
 <p><a href="http://www.pdf-x.com/downloads/pdf/application_notes_pdfx3.pdf">http://www.pdf-x.com/downloads/pdf/application_notes_pdfx3.pdf</a></p>
-<p><a href="http://www.pdfx-ready.ch"> www.pdfx-ready.ch</a></p>
-<p>Scribus provides easily accessible options that enable end users to create 100&nbsp;% X-compliant PDF files. By judicious use of PDF options, end users can be assured that their files will be 100&nbsp;% standards compliant.</p>
-<p>Before you export a PDF/X-1a or X-3, make sure the file(s) you create can be used in the workflow of your printer or service bureau. Not all are equipped to handle PDF/X technology.</p>
+<p><a href="http://www.pdfx-ready.ch">http://www.pdfx-ready.ch</a></p>
+<p>Scribus macht es seinen Anwendern leicht, PDF-Dateien zu exportieren, die zu 100&nbsp;% den PDF-Spezifikationen PDF/X-1a bzw. PDF/X-3 entsprechen, indem es die Ausgabe fehlerhafter Dateien gar nicht erst zul&auml;&szlig;t.</p>
+<p>Bevor Sie nach PDF/X-1a or X-3 exportieren, sollten Sie sicherstellen, da&szlig; Ihre Druckerei oder ein anderer Dienstleister auch wirklich mit PDF/X umgehen kann, was nicht selbstverst&auml;ndlich ist.</p>
 
-<h3>When Should I Use PDF/X-1a?</h3>
-<p>Short answer: When your printer relies on PDF/X-1a files. Many on-demand printers do so, and in North America it is widely used even in traditional workflows.</p>
+<h2>PDF/X-1a</h2>
+<h3>Wann sollte ich PDF/X-1a verwenden?</h3>
+<p>Kurze Antwort: Wenn Ihre Druckerei PDF/X-1a-Dateien verlangt, was bei vielen Print-on-demand-Dienstleistern der Fall ist. In Nordamerika ist PDF/X-1a dar&uuml;ber hinaus auch in traditionellen Druckereien &uuml;blich.</p>
 
-<h3>PDF/X-1a and Color Management</h3>
-<p>The downside of PDF/X-1a is the lack of control over color accuracy, especially for CMYK colors. For best results it requires good communication between designer and printer. As always, a short visit to your printer <strong>in advance</strong> is strongly recommended. Also, since RGB colors are not allowed in PDF/X-1a files, Scribus will convert all RGB colors to CMYK, based on a color profile.</p>
-<p>One question is which printer profile one should use. There are two strategies: The first is to have an actual ICC profile from your printing company for the matching paper type. The second is to use a well-known printing standard as SWOP, ECI or others.</p>
+<h3>PDF/X-1a und Farbmanagement</h3>
+<p>Der Nachteil von PDF/X-1a ist der Mangel an Kontrolle in bezug auf die Farbgenauigkeit, insbesondere bei CMYK-Farben. Um gute Druckergebnisse zu erzielen, ist ein guter Informationsaustausch zwischen Ihnen und der Druckerei erforderlich. Am besten statten Sie Ihrem Druckdienstleister einen Besuch ab, <strong>bevor</strong> Sie Ihre PDF/X-1a-Datei ausgeben. Beachten Sie auch, da&szlig; RGB-Farben in PDF/X-1a-Dateien nicht zul&auml;ssig sind und Scribus deswegen alle RGB-Werte auf der Grundlage eines Farbprofils nach CMYK umrechnet.</p>
+<p>Bleibt die Frage, welches Farbprofil Sie verwenden sollten. Hier gibt es grunds&auml;tzlich zwei M&ouml;glichkeiten: Entweder Ihre Druckerei stellt Ihnen das passende Profil zur Verf&uuml;gung, oder Sie verwenden (in Absprache mit der Druckerei) ein Standardprofil von Organisationen wie SWOP oder ECI.</p>
 
-<h3>Quickstart Guide to Creating a PDF/X-1a</h3>
-<p>In the <a href="settings1.html">Document Setup</a> make sure color management is enabled and the correct color profiles are chosen. Ideally, the color print profile matches either a standarized ISO printing condition or is a custom profile from your print provider. Without color management, you won&rsquo;t be able to export to PDF/X-1a. Then select <i>File&nbsp;&#062; Export&nbsp;&hellip;&#062; Save as PDF&nbsp;&hellip;</i> or click the PDF icon from the toolbar.</p>
-<p>This panel will open first, and you have to select &ldquo;PDF/X-1a&rdquo; from the &ldquo;Compatibility&rdquo; drop-down list as shown below. This will change the default settings, as needed, automatically. </p>
+<h3>Schnellanleitung zur Ausgabe nach PDF/X-1a</h3>
+<p>Aktivieren Sie das Farbmanagement in den <a href="settings1.html">Dokumenteinstellungen</a> und stellen Sie sicher, da&szlig; Sie das richtige Farbprofile ausgew&auml;hlt haben. Ohne aktiviertes Farbmanagement steht Ihnen die Ausgabeoption &raquo;PDF/X-1a&laquo; nicht zur Verf&uuml;gung. Gehen Sie anschlie&szlig;end auf <i> Datei&nbsp;&#062; Exportieren&nbsp;&#062; Als PDF speichern&nbsp;&hellip;</i> oder klicken Sie auf das PDF-Symbol in der Werkzeugleiste.</p>
+<p>Der folgende Reiter wird Ihnen nun als erstes pr&auml;sentiert, und Sie m&uuml;ssen unter &raquo;Kompatibilit&auml;t&laquo; &raquo;PDF/X-1a&laquo; ausw&auml;hlen. Dies f&uuml;hrt dazu, da&szlig; einige Grundeinstellungen automatisch angepa&szlig;t werden.</p>
 <table width="100%"><tr><td align="center"><img src="images/pdfx1a-1.png" alt="PDF Create Dialog General Tab" /></td></tr></table>
-<p>Next, select the &ldquo;Color&rdquo; tab, as shown below:</p>
+<p>Klicken Sie nun auf den Reiter &raquo;Farbe&laquo;:</p>
 <table width="100%"><tr><td align="center"><img src="images/pdfx1acolor.png" alt="PDF Create Dialog Color Tab" /></td></tr></table>
-<p>Note that in the &ldquo;Color&rdquo; tab the general output target is greyed out. This is because in a PDF/X-1a workflow &ldquo;Printer&rdquo; (i.e., CMYK) is the only possible option.</p>
-<p>Next, select the &ldquo;Pre-Press&rdquo; tab, as shown below:</p>
+<p>Sie sehen, da&szlig; hier die Option &raquo;Ausgabe vorgesehen f&uuml;r:&laquo; ausgegraut ist, denn im Falle von PDF/X-1a ist &raquo;Drucker&laquo; (d.h. CMYK) das einzig M&ouml;gliche.</p>
+<p>Klicken als n&auml;chstes auf den Reiter &raquo;Pre-Press&laquo;:</p>
 <table width="100%"><tr><td align="center"><img src="images/pdfx1aintent.png" alt="PDF Create Dialog 
 PDF/X-1a Tab" /></td></tr></table>
-<p>This is where you  embed in the PDF the intended press condition, which is defined by the ICC color profile. It&rsquo;s probably the most important choice in terms of color profiles, as it affects color throughout the whole workflow. You can also put in a short note about the document, which can be useful later on. <strong>This field cannot be left blank &ndash; as the PDF/X-1a specification requires it. Scribus will disable the &ldquo;Save&rdquo; button if the field is empty.</strong> You can also add other pre-press features like color bars or printing marks, but you should only do so if your printing company asks for them.<p>
-<p>Note: Because of the requirements of PDF/X-1a, some PDF features are disabled, including encryption and presentation effects; all fonts are automatically embedded or subset. Likewise, annotations and transparency won&rsquo;t be exported.</p>
-
+<p>Hier k&ouml;nnen sie die Ausgabebedingung (d.h. das Farbprofil) &auml;ndern, sofern es von den Voreinstellungen f&uuml;r das Dokument abweichen soll, &auml;ndern. Sie k&ouml;nnen au&szlig;erdem einen Kurzkommentar (&raquo;Infotext&laquo;) zu dem Dokument hinzuf&uuml;gen. Dieses Feld darf laut PDF/X-1a-Spezifikation nicht leer bleiben, und Scribus blockiert das Speichern, bis Sie es ausgef&uuml;llt haben. In diesem Reiter k&ouml;nnen Sie zudem weitere Pre-press-Optionen wie Schneidemarken oder Farbbalken hinzuf&uuml;gen, sollten dies aber nur dann tun, wenn Ihre Druckerei es ausdr&uuml;cklich w&uuml;nscht.<p>
+<p>Beachten Sie, da&szlig; einige PDF-Optionen wie Verschl&uuml;sselung, PDF-Anmerkungen oder Pr&auml;sentationseffekte nicht zur Verf&uuml;gung stehen, weil die PDF/X-1a-Spezifikation diese nicht zul&auml;&szlig;t. Au&szlig;erdem werden Schriften automatisch eingebettet bzw. in Kurven umgewandelt, und Transparenzen k&ouml;nnen nicht exportiert werden.</p>
 </body>
 </html>
