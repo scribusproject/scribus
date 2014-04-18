@@ -320,8 +320,8 @@ void NodePalette::connectSignals()
 	connect(YSpin, SIGNAL(valueChanged(double)), this, SLOT(MovePoint()));
 	connect(PolyMirrorH, SIGNAL(clicked()), this, SLOT(MirrorH()));
 	connect(PolyMirrorV, SIGNAL(clicked()), this, SLOT(MirrorV()));
-	connect(PolyShearR, SIGNAL(clicked()), this, SLOT(ShearR()));
-	connect(PolyShearL, SIGNAL(clicked()), this, SLOT(ShearL()));
+	connect(PolyShearR, SIGNAL(clicked()), this, SLOT(ShearL()));
+	connect(PolyShearL, SIGNAL(clicked()), this, SLOT(ShearR()));
 	connect(PolyShearU, SIGNAL(clicked()), this, SLOT(ShearU()));
 	connect(PolyShearD, SIGNAL(clicked()), this, SLOT(ShearD()));
 	connect(RotateCCW, SIGNAL(clicked()), this, SLOT(doRotCCW()));
