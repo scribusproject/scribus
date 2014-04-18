@@ -106,6 +106,7 @@ void CanvasMode_Edit::keyPressEvent(QKeyEvent *e)
 	{
 		// Go back to normal mode.
 		m_view->requestMode(modeNormal);
+		m_keyRepeat = false;
 		return;
 	}
 
