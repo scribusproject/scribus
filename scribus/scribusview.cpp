@@ -2578,6 +2578,13 @@ QImage ScribusView::PageToPixmap(int Nr, int maxGr, bool drawFrame)
 			bool oldDrawAsPreview = Doc->drawAsPreview;
 			Doc->guidesPrefs().framesShown = false;
 			Doc->guidesPrefs().showControls = false;
+			bool cmsCorr = false;
+			if ((Doc->cmsSettings().CMSinUse) && (Doc->cmsSettings().GamutCheck))
+			{
+				cmsCorr = true;
+				Doc->cmsSettings().GamutCheck = false;
+				Doc->enableCMS(true);
+			}
 			Doc->drawAsPreview = true;
 			m_canvas->setScale(sc);
 			m_canvas->setPreviewMode(true);
@@ -2687,7 +2694,11 @@ QImage ScribusView::PageToPixmap(int Nr, int maxGr, bool drawFrame)
 					currItem->setImageYOffset(imgY);
 				}
 			}
-
+			if (cmsCorr)
+			{
+				Doc->cmsSettings().GamutCheck = true;
+				Doc->enableCMS(true);
+			}
 			Doc->drawAsPreview = oldDrawAsPreview;
 			Doc->guidesPrefs().framesShown  = oldFramesShown;
 			Doc->guidesPrefs().showControls = oldShowControls;
