@@ -8,29 +8,28 @@
 </style>
 <body>
 <h2>PDF/X-3</h2>
-<p>Support for PDF/X-3 was a major milestone in the development of Scribus. It was the first page layout application to support this demanding, but open ISO standard (ISO 15930-3:2002).</p>
+<p>Unterst&uuml;tzung f&uuml;r PDF/X-3 war einer der fr&uuml;hen H&ouml;hepunkte der Scribus-Entwicklung, denn Scribus implementierte diesen anspruchsvollen, aber offenen Standard (ISO 15930-3:2002) als erstes DTP-Programm &uuml;berhaupt.</p>
 
-<p>Scribus provides easily accessible options that enable end users to create 100&nbsp;% X-3-compliant PDF files. By judicious use of PDF options, end users can be assured that their files will be 100&nbsp;% standards compliant.</p>
-<p>Before you export a PDF/X-3, make sure the file(s) you create can be used in the workflow of your printer or service bureau. Not all are equipped to handle PDF/X-3 technology.</p>
+<h3>Wann sollte man PDF/X-3 verwenden?</h3>
+<p>Wenn <strong>sehr</strong> gro&szlig;e Farbgenauigkeit sichergestellt werden soll <strong>und</strong> Ihre Druckerei PDF/X-3 akzeptiert oder darauf besteht. Ohne kompetente Unterst&uuml;tzung durch Ihre Druckerei sind Farbabweichungen beim Druckergebnis im Vergleich zu traditionellem PDF-Export zu erwarten</p>
 
-<h3>When Should I Use PDF/X-3?</h3>
-<p>When you require <strong>very</strong> precise color reproduction <strong>and</strong> your printer will accept (or insist on) PDF/X-3 files. Without support from your printer, you are likely to have adverse color changes compared to more traditional PDF export.</p>
+<h3>PDF/X-3 und Farbmanagement</h3>
+<p>Der gr&ouml;&szlig;te Vorteil von PDF/X-3 ist die im Normalfall pr&auml;zisere Umwandlung von RGB-Farbwerten in den CMYK-Farbraum einer Druckmaschine. Die gr&ouml;&szlig;ere Pr&auml;zison ergibt sich aus der Tatsache, da&szlig; man so lange wie m&ouml;glich im RGB-Farbraum arbeitet und erst der RIP der Druckerei die RGB&nbsp;&gt;&nbsp;CMYK-Umwandlung vornimmt. Das funktioniert deshalb, weil der PDF/X-3-Standard die Verwendung eines Farbprofils zwingend vorschreibt. Weil der RIP das Farbspektrum der Druckmaschine genau &raquo;kennt&laquo;, kann in den allermeisten F&auml;llen davon ausgegangen werden, da&szlig; die Umwandlung korrekt vonstatten geht. Der PDF/X-3-Standard schlie&szlig;t die Verwendung von CMYK-Farben zwar nicht aus, aber es ist am besten, wenn Sie so lange wie m&ouml;glich mit RGB-Farben arbeiten.</p>
+<p>Bleibt die Frage, welches Farbprofil Sie verwenden sollten. Hier gibt es grunds&auml;tzlich zwei M&ouml;glichkeiten: Entweder Ihre Druckerei stellt Ihnen das passende Profil zur Verf&uuml;gung, oder Sie verwenden (in Absprache mit der Druckerei) ein Standardprofil von Organisationen wie SWOP oder ECI.</p>
 
-<h3>PDF/X-3 and Color Management</h3>
-<p>The principal benefit of PDF/X-3 is the typically more accurate color conversion from RGB to a printer&rsquo;s CMYK output. The accuracy comes from working in RGB colors until very late in the printing process when the printer&rsquo;s own RIP does the RGB&nbsp;&gt;&nbsp;CMYK conversion <b>and</b> by mandatory use of color profiles. Since the RIP engine has detailed knowledge of the exact color range, it is thought to offer, in most cases, an accurate conversion. PDF/X-3 does not preclude using CMYK images, but is ideal for maintaining your colors in RGB as long as possible in the process.</p>
-<p>One question is which printer profile one should use. There are two strategies: The first is to have an actual ICC profile from your printing company for the matching paper type. The second is to use a well-known printing standard as SWOP, ECI or others. Using PDF/X-3 requires cooperation with your printer, but can really improve your print color matching. As always, a short visit to your printer <strong>in advance</strong> is strongly recommended. If answers are not forthcoming, try another one. Printing is a competitive business, and alternatives almost always can be found.</p>
-
-<h3>Quickstart Guide to Creating a PDF/X-3</h3>
-<p>In the <a href="settings1.html">Document Setup</a> make sure color management is enabled and the correct color profiles are chosen. Ideally, the color print profile matches either a standarized ISO printing condition or is a custom profile from your print provider. Without color management, you won&rsquo;t be able to export to PDF/X-3. Then select <i>File&nbsp;&#062; Export&nbsp;&hellip;&#062; Save as PDF&nbsp;&hellip;</i> or click the PDF icon from the toolbar.</p>
-<p>This panel will open first, and you have to select &ldquo;PDF/X-3&rdquo; from the &ldquo;Compatibility&rdquo; drop-down list as shown below. This will change the default settings, as needed, automatically. </p>
+<h3>Schnellanleitung zur Ausgabe nach PDF/X-3</h3>
+<p>Aktivieren Sie das Farbmanagement in den <a href="settings1.html">Dokumenteinstellungen</a>, und stellen Sie sicher, da&szlig; Sie das richtige Farbprofil ausgew&auml;hlt haben. Ohne aktiviertes Farbmanagement steht Ihnen die Ausgabeoption &raquo;PDF/X-3&laquo; nicht zur Verf&uuml;gung. Gehen Sie anschlie&szlig;end auf <i> Datei&nbsp;&#062; Exportieren&nbsp;&#062; Als PDF speichern&nbsp;&hellip;</i> oder klicken Sie auf das PDF-Symbol in der Werkzeugleiste.</p>
+<p>Der folgende Reiter wird Ihnen nun als erstes pr&auml;sentiert, und Sie m&uuml;ssen unter &raquo;Kompatibilit&auml;t&laquo; &raquo;PDF/X-3&laquo; ausw&auml;hlen. Dies f&uuml;hrt dazu, da&szlig; einige Grundeinstellungen automatisch angepa&szlig;t werden.</p>
 <table width="100%"><tr><td align="center"><img src="images/pdfx3-1.png" alt="PDF Create Dialog General Tab" /></td></tr></table>
-<p>Next, select the &ldquo;Color&rdquo; tab, as shown below:</p>
+<p>Klicken Sie nun auf den Reiter &raquo;Farbe&laquo;:</p>
 <table width="100%"><tr><td align="center"><img src="images/pdfxcolor.png" alt="PDF Create Dialog Color Tab" /></td></tr></table>
-<p>Note that in the &ldquo;Color&rdquo; tab the general output target is greyed out. This is because in a PDF/X-3 workflow color space conversion to the printing device is supposed to happen as late as possible, which means it will be the printer who will do the final conversion, not you.</p>
-<p>Next, select the &ldquo;Pre-Press&rdquo; tab, as shown below:</p>
+<p>Sie sehen, da&szlig; hier die Option &raquo;Ausgabe vorgesehen f&uuml;r:&laquo; ausgegraut ist, denn im Falle von PDF/X-3 wird die Umwandlung in das CMYK-Farbmodell von der Druckerei vorgenommen, nicht von Ihnen.</p>
+<p>Klicken als n&auml;chstes auf den Reiter &raquo;Pre-Press&laquo;:</p>
 <table width="100%"><tr><td align="center"><img src="images/pdfxintent.png" alt="PDF Create Dialog 
 PDF/X-3 Tab" /></td></tr></table>
-<p>This is where you  embed in the PDF the intended press condition, which is defined by the ICC color profile. It&rsquo;s probably the most important choice in terms of color profiles, as it affects color throughout the whole workflow. You can also put in a short note about the document, which can be useful later on. <strong>This field cannot be left blank &ndash; as the PDF/X-3 specification requires it. Scribus will disable the &ldquo;Save&rdquo; button if the field is empty.</strong> You can also add other pre-press features like color bars or printing marks, but you should only do so if your printing company asks for them.<p>
-<p>Note: Because of the strict requirements of PDF/X-3, some PDF features are disabled, including encryption and presentation effects; all fonts are automatically embedded or subset. Likewise, annotations and transparency won&rsquo;t be exported.</p>
+<p>Hier k&ouml;nnen sie die Ausgabebedingung (d.h. das Farbprofil) &auml;ndern, sofern es von den Voreinstellungen f&uuml;r das Dokument abweichen soll. Sie k&ouml;nnen au&szlig;erdem einen Kurzkommentar (&raquo;Infotext&laquo;) zu dem Dokument hinzuf&uuml;gen. Dieses Feld darf laut PDF/X-3-Spezifikation nicht leer bleiben, und Scribus blockiert das Speichern, bis Sie es ausgef&uuml;llt haben. In diesem Reiter k&ouml;nnen Sie zudem weitere Pre-Press-Optionen wie Schneidemarken oder Farbbalken hinzuf&uuml;gen, sollten dies aber nur dann tun, wenn Ihre Druckerei es ausdr&uuml;cklich w&uuml;nscht.<p>
+<p>Beachten Sie, da&szlig; einige PDF-Optionen wie Verschl&uuml;sselung, PDF-Anmerkungen oder Pr&auml;sentationseffekte nicht zur Verf&uuml;gung stehen, weil die PDF/X-3-Spezifikation diese nicht zul&auml;&szlig;t. Au&szlig;erdem werden Schriften automatisch eingebettet bzw. in Kurven umgewandelt, und Transparenzen k&ouml;nnen nicht exportiert werden.</p>
+<br>
+<br>
 </body>
 </html>
