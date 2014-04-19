@@ -15896,7 +15896,7 @@ Bildschirm betrachten wollen</translation>
     <message>
         <location filename="../../../scribus/fontreplacedialog.cpp" line="84"/>
         <source>Enabling this tells Scribus to use these replacements for missing fonts permanently in all future layouts. This can be reverted or changed in File &gt; Preferences &gt; Fonts.</source>
-        <translation type="unfinished"></translation>
+        <translation>Falls Sie diese Funktion wählen, wird Scribus diese Ersetzungen dauerhaft verwenden. Ihre Entscheidung können Sie jedoch jederzeit im Menü Datei &gt; Dokument einrichten &gt; Schriften rückgängig machen.</translation>
     </message>
     <message>
         <location filename="../../../scribus/fontreplacedialog.cpp" line="40"/>
@@ -24710,19 +24710,19 @@ erzielen. Zudem reduziert UFR die Gefahr der Übersättigung.</translation>
         <location filename="../../../scribus/propertiespalette.cpp" line="5625"/>
         <location filename="../../../scribus/propertiespalette.cpp" line="5630"/>
         <source>Use the bounding box, which is always rectangular, instead of the frame&apos;s shape for text flow of text frames below the object.</source>
-        <translation type="unfinished"></translation>
+        <translation>Verwendet die &quot;Bounding Box&quot;, die immer rechteckig ist, anstelle der Rahmenform für den Umfluss von Text in tieferliegenden Rahmen.</translation>
     </message>
     <message>
         <location filename="../../../scribus/propertiespalette.cpp" line="5626"/>
         <location filename="../../../scribus/propertiespalette.cpp" line="5631"/>
         <source>When chosen, the contour line can be edited with the Edit Shape Tool on the palette further above. When edited via the shape palette, this becomes a second separate line originally based on the frame&apos;s shape for text flow of text frames below the object.</source>
-        <translation type="unfinished"></translation>
+        <translation>Die Konturlinie kann mit Hilfe des &quot;Bearbeiten ...&quot;-Werkzeugs oben rechts verändert werden. Sie ist eine von der Rahmenform unabhängige Linie, die aber im Ausgangszustand auf der Rahmenform für den Textumfluss beruht.</translation>
     </message>
     <message>
         <location filename="../../../scribus/propertiespalette.cpp" line="5627"/>
         <location filename="../../../scribus/propertiespalette.cpp" line="5632"/>
         <source>Use the clipping path of the image.</source>
-        <translation type="unfinished"></translation>
+        <translation>Verwendet den Beschneidungspfad in einer Bilddatei.</translation>
     </message>
     <message>
         <location filename="../../../scribus/propertiespalette.cpp" line="5679"/>
