@@ -52,11 +52,11 @@ PropertiesPalette_Line::PropertiesPalette_Line( QWidget* parent) : QWidget(paren
 	startArrowLabel->setBuddy(startArrow);
 	endArrowLabel->setBuddy(endArrow);
 
-	startArrowScale->setMaximum( 300 );
+	startArrowScale->setMaximum( 1000 );
 	startArrowScale->setMinimum( 1 );
 	startArrowScale->setDecimals(0);
 
-	endArrowScale->setMaximum( 300 );
+	endArrowScale->setMaximum( 1000 );
 	endArrowScale->setMinimum( 1 );
 	endArrowScale->setDecimals(0);
 
