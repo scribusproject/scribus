@@ -685,6 +685,7 @@ void Biblio::NewLib()
 			Frame3->addItem(activeBView, QIcon(loadIcon("16/lock.png")), d.dirName());
 		activeBView->ReadContents(fileName);
 		activeBView->ScFilename = fileName;
+		activeBView->visibleName = d.dirName();
 		Frame3->setCurrentWidget(activeBView);
 		d.cdUp();
 		dirs->set("scrap_load", d.absolutePath());
