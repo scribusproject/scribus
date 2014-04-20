@@ -3433,6 +3433,8 @@ void ScribusMainWindow::rebuildScrapbookMenu()
 
 void ScribusMainWindow::pasteFromScrapbook(QString fn)
 {
+	if (!HaveDoc)
+		return;
 	view->dragX = 0;
 	view->dragY = 0;
 	doPasteRecent(scrapbookPalette->activeBView->objectMap[fn].Data);
