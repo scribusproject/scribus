@@ -19,20 +19,22 @@
 #include <QPainter>
 #include <QTimer>
 
+#include "appmodes.h"
 #include "canvas.h"
-#include "ui/contextmenu.h"
-#include "ui/scrspinbox.h"
 #include "fpoint.h"
 #include "pageitem.h"
-#include "ui/pageselector.h"
 #include "prefsmanager.h"
 #include "scribus.h"
 #include "scribusdoc.h"
 #include "scribusview.h"
 #include "selection.h"
+#include "ui/contextmenu.h"
+#include "ui/pageselector.h"
+#include "ui/scrspinbox.h"
 #include "undomanager.h"
 #include "util_icon.h"
 #include "util_math.h"
+
 
 CanvasMode_Rotate::CanvasMode_Rotate(ScribusView* view) : CanvasMode(view)
 {

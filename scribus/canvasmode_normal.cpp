@@ -32,6 +32,7 @@
 #include <QDrag>
 #include <QDebug>
 
+#include "appmodes.h"
 #include "canvas.h"
 #include "canvasgesture_linemove.h"
 #include "canvasgesture_resize.h"
@@ -41,24 +42,21 @@
 #include "fpointarray.h"
 #include "hyphenator.h"
 #include "loadsaveplugin.h"
-#include "pageitem_line.h"
-#include "pageitem_textframe.h"
-#include "pageitem_regularpolygon.h"
 #include "pageitem_arc.h"
+#include "pageitem_line.h"
+#include "pageitem_regularpolygon.h"
+#include "pageitem_textframe.h"
+#include "plugins/formatidlist.h"
 #include "prefscontext.h"
 #include "prefsfile.h"
 #include "prefsmanager.h"
 #include "scmimedata.h"
 #include "scraction.h"
 #include "scribus.h"
+#include "scribusXml.h"
 #include "scribusdoc.h"
 #include "scribusview.h"
-#include "scribusXml.h"
 #include "selection.h"
-#include "undomanager.h"
-#include "util.h"
-#include "util_icon.h"
-#include "util_math.h"
 #include "ui/aligndistribute.h"
 #include "ui/contextmenu.h"
 #include "ui/customfdialog.h"
@@ -69,7 +67,11 @@
 #include "ui/propertiespalette_line.h"
 #include "ui/propertiespalette_text.h"
 #include "ui/propertiespalette_xyz.h"
-#include "plugins/formatidlist.h"
+#include "undomanager.h"
+#include "util.h"
+#include "util_icon.h"
+#include "util_math.h"
+
 
 
 

@@ -5,16 +5,20 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 
+#include "propertywidget_pareffect.h"
+
+
+#include "appmodes.h"
 #include "pageitem.h"
 #include "pageitem_table.h"
-#include "propertywidget_pareffect.h"
 #include "scribus.h"
 #include "scribusdoc.h"
 #include "selection.h"
+#include "ui/sctreewidget.h"
 #include "units.h"
 #include "util.h"
 #include "util_icon.h"
-#include "ui/sctreewidget.h"
+
 
 PropertyWidget_ParEffect::PropertyWidget_ParEffect(QWidget *parent) : QFrame(parent), m_enhanced(NULL), m_item(NULL), m_ScMW(NULL)
 {

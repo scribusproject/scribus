@@ -16,6 +16,7 @@
 
 #include "canvasmode.h"
 
+#include "appmodes.h"
 #include "canvas.h"
 #include "canvasgesture_pan.h"
 #include "canvasmode_copyproperties.h"

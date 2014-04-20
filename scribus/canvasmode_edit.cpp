@@ -31,9 +31,8 @@
 #include <QWidgetAction>
 #include <QDebug>
 
-
+#include "appmodes.h"
 #include "canvas.h"
-
 #include "fpoint.h"
 #include "fpointarray.h"
 #include "hyphenator.h"
@@ -45,9 +44,9 @@
 #include "sccolorengine.h"
 #include "scmimedata.h"
 #include "scribus.h"
+#include "scribusXml.h"
 #include "scribusdoc.h"
 #include "scribusview.h"
-#include "scribusXml.h"
 #include "selection.h"
 #include "ui/aligndistribute.h"
 #include "ui/contextmenu.h"

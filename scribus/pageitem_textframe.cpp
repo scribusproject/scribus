@@ -21,6 +21,8 @@ for which a new license (GPL+exception) is in place.
  *                                                                         *
  ***************************************************************************/
 
+#include "pageitem_textframe.h"
+
 #include <QDebug>
 #include <QList>
 #include <QTransform>
@@ -28,21 +30,21 @@ for which a new license (GPL+exception) is in place.
 #include <QPoint>
 #include <QPolygon>
 #include <QRegion>
+#include <cairo.h>
 #include <cassert>
 
-#include "scconfig.h"
-
+#include "appmodes.h"
 #include "canvas.h"
 #include "commonstrings.h"
 #include "hyphenator.h"
-#include "numeration.h"
 #include "marks.h"
 #include "notesstyles.h"
+#include "numeration.h"
 #include "pageitem.h"
 #include "pageitem_group.h"
-#include "pageitem_textframe.h"
 #include "pageitem_noteframe.h"
 #include "prefsmanager.h"
+#include "scconfig.h"
 #include "scpage.h"
 #include "scpainter.h"
 #include "scpaths.h"
@@ -51,14 +53,11 @@ for which a new license (GPL+exception) is in place.
 #include "scribusdoc.h"
 #include "scribusstructs.h"
 #include "selection.h"
+#include "ui/guidemanager.h"
 #include "undomanager.h"
 #include "undostate.h"
 #include "util.h"
 #include "util_math.h"
-
-#include "ui/guidemanager.h"
-
-#include <cairo.h>
 
 using namespace std;
 

@@ -27,7 +27,7 @@ for which a new license (GPL+exception) is in place.
 #include "pathcut.h"
 #include "scribuscore.h"
 #include "scribusdoc.h"
-#include "scribusstructs.h"
+#include "appmodes.h"
 #include "selection.h"
 #include "util.h"
 #include "util_icon.h"

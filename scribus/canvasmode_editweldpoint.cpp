@@ -37,6 +37,7 @@
 #include <QWidgetAction>
 #include <QDebug>
 
+#include "appmodes.h"
 #include "canvas.h"
 #include "fpoint.h"
 #include "fpointarray.h"

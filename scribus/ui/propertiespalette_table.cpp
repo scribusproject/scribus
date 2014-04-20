@@ -11,9 +11,12 @@ for which a new license (GPL+exception) is in place.
 #include <QListWidgetItem>
 #include <QWidget>
 
+
+#include "appmodes.h"
 #include "colorcombo.h"
 #include "commonstrings.h"
 #include "pageitem_table.h"
+#include "propertiespalette_table.h"
 #include "sccolorengine.h"
 #include "scribus.h"
 #include "selection.h"
@@ -23,7 +26,6 @@ for which a new license (GPL+exception) is in place.
 #include "util_color.h"
 #include "util_icon.h"
 
-#include "propertiespalette_table.h"
 
 PropertiesPalette_Table::PropertiesPalette_Table(QWidget* parent) : QWidget(parent),
 	m_mainWindow(0), m_doc(0), m_item(0), m_previousItem(0)

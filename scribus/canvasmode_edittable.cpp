@@ -7,12 +7,15 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 
+#include "canvasmode_edittable.h"
+
 #include <QCursor>
 #include <QDebug>
 #include <QPainter>
 #include <QPointF>
 #include <QTimer>
 
+#include "appmodes.h"
 #include "canvas.h"
 #include "canvasgesture_cellselect.h"
 #include "canvasgesture_columnresize.h"
@@ -26,10 +29,9 @@ for which a new license (GPL+exception) is in place.
 #include "scribusview.h"
 #include "selection.h"
 #include "tablehandle.h"
-#include "util_icon.h"
 #include "ui/scmwmenumanager.h"
+#include "util_icon.h"
 
-#include "canvasmode_edittable.h"
 
 // TODO: We should have a preference for this instead.
 #ifdef Q_OS_MAC

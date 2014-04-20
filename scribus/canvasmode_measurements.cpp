@@ -19,11 +19,13 @@
 #include <QPainter>
 #include <QPen>
 
+#include "appmodes.h"
 #include "canvas.h"
-#include "ui/measurements.h"
 #include "scribusdoc.h"
 #include "scribusview.h"
+#include "ui/measurements.h"
 #include "util_math.h"
+
 
 MeasurementsMode::MeasurementsMode(ScribusView* view) : CanvasMode(view), m_start(0,0), m_current(0,0)
 {

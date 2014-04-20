@@ -38,23 +38,24 @@ for which a new license (GPL+exception) is in place.
 #include <sstream>
 #include <QDebug>
 
+
+
+#include "appmodes.h"
 #include "canvas.h"
 #include "cmsettings.h"
 #include "colorblind.h"
 #include "commonstrings.h"
 #include "desaxe/saxXML.h"
 #include "marks.h"
-
 #include "pageitem_arc.h"
 #include "pageitem_group.h"
-#include "pageitem_noteframe.h"
 #include "pageitem_latexframe.h"
+#include "pageitem_noteframe.h"
 #include "pageitem_regularpolygon.h"
-#include "pageitem_textframe.h"
 #include "pageitem_spiral.h"
 #include "pageitem_table.h"
+#include "pageitem_textframe.h"
 #include "prefsmanager.h"
-
 #include "resourcecollection.h"
 #include "scclocale.h"
 #include "sccolorengine.h"
@@ -68,7 +69,6 @@ for which a new license (GPL+exception) is in place.
 #include "scribusapp.h"
 #include "scribuscore.h"
 #include "scribusdoc.h"
-#include "scribusstructs.h"
 #include "scribuswin.h"
 #include "sctextstream.h"
 #include "selection.h"
@@ -81,6 +81,7 @@ for which a new license (GPL+exception) is in place.
 #include "util_icon.h"
 #include "util_math.h"
 #include "util_text.h"
+
 
 #include "ui/guidemanager.h"
 #include "ui/propertiespalette.h"

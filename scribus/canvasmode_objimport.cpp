@@ -26,11 +26,10 @@
 #include <QMimeData>
 #include <QDebug>
 
+#include "appmodes.h"
 #include "canvas.h"
 #include "fpoint.h"
 #include "fpointarray.h"
-#include "ui/pageselector.h"
-#include "ui/scrspinbox.h"
 #include "prefscontext.h"
 #include "prefsfile.h"
 #include "prefsmanager.h"
@@ -38,10 +37,13 @@
 #include "scribusdoc.h"
 #include "scribusview.h"
 #include "selection.h"
+#include "ui/pageselector.h"
+#include "ui/scrspinbox.h"
 #include "undomanager.h"
 #include "util.h"
 #include "util_icon.h"
 #include "util_math.h"
+
 
 CanvasMode_ObjImport::CanvasMode_ObjImport(ScribusView* view) : CanvasMode(view), m_ScMW(view->m_ScMW) 
 {

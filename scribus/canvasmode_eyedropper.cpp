@@ -27,17 +27,19 @@
 #include <QScreen>
 #include <QDebug>
 
+#include "appmodes.h"
 #include "canvas.h"
 #include "fpoint.h"
-#include "ui/propertiespalette.h"
 #include "sccolorengine.h"
 #include "scribus.h"
 #include "scribusdoc.h"
 #include "scribusview.h"
 #include "selection.h"
+#include "ui/propertiespalette.h"
 #include "util.h"
 #include "util_icon.h"
 #include "util_math.h"
+
 
 
 CanvasMode_EyeDropper::CanvasMode_EyeDropper(ScribusView* view) : CanvasMode(view), m_ScMW(view->m_ScMW) 

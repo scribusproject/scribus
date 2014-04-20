@@ -24,6 +24,8 @@ for which a new license (GPL+exception) is in place.
 #include "clockwidget.h"
 #include <QPainter>
 #include <QRect>
+
+#include "appmodes.h"
 #include "scribusdoc.h"
 
 ClockWidget::ClockWidget(QWidget *pa, ScribusDoc *doc) : QWidget(pa)

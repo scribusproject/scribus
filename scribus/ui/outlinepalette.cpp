@@ -24,21 +24,23 @@ for which a new license (GPL+exception) is in place.
 #include <QDebug>
 
 #include "actionmanager.h"
+#include "appmodes.h"
 #include "canvasmode.h"
 #include "commonstrings.h"
 #include "contextmenu.h"
+#include "layers.h"
 #include "outlinepalette.h"
 #include "propertiespalette.h"
 #include "scpage.h"
 #include "scribus.h"
 #include "selection.h"
-#include "layers.h"
 #include "undomanager.h"
 #include "units.h"
 #include "util.h"
 #include "util_color.h"
 #include "util_formats.h"
 #include "util_icon.h"
+
 
 
 OutlineTreeItem::OutlineTreeItem(OutlineTreeItem* parent, OutlineTreeItem* after) : QTreeWidgetItem(parent, after)

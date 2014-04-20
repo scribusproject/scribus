@@ -32,21 +32,22 @@ for which a new license (GPL+exception) is in place.
 #include <QTreeWidgetItem>
 #include <QVBoxLayout>
 
-
+#include "appmodes.h"
+#include "commonstrings.h"
+#include "hyphenator.h"
 #include "langmgr.h"
 #include "pageitem.h"
 #include "pageitem_table.h"
-#include "pageitem_textframe.h"
-#include "scribus.h"
-#include "scribusdoc.h"
-#include "scribusview.h"
-#include "scpaths.h"
-#include "selection.h"
+//#include "pageitem_textframe.h"
 #include "prefsmanager.h"
-#include "commonstrings.h"
-#include "hyphenator.h"
-#include "util_icon.h"
+#include "scpaths.h"
+//#include "scribus.h"
+#include "scribusdoc.h"
+//#include "scribusview.h"
+#include "selection.h"
 #include "undomanager.h"
+#include "util_icon.h"
+
 
 QString getLoremLocation(QString fname)
 {

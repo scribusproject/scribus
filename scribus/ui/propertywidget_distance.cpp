@@ -7,6 +7,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "propertywidget_distance.h"
 
+#include "appmodes.h"
 #include "pageitem_table.h"
 #include "pageitem_textframe.h"
 #include "scribus.h"

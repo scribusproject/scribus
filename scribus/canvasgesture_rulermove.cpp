@@ -19,11 +19,13 @@
 #include <QMouseEvent>
 #include <QPainter>
 
-#include "ui/guidemanager.h"
+#include "appmodes.h"
 #include "guidemanagercore.h"
 #include "scribus.h"
 #include "scribusdoc.h"
+#include "ui/guidemanager.h"
 #include "util_icon.h"
+
 
 void RulerGesture::drawControls(QPainter* p)
 {

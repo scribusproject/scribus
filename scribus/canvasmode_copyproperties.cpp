@@ -24,17 +24,19 @@
 #include <QRect>
 #include <QDebug>
 
+#include "appmodes.h"
 #include "canvas.h"
-#include "ui/contextmenu.h"
 #include "fpoint.h"
 #include "scribus.h"
 #include "scribusdoc.h"
 #include "scribusview.h"
 #include "selection.h"
 #include "selectionrubberband.h"
+#include "ui/contextmenu.h"
 #include "util.h"
 #include "util_icon.h"
 #include "util_math.h"
+
 
 
 CanvasMode_CopyProperties::CanvasMode_CopyProperties(ScribusView* view) : CanvasMode(view), m_ScMW(view->m_ScMW) 

@@ -5,8 +5,10 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 
-#include "pageitem_table.h"
 #include "propertywidget_optmargins.h"
+
+#include "appmodes.h"
+#include "pageitem_table.h"
 #include "scribus.h"
 #include "scribusdoc.h"
 #include "selection.h"

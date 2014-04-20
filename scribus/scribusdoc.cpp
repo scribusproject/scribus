@@ -40,6 +40,7 @@ for which a new license (GPL+exception) is in place.
 #include <QTime>
 //#include <qtconcurrentmap.h>
 
+#include "appmodes.h"
 #include "canvas.h"
 #include "ui/masterpagepalette.h"
 #include "colorblind.h"

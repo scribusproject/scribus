@@ -37,28 +37,30 @@
 #include <QWidgetAction>
 #include <QDebug>
 
-#include "ui/aligndistribute.h"
+#include "appmodes.h"
 #include "canvas.h"
-#include "ui/contextmenu.h"
 #include "fpoint.h"
 #include "fpointarray.h"
 #include "pageitem_regularpolygon.h"
-#include "ui/pageselector.h"
-#include "ui/polygonwidget.h"
 #include "prefscontext.h"
 #include "prefsfile.h"
 #include "prefsmanager.h"
-#include "ui/propertiespalette.h"
 #include "scribus.h"
+#include "scribusXml.h"
 #include "scribusdoc.h"
 #include "scribusview.h"
-#include "scribusXml.h"
 #include "selection.h"
+#include "ui/aligndistribute.h"
+#include "ui/contextmenu.h"
+#include "ui/pageselector.h"
+#include "ui/polygonwidget.h"
+#include "ui/propertiespalette.h"
 #include "undomanager.h"
 #include "units.h"
 #include "util.h"
 #include "util_icon.h"
 #include "util_math.h"
+
 
 CanvasMode_EditPolygon::CanvasMode_EditPolygon(ScribusView* view) : CanvasMode(view), m_ScMW(view->m_ScMW) 
 {

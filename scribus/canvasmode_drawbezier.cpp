@@ -29,31 +29,33 @@
 #include <QWidgetAction>
 
 
+#include "appmodes.h"
 #include "canvas.h"
 #include "canvasgesture_resize.h"
 #include "fpoint.h"
 #include "fpointarray.h"
 #include "hyphenator.h"
-#include "ui/insertTable.h"
-#include "ui/oneclick.h"
 #include "pageitem_textframe.h"
-#include "ui/pageselector.h"
 #include "prefscontext.h"
 #include "prefsfile.h"
 #include "prefsmanager.h"
-#include "ui/propertiespalette.h"
 #include "scraction.h"
-#include "ui/scrapbookpalette.h"
 #include "scribus.h"
+#include "scribusXml.h"
 #include "scribusdoc.h"
 #include "scribusview.h"
-#include "scribusXml.h"
 #include "selection.h"
+#include "ui/insertTable.h"
+#include "ui/oneclick.h"
+#include "ui/pageselector.h"
+#include "ui/propertiespalette.h"
+#include "ui/scrapbookpalette.h"
 #include "undomanager.h"
 #include "units.h"
 #include "util.h"
 #include "util_icon.h"
 #include "util_math.h"
+
 
 
 

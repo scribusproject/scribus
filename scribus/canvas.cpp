@@ -21,6 +21,7 @@
 // #include <QDebug>
 #include <QToolTip>
 
+#include "appmodes.h"
 #include "canvas.h"
 #include "canvasmode.h"
 #include "pageitem_textframe.h"

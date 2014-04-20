@@ -5,13 +5,16 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 #include "cmdobj.h"
+
+#include "appmodes.h"
 #include "cmdutil.h"
-#include "selection.h"
-#include "util_math.h"
 #include "commonstrings.h"
+#include "pageitem_table.h"
 #include "scribuscore.h"
 #include "scribusdoc.h"
-#include "pageitem_table.h"
+#include "selection.h"
+#include "util_math.h"
+
 
 PyObject *scribus_newrect(PyObject* /* self */, PyObject* args)
 {

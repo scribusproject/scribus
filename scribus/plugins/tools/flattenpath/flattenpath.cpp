@@ -31,7 +31,7 @@ for which a new license (GPL+exception) is in place.
 #include "flattenpath.h"
 #include "scribuscore.h"
 #include "scribusdoc.h"
-#include "scribusstructs.h"
+#include "appmodes.h"
 #include "selection.h"
 #include "util.h"
 #include <QPainterPath>

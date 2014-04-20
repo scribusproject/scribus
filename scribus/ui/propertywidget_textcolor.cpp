@@ -7,6 +7,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "propertywidget_textcolor.h"
 
+#include "appmodes.h"
 #include "pageitem_table.h"
 #include "scribus.h"
 #include "selection.h"

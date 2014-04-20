@@ -11,28 +11,31 @@ for which a new license (GPL+exception) is in place.
 #define _USE_MATH_DEFINES
 #endif
 #include <cmath>
+
+
+#include "appmodes.h"
 #include "autoform.h"
 #include "commonstrings.h"
-#include "sccolorengine.h"
 #include "pageitem_arc.h"
-#include "pageitem_textframe.h"
 #include "pageitem_regularpolygon.h"
+#include "pageitem_textframe.h"
 #include "polyprops.h"
+#include "sccolorengine.h"
 #include "sccombobox.h"
+#include "scraction.h"
 #include "scribus.h"
 #include "scribuscore.h"
-#include "scraction.h"
 #include "scribusview.h"
 #include "selection.h"
-#include "units.h"
+#include "ui/nodeeditpalette.h"
+#include "ui/propertiespalette_utils.h"
+#include "ui/propertiespalette_xyz.h"
 #include "undomanager.h"
+#include "units.h"
 #include "util.h"
 #include "util_icon.h"
 #include "util_math.h"
 
-#include "ui/nodeeditpalette.h"
-#include "ui/propertiespalette_utils.h"
-#include "ui/propertiespalette_xyz.h"
 
 PropertiesPalette_Shape::PropertiesPalette_Shape( QWidget* parent) : QWidget(parent)
 {

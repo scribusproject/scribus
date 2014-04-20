@@ -13,7 +13,8 @@
 *                                                                         *
 ***************************************************************************/
 
-// #include <QDebug>
+#include "contextmenu.h"
+
 #include <QApplication>
 #include <QFrame>
 #include <QGridLayout>
@@ -22,9 +23,10 @@
 #include <QWidget>
 #include <QWidgetAction>
 
-#include "contextmenu.h"
-#include "prefsmanager.h"
+#include "appmodes.h"
+#include "canvasmode_normal.h"
 #include "pageitem_textframe.h"
+#include "prefsmanager.h"
 #include "scmimedata.h"
 #include "scraction.h"
 #include "scrapbookpalette.h"
@@ -32,7 +34,7 @@
 #include "scribusdoc.h"
 #include "ui/scmwmenumanager.h"
 #include "undomanager.h"
-#include "canvasmode_normal.h"
+
 
 // #include "util.h" //just for tdebug
 

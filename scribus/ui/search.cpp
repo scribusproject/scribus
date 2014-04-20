@@ -19,6 +19,7 @@ for which a new license (GPL+exception) is in place.
 #include <QPixmap>
 #include <QMessageBox>
 
+#include "appmodes.h"
 #include "colorcombo.h"
 #include "colorlistbox.h"
 #include "commonstrings.h"

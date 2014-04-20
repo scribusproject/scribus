@@ -24,6 +24,7 @@ for which a new license (GPL+exception) is in place.
 #include <QDebug>
 #include <QPixmap>
 
+#include "appmodes.h"
 #include "scpage.h"
 #include "scribus.h"
 #include "selection.h"

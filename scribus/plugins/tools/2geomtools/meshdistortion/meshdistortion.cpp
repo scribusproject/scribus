@@ -27,7 +27,7 @@ for which a new license (GPL+exception) is in place.
 #include "meshdistortiondialog.h"
 #include "meshdistortion.h"
 #include "scribuscore.h"
-#include "scribusstructs.h"
+#include "appmodes.h"
 #include "util.h"
 #include "util_math.h"
 

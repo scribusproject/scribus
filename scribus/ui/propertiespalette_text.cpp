@@ -12,6 +12,9 @@ for which a new license (GPL+exception) is in place.
 #define _USE_MATH_DEFINES
 #endif
 #include <cmath>
+
+
+#include "appmodes.h"
 #include "commonstrings.h"
 #include "colorlistbox.h"
 #include "pageitem.h"

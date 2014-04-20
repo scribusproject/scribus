@@ -8,7 +8,9 @@ for which a new license (GPL+exception) is in place.
 #include <QFileDialog>
 #include <QMessageBox>
 
+#include "appmodes.h"
 #include "charselect.h"
+#include "charselectenhanced.h"
 #include "commonstrings.h"
 #include "pageitem_table.h"
 #include "pageitem_textframe.h"
@@ -18,7 +20,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribusview.h"
 #include "util.h"
 #include "util_icon.h"
-#include "charselectenhanced.h"
+
 
 
 CharSelect::CharSelect(QWidget* parent) : ScrPaletteBase(parent, "CharSelect"), m_doc(0), m_enhanced(0), m_Item(0)

@@ -5,14 +5,17 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 #include "cmdtext.h"
+
+#include "appmodes.h"
 #include "cmdutil.h"
+#include "hyphenator.h"
 #include "pageitem_textframe.h"
 #include "prefsmanager.h"
-#include "selection.h"
-#include "util.h"
 #include "scribuscore.h"
 #include "scribusdoc.h"
-#include "hyphenator.h"
+#include "selection.h"
+#include "util.h"
+
 
 template<typename T>
 class ApplyCharstyleHelper {

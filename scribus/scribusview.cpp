@@ -66,27 +66,29 @@ for which a new license (GPL+exception) is in place.
 #include <QDir>
 #include <QSizeGrip>
 
-#include "scribus.h"
-
+#include "appmodes.h"
+#include "actionmanager.h"
 #include "canvas.h"
 #include "canvasgesture.h"
 #include "canvasmode.h"
-#include "canvasmode_objimport.h"
 #include "canvasmode_imageimport.h"
-#include "actionmanager.h"
+#include "canvasmode_objimport.h"
 #include "commonstrings.h"
+#include "fileloader.h"
 #include "filewatcher.h"
 #include "hyphenator.h"
+#include "loadsaveplugin.h"
 #include "pageitem.h"
 #include "pageitem_group.h"
 #include "pageitem_imageframe.h"
+#include "pageitem_latexframe.h"
 #include "pageitem_line.h"
 #include "pageitem_pathtext.h"
 #include "pageitem_polygon.h"
 #include "pageitem_polyline.h"
 #include "pageitem_table.h"
 #include "pageitem_textframe.h"
-#include "pageitem_latexframe.h"
+#include "plugins/formatidlist.h"
 #include "prefscontext.h"
 #include "prefsfile.h"
 #include "prefsmanager.h"
@@ -95,9 +97,9 @@ for which a new license (GPL+exception) is in place.
 #include "scpage.h"
 #include "scpainter.h"
 #include "scpaths.h"
+#include "scribusXml.h"
 #include "scribuscore.h"
 #include "scribuswin.h"
-#include "scribusXml.h"
 #include "selection.h"
 #include "selectionrubberband.h"
 #include "serializer.h"
@@ -125,9 +127,8 @@ for which a new license (GPL+exception) is in place.
 #include "util_formats.h"
 #include "util_icon.h"
 #include "util_math.h"
-#include "loadsaveplugin.h"
-#include "fileloader.h"
-#include "plugins/formatidlist.h"
+#include "scribus.h"
+
 
 using namespace std;
 

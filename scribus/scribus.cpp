@@ -94,6 +94,7 @@ for which a new license (GPL+exception) is in place.
 
 
 #include "actionmanager.h"
+#include "appmodes.h"
 #include "canvasmode.h"
 #include "canvasmode_imageimport.h"
 #include "commonstrings.h"
