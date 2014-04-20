@@ -792,23 +792,22 @@ void Biblio::setOpenScrapbooks(QStringList &fileNames)
 	for (int rd = 0; rd < fileNames.count(); ++rd)
 	{
 		QString fileName = fileNames[rd];
-		if (!fileName.isEmpty())
-		{
-			QDir d(fileName);
-			activeBView = new BibView(this);
-			QFileInfo fd(fileName);
-			activeBView->canWrite = fd.isWritable();
-			activeBView->setAcceptDrops(activeBView->canWrite);
-			if (activeBView->canWrite)
-				Frame3->addItem(activeBView, d.dirName());
-			else
-				Frame3->addItem(activeBView, QIcon(loadIcon("16/lock.png")), d.dirName());
-			activeBView->ReadContents(fileName);
-			activeBView->ScFilename = fileName;
-			activeBView->visibleName = d.dirName();
-			ScCore->fileWatcher->addDir(d.absolutePath(), true);
-			activeBView->scrollToTop();
-		}
+		if (fileName.isEmpty())
+			continue;
+		QDir d(fileName);
+		activeBView = new BibView(this);
+		QFileInfo fd(fileName);
+		activeBView->canWrite = fd.isWritable();
+		activeBView->setAcceptDrops(activeBView->canWrite);
+		if (activeBView->canWrite)
+			Frame3->addItem(activeBView, d.dirName());
+		else
+			Frame3->addItem(activeBView, QIcon(loadIcon("16/lock.png")), d.dirName());
+		activeBView->ReadContents(fileName);
+		activeBView->ScFilename = fileName;
+		activeBView->visibleName = d.dirName();
+		ScCore->fileWatcher->addDir(d.absolutePath(), true);
+		activeBView->scrollToTop();
 	}
 	activeBView = (BibView*)Frame3->widget(0);
 	Frame3->setCurrentIndex(0);
@@ -919,45 +918,45 @@ void Biblio::NewLib()
 {
 	PrefsContext* dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
 	QString fileName = QFileDialog::getExistingDirectory(this, tr("Choose a Scrapbook Directory"), dirs->get("scrap_load", "."));
-	if (!fileName.isEmpty())
+	if (fileName.isEmpty())
+		return;
+
+	for (int a = 0; a < Frame3->count(); a++)
 	{
-		for (int a = 0; a < Frame3->count(); a++)
-		{
-			BibView* bv = (BibView*)Frame3->widget(a);
-			if (fileName == bv->ScFilename)
-				return;
-		}
-		disconnect(activeBView, SIGNAL(objDropped(QString)), this, SLOT(ObjFromMenu(QString)));
-		disconnect(activeBView, SIGNAL(fileDropped(QString, int)), this, SLOT(ObjFromFile(QString, int)));
-		disconnect(activeBView, SIGNAL(customContextMenuRequested (const QPoint &)), this, SLOT(HandleMouse(QPoint)));
-		disconnect(activeBView, SIGNAL(itemDoubleClicked(QListWidgetItem *)), this, SLOT(handleDoubleClick(QListWidgetItem *)));
-		disconnect(Frame3, SIGNAL(currentChanged(int)), this, SLOT(libChanged(int )));
-		QDir d(fileName);
-		activeBView = new BibView(this);
-		QFileInfo fd(fileName);
-		activeBView->canWrite = fd.isWritable();
-		activeBView->setAcceptDrops(activeBView->canWrite);
-		if (activeBView->canWrite)
-			Frame3->addItem(activeBView, d.dirName());
-		else
-			Frame3->addItem(activeBView, QIcon(loadIcon("16/lock.png")), d.dirName());
-		activeBView->ReadContents(fileName);
-		activeBView->ScFilename = fileName;
-		activeBView->visibleName = d.dirName();
-		Frame3->setCurrentWidget(activeBView);
-		ScCore->fileWatcher->addDir(d.absolutePath(), true);
-		d.cdUp();
-		dirs->set("scrap_load", d.absolutePath());
-		activeBView->scrollToTop();
-		upButton->setEnabled(!((Frame3->currentIndex() == 0) || (Frame3->currentIndex() == 1)));
-		updateView();
-		connect(Frame3, SIGNAL(currentChanged(int)), this, SLOT(libChanged(int )));
-		connect(activeBView, SIGNAL(objDropped(QString)), this, SLOT(ObjFromMenu(QString)));
-		connect(activeBView, SIGNAL(fileDropped(QString, int)), this, SLOT(ObjFromFile(QString, int)));
-		connect(activeBView, SIGNAL(customContextMenuRequested (const QPoint &)), this, SLOT(HandleMouse(QPoint)));
-		connect(activeBView, SIGNAL(itemDoubleClicked(QListWidgetItem *)), this, SLOT(handleDoubleClick(QListWidgetItem *)));
-		emit scrapbookListChanged();
+		BibView* bv = (BibView*)Frame3->widget(a);
+		if (fileName == bv->ScFilename)
+			return;
 	}
+	disconnect(activeBView, SIGNAL(objDropped(QString)), this, SLOT(ObjFromMenu(QString)));
+	disconnect(activeBView, SIGNAL(fileDropped(QString, int)), this, SLOT(ObjFromFile(QString, int)));
+	disconnect(activeBView, SIGNAL(customContextMenuRequested (const QPoint &)), this, SLOT(HandleMouse(QPoint)));
+	disconnect(activeBView, SIGNAL(itemDoubleClicked(QListWidgetItem *)), this, SLOT(handleDoubleClick(QListWidgetItem *)));
+	disconnect(Frame3, SIGNAL(currentChanged(int)), this, SLOT(libChanged(int )));
+	QDir d(fileName);
+	activeBView = new BibView(this);
+	QFileInfo fd(fileName);
+	activeBView->canWrite = fd.isWritable();
+	activeBView->setAcceptDrops(activeBView->canWrite);
+	if (activeBView->canWrite)
+		Frame3->addItem(activeBView, d.dirName());
+	else
+		Frame3->addItem(activeBView, QIcon(loadIcon("16/lock.png")), d.dirName());
+	activeBView->ReadContents(fileName);
+	activeBView->ScFilename = fileName;
+	activeBView->visibleName = d.dirName();
+	Frame3->setCurrentWidget(activeBView);
+	ScCore->fileWatcher->addDir(d.absolutePath(), true);
+	d.cdUp();
+	dirs->set("scrap_load", d.absolutePath());
+	activeBView->scrollToTop();
+	upButton->setEnabled(!((Frame3->currentIndex() == 0) || (Frame3->currentIndex() == 1)));
+	updateView();
+	connect(Frame3, SIGNAL(currentChanged(int)), this, SLOT(libChanged(int )));
+	connect(activeBView, SIGNAL(objDropped(QString)), this, SLOT(ObjFromMenu(QString)));
+	connect(activeBView, SIGNAL(fileDropped(QString, int)), this, SLOT(ObjFromFile(QString, int)));
+	connect(activeBView, SIGNAL(customContextMenuRequested (const QPoint &)), this, SLOT(HandleMouse(QPoint)));
+	connect(activeBView, SIGNAL(itemDoubleClicked(QListWidgetItem *)), this, SLOT(handleDoubleClick(QListWidgetItem *)));
+	emit scrapbookListChanged();
 }
 
 void Biblio::Import()
@@ -990,27 +989,25 @@ void Biblio::closeLib()
 		close();
 	if ((Frame3->currentIndex() == 0) || (Frame3->currentIndex() == 1))
 		return;
-	else
-	{
-		disconnect(activeBView, SIGNAL(objDropped(QString)), this, SLOT(ObjFromMenu(QString)));
-		disconnect(activeBView, SIGNAL(fileDropped(QString, int)), this, SLOT(ObjFromFile(QString, int)));
-		disconnect(activeBView, SIGNAL(customContextMenuRequested (const QPoint &)), this, SLOT(HandleMouse(QPoint)));
-		disconnect(activeBView, SIGNAL(itemDoubleClicked(QListWidgetItem *)), this, SLOT(handleDoubleClick(QListWidgetItem *)));
-		disconnect(Frame3, SIGNAL(currentChanged(int)), this, SLOT(libChanged(int )));
-		QFileInfo fi(activeBView->ScFilename);
-		ScCore->fileWatcher->removeDir(fi.absolutePath());
-		Frame3->removeItem(Frame3->indexOf(activeBView));
-		delete activeBView;  // currently disabled as the whole TabWidget vanishes when executing that delete????? -> seems to be fixed in Qt-4.3.3
-		activeBView = (BibView*)Frame3->widget(0);
-		Frame3->setCurrentIndex(0);
-		upButton->setEnabled(!((Frame3->currentIndex() == 0) || (Frame3->currentIndex() == 1)));
-		connect(Frame3, SIGNAL(currentChanged(int)), this, SLOT(libChanged(int )));
-		connect(activeBView, SIGNAL(objDropped(QString)), this, SLOT(ObjFromMenu(QString)));
-		connect(activeBView, SIGNAL(fileDropped(QString, int)), this, SLOT(ObjFromFile(QString, int)));
-		connect(activeBView, SIGNAL(customContextMenuRequested (const QPoint &)), this, SLOT(HandleMouse(QPoint)));
-		connect(activeBView, SIGNAL(itemDoubleClicked(QListWidgetItem *)), this, SLOT(handleDoubleClick(QListWidgetItem *)));
-		emit scrapbookListChanged();
-	}
+
+	disconnect(activeBView, SIGNAL(objDropped(QString)), this, SLOT(ObjFromMenu(QString)));
+	disconnect(activeBView, SIGNAL(fileDropped(QString, int)), this, SLOT(ObjFromFile(QString, int)));
+	disconnect(activeBView, SIGNAL(customContextMenuRequested (const QPoint &)), this, SLOT(HandleMouse(QPoint)));
+	disconnect(activeBView, SIGNAL(itemDoubleClicked(QListWidgetItem *)), this, SLOT(handleDoubleClick(QListWidgetItem *)));
+	disconnect(Frame3, SIGNAL(currentChanged(int)), this, SLOT(libChanged(int )));
+	QFileInfo fi(activeBView->ScFilename);
+	ScCore->fileWatcher->removeDir(fi.absolutePath());
+	Frame3->removeItem(Frame3->indexOf(activeBView));
+	delete activeBView;  // currently disabled as the whole TabWidget vanishes when executing that delete????? -> seems to be fixed in Qt-4.3.3
+	activeBView = (BibView*)Frame3->widget(0);
+	Frame3->setCurrentIndex(0);
+	upButton->setEnabled(!((Frame3->currentIndex() == 0) || (Frame3->currentIndex() == 1)));
+	connect(Frame3, SIGNAL(currentChanged(int)), this, SLOT(libChanged(int )));
+	connect(activeBView, SIGNAL(objDropped(QString)), this, SLOT(ObjFromMenu(QString)));
+	connect(activeBView, SIGNAL(fileDropped(QString, int)), this, SLOT(ObjFromFile(QString, int)));
+	connect(activeBView, SIGNAL(customContextMenuRequested (const QPoint &)), this, SLOT(HandleMouse(QPoint)));
+	connect(activeBView, SIGNAL(itemDoubleClicked(QListWidgetItem *)), this, SLOT(handleDoubleClick(QListWidgetItem *)));
+	emit scrapbookListChanged();
 }
 
 void Biblio::libChanged(int index)
