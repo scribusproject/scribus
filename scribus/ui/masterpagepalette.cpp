@@ -19,6 +19,7 @@ for which a new license (GPL+exception) is in place.
 #include <QMessageBox>
 #include <QInputDialog>
 
+#include "appmodes.h"
 #include "canvasmode.h"
 #include "commonstrings.h"
 #include "mergedoc.h"
