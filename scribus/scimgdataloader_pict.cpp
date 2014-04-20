@@ -69,7 +69,7 @@ void ScImgDataLoader_PICT::loadEmbeddedProfile(const QString& fn, int /*page*/)
 	m_profileComponents = 0;
 }
 
-void ScImgDataLoader_PICT::parseHeader(QString fName, double &x, double &y, double &b, double &h)
+void ScImgDataLoader_PICT::parseHeader(QString fName, double &x, double &y, double &w, double &h)
 {
 	QFile f(fName);
 	if (f.open(QIODevice::ReadOnly))
@@ -85,7 +85,7 @@ void ScImgDataLoader_PICT::parseHeader(QString fName, double &x, double &y, doub
 		{
 			pctVersion = 1;
 			h = pgW - pgX;
-			b = pgH - pgY;
+			w = pgH - pgY;
 			x = pgY;
 			y = pgX;
 			resX = 72.0;
@@ -112,7 +112,7 @@ void ScImgDataLoader_PICT::parseHeader(QString fName, double &x, double &y, doub
 					resX = 72.0;
 					resY = 72.0;
 					h = pgW - pgX;
-					b = pgH - pgY;
+					w = pgH - pgY;
 					x = pgY;
 					y = pgX;
 				}
@@ -124,7 +124,7 @@ void ScImgDataLoader_PICT::parseHeader(QString fName, double &x, double &y, doub
 					ts >> pgX >> pgY >> pgW >> pgH;
 					ts >> dummy;
 					h = pgW - pgX;
-					b = pgH - pgY;
+					w = pgH - pgY;
 					x = pgY;
 					y = pgX;
 					resX = xres;
@@ -141,7 +141,7 @@ bool ScImgDataLoader_PICT::loadPicture(const QString& fn, int /*page*/, int /*re
 	if (!QFile::exists(fn))
 		return false;
 	initialize();
-	double x, y, w, h;
+	double x=0.0, y=0.0, w=0.0, h=0.0;
 	parseHeader(fn, x, y, w, h);
 	docWidth = w;
 	docHeight = h;

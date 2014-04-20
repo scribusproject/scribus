@@ -13270,7 +13270,6 @@ void ScribusDoc::itemSelection_DistributeDistV(bool usingDistance, double distan
 		}
 	}
 	endAlign();
-	usingDistance=false;
 }
 
 

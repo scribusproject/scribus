@@ -3105,7 +3105,7 @@ void ScribusView::TextToPath()
 			}
 //			newGroupedItems.clear();
 			FPointArray pts;
-			double x, y, wide;
+			double x=0.0, y=0.0, wide=0.0;
 			QString chstr, ccounter;
 			QChar chstrex;
 			PageItem* bb;

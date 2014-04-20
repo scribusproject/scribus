@@ -6058,7 +6058,7 @@ void PageItem::restoreGradientMeshColor(SimpleState *ss, bool isUndo)
 	ScItemState<QPair<QColor,QColor> > *is = dynamic_cast<ScItemState<QPair<QColor,QColor> > *>(ss);
 	int x = is->getInt("X");
 	int y = is->getInt("Y");
-	meshPoint *mp;
+	meshPoint *mp=NULL;
 	if(is->getBool("PATCH"))
 	{
 		meshGradientPatch *patch = &meshGradientPatches[x];

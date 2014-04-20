@@ -5006,11 +5006,7 @@ void PSLib::SetColor(const QString& farb, double shade, int *h, int *s, int *v, 
 
 void PSLib::SetColor(const ScColor& farb, double shade, int *h, int *s, int *v, int *k, bool gcr)
 {
-	int h1, s1, v1, k1;
-	h1 = *h;
-	s1 = *s;
-	v1 = *v;
-	k1 = *k;
+	int h1 = *h, s1 = *s, v1 = *v, k1 = *k;
 	ScColor tmp(farb);
 	if (farb.getColorModel() == colorModelRGB)
 		tmp = ScColorEngine::convertToModel(farb, m_Doc, colorModelCMYK);
@@ -5538,7 +5534,7 @@ void PSLib::putColorNoDraw(const QString& colorName, double shade, bool gcr)
 	}
 	else
 	{
-		int c, m, y, k;
+		int c=0, m=0, y=0, k=0;
 		SetColor(color, shade, &c, &m, &y, &k, gcr);
 		if (!DoSep || (Plate == 0 || Plate == 1 || Plate == 2 || Plate == 3))
 			PutStream(ToStr(c / 255.0) + " " + ToStr(m / 255.0) + " " + ToStr(y / 255.0) + " " + ToStr(k / 255.0) + " cmyk\n");

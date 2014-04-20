@@ -63,15 +63,15 @@ QImage XfigPlug::readThumbnail(QString fName)
 {
 	QFileInfo fi = QFileInfo(fName);
 	baseFile = QDir::cleanPath(QDir::toNativeSeparators(fi.absolutePath()+"/"));
-	double b, h, x, y;
-	parseHeader(fName, x, y, b, h);
+	double w=0.0, h=0.0, x=0.0, y=0.0;
+	parseHeader(fName, x, y, w, h);
 	docX = x;
 	docY = y;
-	if (b == 0.0)
-		b = PrefsManager::instance()->appPrefs.docSetupPrefs.pageWidth;
+	if (w == 0.0)
+		w = PrefsManager::instance()->appPrefs.docSetupPrefs.pageWidth;
 	if (h == 0.0)
 		h = PrefsManager::instance()->appPrefs.docSetupPrefs.pageHeight;
-	docWidth = b - x;
+	docWidth = w - x;
 	docHeight = h - y;
 	progressDialog = NULL;
 	m_Doc = new ScribusDoc();
