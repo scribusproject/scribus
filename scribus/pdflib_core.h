@@ -31,6 +31,7 @@ class MultiProgressDialog;
 class ScLayer;
 class ScText;
 
+#include "pdfoptions.h"
 #include "scribusstructs.h"
 #include "scimagestructs.h"
 #include "tableborder.h"
@@ -81,6 +82,9 @@ private:
 		double origYsc;
 		QMap<int, ImageLoadRequest> RequestProps;
 	};
+
+	bool PDF_IsPDFX();
+	bool PDF_IsPDFX(PDFOptions::PDFVersion ver);
 
 	bool PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QString, QMap<uint, FPointArray> > DocFonts, BookMView* vi);
 	void PDF_Begin_Page(const ScPage* pag, QPixmap pm);

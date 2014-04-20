@@ -172,6 +172,28 @@ static inline QString FToStr(double c)
 	return QString::number(v, 'f', 5);
 };
 
+bool PDFLibCore::PDF_IsPDFX()
+{
+	if (Options.Version == PDFOptions::PDFVersion_X1a)
+		return true;
+	if (Options.Version == PDFOptions::PDFVersion_X3)
+		return true;
+	if (Options.Version == PDFOptions::PDFVersion_X4)
+		return true;
+	return false;
+}
+
+bool PDFLibCore::PDF_IsPDFX(PDFOptions::PDFVersion ver)
+{
+	if (ver == PDFOptions::PDFVersion_X1a)
+		return true;
+	if (ver == PDFOptions::PDFVersion_X3)
+		return true;
+	if (ver == PDFOptions::PDFVersion_X4)
+		return true;
+	return false;
+}
+
 bool PDFLibCore::doExport(const QString& fn, const QString& nam, int Components,
 					  const std::vector<int> & pageNs, const QMap<int,QPixmap> & thumbs)
 {
@@ -253,7 +275,7 @@ bool PDFLibCore::doExport(const QString& fn, const QString& nam, int Components,
 		ret = true;//Even when aborting we return true. Dont want that "couldnt write msg"
 		if (!abortExport)
 		{
-			if ((doc.pdfOptions().Version == PDFOptions::PDFVersion_X3) || (doc.pdfOptions().Version == PDFOptions::PDFVersion_X1a) || (doc.pdfOptions().Version == PDFOptions::PDFVersion_X4))
+			if (PDF_IsPDFX(doc.pdfOptions().Version))
 				ret = PDF_End_Doc(ScCore->PrinterProfiles[doc.pdfOptions().PrintProf], nam, Components);
 			else
 				ret = PDF_End_Doc();
@@ -783,14 +805,14 @@ bool PDFLibCore::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QStrin
 			PutDoc("%PDF-1.5\n");
 			break;
 	}
-	if ((Options.Version == PDFOptions::PDFVersion_X3) || (Options.Version == PDFOptions::PDFVersion_X1a) || (Options.Version == PDFOptions::PDFVersion_X4))
+	if (PDF_IsPDFX())
 		ObjCounter++;
 	PutDoc("%\xc7\xec\x8f\xa2\n");
 	StartObj(1);
 	PutDoc("<<\n/Type /Catalog\n/Outlines 3 0 R\n/Pages 4 0 R\n/Dests 5 0 R\n/AcroForm 6 0 R\n/Names 7 0 R\n/Threads 8 0 R\n");
 	if (((Options.Version == PDFOptions::PDFVersion_15) || (Options.Version == PDFOptions::PDFVersion_X4)) && (Options.useLayers))
 		PutDoc("/OCProperties 9 0 R\n");
-	if ((Options.Version == PDFOptions::PDFVersion_X3) || (Options.Version == PDFOptions::PDFVersion_X1a) || (Options.Version == PDFOptions::PDFVersion_X4))
+	if (PDF_IsPDFX())
 		PutDoc("/OutputIntents [ "+QString::number(ObjCounter-1)+" 0 R ]\n");
 	if ((Options.Version == PDFOptions::PDFVersion_X4))
 	{
@@ -918,7 +940,7 @@ bool PDFLibCore::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QStrin
 	PutDoc("<<\n/Creator " + EncString("Scribus "+QString(VERSION), 2) + "\n");
 	PutDoc("/Producer " + EncString("Scribus PDF Library "+QString(VERSION), 2) + "\n");
 	QString docTitle = doc.documentInfo().title();
-	if (((Options.Version == PDFOptions::PDFVersion_X3) || (Options.Version == PDFOptions::PDFVersion_X1a) || (Options.Version == PDFOptions::PDFVersion_X4)) && (docTitle.isEmpty()))
+	if ((PDF_IsPDFX()) && (docTitle.isEmpty()))
 		PutDoc("/Title " + EncStringUTF16(doc.DocName, 2) + "\n");
 	else
 		PutDoc("/Title " + EncStringUTF16(doc.documentInfo().title(), 2) + "\n");
@@ -927,13 +949,13 @@ bool PDFLibCore::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QStrin
 	PutDoc("/Keywords " + EncStringUTF16(doc.documentInfo().keywords(), 2) + "\n");
 	PutDoc("/CreationDate " + EncString(Datum, 2) + "\n");
 	PutDoc("/ModDate " + EncString(Datum, 2) + "\n");
-	if (Options.Version == PDFOptions::PDFVersion_X3)
-		PutDoc("/GTS_PDFXVersion (PDF/X-3:2002)\n");
 	if (Options.Version == PDFOptions::PDFVersion_X1a)
 	{
 		PutDoc("/GTS_PDFXVersion (PDF/X-1:2001)\n");
 		PutDoc("/GTS_PDFXConformance (PDF/X-1a:2001)\n");
 	}
+	if (Options.Version == PDFOptions::PDFVersion_X3)
+		PutDoc("/GTS_PDFXVersion (PDF/X-3:2002)\n");
 	if (Options.Version == PDFOptions::PDFVersion_X4)
 		PutDoc("/GTS_PDFXVersion (PDF/X-4)\n");
 	PutDoc("/Trapped /False\n>>\nendobj\n");
@@ -941,7 +963,7 @@ bool PDFLibCore::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QStrin
 		XRef.append(bytesWritten());
 	if (((Options.Version == PDFOptions::PDFVersion_15) || (Options.Version == PDFOptions::PDFVersion_X4)) && (Options.useLayers))
 		XRef.append(bytesWritten());
-	if ((Options.Version == PDFOptions::PDFVersion_X3) || (Options.Version == PDFOptions::PDFVersion_X1a) || (Options.Version == PDFOptions::PDFVersion_X4))
+	if (PDF_IsPDFX())
 		XRef.append(bytesWritten());
 	if (Options.Version == PDFOptions::PDFVersion_X4)
 		XRef.append(bytesWritten());
@@ -1849,7 +1871,7 @@ bool PDFLibCore::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QStrin
 		Transpar[HTName] = writeGState("/HT "+QString::number(halftones)+" 0 R\n");
 		ResCount++;
 	}
-	if ((doc.HasCMS) && (Options.UseProfiles) && (Options.Version != PDFOptions::PDFVersion_X1a ))
+	if ((doc.HasCMS) && (Options.UseProfiles) && (Options.Version != PDFOptions::PDFVersion_X1a))
 	{
 		uint iccProfileObject = newObject();
 		StartObj(iccProfileObject);
@@ -2266,13 +2288,13 @@ bool PDFLibCore::PDF_TemplatePage(const ScPage* pag, bool )
 							multiLine ml = doc.MLineStyles[ite->NamedLStyle];
 							for (int it = ml.size()-1; it > -1; it--)
 							{
-									if ((ml[it].Color != CommonStrings::None) && (ml[it].Width != 0))
-									{
-										PutPage(setStrokeMulti(&ml[it]));
-										PutPage("0 0 m\n");
-										PutPage(FToStr(ite->width())+" 0 l\n");
-										PutPage("S\n");
-									}
+								if ((ml[it].Color != CommonStrings::None) && (ml[it].Width != 0))
+								{
+									PutPage(setStrokeMulti(&ml[it]));
+									PutPage("0 0 m\n");
+									PutPage(FToStr(ite->width())+" 0 l\n");
+									PutPage("S\n");
+								}
 							}
 						}
 						if (ite->startArrowIndex() != 0)
@@ -3874,7 +3896,7 @@ bool PDFLibCore::PDF_ProcessItem(QString& output, PageItem* ite, const ScPage* p
 			}
 			break;
 		case PageItem::TextFrame:
-			if ((ite->isAnnotation()) && (Options.Version != PDFOptions::PDFVersion_X3) && (Options.Version != PDFOptions::PDFVersion_X1a) && (Options.Version != PDFOptions::PDFVersion_X4))
+			if ((ite->isAnnotation()) && (!PDF_IsPDFX()))
 			{
 				if (ite->annotation().Type() == Annotation::RadioButton)
 				{
@@ -11151,7 +11173,7 @@ bool PDFLibCore::PDF_End_Doc(const QString& PrintPr, const QString& Name, int Co
 		PutDoc("]\n");
 		PutDoc(">>\nendobj\n");
 	}
-	if ((Options.Version == PDFOptions::PDFVersion_X3) || (Options.Version == PDFOptions::PDFVersion_X1a) || (Options.Version == PDFOptions::PDFVersion_X4))
+	if (PDF_IsPDFX())
 	{
 		StartObj(ObjCounter);
 		ObjCounter++;
@@ -11289,7 +11311,7 @@ void PDFLibCore::generateXMP(const QString& timeStamp)
 	li1.setAttribute("xml:lang", "x-default");
 	alt1.appendChild(li1);
 	QString docTitle = doc.documentInfo().title();
-	if (((Options.Version == PDFOptions::PDFVersion_X3) || (Options.Version == PDFOptions::PDFVersion_X1a) || (Options.Version == PDFOptions::PDFVersion_X4)) && (docTitle.isEmpty()))
+	if ((PDF_IsPDFX()) && (docTitle.isEmpty()))
 		docTitle = doc.DocName;
 	li1.appendChild(xmpDoc.createTextNode(docTitle));
 	QDomElement creator = xmpDoc.createElement("dc:creator");
@@ -11309,7 +11331,7 @@ void PDFLibCore::generateXMP(const QString& timeStamp)
 	alt2.appendChild(li3);
 	li3.appendChild(xmpDoc.createTextNode(doc.documentInfo().subject()));
 
-	if ((Options.Version == PDFOptions::PDFVersion_X3) || (Options.Version == PDFOptions::PDFVersion_X1a) || (Options.Version == PDFOptions::PDFVersion_X4))
+	if (PDF_IsPDFX())
 	{
 		QDomElement descPDFXID = desc.cloneNode().toElement();
 		rdf.appendChild(descPDFXID);
@@ -11324,7 +11346,6 @@ void PDFLibCore::generateXMP(const QString& timeStamp)
 		else if (Options.Version == PDFOptions::PDFVersion_X4)
 			descPDFXID.setAttributeNS(pdfxidNS, "pdfxid:GTS_PDFXVersion", "PDF/X-4");
 	}
-
 
 	QDomElement descXMPMM = desc.cloneNode().toElement();
 	rdf.appendChild(descXMPMM);
