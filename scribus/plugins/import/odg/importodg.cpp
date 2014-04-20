@@ -1729,7 +1729,7 @@ void OdgPlug::parseText(QDomElement &elem, PageItem* item, ObjStyle& tmpOStyle)
 	for(QDomElement para = elem.firstChildElement(); !para.isNull(); para = para.nextSiblingElement())
 	{
 		pStyle = tmpOStyle;
-		if ((para.tagName() != "text:p") && (para.tagName() != "text:list"))
+		if ((para.tagName() != "text:p") && (para.tagName() != "text:list") && (para.tagName() != "text:h"))
 			continue;
 		if (para.hasChildNodes())
 		{

@@ -615,7 +615,6 @@ void RawPainter::drawPath(const ::WPXPropertyListVector &path)
 			  {
 				  imgExt = "wmf";
 				  QTemporaryFile *tempFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_pub_XXXXXX." + imgExt);
-				  tempFile->setAutoRemove(false);
 				  if (tempFile->open())
 				  {
 					  tempFile->write(imageData);
