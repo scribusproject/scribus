@@ -7640,11 +7640,20 @@ void ScribusMainWindow::duplicateItem()
 	doc->SnapGuides = false;
 	slotEditCopy();
 	view->Deselect(true);
+	UndoTransaction *trans = NULL;
+	if (UndoManager::undoEnabled())
+		trans = new UndoTransaction(undoManager->beginTransaction(Um::Selection, Um::IPolygon, Um::Copy, "", Um::IMultipleDuplicate));
 	slotEditPaste();
 	for (int b=0; b<doc->m_Selection->count(); ++b)
 	{
 		doc->m_Selection->itemAt(b)->setLocked(false);
 		doc->MoveItem(doc->toolSettings.dispX, doc->toolSettings.dispY, doc->m_Selection->itemAt(b));
+	}
+	if (trans)
+	{
+		trans->commit();
+		delete trans;
+		trans = NULL;
 	}
 	doc->useRaster = savedAlignGrid;
 	doc->SnapGuides = savedAlignGuides;
