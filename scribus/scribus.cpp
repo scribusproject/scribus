@@ -9600,6 +9600,8 @@ void ScribusMainWindow::slotItemTransform()
 
 void ScribusMainWindow::PutToInline(QString buffer)
 {
+	if (!HaveDoc)
+		return;
 	Selection tempSelection(*doc->m_Selection);
 	bool savedAlignGrid = doc->SnapGrid;
 	bool savedAlignGuides = doc->SnapGuides;
@@ -9659,6 +9661,8 @@ void ScribusMainWindow::PutToInline(QString buffer)
 
 void ScribusMainWindow::PutToInline()
 {
+	if (!HaveDoc)
+		return;
 	Selection tempSelection(*doc->m_Selection);
 	bool savedAlignGrid = doc->SnapGrid;
 	bool savedAlignGuides = doc->SnapGuides;
@@ -9721,6 +9725,8 @@ void ScribusMainWindow::PutToInline()
 
 void ScribusMainWindow::PutToPatterns()
 {
+	if (!HaveDoc)
+		return;
 	QString patternName = "Pattern_"+doc->m_Selection->itemAt(0)->itemName();
 	patternName = patternName.trimmed().simplified().replace(" ", "_");
 	bool savedAlignGrid = doc->SnapGrid;
@@ -9861,6 +9867,8 @@ void ScribusMainWindow::PutToPatterns()
 
 void ScribusMainWindow::ConvertToSymbol()
 {
+	if (!HaveDoc)
+		return;
 	int z;
 	uint docSelectionCount = doc->m_Selection->count();
 	QString patternName = "Pattern_"+doc->m_Selection->itemAt(0)->itemName();

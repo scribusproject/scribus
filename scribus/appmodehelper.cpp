@@ -518,6 +518,14 @@ void AppModeHelper::mainWindowCloseLastDoc()
 #ifdef HAVE_OSG
 	(*scrActions)["toolsPDFAnnot3D"]->setEnabled(false);
 #endif
+	(*scrActions)["itemConvertToBezierCurve"]->setEnabled(false);
+	(*scrActions)["itemConvertToImageFrame"]->setEnabled(false);
+	(*scrActions)["itemConvertToOutlines"]->setEnabled(false);
+	(*scrActions)["itemConvertToPolygon"]->setEnabled(false);
+	(*scrActions)["itemConvertToTextFrame"]->setEnabled(false);
+	(*scrActions)["itemConvertToSymbolFrame"]->setEnabled(false);
+	(*scrActions)["itemLock"]->setEnabled(false);
+	(*scrActions)["itemLockSize"]->setEnabled(false);
 }
 
 void AppModeHelper::setPreviewMode(bool b)
