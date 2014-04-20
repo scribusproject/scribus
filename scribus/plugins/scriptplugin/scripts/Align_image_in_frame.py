@@ -7,14 +7,12 @@ Top left, top center, top right; middle left, middle center, middle right;
 or bottom left, bottom center, bottom right.
  
 USAGE
-Select one image frames. Run the script, which asks for your alignment 
+Select one or more image frames. Run the script, which asks for your alignment 
 choice (all selected frames will need to have the same alignment). Choose the 
-position in the dialog radio button grid, click Align. Image are aligned, and script quits.
+position in the dialog radio button grid, click Align. Image(s) are aligned, and script quits.
  
 Note
 There is minimal error checking, in particular no checking for frame type.
-Although intended to work on more than one selected frame, there is a bug such that
-both images will be assigned the same scale.
 
 See the wiki page for further info:
 wiki.scribus.net/canvas/Align_an_Image_in_its_Frame
@@ -44,7 +42,7 @@ class TkImageAlignmentWizard(Frame):
         self.key = 'English'
         Frame.__init__(self, master)
         self.grid()
-        self.master.geometry('150x150-40+50')
+        self.master.geometry('120x120-80+40')
         self.master.title('Scribus Image Alignment Wizard')
         #define widgets
         # alignment options
@@ -91,9 +89,11 @@ class TkImageAlignmentWizard(Frame):
             objList = []
             for i in range(nbrSelected):
                 objList.append(scribus.getSelectedObject(i))
+            scribus.deselectAll()
             for i in range(nbrSelected):
                 try:
                     obj = objList[i]
+                    scribus.selectObject(obj)
                     frameW, frameH = scribus.getSize(obj)
                     saveScaleX, saveScaleY = scribus.getImageScale(obj)
                     scribus.setScaleImageToFrame(1, 0, obj)
@@ -121,6 +121,7 @@ class TkImageAlignmentWizard(Frame):
                     scribus.setImageOffset(imageX, imageY, obj)
                     scribus.docChanged(1)
                     scribus.setRedraw(True)
+                    scribus.deselectAll()
                 except:
                     nothing = "nothing"
 	    scribus.setUnit(restore_units)
