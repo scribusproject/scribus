@@ -14436,6 +14436,7 @@ void ScribusDoc::RotateItem(double angle, PageItem *currItem)
 		setRedrawBounding(currItem);
 		currItem->OwnPage = OnPage(currItem);
 		currItem->Sizing = oldS;
+		currItem->checkChanges();
 	}
 	else
 	{
