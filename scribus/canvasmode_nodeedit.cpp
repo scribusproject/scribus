@@ -941,6 +941,7 @@ void CanvasMode_NodeEdit::handleNodeEditPress(QMouseEvent* m, QRect)
 		currItem->update();
 		if ((xp != xp2) || (yp != yp2) || (w != w2) || (h != h2))
 			m_view->DrawNew();
+		emit m_view->PolyStatus(currItem->itemType(), currItem->PoLine.size());
 	}
 	else
 	{

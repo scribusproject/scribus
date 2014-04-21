@@ -6261,6 +6261,7 @@ void ScribusMainWindow::ToggleFrameEdit()
 		nodePalette->show();
 //		qDebug() << "nodepalette show:" << nodePalette->geometry();
 		connect(view, SIGNAL(HavePoint(bool, bool)), nodePalette, SLOT(HaveNode(bool, bool)));
+		connect(view, SIGNAL(PolyStatus(int, uint)), nodePalette, SLOT(PolyStatus(int, uint)));
 		doc->nodeEdit.reset();
 //done elsewhere now		doc->appMode = modeEditClip;
 		appModeHelper.setFrameEditMode(true);
@@ -6313,6 +6314,7 @@ void ScribusMainWindow::ToggleFrameEdit()
 void ScribusMainWindow::NoFrameEdit()
 {
 	disconnect(view, SIGNAL(HavePoint(bool, bool)), nodePalette, SLOT(HaveNode(bool, bool)));
+	disconnect(view, SIGNAL(PolyStatus(int, uint)), nodePalette, SLOT(PolyStatus(int, uint)));
 	actionManager->disconnectModeActions();
 	nodePalette->setDoc(0,0);
 	nodePalette->hide();
