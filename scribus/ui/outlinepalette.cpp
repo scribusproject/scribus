@@ -967,6 +967,10 @@ void OutlinePalette::slotSelect(QTreeWidgetItem* ite, int)
 			else
 				emit selectElementByItem(pgItem, true);
 			break;
+		case 5:
+			currDoc->setActiveLayer(item->LayerID);
+			m_MainWindow->changeLayer(currDoc->activeLayer());
+			break;
 		default:
 			break;
 	}
