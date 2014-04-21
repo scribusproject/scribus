@@ -1883,8 +1883,8 @@ QString ScriXmlDoc::WriteElem(ScribusDoc *doc, ScribusView *view, Selection* sel
 			writer.writeAttribute("H", item->height());
 		}
 	}
-	writer.writeAttribute("XP", xp);
-	writer.writeAttribute("YP", yp);
+	writer.writeAttribute("XP", xp - doc->currentPage()->xOffset());
+	writer.writeAttribute("YP", yp - doc->currentPage()->yOffset());
 	writer.writeAttribute("COUNT",   selection->count());
 	writer.writeAttribute("Version", QString(VERSION));
 
