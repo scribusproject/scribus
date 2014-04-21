@@ -24,15 +24,13 @@
 #include <QWidgetAction>
 
 #include "appmodes.h"
-#include "canvasmode_normal.h"
+#include "canvasmode.h"
 #include "pageitem_textframe.h"
-#include "prefsmanager.h"
 #include "scmimedata.h"
 #include "scraction.h"
-#include "scrapbookpalette.h"
 #include "scribus.h"
 #include "scribusdoc.h"
-#include "ui/scmwmenumanager.h"
+#include "scribusview.h"
 #include "undomanager.h"
 
 
