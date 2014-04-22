@@ -3,9 +3,6 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 	<title>Setting Object Properties</title>
 </head>
-<style>
-@import "manual.css";
-</style>
 <body>
 <h2>Setting Object Properties</h2>
 
@@ -90,10 +87,9 @@
 <p>Sets line width of the object "name" to "width". "width" must be in the range from 0.0 to 12.0 inclusive, and is measured in points. If "name" is not given the currently selected item is used.</p> 
 <p>May raise ValueError if the line width is out of bounds.</p></dd>
 
-<dt><a name="-scaleImage"><strong>scaleImage</strong></a>(...)</dt>
+<dt><a name="-scaleImage"><strong><em>scaleImage</em></strong></a>(...)</dt>
 <dd><code>scaleImage(x, y [, "name"])</code>
-<p>Sets the internal scaling factors of the picture in the image frame "name". If "name" is not given the currently selected item is used. A number of 1 means 100 %. Internal scaling factors are different from the values shown on properties palette. Note : deprecated, use setImageScale() instead.</p>
-<p>May raise <a href="scripterapi.html#WrongFrameTypeError">WrongFrameTypeError</a> if the target frame is not an image frame</p></dd>
+<p><b>Do not use this command, since it no longer works. Use setImageScale instead.</b></p></dd>
 
 <dt><a name="-setImageScale"><strong>setImageScale</strong></a>(...)</dt>
 <dd><code>setImageScale(x, y [, "name"])</code>
