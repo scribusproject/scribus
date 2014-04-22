@@ -342,7 +342,7 @@ public slots:
 	void pasteFromScrapbook(QString fn);
 	void importVectorFile();
 	void rebuildLayersList();
-	bool slotDocOpen();
+	bool slotFileOpen();
 	bool loadDoc(QString);
 	/**
 	 * @brief Do post loading functions

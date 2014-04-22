@@ -4,7 +4,7 @@
 #include "appmodes.h"
 #include "pageitem.h"
 #include "pageitem_textframe.h"
-#include "scribus.h"
+
 #include "scribusdoc.h"
 #include "undomanager.h"
 #include "util_text.h"

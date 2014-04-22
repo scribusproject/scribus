@@ -31,7 +31,7 @@ for which a new license (GPL+exception) is in place.
 #include "ui_pathconnectdialogbase.h"
 #include "pluginapi.h"
 #include "scribusdoc.h"
-#include "scribus.h"
+
 
 class PLUGIN_API PathConnectDialog : public QDialog, Ui::PathConnectDialogBase
 {

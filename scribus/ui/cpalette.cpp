@@ -58,6 +58,7 @@ for which a new license (GPL+exception) is in place.
 #include "scpainter.h"
 #include "scpattern.h"
 #include "scribus.h"
+#include "scribusview.h"
 #include "selection.h"
 #include "undomanager.h"
 #include "units.h"

@@ -18,7 +18,7 @@ the Free Software Foundation; either version 2 of the License, or
 #include "prefsmanager.h"
 #include "prefsfile.h"
 #include "prefscontext.h"
-#include "scribus.h"
+
 #include "scribuscore.h"
 #include "util_icon.h"
 

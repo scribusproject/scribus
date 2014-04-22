@@ -38,7 +38,7 @@ for which a new license (GPL+exception) is in place.
 #include "prefsfile.h"
 #include "prefscontext.h"
 #include "prefstable.h"
-#include "scribus.h"
+
 #include "scribuscore.h"
 #include "scribusdoc.h"
 #ifdef Q_OS_LINUX

@@ -28,15 +28,19 @@ for which a new license (GPL+exception) is in place.
 #define _USE_MATH_DEFINES
 #endif
 #include <cmath>
+#include <QPainterPathStroker>
+
 #include "pathstroker.h"
-#include "pageitem_polygon.h"
+
+#include "appmodes.h"
 #include "commonstrings.h"
+#include "pageitem_polygon.h"
 #include "scribuscore.h"
 #include "scribusdoc.h"
-#include "appmodes.h"
 #include "selection.h"
 #include "util.h"
-#include <QPainterPathStroker>
+
+
 
 int pathstroker_getPluginAPIVersion()
 {

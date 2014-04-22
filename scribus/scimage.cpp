@@ -8,7 +8,7 @@ for which a new license (GPL+exception) is in place.
 #include "cmsettings.h"
 #include "scclocale.h"
 #include "scimage.h"
-#include "scribus.h"
+
 #include "scpaths.h"
 #include "scribuscore.h"
 #include "scimgdataloader_gimp.h"

@@ -23,7 +23,7 @@ for which a new license (GPL+exception) is in place.
 #include "sccolorengine.h"
 #include "sccombobox.h"
 #include "scraction.h"
-#include "scribus.h"
+
 #include "scribuscore.h"
 #include "scribusview.h"
 #include "selection.h"

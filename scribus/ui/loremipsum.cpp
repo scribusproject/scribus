@@ -41,7 +41,7 @@ for which a new license (GPL+exception) is in place.
 //#include "pageitem_textframe.h"
 #include "prefsmanager.h"
 #include "scpaths.h"
-//#include "scribus.h"
+//
 #include "scribusdoc.h"
 //#include "scribusview.h"
 #include "selection.h"

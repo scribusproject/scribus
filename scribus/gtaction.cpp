@@ -45,6 +45,7 @@ for which a new license (GPL+exception) is in place.
 #include "scclocale.h"
 #include "selection.h"
 #include "sccolorengine.h"
+#include "scribusdoc.h"
 #include "scribus.h"
 #include "undomanager.h"
 

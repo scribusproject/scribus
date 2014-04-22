@@ -38,6 +38,8 @@ class PrefsContext;
 class QCloseEvent;
 class QToolButton;
 
+#include "scribus.h"
+
 class SCRIBUS_API ScToolBar : public QToolBar
 {
 	Q_OBJECT

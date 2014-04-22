@@ -33,6 +33,7 @@ for which a new license (GPL+exception) is in place.
 #include "propertiespalette.h"
 #include "scpage.h"
 #include "scribus.h"
+#include "scribusdoc.h"
 #include "selection.h"
 #include "undomanager.h"
 #include "units.h"

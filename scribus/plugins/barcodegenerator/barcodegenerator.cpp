@@ -10,7 +10,7 @@ for which a new license (GPL+exception) is in place.
 #include "commonstrings.h"
 #include "loadsaveplugin.h"
 #include "scpaths.h"
-#include "scribus.h"
+
 #include "scribuscore.h"
 #include "undomanager.h"
 #include "util_ghostscript.h"

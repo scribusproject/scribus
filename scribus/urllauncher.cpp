@@ -14,7 +14,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "urllauncher.h"
 #include "prefsmanager.h"
-#include "scribus.h"
+
 #include "scribuscore.h"
 #include "util.h"
 

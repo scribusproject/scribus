@@ -32,7 +32,7 @@ pageitem.cpp  -  description
 #include "sctext_shared.h"
 #include "selection.h"
 #include "storytext.h"
-#include "scribus.h"
+//
 #include "util.h"
 #include "resourcecollection.h"
 #include "desaxe/saxiohelper.h"

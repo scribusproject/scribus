@@ -53,7 +53,7 @@ for which a new license (GPL+exception) is in place.
 #include "prefsmanager.h"
 #include "scpaths.h"
 #include "scribuscore.h"
-#include "scribus.h"
+
 #include "util.h"
 
 using namespace std;

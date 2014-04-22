@@ -33,7 +33,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "pageitem.h"
 #include "pageitem_table.h"
-#include "scribus.h"
+#include "scribusview.h"
 #include "scribusdoc.h"
 #include "scpainter.h"
 

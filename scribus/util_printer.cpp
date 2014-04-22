@@ -20,7 +20,7 @@ for which a new license (GPL+exception) is in place.
 #include <QByteArray>
 #include "util.h"
 #include "commonstrings.h"
-#include "scribus.h"
+
 #include "scribuscore.h"
 
 QStringList PrinterUtil::getPrinterNames()

@@ -19,7 +19,7 @@ for which a new license (GPL+exception) is in place.
  *                                                                         *
  ***************************************************************************/
 #include <QMenuBar>
-#include "scribus.h"
+
 #include "menumanager.h"
 #include "ui/scmenu.h"
 #include "scraction.h"

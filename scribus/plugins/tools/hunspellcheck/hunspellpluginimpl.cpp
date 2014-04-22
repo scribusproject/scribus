@@ -13,6 +13,7 @@ for which a new license (GPL+exception) is in place.
 #include "scpaths.h"
 #include "scribusdoc.h"
 #include "scribus.h"
+#include "scribusview.h"
 #include "ui/storyeditor.h"
 #include "text/specialchars.h"
 #include "util.h"

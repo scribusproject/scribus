@@ -17,7 +17,7 @@ for which a new license (GPL+exception) is in place.
 #include "pluginmanager.h"
 #include "prefsmanager.h"
 #include "scplugin.h"
-#include "scribus.h"
+
 #include "scribuscore.h"
 #include "scribusdoc.h"
 #include "units.h"

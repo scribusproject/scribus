@@ -11,6 +11,7 @@ for which a new license (GPL+exception) is in place.
 #include "pluginmanagerprefsgui.h"
 #include "pluginmanager.h"
 #include "scraction.h"
+#include "scribus.h"
 #include "scplugin.h"
 #include "commonstrings.h"
 

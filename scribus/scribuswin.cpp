@@ -24,9 +24,11 @@ for which a new license (GPL+exception) is in place.
 #include "scribuswin.h"
 
 #include <QApplication>
+#include <QDir>
 #include <QMessageBox>
 
 #include "scribus.h"
+#include "scribusdoc.h"
 #include "commonstrings.h"
 #include "ui/storyeditor.h"
 #include "util_icon.h"

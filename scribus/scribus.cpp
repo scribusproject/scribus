@@ -137,7 +137,7 @@ for which a new license (GPL+exception) is in place.
 #include "scpaths.h"
 #include "scprintengine_ps.h"
 #include "scraction.h"
-#include "scribus.h"
+
 #include "scribusdoc.h"
 #include "scribusXml.h"
 #include "scribusapp.h"
@@ -3671,7 +3671,7 @@ void ScribusMainWindow::updateColorLists()
 	}
 }
 
-bool ScribusMainWindow::slotDocOpen()
+bool ScribusMainWindow::slotFileOpen()
 {
 	PrefsContext* docContext = prefsManager->prefsFile->getContext("docdirs", false);
 	QString docDir(".");

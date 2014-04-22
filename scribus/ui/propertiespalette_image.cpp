@@ -17,7 +17,7 @@ for which a new license (GPL+exception) is in place.
 #include "pageitem.h"
 #include "propertiespalette_utils.h"
 #include "sccombobox.h"
-#include "scribus.h"
+
 #include "scribuscore.h"
 #include "scraction.h"
 #include "scribusview.h"

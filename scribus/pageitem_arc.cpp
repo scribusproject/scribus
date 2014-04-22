@@ -36,7 +36,7 @@ for which a new license (GPL+exception) is in place.
 #include "scpainter.h"
 #include "scpaths.h"
 #include "scraction.h"
-#include "scribus.h"
+
 #include "scribusstructs.h"
 #include "scribusdoc.h"
 #include "undomanager.h"

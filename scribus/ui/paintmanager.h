@@ -30,7 +30,7 @@ for which a new license (GPL+exception) is in place.
 #include "sccolor.h"
 #include "scribusapi.h"
 #include "scribusdoc.h"
-#include "scribus.h"
+
 #include "vgradient.h"
 #include "scpattern.h"
 

@@ -38,7 +38,7 @@ for which a new license (GPL+exception) is in place.
 #include "ui_lensdialogbase.h"
 #include "pluginapi.h"
 #include "scribusdoc.h"
-#include "scribus.h"
+
 class LensDialog;
 
 class PLUGIN_API LensItem : public QGraphicsRectItem

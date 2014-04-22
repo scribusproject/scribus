@@ -54,6 +54,7 @@ for which a new license (GPL+exception) is in place.
 #include "scclocale.h"
 #include "scpainter.h"
 #include "scpaths.h"
+#include "scribus.h"
 #include "sctextstream.h"
 #include "scribusXml.h"
 #include "undomanager.h"

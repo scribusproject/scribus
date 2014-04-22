@@ -25,14 +25,16 @@ for which a new license (GPL+exception) is in place.
 ***************************************************************************/
 
 #include "xtgscanner.h"
-#include "text/specialchars.h"
-#include "fonts/scface.h"
+
 #include <QString>
 #include <QList>
 #include <QDebug>
 #include <QMessageBox>
 
-class ScribusDoc;
+#include "fonts/scface.h"
+#include "scribusdoc.h"
+#include "text/specialchars.h"
+
 
 XtgScanner::XtgScanner (QString documentName, TextWriter *wr, QString& buffer, bool textOnly, bool prefix)
 {

@@ -7,7 +7,8 @@ for which a new license (GPL+exception) is in place.
 
 #include "propertywidget_orphans.h"
 
-#include "scribus.h"
+
+#include "scribusdoc.h"
 
 PropertyWidget_Orphans::PropertyWidget_Orphans(QWidget* parent) : QFrame(parent)
 {

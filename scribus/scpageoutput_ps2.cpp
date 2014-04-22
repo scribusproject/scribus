@@ -14,7 +14,7 @@ for which a new license (GPL+exception) is in place.
 #include "scpage.h"
 #include "scpageoutput_ps2.h"
 #include "scpainterex_ps2.h"
-#include "scribus.h"
+
 #include "util.h"
 
 ScPageOutput_Ps2::ScPageOutput_Ps2(QIODevice* dev, ScribusDoc* doc, int pageIndex, ScPs2OutputParams& options)

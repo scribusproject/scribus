@@ -10,7 +10,8 @@ for which a new license (GPL+exception) is in place.
 
 #include "ui_cwdialog.h"
 #include "colorwheelwidget.h"
-#include "scribus.h"
+#include "prefscontext.h"
+
 
 class QSpacerItem;
 class QComboBox;

@@ -37,7 +37,7 @@ for which a new license (GPL+exception) is in place.
 #include "scpage.h"
 #include "scpaths.h"
 #include "scpainter.h"
-#include "scribus.h"
+
 #include "scribusstructs.h"
 #include "scribuscore.h"
 #include "scribusdoc.h"

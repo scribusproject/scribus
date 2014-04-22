@@ -5,19 +5,22 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 
+#include "cwdialog.h"
+
 #include <QHeaderView>
 #include <QMessageBox>
 
-#include "ui/cmykfw.h"
 #include "colorblind.h"
-#include "ui/colorlistbox.h"
 #include "commonstrings.h"
-#include "cwdialog.h"
 #include "prefsfile.h"
 #include "prefsmanager.h"
-#include "ui/propertiespalette.h"
 #include "sccolorengine.h"
+#include "scribus.h"
+#include "ui/cmykfw.h"
+#include "ui/colorlistbox.h"
+#include "ui/propertiespalette.h"
 #include "util_color.h"
+
 
 
 CWDialog::CWDialog(QWidget* parent, ScribusDoc* doc, const char* name, bool modal)

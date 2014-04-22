@@ -8,7 +8,7 @@ for which a new license (GPL+exception) is in place.
 #define TEXTFILTER_H
 
 #include "pluginapi.h"
-#include "scribus.h"
+
 #include <prefscontext.h>
 #include "gtwriter.h"
 #include "tffilter.h"

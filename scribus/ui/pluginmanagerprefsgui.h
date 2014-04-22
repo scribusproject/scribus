@@ -9,7 +9,9 @@ for which a new license (GPL+exception) is in place.
 
 #include "prefspanel.h"
 #include "ui_pluginmanagerprefsgui.h"
-#include "scribus.h"
+
+
+class ScribusMainWindow;
 
 
 /*! \brief A GUI preferences interface for enabling/disabling plugins. */

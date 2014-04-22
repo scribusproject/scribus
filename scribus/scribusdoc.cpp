@@ -87,7 +87,7 @@ for which a new license (GPL+exception) is in place.
 #include "scpage.h"
 #include "scpainter.h"
 #include "scraction.h"
-#include "scribus.h"
+
 #include "scribusXml.h"
 #include "scribuscore.h"
 #include "scribusdoc.h"

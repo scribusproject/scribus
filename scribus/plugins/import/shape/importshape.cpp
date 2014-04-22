@@ -36,7 +36,7 @@ for which a new license (GPL+exception) is in place.
 #include "sclimits.h"
 #include "scmimedata.h"
 #include "scpaths.h"
-#include "scribus.h"
+
 #include "scribusXml.h"
 #include "scribuscore.h"
 #include "sctextstream.h"

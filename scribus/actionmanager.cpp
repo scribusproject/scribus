@@ -21,7 +21,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "actionmanager.h"
 #include "appmodes.h"
-#include "scribus.h"
+
 #include "scribuscore.h"
 #include "scribusdoc.h"
 #include "scribusview.h"
@@ -160,7 +160,7 @@ void ActionManager::initFileMenuActions()
 	//File Menu
 	connect( (*scrActions)["fileNew"], SIGNAL(triggered()), mainWindow, SLOT(slotFileNew()) );
 	connect( (*scrActions)["fileNewFromTemplate"], SIGNAL(triggered()), mainWindow, SLOT(newFileFromTemplate()) );
-	connect( (*scrActions)["fileOpen"], SIGNAL(triggered()), mainWindow, SLOT(slotDocOpen()) );
+	connect( (*scrActions)["fileOpen"], SIGNAL(triggered()), mainWindow, SLOT(slotFileOpen()) );
 	connect( (*scrActions)["fileClose"], SIGNAL(triggered()), mainWindow, SLOT(slotFileClose()) );
 	connect( (*scrActions)["filePrint"], SIGNAL(triggered()), mainWindow, SLOT(slotFilePrint()) );
 	connect( (*scrActions)["PrintPreview"], SIGNAL(triggered()), mainWindow, SLOT(printPreview()) );

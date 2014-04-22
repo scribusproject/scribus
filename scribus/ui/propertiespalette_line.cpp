@@ -18,7 +18,7 @@ for which a new license (GPL+exception) is in place.
 #include "pageitem_textframe.h"
 #include "sccolorengine.h"
 #include "sccombobox.h"
-#include "scribus.h"
+
 #include "scribuscore.h"
 #include "scraction.h"
 #include "scribusview.h"

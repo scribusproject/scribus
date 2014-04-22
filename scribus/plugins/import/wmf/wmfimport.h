@@ -23,7 +23,6 @@ class QBuffer;
 class FPointArray;
 class PageItem;
 class ScribusDoc;
-class ScribusMainWindow;
 class Selection;
 class PrefsManager;
 class TransactionSettings;

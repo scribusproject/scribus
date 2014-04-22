@@ -48,7 +48,7 @@ for which a new license (GPL+exception) is in place.
 #include "scfonts.h"
 #include "scribusapp.h"
 #include "scribusdoc.h"
-#include "scribus.h"
+
 #include "scribuscore.h"
 #include "selection.h"
 #include "scpattern.h"

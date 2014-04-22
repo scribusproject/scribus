@@ -24,7 +24,7 @@ for which a new license (GPL+exception) is in place.
 #include "edittoolbar.h"
 
 #include "scraction.h"
-#include "scribus.h"
+
 
 EditToolBar::EditToolBar(ScribusMainWindow* parent) : ScToolBar( tr("Edit"), "Edit", parent)
 {

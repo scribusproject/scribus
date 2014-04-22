@@ -1,5 +1,5 @@
 #include "marknote.h"
-#include "scribus.h"
+
 
 static int lastNotesStyleIndex = 0;  //remember last selected notes style
 

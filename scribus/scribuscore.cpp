@@ -18,7 +18,9 @@ for which a new license (GPL+exception) is in place.
  *   (at your option) any later version.                                   *
  *                                                                         *
  ***************************************************************************/
- 
+
+#include "scribuscore.h"
+
 #include <cassert>
 #include <iostream>
 #include <QByteArray>
@@ -26,6 +28,7 @@ for which a new license (GPL+exception) is in place.
 #include <QGlobalStatic>
 #include <QMessageBox>
 
+#include "colormgmt/sccolormgmtenginefactory.h"
 #include "commonstrings.h"
 #include "filewatcher.h"
 #include "localemgr.h"
@@ -33,14 +36,14 @@ for which a new license (GPL+exception) is in place.
 #include "prefsmanager.h"
 #include "scimagecachemanager.h"
 #include "scpaths.h"
+#include "scribus.h"
 #include "scribusapp.h"
-#include "scribuscore.h"
 #include "ui/splash.h"
 #include "undomanager.h"
 #include "util.h"
-#include "util_icon.h"
 #include "util_ghostscript.h"
-#include "colormgmt/sccolormgmtenginefactory.h"
+#include "util_icon.h"
+
 
 extern ScribusQApp* ScQApp;
 

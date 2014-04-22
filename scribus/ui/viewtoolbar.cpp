@@ -26,7 +26,7 @@ for which a new license (GPL+exception) is in place.
 #include <QFont>
 
 #include "scraction.h"
-#include "scribus.h"
+
 #include "scribusdoc.h"
 #include "scribuscore.h"
 

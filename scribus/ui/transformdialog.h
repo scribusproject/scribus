@@ -35,7 +35,7 @@ for which a new license (GPL+exception) is in place.
 #include <QString>
 #include "ui_transformdialogbase.h"
 #include "scribusdoc.h"
-#include "scribus.h"
+
 #include "scribusapi.h"
 
 class SCRIBUS_API TransformItem : public QListWidgetItem

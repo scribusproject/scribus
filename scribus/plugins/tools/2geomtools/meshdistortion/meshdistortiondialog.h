@@ -36,7 +36,7 @@ for which a new license (GPL+exception) is in place.
 #include "ui_meshdistortiondialog.h"
 #include "pluginapi.h"
 #include "scribusdoc.h"
-#include "scribus.h"
+
 
 #if defined(_MSC_VER) && !defined(_USE_MATH_DEFINES)
 #define _USE_MATH_DEFINES

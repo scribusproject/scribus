@@ -30,7 +30,7 @@ for which a new license (GPL+exception) is in place.
 #include "scconfig.h"
 #include "textwriter.h"
 #include "styles/charstyle.h"
-#include "scribus.h"
+
 #include "fontselectdialog.h"
 
 #include <QHash>

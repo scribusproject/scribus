@@ -33,7 +33,7 @@ for which a new license (GPL+exception) is in place.
 #include "prefscontext.h"
 #include "prefsfile.h"
 #include "prefsmanager.h"
-#include "scribus.h"
+
 #include "scrpalettebase.h"
 #include "util.h"
 #include "util_icon.h"

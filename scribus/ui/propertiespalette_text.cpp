@@ -31,7 +31,7 @@ for which a new license (GPL+exception) is in place.
 #include "propertywidget_textcolor.h"
 #include "sccombobox.h"
 #include "scfonts.h"
-#include "scribus.h"
+
 #include "scribuscore.h"
 #include "scraction.h"
 #include "scribusview.h"
