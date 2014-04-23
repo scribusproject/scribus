@@ -453,6 +453,7 @@ signals:
 	void LevelChanged(uint);
 	void HavePoint(bool, bool);
 	void ClipPo(double, double);
+	void PolyStatus(int, uint);
 	void AnnotProps();
 	void EndNodeEdit();
 	void Hrule(int);

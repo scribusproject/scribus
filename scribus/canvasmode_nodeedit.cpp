@@ -847,6 +847,7 @@ void CanvasMode_NodeEdit::handleNodeEditPress(QMouseEvent* m, QRect)
 		currItem->FrameType = 3;
 		m_doc->AdjustItemSize(currItem);
 		currItem->update();
+		emit m_view->PolyStatus(currItem->itemType(), currItem->PoLine.size());
 	}
 	if ((m_doc->nodeEdit.SelNode.count() != 0) || ((m_doc->nodeEdit.SegP1 != -1) && (m_doc->nodeEdit.SegP2 != -1)) || (m_doc->nodeEdit.hasNodeSelected() && (!m_doc->nodeEdit.EdPoints)))
 	{
