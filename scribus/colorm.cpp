@@ -200,7 +200,7 @@ ColorManager::ColorManager(QWidget* parent, ColorList doco, ScribusDoc* doc, QSt
 	connect( deleteColorButton, SIGNAL( clicked() ), this, SLOT( deleteColor() ) );
 	connect( importColorsButton, SIGNAL( clicked() ), this, SLOT( importColors() ) );
 	connect( colorListBox, SIGNAL( itemClicked(QListWidgetItem*) ), this, SLOT( selColor(QListWidgetItem*) ) );
-	connect( colorListBox, SIGNAL( itemActivated(QListWidgetItem*) ), this, SLOT( selEditColor(QListWidgetItem*) ) );
+	connect( colorListBox, SIGNAL( itemDoubleClicked(QListWidgetItem*) ), this, SLOT( selEditColor(QListWidgetItem*) ) );
 	resize(minimumSizeHint());
 	if (paletteLocked)
 	{
