@@ -74,6 +74,10 @@ void SMCStyleWidget::changeEvent(QEvent *e)
 
 void SMCStyleWidget::languageChange()
 {
+	QStringList languageList;
+	LanguageManager::instance()->fillInstalledHyphStringList(&languageList);
+	fillLangComboFromList(languageList);
+
 /***********************************/
 /*      Begin Tooltips             */
 /***********************************/
