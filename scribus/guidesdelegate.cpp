@@ -32,7 +32,7 @@ GuidesDelegate::GuidesDelegate(QObject *parent)
 void GuidesDelegate::setEditorData(QWidget *editor,
 								   const QModelIndex &index) const
 {
-	double value = index.model()->data(index, Qt::DisplayRole).toDouble();
+	double value = index.model()->data(index, Qt::EditRole).toDouble();
 	ScrSpinBox *w = static_cast<ScrSpinBox*>(editor);
 	w->setValue(value);
 }
@@ -45,7 +45,7 @@ void GuidesDelegate::setModelData(QWidget *editor,
 	// When user exit widget, editor value may not be commited at this point
 	// so we have to get value from widget text
 	double value = w->valueFromText(w->text());
-	model->setData(index, value);
+	model->setData(index, value, Qt::EditRole);
 }
 
 void GuidesDelegate::updateEditorGeometry(QWidget *editor,
