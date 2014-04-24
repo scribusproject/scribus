@@ -32,9 +32,10 @@ Some more details can be found below in the section entitled GETTING DEPENDENCIE
 After having installed all dependencies, open Scribus-build-props.vsprops files located 
 in Scribus\win32\vc9 and update the dependency paths to match your system.
 
-Open the Visual Studio solution located in Scribus\win32\vc9 and start building.
+If you have Visual Studio 2010, open the Visual Studio solution located in Scribus\win32\vc10 and start building.
+If you have Visual Studio 2012, open the Visual Studio solution located in Scribus\win32\vc11 and start building.
 
-After building completed, you will find executables in a Scribus-builds\scribus-vc9-*\scribus
+After building completed, you will find executables in a Scribus-builds\scribus-$(Configuration)-$(Platform)-*
 directory located in same directory as Scribus sources. Those executables will not function yet. 
 Scribus resources must be copied from source directory to install directory first.
 
@@ -42,13 +43,13 @@ In order to do that, create a batch script and copy/paste following lines :
 
 set SCRIBUS_SRC_PATH=.\Scribus
 set SCRIBUS_BUILD_ROOT=.\Scribus-builds
-set SCRIBUS_INSTALL_PATH=.\Scribus-builds\scribus-debug-win32-vc9\scribus
+set SCRIBUS_INSTALL_PATH=.\Scribus-builds\scribus-debug-win32-v100
 
  copy %SCRIBUS_SRC_PATH%\AUTHORS %SCRIBUS_INSTALL_PATH%\share\doc
  copy %SCRIBUS_SRC_PATH%\COPYING %SCRIBUS_INSTALL_PATH%\share\doc
  copy %SCRIBUS_SRC_PATH%\LINKS %SCRIBUS_INSTALL_PATH%\share\doc
  copy %SCRIBUS_SRC_PATH%\TRANSLATION %SCRIBUS_INSTALL_PATH%\share\doc
-xcopy %SCRIBUS_SRC_PATH%\scribus\doc %SCRIBUS_INSTALL_PATH%\share\doc /s /y /D
+xcopy %SCRIBUS_SRC_PATH%\doc %SCRIBUS_INSTALL_PATH%\share\doc /s /y /D
 xcopy %SCRIBUS_SRC_PATH%\resources\dicts %SCRIBUS_INSTALL_PATH%\share\dicts /s /y /D
 xcopy %SCRIBUS_SRC_PATH%\resources\editorconfig %SCRIBUS_INSTALL_PATH%\share\editorconfig /s /y
 xcopy %SCRIBUS_SRC_PATH%\resources\icons %SCRIBUS_INSTALL_PATH%\share\icons /s /y /D
