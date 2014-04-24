@@ -996,7 +996,7 @@
     <ClInclude Include="..\..\..\scribus\text\textlayout.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\scribus\ui\viewtoolbar.h">
+    <ClInclude Include="..\..\..\scribus\appmodes.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -4876,6 +4876,9 @@
       <Filter>Header Files</Filter>
     </moc>
     <moc Include="..\..\..\scribus\qtiocompressor.h">
+      <Filter>Header Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\viewtoolbar.h">
       <Filter>Header Files</Filter>
     </moc>
   </ItemGroup>
