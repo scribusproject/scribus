@@ -210,6 +210,16 @@ void CanvasMode_Edit::drawControls(QPainter* p)
 			p->setPen(pp);
 			p->setBrush(QColor(0,0,255,10));
 			p->setRenderHint(QPainter::Antialiasing);
+			if (currItem->imageFlippedH())
+			{
+				p->translate(currItem->width(), 0);
+				p->scale(-1.0, 1.0);
+			}
+			if (currItem->imageFlippedV())
+			{
+				p->translate(0, currItem->height());
+				p->scale(1.0, -1.0);
+			}
 			p->translate(currItem->imageXOffset()*currItem->imageXScale(), currItem->imageYOffset()*currItem->imageYScale());
 			p->rotate(currItem->imageRotation());
 			p->drawRect(0, 0, currItem->OrigW*currItem->imageXScale(), currItem->OrigH*currItem->imageYScale());
