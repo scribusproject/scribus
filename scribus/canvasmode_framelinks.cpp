@@ -52,6 +52,7 @@
 #include "util_math.h"
 
 
+
 CanvasMode_FrameLinks::CanvasMode_FrameLinks(ScribusView* view) : CanvasMode(view), m_ScMW(view->m_ScMW) 
 {
 	Mxp = Myp = -1;

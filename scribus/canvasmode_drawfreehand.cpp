@@ -39,7 +39,6 @@
 #include "util_math.h"
 
 
-
 FreehandMode::FreehandMode(ScribusView* view) : CanvasMode(view) 
 {
 	Mxp = Myp = -1;

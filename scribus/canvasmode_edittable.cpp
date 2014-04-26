@@ -32,7 +32,6 @@ for which a new license (GPL+exception) is in place.
 #include "ui/scmwmenumanager.h"
 #include "util_icon.h"
 
-
 // TODO: We should have a preference for this instead.
 #ifdef Q_OS_MAC
 	static const Qt::KeyboardModifiers CellNavigationModifiers = Qt::AltModifier | Qt::KeypadModifier;

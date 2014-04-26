@@ -11,25 +11,24 @@ for which a new license (GPL+exception) is in place.
 #include <QToolTip>
 #include <QMessageBox>
 
-#include "prefsmanager.h"
-#include "prefsfile.h"
 #include "commonstrings.h"
+#include "fileloader.h"
+#include "prefsfile.h"
+#include "prefsmanager.h"
+#include "scraction.h"
 #include "scribusdoc.h"
 #include "scribusview.h"
-#include "stylemanager.h"
-#include "shortcutwidget.h"
-#include "ui/styleview.h"
-#include "styleitem.h"
-#include "smreplacedia.h"
 #include "selection.h"
-#include "ui/customfdialog.h"
-#include "smtextstyles.h"
+#include "shortcutwidget.h"
 #include "smlinestyle.h"
 #include "smlinestylewidget.h"
+#include "smreplacedia.h"
 #include "smstyleimport.h"
-#include "fileloader.h"
-#include "scraction.h"
-
+#include "smtextstyles.h"
+#include "styleitem.h"
+#include "stylemanager.h"
+#include "ui/customfdialog.h"
+#include "ui/styleview.h"
 
 const QString StyleManager::SEPARATOR = "$$$$"; // dumb but it works
 

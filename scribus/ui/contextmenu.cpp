@@ -107,7 +107,7 @@ void ContextMenu::createMenuItems_Selection()
 	if (selectedItemCount==1 && currItem->asImageFrame())
 	{
 		QAction *act = addMenu(menuInfo);
-		act->setText( ScribusView::tr("In&fo"));
+		act->setText( tr("In&fo"));
 		if (currItem->asImageFrame())
 		{
 			QLabel* menuLabel = new QLabel("<html>" + currItem->infoDescription() + "</html>", this);
@@ -131,12 +131,12 @@ void ContextMenu::createMenuItems_Selection()
 	
 			QLabel *printCT = new QLabel(infoGroup);
 			QLabel *printT = new QLabel(infoGroup);
-			printCT->setText( ScribusView::tr("Print: "));
+			printCT->setText( tr("Print: "));
 			infoGroupLayout->addWidget( printCT, row, 0, Qt::AlignRight );
 			if (currItem->printEnabled())
-				printT->setText( ScribusView::tr("Enabled"));
+				printT->setText( tr("Enabled"));
 			else
-				printT->setText( ScribusView::tr("Disabled"));
+				printT->setText( tr("Disabled"));
 			infoGroupLayout->addWidget( printT, row, 1 ); // </a.l.e>
 					
 			QWidgetAction* MenAct = new QWidgetAction(this);
@@ -146,7 +146,7 @@ void ContextMenu::createMenuItems_Selection()
 	// Qt4				menuInfo->insertItem(infoGroup);
 //			currItem->createContextMenu(menuInfo, 5);
 			QAction *act = addMenu(menuInfo);
-			act->setText( ScribusView::tr("In&fo"));
+			act->setText( tr("In&fo"));
 		} else	{
 			delete infoGroupLayout;
 			delete infoGroup;
@@ -185,7 +185,7 @@ void ContextMenu::createMenuItems_Selection()
 			//add actions for marks in edit mode
 			addSeparator();
 			QAction *act2 = addMenu(menuMark);
-			act2->setText( ScribusView::tr("Insert Mark"));
+			act2->setText( tr("Insert Mark"));
 			menuMark->addAction(m_ScMW->scrActions["insertMarkVariableText"]);
 			if (m_actionList.contains("insertMarkAnchor"))
 			{
@@ -333,7 +333,7 @@ void ContextMenu::createMenuItems_Selection()
 	if (currItem->itemType() == PageItem::TextFrame)
 	{
 		QAction *act = addMenu(menuPDF);
-		act->setText( ScribusView::tr("&PDF Options"));
+		act->setText( tr("&PDF Options"));
 		menuPDF->addAction(m_ScMW->scrActions["itemPDFIsAnnotation"]);
 		if (!m_doc->masterPageMode())
 			menuPDF->addAction(m_ScMW->scrActions["itemPDFIsBookmark"]);
@@ -357,12 +357,12 @@ void ContextMenu::createMenuItems_Selection()
 		menuLocking->addAction(m_ScMW->scrActions["itemLock"]);
 		menuLocking->addAction(m_ScMW->scrActions["itemLockSize"]);
 		QAction *actL = addMenu(menuLocking);
-		actL->setText( ScribusView::tr("Locking"));
+		actL->setText( tr("Locking"));
 
 		QAction *actST = addMenu(menuSendTo);
-		actST->setText( ScribusView::tr("Send to"));
+		actST->setText( tr("Send to"));
 		QAction *actScr = menuSendTo->addMenu(menuScrapbook);
-		actScr->setText( ScribusView::tr("Scrapbook"));
+		actScr->setText( tr("Scrapbook"));
 		menuSendTo->addAction(m_ScMW->scrActions["itemSendToPattern"]);
 		menuSendTo->addAction(m_ScMW->scrActions["itemSendToInline"]);
 
@@ -393,7 +393,7 @@ void ContextMenu::createMenuItems_Selection()
 				menuLayer->addAction(m_ScMW->scrLayersActions[QString::number(layerMap[i--])]);
 			}
 			QAction *act = addMenu(menuLayer);
-			act->setText( ScribusView::tr("Send to La&yer"));
+			act->setText( tr("Send to La&yer"));
 		}
 		//-->
 	}
@@ -423,7 +423,7 @@ void ContextMenu::createMenuItems_Selection()
 		if (menuLevel->actions().count()>0)
 		{
 			QAction *act = addMenu(menuLevel);
-			act->setText( ScribusView::tr("Le&vel"));
+			act->setText( tr("Le&vel"));
 		}
 	}
 	//-->
@@ -446,7 +446,7 @@ void ContextMenu::createMenuItems_Selection()
 		if (menuConvertTo->actions().count()>0)
 		{
 			QAction *act = addMenu(menuConvertTo);
-			act->setText( ScribusView::tr("Conve&rt to"));
+			act->setText( tr("Conve&rt to"));
 		}
 	}
 	//-->
@@ -478,7 +478,7 @@ void ContextMenu::createMenuItems_Selection()
 	if (menuEditContents->actions().count()>0)
 	{
 		QAction *act = addMenu(menuEditContents);
-		act->setText( ScribusView::tr("Contents"));
+		act->setText( tr("Contents"));
 	}
 	//-->
 	
@@ -505,7 +505,7 @@ void ContextMenu::createMenuItems_Selection()
 //		menuWeld->addAction(m_AP->scrActions["itemWeld13"]);
 //		menuWeld->addAction(m_AP->scrActions["itemWeld31"]);
 //		QAction *act = addMenu(menuWeld);
-//		act->setText( ScribusView::tr("Weld to last..."));
+//		act->setText( tr("Weld to last..."));
 //	}
 	//-->
 	
@@ -526,7 +526,7 @@ void ContextMenu::createMenuItems_NoSelection(double mx, double my)
 	{
 		m_doc->view()->dragX = mx;
 		m_doc->view()->dragY = my;
-		addAction( ScribusView::tr("&Paste Here") , m_doc->view(), SLOT(PasteToPage()));
+		addAction( tr("&Paste Here") , m_doc->view(), SLOT(PasteToPage()));
 	}
 	if (m_ScMW->scrRecentPasteActions.count()>0)
 	{
@@ -534,7 +534,7 @@ void ContextMenu::createMenuItems_NoSelection(double mx, double my)
 		m_doc->view()->dragY = my;
 		QMenu* menuPasteRecent = new QMenu(this);
 		QAction *act = addMenu(menuPasteRecent);
-		act->setText( ScribusView::tr("Paste Recent"));
+		act->setText( tr("Paste Recent"));
 		
 		QMap<QString, QPointer<ScrAction> > scrRecentPasteActions;
 		ScrAction *recentPasteAction;

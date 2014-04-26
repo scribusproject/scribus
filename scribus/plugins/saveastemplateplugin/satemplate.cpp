@@ -13,6 +13,7 @@ for which a new license (GPL+exception) is in place.
 #include "scpaths.h"
 #include "scribuscore.h"
 #include "scribusdoc.h"
+#include "scribusview.h"
 #include "prefsfile.h"
 #include "prefsmanager.h"
 

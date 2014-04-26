@@ -41,7 +41,7 @@ ExtImageProps::ExtImageProps( QWidget* parent, ImageInfoRecord *info, PageItem *
 	ExtImagePropsLayout = new QVBoxLayout( this );
 	ExtImagePropsLayout->setMargin(6);
 	ExtImagePropsLayout->setSpacing(6);
-	viewWidget = view;
+	m_view = view;
 	currentItem = item;
 	currentLayer = 0;
 	originalInfo = *info;
@@ -315,7 +315,7 @@ void ExtImageProps::leaveOK()
 	doPreview = false;
 	if (originalInfo.layerInfo.count() != 0)
 		changedLayer();
-	viewWidget->Doc->loadPict(currentItem->Pfile, currentItem, true);
+	m_view->Doc->loadPict(currentItem->Pfile, currentItem, true);
 	if (pathList->count() != 0)
 	{
 		QList<QListWidgetItem *>sel = pathList->selectedItems();
@@ -342,7 +342,7 @@ void ExtImageProps::leaveOK()
 void ExtImageProps::leaveCancel()
 {
 	currentItem->pixm.imgInfo = originalInfo;
-	viewWidget->Doc->loadPict(currentItem->Pfile, currentItem, true);
+	m_view->Doc->loadPict(currentItem->Pfile, currentItem, true);
 	currentItem->imageClip = originalImageClip.copy();
 	currentItem->update();
 	reject();
@@ -355,7 +355,7 @@ void ExtImageProps::changePreview()
 	{
 		if (originalInfo.layerInfo.count() != 0)
 			changedLayer();
-		viewWidget->Doc->loadPict(currentItem->Pfile, currentItem, true);
+		m_view->Doc->loadPict(currentItem->Pfile, currentItem, true);
 		if (pathList->count() != 0)
 		{
 			QList<QListWidgetItem *>sel = pathList->selectedItems();
@@ -380,7 +380,7 @@ void ExtImageProps::changePreview()
 	else
 	{
 		currentItem->pixm.imgInfo = originalInfo;
-		viewWidget->Doc->loadPict(currentItem->Pfile, currentItem, true);
+		m_view->Doc->loadPict(currentItem->Pfile, currentItem, true);
 		currentItem->imageClip = originalImageClip.copy();
 		currentItem->update();
 	}
@@ -411,7 +411,7 @@ void ExtImageProps::changedLayer()
 	}
 	if (doPreview)
 	{
-		viewWidget->Doc->loadPict(currentItem->Pfile, currentItem, true);
+		m_view->Doc->loadPict(currentItem->Pfile, currentItem, true);
 		currentItem->update();
 	}
 }

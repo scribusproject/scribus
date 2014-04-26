@@ -45,7 +45,9 @@
 #include "util_math.h"
 
 
-CanvasMode_ObjImport::CanvasMode_ObjImport(ScribusView* view) : CanvasMode(view), m_ScMW(view->m_ScMW) 
+CanvasMode_ObjImport::CanvasMode_ObjImport(ScribusView* view) :
+	CanvasMode(view),
+	m_ScMW(view->m_ScMW)
 {
 	Mxp = Myp = -1;
 	m_mimeData = NULL;

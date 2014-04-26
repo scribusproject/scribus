@@ -10,6 +10,7 @@ for which a new license (GPL+exception) is in place.
 #include "nodeeditpalette.h"
 #include "pageitem.h"
 #include "scpage.h"
+#include "scribusdoc.h"
 #include "scribusview.h"
 #include "selection.h"
 #include "undomanager.h"

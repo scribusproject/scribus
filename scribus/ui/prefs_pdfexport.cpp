@@ -14,6 +14,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "scribuscore.h"
 #include "scribusdoc.h"
+#include "scribusview.h"
 #include "ui/scrspinbox.h"
 #include "units.h"
 #include "util.h"

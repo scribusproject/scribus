@@ -75,6 +75,7 @@
 
 
 
+
 CanvasMode_Normal::CanvasMode_Normal(ScribusView* view) : CanvasMode(view), m_ScMW(view->m_ScMW) 
 {
 	frameResizeHandle = -1;

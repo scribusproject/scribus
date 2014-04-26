@@ -20,26 +20,27 @@ for which a new license (GPL+exception) is in place.
 #include <QRegExp>
 
 #include "commonstrings.h"
-
-#include "scribusXml.h"
 #include "fonts/scfontmetrics.h"
 #include "fpointarray.h"
-#include "ui/scmwmenumanager.h"
-#include "prefsmanager.h"
+#include "loadsaveplugin.h"
 #include "pageitem.h"
 #include "prefsfile.h"
+#include "prefsmanager.h"
 #include "scmimedata.h"
 #include "scraction.h"
+#include "scribusXml.h"
 #include "scribuscore.h"
 #include "scribusdoc.h"
+#include "scribusview.h"
 #include "selection.h"
 #include "ui/customfdialog.h"
 #include "ui/propertiespalette.h"
+#include "ui/scmwmenumanager.h"
 #include "undomanager.h"
-#include "loadsaveplugin.h"
 #include "util.h"
 #include "util_icon.h"
 #include "util_math.h"
+
 
 
 using namespace std;

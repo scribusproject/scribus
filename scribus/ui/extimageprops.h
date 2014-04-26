@@ -51,7 +51,7 @@ public:
 	QPushButton* cancelButton;
 	QList<QCheckBox*> FlagsSicht;
 	QList<QCheckBox*> FlagsMask;
-	ScribusView *viewWidget;
+	ScribusView *m_view;
 	PageItem *currentItem;
 	int currentLayer;
 	bool doPreview;

@@ -14,7 +14,7 @@ for which a new license (GPL+exception) is in place.
 #include "propertiespalette.h"
 #include "propertiespalette_line.h"
 #include "scribusdoc.h"
-#include "scribusview.h"
+
 #include "selection.h"
 #include "sccolorengine.h"
 #include "util_color.h"

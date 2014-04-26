@@ -60,7 +60,6 @@
 #include "util_icon.h"
 #include "util_math.h"
 
-
 CanvasMode_Edit::CanvasMode_Edit(ScribusView* view) : CanvasMode(view), m_ScMW(view->m_ScMW) 
 {
 	Mxp = Myp = -1;

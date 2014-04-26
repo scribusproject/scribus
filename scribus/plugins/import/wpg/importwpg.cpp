@@ -16,19 +16,17 @@ for which a new license (GPL+exception) is in place.
 #include <QDebug>
 
 #include <cstdlib>
+#include <stdio.h>
+
+#include "importwpg.h"
 
 #include "commonstrings.h"
-#include "ui/customfdialog.h"
-#include "importwpg.h"
 #include "loadsaveplugin.h"
-#include "ui/missing.h"
-#include "ui/multiprogressdialog.h"
 #include "pagesize.h"
 #include "prefscontext.h"
 #include "prefsfile.h"
 #include "prefsmanager.h"
 #include "prefstable.h"
-#include "ui/propertiespalette.h"
 #include "rawimage.h"
 #include "scclocale.h"
 #include "sccolorengine.h"
@@ -36,18 +34,24 @@ for which a new license (GPL+exception) is in place.
 #include "scmimedata.h"
 #include "scpaths.h"
 #include "scpattern.h"
-
 #include "scribusXml.h"
 #include "scribuscore.h"
+#include "scribusdoc.h"
+#include "scribusview.h"
 #include "sctextstream.h"
 #include "selection.h"
+#include "third_party/wpg/WPGStreamImplementation.h"
+#include "ui/customfdialog.h"
+#include "ui/missing.h"
+#include "ui/multiprogressdialog.h"
+#include "ui/propertiespalette.h"
 #include "undomanager.h"
 #include "util.h"
 #include "util_formats.h"
 #include "util_icon.h"
 #include "util_math.h"
-#include <stdio.h>
-#include "third_party/wpg/WPGStreamImplementation.h"
+
+
 
 extern SCRIBUS_API ScribusQApp * ScQApp;
 

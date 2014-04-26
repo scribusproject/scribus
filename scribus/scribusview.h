@@ -24,23 +24,17 @@ for which a new license (GPL+exception) is in place.
 #ifndef SCRIBUSVIEW_H
 #define SCRIBUSVIEW_H
 
-#include "styleoptions.h"
-
 #include <vector>
 // include files for QT
 #include <QScrollArea>
 #include <QLineEdit>
 #include <QScrollBar>
-#if OPTION_USE_QTOOLBUTTON
-    #include <QToolButton>
-#else
-    #include <QPushButton>
-#endif
 #include <QMap>
 #include <QMenu>
 #include <QLabel>
 #include <QComboBox>
 #include <QProgressDialog>
+#include <QPushButton>
 #include <QSpinBox>
 #include <QCursor>
 #include <QDragLeaveEvent>

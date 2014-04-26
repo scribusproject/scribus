@@ -20,25 +20,25 @@ for which a new license (GPL+exception) is in place.
 #include <tiffio.h>
 #include <zlib.h>
 
-#include "commonstrings.h"
-
 #include "importai.h"
+
+#include "commonstrings.h"
 #include "loadsaveplugin.h"
 #include "prefscontext.h"
 #include "prefsfile.h"
 #include "prefsmanager.h"
 #include "prefstable.h"
 #include "rawimage.h"
+#include "scclocale.h"
 #include "sccolorengine.h"
 #include "scconfig.h"
-#include "scclocale.h"
 #include "scmimedata.h"
 #include "scpaths.h"
 #include "scpattern.h"
-
 #include "scribusXml.h"
 #include "scribuscore.h"
 #include "scribusdoc.h"
+#include "scribusview.h"
 #include "sctextstream.h"
 #include "selection.h"
 #include "text/specialchars.h"
@@ -51,9 +51,9 @@ for which a new license (GPL+exception) is in place.
 #include "util_color.h"
 #include "util_file.h"
 #include "util_formats.h"
+#include "util_ghostscript.h"
 #include "util_icon.h"
 #include "util_math.h"
-#include "util_ghostscript.h"
 
 #include <cairo.h>
 

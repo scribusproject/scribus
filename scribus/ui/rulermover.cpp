@@ -28,6 +28,7 @@ for which a new license (GPL+exception) is in place.
 #include <QMenu>
 #include <QPixmap>
 #include <QPalette>
+#include <QWidget>
 
 #include "canvas.h"
 #include "canvasgesture_rulermove.h"

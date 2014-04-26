@@ -31,7 +31,6 @@ for which a new license (GPL+exception) is in place.
 #include "urllauncher.h"
 #include "util_icon.h"
 
-
 QMap<QString, QKeySequence> ActionManager::defKeys;
 QVector< QPair<QString, QStringList> > ActionManager::defMenuNames;
 QVector< QPair<QString, QStringList> > ActionManager::defMenus;

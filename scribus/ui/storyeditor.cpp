@@ -45,6 +45,7 @@ for which a new license (GPL+exception) is in place.
 #include <QPixmap>
 #include <QRegExp>
 #include <QShowEvent>
+#include <QScrollBar>
 #include <QTextBlock>
 #include <QTextCodec>
 #include <QTextLayout>
@@ -52,12 +53,11 @@ for which a new license (GPL+exception) is in place.
 
 #include "actionmanager.h"
 #include "alignselect.h"
-#include "ui/charselect.h"
 #include "colorcombo.h"
 #include "colorlistbox.h"
 #include "commonstrings.h"
-#include "ui/customfdialog.h"
 #include "fontcombo.h"
+#include "loremipsum.h"
 #include "menumanager.h"
 #include "pageitem.h"
 #include "pageitem_textframe.h"
@@ -69,20 +69,21 @@ for which a new license (GPL+exception) is in place.
 #include "scplugin.h"
 #include "scraction.h"
 #include "scribuscore.h"
+#include "scribusview.h"
 #include "scrspinbox.h"
 #include "search.h"
 #include "serializer.h"
 #include "shadebutton.h"
-#include "ui/spalette.h"
 #include "storyeditor.h"
 #include "styleitem.h"
-//#include "ui/stylemanager.h"
 #include "styleselect.h"
+#include "ui/charselect.h"
+#include "ui/customfdialog.h"
+#include "ui/spalette.h"
+#include "ui/stylemanager.h"
 #include "units.h"
 #include "util.h"
 #include "util_icon.h"
-#include "loremipsum.h"
-
 
 class StyledTextMimeData : public QMimeData
 {

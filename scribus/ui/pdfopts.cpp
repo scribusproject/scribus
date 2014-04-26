@@ -15,17 +15,6 @@ for which a new license (GPL+exception) is in place.
 #include "scconfig.h"
 #include "pdfopts.h"
 
-#include "commonstrings.h"
-#include "pdfoptions.h"
-#include "prefsfile.h"
-#include "prefsmanager.h"
-#include "scpaths.h"
-#include "scribusview.h"
-#include "ui/customfdialog.h"
-#include "ui/scrspinbox.h"
-#include "units.h"
-#include "util.h"
-#include "util_icon.h"
 
 #include <QByteArray>
 #include <QCheckBox>
@@ -40,6 +29,19 @@ for which a new license (GPL+exception) is in place.
 #include <QToolButton>
 #include <QToolTip>
 #include <QVBoxLayout>
+
+#include "commonstrings.h"
+#include "pdfoptions.h"
+#include "prefsfile.h"
+#include "prefsmanager.h"
+#include "scpaths.h"
+#include "scribusdoc.h"
+#include "scribusview.h"
+#include "ui/customfdialog.h"
+#include "ui/scrspinbox.h"
+#include "units.h"
+#include "util.h"
+#include "util_icon.h"
 
 PDFExportDialog::PDFExportDialog( QWidget* parent, const QString & docFileName,
 								  const QMap<QString, int > & DocFonts,

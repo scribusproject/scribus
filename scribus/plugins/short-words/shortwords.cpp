@@ -37,6 +37,7 @@ or documentation
 #include "scpaths.h"
 #include "scribus.h"
 #include "scribusdoc.h"
+#include "scribusview.h"
 #include "util_icon.h"
 
 int scribusshortwords_getPluginAPIVersion()

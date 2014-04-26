@@ -14,6 +14,7 @@ for which a new license (GPL+exception) is in place.
 #include "../formatidlist.h"
 #include "loadsaveplugin.h"
 #include "scribuscore.h"
+#include "scribusview.h"
 #include "selection.h"
 #include "ui/propertiespalette.h"
 #include "ui/propertiespalette_line.h"

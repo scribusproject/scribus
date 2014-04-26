@@ -6,13 +6,15 @@ for which a new license (GPL+exception) is in place.
 */
 #include "cmdmani.h"
 #include "cmdutil.h"
-#include "selection.h"
 #include "scribuscore.h"
 #include "scribusdoc.h"
+#include "scribusview.h"
+#include "sctextstream.h"
+#include "selection.h"
 #include "ui/propertiespalette.h" //CB argh.. noooooooooooooooooooooooooooooooooooo FIXME see other FIXME
 #include "ui/propertiespalette_image.h"
 #include "undomanager.h"
-#include "sctextstream.h"
+
 
 PyObject *scribus_loadimage(PyObject* /* self */, PyObject* args)
 {

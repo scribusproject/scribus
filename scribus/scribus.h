@@ -39,9 +39,11 @@ for which a new license (GPL+exception) is in place.
 #include <QMultiHash>
 #include <QPixmap>
 #include <QPointer>
+#include <QPushButton>
 #include <QProcess>
 #include <QQuickView>
 #include <QString>
+#include <QToolButton>
 
 class QCloseEvent;
 class QDragEnterEvent;
@@ -51,13 +53,11 @@ class QKeyEvent;
 class QLabel;
 class QMdiArea;
 class QMdiSubWindow;
-class QProgressBar;
-class QToolButton;
 
 // application specific includes
 #include "scribusapi.h"
-#include "scribusview.h"
 #include "scribusdoc.h"
+#include "styleoptions.h"
 #include "ui/customfdialog.h"
 #include "appmodehelper.h"
 
@@ -88,6 +88,7 @@ class PDFToolBar;
 class PSLib;
 class PageItem;
 class PagePalette;
+class PageSelector;
 class PrefsContext;
 class PrefsManager;
 class PropertiesPalette;
@@ -98,6 +99,7 @@ class ScribusCore;
 class ScribusMainWindow;
 class ScribusQApp;
 class ScribusWin;
+class ScrSpinBox;
 class SimpleState;
 class StoryEditor;
 class StyleManager;

@@ -9,14 +9,15 @@ for which a new license (GPL+exception) is in place.
 #include "langmgr.h"
 #include "pageitem.h"
 #include "pageitem_textframe.h"
-#include "selection.h"
 #include "scpaths.h"
-#include "scribusdoc.h"
 #include "scribus.h"
+#include "scribusdoc.h"
 #include "scribusview.h"
-#include "ui/storyeditor.h"
+#include "selection.h"
 #include "text/specialchars.h"
+#include "ui/storyeditor.h"
 #include "util.h"
+
 
 #include <QDebug>
 #include <QDir>

@@ -22,7 +22,7 @@ for which a new license (GPL+exception) is in place.
 #include "scpattern.h"
 #include "scribuscore.h"
 #include "scribusdoc.h"
-#include "scribusview.h"
+
 #include "sctextstream.h"
 #include "scxmlstreamreader.h"
 #include "undomanager.h"

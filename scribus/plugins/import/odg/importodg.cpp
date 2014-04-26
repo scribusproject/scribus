@@ -32,14 +32,15 @@ for which a new license (GPL+exception) is in place.
 #include <climits>
 #include <limits>
 
-#include "color.h"
-
 #include "importodg.h"
+
+#include "color.h"
 #include "fileloader.h"
 #include "fparser.h"
 #include "loadsaveplugin.h"
 #include "pageitem_table.h"
 #include "pagesize.h"
+#include "plugins/formatidlist.h"
 #include "prefscontext.h"
 #include "prefsfile.h"
 #include "prefsmanager.h"
@@ -51,23 +52,22 @@ for which a new license (GPL+exception) is in place.
 #include "scmimedata.h"
 #include "scpainter.h"
 #include "scpaths.h"
-
 #include "scribusXml.h"
 #include "scribuscore.h"
+#include "scribusdoc.h"
+#include "scribusview.h"
 #include "sctextstream.h"
 #include "selection.h"
-#include "undomanager.h"
-#include "util_formats.h"
-#include "util_icon.h"
-#include "util_math.h"
-#include "plugins/formatidlist.h"
-
+#include "third_party/zip/scribus_zip.h"
 #include "ui/customfdialog.h"
 #include "ui/missing.h"
 #include "ui/multiprogressdialog.h"
 #include "ui/propertiespalette.h"
+#include "undomanager.h"
+#include "util_formats.h"
+#include "util_icon.h"
+#include "util_math.h"
 
-#include "third_party/zip/scribus_zip.h"
 
 extern SCRIBUS_API ScribusQApp * ScQApp;
 

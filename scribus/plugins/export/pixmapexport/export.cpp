@@ -15,6 +15,7 @@ for which a new license (GPL+exception) is in place.
 #include <QSharedPointer>
 
 #include "scribus.h"
+#include "scribusdoc.h"
 #include "scribusview.h"
 #include "scraction.h"
 #include "ui/scmwmenumanager.h"

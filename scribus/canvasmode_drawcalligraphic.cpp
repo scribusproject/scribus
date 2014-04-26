@@ -44,6 +44,7 @@
 
 
 
+
 CalligraphicMode::CalligraphicMode(ScribusView* view) : CanvasMode(view) 
 {
 	Mxp = Myp = -1;

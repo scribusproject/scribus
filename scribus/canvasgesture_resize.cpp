@@ -25,13 +25,13 @@
 #include <QPen>
 #include <QRubberBand>
 
+#include "pageitem_arc.h"
+#include "pageitem_spiral.h"
+#include "pageitem_table.h"
 #include "scribusdoc.h"
 #include "scribusview.h"
 #include "selection.h"
 #include "undomanager.h"
-#include "pageitem_arc.h"
-#include "pageitem_spiral.h"
-#include "pageitem_table.h"
 #include "util_math.h"
 
 ResizeGesture::ResizeGesture (CanvasMode* parent) : CanvasGesture(parent)

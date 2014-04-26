@@ -12,6 +12,7 @@ for which a new license (GPL+exception) is in place.
 #include "pageitem_table.h"
 #include "scribuscore.h"
 #include "scribusdoc.h"
+#include "scribusview.h"
 #include "selection.h"
 #include "util_math.h"
 

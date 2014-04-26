@@ -10,6 +10,7 @@ for which a new license (GPL+exception) is in place.
 #include "prefsmanager.h"
 #include "scribusdoc.h"
 #include "scribuscore.h"
+#include "scribusview.h"
 #include <structmember.h>
 #include "ui/bookmarkpalette.h"
 

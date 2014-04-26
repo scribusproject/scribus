@@ -22,7 +22,6 @@
 
 #include "canvas.h"
 #include "pageitem_line.h"
-#include "scribusdoc.h"
 #include "scribusview.h"
 #include "selection.h"
 #include "util_math.h"

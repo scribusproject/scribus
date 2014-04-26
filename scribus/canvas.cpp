@@ -20,6 +20,7 @@
 
 // #include <QDebug>
 #include <QToolTip>
+#include <QWidget>
 
 #include "appmodes.h"
 #include "canvas.h"

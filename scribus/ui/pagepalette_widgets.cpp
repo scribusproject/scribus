@@ -24,7 +24,7 @@ for which a new license (GPL+exception) is in place.
 #include "sccombobox.h"
 #include "scpage.h"
 
-#include "scribusview.h"
+
 #include "util_icon.h"
 
 /* IconItems Code */

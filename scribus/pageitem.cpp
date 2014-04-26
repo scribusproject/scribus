@@ -38,8 +38,6 @@ for which a new license (GPL+exception) is in place.
 #include <sstream>
 #include <QDebug>
 
-
-
 #include "appmodes.h"
 #include "canvas.h"
 #include "cmsettings.h"
@@ -65,14 +63,16 @@ for which a new license (GPL+exception) is in place.
 #include "scpainter.h"
 #include "scpaths.h"
 #include "scpattern.h"
-
 #include "scribusapp.h"
 #include "scribuscore.h"
 #include "scribusdoc.h"
+#include "scribusview.h"
 #include "scribuswin.h"
 #include "sctextstream.h"
 #include "selection.h"
 #include "text/storytext.h"
+#include "ui/guidemanager.h"
+#include "ui/propertiespalette.h"
 #include "undomanager.h"
 #include "undostate.h"
 #include "util.h"
@@ -82,9 +82,6 @@ for which a new license (GPL+exception) is in place.
 #include "util_math.h"
 #include "util_text.h"
 
-
-#include "ui/guidemanager.h"
-#include "ui/propertiespalette.h"
 
 #include <cairo.h>
 

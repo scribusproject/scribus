@@ -24,13 +24,16 @@ for which a new license (GPL+exception) is in place.
 *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.              *
 ****************************************************************************/
 
-#include "pathdialog.h"
 #include "pathalongpath.h"
-#include "pageitem_group.h"
-#include "scribuscore.h"
+
 #include "appmodes.h"
+#include "pageitem_group.h"
+#include "pathdialog.h"
+#include "scribuscore.h"
+#include "scribusview.h"
 #include "util.h"
 #include "util_math.h"
+
 
 int pathalongpath_getPluginAPIVersion()
 {

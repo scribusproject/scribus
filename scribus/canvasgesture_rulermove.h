@@ -20,12 +20,6 @@
 
 #include <QPoint>
 
-#include "scribusapi.h"
-#include "canvas.h"
-#include "canvasgesture.h"
-#include "canvasmode.h"
-#include "scribusview.h"
-
 class QCursor;
 class QDragEnterEvent;
 class QDragMoveEvent;
@@ -36,7 +30,14 @@ class QInputMethodEvent;
 class QMouseEvent;
 class QKeyEvent;
 class QPainter;
+
+#include "scribusapi.h"
+#include "canvas.h"
+#include "canvasgesture.h"
+#include "canvasmode.h"
+
 class ScribusMainWindow;
+class ScribusView;
 
 /**
   This class realizes the moving of guides and the moving of the ruler origin
@@ -46,8 +47,7 @@ class SCRIBUS_API RulerGesture : public CanvasGesture
 	Q_OBJECT
 public:
 	enum Mode { HORIZONTAL, VERTICAL, ORIGIN };
-	RulerGesture (ScribusView* view, Mode mode) : 
-		CanvasGesture(view), m_ScMW(m_view->m_ScMW), m_mode(mode), m_haveGuide(false), m_haveCursor(false), m_xy(0,0) {};
+	RulerGesture (ScribusView* view, Mode mode);
 	virtual ~RulerGesture() {}
 
 	/**

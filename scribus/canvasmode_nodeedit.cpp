@@ -26,17 +26,16 @@
 #include "pageitem.h"
 #include "scraction.h"
 #include "scribus.h"
+#include "scribusXml.h"
 #include "scribusdoc.h"
 #include "scribusview.h"
-#include "scribusXml.h"
 #include "selection.h"
-#include "undomanager.h"
-#include "util_icon.h"
-#include "util_math.h"
 #include "ui/pageselector.h"
 #include "ui/propertiespalette.h"
 #include "ui/scrspinbox.h"
-
+#include "undomanager.h"
+#include "util_icon.h"
+#include "util_math.h"
 
 CanvasMode_NodeEdit::CanvasMode_NodeEdit(ScribusView* view) : CanvasMode(view), m_rectangleSelect(NULL)
 {

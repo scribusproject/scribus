@@ -41,7 +41,6 @@
 #include "util_math.h"
 
 
-
 CanvasMode_EyeDropper::CanvasMode_EyeDropper(ScribusView* view) : CanvasMode(view), m_ScMW(view->m_ScMW) 
 {
 	m_mouseGrabbed = false;

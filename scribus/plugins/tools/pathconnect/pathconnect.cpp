@@ -28,6 +28,7 @@ for which a new license (GPL+exception) is in place.
 #include "pathconnectdialog.h"
 #include "selection.h"
 #include "scribusdoc.h"
+#include "scribusview.h"
 #include "undomanager.h"
 
 int pathconnect_getPluginAPIVersion()

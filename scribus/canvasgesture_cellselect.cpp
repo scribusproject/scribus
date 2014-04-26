@@ -7,6 +7,8 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 
+#include "canvasgesture_cellselect.h"
+
 #include <algorithm>
 
 #include <QMouseEvent>
@@ -23,8 +25,6 @@ for which a new license (GPL+exception) is in place.
 #include "tablecell.h"
 #include "tableutils.h"
 #include "ui/scmwmenumanager.h"
-
-#include "canvasgesture_cellselect.h"
 
 void CellSelect::deactivate(bool forGesture)
 {

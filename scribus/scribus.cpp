@@ -50,6 +50,7 @@ for which a new license (GPL+exception) is in place.
 #include <QMouseEvent>
 #include <QPixmap>
 #include <QProgressBar>
+#include <QPushButton>
 //<<QML testing
 #include <QHBoxLayout>
 #include <QQuickView>
@@ -111,18 +112,21 @@ for which a new license (GPL+exception) is in place.
 #include "gtgettext.h"
 #include "hyphenator.h"
 #include "langmgr.h"
+#include "loadsaveplugin.h"
 #include "marks.h"
+#include "nfttemplate.h"
 #include "notesstyles.h"
 #include "pageitem_group.h"
 #include "pageitem_imageframe.h"
 #include "pageitem_latexframe.h"
+#include "pageitem_noteframe.h"
 #include "pageitem_table.h"
 #include "pageitem_textframe.h"
-#include "pageitem_noteframe.h"
 #include "pagesize.h"
 #include "pdflib.h"
 #include "pdfoptions.h"
 #include "pluginmanager.h"
+#include "plugins/formatidlist.h"
 #include "plugins/formatidlist.h"
 #include "prefscontext.h"
 #include "prefsfile.h"
@@ -132,20 +136,22 @@ for which a new license (GPL+exception) is in place.
 #include "resourcecollection.h"
 #include "sccolorengine.h"
 #include "scgtplugin.h"
+#include "scimagecachemanager.h"
 #include "scmimedata.h"
 #include "scpage.h"
 #include "scpaths.h"
 #include "scprintengine_ps.h"
 #include "scraction.h"
-
-#include "scribusdoc.h"
 #include "scribusXml.h"
 #include "scribusapp.h"
 #include "scribuscore.h"
+#include "scribusdoc.h"
 #include "scribusview.h"
 #include "scribuswin.h"
 #include "selection.h"
 #include "serializer.h"
+#include "styleoptions.h"
+#include "tocgenerator.h"
 #include "ui/about.h"
 #include "ui/aboutplugins.h"
 #include "ui/adjustcmsdialog.h"
@@ -162,10 +168,13 @@ for which a new license (GPL+exception) is in place.
 #include "ui/collectforoutput_ui.h"
 #include "ui/colorcombo.h"
 #include "ui/contextmenu.h"
+#include "ui/copypagetomasterpagedialog.h"
 #include "ui/cpalette.h"
 #include "ui/customfdialog.h"
 #include "ui/delpages.h"
+#include "ui/edittoolbar.h"
 #include "ui/effectsdialog.h"
+#include "ui/filetoolbar.h"
 #include "ui/fontcombo.h"
 #include "ui/guidemanager.h"
 #include "ui/helpbrowser.h"
@@ -177,32 +186,26 @@ for which a new license (GPL+exception) is in place.
 #include "ui/javadocs.h"
 #include "ui/layers.h"
 #include "ui/loremipsum.h"
-#include "ui/marginwidget.h"
 #include "ui/margindialog.h"
+#include "ui/marginwidget.h"
 #include "ui/mark2item.h"
 #include "ui/mark2mark.h"
 #include "ui/markanchor.h"
-#include "ui/marknote.h"
-#include "ui/markvariabletext.h"
 #include "ui/markinsert.h"
+#include "ui/marknote.h"
 #include "ui/marksmanager.h"
+#include "ui/markvariabletext.h"
 #include "ui/masterpagepalette.h"
 #include "ui/mergedoc.h"
+#include "ui/modetoolbar.h"
 #include "ui/movepage.h"
 #include "ui/multipleduplicate.h"
 #include "ui/newfile.h"
 #include "ui/newtemp.h"
-#include "nfttemplate.h"
 #include "ui/nftdialog.h"
-#include "ui_nftdialog.h"
 #include "ui/nftwidget.h"
 #include "ui/nodeeditpalette.h"
 #include "ui/notesstyleseditor.h"
-#ifdef HAVE_OSG
-	#include "ui/osgeditor.h"
-	#include <osgDB/ReaderWriter>
-	#include <osgDB/PluginQuery>
-#endif
 #include "ui/outlinepalette.h"
 #include "ui/pageitemattributes.h"
 #include "ui/pagelayout.h"
@@ -210,6 +213,7 @@ for which a new license (GPL+exception) is in place.
 #include "ui/pageselector.h"
 #include "ui/paintmanager.h"
 #include "ui/pdfopts.h"
+#include "ui/pdftoolbar.h"
 #include "ui/picstatus.h"
 #include "ui/polygonwidget.h"
 #include "ui/preferencesdialog.h"
@@ -226,10 +230,11 @@ for which a new license (GPL+exception) is in place.
 #include "ui/sccombobox.h"
 #include "ui/scfilewidget.h"
 #include "ui/scmessagebox.h"
-#include "ui/scrapbookpalette.h"
 #include "ui/scmwmenumanager.h"
-#include "ui/selectobjects.h"
+#include "ui/scrapbookpalette.h"
+#include "ui/scrspinbox.h"
 #include "ui/search.h"
+#include "ui/selectobjects.h"
 #include "ui/smcellstyle.h"
 #include "ui/smlinestyle.h"
 #include "ui/smtablestyle.h"
@@ -239,15 +244,11 @@ for which a new license (GPL+exception) is in place.
 #include "ui/stylemanager.h"
 #include "ui/symbolpalette.h"
 #include "ui/tabmanager.h"
-#include "tocgenerator.h"
 #include "ui/transformdialog.h"
 #include "ui/transparencypalette.h"
-#include "ui/copypagetomasterpagedialog.h"
-#include "ui/edittoolbar.h"
-#include "ui/filetoolbar.h"
-#include "ui/modetoolbar.h"
-#include "ui/pdftoolbar.h"
 #include "ui/viewtoolbar.h"
+#include "ui/vruler.h"
+#include "ui_nftdialog.h"
 #include "undogui.h"
 #include "undomanager.h"
 #include "undostate.h"
@@ -258,10 +259,14 @@ for which a new license (GPL+exception) is in place.
 #include "util_ghostscript.h"
 #include "util_icon.h"
 #include "util_math.h"
-#include "ui/vruler.h"
-#include "loadsaveplugin.h"
-#include "plugins/formatidlist.h"
-#include "scimagecachemanager.h"
+
+
+
+#ifdef HAVE_OSG
+	#include "ui/osgeditor.h"
+	#include <osgDB/ReaderWriter>
+	#include <osgDB/PluginQuery>
+#endif
 
 #if defined(_WIN32)
 #include "scdocoutput_ps2.h"
@@ -1200,9 +1205,9 @@ void ScribusMainWindow::initStatusBar()
 	pageSelector->setFocusPolicy(Qt::ClickFocus);
 
 #if OPTION_USE_QTOOLBUTTON
-	zoomOutToolbarButton = new QToolButton(this);
 	zoomDefaultToolbarButton = new QToolButton(this);
 	zoomInToolbarButton = new QToolButton(this);
+	zoomOutToolbarButton = new QToolButton(this);
 	zoomDefaultToolbarButton->setAutoRaise(OPTION_FLAT_BUTTON);
 	zoomOutToolbarButton->setAutoRaise(OPTION_FLAT_BUTTON);
 	zoomInToolbarButton->setAutoRaise(OPTION_FLAT_BUTTON);

@@ -17,18 +17,16 @@ for which a new license (GPL+exception) is in place.
 
 #include <cstdlib>
 
-#include "commonstrings.h"
-#include "ui/customfdialog.h"
 #include "importshape.h"
+
+
+#include "commonstrings.h"
 #include "loadsaveplugin.h"
-#include "ui/missing.h"
-#include "ui/multiprogressdialog.h"
 #include "pagesize.h"
 #include "prefscontext.h"
 #include "prefsfile.h"
 #include "prefsmanager.h"
 #include "prefstable.h"
-#include "ui/propertiespalette.h"
 #include "rawimage.h"
 #include "scclocale.h"
 #include "sccolorengine.h"
@@ -36,11 +34,16 @@ for which a new license (GPL+exception) is in place.
 #include "sclimits.h"
 #include "scmimedata.h"
 #include "scpaths.h"
-
 #include "scribusXml.h"
 #include "scribuscore.h"
+#include "scribusdoc.h"
+#include "scribusview.h"
 #include "sctextstream.h"
 #include "selection.h"
+#include "ui/customfdialog.h"
+#include "ui/missing.h"
+#include "ui/multiprogressdialog.h"
+#include "ui/propertiespalette.h"
 #include "undomanager.h"
 #include "units.h"
 #include "util.h"

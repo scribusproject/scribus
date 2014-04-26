@@ -30,6 +30,7 @@ for which a new license (GPL+exception) is in place.
 #include "pathfinderdialog.h"
 #include "selection.h"
 #include "scribuscore.h"
+#include "scribusview.h"
 #include "sccolorengine.h"
 #include "ui/propertiespalette.h"
 #include "undomanager.h"

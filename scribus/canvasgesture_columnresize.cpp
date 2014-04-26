@@ -16,6 +16,7 @@ for which a new license (GPL+exception) is in place.
 #include "fpoint.h"
 #include "pageitem.h"
 #include "pageitem_table.h"
+#include "scribusdoc.h"
 #include "scribusview.h"
 
 #include "canvasgesture_columnresize.h"

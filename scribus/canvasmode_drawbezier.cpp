@@ -59,6 +59,7 @@
 
 
 
+
 BezierMode::BezierMode(ScribusView* view) : CanvasMode(view) 
 {
 	Mxp = Myp = -1;

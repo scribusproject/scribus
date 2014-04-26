@@ -15,6 +15,7 @@ for which a new license (GPL+exception) is in place.
 #include "prefsmanager.h"
 #include "scribuscore.h"
 #include "scribusdoc.h"
+#include "scribusview.h"
 #include "selection.h"
 #include "fonts/scfontmetrics.h"
 

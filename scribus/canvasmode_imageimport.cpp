@@ -30,12 +30,12 @@
 #include "canvas.h"
 #include "canvasmode.h"
 #include "prefsmanager.h"
-#include "ui/propertiespalette.h"
-#include "ui/propertiespalette_image.h"
 #include "scribus.h"
 #include "scribusdoc.h"
 #include "scribusview.h"
 #include "selection.h"
+#include "ui/propertiespalette.h"
+#include "ui/propertiespalette_image.h"
 #include "util_icon.h"
 
 CanvasMode_ImageImport::CanvasMode_ImageImport(ScribusView *view) : CanvasMode(view), m_ScMW(view->m_ScMW)

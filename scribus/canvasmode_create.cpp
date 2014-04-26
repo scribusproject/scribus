@@ -62,6 +62,7 @@
 
 
 
+
 CreateMode::CreateMode(ScribusView* view) : CanvasMode(view) 
 {
 	canvasPressCoord.setXY(-1.0, -1.0);

@@ -23,7 +23,6 @@ for which a new license (GPL+exception) is in place.
 #include "color.h"
 #include "commonstrings.h"
 #include "fpointarray.h"
-#include "ui/scmwmenumanager.h"
 #include "pageitem.h"
 #include "pluginmanager.h"
 #include "prefscontext.h"
@@ -37,16 +36,19 @@ for which a new license (GPL+exception) is in place.
 #include "scribusXml.h"
 #include "scribuscore.h"
 #include "scribusdoc.h"
+#include "scribusview.h"
 #include "selection.h"
 #include "serializer.h"
 #include "stylestack.h"
+#include "third_party/zip/scribus_zip.h"
 #include "ui/customfdialog.h"
 #include "ui/propertiespalette.h"
+#include "ui/scmwmenumanager.h"
 #include "undomanager.h"
 #include "util.h"
 #include "util_icon.h"
 #include "util_math.h"
-#include "third_party/zip/scribus_zip.h"
+
 
 
 using namespace std;

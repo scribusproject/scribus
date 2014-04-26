@@ -17,7 +17,9 @@ for which a new license (GPL+exception) is in place.
 #include <QLabel>
 
 #include "commonstrings.h"
+#include "pageitem.h"
 #include "scfonts.h"
+#include "scribusdoc.h"
 #include "util_icon.h"
 
 SelectFields::SelectFields(QWidget* parent, QString Felder, QString Own, ScribusDoc *Doc, int Art) : QDialog(parent)

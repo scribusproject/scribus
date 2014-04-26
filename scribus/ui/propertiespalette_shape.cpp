@@ -12,7 +12,6 @@ for which a new license (GPL+exception) is in place.
 #endif
 #include <cmath>
 
-
 #include "appmodes.h"
 #include "autoform.h"
 #include "commonstrings.h"
@@ -23,8 +22,8 @@ for which a new license (GPL+exception) is in place.
 #include "sccolorengine.h"
 #include "sccombobox.h"
 #include "scraction.h"
-
 #include "scribuscore.h"
+#include "scribusdoc.h"
 #include "scribusview.h"
 #include "selection.h"
 #include "ui/nodeeditpalette.h"
@@ -35,7 +34,6 @@ for which a new license (GPL+exception) is in place.
 #include "util.h"
 #include "util_icon.h"
 #include "util_math.h"
-
 
 PropertiesPalette_Shape::PropertiesPalette_Shape( QWidget* parent) : QWidget(parent)
 {

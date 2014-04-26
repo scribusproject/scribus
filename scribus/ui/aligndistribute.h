@@ -33,19 +33,19 @@ for which a new license (GPL+exception) is in place.
 class QEvent;
 
 #include "scribusapi.h"
-#include "scribusview.h"
+#include "scribusdoc.h"
 #include "ui/scdockpalette.h"
 
-class QSpacerItem;
+class QComboBox;
 class QLabel;
 class QLineEdit;
-class QComboBox;
+class QSpacerItem;
 class QToolButton;
 class ScrSpinBox;
-
 class ScribusMainWindow;
-class ScribusDoc;
+class ScribusView;
 class UndoManager;
+
 struct AlignObjs;
 
 

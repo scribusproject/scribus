@@ -14,29 +14,31 @@ for which a new license (GPL+exception) is in place.
  ***************************************************************************/
 #include "tabpdfoptions.h"
 
-#include <QPixmap>
-#include <QHBoxLayout>
-#include <QVBoxLayout>
-#include <QGridLayout>
-#include <QSpacerItem>
-#include <QGroupBox>
+
+#include <QAbstractItemView>
 #include <QCheckBox>
 #include <QComboBox>
-#include <QPushButton>
-#include <QToolButton>
-#include <QLineEdit>
+#include <QGridLayout>
+#include <QGroupBox>
+#include <QHBoxLayout>
 #include <QLabel>
-#include <QSpinBox>
+#include <QLineEdit>
 #include <QListWidget>
 #include <QListWidgetItem>
-
+#include <QPixmap>
+#include <QPushButton>
+#include <QSpacerItem>
+#include <QSpinBox>
 #include <QStandardItem>
-#include <QAbstractItemView>
+#include <QToolButton>
+#include <QVBoxLayout>
+
 
 #include "ui/createrange.h"
 #include "pdfoptions.h"
 #include "prefsmanager.h"
 #include "scribuscore.h"
+#include "scribusview.h"
 #include "scconfig.h"
 #include "units.h"
 #include "usertaskstructs.h"

@@ -21,6 +21,8 @@ for which a new license (GPL+exception) is in place.
  *                                                                         *
  ***************************************************************************/
 
+#include "vruler.h"
+
 #include <QCursor>
 //#include <QDebug>
 #include <QMouseEvent>
@@ -33,13 +35,15 @@ for which a new license (GPL+exception) is in place.
 
 #include <cmath>
 
+
 #include "canvasgesture_rulermove.h"
 #include "prefsmanager.h"
 #include "scpage.h"
-
 #include "scribusdoc.h"
+#include "scribusview.h"
 #include "units.h"
-#include "vruler.h"
+
+
 
 Vruler::Vruler(ScribusView *pa, ScribusDoc *doc) : QWidget(pa)
 {

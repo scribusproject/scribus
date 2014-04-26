@@ -19,17 +19,19 @@ or documentation
 #include <QProgressBar>
 #include <QRegExp>
 
-#include "shortwords.h"
 #include "parse.h"
-#include "version.h"
-#include "configuration.h"
 
+#include "configuration.h"
 #include "langmgr.h"
 #include "pageitem.h"
+#include "scpage.h"
 #include "scribus.h"
 #include "scribusdoc.h"
-#include "scpage.h"
+#include "scribusview.h"
 #include "selection.h"
+#include "shortwords.h"
+#include "version.h"
+
 
 SWParse::SWParse()
 {

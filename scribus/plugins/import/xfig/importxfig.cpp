@@ -17,11 +17,12 @@ for which a new license (GPL+exception) is in place.
 
 #include <cstdlib>
 
-#include "commonstrings.h"
 #include "importxfig.h"
+
+#include "commonstrings.h"
 #include "loadsaveplugin.h"
-#include "pagesize.h"
 #include "pageitem.h"
+#include "pagesize.h"
 #include "prefscontext.h"
 #include "prefsfile.h"
 #include "prefsmanager.h"
@@ -33,9 +34,10 @@ for which a new license (GPL+exception) is in place.
 #include "scmimedata.h"
 #include "scpaths.h"
 #include "scpattern.h"
-
 #include "scribusXml.h"
 #include "scribuscore.h"
+#include "scribusdoc.h"
+#include "scribusview.h"
 #include "sctextstream.h"
 #include "selection.h"
 #include "ui/customfdialog.h"
@@ -47,6 +49,7 @@ for which a new license (GPL+exception) is in place.
 #include "util_formats.h"
 #include "util_icon.h"
 #include "util_math.h"
+
 
 extern SCRIBUS_API ScribusQApp * ScQApp;
 
