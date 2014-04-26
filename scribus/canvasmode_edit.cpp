@@ -427,13 +427,10 @@ void CanvasMode_Edit::mouseMoveEvent(QMouseEvent *m)
 				else
 				{
 					m_view->setCursor(QCursor(loadIcon("HandC.xpm")));
-					QTransform ro;
-					ro.rotate(-currItem->rotation());
-					QPointF rota = ro.map(QPointF(newX-Mxp,newY-Myp));
-					QTransform mm = currItem->getTransform();
-					double sx, sy;
-					getScaleFromMatrix(mm, sx, sy);
-					currItem->moveImageInFrame((rota.x() / sx) / currItem->imageXScale(), (rota.y() / sy) / currItem->imageYScale());
+					QTransform mm1 = currItem->getTransform();
+					QTransform mm2 = mm1.inverted();
+					QPointF rota = mm2.map(QPointF(newX, newY)) - mm2.map(QPointF(Mxp, Myp));
+					currItem->moveImageInFrame(rota.x() / currItem->imageXScale(), rota.y() / currItem->imageYScale());
 					m_canvas->displayXYHUD(m->globalPos(), currItem->imageXOffset() * currItem->imageXScale(), currItem->imageYOffset() * currItem->imageYScale());
 				}
 				currItem->update();
