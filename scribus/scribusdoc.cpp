@@ -6081,6 +6081,32 @@ void  ScribusDoc::fixItemPageOwner()
 	}
 }
 
+void ScribusDoc::fixParagraphStyles()
+{
+	for (int i = 0; i < docParagraphStyles.count(); ++i)
+	{
+		ParagraphStyle& parStyle = docParagraphStyles[i];
+		QString peStyleName = parStyle.peCharStyleName();
+		if (peStyleName.isEmpty())
+			continue;
+		if (!docCharStyles.contains(peStyleName))
+			parStyle.resetPeCharStyleName();
+	}
+}
+
+void ScribusDoc::fixNotesStyles()
+{
+	for (int i = 0; i < m_docNotesStylesList.count(); ++i)
+	{
+		NotesStyle* noteStyle = m_docNotesStylesList[i];
+		QString markChStyle = noteStyle->marksChStyle();
+		if (!markChStyle.isEmpty() && !docCharStyles.contains(markChStyle))
+			noteStyle->setMarksCharStyle(QString());
+		QString noteParStyle = noteStyle->notesParStyle();
+		if (!noteParStyle.isEmpty() && !docParagraphStyles.contains(noteParStyle))
+			noteStyle->setNotesParStyle(QString());
+	}
+}
 
 struct oldPageVar
 {

@@ -1543,7 +1543,7 @@ void PageItem_TextFrame::layout()
 						Q_ASSERT(nStyle != NULL);
 					QString chsName = nStyle->marksChStyle();
 					CharStyle currStyle(itemText.charStyle(a));
-					if ((chsName != "") && (chsName != tr("No Style")))
+					if (!chsName.isEmpty())
 					{
 						CharStyle marksStyle(m_Doc->charStyle(chsName));
 						if (!currStyle.equiv(marksStyle))
@@ -1627,7 +1627,7 @@ void PageItem_TextFrame::layout()
 				{
 					const QString& curParent(style.hasParent() ? style.parent() : style.name());
 					CharStyle newStyle;
-					if (style.peCharStyleName() == tr("No Style") || style.peCharStyleName().isEmpty())
+					if (style.peCharStyleName().isEmpty())
 						newStyle.setParent(m_Doc->paragraphStyle(curParent).charStyle().name());
 					else if (charStyle.name() != style.peCharStyleName())
 						newStyle.setParent(m_Doc->charStyle(style.peCharStyleName()).name());
@@ -1635,7 +1635,7 @@ void PageItem_TextFrame::layout()
 					charStyle.setStyle(newStyle);
 					itemText.setCharStyle(a, 1 , charStyle);
 				}
-				else if (style.peCharStyleName() != tr("No Style") && !style.peCharStyleName().isEmpty())
+				else if (!style.peCharStyleName().isEmpty())
 				//par effect is cleared but is set dcCharStyleName = clear drop cap char style
 				{
 					const QString& curParent(style.hasParent() ? style.parent() : style.name());

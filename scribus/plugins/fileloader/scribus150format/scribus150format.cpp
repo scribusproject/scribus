@@ -1788,6 +1788,10 @@ bool Scribus150Format::loadFile(const QString & fileName, const FileFormat & /* 
 	m_Doc->reformPages();
 	m_Doc->refreshGuides();
 
+	// #12282 : some docs have language dependent style names specified in style properties
+	m_Doc->fixParagraphStyles();
+	m_Doc->fixNotesStyles();
+
 	if (m_Doc->Layers.count() == 0)
 		m_Doc->Layers.newLayer( QObject::tr("Background") );
 	if (!EffVal.isEmpty())

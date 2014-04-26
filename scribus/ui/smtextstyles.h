@@ -76,7 +76,7 @@ private slots:
 	void slotDropCapLines(int lines);
 	void slotParEffectOffset();
 	void slotParEffectIndent(bool);
-	void slotParEffectCharStyle(const QString &name);
+	void slotParEffectCharStyle(int);
 	void slotBullet(bool isOn);
 	void slotBulletStr(const QString &str);
 	void slotNumeration(bool isOn);

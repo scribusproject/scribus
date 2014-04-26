@@ -519,7 +519,7 @@ void SMParagraphStyle::setupConnections()
 	connect(m_pwidget->dropCapLines, SIGNAL(valueChanged(int)), this, SLOT(slotDropCapLines(int)));
 	connect(m_pwidget->parEffectOffset, SIGNAL(valueChanged(double)), this, SLOT(slotParEffectOffset()));
 	connect(m_pwidget->parEffectIndentBox, SIGNAL(toggled(bool)), this, SLOT(slotParEffectIndent(bool)));
-	connect(m_pwidget->parEffectCharStyleCombo, SIGNAL(activated(const QString&)), this, SLOT(slotParEffectCharStyle(const QString&)));
+	connect(m_pwidget->parEffectCharStyleCombo, SIGNAL(activated(int)), this, SLOT(slotParEffectCharStyle(int)));
 
 	connect(m_pwidget->bulletBox, SIGNAL(toggled(bool)), this, SLOT(slotBullet(bool)));
 	connect(m_pwidget->bulletStrEdit, SIGNAL(editTextChanged(QString)), this, SLOT(slotBulletStr(QString)));
@@ -604,7 +604,7 @@ void SMParagraphStyle::removeConnections()
 	disconnect(m_pwidget->dropCapLines, SIGNAL(valueChanged(int)), this, SLOT(slotDropCapLines(int)));
 	disconnect(m_pwidget->parEffectOffset, SIGNAL(valueChanged(double)), this, SLOT(slotParEffectOffset()));
 	disconnect(m_pwidget->parEffectIndentBox, SIGNAL(toggled(bool)), this, SLOT(slotParEffectIndent(bool)));
-	disconnect(m_pwidget->parEffectCharStyleCombo, SIGNAL(activated(const QString&)), this, SLOT(slotParEffectCharStyle(const QString&)));
+	disconnect(m_pwidget->parEffectCharStyleCombo, SIGNAL(activated(int)), this, SLOT(slotParEffectCharStyle(int)));
 
 	disconnect(m_pwidget->bulletBox, SIGNAL(toggled(bool)), this, SLOT(slotBullet(bool)));
 	disconnect(m_pwidget->bulletStrEdit, SIGNAL(editTextChanged(QString)), this, SLOT(slotBulletStr(QString)));
@@ -959,9 +959,14 @@ void SMParagraphStyle::slotParEffectIndent(bool isOn)
 	}
 }
 
-void SMParagraphStyle::slotParEffectCharStyle(const QString& name)
+void SMParagraphStyle::slotParEffectCharStyle(int index)
 {
-	if (m_pwidget->parEffectCharStyleCombo->useParentValue())
+	QString name;
+
+	if (index > 0)
+		name = m_pwidget->parEffectCharStyleCombo->itemText(index);
+
+	if (name.isEmpty() || m_pwidget->parEffectCharStyleCombo->useParentValue())
 		for (int i = 0; i < m_selection.count(); ++i)
 			m_selection[i]->resetPeCharStyleName();
 	else

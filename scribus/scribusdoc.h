@@ -877,8 +877,13 @@ public:
 	void reformPages(bool moveObjects = true);
 	/** @brief Refresh automatic guides once Margin struct has been properly configure by reformPages() */
 	void refreshGuides();
+
 	/** @brief Check and fix if needed PageItem OwnPage member */
 	void fixItemPageOwner();
+	/** @brief Fix paragraph styles */
+	void fixParagraphStyles();
+	/** @brief Fix notes styles */
+	void fixNotesStyles();
 	
 	/**
 	 * @brief Return the x or y offset for a page on the canvas
