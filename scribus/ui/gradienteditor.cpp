@@ -132,7 +132,7 @@ void GradientEditor::setStopColor(const QString &Color)
 {
 	if (Color == CommonStrings::tr_NoneColor)
 	{
-		Preview->setActColor(QColor(255, 255, 255, 0), CommonStrings::None, 100);
+		Preview->setActColor(QColor(0, 0, 0, 0), CommonStrings::None, 100);
 		Preview->setActTrans(0.0);
 		stopShade->setEnabled(false);
 		stopOpacity->setEnabled(false);
