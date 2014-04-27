@@ -40,6 +40,7 @@ for which a new license (GPL+exception) is in place.
 #include "scpaths.h"
 #include "scpattern.h"
 #include "scribus.h"
+#include "scribusview.h"
 #include "scribusXml.h"
 #include "scribuscore.h"
 #include "sctextstream.h"
