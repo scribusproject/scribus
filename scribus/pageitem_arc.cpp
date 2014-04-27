@@ -72,6 +72,8 @@ void PageItem_Arc::recalcPath()
 	path.arcTo(0.0, 0.0, arcWidth, arcHeight, arcStartAngle, arcSweepAngle);
 	path.closeSubpath();
 	PoLine.fromQPainterPath(path);
+	FPoint tp(getMinClipF(&PoLine));
+	PoLine.translate(-tp.x(), -tp.y());
 	Clip = FlattenPath(PoLine, Segments);
 }
 

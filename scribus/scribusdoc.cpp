@@ -11212,8 +11212,6 @@ void ScribusDoc::itemSelection_FlipH()
 				else if (ar->arcStartAngle > 360)
 					ar->arcStartAngle -= 360;
 				ar->recalcPath();
-				FPoint tp2(getMinClipF(&currItem->PoLine));
-				currItem->PoLine.translate(-tp2.x(), -tp2.y());
 				AdjustItemSize(currItem);
 				emit updateEditItem();
 			}
@@ -11258,8 +11256,6 @@ void ScribusDoc::itemSelection_FlipH()
 			else if (ar->arcStartAngle > 360)
 				ar->arcStartAngle -= 360;
 			ar->recalcPath();
-			FPoint tp2(getMinClipF(&currItem->PoLine));
-			currItem->PoLine.translate(-tp2.x(), -tp2.y());
 			AdjustItemSize(currItem);
 			emit updateEditItem();
 		}
@@ -11329,8 +11325,6 @@ void ScribusDoc::itemSelection_FlipV()
 				else if (ar->arcStartAngle > 360)
 					ar->arcStartAngle -= 360;
 				ar->recalcPath();
-				FPoint tp2(getMinClipF(&currItem->PoLine));
-				currItem->PoLine.translate(-tp2.x(), -tp2.y());
 				AdjustItemSize(currItem);
 				emit updateEditItem();
 			}
@@ -11378,8 +11372,6 @@ void ScribusDoc::itemSelection_FlipV()
 			else if (ar->arcStartAngle > 360)
 				ar->arcStartAngle -= 360;
 			ar->recalcPath();
-			FPoint tp2(getMinClipF(&currItem->PoLine));
-			currItem->PoLine.translate(-tp2.x(), -tp2.y());
 			AdjustItemSize(currItem);
 			emit updateEditItem();
 		}
@@ -14952,8 +14944,6 @@ void ScribusDoc::scaleGroup(double scx, double scy, bool scaleText, Selection* c
 				item->arcWidth += dw * dscw;
 				item->arcHeight += dh * dsch;
 				item->recalcPath();
-				FPoint tp2(getMinClipF(&bb->PoLine));
-				bb->PoLine.translate(-tp2.x(), -tp2.y());
 			}
 			if (bb->isSpiral())
 			{

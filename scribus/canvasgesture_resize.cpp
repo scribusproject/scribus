@@ -74,17 +74,17 @@ void ResizeGesture::prepare(Canvas::FrameHandle framehandle)
 		m.scale(m_scaleX, m_scaleY);
 		m_bounds = m.mapRect(m_bounds);
 		m_bounds.moveTopLeft(itPos);
-		if (currItem->imageFlippedH())
+		/*if (currItem->imageFlippedH())
 		{
 			m_rotation = -getRotationDFromMatrix(mm) - 180.0;
 			m_bounds.translate(-currItem->visualWidth() * m_scaleX, 0);
 		}
-		else
+		else*/
 			m_rotation = -getRotationDFromMatrix(mm);
-		if (currItem->imageFlippedV())
+		/*if (currItem->imageFlippedV())
 		{
 			m_bounds.translate(0, -currItem->visualHeight() * m_scaleY);
-		}
+		}*/
 		currItem->OldB2 = currItem->width();
 		currItem->OldH2 = currItem->height();
 		m_extraWidth = currItem->visualWidth() - currItem->width();
@@ -377,10 +377,10 @@ void ResizeGesture::doResize(bool scaleContent)
 		getScaleFromMatrix(mm, m_scaleX, m_scaleY);
 		double dx = (itPos.x() - newBounds.x()) / m_scaleX;
 		double dy = (itPos.y() - newBounds.y()) / m_scaleY;
-		if (currItem->imageFlippedH())
+		/*if (currItem->imageFlippedH())
 			dx *= -1;
 		if (currItem->imageFlippedV())
-			dy *= -1;
+			dy *= -1;*/
 		currItem->moveBy(-dx, -dy, true);
 		currItem->setWidth(newBounds.width() / m_scaleX - m_extraWidth);
 		currItem->setHeight(newBounds.height() / m_scaleY - m_extraHeight);
@@ -424,17 +424,18 @@ void ResizeGesture::doResize(bool scaleContent)
 				break;
 		}
 
-		if (currItem->imageFlippedH())
+		/*if (currItem->imageFlippedH())
 			currItem->moveBy(-currItem->width(), 0);
 		if (currItem->imageFlippedV())
-			currItem->moveBy(0, -currItem->height());
+			currItem->moveBy(0, -currItem->height());*/
 		currItem->updateClip();
 		if (currItem->isArc())
 		{
 			PageItem_Arc* item = currItem->asArc();
-			item->arcWidth += dw * dscw;
+			item->arcWidth  += dw * dscw;
 			item->arcHeight += dh * dsch;
 			item->recalcPath();
+			m_doc->AdjustItemSize(item);
 		}
 		if (currItem->isSpiral())
 		{
@@ -710,7 +711,7 @@ void ResizeGesture::mousePressEvent(QMouseEvent *m)
 	else
 	{
 		m_handle = m_canvas->frameHitTest(QPointF(point.x(), point.y()), m_doc->m_Selection->itemAt(0));
-		PageItem* currItem = m_doc->m_Selection->itemAt(0);
+		/*PageItem* currItem = m_doc->m_Selection->itemAt(0);
 		if (currItem->imageFlippedH())
 		{
 			switch (m_handle)
@@ -762,7 +763,7 @@ void ResizeGesture::mousePressEvent(QMouseEvent *m)
 				default:
 					break;
 			}
-		}
+		}*/
 	}
 	if (m_handle > 0)
 	{
