@@ -89,7 +89,7 @@
 			<ru>Метки</ru>
 			<hu>Címkék</hu>
 			<es>Etiquetas</es>
-			<it>Titoli</it>
+			<it>Didascalie</it>
 		</i18n></title>
 		<text name="title" type="short" default=""><i18n>
 			<en>Title:</en>
@@ -176,7 +176,7 @@
 				<ru>Слой сетки:</ru>
 				<hu>Rács réteg</hu>
 				<es>Capa de rejilla</es>
-				<it>Livello griglia:</it>
+				<it>Posizione griglia:</it>
 			</i18n></title>
 			<option value="back"><i18n>
 				<en>Back</en>
@@ -187,7 +187,7 @@
 				<ru>Позади</ru>
 				<hu>Alul</hu>
 				<es>Atrás</es>
-				<it>Retro</it>
+				<it>Sfondo</it>
 			</i18n></option>
 			<option value="front"><i18n>
 				<en>Front</en>
@@ -198,7 +198,7 @@
 				<ru>Впереди</ru>
 				<hu>Felül</hu>
 				<es>Frente</es>
-				<it>Fronte</it>
+				<it>Primo piano</it>
 			</i18n></option>
 		</list>
 		<list name="zeroaxis" default="">

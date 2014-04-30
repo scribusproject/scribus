@@ -142,7 +142,7 @@ light_source { &lt;-10, 3, -20&gt; color red 1 green 1 blue 1 }
 			<ru>Порог сглаживания:</ru>
 			<hu>Élsimítási küszöb:</hu>
 			<es>Umbral de antialias</es>
-			<it>Threshold Antialiasing:</it>
+			<it>Soglia Antialiasing:</it>
 		</i18n>
 	</spinbox>
 	<spinbox name="aadepth" type="short" min="1" max="9" step="1" default="3">

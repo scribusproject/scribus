@@ -158,7 +158,7 @@
 				<ru>Шрифты и заголовки</ru>
 				<hu>Betűkészlet/Fejléc</hu>
 				<es>Tipografía/Encabezados</es>
-				<it>Font/Header</it>
+				<it>Font/Intestazioni</it>
 		</i18n></title>
 		<comment><i18n>
 			<en>Fonts only work when installed on your computer!</en>
@@ -250,7 +250,7 @@
 			<en>Дополнительные заголовки:</en>
 			<hu>További fejléc:</hu>
 			<es>Encabezado adicional</es>
-			<it>Header addizionali:</it>
+			<it>Intestazioni addizionali:</it>
 		</i18n></text>
 	</tab>
 	<tab type="items">
