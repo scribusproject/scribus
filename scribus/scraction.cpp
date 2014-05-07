@@ -118,8 +118,7 @@ void ScrAction::triggeredToTriggeredData()
 	if (_actionType==ScrAction::UnicodeChar)
 		emit triggeredUnicodeShortcut(data().toInt());
 	if (_actionType==ScrAction::Layer)
-		qDebug()<<"if (_actionType==ScrAction::Layer): please fix in ScrAction::triggeredToTriggeredData()";
-//		emit triggeredData(layerID);
+		emit triggeredData(data().toInt());
 	if (_actionType==ScrAction::ActionDLL)
 		emit triggeredData(((ScribusMainWindow*)parent())->doc);
 }
