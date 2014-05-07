@@ -4,7 +4,7 @@ to the COPYING file provided with the program. Following this notice may exist
 a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
-
+//CB: 2014
 
 #ifndef PP_PROXY_H
 #define PP_PROXY_H
@@ -31,6 +31,11 @@ class PP_Proxy : public QObject
 		PageItem *m_pageItem;
 		ScribusDoc *m_scribusDoc;
 
+		void connectDoc();
+		void connectItem();
+
+		void publishDocChange();
+		void publishItemChange();
 };
 
 #endif // PP_PROXY_H

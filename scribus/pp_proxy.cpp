@@ -26,5 +26,26 @@ void PP_Proxy::setPageItem(PageItem *item)
 void PP_Proxy::setDoc(ScribusDoc *doc)
 {
 	m_scribusDoc=doc;
+	connectDoc();
+}
+
+void PP_Proxy::connectDoc()
+{
+	//connect(m_scribusDoc, SIGNAL(blah()), this, SLOT(blah2()));
+}
+
+void PP_Proxy::connectItem()
+{
+	//connect(m_pageItem, SIGNAL(blah()), this, SLOT(blah2()));
+}
+
+void PP_Proxy::publishDocChange()
+{
+
+}
+
+void PP_Proxy::publishItemChange()
+{
+
 }
 
