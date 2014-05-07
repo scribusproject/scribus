@@ -106,8 +106,7 @@ void ScrAction::triggeredToTriggeredData()
 		qDebug()<<"if (_actionType==ScrAction::DLL): please fix in ScrAction::triggeredToTriggeredData()";
 //		emit triggeredData(pluginID);
 	if (_actionType==ScrAction::Window)
-		qDebug()<<"if (_actionType==ScrAction::Window): please fix in ScrAction::triggeredToTriggeredData()";
-//		emit triggeredData(windowID);
+		emit triggeredData(data().toInt());
 	if (_actionType==ScrAction::RecentFile)
 		emit triggeredData(data().toString());
 	if (_actionType==ScrAction::RecentPaste)
