@@ -70,11 +70,9 @@ public:
 		\param extraQString extra QString value
 	 */
 	ScrAction( ActionType aType,
-			   const QString &menuText, QKeySequence accel, QObject *parent,
-			   int extraInt = 0, double extraDouble = 0.0, QString extraQString = QString::null );		
+			   const QString &menuText, QKeySequence accel, QObject *parent, QVariant d = QVariant());
 	ScrAction( ActionType aType, const QPixmap & icon16, const QPixmap & icon22,
-			   const QString &menuText, QKeySequence accel, QObject *parent,
-			   int extraInt = 0, double extraDouble = 0.0, QString extraQString = QString::null );		
+			   const QString &menuText, QKeySequence accel, QObject *parent, QVariant d = QVariant());
 	/*!
 		\author Craig Bradney
 		\date Jan 2005
@@ -94,7 +92,7 @@ public:
 	\param extraInt extra int value
 	\param extraQString extra QString value
 	 */
-	ScrAction( QKeySequence accel, QObject *parent, int extraInt, QString extraQString);
+	ScrAction( QKeySequence accel, QObject *parent, QVariant data = QVariant());
 	~ScrAction();
 	
 	/*!
@@ -176,6 +174,7 @@ public slots:
 	void toggle();
 	
 signals:
+	void triggeredData(QVariant);
 	void triggeredData(int);
 	void triggeredData(double);
 	void triggeredData(QString);
@@ -184,17 +183,11 @@ signals:
 	void toggledData(bool, int);
 	void toggledData(bool, double);
 	void toggledData(bool, QString);
-	void triggeredUnicodeShortcut(const QString&, int);
+	void triggeredUnicodeShortcut(int);
 	
 protected:
 	void initScrAction();
 	int menuIndex;
-	int pluginID;
-	int windowID;
-	int layerID;
-	int _dataInt;
-	double _dataDouble;
-	QString _dataQString;
 	ActionType _actionType;
 	QMenu *popupMenuAddedTo;
 	QKeySequence savedKeySequence;

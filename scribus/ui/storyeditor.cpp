@@ -3331,7 +3331,7 @@ ScribusDoc* StoryEditor::currentDocument() const
 	return m_doc;
 }
 
-void StoryEditor::specialActionKeyEvent(const QString& /*actionName*/, int unicodevalue)
+void StoryEditor::specialActionKeyEvent(int unicodevalue)
 {
 	QString guiInsertString=QChar(unicodevalue);
 	bool setColor=false;

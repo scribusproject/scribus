@@ -876,7 +876,7 @@ void StyleManager::addNewType(StyleItem *item, bool loadFromDoc)
 			if (m_styleActions.contains(key))
 				continue;
 
-			m_styleActions[key] = new ScrAction(ScrAction::DataQString, QPixmap(), QPixmap(), tr("&Apply"), shortcutValue, m_doc->view(), 0, 0.0, key);
+			m_styleActions[key] = new ScrAction(ScrAction::DataQString, QPixmap(), QPixmap(), tr("&Apply"), shortcutValue, m_doc->view(), key);
 			connect(m_styleActions[key], SIGNAL(triggeredData(QString)), this, SLOT(slotApplyStyle(QString)));
 		}
 	}
@@ -1035,7 +1035,7 @@ void StyleManager::updateActionName(const QString &oldName, const QString &newNa
 		ScrAction *a = m_styleActions[oldKey];
 		disconnect(a, SIGNAL(triggeredData(QString)), this, SLOT(slotApplyStyle(QString)));
 		ScrAction *b = new ScrAction(ScrAction::DataQString, QPixmap(), QPixmap(), tr("&Apply"),
-			               a->shortcut(), m_doc->view(), 0, 0.0, newKey);
+						   a->shortcut(), m_doc->view(), newKey);
 		m_styleActions.remove(oldKey);
 		if (m_selectedStyleAction == a)
 		{
@@ -1073,10 +1073,8 @@ void StyleManager::slotShortcutChanged(const QString& shortcut)
 		m_styleActions[key]->setShortcut(shortcut);
 	else
 	{
-		m_styleActions[key] =
-			new ScrAction(ScrAction::DataQString, QPixmap(), QPixmap(), tr("&Apply"), shortcut, m_doc->view(), 0, 0.0, key);
-		connect(m_styleActions[key], SIGNAL(triggeredData(QString)),
-		        this, SLOT(slotApplyStyle(QString)));
+		m_styleActions[key] = new ScrAction(ScrAction::DataQString, QPixmap(), QPixmap(), tr("&Apply"), shortcut, m_doc->view(), key);
+		connect(m_styleActions[key], SIGNAL(triggeredData(QString)), this, SLOT(slotApplyStyle(QString)));
 	}
 
 	if (m_item)

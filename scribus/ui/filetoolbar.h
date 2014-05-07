@@ -28,7 +28,6 @@ for which a new license (GPL+exception) is in place.
 #include <QMap>
 #include <QPointer>
 #include "scribusapi.h"
-#include "scraction.h"
 #include "ui/sctoolbar.h"
 
 class ScribusMainWindow;

@@ -474,7 +474,7 @@ protected slots:
 	void setSmart(bool);
 	void languageChange();
 
-	void specialActionKeyEvent(const QString& actionName, int unicodevalue);
+	void specialActionKeyEvent(int unicodevalue);
 	/*! \brief Slot to insert special characters from charSelect widget. */
 	void slot_insertSpecialChar();
 	void slot_insertUserSpecialChar(QChar, QString);

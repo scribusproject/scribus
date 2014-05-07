@@ -971,7 +971,7 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->addMenuItemString("unicodeQuoteCJKDoubleLeft", "InsertQuote");
 	scrMenuMgr->addMenuItemString("unicodeQuoteCJKDoubleRight", "InsertQuote");
 
-	scrMenuMgr->createMenu("InsertSpace", tr("S&paces && Breaks"), "Insert");
+	scrMenuMgr->createMenu("InsertSpace", tr("S&paces / Breaks"), "Insert");
 	scrMenuMgr->addMenuItemString("InsertSpace", "Insert");
 	scrMenuMgr->addMenuItemString("unicodeNonBreakingSpace", "InsertSpace");
 	scrMenuMgr->addMenuItemString("unicodeSpaceEN", "InsertSpace");
@@ -1369,8 +1369,9 @@ void ScribusMainWindow::setTBvals(PageItem *currItem)
 
 //Special keys assigned to actions are stolen by the action and not passed to
 //keyPressEvent so process them here.
-void ScribusMainWindow::specialActionKeyEvent(const QString& actionName, int unicodevalue)
+void ScribusMainWindow::specialActionKeyEvent(int unicodevalue)
 {
+	const QString& actionName="";
 	if (HaveDoc)
 	{
 		if (doc->m_Selection->count() == 1)
@@ -1421,7 +1422,7 @@ void ScribusMainWindow::specialActionKeyEvent(const QString& actionName, int uni
 							activeTransaction = NULL;
 						}
 					}
-					else if (actionName=="unicodeSoftHyphen") //ignore the char as we use an attribute if the text item, for now.
+					else if (unicodevalue==SpecialChars::SHYPHEN.unicode()) //ignore the char as we use an attribute if the text item, for now.
 					{
 						// this code is currently dead since unicodeSoftHyphen
 						// doesnt have unicodevalue == -1 any more
@@ -3386,7 +3387,7 @@ void ScribusMainWindow::rebuildRecentFileMenu()
 		strippedName = localName = QDir::toNativeSeparators(RecentDocs[m]);
 		strippedName.remove(QDir::separator());
 		strippedName.prepend(QString("%1").arg(m+1, 2, 10, QChar('0')));
-		scrRecentFileActions.insert(strippedName, new ScrAction(ScrAction::RecentFile, QPixmap(), QPixmap(), QString("%1 &%2").arg(m+1).arg(localName.replace("&","&&")), QKeySequence(), this, 0,0.0,RecentDocs[m]));
+		scrRecentFileActions.insert(strippedName, new ScrAction(ScrAction::RecentFile, QPixmap(), QPixmap(), QString("%1 &%2").arg(m+1).arg(localName.replace("&","&&")), QKeySequence(), this, RecentDocs[m]));
 		connect( scrRecentFileActions[strippedName], SIGNAL(triggeredData(QString)), this, SLOT(loadRecent(QString)) );
 		scrMenuMgr->addMenuItemString(strippedName, "FileOpenRecent");
 	}
@@ -3410,7 +3411,7 @@ void ScribusMainWindow::rebuildRecentPasteMenu()
 		{
 			strippedName = it.key();
 			QPixmap pm = it.value().Preview;
-			scrRecentPasteActions.insert(strippedName, new ScrAction(ScrAction::RecentPaste, pm, QPixmap(), QString("&%1 %2").arg(m+1).arg(strippedName), QKeySequence(), this, 0,0.0,it.key()));
+			scrRecentPasteActions.insert(strippedName, new ScrAction(ScrAction::RecentPaste, pm, QPixmap(), QString("&%1 %2").arg(m+1).arg(strippedName), QKeySequence(), this, it.key()));
 			connect( scrRecentPasteActions[strippedName], SIGNAL(triggeredData(QString)), this, SLOT(pasteRecent(QString)) );
 			scrMenuMgr->addMenuItemString(strippedName, "EditPasteRecent");
 			it--;

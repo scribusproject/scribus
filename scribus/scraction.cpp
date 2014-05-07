@@ -37,104 +37,27 @@ ScrAction::ScrAction( const QString & menuText, QKeySequence accel, QObject * pa
 	initScrAction();
 }
 
-ScrAction::ScrAction( ActionType aType, const QString & menuText, QKeySequence accel, QObject * parent, int extraInt, double extraDouble, QString extraQString ) : QAction( menuText, parent )
+ScrAction::ScrAction(ActionType aType, const QString & menuText, QKeySequence accel, QObject * parent, QVariant d) : QAction( menuText, parent )
 {
 	setShortcut(accel);
 	initScrAction();
+	setData(d);
 	_actionType=aType;
+
 	if (_actionType!=Normal)
 		connect (this, SIGNAL(triggered()), this, SLOT(triggeredToTriggeredData()));
-	switch (_actionType)
-	{
-		case DataInt:
-			_dataInt=extraInt;
-			break;
-		case DataDouble:
-			_dataDouble=extraDouble;
-			break;
-		case DataQString:
-			_dataQString=extraQString;
-			break;
-		case RecentFile:
-			_dataQString=extraQString;
-			break;
-		case RecentPaste:
-			_dataQString=extraQString;
-			break;
-		case DLL:
-			pluginID=extraInt;
-			break;
-		case Window:
-			windowID=extraInt;
-			break;
-		case RecentScript:
-			break;
-		case UnicodeChar:
-			_dataInt=extraInt;
-			_dataQString=extraQString;
-			break;
-		case Layer:
-			layerID=extraInt;
-			break;
-		case Normal:
-		default:
-			break;
-	}
 }
 
-ScrAction::ScrAction( ActionType aType, const QPixmap & icon16, const QPixmap & icon22, const QString & menuText, QKeySequence accel, QObject * parent, int extraInt, double extraDouble, QString extraQString ) : QAction( QIcon(icon16), menuText, parent )
+ScrAction::ScrAction(ActionType aType, const QPixmap & icon16, const QPixmap & icon22, const QString & menuText, QKeySequence accel, QObject * parent, QVariant d) : QAction( QIcon(icon16), menuText, parent )
 {
 	setShortcut(accel);
 	initScrAction();
 	icon().addPixmap(icon22, QIcon::Normal, QIcon::On);
-/*
-	QPixmap gray_icon16(icon16);
-	iconToGrayscale(&gray_icon16);
-	m_icon.addPixmap(icon16, QIcon::Active, QIcon::On);
-	m_icon.addPixmap(icon16, QIcon::Active, QIcon::Off);
-	m_icon.addPixmap(gray_icon16, QIcon::Normal, QIcon::On);
-	m_icon.addPixmap(gray_icon16, QIcon::Normal, QIcon::Off);
-	setIcon(m_icon.pixmap(QSize(16,16), QIcon::Normal, QIcon::Off));
-*/
+
 	_actionType=aType;
+	setData(d);
 	if (_actionType!=Normal)
 		connect (this, SIGNAL(triggered()), this, SLOT(triggeredToTriggeredData()));
-	switch (_actionType)
-	{
-		case DataInt:
-			_dataInt=extraInt;
-			break;
-		case DataDouble:
-			_dataDouble=extraDouble;
-			break;
-		case DataQString:
-			_dataQString=extraQString;
-			break;
-		case RecentFile:
-			_dataQString=extraQString;
-			break;
-		case RecentPaste:
-			_dataQString=extraQString;
-			break;
-		case DLL:
-			pluginID=extraInt;
-			break;
-		case Window:
-			windowID=extraInt;
-			break;
-		case RecentScript:
-			break;
-		case UnicodeChar:
-			_dataInt=extraInt;
-			_dataQString=extraQString;
-			break;
-		case Layer:
-			layerID=extraInt;
-			break;
-		case Normal:
-		default:
-			break;
-	}
 }
 
 ScrAction::ScrAction( const QPixmap & icon16, const QPixmap & icon22, const QString & menuText, QKeySequence accel, QObject * parent ) : QAction( QIcon(icon16), menuText, parent )
@@ -146,18 +69,17 @@ ScrAction::ScrAction( const QPixmap & icon16, const QPixmap & icon22, const QStr
 }
 
 
-ScrAction::ScrAction(QKeySequence accel, QObject * parent, int extraInt, QString extraQString) 
+ScrAction::ScrAction(QKeySequence accel, QObject * parent, QVariant d)
 	: QAction( QIcon(QPixmap()), "", parent )
 {
 	setShortcut(accel);
 	initScrAction();
 	icon().addPixmap(QPixmap(), QIcon::Normal, QIcon::On);
 	_actionType=UnicodeChar;
-
+	setData(d);
 	connect (this, SIGNAL(triggered()), this, SLOT(triggeredToTriggeredData()));
-	_dataInt=extraInt;
-	_dataQString=extraQString;
 }
+
 
 void ScrAction::initScrAction()
 {
@@ -175,25 +97,29 @@ ScrAction::~ScrAction()
 void ScrAction::triggeredToTriggeredData()
 {
 	if (_actionType==ScrAction::DataInt)
-		emit triggeredData(_dataInt);
+		emit triggeredData(data().toInt());
 	if (_actionType==ScrAction::DataDouble)
-		emit triggeredData(_dataDouble);
+		emit triggeredData(data().toDouble());
 	if (_actionType==ScrAction::DataQString)
-		emit triggeredData(_dataQString);
+		emit triggeredData(data().toString());
 	if (_actionType==ScrAction::DLL)
-		emit triggeredData(pluginID);
+		qDebug()<<"if (_actionType==ScrAction::DLL): please fix in ScrAction::triggeredToTriggeredData()";
+//		emit triggeredData(pluginID);
 	if (_actionType==ScrAction::Window)
-		emit triggeredData(windowID);
+		qDebug()<<"if (_actionType==ScrAction::Window): please fix in ScrAction::triggeredToTriggeredData()";
+//		emit triggeredData(windowID);
 	if (_actionType==ScrAction::RecentFile)
-		emit triggeredData(_dataQString);
+		emit triggeredData(data().toString());
 	if (_actionType==ScrAction::RecentPaste)
-		emit triggeredData(_dataQString);
+		emit triggeredData(data().toString());
 	if (_actionType==ScrAction::RecentScript)
-		emit triggeredData(text());
+		qDebug()<<"if (_actionType==ScrAction::RecentScript): please fix in ScrAction::triggeredToTriggeredData()";
+//		emit triggeredData(text());
 	if (_actionType==ScrAction::UnicodeChar)
-		emit triggeredUnicodeShortcut(_dataQString, _dataInt);
+		emit triggeredUnicodeShortcut(data().toInt());
 	if (_actionType==ScrAction::Layer)
-		emit triggeredData(layerID);
+		qDebug()<<"if (_actionType==ScrAction::Layer): please fix in ScrAction::triggeredToTriggeredData()";
+//		emit triggeredData(layerID);
 	if (_actionType==ScrAction::ActionDLL)
 		emit triggeredData(((ScribusMainWindow*)parent())->doc);
 }
@@ -203,23 +129,24 @@ void ScrAction::toggledToToggledData(bool ison)
 	if (isCheckable())
 	{
 		if (_actionType==ScrAction::DataInt)
-			emit toggledData(ison, _dataInt);
+			emit toggledData(ison, data().toInt());
 		if (_actionType==ScrAction::DataDouble)
-			emit toggledData(ison, _dataDouble);
+			emit toggledData(ison, data().toDouble());
 		if (_actionType==ScrAction::DataQString)
-			emit toggledData(ison, _dataQString);
+			emit toggledData(ison, data().toString());
 		if (_actionType==ScrAction::DLL)
-			emit toggledData(ison, pluginID);
+			qDebug()<<"if (_actionType==ScrAction::DLL): please fix in ScrAction::toggledToToggledData(bool ison)";
+//			emit toggledData(ison, pluginID);
 		if (_actionType==ScrAction::Window)
-			emit toggledData(ison, windowID);
+			emit toggledData(ison, data().toInt());
 		if (_actionType==ScrAction::RecentFile)
-			emit toggledData(ison, _dataQString);
+			emit toggledData(ison, data().toString());
 		if (_actionType==ScrAction::RecentPaste)
-			emit toggledData(ison, _dataQString);
+			emit toggledData(ison, data().toString());
 		if (_actionType==ScrAction::RecentScript)
 			emit toggledData(ison, text());
 		if (_actionType==ScrAction::Layer)
-			emit toggledData(ison, layerID);
+			emit toggledData(ison, data().toInt());
 		// no toggle for UnicodeChar
 	}
 }
@@ -272,7 +199,7 @@ bool ScrAction::isDLLAction() const
 int ScrAction::dllID() const
 {
 	if (_actionType==ScrAction::DLL)
-		return pluginID;
+		return data().toInt();
 	return -1;
 }
 
@@ -319,17 +246,17 @@ ScrAction::ActionType ScrAction::actionType()
 
 int ScrAction::actionInt() const
 {
-	return _dataInt;
+	return data().toInt();
 }
 
 double ScrAction::actionDouble() const
 {
-	return _dataDouble;
+	return data().toDouble();
 }
 
 const QString ScrAction::actionQString()
 {
-	return _dataQString;
+	return data().toString();
 }
 
 void ScrAction::setTexts(const QString &newText)//#9114, qt3-qt4 change of behaviour bug:, bool setTextToo)
@@ -348,6 +275,6 @@ void ScrAction::toggle()
 
 void ScrAction::setActionQString(const QString &s)
 {
-	_dataQString=s;
+	setData(s);
 }
 

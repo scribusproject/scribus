@@ -275,7 +275,7 @@ public:
 public slots:
 	void languageChange();
 	void statusBarLanguageChange();
-	void specialActionKeyEvent(const QString& actionName, int unicodevalue);
+	void specialActionKeyEvent(int unicodevalue);
 	void newView();
 	void ToggleStickyTools();
 	void ToggleAllGuides();
