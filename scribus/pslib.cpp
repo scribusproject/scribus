@@ -4645,7 +4645,10 @@ void PSLib::HandleGradientFillStroke(PageItem *c, bool gcr, bool stroke, bool fo
 	}
 	else
 		PutStream("/ColorSpace /DeviceCMYK\n");
-	PutStream("/Extend [true true]\n");
+	if (gradient.repeatMethod() == VGradient::none)
+		PutStream("/Extend [false false]\n");
+	else
+		PutStream("/Extend [true true]\n");
 	if (GType == 6)
 		PutStream("/Coords ["+ToStr(StartX)+" "+ToStr(-StartY)+" "+ToStr(EndX)+" "+ToStr(-EndY)+"]\n");
 	else

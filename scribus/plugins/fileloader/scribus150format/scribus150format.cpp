@@ -266,7 +266,9 @@ bool Scribus150Format::loadElements(const QString & data, QString fileDir, int t
 			VGradient gra;
 			QString grName = attrs.valueAsString("Name");
 			success = readGradient(m_Doc, gra, reader);
-			if (!success) break;
+			if (!success)
+				break;
+			gra.setRepeatMethod((VGradient::VGradientRepeatMethod)(attrs.valueAsInt("Ext", VGradient::pad)));
 			if (!grName.isEmpty())
 			{
 				m_Doc->docGradients.insert(grName, gra);
@@ -785,7 +787,9 @@ bool Scribus150Format::loadPalette(const QString & fileName)
 			VGradient gra;
 			QString grName = attrs.valueAsString("Name");
 			success = readGradient(m_Doc, gra, reader);
-			if (!success) break;
+			if (!success)
+				break;
+			gra.setRepeatMethod((VGradient::VGradientRepeatMethod)(attrs.valueAsInt("Ext", VGradient::pad)));
 			if (!grName.isEmpty())
 			{
 				m_Doc->docGradients.insert(grName, gra);
@@ -1359,7 +1363,9 @@ bool Scribus150Format::loadFile(const QString & fileName, const FileFormat & /* 
 			VGradient gra;
 			QString grName = attrs.valueAsString("Name");
 			success = readGradient(m_Doc, gra, reader);
-			if (!success) break;
+			if (!success)
+				break;
+			gra.setRepeatMethod((VGradient::VGradientRepeatMethod)(attrs.valueAsInt("Ext", VGradient::pad)));
 			if (!grName.isEmpty())
 			{
 				m_Doc->docGradients.insert(grName, gra);
@@ -5465,6 +5471,9 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 		currItem->inlineCharID = attrs.valueAsInt("InID", -1);
 	else
 		currItem->inlineCharID = -1;
+	currItem->fill_gradient.setRepeatMethod((VGradient::VGradientRepeatMethod)(attrs.valueAsInt("GRExt", VGradient::pad)));
+	currItem->stroke_gradient.setRepeatMethod((VGradient::VGradientRepeatMethod)(attrs.valueAsInt("GRExtS", VGradient::pad)));
+	currItem->mask_gradient.setRepeatMethod((VGradient::VGradientRepeatMethod)(attrs.valueAsInt("GRExtM", VGradient::pad)));
 
 	currItem->setHasSoftShadow(attrs.valueAsBool("HASSOFTSHADOW", false));
 	currItem->setSoftShadowXOffset(attrs.valueAsDouble("SOFTSHADOWXOFFSET", 5.0));

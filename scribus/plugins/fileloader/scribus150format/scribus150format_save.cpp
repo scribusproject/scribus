@@ -590,6 +590,7 @@ void Scribus150Format::writeGradients(ScXmlStreamWriter & docu, bool part)
 		docu.writeStartElement("Gradient");
 		docu.writeAttribute("Name",itGrad.key());
 		VGradient gra = itGrad.value();
+		docu.writeAttribute("Ext", gra.repeatMethod());
 		QList<VColorStop*> cstops = gra.colorStops();
 		for (uint cst = 0; cst < gra.Stops(); ++cst)
 		{
@@ -1812,6 +1813,7 @@ void Scribus150Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 					docu.writeAttribute("GRFOCALY", item->GrFocalY);
 					docu.writeAttribute("GRSCALE" , item->GrScale);
 					docu.writeAttribute("GRSKEW" , item->GrSkew);
+					docu.writeAttribute("GRExt", item->fill_gradient.repeatMethod());
 					if ((item->GrType == 9) || (item->GrType == 10))
 					{
 						docu.writeAttribute("GRC1X"   , item->GrControl1.x());
@@ -1848,6 +1850,7 @@ void Scribus150Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 			docu.writeAttribute("GRNAMEM", item->gradientMask());
 		if (item->GrTypeStroke > 0)
 		{
+			docu.writeAttribute("GRExtS", item->stroke_gradient.repeatMethod());
 			docu.writeAttribute("GRSTARTXS", item->GrStrokeStartX);
 			docu.writeAttribute("GRSTARTYS", item->GrStrokeStartY);
 			docu.writeAttribute("GRENDXS", item->GrStrokeEndX);
@@ -1879,6 +1882,7 @@ void Scribus150Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 		}
 		if (item->GrMask > 0)
 		{
+			docu.writeAttribute("GRExtM", item->mask_gradient.repeatMethod());
 			docu.writeAttribute("GRTYPM", item->GrMask);
 			docu.writeAttribute("GRSTARTXM", item->GrMaskStartX);
 			docu.writeAttribute("GRSTARTYM", item->GrMaskStartY);

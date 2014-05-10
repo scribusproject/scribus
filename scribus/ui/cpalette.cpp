@@ -173,6 +173,8 @@ void Cpalette::connectSignals()
 	connect(hatchType, SIGNAL(activated(int)), this, SLOT(changeHatchProps()));
 	connect(hatchBackground, SIGNAL(activated(int)), this, SLOT(changeHatchProps()));
 	connect(hatchLineColor, SIGNAL(activated(int)), this, SLOT(changeHatchProps()));
+	connect(gradientExtend  , SIGNAL(activated(int)), this, SLOT(handleGradientExtend(int)));
+	connect(GradientExtendS  , SIGNAL(activated(int)), this, SLOT(handleStrokeGradientExtend(int)));
 }
 
 void Cpalette::disconnectSignals()
@@ -231,6 +233,8 @@ void Cpalette::disconnectSignals()
 	disconnect(hatchType, SIGNAL(activated(int)), this, SLOT(changeHatchProps()));
 	disconnect(hatchBackground, SIGNAL(activated(int)), this, SLOT(changeHatchProps()));
 	disconnect(hatchLineColor, SIGNAL(activated(int)), this, SLOT(changeHatchProps()));
+	disconnect(gradientExtend  , SIGNAL(activated(int)), this, SLOT(handleGradientExtend(int)));
+	disconnect(GradientExtendS  , SIGNAL(activated(int)), this, SLOT(handleStrokeGradientExtend(int)));
 }
 
 void Cpalette::setCurrentItem(PageItem* item)
@@ -554,6 +558,32 @@ void Cpalette::handleStrokeGradient()
 		currentDoc->itemSelection_SetLineGradient(gradient);
 		currentDoc->updateManager()->setUpdatesEnabled();
 		blockUpdates(false);
+	}
+}
+
+void Cpalette::handleStrokeGradientExtend(int val)
+{
+	if (currentDoc)
+	{
+		if (val == 0)
+			currentItem->setStrokeGradientExtend(VGradient::none);
+		else
+			currentItem->setStrokeGradientExtend(VGradient::pad);
+		currentItem->update();
+		currentDoc->regionsChanged()->update(QRect());
+	}
+}
+
+void Cpalette::handleGradientExtend(int val)
+{
+	if (currentDoc)
+	{
+		if (val == 0)
+			currentItem->setGradientExtend(VGradient::none);
+		else
+			currentItem->setGradientExtend(VGradient::pad);
+		currentItem->update();
+		currentDoc->regionsChanged()->update(QRect());
 	}
 }
 
@@ -1002,6 +1032,10 @@ void Cpalette::showGradient(int number)
 			gradientType->setCurrentIndex(0);
 		}
 		fillModeCombo->setCurrentIndex(1);
+		if (currentItem->getGradientExtend() == VGradient::none)
+			gradientExtend->setCurrentIndex(0);
+		else
+			gradientExtend->setCurrentIndex(1);
 	}
 	else if (number == 14)
 	{
@@ -1045,6 +1079,10 @@ void Cpalette::showGradientStroke(int number)
 		else
 			gradientTypeStroke->setCurrentIndex(0);
 		strokeModeCombo->setCurrentIndex(1);
+		if (currentItem->getStrokeGradientExtend() == VGradient::none)
+			GradientExtendS->setCurrentIndex(0);
+		else
+			GradientExtendS->setCurrentIndex(1);
 	}
 	else
 	{

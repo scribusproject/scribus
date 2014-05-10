@@ -84,6 +84,8 @@ public slots:
 	void handleOverprint(int);
 	void handleFillGradient();
 	void handleStrokeGradient();
+	void handleStrokeGradientExtend(int val);
+	void handleGradientExtend(int val);
 	void showColorValues(QString stroke, QString fille, int sShade, int fShade);
 	void showGradient(int nr);
 	void showGradientStroke(int nr);

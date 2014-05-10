@@ -7896,6 +7896,27 @@ void PageItem::setGradientColor4(QColor val)
 	GrColorP4QColor = val;
 }
 
+void PageItem::setGradientExtend(VGradient::VGradientRepeatMethod val)
+{
+	fill_gradient.setRepeatMethod(val);
+}
+
+void PageItem::setStrokeGradientExtend(VGradient::VGradientRepeatMethod val)
+{
+	stroke_gradient.setRepeatMethod(val);
+}
+
+VGradient::VGradientRepeatMethod PageItem::getGradientExtend()
+{
+	return fill_gradient.repeatMethod();
+}
+
+VGradient::VGradientRepeatMethod PageItem::getStrokeGradientExtend()
+{
+	return stroke_gradient.repeatMethod();
+}
+
+
 void PageItem::setSnapToPatchGrid(bool val)
 {
 	if(snapToPatchGrid ==val)

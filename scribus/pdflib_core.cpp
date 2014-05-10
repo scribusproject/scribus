@@ -6233,7 +6233,10 @@ QString PDFLibCore::PDF_TransparenzFill(PageItem *currItem)
 		else
 			PutDoc("/ShadingType 3\n");
 		PutDoc("/ColorSpace /DeviceGray\n");
-		PutDoc("/Extend [true true]\n");
+		if (gradient.repeatMethod() == VGradient::none)
+			PutDoc("/Extend [false false]\n");
+		else
+			PutDoc("/Extend [true true]\n");
 		if ((GType == 1) || (GType == 4))
 			PutDoc("/Coords ["+FToStr(StartX)+" "+FToStr(-StartY)+" "+FToStr(EndX)+" "+FToStr(-EndY)+"]\n");
 		else
@@ -8305,7 +8308,10 @@ bool PDFLibCore::PDF_GradientFillStroke(QString& output, PageItem *currItem, boo
 		else
 			PutDoc("/ShadingType 3\n");
 		PutDoc("/ColorSpace /DeviceGray\n");
-		PutDoc("/Extend [true true]\n");
+		if (gradient.repeatMethod() == VGradient::none)
+			PutDoc("/Extend [false false]\n");
+		else
+			PutDoc("/Extend [true true]\n");
 		if (GType == 6)
 			PutDoc("/Coords ["+FToStr(StartX)+" "+FToStr(-StartY)+" "+FToStr(EndX)+" "+FToStr(-EndY)+"]\n");
 		else
@@ -8426,7 +8432,10 @@ bool PDFLibCore::PDF_GradientFillStroke(QString& output, PageItem *currItem, boo
 		else
 			PutDoc("/ColorSpace /DeviceCMYK\n");
 	}
-	PutDoc("/Extend [true true]\n");
+	if (gradient.repeatMethod() == VGradient::none)
+		PutDoc("/Extend [false false]\n");
+	else
+		PutDoc("/Extend [true true]\n");
 	if (GType == 6)
 		PutDoc("/Coords ["+FToStr(StartX)+" "+FToStr(-StartY)+" "+FToStr(EndX)+" "+FToStr(-EndY)+"]\n");
 	else

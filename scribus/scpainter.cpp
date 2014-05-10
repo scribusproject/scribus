@@ -1365,7 +1365,10 @@ void ScPainter::fillPathHelper()
 				pat = cairo_pattern_create_linear (x1, y1,  x2, y2);
 			else
 				pat = cairo_pattern_create_radial (fx, fy, 0, x1, y1, sqrt(pow(x2 - x1, 2) + pow(y2 - y1,2)));
-			cairo_pattern_set_extend(pat, CAIRO_EXTEND_PAD);
+			if (fill_gradient.repeatMethod() == VGradient::none)
+				cairo_pattern_set_extend(pat, CAIRO_EXTEND_NONE);
+			else
+				cairo_pattern_set_extend(pat, CAIRO_EXTEND_PAD);
 			cairo_pattern_set_filter(pat, CAIRO_FILTER_GOOD);
 			QList<VColorStop*> colorStops = fill_gradient.colorStops();
 			for( int offset = 0 ; offset < colorStops.count() ; offset++ )
@@ -1642,7 +1645,10 @@ void ScPainter::strokePathHelper()
 			pat = cairo_pattern_create_linear (x1, y1,  x2, y2);
 		else
 			pat = cairo_pattern_create_radial (fx, fy, 0, x1, y1, sqrt(pow(x2 - x1, 2) + pow(y2 - y1,2)));
-		cairo_pattern_set_extend(pat, CAIRO_EXTEND_PAD);
+		if (stroke_gradient.repeatMethod() == VGradient::none)
+			cairo_pattern_set_extend(pat, CAIRO_EXTEND_NONE);
+		else
+			cairo_pattern_set_extend(pat, CAIRO_EXTEND_PAD);
 		cairo_pattern_set_filter(pat, CAIRO_FILTER_GOOD);
 		QList<VColorStop*> colorStops = stroke_gradient.colorStops();
 		for( int offset = 0 ; offset < colorStops.count() ; offset++ )

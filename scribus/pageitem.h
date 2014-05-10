@@ -600,6 +600,10 @@ public: // Start public functions
 	void setGradientColor3(QColor val);
 	QColor gradientColor4() const { return GrColorP4QColor; }
 	void setGradientColor4(QColor val);
+	void setGradientExtend(VGradient::VGradientRepeatMethod val);
+	void setStrokeGradientExtend(VGradient::VGradientRepeatMethod val);
+	VGradient::VGradientRepeatMethod getGradientExtend();
+	VGradient::VGradientRepeatMethod getStrokeGradientExtend();
 
 	//>> ********* Attributes of the item *********
 

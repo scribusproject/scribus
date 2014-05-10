@@ -70,7 +70,7 @@ VGradient::VGradient( VGradientType type ) : m_type( type )
 
 	setOrigin( FPoint( 0, 0 ) );
 	setVector( FPoint( 0, 50 ) );
-	setRepeatMethod( VGradient::reflect );
+	setRepeatMethod( VGradient::pad );
 }
 
 VGradient::VGradient( const VGradient& gradient )

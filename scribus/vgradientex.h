@@ -96,7 +96,8 @@ public:
 	{
 	    none    = 0,
 	    reflect = 1,
-	    repeat  = 2
+		repeat  = 2,
+		pad     = 3
 	};
 
 	VGradientEx( VGradientEx::Type type = linear );
@@ -139,7 +140,7 @@ protected:
 
 private:
 	VGradientEx::Type         m_type;
-	VGradientEx::RepeatMethod m_repeatMethod	: 2;
+	VGradientEx::RepeatMethod m_repeatMethod	: 3;
 
 	// coordinates:
 	FPoint m_origin;

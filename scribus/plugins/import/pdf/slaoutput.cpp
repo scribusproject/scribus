@@ -1815,6 +1815,10 @@ GBool SlaOutputDev::axialShadedFill(GfxState *state, GfxAxialShading *shading, d
 		QString stopColor2 = getColor(color_space, &stop2, &shade);
 		FillGradient.addStop( ScColorEngine::getShadeColor(m_doc->PageColors[stopColor2], m_doc, shade), 1.0, 0.5, 1.0, stopColor2, shade );
 	}
+	if (!shading->getExtend0() || !shading->getExtend1())
+		FillGradient.setRepeatMethod(VGradient::none);
+	else
+		FillGradient.setRepeatMethod(VGradient::pad);
 	((GfxAxialShading*)shading)->getCoords(&GrStartX, &GrStartY, &GrEndX, &GrEndY);
 	double xmin, ymin, xmax, ymax;
 	// get the clip region bbox
@@ -1909,6 +1913,10 @@ GBool SlaOutputDev::radialShadedFill(GfxState *state, GfxRadialShading *shading,
 		QString stopColor2 = getColor(color_space, &stop2, &shade);
 		FillGradient.addStop( ScColorEngine::getShadeColor(m_doc->PageColors[stopColor2], m_doc, shade), 1.0, 0.5, 1.0, stopColor2, shade );
 	}
+	if (!shading->getExtend0() || !shading->getExtend1())
+		FillGradient.setRepeatMethod(VGradient::none);
+	else
+		FillGradient.setRepeatMethod(VGradient::pad);
 	double r0, x1, y1, r1;
 	((GfxRadialShading*)shading)->getCoords(&GrStartX, &GrStartY, &r0, &x1, &y1, &r1);
 	double xmin, ymin, xmax, ymax;
