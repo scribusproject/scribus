@@ -195,6 +195,10 @@ bool fileInPath(const QString& filename)
 	if (filename.isEmpty())
 		return false;
 	QString file = filename.split(' ', QString::SkipEmptyParts).at(0); //Ignore parameters
+#if defined(Q_OS_WIN32)
+	if (QFileInfo(file).suffix().isEmpty())
+		file += ".exe";
+#endif 
 
 	file = QDir::fromNativeSeparators(file);
 	if (file.indexOf('/') >= 0)

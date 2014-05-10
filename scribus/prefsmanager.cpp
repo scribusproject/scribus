@@ -1037,11 +1037,14 @@ bool PrefsManager::renderFrameConfigured()
 		return false;
 	if (appPrefs.extToolPrefs.latexCommands.isEmpty())
 		return false;
-	bool foundAny=false;
+	bool foundAny = false;
 	foreach (QString cmd, appPrefs.extToolPrefs.latexCommands)
 	{
 		if (fileInPath(cmd))
-			foundAny=true;
+		{
+			foundAny = true;
+			break;
+		}
 	}
 	return foundAny;
 }
