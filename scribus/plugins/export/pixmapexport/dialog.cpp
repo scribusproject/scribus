@@ -32,7 +32,7 @@ ExportForm::ExportForm(QWidget* parent, ScribusDoc* doc, int size, int quality, 
 	QDirModel * dirModel = new QDirModel(this);
 	dirModel->setFilter(QDir::AllDirs);
 	outputDirectory->setCompleter(new QCompleter(dirModel, this));
-	
+
 	outputDirectory->setText( QDir::toNativeSeparators(prefs->get("wdir", QDir::currentPath())) );
 	QList<QByteArray> imgs = QImageWriter::supportedImageFormats();
 	for (int a = 0; a < imgs.count(); a++)
@@ -42,18 +42,18 @@ ExportForm::ExportForm(QWidget* parent, ScribusDoc* doc, int size, int quality, 
 	setCurrentComboItem(bitmapType, type.toLower());
 	qualityBox->setValue(quality);
 	qualityBox->setWrapping(true);
-	
+
 	DPIBox->setValue(size);
 	enlargementBox->setValue(size);
 	onePageRadio->setChecked( true );
- 	pageNrButton->setIcon(loadIcon("ellipsis.png"));
+	pageNrButton->setIcon(loadIcon("ellipsis.png"));
 	rangeVal->setEnabled(false);
 	pageNrButton->setEnabled(false);
 
 	languageChange();
 	readConfig();
 	computeSize();
-	
+
 	connect(outputDirectoryButton, SIGNAL(clicked()), this, SLOT(OutputDirectoryButton_pressed()));
 	connect(intervalPagesRadio, SIGNAL(clicked()), this, SLOT(IntervalPagesRadio_stateChanged()));
 	connect(allPagesRadio, SIGNAL(clicked()), this, SLOT(AllPagesRadio_stateChanged()));

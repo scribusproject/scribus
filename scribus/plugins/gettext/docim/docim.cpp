@@ -49,7 +49,7 @@ bool hasAntiword()
 QString FileFormatName()
 {
 	if (hasAntiword())
-    	return QObject::tr("Word Documents");
+		return QObject::tr("Word Documents");
 	else
 		return QString::null;
 }
@@ -57,7 +57,7 @@ QString FileFormatName()
 QStringList FileExtensions()
 {
 	if (hasAntiword())
-    	return QStringList("doc");
+		return QStringList("doc");
 	else
 		return QStringList();
 }

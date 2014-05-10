@@ -87,10 +87,10 @@ void FtFace::load() const
 			return;
 		}
 	}
-	
+
 	const_cast<FtFace*>(this)->isStroked = false;
 	m_encoding = 0;
-	
+
 	m_uniEM = static_cast<qreal>(m_face->units_per_EM);
 
 	m_descent = m_face->descender / m_uniEM;
@@ -128,7 +128,7 @@ void FtFace::load() const
 	int goodGlyph = 0;
 	int invalidGlyph = 0;
 	bool error;
-	
+
 	while ( gindex != 0 )
 	{
 		error = FT_Load_Glyph( m_face, gindex, FT_LOAD_NO_SCALE | FT_LOAD_NO_BITMAP );
@@ -139,10 +139,10 @@ void FtFace::load() const
 			charcode = FT_Get_Next_Char( m_face, charcode, &gindex );
 			continue;
 		}
-		
+
 		if (gindex > maxGlyph)
 			const_cast<FtFace*>(this)->maxGlyph = gindex;
-		
+
 		++goodGlyph;
 		if (m_face->glyph->format == FT_GLYPH_FORMAT_PLOTTER)
 			const_cast<FtFace*>(this)->isStroked = true;
@@ -178,7 +178,7 @@ void FtFace::loadGlyph(uint gl) const
 {
 	if (m_glyphWidth.contains(gl))
 		return;
-	
+
 	ScFace::GlyphData GRec;
 	FT_Face face = ftFace();
 	if (FT_Load_Glyph( face, gl, FT_LOAD_NO_SCALE | FT_LOAD_NO_BITMAP ))
@@ -272,37 +272,37 @@ GlyphMetrics FtFace::glyphBBox (uint gl, qreal sz) const
 /// copied from Freetype's FT_Stream_ReadAt()
 FT_Error ftIOFunc( FT_Stream stream, unsigned long pos, unsigned char* buffer, unsigned long count)
 {
-    FT_Error  error = FT_Err_Ok;
-    FT_ULong  read_bytes;
-	
-    if ( pos >= stream->size )
-    {
+	FT_Error  error = FT_Err_Ok;
+	FT_ULong  read_bytes;
+
+	if ( pos >= stream->size )
+	{
 		qDebug( "ftIOFunc: invalid i/o; pos = 0x%lx, size = 0x%lx\n", pos, stream->size );
-		
+
 		return FT_Err_Invalid_Stream_Operation;
-    }
-	
-    if ( stream->read )
+	}
+
+	if ( stream->read )
 		read_bytes = stream->read( stream, pos, buffer, count );
-    else
-    {
+	else
+	{
 		read_bytes = stream->size - pos;
 		if ( read_bytes > count )
 			read_bytes = count;
-		
+
 		memcpy( buffer, stream->base + pos, read_bytes );
-    }
-	
-    stream->pos = pos + read_bytes;
-	
-    if ( read_bytes < count )
-    {
+	}
+
+	stream->pos = pos + read_bytes;
+
+	if ( read_bytes < count )
+	{
 		qDebug( "ftIOFunc: invalid read; expected %lu bytes, got %lu\n", count, read_bytes );
-		
+
 		error = FT_Err_Invalid_Stream_Operation;
-    }
-	
-    return error;
+	}
+
+	return error;
 }
 
 

@@ -745,7 +745,7 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 	if (m_mwProgressBar!=0)
 		m_mwProgressBar->setValue(reader.characterOffset());
 	return true;
-// 	return false;
+//	return false;
 }
 
 // Low level plugin API
@@ -2349,14 +2349,14 @@ bool Scribus134Format::readItemText(PageItem *obj, ScXmlStreamAttributes& attrs,
 
 	for (int cxx=0; cxx<tmp2.length(); ++cxx)
 	{
-		QChar ch = tmp2.at(cxx);		
+		QChar ch = tmp2.at(cxx);
 		{ // Legacy mode
 			if (ch == QChar(5))
 				ch = SpecialChars::PARSEP;
 			if (ch == QChar(4))
 				ch = SpecialChars::TAB;
 		}
-		
+
 		int pos = obj->itemText.length();
 		if (ch == SpecialChars::OBJECT)
 		{
@@ -2374,16 +2374,16 @@ bool Scribus134Format::readItemText(PageItem *obj, ScXmlStreamAttributes& attrs,
 		else if (ch == SpecialChars::SHYPHEN && pos > 0)
 		{
 //			qDebug() << QString("scribus134format: SHYPHEN at %1").arg(pos);
-            // double SHY means user provided SHY, single SHY is automatic one
+			// double SHY means user provided SHY, single SHY is automatic one
 			if (obj->itemText.hasFlag(pos-1, ScLayout_HyphenationPossible))
-            {
+			{
 				obj->itemText.clearFlag(pos-1, ScLayout_HyphenationPossible);
-                obj->itemText.insertChars(pos, QString(ch));
-            }
-            else
-            {
+				obj->itemText.insertChars(pos, QString(ch));
+			}
+			else
+			{
 				obj->itemText.setFlag(pos-1, ScLayout_HyphenationPossible);
-            }
+			}
 		}
 		else {
 			obj->itemText.insertChars(pos, QString(ch));
@@ -3371,7 +3371,7 @@ bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool M
 				ta->BottomLink = 0;
 		}
 	}
-	
+
 	// reestablish textframe links
 	if (itemNext.count() != 0 && !Mpage)
 	{
@@ -3415,7 +3415,7 @@ bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool M
 			}
 		}
 	}
-	
+
 	// reestablish first/lastAuto
 	m_Doc->FirstAuto = m_Doc->LastAuto;
 	if (m_Doc->LastAuto)

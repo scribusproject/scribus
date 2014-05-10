@@ -565,7 +565,7 @@ void ScFace_ttf::RawData(QByteArray & bb) const {
 			while ((pos & 3) != 0)
 				bb.data()[pos++] = '\0';
 		}
-	}	
+	}
 	else if (formatCode == ScFace::TYPE42) {
 		FtFace::RawData(bb);
 	}

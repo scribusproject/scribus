@@ -22,7 +22,7 @@ protected:
 public:
 	inline const ScColorTransformInfo& transformInfo() const { return m_transformInfo; }
 	inline void  setTransformInfo(const ScColorTransformInfo& info) { m_transformInfo = info; }
-	
+
 	virtual bool isNull() const = 0;
 
 	virtual bool apply(void* input, void* output, uint numElem) = 0;

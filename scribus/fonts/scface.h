@@ -80,7 +80,7 @@ public:
 		SFNT, TTCF, UNKNOWN_FORMAT };
 
 	static const uint CONTROL_GLYPHS = 2000000000; // 2 billion
-	
+
 	struct GlyphData { 
 		FPointArray Outlines;
 		qreal x;
@@ -91,8 +91,8 @@ public:
 		bool broken;
 		GlyphData() : Outlines(), x(0), y(0), bbox_width(1), bbox_ascent(1), bbox_descent(0), broken(true) {}
 	};
-	
-	
+
+
 	/// see accessors for ScFace for docs
 	class ScFaceData {
 	public:
@@ -100,7 +100,7 @@ public:
 		mutable int refs;
 		/// controls load()
 		mutable int usage;
-		
+
 		QString scName;
 		QString fontFile;
 		int     faceIndex;
@@ -114,11 +114,11 @@ public:
 		mutable ScFace::Status status;
 		ScFace::FontType typeCode;
 		ScFace::FontFormat formatCode;
-		
+
 		bool usable;
 		bool embedPs;
 		bool subset;
-		
+
 		bool isStroked;
 		bool isFixedPitch;
 		bool hasNames;
@@ -127,17 +127,17 @@ public:
 		ScFaceData();
 		virtual ~ScFaceData() { };
 	protected:
-			
+
 		friend class ScFace;
 		Status cachedStatus;
-		
+
 		// caches
 		mutable QHash<uint, qreal>     m_glyphWidth;
 		mutable QHash<uint, GlyphData> m_glyphOutline;
 		mutable QHash<uint, uint>      m_cMap;
-		
+
 		// fill caches & members
-		
+
 		virtual void load()             const 
 		{ 
 			m_glyphWidth.clear();
@@ -146,7 +146,7 @@ public:
 
 			status = qMax(cachedStatus, ScFace::LOADED);
 		}
-		
+
 		virtual void unload()           const 
 		{
 			m_glyphWidth.clear();
@@ -155,7 +155,7 @@ public:
 
 			status = ScFace::UNKNOWN;
 		}
-		
+
 		virtual void loadGlyph(uint /*gl*/) const {}
 
 		// dummy implementations
@@ -185,11 +185,11 @@ public:
 		virtual qreal      glyphWidth(uint gl, qreal sz)   const;
 		virtual FPointArray glyphOutline(uint gl, qreal sz) const; 
 		virtual FPoint      glyphOrigin (uint gl, qreal sz) const;
-		
+
 	};
-		
-	
-	
+
+
+
 	ScFace();
 	ScFace(const ScFace& other);
 	~ScFace();
@@ -199,40 +199,40 @@ public:
 
 	/// test for null object
 	bool isNone() const   { return m->status == NULLFACE; }
-	
+
 	ScFace& operator=(const ScFace& other);
 	/** two ScFaces are equal if they either are both NULLFACEs or they
 		agree on family, style, variant and fontpath
 		*/
 	bool operator==(const ScFace& other) const ;
 	bool operator!=(const ScFace& other) const { return ! (*this == other); }
-	
-	
+
+
 	bool EmbedFont(QString &str);
 	void RawData(QByteArray & bb);
 	bool glyphNames(QMap<uint, std::pair<QChar, QString> >& gList);
-	
+
 	/// prevent unloading of face data
 	void increaseUsage() const;
-	
+
 	/// unload face data if not used any more
 	void decreaseUsage() const;
-	
+
 	/// unload face data. It will be reloaded on need
 	void unload()      const;
-	
+
 	/// the name Scribus uses for this font
 	QString scName()   const { return replacedName.isEmpty() ? m->scName : replacedName; }
-	
+
 	/// the name of the font which was used for replacement
 	QString replacementName()   const { return m->scName; }
-	
+
 	/// the name of the font which was used for replacement
 	QString replacementForDoc()   const { return replacedInDoc; }
-	
+
 	/// check if this is a replacement font
 	bool isReplacement()   const { return !replacedName.isEmpty(); }
-	
+
 	/// makes a repalcement font for font "name" using this fonts data
 	ScFace mkReplacementFor(QString name, QString doc) { 
 		ScFace result(m); 
@@ -247,41 +247,41 @@ public:
 		replacedName = oldName;
 		replacedInDoc = doc; 
 	}
-	
+
 	/// the name PostScript uses for this font
 	QString psName()   const { return m->psName; }
-	
+
 	/// the physical location of the fontfile
 	QString fontPath() const { return m->faceIndex >= 0 ? QString("%1(%2)").arg(m->fontFile).arg(m->faceIndex+1) : m->fontFile; }
-	
+
 	/// the file path of the fontfile
 	QString fontFilePath()      const { return m->fontFile; }
-	
+
 	/// if the fontfile contains more than one face, the index, else -1
 	int faceIndex()    const { return m->faceIndex; }
-	
+
 	/// path name of the document this face is local to
 	QString localForDocument()  const { return m->forDocument; }
-	
+
 	/// font type, eg. Type1 or TTF
 	FontType type()    const { return m->typeCode; }
-	
+
 	/// font format, which might be a little more complicated
 	FontFormat format()const { return m->formatCode; }
-	
+
 	/// test if this face can be used in documents
 	bool usable()      const { return m->usable && !isNone(); }
-	
+
 	/// test if this face can be embedded in PS/PDF
 	bool embedPs()     const { return m->embedPs && m->status < BROKENGLYPHS; }
-	
+
 	/// test if this face can be embedded as outlines in PS/PDF
 	bool subset()      const { return m->subset && m->status < BROKEN; }
-	
+
 	void usable(bool flag)   { m->usable = flag; }
 	void embedPs(bool flag)  { m->embedPs = flag; }
 	void subset(bool flag)   { m->subset = flag; }
-	
+
 	/// deprecated? tells if the face has PS names
 	bool hasNames()    const { return m->hasNames; }
 
@@ -290,22 +290,22 @@ public:
 
 	/// tells if this font is a fixed pitch font
 	bool isFixedPitch()const { return m->isFixedPitch; }
-	
+
 	/// tells if this is an OTF/CFF font
 	bool isOTF()       const { return m->typeCode == OTF; }
-		
+
 	/// returns the highest glyph index in this face
 	uint maxGlyph()    const { return m->maxGlyph; }
-	
+
 	/// returns the font family as seen by Scribus
 	QString family()   const { return m->family; }
-	
+
 	/// returns the font style as seen by Scribus (eg. bold, Italic)
 	QString style()    const { return m->style; }
-	
+
 	/// returns an additional discriminating String for this face
 	QString variant()  const { return m->variant; }
-	
+
 	// font metrics
 	QString pdfAscentAsString()      const;
 	QString pdfDescentAsString()     const;
@@ -321,20 +321,20 @@ public:
 	qreal underlinePos(qreal sz=1.0)    const;
 	qreal strokeWidth(qreal sz=1.0)     const;
 	qreal maxAdvanceWidth(qreal sz=1.0) const;
-	
+
 	/// deprecated
 	QString stemV(qreal sz=1.0)    const { return fontDictionary(sz)["/StemV"]; }
-	
+
 	/// deprecated
 	QString italicAngle(qreal sz=1.0)      const { return fontDictionary(sz)["/ItalicAngle"]; }
-	
+
 	/// deprecated
 	QString fontBBox(qreal sz=1.0)         const { return fontDictionary(sz)["/FontBBox"]; }
 
 	/// returns a map of values used for font dictionaries in PS/PDF
-	QMap<QString,QString> fontDictionary(qreal sz=1.0) const { return m->fontDictionary(sz); }	
+	QMap<QString,QString> fontDictionary(qreal sz=1.0) const { return m->fontDictionary(sz); }
 	// glyph interface
-	
+
 	/// returns the glyphs normal advance width at size 'sz'
 	qreal glyphWidth(uint gl, qreal sz=1.0) const { return m->glyphWidth(gl, sz); }
 
@@ -349,7 +349,7 @@ public:
 
 	/// returns the glyph's origin FIXME: what's that exactly?
 	FPoint glyphOrigin(uint gl, qreal sz=1.0)    const { return m->glyphOrigin(gl, sz); }
-	
+
 	// char interface
 
 	/// test if the face can render this char
@@ -360,28 +360,28 @@ public:
 
 	/// returns the combined glyph width and kerning for 'ch' if followed by 'ch2'
 	qreal charWidth(QChar ch, qreal sz=1.0, QChar ch2 = QChar(0)) const;
-	
+
 	/// deprecated, see glyphBBox()
 	qreal realCharWidth(QChar ch, qreal sz=1.0) const { return glyphBBox(char2CMap(ch),sz).width; }
-	
+
 	/// deprecated, see glyphBBox()
 	qreal realCharHeight(QChar ch, qreal sz=1.0) const { GlyphMetrics gm=glyphBBox(char2CMap(ch),sz); return gm.ascent + gm.descent; }
-	
+
 	/// deprecated, see glyphBBox()
 	qreal realCharAscent(QChar ch, qreal sz=1.0) const { return glyphBBox(char2CMap(ch),sz).ascent; }
-	
+
 	/// deprecated, see glyphBBox()
 	qreal realCharDescent(QChar ch, qreal sz=1.0) const { return glyphBBox(char2CMap(ch),sz).descent; }
-	
+
 private:
-		
+
 	friend class SCFonts;
-	
+
 	ScFace(ScFaceData* md);
 	ScFaceData* m;
 	QString replacedName;
 	QString replacedInDoc;
-	
+
 	void initFaceData();
 	void checkAllGlyphs();
 	uint emulateGlyph(QChar c) const;

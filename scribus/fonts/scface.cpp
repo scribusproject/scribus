@@ -59,7 +59,7 @@ GlyphMetrics ScFace::ScFaceData::glyphBBox(uint gl, qreal sz) const
 	}
 	else if (! m_glyphWidth.contains(gl)) {
 		loadGlyph(gl);
-	}			
+	}
 	const struct GlyphData & data(m_glyphOutline[gl]);
 	res.width = data.bbox_width * sz;
 	res.ascent = data.bbox_ascent * sz;
@@ -76,7 +76,7 @@ qreal ScFace::ScFaceData::glyphWidth(uint gl, qreal size) const
 		return size;
 	else if (! m_glyphWidth.contains(gl)) {
 		loadGlyph(gl);
-	}		
+	}
 	return m_glyphWidth[gl] * size;
 }
 
@@ -96,7 +96,7 @@ FPointArray ScFace::ScFaceData::glyphOutline(uint gl, qreal sz) const
 	}
 	else if (! m_glyphWidth.contains(gl)) {
 		loadGlyph(gl);
-	}			
+	}
 	FPointArray res = m_glyphOutline[gl].Outlines.copy();
 	if (sz != 1.0)
 		res.scale(sz, sz);
@@ -110,7 +110,7 @@ FPoint ScFace::ScFaceData::glyphOrigin(uint gl, qreal sz) const
 		return FPoint(0,0);
 	else if (! m_glyphWidth.contains(gl)) {
 		loadGlyph(gl);
-	}			
+	}
 	const struct GlyphData & res(m_glyphOutline[gl]);
 	return FPoint(res.x, res.y) * sz; 
 }
@@ -364,7 +364,7 @@ uint ScFace::char2CMap(QChar ch) const
 		return emulateGlyph(ch);
 
 	uint gl = m->char2CMap(ch);
-	
+
 	if (gl == 0)
 		return emulateGlyph(ch);
 	else

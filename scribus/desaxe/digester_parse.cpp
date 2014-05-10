@@ -25,8 +25,8 @@ public:
 		dig->beginDoc();
 		return true;
 	}
-    bool startElement( const QString& nsURI, const QString& locName, const QString& qName,
-                       const QXmlAttributes& qattr)
+	bool startElement( const QString& nsURI, const QString& locName, const QString& qName,
+	                   const QXmlAttributes& qattr)
 	{
 		Xml_attr attr;
 		for (int i=0; i < qattr.count(); ++i)
@@ -35,7 +35,7 @@ public:
 		return true;
 	}
 
-    bool endElement( const QString& nsURI, const QString& locName, const QString& qName)
+	bool endElement( const QString& nsURI, const QString& locName, const QString& qName)
 	{
 		dig->end(qName);
 		return true;

@@ -63,7 +63,7 @@ protected:
 
 	/*! \brief Create a pixmap sample with font preview.
 	With GUI oprions. */
- 	void paintSample();
+	void paintSample();
 
 	/*! \brief Check if is there any item in list to prevent crashes.
 	It allows not to paint the sample if there could be memory leak.

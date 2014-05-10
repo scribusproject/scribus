@@ -48,7 +48,7 @@ public:
 	virtual void end(const Xml_string& tag);
 	Xml_string openTag();
 private:
-	int	m_level;
+	int m_level;
 	Xml_string m_tag;
 };
 
@@ -64,7 +64,7 @@ public:
 	virtual void begin(const Xml_string& tag, Xml_attr attr);
 	virtual void end(const Xml_string& tag);
 private:
-	int m_level;	
+	int m_level;
 	Xml_string m_old;
 	Xml_string m_new;
 };

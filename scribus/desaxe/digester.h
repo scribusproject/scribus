@@ -26,13 +26,13 @@
 //#define DESAXE_DEBUG 1
 
 namespace desaxe {
-	
+
 class Action;
 class RuleState;
 
 
 namespace PRIVATE {
-	
+
 	class VarPtr
 	{
 	public:
@@ -40,7 +40,7 @@ namespace PRIVATE {
 		std::string type;
 	};
 
-	
+
 	template<class ObjType>
 	inline
 	VarPtr mkcell(ObjType* obj)
@@ -50,8 +50,8 @@ namespace PRIVATE {
 		result.type = typeid(obj).name();
 		return result;
 	}
-	
-	
+
+
 	template<class ObjType>
 	inline
 	void chkcell(const VarPtr& cell, std::vector<VarPtr>* stack = NULL)
@@ -72,7 +72,7 @@ namespace PRIVATE {
 			assert (false);
 		}
 	}
-	
+
 
 
 class Patch {
@@ -80,7 +80,7 @@ public:
 	// internal linked list
 	Patch* next;
 	Patch(Patch* nxt) : next(nxt) {}
-	
+
 	virtual void run(VarPtr lnk) = 0;
 	virtual ~Patch() {}
 };
@@ -97,79 +97,79 @@ public:
    attributes, or call methods. Actions operate on intermediate objects which 
    are hold on a stack maintained by Digester.  
  */
-class Digester : public SaxHandler {	
+class Digester : public SaxHandler {
 public:
 	Digester();
 	Digester& operator=(const Digester& other);
 	virtual ~Digester();
 	void reset();
 	void addRule(const Xml_string& pattern, Action action);
-	
+
 	void parseFile(const Xml_string& filename);
 	void parseMemory(const char* data, unsigned int length);
-	
+
 	template<class ObjType>
 		ObjType*  result();	
 	int nrOfErrors() const;
 	const Xml_string getError(int i) const;
-	
+
 // called by SAX parser:
 	void beginDoc();
 	void endDoc();
 	void begin(const Xml_string& tag, Xml_attr attr);
 	void end(const Xml_string& tag);
 	void chars(const Xml_string& text);
-	
+
 // used by actions:
 	void fail();
 	void error(const Xml_string& msg);
-	
+
 	template<class ObjType>
 	ObjType*  top(unsigned int offset = 0);
-	
+
 	template<class ObjType>
 	ObjType*  bottom(unsigned int offset = 0);
-	
+
 	template<class ObjType>
 	void setResult(	ObjType* res );
-	
+
 	void pop();
 	void popn(unsigned int number);
-	
+
 	template<class ObjType>
 	void push(ObjType* obj);
-	
+
 //  used to resolve idrefs and for general storage	
 	template<class ObjType>
 		ObjType*  lookup(const Xml_string& idref);	
 	template<class ObjType>
 		void store(const Xml_string& idref, ObjType* res );
-	
+
 //  used to resolve idrefs if use is before definition
 	template<class LinkType>
 		void patchCall(const Xml_string& idref, void (*fun)(LinkType*) );
 	template<class ObjType, class LinkType>
 		void patchInvoke(const Xml_string& idref, ObjType* obj, void (ObjType::*fun)(LinkType*) );
-	
+
 	// used to insert "/" where necessary
 	static Xml_string concat(const Xml_string& pattern1, const Xml_string& pattern2);
 
 private:
 	RuleState* 
 		state;
-	
+
 	std::vector<PRIVATE::VarPtr> 
 		objects;
-	
+
 	std::map<Xml_string, PRIVATE::VarPtr> 
 		storage;
 
 	std::map<Xml_string, PRIVATE::Patch*>
 		patches;
-	
+
 	PRIVATE::VarPtr 
 		result_;
-	
+
 	std::vector<Xml_string> 
 		errors;
 };
@@ -269,16 +269,16 @@ namespace PRIVATE {
 	{
 		typedef void (*FunType1)(LinkType*);
 		FunType1 fun;
-		
+
 		Patch1(FunType1 fn, Patch* nxt = NULL) : Patch(nxt), fun(fn) {}
-		
+
 		void run(VarPtr link) 
 		{ 
 			fun( static_cast<LinkType*>(link.ptr) ); 
 		}
 	};
 	
-	
+
 	template <class ObjType, class LinkType>
 		struct Patch2 : public Patch
 	{
@@ -293,8 +293,8 @@ namespace PRIVATE {
 			(obj->*fun)( static_cast<LinkType*>(link.ptr) ); 
 		}
 	};
-	
-	
+
+
 	inline
 	void runPatches(Patch*& list, VarPtr link)
 	{
@@ -306,7 +306,7 @@ namespace PRIVATE {
 			list = nxt;
 		}
 	}
-	
+
 	inline
 	void deletePatches(std::map<Xml_string, Patch*>& patches)
 	{
@@ -324,7 +324,7 @@ namespace PRIVATE {
 		patches.clear();
 	}
 
-	
+
 //	template<> class Patch1<void>;
 //	template<> class Patch2<VarPtr,void>;
 	
@@ -376,7 +376,7 @@ template<class LinkType>
 void Digester::patchCall(const Xml_string& idref, void (*fun)(LinkType*) )
 {
 	using namespace PRIVATE;
-	
+
 	std::map<Xml_string, VarPtr>::iterator cell = storage.find(idref);
 	if (cell == storage.end())
 	{
@@ -393,7 +393,7 @@ template<class ObjType, class LinkType>
 void Digester::patchInvoke(const Xml_string& idref, ObjType* obj, void (ObjType::*fun)(LinkType*) )
 {
 	using namespace PRIVATE;
-	
+
 	std::map<Xml_string, VarPtr>::iterator cell = storage.find(idref);
 	if (cell == storage.end())
 	{

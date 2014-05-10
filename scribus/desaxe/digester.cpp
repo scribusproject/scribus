@@ -20,9 +20,9 @@
 #include "actions.h"
 
 namespace desaxe {
-	
+
 typedef std::pair<Xml_string, Action> rule_t;
-	
+
 typedef unsigned short token_t;
 typedef std::vector<token_t> path_t;
 enum special_token { EMPTY = 0, START = 1, ANY = 2, REPEAT = 3 } ;
@@ -33,7 +33,7 @@ struct DFA_State
 {
 	unsigned int ID;
 	std::vector<rule_t> rules;
-	
+
 	DFA_State() : rules() {}
 };
 
@@ -68,7 +68,7 @@ public:
 private:
 	/// user sets these rules
 	std::vector<rule_t> rules;
-	
+
 	/// rule patterns get broken into tokens:
 	std::map<Xml_string, token_t> tokens;
 	/// lists the accepting (NFA) states for each rule (same sequence as rules)
@@ -81,7 +81,7 @@ private:
 	/// assigns a unique token to each string
 	token_t createToken(const Xml_string& tok);
 	void makeTokens();
-	
+
 	/// creates a nondeterministic automaton as base for the DFA
 	automata::NFA<nfa_state_t, token_t>* createNFA();
 
@@ -352,12 +352,12 @@ automata::NFA<nfa_state_t, token_t>* RuleState::createNFA()
 	
 	prefix[0] = EMPTY;
 	nfa_states[prefix] = EMPTY;
-	
+
 	std::set<nfa_state_t> deflt;
 	deflt.insert(EMPTY);
-	
+
 	NFA<nfa_state_t, token_t> *nfa = new NFA<nfa_state_t, token_t>(START, deflt);
-	
+
 	nfa->addState(EMPTY);
 	nfa->addInput(ANY);
 	nfa->addTransition(EMPTY, ANY, EMPTY);
@@ -368,7 +368,7 @@ automata::NFA<nfa_state_t, token_t>* RuleState::createNFA()
 		const unsigned int len = currPattern.length();
 		int pos;
 		nfa_state_t lastState;
-		
+
 		// determine if this is a start pattern
 		prefix.resize(1);
 		if (currPattern[0] == '/') {
@@ -381,14 +381,14 @@ automata::NFA<nfa_state_t, token_t>* RuleState::createNFA()
 			pos = 0;
 			lastState = EMPTY;
 		}
-		
+
 //		std::cerr << "looking at pattern: " << currPattern << "\n";
 		// for all prefixes
 		do {
 			std::string::size_type pos2 = currPattern.find('/', pos);
 			if (pos2 == std::string::npos)
 				pos2 = len;
-			
+
 			std::string diff(currPattern.substr(pos, pos2-pos));
 			token_t tok = createToken(fromSTLString(diff));
 //			std::cerr << pos << "-" << pos2 << "\t: " << diff << " = " << tok << "\n";
@@ -400,7 +400,7 @@ automata::NFA<nfa_state_t, token_t>* RuleState::createNFA()
 				pos = pos2 + 1;
 				continue;
 			}
-			
+
 			prefix.push_back(tok);
 			// create new state if necessary
 			nfa_state_t nstate;
@@ -433,7 +433,7 @@ automata::NFA<nfa_state_t, token_t>* RuleState::createNFA()
 				for (st = tr->second.begin(); st != tr->second.end(); ++st)
 					nfa->addTransition(*it, tr->first, *st);
 		}
-		
+
 		// ANY transitions
 		const std::set<token_t>& inputs(nfa->inputs());
 		std::set<token_t>::const_iterator tok;

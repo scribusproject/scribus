@@ -27,15 +27,15 @@ public:
 
 	// function for getting available profile in a directory
 	virtual QList<ScColorProfileInfo> getAvailableProfileInfo(const QString& directory, bool recursive);
-	
+
 	// functions for opening icc profiles
 	virtual ScColorProfile openProfileFromFile(ScColorMgmtEngine& engine, const QString& filePath);
 	virtual ScColorProfile openProfileFromMem (ScColorMgmtEngine& engine, const QByteArray& array);
-	
+
 	// functions for creating profiles
 	virtual ScColorProfile createProfile_sRGB(ScColorMgmtEngine& engine);
 	virtual ScColorProfile createProfile_Lab (ScColorMgmtEngine& engine);
-	
+
 	// functions for creating transforms
 	virtual ScColorTransform createTransform(ScColorMgmtEngine& colorManagementEngine,
 		                                     const ScColorProfile& inputProfile , eColorFormat inputFormat,

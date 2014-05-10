@@ -556,27 +556,27 @@ int ScLcmsColorMgmtEngineImpl::translateIntentToLcmsIntent(eRenderIntent intent,
 eColorSpaceType ScLcmsColorMgmtEngineImpl::translateLcmsColorSpaceType(icColorSpaceSignature signature)
 {
 	eColorSpaceType colorSpaceType = ColorSpace_Unknown;
-    if (signature == icSigXYZData)
+	if (signature == icSigXYZData)
 		colorSpaceType = ColorSpace_XYZ;
-    if (signature == icSigLabData)
+	if (signature == icSigLabData)
 		colorSpaceType = ColorSpace_Lab;
-    if (signature == icSigLuvData)
+	if (signature == icSigLuvData)
 		colorSpaceType = ColorSpace_Luv;
-    if (signature == icSigYCbCrData)
+	if (signature == icSigYCbCrData)
 		colorSpaceType = ColorSpace_YCbCr;
-    if (signature == icSigYxyData)
+	if (signature == icSigYxyData)
 		colorSpaceType = ColorSpace_Yxy;
-    if (signature == icSigRgbData)
+	if (signature == icSigRgbData)
 		colorSpaceType = ColorSpace_Rgb;
-    if (signature == icSigGrayData)
+	if (signature == icSigGrayData)
 		colorSpaceType = ColorSpace_Gray;
-    if (signature == icSigHsvData)
+	if (signature == icSigHsvData)
 		colorSpaceType = ColorSpace_Hsv;
-    if (signature == icSigHlsData)
+	if (signature == icSigHlsData)
 		colorSpaceType = ColorSpace_Hls;
-    if (signature == icSigCmykData)
+	if (signature == icSigCmykData)
 		colorSpaceType = ColorSpace_Cmyk;
-    if (signature == icSigCmyData)
+	if (signature == icSigCmyData)
 		colorSpaceType = ColorSpace_Cmy;
 	return colorSpaceType;
 }
@@ -586,17 +586,17 @@ eProfileClass ScLcmsColorMgmtEngineImpl::translateLcmsProfileClass(icProfileClas
 	eProfileClass profileClass = Class_Unknown;
 	if (signature == icSigInputClass)
 		profileClass = Class_Input;
-    if (signature == icSigDisplayClass)
+	if (signature == icSigDisplayClass)
 		profileClass = Class_Display;
-    if (signature == icSigOutputClass)
+	if (signature == icSigOutputClass)
 		profileClass = Class_Output;
-    if (signature == icSigLinkClass)
+	if (signature == icSigLinkClass)
 		profileClass = Class_Link;
-    if (signature == icSigAbstractClass)
+	if (signature == icSigAbstractClass)
 		profileClass = Class_Abstract;
-    if (signature == icSigColorSpaceClass)
+	if (signature == icSigColorSpaceClass)
 		profileClass = Class_ColorSpace;
-    if (signature == icSigNamedColorClass)
+	if (signature == icSigNamedColorClass)
 		profileClass = Class_NamedColor;
 	return profileClass;
 }

@@ -417,7 +417,7 @@ bool BarcodeGenerator::paintBarcode(QString fileName, int dpi)
 	// setup only preview
 	if (fileName != tmpFile)
 		return retval;
-    if (gs == 0)
+	if (gs == 0)
 	{
 		ui.sampleLabel->setPixmap(QPixmap(fileName));
 		ui.okButton->setEnabled(true);

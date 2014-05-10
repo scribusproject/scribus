@@ -19,7 +19,7 @@ public:
 	void addProfile(const ScColorProfile& profile);
 	void removeProfile(const QString& profilePath);
 	void removeProfile(const ScColorProfile& profile);
-	
+
 	bool contains(const QString& profilePath);
 	ScColorProfile profile(const QString& profilePath);
 

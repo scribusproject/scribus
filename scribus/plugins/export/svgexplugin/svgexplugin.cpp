@@ -147,7 +147,7 @@ bool SVGExportPlugin::run(ScribusDoc* doc, QString filename)
 		exportBack->setToolTip( tr("Adds the Page itself as background to the SVG."));
 		exportBack->setChecked(false);
 		openDia->addWidgets(exportBack);
-		
+
 		if (!openDia->exec())
 			return true;
 		fileName = openDia->selectedFile();
@@ -1639,11 +1639,11 @@ QDomElement SVGExPlug::processPathTextItem(PageItem *Item, QString trans, QStrin
 QDomElement SVGExPlug::processInlineItem(double xpos, double ypos, QTransform &finalMat, PageItem* embItem, const CharStyle & charStyle, bool pathT, QString trans)
 {
 	QList<PageItem*> emG;
-    if (embItem->isGroup())
-        emG = embItem->getItemList();
-    else 
-        emG.append(embItem);
-    
+	if (embItem->isGroup())
+		emG = embItem->getItemList();
+	else 
+		emG.append(embItem);
+
 	QDomElement layerGroup = docu.createElement("g");
 	if (pathT)
 		layerGroup.setAttribute("transform", MatrixToStr(finalMat));

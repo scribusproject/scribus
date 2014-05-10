@@ -1229,13 +1229,13 @@ bool Scribus12Format::loadFile(const QString & fileName, const FileFormat & /* f
 					}
 					if(pdfF.tagName() == "Effekte")
 					{
-    					struct PDFPresentationData ef;
-    					ef.pageEffectDuration = pdfF.attribute("pageEffectDuration").toInt();
-    					ef.pageViewDuration = pdfF.attribute("pageViewDuration").toInt();
-    					ef.effectType = pdfF.attribute("effectType").toInt();
-    					ef.Dm = pdfF.attribute("Dm").toInt();
-    					ef.M = pdfF.attribute("M").toInt();
-		    			ef.Di = pdfF.attribute("Di").toInt();
+						struct PDFPresentationData ef;
+						ef.pageEffectDuration = pdfF.attribute("pageEffectDuration").toInt();
+						ef.pageViewDuration = pdfF.attribute("pageViewDuration").toInt();
+						ef.effectType = pdfF.attribute("effectType").toInt();
+						ef.Dm = pdfF.attribute("Dm").toInt();
+						ef.M = pdfF.attribute("M").toInt();
+						ef.Di = pdfF.attribute("Di").toInt();
 						EffVal.append(ef);
 					}
 					PFO = PFO.nextSibling();
@@ -2042,11 +2042,11 @@ bool Scribus12Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 					}
 					delete last;
 
-// 					if (obj.attribute("NEXTPAGE").toInt() == pageNumber)
-// 					{
+//					if (obj.attribute("NEXTPAGE").toInt() == pageNumber)
+//					{
 //						Neu->NextIt = baseobj + obj.attribute("NEXTITEM").toInt();
-// 						nextPg[Neu->ItemNr] = a; // obj.attribute("NEXTPAGE").toInt();
-// 					}
+//						nextPg[Neu->ItemNr] = a; // obj.attribute("NEXTPAGE").toInt();
+//					}
 //					else
 //						Neu->NextIt = -1;
 					if (Neu->isTableItem)
@@ -2160,7 +2160,7 @@ bool Scribus12Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 					}
 					allItems.clear();
 				}
-				
+
 				if (!Mpage)
 					m_View->reformPages();
 				PAGE=DOC.firstChild();

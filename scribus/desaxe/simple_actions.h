@@ -44,7 +44,7 @@
 namespace desaxe {
 
 	using namespace desaxe;
-	
+
 /**
  *   Pushes a new object of type Obj_Type onto the stack.
  *   Obj_Type needs a default constructor
@@ -54,19 +54,19 @@ class Factory_body : public Generator_body<Obj_Type>
 {
 public:
 	typedef Obj_Type* (*FunType)();
-	
+
 	Factory_body() 
 	: create_(NULL) 
-    {}
-	
+	{}
+
 	Factory_body(FunType create) 
 	: create_(create) 
-    {}
-	
+	{}
+
 	void begin(const Xml_string&, Xml_attr)
-    { 
+	{ 
 		this->dig->push(create_? create_() : new Obj_Type()); 
-    }	
+	}
 private:
     Obj_Type* (*create_)();
 };
@@ -93,12 +93,12 @@ public:
 	
 	FactoryWithArgs_body(FunType create) 
 		: create_(create) 
-    {}
+	{}
 	
 	void begin(const Xml_string& name, Xml_attr attr)
-    { 
+	{ 
 		this->dig->push(create_(name, attr)); 
-    }	
+	}
 private:
 		Obj_Type* (*create_)(const Xml_string&, Xml_attr);
 };
@@ -120,19 +120,19 @@ class FactoryWithName_body : public Generator_body<Obj_Type>
 {
 public:
 	typedef Obj_Type* (*FunType)(const Xml_string&);
-	
+
 	FactoryWithName_body() 
 	: create_(NULL) 
 	{}
-	
+
 	FactoryWithName_body(FunType create) 
 	: create_(create) 
 	{}
-	
+
 	void begin(const Xml_string& tag, Xml_attr)
 	{ 
 		this->dig->push(create_? create_(tag) : new Obj_Type(tag)); 
-	}	
+	}
 private:
 	FunType create_;
 };
@@ -158,12 +158,12 @@ public:
 	Prototype_body(const Obj_Type& proto) 
 	: proto_(new Obj_Type(proto)) 
 	{}
-	
+
 	~Prototype_body() 
 	{ 
 		delete proto_; 
 	}
-	
+
 	void begin(const Xml_string&, Xml_attr)
 	{
 		this->dig->push(new Obj_Type(proto_));
@@ -192,7 +192,7 @@ public:
 	Top_body(unsigned int n) 
 	: distance(n) 
 	{}
-		
+
 	void begin(const Xml_string&, Xml_attr)
 	{
 		this->dig->push(this->dig->template top<Obj_Type>(distance));
@@ -222,11 +222,11 @@ class Getter_body : public Generator_body<Data_Type>
 {
 public:
 	typedef const Data_Type& (Obj_Type::*FunType)();
-	
+
 	Getter_body(FunType get) 
 	: get_(get)
 	{}
-	
+
 	void begin(const Xml_string&, Xml_attr)
 	{
 		Obj_Type* obj = this->dig->template top<Obj_Type>(1);
@@ -234,7 +234,7 @@ public:
 		this->dig->push(data);
 	}
 private:
-	FunType get_;	
+	FunType get_;
 };
 
 
@@ -254,11 +254,11 @@ class SetterP_body : public Action_body
 {
 public:
 	typedef void (Obj_Type::*FunType)(Data_Type*);
-	
+
 	SetterP_body(FunType set) 
 	: set_(set) 
 	{}
-	
+
 	void end(const Xml_string&)
 	{ 
 		Store_Type* data = this->dig->template top<Store_Type>(); 
@@ -267,7 +267,7 @@ public:
 		std::cerr << "setter(ptr): " << obj << " .= " << data << "\n";
 #endif
 		(obj->*set_)( data ); 
-	}	
+	}
 private:
 	FunType set_;
 };
@@ -289,11 +289,11 @@ class Setter_body : public Action_body
 {
 public:
 	typedef void (Obj_Type::*FunType)(Data_Type);
-	
+
 	Setter_body(FunType set) 
 	: set_(set) 
 	{}
-	
+
 	void end(const Xml_string&)
 	{ 
 		Data_Type* data = this->dig->template top<Data_Type>(); 
@@ -302,7 +302,7 @@ public:
 		std::cerr << "setter: " << obj << " .= *(" << data << ")\n";
 #endif
 		(obj->*set_)( *data ); 
-	}	
+	}
 private:
 	FunType set_;
 };
@@ -317,7 +317,7 @@ struct  Setter : public MakeAction<Setter_body<Type, Data>, typename Setter_body
 
 
 /**
-*  Writes the topmost object to the topmost object but one on the stack.
+ *  Writes the topmost object to the topmost object but one on the stack.
  */
 template<class Obj_Type, class Data_Type, class Store_Type>
 class SetterWithConversion_body : public Action_body 
@@ -325,11 +325,11 @@ class SetterWithConversion_body : public Action_body
 public:
 	typedef void (Obj_Type::*FunType)(Data_Type);
 	typedef Data_Type (*ConvType)(Store_Type);
-	
+
 	SetterWithConversion_body(FunType set, ConvType conv) 
 		: set_(set), conv_(conv)
 	{}
-	
+
 	void end(const Xml_string&)
 	{ 
 		Store_Type* data = this->dig->template top<Store_Type>(); 
@@ -341,7 +341,7 @@ public:
 			(obj->*set_)( conv_(*data) );
 		else
 			(obj->*set_)( static_cast<Data_Type>(*data) ); 
-	}	
+	}
 private:
 		FunType set_;
 	ConvType conv_;
@@ -370,14 +370,14 @@ public:
 	
 	SetAttributes_body(FunType set) : set_(set) 
 	{}
-	
+
 	void begin(const Xml_string&, Xml_attr attr)
 	{
 		Obj_Type* obj = this->dig->template top<Obj_Type>();
 		Xml_attr::iterator it;
 		for(it=attr.begin(); it != attr.end(); ++it)
 			(obj->*set_)( Xml_key(it), Xml_data(it) ); 
-	}	
+	}
 private:
 	FunType set_;
 };
@@ -401,15 +401,15 @@ class SetAttribute_body : public Action_body
 {
 public:
 	typedef void (Obj_Type::*FunType)(Data_Type) ;
-	
+
 	SetAttribute_body(FunType set, const Xml_string& name) 
 		: set_(set), name_(name), default_(), hasDefault_(false)
 	{}
-	
+
 	SetAttribute_body(FunType set, const Xml_string& name, Data_Type deflt) 
 		: set_(set), name_(name), default_(deflt), hasDefault_(true)
 	{}
-		
+
 	void begin(const Xml_string&, Xml_attr attr)
 	{
 		Obj_Type* obj = this->dig->template top<Obj_Type>();
@@ -418,7 +418,7 @@ public:
 			(obj->*set_)( Data_Type(Xml_data(it)) );
 		else if (hasDefault_)
 			(obj->*set_)( default_ );			
-	}	
+	}
 private:
 	FunType set_;
 	Xml_string name_;
@@ -440,7 +440,7 @@ struct  SetAttribute : public MakeAction<SetAttribute_body<Type,Data>, typename 
 
 
 /**
-*   Stores named attribute to the topmost object on the stack if attribute present,
+ *   Stores named attribute to the topmost object on the stack if attribute present,
  *   or stores default if present.
  */
 template<class Obj_Type, class Data_Type>
@@ -449,15 +449,15 @@ class SetAttributeWithConversion_body : public Action_body
 public:
 	typedef void (Obj_Type::*FunType)(Data_Type) ;
 	typedef Data_Type (*ConvType)(const Xml_string&);
-	
+
 	SetAttributeWithConversion_body(FunType set, const Xml_string& name, ConvType conv) 
 		: set_(set), name_(name), conv_(conv), default_(), hasDefault_(false)
 	{}
-	
+
 	SetAttributeWithConversion_body(FunType set, const Xml_string& name, ConvType conv, Data_Type deflt) 
 		: set_(set), name_(name), conv_(conv), default_(deflt), hasDefault_(true)
 	{}
-	
+
 	void begin(const Xml_string&, Xml_attr attr)
 	{
 		Obj_Type* obj = this->dig->template top<Obj_Type>();
@@ -465,8 +465,8 @@ public:
 		if (it != attr.end() && conv_)
 			(obj->*set_)( conv_(Xml_data(it)) );
 		else if (hasDefault_)
-			(obj->*set_)( default_ );			
-	}	
+			(obj->*set_)( default_ );
+	}
 private:
 	FunType set_;
 	Xml_string name_;
@@ -478,12 +478,12 @@ private:
 
 template <class Type, class Data>
 struct  SetAttributeWithConversion : public MakeAction<SetAttributeWithConversion_body<Type,Data>, typename SetAttributeWithConversion_body<Type,Data>::FunType, const Xml_string&, typename SetAttributeWithConversion_body<Type,Data>::ConvType, Data> 
-{	
+{
 	typedef SetAttributeWithConversion_body<Type,Data> BodyType;
-	
+
 	SetAttributeWithConversion(typename BodyType::FunType set, const Xml_string& name, typename BodyType::ConvType conv)
 	: MakeAction<BodyType, typename BodyType::FunType, const Xml_string&, typename BodyType::ConvType, Data>(set,name,conv) {} 
-	
+
 	SetAttributeWithConversion(typename BodyType::FunType set, const Xml_string& name, typename BodyType::ConvType conv, Data deflt)
 	: MakeAction<BodyType, typename BodyType::FunType, const Xml_string&, typename BodyType::ConvType, Data>(set,name,conv,deflt) {} 
 };
@@ -499,15 +499,15 @@ class AddText_body : public Action_body
 {
 public:
 	typedef void (Obj_Type::*FunType)(const Xml_string&);
-	
+
 	AddText_body(FunType add) : addT(add) 
 	{}
-	
+
 	void chars(const Xml_string& txt)
 	{
 		Obj_Type* obj = this->dig->template top<Obj_Type>();
 		(obj->*addT)( txt ); 
-	}	
+	}
 private:
 	FunType addT;
 };
@@ -535,26 +535,26 @@ class SetText_body : public Action_body
 {
 public:
 	typedef void (Obj_Type::*FunType)(const Xml_string&);
-	
+
 	SetText_body(FunType set) : setT(set) 
 	{}
-	
+
 	void begin(const Xml_string&, Xml_attr)
 	{
 		txt = "";
 	}
-	
+
 	void chars(const Xml_string& chunk)
 	{
 		txt += chunk;
 	}
-	
+
 	void end(const Xml_string& tag)
 	{
 		Obj_Type* obj = this->dig->template top<Obj_Type>();
 		(obj->*setT)( txt ); 
-	}	
-	
+	}
+
 private:
 	FunType setT;
 	Xml_string txt;
@@ -578,7 +578,7 @@ class Store_body : public Action_body
 {
 public:
 	Store_body(const Xml_string& name) : m_name(name) {}
-	
+
 	void begin(const Xml_string& tag, Xml_attr attr)
 	{
 		Obj_Type* obj = this->dig->template top<Obj_Type>();
@@ -600,22 +600,22 @@ struct  Store : public MakeAction<Store_body<Type>, const Xml_string& >
 
 
 /** 
-*  This applies "id" and "idref" attributes to the object on top of the stack.
-*  In case of an "id" attribute, if there is no entry with this ID in
-*  the digester's storage, the topmost object is stored there. Otherwise the
-*  topmost object is replaced with the stored object.
-*  In case of an "idref" attribute, if there is no entry with this ID in
-*  the digester's storage, the topmost object is also stored there. Then the 
-*  trigger "WithinIdRef" is set during begin() and the processing continues 
-*  normally. When end() is called, the topmost object is replaced by the
-*  stored one (this will be a no-op if there wasnt an entry in storage before)
-*/
+ *  This applies "id" and "idref" attributes to the object on top of the stack.
+ *  In case of an "id" attribute, if there is no entry with this ID in
+ *  the digester's storage, the topmost object is stored there. Otherwise the
+ *  topmost object is replaced with the stored object.
+ *  In case of an "idref" attribute, if there is no entry with this ID in
+ *  the digester's storage, the topmost object is also stored there. Then the 
+ *  trigger "WithinIdRef" is set during begin() and the processing continues 
+ *  normally. When end() is called, the topmost object is replaced by the
+ *  stored one (this will be a no-op if there wasnt an entry in storage before)
+ */
 template<class Obj_Type>
 class IdRef_body : public Action_body
 {
 public:
 	IdRef_body() : stack() {}
-	
+
 	void begin(const Xml_string&, Xml_attr attr)
 	{
 		Obj_Type* obj = this->dig->template top<Obj_Type>();
@@ -657,7 +657,7 @@ public:
 			}
 		}
 		stack.push_back(mode);
-		
+
 	}
 	void end(const Xml_string&)
 	{
@@ -694,14 +694,14 @@ public:
 	Lookup_body(const Xml_string& ID) 
 		: ID_(ID)
 	{}
-	
+
 	void begin(const Xml_string&, Xml_attr)
 	{
 		Data_Type* data = this->dig->template lookup<Data_Type>(ID_);
 		this->dig->push(data);
 	}
 private:
-	Xml_string ID_;	
+	Xml_string ID_;
 };
 
 
@@ -715,18 +715,18 @@ struct  Lookup : public MakeGenerator<Lookup_body<Data>, const Xml_string&>
 
 
 /**
-*  Transforms the topmost object to the topmost object but one on the stack. // FIXME: this should just be a getter...
+ *  Transforms the topmost object to the topmost object but one on the stack. // FIXME: this should just be a getter...
  */
 template<class Obj_Type, class Arg_Type>
 class Transform_body : public Action_body 
 {
 public:
 	typedef Obj_Type (*FunType)(const Arg_Type&);
-	
+
 	Transform_body(FunType fun) 
 		: fun_(fun), stack()
 	{}
-	
+
 	void begin(const Xml_string&, Xml_attr)
 	{ 
 		Cell cell;
@@ -738,7 +738,7 @@ public:
 		stack.push_back(cell);
 		this->dig->pop();
 		this->dig->push(&cell.obj); 
-	}	
+	}
 
 	void end(const Xml_string&)
 	{
@@ -769,11 +769,11 @@ class PatchIdRefAttribute_body : public Action_body
 {
 public:
 	typedef void (Obj_Type::*FunType)(Data_Type*) ;
-	
+
 	PatchIdRefAttribute_body(FunType set, const Xml_string& name) 
 		: set_(set), name_(name)
 	{}
-	
+
 	void begin(const Xml_string&, Xml_attr attr)
 	{
 		Xml_attr::iterator it = attr.find(name_);
@@ -782,7 +782,7 @@ public:
 			Obj_Type* obj = this->dig->template top<Obj_Type>();
 			this->dig->template patchInvoke<Obj_Type,Data_Type>(Xml_data(it), obj, set_);
 		}
-	}	
+	}
 private:
 	FunType set_;
 	Xml_string name_;

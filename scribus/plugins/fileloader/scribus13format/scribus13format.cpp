@@ -1085,7 +1085,7 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 				m_Doc->Pages->at(pdoE)->PresentVals = EffVal[pdoE];
 		}
 	}
-	
+
 	// reestablish textframe links
 	if (itemNext.count() != 0)
 	{
@@ -1234,7 +1234,7 @@ void Scribus13Format::GetItemText(QDomElement *it, ScribusDoc *doc, PageItem* ob
 
 	if (it->hasAttribute("CSIZE"))
 		newStyle.setFontSize(qRound(ScCLocale::toDoubleC(it->attribute("CSIZE")) * 10));
-	
+
 	if (it->hasAttribute("CCOLOR"))
 		newStyle.setFillColor(it->attribute("CCOLOR"));
 
@@ -1246,7 +1246,7 @@ void Scribus13Format::GetItemText(QDomElement *it, ScribusDoc *doc, PageItem* ob
 	handleOldColorShade(doc, fColor, fShade);
 	newStyle.setFillColor(fColor);
 	newStyle.setFillShade(fShade);
-	
+
 	if (it->hasAttribute("CEXTRA"))
 	{
 		double cv = ScCLocale::toDoubleC(it->attribute("CEXTRA"));
@@ -1255,13 +1255,13 @@ void Scribus13Format::GetItemText(QDomElement *it, ScribusDoc *doc, PageItem* ob
 	}
 	else if (it->hasAttribute("CKERN"))
 		newStyle.setTracking(it->attribute("CKERN").toInt());
-	
+
 	if (it->hasAttribute("CSTYLE"))
 		newStyle.setFeatures(static_cast<StyleFlag>(it->attribute("CSTYLE").toInt()).featureList());
 
 	QString pstylename = it->attribute("PSTYLE", "");
-	int calign = it->attribute("CALIGN", "-1").toInt();		
-	
+	int calign = it->attribute("CALIGN", "-1").toInt();
+
 	int ab = it->attribute("CAB", "-1").toInt();
 	if (ab >= 5) {
 		pstylename = DoVorl[ab];
@@ -1271,10 +1271,10 @@ void Scribus13Format::GetItemText(QDomElement *it, ScribusDoc *doc, PageItem* ob
 		pstylename = "";
 		calign = ab;
 	}
-	
+
 	if (it->hasAttribute("CSTROKE"))
 		newStyle.setStrokeColor(it->attribute("CSTROKE", CommonStrings::None));
-	
+
 	if (it->hasAttribute("CSHADE2"))
 		newStyle.setStrokeShade(it->attribute("CSHADE2", "100").toInt());
 
@@ -1283,13 +1283,13 @@ void Scribus13Format::GetItemText(QDomElement *it, ScribusDoc *doc, PageItem* ob
 	handleOldColorShade(doc, sColor, sShade);
 	newStyle.setStrokeColor(sColor);
 	newStyle.setStrokeShade(sShade);
-	
+
 	if (it->hasAttribute("CSCALE"))
 		newStyle.setScaleH(qMin(qMax(qRound(ScCLocale::toDoubleC(it->attribute("CSCALE"), 100.0) * 10), 100), 4000));
-	
+
 	if (it->hasAttribute("CSCALEV"))
 		newStyle.setScaleV(qMin(qMax(qRound(ScCLocale::toDoubleC(it->attribute("CSCALEV"), 100.0) * 10), 100), 4000));
-	
+
 	if (it->hasAttribute("CBASE"))
 		newStyle.setBaselineOffset(qRound(ScCLocale::toDoubleC(it->attribute("CBASE"), 0.0) * 10));
 
@@ -1298,7 +1298,7 @@ void Scribus13Format::GetItemText(QDomElement *it, ScribusDoc *doc, PageItem* ob
 
 	if (it->hasAttribute("CSHY"))
 		newStyle.setShadowYOffset(qRound(ScCLocale::toDoubleC(it->attribute("CSHY"), -5.0) * 10));
-	
+
 	if (it->hasAttribute("COUT"))
 		newStyle.setOutlineWidth(qRound(ScCLocale::toDoubleC(it->attribute("COUT"), 1.0) * 10));
 
@@ -1311,14 +1311,14 @@ void Scribus13Format::GetItemText(QDomElement *it, ScribusDoc *doc, PageItem* ob
 	
 	if (it->hasAttribute("CSTP"))
 		newStyle.setStrikethruOffset(qRound(ScCLocale::toDoubleC(it->attribute("CSTP"), -0.1) * 10));
-	
+
 	if (it->hasAttribute("CSTW"))
 		newStyle.setStrikethruWidth(qRound(ScCLocale::toDoubleC(it->attribute("CSTW"), -0.1) * 10));
 
 	int iobj = it->attribute("COBJ", "-1").toInt();
 	for (int cxx=0; cxx<tmp2.length(); ++cxx)
 	{
-		QChar ch = tmp2.at(cxx);		
+		QChar ch = tmp2.at(cxx);
 		{ // Legacy mode
 			if (ch == QChar(5))
 				ch = SpecialChars::PARSEP;
@@ -1441,7 +1441,7 @@ void Scribus13Format::readParagraphStyle(ParagraphStyle& vg, const QDomElement& 
 	else
 	{
 		QList<ParagraphStyle::TabRecord> tbs;
- 		vg.setTabValues(tbs);
+		vg.setTabValues(tbs);
 		QDomNode IT = pg.firstChild();
 		while(!IT.isNull())
 		{
@@ -2414,7 +2414,7 @@ bool Scribus13Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 			}
 		}
 	}	
-	
+
 	// reestablish first/lastAuto
 	m_Doc->FirstAuto = m_Doc->LastAuto;
 	if (m_Doc->LastAuto)

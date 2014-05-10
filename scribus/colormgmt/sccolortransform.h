@@ -20,7 +20,7 @@ public:
 	ScColorTransform();
 	ScColorTransform(ScColorTransformData* data);
 	ScColorTransform(const QSharedPointer<ScColorTransformData>& data);
-	
+
 	ScColorMgmtEngine& engine() { return m_data->engine(); }
 	const ScColorMgmtEngine& engine() const { return m_data->engine(); }
 
@@ -28,7 +28,7 @@ public:
 	inline operator bool () const { return !isNull(); }
 
 	const ScColorTransformInfo& transformInfo() const { return m_data->transformInfo(); }
-	
+
 	bool apply(void* input, void* output, uint numElem);
 	bool apply(QByteArray& input, QByteArray& output, uint numElem);
 

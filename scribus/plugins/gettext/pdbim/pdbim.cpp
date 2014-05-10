@@ -211,7 +211,7 @@ void PdbIm::uncompress( buffer *m_buf )
 		{
 			int di, n;
 			unsigned int temp_c = c;
-		    // c--> temp_c //tomy 2001.11.13 
+			// c--> temp_c //tomy 2001.11.13 
 			temp_c = (temp_c << 8) ;
 			temp_c = temp_c + m_buf->buf[ i++ ];
 			di = (temp_c & 0x3FFF) >> COUNT_BITS;

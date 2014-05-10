@@ -19,7 +19,7 @@ class ScColorSpaceData : public ScColorMgmtElem
 protected:
 	eColorFormat   m_colorFormat;
 	ScColorProfile m_profile;
-	
+
 public:
 
 	eColorType   type() const             { return colorFormatType(m_colorFormat); }

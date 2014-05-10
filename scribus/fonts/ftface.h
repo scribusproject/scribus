@@ -55,11 +55,11 @@ struct SCRIBUS_API FtFace : public ScFace::ScFaceData
 
 	FtFace(QString fam, QString sty, QString variant, QString scname, 
 		   QString psname, QString path, int face);
-	
+
 	FT_Face ftFace() const;
 
 	virtual ~FtFace();
-	
+
 	// font metrics
 	qreal ascent(qreal sz=1.0)    const { return m_ascent * sz; }
 	qreal descent(qreal sz=1.0)   const { return m_descent * sz; }
@@ -75,10 +75,10 @@ struct SCRIBUS_API FtFace : public ScFace::ScFaceData
 	QString pdfCapHeightAsString()   const { return m_pdfCapHeight; }
 	QString pdfFontBBoxAsString()    const { return m_pdfFontBBox; }
 	QString ItalicAngleAsString()    const { return m_italicAngle; }
-	
-	
+
+
 //FIXME	QMap<QString,QString> fontDictionary(qreal sz=1.0)      const;
-	
+
 	uint         char2CMap(QChar ch)                         const;
 
 	qreal       glyphKerning (uint gl1, uint gl2, qreal sz) const;
@@ -92,7 +92,7 @@ struct SCRIBUS_API FtFace : public ScFace::ScFaceData
 
 protected:
 	mutable FT_Face m_face;
-	
+
 	static FT_Library library;
 
 	mutable QString m_pdfAscent;
@@ -104,7 +104,7 @@ protected:
 	QString FontEnc;
 
 	mutable int m_encoding;
-	
+
 	mutable qreal m_uniEM;
 	mutable qreal m_ascent;
 	mutable qreal m_descent;
@@ -115,7 +115,7 @@ protected:
 	mutable qreal m_underlinePos;
 	mutable qreal m_strikeoutPos;
 	mutable qreal m_strokeWidth;
-	
+
 };
 
 #endif

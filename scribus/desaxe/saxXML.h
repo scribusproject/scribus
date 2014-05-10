@@ -21,7 +21,7 @@ public:
 	SaxXML(std::ostream& file, bool pretty=false);
 	SaxXML(const char* filename, bool pretty=false);
 	~SaxXML();
-	
+
 	void beginDoc();
 	void endDoc();
 	void begin(const Xml_string& tag, Xml_attr attr);

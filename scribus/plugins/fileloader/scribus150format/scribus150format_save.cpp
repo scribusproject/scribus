@@ -413,10 +413,10 @@ bool Scribus150Format::saveFile(const QString & fileName, const FileFormat & /* 
 	writeSections(docu);
 	writePatterns(docu, fileDir);
 	writeContent (docu, fileDir);
-	
+
 	docu.writeEndElement();
 	docu.writeEndDocument();
-	
+
 	bool  writeSucceed = false;
 	const QFile* qFile = dynamic_cast<QFile*>(outputFile.get());
 	if (qFile)
@@ -645,7 +645,7 @@ void Scribus150Format::putPStyle(ScXmlStreamWriter & docu, const ParagraphStyle 
 		docu.writeAttribute("PARENT", style.parent());
 	if ( style.isDefaultStyle())
 		docu.writeAttribute("DefaultStyle", style.isDefaultStyle());
-	
+
 	if ( ! style.isInhAlignment())
 		docu.writeAttribute("ALIGN", style.alignment());
 	if ( ! style.isInhLineSpacingMode())
@@ -1549,7 +1549,7 @@ void Scribus150Format::writeITEXTs(ScribusDoc *doc, ScXmlStreamWriter &docu, Pag
 	{
 		const CharStyle& style1(item->itemText.charStyle(k));
 		const QChar ch = item->itemText.text(k);
-		
+
 		if (ch == SpecialChars::OBJECT ||
 			ch == SpecialChars::TAB ||
 			ch == SpecialChars::PARSEP ||
@@ -1587,9 +1587,9 @@ void Scribus150Format::writeITEXTs(ScribusDoc *doc, ScXmlStreamWriter &docu, Pag
 			docu.writeAttribute("Unicode", tmpnum);
 			docu.writeAttribute("COBJ", item->itemText.object(k)->inlineCharID);
 		}
-        else if (ch == SpecialChars::OBJECT && item->itemText.hasMark(k))
+		else if (ch == SpecialChars::OBJECT && item->itemText.hasMark(k))
 		{
-            Mark* mark = item->itemText.mark(k);
+			Mark* mark = item->itemText.mark(k);
 			if (!mark->isType(MARKBullNumType))
 			{ //dont save marks for bullets and numbering
 				docu.writeEmptyElement("MARK");
@@ -2108,7 +2108,7 @@ void Scribus150Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 				}
 			}
 		}
-		
+
 		if (item->asLatexFrame())
 		{
 			docu.writeStartElement("LATEX");
@@ -2486,7 +2486,7 @@ void Scribus150Format::SetItemProps(ScXmlStreamWriter& docu, PageItem* item, con
 		docu.writeAttribute("spiralEndAngle", arcitem->spiralEndAngle);
 		docu.writeAttribute("spiralFactor", arcitem->spiralFactor);
 	}
-	if(item->isAnnotation())
+	if (item->isAnnotation())
 	{
 		docu.writeAttribute("ANNOTATION",1);
 		docu.writeAttribute("ANTYPE", item->annotation().Type());

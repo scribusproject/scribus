@@ -10,7 +10,7 @@ for details *after* reviewing the build requirements below.
 
 Note that while a QMake project file (Scribus.pro) is provided in the Scribus
 source distribution, it is not possible to build Scribus with this project
-file.  It is only used for generating the translation template files.
+file. It is only used for generating the translation template files.
 
 REQUIREMENTS AND BUILDING - Microsoft Windows
 =============================================
@@ -47,7 +47,7 @@ Recommended:
 	pkgconfig (to assist finding other libraries)
 	apspell for the spell checker
 	podofo - 0.5.0+ for enhanced Illustrator AI/EPS import, svn versions
-        boost and boost-devel
+	boost and boost-devel
 	GraphicksMagick++
 
 
@@ -135,7 +135,7 @@ First of all, read `DISTRO SPECIFIC BUILD INFORMATION' below and see if
 there's anything there for your OS / distro.
 
 Next, ensure you definitely have the library installed, as well as any
-additional development packages that may be required to use it.  On Linux, make
+additional development packages that may be required to use it. On Linux, make
 sure to install the "-dev" or "-devel" package for the missing library. After
 doing this, re-run configure.
 
@@ -168,7 +168,7 @@ In any problem report, MAKE SURE YOU INCLUDE THE FOLLOWING INFORMATION:
       --version'.  if you're using gcc.
     - If you're having problems with a particular library, what version
       of the library you have installed and where you got it from. eg:
-      "freetype 2.0.1 from sunfreeware,"
+      "freetype 2.0.1 from sunfreeware",
       "LittleCMS 1.1.4, compiled myself and installed in /usr/local",
       "freetype 2.1.3 from backports.org",
       "fontconfig 2.2.0 (stock Fedora Core 3 devel package)"
@@ -232,7 +232,7 @@ Recommended packages for compiling from source on Fedora/CentOS/RHEL
 	libpng-devel
 	libjpeg-devel
 
-You can install these packages with 'yum install packagename' as root. 
+You can install these packages with 'yum install packagename' as root.
 
 
 More info can be found in the README.
@@ -251,21 +251,21 @@ Recommended packages for compiling from source on SuSE 11.x:
 	libpng-devel
 	libjpeg-devel
 	cups-devel
-	openssl-devel (required if CUPS support is needed) 
+	openssl-devel (required if CUPS support is needed)
 	update-desktop-files
 	python-devel
 	tk
 	python-imaging
 	aspell-devel
-        boost-devel
-        libGraphicsMagick++-devel
-        libOpenSceneGraph-devel  *Optional- but available from the Packman repo
+	boost-devel
+	libGraphicsMagick++-devel
+	libOpenSceneGraph-devel  *Optional- but available from the Packman repo
 
 You can install these packages using YaST. You may find it difficult to compile
-Scribus 1.3.5+ on anything older than Suse 11.1. 
+Scribus 1.3.5+ on anything older than Suse 11.1.
 
 Please note we do provide frequently updated packages including debuginfo rpms
-on the Suse Build Server. at http//software.opensuse.org .
+on the Suse Build Server at http//software.opensuse.org .
 
 Mac OS X
 ========

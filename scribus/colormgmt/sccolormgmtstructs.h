@@ -63,29 +63,29 @@ typedef enum
 typedef enum 
 {
 	ColorSpace_Unknown,
-    ColorSpace_XYZ,
-    ColorSpace_Lab,
-    ColorSpace_Luv,
-    ColorSpace_YCbCr,
-    ColorSpace_Yxy,
-    ColorSpace_Rgb,
-    ColorSpace_Gray,
-    ColorSpace_Hsv,
-    ColorSpace_Hls,
-    ColorSpace_Cmyk,
-    ColorSpace_Cmy
+	ColorSpace_XYZ,
+	ColorSpace_Lab,
+	ColorSpace_Luv,
+	ColorSpace_YCbCr,
+	ColorSpace_Yxy,
+	ColorSpace_Rgb,
+	ColorSpace_Gray,
+	ColorSpace_Hsv,
+	ColorSpace_Hls,
+	ColorSpace_Cmyk,
+	ColorSpace_Cmy
 } eColorSpaceType;
 
 typedef enum 
 {
 	Class_Unknown,
-    Class_Input,
-    Class_Display,
-    Class_Output,
-    Class_Link,
-    Class_Abstract,
-    Class_ColorSpace,
-    Class_NamedColor
+	Class_Input,
+	Class_Display,
+	Class_Output,
+	Class_Link,
+	Class_Abstract,
+	Class_ColorSpace,
+	Class_NamedColor
 } eProfileClass;
 
 class ScColorMgmtStrategy
@@ -93,7 +93,7 @@ class ScColorMgmtStrategy
 public:
 	bool useBlackPointCompensation;
 	bool useBlackPreservation;
-	
+
 	ScColorMgmtStrategy ()
 	{
 		useBlackPointCompensation = true;

@@ -32,7 +32,7 @@ public:
 	const STATE start() const;
 	const OUTPUT deflt() const;
 	const OUTPUT next(STATE from, INPUT input) const;
-	
+
 	void addState(STATE newState);
 	void addInput(INPUT newInput);
 	void setTransition(STATE from, INPUT input, OUTPUT to);
@@ -136,10 +136,10 @@ public:
 		
 		DFA<NSTATE,INPUT>* result = new DFA<NSTATE,INPUT>(nstart, deflt);
 		result->addState(deflt);
-		
+
 		std::deque<std::set<STATE> > todo;
 		todo.push_back(startSet);
-		
+
 		while (todo.size() > 0)
 		{
 			const std::set<STATE> from = todo.front();
@@ -192,7 +192,7 @@ FA_base<STATE,INPUT,OUTPUT>::~FA_base()
 {
 	// clean up
 }
-	
+
 template<class STATE, class INPUT, class OUTPUT>
 const typename FA_base<STATE,INPUT,OUTPUT>::Transitions& FA_base<STATE,INPUT,OUTPUT>::transitions(STATE s) const
 { 
@@ -233,7 +233,7 @@ void FA_base<STATE,INPUT,OUTPUT>::setTransition(STATE from, INPUT input, OUTPUT 
 	Transitions& trans(transitions_[from]);
 	trans[input] = to;
 }
-	
+
 
 template<class STATE, class INPUT>
 void NFA<STATE, INPUT>::addTransition(STATE from, INPUT input, STATE to)

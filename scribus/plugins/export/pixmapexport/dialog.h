@@ -31,7 +31,7 @@ protected:
 	PrefsContext* prefs;
 	ScribusDoc*  m_doc;
 	int m_PageCount;
-	
+
 protected slots:
 	virtual void createPageNumberRange();
 	virtual void languageChange();

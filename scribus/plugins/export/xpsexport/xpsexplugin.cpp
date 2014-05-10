@@ -886,18 +886,18 @@ void XPSExPlug::processTextItem(double xOffset, double yOffset, PageItem *Item, 
 		for (int a = ls.firstItem; a <= ls.lastItem; ++a)
 		{
 			//ScText *hl = Item->itemText.item_p(a);
-            QChar chr = Item->itemText.text(a);
+			QChar chr = Item->itemText.text(a);
 			CharStyle charStyle = Item->itemText.charStyle(a);
 			GlyphLayout* glyphs = Item->itemText.getGlyphs(a);
-            LayoutFlags flags = Item->itemText.flags(a);
+			LayoutFlags flags = Item->itemText.flags(a);
 			const ScFace* font = &charStyle.font();
 			txtRunItem txItem;
-            txItem.chr = chr;
+			txItem.chr = chr;
 			txItem.glyphs = glyphs;
 			txItem.style = charStyle;
 			txItem.index = a;
 			txItem.CurX = CurX;
-            txItem.embItem = Item->itemText.hasObject(a)? Item->itemText.object(a) : NULL;
+			txItem.embItem = Item->itemText.hasObject(a)? Item->itemText.object(a) : NULL;
 			if (!((font->type() == ScFace::TTF) || (font->type() == ScFace::OTF)))
 			{
 				specialText.append(txItem);
@@ -1031,11 +1031,11 @@ void XPSExPlug::processTextItem(double xOffset, double yOffset, PageItem *Item, 
 						mm.scale(1, txItem.style.scaleV() / 1000.0);
 					obO.setAttribute("RenderTransform", MatrixToStr(mm));
 					QList<PageItem*> emG;
-                    if (txItem.embItem->isGroup())
-                        emG = txItem.embItem->getItemList();
-                    else
-                        emG.append(txItem.embItem);
-                    for (int em = 0; em < emG.count(); ++em)
+					if (txItem.embItem->isGroup())
+						emG = txItem.embItem->getItemList();
+					else
+						emG.append(txItem.embItem);
+					for (int em = 0; em < emG.count(); ++em)
 					{
 						PageItem* embed = emG.at(em);
 						writeItemOnPage(embed->gXpos, embed->gYpos, embed, obO, rel_root);
@@ -1268,9 +1268,9 @@ void XPSExPlug::processPathTextItem(double xOffset, double yOffset, PageItem *It
 		const CharStyle& charStyle(Item->asPathText()->itemRenderText.charStyle(a));
 		const PathData* pdata = &(Item->asPathText()->textLayout.point(a));
 		const GlyphLayout* glyphs = Item->asPathText()->itemRenderText.getGlyphs(a);
-        PageItem* embItem = Item->asPathText()->itemRenderText.hasObject(a)?
-                                  Item->asPathText()->itemRenderText.object(a) : NULL;
-        
+		PageItem* embItem = Item->asPathText()->itemRenderText.hasObject(a)?
+		                    Item->asPathText()->itemRenderText.object(a) : NULL;
+		
 		chstr = Item->asPathText()->itemRenderText.text(a,1);
 		if ((chstr == QChar(13)) || (chstr == QChar(29)))
 			continue;
@@ -1327,11 +1327,11 @@ void XPSExPlug::processPathTextItem(double xOffset, double yOffset, PageItem *It
 					mm.scale(1, charStyle.scaleV() / 1000.0);
 				obO.setAttribute("RenderTransform", MatrixToStr(mm));
 				QList<PageItem*> emG;
-                if (embItem->isGroup())
-                    emG = embItem->getItemList();
-                else
-                    emG.append(embItem);
-                for (int em = 0; em < emG.count(); ++em)
+				if (embItem->isGroup())
+					emG = embItem->getItemList();
+				else
+					emG.append(embItem);
+				for (int em = 0; em < emG.count(); ++em)
 				{
 					PageItem* embed = emG.at(em);
 					writeItemOnPage(embed->gXpos, embed->gYpos, embed, obO, rel_root);
