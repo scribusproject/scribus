@@ -31,8 +31,6 @@ class MultiProgressDialog;
 class ScLayer;
 class ScText;
 
-#include "pdfoptions.h"
-#include "pdf_writer.h"
 #include "scribusstructs.h"
 #include "scimagestructs.h"
 #include "tableborder.h"
@@ -68,8 +66,6 @@ public:
 	bool  exportAborted(void) const;
 
 private:
-    PDFWriter out;
-    
 	struct ShIm
 	{
 		int ResNum;
@@ -85,8 +81,6 @@ private:
 		double origYsc;
 		QMap<int, ImageLoadRequest> RequestProps;
 	};
-
-	bool PDF_IsPDFX();
 
 	bool PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QString, QMap<uint, FPointArray> > DocFonts, BookMView* vi);
 	void PDF_Begin_Page(const ScPage* pag, QPixmap pm);
@@ -105,9 +99,20 @@ private:
 	void PDF_Error_MaskLoadFailure(const QString& fileName);
 	void PDF_Error_InsufficientMemory(void);
 
+	QByteArray EncodeUTF16(const QString &in);
+	QString    EncStream(const QString & in, int ObjNum);
+	QString    EncString(const QString & in, int ObjNum);
+	QString    EncStringUTF16(const QString & in, int ObjNum);
+
+	bool       EncodeArrayToStream(const QByteArray& in, int ObjNum);
+
 	int     WriteImageToStream(ScImage& image, int ObjNum, ColorSpaceEnum format, bool precal);
 	int     WriteJPEGImageToStream(ScImage& image, const QString& fn, int ObjNum, int quality, ColorSpaceEnum format, bool sameFile, bool precal);
 	int     WriteFlateImageToStream(ScImage& image, int ObjNum, ColorSpaceEnum format, bool precal);
+
+	void    CalcOwnerKey(const QString & Owner, const QString & User);
+	void    CalcUserKey(const QString & User, int Permission);
+	QString FitKey(const QString & pass);
 
 	QString SetClipPath(PageItem *ite, bool poly = true);
 	QString SetClipPathArray(FPointArray *ite, bool poly = true);
@@ -131,14 +136,23 @@ private:
 
 	// Provide a couple of PutDoc implementations to ease transition away from
 	// QString abuse and to provide fast paths for constant strings.
-	void PutDoc(const QString & in) { out.write(in); }
-	void PutDoc(const QByteArray & in) { out.write(in); }
-	void PutDoc(const char* in) { out.write(in); }
-	void PutDoc(const std::string & in) { out.write(in); }
+	void PutDoc(const QString & in) { outStream.writeRawData(in.toLatin1(), in.length()); }
+	void PutDoc(const QByteArray & in) { outStream.writeRawData(in, in.size()); }
+	void PutDoc(const char* in) { outStream.writeRawData(in, strlen(in)); }
+	void PutDoc(const std::string & in) { outStream.writeRawData(in.c_str(), in.length()); }
 
 	void       PutPage(const QString & in) { Content += in; }
+	void       StartObj(int nr);
+	uint       newObject() { return ObjCounter++; }
+	uint       WritePDFStream(const QString& cc);
+	uint       WritePDFString(const QString& cc);
+	void       writeXObject(uint objNr, QString dictionary, QByteArray stream);
+	uint       writeObject(QString type, QString dictionary);
+	uint       writeGState(QString dictionary) { return writeObject("/ExtGState", dictionary); }
 	uint       writeActions(const Annotation&, uint annotationObj);
 //	QString    PDFEncode(const QString & in);
+	QByteArray ComputeMD5(const QString& in);
+	QByteArray ComputeRC4Key(int ObjNum);
 
 	QString PDF_PutSoftShadow(PageItem* ite, const ScPage* pag);
 	bool    PDF_ProcessItem(QString& output, PageItem* ite, const ScPage* pag, uint PNr, bool embedded = false, bool pattern = false);
@@ -176,6 +190,8 @@ private:
 	QString paintBorder(const TableBorder& border, const QPointF& start, const QPointF& end, const QPointF& startOffsetFactors, const QPointF& endOffsetFactors);
 	QString handleBrushPattern(PageItem* ite, QPainterPath &path, const ScPage* pag, uint PNr);
 
+	void generateXMP(const QString& timeStamp);
+	int bytesWritten() { return Spool.pos(); }
 
 	QString Content;
 	QString ErrorMessage;
@@ -183,6 +199,7 @@ private:
 	const ScPage * ActPageP;
 	const PDFOptions & Options;
 	BookMView* Bvie;
+	QFile Spool;
 	int Dokument;
 	struct Dest
 	{
@@ -257,6 +274,7 @@ private:
 		QString data;
 	};
 	QMap<QString,ShIm> SharedImages;
+	QList<uint> XRef;
 	QList<Dest> NamedDest;
 	QList<int> Threads;
 	QList<Bead> Beads;
@@ -266,6 +284,8 @@ private:
 	QMap<QString,int> Transpar;
 	QMap<QString,ICCD> ICCProfiles;
 	QHash<QString, OCGInfo> OCGEntries;
+	QTextCodec* ucs2Codec;
+	int ObjCounter;
 	QString ResNam;
 	int ResCount;
 	QString NDnam;
@@ -273,6 +293,13 @@ private:
 	int NDnum;
 	QMap<QString, QString> UsedFontsP;
 	QMap<QString, QString> UsedFontsF;
+	QByteArray KeyGen;
+	QByteArray OwnerKey;
+	QByteArray UserKey;
+	QByteArray FileID;
+	QByteArray EncryKey;
+	int Encrypt;
+	int KeyLen;
 	QString HTName;
 	bool BookMinUse;
 	ColorList colorsToUse;
@@ -281,6 +308,7 @@ private:
 	QString spotNam;
 	int spotCount;
 	int inPattern;
+	QDataStream outStream;
 	QMap<QString, QString> StdFonts;
 	MultiProgressDialog* progressDialog;
 	bool abortExport;
