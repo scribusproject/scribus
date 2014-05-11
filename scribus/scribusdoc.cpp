@@ -5345,14 +5345,8 @@ bool ScribusDoc::copyPageToMasterPage(const int pageNumber, const int leftPage, 
 	return true;
 }
 
-int ScribusDoc::itemAdd(const PageItem::ItemType itemType, const PageItem::ItemFrameType frameType, const double x, const double y, const double b, const double h, const double w, const QString& fill, const QString& outline, const bool itemFinalised, const bool noteFrame)
+PageItem* ScribusDoc::createPageItem(const PageItem::ItemType itemType, const PageItem::ItemFrameType frameType, double x, double y, double b, double h, double w, const QString& fill, const QString& outline)
 {
-	assert(itemFinalised); // av: caller must wrap transaction around this if wanted
-	UndoTransaction* activeTransaction = NULL;
-	if (UndoManager::undoEnabled()) // && !m_itemCreationTransaction)
-	{
-		activeTransaction = new UndoTransaction(undoManager->beginTransaction());
-	}
 	PageItem* newItem=NULL;
 	switch( itemType )
 	{
@@ -5363,10 +5357,7 @@ int ScribusDoc::itemAdd(const PageItem::ItemType itemType, const PageItem::ItemF
 //			Q_ASSERT(frameType==PageItem::Rectangle || frameType==PageItem::Unspecified);
 			break;
 		case PageItem::TextFrame:
-			if (noteFrame)
-				newItem = new PageItem_NoteFrame(this, x, y, b, h, w, CommonStrings::None, outline);
-			else
-			newItem = new PageItem_TextFrame(this, x, y, b, h, w, CommonStrings::None, outline);
+            newItem = new PageItem_TextFrame(this, x, y, b, h, w, CommonStrings::None, outline);
 //			Q_ASSERT(frameType==PageItem::Rectangle || frameType==PageItem::Unspecified);
 			break;
 		case PageItem::Line:
@@ -5428,12 +5419,37 @@ int ScribusDoc::itemAdd(const PageItem::ItemType itemType, const PageItem::ItemF
 //			qDebug() << "unknown item type";
 			assert (false);
 	}
-	Q_CHECK_PTR(newItem);
+    if (newItem != NULL)
+    {   
+        //Add in item default values based on itemType and frameType
+        itemAddDetails(itemType, frameType, newItem);
+    }
+    return newItem;
+}
+
+int ScribusDoc::itemAdd(const PageItem::ItemType itemType, const PageItem::ItemFrameType frameType, const double x, const double y, const double b, const double h, const double w, const QString& fill, const QString& outline, const bool itemFinalised, const bool noteFrame)
+{
+	assert(itemFinalised); // av: caller must wrap transaction around this if wanted
+	UndoTransaction* activeTransaction = NULL;
+	if (UndoManager::undoEnabled()) // && !m_itemCreationTransaction)
+	{
+		activeTransaction = new UndoTransaction(undoManager->beginTransaction());
+	}
+    
+    PageItem* newItem;
+    if (noteFrame)
+    {    
+        newItem = new PageItem_NoteFrame(this, x, y, b, h, w, CommonStrings::None, outline);
+        itemAddDetails(itemType, frameType, newItem);
+    }
+    else
+        newItem = createPageItem(itemType, frameType, x, y, b, h, w, fill, outline); 
+    
+    Q_CHECK_PTR(newItem);
 	if (newItem==NULL)
 		return -1;
+    
 	Items->append(newItem);
-	//Add in item default values based on itemType and frameType
-	itemAddDetails(itemType, frameType, newItem);
 	if (UndoManager::undoEnabled())
 	{
 		ScItemState<PageItem*> *is = new ScItemState<PageItem*>("Create PageItem");

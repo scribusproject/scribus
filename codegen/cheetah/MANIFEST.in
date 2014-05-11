@@ -1,0 +1,7 @@
+include MANIFEST.in *.py *.cfg TODO CHANGES LICENSE README.markdown examples docs bin
+recursive-include cheetah *.py *.tmpl *.txt *.h
+recursive-include bin *
+recursive-include docs * 
+recursive-include examples *
+recursive-exclude cheetah *.pyc *~ *.aux
+recursive-exclude docs *~ *.aux

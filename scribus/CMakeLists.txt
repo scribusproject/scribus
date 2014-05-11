@@ -552,6 +552,7 @@ SET(SCRIBUS_SOURCES
 	commonstrings.cpp
 	deferredtask.cpp
 	docinfo.cpp
+	documentbuilder.cpp
 	documentchecker.cpp
 	documentinformation.cpp
 	downloadmanager/scdlmgr.cpp
