@@ -64,11 +64,11 @@ public:
 
 	/*! \brief Exports only the actual page
 	\retval bool true on success */
-	bool exportCurrent(ScribusDoc* doc);
+	bool exportCurrent(ScribusDoc* doc, bool background);
 	/*! \brief Exports chosen interval of the pages
 	\param pageNs interval of the page numbers
 	\retval true on success */
-	bool exportInterval(ScribusDoc* doc, std::vector<int> &pageNs);
+	bool exportInterval(ScribusDoc* doc, std::vector<int> &pageNs, bool background);
 private:
 	/*! \brief create specified filename "docfilename-005.ext" */
 	QString getFileName(ScribusDoc* doc, uint pageNr);
@@ -77,7 +77,7 @@ private:
 	\param single bool TRUE if only the one page is exported
 	\retval bool true on success
 	*/
-	bool exportPage(ScribusDoc* doc, uint pageNr, bool single);
+	bool exportPage(ScribusDoc* doc, uint pageNr, bool background, bool single);
 };
 
 #endif

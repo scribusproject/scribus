@@ -133,14 +133,14 @@ bool PixmapExportPlugin::run(ScribusDoc* doc, QString target)
 		doc->scMW()->mainWindowProgressBar->reset();
 		bool res;
 		if (dia->onePageRadio->isChecked())
-			res = ex->exportCurrent(doc);
+			res = ex->exportCurrent(doc, !dia->noBackground->isChecked());
 		else
 		{
 			if (dia->allPagesRadio->isChecked())
 				parsePagesString("*", &pageNs, doc->DocPages.count());
 			else
 				parsePagesString(dia->rangeVal->text(), &pageNs, doc->DocPages.count());
-			res = ex->exportInterval(doc, pageNs);
+			res = ex->exportInterval(doc, pageNs, !dia->noBackground->isChecked());
 		}
 		doc->scMW()->mainWindowProgressBar->reset();
 		QApplication::changeOverrideCursor(Qt::ArrowCursor);
@@ -171,7 +171,7 @@ ExportBitmap::~ExportBitmap()
 {
 }
 
-bool ExportBitmap::exportPage(ScribusDoc* doc, uint pageNr, bool single = true)
+bool ExportBitmap::exportPage(ScribusDoc* doc, uint pageNr, bool background, bool single = true)
 {
 	uint over   = 0;
 	bool saved = false, doFileSave = true;
@@ -186,7 +186,7 @@ bool ExportBitmap::exportPage(ScribusDoc* doc, uint pageNr, bool single = true)
 	* portrait and user defined sizes.
 	*/
 	double pixmapSize = (page->height() > page->width()) ? page->height() : page->width();
-	QImage im(doc->view()->PageToPixmap(pageNr, qRound(pixmapSize * enlargement * (pageDPI / 72.0) / 100.0), false));
+	QImage im(doc->view()->PageToPixmap(pageNr, qRound(pixmapSize * enlargement * (pageDPI / 72.0) / 100.0), false, background));
 	if (im.isNull())
 	{
 		QMessageBox::warning(doc->scMW(), tr("Save as Image"), tr("Insufficient memory for this image size."));
@@ -222,18 +222,18 @@ bool ExportBitmap::exportPage(ScribusDoc* doc, uint pageNr, bool single = true)
 	return saved;
 }
 
-bool ExportBitmap::exportCurrent(ScribusDoc* doc)
+bool ExportBitmap::exportCurrent(ScribusDoc* doc,  bool background)
 {
-	return exportPage(doc, doc->currentPageNumber(), true);
+	return exportPage(doc, doc->currentPageNumber(), background, true);
 }
 
-bool ExportBitmap::exportInterval(ScribusDoc* doc, std::vector<int> &pageNs)
+bool ExportBitmap::exportInterval(ScribusDoc* doc, std::vector<int> &pageNs, bool background)
 {
 	doc->scMW()->mainWindowProgressBar->setMaximum(pageNs.size());
 	for (uint a = 0; a < pageNs.size(); ++a)
 	{
 		doc->scMW()->mainWindowProgressBar->setValue(a);
-		if (!exportPage(doc, pageNs[a]-1, false))
+		if (!exportPage(doc, pageNs[a]-1, background, false))
 			return false;
 	}
 	return true;

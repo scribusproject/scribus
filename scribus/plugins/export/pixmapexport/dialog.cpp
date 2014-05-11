@@ -49,6 +49,7 @@ ExportForm::ExportForm(QWidget* parent, ScribusDoc* doc, int size, int quality, 
 	pageNrButton->setIcon(loadIcon("ellipsis.png"));
 	rangeVal->setEnabled(false);
 	pageNrButton->setEnabled(false);
+	noBackground->setChecked(false);
 
 	languageChange();
 	readConfig();
@@ -125,6 +126,7 @@ void ExportForm::languageChange()
 	bitmapType->setToolTip( tr( "Available export formats" ) );
 	outputDirectory->setToolTip( tr( "The output directory - the place to store your images.\nName of the export file will be 'documentname-pagenumber.filetype'" ) );
 	outputDirectoryButton->setToolTip( tr( "Change the output directory" ) );
+	noBackground->setToolTip( tr("Don't export Page Background"));
 }
 
 

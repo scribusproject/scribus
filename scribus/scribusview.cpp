@@ -2555,7 +2555,7 @@ QImage ScribusView::MPageToPixmap(QString name, int maxGr, bool drawFrame)
 	return im;
 }
 
-QImage ScribusView::PageToPixmap(int Nr, int maxGr, bool drawFrame)
+QImage ScribusView::PageToPixmap(int Nr, int maxGr, bool drawFrame, bool drawBackground)
 {
 	QImage im;
 	double sx = maxGr / Doc->DocPages.at(Nr)->width();
@@ -2570,6 +2570,7 @@ QImage ScribusView::PageToPixmap(int Nr, int maxGr, bool drawFrame)
 		im = QImage(clipw, cliph, QImage::Format_ARGB32_Premultiplied);
 		if (!im.isNull())
 		{
+			im.fill( qRgba(0, 0, 0, 0) );
 			double oldScale = m_canvas->scale();
 			double cx = Doc->minCanvasCoordinate.x();
 			double cy = Doc->minCanvasCoordinate.y();
@@ -2596,7 +2597,8 @@ QImage ScribusView::PageToPixmap(int Nr, int maxGr, bool drawFrame)
 			Doc->setLoading(true);
 			Doc->setCurrentPage(Doc->DocPages.at(Nr));
 			ScPainter *painter = new ScPainter(&im, im.width(), im.height(), 1.0, 0);
-			painter->clear(Doc->paperColor());
+			if (drawBackground)
+				painter->clear(Doc->paperColor());
 			painter->translate(-clipx, -clipy);
 			painter->setFillMode(ScPainter::Solid);
 			if (drawFrame)
