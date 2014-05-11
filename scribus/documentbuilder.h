@@ -29,18 +29,18 @@ public:
 	DocumentBuilder(ScribusDoc*);
 	virtual ~DocumentBuilder();
 
-    virtual ScribusDoc* createDocument();
+	virtual ScribusDoc* createDocument();
 	virtual void setDocument(ScribusDoc*);
-    virtual ScribusDoc* finishDocument(ScribusDoc*);
+	virtual ScribusDoc* finishDocument(ScribusDoc*);
 
-    virtual ScPage* createScPage(int number, const QString& name);
-    virtual ScPage* finishScPage(ScPage*);
+	virtual ScPage* createScPage(int number, const QString& name);
+	virtual ScPage* finishScPage(ScPage*);
 
 	virtual PageItem* createPageItem(int itemType, int frameType, double x, double y, double b, double h, double w, const QString& fill, const QString& outline);
-    virtual PageItem* finishPageItem(PageItem*);
+	virtual PageItem* finishPageItem(PageItem*);
 
-    ScribusDoc* document()
-    {
+	ScribusDoc* document()
+	{
 		return m_doc;
 	}
 };

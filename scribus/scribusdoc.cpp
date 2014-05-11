@@ -5357,7 +5357,7 @@ PageItem* ScribusDoc::createPageItem(const PageItem::ItemType itemType, const Pa
 //			Q_ASSERT(frameType==PageItem::Rectangle || frameType==PageItem::Unspecified);
 			break;
 		case PageItem::TextFrame:
-            newItem = new PageItem_TextFrame(this, x, y, b, h, w, CommonStrings::None, outline);
+			newItem = new PageItem_TextFrame(this, x, y, b, h, w, CommonStrings::None, outline);
 //			Q_ASSERT(frameType==PageItem::Rectangle || frameType==PageItem::Unspecified);
 			break;
 		case PageItem::Line:
@@ -5419,12 +5419,12 @@ PageItem* ScribusDoc::createPageItem(const PageItem::ItemType itemType, const Pa
 //			qDebug() << "unknown item type";
 			assert (false);
 	}
-    if (newItem != NULL)
-    {   
-        //Add in item default values based on itemType and frameType
-        itemAddDetails(itemType, frameType, newItem);
-    }
-    return newItem;
+	if (newItem != NULL)
+	{
+		//Add in item default values based on itemType and frameType
+		itemAddDetails(itemType, frameType, newItem);
+	}
+	return newItem;
 }
 
 int ScribusDoc::itemAdd(const PageItem::ItemType itemType, const PageItem::ItemFrameType frameType, const double x, const double y, const double b, const double h, const double w, const QString& fill, const QString& outline, const bool itemFinalised, const bool noteFrame)
@@ -5435,20 +5435,20 @@ int ScribusDoc::itemAdd(const PageItem::ItemType itemType, const PageItem::ItemF
 	{
 		activeTransaction = new UndoTransaction(undoManager->beginTransaction());
 	}
-    
-    PageItem* newItem;
-    if (noteFrame)
-    {    
-        newItem = new PageItem_NoteFrame(this, x, y, b, h, w, CommonStrings::None, outline);
-        itemAddDetails(itemType, frameType, newItem);
-    }
-    else
-        newItem = createPageItem(itemType, frameType, x, y, b, h, w, fill, outline); 
-    
-    Q_CHECK_PTR(newItem);
+	
+	PageItem* newItem;
+	if (noteFrame)
+	{
+		newItem = new PageItem_NoteFrame(this, x, y, b, h, w, CommonStrings::None, outline);
+		itemAddDetails(itemType, frameType, newItem);
+	}
+	else
+		newItem = createPageItem(itemType, frameType, x, y, b, h, w, fill, outline); 
+	
+	Q_CHECK_PTR(newItem);
 	if (newItem==NULL)
 		return -1;
-    
+	
 	Items->append(newItem);
 	if (UndoManager::undoEnabled())
 	{

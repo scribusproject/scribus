@@ -52,15 +52,15 @@ ScribusDoc* DocumentBuilder::createDocument()
 {
 	ScribusDoc* doc = new ScribusDoc();
 
-	doc->is12doc=false;
-    doc->appMode = modeNormal;
-    doc->HasCMS = false;
-    //doc->setActiveLayer(0); //CB should not need this, the file load process sets it to ALAYER from the doc
-    doc->OpenNodes.clear();
-    doc->setLoading(true);
-    doc->SoftProofing = false;
-    doc->Gamut = false;
-  
+	doc->is12doc = false;
+	doc->appMode = modeNormal;
+	doc->HasCMS = false;
+	//doc->setActiveLayer(0); //CB should not need this, the file load process sets it to ALAYER from the doc
+	doc->OpenNodes.clear();
+	doc->setLoading(true);
+	doc->SoftProofing = false;
+	doc->Gamut = false;
+	
 	return doc;
 }
 
@@ -90,8 +90,8 @@ ScPage* DocumentBuilder::finishScPage(ScPage* page)
 		page->MPageNam = QString("");
 	else if (page->MPageNam.isEmpty())
 		page->MPageNam = QString("Normal");
-    page->setInitialWidth(page->width());
-    page->setInitialHeight(page->height());
+	page->setInitialWidth(page->width());
+	page->setInitialHeight(page->height());
 	return page;
 }
 
@@ -102,35 +102,34 @@ PageItem* DocumentBuilder::createPageItem(int itemTypeI, int frameTypeI, double 
 	const PageItem::ItemFrameType frameType = static_cast<PageItem::ItemFrameType> (frameTypeI);
 	
 	PageItem* newItem = m_doc->createPageItem(itemType, frameType, x,y,b,h,w,fill, outline);
-    m_doc->Items->append(newItem);
+	m_doc->Items->append(newItem);
 	return newItem;
 }
 
 
 PageItem* DocumentBuilder::finishPageItem(PageItem* newItem)
 {
-
-        if (newItem->asImageFrame() || newItem->asLatexFrame())
-        {
-            if (!newItem->Pfile.isEmpty())
-            {
-                    m_doc->loadPict(newItem->Pfile, newItem, false);
-                    //if (newItem->pixm.imgInfo.PDSpathData.contains(clipPath))
-                    //{
-                      //      newItem->imageClip = newItem->pixm.imgInfo.PDSpathData[clipPath].copy();
-                            //newItem->pixm.imgInfo.usedPath = clipPath;
-                        //    QTransform cl;
-                          //  cl.translate(newItem->imageXOffset()*newItem->imageXScale(), newItem->imageYOffset()*newItem->imageYScale());
-                           // cl.scale(newItem->imageXScale(), newItem->imageYScale());
-                           // newItem->imageClip.map(cl);
-                    //}
-                    //if (layerFound)
-                    //{
-                      //      newItem->pixm.imgInfo.isRequest = true;
-                        //    m_doc->loadPict(newItem->Pfile, newItem, true);
-                    //}
-            }
-        }
-        return newItem;
+	if (newItem->asImageFrame() || newItem->asLatexFrame())
+	{
+		if (!newItem->Pfile.isEmpty())
+		{
+				m_doc->loadPict(newItem->Pfile, newItem, false);
+				/* if (newItem->pixm.imgInfo.PDSpathData.contains(clipPath))
+				{
+					newItem->imageClip = newItem->pixm.imgInfo.PDSpathData[clipPath].copy();
+					newItem->pixm.imgInfo.usedPath = clipPath;
+					QTransform cl;
+					cl.translate(newItem->imageXOffset()*newItem->imageXScale(), newItem->imageYOffset()*newItem->imageYScale());
+					cl.scale(newItem->imageXScale(), newItem->imageYScale());
+					newItem->imageClip.map(cl);
+				}
+				if (layerFound)
+				{
+					newItem->pixm.imgInfo.isRequest = true;
+					m_doc->loadPict(newItem->Pfile, newItem, true);
+				} */
+		}
+	}
+	return newItem;
 }
 

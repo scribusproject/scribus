@@ -774,12 +774,12 @@ public:
 	 */
 	bool copyPageToMasterPage(const int, const int, const int, const QString&, bool);
 	
-    
-    /**
-     * @brief Just create but don't add to items list and don't create undo record
-     */
-    PageItem* createPageItem(const PageItem::ItemType itemType, const PageItem::ItemFrameType frameType, double x, double y, double b, double h, double w, const QString& fill, const QString& outline);
-    
+	
+	/**
+	 * @brief Just create but don't add to items list and don't create undo record
+	 */
+	PageItem* createPageItem(const PageItem::ItemType itemType, const PageItem::ItemFrameType frameType, double x, double y, double b, double h, double w, const QString& fill, const QString& outline);
+	
 	/**
 	 * @brief Add an Item to the document.
 	 * A simple function to create an item of a defined type and add it to the document
