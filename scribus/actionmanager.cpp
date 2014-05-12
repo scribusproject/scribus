@@ -1668,31 +1668,30 @@ void ActionManager::languageChange()
 	(*scrActions)["toolsEyeDropper"]->setTexts( tr("&Eye Dropper"));
 	(*scrActions)["toolsCopyProperties"]->setTexts( tr("Copy Item Properties"));
 
-	(*scrActions)["toolsInsertTextFrame"]->setText( tr("Insert &Text Frame"));
-	(*scrActions)["toolsInsertImageFrame"]->setText( tr("Insert &Image Frame"));
-	(*scrActions)["toolsInsertRenderFrame"]->setText( tr("Insert &Render Frame"));
-	(*scrActions)["toolsInsertTable"]->setText( tr("Insert T&able"));
-	(*scrActions)["toolsInsertShape"]->setText( tr("Insert &Shape"));
-	(*scrActions)["toolsInsertPolygon"]->setText( tr("Insert &Polygon"));
-	(*scrActions)["toolsInsertArc"]->setText( tr("Insert Arc"));
-	(*scrActions)["toolsInsertSpiral"]->setText( tr("Insert Spiral"));
-	(*scrActions)["toolsInsertLine"]->setText( tr("Insert &Line"));
-	(*scrActions)["toolsInsertCalligraphicLine"]->setText( tr("Insert Calligraphic Line"));
-	(*scrActions)["toolsInsertBezier"]->setText( tr("Insert &Bezier Curve"));
-	(*scrActions)["toolsInsertFreehandLine"]->setText( tr("Insert &Freehand Line"));
+	(*scrActions)["toolsInsertTextFrame"]->setText( tr("&Text Frame"));
+	(*scrActions)["toolsInsertImageFrame"]->setText( tr("&Image Frame"));
+	(*scrActions)["toolsInsertRenderFrame"]->setText( tr("&Render Frame"));
+	(*scrActions)["toolsInsertTable"]->setText( tr("T&able"));
+	(*scrActions)["toolsInsertShape"]->setText( tr("&Shape"));
+	(*scrActions)["toolsInsertPolygon"]->setText( tr("&Polygon"));
+	(*scrActions)["toolsInsertArc"]->setText( tr("Arc"));
+	(*scrActions)["toolsInsertSpiral"]->setText( tr("Spiral"));
+	(*scrActions)["toolsInsertLine"]->setText( tr("&Line"));
+	(*scrActions)["toolsInsertCalligraphicLine"]->setText( tr("Calligraphic Line"));
+	(*scrActions)["toolsInsertBezier"]->setText( tr("&Bezier Curve"));
+	(*scrActions)["toolsInsertFreehandLine"]->setText( tr("&Freehand Line"));
 
-	(*scrActions)["toolsPDFPushButton"]->setTexts( tr("Insert PDF Push Button"));
-	(*scrActions)["toolsPDFRadioButton"]->setTexts( tr("Insert PDF Radio Button"));
-	(*scrActions)["toolsPDFTextField"]->setTexts( tr("Insert PDF Text Field"));
-	(*scrActions)["toolsPDFCheckBox"]->setTexts( tr("Insert PDF Check Box"));
-	(*scrActions)["toolsPDFComboBox"]->setTexts( tr("Insert PDF Combo Box"));
-	(*scrActions)["toolsPDFListBox"]->setTexts( tr("Insert PDF List Box"));
-	(*scrActions)["toolsPDFAnnotText"]->setTexts( tr("Insert Text Annotation"));
-	(*scrActions)["toolsPDFAnnotLink"]->setTexts( tr("Insert Link Annotation"));
+	(*scrActions)["toolsPDFPushButton"]->setTexts( tr("PDF Push Button"));
+	(*scrActions)["toolsPDFRadioButton"]->setTexts( tr("PDF Radio Button"));
+	(*scrActions)["toolsPDFTextField"]->setTexts( tr("PDF Text Field"));
+	(*scrActions)["toolsPDFCheckBox"]->setTexts( tr("PDF Check Box"));
+	(*scrActions)["toolsPDFComboBox"]->setTexts( tr("PDF Combo Box"));
+	(*scrActions)["toolsPDFListBox"]->setTexts( tr("PDF List Box"));
+	(*scrActions)["toolsPDFAnnotText"]->setTexts( tr("Text Annotation"));
+	(*scrActions)["toolsPDFAnnotLink"]->setTexts( tr("Link Annotation"));
 #ifdef HAVE_OSG
-	(*scrActions)["toolsPDFAnnot3D"]->setTexts( tr("Insert 3D Annotation"));
+	(*scrActions)["toolsPDFAnnot3D"]->setTexts( tr("3D Annotation"));
 #endif
-
 
 	//Extras Menu
 	(*scrActions)["extrasManageImages"]->setTexts( tr("&Manage Images"));
