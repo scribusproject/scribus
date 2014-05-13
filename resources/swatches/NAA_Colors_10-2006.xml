@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SCRIBUSCOLORS Name="NAA Colors 10-2006">
+ <COLOR Spot="0" Register="0" NAME="Black" CMYK="#000000ff"/>
+ <COLOR Spot="0" Register="0" NAME="NAA 000A" CMYK="#000000ff"/>
+ <COLOR Spot="0" Register="0" NAME="NAA 00A0" CMYK="#0000ff00"/>
+ <COLOR Spot="0" Register="0" NAME="NAA 0170" CMYK="#001ab300"/>
+ <COLOR Spot="0" Register="0" NAME="NAA 01A0" CMYK="#001aff00"/>
+ <COLOR Spot="0" Register="0" NAME="NAA 02A0" CMYK="#0033ff00"/>
+ <COLOR Spot="0" Register="0" NAME="NAA 03A0" CMYK="#004dff00"/>
+ <COLOR Spot="0" Register="0" NAME="NAA 0440" CMYK="#00666600"/>
+ <COLOR Spot="0" Register="0" NAME="NAA 04A0" CMYK="#0066ff00"/>
+ <COLOR Spot="0" Register="0" NAME="NAA 05A1" CMYK="#007fff1a"/>
+ <COLOR Spot="0" Register="0" NAME="NAA 0610" CMYK="#00991a00"/>
+ <COLOR Spot="0" Register="0" NAME="NAA 0640" CMYK="#00996600"/>
+ <COLOR Spot="0" Register="0" NAME="NAA 06A0" CMYK="#0099ff00"/>
+ <COLOR Spot="0" Register="0" NAME="NAA 0770" CMYK="#00b3b300"/>
+ <COLOR Spot="0" Register="0" NAME="NAA 0774" CMYK="#00b3b366"/>
+ <COLOR Spot="0" Register="0" NAME="NAA 0882" CMYK="#00cccc33"/>
+ <COLOR Spot="0" Register="0" NAME="NAA 08A0" CMYK="#00ccff00"/>
+ <COLOR Spot="0" Register="0" NAME="NAA 0A00" CMYK="#00ff0000"/>
+ <COLOR Spot="0" Register="0" NAME="NAA 0A10" CMYK="#00ff1a00"/>
+ <COLOR Spot="0" Register="0" NAME="NAA 0A50" CMYK="#00ff7f00"/>
+ <COLOR Spot="0" Register="0" NAME="NAA 0AA0" CMYK="#00ffff00"/>
+ <COLOR Spot="0" Register="0" NAME="NAA 1A00" CMYK="#1aff0000"/>
+ <COLOR Spot="0" Register="0" NAME="NAA 2080" CMYK="#3300cc00"/>
+ <COLOR Spot="0" Register="0" NAME="NAA 2500" CMYK="#337f0000"/>
+ <COLOR Spot="0" Register="0" NAME="NAA 3050" CMYK="#4d007f00"/>
+ <COLOR Spot="0" Register="0" NAME="NAA 3800" CMYK="#4dcc0000"/>
+ <COLOR Spot="0" Register="0" NAME="NAA 3A00" CMYK="#4dff0000"/>
+ <COLOR Spot="0" Register="0" NAME="NAA 4080" CMYK="#6600cc00"/>
+ <COLOR Spot="0" Register="0" NAME="NAA 4330" CMYK="#664d4d00"/>
+ <COLOR Spot="0" Register="0" NAME="NAA 5010" CMYK="#7f001a00"/>
+ <COLOR Spot="0" Register="0" NAME="NAA 5400" CMYK="#7f660000"/>
+ <COLOR Spot="0" Register="0" NAME="NAA 5A00" CMYK="#7fff0000"/>
+ <COLOR Spot="0" Register="0" NAME="NAA 6030" CMYK="#99004d00"/>
+ <COLOR Spot="0" Register="0" NAME="NAA 6080" CMYK="#9900cc00"/>
+ <COLOR Spot="0" Register="0" NAME="NAA 6100" CMYK="#991a0000"/>
+ <COLOR Spot="0" Register="0" NAME="NAA 6800" CMYK="#99cc0000"/>
+ <COLOR Spot="0" Register="0" NAME="NAA 7300" CMYK="#b34d0000"/>
+ <COLOR Spot="0" Register="0" NAME="NAA 8020" CMYK="#cc003300"/>
+ <COLOR Spot="0" Register="0" NAME="NAA 8050" CMYK="#cc007f00"/>
+ <COLOR Spot="0" Register="0" NAME="NAA 8080" CMYK="#cc00cc00"/>
+ <COLOR Spot="0" Register="0" NAME="NAA 8400" CMYK="#cc660000"/>
+ <COLOR Spot="0" Register="0" NAME="NAA 8600" CMYK="#cc990000"/>
+ <COLOR Spot="0" Register="0" NAME="NAA A000" CMYK="#ff000000"/>
+ <COLOR Spot="0" Register="0" NAME="NAA A010" CMYK="#ff001a00"/>
+ <COLOR Spot="0" Register="0" NAME="NAA A040" CMYK="#ff006600"/>
+ <COLOR Spot="0" Register="0" NAME="NAA A0A0" CMYK="#ff00ff00"/>
+ <COLOR Spot="0" Register="0" NAME="NAA A0A3" CMYK="#ff00ff4d"/>
+ <COLOR Spot="0" Register="0" NAME="NAA A100" CMYK="#ff1a0000"/>
+ <COLOR Spot="0" Register="0" NAME="NAA A303" CMYK="#ff4d004d"/>
+ <COLOR Spot="0" Register="0" NAME="NAA A400" CMYK="#ff660000"/>
+ <COLOR Spot="0" Register="0" NAME="NAA A801" CMYK="#ffcc001a"/>
+ <COLOR Spot="0" Register="0" NAME="NAA AA00" CMYK="#ffff0000"/>
+ <COLOR Spot="0" Register="1" NAME="Registration" CMYK="#ffffffff"/>
+ <COLOR Spot="0" Register="0" NAME="White" CMYK="#00000000"/>
+</SCRIBUSCOLORS>
