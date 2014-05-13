@@ -5,6 +5,7 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 
+#include <QDebug>
 #include <QEvent>
 #include <QToolTip>
 #include <QKeyEvent>
@@ -23,11 +24,19 @@ ShortcutWidget::ShortcutWidget(QWidget *parent)
 	Part3 = "";
 	keyCode = 0;
 	setKeyButton->setCheckable(true);
+	requiredModifiers=0;
+	allowedModifiers=0;
 
 	languageChange();
 
 	connect(noKey, SIGNAL(clicked()), this, SLOT(setNoKey()));
 	connect(setKeyButton, SIGNAL(clicked()), this, SLOT(setKeyText()));
+}
+
+void ShortcutWidget::setAllowedModifiers(int allowed, int required)
+{
+	allowedModifiers=allowed;
+	requiredModifiers=required;
 }
 
 void ShortcutWidget::changeEvent(QEvent *e)
@@ -74,20 +83,32 @@ void ShortcutWidget::keyPressEvent(QKeyEvent *k)
 		switch (k->key())
 		{
 			case Qt::Key_Meta:
-				Part0 = tr("Meta+");
-				keyCode |= Qt::META;
+				if ((allowedModifiers&Qt::META)==Qt::META)
+				{
+					Part0 = tr("Meta+");
+					keyCode |= Qt::META;
+				}
 				break;
 			case Qt::Key_Shift:
-				Part3 = tr("Shift+");
-				keyCode |= Qt::SHIFT;
+				if ((allowedModifiers&Qt::SHIFT)==Qt::SHIFT)
+				{
+					Part3 = tr("Shift+");
+					keyCode |= Qt::SHIFT;
+				}
 				break;
 			case Qt::Key_Alt:
-				Part2 = tr("Alt+");
-				keyCode |= Qt::ALT;
+				if ((allowedModifiers&Qt::ALT)==Qt::ALT)
+				{
+					Part2 = tr("Alt+");
+					keyCode |= Qt::ALT;
+				}
 				break;
 			case Qt::Key_Control:
-				Part1 = tr("Ctrl+");
-				keyCode |= Qt::CTRL;
+				if ((allowedModifiers&Qt::CTRL)==Qt::CTRL)
+				{
+					Part1 = tr("Ctrl+");
+					keyCode |= Qt::CTRL;
+				}
 				break;
 			default:
 				keyCode |= k->key();

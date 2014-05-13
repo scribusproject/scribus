@@ -33,6 +33,7 @@ public:
 	void keyPressEvent(QKeyEvent *k);
 	void keyReleaseEvent(QKeyEvent *k);
 	void setShortcut(const QString &shortcut);
+	void setAllowedModifiers(int allowed, int required);
 	static QString getKeyText(int KeyC);
 	void languageChange();
 
@@ -55,6 +56,8 @@ protected:
 	QString Part2;
 	QString Part3;
 	QString Part4;
+	int requiredModifiers;
+	int allowedModifiers;
 };
 
 #endif

@@ -983,6 +983,7 @@ void StyleManager::insertShortcutPage(QTabWidget *twidget)
 		if (!m_shortcutWidget)
 		{
 			m_shortcutWidget = new ShortcutWidget(0);
+			m_shortcutWidget->setAllowedModifiers(Qt::META|Qt::CTRL|Qt::SHIFT|Qt::ALT,0);
 			connect(m_shortcutWidget, SIGNAL(newKey(const QString&)),
 					this, SLOT(slotShortcutChanged(const QString&)));
 		}
