@@ -2512,6 +2512,7 @@ void ActionManager::setStartupActionsEnabled(bool enabled)
 	(*scrActions)["fileImportText2"]->setEnabled(false);
 	(*scrActions)["fileImportImage"]->setEnabled(false);
 	(*scrActions)["fileImportAppendText"]->setEnabled(false);
+	(*scrActions)["fileImportVector"]->setEnabled(false);
 	(*scrActions)["pageInsert"]->setEnabled(false);
 	(*scrActions)["pageImport"]->setEnabled(false);
 	(*scrActions)["pageDelete"]->setEnabled(false);
