@@ -59,6 +59,7 @@
                 <submenuitem text="Galaxy Gauge Color System" file="color7a.html" />
                 <submenuitem text="Galaxy Color Harmonizer" file="color7b.html" />
                 <submenuitem text="Galaxy Color Emotions" file="color7c.html" />
+				<submenuitem text="Colori NAA" file="color9.html" />
                 <submenuitem text="Colori per scopi speciali" file="color8.html" />
                 <submenuitem text="Dove sono Pantone, HKS e gli altri?" file="color10.html" />
         </submenuitem>
@@ -79,7 +80,7 @@
                 <submenuitem text="Presentazioni PDF" file="pdfexport4.html"/>
                 <submenuitem text="Creare collegamenti nei documenti" file="createlinks.html"/>                
                 <submenuitem text="Formulari PDF" file="pdf_form.html"/>
-		<submenuitem text="PDF/X-1a" file="pdfx1a.html"/>
+                <submenuitem text="PDF/X-1a" file="pdfx1a.html"/>
                 <submenuitem text="PDF/X-3" file="pdfx3.html"/>
         </submenuitem>
         <submenuitem text="Stampare con Scribus" file="print1.html">
