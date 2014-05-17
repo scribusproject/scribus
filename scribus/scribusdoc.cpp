@@ -14688,6 +14688,8 @@ bool ScribusDoc::MoveSizeItem(FPoint newX, FPoint newY, PageItem* currItem, bool
 
 void ScribusDoc::AdjustItemSize(PageItem *currItem, bool includeGroup, bool moveInGroup)
 {
+	if (currItem->isArc())
+		return;
 	undoManager->setUndoEnabled(false);
 	bool siz = currItem->Sizing;
 	currItem->Sizing = false;

@@ -435,7 +435,6 @@ void ResizeGesture::doResize(bool scaleContent)
 			item->arcWidth  += dw * dscw;
 			item->arcHeight += dh * dsch;
 			item->recalcPath();
-			m_doc->AdjustItemSize(item);
 		}
 		if (currItem->isSpiral())
 		{
