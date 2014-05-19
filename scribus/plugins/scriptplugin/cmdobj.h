@@ -262,6 +262,15 @@ Return a list of the names of all paragraph styles in the current document.\n\
 PyObject *scribus_getstylenames(PyObject * /*self*/);
 
 /*! docstring */
+PyDoc_STRVAR(scribus_getcharstylenames__doc__,
+QT_TR_NOOP("getCharStyles() -> list\n\
+\n\
+Return a list of the names of all character styles in the current document.\n\
+"));
+PyObject *scribus_getcharstylenames(PyObject * /*self*/);
+
+
+/*! docstring */
 PyDoc_STRVAR(scribus_duplicateobject__doc__,
 QT_TR_NOOP("duplicateObject([\"name\"]) -> string\n\
 \n\

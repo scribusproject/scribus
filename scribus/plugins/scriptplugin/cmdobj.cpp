@@ -673,6 +673,23 @@ PyObject *scribus_getstylenames(PyObject* /* self */)
 	return styleList;
 }
 
+PyObject *scribus_getcharstylenames(PyObject* /* self */)
+{
+	PyObject *charStyleList;
+	if(!checkHaveDocument())
+		return NULL;
+	charStyleList = PyList_New(0);
+	for (int i=0; i < ScCore->primaryMainWindow()->doc->charStyles().count(); ++i)
+	{
+		if (PyList_Append(charStyleList, PyString_FromString(ScCore->primaryMainWindow()->doc->charStyles()[i].name().toUtf8())))
+		{
+			// An exception will have already been set by PyList_Append apparently.
+			return NULL;
+		}
+	}
+	return charStyleList;
+}
+
 PyObject *scribus_duplicateobject(PyObject * /* self */, PyObject *args)
 {
 	char* name = const_cast<char*>("");
@@ -704,5 +721,5 @@ PV */
 void cmdobjdocwarnings()
 {
     QStringList s;
-	s << scribus_newrect__doc__ <<scribus_newellipse__doc__ << scribus_newimage__doc__ << scribus_newtext__doc__ << scribus_newtable__doc__ << scribus_newline__doc__ <<scribus_polyline__doc__ << scribus_polygon__doc__ << scribus_bezierline__doc__ <<scribus_pathtext__doc__ <<scribus_deleteobj__doc__ <<scribus_textflow__doc__ <<scribus_objectexists__doc__ <<scribus_setstyle__doc__ <<scribus_getstylenames__doc__ <<scribus_duplicateobject__doc__;
+	s << scribus_newrect__doc__ <<scribus_newellipse__doc__ << scribus_newimage__doc__ << scribus_newtext__doc__ << scribus_newtable__doc__ << scribus_newline__doc__ <<scribus_polyline__doc__ << scribus_polygon__doc__ << scribus_bezierline__doc__ <<scribus_pathtext__doc__ <<scribus_deleteobj__doc__ <<scribus_textflow__doc__ <<scribus_objectexists__doc__ <<scribus_setstyle__doc__ <<scribus_getstylenames__doc__ <<scribus_getcharstylenames__doc__ <<scribus_duplicateobject__doc__;
 }
