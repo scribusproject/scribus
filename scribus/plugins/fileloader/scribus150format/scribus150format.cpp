@@ -3925,7 +3925,10 @@ bool Scribus150Format::readObject(ScribusDoc* doc, ScXmlStreamReader& reader, It
 				QList<PageItem*> GroupItems;
 				doc->Items = &GroupItems;
 				ItemInfo itemInfo;
-				success = readObject(doc, reader, itemInfo, baseDir, loadPage);
+				// #12313: set the 'loadPage' parameter to true in order to
+				// avoid the change of page mode and the doc item lists switch
+				// when loading groups in masterpages
+				success = readObject(doc, reader, itemInfo, baseDir, true);
 				for (int as = 0; as < GroupItems.count(); ++as)
 				{
 					PageItem* currItem = GroupItems.at(as);
