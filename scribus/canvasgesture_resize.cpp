@@ -171,7 +171,7 @@ void ResizeGesture::drawControls(QPainter* p)
 
 	if (m_origBounds != m_bounds)
 	{
-		if (m_doc->m_Selection->count() > 0)
+		if (m_doc->m_Selection->count() == 1)
 		{
 			p->setBrush(Qt::NoBrush);
 			QPen out = QPen(Qt::gray, 1.0 , Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
@@ -181,18 +181,48 @@ void ResizeGesture::drawControls(QPainter* p)
 			QTransform m;
 			m.translate(localRect.x(), localRect.y());
 			m.scale(localRect.width() / currItem->width(), localRect.height() / currItem->height());
-			if (currItem->imageFlippedH())
+			if (!currItem->isSpiral())
 			{
-				m.translate(currItem->width(), 0);
-				m.scale(-1, 1);
-			}
-			if (currItem->imageFlippedV())
-			{
-				m.translate(0, currItem->height());
-				m.scale(1, -1);
+				if (currItem->imageFlippedH())
+				{
+					m.translate(currItem->width(), 0);
+					m.scale(-1, 1);
+				}
+				if (currItem->imageFlippedV())
+				{
+					m.translate(0, currItem->height());
+					m.scale(1, -1);
+				}
 			}
 			QPolygon clip = m.map(currItem->Clip);
 			currItem->DrawPolyL(p, clip);
+		}
+		else if (m_doc->m_Selection->isMultipleSelection())
+		{
+			double x, y, w, h;
+			m_doc->m_Selection->setGroupRect();
+			m_doc->m_Selection->getGroupRect(&x, &y, &w, &h);
+			double scx = localRect.width() / w;
+			double scy = localRect.height() / h;
+			uint docSelectionCount = m_doc->m_Selection->count();
+			if (docSelectionCount < m_canvas->moveWithBoxesOnlyThreshold)
+			{
+				PageItem *currItem;
+				for (uint a = 0; a < docSelectionCount; ++a)
+				{
+					currItem = m_doc->m_Selection->itemAt(a);
+					if (!m_doc->Items->contains(currItem))
+						continue;
+					QTransform m;
+					m.translate(localRect.x(), localRect.y());
+					m.translate((currItem->xPos() - x) * scy, (currItem->yPos() - y) * scy);
+					m.scale(scx, scy);
+					if (currItem->rotation() != 0)
+						m.rotate(currItem->rotation());
+					QPolygon clip = m.map(currItem->Clip);
+					currItem->DrawPolyL(p, clip);
+				}
+			}
 		}
 	}
 	p->restore();

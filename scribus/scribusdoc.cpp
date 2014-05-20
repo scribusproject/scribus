@@ -14976,7 +14976,8 @@ void ScribusDoc::scaleGroup(double scx, double scy, bool scaleText, Selection* c
 			FPoint n(gx-oldPos.x(), gy-oldPos.y());
 			x = ma3.m11() * n.x() + ma3.m21() * n.y() + ma3.dx();
 			y = ma3.m22() * n.y() + ma3.m12() * n.x() + ma3.dy();
-			MoveItem(gx-x, gy-y, bb, true);
+		//	MoveItem(gx-x, gy-y, bb, true);
+			bb->setXYPos(b1.x()+gx, b1.y()+gy);
 			if (oldRot != 0)
 			{
 				bb->setRotation(atan2(t1.y()-b1.y(),t1.x()-b1.x())*(180.0/M_PI));
@@ -15647,6 +15648,11 @@ void ScribusDoc::removeFromGroup(PageItem* item)
 		PageItem_Arc* ite = item->asArc();
 		ite->arcWidth = ite->arcWidth * grScXi;
 		ite->arcHeight = ite->arcHeight * grScYi;
+		ite->recalcPath();
+	}
+	if (item->isSpiral())
+	{
+		PageItem_Spiral* ite = item->asSpiral();
 		ite->recalcPath();
 	}
 	if (item->asPathText())

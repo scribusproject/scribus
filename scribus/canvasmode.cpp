@@ -500,6 +500,16 @@ void CanvasMode::drawOutline(QPainter* p, double scalex, double scaley, double d
 		//		m_scaleX *= -1;
 			}
 			p->translate(deltax, deltay);
+			if (currItem->imageFlippedH())
+			{
+				p->translate(currItem->width(), 0);
+				p->scale(-1.0, 1.0);
+			}
+			if (currItem->imageFlippedV())
+			{
+				p->translate(0, currItem->height());
+				p->scale(1.0, -1.0);
+			}
 			if (gRot != 0)
 			{
 				p->setRenderHint(QPainter::Antialiasing);

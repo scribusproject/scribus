@@ -73,6 +73,7 @@ void PageItem_Arc::recalcPath()
 	path.closeSubpath();
 	PoLine.fromQPainterPath(path);
 	Clip = FlattenPath(PoLine, Segments);
+	setWidthHeight(arcWidth, arcHeight, true);
 }
 
 void PageItem_Arc::applicableActions(QStringList & actionList)
