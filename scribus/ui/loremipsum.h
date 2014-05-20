@@ -114,6 +114,7 @@ private:
 	QLabel* paraLabel;
 	QSpinBox* paraBox;
 	QCheckBox* randomCheckBox;
+	QCheckBox* appendCheckBox;
 	QPushButton* okButton;
 	QPushButton* cancelButton;
 	QGridLayout* LoremManagerLayout;
