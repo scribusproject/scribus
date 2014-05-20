@@ -215,7 +215,7 @@ void ResizeGesture::drawControls(QPainter* p)
 						continue;
 					QTransform m;
 					m.translate(localRect.x(), localRect.y());
-					m.translate((currItem->xPos() - x) * scy, (currItem->yPos() - y) * scy);
+					m.translate((currItem->xPos() - x) * scx, (currItem->yPos() - y) * scy);
 					m.scale(scx, scy);
 					if (currItem->rotation() != 0)
 						m.rotate(currItem->rotation());
@@ -414,6 +414,20 @@ void ResizeGesture::doResize(bool scaleContent)
 		currItem->moveBy(-dx, -dy, true);
 		currItem->setWidth(newBounds.width() / m_scaleX - m_extraWidth);
 		currItem->setHeight(newBounds.height() / m_scaleY - m_extraHeight);
+
+		/*QTransform mm1 = currItem->getTransform();
+		QTransform mm2 = mm1.inverted();
+		QPointF itPos = mm1.map(QPointF(0, 0));
+		double m_scaleX, m_scaleY;
+		getScaleFromMatrix(mm1, m_scaleX, m_scaleY);
+		QPointF newPos = mm2.map(itPos) - mm2.map(newBounds.topLeft());*/
+		/*if (currItem->imageFlippedH())
+			dx *= -1;
+		if (currItem->imageFlippedV())
+			dy *= -1;*/
+		/*currItem->moveBy(-newPos.x(), -newPos.y(), true);
+		currItem->setWidth(newBounds.width() / m_scaleX - m_extraWidth);
+		currItem->setHeight(newBounds.height() / m_scaleY - m_extraHeight);*/
 
 		switch (m_handle)
 		{
