@@ -1593,6 +1593,7 @@ protected: // Start protected functions
 	void restoreUnWeldItem(SimpleState *state, bool isUndo);
 	void restoreUniteItem(SimpleState *state, bool isUndo);
 	void restoreUnlinkTextFrame(UndoState *state, bool isUndo);
+	void restoreVerticalAlign(SimpleState *state, bool isUndo);
 	void restoreWeldItems(SimpleState *state, bool isUndo);
 
 

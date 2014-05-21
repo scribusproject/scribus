@@ -1623,6 +1623,14 @@ void PageItem::setVerticalAlignment(int val)
 {
 	if (val == verticalAlign)
 		return;
+	if(UndoManager::undoEnabled())
+	{
+		SimpleState *ss = new SimpleState(Um::AlignText, "", Um::ITextFrame);
+		ss->set("VERTICAL_ALIGN", "vertical_align");
+		ss->set("OLD_VERTALIGN", verticalAlign);
+		ss->set("NEW_VERTALIGN", val);
+		undoManager->action(this, ss);
+	}
 	verticalAlign = val;
 }
 
@@ -4959,6 +4967,8 @@ void PageItem::restore(UndoState *state, bool isUndo)
 			restoreShade(ss, isUndo);
 		else if (ss->contains("LINE_COLOR"))
 			restoreLineColor(ss, isUndo);
+		else if (ss->contains("VERTICAL_ALIGN"))
+			restoreVerticalAlign(ss, isUndo);
 		else if (ss->contains("COLUMNS"))
 			restoreColumns(ss, isUndo);
 		else if (ss->contains("COLUMNSGAP"))
@@ -7027,6 +7037,15 @@ void PageItem::restoreUnlinkTextFrame(UndoState *state, bool isUndo)
 		else
 			unlink();
 	}
+}
+
+void PageItem::restoreVerticalAlign(SimpleState *ss, bool isUndo)
+{
+	if (isUndo)
+		verticalAlign = ss->getInt("OLD_VERTALIGN");
+	else
+		verticalAlign = ss->getInt("NEW_VERTALIGN");
+	update();
 }
 
 void PageItem::restoreReverseText(UndoState *state, bool /*isUndo*/)
