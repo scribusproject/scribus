@@ -4784,6 +4784,7 @@ void PageItem::moveUndoAction()
 		SimpleState *ss = new SimpleState(Um::Move,
                                           QString(Um::MoveFromTo).arg(oldXpos).arg(oldYpos).arg(oldp).
 																  arg(m_xPos).arg(m_yPos).arg(newp), Um::IMove);
+		ss->set("ITEM_MOVE", "item_move");
 		ss->set("OLD_XPOS", oldXpos);
 		ss->set("OLD_YPOS", oldYpos);
 		ss->set("NEW_XPOS", m_xPos);
@@ -4854,6 +4855,7 @@ void PageItem::rotateUndoAction()
 		SimpleState *ss = new SimpleState(Um::Rotate,
 										  QString(Um::FromTo).arg(oldRot).arg(m_rotation),
 										  Um::IRotate);
+		ss->set("ITEM_ROTATE", "item_rotate");
 		ss->set("OLD_ROT", oldRot);
 		ss->set("NEW_ROT", m_rotation);
 		if (!isNoteFrame() || !asNoteFrame()->isAutoWelded())
@@ -4956,12 +4958,11 @@ void PageItem::restore(UndoState *state, bool isUndo)
 			restoreStartArrowScale(ss, isUndo);
 		else if (ss->contains("IMAGE_ROTATION"))
 			restoreImageRotation(ss, isUndo);
-//		else if (ss->contains("OLD_HEIGHT") || ss->contains("OLD_WIDTH"))
 		else if (ss->contains("ITEM_RESIZE"))
 			restoreResize(ss, isUndo);
-		else if (ss->contains("OLD_ROT"))
+		else if (ss->contains("ITEM_ROTATE"))
 			restoreRotate(ss, isUndo);
-		else if (ss->contains("OLD_XPOS"))
+		else if (ss->contains("ITEM_MOVE"))
 			restoreMove(ss, isUndo);
 		else if (ss->contains("FILL"))
 			restoreFill(ss, isUndo);
