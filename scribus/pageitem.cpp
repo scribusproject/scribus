@@ -4970,7 +4970,7 @@ void PageItem::restore(UndoState *state, bool isUndo)
 		else if (ss->contains("INSERT_FRAMETEXT"))
 			restoreInsertFrameText(ss,isUndo);
 		else if (ss->contains("LOREM_FRAMETEXT"))
-			restoreLoremIpsum(ss,isUndo);
+			restoreInsertFrameText(ss,isUndo);
 		else if (ss->contains("APPLY_CHARSTYLE"))
 			restoreCharStyle(ss,isUndo);
 		else if (ss->contains("SET_CHARSTYLE"))
@@ -6514,18 +6514,6 @@ void PageItem::restoreSetParagraphStyle(SimpleState *ss, bool isUndo)
 		itemText.setStyle(pos,is->getItem().second);
 	else
 		itemText.setStyle(pos,is->getItem().first);
-}
-
-void PageItem::restoreLoremIpsum(SimpleState *ss, bool isUndo)
-{
-	QString sampleText = ss->get("TEXT_STR");
-	if (isUndo)
-	{
-		itemText.selectAll();
-		asTextFrame()->deleteSelectedTextFromFrame();
-	}
-	else
-		itemText.insertChars(0,sampleText);
 }
 
 void PageItem::restoreDeleteFrameText(SimpleState *ss, bool isUndo)

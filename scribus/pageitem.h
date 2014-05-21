@@ -1554,7 +1554,6 @@ protected: // Start protected functions
 	void restoreLineTP(SimpleState *state, bool isUndo);
 	void restoreLineWidth(SimpleState *state, bool isUndo);
 	void restoreLinkTextFrame(UndoState *state, bool isUndo);
-	void restoreLoremIpsum(SimpleState *state, bool isUndo);
 	void restoreMarkString(SimpleState *state, bool isUndo);
 	void restoreMaskGradient(SimpleState *state, bool isUndo);
 	void restoreMaskType(SimpleState *state,bool isUndo);
