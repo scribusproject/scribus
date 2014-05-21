@@ -4290,8 +4290,8 @@ void PageItem::setLineWidth(double newWidth)
 		SimpleState *ss = new SimpleState(Um::LineWidth,
 						QString(Um::FromTo).arg(m_lineWidth).arg(newWidth),Um::ILineStyle);
 		ss->set("LINE_WIDTH", "line_width");
-		ss->set("OLD_WIDTH", m_lineWidth);
-		ss->set("NEW_WIDTH", newWidth);
+		ss->set("OLD_LINEWIDTH", m_lineWidth);
+		ss->set("NEW_LINEWIDTH", newWidth);
 		undoManager->action(this, ss);
 	}
 	Oldm_lineWidth=m_lineWidth;
@@ -4810,6 +4810,7 @@ void PageItem::resizeUndoAction()
 		SimpleState *ss = new SimpleState(Um::Resize,
 						   QString(Um::ResizeFromTo).arg(oldWidth).arg(oldHeight).arg(m_width).arg(m_height),
 						           Um::IResize);
+		ss->set("ITEM_RESIZE", "item_resize");
 		if (!isNoteFrame() || !asNoteFrame()->isAutoWidth())
 		{
 			ss->set("OLD_WIDTH", oldWidth);
@@ -4955,7 +4956,8 @@ void PageItem::restore(UndoState *state, bool isUndo)
 			restoreStartArrowScale(ss, isUndo);
 		else if (ss->contains("IMAGE_ROTATION"))
 			restoreImageRotation(ss, isUndo);
-		else if (ss->contains("OLD_HEIGHT") || ss->contains("OLD_WIDTH"))
+//		else if (ss->contains("OLD_HEIGHT") || ss->contains("OLD_WIDTH"))
+		else if (ss->contains("ITEM_RESIZE"))
 			restoreResize(ss, isUndo);
 		else if (ss->contains("OLD_ROT"))
 			restoreRotate(ss, isUndo);
@@ -6763,9 +6765,9 @@ void PageItem::restoreLineJoin(SimpleState *state, bool isUndo)
 
 void PageItem::restoreLineWidth(SimpleState *state, bool isUndo)
 {
-	double w = state->getDouble("OLD_WIDTH");
+	double w = state->getDouble("OLD_LINEWIDTH");
 	if (!isUndo)
-		w = state->getDouble("NEW_WIDTH");
+		w = state->getDouble("NEW_LINEWIDTH");
 	select();
 	m_Doc->itemSelection_SetLineWidth(w);
 }
