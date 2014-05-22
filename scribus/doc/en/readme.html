@@ -4,7 +4,7 @@
 	<title>What&rsquo;s New in Scribus 1.4.3?</title>
 </head>
 <body>
-<h2>What&rsquo;s New in Scribus 1.4.3?</h2>
+<h2>What&rsquo;s New in Scribus 1.4.4?</h2>
 <p>This is a cursory overview over the changes in Scribus compared to the latest stable version of the 1.3.3.x series (1.3.3.14).</p>
 
 <p><b><i>Note that the file format has changed between 1.3.3.x and 1.4.x and is not backwardly compatible with any prior stable version (1.3.3.14 or earlier). To be precise, you will not be able to open 1.4.x files with version 1.3.3.14 or any earlier version.</i></b></p>
@@ -13,13 +13,13 @@
 <li>On initial launch, Scribus 1.4.x will offer to inherit the configuration data from any existing prior version, but it will store them separately, so you can run Scribus 1.3.3.x in parallel with 1.4.x </li>
 <li>You <b>can</b> install both versions in parallel and run them at the same time. The only caveat is to install them using different installation directories, e.g., 1.3.3.x in <code>/usr/local</code> and 1.4.x in <code>/opt</code> or <code>$home/bin</code> on Linux/UNIX. If you&rsquo;re building Scribus from source, you can use the <code>-DCMAKE_INSTALL_PREFIX:PATH=</code> argument to configure where Scribus should be installed. On other platforms you can determine the location during the installation process.</li>
 </ol>
-<h3>New in Scribus 1.4.3</h3>
+<h3>New in Scribus 1.4.4</h3>
 
 <h4>Qt4 Port</h4>
 <p>One of the major endeavours on the way from 1.3.3.x to 1.4.x was the porting to the Qt4 toolkit. Among others, it enabled a vastly better performance under Mac OS&nbsp;X, as well as the creation of native DMGs for OS&nbsp;X. Scribus 1.4.x DMGs will run on OS&nbsp;X 10.5 or later. It also enabled a port for the <a href="readme-haiku.html">Haiku operating system</a>.</p>
 
 <h4>More Supported Platforms</h4>
-<p>Scribus now runs on the following platforms: Linux, FreeBSD, PC-BSD, NetBSD, OpenBSD, Solaris, OpenIndiana, Debian GNU/Hurd, Mac&nbsp;OS&nbsp;X, OS/2&nbsp;Warp&nbsp;4, eComStation, Haiku, Windows&nbsp;2000 SP&nbsp;4 or later (32-bit), Windows Vista or later (64-bit). It is also available as Scribus Portable for Windows.</p>
+<p>Scribus now runs on the following platforms: Linux, FreeBSD, PC-BSD, NetBSD, OpenBSD, Solaris, OpenIndiana, Debian GNU/Hurd, Mac&nbsp;OS&nbsp;X, OS/2&nbsp;Warp&nbsp;4, eComStation, Windows&nbsp;2000 SP&nbsp;4 or later (32-bit), Windows Vista or later (64-bit). It is also available as Scribus Portable for Windows.</p>
 
 <h4>Object Handling</h4>
 <ul>
@@ -92,7 +92,7 @@
 <li>An option to replace solid colors throughout the whole document.</li>
 <li>Support for external color palette formats (EPS, AI, PS, SOC, GPL).</li>
 <li>Locking of standardized color palettes.</li>
-<li>Many new color palettes, among them the national standard color sets of Australia, France, Japan, the United Kingdom and the United States, as well as Resene&#0174; color and dtp studio collections.</li>
+<li>Many new color palettes, among them the national standard color sets of Australia, France, Japan, the United Kingdom and the United States, as well as Resene&#0174; color, dtp studio collections, GiveLife Color System&reg;, Galaxy Gauge&trade; and NAA 10-2006 colors.</li>
 <li>New gradient types.</li>
 <li>Support for pattern fills: All graphics formats supported by Scribus can be used as patterns.</li>
 <li>Emulation of color blindness for all colors in a document.</li>
@@ -190,6 +190,7 @@
 
 <h4>PDF Export</h4>
 <ul>
+<li>Export to PDF/X-1a.</li>
 <li>Support for PDF 1.5 features, e.g. slide effects for PDF presentations or PDF layers.</li>
 <li>Optional embedding of EPS and PDF files in PDF documents.</li>
 <li>Better font subsetting.</li>
