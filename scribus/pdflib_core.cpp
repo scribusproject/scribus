@@ -6206,7 +6206,7 @@ uint PDFLibCore::WritePDFString(const QString& cc)
 	QString tmp;
 	for (int i = 0; i < cc.length(); ++i)
 	{
-		if (cc[i].unicode() > 255)
+		if (cc[i].unicode() > 127)
 		{
 			tmp += "\\u";
 			tmp += toHex(cc[i].row());
