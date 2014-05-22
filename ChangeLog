@@ -1,3 +1,60 @@
+Scribus - 1.4.4.svn (Released 13-07-31) [ View Issues ]
+=======================================
+- 0012300: [Win32] cannot run gnuplot on windows 8 (jghali) - resolved.
+- 0012273: [User Interface] Colors dialog: launch editor only after a doubleclick (jghali) - resolved.
+- 0012316: [Documentation] [PATCH] add getDocName to documentation (cbradney) - closed.
+- 0012312: [Translation] NAA docs - Italian translation (jghali) - closed.
+- 0012258: [User Interface] Frame color can't be changed (jghali) - closed.
+- 0012235: [Shape Drawing] "Close this Bezier Curves " should be clickable when a Bezier Curve has 3+ nodes (fschmid) - closed.
+- 0012160: [User Interface] Edit > Preferences > Fonts should be File > Preferences > Fonts in Font Substitution dialog (jghali) - closed.
+- 0012217: [Undo/Redo] Duplicating items requires to undo (n° of items+1) to undo the change (jghali) - closed.
+- 0012238: [Scrapbook] Send to Scrapbook invisible entry (jghali) - closed.
+- 0011652: [General] US Geography colour palette (christoph_s) - closed.
+- 0012242: [Translation] Docs update for 1.4.4, Italian translation (jghali) - closed.
+- 0012218: [Documentation] Italian screenshot updates for 1.4.4 documentation (jghali) - closed.
+- 0011834: [Scripter] provide image_align_in_frame.py (gpittman) - closed.
+- 0012216: [Translation] Docs update for 1.4.4, Italian translation (jghali) - closed.
+- 0012210: [Import / Export] Add support of PDF/X-1a to 1.4.x (jghali) - closed.
+- 0012199: [General] Scratch space amnesia (jghali) - closed.
+- 0012208: [Canvas] Snapping properties not set correctly in "Page" menu when switching between docs (jghali) - closed.
+- 0011611: [General] crash when pasting frame (jghali) - closed.
+- 0012104: [Styles] Crash when right clicking after style renaming (jghali) - closed.
+- 0012166: [Color Management] Scribus does not search icc profiles in all needed directories (jghali) - closed.
+- 0012176: [Shape Drawing] Open Polygon tool crashes Scribus in determined condition (jghali) - closed.
+- 0012181: [Translation] Danish Translation - Update (jghali) - closed.
+- 0010184: [User Interface] Treat page borders as guides (jghali) - closed.
+- 0012174: [Translation] Italian translation updates for 1.5.0 (+ accent fix for 1.4.4) (cbradney) - closed.
+- 0012165: [Translation] Docs Italian translation - Update for 1.4.4 (jghali) - closed.
+- 0012159: [User Interface] Item > Level entries order is different from the one shown with right-click on canvas (cbradney) - closed.
+- 0012161: [Translation] Hungarian translation update for 1.4.4 (jghali) - closed.
+- 0012164: [Translation] Italian translation updates for 1.4.4 (jghali) - closed.
+- 0012162: [Scripter] Fix the translation issues in Autoquote2.py and replace the current Autoquote script with the new version (gpittman) - closed.
+- 0012156: [Translation] German translation updates for 1.4.4 (jghali) - closed.
+- 0012132: [User Interface] Escape key in "open file" tab breaks splash dialog (jghali) - closed.
+- 0011904: [Translation] German translations for some First Line Offset settings seem to be incorrect (christoph_s) - closed.
+- 0012152: [PDF] TIFF transparency incorrectly exported PDF (jghali) - closed.
+- 0012040: [User Interface] Ticks in menu not synced with state of tool - Insert character palette++ (cbradney) - closed.
+- 0011427: [User Interface] Mouse cursor should change when hovering a text field (fschmid) - closed.
+- 0011897: [Canvas] Vertical guides disappear when editing master pages (jghali) - closed.
+- 0010267: [User Interface] Better Search dialog initial state (cbradney) - closed.
+- 0012095: [User Interface] Crash when editing object nodes (jghali) - closed.
+- 0012085: [Story Editor / Text Frames] Story Editor Subscript/Superscript preview does not correspond to the Text Frame (jghali) - closed.
+- 0012066: [User Interface] Duplicate entries in the expanded German version of the "Save as Template" dialog (jghali) - closed.
+- 0012038: [Undo/Redo] Undo crashes Scribus after changing the page arrangement (jghali) - closed.
+- 0012019: [Undo/Redo] Ghost entries in "Outline" Window (jghali) - closed.
+- 0011915: [Canvas] Editing Flipped Text Frames from canvas behave as no flipped ones (jghali) - closed.
+- 0011909: [Story Editor / Text Frames] Incorrect cursor position for flipped text (jghali) - closed.
+- 0011930: [Scripter] CalendarWizard doesn't work anymore (jghali) - closed.
+- 0011866: [Styles] the character color style is not remembered (jghali) - closed.
+- 0011863: [Story Editor / Text Frames] Check Spelling crashes pressing "Ignore All" without text available (jghali) - closed.
+- 0011725: [General] Double frames around the object after rotation (jghali) - closed.
+- 0011719: [Usability] Incorrect display of guide lines depending on zoom level (jghali) - closed.
+- 0011714: [User Interface] Cannot Rename Groups from Properties (jghali) - closed.
+- 0011707: [Translation] Typo in non US-English tooltips for colour blindness selections (jghali) - closed.
+- 0011701: [General] the file does not open (jghali) - closed.
+- 0011697: [Documentation] Minor doc update (jghali) - closed.
+- 0011689: [PDF] PDF Option "Embed PDF & EPS files" not saved with document/template (jghali) - closed.
+
 Scribus - 1.4.3 (Released 20-07-13) [ View Issues ]
 =======================================
 - 0011485: [Graphics / Image Frames] Popup windows misbehave in Unity (jghali) - resolved.
