@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <menu>
         <area text="Benvenuti" file="index.html">
-                <submenuitem text="Le novità di Scribus 1.4.3" file="readme.html"/>
+                <submenuitem text="Le novità di Scribus 1.4.4" file="readme.html"/>
                 <submenuitem text="Caratteristiche tecniche" file="specs.html"/>
         </area>
         <area text="Documentazione" file="intro.html">
@@ -59,7 +59,7 @@
                 <submenuitem text="Galaxy Gauge Color System" file="color7a.html" />
                 <submenuitem text="Galaxy Color Harmonizer" file="color7b.html" />
                 <submenuitem text="Galaxy Color Emotions" file="color7c.html" />
-				<submenuitem text="Colori NAA" file="color9.html" />
+		<submenuitem text="Colori NAA" file="color9.html" />
                 <submenuitem text="Colori per scopi speciali" file="color8.html" />
                 <submenuitem text="Dove sono Pantone, HKS e gli altri?" file="color10.html" />
         </submenuitem>
