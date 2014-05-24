@@ -4491,6 +4491,134 @@ void PageItem::setOverprint(bool val) {
 	doOverprint = val;
 }
 
+void PageItem::setHasSoftShadow(bool val)
+{
+	if (m_hasSoftShadow == val)
+		return;
+
+	if (UndoManager::undoEnabled())
+	{
+		SimpleState *ss = new SimpleState(Um::SoftShadow, 0, Um::IGroup);
+		ss->set("SOFT_SHADOW", "SOFT_SHADOW");
+		ss->set("NEW_VALUE", val);
+		ss->set("OLD_VALUE", m_hasSoftShadow);
+		undoManager->action(this, ss);
+	}
+	m_hasSoftShadow = val;
+}
+
+void PageItem::setSoftShadowColor(const QString &val)
+{
+	if (m_softShadowColor == val)
+		return;
+
+	if (UndoManager::undoEnabled())
+	{
+		SimpleState *ss = new SimpleState(Um::SoftShadowColor, 0, Um::IGroup);
+		ss->set("SOFT_SHADOW_COLOR", "SOFT_SHADOW_COLOR");
+		ss->set("NEW_VALUE", val);
+		ss->set("OLD_VALUE", m_softShadowColor);
+		undoManager->action(this, ss);
+	}
+	m_softShadowColor = val;
+}
+
+void PageItem::setSoftShadowShade(int val)
+{
+	if (m_softShadowShade == val)
+		return;
+
+	if (UndoManager::undoEnabled())
+	{
+		SimpleState *ss = new SimpleState(Um::SoftShadowShade, 0, Um::IGroup);
+		ss->set("SOFT_SHADOW_SHADE", "SOFT_SHADOW_SHADE");
+		ss->set("NEW_VALUE", val);
+		ss->set("OLD_VALUE", m_softShadowShade);
+		undoManager->action(this, ss);
+	}
+	m_softShadowShade = val;
+}
+
+void PageItem::setSoftShadowBlurRadius(double val)
+{
+	if (m_softShadowBlurRadius == val)
+		return;
+
+	if (UndoManager::undoEnabled())
+	{
+		SimpleState *ss = new SimpleState(Um::SoftShadowBlurRadius, 0, Um::IGroup);
+		ss->set("SOFT_SHADOW_BLUR_RADIUS", "SOFT_SHADOW_BLUR_RADIUS");
+		ss->set("NEW_VALUE", val);
+		ss->set("OLD_VALUE", m_softShadowBlurRadius);
+		undoManager->action(this, ss);
+	}
+	m_softShadowBlurRadius = val;
+}
+
+void PageItem::setSoftShadowXOffset(double val)
+{
+	if (m_softShadowXOffset == val)
+		return;
+
+	if (UndoManager::undoEnabled())
+	{
+		SimpleState *ss = new SimpleState(Um::SoftShadowXOffset, 0, Um::IGroup);
+		ss->set("SOFT_SHADOW_XOFFSET", "SOFT_SHADOW_XOFFSET");
+		ss->set("NEW_VALUE", val);
+		ss->set("OLD_VALUE", m_softShadowXOffset);
+		undoManager->action(this, ss);
+	}
+	m_softShadowXOffset = val;
+}
+
+void PageItem::setSoftShadowYOffset(double val)
+{
+	if (m_softShadowYOffset == val)
+		return;
+
+	if (UndoManager::undoEnabled())
+	{
+		SimpleState *ss = new SimpleState(Um::SoftShadowYoffset, 0, Um::IGroup);
+		ss->set("SOFT_SHADOW_YOFFSET", "SOFT_SHADOW_YOFFSET");
+		ss->set("NEW_VALUE", val);
+		ss->set("OLD_VALUE", m_softShadowYOffset);
+		undoManager->action(this, ss);
+	}
+	m_softShadowYOffset = val;
+}
+
+void PageItem::setSoftShadowOpacity(double val)
+{
+	if (m_softShadowOpacity == val)
+		return;
+
+	if (UndoManager::undoEnabled())
+	{
+		SimpleState *ss = new SimpleState(Um::SoftShadowOpacity, 0, Um::IGroup);
+		ss->set("SOFT_SHADOW_OPACITY", "SOFT_SHADOW_OPACITY");
+		ss->set("NEW_VALUE", val);
+		ss->set("OLD_VALUE", m_softShadowOpacity);
+		undoManager->action(this, ss);
+	}
+	m_softShadowOpacity = val;
+}
+
+void PageItem::setSoftShadowBlendMode(int val)
+{
+	if (m_softShadowBlendMode == val)
+		return;
+
+	if (UndoManager::undoEnabled())
+	{
+		SimpleState *ss = new SimpleState(Um::SoftShadowBlendMode, 0, Um::IGroup);
+		ss->set("SOFT_SHADOW_BLEND_MODE", "SOFT_SHADOW_BLEND_MODE");
+		ss->set("NEW_VALUE", val);
+		ss->set("OLD_VALUE", m_softShadowBlendMode);
+		undoManager->action(this, ss);
+	}
+	m_softShadowBlendMode = val;
+}
+
 void PageItem::toggleLock()
 {
 	if (UndoManager::undoEnabled())
@@ -5166,6 +5294,22 @@ void PageItem::restore(UndoState *state, bool isUndo)
 			restoreUnWeldItem(ss, isUndo);
 		else if (ss->contains("CLEARMARKSTRING"))
 			restoreMarkString(ss, isUndo);
+		else if (ss->contains("SOFT_SHADOW"))
+			restoreSoftShadow(ss, isUndo);
+		else if (ss->contains("SOFT_SHADOW_COLOR"))
+			restoreSoftShadowColor(ss, isUndo);
+		else if (ss->contains("SOFT_SHADOW_SHADE"))
+			restoreSoftShadowShade(ss, isUndo);
+		else if (ss->contains("SOFT_SHADOW_BLUR_RADIUS"))
+			restoreSoftShadowBlurRadius(ss, isUndo);
+		else if (ss->contains("SOFT_SHADOW_XOFFSET"))
+			restoreSoftShadowXOffset(ss, isUndo);
+		else if (ss->contains("SOFT_SHADOW_YOFFSET"))
+			restoreSoftShadowYOffset(ss, isUndo);
+		else if (ss->contains("SOFT_SHADOW_OPACITY"))
+			restoreSoftShadowOpacity(ss, isUndo);
+		else if (ss->contains("SOFT_SHADOW_BLEND_MODE"))
+			restoreSoftShadowBlendMode(ss, isUndo);
 	}
 	if (!OnMasterPage.isEmpty())
 		m_Doc->setCurrentPage(oldCurrentPage);
@@ -5241,6 +5385,78 @@ void PageItem::restoreWeldItems(SimpleState *state, bool isUndo)
 	}
 	m_Doc->changed();
 	m_Doc->regionsChanged()->update(QRectF());
+}
+
+void PageItem::restoreSoftShadow(SimpleState *state, bool isUndo)
+{
+	if (isUndo)
+		m_hasSoftShadow = state->getBool("OLD_VALUE");
+	else
+		m_hasSoftShadow = state->getBool("NEW_VALUE");
+	update();
+}
+
+void PageItem::restoreSoftShadowColor(SimpleState *state, bool isUndo)
+{
+	if (isUndo)
+		m_softShadowColor = state->get("OLD_VALUE");
+	else
+		m_softShadowColor = state->get("NEW_VALUE");
+	update();
+}
+
+void PageItem::restoreSoftShadowShade(SimpleState *state, bool isUndo)
+{
+	if (isUndo)
+		m_softShadowShade = state->getInt("OLD_VALUE");
+	else
+		m_softShadowShade = state->getInt("NEW_VALUE");
+	update();
+}
+
+void PageItem::restoreSoftShadowBlurRadius(SimpleState *state, bool isUndo)
+{
+	if (isUndo)
+		m_softShadowBlurRadius = state->getDouble("OLD_VALUE");
+	else
+		m_softShadowBlurRadius = state->getDouble("NEW_VALUE");
+	update();
+}
+
+void PageItem::restoreSoftShadowXOffset(SimpleState *state, bool isUndo)
+{
+	if (isUndo)
+		m_softShadowXOffset = state->getDouble("OLD_VALUE");
+	else
+		m_softShadowXOffset = state->getDouble("NEW_VALUE");
+	update();
+}
+
+void PageItem::restoreSoftShadowYOffset(SimpleState *state, bool isUndo)
+{
+	if (isUndo)
+		m_softShadowYOffset = state->getDouble("OLD_VALUE");
+	else
+		m_softShadowYOffset = state->getDouble("NEW_VALUE");
+	update();
+}
+
+void PageItem::restoreSoftShadowOpacity(SimpleState *state, bool isUndo)
+{
+	if (isUndo)
+		m_softShadowOpacity = state->getDouble("OLD_VALUE");
+	else
+		m_softShadowOpacity = state->getDouble("NEW_VALUE");
+	update();
+}
+
+void PageItem::restoreSoftShadowBlendMode(SimpleState *state, bool isUndo)
+{
+	if (isUndo)
+		m_softShadowBlendMode = state->getInt("OLD_VALUE");
+	else
+		m_softShadowBlendMode = state->getInt("NEW_VALUE");
+	update();
 }
 
 void PageItem::restoreMarkString(SimpleState *state, bool isUndo)

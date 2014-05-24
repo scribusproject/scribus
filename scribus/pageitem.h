@@ -656,28 +656,28 @@ public: // Start public functions
 	void setOverprint(bool val);
 
 	// soft shadow
-	void setHasSoftShadow(bool val) { m_hasSoftShadow = val; }
+	void setHasSoftShadow(bool val);
 	bool hasSoftShadow() { return m_hasSoftShadow; }
 
-	void setSoftShadowColor(const QString &newColor) { m_softShadowColor = newColor; }
+	void setSoftShadowColor(const QString &val);
 	QString softShadowColor() { return m_softShadowColor; }
 
-	void setSoftShadowShade(int val) { m_softShadowShade = val; }
+	void setSoftShadowShade(int val);
 	int softShadowShade() { return m_softShadowShade; }
 
-	void setSoftShadowBlurRadius(double val) { m_softShadowBlurRadius = val; }
+	void setSoftShadowBlurRadius(double val);
 	double softShadowBlurRadius() { return m_softShadowBlurRadius; }
 
-	void setSoftShadowXOffset(double val) { m_softShadowXOffset = val; }
+	void setSoftShadowXOffset(double val);
 	double softShadowXOffset() { return m_softShadowXOffset; }
 
-	void setSoftShadowYOffset(double val) { m_softShadowYOffset = val; }
+	void setSoftShadowYOffset(double val);
 	double softShadowYOffset() { return m_softShadowYOffset; }
 
-	void setSoftShadowOpacity(double val) { m_softShadowOpacity = val; }
+	void setSoftShadowOpacity(double val);
 	double softShadowOpacity() { return m_softShadowOpacity; }
 
-	void setSoftShadowBlendMode(int val) { m_softShadowBlendMode = val; }
+	void setSoftShadowBlendMode(int val);
 	double softShadowBlendMode() { return m_softShadowBlendMode; }
 
 	int frameType() const { return FrameType; } ///< rect / oval / round / other
@@ -1595,6 +1595,14 @@ protected: // Start protected functions
 	void restoreUnlinkTextFrame(UndoState *state, bool isUndo);
 	void restoreVerticalAlign(SimpleState *state, bool isUndo);
 	void restoreWeldItems(SimpleState *state, bool isUndo);
+	void restoreSoftShadow(SimpleState *state, bool isUndo);
+	void restoreSoftShadowColor(SimpleState *state, bool isUndo);
+	void restoreSoftShadowShade(SimpleState *state, bool isUndo);
+	void restoreSoftShadowBlurRadius(SimpleState *state, bool isUndo);
+	void restoreSoftShadowXOffset(SimpleState *state, bool isUndo);
+	void restoreSoftShadowYOffset(SimpleState *state, bool isUndo);
+	void restoreSoftShadowOpacity(SimpleState *state, bool isUndo);
+	void restoreSoftShadowBlendMode(SimpleState *state, bool isUndo);
 
 
 	/*@}*/

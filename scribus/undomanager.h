@@ -661,6 +661,14 @@ public:
 	static QString ClearImage;
 	static QString PathOperation;
 	static QString WeldItems;
+	static QString SoftShadow;
+	static QString SoftShadowColor;
+	static QString SoftShadowShade;
+	static QString SoftShadowBlurRadius;
+	static QString SoftShadowXOffset;
+	static QString SoftShadowYoffset;
+	static QString SoftShadowOpacity;
+	static QString SoftShadowBlendMode;
 	/*@}*/
 
 	/**

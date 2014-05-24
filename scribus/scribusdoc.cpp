@@ -7800,6 +7800,12 @@ void ScribusDoc::itemSelection_SetSoftShadow(bool has, QString color, double dx,
 	uint selectedItemCount = m_Selection->count();
 	if (selectedItemCount != 0)
 	{
+		UndoTransaction* activeTransaction = NULL;
+		m_updateManager.setUpdatesDisabled();
+		if (UndoManager::undoEnabled() && selectedItemCount > 1)
+			activeTransaction = new UndoTransaction(undoManager->beginTransaction(Um::SelectionGroup,
+																				  Um::IGroup, Um::LineWidth, "", Um::ILineStyle));
+
 		for (uint a = 0; a < selectedItemCount; ++a)
 		{
 			PageItem *currItem = m_Selection->itemAt(a);
@@ -7814,6 +7820,12 @@ void ScribusDoc::itemSelection_SetSoftShadow(bool has, QString color, double dx,
 			QRectF newRect = currItem->getVisualBoundingRect().adjusted(-dx, -dy, dx, dy);
 			currItem->invalidateLayout();
 			regionsChanged()->update(newRect);
+		}
+		if (activeTransaction)
+		{
+			activeTransaction->commit();
+			delete activeTransaction;
+			activeTransaction = NULL;
 		}
 	}
 	changed();

@@ -1064,6 +1064,14 @@ void UndoManager::languageChange()
 	UndoManager::ChangePageAttrs    = tr("Change Page Attributes");
 	UndoManager::Transform          = tr("Transform");
 	UndoManager::WeldItems          = tr("Weld Items");
+	UndoManager::SoftShadow         = tr("Soft Shadow");
+	UndoManager::SoftShadowColor    = tr("Soft Shadow Color");
+	UndoManager::SoftShadowShade    = tr("Soft Shadow Shade");
+	UndoManager::SoftShadowBlurRadius= tr("Soft Shadow Blue Radius");
+	UndoManager::SoftShadowXOffset  = tr("Soft Shadow X Offset");
+	UndoManager::SoftShadowYoffset  = tr("Soft Shadow Y Offset");
+	UndoManager::SoftShadowOpacity  = tr("Soft Shadow Opacity");
+	UndoManager::SoftShadowBlendMode= tr("Soft Shadow Blend Mode");
 }
 
 void UndoManager::initIcons()
@@ -1323,7 +1331,7 @@ QString UndoManager::ImageEffects       = "";
 QString UndoManager::InsertFrame        = "";
 QString UndoManager::AdjustFrameToImage = "";
 QString UndoManager::RemoveAllGuides    = "";
-QString UndoManager::RemoveAllPageGuides = "";
+QString UndoManager::RemoveAllPageGuides= "";
 QString UndoManager::Copy               = "";
 QString UndoManager::CopyPage           = "";
 QString UndoManager::ImportPage         = "";
@@ -1336,6 +1344,14 @@ QString UndoManager::PathOperation      = "";
 QString UndoManager::ChangePageAttrs    = "";
 QString UndoManager::Transform          = "";
 QString UndoManager::WeldItems          = "";
+QString UndoManager::SoftShadow         = "";
+QString UndoManager::SoftShadowColor    = "";
+QString UndoManager::SoftShadowShade    = "";
+QString UndoManager::SoftShadowBlurRadius="";
+QString UndoManager::SoftShadowXOffset  = "";
+QString UndoManager::SoftShadowYoffset  = "";
+QString UndoManager::SoftShadowOpacity  = "";
+QString UndoManager::SoftShadowBlendMode= "";
 
 /*** Icons for UndoObjects *******************************************/
 QPixmap *UndoManager::IImageFrame      = 0;
