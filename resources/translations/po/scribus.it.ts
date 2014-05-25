@@ -10327,7 +10327,7 @@ Questo profilo dovrebbe essere specifico per lo schermo in uso e non un profilo 
         <source>Color profile for your printer model from the manufacturer.
 This profile should be specific to your printer and not a generic profile (i.e. sRGB).</source>
         <translation>Profilo di colore per la stampante in uso come da indicazioni del produttore.
-Questo profilo dovrebbe essere specifico per la stampante in uso e non generico (es. &apos;sRGB&apos;).</translation>
+Questo profilo dovrebbe essere specifico per la stampante in uso e non un profilo generico (es. &apos;sRGB&apos;).</translation>
     </message>
     <message>
         <location filename="../../../scribus/cmsprefsbase.ui" line="220"/>
@@ -17577,7 +17577,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../../scribus/mergedoc.cpp" line="48"/>
         <source>&amp;From Document:</source>
-        <translation>&amp;Dal documento:</translation>
+        <translation>&amp;Da documento:</translation>
     </message>
     <message>
         <source>Chan&amp;ge...</source>
@@ -30824,7 +30824,7 @@ You can choose between normal and several colour blindness forms</translation>
     <message>
         <location filename="../../../scribus/tabdisplay.cpp" line="35"/>
         <source>Enable or disable  the display of linked frames.</source>
-        <translation>Abilita o disabilita la visualizzazione delle cornici collegate.</translation>
+        <translation>Attiva/Disattiva la visualizzazione delle cornici collegate.</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabdisplay.cpp" line="36"/>
@@ -30834,12 +30834,12 @@ You can choose between normal and several colour blindness forms</translation>
     <message>
         <location filename="../../../scribus/tabdisplay.cpp" line="37"/>
         <source>Turns the display of frames on or off</source>
-        <translation>Attiva o disattiva la visualizzazione delle cornici</translation>
+        <translation>Attiva/Disattiva la visualizzazione delle cornici</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabdisplay.cpp" line="38"/>
         <source>Turns the display of layer indicators on or off</source>
-        <translation>Attiva o disattiva gli indicatori di livello</translation>
+        <translation>Attiva/Disattiva la visualizzazione degli indicatori di livello</translation>
     </message>
     <message>
         <source>Turns the display of pictures on or off</source>
@@ -31058,7 +31058,7 @@ You can choose between normal and several colour blindness forms</translation>
     <message>
         <location filename="../../../scribus/tabdisplay.cpp" line="39"/>
         <source>Turns the display of images on or off</source>
-        <translation>Attiva o disattiva visualizzazione immagini</translation>
+        <translation>Attiva/Disattiva la visualizzazione delle immagini</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabdisplay.ui" line="49"/>
@@ -31080,7 +31080,7 @@ You can choose between normal and several colour blindness forms</translation>
     <message>
         <location filename="../../../scribus/tabdisplay.cpp" line="40"/>
         <source>Turns the page shadow on or off</source>
-        <translation>Attiva o disattiva ombra pagina</translation>
+        <translation>Attiva/Disattiva ombra pagina</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabdisplay.ui" line="120"/>
@@ -32881,7 +32881,7 @@ You can choose between normal and several colour blindness forms</translation>
     <message>
         <location filename="../../../scribus/tabpdfoptions.cpp" line="969"/>
         <source>Choose a master password which enables or disables all the security features in your exported PDF</source>
-        <translation>Sceglie una password da amministratore che abilita o disabilita tutte le caratteristiche di sicurezza nel file PDF esportato</translation>
+        <translation>Scegli una password da amministratore che abilita o disabilita tutte le caratteristiche di sicurezza nel file PDF esportato</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabpdfoptions.cpp" line="976"/>
@@ -33633,7 +33633,7 @@ L&apos;impostazione ai livelli 1 o 2 può generare file molto grandi</translatio
     <message>
         <location filename="../../../scribus/tabscrapbook.ui" line="24"/>
         <source>This enables the scrapbook to be used an extension to the copy/paste buffers. Simply copying an object or grouped object will send this to the Scrapbook automatically</source>
-        <translation>Abilita l&apos;uso della biblioteca come un&apos;estensione dei buffer copia/incolla. Basta copiare un oggetto o un gruppo di oggetti per inviarli automaticamente nella Biblioteca</translation>
+        <translation>Abilita l&apos;uso della biblioteca come un&apos;estensione dei buffer copia/incolla. Basta copiare un oggetto o un gruppo di oggetti per inviarli automaticamente alla Biblioteca</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabscrapbook.ui" line="27"/>
