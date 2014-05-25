@@ -10820,7 +10820,7 @@ Questo profilo dovrebbe essere specifico per lo schermo in uso e non un profilo 
         <source>Color profile for your printer model from the manufacturer.
 This profile should be specific to your printer and not a generic profile (i.e. sRGB).</source>
         <translation>Profilo colore per la stampante fornito dal produttore.
-Questo profilo dovrebbe essere specifico per la stampante in uso e non generico (es. &apos;sRGB&apos;).</translation>
+Questo profilo dovrebbe essere specifico per la stampante in uso e non un profilo generico (es. &apos;sRGB&apos;).</translation>
     </message>
     <message>
         <source>Rendering Intents</source>
@@ -19567,7 +19567,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../scribus/ui/mergedoc.cpp" line="51"/>
         <source>&amp;From Document:</source>
-        <translation>&amp;Dal documento:</translation>
+        <translation>&amp;Da documento:</translation>
     </message>
     <message>
         <source>Chan&amp;ge...</source>
@@ -25908,7 +25908,7 @@ Si vuole migrarli nella nuova versione di Scribus?</translation>
     <message>
         <location filename="../../scribus/ui/prefs_display.cpp" line="73"/>
         <source>Enable or disable  the display of linked frames.</source>
-        <translation>Abilita o disabilita la visualizzazione delle cornici collegate.</translation>
+        <translation>Attiva/Disattiva la visualizzazione delle cornici collegate.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_display.cpp" line="74"/>
@@ -25918,22 +25918,22 @@ Si vuole migrarli nella nuova versione di Scribus?</translation>
     <message>
         <location filename="../../scribus/ui/prefs_display.cpp" line="75"/>
         <source>Turns the display of frames on or off</source>
-        <translation>Attiva o disattiva la visualizzazione delle cornici</translation>
+        <translation>Attiva/Disattiva la visualizzazione delle cornici</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_display.cpp" line="76"/>
         <source>Turns the display of layer indicators on or off</source>
-        <translation>Attiva o disattiva la visualizzazione degli indicatori di livello</translation>
+        <translation>Attiva/Disattiva la visualizzazione degli indicatori di livello</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_display.cpp" line="77"/>
         <source>Turns the display of images on or off</source>
-        <translation>Attiva o disattiva visualizzazione delle immagini</translation>
+        <translation>Attiva/Disattiva la visualizzazione delle immagini</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_display.cpp" line="78"/>
         <source>Turns the page shadow on or off</source>
-        <translation>Attiva o disattiva ombra pagina</translation>
+        <translation>Attiva/Disattiva ombra pagina</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_display.cpp" line="79"/>
@@ -28599,12 +28599,12 @@ Un valore uguale a 0 significa sillabazioni illimitate.</translation>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="67"/>
         <source>Choose a master password which enables or disables all the security features in your exported PDF</source>
-        <translation>Sceglie una password da amministratore che abilita o disabilita tutte le caratteristiche di sicurezza nel file PDF esportato</translation>
+        <translation>Scegli una password da amministratore che abilita o disabilita tutte le caratteristiche di sicurezza nel file PDF esportato</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="68"/>
         <source>Choose a password for users to be able to read your PDF.</source>
-        <translation>Sceglie una password per utenti che dà la possibilità di leggere il file PDF.</translation>
+        <translation>Scegli una password per utenti che dà la possibilità di leggere il file PDF.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="69"/>
@@ -29625,7 +29625,7 @@ Un valore uguale a 0 significa sillabazioni illimitate.</translation>
     <message>
         <location filename="../../scribus/ui/prefs_scrapbook.cpp" line="25"/>
         <source>This enables the scrapbook to be used an extension to the copy/paste buffers. Simply copying an object or grouped object will send this to the Scrapbook automatically</source>
-        <translation>Abilita l&apos;uso della biblioteca come un&apos;estensione dei buffer copia/incolla. Basta copiare un oggetto o un gruppo di oggetti per inviarli automaticamente nella Biblioteca</translation>
+        <translation>Abilita l&apos;uso della biblioteca come un&apos;estensione dei buffer copia/incolla. Basta copiare un oggetto o un gruppo di oggetti per inviarli automaticamente alla Biblioteca</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_scrapbook.cpp" line="26"/>
@@ -46999,7 +46999,7 @@ You can choose between normal and several colour blindness forms</translation>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="979"/>
         <source>Choose a master password which enables or disables all the security features in your exported PDF</source>
-        <translation>Sceglie una password da amministratore che abilita o disabilita tutte le caratteristiche di sicurezza nel file PDF esportato</translation>
+        <translation>Scegli una password da amministratore che abilita o disabilita tutte le caratteristiche di sicurezza nel file PDF esportato</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="986"/>
