@@ -18,7 +18,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "scribuscore.h"
 #include "scraction.h"
-
+#include "scribusview.h"
 #include "selection.h"
 #include "units.h"
 #include "undomanager.h"
@@ -33,6 +33,12 @@ PropertiesPalette_Shadow::PropertiesPalette_Shadow( QWidget* parent) : PropTreeW
 	m_haveDoc  = false;
 	m_haveItem = false;
 	m_unitRatio = 1.0;
+
+	_userActionOn = false;
+	userActionSniffer = new UserActionSniffer(this);
+	connect(userActionSniffer, SIGNAL(actionStart()), this, SLOT(spinboxStartUserAction()));
+	connect(userActionSniffer, SIGNAL(actionEnd()), this, SLOT(spinboxFinishUserAction()));
+
 	hasSoftShadow = new PropTreeItem(this, PropTreeItem::CheckBox, tr( "Has Drop Shadow"));
 	hasSoftShadow->setBoolValue(false);
 
@@ -41,6 +47,7 @@ PropertiesPalette_Shadow::PropertiesPalette_Shadow( QWidget* parent) : PropTreeW
 	softShadowXOffset->setDecimalsValue(2);
 	softShadowXOffset->setMinMaxValues(-200.0, 200.0);
 	softShadowXOffset->setDoubleValue(5.0);
+
 
 	softShadowYOffset = new PropTreeItem(this, PropTreeItem::DoubleSpinBox, tr( "Y-Offset:"));
 	softShadowYOffset->setUnitValue(0);
@@ -73,6 +80,12 @@ PropertiesPalette_Shadow::PropertiesPalette_Shadow( QWidget* parent) : PropTreeW
 	QStringList modes;
 	softShadowBlendMode->setComboStrings(modes);
 	softShadowBlendMode->setStringValue( tr( "Normal"));
+
+	installSniffer(softShadowXOffset);
+	installSniffer(softShadowYOffset);
+	installSniffer(softShadowShade);
+	installSniffer(softShadowOpacity);
+	installSniffer(softShadowBlurRadius);
 
 	languageChange();
 	m_haveItem = false;
@@ -463,6 +476,62 @@ void PropertiesPalette_Shadow::updateSpinBoxConstants()
 //	softShadowXOffset->setConstants(&m_doc->constants());
 //	softShadowYOffset->setConstants(&m_doc->constants());
 
+}
+
+void PropertiesPalette_Shadow::installSniffer(ScrSpinBox *spinBox)
+{
+	const QList<QObject*> list = spinBox->children();
+	if (!list.isEmpty())
+	{
+		QListIterator<QObject*> it(list);
+		QObject *obj;
+		while (it.hasNext())
+		{
+			obj = it.next();
+			obj->installEventFilter(userActionSniffer);
+		}
+	}
+}
+
+void PropertiesPalette_Shadow::installSniffer(PropTreeItem *ptitem)
+{
+	if (ptitem->type()==PropTreeItem::DoubleSpinBox)
+	{
+/*		ScrSpinBox *spinBox = static_cast<ScrSpinBox*>(ptitem->ed);
+	const QList<QObject*> list = ptitem->children();
+	if (!list.isEmpty())
+	{
+		QListIterator<QObject*> it(list);
+		QObject *obj;
+		while (it.hasNext())
+		{
+			obj = it.next();
+			obj->installEventFilter(userActionSniffer);
+		}
+	}*/
+	}
+}
+
+bool PropertiesPalette_Shadow::userActionOn()
+{
+	return _userActionOn;
+}
+
+void PropertiesPalette_Shadow::spinboxStartUserAction()
+{
+	_userActionOn = true;
+}
+
+void PropertiesPalette_Shadow::spinboxFinishUserAction()
+{
+	_userActionOn = false;
+
+	for (int i = 0; i < m_doc->m_Selection->count(); ++i)
+		m_doc->m_Selection->itemAt(i)->checkChanges(true);
+	if (m_ScMW->view->groupTransactionStarted())
+	{
+		m_ScMW->view->endGroupTransaction();
+	}
 }
 
 /*

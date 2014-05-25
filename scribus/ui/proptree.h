@@ -91,6 +91,7 @@ public:
 	void setMinMaxValues(int min, int max);
 	void setMinMaxValues(double min, double max);
 	void setColorList(ColorList colors);
+	int type() { return m_type; };
 	int m_type;
 	int m_unit;
 	int m_decimals;
