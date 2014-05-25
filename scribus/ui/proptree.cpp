@@ -248,7 +248,6 @@ void PropTreeItemDelegate::setModelData(QWidget *editor, QAbstractItemModel *mod
 
 void PropTreeItemDelegate::destroyEditor(QWidget * editor, const QModelIndex & index) const
 {
-	qDebug()<<"pid:de";
 	m_edit = NULL;
 	PropTreeItem* item = (PropTreeItem*)m_parent->indexToItem(index);
 	if (item)

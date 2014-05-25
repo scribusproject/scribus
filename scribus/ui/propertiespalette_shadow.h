@@ -8,7 +8,6 @@ for which a new license (GPL+exception) is in place.
 #define PROPERTIESPALETTE_SHADOW_H
 
 #include "scribusapi.h"
-#include "scrspinbox.h"
 #include "scguardedptr.h"
 
 #include "proptree.h"
@@ -18,7 +17,6 @@ class PageItem;
 class ScribusDoc;
 class Selection;
 class ScribusMainWindow;
-class UserActionSniffer;
 
 class SCRIBUS_API PropertiesPalette_Shadow : public PropTreeWidget
 {
@@ -29,11 +27,6 @@ public:
 	~PropertiesPalette_Shadow() {};
 
 	virtual void changeEvent(QEvent *e);
-	//	 @brief Returns true if there is a user action going on at the moment of call.
-	bool userActionOn(); // not yet implemented!!! This is needed badly.
-							 // When user releases the mouse button or arrow key, changes must be checked
-							 // and if in ScribusView a groupTransaction has been started it must be also
-							 // commmited
 	void updateColorList();
 
 private:
@@ -65,8 +58,6 @@ private slots:
 	void handleNewBlendmode(int value);
 
 protected slots:
-	void spinboxStartUserAction();
-	void spinboxFinishUserAction();
 	void updateSpinBoxConstants();
 
 protected:
@@ -87,11 +78,6 @@ protected:
 	int       m_unitIndex;
 	PageItem *m_item;
 	ScGuardedPtr<ScribusDoc> m_doc;
-
-	bool _userActionOn;
-	UserActionSniffer *userActionSniffer;
-	void installSniffer(ScrSpinBox *spinBox);
-	void installSniffer(PropTreeItem *ptitem);
 };
 
 /*
