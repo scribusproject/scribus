@@ -1,5 +1,6 @@
-Scribus - 1.4.4.svn (Released 13-07-31) [ View Issues ]
+Scribus - 1.4.4 (Released 14-05-25) [ View Issues ]
 =======================================
+- 0012273: [User Interface] Colors dialog: launch editor only after a doubleclick (jghali) - closed.
 - 0012300: [Win32] cannot run gnuplot on windows 8 (jghali) - resolved.
 - 0012273: [User Interface] Colors dialog: launch editor only after a doubleclick (jghali) - resolved.
 - 0012316: [Documentation] [PATCH] add getDocName to documentation (cbradney) - closed.
