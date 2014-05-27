@@ -142,7 +142,7 @@ void ScripterCore::rebuildRecentScriptsMenu()
 	{
 		QString strippedName=RecentScripts[m];
 		strippedName.remove(QDir::separator());
-		scrRecentScriptActions.insert(strippedName, new ScrAction( ScrAction::RecentScript, RecentScripts[m], QKeySequence(), this));
+		scrRecentScriptActions.insert(strippedName, new ScrAction( ScrAction::RecentScript, RecentScripts[m], QKeySequence(), this, RecentScripts[m]));
 		connect( scrRecentScriptActions[strippedName], SIGNAL(triggeredData(QString)), this, SLOT(RecentScript(QString)) );
 		menuMgr->addMenuItemString(strippedName, "RecentScripts");
 	}
