@@ -112,8 +112,7 @@ void ScrAction::triggeredToTriggeredData()
 	if (_actionType==ScrAction::RecentPaste)
 		emit triggeredData(data().toString());
 	if (_actionType==ScrAction::RecentScript)
-		qDebug()<<"if (_actionType==ScrAction::RecentScript): please fix in ScrAction::triggeredToTriggeredData()";
-//		emit triggeredData(text());
+		emit triggeredData(data().toString());
 	if (_actionType==ScrAction::UnicodeChar)
 		emit triggeredUnicodeShortcut(data().toInt());
 	if (_actionType==ScrAction::Layer)
