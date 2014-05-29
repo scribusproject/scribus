@@ -2919,6 +2919,7 @@ void ScribusMainWindow::HaveNewSel(int SelectedType)
 	case PageItem::Table:
 		scrActions["editCut"]->setEnabled(true);
 		scrActions["editCopy"]->setEnabled(true);
+		scrActions["toolsRotate"]->setEnabled(true);
 		if (doc->appMode == modeEditTable)
 		{
 			charPalette->setEnabled(true, currItem);
