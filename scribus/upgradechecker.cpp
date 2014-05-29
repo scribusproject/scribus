@@ -70,7 +70,7 @@ void UpgradeChecker::fetch()
 	tempFile=ScPaths::getTempFileDir()+filename;
 
 	fin=false;
-	
+
 	rcvdFile=new QFile(tempFile);
 	networkManager=new QNetworkAccessManager(this);
 	if (networkManager!=0 && rcvdFile!=0)
@@ -286,9 +286,9 @@ void UpgradeCheckerGUI::outputText(QString text, bool noLineFeed)
 		wText.remove("<qt>");
 		wText.remove("</qt>");
 		if (noLineFeed)
-			w->setSimpleText("<qt>"+wText+text+"</qt>");
+			w->setHtml("<qt>"+wText+text+"</qt>");
 		else
-			w->setSimpleText("<qt>"+wText+text+"<br>"+"</qt>");
+			w->setHtml("<qt>"+wText+text+"<br>"+"</qt>");
 	}	
 }
 
