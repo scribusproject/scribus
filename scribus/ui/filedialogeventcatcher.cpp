@@ -51,7 +51,10 @@ bool FileDialogEventCatcher::eventFilter(QObject *o, QEvent *e)
 					if (fileUrls[0].isLocalFile())
 					{
 						QFileInfo fi(fileUrl);
-						emit dropLocation(fi.absolutePath());
+						if (fi.isDir())
+							emit dropLocation(fi.absoluteFilePath());
+						else
+							emit dropLocation(fi.absolutePath());
 					}
 				}
 			}
