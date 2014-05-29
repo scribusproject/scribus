@@ -1,13 +1,13 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
 <scribus>
-  <release platform="X11" stability="stable" version="1.4.3" />
-  <release platform="OS2" stability="stable" version="1.4.3" />
-  <release platform="MacOSX" stability="stable" version="1.4.3" />
-  <release platform="Win32" stability="stable" version="1.4.3" />
-  <release platform="X11" stability="stablesvn" version="1.4.3.svn" />
-  <release platform="OS2" stability="stablesvn" version="1.4.3.svn" />
-  <release platform="MacOSX" stability="stablesvn" version="1.4.3.svn" />
-  <release platform="Win32" stability="stablesvn" version="1.4.3.svn" />
+  <release platform="X11" stability="stable" version="1.4.4" />
+  <release platform="OS2" stability="stable" version="1.4.4" />
+  <release platform="MacOSX" stability="stable" version="1.4.4" />
+  <release platform="Win32" stability="stable" version="1.4.4" />
+  <release platform="X11" stability="stablesvn" version="1.4.4.svn" />
+  <release platform="OS2" stability="stablesvn" version="1.4.4.svn" />
+  <release platform="MacOSX" stability="stablesvn" version="1.4.4.svn" />
+  <release platform="Win32" stability="stablesvn" version="1.4.4.svn" />
   <release platform="X11" stability="unstable" version="1.5.0.svn" />
   <release platform="Win32" stability="unstable" version="1.5.0.svn" />
   <release platform="MacOSX" stability="unstable" version="1.5.0.svn" />
