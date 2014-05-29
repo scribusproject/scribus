@@ -656,12 +656,12 @@ void ScribusMainWindow::initPalettes()
 
 	// initializing style manager here too even it's not strictly a palette
 	styleManager = new StyleManager(this, "styleManager");
-	styleManager->addStyle(new SMLineStyle());
 	SMCharacterStyle *tmpCS = new SMCharacterStyle();
 	styleManager->addStyle(new SMParagraphStyle(tmpCS->tmpStyles()));
 	styleManager->addStyle(tmpCS);
 	styleManager->addStyle(new SMTableStyle());
 	styleManager->addStyle(new SMCellStyle());
+	styleManager->addStyle(new SMLineStyle());
 	connect( scrActions["editStyles"], SIGNAL(toggled(bool)), styleManager, SLOT(setPaletteShown(bool)) );
 	connect( styleManager, SIGNAL(paletteShown(bool)), scrActions["editStyles"], SLOT(setChecked(bool)));
 	styleManager->installEventFilter(this);
