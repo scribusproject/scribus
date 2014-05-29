@@ -22834,12 +22834,13 @@ Proszę wybrać inny.</translation>
     <message>
         <location filename="../../../scribus/plugins/pixmapexport/export.cpp" line="121"/>
         <source>The target location %1 must be an existing directory</source>
-        <translation type="unfinished"></translation>
+        <translation>Katalog docelowy %1 nie istnieje</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/pixmapexport/export.cpp" line="127"/>
         <source>The target location %1 must be writable</source>
-        <translation type="unfinished"></translation>
+        <translatorcomment>Katalog docelowy %1 musi być udostępniony do zapisywania</translatorcomment>
+        <translation></translation>
     </message>
 </context>
 <context>
@@ -26325,19 +26326,20 @@ Proszę wybrać inną.</translation>
     <message>
         <location filename="../../../scribus/plugins/scriptplugin/pconsole.cpp" line="133"/>
         <source>Another script is already running...</source>
-        <translation type="unfinished"></translation>
+        <translation>Inny skrypt jest właśnie w trakcie wykonywania...</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/scriptplugin/pconsole.cpp" line="134"/>
         <location filename="../../../scribus/plugins/scriptplugin/pconsole.cpp" line="149"/>
         <source>Please let it finish its task...</source>
-        <translation type="unfinished"></translation>
+        <translation>Odczekaj, aż wykona swoje zadanie...</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/scriptplugin/pconsole.cpp" line="148"/>
         <source>
 &gt;&gt;&gt; Another script is already running...</source>
-        <translation type="unfinished"></translation>
+        <translation>
+&gt;&gt;&gt; Inny skrypt jest właśnie w trakcie wykonywania...</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/scriptplugin/pconsole.cpp" line="183"/>
@@ -27362,7 +27364,7 @@ Zewnętrzne dowiązania
     <message>
         <location filename="../../../scribus/langmgr.cpp" line="65"/>
         <source>Anii</source>
-        <translation type="unfinished"></translation>
+        <translation>Anii</translation>
     </message>
     <message>
         <location filename="../../../scribus/langmgr.cpp" line="76"/>
@@ -36183,7 +36185,7 @@ Przesunięcie w pionie: %3</translation>
     <message>
         <location filename="../../../scribus/tabcheckdoc.cpp" line="92"/>
         <source>Check for Visible/Printable Mismatch in Layers</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished"> </translation>
     </message>
     <message>
         <location filename="../../../scribus/tabcheckdoc.cpp" line="99"/>
@@ -42449,7 +42451,7 @@ converting their vector data into Scribus objects.</source>
     <message>
         <location filename="../../../scribus/plugins/import/wmf/wmfimportplugin.cpp" line="184"/>
         <source>WMF file contains some unsupported features</source>
-        <translation type="unfinished"></translation>
+        <translation>Plik WMF zawiera nieobługiwane właściwości</translation>
     </message>
 </context>
 <context>
