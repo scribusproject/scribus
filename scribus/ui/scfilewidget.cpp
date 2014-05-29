@@ -10,7 +10,7 @@ for which a new license (GPL+exception) is in place.
 #include <QPushButton>
 #include <QUrl>
 
-#include "scescapecatcher.h"
+#include "filedialogeventcatcher.h"
 #include "scfilewidget.h"
 
 
@@ -34,12 +34,13 @@ ScFileWidget::ScFileWidget(QWidget * parent) : QFileDialog(parent, Qt::Widget)
 	setSidebarUrls(urls);
 #endif
 
-	ScEscapeCatcher* keyCatcher = new ScEscapeCatcher(this);
+	FileDialogEventCatcher* keyCatcher = new FileDialogEventCatcher(this);
 	QList<QListView *> lv = findChildren<QListView *>();
 	QListIterator<QListView *> lvi(lv);
 	while (lvi.hasNext())
 		lvi.next()->installEventFilter(keyCatcher);
 	connect(keyCatcher, SIGNAL(escapePressed()), this, SLOT(reject()));
+	connect(keyCatcher, SIGNAL(dropLocation(QString)), this, SLOT(locationDropped(QString)));
 
 	QList<QPushButton *> b = findChildren<QPushButton *>();
 	QListIterator<QPushButton *> i(b);
@@ -64,4 +65,9 @@ void ScFileWidget::accept()
 #ifndef Q_OS_LINUX
 	QFileDialog::accept();
 #endif
+}
+
+void ScFileWidget::locationDropped(QString dl)
+{
+	setDirectory(dl);
 }

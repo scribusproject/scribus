@@ -308,6 +308,7 @@ SET(SCRIBUS_MOC_CLASSES
 	ui/editor.h
 	ui/effectsdialog.h
 	ui/extimageprops.h
+	ui/filedialogeventcatcher.h
 	ui/fontcombo.h
 	ui/fontlistview.h
 	ui/fontreplacedialog.h
@@ -760,6 +761,7 @@ SET(SCRIBUS_SOURCES
 	ui/editor.cpp
 	ui/effectsdialog.cpp
 	ui/extimageprops.cpp
+	ui/filedialogeventcatcher.cpp
 	ui/fontlistview.cpp
 	ui/fontreplacedialog.cpp
 	ui/gradientaddedit.cpp

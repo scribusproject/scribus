@@ -8,6 +8,10 @@ for which a new license (GPL+exception) is in place.
 #define NEWDOC_H
 
 #include <QDialog>
+#include <QDropEvent>
+#include <QDragEnterEvent>
+#include <QDragLeaveEvent>
+#include <QDragMoveEvent>
 #include <QListWidget>
 class QFormLayout;
 class QGridLayout;
@@ -67,7 +71,6 @@ public:
 	void createOpenDocPage();
 	void createRecentDocPage();
 	void setSize(QString gr);
-
 	QTabWidget* tabWidget;
 	QFrame* newDocFrame;
 	PageLayoutsWidget* layoutsView;
@@ -142,6 +145,7 @@ public slots:
 	void recentDocListBox_doubleClicked();
 	void openFile();
 	void adjustTitles(int tab);
+	void locationDropped(QString dl);
 
 protected:
 	QVBoxLayout* TabbedNewDocLayout;
