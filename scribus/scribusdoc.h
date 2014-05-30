@@ -39,6 +39,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "gtgettext.h" //CB For the ImportSetup struct and itemadduserframe
 #include "scribusapi.h"
+#include "undostate.h"
 #include "observable.h"
 #include "prefsstructs.h"
 #include "documentinformation.h"
