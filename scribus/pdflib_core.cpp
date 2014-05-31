@@ -8158,6 +8158,7 @@ bool PDFLibCore::PDF_GradientFillStroke(QString& output, PageItem *currItem, boo
 			gradient = doc.docGradients[currItem->strokeGradient()];
 		else
 			gradient = currItem->stroke_gradient;
+		gradient.setRepeatMethod(currItem->getStrokeGradientExtend());
 	}
 	else
 	{
@@ -8182,6 +8183,7 @@ bool PDFLibCore::PDF_GradientFillStroke(QString& output, PageItem *currItem, boo
 			gradient = doc.docGradients[currItem->gradient()];
 		else
 			gradient = currItem->fill_gradient;
+		gradient.setRepeatMethod(currItem->getGradientExtend());
 	}
 	QList<VColorStop*> cstops = gradient.colorStops();
 	StopVec.clear();

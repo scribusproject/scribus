@@ -1712,6 +1712,7 @@ void PageItem::DrawObj_Pre(ScPainter *p)
 					if ((patternVal.isEmpty()) || (!m_Doc->docPatterns.contains(patternVal)))
 					{
 						p->fill_gradient = VGradient(VGradient::linear);
+						p->fill_gradient.setRepeatMethod(GrExtend);
 						if (fillColor() != CommonStrings::None)
 						{
 							p->setBrush(fillQColor);
@@ -1776,6 +1777,7 @@ void PageItem::DrawObj_Pre(ScPainter *p)
 						{
 							p->setFillMode(ScPainter::Gradient);
 							p->fill_gradient = fill_gradient;
+							p->fill_gradient.setRepeatMethod(GrExtend);
 							switch (GrType)
 							{
 								case 1:
@@ -1971,6 +1973,7 @@ void PageItem::DrawObj_Post(ScPainter *p)
 						{
 							p->setStrokeMode(ScPainter::Gradient);
 							p->stroke_gradient = stroke_gradient;
+							p->stroke_gradient.setRepeatMethod(GrStrokeExtend);
 							if (GrTypeStroke == 6)
 								p->setGradient(VGradient::linear, FPoint(GrStrokeStartX, GrStrokeStartY), FPoint(GrStrokeEndX, GrStrokeEndY), FPoint(GrStrokeStartX, GrStrokeStartY), GrStrokeScale, GrStrokeSkew);
 							else
@@ -8124,22 +8127,22 @@ void PageItem::setGradientColor4(QColor val)
 
 void PageItem::setGradientExtend(VGradient::VGradientRepeatMethod val)
 {
-	fill_gradient.setRepeatMethod(val);
+	GrExtend = val;
 }
 
 void PageItem::setStrokeGradientExtend(VGradient::VGradientRepeatMethod val)
 {
-	stroke_gradient.setRepeatMethod(val);
+	GrStrokeExtend = val;
 }
 
 VGradient::VGradientRepeatMethod PageItem::getGradientExtend()
 {
-	return fill_gradient.repeatMethod();
+	return GrExtend;
 }
 
 VGradient::VGradientRepeatMethod PageItem::getStrokeGradientExtend()
 {
-	return stroke_gradient.repeatMethod();
+	return GrStrokeExtend;
 }
 
 

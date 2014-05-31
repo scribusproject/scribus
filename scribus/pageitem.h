@@ -1203,6 +1203,7 @@ public:	// Start public variables
 	double GrFocalY;
 	double GrScale;
 	double GrSkew;
+	VGradient::VGradientRepeatMethod GrExtend;
 	FPoint GrControl1;
 	FPoint GrControl2;
 	FPoint GrControl3;
@@ -1400,6 +1401,7 @@ public:	// Start public variables
 		double GrStrokeFocalY;
 		double GrStrokeScale;
 		double GrStrokeSkew;
+		VGradient::VGradientRepeatMethod GrStrokeExtend;
 
 		/**
 		* @brief Mask gradient variables

@@ -1813,7 +1813,7 @@ void Scribus150Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 					docu.writeAttribute("GRFOCALY", item->GrFocalY);
 					docu.writeAttribute("GRSCALE" , item->GrScale);
 					docu.writeAttribute("GRSKEW" , item->GrSkew);
-					docu.writeAttribute("GRExt", item->fill_gradient.repeatMethod());
+					docu.writeAttribute("GRExt", item->getGradientExtend());
 					if ((item->GrType == 9) || (item->GrType == 10))
 					{
 						docu.writeAttribute("GRC1X"   , item->GrControl1.x());
@@ -1850,7 +1850,7 @@ void Scribus150Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 			docu.writeAttribute("GRNAMEM", item->gradientMask());
 		if (item->GrTypeStroke > 0)
 		{
-			docu.writeAttribute("GRExtS", item->stroke_gradient.repeatMethod());
+			docu.writeAttribute("GRExtS", item->getStrokeGradientExtend());
 			docu.writeAttribute("GRSTARTXS", item->GrStrokeStartX);
 			docu.writeAttribute("GRSTARTYS", item->GrStrokeStartY);
 			docu.writeAttribute("GRENDXS", item->GrStrokeEndX);

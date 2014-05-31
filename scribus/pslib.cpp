@@ -4176,6 +4176,7 @@ void PSLib::HandleDiamondGradient(PageItem* c, bool gcr)
 		gradient = m_Doc->docGradients[c->gradient()];
 	else
 		gradient = c->fill_gradient;
+	gradient.setRepeatMethod(c->getGradientExtend());
 	QList<VColorStop*> colorStops = gradient.colorStops();
 	for (uint cst = 0; cst < gradient.Stops(); ++cst)
 	{
@@ -4512,6 +4513,7 @@ void PSLib::HandleGradientFillStroke(PageItem *c, bool gcr, bool stroke, bool fo
 			gradient = m_Doc->docGradients[c->strokeGradient()];
 		else
 			gradient = c->stroke_gradient;
+		gradient.setRepeatMethod(c->getStrokeGradientExtend());
 	}
 	else
 	{
@@ -4528,6 +4530,7 @@ void PSLib::HandleGradientFillStroke(PageItem *c, bool gcr, bool stroke, bool fo
 			gradient = m_Doc->docGradients[c->gradient()];
 		else
 			gradient = c->fill_gradient;
+		gradient.setRepeatMethod(c->getGradientExtend());
 		if (GType == 8)
 		{
 			QTransform patternMatrix;
