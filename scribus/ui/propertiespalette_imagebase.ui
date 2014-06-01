@@ -344,8 +344,8 @@
  <customwidgets>
   <customwidget>
    <class>ScrSpinBox</class>
-   <extends>QSpinBox</extends>
-   <header location="global">ui/scrspinbox.h</header>
+   <extends>QDoubleSpinBox</extends>
+   <header>ui/scrspinbox.h</header>
   </customwidget>
   <customwidget>
    <class>LinkButton</class>
