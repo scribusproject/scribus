@@ -282,6 +282,7 @@
     <moc Include="..\..\..\scribus\guidesview.h" />
     <moc Include="..\..\..\scribus\ui\helpbrowser.h" />
     <ClInclude Include="..\..\..\scribus\text\textlayout.h" />
+    <moc Include="..\..\..\scribus\ui\filedialogeventcatcher.h" />
     <ClInclude Include="..\..\..\scribus\ui\helpnavigation.h" />
     <ClInclude Include="..\..\..\scribus\hnjalloc.h" />
     <moc Include="..\..\..\scribus\ui\hruler.h" />
@@ -882,6 +883,7 @@
     <ClCompile Include="..\..\..\scribus\ui\extimageprops.cpp" />
     <ClCompile Include="..\..\..\scribus\fileloader.cpp" />
     <ClCompile Include="..\..\..\scribus\filesearch.cpp" />
+    <ClCompile Include="..\..\..\scribus\ui\filedialogeventcatcher.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\filetoolbar.cpp" />
     <ClCompile Include="..\..\..\scribus\filewatcher.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\fontcombo.cpp" />
@@ -997,6 +999,7 @@
     <ClCompile Include="..\..\..\scribus\ui\mergedoc.cpp" />
     <ClCompile Include="..\..\..\scribus\mesh.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\missing.cpp" />
+    <ClCompile Include="..\..\..\scribus\ui\moc_filedialogeventcatcher.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\moc_proptree.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\moc_viewtoolbar.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\modetoolbar.cpp" />

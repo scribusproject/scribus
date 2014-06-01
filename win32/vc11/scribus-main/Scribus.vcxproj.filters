@@ -999,6 +999,9 @@
     <ClInclude Include="..\..\..\scribus\appmodes.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\scribus\ui\filedialogeventcatcher.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\scribus\desaxe\digester.cpp">
@@ -3441,6 +3444,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\scribus\ui\moc_viewtoolbar.cpp">
+      <Filter>Generated Moc Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\filedialogeventcatcher.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\moc_filedialogeventcatcher.cpp">
       <Filter>Generated Moc Files</Filter>
     </ClCompile>
   </ItemGroup>
