@@ -1021,8 +1021,6 @@
       <zorder>dropCapsBox</zorder>
       <zorder>numBox</zorder>
       <zorder>bulletBox</zorder>
-      <zorder></zorder>
-      <zorder></zorder>
      </widget>
      <widget class="QWidget" name="tabCharacterStyle">
       <attribute name="title">
