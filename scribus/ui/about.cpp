@@ -130,6 +130,24 @@ About::About( QWidget* parent, AboutMode diaMode ) : QDialog( parent )
 	if (BUILD_NAME == "BleedingEdge")
 		built = tr("%3-%2-%1 %4 %5").arg(BUILD_DAY).arg(BUILD_MONTH).arg(BUILD_YEAR).arg(BUILD_TIME).arg(BUILD_TZ);
 
+
+	QFile revisionFile(ScPaths::instance().shareDir() + "/revision");
+	QString revText;
+	if (revisionFile.open(QIODevice::ReadOnly | QIODevice::Text))
+	{
+		QTextStream inRev(&revisionFile);
+		inRev.setCodec("UTF-8");
+		inRev.setAutoDetectUnicode(true);
+		while (!inRev.atEnd())
+		{
+			revText = inRev.readLine();
+			revText.replace("$Rev: ","SVN Revision: ");
+			revText.replace("$","");
+			built+=" - ";
+			built+=revText;
+		}
+	}
+
 	QString bu;
 	bu += "C";
 	bu += "-";
