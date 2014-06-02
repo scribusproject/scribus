@@ -580,6 +580,7 @@ public:
 	static QString SetLayerUnlocked;
 	static QString GetImage;
 	static QString ChangeFormula;
+	static QString Duplicate;
 	static QString MultipleDuplicate;
 	static QString ApplyTextStyle;
 	static QString MenuUndo;

@@ -950,6 +950,7 @@ void UndoManager::languageChange()
 	UndoManager::SetLayerUnlocked   =tr("Unlock layer");
 	UndoManager::GetImage           = tr("Get image");
 	UndoManager::ChangeFormula      = tr("Change formula");
+	UndoManager::Duplicate          = tr("Duplicate");
 	UndoManager::MultipleDuplicate  = tr("Multiple duplicate");
 	UndoManager::ApplyTextStyle     = tr("Apply text style");
 	UndoManager::MenuUndo           = tr("&Undo: %1", "f.e. Undo: Move");
@@ -1168,6 +1169,7 @@ QString UndoManager::SetLayerLocked     = "";
 QString UndoManager::SetLayerUnlocked   = "";
 QString UndoManager::GetImage           = "";
 QString UndoManager::ChangeFormula      = "";
+QString UndoManager::Duplicate          = "";
 QString UndoManager::MultipleDuplicate  = "";
 QString UndoManager::ApplyTextStyle     = "";
 QString UndoManager::MenuUndo           = "";

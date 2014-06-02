@@ -49,7 +49,7 @@
      <item>
       <widget class="QLabel" name="textLabel2" >
        <property name="toolTip" >
-        <string>The minimum number is 1; the maximum us 100.</string>
+        <string>The minimum number is 1; the maximum is 100.</string>
        </property>
        <property name="text" >
         <string>Number of Copied Items to Keep in Scrapbook:</string>
