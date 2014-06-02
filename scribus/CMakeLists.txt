@@ -1,3 +1,12 @@
+add_custom_target(svnheader ALL DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/svnheader.h)
+add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/svnheader.h
+	COMMAND ${CMAKE_COMMAND} -DSOURCE_DIR=${CMAKE_CURRENT_SOURCE_DIR}
+						 -P ${CMAKE_MODULE_PATH}/getsvn.cmake)
+set_source_files_properties(${CMAKE_CURRENT_BINARY_DIR}/svnversion.h
+	PROPERTIES GENERATED TRUE
+	HEADER_FILE_ONLY TRUE)
+
+
 IF(WIN32)
 	ADD_DEFINITIONS(-DQT_DLL)
 ENDIF(WIN32)
@@ -1038,6 +1047,7 @@ SET(SCRIBUS_ZIP_LIB "scribus_zip_lib")
 
 INCLUDE_DIRECTORIES(
 	${CMAKE_SOURCE_DIR}
+	${CMAKE_CURRENT_BINARY_DIR}
 	${CMAKE_CURRENT_SOURCE_DIR}
 	${FREETYPE_INCLUDE_DIRS}
 )
@@ -1196,6 +1206,8 @@ IF(APPLE)
 	"-undefined dynamic_lookup"
 	"-framework CoreFoundation" )
 ENDIF(APPLE)
+
+add_dependencies(${EXE_NAME} svnheader)
 
 TARGET_LINK_LIBRARIES(${EXE_NAME}
 	${SCRIBUS_COLORMGMT_LIB}
