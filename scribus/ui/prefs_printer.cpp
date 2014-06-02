@@ -111,6 +111,7 @@ void Prefs_Printer::saveGuiToPrefs(struct ApplicationPrefs *prefsData) const
 	prefs->set("PageNr", "");
 	prefs->set("Copies", 1);
 	prefs->set("Separations", static_cast<int>(outputComboBox->currentIndex()==1));
+	//FIXME: This comparison looks wrong.
 	prefs->set("PrintColor", static_cast<int>(!postscriptPrintToColorComboBox->currentIndex()==0));
 	prefs->set("SepArt", tr("All"));
 	prefs->set("MirrorH", pageMirrorHorizontallyCheckBox->isChecked());
