@@ -145,7 +145,7 @@ public slots:
 	void recentDocListBox_doubleClicked();
 	void openFile();
 	void adjustTitles(int tab);
-	void locationDropped(QString dl);
+	void locationDropped(QString fileUrl);
 
 protected:
 	QVBoxLayout* TabbedNewDocLayout;

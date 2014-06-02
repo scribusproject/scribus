@@ -692,8 +692,15 @@ void NewDoc::adjustTitles(int tab)
 		setWindowTitle( tr( "New Document" ) );
 }
 
-void NewDoc::locationDropped(QString dl)
+void NewDoc::locationDropped(QString fileUrl)
 {
-	fileDialog->setDirectory(dl);
+	QFileInfo fi(fileUrl);
+	if (fi.isDir())
+		fileDialog->setDirectory(fi.absoluteFilePath());
+	else
+	{
+		fileDialog->setDirectory(fi.absolutePath());
+		fileDialog->selectFile(fi.fileName());
+	}
 }
 

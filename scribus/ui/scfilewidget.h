@@ -33,7 +33,7 @@ public:
 
 public slots:
 	void accept();
-	void locationDropped(QString dl);
+	void locationDropped(QString fileUrl);
 };
 
 #endif

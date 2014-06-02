@@ -67,7 +67,14 @@ void ScFileWidget::accept()
 #endif
 }
 
-void ScFileWidget::locationDropped(QString dl)
+void ScFileWidget::locationDropped(QString fileUrl)
 {
-	setDirectory(dl);
+	QFileInfo fi(fileUrl);
+	if (fi.isDir())
+		setDirectory(fi.absoluteFilePath());
+	else
+	{
+		setDirectory(fi.absolutePath());
+		selectFile(fi.fileName());
+	}
 }

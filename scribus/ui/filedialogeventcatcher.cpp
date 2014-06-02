@@ -7,7 +7,6 @@ for which a new license (GPL+exception) is in place.
 
 #include <QDebug>
 #include <QDropEvent>
-#include <QFileInfo>
 #include <QKeyEvent>
 #include <QMimeData>
 
@@ -50,11 +49,7 @@ bool FileDialogEventCatcher::eventFilter(QObject *o, QEvent *e)
 					fileUrl = fileUrls[0].toLocalFile();
 					if (fileUrls[0].isLocalFile())
 					{
-						QFileInfo fi(fileUrl);
-						if (fi.isDir())
-							emit dropLocation(fi.absoluteFilePath());
-						else
-							emit dropLocation(fi.absolutePath());
+						emit dropLocation(fileUrl);
 					}
 				}
 			}
