@@ -94,6 +94,8 @@ void ImportPSPlugin::deleteAboutData(const AboutData* about) const
 
 void ImportPSPlugin::registerFormats()
 {
+	if (!ScCore->haveGS())
+		return;
 	FileFormat fmt(this);
 	fmt.trName = FormatsManager::instance()->nameOfFormat(FormatsManager::EPS); // Human readable name
 	fmt.formatId = 0;

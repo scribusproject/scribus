@@ -777,7 +777,8 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->addMenuItemString("filePreferences150", "File");
 	scrMenuMgr->addMenuItemString("SEPARATOR", "File");
 	scrMenuMgr->addMenuItemString("filePrint", "File");
-	scrMenuMgr->addMenuItemString("PrintPreview", "File");
+	if ( ScCore->haveGS() || ScCore->isWinGUI() )
+		scrMenuMgr->addMenuItemString("PrintPreview", "File");
 	scrMenuMgr->addMenuItemString("SEPARATOR", "File");
 	scrMenuMgr->addMenuItemString("fileQuit", "File");
 
@@ -7484,6 +7485,7 @@ void ScribusMainWindow::slotDocSetup()
 int ScribusMainWindow::ShowSubs()
 {
 	bool showGSHelp=false;
+	/*
 	if (!ScCore->haveGS())
 	{
 		QMessageBox mb(this);
@@ -7507,7 +7509,7 @@ int ScribusMainWindow::ShowSubs()
 		if (i==QMessageBox::Help)
 			showGSHelp=true;
 	}
-
+*/
 	propertiesPalette->startup();
 	outlinePalette->startup();
 	scrapbookPalette->startup();
@@ -7547,6 +7549,8 @@ int ScribusMainWindow::ShowSubs()
 
 void ScribusMainWindow::doPrintPreview()
 {
+	if (!( ScCore->haveGS() || ScCore->isWinGUI() ))
+		return;
 	if (docCheckerPalette->isIgnoreEnabled())
 	{
 		docCheckerPalette->hide();

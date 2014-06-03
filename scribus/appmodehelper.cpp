@@ -102,6 +102,7 @@ void AppModeHelper::setSymbolEditMode(bool b, ScribusDoc* doc)
 	(*scrActions)["fileSaveAs"]->setEnabled(b2);
 	(*scrActions)["fileExportAsEPS"]->setEnabled(b2);
 	(*scrActions)["fileExportAsPDF"]->setEnabled(b2);
+	if ( ScCore->haveGS() || ScCore->isWinGUI() )
 	(*scrActions)["PrintPreview"]->setEnabled(b2);
 	(*scrActions)["toolsPDFPushButton"]->setEnabled(b2);
 	(*scrActions)["toolsPDFRadioButton"]->setEnabled(b2);
@@ -146,7 +147,8 @@ void AppModeHelper::setInlineEditMode(bool b, ScribusDoc *doc)
 	(*scrActions)["fileSaveAs"]->setEnabled(b2);
 	(*scrActions)["fileExportAsEPS"]->setEnabled(b2);
 	(*scrActions)["fileExportAsPDF"]->setEnabled(b2);
-	(*scrActions)["PrintPreview"]->setEnabled(b2);
+	if ( ScCore->haveGS() || ScCore->isWinGUI() )
+		(*scrActions)["PrintPreview"]->setEnabled(b2);
 	(*scrActions)["toolsPDFPushButton"]->setEnabled(b2);
 	(*scrActions)["toolsPDFRadioButton"]->setEnabled(b2);
 	(*scrActions)["toolsPDFTextField"]->setEnabled(b2);
@@ -188,7 +190,8 @@ void AppModeHelper::setMasterPageEditMode(bool b, ScribusDoc* doc)
 	(*scrActions)["fileRevert"]->setEnabled(b2);
 	(*scrActions)["fileDocSetup150"]->setEnabled(b2);
 	(*scrActions)["filePrint"]->setEnabled(b2);
-	(*scrActions)["PrintPreview"]->setEnabled(b2);
+	if ( ScCore->haveGS() || ScCore->isWinGUI() )
+		(*scrActions)["PrintPreview"]->setEnabled(b2);
 	(*scrActions)["toolsPDFPushButton"]->setEnabled(b2);
 	(*scrActions)["toolsPDFRadioButton"]->setEnabled(b2);
 	(*scrActions)["toolsPDFTextField"]->setEnabled(b2);
@@ -414,7 +417,8 @@ void AppModeHelper::mainWindowCloseLastDoc()
 	(*scrActions)["fileRevert"]->setEnabled(false);
 	(*scrActions)["fileCollect"]->setEnabled(false);
 	(*scrActions)["fileClose"]->setEnabled(false);
-	(*scrActions)["PrintPreview"]->setEnabled(false);
+	if ( ScCore->haveGS() || ScCore->isWinGUI() )
+		(*scrActions)["PrintPreview"]->setEnabled(false);
 	if ((*scrActions)["SaveAsDocumentTemplate"])
 		(*scrActions)["SaveAsDocumentTemplate"]->setEnabled(false);
 	(*scrActions)["fileExportAsPDF"]->setEnabled(false);

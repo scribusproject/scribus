@@ -7,6 +7,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "barcode.h"
 #include "barcodegenerator.h"
+#include "scribuscore.h"
 #include "scribusstructs.h"
 #include "util_icon.h"
 
@@ -21,9 +22,12 @@ void Barcode::languageChange()
 {
 	m_actionInfo.name = "BarcodeGenerator";
 	m_actionInfo.text = tr("Barcode");
-	m_actionInfo.menu = "Insert";
-	m_actionInfo.menuAfterName = "toolsInsertRenderFrame";
-	m_actionInfo.toolbar = "Tools";
+	if (ScCore->haveGS())
+	{
+		m_actionInfo.menu = "Insert";
+		m_actionInfo.menuAfterName = "toolsInsertRenderFrame";
+		m_actionInfo.toolbar = "Tools";
+	}
 	m_actionInfo.icon1 = loadIcon("16/insert-barcode.png");
 	m_actionInfo.icon2 = loadIcon("22/insert-barcode.png");
 	m_actionInfo.enabledOnStartup = false;
@@ -42,7 +46,7 @@ const ScActionPlugin::AboutData* Barcode::getAboutData() const
 	Q_CHECK_PTR(about);
 	about->authors = QString::fromUtf8("Terry Burton - <tez@terryburton.co.uk>, Petr Van\xc4\x9bk <petr@scribus.info>");
 	about->shortDescription = tr("Scribus frontend for Pure PostScript Barcode Writer");
-	about->description = "Barcode Writer in Pure PostScript is an award-winning open source barcode maker, as used by NASA, that facilitates the printing of all major barcode symbologies entirely within level 2 PostScript, ideal for variable data printing. The complete process of generating printed barcodes is performed entirely within the printer (or print system) so that it is no longer the responsibility of your application or a library. There is no need for any barcode fonts and the flexibility offered by direct PostScript means you can avoid re-implementing barcode generator code, or migrating to new libraries, whenever your project language needs change.\nhttp://www.terryburton.co.uk/barcodewriter/";
+	about->description = "Barcode Writer in Pure PostScript is an award-winning open source barcode maker, as used by NASA, that facilitates the printing of all major barcode symbologies entirely within level 2 PostScript, ideal for variable data printing. The complete process of generating printed barcodes is performed entirely within the printer (or print system) so that it is no longer the responsibility of your application or a library. There is no need for any barcode fonts and the flexibility offered by direct PostScript means you can avoid re-implementing barcode generator code, or migrating to new libraries, whenever your project language needs change.\nhttp://www.terryburton.co.uk/barcodewriter/ . Hence, this plugin requires Ghostscript to be installed on your system.";
 	about->version = "Backend: 2014-01-30";
 	// about->releaseDate
 	about->copyright = QString::fromUtf8("Backend: Copyright (c) 2004-2014 Terry Burton - tez@terryburton.co.uk\nFrontend: Copyright (c) 2005 Petr Van\xc4\x9bk - petr@scribus.info");
@@ -58,7 +62,7 @@ void Barcode::deleteAboutData(const AboutData* about) const
 
 bool Barcode::run(ScribusDoc* doc, QString /*target*/ )
 {
-	if (!doc)
+	if (!doc || !ScCore->haveGS())
 		return false;
 	BarcodeGenerator *bg = new BarcodeGenerator();
 	Q_CHECK_PTR(bg);
