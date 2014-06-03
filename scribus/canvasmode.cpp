@@ -1225,7 +1225,6 @@ void CanvasMode::commonkeyPressEvent_NormalNodeEdit(QKeyEvent *e)
 
 		if (m_doc->m_Selection->count() == 0)
 		{
-			int pg;
 			int wheelVal = prefsManager->mouseWheelJump();
 			if ((buttonModifiers & Qt::ShiftModifier) && !(buttonModifiers & Qt::ControlModifier) && !(buttonModifiers & Qt::AltModifier))
 				wheelVal = qMax(qRound(wheelVal / 10.0), 1);
@@ -1237,38 +1236,6 @@ void CanvasMode::commonkeyPressEvent_NormalNodeEdit(QKeyEvent *e)
 					m_view->requestMode(modeNormal);
 				else
 					m_view->requestMode(modePanning);
-				return;
-				break;
-			case Qt::Key_PageUp:
-				if (m_doc->masterPageMode() || m_doc->symbolEditMode())
-					m_view->scrollBy(0, -prefsManager->mouseWheelJump());
-				else
-				{
-					pg = m_doc->currentPageNumber();
-					if ((buttonModifiers & Qt::ShiftModifier) && !(buttonModifiers & Qt::ControlModifier) && !(buttonModifiers & Qt::AltModifier))
-						pg--;
-					else
-						pg -= m_doc->pageSets()[m_doc->pagePositioning()].Columns;
-					if (pg > -1)
-						m_view->GotoPage(pg);
-				}
-				m_keyRepeat = false;
-				return;
-				break;
-			case Qt::Key_PageDown:
-				if (m_doc->masterPageMode() || m_doc->symbolEditMode())
-					m_view->scrollBy(0, prefsManager->mouseWheelJump());
-				else
-				{
-					pg = m_doc->currentPageNumber();
-					if ((buttonModifiers & Qt::ShiftModifier) && !(buttonModifiers & Qt::ControlModifier) && !(buttonModifiers & Qt::AltModifier))
-						pg++;
-					else
-						pg += m_doc->pageSets()[m_doc->pagePositioning()].Columns;
-					if (pg < static_cast<int>(m_doc->Pages->count()))
-						m_view->GotoPage(pg);
-				}
-				m_keyRepeat = false;
 				return;
 				break;
 			case Qt::Key_Left:
@@ -1320,6 +1287,43 @@ void CanvasMode::commonkeyPressEvent_NormalNodeEdit(QKeyEvent *e)
 				break;
 			}
 		}
+		//Allow page up/down even when items are selected
+		switch (kk)
+		{
+			case Qt::Key_PageUp:
+				if (m_doc->masterPageMode() || m_doc->symbolEditMode())
+					m_view->scrollBy(0, -prefsManager->mouseWheelJump());
+				else
+				{
+					int pg = m_doc->currentPageNumber();
+					if ((buttonModifiers & Qt::ShiftModifier) && !(buttonModifiers & Qt::ControlModifier) && !(buttonModifiers & Qt::AltModifier))
+						pg--;
+					else
+						pg -= m_doc->pageSets()[m_doc->pagePositioning()].Columns;
+					if (pg > -1)
+						m_view->GotoPage(pg);
+				}
+				m_keyRepeat = false;
+				return;
+				break;
+			case Qt::Key_PageDown:
+				if (m_doc->masterPageMode() || m_doc->symbolEditMode())
+					m_view->scrollBy(0, prefsManager->mouseWheelJump());
+				else
+				{
+					int pg = m_doc->currentPageNumber();
+					if ((buttonModifiers & Qt::ShiftModifier) && !(buttonModifiers & Qt::ControlModifier) && !(buttonModifiers & Qt::AltModifier))
+						pg++;
+					else
+						pg += m_doc->pageSets()[m_doc->pagePositioning()].Columns;
+					if (pg < static_cast<int>(m_doc->Pages->count()))
+						m_view->GotoPage(pg);
+				}
+				m_keyRepeat = false;
+				return;
+				break;
+		}
+
 		/** Now if we have an item selected
 		 * - In normal mode we can:
 		 * -- Use backspace or delete to delete the item
