@@ -22,10 +22,39 @@ bool FileDialogEventCatcher::eventFilter(QObject *o, QEvent *e)
 	if (e->type() == QEvent::KeyPress)
 	{
 		QKeyEvent *keyEvent = static_cast<QKeyEvent *>(e);
-		if (keyEvent->key() == Qt::Key_Escape)
+		switch (keyEvent->key())
 		{
-			emit escapePressed();
-			return true;
+			case Qt::Key_Escape:
+				emit escapePressed();
+				return true;
+			case Qt::Key_D:
+				if (keyEvent->modifiers() & Qt::ControlModifier)
+				{
+					emit desktopPressed();
+					return true;
+				}
+				break;
+			case Qt::Key_H:
+				if (keyEvent->modifiers() & (Qt::ControlModifier|Qt::ShiftModifier))
+				{
+					emit homePressed();
+					return true;
+				}
+				break;
+			case Qt::Key_Up:
+				if (keyEvent->modifiers() & Qt::ControlModifier)
+				{
+					emit parentPressed();
+					return true;
+				}
+				break;
+			case Qt::Key_Down:
+				if (keyEvent->modifiers() & Qt::ControlModifier)
+				{
+					emit enterSelectedPressed();
+					return true;
+				}
+				break;
 		}
 	}
 	else

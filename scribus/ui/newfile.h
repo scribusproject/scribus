@@ -146,6 +146,10 @@ public slots:
 	void openFile();
 	void adjustTitles(int tab);
 	void locationDropped(QString fileUrl);
+	void gotoParentDirectory();
+	void gotoSelectedDirectory();
+	void gotoDesktopDirectory();
+	void gotoHomeDirectory();
 
 protected:
 	QVBoxLayout* TabbedNewDocLayout;

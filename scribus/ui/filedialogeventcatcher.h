@@ -24,6 +24,10 @@ protected:
 signals:
 	void escapePressed();
 	void dropLocation(QString dl);
+	void desktopPressed();
+	void homePressed();
+	void parentPressed();
+	void enterSelectedPressed();
 };
 
 #endif
