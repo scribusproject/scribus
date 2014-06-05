@@ -361,7 +361,7 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,
 	tabLayout->addLayout( Layout13 );
 	Compression = new QCheckBox( tr( "Com&press Text and Vector Graphics" ), tabGeneral );
 	tabLayout->addWidget( Compression );
-	CBox = new QGroupBox( tr( "Image Compression Method" ), tabGeneral );
+	CBox = new QGroupBox( tr( "Image Quality Settings" ), tabGeneral );
 	CBoxLayout = new QGridLayout( CBox );
 	CBoxLayout->setSpacing( 5 );
 	CBoxLayout->setMargin( 10 );
