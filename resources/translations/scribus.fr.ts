@@ -31515,7 +31515,7 @@ arr&amp;ondis :</translation>
     <message>
         <location filename="../../scribus/ui/propertiespalette_xyz.cpp" line="1296"/>
         <source>Level</source>
-        <translation type="unfinished">Niveau</translation>
+        <translation type="unfinished">Disposition</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_xyz.cpp" line="1298"/>
