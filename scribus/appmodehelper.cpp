@@ -103,7 +103,7 @@ void AppModeHelper::setSymbolEditMode(bool b, ScribusDoc* doc)
 	(*scrActions)["fileExportAsEPS"]->setEnabled(b2);
 	(*scrActions)["fileExportAsPDF"]->setEnabled(b2);
 	if ( ScCore->haveGS() || ScCore->isWinGUI() )
-	(*scrActions)["PrintPreview"]->setEnabled(b2);
+		(*scrActions)["PrintPreview"]->setEnabled(b2);
 	(*scrActions)["toolsPDFPushButton"]->setEnabled(b2);
 	(*scrActions)["toolsPDFRadioButton"]->setEnabled(b2);
 	(*scrActions)["toolsPDFTextField"]->setEnabled(b2);
