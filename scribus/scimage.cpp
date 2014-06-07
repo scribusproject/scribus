@@ -1698,6 +1698,7 @@ void ScImage::scaleImage32bpp(int nwidth, int nheight)
 			register long fraccoltofill, fraccolleft = 0;
 			register int needcol;
 			nxP = (QRgb*)dst.scanLine(rowswritten++);
+			QRgb *nxPEnd = nxP + newcols;
 			fraccoltofill = SCALE;
 			a = r = g = b = HALFSCALE;
 			needcol = 0;
@@ -1746,12 +1747,12 @@ void ScImage::scaleImage32bpp(int nwidth, int nheight)
 			if ( fraccoltofill > 0 )
 			{
 				--xP;
-				a += fraccolleft * qAlpha( *xP );
+				a += fraccoltofill * qAlpha( *xP );
 				r += fraccoltofill * qRed( *xP );
 				g += fraccoltofill * qGreen( *xP );
 				b += fraccoltofill * qBlue( *xP );
 			}
-			if ( ! needcol )
+			if (nxP < nxPEnd)
 			{
 				r /= SCALE;
 				if ( r > maxval ) r = maxval;
@@ -1762,6 +1763,8 @@ void ScImage::scaleImage32bpp(int nwidth, int nheight)
 				a /= SCALE;
 				if ( a > maxval ) a = maxval;
 				*nxP = qRgba( (int)r, (int)g, (int)b, (int)a );
+				while (++nxP != nxPEnd)
+					nxP[0] = nxP[-1];
 			}
 		}
 	}
@@ -1909,6 +1912,7 @@ void ScImage::scaleImageGeneric(int nwidth, int nheight)
 				register long fraccoltofill, fraccolleft = 0;
 				register int needcol;
 				nxP = dst.scanLine(rowswritten++) + chIndex;
+				unsigned char *nxPEnd = nxP + newcols * nChannels;
 				fraccoltofill = SCALE;
 				p = HALFSCALE;
 				needcol = 0;
@@ -1945,13 +1949,15 @@ void ScImage::scaleImageGeneric(int nwidth, int nheight)
 				if (fraccoltofill > 0)
 				{
 					xP -= nChannels;
-					p += fraccolleft * (*xP);
+					p += fraccoltofill * (*xP);
 				}
-				if (!needcol)
+				if (nxP < nxPEnd)
 				{
 					p /= SCALE;
 					if ( p > maxval ) p = maxval;
 					*nxP = (unsigned char) p;
+					while ((nxP += nChannels) != nxPEnd)
+						nxP[0] = nxP[-nChannels];
 				}
 			}
 		}
