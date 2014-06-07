@@ -4054,6 +4054,25 @@ void PageItem_TextFrame::clearContents()
 	}
 }
 
+void PageItem_TextFrame::truncateContents()
+{
+	if ((this->nextInChain() == NULL) && frameOverflows())
+	{
+		ParagraphStyle defaultStyle = this->itemText.defaultStyle();
+		int pos = itemText.cursorPosition();
+		if (itemText.lengthOfSelection() == 0)
+		{
+			itemText.select(maxCharsInFrame(), itemText.length() - maxCharsInFrame(), true);
+			deleteSelectedTextFromFrame();
+		}
+		itemText.setCursorPosition(pos, true);
+
+		if(UndoManager::undoEnabled() && undoManager->getLastUndo())
+			undoManager->getLastUndo()->setName(Um::TruncateText);
+		this->itemText.setDefaultStyle(defaultStyle);
+	}
+}
+
 void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 {
 	if (frameUnderflows())
@@ -5269,6 +5288,8 @@ void PageItem_TextFrame::applicableActions(QStringList & actionList)
 	if (textLayout.lines() != 0)
 	{
 		actionList << "editClearContents";
+		if ((this->nextInChain() == NULL) && frameOverflows())
+			actionList << "editTruncateContents";
 		actionList << "itemAdjustFrameHeightToText";
 	}
 }

@@ -799,6 +799,7 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->addMenuItemString("editPasteContents", "EditContents");
 	scrMenuMgr->addMenuItemString("editPasteContentsAbs", "EditContents");
 	scrMenuMgr->addMenuItemString("editClearContents", "EditContents");
+	scrMenuMgr->addMenuItemString("editTruncateContents", "EditTruncateContents");
 	scrMenuMgr->addMenuItemString("itemDelete", "Edit");
 	scrMenuMgr->addMenuItemString("SEPARATOR", "Edit");
 	scrMenuMgr->addMenuItemString("editSelectAll", "Edit");
@@ -2767,6 +2768,7 @@ void ScribusMainWindow::HaveNewSel(int SelectedType)
 		scrActions["editCopy"]->setEnabled(true);
 		scrMenuMgr->setMenuEnabled("EditContents", true);
 		scrActions["editClearContents"]->setEnabled(true);
+		scrActions["editTruncateContents"]->setEnabled(true);
 		scrActions["editSearchReplace"]->setEnabled(false);
 		scrActions["extrasHyphenateText"]->setEnabled(false);
 		scrActions["extrasDeHyphenateText"]->setEnabled(false);
@@ -2821,6 +2823,7 @@ void ScribusMainWindow::HaveNewSel(int SelectedType)
 		scrActions["editCopy"]->setEnabled(true);
 		scrMenuMgr->setMenuEnabled("EditContents", true);
 		scrActions["editClearContents"]->setEnabled(true);
+		scrActions["editTruncateContents"]->setEnabled(true);
 		scrActions["editSearchReplace"]->setEnabled(currItem->itemText.length() != 0);
 		scrActions["extrasHyphenateText"]->setEnabled(true);
 		scrActions["extrasDeHyphenateText"]->setEnabled(true);
@@ -2939,6 +2942,7 @@ void ScribusMainWindow::HaveNewSel(int SelectedType)
 		scrActions["editCut"]->setEnabled(true);
 		scrActions["editCopy"]->setEnabled(true);
 		scrActions["editClearContents"]->setEnabled(false);
+		scrActions["editTruncateContents"]->setEnabled(false);
 		scrActions["editSearchReplace"]->setEnabled(false);
 		scrActions["extrasHyphenateText"]->setEnabled(false);
 		scrActions["extrasDeHyphenateText"]->setEnabled(false);
@@ -3005,6 +3009,7 @@ void ScribusMainWindow::HaveNewSel(int SelectedType)
 		scrActions["editCopy"]->setEnabled(true);
 		scrMenuMgr->setMenuEnabled("EditContents", false);
 		scrActions["editClearContents"]->setEnabled(false);
+		scrActions["editTruncateContents"]->setEnabled(false);
 		scrActions["editSearchReplace"]->setEnabled(false);
 
 		scrActions["extrasHyphenateText"]->setEnabled(false);
@@ -3197,6 +3202,7 @@ void ScribusMainWindow::HaveNewSel(int SelectedType)
 			scrActions["itemSendToInline"]->setEnabled(true);
 			scrActions["editCut"]->setEnabled(false);
 			scrActions["editClearContents"]->setEnabled(false);
+			scrActions["editTruncateContents"]->setEnabled(false);
 			scrActions["toolsRotate"]->setEnabled(false);
 		}
 		else
@@ -6495,6 +6501,7 @@ void ScribusMainWindow::setAppMode(int mode)
 			zoomSpinBox->setFocusPolicy(Qt::ClickFocus);
 			pageSelector->setFocusPolicy(Qt::ClickFocus);
 			scrActions["editClearContents"]->setEnabled(false);
+			scrActions["editTruncateContents"]->setEnabled(false);
 			charPalette->setEnabled(false, 0);
 //			view->slotDoCurs(false);
 			if (currItem != 0)
@@ -6588,6 +6595,7 @@ void ScribusMainWindow::setAppMode(int mode)
 				scrActions["editCut"]->setEnabled(currItem->HasSel);
 				scrActions["editCopy"]->setEnabled(currItem->HasSel);
 				scrActions["editClearContents"]->setEnabled(currItem->HasSel);
+				scrActions["editTruncateContents"]->setEnabled(currItem->HasSel);
 				scrActions["editSearchReplace"]->setEnabled(true);
 
 				// Why the hell do you want to update the item here? - pm

@@ -1173,6 +1173,14 @@ int PageItem::frameOverflowCount() const
 	return 0;
 }
 
+int PageItem::frameOverflowBlankCount() const
+{
+	if (frameOverflows())
+		return itemText.plainText().right(itemText.length() - MaxChars).count(QRegularExpression("\\s+"));
+
+	return 0;
+}
+
 int PageItem::maxCharsInFrame()
 {
 	return MaxChars;

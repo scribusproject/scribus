@@ -55,6 +55,7 @@ public:
 	virtual bool isTextFrame() const { return true; }
 	
 	virtual void clearContents();
+	virtual void truncateContents();
 	
 	/**
 	* \brief Handle keyboard interaction with the text frame while in edit mode

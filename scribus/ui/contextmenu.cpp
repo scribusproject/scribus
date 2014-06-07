@@ -192,6 +192,8 @@ void ContextMenu::createMenuItems_Selection()
 	}
 	if (m_actionList.contains("editClearContents"))
 		menuEditContents->addAction(m_ScMW->scrActions["editClearContents"]);
+	if (m_actionList.contains("editTruncateContents"))
+		menuEditContents->addAction(m_ScMW->scrActions["editTruncateContents"]);
 	if (menuEditContents->actions().count()>0)
 	{
 		QAction *act = addMenu(menuEditContents);

@@ -214,6 +214,8 @@ void ActionManager::initEditMenuActions()
 	scrActions->insert(name, new ScrAction(loadIcon("16/edit-paste.png"), loadIcon("22/edit-paste.png"), "", defaultKey(name), mainWindow));
 	name="editClearContents";
 	scrActions->insert(name, new ScrAction(loadIcon("16/edit-delete.png"), loadIcon("22/edit-delete.png"), "", defaultKey(name), mainWindow));
+	name="editTruncateContents";
+	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
 	name="editSelectAll";
 	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
 	name="editSelectAllOnLayer";
@@ -1304,6 +1306,7 @@ void ActionManager::disconnectNewSelectionActions()
 	disconnect( (*scrActions)["itemPreviewNormal"], SIGNAL(triggeredData(int)) , 0, 0);
 	disconnect( (*scrActions)["itemPreviewFull"], SIGNAL(triggeredData(int)) , 0, 0);
 	disconnect( (*scrActions)["editClearContents"], 0, 0, 0);
+	disconnect( (*scrActions)["editTruncateContents"], 0, 0, 0);
 }
 
 void ActionManager::connectNewSelectionActions(ScribusView* /*currView*/, ScribusDoc* currDoc)
@@ -1313,6 +1316,7 @@ void ActionManager::connectNewSelectionActions(ScribusView* /*currView*/, Scribu
 	connect( (*scrActions)["itemPreviewNormal"], SIGNAL(triggeredData(int)), currDoc, SLOT(itemSelection_ChangePreviewResolution(int)) );
 	connect( (*scrActions)["itemPreviewFull"], SIGNAL(triggeredData(int)), currDoc, SLOT(itemSelection_ChangePreviewResolution(int)) );
 	connect( (*scrActions)["editClearContents"], SIGNAL(triggered()), currDoc, SLOT(itemSelection_ClearItem()) );
+	connect( (*scrActions)["editTruncateContents"], SIGNAL(triggered()), currDoc, SLOT(itemSelection_TruncateItem()) );
 }
 
 void ActionManager::saveActionShortcutsPreEditMode()
@@ -1477,6 +1481,7 @@ void ActionManager::languageChange()
 	(*scrActions)["editPasteContentsAbs"]->setTexts( tr("Paste (&Absolute)"));
 	(*scrActions)["editPasteImageFromClipboard"]->setTexts( tr("Paste Image from Clipboard"));
 	(*scrActions)["editClearContents"]->setTexts( tr("C&lear"));
+	(*scrActions)["editTruncateContents"]->setTexts( tr("T&runcate"));
 	(*scrActions)["editSelectAll"]->setTexts( tr("Select &All"));
 	(*scrActions)["editSelectAllOnLayer"]->setTexts( tr("Advanced Select All..."));
 	(*scrActions)["editDeselectAll"]->setTexts( tr("&Deselect All"));
@@ -2032,6 +2037,7 @@ void ActionManager::createDefaultMenus()
 		<< "editPasteContentsAbs"
 		<< "editPasteImageFromClipboard"
 		<< "editClearContents"
+		<< "editTruncateContents"
 		<< "editSelectAll"
 		<< "editSelectAllOnLayer"
 		<< "editDeselectAll"
@@ -2530,6 +2536,7 @@ void ActionManager::setStartupActionsEnabled(bool enabled)
 	(*scrActions)["editPaste"]->setEnabled(false);
 //	scrMenuMgr->setMenuEnabled("EditPasteRecent", false);
 	(*scrActions)["editClearContents"]->setEnabled(false);
+	(*scrActions)["editTruncateContents"]->setEnabled(false);
 	(*scrActions)["editSelectAll"]->setEnabled(false);
 	(*scrActions)["editSelectAllOnLayer"]->setEnabled(false);
 	(*scrActions)["editDeselectAll"]->setEnabled(false);

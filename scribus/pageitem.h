@@ -297,6 +297,7 @@ public: // Start public functions
 	 * The view does when these are called.
 	 */
 	virtual void clearContents() {}
+	virtual void truncateContents() {}
 
 	//>> ********* Functions to work on the contents of the items *********
 
@@ -378,6 +379,7 @@ public: // Start public functions
 	bool frameOverflows() const;
 	bool frameUnderflows() const;
 	int frameOverflowCount() const;
+	int frameOverflowBlankCount() const;
 	/// Draws the overflow marker.
 	void drawOverflowMarker(ScPainter *p);
 	/// returns index of first char displayed in this frame, used to be 0

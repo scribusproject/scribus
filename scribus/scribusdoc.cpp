@@ -11647,6 +11647,23 @@ void ScribusDoc::itemSelection_ClearItem(Selection* customSelection)
 	changed();
 }
 
+void ScribusDoc::itemSelection_TruncateItem(Selection* customSelection)
+{
+	Selection* itemSelection = (customSelection != 0) ? customSelection : m_Selection;
+	assert(itemSelection != 0);
+
+	uint selectedItemCount = itemSelection->count();
+	if (selectedItemCount <= 0)
+		return;
+	for (uint i = 0; i < selectedItemCount; ++i)
+	{
+		PageItem *currItem = itemSelection->itemAt(i);
+		currItem->truncateContents();
+	}
+	regionsChanged()->update(QRectF());
+	changed();
+}
+
 QList<PageItem*>* ScribusDoc::GroupOfItem(QList<PageItem*>* itemList, PageItem* item)
 {
 	if (itemList->contains(item))
