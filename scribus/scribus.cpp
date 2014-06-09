@@ -8785,13 +8785,12 @@ void ScribusMainWindow::restoreAddPage(SimpleState *state, bool isUndo)
 		}
 	}
 	if (currMasterPageMode!=savedMasterPageMode)
-                doc->setMasterPageMode(currMasterPageMode);
-        doc->rebuildMasterNames();
-        pagePalette->updateMasterPageList();
-        pagePalette->rebuildPages();
-        if (outlinePalette->isVisible())
-                outlinePalette->BuildTree();
-
+		doc->setMasterPageMode(currMasterPageMode);
+	doc->rebuildMasterNames();
+	ActWin->masterPagesPalette()->updateMasterPageList();
+	pagePalette->rebuildPages();
+	if (outlinePalette->isVisible())
+		outlinePalette->BuildTree();
 }
 
 void ScribusMainWindow::restoreGrouping(SimpleState *state, bool isUndo)
