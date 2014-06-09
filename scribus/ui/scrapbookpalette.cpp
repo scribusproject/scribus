@@ -1143,6 +1143,9 @@ void Biblio::handlePasteToPage()
 
 void Biblio::HandleMouse(QPoint p)
 {
+	// #12359 : stop the file watcher here as it may run and trigger regeneration of
+	// scrapbook content, hence invalidating actItem while context menu is executing.
+	ScCore->fileWatcher->stop();
 	QListWidgetItem *ite = activeBView->itemAt(p);
 	if (ite != 0)
 	{
@@ -1168,20 +1171,16 @@ void Biblio::HandleMouse(QPoint p)
 		for (int a = 0; a < Frame3->count(); a++)
 		{
 			BibView* bv = (BibView*)Frame3->widget(a);
-			if (bv != activeBView)
+			if ((bv == activeBView) || (!bv->canWrite))
+				continue;
+			QAction *action = pmenu2->addAction(Frame3->itemText(Frame3->indexOf(Frame3->widget(a))));
+			connect(action, SIGNAL(triggered()), signalMapper, SLOT(map()));
+			signalMapper->setMapping(action, a);
+			if (activeBView->canWrite)
 			{
-				if (bv->canWrite)
-				{
-        			QAction *action = pmenu2->addAction(Frame3->itemText(Frame3->indexOf(Frame3->widget(a))));
-					connect(action, SIGNAL(triggered()), signalMapper, SLOT(map()));
-					signalMapper->setMapping(action, a);
-					if (activeBView->canWrite)
-					{
-        				QAction *action2 = pmenu3->addAction(Frame3->itemText(Frame3->indexOf(Frame3->widget(a))));
-						connect(action2, SIGNAL(triggered()), signalMapper2, SLOT(map()));
-						signalMapper2->setMapping(action2, a);
-					}
-				}
+				QAction *action2 = pmenu3->addAction(Frame3->itemText(Frame3->indexOf(Frame3->widget(a))));
+				connect(action2, SIGNAL(triggered()), signalMapper2, SLOT(map()));
+				signalMapper2->setMapping(action2, a);
 			}
 		}
 		pmenu->addMenu(pmenu2);
@@ -1212,6 +1211,7 @@ void Biblio::HandleMouse(QPoint p)
 	}
 	activeBView->clearSelection();
 	actItem = 0;
+	ScCore->fileWatcher->start();
 }
 
 bool Biblio::copyObj(int id)
