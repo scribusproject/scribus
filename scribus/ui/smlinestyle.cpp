@@ -700,23 +700,24 @@ void SMLineStyle::updatePreview()
 	pm.fill(Qt::white);
 	QPainter p;
 	p.begin(&pm);
-	multiLine *tmpLine = m_selection.begin().value();
 
-	for (int it = (*tmpLine).size()-1; it > -1; it--)
+	multiLine *tmpLine = m_selection.begin().value();
+	for (int it = tmpLine->size()-1; it > -1; it--)
 	{
 		QPen pen;
-		QVector<double> m_array;
-		if ((*tmpLine)[it].Dash == 1)
+		const SingleLine& singleLine = tmpLine->at(it);
+		if (singleLine.Dash == 1)
 			pen.setStyle(Qt::SolidLine);
 		else
 		{
-			getDashArray((*tmpLine)[it].Dash, 1, m_array);
-			pen.setDashPattern(m_array);
+			QVector<double> dashArray;
+			getDashArray(singleLine.Dash, 1, dashArray);
+			pen.setDashPattern(dashArray);
 		}
-		pen.setColor(calcFarbe((*tmpLine)[it].Color, (*tmpLine)[it].Shade));
-		pen.setWidth(qMax(static_cast<int>((*tmpLine)[it].Width), 1));
-		pen.setCapStyle(static_cast<Qt::PenCapStyle>((*tmpLine)[it].LineEnd));
-		pen.setJoinStyle(static_cast<Qt::PenJoinStyle>((*tmpLine)[it].LineJoin));
+		pen.setColor(calcFarbe(singleLine.Color, singleLine.Shade));
+		pen.setWidth(qMax(static_cast<int>(singleLine.Width), 1));
+		pen.setCapStyle(static_cast<Qt::PenCapStyle>(singleLine.LineEnd));
+		pen.setJoinStyle(static_cast<Qt::PenJoinStyle>(singleLine.LineJoin));
 		p.setPen(pen);
 		p.drawLine(17, 18, 183, 18);
 	}
@@ -749,37 +750,37 @@ void SMLineStyle::resort()
 	int cc = 0;
 	struct SingleLine sl;
 	multiLine *tmpLine = m_selection.begin().value();
-
 	sl.Color = (*tmpLine)[m_currentLine].Color;
 	sl.Shade = (*tmpLine)[m_currentLine].Shade;
 	sl.Dash = (*tmpLine)[m_currentLine].Dash;
 	sl.LineEnd = (*tmpLine)[m_currentLine].LineEnd;
 	sl.LineJoin = (*tmpLine)[m_currentLine].LineJoin;
 	sl.Width = (*tmpLine)[m_currentLine].Width;
+
 	multiLine::iterator it3;
-	for (it3 = (*tmpLine).begin(); it3 != (*tmpLine).end(); ++it3)
+	for (it3 = tmpLine->begin(); it3 != tmpLine->end(); ++it3)
 	{
 		if (cc == m_currentLine)
 		{
-			(*tmpLine).erase(it3);
+			tmpLine->erase(it3);
 			break;
 		}
 		cc++;
 	}
 	cc = 0;
 	bool fo = false;
-	for (multiLine::iterator it2 = (*tmpLine).begin(); it2 != (*tmpLine).end(); ++it2)
+	for (multiLine::iterator it2 = tmpLine->begin(); it2 != tmpLine->end(); ++it2)
 	{
-		if (sl.Width < (*it2).Width)
+		if (sl.Width < it2->Width)
 		{
-			(*tmpLine).insert(it2, sl);
+			tmpLine->insert(it2, sl);
 			fo = true;
 			break;
 		}
 		cc++;
 	}
 	if (!fo)
-		(*tmpLine).push_back(sl);
+		tmpLine->push_back(sl);
 	m_currentLine = cc;
 	rebuildList();
 	m_widget->showStyle(*tmpLine, m_doc->PageColors, cc);
