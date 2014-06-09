@@ -51,6 +51,11 @@ ScrSpinBox::~ScrSpinBox()
 {
 }
 
+double ScrSpinBox::unitRatio() const
+{
+	return unitGetRatioFromIndex(m_unitIndex); 
+}
+
 void ScrSpinBox::setValue(int val)
 {
 	QDoubleSpinBox::setValue(val);
@@ -386,12 +391,6 @@ bool ScrSpinBox::eventFilter( QObject* watched, QEvent* event )
 		return QDoubleSpinBox::eventFilter(watched, event);
 	return retval;
 }
-
-// void ScrSpinBox::setSingleStepM(int val)
-// {
-// 	QDoubleSpinBox::setSingleStep( val );
-// //	currLineStep = val * Decimals;
-// }
 
 void ScrSpinBox::setTabAdvance(bool enable)
 {

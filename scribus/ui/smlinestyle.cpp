@@ -381,10 +381,9 @@ void SMLineStyle::languageChange()
 
 void SMLineStyle::unitChange()
 {
-	double oldRatio = m_unitRatio;
 	m_unitRatio = m_doc->unitRatio();
 	if (m_widget)
-		m_widget->unitChange(oldRatio, m_unitRatio, m_doc->unitIndex());
+		m_widget->unitChange(m_doc->unitIndex());
 }
 
 void SMLineStyle::setupConnections()
@@ -544,11 +543,13 @@ void SMLineStyle::slotShade(int i)
 
 void SMLineStyle::slotLineWidth()
 {
+	double unitRatio = m_widget->lineWidth->unitRatio();
+
 	QHash<QString, multiLine*>::iterator it;
 	for (it = m_selection.begin(); it != m_selection.end(); ++it)
 	{
 		multiLine *tmp = it.value();
-		(*tmp)[m_currentLine].Width = m_widget->lineWidth->value();
+		(*tmp)[m_currentLine].Width = m_widget->lineWidth->value() / unitRatio;
 	}
 
 	updatePreview();
@@ -576,18 +577,18 @@ void SMLineStyle::slotAddLine()
 	sl.Width = (*tmpLine)[m_currentLine].Width;
 	int cc = 0;
 	bool fo = false;
-	for (multiLine::iterator it2 = (*tmpLine).begin(); it2 != (*tmpLine).end(); ++it2)
+	for (multiLine::iterator it2 = tmpLine->begin(); it2 != tmpLine->end(); ++it2)
 	{
-		if (sl.Width < (*it2).Width)
+		if (sl.Width < it2->Width)
 		{
-			(*tmpLine).insert(it2, sl);
+			tmpLine->insert(it2, sl);
 			fo = true;
 			break;
 		}
 		cc++;
 	}
 	if (!fo)
-		(*tmpLine).push_back(sl);
+		tmpLine->push_back(sl);
 	m_currentLine = cc;
 	rebuildList();
 	m_widget->showStyle(*tmpLine, m_doc->PageColors, cc);
@@ -602,37 +603,22 @@ void SMLineStyle::slotAddLine()
 
 void SMLineStyle::rebuildList()
 {
-	QString tmp, tmp2;
-	m_widget->lineStyles->clear();
 	QPixmap * pm2;
+	QString tmp, tmp2;
+	
+	int decimals = m_widget->lineWidth->decimals();
+	double  unitRatio = m_widget->lineWidth->unitRatio();
+	QString unitSuffix = m_widget->lineWidth->suffix();
+
+	m_widget->lineStyles->clear();
+
 	multiLine *tmpLine = m_selection.begin().value();
-	for (multiLine::iterator it = (*tmpLine).begin(); it != (*tmpLine).end(); ++it)
+	for (multiLine::iterator it = tmpLine->begin(); it != tmpLine->end(); ++it)
 	{
-		pm2 = getWidePixmap(calcFarbe((*it).Color, (*it).Shade));
-		tmp2 = " "+tmp.setNum((*it).Width)+ tr(" pt")+" ";
-		switch (static_cast<Qt::PenStyle>((*it).Dash))
-		{
-			case Qt::SolidLine:
-				tmp2 += tr("Solid Line");
-				break;
-			case Qt::DashLine:
-				tmp2 += tr("Dashed Line");
-				break;
-			case Qt::DotLine:
-				tmp2 += tr("Dotted Line");
-				break;
-			case Qt::DashDotLine:
-				tmp2 += tr("Dash Dot Line");
-				break;
-			case Qt::DashDotDotLine:
-				tmp2 += tr("Dash Dot Dot Line");
-				break;
-			default:
-//				tmp2 += tr("Solid Line");
-				break;
-		}
-		tmp2 += " ";
-// 		m_widget->lineStyles->insertItem(*pm2, tmp2);
+		pm2 = getWidePixmap(calcFarbe(it->Color, it->Shade));
+		tmp2 = " "+ tmp.setNum(it->Width * unitRatio, 'f', decimals) + unitSuffix + " ";
+		if (it->Dash < 6)
+			tmp2 += CommonStrings::translatePenStyleName(static_cast<Qt::PenStyle>(it->Dash)) + " ";
 		m_widget->lineStyles->addItem(new QListWidgetItem(*pm2, tmp2, m_widget->lineStyles));
 	}
 }
@@ -643,16 +629,15 @@ void SMLineStyle::slotDeleteLine()
 		return;
 
 	multiLine *tmpLine = m_selection.begin().value();
-
-	if ((*tmpLine).size() == 1)
+	if (tmpLine->size() == 1)
 		return;
 
 	int cc = 0;
-	for (multiLine::iterator it3 = (*tmpLine).begin(); it3 != (*tmpLine).end(); ++it3)
+	for (multiLine::iterator it3 = tmpLine->begin(); it3 != tmpLine->end(); ++it3)
 	{
 		if (cc == m_currentLine)
 		{
-			(*tmpLine).erase(it3);
+			tmpLine->erase(it3);
 			break;
 		}
 		cc++;
@@ -679,44 +664,27 @@ void SMLineStyle::updateSList()
 	if  (m_currentLine < 0)
 		return;
 
-
 	QString tmp, tmp2;
 	QPixmap * pm;
+
 	multiLine *tmpLine = m_selection.begin().value();
+	const SingleLine& singleLine = tmpLine->at(m_currentLine);
+
+	int decimals = m_widget->lineWidth->decimals();
+	double  unitRatio = m_widget->lineWidth->unitRatio();
+	QString unitSuffix = m_widget->lineWidth->suffix();
 	
-	pm = getWidePixmap(calcFarbe((*tmpLine)[m_currentLine].Color, (*tmpLine)[m_currentLine].Shade));
-	tmp2 = " "+tmp.setNum((*tmpLine)[m_currentLine].Width)+ tr(" pt ");
-	switch (static_cast<Qt::PenStyle>((*tmpLine)[m_currentLine].Dash))
-	{
-		case Qt::SolidLine:
-			tmp2 += tr("Solid Line");
-			break;
-		case Qt::DashLine:
-			tmp2 += tr("Dashed Line");
-			break;
-		case Qt::DotLine:
-			tmp2 += tr("Dotted Line");
-			break;
-		case Qt::DashDotLine:
-			tmp2 += tr("Dash Dot Line");
-			break;
-		case Qt::DashDotDotLine:
-			tmp2 += tr("Dash Dot Dot Line");
-			break;
-		default:
-//			tmp2 += tr("Solid Line");
-			break;
-	}
-	tmp2 += " ";
+	pm = getWidePixmap(calcFarbe(singleLine.Color, singleLine.Shade));
+	tmp2 = " " + tmp.setNum(singleLine.Width * unitRatio, 'f', decimals) + unitSuffix + " ";
+	if (singleLine.Dash < 6)
+		tmp2 += CommonStrings::translatePenStyleName(static_cast<Qt::PenStyle>(singleLine.Dash)) + " ";
 	if (m_widget->lineStyles->count() == 1)  // to avoid Bug in Qt-3.1.2
 	{
 		m_widget->lineStyles->clear();
-// 		m_widget->lineStyles->insertItem(*pm, tmp2);
 		m_widget->lineStyles->addItem(new QListWidgetItem(*pm, tmp2, m_widget->lineStyles));
 	}
 	else
 	{
-// 		m_widget->lineStyles->changeItem(*pm, tmp2, m_currentLine);
 		QListWidgetItem *i = m_widget->lineStyles->item(m_currentLine);
 		i->setIcon(*pm);
 		i->setText(tmp2);

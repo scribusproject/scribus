@@ -74,7 +74,7 @@ void SMLineStyleWidget::languageChange()
 }
 
 
-void SMLineStyleWidget::unitChange(double oldRatio, double newRatio, int unitIndex)
+void SMLineStyleWidget::unitChange(int unitIndex)
 {
 	lineWidth->setNewUnit(unitIndex);
 }
@@ -103,7 +103,9 @@ void SMLineStyleWidget::slotEditNewLine(int i)
 	if (currentStyle.count() <= i || (i < 0))
 		return;
 
-	lineWidth->setValue(currentStyle[i].Width);
+	double unitRatio = lineWidth->unitRatio();
+
+	lineWidth->setValue(currentStyle[i].Width * unitRatio);
 	setCurrentComboItem(colorCombo, currentStyle[i].Color);
 	shadeBox->setValue(currentStyle[i].Shade);
 	
@@ -146,14 +148,14 @@ void SMLineStyleWidget::updateLineList()
 	QString tmp, tmp2;
 	lineStyles->clear();
 	QPixmap * pm2;
+	double unitRatio = lineWidth->unitRatio();
+	int decimals = lineWidth->decimals();
 	for (multiLine::iterator it = currentStyle.begin(); it != currentStyle.end(); ++it)
 	{
-		pm2 = getWidePixmap(getColor((*it).Color, (*it).Shade));
-		tmp2 = " "+tmp.setNum((*it).Width)+ lineWidth->suffix()+" ";
-		if ((*it).Dash < 6)
-			tmp2 += CommonStrings::translatePenStyleName(static_cast<Qt::PenStyle>((*it).Dash));
-		tmp2 += " ";
-		// lineStyles->insertItem( ...)
+		pm2 = getWidePixmap(getColor(it->Color, it->Shade));
+		tmp2 = " "+ tmp.setNum(it->Width * unitRatio, 'f', decimals) + lineWidth->suffix() + " ";
+		if (it->Dash < 6)
+			tmp2 += CommonStrings::translatePenStyleName(static_cast<Qt::PenStyle>(it->Dash)) + " ";
 		lineStyles->addItem(new QListWidgetItem(*pm2, tmp2, lineStyles));
 	}
 }
