@@ -5730,6 +5730,7 @@ void ScribusMainWindow::addNewPages(int wo, int where, int numPages, double heig
 		ss->set("PAGE", wo);
 		ss->set("WHERE", where);
 		ss->set("COUNT", numPages);
+		ss->set("MASTER_PAGE_MODE",  doc->masterPageMode());
 		if (basedOn != NULL)
 			ss->set("BASED", basedOn->join("|"));
 		else
@@ -6889,6 +6890,7 @@ void ScribusMainWindow::deletePage(int from, int to)
 			ss->set("PAGENR", a + 1);
 			ss->set("PAGENAME",   doc->Pages->at(a)->pageName());
 			ss->set("MASTERPAGE", doc->Pages->at(a)->MPageNam);
+			ss->set("MASTER_PAGE_MODE",  doc->masterPageMode());
 			// replace the deleted page in the undostack by a dummy object that will
 			// replaced with the "undone" page if user choose to undo the action
 			DummyUndoObject *duo = new DummyUndoObject();
@@ -8660,9 +8662,10 @@ void ScribusMainWindow::restoreDeletePage(SimpleState *state, bool isUndo)
 	QStringList tmpl;
 	tmpl << state->get("MASTERPAGE");
 	QString pageName = state->get("PAGENAME");
-	bool oldPageMode = doc->masterPageMode();
-	if (!pageName.isEmpty() && !oldPageMode) // We try do undo a master page deletion in standard mode
-		doc->setMasterPageMode(true);
+	bool savedMasterPageMode = state->getBool("MASTER_PAGE_MODE");
+        bool currMasterPageMode=doc->masterPageMode();
+        if (currMasterPageMode!=savedMasterPageMode)
+                doc->setMasterPageMode(savedMasterPageMode);
 	if (pagenr == 1)
 	{
 		where = 0;
@@ -8680,7 +8683,7 @@ void ScribusMainWindow::restoreDeletePage(SimpleState *state, bool isUndo)
 	}
 	if (isUndo)
 	{
-		if (doc->masterPageMode())
+		if (savedMasterPageMode)
 		{
 			slotNewMasterPage(wo, pageName);
 		}
@@ -8700,15 +8703,14 @@ void ScribusMainWindow::restoreDeletePage(SimpleState *state, bool isUndo)
 		state->set("DUMMY_ID", id);
 		deletePage(pagenr, pagenr);
 	}
-	if (!pageName.isEmpty() && !oldPageMode)
-	{
-		doc->setMasterPageMode(oldPageMode);
-		doc->rebuildMasterNames();
-		pagePalette->rebuildMasters();
-	}
-	if (doc->masterPageMode() && !pageName.isEmpty())
-		ActWin->masterPagesPalette()->updateMasterPageList();
-	pagePalette->rebuildPages();
+        if (currMasterPageMode!=savedMasterPageMode)
+                doc->setMasterPageMode(currMasterPageMode);
+        doc->rebuildMasterNames();
+        pagePalette->updateMasterPageList();
+        pagePalette->rebuildPages();
+        pagePalette->rebuildPages();
+        if (outlinePalette->isVisible())
+                outlinePalette->BuildTree();
 }
 
 void ScribusMainWindow::restoreAddPage(SimpleState *state, bool isUndo)
@@ -8722,9 +8724,14 @@ void ScribusMainWindow::restoreAddPage(SimpleState *state, bool isUndo)
 	int orient = state->getInt("ORIENT");
 	QString siz = state->get("SIZE");
 	bool mov = static_cast<bool>(state->getInt("MOVED"));
+	bool savedMasterPageMode = state->getBool("MASTER_PAGE_MODE");
 
 	int delFrom = 0;
 	int delTo = 0;
+	bool currMasterPageMode=doc->masterPageMode();
+        if (currMasterPageMode!=savedMasterPageMode)
+                doc->setMasterPageMode(savedMasterPageMode);
+
 	switch (where)
 	{
 		case 0:
@@ -8761,7 +8768,7 @@ void ScribusMainWindow::restoreAddPage(SimpleState *state, bool isUndo)
 	}
 	else
 	{
-		if (doc->masterPageMode())
+		if (savedMasterPageMode)
 		{
 			assert (count == 1);
 			slotNewMasterPage(wo, based[0]);
@@ -8777,6 +8784,14 @@ void ScribusMainWindow::restoreAddPage(SimpleState *state, bool isUndo)
 			delete tmp;
 		}
 	}
+	if (currMasterPageMode!=savedMasterPageMode)
+                doc->setMasterPageMode(currMasterPageMode);
+        doc->rebuildMasterNames();
+        pagePalette->updateMasterPageList();
+        pagePalette->rebuildPages();
+        if (outlinePalette->isVisible())
+                outlinePalette->BuildTree();
+
 }
 
 void ScribusMainWindow::restoreGrouping(SimpleState *state, bool isUndo)
