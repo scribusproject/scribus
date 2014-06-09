@@ -823,18 +823,19 @@ QString getDashString(int dashtype, double linewidth)
 	return dashString;
 }
 
-void getDashArray(int dashtype, double linewidth, QVector<float> &m_array) {
-   QVector<double> tmp;
-   getDashArray(dashtype, linewidth, tmp);
-   m_array.clear();
-   for (int i = 0; i < tmp.count(); ++i) {
-   m_array << static_cast<float>(tmp[i]);
-  }
+void getDashArray(int dashtype, double linewidth, QVector<float> &dashArray)
+{
+	QVector<double> tmp;
+	getDashArray(dashtype, linewidth, tmp);
+	dashArray.clear();
+	for (int i = 0; i < tmp.count(); ++i) {
+		dashArray << static_cast<float>(tmp[i]);
+	}
 }
 
-void getDashArray(int dashtype, double linewidth, QVector<double> &m_array)
+void getDashArray(int dashtype, double linewidth, QVector<double> &dashArray)
 {
-	m_array.clear();
+	dashArray.clear();
 	if ((dashtype == 1) || (dashtype == 0))
 		return;
 	double Dt = qMax(1.0*linewidth, 0.1);
@@ -845,115 +846,115 @@ void getDashArray(int dashtype, double linewidth, QVector<double> &m_array)
 		case 1:
 			break;
 		case 2:
-			m_array << Da << Sp;
+			dashArray << Da << Sp;
 			break;
 		case 3:
-			m_array << Dt << Sp;
+			dashArray << Dt << Sp;
 			break;
 		case 4:
-			m_array << Da << Sp << Dt << Sp;
+			dashArray << Da << Sp << Dt << Sp;
 			break;
 		case 5:
-			m_array << Da << Sp << Dt << Sp << Dt << Sp;
+			dashArray << Da << Sp << Dt << Sp << Dt << Sp;
 			break;
 // Additional line styles taken from Inkscape
 		case 6:
-			m_array << qMax(1.0 * linewidth, 0.01) << qMax(1.0 * linewidth, 0.01);
+			dashArray << qMax(1.0 * linewidth, 0.01) << qMax(1.0 * linewidth, 0.01);
 			break;
 		case 7:
-			m_array << qMax(1.0 * linewidth, 0.01) << qMax(3.0 * linewidth, 0.01);
+			dashArray << qMax(1.0 * linewidth, 0.01) << qMax(3.0 * linewidth, 0.01);
 			break;
 		case 8:
-			m_array << qMax(1.0 * linewidth, 0.01) << qMax(4.0 * linewidth, 0.01);
+			dashArray << qMax(1.0 * linewidth, 0.01) << qMax(4.0 * linewidth, 0.01);
 			break;
 		case 9:
-			m_array << qMax(1.0 * linewidth, 0.01) << qMax(6.0 * linewidth, 0.01);
+			dashArray << qMax(1.0 * linewidth, 0.01) << qMax(6.0 * linewidth, 0.01);
 			break;
 		case 10:
-			m_array << qMax(1.0 * linewidth, 0.01) << qMax(8.0 * linewidth, 0.01);
+			dashArray << qMax(1.0 * linewidth, 0.01) << qMax(8.0 * linewidth, 0.01);
 			break;
 		case 11:
-			m_array << qMax(1.0 * linewidth, 0.01) << qMax(12.0 * linewidth, 0.01);
+			dashArray << qMax(1.0 * linewidth, 0.01) << qMax(12.0 * linewidth, 0.01);
 			break;
 		case 12:
-			m_array << qMax(1.0 * linewidth, 0.01) << qMax(24.0 * linewidth, 0.01);
+			dashArray << qMax(1.0 * linewidth, 0.01) << qMax(24.0 * linewidth, 0.01);
 			break;
 		case 13:
-			m_array << qMax(1.0 * linewidth, 0.01) << qMax(48.0 * linewidth, 0.01);
+			dashArray << qMax(1.0 * linewidth, 0.01) << qMax(48.0 * linewidth, 0.01);
 			break;
 		case 14:
-			m_array << qMax(2.0 * linewidth, 0.01) << qMax(1.0 * linewidth, 0.01);
+			dashArray << qMax(2.0 * linewidth, 0.01) << qMax(1.0 * linewidth, 0.01);
 			break;
 		case 15:
-			m_array << qMax(3.0 * linewidth, 0.01) << qMax(1.0 * linewidth, 0.01);
+			dashArray << qMax(3.0 * linewidth, 0.01) << qMax(1.0 * linewidth, 0.01);
 			break;
 		case 16:
-			m_array << qMax(4.0 * linewidth, 0.01) << qMax(1.0 * linewidth, 0.01);
+			dashArray << qMax(4.0 * linewidth, 0.01) << qMax(1.0 * linewidth, 0.01);
 			break;
 		case 17:
-			m_array << qMax(6.0 * linewidth, 0.01) << qMax(1.0 * linewidth, 0.01);
+			dashArray << qMax(6.0 * linewidth, 0.01) << qMax(1.0 * linewidth, 0.01);
 			break;
 		case 18:
-			m_array << qMax(8.0 * linewidth, 0.01) << qMax(1.0 * linewidth, 0.01);
+			dashArray << qMax(8.0 * linewidth, 0.01) << qMax(1.0 * linewidth, 0.01);
 			break;
 		case 19:
-			m_array << qMax(10.0 * linewidth, 0.01) << qMax(1.0 * linewidth, 0.01);
+			dashArray << qMax(10.0 * linewidth, 0.01) << qMax(1.0 * linewidth, 0.01);
 			break;
 		case 20:
-			m_array << qMax(12.0 * linewidth, 0.01) << qMax(1.0 * linewidth, 0.01);
+			dashArray << qMax(12.0 * linewidth, 0.01) << qMax(1.0 * linewidth, 0.01);
 			break;
 		case 21:
-			m_array << qMax(2.0 * linewidth, 0.01) << qMax(2.0 * linewidth, 0.01);
+			dashArray << qMax(2.0 * linewidth, 0.01) << qMax(2.0 * linewidth, 0.01);
 			break;
 		case 22:
-			m_array << qMax(3.0 * linewidth, 0.01) << qMax(3.0 * linewidth, 0.01);
+			dashArray << qMax(3.0 * linewidth, 0.01) << qMax(3.0 * linewidth, 0.01);
 			break;
 		case 23:
-			m_array << qMax(4.0 * linewidth, 0.01) << qMax(4.0 * linewidth, 0.01);
+			dashArray << qMax(4.0 * linewidth, 0.01) << qMax(4.0 * linewidth, 0.01);
 			break;
 		case 24:
-			m_array << qMax(6.0 * linewidth, 0.01) << qMax(6.0 * linewidth, 0.01);
+			dashArray << qMax(6.0 * linewidth, 0.01) << qMax(6.0 * linewidth, 0.01);
 			break;
 		case 25:
-			m_array << qMax(8.0 * linewidth, 0.01) << qMax(8.0 * linewidth, 0.01);
+			dashArray << qMax(8.0 * linewidth, 0.01) << qMax(8.0 * linewidth, 0.01);
 			break;
 		case 26:
-			m_array << qMax(10.0 * linewidth, 0.01) << qMax(10.0 * linewidth, 0.01);
+			dashArray << qMax(10.0 * linewidth, 0.01) << qMax(10.0 * linewidth, 0.01);
 			break;
 		case 27:
-			m_array << qMax(12.0 * linewidth, 0.01) << qMax(12.0 * linewidth, 0.01);
+			dashArray << qMax(12.0 * linewidth, 0.01) << qMax(12.0 * linewidth, 0.01);
 			break;
 		case 28:
-			m_array << qMax(2.0 * linewidth, 0.01) << qMax(4.0 * linewidth, 0.01);
+			dashArray << qMax(2.0 * linewidth, 0.01) << qMax(4.0 * linewidth, 0.01);
 			break;
 		case 29:
-			m_array << qMax(2.0 * linewidth, 0.01) << qMax(6.0 * linewidth, 0.01);
+			dashArray << qMax(2.0 * linewidth, 0.01) << qMax(6.0 * linewidth, 0.01);
 			break;
 		case 30:
-			m_array << qMax(6.0 * linewidth, 0.01) << qMax(2.0 * linewidth, 0.01);
+			dashArray << qMax(6.0 * linewidth, 0.01) << qMax(2.0 * linewidth, 0.01);
 			break;
 		case 31:
-			m_array << qMax(4.0 * linewidth, 0.01) << qMax(8.0 * linewidth, 0.01);
+			dashArray << qMax(4.0 * linewidth, 0.01) << qMax(8.0 * linewidth, 0.01);
 			break;
 		case 32:
-			m_array << qMax(8.0 * linewidth, 0.01) << qMax(4.0 * linewidth, 0.01);
+			dashArray << qMax(8.0 * linewidth, 0.01) << qMax(4.0 * linewidth, 0.01);
 			break;
 		case 33:
-			m_array << qMax(2.0 * linewidth, 0.01) << qMax(1.0 * linewidth, 0.01);
-			m_array << qMax(0.5 * linewidth, 0.01) << qMax(1.0 * linewidth, 0.01);
+			dashArray << qMax(2.0 * linewidth, 0.01) << qMax(1.0 * linewidth, 0.01);
+			dashArray << qMax(0.5 * linewidth, 0.01) << qMax(1.0 * linewidth, 0.01);
 			break;
 		case 34:
-			m_array << qMax(8.0 * linewidth, 0.01) << qMax(2.0 * linewidth, 0.01);
-			m_array << qMax(1.0 * linewidth, 0.01) << qMax(2.0 * linewidth, 0.01);
+			dashArray << qMax(8.0 * linewidth, 0.01) << qMax(2.0 * linewidth, 0.01);
+			dashArray << qMax(1.0 * linewidth, 0.01) << qMax(2.0 * linewidth, 0.01);
 			break;
 		case 35:
-			m_array << qMax(0.5 * linewidth, 0.01) << qMax(0.5 * linewidth, 0.01);
+			dashArray << qMax(0.5 * linewidth, 0.01) << qMax(0.5 * linewidth, 0.01);
 			break;
 		case 36:
-			m_array << qMax(0.25 * linewidth, 0.01) << qMax(0.25 * linewidth, 0.01);
+			dashArray << qMax(0.25 * linewidth, 0.01) << qMax(0.25 * linewidth, 0.01);
 			break;
 		case 37:
-			m_array << qMax(0.1 * linewidth, 0.01) << qMax(0.1 * linewidth, 0.01);
+			dashArray << qMax(0.1 * linewidth, 0.01) << qMax(0.1 * linewidth, 0.01);
 			break;
 		default:
 			break;
