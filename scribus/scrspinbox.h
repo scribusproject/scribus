@@ -37,9 +37,10 @@ class SCRIBUS_API ScrSpinBox : public QDoubleSpinBox
 		void setConstants(const QMap<QString, double>* constants);
 		void setNewUnit(int unitIndex);
 		double getValue(int unitIndex=0);
-		//implemented for backwards compatibility, perhaps we can remove these?
-// 		void setSingleStepM(int val);
 		void setTabAdvance(bool enable);
+
+		uint   unitIndex() const { return m_unitIndex; }
+		double unitRatio() const;
 		
 	public slots:
 		void setValues(double min, double max, int deci, double val);
