@@ -4453,67 +4453,66 @@ void ScribusMainWindow::slotGetClipboardImage()
 
 void ScribusMainWindow::toogleInlineState()
 {
-	if (!doc->m_Selection->isEmpty())
+	if (!HaveDoc)
+		return;
+	if (doc->m_Selection->isEmpty())
+		return;
+	PageItem *currItem = doc->m_Selection->itemAt(0);
+	if (currItem->itemType() != PageItem::ImageFrame)
+		return;
+	if (!currItem->PictureIsAvailable)
+		return;
+	if (currItem->isImageInline())
 	{
-		PageItem *currItem = doc->m_Selection->itemAt(0);
-		if (currItem->itemType() == PageItem::ImageFrame)
+		QFileInfo fiB(currItem->Pfile);
+		QString fna = fiB.fileName();
+		PrefsContext* docContext = prefsManager->prefsFile->getContext("docdirs", false);
+		QString wdir = ".";
+		if (doc->hasName)
 		{
-			if (currItem->PictureIsAvailable)
+			QFileInfo fi(doc->DocName);
+			wdir = QDir::fromNativeSeparators( fi.path() );
+		}
+		else
+		{
+			QString prefsDocDir = prefsManager->documentDir();
+			if (!prefsDocDir.isEmpty())
+				wdir = docContext->get("place_as", prefsDocDir);
+			else
+				wdir = docContext->get("place_as", ".");
+			wdir = QDir::fromNativeSeparators( wdir );
+		}
+		QString fileName = CFileDialog(wdir, tr("Filename and Path for Image"), tr("All Files (*)"), fna, fdHidePreviewCheckBox);
+		if (!fileName.isEmpty())
+		{
+			if (ScCore->fileWatcher->files().contains(currItem->Pfile) != 0)
+				ScCore->fileWatcher->removeFile(currItem->Pfile);
+			docContext->set("place_as", fileName.left(fileName.lastIndexOf("/")));
+			if (overwrite(this, fileName))
 			{
-				if (currItem->isImageInline())
-				{
-					QFileInfo fiB(currItem->Pfile);
-					QString fna = fiB.fileName();
-					PrefsContext* docContext = prefsManager->prefsFile->getContext("docdirs", false);
-					QString wdir = ".";
-					if (doc->hasName)
-					{
-						QFileInfo fi(doc->DocName);
-						wdir = QDir::fromNativeSeparators( fi.path() );
-					}
-					else
-					{
-						QString prefsDocDir = prefsManager->documentDir();
-						if (!prefsDocDir.isEmpty())
-							wdir = docContext->get("place_as", prefsDocDir);
-						else
-							wdir = docContext->get("place_as", ".");
-						wdir = QDir::fromNativeSeparators( wdir );
-					}
-					QString fileName = CFileDialog(wdir, tr("Filename and Path for Image"), tr("All Files (*)"), fna, fdHidePreviewCheckBox);
-					if (!fileName.isEmpty())
-					{
-						if (ScCore->fileWatcher->files().contains(currItem->Pfile) != 0)
-							ScCore->fileWatcher->removeFile(currItem->Pfile);
-						docContext->set("place_as", fileName.left(fileName.lastIndexOf("/")));
-						if (overwrite(this, fileName))
-						{
-							currItem->makeImageExternal(fileName);
-							ScCore->fileWatcher->addFile(currItem->Pfile);
-							bool fho = currItem->imageFlippedH();
-							bool fvo = currItem->imageFlippedV();
-							doc->loadPict(currItem->Pfile, currItem, true);
-							currItem->setImageFlippedH(fho);
-							currItem->setImageFlippedV(fvo);
-						}
-					}
-				}
-				else
-				{
-					if (ScCore->fileWatcher->files().contains(currItem->Pfile) != 0)
-						ScCore->fileWatcher->removeFile(currItem->Pfile);
-					currItem->makeImageInline();
-					ScCore->fileWatcher->addFile(currItem->Pfile);
-					bool fho = currItem->imageFlippedH();
-					bool fvo = currItem->imageFlippedV();
-					doc->loadPict(currItem->Pfile, currItem, true);
-					currItem->setImageFlippedH(fho);
-					currItem->setImageFlippedV(fvo);
-				}
-				scrActions["itemToggleInlineImage"]->setChecked(currItem->isImageInline());
+				currItem->makeImageExternal(fileName);
+				ScCore->fileWatcher->addFile(currItem->Pfile);
+				bool fho = currItem->imageFlippedH();
+				bool fvo = currItem->imageFlippedV();
+				doc->loadPict(currItem->Pfile, currItem, true);
+				currItem->setImageFlippedH(fho);
+				currItem->setImageFlippedV(fvo);
 			}
 		}
 	}
+	else
+	{
+		if (ScCore->fileWatcher->files().contains(currItem->Pfile) != 0)
+			ScCore->fileWatcher->removeFile(currItem->Pfile);
+		currItem->makeImageInline();
+		ScCore->fileWatcher->addFile(currItem->Pfile);
+		bool fho = currItem->imageFlippedH();
+		bool fvo = currItem->imageFlippedV();
+		doc->loadPict(currItem->Pfile, currItem, true);
+		currItem->setImageFlippedH(fho);
+		currItem->setImageFlippedV(fvo);
+	}
+	scrActions["itemToggleInlineImage"]->setChecked(currItem->isImageInline());
 }
 
 void ScribusMainWindow::slotFileAppend()
