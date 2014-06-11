@@ -9309,6 +9309,8 @@ void ScribusMainWindow::updateDocument()
 
 void ScribusMainWindow::insertSampleText()
 {
+	if (!HaveDoc)
+		return;
 	LoremManager m(doc, this);
 	if (prefsManager->appPrefs.miscPrefs.useStandardLI)
 	{

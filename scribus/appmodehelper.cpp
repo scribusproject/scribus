@@ -459,6 +459,7 @@ void AppModeHelper::mainWindowCloseLastDoc()
 	(*scrActions)["editEditRenderSource"]->setEnabled(false);
 	(*scrActions)["extrasHyphenateText"]->setEnabled(false);
 	(*scrActions)["extrasDeHyphenateText"]->setEnabled(false);
+	(*scrActions)["insertSampleText"]->setEnabled(false);
 	(*scrActions)["viewFitInWindow"]->setEnabled(false);
 	(*scrActions)["viewFitWidth"]->setEnabled(false);
 	(*scrActions)["viewFit50"]->setEnabled(false);
