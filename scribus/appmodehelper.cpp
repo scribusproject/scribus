@@ -315,7 +315,7 @@ void AppModeHelper::mainWindowHasNewDoc(ScribusDoc *doc, bool clipScrapHaveData)
 #ifdef HAVE_OSG
 	(*scrActions)["toolsPDFAnnot3D"]->setEnabled(true);
 #endif
-
+	(*scrActions)["toolsPreflightVerifier"]->setEnabled(true);
 	bool setter = doc->DocPages.count() > 1 ? true : false;
 	(*scrActions)["pageDelete"]->setEnabled(setter);
 	(*scrActions)["pageMove"]->setEnabled(setter);
@@ -506,6 +506,7 @@ void AppModeHelper::mainWindowCloseLastDoc()
 	(*scrActions)["toolsPDFPushButton"]->setEnabled(false);
 	(*scrActions)["toolsPDFRadioButton"]->setEnabled(false);
 	(*scrActions)["toolsPDFTextField"]->setEnabled(false);
+	(*scrActions)["toolsPreflightVerifier"]->setEnabled(false);
 	(*scrActions)["toolsRotate"]->setEnabled(false);
 	(*scrActions)["toolsSelect"]->setEnabled(false);
 	(*scrActions)["toolsUnlinkTextFrame"]->setEnabled(false);
