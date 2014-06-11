@@ -1760,7 +1760,7 @@ bool PDFLibCore::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QStrin
 				PutDoc("/ON");
 			else
 				PutDoc("/OFF");
-			PutDoc(">>>>>>");
+			PutDoc(">>>>");
 			PutDoc("\n");
 			PutDoc(">>\nendobj\n");
 			Lnr++;
