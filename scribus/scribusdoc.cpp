@@ -2352,19 +2352,23 @@ void ScribusDoc::restoreGrouping(SimpleState *state, bool isUndo)
 	double x, y, w, h;
 	ScItemState<QList<QPointer<PageItem> > > *is = dynamic_cast<ScItemState<QList<QPointer<PageItem> > >*>(state);
 	QList<QPointer<PageItem> > select = is->getItem();
-	m_Selection->setGroupRect();
-	m_Selection->getGroupRect(&x, &y, &w, &h);
 	m_Selection->delaySignalsOn();
-	Selection tempSelect(this,false);
-	if(isUndo)
+	for (int i = 0; i < select.count(); ++i)
+		m_Selection->removeItem(select.at(i));
+	Selection tempSelect(this, false);
+	if (isUndo)
 	{
 		tempSelect.addItem(select.last());
+		tempSelect.setGroupRect();
+		tempSelect.getGroupRect(&x, &y, &w, &h);
 		itemSelection_UnGroupObjects(&tempSelect);
 	}
 	else
 	{
 		for (int i = 0; i < select.size()-1; ++i)
 			tempSelect.addItem(select.at(i));
+		tempSelect.setGroupRect();
+		tempSelect.getGroupRect(&x, &y, &w, &h);
 		select.removeLast();
 		select.append(itemSelection_GroupObjects(false, false,&tempSelect));
 		is->setItem(select);
