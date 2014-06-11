@@ -188,6 +188,7 @@ void PropertiesPalette_Shape::enableCustomShape()
 		enabled  = true;
 		enabled &= !m_item->isArc();
 		enabled &= !m_item->isLine();
+		enabled &= !m_item->isOSGFrame();
 		enabled &= !m_item->isPathText();
 		enabled &= !m_item->isPolyLine();
 		enabled &= !m_item->isSpiral();
@@ -207,6 +208,7 @@ void PropertiesPalette_Shape::enableEditShape()
 		enabled  = true;
 		enabled &= !m_item->locked();
 		enabled &= !m_item->sizeLocked();
+		enabled &= !m_item->isOSGFrame();
 		enabled &= !m_item->isTable();
 	}
 	editShape->setEnabled(enabled);
@@ -227,20 +229,12 @@ void PropertiesPalette_Shape::handleSelectionChanged()
 		int itemType = currItem ? (int) currItem->itemType() : -1;
 
 		m_haveItem = (itemType != -1);
-		if (itemType != -1)
-		{
-			enableEditShape();
-			enableCustomShape();
-		}
-		else
-		{
-			editShape->setEnabled(false);
-			customShape->setEnabled(false);
-		}
 		switch (itemType)
 		{
 		case -1:
 			setEnabled(false);
+			editShape->setEnabled(false);
+			customShape->setEnabled(false);
 			roundRect->setEnabled(false);
 			roundRect->showValue(0);
 			break;
@@ -342,6 +336,9 @@ void PropertiesPalette_Shape::setCurrentItem(PageItem *item)
 	m_item = item;
 
 	if (!m_item) return;
+
+	enableEditShape();
+	enableCustomShape();
 
 	if (m_item->FrameType == 0)
 		customShape->setIcon(customShape->getIconPixmap(0));
