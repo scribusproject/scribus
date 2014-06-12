@@ -906,7 +906,7 @@ void NodePalette::EndEdit()
 		EditCont->setChecked(false);
 		ToggleConMode();
 		PageItem *currItem = m_doc->m_Selection->itemAt(0);
-		if (currItem->itemType() == PageItem::PathText)
+		if (currItem && currItem->itemType() == PageItem::PathText)
 			currItem->updatePolyClip();
 	}
 	PolySplit->setEnabled( false );
