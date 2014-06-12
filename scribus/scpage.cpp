@@ -321,12 +321,9 @@ void ScPage::restorePageItemCreation(ScItemState<PageItem*> *state, bool isUndo)
 	int stateCode = state->transactionCode;
 	PageItem *ite = state->getItem();
 	bool oldMPMode=m_Doc->masterPageMode();
-	if ((stateCode == 0) || (stateCode == 1))
-	{
-		m_Doc->setMasterPageMode(!ite->OnMasterPage.isEmpty());
-		if (m_Doc->appMode == modeEditClip) // switch off from edit shape
-			m_Doc->scMW()->nodePalette->EndEdit();
-	}
+	m_Doc->setMasterPageMode(!ite->OnMasterPage.isEmpty());
+	if (m_Doc->appMode == modeEditClip) // switch off from edit shape
+		m_Doc->scMW()->nodePalette->EndEdit();
 	m_Doc->m_Selection->delaySignalsOn();
 	if (isUndo)
 	{
