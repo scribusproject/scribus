@@ -9527,6 +9527,7 @@ void ScribusDoc::itemSelection_MultipleDuplicate(ItemMultipleDuplicateData& mdDa
 				PageItem* bItem = Items->at(as);
 				bItem->setLocked(false);
 				bItem->moveBy(dH2, dV2, true);
+				bItem->setRedrawBounding();
 				m_Selection->addItem(bItem);
 			}
 			m_Selection->delaySignalsOff();
@@ -9579,6 +9580,7 @@ void ScribusDoc::itemSelection_MultipleDuplicate(ItemMultipleDuplicateData& mdDa
 					PageItem* bItem = Items->at(as);
 					bItem->setLocked(false);
 					bItem->moveBy(j*dX, i*dY, true);
+					bItem->setRedrawBounding();
 					bItem->connectToGUI();
 					bItem->emitAllToGUI();
 				}
