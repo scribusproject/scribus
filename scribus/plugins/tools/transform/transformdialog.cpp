@@ -62,8 +62,8 @@ TransformDialog::TransformDialog(QWidget* parent, ScribusDoc *doc) : QDialog(par
 	m_doc = doc;
 	m_unitRatio = unitGetRatioFromIndex(m_doc->unitIndex());
 	m_suffix = unitGetSuffixFromIndex(m_doc->unitIndex());
-	translateHorizontal->setSuffix(m_suffix);
-	translateVertical->setSuffix(m_suffix);
+	translateHorizontal->setNewUnit(m_doc->unitIndex());
+	translateVertical->setNewUnit(m_doc->unitIndex());
 	rotationValue->setWrapping( true );
 	rotationValue->setValues( -180.0, 180.0, 1, 0);
 	rotationValue->setSuffix(unitGetSuffixFromIndex(6));
