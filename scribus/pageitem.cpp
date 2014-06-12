@@ -2297,17 +2297,21 @@ void PageItem::DrawSoftShadow(ScPainter *p)
 	p->restore();
 }
 
-QImage PageItem::DrawObj_toImage(double maxSize)
+QImage PageItem::DrawObj_toImage(double maxSize, int options)
 {
 	bool isEmbedded_Old = isEmbedded;
+	double rotation_Old = m_rotation;
 	double minx =  std::numeric_limits<double>::max();
 	double miny =  std::numeric_limits<double>::max();
 	double maxx = -std::numeric_limits<double>::max();
 	double maxy = -std::numeric_limits<double>::max();
 	double x1, x2, y1, y2;
+	if (options & NoRotation)
+		m_rotation = 0.0;
 	getVisualBoundingRect(&x1, &y1, &x2, &y2);
+	m_rotation = rotation_Old;
 	double maxAdd = 0;
-	if (hasSoftShadow())
+	if (hasSoftShadow() && !(options & NoSoftShadow))
 		maxAdd = qMax(fabs(softShadowXOffset()), fabs(softShadowYOffset())) + softShadowBlurRadius();
 	minx = qMin(minx, x1) - maxAdd;
 	miny = qMin(miny, y1) - maxAdd;
@@ -2326,15 +2330,21 @@ QImage PageItem::DrawObj_toImage(double maxSize)
 	painter->setZoomFactor(sc);
 	painter->save();
 	painter->translate(igXpos, igYpos);
+	if (options & NoRotation)
+		painter->rotate(-m_rotation);
 	isEmbedded = true;
 	invalid = true;
 	DrawObj(painter, QRectF());
-	isEmbedded = false;
 	painter->restore();
 	painter->end();
 	delete painter;
 	m_Doc->guidesPrefs().framesShown = savedFlag;
 	isEmbedded = isEmbedded_Old;
+	if (!isEmbedded && (asTextFrame() || asPathText()))
+	{
+		invalid = true;
+		layout();
+	}
 	return retImg;
 }
 
@@ -7504,7 +7514,6 @@ void PageItem::restoreShapeContour(UndoState *state, bool isUndo)
 		}
 		m_Doc->regionsChanged()->update(QRectF());
 	}
-
 }
 
 void PageItem::restoreImageEffects(UndoState *state, bool isUndo)

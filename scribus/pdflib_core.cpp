@@ -3515,14 +3515,11 @@ QString PDFLibCore::PDF_PutSoftShadow(PageItem* ite, const ScPage *pag)
 	tmp += "1 0 0 1 0 " + FToStr(-(ite->height() + ite->visualLineWidth()))+" cm\n";
 	tmp += FToStr(ite->width() + ite->visualLineWidth() + 2 * ite->softShadowBlurRadius()) + " 0 0 " + FToStr(ite->height() + ite->visualLineWidth() + 2 * ite->softShadowBlurRadius())+" 0 0 cm\n" ;
 
-	double savRot = ite->rotation();
-	ite->setRotation(0, true);
 	double maxSize = qMax(ite->visualWidth(), ite->visualHeight());
 	maxSize = qMin(3000.0, maxSize * (softShadowDPI / 72.0));
 	bool savedShadow = ite->hasSoftShadow();
 	ite->setHasSoftShadow(false);
-	QImage imgC = ite->DrawObj_toImage(maxSize);
-	ite->setRotation(savRot, true);
+	QImage imgC = ite->DrawObj_toImage(maxSize, PageItem::NoRotation);
 	ite->setHasSoftShadow(savedShadow);
 
 	imgC = imgC.copy(-pixelRadius,-pixelRadius,imgC.width()+2*pixelRadius,imgC.height()+2*pixelRadius); // Add border

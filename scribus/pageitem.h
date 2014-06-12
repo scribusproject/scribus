@@ -155,6 +155,14 @@ class SCRIBUS_API PageItem : public QObject, public UndoObject, public SaxIO, pu
 
 public:	// Start enumerator definitions
 
+	/** @brief Draw options for DrawObj_toImage()
+	 * 
+	 */
+	enum DrawOption {
+		NoRotation = 1, // Draw as if item was not rotated
+		NoSoftShadow = 2
+	};
+
 	/** @brief Item Type
 	 *
 	 * Soon, item type will probably go away in favour of using
@@ -261,7 +269,7 @@ public: // Start public functions
 	virtual void DrawObj_Post(ScPainter *p);
 	virtual void DrawObj_Decoration(ScPainter *p);
 	virtual void DrawObj_Item(ScPainter *p, QRectF e) = 0;
-	QImage DrawObj_toImage(double maxSize);
+	QImage DrawObj_toImage(double maxSize, int options = 0);
 	QImage DrawObj_toImage(QList<PageItem*> &emG, double scaling);
 	void DrawObj_Embedded(ScPainter *p, QRectF e, const CharStyle& style, PageItem* cembedded);
 	void DrawStrokePattern(ScPainter *p, QPainterPath &path);
