@@ -7512,6 +7512,8 @@ void PageItem::restoreShapeContour(UndoState *state, bool isUndo)
 			m_Doc->AdjustItemSize(this);
 			m_Doc->MoveItem(newX - xPos(), newY - yPos(), this, false);
 		}
+		if (oldClip.count() != newClip.count())
+			m_Doc->nodeEdit.deselect();
 		m_Doc->regionsChanged()->update(QRectF());
 	}
 }
