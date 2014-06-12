@@ -1471,7 +1471,7 @@ void CanvasMode::commonkeyPressEvent_NormalNodeEdit(QKeyEvent *e)
 						{
 							if (!resizingsmaller)
 							{
-								m_doc->MoveItem(-resizeBy, 0, currItem, false);
+								m_doc->MoveItem(-resizeBy, 0, currItem);
 								currItem->moveImageXYOffsetBy(resizeBy / currItem->imageXScale(), 0);
 							}
 							currItem->Sizing = false;
@@ -1545,7 +1545,7 @@ void CanvasMode::commonkeyPressEvent_NormalNodeEdit(QKeyEvent *e)
 						{
 							if (resizingsmaller)
 							{
-								m_doc->MoveItem(-resizeBy, 0, currItem, false);
+								m_doc->MoveItem(-resizeBy, 0, currItem);
 								currItem->moveImageXYOffsetBy(resizeBy / currItem->imageXScale(), 0);
 							}
 							currItem->Sizing = false;
@@ -1619,7 +1619,7 @@ void CanvasMode::commonkeyPressEvent_NormalNodeEdit(QKeyEvent *e)
 						{
 							if (!resizingsmaller)
 							{
-								m_doc->MoveItem(0, -resizeBy, currItem, false);
+								m_doc->MoveItem(0, -resizeBy, currItem);
 								currItem->moveImageXYOffsetBy(0, resizeBy / currItem->imageYScale());
 							}
 							currItem->Sizing = false;
@@ -1693,7 +1693,7 @@ void CanvasMode::commonkeyPressEvent_NormalNodeEdit(QKeyEvent *e)
 						{
 							if (resizingsmaller)
 							{
-								m_doc->MoveItem(0, -resizeBy, currItem, false);
+								m_doc->MoveItem(0, -resizeBy, currItem);
 								currItem->moveImageXYOffsetBy(0, resizeBy / currItem->imageYScale());
 							}
 							currItem->Sizing = false;

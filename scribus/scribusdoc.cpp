@@ -14416,7 +14416,7 @@ bool ScribusDoc::ApplyGuides(FPoint* point,bool elementSnap)
 	return ret;
 }
 
-bool ScribusDoc::MoveItem(double newX, double newY, PageItem* currItem, bool fromMP)
+bool ScribusDoc::MoveItem(double newX, double newY, PageItem* currItem)
 {
 	if (currItem->locked())
 		return false;
@@ -14424,37 +14424,9 @@ bool ScribusDoc::MoveItem(double newX, double newY, PageItem* currItem, bool fro
 	double oldx = currItem->xPos();
 	double oldy = currItem->yPos();
 	currItem->moveBy(newX, newY);
-/*	if ((SnapGrid) && (!m_View->operItemMoving) && (!fromMP) && (static_cast<int>(currentPage()->pageNr()) == currItem->OwnPage))
-	{
-		FPoint np = ApplyGridF(FPoint(currItem->xPos(), currItem->yPos()));
-		currItem->setXYPos(np.x(), np.y());
-	}
-	if ((SnapGuides) && (!m_View->operItemMoving) && (appMode == modeNormal) && (!EditClip) && (!fromMP))
-		SnapToGuides(currItem); */
 	if ((currItem->xPos() != oldx) || (currItem->yPos() != oldy))
 		retw = true;
-	if (!fromMP)
-	{
-/*		if (GroupSel)
-		{
-			double gx, gy, gh, gw;
-			setGroupRect();
-			getGroupRect(&gx, &gy, &gw, &gh);
-			emit ItemPos(gx, gy);
-		}
-		else */
-		//CB if (!GroupSel)
-		//CB	emit ItemPos(currItem->xPos(), currItem->yPos());
-		//CB qDebug("if (!GroupSel) 			emit ItemPos(currItem->xPos(), currItem->yPos());");
-	}
-/*	if (!loading)
-		emit UpdtObj(currentPage->pageNr(), b->ItemNr); */
-	//FIXME: stop using m_View
-//	QRect oldR(currItem->getRedrawBounding(m_View->scale()));
 	setRedrawBounding(currItem);
-//	QRect newR(currItem->getRedrawBounding(m_View->scale()));
-//	if ((!m_View->operItemMoving) && (!currItem->Sizing))
-//		emit updateContents(newR.unite(oldR));
 	currItem->OwnPage = OnPage(currItem);
 	return retw;
 }
@@ -14519,14 +14491,14 @@ void ScribusDoc::RotateItem(double angle, PageItem *currItem)
 
 
 
-void ScribusDoc::MoveRotated(PageItem *currItem, FPoint npv, bool fromMP)
+void ScribusDoc::MoveRotated(PageItem *currItem, FPoint npv)
 {
 	QTransform ma;
 	ma.translate(currItem->xPos(), currItem->yPos());
 	ma.rotate(currItem->rotation());
 	double mxc = currItem->xPos() - (ma.m11() * npv.x() + ma.m21() * npv.y() + ma.dx());
 	double myc = currItem->yPos() - (ma.m22() * npv.y() + ma.m12() * npv.x() + ma.dy());
-	MoveItem(-mxc, -myc, currItem, fromMP);
+	MoveItem(-mxc, -myc, currItem);
 }
 
 bool ScribusDoc::SizeItem(double newX, double newY, PageItem *pi, bool fromMP, bool DoUpdateClip, bool redraw)
@@ -14677,7 +14649,7 @@ bool ScribusDoc::MoveSizeItem(FPoint newX, FPoint newY, PageItem* currItem, bool
 		ma.rotate(currItem->rotation());
 		double mx = ma.m11() * currItem->width() + ma.dx();
 		double my = ma.m12() * currItem->width() + ma.dy();
-		MoveItem(newX.x(), newX.y(), currItem, fromMP);
+		MoveItem(newX.x(), newX.y(), currItem);
 		double newRot=xy2Deg(mx - currItem->xPos(), my - currItem->yPos());
 		//CB Hmm should work, doesnt. (constraining on the first point of a line) FIXME
 		//if (constrainRotation)
@@ -14707,12 +14679,12 @@ bool ScribusDoc::MoveSizeItem(FPoint newX, FPoint newY, PageItem* currItem, bool
 			double mxc3 = currItem->xPos() - (ma3.m11() * npv.x() + ma3.m21() * npv.y() + ma3.dx());
 			double myc3 = currItem->yPos() - (ma3.m22() * npv.y() + ma3.m12() * npv.x() + ma3.dy());
 			SizeItem(currItem->width() - newY.x(), currItem->height() - newY.y(), currItem, fromMP, true, false);
-			MoveItem(-mxc3, -myc3, currItem, fromMP);
+			MoveItem(-mxc3, -myc3, currItem);
 		}
 		else
 		{
 			SizeItem(currItem->width() - newY.x(), currItem->height() - newY.y(), currItem, fromMP, true, false);
-			MoveItem(newX.x(), newX.y(), currItem, fromMP);
+			MoveItem(newX.x(), newX.y(), currItem);
 		}
 	}
 	return true;
@@ -14743,10 +14715,10 @@ void ScribusDoc::AdjustItemSize(PageItem *currItem, bool includeGroup, bool move
 		if (currItem->rotation() != 0)
 		{
 			FPoint npv(tp2.x(), tp2.y());
-			MoveRotated(currItem, npv, true);
+			MoveRotated(currItem, npv);
 		}
 		else
-			MoveItem(tp2.x(), tp2.y(), currItem, true);
+			MoveItem(tp2.x(), tp2.y(), currItem);
 		if (!currItem->imageFlippedH())
 			currItem->moveImageInFrame(-tp2.x()/currItem->imageXScale(), 0);
 		if (!currItem->imageFlippedV())
@@ -14767,21 +14739,21 @@ void ScribusDoc::AdjustItemSize(PageItem *currItem, bool includeGroup, bool move
 			for (int em = 0; em < currItem->groupItemList.count(); ++em)
 			{
 				PageItem* embedded = currItem->groupItemList.at(em);
-				MoveItem(-dx, -dy, embedded, true);
+				MoveItem(-dx, -dy, embedded);
 			}
 			if (currItem->imageFlippedH())
 			{
 				if (oldX - currItem->xPos() == 0)
-					MoveItem(oldW - currItem->width(), 0, currItem, true);
+					MoveItem(oldW - currItem->width(), 0, currItem);
 				else
-					MoveItem((oldX - currItem->xPos()), 0, currItem, true);
+					MoveItem((oldX - currItem->xPos()), 0, currItem);
 			}
 			if (currItem->imageFlippedV())
 			{
 				if (oldY- currItem->yPos() == 0)
-					MoveItem(0, oldH - currItem->height(), currItem, true);
+					MoveItem(0, oldH - currItem->height(), currItem);
 				else
-					MoveItem(0, oldY - currItem->yPos(), currItem, true);
+					MoveItem(0, oldY - currItem->yPos(), currItem);
 			}
 		}
 	}
@@ -14799,7 +14771,7 @@ void ScribusDoc::AdjustItemSize(PageItem *currItem, bool includeGroup, bool move
 	undoManager->setUndoEnabled(true);
 }
 
-void ScribusDoc::moveGroup(double x, double y, bool fromMP, Selection* customSelection)
+void ScribusDoc::moveGroup(double x, double y, Selection* customSelection)
 {
 	double Scale = 1; //FIXME:av should all be in doc coordinates
 	Selection* itemSelection = (customSelection!=0) ? customSelection : m_Selection;
@@ -14826,7 +14798,7 @@ void ScribusDoc::moveGroup(double x, double y, bool fromMP, Selection* customSel
 		{
 			if (currItem->isWelded())
 				weldL.append(currItem->itemsWeldedTo());
-			MoveItem(x, y, currItem, fromMP);
+			MoveItem(x, y, currItem);
 		}
 	}
 	itemSelection->setGroupRect();
@@ -15009,7 +14981,7 @@ void ScribusDoc::scaleGroup(double scx, double scy, bool scaleText, Selection* c
 			FPoint n(gx-oldPos.x(), gy-oldPos.y());
 			x = ma3.m11() * n.x() + ma3.m21() * n.y() + ma3.dx();
 			y = ma3.m22() * n.y() + ma3.m12() * n.x() + ma3.dy();
-		//	MoveItem(gx-x, gy-y, bb, true);
+		//	MoveItem(gx-x, gy-y, bb);
 			bb->setXYPos(b1.x()+gx, b1.y()+gy);
 			if (oldRot != 0)
 			{
@@ -15074,16 +15046,16 @@ void ScribusDoc::scaleGroup(double scx, double scy, bool scaleText, Selection* c
 		switch (rotMode)
 		{
 		case 2:
-			moveGroup((origGW-gw) / 2.0, (origGH-gh) / 2.0, true);
+			moveGroup((origGW-gw) / 2.0, (origGH-gh) / 2.0);
 			break;
 		case 4:
-			moveGroup(origGW-gw, origGH-gh, true);
+			moveGroup(origGW-gw, origGH-gh);
 			break;
 		case 3:
-			moveGroup(0.0, origGH-gh, true);
+			moveGroup(0.0, origGH-gh);
 			break;
 		case 1:
-			moveGroup(origGW-gw, 0.0, true);
+			moveGroup(origGW-gw, 0.0);
 			break;
 		}
 	}

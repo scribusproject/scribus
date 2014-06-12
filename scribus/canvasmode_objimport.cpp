@@ -190,7 +190,7 @@ void CanvasMode_ObjImport::mouseReleaseEvent(QMouseEvent *m)
 		{
 			double gx, gy, gh, gw;
 			m_doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
-			m_doc->moveGroup(mousePointDoc.x() - gx, mousePointDoc.y() -gy, false);
+			m_doc->moveGroup(mousePointDoc.x() - gx, mousePointDoc.y() -gy);
 		}
 		// Commit undo transaction if necessary
 		if (undoTransaction)

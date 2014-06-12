@@ -1074,14 +1074,14 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 					ny = npx.y();
 				}
 				activeTransaction = new UndoTransaction(undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::Move,"",Um::IMove));
-				Doc->moveGroup(nx-gx, ny-gy, false);
+				Doc->moveGroup(nx-gx, ny-gy);
 				Doc->m_Selection->setGroupRect();
 				Doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
 				nx = gx+gw;
 				ny = gy+gh;
 				Doc->ApplyGuides(&nx, &ny);
 				Doc->ApplyGuides(&nx, &ny,true);
-				Doc->moveGroup(nx-(gx+gw), ny-(gy+gh), false);
+				Doc->moveGroup(nx-(gx+gw), ny-(gy+gh));
 				Doc->m_Selection->setGroupRect();
 				Doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
 				for (int a = 0; a < Doc->m_Selection->count(); ++a)
@@ -1721,7 +1721,7 @@ void ScribusView::PasteToPage()
 		pastedObjects.setGroupRect();
 		double gx, gy, gh, gw;
 		pastedObjects.getGroupRect(&gx, &gy, &gw, &gh);
-		Doc->moveGroup(dragX - gx, dragY - gy, false, &pastedObjects);
+		Doc->moveGroup(dragX - gx, dragY - gy, &pastedObjects);
 		Doc->m_Selection->clear();
 	}
 	else
@@ -1755,14 +1755,14 @@ void ScribusView::PasteToPage()
 			nx = npx.x();
 			ny = npx.y();
 		}
-		Doc->moveGroup(nx-gx, ny-gy, false, &newObjects);
+		Doc->moveGroup(nx-gx, ny-gy, &newObjects);
 		newObjects.setGroupRect();
 		newObjects.getGroupRect(&gx, &gy, &gw, &gh);
 		nx = gx+gw;
 		ny = gy+gh;
 		Doc->ApplyGuides(&nx, &ny);
 		Doc->ApplyGuides(&nx, &ny,true);
-		Doc->moveGroup(nx-(gx+gw), ny-(gy+gh), false, &newObjects);
+		Doc->moveGroup(nx-(gx+gw), ny-(gy+gh), &newObjects);
 		newObjects.setGroupRect();
 		newObjects.getGroupRect(&gx, &gy, &gw, &gh);
 		emit ItemGeom();

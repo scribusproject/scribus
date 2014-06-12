@@ -701,7 +701,7 @@ void PropertiesPalette_XYZ::handleNewX()
 				base = gx + gw;
 			if (!_userActionOn)
 				m_ScMW->view->startGroupTransaction();
-			m_doc->moveGroup(x - base, 0, true);
+			m_doc->moveGroup(x - base, 0);
 			if (!_userActionOn)
 			{
 				m_ScMW->view->endGroupTransaction();
@@ -741,7 +741,7 @@ void PropertiesPalette_XYZ::handleNewX()
 					base = ma.m11() * m_item->width() + ma.m21() * m_item->height() + ma.dx();
 				else if (bp == 3)
 					base = ma.m11() * 0.0 + ma.m21() * m_item->height() + ma.dx();
-				m_doc->MoveItem(x - base, 0, m_item, true);
+				m_doc->MoveItem(x - base, 0, m_item);
 			}
 		}
 		m_doc->regionsChanged()->update(QRect());
@@ -780,7 +780,7 @@ void PropertiesPalette_XYZ::handleNewY()
 			base = gy + gh;
 		if (!_userActionOn)
 			m_ScMW->view->startGroupTransaction();
-		m_doc->moveGroup(0, y - base, true);
+		m_doc->moveGroup(0, y - base);
 		if (!_userActionOn)
 		{
 			m_ScMW->view->endGroupTransaction();
@@ -801,7 +801,7 @@ void PropertiesPalette_XYZ::handleNewY()
 			}
 			double r = atan2(h-y,w-x)*(180.0/M_PI);
 			w = sqrt(pow(w-x,2)+pow(h-y,2));
-			m_doc->MoveItem(0, y - m_item->yPos(), m_item, true);
+			m_doc->MoveItem(0, y - m_item->yPos(), m_item);
 			m_item->setXYPos(m_item->xPos(), y, true);
 			m_item->setRotation(r, true);
 			m_doc->SizeItem(w, m_item->height(), m_item, true);
@@ -822,7 +822,7 @@ void PropertiesPalette_XYZ::handleNewY()
 				base = ma.m22() * m_item->height() + ma.m12() * m_item->width() + ma.dy();
 			else if (bp == 3)
 				base = ma.m22() * m_item->height() + ma.m12() * 0.0 + ma.dy();
-			m_doc->MoveItem(0, y - base, m_item, true);
+			m_doc->MoveItem(0, y - base, m_item);
 		}
 	}
 	m_doc->regionsChanged()->update(QRect());

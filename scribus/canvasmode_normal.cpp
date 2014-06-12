@@ -1104,13 +1104,13 @@ void CanvasMode_Normal::mouseReleaseEvent(QMouseEvent *m)
 					else
 						ny = npx.y();
 				}
-				m_doc->moveGroup(nx-gx, ny-gy, false);
+				m_doc->moveGroup(nx-gx, ny-gy);
 				m_doc->m_Selection->setGroupRect();
 				m_doc->m_Selection->getVisualGroupRect(&gx, &gy, &gw, &gh);
 				nx = gx+gw;
 				ny = gy+gh;
 				if (m_doc->ApplyGuides(&nx, &ny) && !m_doc->ApplyGuides(&nx, &ny,true))
-					m_doc->moveGroup(nx-(gx+gw), ny-(gy+gh), false);
+					m_doc->moveGroup(nx-(gx+gw), ny-(gy+gh));
 				m_doc->m_Selection->setGroupRect();
 			}
 			else

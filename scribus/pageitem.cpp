@@ -6822,7 +6822,7 @@ void PageItem::restoreMove(SimpleState *state, bool isUndo)
 		mx = -mx;
 		my = -my;
 	}
-	m_Doc->MoveItem(mx, my, this, false);
+	m_Doc->MoveItem(mx, my, this);
 	oldXpos = m_xPos;
 	oldYpos = m_yPos;
 	oldOwnPage = OwnPage;
@@ -6847,7 +6847,7 @@ void PageItem::restoreResize(SimpleState *state, bool isUndo)
 	if (isUndo)
 	{
 		m_Doc->SizeItem(ow, oh, this, false, true, redraw);
-		m_Doc->MoveItem(mx, my, this, false);
+		m_Doc->MoveItem(mx, my, this);
 		m_Doc->RotateItem(ort, this);
 	}
 	else
@@ -6855,7 +6855,7 @@ void PageItem::restoreResize(SimpleState *state, bool isUndo)
 		mx = -mx;
 		my = -my;
 		m_Doc->SizeItem(w, h, this, false, true, redraw);
-		m_Doc->MoveItem(mx, my, this, false);
+		m_Doc->MoveItem(mx, my, this);
 		m_Doc->RotateItem(rt, this);
 	}
 	oldWidth = m_width;
@@ -6883,13 +6883,13 @@ void PageItem::restoreRotate(SimpleState *state, bool isUndo)
 	if (isUndo)
 	{
 		m_Doc->RotateItem(ort, this);
-		m_Doc->MoveItem(ox - m_xPos, oy - m_yPos, this, false);
+		m_Doc->MoveItem(ox - m_xPos, oy - m_yPos, this);
 		m_Doc->SizeItem(ow, oh, this, false, true, redraw);
 	}
 	else
 	{
 		m_Doc->RotateItem(rt, this);
-		m_Doc->MoveItem(x - m_xPos, y - m_yPos, this, false);
+		m_Doc->MoveItem(x - m_xPos, y - m_yPos, this);
 		m_Doc->SizeItem(w, h, this, false, true, redraw);
 	}
 	oldRot = m_rotation;
@@ -7501,7 +7501,7 @@ void PageItem::restoreShapeContour(UndoState *state, bool isUndo)
 			else
 				PoLine = oldClip;
 			m_Doc->AdjustItemSize(this);
-			m_Doc->MoveItem(oldX - xPos(), oldY - yPos(), this, false);
+			m_Doc->MoveItem(oldX - xPos(), oldY - yPos(), this);
 		}
 		else
 		{
@@ -7510,7 +7510,7 @@ void PageItem::restoreShapeContour(UndoState *state, bool isUndo)
 			else
 				PoLine = newClip;
 			m_Doc->AdjustItemSize(this);
-			m_Doc->MoveItem(newX - xPos(), newY - yPos(), this, false);
+			m_Doc->MoveItem(newX - xPos(), newY - yPos(), this);
 		}
 		if (oldClip.count() != newClip.count())
 			m_Doc->nodeEdit.deselect();

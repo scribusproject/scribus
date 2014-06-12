@@ -782,13 +782,13 @@ void CanvasMode_Edit::mouseReleaseEvent(QMouseEvent *m)
 					else
 						ny = npx.y();
 				}
-				m_doc->moveGroup(nx-gx, ny-gy, false);
+				m_doc->moveGroup(nx-gx, ny-gy);
 				m_doc->m_Selection->setGroupRect();
 				m_doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
 				nx = gx+gw;
 				ny = gy+gh;
 				if (m_doc->ApplyGuides(&nx, &ny) || m_doc->ApplyGuides(&nx,&ny,true))
-					m_doc->moveGroup(nx-(gx+gw), ny-(gy+gh), false);
+					m_doc->moveGroup(nx-(gx+gw), ny-(gy+gh));
 				m_doc->m_Selection->setGroupRect();
 			}
 			else
@@ -817,7 +817,7 @@ void CanvasMode_Edit::mouseReleaseEvent(QMouseEvent *m)
 					m_doc->MoveItem(nx-currItem->xPos(), ny-currItem->yPos(), currItem);
 				}
 				else
-					m_doc->MoveItem(0, 0, currItem, false);
+					m_doc->MoveItem(0, 0, currItem);
 			}
 			m_canvas->m_viewMode.operItemMoving = false;
 			if (m_doc->m_Selection->isMultipleSelection())
