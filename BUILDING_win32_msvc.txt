@@ -9,9 +9,9 @@ Microsoft Visual Studio. No help regarding use of Visual Studio and
 related tools will be provided.
 
 You will need:
-	- Microsoft Windows XP, Vista or 7
-	- Microsoft Visual Studio 2008 or Visual C++ Express Edition 2008
-	- A recent Qt release built with Visual Studio 2008 (version >= 4.7)
+	- Microsoft Windows XP, Vista, 7 or 8
+	- Microsoft Visual Studio 2010 or superior (including Express editions)
+	- A recent Qt release built with matching Visual Studio version (version >= 5.0)
 	- Cairo sources from cairographics.org (version >= 1.11.4)
 	- Pixman sources from cairographics.org (version >= 0.24.4)
 	- Boost from www.boost.org (version >= 1.35.0)
@@ -95,16 +95,8 @@ in its path.
 ----
 Qt:
 
-Download the latest qt >= 4.7 snapshot from ftp://ftp.qt.nokia.com/qt/source
-and unpack it to C:\Developer.
-
-Start a command line and import your Visual Studio environment:
-\path\to\visual\studio\VC\vcvarsall.bat
-
-now cd to C:\Developer\qt-everywhere-whatever and run configure:
-configure -debug-and-release -fast -no-qt3support -platform win32-msvc2008
-
-and nmake.
+Download the latest qt >= 5.0 release matching with your Visual Studio version 
+from qt-project.org and install it.
 
 ----
 Boost:
