@@ -458,7 +458,8 @@ void StoryText::trim()
 	if (posCount > 0)
 	{
 		ParagraphStyle pst = paragraphStyle(pos);
-		removeChars(pos+1, posCount-1);
+		if (posCount > 1)
+			removeChars(pos+1, posCount-1);
 		applyStyle(pos, pst);
 	}
 }
