@@ -134,9 +134,9 @@ IF (_machine_sparc64)
 ENDIF (_machine_sparc64)
 
 #convert any 64 bit build into generic 64 tag for below
-IF (ARCH_X86_64 OR ARCH_SPARC_64 OR ARCH_MIPS_64 OR ARCH_PPC_64) 
+IF (ARCH_X86_64 OR ARCH_SPARC_64 OR ARCH_MIPS_64 OR ARCH_PPC_64)
   SET(ARCH64BIT 1)
-ENDIF (ARCH_X86_64 OR ARCH_SPARC_64 OR ARCH_MIPS_64 OR ARCH_PPC_64) 
+ENDIF (ARCH_X86_64 OR ARCH_SPARC_64 OR ARCH_MIPS_64 OR ARCH_PPC_64)
 
 MESSAGE(STATUS "Building for target ${MACHINE}")
 
@@ -391,12 +391,12 @@ ELSE(APPLE)
     # vanilla gcc
     SET(CMAKE_CXX_FLAGS_DEBUG "-O0 -g3 -Wall -fstrict-aliasing")
     SET(CMAKE_C_FLAGS_DEBUG "-O0 -g3 -Wall -fstrict-aliasing")
-    
+
     IF (_machine_x86 OR _machine_x86_64)
       SET(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -fPIC")
       SET(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} -fPIC")
     ENDIF (_machine_x86 OR _machine_x86_64)
-    
+
   ENDIF(${CMAKE_GENERATOR} MATCHES "^(Visual Studio|NMake).*")
 ENDIF(APPLE)
 
@@ -502,7 +502,7 @@ ENDIF(WIN32)
 #<< ZLIB, PNG
 IF (WIN32)
   # On win32 we can use Qt's zlib and libpng, so we use some
-  # custom cmake includes. This permits us to honour the 
+  # custom cmake includes. This permits us to honour the
   # USE_QT_ZLIB_PNGLIB flag if passed.
   SET(PNG_DIR ${CMAKE_MODULE_PATH})
   SET(ZLIB_DIR ${CMAKE_MODULE_PATH})
@@ -709,12 +709,23 @@ ELSE (POPPLER_FOUND)
 ENDIF (POPPLER_FOUND)
 #>>Poppler for PDF import
 
+# librevenge for MsPub import
+pkg_check_modules(LIBREVENGE librevenge-0.0)
+IF (LIBREVENGE_FOUND)
+	pkg_check_modules(LIBREVENGE_STREAM librevenge-stream-0.0)
+	IF (LIBREVENGE_STREAM_FOUND)
+		pkg_check_modules(LIBREVENGE_GENERATORS librevenge-generators-0.0)
+		IF (LIBREVENGE_GENERATORS_FOUND)
+			SET(HAVE_REVENGE 1)
+		ENDIF (LIBREVENGE_GENERATORS_FOUND)
+	ENDIF (LIBREVENGE_STREAM_FOUND)
+ENDIF (LIBREVENGE_FOUND)
 
 ##############################################################################################################
 ########## Include Setup                                                                            ##########
 
 TEST_BIG_ENDIAN(WORDS_BIGENDIAN)
-  
+
 CHECK_INCLUDE_FILE("dlfcn.h" HAVE_DLFCN_H)
 IF(HAVE_DLFCN_H)
   ADD_DEFINITIONS(-DHAVE_DLFCN_H)
@@ -784,8 +795,8 @@ CONFIGURE_FILE(
 
 ADD_CUSTOM_TARGET(uninstall
   "${CMAKE_COMMAND}" -P "${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake")
-  
-  
+
+
 ##############################################################################################################
 ########## Add our subdirs                                                                          ##########
 
