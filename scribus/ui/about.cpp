@@ -33,8 +33,8 @@ for which a new license (GPL+exception) is in place.
 #include "scconfig.h"
 #include "scpaths.h"
 #include "sctextbrowser.h"
-#ifndef Q_OS_WIN
-#include "svnversion.h"
+#ifdef WANT_SVNVERSION
+	#include "svnversion.h"
 #endif
 #include "util_ghostscript.h"
 #include "util_icon.h"
@@ -133,13 +133,14 @@ About::About( QWidget* parent, AboutMode diaMode ) : QDialog( parent )
 	if (BUILD_NAME == "BleedingEdge")
 		built = tr("%3-%2-%1 %4 %5").arg(BUILD_DAY).arg(BUILD_MONTH).arg(BUILD_YEAR).arg(BUILD_TIME).arg(BUILD_TZ);
 
-#ifndef Q_OS_WIN
-	QString revText;
-	revText=QString("SVN Revision: %1").arg(SVNVERSION);
-	built+=" - ";
-	built+=revText;
+#ifdef WANT_SVNVERSION
+	#ifdef SVNVERSION
+		QString revText;
+		revText=QString("SVN Revision: %1").arg(SVNVERSION);
+		built+=" - ";
+		built+=revText;
+	#endif
 #endif
-
 	QString bu;
 	bu += "C";
 	bu += "-";

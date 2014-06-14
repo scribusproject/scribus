@@ -1,24 +1,19 @@
-#add_custom_target(svnheader ALL DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/svnheader.h)
-#add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/svnheader.h
-#	COMMAND ${CMAKE_COMMAND} -DSOURCE_DIR=${CMAKE_CURRENT_SOURCE_DIR}
-#						 -P ${CMAKE_MODULE_PATH}/getsvn.cmake)
-#set_source_files_properties(${CMAKE_CURRENT_BINARY_DIR}/svnversion.h
-#	PROPERTIES GENERATED TRUE
-#	HEADER_FILE_ONLY TRUE)
 
+IF (WANT_SVNVERSION)
+	MESSAGE(STATUS "SVN Version requested in About dialog")
+	# a custom target that is always built
+	add_custom_target(svnheader ALL
+		DEPENDS svn_header ) # svn_header is nothing more than a unique string
 
-# a custom target that is always built
-add_custom_target(svnheader ALL
-	DEPENDS svn_header ) # svn_header is nothing more than a unique string
+	# creates svnheader.h using cmake script
+	add_custom_command(OUTPUT svn_header ${CMAKE_CURRENT_BINARY_DIR}/svnheader.h
+		COMMAND ${CMAKE_COMMAND} -DSOURCE_DIR=${CMAKE_CURRENT_SOURCE_DIR}
+							 -P ${CMAKE_MODULE_PATH}/getsvn.cmake)
 
-# creates svnheader.h using cmake script
-add_custom_command(OUTPUT svn_header ${CMAKE_CURRENT_BINARY_DIR}/svnheader.h
-	COMMAND ${CMAKE_COMMAND} -DSOURCE_DIR=${CMAKE_CURRENT_SOURCE_DIR}
-						 -P ${CMAKE_MODULE_PATH}/getsvn.cmake)
-
-set_source_files_properties(${CMAKE_CURRENT_BINARY_DIR}/svnversion.h
-	PROPERTIES GENERATED TRUE
-	HEADER_FILE_ONLY TRUE)
+	set_source_files_properties(${CMAKE_CURRENT_BINARY_DIR}/svnversion.h
+		PROPERTIES GENERATED TRUE
+		HEADER_FILE_ONLY TRUE)
+ENDIF (WANT_SVNVERSION)
 
 IF(WIN32)
 	ADD_DEFINITIONS(-DQT_DLL)
