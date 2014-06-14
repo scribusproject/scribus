@@ -13936,7 +13936,12 @@ void ScribusDoc::itemSelection_MultipleDuplicate(ItemMultipleDuplicateData& mdDa
 			}
 			m_Selection->clear();
 		}
-		tooltip = tr("Number of copies: %1\nHorizontal shift: %2\nVertical shift: %3\nRotation: %4").arg(mdData.copyCount).arg(dH).arg(dV).arg(dR);
+		QString unitSuffix = unitGetStrFromIndex(this->unitIndex());
+		int unitPrecision = unitGetPrecisionFromIndex(this->unitIndex());
+		QString hString = QString::number(dH * docUnitRatio, 'f', unitPrecision) + " " + unitSuffix;
+		QString vString = QString::number(dV * docUnitRatio, 'f', unitPrecision) + " " + unitSuffix;
+		QString dString = QString::number(dR) + " " + unitGetStrFromIndex(SC_DEGREES);
+		tooltip = tr("Number of copies: %1\nHorizontal shift: %2\nVertical shift: %3\nRotation: %4").arg(mdData.copyCount).arg(hString).arg(vString).arg(dString);
 	}
 	else if (mdData.type==1) // Create a grid of duplicated items
 	{
@@ -13964,7 +13969,11 @@ void ScribusDoc::itemSelection_MultipleDuplicate(ItemMultipleDuplicateData& mdDa
 				}
 			}
 		}
-		tooltip = tr("Number of copies: %1\nHorizontal gap: %2\nVertical gap: %3").arg(copyCount-1).arg(mdData.gridGapH).arg(mdData.gridGapV);
+		QString unitSuffix = unitGetStrFromIndex(this->unitIndex());
+		int unitPrecision = unitGetPrecisionFromIndex(this->unitIndex());
+		QString hString = QString::number(mdData.gridGapH, 'f', unitPrecision) + " " + unitSuffix;
+		QString vString = QString::number(mdData.gridGapV, 'f', unitPrecision) + " " + unitSuffix;
+		tooltip = tr("Number of copies: %1\nHorizontal gap: %2\nVertical gap: %3").arg(copyCount-1).arg(hString).arg(vString).arg(unitSuffix);
 	}
 	if (activeTransaction)
 	{
@@ -15378,81 +15387,6 @@ void ScribusDoc::itemSelection_UnGroupObjects(Selection* customSelection)
 	dontResize = true;
 	for (int b = 0; b < toDelete.count(); b++)
 	{
-	/*	currItem = toDelete.at(b);
-		QList<PageItem*> *list = Items;
-		list = parentGroup(currItem, Items);
-		int d = list->indexOf(currItem);
-		list->removeAt(d);
-		itemSelection->removeItem(currItem);
-		Selection tempSelection(this, false);
-		tempSelection.delaySignalsOn();
-		int gcount = currItem->groupItemList.count() - 1;
-		for (int c = gcount; c >= 0; c--)
-		{
-			PageItem* gItem = currItem->groupItemList.at(c);
-			gItem->Parent = currItem->Parent;
-			gItem->setXYPos(currItem->xPos() + gItem->gXpos, currItem->yPos() + gItem->gYpos, true);
-			list->insert(d, gItem);
-			itemSelection->addItem(currItem->groupItemList.at(gcount - c));
-			tempSelection.addItem(currItem->groupItemList.at(gcount - c));
-		}
-		if ((currItem->width() != currItem->groupWidth) || (currItem->height() != currItem->groupHeight))
-			scaleGroup(currItem->width() / currItem->groupWidth, currItem->height() / currItem->groupHeight, true, &tempSelection, true);
-		QTransform ma = currItem->getTransform();
-		FPoint n;
-		for (int a = 0; a < tempSelection.count(); ++a)
-		{
-			PageItem* rItem = tempSelection.itemAt(a);
-			if (rItem->isGroup())
-			{
-				rItem->groupWidth = rItem->width() / (currItem->width() / currItem->groupWidth);
-				rItem->groupHeight = rItem->height() / (currItem->height() / currItem->groupHeight);
-			}
-			n = FPoint(rItem->xPos() - currItem->xPos(), rItem->yPos() - currItem->yPos());
-			rItem->setXYPos(ma.m11() * n.x() + ma.m21() * n.y() + ma.dx(), ma.m22() * n.y() + ma.m12() * n.x() + ma.dy());
-			rItem->rotateBy(currItem->rotation());
-			QTransform itemTrans = rItem->getTransform();
-			if (itemTrans.m11() < 0)
-			{
-				rItem->gXpos -= rItem->width();
-				if (rItem->isImageFrame() || rItem->isTextFrame() || rItem->isLatexFrame() || rItem->isOSGFrame() || rItem->isSymbol() || rItem->isGroup() || rItem->isSpiral())
-					rItem->flipImageH();
-				if (rItem->itemType() != PageItem::Line)
-				{
-					QTransform ma;
-					ma.scale(-1, 1);
-					rItem->PoLine.map(ma);
-					rItem->PoLine.translate(rItem->width(), 0);
-				}
-			}
-			if (itemTrans.m22() < 0)
-			{
-				rItem->gYpos -= rItem->height();
-				if (rItem->isImageFrame() || rItem->isTextFrame() || rItem->isLatexFrame() || rItem->isOSGFrame() || rItem->isSymbol() || rItem->isGroup() || rItem->isSpiral())
-					rItem->flipImageV();
-				if (rItem->itemType() != PageItem::Line)
-				{
-					QTransform ma;
-					ma.scale(1, -1);
-					rItem->PoLine.map(ma);
-					rItem->PoLine.translate(0, rItem->height());
-				}
-			}
-			setRedrawBounding(rItem);
-			rItem->OwnPage = OnPage(rItem);
-		}
-
-		if(UndoManager::undoEnabled())
-		{
-			ScItemState<QList<QPointer<PageItem> > > *is = new ScItemState<QList<QPointer<PageItem> > >(UndoManager::Ungroup);
-			is->set("UNGROUP", "ungroup");
-			tempSelection.addItem(currItem,true);
-			is->setItem(tempSelection.selectionList());
-			undoManager->action(this, is);
-		}
-
-		tempSelection.clear();
-		tempSelection.delaySignalsOff();*/
 		currItem = toDelete.at(b);
 		QList<PageItem*> *list = Items;
 		list = parentGroup(currItem, Items);
@@ -15482,7 +15416,7 @@ void ScribusDoc::itemSelection_UnGroupObjects(Selection* customSelection)
 			ScItemState<QList<QPointer<PageItem> > > *is = new ScItemState<QList<QPointer<PageItem> > >(UndoManager::Ungroup);
 			is->set("UNGROUP", "ungroup");
 			Selection tempSelection(this, false);
-			tempSelection.addItem(currItem,true);
+			tempSelection.addItem(currItem, true);
 			is->setItem(tempSelection.selectionList());
 			undoManager->action(this, is);
 		}
@@ -15499,7 +15433,7 @@ void ScribusDoc::itemSelection_UnGroupObjects(Selection* customSelection)
 			currItem->unWeld();
 		delete currItem;
 	}
-	if(activeTransaction)
+	if (activeTransaction)
 	{
 		activeTransaction->commit();
 		delete activeTransaction;
