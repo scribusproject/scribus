@@ -184,7 +184,7 @@ bool ImportPdfPlugin::import(QString fileName, int flags)
 	bool isCleanedFile = false;
 	QString cleanFile = "";
 	QFileInfo fi(fileName);
-	QStringList exts = QStringList() << "eps" << "epsf" << "epsi" << "eps2" << "eps3" << "epi" << "ept" << "ps";
+	QStringList exts = QStringList() << "eps" << "epsf" << "epsi" << "eps2" << "eps3" << "epi" << "ept" << "ps" << "ai";
 	if (exts.contains(fi.suffix().toLower()))
 	{
 		if (ScCore->haveGS())

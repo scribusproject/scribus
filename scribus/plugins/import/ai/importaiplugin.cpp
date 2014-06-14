@@ -156,8 +156,8 @@ bool ImportAIPlugin::import(QString fileName, int flags)
 		QFile fT(fileName);
 		if (fT.open(QIODevice::ReadOnly))
 		{
-			QByteArray tempBuf(9, ' ');
-			fT.read(tempBuf.data(), 8);
+			QByteArray tempBuf(25, ' ');
+			fT.read(tempBuf.data(), 24);
 			fT.close();
 			if (tempBuf.startsWith("%PDF"))
 			{
@@ -194,6 +194,29 @@ bool ImportAIPlugin::import(QString fileName, int flags)
 					return success;
 				}
 				qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
+			}
+			else if (tempBuf.startsWith("%!PS-Adobe-3.0 EPSF-3.0"))
+			{
+				//Import EPS
+				const FileFormat *fmt = LoadSavePlugin::getFormatByExt("eps");
+				if (!fmt)
+				{
+					QMessageBox::warning(ScCore->primaryMainWindow(), CommonStrings::trWarning, tr("The EPS Import plugin could not be found"), 1, 0, 0);
+					return false;
+				}
+				qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
+				bool success = fmt->loadFile(fileName, flags);
+				if (activeTransaction)
+				{
+					activeTransaction->commit();
+					delete activeTransaction;
+					activeTransaction = NULL;
+				}
+				if (emptyDoc || !(flags & lfInteractive) || !(flags & lfScripted))
+					UndoManager::instance()->setUndoEnabled(true);
+				if (!success)
+					QMessageBox::warning(ScCore->primaryMainWindow(), CommonStrings::trWarning, tr("The file could not be imported"), 1, 0, 0);
+				return success;
 			}
 		}
 	}
