@@ -584,78 +584,76 @@ void BibView::ReadContents(QString name)
 	{
 		QString ext = "*." + vectorFiles[v];
 		QDir d4(name, ext, QDir::Name, QDir::Files | QDir::Readable | QDir::NoSymLinks);
-		if ((d4.exists()) && (d4.count() != 0))
+		if ((!d4.exists()) || (d4.count() <= 0))
+			continue;
+		for (uint dc = 0; dc < d4.count(); ++dc)
 		{
-			for (uint dc = 0; dc < d4.count(); ++dc)
+			if (pgDia)
 			{
-				if (pgDia)
+				pgDia->setValue(readCount);
+				readCount++;
+			}
+			QPixmap pm;
+			QFileInfo fi(QDir::cleanPath(QDir::toNativeSeparators(name + "/" + d4[dc])));
+			QFileInfo fi2(QDir::cleanPath(QDir::toNativeSeparators(fi.path()+"/.ScribusThumbs/"+fi.fileName()+".png")));
+			if (fi2.exists())
+				pm.load(QDir::cleanPath(QDir::toNativeSeparators(fi.path()+"/.ScribusThumbs/"+fi.fileName()+".png")));
+			else
+			{
+				FileLoader *fileLoader = new FileLoader(QDir::cleanPath(QDir::toNativeSeparators(name + "/" + d4[dc])));
+				int testResult = fileLoader->testFile();
+				delete fileLoader;
+				if ((testResult != -1) && (testResult >= FORMATID_FIRSTUSER))
 				{
-					pgDia->setValue(readCount);
-					readCount++;
-				}
-				QPixmap pm;
-				QFileInfo fi(QDir::cleanPath(QDir::toNativeSeparators(name + "/" + d4[dc])));
-				QFileInfo fi2(QDir::cleanPath(QDir::toNativeSeparators(fi.path()+"/.ScribusThumbs/"+fi.fileName()+".png")));
-				if (fi2.exists())
-					pm.load(QDir::cleanPath(QDir::toNativeSeparators(fi.path()+"/.ScribusThumbs/"+fi.fileName()+".png")));
-				else
-				{
-					FileLoader *fileLoader = new FileLoader(QDir::cleanPath(QDir::toNativeSeparators(name + "/" + d4[dc])));
-					int testResult = fileLoader->testFile();
-					delete fileLoader;
-					if ((testResult != -1) && (testResult >= FORMATID_FIRSTUSER))
+					const FileFormat * fmt = LoadSavePlugin::getFormatById(testResult);
+					if( fmt )
 					{
-						const FileFormat * fmt = LoadSavePlugin::getFormatById(testResult);
-						if( fmt )
-						{
-							QImage im = fmt->readThumbnail(QDir::cleanPath(QDir::toNativeSeparators(name + "/" + d4[dc])));
-							im = im.scaled(60, 60, Qt::KeepAspectRatio, Qt::SmoothTransformation);
-							if ((canWrite) && (PrefsManager::instance()->appPrefs.scrapbookPrefs.writePreviews))
-								im.save(QDir::cleanPath(QDir::toNativeSeparators(fi.path()+"/.ScribusThumbs/"+fi.fileName()+".png")), "PNG");
-							pm = QPixmap::fromImage(im);
-						}
+						QImage im = fmt->readThumbnail(QDir::cleanPath(QDir::toNativeSeparators(name + "/" + d4[dc])));
+						im = im.scaled(60, 60, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+						if ((canWrite) && (PrefsManager::instance()->appPrefs.scrapbookPrefs.writePreviews))
+							im.save(QDir::cleanPath(QDir::toNativeSeparators(fi.path()+"/.ScribusThumbs/"+fi.fileName()+".png")), "PNG");
+						pm = QPixmap::fromImage(im);
 					}
 				}
-				AddObj(fi.fileName(), QDir::cleanPath(QDir::toNativeSeparators(name + "/" + d4[dc])), pm, false, false, true);
 			}
+			AddObj(fi.fileName(), QDir::cleanPath(QDir::toNativeSeparators(name + "/" + d4[dc])), pm, false, false, true);
 		}
 	}
 	for (int v = 0; v < rasterFiles.count(); v++)
 	{
 		QString ext = "*." + rasterFiles[v];
 		QDir d5(name, ext, QDir::Name, QDir::Files | QDir::Readable | QDir::NoSymLinks);
-		if ((d5.exists()) && (d5.count() != 0))
+		if ((!d5.exists()) || (d5.count() <= 0))
+			continue;
+		for (uint dc = 0; dc < d5.count(); ++dc)
 		{
-			for (uint dc = 0; dc < d5.count(); ++dc)
+			if (pgDia)
 			{
-				if (pgDia)
-				{
-					pgDia->setValue(readCount);
-					readCount++;
-				}
-				if (previewFiles.contains(d5[dc]))
-					continue;
-				QPixmap pm;
-				QFileInfo fi(QDir::cleanPath(QDir::toNativeSeparators(name + "/" + d5[dc])));
-				QFileInfo fi2(QDir::cleanPath(QDir::toNativeSeparators(fi.path()+"/.ScribusThumbs/"+fi.fileName()+".png")));
-				if (fi2.exists())
-					pm.load(QDir::cleanPath(QDir::toNativeSeparators(fi.path()+"/.ScribusThumbs/"+fi.fileName()+".png")));
-				else
-				{
-					bool mode = false;
-					ScImage im;
-					CMSettings cms(0, "", Intent_Perceptual);
-					cms.allowColorManagement(false);
-					if (im.loadPicture(QDir::cleanPath(QDir::toNativeSeparators(name + "/" + d5[dc])), 1, cms, ScImage::Thumbnail, 72, &mode))
-					{
-						QImage img = im.scaled(60, 60, Qt::KeepAspectRatio, Qt::SmoothTransformation);
-						if ((canWrite) && (PrefsManager::instance()->appPrefs.scrapbookPrefs.writePreviews))
-							img.save(QDir::cleanPath(QDir::toNativeSeparators(fi.path()+"/.ScribusThumbs/"+fi.fileName()+".png")), "PNG");
-						pm = QPixmap::fromImage(img);
-					}
-				}
-				AddObj(fi.fileName(), QDir::cleanPath(QDir::toNativeSeparators(name + "/" + d5[dc])), pm, false, true);
+				pgDia->setValue(readCount);
+				readCount++;
 			}
+			if (previewFiles.contains(d5[dc]))
+				continue;
+			QPixmap pm;
+			QFileInfo fi(QDir::cleanPath(QDir::toNativeSeparators(name + "/" + d5[dc])));
+			QFileInfo fi2(QDir::cleanPath(QDir::toNativeSeparators(fi.path()+"/.ScribusThumbs/"+fi.fileName()+".png")));
+			if (fi2.exists())
+				pm.load(QDir::cleanPath(QDir::toNativeSeparators(fi.path()+"/.ScribusThumbs/"+fi.fileName()+".png")));
+			else
+			{
+				bool mode = false;
+				ScImage im;
+				CMSettings cms(0, "", Intent_Perceptual);
+				cms.allowColorManagement(false);
+				if (im.loadPicture(QDir::cleanPath(QDir::toNativeSeparators(name + "/" + d5[dc])), 1, cms, ScImage::Thumbnail, 72, &mode))
+				{
+					QImage img = im.scaled(60, 60, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+					if ((canWrite) && (PrefsManager::instance()->appPrefs.scrapbookPrefs.writePreviews))
+						img.save(QDir::cleanPath(QDir::toNativeSeparators(fi.path()+"/.ScribusThumbs/"+fi.fileName()+".png")), "PNG");
+					pm = QPixmap::fromImage(img);
+				}
+			}
+			AddObj(fi.fileName(), QDir::cleanPath(QDir::toNativeSeparators(name + "/" + d5[dc])), pm, false, true);
 		}
 	}
 	if (pgDia)
@@ -1425,7 +1423,7 @@ void Biblio::renameObj()
 	d.rename(ObjData, QDir::cleanPath(QDir::toNativeSeparators(activeBView->ScFilename + "/" + ite->text() + ".sce")));
 	QFileInfo fi(QDir::toNativeSeparators(activeBView->ScFilename + "/.ScribusThumbs/" + OldName + ".png"));
 	if (fi.exists())
-		d.rename(QDir::toNativeSeparators(activeBView->ScFilename + "/.ScribusThumbs/" + OldName + ".png"), QDir::cleanPath(QDir::toNativeSeparators(activeBView->ScFilename + "/" + ite->text() + ".png")));
+		d.rename(QDir::toNativeSeparators(activeBView->ScFilename + "/.ScribusThumbs/" + OldName + ".png"), QDir::cleanPath(QDir::toNativeSeparators(activeBView->ScFilename + "/.ScribusThumbs/" + ite->text() + ".png")));
 	QFileInfo fiD(QDir::toNativeSeparators(activeBView->ScFilename + "/" + OldName));
 	if ((fiD.exists()) && (fiD.isDir()))
 	{
