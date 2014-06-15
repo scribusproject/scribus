@@ -8493,7 +8493,7 @@ The Insert key inserts a Glyph into the Selection below and the Delete key remov
     <message>
         <location filename="../../scribus/ui/checkDocument.cpp" line="637"/>
         <source>Free Objects</source>
-        <translation>Libérer les objets</translation>
+        <translation>Objets libres</translation>
     </message>
     <message>
         <source>Problems found</source>
@@ -18919,7 +18919,7 @@ You cannot switch to different notes style before you apply that new one or pres
     <message>
         <location filename="../../scribus/ui/outlinepalette.cpp" line="1296"/>
         <source>Free Objects</source>
-        <translation>Libérer les objets</translation>
+        <translation>Objets libres</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/outlinepalette.cpp" line="1388"/>
@@ -47681,7 +47681,7 @@ Les niveaux 1 et 2 peuvent créer des fichiers volumineux</translation>
     <name>Tree</name>
     <message>
         <source>Free Objects</source>
-        <translation type="obsolete">Libérer les objets</translation>
+        <translation type="obsolete">Objets libres</translation>
     </message>
     <message>
         <source>Group </source>
