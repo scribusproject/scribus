@@ -5468,7 +5468,7 @@ int ScribusDoc::itemAdd(const PageItem::ItemType itemType, const PageItem::ItemF
 		if (activeTransaction)
 		{
 			//dont think we need this now ... newItem->checkChanges(true);
-			activeTransaction->commit(Pages->at(newItem->OwnPage)->getUName(), newItem->getUPixmap(),
+			activeTransaction->commit(target->getUName(), newItem->getUPixmap(),
 											  Um::Create + " " + newItem->getUName(),  "", Um::ICreate);
 			delete activeTransaction;
 			activeTransaction = NULL;
