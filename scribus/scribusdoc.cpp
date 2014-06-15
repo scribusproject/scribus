@@ -13827,6 +13827,12 @@ void ScribusDoc::setCurrentPage(ScPage *newPage)
 			m_ScMW->pagePalette->markPage(newPage->pageNr());
 		}
 	}
+	m_constants.insert("pagewidth", newPage->width());
+	m_constants.insert("pageheight", newPage->height());
+	m_constants.insert("marginleft", newPage->Margins.Left);
+	m_constants.insert("marginright", newPage->width() - newPage->Margins.Right);
+	m_constants.insert("margintop", newPage->Margins.Top);
+	m_constants.insert("marginbottom", newPage->height() - newPage->Margins.Bottom);
 }
 
 
