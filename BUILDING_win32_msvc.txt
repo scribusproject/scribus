@@ -42,7 +42,7 @@ In order to do that, create a batch script and copy/paste following lines :
 
 set SCRIBUS_SRC_PATH=.\Scribus
 set SCRIBUS_BUILD_ROOT=.\Scribus-builds
-set SCRIBUS_INSTALL_PATH=.\Scribus-builds\scribus-vc9-debug-cairo\scribus
+set SCRIBUS_INSTALL_PATH=.\Scribus-builds\scribus-vc9-debug-cairo
 
  copy %SCRIBUS_SRC_PATH%\AUTHORS %SCRIBUS_INSTALL_PATH%\share\doc
  copy %SCRIBUS_SRC_PATH%\COPYING %SCRIBUS_INSTALL_PATH%\share\doc
