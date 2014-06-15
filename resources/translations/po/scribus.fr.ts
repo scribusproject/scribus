@@ -7853,7 +7853,7 @@ The Insert key inserts a Glyph into the Selection below and the Delete key remov
     <message>
         <location filename="../../../scribus/checkDocument.cpp" line="627"/>
         <source>Free Objects</source>
-        <translation>Libérer les objets</translation>
+        <translation>Objets libres</translation>
     </message>
     <message>
         <source>Problems found</source>
@@ -16292,7 +16292,7 @@ Tous les ancrages seront remis à zéro si aucun d’eux n’est sélectioné.</
     <message>
         <location filename="../../../scribus/outlinepalette.cpp" line="831"/>
         <source>Free Objects</source>
-        <translation>Libérer les objets</translation>
+        <translation>Objets libres</translation>
     </message>
     <message>
         <location filename="../../../scribus/outlinepalette.cpp" line="932"/>
@@ -33856,7 +33856,7 @@ Les niveaux 1 et 2 peuvent créer des fichiers volumineux</translation>
     <name>Tree</name>
     <message>
         <source>Free Objects</source>
-        <translation type="obsolete">Libérer les objets</translation>
+        <translation type="obsolete">Objets libres</translation>
     </message>
     <message>
         <source>Group </source>
