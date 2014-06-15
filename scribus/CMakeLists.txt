@@ -1,5 +1,6 @@
 
 IF (WANT_SVNVERSION)
+	ADD_DEFINITIONS(-DHAVE_SVNVERSION)
 	MESSAGE(STATUS "SVN Version requested in About dialog")
 	# a custom target that is always built
 	add_custom_target(svnheader ALL

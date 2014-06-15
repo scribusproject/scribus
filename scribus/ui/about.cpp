@@ -33,7 +33,7 @@ for which a new license (GPL+exception) is in place.
 #include "scconfig.h"
 #include "scpaths.h"
 #include "sctextbrowser.h"
-#ifdef WANT_SVNVERSION
+#ifdef HAVE_SVNVERSION
 	#include "svnversion.h"
 #endif
 #include "util_ghostscript.h"
@@ -115,8 +115,8 @@ About::About( QWidget* parent, AboutMode diaMode ) : QDialog( parent )
 	buildID = new QLabel( tab );
 	buildID->setAlignment(Qt::AlignCenter);
 	buildID->setTextInteractionFlags(Qt::TextSelectableByMouse);
-	QString BUILD_DAY = "29";
-	QString BUILD_MONTH = CommonStrings::may;
+	QString BUILD_DAY = "15";
+	QString BUILD_MONTH = CommonStrings::june;
 	QString BUILD_YEAR = "2014";
 	QString BUILD_TIME = "";
 	QString BUILD_TZ = "";
@@ -133,7 +133,7 @@ About::About( QWidget* parent, AboutMode diaMode ) : QDialog( parent )
 	if (BUILD_NAME == "BleedingEdge")
 		built = tr("%3-%2-%1 %4 %5").arg(BUILD_DAY).arg(BUILD_MONTH).arg(BUILD_YEAR).arg(BUILD_TIME).arg(BUILD_TZ);
 
-#ifdef WANT_SVNVERSION
+#ifdef HAVE_SVNVERSION
 	#ifdef SVNVERSION
 		QString revText;
 		revText=QString("SVN Revision: %1").arg(SVNVERSION);
