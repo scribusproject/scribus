@@ -5094,14 +5094,17 @@ void ScribusDoc::recalculateColors()
 		QList<VColorStop*> cstops = itGrad.value().colorStops();
 		for (uint cst = 0; cst < itGrad.value().Stops(); ++cst)
 		{
-			const ScColor& col = PageColors[cstops.at(cst)->name];
-			QColor tmp = ScColorEngine::getShadeColorProof(col, this, cstops.at(cst)->shade);
-			if (viewAsPreview)
+			if (cstops.at(cst)->name != CommonStrings::None)
 			{
-				VisionDefectColor defect;
-				tmp = defect.convertDefect(tmp, previewVisual);
+				const ScColor& col = PageColors[cstops.at(cst)->name];
+				QColor tmp = ScColorEngine::getShadeColorProof(col, this, cstops.at(cst)->shade);
+				if (viewAsPreview)
+				{
+					VisionDefectColor defect;
+					tmp = defect.convertDefect(tmp, previewVisual);
+				}
+				cstops.at(cst)->color = tmp;
 			}
-			cstops.at(cst)->color = tmp;
 		}
 	}
 

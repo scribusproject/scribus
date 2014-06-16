@@ -2422,12 +2422,15 @@ QString PageItem::ExpandToken(uint base)
 
 void PageItem::SetQColor(QColor *tmp, QString farbe, double shad)
 {
-	const ScColor& col = m_Doc->PageColors[farbe];
-	*tmp = ScColorEngine::getShadeColorProof(col, m_Doc, shad);
-	if (m_Doc->viewAsPreview)
+	if (farbe != CommonStrings::None)
 	{
-		VisionDefectColor defect;
-		*tmp = defect.convertDefect(*tmp, m_Doc->previewVisual);
+		const ScColor& col = m_Doc->PageColors[farbe];
+		*tmp = ScColorEngine::getShadeColorProof(col, m_Doc, shad);
+		if (m_Doc->viewAsPreview)
+		{
+			VisionDefectColor defect;
+			*tmp = defect.convertDefect(*tmp, m_Doc->previewVisual);
+		}
 	}
 }
 
