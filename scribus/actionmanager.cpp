@@ -1653,7 +1653,7 @@ void ActionManager::languageChange()
 	(*scrActions)["toolsPreflightVerifier"]->setTexts( tr("Preflight &Verifier"));
 	(*scrActions)["toolsAlignDistribute"]->setTexts( tr("&Align and Distribute"));
 	(*scrActions)["toolsSymbols"]->setTexts( tr("Symbols"));
-	(*scrActions)["toolsInline"]->setTexts( tr("Inline Frames"));
+	(*scrActions)["toolsInline"]->setTexts( tr("Inline Items"));
 	(*scrActions)["toolsToolbarTools"]->setTexts( tr("&Tools"));
 	(*scrActions)["toolsToolbarPDF"]->setTexts( tr("P&DF Tools"));
 	(*scrActions)["toolsToolbarView"]->setTexts( tr("&View Tools"));
