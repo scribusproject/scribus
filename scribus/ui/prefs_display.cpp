@@ -84,6 +84,22 @@ void Prefs_Display::languageChange()
 	adjustDisplaySlider->setToolTip( "<qt>" + tr( "Place a ruler against your screen and drag the slider to set the zoom level so Scribus will display your pages and objects on them at the correct size" ) + "</qt>" );
 }
 
+void Prefs_Display::unitChange(int unitIndex)
+{
+	scratchSpaceLeftSpinBox->setMaximum(1000);
+	scratchSpaceRightSpinBox->setMaximum(1000);
+	scratchSpaceTopSpinBox->setMaximum(1000);
+	scratchSpaceBottomSpinBox->setMaximum(1000);
+	pageGapHorizontalSpinBox->setMaximum(1000);
+	pageGapVerticalSpinBox->setMaximum(1000);
+	scratchSpaceLeftSpinBox->setNewUnit(unitIndex);
+	scratchSpaceRightSpinBox->setNewUnit(unitIndex);
+	scratchSpaceTopSpinBox->setNewUnit(unitIndex);
+	scratchSpaceBottomSpinBox->setNewUnit(unitIndex);
+	pageGapHorizontalSpinBox->setNewUnit(unitIndex);
+	pageGapVerticalSpinBox->setNewUnit(unitIndex);
+}
+
 void Prefs_Display::restoreDefaults(struct ApplicationPrefs *prefsData)
 {
 	docUnitIndex = prefsData->docSetupPrefs.docUnitIndex;
@@ -103,18 +119,7 @@ void Prefs_Display::restoreDefaults(struct ApplicationPrefs *prefsData)
 	showVerifierWarningsOnCanvasCheckBox->setChecked(prefsData->displayPrefs.showVerifierWarningsOnCanvas);
 	showAutosaveClockOnCanvasCheckBox->setChecked(prefsData->displayPrefs.showAutosaveClockOnCanvas);
 
-	scratchSpaceLeftSpinBox->setMaximum(1000);
-	scratchSpaceRightSpinBox->setMaximum(1000);
-	scratchSpaceTopSpinBox->setMaximum(1000);
-	scratchSpaceBottomSpinBox->setMaximum(1000);
-	pageGapHorizontalSpinBox->setMaximum(1000);
-	pageGapVerticalSpinBox->setMaximum(1000);
-	scratchSpaceLeftSpinBox->setNewUnit(docUnitIndex);
-	scratchSpaceRightSpinBox->setNewUnit(docUnitIndex);
-	scratchSpaceTopSpinBox->setNewUnit(docUnitIndex);
-	scratchSpaceBottomSpinBox->setNewUnit(docUnitIndex);
-	pageGapHorizontalSpinBox->setNewUnit(docUnitIndex);
-	pageGapVerticalSpinBox->setNewUnit(docUnitIndex);
+	unitChange(docUnitIndex);
 
 	scratchSpaceLeftSpinBox->setValue(prefsData->displayPrefs.scratch.Left * unitRatio);
 	scratchSpaceRightSpinBox->setValue(prefsData->displayPrefs.scratch.Right * unitRatio);

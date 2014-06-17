@@ -26,6 +26,7 @@ class SCRIBUS_API Prefs_OperatorTools : public Prefs_Pane, Ui::Prefs_OperatorToo
 
 	public slots:
 		void languageChange();
+		void unitChange(int);
 };
 
 #endif // PREFS_OPERATORTOOLS_H

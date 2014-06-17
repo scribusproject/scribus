@@ -26,7 +26,7 @@ class SCRIBUS_API Prefs_Display : public Prefs_Pane, Ui::Prefs_Display
 
 	public slots:
 		void languageChange();
-
+		void unitChange(int unitIndex);
 
 	protected slots:
 		/*!

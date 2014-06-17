@@ -27,6 +27,7 @@ class SCRIBUS_API Prefs_Fonts : public Prefs_Pane, Ui::Prefs_Fonts
 		~Prefs_Fonts();
 		virtual void restoreDefaults(struct ApplicationPrefs *prefsData);
 		virtual void saveGuiToPrefs(struct ApplicationPrefs *prefsData) const;
+		virtual void changeUnit(struct ApplicationPrefs *prefsData) const;
 
 	public slots:
 		void languageChange();

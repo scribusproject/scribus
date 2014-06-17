@@ -69,6 +69,7 @@ class SCRIBUS_API Prefs_DocumentSetup : public Prefs_Pane, Ui::Prefs_DocumentSet
 
 	signals:
 		void changeToOtherSection(const QString&);
+		void prefsChangeUnits(int unit);
 	};
 
 #endif // PREFS_DOCUMENTSETUP_H

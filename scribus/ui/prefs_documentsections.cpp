@@ -48,7 +48,6 @@ void Prefs_DocumentSections::saveGuiToPrefs(struct ApplicationPrefs *prefsData) 
 	prefsData->docSectionMap=localSections;
 }
 
-
 void Prefs_DocumentSections::updateTable()
 {
 	sectionsTable->setRowCount(localSections.count());

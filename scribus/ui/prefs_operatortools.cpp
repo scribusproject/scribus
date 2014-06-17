@@ -41,14 +41,20 @@ void Prefs_OperatorTools::languageChange()
 	rotationConstraintSpinBox->setToolTip( tr( "Constrain value for the rotation tool when the Control key is pressed" ) );
 }
 
+void Prefs_OperatorTools::unitChange(int unitIndex)
+{
+	itemDuplicateXDispSpinBox->setNewUnit(unitIndex);
+	itemDuplicateYDispSpinBox->setNewUnit(unitIndex);
+}
+
 void Prefs_OperatorTools::restoreDefaults(struct ApplicationPrefs *prefsData)
 {
 	zoomMinimumSpinBox->setValue(prefsData->opToolPrefs.magMin);
 	zoomMaximumSpinBox->setValue(prefsData->opToolPrefs.magMax);
 	zoomSteppingSpinBox->setValue(prefsData->opToolPrefs.magStep);
+	int docUnitIndex = prefsData->docSetupPrefs.docUnitIndex;
+	unitChange(docUnitIndex);
 	double unitRatio = unitGetRatioFromIndex(prefsData->docSetupPrefs.docUnitIndex);
-	itemDuplicateXDispSpinBox->setNewUnit(prefsData->docSetupPrefs.docUnitIndex);
-	itemDuplicateYDispSpinBox->setNewUnit(prefsData->docSetupPrefs.docUnitIndex);
 	itemDuplicateXDispSpinBox->setValue(prefsData->opToolPrefs.dispX * unitRatio);
 	itemDuplicateYDispSpinBox->setValue(prefsData->opToolPrefs.dispY * unitRatio);
 	rotationConstraintSpinBox->setValue(prefsData->opToolPrefs.constrain);

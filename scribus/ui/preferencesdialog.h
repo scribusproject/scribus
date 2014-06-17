@@ -72,6 +72,7 @@ class SCRIBUS_API PreferencesDialog : public QDialog, Ui::PreferencesDialog
 		void setupGui();
 		void saveGuiToPrefs();
 		void setNewItemSelected(const QString &s);
+		void changeUnits(int u);
 
 	protected slots:
 		virtual void languageChange();

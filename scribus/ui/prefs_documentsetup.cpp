@@ -84,6 +84,8 @@ void Prefs_DocumentSetup::unitChange()
 
 	pageWidthSpinBox->blockSignals(false);
 	pageHeightSpinBox->blockSignals(false);
+
+	emit prefsChangeUnits(docUnitIndex);
 }
 
 void Prefs_DocumentSetup::languageChange()

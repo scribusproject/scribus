@@ -219,6 +219,11 @@ void Prefs_Fonts::saveGuiToPrefs(struct ApplicationPrefs *prefsData) const
 
 }
 
+void Prefs_Fonts::changeUnit(ApplicationPrefs *prefsData) const
+{
+	//Blank, no units on this tab, yet
+}
+
 void Prefs_Fonts::ReplaceSel()
 {
 	int selCount = fontSubstitutionsTableWidget->selectedItems().count();

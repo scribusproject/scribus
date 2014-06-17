@@ -156,6 +156,7 @@ PreferencesDialog::PreferencesDialog(QWidget* parent, ApplicationPrefs& prefsDat
 	}
 
 	connect(prefs_DocumentSetup, SIGNAL(changeToOtherSection(const QString&)), this, SLOT(setNewItemSelected(const QString&)));
+	connect(prefs_DocumentSetup, SIGNAL(prefsChangeUnits(int)), this, SLOT(changeUnits(int)));
 	connect(okButton, SIGNAL(clicked()), this, SLOT(accept()));
 	connect(cancelButton, SIGNAL(clicked()), this, SLOT(reject()));
 	connect(applyButton, SIGNAL(clicked()), this, SLOT(applyButtonClicked()));
@@ -328,6 +329,16 @@ void PreferencesDialog::setNewItemSelected(const QString &s)
 		if (i!=-1)
 			preferencesTypeList->setCurrentRow(i);
 	}
+}
+
+void PreferencesDialog::changeUnits(int u)
+{
+	prefs_Display->unitChange(u);
+	prefs_Guides->unitChange(u);
+	prefs_ItemTools->unitChange(u);
+	prefs_OperatorTools->unitChange(u);
+	prefs_PDFExport->unitChange(u);
+	prefs_Printer->unitChange(u);
 }
 
 void PreferencesDialog::changeEvent(QEvent *e)
