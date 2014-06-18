@@ -4720,6 +4720,8 @@ bool ScribusMainWindow::DoFileClose()
 		scrActions["editSelectAll"]->setEnabled(false);
 		scrActions["editSelectAllOnLayer"]->setEnabled(false);
 		scrActions["editDeselectAll"]->setEnabled(false);
+		scrActions["editEditWithImageEditor"]->setEnabled(false);
+		scrActions["editEditRenderSource"]->setEnabled(false);
 		scrActions["editReplaceColors"]->setEnabled(false);
 		scrActions["editPatterns"]->setEnabled(false);
  		scrActions["editStyles"]->setEnabled(false);
