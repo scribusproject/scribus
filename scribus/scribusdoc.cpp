@@ -11099,17 +11099,23 @@ void ScribusDoc::itemSelection_Transform(int nrOfCopies, QTransform matrix, int 
 		DoDrawing = false;
 		view()->updatesOn(false);
 		m_Selection->delaySignalsOn();
-		scMW()->setScriptRunning(true);
 		QTransform comulatedMatrix = matrix;
 		PageItem *currItem = m_Selection->itemAt(0);
 		Elements.append(currItem);
 		int rotBack = RotMode();
 		RotMode ( 0 );
-		scMW()->slotEditCopy();
+		ScriXmlDoc xmlDoc;
+		QString copyBuffer = xmlDoc.WriteElem(this, m_Selection);
 		view()->Deselect(true);
 		for (int b = 0; b < nrOfCopies; b++)
 		{
-			scMW()->slotEditPaste();
+			uint ac = Items->count();
+			xmlDoc.ReadElem(copyBuffer, appPrefsData.fontPrefs.AvailFonts, this, currentPage()->xOffset(), currentPage()->yOffset(), false, true, appPrefsData.fontPrefs.GFontSub);
+			for (int as = ac; as < Items->count(); ++as)
+			{
+				PageItem* bItem = Items->at(as);
+				m_Selection->addItem(bItem);
+			}
 			double gx, gy, gh, gw;
 			currItem = m_Selection->itemAt(0);
 			if (m_Selection->count() == 1)
@@ -11182,6 +11188,7 @@ void ScribusDoc::itemSelection_Transform(int nrOfCopies, QTransform matrix, int 
 				Elements.append(currItem);
 			}
 			comulatedMatrix *= matrix;
+			m_Selection->clear();
 		}
 		for (int c = 0; c < Elements.count(); ++c)
 		{
@@ -11195,7 +11202,6 @@ void ScribusDoc::itemSelection_Transform(int nrOfCopies, QTransform matrix, int 
 		DoDrawing = true;
 		m_Selection->delaySignalsOff();
 		view()->updatesOn(true);
-		scMW()->setScriptRunning(false);
 		m_Selection->connectItemToGUI();
 	}
 	m_updateManager.setUpdatesEnabled();
