@@ -863,7 +863,7 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->addMenuItemString("styleImageEffects", "Image");
 	scrMenuMgr->addMenuItemString("itemExtendedImageProperties", "Image");
 	scrMenuMgr->addMenuItemString("itemToggleInlineImage", "Image");
-	scrMenuMgr->createMenu("ItemPreviewSettings", tr("Preview Settings"), "Image");
+	scrMenuMgr->createMenu("ItemPreviewSettings", tr("Preview Settings"));
 	scrMenuMgr->addMenuItemString("ItemPreviewSettings", "Image");
 	scrMenuMgr->addMenuItemString("itemImageIsVisible", "ItemPreviewSettings");
 	scrMenuMgr->addMenuItemString("SEPARATOR", "ItemPreviewSettings");

@@ -183,7 +183,9 @@ void MenuManager::addMenuItemStringstoMenu(const QString &menuName, QMenu *menuT
 			{
 				//Add Menu Items
 				if (menuActions.contains(menuStrings[menuName].at(i)))
+				{
 					menuToAddTo->addAction(menuActions[menuStrings[menuName].at(i)]);
+				}
 				else
 				//Add Sub Menus
 				{
@@ -195,8 +197,8 @@ void MenuManager::addMenuItemStringstoMenu(const QString &menuName, QMenu *menuT
 							if (rememberedMenus.contains(menuStrings[menuName].at(i)))
 							{
 								rememberedMenus.insert(menuStrings[menuName].at(i), subMenu);
-								addMenuItemStringstoMenu(menuStrings[menuName].at(i), subMenu, menuActions);
 							}
+							addMenuItemStringstoMenu(menuStrings[menuName].at(i), subMenu, menuActions);
 						}
 					}
 				}
