@@ -110,14 +110,14 @@ void UniconvImportPlugin::registerFormats()
 	registerFormat(fmt);
 }
 
-bool UniconvImportPlugin::fileSupported(QIODevice* /* file */, 
+bool UniconvImportPlugin::fileSupported(QIODevice* /* file */,
 	const QString & fileName) const
 {
 	// TODO: It's hard to tell if a file is supported without first loading it
 	return true;
 }
 
-bool UniconvImportPlugin::loadFile(const QString & fileName, 
+bool UniconvImportPlugin::loadFile(const QString & fileName,
 	const FileFormat & /* fmt */, int flags, int /*index*/)
 {
 	// For now, "load file" and import are the same thing for this plugin
@@ -143,15 +143,15 @@ bool UniconvImportPlugin::import(QString fileName, int flags)
 	//prepare arguments for uniconvertor call
 	QStringList arguments;
 	arguments << fileName <<  tempFileName;
-	
+
 	//execute uniconvertor
 	QProcess uniconv;
 	uniconv.setProcessChannelMode(QProcess::MergedChannels);
 	uniconv.start(PrefsManager::instance()->uniconvExecutable(), arguments);
-	
+
 	//handle errors
 	if (!uniconv.waitForStarted(120000)) {
-		qWarning() << "Uniconvertor failed:" << 
+		qWarning() << "Uniconvertor failed:" <<
 			PrefsManager::instance()->uniconvExecutable() << arguments;
 		QMessageBox::warning(mw, CommonStrings::trWarning,
 			tr("Starting Uniconvertor failed! The executable name in "
@@ -177,7 +177,7 @@ bool UniconvImportPlugin::import(QString fileName, int flags)
 		delete tempFile;
 		return false;
 	}
-	
+
 	//Import SVG
 	const FileFormat *fmt = LoadSavePlugin::getFormatByExt("svg");
 	if (!fmt) {

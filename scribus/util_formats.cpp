@@ -40,7 +40,7 @@ FormatsManager::FormatsManager()
 #endif
 	m_fmts.insert(FormatsManager::UNICONV, QStringList() << "cdt" << "ccx" << "cmx" << "aff" << "sk" << "sk1" << "plt" << "dxf" << "dst" << "pes" << "exp" << "pcs");
 	m_fmts.insert(FormatsManager::PCT,  QStringList() << "pct" << "pic" << "pict");
-	
+
 	m_fmtNames[FormatsManager::EPS]  = QObject::tr("Encapsulated PostScript \"*.eps\"");
 	m_fmtNames[FormatsManager::GIF]  = QObject::tr("GIF");
 	m_fmtNames[FormatsManager::JPEG] = QObject::tr("JPEG");
@@ -65,7 +65,7 @@ FormatsManager::FormatsManager()
 #endif
 	m_fmtNames[FormatsManager::UNICONV] = QObject::tr("UniConvertor File");
 	m_fmtNames[FormatsManager::PCT]  = QObject::tr("Macintosh Pict File");
-	
+
 	m_fmtMimeTypes.insert(FormatsManager::EPS,  QStringList() << "application/postscript");
 	m_fmtMimeTypes.insert(FormatsManager::GIF,  QStringList() << "image/gif");
 	m_fmtMimeTypes.insert(FormatsManager::JPEG, QStringList() << "image/jpeg");
@@ -85,9 +85,9 @@ FormatsManager::FormatsManager()
 	m_fmtMimeTypes.insert(FormatsManager::WPG,  QStringList() << "");
 	m_fmtMimeTypes.insert(FormatsManager::PCT,  QStringList() << "");
 	m_fmtMimeTypes.insert(FormatsManager::ORA,  QStringList() << "");
-			
+
 	QMapIterator<int, QStringList> i(m_fmts);
-	while (i.hasNext()) 
+	while (i.hasNext())
 	{
 		i.next();
 		m_fmtList << i.value().first().toUpper();
@@ -351,7 +351,7 @@ QString getImageType(QString filename)
 				ret = "tif";
 			else if ((buf[0] == '/') && (buf[1] == '*') && (buf[2] == ' ') && (buf[3] == 'X') && (buf[4] == 'P') && (buf[5] == 'M'))
 				ret = "xpm";
-			
+
 			f.close();
 		}
 	}
