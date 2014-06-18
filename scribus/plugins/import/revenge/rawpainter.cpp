@@ -942,8 +942,6 @@ void RawPainter::startTextObject(const librevenge::RVNGPropertyList &propList)
 {
 	if (!doProcessing)
 		return;
-	if (!doProcessing)
-		return;
 	actTextItem = NULL;
 	lineSpSet = false;
 	lineSpIsPT = false;
@@ -953,10 +951,12 @@ void RawPainter::startTextObject(const librevenge::RVNGPropertyList &propList)
 		double y = valueAsPoint(propList["svg:y"]);
 		double w = valueAsPoint(propList["svg:width"]);
 		double h = valueAsPoint(propList["svg:height"]);
+		double minTxtH = 1;
+		double minTxtW = 1;
 		double rot = 0;
 		if (propList["librevenge:rotate"])
 			rot = propList["librevenge:rotate"]->getDouble();
-		int z = m_Doc->itemAdd(PageItem::TextFrame, PageItem::Rectangle, baseX + x, baseY + y, w, h, 0, CurrColorFill, CurrColorStroke, true);
+		int z = m_Doc->itemAdd(PageItem::TextFrame, PageItem::Rectangle, baseX + x, baseY + y, w, qMax(h, 2.0), 0, CurrColorFill, CurrColorStroke, true);
 		PageItem *ite = m_Doc->Items->at(z);
 		finishItem(ite);
 		applyShadow(ite);
@@ -972,23 +972,45 @@ void RawPainter::startTextObject(const librevenge::RVNGPropertyList &propList)
 		if (propList["draw-mirror-vertical"])
 			ite->flipImageV();
 		if (propList["fo:padding-left"])
+		{
 			ite->setTextToFrameDistLeft(valueAsPoint(propList["fo:padding-left"]));
+			minTxtW += valueAsPoint(propList["fo:padding-left"]);
+		}
 		if (propList["fo:padding-right"])
+		{
 			ite->setTextToFrameDistRight(valueAsPoint(propList["fo:padding-right"]));
+			minTxtW += valueAsPoint(propList["fo:padding-right"]);
+		}
 		if (propList["fo:padding-top"])
+		{
 			ite->setTextToFrameDistTop(valueAsPoint(propList["fo:padding-top"]));
+			minTxtH += valueAsPoint(propList["fo:padding-top"]);
+		}
 		if (propList["fo:padding-bottom"])
+		{
 			ite->setTextToFrameDistBottom(valueAsPoint(propList["fo:padding-bottom"]));
+			minTxtH += valueAsPoint(propList["fo:padding-bottom"]);
+		}
 		if (propList["fo:column-count"])
 			ite->setColumns(propList["fo:column-count"]->getInt());
 		if (propList["fo:column-gap"])
+		{
 			ite->setColumnGap(valueAsPoint(propList["fo:column-gap"]));
+			minTxtW += valueAsPoint(propList["fo:column-gap"]);
+		}
 		ite->setFirstLineOffset(FLOPFontAscent);
 		actTextItem = ite;
 		QString pStyle = CommonStrings::DefaultParagraphStyle;
 		ParagraphStyle newStyle;
 		newStyle.setParent(pStyle);
 		textStyle = newStyle;
+		if (h == 0)
+		{
+			minTxtH += textStyle.charStyle().fontSize() / 10.0;
+			ite->setHeight(minTxtH);
+		}
+		if (w == 0)
+			ite->setWidth(minTxtW);
 	}
 }
 
