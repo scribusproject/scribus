@@ -10,6 +10,7 @@ for which a new license (GPL+exception) is in place.
 #include <QDrag>
 #include <QFile>
 #include <QList>
+#include <QMessageBox>
 #include <QMimeData>
 #include <QRegExp>
 #include <QStack>
@@ -327,7 +328,6 @@ VsdPlug::~VsdPlug()
 
 bool VsdPlug::convert(QString fn)
 {
-	QString tmp;
 	importedColors.clear();
 	importedPatterns.clear();
 	QFile file(fn);
@@ -336,8 +336,6 @@ bool VsdPlug::convert(QString fn)
 		qDebug() << "File " << QFile::encodeName(fn).data() << " does not exist" << endl;
 		return false;
 	}
-	QFileInfo fi = QFileInfo(fn);
-	QString ext = fi.suffix().toLower();
 #if HAVE_REVENGE
 	librevenge::RVNGFileStream input(QFile::encodeName(fn).data());
 #else
@@ -352,6 +350,15 @@ bool VsdPlug::convert(QString fn)
 	if (!libvisio::VisioDocument::parse(&input, &painter))
 	{
 		qDebug() << "ERROR: Parsing failed!";
+		if (progressDialog)
+			progressDialog->close();
+		if (importerFlags & LoadSavePlugin::lfCreateDoc)
+		{
+			ScribusMainWindow* mw=(m_Doc==0) ? ScCore->primaryMainWindow() : m_Doc->scMW();
+			qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+			QMessageBox::warning(mw, CommonStrings::trWarning, tr("Parsing failed!\n\nPlease submit your file (if possible) to the\nDocument Liberation Project http://www.documentliberation.org"), 1, 0, 0);
+			qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
+		}
 		return false;
 	}
 	if (Elements.count() == 0)
