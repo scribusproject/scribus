@@ -63,6 +63,7 @@ void Prefs_Spelling::saveGuiToPrefs(struct ApplicationPrefs *prefsData) const
 
 void Prefs_Spelling::downloadSpellDicts()
 {
+	spellDownloadButton->setEnabled(false);
 	qDebug()<<"Now attempting downloads";
 	int rows=availDictTableWidget->rowCount();
 	QStringList dlLangs;
@@ -149,6 +150,7 @@ void Prefs_Spelling::updateDictList()
 
 void Prefs_Spelling::updateAvailDictList()
 {
+	availListDownloadButton->setEnabled(false);
 	ScQApp->dlManager()->addURL("http://services.scribus.net/scribus_spell_dicts.xml", true, downloadLocation);
 	connect(ScQApp->dlManager(), SIGNAL(finished()), this, SLOT(downloadDictListFinished()));
 	ScQApp->dlManager()->startDownloads();
@@ -158,6 +160,7 @@ void Prefs_Spelling::downloadDictListFinished()
 {
 	disconnect(ScQApp->dlManager(), SIGNAL(finished()), this, SLOT(downloadDictListFinished()));
 	setAvailDictsXMLFile(downloadLocation + "scribus_spell_dicts.xml");
+	availListDownloadButton->setEnabled(true);
 }
 
 void Prefs_Spelling::downloadSpellDictsFinished()
@@ -220,6 +223,7 @@ void Prefs_Spelling::downloadSpellDictsFinished()
 	downloadProgressBar->setValue(0);
 	downloadProgressBar->setVisible(false);
 	dlLabel->setVisible(false);
+	spellDownloadButton->setEnabled(true);
 }
 
 void Prefs_Spelling::updateProgressBar()
