@@ -525,10 +525,14 @@ QString checkFileExtension(const QString &currName, const QString &extension)
 	return newName;
 }
 
-QString getFileNameByPage(ScribusDoc* currDoc, uint pageNo, QString extension)
+QString getFileNameByPage(ScribusDoc* currDoc, uint pageNo, QString extension, QString prefix)
 {
 	uint number = pageNo + currDoc->FirstPnum;
-	QString defaultName = currDoc->DocName;
+	QString defaultName;
+	if (prefix!=QString::null)
+		defaultName=prefix;
+	else
+		defaultName=currDoc->DocName;
 	if (defaultName.isNull())
 		defaultName = "export";
 	else

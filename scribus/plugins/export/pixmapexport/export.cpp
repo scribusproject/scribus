@@ -104,6 +104,7 @@ bool PixmapExportPlugin::run(ScribusDoc* doc, QString target)
 	// interval widgets handling
 	QString tmp;
 	dia->rangeVal->setText(tmp.setNum(doc->currentPageNumber()+1));
+	dia->prefixLineEdit->setText(doc->DocName);
 	// main "loop"
 	if (dia->exec()==QDialog::Accepted)
 	{
@@ -113,6 +114,7 @@ bool PixmapExportPlugin::run(ScribusDoc* doc, QString target)
 		ex->quality     = dia->qualityBox->value();
 		ex->exportDir   = QDir::fromNativeSeparators(dia->outputDirectory->text());
 		ex->bitmapType  = dia->bitmapType->currentText();
+		ex->filenamePrefix = dia->prefixLineEdit->text();
 
 		// check availability of the destination
 		QFileInfo fi(ex->exportDir);
@@ -164,7 +166,7 @@ ExportBitmap::ExportBitmap()
 
 QString ExportBitmap::getFileName(ScribusDoc* doc, uint pageNr)
 {
-	return QDir::cleanPath(QDir::toNativeSeparators(exportDir + "/" + getFileNameByPage(doc, pageNr, bitmapType.toLower())));
+	return QDir::cleanPath(QDir::toNativeSeparators(exportDir + "/" + getFileNameByPage(doc, pageNr, bitmapType.toLower(), filenamePrefix)));
 }
 
 ExportBitmap::~ExportBitmap()

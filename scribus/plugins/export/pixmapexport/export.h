@@ -61,6 +61,8 @@ public:
 	QString exportDir;
 	/*! \brief Overwrite the existing files? */
 	bool overwrite;
+	/*! \brief Prefix for filenames */
+	QString filenamePrefix;
 
 	/*! \brief Exports only the actual page
 	\retval bool true on success */
