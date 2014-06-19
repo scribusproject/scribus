@@ -169,6 +169,7 @@ void HySettings::enableExceptButtons()
 
 void HySettings::downloadSpellDicts()
 {
+	spellDownloadButton->setEnabled(false);
 	qDebug()<<"Now attempting downloads";
 	int rows=availDictTableWidget->rowCount();
 	QStringList dlLangs;
@@ -256,6 +257,7 @@ void HySettings::updateDictList()
 
 void HySettings::updateAvailDictList()
 {
+	availListDownloadButton->setEnabled(false);
 	ScQApp->dlManager()->addURL("http://services.scribus.net/scribus_spell_dicts.xml", true, downloadLocation);
 	connect(ScQApp->dlManager(), SIGNAL(finished()), this, SLOT(downloadDictListFinished()));
 	ScQApp->dlManager()->startDownloads();
@@ -265,6 +267,7 @@ void HySettings::downloadDictListFinished()
 {
 	disconnect(ScQApp->dlManager(), SIGNAL(finished()), this, SLOT(downloadDictListFinished()));
 	setAvailDictsXMLFile(downloadLocation + "scribus_spell_dicts.xml");
+	availListDownloadButton->setEnabled(true);
 }
 
 void HySettings::downloadSpellDictsFinished()
@@ -323,6 +326,7 @@ void HySettings::downloadSpellDictsFinished()
 	downloadProgressBar->setValue(0);
 	downloadProgressBar->setVisible(false);
 	dlLabel->setVisible(false);
+	spellDownloadButton->setEnabled(true);
 }
 
 void HySettings::updateProgressBar()
