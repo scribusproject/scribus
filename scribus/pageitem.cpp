@@ -2107,8 +2107,13 @@ void PageItem::DrawObj_Decoration(ScPainter *p)
 				}
 			}
 		}
-		if ((m_Doc->guidesPrefs().layerMarkersShown) && (m_Doc->layerCount() > 1) && (!m_Doc->layerOutline(LayerID)) && (isGroup()) && (!m_Doc->drawAsPreview))
+		if ((m_Doc->guidesPrefs().layerMarkersShown) &&
+			(m_Doc->layerCount() > 1) &&
+			(!m_Doc->layerOutline(LayerID)) &&
+			//#12405 (isGroup()) &&
+			(!m_Doc->drawAsPreview))
 		{
+			qDebug()<<"DrawObj_Decoration layerMarkersShown";
 			p->setPen(Qt::black, 0, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 			p->setPenOpacity(1.0);
 			p->setBrush(m_Doc->layerMarker(LayerID));
