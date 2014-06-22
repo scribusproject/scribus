@@ -1044,51 +1044,71 @@ void PageItem::setSelected(const bool toSelect)
 
 void PageItem::setImageXScale(const double newImageXScale)
 {
-	m_imageXScale=newImageXScale;
+	m_imageXScale = newImageXScale;
 	if (m_Doc->isLoading())
+	{
+		oldLocalScX = m_imageXScale;
 		return;
+	}
 	checkChanges();
 }
 
 void PageItem::setImageYScale(const double newImageYScale)
 {
-	m_imageYScale=newImageYScale;
+	m_imageYScale = newImageYScale;
 	if (m_Doc->isLoading())
+	{
+		oldLocalScY = m_imageYScale;
 		return;
+	}
 	checkChanges();
 }
 
 void PageItem::setImageXYScale(const double newImageXScale, const double newImageYScale)
 {
-	m_imageXScale=newImageXScale;
-	m_imageYScale=newImageYScale;
+	m_imageXScale = newImageXScale;
+	m_imageYScale = newImageYScale;
 	if (m_Doc->isLoading())
+	{
+		oldLocalScX = m_imageXScale;
+		oldLocalScY = m_imageYScale;
 		return;
+	}
 	checkChanges();
 }
 
 void PageItem::setImageXOffset(const double newImageXOffset)
 {
-	m_imageXOffset=newImageXOffset;
+	m_imageXOffset = newImageXOffset;
 	if (m_Doc->isLoading())
+	{
+		oldLocalX = m_imageXOffset;
 		return;
+	}
 	checkChanges();
 }
 
 void PageItem::setImageYOffset(const double newImageYOffset)
 {
-	m_imageYOffset=newImageYOffset;
+	m_imageYOffset = newImageYOffset;
 	if (m_Doc->isLoading())
+	{
+		oldLocalY = m_imageYOffset;
 		return;
+	}
 	checkChanges();
 }
 
 void PageItem::setImageXYOffset(const double newImageXOffset, const double newImageYOffset)
 {
-	m_imageXOffset=newImageXOffset;
-	m_imageYOffset=newImageYOffset;
+	m_imageXOffset = newImageXOffset;
+	m_imageYOffset = newImageYOffset;
 	if (m_Doc->isLoading())
+	{
+		oldLocalX = m_imageXOffset;
+		oldLocalY = m_imageYOffset;
 		return;
+	}
 	checkChanges();
 }
 
@@ -1107,14 +1127,14 @@ void PageItem::moveImageXYOffsetBy(const double dX, const double dY)
 
 void PageItem::setImageRotation(const double newRotation)
 {
-	if(m_imageRotation == newRotation)
+	if (m_imageRotation == newRotation)
 		return;
-	if(UndoManager::undoEnabled())
+	if (UndoManager::undoEnabled())
 	{
 		SimpleState *ss = new SimpleState(Um::Rotate,"",Um::IRotate);
-		ss->set("IMAGE_ROTATION","image_rotation");
-		ss->set("OLD_ROT",m_imageRotation);
-		ss->set("NEW_ROT",newRotation);
+		ss->set("IMAGE_ROTATION", "image_rotation");
+		ss->set("OLD_ROT", m_imageRotation);
+		ss->set("NEW_ROT", newRotation);
 		undoManager->action(this,ss);
 	}
 	m_imageRotation = newRotation;
@@ -2418,24 +2438,24 @@ QString PageItem::ExpandToken(uint base)
 	//check for marks
 	else if (ch == SpecialChars::OBJECT)
 	{
-        Mark* mark = itemText.mark(base);
-        if ((mark != NULL) && !mark->isType(MARKAnchorType) && !mark->isType(MARKIndexType))
-            chstr = mark->getString();
+		Mark* mark = itemText.mark(base);
+		if ((mark != NULL) && !mark->isType(MARKAnchorType) && !mark->isType(MARKIndexType))
+			chstr = mark->getString();
 	}
 	return chstr;
 }
 
-void PageItem::SetQColor(QColor *tmp, QString farbe, double shad)
+void PageItem::SetQColor(QColor *tmp, QString colorName, double shad)
 {
-	if (farbe != CommonStrings::None)
+	if (colorName == CommonStrings::None)
+		return;
+
+	const ScColor& col = m_Doc->PageColors[colorName];
+	*tmp = ScColorEngine::getShadeColorProof(col, m_Doc, shad);
+	if (m_Doc->viewAsPreview)
 	{
-		const ScColor& col = m_Doc->PageColors[farbe];
-		*tmp = ScColorEngine::getShadeColorProof(col, m_Doc, shad);
-		if (m_Doc->viewAsPreview)
-		{
-			VisionDefectColor defect;
-			*tmp = defect.convertDefect(*tmp, m_Doc->previewVisual);
-		}
+		VisionDefectColor defect;
+		*tmp = defect.convertDefect(*tmp, m_Doc->previewVisual);
 	}
 }
 
@@ -4911,7 +4931,7 @@ void PageItem::checkChanges(bool force)
 	if (force || ((oldLocalScX != m_imageXScale || oldLocalScY != m_imageYScale) && shouldCheck()))
 		changeImageScaleUndoAction();
 	
-	if(spreadChanges)
+	if (spreadChanges)
 	{
 		checkTextFlowInteractions();
 	}
@@ -9284,7 +9304,14 @@ bool PageItem::loadImage(const QString& filename, const bool reload, const int g
 		}
 		else
 			IProfile = pixm.imgInfo.profileName;
+
 		AdjustPictScale();
+
+		// #12408 : we set the old* variables to avoid creation of unwanted undo states
+		// when user perform actions such as double clicking image. We might want to
+		// create an undo transaction in this function if this does not work properly.
+		oldLocalScX = m_imageXScale;
+		oldLocalScY = m_imageYScale;
 	}
 	if (PictureIsAvailable && !fromCache)
 	{
