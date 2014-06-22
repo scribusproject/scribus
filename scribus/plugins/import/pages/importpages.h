@@ -17,7 +17,7 @@ for which a new license (GPL+exception) is in place.
 #include "pageitem.h"
 #include "sccolor.h"
 #include "fpointarray.h"
-#include "util.h"
+#include "scribusstructs.h"
 #include <QList>
 #include <QTransform>
 #include <QMultiMap>

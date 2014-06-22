@@ -19,7 +19,7 @@ for which a new license (GPL+exception) is in place.
 #include "sctextstruct.h"
 #include "text/storytext.h"
 #include "fpointarray.h"
-#include "util.h"
+#include "scribusstructs.h"
 #include <QList>
 #include <QTransform>
 #include <QMultiMap>

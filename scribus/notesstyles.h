@@ -11,7 +11,6 @@
 #include "styles/charstyle.h"
 #include "styles/paragraphstyle.h"
 #include "text/storytext.h"
-#include "util.h"
 
 class ScribusDoc;
 class PageItem_NoteFrame;
@@ -103,7 +102,7 @@ public:
 	NotesStyle* notesStyle() { return m_notesStyle; }
 	const int num() { return  m_number; }
 	void setNum(const int i) { m_number = i; }
-	const QString numString() { return notesStyle()->numString(m_number); }
+	const QString numString();
 	Mark* masterMark() { return m_noteMasterMark; }
 	void setMasterMark(Mark* m) { m_noteMasterMark = m; }
 	Mark* noteMark() { return m_noteFrameMark; }

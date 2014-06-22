@@ -349,5 +349,28 @@ public:
 	}
 };
 
+class AttributeValue
+{
+	public:
+		AttributeValue() : valid(false),  value("")
+		{
+		}
+		AttributeValue(QString val)
+		{
+			if (val.isEmpty() || (val == ""))
+			{
+				valid = false;
+				value = QString();
+			}
+			else
+			{
+				valid = true;
+				value = val;
+			}
+		}
+		bool valid;
+		QString value;
+};
+
 #endif
 

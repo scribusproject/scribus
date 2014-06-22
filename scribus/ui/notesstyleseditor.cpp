@@ -8,6 +8,7 @@
 
 #include "scribus.h"
 #include "undomanager.h"
+#include "util.h"
 
 NotesStylesEditor::NotesStylesEditor(QWidget *parent, const char *name)
 	: ScrPaletteBase(parent, name), m_Doc(NULL)

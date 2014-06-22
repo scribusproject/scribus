@@ -569,6 +569,8 @@ const QString getStringFromSequence(NumFormat type, uint position, QString aster
 			for (uint a=1; a <= position; ++a)
 				retVal.append(asterix);
 			break;
+		case Type_Chinese:
+			retVal=arabicToChinese(position);
 		case Type_None:
 			break;
 		default:
@@ -1195,4 +1197,96 @@ void getUniqueName(QString &name, QStringList list, QString separator, bool prep
 			newName = name + separator + QString::number(token);
 	} while (list.contains(newName));
 	name = newName;
+}
+
+
+const QString arabicToChinese(uint i)
+{
+	QString result;
+	if (i<10)
+		result = QString(chineseDigit(i));
+
+	if (i>9 && i<=99)
+	{
+		int tens=i/10;
+		int ones=i%10;
+		if (tens!=1)
+			result.append(chineseDigit(tens));
+		result.append(chineseDigit(10));
+		if (ones!=0)
+			result.append(chineseDigit(ones));
+	}
+
+	if (i>99 && i<=999)
+	{
+		int hundreds=i/100;
+		int tens=(i-hundreds*100)/10;
+		int ones=i%10;
+		result.append(chineseDigit(hundreds));
+		result.append(chineseDigit(100));
+		if (tens!=0)
+		{
+			result.append(chineseDigit(tens));
+			result.append(chineseDigit(10));
+		}
+		else if (ones!=0)
+			result.append(chineseDigit(0));
+		if (ones!=0)
+			result.append(chineseDigit(ones));
+	}
+	return result;
+}
+
+
+QChar chineseDigit(uint i)
+{
+	switch (i)
+	{
+		case 0:
+			return QChar(0x96f6);
+			break;
+		case 1:
+			return QChar(0x4e00);
+			break;
+		case 2:
+			return QChar(0x4e8c);
+			break;
+		case 3:
+			return QChar(0x4e09);
+			break;
+		case 4:
+			return QChar(0x56db);
+			break;
+		case 5:
+			return QChar(0x4e94);
+			break;
+		case 6:
+			return QChar(0x516d);
+			break;
+		case 7:
+			return QChar(0x4e03);
+			break;
+		case 8:
+			return QChar(0x516b);
+			break;
+		case 9:
+			return QChar(0x4e5d);
+			break;
+		case 10:
+			return QChar(0x5341);
+			break;
+		case 100:
+			return QChar(0x767e);
+			break;
+		case 1000:
+			return QChar(0x5343);
+			break;
+		case 10000:
+			return QChar(0x842c);
+			break;
+		case 100000000:
+			return QChar(0x5104);
+			break;
+	}
+	return QChar::Null;
 }

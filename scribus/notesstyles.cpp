@@ -1,5 +1,6 @@
 #include "notesstyles.h"
 #include "marks.h"
+#include "util.h"
 
 void NotesStyle::setEndNotes(bool setendnotes)
 {
@@ -19,4 +20,10 @@ bool NotesStyle::operator!=(const NotesStyle& n2)
 			(superscriptInMaster != n2.superscriptInMaster) || (superscriptInNote != n2.superscriptInNote) ||
 			(marksCharStyle != n2.marksCharStyle) || (notesParaStyle != n2.notesParaStyle)
 			);
+}
+
+
+const QString TextNote::numString()
+{
+	return notesStyle()->numString(m_number);
 }

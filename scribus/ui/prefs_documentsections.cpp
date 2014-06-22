@@ -38,7 +38,7 @@ void Prefs_DocumentSections::restoreDefaults(struct ApplicationPrefs *prefsData)
 	localSections=prefsData->docSectionMap;
 	m_maxpageindex=m_doc->DocPages.count()-1;
 	styles.clear();
-	styles << tr("1, 2, 3, ...") << tr("i, ii, iii, ...") << tr("I, II, III, ...") << tr("a, b, c, ...") << tr("A, B, C, ...") << CommonStrings::tr_None;
+	styles << tr("1, 2, 3, ...") << tr("i, ii, iii, ...") << tr("I, II, III, ...") << tr("a, b, c, ...") << tr("A, B, C, ...") << tr("*") << tr("Chinese") << CommonStrings::tr_None;
 
 	updateTable();
 }
@@ -108,7 +108,6 @@ void Prefs_DocumentSections::tableItemChanged( int row, int col )
 {
 	bool outOfRange=false;
 	uint newDocPageSpec;
-
 	switch (col)
 	{
 	case 0:
@@ -153,15 +152,15 @@ void Prefs_DocumentSections::tableItemChanged( int row, int col )
 					localSections[row].type=(NumFormat)index;
 				else
 					if (index==styles.count()-1)
-					localSections[row].type=Type_None;
+						localSections[row].type=Type_None;
 			}
 		}
 		break;
 	case 6:
-		localSections[row].sectionstartindex= sectionsTable->item(row, col)->text().toUInt();;
+		localSections[row].sectionstartindex = sectionsTable->item(row, col)->text().toUInt();;
 		break;
 	case 7:
-		localSections[row].pageNumberWidth=sectionsTable->item(row, col)->text().toInt();
+		localSections[row].pageNumberWidth = sectionsTable->item(row, col)->text().toInt();
 		break;
 	case 8:
 		{

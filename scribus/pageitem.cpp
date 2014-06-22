@@ -2134,7 +2134,6 @@ void PageItem::DrawObj_Decoration(ScPainter *p)
 			//#12405 (isGroup()) &&
 			(!m_Doc->drawAsPreview))
 		{
-			qDebug()<<"DrawObj_Decoration layerMarkersShown";
 			p->setPen(Qt::black, 0, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 			p->setPenOpacity(1.0);
 			p->setBrush(m_Doc->layerMarker(LayerID));

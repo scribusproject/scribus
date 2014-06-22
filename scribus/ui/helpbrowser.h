@@ -48,7 +48,6 @@ class QEvent;
 
 #include "ui_helpbrowser.h"
 #include "scribusapi.h"
-#include "util.h"
 #include "scconfig.h"
 #include "scpaths.h"
 #include "prefsmanager.h"

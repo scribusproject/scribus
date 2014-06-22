@@ -7,6 +7,7 @@
 
 #include "scribusdoc.h"
 #include "undomanager.h"
+#include "util.h"
 #include "util_text.h"
 
 

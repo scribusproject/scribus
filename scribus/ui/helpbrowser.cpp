@@ -57,6 +57,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "prefsmanager.h"
 #include "scribuscore.h"
+#include "util.h"
 #include "util_icon.h"
 
 /*! \brief XML parsef for documantation history.

@@ -3305,6 +3305,8 @@ bool Scribus150Format::readNotesStyles(ScribusDoc* doc, ScXmlStreamReader& reade
 				NS.setType(Type_A_B_C);
 			else if (type == "Type_asterix")
 				NS.setType(Type_asterix);
+			else if (type == "Type_Chinese")
+				NS.setType(Type_Chinese);
 			else //if (type == "Type_None")
 				NS.setType(Type_None);
 			NS.setRange((NumerationRange) attrs.valueAsInt("Range"));

@@ -5,6 +5,7 @@
 #include "scribus.h"
 #include "scribusdoc.h"
 #include "undomanager.h"
+#include "util.h"
 #include <QStandardItemModel>
 
 MarksManager::MarksManager(QWidget *parent, const char *name)
