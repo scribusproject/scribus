@@ -2746,6 +2746,10 @@ void ScribusMainWindow::HaveNewSel(int SelectedType)
 		scrActions["extrasHyphenateText"]->setEnabled(false);
 		scrActions["extrasDeHyphenateText"]->setEnabled(false);
 
+		scrActions["itemWeld"]->setEnabled(false);
+		scrActions["itemsUnWeld"]->setEnabled(false);
+		scrActions["itemEditWeld"]->setEnabled(false);
+
 		scrActions["toolsUnlinkTextFrame"]->setEnabled(false);
 		scrActions["toolsUnlinkTextFrameWithTextCopy"]->setEnabled(false);
 		scrActions["toolsUnlinkTextFrameWithTextCut"]->setEnabled(false);
