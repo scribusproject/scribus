@@ -9202,13 +9202,16 @@ bool PageItem::loadImage(const QString& filename, const bool reload, const int g
 	if (gsResolution==-1) //If it wasn't supplied, get it from PrefsManager.
 		gsRes=PrefsManager::instance()->gsResolution();
 	bool dummy;
+
 	CMSettings cms(m_Doc, IProfile, IRender);
 	cms.setUseEmbeddedProfile(UseEmbedded);
 	cms.allowSoftProofing(true);
+
 	ScImageCacheProxy imgcache(filename);
 	imgcache.addModifier("lowResType", QString::number(pixm.imgInfo.lowResType));
 	if (!effectsInUse.isEmpty())
 		imgcache.addModifier("effectsInUse", getImageEffectsModifier());
+
 	bool fromCache = false;
 	if (!pixm.loadPicture(imgcache, fromCache, pixm.imgInfo.actualPageNumber, cms, ScImage::RGBData, gsRes, &dummy, showMsg))
 	{
@@ -9217,102 +9220,101 @@ bool PageItem::loadImage(const QString& filename, const bool reload, const int g
 //		PicArt = false;
 		return false;
 	}
-	else
+
+	QString ext = fi.suffix().toLower();
+	if (UndoManager::undoEnabled() && !reload)
 	{
-		QString ext = fi.suffix().toLower();
-		if (UndoManager::undoEnabled() && !reload)
-		{
-			ScItemState<ScImageEffectList> *is = new ScItemState<ScImageEffectList>(Um::GetImage, filename, Um::IGetImage);
-			is->set("GET_IMAGE", "get_image");
-			is->set("OLD_IMAGE_PATH", Pfile);
-			is->set("NEW_IMAGE_PATH", filename);
-			is->set("FLIPPH",imageFlippedH());
-			is->set("FLIPPV",imageFlippedV());
-			is->set("SCALING",ScaleType);
-			is->set("ASPECT",AspectRatio);
-			is->set("XOFF",imageXOffset());
-			is->set("XSCALE",imageXScale());
-			is->set("YOFF",imageYOffset());
-			is->set("YSCALE",imageYScale());
-			is->set("FILLT", fillTransparency());
-			is->set("LINET", lineTransparency());
-			is->setItem(effectsInUse);
-			undoManager->action(this, is);
-		}
-		double xres = pixm.imgInfo.xres;
-		double yres = pixm.imgInfo.yres;
-		PictureIsAvailable = true;
-//		PicArt = true;
+		ScItemState<ScImageEffectList> *is = new ScItemState<ScImageEffectList>(Um::GetImage, filename, Um::IGetImage);
+		is->set("GET_IMAGE", "get_image");
+		is->set("OLD_IMAGE_PATH", Pfile);
+		is->set("NEW_IMAGE_PATH", filename);
+		is->set("FLIPPH",imageFlippedH());
+		is->set("FLIPPV",imageFlippedV());
+		is->set("SCALING",ScaleType);
+		is->set("ASPECT",AspectRatio);
+		is->set("XOFF",imageXOffset());
+		is->set("XSCALE",imageXScale());
+		is->set("YOFF",imageYOffset());
+		is->set("YSCALE",imageYScale());
+		is->set("FILLT", fillTransparency());
+		is->set("LINET", lineTransparency());
+		is->setItem(effectsInUse);
+		undoManager->action(this, is);
+	}
+	double xres = pixm.imgInfo.xres;
+	double yres = pixm.imgInfo.yres;
+	PictureIsAvailable = true;
+//	PicArt = true;
 		
-		if (Pfile != filename)
+	if (Pfile != filename)
+	{
+		oldLocalScX = m_imageXScale = 72.0 / xres;
+		oldLocalScY = m_imageYScale = 72.0 / yres;
+		oldLocalX = m_imageXOffset = 0;
+		oldLocalY = m_imageYOffset = 0;
+		if ((m_Doc->itemToolPrefs().imageUseEmbeddedPath) && (!pixm.imgInfo.clipPath.isEmpty()))
 		{
-			oldLocalScX = m_imageXScale = 72.0 / xres;
-			oldLocalScY = m_imageYScale = 72.0 / yres;
-			oldLocalX = m_imageXOffset = 0;
-			oldLocalY = m_imageYOffset = 0;
-			if ((m_Doc->itemToolPrefs().imageUseEmbeddedPath) && (!pixm.imgInfo.clipPath.isEmpty()))
+			pixm.imgInfo.usedPath = pixm.imgInfo.clipPath;
+			clPath = pixm.imgInfo.clipPath;
+			if (pixm.imgInfo.PDSpathData.contains(clPath))
 			{
-				pixm.imgInfo.usedPath = pixm.imgInfo.clipPath;
-				clPath = pixm.imgInfo.clipPath;
-				if (pixm.imgInfo.PDSpathData.contains(clPath))
-				{
-					imageClip = pixm.imgInfo.PDSpathData[clPath].copy();
-					pixm.imgInfo.usedPath = clPath;
-					QTransform cl;
-					cl.translate(m_imageXOffset*m_imageXScale, m_imageYOffset*m_imageYScale);
-					cl.scale(m_imageXScale, m_imageYScale);
-					imageClip.map(cl);
-				}
+				imageClip = pixm.imgInfo.PDSpathData[clPath].copy();
+				pixm.imgInfo.usedPath = clPath;
+				QTransform cl;
+				cl.translate(m_imageXOffset*m_imageXScale, m_imageYOffset*m_imageYScale);
+				cl.scale(m_imageXScale, m_imageYScale);
+				imageClip.map(cl);
 			}
 		}
-		
-		Pfile = fi.absoluteFilePath();
-		if (reload && pixm.imgInfo.PDSpathData.contains(clPath))
-		{
-			imageClip = pixm.imgInfo.PDSpathData[clPath].copy();
-			pixm.imgInfo.usedPath = clPath;
-			QTransform cl;
-			cl.translate(m_imageXOffset*m_imageXScale, m_imageYOffset*m_imageYScale);
-			cl.scale(m_imageXScale, m_imageYScale);
-			imageClip.map(cl);
-		}
-		BBoxX = pixm.imgInfo.BBoxX;
-		BBoxH = pixm.imgInfo.BBoxH;
-		if (fromCache)
-		{
-			OrigW = imgcache.getInfo("OrigW").toInt();
-			OrigH = imgcache.getInfo("OrigH").toInt();
-		}
-		else
-		{
-			OrigW = pixm.width();
-			OrigH = pixm.height();
-			imgcache.addInfo("OrigW", QString::number(OrigW));
-			imgcache.addInfo("OrigH", QString::number(OrigH));
-		}
-		isRaster = !(extensionIndicatesPDF(ext) || extensionIndicatesEPSorPS(ext));
-		if (!isRaster)
-		{
-			effectsInUse.clear();
-			imgcache.delModifier("effectsInUse");
-		}
-		UseEmbedded=pixm.imgInfo.isEmbedded;
-		if (pixm.imgInfo.isEmbedded)
-		{
-			IProfile = "Embedded " + pixm.imgInfo.profileName;
-			EmProfile = "Embedded " + pixm.imgInfo.profileName;
-		}
-		else
-			IProfile = pixm.imgInfo.profileName;
-
-		AdjustPictScale();
-
-		// #12408 : we set the old* variables to avoid creation of unwanted undo states
-		// when user perform actions such as double clicking image. We might want to
-		// create an undo transaction in this function if this does not work properly.
-		oldLocalScX = m_imageXScale;
-		oldLocalScY = m_imageYScale;
 	}
+		
+	Pfile = fi.absoluteFilePath();
+	if (reload && pixm.imgInfo.PDSpathData.contains(clPath))
+	{
+		imageClip = pixm.imgInfo.PDSpathData[clPath].copy();
+		pixm.imgInfo.usedPath = clPath;
+		QTransform cl;
+		cl.translate(m_imageXOffset*m_imageXScale, m_imageYOffset*m_imageYScale);
+		cl.scale(m_imageXScale, m_imageYScale);
+		imageClip.map(cl);
+	}
+	BBoxX = pixm.imgInfo.BBoxX;
+	BBoxH = pixm.imgInfo.BBoxH;
+	if (fromCache)
+	{
+		OrigW = imgcache.getInfo("OrigW").toInt();
+		OrigH = imgcache.getInfo("OrigH").toInt();
+	}
+	else
+	{
+		OrigW = pixm.width();
+		OrigH = pixm.height();
+		imgcache.addInfo("OrigW", QString::number(OrigW));
+		imgcache.addInfo("OrigH", QString::number(OrigH));
+	}
+	isRaster = !(extensionIndicatesPDF(ext) || extensionIndicatesEPSorPS(ext));
+	if (!isRaster)
+	{
+		effectsInUse.clear();
+		imgcache.delModifier("effectsInUse");
+	}
+	UseEmbedded=pixm.imgInfo.isEmbedded;
+	if (pixm.imgInfo.isEmbedded)
+	{
+		IProfile = "Embedded " + pixm.imgInfo.profileName;
+		EmProfile = "Embedded " + pixm.imgInfo.profileName;
+	}
+	else
+		IProfile = pixm.imgInfo.profileName;
+
+	AdjustPictScale();
+
+	// #12408 : we set the old* variables to avoid creation of unwanted undo states
+	// when user perform actions such as double clicking image. We might want to
+	// create an undo transaction in this function if this does not work properly.
+	oldLocalScX = m_imageXScale;
+	oldLocalScY = m_imageYScale;
+
 	if (PictureIsAvailable && !fromCache)
 	{
 		if ((pixm.imgInfo.colorspace == ColorSpaceDuotone) && (pixm.imgInfo.duotoneColors.count() != 0) && (!reload))
@@ -9461,30 +9463,27 @@ bool PageItem::loadImage(const QString& filename, const bool reload, const int g
 				pixm.imgInfo.lowResScale = 1.0;
 		}
 	}
-	if (PictureIsAvailable)
+	if (PictureIsAvailable && m_Doc->viewAsPreview)
 	{
-		if (m_Doc->viewAsPreview)
+		VisionDefectColor defect;
+		QColor tmpC;
+		int h = pixm.qImagePtr()->height();
+		int w = pixm.qImagePtr()->width();
+		int r, g, b, a;
+		QRgb *s;
+		QRgb rgb;
+		for( int yi=0; yi < h; ++yi )
 		{
-			VisionDefectColor defect;
-			QColor tmpC;
-			int h = pixm.qImagePtr()->height();
-			int w = pixm.qImagePtr()->width();
-			int r, g, b, a;
-			QRgb *s;
-			QRgb rgb;
-			for( int yi=0; yi < h; ++yi )
+			s = (QRgb*)(pixm.qImagePtr()->scanLine( yi ));
+			for( int xi = 0; xi < w; ++xi )
 			{
-				s = (QRgb*)(pixm.qImagePtr()->scanLine( yi ));
-				for( int xi = 0; xi < w; ++xi )
-				{
-					rgb = *s;
-					tmpC.setRgb(rgb);
-					tmpC = defect.convertDefect(tmpC, m_Doc->previewVisual);
-					a = qAlpha(rgb);
-					tmpC.getRgb(&r, &g, &b);
-					*s = qRgba(r, g, b, a);
-					s++;
-				}
+				rgb = *s;
+				tmpC.setRgb(rgb);
+				tmpC = defect.convertDefect(tmpC, m_Doc->previewVisual);
+				a = qAlpha(rgb);
+				tmpC.getRgb(&r, &g, &b);
+				*s = qRgba(r, g, b, a);
+				s++;
 			}
 		}
 	}
