@@ -7041,7 +7041,11 @@ const QString ScribusDoc::getSectionPageNumberForPageIndex(const uint pageIndex)
 	//If a section is inactive, theres no page numbers printed
 	if (docPrefsData.docSectionMap[key].active==false)
 		return "";
-	uint sectionIndexOffset=pageIndex-docPrefsData.docSectionMap[key].fromindex+docPrefsData.docSectionMap[key].sectionstartindex;
+	uint sectionIndexOffset;
+	if (!docPrefsData.docSectionMap[key].reversed)
+		sectionIndexOffset = pageIndex - docPrefsData.docSectionMap[key].fromindex + docPrefsData.docSectionMap[key].sectionstartindex;
+	else
+		sectionIndexOffset = -pageIndex + docPrefsData.docSectionMap[key].toindex  + docPrefsData.docSectionMap[key].sectionstartindex;
 	retVal=getStringFromSequence(docPrefsData.docSectionMap[key].type, sectionIndexOffset);
 	return retVal;
 }

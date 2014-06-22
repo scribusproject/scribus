@@ -59,26 +59,30 @@ void Prefs_DocumentSections::updateTable()
 		QTableWidgetItem *item0 = new QTableWidgetItem((*it).name);
 		sectionsTable->setItem(row, i++, item0);
 		//Active
-		QCheckBox *item1 = new QCheckBox();
-		item1->setChecked((*it).active);
-		sectionsTable->setCellWidget(row, i++, item1);
-		//FromIndex
-		QTableWidgetItem *item2 = new QTableWidgetItem(QString::number((*it).fromindex+1));
+		QTableWidgetItem *item1 = new QTableWidgetItem();;
+		item1->setCheckState((*it).active ? Qt::Checked : Qt::Unchecked);
+		sectionsTable->setItem(row, i++, item1);
+		//Reversed
+		QTableWidgetItem *item2 = new QTableWidgetItem();
+		item2->setCheckState((*it).reversed ? Qt::Checked : Qt::Unchecked);
 		sectionsTable->setItem(row, i++, item2);
-		//ToIndex
-		QTableWidgetItem *item3 = new QTableWidgetItem(QString::number((*it).toindex+1));
+		//FromIndex
+		QTableWidgetItem *item3 = new QTableWidgetItem(QString::number((*it).fromindex+1));
 		sectionsTable->setItem(row, i++, item3);
+		//ToIndex
+		QTableWidgetItem *item4 = new QTableWidgetItem(QString::number((*it).toindex+1));
+		sectionsTable->setItem(row, i++, item4);
 		//Style
-		QComboBox *item4 = new QComboBox();
-		item4->addItems(styles);
-		sectionsTable->setCellWidget(row, i++, item4);
+		QComboBox *item5 = new QComboBox();
+		item5->addItems(styles);
+		sectionsTable->setCellWidget(row, i++, item5);
 		if ((*it).type==Type_None)
-			item4->setCurrentIndex(styles.count()-1);
+			item5->setCurrentIndex(styles.count()-1);
 		else
-			item4->setCurrentIndex((*it).type);
+			item5->setCurrentIndex((*it).type);
 		//Start Page Number
-		QTableWidgetItem *item5 = new QTableWidgetItem(QString::number((*it).sectionstartindex));
-		sectionsTable->setItem(row, i++, item5);
+		QTableWidgetItem *item6 = new QTableWidgetItem(QString::number((*it).sectionstartindex));
+		sectionsTable->setItem(row, i++, item6);
 		//End Page Number
 		/*
 		QTableItem *item7 = new QTableItem(sectionsTable, QTableItem::WhenCurrent, QString::number((*it).sectionstartindex + (*it).toindex - (*it).fromindex));
@@ -86,11 +90,11 @@ void Prefs_DocumentSections::updateTable()
 		sectionsTable->setItem(row, i++, item7);
 		*/
 		//Field Width
-		QTableWidgetItem *item6 = new QTableWidgetItem(QString::number((*it).pageNumberWidth));
-		sectionsTable->setItem(row, i++, item6);
-		//Fill Char
-		QTableWidgetItem *item7 = new QTableWidgetItem(QString((*it).pageNumberFillChar));
+		QTableWidgetItem *item7 = new QTableWidgetItem(QString::number((*it).pageNumberWidth));
 		sectionsTable->setItem(row, i++, item7);
+		//Fill Char
+		QTableWidgetItem *item8 = new QTableWidgetItem(QString((*it).pageNumberFillChar));
+		sectionsTable->setItem(row, i++, item8);
 		//
 		QTableWidgetItem *t=sectionsTable->verticalHeaderItem(row);
 		if (t!=NULL)
@@ -111,14 +115,13 @@ void Prefs_DocumentSections::tableItemChanged( int row, int col )
 		localSections[row].name=sectionsTable->item(row, col)->text();
 		break;
 	case 1:
-		{
-			QCheckBox* qcti=dynamic_cast<QCheckBox*>(sectionsTable->cellWidget(row,col));
-			if (qcti!=NULL)
-				localSections[row].active=qcti->isChecked();
-		}
+		localSections[row].active=(sectionsTable->item(row, col)->checkState()==Qt::Checked);
 		break;
 	case 2:
+		localSections[row].reversed=(sectionsTable->item(row, col)->checkState()==Qt::Checked);
+		break;
 	case 3:
+	case 4:
 		// Validate to/from page specification before conversion to an index
 		//!!!	There is still a problem here if m_maxpageindex == MAX_UINT ;)
 		newDocPageSpec=sectionsTable->item(row, col)->text().toUInt();
@@ -135,12 +138,12 @@ void Prefs_DocumentSections::tableItemChanged( int row, int col )
 		}
 		// Now, since newDocPageSpec >= 1, convert to index
 		--newDocPageSpec;
-		if (col==2)
+		if (col==3)
 			localSections[row].fromindex=newDocPageSpec;
 		else
 			localSections[row].toindex=newDocPageSpec;
 		break;
-	case 4:
+	case 5:
 		{
 			QComboBox* qcti=dynamic_cast<QComboBox*>(sectionsTable->cellWidget(row,col));
 			if (qcti!=NULL)
@@ -154,13 +157,13 @@ void Prefs_DocumentSections::tableItemChanged( int row, int col )
 			}
 		}
 		break;
-	case 5:
-		localSections[row].sectionstartindex=sectionsTable->item(row, col)->text().toUInt();
-		break;
 	case 6:
-		localSections[row].pageNumberWidth=sectionsTable->item(row, col)->text().toInt();
+		localSections[row].sectionstartindex= sectionsTable->item(row, col)->text().toUInt();;
 		break;
 	case 7:
+		localSections[row].pageNumberWidth=sectionsTable->item(row, col)->text().toInt();
+		break;
+	case 8:
 		{
 			QString ch=sectionsTable->item(row, col)->text();
 			if (ch.length()>0)
