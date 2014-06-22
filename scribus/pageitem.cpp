@@ -32,6 +32,7 @@ for which a new license (GPL+exception) is in place.
 #include <QFileInfo>
 #include <qdrawutil.h>
 #include <QRegExp>
+#include <QRegularExpression>
 #include <QMessageBox>
 #include <QPolygon>
 #include <cassert>
