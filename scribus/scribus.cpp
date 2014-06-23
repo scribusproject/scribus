@@ -8364,7 +8364,6 @@ void ScribusMainWindow::editMasterPagesStart(QString temp)
 	scrMenuMgr->setMenuEnabled("FileOpenRecent", false);
 	scrActions["fileClose"]->setToolTip( tr("Click here to leave master page edit mode."));
 	scrActions["fileClose"]->setIcon(loadIcon("22/exit.png"));
-	scrActions["viewPreviewMode"]->setEnabled(false);
 }
 
 void ScribusMainWindow::editMasterPagesEnd()
@@ -8382,7 +8381,6 @@ void ScribusMainWindow::editMasterPagesEnd()
 	appModeHelper.setMasterPageEditMode(false, doc);
 	scrActions["fileClose"]->setToolTip( tr("Close"));
 	scrActions["fileClose"]->setIcon(loadIcon("22/close.png"));
-	scrActions["viewPreviewMode"]->setEnabled(true);
 	scrMenuMgr->setMenuEnabled("FileOpenRecent", true);
 	uint pageCount=doc->DocPages.count();
 	for (uint c=0; c<pageCount; ++c)

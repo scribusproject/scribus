@@ -202,7 +202,7 @@ void AppModeHelper::setMasterPageEditMode(bool b, ScribusDoc* doc)
 #ifdef HAVE_OSG
 	(*scrActions)["toolsPDFAnnot3D"]->setEnabled(b2);
 #endif
-	(*scrActions)["viewPreviewMode"]->setEnabled(b2);
+	//(*scrActions)["viewPreviewMode"]->setEnabled(b2);
 }
 
 void AppModeHelper::changeLayer(ScribusDoc *doc, bool clipScrapHaveData)
