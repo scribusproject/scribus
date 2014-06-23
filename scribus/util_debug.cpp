@@ -21,7 +21,15 @@ for which a new license (GPL+exception) is in place.
  *                                                                         *
  ***************************************************************************/
 
+#if !defined(_WIN32) && !defined(Q_OS_MAC)
+#include <execinfo.h>
+#include <cxxabi.h>
+#endif
+#if defined(_WIN32)
+#include <windows.h>
+#endif
 #include <QDateTime>
+#include "util_debug.h"
 /*
 #include <algorithm>
 #include "util.h"
@@ -41,13 +49,7 @@ for which a new license (GPL+exception) is in place.
 
 #include <signal.h>
 
-#if !defined(_WIN32) && !defined(Q_OS_MAC) 
-#include <execinfo.h>
-#include <cxxabi.h>
-#endif
-#if defined(_WIN32)
-#include <windows.h>
-#endif
+
 
 using namespace std;
 */
