@@ -6,6 +6,7 @@ for which a new license (GPL+exception) is in place.
 */
 #include "sctablewidget.h"
 
+#include <QDebug>
 //Widgets supported
 #include <QComboBox>
 #include <QCheckBox>
@@ -68,8 +69,30 @@ bool ScTableWidget::eventFilter(QObject *obj, QEvent *event)
 	return QTableWidget::eventFilter(obj, event);
 }
 
+void ScTableWidget::comboBoxReceiver(int i)
+{
+	if (sender()!=0)
+	{
+		QComboBox* comboBox = qobject_cast<QComboBox*>(sender());
+		if (comboBox)
+		{
+			int r=-1, c=-1;
+			if (widgetPositions.contains(comboBox))
+			{
+				r=widgetPositions.value(comboBox).first;
+				c=widgetPositions.value(comboBox).second;
+			}
+			if (r!=-1 && c!=-1)
+				emit cellChanged(r,c);
+		}
+	}
+}
+
 void ScTableWidget::setCellWidget(int row, int column, QWidget * widget)
 {
+	QComboBox* combobox = qobject_cast<QComboBox*>(widget);
+	if (combobox)
+		connect(combobox, SIGNAL(currentIndexChanged(int)), this, SLOT(comboBoxReceiver(int)));
 	widget->installEventFilter(this);
 	QTableWidget::setCellWidget(row, column, widget);
 	widgetPositions.insert(widget, QPair<int, int>(row, column));

@@ -28,6 +28,9 @@ class ScTableWidget : public QTableWidget
 
 	private:
 		QHash<QWidget*, QPair<int, int> > widgetPositions;
+
+	protected slots:
+		void comboBoxReceiver(int i);
 };
 
 #endif
