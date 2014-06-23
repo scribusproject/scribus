@@ -32,8 +32,8 @@ const QString getFormatName(int format)
 		name = "A_B_C";
 	else if (format == Type_asterix)
 		name = "*";
-	else if (format == Type_Chinese)
-		name = "Chinese";
+	else if (format == Type_CJK)
+		name = "CJK";
 	Q_ASSERT(!name.isEmpty());
 	return name;
 }
@@ -41,7 +41,7 @@ const QString getFormatName(int format)
 const QStringList getFormatList()
 {
 	QStringList list;
-	list << "1_2_3" << "i_ii_iii" << "I_II_III" << "a_b_c" << "A_B_C" << "*" << "Chinese";
+	list << "1_2_3" << "i_ii_iii" << "I_II_III" << "a_b_c" << "A_B_C" << "*" << "CJK";
 	return list;
 }
 

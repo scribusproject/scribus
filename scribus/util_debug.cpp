@@ -30,29 +30,6 @@ for which a new license (GPL+exception) is in place.
 #endif
 #include <QDateTime>
 #include "util_debug.h"
-/*
-#include <algorithm>
-#include "util.h"
-#include <zlib.h>
-
-#include <QApplication>
-#include <QCryptographicHash>
-#include <QDomElement>
-#include <QMessageBox>
-#include <QProcess>
-
-#include "pageitem.h"
-#include "pageitem_table.h"
-#include "scribusview.h"
-#include "scribusdoc.h"
-#include "scpainter.h"
-
-#include <signal.h>
-
-
-
-using namespace std;
-*/
 
 void sDebug(QString message)
 {

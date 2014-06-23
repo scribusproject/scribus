@@ -131,8 +131,8 @@ QString SCRIBUS_API getFileNameByPage(ScribusDoc* currDoc, uint pageNo, QString 
 //default is '*' but can be used any string
 const QString SCRIBUS_API getStringFromSequence(NumFormat type, uint position, QString asterix="*");
 const QString SCRIBUS_API arabicToRoman(uint i);
-const QString SCRIBUS_API arabicToChinese(uint i);
-QChar SCRIBUS_API chineseDigit(uint i);
+const QString SCRIBUS_API arabicToCJK(uint i);
+QChar SCRIBUS_API cjkDigit(uint i);
 const QString SCRIBUS_API numberToLetterSequence(uint i);
 void SCRIBUS_API parsePagesString(QString pages, std::vector<int>* pageNs, int sourcePageCount);
 

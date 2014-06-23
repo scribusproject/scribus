@@ -1215,8 +1215,8 @@ void Scribus150Format::writeSections(ScXmlStreamWriter & docu)
 			case Type_asterix:
 				docu.writeAttribute("Type", "Type_asterix");
 				break;
-			case Type_Chinese:
-				docu.writeAttribute("Type", "Type_Chinese");
+			case Type_CJK:
+				docu.writeAttribute("Type", "Type_CJK");
 				break;
 			case Type_None:
 				docu.writeAttribute("Type", "Type_None");

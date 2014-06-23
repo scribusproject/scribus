@@ -3305,8 +3305,8 @@ bool Scribus150Format::readNotesStyles(ScribusDoc* doc, ScXmlStreamReader& reade
 				NS.setType(Type_A_B_C);
 			else if (type == "Type_asterix")
 				NS.setType(Type_asterix);
-			else if (type == "Type_Chinese")
-				NS.setType(Type_Chinese);
+			else if (type == "Type_CJK")
+				NS.setType(Type_CJK);
 			else //if (type == "Type_None")
 				NS.setType(Type_None);
 			NS.setRange((NumerationRange) attrs.valueAsInt("Range"));
@@ -3466,8 +3466,8 @@ bool Scribus150Format::readSections(ScribusDoc* doc, ScXmlStreamReader& reader)
 				newSection.type=Type_a_b_c;
 			if (type == "Type_A_B_C")
 				newSection.type=Type_A_B_C;
-			if (type == "Type_Chinese")
-				newSection.type=Type_Chinese;
+			if (type == "Type_CJK")
+				newSection.type=Type_CJK;
 			if (type == "Type_None")
 				newSection.type=Type_None;
 			newSection.sectionstartindex = attrs.valueAsInt("Start");

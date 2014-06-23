@@ -564,8 +564,8 @@ const QString getStringFromSequence(NumFormat type, uint position, QString aster
 			for (uint a=1; a <= position; ++a)
 				retVal.append(asterix);
 			break;
-		case Type_Chinese:
-			retVal=arabicToChinese(position);
+		case Type_CJK:
+			retVal=arabicToCJK(position);
 		case Type_None:
 			break;
 		default:
@@ -1133,21 +1133,21 @@ void getUniqueName(QString &name, QStringList list, QString separator, bool prep
 }
 
 
-const QString arabicToChinese(uint i)
+const QString arabicToCJK(uint i)
 {
 	QString result;
 	if (i<10)
-		result = QString(chineseDigit(i));
+		result = QString(cjkDigit(i));
 
 	if (i>9 && i<=99)
 	{
 		int tens=i/10;
 		int ones=i%10;
 		if (tens!=1)
-			result.append(chineseDigit(tens));
-		result.append(chineseDigit(10));
+			result.append(cjkDigit(tens));
+		result.append(cjkDigit(10));
 		if (ones!=0)
-			result.append(chineseDigit(ones));
+			result.append(cjkDigit(ones));
 	}
 
 	if (i>99 && i<=999)
@@ -1155,23 +1155,23 @@ const QString arabicToChinese(uint i)
 		int hundreds=i/100;
 		int tens=(i-hundreds*100)/10;
 		int ones=i%10;
-		result.append(chineseDigit(hundreds));
-		result.append(chineseDigit(100));
+		result.append(cjkDigit(hundreds));
+		result.append(cjkDigit(100));
 		if (tens!=0)
 		{
-			result.append(chineseDigit(tens));
-			result.append(chineseDigit(10));
+			result.append(cjkDigit(tens));
+			result.append(cjkDigit(10));
 		}
 		else if (ones!=0)
-			result.append(chineseDigit(0));
+			result.append(cjkDigit(0));
 		if (ones!=0)
-			result.append(chineseDigit(ones));
+			result.append(cjkDigit(ones));
 	}
 	return result;
 }
 
 
-QChar chineseDigit(uint i)
+QChar cjkDigit(uint i)
 {
 	switch (i)
 	{

@@ -13,7 +13,7 @@ typedef enum
 	Type_a_b_c,
 	Type_A_B_C,
 	Type_asterix,
-	Type_Chinese,
+	Type_CJK,
 	Type_None=99
 } NumFormat;
 
