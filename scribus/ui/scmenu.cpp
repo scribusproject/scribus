@@ -26,7 +26,7 @@ for which a new license (GPL+exception) is in place.
 #include <QList>
 #include "scmenu.h"
 #include "scraction.h"
-#include "util.h"
+#include "util_debug.h"
 #include "util_icon.h"
 
 

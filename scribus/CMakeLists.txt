@@ -730,6 +730,7 @@ SET(SCRIBUS_SOURCES
 	urllauncher.cpp
 	util.cpp
 	util_color.cpp
+	util_debug.cpp
 	util_file.cpp
 	util_formats.cpp
 	util_ghostscript.cpp

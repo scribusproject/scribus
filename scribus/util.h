@@ -127,7 +127,6 @@ QString SCRIBUS_API getLongPathName(const QString & shortPath);
    \author Petr Vanek
  */
 QString SCRIBUS_API getFileNameByPage(ScribusDoc* currDoc, uint pageNo, QString extension, QString prefix=QString::null);
-void SCRIBUS_API sDebug(QString message);
 //asterix is QString used in numeration when number is presented as few chars, like *, **, *** etc
 //default is '*' but can be used any string
 const QString SCRIBUS_API getStringFromSequence(NumFormat type, uint position, QString asterix="*");
@@ -137,12 +136,6 @@ QChar SCRIBUS_API chineseDigit(uint i);
 const QString SCRIBUS_API numberToLetterSequence(uint i);
 void SCRIBUS_API parsePagesString(QString pages, std::vector<int>* pageNs, int sourcePageCount);
 
-/*! \brief performance measurements.
-It prints given message with it current timestamp.
-Useful for duration holes finding.
-\author Petr Vanek */
-void tDebug(QString message);
-
 QString SCRIBUS_API readLinefromDataStream(QDataStream &s);
 void SCRIBUS_API setCurrentComboItem(QComboBox *box, QString text);
 
@@ -151,8 +144,6 @@ QString SCRIBUS_API readAdobeUniCodeString(QDataStream &s);
 QString SCRIBUS_API getDashString(int dashtype, double linewidth);
 void    SCRIBUS_API getDashArray(int dashtype, double linewidth, QVector<double> &dashArray);
 void    SCRIBUS_API getDashArray(int dashtype, double linewidth, QVector<float> &dashArray);
-
-void SCRIBUS_API printBacktrace(int nFrames);
 
 /*!
  *\brief Convert pre-1.5.x tables to table as implemented in 1.5.x

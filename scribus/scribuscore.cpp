@@ -40,7 +40,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribusapp.h"
 #include "ui/splash.h"
 #include "undomanager.h"
-#include "util.h"
+#include "util_debug.h"
 #include "util_ghostscript.h"
 #include "util_icon.h"
 

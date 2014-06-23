@@ -14,7 +14,7 @@ for which a new license (GPL+exception) is in place.
 #include <QFile>
 
 #include "scfonts.h"
-#include "util.h"
+#include "util_debug.h"
 #include "fonts/scfontmetrics.h"
 
 // static:

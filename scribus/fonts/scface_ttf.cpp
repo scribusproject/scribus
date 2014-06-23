@@ -14,7 +14,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "fonts/scface_ttf.h"
 #include "fonts/scfontmetrics.h"
-#include "util.h"
+#include "util_debug.h"
 #include "scconfig.h"
 
 KernFeature::KernFeature ( FT_Face face )
