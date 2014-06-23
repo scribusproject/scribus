@@ -3466,6 +3466,8 @@ bool Scribus150Format::readSections(ScribusDoc* doc, ScXmlStreamReader& reader)
 				newSection.type=Type_a_b_c;
 			if (type == "Type_A_B_C")
 				newSection.type=Type_A_B_C;
+			if (type == "Type_Chinese")
+				newSection.type=Type_Chinese;
 			if (type == "Type_None")
 				newSection.type=Type_None;
 			newSection.sectionstartindex = attrs.valueAsInt("Start");
