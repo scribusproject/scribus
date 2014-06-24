@@ -34,7 +34,7 @@ public:
 	ScPage *PageObject;
 	ScribusDoc *DocObject;
 	int LayerID;
-	int type;
+	int type; //1=PageItem on Master Page,2=,3=PageItem,4=,5=,...
 };
 
 class SCRIBUS_API OutlineWidget : public QTreeWidget
@@ -47,6 +47,7 @@ public:
 
 protected:
 	void dropEvent(QDropEvent *e);
+	void keyPressEvent(QKeyEvent *e);
 	bool viewportEvent(QEvent *event);
 };
 

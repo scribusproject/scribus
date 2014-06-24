@@ -234,6 +234,49 @@ void OutlineWidget::dropEvent(QDropEvent *e)
 	}
 }
 
+void OutlineWidget::keyPressEvent(QKeyEvent *e)
+{
+	if (e->key() == Qt::Key_Backspace || e->key() == Qt::Key_Delete)
+	{
+		foreach (QTreeWidgetItem * twItem, selectedItems())
+		{
+			if (twItem != 0)
+			{
+				OutlineTreeItem *item = (OutlineTreeItem*)twItem;
+				if (item)
+				{
+					switch (item->type)
+					{
+						case 1: //PageItem on master page
+							{
+								PageItem* pageItem = item->PageItemObject;
+								Selection s(this, false);
+								s.addItem(pageItem);
+								ScribusDoc* d=item->DocObject;
+								d->itemSelection_DeleteItem(&s);
+							}
+							break;
+						case 3: //PageItem on normal page
+							{
+								PageItem* pageItem = item->PageItemObject;
+								Selection s(this, false);
+								s.addItem(pageItem);
+								ScribusDoc* d=item->DocObject;
+								d->itemSelection_DeleteItem(&s);
+							}
+							break;
+						default:
+							{
+								//qDebug()<<item->type;
+							}
+							break;
+					}
+				}
+			}
+		}
+	}
+}
+
 bool OutlineWidget::viewportEvent(QEvent *event)
 {
 	if (event->type() == QEvent::ToolTip)
