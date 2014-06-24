@@ -250,19 +250,25 @@ void OutlineWidget::keyPressEvent(QKeyEvent *e)
 						case 1: //PageItem on master page
 							{
 								PageItem* pageItem = item->PageItemObject;
-								Selection s(this, false);
-								s.addItem(pageItem);
-								ScribusDoc* d=item->DocObject;
-								d->itemSelection_DeleteItem(&s);
+								if (!pageItem->isGroupChild())
+								{
+									Selection s(this, false);
+									s.addItem(pageItem);
+									ScribusDoc* d=item->DocObject;
+									d->itemSelection_DeleteItem(&s);
+								}
 							}
 							break;
 						case 3: //PageItem on normal page
 							{
 								PageItem* pageItem = item->PageItemObject;
-								Selection s(this, false);
-								s.addItem(pageItem);
-								ScribusDoc* d=item->DocObject;
-								d->itemSelection_DeleteItem(&s);
+								if (!pageItem->isGroupChild())
+								{
+									Selection s(this, false);
+									s.addItem(pageItem);
+									ScribusDoc* d=item->DocObject;
+									d->itemSelection_DeleteItem(&s);
+								}
 							}
 							break;
 						default:
