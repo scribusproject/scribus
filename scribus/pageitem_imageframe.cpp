@@ -241,8 +241,8 @@ void PageItem_ImageFrame::clearContents()
 	setImageFlippedH(false);
 	setImageFlippedV(false);
 	EmProfile = "";
-	ScaleType = true;
-	AspectRatio = false;
+	ScaleType = m_Doc->prefsData().itemToolPrefs.imageScaleType;;
+	AspectRatio = m_Doc->prefsData().itemToolPrefs.imageAspectRatio;
 	setFillTransparency(0.0);
 	setLineTransparency(0.0);
 	imageClip.resize(0);

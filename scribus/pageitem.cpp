@@ -7487,6 +7487,12 @@ void PageItem::restoreGetImage(UndoState *state, bool isUndo)
 		Selection tempSelection(this, false);
 		tempSelection.addItem(this, true);
 		m_Doc->itemSelection_ClearItem(&tempSelection);
+		if (isUndo)
+		{
+			setImageFlippedH(is->getBool("FLIPPH"));
+			setImageFlippedV(is->getBool("FLIPPV"));
+			setImageScalingMode(is->getBool("SCALING"), is->getBool("ASPECT"));
+		}
 	}
 	else
 	{
