@@ -8683,6 +8683,7 @@ void ScribusMainWindow::restoreDeletePage(SimpleState *state, bool isUndo)
 		where = 1;
 		wo = pagenr - 1;
 	}
+
 	if (isUndo)
 	{
 		if (savedMasterPageMode)
@@ -8708,8 +8709,9 @@ void ScribusMainWindow::restoreDeletePage(SimpleState *state, bool isUndo)
 	if (currMasterPageMode!=savedMasterPageMode)
 		doc->setMasterPageMode(currMasterPageMode);
 	doc->rebuildMasterNames();
-	ActWin->masterPagesPalette()->updateMasterPageList();
-	pagePalette->rebuildMasters();        
+	if (ActWin->masterPagesPalette())
+		ActWin->masterPagesPalette()->updateMasterPageList();
+	pagePalette->rebuildMasters();
 	pagePalette->rebuildPages();
 	if (outlinePalette->isVisible())
 		outlinePalette->BuildTree();
