@@ -567,6 +567,7 @@
     <moc Include="..\..\..\scribus\upgradechecker.h" />
     <moc Include="..\..\..\scribus\ui\proptree.h" />
     <moc Include="..\..\..\scribus\ui\viewtoolbar.h" />
+    <ClInclude Include="..\..\..\scribus\util_debug.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="..\..\..\scribus\resourcecollection.h" />
     <moc Include="..\..\..\scribus\ui\rulermover.h" />
@@ -1368,6 +1369,7 @@
     <ClCompile Include="..\..\..\scribus\scribusdoc.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\viewtoolbar.cpp" />
     <ClCompile Include="..\..\..\scribus\upgradechecker.cpp" />
+    <ClCompile Include="..\..\..\scribus\util_debug.cpp" />
     <ClCompile Include="scribuspch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

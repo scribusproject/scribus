@@ -999,7 +999,7 @@
     <ClInclude Include="..\..\..\scribus\appmodes.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\scribus\ui\filedialogeventcatcher.h">
+    <ClInclude Include="..\..\..\scribus\util_debug.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -3452,6 +3452,9 @@
     <ClCompile Include="..\..\..\scribus\ui\moc_filedialogeventcatcher.cpp">
       <Filter>Generated Moc Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\scribus\util_debug.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Scribus.rc">
@@ -4888,6 +4891,9 @@
       <Filter>Header Files</Filter>
     </moc>
     <moc Include="..\..\..\scribus\ui\viewtoolbar.h">
+      <Filter>Header Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\filedialogeventcatcher.h">
       <Filter>Header Files</Filter>
     </moc>
   </ItemGroup>
