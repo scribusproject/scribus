@@ -52,17 +52,17 @@ bool ScTableWidget::eventFilter(QObject *obj, QEvent *event)
 			}
 		}
 		else
+		{
+			QCheckBox* checkbox = qobject_cast<QCheckBox*>(obj);
+			if (checkbox)
 			{
-				QCheckBox* checkbox = qobject_cast<QCheckBox*>(obj);
-				if (checkbox)
+				if (widgetPositions.contains(checkbox))
 				{
-					if (widgetPositions.contains(checkbox))
-					{
-						r=widgetPositions.value(checkbox).first;
-						c=widgetPositions.value(checkbox).second;
-					}
+					r=widgetPositions.value(checkbox).first;
+					c=widgetPositions.value(checkbox).second;
 				}
 			}
+		}
 		if (r!=-1 && c!=-1)
 			emit cellChanged(r,c);
 	}
