@@ -251,14 +251,14 @@ void OutlineWidget::keyPressEvent(QKeyEvent *e)
 							{
 								PageItem* pageItem = item->PageItemObject;
 								if (!pageItem->isGroupChild())
-									d->itemSelection_DeleteItem();
+									item->DocObject->itemSelection_DeleteItem();
 							}
 							break;
 						case 3: //PageItem on normal page
 							{
 								PageItem* pageItem = item->PageItemObject;
 								if (!pageItem->isGroupChild())
-									d->itemSelection_DeleteItem();
+									item->DocObject->itemSelection_DeleteItem();
 							}
 							break;
 						default:
