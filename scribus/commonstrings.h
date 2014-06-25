@@ -275,12 +275,14 @@ public:
 	static QString trStrP;
 	static QString trStrCM;
 	static QString trStrC;
+	static QString trStrPX;
 	static QString strPT;
 	static QString strMM;
 	static QString strIN;
 	static QString strP;
 	static QString strCM;
 	static QString strC;
+	static QString strPX;
 
 	//Keyboard Modifiers
 	static QString controlModifier;

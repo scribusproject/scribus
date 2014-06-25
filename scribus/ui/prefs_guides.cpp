@@ -6,6 +6,8 @@ for which a new license (GPL+exception) is in place.
 */
 
 #include <QColorDialog>
+
+#include "commonstrings.h"
 #include "ui/prefs_guides.h"
 #include "prefsstructs.h"
 #include "scribusdoc.h"
@@ -22,6 +24,13 @@ Prefs_Guides::Prefs_Guides(QWidget* parent, ScribusDoc* doc)
 	buttonUp->setEnabled(false);
 	buttonDown->setIcon(loadIcon("16/go-down.png"));
 	buttonDown->setEnabled(false);
+
+	QString pxSuffix = QString(" %1").arg(CommonStrings::trStrPX);
+	guideSnapDistanceSpinBox->setSuffix(pxSuffix);
+	guideGrabRadiusSpinBox->setSuffix(pxSuffix);
+
+	guideSnapDistanceSpinBox->setDecimals(0);
+	guideGrabRadiusSpinBox->setDecimals(0);
 
 	connect(guideColorPushButton, SIGNAL(clicked()), this, SLOT(changeGuideColor()));
 	connect(marginColorPushButton, SIGNAL(clicked()), this, SLOT(changeMarginColor()));
@@ -67,6 +76,11 @@ void Prefs_Guides::languageChange()
 	gridTypeCombo->addItem( tr("Lines"));
 	gridTypeCombo->addItem( tr("Crosses and Dots"));
 	gridTypeCombo->setCurrentIndex(grTy);
+
+	QString pxSuffix = QString(" %1").arg(CommonStrings::trStrPX);
+	guideSnapDistanceSpinBox->setSuffix(pxSuffix);
+	guideGrabRadiusSpinBox->setSuffix(pxSuffix);
+
 	guidePlacementListBox->setToolTip( tr( "Place guides in front of or behind objects on the page" ) );
 	minorGridSpacingSpinBox->setToolTip( tr( "Distance between the minor grid lines" ) );
 	majorGridSpacingSpinBox->setToolTip( tr( "Distance between the major grid lines" ) );

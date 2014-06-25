@@ -185,12 +185,14 @@ QString CommonStrings::trStrIN = "";
 QString CommonStrings::trStrP  = "";
 QString CommonStrings::trStrCM = "";
 QString CommonStrings::trStrC  = "";
+QString CommonStrings::trStrPX = "";
 QString CommonStrings::strPT   = "";
 QString CommonStrings::strMM   = "";
 QString CommonStrings::strIN   = "";
 QString CommonStrings::strP    = "";
 QString CommonStrings::strCM   = "";
 QString CommonStrings::strC    = "";
+QString CommonStrings::strPX   = "";
 
 QString CommonStrings::controlModifier = "";
 QString CommonStrings::altModifier     = "";
@@ -451,12 +453,14 @@ void CommonStrings::languageChange()
 	CommonStrings::trStrP =unitGetStrFromIndex(SC_P);
 	CommonStrings::trStrCM=unitGetStrFromIndex(SC_CM);
 	CommonStrings::trStrC =unitGetStrFromIndex(SC_C);
+	CommonStrings::trStrPX=tr("px");
 	CommonStrings::strPT=unitGetUntranslatedStrFromIndex(SC_PT);
 	CommonStrings::strMM=unitGetUntranslatedStrFromIndex(SC_MM);
 	CommonStrings::strIN=unitGetUntranslatedStrFromIndex(SC_IN);
 	CommonStrings::strP =unitGetUntranslatedStrFromIndex(SC_P);
 	CommonStrings::strCM=unitGetUntranslatedStrFromIndex(SC_CM);
 	CommonStrings::strC =unitGetUntranslatedStrFromIndex(SC_C);
+	CommonStrings::strPX="px";
 
 	//Keyboard Modifiers
 	CommonStrings::altModifier=tr("Alt");
