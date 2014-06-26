@@ -343,7 +343,7 @@ protected: // Protected methods
 signals:
 	void changeUN(int);
 	void changeLA(int);
-	void HaveSel(int);
+	void HaveSel();
 	void DocChanged();
 	void ItemGeom();
 	void PolyOpen();

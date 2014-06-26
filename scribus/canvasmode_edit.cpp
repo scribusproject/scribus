@@ -836,7 +836,7 @@ void CanvasMode_Edit::mouseReleaseEvent(QMouseEvent *m)
 				m_view->m_ScMW->slotSetCurrentPage(currItem->OwnPage);
 			}
 			//CB done with emitAllToGUI
-			//emit HaveSel(currItem->itemType());
+			//emit HaveSel();
 			//EmitValues(currItem);
 			//CB need this for? a moved item will send its new data with the new xpos/ypos emits
 			//CB TODO And what if we have dragged to a new page. Items X&Y are not updated anyway now

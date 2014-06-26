@@ -454,7 +454,7 @@ public slots:
 	void setAppModeByToggle(bool isOn, int newMode);
 	/** \brief Neues Dokument erzeugt */
 	void HaveNewDoc();
-	void HaveNewSel(int Nr);
+	void HaveNewSel();
 	/** Dokument ist geaendert worden */
 	void slotDocCh(bool reb = true);
 	/** Setzt die Abstufung */

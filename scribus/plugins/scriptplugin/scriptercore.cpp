@@ -165,12 +165,8 @@ void ScripterCore::FinishScriptRun()
 		ScMW->doc->RePos = true;
 		ScMW->doc->RePos = false;
 		if (ScMW->doc->m_Selection->count() != 0)
-		{
 			ScMW->doc->m_Selection->itemAt(0)->emitAllToGUI();
-			ScMW->HaveNewSel(ScMW->doc->m_Selection->itemAt(0)->itemType());
-		}
-		else
-			ScMW->HaveNewSel(-1);
+		ScMW->HaveNewSel();
 		ScMW->view->DrawNew();
 		//CB Really only need (want?) this for new docs, but we need it after a call to ScMW doFileNew.
 		//We don't want it in cmddoc calls as itll interact with the GUI before a script may be finished.

@@ -418,7 +418,7 @@ void ScribusView::stopGesture()
 		{
 			m_canvas->setForcedRedraw(true);
 //			Doc->m_Selection->clear();
-//			emit HaveSel(-1);
+//			emit HaveSel();
 			m_canvas->resetRenderMode();
 			updateContents();
 		}
@@ -1656,7 +1656,7 @@ void ScribusView::SelectItem(PageItem *currItem, bool draw, bool single)
 	//		updateContents(QRect(static_cast<int>(x-5), static_cast<int>(y-5), static_cast<int>(w+10), static_cast<int>(h+10)));
 			//CB move in here as the emitAllToGUI will do it otherwise
 			emit ItemGeom();
-			emit HaveSel(currItem->itemType());
+			emit HaveSel();
 		}
 		//CB done by addItem for single selection or the frame data is already there
 		//else
@@ -1666,7 +1666,7 @@ void ScribusView::SelectItem(PageItem *currItem, bool draw, bool single)
 }
 
 //CB Remove bookmark interaction here, item/doc should do it
-void ScribusView::Deselect(bool prop)
+void ScribusView::Deselect(bool /*prop*/)
 {
 	if (!Doc->m_Selection->isEmpty())
 	{
@@ -1698,8 +1698,6 @@ void ScribusView::Deselect(bool prop)
 				updateContents(currItem->getRedrawBounding(scale));
 		}
 	}
-	if (prop && !Doc->m_Selection->signalsDelayed())
-		emit HaveSel(-1);
 }
 
  // FIXME:av -> CanvasMode_legacy / Doc
@@ -1766,7 +1764,7 @@ void ScribusView::PasteToPage()
 		newObjects.setGroupRect();
 		newObjects.getGroupRect(&gx, &gy, &gw, &gh);
 		emit ItemGeom();
-		emit HaveSel(newObjects.itemAt(0)->itemType());
+		emit HaveSel();
 	}
 	else if (newObjects.count() == 1)
 	{
@@ -2382,7 +2380,7 @@ void ScribusView::GotoPage(int Seite)
 		return;
 	m_ScMW->slotSetCurrentPage(Seite);
 	SetCPo(Doc->currentPage()->xOffset() - 10, Doc->currentPage()->yOffset() - 10);
-	m_ScMW->HaveNewSel(-1);
+	m_ScMW->HaveNewSel();
 }
 
 void ScribusView::showMasterPage(int nr)
@@ -3826,7 +3824,7 @@ void ScribusView::TextToPath()
 				tmpSelection.addItem(delItems.takeAt(0)); //yes, 0, remove the first
 			Doc->itemSelection_DeleteItem(&tmpSelection);
 		}
-		m_ScMW->HaveNewSel(-1);
+		m_ScMW->HaveNewSel();
 		Deselect(true);
 		trans.commit();
 	}

@@ -1182,7 +1182,7 @@ void CanvasMode::commonkeyPressEvent_NormalNodeEdit(QKeyEvent *e)
 		m_doc->ElemToLink = NULL;
 		mainWindow->slotSelect();
 		if (m_doc->m_Selection->count() == 0)
-			mainWindow->HaveNewSel(-1);
+			mainWindow->HaveNewSel();
 		prefsManager->appPrefs.uiPrefs.stickyTools = false;
 		scrActions["stickyTools"]->setChecked(false);
 		return;

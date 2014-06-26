@@ -10130,8 +10130,9 @@ void ScribusDoc::connectDocSignals()
 		if (m_hasGUI)
 		{
 			connect(this, SIGNAL(docChanged()), m_ScMW, SLOT(slotDocCh()));
-			connect(this, SIGNAL(firstSelectedItemType(int)), m_ScMW, SLOT(HaveNewSel(int)));
+			connect(this, SIGNAL(firstSelectedItemType(int)), m_ScMW, SLOT(HaveNewSel()));
 			connect(this, SIGNAL(saved(QString)), WinHan, SLOT(slotSaved(QString)));
+			connect(this->m_Selection, SIGNAL(selectionChanged()), m_ScMW, SLOT(HaveNewSel()));
 			connect(autoSaveTimer, SIGNAL(timeout()), this, SLOT(slotAutoSave()));
 		}
 	}
@@ -10144,8 +10145,9 @@ void ScribusDoc::disconnectDocSignals()
 		if (m_hasGUI)
 		{
 			disconnect(this, SIGNAL(docChanged()), m_ScMW, SLOT(slotDocCh()));
-			disconnect(this, SIGNAL(firstSelectedItemType(int)), m_ScMW, SLOT(HaveNewSel(int)));
+			disconnect(this, SIGNAL(firstSelectedItemType(int)), m_ScMW, SLOT(HaveNewSel()));
 			disconnect(this, SIGNAL(saved(QString)), WinHan, SLOT(slotSaved(QString)));
+			disconnect(this->m_Selection, SIGNAL(selectionChanged()), m_ScMW, SLOT(HaveNewSel()));
 			disconnect(autoSaveTimer, SIGNAL(timeout()), this, SLOT(slotAutoSave()));
 		}
 	}
@@ -11875,7 +11877,7 @@ void ScribusDoc::itemSelection_DeleteItem(Selection* customSelection, bool force
 			emit firstSelectedItemType(-1);
 		else
 		{
-			//emit HaveSel(Doc->m_Selection->itemAt(0)->itemType());
+			//emit HaveSel();
 			itemSelection->itemAt(0)->emitAllToGUI();
 		}
 	}
@@ -12447,7 +12449,7 @@ bool ScribusDoc::startAlign()
 void ScribusDoc::endAlign()
 {
 	changed();
-	m_ScMW->HaveNewSel(m_Selection->itemAt(0)->itemType());
+	m_ScMW->HaveNewSel();
 	for (int i = 0; i < m_Selection->count(); ++i)
 	{
 		setRedrawBounding(m_Selection->itemAt(i));
@@ -15481,7 +15483,7 @@ void ScribusDoc::itemSelection_UnGroupObjects(Selection* customSelection)
 	itemSelection->getGroupRect(&x, &y, &w, &h);
 	emit docChanged();
 	if (itemSelection->count() > 0)
-		m_ScMW->HaveNewSel(itemSelection->itemAt(0)->itemType());
+		m_ScMW->HaveNewSel();
 	regionsChanged()->update(QRectF(x-5, y-5, w+10, h+10));
 }
 

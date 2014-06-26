@@ -91,7 +91,7 @@ void BezierMode::finalizeItem(PageItem* currItem)
 //		emit DelObj(m_doc->currentPage->pageNr(), currItem->ItemNr);
 		m_doc->Items->removeOne(currItem);
 		m_doc->m_Selection->removeFirst();
-		//emit HaveSel(-1);
+		//emit HaveSel();
 	}
 	else
 	{

@@ -1616,7 +1616,7 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 		doc->ElemToLink = NULL;
 		slotSelect();
 		if (doc->m_Selection->isEmpty())
-			HaveNewSel(-1);
+			HaveNewSel();
 		prefsManager->appPrefs.uiPrefs.stickyTools = false;
 		scrActions["stickyTools"]->setChecked(false);
 		return;
@@ -2437,13 +2437,9 @@ void ScribusMainWindow::newActWin(QMdiSubWindow *w)
 	RestoreBookMarks();
 	if (!doc->isLoading())
 	{
+		HaveNewSel();
 		if (!doc->m_Selection->isEmpty())
-		{
-			HaveNewSel(doc->m_Selection->itemAt(0)->itemType());
 			doc->m_Selection->itemAt(0)->emitAllToGUI();
-		}
-		else
-			HaveNewSel(-1);
 	}
 	docCheckerPalette->setDoc(doc);
 	tocGenerator->setDoc(doc);
@@ -2557,7 +2553,7 @@ void ScribusMainWindow::HaveNewDoc()
 	connect(view, SIGNAL(PStatus(int, uint)), nodePalette, SLOT(PolyStatus(int, uint)), Qt::UniqueConnection);
 	connect(view, SIGNAL(ItemGeom()), propertiesPalette->xyzPal, SLOT(handleSelectionChanged()), Qt::UniqueConnection);
 	connect(view, SIGNAL(ChBMText(PageItem *)), this, SLOT(BookMarkTxT(PageItem *)), Qt::UniqueConnection);
-	connect(view, SIGNAL(HaveSel(int)), this, SLOT(HaveNewSel(int)), Qt::UniqueConnection);
+	connect(view, SIGNAL(HaveSel()), this, SLOT(HaveNewSel()), Qt::UniqueConnection);
 	connect(view, SIGNAL(PaintingDone()), this, SLOT(slotSelect()), Qt::UniqueConnection);
 	connect(view, SIGNAL(DocChanged()), this, SLOT(slotDocCh()), Qt::UniqueConnection);
 	connect(view, SIGNAL(MousePos(double, double)), this, SLOT(setStatusBarMousePosition(double, double)), Qt::UniqueConnection);
@@ -2579,22 +2575,21 @@ void ScribusMainWindow::HaveNewDoc()
 	connect(view, SIGNAL(callGimp()), this, SLOT(callImageEditor()), Qt::UniqueConnection);
 }
 
-void ScribusMainWindow::HaveNewSel(int SelectedType)
+void ScribusMainWindow::HaveNewSel()
 {
+	int SelectedType = -1;
 	PageItem *currItem = NULL;
 	if (doc == NULL)
 		return;
-	const uint docSelectionCount=doc->m_Selection->count();
-	if (SelectedType != -1)
-	{
-		if (docSelectionCount != 0)
-			currItem = doc->m_Selection->itemAt(0);
-		else
-			SelectedType = -1;
-	}
-	else if (docSelectionCount > 0)
+	const uint docSelectionCount = doc->m_Selection->count();
+	if (docSelectionCount > 0)
 	{
 		currItem = doc->m_Selection->itemAt(0);
+		SelectedType = currItem->itemType();
+	}
+	else
+	{
+		SelectedType = -1;
 	}
 	assert (docSelectionCount == 0 || currItem != NULL); // help coverity analysis
 	if (docSelectionCount == 0)
@@ -5336,7 +5331,7 @@ void ScribusMainWindow::slotEditPaste()
 					//propertiesPalette->setBH(w, h);
 				}
 				if (docSelectionCount > 0)
-					HaveNewSel(doc->m_Selection->itemAt(0)->itemType());
+					HaveNewSel();
 			}
 			view->DrawNew();
 		}
@@ -5431,10 +5426,7 @@ void ScribusMainWindow::SelectAllOnLayer()
 			//propertiesPalette->setBH(w, h);
 		}
 		if (docSelectionCount > 0)
-		{
-			currItem = doc->m_Selection->itemAt(0);
-			HaveNewSel(currItem->itemType());
-		}
+			HaveNewSel();
 		view->DrawNew();
 	}
 	delete dia;
@@ -5501,10 +5493,7 @@ void ScribusMainWindow::SelectAll(bool docWideSelect)
 			//propertiesPalette->setBH(w, h);
 		}
 		if (docSelectionCount > 0)
-		{
-			currItem = doc->m_Selection->itemAt(0);
-			HaveNewSel(currItem->itemType());
-		}
+			HaveNewSel();
 	}
 	view->DrawNew();
 }
@@ -6359,14 +6348,12 @@ void ScribusMainWindow::NoFrameEdit()
 	{
 // done elsewhere now:		doc->appMode = modeNormal;
 		doc->nodeEdit.reset();
+		HaveNewSel();
 		if (!doc->m_Selection->isEmpty())
 		{
-			HaveNewSel(doc->m_Selection->itemAt(0)->itemType());
 			doc->m_Selection->itemAt(0)->emitAllToGUI();
 			view->DrawNew();
 		}
-		else
-			HaveNewSel(-1);
 	}
 	actionManager->connectModeActions();
 // 	if (tmpClip)
@@ -8586,7 +8573,6 @@ void ScribusMainWindow::restoreDeletePage(SimpleState *state, bool isUndo)
 	pagePalette->rebuildPages();
 	if (outlinePalette->isVisible())
 		outlinePalette->BuildTree();
-
 }
 
 void ScribusMainWindow::restoreAddPage(SimpleState *state, bool isUndo)
@@ -8908,7 +8894,7 @@ void ScribusMainWindow::setCurrentPage(int p)
 		return;
 	slotSetCurrentPage(p0);
 	doc->view()->SetCPo(doc->currentPage()->xOffset() - 10, doc->currentPage()->yOffset() - 10);
-	HaveNewSel(-1);
+	HaveNewSel();
 	doc->view()->setFocus();
 }
 
@@ -10849,7 +10835,7 @@ void ScribusMainWindow::setPreviewToolbar()
 	scrMenuMgr->setMenuEnabled("Insert", !doc->drawAsPreview);
 	scrMenuMgr->setMenuEnabled("Page", !doc->drawAsPreview);
 	scrMenuMgr->setMenuEnabled("Extras", !doc->drawAsPreview);
-	HaveNewSel(-1);
+	HaveNewSel();
 }
 
 
