@@ -8791,7 +8791,8 @@ void ScribusMainWindow::restoreAddPage(SimpleState *state, bool isUndo)
 	if (currMasterPageMode!=savedMasterPageMode)
 		doc->setMasterPageMode(currMasterPageMode);
 	doc->rebuildMasterNames();
-	ActWin->masterPagesPalette()->updateMasterPageList();
+	if (ActWin->masterPagesPalette())
+		ActWin->masterPagesPalette()->updateMasterPageList();
 	pagePalette->rebuildPages();
 	if (outlinePalette->isVisible())
 		outlinePalette->BuildTree();
