@@ -15457,8 +15457,7 @@ void ScribusDoc::itemSelection_UnGroupObjects(Selection* customSelection)
 		currItem = toDelete.at(i);
 		if (currItem->isWelded())
 			currItem->unWeld();
-		if (currItem->undoStateCount() <= 0)
-			delete currItem;
+		delete currItem;
 	}
 	if (activeTransaction)
 	{
