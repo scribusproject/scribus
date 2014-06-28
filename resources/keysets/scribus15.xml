@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <shortcutset name="Scribus 1.5.0">
-    <function shortcut="F7" name="AspellPlugin"/>
-    <function shortcut="" name="Barcode Generator"/>
+    <function shortcut="" name="BarcodeGenerator"/>
     <function shortcut="" name="ColorWheel"/>
     <function shortcut="Ctrl+Shift+E" name="ExportAsImage"/>
     <function shortcut="" name="ExportAsSVG"/>
+    <function shortcut="" name="ExportAsXPS"/>
+    <function shortcut="" name="FlattenPath"/>
     <function shortcut="" name="FontPreview"/>
+    <function shortcut="Shift+F7" name="HunspellPlugin"/>
     <function shortcut="" name="LensEffects"/>
     <function shortcut="" name="MeshDistortion"/>
     <function shortcut="Ctrl+Alt+N" name="NewFromDocumentTemplate"/>
@@ -18,15 +20,15 @@
     <function shortcut="" name="PrintPreview"/>
     <function shortcut="Ctrl+Alt+S" name="SaveAsDocumentTemplate"/>
     <function shortcut="" name="ShortWords"/>
+    <function shortcut="" name="SmoothPath"/>
     <function shortcut="" name="Subdivide"/>
-    <function shortcut="" name="TransformEffect"/>
     <function shortcut="" name="alignBlock"/>
     <function shortcut="" name="alignCenter"/>
     <function shortcut="" name="alignForced"/>
     <function shortcut="" name="alignLeft"/>
     <function shortcut="" name="alignRight"/>
     <function shortcut="" name="editActionMode"/>
-    <function shortcut="" name="editClearContents"/>
+    <function shortcut="Ctrl+Shift+Del" name="editClearContents"/>
     <function shortcut="" name="editColors"/>
     <function shortcut="Ctrl+C" name="editCopy"/>
     <function shortcut="Ctrl+Shift+C" name="editCopyContents"/>
@@ -34,27 +36,31 @@
     <function shortcut="Ctrl+Shift+A" name="editDeselectAll"/>
     <function shortcut="" name="editEditRenderSource"/>
     <function shortcut="" name="editEditWithImageEditor"/>
-    <function shortcut="" name="editExtendedImageProperties"/>
     <function shortcut="" name="editJavascripts"/>
+    <function shortcut="" name="editMark"/>
+    <function shortcut="" name="editMarks"/>
     <function shortcut="" name="editMasterPages"/>
+    <function shortcut="" name="editNotesStyles"/>
     <function shortcut="Ctrl+V" name="editPaste"/>
     <function shortcut="Ctrl+Shift+V" name="editPasteContents"/>
     <function shortcut="Ctrl+Alt+Shift+V" name="editPasteContentsAbs"/>
-    <function shortcut="" name="editPatterns"/>
+    <function shortcut="" name="editPasteImageFromClipboard"/>
     <function shortcut="Ctrl+Shift+Z" name="editRedoAction"/>
     <function shortcut="" name="editReplaceColors"/>
     <function shortcut="Ctrl+F" name="editSearchReplace"/>
     <function shortcut="Ctrl+A" name="editSelectAll"/>
     <function shortcut="Ctrl+Alt+A" name="editSelectAllOnLayer"/>
     <function shortcut="F3" name="editStyles"/>
+    <function shortcut="" name="editTruncateContents"/>
     <function shortcut="Ctrl+Z" name="editUndoAction"/>
     <function shortcut="" name="extrasDeHyphenateText"/>
     <function shortcut="" name="extrasGenerateTableOfContents"/>
     <function shortcut="" name="extrasHyphenateText"/>
     <function shortcut="" name="extrasManageImages"/>
+    <function shortcut="" name="extrasTestQTQuick2_1"/>
+    <function shortcut="" name="extrasUpdateDocument"/>
     <function shortcut="Ctrl+W" name="fileClose"/>
     <function shortcut="" name="fileCollect"/>
-    <function shortcut="" name="fileDocSetup"/>
     <function shortcut="" name="fileDocSetup150"/>
     <function shortcut="" name="fileExportAsEPS"/>
     <function shortcut="Ctrl+Shift+P" name="fileExportAsPDF"/>
@@ -62,11 +68,11 @@
     <function shortcut="" name="fileImportAppendText"/>
     <function shortcut="Ctrl+I" name="fileImportImage"/>
     <function shortcut="Ctrl+I" name="fileImportText"/>
+    <function shortcut="" name="fileImportText2"/>
     <function shortcut="" name="fileImportVector"/>
     <function shortcut="Ctrl+N" name="fileNew"/>
     <function shortcut="Ctrl+Alt+N" name="fileNewFromTemplate"/>
     <function shortcut="Ctrl+O" name="fileOpen"/>
-    <function shortcut="" name="filePreferences"/>
     <function shortcut="" name="filePreferences150"/>
     <function shortcut="Ctrl+P" name="filePrint"/>
     <function shortcut="Ctrl+Q" name="fileQuit"/>
@@ -98,7 +104,14 @@
     <function shortcut="" name="helpTooltips"/>
     <function shortcut="" name="insertFrame"/>
     <function shortcut="" name="insertGlyph"/>
+    <function shortcut="" name="insertMark2Mark"/>
+    <function shortcut="" name="insertMarkAnchor"/>
+    <function shortcut="" name="insertMarkIndex"/>
+    <function shortcut="" name="insertMarkItem"/>
+    <function shortcut="" name="insertMarkNote"/>
+    <function shortcut="" name="insertMarkVariableText"/>
     <function shortcut="" name="insertSampleText"/>
+    <function shortcut="" name="itemAdjustFrameHeightToText"/>
     <function shortcut="" name="itemAdjustFrameToImage"/>
     <function shortcut="" name="itemAdjustImageToFrame"/>
     <function shortcut="" name="itemAttachTextToPath"/>
@@ -108,21 +121,24 @@
     <function shortcut="" name="itemConvertToImageFrame"/>
     <function shortcut="" name="itemConvertToOutlines"/>
     <function shortcut="" name="itemConvertToPolygon"/>
+    <function shortcut="" name="itemConvertToSymbolFrame"/>
     <function shortcut="" name="itemConvertToTextFrame"/>
-    <function shortcut="Ctrl+K" name="itemDelete"/>
+    <function shortcut="Del" name="itemDelete"/>
     <function shortcut="" name="itemDetachTextFromPath"/>
     <function shortcut="Ctrl+D" name="itemDuplicate"/>
+    <function shortcut="" name="itemEditWeld"/>
     <function shortcut="" name="itemExtendedImageProperties"/>
     <function shortcut="" name="itemFlipH"/>
     <function shortcut="" name="itemFlipV"/>
     <function shortcut="Ctrl+G" name="itemGroup"/>
+    <function shortcut="" name="itemGroupAdjust"/>
     <function shortcut="" name="itemImageInfo"/>
     <function shortcut="" name="itemImageIsVisible"/>
     <function shortcut="Ctrl+L" name="itemLock"/>
     <function shortcut="Ctrl+Shift+L" name="itemLockSize"/>
-    <function shortcut="Ctrl+↘" name="itemLower"/>
-    <function shortcut="↘" name="itemLowerToBottom"/>
-    <function shortcut="" name="itemMulDuplicate"/>
+    <function shortcut="Ctrl+End" name="itemLower"/>
+    <function shortcut="End" name="itemLowerToBottom"/>
+    <function shortcut="Ctrl+Shift+D" name="itemMulDuplicate"/>
     <function shortcut="" name="itemPDFAnnotationProps"/>
     <function shortcut="" name="itemPDFFieldProps"/>
     <function shortcut="" name="itemPDFIsAnnotation"/>
@@ -131,15 +147,19 @@
     <function shortcut="" name="itemPreviewLow"/>
     <function shortcut="" name="itemPreviewNormal"/>
     <function shortcut="" name="itemPrintingEnabled"/>
-    <function shortcut="Ctrl+↖" name="itemRaise"/>
-    <function shortcut="↖" name="itemRaiseToTop"/>
+    <function shortcut="Ctrl+Home" name="itemRaise"/>
+    <function shortcut="Home" name="itemRaiseToTop"/>
+    <function shortcut="" name="itemSendToInline"/>
     <function shortcut="" name="itemSendToPattern"/>
-    <function shortcut="" name="itemSendToScrapbook"/>
     <function shortcut="" name="itemShapeEdit"/>
     <function shortcut="" name="itemSplitPolygons"/>
     <function shortcut="" name="itemToggleInlineImage"/>
+    <function shortcut="" name="itemTransform"/>
     <function shortcut="Ctrl+Shift+G" name="itemUngroup"/>
     <function shortcut="" name="itemUpdateImage"/>
+    <function shortcut="" name="itemUpdateMarks"/>
+    <function shortcut="" name="itemWeld"/>
+    <function shortcut="" name="itemsUnWeld"/>
     <function shortcut="" name="pageApplyMasterPage"/>
     <function shortcut="" name="pageCopy"/>
     <function shortcut="" name="pageCopyToMasterPage"/>
@@ -156,6 +176,18 @@
     <function shortcut="" name="stickyTools"/>
     <function shortcut="Ctrl+E" name="styleImageEffects"/>
     <function shortcut="" name="styleTabulators"/>
+    <function shortcut="" name="tableAdjustFrameToTable"/>
+    <function shortcut="" name="tableAdjustTableToFrame"/>
+    <function shortcut="" name="tableDeleteColumns"/>
+    <function shortcut="" name="tableDeleteRows"/>
+    <function shortcut="" name="tableDistributeColumnsEvenly"/>
+    <function shortcut="" name="tableDistributeRowsEvenly"/>
+    <function shortcut="" name="tableInsertColumns"/>
+    <function shortcut="" name="tableInsertRows"/>
+    <function shortcut="" name="tableMergeCells"/>
+    <function shortcut="" name="tableSetColumnWidths"/>
+    <function shortcut="" name="tableSetRowHeights"/>
+    <function shortcut="" name="tableSplitCells"/>
     <function shortcut="" name="toolsActionHistory"/>
     <function shortcut="" name="toolsAlignDistribute"/>
     <function shortcut="" name="toolsBookmarks"/>
@@ -163,14 +195,18 @@
     <function shortcut="E" name="toolsEditContents"/>
     <function shortcut="Ctrl+T" name="toolsEditWithStoryEditor"/>
     <function shortcut="Y" name="toolsEyeDropper"/>
+    <function shortcut="" name="toolsInline"/>
+    <function shortcut="" name="toolsInsertArc"/>
     <function shortcut="B" name="toolsInsertBezier"/>
+    <function shortcut="" name="toolsInsertCalligraphicLine"/>
     <function shortcut="F" name="toolsInsertFreehandLine"/>
     <function shortcut="I" name="toolsInsertImageFrame"/>
     <function shortcut="L" name="toolsInsertLine"/>
     <function shortcut="P" name="toolsInsertPolygon"/>
     <function shortcut="D" name="toolsInsertRenderFrame"/>
     <function shortcut="S" name="toolsInsertShape"/>
-    <function shortcut="A" name="toolsInsertTableFrame"/>
+    <function shortcut="" name="toolsInsertSpiral"/>
+    <function shortcut="A" name="toolsInsertTable"/>
     <function shortcut="T" name="toolsInsertTextFrame"/>
     <function shortcut="F6" name="toolsLayers"/>
     <function shortcut="N" name="toolsLinkTextFrame"/>
@@ -182,6 +218,7 @@
     <function shortcut="" name="toolsPDFComboBox"/>
     <function shortcut="" name="toolsPDFListBox"/>
     <function shortcut="" name="toolsPDFPushButton"/>
+    <function shortcut="" name="toolsPDFRadioButton"/>
     <function shortcut="" name="toolsPDFTextField"/>
     <function shortcut="" name="toolsPages"/>
     <function shortcut="" name="toolsPreflightVerifier"/>
@@ -192,7 +229,10 @@
     <function shortcut="" name="toolsSymbols"/>
     <function shortcut="" name="toolsToolbarPDF"/>
     <function shortcut="" name="toolsToolbarTools"/>
+    <function shortcut="" name="toolsToolbarView"/>
     <function shortcut="U" name="toolsUnlinkTextFrame"/>
+    <function shortcut="" name="toolsUnlinkTextFrameWithTextCopy"/>
+    <function shortcut="" name="toolsUnlinkTextFrameWithTextCut"/>
     <function shortcut="Z" name="toolsZoom"/>
     <function shortcut="Ctrl++" name="toolsZoomIn"/>
     <function shortcut="Ctrl+-" name="toolsZoomOut"/>
@@ -207,13 +247,13 @@
     <function shortcut="" name="typeEffectUnderline"/>
     <function shortcut="" name="typeEffectUnderlineWords"/>
     <function shortcut="" name="unicodeBullet"/>
-    <function shortcut="Ctrl+Shift+↵" name="unicodeColumnBreak"/>
+    <function shortcut="Ctrl+Shift+Return" name="unicodeColumnBreak"/>
     <function shortcut="" name="unicodeCopyRight"/>
     <function shortcut="" name="unicodeDashEm"/>
     <function shortcut="" name="unicodeDashEn"/>
     <function shortcut="" name="unicodeDashFigure"/>
     <function shortcut="" name="unicodeDashQuotation"/>
-    <function shortcut="Ctrl+↵" name="unicodeFrameBreak"/>
+    <function shortcut="Ctrl+Return" name="unicodeFrameBreak"/>
     <function shortcut="" name="unicodeLigature_ff"/>
     <function shortcut="" name="unicodeLigature_ffi"/>
     <function shortcut="" name="unicodeLigature_ffl"/>
@@ -222,7 +262,7 @@
     <function shortcut="" name="unicodeLigature_ft"/>
     <function shortcut="" name="unicodeLigature_st"/>
     <function shortcut="" name="unicodeMidpoint"/>
-    <function shortcut="Shift+↵" name="unicodeNewLine"/>
+    <function shortcut="Shift+Return" name="unicodeNewLine"/>
     <function shortcut="Ctrl+Alt+-" name="unicodeNonBreakingHyphen"/>
     <function shortcut="Ctrl+Space" name="unicodeNonBreakingSpace"/>
     <function shortcut="" name="unicodePageCount"/>
@@ -257,14 +297,15 @@
     <function shortcut="" name="unicodeTM"/>
     <function shortcut="" name="unicodeZerowidthNonBreakingSpace"/>
     <function shortcut="" name="unicodeZerowidthSpace"/>
+    <function shortcut="" name="viewEditInPreview"/>
     <function shortcut="Ctrl+1" name="viewFit100"/>
     <function shortcut="" name="viewFit200"/>
     <function shortcut="" name="viewFit400"/>
     <function shortcut="" name="viewFit50"/>
     <function shortcut="" name="viewFit75"/>
     <function shortcut="Ctrl+0" name="viewFitInWindow"/>
-    <function shortcut="Ctrl+Alt+P" name="viewPreviewMode"/>
     <function shortcut="" name="viewFitWidth"/>
+    <function shortcut="Ctrl+Alt+P" name="viewPreviewMode"/>
     <function shortcut="" name="viewRulerMode"/>
     <function shortcut="" name="viewShowBaseline"/>
     <function shortcut="" name="viewShowBleeds"/>
@@ -279,8 +320,11 @@
     <function shortcut="Ctrl+Shift+R" name="viewShowRulers"/>
     <function shortcut="" name="viewShowTextChain"/>
     <function shortcut="" name="viewShowTextControls"/>
+    <function shortcut="" name="viewSnapToElements"/>
     <function shortcut="" name="viewSnapToGrid"/>
     <function shortcut="" name="viewSnapToGuides"/>
+    <function shortcut="" name="viewToggleCM"/>
+    <function shortcut="" name="viewToggleCMS"/>
     <function shortcut="" name="windowsCascade"/>
     <function shortcut="" name="windowsTile"/>
 </shortcutset>
