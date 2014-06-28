@@ -197,8 +197,8 @@ void FontComboH::setCurrentFont(QString f)
 	// If we already have the correct font+style, nothing to do
 	if ((fontFamily->currentText() == family) && (fontStyle->currentText() == style))
 		return;
-	disconnect(fontFamily, SIGNAL(activated(int)), this, SLOT(familySelected(int)));
-	disconnect(fontStyle, SIGNAL(activated(int)), this, SLOT(styleSelected(int)));
+	bool familySigBlocked = fontFamily->blockSignals(true);
+	bool styleSigBlocked = fontStyle->blockSignals(true);
 	setCurrentComboItem(fontFamily, family);
 	fontStyle->clear();
 	QStringList slist = prefsManager->appPrefs.fontPrefs.AvailFonts.fontMap[family];
@@ -222,8 +222,8 @@ void FontComboH::setCurrentFont(QString f)
 	else
 		fontStyle->addItems(slist);
 	setCurrentComboItem(fontStyle, style);
-	connect(fontFamily, SIGNAL(activated(int)), this, SLOT(familySelected(int)));
-	connect(fontStyle, SIGNAL(activated(int)), this, SLOT(styleSelected(int)));
+	fontFamily->blockSignals(familySigBlocked);
+	fontStyle->blockSignals(styleSigBlocked);
 }
 
 void FontComboH::RebuildList(ScribusDoc *currentDoc, bool forAnnotation, bool forSubstitute)
@@ -234,8 +234,8 @@ void FontComboH::RebuildList(ScribusDoc *currentDoc, bool forAnnotation, bool fo
 	currDoc = currentDoc;
 	isForAnnotation = forAnnotation;
 	isForSubstitute = forSubstitute;
-	disconnect(fontFamily, SIGNAL(activated(int)), this, SLOT(familySelected(int)));
-	disconnect(fontStyle, SIGNAL(activated(int)), this, SLOT(styleSelected(int)));
+	bool familySigBlocked = fontFamily->blockSignals(true);
+	bool styleSigBlocked = fontStyle->blockSignals(true);
 	fontFamily->clear();
 	fontStyle->clear();
 	QStringList rlist = prefsManager->appPrefs.fontPrefs.AvailFonts.fontMap.keys();
@@ -316,6 +316,6 @@ void FontComboH::RebuildList(ScribusDoc *currentDoc, bool forAnnotation, bool fo
 	}
 	else
 		fontStyle->addItems(slist);
-	connect(fontFamily, SIGNAL(activated(int)), this, SLOT(familySelected(int)));
-	connect(fontStyle, SIGNAL(activated(int)), this, SLOT(styleSelected(int)));
+	fontFamily->blockSignals(familySigBlocked);
+	fontStyle->blockSignals(styleSigBlocked);
 }

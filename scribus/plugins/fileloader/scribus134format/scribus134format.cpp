@@ -1154,7 +1154,11 @@ void Scribus134Format::readCharacterStyleAttrs(ScribusDoc *doc, ScXmlStreamAttri
 
 	static const QString FONT("FONT");
 	if (attrs.hasAttribute(FONT))
-		newStyle.setFont(m_AvailableFonts->findFont(attrs.valueAsString(FONT), doc));
+	{
+		const ScFace& face = m_AvailableFonts->findFont(attrs.valueAsString(FONT), doc);
+		if (!face.isNone())
+			newStyle.setFont(face);
+	}
 	
 	static const QString FONTSIZE("FONTSIZE");
 	if (attrs.hasAttribute(FONTSIZE))
