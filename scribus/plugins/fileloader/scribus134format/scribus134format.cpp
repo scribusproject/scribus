@@ -1705,8 +1705,12 @@ void Scribus134Format::GetCharStyle(const QDomElement *it, ScribusDoc *doc, Char
 		newStyle.setParent(it->attribute("CPARENT"));
 
 	if (it->hasAttribute("FONT"))
-		newStyle.setFont(m_AvailableFonts->findFont(it->attribute("FONT"),doc));
-	
+	{
+		const ScFace& face = m_AvailableFonts->findFont(it->attribute("FONT"), doc);
+		if (!face.isNone())
+			newStyle.setFont(face);
+	}
+
 	if (it->hasAttribute("FONTSIZE"))
 		newStyle.setFontSize(qRound(ScCLocale::toDoubleC(it->attribute("FONTSIZE")) * 10));
 	

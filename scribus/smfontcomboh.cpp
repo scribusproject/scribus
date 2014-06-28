@@ -51,13 +51,15 @@ bool SMFontComboH::useParentFont()
 
 	if (useParentValue_ && hasParent_)
 	{
-		ret = fontFamily->currentIndex() == (fontFamily->count() - 1) ||
-				fontStyle->currentIndex() == (fontStyle->count() - 1);
+		ret = fontFamily->currentText() == usePFont_ ||
+			  fontStyle->currentText() == usePFont_;
 
 		if (ret)
 		{
-			fontFamily->removeItem(fontFamily->count() - 1);
-			fontStyle->removeItem(fontStyle->count() - 1);
+			if (fontFamily->itemText(fontFamily->count() - 1) == usePFont_)
+				fontFamily->removeItem(fontFamily->count() - 1);
+			if (fontStyle->itemText(fontStyle->count() - 1) == usePFont_)
+				fontStyle->removeItem(fontStyle->count() - 1);
 			setFont(false);
 			setCurrentFont(pFont_, true);
 			useParentValue_ = false;
