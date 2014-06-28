@@ -217,7 +217,7 @@ ScribusView::ScribusView(QWidget* win, ScribusMainWindow* mw, ScribusDoc *doc) :
 //	m_SnapCounter = 0;
 
 	Doc->regionsChanged()->connectObserver(this);
-	connect(this, SIGNAL(HaveSel(int)), Doc, SLOT(selectionChanged()));
+	connect(this, SIGNAL(HaveSel()), Doc, SLOT(selectionChanged()));
 // Commented out to fix bug #7865
 //	m_dragTimer = new QTimer(this);
 //	connect(m_dragTimer, SIGNAL(timeout()), this, SLOT(dragTimerTimeOut()));
