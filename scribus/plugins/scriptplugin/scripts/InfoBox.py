@@ -123,18 +123,28 @@ def main(argv):
     if (o_cols == 1):
 	columns_width = 1
     new_height = 0
-    while (new_height == 0):
+    while (new_height <= 0):
         new_height = scribus.valueDialog('Height','Your frame height is '+ str(o_height) +
                                                  unitlabel +'. How tall\n do you want your ' +
                                                  'infobox to be in '+ unitlabel +'?\n If you load an image and have the PIL module, height will be\n calculated, so the value here will not\n matter in that case.', str(o_height))
+        if (not new_height) :
+            sys.exit(0)
+        new_height = float(new_height)
     new_top = -1
     while (new_top < 0):
         new_top = scribus.valueDialog('Y-Pos','The top of your infobox is currently\n'+ str(top) +
                                                  unitlabel +'. Where do you want \n' +
                                                  'the top to be in '+ unitlabel +'?', str(top))
+        if (not new_top) :
+            sys.exit(0)
+        new_top = float(new_top)
     framename = scribus.valueDialog('Name of Frame','Name your frame or use this default name',"infobox" + str(boxcount) + textbox)
+    if (not framename) :
+        sys.exit(0)
     frametype = 'text'
     frametype = scribus.valueDialog('Frame Type','Change to anything other\n than "text" for image frame.\nEnter "imageL" to also load an image',frametype)
+    if (not frametype) :
+        sys.exit(0)
     new_width = columns_width * o_colwidth + (columns_width-1) * o_gap
     new_left = left + ((column_pos) * o_colwidth) + ((column_pos) * o_gap)
     if (frametype == 'text'):
