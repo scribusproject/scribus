@@ -1860,6 +1860,7 @@ void ActionManager::createDefaultShortcuts()
 	defKeys.insert("editCut", QKeySequence::Cut);
 	defKeys.insert("editCopy", QKeySequence::Copy);
 	defKeys.insert("editPaste", QKeySequence::Paste);
+	defKeys.insert("editClearContents", Qt::CTRL+Qt::SHIFT+Qt::Key_Delete);
 	defKeys.insert("editCopyContents", Qt::CTRL+Qt::SHIFT+Qt::Key_C);
 	defKeys.insert("editPasteContents", Qt::CTRL+Qt::SHIFT+Qt::Key_V);
 	defKeys.insert("editPasteContentsAbs", Qt::CTRL+Qt::ALT+Qt::SHIFT+Qt::Key_V);
@@ -1873,7 +1874,7 @@ void ActionManager::createDefaultShortcuts()
 	//Item Menu
 	defKeys.insert("itemDuplicate", Qt::CTRL+Qt::Key_D);
 	defKeys.insert("itemMulDuplicate", Qt::CTRL+Qt::SHIFT+Qt::Key_D);
-	defKeys.insert("itemDelete", Qt::CTRL+Qt::Key_K);
+	defKeys.insert("itemDelete", QKeySequence::Delete);
 	defKeys.insert("itemGroup", Qt::CTRL+Qt::Key_G);
 	defKeys.insert("itemUngroup", Qt::CTRL+Qt::SHIFT+Qt::Key_G);
 	defKeys.insert("itemLock", Qt::CTRL+Qt::Key_L);

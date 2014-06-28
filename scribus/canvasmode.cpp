@@ -1135,6 +1135,7 @@ void CanvasMode::commonDrawTextCursor(QPainter* p, PageItem_TextFrame* textframe
 void CanvasMode::commonkeyPressEvent_NormalNodeEdit(QKeyEvent *e)
 {
 	int kk = e->key();
+	Qt::KeyboardModifiers buttonModifiers = e->modifiers();
 	QString uc = e->text();
 	ScribusMainWindow* mainWindow = m_view->m_ScMW;
 	QList<QMdiSubWindow *> windows;
@@ -1187,7 +1188,6 @@ void CanvasMode::commonkeyPressEvent_NormalNodeEdit(QKeyEvent *e)
 		scrActions["stickyTools"]->setChecked(false);
 		return;
 	}
-	Qt::KeyboardModifiers buttonModifiers = e->modifiers();
 	/**If we have a doc and we are not changing the page or zoom level in the status bar */
 	if ((!m_view->m_ScMW->zoomSpinBox->hasFocus()) && (!m_view->m_ScMW->pageSelector->hasFocus()))
 	{
@@ -1391,23 +1391,15 @@ void CanvasMode::commonkeyPressEvent_NormalNodeEdit(QKeyEvent *e)
 			{
 			case Qt::Key_Backspace:
 			case Qt::Key_Delete:
-				m_doc->itemSelection_DeleteItem();
+					if (buttonModifiers==Qt::NoModifier)
+						m_doc->itemSelection_DeleteItem();
+					else
+					{
+						QKeySequence currKeySeq = QKeySequence(kk | buttonModifiers);
+						if (currKeySeq.matches(scrActions["editClearContents"]->shortcut())==QKeySequence::ExactMatch)
+							scrActions["editClearContents"]->trigger();
+					}
 				break;
-				/* CB: Stop using inflexible hardcoded keys here, actions for lower/raise work without this
-					per note above with shortcuts.
-			case Qt::Key_PageUp:
-				if (!currItem->locked())
-				{
-					m_view->RaiseItem();
-				}
-				break;
-			case Qt::Key_PageDown:
-				if (!currItem->locked())
-				{
-					m_view->LowerItem();
-				}
-				break;
-				*/
 			case Qt::Key_Left:
 				if (!currItem->locked())
 				{

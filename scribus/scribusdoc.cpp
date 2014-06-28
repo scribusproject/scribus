@@ -11643,7 +11643,7 @@ void ScribusDoc::item_setFrameShape(PageItem* item, int frameType, int count, do
 	changed();
 }
 
-void ScribusDoc::itemSelection_ClearItem(Selection* customSelection)
+void ScribusDoc::itemSelection_ClearItem(Selection* customSelection, bool useWarning)
 {
 	Selection* itemSelection = (customSelection != 0) ? customSelection : m_Selection;
 	assert(itemSelection != 0);
@@ -11651,7 +11651,7 @@ void ScribusDoc::itemSelection_ClearItem(Selection* customSelection)
 	uint selectedItemCount = itemSelection->count();
 	if (selectedItemCount <= 0)
 		return;
-	if (ScCore->usingGUI())
+	if (ScCore->usingGUI() && useWarning)
 	{
 		int t = QMessageBox::warning(m_ScMW, CommonStrings::trWarning, tr("Do you really want to clear the content of all selected frames?"),  QMessageBox::Yes, QMessageBox::No | QMessageBox::Default);
 		if (t == QMessageBox::No)
