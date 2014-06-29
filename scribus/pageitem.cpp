@@ -76,6 +76,7 @@ for which a new license (GPL+exception) is in place.
 #include "ui/propertiespalette.h"
 #include "undomanager.h"
 #include "undostate.h"
+#include "units.h"
 #include "util.h"
 #include "util_file.h"
 #include "util_formats.h"
@@ -5070,8 +5071,15 @@ void PageItem::changeImageOffsetUndoAction()
 		return;
 	if (UndoManager::undoEnabled())
 	{
-		SimpleState *ss = new SimpleState(Um::ImageOffset,
-			QString(Um::ImageOffsetFromTo).arg(oldLocalX).arg(oldLocalY).arg(m_imageXOffset).arg(m_imageYOffset), Um::IMove);
+		QString unitSuffix = unitGetStrFromIndex(m_Doc->unitIndex());
+		int unitPrecision  = unitGetPrecisionFromIndex(m_Doc->unitIndex());
+		double unitRatio   = m_Doc->unitRatio();
+		QString olxString  = QString::number(oldLocalX * unitRatio, 'f', unitPrecision) + " " + unitSuffix;
+		QString olyString  = QString::number(oldLocalY * unitRatio, 'f', unitPrecision) + " " + unitSuffix;
+		QString nlxString  = QString::number(m_imageXOffset * unitRatio, 'f', unitPrecision) + " " + unitSuffix;
+		QString nlyString  = QString::number(m_imageYOffset * unitRatio, 'f', unitPrecision) + " " + unitSuffix;
+		QString tooltip   =  QString(Um::ImageOffsetFromTo).arg(olxString).arg(olyString).arg(nlxString).arg(nlyString);
+		SimpleState *ss = new SimpleState(Um::ImageOffset, tooltip, Um::IMove);
 		ss->set("IMAGE_OFFSET", "image_offset");
 		ss->set("OLD_IMAGEXOFFSET", oldLocalX);
 		ss->set("OLD_IMAGEYOFFSET", oldLocalY);
