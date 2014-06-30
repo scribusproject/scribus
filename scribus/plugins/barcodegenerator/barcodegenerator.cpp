@@ -38,7 +38,7 @@ BarcodeGenerator::BarcodeGenerator(QWidget* parent, const char* name)
 	ui.setupUi(this);
 	setObjectName(name);
 	setModal(true);
-	map["EAN-13"] = BarcodeType("ean13", "9781860742712", tr("12 or 13 digits"),
+	map["EAN-13"] = BarcodeType("ean13", "9780956078001", tr("12 or 13 digits"),
 								"[0-9]{12,13}");
 	map["EAN-8"] = BarcodeType("ean8", "12345678", tr("8 digits"),
 							   "[0-9]{8,8}");
@@ -50,7 +50,7 @@ BarcodeGenerator::BarcodeGenerator(QWidget* parent, const char* name)
 							   "[0-9]{5,5}");
 	map["EAN-2"] = BarcodeType("ean2", "42", tr("2 digits"),
 							   "[0-9]{2,2}");
-	map["ISBN"] = BarcodeType("isbn", "1-58880-149",
+	map["ISBN"] = BarcodeType("isbn", "978-0-9560780-0-1",
 							  tr("12 or 13 digits with dashes. The legacy ISBN-10 format accepts 9 or 10 digits with dashes, but this standard was depreciated for public use after 1st January 2007. (Note: To convert an old ISBN-10 to a new ISBN-13, prefix 978- to the first 9 digits, e.g. 1-56592-479-7 -> 978-1-56592-479. The final check-digit will be calculated automatically.)"),
 							  "[0-9]*\\-[0-9]*\\-[0-9]*");
 //    "Code-11"] = "code11"
