@@ -14556,7 +14556,13 @@ bool ScribusDoc::SizeItem(double newX, double newY, PageItem *pi, bool fromMP, b
 	UndoTransaction *activeTransaction = NULL;
 	if (UndoManager::undoEnabled())
 	{
-		QString transacDesc = QString(Um::ResizeFromTo).arg(currItem->oldWidth).arg(currItem->oldHeight).arg(newX).arg(newY);
+		QString unitSuffix = unitGetStrFromIndex(this->unitIndex());
+		int unitPrecision  = unitGetPrecisionFromIndex(this->unitIndex());
+		QString owString  = QString::number(currItem->oldWidth * docUnitRatio, 'f', unitPrecision) + " " + unitSuffix;
+		QString ohString  = QString::number(currItem->oldHeight * docUnitRatio, 'f', unitPrecision) + " " + unitSuffix;
+		QString nwString  = QString::number(newX * docUnitRatio, 'f', unitPrecision) + " " + unitSuffix;
+		QString nhString  = QString::number(newY * docUnitRatio, 'f', unitPrecision) + " " + unitSuffix;
+		QString transacDesc = QString(Um::ResizeFromTo).arg(owString).arg(ohString).arg(nwString).arg(nhString);
 		activeTransaction = new UndoTransaction(undoManager->beginTransaction(currItem->getUName(), currItem->getUPixmap(), Um::Resize, transacDesc, Um::IResize));
 	}
 	int ph = static_cast<int>(qMax(1.0, currItem->lineWidth() / 2.0));

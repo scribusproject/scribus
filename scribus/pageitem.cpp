@@ -4961,9 +4961,17 @@ void PageItem::moveUndoAction()
 			newp = Um::ScratchSpace;
 		else
 			newp = QString(Um::PageNmbr).arg(m_Doc->FirstPnum + OwnPage);
-		SimpleState *ss = new SimpleState(Um::Move,
-                                          QString(Um::MoveFromTo).arg(oldXpos).arg(oldYpos).arg(oldp).
-																  arg(m_xPos).arg(m_yPos).arg(newp), Um::IMove);
+
+		QString unitSuffix = unitGetStrFromIndex(m_Doc->unitIndex());
+		int unitPrecision  = unitGetPrecisionFromIndex(m_Doc->unitIndex());
+		double unitRatio   = m_Doc->unitRatio();
+		QString oxString = QString::number(oldXpos * unitRatio, 'f', unitPrecision) + " " + unitSuffix;
+		QString oyString = QString::number(oldYpos * unitRatio, 'f', unitPrecision) + " " + unitSuffix;
+		QString nxString = QString::number(m_xPos * unitRatio, 'f', unitPrecision) + " " + unitSuffix;
+		QString nyString = QString::number(m_yPos * unitRatio, 'f', unitPrecision) + " " + unitSuffix;
+		QString tooltip  =  QString(Um::MoveFromTo).arg(oxString).arg(oyString).arg(oldp)
+			                                        .arg(nxString).arg(nyString).arg(newp);
+		SimpleState *ss = new SimpleState(Um::Move, tooltip, Um::IMove);
 		ss->set("ITEM_MOVE", "item_move");
 		ss->set("OLD_XPOS", oldXpos);
 		ss->set("OLD_YPOS", oldYpos);
@@ -4988,9 +4996,15 @@ void PageItem::resizeUndoAction()
 		doUndo = false;
 	if (doUndo && UndoManager::undoEnabled())
 	{
-		SimpleState *ss = new SimpleState(Um::Resize,
-						   QString(Um::ResizeFromTo).arg(oldWidth).arg(oldHeight).arg(m_width).arg(m_height),
-						           Um::IResize);
+		QString unitSuffix = unitGetStrFromIndex(m_Doc->unitIndex());
+		int unitPrecision  = unitGetPrecisionFromIndex(m_Doc->unitIndex());
+		double unitRatio   = m_Doc->unitRatio();
+		QString owString  = QString::number(oldWidth * unitRatio, 'f', unitPrecision) + " " + unitSuffix;
+		QString ohString  = QString::number(oldHeight * unitRatio, 'f', unitPrecision) + " " + unitSuffix;
+		QString nwString  = QString::number(m_width * unitRatio, 'f', unitPrecision) + " " + unitSuffix;
+		QString nhString  = QString::number(m_height * unitRatio, 'f', unitPrecision) + " " + unitSuffix;
+		QString tooltip   = QString(Um::ResizeFromTo).arg(owString).arg(ohString).arg(nwString).arg(nhString);
+		SimpleState *ss = new SimpleState(Um::Resize, tooltip, Um::IResize);
 		ss->set("ITEM_RESIZE", "item_resize");
 		if (!isNoteFrame() || !asNoteFrame()->isAutoWidth())
 		{
