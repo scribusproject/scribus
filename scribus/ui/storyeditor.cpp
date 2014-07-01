@@ -339,9 +339,7 @@ void SEditor::keyPressEvent(QKeyEvent *k)
 	if (k->modifiers() & Qt::AltModifier)
 		keyMod |= Qt::ALT;
 
-	QKeySequence currKeySeq = QKeySequence(k->key() | keyMod);
-	QKeySequence uniKeySeq  = doc->scMW()->scrActions["specialUnicodeSequenceBegin"]->shortcut();
-	if(currKeySeq.matches(uniKeySeq)==QKeySequence::ExactMatch)
+	if(ScCore->primaryMainWindow()->actionManager->compareKeySeqToShortcut(k->key(), k->modifiers(), "specialUnicodeSequenceBegin"))
 	{
 		unicodeTextEditMode = true;
 		unicodeInputCount = 0;

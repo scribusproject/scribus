@@ -4127,10 +4127,11 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 	if (k->modifiers() & Qt::AltModifier)
 		keyModifiers |= Qt::ALT;
 
+	ScribusView* view = m_Doc->view();
+
 	//<< ISO 14755
 	//Check if we are trying to enter Unicode sequence mode first
-	QKeySequence currKeySeq = QKeySequence(k->key() | keyModifiers);
-	if (currKeySeq.matches(doc()->scMW()->scrActions["specialUnicodeSequenceBegin"]->shortcut())==QKeySequence::ExactMatch)
+	if (view->m_ScMW->actionManager->compareKeySeqToShortcut(k->key(), buttonModifiers, "specialUnicodeSequenceBegin"))
 	{
 		unicodeTextEditMode = true;
 		unicodeInputCount = 0;
@@ -4140,7 +4141,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 	}
 	//>>
 
-	ScribusView* view = m_Doc->view();
+
 	switch (kk)
 	{
 	case Qt::Key_PageDown:

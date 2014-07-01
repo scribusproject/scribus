@@ -1270,7 +1270,7 @@ void ScribusMainWindow::initStatusBar()
 	statusBar()->addPermanentWidget(zoomOutToolbarButton,1);
 	statusBar()->addPermanentWidget(zoomDefaultToolbarButton,1);
 	statusBar()->addPermanentWidget(zoomInToolbarButton,1);
-	statusBar()->addPermanentWidget(pageSelector,1);
+	statusBar()->addPermanentWidget(pageSelector,2);
 	statusBar()->addPermanentWidget(layerMenu,1);
 	statusBar()->addPermanentWidget(s2,2);
 	statusBar()->addPermanentWidget(mainWindowXPosLabel, 0);
@@ -1492,10 +1492,10 @@ bool ScribusMainWindow::eventFilter( QObject* /*o*/, QEvent *e )
 			return false;
 		retVal=true;
 		//Palette actions
-		if (currKeySeq == scrActions["specialToggleAllPalettes"]->shortcut())
+		if (actionManager->compareKeySeqToShortcut(currKeySeq, "specialToggleAllPalettes"))
 			scrActions["specialToggleAllPalettes"]->activate(QAction::Trigger);
 		else
-		if (currKeySeq == scrActions["specialToggleAllGuides"]->shortcut())
+		if (actionManager->compareKeySeqToShortcut(currKeySeq, "specialToggleAllGuides"))
 			scrActions["specialToggleAllGuides"]->activate(QAction::Trigger);
 		else
 			retVal=false;
@@ -1626,8 +1626,7 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 	if ((HaveDoc) && (!zoomSpinBox->hasFocus()) && (!pageSelector->hasFocus()))
 	{
 		//Show our context menu
-		QKeySequence currKeySeq = QKeySequence(kk | keyMod);
-		if (currKeySeq.matches(scrActions["viewShowContextMenu"]->shortcut()) == QKeySequence::ExactMatch)
+		if (actionManager->compareKeySeqToShortcut(kk, buttonModifiers, "viewShowContextMenu"))
 		{
 			ContextMenu* cmen=NULL;
 			if (doc->m_Selection->isEmpty())

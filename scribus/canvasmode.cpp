@@ -16,6 +16,7 @@
 
 #include "canvasmode.h"
 
+#include "actionmanager.h"
 #include "appmodes.h"
 #include "canvas.h"
 #include "canvasgesture_pan.h"
@@ -1192,8 +1193,7 @@ void CanvasMode::commonkeyPressEvent_NormalNodeEdit(QKeyEvent *e)
 	if ((!m_view->m_ScMW->zoomSpinBox->hasFocus()) && (!m_view->m_ScMW->pageSelector->hasFocus()))
 	{
 		//Show our context menu
-		QKeySequence currKeySeq = QKeySequence(kk | keyMod);
-		if (currKeySeq.matches(scrActions["viewShowContextMenu"]->shortcut()) == QKeySequence::ExactMatch)
+		if (m_view->m_ScMW->actionManager->compareKeySeqToShortcut(kk, e->modifiers(), "viewShowContextMenu"))
 		{
 			ContextMenu* cmen=NULL;
 			m_view->setCursor(QCursor(Qt::ArrowCursor));
@@ -1395,8 +1395,7 @@ void CanvasMode::commonkeyPressEvent_NormalNodeEdit(QKeyEvent *e)
 						m_doc->itemSelection_DeleteItem();
 					else
 					{
-						QKeySequence currKeySeq = QKeySequence(kk | buttonModifiers);
-						if (currKeySeq.matches(scrActions["editClearContents"]->shortcut())==QKeySequence::ExactMatch)
+						if (m_view->m_ScMW->actionManager->compareKeySeqToShortcut(kk, buttonModifiers, "editClearContents"))
 							scrActions["editClearContents"]->trigger();
 					}
 				break;

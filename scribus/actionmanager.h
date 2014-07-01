@@ -58,6 +58,8 @@ class SCRIBUS_API ActionManager : public QObject
 		virtual void changeEvent(QEvent *e);
 		
 		void init(ScribusMainWindow *);
+		bool compareKeySeqToShortcut(QKeySequence ks, QString actionName);
+		bool compareKeySeqToShortcut(int k, Qt::KeyboardModifiers km, QString actionName);
 		static void createDefaultShortcuts();
 		static QMap<QString, QKeySequence>* defaultShortcuts() {return &defKeys;};
 		static void createDefaultMenus();

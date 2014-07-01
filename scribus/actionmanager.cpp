@@ -78,6 +78,20 @@ void ActionManager::init(ScribusMainWindow *mw)
 	setActionTooltips(scrActions);
 }
 
+bool ActionManager::compareKeySeqToShortcut(QKeySequence ks, QString actionName)
+{
+	if (!scrActions->contains(actionName))
+		return false;
+	if (ks.matches((*scrActions)[actionName]->shortcut())==QKeySequence::ExactMatch)
+		return true;
+	return false;
+}
+
+bool ActionManager::compareKeySeqToShortcut(int k, Qt::KeyboardModifiers km, QString actionName)
+{
+	return compareKeySeqToShortcut(QKeySequence(k | km), actionName);
+}
+
 void ActionManager::createActions()
 {
 	initFileMenuActions();
