@@ -1270,7 +1270,7 @@ void ScribusMainWindow::initStatusBar()
 	statusBar()->addPermanentWidget(zoomOutToolbarButton,1);
 	statusBar()->addPermanentWidget(zoomDefaultToolbarButton,1);
 	statusBar()->addPermanentWidget(zoomInToolbarButton,1);
-	statusBar()->addPermanentWidget(pageSelector,2);
+	statusBar()->addPermanentWidget(pageSelector,3);
 	statusBar()->addPermanentWidget(layerMenu,1);
 	statusBar()->addPermanentWidget(s2,2);
 	statusBar()->addPermanentWidget(mainWindowXPosLabel, 0);
