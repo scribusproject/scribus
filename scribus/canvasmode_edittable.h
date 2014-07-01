@@ -24,6 +24,7 @@ class QMouseEvent;
 class QPainter;
 class QTimer;
 class RowResize;
+class ScribusMainWindow;
 class ScribusView;
 class TableResize;
 
@@ -63,6 +64,8 @@ private:
 	void drawTextCursor(QPainter* p);
 	/// Makes the next text cursor blink a long blink.
 	void makeLongTextCursorBlink();
+	/// Show the Context Menu
+	void createContextMenu(PageItem *currItem, double mx, double my);
 
 private:
 	/// Table being edited.
@@ -94,6 +97,9 @@ private:
 	ColumnResize* m_columnResizeGesture;
 	/// Gesture for selecting cells.
 	CellSelect* m_cellSelectGesture;
+
+	///Parent for context menu
+	ScribusMainWindow* m_ScMW;
 };
 
 #endif // CANVASMODE_EDITTABLE_H

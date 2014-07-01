@@ -22,6 +22,7 @@ for which a new license (GPL+exception) is in place.
 #include "canvasgesture_rowresize.h"
 #include "canvasgesture_tableresize.h"
 #include "cellarea.h"
+#include "ui/contextmenu.h"
 #include "fpoint.h"
 #include "pageitem_table.h"
 #include "scribus.h"
@@ -50,7 +51,8 @@ CanvasMode_EditTable::CanvasMode_EditTable(ScribusView* view) : CanvasMode(view)
 	m_tableResizeGesture(new TableResize(this)),
 	m_rowResizeGesture(new RowResize(this)),
 	m_columnResizeGesture(new ColumnResize(this)),
-	m_cellSelectGesture(new CellSelect(this))
+	m_cellSelectGesture(new CellSelect(this)),
+	m_ScMW(view->m_ScMW)
 {
 	connect(m_canvasUpdateTimer, SIGNAL(timeout()), this, SLOT(updateCanvas()));
 }
@@ -246,7 +248,9 @@ void CanvasMode_EditTable::mousePressEvent(QMouseEvent* event)
 	else if (event->button() == Qt::RightButton)
 	{
 		// Show the table popup menu.
-		m_view->m_ScMW->scrMenuMgr->runMenuAtPos("ItemTable", event->globalPos());
+		//m_view->m_ScMW->scrMenuMgr->runMenuAtPos("ItemTable", event->globalPos());
+		const FPoint mousePointDoc = m_canvas->globalToCanvas(event->globalPos());
+		createContextMenu(m_table, mousePointDoc.x(), mousePointDoc.y());
 	}
 }
 
@@ -375,4 +379,20 @@ void CanvasMode_EditTable::makeLongTextCursorBlink()
 	m_cursorVisible = true;
 	m_longBlink = true;
 	m_blinkTime.restart();
+}
+
+void CanvasMode_EditTable::createContextMenu(PageItem *currItem, double mx, double my)
+{
+	ContextMenu* cmen=NULL;
+	m_view->setCursor(QCursor(Qt::ArrowCursor));
+//	Mxp = mx;
+//	Myp = my;
+	if(currItem!=NULL)
+		cmen = new ContextMenu(*(m_doc->m_Selection), m_ScMW, m_doc);
+	else
+		cmen = new ContextMenu(m_ScMW, m_doc, mx, my);
+	if (cmen)
+		cmen->exec(QCursor::pos());
+//	m_view->setGlobalUndoMode();
+	delete cmen;
 }

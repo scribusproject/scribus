@@ -19,6 +19,7 @@ for which a new license (GPL+exception) is in place.
 #include <QTransform>
 #include <QtAlgorithms>
 
+#include "appmodes.h"
 #include "cellarea.h"
 #include "collapsedtablepainter.h"
 #include "pageitem.h"
@@ -870,14 +871,40 @@ void PageItem_Table::handleStyleChanged()
 
 void PageItem_Table::applicableActions(QStringList& actionList)
 {
-	actionList << "tableInsertRows";
-	actionList << "tableInsertColumns";
-	actionList << "tableSetRowHeights";
-	actionList << "tableSetColumnWidths";
-	actionList << "tableDistributeRowsEvenly";
-	actionList << "tableDistributeColumnsEvenly";
+	const bool tableEdit = m_Doc->appMode == modeEditTable;
+	const int tableRows = rows();
+	const int tableColumns = columns();
+	const int selectedRows = tableEdit ? this->selectedRows().size() : 0;
+	const int selectedColumns = tableEdit ? this->selectedColumns().size() : 0;
+	const int selectedCells = tableEdit ? this->selectedCells().size() : 0;
+
+	if (!tableEdit || selectedCells<1)
+		actionList << "tableInsertRows";
+	if (!tableEdit || selectedCells<1)
+		actionList << "tableInsertColumns";
+	if (tableEdit && ((selectedRows < 1 && tableRows > 1) || (selectedRows > 0 && selectedRows < tableRows)))
+		actionList << "tableDeleteRows";
+	if ((selectedColumns < 1 && tableColumns > 1) || (selectedColumns > 0 && selectedColumns < tableColumns))
+		actionList << "tableDeleteColumns";
+	if (selectedCells > 1)
+		actionList << "tableMergeCells";
+	if (tableEdit)
+		actionList << "tableSetRowHeights";
+	if (tableEdit)
+		actionList << "tableSetColumnWidths";
+	if (!tableEdit || (tableEdit && selectedRows > 1))
+		actionList << "tableDistributeRowsEvenly";
+	if (!tableEdit || (tableEdit && selectedColumns > 1))
+		actionList << "tableDistributeColumnsEvenly";
 	actionList << "tableAdjustFrameToTable";
 	actionList << "tableAdjustTableToFrame";
+
+	if (tableEdit)
+	{
+		actionList << "editClearContents";
+		actionList << "editCopyContents";
+		actionList << "editPasteContents";
+	}
 }
 
 void PageItem_Table::DrawObj_Item(ScPainter *p, QRectF /*e*/)

@@ -10160,25 +10160,25 @@ void ScribusMainWindow::updateTableMenuActions()
 	// Determine state.
 	PageItem* item = doc ? doc->m_Selection->itemAt(0) : 0;
 	PageItem_Table* table = (item && item->isTable()) ? item->asTable() : 0;
-	const bool tableEdited = table && doc->appMode == modeEditTable;
+	const bool tableEdit = table && doc->appMode == modeEditTable;
 	const int tableRows = table ? table->rows() : 0;
 	const int tableColumns = table ? table->columns() : 0;
-	const int selectedRows = tableEdited ? table->selectedRows().size() : 0;
-	const int selectedColumns = tableEdited ? table->selectedColumns().size() : 0;
-	const int selectedCells = tableEdited ? table->selectedCells().size() : 0;
+	const int selectedRows = tableEdit ? table->selectedRows().size() : 0;
+	const int selectedColumns = tableEdit ? table->selectedColumns().size() : 0;
+	const int selectedCells = tableEdit ? table->selectedCells().size() : 0;
 
 	// Enable/disable menu actions.
 	scrMenuMgr->setMenuEnabled("ItemTable", table);
-	scrActions["tableInsertRows"]->setEnabled(table || (tableEdited && selectedCells < 1));
-	scrActions["tableInsertColumns"]->setEnabled(table || (tableEdited && selectedCells < 1));
-	scrActions["tableDeleteRows"]->setEnabled(tableEdited &&
+	scrActions["tableInsertRows"]->setEnabled(table || (tableEdit && selectedCells < 1));
+	scrActions["tableInsertColumns"]->setEnabled(table || (tableEdit && selectedCells < 1));
+	scrActions["tableDeleteRows"]->setEnabled(tableEdit &&
 		((selectedRows < 1 && tableRows > 1) || (selectedRows > 0 && selectedRows < tableRows)));
-	scrActions["tableDeleteColumns"]->setEnabled(tableEdited &&
+	scrActions["tableDeleteColumns"]->setEnabled(tableEdit &&
 		((selectedColumns < 1 && tableColumns > 1) || (selectedColumns > 0 && selectedColumns < tableColumns)));
 	scrActions["tableMergeCells"]->setEnabled(selectedCells > 1);
 	scrActions["tableSplitCells"]->setEnabled(false); // Not implemented.
-	scrActions["tableSetRowHeights"]->setEnabled(tableEdited);
-	scrActions["tableSetColumnWidths"]->setEnabled(tableEdited);
+	scrActions["tableSetRowHeights"]->setEnabled(tableEdit);
+	scrActions["tableSetColumnWidths"]->setEnabled(tableEdit);
 	if (doc)
 	{
 		if (doc->appMode == modeEditTable)
