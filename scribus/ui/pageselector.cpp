@@ -77,7 +77,7 @@ PageSelector::PageSelector( QWidget* parent, int maxPg ) : QWidget( parent, 0 )
 		m_pageCombo->addItem(QString::number(i+1));
 	}
 	m_pageCombo->setValidator(m_validator);
-	m_pageCombo->setMinimumSize(fontMetrics().width( "999" )+20, 20);
+	m_pageCombo->setMinimumSize(fontMetrics().width( "9999" )+20, 20);
 	m_pageCombo->setFocusPolicy(Qt::ClickFocus);
 	PageSelectorLayout->addWidget( m_pageCombo );
 	
