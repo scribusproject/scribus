@@ -898,13 +898,6 @@ void PageItem_Table::applicableActions(QStringList& actionList)
 		actionList << "tableDistributeColumnsEvenly";
 	actionList << "tableAdjustFrameToTable";
 	actionList << "tableAdjustTableToFrame";
-
-	if (tableEdit)
-	{
-		actionList << "editClearContents";
-		actionList << "editCopyContents";
-		actionList << "editPasteContents";
-	}
 }
 
 void PageItem_Table::DrawObj_Item(ScPainter *p, QRectF /*e*/)

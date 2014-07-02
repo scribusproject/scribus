@@ -249,7 +249,7 @@ void CanvasMode_EditTable::mousePressEvent(QMouseEvent* event)
 	{
 		// Show the table popup menu.
 		//m_view->m_ScMW->scrMenuMgr->runMenuAtPos("ItemTable", event->globalPos());
-		const FPoint mousePointDoc = m_canvas->globalToCanvas(event->globalPos());
+		const FPoint mousePointDoc(m_canvas->globalToCanvas(event->globalPos()));
 		createContextMenu(m_table, mousePointDoc.x(), mousePointDoc.y());
 	}
 }
@@ -385,14 +385,13 @@ void CanvasMode_EditTable::createContextMenu(PageItem *currItem, double mx, doub
 {
 	ContextMenu* cmen=NULL;
 	m_view->setCursor(QCursor(Qt::ArrowCursor));
-//	Mxp = mx;
-//	Myp = my;
+	m_view->setObjectUndoMode();
 	if(currItem!=NULL)
 		cmen = new ContextMenu(*(m_doc->m_Selection), m_ScMW, m_doc);
 	else
 		cmen = new ContextMenu(m_ScMW, m_doc, mx, my);
 	if (cmen)
 		cmen->exec(QCursor::pos());
-//	m_view->setGlobalUndoMode();
+	m_view->setGlobalUndoMode();
 	delete cmen;
 }
