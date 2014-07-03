@@ -231,8 +231,8 @@ void PageSelector::languageChange()
 	m_pageCombo->setToolTip( tr("Select the current page") );
 	PageCountString =  tr(" of %1", "number of pages in document");
 	pageCountLabel->setText(PageCountString.arg(m_lastPage));
-	disconnect( m_pageCombo, SIGNAL( activated(int) ), this, SLOT( GotoPgE(int) ) );
+	bool signalsBlocked=m_pageCombo->blockSignals(true);
 	setCurrentComboItem(m_pageCombo, QString::number(m_currentPage));
-	connect( m_pageCombo, SIGNAL( activated(int) ), this, SLOT( GotoPgE(int) ) );
+	m_pageCombo->blockSignals(signalsBlocked);
 }
 
