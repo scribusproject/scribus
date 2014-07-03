@@ -10,6 +10,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribuscore.h"
 #include "scribusdoc.h"
 #include "selection.h"
+#include "scribusview.h"
 
 ScribusMainWindow* Carrier;
 ScribusDoc* doc;

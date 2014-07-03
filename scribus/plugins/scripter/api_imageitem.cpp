@@ -9,6 +9,7 @@ for which a new license (GPL+exception) is in place.
 #include "selection.h"
 #include "undomanager.h"
 #include "sctextstream.h"
+#include "scribusview.h"
 #include "ui/propertiespalette.h"
 #include "ui/propertiespalette_image.h"
 

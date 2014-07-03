@@ -6,6 +6,7 @@ for which a new license (GPL+exception) is in place.
 */
 #include "api_window.h"
 #include "canvas.h"
+#include "scribusview.h"
 
 WindowAPI::WindowAPI() : QObject(COLLECTOR)
 {

@@ -18,6 +18,7 @@ for which a new license (GPL+exception) is in place.
 #include "utils.h"
 #include "pageitem_textframe.h"
 #include "undomanager.h"
+#include "scribusview.h"
 
 DocumentAPI::DocumentAPI() : QObject(COLLECTOR)
 {

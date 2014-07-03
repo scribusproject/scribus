@@ -15,6 +15,7 @@ for which a new license (GPL+exception) is in place.
 #include "ui/propertiespalette_text.h"
 #include "ui/propertiespalette_line.h"
 #include "scribuscore.h"
+#include "scribusview.h"
 #include "api_textitem.h"
 #include "api_imageitem.h"
 

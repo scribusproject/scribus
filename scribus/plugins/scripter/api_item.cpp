@@ -8,6 +8,7 @@ for which a new license (GPL+exception) is in place.
 #include "utils.h"
 #include "undomanager.h"
 #include "selection.h"
+#include "scribusview.h"
 
 ItemAPI::ItemAPI(PageItem* it) : QObject(COLLECTOR)
 {
