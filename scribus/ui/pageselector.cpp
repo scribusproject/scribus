@@ -71,6 +71,7 @@ PageSelector::PageSelector( QWidget* parent, int maxPg ) : QWidget( parent, 0 )
 	m_pageCombo = new ScComboBox( this );
 	m_pageCombo->setEditable(true);
 	m_pageCombo->setDuplicatesEnabled( false );
+	m_pageCombo->setInsertPolicy(QComboBox::NoInsert);
 	m_pageCombo->lineEdit()->setAlignment(Qt::AlignHCenter);
 	for (int i = 0; i < m_lastPage; ++i)
 	{
