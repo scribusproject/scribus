@@ -375,8 +375,11 @@ void SVGPlug::convert(const TransactionSettings& trSettings, int flags)
 	if (!interactive || (flags & LoadSavePlugin::lfInsertPage))
 	{
 		m_Doc->setPage(width, height, 0, 0, 0, 0, 0, 0, false, false);
-		m_Doc->addPage(0);
-		m_Doc->view()->addPage(0);
+		if (m_Doc->Pages->count() == 0)
+		{
+			m_Doc->addPage(0);
+			m_Doc->view()->addPage(0);
+		}
 	}
 	else
 	{

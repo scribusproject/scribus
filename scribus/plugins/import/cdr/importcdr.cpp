@@ -339,26 +339,32 @@ bool CdrPlug::convert(QString fn)
 #else
 	WPXFileStream input(QFile::encodeName(fn).data());
 #endif
+	bool fail = false;
 	if (ext == "cdr")
 	{
 		if (!libcdr::CDRDocument::isSupported(&input))
 		{
 			qDebug() << "ERROR: Unsupported file format!";
-			return false;
+			fail = true;
 		}
-		RawPainter painter(m_Doc, baseX, baseY, docWidth, docHeight, importerFlags, &Elements, &importedColors, &importedPatterns, tmpSel, "cdr");
-		if (!libcdr::CDRDocument::parse(&input, &painter))
+		if (!fail)
+		{
+			RawPainter painter(m_Doc, baseX, baseY, docWidth, docHeight, importerFlags, &Elements, &importedColors, &importedPatterns, tmpSel, "cdr");
+			if (!libcdr::CDRDocument::parse(&input, &painter))
+				fail = true;
+		}
+		if (fail)
 		{
 			qDebug() << "ERROR: Parsing failed!";
 			if (progressDialog)
 				progressDialog->close();
-			if (importerFlags & LoadSavePlugin::lfCreateDoc)
+		/*	if (importerFlags & LoadSavePlugin::lfCreateDoc)
 			{
 				ScribusMainWindow* mw=(m_Doc==0) ? ScCore->primaryMainWindow() : m_Doc->scMW();
 				qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 				QMessageBox::warning(mw, CommonStrings::trWarning, tr("Parsing failed!\n\nPlease submit your file (if possible) to the\nDocument Liberation Project http://www.documentliberation.org"), 1, 0, 0);
 				qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
-			}
+			}*/
 			return false;
 		}
 	}

@@ -19,6 +19,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "ui/customfdialog.h"
 #include "ui/scmwmenumanager.h"
+#include <QMessageBox>
 
 int importcdr_getPluginAPIVersion()
 {
@@ -146,7 +147,28 @@ bool ImportCdrPlugin::import(QString fileName, int flags)
 		activeTransaction = new UndoTransaction(UndoManager::instance()->beginTransaction(trSettings));
 	CdrPlug *dia = new CdrPlug(m_Doc, flags);
 	Q_CHECK_PTR(dia);
-	dia->import(fileName, trSettings, flags);
+	if (!dia->import(fileName, trSettings, flags))
+	{
+		ScribusMainWindow* mw=(m_Doc==0) ? ScCore->primaryMainWindow() : m_Doc->scMW();
+		//Import per Uniconverter
+		qDebug() << "ERROR: Parsing with libcdr failed! Trying now Uniconverter.";
+		const FileFormat *fmt = LoadSavePlugin::getFormatByExt("cdt");
+		if (!fmt)
+		{
+			QMessageBox::warning(mw, CommonStrings::trWarning, tr("The Uniconverter Import plugin could not be found"), 1, 0, 0);
+			return false;
+		}
+		flags &= ~LoadSavePlugin::lfCreateDoc;
+		flags |= LoadSavePlugin::lfInsertPage;
+		if (!fmt->loadFile(fileName, flags))
+		{
+			if (flags & LoadSavePlugin::lfCreateDoc)
+			{
+				QMessageBox::warning(mw, CommonStrings::trWarning, tr("Parsing failed!\n\nPlease submit your file (if possible) to the\nDocument Liberation Project http://www.documentliberation.org"), 1, 0, 0);
+			}
+			return false;
+		}
+	}
 	if (activeTransaction)
 	{
 		activeTransaction->commit();
