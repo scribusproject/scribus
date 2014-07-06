@@ -90,6 +90,8 @@ inkscape(1) \- http://inkscape.org/
 
 OpenClipArt \- http://openclipart.org/
 
+Fontmatrix \- http://fontmatrix.be/
+
 Inni partnerzy mog± byæ wymienieni w stopce strony http://www.scribus.net/
 
 gimp(1) \- http://www.gimp.org/
