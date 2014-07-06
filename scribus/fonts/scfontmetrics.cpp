@@ -381,32 +381,33 @@ bool GlyNames(FT_Face face, QMap<uint, std::pair<QChar, QString> >& GList)
 			
 		charcode = FT_Get_Next_Char(face, charcode, &gindex );
 	}
+
+	if (!hasPSNames)
+		return true;
+
 	// Let's see if we can find some more...
 	int maxSlot1 = face->num_glyphs;
-	if (hasPSNames)
-		for (int gindex = 1; gindex < maxSlot1; ++gindex)
+	for (int gindex = 1; gindex < maxSlot1; ++gindex)
+	{
+		if (GList.contains(gindex))
+			continue;
+		if (FT_Get_Glyph_Name(face, gindex, &buf, 50))
+			continue;
+
+		QString glyphname(reinterpret_cast<char*>(buf));
+		charcode = 0;
+		QMap<uint,std::pair<QChar,QString> >::Iterator gli;
+		for (gli = GList.begin(); gli != GList.end(); ++gli)
 		{
-			if (!GList.contains(gindex))
+			if (glyphname == gli.value().second)
 			{
-				bool found = ! FT_Get_Glyph_Name(face, gindex, &buf, 50);
-				if (found)
-				{
-					QString glyphname(reinterpret_cast<char*>(buf));
-					charcode = 0;
-					QMap<uint,std::pair<QChar,QString> >::Iterator gli;
-					for (gli = GList.begin(); gli != GList.end(); ++gli)
-					{
-						if (glyphname == gli.value().second)
-						{
-							charcode = gli.value().first.unicode();
-							break;
-						}
-					}
-//					qDebug() << "\tmore: " << gindex << " '" << charcode << "' --> '" << buf << "'";
-					GList.insert(gindex, std::make_pair(QChar(static_cast<uint>(charcode)), glyphname));
-				}
+				charcode = gli.value().first.unicode();
+				break;
 			}
 		}
+//			qDebug() << "\tmore: " << gindex << " '" << charcode << "' --> '" << buf << "'";
+		GList.insert(gindex, std::make_pair(QChar(static_cast<uint>(charcode)), glyphname));
+	}
 			
 	return true;
 }
