@@ -136,21 +136,30 @@ def main(argv):
     #########################
     #  YOUR CODE GOES HERE  #
     #########################
-    userdim=scribus.getUnit() #get unit and change it to mm
+    if not scribus.haveDoc() > 0: #do we have a doc?
+        scribus.messageBox("importcvs2table", "No opened document.\nPlease open one first.")
+        sys.exit()
+    userdim = scribus.getUnit() #get unit and change it to mm
     scribus.setUnit(scribus.UNIT_MILLIMETERS)
     cellwidthleft = 0
     cellwidthright = 0
     cellHeight = 0
     pos = getPosition()
     while cellwidthleft <= 0:
-      cellwidthL = scribus.valueDialog('Left Cell Width','How wide (mm) do you wish left cells to be?','30.0')
-      cellwidthleft = float(cellwidthL)
+        cellwidthL = scribus.valueDialog('Left Cell Width','How wide (mm) do you wish left cells to be?','30.0')
+        if (not cellwidthL) :
+            sys.exit()
+        cellwidthleft = float(cellwidthL)
     while cellwidthright <= 0:
-      cellwidthR = scribus.valueDialog('Right Cell Width','How wide (mm) do you wish right cells to be?','30.0')
-      cellwidthright = float(cellwidthR)
+        cellwidthR = scribus.valueDialog('Right Cell Width','How wide (mm) do you wish right cells to be?','30.0')
+        if (not cellwidthR) :
+            sys.exit()
+        cellwidthright = float(cellwidthR)
     while cellHeight <= 0:
-      cellheight = scribus.valueDialog('Cell Height','How tall (mm) do you wish cells to be?','10.0')
-      cellHeight = float(cellheight)
+        cellheight = scribus.valueDialog('Cell Height','How tall (mm) do you wish cells to be?','10.0')
+        if (not cellheight) :
+            sys.exit()
+        cellHeight = float(cellheight)
     data = getCSVdata()
     di= getDataInformation(data)
     hposition=pos[1]
