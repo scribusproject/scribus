@@ -998,6 +998,14 @@ void RawPainter::startTextObject(const librevenge::RVNGPropertyList &propList)
 			ite->setColumnGap(valueAsPoint(propList["fo:column-gap"]));
 			minTxtW += valueAsPoint(propList["fo:column-gap"]);
 		}
+		if (propList["draw:textarea-vertical-align"])
+		{
+			QString align = QString(propList["draw:textarea-vertical-align"]->getStr().cstr());
+			if (align == "middle")
+				ite->setVerticalAlignment(1);
+			else if (align == "bottom")
+				ite->setVerticalAlignment(2);
+		}
 		ite->setFirstLineOffset(FLOPFontAscent);
 		actTextItem = ite;
 		QString pStyle = CommonStrings::DefaultParagraphStyle;

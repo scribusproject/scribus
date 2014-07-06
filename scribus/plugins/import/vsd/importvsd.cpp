@@ -349,15 +349,18 @@ bool VsdPlug::convert(QString fn)
 	RawPainter painter(m_Doc, baseX, baseY, docWidth, docHeight, importerFlags, &Elements, &importedColors, &importedPatterns, tmpSel, "vsd");
 	if (!libvisio::VisioDocument::parse(&input, &painter))
 	{
-		qDebug() << "ERROR: Parsing failed!";
-		if (progressDialog)
-			progressDialog->close();
-		if (importerFlags & LoadSavePlugin::lfCreateDoc)
+		qDebug() << "ERROR: Parsing as Document failed!\ntrying to parse as Stencils";
+		if (!libvisio::VisioDocument::parseStencils(&input, &painter))
 		{
-			ScribusMainWindow* mw=(m_Doc==0) ? ScCore->primaryMainWindow() : m_Doc->scMW();
-			qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
-			QMessageBox::warning(mw, CommonStrings::trWarning, tr("Parsing failed!\n\nPlease submit your file (if possible) to the\nDocument Liberation Project http://www.documentliberation.org"), 1, 0, 0);
-			qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
+			if (progressDialog)
+				progressDialog->close();
+			if (importerFlags & LoadSavePlugin::lfCreateDoc)
+			{
+				ScribusMainWindow* mw=(m_Doc==0) ? ScCore->primaryMainWindow() : m_Doc->scMW();
+				qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+				QMessageBox::warning(mw, CommonStrings::trWarning, tr("Parsing failed!\n\nPlease submit your file (if possible) to the\nDocument Liberation Project http://www.documentliberation.org"), 1, 0, 0);
+				qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
+			}
 		}
 		return false;
 	}
