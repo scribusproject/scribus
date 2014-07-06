@@ -1070,14 +1070,14 @@ void UndoManager::languageChange()
 	UndoManager::ChangePageAttrs    = tr("Change Page Attributes");
 	UndoManager::Transform          = tr("Transform");
 	UndoManager::WeldItems          = tr("Weld Items");
-	UndoManager::SoftShadow         = tr("Soft Shadow");
-	UndoManager::SoftShadowColor    = tr("Soft Shadow Color");
-	UndoManager::SoftShadowShade    = tr("Soft Shadow Shade");
-	UndoManager::SoftShadowBlurRadius= tr("Soft Shadow Blur Radius");
-	UndoManager::SoftShadowXOffset  = tr("Soft Shadow X Offset");
-	UndoManager::SoftShadowYOffset  = tr("Soft Shadow Y Offset");
-	UndoManager::SoftShadowOpacity  = tr("Soft Shadow Opacity");
-	UndoManager::SoftShadowBlendMode= tr("Soft Shadow Blend Mode");
+	UndoManager::SoftShadow         = tr("Drop Shadow");
+	UndoManager::SoftShadowColor    = tr("Drop Shadow Color");
+	UndoManager::SoftShadowShade    = tr("Drop Shadow Shade");
+	UndoManager::SoftShadowBlurRadius= tr("Drop Shadow Blur Radius");
+	UndoManager::SoftShadowXOffset  = tr("Drop Shadow X Offset");
+	UndoManager::SoftShadowYOffset  = tr("Drop Shadow Y Offset");
+	UndoManager::SoftShadowOpacity  = tr("Drop Shadow Opacity");
+	UndoManager::SoftShadowBlendMode= tr("Drop Shadow Blend Mode");
 }
 
 void UndoManager::initIcons()
