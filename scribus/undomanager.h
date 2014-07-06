@@ -667,7 +667,7 @@ public:
 	static QString SoftShadowShade;
 	static QString SoftShadowBlurRadius;
 	static QString SoftShadowXOffset;
-	static QString SoftShadowYoffset;
+	static QString SoftShadowYOffset;
 	static QString SoftShadowOpacity;
 	static QString SoftShadowBlendMode;
 	/*@}*/

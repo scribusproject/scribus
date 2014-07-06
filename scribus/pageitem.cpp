@@ -4630,7 +4630,7 @@ void PageItem::setSoftShadowYOffset(double val)
 
 	if (UndoManager::undoEnabled())
 	{
-		SimpleState *ss = new SimpleState(Um::SoftShadowYoffset, 0, Um::IGroup);
+		SimpleState *ss = new SimpleState(Um::SoftShadowYOffset, 0, Um::IGroup);
 		ss->set("SOFT_SHADOW_YOFFSET", "SOFT_SHADOW_YOFFSET");
 		ss->set("NEW_VALUE", val);
 		ss->set("OLD_VALUE", m_softShadowYOffset);

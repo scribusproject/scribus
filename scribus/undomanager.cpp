@@ -1073,9 +1073,9 @@ void UndoManager::languageChange()
 	UndoManager::SoftShadow         = tr("Soft Shadow");
 	UndoManager::SoftShadowColor    = tr("Soft Shadow Color");
 	UndoManager::SoftShadowShade    = tr("Soft Shadow Shade");
-	UndoManager::SoftShadowBlurRadius= tr("Soft Shadow Blue Radius");
+	UndoManager::SoftShadowBlurRadius= tr("Soft Shadow Blur Radius");
 	UndoManager::SoftShadowXOffset  = tr("Soft Shadow X Offset");
-	UndoManager::SoftShadowYoffset  = tr("Soft Shadow Y Offset");
+	UndoManager::SoftShadowYOffset  = tr("Soft Shadow Y Offset");
 	UndoManager::SoftShadowOpacity  = tr("Soft Shadow Opacity");
 	UndoManager::SoftShadowBlendMode= tr("Soft Shadow Blend Mode");
 }
@@ -1356,7 +1356,7 @@ QString UndoManager::SoftShadowColor    = "";
 QString UndoManager::SoftShadowShade    = "";
 QString UndoManager::SoftShadowBlurRadius="";
 QString UndoManager::SoftShadowXOffset  = "";
-QString UndoManager::SoftShadowYoffset  = "";
+QString UndoManager::SoftShadowYOffset  = "";
 QString UndoManager::SoftShadowOpacity  = "";
 QString UndoManager::SoftShadowBlendMode= "";
 
