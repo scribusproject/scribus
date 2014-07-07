@@ -12,6 +12,7 @@ for which a new license (GPL+exception) is in place.
 #include <QPainter>
 #include <QStackedWidget>
 
+#include "appmodes.h"
 #include "commonstrings.h"
 #include "pagelayout.h"
 #include "pagepalette.h"
@@ -162,7 +163,20 @@ bool PagePalette::masterPageMode()
 
 void PagePalette::startMasterPageMode(QString masterPage)
 {
-	m_view->Deselect(true);
+	ScribusDoc* doc = m_view->Doc;
+	
+	bool mustDeselect = false;
+	mustDeselect |= (!doc->masterPageMode());
+	mustDeselect |= (doc->masterPageMode() && doc->currentPage()->pageName() != masterPage);
+	if (mustDeselect)
+	{
+		// We must avoid deselecting directly if doc is in an edit mode,
+		// otherwise that would cause an inconsistent state. In such case,
+		// fallback to normal mode by precaution
+		if (doc->appMode != modeNormal)
+			m_view->requestMode(modeNormal);
+		m_view->Deselect(true);
+	}
 
 	QStackedWidget* stackedWidget = this->stackedWidget();
 	if (stackedWidget->count() < 2)
