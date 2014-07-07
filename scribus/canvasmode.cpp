@@ -1151,7 +1151,6 @@ void CanvasMode::commonkeyPressEvent_NormalNodeEdit(QKeyEvent *e)
 	if (m_keyRepeat)
 		return;
 	m_keyRepeat = true;
-
 	int keyMod=0;
 	if (e->modifiers() & Qt::ShiftModifier)
 		keyMod |= Qt::SHIFT;
@@ -1189,6 +1188,10 @@ void CanvasMode::commonkeyPressEvent_NormalNodeEdit(QKeyEvent *e)
 		scrActions["stickyTools"]->setChecked(false);
 		return;
 	}
+	if (m_view->m_ScMW->actionManager->compareKeySeqToShortcut(kk, e->modifiers(), "toolsZoomIn"))
+		scrActions["toolsZoomIn"]->trigger();
+	if (m_view->m_ScMW->actionManager->compareKeySeqToShortcut(kk, e->modifiers(), "toolsZoomOut"))
+		scrActions["toolsZoomOut"]->trigger();
 	/**If we have a doc and we are not changing the page or zoom level in the status bar */
 	if ((!m_view->m_ScMW->zoomSpinBox->hasFocus()) && (!m_view->m_ScMW->pageSelector->hasFocus()))
 	{
@@ -1386,7 +1389,6 @@ void CanvasMode::commonkeyPressEvent_NormalNodeEdit(QKeyEvent *e)
 				resizeBy*=-1.0;
 
 			PageItem *currItem = m_doc->m_Selection->itemAt(0);
-
 			switch (kk)
 			{
 			case Qt::Key_Backspace:
@@ -1397,6 +1399,8 @@ void CanvasMode::commonkeyPressEvent_NormalNodeEdit(QKeyEvent *e)
 					{
 						if (m_view->m_ScMW->actionManager->compareKeySeqToShortcut(kk, buttonModifiers, "editClearContents"))
 							scrActions["editClearContents"]->trigger();
+						if (m_view->m_ScMW->actionManager->compareKeySeqToShortcut(kk, buttonModifiers, "editTruncateContents"))
+							scrActions["editTruncateContents"]->trigger();
 					}
 				break;
 			case Qt::Key_Left:
