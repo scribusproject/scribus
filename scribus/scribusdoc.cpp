@@ -2736,7 +2736,7 @@ void ScribusDoc::rebuildMasterNames(void)
 {
 	MasterNames.clear();
 	for (int a = 0; a < MasterPages.count(); ++a)
-		MasterNames[MasterPages.at(a)->pageName()] = MasterPages.at(a)->pageNr();
+		MasterNames[MasterPages.at(a)->pageName()] = a;
 }
 
 

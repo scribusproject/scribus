@@ -73,28 +73,30 @@ void DocumentChecker::checkPages(ScribusDoc *currDoc, struct CheckerPrefs checke
 		pageError.clear();
 		if (checkerSettings.checkAppliedMasterDifferentSide)
 		{
-			PageLocation pageLoc=currDoc->locationOfPage(i);
-			int masterPageNumber = currDoc->MasterNames[currDoc->DocPages[i]->MPageNam];
-			int masterPageLocation=currDoc->MasterPages[masterPageNumber]->LeftPg;
-			bool error=0;
+			bool error = false;
+			int masterPageNumber = -1, masterPageLocation = -1;
+			PageLocation pageLoc = currDoc->locationOfPage(i);
+			masterPageNumber = currDoc->MasterNames.value(currDoc->DocPages[i]->MPageNam, -1);
+			if (masterPageNumber >= 0)
+				masterPageLocation = currDoc->MasterPages[masterPageNumber]->LeftPg;
 			if (currDoc->pagePositioning() == singlePage)
 			{
-				if (!(pageLoc==LeftPage && masterPageLocation==0))
-					error=1;
+				if ((pageLoc != LeftPage) || (masterPageLocation != 0))
+					error = true;
 			}
 			else
 			{
 				if (pageLoc==LeftPage && masterPageLocation==1)
-					error=0;
+					error = false;
 				else if (pageLoc==RightPage && masterPageLocation==0)
-					error=0;
+					error = false;
 				else if (pageLoc==MiddlePage && masterPageLocation==2)
-					error=0;
+					error = false;
 				else
-					error=1;
+					error = true;
 			}
 			if (error)
-				pageError.insert(AppliedMasterDifferentSide,0);
+				pageError.insert(AppliedMasterDifferentSide, 0);
 		}
 		if (pageError.count() != 0)
 			currDoc->pageErrors.insert(i, pageError);
