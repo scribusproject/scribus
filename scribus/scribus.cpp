@@ -5315,22 +5315,20 @@ void ScribusMainWindow::slotEditPaste()
 					doc->m_Selection->addItem(currItem);
 				}
 				doc->m_Selection->delaySignalsOff();
-				int docSelectionCount=doc->m_Selection->count();
-				if (docSelectionCount > 0)
+				int docSelectionCount = doc->m_Selection->count();
+				// Already done by selection delaySignalsOff()
+				/*if (docSelectionCount > 0)
 				{
 					doc->m_Selection->itemAt(0)->connectToGUI();
 					doc->m_Selection->itemAt(0)->emitAllToGUI();
-				}
+				}*/
 				if (docSelectionCount > 1)
 				{
 					doc->m_Selection->setGroupRect();
-					//double x, y, w, h; //CHECKME
-					//doc->m_Selection->getGroupRect(&x, &y, &w, &h);
-					//propertiesPalette->setXY(x, y);
-					//propertiesPalette->setBH(w, h);
 				}
-				if (docSelectionCount > 0)
-					HaveNewSel();
+				// Done via Selection selectionChanged() signal
+				/*if (docSelectionCount > 0)
+					HaveNewSel();*/
 			}
 			view->DrawNew();
 		}
@@ -5410,22 +5408,17 @@ void ScribusMainWindow::SelectAllOnLayer()
 		}
 		doc->m_Selection->delaySignalsOff();
 		int docSelectionCount = doc->m_Selection->count();
-		if (docSelectionCount > 0)
+		// Already done by selection delaySignalsOff()
+		/*if (docSelectionCount > 0)
 		{
 			doc->m_Selection->itemAt(0)->connectToGUI();
 			doc->m_Selection->itemAt(0)->emitAllToGUI();
-		}
+		}*/
 		if (docSelectionCount > 1)
-		{
-			double x, y, w, h;
 			doc->m_Selection->setGroupRect();
-			doc->m_Selection->getGroupRect(&x, &y, &w, &h);
-			//Now unuseful as PropertiesPalette_XYZ::setCurrentItem() handles multiple selection
-			//propertiesPalette->setXY(x, y);
-			//propertiesPalette->setBH(w, h);
-		}
-		if (docSelectionCount > 0)
-			HaveNewSel();
+		// Done via Selection selectionChanged() signal
+		/*if (docSelectionCount > 0)
+			HaveNewSel();*/
 		view->DrawNew();
 	}
 	delete dia;
@@ -5477,22 +5470,17 @@ void ScribusMainWindow::SelectAll(bool docWideSelect)
 		}
 		doc->m_Selection->delaySignalsOff();
 		int docSelectionCount=doc->m_Selection->count();
-		if (docSelectionCount > 0)
+		// Already done by selection delaySignalsOff()
+		/*if (docSelectionCount > 0)
 		{
 			doc->m_Selection->itemAt(0)->connectToGUI();
 			doc->m_Selection->itemAt(0)->emitAllToGUI();
-		}
+		}*/
 		if (docSelectionCount > 1)
-		{
-			//double x, y, w, h; //CHECKME
 			doc->m_Selection->setGroupRect();
-			//doc->m_Selection->getGroupRect(&x, &y, &w, &h);
-			//Now unuseful as PropertiesPalette_XYZ::setCurrentItem() handles multiple selection
-			//propertiesPalette->setXY(x, y);
-			//propertiesPalette->setBH(w, h);
-		}
-		if (docSelectionCount > 0)
-			HaveNewSel();
+		// Done via Selection selectionChanged() signal
+		/* if (docSelectionCount > 0)
+			HaveNewSel();*/
 	}
 	view->DrawNew();
 }
