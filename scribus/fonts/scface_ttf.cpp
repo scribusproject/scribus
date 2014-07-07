@@ -44,7 +44,7 @@ KernFeature::KernFeature ( FT_Face face )
 	else
 		m_valid = false;
 
-	if ( !m_valid )
+	if (!m_valid)
 		pairs.clear();
 // 	qDebug() <<"\t"<<m_valid;
 // 	qDebug() <<"\t"<<t.elapsed();
@@ -55,7 +55,6 @@ KernFeature::KernFeature ( const KernFeature & kf )
 	m_valid = kf.m_valid;
 	if ( m_valid )
 		pairs = kf.pairs;
-
 }
 
 
@@ -123,7 +122,7 @@ void KernFeature::makeCoverage()
 	quint16 LookupList_Offset = toUint16 ( 8 );
 
 	// Find the offsets of the kern feature tables
-	quint16 FeatureCount = toUint16 ( FeatureList_Offset );;
+	quint16 FeatureCount = toUint16 ( FeatureList_Offset );
 	QList<quint16> FeatureKern_Offset;
 	for ( quint16 FeatureRecord ( 0 ); FeatureRecord < FeatureCount; ++ FeatureRecord )
 	{
@@ -135,7 +134,6 @@ void KernFeature::makeCoverage()
 		if ( tag == TTAG_kern )
 		{
 			FeatureKern_Offset << ( toUint16 ( rawIdx + 4 ) + FeatureList_Offset );
-
 		}
 	}
 
@@ -241,6 +239,7 @@ void KernFeature::makePairs ( quint16 subtableOffset )
 		{
 			for ( int psIdx ( 0 ); psIdx < PairSetCount; ++ psIdx )
 			{
+				int oldSecondGlyph = -1;
 				unsigned int FirstGlyph ( coverages[subtableOffset][psIdx] );
 				quint16 PairSetOffset ( toUint16 ( subtableOffset +10 + ( 2 * psIdx ) ) +  subtableOffset );
 				quint16 PairValueCount ( toUint16 ( PairSetOffset ) );
@@ -250,7 +249,14 @@ void KernFeature::makePairs ( quint16 subtableOffset )
 					quint16 recordBase ( PairValueRecord + ( ( 2 + 2 + 2 ) * pvIdx ) );
 					quint16 SecondGlyph ( toUint16 ( recordBase ) );
 					qint16 Value1 ( toInt16 ( recordBase + 2 ) );
+					// #12475 : Per OpenType spec PairValueRecords must be sorted by SecondGlyph.
+					// If a kerning pair is duplicated, take only the first one into account
+					// for now. In the future we may have to ignore the GPOS table in such case.
+					// (http://partners.adobe.com/public/developer/opentype/index_table_formats2.html)
+					if (oldSecondGlyph >= SecondGlyph)
+						continue;
 					pairs[FirstGlyph][SecondGlyph] = double ( Value1 );
+					oldSecondGlyph = SecondGlyph;
 				}
 			}
 		}
@@ -258,6 +264,7 @@ void KernFeature::makePairs ( quint16 subtableOffset )
 		{
 			for ( int psIdx ( 0 ); psIdx < PairSetCount; ++ psIdx )
 			{
+				int oldSecondGlyph = -1;
 				unsigned int FirstGlyph ( coverages[subtableOffset][psIdx] );
 				quint16 PairSetOffset ( toUint16 ( subtableOffset +10 + ( 2 * psIdx ) ) +  subtableOffset );
 				quint16 PairValueCount ( toUint16 ( PairSetOffset ) );
@@ -267,7 +274,14 @@ void KernFeature::makePairs ( quint16 subtableOffset )
 					quint16 recordBase ( PairValueRecord + ( ( 2 + 2 ) * pvIdx ) );
 					quint16 SecondGlyph ( toUint16 ( recordBase ) );
 					qint16 Value1 ( toInt16 ( recordBase + 2 ) );
+					// #12475 : Per OpenType spec PairValueRecords must be sorted by SecondGlyph.
+					// If a kerning pair is duplicated, take only the first one into account
+					// for now. In the future we may have to ignore the GPOS table in such case.
+					// (http://partners.adobe.com/public/developer/opentype/index_table_formats2.html)
+					if (oldSecondGlyph >= SecondGlyph)
+						continue;
 					pairs[FirstGlyph][SecondGlyph] = double ( Value1 );
+					oldSecondGlyph = SecondGlyph;
 				}
 			}
 		}
@@ -417,10 +431,8 @@ quint16 KernFeature::toUint16 ( quint16 index )
 		return 0;
 	}
 	// FIXME I just do not know how it has to be done *properly*
-	quint16 c1 ( GPOSTableRaw.at ( index ) );
-	quint16 c2 ( GPOSTableRaw.at ( index + 1 ) );
-	c1 &= 0xFF;
-	c2 &= 0xFF;
+	quint8 c1 ( GPOSTableRaw.at ( index ) );
+	quint8 c2 ( GPOSTableRaw.at ( index + 1 ) );
 	quint16 ret ( ( c1 << 8 ) | c2 );
 	return ret;
 }
@@ -432,10 +444,8 @@ qint16 KernFeature::toInt16 ( quint16 index )
 		return 0;
 	}
 	// FIXME I just do not know how it has to be done *properly*
-	quint16 c1 ( GPOSTableRaw.at ( index ) );
-	quint16 c2 ( GPOSTableRaw.at ( index + 1 ) );
-	c1 &= 0xFF;
-	c2 &= 0xFF;
+	quint8 c1 ( GPOSTableRaw.at ( index ) );
+	quint8 c2 ( GPOSTableRaw.at ( index + 1 ) );
 	qint16 ret ( ( c1 << 8 ) | c2 );
 	return ret;
 }
