@@ -1668,35 +1668,35 @@ void ScribusView::SelectItem(PageItem *currItem, bool draw, bool single)
 //CB Remove bookmark interaction here, item/doc should do it
 void ScribusView::Deselect(bool /*prop*/)
 {
-	if (!Doc->m_Selection->isEmpty())
+	if (Doc->m_Selection->isEmpty())
+		return;
+
+	const double scale = m_canvas->scale();
+	PageItem* currItem = NULL;
+	for (int a = 0; a < Doc->m_Selection->count(); ++a)
 	{
-		const double scale = m_canvas->scale();
-		PageItem* currItem=NULL;
-		for (int a = 0; a < Doc->m_Selection->count(); ++a)
+		currItem = Doc->m_Selection->itemAt(a);
+		if ((currItem->asTextFrame()) && (currItem->isBookmark))
+			emit ChBMText(currItem);
+	}
+	if (Doc->m_Selection->isMultipleSelection())
+	{
+		double x, y, w, h;
+		Doc->m_Selection->getGroupRect(&x, &y, &w, &h);
+		Doc->m_Selection->clear();
+		updateCanvas(x - 5/scale, y - 5/scale, w + 10/scale, h + 10/scale);
+	}
+	else
+	{
+		currItem = Doc->m_Selection->itemAt(0);
+		if (currItem != NULL)
 		{
-			currItem = Doc->m_Selection->itemAt(a);
-			if ((currItem->asTextFrame()) && (currItem->isBookmark))
-				emit ChBMText(currItem);
+			currItem->itemText.deselectAll();
+			currItem->HasSel = false;
 		}
-		if (Doc->m_Selection->isMultipleSelection())
-		{
-			double x, y, w, h;
-			Doc->m_Selection->getGroupRect(&x, &y, &w, &h);
-			Doc->m_Selection->clear();
-			updateCanvas(x - 5/scale, y - 5/scale, w + 10/scale, h + 10/scale);
-		}
-		else
-		{
-			currItem = Doc->m_Selection->itemAt(0);
-			if (currItem != NULL)
-			{
-				currItem->itemText.deselectAll();
-				currItem->HasSel = false;
-			}
-			Doc->m_Selection->clear();
-			if (currItem != NULL)
-				updateContents(currItem->getRedrawBounding(scale));
-		}
+		Doc->m_Selection->clear();
+		if (currItem != NULL)
+			updateContents(currItem->getRedrawBounding(scale));
 	}
 }
 
