@@ -282,6 +282,30 @@ creates a Duplicate of the selected Object (or Selection Group).\n\
 */
 PyObject *scribus_duplicateobject(PyObject * /* self */, PyObject *args);
 
+/*! docstring */
+PyDoc_STRVAR(scribus_copyobject__doc__,
+QT_TR_NOOP("copyObject([\"name\"]) -> string\n\
+\n\
+copies the selected Object (or Selection Group).\n\
+"));
+/**
+ Gregory Pittman, 2012-01-12
+ copy an object
+*/
+PyObject *scribus_copyobject(PyObject * /* self */, PyObject *args);
+
+/*! docstring */
+PyDoc_STRVAR(scribus_pasteobject__doc__,
+QT_TR_NOOP("pasteObject([\"name\"]) -> string\n\
+\n\
+pastes a Duplicate of the selected Object (or Selection Group).\n\
+"));
+/**
+ Gregory Pittman, 2012-01-29
+ pastes an object
+*/
+PyObject *scribus_pasteobject(PyObject * /* self */, PyObject *args);
+
 /* Internal function not intended for general use; no docstring */
 PyObject* scribus_getframetype(PyObject* self, PyObject* args, PyObject* kw);
 
