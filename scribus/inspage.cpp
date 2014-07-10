@@ -97,6 +97,8 @@ InsPage::InsPage( QWidget* parent, ScribusDoc* currentDoc, int currentPage, int 
 				{
 					if ((it.key() == CommonStrings::masterPageNormal) && (!conNam))
 						pageData->addItem(CommonStrings::trMasterPageNormal);
+					else if ((it.key() == CommonStrings::trMasterPageNormal) && (!conNam))
+						pageData->addItem(CommonStrings::trMasterPageNormal);
 					else
 					{
 						if (currentDoc->MasterPages.at(it.value())->LeftPg == 1)
@@ -115,6 +117,8 @@ InsPage::InsPage( QWidget* parent, ScribusDoc* currentDoc, int currentPage, int 
 					{
 						if ((it.key() == CommonStrings::masterPageNormal) && (!conNam))
 							pageData->addItem(CommonStrings::trMasterPageNormal);
+						else if ((it.key() == CommonStrings::trMasterPageNormal) && (!conNam))
+							pageData->addItem(CommonStrings::trMasterPageNormal);
 						else
 						{
 							if ((currentDoc->MasterPages.at(it.value())->LeftPg != 0) && (currentDoc->MasterPages.at(it.value())->LeftPg != 1))
@@ -130,6 +134,8 @@ InsPage::InsPage( QWidget* parent, ScribusDoc* currentDoc, int currentPage, int 
 					for (QMap<QString,int>::Iterator it = currentDoc->MasterNames.begin(); it != currentDoc->MasterNames.end(); ++it)
 					{
 						if ((it.key() == CommonStrings::masterPageNormal) && (!conNam))
+							pageData->addItem(CommonStrings::trMasterPageNormal);
+						else if ((it.key() == CommonStrings::trMasterPageNormal) && (!conNam))
 							pageData->addItem(CommonStrings::trMasterPageNormal);
 						else
 						{
@@ -150,6 +156,8 @@ InsPage::InsPage( QWidget* parent, ScribusDoc* currentDoc, int currentPage, int 
 					{
 						if ((it.key() == CommonStrings::masterPageNormal) && (!conNam))
 							pageData->addItem(CommonStrings::trMasterPageNormal);
+						else if ((it.key() == CommonStrings::trMasterPageNormal) && (!conNam))
+							pageData->addItem(CommonStrings::trMasterPageNormal);
 						else
 						{
 							if ((currentDoc->MasterPages.at(it.value())->LeftPg != 0) && (currentDoc->MasterPages.at(it.value())->LeftPg != 1))
@@ -165,6 +173,8 @@ InsPage::InsPage( QWidget* parent, ScribusDoc* currentDoc, int currentPage, int 
 					for (QMap<QString,int>::Iterator it = currentDoc->MasterNames.begin(); it != currentDoc->MasterNames.end(); ++it)
 					{
 						if ((it.key() == CommonStrings::masterPageNormal) && (!conNam))
+							pageData->addItem(CommonStrings::trMasterPageNormal);
+						else if ((it.key() == CommonStrings::trMasterPageNormal) && (!conNam))
 							pageData->addItem(CommonStrings::trMasterPageNormal);
 						else
 						{
@@ -182,6 +192,8 @@ InsPage::InsPage( QWidget* parent, ScribusDoc* currentDoc, int currentPage, int 
 				for (QMap<QString,int>::Iterator it = currentDoc->MasterNames.begin(); it != currentDoc->MasterNames.end(); ++it)
 				{
 					if ((it.key() == CommonStrings::masterPageNormal) && (!conNam))
+						pageData->addItem(CommonStrings::trMasterPageNormal);
+					else if ((it.key() == CommonStrings::trMasterPageNormal) && (!conNam))
 						pageData->addItem(CommonStrings::trMasterPageNormal);
 					else
 					{
