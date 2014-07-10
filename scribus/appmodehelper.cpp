@@ -177,6 +177,8 @@ void AppModeHelper::setMasterPageEditMode(bool b, ScribusDoc* doc)
 	(*scrActions)["fileOpen"]->setEnabled(b2);
 	(*scrActions)["fileClose"]->setEnabled(!b2);
 	(*scrActions)["fileSave"]->setEnabled(b2);
+	(*scrActions)["fileExportAsEPS"]->setEnabled(b2);
+	(*scrActions)["fileExportAsPDF"]->setEnabled(b2);
 	if (b2)
 	{
 		(*scrActions)["fileSave"]->setEnabled(!doc->isConverted);
