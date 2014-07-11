@@ -321,7 +321,7 @@ void CreateMode::mouseMoveEvent(QMouseEvent *m)
 			if (createObjectMode != modeDrawLine)
 			{
 				if (modifiers == Qt::ControlModifier)
-					hSize=wSize;
+					hSize = wSize;
 				m_canvas->displaySizeHUD(m->globalPos(), wSize, hSize, false);
 			}
 			else

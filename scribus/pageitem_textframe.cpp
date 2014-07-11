@@ -1802,15 +1802,15 @@ void PageItem_TextFrame::layout()
 				if (a+1 < itemText.length())
 				{
 					uint glyph2 = font.char2CMap(itemText.text(a+1));
-					double kern= font.glyphKerning(glyphs->last()->glyph, glyph2, chs / 10.0) * glyphs->scaleH;
+					double kern = font.glyphKerning(glyphs->last()->glyph, glyph2, chs / 10.0) * glyphs->scaleH;
 					wide += kern;
 					glyphs->last()->xadvance += kern;
 					// change xadvance, xoffset according to JIS X4051
 					int nextStat = SpecialChars::getCJKAttr(itemText.text(a+1));
 					int prevStat;
-					if(curStat != 0)
+					if (curStat != 0)
 					{	// current char is CJK
-						if(nextStat == 0 && !SpecialChars::isBreakingSpace(itemText.text(a+1))){
+						if (nextStat == 0 && !SpecialChars::isBreakingSpace(itemText.text(a+1))){
 							switch(curStat & SpecialChars::CJK_CHAR_MASK){
 							case SpecialChars::CJK_KANJI:
 							case SpecialChars::CJK_KANA:
@@ -1868,7 +1868,7 @@ void PageItem_TextFrame::layout()
 
 						}
 					} else {	// current char is not CJK
-						if(nextStat != 0 && !SpecialChars::isBreakingSpace(currentCh)){
+						if (nextStat != 0 && !SpecialChars::isBreakingSpace(currentCh)){
 							switch(nextStat & SpecialChars::CJK_CHAR_MASK){
 							case SpecialChars::CJK_KANJI:
 							case SpecialChars::CJK_KANA:
@@ -1918,7 +1918,7 @@ void PageItem_TextFrame::layout()
 					glyphs->xoffset -= 0.5; //drop caps are always to far from column left edge
 				}
 				glyphs->xadvance = wide;
-				desc = realDesc =0;
+				desc = realDesc = 0;
 			}
 			else // !DropCMode
 			{
