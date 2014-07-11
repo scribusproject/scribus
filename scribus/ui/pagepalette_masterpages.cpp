@@ -400,12 +400,14 @@ void PagePalette_MasterPages::importPage()
 
 void PagePalette_MasterPages::selectMasterPage(QListWidgetItem *item)
 {
-	m_currentPage = item->text();
-	deleteButton->setEnabled(m_doc->MasterNames.count() == 1 ? false : true);
-	if (m_currentPage == CommonStrings::trMasterPageNormal || m_currentPage == CommonStrings::masterPageNormal)
-		deleteButton->setEnabled(false);
-	else
-		deleteButton->setEnabled(true);
+	m_currentPage = item->data(Qt::UserRole).toString();
+
+	bool deleteEnabled = true;
+	deleteEnabled &= (m_doc->MasterNames.count() > 1);
+	deleteEnabled &= (m_currentPage != CommonStrings::masterPageNormal);
+	deleteEnabled &= (m_currentPage != CommonStrings::trMasterPageNormal);
+	deleteButton->setEnabled(deleteEnabled);
+
 	if (m_doc->appMode == modeEditClip)
 		m_view->requestMode(submodeEndNodeEdit);
 	else if (m_doc->appMode == modeEdit || m_doc->appMode == modeEditGradientVectors)
@@ -420,15 +422,32 @@ void PagePalette_MasterPages::selectMasterPage(QString name)
 	if (!m_doc || !m_view)
 		return;
 
-	m_currentPage = name;
-	deleteButton->setEnabled(m_doc->MasterNames.count() == 1 ? false : true);
-	if (m_currentPage == CommonStrings::trMasterPageNormal)
+	m_currentPage = QString();
+	for (int i = 0; i < masterPageListBox->count(); ++i)
 	{
-		m_currentPage = CommonStrings::masterPageNormal;
-		deleteButton->setEnabled(false);
+		QListWidgetItem* item = masterPageListBox->item(i);
+		QString realPageName  = item->data(Qt::UserRole).toString();
+		if (item->text() == name)
+		{
+			m_currentPage = realPageName;
+			break;
+		}
+		if (realPageName == name)
+		{
+			m_currentPage = name;
+			break;
+		}
 	}
-	else
-		deleteButton->setEnabled(true);
+	
+	if (m_currentPage.isEmpty())
+		m_currentPage = m_doc->MasterPages.at(0)->pageName();
+
+	bool deleteEnabled = true;
+	deleteEnabled &= (m_doc->MasterNames.count() > 1);
+	deleteEnabled &= (m_currentPage != CommonStrings::masterPageNormal);
+	deleteEnabled &= (m_currentPage != CommonStrings::trMasterPageNormal);
+	deleteButton->setEnabled(deleteEnabled);
+
 	if (m_doc->appMode == modeEditClip)
 		m_view->requestMode(submodeEndNodeEdit);
 	m_view->showMasterPage(m_doc->MasterNames[m_currentPage]);

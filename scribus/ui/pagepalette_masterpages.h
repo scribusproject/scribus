@@ -47,7 +47,6 @@ private:
 	ScribusView *m_view;
 
 protected:
-
 	void connectSignals();
 	void disconnectSignals();
 
