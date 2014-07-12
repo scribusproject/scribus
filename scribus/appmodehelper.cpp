@@ -462,6 +462,8 @@ void AppModeHelper::mainWindowCloseLastDoc()
 	(*scrActions)["itemLower"]->setEnabled(false);
 	(*scrActions)["itemLowerToBottom"]->setEnabled(false);
 	(*scrActions)["itemMulDuplicate"]->setEnabled(false);
+	(*scrActions)["itemPDFAnnotationProps"]->setEnabled(false);
+	(*scrActions)["itemPDFFieldProps"]->setEnabled(false);
 	(*scrActions)["itemPreviewFull"]->setEnabled(false);
 	(*scrActions)["itemPreviewLow"]->setEnabled(false);
 	(*scrActions)["itemPreviewNormal"]->setEnabled(false);
