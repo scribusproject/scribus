@@ -7843,6 +7843,7 @@ void ScribusDoc::itemSelection_SetSoftShadow(bool has, QString color, double dx,
 			delete activeTransaction;
 			activeTransaction = NULL;
 		}
+		m_updateManager.setUpdatesEnabled();
 	}
 	changed();
 
