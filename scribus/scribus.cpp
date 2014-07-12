@@ -6583,7 +6583,7 @@ void ScribusMainWindow::setAppMode(int mode)
 		//disable text action which work only text frame in edit mode
 		if ((mode != modeEdit) || !currItem->isTextFrame())
 			appModeHelper.enableTextActions(false);
-		int docSelectionCount=doc->m_Selection->count();
+		int docSelectionCount = doc->m_Selection->count();
 		if (mode == modeDrawBezierLine)
 		{
 			if ((docSelectionCount != 0) && (!prefsManager->appPrefs.uiPrefs.stickyTools))
@@ -8756,36 +8756,36 @@ void ScribusMainWindow::recalcColors(QProgressBar *dia)
 void ScribusMainWindow::ModifyAnnot()
 {
 //	Q_ASSERT(!doc->masterPageMode());
-	if (!doc->m_Selection->isEmpty())
+	if (doc->m_Selection->isEmpty())
+		return;
+
+	PageItem *currItem = doc->m_Selection->itemAt(0);
+	if ((currItem->annotation().Type() == 0) || (currItem->annotation().Type() == 1) || ((currItem->annotation().Type() > 9) && (currItem->annotation().Type() < 13)))
 	{
-		PageItem *currItem = doc->m_Selection->itemAt(0);
-		if ((currItem->annotation().Type() == 0) || (currItem->annotation().Type() == 1) || ((currItem->annotation().Type() > 9) && (currItem->annotation().Type() < 13)))
-		{
-			int AnType = currItem->annotation().Type();
-			int AnActType = currItem->annotation().ActionType();
-			QString AnAction = currItem->annotation().Action();
-			QString An_Extern = currItem->annotation().Extern();
-			Annota *dia = new Annota(this, currItem, doc->DocPages.count(), static_cast<int>(doc->pageWidth()), static_cast<int>(doc->pageHeight()), view);
-			if (dia->exec())
-				slotDocCh();
-			else
-			{
-				currItem->annotation().setType(AnType);
-				currItem->annotation().setActionType(AnActType);
-				currItem->annotation().setAction(AnAction);
-				currItem->annotation().setExtern(An_Extern);
-			}
-			delete dia;
-		}
+		int AnType = currItem->annotation().Type();
+		int AnActType = currItem->annotation().ActionType();
+		QString AnAction = currItem->annotation().Action();
+		QString An_Extern = currItem->annotation().Extern();
+		Annota *dia = new Annota(this, currItem, doc->DocPages.count(), static_cast<int>(doc->pageWidth()), static_cast<int>(doc->pageHeight()), view);
+		if (dia->exec())
+			slotDocCh();
 		else
 		{
-			ScAnnot *dia = new ScAnnot(this, currItem, doc->DocPages.count(), static_cast<int>(doc->pageWidth()), static_cast<int>(doc->pageHeight()), doc->PageColors, view);
-			if (dia->exec())
-				slotDocCh();
-			delete dia;
+			currItem->annotation().setType(AnType);
+			currItem->annotation().setActionType(AnActType);
+			currItem->annotation().setAction(AnAction);
+			currItem->annotation().setExtern(An_Extern);
 		}
-		currItem->update();
+		delete dia;
 	}
+	else
+	{
+		ScAnnot *dia = new ScAnnot(this, currItem, doc->DocPages.count(), static_cast<int>(doc->pageWidth()), static_cast<int>(doc->pageHeight()), doc->PageColors, view);
+		if (dia->exec())
+			slotDocCh();
+		delete dia;
+	}
+	currItem->update();
 }
 
 void ScribusMainWindow::SetShortCut()
