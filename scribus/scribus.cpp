@@ -9022,29 +9022,29 @@ bool ScribusMainWindow::scanDocument()
 
 void ScribusMainWindow::slotStoryEditor(bool fromTable)
 {
-	if (!doc->m_Selection->isEmpty())
+	if (doc->m_Selection->isEmpty())
+		return;
+
+	PageItem *currItem = doc->m_Selection->itemAt(0);
+	PageItem *i2 = currItem;
+	if (fromTable)
+		i2 = currItem->asTable()->activeCell().textFrame();
+	PageItem *currItemSE = storyEditor->currentItem();
+	ScribusDoc *currDocSE = storyEditor->currentDocument();
+	storyEditor->activFromApp = true;
+	//CB shouldnt these be after the if?
+	//Why are we resetting the doc and item in this case. My original code didnt do this.
+	storyEditor->setCurrentDocumentAndItem(doc, i2);
+	if (i2 == currItemSE && doc == currDocSE)
 	{
-		PageItem *currItem = doc->m_Selection->itemAt(0);
-		PageItem *i2 = currItem;
-		if (fromTable)
-			i2 = currItem->asTable()->activeCell().textFrame();
-		PageItem *currItemSE = storyEditor->currentItem();
-		ScribusDoc *currDocSE = storyEditor->currentDocument();
-		storyEditor->activFromApp = true;
-		//CB shouldnt these be after the if?
-		//Why are we resetting the doc and item in this case. My original code didnt do this.
-		storyEditor->setCurrentDocumentAndItem(doc, i2);
-		if (i2 == currItemSE && doc == currDocSE)
-		{
-			storyEditor->show();
-			storyEditor->raise();
-			return;
-		}
-		CurrStED = storyEditor;
-		connect(storyEditor, SIGNAL(DocChanged()), this, SLOT(slotDocCh()));
 		storyEditor->show();
 		storyEditor->raise();
+		return;
 	}
+	CurrStED = storyEditor;
+	connect(storyEditor, SIGNAL(DocChanged()), this, SLOT(slotDocCh()));
+	storyEditor->show();
+	storyEditor->raise();
 }
 
 void ScribusMainWindow::emergencySave()
@@ -9052,54 +9052,51 @@ void ScribusMainWindow::emergencySave()
 	emergencyActivated=true;
 	std::cout << "Calling Emergency Save" << std::endl;
 	QList<QMdiSubWindow *> windows = mdiArea->subWindowList();
-	if (!windows.isEmpty())
+	if (windows.isEmpty())
+		return;
+
+	uint windowCount = windows.count();
+	for (uint i=0; i<windowCount ; ++i)
 	{
-		uint windowCount=windows.count();
-		for (uint i=0; i<windowCount ; ++i)
+		ActWin = (ScribusWin*)windows.at(i)->widget();
+		doc = ActWin->doc();
+		view = ActWin->view();
+		doc->setModified(false);
+		if (doc->hasName)
 		{
-			ActWin = (ScribusWin*)windows.at(i)->widget();
-			doc = ActWin->doc();
-			view = ActWin->view();
-			doc->setModified(false);
-			if (doc->hasName)
-			{
-				std::cout << "Saving: " << doc->DocName.toStdString() << ".emergency" << std::endl;
-				doc->autoSaveTimer->stop();
-				QString emName = doc->DocName+".emergency";
-				if (doc->DocName.right(2) == "gz")
-					emName += ".gz";
-				FileLoader fl(emName);
-				fl.saveFile(emName, doc, 0);
-			}
-			view->close();
-			uint numPages=doc->Pages->count();
-			for (uint a=0; a<numPages; ++a)
-				delete doc->Pages->at(a);
-			delete doc;
-			ActWin->close();
+			std::cout << "Saving: " << doc->DocName.toStdString() << ".emergency" << std::endl;
+			doc->autoSaveTimer->stop();
+			QString emName = doc->DocName+".emergency";
+			if (doc->DocName.right(2) == "gz")
+				emName += ".gz";
+			FileLoader fl(emName);
+			fl.saveFile(emName, doc, 0);
 		}
+		view->close();
+		uint numPages=doc->Pages->count();
+		for (uint a=0; a<numPages; ++a)
+			delete doc->Pages->at(a);
+		delete doc;
+		ActWin->close();
 	}
 }
 
 void ScribusMainWindow::EditTabs()
 {
-	if (HaveDoc)
+	if (!HaveDoc || doc->m_Selection->isEmpty())
+		return;
+
+	PageItem *currItem = doc->m_Selection->itemAt(0);
+	TabManager *dia = new TabManager(this, doc->unitIndex(), currItem->itemText.defaultStyle().tabValues(), currItem->width());
+	if (dia->exec())
 	{
-		if (!doc->m_Selection->isEmpty())
-		{
-			PageItem *currItem = doc->m_Selection->itemAt(0);
-			TabManager *dia = new TabManager(this, doc->unitIndex(), currItem->itemText.defaultStyle().tabValues(), currItem->width());
-			if (dia->exec())
-			{
-				ParagraphStyle newTabs(currItem->itemText.defaultStyle());
-				newTabs.setTabValues(dia->tmpTab);
-				currItem->itemText.setDefaultStyle(newTabs);
-				currItem->update();
-				slotDocCh();
-			}
-			delete dia;
-		}
+		ParagraphStyle newTabs(currItem->itemText.defaultStyle());
+		newTabs.setTabValues(dia->tmpTab);
+		currItem->itemText.setDefaultStyle(newTabs);
+		currItem->update();
+		slotDocCh();
 	}
+	delete dia;
 }
 
 void ScribusMainWindow::SearchText()
@@ -9129,76 +9126,76 @@ void ScribusMainWindow::imageEditorExited(int /*exitCode*/, QProcess::ExitStatus
 /* call gimp and wait upon completion */
 void ScribusMainWindow::callImageEditor()
 {
-	if (!doc->m_Selection->isEmpty())
+	if (doc->m_Selection->isEmpty())
+		return;
+
+	//NOTE to reviewers: I added my code to this function,
+	// - as it performs a similar function,
+	// - when the frame is a latex frame it makes only sense
+	//   to run a latex editor
+	// - IMHO ScribusMainWindow has way to many slots already
+	// - my code here is short and without sideeffects
+	PageItem *currItem = doc->m_Selection->itemAt(0);
+	if (currItem->asLatexFrame())
 	{
-		//NOTE to reviewers: I added my code to this function,
-		// - as it performs a similar function,
-		// - when the frame is a latex frame it makes only sense
-		//   to run a latex editor
-		// - IMHO ScribusMainWindow has way to many slots already
-		// - my code here is short and without sideeffects
-		PageItem *currItem = doc->m_Selection->itemAt(0);
-		if (currItem->asLatexFrame())
-		{
-			currItem->asLatexFrame()->runEditor();
-			return; //Don't process the functions for imageframes!
-		}
+		currItem->asLatexFrame()->runEditor();
+		return; //Don't process the functions for imageframes!
+	}
 #ifdef HAVE_OSG
-		if (currItem->asOSGFrame())
-		{
-			OSGEditorDialog *dia = new OSGEditorDialog(this, currItem->asOSGFrame(), osgFilterString);
-			dia->exec();
-			return;
-		}
+	if (currItem->asOSGFrame())
+	{
+		OSGEditorDialog *dia = new OSGEditorDialog(this, currItem->asOSGFrame(), osgFilterString);
+		dia->exec();
+		return;
+	}
 #endif
-		QString imageEditorExecutable=prefsManager->imageEditorExecutable();
-		if (ExternalApp != 0)
+	QString imageEditorExecutable=prefsManager->imageEditorExecutable();
+	if (ExternalApp != 0)
+	{
+		QString ieExe = QDir::toNativeSeparators(imageEditorExecutable);
+		QMessageBox::information(this, tr("Information"), "<qt>" + tr("The program %1 is already running!").arg(ieExe) + "</qt>", 1, 0, 0);
+		return;
+	}
+	if (currItem->PictureIsAvailable)
+	{
+		int index;
+		QString imEditor;
+		ExternalApp = new QProcess(NULL);
+		QStringList cmd;
+	#if defined(_WIN32)
+		index = imageEditorExecutable.indexOf( ".exe" );
+		if ( index >= 0 )
+			imEditor = imageEditorExecutable.left( index + 4 );
+		imEditor.replace( "\\", "/" );
+		if ( imEditor.length() < imageEditorExecutable.length() )
 		{
-			QString ieExe = QDir::toNativeSeparators(imageEditorExecutable);
-			QMessageBox::information(this, tr("Information"), "<qt>" + tr("The program %1 is already running!").arg(ieExe) + "</qt>", 1, 0, 0);
+			int diffLength = imageEditorExecutable.length() - imEditor.length();
+			QString cmdStr = imageEditorExecutable.right( diffLength );
+			QStringList cmd1 = cmdStr.split( " ", QString::SkipEmptyParts);
+			cmd += cmd1;
+		}
+	#else
+		cmd = imageEditorExecutable.split(" ", QString::SkipEmptyParts);
+		if ( cmd.count() > 0 )
+			imEditor = cmd[0];
+		cmd.clear();
+	#endif
+		index = imEditor.lastIndexOf( "/" );
+		if (index > -1 )
+		{
+			QString imEditorDir = imEditor.left( index + 1 );
+			ExternalApp->setWorkingDirectory( imEditorDir );
+		}
+		cmd.append(QDir::toNativeSeparators(currItem->Pfile));
+		ExternalApp->start(imEditor, cmd);
+		if (!ExternalApp->waitForStarted())
+		{
+			delete ExternalApp;
+			ExternalApp = 0;
+			QMessageBox::critical(this, CommonStrings::trWarning, "<qt>" + tr("The program %1 is missing!").arg(imageEditorExecutable) + "</qt>", 1, 0, 0);
 			return;
 		}
-		if (currItem->PictureIsAvailable)
-		{
-			int index;
-			QString imEditor;
-			ExternalApp = new QProcess(NULL);
-			QStringList cmd;
-		#if defined(_WIN32)
-			index = imageEditorExecutable.indexOf( ".exe" );
-			if ( index >= 0 )
-				imEditor = imageEditorExecutable.left( index + 4 );
-			imEditor.replace( "\\", "/" );
-			if ( imEditor.length() < imageEditorExecutable.length() )
-			{
-				int diffLength = imageEditorExecutable.length() - imEditor.length();
-				QString cmdStr = imageEditorExecutable.right( diffLength );
-				QStringList cmd1 = cmdStr.split( " ", QString::SkipEmptyParts);
-				cmd += cmd1;
-			}
-		#else
-			cmd = imageEditorExecutable.split(" ", QString::SkipEmptyParts);
-			if ( cmd.count() > 0 )
-				imEditor = cmd[0];
-			cmd.clear();
-		#endif
-			index = imEditor.lastIndexOf( "/" );
-			if (index > -1 )
-			{
-				QString imEditorDir = imEditor.left( index + 1 );
-				ExternalApp->setWorkingDirectory( imEditorDir );
-			}
-			cmd.append(QDir::toNativeSeparators(currItem->Pfile));
-			ExternalApp->start(imEditor, cmd);
-			if (!ExternalApp->waitForStarted())
-			{
-				delete ExternalApp;
-				ExternalApp = 0;
-				QMessageBox::critical(this, CommonStrings::trWarning, "<qt>" + tr("The program %1 is missing!").arg(imageEditorExecutable) + "</qt>", 1, 0, 0);
-				return;
-			}
-			connect(ExternalApp, SIGNAL(finished(int, QProcess::ExitStatus)), this, SLOT(imageEditorExited(int, QProcess::ExitStatus)));
-		}
+		connect(ExternalApp, SIGNAL(finished(int, QProcess::ExitStatus)), this, SLOT(imageEditorExited(int, QProcess::ExitStatus)));
 	}
 }
 
@@ -9232,36 +9229,34 @@ bool ScribusMainWindow::isObjectSpecificUndo()
 
 void ScribusMainWindow::getImageInfo()
 {
-	if ((HaveDoc) && (doc->m_Selection->count() == 1))
+	if ((!HaveDoc) || (doc->m_Selection->count() != 1))
+		return;
+
+	PageItem *pageItem = doc->m_Selection->itemAt(0);
+	if (pageItem == NULL)
+		return;
+	if (pageItem->itemType() == PageItem::ImageFrame)
 	{
-		PageItem *pageItem = doc->m_Selection->itemAt(0);
-		if (pageItem != NULL)
-		{
-			if (pageItem->itemType() == PageItem::ImageFrame)
-			{
-				ImageInfoDialog *dia = new ImageInfoDialog(this, &pageItem->pixm.imgInfo);
-				dia->exec();
-				delete dia;
-			}
-		}
+		ImageInfoDialog *dia = new ImageInfoDialog(this, &pageItem->pixm.imgInfo);
+		dia->exec();
+		delete dia;
 	}
 }
 
 void ScribusMainWindow::objectAttributes()
 {
-	if ((HaveDoc) && (doc->m_Selection->count() == 1))
-	{
-		PageItem *pageItem = doc->m_Selection->itemAt(0);
-		if (pageItem!=NULL)
-		{
-			PageItemAttributes *pageItemAttrs = new PageItemAttributes( this );
-			pageItemAttrs->setup(pageItem->getObjectAttributes(), &doc->itemAttributes());
-			//CB TODO Probably want this non modal in the future
-			if (pageItemAttrs->exec()==QDialog::Accepted)
-				pageItem->setObjectAttributes(pageItemAttrs->getNewAttributes());
-			delete pageItemAttrs;
-		}
-	}
+	if ((!HaveDoc) || (doc->m_Selection->count() != 1))
+		return;
+
+	PageItem *pageItem = doc->m_Selection->itemAt(0);
+	if (pageItem == NULL)
+		return;
+	PageItemAttributes *pageItemAttrs = new PageItemAttributes( this );
+	pageItemAttrs->setup(pageItem->getObjectAttributes(), &doc->itemAttributes());
+	//CB TODO Probably want this non modal in the future
+	if (pageItemAttrs->exec() == QDialog::Accepted)
+		pageItem->setObjectAttributes(pageItemAttrs->getNewAttributes());
+	delete pageItemAttrs;
 }
 
 void ScribusMainWindow::generateTableOfContents()
@@ -9298,28 +9293,28 @@ void ScribusMainWindow::insertSampleText()
 
 void ScribusMainWindow::languageChange()
 {
-	if (ScCore->initialized())
+	if (!ScCore->initialized())
+		return;
+
+	//Update colours in case someone has a translated None colour in their preference settings
+	//before changing the tr_NoneColor to the new value. See #9267, #5529
+	prefsManager->languageChange();
+	CommonStrings::languageChange();
+	LanguageManager::instance()->languageChange();
+	//Update actions
+	if (actionManager!=NULL)
 	{
-		//Update colours in case someone has a translated None colour in their preference settings
-		//before changing the tr_NoneColor to the new value. See #9267, #5529
-		prefsManager->languageChange();
-		CommonStrings::languageChange();
-		LanguageManager::instance()->languageChange();
-		//Update actions
-		if (actionManager!=NULL)
-		{
-			actionManager->languageChange();
-			ScCore->pluginManager->languageChange();
-			initKeyboardShortcuts();
-		}
-		//Update menu texts
-		if (scrMenuMgr!=NULL && !scrMenuMgr->empty())
-			scrMenuMgr->languageChange();
-		if (undoManager!=NULL)
-			undoManager->languageChange();
-		statusBarLanguageChange();
-		viewToolBar->languageChange();
+		actionManager->languageChange();
+		ScCore->pluginManager->languageChange();
+		initKeyboardShortcuts();
 	}
+	//Update menu texts
+	if (scrMenuMgr!=NULL && !scrMenuMgr->empty())
+		scrMenuMgr->languageChange();
+	if (undoManager!=NULL)
+		undoManager->languageChange();
+	statusBarLanguageChange();
+	viewToolBar->languageChange();
 }
 
 void ScribusMainWindow::statusBarLanguageChange()
@@ -9497,119 +9492,118 @@ void ScribusMainWindow::dropEvent ( QDropEvent * e)
 
 void ScribusMainWindow::slotEditCopyContents()
 {
-	PageItem *currItem=NULL;
-	contentsBuffer.contentsFileName="";
-	if (HaveDoc && (currItem=doc->m_Selection->itemAt(0))!=NULL)
-	{
-		if (currItem->itemType()==PageItem::ImageFrame)
-		{
-			PageItem_ImageFrame* imageItem=currItem->asImageFrame();
-			if (imageItem->PictureIsAvailable)
-			{
-				contentsBuffer.sourceType = PageItem::ImageFrame;
-				contentsBuffer.contentsFileName = imageItem->Pfile;
-				contentsBuffer.LocalScX = imageItem->imageXScale();
-				contentsBuffer.LocalScY = imageItem->imageYScale();
-				contentsBuffer.LocalX   = imageItem->imageXOffset();
-				contentsBuffer.LocalY   = imageItem->imageYOffset();
-				contentsBuffer.LocalRot = imageItem->imageRotation();
-				contentsBuffer.ItemX   = imageItem->xPos();
-				contentsBuffer.ItemY   = imageItem->yPos();
-				contentsBuffer.effects = imageItem->effectsInUse;
-				contentsBuffer.inputProfile = imageItem->IProfile;
-				contentsBuffer.useEmbedded  = imageItem->UseEmbedded;
-				contentsBuffer.renderingIntent = imageItem->IRender;
-			}
-		}
-	}
+	PageItem *currItem = NULL;
+	contentsBuffer.contentsFileName = "";
+
+	if (!HaveDoc || (currItem = doc->m_Selection->itemAt(0)) == NULL)
+		return;
+	if (currItem->itemType() != PageItem::ImageFrame)
+		return;
+
+	PageItem_ImageFrame* imageItem = currItem->asImageFrame();
+	if (!imageItem->PictureIsAvailable)
+		return;
+	contentsBuffer.sourceType = PageItem::ImageFrame;
+	contentsBuffer.contentsFileName = imageItem->Pfile;
+	contentsBuffer.LocalScX = imageItem->imageXScale();
+	contentsBuffer.LocalScY = imageItem->imageYScale();
+	contentsBuffer.LocalX   = imageItem->imageXOffset();
+	contentsBuffer.LocalY   = imageItem->imageYOffset();
+	contentsBuffer.LocalRot = imageItem->imageRotation();
+	contentsBuffer.ItemX   = imageItem->xPos();
+	contentsBuffer.ItemY   = imageItem->yPos();
+	contentsBuffer.effects = imageItem->effectsInUse;
+	contentsBuffer.inputProfile = imageItem->IProfile;
+	contentsBuffer.useEmbedded  = imageItem->UseEmbedded;
+	contentsBuffer.renderingIntent = imageItem->IRender;
 }
 
 void ScribusMainWindow::slotEditPasteContents(int absolute)
 {
-	PageItem *currItem=NULL;
-	if (HaveDoc && !contentsBuffer.contentsFileName.isEmpty() && (currItem=doc->m_Selection->itemAt(0))!=NULL)
-	{
-		if (contentsBuffer.sourceType==PageItem::ImageFrame && currItem->itemType()==PageItem::ImageFrame)
-		{
-			PageItem_ImageFrame* imageItem=currItem->asImageFrame();
-			int t=QMessageBox::Yes;
-			if (imageItem->PictureIsAvailable)
-				t = QMessageBox::warning(this, CommonStrings::trWarning,
-										tr("Do you really want to replace your existing image?"),
-										QMessageBox::Yes | QMessageBox::No, QMessageBox::No);
-			if (t == QMessageBox::Yes)
-			{
-				imageItem->EmProfile = "";
-				imageItem->pixm.imgInfo.isRequest = false;
-				imageItem->IProfile = doc->cmsSettings().DefaultImageRGBProfile;
-				imageItem->IRender  = doc->cmsSettings().DefaultIntentImages;
-				imageItem->effectsInUse = contentsBuffer.effects;
-				qApp->setOverrideCursor( QCursor(Qt::WaitCursor) );
-				qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
-				doc->loadPict(contentsBuffer.contentsFileName, imageItem);
-				imageItem->setImageXYScale(contentsBuffer.LocalScX, contentsBuffer.LocalScY);
-				if (absolute==0)
-					imageItem->setImageXYOffset(contentsBuffer.LocalX, contentsBuffer.LocalY);
-				else
-					imageItem->setImageXYOffset(
-					((contentsBuffer.ItemX-imageItem->xPos()) / contentsBuffer.LocalScX)+contentsBuffer.LocalX,
-					((contentsBuffer.ItemY-imageItem->yPos()) / contentsBuffer.LocalScY)+contentsBuffer.LocalY);
-				imageItem->setImageRotation(contentsBuffer.LocalRot);
-				imageItem->IProfile=contentsBuffer.inputProfile;
-				imageItem->UseEmbedded=contentsBuffer.useEmbedded;
-				imageItem->IRender=contentsBuffer.renderingIntent;
-				qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
-				view->DrawNew();
-				propertiesPalette->updateColorList();
-				emit UpdateRequest(reqCmsOptionsUpdate);
-				currItem->emitAllToGUI();
-				qApp->restoreOverrideCursor();
-			}
-		}
-	}
+	PageItem *currItem = NULL;
+	if (HaveDoc || contentsBuffer.contentsFileName.isEmpty())
+		return;
+	if ((currItem = doc->m_Selection->itemAt(0)) == NULL)
+		return;
+	if (contentsBuffer.sourceType != PageItem::ImageFrame || currItem->itemType() != PageItem::ImageFrame)
+		return;
+
+	PageItem_ImageFrame* imageItem=currItem->asImageFrame();
+	int t=QMessageBox::Yes;
+	if (imageItem->PictureIsAvailable)
+		t = QMessageBox::warning(this, CommonStrings::trWarning,
+								tr("Do you really want to replace your existing image?"),
+								QMessageBox::Yes | QMessageBox::No, QMessageBox::No);
+	if (t != QMessageBox::Yes)
+		return;
+
+	imageItem->EmProfile = "";
+	imageItem->pixm.imgInfo.isRequest = false;
+	imageItem->IProfile = doc->cmsSettings().DefaultImageRGBProfile;
+	imageItem->IRender  = doc->cmsSettings().DefaultIntentImages;
+	imageItem->effectsInUse = contentsBuffer.effects;
+	qApp->setOverrideCursor( QCursor(Qt::WaitCursor) );
+	qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
+	doc->loadPict(contentsBuffer.contentsFileName, imageItem);
+	imageItem->setImageXYScale(contentsBuffer.LocalScX, contentsBuffer.LocalScY);
+	if (absolute==0)
+		imageItem->setImageXYOffset(contentsBuffer.LocalX, contentsBuffer.LocalY);
+	else
+		imageItem->setImageXYOffset(
+		((contentsBuffer.ItemX-imageItem->xPos()) / contentsBuffer.LocalScX)+contentsBuffer.LocalX,
+		((contentsBuffer.ItemY-imageItem->yPos()) / contentsBuffer.LocalScY)+contentsBuffer.LocalY);
+	imageItem->setImageRotation(contentsBuffer.LocalRot);
+	imageItem->IProfile=contentsBuffer.inputProfile;
+	imageItem->UseEmbedded=contentsBuffer.useEmbedded;
+	imageItem->IRender=contentsBuffer.renderingIntent;
+	qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
+	view->DrawNew();
+	propertiesPalette->updateColorList();
+	emit UpdateRequest(reqCmsOptionsUpdate);
+	currItem->emitAllToGUI();
+	qApp->restoreOverrideCursor();
 }
 
 void ScribusMainWindow::slotInsertFrame()
 {
-	if (HaveDoc)
+	if (!HaveDoc)
+		return;
+
+	if (!doc->m_Selection->isEmpty())
+		view->Deselect(false);
+	InsertAFrame dia(this, doc);
+	if (dia.exec())
 	{
-		if (!doc->m_Selection->isEmpty())
-			view->Deselect(false);
-		InsertAFrame dia(this, doc);
-		if (dia.exec())
-		{
-			InsertAFrameData iafData;
-			dia.getNewFrameProperties(iafData);
-			doc->itemAddUserFrame(iafData);
-		}
+		InsertAFrameData iafData;
+		dia.getNewFrameProperties(iafData);
+		doc->itemAddUserFrame(iafData);
 	}
 }
 
 void ScribusMainWindow::slotItemTransform()
 {
-	if (HaveDoc)
+	if (!HaveDoc)
+		return;
+	if (doc->m_Selection->isEmpty())
+		return;
+
+	TransformDialog td(this, doc);
+	if (td.exec() == 0)
+		return;
+	UndoTransaction *trans = NULL;
+	if(UndoManager::undoEnabled())
+		trans = new UndoTransaction(undoManager->beginTransaction(Um::Selection,Um::IPolygon,Um::Transform,"",Um::IMove));
+	qApp->setOverrideCursor(QCursor(Qt::WaitCursor));
+	int count=td.getCount();
+	QTransform matrix(td.getTransformMatrix());
+	int basepoint=td.getBasepoint();
+	doc->itemSelection_Transform(count, matrix, basepoint);
+	qApp->restoreOverrideCursor();
+	if (trans)
 	{
-		if (doc->m_Selection->isEmpty())
-			return;
-		TransformDialog td(this, doc);
-		if (td.exec())
-		{
-			UndoTransaction *trans = NULL;
-			if(UndoManager::undoEnabled())
-				trans = new UndoTransaction(undoManager->beginTransaction(Um::Selection,Um::IPolygon,Um::Transform,"",Um::IMove));
-			qApp->setOverrideCursor(QCursor(Qt::WaitCursor));
-			int count=td.getCount();
-			QTransform matrix(td.getTransformMatrix());
-			int basepoint=td.getBasepoint();
-			doc->itemSelection_Transform(count, matrix, basepoint);
-			qApp->restoreOverrideCursor();
-			if(trans)
-			{
-				trans->commit();
-				delete trans;
-				trans = NULL;
-			}
-		}
+		trans->commit();
+		delete trans;
+		trans = NULL;
 	}
 }
 
@@ -10111,28 +10105,28 @@ void ScribusMainWindow::managePaints()
 
 void ScribusMainWindow::slotReplaceColors()
 {
-	if (HaveDoc)
+	if (!HaveDoc)
+		return;
+
+	ColorList UsedC;
+	doc->getUsedColors(UsedC);
+	replaceColorsDialog *dia2 = new replaceColorsDialog(this, doc->PageColors, UsedC);
+	if (dia2->exec())
 	{
-		ColorList UsedC;
-		doc->getUsedColors(UsedC);
-		replaceColorsDialog *dia2 = new replaceColorsDialog(this, doc->PageColors, UsedC);
-		if (dia2->exec())
-		{
-			ResourceCollection colorrsc;
-			colorrsc.mapColors(dia2->replaceMap);
-			PrefsManager::replaceToolColors(doc->itemToolPrefs(), colorrsc.colors());
-			doc->replaceNamedResources(colorrsc);
-			doc->replaceLineStyleColors(dia2->replaceMap);
-			doc->recalculateColors();
-			doc->recalcPicturesRes();
-			requestUpdate(reqColorsUpdate | reqLineStylesUpdate);
-			styleManager->updateColorList();
-			if (!doc->m_Selection->isEmpty())
-				doc->m_Selection->itemAt(0)->emitAllToGUI();
-			view->DrawNew();
-		}
-		delete dia2;
+		ResourceCollection colorrsc;
+		colorrsc.mapColors(dia2->replaceMap);
+		PrefsManager::replaceToolColors(doc->itemToolPrefs(), colorrsc.colors());
+		doc->replaceNamedResources(colorrsc);
+		doc->replaceLineStyleColors(dia2->replaceMap);
+		doc->recalculateColors();
+		doc->recalcPicturesRes();
+		requestUpdate(reqColorsUpdate | reqLineStylesUpdate);
+		styleManager->updateColorList();
+		if (!doc->m_Selection->isEmpty())
+			doc->m_Selection->itemAt(0)->emitAllToGUI();
+		view->DrawNew();
 	}
+	delete dia2;
 }
 
 void ScribusMainWindow::updateGUIAfterPagesChanged()
@@ -10192,44 +10186,44 @@ void ScribusMainWindow::insertMark(MarkType mType)
 		return;
 	if  (doc->appMode != modeEdit)
 		return;
+
 	UndoTransaction* trans = NULL;
 	PageItem* currItem = doc->m_Selection->itemAt(0);
-	if (currItem->isTextFrame())
+	if (!currItem->isTextFrame())
+		return;
+	if (currItem->HasSel)
 	{
-		if (currItem->HasSel)
+		if (UndoManager::instance()->undoEnabled())
+			trans = new UndoTransaction(undoManager->beginTransaction(Um::Selection,Um::IDelete,Um::Delete,"",Um::IDelete));
+		//inserting mark replace some selected text
+		currItem->asTextFrame()->deleteSelectedTextFromFrame();
+	}
+	ScItemsState* is = NULL;
+	if (insertMarkDialog(currItem->asTextFrame(), mType, is))
+	{
+		Mark* mrk = currItem->itemText.mark(currItem->itemText.cursorPosition() -1);
+		view->updatesOn(false);
+		currItem->invalidateLayout();
+		currItem->layout();
+		if (mType == MARKNoteMasterType)
 		{
-			if (UndoManager::instance()->undoEnabled())
-				trans = new UndoTransaction(undoManager->beginTransaction(Um::Selection,Um::IDelete,Um::Delete,"",Um::IDelete));
-			//inserting mark replace some selected text
-			currItem->asTextFrame()->deleteSelectedTextFromFrame();
+			doc->setNotesChanged(true);
+			if (mrk->getNotePtr()->isEndNote())
+				doc->flag_updateEndNotes = true;
+			doc->setCursor2MarkPos(mrk->getNotePtr()->noteMark());
+			nsEditor->setNotesStyle(mrk->getNotePtr()->notesStyle());
 		}
-		ScItemsState* is = NULL;
-		if (insertMarkDialog(currItem->asTextFrame(), mType, is))
-		{
-            Mark* mrk = currItem->itemText.mark(currItem->itemText.cursorPosition() -1);
-			view->updatesOn(false);
-			currItem->invalidateLayout();
-			currItem->layout();
-			if (mType == MARKNoteMasterType)
-			{
-				doc->setNotesChanged(true);
-				if (mrk->getNotePtr()->isEndNote())
-					doc->flag_updateEndNotes = true;
-				doc->setCursor2MarkPos(mrk->getNotePtr()->noteMark());
-				nsEditor->setNotesStyle(mrk->getNotePtr()->notesStyle());
-			}
-			doc->changed();
-			if (is != NULL)
-				is->set("label", mrk->label);
-			view->updatesOn(true);
-			view->DrawNew();
-		}
-		if (trans)
-		{
-			trans->commit();
-			delete trans;
-			trans = NULL;
-		}
+		doc->changed();
+		if (is != NULL)
+			is->set("label", mrk->label);
+		view->updatesOn(true);
+		view->DrawNew();
+	}
+	if (trans)
+	{
+		trans->commit();
+		delete trans;
+		trans = NULL;
 	}
 }
 
@@ -10568,7 +10562,7 @@ bool ScribusMainWindow::editMarkDlg(Mark *mrk, PageItem_TextFrame* currItem)
 			break;
 		case MARK2MarkType:
 			{
-			editMDialog = (MarkInsert*) new Mark2Mark(doc->marksList(), mrk, this);
+				editMDialog = (MarkInsert*) new Mark2Mark(doc->marksList(), mrk, this);
 				QString l;
 				MarkType t;
 				mrk->getMark(l,t);
