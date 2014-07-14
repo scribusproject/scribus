@@ -601,12 +601,7 @@ private:
 	FileToolBar *fileToolBar;
 	ModeToolBar* modeToolBar;
 	PDFToolBar* pdfToolBar;
-	QToolButton* DatOpe;
-	QToolButton* DatSav;
-	QToolButton* DatClo;
-	QToolButton* DatPri;
-	QToolButton* DatPDF;
-	QToolButton* DatNeu;
+
 	int toolbarMenuTools;
 	int toolbarMenuPDFTools;
 	int viewToolbars;
@@ -630,7 +625,6 @@ private:
 
 	void addNewPages(int wo, int where, int numPages, double height, double width, int orient, QString siz, bool mov, QStringList* basedOn = 0);
 
-	void *PSDriver;
 	int DocNr;
 	bool PrinterUsed;
 	struct PDe {
