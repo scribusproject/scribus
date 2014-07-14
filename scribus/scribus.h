@@ -41,7 +41,6 @@ for which a new license (GPL+exception) is in place.
 #include <QPointer>
 #include <QPushButton>
 #include <QProcess>
-#include <QQuickView>
 #include <QString>
 #include <QToolButton>
 
@@ -53,6 +52,7 @@ class QKeyEvent;
 class QLabel;
 class QMdiArea;
 class QMdiSubWindow;
+class QQuickView;
 
 // application specific includes
 #include "scribusapi.h"
@@ -615,12 +615,6 @@ private:
 	QString statusLabelText;
 	QPixmap noIcon;
 
-	QToolButton* DatOpe;
-	QToolButton* DatSav;
-	QToolButton* DatClo;
-	QToolButton* DatPri;
-	QToolButton* DatPDF;
-	QToolButton* DatNeu;
 	int toolbarMenuTools;
 	int toolbarMenuPDFTools;
 	int viewToolbars;
@@ -645,7 +639,6 @@ private:
 	//CB: #8212: add overrideMasterPageSizing, however default to true for compatibility with other calls.. for now
 	void addNewPages(int wo, int where, int numPages, double height, double width, int orient, QString siz, bool mov, QStringList* basedOn = 0, bool overrideMasterPageSizing=true);
 
-	void *PSDriver;
 	int DocNr;
 	bool PrinterUsed;
 	struct PDe {
