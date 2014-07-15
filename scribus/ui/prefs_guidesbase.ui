@@ -162,10 +162,10 @@
                 <string> px</string>
                </property>
                <property name="minimum">
-                <number>1</number>
+                <double>1.000000000000000</double>
                </property>
                <property name="maximum">
-                <number>1000</number>
+                <double>1000.000000000000000</double>
                </property>
               </widget>
              </item>
@@ -182,10 +182,10 @@
                 <string> px</string>
                </property>
                <property name="minimum">
-                <number>1</number>
+                <double>1.000000000000000</double>
                </property>
                <property name="maximum">
-                <number>1000</number>
+                <double>1000.000000000000000</double>
                </property>
               </widget>
              </item>
@@ -276,7 +276,11 @@
             </widget>
            </item>
            <item row="2" column="1">
-            <widget class="ScrSpinBox" name="baselineGridSpacingSpinBox"/>
+            <widget class="ScrSpinBox" name="baselineGridSpacingSpinBox">
+             <property name="minimum">
+              <double>1.000000000000000</double>
+             </property>
+            </widget>
            </item>
            <item row="3" column="0">
             <widget class="QLabel" name="baselineGridOffsetLabel">
@@ -516,8 +520,8 @@
  <customwidgets>
   <customwidget>
    <class>ScrSpinBox</class>
-   <extends>QSpinBox</extends>
-   <header location="global">ui/scrspinbox.h</header>
+   <extends>QDoubleSpinBox</extends>
+   <header>ui/scrspinbox.h</header>
   </customwidget>
  </customwidgets>
  <resources/>
