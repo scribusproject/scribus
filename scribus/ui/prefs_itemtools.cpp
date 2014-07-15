@@ -64,6 +64,10 @@ void Prefs_ItemTools::unitChange(int newIndex)
 {
 	textColumnGapSpinBox->setNewUnit(newIndex);
 	textTabWidthSpinBox->setNewUnit(newIndex);
+	topTextDistanceSpinBox->setNewUnit(newIndex);
+	bottomTextDistanceSpinBox->setNewUnit(newIndex);
+	leftTextDistanceSpinBox->setNewUnit(newIndex);
+	rightTextDistanceSpinBox->setNewUnit(newIndex);
 }
 
 void Prefs_ItemTools::restoreDefaults(struct ApplicationPrefs *prefsData)
