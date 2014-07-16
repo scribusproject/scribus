@@ -2337,7 +2337,6 @@ void ScribusDoc::restoreAddMasterPage(SimpleState *ss, bool isUndo)
 
 		scMW()->deletePage2(MasterNames[pageName]);
 		rebuildMasterNames();
-		scMW()->pagePalette->updateMasterPageList();
 	} 
 	else 
 	{
@@ -2346,10 +2345,10 @@ void ScribusDoc::restoreAddMasterPage(SimpleState *ss, bool isUndo)
 		UndoObject *tmp = undoManager->replaceObject(
 					ss->getUInt("DUMMY_ID"), Pages->at(MasterNames[pageName]));
 		delete tmp;
-		scMW()->pagePalette->updateMasterPageList();
-		m_View->reformPages();
 	}
 	setMasterPageMode(oldMPMode);
+	scMW()->pagePalette->updateMasterPageList();
+	m_View->reformPages();
 }
 
 void ScribusDoc::restoreGrouping(SimpleState *state, bool isUndo)
@@ -4874,6 +4873,7 @@ void ScribusDoc::restoreMasterPageApplying(SimpleState *state, bool isUndo)
 		applyMasterPage(oldName, pageNumber);
 	else
 		applyMasterPage(newName, pageNumber);
+	scMW()->pagePalette->rebuildPages();
 }
 
 
