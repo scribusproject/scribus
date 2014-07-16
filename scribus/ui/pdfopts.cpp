@@ -18,6 +18,7 @@ for which a new license (GPL+exception) is in place.
 
 #include <QByteArray>
 #include <QCheckBox>
+#include <QFileDialog>
 #include <QGridLayout>
 #include <QGroupBox>
 #include <QHBoxLayout>
@@ -212,18 +213,12 @@ void PDFExportDialog::ChangeFile()
 	QString fn;
 	PrefsContext* dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
 	QString wdir = dirs->get("pdf", ".");
-	CustomFDialog dia(this, wdir, tr("Save As"), tr("PDF Files (*.pdf);;All Files (*)"), fdNone);
-	if (!fileNameLineEdit->text().isEmpty())
+	QString d = QFileDialog::getSaveFileName(this, tr("Save As"), wdir, tr("PDF Files (*.pdf);;All Files (*)"), 0, QFileDialog::DontConfirmOverwrite);
+	if (d.length()>0)
 	{
-		QString fileName = QDir::fromNativeSeparators(fileNameLineEdit->text()); 
-		dia.setSelection(fileName);
-	}
-	if (dia.exec() == QDialog::Accepted)
-	{
-		// selectedFile() may return path with native separators
-		fn = QDir::fromNativeSeparators(dia.selectedFile());
+		fn = QDir::fromNativeSeparators(d);
 		dirs->set("pdf", fn.left(fn.lastIndexOf("/")));
-		fileNameLineEdit->setText( QDir::toNativeSeparators(fn) );
+		fileNameLineEdit->setText( d );
 	}	
 }
 
