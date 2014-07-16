@@ -69,9 +69,9 @@ protected:
 	QGroupBox* Name;
 	QCheckBox* multiFile;
 	QCheckBox* openAfterExportCheckBox;
-	QToolButton* FileC;
-	QPushButton* OK;
-	QPushButton* Cancel;
+	QPushButton* changeButton;
+	QPushButton* okButton;
+	QPushButton* cancelButton;
 	QLineEdit* fileNameLineEdit;
 	TabPDFOptions* Options;
 
