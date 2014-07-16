@@ -3958,8 +3958,8 @@ void PageItem_TextFrame::DrawObj_Post(ScPainter *p)
 
 void PageItem_TextFrame::DrawObj_Decoration(ScPainter *p)
 {
-	if (isAnnotation() && ((annotation().Type() > 1) && (annotation().Type() < 7)) && (annotation().Bwid() > 0))
-		return;
+	//#12405 if (isAnnotation() && ((annotation().Type() > 1) && (annotation().Type() < 7)) && (annotation().Bwid() > 0))
+	//	return;
 	p->save();
 	p->setAntialiasing(false);
 	if (!isEmbedded)
@@ -3997,7 +3997,10 @@ void PageItem_TextFrame::DrawObj_Decoration(ScPainter *p)
 		}
 		if ((m_Doc->guidesPrefs().colBordersShown) && (!m_Doc->drawAsPreview))
 			drawColumnBorders(p);
-		if ((m_Doc->guidesPrefs().layerMarkersShown) && (m_Doc->layerCount() > 1) && (!m_Doc->layerOutline(LayerID)) && (!m_Doc->drawAsPreview))
+		if ((m_Doc->guidesPrefs().layerMarkersShown) &&
+			(m_Doc->layerCount() > 1) &&
+			(!m_Doc->layerOutline(LayerID)) &&
+			(!m_Doc->drawAsPreview))
 		{
 			p->setPen(Qt::black, 0, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 			p->setPenOpacity(1.0);
