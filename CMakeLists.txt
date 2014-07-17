@@ -107,7 +107,7 @@ IF (APPLE AND CMAKE_SIZEOF_VOID_P EQUAL 8 AND (ARCH_X86 EQUAL 1 OR ARCH_X86_64 E
 		SET(APPLE_10_6_X 1 CACHE TYPE BOOL)
 	ENDIF (_apple_ver EQUAL "10")
 	IF (_apple_ver EQUAL "9")
-		MESSAGE(STATUS "Found OSX Leoard Target: Apple, 32 bit, X86")
+		MESSAGE(STATUS "Found OSX Leopard Target: Apple, 32 bit, X86")
 		SET(APPLE_10_5_X 1 CACHE TYPE BOOL)
 	ENDIF (_apple_ver EQUAL "9")
 	UNSET(ARCH_X86)
@@ -225,7 +225,7 @@ IF (APPLEBUNDLE)
 ENDIF (APPLEBUNDLE)
 
 
-#Setp all the directories we will use
+#Setup all the directories we will use
 #MAN
 CMAKE_POLICY(SET CMP0005 OLD)
 SET(MANDIR "share/man/")
