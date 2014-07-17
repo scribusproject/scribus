@@ -2132,7 +2132,7 @@ void PageItem::DrawObj_Decoration(ScPainter *p)
 		if ((m_Doc->guidesPrefs().layerMarkersShown) &&
 			(m_Doc->layerCount() > 1) &&
 			(!m_Doc->layerOutline(LayerID)) &&
-			//#12405 (isGroup()) &&
+			(!isGroupChild()) &&
 			(!m_Doc->drawAsPreview))
 		{
 			p->setPen(Qt::black, 0, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
