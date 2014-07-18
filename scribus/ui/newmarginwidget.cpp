@@ -19,6 +19,8 @@ NewMarginWidget::NewMarginWidget(QWidget* parent)
 {
 	setupUi(this);
 
+	pageWidth  = 0;
+	pageHeight = 0;
 }
 
 NewMarginWidget::~NewMarginWidget()
@@ -89,8 +91,8 @@ void NewMarginWidget::setNewValues(const MarginStruct& margs)
 
 void NewMarginWidget::setPageWidth(double newWidth)
 {
-	leftMarginSpinBox->setMaximum(qMax(0.0, newWidth * m_unitRatio - leftMarginSpinBox->value()));
-	rightMarginSpinBox->setMaximum(qMax(0.0,newWidth * m_unitRatio - rightMarginSpinBox->value()));
+	leftMarginSpinBox->setMaximum(qMax(0.0, newWidth * m_unitRatio - rightMarginSpinBox->value()));
+	rightMarginSpinBox->setMaximum(qMax(0.0, newWidth * m_unitRatio - leftMarginSpinBox->value()));
 	pageWidth = newWidth;
 	setPreset();
 }
@@ -237,26 +239,29 @@ void NewMarginWidget::setPageSize(const QString& pageSize)
 
 void NewMarginWidget::updateMarginSpinValues()
 {
-	leftMarginSpinBox->blockSignals(true);
-	rightMarginSpinBox->blockSignals(true);
-	topMarginSpinBox->blockSignals(true);
-	bottomMarginSpinBox->blockSignals(true);
+	bool leftBlocked = leftMarginSpinBox->blockSignals(true);
+	bool rightBlocked = rightMarginSpinBox->blockSignals(true);
+	bool topBlocked = topMarginSpinBox->blockSignals(true);
+	bool bottomBlocked = bottomMarginSpinBox->blockSignals(true);
+
 	topMarginSpinBox->setValue(marginData.Top * m_unitRatio);
 	rightMarginSpinBox->setValue(marginData.Right * m_unitRatio);
 	bottomMarginSpinBox->setValue(marginData.Bottom * m_unitRatio);
 	leftMarginSpinBox->setValue(marginData.Left * m_unitRatio);
-	leftMarginSpinBox->blockSignals(false);
-	rightMarginSpinBox->blockSignals(false);
-	topMarginSpinBox->blockSignals(false);
-	bottomMarginSpinBox->blockSignals(false);
+
+	leftMarginSpinBox->blockSignals(leftBlocked);
+	rightMarginSpinBox->blockSignals(rightBlocked);
+	topMarginSpinBox->blockSignals(topBlocked);
+	bottomMarginSpinBox->blockSignals(bottomBlocked);
 }
 
 void NewMarginWidget::slotLinkMargins()
 {
-	leftMarginSpinBox->blockSignals(true);
-	rightMarginSpinBox->blockSignals(true);
-	topMarginSpinBox->blockSignals(true);
-	bottomMarginSpinBox->blockSignals(true);
+	bool leftBlocked = leftMarginSpinBox->blockSignals(true);
+	bool rightBlocked = rightMarginSpinBox->blockSignals(true);
+	bool topBlocked = topMarginSpinBox->blockSignals(true);
+	bool bottomBlocked = bottomMarginSpinBox->blockSignals(true);
+
 	if (marginLinkCheckBox->isChecked())
 	{
 		bottomMarginSpinBox->setValue(leftMarginSpinBox->value());
@@ -265,10 +270,11 @@ void NewMarginWidget::slotLinkMargins()
 		double newVal=leftMarginSpinBox->value() / m_unitRatio;
 		marginData.set(newVal, newVal, newVal, newVal);
 	}
-	leftMarginSpinBox->blockSignals(false);
-	rightMarginSpinBox->blockSignals(false);
-	topMarginSpinBox->blockSignals(false);
-	bottomMarginSpinBox->blockSignals(false);
+
+	leftMarginSpinBox->blockSignals(leftBlocked);
+	rightMarginSpinBox->blockSignals(rightBlocked);
+	topMarginSpinBox->blockSignals(topBlocked);
+	bottomMarginSpinBox->blockSignals(bottomBlocked);
 }
 
 void NewMarginWidget::setMarginPreset(int p)
