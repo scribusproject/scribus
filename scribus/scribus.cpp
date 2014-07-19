@@ -6581,7 +6581,7 @@ void ScribusMainWindow::setAppMode(int mode)
 			}
 		}
 		//disable text action which work only text frame in edit mode
-		if ((mode != modeEdit) || !currItem->isTextFrame())
+		if ((mode != modeEdit) || (!currItem) || !currItem->isTextFrame())
 			appModeHelper.enableTextActions(false);
 		int docSelectionCount = doc->m_Selection->count();
 		if (mode == modeDrawBezierLine)
@@ -10833,12 +10833,10 @@ void ScribusMainWindow::testQTQuick2_1()
 	QObject *q_xSpinBox = rootObject->findChild<QObject*>("xSpinBox");
 	QObject *q_ySpinBox = rootObject->findChild<QObject*>("ySpinBox");
 
-
 	connect(q_xSpinBox, SIGNAL(editingFinished()), this, SLOT(testQT_slot4()));
 	connect(q_ySpinBox, SIGNAL(valueChanged(int)), this, SLOT(testQT_slot3(int)));
 	connect(q_closeCheckBox, SIGNAL(clicked()), this, SLOT(testQT_slot4()));
 	qqview->show();
-
 }
 
 void ScribusMainWindow::testQT_slot1(QString s)
