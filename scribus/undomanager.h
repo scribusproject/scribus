@@ -467,6 +467,8 @@ public:
 	static QString DelMasterPage;
 	static QString ImportMasterPage;
 	static QString DuplicateMasterPage;
+	static QString ApplyMasterPage;
+	static QString RenameMasterPage;
 	static QString Resize;
 	static QString Rotate;
 	static QString MoveFromTo;
@@ -503,7 +505,6 @@ public:
 	static QString Rename;
 	static QString FromTo;
 	static QString Mode;
-	static QString ApplyMasterPage;
 	static QString Paste;
 	static QString Cut;
 	static QString Transparency;

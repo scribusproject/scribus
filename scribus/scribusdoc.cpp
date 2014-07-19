@@ -1841,10 +1841,12 @@ void ScribusDoc::restore(UndoState* state, bool isUndo)
 			changeLayerName(ss->getInt("ACTIVE"), name);
 			layersUndo=true;
 		}
-		else if (ss->contains("OLD_MASTERPAGE"))
-			restoreMasterPageApplying(ss, isUndo);
 		else if (ss->contains("MASTERPAGE_ADD"))
 			restoreAddMasterPage(ss, isUndo);
+		else if (ss->contains("MASTERPAGE_RENAME"))
+			restoreMasterPageRenaming(ss, isUndo);
+		else if (ss->contains("OLD_MASTERPAGE"))
+			restoreMasterPageApplying(ss, isUndo);
 		else if (ss->contains("PAGE_COPY"))
 			restoreCopyPage(ss, isUndo);
 		else if (ss->contains("PAGE_MOVE"))
@@ -2326,7 +2328,9 @@ void ScribusDoc::restoreAddMasterPage(SimpleState *ss, bool isUndo)
 	QString pageName = ss->get("MASTERPAGE_NAME");
 	int pageNr = ss->getInt("MASTERPAGE_NBR");
 
-	bool oldMPMode = masterPageMode();
+	bool oldMPMode  = masterPageMode();
+	ScPage* oldPage = currentPage();
+
 	setMasterPageMode(true);
 	if (isUndo)
 	{
@@ -2347,6 +2351,8 @@ void ScribusDoc::restoreAddMasterPage(SimpleState *ss, bool isUndo)
 		delete tmp;
 	}
 	setMasterPageMode(oldMPMode);
+	if (!oldMPMode)
+		setCurrentPage(oldPage);
 	scMW()->pagePalette->updateMasterPageList();
 	m_View->reformPages();
 }
@@ -2666,33 +2672,40 @@ ScPage* ScribusDoc::addMasterPage(const int pageNumber, const QString& pageName)
 bool ScribusDoc::renameMasterPage(const QString& oldPageName, const QString& newPageName)
 {
 	Q_ASSERT(oldPageName!=CommonStrings::masterPageNormal && oldPageName!=CommonStrings::trMasterPageNormal);
-	if (MasterNames.contains(oldPageName) && !MasterNames.contains(newPageName))
+	if (!MasterNames.contains(oldPageName) || MasterNames.contains(newPageName))
+		return false;
+
+	//Rename our master page lists
+	int number = MasterNames[oldPageName];
+	MasterNames.insert(newPageName, number);
+	MasterNames.remove(oldPageName);
+	Q_ASSERT(MasterPages.at(number)->pageName()==oldPageName);
+	MasterPages.at(number)->setPageName(newPageName);
+	//Update any pages that were linking to our old name
+	ScPage* docPage=NULL;
+	for (int i=0; i < DocPages.count(); ++i )
 	{
-		//Rename our master page lists
-		int number=MasterNames[oldPageName];
-		MasterNames.insert(newPageName, number);
-		MasterNames.remove(oldPageName);
-		Q_ASSERT(MasterPages.at(number)->pageName()==oldPageName);
-		MasterPages.at(number)->setPageName(newPageName);
-		//Update any pages that were linking to our old name
-		ScPage* docPage=NULL;
-		for (int i=0; i < DocPages.count(); ++i )
-		{
-			docPage=DocPages[i];
-			if (docPage->MPageNam == oldPageName)
-				docPage->MPageNam = newPageName;
-		}
-		//Update any items that were linking to our old name
-		uint masterItemsCount=MasterItems.count();
-		for (uint i = 0; i < masterItemsCount; ++i)
-		{
-			if (MasterItems.at(i)->OnMasterPage == oldPageName)
-				MasterItems.at(i)->OnMasterPage = newPageName;
-		}
-		changed();
-		return true;
+		docPage=DocPages[i];
+		if (docPage->MPageNam == oldPageName)
+			docPage->MPageNam = newPageName;
 	}
-	return false;
+	//Update any items that were linking to our old name
+	uint masterItemsCount=MasterItems.count();
+	for (uint i = 0; i < masterItemsCount; ++i)
+	{
+		if (MasterItems.at(i)->OnMasterPage == oldPageName)
+			MasterItems.at(i)->OnMasterPage = newPageName;
+	}
+	changed();
+	if (UndoManager::undoEnabled())
+	{
+		SimpleState *ss = new SimpleState(Um::RenameMasterPage, "", Um::IDocument);
+		ss->set("MASTERPAGE_RENAME", "masterpage_rename");
+		ss->set("OLD_MASTERPAGE", oldPageName);
+		ss->set("NEW_MASTERPAGE", newPageName);
+		undoManager->action(this, ss);
+	}
+	return true;
 }
 
 
@@ -4876,6 +4889,16 @@ void ScribusDoc::restoreMasterPageApplying(SimpleState *state, bool isUndo)
 	scMW()->pagePalette->rebuildPages();
 }
 
+void ScribusDoc::restoreMasterPageRenaming(SimpleState *state, bool isUndo)
+{
+	QString oldName = state->get("OLD_MASTERPAGE");
+	QString newName = state->get("NEW_MASTERPAGE");
+	if (isUndo)
+		renameMasterPage(newName, oldName);
+	else
+		renameMasterPage(oldName, newName);
+	scMW()->pagePalette->updateMasterPageList();
+}
 
 void ScribusDoc::restoreCopyPage(SimpleState *state, bool isUndo)
 {
