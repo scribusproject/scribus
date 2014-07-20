@@ -160,7 +160,7 @@ void RawPainter::startPage(const librevenge::RVNGPropertyList &propList)
 
 void RawPainter::endPage()
 {
-	if (importerFlags & LoadSavePlugin::lfCreateThumbnail)
+	if ((importerFlags & LoadSavePlugin::lfCreateThumbnail) || (!(importerFlags & LoadSavePlugin::lfCreateDoc)))
 		doProcessing = false;
 }
 
