@@ -5169,10 +5169,7 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 	currItem->fillRule    = attrs.valueAsBool("fillRule", true);
 	currItem->doOverprint = attrs.valueAsBool("doOverprint", false);
 	currItem->setFillTransparency(attrs.valueAsDouble("TransValue", 0.0));
-	if (attrs.hasAttribute("TransValueS"))
-		currItem->setLineTransparency(attrs.valueAsDouble("TransValueS", 0.0));
-	else
-		currItem->setLineTransparency(attrs.valueAsDouble("TransValue", 0.0));
+	currItem->setLineTransparency(attrs.valueAsDouble("TransValueS", 0.0));
 	currItem->setFillBlendmode(attrs.valueAsInt("TransBlend", 0));
 	currItem->setLineBlendmode(attrs.valueAsInt("TransBlendS", 0));
 	if (attrs.valueAsInt("TRANSPARENT", 0) == 1)
