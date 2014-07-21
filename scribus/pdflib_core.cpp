@@ -1583,7 +1583,8 @@ bool PDFLibCore::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QStrin
 			++nglyphs;
 //			qDebug() << QString("pdflib: nglyphs %1 max %2").arg(nglyphs).arg(face.maxGlyph());
 			uint FontDes = fontDescriptor;
-			if (Options.Version == PDFOptions::PDFVersion_X4 && (fformat == ScFace::SFNT || fformat == ScFace::TTCF))
+			if ((face.isSymbolic() || Options.Version == PDFOptions::PDFVersion_X4) && 
+				(fformat == ScFace::SFNT || fformat == ScFace::TTCF))
 			{
 				uint fontWidths2 = newObject();
 				StartObj(fontWidths2);
@@ -5614,7 +5615,7 @@ bool PDFLibCore::setTextCh(PageItem *ite, uint PNr, double x, double y, uint d, 
 				else
 					idx1 = idx / 224;
 				ScFace currentFace = style.font();
-				if (Options.Version == PDFOptions::PDFVersion_X4
+				if ((Options.Version == PDFOptions::PDFVersion_X4 || currentFace.isSymbolic())
 					&& (currentFace.format() == ScFace::SFNT || currentFace.format() == ScFace::TTCF)
 					&& ( !Options.SubsetList.contains(style.font().replacementName()) ) )
 					tmp+= UsedFontsP[currentFace.replacementName()]+" "+FToStr(tsz / 10.0)+" Tf\n";
@@ -5724,7 +5725,8 @@ bool PDFLibCore::setTextCh(PageItem *ite, uint PNr, double x, double y, uint d, 
 						tmp += "<"+QString(toHex(idx2))+"> Tj\n";
 					}
 				}
-				else if (Options.Version == PDFOptions::PDFVersion_X4 && (currentFace.format() == ScFace::SFNT || currentFace.format() == ScFace::TTCF))
+				else if ((Options.Version == PDFOptions::PDFVersion_X4 || currentFace.isSymbolic()) && 
+				         (currentFace.format() == ScFace::SFNT || currentFace.format() == ScFace::TTCF))
 				{
 					QString val;
 					val.setNum(idx,16);

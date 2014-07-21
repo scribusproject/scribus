@@ -113,8 +113,7 @@ int setBestEncoding(FT_Face face)
 		//FT_Set_Charmap(face, face->charmaps[chmapUniCode]);
 		retVal = 0;
 	}
-	else
-	if (foundEncoding)
+	else if (foundEncoding)
 	{
 //		qDebug() << "using special enc for" << face->family_name << face->style_name;
 		mapToSet=chmapCustom;
@@ -139,7 +138,7 @@ int setBestEncoding(FT_Face face)
 		gindex = 0;
 		int countCurrMap=0;
 		charcode = FT_Get_First_Char( face, &gindex );
-		while ( gindex != 0 )
+		while (gindex != 0)
 		{
 			countCurrMap++;
 			charcode = FT_Get_Next_Char( face, charcode, &gindex );
@@ -147,16 +146,14 @@ int setBestEncoding(FT_Face face)
 		//If the last Unicode map we found before has more characters,
 		//then set it to be the current map.
 		
-		if (countUniCode>countCurrMap)
+		if (countUniCode > countCurrMap)
 		{
 //			qDebug() << "override with Unicode enc for" << face->family_name << face->style_name << "map" << mapToSet << "has only" << countCurrMap << "glyphs";
-			mapToSet=chmapUniCode;
-			//FT_Set_Charmap(face, face->charmaps[chmapUniCode]);
+			mapToSet = chmapUniCode;
 			retVal = 0;
 		}
 	}
-//	if (face->charmap == NULL || mapToSet!=FT_Get_Charmap_Index(face->charmap))
-		FT_Set_Charmap(face, face->charmaps[mapToSet]);
+	FT_Set_Charmap(face, face->charmaps[mapToSet]);
 //	qDebug() << "set map" << mapToSet << "for" << face->family_name << face->style_name;
 //	qDebug() << "glyphsForNumbers 0-9:" << FT_Get_Char_Index(face, QChar('0').unicode()) 
 //		<< FT_Get_Char_Index(face, QChar('1').unicode()) << FT_Get_Char_Index(face, QChar('2').unicode()) << FT_Get_Char_Index(face, QChar('3').unicode()) 

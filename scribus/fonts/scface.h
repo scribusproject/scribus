@@ -164,7 +164,7 @@ public:
 		virtual QString pdfDescentAsString()     const { return "0"; }
 		virtual QString pdfCapHeightAsString()   const { return "0"; }
 		virtual QString pdfFontBBoxAsString()    const { return "0 0 0 0"; }
-		virtual QString ItalicAngleAsString()    const { return "0"; }
+		virtual QString italicAngleAsString()    const { return "0"; }
 		virtual qreal descent(qreal /*sz*/)      const { return 0.0; }
 		virtual qreal xHeight(qreal sz)          const { return sz; }
 		virtual qreal capHeight(qreal sz)        const { return sz; }
@@ -186,6 +186,7 @@ public:
 		virtual FPointArray glyphOutline(uint gl, qreal sz) const; 
 		virtual FPoint      glyphOrigin (uint gl, qreal sz) const;
 
+		virtual bool isSymbolic() const { return false; }
 	};
 
 
@@ -199,6 +200,9 @@ public:
 
 	/// test for null object
 	bool isNone() const   { return m->status == NULLFACE; }
+
+	/// test if font is a symbolic font
+	bool isSymbolic() const;
 
 	ScFace& operator=(const ScFace& other);
 	/** two ScFaces are equal if they either are both NULLFACEs or they

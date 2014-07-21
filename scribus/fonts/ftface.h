@@ -74,7 +74,7 @@ struct SCRIBUS_API FtFace : public ScFace::ScFaceData
 	QString pdfDescentAsString()     const { return m_pdfDescender; }
 	QString pdfCapHeightAsString()   const { return m_pdfCapHeight; }
 	QString pdfFontBBoxAsString()    const { return m_pdfFontBBox; }
-	QString ItalicAngleAsString()    const { return m_italicAngle; }
+	QString italicAngleAsString()    const { return m_italicAngle; }
 
 
 //FIXME	QMap<QString,QString> fontDictionary(qreal sz=1.0)      const;

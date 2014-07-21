@@ -500,6 +500,13 @@ ScFace_ttf::~ ScFace_ttf()
 		delete kernFeature;
 }
 
+bool ScFace_ttf::isSymbolic() const
+{
+	FT_Face face = ftFace();
+	if (!face || !face->charmap)
+		return false;
+	return (m_face->charmap->encoding == FT_ENCODING_MS_SYMBOL);
+}
 
 void ScFace_ttf::load() const
 {
