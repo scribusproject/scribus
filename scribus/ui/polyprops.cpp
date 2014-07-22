@@ -23,19 +23,9 @@ PolyVectorDialog::PolyVectorDialog(QWidget* parent, int polyC, double polyF, boo
 	PolygonPropsLayout->setSpacing(5);
 	polyWidget = new PolygonWidget(this, polyC, polyF, polyS, polyR, polyCurvature, polyInnerRot, polyOuterCurvature, true);
 	PolygonPropsLayout->addWidget( polyWidget );
-	Layout1 = new QHBoxLayout;
-	Layout1->setMargin(0);
-	Layout1->setSpacing(5);
-	QSpacerItem* spacer_2 = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
-	Layout1->addItem( spacer_2 );
-	okButton = new QPushButton(this);
-	okButton->setText( tr("End Edit"));
-	okButton->setDefault( true );
-	Layout1->addWidget( okButton );
-	PolygonPropsLayout->addLayout( Layout1 );
 	// signals and slots connections
 	connect(polyWidget, SIGNAL(NewVectors(int, double, bool, double, double, double, double)), this, SIGNAL(NewVectors(int, double, bool, double, double, double, double)));
-	connect(okButton, SIGNAL(clicked()), this, SIGNAL(endEdit()));
+	connect (this, SIGNAL(accepted()), this, SIGNAL(endEdit()));
 }
 
 void PolyVectorDialog::setValues(int polyCorners, double polyF, bool polyUseConvexFactor, double polyRotation, double polyCurvature, double polyInnerRot, double polyOuterCurvature)

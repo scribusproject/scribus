@@ -25,7 +25,6 @@ public:
 	~PolyVectorDialog() {};
 	void setValues(int polyC, double polyF, bool polyS, double polyR, double polyCurvature, double polyInnerRot, double polyOuterCurvature);
 	PolygonWidget* polyWidget;
-	QPushButton* okButton;
 
 signals:
 	void NewVectors(int, double, bool, double, double, double, double);
@@ -33,7 +32,6 @@ signals:
 
 protected:
 	QVBoxLayout* PolygonPropsLayout;
-	QHBoxLayout* Layout1;
 
 };
 
