@@ -34,6 +34,7 @@ void AppModeHelper::setup(ActionManager* am, QMap<QString, QPointer<ScrAction> >
 void AppModeHelper::setFrameEditMode(bool b)
 {
 	bool b2=!b;
+	(*scrActions)["insertFrame"]->setEnabled(b2);
 	(*scrActions)["toolsSelect"]->setEnabled(b2);
 	(*scrActions)["toolsRotate"]->setEnabled(b2);
 	(*scrActions)["toolsEditContents"]->setEnabled(b2);

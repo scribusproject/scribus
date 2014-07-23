@@ -9569,8 +9569,10 @@ void ScribusMainWindow::slotInsertFrame()
 	if (!HaveDoc)
 		return;
 
+	view->requestMode(modeNormal);
 	if (!doc->m_Selection->isEmpty())
 		view->Deselect(false);
+
 	InsertAFrame dia(this, doc);
 	if (dia.exec())
 	{
