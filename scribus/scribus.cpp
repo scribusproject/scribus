@@ -6335,6 +6335,7 @@ void ScribusMainWindow::ToggleFrameEdit()
 		connect(view, SIGNAL(PolyStatus(int, uint)), nodePalette, SLOT(PolyStatus(int, uint)));
 		doc->nodeEdit.reset();
 //done elsewhere now		doc->appMode = modeEditClip;
+		scrActions["insertFrame"]->setEnabled(false);
 		scrActions["toolsSelect"]->setEnabled(false);
 		scrActions["toolsRotate"]->setEnabled(false);
 		scrActions["toolsEditContents"]->setEnabled(false);
@@ -6413,6 +6414,7 @@ void ScribusMainWindow::NoFrameEdit()
 	nodePalette->setDoc(0,0);
 	nodePalette->hide();
 //	qDebug() << "nodepalette hide";
+	scrActions["insertFrame"]->setEnabled(true);
 	scrActions["toolsSelect"]->setEnabled(true);
 	scrActions["toolsSelect"]->setChecked(true);
 	scrActions["toolsRotate"]->setEnabled(true);
@@ -9713,19 +9715,21 @@ void ScribusMainWindow::slotEditPasteContents(int absolute)
 
 void ScribusMainWindow::slotInsertFrame()
 {
-	if (HaveDoc)
+	if (!HaveDoc)
+		return;
+
+	view->requestMode(modeNormal);
+	if (doc->m_Selection->count() != 0)
+		view->Deselect(false);
+
+	InsertAFrame *dia = new InsertAFrame(this, doc);
+	if (dia->exec())
 	{
-		if (doc->m_Selection->count() != 0)
-			view->Deselect(false);
-		InsertAFrame *dia = new InsertAFrame(this, doc);
-		if (dia->exec())
-		{
-			InsertAFrameData iafData;
-			dia->getNewFrameProperties(iafData);
-			doc->itemAddUserFrame(iafData);
-		}
-		delete dia;
+		InsertAFrameData iafData;
+		dia->getNewFrameProperties(iafData);
+		doc->itemAddUserFrame(iafData);
 	}
+	delete dia;
 }
 
 void ScribusMainWindow::PutToPatterns()
