@@ -669,27 +669,7 @@ bool SCFonts::AddScalableFont(QString filename, FT_Library &library, QString Doc
 				t.subset(true);
 			t.m->forDocument = DocName;
 			//setBestEncoding(face); //AV
-/*			switch (face->charmap? face->charmap->encoding : -1)
-			{
-				case	 FT_ENCODING_ADOBE_STANDARD: 
-					t->FontEnc = QString("StandardEncoding");
-					break;
-				case	 FT_ENCODING_APPLE_ROMAN: 
-					t->FontEnc = QString("MacRomanEncoding");
-					break;
-				case	 FT_ENCODING_ADOBE_EXPERT: 
-					t->FontEnc = QString("MacExpertEncoding");
-					break;
-				case	 FT_ENCODING_ADOBE_LATIN_1: 
-					t->FontEnc = QString("WinAnsiEncoding");
-					break;
-				case	 FT_ENCODING_UNICODE: 
-					t->FontEnc = QString("Unicode");
-					break;
-				default:
-					t->FontEnc = QString();
-			}
-*/			if (showFontInformation)
+			if (showFontInformation)
 				sDebug(QObject::tr("Font %1 loaded from %2(%3)").arg(t.psName()).arg(filename).arg(faceindex+1));
 
 /*

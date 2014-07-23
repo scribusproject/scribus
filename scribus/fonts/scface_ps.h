@@ -64,7 +64,6 @@ class ScFace_postscript : public FtFace
 //			Descender = tmp.setNum(face->descender);
 //			CapHeight = Ascent;
 //			ItalicAngle = "0";
-//			StdVW = "1";
 //			FontBBox = tmp.setNum(face->bbox.xMin)+" "+tmp2.setNum(face->bbox.yMin)+" "+tmp3.setNum(face->bbox.xMax)+" "+tmp4.setNum(face->bbox.yMax);
 /*
  setBestEncoding(face);

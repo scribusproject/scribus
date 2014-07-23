@@ -100,8 +100,6 @@ protected:
 	mutable QString m_pdfDescender;
 	mutable QString m_italicAngle;
 	mutable QString m_pdfFontBBox;
-	mutable QString StdVW;
-	QString FontEnc;
 
 	mutable int m_encoding;
 

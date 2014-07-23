@@ -17543,15 +17543,14 @@ PageItem* ScribusDoc::findMarkItem(Mark* mrk, int &lastItem)
 	for (int a = lastItem +1; a < DocItems.count(); ++a)
 	{
 		item = DocItems.at(a);
-		if ((item != NULL) && item->isTextFrame() && (item->itemText.length() > 0))
+		if (!item || !item->isTextFrame() || (item->itemText.length() <= 0))
+			continue;
+		for (int i = item->firstInFrame(); i <= item->lastInFrame(); ++i)
 		{
-			for (int i = item->firstInFrame(); i <= item->lastInFrame(); ++i)
+			if (item->itemText.hasMark(i, mrk))
 			{
-                if (item->itemText.hasMark(i, mrk))
-				{
-					lastItem = a;
-					return item;
-				}
+				lastItem = a;
+				return item;
 			}
 		}
 	}
@@ -17571,7 +17570,7 @@ int ScribusDoc::findMarkCPos(Mark* mrk, PageItem* &currItem, int Start)
 			{
 				for (int pos = 0; pos < item->itemText.length(); ++pos)
 				{
-                    if (item->itemText.hasMark(pos, mrk))
+					if (item->itemText.hasMark(pos, mrk))
 					{
 						currItem = item;
 						return pos;
@@ -17613,7 +17612,7 @@ bool ScribusDoc::isMarkUsed(Mark* mrk, bool visible)
 			}
 			for (; i < end; ++i)
 			{
-                if (currItem->itemText.hasMark(i, mrk))
+				if (currItem->itemText.hasMark(i, mrk))
 					return true;
 			}
 		}
@@ -17709,7 +17708,8 @@ bool ScribusDoc::eraseMark(Mark *mrk, bool fromText, PageItem *item, bool force)
 }
 
 void ScribusDoc::setUndoDelMark(Mark *mrk)
-{ //used by MarksManager
+{
+	//used by MarksManager
 	if (UndoManager::undoEnabled())
 	{
 		ScItemsState* ims = new ScItemsState(Um::DeleteMark,"",Um::IDelete);
@@ -17787,25 +17787,22 @@ bool ScribusDoc::updateMarks(bool updateNotesMarks)
 	{
 		foreach (PageItem* item, DocItems)
 		{
-			if (item->isTextFrame() && !item->isNoteFrame())
+			if (!item->isTextFrame() || item->isNoteFrame())
+				continue;
+			if (item->prevInChain() != NULL)
+				continue;
+			item = item->lastInChain();
+			int pos = item->lastInFrame() + 1;
+			if (pos >= item->itemText.length())
+				continue;
+			for (int i = pos; i < item->itemText.length(); ++i)
 			{
-				if (item->prevInChain() == NULL)
+				if (item->itemText.hasMark(i) && item->itemText.mark(i)->isNoteType())
 				{
-					item = item->lastInChain();
-					int pos = item->lastInFrame() +1;
-					if (pos < item->itemText.length())
-					{
-						for (int i = pos; i < item->itemText.length(); ++i)
-						{
-                            if (item->itemText.hasMark(i) && item->itemText.mark(i)->isNoteType())
-							{
-                                TextNote * note = item->itemText.mark(i)->getNotePtr();
-								note->setNoteMark(NULL);
-								note->masterMark()->setItemPtr(item);
-								note->masterMark()->setItemName(item->itemName());
-							}
-						}
-					}
+					TextNote * note = item->itemText.mark(i)->getNotePtr();
+					note->setNoteMark(NULL);
+					note->masterMark()->setItemPtr(item);
+					note->masterMark()->setItemName(item->itemName());
 				}
 			}
 		}
