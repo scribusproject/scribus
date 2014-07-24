@@ -229,7 +229,7 @@ ScribusView::ScribusView(QWidget* win, ScribusMainWindow* mw, ScribusDoc *doc) :
 	endEditButton = new QPushButton(loadIcon("22/exit.png"), tr("End Edit"), this);
 	endEditButton->setGeometry(m_vhRulerHW + 1, height() - m_vhRulerHW - endEditButton->minimumSizeHint().height() - 1, endEditButton->minimumSizeHint().width(), endEditButton->minimumSizeHint().height());
 	endEditButton->setVisible(false);
-	connect(endEditButton, SIGNAL(clicked()), m_ScMW, SLOT(slotFileClose()));
+	connect(endEditButton, SIGNAL(clicked()), m_ScMW, SLOT(slotEndSpecialEdit()));
 
 	m_oldSnapToElem = Doc->SnapElement;
 	languageChange();

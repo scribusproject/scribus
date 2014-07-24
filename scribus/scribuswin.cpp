@@ -66,53 +66,32 @@ void ScribusWin::closeEvent(QCloseEvent *ce)
 {
 	activateWindow();
 	m_MainWindow->newActWin(getSubWin());
-	if (m_Doc->symbolEditMode())
+	if (m_Doc->isModified() && (m_Doc->viewCount == 1))
 	{
-		m_MainWindow->editSymbolEnd();
-		ce->ignore();
-		return;
-	}
-	else if (m_Doc->inlineEditMode())
-	{
-		m_MainWindow->editInlineEnd();
-		ce->ignore();
-		return;
-	}
-	else if (m_Doc->masterPageMode())
-	{
-		m_MainWindow->editMasterPagesEnd();
-		ce->ignore();
-		return;
-	}
-	else
-	{
-		if (m_Doc->isModified() && (m_Doc->viewCount == 1))
+		int exit = QMessageBox::information(m_MainWindow, CommonStrings::trWarning, tr("Document:")+" "+
+											QDir::toNativeSeparators(m_Doc->DocName)+"\n"+
+											tr("has been changed since the last save."),
+											QMessageBox::Save | QMessageBox::Discard | QMessageBox::Cancel,
+											QMessageBox::Cancel);
+		if (exit == QMessageBox::Cancel)
 		{
-			int exit = QMessageBox::information(m_MainWindow, CommonStrings::trWarning, tr("Document:")+" "+
-												QDir::toNativeSeparators(m_Doc->DocName)+"\n"+
-												tr("has been changed since the last save."),
-												QMessageBox::Save | QMessageBox::Discard | QMessageBox::Cancel,
-												QMessageBox::Cancel);
-			if (exit == QMessageBox::Cancel)
+			ce->ignore();
+			return;
+		}
+		if (exit == QMessageBox::Save)
+		{
+			if (m_MainWindow->slotFileSave())
+			{
+				if (m_Doc == m_MainWindow->storyEditor->currentDocument())
+					m_MainWindow->storyEditor->close();
+			}
+			else
 			{
 				ce->ignore();
 				return;
 			}
-			if (exit == QMessageBox::Save)
-			{
-				if (m_MainWindow->slotFileSave())
-				{
-					if (m_Doc == m_MainWindow->storyEditor->currentDocument())
-						m_MainWindow->storyEditor->close();
-				}
-				else
-				{
-					ce->ignore();
-					return;
-				}
-			}
 		}
-		m_MainWindow->DoFileClose();
 	}
+	m_MainWindow->DoFileClose();
 	ce->accept();
 }

@@ -363,6 +363,7 @@ public slots:
 	/** \brief print the actual file */
 	void slotFilePrint();
 	void slotReallyPrint();
+	void slotEndSpecialEdit();
 	/*!
 	\author Franz Schmid
 	\brief Generate and print PostScript from a doc

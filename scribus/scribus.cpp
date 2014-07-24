@@ -4675,28 +4675,13 @@ bool ScribusMainWindow::DoFileSave(const QString& fileName, QString* savedFileNa
 
 bool ScribusMainWindow::slotFileClose()
 {
-	if (doc->symbolEditMode())
-	{
-		editSymbolEnd();
-		return true;
-	}
-	else if (doc->inlineEditMode())
-	{
-		editInlineEnd();
-		return true;
-	}
-	else if (doc->masterPageMode())
-	{
-		editMasterPagesEnd();
-		return true;
-	}
 	ScribusWin* tw = ActWin;
 	mdiArea->closeActiveSubWindow();
+	windowsMenuAboutToShow();
 	if (tw == ActWin)
 		return false;
 	else
 		return true;
-	windowsMenuAboutToShow();
 }
 
 bool ScribusMainWindow::DoFileClose()
@@ -4892,6 +4877,16 @@ void ScribusMainWindow::slotReallyPrint()
 	disconnect(printer, SIGNAL(doPreview()), this, SLOT(doPrintPreview()));
 	delete printer;
 	mainWindowStatusLabel->setText( tr("Ready"));
+}
+
+void ScribusMainWindow::slotEndSpecialEdit()
+{
+	if (doc->symbolEditMode())
+		editSymbolEnd();
+	else if (doc->inlineEditMode())
+		editInlineEnd();
+	else if (doc->masterPageMode())
+		editMasterPagesEnd();
 }
 
 bool ScribusMainWindow::doPrint(PrintOptions &options, QString& error)
