@@ -132,6 +132,9 @@ void CsvIm::loadFile()
 		if (colCount < colIndex)
 			colCount = colIndex;
 	}
+	if (data.startsWith("\t"))
+		data.remove(0,1);
+	data.replace("\n\t","\n");
 }
 
 void CsvIm::parseLine(const QString& line, bool isHeader)
@@ -159,7 +162,7 @@ void CsvIm::parseLine(const QString& line, bool isHeader)
 			header += "\t" + line;
 		else
 			data += "\t" + line;
-		return; // error in line, no closing valuedelimiter could be found	
+		return; // error in line, no closing valuedelimiter could be found
 	}
 
 	int fdIndex = line.indexOf(fieldDelimiter, vdIndexEnd + 1);
