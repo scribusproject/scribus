@@ -161,22 +161,24 @@ void NewMarginWidget::setRight()
 	setPreset();
 }
 
-void NewMarginWidget::setNewUnitIndex(int newUnitIndex)
+void NewMarginWidget::setNewUnit(int newUnitIndex)
 {
-	leftMarginSpinBox->blockSignals(true);
-	rightMarginSpinBox->blockSignals(true);
-	topMarginSpinBox->blockSignals(true);
-	bottomMarginSpinBox->blockSignals(true);
-	m_unitIndex=newUnitIndex;
-	m_unitRatio=unitGetRatioFromIndex(newUnitIndex);
+	bool leftSigBlocked   = leftMarginSpinBox->blockSignals(true);
+	bool rightSigBlocked  = rightMarginSpinBox->blockSignals(true);
+	bool topSigBlocked    = topMarginSpinBox->blockSignals(true);
+	bool bottomSigBlocked = bottomMarginSpinBox->blockSignals(true);
+
+	m_unitIndex = newUnitIndex;
+	m_unitRatio = unitGetRatioFromIndex(newUnitIndex);
 	topMarginSpinBox->setNewUnit(newUnitIndex);
 	bottomMarginSpinBox->setNewUnit(newUnitIndex);
 	leftMarginSpinBox->setNewUnit(newUnitIndex);
 	rightMarginSpinBox->setNewUnit(newUnitIndex);
-	leftMarginSpinBox->blockSignals(false);
-	rightMarginSpinBox->blockSignals(false);
-	topMarginSpinBox->blockSignals(false);
-	bottomMarginSpinBox->blockSignals(false);
+
+	leftMarginSpinBox->blockSignals(leftSigBlocked);
+	rightMarginSpinBox->blockSignals(rightSigBlocked);
+	topMarginSpinBox->blockSignals(topSigBlocked);
+	bottomMarginSpinBox->blockSignals(bottomSigBlocked);
 }
 
 void NewMarginWidget::setPreset()

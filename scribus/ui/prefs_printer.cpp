@@ -39,7 +39,7 @@ void Prefs_Printer::languageChange()
 
 void Prefs_Printer::unitChange(int newIndex)
 {
-	bleedsWidget->setNewUnitIndex(newIndex);
+	bleedsWidget->setNewUnit(newIndex);
 	markOffsetSpinBox->setNewUnit(newIndex);
 	markLengthSpinBox->setNewUnit(newIndex);
 }

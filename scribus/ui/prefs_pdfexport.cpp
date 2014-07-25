@@ -118,6 +118,8 @@ void Prefs_PDFExport::unitChange(int unitIndex)
 	markOffsetSpinBox->setNewUnit(unitIndex);
 	markOffsetSpinBox->setMinimum(0);
 	markOffsetSpinBox->setMaximum(3000 * unitRatio);
+
+	bleedsWidget->setNewUnit(unitIndex);
 }
 
 void Prefs_PDFExport::languageChange()
