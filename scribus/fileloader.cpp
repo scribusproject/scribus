@@ -126,8 +126,8 @@ int FileLoader::testFile()
 		bool found = false;
 		for (int a = 0; a < it->fileExtensions.count(); a++)
 		{
-			QString exts = it->fileExtensions[a];
-			if (ext.contains(exts, Qt::CaseInsensitive))
+			QString exts = it->fileExtensions[a].toLower();
+			if (ext == exts)
 			{
 				if (it->plug != 0)
 				{

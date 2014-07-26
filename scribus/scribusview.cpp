@@ -792,8 +792,11 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 		}
 		if (ext == "JPG")
 			ext = "JPEG";
+		QString formatD(FormatsManager::instance()->extensionListForFormat(FormatsManager::IMAGESIMGFRAME, 1).toUpper());
+		imfo += formatD.split("|");
+		img = imfo.contains(ext);
 		//CB Need to handle this ugly file extension list elsewhere... some capabilities class perhaps
-		img = ((imfo.contains(ext)) || extensionIndicatesPDF(ext) || extensionIndicatesEPSorPS(ext) || extensionIndicatesTIFF(ext) || extensionIndicatesJPEG(ext) || extensionIndicatesPSD(ext));
+	//	img = ((imfo.contains(ext)) || extensionIndicatesPDF(ext) || extensionIndicatesEPSorPS(ext) || extensionIndicatesTIFF(ext) || extensionIndicatesJPEG(ext) || extensionIndicatesPSD(ext));
 //		int pscx=qRound(e->pos().x()/m_canvas->scale()), pscy=qRound(e->pos().y()/m_canvas->scale());
 		//Loop through all items and see which one(s) were under the drop point on the current layer
 		//Should make a nice function for this.
