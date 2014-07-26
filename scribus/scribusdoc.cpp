@@ -11761,16 +11761,6 @@ void ScribusDoc::itemSelection_DeleteItem(Selection* customSelection, bool force
 				offs++;
 				continue;
 			}
-			else
-			{
-				itemList = GroupOfItem(Items, currItem);
-				if (itemList == NULL)
-				{
-					itemList = Items;
-					offs++;
-					continue;
-				}
-			}
 		}
 		//CB FIXME remove this and include of storyeditor.h too
 		if ((currItem->asTextFrame() || currItem->asPathText()) && currItem==m_ScMW->storyEditor->currentItem() && this==m_ScMW->storyEditor->currentDocument())
@@ -11807,16 +11797,19 @@ void ScribusDoc::itemSelection_DeleteItem(Selection* customSelection, bool force
 		itemSelection->delaySignalsOff();
 		return;
 	}
-	selectedItemCount = delItems.count();
 
 	UndoTransaction* activeTransaction = NULL;
 	if (UndoManager::undoEnabled()) //always create transaction or check if item is reference for any mark or contains any mark or is welded etc
 		activeTransaction = new UndoTransaction(undoManager->beginTransaction(Um::Group + "/" + Um::Selection, Um::IGroup,
 																			  Um::Delete, tooltip, Um::IDelete));
-
+	
+	selectedItemCount = delItems.count();
 	for (uint de = 0; de < selectedItemCount; ++de)
 	{
 		currItem = delItems.at(selectedItemCount - (de + 1));
+		itemList = GroupOfItem(Items, currItem);
+		if (itemList == NULL)
+			continue;
 		if ((currItem->asImageFrame()) && ((ScCore->fileWatcher->files().contains(currItem->Pfile) != 0) && (currItem->PictureIsAvailable)))
 			ScCore->fileWatcher->removeFile(currItem->Pfile);
 		//delete marks pointed to that item
@@ -17712,7 +17705,7 @@ void ScribusDoc::setUndoDelMark(Mark *mrk)
 	//used by MarksManager
 	if (UndoManager::undoEnabled())
 	{
-		ScItemsState* ims = new ScItemsState(Um::DeleteMark,"",Um::IDelete);
+		ScItemsState* ims = new ScItemsState(Um::DeleteMark, "", Um::IDelete);
 		if (mrk->isUnique())
 		{
 			ims->set("MARK", QString("delete"));

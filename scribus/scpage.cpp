@@ -363,7 +363,7 @@ void ScPage::restorePageItemDeletion(ScItemState< QList<PageItem*> > *state, boo
 	if (itemList.count() <= 0) 
 		return;
 	m_Doc->view()->Deselect(true);
-	bool oldMPMode=m_Doc->masterPageMode();
+	bool oldMPMode = m_Doc->masterPageMode();
 	m_Doc->setMasterPageMode(!itemList.at(0)->OnMasterPage.isEmpty());
 	if (m_Doc->appMode == modeEditClip) // switch off from edit shape
 		m_Doc->scMW()->nodePalette->EndEdit();
@@ -372,7 +372,10 @@ void ScPage::restorePageItemDeletion(ScItemState< QList<PageItem*> > *state, boo
 	{
 		//CB #3373 reinsert at old position and renumber items
 		PageItem* ite = itemList.at(id2);
-		m_Doc->Items->insert(id, ite);
+		if (ite->Parent && ite->Parent->isGroup())
+			ite->Parent->asGroupFrame()->groupItemList.insert(id, ite);
+		else
+			m_Doc->Items->insert(id, ite);
 		for (int i = 0; i < itemList.count(); ++i)
 		{
 			PageItem* ite = itemList.at(i);
