@@ -61,7 +61,7 @@ PictureBrowser::PictureBrowser ( ScribusDoc* doc, QWidget *parent ) : QDialog ( 
 
 //changing page
 	connect ( this, SIGNAL ( selectPage ( int ) ), ScCore->primaryMainWindow(), SLOT ( selectPagesFromOutlines ( int ) ) );
-	connect ( this, SIGNAL ( selectMasterPage ( QString ) ), ScCore->primaryMainWindow(), SLOT ( manageMasterPages ( QString ) ) );
+	connect ( this, SIGNAL ( selectMasterPage ( QString ) ), ScCore->primaryMainWindow(), SLOT ( editMasterPagesStart ( QString ) ) );
 
 //always-on-top checkbox
 	connect ( alwaysOnTopCheckbox, SIGNAL ( stateChanged ( int ) ), this, SLOT ( alwaysOnTopCheckboxStateChanged() ) );
