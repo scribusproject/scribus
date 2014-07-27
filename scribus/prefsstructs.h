@@ -245,14 +245,14 @@ struct ItemToolPrefs
 	int imageLowResType; //! Preview type for an image frame
 	bool imageUseEmbeddedPath; //! Use embedded path, eg from an EPS etc.
 	/* Calligraphic Pen Tool */
-	QString calligrapicPenFillColor; //! Default calligrapicPen fill color
-	QString calligrapicPenLineColor; //! Default calligrapicPen line color
-	int calligrapicPenFillColorShade; //! Default calligrapicPen fill shade
-	int calligrapicPenLineColorShade; //! Default calligrapicPen line shade
-	double calligrapicPenLineWidth; //! Width of line
-	double calligrapicPenAngle;		//! Angle of the calligraphics Brush
-	double calligrapicPenWidth;		//! Width of the calligraphics Brush
-	int calligrapicPenStyle; //! Line style of the calligraphics Brush
+	QString calligraphicPenFillColor; //! Default calligrapicPen fill color
+	QString calligraphicPenLineColor; //! Default calligrapicPen line color
+	int calligraphicPenFillColorShade; //! Default calligrapicPen fill shade
+	int calligraphicPenLineColorShade; //! Default calligrapicPen line shade
+	double calligraphicPenLineWidth; //! Width of line
+	double calligraphicPenAngle;		//! Angle of the calligraphics Brush
+	double calligraphicPenWidth;		//! Width of the calligraphics Brush
+	int calligraphicPenStyle; //! Line style of the calligraphics Brush
 	/* Arc Tool */
 	double arcStartAngle;	//! angle where the arc starts
 	double arcSweepAngle;	//! angle the arc spans

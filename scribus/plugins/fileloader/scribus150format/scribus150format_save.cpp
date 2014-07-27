@@ -380,14 +380,14 @@ bool Scribus150Format::saveFile(const QString & fileName, const FileFormat & /* 
 	docu.writeAttribute("MARGC",m_Doc->guidesPrefs().marginColor.name());
 	docu.writeAttribute("RANDF", static_cast<int>(m_Doc->marginColored()));
 	docu.writeAttribute("currentProfile", m_Doc->curCheckProfile());
-	docu.writeAttribute("calligrapicPenFillColor", m_Doc->itemToolPrefs().calligrapicPenFillColor);
-	docu.writeAttribute("calligrapicPenLineColor", m_Doc->itemToolPrefs().calligrapicPenLineColor);
-	docu.writeAttribute("calligrapicPenFillColorShade", m_Doc->itemToolPrefs().calligrapicPenFillColorShade);
-	docu.writeAttribute("calligrapicPenLineColorShade", m_Doc->itemToolPrefs().calligrapicPenLineColorShade);
-	docu.writeAttribute("calligrapicPenLineWidth", m_Doc->itemToolPrefs().calligrapicPenLineWidth);
-	docu.writeAttribute("calligrapicPenAngle", m_Doc->itemToolPrefs().calligrapicPenAngle);
-	docu.writeAttribute("calligrapicPenWidth", m_Doc->itemToolPrefs().calligrapicPenWidth);
-	docu.writeAttribute("calligrapicPenStyle", m_Doc->itemToolPrefs().calligrapicPenStyle);
+	docu.writeAttribute("calligraphicPenFillColor", m_Doc->itemToolPrefs().calligraphicPenFillColor);
+	docu.writeAttribute("calligraphicPenLineColor", m_Doc->itemToolPrefs().calligraphicPenLineColor);
+	docu.writeAttribute("calligraphicPenFillColorShade", m_Doc->itemToolPrefs().calligraphicPenFillColorShade);
+	docu.writeAttribute("calligraphicPenLineColorShade", m_Doc->itemToolPrefs().calligraphicPenLineColorShade);
+	docu.writeAttribute("calligraphicPenLineWidth", m_Doc->itemToolPrefs().calligraphicPenLineWidth);
+	docu.writeAttribute("calligraphicPenAngle", m_Doc->itemToolPrefs().calligraphicPenAngle);
+	docu.writeAttribute("calligraphicPenWidth", m_Doc->itemToolPrefs().calligraphicPenWidth);
+	docu.writeAttribute("calligraphicPenStyle", m_Doc->itemToolPrefs().calligraphicPenStyle);
 
 	writeCheckerProfiles(docu);
 	writeJavascripts(docu);

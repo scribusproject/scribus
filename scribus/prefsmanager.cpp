@@ -229,14 +229,14 @@ void PrefsManager::initDefaults()
 	appPrefs.itemToolPrefs.textTabFillChar = "";
 	appPrefs.itemToolPrefs.textTabWidth = 36.0;
 	// defaults for calligraphic pen
-	appPrefs.itemToolPrefs.calligrapicPenFillColor = "Black";
-	appPrefs.itemToolPrefs.calligrapicPenLineColor = "Black";
-	appPrefs.itemToolPrefs.calligrapicPenFillColorShade = 100;
-	appPrefs.itemToolPrefs.calligrapicPenLineColorShade = 100;
-	appPrefs.itemToolPrefs.calligrapicPenLineWidth = 1.0;
-	appPrefs.itemToolPrefs.calligrapicPenAngle = 0.0;
-	appPrefs.itemToolPrefs.calligrapicPenWidth = 10.0;
-	appPrefs.itemToolPrefs.calligrapicPenStyle = Qt::SolidLine;
+	appPrefs.itemToolPrefs.calligraphicPenFillColor = "Black";
+	appPrefs.itemToolPrefs.calligraphicPenLineColor = "Black";
+	appPrefs.itemToolPrefs.calligraphicPenFillColorShade = 100;
+	appPrefs.itemToolPrefs.calligraphicPenLineColorShade = 100;
+	appPrefs.itemToolPrefs.calligraphicPenLineWidth = 1.0;
+	appPrefs.itemToolPrefs.calligraphicPenAngle = 0.0;
+	appPrefs.itemToolPrefs.calligraphicPenWidth = 10.0;
+	appPrefs.itemToolPrefs.calligraphicPenStyle = Qt::SolidLine;
 
 	appPrefs.opToolPrefs.dispX = 10.0;
 	appPrefs.opToolPrefs.dispY = 10.0;
@@ -1104,9 +1104,9 @@ bool PrefsManager::isToolColor(const QString& name)
 
 bool PrefsManager::isToolColor(const struct ItemToolPrefs& settings, const QString& name)
 {
-	if (settings.calligrapicPenLineColor == name)
+	if (settings.calligraphicPenLineColor == name)
 		return true;
-	if (settings.calligrapicPenFillColor == name)
+	if (settings.calligraphicPenFillColor == name)
 		return true;
 	if (settings.textColor == name)
 		return true;
@@ -1154,10 +1154,10 @@ QStringList PrefsManager::toolColorNames(const struct ItemToolPrefs& settings)
 		names.append(settings.imageFillColor);
 	if (!names.contains(settings.imageStrokeColor))
 		names.append(settings.imageStrokeColor);
-	if (!names.contains(settings.calligrapicPenFillColor))
-		names.append(settings.calligrapicPenFillColor);
-	if (!names.contains(settings.calligrapicPenLineColor))
-		names.append(settings.calligrapicPenLineColor);
+	if (!names.contains(settings.calligraphicPenFillColor))
+		names.append(settings.calligraphicPenFillColor);
+	if (!names.contains(settings.calligraphicPenLineColor))
+		names.append(settings.calligraphicPenLineColor);
 	return names;
 }
 
@@ -1186,10 +1186,10 @@ void PrefsManager::replaceToolColors(struct ItemToolPrefs& settings, const QMap<
 		settings.imageFillColor = replaceMap[settings.imageFillColor];
 	if (replaceMap.contains(settings.imageStrokeColor))
 		settings.imageStrokeColor = replaceMap[settings.imageStrokeColor];
-	if (replaceMap.contains(settings.calligrapicPenFillColor))
-		settings.calligrapicPenFillColor = replaceMap[settings.calligrapicPenFillColor];
-	if (replaceMap.contains(settings.calligrapicPenLineColor))
-		settings.calligrapicPenLineColor = replaceMap[settings.calligrapicPenLineColor];
+	if (replaceMap.contains(settings.calligraphicPenFillColor))
+		settings.calligraphicPenFillColor = replaceMap[settings.calligraphicPenFillColor];
+	if (replaceMap.contains(settings.calligraphicPenLineColor))
+		settings.calligraphicPenLineColor = replaceMap[settings.calligraphicPenLineColor];
 }
 
 void PrefsManager::setColorSet(const ColorList& colorSet)
@@ -1223,10 +1223,10 @@ void PrefsManager::setColorSet(const ColorList& colorSet)
 	QString penPict = appPrefs.itemToolPrefs.imageStrokeColor;
 	if (!tmpSet.contains(penPict) && penPict != CommonStrings::None)
 		tmpSet[penPict] = appPrefs.colorPrefs.DColors[penPict];
-	QString brushCpen = appPrefs.itemToolPrefs.calligrapicPenFillColor;
+	QString brushCpen = appPrefs.itemToolPrefs.calligraphicPenFillColor;
 	if (!tmpSet.contains(brushCpen) && brushCpen != CommonStrings::None)
 		tmpSet[brushCpen] = appPrefs.colorPrefs.DColors[brushCpen];
-	QString brushCpen2 = appPrefs.itemToolPrefs.calligrapicPenLineColor;
+	QString brushCpen2 = appPrefs.itemToolPrefs.calligraphicPenLineColor;
 	if (!tmpSet.contains(brushCpen2) && brushCpen2 != CommonStrings::None)
 		tmpSet[brushCpen2] = appPrefs.colorPrefs.DColors[brushCpen2];
 	appPrefs.colorPrefs.DColors = tmpSet;
@@ -1525,14 +1525,14 @@ bool PrefsManager::WritePref(QString ho)
 	dcItemTools.setAttribute("LineEndArrow", appPrefs.itemToolPrefs.lineEndArrow);
 	dcItemTools.setAttribute("FontFace",appPrefs.itemToolPrefs.textFont);
 	dcItemTools.setAttribute("FontSize",appPrefs.itemToolPrefs.textSize / 10.0);
-	dcItemTools.setAttribute("CalligrapicPenFillColor", appPrefs.itemToolPrefs.calligrapicPenFillColor);
-	dcItemTools.setAttribute("CalligrapicPenLineColor", appPrefs.itemToolPrefs.calligrapicPenLineColor);
-	dcItemTools.setAttribute("CalligrapicPenFillColorShade", appPrefs.itemToolPrefs.calligrapicPenFillColorShade);
-	dcItemTools.setAttribute("CalligrapicPenLineColorShade", appPrefs.itemToolPrefs.calligrapicPenLineColorShade);
-	dcItemTools.setAttribute("CalligrapicPenLineWidth", appPrefs.itemToolPrefs.calligrapicPenLineWidth);
-	dcItemTools.setAttribute("CalligrapicPenAngle", appPrefs.itemToolPrefs.calligrapicPenAngle);
-	dcItemTools.setAttribute("CalligrapicPenWidth", appPrefs.itemToolPrefs.calligrapicPenWidth);
-	dcItemTools.setAttribute("CalligrapicPenStyle",appPrefs.itemToolPrefs.calligrapicPenStyle);
+	dcItemTools.setAttribute("CalligraphicPenFillColor", appPrefs.itemToolPrefs.calligraphicPenFillColor);
+	dcItemTools.setAttribute("CalligraphicPenLineColor", appPrefs.itemToolPrefs.calligraphicPenLineColor);
+	dcItemTools.setAttribute("CalligraphicPenFillColorShade", appPrefs.itemToolPrefs.calligraphicPenFillColorShade);
+	dcItemTools.setAttribute("CalligraphicPenLineColorShade", appPrefs.itemToolPrefs.calligraphicPenLineColorShade);
+	dcItemTools.setAttribute("CalligraphicPenLineWidth", appPrefs.itemToolPrefs.calligraphicPenLineWidth);
+	dcItemTools.setAttribute("CalligraphicPenAngle", appPrefs.itemToolPrefs.calligraphicPenAngle);
+	dcItemTools.setAttribute("CalligraphicPenWidth", appPrefs.itemToolPrefs.calligraphicPenWidth);
+	dcItemTools.setAttribute("CalligraphicPenStyle",appPrefs.itemToolPrefs.calligraphicPenStyle);
 	elem.appendChild(dcItemTools);
 
 	QDomElement dcOperatorTools=docu.createElement("OperatorTools");
@@ -2078,14 +2078,14 @@ bool PrefsManager::ReadPref(QString ho)
 
 		if (dc.tagName()=="ItemTools")
 		{
-			appPrefs.itemToolPrefs.calligrapicPenFillColor = dc.attribute("CalligrapicPenFillColor", "Black");
-			appPrefs.itemToolPrefs.calligrapicPenLineColor = dc.attribute("CalligrapicPenLineColor", "Black");
-			appPrefs.itemToolPrefs.calligrapicPenFillColorShade = dc.attribute("CalligrapicPenFillColorShade", "100").toInt();
-			appPrefs.itemToolPrefs.calligrapicPenLineColorShade = dc.attribute("CalligrapicPenLineColorShade", "100").toInt();
-			appPrefs.itemToolPrefs.calligrapicPenLineWidth = ScCLocale::toDoubleC(dc.attribute("CalligrapicPenLineWidth"), 1.0);
-			appPrefs.itemToolPrefs.calligrapicPenAngle = ScCLocale::toDoubleC(dc.attribute("CalligrapicPenAngle"), 0.0);
-			appPrefs.itemToolPrefs.calligrapicPenWidth = ScCLocale::toDoubleC(dc.attribute("CalligrapicPenWidth"), 10.0);
-			appPrefs.itemToolPrefs.calligrapicPenStyle = dc.attribute("CalligrapicPenStyle").toInt();
+			appPrefs.itemToolPrefs.calligraphicPenFillColor = dc.attribute("CalligraphicPenFillColor", "Black");
+			appPrefs.itemToolPrefs.calligraphicPenLineColor = dc.attribute("CalligraphicPenLineColor", "Black");
+			appPrefs.itemToolPrefs.calligraphicPenFillColorShade = dc.attribute("CalligraphicPenFillColorShade", "100").toInt();
+			appPrefs.itemToolPrefs.calligraphicPenLineColorShade = dc.attribute("CalligraphicPenLineColorShade", "100").toInt();
+			appPrefs.itemToolPrefs.calligraphicPenLineWidth = ScCLocale::toDoubleC(dc.attribute("CalligraphicPenLineWidth"), 1.0);
+			appPrefs.itemToolPrefs.calligraphicPenAngle = ScCLocale::toDoubleC(dc.attribute("CalligraphicPenAngle"), 0.0);
+			appPrefs.itemToolPrefs.calligraphicPenWidth = ScCLocale::toDoubleC(dc.attribute("CalligraphicPenWidth"), 10.0);
+			appPrefs.itemToolPrefs.calligraphicPenStyle = dc.attribute("CalligraphicPenStyle").toInt();
 			appPrefs.itemToolPrefs.shapeLineColor = dc.attribute("ShapeLineColor");
 			appPrefs.itemToolPrefs.shapeFillColor = dc.attribute("ShapeFillColor", CommonStrings::None);
 			appPrefs.itemToolPrefs.lineColor = dc.attribute("LineColor");

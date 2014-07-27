@@ -190,14 +190,14 @@ void Prefs_ItemTools::restoreDefaults(struct ApplicationPrefs *prefsData)
 	lineWidthSpinBox->setValue(prefsData->itemToolPrefs.lineWidth);
 	//
 	//Calligraphic Pen Tool
-	calPenFillColorComboBox->initColorList(colorList, m_doc, prefsData->itemToolPrefs.calligrapicPenFillColor);
-	calPenFillShadingSpinBox->setValue(prefsData->itemToolPrefs.calligrapicPenFillColorShade);
-	calPenColorComboBox->initColorList(colorList, m_doc, prefsData->itemToolPrefs.calligrapicPenLineColor);
-	calPenLineShadingSpinBox->setValue(prefsData->itemToolPrefs.calligrapicPenLineColorShade);
-	calPenStyleComboBox->setCurrentIndex(static_cast<int>(prefsData->itemToolPrefs.calligrapicPenStyle) - 1);
-	calPenLineWidthSpinBox->setValue(prefsData->itemToolPrefs.calligrapicPenLineWidth);
-	calPenAngleSpinBox->setValue(prefsData->itemToolPrefs.calligrapicPenAngle);
-	calPenWidthSpinBox->setValue(prefsData->itemToolPrefs.calligrapicPenWidth);
+	calPenFillColorComboBox->initColorList(colorList, m_doc, prefsData->itemToolPrefs.calligraphicPenFillColor);
+	calPenFillShadingSpinBox->setValue(prefsData->itemToolPrefs.calligraphicPenFillColorShade);
+	calPenColorComboBox->initColorList(colorList, m_doc, prefsData->itemToolPrefs.calligraphicPenLineColor);
+	calPenLineShadingSpinBox->setValue(prefsData->itemToolPrefs.calligraphicPenLineColorShade);
+	calPenStyleComboBox->setCurrentIndex(static_cast<int>(prefsData->itemToolPrefs.calligraphicPenStyle) - 1);
+	calPenLineWidthSpinBox->setValue(prefsData->itemToolPrefs.calligraphicPenLineWidth);
+	calPenAngleSpinBox->setValue(prefsData->itemToolPrefs.calligraphicPenAngle);
+	calPenWidthSpinBox->setValue(prefsData->itemToolPrefs.calligraphicPenWidth);
 
 	// Arc Tool
 	arcDisplay->restoreDefaults(&prefsData->itemToolPrefs);
@@ -307,18 +307,18 @@ void Prefs_ItemTools::saveGuiToPrefs(struct ApplicationPrefs *prefsData) const
 	prefsData->itemToolPrefs.lineStartArrow = lineStartArrowComboBox->currentIndex();
 	prefsData->itemToolPrefs.lineEndArrow = lineEndArrowComboBox->currentIndex();
 	//Calligraphic Pen Tool
-	prefsData->itemToolPrefs.calligrapicPenFillColor = calPenFillColorComboBox->currentText();
-	if (prefsData->itemToolPrefs.calligrapicPenFillColor == CommonStrings::tr_NoneColor)
-		prefsData->itemToolPrefs.calligrapicPenFillColor = CommonStrings::None;
-	prefsData->itemToolPrefs.calligrapicPenLineColor = calPenColorComboBox->currentText();
-	if (prefsData->itemToolPrefs.calligrapicPenLineColor == CommonStrings::tr_NoneColor)
-		prefsData->itemToolPrefs.calligrapicPenLineColor = CommonStrings::None;
-	prefsData->itemToolPrefs.calligrapicPenFillColorShade = calPenFillShadingSpinBox->value();
-	prefsData->itemToolPrefs.calligrapicPenLineColorShade = calPenLineShadingSpinBox->value();
-	prefsData->itemToolPrefs.calligrapicPenStyle = static_cast<Qt::PenStyle>(calPenStyleComboBox->currentIndex()) + 1;
-	prefsData->itemToolPrefs.calligrapicPenLineWidth = calPenLineWidthSpinBox->value();
-	prefsData->itemToolPrefs.calligrapicPenAngle = calPenAngleSpinBox->value();
-	prefsData->itemToolPrefs.calligrapicPenWidth = calPenWidthSpinBox->value();
+	prefsData->itemToolPrefs.calligraphicPenFillColor = calPenFillColorComboBox->currentText();
+	if (prefsData->itemToolPrefs.calligraphicPenFillColor == CommonStrings::tr_NoneColor)
+		prefsData->itemToolPrefs.calligraphicPenFillColor = CommonStrings::None;
+	prefsData->itemToolPrefs.calligraphicPenLineColor = calPenColorComboBox->currentText();
+	if (prefsData->itemToolPrefs.calligraphicPenLineColor == CommonStrings::tr_NoneColor)
+		prefsData->itemToolPrefs.calligraphicPenLineColor = CommonStrings::None;
+	prefsData->itemToolPrefs.calligraphicPenFillColorShade = calPenFillShadingSpinBox->value();
+	prefsData->itemToolPrefs.calligraphicPenLineColorShade = calPenLineShadingSpinBox->value();
+	prefsData->itemToolPrefs.calligraphicPenStyle = static_cast<Qt::PenStyle>(calPenStyleComboBox->currentIndex()) + 1;
+	prefsData->itemToolPrefs.calligraphicPenLineWidth = calPenLineWidthSpinBox->value();
+	prefsData->itemToolPrefs.calligraphicPenAngle = calPenAngleSpinBox->value();
+	prefsData->itemToolPrefs.calligraphicPenWidth = calPenWidthSpinBox->value();
 
 	//Arc Tool
 	arcDisplay->saveGuiToPrefs(&prefsData->itemToolPrefs);

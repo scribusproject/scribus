@@ -127,8 +127,8 @@ void CalligraphicMode::mouseMoveEvent(QMouseEvent *m)
 		else
 			RecordP.addPoint(FPoint(newXF, newYF));
 		QPolygon& redrawPolygon(m_canvas->newRedrawPolygon());
-		double mx = sin(m_doc->itemToolPrefs().calligrapicPenAngle / 180.0 * M_PI) * (m_doc->itemToolPrefs().calligrapicPenWidth / 2.0);
-		double my = cos(m_doc->itemToolPrefs().calligrapicPenAngle / 180.0 * M_PI) * (m_doc->itemToolPrefs().calligrapicPenWidth / 2.0);
+		double mx = sin(m_doc->itemToolPrefs().calligraphicPenAngle / 180.0 * M_PI) * (m_doc->itemToolPrefs().calligraphicPenWidth / 2.0);
+		double my = cos(m_doc->itemToolPrefs().calligraphicPenAngle / 180.0 * M_PI) * (m_doc->itemToolPrefs().calligraphicPenWidth / 2.0);
 		for (int px = 0; px < RecordP.size()-1; ++px)
 		{
 			FPoint clp = RecordP.point(px);
@@ -246,13 +246,13 @@ void CalligraphicMode::mouseReleaseEvent(QMouseEvent *m)
 			UndoTransaction *createTransaction = NULL;
 			if(UndoManager::undoEnabled())
 				createTransaction = new UndoTransaction(UndoManager::instance()->beginTransaction());
-			uint z = m_doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, Mxp, Myp, 1, 1, m_doc->itemToolPrefs().calligrapicPenLineWidth, m_doc->itemToolPrefs().calligrapicPenFillColor, m_doc->itemToolPrefs().calligrapicPenLineColor, true);
+			uint z = m_doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, Mxp, Myp, 1, 1, m_doc->itemToolPrefs().calligraphicPenLineWidth, m_doc->itemToolPrefs().calligraphicPenFillColor, m_doc->itemToolPrefs().calligraphicPenLineColor, true);
 			currItem = m_doc->Items->at(z);
 			currItem->PoLine.resize(0);
 			QList<QPointF> clipU;
 			QList<QPointF> clipL;
-			double mx = sin(m_doc->itemToolPrefs().calligrapicPenAngle / 180.0 * M_PI) * (m_doc->itemToolPrefs().calligrapicPenWidth / 2.0);
-			double my = cos(m_doc->itemToolPrefs().calligrapicPenAngle / 180.0 * M_PI) * (m_doc->itemToolPrefs().calligrapicPenWidth / 2.0);
+			double mx = sin(m_doc->itemToolPrefs().calligraphicPenAngle / 180.0 * M_PI) * (m_doc->itemToolPrefs().calligraphicPenWidth / 2.0);
+			double my = cos(m_doc->itemToolPrefs().calligraphicPenAngle / 180.0 * M_PI) * (m_doc->itemToolPrefs().calligraphicPenWidth / 2.0);
 			for (int px = 0; px < RecordP.size()-1; ++px)
 			{
 				FPoint clp = RecordP.point(px);
@@ -277,9 +277,9 @@ void CalligraphicMode::mouseReleaseEvent(QMouseEvent *m)
 			currItem->ClipEdited = true;
 			currItem->FrameType = 3;
 			currItem->OwnPage = m_doc->OnPage(currItem);
-			currItem->PLineArt = Qt::PenStyle(m_doc->itemToolPrefs().calligrapicPenStyle);
-			currItem->setFillShade(m_doc->itemToolPrefs().calligrapicPenFillColorShade);
-			currItem->setLineShade(m_doc->itemToolPrefs().calligrapicPenLineColorShade);
+			currItem->PLineArt = Qt::PenStyle(m_doc->itemToolPrefs().calligraphicPenStyle);
+			currItem->setFillShade(m_doc->itemToolPrefs().calligraphicPenFillColorShade);
+			currItem->setLineShade(m_doc->itemToolPrefs().calligraphicPenLineColorShade);
 			currItem->setFillEvenOdd(true);
 			m_view->resetMousePressed();
 			currItem->checkChanges();

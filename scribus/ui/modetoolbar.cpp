@@ -115,8 +115,8 @@ ModeToolBar::ModeToolBar(ScribusMainWindow* parent) : ScToolBar( tr("Tools"), "T
 
 void ModeToolBar::newCalValues()
 {
-	m_ScMW->doc->itemToolPrefs().calligrapicPenAngle = Angle->value();
-	m_ScMW->doc->itemToolPrefs().calligrapicPenWidth = PWidth->value();
+	m_ScMW->doc->itemToolPrefs().calligraphicPenAngle = Angle->value();
+	m_ScMW->doc->itemToolPrefs().calligraphicPenWidth = PWidth->value();
 }
 
 void ModeToolBar::GetPolyProps()

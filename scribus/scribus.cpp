@@ -2447,8 +2447,8 @@ void ScribusMainWindow::newActWin(QMdiSubWindow *w)
 	nsEditor->setDoc(doc);
 	symbolPalette->setDoc(doc);
 	inlinePalette->setDoc(doc);
-	modeToolBar->Angle->setValue(doc->itemToolPrefs().calligrapicPenAngle);
-	modeToolBar->PWidth->setValue(doc->itemToolPrefs().calligrapicPenWidth);
+	modeToolBar->Angle->setValue(doc->itemToolPrefs().calligraphicPenAngle);
+	modeToolBar->PWidth->setValue(doc->itemToolPrefs().calligraphicPenWidth);
 	// Give plugins a chance to react on changing the current document
 	PluginManager& pluginManager(PluginManager::instance());
 	QStringList pluginNames(pluginManager.pluginNames(false));

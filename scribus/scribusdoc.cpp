@@ -492,10 +492,10 @@ void ScribusDoc::init()
 	docPrefsData.itemToolPrefs.textFillColor = appPrefsData.itemToolPrefs.textFillColor;
 	if (appPrefsData.itemToolPrefs.textLineColor != CommonStrings::None)
 		PageColors.insert(appPrefsData.itemToolPrefs.textLineColor, appPrefsData.colorPrefs.DColors[appPrefsData.itemToolPrefs.textLineColor]);
-	if (appPrefsData.itemToolPrefs.calligrapicPenFillColor != CommonStrings::None)
-		PageColors.insert(appPrefsData.itemToolPrefs.calligrapicPenFillColor, appPrefsData.colorPrefs.DColors[appPrefsData.itemToolPrefs.calligrapicPenFillColor]);
-	if (appPrefsData.itemToolPrefs.calligrapicPenLineColor != CommonStrings::None)
-		PageColors.insert(appPrefsData.itemToolPrefs.calligrapicPenLineColor, appPrefsData.colorPrefs.DColors[appPrefsData.itemToolPrefs.calligrapicPenLineColor]);
+	if (appPrefsData.itemToolPrefs.calligraphicPenFillColor != CommonStrings::None)
+		PageColors.insert(appPrefsData.itemToolPrefs.calligraphicPenFillColor, appPrefsData.colorPrefs.DColors[appPrefsData.itemToolPrefs.calligraphicPenFillColor]);
+	if (appPrefsData.itemToolPrefs.calligraphicPenLineColor != CommonStrings::None)
+		PageColors.insert(appPrefsData.itemToolPrefs.calligraphicPenLineColor, appPrefsData.colorPrefs.DColors[appPrefsData.itemToolPrefs.calligraphicPenLineColor]);
 
 	
 	ParagraphStyle pstyle;
