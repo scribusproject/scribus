@@ -34,7 +34,7 @@ void Prefs_Printer::languageChange()
 	applyUnderColorRemovalCheckBox->setToolTip( "<qt>" + tr( "A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis. UCR reduces the possibility of over saturation with CMY inks." ) + "</qt>");
 	convertSpotsToProcessCheckBox->setToolTip("<qt>" + tr( "Enables Spot Colors to be converted to composite colors. Unless you are planning to print spot colors at a commercial printer, this is probably best left enabled." ) + "</qt>");
 	applyICCProfilesCheckBox->setToolTip("<qt>" + tr( "Allows you to embed color profiles in the print stream when color management is enabled" ) + "</qt>");
-	setMediaSizeCheckBox->setToolTip( "<qt>" + tr( "This enables you to explicitely set the media size of the PostScript file. Not recommended unless requested by your printer." ) + "</qt>");
+	setMediaSizeCheckBox->setToolTip( "<qt>" + tr( "This enables you to explicitly set the media size of the PostScript file. Not recommended unless requested by your printer." ) + "</qt>");
 }
 
 void Prefs_Printer::unitChange(int newIndex)
