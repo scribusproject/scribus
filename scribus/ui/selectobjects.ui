@@ -264,7 +264,7 @@
          <string>Select items based on whether they have their size locked or not</string>
         </property>
         <property name="text">
-         <string>Resizeable</string>
+         <string>Resizable</string>
         </property>
        </widget>
       </item>

@@ -999,7 +999,7 @@ PageItem* VivaPlug::parseObjectDetailsXML(const QDomElement& obNode, int baseTyp
 	int ob_type = 0;
 	bool printable = false;
 	bool locked = false;
-	bool resizeable = false;
+	bool resizable = false;
 	FPointArray Path;
 	Path.resize(0);
 	QString imageFile = "";
@@ -1313,7 +1313,7 @@ PageItem* VivaPlug::parseObjectDetailsXML(const QDomElement& obNode, int baseTyp
 				else if (eog.tagName() == "vo:protected")
 					locked = eog.text() == "true";
 				else if (eog.tagName() == "vo:fixed")
-					resizeable = eog.text() == "true";
+					resizable = eog.text() == "true";
 			}
 		}
 		else if (obe.tagName() == "vo:runaround")
@@ -1672,7 +1672,7 @@ PageItem* VivaPlug::parseObjectDetailsXML(const QDomElement& obNode, int baseTyp
 			item->itemText.trim();
 		}
 		item->setLocked(locked);
-		item->setSizeLocked(resizeable);
+		item->setSizeLocked(resizable);
 		item->setPrintEnabled(printable);
 		retObj = m_Doc->Items->takeAt(z);
 	}
