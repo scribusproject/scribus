@@ -8253,7 +8253,7 @@ void ScribusMainWindow::editInlineStart(int id)
 		inlinePalette->editingStart(id);
 		if (outlinePalette->isVisible())
 			outlinePalette->BuildTree(false);
-		updateActiveWindowCaption( tr("Editing Inline Frame"));
+		updateActiveWindowCaption( tr("Editing Inline Item"));
 	}
 }
 
