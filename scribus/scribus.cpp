@@ -8157,11 +8157,6 @@ void ScribusMainWindow::editSymbolStart(QString temp)
 		doc->stored_maxCanvasCoordinate = doc->maxCanvasCoordinate;
 		view->showSymbolPage(temp);
 		appModeHelper.setSymbolEditMode(true, doc);
-		scrActions["fileClose"]->setToolTip( tr("Click here to leave symbol edit mode."));
-		scrActions["fileClose"]->setIcon(loadIcon("22/exit.png"));
-		scrMenuMgr->setMenuEnabled("FileOpenRecent", false);
-		scrMenuMgr->setMenuEnabled("FileExport", false);
-
 		pagePalette->enablePalette(false);
 		layerPalette->setEnabled(false);
 		patternsDependingOnThis.clear();
@@ -8244,10 +8239,6 @@ void ScribusMainWindow::editInlineStart(int id)
 		doc->stored_maxCanvasCoordinate = doc->maxCanvasCoordinate;
 		view->showInlinePage(id);
 		appModeHelper.setInlineEditMode(true, doc);
-		scrActions["fileClose"]->setToolTip( tr("Click here to leave inline frame edit mode."));
-		scrActions["fileClose"]->setIcon(loadIcon("22/exit.png"));
-		scrMenuMgr->setMenuEnabled("FileOpenRecent", false);
-		scrMenuMgr->setMenuEnabled("FileExport", false);
 		pagePalette->enablePalette(false);
 		layerPalette->setEnabled(false);
 		inlinePalette->editingStart(id);
@@ -8330,9 +8321,6 @@ void ScribusMainWindow::editMasterPagesStart(QString temp)
 		scrActions["toolsPages"]->setChecked(true);
 	}
 	appModeHelper.setMasterPageEditMode(true, doc);
-	scrMenuMgr->setMenuEnabled("FileOpenRecent", false);
-	scrActions["fileClose"]->setToolTip( tr("Click here to leave master page edit mode."));
-	scrActions["fileClose"]->setIcon(loadIcon("22/exit.png"));
 }
 
 void ScribusMainWindow::editMasterPagesEnd()
