@@ -2,6896 +2,6 @@
 <!DOCTYPE TS>
 <TS version="2.1" language="en_GB">
 <context>
-    <name></name>
-    <message>
-        <source>getColorNames() -&gt; list
-
-Returns a list containing the names of all defined colors in the document.
-If no document is open, returns a list of the default document colors.
-</source>
-        <translation type="obsolete">getColorNames() -&gt; list
-
-Returns a list containing the names of all defined colours in the document.
-If no document is open, returns a list of the default document colours.
-</translation>
-    </message>
-    <message>
-        <source>getColor(&quot;name&quot;) -&gt; tuple
-
-Returns a tuple (C, M, Y, K) containing the four color components of the
-color &quot;name&quot; from the current document. If no document is open, returns
-the value of the named color from the default document colors.
-
-May raise NotFoundError if the named color wasn&apos;t found.
-May raise ValueError if an invalid color name is specified.
-</source>
-        <translation type="obsolete">getColor(&quot;name&quot;) -&gt; tuple
-
-Returns a tuple (C, M, Y, K) containing the four colour components of the
-colour &quot;name&quot; from the current document. If no document is open, returns
-the value of the named colour from the default document colours.
-
-May raise NotFoundError if the named colour wasn&apos;t found.
-May raise ValueError if an invalid colour name is specified.
-</translation>
-    </message>
-    <message>
-        <source>getColorAsRGB(&quot;name&quot;) -&gt; tuple
-
-Returns a tuple (R,G,B) containing the three color components of the
-color &quot;name&quot; from the current document, converted to the RGB color
-space. If no document is open, returns the value of the named color
-from the default document colors.
-
-May raise NotFoundError if the named color wasn&apos;t found.
-May raise ValueError if an invalid color name is specified.
-</source>
-        <translation type="obsolete">getColorAsRGB(&quot;name&quot;) -&gt; tuple
-
-Returns a tuple (R,G,B) containing the three colour components of the
-colour &quot;name&quot; from the current document, converted to the RGB colour
-space. If no document is open, returns the value of the named colour
-from the default document colours.
-
-May raise NotFoundError if the named colour wasn&apos;t found.
-May raise ValueError if an invalid colour name is specified.
-</translation>
-    </message>
-    <message>
-        <source>changeColor(&quot;name&quot;, c, m, y, k)
-
-Changes the color &quot;name&quot; to the specified CMYK value. The color value is
-defined via four components c = Cyan, m = Magenta, y = Yellow and k = Black.
-Color components should be in the range from 0 to 255.
-
-May raise NotFoundError if the named color wasn&apos;t found.
-May raise ValueError if an invalid color name is specified.
-</source>
-        <translation type="obsolete">changeColour(&quot;name&quot;, c, m, y, k)
-
-Changes the colour &quot;name&quot; to the specified CMYK value. The colour value is
-defined via four components c = Cyan, m = Magenta, y = Yellow and k = Black.
-Colour components should be in the range from 0 to 255.
-
-May raise NotFoundError if the named colour wasn&apos;t found.
-May raise ValueError if an invalid colour name is specified.
-</translation>
-    </message>
-    <message>
-        <source>defineColor(&quot;name&quot;, c, m, y, k)
-
-Defines a new color &quot;name&quot;. The color Value is defined via four components:
-c = Cyan, m = Magenta, y = Yellow and k = Black. Color components should be in
-the range from 0 to 255.
-
-May raise ValueError if an invalid color name is specified.
-</source>
-        <translation type="obsolete">defineColor(&quot;name&quot;, c, m, y, k)
-
-Defines a new colour &quot;name&quot;. The colour Value is defined via four components:
-c = Cyan, m = Magenta, y = Yellow and k = Black. Colour components should be in
-the range from 0 to 255.
-
-May raise ValueError if an invalid colour name is specified.
-</translation>
-    </message>
-    <message>
-        <source>changeColor(&quot;name&quot;, c, m, y, k)
-
-Changes the color &quot;name&quot; to the specified CMYK value. The color value is
-defined via four components c = Cyan, m = Magenta, y = Yellow and k = Black.
-Color components should be in the range from 0 to 255.
-Note : deprecated, use changeColorCMYK() instead.
-
-May raise NotFoundError if the named color wasn&apos;t found.
-May raise ValueError if an invalid color name is specified.
-</source>
-        <translation type="obsolete">changeColor(&quot;name&quot;, c, m, y, k)
-
-Changes the colour &quot;name&quot; to the specified CMYK value. The colour value is
-defined via four components c = Cyan, m = Magenta, y = Yellow and k = Black.
-Colour components should be in the range from 0 to 255.
-Note : deprecated, use changeColorCMYK() instead.
-
-May raise NotFoundError if the named colour wasn&apos;t found.
-May raise ValueError if an invalid colour name is specified.
-</translation>
-    </message>
-    <message>
-        <source>changeColorCMYK(&quot;name&quot;, c, m, y, k)
-
-Changes the color &quot;name&quot; to the specified CMYK value. The color value is
-defined via four components c = Cyan, m = Magenta, y = Yellow and k = Black.
-Color components should be in the range from 0 to 255.
-
-May raise NotFoundError if the named color wasn&apos;t found.
-May raise ValueError if an invalid color name is specified.
-</source>
-        <translation type="obsolete">changeColorCMYK(&quot;name&quot;, c, m, y, k)
-
-Changes the colour &quot;name&quot; to the specified CMYK value. The colour value is
-defined via four components c = Cyan, m = Magenta, y = Yellow and k = Black.
-Colour components should be in the range from 0 to 255.
-
-May raise NotFoundError if the named colour wasn&apos;t found.
-May raise ValueError if an invalid colour name is specified.
-</translation>
-    </message>
-    <message>
-        <source>changeColorRGB(&quot;name&quot;, r, g, b)
-
-Changes the color &quot;name&quot; to the specified RGB value. The color value is
-defined via three components r = red, g = green, b = blue.
-Color components should be in the range from 0 to 255.
-
-May raise NotFoundError if the named color wasn&apos;t found.
-May raise ValueError if an invalid color name is specified.
-</source>
-        <translation type="obsolete">changeColorRGB(&quot;name&quot;, r, g, b)
-
-Changes the colour &quot;name&quot; to the specified RGB value. The colour value is
-defined via three components r = red, g = green, b = blue.
-Colour components should be in the range from 0 to 255.
-
-May raise NotFoundError if the named colour wasn&apos;t found.
-May raise ValueError if an invalid colour name is specified.
-</translation>
-    </message>
-    <message>
-        <source>defineColor(&quot;name&quot;, c, m, y, k)
-
-Defines a new color &quot;name&quot;. The color Value is defined via four components:
-c = Cyan, m = Magenta, y = Yellow and k = Black. Color components should be in
-the range from 0 to 255.
-Note : deprecated, use defineColorCMYK() instead.
-
-May raise ValueError if an invalid color name is specified.
-</source>
-        <translation type="obsolete">defineColor(&quot;name&quot;, c, m, y, k)
-
-Defines a new colour &quot;name&quot;. The colour Value is defined via four components:
-c = Cyan, m = Magenta, y = Yellow and k = Black. Colour components should be in
-the range from 0 to 255.
-Note : deprecated, use defineColorCMYK() instead.
-
-May raise ValueError if an invalid colour name is specified.
-</translation>
-    </message>
-    <message>
-        <source>defineColorCMYK(&quot;name&quot;, c, m, y, k)
-
-Defines a new color &quot;name&quot;. The color Value is defined via four components:
-c = Cyan, m = Magenta, y = Yellow and k = Black. Color components should be in
-the range from 0 to 255.
-
-May raise ValueError if an invalid color name is specified.
-</source>
-        <translation type="obsolete">defineColorCMYK(&quot;name&quot;, c, m, y, k)
-
-Defines a new colour &quot;name&quot;. The colour Value is defined via four components:
-c = Cyan, m = Magenta, y = Yellow and k = Black. Colour components should be in
-the range from 0 to 255.
-
-May raise ValueError if an invalid colour name is specified.
-</translation>
-    </message>
-    <message>
-        <source>defineColorRGB(&quot;name&quot;, r, g, b)
-
-Defines a new color &quot;name&quot;. The color Value is defined via three components:
-r = red, g = green, b = blue. Color components should be in
-the range from 0 to 255.
-
-May raise ValueError if an invalid color name is specified.
-</source>
-        <translation type="obsolete">defineColorRGB(&quot;name&quot;, r, g, b)
-
-Defines a new colour &quot;name&quot;. The colour Value is defined via three components:
-r = red, g = green, b = blue. Colour components should be in
-the range from 0 to 255.
-
-May raise ValueError if an invalid colour name is specified.
-</translation>
-    </message>
-    <message>
-        <source>deleteColor(&quot;name&quot;, &quot;replace&quot;)
-
-Deletes the color &quot;name&quot;. Every occurence of that color is replaced by the
-color &quot;replace&quot;. If not specified, &quot;replace&quot; defaults to the color
-&quot;None&quot; - transparent.
-
-deleteColor works on the default document colors if there is no document open.
-In that case, &quot;replace&quot;, if specified, has no effect.
-
-May raise NotFoundError if a named color wasn&apos;t found.
-May raise ValueError if an invalid color name is specified.
-</source>
-        <translation type="obsolete">deleteColor(&quot;name&quot;, &quot;replace&quot;)
-
-Deletes the colour &quot;name&quot;. Every occurence of that colour is replaced by the
-colour &quot;replace&quot;. If not specified, &quot;replace&quot; defaults to the colour
-&quot;None&quot; - transparent.
-
-deleteColor works on the default document colours if there is no document open.
-In that case, &quot;replace&quot;, if specified, has no effect.
-
-May raise NotFoundError if a named colour wasn&apos;t found.
-May raise ValueError if an invalid colour name is specified.
-</translation>
-    </message>
-    <message>
-        <source>replaceColor(&quot;name&quot;, &quot;replace&quot;)
-
-Every occurence of the color &quot;name&quot; is replaced by the color &quot;replace&quot;.
-
-May raise NotFoundError if a named color wasn&apos;t found.
-May raise ValueError if an invalid color name is specified.
-</source>
-        <translation type="obsolete">replaceColor(&quot;name&quot;, &quot;replace&quot;)
-
-Every occurence of the colour &quot;name&quot; is replaced by the colour &quot;replace&quot;.
-
-May raise NotFoundError if a named colour wasn&apos;t found.
-May raise ValueError if an invalid colour name is specified.
-</translation>
-    </message>
-    <message>
-        <source>isSpotColor(&quot;name&quot;) -&gt; bool
-
-Returns True if the color &quot;name&quot; is a spot color.
-See also setSpotColor()
-
-May raise NotFoundError if a named color wasn&apos;t found.
-May raise ValueError if an invalid color name is specified.
-</source>
-        <translation type="obsolete">isSpotColor(&quot;name&quot;) -&gt; bool
-
-Returns True if the colour &quot;name&quot; is a spot colour.
-See also setSpotColor()
-
-May raise NotFoundError if a named colour wasn&apos;t found.
-May raise ValueError if an invalid colour name is specified.
-</translation>
-    </message>
-    <message>
-        <source>setSpotColor(&quot;name&quot;, spot)
-
-Set the color &quot;name&quot; as a spot color if spot parameter is True.
-See also isSpotColor()
-
-May raise NotFoundError if a named color wasn&apos;t found.
-May raise ValueError if an invalid color name is specified.
-</source>
-        <translation type="obsolete">setSpotColor(&quot;name&quot;, spot)
-
-Set the colour &quot;name&quot; as a spot colour if spot parameter is True.
-See also isSpotColor()
-
-May raise NotFoundError if a named colour wasn&apos;t found.
-May raise ValueError if an invalid colour name is specified.
-</translation>
-    </message>
-    <message>
-        <source>newDocDialog() -&gt; bool
-
-Displays the &quot;New Document&quot; dialog box. Creates a new document if the user
-accepts the settings. Does not create a document if the user presses cancel.
-Returns true if a new document was created.
-</source>
-        <translation type="obsolete">newDocDialog() -&gt; bool
-
-Displays the &quot;New Document&quot; dialogue box. Creates a new document if the user
-accepts the settings. Does not create a document if the user presses cancel.
-Returns true if a new document was created.
-</translation>
-    </message>
-    <message>
-        <source>fileDialog(&quot;caption&quot;, [&quot;filter&quot;, &quot;defaultname&quot;, haspreview, issave, isdir]) -&gt; string with filename
-
-Shows a File Open dialog box with the caption &quot;caption&quot;. Files are filtered
-with the filter string &quot;filter&quot;. A default filename or file path can also
-supplied, leave this string empty when you don&apos;t want to use it.  A value of
-True for haspreview enables a small preview widget in the FileSelect box.  When
-the issave parameter is set to True the dialog acts like a &quot;Save As&quot; dialog
-otherwise it acts like a &quot;File Open Dialog&quot;. When the isdir parameter is True
-the dialog shows and returns only directories. The default for all of the
-optional parameters is False.
-
-The filter, if specified, takes the form &apos;comment (*.type *.type2 ...)&apos;.
-For example &apos;Images (*.png *.xpm *.jpg)&apos;.
-
-Refer to the Qt-Documentation for QFileDialog for details on filters.
-
-Example: fileDialog(&apos;Open input&apos;, &apos;CSV files (*.csv)&apos;)
-Example: fileDialog(&apos;Save report&apos;, defaultname=&apos;report.txt&apos;, issave=True)
-</source>
-        <translation type="obsolete">fileDialog(&quot;caption&quot;, [&quot;filter&quot;, &quot;defaultname&quot;, haspreview, issave, isdir]) -&gt; string with filename
-
-Shows a File Open dialog box with the caption &quot;caption&quot;. Files are filtered
-with the filter string &quot;filter&quot;. A default filename or file path can also
-supplied, leave this string empty when you don&apos;t want to use it.  A value of
-True for haspreview enables a small preview widget in the FileSelect box.  When
-the issave parameter is set to True the dialog acts like a &quot;Save As&quot; dialog
-otherwise it acts like a &quot;File Open Dialog&quot;. When the isdir parameter is True
-the dialog shows and returns only directories. The default for all of the
-optional parameters is False.
-
-The filter, if specified, takes the form &apos;comment (*.type *.type2 ...)&apos;.
-For example &apos;Images (*.png *.xpm *.jpg)&apos;.
-
-Refer to the Qt-Documentation for QFileDialog for details on filters.
-
-Example: fileDialog(&apos;Open input&apos;, &apos;CSV files (*.csv)&apos;)
-Example: fileDialog(&apos;Save report&apos;, defaultname=&apos;report.txt&apos;, issave=True)
-</translation>
-    </message>
-    <message>
-        <source>messageBox(&quot;caption&quot;, &quot;message&quot;,
-    icon=ICON_NONE, button1=BUTTON_OK|BUTTONOPT_DEFAULT,
-    button2=BUTTON_NONE, button3=BUTTON_NONE) -&gt; integer
-
-Displays a message box with the title &quot;caption&quot;, the message &quot;message&quot;, and
-an icon &quot;icon&quot; and up to 3 buttons. By default no icon is used and a single
-button, OK, is displayed. Only the caption and message arguments are required,
-though setting an icon and appropriate button(s) is strongly
-recommended. The message text may contain simple HTML-like markup.
-
-Returns the number of the button the user pressed. Button numbers start
-at 1.
-
-For the icon and the button parameters there are predefined constants available
-with the same names as in the Qt Documentation. These are the BUTTON_* and
-ICON_* constants defined in the module. There are also two extra constants that
-can be binary-ORed with button constants:
-    BUTTONOPT_DEFAULT   Pressing enter presses this button.
-    BUTTONOPT_ESCAPE    Pressing escape presses this button.
-
-Usage examples:
-result = messageBox(&apos;Script failed&apos;,
-                    &apos;This script only works when you have a text frame selected.&apos;,
-                    ICON_ERROR)
-result = messageBox(&apos;Monkeys!&apos;, &apos;Something went ook! &lt;i&gt;Was it a monkey?&lt;/i&gt;&apos;,
-                    ICON_WARNING, BUTTON_YES|BUTTONOPT_DEFAULT,
-                    BUTTON_NO, BUTTON_IGNORE|BUTTONOPT_ESCAPE)
-
-Defined button and icon constants:
-BUTTON_NONE, BUTTON_ABORT, BUTTON_CANCEL, BUTTON_IGNORE, BUTTON_NO,
-BUTTON_NOALL, BUTTON_OK, BUTTON_RETRY, BUTTON_YES, BUTTON_YESALL,
-ICON_NONE, ICON_INFORMATION, ICON_WARNING, ICON_CRITICAL.
-</source>
-        <translation type="obsolete">messageBox(&quot;caption&quot;, &quot;message&quot;,
-    icon=ICON_NONE, button1=BUTTON_OK|BUTTONOPT_DEFAULT,
-    button2=BUTTON_NONE, button3=BUTTON_NONE) -&gt; integer
-
-Displays a message box with the title &quot;caption&quot;, the message &quot;message&quot;, and
-an icon &quot;icon&quot; and up to 3 buttons. By default no icon is used and a single
-button, OK, is displayed. Only the caption and message arguments are required,
-though setting an icon and appropriate button(s) is strongly
-recommended. The message text may contain simple HTML-like markup.
-
-Returns the number of the button the user pressed. Button numbers start
-at 1.
-
-For the icon and the button parameters there are predefined constants available
-with the same names as in the Qt Documentation. These are the BUTTON_* and
-ICON_* constants defined in the module. There are also two extra constants that
-can be binary-ORed with button constants:
-    BUTTONOPT_DEFAULT   Pressing enter presses this button.
-    BUTTONOPT_ESCAPE    Pressing escape presses this button.
-
-Usage examples:
-result = messageBox(&apos;Script failed&apos;,
-                    &apos;This script only works when you have a text frame selected.&apos;,
-                    ICON_ERROR)
-result = messageBox(&apos;Monkeys!&apos;, &apos;Something went ook! &lt;i&gt;Was it a monkey?&lt;/i&gt;&apos;,
-                    ICON_WARNING, BUTTON_YES|BUTTONOPT_DEFAULT,
-                    BUTTON_NO, BUTTON_IGNORE|BUTTONOPT_ESCAPE)
-
-Defined button and icon constants:
-BUTTON_NONE, BUTTON_ABORT, BUTTON_CANCEL, BUTTON_IGNORE, BUTTON_NO,
-BUTTON_NOALL, BUTTON_OK, BUTTON_RETRY, BUTTON_YES, BUTTON_YESALL,
-ICON_NONE, ICON_INFORMATION, ICON_WARNING, ICON_CRITICAL.
-</translation>
-    </message>
-    <message>
-        <source>valueDialog(caption, message [,defaultvalue]) -&gt; string
-
-Shows the common &apos;Ask for string&apos; dialog and returns its value as a string
-Parameters: window title, text in the window and optional &apos;default&apos; value.
-
-Example: valueDialog(&apos;title&apos;, &apos;text in the window&apos;, &apos;optional&apos;)
-</source>
-        <translation type="obsolete">valueDialog(caption, message [,defaultvalue]) -&gt; string
-
-Shows the common &apos;Ask for string&apos; dialog and returns its value as a string
-Parameters: window title, text in the window and optional &apos;default&apos; value.
-
-Example: valueDialog(&apos;title&apos;, &apos;text in the window&apos;, &apos;optional&apos;)
-</translation>
-    </message>
-    <message>
-        <source>newStyleDialog() -&gt; string
-
-Shows &apos;Create new paragraph style&apos; dialog. Function returns real
-style name or None when user cancels the dialog.
-</source>
-        <translation type="obsolete">newStyleDialog() -&gt; string
-
-Shows &apos;Create new paragraph style&apos; dialog. Function returns real
-style name or None when user cancels the dialog.
-</translation>
-    </message>
-    <message>
-        <source>newDocument(size, margins, orientation, firstPageNumber,
-                        unit, pagesType, firstPageOrder, numPages) -&gt; bool
-
-Creates a new document and returns true if successful. The parameters have the
-following meaning:
-
-size = A tuple (width, height) describing the size of the document. You can
-use predefined constants named PAPER_&lt;paper_type&gt; e.g. PAPER_A4 etc.
-
-margins = A tuple (left, right, top, bottom) describing the document
-margins
-
-orientation = the page orientation - constants PORTRAIT, LANDSCAPE
-
-firstPageNumer = is the number of the first page in the document used for
-pagenumbering. While you&apos;ll usually want 1, it&apos;s useful to have higher
-numbers if you&apos;re creating a document in several parts.
-
-unit: this value sets the measurement units used by the document. Use a
-predefined constant for this, one of: UNIT_INCHES, UNIT_MILLIMETERS,
-UNIT_PICAS, UNIT_POINTS.
-
-pagesType = One of the predefined constants PAGE_n. PAGE_1 is single page,
-PAGE_2 is for double sided documents, PAGE_3 is for 3 pages fold and
-PAGE_4 is 4-fold.
-
-firstPageOrder = What is position of first page in the document.
-Indexed from 0 (0 = first).
-
-numPage = Number of pages to be created.
-
-The values for width, height and the margins are expressed in the given unit
-for the document. PAPER_* constants are expressed in points. If your document
-is not in points, make sure to account for this.
-
-example: newDocument(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 7, UNIT_POINTS,
-PAGE_4, 3, 1)
-
-May raise ScribusError if is firstPageOrder bigger than allowed by pagesType.
-</source>
-        <translation type="obsolete">newDocument(size, margins, orientation, firstPageNumber,
-                        unit, pagesType, firstPageOrder, numPages) -&gt; bool
-
-Creates a new document and returns true if successful. The parameters have the
-following meaning:
-
-size = A tuple (width, height) describing the size of the document. You can
-use predefined constants named PAPER_&lt;paper_type&gt; e.g. PAPER_A4 etc.
-
-margins = A tuple (left, right, top, bottom) describing the document
-margins
-
-orientation = the page orientation - constants PORTRAIT, LANDSCAPE
-
-firstPageNumer = is the number of the first page in the document used for
-pagenumbering. While you&apos;ll usually want 1, it&apos;s useful to have higher
-numbers if you&apos;re creating a document in several parts.
-
-unit: this value sets the measurement units used by the document. Use a
-predefined constant for this, one of: UNIT_INCHES, UNIT_MILLIMETERS,
-UNIT_PICAS, UNIT_POINTS.
-
-pagesType = One of the predefined constants PAGE_n. PAGE_1 is single page,
-PAGE_2 is for double sided documents, PAGE_3 is for 3 pages fold and
-PAGE_4 is 4-fold.
-
-firstPageOrder = What is position of first page in the document.
-Indexed from 0 (0 = first).
-
-numPage = Number of pages to be created.
-
-The values for width, height and the margins are expressed in the given unit
-for the document. PAPER_* constants are expressed in points. If your document
-is not in points, make sure to account for this.
-
-example: newDocument(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 7, UNIT_POINTS,
-PAGE_4, 3, 1)
-
-May raise ScribusError if is firstPageOrder bigger than allowed by pagesType.
-</translation>
-    </message>
-    <message>
-        <source>newDoc(size, margins, orientation, firstPageNumber,
-                   unit, facingPages, firstSideLeft) -&gt; bool
-
-WARNING: Obsolete procedure! Use newDocument instead.
-
-Creates a new document and returns true if successful. The parameters have the
-following meaning:
-
-    size = A tuple (width, height) describing the size of the document. You can
-    use predefined constants named PAPER_&lt;paper_type&gt; e.g. PAPER_A4 etc.
-
-    margins = A tuple (left, right, top, bottom) describing the document
-    margins
-
-    orientation = the page orientation - constants PORTRAIT, LANDSCAPE
-
-    firstPageNumer = is the number of the first page in the document used for
-    pagenumbering. While you&apos;ll usually want 1, it&apos;s useful to have higher
-    numbers if you&apos;re creating a document in several parts.
-
-    unit: this value sets the measurement units used by the document. Use a
-    predefined constant for this, one of: UNIT_INCHES, UNIT_MILLIMETERS,
-    UNIT_PICAS, UNIT_POINTS.
-
-    facingPages = FACINGPAGES, NOFACINGPAGES
-
-    firstSideLeft = FIRSTPAGELEFT, FIRSTPAGERIGHT
-
-The values for width, height and the margins are expressed in the given unit
-for the document. PAPER_* constants are expressed in points. If your document
-is not in points, make sure to account for this.
-
-example: newDoc(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 1, UNIT_POINTS,
-                FACINGPAGES, FIRSTPAGERIGHT)
-</source>
-        <translation type="obsolete">newDoc(size, margins, orientation, firstPageNumber,
-                   unit, facingPages, firstSideLeft) -&gt; bool
-
-WARNING: Obsolete procedure! Use newDocument instead.
-
-Creates a new document and returns true if successful. The parameters have the
-following meaning:
-
-    size = A tuple (width, height) describing the size of the document. You can
-    use predefined constants named PAPER_&lt;paper_type&gt; e.g. PAPER_A4 etc.
-
-    margins = A tuple (left, right, top, bottom) describing the document
-    margins
-
-    orientation = the page orientation - constants PORTRAIT, LANDSCAPE
-
-    firstPageNumer = is the number of the first page in the document used for
-    pagenumbering. While you&apos;ll usually want 1, it&apos;s useful to have higher
-    numbers if you&apos;re creating a document in several parts.
-
-    unit: this value sets the measurement units used by the document. Use a
-    predefined constant for this, one of: UNIT_INCHES, UNIT_MILLIMETERS,
-    UNIT_PICAS, UNIT_POINTS.
-
-    facingPages = FACINGPAGES, NOFACINGPAGES
-
-    firstSideLeft = FIRSTPAGELEFT, FIRSTPAGERIGHT
-
-The values for width, height and the margins are expressed in the given unit
-for the document. PAPER_* constants are expressed in points. If your document
-is not in points, make sure to account for this.
-
-example: newDoc(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 1, UNIT_POINTS,
-                FACINGPAGES, FIRSTPAGERIGHT)
-</translation>
-    </message>
-    <message>
-        <source>closeDoc()
-
-Closes the current document without prompting to save.
-
-May throw NoDocOpenError if there is no document to close
-</source>
-        <translation type="obsolete">closeDoc()
-
-Closes the current document without prompting to save.
-
-May throw NoDocOpenError if there is no document to close
-</translation>
-    </message>
-    <message>
-        <source>haveDoc() -&gt; bool
-
-Returns true if there is a document open.
-</source>
-        <translation type="obsolete">haveDoc() -&gt; bool
-
-Returns true if there is a document open.
-</translation>
-    </message>
-    <message>
-        <source>openDoc(&quot;name&quot;)
-
-Opens the document &quot;name&quot;.
-
-May raise ScribusError if the document could not be opened.
-</source>
-        <translation type="obsolete">openDoc(&quot;name&quot;)
-
-Opens the document &quot;name&quot;.
-
-May raise ScribusError if the document could not be opened.
-</translation>
-    </message>
-    <message>
-        <source>saveDoc()
-
-Saves the current document with its current name, returns true if successful.
-If the document has not already been saved, this may bring up an interactive
-save file dialog.
-
-If the save fails, there is currently no way to tell.
-</source>
-        <translation type="obsolete">saveDoc()
-
-Saves the current document with its current name, returns true if successful.
-If the document has not already been saved, this may bring up an interactive
-save file dialog.
-
-If the save fails, there is currently no way to tell.
-</translation>
-    </message>
-    <message>
-        <source>getDocName() -&gt; string
-
-Returns the name the document was saved under.
-If the document was not saved before the name is empty.
-</source>
-        <translation type="obsolete">getDocName() -&gt; string
-
-Returns the name the document was saved under.
-If the document was not saved before the name is empty.
-</translation>
-    </message>
-    <message>
-        <source>saveDocAs(&quot;name&quot;)
-
-Saves the current document under the new name &quot;name&quot; (which may be a full or
-relative path).
-
-May raise ScribusError if the save fails.
-</source>
-        <translation type="obsolete">saveDocAs(&quot;name&quot;)
-
-Saves the current document under the new name &quot;name&quot; (which may be a full or
-relative path).
-
-May raise ScribusError if the save fails.
-</translation>
-    </message>
-    <message>
-        <source>setInfo(&quot;author&quot;, &quot;info&quot;, &quot;description&quot;) -&gt; bool
-
-Sets the document information. &quot;Author&quot;, &quot;Info&quot;, &quot;Description&quot; are
-strings.
-</source>
-        <translation type="obsolete">setInfo(&quot;author&quot;, &quot;info&quot;, &quot;description&quot;) -&gt; bool
-
-Sets the document information. &quot;Author&quot;, &quot;Info&quot;, &quot;Description&quot; are
-strings.
-</translation>
-    </message>
-    <message>
-        <source>setMargins(lr, rr, tr, br)
-
-Sets the margins of the document, Left(lr), Right(rr), Top(tr) and Bottom(br)
-margins are given in the measurement units of the document - see UNIT_&lt;type&gt;
-constants.
-</source>
-        <translation type="obsolete">setMargins(lr, rr, tr, br)
-
-Sets the margins of the document, Left(lr), Right(rr), Top(tr) and Bottom(br)
-margins are given in the measurement units of the document - see UNIT_&lt;type&gt;
-constants.
-</translation>
-    </message>
-    <message>
-        <source>setBaseLine(grid, offset)
-
-Sets the base line settings of the document, grid spacing(grid), grid offset(offset).
-Values are given in the measurement units of the document - see UNIT_&lt;type&gt;
-constants.
-</source>
-        <translation type="obsolete">setBaseLine(grid, offset)
-
-Sets the base line settings of the document, grid spacing(grid), grid offset(offset).
-Values are given in the measurement units of the document - see UNIT_&lt;type&gt;
-constants.
-</translation>
-    </message>
-    <message>
-        <source>setMargins(lr, rr, tr, br)
-
-Sets the margins of the document, Qt::DockLeft(lr), Qt::DockRight(rr), Qt::DockTop(tr) and Qt::DockBottom(br)
-margins are given in the measurement units of the document - see UNIT_&lt;type&gt;
-constants.
-</source>
-        <translation type="obsolete">setMargins(lr, rr, tr, br)
-
-Sets the margins of the document, Qt::DockLeft(lr), Qt::DockRight(rr), Qt::DockTop(tr) and Qt::DockBottom(br)
-margins are given in the measurement units of the document - see UNIT_&lt;type&gt;
-constants.
-</translation>
-    </message>
-    <message>
-        <source>setUnit(type)
-
-Changes the measurement unit of the document. Possible values for &quot;unit&quot; are
-defined as constants UNIT_&lt;type&gt;.
-
-May raise ValueError if an invalid unit is passed.
-</source>
-        <translation type="obsolete">setUnit(type)
-
-Changes the measurement unit of the document. Possible values for &quot;unit&quot; are
-defined as constants UNIT_&lt;type&gt;.
-
-May raise ValueError if an invalid unit is passed.
-</translation>
-    </message>
-    <message>
-        <source>getUnit() -&gt; integer (Scribus unit constant)
-
-Returns the measurement units of the document. The returned value will be one
-of the UNIT_* constants:
-UNIT_INCHES, UNIT_MILLIMETERS, UNIT_PICAS, UNIT_POINTS.
-</source>
-        <translation type="obsolete">getUnit() -&gt; integer (Scribus unit constant)
-
-Returns the measurement units of the document. The returned value will be one
-of the UNIT_* constants:
-UNIT_INCHES, UNIT_MILLIMETERS, UNIT_PICAS, UNIT_POINTS.
-</translation>
-    </message>
-    <message>
-        <source>loadStylesFromFile(&quot;filename&quot;)
-
-Loads paragraph styles from the Scribus document at &quot;filename&quot; into the
-current document.
-</source>
-        <translation type="obsolete">loadStylesFromFile(&quot;filename&quot;)
-
-Loads paragraph styles from the Scribus document at &quot;filename&quot; into the
-current document.
-</translation>
-    </message>
-    <message>
-        <source>setDocType(facingPages, firstPageLeft)
-
-Sets the document type. To get facing pages set the first parameter to
-FACINGPAGES, to switch facingPages off use NOFACINGPAGES instead.  If you want
-to be the first page a left side set the second parameter to FIRSTPAGELEFT, for
-a right page use FIRSTPAGERIGHT.
-</source>
-        <translation type="obsolete">setDocType(facingPages, firstPageLeft)
-
-Sets the document type. To get facing pages set the first parameter to
-FACINGPAGES, to switch facingPages off use NOFACINGPAGES instead.  If you want
-to be the first page a left side set the second parameter to FIRSTPAGELEFT, for
-a right page use FIRSTPAGERIGHT.
-</translation>
-    </message>
-    <message>
-        <source>closeMasterPage()
-
-Closes the currently active master page, if any, and returns editing
-to normal. Begin editing with editMasterPage().
-</source>
-        <translation type="obsolete">closeMasterPage()
-
-Closes the currently active master page, if any, and returns editing
-to normal. Begin editing with editMasterPage().
-</translation>
-    </message>
-    <message>
-        <source>masterPageNames()
-
-Returns a list of the names of all master pages in the document.
-</source>
-        <translation type="obsolete">masterPageNames()
-
-Returns a list of the names of all master pages in the document.
-</translation>
-    </message>
-    <message>
-        <source>editMasterPage(pageName)
-
-Enables master page editing and opens the named master page
-for editing. Finish editing with closeMasterPage().
-</source>
-        <translation type="obsolete">editMasterPage(pageName)
-
-Enables master page editing and opens the named master page
-for editing. Finish editing with closeMasterPage().
-</translation>
-    </message>
-    <message>
-        <source>createMasterPage(pageName)
-
-Creates a new master page named pageName and opens it for
-editing.
-</source>
-        <translation type="obsolete">createMasterPage(pageName)
-
-Creates a new master page named pageName and opens it for
-editing.
-</translation>
-    </message>
-    <message>
-        <source>deleteMasterPage(pageName)
-
-Delete the named master page.
-</source>
-        <translation type="obsolete">deleteMasterPage(pageName)
-
-Delete the named master page.
-</translation>
-    </message>
-    <message>
-        <source>getObjectType([&quot;name&quot;]) -&gt; string
-
-Get type of object &quot;name&quot; as a string.
-</source>
-        <translation type="obsolete">getObjectType([&quot;name&quot;]) -&gt; string
-
-Get type of object &quot;name&quot; as a string.
-</translation>
-    </message>
-    <message>
-        <source>getFillColor([&quot;name&quot;]) -&gt; string
-
-Returns the name of the fill color of the object &quot;name&quot;.
-If &quot;name&quot; is not given the currently selected item is used.
-</source>
-        <translation type="obsolete">getFillColor([&quot;name&quot;]) -&gt; string
-
-Returns the name of the fill colour of the object &quot;name&quot;.
-If &quot;name&quot; is not given the currently selected item is used.
-</translation>
-    </message>
-    <message>
-        <source>getFillTransparency([&quot;name&quot;]) -&gt; float
-
-Returns the fill transparency of the object &quot;name&quot;. If &quot;name&quot;
-is not given the currently selected Item is used.
-</source>
-        <translation type="obsolete">getFillTransparency([&quot;name&quot;]) -&gt; float
-
-Returns the fill transparency of the object &quot;name&quot;. If &quot;name&quot;
-is not given the currently selected Item is used.
-</translation>
-    </message>
-    <message>
-        <source>getFillBlendmode([&quot;name&quot;]) -&gt; integer
-
-Returns the fill blendmode of the object &quot;name&quot;. If &quot;name&quot;
-is not given the currently selected Item is used.
-</source>
-        <translation type="obsolete">getFillBlendmode([&quot;name&quot;]) -&gt; integer
-
-Returns the fill blendmode of the object &quot;name&quot;. If &quot;name&quot;
-is not given the currently selected Item is used.
-</translation>
-    </message>
-    <message>
-        <source>getLineColor([&quot;name&quot;]) -&gt; string
-
-Returns the name of the line color of the object &quot;name&quot;.
-If &quot;name&quot; is not given the currently selected item is used.
-</source>
-        <translation type="obsolete">getLineColor([&quot;name&quot;]) -&gt; string
-
-Returns the name of the line colour of the object &quot;name&quot;.
-If &quot;name&quot; is not given the currently selected item is used.
-</translation>
-    </message>
-    <message>
-        <source>getLineTransparency([&quot;name&quot;]) -&gt; float
-
-Returns the line transparency of the object &quot;name&quot;. If &quot;name&quot;
-is not given the currently selected Item is used.
-</source>
-        <translation type="obsolete">getLineTransparency([&quot;name&quot;]) -&gt; float
-
-Returns the line transparency of the object &quot;name&quot;. If &quot;name&quot;
-is not given the currently selected Item is used.
-</translation>
-    </message>
-    <message>
-        <source>getLineBlendmode([&quot;name&quot;]) -&gt; integer
-
-Returns the line blendmode of the object &quot;name&quot;. If &quot;name&quot;
-is not given the currently selected Item is used.
-</source>
-        <translation type="obsolete">getLineBlendmode([&quot;name&quot;]) -&gt; integer
-
-Returns the line blendmode of the object &quot;name&quot;. If &quot;name&quot;
-is not given the currently selected Item is used.
-</translation>
-    </message>
-    <message>
-        <source>getLineWidth([&quot;name&quot;]) -&gt; integer
-
-Returns the line width of the object &quot;name&quot;. If &quot;name&quot;
-is not given the currently selected Item is used.
-</source>
-        <translation type="obsolete">getLineWidth([&quot;name&quot;]) -&gt; integer
-
-Returns the line width of the object &quot;name&quot;. If &quot;name&quot;
-is not given the currently selected Item is used.
-</translation>
-    </message>
-    <message>
-        <source>getLineShade([&quot;name&quot;]) -&gt; integer
-
-Returns the shading value of the line color of the object &quot;name&quot;.
-If &quot;name&quot; is not given the currently selected item is used.
-</source>
-        <translation type="obsolete">getLineShade([&quot;name&quot;]) -&gt; integer
-
-Returns the shading value of the line colour of the object &quot;name&quot;.
-If &quot;name&quot; is not given the currently selected item is used.
-</translation>
-    </message>
-    <message>
-        <source>getLineJoin([&quot;name&quot;]) -&gt; integer (see constants)
-
-Returns the line join style of the object &quot;name&quot;. If &quot;name&quot; is not given
-the currently selected item is used.  The join types are:
-JOIN_BEVEL, JOIN_MITTER, JOIN_ROUND
-</source>
-        <translation type="obsolete">getLineJoin([&quot;name&quot;]) -&gt; integer (see constants)
-
-Returns the line join style of the object &quot;name&quot;. If &quot;name&quot; is not given
-the currently selected item is used.  The join types are:
-JOIN_BEVEL, JOIN_MITTER, JOIN_ROUND
-</translation>
-    </message>
-    <message>
-        <source>getLineEnd([&quot;name&quot;]) -&gt; integer (see constants)
-
-Returns the line cap style of the object &quot;name&quot;. If &quot;name&quot; is not given the
-currently selected item is used. The cap types are:
-CAP_FLAT, CAP_ROUND, CAP_SQUARE
-</source>
-        <translation type="obsolete">getLineEnd([&quot;name&quot;]) -&gt; integer (see constants)
-
-Returns the line cap style of the object &quot;name&quot;. If &quot;name&quot; is not given the
-currently selected item is used. The cap types are:
-CAP_FLAT, CAP_ROUND, CAP_SQUARE
-</translation>
-    </message>
-    <message>
-        <source>getLineStyle([&quot;name&quot;]) -&gt; integer (see constants)
-
-Returns the line style of the object &quot;name&quot;. If &quot;name&quot; is not given the
-currently selected item is used. Line style constants are:
-LINE_DASH, LINE_DASHDOT, LINE_DASHDOTDOT, LINE_DOT, LINE_SOLID
-</source>
-        <translation type="obsolete">getLineStyle([&quot;name&quot;]) -&gt; integer (see constants)
-
-Returns the line style of the object &quot;name&quot;. If &quot;name&quot; is not given the
-currently selected item is used. Line style constants are:
-LINE_DASH, LINE_DASHDOT, LINE_DASHDOTDOT, LINE_DOT, LINE_SOLID
-</translation>
-    </message>
-    <message>
-        <source>getFillShade([&quot;name&quot;]) -&gt; integer
-
-Returns the shading value of the fill color of the object &quot;name&quot;.
-If &quot;name&quot; is not given the currently selected item is used.
-</source>
-        <translation type="obsolete">getFillShade([&quot;name&quot;]) -&gt; integer
-
-Returns the shading value of the fill colour of the object &quot;name&quot;.
-If &quot;name&quot; is not given the currently selected item is used.
-</translation>
-    </message>
-    <message>
-        <source>getCornerRadius([&quot;name&quot;]) -&gt; integer
-
-Returns the corner radius of the object &quot;name&quot;. The radius is
-expressed in points. If &quot;name&quot; is not given the currently
-selected item is used.
-</source>
-        <translation type="obsolete">getCornerRadius([&quot;name&quot;]) -&gt; integer
-
-Returns the corner radius of the object &quot;name&quot;. The radius is
-expressed in points. If &quot;name&quot; is not given the currently
-selected item is used.
-</translation>
-    </message>
-    <message>
-        <source>getImageScale([&quot;name&quot;]) -&gt; (x,y)
-
-Returns a (x, y) tuple containing the scaling values of the image frame
-&quot;name&quot;.  If &quot;name&quot; is not given the currently selected item is used.
-</source>
-        <translation type="obsolete">getImageScale([&quot;name&quot;]) -&gt; (x,y)
-
-Returns a (x, y) tuple containing the scaling values of the image frame
-&quot;name&quot;.  If &quot;name&quot; is not given the currently selected item is used.
-</translation>
-    </message>
-    <message>
-        <source>getImageName([&quot;name&quot;]) -&gt; string
-
-Returns the filename for the image in the image frame. If &quot;name&quot; is not
-given the currently selected item is used.
-</source>
-        <translation type="obsolete">getImageName([&quot;name&quot;]) -&gt; string
-
-Returns the filename for the image in the image frame. If &quot;name&quot; is not
-given the currently selected item is used.
-</translation>
-    </message>
-    <message>
-        <source>getPosition([&quot;name&quot;]) -&gt; (x,y)
-
-Returns a (x, y) tuple with the position of the object &quot;name&quot;.
-If &quot;name&quot; is not given the currently selected item is used.
-The position is expressed in the actual measurement unit of the document
-- see UNIT_&lt;type&gt; for reference.
-</source>
-        <translation type="obsolete">getPosition([&quot;name&quot;]) -&gt; (x,y)
-
-Returns a (x, y) tuple with the position of the object &quot;name&quot;.
-If &quot;name&quot; is not given the currently selected item is used.
-The position is expressed in the actual measurement unit of the document
-- see UNIT_&lt;type&gt; for reference.
-</translation>
-    </message>
-    <message>
-        <source>getSize([&quot;name&quot;]) -&gt; (width,height)
-
-Returns a (width, height) tuple with the size of the object &quot;name&quot;.
-If &quot;name&quot; is not given the currently selected item is used. The size is
-expressed in the current measurement unit of the document - see UNIT_&lt;type&gt;
-for reference.
-</source>
-        <translation type="obsolete">getSize([&quot;name&quot;]) -&gt; (width,height)
-
-Returns a (width, height) tuple with the size of the object &quot;name&quot;.
-If &quot;name&quot; is not given the currently selected item is used. The size is
-expressed in the current measurement unit of the document - see UNIT_&lt;type&gt;
-for reference.
-</translation>
-    </message>
-    <message>
-        <source>getRotation([&quot;name&quot;]) -&gt; integer
-
-Returns the rotation of the object &quot;name&quot;. The value is expressed in degrees,
-and clockwise is positive. If &quot;name&quot; is not given the currently selected item
-is used.
-</source>
-        <translation type="obsolete">getRotation([&quot;name&quot;]) -&gt; integer
-
-Returns the rotation of the object &quot;name&quot;. The value is expressed in degrees,
-and clockwise is positive. If &quot;name&quot; is not given the currently selected item
-is used.
-</translation>
-    </message>
-    <message>
-        <source>getAllObjects() -&gt; list
-
-Returns a list containing the names of all objects on the current page.
-</source>
-        <translation type="obsolete">getAllObjects() -&gt; list
-
-Returns a list containing the names of all objects on the current page.
-</translation>
-    </message>
-    <message>
-        <source>getPropertyCType(object, property, includesuper=True)
-
-Returns the name of the C type of `property&apos; of `object&apos;. See getProperty()
-for details of arguments.
-
-If `includesuper&apos; is true, search inherited properties too.
-</source>
-        <translation type="obsolete">getPropertyCType(object, property, includesuper=True)
-
-Returns the name of the C type of `property&apos; of `object&apos;. See getProperty()
-for details of arguments.
-
-If `includesuper&apos; is true, search inherited properties too.
-</translation>
-    </message>
-    <message>
-        <source>getPropertyNames(object, includesuper=True)
-
-Return a list of property names supported by `object&apos;.
-If `includesuper&apos; is true, return properties supported
-by parent classes as well.
-</source>
-        <translation type="obsolete">getPropertyNames(object, includesuper=True)
-
-Return a list of property names supported by `object&apos;.
-If `includesuper&apos; is true, return properties supported
-by parent classes as well.
-</translation>
-    </message>
-    <message>
-        <source>getProperty(object, property)
-
-Return the value of the property `property&apos; of the passed `object&apos;.
-
-The `object&apos; argument may be a string, in which case the named PageItem
-is searched for. It may also be a PyCObject, which may point to any
-C++ QObject instance.
-
-The `property&apos; argument must be a string, and is the name of the property
-to look up on `object&apos;.
-
-The return value varies depending on the type of the property.
-</source>
-        <translation type="obsolete">getProperty(object, property)
-
-Return the value of the property `property&apos; of the passed `object&apos;.
-
-The `object&apos; argument may be a string, in which case the named PageItem
-is searched for. It may also be a PyCObject, which may point to any
-C++ QObject instance.
-
-The `property&apos; argument must be a string, and is the name of the property
-to look up on `object&apos;.
-
-The return value varies depending on the type of the property.
-</translation>
-    </message>
-    <message>
-        <source>setProperty(object, property, value)
-
-Set `property&apos; of `object&apos; to `value&apos;. If `value&apos; cannot be converted to a type
-compatible with the type of `property&apos;, an exception is raised. An exception may
-also be raised if the underlying setter fails.
-
-See getProperty() for more information.
-</source>
-        <translation type="obsolete">setProperty(object, property, value)
-
-Set `property&apos; of `object&apos; to `value&apos;. If `value&apos; cannot be converted to a type
-compatible with the type of `property&apos;, an exception is raised. An exception may
-also be raised if the underlying setter fails.
-
-See getProperty() for more information.
-</translation>
-    </message>
-    <message>
-        <source>moveObject(dx, dy [, &quot;name&quot;])
-
-Moves the object &quot;name&quot; by dx and dy relative to its current position. The
-distances are expressed in the current measurement unit of the document (see
-UNIT constants). If &quot;name&quot; is not given the currently selected item is used.
-If the object &quot;name&quot; belongs to a group, the whole group is moved.
-</source>
-        <translation type="obsolete">moveObject(dx, dy [, &quot;name&quot;])
-
-Moves the object &quot;name&quot; by dx and dy relative to its current position. The
-distances are expressed in the current measurement unit of the document (see
-UNIT constants). If &quot;name&quot; is not given the currently selected item is used.
-If the object &quot;name&quot; belongs to a group, the whole group is moved.
-</translation>
-    </message>
-    <message>
-        <source>moveObjectAbs(x, y [, &quot;name&quot;])
-
-Moves the object &quot;name&quot; to a new location. The coordinates are expressed in
-the current measurement unit of the document (see UNIT constants).  If &quot;name&quot;
-is not given the currently selected item is used.  If the object &quot;name&quot;
-belongs to a group, the whole group is moved.
-</source>
-        <translation type="obsolete">moveObjectAbs(x, y [, &quot;name&quot;])
-
-Moves the object &quot;name&quot; to a new location. The coordinates are expressed in
-the current measurement unit of the document (see UNIT constants).  If &quot;name&quot;
-is not given the currently selected item is used.  If the object &quot;name&quot;
-belongs to a group, the whole group is moved.
-</translation>
-    </message>
-    <message>
-        <source>rotateObject(rot [, &quot;name&quot;])
-
-Rotates the object &quot;name&quot; by &quot;rot&quot; degrees relatively. The object is
-rotated by the vertex that is currently selected as the rotation point - by
-default, the top left vertex at zero rotation. Positive values mean counter
-clockwise rotation when the default rotation point is used. If &quot;name&quot; is not
-given the currently selected item is used.
-</source>
-        <translation type="obsolete">rotateObject(rot [, &quot;name&quot;])
-
-Rotates the object &quot;name&quot; by &quot;rot&quot; degrees relatively. The object is
-rotated by the vertex that is currently selected as the rotation point - by
-default, the top left vertex at zero rotation. Positive values mean counter
-clockwise rotation when the default rotation point is used. If &quot;name&quot; is not
-given the currently selected item is used.
-</translation>
-    </message>
-    <message>
-        <source>rotateObjectAbs(rot [, &quot;name&quot;])
-
-Sets the rotation of the object &quot;name&quot; to &quot;rot&quot;. Positive values
-mean counter clockwise rotation. If &quot;name&quot; is not given the currently
-selected item is used.
-</source>
-        <translation type="obsolete">rotateObjectAbs(rot [, &quot;name&quot;])
-
-Sets the rotation of the object &quot;name&quot; to &quot;rot&quot;. Positive values
-mean counter clockwise rotation. If &quot;name&quot; is not given the currently
-selected item is used.
-</translation>
-    </message>
-    <message>
-        <source>sizeObject(width, height [, &quot;name&quot;])
-
-Resizes the object &quot;name&quot; to the given width and height. If &quot;name&quot;
-is not given the currently selected item is used.
-</source>
-        <translation type="obsolete">sizeObject(width, height [, &quot;name&quot;])
-
-Resizes the object &quot;name&quot; to the given width and height. If &quot;name&quot;
-is not given the currently selected item is used.
-</translation>
-    </message>
-    <message>
-        <source>getSelectedObject([nr]) -&gt; string
-
-Returns the name of the selected object. &quot;nr&quot; if given indicates the number
-of the selected object, e.g. 0 means the first selected object, 1 means the
-second selected Object and so on.
-</source>
-        <translation type="obsolete">getSelectedObject([nr]) -&gt; string
-
-Returns the name of the selected object. &quot;nr&quot; if given indicates the number
-of the selected object, e.g. 0 means the first selected object, 1 means the
-second selected Object and so on.
-</translation>
-    </message>
-    <message>
-        <source>selectionCount() -&gt; integer
-
-Returns the number of selected objects.
-</source>
-        <translation type="obsolete">selectionCount() -&gt; integer
-
-Returns the number of selected objects.
-</translation>
-    </message>
-    <message>
-        <source>selectObject(&quot;name&quot;)
-
-Selects the object with the given &quot;name&quot;.
-</source>
-        <translation type="obsolete">selectObject(&quot;name&quot;)
-
-Selects the object with the given &quot;name&quot;.
-</translation>
-    </message>
-    <message>
-        <source>deselectAll()
-
-Deselects all objects in the whole document.
-</source>
-        <translation type="obsolete">deselectAll()
-
-Deselects all objects in the whole document.
-</translation>
-    </message>
-    <message>
-        <source>groupObjects(list) -&gt; string
-
-Groups the objects named in &quot;list&quot; together. &quot;list&quot; must contain the names
-of the objects to be grouped. If &quot;list&quot; is not given the currently selected
-items are used. Returns the group name for further referencing.
-</source>
-        <translation type="obsolete">groupObjects(list) -&gt; string
-
-Groups the objects named in &quot;list&quot; together. &quot;list&quot; must contain the names
-of the objects to be grouped. If &quot;list&quot; is not given the currently selected
-items are used. Returns the group name for further referencing.
-</translation>
-    </message>
-    <message>
-        <source>setImageBrightness(n [, &quot;name&quot;])
-
-Set image brightness effect of the picture in the image frame &quot;name&quot;.
-If &quot;name&quot; is not given the currently selected item is used. A number of 1
-means 100 %. Brightness factor is equal to the value shown on properties palette.
-
-May raise WrongFrameTypeError if the target frame is not an image frame
-</source>
-        <translation type="obsolete">setImageBrightness(n [, &quot;name&quot;])
-
-Set image brightness effect of the picture in the image frame &quot;name&quot;.
-If &quot;name&quot; is not given the currently selected item is used. A number of 1
-means 100 %. Brightness factor is equal to the value shown on properties palette.
-
-May raise WrongFrameTypeError if the target frame is not an image frame
-</translation>
-    </message>
-    <message>
-        <source>setImageGrayscale([&quot;name&quot;])
-
-Set image grayscale effect of the picture in the image frame &quot;name&quot;.
-If &quot;name&quot; is not given the currently selected item is used.
-
-May raise WrongFrameTypeError if the target frame is not an image frame
-</source>
-        <translation type="obsolete">setImageGrayscale([&quot;name&quot;])
-
-Set image greyscale effect of the picture in the image frame &quot;name&quot;.
-If &quot;name&quot; is not given the currently selected item is used.
-
-May raise WrongFrameTypeError if the target frame is not an image frame
-</translation>
-    </message>
-    <message>
-        <source>groupObjects(list)
-
-Groups the objects named in &quot;list&quot; together. &quot;list&quot; must contain the names
-of the objects to be grouped. If &quot;list&quot; is not given the currently selected
-items are used.
-</source>
-        <translation type="obsolete">groupObjects(list)
-
-Groups the objects named in &quot;list&quot; together. &quot;list&quot; must contain the names
-of the objects to be grouped. If &quot;list&quot; is not given the currently selected
-items are used.
-</translation>
-    </message>
-    <message>
-        <source>unGroupObjects(&quot;name&quot;)
-
-Destructs the group the object &quot;name&quot; belongs to.If &quot;name&quot; is not given the currently selected item is used.</source>
-        <translation type="obsolete">unGroupObjects(&quot;name&quot;)
-
-Destructs the group the object &quot;name&quot; belongs to.If &quot;name&quot; is not given the currently selected item is used.</translation>
-    </message>
-    <message>
-        <source>scaleGroup(factor [,&quot;name&quot;])
-
-Scales the group the object &quot;name&quot; belongs to. Values greater than 1 enlarge
-the group, values smaller than 1 make the group smaller e.g a value of 0.5
-scales the group to 50 % of its original size, a value of 1.5 scales the group
-to 150 % of its original size.  The value for &quot;factor&quot; must be greater than
-0. If &quot;name&quot; is not given the currently selected item is used.
-
-May raise ValueError if an invalid scale factor is passed.
-</source>
-        <translation type="obsolete">scaleGroup(factor [,&quot;name&quot;])
-
-Scales the group the object &quot;name&quot; belongs to. Values greater than 1 enlarge
-the group, values smaller than 1 make the group smaller e.g a value of 0.5
-scales the group to 50 % of its original size, a value of 1.5 scales the group
-to 150 % of its original size.  The value for &quot;factor&quot; must be greater than
-0. If &quot;name&quot; is not given the currently selected item is used.
-
-May raise ValueError if an invalid scale factor is passed.
-</translation>
-    </message>
-    <message>
-        <source>loadImage(&quot;filename&quot; [, &quot;name&quot;])
-
-Loads the picture &quot;picture&quot; into the image frame &quot;name&quot;. If &quot;name&quot; is
-not given the currently selected item is used.
-
-May raise WrongFrameTypeError if the target frame is not an image frame
-</source>
-        <translation type="obsolete">loadImage(&quot;filename&quot; [, &quot;name&quot;])
-
-Loads the picture &quot;picture&quot; into the image frame &quot;name&quot;. If &quot;name&quot; is
-not given the currently selected item is used.
-
-May raise WrongFrameTypeError if the target frame is not an image frame
-</translation>
-    </message>
-    <message>
-        <source>scaleImage(x, y [, &quot;name&quot;])
-
-Sets the internal scaling factors of the picture in the image frame &quot;name&quot;.
-If &quot;name&quot; is not given the currently selected item is used. A number of 1
-means 100 %. Internal scaling factors are different from the values shown on 
-properties palette. Note : deprecated, use setImageScale() instead.
-
-May raise WrongFrameTypeError if the target frame is not an image frame
-</source>
-        <translation type="obsolete">scaleImage(x, y [, &quot;name&quot;])
-
-Sets the internal scaling factors of the picture in the image frame &quot;name&quot;.
-If &quot;name&quot; is not given the currently selected item is used. A number of 1
-means 100 %. Internal scaling factors are different from the values shown on 
-properties palette. Note : deprecated, use setImageScale() instead.
-
-May raise WrongFrameTypeError if the target frame is not an image frame
-</translation>
-    </message>
-    <message>
-        <source>setImageOffset(x, y [, &quot;name&quot;])
-
-Sets the position of the picture in the image frame &quot;name&quot;.
-If &quot;name&quot; is not given the currently selected item is used.
-The specified offset values are equal to the values shown on 
-properties palette when point unit is used.
-
-May raise WrongFrameTypeError if the target frame is not an image frame
-</source>
-        <translation type="obsolete">setImageOffset(x, y [, &quot;name&quot;])
-
-Sets the position of the picture in the image frame &quot;name&quot;.
-If &quot;name&quot; is not given the currently selected item is used.
-The specified offset values are equal to the values shown on 
-properties palette when point unit is used.
-
-May raise WrongFrameTypeError if the target frame is not an image frame
-</translation>
-    </message>
-    <message>
-        <source>setImageScale(x, y [, &quot;name&quot;])
-
-Sets the scaling factors of the picture in the image frame &quot;name&quot;.
-If &quot;name&quot; is not given the currently selected item is used. A number of 1
-means 100 %. Scaling factors are equal to the values shown on properties palette.
-
-May raise WrongFrameTypeError if the target frame is not an image frame
-</source>
-        <translation type="obsolete">setImageScale(x, y [, &quot;name&quot;])
-
-Sets the scaling factors of the picture in the image frame &quot;name&quot;.
-If &quot;name&quot; is not given the currently selected item is used. A number of 1
-means 100 %. Scaling factors are equal to the values shown on properties palette.
-
-May raise WrongFrameTypeError if the target frame is not an image frame
-</translation>
-    </message>
-    <message>
-        <source>scaleImage(x, y [, &quot;name&quot;])
-
-Sets the scaling factors of the picture in the image frame &quot;name&quot;.
-If &quot;name&quot; is not given the currently selected item is used. A number of 1
-means 100 %.
-
-May raise WrongFrameTypeError if the target frame is not an image frame
-</source>
-        <translation type="obsolete">scaleImage(x, y [, &quot;name&quot;])
-
-Sets the scaling factors of the picture in the image frame &quot;name&quot;.
-If &quot;name&quot; is not given the currently selected item is used. A number of 1
-means 100 %.
-
-May raise WrongFrameTypeError if the target frame is not an image frame
-</translation>
-    </message>
-    <message>
-        <source>lockObject([&quot;name&quot;]) -&gt; bool
-
-Locks the object &quot;name&quot; if it&apos;s unlocked or unlock it if it&apos;s locked.
-If &quot;name&quot; is not given the currently selected item is used. Returns true
-if locked.
-</source>
-        <translation type="obsolete">lockObject([&quot;name&quot;]) -&gt; bool
-
-Locks the object &quot;name&quot; if it&apos;s unlocked or unlock it if it&apos;s locked.
-If &quot;name&quot; is not given the currently selected item is used. Returns true
-if locked.
-</translation>
-    </message>
-    <message>
-        <source>isLocked([&quot;name&quot;]) -&gt; bool
-
-Returns true if is the object &quot;name&quot; locked.  If &quot;name&quot; is not given the
-currently selected item is used.
-</source>
-        <translation type="obsolete">isLocked([&quot;name&quot;]) -&gt; bool
-
-Returns true if is the object &quot;name&quot; locked.  If &quot;name&quot; is not given the
-currently selected item is used.
-</translation>
-    </message>
-    <message>
-        <source>setScaleImageToFrame(scaletoframe, proportional=None, name=&lt;selection&gt;)
-
-Sets the scale to frame on the selected or specified image frame to `scaletoframe&apos;.
-If `proportional&apos; is specified, set fixed aspect ratio scaling to `proportional&apos;.
-Both `scaletoframe&apos; and `proportional&apos; are boolean.
-
-May raise WrongFrameTypeError.
-</source>
-        <translation type="obsolete">setScaleImageToFrame(scaletoframe, proportional=None, name=&lt;selection&gt;)
-
-Sets the scale to frame on the selected or specified image frame to `scaletoframe&apos;.
-If `proportional&apos; is specified, set fixed aspect ratio scaling to `proportional&apos;.
-Both `scaletoframe&apos; and `proportional&apos; are boolean.
-
-May raise WrongFrameTypeError.
-</translation>
-    </message>
-    <message>
-        <source>setRedraw(bool)
-
-Disables page redraw when bool = False, otherwise redrawing is enabled.
-This change will persist even after the script exits, so make sure to call
-setRedraw(True) in a finally: clause at the top level of your script.
-</source>
-        <translation type="obsolete">setRedraw(bool)
-
-Disables page redraw when bool = False, otherwise redrawing is enabled.
-This change will persist even after the script exits, so make sure to call
-setRedraw(True) in a finally: clause at the top level of your script.
-</translation>
-    </message>
-    <message>
-        <source>getFontNames() -&gt; list
-
-Returns a list with the names of all available fonts.
-</source>
-        <translation type="obsolete">getFontNames() -&gt; list
-
-Returns a list with the names of all available fonts.
-</translation>
-    </message>
-    <message>
-        <source>getXFontNames() -&gt; list of tuples
-
-Returns a larger font info. It&apos;s a list of the tuples with:
-[ (Scribus name, Family, Real name, subset (1|0), embed PS (1|0), font file), (...), ... ]
-</source>
-        <translation type="obsolete">getXFontNames() -&gt; list of tuples
-
-Returns a larger font info. It&apos;s a list of the tuples with:
-[ (Scribus name, Family, Real name, subset (1|0), embed PS (1|0), font file), (...), ... ]
-</translation>
-    </message>
-    <message>
-        <source>renderFont(&quot;name&quot;, &quot;filename&quot;, &quot;sample&quot;, size, format=&quot;PPM&quot;) -&gt; bool
-
-Creates an image preview of font &quot;name&quot; with given text &quot;sample&quot; and size.
-If &quot;filename&quot; is not &quot;&quot;, image is saved into &quot;filename&quot;. Otherwise
-image data is returned as a string. The optional &quot;format&quot; argument
-specifies the image format to generate, and supports any format allowed
-by QPixmap.save(). Common formats are PPM, JPEG, PNG and XPM.
-
-May raise NotFoundError if the specified font can&apos;t be found.
-May raise ValueError if an empty sample or filename is passed.
-</source>
-        <translation type="obsolete">renderFont(&quot;name&quot;, &quot;filename&quot;, &quot;sample&quot;, size, format=&quot;PPM&quot;) -&gt; bool
-
-Creates an image preview of font &quot;name&quot; with given text &quot;sample&quot; and size.
-If &quot;filename&quot; is not &quot;&quot;, image is saved into &quot;filename&quot;. Otherwise
-image data is returned as a string. The optional &quot;format&quot; argument
-specifies the image format to generate, and supports any format allowed
-by QPixmap.save(). Common formats are PPM, JPEG, PNG and XPM.
-
-May raise NotFoundError if the specified font can&apos;t be found.
-May raise ValueError if an empty sample or filename is passed.
-</translation>
-    </message>
-    <message>
-        <source>getLayers() -&gt; list
-
-Returns a list with the names of all defined layers.
-</source>
-        <translation type="obsolete">getLayers() -&gt; list
-
-Returns a list with the names of all defined layers.
-</translation>
-    </message>
-    <message>
-        <source>setActiveLayer(&quot;name&quot;)
-
-Sets the active layer to the layer named &quot;name&quot;.
-
-May raise NotFoundError if the layer can&apos;t be found.
-May raise ValueError if the layer name isn&apos;t acceptable.
-</source>
-        <translation type="obsolete">setActiveLayer(&quot;name&quot;)
-
-Sets the active layer to the layer named &quot;name&quot;.
-
-May raise NotFoundError if the layer can&apos;t be found.
-May raise ValueError if the layer name isn&apos;t acceptable.
-</translation>
-    </message>
-    <message>
-        <source>getActiveLayer() -&gt; string
-
-Returns the name of the current active layer.
-</source>
-        <translation type="obsolete">getActiveLayer() -&gt; string
-
-Returns the name of the current active layer.
-</translation>
-    </message>
-    <message>
-        <source>sentToLayer(&quot;layer&quot; [, &quot;name&quot;])
-
-Sends the object &quot;name&quot; to the layer &quot;layer&quot;. The layer must exist.
-If &quot;name&quot; is not given the currently selected item is used.
-
-May raise NotFoundError if the layer can&apos;t be found.
-May raise ValueError if the layer name isn&apos;t acceptable.
-</source>
-        <translation type="obsolete">sentToLayer(&quot;layer&quot; [, &quot;name&quot;])
-
-Sends the object &quot;name&quot; to the layer &quot;layer&quot;. The layer must exist.
-If &quot;name&quot; is not given the currently selected item is used.
-
-May raise NotFoundError if the layer can&apos;t be found.
-May raise ValueError if the layer name isn&apos;t acceptable.
-</translation>
-    </message>
-    <message>
-        <source>setLayerVisible(&quot;layer&quot;, visible)
-
-Sets the layer &quot;layer&quot; to be visible or not. If is the visible set to false
-the layer is invisible.
-
-May raise NotFoundError if the layer can&apos;t be found.
-May raise ValueError if the layer name isn&apos;t acceptable.
-</source>
-        <translation type="obsolete">setLayerVisible(&quot;layer&quot;, visible)
-
-Sets the layer &quot;layer&quot; to be visible or not. If is the visible set to false
-the layer is invisible.
-
-May raise NotFoundError if the layer can&apos;t be found.
-May raise ValueError if the layer name isn&apos;t acceptable.
-</translation>
-    </message>
-    <message>
-        <source>setLayerPrintable(&quot;layer&quot;, printable)
-
-Sets the layer &quot;layer&quot; to be printable or not. If is the
-printable set to false the layer won&apos;t be printed.
-
-May raise NotFoundError if the layer can&apos;t be found.
-May raise ValueError if the layer name isn&apos;t acceptable.
-</source>
-        <translation type="obsolete">setLayerPrintable(&quot;layer&quot;, printable)
-
-Sets the layer &quot;layer&quot; to be printable or not. If is the
-printable set to false the layer won&apos;t be printed.
-
-May raise NotFoundError if the layer can&apos;t be found.
-May raise ValueError if the layer name isn&apos;t acceptable.
-</translation>
-    </message>
-    <message>
-        <source>setLayerLocked(&quot;layer&quot;, locked)
-
-Sets the layer &quot;layer&quot; to be locked or not. If locked is set to
-true the layer will be locked.
-
-May raise NotFoundError if the layer can&apos;t be found.
-May raise ValueError if the layer name isn&apos;t acceptable.
-</source>
-        <translation type="obsolete">setLayerLocked(&quot;layer&quot;, locked)
-
-Sets the layer &quot;layer&quot; to be locked or not. If locked is set to
-true the layer will be locked.
-
-May raise NotFoundError if the layer can&apos;t be found.
-May raise ValueError if the layer name isn&apos;t acceptable.
-</translation>
-    </message>
-    <message>
-        <source>setLayerOutlined(&quot;layer&quot;, outline)
-
-Sets the layer &quot;layer&quot; to be locked or not. If outline is set to
-true the layer will be displayed outlined.
-
-May raise NotFoundError if the layer can&apos;t be found.
-May raise ValueError if the layer name isn&apos;t acceptable.
-</source>
-        <translation type="obsolete">setLayerOutlined(&quot;layer&quot;, outline)
-
-Sets the layer &quot;layer&quot; to be locked or not. If outline is set to
-true the layer will be displayed outlined.
-
-May raise NotFoundError if the layer can&apos;t be found.
-May raise ValueError if the layer name isn&apos;t acceptable.
-</translation>
-    </message>
-    <message>
-        <source>setLayerFlow(&quot;layer&quot;, flow)
-
-Sets the layers &quot;layer&quot;  flowcontrol to flow. If flow is set to
-true text in layers above this one will flow around objects on this layer.
-
-May raise NotFoundError if the layer can&apos;t be found.
-May raise ValueError if the layer name isn&apos;t acceptable.
-</source>
-        <translation type="obsolete">setLayerFlow(&quot;layer&quot;, flow)
-
-Sets the layers &quot;layer&quot;  flowcontrol to flow. If flow is set to
-true text in layers above this one will flow around objects on this layer.
-
-May raise NotFoundError if the layer can&apos;t be found.
-May raise ValueError if the layer name isn&apos;t acceptable.
-</translation>
-    </message>
-    <message>
-        <source>setLayerBlendmode(&quot;layer&quot;, blend)
-
-Sets the layers &quot;layer&quot;  blendmode to blend.
-
-May raise NotFoundError if the layer can&apos;t be found.
-May raise ValueError if the layer name isn&apos;t acceptable.
-</source>
-        <translation type="obsolete">setLayerBlendmode(&quot;layer&quot;, blend)
-
-Sets the layers &quot;layer&quot;  blendmode to blend.
-
-May raise NotFoundError if the layer can&apos;t be found.
-May raise ValueError if the layer name isn&apos;t acceptable.
-</translation>
-    </message>
-    <message>
-        <source>setLayerTransparency(&quot;layer&quot;, trans)
-
-Sets the layers &quot;layer&quot;  transparency to trans.
-
-May raise NotFoundError if the layer can&apos;t be found.
-May raise ValueError if the layer name isn&apos;t acceptable.
-</source>
-        <translation type="obsolete">setLayerTransparency(&quot;layer&quot;, trans)
-
-Sets the layers &quot;layer&quot;  transparency to trans.
-
-May raise NotFoundError if the layer can&apos;t be found.
-May raise ValueError if the layer name isn&apos;t acceptable.
-</translation>
-    </message>
-    <message>
-        <source>isLayerVisible(&quot;layer&quot;) -&gt; bool
-
-Returns whether the layer &quot;layer&quot; is visible or not, a value of True means
-that the layer &quot;layer&quot; is visible, a value of False means that the layer
-&quot;layer&quot; is invisible.
-
-May raise NotFoundError if the layer can&apos;t be found.
-May raise ValueError if the layer name isn&apos;t acceptable.
-</source>
-        <translation type="obsolete">isLayerVisible(&quot;layer&quot;) -&gt; bool
-
-Returns whether the layer &quot;layer&quot; is visible or not, a value of True means
-that the layer &quot;layer&quot; is visible, a value of False means that the layer
-&quot;layer&quot; is invisible.
-
-May raise NotFoundError if the layer can&apos;t be found.
-May raise ValueError if the layer name isn&apos;t acceptable.
-</translation>
-    </message>
-    <message>
-        <source>isLayerPrintable(&quot;layer&quot;) -&gt; bool
-
-Returns whether the layer &quot;layer&quot; is printable or not, a value of True means
-that the layer &quot;layer&quot; can be printed, a value of False means that printing
-the layer &quot;layer&quot; is disabled.
-
-May raise NotFoundError if the layer can&apos;t be found.
-May raise ValueError if the layer name isn&apos;t acceptable.
-</source>
-        <translation type="obsolete">isLayerPrintable(&quot;layer&quot;) -&gt; bool
-
-Returns whether the layer &quot;layer&quot; is printable or not, a value of True means
-that the layer &quot;layer&quot; can be printed, a value of False means that printing
-the layer &quot;layer&quot; is disabled.
-
-May raise NotFoundError if the layer can&apos;t be found.
-May raise ValueError if the layer name isn&apos;t acceptable.
-</translation>
-    </message>
-    <message>
-        <source>isLayerLocked(&quot;layer&quot;) -&gt; bool
-
-Returns whether the layer &quot;layer&quot; is locked or not, a value of True means
-that the layer &quot;layer&quot; is editable, a value of False means that the layer
-&quot;layer&quot; is locked.
-
-May raise NotFoundError if the layer can&apos;t be found.
-May raise ValueError if the layer name isn&apos;t acceptable.
-</source>
-        <translation type="obsolete">isLayerLocked(&quot;layer&quot;) -&gt; bool
-
-Returns whether the layer &quot;layer&quot; is locked or not, a value of True means
-that the layer &quot;layer&quot; is editable, a value of False means that the layer
-&quot;layer&quot; is locked.
-
-May raise NotFoundError if the layer can&apos;t be found.
-May raise ValueError if the layer name isn&apos;t acceptable.
-</translation>
-    </message>
-    <message>
-        <source>isLayerOutlined(&quot;layer&quot;) -&gt; bool
-
-Returns whether the layer &quot;layer&quot; is outlined or not, a value of True means
-that the layer &quot;layer&quot; is outlined, a value of False means that the layer
-&quot;layer&quot; is normal.
-
-May raise NotFoundError if the layer can&apos;t be found.
-May raise ValueError if the layer name isn&apos;t acceptable.
-</source>
-        <translation type="obsolete">isLayerOutlined(&quot;layer&quot;) -&gt; bool
-
-Returns whether the layer &quot;layer&quot; is outlined or not, a value of True means
-that the layer &quot;layer&quot; is outlined, a value of False means that the layer
-&quot;layer&quot; is normal.
-
-May raise NotFoundError if the layer can&apos;t be found.
-May raise ValueError if the layer name isn&apos;t acceptable.
-</translation>
-    </message>
-    <message>
-        <source>isLayerFlow(&quot;layer&quot;) -&gt; bool
-
-Returns whether text flows around objects on layer &quot;layer&quot;, a value of True means
-that text flows around, a value of False means that the text does not flow around.
-
-May raise NotFoundError if the layer can&apos;t be found.
-May raise ValueError if the layer name isn&apos;t acceptable.
-</source>
-        <translation type="obsolete">isLayerFlow(&quot;layer&quot;) -&gt; bool
-
-Returns whether text flows around objects on layer &quot;layer&quot;, a value of True means
-that text flows around, a value of False means that the text does not flow around.
-
-May raise NotFoundError if the layer can&apos;t be found.
-May raise ValueError if the layer name isn&apos;t acceptable.
-</translation>
-    </message>
-    <message>
-        <source>getLayerBlendmode(&quot;layer&quot;) -&gt; int
-
-Returns the &quot;layer&quot; layer blendmode,
-
-May raise NotFoundError if the layer can&apos;t be found.
-May raise ValueError if the layer name isn&apos;t acceptable.
-</source>
-        <translation type="obsolete">getLayerBlendmode(&quot;layer&quot;) -&gt; int
-
-Returns the &quot;layer&quot; layer blendmode,
-
-May raise NotFoundError if the layer can&apos;t be found.
-May raise ValueError if the layer name isn&apos;t acceptable.
-</translation>
-    </message>
-    <message>
-        <source>getLayerTransparency(&quot;layer&quot;) -&gt; float
-
-Returns the &quot;layer&quot; layer transparency,
-
-May raise NotFoundError if the layer can&apos;t be found.
-May raise ValueError if the layer name isn&apos;t acceptable.
-</source>
-        <translation type="obsolete">getLayerTransparency(&quot;layer&quot;) -&gt; float
-
-Returns the &quot;layer&quot; layer transparency,
-
-May raise NotFoundError if the layer can&apos;t be found.
-May raise ValueError if the layer name isn&apos;t acceptable.
-</translation>
-    </message>
-    <message>
-        <source>deleteLayer(&quot;layer&quot;)
-
-Deletes the layer with the name &quot;layer&quot;. Nothing happens if the layer doesn&apos;t
-exists or if it&apos;s the only layer in the document.
-
-May raise NotFoundError if the layer can&apos;t be found.
-May raise ValueError if the layer name isn&apos;t acceptable.
-</source>
-        <translation type="obsolete">deleteLayer(&quot;layer&quot;)
-
-Deletes the layer with the name &quot;layer&quot;. Nothing happens if the layer doesn&apos;t
-exists or if it&apos;s the only layer in the document.
-
-May raise NotFoundError if the layer can&apos;t be found.
-May raise ValueError if the layer name isn&apos;t acceptable.
-</translation>
-    </message>
-    <message>
-        <source>createLayer(layer)
-
-Creates a new layer with the name &quot;name&quot;.
-
-May raise ValueError if the layer name isn&apos;t acceptable.
-</source>
-        <translation type="obsolete">createLayer(layer)
-
-Creates a new layer with the name &quot;name&quot;.
-
-May raise ValueError if the layer name isn&apos;t acceptable.
-</translation>
-    </message>
-    <message>
-        <source>getGuiLanguage() -&gt; string
-
-Returns a string with the -lang value.
-</source>
-        <translation type="obsolete">getGuiLanguage() -&gt; string
-
-Returns a string with the -lang value.
-</translation>
-    </message>
-    <message>
-        <source>moveSelectionToFront()
-
-Moves current selection to front.
-</source>
-        <translation type="obsolete">moveSelectionToFront()Moves current selection to front.</translation>
-    </message>
-    <message>
-        <source>moveSelectionToFront()
-
-Moves current selection to back.
-</source>
-        <translation type="obsolete">moveSelectionToFront()Moves current selection to back.</translation>
-    </message>
-    <message>
-        <source>createRect(x, y, width, height, [&quot;name&quot;]) -&gt; string
-
-Creates a new rectangle on the current page and returns its name. The
-coordinates are given in the current measurement units of the document
-(see UNIT constants). &quot;name&quot; should be a unique identifier for the object
-because you need this name to reference that object in future. If &quot;name&quot;
-is not given Scribus will create one for you.
-
-May raise NameExistsError if you explicitly pass a name that&apos;s already used.
-</source>
-        <translation type="obsolete">createRect(x, y, width, height, [&quot;name&quot;]) -&gt; string
-
-Creates a new rectangle on the current page and returns its name. The
-coordinates are given in the current measurement units of the document
-(see UNIT constants). &quot;name&quot; should be a unique identifier for the object
-because you need this name to reference that object in future. If &quot;name&quot;
-is not given Scribus will create one for you.
-
-May raise NameExistsError if you explicitly pass a name that&apos;s already used.
-</translation>
-    </message>
-    <message>
-        <source>createEllipse(x, y, width, height, [&quot;name&quot;]) -&gt; string
-
-Creates a new ellipse on the current page and returns its name.
-The coordinates are given in the current measurement units of the document
-(see UNIT constants). &quot;name&quot; should be a unique identifier for the object
-because you need this name for further referencing of that object. If &quot;name&quot;
-is not given Scribus will create one for you.
-
-May raise NameExistsError if you explicitly pass a name that&apos;s already used.
-</source>
-        <translation type="obsolete">createEllipse(x, y, width, height, [&quot;name&quot;]) -&gt; string
-
-Creates a new ellipse on the current page and returns its name.
-The coordinates are given in the current measurement units of the document
-(see UNIT constants). &quot;name&quot; should be a unique identifier for the object
-because you need this name for further referencing of that object. If &quot;name&quot;
-is not given Scribus will create one for you.
-
-May raise NameExistsError if you explicitly pass a name that&apos;s already used.
-</translation>
-    </message>
-    <message>
-        <source>createImage(x, y, width, height, [&quot;name&quot;]) -&gt; string
-
-Creates a new picture frame on the current page and returns its name. The
-coordinates are given in the current measurement units of the document.
-&quot;name&quot; should be a unique identifier for the object because you need this
-name for further access to that object. If &quot;name&quot; is not given Scribus will
-create one for you.
-
-May raise NameExistsError if you explicitly pass a name that&apos;s already used.
-</source>
-        <translation type="obsolete">createImage(x, y, width, height, [&quot;name&quot;]) -&gt; string
-
-Creates a new picture frame on the current page and returns its name. The
-coordinates are given in the current measurement units of the document.
-&quot;name&quot; should be a unique identifier for the object because you need this
-name for further access to that object. If &quot;name&quot; is not given Scribus will
-create one for you.
-
-May raise NameExistsError if you explicitly pass a name that&apos;s already used.
-</translation>
-    </message>
-    <message>
-        <source>createText(x, y, width, height, [&quot;name&quot;]) -&gt; string
-
-Creates a new text frame on the actual page and returns its name.
-The coordinates are given in the actual measurement unit of the document (see
-UNIT constants). &quot;name&quot; should be a unique identifier for the object because
-you need this name for further referencing of that object. If &quot;name&quot; is not
-given Scribus will create one for you.
-
-May raise NameExistsError if you explicitly pass a name that&apos;s already used.
-</source>
-        <translation type="obsolete">createText(x, y, width, height, [&quot;name&quot;]) -&gt; string
-
-Creates a new text frame on the actual page and returns its name.
-The coordinates are given in the actual measurement unit of the document (see
-UNIT constants). &quot;name&quot; should be a unique identifier for the object because
-you need this name for further referencing of that object. If &quot;name&quot; is not
-given Scribus will create one for you.
-
-May raise NameExistsError if you explicitly pass a name that&apos;s already used.
-</translation>
-    </message>
-    <message>
-        <source>createLine(x1, y1, x2, y2, [&quot;name&quot;]) -&gt; string
-
-Creates a new line from the point(x1, y1) to the point(x2, y2) and returns
-its name. The coordinates are given in the current measurement unit of the
-document (see UNIT constants). &quot;name&quot; should be a unique identifier for the
-object because you need this name for further access to that object. If
-&quot;name&quot; is not given Scribus will create one for you.
-
-May raise NameExistsError if you explicitly pass a name that&apos;s already used.
-</source>
-        <translation type="obsolete">createLine(x1, y1, x2, y2, [&quot;name&quot;]) -&gt; string
-
-Creates a new line from the point(x1, y1) to the point(x2, y2) and returns
-its name. The coordinates are given in the current measurement unit of the
-document (see UNIT constants). &quot;name&quot; should be a unique identifier for the
-object because you need this name for further access to that object. If
-&quot;name&quot; is not given Scribus will create one for you.
-
-May raise NameExistsError if you explicitly pass a name that&apos;s already used.
-</translation>
-    </message>
-    <message>
-        <source>createPolyLine(list, [&quot;name&quot;]) -&gt; string
-
-Creates a new polyline and returns its name. The points for the polyline are
-stored in the list &quot;list&quot; in the following order: [x1, y1, x2, y2...xn. yn].
-The coordinates are given in the current measurement units of the document (see
-UNIT constants). &quot;name&quot; should be a unique identifier for the object because
-you need this name for further access to that object. If &quot;name&quot; is not given
-Scribus will create one for you.
-
-May raise NameExistsError if you explicitly pass a name that&apos;s already used.
-May raise ValueError if an insufficient number of points is passed or if
-the number of values passed don&apos;t group into points without leftovers.
-</source>
-        <translation type="obsolete">createPolyLine(list, [&quot;name&quot;]) -&gt; string
-
-Creates a new polyline and returns its name. The points for the polyline are
-stored in the list &quot;list&quot; in the following order: [x1, y1, x2, y2...xn. yn].
-The coordinates are given in the current measurement units of the document (see
-UNIT constants). &quot;name&quot; should be a unique identifier for the object because
-you need this name for further access to that object. If &quot;name&quot; is not given
-Scribus will create one for you.
-
-May raise NameExistsError if you explicitly pass a name that&apos;s already used.
-May raise ValueError if an insufficient number of points is passed or if
-the number of values passed don&apos;t group into points without leftovers.
-</translation>
-    </message>
-    <message>
-        <source>createPolygon(list, [&quot;name&quot;]) -&gt; string
-
-Creates a new polygon and returns its name. The points for the polygon are
-stored in the list &quot;list&quot; in the following order: [x1, y1, x2, y2...xn. yn].
-At least three points are required. There is no need to repeat the first point
-to close the polygon. The polygon is automatically closed by connecting the
-first and the last point.  The coordinates are given in the current measurement
-units of the document (see UNIT constants).  &quot;name&quot; should be a unique
-identifier for the object because you need this name for further access to that
-object. If &quot;name&quot; is not given Scribus will create one for you.
-
-May raise NameExistsError if you explicitly pass a name that&apos;s already used.
-May raise ValueError if an insufficient number of points is passed or if
-the number of values passed don&apos;t group into points without leftovers.
-</source>
-        <translation type="obsolete">createPolygon(list, [&quot;name&quot;]) -&gt; string
-
-Creates a new polygon and returns its name. The points for the polygon are
-stored in the list &quot;list&quot; in the following order: [x1, y1, x2, y2...xn. yn].
-At least three points are required. There is no need to repeat the first point
-to close the polygon. The polygon is automatically closed by connecting the
-first and the last point.  The coordinates are given in the current measurement
-units of the document (see UNIT constants).  &quot;name&quot; should be a unique
-identifier for the object because you need this name for further access to that
-object. If &quot;name&quot; is not given Scribus will create one for you.
-
-May raise NameExistsError if you explicitly pass a name that&apos;s already used.
-May raise ValueError if an insufficient number of points is passed or if
-the number of values passed don&apos;t group into points without leftovers.
-</translation>
-    </message>
-    <message>
-        <source>createBezierLine(list, [&quot;name&quot;]) -&gt; string
-
-Creates a new bezier curve and returns its name. The points for the bezier
-curve are stored in the list &quot;list&quot; in the following order:
-[x1, y1, kx1, ky1, x2, y2, kx2, ky2...xn. yn, kxn. kyn]
-In the points list, x and y mean the x and y coordinates of the point and kx
-and ky meaning the control point for the curve.  The coordinates are given in
-the current measurement units of the document (see UNIT constants). &quot;name&quot;
-should be a unique identifier for the object because you need this name for
-further access to that object. If &quot;name&quot; is not given Scribus will create one
-for you.
-
-May raise NameExistsError if you explicitly pass a name that&apos;s already used.
-May raise ValueError if an insufficient number of points is passed or if
-the number of values passed don&apos;t group into points without leftovers.
-</source>
-        <translation type="obsolete">createBezierLine(list, [&quot;name&quot;]) -&gt; string
-
-Creates a new bezier curve and returns its name. The points for the bezier
-curve are stored in the list &quot;list&quot; in the following order:
-[x1, y1, kx1, ky1, x2, y2, kx2, ky2...xn. yn, kxn. kyn]
-In the points list, x and y mean the x and y coordinates of the point and kx
-and ky meaning the control point for the curve.  The coordinates are given in
-the current measurement units of the document (see UNIT constants). &quot;name&quot;
-should be a unique identifier for the object because you need this name for
-further access to that object. If &quot;name&quot; is not given Scribus will create one
-for you.
-
-May raise NameExistsError if you explicitly pass a name that&apos;s already used.
-May raise ValueError if an insufficient number of points is passed or if
-the number of values passed don&apos;t group into points without leftovers.
-</translation>
-    </message>
-    <message>
-        <source>createPathText(x, y, &quot;textbox&quot;, &quot;beziercurve&quot;, [&quot;name&quot;]) -&gt; string
-
-Creates a new pathText by merging the two objects &quot;textbox&quot; and
-&quot;beziercurve&quot; and returns its name. The coordinates are given in the current
-measurement unit of the document (see UNIT constants). &quot;name&quot; should be a
-unique identifier for the object because you need this name for further access
-to that object. If &quot;name&quot; is not given Scribus will create one for you.
-
-May raise NameExistsError if you explicitly pass a name that&apos;s already used.
-May raise NotFoundError if one or both of the named base object don&apos;t exist.
-</source>
-        <translation type="obsolete">createPathText(x, y, &quot;textbox&quot;, &quot;beziercurve&quot;, [&quot;name&quot;]) -&gt; string
-
-Creates a new pathText by merging the two objects &quot;textbox&quot; and
-&quot;beziercurve&quot; and returns its name. The coordinates are given in the current
-measurement unit of the document (see UNIT constants). &quot;name&quot; should be a
-unique identifier for the object because you need this name for further access
-to that object. If &quot;name&quot; is not given Scribus will create one for you.
-
-May raise NameExistsError if you explicitly pass a name that&apos;s already used.
-May raise NotFoundError if one or both of the named base object don&apos;t exist.
-</translation>
-    </message>
-    <message>
-        <source>deleteObject([&quot;name&quot;])
-
-Deletes the item with the name &quot;name&quot;. If &quot;name&quot; is not given the currently
-selected item is deleted.
-</source>
-        <translation type="obsolete">deleteObject([&quot;name&quot;])
-
-Deletes the item with the name &quot;name&quot;. If &quot;name&quot; is not given the currently
-selected item is deleted.
-</translation>
-    </message>
-    <message>
-        <source>textFlowMode(&quot;name&quot; [, state])
-
-Enables/disables &quot;Text Flows Around Frame&quot; feature for object &quot;name&quot;.
-Called with parameters string name and optional int &quot;state&quot; (0 &lt;= state &lt;= 3).
-Setting &quot;state&quot; to 0 will disable text flow.
-Setting &quot;state&quot; to 1 will make text flow around object frame.
-Setting &quot;state&quot; to 2 will make text flow around bounding box.
-Setting &quot;state&quot; to 3 will make text flow around contour line.
-If &quot;state&quot; is not passed, text flow is toggled.
-</source>
-        <translation type="obsolete">textFlowMode(&quot;name&quot; [, state])
-
-Enables/disables &quot;Text Flows Around Frame&quot; feature for object &quot;name&quot;.
-Called with parameters string name and optional int &quot;state&quot; (0 &lt;= state &lt;= 3).
-Setting &quot;state&quot; to 0 will disable text flow.
-Setting &quot;state&quot; to 1 will make text flow around object frame.
-Setting &quot;state&quot; to 2 will make text flow around bounding box.
-Setting &quot;state&quot; to 3 will make text flow around contour line.
-If &quot;state&quot; is not passed, text flow is toggled.
-</translation>
-    </message>
-    <message>
-        <source>objectExists([&quot;name&quot;]) -&gt; bool
-
-Test if an object with specified name really exists in the document.
-The optional parameter is the object name. When no object name is given,
-returns True if there is something selected.
-</source>
-        <translation type="obsolete">objectExists([&quot;name&quot;]) -&gt; bool
-
-Test if an object with specified name really exists in the document.
-The optional parameter is the object name. When no object name is given,
-returns True if there is something selected.
-</translation>
-    </message>
-    <message>
-        <source>setStyle(&quot;style&quot; [, &quot;name&quot;])
-
-Apply the named &quot;style&quot; to the object named &quot;name&quot;. If is no object name
-given, it&apos;s applied on the selected object.
-</source>
-        <translation type="obsolete">setStyle(&quot;style&quot; [, &quot;name&quot;])
-
-Apply the named &quot;style&quot; to the object named &quot;name&quot;. If is no object name
-given, it&apos;s applied on the selected object.
-</translation>
-    </message>
-    <message>
-        <source>getAllStyles() -&gt; list
-
-Return a list of the names of all paragraph styles in the current document.
-</source>
-        <translation type="obsolete">getAllStyles() -&gt; list
-
-Return a list of the names of all paragraph styles in the current document.
-</translation>
-    </message>
-    <message>
-        <source>duplicateObject([&quot;name&quot;]) -&gt; string
-
-creates a Duplicate of the selected Object (or Selection Group).
-</source>
-        <translation type="obsolete">duplicateObject([&quot;name&quot;]) -&gt; string
-
-creates a Duplicate of the selected Object (or Selection Group).
-</translation>
-    </message>
-    <message>
-        <source>newPage(where [,&quot;masterpage&quot;])
-
-Creates a new page. If &quot;where&quot; is -1 the new Page is appended to the
-document, otherwise the new page is inserted before &quot;where&quot;. Page numbers are
-counted from 1 upwards, no matter what the displayed first page number of your
-document is. The optional parameter &quot;masterpage&quot; specifies the name of the
-master page for the new page.
-
-May raise IndexError if the page number is out of range
-</source>
-        <translation type="obsolete">newPage(where [,&quot;masterpage&quot;])
-
-Creates a new page. If &quot;where&quot; is -1 the new Page is appended to the
-document, otherwise the new page is inserted before &quot;where&quot;. Page numbers are
-counted from 1 upwards, no matter what the displayed first page number of your
-document is. The optional parameter &quot;masterpage&quot; specifies the name of the
-master page for the new page.
-
-May raise IndexError if the page number is out of range
-</translation>
-    </message>
-    <message>
-        <source>currentPage() -&gt; integer
-
-Returns the number of the current working page. Page numbers are counted from 1
-upwards, no matter what the displayed first page number of your document is.
-</source>
-        <translation type="obsolete">currentPage() -&gt; integer
-
-Returns the number of the current working page. Page numbers are counted from 1
-upwards, no matter what the displayed first page number of your document is.
-</translation>
-    </message>
-    <message>
-        <source>redrawAll()
-
-Redraws all pages.
-</source>
-        <translation type="obsolete">redrawAll()
-
-Redraws all pages.
-</translation>
-    </message>
-    <message>
-        <source>getPageType() -&gt; integer
-
-Returns the type of the Page, 0 means left Page, 1 is a middle Page and 2 is a right Page
-</source>
-        <translation type="obsolete">getPageType() -&gt; integer
-
-Returns the type of the Page, 0 means left Page, 1 is a middle Page and 2 is a right Page
-</translation>
-    </message>
-    <message>
-        <source>savePageAsEPS(&quot;name&quot;)
-
-Saves the current page as an EPS to the file &quot;name&quot;.
-
-May raise ScribusError if the save failed.
-</source>
-        <translation type="obsolete">savePageAsEPS(&quot;name&quot;)
-
-Saves the current page as an EPS to the file &quot;name&quot;.
-
-May raise ScribusError if the save failed.
-</translation>
-    </message>
-    <message>
-        <source>deletePage(nr)
-
-Deletes the given page. Does nothing if the document contains only one page.
-Page numbers are counted from 1 upwards, no matter what the displayed first
-page number is.
-
-May raise IndexError if the page number is out of range
-</source>
-        <translation type="obsolete">deletePage(nr)
-
-Deletes the given page. Does nothing if the document contains only one page.
-Page numbers are counted from 1 upwards, no matter what the displayed first
-page number is.
-
-May raise IndexError if the page number is out of range
-</translation>
-    </message>
-    <message>
-        <source>gotoPage(nr)
-
-Moves to the page &quot;nr&quot; (that is, makes the current page &quot;nr&quot;). Note that
-gotoPage doesn&apos;t (currently) change the page the user&apos;s view is displaying, it
-just sets the page that script commands will operates on.
-
-May raise IndexError if the page number is out of range.
-</source>
-        <translation type="obsolete">gotoPage(nr)
-
-Moves to the page &quot;nr&quot; (that is, makes the current page &quot;nr&quot;). Note that
-gotoPage doesn&apos;t (currently) change the page the user&apos;s view is displaying, it
-just sets the page that script commands will operates on.
-
-May raise IndexError if the page number is out of range.
-</translation>
-    </message>
-    <message>
-        <source>pageCount() -&gt; integer
-
-Returns the number of pages in the document.
-</source>
-        <translation type="obsolete">pageCount() -&gt; integer
-
-Returns the number of pages in the document.
-</translation>
-    </message>
-    <message>
-        <source>getHGuides() -&gt; list
-
-Returns a list containing positions of the horizontal guides. Values are in the
-document&apos;s current units - see UNIT_&lt;type&gt; constants.
-</source>
-        <translation type="obsolete">getHGuides() -&gt; list
-
-Returns a list containing positions of the horizontal guides. Values are in the
-document&apos;s current units - see UNIT_&lt;type&gt; constants.
-</translation>
-    </message>
-    <message>
-        <source>setHGuides(list)
-
-Sets horizontal guides. Input parameter must be a list of guide positions
-measured in the current document units - see UNIT_&lt;type&gt; constants.
-
-Example: setHGuides(getHGuides() + [200.0, 210.0] # add new guides without any lost
-         setHGuides([90,250]) # replace current guides entirely
-</source>
-        <translation type="obsolete">setHGuides(list)
-
-Sets horizontal guides. Input parameter must be a list of guide positions
-measured in the current document units - see UNIT_&lt;type&gt; constants.
-
-Example: setHGuides(getHGuides() + [200.0, 210.0] # add new guides without any lost
-         setHGuides([90,250]) # replace current guides entirely
-</translation>
-    </message>
-    <message>
-        <source>getVGuides()
-
-See getHGuides.
-</source>
-        <translation type="obsolete">getVGuides()
-
-See getHGuides.
-</translation>
-    </message>
-    <message>
-        <source>setVGuides()
-
-See setHGuides.
-</source>
-        <translation type="obsolete">setVGuides()
-
-See setHGuides.
-</translation>
-    </message>
-    <message>
-        <source>getPageSize() -&gt; tuple
-
-Returns a tuple with page dimensions measured in the document&apos;s current units.
-See UNIT_&lt;type&gt; constants and getPageMargins()
-</source>
-        <translation type="obsolete">getPageSize() -&gt; tuple
-
-Returns a tuple with page dimensions measured in the document&apos;s current units.
-See UNIT_&lt;type&gt; constants and getPageMargins()
-</translation>
-    </message>
-    <message>
-        <source>getPageItems() -&gt; list
-
-Returns a list of tuples with items on the current page. The tuple is:
-(name, objectType, order) E.g. [(&apos;Text1&apos;, 4, 0), (&apos;Image1&apos;, 2, 1)]
-means that object named &apos;Text1&apos; is a text frame (type 4) and is the first at
-the page...
-</source>
-        <translation type="obsolete">getPageItems() -&gt; list
-
-Returns a list of tuples with items on the current page. The tuple is:
-(name, objectType, order) E.g. [(&apos;Text1&apos;, 4, 0), (&apos;Image1&apos;, 2, 1)]
-means that object named &apos;Text1&apos; is a text frame (type 4) and is the first at
-the page...
-</translation>
-    </message>
-    <message>
-        <source>getPageMargins()
-
-Returns the page margins as a (top, left, right, bottom) tuple in the current
-units. See UNIT_&lt;type&gt; constants and getPageSize().
-</source>
-        <translation type="obsolete">getPageMargins()
-
-Returns the page margins as a (top, left, right, bottom) tuple in the current
-units. See UNIT_&lt;type&gt; constants and getPageSize().
-</translation>
-    </message>
-    <message>
-        <source>importPage(&quot;fromDoc&quot;, (pageList), [create, imortwhere, importwherePage])
-
-Imports a set of pages (given as a tuple) from an existing document (the file name must be given). This functions maps the &quot;Page-&gt;Import&quot; dropdown menu function.
-fromDoc: string; the filename of the document to import pages from
-pageList: tuple with page numbers of pages to import
-create: number; 0 to replace existing pages, 1 (default) to insert new pages
-importWhere: number; the page number (of the current document) at which import the pages
-importWherePage: number; used if create==1; 0 to create pages before selected page; 1 to create pages after selected page; 2 (default) to create pages at the end of the document
-</source>
-        <translation type="obsolete">importPage(&quot;fromDoc&quot;, (pageList), [create, imortwhere, importwherePage])Imports a set of pages (given as a tuple) from an existing document (the file name must be given). This functions maps the &quot;Page-&gt;Import&quot; dropdown menu function.fromDoc: string; the filename of the document to import pages frompageList: tuple with page numbers of pages to importcreate: number; 0 to replace existing pages, 1 (default) to insert new pagesimportWhere: number; the page number (of the current document) at which import the pagesimportWherePage: number; used if create==1; 0 to create pages before selected page; 1 to create pages after selected page; 2 (default) to create pages at the end of the document</translation>
-    </message>
-    <message>
-        <source>setGradientFill(type, &quot;color1&quot;, shade1, &quot;color2&quot;, shade2, [&quot;name&quot;])
-
-Sets the gradient fill of the object &quot;name&quot; to type. Color descriptions are
-the same as for setFillColor() and setFillShade(). See the constants for
-available types (FILL_&lt;type&gt;).
-</source>
-        <translation type="obsolete">setGradientFill(type, &quot;colour1&quot;, shade1, &quot;colour2&quot;, shade2, [&quot;name&quot;])
-
-Sets the gradient fill of the object &quot;name&quot; to type. Colour descriptions are
-the same as for setFillColor() and setFillShade(). See the constants for
-available types (FILL_&lt;type&gt;).
-</translation>
-    </message>
-    <message>
-        <source>setFillColor(&quot;color&quot;, [&quot;name&quot;])
-
-Sets the fill color of the object &quot;name&quot; to the color &quot;color&quot;. &quot;color&quot;
-is the name of one of the defined colors. If &quot;name&quot; is not given the
-currently selected item is used.
-</source>
-        <translation type="obsolete">setFillColor(&quot;color&quot;, [&quot;name&quot;])
-
-Sets the fill colour of the object &quot;name&quot; to the colour &quot;color&quot;. &quot;color&quot;
-is the name of one of the defined colours. If &quot;name&quot; is not given the
-currently selected item is used.
-</translation>
-    </message>
-    <message>
-        <source>setFillTransparency(transparency, [&quot;name&quot;])
-
-Sets the fill transparency of the object &quot;name&quot; to transparency
-If &quot;name&quot; is not given the currently selected item is used.
-</source>
-        <translation type="obsolete">setFillTransparency(transparency, [&quot;name&quot;])
-
-Sets the fill transparency of the object &quot;name&quot; to transparency
-If &quot;name&quot; is not given the currently selected item is used.
-</translation>
-    </message>
-    <message>
-        <source>setFillBlendmode(blendmode, [&quot;name&quot;])
-
-Sets the fill blendmode of the object &quot;name&quot; to blendmode
-If &quot;name&quot; is not given the currently selected item is used.
-</source>
-        <translation type="obsolete">setFillBlendmode(blendmode, [&quot;name&quot;])
-
-Sets the fill blendmode of the object &quot;name&quot; to blendmode
-If &quot;name&quot; is not given the currently selected item is used.
-</translation>
-    </message>
-    <message>
-        <source>setLineColor(&quot;color&quot;, [&quot;name&quot;])
-
-Sets the line color of the object &quot;name&quot; to the color &quot;color&quot;. If &quot;name&quot;
-is not given the currently selected item is used.
-</source>
-        <translation type="obsolete">setLineColor(&quot;color&quot;, [&quot;name&quot;])
-
-Sets the line colour of the object &quot;name&quot; to the colour &quot;color&quot;. If &quot;name&quot;
-is not given the currently selected item is used.
-</translation>
-    </message>
-    <message>
-        <source>setLineTransparency(transparency, [&quot;name&quot;])
-
-Sets the line transparency of the object &quot;name&quot; to transparency
-If &quot;name&quot; is not given the currently selected item is used.
-</source>
-        <translation type="obsolete">setLineTransparency(transparency, [&quot;name&quot;])
-
-Sets the line transparency of the object &quot;name&quot; to transparency
-If &quot;name&quot; is not given the currently selected item is used.
-</translation>
-    </message>
-    <message>
-        <source>setLineBlendmode(blendmode, [&quot;name&quot;])
-
-Sets the line blendmode of the object &quot;name&quot; to blendmode
-If &quot;name&quot; is not given the currently selected item is used.
-</source>
-        <translation type="obsolete">setLineBlendmode(blendmode, [&quot;name&quot;])
-
-Sets the line blendmode of the object &quot;name&quot; to blendmode
-If &quot;name&quot; is not given the currently selected item is used.
-</translation>
-    </message>
-    <message>
-        <source>setLineWidth(width, [&quot;name&quot;])
-
-Sets line width of the object &quot;name&quot; to &quot;width&quot;. &quot;width&quot; must be in the
-range from 0.0 to 12.0 inclusive, and is measured in points. If &quot;name&quot; is not
-given the currently selected item is used.
-
-May raise ValueError if the line width is out of bounds.
-</source>
-        <translation type="obsolete">setLineWidth(width, [&quot;name&quot;])
-
-Sets line width of the object &quot;name&quot; to &quot;width&quot;. &quot;width&quot; must be in the
-range from 0.0 to 12.0 inclusive, and is measured in points. If &quot;name&quot; is not
-given the currently selected item is used.
-
-May raise ValueError if the line width is out of bounds.
-</translation>
-    </message>
-    <message>
-        <source>setLineShade(shade, [&quot;name&quot;])
-
-Sets the shading of the line color of the object &quot;name&quot; to &quot;shade&quot;.
-&quot;shade&quot; must be an integer value in the range from 0 (lightest) to 100
-(full color intensity). If &quot;name&quot; is not given the currently selected item
-is used.
-
-May raise ValueError if the line shade is out of bounds.
-</source>
-        <translation type="obsolete">setLineShade(shade, [&quot;name&quot;])
-
-Sets the shading of the line colour of the object &quot;name&quot; to &quot;shade&quot;.
-&quot;shade&quot; must be an integer value in the range from 0 (lightest) to 100
-(full colour intensity). If &quot;name&quot; is not given the currently selected item
-is used.
-
-May raise ValueError if the line shade is out of bounds.
-</translation>
-    </message>
-    <message>
-        <source>setLineJoin(join, [&quot;name&quot;])
-
-Sets the line join style of the object &quot;name&quot; to the style &quot;join&quot;.
-If &quot;name&quot; is not given the currently selected item is used. There are
-predefined constants for join - JOIN_&lt;type&gt;.
-</source>
-        <translation type="obsolete">setLineJoin(join, [&quot;name&quot;])
-
-Sets the line join style of the object &quot;name&quot; to the style &quot;join&quot;.
-If &quot;name&quot; is not given the currently selected item is used. There are
-predefined constants for join - JOIN_&lt;type&gt;.
-</translation>
-    </message>
-    <message>
-        <source>setLineEnd(endtype, [&quot;name&quot;])
-
-Sets the line cap style of the object &quot;name&quot; to the style &quot;cap&quot;.
-If &quot;name&quot; is not given the currently selected item is used. There are
-predefined constants for &quot;cap&quot; - CAP_&lt;type&gt;.
-</source>
-        <translation type="obsolete">setLineEnd(endtype, [&quot;name&quot;])
-
-Sets the line cap style of the object &quot;name&quot; to the style &quot;cap&quot;.
-If &quot;name&quot; is not given the currently selected item is used. There are
-predefined constants for &quot;cap&quot; - CAP_&lt;type&gt;.
-</translation>
-    </message>
-    <message>
-        <source>setLineStyle(style, [&quot;name&quot;])
-
-Sets the line style of the object &quot;name&quot; to the style &quot;style&quot;. If &quot;name&quot;
-is not given the currently selected item is used. There are predefined
-constants for &quot;style&quot; - LINE_&lt;style&gt;.
-</source>
-        <translation type="obsolete">setLineStyle(style, [&quot;name&quot;])
-
-Sets the line style of the object &quot;name&quot; to the style &quot;style&quot;. If &quot;name&quot;
-is not given the currently selected item is used. There are predefined
-constants for &quot;style&quot; - LINE_&lt;style&gt;.
-</translation>
-    </message>
-    <message>
-        <source>setFillShade(shade, [&quot;name&quot;])
-
-Sets the shading of the fill color of the object &quot;name&quot; to &quot;shade&quot;.
-&quot;shade&quot; must be an integer value in the range from 0 (lightest) to 100
-(full Color intensity). If &quot;name&quot; is not given the currently selected
-Item is used.
-
-May raise ValueError if the fill shade is out of bounds.
-</source>
-        <translation type="obsolete">setFillShade(shade, [&quot;name&quot;])
-
-Sets the shading of the fill colour of the object &quot;name&quot; to &quot;shade&quot;.
-&quot;shade&quot; must be an integer value in the range from 0 (lightest) to 100
-(full Colour intensity). If &quot;name&quot; is not given the currently selected
-Item is used.
-
-May raise ValueError if the fill shade is out of bounds.
-</translation>
-    </message>
-    <message>
-        <source>setCornerRadius(radius, [&quot;name&quot;])
-
-Sets the corner radius of the object &quot;name&quot;. The radius is expressed
-in points. If &quot;name&quot; is not given the currently selected item is used.
-
-May raise ValueError if the corner radius is negative.
-</source>
-        <translation type="obsolete">setCornerRadius(radius, [&quot;name&quot;])
-
-Sets the corner radius of the object &quot;name&quot;. The radius is expressed
-in points. If &quot;name&quot; is not given the currently selected item is used.
-
-May raise ValueError if the corner radius is negative.
-</translation>
-    </message>
-    <message>
-        <source>setMultiLine(&quot;namedStyle&quot;, [&quot;name&quot;])
-
-Sets the line style of the object &quot;name&quot; to the named style &quot;namedStyle&quot;.
-If &quot;name&quot; is not given the currently selected item is used.
-
-May raise NotFoundError if the line style doesn&apos;t exist.
-</source>
-        <translation type="obsolete">setMultiLine(&quot;namedStyle&quot;, [&quot;name&quot;])
-
-Sets the line style of the object &quot;name&quot; to the named style &quot;namedStyle&quot;.
-If &quot;name&quot; is not given the currently selected item is used.
-
-May raise NotFoundError if the line style doesn&apos;t exist.
-</translation>
-    </message>
-    <message>
-        <source>createParagraphStyle(...)
-
-Creates a paragraph style. This function takes the following keyword parameters:
-
-&quot;name&quot; [required] -&gt; specifies the name of the paragraphstyle to create
-
-linespacingmode [optional] -&gt; specifies the linespacing mode; possible modes are:
-
-fixed linespacing:          0
-
-automatic linespacing:      1
-
-baseline grid linespacing:  2
-
-linespacing [optional] -&gt; specifies the linespacing if using fixed linespacing
-
-alignment [optional] -&gt; specifies the alignment of the paragraph
-
--&gt; left:     0
-
--&gt; center:   1
-
--&gt; right:    2
-
--&gt; justify:  3
-
--&gt; extend:   4
-
-leftmargin [optional], rightmargin [optional] -&gt; specify the margin
-
-gapbefore [optional], gapafter [optional] -&gt; specify the gaps to the heading and following paragraphs
-
-firstindent [optional] -&gt; the indent of the first line
-
-hasdropcap [optional] -&gt; specifies if there are caps (1 = yes, 0 = no)
-
-dropcaplines [optional] -&gt; height (in lines) of the caps if used
-
-dropcapoffset [optional] -&gt; offset of the caps if used
-
-&quot;charstyle&quot; [optional] -&gt; char style to use
-
-</source>
-        <translation type="obsolete">createParagraphStyle(...)Creates a paragraph style. This function takes the following keyword parameters:&quot;name&quot; [required] -&gt; specifies the name of the paragraphstyle to createlinespacingmode [optional] -&gt; specifies the linespacing mode; possible modes are:fixed linespacing:          0automatic linespacing:      1baseline grid linespacing:  2linespacing [optional] -&gt; specifies the linespacing if using fixed linespacingalignment [optional] -&gt; specifies the alignment of the paragraph-&gt; left:     0-&gt; center:   1-&gt; right:    2-&gt; justify:  3-&gt; extend:   4leftmargin [optional], rightmargin [optional] -&gt; specify the margingapbefore [optional], gapafter [optional] -&gt; specify the gaps to the heading and following paragraphsfirstindent [optional] -&gt; the indent of the first linehasdropcap [optional] -&gt; specifies if there are caps (1 = yes, 0 = no)dropcaplines [optional] -&gt; height (in lines) of the caps if useddropcapoffset [optional] -&gt; offset of the caps if used&quot;charstyle&quot; [optional] -&gt; char style to use</translation>
-    </message>
-    <message>
-        <source>createCharStyle(...)
-
-Creates a character style. This function takes the following keyword parameters:
-
-&quot;name&quot; [required] -&gt; name of the char style to create
-
-&quot;font&quot; [optional] -&gt; name of the font to use
-
-fontsize [optional] -&gt; font size to set (double)
-
-&quot;features&quot; [optional] -&gt; nearer typographic details can be defined by a string that might contain the following phrases comma-seperated (without spaces!):
-
--&gt; inherit
-
--&gt; bold
-
--&gt; italic
-
--&gt; underline
-
--&gt; underlinewords
-
--&gt; strike
-
--&gt; superscript
-
--&gt; subscript
-
--&gt; outline
-
--&gt; shadowed
-
--&gt; allcaps
-
--&gt; smallcaps
-
-&quot;fillcolor&quot; [optional], &quot;fillshade&quot; [optional] -&gt; specify fill options
-
-&quot;strokecolor&quot; [optional], &quot;strokeshade&quot; [optional] -&gt; specify stroke options
-
-baselineoffset [optional] -&gt; offset of the baseline
-
-shadowxoffset [optional], shadowyoffset [optional] -&gt; offset of the shadow if used
-
-outlinewidth [optional] -&gt; width of the outline if used
-
-underlineoffset [optional], underlinewidth [optional] -&gt; underline options if used
-
-strikethruoffset [optional], strikethruwidth [optional] -&gt; strikethru options if used
-
-scaleh [optional], scalev [optional] -&gt; scale of the chars
-
-tracking [optional] -&gt; tracking of the text
-
-&quot;language&quot; [optional] -&gt; language code
-
-</source>
-        <translation type="obsolete">createCharStyle(...)Creates a character style. This function takes the following keyword parameters:&quot;name&quot; [required] -&gt; name of the char style to create&quot;font&quot; [optional] -&gt; name of the font to usefontsize [optional] -&gt; font size to set (double)&quot;features&quot; [optional] -&gt; nearer typographic details can be defined by a string that might contain the following phrases comma-seperated (without spaces!):-&gt; inherit-&gt; bold-&gt; italic-&gt; underline-&gt; underlinewords-&gt; strike-&gt; superscript-&gt; subscript-&gt; outline-&gt; shadowed-&gt; allcaps-&gt; smallcaps&quot;fillcolour&quot; [optional], &quot;fillshade&quot; [optional] -&gt; specify fill options&quot;strokecolour&quot; [optional], &quot;strokeshade&quot; [optional] -&gt; specify stroke optionsbaselineoffset [optional] -&gt; offset of the baselineshadowxoffset [optional], shadowyoffset [optional] -&gt; offset of the shadow if usedoutlinewidth [optional] -&gt; width of the outline if usedunderlineoffset [optional], underlinewidth [optional] -&gt; underline options if usedstrikethruoffset [optional], strikethruwidth [optional] -&gt; strikethru options if usedscaleh [optional], scalev [optional] -&gt; scale of the charstracking [optional] -&gt; tracking of the text&quot;language&quot; [optional] -&gt; language code</translation>
-    </message>
-    <message>
-        <source>getFontSize([&quot;name&quot;]) -&gt; float
-
-Returns the font size in points for the text frame &quot;name&quot;. If this text
-frame has some text selected the value assigned to the first character of
-the selection is returned.
-If &quot;name&quot; is not given the currently selected item is used.
-</source>
-        <translation type="obsolete">getFontSize([&quot;name&quot;]) -&gt; float
-
-Returns the font size in points for the text frame &quot;name&quot;. If this text
-frame has some text selected the value assigned to the first character of
-the selection is returned.
-If &quot;name&quot; is not given the currently selected item is used.
-</translation>
-    </message>
-    <message>
-        <source>getFont([&quot;name&quot;]) -&gt; string
-
-Returns the font name for the text frame &quot;name&quot;. If this text frame
-has some text selected the value assigned to the first character
-of the selection is returned. If &quot;name&quot; is not given the currently
-selected item is used.
-</source>
-        <translation type="obsolete">getFont([&quot;name&quot;]) -&gt; string
-
-Returns the font name for the text frame &quot;name&quot;. If this text frame
-has some text selected the value assigned to the first character
-of the selection is returned. If &quot;name&quot; is not given the currently
-selected item is used.
-</translation>
-    </message>
-    <message>
-        <source>getTextLength([&quot;name&quot;]) -&gt; integer
-
-Returns the length of the text in the text frame &quot;name&quot;.
-If &quot;name&quot; is not given the currently selected item is used.
-</source>
-        <translation type="obsolete">getTextLength([&quot;name&quot;]) -&gt; integer
-
-Returns the length of the text in the text frame &quot;name&quot;.
-If &quot;name&quot; is not given the currently selected item is used.
-</translation>
-    </message>
-    <message>
-        <source>getTextLines([&quot;name&quot;]) -&gt; integer
-
-Returns the number of lines of the text in the text frame &quot;name&quot;.
-If &quot;name&quot; is not given the currently selected item is used.
-</source>
-        <translation type="obsolete">getTextLines([&quot;name&quot;]) -&gt; integer
-
-Returns the number of lines of the text in the text frame &quot;name&quot;.
-If &quot;name&quot; is not given the currently selected item is used.
-</translation>
-    </message>
-    <message>
-        <source>getText([&quot;name&quot;]) -&gt; string
-
-Returns the text of the text frame &quot;name&quot;. If this text frame has some text
-selected, the selected text is returned. All text in the frame, not just
-currently visible text, is returned. If &quot;name&quot; is not given the currently
-selected item is used.
-</source>
-        <translation type="obsolete">getText([&quot;name&quot;]) -&gt; string
-
-Returns the text of the text frame &quot;name&quot;. If this text frame has some text
-selected, the selected text is returned. All text in the frame, not just
-currently visible text, is returned. If &quot;name&quot; is not given the currently
-selected item is used.
-</translation>
-    </message>
-    <message>
-        <source>getAllText([&quot;name&quot;]) -&gt; string
-
-Returns the text of the text frame &quot;name&quot; and of all text frames which are
-linked with this frame. If this textframe has some text selected, the selected
-text is returned. If &quot;name&quot; is not given the currently selected item is
-used.
-</source>
-        <translation type="obsolete">getAllText([&quot;name&quot;]) -&gt; string
-
-Returns the text of the text frame &quot;name&quot; and of all text frames which are
-linked with this frame. If this textframe has some text selected, the selected
-text is returned. If &quot;name&quot; is not given the currently selected item is
-used.
-</translation>
-    </message>
-    <message>
-        <source>getLineSpacing([&quot;name&quot;]) -&gt; float
-
-Returns the line spacing (&quot;leading&quot;) of the text frame &quot;name&quot; expressed in
-points. If &quot;name&quot; is not given the currently selected item is used.
-</source>
-        <translation type="obsolete">getLineSpacing([&quot;name&quot;]) -&gt; float
-
-Returns the line spacing (&quot;leading&quot;) of the text frame &quot;name&quot; expressed in
-points. If &quot;name&quot; is not given the currently selected item is used.
-</translation>
-    </message>
-    <message>
-        <source>getTextDistances([&quot;name&quot;]) -&gt; tuple
-
-Returns the text distances of the text frame &quot;name&quot; expressed in points. The
-distances are returned as a tuple like (left, right, top, bottom). If &quot;name&quot;
-is not given the currently selected item is used.
-</source>
-        <translation type="obsolete">getTextDistances([&quot;name&quot;]) -&gt; tupleReturns the text distances of the text frame &quot;name&quot; expressed in points. Thedistances are returned as a tuple like (left, right, top, bottom). If &quot;name&quot;is not given the currently selected item is used.</translation>
-    </message>
-    <message>
-        <source>getColumnGap([&quot;name&quot;]) -&gt; float
-
-Returns the column gap size of the text frame &quot;name&quot; expressed in points. If
-&quot;name&quot; is not given the currently selected item is used.
-</source>
-        <translation type="obsolete">getColumnGap([&quot;name&quot;]) -&gt; float
-
-Returns the column gap size of the text frame &quot;name&quot; expressed in points. If
-&quot;name&quot; is not given the currently selected item is used.
-</translation>
-    </message>
-    <message>
-        <source>getColumns([&quot;name&quot;]) -&gt; integer
-
-Gets the number of columns of the text frame &quot;name&quot;. If &quot;name&quot; is not
-given the currently selected item is used.
-</source>
-        <translation type="obsolete">getColumns([&quot;name&quot;]) -&gt; integer
-
-Gets the number of columns of the text frame &quot;name&quot;. If &quot;name&quot; is not
-given the currently selected item is used.
-</translation>
-    </message>
-    <message>
-        <source>setText(&quot;text&quot;, [&quot;name&quot;])
-
-Sets the text of the text frame &quot;name&quot; to the text of the string &quot;text&quot;.
-Text must be UTF8 encoded - use e.g. unicode(text, &apos;iso-8859-2&apos;). See the FAQ
-for more details. If &quot;name&quot; is not given the currently selected item is
-used.
-</source>
-        <translation type="obsolete">setText(&quot;text&quot;, [&quot;name&quot;])
-
-Sets the text of the text frame &quot;name&quot; to the text of the string &quot;text&quot;.
-Text must be UTF8 encoded - use e.g. unicode(text, &apos;iso-8859-2&apos;). See the FAQ
-for more details. If &quot;name&quot; is not given the currently selected item is
-used.
-</translation>
-    </message>
-    <message>
-        <source>insertText(&quot;text&quot;, pos, [&quot;name&quot;])
-
-Inserts the text &quot;text&quot; at the position &quot;pos&quot; into the text frame &quot;name&quot;.
-Text must be UTF encoded (see setText() as reference) The first character has an
-index of 0. Inserting text at position -1 appends it to the frame. If &quot;name&quot; is
-not given the currently selected Item is used.
-
-May throw IndexError for an insertion out of bounds.
-</source>
-        <translation type="obsolete">insertText(&quot;text&quot;, pos, [&quot;name&quot;])
-
-Inserts the text &quot;text&quot; at the position &quot;pos&quot; into the text frame &quot;name&quot;.
-Text must be UTF encoded (see setText() as reference) The first character has an
-index of 0. Inserting text at position -1 appends it to the frame. If &quot;name&quot; is
-not given the currently selected Item is used.
-
-May throw IndexError for an insertion out of bounds.
-</translation>
-    </message>
-    <message>
-        <source>setFont(&quot;font&quot;, [&quot;name&quot;])
-
-Sets the font of the text frame &quot;name&quot; to &quot;font&quot;. If there is some text
-selected only the selected text is changed.  If &quot;name&quot; is not given the
-currently selected item is used.
-
-May throw ValueError if the font cannot be found.
-</source>
-        <translation type="obsolete">setFont(&quot;font&quot;, [&quot;name&quot;])
-
-Sets the font of the text frame &quot;name&quot; to &quot;font&quot;. If there is some text
-selected only the selected text is changed.  If &quot;name&quot; is not given the
-currently selected item is used.
-
-May throw ValueError if the font cannot be found.
-</translation>
-    </message>
-    <message>
-        <source>setFontSize(size, [&quot;name&quot;])
-
-Sets the font size of the text frame &quot;name&quot; to &quot;size&quot;. &quot;size&quot; is treated
-as a value in points. If there is some text selected only the selected text is
-changed. &quot;size&quot; must be in the range 1 to 512. If &quot;name&quot; is not given the
-currently selected item is used.
-
-May throw ValueError for a font size that&apos;s out of bounds.
-</source>
-        <translation type="obsolete">setFontSize(size, [&quot;name&quot;])
-
-Sets the font size of the text frame &quot;name&quot; to &quot;size&quot;. &quot;size&quot; is treated
-as a value in points. If there is some text selected only the selected text is
-changed. &quot;size&quot; must be in the range 1 to 512. If &quot;name&quot; is not given the
-currently selected item is used.
-
-May throw ValueError for a font size that&apos;s out of bounds.
-</translation>
-    </message>
-    <message>
-        <source>setLineSpacing(size, [&quot;name&quot;])
-
-Sets the line spacing (&quot;leading&quot;) of the text frame &quot;name&quot; to &quot;size&quot;.
-&quot;size&quot; is a value in points. If &quot;name&quot; is not given the currently selected
-item is used.
-
-May throw ValueError if the line spacing is out of bounds.
-</source>
-        <translation type="obsolete">setLineSpacing(size, [&quot;name&quot;])
-
-Sets the line spacing (&quot;leading&quot;) of the text frame &quot;name&quot; to &quot;size&quot;.
-&quot;size&quot; is a value in points. If &quot;name&quot; is not given the currently selected
-item is used.
-
-May throw ValueError if the line spacing is out of bounds.
-</translation>
-    </message>
-    <message>
-        <source>setTextDistances(left, right, top, bottom, [&quot;name&quot;])
-
-Sets the text distances of the text frame &quot;name&quot; to the values &quot;left&quot;
-&quot;right&quot;, &quot;top&quot; and &quot;bottom&quot;. If &quot;name&quot; is not given the currently
-selected item is used.
-
-May throw ValueError if any of the distances are out of bounds (must be positive).
-</source>
-        <translation type="obsolete">setTextDistances(left, right, top, bottom, [&quot;name&quot;])Sets the text distances of the text frame &quot;name&quot; to the values &quot;left&quot;&quot;right&quot;, &quot;top&quot; and &quot;bottom&quot;. If &quot;name&quot; is not given the currentlyselected item is used.May throw ValueError if any of the distances are out of bounds (must be positive).</translation>
-    </message>
-    <message>
-        <source>setColumnGap(size, [&quot;name&quot;])
-
-Sets the column gap of the text frame &quot;name&quot; to the value &quot;size&quot;. If
-&quot;name&quot; is not given the currently selected item is used.
-
-May throw ValueError if the column gap is out of bounds (must be positive).
-</source>
-        <translation type="obsolete">setColumnGap(size, [&quot;name&quot;])
-
-Sets the column gap of the text frame &quot;name&quot; to the value &quot;size&quot;. If
-&quot;name&quot; is not given the currently selected item is used.
-
-May throw ValueError if the column gap is out of bounds (must be positive).
-</translation>
-    </message>
-    <message>
-        <source>setColumns(nr, [&quot;name&quot;])
-
-Sets the number of columns of the text frame &quot;name&quot; to the integer &quot;nr&quot;.
-If &quot;name&quot; is not given the currently selected item is used.
-
-May throw ValueError if number of columns is not at least one.
-</source>
-        <translation type="obsolete">setColumns(nr, [&quot;name&quot;])
-
-Sets the number of columns of the text frame &quot;name&quot; to the integer &quot;nr&quot;.
-If &quot;name&quot; is not given the currently selected item is used.
-
-May throw ValueError if number of columns is not at least one.
-</translation>
-    </message>
-    <message>
-        <source>setTextAlignment(align, [&quot;name&quot;])
-
-Sets the text alignment of the text frame &quot;name&quot; to the specified alignment.
-If &quot;name&quot; is not given the currently selected item is used. &quot;align&quot; should
-be one of the ALIGN_ constants defined in this module - see dir(scribus).
-
-May throw ValueError for an invalid alignment constant.
-</source>
-        <translation type="obsolete">setTextAlignment(align, [&quot;name&quot;])
-
-Sets the text alignment of the text frame &quot;name&quot; to the specified alignment.
-If &quot;name&quot; is not given the currently selected item is used. &quot;align&quot; should
-be one of the ALIGN_ constants defined in this module - see dir(scribus).
-
-May throw ValueError for an invalid alignment constant.
-</translation>
-    </message>
-    <message>
-        <source>selectText(start, count, [&quot;name&quot;])
-
-Selects &quot;count&quot; characters of text in the text frame &quot;name&quot; starting from the
-character &quot;start&quot;. Character counting starts at 0. If &quot;count&quot; is zero, any
-text selection will be cleared.  If &quot;name&quot; is not given the currently
-selected item is used.
-
-May throw IndexError if the selection is outside the bounds of the text.
-</source>
-        <translation type="obsolete">selectText(start, count, [&quot;name&quot;])
-
-Selects &quot;count&quot; characters of text in the text frame &quot;name&quot; starting from the
-character &quot;start&quot;. Character counting starts at 0. If &quot;count&quot; is zero, any
-text selection will be cleared.  If &quot;name&quot; is not given the currently
-selected item is used.
-
-May throw IndexError if the selection is outside the bounds of the text.
-</translation>
-    </message>
-    <message>
-        <source>deleteText([&quot;name&quot;])
-
-Deletes any text in the text frame &quot;name&quot;. If there is some text selected,
-only the selected text will be deleted. If &quot;name&quot; is not given the currently
-selected item is used.
-</source>
-        <translation type="obsolete">deleteText([&quot;name&quot;])
-
-Deletes any text in the text frame &quot;name&quot;. If there is some text selected,
-only the selected text will be deleted. If &quot;name&quot; is not given the currently
-selected item is used.
-</translation>
-    </message>
-    <message>
-        <source>setTextColor(&quot;color&quot;, [&quot;name&quot;])
-
-Sets the text color of the text frame &quot;name&quot; to the color &quot;color&quot;. If there
-is some text selected only the selected text is changed. If &quot;name&quot; is not
-given the currently selected item is used.
-</source>
-        <translation type="obsolete">setTextColor(&quot;color&quot;, [&quot;name&quot;])
-
-Sets the text colour of the text frame &quot;name&quot; to the colour &quot;color&quot;. If there
-is some text selected only the selected text is changed. If &quot;name&quot; is not
-given the currently selected item is used.
-</translation>
-    </message>
-    <message>
-        <source>setTextStroke(&quot;color&quot;, [&quot;name&quot;])
-
-Set &quot;color&quot; of the text stroke. If &quot;name&quot; is not given the currently
-selected item is used.
-</source>
-        <translation type="obsolete">setTextStroke(&quot;color&quot;, [&quot;name&quot;])
-
-Set &quot;color&quot; of the text stroke. If &quot;name&quot; is not given the currently
-selected item is used.
-</translation>
-    </message>
-    <message>
-        <source>setTextShade(shade, [&quot;name&quot;])
-
-Sets the shading of the text color of the object &quot;name&quot; to &quot;shade&quot;. If
-there is some text selected only the selected text is changed. &quot;shade&quot; must
-be an integer value in the range from 0 (lightest) to 100 (full color
-intensity). If &quot;name&quot; is not given the currently selected item is
-used.
-</source>
-        <translation type="obsolete">setTextShade(shade, [&quot;name&quot;])
-
-Sets the shading of the text colour of the object &quot;name&quot; to &quot;shade&quot;. If
-there is some text selected only the selected text is changed. &quot;shade&quot; must
-be an integer value in the range from 0 (lightest) to 100 (full colour
-intensity). If &quot;name&quot; is not given the currently selected item is
-used.
-</translation>
-    </message>
-    <message>
-        <source>linkTextFrames(&quot;fromname&quot;, &quot;toname&quot;)
-
-Link two text frames. The frame named &quot;fromname&quot; is linked to the
-frame named &quot;toname&quot;. The target frame must be an empty text frame
-and must not link to or be linked from any other frames already.
-
-May throw ScribusException if linking rules are violated.
-</source>
-        <translation type="obsolete">linkTextFrames(&quot;fromname&quot;, &quot;toname&quot;)
-
-Link two text frames. The frame named &quot;fromname&quot; is linked to the
-frame named &quot;toname&quot;. The target frame must be an empty text frame
-and must not link to or be linked from any other frames already.
-
-May throw ScribusException if linking rules are violated.
-</translation>
-    </message>
-    <message>
-        <source>unlinkTextFrames(&quot;name&quot;)
-
-Remove the specified (named) object from the text frame flow/linkage. If the
-frame was in the middle of a chain, the previous and next frames will be
-connected, eg &apos;a-&gt;b-&gt;c&apos; becomes &apos;a-&gt;c&apos; when you unlinkTextFrames(b)&apos;
-
-May throw ScribusException if linking rules are violated.
-</source>
-        <translation type="obsolete">unlinkTextFrames(&quot;name&quot;)
-
-Remove the specified (named) object from the text frame flow/linkage. If the
-frame was in the middle of a chain, the previous and next frames will be
-connected, eg &apos;a-&gt;b-&gt;c&apos; becomes &apos;a-&gt;c&apos; when you unlinkTextFrames(b)&apos;
-
-May throw ScribusException if linking rules are violated.
-</translation>
-    </message>
-    <message>
-        <source>traceText([&quot;name&quot;])
-
-Convert the text frame &quot;name&quot; to outlines. If &quot;name&quot; is not given the
-currently selected item is used.</source>
-        <translation type="obsolete">traceText([&quot;name&quot;])
-
-Convert the text frame &quot;name&quot; to outlines. If &quot;name&quot; is not given the
-currently selected item is used.</translation>
-    </message>
-    <message>
-        <source>textOverflows([&quot;name&quot;, nolinks]) -&gt; integer
-
-Returns the actual number of overflowing characters in text frame &quot;name&quot;.
-If is nolinks set to non zero value it takes only one frame - it doesn&apos;t
-use text frame linking. Without this parameter it search all linking chain.
-
-May raise WrongFrameTypeError if the target frame is not an text frame
-</source>
-        <translation type="obsolete">textOverflows([&quot;name&quot;, nolinks]) -&gt; integer
-
-Returns the actual number of overflowing characters in text frame &quot;name&quot;.
-If is nolinks set to non zero value it takes only one frame - it doesn&apos;t
-use text frame linking. Without this parameter it search all linking chain.
-
-May raise WrongFrameTypeError if the target frame is not an text frame
-</translation>
-    </message>
-    <message>
-        <source>hyphenateText([&quot;name&quot;]) -&gt; bool
-
-Does hyphenation on text frame &quot;name&quot;.
-If &quot;name&quot; is not given the currently selected item is used.
-
-May raise WrongFrameTypeError if the target frame is not a text frame
-</source>
-        <translation type="obsolete">hyphenateText([&quot;name&quot;]) -&gt; boolDoes hyphenation on text frame &quot;name&quot;.If &quot;name&quot; is not given the currently selected item is used.May raise WrongFrameTypeError if the target frame is not a text frame</translation>
-    </message>
-    <message>
-        <source>dehyphenateText([&quot;name&quot;]) -&gt; bool
-
-Does dehyphenation on text frame &quot;name&quot;.
-If &quot;name&quot; is not given the currently selected item is used.
-
-May raise WrongFrameTypeError if the target frame is not a text frame
-</source>
-        <translation type="obsolete">dehyphenateText([&quot;name&quot;]) -&gt; boolDoes dehyphenation on text frame &quot;name&quot;.If &quot;name&quot; is not given the currently selected item is used.May raise WrongFrameTypeError if the target frame is not a text frame</translation>
-    </message>
-    <message>
-        <source>setPDFBookmark(&quot;toggle&quot;, [&quot;name&quot;])
-
-Sets whether (toggle = 1) the text frame &quot;name&quot; is a bookmark nor not.
-If &quot;name&quot; is not given the currently selected item is used.
-
-May raise WrongFrameTypeError if the target frame is not a text frame
-</source>
-        <translation type="obsolete">setPDFBookmark(&quot;toggle&quot;, [&quot;name&quot;])
-
-Sets whether (toggle = 1) the text frame &quot;name&quot; is a bookmark nor not.
-If &quot;name&quot; is not given the currently selected item is used.
-
-May raise WrongFrameTypeError if the target frame is not a text frame
-</translation>
-    </message>
-    <message>
-        <source>isPDFBookmark([&quot;name&quot;]) -&gt; bool
-
-Returns true if the text frame &quot;name&quot; is a PDF bookmark.
-If &quot;name&quot; is not given the currently selected item is used.
-
-May raise WrongFrameTypeError if the target frame is not a text frame
-</source>
-        <translation type="obsolete">isPDFBookmark([&quot;name&quot;]) -&gt; bool
-
-Returns true if the text frame &quot;name&quot; is a PDF bookmark.
-If &quot;name&quot; is not given the currently selected item is used.
-
-May raise WrongFrameTypeError if the target frame is not a text frame
-</translation>
-    </message>
-    <message>
-        <source>messagebarText(&quot;string&quot;)
-
-Writes the &quot;string&quot; into the Scribus message bar (status line). The text
-must be UTF8 encoded or &apos;unicode&apos; string(recommended).
-</source>
-        <translation type="obsolete">messagebarText(&quot;string&quot;)
-
-Writes the &quot;string&quot; into the Scribus message bar (status line). The text
-must be UTF8 encoded or &apos;unicode&apos; string(recommended).
-</translation>
-    </message>
-    <message>
-        <source>progressReset()
-
-Cleans up the Scribus progress bar previous settings. It is called before the
-new progress bar use. See progressSet.
-</source>
-        <translation type="obsolete">progressReset()
-
-Cleans up the Scribus progress bar previous settings. It is called before the
-new progress bar use. See progressSet.
-</translation>
-    </message>
-    <message>
-        <source>progressTotal(max)
-
-Sets the progress bar&apos;s maximum steps value to the specified number.
-See progressSet.
-</source>
-        <translation type="obsolete">progressTotal(max)
-
-Sets the progress bar&apos;s maximum steps value to the specified number.
-See progressSet.
-</translation>
-    </message>
-    <message>
-        <source>progressSet(nr)
-
-Set the progress bar position to &quot;nr&quot;, a value relative to the previously set
-progressTotal. The progress bar uses the concept of steps; you give it the
-total number of steps and the number of steps completed so far and it will
-display the percentage of steps that have been completed. You can specify the
-total number of steps with progressTotal(). The current number of steps is set
-with progressSet(). The progress bar can be rewound to the beginning with
-progressReset(). [based on info taken from Trolltech&apos;s Qt docs]
-</source>
-        <translation type="obsolete">progressSet(nr)
-
-Set the progress bar position to &quot;nr&quot;, a value relative to the previously set
-progressTotal. The progress bar uses the concept of steps; you give it the
-total number of steps and the number of steps completed so far and it will
-display the percentage of steps that have been completed. You can specify the
-total number of steps with progressTotal(). The current number of steps is set
-with progressSet(). The progress bar can be rewound to the beginning with
-progressReset(). [based on info taken from Trolltech&apos;s Qt docs]
-</translation>
-    </message>
-    <message>
-        <source>setCursor()
-
-[UNSUPPORTED!] This might break things, so steer clear for now.
-</source>
-        <translation type="obsolete">setCursor()
-
-[UNSUPPORTED!] This might break things, so steer clear for now.
-</translation>
-    </message>
-    <message>
-        <source>docChanged(bool)
-
-Enable/disable save icon in the Scribus icon bar and the Save menu item. It&apos;s
-useful to call this procedure when you&apos;re changing the document, because Scribus
-won&apos;t automatically notice when you change the document using a script.
-</source>
-        <translation type="obsolete">docChanged(bool)
-
-Enable/disable save icon in the Scribus icon bar and the Save menu item. It&apos;s
-useful to call this procedure when you&apos;re changing the document, because Scribus
-won&apos;t automatically notice when you change the document using a script.
-</translation>
-    </message>
-    <message>
-        <source>zoomDocument(double)
-
-Zoom the document in main GUI window. Actions have whole number
-values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
-</source>
-        <translation type="obsolete">zoomDocument(double)
-
-Zoom the document in main GUI window. Actions have whole number
-values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
-</translation>
-    </message>
-    <message>
-        <source>scrollDocument(x,y)
-
-Scroll the document in main GUI window by x and y.
-</source>
-        <translation type="obsolete">scrollDocument(x,y)Scroll the document in main GUI window by x and y.</translation>
-    </message>
-    <message>
-        <source>placeVectorFile(&quot;filename&quot;, x, y)
-
-Places the Vectorgrapics &quot;filename&quot; onto the current page,
-x and y specify the coordinate of the topleft corner of the graphic placed on the page
-
-If loading was successful, the selection contains the imported grapic
-</source>
-        <translation type="obsolete">placeVectorFile(&quot;filename&quot;, x, y)
-
-Places the Vectorgrapics &quot;filename&quot; onto the current page,
-x and y specify the coordinate of the topleft corner of the graphic placed on the page
-
-If loading was successful, the selection contains the imported grapic
-</translation>
-    </message>
-    <message>
-        <source>placeSVG(&quot;filename&quot;, x, y)
-
-Places the SVG &quot;filename&quot; onto the current page,
-x and y specify the coordinate of the topleft corner of the SVG placed on the page
-
-If loading was successful, the selection contains the imported SVG
-</source>
-        <translation type="obsolete">placeSVG(&quot;filename&quot;, x, y)
-
-Places the SVG &quot;filename&quot; onto the current page,
-x and y specify the coordinate of the topleft corner of the SVG placed on the page
-
-If loading was successful, the selection contains the imported SVG
-</translation>
-    </message>
-    <message>
-        <source>placeEPS(&quot;filename&quot;, x, y)
-
-Places the EPS &quot;filename&quot; onto the current page,
-x and y specify the coordinate of the topleft corner of the EPS placed on the page
-
-If loading was successful, the selection contains the imported EPS
-</source>
-        <translation type="obsolete">placeEPS(&quot;filename&quot;, x, y)
-
-Places the EPS &quot;filename&quot; onto the current page,
-x and y specify the coordinate of the topleft corner of the EPS placed on the page
-
-If loading was successful, the selection contains the imported EPS
-</translation>
-    </message>
-    <message>
-        <source>placeSXD(&quot;filename&quot;, x, y)
-
-Places the SXD &quot;filename&quot; onto the current page,
-x and y specify the coordinate of the topleft corner of the SXD placed on the page
-
-If loading was successful, the selection contains the imported SXD
-</source>
-        <translation type="obsolete">placeSXD(&quot;filename&quot;, x, y)
-
-Places the SXD &quot;filename&quot; onto the current page,
-x and y specify the coordinate of the topleft corner of the SXD placed on the page
-
-If loading was successful, the selection contains the imported SXD
-</translation>
-    </message>
-    <message>
-        <source>placeODG(&quot;filename&quot;, x, y)
-
-Places the ODG &quot;filename&quot; onto the current page,
-x and y specify the coordinate of the topleft corner of the ODG placed on the page
-
-If loading was successful, the selection contains the imported ODG
-</source>
-        <translation type="obsolete">placeODG(&quot;filename&quot;, x, y)
-
-Places the ODG &quot;filename&quot; onto the current page,
-x and y specify the coordinate of the topleft corner of the ODG placed on the page
-
-If loading was successful, the selection contains the imported ODG
-</translation>
-    </message>
-</context>
-<context>
-    <name>@default</name>
-    <message>
-        <source>getColorNames() -&gt; list
-
-Returns a list containing the names of all defined colors in the document.
-If no document is open, returns a list of the default document colors.
-</source>
-        <translation type="obsolete">getColorNames() -&gt; list
-
-Returns a list containing the names of all defined colours in the document.
-If no document is open, returns a list of the default document colours.
-</translation>
-    </message>
-    <message>
-        <source>newDocDialog() -&gt; bool
-
-Displays the &quot;New Document&quot; dialog box. Creates a new document if the user
-accepts the settings. Does not create a document if the user presses cancel.
-Returns true if a new document was created.
-</source>
-        <translation type="obsolete">newDocDialog() -&gt; bool
-
-Displays the &quot;New Document&quot; dialog box. Creates a new document if the user
-accepts the settings. Does not create a document if the user presses cancel.
-Returns true if a new document was created.
-</translation>
-    </message>
-    <message>
-        <source>getFillColor([&quot;name&quot;]) -&gt; string
-
-Returns the name of the fill color of the object &quot;name&quot;.
-If &quot;name&quot; is not given the currently selected item is used.
-</source>
-        <translation type="obsolete">getFillColor([&quot;name&quot;]) -&gt; string
-
-Returns the name of the fill colour of the object &quot;name&quot;.
-If &quot;name&quot; is not given the currently selected item is used.
-</translation>
-    </message>
-    <message>
-        <source>moveObject(dx, dy [, &quot;name&quot;])
-
-Moves the object &quot;name&quot; by dx and dy relative to its current position. The
-distances are expressed in the current measurement unit of the document (see
-UNIT constants). If &quot;name&quot; is not given the currently selected item is used.
-If the object &quot;name&quot; belongs to a group, the whole group is moved.
-</source>
-        <translation type="obsolete">moveObject(dx, dy [, &quot;name&quot;])
-
-Moves the object &quot;name&quot; by dx and dy relative to its current position. The
-distances are expressed in the current measurement unit of the document (see
-UNIT constants). If &quot;name&quot; is not given the currently selected item is used.
-If the object &quot;name&quot; belongs to a group, the whole group is moved.
-</translation>
-    </message>
-    <message>
-        <source>setRedraw(bool)
-
-Disables page redraw when bool = False, otherwise redrawing is enabled.
-This change will persist even after the script exits, so make sure to call
-setRedraw(True) in a finally: clause at the top level of your script.
-</source>
-        <translation type="obsolete">setRedraw(bool)
-
-Disables page redraw when bool = False, otherwise redrawing is enabled.
-This change will persist even after the script exits, so make sure to call
-setRedraw(True) in a finally: clause at the top level of your script.
-</translation>
-    </message>
-    <message>
-        <source>createRect(x, y, width, height, [&quot;name&quot;]) -&gt; string
-
-Creates a new rectangle on the current page and returns its name. The
-coordinates are given in the current measurement units of the document
-(see UNIT constants). &quot;name&quot; should be a unique identifier for the object
-because you need this name to reference that object in future. If &quot;name&quot;
-is not given Scribus will create one for you.
-
-May raise NameExistsError if you explicitly pass a name that&apos;s already used.
-</source>
-        <translation type="obsolete">createRect(x, y, width, height, [&quot;name&quot;]) -&gt; string
-
-Creates a new rectangle on the current page and returns its name. The
-coordinates are given in the current measurement units of the document
-(see UNIT constants). &quot;name&quot; should be a unique identifier for the object
-because you need this name to reference that object in future. If &quot;name&quot;
-is not given Scribus will create one for you.
-
-May raise NameExistsError if you explicitly pass a name that&apos;s already used.
-</translation>
-    </message>
-    <message>
-        <source>newPage(where [,&quot;masterpage&quot;])
-
-Creates a new page. If &quot;where&quot; is -1 the new Page is appended to the
-document, otherwise the new page is inserted before &quot;where&quot;. Page numbers are
-counted from 1 upwards, no matter what the displayed first page number of your
-document is. The optional parameter &quot;masterpage&quot; specifies the name of the
-master page for the new page.
-
-May raise IndexError if the page number is out of range
-</source>
-        <translation type="obsolete">newPage(where [,&quot;masterpage&quot;])
-
-Creates a new page. If &quot;where&quot; is -1 the new Page is appended to the
-document, otherwise the new page is inserted before &quot;where&quot;. Page numbers are
-counted from 1 upwards, no matter what the displayed first page number of your
-document is. The optional parameter &quot;masterpage&quot; specifies the name of the
-master page for the new page.
-
-May raise IndexError if the page number is out of range
-</translation>
-    </message>
-    <message>
-        <source>setGradientFill(type, &quot;color1&quot;, shade1, &quot;color2&quot;, shade2, [&quot;name&quot;])
-
-Sets the gradient fill of the object &quot;name&quot; to type. Color descriptions are
-the same as for setFillColor() and setFillShade(). See the constants for
-available types (FILL_&lt;type&gt;).
-</source>
-        <translation type="obsolete">setGradientFill(type, &quot;colour1&quot;, shade1, &quot;colour2&quot;, shade2, [&quot;name&quot;])
-
-Sets the gradient fill of the object &quot;name&quot; to type. Colour descriptions are
-the same as for setFillColor() and setFillShade(). See the constants for
-available types (FILL_&lt;type&gt;).
-</translation>
-    </message>
-    <message>
-        <source>getFontSize([&quot;name&quot;]) -&gt; float
-
-Returns the font size in points for the text frame &quot;name&quot;. If this text
-frame has some text selected the value assigned to the first character of
-the selection is returned.
-If &quot;name&quot; is not given the currently selected item is used.
-</source>
-        <translation type="obsolete">getFontSize([&quot;name&quot;]) -&gt; float
-
-Returns the font size in points for the text frame &quot;name&quot;. If this text
-frame has some text selected the value assigned to the first character of
-the selection is returned.
-If &quot;name&quot; is not given the currently selected item is used.
-</translation>
-    </message>
-    <message>
-        <source>messagebarText(&quot;string&quot;)
-
-Writes the &quot;string&quot; into the Scribus message bar (status line). The text
-must be UTF8 encoded or &apos;unicode&apos; string(recommended).
-</source>
-        <translation type="obsolete">messagebarText(&quot;string&quot;)
-
-Writes the &quot;string&quot; into the Scribus message bar (status line). The text
-must be UTF8 encoded or &apos;unicode&apos; string(recommended).
-</translation>
-    </message>
-    <message>
-        <source>newDocument(size, margins, orientation, firstPageNumber,
-                        unit, pagesType, firstPageOrder, numPages) -&gt; bool
-
-Creates a new document and returns true if successful. The parameters have the
-following meaning:
-
-size = A tuple (width, height) describing the size of the document. You can
-use predefined constants named PAPER_&lt;paper_type&gt; e.g. PAPER_A4 etc.
-
-margins = A tuple (left, right, top, bottom) describing the document
-margins
-
-orientation = the page orientation - constants PORTRAIT, LANDSCAPE
-
-firstPageNumer = is the number of the first page in the document used for
-pagenumbering. While you&apos;ll usually want 1, it&apos;s useful to have higher
-numbers if you&apos;re creating a document in several parts.
-
-unit: this value sets the measurement units used by the document. Use a
-predefined constant for this, one of: UNIT_INCHES, UNIT_MILLIMETERS,
-UNIT_PICAS, UNIT_POINTS.
-
-pagesType = One of the predefined constants PAGE_n. PAGE_1 is single page,
-PAGE_2 is for double sided documents, PAGE_3 is for 3 pages fold and
-PAGE_4 is 4-fold.
-
-firstPageOrder = What is position of first page in the document.
-Indexed from 0 (0 = first).
-
-numPage = Number of pages to be created.
-
-The values for width, height and the margins are expressed in the given unit
-for the document. PAPER_* constants are expressed in points. If your document
-is not in points, make sure to account for this.
-
-example: newDocument(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 7, UNIT_POINTS,
-PAGE_4, 3, 1)
-
-May raise ScribusError if is firstPageOrder bigger than allowed by pagesType.
-</source>
-        <translation type="obsolete">newDocument(size, margins, orientation, firstPageNumber,
-                        unit, pagesType, firstPageOrder, numPages) -&gt; bool
-
-Creates a new document and returns true if successful. The parameters have the
-following meaning:
-
-size = A tuple (width, height) describing the size of the document. You can
-use predefined constants named PAPER_&lt;paper_type&gt; e.g. PAPER_A4 etc.
-
-margins = A tuple (left, right, top, bottom) describing the document
-margins
-
-orientation = the page orientation - constants PORTRAIT, LANDSCAPE
-
-firstPageNumer = is the number of the first page in the document used for
-pagenumbering. While you&apos;ll usually want 1, it&apos;s useful to have higher
-numbers if you&apos;re creating a document in several parts.
-
-unit: this value sets the measurement units used by the document. Use a
-predefined constant for this, one of: UNIT_INCHES, UNIT_MILLIMETERS,
-UNIT_PICAS, UNIT_POINTS.
-
-pagesType = One of the predefined constants PAGE_n. PAGE_1 is single page,
-PAGE_2 is for double sided documents, PAGE_3 is for 3 pages fold and
-PAGE_4 is 4-fold.
-
-firstPageOrder = What is position of first page in the document.
-Indexed from 0 (0 = first).
-
-numPage = Number of pages to be created.
-
-The values for width, height and the margins are expressed in the given unit
-for the document. PAPER_* constants are expressed in points. If your document
-is not in points, make sure to account for this.
-
-example: newDocument(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 7, UNIT_POINTS,
-PAGE_4, 3, 1)
-
-May raise ScribusError if is firstPageOrder bigger than allowed by pagesType.
-</translation>
-    </message>
-    <message>
-        <source>placeSVG(&quot;filename&quot;, x, y)
-
-Places the SVG &quot;filename&quot; onto the current page,
-x and y specify the coordinate of the topleft corner of the SVG placed on the page
-
-If loading was successful, the selection contains the imported SVG
-</source>
-        <translation type="obsolete">placeSVG(&quot;filename&quot;, x, y)
-
-Places the SVG &quot;filename&quot; onto the current page,
-x and y specify the coordinate of the topleft corner of the SVG placed on the page
-
-If loading was successful, the selection contains the imported SVG
-</translation>
-    </message>
-    <message>
-        <source>getColor(&quot;name&quot;) -&gt; tuple
-
-Returns a tuple (C, M, Y, K) containing the four color components of the
-color &quot;name&quot; from the current document. If no document is open, returns
-the value of the named color from the default document colors.
-
-May raise NotFoundError if the named color wasn&apos;t found.
-May raise ValueError if an invalid color name is specified.
-</source>
-        <translation type="obsolete">getColor(&quot;name&quot;) -&gt; tuple
-
-Returns a tuple (C, M, Y, K) containing the four colour components of the
-colour &quot;name&quot; from the current document. If no document is open, returns
-the value of the named colour from the default document colours.
-
-May raise NotFoundError if the named colour wasn&apos;t found.
-May raise ValueError if an invalid colour name is specified.
-</translation>
-    </message>
-    <message>
-        <source>getColorAsRGB(&quot;name&quot;) -&gt; tuple
-
-Returns a tuple (R,G,B) containing the three color components of the
-color &quot;name&quot; from the current document, converted to the RGB color
-space. If no document is open, returns the value of the named color
-from the default document colors.
-
-May raise NotFoundError if the named color wasn&apos;t found.
-May raise ValueError if an invalid color name is specified.
-</source>
-        <translation type="obsolete">getColorAsRGB(&quot;name&quot;) -&gt; tuple
-
-Returns a tuple (R,G,B) containing the three colour components of the
-colour &quot;name&quot; from the current document, converted to the RGB colour
-space. If no document is open, returns the value of the named colour
-from the default document colours.
-
-May raise NotFoundError if the named colour wasn&apos;t found.
-May raise ValueError if an invalid colour name is specified.
-</translation>
-    </message>
-    <message>
-        <source>changeColor(&quot;name&quot;, c, m, y, k)
-
-Changes the color &quot;name&quot; to the specified CMYK value. The color value is
-defined via four components c = Cyan, m = Magenta, y = Yellow and k = Black.
-Color components should be in the range from 0 to 255.
-
-May raise NotFoundError if the named color wasn&apos;t found.
-May raise ValueError if an invalid color name is specified.
-</source>
-        <translation type="obsolete">changeColour(&quot;name&quot;, c, m, y, k)
-
-Changes the colour &quot;name&quot; to the specified CMYK value. The colour value is
-defined via four components c = Cyan, m = Magenta, y = Yellow and k = Black.
-Colour components should be in the range from 0 to 255.
-
-May raise NotFoundError if the named colour wasn&apos;t found.
-May raise ValueError if an invalid colour name is specified.
-</translation>
-    </message>
-    <message>
-        <source>deleteColor(&quot;name&quot;, &quot;replace&quot;)
-
-Deletes the color &quot;name&quot;. Every occurence of that color is replaced by the
-color &quot;replace&quot;. If not specified, &quot;replace&quot; defaults to the color
-&quot;None&quot; - transparent.
-
-deleteColor works on the default document colors if there is no document open.
-In that case, &quot;replace&quot;, if specified, has no effect.
-
-May raise NotFoundError if a named color wasn&apos;t found.
-May raise ValueError if an invalid color name is specified.
-</source>
-        <translation type="obsolete">deleteColor(&quot;name&quot;, &quot;replace&quot;)
-
-Deletes the colour &quot;name&quot;. Every occurence of that colour is replaced by the
-colour &quot;replace&quot;. If not specified, &quot;replace&quot; defaults to the colour
-&quot;None&quot; - transparent.
-
-deleteColor works on the default document colours if there is no document open.
-In that case, &quot;replace&quot;, if specified, has no effect.
-
-May raise NotFoundError if a named colour wasn&apos;t found.
-May raise ValueError if an invalid colour name is specified.
-</translation>
-    </message>
-    <message>
-        <source>replaceColor(&quot;name&quot;, &quot;replace&quot;)
-
-Every occurence of the color &quot;name&quot; is replaced by the color &quot;replace&quot;.
-
-May raise NotFoundError if a named color wasn&apos;t found.
-May raise ValueError if an invalid color name is specified.
-</source>
-        <translation type="obsolete">replaceColor(&quot;name&quot;, &quot;replace&quot;)
-
-Every occurence of the colour &quot;name&quot; is replaced by the colour &quot;replace&quot;.
-
-May raise NotFoundError if a named colour wasn&apos;t found.
-May raise ValueError if an invalid colour name is specified.
-</translation>
-    </message>
-    <message>
-        <source>messageBox(&quot;caption&quot;, &quot;message&quot;,
-    icon=ICON_NONE, button1=BUTTON_OK|BUTTONOPT_DEFAULT,
-    button2=BUTTON_NONE, button3=BUTTON_NONE) -&gt; integer
-
-Displays a message box with the title &quot;caption&quot;, the message &quot;message&quot;, and
-an icon &quot;icon&quot; and up to 3 buttons. By default no icon is used and a single
-button, OK, is displayed. Only the caption and message arguments are required,
-though setting an icon and appropriate button(s) is strongly
-recommended. The message text may contain simple HTML-like markup.
-
-Returns the number of the button the user pressed. Button numbers start
-at 1.
-
-For the icon and the button parameters there are predefined constants available
-with the same names as in the Qt Documentation. These are the BUTTON_* and
-ICON_* constants defined in the module. There are also two extra constants that
-can be binary-ORed with button constants:
-    BUTTONOPT_DEFAULT   Pressing enter presses this button.
-    BUTTONOPT_ESCAPE    Pressing escape presses this button.
-
-Usage examples:
-result = messageBox(&apos;Script failed&apos;,
-                    &apos;This script only works when you have a text frame selected.&apos;,
-                    ICON_ERROR)
-result = messageBox(&apos;Monkeys!&apos;, &apos;Something went ook! &lt;i&gt;Was it a monkey?&lt;/i&gt;&apos;,
-                    ICON_WARNING, BUTTON_YES|BUTTONOPT_DEFAULT,
-                    BUTTON_NO, BUTTON_IGNORE|BUTTONOPT_ESCAPE)
-
-Defined button and icon constants:
-BUTTON_NONE, BUTTON_ABORT, BUTTON_CANCEL, BUTTON_IGNORE, BUTTON_NO,
-BUTTON_NOALL, BUTTON_OK, BUTTON_RETRY, BUTTON_YES, BUTTON_YESALL,
-ICON_NONE, ICON_INFORMATION, ICON_WARNING, ICON_CRITICAL.
-</source>
-        <translation type="obsolete">messageBox(&quot;caption&quot;, &quot;message&quot;,
-    icon=ICON_NONE, button1=BUTTON_OK|BUTTONOPT_DEFAULT,
-    button2=BUTTON_NONE, button3=BUTTON_NONE) -&gt; integer
-
-Displays a message box with the title &quot;caption&quot;, the message &quot;message&quot;, and
-an icon &quot;icon&quot; and up to 3 buttons. By default no icon is used and a single
-button, OK, is displayed. Only the caption and message arguments are required,
-though setting an icon and appropriate button(s) is strongly
-recommended. The message text may contain simple HTML-like markup.
-
-Returns the number of the button the user pressed. Button numbers start
-at 1.
-
-For the icon and the button parameters there are predefined constants available
-with the same names as in the Qt Documentation. These are the BUTTON_* and
-ICON_* constants defined in the module. There are also two extra constants that
-can be binary-ORed with button constants:
-    BUTTONOPT_DEFAULT   Pressing enter presses this button.
-    BUTTONOPT_ESCAPE    Pressing escape presses this button.
-
-Usage examples:
-result = messageBox(&apos;Script failed&apos;,
-                    &apos;This script only works when you have a text frame selected.&apos;,
-                    ICON_ERROR)
-result = messageBox(&apos;Monkeys!&apos;, &apos;Something went ook! &lt;i&gt;Was it a monkey?&lt;/i&gt;&apos;,
-                    ICON_WARNING, BUTTON_YES|BUTTONOPT_DEFAULT,
-                    BUTTON_NO, BUTTON_IGNORE|BUTTONOPT_ESCAPE)
-
-Defined button and icon constants:
-BUTTON_NONE, BUTTON_ABORT, BUTTON_CANCEL, BUTTON_IGNORE, BUTTON_NO,
-BUTTON_NOALL, BUTTON_OK, BUTTON_RETRY, BUTTON_YES, BUTTON_YESALL,
-ICON_NONE, ICON_INFORMATION, ICON_WARNING, ICON_CRITICAL.
-</translation>
-    </message>
-    <message>
-        <source>valueDialog(caption, message [,defaultvalue]) -&gt; string
-
-Shows the common &apos;Ask for string&apos; dialog and returns its value as a string
-Parameters: window title, text in the window and optional &apos;default&apos; value.
-
-Example: valueDialog(&apos;title&apos;, &apos;text in the window&apos;, &apos;optional&apos;)
-</source>
-        <translation type="obsolete">valueDialog(caption, message [,defaultvalue]) -&gt; string
-
-Shows the common &apos;Ask for string&apos; dialogue and returns its value as a string
-Parameters: window title, text in the window and optional &apos;default&apos; value.
-
-Example: valueDialog(&apos;title&apos;, &apos;text in the window&apos;, &apos;optional&apos;)
-</translation>
-    </message>
-    <message>
-        <source>closeDoc()
-
-Closes the current document without prompting to save.
-
-May throw NoDocOpenError if there is no document to close
-</source>
-        <translation type="obsolete">closeDoc()
-
-Closes the current document without prompting to save.
-
-May throw NoDocOpenError if there is no document to close
-</translation>
-    </message>
-    <message>
-        <source>haveDoc() -&gt; bool
-
-Returns true if there is a document open.
-</source>
-        <translation type="obsolete">haveDoc() -&gt; bool
-
-Returns true if there is a document open.
-</translation>
-    </message>
-    <message>
-        <source>openDoc(&quot;name&quot;)
-
-Opens the document &quot;name&quot;.
-
-May raise ScribusError if the document could not be opened.
-</source>
-        <translation type="obsolete">openDoc(&quot;name&quot;)
-
-Opens the document &quot;name&quot;.
-
-May raise ScribusError if the document could not be opened.
-</translation>
-    </message>
-    <message>
-        <source>saveDoc()
-
-Saves the current document with its current name, returns true if successful.
-If the document has not already been saved, this may bring up an interactive
-save file dialog.
-
-If the save fails, there is currently no way to tell.
-</source>
-        <translation type="obsolete">saveDoc()
-
-Saves the current document with its current name, returns true if successful.
-If the document has not already been saved, this may bring up an interactive
-save file dialogue.
-
-If the save fails, there is currently no way to tell.
-</translation>
-    </message>
-    <message>
-        <source>saveDocAs(&quot;name&quot;)
-
-Saves the current document under the new name &quot;name&quot; (which may be a full or
-relative path).
-
-May raise ScribusError if the save fails.
-</source>
-        <translation type="obsolete">saveDocAs(&quot;name&quot;)
-
-Saves the current document under the new name &quot;name&quot; (which may be a full or
-relative path).
-
-May raise ScribusError if the save fails.
-</translation>
-    </message>
-    <message>
-        <source>setUnit(type)
-
-Changes the measurement unit of the document. Possible values for &quot;unit&quot; are
-defined as constants UNIT_&lt;type&gt;.
-
-May raise ValueError if an invalid unit is passed.
-</source>
-        <translation type="obsolete">setUnit(type)
-
-Changes the measurement unit of the document. Possible values for &quot;unit&quot; are
-defined as constants UNIT_&lt;type&gt;.
-
-May raise ValueError if an invalid unit is passed.
-</translation>
-    </message>
-    <message>
-        <source>getUnit() -&gt; integer (Scribus unit constant)
-
-Returns the measurement units of the document. The returned value will be one
-of the UNIT_* constants:
-UNIT_INCHES, UNIT_MILLIMETERS, UNIT_PICAS, UNIT_POINTS.
-</source>
-        <translation type="obsolete">getUnit() -&gt; integer (Scribus unit constant)
-
-Returns the measurement units of the document. The returned value will be one
-of the UNIT_* constants:
-UNIT_INCHES, UNIT_MILLIMETERS, UNIT_PICAS, UNIT_POINTS.
-</translation>
-    </message>
-    <message>
-        <source>loadStylesFromFile(&quot;filename&quot;)
-
-Loads paragraph styles from the Scribus document at &quot;filename&quot; into the
-current document.
-</source>
-        <translation type="obsolete">loadStylesFromFile(&quot;filename&quot;)
-
-Loads paragraph styles from the Scribus document at &quot;filename&quot; into the
-current document.
-</translation>
-    </message>
-    <message>
-        <source>setDocType(facingPages, firstPageLeft)
-
-Sets the document type. To get facing pages set the first parameter to
-FACINGPAGES, to switch facingPages off use NOFACINGPAGES instead.  If you want
-to be the first page a left side set the second parameter to FIRSTPAGELEFT, for
-a right page use FIRSTPAGERIGHT.
-</source>
-        <translation type="obsolete">setDocType(facingPages, firstPageLeft)
-
-Sets the document type. To get facing pages set the first parameter to
-FACINGPAGES, to switch facingPages off use NOFACINGPAGES instead.  If you want
-to be the first page a left side set the second parameter to FIRSTPAGELEFT, for
-a right page use FIRSTPAGERIGHT.
-</translation>
-    </message>
-    <message>
-        <source>getLineColor([&quot;name&quot;]) -&gt; string
-
-Returns the name of the line color of the object &quot;name&quot;.
-If &quot;name&quot; is not given the currently selected item is used.
-</source>
-        <translation type="obsolete">getLineColor([&quot;name&quot;]) -&gt; string
-
-Returns the name of the line colour of the object &quot;name&quot;.
-If &quot;name&quot; is not given the currently selected item is used.
-</translation>
-    </message>
-    <message>
-        <source>getLineWidth([&quot;name&quot;]) -&gt; integer
-
-Returns the line width of the object &quot;name&quot;. If &quot;name&quot;
-is not given the currently selected Item is used.
-</source>
-        <translation type="obsolete">getLineWidth([&quot;name&quot;]) -&gt; integer
-
-Returns the line width of the object &quot;name&quot;. If &quot;name&quot;
-is not given the currently selected Item is used.
-</translation>
-    </message>
-    <message>
-        <source>getLineShade([&quot;name&quot;]) -&gt; integer
-
-Returns the shading value of the line color of the object &quot;name&quot;.
-If &quot;name&quot; is not given the currently selected item is used.
-</source>
-        <translation type="obsolete">getLineShade([&quot;name&quot;]) -&gt; integer
-
-Returns the shading value of the line colour of the object &quot;name&quot;.
-If &quot;name&quot; is not given the currently selected item is used.
-</translation>
-    </message>
-    <message>
-        <source>getLineEnd([&quot;name&quot;]) -&gt; integer (see constants)
-
-Returns the line cap style of the object &quot;name&quot;. If &quot;name&quot; is not given the
-currently selected item is used. The cap types are:
-CAP_FLAT, CAP_ROUND, CAP_SQUARE
-</source>
-        <translation type="obsolete">getLineEnd([&quot;name&quot;]) -&gt; integer (see constants)
-
-Returns the line cap style of the object &quot;name&quot;. If &quot;name&quot; is not given the
-currently selected item is used. The cap types are:
-CAP_FLAT, CAP_ROUND, CAP_SQUARE
-</translation>
-    </message>
-    <message>
-        <source>getLineStyle([&quot;name&quot;]) -&gt; integer (see constants)
-
-Returns the line style of the object &quot;name&quot;. If &quot;name&quot; is not given the
-currently selected item is used. Line style constants are:
-LINE_DASH, LINE_DASHDOT, LINE_DASHDOTDOT, LINE_DOT, LINE_SOLID
-</source>
-        <translation type="obsolete">getLineStyle([&quot;name&quot;]) -&gt; integer (see constants)
-
-Returns the line style of the object &quot;name&quot;. If &quot;name&quot; is not given the
-currently selected item is used. Line style constants are:
-LINE_DASH, LINE_DASHDOT, LINE_DASHDOTDOT, LINE_DOT, LINE_SOLID
-</translation>
-    </message>
-    <message>
-        <source>getFillShade([&quot;name&quot;]) -&gt; integer
-
-Returns the shading value of the fill color of the object &quot;name&quot;.
-If &quot;name&quot; is not given the currently selected item is used.
-</source>
-        <translation type="obsolete">getFillShade([&quot;name&quot;]) -&gt; integer
-
-Returns the shading value of the fill colour of the object &quot;name&quot;.
-If &quot;name&quot; is not given the currently selected item is used.
-</translation>
-    </message>
-    <message>
-        <source>getImageScale([&quot;name&quot;]) -&gt; (x,y)
-
-Returns a (x, y) tuple containing the scaling values of the image frame
-&quot;name&quot;.  If &quot;name&quot; is not given the currently selected item is used.
-</source>
-        <translation type="obsolete">getImageScale([&quot;name&quot;]) -&gt; (x,y)
-
-Returns a (x, y) tuple containing the scaling values of the image frame
-&quot;name&quot;.  If &quot;name&quot; is not given the currently selected item is used.
-</translation>
-    </message>
-    <message>
-        <source>getImageName([&quot;name&quot;]) -&gt; string
-
-Returns the filename for the image in the image frame. If &quot;name&quot; is not
-given the currently selected item is used.
-</source>
-        <translation type="obsolete">getImageName([&quot;name&quot;]) -&gt; string
-
-Returns the filename for the image in the image frame. If &quot;name&quot; is not
-given the currently selected item is used.
-</translation>
-    </message>
-    <message>
-        <source>getSize([&quot;name&quot;]) -&gt; (width,height)
-
-Returns a (width, height) tuple with the size of the object &quot;name&quot;.
-If &quot;name&quot; is not given the currently selected item is used. The size is
-expressed in the current measurement unit of the document - see UNIT_&lt;type&gt;
-for reference.
-</source>
-        <translation type="obsolete">getSize([&quot;name&quot;]) -&gt; (width,height)
-
-Returns a (width, height) tuple with the size of the object &quot;name&quot;.
-If &quot;name&quot; is not given the currently selected item is used. The size is
-expressed in the current measurement unit of the document - see UNIT_&lt;type&gt;
-for reference.
-</translation>
-    </message>
-    <message>
-        <source>getRotation([&quot;name&quot;]) -&gt; integer
-
-Returns the rotation of the object &quot;name&quot;. The value is expressed in degrees,
-and clockwise is positive. If &quot;name&quot; is not given the currently selected item
-is used.
-</source>
-        <translation type="obsolete">getRotation([&quot;name&quot;]) -&gt; integer
-
-Returns the rotation of the object &quot;name&quot;. The value is expressed in degrees,
-and clockwise is positive. If &quot;name&quot; is not given the currently selected item
-is used.
-</translation>
-    </message>
-    <message>
-        <source>getAllObjects() -&gt; list
-
-Returns a list containing the names of all objects on the current page.
-</source>
-        <translation type="obsolete">getAllObjects() -&gt; list
-
-Returns a list containing the names of all objects on the current page.
-</translation>
-    </message>
-    <message>
-        <source>getPropertyCType(object, property, includesuper=True)
-
-Returns the name of the C type of `property&apos; of `object&apos;. See getProperty()
-for details of arguments.
-
-If `includesuper&apos; is true, search inherited properties too.
-</source>
-        <translation type="obsolete">getPropertyCType(object, property, includesuper=True)
-
-Returns the name of the C type of `property&apos; of `object&apos;. See getProperty()
-for details of arguments.
-
-If `includesuper&apos; is true, search inherited properties too.
-</translation>
-    </message>
-    <message>
-        <source>getPropertyNames(object, includesuper=True)
-
-Return a list of property names supported by `object&apos;.
-If `includesuper&apos; is true, return properties supported
-by parent classes as well.
-</source>
-        <translation type="obsolete">getPropertyNames(object, includesuper=True)
-
-Return a list of property names supported by `object&apos;.
-If `includesuper&apos; is true, return properties supported
-by parent classes as well.
-</translation>
-    </message>
-    <message>
-        <source>getProperty(object, property)
-
-Return the value of the property `property&apos; of the passed `object&apos;.
-
-The `object&apos; argument may be a string, in which case the named PageItem
-is searched for. It may also be a PyCObject, which may point to any
-C++ QObject instance.
-
-The `property&apos; argument must be a string, and is the name of the property
-to look up on `object&apos;.
-
-The return value varies depending on the type of the property.
-</source>
-        <translation type="obsolete">getProperty(object, property)
-
-Return the value of the property `property&apos; of the passed `object&apos;.
-
-The `object&apos; argument may be a string, in which case the named PageItem
-is searched for. It may also be a PyCObject, which may point to any
-C++ QObject instance.
-
-The `property&apos; argument must be a string, and is the name of the property
-to look up on `object&apos;.
-
-The return value varies depending on the type of the property.
-</translation>
-    </message>
-    <message>
-        <source>setProperty(object, property, value)
-
-Set `property&apos; of `object&apos; to `value&apos;. If `value&apos; cannot be converted to a type
-compatible with the type of `property&apos;, an exception is raised. An exception may
-also be raised if the underlying setter fails.
-
-See getProperty() for more information.
-</source>
-        <translation type="obsolete">setProperty(object, property, value)
-
-Set `property&apos; of `object&apos; to `value&apos;. If `value&apos; cannot be converted to a type
-compatible with the type of `property&apos;, an exception is raised. An exception may
-also be raised if the underlying setter fails.
-
-See getProperty() for more information.
-</translation>
-    </message>
-    <message>
-        <source>moveObjectAbs(x, y [, &quot;name&quot;])
-
-Moves the object &quot;name&quot; to a new location. The coordinates are expressed in
-the current measurement unit of the document (see UNIT constants).  If &quot;name&quot;
-is not given the currently selected item is used.  If the object &quot;name&quot;
-belongs to a group, the whole group is moved.
-</source>
-        <translation type="obsolete">moveObjectAbs(x, y [, &quot;name&quot;])
-
-Moves the object &quot;name&quot; to a new location. The coordinates are expressed in
-the current measurement unit of the document (see UNIT constants).  If &quot;name&quot;
-is not given the currently selected item is used.  If the object &quot;name&quot;
-belongs to a group, the whole group is moved.
-</translation>
-    </message>
-    <message>
-        <source>sizeObject(width, height [, &quot;name&quot;])
-
-Resizes the object &quot;name&quot; to the given width and height. If &quot;name&quot;
-is not given the currently selected item is used.
-</source>
-        <translation type="obsolete">sizeObject(width, height [, &quot;name&quot;])
-
-Resizes the object &quot;name&quot; to the given width and height. If &quot;name&quot;
-is not given the currently selected item is used.
-</translation>
-    </message>
-    <message>
-        <source>getSelectedObject([nr]) -&gt; string
-
-Returns the name of the selected object. &quot;nr&quot; if given indicates the number
-of the selected object, e.g. 0 means the first selected object, 1 means the
-second selected Object and so on.
-</source>
-        <translation type="obsolete">getSelectedObject([nr]) -&gt; string
-
-Returns the name of the selected object. &quot;nr&quot; if given indicates the number
-of the selected object, e.g. 0 means the first selected object, 1 means the
-second selected Object and so on.
-</translation>
-    </message>
-    <message>
-        <source>selectionCount() -&gt; integer
-
-Returns the number of selected objects.
-</source>
-        <translation type="obsolete">selectionCount() -&gt; integer
-
-Returns the number of selected objects.
-</translation>
-    </message>
-    <message>
-        <source>selectObject(&quot;name&quot;)
-
-Selects the object with the given &quot;name&quot;.
-</source>
-        <translation type="obsolete">selectObject(&quot;name&quot;)
-
-Selects the object with the given &quot;name&quot;.
-</translation>
-    </message>
-    <message>
-        <source>deselectAll()
-
-Deselects all objects in the whole document.
-</source>
-        <translation type="obsolete">deselectAll()
-
-Deselects all objects in the whole document.
-</translation>
-    </message>
-    <message>
-        <source>groupObjects(list)
-
-Groups the objects named in &quot;list&quot; together. &quot;list&quot; must contain the names
-of the objects to be grouped. If &quot;list&quot; is not given the currently selected
-items are used.
-</source>
-        <translation type="obsolete">groupObjects(list)
-
-Groups the objects named in &quot;list&quot; together. &quot;list&quot; must contain the names
-of the objects to be grouped. If &quot;list&quot; is not given the currently selected
-items are used.
-</translation>
-    </message>
-    <message>
-        <source>unGroupObjects(&quot;name&quot;)
-
-Destructs the group the object &quot;name&quot; belongs to.If &quot;name&quot; is not given the currently selected item is used.</source>
-        <translation type="obsolete">unGroupObjects(&quot;name&quot;)
-
-Destructs the group the object &quot;name&quot; belongs to.If &quot;name&quot; is not given the currently selected item is used.</translation>
-    </message>
-    <message>
-        <source>scaleGroup(factor [,&quot;name&quot;])
-
-Scales the group the object &quot;name&quot; belongs to. Values greater than 1 enlarge
-the group, values smaller than 1 make the group smaller e.g a value of 0.5
-scales the group to 50 % of its original size, a value of 1.5 scales the group
-to 150 % of its original size.  The value for &quot;factor&quot; must be greater than
-0. If &quot;name&quot; is not given the currently selected item is used.
-
-May raise ValueError if an invalid scale factor is passed.
-</source>
-        <translation type="obsolete">scaleGroup(factor [,&quot;name&quot;])
-
-Scales the group the object &quot;name&quot; belongs to. Values greater than 1 enlarge
-the group, values smaller than 1 make the group smaller e.g a value of 0.5
-scales the group to 50 % of its original size, a value of 1.5 scales the group
-to 150 % of its original size.  The value for &quot;factor&quot; must be greater than
-0. If &quot;name&quot; is not given the currently selected item is used.
-
-May raise ValueError if an invalid scale factor is passed.
-</translation>
-    </message>
-    <message>
-        <source>loadImage(&quot;filename&quot; [, &quot;name&quot;])
-
-Loads the picture &quot;picture&quot; into the image frame &quot;name&quot;. If &quot;name&quot; is
-not given the currently selected item is used.
-
-May raise WrongFrameTypeError if the target frame is not an image frame
-</source>
-        <translation type="obsolete">loadImage(&quot;filename&quot; [, &quot;name&quot;])
-
-Loads the picture &quot;picture&quot; into the image frame &quot;name&quot;. If &quot;name&quot; is
-not given the currently selected item is used.
-
-May raise WrongFrameTypeError if the target frame is not an image frame
-</translation>
-    </message>
-    <message>
-        <source>scaleImage(x, y [, &quot;name&quot;])
-
-Sets the scaling factors of the picture in the image frame &quot;name&quot;.
-If &quot;name&quot; is not given the currently selected item is used. A number of 1
-means 100 %.
-
-May raise WrongFrameTypeError if the target frame is not an image frame
-</source>
-        <translation type="obsolete">scaleImage(x, y [, &quot;name&quot;])
-
-Sets the scaling factors of the picture in the image frame &quot;name&quot;.
-If &quot;name&quot; is not given the currently selected item is used. A number of 1
-means 100 %.
-
-May raise WrongFrameTypeError if the target frame is not an image frame
-</translation>
-    </message>
-    <message>
-        <source>lockObject([&quot;name&quot;]) -&gt; bool
-
-Locks the object &quot;name&quot; if it&apos;s unlocked or unlock it if it&apos;s locked.
-If &quot;name&quot; is not given the currently selected item is used. Returns true
-if locked.
-</source>
-        <translation type="obsolete">lockObject([&quot;name&quot;]) -&gt; bool
-
-Locks the object &quot;name&quot; if it&apos;s unlocked or unlock it if it&apos;s locked.
-If &quot;name&quot; is not given the currently selected item is used. Returns true
-if locked.
-</translation>
-    </message>
-    <message>
-        <source>isLocked([&quot;name&quot;]) -&gt; bool
-
-Returns true if is the object &quot;name&quot; locked.  If &quot;name&quot; is not given the
-currently selected item is used.
-</source>
-        <translation type="obsolete">isLocked([&quot;name&quot;]) -&gt; bool
-
-Returns true if is the object &quot;name&quot; locked.  If &quot;name&quot; is not given the
-currently selected item is used.
-</translation>
-    </message>
-    <message>
-        <source>setScaleImageToFrame(scaletoframe, proportional=None, name=&lt;selection&gt;)
-
-Sets the scale to frame on the selected or specified image frame to `scaletoframe&apos;.
-If `proportional&apos; is specified, set fixed aspect ratio scaling to `proportional&apos;.
-Both `scaletoframe&apos; and `proportional&apos; are boolean.
-
-May raise WrongFrameTypeError.
-</source>
-        <translation type="obsolete">setScaleImageToFrame(scaletoframe, proportional=None, name=&lt;selection&gt;)
-
-Sets the scale to frame on the selected or specified image frame to `scaletoframe&apos;.
-If `proportional&apos; is specified, set fixed aspect ratio scaling to `proportional&apos;.
-Both `scaletoframe&apos; and `proportional&apos; are boolean.
-
-May raise WrongFrameTypeError.
-</translation>
-    </message>
-    <message>
-        <source>getFontNames() -&gt; list
-
-Returns a list with the names of all available fonts.
-</source>
-        <translation type="obsolete">getFontNames() -&gt; list
-
-Returns a list with the names of all available fonts.
-</translation>
-    </message>
-    <message>
-        <source>getXFontNames() -&gt; list of tuples
-
-Returns a larger font info. It&apos;s a list of the tuples with:
-[ (Scribus name, Family, Real name, subset (1|0), embed PS (1|0), font file), (...), ... ]
-</source>
-        <translation type="obsolete">getXFontNames() -&gt; list of tuples
-
-Returns a larger font info. It&apos;s a list of the tuples with:
-[ (Scribus name, Family, Real name, subset (1|0), embed PS (1|0), font file), (...), ... ]
-</translation>
-    </message>
-    <message>
-        <source>renderFont(&quot;name&quot;, &quot;filename&quot;, &quot;sample&quot;, size, format=&quot;PPM&quot;) -&gt; bool
-
-Creates an image preview of font &quot;name&quot; with given text &quot;sample&quot; and size.
-If &quot;filename&quot; is not &quot;&quot;, image is saved into &quot;filename&quot;. Otherwise
-image data is returned as a string. The optional &quot;format&quot; argument
-specifies the image format to generate, and supports any format allowed
-by QPixmap.save(). Common formats are PPM, JPEG, PNG and XPM.
-
-May raise NotFoundError if the specified font can&apos;t be found.
-May raise ValueError if an empty sample or filename is passed.
-</source>
-        <translation type="obsolete">renderFont(&quot;name&quot;, &quot;filename&quot;, &quot;sample&quot;, size, format=&quot;PPM&quot;) -&gt; bool
-
-Creates an image preview of font &quot;name&quot; with given text &quot;sample&quot; and size.
-If &quot;filename&quot; is not &quot;&quot;, image is saved into &quot;filename&quot;. Otherwise
-image data is returned as a string. The optional &quot;format&quot; argument
-specifies the image format to generate, and supports any format allowed
-by QPixmap.save(). Common formats are PPM, JPEG, PNG and XPM.
-
-May raise NotFoundError if the specified font can&apos;t be found.
-May raise ValueError if an empty sample or filename is passed.
-</translation>
-    </message>
-    <message>
-        <source>getLayers() -&gt; list
-
-Returns a list with the names of all defined layers.
-</source>
-        <translation type="obsolete">getLayers() -&gt; list
-
-Returns a list with the names of all defined layers.
-</translation>
-    </message>
-    <message>
-        <source>setActiveLayer(&quot;name&quot;)
-
-Sets the active layer to the layer named &quot;name&quot;.
-
-May raise NotFoundError if the layer can&apos;t be found.
-May raise ValueError if the layer name isn&apos;t acceptable.
-</source>
-        <translation type="obsolete">setActiveLayer(&quot;name&quot;)
-
-Sets the active layer to the layer named &quot;name&quot;.
-
-May raise NotFoundError if the layer can&apos;t be found.
-May raise ValueError if the layer name isn&apos;t acceptable.
-</translation>
-    </message>
-    <message>
-        <source>getActiveLayer() -&gt; string
-
-Returns the name of the current active layer.
-</source>
-        <translation type="obsolete">getActiveLayer() -&gt; string
-
-Returns the name of the current active layer.
-</translation>
-    </message>
-    <message>
-        <source>sentToLayer(&quot;layer&quot; [, &quot;name&quot;])
-
-Sends the object &quot;name&quot; to the layer &quot;layer&quot;. The layer must exist.
-If &quot;name&quot; is not given the currently selected item is used.
-
-May raise NotFoundError if the layer can&apos;t be found.
-May raise ValueError if the layer name isn&apos;t acceptable.
-</source>
-        <translation type="obsolete">sentToLayer(&quot;layer&quot; [, &quot;name&quot;])
-
-Sends the object &quot;name&quot; to the layer &quot;layer&quot;. The layer must exist.
-If &quot;name&quot; is not given the currently selected item is used.
-
-May raise NotFoundError if the layer can&apos;t be found.
-May raise ValueError if the layer name isn&apos;t acceptable.
-</translation>
-    </message>
-    <message>
-        <source>setLayerVisible(&quot;layer&quot;, visible)
-
-Sets the layer &quot;layer&quot; to be visible or not. If is the visible set to false
-the layer is invisible.
-
-May raise NotFoundError if the layer can&apos;t be found.
-May raise ValueError if the layer name isn&apos;t acceptable.
-</source>
-        <translation type="obsolete">setLayerVisible(&quot;layer&quot;, visible)
-
-Sets the layer &quot;layer&quot; to be visible or not. If is the visible set to false
-the layer is invisible.
-
-May raise NotFoundError if the layer can&apos;t be found.
-May raise ValueError if the layer name isn&apos;t acceptable.
-</translation>
-    </message>
-    <message>
-        <source>isLayerPrintable(&quot;layer&quot;) -&gt; bool
-
-Returns whether the layer &quot;layer&quot; is printable or not, a value of True means
-that the layer &quot;layer&quot; can be printed, a value of False means that printing
-the layer &quot;layer&quot; is disabled.
-
-May raise NotFoundError if the layer can&apos;t be found.
-May raise ValueError if the layer name isn&apos;t acceptable.
-</source>
-        <translation type="obsolete">isLayerPrintable(&quot;layer&quot;) -&gt; bool
-
-Returns whether the layer &quot;layer&quot; is printable or not, a value of True means
-that the layer &quot;layer&quot; can be printed, a value of False means that printing
-the layer &quot;layer&quot; is disabled.
-
-May raise NotFoundError if the layer can&apos;t be found.
-May raise ValueError if the layer name isn&apos;t acceptable.
-</translation>
-    </message>
-    <message>
-        <source>deleteLayer(&quot;layer&quot;)
-
-Deletes the layer with the name &quot;layer&quot;. Nothing happens if the layer doesn&apos;t
-exists or if it&apos;s the only layer in the document.
-
-May raise NotFoundError if the layer can&apos;t be found.
-May raise ValueError if the layer name isn&apos;t acceptable.
-</source>
-        <translation type="obsolete">deleteLayer(&quot;layer&quot;)
-
-Deletes the layer with the name &quot;layer&quot;. Nothing happens if the layer doesn&apos;t
-exists or if it&apos;s the only layer in the document.
-
-May raise NotFoundError if the layer can&apos;t be found.
-May raise ValueError if the layer name isn&apos;t acceptable.
-</translation>
-    </message>
-    <message>
-        <source>createLayer(layer)
-
-Creates a new layer with the name &quot;name&quot;.
-
-May raise ValueError if the layer name isn&apos;t acceptable.
-</source>
-        <translation type="obsolete">createLayer(layer)
-
-Creates a new layer with the name &quot;name&quot;.
-
-May raise ValueError if the layer name isn&apos;t acceptable.
-</translation>
-    </message>
-    <message>
-        <source>getGuiLanguage() -&gt; string
-
-Returns a string with the -lang value.
-</source>
-        <translation type="obsolete">getGuiLanguage() -&gt; string
-
-Returns a string with the -lang value.
-</translation>
-    </message>
-    <message>
-        <source>createEllipse(x, y, width, height, [&quot;name&quot;]) -&gt; string
-
-Creates a new ellipse on the current page and returns its name.
-The coordinates are given in the current measurement units of the document
-(see UNIT constants). &quot;name&quot; should be a unique identifier for the object
-because you need this name for further referencing of that object. If &quot;name&quot;
-is not given Scribus will create one for you.
-
-May raise NameExistsError if you explicitly pass a name that&apos;s already used.
-</source>
-        <translation type="obsolete">createEllipse(x, y, width, height, [&quot;name&quot;]) -&gt; string
-
-Creates a new ellipse on the current page and returns its name.
-The coordinates are given in the current measurement units of the document
-(see UNIT constants). &quot;name&quot; should be a unique identifier for the object
-because you need this name for further referencing of that object. If &quot;name&quot;
-is not given Scribus will create one for you.
-
-May raise NameExistsError if you explicitly pass a name that&apos;s already used.
-</translation>
-    </message>
-    <message>
-        <source>createImage(x, y, width, height, [&quot;name&quot;]) -&gt; string
-
-Creates a new picture frame on the current page and returns its name. The
-coordinates are given in the current measurement units of the document.
-&quot;name&quot; should be a unique identifier for the object because you need this
-name for further access to that object. If &quot;name&quot; is not given Scribus will
-create one for you.
-
-May raise NameExistsError if you explicitly pass a name that&apos;s already used.
-</source>
-        <translation type="obsolete">createImage(x, y, width, height, [&quot;name&quot;]) -&gt; string
-
-Creates a new picture frame on the current page and returns its name. The
-coordinates are given in the current measurement units of the document.
-&quot;name&quot; should be a unique identifier for the object because you need this
-name for further access to that object. If &quot;name&quot; is not given Scribus will
-create one for you.
-
-May raise NameExistsError if you explicitly pass a name that&apos;s already used.
-</translation>
-    </message>
-    <message>
-        <source>createText(x, y, width, height, [&quot;name&quot;]) -&gt; string
-
-Creates a new text frame on the actual page and returns its name.
-The coordinates are given in the actual measurement unit of the document (see
-UNIT constants). &quot;name&quot; should be a unique identifier for the object because
-you need this name for further referencing of that object. If &quot;name&quot; is not
-given Scribus will create one for you.
-
-May raise NameExistsError if you explicitly pass a name that&apos;s already used.
-</source>
-        <translation type="obsolete">createText(x, y, width, height, [&quot;name&quot;]) -&gt; string
-
-Creates a new text frame on the actual page and returns its name.
-The coordinates are given in the actual measurement unit of the document (see
-UNIT constants). &quot;name&quot; should be a unique identifier for the object because
-you need this name for further referencing of that object. If &quot;name&quot; is not
-given Scribus will create one for you.
-
-May raise NameExistsError if you explicitly pass a name that&apos;s already used.
-</translation>
-    </message>
-    <message>
-        <source>createLine(x1, y1, x2, y2, [&quot;name&quot;]) -&gt; string
-
-Creates a new line from the point(x1, y1) to the point(x2, y2) and returns
-its name. The coordinates are given in the current measurement unit of the
-document (see UNIT constants). &quot;name&quot; should be a unique identifier for the
-object because you need this name for further access to that object. If
-&quot;name&quot; is not given Scribus will create one for you.
-
-May raise NameExistsError if you explicitly pass a name that&apos;s already used.
-</source>
-        <translation type="obsolete">createLine(x1, y1, x2, y2, [&quot;name&quot;]) -&gt; string
-
-Creates a new line from the point(x1, y1) to the point(x2, y2) and returns
-its name. The coordinates are given in the current measurement unit of the
-document (see UNIT constants). &quot;name&quot; should be a unique identifier for the
-object because you need this name for further access to that object. If
-&quot;name&quot; is not given Scribus will create one for you.
-
-May raise NameExistsError if you explicitly pass a name that&apos;s already used.
-</translation>
-    </message>
-    <message>
-        <source>createPolyLine(list, [&quot;name&quot;]) -&gt; string
-
-Creates a new polyline and returns its name. The points for the polyline are
-stored in the list &quot;list&quot; in the following order: [x1, y1, x2, y2...xn. yn].
-The coordinates are given in the current measurement units of the document (see
-UNIT constants). &quot;name&quot; should be a unique identifier for the object because
-you need this name for further access to that object. If &quot;name&quot; is not given
-Scribus will create one for you.
-
-May raise NameExistsError if you explicitly pass a name that&apos;s already used.
-May raise ValueError if an insufficient number of points is passed or if
-the number of values passed don&apos;t group into points without leftovers.
-</source>
-        <translation type="obsolete">createPolyLine(list, [&quot;name&quot;]) -&gt; string
-
-Creates a new polyline and returns its name. The points for the polyline are
-stored in the list &quot;list&quot; in the following order: [x1, y1, x2, y2...xn. yn].
-The coordinates are given in the current measurement units of the document (see
-UNIT constants). &quot;name&quot; should be a unique identifier for the object because
-you need this name for further access to that object. If &quot;name&quot; is not given
-Scribus will create one for you.
-
-May raise NameExistsError if you explicitly pass a name that&apos;s already used.
-May raise ValueError if an insufficient number of points is passed or if
-the number of values passed don&apos;t group into points without leftovers.
-</translation>
-    </message>
-    <message>
-        <source>createPolygon(list, [&quot;name&quot;]) -&gt; string
-
-Creates a new polygon and returns its name. The points for the polygon are
-stored in the list &quot;list&quot; in the following order: [x1, y1, x2, y2...xn. yn].
-At least three points are required. There is no need to repeat the first point
-to close the polygon. The polygon is automatically closed by connecting the
-first and the last point.  The coordinates are given in the current measurement
-units of the document (see UNIT constants).  &quot;name&quot; should be a unique
-identifier for the object because you need this name for further access to that
-object. If &quot;name&quot; is not given Scribus will create one for you.
-
-May raise NameExistsError if you explicitly pass a name that&apos;s already used.
-May raise ValueError if an insufficient number of points is passed or if
-the number of values passed don&apos;t group into points without leftovers.
-</source>
-        <translation type="obsolete">createPolygon(list, [&quot;name&quot;]) -&gt; string
-
-Creates a new polygon and returns its name. The points for the polygon are
-stored in the list &quot;list&quot; in the following order: [x1, y1, x2, y2...xn. yn].
-At least three points are required. There is no need to repeat the first point
-to close the polygon. The polygon is automatically closed by connecting the
-first and the last point.  The coordinates are given in the current measurement
-units of the document (see UNIT constants).  &quot;name&quot; should be a unique
-identifier for the object because you need this name for further access to that
-object. If &quot;name&quot; is not given Scribus will create one for you.
-
-May raise NameExistsError if you explicitly pass a name that&apos;s already used.
-May raise ValueError if an insufficient number of points is passed or if
-the number of values passed don&apos;t group into points without leftovers.
-</translation>
-    </message>
-    <message>
-        <source>createBezierLine(list, [&quot;name&quot;]) -&gt; string
-
-Creates a new bezier curve and returns its name. The points for the bezier
-curve are stored in the list &quot;list&quot; in the following order:
-[x1, y1, kx1, ky1, x2, y2, kx2, ky2...xn. yn, kxn. kyn]
-In the points list, x and y mean the x and y coordinates of the point and kx
-and ky meaning the control point for the curve.  The coordinates are given in
-the current measurement units of the document (see UNIT constants). &quot;name&quot;
-should be a unique identifier for the object because you need this name for
-further access to that object. If &quot;name&quot; is not given Scribus will create one
-for you.
-
-May raise NameExistsError if you explicitly pass a name that&apos;s already used.
-May raise ValueError if an insufficient number of points is passed or if
-the number of values passed don&apos;t group into points without leftovers.
-</source>
-        <translation type="obsolete">createBezierLine(list, [&quot;name&quot;]) -&gt; string
-
-Creates a new bezier curve and returns its name. The points for the bezier
-curve are stored in the list &quot;list&quot; in the following order:
-[x1, y1, kx1, ky1, x2, y2, kx2, ky2...xn. yn, kxn. kyn]
-In the points list, x and y mean the x and y coordinates of the point and kx
-and ky meaning the control point for the curve.  The coordinates are given in
-the current measurement units of the document (see UNIT constants). &quot;name&quot;
-should be a unique identifier for the object because you need this name for
-further access to that object. If &quot;name&quot; is not given Scribus will create one
-for you.
-
-May raise NameExistsError if you explicitly pass a name that&apos;s already used.
-May raise ValueError if an insufficient number of points is passed or if
-the number of values passed don&apos;t group into points without leftovers.
-</translation>
-    </message>
-    <message>
-        <source>createPathText(x, y, &quot;textbox&quot;, &quot;beziercurve&quot;, [&quot;name&quot;]) -&gt; string
-
-Creates a new pathText by merging the two objects &quot;textbox&quot; and
-&quot;beziercurve&quot; and returns its name. The coordinates are given in the current
-measurement unit of the document (see UNIT constants). &quot;name&quot; should be a
-unique identifier for the object because you need this name for further access
-to that object. If &quot;name&quot; is not given Scribus will create one for you.
-
-May raise NameExistsError if you explicitly pass a name that&apos;s already used.
-May raise NotFoundError if one or both of the named base object don&apos;t exist.
-</source>
-        <translation type="obsolete">createPathText(x, y, &quot;textbox&quot;, &quot;beziercurve&quot;, [&quot;name&quot;]) -&gt; string
-
-Creates a new pathText by merging the two objects &quot;textbox&quot; and
-&quot;beziercurve&quot; and returns its name. The coordinates are given in the current
-measurement unit of the document (see UNIT constants). &quot;name&quot; should be a
-unique identifier for the object because you need this name for further access
-to that object. If &quot;name&quot; is not given Scribus will create one for you.
-
-May raise NameExistsError if you explicitly pass a name that&apos;s already used.
-May raise NotFoundError if one or both of the named base object don&apos;t exist.
-</translation>
-    </message>
-    <message>
-        <source>deleteObject([&quot;name&quot;])
-
-Deletes the item with the name &quot;name&quot;. If &quot;name&quot; is not given the currently
-selected item is deleted.
-</source>
-        <translation type="obsolete">deleteObject([&quot;name&quot;])
-
-Deletes the item with the name &quot;name&quot;. If &quot;name&quot; is not given the currently
-selected item is deleted.
-</translation>
-    </message>
-    <message>
-        <source>objectExists([&quot;name&quot;]) -&gt; bool
-
-Test if an object with specified name really exists in the document.
-The optional parameter is the object name. When no object name is given,
-returns True if there is something selected.
-</source>
-        <translation type="obsolete">objectExists([&quot;name&quot;]) -&gt; bool
-
-Test if an object with specified name really exists in the document.
-The optional parameter is the object name. When no object name is given,
-returns True if there is something selected.
-</translation>
-    </message>
-    <message>
-        <source>setStyle(&quot;style&quot; [, &quot;name&quot;])
-
-Apply the named &quot;style&quot; to the object named &quot;name&quot;. If is no object name
-given, it&apos;s applied on the selected object.
-</source>
-        <translation type="obsolete">setStyle(&quot;style&quot; [, &quot;name&quot;])
-
-Apply the named &quot;style&quot; to the object named &quot;name&quot;. If is no object name
-given, it&apos;s applied on the selected object.
-</translation>
-    </message>
-    <message>
-        <source>getAllStyles() -&gt; list
-
-Return a list of the names of all paragraph styles in the current document.
-</source>
-        <translation type="obsolete">getAllStyles() -&gt; list
-
-Return a list of the names of all paragraph styles in the current document.
-</translation>
-    </message>
-    <message>
-        <source>currentPage() -&gt; integer
-
-Returns the number of the current working page. Page numbers are counted from 1
-upwards, no matter what the displayed first page number of your document is.
-</source>
-        <translation type="obsolete">currentPage() -&gt; integer
-
-Returns the number of the current working page. Page numbers are counted from 1
-upwards, no matter what the displayed first page number of your document is.
-</translation>
-    </message>
-    <message>
-        <source>redrawAll()
-
-Redraws all pages.
-</source>
-        <translation type="obsolete">redrawAll()
-
-Redraws all pages.
-</translation>
-    </message>
-    <message>
-        <source>savePageAsEPS(&quot;name&quot;)
-
-Saves the current page as an EPS to the file &quot;name&quot;.
-
-May raise ScribusError if the save failed.
-</source>
-        <translation type="obsolete">savePageAsEPS(&quot;name&quot;)
-
-Saves the current page as an EPS to the file &quot;name&quot;.
-
-May raise ScribusError if the save failed.
-</translation>
-    </message>
-    <message>
-        <source>deletePage(nr)
-
-Deletes the given page. Does nothing if the document contains only one page.
-Page numbers are counted from 1 upwards, no matter what the displayed first
-page number is.
-
-May raise IndexError if the page number is out of range
-</source>
-        <translation type="obsolete">deletePage(nr)
-
-Deletes the given page. Does nothing if the document contains only one page.
-Page numbers are counted from 1 upwards, no matter what the displayed first
-page number is.
-
-May raise IndexError if the page number is out of range
-</translation>
-    </message>
-    <message>
-        <source>pageCount() -&gt; integer
-
-Returns the number of pages in the document.
-</source>
-        <translation type="obsolete">pageCount() -&gt; integer
-
-Returns the number of pages in the document.
-</translation>
-    </message>
-    <message>
-        <source>getHGuides() -&gt; list
-
-Returns a list containing positions of the horizontal guides. Values are in the
-document&apos;s current units - see UNIT_&lt;type&gt; constants.
-</source>
-        <translation type="obsolete">getHGuides() -&gt; list
-
-Returns a list containing positions of the horizontal guides. Values are in the
-document&apos;s current units - see UNIT_&lt;type&gt; constants.
-</translation>
-    </message>
-    <message>
-        <source>setHGuides(list)
-
-Sets horizontal guides. Input parameter must be a list of guide positions
-measured in the current document units - see UNIT_&lt;type&gt; constants.
-
-Example: setHGuides(getHGuides() + [200.0, 210.0] # add new guides without any lost
-         setHGuides([90,250]) # replace current guides entirely
-</source>
-        <translation type="obsolete">setHGuides(list)
-
-Sets horizontal guides. Input parameter must be a list of guide positions
-measured in the current document units - see UNIT_&lt;type&gt; constants.
-
-Example: setHGuides(getHGuides() + [200.0, 210.0] # add new guides without any lost
-         setHGuides([90,250]) # replace current guides entirely
-</translation>
-    </message>
-    <message>
-        <source>getVGuides()
-
-See getHGuides.
-</source>
-        <translation type="obsolete">getVGuides()
-
-See getHGuides.
-</translation>
-    </message>
-    <message>
-        <source>setVGuides()
-
-See setHGuides.
-</source>
-        <translation type="obsolete">setVGuides()
-
-See setHGuides.
-</translation>
-    </message>
-    <message>
-        <source>getPageSize() -&gt; tuple
-
-Returns a tuple with page dimensions measured in the document&apos;s current units.
-See UNIT_&lt;type&gt; constants and getPageMargins()
-</source>
-        <translation type="obsolete">getPageSize() -&gt; tuple
-
-Returns a tuple with page dimensions measured in the document&apos;s current units.
-See UNIT_&lt;type&gt; constants and getPageMargins()
-</translation>
-    </message>
-    <message>
-        <source>getPageItems() -&gt; list
-
-Returns a list of tuples with items on the current page. The tuple is:
-(name, objectType, order) E.g. [(&apos;Text1&apos;, 4, 0), (&apos;Image1&apos;, 2, 1)]
-means that object named &apos;Text1&apos; is a text frame (type 4) and is the first at
-the page...
-</source>
-        <translation type="obsolete">getPageItems() -&gt; list
-
-Returns a list of tuples with items on the current page. The tuple is:
-(name, objectType, order) E.g. [(&apos;Text1&apos;, 4, 0), (&apos;Image1&apos;, 2, 1)]
-means that object named &apos;Text1&apos; is a text frame (type 4) and is the first at
-the page...
-</translation>
-    </message>
-    <message>
-        <source>getPageMargins()
-
-Returns the page margins as a (top, left, right, bottom) tuple in the current
-units. See UNIT_&lt;type&gt; constants and getPageSize().
-</source>
-        <translation type="obsolete">getPageMargins()
-
-Returns the page margins as a (top, left, right, bottom) tuple in the current
-units. See UNIT_&lt;type&gt; constants and getPageSize().
-</translation>
-    </message>
-    <message>
-        <source>setFillColor(&quot;color&quot;, [&quot;name&quot;])
-
-Sets the fill color of the object &quot;name&quot; to the color &quot;color&quot;. &quot;color&quot;
-is the name of one of the defined colors. If &quot;name&quot; is not given the
-currently selected item is used.
-</source>
-        <translation type="obsolete">setFillColor(&quot;color&quot;, [&quot;name&quot;])
-
-Sets the fill colour of the object &quot;name&quot; to the colour &quot;color&quot;. &quot;color&quot;
-is the name of one of the defined colours. If &quot;name&quot; is not given the
-currently selected item is used.
-</translation>
-    </message>
-    <message>
-        <source>setLineColor(&quot;color&quot;, [&quot;name&quot;])
-
-Sets the line color of the object &quot;name&quot; to the color &quot;color&quot;. If &quot;name&quot;
-is not given the currently selected item is used.
-</source>
-        <translation type="obsolete">setLineColor(&quot;color&quot;, [&quot;name&quot;])
-
-Sets the line colour of the object &quot;name&quot; to the colour &quot;color&quot;. If &quot;name&quot;
-is not given the currently selected item is used.
-</translation>
-    </message>
-    <message>
-        <source>setLineWidth(width, [&quot;name&quot;])
-
-Sets line width of the object &quot;name&quot; to &quot;width&quot;. &quot;width&quot; must be in the
-range from 0.0 to 12.0 inclusive, and is measured in points. If &quot;name&quot; is not
-given the currently selected item is used.
-
-May raise ValueError if the line width is out of bounds.
-</source>
-        <translation type="obsolete">setLineWidth(width, [&quot;name&quot;])
-
-Sets line width of the object &quot;name&quot; to &quot;width&quot;. &quot;width&quot; must be in the
-range from 0.0 to 12.0 inclusive, and is measured in points. If &quot;name&quot; is not
-given the currently selected item is used.
-
-May raise ValueError if the line width is out of bounds.
-</translation>
-    </message>
-    <message>
-        <source>setLineShade(shade, [&quot;name&quot;])
-
-Sets the shading of the line color of the object &quot;name&quot; to &quot;shade&quot;.
-&quot;shade&quot; must be an integer value in the range from 0 (lightest) to 100
-(full color intensity). If &quot;name&quot; is not given the currently selected item
-is used.
-
-May raise ValueError if the line shade is out of bounds.
-</source>
-        <translation type="obsolete">setLineShade(shade, [&quot;name&quot;])
-
-Sets the shading of the line colour of the object &quot;name&quot; to &quot;shade&quot;.
-&quot;shade&quot; must be an integer value in the range from 0 (lightest) to 100
-(full colour intensity). If &quot;name&quot; is not given the currently selected item
-is used.
-
-May raise ValueError if the line shade is out of bounds.
-</translation>
-    </message>
-    <message>
-        <source>setLineJoin(join, [&quot;name&quot;])
-
-Sets the line join style of the object &quot;name&quot; to the style &quot;join&quot;.
-If &quot;name&quot; is not given the currently selected item is used. There are
-predefined constants for join - JOIN_&lt;type&gt;.
-</source>
-        <translation type="obsolete">setLineJoin(join, [&quot;name&quot;])
-
-Sets the line join style of the object &quot;name&quot; to the style &quot;join&quot;.
-If &quot;name&quot; is not given the currently selected item is used. There are
-predefined constants for join - JOIN_&lt;type&gt;.
-</translation>
-    </message>
-    <message>
-        <source>setLineEnd(endtype, [&quot;name&quot;])
-
-Sets the line cap style of the object &quot;name&quot; to the style &quot;cap&quot;.
-If &quot;name&quot; is not given the currently selected item is used. There are
-predefined constants for &quot;cap&quot; - CAP_&lt;type&gt;.
-</source>
-        <translation type="obsolete">setLineEnd(endtype, [&quot;name&quot;])
-
-Sets the line cap style of the object &quot;name&quot; to the style &quot;cap&quot;.
-If &quot;name&quot; is not given the currently selected item is used. There are
-predefined constants for &quot;cap&quot; - CAP_&lt;type&gt;.
-</translation>
-    </message>
-    <message>
-        <source>setLineStyle(style, [&quot;name&quot;])
-
-Sets the line style of the object &quot;name&quot; to the style &quot;style&quot;. If &quot;name&quot;
-is not given the currently selected item is used. There are predefined
-constants for &quot;style&quot; - LINE_&lt;style&gt;.
-</source>
-        <translation type="obsolete">setLineStyle(style, [&quot;name&quot;])
-
-Sets the line style of the object &quot;name&quot; to the style &quot;style&quot;. If &quot;name&quot;
-is not given the currently selected item is used. There are predefined
-constants for &quot;style&quot; - LINE_&lt;style&gt;.
-</translation>
-    </message>
-    <message>
-        <source>setFillShade(shade, [&quot;name&quot;])
-
-Sets the shading of the fill color of the object &quot;name&quot; to &quot;shade&quot;.
-&quot;shade&quot; must be an integer value in the range from 0 (lightest) to 100
-(full Color intensity). If &quot;name&quot; is not given the currently selected
-Item is used.
-
-May raise ValueError if the fill shade is out of bounds.
-</source>
-        <translation type="obsolete">setFillShade(shade, [&quot;name&quot;])
-
-Sets the shading of the fill colour of the object &quot;name&quot; to &quot;shade&quot;.
-&quot;shade&quot; must be an integer value in the range from 0 (lightest) to 100
-(full Colour intensity). If &quot;name&quot; is not given the currently selected
-Item is used.
-
-May raise ValueError if the fill shade is out of bounds.
-</translation>
-    </message>
-    <message>
-        <source>setCornerRadius(radius, [&quot;name&quot;])
-
-Sets the corner radius of the object &quot;name&quot;. The radius is expressed
-in points. If &quot;name&quot; is not given the currently selected item is used.
-
-May raise ValueError if the corner radius is negative.
-</source>
-        <translation type="obsolete">setCornerRadius(radius, [&quot;name&quot;])
-
-Sets the corner radius of the object &quot;name&quot;. The radius is expressed
-in points. If &quot;name&quot; is not given the currently selected item is used.
-
-May raise ValueError if the corner radius is negative.
-</translation>
-    </message>
-    <message>
-        <source>setMultiLine(&quot;namedStyle&quot;, [&quot;name&quot;])
-
-Sets the line style of the object &quot;name&quot; to the named style &quot;namedStyle&quot;.
-If &quot;name&quot; is not given the currently selected item is used.
-
-May raise NotFoundError if the line style doesn&apos;t exist.
-</source>
-        <translation type="obsolete">setMultiLine(&quot;namedStyle&quot;, [&quot;name&quot;])
-
-Sets the line style of the object &quot;name&quot; to the named style &quot;namedStyle&quot;.
-If &quot;name&quot; is not given the currently selected item is used.
-
-May raise NotFoundError if the line style doesn&apos;t exist.
-</translation>
-    </message>
-    <message>
-        <source>getFont([&quot;name&quot;]) -&gt; string
-
-Returns the font name for the text frame &quot;name&quot;. If this text frame
-has some text selected the value assigned to the first character
-of the selection is returned. If &quot;name&quot; is not given the currently
-selected item is used.
-</source>
-        <translation type="obsolete">getFont([&quot;name&quot;]) -&gt; string
-
-Returns the font name for the text frame &quot;name&quot;. If this text frame
-has some text selected the value assigned to the first character
-of the selection is returned. If &quot;name&quot; is not given the currently
-selected item is used.
-</translation>
-    </message>
-    <message>
-        <source>getTextLength([&quot;name&quot;]) -&gt; integer
-
-Returns the length of the text in the text frame &quot;name&quot;.
-If &quot;name&quot; is not given the currently selected item is used.
-</source>
-        <translation type="obsolete">getTextLength([&quot;name&quot;]) -&gt; integer
-
-Returns the length of the text in the text frame &quot;name&quot;.
-If &quot;name&quot; is not given the currently selected item is used.
-</translation>
-    </message>
-    <message>
-        <source>getText([&quot;name&quot;]) -&gt; string
-
-Returns the text of the text frame &quot;name&quot;. If this text frame has some text
-selected, the selected text is returned. All text in the frame, not just
-currently visible text, is returned. If &quot;name&quot; is not given the currently
-selected item is used.
-</source>
-        <translation type="obsolete">getText([&quot;name&quot;]) -&gt; string
-
-Returns the text of the text frame &quot;name&quot;. If this text frame has some text
-selected, the selected text is returned. All text in the frame, not just
-currently visible text, is returned. If &quot;name&quot; is not given the currently
-selected item is used.
-</translation>
-    </message>
-    <message>
-        <source>getAllText([&quot;name&quot;]) -&gt; string
-
-Returns the text of the text frame &quot;name&quot; and of all text frames which are
-linked with this frame. If this textframe has some text selected, the selected
-text is returned. If &quot;name&quot; is not given the currently selected item is
-used.
-</source>
-        <translation type="obsolete">getAllText([&quot;name&quot;]) -&gt; string
-
-Returns the text of the text frame &quot;name&quot; and of all text frames which are
-linked with this frame. If this textframe has some text selected, the selected
-text is returned. If &quot;name&quot; is not given the currently selected item is
-used.
-</translation>
-    </message>
-    <message>
-        <source>getLineSpacing([&quot;name&quot;]) -&gt; float
-
-Returns the line spacing (&quot;leading&quot;) of the text frame &quot;name&quot; expressed in
-points. If &quot;name&quot; is not given the currently selected item is used.
-</source>
-        <translation type="obsolete">getLineSpacing([&quot;name&quot;]) -&gt; float
-
-Returns the line spacing (&quot;leading&quot;) of the text frame &quot;name&quot; expressed in
-points. If &quot;name&quot; is not given the currently selected item is used.
-</translation>
-    </message>
-    <message>
-        <source>getColumnGap([&quot;name&quot;]) -&gt; float
-
-Returns the column gap size of the text frame &quot;name&quot; expressed in points. If
-&quot;name&quot; is not given the currently selected item is used.
-</source>
-        <translation type="obsolete">getColumnGap([&quot;name&quot;]) -&gt; float
-
-Returns the column gap size of the text frame &quot;name&quot; expressed in points. If
-&quot;name&quot; is not given the currently selected item is used.
-</translation>
-    </message>
-    <message>
-        <source>getColumns([&quot;name&quot;]) -&gt; integer
-
-Gets the number of columns of the text frame &quot;name&quot;. If &quot;name&quot; is not
-given the currently selected item is used.
-</source>
-        <translation type="obsolete">getColumns([&quot;name&quot;]) -&gt; integer
-
-Gets the number of columns of the text frame &quot;name&quot;. If &quot;name&quot; is not
-given the currently selected item is used.
-</translation>
-    </message>
-    <message>
-        <source>setText(&quot;text&quot;, [&quot;name&quot;])
-
-Sets the text of the text frame &quot;name&quot; to the text of the string &quot;text&quot;.
-Text must be UTF8 encoded - use e.g. unicode(text, &apos;iso-8859-2&apos;). See the FAQ
-for more details. If &quot;name&quot; is not given the currently selected item is
-used.
-</source>
-        <translation type="obsolete">setText(&quot;text&quot;, [&quot;name&quot;])
-
-Sets the text of the text frame &quot;name&quot; to the text of the string &quot;text&quot;.
-Text must be UTF8 encoded - use e.g. unicode(text, &apos;iso-8859-2&apos;). See the FAQ
-for more details. If &quot;name&quot; is not given the currently selected item is
-used.
-</translation>
-    </message>
-    <message>
-        <source>setFont(&quot;font&quot;, [&quot;name&quot;])
-
-Sets the font of the text frame &quot;name&quot; to &quot;font&quot;. If there is some text
-selected only the selected text is changed.  If &quot;name&quot; is not given the
-currently selected item is used.
-
-May throw ValueError if the font cannot be found.
-</source>
-        <translation type="obsolete">setFont(&quot;font&quot;, [&quot;name&quot;])
-
-Sets the font of the text frame &quot;name&quot; to &quot;font&quot;. If there is some text
-selected only the selected text is changed.  If &quot;name&quot; is not given the
-currently selected item is used.
-
-May throw ValueError if the font cannot be found.
-</translation>
-    </message>
-    <message>
-        <source>setFontSize(size, [&quot;name&quot;])
-
-Sets the font size of the text frame &quot;name&quot; to &quot;size&quot;. &quot;size&quot; is treated
-as a value in points. If there is some text selected only the selected text is
-changed. &quot;size&quot; must be in the range 1 to 512. If &quot;name&quot; is not given the
-currently selected item is used.
-
-May throw ValueError for a font size that&apos;s out of bounds.
-</source>
-        <translation type="obsolete">setFontSize(size, [&quot;name&quot;])
-
-Sets the font size of the text frame &quot;name&quot; to &quot;size&quot;. &quot;size&quot; is treated
-as a value in points. If there is some text selected only the selected text is
-changed. &quot;size&quot; must be in the range 1 to 512. If &quot;name&quot; is not given the
-currently selected item is used.
-
-May throw ValueError for a font size that&apos;s out of bounds.
-</translation>
-    </message>
-    <message>
-        <source>setLineSpacing(size, [&quot;name&quot;])
-
-Sets the line spacing (&quot;leading&quot;) of the text frame &quot;name&quot; to &quot;size&quot;.
-&quot;size&quot; is a value in points. If &quot;name&quot; is not given the currently selected
-item is used.
-
-May throw ValueError if the line spacing is out of bounds.
-</source>
-        <translation type="obsolete">setLineSpacing(size, [&quot;name&quot;])
-
-Sets the line spacing (&quot;leading&quot;) of the text frame &quot;name&quot; to &quot;size&quot;.
-&quot;size&quot; is a value in points. If &quot;name&quot; is not given the currently selected
-item is used.
-
-May throw ValueError if the line spacing is out of bounds.
-</translation>
-    </message>
-    <message>
-        <source>setColumnGap(size, [&quot;name&quot;])
-
-Sets the column gap of the text frame &quot;name&quot; to the value &quot;size&quot;. If
-&quot;name&quot; is not given the currently selected item is used.
-
-May throw ValueError if the column gap is out of bounds (must be positive).
-</source>
-        <translation type="obsolete">setColumnGap(size, [&quot;name&quot;])
-
-Sets the column gap of the text frame &quot;name&quot; to the value &quot;size&quot;. If
-&quot;name&quot; is not given the currently selected item is used.
-
-May throw ValueError if the column gap is out of bounds (must be positive).
-</translation>
-    </message>
-    <message>
-        <source>setColumns(nr, [&quot;name&quot;])
-
-Sets the number of columns of the text frame &quot;name&quot; to the integer &quot;nr&quot;.
-If &quot;name&quot; is not given the currently selected item is used.
-
-May throw ValueError if number of columns is not at least one.
-</source>
-        <translation type="obsolete">setColumns(nr, [&quot;name&quot;])
-
-Sets the number of columns of the text frame &quot;name&quot; to the integer &quot;nr&quot;.
-If &quot;name&quot; is not given the currently selected item is used.
-
-May throw ValueError if number of columns is not at least one.
-</translation>
-    </message>
-    <message>
-        <source>setTextAlignment(align, [&quot;name&quot;])
-
-Sets the text alignment of the text frame &quot;name&quot; to the specified alignment.
-If &quot;name&quot; is not given the currently selected item is used. &quot;align&quot; should
-be one of the ALIGN_ constants defined in this module - see dir(scribus).
-
-May throw ValueError for an invalid alignment constant.
-</source>
-        <translation type="obsolete">setTextAlignment(align, [&quot;name&quot;])
-
-Sets the text alignment of the text frame &quot;name&quot; to the specified alignment.
-If &quot;name&quot; is not given the currently selected item is used. &quot;align&quot; should
-be one of the ALIGN_ constants defined in this module - see dir(scribus).
-
-May throw ValueError for an invalid alignment constant.
-</translation>
-    </message>
-    <message>
-        <source>selectText(start, count, [&quot;name&quot;])
-
-Selects &quot;count&quot; characters of text in the text frame &quot;name&quot; starting from the
-character &quot;start&quot;. Character counting starts at 0. If &quot;count&quot; is zero, any
-text selection will be cleared.  If &quot;name&quot; is not given the currently
-selected item is used.
-
-May throw IndexError if the selection is outside the bounds of the text.
-</source>
-        <translation type="obsolete">selectText(start, count, [&quot;name&quot;])
-
-Selects &quot;count&quot; characters of text in the text frame &quot;name&quot; starting from the
-character &quot;start&quot;. Character counting starts at 0. If &quot;count&quot; is zero, any
-text selection will be cleared.  If &quot;name&quot; is not given the currently
-selected item is used.
-
-May throw IndexError if the selection is outside the bounds of the text.
-</translation>
-    </message>
-    <message>
-        <source>deleteText([&quot;name&quot;])
-
-Deletes any text in the text frame &quot;name&quot;. If there is some text selected,
-only the selected text will be deleted. If &quot;name&quot; is not given the currently
-selected item is used.
-</source>
-        <translation type="obsolete">deleteText([&quot;name&quot;])
-
-Deletes any text in the text frame &quot;name&quot;. If there is some text selected,
-only the selected text will be deleted. If &quot;name&quot; is not given the currently
-selected item is used.
-</translation>
-    </message>
-    <message>
-        <source>setTextColor(&quot;color&quot;, [&quot;name&quot;])
-
-Sets the text color of the text frame &quot;name&quot; to the color &quot;color&quot;. If there
-is some text selected only the selected text is changed. If &quot;name&quot; is not
-given the currently selected item is used.
-</source>
-        <translation type="obsolete">setTextColor(&quot;color&quot;, [&quot;name&quot;])
-
-Sets the text colour of the text frame &quot;name&quot; to the colour &quot;color&quot;. If there
-is some text selected only the selected text is changed. If &quot;name&quot; is not
-given the currently selected item is used.
-</translation>
-    </message>
-    <message>
-        <source>setTextStroke(&quot;color&quot;, [&quot;name&quot;])
-
-Set &quot;color&quot; of the text stroke. If &quot;name&quot; is not given the currently
-selected item is used.
-</source>
-        <translation type="obsolete">setTextStroke(&quot;color&quot;, [&quot;name&quot;])
-
-Set &quot;color&quot; of the text stroke. If &quot;name&quot; is not given the currently
-selected item is used.
-</translation>
-    </message>
-    <message>
-        <source>setTextShade(shade, [&quot;name&quot;])
-
-Sets the shading of the text color of the object &quot;name&quot; to &quot;shade&quot;. If
-there is some text selected only the selected text is changed. &quot;shade&quot; must
-be an integer value in the range from 0 (lightest) to 100 (full color
-intensity). If &quot;name&quot; is not given the currently selected item is
-used.
-</source>
-        <translation type="obsolete">setTextShade(shade, [&quot;name&quot;])
-
-Sets the shading of the text colour of the object &quot;name&quot; to &quot;shade&quot;. If
-there is some text selected only the selected text is changed. &quot;shade&quot; must
-be an integer value in the range from 0 (lightest) to 100 (full colour
-intensity). If &quot;name&quot; is not given the currently selected item is
-used.
-</translation>
-    </message>
-    <message>
-        <source>linkTextFrames(&quot;fromname&quot;, &quot;toname&quot;)
-
-Link two text frames. The frame named &quot;fromname&quot; is linked to the
-frame named &quot;toname&quot;. The target frame must be an empty text frame
-and must not link to or be linked from any other frames already.
-
-May throw ScribusException if linking rules are violated.
-</source>
-        <translation type="obsolete">linkTextFrames(&quot;fromname&quot;, &quot;toname&quot;)
-
-Link two text frames. The frame named &quot;fromname&quot; is linked to the
-frame named &quot;toname&quot;. The target frame must be an empty text frame
-and must not link to or be linked from any other frames already.
-
-May throw ScribusException if linking rules are violated.
-</translation>
-    </message>
-    <message>
-        <source>unlinkTextFrames(&quot;name&quot;)
-
-Remove the specified (named) object from the text frame flow/linkage. If the
-frame was in the middle of a chain, the previous and next frames will be
-connected, eg &apos;a-&gt;b-&gt;c&apos; becomes &apos;a-&gt;c&apos; when you unlinkTextFrames(b)&apos;
-
-May throw ScribusException if linking rules are violated.
-</source>
-        <translation type="obsolete">unlinkTextFrames(&quot;name&quot;)
-
-Remove the specified (named) object from the text frame flow/linkage. If the
-frame was in the middle of a chain, the previous and next frames will be
-connected, eg &apos;a-&gt;b-&gt;c&apos; becomes &apos;a-&gt;c&apos; when you unlinkTextFrames(b)&apos;
-
-May throw ScribusException if linking rules are violated.
-</translation>
-    </message>
-    <message>
-        <source>traceText([&quot;name&quot;])
-
-Convert the text frame &quot;name&quot; to outlines. If &quot;name&quot; is not given the
-currently selected item is used.</source>
-        <translation type="obsolete">traceText([&quot;name&quot;])
-
-Convert the text frame &quot;name&quot; to outlines. If &quot;name&quot; is not given the
-currently selected item is used.</translation>
-    </message>
-    <message>
-        <source>textOverflows([&quot;name&quot;, nolinks]) -&gt; integer
-
-Returns the actual number of overflowing characters in text frame &quot;name&quot;.
-If is nolinks set to non zero value it takes only one frame - it doesn&apos;t
-use text frame linking. Without this parameter it search all linking chain.
-
-May raise WrongFrameTypeError if the target frame is not an text frame
-</source>
-        <translation type="obsolete">textOverflows([&quot;name&quot;, nolinks]) -&gt; integer
-
-Returns the actual number of overflowing characters in text frame &quot;name&quot;.
-If is nolinks set to non zero value it takes only one frame - it doesn&apos;t
-use text frame linking. Without this parameter it search all linking chain.
-
-May raise WrongFrameTypeError if the target frame is not an text frame
-</translation>
-    </message>
-    <message>
-        <source>isPDFBookmark([&quot;name&quot;]) -&gt; bool
-
-Returns true if the text frame &quot;name&quot; is a PDF bookmark.
-If &quot;name&quot; is not given the currently selected item is used.
-
-May raise WrongFrameTypeError if the target frame is not a text frame
-</source>
-        <translation type="obsolete">isPDFBookmark([&quot;name&quot;]) -&gt; bool
-
-Returns true if the text frame &quot;name&quot; is a PDF bookmark.
-If &quot;name&quot; is not given the currently selected item is used.
-
-May raise WrongFrameTypeError if the target frame is not a text frame
-</translation>
-    </message>
-    <message>
-        <source>progressReset()
-
-Cleans up the Scribus progress bar previous settings. It is called before the
-new progress bar use. See progressSet.
-</source>
-        <translation type="obsolete">progressReset()
-
-Cleans up the Scribus progress bar previous settings. It is called before the
-new progress bar use. See progressSet.
-</translation>
-    </message>
-    <message>
-        <source>progressTotal(max)
-
-Sets the progress bar&apos;s maximum steps value to the specified number.
-See progressSet.
-</source>
-        <translation type="obsolete">progressTotal(max)
-
-Sets the progress bar&apos;s maximum steps value to the specified number.
-See progressSet.
-</translation>
-    </message>
-    <message>
-        <source>progressSet(nr)
-
-Set the progress bar position to &quot;nr&quot;, a value relative to the previously set
-progressTotal. The progress bar uses the concept of steps; you give it the
-total number of steps and the number of steps completed so far and it will
-display the percentage of steps that have been completed. You can specify the
-total number of steps with progressTotal(). The current number of steps is set
-with progressSet(). The progress bar can be rewound to the beginning with
-progressReset(). [based on info taken from Trolltech&apos;s Qt docs]
-</source>
-        <translation type="obsolete">progressSet(nr)
-
-Set the progress bar position to &quot;nr&quot;, a value relative to the previously set
-progressTotal. The progress bar uses the concept of steps; you give it the
-total number of steps and the number of steps completed so far and it will
-display the percentage of steps that have been completed. You can specify the
-total number of steps with progressTotal(). The current number of steps is set
-with progressSet(). The progress bar can be rewound to the beginning with
-progressReset(). [based on info taken from Trolltech&apos;s Qt docs]
-</translation>
-    </message>
-    <message>
-        <source>setCursor()
-
-[UNSUPPORTED!] This might break things, so steer clear for now.
-</source>
-        <translation type="obsolete">setCursor()
-
-[UNSUPPORTED!] This might break things, so steer clear for now.
-</translation>
-    </message>
-    <message>
-        <source>docChanged(bool)
-
-Enable/disable save icon in the Scribus icon bar and the Save menu item. It&apos;s
-useful to call this procedure when you&apos;re changing the document, because Scribus
-won&apos;t automatically notice when you change the document using a script.
-</source>
-        <translation type="obsolete">docChanged(bool)
-
-Enable/disable save icon in the Scribus icon bar and the Save menu item. It&apos;s
-useful to call this procedure when you&apos;re changing the document, because Scribus
-won&apos;t automatically notice when you change the document using a script.
-</translation>
-    </message>
-    <message>
-        <source>newStyleDialog() -&gt; string
-
-Shows &apos;Create new paragraph style&apos; dialog. Function returns real
-style name or None when user cancels the dialog.
-</source>
-        <translation type="obsolete">newStyleDialog() -&gt; string
-
-Shows &apos;Create new paragraph style&apos; dialog. Function returns real
-style name or None when user cancels the dialog.
-</translation>
-    </message>
-    <message>
-        <source>newDoc(size, margins, orientation, firstPageNumber,
-                   unit, facingPages, firstSideLeft) -&gt; bool
-
-WARNING: Obsolete procedure! Use newDocument instead.
-
-Creates a new document and returns true if successful. The parameters have the
-following meaning:
-
-    size = A tuple (width, height) describing the size of the document. You can
-    use predefined constants named PAPER_&lt;paper_type&gt; e.g. PAPER_A4 etc.
-
-    margins = A tuple (left, right, top, bottom) describing the document
-    margins
-
-    orientation = the page orientation - constants PORTRAIT, LANDSCAPE
-
-    firstPageNumer = is the number of the first page in the document used for
-    pagenumbering. While you&apos;ll usually want 1, it&apos;s useful to have higher
-    numbers if you&apos;re creating a document in several parts.
-
-    unit: this value sets the measurement units used by the document. Use a
-    predefined constant for this, one of: UNIT_INCHES, UNIT_MILLIMETERS,
-    UNIT_PICAS, UNIT_POINTS.
-
-    facingPages = FACINGPAGES, NOFACINGPAGES
-
-    firstSideLeft = FIRSTPAGELEFT, FIRSTPAGERIGHT
-
-The values for width, height and the margins are expressed in the given unit
-for the document. PAPER_* constants are expressed in points. If your document
-is not in points, make sure to account for this.
-
-example: newDoc(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 1, UNIT_POINTS,
-                FACINGPAGES, FIRSTPAGERIGHT)
-</source>
-        <translation type="obsolete">newDoc(size, margins, orientation, firstPageNumber,
-                   unit, facingPages, firstSideLeft) -&gt; bool
-
-WARNING: Obsolete procedure! Use newDocument instead.
-
-Creates a new document and returns true if successful. The parameters have the
-following meaning:
-
-    size = A tuple (width, height) describing the size of the document. You can
-    use predefined constants named PAPER_&lt;paper_type&gt; e.g. PAPER_A4 etc.
-
-    margins = A tuple (left, right, top, bottom) describing the document
-    margins
-
-    orientation = the page orientation - constants PORTRAIT, LANDSCAPE
-
-    firstPageNumer = is the number of the first page in the document used for
-    pagenumbering. While you&apos;ll usually want 1, it&apos;s useful to have higher
-    numbers if you&apos;re creating a document in several parts.
-
-    unit: this value sets the measurement units used by the document. Use a
-    predefined constant for this, one of: UNIT_INCHES, UNIT_MILLIMETERS,
-    UNIT_PICAS, UNIT_POINTS.
-
-    facingPages = FACINGPAGES, NOFACINGPAGES
-
-    firstSideLeft = FIRSTPAGELEFT, FIRSTPAGERIGHT
-
-The values for width, height and the margins are expressed in the given unit
-for the document. PAPER_* constants are expressed in points. If your document
-is not in points, make sure to account for this.
-
-example: newDoc(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 1, UNIT_POINTS,
-                FACINGPAGES, FIRSTPAGERIGHT)
-</translation>
-    </message>
-    <message>
-        <source>closeMasterPage()
-
-Closes the currently active master page, if any, and returns editing
-to normal. Begin editing with editMasterPage().
-</source>
-        <translation type="obsolete">closeMasterPage()
-
-Closes the currently active master page, if any, and returns editing
-to normal. Begin editing with editMasterPage().
-</translation>
-    </message>
-    <message>
-        <source>masterPageNames()
-
-Returns a list of the names of all master pages in the document.
-</source>
-        <translation type="obsolete">masterPageNames()
-
-Returns a list of the names of all master pages in the document.
-</translation>
-    </message>
-    <message>
-        <source>editMasterPage(pageName)
-
-Enables master page editing and opens the named master page
-for editing. Finish editing with closeMasterPage().
-</source>
-        <translation type="obsolete">editMasterPage(pageName)
-
-Enables master page editing and opens the named master page
-for editing. Finish editing with closeMasterPage().
-</translation>
-    </message>
-    <message>
-        <source>createMasterPage(pageName)
-
-Creates a new master page named pageName and opens it for
-editing.
-</source>
-        <translation type="obsolete">createMasterPage(pageName)
-
-Creates a new master page named pageName and opens it for
-editing.
-</translation>
-    </message>
-    <message>
-        <source>deleteMasterPage(pageName)
-
-Delete the named master page.
-</source>
-        <translation type="obsolete">deleteMasterPage(pageName)
-
-Delete the named master page.
-</translation>
-    </message>
-    <message>
-        <source>zoomDocument(double)
-
-Zoom the document in main GUI window. Actions have whole number
-values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
-</source>
-        <translation type="obsolete">zoomDocument(double)
-
-Zoom the document in main GUI window. Actions have whole number
-values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
-</translation>
-    </message>
-    <message>
-        <source>getFillTransparency([&quot;name&quot;]) -&gt; float
-
-Returns the fill transparency of the object &quot;name&quot;. If &quot;name&quot;
-is not given the currently selected Item is used.
-</source>
-        <translation type="obsolete">getFillTransparency([&quot;name&quot;]) -&gt; float
-
-Returns the fill transparency of the object &quot;name&quot;. If &quot;name&quot;
-is not given the currently selected Item is used.
-</translation>
-    </message>
-    <message>
-        <source>getFillBlendmode([&quot;name&quot;]) -&gt; integer
-
-Returns the fill blendmode of the object &quot;name&quot;. If &quot;name&quot;
-is not given the currently selected Item is used.
-</source>
-        <translation type="obsolete">getFillBlendmode([&quot;name&quot;]) -&gt; integer
-
-Returns the fill blendmode of the object &quot;name&quot;. If &quot;name&quot;
-is not given the currently selected Item is used.
-</translation>
-    </message>
-    <message>
-        <source>getLineTransparency([&quot;name&quot;]) -&gt; float
-
-Returns the line transparency of the object &quot;name&quot;. If &quot;name&quot;
-is not given the currently selected Item is used.
-</source>
-        <translation type="obsolete">getLineTransparency([&quot;name&quot;]) -&gt; float
-
-Returns the line transparency of the object &quot;name&quot;. If &quot;name&quot;
-is not given the currently selected Item is used.
-</translation>
-    </message>
-    <message>
-        <source>getLineBlendmode([&quot;name&quot;]) -&gt; integer
-
-Returns the line blendmode of the object &quot;name&quot;. If &quot;name&quot;
-is not given the currently selected Item is used.
-</source>
-        <translation type="obsolete">getLineBlendmode([&quot;name&quot;]) -&gt; integer
-
-Returns the line blendmode of the object &quot;name&quot;. If &quot;name&quot;
-is not given the currently selected Item is used.
-</translation>
-    </message>
-    <message>
-        <source>setLayerLocked(&quot;layer&quot;, locked)
-
-Sets the layer &quot;layer&quot; to be locked or not. If locked is set to
-true the layer will be locked.
-
-May raise NotFoundError if the layer can&apos;t be found.
-May raise ValueError if the layer name isn&apos;t acceptable.
-</source>
-        <translation type="obsolete">setLayerLocked(&quot;layer&quot;, locked)
-
-Sets the layer &quot;layer&quot; to be locked or not. If locked is set to
-true the layer will be locked.
-
-May raise NotFoundError if the layer can&apos;t be found.
-May raise ValueError if the layer name isn&apos;t acceptable.
-</translation>
-    </message>
-    <message>
-        <source>isLayerLocked(&quot;layer&quot;) -&gt; bool
-
-Returns whether the layer &quot;layer&quot; is locked or not, a value of True means
-that the layer &quot;layer&quot; is editable, a value of False means that the layer
-&quot;layer&quot; is locked.
-
-May raise NotFoundError if the layer can&apos;t be found.
-May raise ValueError if the layer name isn&apos;t acceptable.
-</source>
-        <translation type="obsolete">isLayerLocked(&quot;layer&quot;) -&gt; bool
-
-Returns whether the layer &quot;layer&quot; is locked or not, a value of True means
-that the layer &quot;layer&quot; is editable, a value of False means that the layer
-&quot;layer&quot; is locked.
-
-May raise NotFoundError if the layer can&apos;t be found.
-May raise ValueError if the layer name isn&apos;t acceptable.
-</translation>
-    </message>
-    <message>
-        <source>isLayerOutlined(&quot;layer&quot;) -&gt; bool
-
-Returns whether the layer &quot;layer&quot; is outlined or not, a value of True means
-that the layer &quot;layer&quot; is outlined, a value of False means that the layer
-&quot;layer&quot; is normal.
-
-May raise NotFoundError if the layer can&apos;t be found.
-May raise ValueError if the layer name isn&apos;t acceptable.
-</source>
-        <translation type="obsolete">isLayerOutlined(&quot;layer&quot;) -&gt; bool
-
-Returns whether the layer &quot;layer&quot; is outlined or not, a value of True means
-that the layer &quot;layer&quot; is outlined, a value of False means that the layer
-&quot;layer&quot; is normal.
-
-May raise NotFoundError if the layer can&apos;t be found.
-May raise ValueError if the layer name isn&apos;t acceptable.
-</translation>
-    </message>
-    <message>
-        <source>isLayerFlow(&quot;layer&quot;) -&gt; bool
-
-Returns whether text flows around objects on layer &quot;layer&quot;, a value of True means
-that text flows around, a value of False means that the text does not flow around.
-
-May raise NotFoundError if the layer can&apos;t be found.
-May raise ValueError if the layer name isn&apos;t acceptable.
-</source>
-        <translation type="obsolete">isLayerFlow(&quot;layer&quot;) -&gt; bool
-
-Returns whether text flows around objects on layer &quot;layer&quot;, a value of True means
-that text flows around, a value of False means that the text does not flow around.
-
-May raise NotFoundError if the layer can&apos;t be found.
-May raise ValueError if the layer name isn&apos;t acceptable.
-</translation>
-    </message>
-    <message>
-        <source>getLayerBlendmode(&quot;layer&quot;) -&gt; int
-
-Returns the &quot;layer&quot; layer blendmode,
-
-May raise NotFoundError if the layer can&apos;t be found.
-May raise ValueError if the layer name isn&apos;t acceptable.
-</source>
-        <translation type="obsolete">getLayerBlendmode(&quot;layer&quot;) -&gt; int
-
-Returns the &quot;layer&quot; layer blendmode,
-
-May raise NotFoundError if the layer can&apos;t be found.
-May raise ValueError if the layer name isn&apos;t acceptable.
-</translation>
-    </message>
-    <message>
-        <source>getLayerTransparency(&quot;layer&quot;) -&gt; float
-
-Returns the &quot;layer&quot; layer transparency,
-
-May raise NotFoundError if the layer can&apos;t be found.
-May raise ValueError if the layer name isn&apos;t acceptable.
-</source>
-        <translation type="obsolete">getLayerTransparency(&quot;layer&quot;) -&gt; float
-
-Returns the &quot;layer&quot; layer transparency,
-
-May raise NotFoundError if the layer can&apos;t be found.
-May raise ValueError if the layer name isn&apos;t acceptable.
-</translation>
-    </message>
-    <message>
-        <source>textFlowMode(&quot;name&quot; [, state])
-
-Enables/disables &quot;Text Flows Around Frame&quot; feature for object &quot;name&quot;.
-Called with parameters string name and optional int &quot;state&quot; (0 &lt;= state &lt;= 3).
-Setting &quot;state&quot; to 0 will disable text flow.
-Setting &quot;state&quot; to 1 will make text flow around object frame.
-Setting &quot;state&quot; to 2 will make text flow around bounding box.
-Setting &quot;state&quot; to 3 will make text flow around contour line.
-If &quot;state&quot; is not passed, text flow is toggled.
-</source>
-        <translation type="obsolete">textFlowMode(&quot;name&quot; [, state])
-
-Enables/disables &quot;Text Flows Around Frame&quot; feature for object &quot;name&quot;.
-Called with parameters string name and optional int &quot;state&quot; (0 &lt;= state &lt;= 3).
-Setting &quot;state&quot; to 0 will disable text flow.
-Setting &quot;state&quot; to 1 will make text flow around object frame.
-Setting &quot;state&quot; to 2 will make text flow around bounding box.
-Setting &quot;state&quot; to 3 will make text flow around contour line.
-If &quot;state&quot; is not passed, text flow is toggled.
-</translation>
-    </message>
-    <message>
-        <source>duplicateObject([&quot;name&quot;]) -&gt; string
-
-creates a Duplicate of the selected Object (or Selection Group).
-</source>
-        <translation type="obsolete">duplicateObject([&quot;name&quot;]) -&gt; string
-
-creates a Duplicate of the selected Object (or Selection Group).
-</translation>
-    </message>
-    <message>
-        <source>setInfo(&quot;author&quot;, &quot;info&quot;, &quot;description&quot;) -&gt; bool
-
-Sets the document information. &quot;Author&quot;, &quot;Info&quot;, &quot;Description&quot; are
-strings.
-</source>
-        <translation type="obsolete">setInfo(&quot;author&quot;, &quot;info&quot;, &quot;description&quot;) -&gt; bool
-
-Sets the document information. &quot;Author&quot;, &quot;Info&quot;, &quot;Description&quot; are
-strings.
-</translation>
-    </message>
-    <message>
-        <source>getPageType() -&gt; integer
-
-Returns the type of the Page, 0 means left Page, 1 is a middle Page and 2 is a right Page
-</source>
-        <translation type="obsolete">getPageType() -&gt; integer
-
-Returns the type of the Page, 0 means left Page, 1 is a middle Page and 2 is a right Page
-</translation>
-    </message>
-    <message>
-        <source>getTextLines([&quot;name&quot;]) -&gt; integer
-
-Returns the number of lines of the text in the text frame &quot;name&quot;.
-If &quot;name&quot; is not given the currently selected item is used.
-</source>
-        <translation type="obsolete">getTextLines([&quot;name&quot;]) -&gt; integer
-
-Returns the number of lines of the text in the text frame &quot;name&quot;.
-If &quot;name&quot; is not given the currently selected item is used.
-</translation>
-    </message>
-    <message>
-        <source>defineColor(&quot;name&quot;, c, m, y, k)
-
-Defines a new color &quot;name&quot;. The color Value is defined via four components:
-c = Cyan, m = Magenta, y = Yellow and k = Black. Color components should be in
-the range from 0 to 255.
-
-May raise ValueError if an invalid color name is specified.
-</source>
-        <translation type="obsolete">defineColor(&quot;name&quot;, c, m, y, k)
-
-Defines a new colour &quot;name&quot;. The colour Value is defined via four components:
-c = Cyan, m = Magenta, y = Yellow and k = Black. Colour components should be in
-the range from 0 to 255.
-
-May raise ValueError if an invalid colour name is specified.
-</translation>
-    </message>
-    <message>
-        <source>getCornerRadius([&quot;name&quot;]) -&gt; integer
-
-Returns the corner radius of the object &quot;name&quot;. The radius is
-expressed in points. If &quot;name&quot; is not given the currently
-selected item is used.
-</source>
-        <translation type="obsolete">getCornerRadius([&quot;name&quot;]) -&gt; integer
-
-Returns the corner radius of the object &quot;name&quot;. The radius is
-expressed in points. If &quot;name&quot; is not given the currently
-selected item is used.
-</translation>
-    </message>
-    <message>
-        <source>getPosition([&quot;name&quot;]) -&gt; (x,y)
-
-Returns a (x, y) tuple with the position of the object &quot;name&quot;.
-If &quot;name&quot; is not given the currently selected item is used.
-The position is expressed in the actual measurement unit of the document
-- see UNIT_&lt;type&gt; for reference.
-</source>
-        <translation type="obsolete">getPosition([&quot;name&quot;]) -&gt; (x,y)
-
-Returns a (x, y) tuple with the position of the object &quot;name&quot;.
-If &quot;name&quot; is not given the currently selected item is used.
-The position is expressed in the actual measurement unit of the document
-- see UNIT_&lt;type&gt; for reference.
-</translation>
-    </message>
-    <message>
-        <source>rotateObjectAbs(rot [, &quot;name&quot;])
-
-Sets the rotation of the object &quot;name&quot; to &quot;rot&quot;. Positive values
-mean counter clockwise rotation. If &quot;name&quot; is not given the currently
-selected item is used.
-</source>
-        <translation type="obsolete">rotateObjectAbs(rot [, &quot;name&quot;])
-
-Sets the rotation of the object &quot;name&quot; to &quot;rot&quot;. Positive values
-mean counter clockwise rotation. If &quot;name&quot; is not given the currently
-selected item is used.
-</translation>
-    </message>
-    <message>
-        <source>setLayerPrintable(&quot;layer&quot;, printable)
-
-Sets the layer &quot;layer&quot; to be printable or not. If is the
-printable set to false the layer won&apos;t be printed.
-
-May raise NotFoundError if the layer can&apos;t be found.
-May raise ValueError if the layer name isn&apos;t acceptable.
-</source>
-        <translation type="obsolete">setLayerPrintable(&quot;layer&quot;, printable)
-
-Sets the layer &quot;layer&quot; to be printable or not. If is the
-printable set to false the layer won&apos;t be printed.
-
-May raise NotFoundError if the layer can&apos;t be found.
-May raise ValueError if the layer name isn&apos;t acceptable.
-</translation>
-    </message>
-    <message>
-        <source>isLayerVisible(&quot;layer&quot;) -&gt; bool
-
-Returns whether the layer &quot;layer&quot; is visible or not, a value of True means
-that the layer &quot;layer&quot; is visible, a value of False means that the layer
-&quot;layer&quot; is invisible.
-
-May raise NotFoundError if the layer can&apos;t be found.
-May raise ValueError if the layer name isn&apos;t acceptable.
-</source>
-        <translation type="obsolete">isLayerVisible(&quot;layer&quot;) -&gt; bool
-
-Returns whether the layer &quot;layer&quot; is visible or not, a value of True means
-that the layer &quot;layer&quot; is visible, a value of False means that the layer
-&quot;layer&quot; is invisible.
-
-May raise NotFoundError if the layer can&apos;t be found.
-May raise ValueError if the layer name isn&apos;t acceptable.
-</translation>
-    </message>
-    <message>
-        <source>insertText(&quot;text&quot;, pos, [&quot;name&quot;])
-
-Inserts the text &quot;text&quot; at the position &quot;pos&quot; into the text frame &quot;name&quot;.
-Text must be UTF encoded (see setText() as reference) The first character has an
-index of 0. Inserting text at position -1 appends it to the frame. If &quot;name&quot; is
-not given the currently selected Item is used.
-
-May throw IndexError for an insertion out of bounds.
-</source>
-        <translation type="obsolete">insertText(&quot;text&quot;, pos, [&quot;name&quot;])
-
-Inserts the text &quot;text&quot; at the position &quot;pos&quot; into the text frame &quot;name&quot;.
-Text must be UTF encoded (see setText() as reference) The first character has an
-index of 0. Inserting text at position -1 appends it to the frame. If &quot;name&quot; is
-not given the currently selected Item is used.
-
-May throw IndexError for an insertion out of bounds.
-</translation>
-    </message>
-    <message>
-        <source>setMargins(lr, rr, tr, br)
-
-Sets the margins of the document, Qt::DockLeft(lr), Qt::DockRight(rr), Qt::DockTop(tr) and Qt::DockBottom(br)
-margins are given in the measurement units of the document - see UNIT_&lt;type&gt;
-constants.
-</source>
-        <translation type="obsolete">setMargins(lr, rr, tr, br)
-
-Sets the margins of the document, Qt::DockLeft(lr), Qt::DockRight(rr), Qt::DockTop(tr) and Qt::DockBottom(br)
-margins are given in the measurement units of the document - see UNIT_&lt;type&gt;
-constants.
-</translation>
-    </message>
-    <message>
-        <source>setLayerOutlined(&quot;layer&quot;, outline)
-
-Sets the layer &quot;layer&quot; to be locked or not. If outline is set to
-true the layer will be displayed outlined.
-
-May raise NotFoundError if the layer can&apos;t be found.
-May raise ValueError if the layer name isn&apos;t acceptable.
-</source>
-        <translation type="obsolete">setLayerOutlined(&quot;layer&quot;, outline)
-
-Sets the layer &quot;layer&quot; to be locked or not. If outline is set to
-true the layer will be displayed outlined.
-
-May raise NotFoundError if the layer can&apos;t be found.
-May raise ValueError if the layer name isn&apos;t acceptable.
-</translation>
-    </message>
-    <message>
-        <source>setLayerFlow(&quot;layer&quot;, flow)
-
-Sets the layers &quot;layer&quot;  flowcontrol to flow. If flow is set to
-true text in layers above this one will flow around objects on this layer.
-
-May raise NotFoundError if the layer can&apos;t be found.
-May raise ValueError if the layer name isn&apos;t acceptable.
-</source>
-        <translation type="obsolete">setLayerFlow(&quot;layer&quot;, flow)
-
-Sets the layers &quot;layer&quot;  flowcontrol to flow. If flow is set to
-true text in layers above this one will flow around objects on this layer.
-
-May raise NotFoundError if the layer can&apos;t be found.
-May raise ValueError if the layer name isn&apos;t acceptable.
-</translation>
-    </message>
-    <message>
-        <source>setLayerBlendmode(&quot;layer&quot;, blend)
-
-Sets the layers &quot;layer&quot;  blendmode to blend.
-
-May raise NotFoundError if the layer can&apos;t be found.
-May raise ValueError if the layer name isn&apos;t acceptable.
-</source>
-        <translation type="obsolete">setLayerBlendmode(&quot;layer&quot;, blend)
-
-Sets the layers &quot;layer&quot;  blendmode to blend.
-
-May raise NotFoundError if the layer can&apos;t be found.
-May raise ValueError if the layer name isn&apos;t acceptable.
-</translation>
-    </message>
-    <message>
-        <source>setLayerTransparency(&quot;layer&quot;, trans)
-
-Sets the layers &quot;layer&quot;  transparency to trans.
-
-May raise NotFoundError if the layer can&apos;t be found.
-May raise ValueError if the layer name isn&apos;t acceptable.
-</source>
-        <translation type="obsolete">setLayerTransparency(&quot;layer&quot;, trans)
-
-Sets the layers &quot;layer&quot;  transparency to trans.
-
-May raise NotFoundError if the layer can&apos;t be found.
-May raise ValueError if the layer name isn&apos;t acceptable.
-</translation>
-    </message>
-    <message>
-        <source>setFillTransparency(transparency, [&quot;name&quot;])
-
-Sets the fill transparency of the object &quot;name&quot; to transparency
-If &quot;name&quot; is not given the currently selected item is used.
-</source>
-        <translation type="obsolete">setFillTransparency(transparency, [&quot;name&quot;])
-
-Sets the fill transparency of the object &quot;name&quot; to transparency
-If &quot;name&quot; is not given the currently selected item is used.
-</translation>
-    </message>
-    <message>
-        <source>setFillBlendmode(blendmode, [&quot;name&quot;])
-
-Sets the fill blendmode of the object &quot;name&quot; to blendmode
-If &quot;name&quot; is not given the currently selected item is used.
-</source>
-        <translation type="obsolete">setFillBlendmode(blendmode, [&quot;name&quot;])
-
-Sets the fill blendmode of the object &quot;name&quot; to blendmode
-If &quot;name&quot; is not given the currently selected item is used.
-</translation>
-    </message>
-    <message>
-        <source>setLineTransparency(transparency, [&quot;name&quot;])
-
-Sets the line transparency of the object &quot;name&quot; to transparency
-If &quot;name&quot; is not given the currently selected item is used.
-</source>
-        <translation type="obsolete">setLineTransparency(transparency, [&quot;name&quot;])
-
-Sets the line transparency of the object &quot;name&quot; to transparency
-If &quot;name&quot; is not given the currently selected item is used.
-</translation>
-    </message>
-    <message>
-        <source>setLineBlendmode(blendmode, [&quot;name&quot;])
-
-Sets the line blendmode of the object &quot;name&quot; to blendmode
-If &quot;name&quot; is not given the currently selected item is used.
-</source>
-        <translation type="obsolete">setLineBlendmode(blendmode, [&quot;name&quot;])
-
-Sets the line blendmode of the object &quot;name&quot; to blendmode
-If &quot;name&quot; is not given the currently selected item is used.
-</translation>
-    </message>
-    <message>
-        <source>placeEPS(&quot;filename&quot;, x, y)
-
-Places the EPS &quot;filename&quot; onto the current page,
-x and y specify the coordinate of the topleft corner of the EPS placed on the page
-
-If loading was successful, the selection contains the imported EPS
-</source>
-        <translation type="obsolete">placeEPS(&quot;filename&quot;, x, y)
-
-Places the EPS &quot;filename&quot; onto the current page,
-x and y specify the coordinate of the topleft corner of the EPS placed on the page
-
-If loading was successful, the selection contains the imported EPS
-</translation>
-    </message>
-    <message>
-        <source>placeSXD(&quot;filename&quot;, x, y)
-
-Places the SXD &quot;filename&quot; onto the current page,
-x and y specify the coordinate of the topleft corner of the SXD placed on the page
-
-If loading was successful, the selection contains the imported SXD
-</source>
-        <translation type="obsolete">placeSXD(&quot;filename&quot;, x, y)
-
-Places the SXD &quot;filename&quot; onto the current page,
-x and y specify the coordinate of the topleft corner of the SXD placed on the page
-
-If loading was successful, the selection contains the imported SXD
-</translation>
-    </message>
-    <message>
-        <source>placeODG(&quot;filename&quot;, x, y)
-
-Places the ODG &quot;filename&quot; onto the current page,
-x and y specify the coordinate of the topleft corner of the ODG placed on the page
-
-If loading was successful, the selection contains the imported ODG
-</source>
-        <translation type="obsolete">placeODG(&quot;filename&quot;, x, y)
-
-Places the ODG &quot;filename&quot; onto the current page,
-x and y specify the coordinate of the topleft corner of the ODG placed on the page
-
-If loading was successful, the selection contains the imported ODG
-</translation>
-    </message>
-    <message>
-        <source>fileDialog(&quot;caption&quot;, [&quot;filter&quot;, &quot;defaultname&quot;, haspreview, issave, isdir]) -&gt; string with filename
-
-Shows a File Open dialog box with the caption &quot;caption&quot;. Files are filtered
-with the filter string &quot;filter&quot;. A default filename or file path can also
-supplied, leave this string empty when you don&apos;t want to use it.  A value of
-True for haspreview enables a small preview widget in the FileSelect box.  When
-the issave parameter is set to True the dialog acts like a &quot;Save As&quot; dialog
-otherwise it acts like a &quot;File Open Dialog&quot;. When the isdir parameter is True
-the dialog shows and returns only directories. The default for all of the
-optional parameters is False.
-
-The filter, if specified, takes the form &apos;comment (*.type *.type2 ...)&apos;.
-For example &apos;Images (*.png *.xpm *.jpg)&apos;.
-
-Refer to the Qt-Documentation for QFileDialog for details on filters.
-
-Example: fileDialog(&apos;Open input&apos;, &apos;CSV files (*.csv)&apos;)
-Example: fileDialog(&apos;Save report&apos;, defaultname=&apos;report.txt&apos;, issave=True)
-</source>
-        <translation type="obsolete">fileDialog(&quot;caption&quot;, [&quot;filter&quot;, &quot;defaultname&quot;, haspreview, issave, isdir]) -&gt; string with filename
-
-Shows a File Open dialogue box with the caption &quot;caption&quot;. Files are filtered
-with the filter string &quot;filter&quot;. A default filename or file path can also
-supplied, leave this string empty when you don&apos;t want to use it.  A value of
-True for haspreview enables a small preview widget in the FileSelect box.  When
-the issave parameter is set to True the dialog acts like a &quot;Save As&quot; dialogue
-otherwise it acts like a &quot;File Open Dialogue&quot;. When the isdir parameter is True
-the dialog shows and returns only directories. The default for all of the
-optional parameters is False.
-
-The filter, if specified, takes the form &apos;comment (*.type *.type2 ...)&apos;.
-For example &apos;Images (*.png *.xpm *.jpg)&apos;.
-
-Refer to the Qt-Documentation for QFileDialog for details on filters.
-
-Example: fileDialog(&apos;Open input&apos;, &apos;CSV files (*.csv)&apos;)
-Example: fileDialog(&apos;Save report&apos;, defaultname=&apos;report.txt&apos;, issave=True)
-</translation>
-    </message>
-    <message>
-        <source>getLineJoin([&quot;name&quot;]) -&gt; integer (see constants)
-
-Returns the line join style of the object &quot;name&quot;. If &quot;name&quot; is not given
-the currently selected item is used.  The join types are:
-JOIN_BEVEL, JOIN_MITTER, JOIN_ROUND
-</source>
-        <translation type="obsolete">getLineJoin([&quot;name&quot;]) -&gt; integer (see constants)
-
-Returns the line join style of the object &quot;name&quot;. If &quot;name&quot; is not given
-the currently selected item is used.  The join types are:
-JOIN_BEVEL, JOIN_MITTER, JOIN_ROUND
-</translation>
-    </message>
-    <message>
-        <source>rotateObject(rot [, &quot;name&quot;])
-
-Rotates the object &quot;name&quot; by &quot;rot&quot; degrees relatively. The object is
-rotated by the vertex that is currently selected as the rotation point - by
-default, the top left vertex at zero rotation. Positive values mean counter
-clockwise rotation when the default rotation point is used. If &quot;name&quot; is not
-given the currently selected item is used.
-</source>
-        <translation type="obsolete">rotateObject(rot [, &quot;name&quot;])
-
-Rotates the object &quot;name&quot; by &quot;rot&quot; degrees relatively. The object is
-rotated by the vertex that is currently selected as the rotation point - by
-default, the top left vertex at zero rotation. Positive values mean counter
-clockwise rotation when the default rotation point is used. If &quot;name&quot; is not
-given the currently selected item is used.
-</translation>
-    </message>
-    <message>
-        <source>gotoPage(nr)
-
-Moves to the page &quot;nr&quot; (that is, makes the current page &quot;nr&quot;). Note that
-gotoPage doesn&apos;t (currently) change the page the user&apos;s view is displaying, it
-just sets the page that script commands will operates on.
-
-May raise IndexError if the page number is out of range.
-</source>
-        <translation type="obsolete">gotoPage(nr)
-
-Moves to the page &quot;nr&quot; (that is, makes the current page &quot;nr&quot;). Note that
-gotoPage doesn&apos;t (currently) change the page the user&apos;s view is displaying, it
-just sets the page that script commands will operates on.
-
-May raise IndexError if the page number is out of range.
-</translation>
-    </message>
-    <message>
-        <source>setPDFBookmark(&quot;toggle&quot;, [&quot;name&quot;])
-
-Sets whether (toggle = 1) the text frame &quot;name&quot; is a bookmark nor not.
-If &quot;name&quot; is not given the currently selected item is used.
-
-May raise WrongFrameTypeError if the target frame is not a text frame
-</source>
-        <translation type="obsolete">setPDFBookmark(&quot;toggle&quot;, [&quot;name&quot;])
-
-Sets whether (toggle = 1) the text frame &quot;name&quot; is a bookmark nor not.
-If &quot;name&quot; is not given the currently selected item is used.
-
-May raise WrongFrameTypeError if the target frame is not a text frame
-</translation>
-    </message>
-    <message>
-        <source>moveSelectionToFront()
-
-Moves current selection to front.
-</source>
-        <translation type="obsolete">moveSelectionToFront()Moves current selection to front.</translation>
-    </message>
-    <message>
-        <source>moveSelectionToFront()
-
-Moves current selection to back.
-</source>
-        <translation type="obsolete">moveSelectionToFront()Moves current selection to back.</translation>
-    </message>
-    <message>
-        <source>importPage(&quot;fromDoc&quot;, (pageList), [create, imortwhere, importwherePage])
-
-Imports a set of pages (given as a tuple) from an existing document (the file name must be given). This functions maps the &quot;Page-&gt;Import&quot; dropdown menu function.
-fromDoc: string; the filename of the document to import pages from
-pageList: tuple with page numbers of pages to import
-create: number; 0 to replace existing pages, 1 (default) to insert new pages
-importWhere: number; the page number (of the current document) at which import the pages
-importWherePage: number; used if create==1; 0 to create pages before selected page; 1 to create pages after selected page; 2 (default) to create pages at the end of the document
-</source>
-        <translation type="obsolete">importPage(&quot;fromDoc&quot;, (pageList), [create, imortwhere, importwherePage])Imports a set of pages (given as a tuple) from an existing document (the file name must be given). This functions maps the &quot;Page-&gt;Import&quot; dropdown menu function.fromDoc: string; the filename of the document to import pages frompageList: tuple with page numbers of pages to importcreate: number; 0 to replace existing pages, 1 (default) to insert new pagesimportWhere: number; the page number (of the current document) at which import the pagesimportWherePage: number; used if create==1; 0 to create pages before selected page; 1 to create pages after selected page; 2 (default) to create pages at the end of the document</translation>
-    </message>
-    <message>
-        <source>createCharStyle(...)
-
-Creates a character style. This function takes the following keyword parameters:
-
-&quot;name&quot; [required] -&gt; name of the char style to create
-
-&quot;font&quot; [optional] -&gt; name of the font to use
-
-fontsize [optional] -&gt; font size to set (double)
-
-&quot;features&quot; [optional] -&gt; nearer typographic details can be defined by a string that might contain the following phrases comma-seperated (without spaces!):
-
--&gt; inherit
-
--&gt; bold
-
--&gt; italic
-
--&gt; underline
-
--&gt; underlinewords
-
--&gt; strike
-
--&gt; superscript
-
--&gt; subscript
-
--&gt; outline
-
--&gt; shadowed
-
--&gt; allcaps
-
--&gt; smallcaps
-
-&quot;fillcolor&quot; [optional], &quot;fillshade&quot; [optional] -&gt; specify fill options
-
-&quot;strokecolor&quot; [optional], &quot;strokeshade&quot; [optional] -&gt; specify stroke options
-
-baselineoffset [optional] -&gt; offset of the baseline
-
-shadowxoffset [optional], shadowyoffset [optional] -&gt; offset of the shadow if used
-
-outlinewidth [optional] -&gt; width of the outline if used
-
-underlineoffset [optional], underlinewidth [optional] -&gt; underline options if used
-
-strikethruoffset [optional], strikethruwidth [optional] -&gt; strikethru options if used
-
-scaleh [optional], scalev [optional] -&gt; scale of the chars
-
-tracking [optional] -&gt; tracking of the text
-
-&quot;language&quot; [optional] -&gt; language code
-
-</source>
-        <translation type="obsolete">createCharStyle(...)Creates a character style. This function takes the following keyword parameters:&quot;name&quot; [required] -&gt; name of the char style to create&quot;font&quot; [optional] -&gt; name of the font to usefontsize [optional] -&gt; font size to set (double)&quot;features&quot; [optional] -&gt; nearer typographic details can be defined by a string that might contain the following phrases comma-seperated (without spaces!):-&gt; inherit-&gt; bold-&gt; italic-&gt; underline-&gt; underlinewords-&gt; strike-&gt; superscript-&gt; subscript-&gt; outline-&gt; shadowed-&gt; allcaps-&gt; smallcaps&quot;fillcolour&quot; [optional], &quot;fillshade&quot; [optional] -&gt; specify fill options&quot;strokecolour&quot; [optional], &quot;strokeshade&quot; [optional] -&gt; specify stroke optionsbaselineoffset [optional] -&gt; offset of the baselineshadowxoffset [optional], shadowyoffset [optional] -&gt; offset of the shadow if usedoutlinewidth [optional] -&gt; width of the outline if usedunderlineoffset [optional], underlinewidth [optional] -&gt; underline options if usedstrikethruoffset [optional], strikethruwidth [optional] -&gt; strikethru options if usedscaleh [optional], scalev [optional] -&gt; scale of the charstracking [optional] -&gt; tracking of the text&quot;language&quot; [optional] -&gt; language code</translation>
-    </message>
-    <message>
-        <source>hyphenateText([&quot;name&quot;]) -&gt; bool
-
-Does hyphenation on text frame &quot;name&quot;.
-If &quot;name&quot; is not given the currently selected item is used.
-
-May raise WrongFrameTypeError if the target frame is not a text frame
-</source>
-        <translation type="obsolete">hyphenateText([&quot;name&quot;]) -&gt; boolDoes hyphenation on text frame &quot;name&quot;.If &quot;name&quot; is not given the currently selected item is used.May raise WrongFrameTypeError if the target frame is not a text frame</translation>
-    </message>
-    <message>
-        <source>dehyphenateText([&quot;name&quot;]) -&gt; bool
-
-Does dehyphenation on text frame &quot;name&quot;.
-If &quot;name&quot; is not given the currently selected item is used.
-
-May raise WrongFrameTypeError if the target frame is not a text frame
-</source>
-        <translation type="obsolete">dehyphenateText([&quot;name&quot;]) -&gt; boolDoes dehyphenation on text frame &quot;name&quot;.If &quot;name&quot; is not given the currently selected item is used.May raise WrongFrameTypeError if the target frame is not a text frame</translation>
-    </message>
-    <message>
-        <source>scrollDocument(x,y)
-
-Scroll the document in main GUI window by x and y.
-</source>
-        <translation type="obsolete">scrollDocument(x,y)Scroll the document in main GUI window by x and y.</translation>
-    </message>
-    <message>
-        <source>createParagraphStyle(...)
-
-Creates a paragraph style. This function takes the following keyword parameters:
-
-&quot;name&quot; [required] -&gt; specifies the name of the paragraphstyle to create
-
-linespacingmode [optional] -&gt; specifies the linespacing mode; possible modes are:
-
-fixed linespacing:          0
-
-automatic linespacing:      1
-
-baseline grid linespacing:  2
-
-linespacing [optional] -&gt; specifies the linespacing if using fixed linespacing
-
-alignment [optional] -&gt; specifies the alignment of the paragraph
-
--&gt; left:     0
-
--&gt; center:   1
-
--&gt; right:    2
-
--&gt; justify:  3
-
--&gt; extend:   4
-
-leftmargin [optional], rightmargin [optional] -&gt; specify the margin
-
-gapbefore [optional], gapafter [optional] -&gt; specify the gaps to the heading and following paragraphs
-
-firstindent [optional] -&gt; the indent of the first line
-
-hasdropcap [optional] -&gt; specifies if there are caps (1 = yes, 0 = no)
-
-dropcaplines [optional] -&gt; height (in lines) of the caps if used
-
-dropcapoffset [optional] -&gt; offset of the caps if used
-
-&quot;charstyle&quot; [optional] -&gt; char style to use
-
-</source>
-        <translation type="obsolete">createParagraphStyle(...)Creates a paragraph style. This function takes the following keyword parameters:&quot;name&quot; [required] -&gt; specifies the name of the paragraphstyle to createlinespacingmode [optional] -&gt; specifies the linespacing mode; possible modes are:fixed linespacing:          0automatic linespacing:      1baseline grid linespacing:  2linespacing [optional] -&gt; specifies the linespacing if using fixed linespacingalignment [optional] -&gt; specifies the alignment of the paragraph-&gt; left:     0-&gt; center:   1-&gt; right:    2-&gt; justify:  3-&gt; extend:   4leftmargin [optional], rightmargin [optional] -&gt; specify the margingapbefore [optional], gapafter [optional] -&gt; specify the gaps to the heading and following paragraphsfirstindent [optional] -&gt; the indent of the first linehasdropcap [optional] -&gt; specifies if there are caps (1 = yes, 0 = no)dropcaplines [optional] -&gt; height (in lines) of the caps if useddropcapoffset [optional] -&gt; offset of the caps if used&quot;charstyle&quot; [optional] -&gt; char style to use</translation>
-    </message>
-    <message>
-        <source>getTextDistances([&quot;name&quot;]) -&gt; tuple
-
-Returns the text distances of the text frame &quot;name&quot; expressed in points. The
-distances are returned as a tuple like (left, right, top, bottom). If &quot;name&quot;
-is not given the currently selected item is used.
-</source>
-        <translation type="obsolete">getTextDistances([&quot;name&quot;]) -&gt; tupleReturns the text distances of the text frame &quot;name&quot; expressed in points. Thedistances are returned as a tuple like (left, right, top, bottom). If &quot;name&quot;is not given the currently selected item is used.</translation>
-    </message>
-    <message>
-        <source>setTextDistances(left, right, top, bottom, [&quot;name&quot;])
-
-Sets the text distances of the text frame &quot;name&quot; to the values &quot;left&quot;
-&quot;right&quot;, &quot;top&quot; and &quot;bottom&quot;. If &quot;name&quot; is not given the currently
-selected item is used.
-
-May throw ValueError if any of the distances are out of bounds (must be positive).
-</source>
-        <translation type="obsolete">setTextDistances(left, right, top, bottom, [&quot;name&quot;])Sets the text distances of the text frame &quot;name&quot; to the values &quot;left&quot;&quot;right&quot;, &quot;top&quot; and &quot;bottom&quot;. If &quot;name&quot; is not given the currentlyselected item is used.May throw ValueError if any of the distances are out of bounds (must be positive).</translation>
-    </message>
-    <message>
-        <source>changeColor(&quot;name&quot;, c, m, y, k)
-
-Changes the color &quot;name&quot; to the specified CMYK value. The color value is
-defined via four components c = Cyan, m = Magenta, y = Yellow and k = Black.
-Color components should be in the range from 0 to 255.
-Note : deprecated, use changeColorCMYK() instead.
-
-May raise NotFoundError if the named color wasn&apos;t found.
-May raise ValueError if an invalid color name is specified.
-</source>
-        <translation type="obsolete">changeColor(&quot;name&quot;, c, m, y, k)
-
-Changes the colour &quot;name&quot; to the specified CMYK value. The colour value is
-defined via four components c = Cyan, m = Magenta, y = Yellow and k = Black.
-Colour components should be in the range from 0 to 255.
-Note : deprecated, use changeColorCMYK() instead.
-
-May raise NotFoundError if the named colour wasn&apos;t found.
-May raise ValueError if an invalid colour name is specified.
-</translation>
-    </message>
-    <message>
-        <source>changeColorCMYK(&quot;name&quot;, c, m, y, k)
-
-Changes the color &quot;name&quot; to the specified CMYK value. The color value is
-defined via four components c = Cyan, m = Magenta, y = Yellow and k = Black.
-Color components should be in the range from 0 to 255.
-
-May raise NotFoundError if the named color wasn&apos;t found.
-May raise ValueError if an invalid color name is specified.
-</source>
-        <translation type="obsolete">changeColorCMYK(&quot;name&quot;, c, m, y, k)
-
-Changes the colour &quot;name&quot; to the specified CMYK value. The colour value is
-defined via four components c = Cyan, m = Magenta, y = Yellow and k = Black.
-Colour components should be in the range from 0 to 255.
-
-May raise NotFoundError if the named colour wasn&apos;t found.
-May raise ValueError if an invalid colour name is specified.
-</translation>
-    </message>
-    <message>
-        <source>changeColorRGB(&quot;name&quot;, r, g, b)
-
-Changes the color &quot;name&quot; to the specified RGB value. The color value is
-defined via three components r = red, g = green, b = blue.
-Color components should be in the range from 0 to 255.
-
-May raise NotFoundError if the named color wasn&apos;t found.
-May raise ValueError if an invalid color name is specified.
-</source>
-        <translation type="obsolete">changeColorRGB(&quot;name&quot;, r, g, b)
-
-Changes the colour &quot;name&quot; to the specified RGB value. The colour value is
-defined via three components r = red, g = green, b = blue.
-Colour components should be in the range from 0 to 255.
-
-May raise NotFoundError if the named colour wasn&apos;t found.
-May raise ValueError if an invalid colour name is specified.
-</translation>
-    </message>
-    <message>
-        <source>defineColor(&quot;name&quot;, c, m, y, k)
-
-Defines a new color &quot;name&quot;. The color Value is defined via four components:
-c = Cyan, m = Magenta, y = Yellow and k = Black. Color components should be in
-the range from 0 to 255.
-Note : deprecated, use defineColorCMYK() instead.
-
-May raise ValueError if an invalid color name is specified.
-</source>
-        <translation type="obsolete">defineColor(&quot;name&quot;, c, m, y, k)
-
-Defines a new colour &quot;name&quot;. The colour Value is defined via four components:
-c = Cyan, m = Magenta, y = Yellow and k = Black. Colour components should be in
-the range from 0 to 255.
-Note : deprecated, use defineColorCMYK() instead.
-
-May raise ValueError if an invalid colour name is specified.
-</translation>
-    </message>
-    <message>
-        <source>defineColorCMYK(&quot;name&quot;, c, m, y, k)
-
-Defines a new color &quot;name&quot;. The color Value is defined via four components:
-c = Cyan, m = Magenta, y = Yellow and k = Black. Color components should be in
-the range from 0 to 255.
-
-May raise ValueError if an invalid color name is specified.
-</source>
-        <translation type="obsolete">defineColorCMYK(&quot;name&quot;, c, m, y, k)
-
-Defines a new colour &quot;name&quot;. The colour Value is defined via four components:
-c = Cyan, m = Magenta, y = Yellow and k = Black. Colour components should be in
-the range from 0 to 255.
-
-May raise ValueError if an invalid colour name is specified.
-</translation>
-    </message>
-    <message>
-        <source>defineColorRGB(&quot;name&quot;, r, g, b)
-
-Defines a new color &quot;name&quot;. The color Value is defined via three components:
-r = red, g = green, b = blue. Color components should be in
-the range from 0 to 255.
-
-May raise ValueError if an invalid color name is specified.
-</source>
-        <translation type="obsolete">defineColorRGB(&quot;name&quot;, r, g, b)
-
-Defines a new colour &quot;name&quot;. The colour Value is defined via three components:
-r = red, g = green, b = blue. Colour components should be in
-the range from 0 to 255.
-
-May raise ValueError if an invalid colour name is specified.
-</translation>
-    </message>
-    <message>
-        <source>isSpotColor(&quot;name&quot;) -&gt; bool
-
-Returns True if the color &quot;name&quot; is a spot color.
-See also setSpotColor()
-
-May raise NotFoundError if a named color wasn&apos;t found.
-May raise ValueError if an invalid color name is specified.
-</source>
-        <translation type="obsolete">isSpotColor(&quot;name&quot;) -&gt; bool
-
-Returns True if the colour &quot;name&quot; is a spot colour.
-See also setSpotColor()
-
-May raise NotFoundError if a named colour wasn&apos;t found.
-May raise ValueError if an invalid colour name is specified.
-</translation>
-    </message>
-    <message>
-        <source>setSpotColor(&quot;name&quot;, spot)
-
-Set the color &quot;name&quot; as a spot color if spot parameter is True.
-See also isSpotColor()
-
-May raise NotFoundError if a named color wasn&apos;t found.
-May raise ValueError if an invalid color name is specified.
-</source>
-        <translation type="obsolete">setSpotColor(&quot;name&quot;, spot)
-
-Set the colour &quot;name&quot; as a spot colour if spot parameter is True.
-See also isSpotColor()
-
-May raise NotFoundError if a named colour wasn&apos;t found.
-May raise ValueError if an invalid colour name is specified.
-</translation>
-    </message>
-    <message>
-        <source>getDocName() -&gt; string
-
-Returns the name the document was saved under.
-If the document was not saved before the name is empty.
-</source>
-        <translation type="obsolete">getDocName() -&gt; string
-
-Returns the name the document was saved under.
-If the document was not saved before the name is empty.
-</translation>
-    </message>
-    <message>
-        <source>setMargins(lr, rr, tr, br)
-
-Sets the margins of the document, Left(lr), Right(rr), Top(tr) and Bottom(br)
-margins are given in the measurement units of the document - see UNIT_&lt;type&gt;
-constants.
-</source>
-        <translation type="obsolete">setMargins(lr, rr, tr, br)
-
-Sets the margins of the document, Left(lr), Right(rr), Top(tr) and Bottom(br)
-margins are given in the measurement units of the document - see UNIT_&lt;type&gt;
-constants.
-</translation>
-    </message>
-    <message>
-        <source>setBaseLine(grid, offset)
-
-Sets the base line settings of the document, grid spacing(grid), grid offset(offset).
-Values are given in the measurement units of the document - see UNIT_&lt;type&gt;
-constants.
-</source>
-        <translation type="obsolete">setBaseLine(grid, offset)
-
-Sets the base line settings of the document, grid spacing(grid), grid offset(offset).
-Values are given in the measurement units of the document - see UNIT_&lt;type&gt;
-constants.
-</translation>
-    </message>
-    <message>
-        <source>groupObjects(list) -&gt; string
-
-Groups the objects named in &quot;list&quot; together. &quot;list&quot; must contain the names
-of the objects to be grouped. If &quot;list&quot; is not given the currently selected
-items are used. Returns the group name for further referencing.
-</source>
-        <translation type="obsolete">groupObjects(list) -&gt; string
-
-Groups the objects named in &quot;list&quot; together. &quot;list&quot; must contain the names
-of the objects to be grouped. If &quot;list&quot; is not given the currently selected
-items are used. Returns the group name for further referencing.
-</translation>
-    </message>
-    <message>
-        <source>scaleImage(x, y [, &quot;name&quot;])
-
-Sets the internal scaling factors of the picture in the image frame &quot;name&quot;.
-If &quot;name&quot; is not given the currently selected item is used. A number of 1
-means 100 %. Internal scaling factors are different from the values shown on 
-properties palette. Note : deprecated, use setImageScale() instead.
-
-May raise WrongFrameTypeError if the target frame is not an image frame
-</source>
-        <translation type="obsolete">scaleImage(x, y [, &quot;name&quot;])
-
-Sets the internal scaling factors of the picture in the image frame &quot;name&quot;.
-If &quot;name&quot; is not given the currently selected item is used. A number of 1
-means 100 %. Internal scaling factors are different from the values shown on 
-properties palette. Note : deprecated, use setImageScale() instead.
-
-May raise WrongFrameTypeError if the target frame is not an image frame
-</translation>
-    </message>
-    <message>
-        <source>setImageOffset(x, y [, &quot;name&quot;])
-
-Sets the position of the picture in the image frame &quot;name&quot;.
-If &quot;name&quot; is not given the currently selected item is used.
-The specified offset values are equal to the values shown on 
-properties palette when point unit is used.
-
-May raise WrongFrameTypeError if the target frame is not an image frame
-</source>
-        <translation type="obsolete">setImageOffset(x, y [, &quot;name&quot;])
-
-Sets the position of the picture in the image frame &quot;name&quot;.
-If &quot;name&quot; is not given the currently selected item is used.
-The specified offset values are equal to the values shown on 
-properties palette when point unit is used.
-
-May raise WrongFrameTypeError if the target frame is not an image frame
-</translation>
-    </message>
-    <message>
-        <source>setImageScale(x, y [, &quot;name&quot;])
-
-Sets the scaling factors of the picture in the image frame &quot;name&quot;.
-If &quot;name&quot; is not given the currently selected item is used. A number of 1
-means 100 %. Scaling factors are equal to the values shown on properties palette.
-
-May raise WrongFrameTypeError if the target frame is not an image frame
-</source>
-        <translation type="obsolete">setImageScale(x, y [, &quot;name&quot;])
-
-Sets the scaling factors of the picture in the image frame &quot;name&quot;.
-If &quot;name&quot; is not given the currently selected item is used. A number of 1
-means 100 %. Scaling factors are equal to the values shown on properties palette.
-
-May raise WrongFrameTypeError if the target frame is not an image frame
-</translation>
-    </message>
-    <message>
-        <source>setImageBrightness(n [, &quot;name&quot;])
-
-Set image brightness effect of the picture in the image frame &quot;name&quot;.
-If &quot;name&quot; is not given the currently selected item is used. A number of 1
-means 100 %. Brightness factor is equal to the value shown on properties palette.
-
-May raise WrongFrameTypeError if the target frame is not an image frame
-</source>
-        <translation type="obsolete">setImageBrightness(n [, &quot;name&quot;])
-
-Set image brightness effect of the picture in the image frame &quot;name&quot;.
-If &quot;name&quot; is not given the currently selected item is used. A number of 1
-means 100 %. Brightness factor is equal to the value shown on properties palette.
-
-May raise WrongFrameTypeError if the target frame is not an image frame
-</translation>
-    </message>
-    <message>
-        <source>setImageGrayscale([&quot;name&quot;])
-
-Set image grayscale effect of the picture in the image frame &quot;name&quot;.
-If &quot;name&quot; is not given the currently selected item is used.
-
-May raise WrongFrameTypeError if the target frame is not an image frame
-</source>
-        <translation type="obsolete">setImageGrayscale([&quot;name&quot;])
-
-Set image greyscale effect of the picture in the image frame &quot;name&quot;.
-If &quot;name&quot; is not given the currently selected item is used.
-
-May raise WrongFrameTypeError if the target frame is not an image frame
-</translation>
-    </message>
-</context>
-<context>
     <name>AIPlug</name>
     <message>
         <source>Importing: %1</source>
@@ -7017,10 +127,6 @@ May raise WrongFrameTypeError if the target frame is not an image frame
         <translation>&amp;Updates</translation>
     </message>
     <message>
-        <source>Check for &amp;Updates</source>
-        <translation type="obsolete">Check for &amp;Updates</translation>
-    </message>
-    <message>
         <source>Check for updates to Scribus. No data from your machine will be transferred off it.</source>
         <translation>Check for updates to Scribus. No data from your machine will be transferred off it.</translation>
     </message>
@@ -7059,10 +165,6 @@ May raise WrongFrameTypeError if the target frame is not an image frame
     <message>
         <source>Check for Updates</source>
         <translation>Check for Updates</translation>
-    </message>
-    <message>
-        <source>Abort Update Check</source>
-        <translation type="obsolete">Abort Update Check</translation>
     </message>
     <message>
         <source>Developer Blog</source>
@@ -7195,10 +297,6 @@ May raise WrongFrameTypeError if the target frame is not an image frame
         <translation>Document &amp;Setup...</translation>
     </message>
     <message>
-        <source>P&amp;references 150...</source>
-        <translation type="obsolete">P&amp;references 150...</translation>
-    </message>
-    <message>
         <source>&amp;Print...</source>
         <translation>&amp;Print...</translation>
     </message>
@@ -7243,14 +341,6 @@ May raise WrongFrameTypeError if the target frame is not an image frame
         <translation>&amp;Search/Replace...</translation>
     </message>
     <message>
-        <source>C&amp;olors...</source>
-        <translation type="obsolete">C&amp;olours...</translation>
-    </message>
-    <message>
-        <source>Gradients...</source>
-        <translation type="obsolete">Gradients...</translation>
-    </message>
-    <message>
         <source>&amp;Master Pages...</source>
         <translation>&amp;Master Pages...</translation>
     </message>
@@ -7285,10 +375,6 @@ May raise WrongFrameTypeError if the target frame is not an image frame
     <message>
         <source>&amp;Forced</source>
         <translation>&amp;Forced</translation>
-    </message>
-    <message>
-        <source>&amp;%1 %</source>
-        <translation type="obsolete">&amp;%1 %</translation>
     </message>
     <message>
         <source>&amp;Normal</source>
@@ -7365,10 +451,6 @@ May raise WrongFrameTypeError if the target frame is not an image frame
     <message>
         <source>&amp;Raise</source>
         <translation>&amp;Raise</translation>
-    </message>
-    <message>
-        <source>Send to S&amp;crapbook</source>
-        <translation type="obsolete">Send to S&amp;crapbook</translation>
     </message>
     <message>
         <source>&amp;Attributes...</source>
@@ -7603,10 +685,6 @@ May raise WrongFrameTypeError if the target frame is not an image frame
         <translation>Copy Item Properties</translation>
     </message>
     <message>
-        <source>&amp;Manage Pictures</source>
-        <translation type="obsolete">&amp;Manage Pictures</translation>
-    </message>
-    <message>
         <source>&amp;Hyphenate Text</source>
         <translation>&amp;Hyphenate Text</translation>
     </message>
@@ -7629,10 +707,6 @@ May raise WrongFrameTypeError if the target frame is not an image frame
     <message>
         <source>Scribus &amp;Manual...</source>
         <translation>Scribus &amp;Manual...</translation>
-    </message>
-    <message>
-        <source>Smart &amp;Hyphen</source>
-        <translation type="obsolete">Smart &amp;Hyphen</translation>
     </message>
     <message>
         <source>Non Breaking &amp;Space</source>
@@ -7755,10 +829,6 @@ May raise WrongFrameTypeError if the target frame is not an image frame
         <translation>Manage Page Properties...</translation>
     </message>
     <message>
-        <source>Rulers relative to Page</source>
-        <translation type="obsolete">Rulers relative to Page</translation>
-    </message>
-    <message>
         <source>Print Previe&amp;w</source>
         <translation>Print Previe&amp;w</translation>
     </message>
@@ -7777,10 +847,6 @@ May raise WrongFrameTypeError if the target frame is not an image frame
     <message>
         <source>&amp;Tile</source>
         <translation>&amp;Tile</translation>
-    </message>
-    <message>
-        <source>&amp;About Plug-ins</source>
-        <translation type="obsolete">&amp;About Plug-ins</translation>
     </message>
     <message>
         <source>More Info...</source>
@@ -7890,34 +956,6 @@ May raise WrongFrameTypeError if the target frame is not an image frame
         <translation>C&amp;lear</translation>
     </message>
     <message>
-        <source>Insert PDF Push Button</source>
-        <translation>Insert PDF Push Button</translation>
-    </message>
-    <message>
-        <source>Insert PDF Text Field</source>
-        <translation>Insert PDF Text Field</translation>
-    </message>
-    <message>
-        <source>Insert PDF Check Box</source>
-        <translation>Insert PDF Check Box</translation>
-    </message>
-    <message>
-        <source>Insert PDF Combo Box</source>
-        <translation>Insert PDF Combo Box</translation>
-    </message>
-    <message>
-        <source>Insert PDF List Box</source>
-        <translation>Insert PDF List Box</translation>
-    </message>
-    <message>
-        <source>Insert Text Annotation</source>
-        <translation>Insert Text Annotation</translation>
-    </message>
-    <message>
-        <source>Insert Link Annotation</source>
-        <translation>Insert Link Annotation</translation>
-    </message>
-    <message>
         <source>Save as &amp;EPS...</source>
         <translation>Save as &amp;EPS...</translation>
     </message>
@@ -7926,32 +964,12 @@ May raise WrongFrameTypeError if the target frame is not an image frame
         <translation>Show Text Frame Columns</translation>
     </message>
     <message>
-        <source>&amp;Frame...</source>
-        <translation type="obsolete">&amp;Frame...</translation>
-    </message>
-    <message>
         <source>Preview Mode</source>
         <translation>Preview Mode</translation>
     </message>
     <message>
         <source>Show Layer Indicators</source>
         <translation>Show Layer Indicators</translation>
-    </message>
-    <message>
-        <source>Patterns...</source>
-        <translation type="obsolete">Patterns...</translation>
-    </message>
-    <message>
-        <source>Document &amp;Setup (old)...</source>
-        <translation type="obsolete">Document &amp;Setup (old)...</translation>
-    </message>
-    <message>
-        <source>P&amp;references (old)...</source>
-        <translation type="obsolete">P&amp;references (old)...</translation>
-    </message>
-    <message>
-        <source>Send to Patterns</source>
-        <translation type="obsolete">Send to Patterns</translation>
     </message>
     <message>
         <source>Sticky Tools</source>
@@ -7968,10 +986,6 @@ May raise WrongFrameTypeError if the target frame is not an image frame
     <message>
         <source>Show Bleeds</source>
         <translation>Show Bleeds</translation>
-    </message>
-    <message>
-        <source>Insert 3D Annotation</source>
-        <translation>Insert 3D Annotation</translation>
     </message>
     <message>
         <source>Soft &amp;Hyphen</source>
@@ -8080,46 +1094,6 @@ May raise WrongFrameTypeError if the target frame is not an image frame
         <translation>&amp;400%</translation>
     </message>
     <message>
-        <source>Edit Latex Source...</source>
-        <translation type="obsolete">Edit Latex Source...</translation>
-    </message>
-    <message>
-        <source>Insert &amp;Text Frame</source>
-        <translation>Insert &amp;Text Frame</translation>
-    </message>
-    <message>
-        <source>Insert &amp;Image Frame</source>
-        <translation>Insert &amp;Image Frame</translation>
-    </message>
-    <message>
-        <source>Insert &amp;Latex Frame</source>
-        <translation type="obsolete">Insert &amp;Latex Frame</translation>
-    </message>
-    <message>
-        <source>Insert T&amp;able</source>
-        <translation>Insert T&amp;able</translation>
-    </message>
-    <message>
-        <source>Insert &amp;Shape</source>
-        <translation>Insert &amp;Shape</translation>
-    </message>
-    <message>
-        <source>Insert &amp;Polygon</source>
-        <translation>Insert &amp;Polygon</translation>
-    </message>
-    <message>
-        <source>Insert &amp;Line</source>
-        <translation>Insert &amp;Line</translation>
-    </message>
-    <message>
-        <source>Insert &amp;Bezier Curve</source>
-        <translation>Insert &amp;Bezier Curve</translation>
-    </message>
-    <message>
-        <source>Insert &amp;Freehand Line</source>
-        <translation>Insert &amp;Freehand Line</translation>
-    </message>
-    <message>
         <source>Scribus Homepage</source>
         <translation>Scribus Homepage</translation>
     </message>
@@ -8172,10 +1146,6 @@ May raise WrongFrameTypeError if the target frame is not an image frame
         <translation>Rulers Relative to Page</translation>
     </message>
     <message>
-        <source>Insert &amp;Render Frame</source>
-        <translation>Insert &amp;Render Frame</translation>
-    </message>
-    <message>
         <source>Check for Updates</source>
         <translation>Check for Updates</translation>
     </message>
@@ -8186,10 +1156,6 @@ May raise WrongFrameTypeError if the target frame is not an image frame
     <message>
         <source>Adjust Image to Frame</source>
         <translation>Adjust Image to Frame</translation>
-    </message>
-    <message>
-        <source>Move/Resize value indicator</source>
-        <translation type="obsolete">Move/Resize value indicator</translation>
     </message>
     <message>
         <source>File</source>
@@ -8296,18 +1262,6 @@ May raise WrongFrameTypeError if the target frame is not an image frame
         <translation>&amp;Transform</translation>
     </message>
     <message>
-        <source>Insert Calligraphic Line</source>
-        <translation>Insert Calligraphic Line</translation>
-    </message>
-    <message>
-        <source>Insert Arc</source>
-        <translation>Insert Arc</translation>
-    </message>
-    <message>
-        <source>Insert Spiral</source>
-        <translation>Insert Spiral</translation>
-    </message>
-    <message>
         <source>Paste Image from Clipboard</source>
         <translation>Paste Image from Clipboard</translation>
     </message>
@@ -8360,24 +1314,8 @@ May raise WrongFrameTypeError if the target frame is not an image frame
         <translation>Adjust Table to Frame</translation>
     </message>
     <message>
-        <source>Unweld items</source>
-        <translation type="obsolete">Unweld items</translation>
-    </message>
-    <message>
-        <source>Weld items</source>
-        <translation type="obsolete">Weld items</translation>
-    </message>
-    <message>
-        <source>Edit weld item</source>
-        <translation type="obsolete">Edit weld item</translation>
-    </message>
-    <message>
         <source>&amp;Frames...</source>
         <translation>&amp;Frames...</translation>
-    </message>
-    <message>
-        <source>Inline Frames</source>
-        <translation>Inline Frames</translation>
     </message>
     <message>
         <source>Unlink Text Frame with Text Copy</source>
@@ -8434,10 +1372,6 @@ May raise WrongFrameTypeError if the target frame is not an image frame
     <message>
         <source>Snap to Items</source>
         <translation>Snap to Items</translation>
-    </message>
-    <message>
-        <source>Insert PDF Radio Button</source>
-        <translation>Insert PDF Radio Button</translation>
     </message>
     <message>
         <source>Colors and Fills...</source>
@@ -8651,6 +1585,90 @@ May raise WrongFrameTypeError if the target frame is not an image frame
         <source>Edit Welded Item</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>T&amp;runcate</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Edit in Preview Mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Toggle Color Management System</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;View Tools</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Render Frame</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>T&amp;able</source>
+        <translation type="unfinished">T&amp;able</translation>
+    </message>
+    <message>
+        <source>&amp;Shape</source>
+        <translation type="unfinished">&amp;Shape</translation>
+    </message>
+    <message>
+        <source>Arc</source>
+        <translation type="unfinished">Arc</translation>
+    </message>
+    <message>
+        <source>Spiral</source>
+        <translation type="unfinished">Spiral</translation>
+    </message>
+    <message>
+        <source>&amp;Line</source>
+        <translation type="unfinished">&amp;Line</translation>
+    </message>
+    <message>
+        <source>Calligraphic Line</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Freehand Line</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PDF Push Button</source>
+        <translation type="unfinished">PDF Push Button</translation>
+    </message>
+    <message>
+        <source>PDF Radio Button</source>
+        <translation type="unfinished">PDF Radio Button</translation>
+    </message>
+    <message>
+        <source>PDF Text Field</source>
+        <translation type="unfinished">PDF Text Field</translation>
+    </message>
+    <message>
+        <source>PDF Check Box</source>
+        <translation type="unfinished">PDF Check Box</translation>
+    </message>
+    <message>
+        <source>PDF Combo Box</source>
+        <translation type="unfinished">PDF Combo Box</translation>
+    </message>
+    <message>
+        <source>PDF List Box</source>
+        <translation type="unfinished">PDF List Box</translation>
+    </message>
+    <message>
+        <source>Text Annotation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Link Annotation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>3D Annotation</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>AdjustCmsDialog</name>
@@ -8735,18 +1753,6 @@ May raise WrongFrameTypeError if the target frame is not an image frame
     <message>
         <source>&amp;Align Sides By:</source>
         <translation>&amp;Align Sides By:</translation>
-    </message>
-    <message>
-        <source>Moving (Preserve Size)</source>
-        <translation type="obsolete">Moving (Preserve Size)</translation>
-    </message>
-    <message>
-        <source>Resizing (Preserve Opposite Side)</source>
-        <translation type="obsolete">Resizing (Preserve Opposite Side)</translation>
-    </message>
-    <message>
-        <source>&lt;qt&gt;When aligning one side of an item:&lt;ul&gt;&lt;li&gt;Always move the other side too (preserve existing width and height), or &lt;/li&gt;&lt;li&gt;Keep the other side fixed (resize the item instead of moving it) whenever possible&lt;/li&gt;&lt;/ul&gt;&lt;/qt&gt;</source>
-        <translation type="obsolete">&lt;qt&gt;When aligning one side of an item:&lt;ul&gt;&lt;li&gt;Always move the other side too (preserve existing width and height), or &lt;/li&gt;&lt;li&gt;Keep the other side fixed (resize the item instead of moving it) whenever possible&lt;/li&gt;&lt;/ul&gt;&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>Align bottoms</source>
@@ -8937,579 +1943,6 @@ May raise WrongFrameTypeError if the target frame is not an image frame
     </message>
 </context>
 <context>
-    <name>Annot</name>
-    <message>
-        <source>Field Properties</source>
-        <translation type="obsolete">Field Properties</translation>
-    </message>
-    <message>
-        <source>Type:</source>
-        <translation type="obsolete">Type:</translation>
-    </message>
-    <message>
-        <source>Button</source>
-        <translation type="obsolete">Button</translation>
-    </message>
-    <message>
-        <source>Text Field</source>
-        <translation type="obsolete">Text Field</translation>
-    </message>
-    <message>
-        <source>Check Box</source>
-        <translation type="obsolete">Check Box</translation>
-    </message>
-    <message>
-        <source>Combo Box</source>
-        <translation type="obsolete">Combo Box</translation>
-    </message>
-    <message>
-        <source>List Box</source>
-        <translation type="obsolete">List Box</translation>
-    </message>
-    <message>
-        <source>Properties</source>
-        <translation type="obsolete">Properties</translation>
-    </message>
-    <message>
-        <source>Name:</source>
-        <translation type="obsolete">Name:</translation>
-    </message>
-    <message>
-        <source>Text</source>
-        <translation type="obsolete">Text</translation>
-    </message>
-    <message>
-        <source>Border</source>
-        <translation type="obsolete">Border</translation>
-    </message>
-    <message>
-        <source>Color:</source>
-        <translation type="obsolete">Colour:</translation>
-    </message>
-    <message>
-        <source>None</source>
-        <translation type="obsolete">None</translation>
-    </message>
-    <message>
-        <source>Width:</source>
-        <translation type="obsolete">Width:</translation>
-    </message>
-    <message>
-        <source>Thin</source>
-        <translation type="obsolete">Thin</translation>
-    </message>
-    <message>
-        <source>Normal</source>
-        <translation type="obsolete">Normal</translation>
-    </message>
-    <message>
-        <source>Wide</source>
-        <translation type="obsolete">Wide</translation>
-    </message>
-    <message>
-        <source>Style:</source>
-        <translation type="obsolete">Style:</translation>
-    </message>
-    <message>
-        <source>Solid</source>
-        <translation type="obsolete">Solid</translation>
-    </message>
-    <message>
-        <source>Dashed</source>
-        <translation type="obsolete">Dashed</translation>
-    </message>
-    <message>
-        <source>Underline</source>
-        <translation type="obsolete">Underline</translation>
-    </message>
-    <message>
-        <source>Beveled</source>
-        <translation type="obsolete">Bevelled</translation>
-    </message>
-    <message>
-        <source>Inset</source>
-        <translation type="obsolete">Inset</translation>
-    </message>
-    <message>
-        <source>Other</source>
-        <translation type="obsolete">Other</translation>
-    </message>
-    <message>
-        <source>Read Only</source>
-        <translation type="obsolete">Read Only</translation>
-    </message>
-    <message>
-        <source>Required</source>
-        <translation type="obsolete">Required</translation>
-    </message>
-    <message>
-        <source>Visibility:</source>
-        <translation type="obsolete">Visibility:</translation>
-    </message>
-    <message>
-        <source>Visible</source>
-        <translation type="obsolete">Visible</translation>
-    </message>
-    <message>
-        <source>Hidden</source>
-        <translation type="obsolete">Hidden</translation>
-    </message>
-    <message>
-        <source>No Print</source>
-        <translation type="obsolete">No Print</translation>
-    </message>
-    <message>
-        <source>No View</source>
-        <translation type="obsolete">No View</translation>
-    </message>
-    <message>
-        <source>Appearance</source>
-        <translation type="obsolete">Appearance</translation>
-    </message>
-    <message>
-        <source>Text for Button Down</source>
-        <translation type="obsolete">Text for Button Down</translation>
-    </message>
-    <message>
-        <source>Text for Roll Over</source>
-        <translation type="obsolete">Text for Roll Over</translation>
-    </message>
-    <message>
-        <source>Icons</source>
-        <translation type="obsolete">Icons</translation>
-    </message>
-    <message>
-        <source>Use Icons</source>
-        <translation type="obsolete">Use Icons</translation>
-    </message>
-    <message>
-        <source>Remove</source>
-        <translation type="obsolete">Remove</translation>
-    </message>
-    <message>
-        <source>Pressed</source>
-        <translation type="obsolete">Pressed</translation>
-    </message>
-    <message>
-        <source>Roll Over</source>
-        <translation type="obsolete">Roll Over</translation>
-    </message>
-    <message>
-        <source>Icon Placement...</source>
-        <translation type="obsolete">Icon Placement...</translation>
-    </message>
-    <message>
-        <source>Highlight</source>
-        <translation type="obsolete">Highlight</translation>
-    </message>
-    <message>
-        <source>Invert</source>
-        <translation type="obsolete">Invert</translation>
-    </message>
-    <message>
-        <source>Outlined</source>
-        <translation type="obsolete">Outlined</translation>
-    </message>
-    <message>
-        <source>Push</source>
-        <translation type="obsolete">Push</translation>
-    </message>
-    <message>
-        <source>Multi-Line</source>
-        <translation type="obsolete">Multi-Line</translation>
-    </message>
-    <message>
-        <source>Password</source>
-        <translation type="obsolete">Password</translation>
-    </message>
-    <message>
-        <source>Limit of</source>
-        <translation type="obsolete">Limit of</translation>
-    </message>
-    <message>
-        <source>Characters</source>
-        <translation type="obsolete">Characters</translation>
-    </message>
-    <message>
-        <source>Do Not Scroll</source>
-        <translation type="obsolete">Do Not Scroll</translation>
-    </message>
-    <message>
-        <source>Do Not Spell Check</source>
-        <translation type="obsolete">Do Not Spell Check</translation>
-    </message>
-    <message>
-        <source>Check Style:</source>
-        <translation type="obsolete">Check Style:</translation>
-    </message>
-    <message>
-        <source>Check</source>
-        <translation type="obsolete">Check</translation>
-    </message>
-    <message>
-        <source>Cross</source>
-        <translation type="obsolete">Cross</translation>
-    </message>
-    <message>
-        <source>Diamond</source>
-        <translation type="obsolete">Diamond</translation>
-    </message>
-    <message>
-        <source>Circle</source>
-        <translation type="obsolete">Circle</translation>
-    </message>
-    <message>
-        <source>Star</source>
-        <translation type="obsolete">Star</translation>
-    </message>
-    <message>
-        <source>Square</source>
-        <translation type="obsolete">Square</translation>
-    </message>
-    <message>
-        <source>Default is Checked</source>
-        <translation type="obsolete">Default is Checked</translation>
-    </message>
-    <message>
-        <source>Editable</source>
-        <translation type="obsolete">Editable</translation>
-    </message>
-    <message>
-        <source>Options</source>
-        <translation type="obsolete">Options</translation>
-    </message>
-    <message>
-        <source>Go To</source>
-        <translation type="obsolete">Go To</translation>
-    </message>
-    <message>
-        <source>Submit Form</source>
-        <translation type="obsolete">Submit Form</translation>
-    </message>
-    <message>
-        <source>Reset Form</source>
-        <translation type="obsolete">Reset Form</translation>
-    </message>
-    <message>
-        <source>Import Data</source>
-        <translation type="obsolete">Import Data</translation>
-    </message>
-    <message>
-        <source>Event:</source>
-        <translation type="obsolete">Event:</translation>
-    </message>
-    <message>
-        <source>Mouse Up</source>
-        <translation type="obsolete">Mouse Up</translation>
-    </message>
-    <message>
-        <source>Mouse Down</source>
-        <translation type="obsolete">Mouse Down</translation>
-    </message>
-    <message>
-        <source>Mouse Enter</source>
-        <translation type="obsolete">Mouse Enter</translation>
-    </message>
-    <message>
-        <source>Mouse Exit</source>
-        <translation type="obsolete">Mouse Exit</translation>
-    </message>
-    <message>
-        <source>On Focus</source>
-        <translation type="obsolete">On Focus</translation>
-    </message>
-    <message>
-        <source>On Blur</source>
-        <translation type="obsolete">On Blur</translation>
-    </message>
-    <message>
-        <source>Script:</source>
-        <translation type="obsolete">Script:</translation>
-    </message>
-    <message>
-        <source>Edit...</source>
-        <translation type="obsolete">Edit...</translation>
-    </message>
-    <message>
-        <source>Submit to URL:</source>
-        <translation type="obsolete">Submit to URL:</translation>
-    </message>
-    <message>
-        <source>Submit Data as HTML</source>
-        <translation type="obsolete">Submit Data as HTML</translation>
-    </message>
-    <message>
-        <source>Import Data from:</source>
-        <translation type="obsolete">Import Data from:</translation>
-    </message>
-    <message>
-        <source>Destination</source>
-        <translation type="obsolete">Destination</translation>
-    </message>
-    <message>
-        <source>To File:</source>
-        <translation type="obsolete">To File:</translation>
-    </message>
-    <message>
-        <source>Change...</source>
-        <translation type="obsolete">Change...</translation>
-    </message>
-    <message>
-        <source>Page:</source>
-        <translation type="obsolete">Page:</translation>
-    </message>
-    <message>
-        <source>X-Pos:</source>
-        <translation type="obsolete">X-Pos:</translation>
-    </message>
-    <message>
-        <source> pt</source>
-        <translation type="obsolete"> pt</translation>
-    </message>
-    <message>
-        <source>Y-Pos:</source>
-        <translation type="obsolete">Y-Pos:</translation>
-    </message>
-    <message>
-        <source>Action</source>
-        <translation type="obsolete">Action</translation>
-    </message>
-    <message>
-        <source>Field is formatted as:</source>
-        <translation type="obsolete">Field is formatted as:</translation>
-    </message>
-    <message>
-        <source>Plain</source>
-        <translation type="obsolete">Plain</translation>
-    </message>
-    <message>
-        <source>Number</source>
-        <translation type="obsolete">Number</translation>
-    </message>
-    <message>
-        <source>Percentage</source>
-        <translation type="obsolete">Percentage</translation>
-    </message>
-    <message>
-        <source>Date</source>
-        <translation type="obsolete">Date</translation>
-    </message>
-    <message>
-        <source>Time</source>
-        <translation type="obsolete">Time</translation>
-    </message>
-    <message>
-        <source>Custom</source>
-        <translation type="obsolete">Custom</translation>
-    </message>
-    <message>
-        <source>Number Format</source>
-        <translation type="obsolete">Number Format</translation>
-    </message>
-    <message>
-        <source>Decimals:</source>
-        <translation type="obsolete">Decimals:</translation>
-    </message>
-    <message>
-        <source>Use Currency Symbol</source>
-        <translation type="obsolete">Use Currency Symbol</translation>
-    </message>
-    <message>
-        <source>Prepend Currency Symbol</source>
-        <translation type="obsolete">Prepend Currency Symbol</translation>
-    </message>
-    <message>
-        <source>Formatting</source>
-        <translation type="obsolete">Formatting</translation>
-    </message>
-    <message>
-        <source>Percent Format</source>
-        <translation type="obsolete">Percent Format</translation>
-    </message>
-    <message>
-        <source>Date Format</source>
-        <translation type="obsolete">Date Format</translation>
-    </message>
-    <message>
-        <source>Time Format</source>
-        <translation type="obsolete">Time Format</translation>
-    </message>
-    <message>
-        <source>Custom Scripts</source>
-        <translation type="obsolete">Custom Scripts</translation>
-    </message>
-    <message>
-        <source>Format:</source>
-        <translation type="obsolete">Format:</translation>
-    </message>
-    <message>
-        <source>Keystroke:</source>
-        <translation type="obsolete">Keystroke:</translation>
-    </message>
-    <message>
-        <source>Format</source>
-        <translation type="obsolete">Format</translation>
-    </message>
-    <message>
-        <source>Value is not validated</source>
-        <translation type="obsolete">Value is not validated</translation>
-    </message>
-    <message>
-        <source>Value must be greater than or equal to:</source>
-        <translation type="obsolete">Value must be greater than or equal to:</translation>
-    </message>
-    <message>
-        <source>and less or equal to:</source>
-        <translation type="obsolete">and less or equal to:</translation>
-    </message>
-    <message>
-        <source>Custom validate script:</source>
-        <translation type="obsolete">Custom validate script:</translation>
-    </message>
-    <message>
-        <source>Validate</source>
-        <translation type="obsolete">Validate</translation>
-    </message>
-    <message>
-        <source>Value is not calculated</source>
-        <translation type="obsolete">Value is not calculated</translation>
-    </message>
-    <message>
-        <source>Value is the</source>
-        <translation type="obsolete">Value is the</translation>
-    </message>
-    <message>
-        <source>sum</source>
-        <translation type="obsolete">sum</translation>
-    </message>
-    <message>
-        <source>product</source>
-        <translation type="obsolete">product</translation>
-    </message>
-    <message>
-        <source>average</source>
-        <translation type="obsolete">average</translation>
-    </message>
-    <message>
-        <source>minimum</source>
-        <translation type="obsolete">minimum</translation>
-    </message>
-    <message>
-        <source>maximum</source>
-        <translation type="obsolete">maximum</translation>
-    </message>
-    <message>
-        <source>of the following fields:</source>
-        <translation type="obsolete">of the following fields:</translation>
-    </message>
-    <message>
-        <source>Pick...</source>
-        <translation type="obsolete">Pick...</translation>
-    </message>
-    <message>
-        <source>Custom calculation script:</source>
-        <translation type="obsolete">Custom calculation script:</translation>
-    </message>
-    <message>
-        <source>Calculate</source>
-        <translation type="obsolete">Calculate</translation>
-    </message>
-    <message>
-        <source>OK</source>
-        <translation type="obsolete">OK</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation type="obsolete">Cancel</translation>
-    </message>
-    <message>
-        <source>Enter a comma separated list of fields here</source>
-        <translation type="obsolete">Enter a comma separated list of fields here</translation>
-    </message>
-    <message>
-        <source>You need at least the Icon for Normal to use Icons for Buttons</source>
-        <translation type="obsolete">You need at least the Icon for Normal to use Icons for Buttons</translation>
-    </message>
-    <message>
-        <source>Open</source>
-        <translation type="obsolete">Open</translation>
-    </message>
-    <message>
-        <source>Example:</source>
-        <translation type="obsolete">Example:</translation>
-    </message>
-    <message>
-        <source>Selection Change</source>
-        <translation type="obsolete">Selection Change</translation>
-    </message>
-    <message>
-        <source>Font for use with PDF 1.3:</source>
-        <translation type="obsolete">Font for use with PDF 1.3:</translation>
-    </message>
-    <message>
-        <source>Flag is ignored for PDF 1.3</source>
-        <translation type="obsolete">Flag is ignored for PDF 1.3</translation>
-    </message>
-    <message>
-        <source>PDF Files (*.pdf);;All Files (*)</source>
-        <translation type="obsolete">PDF Files (*.pdf);;All Files (*)</translation>
-    </message>
-    <message>
-        <source>JavaScript</source>
-        <translation type="obsolete">JavaScript</translation>
-    </message>
-    <message>
-        <source>None</source>
-        <comment>highlight</comment>
-        <translation type="obsolete">None</translation>
-    </message>
-    <message>
-        <source>None</source>
-        <comment>action</comment>
-        <translation type="obsolete">None</translation>
-    </message>
-    <message>
-        <source>Tooltip:</source>
-        <translation type="obsolete">Tooltip:</translation>
-    </message>
-    <message>
-        <source>Do Not Export Value</source>
-        <translation type="obsolete">Do Not Export Value</translation>
-    </message>
-    <message>
-        <source>Images (*.tif *.png *.jpg *.xpm);;PostScript (*.eps *.epsi);;All Files (*)</source>
-        <translation type="obsolete">Images (*.tif *.png *.jpg *.xpm);;PostScript (*.eps *.epsi);;All Files (*)</translation>
-    </message>
-    <message>
-        <source>Images (*.tif *.png *.jpg *.xpm);;%1;;All Files (*)</source>
-        <translation type="obsolete">Images (*.tif *.png *.jpg *.xpm);;%1;;All Files (*)</translation>
-    </message>
-    <message>
-        <source>Export absolute Filename</source>
-        <translation type="obsolete">Export absolute Filename</translation>
-    </message>
-    <message>
-        <source>Submit format:</source>
-        <translation type="obsolete">Submit format:</translation>
-    </message>
-    <message>
-        <source>FDF</source>
-        <translation type="obsolete">FDF</translation>
-    </message>
-    <message>
-        <source>HTML</source>
-        <translation type="obsolete">HTML</translation>
-    </message>
-    <message>
-        <source>XFDF</source>
-        <translation type="obsolete">XFDF</translation>
-    </message>
-    <message>
-        <source>PDF</source>
-        <translation type="obsolete">PDF</translation>
-    </message>
-</context>
-<context>
     <name>Annota</name>
     <message>
         <source>Annotation Properties</source>
@@ -9631,44 +2064,20 @@ May raise WrongFrameTypeError if the target frame is not an image frame
         <translation>&amp;Master Page:</translation>
     </message>
     <message>
-        <source>Apply To</source>
-        <translation type="obsolete">Apply To</translation>
-    </message>
-    <message>
-        <source>Current &amp;page</source>
-        <translation type="obsolete">Current &amp;page</translation>
-    </message>
-    <message>
         <source>Alt+P</source>
         <translation>Alt+P</translation>
-    </message>
-    <message>
-        <source>&amp;Even pages</source>
-        <translation type="obsolete">&amp;Even pages</translation>
     </message>
     <message>
         <source>Alt+E</source>
         <translation>Alt+E</translation>
     </message>
     <message>
-        <source>O&amp;dd pages</source>
-        <translation type="obsolete">O&amp;dd pages</translation>
-    </message>
-    <message>
         <source>Alt+D</source>
         <translation>Alt+D</translation>
     </message>
     <message>
-        <source>&amp;All pages</source>
-        <translation type="obsolete">&amp;All pages</translation>
-    </message>
-    <message>
         <source>Alt+A</source>
         <translation>Alt+A</translation>
-    </message>
-    <message>
-        <source>&amp;Within range</source>
-        <translation type="obsolete">&amp;Within range</translation>
     </message>
     <message>
         <source>Alt+W</source>
@@ -9772,10 +2181,6 @@ May raise WrongFrameTypeError if the target frame is not an image frame
         <translation>Spell-checking support</translation>
     </message>
     <message>
-        <source>Adds support for spell-checking via aspell. Languages can be chosen from among the installed aspell dictionaries, and spell-checking can be done on the fly, or on selected text.</source>
-        <translation type="obsolete">Adds support for spell-checking via aspell. Languages can be chosen from among the installed aspell dictionaries, and spell-checking can be done on the fly, or on selected text.</translation>
-    </message>
-    <message>
         <source>0.1</source>
         <translation>0.1</translation>
     </message>
@@ -9815,10 +2220,6 @@ May raise WrongFrameTypeError if the target frame is not an image frame
         <translation>&amp;Change</translation>
     </message>
     <message>
-        <source>&amp;Exit</source>
-        <translation type="obsolete">&amp;Exit</translation>
-    </message>
-    <message>
         <source>Not in Dictionary:</source>
         <translation>Not in Dictionary:</translation>
     </message>
@@ -9833,10 +2234,6 @@ May raise WrongFrameTypeError if the target frame is not an image frame
     <message>
         <source>Active Dictionary: </source>
         <translation>Active Dictionary: </translation>
-    </message>
-    <message>
-        <source>The currently active dictionary. Scribus uses aspell for dictionary support.&lt;br /&gt;If you require updated or more dictionaries, you should install them via your system&apos;s installation system or package manager.</source>
-        <translation type="obsolete">The currently active dictionary. Scribus uses aspell for dictionary support.&lt;br /&gt;If you require updated or more dictionaries, you should install them via your system&apos;s installation system or package manager.</translation>
     </message>
     <message>
         <source>Ignore the current text not found in the active dictionary</source>
@@ -9886,18 +2283,6 @@ May raise WrongFrameTypeError if the target frame is not an image frame
         <translation>default </translation>
     </message>
     <message>
-        <source> aspell dictionary.</source>
-        <translation type="obsolete"> aspell dictionary.</translation>
-    </message>
-    <message>
-        <source>aspellplugin (AspellPluginImpl::AspellPluginImpl): Error in aspell speller configuration.</source>
-        <translation type="obsolete">aspellplugin (AspellPluginImpl::AspellPluginImpl): Error in aspell speller configuration.</translation>
-    </message>
-    <message>
-        <source>aspellplugin (AspellPluginImpl::AspellPluginImpl): Error in creating aspell speller.</source>
-        <translation type="obsolete">aspellplugin (AspellPluginImpl::AspellPluginImpl): Error in creating aspell speller.</translation>
-    </message>
-    <message>
         <source>AspellPluginImpl::on_fskipAllBtn_clicked(): Unable to skip all instances of &quot;</source>
         <translation>AspellPluginImpl::on_fskipAllBtn_clicked(): Unable to skip all instances of &quot;</translation>
     </message>
@@ -9916,14 +2301,6 @@ May raise WrongFrameTypeError if the target frame is not an image frame
     <message>
         <source> Aspell dictionary.</source>
         <translation> Aspell dictionary.</translation>
-    </message>
-    <message>
-        <source>aspellplugin (AspellPluginImpl::AspellPluginImpl): Error in Aspell speller configuration.</source>
-        <translation type="obsolete">aspellplugin (AspellPluginImpl::AspellPluginImpl): Error in Aspell speller configuration.</translation>
-    </message>
-    <message>
-        <source>aspellplugin (AspellPluginImpl::AspellPluginImpl): Error in creating Aspell speller.</source>
-        <translation type="obsolete">aspellplugin (AspellPluginImpl::AspellPluginImpl): Error in creating Aspell speller.</translation>
     </message>
     <message>
         <source>Spell Checker</source>
@@ -9978,24 +2355,12 @@ Configuration invalid</translation>
 <context>
     <name>Barcode</name>
     <message>
-        <source>&amp;Barcode Generator...</source>
-        <translation type="obsolete">&amp;Barcode Generator...</translation>
-    </message>
-    <message>
-        <source>Scribus frontend for Pure Postscript Barcode Writer</source>
-        <translation type="obsolete">Scribus frontend for Pure Postscript Barcode Writer</translation>
-    </message>
-    <message>
-        <source>&amp;Barcode...</source>
-        <translation type="obsolete">&amp;Barcode...</translation>
-    </message>
-    <message>
         <source>Scribus frontend for Pure PostScript Barcode Writer</source>
         <translation>Scribus frontend for Pure PostScript Barcode Writer</translation>
     </message>
     <message>
-        <source>Insert Barcode</source>
-        <translation type="unfinished">Insert Barcode</translation>
+        <source>Barcode</source>
+        <translation type="unfinished">Barcode</translation>
     </message>
 </context>
 <context>
@@ -10073,24 +2438,12 @@ Configuration invalid</translation>
         <translation>Select Type</translation>
     </message>
     <message>
-        <source>Select Barcode Type</source>
-        <translation type="obsolete">Select Barcode Type</translation>
-    </message>
-    <message>
         <source>Variable number of characters, digits and any symbols.</source>
         <translation>Variable number of characters, digits and any symbols.</translation>
     </message>
 </context>
 <context>
     <name>BarcodeGeneratorBase</name>
-    <message>
-        <source>Barcode Creator</source>
-        <translation type="obsolete">Barcode Creator</translation>
-    </message>
-    <message>
-        <source>Barcode</source>
-        <translation type="obsolete">Barcode</translation>
-    </message>
     <message>
         <source>&amp;Type:</source>
         <translation>&amp;Type:</translation>
@@ -10108,20 +2461,12 @@ Configuration invalid</translation>
         <translation>Reset the barcode samples</translation>
     </message>
     <message>
-        <source>&amp;Include text in barcode</source>
-        <translation type="obsolete">&amp;Include text in barcode</translation>
-    </message>
-    <message>
         <source>Alt+I</source>
         <translation>Alt+I</translation>
     </message>
     <message>
         <source>If checked, there will be numbers in the barcode too</source>
         <translation>If checked, there will be numbers in the barcode too</translation>
-    </message>
-    <message>
-        <source>&amp;Guard whitespace</source>
-        <translation type="obsolete">&amp;Guard whitespace</translation>
     </message>
     <message>
         <source>Alt+G</source>
@@ -10176,16 +2521,8 @@ Configuration invalid</translation>
         <translation>Hints and help is shown here</translation>
     </message>
     <message>
-        <source>Preview of the result. 72dpi sample.</source>
-        <translation type="obsolete">Preview of the result. 72dpi sample.</translation>
-    </message>
-    <message>
         <source>Co&amp;de:</source>
         <translation>Co&amp;de:</translation>
-    </message>
-    <message>
-        <source>I&amp;nclude checksum</source>
-        <translation type="obsolete">I&amp;nclude checksum</translation>
     </message>
     <message>
         <source>Alt+N</source>
@@ -10194,10 +2531,6 @@ Configuration invalid</translation>
     <message>
         <source>Generate and include a checksum in barcode</source>
         <translation>Generate and include a checksum in barcode</translation>
-    </message>
-    <message>
-        <source>Incl&amp;ude checksum digit</source>
-        <translation type="obsolete">Incl&amp;ude checksum digit</translation>
     </message>
     <message>
         <source>Alt+U</source>
@@ -10275,18 +2608,8 @@ Configuration invalid</translation>
         <translation>&amp;Name:</translation>
     </message>
     <message>
-        <source>Name &quot;%1&quot; is not unique.
-Please choose another.</source>
-        <translation type="obsolete">Name &quot;%1&quot; is not unique.
-Please choose another.</translation>
-    </message>
-    <message>
         <source>Choose a Scrapbook Directory</source>
         <translation>Choose a Scrapbook Directory</translation>
-    </message>
-    <message>
-        <source>Choose a Directory</source>
-        <translation type="obsolete">Choose a Directory</translation>
     </message>
     <message>
         <source>Choose a scrapbook file to import</source>
@@ -10295,18 +2618,6 @@ Please choose another.</translation>
     <message>
         <source>Create a new scrapbook page</source>
         <translation>Create a new scrapbook page</translation>
-    </message>
-    <message>
-        <source>Load an existing scrapbook</source>
-        <translation type="obsolete">Load an existing scrapbook</translation>
-    </message>
-    <message>
-        <source>Save the selected scrapbook</source>
-        <translation type="obsolete">Save the selected scrapbook</translation>
-    </message>
-    <message>
-        <source>Import an scrapbook file from Scribus &lt;=1.3.2</source>
-        <translation type="obsolete">Import an scrapbook file from Scribus &lt;=1.3.2</translation>
     </message>
     <message>
         <source>Close the selected scrapbook</source>
@@ -10339,10 +2650,6 @@ Please choose another.</translation>
     <message>
         <source>Paste to Page</source>
         <translation>Paste to Page</translation>
-    </message>
-    <message>
-        <source>Save as...</source>
-        <translation type="obsolete">Save as...</translation>
     </message>
     <message>
         <source>Close</source>
@@ -10482,18 +2789,6 @@ Please choose another.</translation>
 <context>
     <name>CMSPrefs</name>
     <message>
-        <source>System Profiles</source>
-        <translation type="obsolete">System Profiles</translation>
-    </message>
-    <message>
-        <source>Rendering Intents</source>
-        <translation type="obsolete">Rendering Intents</translation>
-    </message>
-    <message>
-        <source>Monitor profile can only be changed when no document are currently opened.</source>
-        <translation type="obsolete">Monitor profile can only be changed when no document are currently opened.</translation>
-    </message>
-    <message>
         <source>Monitor profiles can only be changed when no documents are currently opened.</source>
         <translation>Monitor profiles can only be changed when no documents are currently opened.</translation>
     </message>
@@ -10513,126 +2808,6 @@ Please choose another.</translation>
         <source>Absolute Colorimetric</source>
         <translation>Absolute Colourimetric</translation>
     </message>
-    <message>
-        <source>Color profile that you have generated or received from the manufacturer.
-This profile should be specific to your monitor and not a generic profile (i.e. sRGB).</source>
-        <translation type="obsolete">Colour profile that you have generated or received from the manufacturer.
-This profile should be specific to your monitor and not a generic profile (i.e. sRGB).</translation>
-    </message>
-    <message>
-        <source>Color profile for your printer model from the manufacturer.
-This profile should be specific to your printer and not a generic profile (i.e. sRGB).</source>
-        <translation type="obsolete">Colour profile for your printer model from the manufacturer.
-This profile should be specific to your printer and not a generic profile (i.e. sRGB).</translation>
-    </message>
-    <message>
-        <source>Black Point Compensation is a method of improving contrast in photos.
-It is recommended that you enable this if you have photos in your document.</source>
-        <translation type="obsolete">Black Point Compensation is a method of improving contrast in photos.
-It is recommended that you enable this if you have photos in your document.</translation>
-    </message>
-    <message>
-        <source>Enable &apos;soft proofing&apos; of how your document colors will print,
-based on the chosen printer profile.</source>
-        <translation type="obsolete">Enable &apos;soft proofing&apos; of how your document colours will print,
-based on the chosen printer profile.</translation>
-    </message>
-    <message>
-        <source>Method of showing colors on the screen which may not print properly.
-This requires very accurate profiles and serves only as a warning.</source>
-        <translation type="obsolete">Method of showing colours on the screen which may not print properly.
-This requires very accurate profiles and serves only as a warning.</translation>
-    </message>
-    <message>
-        <source>&amp;Activate Color Management</source>
-        <translation type="obsolete">&amp;Activate Colour Management</translation>
-    </message>
-    <message>
-        <source>&amp;Monitor:</source>
-        <translation type="obsolete">&amp;Monitor:</translation>
-    </message>
-    <message>
-        <source>P&amp;rinter:</source>
-        <translation type="obsolete">P&amp;rinter:</translation>
-    </message>
-    <message>
-        <source>Sim&amp;ulate Printer on the Screen</source>
-        <translation type="obsolete">Sim&amp;ulate Printer on the Screen</translation>
-    </message>
-    <message>
-        <source>Mark Colors out of &amp;Gamut</source>
-        <translation type="obsolete">Mark Colours out of &amp;Gamut</translation>
-    </message>
-    <message>
-        <source>Use &amp;Blackpoint Compensation</source>
-        <translation type="obsolete">Use &amp;Blackpoint Compensation</translation>
-    </message>
-    <message>
-        <source>&amp;RGB Pictures:</source>
-        <translation type="obsolete">&amp;RGB Pictures:</translation>
-    </message>
-    <message>
-        <source>&amp;CMYK Pictures:</source>
-        <translation type="obsolete">&amp;CMYK Pictures:</translation>
-    </message>
-    <message>
-        <source>Default color profile for imported CMYK images</source>
-        <translation type="obsolete">Default colour profile for imported CMYK images</translation>
-    </message>
-    <message>
-        <source>Default color profile for imported RGB images</source>
-        <translation type="obsolete">Default colour profile for imported RGB images</translation>
-    </message>
-    <message>
-        <source>&amp;RGB Solid Colors:</source>
-        <translation type="obsolete">&amp;RGB Solid Colours:</translation>
-    </message>
-    <message>
-        <source>&amp;CMYK Solid Colors:</source>
-        <translation type="obsolete">&amp;CMYK Solid Colours:</translation>
-    </message>
-    <message>
-        <source>Pictures:</source>
-        <translation type="obsolete">Pictures:</translation>
-    </message>
-    <message>
-        <source>Sol&amp;id Colors:</source>
-        <translation type="obsolete">Sol&amp;id Colours:</translation>
-    </message>
-    <message>
-        <source>Convert all colors to printer space</source>
-        <translation type="obsolete">Convert all colours to printer space</translation>
-    </message>
-    <message>
-        <source>Default color profile for solid RGB colors on the page</source>
-        <translation type="obsolete">Default colour profile for solid RGB colours on the page</translation>
-    </message>
-    <message>
-        <source>Default color profile for solid CMYK colors on the page</source>
-        <translation type="obsolete">Default colour profile for solid CMYK colours on the page</translation>
-    </message>
-    <message>
-        <source>Default rendering intent for solid colors. Unless you know why to change it,
-Relative Colorimetric or Perceptual should be chosen.</source>
-        <translation type="obsolete">Default rendering intent for solid colours. Unless you know why to change it,
-Relative Colourimetric or Perceptual should be chosen.</translation>
-    </message>
-    <message>
-        <source>Default rendering intent for images. Unless you know why to change it,
-Relative Colorimetric or Perceptual should be chosen.</source>
-        <translation type="obsolete">Default rendering intent for images. Unless you know why to change it,
-Relative Colourimetric or Perceptual should be chosen.</translation>
-    </message>
-    <message>
-        <source>Simulate a full color managed environment :
-all colors, rgb or cmyk, are converted to printer color space.</source>
-        <translation type="obsolete">Simulate a full colour managed environment :
-all colours, rgb or cmyk, are converted to printer colour space.</translation>
-    </message>
-    <message>
-        <source>Images:</source>
-        <translation type="obsolete">Images:</translation>
-    </message>
 </context>
 <context>
     <name>CMSPrefsBase</name>
@@ -10643,10 +2818,6 @@ all colours, rgb or cmyk, are converted to printer colour space.</translation>
     <message>
         <source>&amp;Activate Color Management</source>
         <translation>&amp;Activate Colour Management</translation>
-    </message>
-    <message>
-        <source>System Profiles</source>
-        <translation type="obsolete">System Profiles</translation>
     </message>
     <message>
         <source>&amp;RGB Images:</source>
@@ -10717,10 +2888,6 @@ This profile should be specific to your printer and not a generic profile (i.e. 
 This profile should be specific to your printer and not a generic profile (i.e. sRGB).</translation>
     </message>
     <message>
-        <source>Rendering Intents</source>
-        <translation type="obsolete">Rendering Intents</translation>
-    </message>
-    <message>
         <source>Images:</source>
         <translation>Images:</translation>
     </message>
@@ -10745,10 +2912,6 @@ Relative Colourimetric or Perceptual should be chosen.</translation>
 based on the chosen printer profile.</source>
         <translation>Enable &apos;soft proofing&apos; of how your document colours will print,
 based on the chosen printer profile.</translation>
-    </message>
-    <message>
-        <source>Sim&amp;ulate Printer on the Screen</source>
-        <translation type="obsolete">Sim&amp;ulate Printer on the Screen</translation>
     </message>
     <message>
         <source>Simulate a full color managed environment :
@@ -10852,10 +3015,6 @@ It is recommended that you enable this if you have photos in your document.</tra
         <translation> %</translation>
     </message>
     <message>
-        <source>HSV-Colormap</source>
-        <translation type="obsolete">HSV-Colourmap</translation>
-    </message>
-    <message>
         <source>&amp;Name:</source>
         <translation>&amp;Name:</translation>
     </message>
@@ -10868,24 +3027,10 @@ It is recommended that you enable this if you have photos in your document.</tra
         <translation>Is Spot Colour</translation>
     </message>
     <message>
-        <source>Is Registration Color</source>
-        <translation type="obsolete">Is Registration Colour</translation>
-    </message>
-    <message>
         <source>You cannot create a color named &quot;%1&quot;.
 It is a reserved name for transparent color</source>
         <translation>You cannot create a colour named &quot;%1&quot;.
 It is a reserved name for transparent colour</translation>
-    </message>
-    <message>
-        <source>Choosing this will enable printing this on all plates. Registration colors are used for printer marks such as crop marks, registration marks and the like. These are not typically used in the layout itself.</source>
-        <translation type="obsolete">Choosing this will enable printing this on all plates. Registration colors are used for printer marks such as crop marks, registration marks and the like. These are not typically used in the layout itself.</translation>
-    </message>
-    <message>
-        <source>The name of the color already exists,
-please choose another one.</source>
-        <translation type="obsolete">The name of the colour already exists,
-please choose another one.</translation>
     </message>
     <message>
         <source>Choosing this will make this color a spot color, thus creating another spot when creating plates or separations. This is used most often when a logo or other color needs exact representation or cannot be replicated with CMYK inks. Metallic and fluorescent inks are good examples which cannot be easily replicated with CMYK inks.</source>
@@ -10894,11 +3039,6 @@ please choose another one.</translation>
     <message>
         <source>If color management is enabled, a triangle warning indicator is a warning that the color maybe outside of the color gamut of the current printer profile selected. What this means is the color may not print exactly as indicated on screen. More hints about gamut warnings are in the online help under Color Management.</source>
         <translation>If colour management is enabled, a triangle warning indicator is a warning that the colour maybe outside of the colour gamut of the current printer profile selected. What this means is the colour may not print exactly as indicated on screen. More hints about gamut warnings are in the online help under Colour Management.</translation>
-    </message>
-    <message>
-        <source>You cannot create a color without a name
-Please give it a name</source>
-        <translation type="obsolete">You cannot create a colour without a namePlease give it a name</translation>
     </message>
     <message>
         <source>HSV Color Map</source>
@@ -11184,10 +3324,6 @@ Height: %2</translation>
         <translation>Open</translation>
     </message>
     <message>
-        <source>Overflow Characters: %1</source>
-        <translation>Overflow Characters: %1</translation>
-    </message>
-    <message>
         <source>Go to Page %1</source>
         <translation>Go to Page %1</translation>
     </message>
@@ -11221,6 +3357,28 @@ Page: %2</source>
 File: %1
 Page: %2</translation>
     </message>
+    <message>
+        <source>Overflow Characters: %1 (%2 White Spaces)</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>CdrPlug</name>
+    <message>
+        <source>Importing: %1</source>
+        <translation type="unfinished">Importing: %1</translation>
+    </message>
+    <message>
+        <source>Analyzing File:</source>
+        <translation type="unfinished">Analysing File:</translation>
+    </message>
+    <message>
+        <source>Parsing failed!
+
+Please submit your file (if possible) to the
+Document Liberation Project http://www.documentliberation.org</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>CellStyleComboBox</name>
@@ -11240,10 +3398,6 @@ Page: %2</translation>
         <translation>Analysing File:</translation>
     </message>
     <message>
-        <source>Group%1</source>
-        <translation type="obsolete">Group%1</translation>
-    </message>
-    <message>
         <source>Generating Items</source>
         <translation>Generating Items</translation>
     </message>
@@ -11251,160 +3405,8 @@ Page: %2</translation>
 <context>
     <name>CharSelect</name>
     <message>
-        <source>Font:</source>
-        <translation type="obsolete">Font:</translation>
-    </message>
-    <message>
-        <source>Character Class:</source>
-        <translation type="obsolete">Character Class:</translation>
-    </message>
-    <message>
-        <source>&amp;Insert</source>
-        <translation type="obsolete">&amp;Insert</translation>
-    </message>
-    <message>
-        <source>C&amp;lear</source>
-        <translation type="obsolete">C&amp;lear</translation>
-    </message>
-    <message>
-        <source>Insert the characters at the cursor in the text</source>
-        <translation type="obsolete">Insert the characters at the cursor in the text</translation>
-    </message>
-    <message>
-        <source>Delete the current selection(s).</source>
-        <translation type="obsolete">Delete the current selection(s).</translation>
-    </message>
-    <message>
-        <source>Full Character Set</source>
-        <translation type="obsolete">Full Character Set</translation>
-    </message>
-    <message>
-        <source>Basic Latin</source>
-        <translation type="obsolete">Basic Latin</translation>
-    </message>
-    <message>
-        <source>Latin-1 Supplement</source>
-        <translation type="obsolete">Latin-1 Supplement</translation>
-    </message>
-    <message>
-        <source>Latin Extended-A</source>
-        <translation type="obsolete">Latin Extended-A</translation>
-    </message>
-    <message>
-        <source>Latin Extended-B</source>
-        <translation type="obsolete">Latin Extended-B</translation>
-    </message>
-    <message>
-        <source>General Punctuation</source>
-        <translation type="obsolete">General Punctuation</translation>
-    </message>
-    <message>
-        <source>Super- and Subscripts</source>
-        <translation type="obsolete">Super- and Subscripts</translation>
-    </message>
-    <message>
-        <source>Currency Symbols</source>
-        <translation type="obsolete">Currency Symbols</translation>
-    </message>
-    <message>
-        <source>Letterlike Symbols</source>
-        <translation type="obsolete">Letterlike Symbols</translation>
-    </message>
-    <message>
-        <source>Number Forms</source>
-        <translation type="obsolete">Number Forms</translation>
-    </message>
-    <message>
-        <source>Arrows</source>
-        <translation type="obsolete">Arrows</translation>
-    </message>
-    <message>
-        <source>Mathematical Operators</source>
-        <translation type="obsolete">Mathematical Operators</translation>
-    </message>
-    <message>
-        <source>Box Drawing</source>
-        <translation type="obsolete">Box Drawing</translation>
-    </message>
-    <message>
-        <source>Block Elements</source>
-        <translation type="obsolete">Block Elements</translation>
-    </message>
-    <message>
-        <source>Geometric Shapes</source>
-        <translation type="obsolete">Geometric Shapes</translation>
-    </message>
-    <message>
-        <source>Miscellaneous Symbols</source>
-        <translation type="obsolete">Miscellaneous Symbols</translation>
-    </message>
-    <message>
-        <source>Dingbats</source>
-        <translation type="obsolete">Dingbats</translation>
-    </message>
-    <message>
-        <source>Small Form Variants</source>
-        <translation type="obsolete">Small Form Variants</translation>
-    </message>
-    <message>
-        <source>Ligatures</source>
-        <translation type="obsolete">Ligatures</translation>
-    </message>
-    <message>
-        <source>Specials</source>
-        <translation type="obsolete">Specials</translation>
-    </message>
-    <message>
-        <source>Greek</source>
-        <translation type="obsolete">Greek</translation>
-    </message>
-    <message>
-        <source>Greek Extended</source>
-        <translation type="obsolete">Greek Extended</translation>
-    </message>
-    <message>
-        <source>Cyrillic</source>
-        <translation type="obsolete">Cyrillic</translation>
-    </message>
-    <message>
-        <source>Cyrillic Supplement</source>
-        <translation type="obsolete">Cyrillic Supplement</translation>
-    </message>
-    <message>
-        <source>Arabic</source>
-        <translation type="obsolete">Arabic</translation>
-    </message>
-    <message>
-        <source>Arabic Extended A</source>
-        <translation type="obsolete">Arabic Extended A</translation>
-    </message>
-    <message>
-        <source>Arabic Extended B</source>
-        <translation type="obsolete">Arabic Extended B</translation>
-    </message>
-    <message>
-        <source>Hebrew</source>
-        <translation type="obsolete">Hebrew</translation>
-    </message>
-    <message>
-        <source>You can see a thumbnail if you press and hold down the right mouse button. The Insert key inserts a Glyph into the Selection below and the Delete key removes the last inserted one</source>
-        <translation type="obsolete">You can see a thumbnail if you press and hold down the right mouse button. The Insert key inserts a Glyph into the Selection below and the Delete key removes the last inserted one</translation>
-    </message>
-    <message>
         <source>Scribus Char Palette (*.ucp);;All Files (*)</source>
         <translation>Scribus Char Palette (*.ucp);;All Files (*)</translation>
-    </message>
-    <message>
-        <source>Enhanced Palette</source>
-        <translation type="obsolete">Enhanced Palette</translation>
-    </message>
-    <message>
-        <source>Quick Palette</source>
-        <translation type="obsolete">Quick Palette</translation>
-    </message>
-    <message>
-        <source>Hide Enhanced</source>
-        <translation type="obsolete">Hide Enhanced</translation>
     </message>
     <message>
         <source>Choose a filename to open</source>
@@ -11419,28 +3421,12 @@ Page: %2</translation>
         <translation>Error reading file %1 - file is corrupted propably.</translation>
     </message>
     <message>
-        <source>Choose a filename to save under</source>
-        <translation type="obsolete">Choose a filename to save under</translation>
-    </message>
-    <message>
         <source>Cannot write file %1</source>
         <translation>Cannot write file %1</translation>
     </message>
     <message>
-        <source>Clean the Palette?</source>
-        <translation type="obsolete">Clean the Palette?</translation>
-    </message>
-    <message>
-        <source>You will clean all characters from this palette. Are you sure?</source>
-        <translation type="obsolete">You will clean all characters from this palette. Are you sure?</translation>
-    </message>
-    <message>
         <source>Character Palette</source>
         <translation>Character Palette</translation>
-    </message>
-    <message>
-        <source>&amp;Search</source>
-        <translation type="obsolete">&amp;Search</translation>
     </message>
     <message>
         <source>Empty the Palette?</source>
@@ -11457,11 +3443,6 @@ Page: %2</translation>
     <message>
         <source>Save Quick Character Palette</source>
         <translation>Save Quick Character Palette</translation>
-    </message>
-    <message>
-        <source>You can see a thumbnail if you press and hold down the right mouse button.
-The Insert key inserts a Glyph into the Selection below and the Delete key removes the last inserted one</source>
-        <translation type="obsolete">You can see a thumbnail if you press and hold down the right mouse button.The Insert key inserts a Glyph into the Selection below and the Delete key removes the last inserted one</translation>
     </message>
 </context>
 <context>
@@ -11601,10 +3582,6 @@ The Insert key inserts a Glyph into the Selection below and the Delete key remov
         <translation>Insert &amp;Code:</translation>
     </message>
     <message>
-        <source>Type in a four digit unicode value directly here</source>
-        <translation type="obsolete">Type in a four digit unicode value directly here</translation>
-    </message>
-    <message>
         <source>Glyphs to Insert</source>
         <translation>Glyphs to Insert</translation>
     </message>
@@ -11690,10 +3667,6 @@ The Insert key inserts a Glyph into the Selection below and the Delete key remov
         <translation>Free Objects</translation>
     </message>
     <message>
-        <source>Problems found</source>
-        <translation type="obsolete">Problems found</translation>
-    </message>
-    <message>
         <source>Preflight Verifier</source>
         <translation>Preflight Verifier</translation>
     </message>
@@ -11716,14 +3689,6 @@ The Insert key inserts a Glyph into the Selection below and the Delete key remov
     <message>
         <source>Check again</source>
         <translation>Check again</translation>
-    </message>
-    <message>
-        <source>Image resolution below %1 DPI, currently %2 x %3 DPI</source>
-        <translation type="obsolete">Image resolution below %1 DPI, currently %2 x %3 DPI</translation>
-    </message>
-    <message>
-        <source>Image resolution above %1 DPI, currently %2 x %3 DPI</source>
-        <translation type="obsolete">Image resolution above %1 DPI, currently %2 x %3 DPI</translation>
     </message>
     <message>
         <source>Image is GIF</source>
@@ -11909,141 +3874,6 @@ currently %2 x %3 DPI</translation>
     </message>
 </context>
 <context>
-    <name>ColorManager</name>
-    <message>
-        <source>Colors</source>
-        <translation type="obsolete">Colours</translation>
-    </message>
-    <message>
-        <source>&amp;Import</source>
-        <translation type="obsolete">&amp;Import</translation>
-    </message>
-    <message>
-        <source>&amp;New</source>
-        <translation type="obsolete">&amp;New</translation>
-    </message>
-    <message>
-        <source>&amp;Edit</source>
-        <translation type="obsolete">&amp;Edit</translation>
-    </message>
-    <message>
-        <source>D&amp;uplicate</source>
-        <translation type="obsolete">D&amp;uplicate</translation>
-    </message>
-    <message>
-        <source>&amp;Delete</source>
-        <translation type="obsolete">&amp;Delete</translation>
-    </message>
-    <message>
-        <source>&amp;Remove Unused</source>
-        <translation type="obsolete">&amp;Remove Unused</translation>
-    </message>
-    <message>
-        <source>Color Sets</source>
-        <translation type="obsolete">Colour Sets</translation>
-    </message>
-    <message>
-        <source>Current Color Set:</source>
-        <translation type="obsolete">Current Colour Set:</translation>
-    </message>
-    <message>
-        <source>&amp;Save Color Set</source>
-        <translation type="obsolete">&amp;Save Colour Set</translation>
-    </message>
-    <message>
-        <source>Choose a color set to load</source>
-        <translation type="obsolete">Choose a colour set to load</translation>
-    </message>
-    <message>
-        <source>Save the current color set</source>
-        <translation type="obsolete">Save the current colour set</translation>
-    </message>
-    <message>
-        <source>Remove unused colors from current document&apos;s color set</source>
-        <translation type="obsolete">Remove unused colours from current document&apos;s colour set</translation>
-    </message>
-    <message>
-        <source>Import colors to the current set from an existing document</source>
-        <translation type="obsolete">Import colours to the current set from an existing document</translation>
-    </message>
-    <message>
-        <source>Create a new color within the current set</source>
-        <translation type="obsolete">Create a new colour within the current set</translation>
-    </message>
-    <message>
-        <source>Edit the currently selected color</source>
-        <translation type="obsolete">Edit the currently selected colour</translation>
-    </message>
-    <message>
-        <source>Make a copy of the currently selected color</source>
-        <translation type="obsolete">Make a copy of the currently selected colour</translation>
-    </message>
-    <message>
-        <source>Delete the currently selected color</source>
-        <translation type="obsolete">Delete the currently selected colour</translation>
-    </message>
-    <message>
-        <source>Make the current colorset the default color set</source>
-        <translation type="obsolete">Make the current colourset the default colour set</translation>
-    </message>
-    <message>
-        <source>&amp;Name:</source>
-        <translation type="obsolete">&amp;Name:</translation>
-    </message>
-    <message>
-        <source>Choose a Name</source>
-        <translation type="obsolete">Choose a Name</translation>
-    </message>
-    <message>
-        <source>Copy of %1</source>
-        <translation type="obsolete">Copy of %1</translation>
-    </message>
-    <message>
-        <source>New Color</source>
-        <translation type="obsolete">New Colour</translation>
-    </message>
-    <message>
-        <source>If color management is enabled, a triangle warning indicator is a warning the the color maybe outside of the color gamut of the current printer profile selected.What this means is the color may not print exactly as indicated on screen. Spot colors are indicated by a red circle. Registration colors will have a registration mark next to the color. More hints about gamut warnings are in the online help under Color Management.</source>
-        <translation type="obsolete">If colour management is enabled, a triangle warning indicator is a warning the the colour maybe outside of the colour gamut of the current printer profile selected.What this means is the colour may not print exactly as indicated on screen. Spot colours are indicated by a red circle. Registration colours will have a registration mark next to the colour. More hints about gamut warnings are in the online help under Colour Management.</translation>
-    </message>
-    <message>
-        <source>Information</source>
-        <translation type="obsolete">Information</translation>
-    </message>
-    <message>
-        <source>The file %1 does not contain colors which can be imported.
-If the file was a PostScript-based, try to import it with File -&amp;gt; Import. 
-Not all files have DSC conformant comments where the color descriptions are located.
- This prevents importing colors from some files.
-See the Edit Colors section of the documentation for more details.</source>
-        <translation type="obsolete">The file %1 does not contain colours which can be imported.
-If the file was a PostScript-based, try to import it with File -&amp;gt; Import. 
-Not all files have DSC conformant comments where the colour descriptions are located.
- This prevents importing colours from some files.
-See the Edit Colours section of the documentation for more details.</translation>
-    </message>
-    <message>
-        <source>Import</source>
-        <translation type="obsolete">Import</translation>
-    </message>
-    <message>
-        <source>Documents (%1);;Other Files (%2);;All Files (*)</source>
-        <translation type="obsolete">Documents (%1);;Other Files (%2);;All Files (*)</translation>
-    </message>
-    <message>
-        <source>If color management is enabled, a triangle warning indicator is a warning that the color maybe outside of the color gamut of the current printer profile selected. What this means is the color may not print exactly as indicated on screen. Spot colors are indicated by a red circle. More hints about gamut warnings are in the online help under Color Management. Registration colors will have a registration mark next to the color. Use Registration only for printers marks and crop marks.</source>
-        <translation type="obsolete">If colour management is enabled, a triangle warning indicator is a warning that the colour maybe outside of the colour gamut of the current printer profile selected. What this means is the colour may not print exactly as indicated on screen. Spot colours are indicated by a red circle. More hints about gamut warnings are in the online help under Colour Management. Registration colours will have a registration mark next to the colour. Use Registration only for printers marks and crop marks.</translation>
-    </message>
-    <message>
-        <source>All Supported Formats (%1);;Documents (%2);;Other Files (%3);;All Files (*)</source>
-        <translation type="obsolete">All Supported Formats (%1);;Documents (%2);;Other Files (%3);;All Files (*)</translation>
-    </message>
-    <message>
-        <source>Import Colors</source>
-        <translation type="obsolete">Import Colours</translation>
-    </message>
-</context>
-<context>
     <name>ColorWheel</name>
     <message>
         <source>Monochromatic</source>
@@ -12075,55 +3905,55 @@ See the Edit Colours section of the documentation for more details.</translation
     </message>
     <message>
         <source>Monochromatic Light</source>
-        <translation type="obsolete">Monochromatic Light</translation>
+        <translation type="unfinished">Monochromatic Light</translation>
     </message>
     <message>
         <source>Monochromatic Dark</source>
-        <translation type="obsolete">Monochromatic Dark</translation>
+        <translation type="unfinished">Monochromatic Dark</translation>
     </message>
     <message>
         <source>1st. Analogous</source>
-        <translation type="obsolete">1st. Analogous</translation>
+        <translation type="unfinished">1st. Analogous</translation>
     </message>
     <message>
         <source>2nd. Analogous</source>
-        <translation type="obsolete">2nd. Analogous</translation>
+        <translation type="unfinished">2nd. Analogous</translation>
     </message>
     <message>
         <source>1st. Split</source>
-        <translation type="obsolete">1st. Split</translation>
+        <translation type="unfinished">1st. Split</translation>
     </message>
     <message>
         <source>2nd. Split</source>
-        <translation type="obsolete">2nd. Split</translation>
+        <translation type="unfinished">2nd. Split</translation>
     </message>
     <message>
         <source>3rd. Split</source>
-        <translation type="obsolete">3rd. Split</translation>
+        <translation type="unfinished">3rd. Split</translation>
     </message>
     <message>
         <source>4th. Split</source>
-        <translation type="obsolete">4th. Split</translation>
+        <translation type="unfinished">4th. Split</translation>
     </message>
     <message>
         <source>1st. Triadic</source>
-        <translation type="obsolete">1st. Triadic</translation>
+        <translation type="unfinished">1st. Triadic</translation>
     </message>
     <message>
         <source>2nd. Triadic</source>
-        <translation type="obsolete">2nd. Triadic</translation>
+        <translation type="unfinished">2nd. Triadic</translation>
     </message>
     <message>
         <source>1st. Tetradic (base opposite)</source>
-        <translation type="obsolete">1st. Tetradic (base opposite)</translation>
+        <translation type="unfinished">1st. Tetradic (base opposite)</translation>
     </message>
     <message>
         <source>2nd. Tetradic (angle)</source>
-        <translation type="obsolete">2nd. Tetradic (angle)</translation>
+        <translation type="unfinished">2nd. Tetradic (angle)</translation>
     </message>
     <message>
         <source>3rd. Tetradic (angle opposite)</source>
-        <translation type="obsolete">3rd. Tetradic (angle opposite)</translation>
+        <translation type="unfinished">3rd. Tetradic (angle opposite)</translation>
     </message>
 </context>
 <context>
@@ -12652,6 +4482,10 @@ See the Edit Colours section of the documentation for more details.</translation
         <source>Meta</source>
         <translation>Meta</translation>
     </message>
+    <message>
+        <source>px</source>
+        <translation type="unfinished">px</translation>
+    </message>
 </context>
 <context>
     <name>ContextMenu</name>
@@ -12668,8 +4502,76 @@ See the Edit Colours section of the documentation for more details.</translation
         <translation>Delete Page</translation>
     </message>
     <message>
-        <source>Paste Image from Clipboard</source>
-        <translation type="obsolete">Paste Image from Clipboard</translation>
+        <source>In&amp;fo</source>
+        <translation type="unfinished">In&amp;fo</translation>
+    </message>
+    <message>
+        <source>Print: </source>
+        <translation type="unfinished">Print: </translation>
+    </message>
+    <message>
+        <source>Enabled</source>
+        <translation type="unfinished">Enabled</translation>
+    </message>
+    <message>
+        <source>Disabled</source>
+        <translation type="unfinished">Disabled</translation>
+    </message>
+    <message>
+        <source>Contents</source>
+        <translation type="unfinished">Contents</translation>
+    </message>
+    <message>
+        <source>Edit 3D Annotation...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Insert Mark</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Image</source>
+        <translation type="unfinished">Image</translation>
+    </message>
+    <message>
+        <source>Locking</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Send to</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Scrapbook</source>
+        <translation type="unfinished">Scrapbook</translation>
+    </message>
+    <message>
+        <source>Send to La&amp;yer</source>
+        <translation type="unfinished">Send to La&amp;yer</translation>
+    </message>
+    <message>
+        <source>Le&amp;vel</source>
+        <translation type="unfinished">Le&amp;vel</translation>
+    </message>
+    <message>
+        <source>Conve&amp;rt to</source>
+        <translation type="unfinished">Conve&amp;rt to</translation>
+    </message>
+    <message>
+        <source>&amp;PDF Options</source>
+        <translation type="unfinished">&amp;PDF Options</translation>
+    </message>
+    <message>
+        <source>Edit</source>
+        <translation type="unfinished">Edit</translation>
+    </message>
+    <message>
+        <source>&amp;Paste Here</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Paste Recent</source>
+        <translation type="unfinished">Paste Recent</translation>
     </message>
 </context>
 <context>
@@ -12697,208 +4599,8 @@ See the Edit Colours section of the documentation for more details.</translation
 <context>
     <name>Cpalette</name>
     <message>
-        <source>Normal</source>
-        <translation type="obsolete">Normal</translation>
-    </message>
-    <message>
-        <source>Horizontal Gradient</source>
-        <translation type="obsolete">Horizontal Gradient</translation>
-    </message>
-    <message>
-        <source>Vertical Gradient</source>
-        <translation type="obsolete">Vertical Gradient</translation>
-    </message>
-    <message>
-        <source>Diagonal Gradient</source>
-        <translation type="obsolete">Diagonal Gradient</translation>
-    </message>
-    <message>
-        <source>Cross Diagonal Gradient</source>
-        <translation type="obsolete">Cross Diagonal Gradient</translation>
-    </message>
-    <message>
-        <source>Radial Gradient</source>
-        <translation type="obsolete">Radial Gradient</translation>
-    </message>
-    <message>
-        <source>Opacity:</source>
-        <translation type="obsolete">Opacity:</translation>
-    </message>
-    <message>
-        <source> %</source>
-        <translation type="obsolete"> %</translation>
-    </message>
-    <message>
-        <source>Shade:</source>
-        <translation type="obsolete">Shade:</translation>
-    </message>
-    <message>
-        <source>Edit Line Color Properties</source>
-        <translation type="obsolete">Edit Line Colour Properties</translation>
-    </message>
-    <message>
-        <source>Edit Fill Color Properties</source>
-        <translation type="obsolete">Edit Fill Colour Properties</translation>
-    </message>
-    <message>
-        <source>Saturation of color</source>
-        <translation type="obsolete">Saturation of colour</translation>
-    </message>
-    <message>
-        <source>Normal or gradient fill method</source>
-        <translation type="obsolete">Normal or gradient fill method</translation>
-    </message>
-    <message>
-        <source>Set the transparency for the color selected</source>
-        <translation type="obsolete">Set the transparency for the colour selected</translation>
-    </message>
-    <message>
-        <source>Free linear Gradient</source>
-        <translation type="obsolete">Free linear Gradient</translation>
-    </message>
-    <message>
-        <source>Free radial Gradient</source>
-        <translation type="obsolete">Free radial Gradient</translation>
-    </message>
-    <message>
-        <source>X1:</source>
-        <translation type="obsolete">X1:</translation>
-    </message>
-    <message>
-        <source>Y1:</source>
-        <translation type="obsolete">Y1:</translation>
-    </message>
-    <message>
-        <source> pt</source>
-        <translation type="obsolete"> pt</translation>
-    </message>
-    <message>
-        <source>X2:</source>
-        <translation type="obsolete">X2:</translation>
-    </message>
-    <message>
-        <source>Y2:</source>
-        <translation type="obsolete">Y2:</translation>
-    </message>
-    <message>
-        <source>Move Vector</source>
-        <translation type="obsolete">Move Vector</translation>
-    </message>
-    <message>
-        <source>Move the start of the gradient vector with the left mouse button pressed and move the end of the gradient vector with the right mouse button pressed</source>
-        <translation type="obsolete">Move the start of the gradient vector with the left mouse button pressed and move the end of the gradient vector with the right mouse button pressed</translation>
-    </message>
-    <message>
-        <source>Transparency Settings</source>
-        <translation type="obsolete">Transparency Settings</translation>
-    </message>
-    <message>
-        <source>Blend Mode:</source>
-        <translation type="obsolete">Blend Mode:</translation>
-    </message>
-    <message>
-        <source>Darken</source>
-        <translation type="obsolete">Darken</translation>
-    </message>
-    <message>
-        <source>Lighten</source>
-        <translation type="obsolete">Lighten</translation>
-    </message>
-    <message>
-        <source>Multiply</source>
-        <translation type="obsolete">Multiply</translation>
-    </message>
-    <message>
-        <source>Screen</source>
-        <translation type="obsolete">Screen</translation>
-    </message>
-    <message>
-        <source>Overlay</source>
-        <translation type="obsolete">Overlay</translation>
-    </message>
-    <message>
-        <source>Hard Light</source>
-        <translation type="obsolete">Hard Light</translation>
-    </message>
-    <message>
-        <source>Soft Light</source>
-        <translation type="obsolete">Soft Light</translation>
-    </message>
-    <message>
-        <source>Difference</source>
-        <translation type="obsolete">Difference</translation>
-    </message>
-    <message>
-        <source>Color Dodge</source>
-        <translation type="obsolete">Colour Dodge</translation>
-    </message>
-    <message>
-        <source>Color Burn</source>
-        <translation type="obsolete">Colour Burn</translation>
-    </message>
-    <message>
-        <source>Hue</source>
-        <translation type="obsolete">Hue</translation>
-    </message>
-    <message>
-        <source>Saturation</source>
-        <translation type="obsolete">Saturation</translation>
-    </message>
-    <message>
-        <source>Color</source>
-        <translation type="obsolete">Colour</translation>
-    </message>
-    <message>
-        <source>Luminosity</source>
-        <translation type="obsolete">Luminosity</translation>
-    </message>
-    <message>
-        <source>Offsets</source>
-        <translation type="obsolete">Offsets</translation>
-    </message>
-    <message>
-        <source>X:</source>
-        <translation type="obsolete">X:</translation>
-    </message>
-    <message>
-        <source>Y:</source>
-        <translation type="obsolete">Y:</translation>
-    </message>
-    <message>
-        <source>Scaling</source>
-        <translation type="obsolete">Scaling</translation>
-    </message>
-    <message>
-        <source>Rotation</source>
-        <translation type="obsolete">Rotation</translation>
-    </message>
-    <message>
-        <source>Angle</source>
-        <translation type="obsolete">Angle</translation>
-    </message>
-    <message>
         <source>Pattern</source>
         <translation>Pattern</translation>
-    </message>
-    <message>
-        <source>Exclusion</source>
-        <translation type="obsolete">Exclusion</translation>
-    </message>
-    <message>
-        <source>X-Scale:</source>
-        <translation type="obsolete">X-Scale:</translation>
-    </message>
-    <message>
-        <source>Y-Scale:</source>
-        <translation type="obsolete">Y-Scale:</translation>
-    </message>
-    <message>
-        <source>Display only used Colors</source>
-        <translation type="obsolete">Display only used Colours</translation>
-    </message>
-    <message>
-        <source>Display all colors from the document color list, or only the already used colors</source>
-        <translation type="obsolete">Display all colours from the document colour list, or only the already used colours</translation>
     </message>
     <message>
         <source>Custom</source>
@@ -13149,10 +4851,6 @@ See the Edit Colours section of the documentation for more details.</translation
         <translation>Open</translation>
     </message>
     <message>
-        <source>Curve Files (*.scu);;All Files (*)</source>
-        <translation type="obsolete">Curve Files (*.scu);;All Files (*)</translation>
-    </message>
-    <message>
         <source>Curve Files &quot;*.scu&quot; (*.scu *.SCU);;All Files (*)</source>
         <translation>Curve Files &quot;*.scu&quot; (*.scu *.SCU);;All Files (*)</translation>
     </message>
@@ -13235,10 +4933,6 @@ See the Edit Colours section of the documentation for more details.</translation
     <message>
         <source>Analyzing File:</source>
         <translation>Analysing File:</translation>
-    </message>
-    <message>
-        <source>Group%1</source>
-        <translation type="obsolete">Group%1</translation>
     </message>
     <message>
         <source>Generating Items</source>
@@ -13450,211 +5144,6 @@ See the Edit Colours section of the documentation for more details.</translation
     <message>
         <source>The language in which the content of the document is written, usually a ISO-639 language code optionally suffixed with a hypen and an ISO-3166 country code, eg. en-GB, fr-CH</source>
         <translation>The language in which the content of the document is written, usually a ISO-639 language code optionally suffixed with a hypen and an ISO-3166 country code, eg. en-GB, fr-CH</translation>
-    </message>
-</context>
-<context>
-    <name>DocSections</name>
-    <message>
-        <source>Add a page numbering section to the document. The new section will be added after the currently selected section.</source>
-        <translation type="obsolete">Add a page numbering section to the document. The new section will be added after the currently selected section.</translation>
-    </message>
-    <message>
-        <source>Delete the currently selected section.</source>
-        <translation type="obsolete">Delete the currently selected section.</translation>
-    </message>
-    <message>
-        <source>1, 2, 3, ...</source>
-        <translation type="obsolete">1, 2, 3, ...</translation>
-    </message>
-    <message>
-        <source>i, ii, iii, ...</source>
-        <translation type="obsolete">i, ii, iii, ...</translation>
-    </message>
-    <message>
-        <source>I, II, III, ...</source>
-        <translation type="obsolete">I, II, III, ...</translation>
-    </message>
-    <message>
-        <source>a, b, c, ...</source>
-        <translation type="obsolete">a, b, c, ...</translation>
-    </message>
-    <message>
-        <source>A, B, C, ...</source>
-        <translation type="obsolete">A, B, C, ...</translation>
-    </message>
-    <message>
-        <source>&lt;b&gt;Name:&lt;/b&gt; Optional name for section eg. Index&lt;br/&gt;&lt;b&gt;Shown:&lt;/b&gt; Select to show the page numbers in this section if there is one or more text frames setup to do so.&lt;br/&gt;&lt;b&gt;From:&lt;/b&gt; The page index for this section to start at.&lt;br/&gt;&lt;b&gt;To:&lt;/b&gt; The page index for this section to stop at.&lt;br/&gt;&lt;b&gt;Style:&lt;/b&gt; Select the page number style to be used.&lt;br/&gt;&lt;b&gt;Start:&lt;/b&gt; The index within the Style&apos;s range to star at. Eg. If Start=2 and Style=a,b,c, ..., the numbers will begin at b. For the first section in the document this replaces the older First Page Number in the new file window.</source>
-        <translation type="obsolete">&lt;b&gt;Name:&lt;/b&gt; Optional name for section eg. Index&lt;br/&gt;&lt;b&gt;Shown:&lt;/b&gt; Select to show the page numbers in this section if there is one or more text frames setup to do so.&lt;br/&gt;&lt;b&gt;From:&lt;/b&gt; The page index for this section to start at.&lt;br/&gt;&lt;b&gt;To:&lt;/b&gt; The page index for this section to stop at.&lt;br/&gt;&lt;b&gt;Style:&lt;/b&gt; Select the page number style to be used.&lt;br/&gt;&lt;b&gt;Start:&lt;/b&gt; The index within the Style&apos;s range to star at. Eg. If Start=2 and Style=a,b,c, ..., the numbers will begin at b. For the first section in the document this replaces the older First Page Number in the new file window.</translation>
-    </message>
-    <message>
-        <source>Page Number Out Of Bounds</source>
-        <translation type="obsolete">Page Number Out Of Bounds</translation>
-    </message>
-    <message>
-        <source>The value you have entered is outside the range of page numbers in the current document (%1-%2).</source>
-        <translation type="obsolete">The value you have entered is outside the range of page numbers in the current document (%1-%2).</translation>
-    </message>
-    <message>
-        <source>Document Sections</source>
-        <translation type="obsolete">Document Sections</translation>
-    </message>
-    <message>
-        <source>&amp;Add</source>
-        <translation type="obsolete">&amp;Add</translation>
-    </message>
-    <message>
-        <source>Alt+A</source>
-        <translation type="obsolete">Alt+A</translation>
-    </message>
-    <message>
-        <source>&amp;Delete</source>
-        <translation type="obsolete">&amp;Delete</translation>
-    </message>
-    <message>
-        <source>Alt+D</source>
-        <translation type="obsolete">Alt+D</translation>
-    </message>
-    <message>
-        <source>Name</source>
-        <translation type="obsolete">Name</translation>
-    </message>
-    <message>
-        <source>Shown</source>
-        <translation type="obsolete">Shown</translation>
-    </message>
-    <message>
-        <source>From</source>
-        <translation type="obsolete">From</translation>
-    </message>
-    <message>
-        <source>To</source>
-        <translation type="obsolete">To</translation>
-    </message>
-    <message>
-        <source>Style</source>
-        <translation type="obsolete">Style</translation>
-    </message>
-    <message>
-        <source>Start</source>
-        <translation type="obsolete">Start</translation>
-    </message>
-</context>
-<context>
-    <name>DocumentItemAttributes</name>
-    <message>
-        <source>Relates To</source>
-        <translation type="obsolete">Relates To</translation>
-    </message>
-    <message>
-        <source>Is Parent Of</source>
-        <translation type="obsolete">Is Parent Of</translation>
-    </message>
-    <message>
-        <source>Is Child Of</source>
-        <translation type="obsolete">Is Child Of</translation>
-    </message>
-    <message>
-        <source>Text Frames</source>
-        <translation type="obsolete">Text Frames</translation>
-    </message>
-    <message>
-        <source>Image Frames</source>
-        <translation type="obsolete">Image Frames</translation>
-    </message>
-    <message>
-        <source>Boolean</source>
-        <translation type="obsolete">Boolean</translation>
-    </message>
-    <message>
-        <source>Integer</source>
-        <translation type="obsolete">Integer</translation>
-    </message>
-    <message>
-        <source>String</source>
-        <translation type="obsolete">String</translation>
-    </message>
-    <message>
-        <source>Real Number</source>
-        <translation type="obsolete">Real Number</translation>
-    </message>
-    <message>
-        <source>None</source>
-        <comment>relationship</comment>
-        <translation type="obsolete">None</translation>
-    </message>
-    <message>
-        <source>None</source>
-        <comment>auto add</comment>
-        <translation type="obsolete">None</translation>
-    </message>
-    <message>
-        <source>None</source>
-        <comment>types</comment>
-        <translation type="obsolete">None</translation>
-    </message>
-    <message>
-        <source>Document Item Attributes</source>
-        <translation type="obsolete">Document Item Attributes</translation>
-    </message>
-    <message>
-        <source>&amp;Add</source>
-        <translation type="obsolete">&amp;Add</translation>
-    </message>
-    <message>
-        <source>Alt+A</source>
-        <translation type="obsolete">Alt+A</translation>
-    </message>
-    <message>
-        <source>&amp;Copy</source>
-        <translation type="obsolete">&amp;Copy</translation>
-    </message>
-    <message>
-        <source>Alt+C</source>
-        <translation type="obsolete">Alt+C</translation>
-    </message>
-    <message>
-        <source>&amp;Delete</source>
-        <translation type="obsolete">&amp;Delete</translation>
-    </message>
-    <message>
-        <source>Alt+D</source>
-        <translation type="obsolete">Alt+D</translation>
-    </message>
-    <message>
-        <source>C&amp;lear</source>
-        <translation type="obsolete">C&amp;lear</translation>
-    </message>
-    <message>
-        <source>Alt+L</source>
-        <translation type="obsolete">Alt+L</translation>
-    </message>
-    <message>
-        <source>Name</source>
-        <translation type="obsolete">Name</translation>
-    </message>
-    <message>
-        <source>Type</source>
-        <translation type="obsolete">Type</translation>
-    </message>
-    <message>
-        <source>Value</source>
-        <translation type="obsolete">Value</translation>
-    </message>
-    <message>
-        <source>Parameter</source>
-        <translation type="obsolete">Parameter</translation>
-    </message>
-    <message>
-        <source>Relationship</source>
-        <translation type="obsolete">Relationship</translation>
-    </message>
-    <message>
-        <source>Relationship To</source>
-        <translation type="obsolete">Relationship To</translation>
-    </message>
-    <message>
-        <source>Auto Add To</source>
-        <translation type="obsolete">Auto Add To</translation>
     </message>
 </context>
 <context>
@@ -14089,10 +5578,6 @@ Use 72 dpi for Images intended for the Screen</source>
 Use 72 dpi for Images intended for the Screen</translation>
     </message>
     <message>
-        <source>The quality of your images - 100% is the best, 1% the lowest quality</source>
-        <translation type="obsolete">The quality of your images - 100% is the best, 1% the lowest quality</translation>
-    </message>
-    <message>
         <source>&amp;Size:</source>
         <translation>&amp;Size:</translation>
     </message>
@@ -14115,6 +5600,22 @@ Use 72 dpi for Images intended for the Screen</translation>
     <message>
         <source>Automatic</source>
         <translation>Automatic</translation>
+    </message>
+    <message>
+        <source>Naming of exported files:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Prefix:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>No Background</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Don&apos;t export Page Background</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -14223,6 +5724,18 @@ Use 72 dpi for Images intended for the Screen</translation>
         <source>Live Preview</source>
         <translation>Live Preview</translation>
     </message>
+    <message>
+        <source>Plus</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Destination In</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Destination Out</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>FDialogPreview</name>
@@ -14306,10 +5819,6 @@ Use 72 dpi for Images intended for the Screen</translation>
 </context>
 <context>
     <name>FontComboH</name>
-    <message>
-        <source>Face:</source>
-        <translation type="obsolete">Face:</translation>
-    </message>
     <message>
         <source>Family:</source>
         <translation>Family:</translation>
@@ -14403,149 +5912,11 @@ Use 72 dpi for Images intended for the Screen</translation>
     </message>
 </context>
 <context>
-    <name>FontPrefs</name>
-    <message>
-        <source>Available Fonts</source>
-        <translation type="obsolete">Available Fonts</translation>
-    </message>
-    <message>
-        <source>Font Substitutions</source>
-        <translation type="obsolete">Font Substitutions</translation>
-    </message>
-    <message>
-        <source>Additional Paths</source>
-        <translation type="obsolete">Additional Paths</translation>
-    </message>
-    <message>
-        <source>Font Name</source>
-        <translation type="obsolete">Font Name</translation>
-    </message>
-    <message>
-        <source>Replacement</source>
-        <translation type="obsolete">Replacement</translation>
-    </message>
-    <message>
-        <source>Choose a Directory</source>
-        <translation type="obsolete">Choose a Directory</translation>
-    </message>
-    <message>
-        <source>&amp;Available Fonts</source>
-        <translation type="obsolete">&amp;Available Fonts</translation>
-    </message>
-    <message>
-        <source>Font &amp;Substitutions</source>
-        <translation type="obsolete">Font &amp;Substitutions</translation>
-    </message>
-    <message>
-        <source>Additional &amp;Paths</source>
-        <translation type="obsolete">Additional &amp;Paths</translation>
-    </message>
-    <message>
-        <source>&amp;Delete</source>
-        <translation type="obsolete">&amp;Delete</translation>
-    </message>
-    <message>
-        <source>C&amp;hange...</source>
-        <translation type="obsolete">C&amp;hange...</translation>
-    </message>
-    <message>
-        <source>A&amp;dd...</source>
-        <translation type="obsolete">A&amp;dd...</translation>
-    </message>
-    <message>
-        <source>&amp;Remove</source>
-        <translation type="obsolete">&amp;Remove</translation>
-    </message>
-    <message>
-        <source>Font search paths can only be set in File &gt; Preferences, and only when there is no document currently open. Close any open documents, then use File &gt; Preferences &gt; Fonts to change the font search path.</source>
-        <translation type="obsolete">Font search paths can only be set in File &gt; Preferences, and only when there is no document currently open. Close any open documents, then use File &gt; Preferences &gt; Fonts to change the font search path.</translation>
-    </message>
-    <message>
-        <source>Use Font</source>
-        <translation type="obsolete">Use Font</translation>
-    </message>
-    <message>
-        <source>Embed in PostScript</source>
-        <translation type="obsolete">Embed in PostScript</translation>
-    </message>
-    <message>
-        <source>Subset</source>
-        <translation type="obsolete">Subset</translation>
-    </message>
-    <message>
-        <source>Path to Font File</source>
-        <translation type="obsolete">Path to Font File</translation>
-    </message>
-</context>
-<context>
-    <name>FontPrefsTab</name>
-    <message>
-        <source>Available Fonts</source>
-        <translation type="obsolete">Available Fonts</translation>
-    </message>
-    <message>
-        <source>Font Substitutions</source>
-        <translation type="obsolete">Font Substitutions</translation>
-    </message>
-    <message>
-        <source>Additional Paths</source>
-        <translation type="obsolete">Additional Paths</translation>
-    </message>
-    <message>
-        <source>&amp;Available Fonts</source>
-        <translation type="obsolete">&amp;Available Fonts</translation>
-    </message>
-    <message>
-        <source>Font Name</source>
-        <translation type="obsolete">Font Name</translation>
-    </message>
-    <message>
-        <source>Replacement</source>
-        <translation type="obsolete">Replacement</translation>
-    </message>
-    <message>
-        <source>&amp;Delete</source>
-        <translation type="obsolete">&amp;Delete</translation>
-    </message>
-    <message>
-        <source>Font &amp;Substitutions</source>
-        <translation type="obsolete">Font &amp;Substitutions</translation>
-    </message>
-    <message>
-        <source>C&amp;hange...</source>
-        <translation type="obsolete">C&amp;hange...</translation>
-    </message>
-    <message>
-        <source>A&amp;dd...</source>
-        <translation type="obsolete">A&amp;dd...</translation>
-    </message>
-    <message>
-        <source>&amp;Remove</source>
-        <translation type="obsolete">&amp;Remove</translation>
-    </message>
-    <message>
-        <source>Font search paths can only be set in File &gt; Preferences, and only when there is no document currently open. Close any open documents, then use File &gt; Preferences &gt; Fonts to change the font search path.</source>
-        <translation type="obsolete">Font search paths can only be set in File &gt; Preferences, and only when there is no document currently open. Close any open documents, then use File &gt; Preferences &gt; Fonts to change the font search path.</translation>
-    </message>
-    <message>
-        <source>Additional &amp;Paths</source>
-        <translation type="obsolete">Additional &amp;Paths</translation>
-    </message>
-    <message>
-        <source>Choose a Directory</source>
-        <translation type="obsolete">Choose a Directory</translation>
-    </message>
-</context>
-<context>
     <name>FontPreview</name>
     <message>
         <source>Leave preview</source>
         <comment>font preview</comment>
         <translation>Leave preview</translation>
-    </message>
-    <message>
-        <source>Start searching</source>
-        <translation type="obsolete">Start searching</translation>
     </message>
     <message>
         <source>Size of the selected font</source>
@@ -14557,54 +5928,12 @@ Use 72 dpi for Images intended for the Screen</translation>
         <translation>Woven silk pyjamas exchanged for blue quartz</translation>
     </message>
     <message>
-        <source>User</source>
-        <comment>font preview</comment>
-        <translation type="obsolete">User</translation>
-    </message>
-    <message>
-        <source>System</source>
-        <comment>font preview</comment>
-        <translation type="obsolete">System</translation>
-    </message>
-    <message>
-        <source>Typing the text here provides quick searching in the font names. Searching is case insensitive. You can provide a common wild cards (*, ?, [...]) in your phrase. Examples: t* will list all fonts starting with t or T. *bold* will list all fonts with word bold, bolder etc. in the name.</source>
-        <translation type="obsolete">Typing the text here provides quick searching in the font names. Searching is case insensitive. You can provide a common wild cards (*, ?, [...]) in your phrase. Examples: t* will list all fonts starting with t or T. *bold* will list all fonts with word bold, bolder etc. in the name.</translation>
-    </message>
-    <message>
-        <source>Font Name</source>
-        <translation type="obsolete">Font Name</translation>
-    </message>
-    <message>
-        <source>Doc</source>
-        <translation type="obsolete">Doc</translation>
-    </message>
-    <message>
-        <source>Type</source>
-        <translation type="obsolete">Type</translation>
-    </message>
-    <message>
-        <source>Subset</source>
-        <translation type="obsolete">Subset</translation>
-    </message>
-    <message>
-        <source>Access</source>
-        <translation type="obsolete">Access</translation>
-    </message>
-    <message>
         <source>Fonts Preview</source>
         <translation>Fonts Preview</translation>
     </message>
     <message>
         <source>&amp;Quick Search:</source>
         <translation>&amp;Quick Search:</translation>
-    </message>
-    <message>
-        <source>&amp;Search</source>
-        <translation type="obsolete">&amp;Search</translation>
-    </message>
-    <message>
-        <source>Alt+S</source>
-        <translation type="obsolete">Alt+S</translation>
     </message>
     <message>
         <source>&amp;Font Size:</source>
@@ -14695,10 +6024,6 @@ Use 72 dpi for Images intended for the Screen</translation>
     <message>
         <source>Cancels these font substitutions and stops loading the document.</source>
         <translation>Cancels these font substitutions and stops loading the document.</translation>
-    </message>
-    <message>
-        <source>Enabling this tells Scribus to use these replacements for missing fonts permanently in all future layouts. This can be reverted or changed in Edit &gt; Preferences &gt; Fonts.</source>
-        <translation type="obsolete">Enabling this tells Scribus to use these replacements for missing fonts permanently in all future layouts. This can be reverted or changed in Edit &gt; Preferences &gt; Fonts.</translation>
     </message>
     <message>
         <source>If you select OK, then save, these substitutions are made permanent in the document.</source>
@@ -14865,13 +6190,6 @@ Use 72 dpi for Images intended for the Screen</translation>
     </message>
 </context>
 <context>
-    <name>GradientVectorDialog</name>
-    <message>
-        <source>Gradient Vector</source>
-        <translation type="obsolete">Gradient Vector</translation>
-    </message>
-</context>
-<context>
     <name>GuideManager</name>
     <message>
         <source>&amp;Single</source>
@@ -14944,10 +6262,6 @@ Use 72 dpi for Images intended for the Screen</translation>
     <message>
         <source>Alt+S</source>
         <translation>Alt+S</translation>
-    </message>
-    <message>
-        <source>Refer To</source>
-        <translation type="obsolete">Refer To</translation>
     </message>
     <message>
         <source>&amp;Page</source>
@@ -15089,14 +6403,6 @@ Use 72 dpi for Images intended for the Screen</translation>
         <translation>Scribus Online Help</translation>
     </message>
     <message>
-        <source>&amp;Contents</source>
-        <translation type="obsolete">&amp;Contents</translation>
-    </message>
-    <message>
-        <source>&amp;Search</source>
-        <translation type="obsolete">&amp;Search</translation>
-    </message>
-    <message>
         <source>Find</source>
         <translation>Find</translation>
     </message>
@@ -15105,20 +6411,8 @@ Use 72 dpi for Images intended for the Screen</translation>
         <translation>Search Term:</translation>
     </message>
     <message>
-        <source>Se&amp;arch</source>
-        <translation type="obsolete">Se&amp;arch</translation>
-    </message>
-    <message>
-        <source>&amp;New</source>
-        <translation type="obsolete">&amp;New</translation>
-    </message>
-    <message>
         <source>&amp;Delete</source>
         <translation>&amp;Delete</translation>
-    </message>
-    <message>
-        <source>Book&amp;marks</source>
-        <translation type="obsolete">Book&amp;marks</translation>
     </message>
     <message>
         <source>&amp;Print...</source>
@@ -15177,14 +6471,6 @@ Use 72 dpi for Images intended for the Screen</translation>
         <translation>Scribus Help</translation>
     </message>
     <message>
-        <source>Searching is case insensitive</source>
-        <translation type="obsolete">Searching is case insensitive</translation>
-    </message>
-    <message>
-        <source>1</source>
-        <translation type="obsolete">1</translation>
-    </message>
-    <message>
         <source>&amp;Exit</source>
         <translation>&amp;Exit</translation>
     </message>
@@ -15208,37 +6494,6 @@ Use 72 dpi for Images intended for the Screen</translation>
         <source>&lt;h2&gt;&lt;p&gt;Sorry, no manual is installed!&lt;/p&gt;&lt;p&gt;Please see:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;http://docs.scribus.net for updated documentation&lt;/li&gt;&lt;li&gt;http://www.scribus.net for downloads&lt;/li&gt;&lt;/ul&gt;&lt;/h2&gt;</source>
         <comment>HTML message for no documentation available to show</comment>
         <translation>&lt;h2&gt;&lt;p&gt;Sorry, no manual is installed!&lt;/p&gt;&lt;p&gt;Please see:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;http://docs.scribus.net for updated documentation&lt;/li&gt;&lt;li&gt;http://www.scribus.net for downloads&lt;/li&gt;&lt;/ul&gt;&lt;/h2&gt;</translation>
-    </message>
-</context>
-<context>
-    <name>HelpBrowser2</name>
-    <message>
-        <source>Dialog</source>
-        <translation type="obsolete">Dialog</translation>
-    </message>
-    <message>
-        <source>&amp;Contents</source>
-        <translation type="obsolete">&amp;Contents</translation>
-    </message>
-    <message>
-        <source>1</source>
-        <translation type="obsolete">1</translation>
-    </message>
-    <message>
-        <source>Se&amp;arch</source>
-        <translation type="obsolete">Se&amp;arch</translation>
-    </message>
-    <message>
-        <source>Searching is case insensitive</source>
-        <translation type="obsolete">Searching is case insensitive</translation>
-    </message>
-    <message>
-        <source>&amp;Search</source>
-        <translation type="obsolete">&amp;Search</translation>
-    </message>
-    <message>
-        <source>Book&amp;marks</source>
-        <translation type="obsolete">Book&amp;marks</translation>
     </message>
 </context>
 <context>
@@ -15362,25 +6617,6 @@ Exception List</translation>
 Ignore List</source>
         <translation>Add to the
 Ignore List</translation>
-    </message>
-</context>
-<context>
-    <name>HySettings</name>
-    <message>
-        <source>Ignore List</source>
-        <translation type="obsolete">Ignore List</translation>
-    </message>
-    <message>
-        <source>Add a new Entry</source>
-        <translation type="obsolete">Add a new Entry</translation>
-    </message>
-    <message>
-        <source>Edit Entry</source>
-        <translation type="obsolete">Edit Entry</translation>
-    </message>
-    <message>
-        <source>Exception List</source>
-        <translation type="obsolete">Exception List</translation>
     </message>
 </context>
 <context>
@@ -15521,6 +6757,53 @@ converting their vector data into Scribus objects.</translation>
         <source>The PDF Import plugin could not be found</source>
         <translation>The PDF Import plugin could not be found</translation>
     </message>
+    <message>
+        <source>The EPS Import plugin could not be found</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ImportCdrPlugin</name>
+    <message>
+        <source>Import Corel Draw...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Corel Draw</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Corel Draw CDR (*.cdr *.CDR)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Imports Corel Draw Files</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Imports most Corel Draw files into the current document,
+converting their vector data into Scribus objects.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Corel Draw (*.cdr *.CDR)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>All Supported Formats</source>
+        <translation type="unfinished">All Supported Formats</translation>
+    </message>
+    <message>
+        <source>The Uniconverter Import plugin could not be found</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Parsing failed!
+
+Please submit your file (if possible) to the
+Document Liberation Project http://www.documentliberation.org</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ImportCgmPlugin</name>
@@ -15544,12 +6827,6 @@ converting their vector data into Scribus objects.</translation>
         <source>Imports most binary CGM files into the current document,
 converting their vector data into Scribus objects.</source>
         <translation>Imports most binary CGM files into the current document,
-converting their vector data into Scribus objects.</translation>
-    </message>
-    <message>
-        <source>Imports most Cgm files into the current document,
-converting their vector data into Scribus objects.</source>
-        <translation type="obsolete">Imports most Cgm files into the current document,
 converting their vector data into Scribus objects.</translation>
     </message>
     <message>
@@ -15973,10 +7250,6 @@ converting their vector data into Scribus objects.</translation>
 <context>
     <name>ImportXarPlugin</name>
     <message>
-        <source>Import Pict...</source>
-        <translation type="obsolete">Import Pict...</translation>
-    </message>
-    <message>
         <source>Import Xara...</source>
         <translation>Import Xara...</translation>
     </message>
@@ -16221,12 +7494,12 @@ p, li { white-space: pre-wrap; }
         <translation>Edit Item</translation>
     </message>
     <message>
-        <source>Inline Frames</source>
-        <translation>Inline Frames</translation>
-    </message>
-    <message>
         <source>Remove Item</source>
         <translation>Remove Item</translation>
+    </message>
+    <message>
+        <source>Inline Items</source>
+        <translation type="unfinished">Inline Items</translation>
     </message>
 </context>
 <context>
@@ -16301,18 +7574,6 @@ p, li { white-space: pre-wrap; }
     <message>
         <source>Open</source>
         <translation>Open</translation>
-    </message>
-    <message>
-        <source>&lt;b&gt;Insert a text frame&lt;/b&gt;&lt;br/&gt;A text frame allows you to enter any text in a defined position with the formatting you choose. You may select a text file on the Options tab if you want to immediately import a document into the frame. Scribus supports a wide variety of importable format from plain text to OpenOffice.org.&lt;br/&gt;Your text may be edited and formatted on the page directly or in the simple Story Editor.</source>
-        <translation type="obsolete">&lt;b&gt;Insert a text frame&lt;/b&gt;&lt;br/&gt;A text frame allows you to enter any text in a defined position with the formatting you choose. You may select a text file on the Options tab if you want to immediately import a document into the frame. Scribus supports a wide variety of importable format from plain text to OpenOffice.org.&lt;br/&gt;Your text may be edited and formatted on the page directly or in the simple Story Editor.</translation>
-    </message>
-    <message>
-        <source>&lt;b&gt;Insert an image frame&lt;/b&gt;&lt;br/&gt;An image frame allows you to place an image onto your page. Various image effects may be applied or combined including transparencies, brightness, posterisation that allow retouching or the creation of interesting visual results. Image scaling and shaping is performed with the Properties Palette.</source>
-        <translation type="obsolete">&lt;b&gt;Insert an image frame&lt;/b&gt;&lt;br/&gt;An image frame allows you to place an image onto your page. Various image effects may be applied or combined including transparencies, brightness, posterisation that allow retouching or the creation of interesting visual results. Image scaling and shaping is performed with the Properties Palette.</translation>
-    </message>
-    <message>
-        <source>Insert A Frame</source>
-        <translation type="obsolete">Insert A Frame</translation>
     </message>
     <message>
         <source>T&amp;ype</source>
@@ -16417,10 +7678,6 @@ p, li { white-space: pre-wrap; }
     <message>
         <source>Gap:</source>
         <translation>Gap:</translation>
-    </message>
-    <message>
-        <source>Link Created Frames</source>
-        <translation type="obsolete">Link Created Frames</translation>
     </message>
     <message>
         <source>Source Document:</source>
@@ -16698,10 +7955,6 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>LatexEditor</name>
     <message>
-        <source>Dialog</source>
-        <translation type="obsolete">Dialog</translation>
-    </message>
-    <message>
         <source>Enter Code:</source>
         <translation>Enter Code:</translation>
     </message>
@@ -16716,16 +7969,6 @@ p, li { white-space: pre-wrap; }
     <message>
         <source>Program Messages:</source>
         <translation>Program Messages:</translation>
-    </message>
-    <message>
-        <source>&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="obsolete">&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>Status: Unknown</source>
@@ -16756,24 +7999,8 @@ p, li { white-space: pre-wrap; }
         <translation>Program:</translation>
     </message>
     <message>
-        <source>LaTeX</source>
-        <translation type="obsolete">LaTeX</translation>
-    </message>
-    <message>
         <source>Use Preamble</source>
         <translation>Use Preamble</translation>
-    </message>
-    <message>
-        <source>Update Application Settings</source>
-        <translation type="obsolete">Update Application Settings</translation>
-    </message>
-    <message>
-        <source>Fonts and Colors</source>
-        <translation type="obsolete">Fonts and Colours</translation>
-    </message>
-    <message>
-        <source>Will be filled later</source>
-        <translation type="obsolete">Will be filled later</translation>
     </message>
     <message>
         <source>Status: </source>
@@ -16794,10 +8021,6 @@ p, li { white-space: pre-wrap; }
     <message>
         <source>No item selected!</source>
         <translation>No item selected!</translation>
-    </message>
-    <message>
-        <source>Insert symbol</source>
-        <translation type="obsolete">Insert symbol</translation>
     </message>
     <message>
         <source>Editor</source>
@@ -16836,10 +8059,6 @@ p, li { white-space: pre-wrap; }
         <translation>Running the editor &quot;%1&quot; failed!</translation>
     </message>
     <message>
-        <source>Run external editor...</source>
-        <translation type="obsolete">Run external editor...</translation>
-    </message>
-    <message>
         <source>Insert Symbol</source>
         <translation>Insert Symbol</translation>
     </message>
@@ -16861,22 +8080,6 @@ p, li { white-space: pre-wrap; }
     <message>
         <source>Do you want to delete all objects on this layer too?</source>
         <translation>Do you want to delete all objects on this layer too?</translation>
-    </message>
-    <message>
-        <source>Add a new layer</source>
-        <translation type="obsolete">Add a new layer</translation>
-    </message>
-    <message>
-        <source>Delete layer</source>
-        <translation type="obsolete">Delete layer</translation>
-    </message>
-    <message>
-        <source>Raise layer</source>
-        <translation type="obsolete">Raise layer</translation>
-    </message>
-    <message>
-        <source>Lower layer</source>
-        <translation type="obsolete">Lower layer</translation>
     </message>
     <message>
         <source>Opacity:</source>
@@ -16971,20 +8174,8 @@ p, li { white-space: pre-wrap; }
         <translation>Lock or Unlock Layer - Unchecked is unlocked </translation>
     </message>
     <message>
-        <source>Text flows around objects in lower Layers - Enabling this forces text frames to flow around other objects, even in layers below</source>
-        <translation type="obsolete">Text flows around objects in lower Layers - Enabling this forces text frames to flow around other objects, even in layers below</translation>
-    </message>
-    <message>
         <source>Outline Mode - Toggles the &apos;wireframe&apos; display of objects to speed the display of very complex objects.</source>
         <translation>Outline Mode - Toggles the &apos;wireframe&apos; display of objects to speed the display of very complex objects.</translation>
-    </message>
-    <message>
-        <source>Name of the Layer - Double clicking on the name of a layer enabled editing</source>
-        <translation type="obsolete">Name of the Layer - Double clicking on the name of a layer enabled editing</translation>
-    </message>
-    <message>
-        <source>Duplicates the current layer</source>
-        <translation type="obsolete">Duplicates the current layer</translation>
     </message>
     <message>
         <source>Selects the Blendmode, works only in PDF 1.4</source>
@@ -17024,33 +8215,10 @@ p, li { white-space: pre-wrap; }
     </message>
 </context>
 <context>
-    <name>LegacyMode</name>
-    <message>
-        <source>All Files (*)</source>
-        <translation type="obsolete">All Files (*)</translation>
-    </message>
-    <message>
-        <source>Open</source>
-        <translation type="obsolete">Open</translation>
-    </message>
-    <message>
-        <source>All Supported Formats</source>
-        <translation type="obsolete">All Supported Formats</translation>
-    </message>
-</context>
-<context>
     <name>LensDialogBase</name>
     <message>
         <source>Optical Lens</source>
         <translation>Optical Lens</translation>
-    </message>
-    <message>
-        <source>Add Lens</source>
-        <translation type="obsolete">Add Lens</translation>
-    </message>
-    <message>
-        <source>Remove Lens</source>
-        <translation type="obsolete">Remove Lens</translation>
     </message>
     <message>
         <source>+</source>
@@ -17063,22 +8231,6 @@ p, li { white-space: pre-wrap; }
     <message>
         <source>Lens Parameters</source>
         <translation>Lens Parameters</translation>
-    </message>
-    <message>
-        <source>X Pos:</source>
-        <translation type="obsolete">X Pos:</translation>
-    </message>
-    <message>
-        <source>Y Pos:</source>
-        <translation type="obsolete">Y Pos:</translation>
-    </message>
-    <message>
-        <source>Radius:</source>
-        <translation type="obsolete">Radius:</translation>
-    </message>
-    <message>
-        <source>Strength:</source>
-        <translation type="obsolete">Strength:</translation>
     </message>
     <message>
         <source>Add a new lens</source>
@@ -17242,6 +8394,10 @@ p, li { white-space: pre-wrap; }
     <message>
         <source>List of languages available to insert sample text in</source>
         <translation>List of languages available to insert sample text in</translation>
+    </message>
+    <message>
+        <source>Append to existing text</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -17634,10 +8790,6 @@ p, li { white-space: pre-wrap; }
         <translation>Edit Master Pages</translation>
     </message>
     <message>
-        <source>Do you really want to delete this master page?</source>
-        <translation type="obsolete">Do you really want to delete this master page?</translation>
-    </message>
-    <message>
         <source>&amp;Name:</source>
         <translation>&amp;Name:</translation>
     </message>
@@ -17709,42 +8861,6 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>Measurements</name>
     <message>
-        <source>Distances</source>
-        <translation type="obsolete">Distances</translation>
-    </message>
-    <message>
-        <source>X1:</source>
-        <translation type="obsolete">X1:</translation>
-    </message>
-    <message>
-        <source>Y1:</source>
-        <translation type="obsolete">Y1:</translation>
-    </message>
-    <message>
-        <source>X2:</source>
-        <translation type="obsolete">X2:</translation>
-    </message>
-    <message>
-        <source>Y2:</source>
-        <translation type="obsolete">Y2:</translation>
-    </message>
-    <message>
-        <source>DX:</source>
-        <translation type="obsolete">DX:</translation>
-    </message>
-    <message>
-        <source>DY:</source>
-        <translation type="obsolete">DY:</translation>
-    </message>
-    <message>
-        <source>Angle:</source>
-        <translation type="obsolete">Angle:</translation>
-    </message>
-    <message>
-        <source>Length:</source>
-        <translation type="obsolete">Length:</translation>
-    </message>
-    <message>
         <source> °</source>
         <translation type="unfinished"> °</translation>
     </message>
@@ -17811,10 +8927,6 @@ p, li { white-space: pre-wrap; }
         <translation>Import Page(s)</translation>
     </message>
     <message>
-        <source> from 0</source>
-        <translation type="obsolete"> from 0</translation>
-    </message>
-    <message>
         <source>Create Page(s)</source>
         <translation>Create Page(s)</translation>
     </message>
@@ -17829,10 +8941,6 @@ p, li { white-space: pre-wrap; }
     <message>
         <source>&amp;From Document:</source>
         <translation>&amp;From Document:</translation>
-    </message>
-    <message>
-        <source>Chan&amp;ge...</source>
-        <translation type="obsolete">Chan&amp;ge...</translation>
     </message>
     <message>
         <source>&amp;Import Page(s):</source>
@@ -17869,10 +8977,6 @@ p, li { white-space: pre-wrap; }
 </context>
 <context>
     <name>MeshDistortionDialog</name>
-    <message>
-        <source>Dialog</source>
-        <translation type="obsolete">Dialog</translation>
-    </message>
     <message>
         <source>+</source>
         <translation>+</translation>
@@ -17993,10 +9097,6 @@ If no handle is selected all handles will be reset.</source>
     <message>
         <source>To:</source>
         <translation>To:</translation>
-    </message>
-    <message>
-        <source>Number of copies:</source>
-        <translation type="obsolete">Number of copies:</translation>
     </message>
     <message>
         <source>Number of Copies:</source>
@@ -18347,6 +9447,10 @@ If no handle is selected all handles will be reset.</source>
         <source>Ensure all margins have the same value</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Import the margins for the selected page size from the available printers.</source>
+        <translation type="unfinished">Import the margins for the selected page size from the available printers.</translation>
+    </message>
 </context>
 <context>
     <name>NodePalette</name>
@@ -18397,10 +9501,6 @@ If no handle is selected all handles will be reset.</source>
     <message>
         <source>&amp;Reset Contour Line</source>
         <translation>&amp;Reset Contour Line</translation>
-    </message>
-    <message>
-        <source>&amp;End Editing</source>
-        <translation type="obsolete">&amp;End Editing</translation>
     </message>
     <message>
         <source>Move Control Points Independently</source>
@@ -18501,14 +9601,6 @@ If no handle is selected all handles will be reset.</source>
     <message>
         <source>Reset the Contour Line to the Clipping Path of the Image</source>
         <translation>Reset the Contour Line to the Clipping Path of the Image</translation>
-    </message>
-    <message>
-        <source>Lens Effects...</source>
-        <translation type="obsolete">Lens Effects...</translation>
-    </message>
-    <message>
-        <source>Apply fancy Lens Effects</source>
-        <translation type="obsolete">Apply fancy Lens Effects</translation>
     </message>
     <message>
         <source>to Canvas</source>
@@ -18721,11 +9813,6 @@ You cannot switch to different notes style before you apply that new one or pres
         <translation>Imports most OpenOffice.org Draw files into the current document, converting their vector data into Scribus objects.</translation>
     </message>
     <message>
-        <source>OpenDocument 1.0 Draw</source>
-        <comment>Import/export format name</comment>
-        <translation type="obsolete">OpenDocument 1.0 Draw</translation>
-    </message>
-    <message>
         <source>OpenOffice.org 1.x Draw</source>
         <comment>Import/export format name</comment>
         <translation>OpenOffice.org 1.x Draw</translation>
@@ -18770,10 +9857,6 @@ You cannot switch to different notes style before you apply that new one or pres
         <translation>Options</translation>
     </message>
     <message>
-        <source>Renderstyle:</source>
-        <translation type="obsolete">Renderstyle:</translation>
-    </message>
-    <message>
         <source>Solid</source>
         <translation>Solid</translation>
     </message>
@@ -18788,10 +9871,6 @@ You cannot switch to different notes style before you apply that new one or pres
     <message>
         <source>Transparent Wireframe</source>
         <translation>Transparent Wireframe</translation>
-    </message>
-    <message>
-        <source>BoundingBox</source>
-        <translation type="obsolete">BoundingBox</translation>
     </message>
     <message>
         <source>Wireframe</source>
@@ -18840,10 +9919,6 @@ You cannot switch to different notes style before you apply that new one or pres
     <message>
         <source> %</source>
         <translation> %</translation>
-    </message>
-    <message>
-        <source>Lightning:</source>
-        <translation type="obsolete">Lightning:</translation>
     </message>
     <message>
         <source>Render Style:</source>
@@ -18949,10 +10024,6 @@ You cannot switch to different notes style before you apply that new one or pres
         <translation type="unfinished">New View</translation>
     </message>
     <message>
-        <source>All Supported Formats (%1);;All Files (*)</source>
-        <translation type="obsolete">All Supported Formats (%1);;All Files (*)</translation>
-    </message>
-    <message>
         <source>Import 3-D Model</source>
         <translation type="unfinished">Import 3-D Model</translation>
     </message>
@@ -19033,10 +10104,6 @@ You cannot switch to different notes style before you apply that new one or pres
 <context>
     <name>OneClick</name>
     <message>
-        <source>Origin</source>
-        <translation type="obsolete">Origin</translation>
-    </message>
-    <message>
         <source>Basepoint</source>
         <translation>Basepoint</translation>
     </message>
@@ -19094,10 +10161,6 @@ You cannot switch to different notes style before you apply that new one or pres
         <translation>Name &quot;%1&quot; isn&apos;t unique.&lt;br/&gt;Please choose another.</translation>
     </message>
     <message>
-        <source>Group </source>
-        <translation type="obsolete">Group </translation>
-    </message>
-    <message>
         <source>Page </source>
         <translation>Page </translation>
     </message>
@@ -19114,18 +10177,8 @@ You cannot switch to different notes style before you apply that new one or pres
         <translation>Enter a keyword or regular expression to filter the outline.</translation>
     </message>
     <message>
-        <source>Ctrl+f</source>
-        <comment>Filter the Outline using a keyword</comment>
-        <translation type="obsolete">Ctrl+f</translation>
-    </message>
-    <message>
         <source>Filter:</source>
         <translation>Filter:</translation>
-    </message>
-    <message>
-        <source>Ctrl+F</source>
-        <comment>Filter the Outline using a keyword</comment>
-        <translation type="obsolete">Ctrl+F</translation>
     </message>
     <message>
         <source>Active</source>
@@ -19237,20 +10290,12 @@ You cannot switch to different notes style before you apply that new one or pres
         <translation>The save button will be disabled if you are trying to export PDF/X and the info string is missing from the PDF/X tab.</translation>
     </message>
     <message>
-        <source>Save as</source>
-        <translation type="obsolete">Save as</translation>
-    </message>
-    <message>
         <source>PDF Files (*.pdf);;All Files (*)</source>
         <translation>PDF Files (*.pdf);;All Files (*)</translation>
     </message>
     <message>
         <source>This enables exporting one individually named PDF file for each page in the document. Page numbers are added automatically. This is most useful for imposing PDF for commercial printing.</source>
         <translation>This enables exporting one individually named PDF file for each page in the document. Page numbers are added automatically. This is most useful for imposing PDF for commercial printing.</translation>
-    </message>
-    <message>
-        <source>The save button will be disabled if you are trying to export PDF/X-3 and the info string is missing from the PDF/X-3 tab.</source>
-        <translation type="obsolete">The save button will be disabled if you are trying to export PDF/X-3 and the info string is missing from the PDF/X-3 tab.</translation>
     </message>
     <message>
         <source>%1 does not exists and will be created, continue?</source>
@@ -19312,10 +10357,6 @@ You cannot switch to different notes style before you apply that new one or pres
     <message>
         <source>Insufficient memory for processing an image</source>
         <translation>Insufficient memory for processing an image</translation>
-    </message>
-    <message>
-        <source>A write error occured, please check available disk space</source>
-        <translation type="obsolete">A write error occured, please check available disk space</translation>
     </message>
     <message>
         <source>A write error occurred, please check available disk space</source>
@@ -19440,10 +10481,6 @@ You cannot switch to different notes style before you apply that new one or pres
         <translation>File</translation>
     </message>
     <message>
-        <source>Force Overprint Mode</source>
-        <translation type="obsolete">Force Overprint Mode</translation>
-    </message>
-    <message>
         <source>Enable &amp;Antialiasing</source>
         <translation>Enable &amp;Antialiasing</translation>
     </message>
@@ -19468,20 +10505,12 @@ You cannot switch to different notes style before you apply that new one or pres
         <translation>Display Settings</translation>
     </message>
     <message>
-        <source>Print Settings</source>
-        <translation type="obsolete">Print Settings</translation>
-    </message>
-    <message>
         <source>Mirror Page(s) Horizontal</source>
         <translation>Mirror Page(s) Horizontal</translation>
     </message>
     <message>
         <source>Mirror Page(s) Vertical</source>
         <translation>Mirror Page(s) Vertical</translation>
-    </message>
-    <message>
-        <source>Clip to Page Margins</source>
-        <translation type="obsolete">Clip to Page Margins</translation>
     </message>
     <message>
         <source>Print in Grayscale</source>
@@ -19494,10 +10523,6 @@ You cannot switch to different notes style before you apply that new one or pres
     <message>
         <source>Enables Spot Colors to be converted to composite colors. Unless you are planning to print spot colors at a commercial printer, this is probably best left enabled.</source>
         <translation>Enables Spot Colours to be converted to composite colours. Unless you are planning to print spot colours at a commercial printer, this is probably best left enabled.</translation>
-    </message>
-    <message>
-        <source>Enables global Overprint Mode for this document, overrides object settings</source>
-        <translation type="obsolete">Enables global Overprint Mode for this document, overrides object settings</translation>
     </message>
     <message>
         <source>Apply Color Profiles</source>
@@ -19630,10 +10655,6 @@ You cannot switch to different notes style before you apply that new one or pres
         <translation type="unfinished">None</translation>
     </message>
     <message>
-        <source>Page Item Attributes</source>
-        <translation type="obsolete">Page Item Attributes</translation>
-    </message>
-    <message>
         <source>&amp;Add</source>
         <translation>&amp;Add</translation>
     </message>
@@ -19705,14 +10726,6 @@ You cannot switch to different notes style before you apply that new one or pres
 <context>
     <name>PageItem_ImageFrame</name>
     <message>
-        <source>Picture</source>
-        <translation type="obsolete">Picture</translation>
-    </message>
-    <message>
-        <source>Preview Settings</source>
-        <translation type="obsolete">Preview Settings</translation>
-    </message>
-    <message>
         <source>Image</source>
         <translation>Image</translation>
     </message>
@@ -19772,30 +10785,6 @@ You cannot switch to different notes style before you apply that new one or pres
 <context>
     <name>PageItem_LatexFrame</name>
     <message>
-        <source>Latex</source>
-        <translation type="obsolete">Latex</translation>
-    </message>
-    <message>
-        <source>\section*{Manual}
-Your \LaTeX-frames setup is working when you can read this text!\\
-Placing formulas is very easy:\\
-Right click $\Rightarrow$ Edit Latex Source\\
-And replace this text with your own. Here is an example:
-\begin{verbatim}\[J = \int r^2 \mathrm{d}m\]\end{verbatim}
-becomes
-\[J = \int r^2 \mathrm{d}m\]
-</source>
-        <translation type="obsolete">\section*{Manual}
-Your \LaTeX-frames setup is working when you can read this text!\\
-Placing formulas is very easy:\\
-Right click $\Rightarrow$ Edit Latex Source\\
-And replace this text with your own. Here is an example:
-\begin{verbatim}\[J = \int r^2 \mathrm{d}m\]\end{verbatim}
-becomes
-\[J = \int r^2 \mathrm{d}m\]
-</translation>
-    </message>
-    <message>
         <source>Error</source>
         <translation>Error</translation>
     </message>
@@ -19808,68 +10797,12 @@ becomes
         <translation>Could not create a temporary file to run the application!</translation>
     </message>
     <message>
-        <source>Information</source>
-        <translation type="obsolete">Information</translation>
-    </message>
-    <message>
-        <source>Please specify a latex executable in the preferences!</source>
-        <translation type="obsolete">Please specify a latex executable in the preferences!</translation>
-    </message>
-    <message>
-        <source>An editor for this frame is already running!</source>
-        <translation type="obsolete">An editor for this frame is already running!</translation>
-    </message>
-    <message>
-        <source>Please specify an editor in the preferences!</source>
-        <translation type="obsolete">Please specify an editor in the preferences!</translation>
-    </message>
-    <message>
-        <source>Could not create a temporary file to run the external editor!</source>
-        <translation type="obsolete">Could not create a temporary file to run the external editor!</translation>
-    </message>
-    <message>
-        <source>Running the editor failed with exitcode %d!</source>
-        <translation type="obsolete">Running the editor failed with exitcode %d!</translation>
-    </message>
-    <message>
-        <source>Running the editor &quot;%1&quot; failed!</source>
-        <translation type="obsolete">Running the editor &quot;%1&quot; failed!</translation>
-    </message>
-    <message>
         <source>Running the application &quot;%1&quot; failed!</source>
         <translation>Running the application &quot;%1&quot; failed!</translation>
     </message>
     <message>
-        <source>Latex-Frame</source>
-        <translation type="obsolete">Latex-Frame</translation>
-    </message>
-    <message>
-        <source>Command: </source>
-        <translation type="obsolete">Command: </translation>
-    </message>
-    <message>
-        <source>DPI: </source>
-        <translation type="obsolete">DPI: </translation>
-    </message>
-    <message>
-        <source>Status: </source>
-        <translation type="obsolete">Status: </translation>
-    </message>
-    <message>
-        <source>OK</source>
-        <translation type="obsolete">OK</translation>
-    </message>
-    <message>
         <source>Running</source>
         <translation>Running</translation>
-    </message>
-    <message>
-        <source>Errorcode </source>
-        <translation type="obsolete">Errorcode </translation>
-    </message>
-    <message>
-        <source>The application &quot;%1&quot; failed to start!</source>
-        <translation type="obsolete">The application &quot;%1&quot; failed to start!</translation>
     </message>
     <message>
         <source>The application &quot;%1&quot; crashed!</source>
@@ -20011,10 +10944,6 @@ becomes
         <source>Chars: </source>
         <translation>Chars: </translation>
     </message>
-    <message>
-        <source>No Style</source>
-        <translation type="unfinished">No Style</translation>
-    </message>
 </context>
 <context>
     <name>PageLayouts</name>
@@ -20039,44 +10968,8 @@ Often used for allowing items to be placed across page spreads</source>
 <context>
     <name>PagePalette</name>
     <message>
-        <source>Drag pages or master pages onto the trashbin to delete them</source>
-        <translation type="obsolete">Drag pages or master pages onto the trashbin to delete them</translation>
-    </message>
-    <message>
-        <source>Here are all your master pages. To create a new page, drag a master page to the page view below</source>
-        <translation type="obsolete">Here are all your master pages. To create a new page, drag a master page to the page view below</translation>
-    </message>
-    <message>
         <source>Arrange Pages</source>
         <translation>Arrange Pages</translation>
-    </message>
-    <message>
-        <source>Available Master Pages:</source>
-        <translation type="obsolete">Available Master Pages:</translation>
-    </message>
-    <message>
-        <source>Document Pages:</source>
-        <translation type="obsolete">Document Pages:</translation>
-    </message>
-    <message>
-        <source>List of normal pages in the document, shown with the document layout. Pages may be dragged to rearrange or delete them.</source>
-        <translation type="obsolete">List of normal pages in the document, shown with the document layout. Pages may be dragged to rearrange or delete them.</translation>
-    </message>
-    <message>
-        <source>Drag pages or master pages onto the trash to delete them</source>
-        <translation type="obsolete">Drag pages or master pages onto the trash to delete them</translation>
-    </message>
-    <message>
-        <source>List of master pages in the document. Master page names may be dragged onto the page view below to apply master pages, or onto the empty space between pages to create new pages.</source>
-        <translation type="obsolete">List of master pages in the document. Master page names may be dragged onto the page view below to apply master pages, or onto the empty space between pages to create new pages.</translation>
-    </message>
-    <message>
-        <source>This master page is used at least once in the document.</source>
-        <translation type="obsolete">This master page is used at least once in the document.</translation>
-    </message>
-    <message>
-        <source>Do you really want to delete this master page?</source>
-        <translation type="obsolete">Do you really want to delete this master page?</translation>
     </message>
 </context>
 <context>
@@ -20145,14 +11038,6 @@ Often used for allowing items to be placed across page spreads</source>
         <source>The Normal page is not allowed to be renamed.</source>
         <translation type="unfinished">The Normal page is not allowed to be renamed.</translation>
     </message>
-    <message>
-        <source>Rename Master Page</source>
-        <translation type="obsolete">Rename Master Page</translation>
-    </message>
-    <message>
-        <source>New Name:</source>
-        <translation type="obsolete">New Name:</translation>
-    </message>
 </context>
 <context>
     <name>PagePalette_MasterPagesBase</name>
@@ -20161,7 +11046,7 @@ Often used for allowing items to be placed across page spreads</source>
         <translation type="unfinished">Form</translation>
     </message>
     <message>
-        <source>&lt;&lt;&lt; Return to Pages Edition</source>
+        <source>&lt;&lt;&lt; Return to Normal Page Mode</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -20221,10 +11106,6 @@ Often used for allowing items to be placed across page spreads</source>
 </context>
 <context>
     <name>PageSelector</name>
-    <message>
-        <source>%1 of %2</source>
-        <translation type="obsolete">%1 of %2</translation>
-    </message>
     <message>
         <source>Go to the first page</source>
         <translation>Go to the first page</translation>
@@ -20560,24 +11441,12 @@ See the Edit Colours section of the documentation for more details.</translation
         <translation>Connect Paths</translation>
     </message>
     <message>
-        <source>Connect first Line</source>
-        <translation type="obsolete">Connect first Line</translation>
-    </message>
-    <message>
         <source>Starting Point</source>
         <translation>Starting Point</translation>
     </message>
     <message>
         <source>End Point</source>
         <translation>End Point</translation>
-    </message>
-    <message>
-        <source>with second Line</source>
-        <translation type="obsolete">with second Line</translation>
-    </message>
-    <message>
-        <source>with:</source>
-        <translation type="obsolete">with:</translation>
     </message>
     <message>
         <source>a straight Line</source>
@@ -20729,14 +11598,6 @@ both end points must lie outside of the polygon</source>
         <translation>Boolean Path Operations</translation>
     </message>
     <message>
-        <source>Keep a copy of the original Item after applying the operation</source>
-        <translation type="obsolete">Keep a copy of the original Item after applying the operation</translation>
-    </message>
-    <message>
-        <source>keep</source>
-        <translation type="obsolete">keep</translation>
-    </message>
-    <message>
         <source>+</source>
         <translation>+</translation>
     </message>
@@ -20755,22 +11616,6 @@ both end points must lie outside of the polygon</source>
     <message>
         <source>Swap Shapes</source>
         <translation>Swap Shapes</translation>
-    </message>
-    <message>
-        <source>Options</source>
-        <translation type="obsolete">Options</translation>
-    </message>
-    <message>
-        <source>Result gets Color of:</source>
-        <translation type="obsolete">Result gets Colour of:</translation>
-    </message>
-    <message>
-        <source>first Shape</source>
-        <translation type="obsolete">first Shape</translation>
-    </message>
-    <message>
-        <source>second Shape</source>
-        <translation type="obsolete">second Shape</translation>
     </message>
     <message>
         <source>First source shape.</source>
@@ -20829,10 +11674,6 @@ The result is a combination of &quot;Intersection&quot; and &quot;Exclusion&quot
     <message>
         <source>Exchange the Source Shapes</source>
         <translation>Exchange the Source Shapes</translation>
-    </message>
-    <message>
-        <source>Result takes color from:</source>
-        <translation type="obsolete">Result takes colour from:</translation>
     </message>
     <message>
         <source>The resulting shape uses the color of the first source shape</source>
@@ -20896,14 +11737,6 @@ The result is a combination of &quot;Intersection&quot; and &quot;Exclusion&quot
         <source>Apply fancy boolean operations to paths.</source>
         <translation>Apply fancy boolean operations to paths.</translation>
     </message>
-    <message>
-        <source>Qt Version too old</source>
-        <translation type="obsolete">Qt Version too old</translation>
-    </message>
-    <message>
-        <source>This plugin requires at least version 4.3.3 of the Qt library</source>
-        <translation type="obsolete">This plug-in requires at least version 4.3.3 of the Qt library</translation>
-    </message>
 </context>
 <context>
     <name>PathStrokerPlugin</name>
@@ -20918,73 +11751,6 @@ The result is a combination of &quot;Intersection&quot; and &quot;Exclusion&quot
     <message>
         <source>Converts the stroke of a Path to a filled Path.</source>
         <translation>Converts the stroke of a Path to a filled Path.</translation>
-    </message>
-</context>
-<context>
-    <name>PatternDialog</name>
-    <message>
-        <source>Choose a Directory</source>
-        <translation type="obsolete">Choose a Directory</translation>
-    </message>
-    <message>
-        <source>Loading Patterns</source>
-        <translation type="obsolete">Loading Patterns</translation>
-    </message>
-    <message>
-        <source>All Files (*)</source>
-        <translation type="obsolete">All Files (*)</translation>
-    </message>
-    <message>
-        <source>Open</source>
-        <translation type="obsolete">Open</translation>
-    </message>
-    <message>
-        <source>Patterns</source>
-        <translation type="obsolete">Patterns</translation>
-    </message>
-    <message>
-        <source>Load</source>
-        <translation type="obsolete">Load</translation>
-    </message>
-    <message>
-        <source>Load File</source>
-        <translation type="obsolete">Load File</translation>
-    </message>
-    <message>
-        <source>Load Set</source>
-        <translation type="obsolete">Load Set</translation>
-    </message>
-    <message>
-        <source>Remove</source>
-        <translation type="obsolete">Remove</translation>
-    </message>
-    <message>
-        <source>Remove All</source>
-        <translation type="obsolete">Remove All</translation>
-    </message>
-    <message>
-        <source>OK</source>
-        <translation type="obsolete">OK</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation type="obsolete">Cancel</translation>
-    </message>
-    <message>
-        <source>&amp;Name:</source>
-        <translation type="obsolete">&amp;Name:</translation>
-    </message>
-    <message>
-        <source>Rename Entry</source>
-        <translation type="obsolete">Rename Entry</translation>
-    </message>
-    <message>
-        <source>All Supported Formats</source>
-        <translation type="obsolete">All Supported Formats</translation>
-    </message>
-    <message>
-        <source>Rename</source>
-        <translation type="obsolete">Rename</translation>
     </message>
 </context>
 <context>
@@ -21071,10 +11837,6 @@ The result is a combination of &quot;Intersection&quot; and &quot;Exclusion&quot
     <message>
         <source>Analyzing File:</source>
         <translation>Analysing File:</translation>
-    </message>
-    <message>
-        <source>Group%1</source>
-        <translation type="obsolete">Group%1</translation>
     </message>
     <message>
         <source>Generating Items</source>
@@ -21328,14 +12090,6 @@ Please choose another one.</source>
 <context>
     <name>PicStatus</name>
     <message>
-        <source>Goto</source>
-        <translation type="obsolete">Goto</translation>
-    </message>
-    <message>
-        <source>Manage Pictures</source>
-        <translation type="obsolete">Manage Pictures</translation>
-    </message>
-    <message>
         <source>Scribus - Image Search</source>
         <translation type="unfinished">Scribus - Image Search</translation>
     </message>
@@ -21444,14 +12198,6 @@ Please choose another one.</source>
         <translation>On Page:</translation>
     </message>
     <message>
-        <source>eff. DPI:</source>
-        <translation type="obsolete">eff. DPI:</translation>
-    </message>
-    <message>
-        <source>Object:</source>
-        <translation type="obsolete">Object:</translation>
-    </message>
-    <message>
         <source>Select</source>
         <translation>Select</translation>
     </message>
@@ -21474,10 +12220,6 @@ Please choose another one.</source>
     <message>
         <source>Edit Image...</source>
         <translation>Edit Image...</translation>
-    </message>
-    <message>
-        <source>Print Image</source>
-        <translation type="obsolete">Print Image</translation>
     </message>
     <message>
         <source>Extended Image Properties...</source>
@@ -21576,10 +12318,6 @@ Please choose another one.</source>
         <translation>Export/Print Image</translation>
     </message>
     <message>
-        <source>Set format specfic properties of certain image types, like clipping paths</source>
-        <translation type="obsolete">Set format specfic properties of certain image types, like clipping paths</translation>
-    </message>
-    <message>
         <source>Edit the image in the default editor</source>
         <translation>Edit the image in the default editor</translation>
     </message>
@@ -21659,10 +12397,6 @@ Please choose another one.</source>
         <translation>add selected images to collections</translation>
     </message>
     <message>
-        <source>go to page</source>
-        <translation type="obsolete">go to page</translation>
-    </message>
-    <message>
         <source>More</source>
         <translation>More</translation>
     </message>
@@ -21697,10 +12431,6 @@ Please choose another one.</source>
     <message>
         <source>Zoom out</source>
         <translation>Zoom out</translation>
-    </message>
-    <message>
-        <source>Preview Images only</source>
-        <translation type="obsolete">Preview Images only</translation>
     </message>
     <message>
         <source>Preview with Information</source>
@@ -21899,14 +12629,6 @@ Please choose another one.</source>
         <translation>Image Placement</translation>
     </message>
     <message>
-        <source>Page(s)</source>
-        <translation type="obsolete">Page(s)</translation>
-    </message>
-    <message>
-        <source>Image Frame(s)</source>
-        <translation type="obsolete">Image Frame(s)</translation>
-    </message>
-    <message>
         <source>Position of New Frame(s)</source>
         <translation>Position of New Frame(s)</translation>
     </message>
@@ -22094,10 +12816,6 @@ Please choose another one.</source>
 <context>
     <name>PictureBrowserPlugin</name>
     <message>
-        <source>&amp;Picture Browser</source>
-        <translation type="obsolete">&amp;Picture Browser</translation>
-    </message>
-    <message>
         <source>&amp;Picture Browser...</source>
         <translation type="unfinished"></translation>
     </message>
@@ -22119,10 +12837,6 @@ Please choose another one.</source>
     <message>
         <source>Save as Image</source>
         <translation>Save as Image</translation>
-    </message>
-    <message>
-        <source>Error writing the output file(s).</source>
-        <translation type="obsolete">Error writing the output file(s).</translation>
     </message>
     <message>
         <source>Export successful</source>
@@ -22239,59 +12953,12 @@ Please choose another one.</source>
         <source>Polygon Properties</source>
         <translation type="unfinished">Polygon Properties</translation>
     </message>
-    <message>
-        <source>End Edit</source>
-        <translation type="unfinished">End Edit</translation>
-    </message>
 </context>
 <context>
     <name>PolygonProps</name>
     <message>
         <source>Polygon Properties</source>
         <translation>Polygon Properties</translation>
-    </message>
-</context>
-<context>
-    <name>PolygonWidget</name>
-    <message>
-        <source>Corn&amp;ers:</source>
-        <translation type="obsolete">Corn&amp;ers:</translation>
-    </message>
-    <message>
-        <source>&amp;Rotation:</source>
-        <translation type="obsolete">&amp;Rotation:</translation>
-    </message>
-    <message>
-        <source>Apply &amp;Factor</source>
-        <translation type="obsolete">Apply &amp;Factor</translation>
-    </message>
-    <message>
-        <source> %</source>
-        <translation type="obsolete"> %</translation>
-    </message>
-    <message>
-        <source>&amp;Factor:</source>
-        <translation type="obsolete">&amp;Factor:</translation>
-    </message>
-    <message>
-        <source>Number of corners for polygons</source>
-        <translation type="obsolete">Number of corners for polygons</translation>
-    </message>
-    <message>
-        <source>Degrees of rotation for polygons</source>
-        <translation type="obsolete">Degrees of rotation for polygons</translation>
-    </message>
-    <message>
-        <source>Apply Convex/Concave Factor to change shape of Polygons</source>
-        <translation type="obsolete">Apply Convex/Concave Factor to change shape of Polygons</translation>
-    </message>
-    <message>
-        <source>Sample Polygon</source>
-        <translation type="obsolete">Sample Polygon</translation>
-    </message>
-    <message>
-        <source>A negative value will make the polygon concave (or star shaped), a positive value will make it convex</source>
-        <translation type="obsolete">A negative value will make the polygon concave (or star shaped), a positive value will make it convex</translation>
     </message>
 </context>
 <context>
@@ -22341,10 +13008,6 @@ Please choose another one.</source>
         <translation> %</translation>
     </message>
     <message>
-        <source>C&amp;urvature:</source>
-        <translation type="obsolete">C&amp;urvature:</translation>
-    </message>
-    <message>
         <source>Inner Rotation:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -22382,89 +13045,6 @@ Please choose another one.</source>
     <message>
         <source>...</source>
         <translation>...</translation>
-    </message>
-</context>
-<context>
-    <name>Preferences</name>
-    <message>
-        <source>Preferences</source>
-        <translation type="obsolete">Preferences</translation>
-    </message>
-    <message>
-        <source>General</source>
-        <translation type="obsolete">General</translation>
-    </message>
-    <message>
-        <source>Document</source>
-        <translation type="obsolete">Document</translation>
-    </message>
-    <message>
-        <source>Guides</source>
-        <translation type="obsolete">Guides</translation>
-    </message>
-    <message>
-        <source>Typography</source>
-        <translation type="obsolete">Typography</translation>
-    </message>
-    <message>
-        <source>Tools</source>
-        <translation type="obsolete">Tools</translation>
-    </message>
-    <message>
-        <source>Display</source>
-        <translation type="obsolete">Display</translation>
-    </message>
-    <message>
-        <source>External Tools</source>
-        <translation type="obsolete">External Tools</translation>
-    </message>
-    <message>
-        <source>Hyphenator</source>
-        <translation type="obsolete">Hyphenator</translation>
-    </message>
-    <message>
-        <source>Fonts</source>
-        <translation type="obsolete">Fonts</translation>
-    </message>
-    <message>
-        <source>Color Management</source>
-        <translation type="obsolete">Colour Management</translation>
-    </message>
-    <message>
-        <source>PDF Export</source>
-        <translation type="obsolete">PDF Export</translation>
-    </message>
-    <message>
-        <source>Document Item Attributes</source>
-        <translation type="obsolete">Document Item Attributes</translation>
-    </message>
-    <message>
-        <source>Table of Contents and Indexes</source>
-        <translation type="obsolete">Table of Contents and Indexes</translation>
-    </message>
-    <message>
-        <source>Keyboard Shortcuts</source>
-        <translation type="obsolete">Keyboard Shortcuts</translation>
-    </message>
-    <message>
-        <source>Miscellaneous</source>
-        <translation type="obsolete">Miscellaneous</translation>
-    </message>
-    <message>
-        <source>Plugins</source>
-        <translation type="obsolete">Plug-ins</translation>
-    </message>
-    <message>
-        <source>Preflight Verifier</source>
-        <translation type="obsolete">Preflight Verifier</translation>
-    </message>
-    <message>
-        <source>Scrapbook</source>
-        <translation type="obsolete">Scrapbook</translation>
-    </message>
-    <message>
-        <source>Printer</source>
-        <translation type="obsolete">Printer</translation>
     </message>
 </context>
 <context>
@@ -22594,47 +13174,8 @@ Please choose another one.</source>
         <translation>Image Cache</translation>
     </message>
     <message>
-        <source>Short Words</source>
-        <translation type="obsolete">Short Words</translation>
-    </message>
-    <message>
-        <source>Scripter</source>
-        <translation type="obsolete">Scripter</translation>
-    </message>
-    <message>
         <source>Spelling</source>
         <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>PrefsDialogBase</name>
-    <message>
-        <source>&amp;Defaults</source>
-        <translation type="obsolete">&amp;Defaults</translation>
-    </message>
-    <message>
-        <source>Save Preferences</source>
-        <translation type="obsolete">Save Preferences</translation>
-    </message>
-    <message>
-        <source>Export...</source>
-        <translation type="obsolete">Export...</translation>
-    </message>
-    <message>
-        <source>&amp;Apply</source>
-        <translation type="obsolete">&amp;Apply</translation>
-    </message>
-    <message>
-        <source>All preferences can be reset here</source>
-        <translation type="obsolete">All preferences can be reset here</translation>
-    </message>
-    <message>
-        <source>Apply all changes without closing the dialog</source>
-        <translation type="obsolete">Apply all changes without closing the dialogue</translation>
-    </message>
-    <message>
-        <source>Export current preferences into file</source>
-        <translation type="obsolete">Export current preferences into file</translation>
     </message>
 </context>
 <context>
@@ -22646,12 +13187,6 @@ Please choose another one.</source>
     <message>
         <source>Migrate Old Scribus Settings?</source>
         <translation>Migrate Old Scribus Settings?</translation>
-    </message>
-    <message>
-        <source>Scribus has detected existing Scribus 1.2 preferences files.
-Do you want to migrate them to the new Scribus version?</source>
-        <translation type="obsolete">Scribus has detected existing Scribus 1.2 preferences files.
-Do you want to migrate them to the new Scribus version?</translation>
     </message>
     <message>
         <source>PostScript</source>
@@ -22780,18 +13315,6 @@ Do you want to migrate them to the new Scribus version?</translation>
         <translation>Monitor:</translation>
     </message>
     <message>
-        <source>Monitor profile can only be changed when no document are currently opened.</source>
-        <translation type="obsolete">Monitor profile can only be changed when no document are currently opened.</translation>
-    </message>
-    <message>
-        <source>Monitor profiles can only be changed when no documents are currently open.</source>
-        <translation type="obsolete">Monitor profiles can only be changed when no documents are currently open.</translation>
-    </message>
-    <message>
-        <source>Monitor profiles can only be changed when no documents are open</source>
-        <translation type="obsolete">Monitor profiles can only be changed when no documents are open</translation>
-    </message>
-    <message>
         <source>Perceptual</source>
         <translation>Perceptual</translation>
     </message>
@@ -22825,10 +13348,6 @@ Do you want to migrate them to the new Scribus version?</translation>
     <message>
         <source>Display</source>
         <translation>Display</translation>
-    </message>
-    <message>
-        <source>Page Display</source>
-        <translation type="obsolete">Page Display</translation>
     </message>
     <message>
         <source>Show Images</source>
@@ -22919,10 +13438,6 @@ Do you want to migrate them to the new Scribus version?</translation>
         <translation>Vertical:</translation>
     </message>
     <message>
-        <source>Adjust Display Size</source>
-        <translation type="obsolete">Adjust Display Size</translation>
-    </message>
-    <message>
         <source>Scale%</source>
         <translation>Scale%</translation>
     </message>
@@ -22937,10 +13452,6 @@ Do you want to migrate them to the new Scribus version?</translation>
     <message>
         <source>Page Fill:</source>
         <translation>Page Fill:</translation>
-    </message>
-    <message>
-        <source>PushButton</source>
-        <translation type="obsolete">PushButton</translation>
     </message>
     <message>
         <source>Selected Page Border:</source>
@@ -23322,6 +13833,18 @@ Do you want to migrate them to the new Scribus version?</translation>
         <source>Fill Character</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Reversed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>*</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>CJK</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Prefs_DocumentSetup</name>
@@ -23414,10 +13937,6 @@ Do you want to migrate them to the new Scribus version?</translation>
         <translation>Action History Length:</translation>
     </message>
     <message>
-        <source>Page Layouts</source>
-        <translation type="obsolete">Page Layouts</translation>
-    </message>
-    <message>
         <source>Single Page</source>
         <translation>Single Page</translation>
     </message>
@@ -23472,10 +13991,6 @@ Do you want to migrate them to the new Scribus version?</translation>
     <message>
         <source>Height of document pages, editable if you have chosen a custom page size</source>
         <translation>Height of document pages, editable if you have chosen a custom page size</translation>
-    </message>
-    <message>
-        <source>Default page size, either a standard size or a custom size</source>
-        <translation type="obsolete">Default page size, either a standard size or a custom size</translation>
     </message>
     <message>
         <source>Default page size, either a standard size or a custom size. More page sizes can be made visible by activating them in Preferences.</source>
@@ -23869,14 +14384,6 @@ Do you want to use this?</source>
         <translation>Baseline Grid:</translation>
     </message>
     <message>
-        <source>In the Background</source>
-        <translation type="obsolete">In the Background</translation>
-    </message>
-    <message>
-        <source>In the Foreground</source>
-        <translation type="obsolete">In the Foreground</translation>
-    </message>
-    <message>
         <source>Place guides in front of or behind objects on the page</source>
         <translation>Place guides in front of or behind objects on the page</translation>
     </message>
@@ -23939,10 +14446,6 @@ Do you want to use this?</source>
     <message>
         <source>Turns the margins on or off</source>
         <translation>Turns the margins on or off</translation>
-    </message>
-    <message>
-        <source>Background</source>
-        <translation type="obsolete">Background</translation>
     </message>
     <message>
         <source>Type:</source>
@@ -24456,42 +14959,6 @@ A value of 0 means unlimited hyphenations.</translation>
         <translation>Enter the name of the shortcut set:</translation>
     </message>
     <message>
-        <source>Alt</source>
-        <translation type="obsolete">Alt</translation>
-    </message>
-    <message>
-        <source>Ctrl</source>
-        <translation type="obsolete">Ctrl</translation>
-    </message>
-    <message>
-        <source>Shift</source>
-        <translation type="obsolete">Shift</translation>
-    </message>
-    <message>
-        <source>Meta</source>
-        <translation type="obsolete">Meta</translation>
-    </message>
-    <message>
-        <source>Meta+</source>
-        <translation type="obsolete">Meta+</translation>
-    </message>
-    <message>
-        <source>Shift+</source>
-        <translation type="obsolete">Shift+</translation>
-    </message>
-    <message>
-        <source>Alt+</source>
-        <translation type="obsolete">Alt+</translation>
-    </message>
-    <message>
-        <source>Ctrl+</source>
-        <translation type="obsolete">Ctrl+</translation>
-    </message>
-    <message>
-        <source>This key sequence is already in use</source>
-        <translation type="obsolete">This key sequence is already in use</translation>
-    </message>
-    <message>
         <source>The %1 key sequence is already in use by &quot;%2&quot;</source>
         <translation type="unfinished"></translation>
     </message>
@@ -24671,10 +15138,6 @@ A value of 0 means unlimited hyphenations.</translation>
     <message>
         <source>Allow Copying Text and Graphics</source>
         <translation>Allow Copying Text and Graphics</translation>
-    </message>
-    <message>
-        <source>Registration Mark Offset:</source>
-        <translation type="obsolete">Registration Mark Offset:</translation>
     </message>
     <message>
         <source>File Options</source>
@@ -25081,10 +15544,6 @@ A value of 0 means unlimited hyphenations.</translation>
         <translation>Enable the security features in your exported PDF. If you selected PDF 1.3, the PDF will be protected by 40 bit encryption. If you selected PDF 1.4, the PDF will be protected by 128 bit encryption. Disclaimer: PDF encryption is not as reliable as GPG or PGP encryption and does have some limitations.</translation>
     </message>
     <message>
-        <source>Choose a master password which enables or disables all the security features in your exported PDF</source>
-        <translation>Choose a master password which enables or disables all the security features in your exported PDF</translation>
-    </message>
-    <message>
         <source>Choose a password for users to be able to read your PDF.</source>
         <translation>Choose a password for users to be able to read your PDF.</translation>
     </message>
@@ -25440,6 +15899,10 @@ A value of 0 means unlimited hyphenations.</translation>
         <source>Length of crop marks</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Choose an owner password which enables or disables all the security features in your exported PDF</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Prefs_PageSizes</name>
@@ -25521,10 +15984,6 @@ A value of 0 means unlimited hyphenations.</translation>
     <message>
         <source>Default documents directory</source>
         <translation>Default documents directory</translation>
-    </message>
-    <message>
-        <source>Default ICC profiles directory. This cannot be changed with a document open. By default, Scribus will look in the System Directories under Mac OSX and Windows. On Linux and Unix, Scribus will search $home/.color/icc,/usr/share/color/icc and /usr/local/share/color/icc </source>
-        <translation type="obsolete">Default ICC profiles directory. This cannot be changed with a document open. By default, Scribus will look in the System Directories under Mac OSX and Windows. On Linux and Unix, Scribus will search $home/.color/icc,/usr/share/color/icc and /usr/local/share/color/icc </translation>
     </message>
     <message>
         <source>Default Scripter scripts directory</source>
@@ -25858,10 +16317,6 @@ A value of 0 means unlimited hyphenations.</translation>
         <translation>Allows you to embed colour profiles in the print stream when colour management is enabled</translation>
     </message>
     <message>
-        <source>This enables you to explicitely set the media size of the PostScript file. Not recommended unless requested by your printer.</source>
-        <translation>This enables you to explicitely set the media size of the PostScript file. Not recommended unless requested by your printer.</translation>
-    </message>
-    <message>
         <source>File</source>
         <translation>File</translation>
     </message>
@@ -25872,6 +16327,10 @@ A value of 0 means unlimited hyphenations.</translation>
     <message>
         <source>Length:</source>
         <translation type="unfinished">Length:</translation>
+    </message>
+    <message>
+        <source>This enables you to explicitly set the media size of the PostScript file. Not recommended unless requested by your printer.</source>
+        <translation type="unfinished">This enables you to explicitly set the media size of the PostScript file. Not recommended unless requested by your printer.</translation>
     </message>
 </context>
 <context>
@@ -25915,10 +16374,6 @@ A value of 0 means unlimited hyphenations.</translation>
     <message>
         <source>The minimum number is 1; the maximum is 100</source>
         <translation></translation>
-    </message>
-    <message>
-        <source>The minimum number is 1; the maximum us 100</source>
-        <translation type="obsolete">The minimum number is 1; the maximum us 100</translation>
     </message>
 </context>
 <context>
@@ -26319,20 +16774,12 @@ A value of 0 means unlimited hyphenations.</translation>
         <translation>&amp;Palettes:</translation>
     </message>
     <message>
-        <source>&amp;Palettes</source>
-        <translation type="obsolete">&amp;Palettes</translation>
-    </message>
-    <message>
         <source>Story Editor</source>
         <translation>Story Editor</translation>
     </message>
     <message>
         <source>Font:</source>
         <translation>Font:</translation>
-    </message>
-    <message>
-        <source>Font Color:</source>
-        <translation type="obsolete">Font Colour:</translation>
     </message>
     <message>
         <source>Use Smart Text Selection</source>
@@ -26357,10 +16804,6 @@ A value of 0 means unlimited hyphenations.</translation>
     <message>
         <source>Start Up</source>
         <translation>Start Up</translation>
-    </message>
-    <message>
-        <source>Startup</source>
-        <translation type="obsolete">Startup</translation>
     </message>
     <message>
         <source>Show Splashscreen</source>
@@ -26435,10 +16878,6 @@ A value of 0 means unlimited hyphenations.</translation>
         <translation>None</translation>
     </message>
     <message>
-        <source>You can select a predefined page layout here. &apos;None&apos; leave margins as is, Gutenberg sets margins classically. &apos;Magazine&apos; sets all margins for same value. Leading is Left/Inside value.</source>
-        <translation type="obsolete">You can select a predefined page layout here. &apos;None&apos; leave margins as is, Gutenberg sets margins classically. &apos;Magazine&apos; sets all margins for same value. Leading is Left/Inside value.</translation>
-    </message>
-    <message>
         <source>When you have selected a Document Layout other than Single Page, you can select a predefined page layout here. &apos;None&apos; leaves margins as is, Gutenberg sets margins classically. &apos;Magazine&apos; sets all margins to the same value. Leading is Left/Inside value.</source>
         <translation>When you have selected a Document Layout other than Single Page, you can select a predefined page layout here. &apos;None&apos; leaves margins as is, Gutenberg sets margins classically. &apos;Magazine&apos; sets all margins to the same value. Leading is Left/Inside value.</translation>
     </message>
@@ -26446,24 +16885,12 @@ A value of 0 means unlimited hyphenations.</translation>
 <context>
     <name>PrintDialog</name>
     <message>
-        <source>Setup Printer</source>
-        <translation type="obsolete">Setup Printer</translation>
-    </message>
-    <message>
         <source>File</source>
         <translation>File</translation>
     </message>
     <message>
-        <source>Options</source>
-        <translation type="obsolete">Options</translation>
-    </message>
-    <message>
         <source>All</source>
         <translation>All</translation>
-    </message>
-    <message>
-        <source>Save as</source>
-        <translation type="obsolete">Save as</translation>
     </message>
     <message>
         <source>Cyan</source>
@@ -26482,242 +16909,20 @@ A value of 0 means unlimited hyphenations.</translation>
         <translation>Black</translation>
     </message>
     <message>
-        <source>Insert a comma separated list of tokens where
-a token can be * for all the pages, 1-5 for
-a range of pages or a single page number.</source>
-        <translation type="obsolete">Insert a comma separated list of tokens where
-a token can be * for all the pages, 1-5 for
-a range of pages or a single page number.</translation>
-    </message>
-    <message>
-        <source>Print Destination</source>
-        <translation type="obsolete">Print Destination</translation>
-    </message>
-    <message>
-        <source>&amp;Options...</source>
-        <translation type="obsolete">&amp;Options...</translation>
-    </message>
-    <message>
-        <source>&amp;File:</source>
-        <translation type="obsolete">&amp;File:</translation>
-    </message>
-    <message>
-        <source>C&amp;hange...</source>
-        <translation type="obsolete">C&amp;hange...</translation>
-    </message>
-    <message>
-        <source>A&amp;lternative Printer Command</source>
-        <translation type="obsolete">A&amp;lternative Printer Command</translation>
-    </message>
-    <message>
-        <source>Co&amp;mmand:</source>
-        <translation type="obsolete">Co&amp;mmand:</translation>
-    </message>
-    <message>
-        <source>Range</source>
-        <translation type="obsolete">Range</translation>
-    </message>
-    <message>
-        <source>Print &amp;All</source>
-        <translation type="obsolete">Print &amp;All</translation>
-    </message>
-    <message>
         <source>Print Current Pa&amp;ge</source>
         <translation>Print Current Pa&amp;ge</translation>
-    </message>
-    <message>
-        <source>Print &amp;Range</source>
-        <translation type="obsolete">Print &amp;Range</translation>
-    </message>
-    <message>
-        <source>N&amp;umber of Copies:</source>
-        <translation type="obsolete">N&amp;umber of Copies:</translation>
-    </message>
-    <message>
-        <source>&amp;Print</source>
-        <translation type="obsolete">&amp;Print</translation>
     </message>
     <message>
         <source>Print Normal</source>
         <translation>Print Normal</translation>
     </message>
     <message>
-        <source>Print Separations</source>
-        <translation type="obsolete">Print Separations</translation>
-    </message>
-    <message>
-        <source>Print in Color if Available</source>
-        <translation type="obsolete">Print in Colour if Available</translation>
-    </message>
-    <message>
-        <source>Print in Grayscale</source>
-        <translation type="obsolete">Print in Greyscale</translation>
-    </message>
-    <message>
-        <source>PostScript Level 1</source>
-        <translation type="obsolete">PostScript Level 1</translation>
-    </message>
-    <message>
-        <source>PostScript Level 2</source>
-        <translation type="obsolete">PostScript Level 2</translation>
-    </message>
-    <message>
-        <source>PostScript Level 3</source>
-        <translation type="obsolete">PostScript Level 3</translation>
-    </message>
-    <message>
-        <source>Page</source>
-        <translation type="obsolete">Page</translation>
-    </message>
-    <message>
-        <source>Mirror Page(s) Horizontal</source>
-        <translation type="obsolete">Mirror Page(s) Horizontal</translation>
-    </message>
-    <message>
-        <source>Mirror Page(s) Vertical</source>
-        <translation type="obsolete">Mirror Page(s) Vertical</translation>
-    </message>
-    <message>
-        <source>Set Media Size</source>
-        <translation type="obsolete">Set Media Size</translation>
-    </message>
-    <message>
-        <source>Color</source>
-        <translation type="obsolete">Colour</translation>
-    </message>
-    <message>
-        <source>Apply Under Color Removal</source>
-        <translation type="obsolete">Apply Under Colour Removal</translation>
-    </message>
-    <message>
-        <source>Convert Spot Colors to Process Colors</source>
-        <translation type="obsolete">Convert Spot Colours to Process Colours</translation>
-    </message>
-    <message>
-        <source>Advanced Options</source>
-        <translation type="obsolete">Advanced Options</translation>
-    </message>
-    <message>
-        <source>Preview...</source>
-        <translation type="obsolete">Preview...</translation>
-    </message>
-    <message>
-        <source>Sets the PostScript Level.
- Setting to Level 1 or 2 can create huge files</source>
-        <translation type="obsolete">Sets the PostScript Level.
- Setting to Level 1 or 2 can create huge files</translation>
-    </message>
-    <message>
         <source>PostScript Files (*.ps);;All Files (*)</source>
         <translation>PostScript Files (*.ps);;All Files (*)</translation>
     </message>
     <message>
-        <source>Use an alternative print manager, such as kprinter or gtklp, to utilize additional printing options</source>
-        <translation type="obsolete">Use an alternative print manager, such as kprinter or gtklp, to utilize additional printing options</translation>
-    </message>
-    <message>
-        <source>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis.UCR reduces the possibility of over saturation with CMY inks.</source>
-        <translation type="obsolete">A way of switching off some of the grey shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the grey. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis.UCR reduces the possibility of over saturation with CMY inks.</translation>
-    </message>
-    <message>
-        <source>Enables Spot Colors to be converted to composite colors. Unless you are planning to print spot colors at a commercial printer, this is probably best left enabled.</source>
-        <translation type="obsolete">Enables Spot Colours to be converted to composite colours. Unless you are planning to print spot colours at a commercial printer, this is probably best left enabled.</translation>
-    </message>
-    <message>
-        <source>This enables you to explicitely set the media size of the PostScript file. Not recommended unless requested by your printer.</source>
-        <translation type="obsolete">This enables you to explicitely set the media size of the PostScript file. Not recommended unless requested by your printer.</translation>
-    </message>
-    <message>
         <source>Failed to retrieve printer settings</source>
         <translation>Failed to retrieve printer settings</translation>
-    </message>
-    <message>
-        <source>Clip to Page Margins</source>
-        <translation type="obsolete">Clip to Page Margins</translation>
-    </message>
-    <message>
-        <source>Do not show objects outside the margins on the printed page</source>
-        <translation type="obsolete">Do not show objects outside the margins on the printed page</translation>
-    </message>
-    <message>
-        <source>Force Overprint Mode</source>
-        <translation type="obsolete">Force Overprint Mode</translation>
-    </message>
-    <message>
-        <source>Enables global Overprint Mode for this document, overrides object settings</source>
-        <translation type="obsolete">Enables global Overprint Mode for this document, overrides object settings</translation>
-    </message>
-    <message>
-        <source>Printer Marks</source>
-        <translation type="obsolete">Printer Marks</translation>
-    </message>
-    <message>
-        <source>Crop Marks</source>
-        <translation type="obsolete">Crop Marks</translation>
-    </message>
-    <message>
-        <source>Bleed Marks</source>
-        <translation type="obsolete">Bleed Marks</translation>
-    </message>
-    <message>
-        <source>Registration Marks</source>
-        <translation type="obsolete">Registration Marks</translation>
-    </message>
-    <message>
-        <source>Color Bars</source>
-        <translation type="obsolete">Colour Bars</translation>
-    </message>
-    <message>
-        <source>Offset:</source>
-        <translation type="obsolete">Offset:</translation>
-    </message>
-    <message>
-        <source>Marks</source>
-        <translation type="obsolete">Marks</translation>
-    </message>
-    <message>
-        <source>Bleed Settings</source>
-        <translation type="obsolete">Bleed Settings</translation>
-    </message>
-    <message>
-        <source>Top:</source>
-        <translation type="obsolete">Top:</translation>
-    </message>
-    <message>
-        <source>Bottom:</source>
-        <translation type="obsolete">Bottom:</translation>
-    </message>
-    <message>
-        <source>Left:</source>
-        <translation type="obsolete">Left:</translation>
-    </message>
-    <message>
-        <source>Right:</source>
-        <translation type="obsolete">Right:</translation>
-    </message>
-    <message>
-        <source>Use Document Bleeds</source>
-        <translation type="obsolete">Use Document Bleeds</translation>
-    </message>
-    <message>
-        <source>Bleeds</source>
-        <translation type="obsolete">Bleeds</translation>
-    </message>
-    <message>
-        <source>Distance for bleed from the top of the physical page</source>
-        <translation type="obsolete">Distance for bleed from the top of the physical page</translation>
-    </message>
-    <message>
-        <source>Distance for bleed from the bottom of the physical page</source>
-        <translation type="obsolete">Distance for bleed from the bottom of the physical page</translation>
-    </message>
-    <message>
-        <source>Distance for bleed from the left of the physical page</source>
-        <translation type="obsolete">Distance for bleed from the left of the physical page</translation>
-    </message>
-    <message>
-        <source>Distance for bleed from the right of the physical page</source>
-        <translation type="obsolete">Distance for bleed from the right of the physical page</translation>
     </message>
     <message>
         <source>Inside:</source>
@@ -26726,38 +16931,6 @@ a range of pages or a single page number.</translation>
     <message>
         <source>Outside:</source>
         <translation>Outside:</translation>
-    </message>
-    <message>
-        <source>This creates crop marks in the PDF indicating where the paper should be cut or trimmed after printing</source>
-        <translation type="obsolete">This creates crop marks in the PDF indicating where the paper should be cut or trimmed after printing</translation>
-    </message>
-    <message>
-        <source>This creates bleed marks which are indicated by  _ . _ and show the bleed limit</source>
-        <translation type="obsolete">This creates bleed marks which are indicated by  _ . _ and show the bleed limit</translation>
-    </message>
-    <message>
-        <source>Add registration marks which are added to each separation</source>
-        <translation type="obsolete">Add registration marks which are added to each separation</translation>
-    </message>
-    <message>
-        <source>Add color calibration bars</source>
-        <translation type="obsolete">Add colour calibration bars</translation>
-    </message>
-    <message>
-        <source>Indicate the distance offset for the registration marks</source>
-        <translation type="obsolete">Indicate the distance offset for the registration marks</translation>
-    </message>
-    <message>
-        <source>Use the existing bleed settings from the document preferences</source>
-        <translation type="obsolete">Use the existing bleed settings from the document preferences</translation>
-    </message>
-    <message>
-        <source>Apply Color Profiles</source>
-        <translation type="obsolete">Apply Colour Profiles</translation>
-    </message>
-    <message>
-        <source>Allows you to embed color profiles in the print stream when color management is enabled</source>
-        <translation type="obsolete">Allows you to embed colour profiles in the print stream when colour management is enabled</translation>
     </message>
     <message>
         <source>Save As</source>
@@ -26869,44 +17042,20 @@ a range of pages or a single page number.</translation>
         <translation>Mirror Page(s) Vertical</translation>
     </message>
     <message>
-        <source>This enables you to explicitely set the media size of the PostScript file. Not recommended unless requested by your printer.</source>
-        <translation type="obsolete">This enables you to explicitly set the media size of the PostScript file. Not recommended unless requested by your printer.</translation>
-    </message>
-    <message>
         <source>Set Media Size</source>
         <translation>Set Media Size</translation>
-    </message>
-    <message>
-        <source>Clip to Page Margins</source>
-        <translation type="obsolete">Clip to Page Margins</translation>
     </message>
     <message>
         <source>Color</source>
         <translation>Colour</translation>
     </message>
     <message>
-        <source>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis.UCR reduces the possibility of over saturation with CMY inks.</source>
-        <translation type="obsolete">A way of switching off some of the grey shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the grey. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis. UCR reduces the possibility of over saturation with CMY inks.</translation>
-    </message>
-    <message>
         <source>Apply Under Color Removal</source>
         <translation>Apply Under Colour Removal</translation>
     </message>
     <message>
-        <source>Enables Spot Colors to be converted to composite colors. Unless you are planning to print spot colors at a commercial printer, this is probably best left enabled.</source>
-        <translation type="obsolete">Enables Spot Colours to be converted to composite colours. Unless you are planning to print spot colours at a commercial printer, this is probably best left enabled.</translation>
-    </message>
-    <message>
         <source>Convert Spot Colors to Process Colors</source>
         <translation>Convert Spot Colours to Process Colours</translation>
-    </message>
-    <message>
-        <source>Enables global Overprint Mode for this document, overrides object settings</source>
-        <translation type="obsolete">Enables global Overprint Mode for this document, overrides object settings</translation>
-    </message>
-    <message>
-        <source>Force Overprint Mode</source>
-        <translation type="obsolete">Force Overprint Mode</translation>
     </message>
     <message>
         <source>Allows you to embed color profiles in the print stream when color management is enabled</source>
@@ -27034,10 +17183,6 @@ Note: PDF Forms will not be exported.</source>
         <translation>Clip to Printer Margins</translation>
     </message>
     <message>
-        <source>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis. UCR reduces the possibility of over saturation with CMY inks.</source>
-        <translation type="obsolete">A way of switching off some of the grey shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the grey. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis. UCR reduces the possibility of over saturation with CMY inks.</translation>
-    </message>
-    <message>
         <source>&lt;qt&gt;A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. Under Color Removal mostly affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis. Under Color Removal reduces the possibility of over saturation with CMY inks.&lt;/qt&gt;</source>
         <translation>&lt;qt&gt;A way of switching off some of the grey shades which are composed of cyan, yellow and magenta and using black instead. Under Colour Removal mostly affects parts of images which are neutral and/or dark tones which are close to the grey. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis. Under Colour Removal reduces the possibility of over saturation with CMY inks.&lt;/qt&gt;</translation>
     </message>
@@ -27055,358 +17200,6 @@ Note: PDF Forms will not be exported.</source>
     <message>
         <source>Properties</source>
         <translation>Properties</translation>
-    </message>
-    <message>
-        <source>Name</source>
-        <translation type="obsolete">Name</translation>
-    </message>
-    <message>
-        <source>Geometry</source>
-        <translation type="obsolete">Geometry</translation>
-    </message>
-    <message>
-        <source> pt</source>
-        <translation type="obsolete"> pt</translation>
-    </message>
-    <message>
-        <source>Basepoint:</source>
-        <translation type="obsolete">Basepoint:</translation>
-    </message>
-    <message>
-        <source>Level</source>
-        <translation type="obsolete">Level</translation>
-    </message>
-    <message>
-        <source>Shape:</source>
-        <translation type="obsolete">Shape:</translation>
-    </message>
-    <message>
-        <source>Distance of Text</source>
-        <translation type="obsolete">Distance of Text</translation>
-    </message>
-    <message>
-        <source>Show Curve</source>
-        <translation type="obsolete">Show Curve</translation>
-    </message>
-    <message>
-        <source>Start Offset:</source>
-        <translation type="obsolete">Start Offset:</translation>
-    </message>
-    <message>
-        <source>Distance from Curve:</source>
-        <translation type="obsolete">Distance from Curve:</translation>
-    </message>
-    <message>
-        <source> %</source>
-        <translation type="obsolete"> %</translation>
-    </message>
-    <message>
-        <source>Input Profile:</source>
-        <translation type="obsolete">Input Profile:</translation>
-    </message>
-    <message>
-        <source>Rendering Intent:</source>
-        <translation type="obsolete">Rendering Intent:</translation>
-    </message>
-    <message>
-        <source>Perceptual</source>
-        <translation type="obsolete">Perceptual</translation>
-    </message>
-    <message>
-        <source>Relative Colorimetric</source>
-        <translation type="obsolete">Relative Colourimetric</translation>
-    </message>
-    <message>
-        <source>Saturation</source>
-        <translation type="obsolete">Saturation</translation>
-    </message>
-    <message>
-        <source>Absolute Colorimetric</source>
-        <translation type="obsolete">Absolute Colourimetric</translation>
-    </message>
-    <message>
-        <source>Left Point</source>
-        <translation type="obsolete">Left Point</translation>
-    </message>
-    <message>
-        <source>End Points</source>
-        <translation type="obsolete">End Points</translation>
-    </message>
-    <message>
-        <source>Miter Join</source>
-        <translation type="obsolete">Mitre Join</translation>
-    </message>
-    <message>
-        <source>Bevel Join</source>
-        <translation type="obsolete">Bevel Join</translation>
-    </message>
-    <message>
-        <source>Round Join</source>
-        <translation type="obsolete">Round Join</translation>
-    </message>
-    <message>
-        <source>Flat Cap</source>
-        <translation type="obsolete">Flat Cap</translation>
-    </message>
-    <message>
-        <source>Square Cap</source>
-        <translation type="obsolete">Square Cap</translation>
-    </message>
-    <message>
-        <source>Round Cap</source>
-        <translation type="obsolete">Round Cap</translation>
-    </message>
-    <message>
-        <source>No Style</source>
-        <translation type="obsolete">No Style</translation>
-    </message>
-    <message>
-        <source>Font Size</source>
-        <translation type="obsolete">Font Size</translation>
-    </message>
-    <message>
-        <source>Line Spacing</source>
-        <translation type="obsolete">Line Spacing</translation>
-    </message>
-    <message>
-        <source>Name of selected object</source>
-        <translation type="obsolete">Name of selected object</translation>
-    </message>
-    <message>
-        <source>Horizontal position of current basepoint</source>
-        <translation type="obsolete">Horizontal position of current basepoint</translation>
-    </message>
-    <message>
-        <source>Vertical position of current basepoint</source>
-        <translation type="obsolete">Vertical position of current basepoint</translation>
-    </message>
-    <message>
-        <source>Width</source>
-        <translation type="obsolete">Width</translation>
-    </message>
-    <message>
-        <source>Height</source>
-        <translation type="obsolete">Height</translation>
-    </message>
-    <message>
-        <source>Rotation of object at current basepoint</source>
-        <translation type="obsolete">Rotation of object at current basepoint</translation>
-    </message>
-    <message>
-        <source>Point from which measurements or rotation angles are referenced</source>
-        <translation type="obsolete">Point from which measurements or rotation angles are referenced</translation>
-    </message>
-    <message>
-        <source>Select top left for basepoint</source>
-        <translation type="obsolete">Select top left for basepoint</translation>
-    </message>
-    <message>
-        <source>Select top right for basepoint</source>
-        <translation type="obsolete">Select top right for basepoint</translation>
-    </message>
-    <message>
-        <source>Select bottom left for basepoint</source>
-        <translation type="obsolete">Select bottom left for basepoint</translation>
-    </message>
-    <message>
-        <source>Select bottom right for basepoint</source>
-        <translation type="obsolete">Select bottom right for basepoint</translation>
-    </message>
-    <message>
-        <source>Select center for basepoint</source>
-        <translation type="obsolete">Select centre for basepoint</translation>
-    </message>
-    <message>
-        <source>Flip Horizontal</source>
-        <translation type="obsolete">Flip Horizontal</translation>
-    </message>
-    <message>
-        <source>Flip Vertical</source>
-        <translation type="obsolete">Flip Vertical</translation>
-    </message>
-    <message>
-        <source>Move one level up</source>
-        <translation type="obsolete">Move one level up</translation>
-    </message>
-    <message>
-        <source>Move one level down</source>
-        <translation type="obsolete">Move one level down</translation>
-    </message>
-    <message>
-        <source>Move to front</source>
-        <translation type="obsolete">Move to front</translation>
-    </message>
-    <message>
-        <source>Move to back</source>
-        <translation type="obsolete">Move to back</translation>
-    </message>
-    <message>
-        <source>Lock or unlock the object</source>
-        <translation type="obsolete">Lock or unlock the object</translation>
-    </message>
-    <message>
-        <source>Lock or unlock the size of the object</source>
-        <translation type="obsolete">Lock or unlock the size of the object</translation>
-    </message>
-    <message>
-        <source>Font of selected text or object</source>
-        <translation type="obsolete">Font of selected text or object</translation>
-    </message>
-    <message>
-        <source>Scaling width of characters</source>
-        <translation type="obsolete">Scaling width of characters</translation>
-    </message>
-    <message>
-        <source>Saturation of color of text stroke</source>
-        <translation type="obsolete">Saturation of colour of text stroke</translation>
-    </message>
-    <message>
-        <source>Saturation of color of text fill</source>
-        <translation type="obsolete">Saturation of colour of text fill</translation>
-    </message>
-    <message>
-        <source>Change settings for left or end points</source>
-        <translation type="obsolete">Change settings for left or end points</translation>
-    </message>
-    <message>
-        <source>Pattern of line</source>
-        <translation type="obsolete">Pattern of line</translation>
-    </message>
-    <message>
-        <source>Thickness of line</source>
-        <translation type="obsolete">Thickness of line</translation>
-    </message>
-    <message>
-        <source>Type of line joins</source>
-        <translation type="obsolete">Type of line joins</translation>
-    </message>
-    <message>
-        <source>Type of line end</source>
-        <translation type="obsolete">Type of line end</translation>
-    </message>
-    <message>
-        <source>Line style of current object</source>
-        <translation type="obsolete">Line style of current object</translation>
-    </message>
-    <message>
-        <source>Choose the shape of frame...</source>
-        <translation type="obsolete">Choose the shape of frame...</translation>
-    </message>
-    <message>
-        <source>Edit shape of the frame...</source>
-        <translation type="obsolete">Edit shape of the frame...</translation>
-    </message>
-    <message>
-        <source>Set radius of corner rounding</source>
-        <translation type="obsolete">Set radius of corner rounding</translation>
-    </message>
-    <message>
-        <source>Number of columns in text frame</source>
-        <translation type="obsolete">Number of columns in text frame</translation>
-    </message>
-    <message>
-        <source>Distance between columns</source>
-        <translation type="obsolete">Distance between columns</translation>
-    </message>
-    <message>
-        <source>Distance of text from top of frame</source>
-        <translation type="obsolete">Distance of text from top of frame</translation>
-    </message>
-    <message>
-        <source>Distance of text from bottom of frame</source>
-        <translation type="obsolete">Distance of text from bottom of frame</translation>
-    </message>
-    <message>
-        <source>Distance of text from left of frame</source>
-        <translation type="obsolete">Distance of text from left of frame</translation>
-    </message>
-    <message>
-        <source>Distance of text from right of frame</source>
-        <translation type="obsolete">Distance of text from right of frame</translation>
-    </message>
-    <message>
-        <source>Edit tab settings of text frame...</source>
-        <translation type="obsolete">Edit tab settings of text frame...</translation>
-    </message>
-    <message>
-        <source>Allow the image to be a different size to the frame</source>
-        <translation type="obsolete">Allow the image to be a different size to the frame</translation>
-    </message>
-    <message>
-        <source>Horizontal offset of image within frame</source>
-        <translation type="obsolete">Horizontal offset of image within frame</translation>
-    </message>
-    <message>
-        <source>Vertical offset of image within frame</source>
-        <translation type="obsolete">Vertical offset of image within frame</translation>
-    </message>
-    <message>
-        <source>Resize the image horizontally</source>
-        <translation type="obsolete">Resize the image horizontally</translation>
-    </message>
-    <message>
-        <source>Resize the image vertically</source>
-        <translation type="obsolete">Resize the image vertically</translation>
-    </message>
-    <message>
-        <source>Keep the X and Y scaling the same</source>
-        <translation type="obsolete">Keep the X and Y scaling the same</translation>
-    </message>
-    <message>
-        <source>Make the image fit within the size of the frame</source>
-        <translation type="obsolete">Make the image fit within the size of the frame</translation>
-    </message>
-    <message>
-        <source>Use image proportions rather than those of the frame</source>
-        <translation type="obsolete">Use image proportions rather than those of the frame</translation>
-    </message>
-    <message>
-        <source>Cell Lines</source>
-        <translation type="obsolete">Cell Lines</translation>
-    </message>
-    <message>
-        <source>Line at Top</source>
-        <translation type="obsolete">Line at Top</translation>
-    </message>
-    <message>
-        <source>Line at the Left</source>
-        <translation type="obsolete">Line at the Left</translation>
-    </message>
-    <message>
-        <source>Line at the Right </source>
-        <translation type="obsolete">Line at the Right </translation>
-    </message>
-    <message>
-        <source>Line at Bottom</source>
-        <translation type="obsolete">Line at Bottom</translation>
-    </message>
-    <message>
-        <source>Keep the aspect ratio</source>
-        <translation type="obsolete">Keep the aspect ratio</translation>
-    </message>
-    <message>
-        <source>Source profile of the image</source>
-        <translation type="obsolete">Source profile of the image</translation>
-    </message>
-    <message>
-        <source>Rendering intent for the image</source>
-        <translation type="obsolete">Rendering intent for the image</translation>
-    </message>
-    <message>
-        <source>Path Text Properties</source>
-        <translation type="obsolete">Path Text Properties</translation>
-    </message>
-    <message>
-        <source>Indicates the level the object is on, 0 means the object is at the bottom</source>
-        <translation type="obsolete">Indicates the level the object is on, 0 means the object is at the bottom</translation>
-    </message>
-    <message>
-        <source>Switches between Gap or Column width</source>
-        <translation type="obsolete">Switches between Gap or Column width</translation>
-    </message>
-    <message>
-        <source>Column width</source>
-        <translation type="obsolete">Column width</translation>
     </message>
     <message>
         <source>X, Y, &amp;Z</source>
@@ -27433,634 +17226,12 @@ Note: PDF Forms will not be exported.</source>
         <translation>&amp;Colours</translation>
     </message>
     <message>
-        <source>&amp;X-Pos:</source>
-        <translation type="obsolete">&amp;X-Pos:</translation>
-    </message>
-    <message>
-        <source>&amp;Y-Pos:</source>
-        <translation type="obsolete">&amp;Y-Pos:</translation>
-    </message>
-    <message>
-        <source>&amp;Width:</source>
-        <translation type="obsolete">&amp;Width:</translation>
-    </message>
-    <message>
-        <source>&amp;Height:</source>
-        <translation type="obsolete">&amp;Height:</translation>
-    </message>
-    <message>
-        <source>&amp;Rotation:</source>
-        <translation type="obsolete">&amp;Rotation:</translation>
-    </message>
-    <message>
-        <source>&amp;Edit Shape...</source>
-        <translation type="obsolete">&amp;Edit Shape...</translation>
-    </message>
-    <message>
-        <source>R&amp;ound
-Corners:</source>
-        <translation type="obsolete">R&amp;ound
-Corners:</translation>
-    </message>
-    <message>
-        <source>Colu&amp;mns:</source>
-        <translation type="obsolete">Colu&amp;mns:</translation>
-    </message>
-    <message>
-        <source>To&amp;p:</source>
-        <translation type="obsolete">To&amp;p:</translation>
-    </message>
-    <message>
-        <source>&amp;Bottom:</source>
-        <translation type="obsolete">&amp;Bottom:</translation>
-    </message>
-    <message>
-        <source>&amp;Left:</source>
-        <translation type="obsolete">&amp;Left:</translation>
-    </message>
-    <message>
-        <source>&amp;Right:</source>
-        <translation type="obsolete">&amp;Right:</translation>
-    </message>
-    <message>
-        <source>T&amp;abulators...</source>
-        <translation type="obsolete">T&amp;abulators...</translation>
-    </message>
-    <message>
-        <source>Use &amp;Bounding Box</source>
-        <translation type="obsolete">Use &amp;Bounding Box</translation>
-    </message>
-    <message>
-        <source>&amp;Use Contour Line</source>
-        <translation type="obsolete">&amp;Use Contour Line</translation>
-    </message>
-    <message>
-        <source>&amp;Free Scaling</source>
-        <translation type="obsolete">&amp;Free Scaling</translation>
-    </message>
-    <message>
-        <source>X-Sc&amp;ale:</source>
-        <translation type="obsolete">X-Sc&amp;ale:</translation>
-    </message>
-    <message>
-        <source>Y-Scal&amp;e:</source>
-        <translation type="obsolete">Y-Scal&amp;e:</translation>
-    </message>
-    <message>
-        <source>Rotation:</source>
-        <translation type="obsolete">Rotation:</translation>
-    </message>
-    <message>
-        <source>Scale &amp;To Frame Size</source>
-        <translation type="obsolete">Scale &amp;To Frame Size</translation>
-    </message>
-    <message>
-        <source>P&amp;roportional</source>
-        <translation type="obsolete">P&amp;roportional</translation>
-    </message>
-    <message>
-        <source>PDF Compression Method:</source>
-        <translation type="obsolete">PDF Compression Method:</translation>
-    </message>
-    <message>
-        <source>PDF Compression Quality:</source>
-        <translation type="obsolete">PDF Compression Quality:</translation>
-    </message>
-    <message>
-        <source>Global</source>
-        <translation type="obsolete">Global</translation>
-    </message>
-    <message>
-        <source>Automatic</source>
-        <translation type="obsolete">Automatic</translation>
-    </message>
-    <message>
-        <source>Lossy - JPEG</source>
-        <translation type="obsolete">Lossy - JPEG</translation>
-    </message>
-    <message>
-        <source>Lossless - Zip</source>
-        <translation type="obsolete">Lossless - Zip</translation>
-    </message>
-    <message>
-        <source>None</source>
-        <translation type="obsolete">None</translation>
-    </message>
-    <message>
-        <source>Maximum</source>
-        <translation type="obsolete">Maximum</translation>
-    </message>
-    <message>
-        <source>High</source>
-        <translation type="obsolete">High</translation>
-    </message>
-    <message>
-        <source>Medium</source>
-        <translation type="obsolete">Medium</translation>
-    </message>
-    <message>
-        <source>Low</source>
-        <translation type="obsolete">Low</translation>
-    </message>
-    <message>
-        <source>Minimum</source>
-        <translation type="obsolete">Minimum</translation>
-    </message>
-    <message>
-        <source>&amp;Basepoint:</source>
-        <translation type="obsolete">&amp;Basepoint:</translation>
-    </message>
-    <message>
-        <source>T&amp;ype of Line:</source>
-        <translation type="obsolete">T&amp;ype of Line:</translation>
-    </message>
-    <message>
-        <source>Line &amp;Width:</source>
-        <translation type="obsolete">Line &amp;Width:</translation>
-    </message>
-    <message>
-        <source>Ed&amp;ges:</source>
-        <translation type="obsolete">Ed&amp;ges:</translation>
-    </message>
-    <message>
-        <source>&amp;Endings:</source>
-        <translation type="obsolete">&amp;Endings:</translation>
-    </message>
-    <message>
-        <source>When chosen, the contour line can be edited with the Edit Shape Tool on the palette further above. When edited via the shape palette, this becomes a second separate line originally based on the frame&apos;s shape for text flow of text frames below the object.</source>
-        <translation type="obsolete">When chosen, the contour line can be edited with the Edit Shape Tool on the palette further above. When edited via the shape palette, this becomes a second separate line originally based on the frame&apos;s shape for text flow of text frames below the object.</translation>
-    </message>
-    <message>
-        <source>Compression method used in PDF export for the image</source>
-        <translation type="obsolete">Compression method used in PDF export for the image</translation>
-    </message>
-    <message>
-        <source>Compression quality used in PDF export for the image</source>
-        <translation type="obsolete">Compression quality used in PDF export for the image</translation>
-    </message>
-    <message>
-        <source>&amp;X1:</source>
-        <translation type="obsolete">&amp;X1:</translation>
-    </message>
-    <message>
-        <source>X&amp;2:</source>
-        <translation type="obsolete">X&amp;2:</translation>
-    </message>
-    <message>
-        <source>Y&amp;1:</source>
-        <translation type="obsolete">Y&amp;1:</translation>
-    </message>
-    <message>
-        <source>&amp;Y2:</source>
-        <translation type="obsolete">&amp;Y2:</translation>
-    </message>
-    <message>
-        <source>Right to Left Writing</source>
-        <translation type="obsolete">Right to Left Writing</translation>
-    </message>
-    <message>
-        <source>Manual Tracking</source>
-        <translation type="obsolete">Manual Tracking</translation>
-    </message>
-    <message>
-        <source>Start Arrow:</source>
-        <translation type="obsolete">Start Arrow:</translation>
-    </message>
-    <message>
-        <source>End Arrow:</source>
-        <translation type="obsolete">End Arrow:</translation>
-    </message>
-    <message>
-        <source>Offset to baseline of characters</source>
-        <translation type="obsolete">Offset to baseline of characters</translation>
-    </message>
-    <message>
-        <source>Scaling height of characters</source>
-        <translation type="obsolete">Scaling height of characters</translation>
-    </message>
-    <message>
-        <source>Fixed Linespacing</source>
-        <translation type="obsolete">Fixed Linespacing</translation>
-    </message>
-    <message>
-        <source>Automatic Linespacing</source>
-        <translation type="obsolete">Automatic Linespacing</translation>
-    </message>
-    <message>
-        <source>Align to Baseline Grid</source>
-        <translation type="obsolete">Align to Baseline Grid</translation>
-    </message>
-    <message>
-        <source>Actual X-DPI:</source>
-        <translation type="obsolete">Actual X-DPI:</translation>
-    </message>
-    <message>
-        <source>Actual Y-DPI:</source>
-        <translation type="obsolete">Actual Y-DPI:</translation>
-    </message>
-    <message>
-        <source>Name &quot;%1&quot; isn&apos;t unique.&lt;br/&gt;Please choose another.</source>
-        <translation type="obsolete">Name &quot;%1&quot; isn&apos;t unique.&lt;br/&gt;Please choose another.</translation>
-    </message>
-    <message>
-        <source>Fill Rule</source>
-        <translation type="obsolete">Fill Rule</translation>
-    </message>
-    <message>
-        <source>Even-Odd</source>
-        <translation type="obsolete">Even-Odd</translation>
-    </message>
-    <message>
-        <source>Non Zero</source>
-        <translation type="obsolete">Non Zero</translation>
-    </message>
-    <message>
-        <source>Overprinting</source>
-        <translation type="obsolete">Overprinting</translation>
-    </message>
-    <message>
-        <source>Knockout</source>
-        <translation type="obsolete">Knockout</translation>
-    </message>
-    <message>
-        <source>Overprint</source>
-        <translation type="obsolete">Overprint</translation>
-    </message>
-    <message>
-        <source>Color of text stroke and/or drop shadow, depending which is chosen.If both are chosen, then they share the same color.</source>
-        <translation type="obsolete">Colour of text stroke and/or drop shadow, depending which is chosen.If both are chosen, then they share the same colour.</translation>
-    </message>
-    <message>
-        <source>Color of selected text. If Outline text decoration is enabled, this color will be the fill color. If Drop Shadow Text is enabled, then this will be the top most color.</source>
-        <translation type="obsolete">Colour of selected text. If Outline text decoration is enabled, this colour will be the fill colour. If Drop Shadow Text is enabled, then this will be the top most colour.</translation>
-    </message>
-    <message>
-        <source>Gap:</source>
-        <translation type="obsolete">Gap:</translation>
-    </message>
-    <message>
-        <source>Width:</source>
-        <translation type="obsolete">Width:</translation>
-    </message>
-    <message>
-        <source>Text &amp;Flow Around Frame</source>
-        <translation type="obsolete">Text &amp;Flow Around Frame</translation>
-    </message>
-    <message>
-        <source>Disabled</source>
-        <translation type="obsolete">Disabled</translation>
-    </message>
-    <message>
-        <source>Use Frame &amp;Shape</source>
-        <translation type="obsolete">Use Frame &amp;Shape</translation>
-    </message>
-    <message>
-        <source>Image Effects</source>
-        <translation type="obsolete">Image Effects</translation>
-    </message>
-    <message>
-        <source>Extended Image Properties</source>
-        <translation type="obsolete">Extended Image Properties</translation>
-    </message>
-    <message>
-        <source>Disable text flow from lower frames around object</source>
-        <translation type="obsolete">Disable text flow from lower frames around object</translation>
-    </message>
-    <message>
-        <source>Use the frame shape for text flow of text frames below the object.</source>
-        <translation type="obsolete">Use the frame shape for text flow of text frames below the object.</translation>
-    </message>
-    <message>
-        <source>Use the bounding box, which is always rectangular, instead of the frame&apos;s shape for text flow of text frames below the object. </source>
-        <translation type="obsolete">Use the bounding box, which is always rectangular, instead of the frame&apos;s shape for text flow of text frames below the object. </translation>
-    </message>
-    <message>
-        <source>Transparency Settings</source>
-        <translation type="obsolete">Transparency Settings</translation>
-    </message>
-    <message>
         <source>&amp;Group</source>
         <translation>&amp;Group</translation>
     </message>
     <message>
         <source>&amp;Transparency</source>
         <translation>&amp;Transparency</translation>
-    </message>
-    <message>
-        <source>Opacity:</source>
-        <translation type="obsolete">Opacity:</translation>
-    </message>
-    <message>
-        <source>Blend Mode:</source>
-        <translation type="obsolete">Blend Mode:</translation>
-    </message>
-    <message>
-        <source>Normal</source>
-        <translation type="obsolete">Normal</translation>
-    </message>
-    <message>
-        <source>Darken</source>
-        <translation type="obsolete">Darken</translation>
-    </message>
-    <message>
-        <source>Lighten</source>
-        <translation type="obsolete">Lighten</translation>
-    </message>
-    <message>
-        <source>Multiply</source>
-        <translation type="obsolete">Multiply</translation>
-    </message>
-    <message>
-        <source>Screen</source>
-        <translation type="obsolete">Screen</translation>
-    </message>
-    <message>
-        <source>Overlay</source>
-        <translation type="obsolete">Overlay</translation>
-    </message>
-    <message>
-        <source>Hard Light</source>
-        <translation type="obsolete">Hard Light</translation>
-    </message>
-    <message>
-        <source>Soft Light</source>
-        <translation type="obsolete">Soft Light</translation>
-    </message>
-    <message>
-        <source>Difference</source>
-        <translation type="obsolete">Difference</translation>
-    </message>
-    <message>
-        <source>Exclusion</source>
-        <translation type="obsolete">Exclusion</translation>
-    </message>
-    <message>
-        <source>Color Dodge</source>
-        <translation type="obsolete">Colour Dodge</translation>
-    </message>
-    <message>
-        <source>Color Burn</source>
-        <translation type="obsolete">Colour Burn</translation>
-    </message>
-    <message>
-        <source>Hue</source>
-        <translation type="obsolete">Hue</translation>
-    </message>
-    <message>
-        <source>Color</source>
-        <translation type="obsolete">Colour</translation>
-    </message>
-    <message>
-        <source>Group the selected objects</source>
-        <translation type="obsolete">Group the selected objects</translation>
-    </message>
-    <message>
-        <source>Destroys the selected group</source>
-        <translation type="obsolete">Destroys the selected group</translation>
-    </message>
-    <message>
-        <source>Auto</source>
-        <translation type="obsolete">Auto</translation>
-    </message>
-    <message>
-        <source>When chosen, the contour line can be edited with the Edit Shape Tool on the palette further above. When edited via the shape palette, this becomes a second separate line originally based on the frame&apos;s shape for text flow of text frames below the object. T</source>
-        <translation type="obsolete">When chosen, the contour line can be edited with the Edit Shape Tool on the palette further above. When edited via the shape palette, this becomes a second separate line originally based on the frame&apos;s shape for text flow of text frames below the object. T</translation>
-    </message>
-    <message>
-        <source>Click and hold down to select the line spacing mode.</source>
-        <translation type="obsolete">Click and hold down to select the line spacing mode.</translation>
-    </message>
-    <message>
-        <source>Default</source>
-        <translation type="obsolete">Default</translation>
-    </message>
-    <message>
-        <source>Stair Step</source>
-        <translation type="obsolete">Stair Step</translation>
-    </message>
-    <message>
-        <source>Skew</source>
-        <translation type="obsolete">Skew</translation>
-    </message>
-    <message>
-        <source>Type:</source>
-        <translation type="obsolete">Type:</translation>
-    </message>
-    <message>
-        <source>Paragraph St&amp;yle:</source>
-        <translation type="obsolete">Paragraph St&amp;yle:</translation>
-    </message>
-    <message>
-        <source>Character St&amp;yle:</source>
-        <translation type="obsolete">Character St&amp;yle:</translation>
-    </message>
-    <message>
-        <source>Optical Margins:</source>
-        <translation type="obsolete">Optical Margins:</translation>
-    </message>
-    <message>
-        <source>Word Tracking</source>
-        <translation type="obsolete">Word Tracking</translation>
-    </message>
-    <message>
-        <source>Min:</source>
-        <translation type="obsolete">Min:</translation>
-    </message>
-    <message>
-        <source>Max:</source>
-        <translation type="obsolete">Max:</translation>
-    </message>
-    <message>
-        <source>Glyph Extension</source>
-        <translation type="obsolete">Glyph Extension</translation>
-    </message>
-    <message>
-        <source>Paragraph style of currently selected text or paragraph</source>
-        <translation type="obsolete">Paragraph style of currently selected text or paragraph</translation>
-    </message>
-    <message>
-        <source>Character style of currently selected text or paragraph</source>
-        <translation type="obsolete">Character style of currently selected text or paragraph</translation>
-    </message>
-    <message>
-        <source>Flip Text</source>
-        <translation type="obsolete">Flip Text</translation>
-    </message>
-    <message>
-        <source>Use Image Clip Path</source>
-        <translation type="obsolete">Use Image Clip Path</translation>
-    </message>
-    <message>
-        <source>Norm:</source>
-        <translation type="obsolete">Norm:</translation>
-    </message>
-    <message>
-        <source>Use the clipping path of the image</source>
-        <translation type="obsolete">Use the clipping path of the image</translation>
-    </message>
-    <message>
-        <source>Remove Direct Paragraph Formatting</source>
-        <translation type="obsolete">Remove Direct Paragraph Formatting</translation>
-    </message>
-    <message>
-        <source>Remove Direct Character Formatting</source>
-        <translation type="obsolete">Remove Direct Character Formatting</translation>
-    </message>
-    <message>
-        <source>Minimal width of spaces between words</source>
-        <translation type="obsolete">Minimal width of spaces between words</translation>
-    </message>
-    <message>
-        <source>Normal width of spaces between words</source>
-        <translation type="obsolete">Normal width of spaces between words</translation>
-    </message>
-    <message>
-        <source>Minimal shrinkage of glyphs for justification</source>
-        <translation type="obsolete">Minimal shrinkage of glyphs for justification</translation>
-    </message>
-    <message>
-        <source>Maximal extension of glyphs for justification</source>
-        <translation type="obsolete">Maximal extension of glyphs for justification</translation>
-    </message>
-    <message>
-        <source>Uses hanging punctuation and margin kerning to achieve nicer looking columns</source>
-        <translation type="obsolete">Uses hanging punctuation and margin kerning to achieve nicer looking columns</translation>
-    </message>
-    <message>
-        <source>Enable or disable exporting of the object</source>
-        <translation type="obsolete">Enable or disable exporting of the object</translation>
-    </message>
-    <message>
-        <source>Custom</source>
-        <translation type="obsolete">Custom</translation>
-    </message>
-    <message>
-        <source>&amp;Edit...</source>
-        <translation type="obsolete">&amp;Edit...</translation>
-    </message>
-    <message>
-        <source>First Line Offset</source>
-        <translation type="obsolete">First Line Offset</translation>
-    </message>
-    <message>
-        <source>Maximum Ascent</source>
-        <translation type="obsolete">Maximum Ascent</translation>
-    </message>
-    <message>
-        <source>Font Ascent</source>
-        <translation type="obsolete">Font Ascent</translation>
-    </message>
-    <message>
-        <source>Color &amp; Effects</source>
-        <translation type="obsolete">Colour &amp; Effects</translation>
-    </message>
-    <message>
-        <source>Advanced Settings</source>
-        <translation type="obsolete">Advanced Settings</translation>
-    </message>
-    <message>
-        <source>Style Settings</source>
-        <translation type="obsolete">Style Settings</translation>
-    </message>
-    <message>
-        <source>Baseline</source>
-        <translation type="obsolete">Baseline</translation>
-    </message>
-    <message>
-        <source>Ungroup the selected group</source>
-        <translation type="obsolete">Ungroup the selected group</translation>
-    </message>
-    <message>
-        <source>Select the line spacing mode.</source>
-        <translation type="obsolete">Select the line spacing mode.</translation>
-    </message>
-    <message>
-        <source>Set the height of the first line of the text frame to use the tallest height of the included characters</source>
-        <translation type="obsolete">Set the height of the first line of the text frame to use the tallest height of the included characters</translation>
-    </message>
-    <message>
-        <source>Set the height of the first line of text frame to use the full ascent of the font(s) in use</source>
-        <translation type="obsolete">Set the height of the first line of text frame to use the full ascent of the font(s) in use</translation>
-    </message>
-    <message>
-        <source>Set the height of the first line of the text frame to the specified line height</source>
-        <translation type="obsolete">Set the height of the first line of the text frame to the specified line height</translation>
-    </message>
-    <message>
-        <source>&amp;Page Number:</source>
-        <translation type="obsolete">&amp;Page Number:</translation>
-    </message>
-    <message>
-        <source>Columns &amp; Text Distances</source>
-        <translation type="obsolete">Columns &amp; Text Distances</translation>
-    </message>
-    <message>
-        <source>Left Protruding</source>
-        <translation type="obsolete">Left Protruding</translation>
-    </message>
-    <message>
-        <source>Right Protruding</source>
-        <translation type="obsolete">Right Protruding</translation>
-    </message>
-    <message>
-        <source>Left Hanging Punctuation</source>
-        <translation type="obsolete">Left Hanging Punctuation</translation>
-    </message>
-    <message>
-        <source>Right Hanging Punctuation</source>
-        <translation type="obsolete">Right Hanging Punctuation</translation>
-    </message>
-    <message>
-        <source>Reset</source>
-        <translation type="obsolete">Reset</translation>
-    </message>
-    <message>
-        <source>Optical Margins</source>
-        <translation type="obsolete">Optical Margins</translation>
-    </message>
-    <message>
-        <source>Hairline</source>
-        <translation type="obsolete">Hairline</translation>
-    </message>
-    <message>
-        <source>None</source>
-        <comment>optical margins</comment>
-        <translation type="obsolete">None</translation>
-    </message>
-    <message>
-        <source>Both Sides</source>
-        <comment>optical margins</comment>
-        <translation type="obsolete">Both Sides</translation>
-    </message>
-    <message>
-        <source>Left Only</source>
-        <comment>optical margins</comment>
-        <translation type="obsolete">Left Only</translation>
-    </message>
-    <message>
-        <source>Right Only</source>
-        <comment>optical margins</comment>
-        <translation type="obsolete">Right Only</translation>
-    </message>
-    <message>
-        <source>Arrow head style for start of line</source>
-        <translation type="obsolete">Arrow head style for start of line</translation>
-    </message>
-    <message>
-        <source>Arrow head style for end of line</source>
-        <translation type="obsolete">Arrow head style for end of line</translation>
-    </message>
-    <message>
-        <source>Effective horizontal DPI of the image after scaling</source>
-        <translation type="obsolete">Effective horizontal DPI of the image after scaling</translation>
-    </message>
-    <message>
-        <source>Effective vertical DPI of the image after scaling</source>
-        <translation type="obsolete">Effective vertical DPI of the image after scaling</translation>
-    </message>
-    <message>
-        <source>Scaling:</source>
-        <translation type="obsolete">Scaling:</translation>
     </message>
     <message>
         <source>T&amp;able</source>
@@ -28460,11 +17631,11 @@ Corners:</translation>
     </message>
     <message>
         <source>Method:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Method:</translation>
     </message>
     <message>
         <source>Quality:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Quality:</translation>
     </message>
     <message>
         <source>Image Effects</source>
@@ -28548,26 +17719,6 @@ Corners:</translation>
     <message>
         <source>&amp;Endings:</source>
         <translation type="unfinished">&amp;Endings:</translation>
-    </message>
-    <message>
-        <source>Cell Lines</source>
-        <translation type="obsolete">Cell Lines</translation>
-    </message>
-    <message>
-        <source>Line at Top</source>
-        <translation type="obsolete">Line at Top</translation>
-    </message>
-    <message>
-        <source>Line at the Left</source>
-        <translation type="obsolete">Line at the Left</translation>
-    </message>
-    <message>
-        <source>Line at the Right </source>
-        <translation type="obsolete">Line at the Right </translation>
-    </message>
-    <message>
-        <source>Line at Bottom</source>
-        <translation type="obsolete">Line at Bottom</translation>
     </message>
     <message>
         <source> %</source>
@@ -28664,14 +17815,6 @@ Corners:</translation>
         <source>&amp;Endings:</source>
         <translation type="unfinished">&amp;Endings:</translation>
     </message>
-    <message>
-        <source>Cell Lines</source>
-        <translation type="obsolete">Cell Lines</translation>
-    </message>
-    <message>
-        <source>Line at the Left</source>
-        <translation type="obsolete">Line at the Left</translation>
-    </message>
 </context>
 <context>
     <name>PropertiesPalette_Shadow</name>
@@ -28702,10 +17845,6 @@ Corners:</translation>
     <message>
         <source>Blendmode:</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source> pt</source>
-        <translation type="obsolete"> pt</translation>
     </message>
     <message>
         <source>Has Drop Shadow</source>
@@ -28986,7 +18125,7 @@ Corners:</translation>
     </message>
     <message>
         <source>Text Flow Around Frame</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Text Flow Around Frame</translation>
     </message>
     <message>
         <source>Disabled</source>
@@ -29094,16 +18233,8 @@ Corners:</translation>
 <context>
     <name>PropertiesPalette_Text</name>
     <message>
-        <source>Color &amp; Effects</source>
-        <translation type="obsolete">Colour &amp; Effects</translation>
-    </message>
-    <message>
         <source>First Line Offset</source>
         <translation type="unfinished">First Line Offset</translation>
-    </message>
-    <message>
-        <source>Columns &amp; Text Distances</source>
-        <translation type="obsolete">Columns &amp; Text Distances</translation>
     </message>
     <message>
         <source>Optical Margins</source>
@@ -29124,14 +18255,6 @@ Corners:</translation>
     <message>
         <source>Baseline</source>
         <translation type="unfinished">Baseline</translation>
-    </message>
-    <message>
-        <source>Distance between columns</source>
-        <translation type="obsolete">Distance between columns</translation>
-    </message>
-    <message>
-        <source>Column width</source>
-        <translation type="obsolete">Column width</translation>
     </message>
     <message>
         <source>Paragraph St&amp;yle:</source>
@@ -29338,10 +18461,6 @@ Corners:</translation>
     <message>
         <source>Move to back</source>
         <translation type="unfinished">Move to back</translation>
-    </message>
-    <message>
-        <source>Indicates the level the object is on, 0 means the object is at the bottom</source>
-        <translation type="obsolete">Indicates the level the object is on, 0 means the object is at the bottom</translation>
     </message>
     <message>
         <source>Lock or unlock the object</source>
@@ -30139,6 +19258,13 @@ Corners:</translation>
         <source>Analyzing File:</source>
         <translation type="unfinished">Analysing File:</translation>
     </message>
+    <message>
+        <source>Parsing failed!
+
+Please submit your file (if possible) to the
+Document Liberation Project http://www.documentliberation.org</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>PythonConsole</name>
@@ -30221,16 +19347,6 @@ Corners:</translation>
     <message>
         <source>Ctrl+S</source>
         <translation type="unfinished">Ctrl+S</translation>
-    </message>
-    <message>
-        <source>This is derived from standard Python console
-so it contains some limitations esp. in the
-case of whitespaces. Please consult Scribus
-manual for more informations.</source>
-        <translation type="obsolete">This is derived from standard Python console
-so it contains some limitations esp. in the
-case of whitespaces. Please consult Scribus
-manual for more informations.</translation>
     </message>
     <message>
         <source>&amp;Quit</source>
@@ -30927,10 +20043,6 @@ External Links</translation>
         <translation>English</translation>
     </message>
     <message>
-        <source>English (British)</source>
-        <translation type="obsolete">English (British)</translation>
-    </message>
-    <message>
         <source>Esperanto</source>
         <translation>Esperanto</translation>
     </message>
@@ -30977,10 +20089,6 @@ External Links</translation>
     <message>
         <source>Lithuanian</source>
         <translation>Lithuanian</translation>
-    </message>
-    <message>
-        <source>Norwegian (BokmÃ¥l)</source>
-        <translation type="obsolete">Norwegian (BokmÃ¥l)</translation>
     </message>
     <message>
         <source>Norwegian (Nnyorsk)</source>
@@ -31638,11 +20746,6 @@ External Links</translation>
         <translation>argument contains no-numeric values: must be list of float values.</translation>
     </message>
     <message>
-        <source>Line width out of bounds, must be 0 &lt;= line_width &lt;= 12.</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Line width out of bounds, must be 0 &lt;= line_width &lt;= 12.</translation>
-    </message>
-    <message>
         <source>Line width out of bounds, must be 0 &lt;= line_width &lt;= 300.</source>
         <comment>python error</comment>
         <translation>Line width out of bounds, must be 0 &lt;= line_width &lt;= 300.</translation>
@@ -31830,20 +20933,15 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>Scribus Crash</source>
-        <translation type="obsolete">Scribus Crash</translation>
+        <translation type="unfinished">Scribus Crash</translation>
     </message>
     <message>
         <source>Scribus crashes due to Signal #%1</source>
-        <translation type="obsolete">Scribus crashes due to Signal #%1</translation>
+        <translation type="unfinished">Scribus crashes due to Signal #%1</translation>
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation type="obsolete">&amp;OK</translation>
-    </message>
-    <message>
-        <source>Can&apos;t group less than two items</source>
-        <comment>python error</comment>
-        <translation type="obsolete">Can&apos;t group less than two items</translation>
+        <translation type="unfinished">&amp;OK</translation>
     </message>
     <message>
         <source>Need selection or argument list of items to group</source>
@@ -31935,7 +21033,7 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>Scribus crashes due to the following exception : %1</source>
-        <translation type="obsolete">Scribus crashes due to the following exception : %1</translation>
+        <translation type="unfinished">Scribus crashes due to the following exception : %1</translation>
     </message>
     <message>
         <source>Creating Font Cache</source>
@@ -31991,10 +21089,6 @@ is not exhaustive due to exceptions from called functions.
         <translation>Printing File</translation>
     </message>
     <message>
-        <source>&lt;p&gt;You are trying to import more pages than there are available in the current document counting from the active page.&lt;/p&gt;Choose one of the following:&lt;br&gt;&lt;ul&gt;&lt;li&gt;&lt;b&gt;Create&lt;/b&gt; missing pages&lt;/li&gt;&lt;li&gt;&lt;b&gt;Import&lt;/b&gt; pages until the last page&lt;/li&gt;&lt;li&gt;&lt;b&gt;Cancel&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;</source>
-        <translation type="obsolete">&lt;p&gt;You are trying to import more pages than there are available in the current document counting from the active page.&lt;/p&gt;Choose one of the following:&lt;br&gt;&lt;ul&gt;&lt;li&gt;&lt;b&gt;Create&lt;/b&gt; missing pages&lt;/li&gt;&lt;li&gt;&lt;b&gt;Import&lt;/b&gt; pages until the last page&lt;/li&gt;&lt;li&gt;&lt;b&gt;Cancel&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;</translation>
-    </message>
-    <message>
         <source>C&amp;reate</source>
         <translation>C&amp;reate</translation>
     </message>
@@ -32011,10 +21105,6 @@ is not exhaustive due to exceptions from called functions.
         <translation>Barcode Generator</translation>
     </message>
     <message>
-        <source>OpenOffice.org Draw (*.sxd *.odg);;All Files (*)</source>
-        <translation type="obsolete">OpenOffice.org Draw (*.sxd *.odg);;All Files (*)</translation>
-    </message>
-    <message>
         <source>Word Documents</source>
         <translation>Word Documents</translation>
     </message>
@@ -32022,11 +21112,6 @@ is not exhaustive due to exceptions from called functions.
         <source>Palm PDB Documents</source>
         <comment>PDB Importer</comment>
         <translation>Palm PDB Documents</translation>
-    </message>
-    <message>
-        <source>PDB_data</source>
-        <comment>PDB Importer</comment>
-        <translation type="obsolete">PDB_data</translation>
     </message>
     <message>
         <source>PDB Import</source>
@@ -32254,10 +21339,6 @@ is not exhaustive due to exceptions from called functions.
         <translation>Scribus 1.2.x Support</translation>
     </message>
     <message>
-        <source>Scribus 1.3.4 Support</source>
-        <translation type="obsolete">Scribus 1.3.4 Support</translation>
-    </message>
-    <message>
         <source>This file is not recognized as a PDB document. Please, report this as a bug if you are sure it is one.</source>
         <comment>PDB Importer</comment>
         <translation>This file is not recognised as a PDB document. Please, report this as a bug if you are sure it is one.</translation>
@@ -32266,10 +21347,6 @@ is not exhaustive due to exceptions from called functions.
         <source>Cannot get number of lines of non-text frame.</source>
         <comment>python error</comment>
         <translation>Cannot get number of lines of non-text frame.</translation>
-    </message>
-    <message>
-        <source>You are running a development version of Scribus 1.3.x. The document you are working with was created in Scribus 1.2.x.  Saving the current file under 1.3.x renders it unable to be edited in Scribus 1.2.x versions. To preserve the ability to edit in 1.2.x, save this file under a different name and further edit the newly named file and the original will be untouched. Are you sure you wish to proceed with this operation?</source>
-        <translation type="obsolete">You are running a development version of Scribus 1.3.x. The document you are working with was created in Scribus 1.2.x.  Saving the current file under 1.3.x renders it unable to be edited in Scribus 1.2.x versions. To preserve the ability to edit in 1.2.x, save this file under a different name and further edit the newly named file and the original will be untouched. Are you sure you wish to proceed with this operation?</translation>
     </message>
     <message>
         <source>+tracking %1 </source>
@@ -32284,26 +21361,8 @@ is not exhaustive due to exceptions from called functions.
         <translation>Breton</translation>
     </message>
     <message>
-        <source>English (American)</source>
-        <translation type="obsolete">English (American)</translation>
-    </message>
-    <message>
         <source>%1 may be corrupted : missing or wrong resolution tags</source>
         <translation>%1 may be corrupted : missing or wrong resolution tags</translation>
-    </message>
-    <message>
-        <source>The Font(s):
-%1 are not available.
-They have been replaced by &quot;Courier&quot;
-Therefore the image may be not correct</source>
-        <translation type="obsolete">The Font(s):
-%1 are not available.
-They have been replaced by &quot;Courier&quot;
-Therefore the image may be not correct</translation>
-    </message>
-    <message>
-        <source>English (Australian)</source>
-        <translation type="obsolete">English (Australian)</translation>
     </message>
     <message>
         <source>German (Swiss)</source>
@@ -32324,62 +21383,6 @@ Therefore the image may be not correct</translation>
     <message>
         <source>Scribus 1.3.0-&gt;1.3.3.x Support</source>
         <translation>Scribus 1.3.0-&gt;1.3.3.x Support</translation>
-    </message>
-    <message>
-        <source>Copy of %1 (%2)</source>
-        <translation type="obsolete">Copy of %1 (%2)</translation>
-    </message>
-    <message>
-        <source>Image</source>
-        <translation type="obsolete">Image</translation>
-    </message>
-    <message>
-        <source>PDF Push Button</source>
-        <translation type="obsolete">PDF Push Button</translation>
-    </message>
-    <message>
-        <source>PDF Text Field</source>
-        <translation type="obsolete">PDF Text Field</translation>
-    </message>
-    <message>
-        <source>PDF Check Box</source>
-        <translation type="obsolete">PDF Check Box</translation>
-    </message>
-    <message>
-        <source>PDF Combo Box</source>
-        <translation type="obsolete">PDF Combo Box</translation>
-    </message>
-    <message>
-        <source>PDF List Box</source>
-        <translation type="obsolete">PDF List Box</translation>
-    </message>
-    <message>
-        <source>PDF Text Annotation</source>
-        <translation type="obsolete">PDF Text Annotation</translation>
-    </message>
-    <message>
-        <source>PDF Link Annotation</source>
-        <translation type="obsolete">PDF Link Annotation</translation>
-    </message>
-    <message>
-        <source>Text</source>
-        <translation type="obsolete">Text</translation>
-    </message>
-    <message>
-        <source>Line</source>
-        <translation type="obsolete">Line</translation>
-    </message>
-    <message>
-        <source>Polygon</source>
-        <translation type="obsolete">Polygon</translation>
-    </message>
-    <message>
-        <source>Polyline</source>
-        <translation type="obsolete">Polyline</translation>
-    </message>
-    <message>
-        <source>PathText</source>
-        <translation type="obsolete">PathText</translation>
     </message>
     <message>
         <source>%</source>
@@ -32408,7 +21411,7 @@ Therefore the image may be not correct</translation>
     <message>
         <source>°</source>
         <comment>degrees, unicode 0xB0</comment>
-        <translation type="obsolete">°</translation>
+        <translation type="unfinished">°</translation>
     </message>
     <message>
         <source>WMF Import</source>
@@ -32439,10 +21442,6 @@ Therefore the image may be not correct</translation>
 %1 ?</source>
         <translation>Do you really want to overwrite the file:
 %1 ?</translation>
-    </message>
-    <message>
-        <source>Encapsulated PostScript</source>
-        <translation type="obsolete">Encapsulated PostScript</translation>
     </message>
     <message>
         <source>Encapsulated PostScript &quot;*.eps&quot;</source>
@@ -32489,14 +21488,6 @@ Therefore the image may be not correct</translation>
         <translation>Adobe Illustrator &quot;*.ai&quot;</translation>
     </message>
     <message>
-        <source>Calamus Cvg File</source>
-        <translation type="obsolete">Calamus Cvg File</translation>
-    </message>
-    <message>
-        <source>Word Perfect Wpg File</source>
-        <translation type="obsolete">Word Perfect Wpg File</translation>
-    </message>
-    <message>
         <source>GraphicsMagick File</source>
         <translation>GraphicsMagick File</translation>
     </message>
@@ -32509,30 +21500,6 @@ Therefore the image may be not correct</translation>
         <translation>Macintosh Pict File</translation>
     </message>
     <message>
-        <source>Macinthosh Pict File</source>
-        <translation type="obsolete">Macinthosh Pict File</translation>
-    </message>
-    <message>
-        <source>XARA &quot;*.xar&quot; File</source>
-        <translation type="obsolete">XARA &quot;*.xar&quot; File</translation>
-    </message>
-    <message>
-        <source>CGM File</source>
-        <translation type="obsolete">CGM File</translation>
-    </message>
-    <message>
-        <source>IDML File</source>
-        <translation type="obsolete">IDML File</translation>
-    </message>
-    <message>
-        <source>PostScript</source>
-        <translation type="obsolete">PostScript</translation>
-    </message>
-    <message>
-        <source>Adobe Photoshop</source>
-        <translation type="obsolete">Adobe Photoshop</translation>
-    </message>
-    <message>
         <source>TIFF</source>
         <translation>TIFF</translation>
     </message>
@@ -32541,32 +21508,12 @@ Therefore the image may be not correct</translation>
         <translation>XPM</translation>
     </message>
     <message>
-        <source>Windows Meta File</source>
-        <translation type="obsolete">Windows Meta File</translation>
-    </message>
-    <message>
-        <source>Scalable Vector Graphics</source>
-        <translation type="obsolete">Scalable Vector Graphics</translation>
-    </message>
-    <message>
-        <source>Adobe Illustrator</source>
-        <translation type="obsolete">Adobe Illustrator</translation>
-    </message>
-    <message>
-        <source>Norwegian (Bokm?l)</source>
-        <translation type="obsolete">Norwegian (Bokm�l)</translation>
-    </message>
-    <message>
         <source>Valid metrics were found for font %1, using metrics in file %2</source>
         <translation>Valid metrics were found for font %1, using metrics in file %2</translation>
     </message>
     <message>
         <source>No metrics found for font %1, ignoring font</source>
         <translation>No metrics found for font %1, ignoring font</translation>
-    </message>
-    <message>
-        <source>Highlighter error: Invalid index returned by QT&apos;s QString.indexOf(). This is a incompatibility between different QT versions and it can only be fixed by recompiling Scribus with the same QT version that is running on this system. Syntax highlighting is disabled now, but render frames should continue to work without problems.</source>
-        <translation type="obsolete">Highlighter error: Invalid index returned by QT&apos;s QString.indexOf(). This is a incompatibility between different QT versions and it can only be fixed by recompiling Scribus with the same QT version that is running on this system. Syntax highlighting is disabled now, but render frames should continue to work without problems.</translation>
     </message>
     <message>
         <source>Error</source>
@@ -32628,10 +21575,6 @@ Therefore the image may be not correct</translation>
         <translation>PathStroker</translation>
     </message>
     <message>
-        <source>Spell check (aspell)</source>
-        <translation type="obsolete">Spell check (aspell)</translation>
-    </message>
-    <message>
         <source>Subdivide</source>
         <translation>Subdivide</translation>
     </message>
@@ -32659,10 +21602,6 @@ Therefore the image may be not correct</translation>
     <message>
         <source>PathAlongPath</source>
         <translation>PathAlongPath</translation>
-    </message>
-    <message>
-        <source>Transform Effect</source>
-        <translation type="obsolete">Transform Effect</translation>
     </message>
     <message>
         <source>Cannot get text distances of non-text frame.</source>
@@ -32803,10 +21742,6 @@ Therefore the image may be not correct</source>
     <message>
         <source>Scripter Plugin</source>
         <translation>Scripter Plug-in</translation>
-    </message>
-    <message>
-        <source>Group%1</source>
-        <translation type="obsolete">Group%1</translation>
     </message>
     <message>
         <source>Highlighter error: Invalid index returned by Qt&apos;s QString.indexOf(). This is a incompatibility between different Qt versions and it can only be fixed by recompiling Scribus with the same Qt version that is running on this system. Syntax highlighting is disabled now, but render frames should continue to work without problems.</source>
@@ -33197,11 +22132,6 @@ Therefore the image may be not correct</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Â°</source>
-        <comment>degrees, unicode 0xB0</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Compact Disc</source>
         <translation type="unfinished"></translation>
     </message>
@@ -33273,6 +22203,14 @@ Therefore the image may be not correct</source>
         <source>OpenOffice.org Draw (*.sxd *.SXD);;All Files (*)</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Corel Draw Importer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Open Raster Files</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QTextEdit</name>
@@ -33337,61 +22275,6 @@ Therefore the image may be not correct</source>
     </message>
 </context>
 <context>
-    <name>QWorkspace</name>
-    <message>
-        <source>&amp;Restore</source>
-        <translation type="obsolete">&amp;Restore</translation>
-    </message>
-    <message>
-        <source>&amp;Move</source>
-        <translation type="obsolete">&amp;Move</translation>
-    </message>
-    <message>
-        <source>&amp;Size</source>
-        <translation type="obsolete">&amp;Size</translation>
-    </message>
-    <message>
-        <source>Mi&amp;nimize</source>
-        <translation type="obsolete">Mi&amp;nimise</translation>
-    </message>
-    <message>
-        <source>Ma&amp;ximize</source>
-        <translation type="obsolete">Ma&amp;ximise</translation>
-    </message>
-    <message>
-        <source>&amp;Close</source>
-        <translation type="obsolete">&amp;Close</translation>
-    </message>
-    <message>
-        <source>Stay on &amp;Top</source>
-        <translation type="obsolete">Stay on &amp;Top</translation>
-    </message>
-    <message>
-        <source>Minimize</source>
-        <translation type="obsolete">Minimise</translation>
-    </message>
-    <message>
-        <source>Restore Down</source>
-        <translation type="obsolete">Restore Down</translation>
-    </message>
-    <message>
-        <source>Close</source>
-        <translation type="obsolete">Close</translation>
-    </message>
-    <message>
-        <source>Sh&amp;ade</source>
-        <translation type="obsolete">Sh&amp;ade</translation>
-    </message>
-    <message>
-        <source>%1 - [%2]</source>
-        <translation type="obsolete">%1 - [%2]</translation>
-    </message>
-    <message>
-        <source>&amp;Unshade</source>
-        <translation type="obsolete">&amp;Unshade</translation>
-    </message>
-</context>
-<context>
     <name>QtIOCompressor</name>
     <message>
         <source>Internal zlib error when compressing: </source>
@@ -33443,73 +22326,6 @@ Please choose another.</translation>
         <source>Name &quot;%1&quot; is not allowed.
 Please choose another.</source>
         <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>ReformDoc</name>
-    <message>
-        <source>Document Setup</source>
-        <translation type="obsolete">Document Setup</translation>
-    </message>
-    <message>
-        <source>Document</source>
-        <translation type="obsolete">Document</translation>
-    </message>
-    <message>
-        <source>Guides</source>
-        <translation type="obsolete">Guides</translation>
-    </message>
-    <message>
-        <source>Display</source>
-        <translation type="obsolete">Display</translation>
-    </message>
-    <message>
-        <source>Typography</source>
-        <translation type="obsolete">Typography</translation>
-    </message>
-    <message>
-        <source>Tools</source>
-        <translation type="obsolete">Tools</translation>
-    </message>
-    <message>
-        <source>Hyphenator</source>
-        <translation type="obsolete">Hyphenator</translation>
-    </message>
-    <message>
-        <source>Fonts</source>
-        <translation type="obsolete">Fonts</translation>
-    </message>
-    <message>
-        <source>PDF Export</source>
-        <translation type="obsolete">PDF Export</translation>
-    </message>
-    <message>
-        <source>Document Item Attributes</source>
-        <translation type="obsolete">Document Item Attributes</translation>
-    </message>
-    <message>
-        <source>Table of Contents and Indexes</source>
-        <translation type="obsolete">Table of Contents and Indexes</translation>
-    </message>
-    <message>
-        <source>Color Management</source>
-        <translation type="obsolete">Colour Management</translation>
-    </message>
-    <message>
-        <source>Document Information</source>
-        <translation type="obsolete">Document Information</translation>
-    </message>
-    <message>
-        <source>Preflight Verifier</source>
-        <translation type="obsolete">Preflight Verifier</translation>
-    </message>
-    <message>
-        <source>Adjusting Colors</source>
-        <translation type="obsolete">Adjusting Colours</translation>
-    </message>
-    <message>
-        <source>Sections</source>
-        <translation type="obsolete">Sections</translation>
     </message>
 </context>
 <context>
@@ -33578,10 +22394,6 @@ Please choose another.</source>
     <message>
         <source>Python Scripts (*.py *.PY);; All Files (*)</source>
         <translation type="unfinished">Python Scripts (*.py *.PY);; All Files (*)</translation>
-    </message>
-    <message>
-        <source>Dialog</source>
-        <translation type="obsolete">Dialog</translation>
     </message>
     <message>
         <source>Run as Extension Script</source>
@@ -33717,52 +22529,12 @@ Please choose another.</source>
 <context>
     <name>SMCStyleWidget</name>
     <message>
-        <source>Parent style</source>
-        <translation type="obsolete">Parent style</translation>
-    </message>
-    <message>
-        <source>Font face</source>
-        <translation type="obsolete">Font face</translation>
-    </message>
-    <message>
-        <source>Font size</source>
-        <translation type="obsolete">Font size</translation>
-    </message>
-    <message>
         <source>Tracking</source>
         <translation type="unfinished">Tracking</translation>
     </message>
     <message>
-        <source>Baseline offset</source>
-        <translation type="obsolete">Baseline offset</translation>
-    </message>
-    <message>
-        <source>Horizontal scaling</source>
-        <translation type="obsolete">Horizontal scaling</translation>
-    </message>
-    <message>
-        <source>Vertical scaling</source>
-        <translation type="obsolete">Vertical scaling</translation>
-    </message>
-    <message>
         <source>Language</source>
         <translation type="unfinished">Language</translation>
-    </message>
-    <message>
-        <source>Fill color</source>
-        <translation type="obsolete">Fill colour</translation>
-    </message>
-    <message>
-        <source>Fill shade</source>
-        <translation type="obsolete">Fill shade</translation>
-    </message>
-    <message>
-        <source>Stroke color</source>
-        <translation type="obsolete">Stroke colour</translation>
-    </message>
-    <message>
-        <source>Stroke shade</source>
-        <translation type="obsolete">Stroke shade</translation>
     </message>
     <message>
         <source>Based On:</source>
@@ -33799,10 +22571,6 @@ Please choose another.</source>
     <message>
         <source>Parent Style</source>
         <translation type="unfinished">Parent Style</translation>
-    </message>
-    <message>
-        <source>Font Face</source>
-        <translation type="obsolete">Font Face</translation>
     </message>
     <message>
         <source>Font Family</source>
@@ -33989,34 +22757,6 @@ Please choose another.</source>
         <comment>This for unique name when creating a new character style. %1 will be the name of the style and %2 will be a number forming a style name like: New Style (2)</comment>
         <translation>%1 (%2)</translation>
     </message>
-    <message>
-        <source> pt</source>
-        <translation> pt</translation>
-    </message>
-    <message>
-        <source>Solid Line</source>
-        <translation>Solid Line</translation>
-    </message>
-    <message>
-        <source>Dashed Line</source>
-        <translation>Dashed Line</translation>
-    </message>
-    <message>
-        <source>Dotted Line</source>
-        <translation>Dotted Line</translation>
-    </message>
-    <message>
-        <source>Dash Dot Line</source>
-        <translation>Dash Dot Line</translation>
-    </message>
-    <message>
-        <source>Dash Dot Dot Line</source>
-        <translation>Dash Dot Dot Line</translation>
-    </message>
-    <message>
-        <source> pt </source>
-        <translation> pt </translation>
-    </message>
 </context>
 <context>
     <name>SMLineStyleWidget</name>
@@ -34075,10 +22815,6 @@ Please choose another.</source>
     <message>
         <source>Line shade</source>
         <translation type="unfinished">Line shade</translation>
-    </message>
-    <message>
-        <source> pt</source>
-        <translation type="obsolete"> pt</translation>
     </message>
     <message>
         <source>%</source>
@@ -34160,10 +22896,6 @@ Please choose another.</source>
         <translation type="unfinished">Drop Cap Lines</translation>
     </message>
     <message>
-        <source>Drop Cap Offset</source>
-        <translation type="obsolete">Drop Cap Offset</translation>
-    </message>
-    <message>
         <source>First Line Indent</source>
         <translation type="unfinished">First Line Indent</translation>
     </message>
@@ -34184,40 +22916,12 @@ Please choose another.</source>
         <translation>TextLabel</translation>
     </message>
     <message>
-        <source>Parent&apos;s Drop Cap Status</source>
-        <translation type="obsolete">Parent&apos;s Drop Cap Status</translation>
-    </message>
-    <message>
         <source>Ch&amp;aracter Style</source>
         <translation>Ch&amp;aracter Style</translation>
     </message>
     <message>
         <source>None</source>
         <translation>None</translation>
-    </message>
-    <message>
-        <source>Left Protruding</source>
-        <translation type="obsolete">Left Protruding</translation>
-    </message>
-    <message>
-        <source>Right Protruding</source>
-        <translation type="obsolete">Right Protruding</translation>
-    </message>
-    <message>
-        <source>Left Hanging Punctuation</source>
-        <translation type="obsolete">Left Hanging Punctuation</translation>
-    </message>
-    <message>
-        <source>Right Hanging Punctuation</source>
-        <translation type="obsolete">Right Hanging Punctuation</translation>
-    </message>
-    <message>
-        <source>Default</source>
-        <translation type="obsolete">Default</translation>
-    </message>
-    <message>
-        <source>Activate an optical margins layout</source>
-        <translation type="obsolete">Activate an optical margins layout</translation>
     </message>
     <message>
         <source>Maximum white space compression allowed.
@@ -34238,36 +22942,8 @@ Expressed as a percentage of the current white space value.</translation>
         <translation>Optical Margins</translation>
     </message>
     <message>
-        <source>Min. space width</source>
-        <translation type="obsolete">Min. space width</translation>
-    </message>
-    <message>
-        <source>Max. glyph comp.</source>
-        <translation type="obsolete">Max. glyph comp.</translation>
-    </message>
-    <message>
-        <source>Max. glyph ext.</source>
-        <translation type="obsolete">Max. glyph ext.</translation>
-    </message>
-    <message>
-        <source>Advanced settings</source>
-        <translation type="obsolete">Advanced settings</translation>
-    </message>
-    <message>
         <source>A default style cannot be assigned a parent style</source>
         <translation type="unfinished">A default style cannot be assigned a parent style</translation>
-    </message>
-    <message>
-        <source>Min. Space Width:</source>
-        <translation type="unfinished">Min. Space Width:</translation>
-    </message>
-    <message>
-        <source>Max. Glyph Compression:</source>
-        <translation type="obsolete">Max. Glyph Compression:</translation>
-    </message>
-    <message>
-        <source>Max. Glyph Extension:</source>
-        <translation type="obsolete">Max. Glyph Extension:</translation>
     </message>
     <message>
         <source>Use Parent Value</source>
@@ -34280,20 +22956,6 @@ Expressed as a percentage of the current white space value.</translation>
     <message>
         <source>Advanced Settings</source>
         <translation>Advanced Settings</translation>
-    </message>
-    <message>
-        <source>Glyph Extension</source>
-        <translation type="unfinished">Glyph Extension</translation>
-    </message>
-    <message>
-        <source>Min:</source>
-        <comment>Glyph Extension</comment>
-        <translation type="unfinished">Min:</translation>
-    </message>
-    <message>
-        <source>Max:</source>
-        <comment>Glyph Extension</comment>
-        <translation type="unfinished">Max:</translation>
     </message>
     <message>
         <source>Both Sides</source>
@@ -34487,6 +23149,32 @@ Expressed as a percentage of the current white space value.</translation>
         <source>Frame</source>
         <translation type="unfinished">Frame</translation>
     </message>
+    <message>
+        <source>Alignment and Distances</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use Parent&apos;s Values</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Minimum Space Width:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Glyph Extension </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Minimum:</source>
+        <comment>Glyph Extension</comment>
+        <translation type="unfinished">Minimum:</translation>
+    </message>
+    <message>
+        <source>Maximum:</source>
+        <comment>Glyph Extension</comment>
+        <translation type="unfinished">Maximum:</translation>
+    </message>
 </context>
 <context>
     <name>SMParagraphStyle</name>
@@ -34585,10 +23273,6 @@ Expressed as a percentage of the current white space value.</translation>
     <message>
         <source>Available Styles</source>
         <translation>Available Styles</translation>
-    </message>
-    <message>
-        <source>In case of the name clash</source>
-        <translation type="obsolete">In case of the name clash</translation>
     </message>
     <message>
         <source>&amp;Rename Imported Style</source>
@@ -34737,14 +23421,6 @@ Expressed as a percentage of the current white space value.</translation>
 <context>
     <name>SToolBFont</name>
     <message>
-        <source> pt</source>
-        <translation type="obsolete"> pt</translation>
-    </message>
-    <message>
-        <source> %</source>
-        <translation type="obsolete"> %</translation>
-    </message>
-    <message>
         <source>Font of selected text</source>
         <translation>Font of selected text</translation>
     </message>
@@ -34774,10 +23450,6 @@ Expressed as a percentage of the current white space value.</translation>
     <message>
         <source>Manual Tracking</source>
         <translation>Manual Tracking</translation>
-    </message>
-    <message>
-        <source> %</source>
-        <translation type="obsolete"> %</translation>
     </message>
 </context>
 <context>
@@ -34834,10 +23506,6 @@ converting their vector data into Scribus objects.</source>
 converting their vector data into Scribus objects.</translation>
     </message>
     <message>
-        <source>SVG file contains some unsupported features</source>
-        <translation type="obsolete">SVG file contains some unsupported features</translation>
-    </message>
-    <message>
         <source>The file could not be imported</source>
         <translation>The file could not be imported</translation>
     </message>
@@ -34855,26 +23523,6 @@ converting their vector data into Scribus objects.</translation>
         <source>Short Words</source>
         <comment>short words plugin</comment>
         <translation type="unfinished">Short Words</translation>
-    </message>
-    <message>
-        <source>Apply unbreakable space on:</source>
-        <comment>short words plugin</comment>
-        <translation type="obsolete">Apply unbreakable space on:</translation>
-    </message>
-    <message>
-        <source>&amp;Selected frames</source>
-        <comment>short words plugin</comment>
-        <translation type="obsolete">&amp;Selected frames</translation>
-    </message>
-    <message>
-        <source>Active &amp;page</source>
-        <comment>short words plugin</comment>
-        <translation type="obsolete">Active &amp;page</translation>
-    </message>
-    <message>
-        <source>&amp;All items</source>
-        <comment>short words plugin</comment>
-        <translation type="obsolete">&amp;All items</translation>
     </message>
     <message>
         <source>Only selected frames processed.</source>
@@ -34896,36 +23544,8 @@ converting their vector data into Scribus objects.</translation>
         <translation>Short Words</translation>
     </message>
     <message>
-        <source>Apply unbreakable space on:</source>
-        <translation type="obsolete">Apply unbreakable space on:</translation>
-    </message>
-    <message>
-        <source>&amp;Selected frames</source>
-        <translation type="obsolete">&amp;Selected frames</translation>
-    </message>
-    <message>
-        <source>Active &amp;page</source>
-        <translation type="obsolete">Active &amp;page</translation>
-    </message>
-    <message>
-        <source>&amp;All items</source>
-        <translation type="obsolete">&amp;All items</translation>
-    </message>
-    <message>
-        <source>Language settings</source>
-        <translation type="obsolete">Language settings</translation>
-    </message>
-    <message>
-        <source>&amp;Use language from Style definition</source>
-        <translation type="obsolete">&amp;Use language from Style definition</translation>
-    </message>
-    <message>
         <source>&amp;Languages:</source>
         <translation>&amp;Languages:</translation>
-    </message>
-    <message>
-        <source>Apply Unbreakable Space On:</source>
-        <translation type="obsolete">Apply Unbreakable Space On:</translation>
     </message>
     <message>
         <source>&amp;Selected Frames</source>
@@ -35954,24 +24574,10 @@ converting their vector data into Scribus objects.</translation>
     </message>
 </context>
 <context>
-    <name>ScPrintEngine_GDI</name>
-    <message>
-        <source>Printing...</source>
-        <translation type="obsolete">Printing...</translation>
-    </message>
-</context>
-<context>
     <name>ScProgressBar</name>
     <message>
         <source>%1 of %2</source>
         <translation>%1 of %2</translation>
-    </message>
-</context>
-<context>
-    <name>ScWinPrint</name>
-    <message>
-        <source>Printing...</source>
-        <translation type="obsolete">Printing...</translation>
     </message>
 </context>
 <context>
@@ -36005,10 +24611,6 @@ If you save it in this version, it will no longer be readable by older Scribus v
 </context>
 <context>
     <name>Scribus134Format</name>
-    <message>
-        <source>Scribus 1.3.4 Document</source>
-        <translation type="obsolete">Scribus 1.3.4 Document</translation>
-    </message>
     <message>
         <source>Copy #%1 of </source>
         <translation>Copy #%1 of </translation>
@@ -36053,14 +24655,6 @@ If you save it in this version, it will no longer be readable by older Scribus v
 </context>
 <context>
     <name>Scribus150Format</name>
-    <message>
-        <source>Scribus 1.3.4+ File Format Support</source>
-        <translation type="obsolete">Scribus 1.3.4+ File Format Support</translation>
-    </message>
-    <message>
-        <source>Allows Scribus to read Scribus 1.3.4 and higher formatted files.</source>
-        <translation type="obsolete">Allows Scribus to read Scribus 1.3.4 and higher formatted files.</translation>
-    </message>
     <message>
         <source>Scribus 1.5.0+ Document</source>
         <translation>Scribus 1.5.0+ Document</translation>
@@ -36132,10 +24726,6 @@ If you save it in this version, it will no longer be readable by older Scribus v
         <translation>Background</translation>
     </message>
     <message>
-        <source>Do you really want to clear all your text?</source>
-        <translation type="obsolete">Do you really want to clear all your text?</translation>
-    </message>
-    <message>
         <source>Cannot Delete In-Use Item</source>
         <translation>Cannot Delete In-Use Item</translation>
     </message>
@@ -36172,14 +24762,6 @@ Vertical gap: %3</translation>
         <translation>Adjusting Colours</translation>
     </message>
     <message>
-        <source>Default Paragraph Style</source>
-        <translation type="obsolete">Default Paragraph Style</translation>
-    </message>
-    <message>
-        <source>Default Character Style</source>
-        <translation type="obsolete">Default Character Style</translation>
-    </message>
-    <message>
         <source>remove direct paragraph formatting</source>
         <translation>remove direct paragraph formatting</translation>
     </message>
@@ -36200,10 +24782,6 @@ Rotation: %4</translation>
     <message>
         <source>Group%1</source>
         <translation>Group%1</translation>
-    </message>
-    <message>
-        <source>Copy_of_</source>
-        <translation type="obsolete">Copy_of_</translation>
     </message>
     <message>
         <source>Imported </source>
@@ -36230,32 +24808,12 @@ Rotation: %4</translation>
         <translation>Initialising Story Editor</translation>
     </message>
     <message>
-        <source>Initializing Hyphenator</source>
-        <translation type="obsolete">Initialising Hyphenator</translation>
-    </message>
-    <message>
         <source>Reading Scrapbook</source>
         <translation>Reading Scrapbook</translation>
     </message>
     <message>
-        <source>Setting up Shortcuts</source>
-        <translation type="obsolete">Setting up Shortcuts</translation>
-    </message>
-    <message>
-        <source>File</source>
-        <translation type="obsolete">File</translation>
-    </message>
-    <message>
-        <source>Edit</source>
-        <translation type="obsolete">Edit</translation>
-    </message>
-    <message>
         <source>Fatal Error</source>
         <translation>Fatal Error</translation>
-    </message>
-    <message>
-        <source>&amp;File</source>
-        <translation type="obsolete">&amp;File</translation>
     </message>
     <message>
         <source>Open &amp;Recent</source>
@@ -36268,38 +24826,6 @@ Rotation: %4</translation>
     <message>
         <source>&amp;Export</source>
         <translation>&amp;Export</translation>
-    </message>
-    <message>
-        <source>&amp;Edit</source>
-        <translation type="obsolete">&amp;Edit</translation>
-    </message>
-    <message>
-        <source>St&amp;yle</source>
-        <translation type="obsolete">St&amp;yle</translation>
-    </message>
-    <message>
-        <source>&amp;Color</source>
-        <translation type="obsolete">&amp;Colour</translation>
-    </message>
-    <message>
-        <source>&amp;Size</source>
-        <translation type="obsolete">&amp;Size</translation>
-    </message>
-    <message>
-        <source>&amp;Shade</source>
-        <translation type="obsolete">&amp;Shade</translation>
-    </message>
-    <message>
-        <source>&amp;Font</source>
-        <translation type="obsolete">&amp;Font</translation>
-    </message>
-    <message>
-        <source>&amp;Effects</source>
-        <translation type="obsolete">&amp;Effects</translation>
-    </message>
-    <message>
-        <source>&amp;Item</source>
-        <translation type="obsolete">&amp;Item</translation>
     </message>
     <message>
         <source>Preview Settings</source>
@@ -36318,64 +24844,12 @@ Rotation: %4</translation>
         <translation>&amp;PDF Options</translation>
     </message>
     <message>
-        <source>&amp;Shape</source>
-        <translation type="obsolete">&amp;Shape</translation>
-    </message>
-    <message>
         <source>C&amp;onvert To</source>
         <translation>C&amp;onvert To</translation>
     </message>
     <message>
-        <source>I&amp;nsert</source>
-        <translation type="obsolete">I&amp;nsert</translation>
-    </message>
-    <message>
-        <source>Character</source>
-        <translation type="obsolete">Character</translation>
-    </message>
-    <message>
-        <source>Quote</source>
-        <translation type="obsolete">Quote</translation>
-    </message>
-    <message>
-        <source>Space</source>
-        <translation type="obsolete">Space</translation>
-    </message>
-    <message>
-        <source>&amp;Page</source>
-        <translation type="obsolete">&amp;Page</translation>
-    </message>
-    <message>
-        <source>&amp;View</source>
-        <translation type="obsolete">&amp;View</translation>
-    </message>
-    <message>
-        <source>E&amp;xtras</source>
-        <translation type="obsolete">E&amp;xtras</translation>
-    </message>
-    <message>
-        <source>&amp;Windows</source>
-        <translation type="obsolete">&amp;Windows</translation>
-    </message>
-    <message>
-        <source>&amp;Help</source>
-        <translation type="obsolete">&amp;Help</translation>
-    </message>
-    <message>
-        <source>&amp;Alignment</source>
-        <translation type="obsolete">&amp;Alignment</translation>
-    </message>
-    <message>
         <source>Ready</source>
         <translation>Ready</translation>
-    </message>
-    <message>
-        <source>1 Object selected</source>
-        <translation type="obsolete">1 Object selected</translation>
-    </message>
-    <message>
-        <source>%1 Objects selected</source>
-        <translation type="obsolete">%1 Objects selected</translation>
     </message>
     <message>
         <source>Open</source>
@@ -36474,14 +24948,6 @@ Rotation: %4</translation>
         <translation>Scribus Manual</translation>
     </message>
     <message>
-        <source>Save as</source>
-        <translation type="obsolete">Save as</translation>
-    </message>
-    <message>
-        <source>Text Files (*.txt);;All Files(*)</source>
-        <translation>Text Files (*.txt);;All Files(*)</translation>
-    </message>
-    <message>
         <source>&amp;Size:</source>
         <translation>&amp;Size:</translation>
     </message>
@@ -36498,22 +24964,10 @@ Rotation: %4</translation>
         <translation>Shade</translation>
     </message>
     <message>
-        <source>No Style</source>
-        <translation type="obsolete">No Style</translation>
-    </message>
-    <message>
         <source>An error occurred while opening monitor profile.
 Former monitor profile will be used.</source>
         <translation>An error occurred while opening monitor profile.
 Former monitor profile will be used.</translation>
-    </message>
-    <message>
-        <source>The following programs are missing:</source>
-        <translation type="obsolete">The following programs are missing:</translation>
-    </message>
-    <message>
-        <source>Ghostscript : You cannot use EPS images or Print Preview</source>
-        <translation type="obsolete">Ghostscript : You cannot use EPS images or Print Preview</translation>
     </message>
     <message>
         <source>All</source>
@@ -36544,26 +24998,6 @@ Consider using the Preflight Verifier to correct them</translation>
         <translation>&amp;Lock All</translation>
     </message>
     <message>
-        <source>Ghostscript is not installed on your system, or Scribus is not configured with the path to the software.</source>
-        <translation>Ghostscript is not installed on your system, or Scribus is not configured with the path to the software.</translation>
-    </message>
-    <message>
-        <source>Until this is remedied, you cannot import EPS images or use Print Preview. </source>
-        <translation>Until this is remedied, you cannot import EPS images or use Print Preview. </translation>
-    </message>
-    <message>
-        <source>Until this is remedied, you cannot import EPS images or use PostScript Print Preview. </source>
-        <translation>Until this is remedied, you cannot import EPS images or use PostScript Print Preview. </translation>
-    </message>
-    <message>
-        <source>Please read our &lt;a href=&quot;http://wiki.scribus.net/index.php/Ghostscript&quot;&gt;help and installation instructions&lt;/a&gt;.</source>
-        <translation type="obsolete">Please read our &lt;a href=&quot;http://wiki.scribus.net/index.php/Ghostscript&quot;&gt;help and installation instructions&lt;/a&gt;.</translation>
-    </message>
-    <message>
-        <source>Ghostscript is missing</source>
-        <translation>Ghostscript is missing</translation>
-    </message>
-    <message>
         <source>Locate your PDF viewer</source>
         <translation>Locate your PDF viewer</translation>
     </message>
@@ -36584,50 +25018,6 @@ Consider using the Preflight Verifier to correct them</translation>
         <translation>The program %1 is missing!</translation>
     </message>
     <message>
-        <source>The selected color does not exist in the document&apos;s color set. Please enter a name for this new color.</source>
-        <translation type="obsolete">The selected colour does not exist in the document&apos;s colour set. Please enter a name for this new colour.</translation>
-    </message>
-    <message>
-        <source>Color Not Found</source>
-        <translation type="obsolete">Colour Not Found</translation>
-    </message>
-    <message>
-        <source>The name you have selected already exists. Please enter a different name for this new color.</source>
-        <translation type="obsolete">The name you have selected already exists. Please enter a different name for this new colour.</translation>
-    </message>
-    <message>
-        <source>&amp;Level</source>
-        <translation type="obsolete">&amp;Level</translation>
-    </message>
-    <message>
-        <source>Send to Layer</source>
-        <translation type="obsolete">Send to Layer</translation>
-    </message>
-    <message>
-        <source>Previe&amp;w Settings</source>
-        <translation type="obsolete">Previe&amp;w Settings</translation>
-    </message>
-    <message>
-        <source>&amp;Tools</source>
-        <translation type="obsolete">&amp;Tools</translation>
-    </message>
-    <message>
-        <source>X-Pos:</source>
-        <translation>X-Pos:</translation>
-    </message>
-    <message>
-        <source>Y-Pos:</source>
-        <translation>Y-Pos:</translation>
-    </message>
-    <message>
-        <source>Ghostscript : You cannot use EPS images or PostScript Print Preview</source>
-        <translation type="obsolete">Ghostscript : You cannot use EPS images or PostScript Print Preview</translation>
-    </message>
-    <message>
-        <source>Ghostscript is missing : Postscript Print Preview is not available</source>
-        <translation type="obsolete">Ghostscript is missing : Postscript Print Preview is not available</translation>
-    </message>
-    <message>
         <source>Do you really want to replace your existing image?</source>
         <translation>Do you really want to replace your existing image?</translation>
     </message>
@@ -36644,20 +25034,12 @@ Consider using the Preflight Verifier to correct them</translation>
         <translation>&amp;Quote</translation>
     </message>
     <message>
-        <source>S&amp;paces &amp;&amp; Breaks</source>
-        <translation>S&amp;paces &amp;&amp; Breaks</translation>
-    </message>
-    <message>
         <source>Liga&amp;ture</source>
         <translation>Liga&amp;ture</translation>
     </message>
     <message>
         <source>Paste Recent</source>
         <translation>Paste Recent</translation>
-    </message>
-    <message>
-        <source>Updating Pictures</source>
-        <translation type="obsolete">Updating Pictures</translation>
     </message>
     <message>
         <source>Documents (*.sla *.sla.gz);;All Files (*)</source>
@@ -36670,10 +25052,6 @@ Consider using the Preflight Verifier to correct them</translation>
     <message>
         <source>Scribus </source>
         <translation type="unfinished">Scribus </translation>
-    </message>
-    <message>
-        <source>Online &amp;Tutorials</source>
-        <translation type="obsolete">Online &amp;Tutorials</translation>
     </message>
     <message>
         <source>Some color profiles used by this document are not installed:</source>
@@ -36725,19 +25103,7 @@ Consider using the Preflight Verifier to correct them</translation>
         <translation>This document is already in use.You&apos;ll be switched into its window now.</translation>
     </message>
     <message>
-        <source>Send to Scrapbook</source>
-        <translation type="obsolete">Send to Scrapbook</translation>
-    </message>
-    <message>
         <source>The file may be damaged or may have been produced in a later version of Scribus.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Click the Help button to read Scribus-related Ghostscript help and installation instructions.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Click here to leave symbol edit mode.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -36749,59 +25115,11 @@ Consider using the Preflight Verifier to correct them</translation>
         <translation type="unfinished">Close</translation>
     </message>
     <message>
-        <source>Table</source>
-        <translation type="obsolete">Table</translation>
-    </message>
-    <message>
         <source>Unknown</source>
         <translation type="unfinished">Unknown</translation>
     </message>
     <message>
-        <source>Image Frame</source>
-        <translation type="obsolete">Image Frame</translation>
-    </message>
-    <message>
-        <source>Text Frame</source>
-        <translation type="obsolete">Text Frame</translation>
-    </message>
-    <message>
-        <source>Line</source>
-        <translation type="obsolete">Line</translation>
-    </message>
-    <message>
-        <source>Polygon</source>
-        <translation type="obsolete">Polygon</translation>
-    </message>
-    <message>
-        <source>Polyline</source>
-        <translation type="obsolete">Polyline</translation>
-    </message>
-    <message>
-        <source>Symbol</source>
-        <translation type="obsolete">Symbol</translation>
-    </message>
-    <message>
-        <source>Group</source>
-        <translation type="obsolete">Group</translation>
-    </message>
-    <message>
-        <source>Arc</source>
-        <translation type="obsolete">Arc</translation>
-    </message>
-    <message>
-        <source>Spiral</source>
-        <translation type="obsolete">Spiral</translation>
-    </message>
-    <message>
         <source>%1 Objects selected, Selection Size = %2 x %3</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Click here to leave inline frame edit mode.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Editing Inline Frame</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -36815,10 +25133,6 @@ Consider using the Preflight Verifier to correct them</translation>
     <message>
         <source>Marks</source>
         <translation type="unfinished">Marks</translation>
-    </message>
-    <message>
-        <source>Click here to leave master page edit mode.</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Insert new </source>
@@ -36909,8 +25223,56 @@ Consider using the Preflight Verifier to correct them</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>selected, Size</source>
+        <source>S&amp;paces / Breaks</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> %</source>
+        <translation type="unfinished"> %</translation>
+    </message>
+    <message>
+        <source>X:</source>
+        <translation type="unfinished">X:</translation>
+    </message>
+    <message>
+        <source>Y:</source>
+        <translation type="unfinished">Y:</translation>
+    </message>
+    <message>
+        <source>%1 Selected</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Text Files (*.txt);;All Files (*)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Editing Inline Item</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Current zoom level</source>
+        <translation type="unfinished">Current zoom level</translation>
+    </message>
+    <message>
+        <source>Zoom to 100%</source>
+        <translation type="unfinished">Zoom to 100%</translation>
+    </message>
+    <message>
+        <source>Zoom out by the stepping value in Tools preferences</source>
+        <translation type="unfinished">Zoom out by the stepping value in Tools preferences</translation>
+    </message>
+    <message>
+        <source>Zoom in by the stepping value in Tools preferences</source>
+        <translation type="unfinished">Zoom in by the stepping value in Tools preferences</translation>
+    </message>
+    <message>
+        <source>Select the current layer</source>
+        <translation type="unfinished">Select the current layer</translation>
+    </message>
+    <message>
+        <source>Select the current unit</source>
+        <translation type="unfinished">Select the current unit</translation>
     </message>
 </context>
 <context>
@@ -37031,10 +25393,6 @@ Consider using the Preflight Verifier to correct them</translation>
 <context>
     <name>ScribusView</name>
     <message>
-        <source> %</source>
-        <translation> %</translation>
-    </message>
-    <message>
         <source>Copy Here</source>
         <translation>Copy Here</translation>
     </message>
@@ -37047,22 +25405,6 @@ Consider using the Preflight Verifier to correct them</translation>
         <translation>Cancel</translation>
     </message>
     <message>
-        <source>&amp;Paste</source>
-        <translation type="obsolete">&amp;Paste</translation>
-    </message>
-    <message>
-        <source>File: </source>
-        <translation type="obsolete">File </translation>
-    </message>
-    <message>
-        <source>Original PPI: </source>
-        <translation type="obsolete">Original PPI: </translation>
-    </message>
-    <message>
-        <source>Actual PPI: </source>
-        <translation type="obsolete">Actual PPI: </translation>
-    </message>
-    <message>
         <source>Print: </source>
         <translation>Print: </translation>
     </message>
@@ -37073,30 +25415,6 @@ Consider using the Preflight Verifier to correct them</translation>
     <message>
         <source>Disabled</source>
         <translation>Disabled</translation>
-    </message>
-    <message>
-        <source>In&amp;fo</source>
-        <translation>In&amp;fo</translation>
-    </message>
-    <message>
-        <source>&amp;PDF Options</source>
-        <translation>&amp;PDF Options</translation>
-    </message>
-    <message>
-        <source>Send to La&amp;yer</source>
-        <translation>Send to La&amp;yer</translation>
-    </message>
-    <message>
-        <source>Le&amp;vel</source>
-        <translation>Le&amp;vel</translation>
-    </message>
-    <message>
-        <source>Conve&amp;rt to</source>
-        <translation>Conve&amp;rt to</translation>
-    </message>
-    <message>
-        <source>&amp;Delete</source>
-        <translation type="obsolete">&amp;Delete</translation>
     </message>
     <message>
         <source>Linking Text Frames</source>
@@ -37115,40 +25433,6 @@ Consider using the Preflight Verifier to correct them</translation>
         <translation>Page %1 to %2</translation>
     </message>
     <message>
-        <source>Colorspace: </source>
-        <translation type="obsolete">Colourspace: </translation>
-    </message>
-    <message>
-        <source>Unknown</source>
-        <translation type="obsolete">Unknown</translation>
-    </message>
-    <message>
-        <source>Contents</source>
-        <translation>Contents</translation>
-    </message>
-    <message>
-        <source>Paste Recent</source>
-        <translation>Paste Recent</translation>
-    </message>
-    <message>
-        <source>Group%1</source>
-        <translation type="obsolete">Group%1</translation>
-    </message>
-    <message>
-        <source>Enables the Preview Mode</source>
-        <translation type="obsolete">Enables the Preview Mode</translation>
-    </message>
-    <message>
-        <source>Here you can select the visual appearance of the display
-You can choose between normal and several color blindness forms</source>
-        <translation type="obsolete">Here you can select the visual appearance of the display
-You can choose between normal and several colour blindness forms</translation>
-    </message>
-    <message>
-        <source>Switches Color Management on or off</source>
-        <translation type="obsolete">Switches Colour Management on or off</translation>
-    </message>
-    <message>
         <source>Preview Mode</source>
         <translation>Preview Mode</translation>
     </message>
@@ -37161,84 +25445,8 @@ You can choose between normal and several colour blindness forms</translation>
         <translation>Enter Object Size</translation>
     </message>
     <message>
-        <source>No Image Loaded</source>
-        <translation type="obsolete">No Image Loaded</translation>
-    </message>
-    <message>
         <source>You are trying to link a frame to itself.</source>
         <translation>You are trying to link a frame to itself.</translation>
-    </message>
-    <message>
-        <source>You are trying to link a frame which is already linked.</source>
-        <translation type="obsolete">You are trying to link a frame which is already linked.</translation>
-    </message>
-    <message>
-        <source>Page: </source>
-        <translation type="obsolete">Page: </translation>
-    </message>
-    <message>
-        <source>Pages: </source>
-        <translation type="obsolete">Pages: </translation>
-    </message>
-    <message>
-        <source>Enable/disable Color Management</source>
-        <translation>Enable/disable Colour Management</translation>
-    </message>
-    <message>
-        <source>Enable/disable the Preview Mode</source>
-        <translation>Enable/disable the Preview Mode</translation>
-    </message>
-    <message>
-        <source>Select the visual appearance of the display. You can choose between normal and several color blindness forms</source>
-        <translation>Select the visual appearance of the display. You can choose between normal and several colour blindness forms</translation>
-    </message>
-    <message>
-        <source>Configure CMS...</source>
-        <translation>Configure CMS...</translation>
-    </message>
-    <message>
-        <source>Zoom to 100%</source>
-        <translation>Zoom to 100%</translation>
-    </message>
-    <message>
-        <source>Zoom out by the stepping value in Tools preferences</source>
-        <translation>Zoom out by the stepping value in Tools preferences</translation>
-    </message>
-    <message>
-        <source>Zoom in by the stepping value in Tools preferences</source>
-        <translation>Zoom in by the stepping value in Tools preferences</translation>
-    </message>
-    <message>
-        <source>Current zoom level</source>
-        <translation>Current zoom level</translation>
-    </message>
-    <message>
-        <source>Select the current layer</source>
-        <translation>Select the current layer</translation>
-    </message>
-    <message>
-        <source>Select the current unit</source>
-        <translation>Select the current unit</translation>
-    </message>
-    <message>
-        <source>High</source>
-        <translation>High</translation>
-    </message>
-    <message>
-        <source>Normal</source>
-        <translation>Normal</translation>
-    </message>
-    <message>
-        <source>Low</source>
-        <translation>Low</translation>
-    </message>
-    <message>
-        <source>Select the image preview quality</source>
-        <translation>Select the image preview quality</translation>
-    </message>
-    <message>
-        <source>Send to Scrapbook</source>
-        <translation type="obsolete">Send to Scrapbook</translation>
     </message>
     <message>
         <source>You are trying to link a non-empty frame to frame which is already linked.</source>
@@ -37249,31 +25457,7 @@ You can choose between normal and several colour blindness forms</translation>
         <translation type="unfinished">End Edit</translation>
     </message>
     <message>
-        <source>Enable/disable editing the Preview Mode</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Click here to leave this special edit mode.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Insert Mark</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Locking</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Send to</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Scrapbook</source>
-        <translation type="unfinished">Scrapbook</translation>
-    </message>
-    <message>
-        <source>&amp;Paste Here</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -37568,10 +25752,6 @@ You can choose between normal and several colour blindness forms</translation>
         <translation>Text</translation>
     </message>
     <message>
-        <source>Paragraph Style</source>
-        <translation type="obsolete">Paragraph Style</translation>
-    </message>
-    <message>
         <source>Font</source>
         <translation>Font</translation>
     </message>
@@ -37841,10 +26021,6 @@ You can choose between normal and several colour blindness forms</translation>
         <source>No Style</source>
         <translation>No Style</translation>
     </message>
-    <message>
-        <source>Edit Styles...</source>
-        <translation type="obsolete">Edit Styles...</translation>
-    </message>
 </context>
 <context>
     <name>SmlPlug</name>
@@ -38041,10 +26217,6 @@ You can choose between normal and several colour blindness forms</translation>
         <translation>Select &amp;All</translation>
     </message>
     <message>
-        <source>&amp;Edit Styles...</source>
-        <translation type="obsolete">&amp;Edit Styles...</translation>
-    </message>
-    <message>
         <source>File</source>
         <translation>File</translation>
     </message>
@@ -38067,10 +26239,6 @@ You can choose between normal and several colour blindness forms</translation>
     <message>
         <source>&amp;Settings</source>
         <translation>&amp;Settings</translation>
-    </message>
-    <message>
-        <source>&amp;Smart text selection</source>
-        <translation type="obsolete">&amp;Smart text selection</translation>
     </message>
     <message>
         <source>&amp;Insert Glyph...</source>
@@ -38115,6 +26283,10 @@ You can choose between normal and several colour blindness forms</translation>
     <message>
         <source>Space</source>
         <translation>Space</translation>
+    </message>
+    <message>
+        <source>Text Files (*.txt);;All Files (*)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -38209,10 +26381,6 @@ You can choose between normal and several colour blindness forms</translation>
     <message>
         <source>Clone</source>
         <translation type="unfinished">Clone</translation>
-    </message>
-    <message>
-        <source>Send to Scrapbook</source>
-        <translation type="obsolete">Send to Scrapbook</translation>
     </message>
     <message>
         <source>Delete</source>
@@ -38428,1285 +26596,10 @@ You can choose between normal and several colour blindness forms</translation>
     </message>
 </context>
 <context>
-    <name>TOCIndexPrefs</name>
-    <message>
-        <source>None</source>
-        <translation type="obsolete">None</translation>
-    </message>
-    <message>
-        <source>Table of Contents and Indexes</source>
-        <translation type="obsolete">Table of Contents and Indexes</translation>
-    </message>
-    <message>
-        <source>Table Of Contents</source>
-        <translation type="obsolete">Table Of Contents</translation>
-    </message>
-    <message>
-        <source>&amp;Add</source>
-        <translation type="obsolete">&amp;Add</translation>
-    </message>
-    <message>
-        <source>Alt+A</source>
-        <translation type="obsolete">Alt+A</translation>
-    </message>
-    <message>
-        <source>&amp;Delete</source>
-        <translation type="obsolete">&amp;Delete</translation>
-    </message>
-    <message>
-        <source>Alt+D</source>
-        <translation type="obsolete">Alt+D</translation>
-    </message>
-    <message>
-        <source>Item Attribute Name:</source>
-        <translation type="obsolete">Item Attribute Name:</translation>
-    </message>
-    <message>
-        <source>Destination Frame:</source>
-        <translation type="obsolete">Destination Frame:</translation>
-    </message>
-    <message>
-        <source>At the beginning</source>
-        <translation type="obsolete">At the beginning</translation>
-    </message>
-    <message>
-        <source>At the end</source>
-        <translation type="obsolete">At the end</translation>
-    </message>
-    <message>
-        <source>Not Shown</source>
-        <translation type="obsolete">Not Shown</translation>
-    </message>
-    <message>
-        <source>The frame the table of contents will be placed into</source>
-        <translation type="obsolete">The frame the table of contents will be placed into</translation>
-    </message>
-    <message>
-        <source>Page Numbers Placed:</source>
-        <translation type="obsolete">Page Numbers Placed:</translation>
-    </message>
-    <message>
-        <source>The Item Attribute that will be set on frames used as a basis for creation of the entries</source>
-        <translation type="obsolete">The Item Attribute that will be set on frames used as a basis for creation of the entries</translation>
-    </message>
-    <message>
-        <source>Place page numbers of the entries at the beginning or the end of the line, or not at all</source>
-        <translation type="obsolete">Place page numbers of the entries at the beginning or the end of the line, or not at all</translation>
-    </message>
-    <message>
-        <source>List Non-Printing Entries</source>
-        <translation type="obsolete">List Non-Printing Entries</translation>
-    </message>
-    <message>
-        <source>Include frames that are set to not print as well</source>
-        <translation type="obsolete">Include frames that are set to not print as well</translation>
-    </message>
-    <message>
-        <source>The paragraph style used for the entry lines</source>
-        <translation type="obsolete">The paragraph style used for the entry lines</translation>
-    </message>
-    <message>
-        <source>Paragraph Style:</source>
-        <translation type="obsolete">Paragraph Style:</translation>
-    </message>
-    <message>
-        <source>Table of Contents %1</source>
-        <translation type="obsolete">Table of Contents %1</translation>
-    </message>
-    <message>
-        <source>Page Number Placement:</source>
-        <translation type="obsolete">Page Number Placement:</translation>
-    </message>
-    <message>
-        <source>Beginning</source>
-        <translation type="obsolete">Beginning</translation>
-    </message>
-    <message>
-        <source>End</source>
-        <translation type="obsolete">End</translation>
-    </message>
-</context>
-<context>
-    <name>TabCheckDoc</name>
-    <message>
-        <source>Ignore all errors</source>
-        <translation type="obsolete">Ignore all errors</translation>
-    </message>
-    <message>
-        <source>Automatic check before printing or exporting</source>
-        <translation type="obsolete">Automatic check before printing or exporting</translation>
-    </message>
-    <message>
-        <source>Check for missing glyphs</source>
-        <translation type="obsolete">Check for missing glyphs</translation>
-    </message>
-    <message>
-        <source>Check for overflow in text frames</source>
-        <translation type="obsolete">Check for overflow in text frames</translation>
-    </message>
-    <message>
-        <source>Check for missing images</source>
-        <translation type="obsolete">Check for missing images</translation>
-    </message>
-    <message>
-        <source>Check image resolution</source>
-        <translation type="obsolete">Check image resolution</translation>
-    </message>
-    <message>
-        <source>Lowest allowed resolution</source>
-        <translation type="obsolete">Lowest allowed resolution</translation>
-    </message>
-    <message>
-        <source> dpi</source>
-        <translation type="obsolete"> dpi</translation>
-    </message>
-    <message>
-        <source>Check for placed PDF Files</source>
-        <translation type="obsolete">Check for placed PDF Files</translation>
-    </message>
-    <message>
-        <source>Check for PDF Annotations and Fields</source>
-        <translation type="obsolete">Check for PDF Annotations and Fields</translation>
-    </message>
-    <message>
-        <source>Check for Visible/Printable Mismatch in Layers</source>
-        <translation type="obsolete">Check for Visible/Printable Mismatch in Layers</translation>
-    </message>
-    <message>
-        <source>Add Profile</source>
-        <translation type="obsolete">Add Profile</translation>
-    </message>
-    <message>
-        <source>Remove Profile</source>
-        <translation type="obsolete">Remove Profile</translation>
-    </message>
-    <message>
-        <source>Highest allowed resolution</source>
-        <translation type="obsolete">Highest allowed resolution</translation>
-    </message>
-    <message>
-        <source>Check for GIF images</source>
-        <translation type="obsolete">Check for GIF images</translation>
-    </message>
-    <message>
-        <source>Ignore non-printable Layers</source>
-        <translation type="obsolete">Ignore non-printable Layers</translation>
-    </message>
-    <message>
-        <source>Check for items not on a page</source>
-        <translation type="obsolete">Check for items not on a page</translation>
-    </message>
-    <message>
-        <source>Check for used transparencies</source>
-        <translation type="obsolete">Check for used transparencies</translation>
-    </message>
-</context>
-<context>
-    <name>TabDisplay</name>
-    <message>
-        <source>Color for paper</source>
-        <translation type="obsolete">Colour for paper</translation>
-    </message>
-    <message>
-        <source>Mask the area outside the margins in the margin color</source>
-        <translation type="obsolete">Mask the area outside the margins in the margin colour</translation>
-    </message>
-    <message>
-        <source>Enable or disable  the display of linked frames.</source>
-        <translation type="obsolete">Enable or disable  the display of linked frames.</translation>
-    </message>
-    <message>
-        <source>Display non-printing characters such as paragraph markers in text frames</source>
-        <translation type="obsolete">Display non-printing characters such as paragraph markers in text frames</translation>
-    </message>
-    <message>
-        <source>Turns the display of frames on or off</source>
-        <translation type="obsolete">Turns the display of frames on or off</translation>
-    </message>
-    <message>
-        <source>Turns the display of layer indicators on or off</source>
-        <translation type="obsolete">Turns the display of layer indicators on or off</translation>
-    </message>
-    <message>
-        <source>Turns the display of pictures on or off</source>
-        <translation type="obsolete">Turns the display of pictures on or off</translation>
-    </message>
-    <message>
-        <source>Defines amount of space left of the document canvas available as a pasteboard for creating and modifying elements and dragging them onto the active page</source>
-        <translation type="obsolete">Defines amount of space left of the document canvas available as a pasteboard for creating and modifying elements and dragging them onto the active page</translation>
-    </message>
-    <message>
-        <source>Defines amount of space right of the document canvas available as a pasteboard for creating and modifying elements and dragging them onto the active page</source>
-        <translation type="obsolete">Defines amount of space right of the document canvas available as a pasteboard for creating and modifying elements and dragging them onto the active page</translation>
-    </message>
-    <message>
-        <source>Defines amount of space above the document canvas available as a pasteboard for creating and modifying elements and dragging them onto the active page</source>
-        <translation type="obsolete">Defines amount of space above the document canvas available as a pasteboard for creating and modifying elements and dragging them onto the active page</translation>
-    </message>
-    <message>
-        <source>Defines amount of space below the document canvas available as a pasteboard for creating and modifying elements and dragging them onto the active page</source>
-        <translation type="obsolete">Defines amount of space below the document canvas available as a pasteboard for creating and modifying elements and dragging them onto the active page</translation>
-    </message>
-    <message>
-        <source>Set the default zoom level</source>
-        <translation type="obsolete">Set the default zoom level</translation>
-    </message>
-    <message>
-        <source>Place a ruler against your screen and drag the slider to set the zoom level so Scribus will display your pages and objects on them at the correct size</source>
-        <translation type="obsolete">Place a ruler against your screen and drag the slider to set the zoom level so Scribus will display your pages and objects on them at the correct size</translation>
-    </message>
-    <message>
-        <source>TabDisplayBase</source>
-        <translation type="obsolete">TabDisplayBase</translation>
-    </message>
-    <message>
-        <source>General</source>
-        <translation type="obsolete">General</translation>
-    </message>
-    <message>
-        <source>Adjust Display Size</source>
-        <translation type="obsolete">Adjust Display Size</translation>
-    </message>
-    <message>
-        <source>Scale%</source>
-        <translation type="obsolete">Scale%</translation>
-    </message>
-    <message>
-        <source>To adjust the display drag the ruler below with the slider.</source>
-        <translation type="obsolete">To adjust the display drag the ruler below with the slider.</translation>
-    </message>
-    <message>
-        <source>Gaps Between Pages</source>
-        <translation type="obsolete">Gaps Between Pages</translation>
-    </message>
-    <message>
-        <source>Vertical:</source>
-        <translation type="obsolete">Vertical:</translation>
-    </message>
-    <message>
-        <source>Horizontal:</source>
-        <translation type="obsolete">Horizontal:</translation>
-    </message>
-    <message>
-        <source>Scratch Space</source>
-        <translation type="obsolete">Scratch Space</translation>
-    </message>
-    <message>
-        <source>&amp;Bottom:</source>
-        <translation type="obsolete">&amp;Bottom:</translation>
-    </message>
-    <message>
-        <source>&amp;Top:</source>
-        <translation type="obsolete">&amp;Top:</translation>
-    </message>
-    <message>
-        <source>&amp;Right:</source>
-        <translation type="obsolete">&amp;Right:</translation>
-    </message>
-    <message>
-        <source>&amp;Left:</source>
-        <translation type="obsolete">&amp;Left:</translation>
-    </message>
-    <message>
-        <source>Page Display</source>
-        <translation type="obsolete">Page Display</translation>
-    </message>
-    <message>
-        <source>Show Bleed Area</source>
-        <translation type="obsolete">Show Bleed Area</translation>
-    </message>
-    <message>
-        <source>Display &amp;Unprintable Area in Margin Color</source>
-        <translation type="obsolete">Display &amp;Unprintable Area in Margin Colour</translation>
-    </message>
-    <message>
-        <source>Alt+U</source>
-        <translation type="obsolete">Alt+U</translation>
-    </message>
-    <message>
-        <source>Show Layer Indicators</source>
-        <translation type="obsolete">Show Layer Indicators</translation>
-    </message>
-    <message>
-        <source>Show Frames</source>
-        <translation type="obsolete">Show Frames</translation>
-    </message>
-    <message>
-        <source>Show Text Chains</source>
-        <translation type="obsolete">Show Text Chains</translation>
-    </message>
-    <message>
-        <source>Rulers Relative to Page</source>
-        <translation type="obsolete">Rulers Relative to Page</translation>
-    </message>
-    <message>
-        <source>Show Text Control Characters</source>
-        <translation type="obsolete">Show Text Control Characters</translation>
-    </message>
-    <message>
-        <source>Show Pictures</source>
-        <translation type="obsolete">Show Pictures</translation>
-    </message>
-    <message>
-        <source>Colors</source>
-        <translation type="obsolete">Colours</translation>
-    </message>
-    <message>
-        <source>Pages:</source>
-        <translation type="obsolete">Pages:</translation>
-    </message>
-    <message>
-        <source>Selected Page Border:</source>
-        <translation type="obsolete">Selected Page Border:</translation>
-    </message>
-    <message>
-        <source>Fill Color:</source>
-        <translation type="obsolete">Fill Colour:</translation>
-    </message>
-    <message>
-        <source>Frames</source>
-        <translation type="obsolete">Frames</translation>
-    </message>
-    <message>
-        <source>Grouped:</source>
-        <translation type="obsolete">Grouped:</translation>
-    </message>
-    <message>
-        <source>Annotation:</source>
-        <translation type="obsolete">Annotation:</translation>
-    </message>
-    <message>
-        <source>Selected:</source>
-        <translation type="obsolete">Selected:</translation>
-    </message>
-    <message>
-        <source>Linked:</source>
-        <translation type="obsolete">Linked:</translation>
-    </message>
-    <message>
-        <source>Locked:</source>
-        <translation type="obsolete">Locked:</translation>
-    </message>
-    <message>
-        <source>Normal:</source>
-        <translation type="obsolete">Normal:</translation>
-    </message>
-    <message>
-        <source>Text:</source>
-        <translation type="obsolete">Text:</translation>
-    </message>
-    <message>
-        <source>Control Characters:</source>
-        <translation type="obsolete">Control Characters:</translation>
-    </message>
-    <message>
-        <source>Turns the display of images on or off</source>
-        <translation type="obsolete">Turns the display of images on or off</translation>
-    </message>
-    <message>
-        <source>Show Images</source>
-        <translation type="obsolete">Show Images</translation>
-    </message>
-    <message>
-        <source> dpi</source>
-        <translation type="obsolete"> dpi</translation>
-    </message>
-    <message>
-        <source>Resets the scale to the default dpi of your display</source>
-        <translation type="obsolete">Resets the scale to the default dpi of your display</translation>
-    </message>
-    <message>
-        <source>Turns the page shadow on or off</source>
-        <translation type="obsolete">Turns the page shadow on or off</translation>
-    </message>
-    <message>
-        <source>Show Page Shadow</source>
-        <translation type="obsolete">Show Page Shadow</translation>
-    </message>
-</context>
-<context>
-    <name>TabDocument</name>
-    <message>
-        <source>Page Size</source>
-        <translation type="obsolete">Page Size</translation>
-    </message>
-    <message>
-        <source>&amp;Size:</source>
-        <translation type="obsolete">&amp;Size:</translation>
-    </message>
-    <message>
-        <source>Portrait</source>
-        <translation type="obsolete">Portrait</translation>
-    </message>
-    <message>
-        <source>Landscape</source>
-        <translation type="obsolete">Landscape</translation>
-    </message>
-    <message>
-        <source>Orie&amp;ntation:</source>
-        <translation type="obsolete">Orie&amp;ntation:</translation>
-    </message>
-    <message>
-        <source>Units:</source>
-        <translation type="obsolete">Units:</translation>
-    </message>
-    <message>
-        <source>&amp;Width:</source>
-        <translation type="obsolete">&amp;Width:</translation>
-    </message>
-    <message>
-        <source>&amp;Height:</source>
-        <translation type="obsolete">&amp;Height:</translation>
-    </message>
-    <message>
-        <source>Margin Guides</source>
-        <translation type="obsolete">Margin Guides</translation>
-    </message>
-    <message>
-        <source>Autosave</source>
-        <translation type="obsolete">Autosave</translation>
-    </message>
-    <message>
-        <source>min</source>
-        <translation type="obsolete">min</translation>
-    </message>
-    <message>
-        <source>&amp;Interval:</source>
-        <translation type="obsolete">&amp;Interval:</translation>
-    </message>
-    <message>
-        <source>Undo/Redo</source>
-        <translation type="obsolete">Undo/Redo</translation>
-    </message>
-    <message>
-        <source>Action history length</source>
-        <translation type="obsolete">Action history length</translation>
-    </message>
-    <message>
-        <source>Width of document pages, editable if you have chosen a custom page size</source>
-        <translation type="obsolete">Width of document pages, editable if you have chosen a custom page size</translation>
-    </message>
-    <message>
-        <source>Height of document pages, editable if you have chosen a custom page size</source>
-        <translation type="obsolete">Height of document pages, editable if you have chosen a custom page size</translation>
-    </message>
-    <message>
-        <source>Default page size, either a standard size or a custom size</source>
-        <translation type="obsolete">Default page size, either a standard size or a custom size</translation>
-    </message>
-    <message>
-        <source>Default orientation of document pages</source>
-        <translation type="obsolete">Default orientation of document pages</translation>
-    </message>
-    <message>
-        <source>Default unit of measurement for document editing</source>
-        <translation type="obsolete">Default unit of measurement for document editing</translation>
-    </message>
-    <message>
-        <source>When enabled, Scribus saves a backup copy of your file with the .bak extension each time the time period elapses</source>
-        <translation type="obsolete">When enabled, Scribus saves a backup copy of your file with the .bak extension each time the time period elapses</translation>
-    </message>
-    <message>
-        <source>Time period between saving automatically</source>
-        <translation type="obsolete">Time period between saving automatically</translation>
-    </message>
-    <message>
-        <source>Set the length of the action history in steps. If set to 0 infinite amount of actions will be stored.</source>
-        <translation type="obsolete">Set the length of the action history in steps. If set to 0 infinite amount of actions will be stored.</translation>
-    </message>
-    <message>
-        <source>Apply the page size changes to all existing pages in the document</source>
-        <translation type="obsolete">Apply the page size changes to all existing pages in the document</translation>
-    </message>
-    <message>
-        <source>Apply settings to:</source>
-        <translation type="obsolete">Apply settings to:</translation>
-    </message>
-    <message>
-        <source>All Document Pages</source>
-        <translation type="obsolete">All Document Pages</translation>
-    </message>
-    <message>
-        <source>All Master Pages</source>
-        <translation type="obsolete">All Master Pages</translation>
-    </message>
-    <message>
-        <source>Apply the page size changes to all existing master pages in the document</source>
-        <translation type="obsolete">Apply the page size changes to all existing master pages in the document</translation>
-    </message>
-</context>
-<context>
-    <name>TabExternalToolsWidget</name>
-    <message>
-        <source>Locate Ghostscript</source>
-        <translation type="obsolete">Locate Ghostscript</translation>
-    </message>
-    <message>
-        <source>Locate your image editor</source>
-        <translation type="obsolete">Locate your image editor</translation>
-    </message>
-    <message>
-        <source>Locate your web browser</source>
-        <translation type="obsolete">Locate your web browser</translation>
-    </message>
-    <message>
-        <source>Locate the uniconvertor executable</source>
-        <translation type="obsolete">Locate the uniconvertor executable</translation>
-    </message>
-    <message>
-        <source>Uniconvertor executable not found!</source>
-        <translation type="obsolete">Uniconvertor executable not found!</translation>
-    </message>
-    <message>
-        <source>External Tools</source>
-        <translation type="obsolete">External Tools</translation>
-    </message>
-    <message>
-        <source>Web Browser to launch with links from the Help system</source>
-        <translation type="obsolete">Web Browser to launch with links from the Help system</translation>
-    </message>
-    <message>
-        <source>Web Browser</source>
-        <translation type="obsolete">Web Browser</translation>
-    </message>
-    <message>
-        <source>&amp;Change...</source>
-        <translation type="obsolete">&amp;Change...</translation>
-    </message>
-    <message>
-        <source>Alt+C</source>
-        <translation type="obsolete">Alt+C</translation>
-    </message>
-    <message>
-        <source>&lt;qt&gt;File system location for your web browser. This is used for external links from the Help system.&lt;/qt&gt;</source>
-        <translation type="obsolete">&lt;qt&gt;File system location for your web browser. This is used for external links from the Help system.&lt;/qt&gt;</translation>
-    </message>
-    <message>
-        <source>Name of &amp;Executable:</source>
-        <translation type="obsolete">Name of &amp;Executable:</translation>
-    </message>
-    <message>
-        <source>Image Processing Tool</source>
-        <translation type="obsolete">Image Processing Tool</translation>
-    </message>
-    <message>
-        <source>&lt;qt&gt;File system location for graphics editor. If you use gimp and your distribution includes it, we recommend &apos;gimp-remote&apos;, as it allows you to edit the image in an already running instance of gimp.&lt;/qt&gt;</source>
-        <translation type="obsolete">&lt;qt&gt;File system location for graphics editor. If you use gimp and your distribution includes it, we recommend &apos;gimp-remote&apos;, as it allows you to edit the image in an already running instance of gimp.&lt;/qt&gt;</translation>
-    </message>
-    <message>
-        <source>PostScript Interpreter</source>
-        <translation type="obsolete">PostScript Interpreter</translation>
-    </message>
-    <message>
-        <source>Antialias text for EPS and PDF onscreen rendering</source>
-        <translation type="obsolete">Antialias text for EPS and PDF onscreen rendering</translation>
-    </message>
-    <message>
-        <source>Antialias &amp;Text</source>
-        <translation type="obsolete">Antialias &amp;Text</translation>
-    </message>
-    <message>
-        <source>Alt+T</source>
-        <translation type="obsolete">Alt+T</translation>
-    </message>
-    <message>
-        <source>Antialias graphics for EPS and PDF onscreen rendering</source>
-        <translation type="obsolete">Antialias graphics for EPS and PDF onscreen rendering</translation>
-    </message>
-    <message>
-        <source>Antialias &amp;Graphics</source>
-        <translation type="obsolete">Antialias &amp;Graphics</translation>
-    </message>
-    <message>
-        <source>Alt+G</source>
-        <translation type="obsolete">Alt+G</translation>
-    </message>
-    <message>
-        <source>Resolution:</source>
-        <translation type="obsolete">Resolution:</translation>
-    </message>
-    <message>
-        <source> dpi</source>
-        <translation type="obsolete"> dpi</translation>
-    </message>
-    <message>
-        <source>&amp;Name of Executable:</source>
-        <translation type="obsolete">&amp;Name of Executable:</translation>
-    </message>
-    <message>
-        <source>&lt;qt&gt;Add the path for the Ghostscript interpreter. On Windows, please note it is important to note you need to use the program named gswin32c.exe - NOT gswin32.exe. Otherwise, this maybe cause a hang when starting Scribus.&lt;/qt&gt;</source>
-        <translation type="obsolete">&lt;qt&gt;Add the path for the Ghostscript interpreter. On Windows, please note it is important to note you need to use the program named gswin32c.exe - NOT gswin32.exe. Otherwise, this maybe cause a hang when starting Scribus.&lt;/qt&gt;</translation>
-    </message>
-    <message>
-        <source>Uniconvertor</source>
-        <translation type="obsolete">Uniconvertor</translation>
-    </message>
-    <message>
-        <source>Rescan for the external tools if they do not exist in the already specified location</source>
-        <translation type="obsolete">Rescan for the external tools if they do not exist in the already specified location</translation>
-    </message>
-    <message>
-        <source>&amp;Rescan</source>
-        <translation type="obsolete">&amp;Rescan</translation>
-    </message>
-    <message>
-        <source>Alt+R</source>
-        <translation type="obsolete">Alt+R</translation>
-    </message>
-    <message>
-        <source>Locate your LaTeX executable</source>
-        <translation type="obsolete">Locate your LaTeX executable</translation>
-    </message>
-    <message>
-        <source>Locate your LaTeX editor</source>
-        <translation type="obsolete">Locate your LaTeX editor</translation>
-    </message>
-    <message>
-        <source>LaTeX</source>
-        <translation type="obsolete">LaTeX</translation>
-    </message>
-    <message>
-        <source>&lt;qt&gt;Path to LaTeX executable. Must be a program that produces one of the formats supported by image frames!&lt;/qt&gt;</source>
-        <translation type="obsolete">&lt;qt&gt;Path to LaTeX executable. Must be a program that produces one of the formats supported by image frames!&lt;/qt&gt;</translation>
-    </message>
-    <message>
-        <source>Output file extension:</source>
-        <translation type="obsolete">Output file extension:</translation>
-    </message>
-    <message>
-        <source>Start with empty frame</source>
-        <translation type="obsolete">Start with empty frame</translation>
-    </message>
-    <message>
-        <source>Always use the configured DPI setting for calculating the size, even if the image file reports something different.</source>
-        <translation type="obsolete">Always use the configured DPI setting for calculating the size, even if the image file reports something different.</translation>
-    </message>
-    <message>
-        <source>Force DPI</source>
-        <translation type="obsolete">Force DPI</translation>
-    </message>
-    <message>
-        <source>Latex Editor:</source>
-        <translation type="obsolete">Latex Editor:</translation>
-    </message>
-    <message>
-        <source>&lt;qt&gt;Path to the editor executable.&lt;/qt&gt;</source>
-        <translation type="obsolete">&lt;qt&gt;Path to the editor executable.&lt;/qt&gt;</translation>
-    </message>
-    <message>
-        <source>Use Embedded Editor</source>
-        <translation type="obsolete">Use Embedded Editor</translation>
-    </message>
-    <message>
-        <source>Preamble:</source>
-        <translation type="obsolete">Preamble:</translation>
-    </message>
-    <message>
-        <source>End:</source>
-        <translation type="obsolete">End:</translation>
-    </message>
-    <message>
-        <source>Locate a Configuration file</source>
-        <translation type="obsolete">Locate a Configuration file</translation>
-    </message>
-    <message>
-        <source>Configuration files</source>
-        <translation type="obsolete">Configuration files</translation>
-    </message>
-    <message>
-        <source>Configurations:</source>
-        <translation type="obsolete">Configurations:</translation>
-    </message>
-    <message>
-        <source>Up</source>
-        <translation type="obsolete">Up</translation>
-    </message>
-    <message>
-        <source>Down</source>
-        <translation type="obsolete">Down</translation>
-    </message>
-    <message>
-        <source>Delete</source>
-        <translation type="obsolete">Delete</translation>
-    </message>
-    <message>
-        <source>Locate your editor</source>
-        <translation type="obsolete">Locate your editor</translation>
-    </message>
-    <message>
-        <source>Render Frames</source>
-        <translation type="obsolete">Render Frames</translation>
-    </message>
-    <message>
-        <source>External Editor:</source>
-        <translation type="obsolete">External Editor:</translation>
-    </message>
-    <message>
-        <source>Add...</source>
-        <translation type="obsolete">Add...</translation>
-    </message>
-    <message>
-        <source>Change Path...</source>
-        <translation type="obsolete">Change Path...</translation>
-    </message>
-    <message>
-        <source>Change Command</source>
-        <translation type="obsolete">Change Command</translation>
-    </message>
-    <message>
-        <source>Enter new command: (leave empty to reset to default command; use quotes around arguments with spaces)</source>
-        <translation type="obsolete">Enter new command: (leave empty to reset to default command; use quotes around arguments with spaces)</translation>
-    </message>
-    <message>
-        <source>Command: </source>
-        <translation type="obsolete">Command: </translation>
-    </message>
-    <message>
-        <source>Change Command...</source>
-        <translation type="obsolete">Change Command...</translation>
-    </message>
-</context>
-<context>
-    <name>TabGeneral</name>
-    <message>
-        <source>Select your default language for Scribus to run with. Leave this blank to choose based on environment variables. You can still override this by passing a command line option when starting Scribus</source>
-        <translation type="obsolete">Select your default language for Scribus to run with. Leave this blank to choose based on environment variables. You can still override this by passing a command line option when starting Scribus</translation>
-    </message>
-    <message>
-        <source>Number of recently edited documents to show in the File menu</source>
-        <translation type="obsolete">Number of recently edited documents to show in the File menu</translation>
-    </message>
-    <message>
-        <source>Number of lines Scribus will scroll for each move of the mouse wheel</source>
-        <translation type="obsolete">Number of lines Scribus will scroll for each move of the mouse wheel</translation>
-    </message>
-    <message>
-        <source>Choose the default window decoration and looks. Scribus inherits any available KDE or Qt themes, if Qt is configured to search KDE plugins.</source>
-        <translation type="obsolete">Choose the default window decoration and looks. Scribus inherits any available KDE or Qt themes, if Qt is configured to search KDE plugins.</translation>
-    </message>
-    <message>
-        <source>Default font size for the menus and windows</source>
-        <translation type="obsolete">Default font size for the menus and windows</translation>
-    </message>
-    <message>
-        <source>Default font size for the tool windows</source>
-        <translation type="obsolete">Default font size for the tool windows</translation>
-    </message>
-    <message>
-        <source>Default documents directory</source>
-        <translation type="obsolete">Default documents directory</translation>
-    </message>
-    <message>
-        <source>Default ICC profiles directory. This cannot be changed with a document open. By default, Scribus will look in the System Directories under Mac OSX and Windows. On Linux and Unix, Scribus will search $home/.color/icc,/usr/share/color/icc and /usr/local/share/color/icc </source>
-        <translation type="obsolete">Default ICC profiles directory. This cannot be changed with a document open. By default, Scribus will look in the System Directories under Mac OSX and Windows. On Linux and Unix, Scribus will search $home/.color/icc,/usr/share/color/icc and /usr/local/share/color/icc </translation>
-    </message>
-    <message>
-        <source>Default Scripter scripts directory</source>
-        <translation type="obsolete">Default Scripter scripts directory</translation>
-    </message>
-    <message>
-        <source>Additional directory for document templates</source>
-        <translation type="obsolete">Additional directory for document templates</translation>
-    </message>
-    <message>
-        <source>Choose a Directory</source>
-        <translation type="obsolete">Choose a Directory</translation>
-    </message>
-    <message>
-        <source>TabGeneralBase</source>
-        <translation type="obsolete">TabGeneralBase</translation>
-    </message>
-    <message>
-        <source>User Interface</source>
-        <translation type="obsolete">User Interface</translation>
-    </message>
-    <message>
-        <source>&amp;Recent Documents:</source>
-        <translation type="obsolete">&amp;Recent Documents:</translation>
-    </message>
-    <message>
-        <source>&amp;Wheel Jump:</source>
-        <translation type="obsolete">&amp;Wheel Jump:</translation>
-    </message>
-    <message>
-        <source>Show Splashscreen on Startup</source>
-        <translation type="obsolete">Show Splashscreen on Startup</translation>
-    </message>
-    <message>
-        <source>Show Startup Dialog</source>
-        <translation type="obsolete">Show Startup Dialogue</translation>
-    </message>
-    <message>
-        <source> pt</source>
-        <translation type="obsolete"> pt</translation>
-    </message>
-    <message>
-        <source>&amp;Font Size (Menus):</source>
-        <translation type="obsolete">&amp;Font Size (Menus):</translation>
-    </message>
-    <message>
-        <source>Font Size (&amp;Palettes):</source>
-        <translation type="obsolete">Font Size (&amp;Palettes):</translation>
-    </message>
-    <message>
-        <source>Time before a Move or Resize starts:</source>
-        <translation type="obsolete">Time before a Move or Resize starts:</translation>
-    </message>
-    <message>
-        <source> ms</source>
-        <translation type="obsolete"> ms</translation>
-    </message>
-    <message>
-        <source>&amp;Theme:</source>
-        <translation type="obsolete">&amp;Theme:</translation>
-    </message>
-    <message>
-        <source>&amp;Language:</source>
-        <translation type="obsolete">&amp;Language:</translation>
-    </message>
-    <message>
-        <source>Use Tabs for Documents</source>
-        <translation type="obsolete">Use Tabs for Documents</translation>
-    </message>
-    <message>
-        <source>Paths</source>
-        <translation type="obsolete">Paths</translation>
-    </message>
-    <message>
-        <source>&amp;Change...</source>
-        <translation type="obsolete">&amp;Change...</translation>
-    </message>
-    <message>
-        <source>Alt+C</source>
-        <translation type="obsolete">Alt+C</translation>
-    </message>
-    <message>
-        <source>C&amp;hange...</source>
-        <translation type="obsolete">C&amp;hange...</translation>
-    </message>
-    <message>
-        <source>Alt+H</source>
-        <translation type="obsolete">Alt+H</translation>
-    </message>
-    <message>
-        <source>&amp;Scripts:</source>
-        <translation type="obsolete">&amp;Scripts:</translation>
-    </message>
-    <message>
-        <source>Cha&amp;nge...</source>
-        <translation type="obsolete">Cha&amp;nge...</translation>
-    </message>
-    <message>
-        <source>Alt+N</source>
-        <translation type="obsolete">Alt+N</translation>
-    </message>
-    <message>
-        <source>&amp;ICC Profiles:</source>
-        <translation type="obsolete">&amp;ICC Profiles:</translation>
-    </message>
-    <message>
-        <source>&amp;Documents:</source>
-        <translation type="obsolete">&amp;Documents:</translation>
-    </message>
-    <message>
-        <source>Document &amp;Templates:</source>
-        <translation type="obsolete">Document &amp;Templates:</translation>
-    </message>
-    <message>
-        <source>Ch&amp;ange...</source>
-        <translation type="obsolete">Ch&amp;ange...</translation>
-    </message>
-    <message>
-        <source>Alt+A</source>
-        <translation type="obsolete">Alt+A</translation>
-    </message>
-    <message>
-        <source>Palette windows will use smaller (space savy) widgets. Requires application restart</source>
-        <translation type="obsolete">Palette windows will use smaller (space savy) widgets. Requires application restart</translation>
-    </message>
-    <message>
-        <source>Use Small Widgets in Palettes</source>
-        <translation type="obsolete">Use Small Widgets in Palettes</translation>
-    </message>
-</context>
-<context>
-    <name>TabGuides</name>
-    <message>
-        <source>Common Settings</source>
-        <translation type="obsolete">Common Settings</translation>
-    </message>
-    <message>
-        <source>Placing in Documents</source>
-        <translation type="obsolete">Placing in Documents</translation>
-    </message>
-    <message>
-        <source>In the Background</source>
-        <translation type="obsolete">In the Background</translation>
-    </message>
-    <message>
-        <source>In the Foreground</source>
-        <translation type="obsolete">In the Foreground</translation>
-    </message>
-    <message>
-        <source>Snapping</source>
-        <translation type="obsolete">Snapping</translation>
-    </message>
-    <message>
-        <source>Snap Distance:</source>
-        <translation type="obsolete">Snap Distance:</translation>
-    </message>
-    <message>
-        <source>Grab Radius:</source>
-        <translation type="obsolete">Grab Radius:</translation>
-    </message>
-    <message>
-        <source> px</source>
-        <translation type="obsolete"> px</translation>
-    </message>
-    <message>
-        <source>Show Guides</source>
-        <translation type="obsolete">Show Guides</translation>
-    </message>
-    <message>
-        <source>Color:</source>
-        <translation type="obsolete">Colour:</translation>
-    </message>
-    <message>
-        <source>Show Margins</source>
-        <translation type="obsolete">Show Margins</translation>
-    </message>
-    <message>
-        <source>Show Page Grid</source>
-        <translation type="obsolete">Show Page Grid</translation>
-    </message>
-    <message>
-        <source>Major Grid</source>
-        <translation type="obsolete">Major Grid</translation>
-    </message>
-    <message>
-        <source>Spacing:</source>
-        <translation type="obsolete">Spacing:</translation>
-    </message>
-    <message>
-        <source>Minor Grid</source>
-        <translation type="obsolete">Minor Grid</translation>
-    </message>
-    <message>
-        <source>Show Baseline Grid</source>
-        <translation type="obsolete">Show Baseline Grid</translation>
-    </message>
-    <message>
-        <source>Baseline Settings</source>
-        <translation type="obsolete">Baseline Settings</translation>
-    </message>
-    <message>
-        <source>Baseline &amp;Grid:</source>
-        <translation type="obsolete">Baseline &amp;Grid:</translation>
-    </message>
-    <message>
-        <source>Baseline &amp;Offset:</source>
-        <translation type="obsolete">Baseline &amp;Offset:</translation>
-    </message>
-    <message>
-        <source>Distance between the minor grid lines</source>
-        <translation type="obsolete">Distance between the minor grid lines</translation>
-    </message>
-    <message>
-        <source>Distance between the major grid lines</source>
-        <translation type="obsolete">Distance between the major grid lines</translation>
-    </message>
-    <message>
-        <source>Distance within which an object will snap to your placed guides</source>
-        <translation type="obsolete">Distance within which an object will snap to your placed guides</translation>
-    </message>
-    <message>
-        <source>Radius of the area where Scribus will allow you to grab an objects handles</source>
-        <translation type="obsolete">Radius of the area where Scribus will allow you to grab an objects handles</translation>
-    </message>
-    <message>
-        <source>Color of the minor grid lines</source>
-        <translation type="obsolete">Colour of the minor grid lines</translation>
-    </message>
-    <message>
-        <source>Color of the major grid lines</source>
-        <translation type="obsolete">Colour of the major grid lines</translation>
-    </message>
-    <message>
-        <source>Color of the guide lines you insert</source>
-        <translation type="obsolete">Colour of the guide lines you insert</translation>
-    </message>
-    <message>
-        <source>Color for the margin lines</source>
-        <translation type="obsolete">Colour for the margin lines</translation>
-    </message>
-    <message>
-        <source>Color for the baseline grid</source>
-        <translation type="obsolete">Colour for the baseline grid</translation>
-    </message>
-    <message>
-        <source>Turns the basegrid on or off</source>
-        <translation type="obsolete">Turns the basegrid on or off</translation>
-    </message>
-    <message>
-        <source>Turns the gridlines on or off</source>
-        <translation type="obsolete">Turns the gridlines on or off</translation>
-    </message>
-    <message>
-        <source>Turns the guides on or off</source>
-        <translation type="obsolete">Turns the guides on or off</translation>
-    </message>
-    <message>
-        <source>Turns the margins on or off</source>
-        <translation type="obsolete">Turns the margins on or off</translation>
-    </message>
-    <message>
-        <source>Guides are not visible through objects on the page</source>
-        <translation type="obsolete">Guides are not visible through objects on the page</translation>
-    </message>
-    <message>
-        <source>Guides are visible above all objects on the page</source>
-        <translation type="obsolete">Guides are visible above all objects on the page</translation>
-    </message>
-    <message>
-        <source>Distance between the lines of the baseline grid</source>
-        <translation type="obsolete">Distance between the lines of the baseline grid</translation>
-    </message>
-    <message>
-        <source>Distance from the top of the page for the first baseline</source>
-        <translation type="obsolete">Distance from the top of the page for the first baseline</translation>
-    </message>
-    <message>
-        <source>px</source>
-        <translation type="obsolete">px</translation>
-    </message>
-    <message>
-        <source>Distance within which an object will snap to your placed guides. After setting this you will need to restart Scribus to set this setting.</source>
-        <translation type="obsolete">Distance within which an object will snap to your placed guides. After setting this you will need to restart Scribus to set this setting.</translation>
-    </message>
-    <message>
-        <source>Radius of the area where Scribus will allow you to grab an objects handles.After setting this you will need to restart Scribus to set this setting.</source>
-        <translation type="obsolete">Radius of the area where Scribus will allow you to grab an objects handles.After setting this you will need to restart Scribus to set this setting.</translation>
-    </message>
-</context>
-<context>
-    <name>TabKeyboardShortcutsWidget</name>
-    <message>
-        <source>Key Set XML Files (*.ksxml)</source>
-        <translation type="obsolete">Key Set XML Files (*.ksxml)</translation>
-    </message>
-    <message>
-        <source>Alt</source>
-        <translation type="obsolete">Alt</translation>
-    </message>
-    <message>
-        <source>Ctrl</source>
-        <translation type="obsolete">Ctrl</translation>
-    </message>
-    <message>
-        <source>Shift</source>
-        <translation type="obsolete">Shift</translation>
-    </message>
-    <message>
-        <source>Meta</source>
-        <translation type="obsolete">Meta</translation>
-    </message>
-    <message>
-        <source>Meta+</source>
-        <translation type="obsolete">Meta+</translation>
-    </message>
-    <message>
-        <source>Shift+</source>
-        <translation type="obsolete">Shift+</translation>
-    </message>
-    <message>
-        <source>Alt+</source>
-        <translation type="obsolete">Alt+</translation>
-    </message>
-    <message>
-        <source>Ctrl+</source>
-        <translation type="obsolete">Ctrl+</translation>
-    </message>
-    <message>
-        <source>This key sequence is already in use</source>
-        <translation type="obsolete">This key sequence is already in use</translation>
-    </message>
-    <message>
-        <source>Keyboard Shortcuts</source>
-        <translation type="obsolete">Keyboard Shortcuts</translation>
-    </message>
-    <message>
-        <source>Action</source>
-        <translation type="obsolete">Action</translation>
-    </message>
-    <message>
-        <source>Shortcut</source>
-        <translation type="obsolete">Shortcut</translation>
-    </message>
-    <message>
-        <source>Search:</source>
-        <translation type="obsolete">Search:</translation>
-    </message>
-    <message>
-        <source>Shortcut for Selected Action</source>
-        <translation type="obsolete">Shortcut for Selected Action</translation>
-    </message>
-    <message>
-        <source>CTRL+ALT+SHIFT+W</source>
-        <translation type="obsolete">CTRL+ALT+SHIFT+W</translation>
-    </message>
-    <message>
-        <source>Set &amp;Key</source>
-        <translation type="obsolete">Set &amp;Key</translation>
-    </message>
-    <message>
-        <source>Alt+K</source>
-        <translation type="obsolete">Alt+K</translation>
-    </message>
-    <message>
-        <source>&amp;User Defined Key</source>
-        <translation type="obsolete">&amp;User Defined Key</translation>
-    </message>
-    <message>
-        <source>Alt+U</source>
-        <translation type="obsolete">Alt+U</translation>
-    </message>
-    <message>
-        <source>&amp;No Key</source>
-        <translation type="obsolete">&amp;No Key</translation>
-    </message>
-    <message>
-        <source>Alt+N</source>
-        <translation type="obsolete">Alt+N</translation>
-    </message>
-    <message>
-        <source>Loadable Shortcut Sets</source>
-        <translation type="obsolete">Loadable Shortcut Sets</translation>
-    </message>
-    <message>
-        <source>Reload the default Scribus shortcuts</source>
-        <translation type="obsolete">Reload the default Scribus shortcuts</translation>
-    </message>
-    <message>
-        <source>&amp;Reset</source>
-        <translation type="obsolete">&amp;Reset</translation>
-    </message>
-    <message>
-        <source>Alt+R</source>
-        <translation type="obsolete">Alt+R</translation>
-    </message>
-    <message>
-        <source>Export the current shortcuts into an importable file</source>
-        <translation type="obsolete">Export the current shortcuts into an importable file</translation>
-    </message>
-    <message>
-        <source>&amp;Export...</source>
-        <translation type="obsolete">&amp;Export...</translation>
-    </message>
-    <message>
-        <source>Alt+E</source>
-        <translation type="obsolete">Alt+E</translation>
-    </message>
-    <message>
-        <source>Import a shortcut set into the current configuration</source>
-        <translation type="obsolete">Import a shortcut set into the current configuration</translation>
-    </message>
-    <message>
-        <source>&amp;Import...</source>
-        <translation type="obsolete">&amp;Import...</translation>
-    </message>
-    <message>
-        <source>Alt+I</source>
-        <translation type="obsolete">Alt+I</translation>
-    </message>
-    <message>
-        <source>Load the selected shortcut set</source>
-        <translation type="obsolete">Load the selected shortcut set</translation>
-    </message>
-    <message>
-        <source>&amp;Load</source>
-        <translation type="obsolete">&amp;Load</translation>
-    </message>
-    <message>
-        <source>Alt+L</source>
-        <translation type="obsolete">Alt+L</translation>
-    </message>
-    <message>
-        <source>Keyboard shortcut sets available to load</source>
-        <translation type="obsolete">Keyboard shortcut sets available to load</translation>
-    </message>
-    <message>
-        <source>Choose a file to read</source>
-        <translation type="obsolete">Choose a file to read</translation>
-    </message>
-    <message>
-        <source>Choose a file to save</source>
-        <translation type="obsolete">Choose a file to save</translation>
-    </message>
-    <message>
-        <source>Export Keyboard Shortcuts to File</source>
-        <translation type="obsolete">Export Keyboard Shortcuts to File</translation>
-    </message>
-    <message>
-        <source>Enter the name of the shortcut set:</source>
-        <translation type="obsolete">Enter the name of the shortcut set:</translation>
-    </message>
-    <message>
-        <source>Select a Key set file to read</source>
-        <translation type="obsolete">Select a Key set file to read</translation>
-    </message>
-    <message>
-        <source>Key Set XML Files (*.xml)</source>
-        <translation type="obsolete">Key Set XML Files (*.xml)</translation>
-    </message>
-    <message>
-        <source>Select a Key set file to save to</source>
-        <translation type="obsolete">Select a Key set file to save to</translation>
-    </message>
-</context>
-<context>
     <name>TabManager</name>
     <message>
         <source>Manage Tabulators</source>
         <translation>Manage Tabulators</translation>
-    </message>
-</context>
-<context>
-    <name>TabMiscellaneous</name>
-    <message>
-        <source>Lorem Ipsum</source>
-        <translation type="obsolete">Lorem Ipsum</translation>
-    </message>
-    <message>
-        <source>Count of the Paragraphs:</source>
-        <translation type="obsolete">Count of the Paragraphs:</translation>
-    </message>
-    <message>
-        <source>Always use standard Lorem Ipsum</source>
-        <translation type="obsolete">Always use standard Lorem Ipsum</translation>
-    </message>
-    <message>
-        <source>Preview of current Paragraph Style visible when editing Styles</source>
-        <translation type="obsolete">Preview of current Paragraph Style visible when editing Styles</translation>
-    </message>
-    <message>
-        <source>Always ask before fonts are replaced when loading a document</source>
-        <translation type="obsolete">Always ask before fonts are replaced when loading a document</translation>
-    </message>
-    <message>
-        <source>Default number of paragraphs for sample text insertion</source>
-        <translation type="obsolete">Default number of paragraphs for sample text insertion</translation>
-    </message>
-    <message>
-        <source>Always use the typical Latin-based Lorem Ipsum text for sample text</source>
-        <translation type="obsolete">Always use the typical Latin-based Lorem Ipsum text for sample text</translation>
-    </message>
-    <message>
-        <source>Show a preview by default when editing styles</source>
-        <translation type="obsolete">Show a preview by default when editing styles</translation>
-    </message>
-    <message>
-        <source>Allow Scribus to automatically replace fonts when they are missing when opening a document</source>
-        <translation type="obsolete">Allow Scribus to automatically replace fonts when they are missing when opening a document</translation>
     </message>
 </context>
 <context>
@@ -39940,10 +26833,6 @@ You can choose between normal and several colour blindness forms</translation>
         <translation>Top-left to Bottom-Right</translation>
     </message>
     <message>
-        <source>&amp;Apply Effect on all Pages</source>
-        <translation type="obsolete">&amp;Apply Effect on all Pages</translation>
-    </message>
-    <message>
         <source>E&amp;xtras</source>
         <translation>E&amp;xtras</translation>
     </message>
@@ -40052,10 +26941,6 @@ You can choose between normal and several colour blindness forms</translation>
         <translation>Profile:</translation>
     </message>
     <message>
-        <source>Rendering-Intent:</source>
-        <translation type="obsolete">Rendering-Intent:</translation>
-    </message>
-    <message>
         <source>Perceptual</source>
         <translation>Perceptual</translation>
     </message>
@@ -40078,10 +26963,6 @@ You can choose between normal and several colour blindness forms</translation>
     <message>
         <source>C&amp;olor</source>
         <translation>C&amp;olour</translation>
-    </message>
-    <message>
-        <source>PDF/X-3 Output Intent</source>
-        <translation type="obsolete">PDF/X-3 Output Intent</translation>
     </message>
     <message>
         <source>&amp;Info String:</source>
@@ -40264,16 +27145,8 @@ You can choose between normal and several colour blindness forms</translation>
         <translation>Enable the security features in your exported PDF. If you selected PDF 1.3, the PDF will be protected by 40 bit encryption. If you selected PDF 1.4, the PDF will be protected by 128 bit encryption. Disclaimer: PDF encryption is not as reliable as GPG or PGP encryption and does have some limitations.</translation>
     </message>
     <message>
-        <source>Choose a master password which enables or disables all the security features in your exported PDF</source>
-        <translation>Choose a master password which enables or disables all the security features in your exported PDF</translation>
-    </message>
-    <message>
         <source>This is an advanced setting which is not enabled by default. This should only be enabled when specifically requested by your printer and they have given you the exact details needed. Otherwise, your exported PDF may not print properly and is truly not portable across systems.</source>
         <translation>This is an advanced setting which is not enabled by default. This should only be enabled when specifically requested by your printer and they have given you the exact details needed. Otherwise, your exported PDF may not print properly and is truly not portable across systems.</translation>
-    </message>
-    <message>
-        <source>Mandatory string for PDF/X-3 or the PDF will fail PDF/X-3 conformance. We recommend you use the title of the document.</source>
-        <translation type="obsolete">Mandatory string for PDF/X-3 or the PDF will fail PDF/X-3 conformance. We recommend you use the title of the document.</translation>
     </message>
     <message>
         <source>Display Settings</source>
@@ -40344,20 +27217,12 @@ You can choose between normal and several colour blindness forms</translation>
         <translation>Viewer</translation>
     </message>
     <message>
-        <source>Clip to Page Margins</source>
-        <translation type="obsolete">Clip to Page Margins</translation>
-    </message>
-    <message>
         <source>Lossy - JPEG</source>
         <translation>Lossy - JPEG</translation>
     </message>
     <message>
         <source>Lossless - Zip</source>
         <translation>Lossless - Zip</translation>
-    </message>
-    <message>
-        <source>Image Compression Method</source>
-        <translation>Image Compression Method</translation>
     </message>
     <message>
         <source>Javascript to be executed
@@ -40384,18 +27249,6 @@ when PDF document is opened:</translation>
     <message>
         <source>Length of time the page is shown before the presentation starts on the selected page. Setting 0 will disable automatic page transition.</source>
         <translation>Length of time the page is shown before the presentation starts on the selected page. Setting 0 will disable automatic page transition.</translation>
-    </message>
-    <message>
-        <source>Force Overprint Mode</source>
-        <translation type="obsolete">Force Overprint Mode</translation>
-    </message>
-    <message>
-        <source>Enables global Overprint Mode for this document, overrides object settings</source>
-        <translation type="obsolete">Enables global Overprint Mode for this document, overrides object settings</translation>
-    </message>
-    <message>
-        <source>Determines the PDF compatibility.&lt;br/&gt;The default is &lt;b&gt;PDF 1.3&lt;/b&gt; which gives the widest compatibility.&lt;br/&gt;Choose &lt;b&gt;PDF 1.4&lt;/b&gt; if your file uses features such as transparency or you require 128 bit encryption.&lt;br/&gt;&lt;b&gt;PDF 1.5&lt;/b&gt; is necessary when you wish to preserve objects in separate layers within the PDF.&lt;br/&gt;&lt;b&gt;PDF/X-3&lt;/b&gt; is for exporting the PDF when you want color managed RGB for commercial printing and is selectable when you have activated color management. Use only when advised by your printer or in some cases printing to a 4 color digital color laser printer.</source>
-        <translation type="obsolete">Determines the PDF compatibility.&lt;br/&gt;The default is &lt;b&gt;PDF 1.3&lt;/b&gt; which gives the widest compatibility.&lt;br/&gt;Choose &lt;b&gt;PDF 1.4&lt;/b&gt; if your file uses features such as transparency or you require 128 bit encryption.&lt;br/&gt;&lt;b&gt;PDF 1.5&lt;/b&gt; is necessary when you wish to preserve objects in separate layers within the PDF.&lt;br/&gt;&lt;b&gt;PDF/X-3&lt;/b&gt; is for exporting the PDF when you want colour managed RGB for commercial printing and is selectable when you have activated colour management. Use only when advised by your printer or in some cases printing to a 4 colour digital colour laser printer.</translation>
     </message>
     <message>
         <source>Printer Marks</source>
@@ -40633,788 +27486,13 @@ when PDF document is opened:</translation>
         <source>Indicate the size of crops&apos;marks</source>
         <translation type="unfinished"></translation>
     </message>
-</context>
-<context>
-    <name>TabPrinter</name>
     <message>
-        <source>Distance for bleed from the top of the physical page</source>
-        <translation type="obsolete">Distance for bleed from the top of the physical page</translation>
+        <source>Image Quality Settings</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Distance for bleed from the bottom of the physical page</source>
-        <translation type="obsolete">Distance for bleed from the bottom of the physical page</translation>
-    </message>
-    <message>
-        <source>Distance for bleed from the left of the physical page</source>
-        <translation type="obsolete">Distance for bleed from the left of the physical page</translation>
-    </message>
-    <message>
-        <source>Distance for bleed from the right of the physical page</source>
-        <translation type="obsolete">Distance for bleed from the right of the physical page</translation>
-    </message>
-    <message>
-        <source>Do not show objects outside the margins on the printed page</source>
-        <translation type="obsolete">Do not show objects outside the margins on the printed page</translation>
-    </message>
-    <message>
-        <source>Use an alternative print manager, such as kprinter or gtklp, to utilize additional printing options</source>
-        <translation type="obsolete">Use an alternative print manager, such as kprinter or gtklp, to utilize additional printing options</translation>
-    </message>
-    <message>
-        <source>Sets the PostScript Level.
- Setting to Level 1 or 2 can create huge files</source>
-        <translation type="obsolete">Sets the PostScript Level.
- Setting to Level 1 or 2 can create huge files</translation>
-    </message>
-    <message>
-        <source>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis.UCR reduces the possibility of over saturation with CMY inks.</source>
-        <translation type="obsolete">A way of switching off some of the grey shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the grey. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis.UCR reduces the possibility of over saturation with CMY inks.</translation>
-    </message>
-    <message>
-        <source>Enables Spot Colors to be converted to composite colors. Unless you are planning to print spot colors at a commercial printer, this is probably best left enabled.</source>
-        <translation type="obsolete">Enables Spot Colours to be converted to composite colours. Unless you are planning to print spot colours at a commercial printer, this is probably best left enabled.</translation>
-    </message>
-    <message>
-        <source>Enables global Overprint Mode for this document, overrides object settings</source>
-        <translation type="obsolete">Enables global Overprint Mode for this document, overrides object settings</translation>
-    </message>
-    <message>
-        <source>This enables you to explicitely set the media size of the PostScript file. Not recommended unless requested by your printer.</source>
-        <translation type="obsolete">This enables you to explicitely set the media size of the PostScript file. Not recommended unless requested by your printer.</translation>
-    </message>
-    <message>
-        <source>File</source>
-        <translation type="obsolete">File</translation>
-    </message>
-    <message>
-        <source>All</source>
-        <translation type="obsolete">All</translation>
-    </message>
-    <message>
-        <source>TabPrinterBase</source>
-        <translation type="obsolete">TabPrinterBase</translation>
-    </message>
-    <message>
-        <source>Options</source>
-        <translation type="obsolete">Options</translation>
-    </message>
-    <message>
-        <source>Page</source>
-        <translation type="obsolete">Page</translation>
-    </message>
-    <message>
-        <source>Mirror Page(s) Horizontal</source>
-        <translation type="obsolete">Mirror Page(s) Horizontal</translation>
-    </message>
-    <message>
-        <source>Mirror Page(s) Vertical</source>
-        <translation type="obsolete">Mirror Page(s) Vertical</translation>
-    </message>
-    <message>
-        <source>Set Media Size</source>
-        <translation type="obsolete">Set Media Size</translation>
-    </message>
-    <message>
-        <source>Clip to Page Margins</source>
-        <translation type="obsolete">Clip to Page Margins</translation>
-    </message>
-    <message>
-        <source>Postscript Options</source>
-        <translation type="obsolete">Postscript Options</translation>
-    </message>
-    <message>
-        <source>Print in Grayscale</source>
-        <translation type="obsolete">Print in Greyscale</translation>
-    </message>
-    <message>
-        <source>Print in Color if Available</source>
-        <translation type="obsolete">Print in Colour if Available</translation>
-    </message>
-    <message>
-        <source>Level 1</source>
-        <translation type="obsolete">Level 1</translation>
-    </message>
-    <message>
-        <source>Level 2</source>
-        <translation type="obsolete">Level 2</translation>
-    </message>
-    <message>
-        <source>Level 3</source>
-        <translation type="obsolete">Level 3</translation>
-    </message>
-    <message>
-        <source>General</source>
-        <translation type="obsolete">General</translation>
-    </message>
-    <message>
-        <source>Print Separations</source>
-        <translation type="obsolete">Print Separations</translation>
-    </message>
-    <message>
-        <source>Print Normal</source>
-        <translation type="obsolete">Print Normal</translation>
-    </message>
-    <message>
-        <source>Color</source>
-        <translation type="obsolete">Colour</translation>
-    </message>
-    <message>
-        <source>Apply Under Color Removal</source>
-        <translation type="obsolete">Apply Under Colour Removal</translation>
-    </message>
-    <message>
-        <source>Convert Spot Colors to Process Colors</source>
-        <translation type="obsolete">Convert Spot Colours to Process Colours</translation>
-    </message>
-    <message>
-        <source>Force Overprint Mode</source>
-        <translation type="obsolete">Force Overprint Mode</translation>
-    </message>
-    <message>
-        <source>Apply ICC Profiles</source>
-        <translation type="obsolete">Apply ICC Profiles</translation>
-    </message>
-    <message>
-        <source>Marks &amp;&amp; Bleeds</source>
-        <translation type="obsolete">Marks &amp;&amp; Bleeds</translation>
-    </message>
-    <message>
-        <source>Bleed Settings</source>
-        <translation type="obsolete">Bleed Settings</translation>
-    </message>
-    <message>
-        <source>Top:</source>
-        <translation type="obsolete">Top:</translation>
-    </message>
-    <message>
-        <source>Bottom:</source>
-        <translation type="obsolete">Bottom:</translation>
-    </message>
-    <message>
-        <source>Left:</source>
-        <translation type="obsolete">Left:</translation>
-    </message>
-    <message>
-        <source>Right:</source>
-        <translation type="obsolete">Right:</translation>
-    </message>
-    <message>
-        <source>Printer Marks</source>
-        <translation type="obsolete">Printer Marks</translation>
-    </message>
-    <message>
-        <source>Add color calibration bars</source>
-        <translation type="obsolete">Add colour calibration bars</translation>
-    </message>
-    <message>
-        <source>Color Bars</source>
-        <translation type="obsolete">Colour Bars</translation>
-    </message>
-    <message>
-        <source>Offset:</source>
-        <translation type="obsolete">Offset:</translation>
-    </message>
-    <message>
-        <source>Add registration marks which are added to each separation</source>
-        <translation type="obsolete">Add registration marks which are added to each separation</translation>
-    </message>
-    <message>
-        <source>Registration Marks</source>
-        <translation type="obsolete">Registration Marks</translation>
-    </message>
-    <message>
-        <source>This creates bleed marks which are indicated by  _ . _ and show the bleed limit</source>
-        <translation type="obsolete">This creates bleed marks which are indicated by  _ . _ and show the bleed limit</translation>
-    </message>
-    <message>
-        <source>Bleed Marks</source>
-        <translation type="obsolete">Bleed Marks</translation>
-    </message>
-    <message>
-        <source>This creates crop marks in the PDF indicating where the paper should be cut or trimmed after printing</source>
-        <translation type="obsolete">This creates crop marks in the PDF indicating where the paper should be cut or trimmed after printing</translation>
-    </message>
-    <message>
-        <source>Crop Marks</source>
-        <translation type="obsolete">Crop Marks</translation>
-    </message>
-    <message>
-        <source>Print Destination</source>
-        <translation type="obsolete">Print Destination</translation>
-    </message>
-    <message>
-        <source>Alternative Printer Command</source>
-        <translation type="obsolete">Alternative Printer Command</translation>
-    </message>
-    <message>
-        <source>Command:</source>
-        <translation type="obsolete">Command:</translation>
-    </message>
-    <message>
-        <source>Allows you to embed color profiles in the print stream when color management is enabled</source>
-        <translation type="obsolete">Allows you to embed colour profiles in the print stream when colour management is enabled</translation>
-    </message>
-    <message>
-        <source>PostScript Options</source>
-        <translation type="obsolete">PostScript Options</translation>
-    </message>
-    <message>
-        <source>Include PDF Annotations and Links</source>
-        <translation type="obsolete">Include PDF Annotations and Links</translation>
-    </message>
-    <message>
-        <source>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis. UCR reduces the possibility of over saturation with CMY inks.</source>
-        <translation type="obsolete">A way of switching off some of the grey shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the grey. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis. UCR reduces the possibility of over saturation with CMY inks.</translation>
-    </message>
-    <message>
-        <source>Clip to Printer Margins</source>
-        <translation type="obsolete">Clip to Printer Margins</translation>
-    </message>
-</context>
-<context>
-    <name>TabScrapbook</name>
-    <message>
-        <source>This enables the scrapbook to be used an extension to the copy/paste buffers. Simply copying an object or grouped object will send this to the Scrapbook automatically</source>
-        <translation type="obsolete">This enables the scrapbook to be used an extension to the copy/paste buffers. Simply copying an object or grouped object will send this to the Scrapbook automatically</translation>
-    </message>
-    <message>
-        <source>Send Copied Items Automatically to Scrapbook</source>
-        <translation type="obsolete">Send Copied Items Automatically to Scrapbook</translation>
-    </message>
-    <message>
-        <source>This enables copied items to be kept permanently in the scrapbook.</source>
-        <translation type="obsolete">This enables copied items to be kept permanently in the scrapbook.</translation>
-    </message>
-    <message>
-        <source>Keep Copied Items Permanently Across Sessions</source>
-        <translation type="obsolete">Keep Copied Items Permanently Across Sessions</translation>
-    </message>
-    <message>
-        <source>Write Item Previews into the Scrapbook Directory</source>
-        <translation type="obsolete">Write Item Previews into the Scrapbook Directory</translation>
-    </message>
-    <message>
-        <source>The minimum number is 1; the maximum is 100.</source>
-        <translation type="obsolete">The minimum number is 1; the maximum is 100.</translation>
-    </message>
-    <message>
-        <source>The minimum number is 1; the maximum us 100.</source>
-        <translation type="obsolete">The minimum number is 1; the maximum us 100.</translation>
-    </message>
-    <message>
-        <source>Number of Copied Items to Keep in Scrapbook:</source>
-        <translation type="obsolete">Number of Copied Items to Keep in Scrapbook:</translation>
-    </message>
-</context>
-<context>
-    <name>TabTools</name>
-    <message>
-        <source>Font:</source>
-        <translation type="obsolete">Font:</translation>
-    </message>
-    <message>
-        <source> pt</source>
-        <translation type="obsolete"> pt</translation>
-    </message>
-    <message>
-        <source>Size:</source>
-        <translation type="obsolete">Size:</translation>
-    </message>
-    <message>
-        <source>None</source>
-        <translation type="obsolete">None</translation>
-    </message>
-    <message>
-        <source>Fill Color:</source>
-        <translation type="obsolete">Fill Colour:</translation>
-    </message>
-    <message>
-        <source>Stroke Color:</source>
-        <translation type="obsolete">Stroke Colour:</translation>
-    </message>
-    <message>
-        <source>Colu&amp;mns:</source>
-        <translation type="obsolete">Colu&amp;mns:</translation>
-    </message>
-    <message>
-        <source>&amp;Gap:</source>
-        <translation type="obsolete">&amp;Gap:</translation>
-    </message>
-    <message>
-        <source>Woven silk pyjamas exchanged for blue quartz</source>
-        <translation type="obsolete">Woven silk pyjamas exchanged for blue quartz</translation>
-    </message>
-    <message>
-        <source>&amp;Line Color:</source>
-        <translation type="obsolete">&amp;Line Colour:</translation>
-    </message>
-    <message>
-        <source> %</source>
-        <translation type="obsolete"> %</translation>
-    </message>
-    <message>
-        <source>&amp;Shading:</source>
-        <translation type="obsolete">&amp;Shading:</translation>
-    </message>
-    <message>
-        <source>&amp;Fill Color:</source>
-        <translation type="obsolete">&amp;Fill Colour:</translation>
-    </message>
-    <message>
-        <source>S&amp;hading:</source>
-        <translation type="obsolete">S&amp;hading:</translation>
-    </message>
-    <message>
-        <source>Line Style:</source>
-        <translation type="obsolete">Line Style:</translation>
-    </message>
-    <message>
-        <source>Line &amp;Width:</source>
-        <translation type="obsolete">Line &amp;Width:</translation>
-    </message>
-    <message>
-        <source>Line S&amp;tyle:</source>
-        <translation type="obsolete">Line S&amp;tyle:</translation>
-    </message>
-    <message>
-        <source>Arrows:</source>
-        <translation type="obsolete">Arrows:</translation>
-    </message>
-    <message>
-        <source>Start:</source>
-        <translation type="obsolete">Start:</translation>
-    </message>
-    <message>
-        <source>End:</source>
-        <translation type="obsolete">End:</translation>
-    </message>
-    <message>
-        <source>&amp;Free Scaling</source>
-        <translation type="obsolete">&amp;Free Scaling</translation>
-    </message>
-    <message>
-        <source>&amp;Horizontal Scaling:</source>
-        <translation type="obsolete">&amp;Horizontal Scaling:</translation>
-    </message>
-    <message>
-        <source>&amp;Vertical Scaling:</source>
-        <translation type="obsolete">&amp;Vertical Scaling:</translation>
-    </message>
-    <message>
-        <source>&amp;Scale Picture to Frame Size</source>
-        <translation type="obsolete">&amp;Scale Picture to Frame Size</translation>
-    </message>
-    <message>
-        <source>Keep Aspect &amp;Ratio</source>
-        <translation type="obsolete">Keep Aspect &amp;Ratio</translation>
-    </message>
-    <message>
-        <source>F&amp;ill Color:</source>
-        <translation type="obsolete">F&amp;ill Colour:</translation>
-    </message>
-    <message>
-        <source>Use embedded Clipping Path</source>
-        <translation type="obsolete">Use embedded Clipping Path</translation>
-    </message>
-    <message>
-        <source>On Screen Preview</source>
-        <translation type="obsolete">On Screen Preview</translation>
-    </message>
-    <message>
-        <source>Full Resolution Preview</source>
-        <translation type="obsolete">Full Resolution Preview</translation>
-    </message>
-    <message>
-        <source>Normal Resolution Preview</source>
-        <translation type="obsolete">Normal Resolution Preview</translation>
-    </message>
-    <message>
-        <source>Low Resolution Preview</source>
-        <translation type="obsolete">Low Resolution Preview</translation>
-    </message>
-    <message>
-        <source>Mi&amp;nimum:</source>
-        <translation type="obsolete">Mi&amp;nimum:</translation>
-    </message>
-    <message>
-        <source>Ma&amp;ximum:</source>
-        <translation type="obsolete">Ma&amp;ximum:</translation>
-    </message>
-    <message>
-        <source>&amp;Stepping:</source>
-        <translation type="obsolete">&amp;Stepping:</translation>
-    </message>
-    <message>
-        <source>Text Frame Properties</source>
-        <translation type="obsolete">Text Frame Properties</translation>
-    </message>
-    <message>
-        <source>Picture Frame Properties</source>
-        <translation type="obsolete">Picture Frame Properties</translation>
-    </message>
-    <message>
-        <source>Shape Drawing Properties</source>
-        <translation type="obsolete">Shape Drawing Properties</translation>
-    </message>
-    <message>
-        <source>Magnification Level Defaults</source>
-        <translation type="obsolete">Magnification Level Defaults</translation>
-    </message>
-    <message>
-        <source>Line Drawing Properties</source>
-        <translation type="obsolete">Line Drawing Properties</translation>
-    </message>
-    <message>
-        <source>Polygon Drawing Properties</source>
-        <translation type="obsolete">Polygon Drawing Properties</translation>
-    </message>
-    <message>
-        <source>Font for new text frames</source>
-        <translation type="obsolete">Font for new text frames</translation>
-    </message>
-    <message>
-        <source>Size of font for new text frames</source>
-        <translation type="obsolete">Size of font for new text frames</translation>
-    </message>
-    <message>
-        <source>Color of font</source>
-        <translation type="obsolete">Colour of font</translation>
-    </message>
-    <message>
-        <source>Number of columns in a text frame</source>
-        <translation type="obsolete">Number of columns in a text frame</translation>
-    </message>
-    <message>
-        <source>Gap between text frame columns</source>
-        <translation type="obsolete">Gap between text frame columns</translation>
-    </message>
-    <message>
-        <source>Sample of your font</source>
-        <translation type="obsolete">Sample of your font</translation>
-    </message>
-    <message>
-        <source>Picture frames allow pictures to scale to any size</source>
-        <translation type="obsolete">Picture frames allow pictures to scale to any size</translation>
-    </message>
-    <message>
-        <source>Horizontal scaling of images</source>
-        <translation type="obsolete">Horizontal scaling of images</translation>
-    </message>
-    <message>
-        <source>Vertical scaling of images</source>
-        <translation type="obsolete">Vertical scaling of images</translation>
-    </message>
-    <message>
-        <source>Keep horizontal and vertical scaling the same</source>
-        <translation type="obsolete">Keep horizontal and vertical scaling the same</translation>
-    </message>
-    <message>
-        <source>Pictures in picture frames are scaled to the size of the frame</source>
-        <translation type="obsolete">Pictures in picture frames are scaled to the size of the frame</translation>
-    </message>
-    <message>
-        <source>Automatically scaled pictures keep their original proportions</source>
-        <translation type="obsolete">Automatically scaled pictures keep their original proportions</translation>
-    </message>
-    <message>
-        <source>Fill color of picture frames</source>
-        <translation type="obsolete">Fill colour of picture frames</translation>
-    </message>
-    <message>
-        <source>Saturation of color of fill</source>
-        <translation type="obsolete">Saturation of colour of fill</translation>
-    </message>
-    <message>
-        <source>Line color of shapes</source>
-        <translation type="obsolete">Line colour of shapes</translation>
-    </message>
-    <message>
-        <source>Saturation of color of lines</source>
-        <translation type="obsolete">Saturation of colour of lines</translation>
-    </message>
-    <message>
-        <source>Fill color of shapes</source>
-        <translation type="obsolete">Fill colour of shapes</translation>
-    </message>
-    <message>
-        <source>Line style of shapes</source>
-        <translation type="obsolete">Line style of shapes</translation>
-    </message>
-    <message>
-        <source>Line width of shapes</source>
-        <translation type="obsolete">Line width of shapes</translation>
-    </message>
-    <message>
-        <source>Minimum magnification allowed</source>
-        <translation type="obsolete">Minimum magnification allowed</translation>
-    </message>
-    <message>
-        <source>Maximum magnification allowed</source>
-        <translation type="obsolete">Maximum magnification allowed</translation>
-    </message>
-    <message>
-        <source>Change in magnification for each zoom operation</source>
-        <translation type="obsolete">Change in magnification for each zoom operation</translation>
-    </message>
-    <message>
-        <source>Color of lines</source>
-        <translation type="obsolete">Colour of lines</translation>
-    </message>
-    <message>
-        <source>Saturation of color</source>
-        <translation type="obsolete">Saturation of colour</translation>
-    </message>
-    <message>
-        <source>Style of lines</source>
-        <translation type="obsolete">Style of lines</translation>
-    </message>
-    <message>
-        <source>Width of lines</source>
-        <translation type="obsolete">Width of lines</translation>
-    </message>
-    <message>
-        <source>Tab Fill Character:</source>
-        <translation type="obsolete">Tab Fill Character:</translation>
-    </message>
-    <message>
-        <source>Tab Width:</source>
-        <translation type="obsolete">Tab Width:</translation>
-    </message>
-    <message>
-        <source>Text Color:</source>
-        <translation type="obsolete">Text Colour:</translation>
-    </message>
-    <message>
-        <source>Shading:</source>
-        <translation type="obsolete">Shading:</translation>
-    </message>
-    <message>
-        <source>Text Stroke:</source>
-        <translation type="obsolete">Text Stroke:</translation>
-    </message>
-    <message>
-        <source>Dot</source>
-        <translation type="obsolete">Dot</translation>
-    </message>
-    <message>
-        <source>Hyphen</source>
-        <translation type="obsolete">Hyphen</translation>
-    </message>
-    <message>
-        <source>Underscore</source>
-        <translation type="obsolete">Underscore</translation>
-    </message>
-    <message>
-        <source>Custom</source>
-        <translation type="obsolete">Custom</translation>
-    </message>
-    <message>
-        <source>None</source>
-        <comment>tab fill</comment>
-        <translation type="obsolete">None</translation>
-    </message>
-    <message>
-        <source>Text</source>
-        <translation type="obsolete">Text</translation>
-    </message>
-    <message>
-        <source>Shapes</source>
-        <translation type="obsolete">Shapes</translation>
-    </message>
-    <message>
-        <source>Lines</source>
-        <translation type="obsolete">Lines</translation>
-    </message>
-    <message>
-        <source>Images</source>
-        <translation type="obsolete">Images</translation>
-    </message>
-    <message>
-        <source>Regular Polygons</source>
-        <translation type="obsolete">Regular Polygons</translation>
-    </message>
-    <message>
-        <source>Zoom</source>
-        <translation type="obsolete">Zoom</translation>
-    </message>
-    <message>
-        <source>Rotation Tool</source>
-        <translation type="obsolete">Rotation Tool</translation>
-    </message>
-    <message>
-        <source>Constrain to:</source>
-        <translation type="obsolete">Constrain to:</translation>
-    </message>
-    <message>
-        <source>Other Properties</source>
-        <translation type="obsolete">Other Properties</translation>
-    </message>
-    <message>
-        <source>Miscellaneous Settings</source>
-        <translation type="obsolete">Miscellaneous Settings</translation>
-    </message>
-    <message>
-        <source>Item Duplicate</source>
-        <translation type="obsolete">Item Duplicate</translation>
-    </message>
-    <message>
-        <source>X Displacement</source>
-        <translation type="obsolete">X Displacement</translation>
-    </message>
-    <message>
-        <source>Y Displacement</source>
-        <translation type="obsolete">Y Displacement</translation>
-    </message>
-    <message>
-        <source>Horizontal displacement of page items</source>
-        <translation type="obsolete">Horizontal displacement of page items</translation>
-    </message>
-    <message>
-        <source>Vertical displacement of page items</source>
-        <translation type="obsolete">Vertical displacement of page items</translation>
-    </message>
-    <message>
-        <source>Constrain value for the rotation tool when the Control key is pressed</source>
-        <translation type="obsolete">Constrain value for the rotation tool when the Control key is pressed</translation>
-    </message>
-    <message>
-        <source>Degrees</source>
-        <translation type="obsolete">Degrees</translation>
-    </message>
-    <message>
-        <source>Use the embedded clipping paths in images when importing them. JPEG, PSD and TIFF are the image formats which can embedded clipping paths.</source>
-        <translation type="obsolete">Use the embedded clipping paths in images when importing them. JPEG, PSD and TIFF are the image formats which can embedded clipping paths.</translation>
-    </message>
-    <message>
-        <source>&amp;Scale Image to Frame Size</source>
-        <translation type="obsolete">&amp;Scale Image to Frame Size</translation>
-    </message>
-    <message>
-        <source>Image Frame Properties</source>
-        <translation type="obsolete">Image Frame Properties</translation>
-    </message>
-    <message>
-        <source>Image frames allow images to scale to any size</source>
-        <translation type="obsolete">Image frames allow images to scale to any size</translation>
-    </message>
-    <message>
-        <source>Images in image frames are scaled to the size of the frame</source>
-        <translation type="obsolete">Images in image frames are scaled to the size of the frame</translation>
-    </message>
-    <message>
-        <source>Automatically scaled images keep their original proportions</source>
-        <translation type="obsolete">Automatically scaled images keep their original proportions</translation>
-    </message>
-    <message>
-        <source>Fill color of image frames</source>
-        <translation type="obsolete">Fill colour of image frames</translation>
-    </message>
-    <message>
-        <source>Hairline</source>
-        <translation type="obsolete">Hairline</translation>
-    </message>
-</context>
-<context>
-    <name>TabTypograpy</name>
-    <message>
-        <source>Subscript</source>
-        <translation type="obsolete">Subscript</translation>
-    </message>
-    <message>
-        <source> %</source>
-        <translation type="obsolete"> %</translation>
-    </message>
-    <message>
-        <source>&amp;Displacement:</source>
-        <translation type="obsolete">&amp;Displacement:</translation>
-    </message>
-    <message>
-        <source>&amp;Scaling:</source>
-        <translation type="obsolete">&amp;Scaling:</translation>
-    </message>
-    <message>
-        <source>Superscript</source>
-        <translation type="obsolete">Superscript</translation>
-    </message>
-    <message>
-        <source>D&amp;isplacement:</source>
-        <translation type="obsolete">D&amp;isplacement:</translation>
-    </message>
-    <message>
-        <source>S&amp;caling:</source>
-        <translation type="obsolete">S&amp;caling:</translation>
-    </message>
-    <message>
-        <source>Small Caps</source>
-        <translation type="obsolete">Small Caps</translation>
-    </message>
-    <message>
-        <source>Sc&amp;aling:</source>
-        <translation type="obsolete">Sc&amp;aling:</translation>
-    </message>
-    <message>
-        <source>Underline</source>
-        <translation type="obsolete">Underline</translation>
-    </message>
-    <message>
-        <source>Displacement:</source>
-        <translation type="obsolete">Displacement:</translation>
-    </message>
-    <message>
-        <source>Auto</source>
-        <translation type="obsolete">Auto</translation>
-    </message>
-    <message>
-        <source>Line Width:</source>
-        <translation type="obsolete">Line Width:</translation>
-    </message>
-    <message>
-        <source>Strikethru</source>
-        <translation type="obsolete">Strikeout</translation>
-    </message>
-    <message>
-        <source>Automatic &amp;Line Spacing</source>
-        <translation type="obsolete">Automatic &amp;Line Spacing</translation>
-    </message>
-    <message>
-        <source>Line Spacing:</source>
-        <translation type="obsolete">Line Spacing:</translation>
-    </message>
-    <message>
-        <source>Displacement above the baseline of the font on a line</source>
-        <translation type="obsolete">Displacement above the baseline of the font on a line</translation>
-    </message>
-    <message>
-        <source>Relative size of the superscript compared to the normal font</source>
-        <translation type="obsolete">Relative size of the superscript compared to the normal font</translation>
-    </message>
-    <message>
-        <source>Displacement below the baseline of the normal font on a line</source>
-        <translation type="obsolete">Displacement below the baseline of the normal font on a line</translation>
-    </message>
-    <message>
-        <source>Relative size of the subscript compared to the normal font</source>
-        <translation type="obsolete">Relative size of the subscript compared to the normal font</translation>
-    </message>
-    <message>
-        <source>Relative size of the small caps font compared to the normal font</source>
-        <translation type="obsolete">Relative size of the small caps font compared to the normal font</translation>
-    </message>
-    <message>
-        <source>Percentage increase over the font size for the line spacing</source>
-        <translation type="obsolete">Percentage increase over the font size for the line spacing</translation>
-    </message>
-    <message>
-        <source>Displacement below the baseline of the normal font expressed as a percentage of the fonts descender</source>
-        <translation type="obsolete">Displacement below the baseline of the normal font expressed as a percentage of the fonts descender</translation>
-    </message>
-    <message>
-        <source>Line width expressed as a percentage of the font size</source>
-        <translation type="obsolete">Line width expressed as a percentage of the font size</translation>
-    </message>
-    <message>
-        <source>Displacement above the baseline of the normal font expressed as a percentage of the fonts ascender</source>
-        <translation type="obsolete">Displacement above the baseline of the normal font expressed as a percentage of the fonts ascender</translation>
+        <source>Choose an owner password which enables or disables all the security features in your exported PDF</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -41455,10 +27533,6 @@ when PDF document is opened:</translation>
     <message>
         <source>Right</source>
         <translation>Right</translation>
-    </message>
-    <message>
-        <source>Full Stop</source>
-        <translation type="obsolete">Full Stop</translation>
     </message>
     <message>
         <source>Comma</source>
@@ -41615,14 +27689,6 @@ when PDF document is opened:</translation>
         <translation>Remove</translation>
     </message>
     <message>
-        <source>u</source>
-        <translation type="obsolete">u</translation>
-    </message>
-    <message>
-        <source>d</source>
-        <translation type="obsolete">d</translation>
-    </message>
-    <message>
         <source>Scaling</source>
         <translation>Scaling</translation>
     </message>
@@ -41659,173 +27725,27 @@ when PDF document is opened:</translation>
         <translation>Basepoint</translation>
     </message>
     <message>
-        <source>Origin</source>
-        <translation type="obsolete">Origin</translation>
-    </message>
-    <message>
         <source>Copies</source>
         <translation>Copies</translation>
-    </message>
-</context>
-<context>
-    <name>TransformEffectPlugin</name>
-    <message>
-        <source>Transform...</source>
-        <translation type="obsolete">Transform...</translation>
-    </message>
-    <message>
-        <source>Transform Effect</source>
-        <translation type="obsolete">Transform Effect</translation>
-    </message>
-    <message>
-        <source>Apply multiple transformations at once</source>
-        <translation type="obsolete">Apply multiple transformations at once</translation>
-    </message>
-</context>
-<context>
-    <name>Tree</name>
-    <message>
-        <source>Outline</source>
-        <translation type="obsolete">Outline</translation>
-    </message>
-    <message>
-        <source>Element</source>
-        <translation type="obsolete">Element</translation>
-    </message>
-    <message>
-        <source>Group </source>
-        <translation type="obsolete">Group </translation>
-    </message>
-    <message>
-        <source>Free Objects</source>
-        <translation type="obsolete">Free Objects</translation>
-    </message>
-    <message>
-        <source>Page </source>
-        <translation type="obsolete">Page </translation>
-    </message>
-    <message>
-        <source>Picture</source>
-        <translation type="obsolete">Picture</translation>
-    </message>
-    <message>
-        <source>File: </source>
-        <translation type="obsolete">File </translation>
-    </message>
-    <message>
-        <source>Original PPI: </source>
-        <translation type="obsolete">Original PPI: </translation>
-    </message>
-    <message>
-        <source>Actual PPI: </source>
-        <translation type="obsolete">Actual PPI: </translation>
-    </message>
-    <message>
-        <source>Colorspace: </source>
-        <translation type="obsolete">Colourspace: </translation>
-    </message>
-    <message>
-        <source>Unknown</source>
-        <translation type="obsolete">Unknown</translation>
-    </message>
-    <message>
-        <source>No Image Loaded</source>
-        <translation type="obsolete">No Image Loaded</translation>
-    </message>
-    <message>
-        <source>Linked Text</source>
-        <translation type="obsolete">Linked Text</translation>
-    </message>
-    <message>
-        <source>Text Frame</source>
-        <translation type="obsolete">Text Frame</translation>
-    </message>
-    <message>
-        <source>Text on a Path</source>
-        <translation type="obsolete">Text on a Path</translation>
-    </message>
-    <message>
-        <source>Paragraphs: </source>
-        <translation type="obsolete">Paragraphs: </translation>
-    </message>
-    <message>
-        <source>Lines: </source>
-        <translation type="obsolete">Lines: </translation>
-    </message>
-    <message>
-        <source>Words: </source>
-        <translation type="obsolete">Words: </translation>
-    </message>
-    <message>
-        <source>Chars: </source>
-        <translation type="obsolete">Chars: </translation>
-    </message>
-    <message>
-        <source>Enabled</source>
-        <translation type="obsolete">Enabled</translation>
-    </message>
-    <message>
-        <source>Disabled</source>
-        <translation type="obsolete">Disabled</translation>
-    </message>
-    <message>
-        <source>In&amp;fo</source>
-        <translation type="obsolete">In&amp;fo</translation>
-    </message>
-    <message>
-        <source>Preview Settings</source>
-        <translation type="obsolete">Preview Settings</translation>
-    </message>
-    <message>
-        <source>&amp;PDF Options</source>
-        <translation type="obsolete">&amp;PDF Options</translation>
-    </message>
-    <message>
-        <source>Send to La&amp;yer</source>
-        <translation type="obsolete">Send to La&amp;yer</translation>
-    </message>
-    <message>
-        <source>Le&amp;vel</source>
-        <translation type="obsolete">Le&amp;vel</translation>
-    </message>
-    <message>
-        <source>Conve&amp;rt to</source>
-        <translation type="obsolete">Conve&amp;rt to</translation>
-    </message>
-    <message>
-        <source>Rename</source>
-        <translation type="obsolete">Rename</translation>
-    </message>
-    <message>
-        <source>&amp;Delete</source>
-        <translation type="obsolete">&amp;Delete</translation>
-    </message>
-    <message>
-        <source>Contents</source>
-        <translation type="obsolete">Contents</translation>
-    </message>
-    <message>
-        <source>Export: </source>
-        <translation type="obsolete">Export: </translation>
     </message>
 </context>
 <context>
     <name>UnZip</name>
     <message>
         <source>ZIP operation completed successfully.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">ZIP operation completed successfully.</translation>
     </message>
     <message>
         <source>Failed to initialize or load zlib library.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Failed to initialise or load zlib library.</translation>
     </message>
     <message>
         <source>zlib library error.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">zlib library error.</translation>
     </message>
     <message>
         <source>Unable to create or open file.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Unable to create or open file.</translation>
     </message>
     <message>
         <source>Partially corrupted archive. Some files might be extracted.</source>
@@ -41841,23 +27761,23 @@ when PDF document is opened:</translation>
     </message>
     <message>
         <source>No archive has been created yet.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">No archive has been created yet.</translation>
     </message>
     <message>
         <source>File or directory does not exist.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">File or directory does not exist.</translation>
     </message>
     <message>
         <source>File read error.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">File read error.</translation>
     </message>
     <message>
         <source>File write error.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">File write error.</translation>
     </message>
     <message>
         <source>File seek error.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">File seek error.</translation>
     </message>
     <message>
         <source>Unable to create a directory.</source>
@@ -41877,7 +27797,7 @@ when PDF document is opened:</translation>
     </message>
     <message>
         <source>Unknown error.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Unknown error.</translation>
     </message>
 </context>
 <context>
@@ -42459,10 +28379,6 @@ X: %4, Y: %5</translation>
         <translation>Convert to outlines</translation>
     </message>
     <message>
-        <source>Latex frame</source>
-        <translation type="obsolete">Latex frame</translation>
-    </message>
-    <message>
         <source>Change formula</source>
         <translation>Change formula</translation>
     </message>
@@ -42782,20 +28698,52 @@ X: %4, Y: %5</translation>
         <source>Weld Items</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Rename Master Page</source>
+        <translation type="unfinished">Rename Master Page</translation>
+    </message>
+    <message>
+        <source>Truncate text</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Drop Shadow</source>
+        <translation type="unfinished">Drop Shadow</translation>
+    </message>
+    <message>
+        <source>Drop Shadow Color</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Drop Shadow Shade</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Drop Shadow Blur Radius</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Drop Shadow X Offset</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Drop Shadow Y Offset</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Drop Shadow Opacity</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Drop Shadow Blend Mode</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>UndoPalette</name>
     <message>
         <source>Initial State</source>
         <translation>Initial State</translation>
-    </message>
-    <message>
-        <source>Action History</source>
-        <translation type="obsolete">Action History</translation>
-    </message>
-    <message>
-        <source>Show selected object only</source>
-        <translation type="obsolete">Show selected object only</translation>
     </message>
     <message>
         <source>&amp;Undo</source>
@@ -42833,13 +28781,6 @@ X: %4, Y: %5</translation>
         <source>%1: %2</source>
         <comment>undo target: action (f.e. Text frame: Resize)</comment>
         <translation>%1: %2</translation>
-    </message>
-</context>
-<context>
-    <name>UnicodeChooseButton</name>
-    <message>
-        <source>&amp;Search</source>
-        <translation type="obsolete">&amp;Search</translation>
     </message>
 </context>
 <context>
@@ -42891,20 +28832,8 @@ X: %4, Y: %5</translation>
 <context>
     <name>UpgradeChecker</name>
     <message>
-        <source>Attempting to get the Scribus version update file</source>
-        <translation type="obsolete">Attempting to get the Scribus version update file</translation>
-    </message>
-    <message>
-        <source>(No data on your computer will be sent to an external location)</source>
-        <translation type="obsolete">(No data on your computer will be sent to an external location)</translation>
-    </message>
-    <message>
         <source>Timed out when attempting to get update file.</source>
         <translation>Timed out when attempting to get update file.</translation>
-    </message>
-    <message>
-        <source>Error when attempting to get update file: %1</source>
-        <translation type="obsolete">Error when attempting to get update file: %1</translation>
     </message>
     <message>
         <source>File not found on server</source>
@@ -42933,16 +28862,8 @@ Error:%2 at line: %3, row: %4</translation>
         <translation>Please visit www.scribus.net for details.</translation>
     </message>
     <message>
-        <source>This list may contain development versions.</source>
-        <translation type="obsolete">This list may contain development versions.</translation>
-    </message>
-    <message>
         <source>Finished</source>
         <translation>Finished</translation>
-    </message>
-    <message>
-        <source>Operation canceled</source>
-        <translation type="obsolete">Operation cancelled</translation>
     </message>
     <message>
         <source>This list may contain development/unstable versions.</source>
@@ -43030,6 +28951,33 @@ Would you like to start the system&apos;s default browser instead?</translation>
     </message>
 </context>
 <context>
+    <name>ViewToolBar</name>
+    <message>
+        <source>View Tools</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>High</source>
+        <translation type="unfinished">High</translation>
+    </message>
+    <message>
+        <source>Normal</source>
+        <translation type="unfinished">Normal</translation>
+    </message>
+    <message>
+        <source>Low</source>
+        <translation type="unfinished">Low</translation>
+    </message>
+    <message>
+        <source>Select the image preview quality</source>
+        <translation type="unfinished">Select the image preview quality</translation>
+    </message>
+    <message>
+        <source>Select the visual appearance of the display. You can choose between normal and several color blindness forms</source>
+        <translation type="unfinished">Select the visual appearance of the display. You can choose between normal and several colour blindness forms</translation>
+    </message>
+</context>
+<context>
     <name>VivaPlug</name>
     <message>
         <source>Importing: %1</source>
@@ -43054,12 +29002,12 @@ Would you like to start the system&apos;s default browser instead?</translation>
         <source>Analyzing File:</source>
         <translation type="unfinished">Analysing File:</translation>
     </message>
-</context>
-<context>
-    <name>WMFImport</name>
     <message>
-        <source>Group%1</source>
-        <translation type="obsolete">Group%1</translation>
+        <source>Parsing failed!
+
+Please submit your file (if possible) to the
+Document Liberation Project http://www.documentliberation.org</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -43096,10 +29044,6 @@ converting their vector data into Scribus objects.</translation>
     <message>
         <source>Analyzing File:</source>
         <translation>Analysing File:</translation>
-    </message>
-    <message>
-        <source>Group%1</source>
-        <translation type="obsolete">Group%1</translation>
     </message>
 </context>
 <context>
@@ -43145,10 +29089,6 @@ converting their vector data into Scribus objects.</translation>
     <message>
         <source>Analyzing File:</source>
         <translation>Analysing File:</translation>
-    </message>
-    <message>
-        <source>Group%1</source>
-        <translation type="obsolete">Group%1</translation>
     </message>
     <message>
         <source>Generating Items</source>
@@ -43282,32 +29222,12 @@ converting their vector data into Scribus objects.</translation>
         <translation>Form</translation>
     </message>
     <message>
-        <source>Edit Line Color Properties</source>
-        <translation type="obsolete">Edit Line Colour Properties</translation>
-    </message>
-    <message>
-        <source>Edit Fill Color Properties</source>
-        <translation type="obsolete">Edit Fill Colour Properties</translation>
-    </message>
-    <message>
-        <source>Solid</source>
-        <translation type="obsolete">Solid</translation>
-    </message>
-    <message>
         <source>Shade:</source>
         <translation>Shade:</translation>
     </message>
     <message>
-        <source>Saturation of color</source>
-        <translation type="obsolete">Saturation of colour</translation>
-    </message>
-    <message>
         <source> %</source>
         <translation> %</translation>
-    </message>
-    <message>
-        <source>Gradient</source>
-        <translation type="obsolete">Gradient</translation>
     </message>
     <message>
         <source>Linear</source>
@@ -43318,16 +29238,8 @@ converting their vector data into Scribus objects.</translation>
         <translation>Radial</translation>
     </message>
     <message>
-        <source>Move the start of the gradient vector with the left mouse button pressed and move the end of the gradient vector with the right mouse button pressed</source>
-        <translation type="obsolete">Move the start of the gradient vector with the left mouse button pressed and move the end of the gradient vector with the right mouse button pressed</translation>
-    </message>
-    <message>
         <source>Move Vector</source>
         <translation>Move Vector</translation>
-    </message>
-    <message>
-        <source>Pattern</source>
-        <translation type="obsolete">Pattern</translation>
     </message>
     <message>
         <source>Pattern follows Path</source>
@@ -43372,10 +29284,6 @@ converting their vector data into Scribus objects.</translation>
     <message>
         <source>Edit Colors</source>
         <translation>Edit Colours</translation>
-    </message>
-    <message>
-        <source>Display all colors from the document color list, or only the already used colors</source>
-        <translation type="obsolete">Display all colours from the document colour list, or only the already used colours</translation>
     </message>
     <message>
         <source>Display only used colors</source>
@@ -43453,6 +29361,18 @@ converting their vector data into Scribus objects.</translation>
         <source>Background</source>
         <translation>Background</translation>
     </message>
+    <message>
+        <source>Extend:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>None</source>
+        <translation type="unfinished">None</translation>
+    </message>
+    <message>
+        <source>Pad</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>gradientAddEditDialog</name>
@@ -43478,86 +29398,6 @@ Please give it a name</translation>
 please choose another one.</source>
         <translation>The name of the gradient already exists,
 please choose another one.</translation>
-    </message>
-</context>
-<context>
-    <name>gradientManager</name>
-    <message>
-        <source>Manage Gradients</source>
-        <translation type="obsolete">Manage Gradients</translation>
-    </message>
-    <message>
-        <source>Load ...</source>
-        <translation type="obsolete">Load ...</translation>
-    </message>
-    <message>
-        <source>Save ...</source>
-        <translation type="obsolete">Save ...</translation>
-    </message>
-    <message>
-        <source>Add ...</source>
-        <translation type="obsolete">Add ...</translation>
-    </message>
-    <message>
-        <source>Edit ...</source>
-        <translation type="obsolete">Edit ...</translation>
-    </message>
-    <message>
-        <source>Remove</source>
-        <translation type="obsolete">Remove</translation>
-    </message>
-    <message>
-        <source>Remove All</source>
-        <translation type="obsolete">Remove All</translation>
-    </message>
-    <message>
-        <source>OK</source>
-        <translation type="obsolete">OK</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation type="obsolete">Cancel</translation>
-    </message>
-</context>
-<context>
-    <name>gradientManagerDialog</name>
-    <message>
-        <source>New Gradient</source>
-        <translation type="obsolete">New Gradient</translation>
-    </message>
-    <message>
-        <source>All Supported Formats</source>
-        <translation type="obsolete">All Supported Formats</translation>
-    </message>
-    <message>
-        <source>Scribus Gradient Files &quot;*.sgr&quot; (*.sgr *.SGR);;</source>
-        <translation type="obsolete">Scribus Gradient Files &quot;*.sgr&quot; (*.sgr *.SGR);;</translation>
-    </message>
-    <message>
-        <source>Gimp Gradient Files &quot;*.ggr&quot; (*.ggr *.GGR);;</source>
-        <translation type="obsolete">Gimp Gradient Files &quot;*.ggr&quot; (*.ggr *.GGR);;</translation>
-    </message>
-    <message>
-        <source>All Files (*)</source>
-        <translation type="obsolete">All Files (*)</translation>
-    </message>
-    <message>
-        <source>Open</source>
-        <translation type="obsolete">Open</translation>
-    </message>
-    <message>
-        <source>Scribus Gradient Files (*.sgr *.SGR);;</source>
-        <translation type="obsolete">Scribus Gradient Files (*.sgr *.SGR);;</translation>
-    </message>
-    <message>
-        <source>Save as</source>
-        <translation type="obsolete">Save as</translation>
-    </message>
-    <message>
-        <source>Cannot write the file: 
-%1</source>
-        <translation type="obsolete">Cannot write the file: 
-%1</translation>
     </message>
 </context>
 <context>
@@ -43604,75 +29444,6 @@ please choose another one.</translation>
     <message>
         <source>Remember the file extension - importer association and do not ask again to select an importer for files of this type.</source>
         <translation>Remember the file extension - importer association and do not ask again to select an importer for files of this type.</translation>
-    </message>
-</context>
-<context>
-    <name>hysettingsBase</name>
-    <message>
-        <source>Form</source>
-        <translation type="obsolete">Form</translation>
-    </message>
-    <message>
-        <source>General Options</source>
-        <translation type="obsolete">General Options</translation>
-    </message>
-    <message>
-        <source>A dialog box showing all possible hyphens for each word will show up when you use the Extras, Hyphenate Text option.</source>
-        <translation type="obsolete">A dialogue box showing all possible hyphens for each word will show up when you use the Extras, Hyphenate Text option.</translation>
-    </message>
-    <message>
-        <source>&amp;Hyphenation Suggestions</source>
-        <translation type="obsolete">&amp;Hyphenation Suggestions</translation>
-    </message>
-    <message>
-        <source>Enables automatic hyphenation of your text while typing.</source>
-        <translation type="obsolete">Enables automatic hyphenation of your text while typing.</translation>
-    </message>
-    <message>
-        <source>Hyphenate Text Automatically &amp;During Typing</source>
-        <translation type="obsolete">Hyphenate Text Automatically &amp;During Typing</translation>
-    </message>
-    <message>
-        <source>Behaviour</source>
-        <translation type="obsolete">Behaviour</translation>
-    </message>
-    <message>
-        <source>&amp;Language:</source>
-        <translation type="obsolete">&amp;Language:</translation>
-    </message>
-    <message>
-        <source>&amp;Smallest Word:</source>
-        <translation type="obsolete">&amp;Smallest Word:</translation>
-    </message>
-    <message>
-        <source>Length of the smallest word to be hyphenated.</source>
-        <translation type="obsolete">Length of the smallest word to be hyphenated.</translation>
-    </message>
-    <message>
-        <source>Chars</source>
-        <translation type="obsolete">Chars</translation>
-    </message>
-    <message>
-        <source>Consecutive Hyphenations &amp;Allowed:</source>
-        <translation type="obsolete">Consecutive Hyphenations &amp;Allowed:</translation>
-    </message>
-    <message>
-        <source>Maximum number of Hyphenations following each other.
-A value of 0 means unlimited hyphenations.</source>
-        <translation type="obsolete">Maximum number of Hyphenations following each other.
-A value of 0 means unlimited hyphenations.</translation>
-    </message>
-    <message>
-        <source>Exceptions</source>
-        <translation type="obsolete">Exceptions</translation>
-    </message>
-    <message>
-        <source>Edit</source>
-        <translation type="obsolete">Edit</translation>
-    </message>
-    <message>
-        <source>Ignore List</source>
-        <translation type="obsolete">Ignore List</translation>
     </message>
 </context>
 <context>
@@ -43799,10 +29570,6 @@ A value of 0 means unlimited hyphenations.</translation>
     <message>
         <source>&amp;About</source>
         <translation>&amp;About</translation>
-    </message>
-    <message>
-        <source>&amp;Image</source>
-        <translation type="obsolete">&amp;Image</translation>
     </message>
     <message>
         <source>&amp;Help</source>
@@ -43963,73 +29730,6 @@ A value of 0 means unlimited hyphenations.</translation>
     </message>
 </context>
 <context>
-    <name>satdialog</name>
-    <message>
-        <source>Save as Template</source>
-        <translation type="obsolete">Save as Template</translation>
-    </message>
-    <message>
-        <source>Name</source>
-        <translation type="obsolete">Name</translation>
-    </message>
-    <message>
-        <source>Category</source>
-        <translation type="obsolete">Category</translation>
-    </message>
-    <message>
-        <source>Page Size</source>
-        <translation type="obsolete">Page Size</translation>
-    </message>
-    <message>
-        <source>Colors</source>
-        <translation type="obsolete">Colours</translation>
-    </message>
-    <message>
-        <source>Description</source>
-        <translation type="obsolete">Description</translation>
-    </message>
-    <message>
-        <source>Usage</source>
-        <translation type="obsolete">Usage</translation>
-    </message>
-    <message>
-        <source>Author</source>
-        <translation type="obsolete">Author</translation>
-    </message>
-    <message>
-        <source>Email</source>
-        <translation type="obsolete">E-mail</translation>
-    </message>
-    <message>
-        <source>Legal</source>
-        <translation type="obsolete">Legal</translation>
-    </message>
-    <message>
-        <source>Letter</source>
-        <translation type="obsolete">Letter</translation>
-    </message>
-    <message>
-        <source>Tabloid</source>
-        <translation type="obsolete">Tabloid</translation>
-    </message>
-    <message>
-        <source>landscape</source>
-        <translation type="obsolete">landscape</translation>
-    </message>
-    <message>
-        <source>portrait</source>
-        <translation type="obsolete">portrait</translation>
-    </message>
-    <message>
-        <source>custom</source>
-        <translation type="obsolete">custom</translation>
-    </message>
-    <message>
-        <source>&amp;More Details</source>
-        <translation type="obsolete">&amp;More Details</translation>
-    </message>
-</context>
-<context>
     <name>selectDialog</name>
     <message>
         <source>Text Frame</source>
@@ -44088,36 +29788,16 @@ A value of 0 means unlimited hyphenations.</translation>
         <translation>Locked</translation>
     </message>
     <message>
-        <source>Resizeable</source>
-        <translation>Resizeable</translation>
-    </message>
-    <message>
-        <source>Select All Objects</source>
-        <translation type="obsolete">Select All Objects</translation>
-    </message>
-    <message>
         <source>Select all items on the current page</source>
         <translation>Select all items on the current page</translation>
-    </message>
-    <message>
-        <source>On Current Page</source>
-        <translation type="obsolete">On Current Page</translation>
     </message>
     <message>
         <source>Select all items on the current layer on all pages</source>
         <translation>Select all items on the current layer on all pages</translation>
     </message>
     <message>
-        <source>On Current Layer</source>
-        <translation type="obsolete">On Current Layer</translation>
-    </message>
-    <message>
         <source>Select all items not on a page</source>
         <translation>Select all items not on a page</translation>
-    </message>
-    <message>
-        <source>On the Scratch Space</source>
-        <translation type="obsolete">On the Scratch Space</translation>
     </message>
     <message>
         <source>Narrow the selection of items based on various item properties</source>
@@ -44174,6 +29854,10 @@ A value of 0 means unlimited hyphenations.</translation>
     <message>
         <source>on the Scratch Space</source>
         <translation>on the Scratch Space</translation>
+    </message>
+    <message>
+        <source>Resizable</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
