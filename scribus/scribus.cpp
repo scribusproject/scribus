@@ -4686,6 +4686,7 @@ bool ScribusMainWindow::slotFileClose()
 
 bool ScribusMainWindow::DoFileClose()
 {
+	slotEndSpecialEdit();
 	view->Deselect(false);
 	if (doc==storyEditor->currentDocument())
 		storyEditor->close();
