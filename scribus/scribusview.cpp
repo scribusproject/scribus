@@ -676,7 +676,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 		url  = QUrl(text);
 	}
 	else*/
-	if (e->mimeData()->hasText())
+	if (e->mimeData()->hasText() && (!e->mimeData()->text().isEmpty()))
 	{
 		text = e->mimeData()->text();
 		url = QUrl(text);
