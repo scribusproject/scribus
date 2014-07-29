@@ -1309,6 +1309,72 @@ void ScribusMainWindow::setStatusBarTextPosition(double base, double xp)
 	mainWindowYPosDataLabel->setText("-");
 }
 
+void ScribusMainWindow::setStatusBarTextSelectedItemInfo()
+{
+	const uint docSelectionCount = doc->m_Selection->count();
+	if (docSelectionCount == 0)
+		setStatusBarInfoText("");
+	else if (docSelectionCount == 1)
+	{
+		QString whatSel = tr("Unknown");
+		switch (doc->m_Selection->itemAt(0)->itemType())
+		{
+			case 2:
+				whatSel = CommonStrings::itemType_ImageFrame;
+				break;
+			case 4:
+				whatSel = CommonStrings::itemType_TextFrame;
+				break;
+			case 5:
+				whatSel = CommonStrings::itemType_Line;
+				break;
+			case 6:
+				whatSel = CommonStrings::itemType_Polygon;
+				break;
+			case 7:
+				whatSel = CommonStrings::itemType_Polyline;
+				break;
+			case 8:
+				whatSel = CommonStrings::itemType_PathText;
+				break;
+			case 9:
+				whatSel = CommonStrings::itemType_LatexFrame;
+				break;
+			case 11:
+				whatSel = CommonStrings::itemType_Symbol;
+				break;
+			case 12:
+				whatSel = CommonStrings::itemType_Group;
+				break;
+			case 13:
+				whatSel = CommonStrings::itemType_RegularPolygon;
+				break;
+			case 14:
+				whatSel = CommonStrings::itemType_Arc;
+				break;
+			case 15:
+				whatSel = CommonStrings::itemType_Spiral;
+				break;
+			case 16:
+				whatSel = CommonStrings::itemType_Table;
+				break;
+			default:
+				whatSel = "Unknown";
+				break;
+		}
+		QString widthTxt = value2String(doc->m_Selection->width(), doc->unitIndex(), true, true);
+		QString heightTxt = value2String(doc->m_Selection->height(), doc->unitIndex(), true, true);
+		QString txtBody = tr("%1 selected").arg(whatSel) + " : " + tr("Size");
+		setStatusBarInfoText( QString("%1 = %3 x %4").arg(txtBody).arg(widthTxt).arg(heightTxt));
+	}
+	else
+	{
+		QString widthTxt = value2String(doc->m_Selection->width(), doc->unitIndex(), true, true);
+		QString heightTxt = value2String(doc->m_Selection->height(), doc->unitIndex(), true, true);
+		setStatusBarInfoText( tr("%1 Objects selected, Selection Size = %2 x %3").arg(docSelectionCount).arg(widthTxt).arg(heightTxt));
+	}
+}
+
 void ScribusMainWindow::setTempStatusBarText(const QString &text)
 {
 	if (mainWindowStatusLabel)
@@ -2591,67 +2657,9 @@ void ScribusMainWindow::HaveNewSel()
 		SelectedType = -1;
 	}
 	assert (docSelectionCount == 0 || currItem != NULL); // help coverity analysis
-	if (docSelectionCount == 0)
-		setStatusBarInfoText("");
-	else if (docSelectionCount == 1)
-	{
-		QString whatSel = tr("Unknown");
-		switch (currItem->itemType())
-		{
-			case 2:
-				whatSel = CommonStrings::itemType_ImageFrame;
-				break;
-			case 4:
-				whatSel = CommonStrings::itemType_TextFrame;
-				break;
-			case 5:
-				whatSel = CommonStrings::itemType_Line;
-				break;
-			case 6:
-				whatSel = CommonStrings::itemType_Polygon;
-				break;
-			case 7:
-				whatSel = CommonStrings::itemType_Polyline;
-				break;
-			case 8:
-				whatSel = CommonStrings::itemType_PathText;
-				break;
-			case 9:
-				whatSel = CommonStrings::itemType_LatexFrame;
-				break;
-			case 11:
-				whatSel = CommonStrings::itemType_Symbol;
-				break;
-			case 12:
-				whatSel = CommonStrings::itemType_Group;
-				break;
-			case 13:
-				whatSel = CommonStrings::itemType_RegularPolygon;
-				break;
-			case 14:
-				whatSel = CommonStrings::itemType_Arc;
-				break;
-			case 15:
-				whatSel = CommonStrings::itemType_Spiral;
-				break;
-			case 16:
-				whatSel = CommonStrings::itemType_Table;
-				break;
-			default:
-				whatSel = "Unknown";
-				break;
-		}
-		QString widthTxt = value2String(doc->m_Selection->width(), doc->unitIndex(), true, true);
-		QString heightTxt = value2String(doc->m_Selection->height(), doc->unitIndex(), true, true);
-		QString txtBody = tr("%1 Selected").arg(whatSel) + " " + tr("Size");
-		setStatusBarInfoText( QString("%1 = %3 x %4").arg(txtBody).arg(widthTxt).arg(heightTxt));
-	}
-	else
-	{
-		QString widthTxt = value2String(doc->m_Selection->width(), doc->unitIndex(), true, true);
-		QString heightTxt = value2String(doc->m_Selection->height(), doc->unitIndex(), true, true);
-		setStatusBarInfoText( tr("%1 Objects selected, Selection Size = %2 x %3").arg(docSelectionCount).arg(widthTxt).arg(heightTxt));
-	}
+
+	setStatusBarTextSelectedItemInfo();
+
 	actionManager->disconnectNewSelectionActions();
 	scrActions["editSelectAllOnLayer"]->setEnabled(true);
 	scrActions["editDeselectAll"]->setEnabled(SelectedType != -1);

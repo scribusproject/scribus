@@ -28,6 +28,7 @@
 #include "pageitem_arc.h"
 #include "pageitem_spiral.h"
 #include "pageitem_table.h"
+#include "scribus.h"
 #include "scribusdoc.h"
 #include "scribusview.h"
 #include "selection.h"
@@ -271,6 +272,8 @@ void ResizeGesture::mouseReleaseEvent(QMouseEvent *m)
 	m->accept();
 	m_canvas->update();
 	m_view->stopGesture();
+	//#12469: emit? update from selection even after resize? if removed, remove scribus.h include
+	m_view->m_ScMW->setStatusBarTextSelectedItemInfo();
 }
 
 

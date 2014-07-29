@@ -424,7 +424,7 @@ void CreateMode::mouseReleaseEvent(QMouseEvent *m)
 									Um::Create + " " + currItem->getUName(),  "", Um::ICreate);
 		m_doc->changed();
 		delete m_createTransaction;
-		m_createTransaction = NULL;	
+		m_createTransaction = NULL;
 		/*currItem->update();
 		currItem->emitAllToGUI();*/
 	}

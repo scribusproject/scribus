@@ -290,6 +290,7 @@ public slots:
 	void StoreBookmarks();
 	void setStatusBarMousePosition(double xp, double yp);
 	void setStatusBarTextPosition(double base, double xp);
+	void setStatusBarTextSelectedItemInfo();
 	void setTempStatusBarText(const QString &text);
 	void setStatusBarInfoText(QString newText);
 	bool DoFileClose();
