@@ -845,8 +845,30 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 			PageItem *b = Doc->Items->at(z);
 			b->LayerID = Doc->activeLayer();
 			Doc->loadPict(url.toLocalFile(), b);
-			b->setWidth(static_cast<double>(b->OrigW * 72.0 / b->pixm.imgInfo.xres));
-			b->setHeight(static_cast<double>(b->OrigH * 72.0 / b->pixm.imgInfo.yres));
+
+			double iw = static_cast<double>(b->OrigW * 72.0 / b->pixm.imgInfo.xres);
+			double ih = static_cast<double>(b->OrigH * 72.0 / b->pixm.imgInfo.yres);
+			if (iw > ih)
+			{
+				double pw = Doc->currentPage()->width();
+				if (iw > pw)
+				{
+					ih = pw * (ih / iw);
+					iw = pw;
+				}
+			}
+			else
+			{
+				double ph = Doc->currentPage()->height();
+				if (ih > ph)
+				{
+					iw = ph * (iw / ih);
+					ih = ph;
+				}
+			}
+
+			b->setWidth(iw);
+			b->setHeight(ih);
 			b->OldB2 = b->width();
 			b->OldH2 = b->height();
 			b->updateClip();
