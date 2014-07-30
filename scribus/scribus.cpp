@@ -6414,6 +6414,8 @@ void ScribusMainWindow::NoFrameEdit()
 	nodePalette->setDoc(0,0);
 	nodePalette->hide();
 //	qDebug() << "nodepalette hide";
+	scrActions["editUndoAction"]->setEnabled(UndoManager::instance()->hasUndoActions());
+	scrActions["editRedoAction"]->setEnabled(UndoManager::instance()->hasRedoActions());
 	scrActions["insertFrame"]->setEnabled(true);
 	scrActions["toolsSelect"]->setEnabled(true);
 	scrActions["toolsSelect"]->setChecked(true);
