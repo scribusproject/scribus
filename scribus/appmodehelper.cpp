@@ -17,6 +17,7 @@ for which a new license (GPL+exception) is in place.
 #include "appmodehelper.h"
 #include "scribusdoc.h"
 #include "scribuscore.h"
+#include "undomanager.h"
 
 AppModeHelper::AppModeHelper(QObject *parent) :
     QObject(parent)
@@ -34,6 +35,21 @@ void AppModeHelper::setup(ActionManager* am, QMap<QString, QPointer<ScrAction> >
 void AppModeHelper::setFrameEditMode(bool b)
 {
 	bool b2=!b;
+
+	(*scrActions)["itemShapeEdit"]->setChecked(b);
+
+	//CB Enable/Disable undo in frame edit mode
+	if (b2)
+	{
+		(*scrActions)["editUndoAction"]->setEnabled(UndoManager::instance()->hasUndoActions());
+		(*scrActions)["editRedoAction"]->setEnabled(UndoManager::instance()->hasRedoActions());
+	}
+	else
+	{
+		(*scrActions)["editUndoAction"]->setEnabled(false);
+		(*scrActions)["editRedoAction"]->setEnabled(false);
+	}
+
 	(*scrActions)["insertFrame"]->setEnabled(b2);
 	(*scrActions)["toolsSelect"]->setEnabled(b2);
 	(*scrActions)["toolsRotate"]->setEnabled(b2);

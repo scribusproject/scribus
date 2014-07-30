@@ -38,8 +38,6 @@ public:
 	NodePalette( QWidget* parent);
 	~NodePalette() {};
 	void setDefaults(PageItem* currItem);
-	
-	virtual void changeEvent(QEvent *e);
 
 	QToolButton* MoveNode;
 	QToolButton* MoveControl;
@@ -84,7 +82,6 @@ public:
 	ScribusDoc* currentDocument() const;
 
 private slots:
-	void closeEvent(QCloseEvent *);
 	void MoveK();
 	void AddN();
 	void DelN();
@@ -125,9 +122,16 @@ public slots:
 	void CancelEdit();
 	void ResetToEditDefaults();
 
+protected slots:
+	virtual void reject();
+
 protected:
 	void connectSignals();
 	void disconnectSignals();
+
+	virtual void changeEvent(QEvent *e);
+	virtual void closeEvent(QCloseEvent *);
+
 	QVBoxLayout *vboxLayout;
 	QVBoxLayout *vboxLayout1;
 	QGridLayout *gridLayout;

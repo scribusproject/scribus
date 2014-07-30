@@ -6243,70 +6243,65 @@ void ScribusMainWindow::ToggleFrameEdit()
 {
 	if (!doc)
 		return;
+
 	if (doc->appMode == modeEditClip)
-		NoFrameEdit();
-	else
 	{
-		//CB Enable/Disable undo in frame edit mode
-// 		undoManager->setUndoEnabled(false);
-		scrActions["editUndoAction"]->setEnabled(false);
-		scrActions["editRedoAction"]->setEnabled(false);
-//done elsewhere now		slotSelect();
-		nodePalette->setDoc(doc, view);
-		nodePalette->MoveN();
-		nodePalette->HaveNode(false, false);
-		nodePalette->MoveNode->setChecked(true);
-		nodePalette->show();
-//		qDebug() << "nodepalette show:" << nodePalette->geometry();
-		connect(view, SIGNAL(HavePoint(bool, bool)), nodePalette, SLOT(HaveNode(bool, bool)));
-		connect(view, SIGNAL(PolyStatus(int, uint)), nodePalette, SLOT(PolyStatus(int, uint)));
-		doc->nodeEdit.reset();
-//done elsewhere now		doc->appMode = modeEditClip;
-		appModeHelper.setFrameEditMode(true);
-		layerPalette->setEnabled(false);
-		outlinePalette->setEnabled(false);
-		guidePalette->setEnabled(false);
-		scrapbookPalette->setEnabled(false);
-		pagePalette->setEnabled(false);
-		bookmarkPalette->setEnabled(false);
-		docCheckerPalette->setEnabled(false);
-		inlinePalette->setEnabled(false);
-		symbolPalette->setEnabled(false);
-		styleManager->setEnabled(false);
-		alignDistributePalette->setEnabled(false);
-		pageSelector->setEnabled(false);
-		layerMenu->setEnabled(false);
-		if (!doc->m_Selection->isEmpty())
-		{
-			PageItem *currItem = doc->m_Selection->itemAt(0);
+		NoFrameEdit();
+		return;
+	}
+
+	nodePalette->setDoc(doc, view);
+	nodePalette->MoveN();
+	nodePalette->HaveNode(false, false);
+	nodePalette->MoveNode->setChecked(true);
+	nodePalette->show();
+//	qDebug() << "nodepalette show:" << nodePalette->geometry();
+	connect(view, SIGNAL(HavePoint(bool, bool)), nodePalette, SLOT(HaveNode(bool, bool)));
+	connect(view, SIGNAL(PolyStatus(int, uint)), nodePalette, SLOT(PolyStatus(int, uint)));
+	doc->nodeEdit.reset();
+	appModeHelper.setFrameEditMode(true);
+	layerPalette->setEnabled(false);
+	outlinePalette->setEnabled(false);
+	guidePalette->setEnabled(false);
+	scrapbookPalette->setEnabled(false);
+	pagePalette->setEnabled(false);
+	bookmarkPalette->setEnabled(false);
+	docCheckerPalette->setEnabled(false);
+	inlinePalette->setEnabled(false);
+	symbolPalette->setEnabled(false);
+	styleManager->setEnabled(false);
+	alignDistributePalette->setEnabled(false);
+	pageSelector->setEnabled(false);
+	layerMenu->setEnabled(false);
+	if (!doc->m_Selection->isEmpty())
+	{
+		PageItem *currItem = doc->m_Selection->itemAt(0);
 //			view->MarkClip(currItem, currItem->PoLine, true);
-			nodePalette->EditCont->setEnabled(currItem->ContourLine.size() != 0);
-			nodePalette->ResetCont->setEnabled(false);
-			nodePalette->ResetContClip->setEnabled(false);
-			nodePalette->PolyStatus(currItem->itemType(), currItem->PoLine.size());
-			nodePalette->setDefaults(currItem);
-			if ((currItem->asImageFrame()) && (currItem->imageClip.size() != 0))
-			{
-				nodePalette->ResetContClip->setSizePolicy(QSizePolicy(static_cast<QSizePolicy::Policy>(3), static_cast<QSizePolicy::Policy>(3)));
-				nodePalette->ResetContClip->show();
-				nodePalette->ResetShape2Clip->setSizePolicy(QSizePolicy(static_cast<QSizePolicy::Policy>(3), static_cast<QSizePolicy::Policy>(3)));
-				nodePalette->ResetShape2Clip->show();
-				nodePalette->layout()->activate();
-				nodePalette->resize(QSize(170, 380).expandedTo(nodePalette->minimumSizeHint()));
-			}
-			else
-			{
-				nodePalette->ResetContClip->setSizePolicy(QSizePolicy(static_cast<QSizePolicy::Policy>(6), static_cast<QSizePolicy::Policy>(6)));
-				nodePalette->ResetShape2Clip->setSizePolicy(QSizePolicy(static_cast<QSizePolicy::Policy>(6), static_cast<QSizePolicy::Policy>(6)));
-				nodePalette->layout()->activate();
-				nodePalette->ResetContClip->hide();
-				nodePalette->ResetShape2Clip->hide();
-				nodePalette->layout()->activate();
-				nodePalette->resize(QSize(170, 380).expandedTo(nodePalette->minimumSizeHint()));
-			}
+		nodePalette->EditCont->setEnabled(currItem->ContourLine.size() != 0);
+		nodePalette->ResetCont->setEnabled(false);
+		nodePalette->ResetContClip->setEnabled(false);
+		nodePalette->PolyStatus(currItem->itemType(), currItem->PoLine.size());
+		nodePalette->setDefaults(currItem);
+		if ((currItem->asImageFrame()) && (currItem->imageClip.size() != 0))
+		{
+			nodePalette->ResetContClip->setSizePolicy(QSizePolicy(static_cast<QSizePolicy::Policy>(3), static_cast<QSizePolicy::Policy>(3)));
+			nodePalette->ResetContClip->show();
+			nodePalette->ResetShape2Clip->setSizePolicy(QSizePolicy(static_cast<QSizePolicy::Policy>(3), static_cast<QSizePolicy::Policy>(3)));
+			nodePalette->ResetShape2Clip->show();
+			nodePalette->layout()->activate();
+			nodePalette->resize(QSize(170, 380).expandedTo(nodePalette->minimumSizeHint()));
+		}
+		else
+		{
+			nodePalette->ResetContClip->setSizePolicy(QSizePolicy(static_cast<QSizePolicy::Policy>(6), static_cast<QSizePolicy::Policy>(6)));
+			nodePalette->ResetShape2Clip->setSizePolicy(QSizePolicy(static_cast<QSizePolicy::Policy>(6), static_cast<QSizePolicy::Policy>(6)));
+			nodePalette->layout()->activate();
+			nodePalette->ResetContClip->hide();
+			nodePalette->ResetShape2Clip->hide();
+			nodePalette->layout()->activate();
+			nodePalette->resize(QSize(170, 380).expandedTo(nodePalette->minimumSizeHint()));
 		}
 	}
-	scrActions["itemShapeEdit"]->setChecked(doc->appMode == modeEditClip);
 }
 
 void ScribusMainWindow::NoFrameEdit()
@@ -6320,7 +6315,6 @@ void ScribusMainWindow::NoFrameEdit()
 	scrActions["toolsSelect"]->setChecked(true);
 	scrActions["toolsEditContents"]->setChecked(false);
 	scrActions["toolsEditWithStoryEditor"]->setChecked(false);
-	scrActions["itemShapeEdit"]->setChecked(false);
 	layerPalette->setEnabled(true);
 	outlinePalette->setEnabled(true);
 	guidePalette->setEnabled(true);
@@ -6334,10 +6328,8 @@ void ScribusMainWindow::NoFrameEdit()
 	inlinePalette->setEnabled(true);
 	pageSelector->setEnabled(true);
 	layerMenu->setEnabled(true);
-// 	bool tmpClip = doc->EditClip; // for enabling undo if exiting shape edit mode
 	if (HaveDoc)
 	{
-// done elsewhere now:		doc->appMode = modeNormal;
 		doc->nodeEdit.reset();
 		HaveNewSel();
 		if (!doc->m_Selection->isEmpty())
@@ -6347,8 +6339,6 @@ void ScribusMainWindow::NoFrameEdit()
 		}
 	}
 	actionManager->connectModeActions();
-// 	if (tmpClip)
-// 		undoManager->setUndoEnabled(true);
 }
 
 /** This is the safest method to return to modeNormal

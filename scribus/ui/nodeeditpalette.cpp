@@ -975,6 +975,12 @@ void NodePalette::changeEvent(QEvent *e)
 		QWidget::changeEvent(e);
 }
 
+void NodePalette::reject()
+{
+	EndEdit();
+	ScrPaletteBase::reject();
+}
+
 void NodePalette::setDefaults(PageItem* currItem)
 {
 	xPos = currItem->xPos();
