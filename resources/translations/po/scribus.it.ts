@@ -22737,7 +22737,7 @@ arrotondati:</translation>
     <message>
         <location filename="../../../scribus/propertiespalette.cpp" line="5264"/>
         <source>&amp;Group</source>
-        <translation>Ra&amp;ggruppa</translation>
+        <translation>&amp;Gruppo</translation>
     </message>
     <message>
         <location filename="../../../scribus/propertiespalette.cpp" line="5282"/>
