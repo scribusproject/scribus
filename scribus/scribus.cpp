@@ -2642,19 +2642,15 @@ void ScribusMainWindow::HaveNewDoc()
 
 void ScribusMainWindow::HaveNewSel()
 {
-	int SelectedType = -1;
-	PageItem *currItem = NULL;
 	if (doc == NULL)
 		return;
+	int SelectedType = -1;
+	PageItem *currItem = NULL;
 	const uint docSelectionCount = doc->m_Selection->count();
 	if (docSelectionCount > 0)
 	{
 		currItem = doc->m_Selection->itemAt(0);
 		SelectedType = currItem->itemType();
-	}
-	else
-	{
-		SelectedType = -1;
 	}
 	assert (docSelectionCount == 0 || currItem != NULL); // help coverity analysis
 

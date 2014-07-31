@@ -879,17 +879,16 @@ bool CreateMode::doOneClick(FPoint& startPoint, FPoint& endPoint)
 		ySize = sizes->getDouble("defAngle", 0.0);
 		originPoint = sizes->getInt("OriginL", 0);
 	}
-
-//	qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
-	OneClick *dia = new OneClick(m_view, ScribusView::tr("Enter Object Size"), m_doc->unitIndex(), xSize, ySize, doRemember, originPoint, lmode);
-	if (dia->exec())
+	//#12577 Remove one click dialog
+	//#12577 OneClick *dia = new OneClick(m_view, ScribusView::tr("Enter Object Size"), m_doc->unitIndex(), xSize, ySize, doRemember, originPoint, lmode);
+	//#12577 if (dia->exec())
 	{
-		doRemember = dia->checkRemember->isChecked();
+		//#12577 doRemember = dia->checkRemember->isChecked();
 		if (lmode == 0)
 		{
-			xSize = dia->spinWidth->value() / unitGetRatioFromIndex(m_doc->unitIndex());
-			ySize = dia->spinHeight->value() / unitGetRatioFromIndex(m_doc->unitIndex());
-			originPoint = dia->RotationGroup->checkedId();
+			//#12577 xSize = dia->spinWidth->value() / unitGetRatioFromIndex(m_doc->unitIndex());
+			//#12577 ySize = dia->spinHeight->value() / unitGetRatioFromIndex(m_doc->unitIndex());
+			//#12577 originPoint = dia->RotationGroup->checkedId();
 			if (doRemember)
 			{
 				sizes->set("defWidth", xSize);
@@ -922,9 +921,9 @@ bool CreateMode::doOneClick(FPoint& startPoint, FPoint& endPoint)
 		else
 		{
 			FPoint oldStart = startPoint;
-			xSize = dia->spinWidth->value() / unitGetRatioFromIndex(m_doc->unitIndex());
-			ySize = dia->spinHeight->value();
-			originPoint = dia->RotationGroup->checkedId();
+			//#12577 xSize = dia->spinWidth->value() / unitGetRatioFromIndex(m_doc->unitIndex());
+			//#12577 ySize = dia->spinHeight->value();
+			//#12577 originPoint = dia->RotationGroup->checkedId();
 			if (doRemember)
 			{
 				sizes->set("defLength", xSize);
@@ -950,7 +949,7 @@ bool CreateMode::doOneClick(FPoint& startPoint, FPoint& endPoint)
 		sizes->set("Remember", doRemember);
 		doCreate = true;
 	}
-	delete dia;
+	//delete dia;
 	return doCreate;
 }
 
