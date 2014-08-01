@@ -512,7 +512,7 @@ bool WMFImport::loadWMF( QBuffer &buffer )
 
 	//----- Test header validity
 	m_Valid = ((header.mtHeaderSize == 9) && (header.mtNoParameters == 0)) || m_IsEnhanced || m_IsPlaceable;
-	if ( m_Valid )
+	if ( m_Valid && !m_IsEnhanced )
 	{
 		//----- Read Metafile Records
 		rdFunc = -1;
@@ -520,6 +520,7 @@ bool WMFImport::loadWMF( QBuffer &buffer )
 		{
 			st >> rdSize;
 			st >> rdFunc;
+
 			idx = findFunc( rdFunc );
 			rdSize -= 3;
 
@@ -558,12 +559,15 @@ bool WMFImport::loadWMF( QBuffer &buffer )
 			cerr << "WMF : incorrect file format !" << endl;
 		}
 	}
+	else if ( m_IsEnhanced ) {
+		cerr << "WMF : unsupported Enhanced Metafile !" << endl;
+	}
 	else {
 		cerr << "WMF Header : incorrect header !" << endl;
 	}
 
 	buffer.close();
-	return m_Valid;
+	return ( m_Valid && !m_IsEnhanced );
 }
 
 bool WMFImport::importWMF(const TransactionSettings& trSettings, int flags)
