@@ -44,41 +44,41 @@ ColorCombo::ColorCombo( bool rw, QWidget* parent ) : QComboBox(parent)
 
 QString ColorCombo::currentColor() const
 {
-		return currentText();
+	return currentText();
 }
 
 void ColorCombo::updateBox(ColorList& list, ColorCombo::PixmapType pixType , bool insertNone)
 {
 	ColorListBox* clb = dynamic_cast<ColorListBox*>(view());
-	if ( clb )
+	if (!clb)
+		return;
+
+	clb->clear();
+	if ( insertNone )
 	{
-		clb->clear();
-		if ( insertNone )
-		{
-			clb->addItem(CommonStrings::tr_NoneColor);
-			clb->item(0)->setData(Qt::UserRole, CommonStrings::None);
-		}
-		if ( pixType == ColorCombo::fancyPixmaps )
-			clb->insertItems(list, ColorListBox::fancyPixmap);
-		else if ( pixType == ColorCombo::widePixmaps )
-			clb->insertItems(list, ColorListBox::widePixmap);
-		else if ( pixType == ColorCombo::smallPixmaps )
-			clb->insertItems(list, ColorListBox::smallPixmap);
+		clb->addItem(CommonStrings::tr_NoneColor);
+		clb->item(0)->setData(Qt::UserRole, CommonStrings::None);
 	}
+	if ( pixType == ColorCombo::fancyPixmaps )
+		clb->insertItems(list, ColorListBox::fancyPixmap);
+	else if ( pixType == ColorCombo::widePixmaps )
+		clb->insertItems(list, ColorListBox::widePixmap);
+	else if ( pixType == ColorCombo::smallPixmaps )
+		clb->insertItems(list, ColorListBox::smallPixmap);
 }
 
 void ColorCombo::insertItems(ColorList& list, ColorCombo::PixmapType pixType)
 {
 	ColorListBox* clb = dynamic_cast<ColorListBox*>(view());
-	if ( clb )
-	{
-		if ( pixType == ColorCombo::fancyPixmaps )
-			clb->insertItems(list, ColorListBox::fancyPixmap);
-		else if ( pixType == ColorCombo::widePixmaps )
-			clb->insertItems(list, ColorListBox::widePixmap);
-		else if ( pixType == ColorCombo::smallPixmaps )
-			clb->insertItems(list, ColorListBox::smallPixmap);
-	}
+	if (!clb)
+		return;
+
+	if ( pixType == ColorCombo::fancyPixmaps )
+		clb->insertItems(list, ColorListBox::fancyPixmap);
+	else if ( pixType == ColorCombo::widePixmaps )
+		clb->insertItems(list, ColorListBox::widePixmap);
+	else if ( pixType == ColorCombo::smallPixmaps )
+		clb->insertItems(list, ColorListBox::smallPixmap);
 }
 
 void ColorCombo::insertSmallItem( const ScColor& col, ScribusDoc* doc, const QString& colName )
