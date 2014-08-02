@@ -320,9 +320,9 @@ PyObject *scribus_inserttext(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot insert text into non-text frame.","python error").toLocal8Bit().constData());
 		return NULL;
 	}
-	QString Daten = QString::fromUtf8(Text);
-	Daten.replace("\r\n", SpecialChars::PARSEP);
-	Daten.replace(QChar('\n') , SpecialChars::PARSEP);
+	QString textData = QString::fromUtf8(Text);
+	textData.replace("\r\n", SpecialChars::PARSEP);
+	textData.replace(QChar('\n') , SpecialChars::PARSEP);
 	PyMem_Free(Text);
 	if ((pos < -1) || (pos > static_cast<int>(it->itemText.length())))
 	{
@@ -331,15 +331,13 @@ PyObject *scribus_inserttext(PyObject* /* self */, PyObject* args)
 	}
 	if (pos == -1)
 		pos = it->itemText.length();
-	it->itemText.insertChars(pos, Daten);
+	it->itemText.insertChars(pos, textData, true);
 	it->Dirty = true;
 	if (ScCore->primaryMainWindow()->doc->DoDrawing)
 	{
-// FIXME adapt to Qt-4 painting style
+		// FIXME adapt to Qt-4 painting style
 		it->Dirty = false;
 	}
-//	Py_INCREF(Py_None);
-//	return Py_None;
 	Py_RETURN_NONE;
 }
 
