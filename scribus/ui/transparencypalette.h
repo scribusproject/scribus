@@ -125,5 +125,8 @@ protected:
 	double m_Pattern_skewY;
 	bool m_Pattern_mirrorX;
 	bool m_Pattern_mirrorY;
+
+	void connectSignals();
+	void disconnectSignals();
 };
 #endif

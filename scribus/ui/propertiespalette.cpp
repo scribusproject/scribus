@@ -387,7 +387,6 @@ void PropertiesPalette::setCurrentItem(PageItem *i)
 	tablePal->setItem(m_item);
 
 	Tpal->setCurrentItem(m_item);
-	Tpal->updateFromItem();
 
 	setTextFlowMode(m_item->textFlowMode());
 

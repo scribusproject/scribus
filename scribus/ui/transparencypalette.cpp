@@ -64,9 +64,81 @@ Tpalette::Tpalette(QWidget* parent) : QWidget(parent)
 	connect(usePatternInverted, SIGNAL(clicked()), this, SLOT(switchPatternMode()));
 }
 
+void Tpalette::connectSignals()
+{
+	connect(gradEdit, SIGNAL(gradientChanged()), this, SIGNAL(gradientChanged()));
+	connect(namedGradient, SIGNAL(activated(const QString &)), this, SLOT(setNamedGradient(const QString &)));
+	connect(tabWidget, SIGNAL(currentChanged(int)), this, SLOT(slotGrad(int)));
+	connect(gradientType, SIGNAL(activated(int)), this, SLOT(slotGradType(int)));
+	connect(transpCalcGradient, SIGNAL(clicked()), this, SLOT(switchGradientMode()));
+	connect(transpCalcPattern, SIGNAL(clicked()), this, SLOT(switchPatternMode()));
+	connect(usePatternInverted, SIGNAL(clicked()), this, SLOT(switchPatternMode()));
+}
+
+void Tpalette::disconnectSignals()
+{
+	disconnect(gradEdit, SIGNAL(gradientChanged()), this, SIGNAL(gradientChanged()));
+	disconnect(namedGradient, SIGNAL(activated(const QString &)), this, SLOT(setNamedGradient(const QString &)));
+	disconnect(tabWidget, SIGNAL(currentChanged(int)), this, SLOT(slotGrad(int)));
+	disconnect(gradientType, SIGNAL(activated(int)), this, SLOT(slotGradType(int)));
+	disconnect(transpCalcGradient, SIGNAL(clicked()), this, SLOT(switchGradientMode()));
+	disconnect(transpCalcPattern, SIGNAL(clicked()), this, SLOT(switchPatternMode()));
+	disconnect(usePatternInverted, SIGNAL(clicked()), this, SLOT(switchPatternMode()));
+}
+
 void Tpalette::setCurrentItem(PageItem* item)
 {
 	currentItem = item;
+	disconnectSignals();
+
+	if (!currentItem || !currentDoc)
+		return;
+
+	setActTrans(currentItem->fillTransparency(), currentItem->lineTransparency());
+	setActBlend(currentItem->fillBlendmode(), currentItem->lineBlendmode());
+	gradEdit->setGradient(currentItem->mask_gradient);
+	if (!currentItem->gradientMask().isEmpty())
+	{
+		setCurrentComboItem(namedGradient, currentItem->gradientMask());
+		gradEdit->setGradientEditable(false);
+	}
+	else
+	{
+		namedGradient->setCurrentIndex(0);
+		gradEdit->setGradientEditable(true);
+	}
+	if (currentItem->maskType() == 0)
+		tabWidget->setCurrentIndex(0);
+	else if ((currentItem->maskType() == 1) || (currentItem->maskType() == 2) || (currentItem->maskType() == 4) || (currentItem->maskType() == 5))
+		tabWidget->setCurrentIndex(1);
+	else
+		tabWidget->setCurrentIndex(2);
+	if (patternList->count() == 0)
+		tabWidget->setTabEnabled(2, false);
+	else
+		tabWidget->setTabEnabled(2, true);
+	transpCalcGradient->setChecked(false);
+	transpCalcPattern->setChecked(false);
+	usePatternInverted->setChecked(false);
+	if ((currentItem->maskType() == 4) || (currentItem->maskType() == 5))
+		transpCalcGradient->setChecked(true);
+	if ((currentItem->maskType() == 6) || (currentItem->maskType() == 7))
+		transpCalcPattern->setChecked(true);
+	if ((currentItem->maskType() == 7) || (currentItem->maskType() == 8))
+		usePatternInverted->setChecked(true);
+	if ((currentItem->maskType() == 1) || (currentItem->maskType() == 4))
+		gradientType->setCurrentIndex(0);
+	else if ((currentItem->maskType() == 2) || (currentItem->maskType() == 5))
+		gradientType->setCurrentIndex(1);
+	if(TGradDia && gradEditButton->isChecked())
+		TGradDia->setValues(currentItem->GrMaskStartX, currentItem->GrMaskStartY, currentItem->GrMaskEndX, currentItem->GrMaskEndY, currentItem->GrMaskFocalX, currentItem->GrMaskFocalY, currentItem->GrMaskScale, currentItem->GrMaskSkew, 0, 0);
+	double patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY;
+	bool mirrorX, mirrorY;
+	currentItem->maskTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY);
+	currentItem->maskFlip(mirrorX, mirrorY);
+	setActPattern(currentItem->patternMask(), patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY, mirrorX, mirrorY);
+
+	connectSignals();
 }
 
 void Tpalette::setDocument(ScribusDoc* doc)
@@ -112,12 +184,18 @@ void Tpalette::handleUpdateRequest(int updateFlags)
 
 void Tpalette::updateColorList()
 {
-	if (currentDoc)
-	{
-		this->setColors(currentDoc->PageColors);
-		this->setPatterns(&currentDoc->docPatterns);
-		this->setGradients(&currentDoc->docGradients);
-	}
+	if (!currentDoc)
+		return;
+
+	if (currentItem)
+		disconnectSignals();
+
+	this->setColors(currentDoc->PageColors);
+	this->setPatterns(&currentDoc->docPatterns);
+	this->setGradients(&currentDoc->docGradients);
+
+	if (currentItem)
+		setCurrentItem(currentItem);
 }
 
 void Tpalette::hideSelectionButtons()
@@ -130,68 +208,7 @@ void Tpalette::hideSelectionButtons()
 
 void Tpalette::updateFromItem()
 {
-	if (currentItem == NULL)
-		return;
-	if (!currentDoc)
-		return;
-	setActTrans(currentItem->fillTransparency(), currentItem->lineTransparency());
-	setActBlend(currentItem->fillBlendmode(), currentItem->lineBlendmode());
-	disconnect(gradEdit, SIGNAL(gradientChanged()), this, SIGNAL(gradientChanged()));
-	disconnect(namedGradient, SIGNAL(activated(const QString &)), this, SLOT(setNamedGradient(const QString &)));
-	disconnect(tabWidget, SIGNAL(currentChanged(int)), this, SLOT(slotGrad(int)));
-	disconnect(gradientType, SIGNAL(activated(int)), this, SLOT(slotGradType(int)));
-	disconnect(transpCalcGradient, SIGNAL(clicked()), this, SLOT(switchGradientMode()));
-	disconnect(transpCalcPattern, SIGNAL(clicked()), this, SLOT(switchPatternMode()));
-	disconnect(usePatternInverted, SIGNAL(clicked()), this, SLOT(switchPatternMode()));
-	gradEdit->setGradient(currentItem->mask_gradient);
-	if (!currentItem->gradientMask().isEmpty())
-	{
-		setCurrentComboItem(namedGradient, currentItem->gradientMask());
-		gradEdit->setGradientEditable(false);
-	}
-	else
-	{
-		namedGradient->setCurrentIndex(0);
-		gradEdit->setGradientEditable(true);
-	}
-	if (currentItem->maskType() == 0)
-		tabWidget->setCurrentIndex(0);
-	else if ((currentItem->maskType() == 1) || (currentItem->maskType() == 2) || (currentItem->maskType() == 4) || (currentItem->maskType() == 5))
-		tabWidget->setCurrentIndex(1);
-	else
-		tabWidget->setCurrentIndex(2);
-	if (patternList->count() == 0)
-		tabWidget->setTabEnabled(2, false);
-	else
-		tabWidget->setTabEnabled(2, true);
-	transpCalcGradient->setChecked(false);
-	transpCalcPattern->setChecked(false);
-	usePatternInverted->setChecked(false);
-	if ((currentItem->maskType() == 4) || (currentItem->maskType() == 5))
-		transpCalcGradient->setChecked(true);
-	if ((currentItem->maskType() == 6) || (currentItem->maskType() == 7))
-		transpCalcPattern->setChecked(true);
-	if ((currentItem->maskType() == 7) || (currentItem->maskType() == 8))
-		usePatternInverted->setChecked(true);
-	if ((currentItem->maskType() == 1) || (currentItem->maskType() == 4))
-		gradientType->setCurrentIndex(0);
-	else if ((currentItem->maskType() == 2) || (currentItem->maskType() == 5))
-		gradientType->setCurrentIndex(1);
-	if(TGradDia && gradEditButton->isChecked())
-		TGradDia->setValues(currentItem->GrMaskStartX, currentItem->GrMaskStartY, currentItem->GrMaskEndX, currentItem->GrMaskEndY, currentItem->GrMaskFocalX, currentItem->GrMaskFocalY, currentItem->GrMaskScale, currentItem->GrMaskSkew, 0, 0);
-	double patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY;
-	bool mirrorX, mirrorY;
-	currentItem->maskTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY);
-	currentItem->maskFlip(mirrorX, mirrorY);
-	setActPattern(currentItem->patternMask(), patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY, mirrorX, mirrorY);
-
-	connect(gradEdit, SIGNAL(gradientChanged()), this, SIGNAL(gradientChanged()));
-	connect(namedGradient, SIGNAL(activated(const QString &)), this, SLOT(setNamedGradient(const QString &)));
-	connect(tabWidget, SIGNAL(currentChanged(int)), this, SLOT(slotGrad(int)));
-	connect(gradientType, SIGNAL(activated(int)), this, SLOT(slotGradType(int)));
-	connect(transpCalcGradient, SIGNAL(clicked()), this, SLOT(switchGradientMode()));
-	connect(transpCalcPattern, SIGNAL(clicked()), this, SLOT(switchPatternMode()));
-	connect(usePatternInverted, SIGNAL(clicked()), this, SLOT(switchPatternMode()));
+	setCurrentItem(currentItem);
 }
 
 void Tpalette::updateCList()

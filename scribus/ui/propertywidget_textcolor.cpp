@@ -94,32 +94,33 @@ void PropertyWidget_TextColor::setCurrentItem(PageItem *item)
 		setDoc(item->doc());
 	if (item == NULL)
 		return;
-	if (item->isTable() || item->isTextFrame())
+	if (!item->isTable() && !item->isTextFrame())
+		return;
+
+	m_item = item;
+	disconnectSignals();
+	configureWidgets();
+
+	if (!m_item)
+		return;
+
+	PageItem_TextFrame *i2;
+	if (m_doc->appMode == modeEditTable)
+		i2 = m_item->asTable()->activeCell().textFrame();
+	else
+		i2 = m_item->asTextFrame();
+	if (i2 != 0)
+		revertButton->setChecked(i2->reversed());
+	if (m_item->asTextFrame() || m_item->asPathText() || m_item->asTable())
 	{
-		m_item = item;
-		disconnectSignals();
-		configureWidgets();
-		if (m_item)
-		{
-			PageItem_TextFrame *i2;
-			if (m_doc->appMode == modeEditTable)
-				i2 = m_item->asTable()->activeCell().textFrame();
-			else
-				i2 = m_item->asTextFrame();
-			if (i2 != 0)
-				revertButton->setChecked(i2->reversed());
-			if (m_item->asTextFrame() || m_item->asPathText() || m_item->asTable())
-			{
-				ParagraphStyle parStyle =  m_item->itemText.defaultStyle();
-				if (m_doc->appMode == modeEdit)
-					m_item->currentTextProps(parStyle);
-				else if (m_doc->appMode == modeEditTable)
-					m_item->asTable()->activeCell().textFrame()->currentTextProps(parStyle);
-				updateStyle(parStyle);
-			}
-			connectSignals();
-		}
+		ParagraphStyle parStyle =  m_item->itemText.defaultStyle();
+		if (m_doc->appMode == modeEdit)
+			m_item->currentTextProps(parStyle);
+		else if (m_doc->appMode == modeEditTable)
+			m_item->asTable()->activeCell().textFrame()->currentTextProps(parStyle);
+		updateStyle(parStyle);
 	}
+	connectSignals();
 }
 
 void PropertyWidget_TextColor::connectSignals()
@@ -197,10 +198,16 @@ void PropertyWidget_TextColor::updateColorList()
 	if (!m_doc || !m_ScMW || m_ScMW->scriptIsRunning())
 		return;
 
+	if (m_item)
+		disconnectSignals();
+
 	fillColor->updateBox(m_doc->PageColors, ColorCombo::fancyPixmaps, true);
 	strokeColor->updateBox(m_doc->PageColors, ColorCombo::fancyPixmaps, false);
 	fillColor->view()->setMinimumWidth(fillColor->view()->maximumViewportSize().width() + 24);
 	strokeColor->view()->setMinimumWidth(strokeColor->view()->maximumViewportSize().width() + 24);
+
+	if (m_item)
+		setCurrentItem(m_item);
 }
 
 void PropertyWidget_TextColor::updateCharStyle(const CharStyle& charStyle)

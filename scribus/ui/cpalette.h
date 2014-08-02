@@ -150,7 +150,6 @@ protected:
 	GradientVectorDialog* CGradDia;
 	QPointer<ScribusDoc> currentDoc;
 	PageItem* currentItem;
-	QString sFarbe;
 	ColorList colorList;
 	QHash<QString, ScPattern> *patternList;
 	QHash<QString, VGradient> *gradientList;

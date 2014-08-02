@@ -444,12 +444,18 @@ void Cpalette::handleUpdateRequest(int updateFlags)
 
 void Cpalette::updateColorList()
 {
-	if (currentDoc)
-	{
-		this->setColors(currentDoc->PageColors);
-		this->setGradients(&currentDoc->docGradients);
-		this->setPatterns(&currentDoc->docPatterns);
-	}
+	if (!currentDoc)
+		return;
+	
+	if (currentItem)
+		disconnectSignals();
+
+	this->setColors(currentDoc->PageColors);
+	this->setGradients(&currentDoc->docGradients);
+	this->setPatterns(&currentDoc->docPatterns);
+
+	if (currentItem)
+		setCurrentItem(currentItem);
 }
 
 void Cpalette::updateCList()
@@ -621,26 +627,28 @@ void Cpalette::showColorValues(QString stroke, QString fill, int sShade, int fSh
 
 void Cpalette::selectColorS(QListWidgetItem *item)
 {
+	QString colorName;
 	ColorPixmapItem* c = dynamic_cast<ColorPixmapItem*>(item);
 	if (c != NULL)	
-		sFarbe = c->colorName();
+		colorName = c->colorName();
 	else if (! item->data(Qt::DisplayRole).toString().isEmpty()) 
-		sFarbe = item->data(Qt::DisplayRole).toString();
+		colorName = item->data(Qt::DisplayRole).toString();
 	else
 		return;
-	emit NewPen(sFarbe);
+	emit NewPen(colorName);
 }
 
 void Cpalette::selectColorF(QListWidgetItem *item)
 {
+	QString colorName;
 	ColorPixmapItem* c = dynamic_cast<ColorPixmapItem*>(item);
 	if (c != NULL)	
-		sFarbe = c->colorName();
+		colorName = c->colorName();
 	else if (! item->data(Qt::DisplayRole).toString().isEmpty()) 
-		sFarbe = item->data(Qt::DisplayRole).toString();
+		colorName = item->data(Qt::DisplayRole).toString();
 	else
 		return;
-	emit NewBrush(sFarbe);
+	emit NewBrush(colorName);
 }
 
 void Cpalette::setColors(ColorList newColorList)

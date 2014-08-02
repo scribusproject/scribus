@@ -7764,6 +7764,16 @@ void PageItem::replaceNamedResources(ResourceCollection& newNames)
 				cstops.at(cst)->name = *it;
 		}
 	}
+	cstops = mask_gradient.colorStops();
+	for (uint cst = 0; cst < mask_gradient.Stops(); ++cst)
+	{
+		it = newNames.colors().find(cstops.at(cst)->name);
+		if (it != newNames.colors().end())
+		{
+			if (*it != CommonStrings::None)
+				cstops.at(cst)->name = *it;
+		}
+	}
 	if (effectsInUse.count() != 0)
 	{
 		QString col1 = CommonStrings::None;
