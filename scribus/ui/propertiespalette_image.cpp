@@ -45,7 +45,7 @@ PropertiesPalette_Image::PropertiesPalette_Image( QWidget* parent) : QWidget(par
 	setSizePolicy( QSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum));
 
 	imagePageNumber->setMinimum(0);
-	imagePageNumber->setSpecialValueText(tr( "Auto" ));
+	imagePageNumber->setSpecialValueText( tr( "Auto" ));
 	imagePageNumber->setDecimals(0);
 	imagePageNumber->setSuffix("");
 	imagePageNumberLabel->setBuddy(imagePageNumber);
@@ -84,7 +84,7 @@ PropertiesPalette_Image::PropertiesPalette_Image( QWidget* parent) : QWidget(par
 	keepImageDPIRatioButton->setCheckable( true );
 	keepImageDPIRatioButton->setAutoRaise( true );
 
-	frameScale->setText( "&To Frame Size" );
+	frameScale->setText( tr("&To Frame Size"));
 
 	cbProportional->setEnabled( false );
 	cbProportional->setText( "P&roportional" );
@@ -780,6 +780,8 @@ void PropertiesPalette_Image::languageChange()
 	xscaleLabel->setText( tr("X-Sc&ale:"));
 	yscaleLabel->setText( tr("Y-Scal&e:"));
 	freeScale->setText( tr("&Free Scaling"));
+	frameScale->setText( tr("&To Frame Size"));
+	imagePageNumber->setSpecialValueText( tr( "Auto" ));
 	imagePageNumberLabel->setText( tr("&Page Number:"));
 	imageRotationLabel->setText( tr("Rotation:"));
 

@@ -215,7 +215,7 @@ InsPage::InsPage( QWidget* parent, ScribusDoc* currentDoc, int currentPage, int 
 		}
 	}
 	dialogLayout->addWidget(masterPageGroup);
-	overrideMPSizingCheckBox=new QCheckBox("Override Master Page Sizing");
+	overrideMPSizingCheckBox=new QCheckBox( tr("Override Master Page Sizing"));
 	dialogLayout->addWidget(overrideMPSizingCheckBox);
 	dsGroupBox7 = new QGroupBox( this );
 	dsGroupBox7->setTitle( tr( "Page Size" ) );
@@ -258,7 +258,7 @@ InsPage::InsPage( QWidget* parent, ScribusDoc* currentDoc, int currentPage, int 
 	dsGroupBox7Layout->addWidget( widthSpinBox, 2, 1 );
 	heightSpinBox = new ScrSpinBox( 1, 10000, dsGroupBox7, currentDoc->unitIndex() );
 	heightSpinBox->setValue(currentDoc->pageHeight() * currentDoc->unitRatio());
-	heightQLabel = new QLabel(tr( "&Height:" ), dsGroupBox7);
+	heightQLabel = new QLabel( tr( "&Height:" ), dsGroupBox7);
 	heightQLabel->setBuddy(heightSpinBox);
 	dsGroupBox7Layout->addWidget( heightQLabel, 2, 2 );
 	dsGroupBox7Layout->addWidget( heightSpinBox, 2, 3 );
