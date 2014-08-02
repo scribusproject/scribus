@@ -24,7 +24,7 @@ ScFace::ScFaceData::ScFaceData() :
 	subset(false),
 	isStroked(false),
 	isFixedPitch(false),
-	hasNames(false),
+	hasGlyphNames(false),
 	maxGlyph(0),
 	cachedStatus(ScFace::UNKNOWN)
 {

@@ -121,7 +121,7 @@ public:
 
 		bool isStroked;
 		bool isFixedPitch;
-		bool hasNames;
+		bool hasGlyphNames;
 		uint maxGlyph;
 
 		ScFaceData();
@@ -179,6 +179,8 @@ public:
 		virtual GlyphMetrics glyphBBox(uint gl, qreal sz) const;
 		virtual bool EmbedFont(QString &/*str*/)       const { return false; }
 		virtual void RawData(QByteArray & /*bb*/)      const {}
+
+		virtual bool hasNames() const { return hasGlyphNames; }
 		virtual bool glyphNames(QMap<uint, std::pair<QChar, QString> >& gList) const;
 
 		// these use the cache:
@@ -287,7 +289,7 @@ public:
 	void subset(bool flag)   { m->subset = flag; }
 
 	/// deprecated? tells if the face has PS names
-	bool hasNames()    const { return m->hasNames; }
+	bool hasNames()    const { return m->hasNames(); }
 
 	/// tells if this font is an outline font
 	bool isStroked()   const { return m->isStroked; }

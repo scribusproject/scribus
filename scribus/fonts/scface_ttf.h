@@ -97,7 +97,9 @@ public:
 	void RawData(QByteArray & bb) const;
 
 	qreal glyphKerning ( uint gl1, uint gl2, qreal sz ) const;
-
+	
+	virtual bool glyphNames(QMap<uint, std::pair<QChar, QString> >& GList) const;
+	virtual bool hasNames() const;
 	virtual bool isSymbolic() const;
 
 private:

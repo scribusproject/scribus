@@ -368,8 +368,6 @@ bool GlyphNames(const FtFace& fnt, QMap<uint, std::pair<QChar, QString> >& GList
 		if (FT_Get_Glyph_Name(face, gindex, &buf, 50))
 			continue;
 		QString glyphname(reinterpret_cast<char*>(buf));
-		if (avoidFntNames && buf[0] != '.' && buf[0] != '\0')
-			glyphname = adobeGlyphName(charcode);
 
 		charcode = 0;
 		QMap<uint,std::pair<QChar,QString> >::Iterator gli;
@@ -382,6 +380,8 @@ bool GlyphNames(const FtFace& fnt, QMap<uint, std::pair<QChar, QString> >& GList
 			}
 		}
 //		qDebug() << "\tmore: " << gindex << " '" << charcode << "' --> '" << buf << "'";
+		if (avoidFntNames && buf[0] != '.' && buf[0] != '\0')
+			glyphname = adobeGlyphName(charcode);
 		GList.insert(gindex, std::make_pair(QChar(static_cast<uint>(charcode)), glyphname));
 	}
 

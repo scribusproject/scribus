@@ -305,10 +305,85 @@ FT_Error ftIOFunc( FT_Stream stream, unsigned long pos, unsigned char* buffer, u
 	return error;
 }
 
+QString FtFace::adobeGlyphName(FT_ULong charcode) 
+{
+	static const char HEX[] = "0123456789ABCDEF";
+	QString result;
+	if (charcode < 0x10000) {
+		result = QString("uni") + HEX[charcode>>12 & 0xF] 
+		                        + HEX[charcode>> 8 & 0xF] 
+		                        + HEX[charcode>> 4 & 0xF] 
+		                        + HEX[charcode     & 0xF];
+	}
+	else  {
+		result = QString("u");
+		for (int i= 28; i >= 0; i-=4) {
+			if (charcode & (0xF << i))
+				result += HEX[charcode >> i & 0xF];
+		}
+	}
+	return result;
+}
 
 bool FtFace::glyphNames(QMap<uint, std::pair<QChar, QString> >& GList) const
 {
-	return GlyphNames(*this, GList);
+	char buf[50];
+	FT_ULong  charcode;
+	FT_UInt gindex = 0;
+
+	FT_Face face = ftFace();
+	if (!face)
+		return false;
+	
+	const bool hasPSNames = FT_HAS_GLYPH_NAMES(face);
+	
+//	qDebug() << "reading metrics for" << face->family_name << face->style_name;
+	charcode = FT_Get_First_Char(face, &gindex );
+	while (gindex != 0)
+	{
+		bool notfound = true;
+		if (hasPSNames)
+			notfound = FT_Get_Glyph_Name(face, gindex, &buf, 50);
+
+		// just in case FT gives empty string or ".notdef"
+		// no valid glyphname except ".notdef" starts with '.'		
+//		qDebug() << "\t" << gindex << " '" << charcode << "' --> '" << (notfound? "notfound" : buf) << "'";
+		if (notfound || buf[0] == '\0' || buf[0] == '.')
+			GList.insert(gindex, std::make_pair(QChar(static_cast<uint>(charcode)), adobeGlyphName(charcode)));
+		else
+			GList.insert(gindex, std::make_pair(QChar(static_cast<uint>(charcode)), QString(reinterpret_cast<char*>(buf))));
+
+		charcode = FT_Get_Next_Char(face, charcode, &gindex );
+	}
+
+	if (!hasPSNames)
+		return true;
+
+	// Let's see if we can find some more...
+	int maxSlot1 = face->num_glyphs;
+	for (int gindex = 1; gindex < maxSlot1; ++gindex)
+	{
+		if (GList.contains(gindex))
+			continue;
+		if (FT_Get_Glyph_Name(face, gindex, &buf, 50))
+			continue;
+		QString glyphname(reinterpret_cast<char*>(buf));
+
+		charcode = 0;
+		QMap<uint,std::pair<QChar,QString> >::Iterator gli;
+		for (gli = GList.begin(); gli != GList.end(); ++gli)
+		{
+			if (glyphname == gli.value().second)
+			{
+				charcode = gli.value().first.unicode();
+				break;
+			}
+		}
+//		qDebug() << "\tmore: " << gindex << " '" << charcode << "' --> '" << buf << "'";
+		GList.insert(gindex, std::make_pair(QChar(static_cast<uint>(charcode)), glyphname));
+	}
+
+	return true;
 }
 
 

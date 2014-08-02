@@ -432,7 +432,7 @@ ScFace SCFonts::LoadScalableFont(const QString &filename)
 			/* catching any types not handled above to silence compiler */
 				break;
 		}
-		t.m->hasNames = HasNames;
+		t.m->hasGlyphNames = HasNames;
 		t.embedPs(true);
 		t.usable(true);
 		t.m->status = ScFace::UNKNOWN;
@@ -661,7 +661,7 @@ bool SCFonts::AddScalableFont(QString filename, FT_Library &library, QString Doc
 					break;
 			}
 			insert(ts,t);
-			t.m->hasNames = HasNames;
+			t.m->hasGlyphNames = HasNames;
 			t.embedPs(true);
 			t.usable(true);
 			t.m->status = ScFace::UNKNOWN;

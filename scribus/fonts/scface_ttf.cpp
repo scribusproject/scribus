@@ -530,6 +530,52 @@ qreal ScFace_ttf::glyphKerning ( uint gl1, uint gl2, qreal sz ) const
 	return FtFace::glyphKerning ( gl1, gl2, sz );
 }
 
+bool ScFace_ttf::hasNames() const
+{
+	FT_Face face = ftFace();
+	if (!face)
+		return false;
+
+	// The glyph name table embedded in Truetype fonts is not reliable.
+	// For those fonts we consequently use Adobe Glyph names whenever possible.
+	const bool avoidFntNames = (formatCode != ScFace::TYPE42 && typeCode == ScFace::TTF) &&
+	                           (face->charmap && face->charmap->encoding == FT_ENCODING_UNICODE);
+	if (avoidFntNames)
+		return true; // We use Adobe 'uniXXXX' names in such case
+
+	return FtFace::hasNames();
+}
+
+bool ScFace_ttf::glyphNames(QMap<uint, std::pair<QChar, QString> >& GList) const
+{
+	char buf[50];
+	FT_ULong  charcode;
+	FT_UInt gindex = 0;
+
+	FT_Face face = ftFace();
+	if (!face)
+		return false;
+	
+	// The glyph name table embedded in Truetype fonts is not reliable.
+	// For those fonts we consequently use Adobe Glyph names whenever possible.
+	const bool avoidFntNames = (formatCode != ScFace::TYPE42 && typeCode == ScFace::TTF) &&
+	                           (face->charmap && face->charmap->encoding == FT_ENCODING_UNICODE);
+	if (!avoidFntNames)
+		return FtFace::glyphNames(GList);
+
+	const bool hasPSNames = FT_HAS_GLYPH_NAMES(face);
+	
+//	qDebug() << "reading metrics for" << face->family_name << face->style_name;
+	charcode = FT_Get_First_Char(face, &gindex);
+	while (gindex != 0)
+	{
+		GList.insert(gindex, std::make_pair(QChar(static_cast<uint>(charcode)), adobeGlyphName(charcode)));
+		charcode = FT_Get_Next_Char(face, charcode, &gindex );
+	}
+
+	return true;
+}
+
 void ScFace_ttf::RawData(QByteArray & bb) const {
 	if (formatCode == ScFace::TTCF) {
 		QByteArray coll;
