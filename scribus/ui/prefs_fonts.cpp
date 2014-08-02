@@ -124,88 +124,88 @@ void Prefs_Fonts::languageChange()
 void Prefs_Fonts::restoreDefaults(struct ApplicationPrefs *prefsData)
 {
 	// 	SCFonts* availFonts=&(PrefsManager::instance()->appPrefs.AvailFonts);
-	m_availFonts=prefsData->fontPrefs.AvailFonts;
-		fontListTableView->setFonts(m_availFonts);
-		/*
-		DON'T REMOVE THIS COMMENTS, PLEASE! (Petr)
-		It's just a performance vs. functionality test.
-		availFonts->clear();
-		// FIXME: This is main preformance issue. It's about 90% of all preference reads! - PV
-		availFonts->GetFonts(HomeP); */
-		/* Are you wondering why this condition? See the comment at
-		line #102 (or somewhere near) as reference. Hint: PathList
-		is not initialized for example... - PV */
-	/*	if (!DocAvail && !ScCore->primaryMainWindow()->HaveDoc)
+	m_availFonts = prefsData->fontPrefs.AvailFonts;
+	fontListTableView->setFonts(m_availFonts);
+	/*
+	DON'T REMOVE THIS COMMENTS, PLEASE! (Petr)
+	It's just a performance vs. functionality test.
+	availFonts->clear();
+	// FIXME: This is main preformance issue. It's about 90% of all preference reads! - PV
+	availFonts->GetFonts(HomeP); */
+	/* Are you wondering why this condition? See the comment at
+	line #102 (or somewhere near) as reference. Hint: PathList
+	is not initialized for example... - PV */
+/*	if (!DocAvail && !ScCore->primaryMainWindow()->HaveDoc)
+	{
+		for (uint a = 0; a < PathList->count(); ++a)
 		{
-			for (uint a = 0; a < PathList->count(); ++a)
-			{
-				QString dir = ScPaths::separatorsToSlashes(PathList->text(a));
-				availFonts->AddScalableFonts(dir +"/"); //, docc->DocName);
-				availFonts->updateFontMap();
-			}
-		} */
-	// 	UsedFonts.clear();
-	// 	fontFlags.clear();
-	// 	fontList->clear();
-	// 	SCFontsIterator it(*availFonts);
-	// 	for ( ; it.hasNext(); it.next())
-	// 	{
-	// 		if (it.current().isNone())
-	// 			continue;
-	// 		fontSet foS;
-	// 		QTreeWidgetItem *row = new QTreeWidgetItem(fontList);
-	// 		row->setText(0, it.currentKey());
-
-	// 		foS.FlagUse = it.current().usable();
-	// 		row->setIcon(1, foS.FlagUse ? checkOn : checkOff);
-	// 		if (foS.FlagUse)
-	// 			UsedFonts.append(it.currentKey());
-
-	// 		foS.FlagPS = it.current().embedPs();
-	// 		row->setIcon(2, foS.FlagPS ? checkOn : checkOff);
-
-	// 		foS.FlagSub = it.current().subset();
-	// 		row->setIcon(3, foS.FlagSub ? checkOn : checkOff);
-
-	// 		ScFace::FontType type = it.current().type();
-	// 		foS.FlagOTF = (type == ScFace::OTF) ? true : false;
-	// 		if (it.current().isReplacement())
-	// 			row->setIcon(0, substFont);
-	// 		else if (type == ScFace::TYPE1)
-	// 			row->setIcon(0, psFont);
-	// 		else if (type == ScFace::TTF)
-	// 			row->setIcon(0, ttfFont);
-	// 		else if (type == ScFace::OTF)
-	// 			row->setIcon(0, otfFont);
-
-	// 		foS.FlagNames = it.current().hasNames();
-	// 		row->setText(4, it.current().fontPath());
-	// 		fontFlags.insert(it.currentKey(), foS);
-	// 	}
-	// 	fontList->sortByColumn(0, Qt::AscendingOrder);
-	// 	fontList->resizeColumnToContents(0);
-	// 	fontList->resizeColumnToContents(4);
-	// 	UsedFonts.sort();
-		FlagsRepl.clear();
-		fontSubstitutionsTableWidget->clearContents();
-		m_GFontSub=prefsData->fontPrefs.GFontSub;
-		int a = 0;
-		QMap<QString,QString>::Iterator itfsu;
-		for (itfsu = RList.begin(); itfsu != RList.end(); ++itfsu)
-		{
-			QTableWidgetItem* tWidgetItem = new QTableWidgetItem(itfsu.key());
-			tWidgetItem->setFlags(tWidgetItem->flags() & ~Qt::ItemIsEditable);
-			fontSubstitutionsTableWidget->setItem(a, 0, tWidgetItem);
-			ScComboBox *item = new ScComboBox(fontSubstitutionsTableWidget);
-			fontSubstitutionsTableWidget->setCellWidget(a, 1, item);
-			item->setEditable(false);
-			item->addItem(itfsu.value());
-			setCurrentComboItem(item, itfsu.value());
-			FlagsRepl.append(item);
-			a++;
+			QString dir = ScPaths::separatorsToSlashes(PathList->text(a));
+			availFonts->AddScalableFonts(dir +"/"); //, docc->DocName);
+			availFonts->updateFontMap();
 		}
-		deleteSubstitutionButton->setEnabled(false);
-		updateFontList();
+	} */
+// 	UsedFonts.clear();
+// 	fontFlags.clear();
+// 	fontList->clear();
+// 	SCFontsIterator it(*availFonts);
+// 	for ( ; it.hasNext(); it.next())
+// 	{
+// 		if (it.current().isNone())
+// 			continue;
+// 		fontSet foS;
+// 		QTreeWidgetItem *row = new QTreeWidgetItem(fontList);
+// 		row->setText(0, it.currentKey());
+
+// 		foS.FlagUse = it.current().usable();
+// 		row->setIcon(1, foS.FlagUse ? checkOn : checkOff);
+// 		if (foS.FlagUse)
+// 			UsedFonts.append(it.currentKey());
+
+// 		foS.FlagPS = it.current().embedPs();
+// 		row->setIcon(2, foS.FlagPS ? checkOn : checkOff);
+
+// 		foS.FlagSub = it.current().subset();
+// 		row->setIcon(3, foS.FlagSub ? checkOn : checkOff);
+
+// 		ScFace::FontType type = it.current().type();
+// 		foS.FlagOTF = (type == ScFace::OTF) ? true : false;
+// 		if (it.current().isReplacement())
+// 			row->setIcon(0, substFont);
+// 		else if (type == ScFace::TYPE1)
+// 			row->setIcon(0, psFont);
+// 		else if (type == ScFace::TTF)
+// 			row->setIcon(0, ttfFont);
+// 		else if (type == ScFace::OTF)
+// 			row->setIcon(0, otfFont);
+
+// 		foS.FlagNames = it.current().hasNames();
+// 		row->setText(4, it.current().fontPath());
+// 		fontFlags.insert(it.currentKey(), foS);
+// 	}
+// 	fontList->sortByColumn(0, Qt::AscendingOrder);
+// 	fontList->resizeColumnToContents(0);
+// 	fontList->resizeColumnToContents(4);
+// 	UsedFonts.sort();
+	FlagsRepl.clear();
+	fontSubstitutionsTableWidget->clearContents();
+	m_GFontSub=prefsData->fontPrefs.GFontSub;
+	int a = 0;
+	QMap<QString,QString>::Iterator itfsu;
+	for (itfsu = RList.begin(); itfsu != RList.end(); ++itfsu)
+	{
+		QTableWidgetItem* tWidgetItem = new QTableWidgetItem(itfsu.key());
+		tWidgetItem->setFlags(tWidgetItem->flags() & ~Qt::ItemIsEditable);
+		fontSubstitutionsTableWidget->setItem(a, 0, tWidgetItem);
+		ScComboBox *item = new ScComboBox(fontSubstitutionsTableWidget);
+		fontSubstitutionsTableWidget->setCellWidget(a, 1, item);
+		item->setEditable(false);
+		item->addItem(itfsu.value());
+		setCurrentComboItem(item, itfsu.value());
+		FlagsRepl.append(item);
+		a++;
+	}
+	deleteSubstitutionButton->setEnabled(false);
+	updateFontList();
 }
 
 void Prefs_Fonts::saveGuiToPrefs(struct ApplicationPrefs *prefsData) const
