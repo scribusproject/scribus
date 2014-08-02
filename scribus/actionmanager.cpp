@@ -1756,7 +1756,7 @@ void ActionManager::languageChange()
 	(*scrActions)["fileSave"]->setStatusTextAndShortcut( tr("Save the current document"));
 	(*scrActions)["toolsCopyProperties"]->setStatusTextAndShortcut( tr("Copy item properties"));
 	(*scrActions)["toolsEditContents"]->setStatusTextAndShortcut( tr("Edit contents of a frame"));
-	(*scrActions)["toolsEditWithStoryEditor"]->setText( tr("Edit text in the Story Editor"));
+	(*scrActions)["toolsEditWithStoryEditor"]->setStatusTextAndShortcut( tr("Edit text in the Story Editor"));
 	(*scrActions)["toolsEyeDropper"]->setStatusTextAndShortcut( tr("Eye Dropper"));
 	(*scrActions)["toolsInsertArc"]->setStatusTextAndShortcut( tr("Insert an arc"));
 	(*scrActions)["toolsInsertBezier"]->setStatusTextAndShortcut( tr("Insert a bezier curve"));
@@ -1785,6 +1785,9 @@ void ActionManager::languageChange()
 	(*scrActions)["toolsSelect"]->setStatusTextAndShortcut( tr("Select an item"));
 	(*scrActions)["toolsUnlinkTextFrame"]->setStatusTextAndShortcut( tr("Unlink text frames"));
 	(*scrActions)["toolsZoom"]->setStatusTextAndShortcut( tr("Zoom in or out"));
+	(*scrActions)["viewPreviewMode"]->setStatusTextAndShortcut( tr("Enable preview mode"));
+	(*scrActions)["viewEditInPreview"]->setStatusTextAndShortcut( tr("Enable editing in preview mode"));
+	(*scrActions)["viewToggleCMS"]->setStatusTextAndShortcut( tr("Toggle color management system"));
 #ifdef HAVE_OSG
 	(*scrActions)["toolsPDFAnnot3D"]->setStatusTextAndShortcut( tr("Insert 3D annotation"));
 #endif
