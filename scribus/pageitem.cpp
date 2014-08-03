@@ -108,6 +108,7 @@ PageItem::PageItem(const PageItem & other)
 	GrFocalY(other.GrFocalY),
 	GrScale(other.GrScale),
 	GrSkew(other.GrSkew),
+	GrExtend(other.GrExtend),
 	GrControl1(other.GrControl1),
 	GrControl2(other.GrControl2),
 	GrControl3(other.GrControl3),
@@ -438,6 +439,7 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	GrFocalY = 0;
 	GrScale = 1;
 	GrSkew = 0;
+	GrExtend = VGradient::pad;
 	GrControl1 = FPoint(0,0);
 	GrControl2 = FPoint(w, 0);
 	GrControl3 = FPoint(w, h);

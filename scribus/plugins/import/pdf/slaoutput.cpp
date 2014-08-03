@@ -1815,10 +1815,6 @@ GBool SlaOutputDev::axialShadedFill(GfxState *state, GfxAxialShading *shading, d
 		QString stopColor2 = getColor(color_space, &stop2, &shade);
 		FillGradient.addStop( ScColorEngine::getShadeColor(m_doc->PageColors[stopColor2], m_doc, shade), 1.0, 0.5, 1.0, stopColor2, shade );
 	}
-	if (!shading->getExtend0() || !shading->getExtend1())
-		FillGradient.setRepeatMethod(VGradient::none);
-	else
-		FillGradient.setRepeatMethod(VGradient::pad);
 	((GfxAxialShading*)shading)->getCoords(&GrStartX, &GrStartY, &GrEndX, &GrEndY);
 	double xmin, ymin, xmax, ymax;
 	// get the clip region bbox
@@ -1859,6 +1855,16 @@ GBool SlaOutputDev::axialShadedFill(GfxState *state, GfxAxialShading *shading, d
 	ite->setLineJoin(PLineJoin);
 	ite->setTextFlowMode(PageItem::TextFlowDisabled);
 	ite->GrType = 6;
+	if (!shading->getExtend0() || !shading->getExtend1())
+	{
+		FillGradient.setRepeatMethod(VGradient::none);
+		ite->setGradientExtend(VGradient::none);
+	}
+	else
+	{
+		FillGradient.setRepeatMethod(VGradient::pad);
+		ite->setGradientExtend(VGradient::pad);
+	}
 	ite->fill_gradient = FillGradient;
 	ite->setGradientVector(GrStartX, GrStartY, GrEndX, GrEndY, 0, 0, 1, 0);
 	m_doc->AdjustItemSize(ite);
@@ -1913,10 +1919,6 @@ GBool SlaOutputDev::radialShadedFill(GfxState *state, GfxRadialShading *shading,
 		QString stopColor2 = getColor(color_space, &stop2, &shade);
 		FillGradient.addStop( ScColorEngine::getShadeColor(m_doc->PageColors[stopColor2], m_doc, shade), 1.0, 0.5, 1.0, stopColor2, shade );
 	}
-	if (!shading->getExtend0() || !shading->getExtend1())
-		FillGradient.setRepeatMethod(VGradient::none);
-	else
-		FillGradient.setRepeatMethod(VGradient::pad);
 	double r0, x1, y1, r1;
 	((GfxRadialShading*)shading)->getCoords(&GrStartX, &GrStartY, &r0, &x1, &y1, &r1);
 	double xmin, ymin, xmax, ymax;
@@ -1965,6 +1967,16 @@ GBool SlaOutputDev::radialShadedFill(GfxState *state, GfxRadialShading *shading,
 	ite->setLineJoin(PLineJoin);
 	ite->setTextFlowMode(PageItem::TextFlowDisabled);
 	ite->GrType = 7;
+	if (!shading->getExtend0() || !shading->getExtend1())
+	{
+		FillGradient.setRepeatMethod(VGradient::none);
+		ite->setGradientExtend(VGradient::none);
+	}
+	else
+	{
+		FillGradient.setRepeatMethod(VGradient::pad);
+		ite->setGradientExtend(VGradient::pad);
+	}
 	ite->fill_gradient = FillGradient;
 	ite->setGradientVector(GrStartX, GrStartY, GrEndX, GrEndY, GrFocalX, GrFocalY, 1, 0);
 	m_doc->AdjustItemSize(ite);
