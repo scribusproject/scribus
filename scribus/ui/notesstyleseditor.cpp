@@ -82,8 +82,8 @@ void NotesStylesEditor::languageChange()
 	SuffixLabel->setText(tr("Suffix"));
 	SuperMasterLabel->setText(tr("Superscript in text"));
 	SuperNoteLabel->setText(tr("Superscript in notes"));
-	charStyleComboLabel->setText(tr("Mark`s Character Style"));
-	paraStyleComboLabel->setText(tr("Note`s Paragraph Style"));
+	charStyleComboLabel->setText(tr("Mark Character Style"));
+	paraStyleComboLabel->setText(tr("Note Paragraph Style"));
 	AutoHLabel->setText(tr("Auto Height"));
 	AutoWLabel->setText(tr("Auto Width"));
 	AutoWeldLabel->setText(tr("Auto Welding"));
