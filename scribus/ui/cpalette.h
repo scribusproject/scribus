@@ -90,15 +90,12 @@ public slots:
 	void showGradient(int nr);
 	void showGradientStroke(int nr);
 	void showOverprint(int);
-	void updateCList();
 	void toggleColorDisplay();
 	void setNamedGradient(const QString &name);
 	void setNamedGradientStroke(const QString &name);
 	void selectPattern(QListWidgetItem *c);
 	void selectPatternS(QListWidgetItem *c);
 	void hideEditedPatterns(QStringList names);
-	void updatePatternList();
-	void updateGradientList();
 	void setActPattern(QString pattern, double scaleX, double scaleY, double offsetX, double offsetY, double rotation, double skewX, double skewY, bool mirrorX, bool mirrorY);
 	void setActPatternStroke(QString pattern, double scaleX, double scaleY, double offsetX, double offsetY, double rotation, double skewX, double skewY, bool mirrorX, bool mirrorY, double space, bool pathF);
 	void selectColorS(QListWidgetItem *c);
@@ -189,6 +186,10 @@ protected:
 	bool   updatesBlocked() { return (m_blockUpdates > 0); }
 
 	void   enablePatterns(bool enable);
+
+	void   updateCList();
+	void   updateGradientList();
+	void   updatePatternList();
 };
 
 #endif
