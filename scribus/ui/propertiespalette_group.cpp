@@ -373,9 +373,7 @@ void PropertiesPalette_Group::updateColorList()
 {
 	if (!m_haveDoc || !m_ScMW || m_ScMW->scriptIsRunning())
 		return;
-	transPalWidget->setColors(m_doc->PageColors);
-	transPalWidget->setPatterns(&m_doc->docPatterns);
-	transPalWidget->setGradients(&m_doc->docGradients);
+	transPalWidget->updateColorList();
 }
 
 void PropertiesPalette_Group::updateColorSpecialGradient()
