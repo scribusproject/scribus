@@ -1014,6 +1014,9 @@
     <ClInclude Include="..\..\..\scribus\util_debug.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\scribus\util_os.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\scribus\desaxe\digester.cpp">
@@ -3465,6 +3468,9 @@
       <Filter>Generated Moc Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\scribus\util_debug.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\util_os.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
