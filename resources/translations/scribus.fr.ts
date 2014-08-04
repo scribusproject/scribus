@@ -3875,7 +3875,7 @@ Please choose another one.</source>
         <location filename="../../scribus/ui/cmykfw.cpp" line="188"/>
         <location filename="../../scribus/ui/cmykfw.cpp" line="199"/>
         <source>HSV Color Map</source>
-        <translation>Carte des couleurs HSV</translation>
+        <translation>Carte des couleurs TSL</translation>
     </message>
 </context>
 <context>
@@ -3946,7 +3946,7 @@ Please choose another one.</source>
         <location filename="../../scribus/plugins/colorwheel/cwdialog.ui" line="87"/>
         <location filename="../../scribus/plugins/colorwheel/cwdialog.ui" line="729"/>
         <source>HSV</source>
-        <translation>Modèle de couleurs HSV</translation>
+        <translation>Modèle de couleurs TSL</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/colorwheel/cwdialog.ui" line="106"/>
@@ -4076,7 +4076,7 @@ Please choose another one.</source>
         <location filename="../../scribus/plugins/colorwheel/cwdialog.ui" line="498"/>
         <location filename="../../scribus/plugins/colorwheel/cwdialog.ui" line="685"/>
         <source>HSV:</source>
-        <translation>HSV :</translation>
+        <translation>TSL :</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/colorwheel/cwdialog.ui" line="571"/>
