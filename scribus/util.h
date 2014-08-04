@@ -32,10 +32,6 @@ class  PageItem;
 class  ParagraphStyle;
 class  ScribusDoc;
 class  ScribusView;
-class  ScStreamFilter;
-struct CopyPasteBuffer;
-
-
 
 // class Foi;
 
