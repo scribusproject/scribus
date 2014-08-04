@@ -38,7 +38,7 @@ nl2/flowers.jpg
 nl2/nl2.png
 nl2/nl2tn.png
 nl2/nl2.sla.gz
-  DESTINATION ${TEMPLATEDIR}nl1
+  DESTINATION ${TEMPLATEDIR}nl2
 )
 
 INSTALL(FILES
