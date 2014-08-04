@@ -39,6 +39,7 @@ public:
 
 public slots:
 	void languageChange();
+	void styleChange();
 	void selectMasterPage(QString name);
 
 private:

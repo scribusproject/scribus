@@ -104,12 +104,6 @@
        <verstretch>0</verstretch>
       </sizepolicy>
      </property>
-     <property name="minimumSize">
-      <size>
-       <width>0</width>
-       <height>32</height>
-      </size>
-     </property>
      <property name="text">
       <string>&lt;&lt;&lt; Return to Normal Page Mode</string>
      </property>

@@ -737,6 +737,7 @@ SET(SCRIBUS_SOURCES
 	util_icon.cpp
 	util_layer.cpp
 	util_math.cpp
+	util_os.cpp
 	util_printer.cpp
 	util_text.cpp
 	vgradient.cpp

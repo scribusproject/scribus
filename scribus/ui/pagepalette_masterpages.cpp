@@ -33,6 +33,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribusXml.h"
 #include "selection.h"
 #include "util_icon.h"
+#include "util_os.h"
 
 PagePalette_MasterPages::PagePalette_MasterPages( QWidget* parent, ScribusView *pCurrentView, QString masterPageName) : QWidget(parent)
 {
@@ -47,7 +48,7 @@ PagePalette_MasterPages::PagePalette_MasterPages( QWidget* parent, ScribusView *
 	deleteButton->setIcon(QIcon(loadIcon("16/edit-delete.png")));
 
 	masterPageListBox->setSelectionMode(QAbstractItemView::ExtendedSelection);
-
+	styleChange();
 	languageChange();
 
 	if (masterPageName.isEmpty())
@@ -128,6 +129,15 @@ void PagePalette_MasterPages::languageChange()
 	deleteButton->setToolTip( tr( "Delete the selected master page" ) );
 	newButton->setToolTip( tr( "Add a new master page" ) );
 	importButton->setToolTip( tr( "Import master pages from another document" ) );
+}
+
+void PagePalette_MasterPages::styleChange()
+{
+	PrefsManager* prefsManager = PrefsManager::instance();
+	if (prefsManager->appPrefs.uiPrefs.style=="Macintosh" || (os_is_osx() && prefsManager->appPrefs.uiPrefs.style==""))
+		finishButton->setMinimumHeight(32);
+	else
+		finishButton->setMinimumHeight(0);
 }
 
 void PagePalette_MasterPages::deleteMasterPage()
@@ -548,6 +558,11 @@ void PagePalette_MasterPages::changeEvent(QEvent *e)
 	if (e->type() == QEvent::LanguageChange)
 	{
 		languageChange();
+		return;
+	}
+	else if (e->type() == QEvent::StyleChange)
+	{
+		styleChange();
 		return;
 	}
 
