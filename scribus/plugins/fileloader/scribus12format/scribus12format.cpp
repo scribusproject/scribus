@@ -1458,6 +1458,43 @@ void Scribus12Format::GetItemProps(QDomElement *obj, struct CopyPasteBuffer *OB,
 			OB->GrShade2 = obj->attribute("GRSHADE2", "100").toInt();
 		}
 	}
+
+	OB->GrControl1 = FPoint(0,0);
+	OB->GrControl2 = FPoint(OB->Width, 0);
+	OB->GrControl3 = FPoint(OB->Width, OB->Height);
+	OB->GrControl4 = FPoint(0, OB->Height);
+	OB->GrControl5 = FPoint(OB->Width / 2.0, OB->Height / 2.0);
+	OB->GrColorP1 = "Black";
+	OB->GrColorP2 = "Black";
+	OB->GrColorP3 = "Black";
+	OB->GrColorP4 = "Black";
+	OB->GrCol1transp = 1.0;
+	OB->GrCol2transp = 1.0;
+	OB->GrCol3transp = 1.0;
+	OB->GrCol4transp = 1.0;
+	OB->GrCol1Shade = 100;
+	OB->GrCol2Shade = 100;
+	OB->GrCol3Shade = 100;
+	OB->GrCol4Shade = 100;
+	OB->GrTypeStroke = 0;
+	OB->GrStrokeStartX = 0;
+	OB->GrStrokeStartY = 0;
+	OB->GrStrokeEndX = OB->Width;
+	OB->GrStrokeEndY = 0;
+	OB->GrStrokeFocalX = 0;
+	OB->GrStrokeFocalY = 0;
+	OB->GrStrokeScale = 1;
+	OB->GrStrokeSkew = 0;
+	OB->GrMask = 0;
+	OB->GrMaskStartX = 0;
+	OB->GrMaskStartY = 0;
+	OB->GrMaskEndX = OB->Width;
+	OB->GrMaskEndY = 0;
+	OB->GrMaskFocalX = 0;
+	OB->GrMaskFocalY = 0;
+	OB->GrMaskScale = 1;
+	OB->GrMaskSkew = 0;
+
 	switch (OB->GrType)
 	{
 		case 1:
