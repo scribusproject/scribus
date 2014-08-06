@@ -274,7 +274,6 @@ void LayerPalette::addLayer()
 	rebuildList();
 	markActiveLayer();
 	m_Doc->scMW()->changeLayer(m_Doc->activeLayer());
-	m_Doc->changed();
 }
 
 void LayerPalette::dupLayer()
@@ -292,8 +291,7 @@ void LayerPalette::dupLayer()
 	markActiveLayer();
 	m_Doc->copyLayer(current, m_Doc->activeLayer());
 	m_Doc->scMW()->changeLayer(m_Doc->activeLayer());
-	m_Doc->changed();
-	if(copyTransaction)
+	if (copyTransaction)
 	{
 		copyTransaction->commit();
 		delete copyTransaction;
@@ -327,7 +325,6 @@ void LayerPalette::removeLayer()
 	rebuildList();
 	markActiveLayer();
 	m_Doc->scMW()->changeLayer(m_Doc->activeLayer());
-	m_Doc->changed();
 }
 
 void LayerPalette::upLayer()

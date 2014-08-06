@@ -2942,6 +2942,8 @@ int ScribusDoc::addLayer(const QString& layerName, const bool activate)
 		ss->set("LAYER_NR", ll->ID);
 		undoManager->action(this, ss, DocName, Um::ILayer);
 	}
+
+	changed();
 	return lId;
 }
 
@@ -2966,6 +2968,7 @@ void ScribusDoc::copyLayer(int layerIDToCopy, int whereToInsert)
 		ss.ReadElemToLayer(dataS, appPrefsData.fontPrefs.AvailFonts, this, Pages->at(0)->xOffset(), Pages->at(0)->yOffset(), false, true, appPrefsData.fontPrefs.GFontSub, whereToInsert);
 	}
 	sourceSelection.clear();
+	changed();
 }
 
 
@@ -2986,48 +2989,6 @@ bool ScribusDoc::deleteLayer(const int layerID, const bool deleteItems)
 	if (ScCore->usingGUI())
 		removeLayer(layerID, deleteItems);
 
-	/*
-	//Layer found, do we want to delete its items too?
-	if (masterPageMode)
-		MasterPages = Pages;
-	else
-		DocPages = Pages;
-	for (uint b = 0; b < MasterItems.count(); ++b)
-	{
-		if (MasterItems.at(b)->LayerID == layerID)
-		{
-			if (deleteItems)
-			{
-				MasterItems.at(b)->setTagged(true);
-				MasterItems.at(b)->setLocked(false);
-			}
-			else
-				MasterItems.at(b)->setTagged(false);
-		}
-	}
-//	if (view->SelItem.count() != 0)
-//		view->DeleteItem();
-//	view->SelItem.clear();
-	for (uint b = 0; b < DocItems.count(); ++b)
-	{
-		if (DocItems.at(b)->LayerID == l)
-		{
-			if (deleteItems)
-			{
-				DocItems.at(b)->setTagged(true);
-				DocItems.at(b)->setLocked(false);
-			}
-			else
-				DocItems.at(b)->setLayer(0);
-		}
-	}
-//	if (view->SelItem.count() != 0)
-//		view->DeleteItem();
-
-	bool deletedOk=deleteTaggedItems();
-	Q_ASSERT(deletedOk);
-
-	*/
 	//Now delete the layer
 	Layers.removeLayerByID(layerID);
 
@@ -3045,7 +3006,8 @@ bool ScribusDoc::deleteLayer(const int layerID, const bool deleteItems)
 		delete activeTransaction;
 		activeTransaction = NULL;
 	}
-//	setActiveLayer(layerIDFromLevel(0));
+
+	changed();
 	return true;
 }
 
