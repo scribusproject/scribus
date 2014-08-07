@@ -136,7 +136,7 @@ About::About( QWidget* parent, AboutMode diaMode ) : QDialog( parent )
 #ifdef HAVE_SVNVERSION
 	#ifdef SVNVERSION
 		QString revText;
-		revText=QString("SVN Revision: %1").arg(SVNVERSION);
+		revText=QString(tr("SVN Revision: %1")).arg(SVNVERSION);
 		built+=" - ";
 		built+=revText;
 	#endif

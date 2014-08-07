@@ -75,7 +75,7 @@ void NotesStylesEditor::languageChange()
 	NewNameLabel->setText(tr("New Style Name"));
 	FootRadio->setText(tr("Footnotes"));
 	EndRadio->setText(tr("Endnotes"));
-	NumberingLabel->setText("Numbering");
+	NumberingLabel->setText(tr("Numbering"));
 	RangeLabel->setText(tr("Range"));
 	StartLabel->setText(tr("Start Number"));
 	PrefixLabel->setText(tr("Prefix"));
