@@ -118,12 +118,12 @@ int FileLoader::testFile()
 		ret = -1;
 	QString ext = fi.completeSuffix().toLower();
 
+	bool found = false;
 	QList<FileFormat> fileFormats(LoadSavePlugin::supportedFormats());
 	QList<FileFormat>::const_iterator it(fileFormats.constBegin());
 	QList<FileFormat>::const_iterator itEnd(fileFormats.constEnd());
 	for ( ; it != itEnd ; ++it )
 	{
-		bool found = false;
 		for (int a = 0; a < it->fileExtensions.count(); a++)
 		{
 			QString exts = it->fileExtensions[a].toLower();
@@ -142,6 +142,35 @@ int FileLoader::testFile()
 		}
 		if (found)
 			break;
+	}
+	if (!found)
+	{
+	// now try for the last suffix
+		ext = fi.suffix().toLower();
+		it = fileFormats.constBegin();
+		itEnd = fileFormats.constEnd();
+		for ( ; it != itEnd ; ++it )
+		{
+			bool found = false;
+			for (int a = 0; a < it->fileExtensions.count(); a++)
+			{
+				QString exts = it->fileExtensions[a].toLower();
+				if (ext == exts)
+				{
+					if (it->plug != 0)
+					{
+						if (it->plug->fileSupported(0, m_fileName))
+						{
+							ret = it->formatId;
+							found = true;
+							break;
+						}
+					}
+				}
+			}
+			if (found)
+				break;
+		}
 	}
 	m_fileType = ret;
 	return ret;
