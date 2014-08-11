@@ -27,10 +27,11 @@ for which a new license (GPL+exception) is in place.
 #ifndef UNDOTRANSACTION_H
 #define UNDOTRANSACTION_H
 
+#include <QString>
+
 #include "scribusapi.h"
 #include "transaction.h"
 
-class QString;
 class QPixmap;
 
 class TransactionData;

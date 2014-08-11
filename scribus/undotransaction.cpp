@@ -28,12 +28,12 @@ for which a new license (GPL+exception) is in place.
 
 #include <QDebug>
 #include <QPixmap>
+#include <QString>
 
 #include "scconfig.h"
 #include "undomanager.h"
 #include "undoobject.h"
 #include "undostate.h"
-#include "undotransaction.h"
 #include "util_icon.h"
 
 UndoTransaction::UndoTransaction() : Transaction(0)
@@ -44,7 +44,7 @@ UndoTransaction::UndoTransaction(TransactionData* data) : Transaction(data)
 
 UndoTransaction::~UndoTransaction() 
 {
-	if (m_data && (m_data->ref == 1))
+	if (m_data && (m_data->ref.load() == 1))
 		UndoTransaction::cancel(); // no virtual calls in destructor
 }
 
