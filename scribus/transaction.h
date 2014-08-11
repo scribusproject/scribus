@@ -29,6 +29,8 @@
 
 #include "scribusapi.h"
 
+#include <QSharedData>
+#include <QExplicitlySharedDataPointer>
 
 /**
   Interface class for objects representing a going transaction.
@@ -45,7 +47,11 @@ public:
 		STATE_COMMITTED
 	};
 	
-	struct TransactionStateBase {
+	class TransactionStateBase : public QSharedData
+	{
+	public:
+		virtual ~TransactionStateBase() {};
+
 		Status m_status;
 	};
 	
@@ -55,19 +61,18 @@ public:
 			m_data->m_status = STATE_OPEN;
 	}
 	
-	Transaction(const Transaction& other) : m_data(other.m_data)
-	{
-		const_cast<Transaction&>(other).m_data = 0;  // mean, but necessary so that not both destructors commit/close
-	}
-	
-	
 	/**
 		Automatically commits if forgotten.
 		Override as appropiate. Since the superclass destructor is called last, you
 	    can cancel in the subclass destructor; the commit here then will do nothing.
 	    Don't forget to set m_data to NULL if you free the m_data pointer!
 	 */
-	virtual ~Transaction();
+	virtual ~Transaction() {};
+
+	/**
+		Test if transaction has some valid data 
+	 */
+	operator bool() const { return (m_data.constData() != 0); }
 	
 	/**
 	  Commits this transaction if in STATE_OPEN.
@@ -86,17 +91,24 @@ public:
 		Marks this transaction as failed.
 	 */
 	virtual void markFailed();
-	
+
+	/**
+		Reset underlyng transaciton data
+	 */
+	virtual void reset();
+
 	int getState() const;
+
+	bool isNull() const { return (m_data.constData() == 0); }
+
+	bool isStarted() const { return (m_data.constData() != 0); }
+
+	bool isOpened() const;
 	
 protected:
 	// if you subclass, do *not* add any data members but use this pointer instead,
 	// otherwise the copy initializer will strip your objects.
-	TransactionStateBase*    m_data;
-	
-private:
-	// blocked
-	Transaction& operator= (const Transaction&) { return *this; }
+	QExplicitlySharedDataPointer<TransactionStateBase>    m_data;
 };
 
 #endif

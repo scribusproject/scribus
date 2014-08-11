@@ -30,20 +30,21 @@ for which a new license (GPL+exception) is in place.
 #include <vector>
 #include <utility>
 #include <QObject>
-#include <QPixmap>
 
 #include "scribusapi.h"
 #include "transaction.h"
 #include "undostate.h"
 #include "undoobject.h"
 #include "undostack.h"
+#include "undotransaction.h"
 
 class QString;
 class QPixmap;
 class UndoGui;
 class PrefsContext;
 
-struct TransactionData;
+class TransactionData;
+class UndoTransaction;
 
 /** @brief Key is the doc name, value is it's undo stack */
 typedef QMap<QString, UndoStack> StackMap;
@@ -59,99 +60,6 @@ public:
 
 	TransactionSettings(void) { targetPixmap = actionPixmap = NULL; }  
 };
-
-/**
- * @brief TransactionState provides a container where multiple UndoStates can be stored
- * @brief as a single action which then appears in the attached <code>UndoGui</code>s.
- * @author Riku Leino riku@scribus.info
- * @date January 2005
- */
-class TransactionState : public UndoState
-{
-public:
-	/** @brief Creates a new TransactionState instance */
-	TransactionState();
-	/** @brief Destroys the TransactionState instance */
-	~TransactionState();
-	/** @brief To know if the state is a Transaction */
-	bool isTransaction(){return true;}
-
-	/**
-	 * @brief Add a new <code>UndoState</code> object to the transaction.
-	 * @param state state to be added to the transaction
-	 */
-	void pushBack(UndoObject *target, UndoState *state);
-	/**
-	 * @brief Returns the count of the <code>UndoState</code> objects in this transaction.
-	 * @return count of the <code>UndoState</code> objects in this transaction
-	 */
-	uint sizet();
-	/** @brief Use the name from last action added to this <code>TransactionState</code> */
-	void useActionName();
-	/**
-	 * @brief Returns an <code>UndoState</code> object at <code>index</code>.
-	 * @param index index from where an <code>UndoState</code> object is returned.
-	 * If <code>index</code> is out of scope <code>NULL</code> will be rerturned.
-	 * @return <code>UndoState</code> object from <code>index</code> or <code>NULL</code>
-	 * if <code>index</code> is out of scope.
-	 */
-	UndoState* at(int index);
-	/**
-	 * @brief Returns true if this transaction contains UndoObject with the id <code>uid</code>
-	 * @brief otherwise returns false.
-	 * @return true if this transaction contains UndoObject with the ide <code>uid</code>
-	 * @return otherwise returns false.
-	 */
-	bool contains(int uid) const;
-	
-	/**
-	 * @brief Tells if this transaction contains only UndoObject with ID uid
-	 * 
-	 * If a transaction contains only single UndoObject it will be safe to include
-	 * it in the object specific undo.
-	 * @param uid UndoObject's id to look for
-	 * @return true if this transaction only contains actions of the UndoObject whose
-	 *         id is uid
-	 */
-	bool containsOnly(int uid) const;
-	/**
-	 * @brief Replace object with id uid with new UndoObject newUndoObject.
-	 * @param uid id of the object that is wanted to be replaced
-	 * @param newUndoObject object that is used for replacing
-	 * @return UndoObject which was replaced
-	 */
-	UndoObject* replace(ulong uid, UndoObject *newUndoObject);
-
-	/** @brief undo all UndoStates in this transaction */
-	void undo();
-	/** @brief redo all UndoStates in this transaction */
-	void redo();
-private:
-	/** @brief Number of undo states stored in this transaction */
-	uint size_;
-	/** @brief vector to keep the states in */
-	std::vector<UndoState*> states_;
-};
-
-
-
-/**
-    Class which handles Undo transactions. No data, just methods.
- */
-class SCRIBUS_API UndoTransaction : public Transaction
-{
-public:
-	UndoTransaction(TransactionData* data);
-	virtual ~UndoTransaction();
-	virtual bool commit();
-	virtual bool cancel();
-	bool commit(const QString &targetName,
-				QPixmap *targetPixmap,
-				const QString &name = "",
-				const QString &description = "",
-				QPixmap *actionPixmap = 0);
-};
-
 
 /**
  * @brief UndoManager handles the undo stack.

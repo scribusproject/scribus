@@ -724,6 +724,7 @@ SET(SCRIBUS_SOURCES
 	undoobject.cpp
 	undostack.cpp
 	undostate.cpp
+	undotransaction.cpp
 	units.cpp
 	updatemanager.cpp
 	upgradechecker.cpp

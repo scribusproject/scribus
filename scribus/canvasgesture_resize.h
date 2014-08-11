@@ -24,6 +24,7 @@
 #include "canvas.h"
 #include "canvasgesture.h"
 #include "canvasmode.h"
+#include "undotransaction.h"
 
 class QDragEnterEvent;
 class QDragMoveEvent;
@@ -36,7 +37,6 @@ class QKeyEvent;
 class QPainter;
 class QRubberBand;
 class PageItem;
-class UndoTransaction;
 
 /**
   This class realizes resizing of selected items on behalf of its parent mode.
@@ -80,7 +80,7 @@ private:
 	QRectF m_bounds;
 	QRectF m_origBounds;
 	QRectF m_mousePressBounds;
-	UndoTransaction* m_transactionStarted;
+	UndoTransaction m_transaction;
 	double m_extraWidth;
 	double m_extraHeight;
 	double m_extraX;

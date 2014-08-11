@@ -567,6 +567,7 @@
     <moc Include="..\..\..\scribus\upgradechecker.h" />
     <moc Include="..\..\..\scribus\ui\proptree.h" />
     <moc Include="..\..\..\scribus\ui\viewtoolbar.h" />
+    <ClInclude Include="..\..\..\scribus\undotransaction.h" />
     <ClInclude Include="..\..\..\scribus\util_debug.h" />
     <ClInclude Include="..\..\..\scribus\util_os.h" />
     <ClInclude Include="resource.h" />
@@ -1369,6 +1370,7 @@
     <ClCompile Include="..\..\..\scribus\scribuscore.cpp" />
     <ClCompile Include="..\..\..\scribus\scribusdoc.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\viewtoolbar.cpp" />
+    <ClCompile Include="..\..\..\scribus\undotransaction.cpp" />
     <ClCompile Include="..\..\..\scribus\upgradechecker.cpp" />
     <ClCompile Include="..\..\..\scribus\util_debug.cpp" />
     <ClCompile Include="..\..\..\scribus\util_os.cpp" />

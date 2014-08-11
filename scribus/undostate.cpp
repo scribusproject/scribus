@@ -197,3 +197,132 @@ SimpleState::~SimpleState()
 {
 
 }
+
+/*** TransactionState *****************************************************/
+
+TransactionState::TransactionState() : UndoState("")
+{
+	size_ = 0;
+}
+
+UndoState* TransactionState::at(int index)
+{
+	if (index >= 0 && static_cast<uint>(index) < sizet())
+		return states_[index];
+	else
+		return 0;
+}
+
+bool TransactionState::contains(int uid) const
+{
+	for (uint i = 0; i < states_.size(); ++i)
+	{
+		UndoObject* undoObject = states_[i]->undoObject();
+		if (undoObject && undoObject->getUId() == static_cast<uint>(uid))
+			return true;
+	}
+	return false;
+}
+
+bool TransactionState::containsOnly(int uid) const
+{
+	for (uint i = 0; i < states_.size(); ++i)
+	{
+		UndoObject* undoObject = states_[i]->undoObject();
+		if (undoObject && undoObject->getUId() != static_cast<uint>(uid))
+			return false;
+	}
+	return true;
+}
+
+void TransactionState::pushBack(UndoObject *target, UndoState *state)
+{
+	if (target && state)
+	{
+		state->setUndoObject(target);
+		states_.push_back(state);
+		++size_;
+	}
+}
+
+uint TransactionState::sizet()
+{
+	return size_;
+}
+
+void TransactionState::useActionName()
+{
+	if (size_ > 0)
+		setName(states_[size_ - 1]->getName());
+}
+
+UndoObject* TransactionState::replace(ulong uid, UndoObject *newUndoObject)
+{
+	UndoObject *tmp = 0;
+	for (uint i = 0; i < states_.size(); ++i)
+	{
+		TransactionState *ts = dynamic_cast<TransactionState*>(states_[i]);
+		if (ts) // are we having a transaction_inside a transaction
+			ts->replace(uid, newUndoObject);
+		else if (states_[i]->undoObject() && states_[i]->undoObject()->getUId() == uid)
+		{
+			tmp = states_[i]->undoObject();
+			states_[i]->setUndoObject(newUndoObject);
+		}
+	}
+	return tmp;
+}
+
+void TransactionState::undo() // undo all attached states
+{
+	for (int i = sizet() - 1; i > -1; --i)
+	{
+		if ((sizet() - 1) == 0)
+			at(i)->transactionCode = 0;
+		else
+		{
+			if (i == static_cast<int>(sizet() - 1))
+				at(i)->transactionCode = 1;
+			else if (i == 0)
+				at(i)->transactionCode = 2;
+			else
+				at(i)->transactionCode = 3;
+		}
+		if (transactionCode != 0)
+			at(i)->transactionCode = transactionCode;
+		at(i)->undo();
+	}
+}
+
+void TransactionState::redo() // redo all attached states
+{
+	for (uint i = 0; i < sizet(); ++i)
+	{
+		if ((sizet() - 1) == 0)
+			at(i)->transactionCode = 0;
+		else
+		{
+			if (i == 0)
+				at(i)->transactionCode = 1;
+			else if (i == static_cast<uint>(sizet() - 1))
+				at(i)->transactionCode = 2;
+			else
+				at(i)->transactionCode = 3;
+		}
+		if (transactionCode != 0)
+			at(i)->transactionCode = transactionCode;
+		at(i)->redo();
+	}
+}
+
+TransactionState::~TransactionState()
+{
+	for (uint i = 0; i < states_.size(); ++i)
+	{
+		if (states_[i])
+		{
+			delete states_[i];
+			states_[i] = 0;
+		}
+	}
+}

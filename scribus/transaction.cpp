@@ -26,16 +26,7 @@
 
 
 
-#include "transaction.h"
-
-Transaction::~Transaction() 
-{ 
-	if (m_data) 
-	{ 
-// we must not call virtual functions from destructor:		commit(); 
-		delete m_data; 
-	} 
-}	
+#include "transaction.h"	
 
 void Transaction::markFailed()
 {
@@ -46,4 +37,16 @@ void Transaction::markFailed()
 int Transaction::getState() const
 { 
 	return m_data->m_status; 
+}
+
+bool Transaction::isOpened() const
+{
+	if (m_data)
+		return (m_data->m_status == STATE_OPEN);
+	return false;
+}
+
+void Transaction::reset()
+{
+	m_data.reset();
 }
