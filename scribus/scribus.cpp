@@ -9699,7 +9699,6 @@ void ScribusMainWindow::PutToPatterns()
 	doc->SnapGrid  = false;
 	doc->SnapGuides = false;
 	doc->SnapElement = false;
-	bool wasUndo = undoManager->undoEnabled();
 	undoManager->setUndoEnabled(false);
 	internalCopy = true;
 	slotEditCopy();
@@ -9777,7 +9776,7 @@ void ScribusMainWindow::PutToPatterns()
 		doc->maxCanvasCoordinate = maxSize;
 		if (outlinePalette->isVisible())
 			outlinePalette->BuildTree();
-		undoManager->setUndoEnabled(wasUndo);
+		undoManager->setUndoEnabled(true);
 		return;
 	}
 	ScPattern pat = ScPattern();
@@ -9823,7 +9822,7 @@ void ScribusMainWindow::PutToPatterns()
 	view->DrawNew();
 	if (outlinePalette->isVisible())
 		outlinePalette->BuildTree();
-	undoManager->setUndoEnabled(wasUndo);
+	undoManager->setUndoEnabled(true);
 }
 
 void ScribusMainWindow::ConvertToSymbol()
@@ -9834,7 +9833,6 @@ void ScribusMainWindow::ConvertToSymbol()
 	uint docSelectionCount = doc->m_Selection->count();
 	QString patternName = "Pattern_"+doc->m_Selection->itemAt(0)->itemName();
 	patternName = patternName.trimmed().simplified().replace(" ", "_");
-	bool wasUndo = undoManager->undoEnabled();
 	undoManager->setUndoEnabled(false);
 	PageItem* currItem;
 	Selection itemSelection(this, false);
@@ -9889,10 +9887,12 @@ void ScribusMainWindow::ConvertToSymbol()
 	dia.setForbiddenList(patternsDependingOnThis);
 	dia.setTestList(doc->docPatterns.keys());
 	dia.setCheckMode(true);
-	if (dia.exec())
-		patternName = dia.getEditText();
-	else
+	if (!dia.exec())
+	{
+		undoManager->setUndoEnabled(true);
 		return;
+	}
+	patternName = dia.getEditText();
 	ScPattern pat = ScPattern();
 	pat.setDoc(doc);
 	double minx =  std::numeric_limits<double>::max();
@@ -9951,7 +9951,7 @@ void ScribusMainWindow::ConvertToSymbol()
 	if (outlinePalette->isVisible())
 		outlinePalette->BuildTree();
 	view->DrawNew();
-	undoManager->setUndoEnabled(wasUndo);
+	undoManager->setUndoEnabled(true);
 }
 
 void ScribusMainWindow::managePaints()
