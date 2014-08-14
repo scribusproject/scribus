@@ -60,6 +60,7 @@ for which a new license (GPL+exception) is in place.
 #include "styles/cellstyle.h"
 #include "undoobject.h"
 #include "undostate.h"
+#include "undotransaction.h"
 #include "updatemanager.h"
 #include "usertaskstructs.h"
 
@@ -75,7 +76,6 @@ class ScribusMainWindow;
 class ResourceCollection;
 class PageSize;
 class ScPattern;
-class UndoTransaction;
 class Serializer;
 class QProgressBar;
 class MarksManager;
@@ -88,7 +88,7 @@ struct SCRIBUS_API NodeEditContext : public MassObservable<QPointF>
 	int submode;
 	bool isContourLine;
 	FPointArray *oldClip;
-	UndoTransaction* nodeTransaction;
+	UndoTransaction nodeTransaction;
 	double oldItemX;
 	double oldItemY;
 		
@@ -1383,8 +1383,8 @@ public:
 	void itemResizeToMargin(PageItem* item, int direction); //direction reflect enum numbers from Canvas::FrameHandle
 
 private:
-	UndoTransaction* m_itemCreationTransaction;
-	UndoTransaction* m_alignTransaction;
+	UndoTransaction m_itemCreationTransaction;
+	UndoTransaction m_alignTransaction;
 
 	ScPage* m_currentPage;
 	UpdateManager m_updateManager;

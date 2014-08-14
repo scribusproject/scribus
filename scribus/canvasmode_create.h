@@ -21,11 +21,11 @@
 #include "canvasmode.h"
 #include "fpointarray.h"
 #include "text/frect.h"
+#include "undotransaction.h"
 
 class PageItem;
 class ScribusMainWindow;
 class ScribusView;
-class UndoTransaction;
 
 /**
   Handles the creation of new pageitems
@@ -81,7 +81,7 @@ private:
 	int    createObjectMode;
 	int    createObjectSubMode;
 	Qt::KeyboardModifiers modifiers;
-	UndoTransaction* m_createTransaction;
+	UndoTransaction m_createTransaction;
 };
 
 

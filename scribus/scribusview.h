@@ -60,6 +60,7 @@ class QMimeData;
 #include "scribusapi.h"
 #include "scribusdoc.h"
 #include "ui/clockwidget.h"
+#include "undotransaction.h"
 
 class Canvas;
 class CanvasMode;
@@ -76,7 +77,6 @@ class ScribusMainWindow;
 class ScrSpinBox;
 class Selection;
 class UndoManager;
-class UndoTransaction;
 class TransactionSettings;
 #include "selectionrubberband.h"
 
@@ -279,7 +279,7 @@ private: // Private attributes
 	int  m_groupTransactions;
 	int m_oldCanvasHeight;
 	int m_oldCanvasWidth;
-	UndoTransaction*  m_groupTransaction;
+	UndoTransaction m_groupTransaction;
 	bool _isGlobalMode;
 	bool linkAfterDraw;
 	bool ImageAfterDraw;

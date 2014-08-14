@@ -29,11 +29,11 @@
 #include "canvasmode.h"
 #include "fpointarray.h"
 #include "ui/spiralvectordialog.h"
+#include "undotransaction.h"
 
 class PageItem;
 class ScribusMainWindow;
 class ScribusView;
-class UndoTransaction;
 
 
 // This class encapsulate the old code for mouse interaction from scribusview.cpp
@@ -78,7 +78,7 @@ private:
 	double endAngle;
 	eSpiralPoint m_arcPoint;
 	SpiralVectorDialog* VectorDialog;
-	UndoTransaction *trans;
+	UndoTransaction m_transaction;
 
 	int    m_blockUpdateFromItem;
 	void   blockUpdateFromItem(bool block) { if (block) ++m_blockUpdateFromItem; else --m_blockUpdateFromItem; }

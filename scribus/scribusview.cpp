@@ -155,7 +155,7 @@ ScribusView::ScribusView(QWidget* win, ScribusMainWindow* mw, ScribusDoc *doc) :
 	Ready(false),
 	oldX(0), oldY(0),
 	m_groupTransactions(0),
-	m_groupTransaction(NULL),
+	m_groupTransaction(),
 	_isGlobalMode(true),
 	linkAfterDraw(false),
 	ImageAfterDraw(false),
@@ -1911,8 +1911,8 @@ void ScribusView::startGroupTransaction(const QString& action, const QString& de
 			target = itemSelection->itemAt(0)->getUName();
 			targetIcon = itemSelection->itemAt(0)->getUPixmap();
 		}
-		m_groupTransaction = new UndoTransaction(undoManager->beginTransaction(target, targetIcon,
-																			   action, tooltip, actionIcon));
+		m_groupTransaction = undoManager->beginTransaction(target, targetIcon,
+														   action, tooltip, actionIcon);
 	}
 	++m_groupTransactions;
 }
@@ -1929,9 +1929,8 @@ void ScribusView::endGroupTransaction()
 	}
 	if (m_groupTransaction && m_groupTransactions == 0)
 	{
-		m_groupTransaction->commit();
-		delete m_groupTransaction;
-		m_groupTransaction = NULL;
+		m_groupTransaction.commit();
+		m_groupTransaction.reset();
 	}
 }
 
@@ -1942,13 +1941,12 @@ void ScribusView::cancelGroupTransaction()
 {
 	if (m_groupTransaction && m_groupTransactions == 1)
 	{
-		m_groupTransaction->cancel();
-		delete m_groupTransaction;
-		m_groupTransaction = NULL;
+		m_groupTransaction.cancel();
+		m_groupTransaction.reset();
 	}
 	else if (m_groupTransaction)
 	{
-		m_groupTransaction->markFailed();
+		m_groupTransaction.markFailed();
 	}
 	if (m_groupTransactions > 0)
 		--m_groupTransactions;

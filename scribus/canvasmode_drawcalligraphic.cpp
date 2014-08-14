@@ -243,9 +243,9 @@ void CalligraphicMode::mouseReleaseEvent(QMouseEvent *m)
 	{
 		if (RecordP.size() > 1)
 		{
-			UndoTransaction *createTransaction = NULL;
-			if(UndoManager::undoEnabled())
-				createTransaction = new UndoTransaction(UndoManager::instance()->beginTransaction());
+			UndoTransaction createTransaction;
+			if (UndoManager::undoEnabled())
+				createTransaction = UndoManager::instance()->beginTransaction();
 			uint z = m_doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, Mxp, Myp, 1, 1, m_doc->itemToolPrefs().calligraphicPenLineWidth, m_doc->itemToolPrefs().calligraphicPenFillColor, m_doc->itemToolPrefs().calligraphicPenLineColor, true);
 			currItem = m_doc->Items->at(z);
 			currItem->PoLine.resize(0);
@@ -286,12 +286,8 @@ void CalligraphicMode::mouseReleaseEvent(QMouseEvent *m)
 			QString targetName = Um::ScratchSpace;
 			if (currItem->OwnPage > -1)
 				targetName = m_doc->Pages->at(currItem->OwnPage)->getUName();
-			if(createTransaction)
-			{
-				createTransaction->commit(targetName, currItem->getUPixmap(), Um::Create + " " + currItem->getUName(),  "", Um::ICreate);
-				delete createTransaction;
-				createTransaction = NULL;
-			}
+			if (createTransaction)
+				createTransaction.commit(targetName, currItem->getUPixmap(), Um::Create + " " + currItem->getUName(),  "", Um::ICreate);
 			//FIXME	
 			m_canvas->m_viewMode.operItemResizing = false;
 			m_doc->changed();

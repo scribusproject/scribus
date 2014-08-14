@@ -208,9 +208,8 @@ void CreateMode::activate(bool fromGesture)
 		if (m_createTransaction)
 		{
 //			qDebug() << "canceling left over create Transaction";
-			m_createTransaction->cancel();
-			delete m_createTransaction;
-			m_createTransaction = NULL;
+			m_createTransaction.cancel();
+			m_createTransaction.reset();
 		}
 		canvasPressCoord.setXY(-1.0, -1.0);
 		mouseGlobalCoord.setXY(-1.0, -1.0);
@@ -227,9 +226,8 @@ void CreateMode::deactivate(bool forGesture)
 		if (m_createTransaction)
 		{
 //			qDebug() << "CreateMode::deactivate: canceling left over create Transaction";
-			m_createTransaction->cancel();
-			delete m_createTransaction;
-			m_createTransaction = NULL;
+			m_createTransaction.cancel();
+			m_createTransaction.reset();
 		}
 	}
 }
@@ -411,7 +409,7 @@ void CreateMode::mouseReleaseEvent(QMouseEvent *m)
 	m->accept();
 //	m_view->stopDragTimer();
 
-	m_createTransaction = new UndoTransaction(Um::instance()->beginTransaction("creating"));
+	m_createTransaction = Um::instance()->beginTransaction("creating");
 	currItem = doCreateNewObject();
 	if (m_createTransaction && currItem)
 	{
@@ -420,19 +418,17 @@ void CreateMode::mouseReleaseEvent(QMouseEvent *m)
 		QString targetName = Um::ScratchSpace;
 		if (currItem->OwnPage > -1)
 			targetName = m_doc->Pages->at(currItem->OwnPage)->getUName();
-		m_createTransaction->commit(targetName, currItem->getUPixmap(),
+		m_createTransaction.commit(targetName, currItem->getUPixmap(),
 									Um::Create + " " + currItem->getUName(),  "", Um::ICreate);
+		m_createTransaction.reset();
 		m_doc->changed();
-		delete m_createTransaction;
-		m_createTransaction = NULL;
 		/*currItem->update();
 		currItem->emitAllToGUI();*/
 	}
 	else if (m_createTransaction)
 	{
-		m_createTransaction->cancel();
-		delete m_createTransaction;
-		m_createTransaction = NULL;
+		m_createTransaction.cancel();
+		m_createTransaction.reset();
 	}
 	if (!PrefsManager::instance()->appPrefs.uiPrefs.stickyTools)
 	{
