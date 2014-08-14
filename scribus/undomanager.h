@@ -801,4 +801,16 @@ signals:
 
 typedef UndoManager Um;
 
+class SCRIBUS_API UndoBlocker
+{
+public:
+	UndoBlocker() {
+		UndoManager::instance()->setUndoEnabled(false);
+	}
+
+	~UndoBlocker() {
+		UndoManager::instance()->setUndoEnabled(true);
+	}
+};
+
 #endif

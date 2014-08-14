@@ -3902,7 +3902,6 @@ bool ScribusMainWindow::loadPage(QString fileName, int Nr, bool Mpa, const QStri
 
 bool ScribusMainWindow::loadDoc(QString fileName)
 {
-	undoManager->setUndoEnabled(false);
 	QFileInfo fi(fileName);
 	if (!fi.exists())
 	{
@@ -3942,6 +3941,7 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 		}
 	}
 
+	UndoBlocker undoBlocker;
 	if (!fileName.isEmpty())
 	{
 		QString FName = fi.absoluteFilePath();
@@ -4001,7 +4001,7 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 		//This also gives the user the opportunity to cancel the load when finding theres a replacement required.
 		if (loadSuccess && ScCore->usingGUI())
 			loadSuccess = fileLoader->postLoad(doc);
-		if(!loadSuccess)
+		if (!loadSuccess)
 		{
 			view->close();
 			delete fileLoader;
@@ -4015,7 +4015,6 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 			mainWindowStatusLabel->setText("");
 			mainWindowProgressBar->reset();
 			ActWin = NULL;
-			undoManager->setUndoEnabled(true);
 			if (windows.count() != 0)
 				newActWin(ActWinOld);
 			return false;
@@ -4265,7 +4264,6 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 	undoManager->switchStack(doc->DocName);
 	pagePalette->Rebuild();
 	qApp->restoreOverrideCursor();
-	undoManager->setUndoEnabled(true);
 	doc->setModified(false);
 	return ret;
 }
