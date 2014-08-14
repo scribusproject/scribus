@@ -1599,19 +1599,15 @@ void PageItem::setTextToFrameDistBottom(double newBottom)
 
 void PageItem::setTextToFrameDist(double newLeft, double newRight, double newTop, double newBottom)
 {
-	UndoTransaction* activeTransaction = NULL;
+	UndoTransaction activeTransaction;
 	if (UndoManager::undoEnabled())
-		activeTransaction = new UndoTransaction(undoManager->beginTransaction(Um::TextFrame, Um::IDocument, Um::TextFrameDist, "", Um::ITextFrame));
+		activeTransaction = undoManager->beginTransaction(Um::TextFrame, Um::IDocument, Um::TextFrameDist, "", Um::ITextFrame);
 	setTextToFrameDistLeft(newLeft);
 	setTextToFrameDistRight(newRight);
 	setTextToFrameDistTop(newTop);
 	setTextToFrameDistBottom(newBottom);
 	if (activeTransaction)
-	{
-		activeTransaction->commit();
-		delete activeTransaction;
-		activeTransaction = NULL;
-	}
+		activeTransaction.commit();
 	//emit textToFrameDistances(Extra, TExtra, BExtra, RExtra);
 }
 
@@ -2966,44 +2962,36 @@ void PageItem::setDiamondGeometry(FPoint c1, FPoint c2, FPoint c3, FPoint c4, FP
 
 void PageItem::set4ColorTransparency(double t1, double t2, double t3, double t4)
 {
-	UndoTransaction *trans = NULL;
+	UndoTransaction trans;
 	if (UndoManager::undoEnabled())
-		trans = new UndoTransaction(undoManager->beginTransaction(Um::Selection,Um::IFill,Um::GradVal,"",Um::IFill));
+		trans = undoManager->beginTransaction(Um::Selection,Um::IFill,Um::GradVal,"",Um::IFill);
 	setGradientTransp1(t1);
 	setGradientTransp2(t2);
 	setGradientTransp3(t3);
 	setGradientTransp4(t4);
 	if (trans)
-	{
-		trans->commit();
-		delete trans;
-		trans = NULL;
-	}
+		trans.commit();
 }
 
 void PageItem::set4ColorShade(int t1, int t2, int t3, int t4)
 {
-	UndoTransaction *trans = NULL;
+	UndoTransaction trans;
 	if (UndoManager::undoEnabled())
-		trans = new UndoTransaction(undoManager->beginTransaction(Um::Selection,Um::IFill,Um::GradVal,"",Um::IFill));
+		trans = undoManager->beginTransaction(Um::Selection,Um::IFill,Um::GradVal,"",Um::IFill);
 	setGradientShade1(t1);
 	setGradientShade2(t2);
 	setGradientShade3(t3);
 	setGradientShade4(t4);
 	if (trans)
-	{
-		trans->commit();
-		delete trans;
-		trans = NULL;
-	}
+		trans.commit();
 }
 
 void PageItem::set4ColorColors(QString col1, QString col2, QString col3, QString col4)
 {
 	QColor tmp;
-	UndoTransaction *trans = NULL;
+	UndoTransaction trans;
 	if (UndoManager::undoEnabled())
-		trans = new UndoTransaction(undoManager->beginTransaction(Um::Selection,Um::IFill,Um::GradVal,"",Um::IFill));
+		trans = undoManager->beginTransaction(Um::Selection,Um::IFill,Um::GradVal,"",Um::IFill);
 	setGradientCol1(col1);
 	if (GrColorP1 != CommonStrings::None)
 	{
@@ -3161,11 +3149,7 @@ void PageItem::set4ColorColors(QString col1, QString col2, QString col3, QString
 		setGradientColor4(defect.convertDefect(GrColorP4QColor, m_Doc->previewVisual));
 	}
 	if (trans)
-	{
-		trans->commit();
-		delete trans;
-		trans = NULL;
-	}
+		trans.commit();
 }
 
 void PageItem::get4ColorGeometry(FPoint &c1, FPoint &c2, FPoint &c3, FPoint &c4)
@@ -3253,10 +3237,10 @@ void PageItem::setMeshPointColor(int x, int y, QString color, int shade, double 
 				break;
 		}
 
-		UndoTransaction *trans = NULL;
+		UndoTransaction trans;
 		if (UndoManager::undoEnabled())
 		{
-			trans = new UndoTransaction(undoManager->beginTransaction(Um::Selection,Um::IFill,Um::GradVal,"",Um::IFill));
+			trans = undoManager->beginTransaction(Um::Selection,Um::IFill,Um::GradVal,"",Um::IFill);
 			ScItemState<QPair<QColor,QColor> > *ss = new ScItemState<QPair<QColor,QColor> >(Um::GradVal);
 			ss->set("GRAD_MESH_COLOR","grad_mesh_color");
 			ss->set("X",x);
@@ -3379,11 +3363,7 @@ void PageItem::setMeshPointColor(int x, int y, QString color, int shade, double 
 			}
 		}
 		if (trans)
-		{
-			trans->commit();
-			delete trans;
-			trans = NULL;
-		}
+			trans.commit();
 	}
 	else
 	{
@@ -3538,10 +3518,10 @@ void PageItem::meshToShape()
 								meshGradientArray[m-1][0].gridPoint.x(), meshGradientArray[m-1][0].gridPoint.y());
 	}
 	
-	UndoTransaction *trans =  NULL;
+	UndoTransaction trans;
 	if (UndoManager::undoEnabled())
 	{
-		trans = new UndoTransaction(undoManager->beginTransaction(Um::Selection,Um::IFill,Um::ChangeMeshGradient,"",Um::IFill));
+		trans = undoManager->beginTransaction(Um::Selection,Um::IFill,Um::ChangeMeshGradient,"",Um::IFill);
 		ScItemState<QPair<QList<QList<meshPoint> >,FPointArray> > *ism = new ScItemState<QPair<QList<QList<meshPoint> >,FPointArray> >(Um::ChangeMeshGradient, "",Um::IFill);
 		ism->set("MOVE_MESH_GRAD", "move_mesh_grad");
 		ism->setItem(qMakePair(meshGradientArray,PoLine));
@@ -3577,11 +3557,7 @@ void PageItem::meshToShape()
 	}
 	ContourLine = PoLine.copy();
 	if (trans)
-	{
-		trans->commit();
-		delete trans;
-		trans = NULL;
-	}
+		trans.commit();
 }
 
 void PageItem::createConicalMesh()
@@ -10613,10 +10589,10 @@ void PageItem::setWeldPoint(double DX, double DY, PageItem *pItem)
 
 void PageItem::unWeld()
 {
-	UndoTransaction* activeTransaction = NULL;
+	UndoTransaction activeTransaction;
 	if (undoManager->undoEnabled())
-		activeTransaction = new UndoTransaction(undoManager->beginTransaction(Um::WeldItems + "/" + Um::Selection, Um::IGroup,
-																			  Um::WeldItems, "", Um::IDelete));
+		activeTransaction = undoManager->beginTransaction(Um::WeldItems + "/" + Um::Selection, Um::IGroup,
+														  Um::WeldItems, "", Um::IDelete);
 	for (int a = 0 ; a < weldList.count(); a++)
 	{
 		weldingInfo wInf = weldList.at(a);
@@ -10651,11 +10627,7 @@ void PageItem::unWeld()
 		}
 	}
 	if (activeTransaction)
-	{
-		activeTransaction->commit();
-		delete activeTransaction;
-		activeTransaction = NULL;
-	}
+		activeTransaction.commit();
 	weldList.clear();
 }
 

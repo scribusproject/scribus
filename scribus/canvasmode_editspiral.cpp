@@ -361,7 +361,7 @@ void CanvasMode_EditSpiral::mousePressEvent(QMouseEvent *m)
 		m_arcPoint = useControlEnd;
 	else
 		m_arcPoint = noPointDefined;
-	if(m_arcPoint != noPointDefined)
+	if (m_arcPoint != noPointDefined)
 		trans = new UndoTransaction(undoManager->beginTransaction(Um::Polygon,Um::IPolygon,Um::EditSpiral,"",Um::IPolygon));
 	m_canvas->m_viewMode.m_MouseButtonPressed = true;
 	m_view->setCursor(QCursor(Qt::CrossCursor));

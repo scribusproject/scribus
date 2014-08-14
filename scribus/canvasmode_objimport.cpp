@@ -176,10 +176,10 @@ void CanvasMode_ObjImport::mouseReleaseEvent(QMouseEvent *m)
 	m->accept();
 	if ((m->button() == Qt::LeftButton) && m_mimeData)
 	{
-		UndoTransaction* undoTransaction = NULL;
+		UndoTransaction undoTransaction;
 		if (m_trSettings && UndoManager::undoEnabled())
 		{
-			undoTransaction = new UndoTransaction(UndoManager::instance()->beginTransaction(*m_trSettings));
+			undoTransaction = UndoManager::instance()->beginTransaction(*m_trSettings);
 		}
 		// Creating QDragEnterEvent outside of Qt is not recommended per docs :S
 		QPoint dropPos = m_view->widget()->mapFromGlobal(m->globalPos());
@@ -195,9 +195,7 @@ void CanvasMode_ObjImport::mouseReleaseEvent(QMouseEvent *m)
 		// Commit undo transaction if necessary
 		if (undoTransaction)
 		{
-			undoTransaction->commit();
-			delete undoTransaction;
-			undoTransaction = NULL;
+			undoTransaction.commit();
 		}
 		// Return to normal mode
 		m_view->requestMode(modeNormal);

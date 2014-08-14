@@ -117,9 +117,9 @@ void MasterPagesPalette::closeEvent(QCloseEvent *closeEvent)
 void MasterPagesPalette::deleteMasterPage()
 {
 	bool forceDelete = false;
-	UndoTransaction* activeTransaction = NULL;
+	UndoTransaction activeTransaction;
 	if (UndoManager::undoEnabled())
-		activeTransaction = new UndoTransaction(undoManager->beginTransaction(Um::Group, Um::IGroup, Um::DelMasterPage, "", Um::IDelete));
+		activeTransaction = undoManager->beginTransaction(Um::Group, Um::IGroup, Um::DelMasterPage, "", Um::IDelete);
 	// allow to delete multiple pages in one step
 	foreach (QListWidgetItem * delItem, masterPageListBox->selectedItems())
 	{
@@ -170,18 +170,16 @@ void MasterPagesPalette::deleteMasterPage()
 	updateMasterPageList(m_masterPage);
 	if (activeTransaction)
 	{
-		activeTransaction->commit();
-		delete activeTransaction;
-		activeTransaction = NULL;
+		activeTransaction.commit();
 	}
 }
 
 void MasterPagesPalette::duplicateMasterPage()
 {
 	int copyC = 1;
-	UndoTransaction* activeTransaction = NULL;
+	UndoTransaction activeTransaction;
 	if (UndoManager::undoEnabled())
-		activeTransaction = new UndoTransaction(undoManager->beginTransaction(Um::Group, Um::IGroup, Um::DuplicateMasterPage, "", Um::IGroup));
+		activeTransaction = undoManager->beginTransaction(Um::Group, Um::IGroup, Um::DuplicateMasterPage, "", Um::IGroup);
 	QString potentialMasterPageName(m_masterPage);
 	while (m_doc->MasterNames.contains(potentialMasterPageName))
 		potentialMasterPageName = tr("Copy #%1 of %2").arg(copyC++).arg(m_masterPage);
@@ -306,9 +304,7 @@ void MasterPagesPalette::duplicateMasterPage()
 	}
 	if (activeTransaction)
 	{
-		activeTransaction->commit();
-		delete activeTransaction;
-		activeTransaction = NULL;
+		activeTransaction.commit();
 	}
 	delete dia;
 }
@@ -316,9 +312,9 @@ void MasterPagesPalette::duplicateMasterPage()
 void MasterPagesPalette::newMasterPage()
 {
 	QString MasterPageName;
-	UndoTransaction* activeTransaction = NULL;
+	UndoTransaction activeTransaction;
 	if (UndoManager::undoEnabled())
-		activeTransaction = new UndoTransaction(undoManager->beginTransaction(Um::Group, Um::IGroup, Um::NewMasterPage, "", Um::IGroup));
+		activeTransaction = undoManager->beginTransaction(Um::Group, Um::IGroup, Um::NewMasterPage, "", Um::IGroup);
 	int nr = m_doc->Pages->count();
 	NewTm *dia = new NewTm(this, tr("Name:"), tr("New MasterPage"), m_doc, tr("New Master Page %1").arg(nr));
 	if (dia->exec())
@@ -369,18 +365,16 @@ void MasterPagesPalette::newMasterPage()
 	}
 	if (activeTransaction)
 	{
-		activeTransaction->commit();
-		delete activeTransaction;
-		activeTransaction = NULL;
+		activeTransaction.commit();
 	}
 	delete dia;
 }
 
 void MasterPagesPalette::importPage()
 {
-	UndoTransaction* activeTransaction = NULL;
+	UndoTransaction activeTransaction;
 	if (UndoManager::undoEnabled())
-		activeTransaction = new UndoTransaction(undoManager->beginTransaction(Um::Group, Um::IGroup, Um::ImportMasterPage, "", Um::IGroup));
+		activeTransaction = undoManager->beginTransaction(Um::Group, Um::IGroup, Um::ImportMasterPage, "", Um::IGroup);
 	//bool atf;
 	MergeDoc *dia = new MergeDoc(this, true);
 	if (dia->exec())
@@ -428,9 +422,7 @@ void MasterPagesPalette::importPage()
 	}
 	if (activeTransaction)
 	{
-		activeTransaction->commit();
-		delete activeTransaction;
-		activeTransaction = NULL;
+		activeTransaction.commit();
 	}
 	delete dia;
 }

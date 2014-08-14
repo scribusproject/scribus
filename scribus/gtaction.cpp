@@ -117,13 +117,13 @@ void gtAction::clearFrame()
 
 void gtAction::writeUnstyled(const QString& text, bool isNote)
 {
-	UndoTransaction* activeTransaction = NULL;
+	UndoTransaction activeTransaction;
 	if (isFirstWrite && it->itemText.length() > 0)
 	{
 		if (!doAppend)
 		{
 			if (UndoManager::undoEnabled())
-				activeTransaction = new UndoTransaction(undoManager->beginTransaction(Um::Selection, Um::IGroup, Um::ImportText, "", Um::IDelete));
+				activeTransaction = undoManager->beginTransaction(Um::Selection, Um::IGroup, Um::ImportText, "", Um::IDelete);
 			if (it->nextInChain() != 0)
 			{
 				PageItem *nextItem = it->nextInChain();
@@ -218,9 +218,7 @@ void gtAction::writeUnstyled(const QString& text, bool isNote)
 	isFirstWrite = false;
 	if (activeTransaction)
 	{
-		activeTransaction->commit();
-		delete activeTransaction;
-		activeTransaction = NULL;
+		activeTransaction.commit();
 	}
 }
 

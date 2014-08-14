@@ -280,9 +280,9 @@ void LayerPalette::dupLayer()
 {
 	if (!m_Doc)
 		return;
-	UndoTransaction *copyTransaction = NULL;
-	if(UndoManager::undoEnabled())
-		copyTransaction = new UndoTransaction(UndoManager::instance()->beginTransaction("", Um::ILayerAction, Um::DuplicateLayer.arg(m_Doc->activeLayerName()) , "", Um::ICreate) );
+	UndoTransaction copyTransaction;
+	if (UndoManager::undoEnabled())
+		copyTransaction = UndoManager::instance()->beginTransaction("", Um::ILayerAction, Um::DuplicateLayer.arg(m_Doc->activeLayerName()) , "", Um::ICreate);
 	
 	int current = m_Doc->activeLayer();
 	
@@ -293,9 +293,7 @@ void LayerPalette::dupLayer()
 	m_Doc->scMW()->changeLayer(m_Doc->activeLayer());
 	if (copyTransaction)
 	{
-		copyTransaction->commit();
-		delete copyTransaction;
-		copyTransaction = NULL;
+		copyTransaction.commit();
 	}
 }
 

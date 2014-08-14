@@ -456,7 +456,7 @@ void CanvasMode_EditPolygon::mousePressEvent(QMouseEvent *m)
 	}
 	else
 		m_polygonPoint = noPointDefined;
-	if(m_polygonPoint != noPointDefined && UndoManager::undoEnabled())
+	if (m_polygonPoint != noPointDefined && UndoManager::undoEnabled())
 		trans = new UndoTransaction(undoManager->beginTransaction(Um::Polygon,Um::IPolygon,Um::EditPolygon,"",Um::IPolygon));
 	m_view->setCursor(QCursor(Qt::CrossCursor));
 	QPainterPath path = itemMatrix.map(RegularPolygonPath(currItem->width(), currItem->height(), polyCorners, polyUseFactor, polyFactor, polyRotation, polyCurvature, polyInnerRot, polyOuterCurvature));

@@ -519,12 +519,12 @@ void GuideManager::clearRestoreVerticalList()
 
 void GuideManager::deletePageButton_clicked()
 {
-	UndoTransaction *trans = NULL;
+	UndoTransaction trans;
 	if(UndoManager::undoEnabled())
-		trans = new UndoTransaction(UndoManager::instance()->beginTransaction(currentPage->getUName(),
-																currentPage->getUPixmap(),
-																Um::RemoveAllPageGuides, "",
-																Um::IGuides));
+		trans = UndoManager::instance()->beginTransaction(currentPage->getUName(),
+														currentPage->getUPixmap(),
+														Um::RemoveAllPageGuides, "",
+														Um::IGuides);
 	currentPage->guides.clearHorizontals(GuideManagerCore::Standard);
 	currentPage->guides.clearVerticals(GuideManagerCore::Standard);
 	currentPage->guides.clearHorizontals(GuideManagerCore::Auto);
@@ -540,12 +540,9 @@ void GuideManager::deletePageButton_clicked()
 	currentPage->guides.setVerticalAutoRefer(0);
 	horizontalAutoCountSpin->setValue(0);
 	verticalAutoCountSpin->setValue(0);
-	if(trans)
-	{
-		trans->commit();
-		delete trans;
-		trans = NULL;
-	}
+	
+	if (trans)
+		trans.commit();
 
 	drawGuides();
 	m_Doc->changed();
@@ -553,23 +550,19 @@ void GuideManager::deletePageButton_clicked()
 
 void GuideManager::deleteAllGuides_clicked()
 {
-	UndoTransaction *trans = NULL;
-	if(UndoManager::undoEnabled())
-		trans = new UndoTransaction(UndoManager::instance()->beginTransaction(m_Doc->getUName(),
-																m_Doc->getUPixmap(),
-																Um::RemoveAllGuides, "",
-																Um::IGuides));
+	UndoTransaction trans;
+	if (UndoManager::undoEnabled())
+		trans = UndoManager::instance()->beginTransaction(m_Doc->getUName(),
+														m_Doc->getUPixmap(),
+														Um::RemoveAllGuides, "",
+														Um::IGuides);
 	m_drawGuides = false;
 	deletePageButton_clicked();
 	copyGuidesToAllPages(GuideManagerCore::Standard);
 	copyGuidesToAllPages(GuideManagerCore::Auto);
 	m_drawGuides = true;
-	if(trans)
-	{
-		trans->commit();
-		delete trans;
-		trans = NULL;
-	}
+	if (trans)
+		trans.commit();
 	drawGuides();
 	m_Doc->changed();
 }

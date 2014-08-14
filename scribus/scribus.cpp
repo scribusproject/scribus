@@ -1456,10 +1456,10 @@ void ScribusMainWindow::specialActionKeyEvent(int unicodevalue)
 				{
 					if (unicodevalue!=-1)
 					{
-						UndoTransaction* activeTransaction = NULL;
+						UndoTransaction activeTransaction;
 						if (currItem->HasSel){
 							if (UndoManager::undoEnabled())
-								activeTransaction = new UndoTransaction(undoManager->beginTransaction(Um::Selection, Um::IGroup, Um::ReplaceText, "", Um::IDelete));
+								activeTransaction = undoManager->beginTransaction(Um::Selection, Um::IGroup, Um::ReplaceText, "", Um::IDelete);
 							currItem->deleteSelectedTextFromFrame();
 						}
 						if (UndoManager::undoEnabled())
@@ -1484,11 +1484,7 @@ void ScribusMainWindow::specialActionKeyEvent(int unicodevalue)
 						}
 						currItem->itemText.insertChars(QString(QChar(unicodevalue)), true);
 						if (activeTransaction)
-						{
-							activeTransaction->commit();
-							delete activeTransaction;
-							activeTransaction = NULL;
-						}
+							activeTransaction.commit();
 					}
 					else if (unicodevalue==SpecialChars::SHYPHEN.unicode()) //ignore the char as we use an attribute if the text item, for now.
 					{
@@ -3506,9 +3502,9 @@ void ScribusMainWindow::doPasteRecent(QString data)
 		}
 		else
 		{
-			UndoTransaction *pasteAction = NULL;
+			UndoTransaction pasteAction;
 			if(UndoManager::undoEnabled())
-				pasteAction = new UndoTransaction(undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::Create,"",Um::ICreate));
+				pasteAction = undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::Create,"",Um::ICreate);
 			view->Deselect(true);
 			uint ac = doc->Items->count();
 			bool savedAlignGrid = doc->SnapGrid;
@@ -3535,12 +3531,8 @@ void ScribusMainWindow::doPasteRecent(QString data)
 					AddBookMark(currItem);
 			}
 			doc->m_Selection->copy(tmpSelection, false);
-			if(pasteAction)
-			{
-				pasteAction->commit();
-				delete pasteAction;
-				pasteAction = NULL;
-			}
+			if (pasteAction)
+				pasteAction.commit();
 		}
 		slotDocCh(false);
 		doc->regionsChanged()->update(QRectF());
@@ -3711,9 +3703,9 @@ bool ScribusMainWindow::slotPageImport()
 	Q_ASSERT(!doc->masterPageMode());
 	bool ret = false;
 	MergeDoc *dia = new MergeDoc(this, false, doc->DocPages.count(), doc->currentPage()->pageNr() + 1);
-	UndoTransaction* activeTransaction = NULL;
+	UndoTransaction activeTransaction;
 	if(UndoManager::undoEnabled())
-		activeTransaction = new UndoTransaction(undoManager->beginTransaction(Um::ImportPage, Um::IGroup, Um::ImportPage, 0, Um::ILock));
+		activeTransaction = undoManager->beginTransaction(Um::ImportPage, Um::IGroup, Um::ImportPage, 0, Um::ILock);
 
 	if (dia->exec())
 	{
@@ -3800,11 +3792,7 @@ bool ScribusMainWindow::slotPageImport()
 		ret = doIt;
 	}
 	if (activeTransaction)
-	{
-		activeTransaction->commit();
-		delete activeTransaction;
-		activeTransaction = NULL;
-	}
+		activeTransaction.commit();
 	delete dia;
 	return ret;
 }
@@ -4953,7 +4941,7 @@ void ScribusMainWindow::slotEditCut()
 	uint docSelectionCount=doc->m_Selection->count();
 	if ((HaveDoc) && (docSelectionCount != 0))
 	{
-		UndoTransaction* activeTransaction = NULL;
+		UndoTransaction activeTransaction;
 		PageItem *currItem;
 		for (uint i = 0; i < docSelectionCount; ++i)
 		{
@@ -4967,11 +4955,11 @@ void ScribusMainWindow::slotEditCut()
 		if (UndoManager::undoEnabled())
 		{
 			if (docSelectionCount > 1)
-				activeTransaction = new UndoTransaction(undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::Cut,"",Um::ICut));
+				activeTransaction = undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::Cut,"",Um::ICut);
 			else
 			{
 				PageItem* item=doc->m_Selection->itemAt(0);
-				activeTransaction = new UndoTransaction(undoManager->beginTransaction(item->getUName(), item->getUPixmap(), Um::Cut, "", Um::ICut));
+				activeTransaction = undoManager->beginTransaction(item->getUName(), item->getUPixmap(), Um::Cut, "", Um::ICut);
 			}
 		}
 		currItem = doc->m_Selection->itemAt(0);
@@ -5034,9 +5022,7 @@ void ScribusMainWindow::slotEditCut()
 		scrMenuMgr->setMenuEnabled("EditPasteRecent", scrapbookPalette->tempBView->objectMap.count() != 0);
 		if (activeTransaction)
 		{
-			activeTransaction->commit();
-			delete activeTransaction;
-			activeTransaction = NULL;
+			activeTransaction.commit();
 		}
 	}
 }
@@ -5123,11 +5109,11 @@ void ScribusMainWindow::slotEditPaste()
 		view->requestMode(submodeEndNodeEdit);
 	if (HaveDoc)
 	{
-		UndoTransaction* activeTransaction = NULL;
+		UndoTransaction activeTransaction;
 		if (!ScMimeData::clipboardHasScribusData() && (!internalCopy))
 			return;
 		if (UndoManager::undoEnabled())
-			activeTransaction = new UndoTransaction(undoManager->beginTransaction(doc->currentPage()->getUName(), 0, Um::Paste, "", Um::IPaste));
+			activeTransaction = undoManager->beginTransaction(doc->currentPage()->getUName(), 0, Um::Paste, "", Um::IPaste);
 		PageItem* selItem = doc->m_Selection->itemAt(0);
 		if (((doc->appMode == modeEdit) || (doc->appMode == modeEditTable)) && (selItem->isTextFrame() || selItem->isTable()))
 		{
@@ -5333,11 +5319,7 @@ void ScribusMainWindow::slotEditPaste()
 			view->DrawNew();
 		}
 		if (activeTransaction)
-		{
-			activeTransaction->commit();
-			delete activeTransaction;
-			activeTransaction = NULL;
-		}
+			activeTransaction.commit();
 		if (doc->notesChanged())
 			doc->notesFramesUpdate();
 		slotDocCh(false);
@@ -5665,10 +5647,10 @@ void ScribusMainWindow::slotNewPageM()
 
 void ScribusMainWindow::addNewPages(int wo, int where, int numPages, double height, double width, int orient, QString siz, bool mov, QStringList* basedOn, bool overrideMasterPageSizing)
 {
-	UndoTransaction* activeTransaction = NULL;
+	UndoTransaction activeTransaction;
 	if (UndoManager::undoEnabled())
 	{
-		activeTransaction = new UndoTransaction(undoManager->beginTransaction(doc->getUName(), Um::IDocument, (numPages == 1) ? Um::AddPage : Um::AddPages, "", Um::ICreate));
+		activeTransaction = undoManager->beginTransaction(doc->getUName(), Um::IDocument, (numPages == 1) ? Um::AddPage : Um::AddPages, "", Um::ICreate);
 		SimpleState *ss = new SimpleState(Um::AddPage, "", Um::ICreate);
 		ss->set("ADD_PAGE", "add_page");
 		ss->set("PAGE", wo);
@@ -5774,9 +5756,7 @@ void ScribusMainWindow::addNewPages(int wo, int where, int numPages, double heig
 
 	if (activeTransaction)
 	{
-		activeTransaction->commit();
-		delete activeTransaction;
-		activeTransaction = NULL;
+		activeTransaction.commit();
 	}
 }
 
@@ -6819,16 +6799,16 @@ void ScribusMainWindow::deletePage()
 
 void ScribusMainWindow::deletePage(int from, int to)
 {
-	UndoTransaction* activeTransaction = NULL;
+	UndoTransaction activeTransaction;
 	assert( from > 0 );
 	assert( from <= to );
 	assert( to <= static_cast<int>(doc->Pages->count()) );
 	int oldPg = doc->currentPageNumber();
 	guidePalette->setDoc(NULL);
 	if (UndoManager::undoEnabled())
-		activeTransaction = new UndoTransaction(undoManager->beginTransaction(doc->DocName, Um::IDocument,
-																			  (from - to == 0) ? Um::DeletePage : Um::DeletePages, "",
-																			  Um::IDelete));
+		activeTransaction = undoManager->beginTransaction(doc->DocName, Um::IDocument,
+														  (from - to == 0) ? Um::DeletePage : Um::DeletePages, "",
+														  Um::IDelete);
 	PageItem* ite;
 	doc->m_Selection->clear();
 	Selection tmpSelection(this, false);
@@ -6901,9 +6881,7 @@ void ScribusMainWindow::deletePage(int from, int to)
 	pagePalette->rebuildMasters();
 	if (activeTransaction)
 	{
-		activeTransaction->commit();
-		delete activeTransaction;
-		activeTransaction = NULL;
+		activeTransaction.commit();
 	}
 }
 
@@ -7125,21 +7103,17 @@ void ScribusMainWindow::duplicateItem()
 	doc->SnapElement = false;
 	slotEditCopy();
 	view->Deselect(true);
-	UndoTransaction *trans = NULL;
-	if(UndoManager::undoEnabled())
-		trans = new UndoTransaction(undoManager->beginTransaction(Um::Selection,Um::IPolygon,Um::Duplicate,"",Um::IMultipleDuplicate));
+	UndoTransaction trans;
+	if (UndoManager::undoEnabled())
+		trans = undoManager->beginTransaction(Um::Selection,Um::IPolygon,Um::Duplicate,"",Um::IMultipleDuplicate);
 	slotEditPaste();
 	for (int b=0; b<doc->m_Selection->count(); ++b)
 	{
 		doc->m_Selection->itemAt(b)->setLocked(false);
 		doc->MoveItem(doc->opToolPrefs().dispX, doc->opToolPrefs().dispY, doc->m_Selection->itemAt(b));
 	}
-	if(trans)
-	{
-		trans->commit();
-		delete trans;
-		trans = NULL;
-	}
+	if (trans)
+		trans.commit();
 	doc->SnapGrid  = savedAlignGrid;
 	doc->SnapGuides = savedAlignGuides;
 	doc->SnapElement = savedAlignElement;
@@ -9570,9 +9544,9 @@ void ScribusMainWindow::slotItemTransform()
 	TransformDialog td(this, doc);
 	if (td.exec() == 0)
 		return;
-	UndoTransaction *trans = NULL;
-	if(UndoManager::undoEnabled())
-		trans = new UndoTransaction(undoManager->beginTransaction(Um::Selection,Um::IPolygon,Um::Transform,"",Um::IMove));
+	UndoTransaction trans;
+	if (UndoManager::undoEnabled())
+		trans = undoManager->beginTransaction(Um::Selection,Um::IPolygon,Um::Transform,"",Um::IMove);
 	qApp->setOverrideCursor(QCursor(Qt::WaitCursor));
 	int count=td.getCount();
 	QTransform matrix(td.getTransformMatrix());
@@ -9581,9 +9555,7 @@ void ScribusMainWindow::slotItemTransform()
 	qApp->restoreOverrideCursor();
 	if (trans)
 	{
-		trans->commit();
-		delete trans;
-		trans = NULL;
+		trans.commit();
 	}
 }
 
@@ -10167,14 +10139,14 @@ void ScribusMainWindow::insertMark(MarkType mType)
 	if  (doc->appMode != modeEdit)
 		return;
 
-	UndoTransaction* trans = NULL;
+	UndoTransaction trans;
 	PageItem* currItem = doc->m_Selection->itemAt(0);
 	if (!currItem->isTextFrame())
 		return;
 	if (currItem->HasSel)
 	{
 		if (UndoManager::instance()->undoEnabled())
-			trans = new UndoTransaction(undoManager->beginTransaction(Um::Selection,Um::IDelete,Um::Delete,"",Um::IDelete));
+			trans = undoManager->beginTransaction(Um::Selection,Um::IDelete,Um::Delete,"",Um::IDelete);
 		//inserting mark replace some selected text
 		currItem->asTextFrame()->deleteSelectedTextFromFrame();
 	}
@@ -10201,9 +10173,7 @@ void ScribusMainWindow::insertMark(MarkType mType)
 	}
 	if (trans)
 	{
-		trans->commit();
-		delete trans;
-		trans = NULL;
+		trans.commit();
 	}
 }
 
@@ -10259,11 +10229,11 @@ void ScribusMainWindow::slotInsertMarkNote()
 	{ //fast insert note with the only default notes style avaiable
 		PageItem* currItem = doc->m_Selection->itemAt(0);
 		Q_ASSERT(currItem->isTextFrame() && !currItem->isNoteFrame());
-		UndoTransaction* trans = NULL;
+		UndoTransaction trans;
 		if (currItem->HasSel)
 		{
 			if (UndoManager::instance()->undoEnabled())
-				trans = new UndoTransaction(undoManager->beginTransaction(Um::Selection,Um::IDelete,Um::Delete,"",Um::IDelete));
+				trans = undoManager->beginTransaction(Um::Selection,Um::IDelete,Um::Delete,"",Um::IDelete);
 			//inserting mark replace some selected text
 			currItem->asTextFrame()->deleteSelectedTextFromFrame();
 		}
@@ -10310,11 +10280,7 @@ void ScribusMainWindow::slotInsertMarkNote()
 			undoManager->action(doc, is);
 		}
 		if (trans)
-		{
-			trans->commit();
-			delete trans;
-			trans = NULL;
-		}
+			trans.commit();
 	}
 	else
 		insertMark(MARKNoteMasterType);

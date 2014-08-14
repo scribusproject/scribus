@@ -302,11 +302,11 @@ void LoremManager::insertLoremIpsum(QString name, int paraCount, bool random)
 			i2 = currItem->asTable()->activeCell().textFrame();
 		if (!i2->asTextFrame())
 			continue;
-		UndoTransaction* activeTransaction = NULL;
+		UndoTransaction activeTransaction;
 		if (!appendCheckBox->isChecked() && i2->itemText.length() != 0)
 		{
 			if (UndoManager::undoEnabled())
-				activeTransaction = new UndoTransaction(undoManager->beginTransaction(Um::Selection, Um::IGroup, Um::AddLoremIpsum, "", Um::ICreate));
+				activeTransaction = undoManager->beginTransaction(Um::Selection, Um::IGroup, Um::AddLoremIpsum, "", Um::ICreate);
 			i2->itemText.selectAll();
 			i2->asTextFrame()->deleteSelectedTextFromFrame();
 			//We don't need to open a dialog box as the user can undo this action.
@@ -337,12 +337,9 @@ void LoremManager::insertLoremIpsum(QString name, int paraCount, bool random)
 			undoManager->action(i2, ss);
 		}
 		if (activeTransaction)
-		{
-			activeTransaction->commit();
-			delete activeTransaction;
-			activeTransaction = NULL;
-		}
-		int l=i2->itemText.length();
+			activeTransaction.commit();
+
+		int l = i2->itemText.length();
 		i2->itemText.insertChars(l, sampleText);
 		delete lp;
 		if (m_Doc->docHyphenator->AutoCheck)
