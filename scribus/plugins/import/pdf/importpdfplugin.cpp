@@ -168,7 +168,7 @@ bool ImportPdfPlugin::import(QString fileName, int flags)
 			return false;
 	}
 	m_Doc=ScCore->primaryMainWindow()->doc;
-	UndoTransaction* activeTransaction = NULL;
+	UndoTransaction activeTransaction;
 	bool emptyDoc = (m_Doc == NULL);
 	bool hasCurrentPage = (m_Doc && m_Doc->currentPage());
 	TransactionSettings trSettings;
@@ -180,7 +180,7 @@ bool ImportPdfPlugin::import(QString fileName, int flags)
 	if (emptyDoc || !(flags & lfInteractive) || !(flags & lfScripted))
 		UndoManager::instance()->setUndoEnabled(false);
 	if (UndoManager::undoEnabled())
-		activeTransaction = new UndoTransaction(UndoManager::instance()->beginTransaction(trSettings));
+		activeTransaction = UndoManager::instance()->beginTransaction(trSettings);
 	bool isCleanedFile = false;
 	QString cleanFile = "";
 	QFileInfo fi(fileName);
@@ -224,11 +224,7 @@ bool ImportPdfPlugin::import(QString fileName, int flags)
 	else
 		ret = dia->import(fileName, trSettings, flags);
 	if (activeTransaction)
-	{
-		activeTransaction->commit();
-		delete activeTransaction;
-		activeTransaction = NULL;
-	}
+		activeTransaction.commit();
 	if (emptyDoc || !(flags & lfInteractive) || !(flags & lfScripted))
 		UndoManager::instance()->setUndoEnabled(true);
 	delete dia;

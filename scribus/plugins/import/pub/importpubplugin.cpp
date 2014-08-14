@@ -131,7 +131,7 @@ bool ImportPubPlugin::import(QString fileName, int flags)
 			return true;
 	}
 	m_Doc=ScCore->primaryMainWindow()->doc;
-	UndoTransaction* activeTransaction = NULL;
+	UndoTransaction activeTransaction;
 	bool emptyDoc = (m_Doc == NULL);
 	bool hasCurrentPage = (m_Doc && m_Doc->currentPage());
 	TransactionSettings trSettings;
@@ -143,16 +143,12 @@ bool ImportPubPlugin::import(QString fileName, int flags)
 	if (emptyDoc || !(flags & lfInteractive) || !(flags & lfScripted))
 		UndoManager::instance()->setUndoEnabled(false);
 	if (UndoManager::undoEnabled())
-		activeTransaction = new UndoTransaction(UndoManager::instance()->beginTransaction(trSettings));
+		activeTransaction = UndoManager::instance()->beginTransaction(trSettings);
 	PubPlug *dia = new PubPlug(m_Doc, flags);
 	Q_CHECK_PTR(dia);
 	dia->import(fileName, trSettings, flags);
 	if (activeTransaction)
-	{
-		activeTransaction->commit();
-		delete activeTransaction;
-		activeTransaction = NULL;
-	}
+		activeTransaction.commit();
 	if (emptyDoc || !(flags & lfInteractive) || !(flags & lfScripted))
 		UndoManager::instance()->setUndoEnabled(true);
 	delete dia;

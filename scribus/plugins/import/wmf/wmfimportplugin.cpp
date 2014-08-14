@@ -157,20 +157,16 @@ bool WMFImportPlugin::import(QString filename, int flags)
 	trSettings.actionName   = Um::ImportWMF;
 	trSettings.description  = filename;
 	trSettings.actionPixmap = Um::IWMF;
-	UndoTransaction* activeTransaction = NULL;
+	UndoTransaction activeTransaction;
 	if ((m_Doc == NULL) || !(flags & lfInteractive) || !(flags & lfScripted))
 		UndoManager::instance()->setUndoEnabled(false);
 	if (UndoManager::undoEnabled())
-		activeTransaction = new UndoTransaction(UndoManager::instance()->beginTransaction(trSettings));
+		activeTransaction = UndoManager::instance()->beginTransaction(trSettings);
 	WMFImport *dia = new WMFImport(m_Doc, flags);
 	dia->import(filename, trSettings, flags);
 	Q_CHECK_PTR(dia);
 	if (activeTransaction)
-	{
-		activeTransaction->commit();
-		delete activeTransaction;
-		activeTransaction = NULL;
-	}
+		activeTransaction.commit();
 	if ((m_Doc == NULL) || !(flags & lfInteractive) || !(flags & lfScripted))
 		UndoManager::instance()->setUndoEnabled(true);
 	if (dia->importCanceled)

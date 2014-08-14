@@ -17,7 +17,6 @@ for which a new license (GPL+exception) is in place.
 #include "util_icon.h"
 #include "ui/paintmanager.h"
 
-#include <QSharedPointer>
 #include <QTextStream>
 
 BarcodeType::BarcodeType(QString cmd, QString exa,
@@ -300,25 +299,22 @@ void BarcodeGenerator::okButton_pressed()
 	hide();
 	const FileFormat * fmt = LoadSavePlugin::getFormatByExt("ps");
 
-	QSharedPointer<UndoTransaction> tran;
+	UndoTransaction tran;
 	if (UndoManager::undoEnabled())
 	{
-		tran = QSharedPointer<UndoTransaction>( new UndoTransaction(
-				UndoManager::instance()->beginTransaction(
+		tran = UndoManager::instance()->beginTransaction(
 							ScCore->primaryMainWindow()->doc->currentPage()->getUName(),
 							Um::IImageFrame,
 							Um::ImportBarcode,
 							ui.bcCombo->currentText() + " (" + ui.codeEdit->text() + ")",
-							Um::IEPS)
-						)
-				);
+							Um::IEPS);
 	}
 
 	if (fmt)
 	{
 		fmt->loadFile(psFile, LoadSavePlugin::lfUseCurrentPage|LoadSavePlugin::lfInteractive);
 		if (tran)
-			tran->commit();
+			tran.commit();
 	}
 	accept();
 }

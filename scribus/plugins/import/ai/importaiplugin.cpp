@@ -136,7 +136,7 @@ bool ImportAIPlugin::import(QString fileName, int flags)
 			return true;
 	}
 	m_Doc=ScCore->primaryMainWindow()->doc;
-	UndoTransaction* activeTransaction = NULL;
+	UndoTransaction activeTransaction;
 	bool emptyDoc = (m_Doc == NULL);
 	bool hasCurrentPage = (m_Doc && m_Doc->currentPage());
 	TransactionSettings trSettings;
@@ -148,7 +148,7 @@ bool ImportAIPlugin::import(QString fileName, int flags)
 	if (emptyDoc || !(flags & lfInteractive) || !(flags & lfScripted))
 		UndoManager::instance()->setUndoEnabled(false);
 	if (UndoManager::undoEnabled())
-		activeTransaction = new UndoTransaction(UndoManager::instance()->beginTransaction(trSettings));
+		activeTransaction = UndoManager::instance()->beginTransaction(trSettings);
 #ifdef HAVE_POPPLER
 	if (!(flags & LoadSavePlugin::lfLoadAsPattern))
 	{
@@ -182,11 +182,7 @@ bool ImportAIPlugin::import(QString fileName, int flags)
 					qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
 					bool success = fmt->loadFile(fileName, flags);
 					if (activeTransaction)
-					{
-						activeTransaction->commit();
-						delete activeTransaction;
-						activeTransaction = NULL;
-					}
+						activeTransaction.commit();
 					if (emptyDoc || !(flags & lfInteractive) || !(flags & lfScripted))
 						UndoManager::instance()->setUndoEnabled(true);
 					if (!success)
@@ -207,11 +203,7 @@ bool ImportAIPlugin::import(QString fileName, int flags)
 				qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
 				bool success = fmt->loadFile(fileName, flags);
 				if (activeTransaction)
-				{
-					activeTransaction->commit();
-					delete activeTransaction;
-					activeTransaction = NULL;
-				}
+					activeTransaction.commit();
 				if (emptyDoc || !(flags & lfInteractive) || !(flags & lfScripted))
 					UndoManager::instance()->setUndoEnabled(true);
 				if (!success)
@@ -225,11 +217,7 @@ bool ImportAIPlugin::import(QString fileName, int flags)
 	Q_CHECK_PTR(dia);
 	bool success = dia->import(fileName, trSettings, flags);
 	if (activeTransaction)
-	{
-		activeTransaction->commit();
-		delete activeTransaction;
-		activeTransaction = NULL;
-	}
+		activeTransaction.commit();
 	if (emptyDoc || !(flags & lfInteractive) || !(flags & lfScripted))
 		UndoManager::instance()->setUndoEnabled(true);
 	if (!success)

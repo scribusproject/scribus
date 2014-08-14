@@ -172,7 +172,7 @@ bool SVGImportPlugin::import(QString filename, int flags)
 			return true;
 	}
 	
-	UndoTransaction* activeTransaction = NULL;
+	UndoTransaction activeTransaction;
 	bool emptyDoc = (m_Doc == NULL);
 	bool hasCurrentPage = (m_Doc && m_Doc->currentPage());
 	TransactionSettings trSettings;
@@ -184,16 +184,12 @@ bool SVGImportPlugin::import(QString filename, int flags)
 	if (emptyDoc || !(flags & lfInteractive) || !(flags & lfScripted))
 		UndoManager::instance()->setUndoEnabled(false);
 	if (UndoManager::undoEnabled())
-		activeTransaction = new UndoTransaction(UndoManager::instance()->beginTransaction(trSettings));
+		activeTransaction = UndoManager::instance()->beginTransaction(trSettings);
 	SVGPlug *dia = new SVGPlug(m_Doc, flags);
 	Q_CHECK_PTR(dia);
 	dia->import(filename, trSettings, flags);
 	if (activeTransaction)
-	{
-		activeTransaction->commit();
-		delete activeTransaction;
-		activeTransaction = NULL;
-	}
+		activeTransaction.commit();
 	if (emptyDoc || !(flags & lfInteractive) || !(flags & lfScripted))
 		UndoManager::instance()->setUndoEnabled(true);
 	if (dia->importCanceled)

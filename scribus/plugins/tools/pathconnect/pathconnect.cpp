@@ -132,9 +132,9 @@ bool PathConnectPlugin::run(ScribusDoc* doc, QString)
 			int pointOne = dia->getFirstLinePoint();
 			int pointTwo = dia->getSecondLinePoint();
 			int mode = dia->getMode();
-			UndoTransaction *trans = NULL;
-			if(UndoManager::undoEnabled())
-				trans = new UndoTransaction(UndoManager::instance()->beginTransaction(Um::BezierCurve,Um::ILine,Um::ConnectPath,"",Um::ILine));
+			UndoTransaction trans;
+			if (UndoManager::undoEnabled())
+				trans = UndoManager::instance()->beginTransaction(Um::BezierCurve,Um::ILine,Um::ConnectPath,"",Um::ILine);
 
 			m_item1->PoLine = computePath(pointOne, pointTwo, mode, originalPath1, originalPath2);
 			m_item1->ClipEdited = true;
@@ -142,7 +142,7 @@ bool PathConnectPlugin::run(ScribusDoc* doc, QString)
 			m_doc->AdjustItemSize(m_item1);
 			m_item1->OldB2 = m_item1->width();
 			m_item1->OldH2 = m_item1->height();
-			if(UndoManager::undoEnabled())
+			if (UndoManager::undoEnabled())
 			{
 				ScItemState<QPair<FPointArray,FPointArray> > *is = new ScItemState<QPair<FPointArray,FPointArray> >(Um::ConnectPath);
 				is->set("CONNECT_PATH","connect_path");
@@ -159,11 +159,7 @@ bool PathConnectPlugin::run(ScribusDoc* doc, QString)
 			m_doc->itemSelection_DeleteItem();
 			m_doc->changed();
 			if (trans)
-			{
-				trans->commit();
-				delete trans;
-				trans = NULL;
-			}
+				trans.commit();
 		}
 		else
 		{

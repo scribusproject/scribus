@@ -134,10 +134,10 @@ bool PathFinderPlugin::run(ScribusDoc* doc, QString)
 		return true;
 	
 	//<<#9046
-	UndoTransaction* activeTransaction = NULL;
+	UndoTransaction activeTransaction;
 	UndoManager* undoManager = UndoManager::instance();
 	if (UndoManager::undoEnabled())
-		activeTransaction = new UndoTransaction(undoManager->beginTransaction(Um::SelectionGroup, Um::IDocument, Um::PathOperation, "", Um::IPolygon));
+		activeTransaction = undoManager->beginTransaction(Um::SelectionGroup, Um::IDocument, Um::PathOperation, "", Um::IPolygon);
 	//>>#9046
 	
 	PageItem *Item1 = currDoc->m_Selection->itemAt(0);
@@ -401,11 +401,7 @@ bool PathFinderPlugin::run(ScribusDoc* doc, QString)
 	
 	//<<#9046
 	if (activeTransaction)
-	{
-		activeTransaction->commit();
-		delete activeTransaction;
-		activeTransaction = NULL;
-	}
+		activeTransaction.commit();
 	//>>#9046
 	
 	return true;
