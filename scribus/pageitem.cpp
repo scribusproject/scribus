@@ -3025,7 +3025,7 @@ void PageItem::set4ColorColors(QString col1, QString col2, QString col3, QString
 		setGradientColor1(tmp);
 	}
 	else
-		setGradientColor1(QColor(255, 255, 255, 0));
+		setGradientColor1(QColor(0, 0, 0, 0));
 	if (m_Doc->viewAsPreview)
 	{
 		VisionDefectColor defect;
@@ -3064,7 +3064,7 @@ void PageItem::set4ColorColors(QString col1, QString col2, QString col3, QString
 		setGradientColor2(tmp);
 	}
 	else
-		setGradientColor2(QColor(255, 255, 255, 0));
+		setGradientColor2(QColor(0, 0, 0, 0));
 	if (m_Doc->viewAsPreview)
 	{
 		VisionDefectColor defect;
@@ -3103,7 +3103,7 @@ void PageItem::set4ColorColors(QString col1, QString col2, QString col3, QString
 		setGradientColor3(tmp);
 	}
 	else
-		setGradientColor3(QColor(255, 255, 255, 0));
+		setGradientColor3(QColor(0, 0, 0, 0));
 	if (m_Doc->viewAsPreview)
 	{
 		VisionDefectColor defect;
@@ -3142,7 +3142,7 @@ void PageItem::set4ColorColors(QString col1, QString col2, QString col3, QString
 		setGradientColor4(tmp);
 	}
 	else
-		setGradientColor4(QColor(255, 255, 255, 0));
+		setGradientColor4(QColor(0, 0, 0, 0));
 	if (m_Doc->viewAsPreview)
 	{
 		VisionDefectColor defect;
@@ -3211,7 +3211,7 @@ void PageItem::setMeshPointColor(int x, int y, QString color, int shade, double 
 		MQColor.setAlphaF(transparency);
 	}
 	else
-		MQColor = QColor(255, 255, 255, 0);
+		MQColor = QColor(0, 0, 0, 0);
 	if (m_Doc->viewAsPreview)
 	{
 		VisionDefectColor defect;
@@ -3429,7 +3429,7 @@ void PageItem::createGradientMesh(int rows, int cols)
 		MQColor.setAlphaF(1.0);
 	}
 	else
-		MQColor = QColor(255, 255, 255, 0);
+		MQColor = QColor(0, 0, 0, 0);
 	if (m_Doc->viewAsPreview)
 	{
 		VisionDefectColor defect;

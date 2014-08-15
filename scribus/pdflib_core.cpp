@@ -5884,13 +5884,13 @@ QString PDFLibCore::SetGradientColor(const QString& farbe, double Shade)
 		if (Options.isGrayscale)
 			tmp = "0.0";
 		if (Options.UseRGB)
-			tmp = "1.0 1.0 1.0";
+			tmp = "0.0 0.0 0.0";
 		else
 		{
 			if ((doc.HasCMS) && (Options.UseProfiles))
 			{
 				if (Options.SComp == 3)
-					tmp = "1.0 1.0 1.0";
+					tmp = "0.0 0.0 0.0";
 				else
 					tmp = "0.0 0.0 0.0 0.0";
 			}
@@ -8249,14 +8249,20 @@ bool PDFLibCore::PDF_GradientFillStroke(QString& output, PageItem *currItem, boo
 			StopVec.append(0.0);
 			colorNames.append(cstops.at(cst)->name);
 			colorShades.append(cstops.at(cst)->shade);
-			TransVec.append(cstops.at(cst)->opacity);
+			if (cstops.at(cst)->name == CommonStrings::None)
+				TransVec.append(0);
+			else
+				TransVec.append(cstops.at(cst)->opacity);
 			Gcolors.append(SetGradientColor(cstops.at(cst)->name, cstops.at(cst)->shade));
 		}
 		isFirst = false;
 		StopVec.append(actualStop);
 		colorNames.append(cstops.at(cst)->name);
 		colorShades.append(cstops.at(cst)->shade);
-		TransVec.append(cstops.at(cst)->opacity);
+		if (cstops.at(cst)->name == CommonStrings::None)
+			TransVec.append(0);
+		else
+			TransVec.append(cstops.at(cst)->opacity);
 		if (cstops.at(cst)->opacity != 1.0)
 			transparencyFound = true;
 		if (spotMap.contains(cstops.at(cst)->name))
@@ -8270,7 +8276,10 @@ bool PDFLibCore::PDF_GradientFillStroke(QString& output, PageItem *currItem, boo
 			StopVec.append(1.0);
 			colorNames.append(cstops.at(cst)->name);
 			colorShades.append(cstops.at(cst)->shade);
-			TransVec.append(cstops.at(cst)->opacity);
+			if (cstops.at(cst)->name == CommonStrings::None)
+				TransVec.append(0);
+			else
+				TransVec.append(cstops.at(cst)->opacity);
 			Gcolors.append(SetGradientColor(cstops.at(cst)->name, cstops.at(cst)->shade));
 		}
 		lastStop = actualStop;
