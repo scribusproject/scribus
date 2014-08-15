@@ -15874,13 +15874,14 @@ ClRe(-1), ClRe2(-1), SegP1(-1), SegP2(-1), EdPoints(true), MoveSym(false), SelNo
 
 bool NodeEditContext::hasNodeSelected() 
 { 
-	return ClRe != -1; 
+	return ClRe != -1;
 }
 
 
 void NodeEditContext::deselect() 
 { 
-	ClRe = -1; 
+	ClRe = -1;
+	SelNode.clear();
 }
 
 void NodeEditContext::reset()
