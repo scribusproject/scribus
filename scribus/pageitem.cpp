@@ -2860,7 +2860,7 @@ void PageItem::DrawPolyL(QPainter *p, QPolygon pts)
 		uint FirstVal = 0;
 		for (QList<uint>::Iterator it2 = Segments.begin(); it2 != it2end; ++it2)
 		{
-				p->drawPolygon(pts.constData() + FirstVal, (*it2)-FirstVal);
+			p->drawPolygon(pts.constData() + FirstVal, (*it2)-FirstVal);
 			FirstVal = (*it2);
 		}
 		p->drawPolygon(pts.constData() + FirstVal, pts.size() - FirstVal);
