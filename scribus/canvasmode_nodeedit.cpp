@@ -801,7 +801,10 @@ void CanvasMode_NodeEdit::handleNodeEditPress(QMouseEvent* m, QRect)
 				return;
 			}
 		}
-		if ((currItem->Segments.count() != 0) && ((EndInd - StartInd) <= 12))
+
+		int numPoints = (StartInd != 0) ? (StartInd-4) : 0;
+		numPoints += (Clip.size() - EndInd);
+		if ((currItem->Segments.count() > 0) && ((EndInd - StartInd) <= 12) && (numPoints > 0))
 		{
 			if (StartInd != 0)
 				cli.putPoints(0, StartInd-4, Clip);
