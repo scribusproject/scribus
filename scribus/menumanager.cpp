@@ -157,6 +157,7 @@ void MenuManager::addMenuItemStringstoMenuBar(const QString &menuName, const QMa
 					if (menuStrings.contains(menuStrings[menuName].at(i)))
 					{
 						QMenu *subMenu=menuBarMenus[menuName]->addMenu(menuStringTexts[menuStrings[menuName].at(i)]);
+						menuBarMenus.insert(menuStrings[menuName].at(i), subMenu);
 						if (rememberedMenus.contains(menuStrings[menuName].at(i)))
 						{
 							rememberedMenus.insert(menuStrings[menuName].at(i), subMenu);
@@ -194,6 +195,7 @@ void MenuManager::addMenuItemStringstoMenu(const QString &menuName, QMenu *menuT
 						QMenu *subMenu=menuToAddTo->addMenu(menuStringTexts[menuStrings[menuName].at(i)]);
 						if (subMenu)
 						{
+							menuBarMenus.insert(menuStrings[menuName].at(i), subMenu);
 							if (rememberedMenus.contains(menuStrings[menuName].at(i)))
 							{
 								rememberedMenus.insert(menuStrings[menuName].at(i), subMenu);
