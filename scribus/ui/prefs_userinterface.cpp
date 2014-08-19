@@ -50,11 +50,10 @@ void Prefs_UserInterface::languageChange()
 	recentDocumentsSpinBox->setToolTip( "<qt>" + tr( "Number of recently edited documents to show in the File menu" ) + "</qt>");
 	fontSizeMenuSpinBox->setToolTip( "<qt>" + tr( "Default font size for the menus and windows" ) + "</qt>");
 	fontSizePaletteSpinBox->setToolTip( "<qt>" + tr( "Default font size for the tool windows" ) + "</qt>");
-	resizeMoveDelaySpinBox->setToolTip( "<qt>" + tr( "" ) + "</qt>");
+	//resizeMoveDelaySpinBox->setToolTip( "<qt>" + tr( "" ) + "</qt>");
 	wheelJumpSpinBox->setToolTip( "<qt>" + tr( "Number of lines Scribus will scroll for each move of the mouse wheel" ) + "</qt>");
-	showSplashCheckBox->setToolTip( "<qt>" + tr( "" ) + "</qt>");
-	showStartupDialogCheckBox->setToolTip( "<qt>" + tr( "" ) + "</qt>");
-
+	//showSplashCheckBox->setToolTip( "<qt>" + tr( "" ) + "</qt>");
+	//showStartupDialogCheckBox->setToolTip( "<qt>" + tr( "" ) + "</qt>");
 }
 
 void Prefs_UserInterface::restoreDefaults(struct ApplicationPrefs *prefsData)
