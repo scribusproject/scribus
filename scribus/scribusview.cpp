@@ -921,7 +921,6 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 				activeTransaction = undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::Create, "", Um::ICreate);
 				if (fi.exists())
 				{
-					QString data;
 					if (fi.suffix().toLower() == "sce")
 					{
 						emit LoadElem(url.toLocalFile(), dropPosDoc.x(), dropPosDoc.y(), true, false, Doc, this);
@@ -988,6 +987,23 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 						emit AddBM(currItem);
 				}
 				Doc->m_Selection->copy(tmpSelection, false);
+				if (Doc->m_Selection->count() == 1)
+				{
+					PageItem *newItem = Doc->m_Selection->itemAt(0);
+					if ((newItem->width() > Doc->currentPage()->width()) || (newItem->height() > Doc->currentPage()->height()))
+					{
+					//	QMenu *pmen = new QMenu();
+					//	pmen->addAction( tr("Keep original Size"));
+					//	pmen->addAction( tr("Scale to Page Size"));
+					//	re = pmen->actions().indexOf(pmen->exec(QCursor::pos()));
+					//	delete pmen;
+					//	if (re == 1)
+					//	{
+							Doc->rescaleGroup(newItem, qMin(qMin(Doc->currentPage()->width() / newItem->width(), Doc->currentPage()->height() / newItem->height()), 1.0));
+							newItem->update();
+					//	}
+					}
+				}
 				activeTransaction.commit();
 				activeTransaction.reset();
 			}

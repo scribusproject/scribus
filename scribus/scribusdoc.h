@@ -1043,6 +1043,7 @@ public:
 	void itemSelection_UnGroupObjects(Selection* customSelection=0);
 	void addToGroup(PageItem* group, PageItem* item);
 	void removeFromGroup(PageItem* item);
+	void rescaleGroup(PageItem* group, double scale);
 	void resizeGroupToContents(PageItem* group);
 	void itemSelection_resizeGroupToContents(Selection *customSelection=0);
 	void itemSelection_convertItemsTo(const PageItem::ItemType newType, Selection* restoredSelection=0, Selection* customSelection=0);

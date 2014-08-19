@@ -445,6 +445,27 @@ CustomFDialog::CustomFDialog(QWidget *parent, QString wDir, QString caption, QSt
 			Layout1C->addItem( spacer2 );
 			vboxLayout->addWidget(LayoutC);
 		}
+		if (flags & fdShowImportOptions)
+		{
+			LayoutC = new QFrame(this);
+			Layout1C = new QHBoxLayout(LayoutC);
+			Layout1C->setSpacing( 0 );
+			Layout1C->setContentsMargins(9, 0, 0, 0);
+			TxCodeT = new QLabel(this);
+			TxCodeT->setText( tr("Import Option:"));
+			Layout1C->addWidget(TxCodeT);
+			TxCodeM = new ScComboBox(LayoutC);
+			TxCodeM->setEditable(false);
+			TxCodeM->addItem("Keep original size");
+			TxCodeM->addItem("Downscale to page size");
+			TxCodeM->addItem("Upscale to page size");
+			TxCodeM->setCurrentIndex(0);
+			TxCodeM->setMinimumSize(QSize(200, 0));
+			Layout1C->addWidget(TxCodeM);
+			QSpacerItem* spacer2 = new QSpacerItem( 2, 2, QSizePolicy::Expanding, QSizePolicy::Minimum );
+			Layout1C->addItem( spacer2 );
+			vboxLayout->addWidget(LayoutC);
+		}
 		bool setter2 = flags & fdHidePreviewCheckBox;
 		if (!setter2)
 		{

@@ -15452,6 +15452,21 @@ void ScribusDoc::removeFromGroup(PageItem* item)
 	setRedrawBounding(item);
 }
 
+void ScribusDoc::rescaleGroup(PageItem* group, double scale)
+{
+	group->PoLine.scale(scale, scale);
+	group->setWidthHeight(group->width() * scale, group->height() * scale);
+	group->ClipEdited = true;
+	group->FrameType = 3;
+	AdjustItemSize(group, true);
+	group->OldB2 = group->width();
+	group->OldH2 = group->height();
+	if (group->isGroup())
+		group->asGroupFrame()->adjustXYPosition();
+	group->updateClip();
+	setRedrawBounding(group);
+}
+
 void ScribusDoc::resizeGroupToContents(PageItem* group)
 {
 	PageItem_Group* currItem = group->asGroupFrame();

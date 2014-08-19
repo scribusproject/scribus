@@ -1848,7 +1848,7 @@ void CanvasMode_Normal::importToPage()
 	PrefsContext* dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
 	QString wdir = dirs->get("pastefile", ".");
 	FPoint pastePoint = m_mouseCurrentPoint;
-	CustomFDialog dia(m_view, wdir, tr("Open"), allFormats, fdExistingFiles);
+	CustomFDialog dia(m_view, wdir, tr("Open"), allFormats, fdExistingFiles | fdShowImportOptions);
 	if (dia.exec() == QDialog::Accepted)
 		fileName = dia.selectedFile();
 	else
@@ -1880,19 +1880,29 @@ void CanvasMode_Normal::importToPage()
 					fmt->loadFile(fileName, LoadSavePlugin::lfUseCurrentPage|LoadSavePlugin::lfInteractive|LoadSavePlugin::lfScripted);
 				}
 			}
-			if (m_doc->m_Selection->count() > 0)
-			{
-				double x2, y2, w, h;
-				m_doc->m_Selection->getGroupRect(&x2, &y2, &w, &h);
-				m_doc->moveGroup(pastePoint.x() - x2, pastePoint.y() - y2);
-				m_ScMW->requestUpdate(reqColorsUpdate | reqSymbolsUpdate | reqLineStylesUpdate | reqTextStylesUpdate);
-			}
 			m_doc->dontResize = false;
 		}
 		for (int a = 0; a < m_doc->m_Selection->count(); ++a)
 		{
 			PageItem *currItem = m_doc->m_Selection->itemAt(a);
 			currItem->LayerID = m_doc->activeLayer();
+		}
+		if (m_doc->m_Selection->count() > 0)
+		{
+			PageItem *newItem = m_doc->m_Selection->itemAt(0);
+			if (dia.TxCodeM->currentIndex() == 1)
+			{
+				if ((newItem->width() > m_doc->currentPage()->width()) || (newItem->height() > m_doc->currentPage()->height()))
+					m_doc->rescaleGroup(newItem, qMin(qMin(m_doc->currentPage()->width() / newItem->width(), m_doc->currentPage()->height() / newItem->height()), 1.0));
+			}
+			else if (dia.TxCodeM->currentIndex() == 2)
+			{
+				m_doc->rescaleGroup(newItem, qMax(qMin(m_doc->currentPage()->width() / newItem->width(), m_doc->currentPage()->height() / newItem->height()), 1.0));
+			}
+			double x2, y2, w, h;
+			m_doc->m_Selection->getGroupRect(&x2, &y2, &w, &h);
+			m_doc->moveGroup(pastePoint.x() - x2, pastePoint.y() - y2);
+			m_ScMW->requestUpdate(reqColorsUpdate | reqSymbolsUpdate | reqLineStylesUpdate | reqTextStylesUpdate);
 		}
 		m_doc->SnapGrid = savedAlignGrid;
 		m_doc->SnapGuides = savedAlignGuides;
