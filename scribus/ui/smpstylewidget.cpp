@@ -97,7 +97,7 @@ void SMPStyleWidget::languageChange()
 /***********************************/
 // These are for the paragraph style
 
-	parentCombo->setToolTip(      tr("Parent Style"));
+	parentCombo->setToolTip(     tr("Parent Style"));
 	lineSpacingMode->setToolTip( tr("Line Spacing Mode"));
 	lineSpacing->setToolTip(     tr("Line Spacing"));
 	spaceAbove->setToolTip(      tr("Space Above"));
@@ -114,7 +114,7 @@ void SMPStyleWidget::languageChange()
 	parEffectOffset->setToolTip(   tr("Paragraph Effects Chars Offset"));
 	parEffectIndentBox->setToolTip(   tr("Hang Paragraph Effect before paragraph indent"));
 	parEffectCharStyleCombo->setToolTip("<qt>" + tr("Choose chracter style or leave blank for use default paragraph style"));
-	alignement->setToolTip(      tr("Alignment"));
+	alignment->setToolTip(       tr("Alignment"));
 	tabList->first_->setToolTip( tr("First Line Indent"));
 	tabList->left_->setToolTip(  tr("Left Indent"));
 	tabList->right_->setToolTip( tr("Right Indent"));
@@ -333,8 +333,8 @@ void SMPStyleWidget::show(ParagraphStyle *pstyle, QList<ParagraphStyle> &pstyles
 		spaceBelow->setParentValue(parent->gapAfter());
 
 
-		alignement->setStyle(pstyle->alignment(), pstyle->isInhAlignment());
-		alignement->setParentItem(parent->alignment());
+		alignment->setStyle(pstyle->alignment(), pstyle->isInhAlignment());
+		alignment->setParentItem(parent->alignment());
 
 		bool hasParentTabs = pstyle->isInhTabValues();
 		QList<ParagraphStyle::TabRecord> tabs;
@@ -476,7 +476,7 @@ void SMPStyleWidget::show(ParagraphStyle *pstyle, QList<ParagraphStyle> &pstyles
 		numRestartOtherBox->setChecked(pstyle->numOther());
 		numRestartHigherBox->setChecked(pstyle->numHigher());
 
-		alignement->setStyle(pstyle->alignment());
+		alignment->setStyle(pstyle->alignment());
 		tabList->setTabs(pstyle->tabValues(), unitIndex);
 		tabList->setLeftIndentValue(pstyle->leftMargin() * unitRatio);
 		tabList->setFirstLineValue(pstyle->firstIndent() * unitRatio);
@@ -752,16 +752,16 @@ void SMPStyleWidget::showAlignment(QList<ParagraphStyle*> &pstyles)
 	{
 		if (a != pstyles[i]->alignment())
 		{
-			if (alignement->selectedId() > -1 && alignement->selectedId() < 5)
+			if (alignment->selectedId() > -1 && alignment->selectedId() < 5)
 			{
-				alignement->buttonGroup->setExclusive(false);
-				alignement->buttonGroup->button(alignement->selectedId())->toggle();
-				alignement->buttonGroup->setExclusive(true);
+				alignment->buttonGroup->setExclusive(false);
+				alignment->buttonGroup->button(alignment->selectedId())->toggle();
+				alignment->buttonGroup->setExclusive(true);
 			}
 			return;
 		}
 	}
-	alignement->setStyle(a);
+	alignment->setStyle(a);
 }
 
 void SMPStyleWidget::showOpticalMargin(QList< ParagraphStyle * > & pstyles)

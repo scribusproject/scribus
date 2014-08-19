@@ -104,7 +104,7 @@ public slots:
 	void handleTextFont(QString);
 
 private slots:
-	void handleAlignement(int a);
+	void handleAlignment(int a);
 	void handleFirstLinePolicy(int);
 	void handleFontSize();
 	void handleLineSpacing();

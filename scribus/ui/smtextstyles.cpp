@@ -497,12 +497,12 @@ void SMParagraphStyle::setupConnections()
 	connect(m_pwidget->lineSpacing, SIGNAL(valueChanged(double)), this, SLOT(slotLineSpacing()));
 	connect(m_pwidget->spaceAbove, SIGNAL(valueChanged(double)), this, SLOT(slotSpaceAbove()));
 	connect(m_pwidget->spaceBelow, SIGNAL(valueChanged(double)), this, SLOT(slotSpaceBelow()));
-	connect(m_pwidget->alignement->TextL, SIGNAL(clicked()), this, SLOT(slotAlignment()));
-	connect(m_pwidget->alignement->TextR, SIGNAL(clicked()), this, SLOT(slotAlignment()));
-	connect(m_pwidget->alignement->TextC, SIGNAL(clicked()), this, SLOT(slotAlignment()));
-	connect(m_pwidget->alignement->TextB, SIGNAL(clicked()), this, SLOT(slotAlignment()));
-	connect(m_pwidget->alignement->TextF, SIGNAL(clicked()), this, SLOT(slotAlignment()));
-	connect(m_pwidget->alignement->parentButton, SIGNAL(clicked()), this, SLOT(slotAlignment()));
+	connect(m_pwidget->alignment->TextL, SIGNAL(clicked()), this, SLOT(slotAlignment()));
+	connect(m_pwidget->alignment->TextR, SIGNAL(clicked()), this, SLOT(slotAlignment()));
+	connect(m_pwidget->alignment->TextC, SIGNAL(clicked()), this, SLOT(slotAlignment()));
+	connect(m_pwidget->alignment->TextB, SIGNAL(clicked()), this, SLOT(slotAlignment()));
+	connect(m_pwidget->alignment->TextF, SIGNAL(clicked()), this, SLOT(slotAlignment()));
+	connect(m_pwidget->alignment->parentButton, SIGNAL(clicked()), this, SLOT(slotAlignment()));
 //	connect(m_pwidget->optMarginCombo, SIGNAL(activated(int)), this, SLOT(slotOpticalMargin(int)));
 	connect(m_pwidget->optMarginRadioNone, SIGNAL(clicked()), this, SLOT(slotOpticalMarginSelector()));
 	connect(m_pwidget->optMarginRadioLeft, SIGNAL(clicked()), this, SLOT(slotOpticalMarginSelector()));
@@ -582,12 +582,12 @@ void SMParagraphStyle::removeConnections()
 	disconnect(m_pwidget->lineSpacing, SIGNAL(valueChanged(double)), this, SLOT(slotLineSpacing()));
 	disconnect(m_pwidget->spaceAbove, SIGNAL(valueChanged(double)), this, SLOT(slotSpaceAbove()));
 	disconnect(m_pwidget->spaceBelow, SIGNAL(valueChanged(double)), this, SLOT(slotSpaceBelow()));
-	disconnect(m_pwidget->alignement->TextL, SIGNAL(clicked()), this, SLOT(slotAlignment()));
-	disconnect(m_pwidget->alignement->TextR, SIGNAL(clicked()), this, SLOT(slotAlignment()));
-	disconnect(m_pwidget->alignement->TextC, SIGNAL(clicked()), this, SLOT(slotAlignment()));
-	disconnect(m_pwidget->alignement->TextB, SIGNAL(clicked()), this, SLOT(slotAlignment()));
-	disconnect(m_pwidget->alignement->TextF, SIGNAL(clicked()), this, SLOT(slotAlignment()));
-	disconnect(m_pwidget->alignement->parentButton, SIGNAL(clicked()), this, SLOT(slotAlignment()));
+	disconnect(m_pwidget->alignment->TextL, SIGNAL(clicked()), this, SLOT(slotAlignment()));
+	disconnect(m_pwidget->alignment->TextR, SIGNAL(clicked()), this, SLOT(slotAlignment()));
+	disconnect(m_pwidget->alignment->TextC, SIGNAL(clicked()), this, SLOT(slotAlignment()));
+	disconnect(m_pwidget->alignment->TextB, SIGNAL(clicked()), this, SLOT(slotAlignment()));
+	disconnect(m_pwidget->alignment->TextF, SIGNAL(clicked()), this, SLOT(slotAlignment()));
+	disconnect(m_pwidget->alignment->parentButton, SIGNAL(clicked()), this, SLOT(slotAlignment()));
 //	disconnect(m_pwidget->optMarginCombo, SIGNAL(activated(int)), this, SLOT(slotOpticalMargin(int)));
 	disconnect(m_pwidget->optMarginRadioNone, SIGNAL(clicked()), this, SLOT(slotOpticalMarginSelector()));
 	disconnect(m_pwidget->optMarginRadioLeft, SIGNAL(clicked()), this, SLOT(slotOpticalMarginSelector()));
@@ -741,8 +741,8 @@ void SMParagraphStyle::slotSpaceBelow()
 
 void SMParagraphStyle::slotAlignment()
 {
-	ParagraphStyle::AlignmentType style = static_cast<ParagraphStyle::AlignmentType>(m_pwidget->alignement->getStyle());
-	if (m_pwidget->alignement->useParentValue())
+	ParagraphStyle::AlignmentType style = static_cast<ParagraphStyle::AlignmentType>(m_pwidget->alignment->getStyle());
+	if (m_pwidget->alignment->useParentValue())
 		for (int i = 0; i < m_selection.count(); ++i)
 			m_selection[i]->resetAlignment();
 	else 

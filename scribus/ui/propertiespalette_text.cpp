@@ -103,7 +103,7 @@ PropertiesPalette_Text::PropertiesPalette_Text( QWidget* parent) : QWidget(paren
 	connect(lineSpacing   , SIGNAL(valueChanged(double)), this, SLOT(handleLineSpacing()));
 	connect(fonts         , SIGNAL(fontSelected(QString )), this, SLOT(handleTextFont(QString)));
 	connect(fontSize      , SIGNAL(valueChanged(double)), this, SLOT(handleFontSize()));
-	connect(textAlignment , SIGNAL(State(int))   , this, SLOT(handleAlignement(int)));
+	connect(textAlignment , SIGNAL(State(int))   , this, SLOT(handleAlignment(int)));
 	connect(charStyleClear, SIGNAL(clicked()), this, SLOT(doClearCStyle()));
 	connect(paraStyleClear, SIGNAL(clicked()), this, SLOT(doClearPStyle()));
 
@@ -570,7 +570,7 @@ void PropertiesPalette_Text::handleFontSize()
 	m_doc->itemSelection_SetFontSize(qRound(fontSize->value()*10.0), &tempSelection);
 }
 
-void PropertiesPalette_Text::handleAlignement(int a)
+void PropertiesPalette_Text::handleAlignment(int a)
 {
 	if (!m_haveDoc || !m_haveItem || !m_ScMW || m_ScMW->scriptIsRunning())
 		return;
