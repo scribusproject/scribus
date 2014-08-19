@@ -43,7 +43,7 @@ void ScMWMenuManager::languageChange()
 	setText("ItemLayer", tr("Send to Layer"));
 	setText("ItemPreviewSettings", tr("Previe&w Settings"));
 	setText("ItemPDFOptions", tr("&PDF Options"));
-	setText("ItemConvertTo", tr("C&onvert To"));
+	setText("ItemConvertTo", tr("C&onvert to"));
 //			setText("ItemPathOps", tr("Path Tools"));
 	setText("Insert", ActionManager::defaultMenuNameEntryTranslated("Insert"));
 	setText("InsertChar", tr("Character"));

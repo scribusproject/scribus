@@ -876,7 +876,7 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->addMenuItemString("itemPDFIsBookmark", "ItemPDFOptions");
 	scrMenuMgr->addMenuItemString("itemPDFAnnotationProps", "ItemPDFOptions");
 	scrMenuMgr->addMenuItemString("itemPDFFieldProps", "ItemPDFOptions");
-	scrMenuMgr->createMenu("ItemConvertTo", tr("C&onvert To"), "Item");
+	scrMenuMgr->createMenu("ItemConvertTo", tr("C&onvert to"), "Item");
 	scrMenuMgr->addMenuItemString("ItemConvertTo", "Item");
 	scrMenuMgr->addMenuItemString("itemConvertToTextFrame", "ItemConvertTo");
 	scrMenuMgr->addMenuItemString("itemConvertToImageFrame", "ItemConvertTo");
