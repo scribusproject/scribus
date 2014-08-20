@@ -1,7 +1,8 @@
-<ui version="4.0" >
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
  <class>CharSelect</class>
- <widget class="QDialog" name="CharSelect" >
-  <property name="geometry" >
+ <widget class="QDialog" name="CharSelect">
+  <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
@@ -9,60 +10,73 @@
     <height>319</height>
    </rect>
   </property>
-  <property name="windowTitle" >
+  <property name="windowTitle">
    <string>Character Palette</string>
   </property>
-  <layout class="QGridLayout" name="gridLayout" >
-   <item row="0" column="0" >
-    <layout class="QHBoxLayout" >
-     <property name="spacing" >
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="0" column="0">
+    <layout class="QHBoxLayout">
+     <property name="spacing">
       <number>1</number>
      </property>
      <item>
-      <widget class="QPushButton" name="hideButton" >
-       <property name="toolTip" >
-        <string>Hide/Show Enhanced Palette</string>
+      <widget class="QPushButton" name="hideButton">
+       <property name="toolTip">
+        <string>Show/Hide Enhanced Palette</string>
        </property>
-       <property name="checkable" >
+       <property name="checkable">
         <bool>true</bool>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="UnicodeChooseButton" name="unicodeButton" />
+      <widget class="UnicodeChooseButton" name="unicodeButton">
+       <property name="toolTip">
+        <string>Unicode Search</string>
+       </property>
+      </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="uniLoadButton" >
-       <property name="text" >
+      <widget class="QPushButton" name="uniLoadButton">
+       <property name="toolTip">
+        <string>Load a Character Palette</string>
+       </property>
+       <property name="text">
         <string/>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="uniSaveButton" >
-       <property name="text" >
+      <widget class="QPushButton" name="uniSaveButton">
+       <property name="toolTip">
+        <string>Save the Character Palette</string>
+       </property>
+       <property name="text">
         <string/>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="uniClearButton" >
-       <property name="text" >
+      <widget class="QPushButton" name="uniClearButton">
+       <property name="toolTip">
+        <string>Empty the Character Palette</string>
+       </property>
+       <property name="text">
         <string/>
        </property>
       </widget>
      </item>
     </layout>
    </item>
-   <item row="1" column="0" >
-    <widget class="CharTableView" name="m_userTable" >
-     <property name="dragDropOverwriteMode" >
+   <item row="1" column="0">
+    <widget class="CharTableView" name="m_userTable">
+     <property name="dragDropOverwriteMode">
       <bool>false</bool>
      </property>
-     <property name="dragDropMode" >
+     <property name="dragDropMode">
       <enum>QAbstractItemView::DropOnly</enum>
      </property>
-     <property name="selectionMode" >
+     <property name="selectionMode">
       <enum>QAbstractItemView::SingleSelection</enum>
      </property>
     </widget>
