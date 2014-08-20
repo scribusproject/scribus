@@ -65,7 +65,7 @@ Editor::Editor( QWidget* parent, QString daten, ScribusView* vie) : QDialog( par
 	clearAct = new QAction(QIcon(loadIcon("16/edit-delete.png")), tr("C&lear"), this);
 	connect(clearAct, SIGNAL(triggered()), this, SLOT(del()));
 	getFieldAct = new QAction( tr("&Get Field Names"), this);
-	connect(getFieldAct, SIGNAL(triggered()), this, SLOT(GetFieldN()));
+	connect(getFieldAct, SIGNAL(triggered()), this, SLOT(GetFieldNames()));
 	fmenu = new QMenu( tr("&File"));
 	fmenu->addAction(newAct);
 	fmenu->addAction(openAct);
@@ -116,7 +116,7 @@ void Editor::del()
 	EditTex->setTextCursor(curs);
 }
 
-void Editor::GetFieldN()
+void Editor::GetFieldNames()
 {
 	if (view != 0)
 	{
