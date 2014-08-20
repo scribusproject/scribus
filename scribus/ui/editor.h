@@ -56,7 +56,7 @@ private slots:
 	void del();
 	void OpenScript();
 	void SaveAs();
-	void GetFieldN();
+	void GetFieldNames();
 
 protected:
 	QVBoxLayout* EditorLayout;
