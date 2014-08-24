@@ -220,8 +220,8 @@ void ScrPaletteBase::hide()
 
 void ScrPaletteBase::reject()
 {
-	emit paletteShown(false);
 	QDialog::reject();
+	emit paletteShown(false);
 }
 
 void ScrPaletteBase::storePosition()
