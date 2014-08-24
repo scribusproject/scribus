@@ -476,6 +476,7 @@ void RawPainter::drawRectangle(const librevenge::RVNGPropertyList &propList)
 		return;
 	if (propList["svg:x"] && propList["svg:y"] && propList["svg:width"] && propList["svg:height"])
 	{
+		setStyle(propList);
 		double x = valueAsPoint(propList["svg:x"]);
 		double y = valueAsPoint(propList["svg:y"]);
 		double w = valueAsPoint(propList["svg:width"]);
@@ -495,6 +496,7 @@ void RawPainter::drawEllipse(const librevenge::RVNGPropertyList &propList)
 		return;
 	if (propList["svg:x"] && propList["svg:y"] && propList["svg:width"] && propList["svg:height"])
 	{
+		setStyle(propList);
 		double x = valueAsPoint(propList["svg:x"]);
 		double y = valueAsPoint(propList["svg:y"]);
 		double w = valueAsPoint(propList["svg:width"]);
@@ -515,6 +517,7 @@ void RawPainter::drawPolyline(const librevenge::RVNGPropertyList &propList)
 	librevenge::RVNGPropertyListVector vertices = *propList.child("svg:points");
 	if(vertices.count() < 2)
 		return;
+	setStyle(propList);
 	Coords.resize(0);
 	Coords.svgInit();
 	PageItem *ite;
@@ -540,6 +543,7 @@ void RawPainter::drawPolygon(const librevenge::RVNGPropertyList &propList)
 	librevenge::RVNGPropertyListVector vertices = *propList.child("svg:points");
 	if(vertices.count() < 2)
 		return;
+	setStyle(propList);
 	Coords.resize(0);
 	Coords.svgInit();
 	PageItem *ite;
@@ -669,6 +673,7 @@ void RawPainter::drawPath(const librevenge::RVNGPropertyList &propList)
 {
 	if (!doProcessing)
 		return;
+	setStyle(propList);
 	librevenge::RVNGPropertyListVector path = *propList.child("svg:d");
 	bool isClosed = false;
 	QString svgString = "";
@@ -827,6 +832,7 @@ void RawPainter::drawGraphicObject(const librevenge::RVNGPropertyList &propList)
 		return;
 	if (!propList["office:binary-data"])
 		return;
+	setStyle(propList);
 	if (propList["svg:x"] && propList["svg:y"] && propList["svg:width"] && propList["svg:height"])
 	{
 		PageItem *ite;
@@ -945,6 +951,7 @@ void RawPainter::startTextObject(const librevenge::RVNGPropertyList &propList)
 	actTextItem = NULL;
 	lineSpSet = false;
 	lineSpIsPT = false;
+	setStyle(propList);
 	if (propList["svg:x"] && propList["svg:y"] && propList["svg:width"] && propList["svg:height"])
 	{
 		double x = valueAsPoint(propList["svg:x"]);
@@ -2838,7 +2845,7 @@ double RawPainter::fromPercentage( const QString &s )
 		return ScCLocale::toDoubleC(s1) / 100.0;
 	}
 	else
-		return ScCLocale::toDoubleC(s1);
+		return ScCLocale::toDoubleC(s1) / 100.0;
 }
 
 QColor RawPainter::parseColorN( const QString &rgbColor )
