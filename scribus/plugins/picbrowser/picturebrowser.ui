@@ -14,7 +14,16 @@
    <string>Scribus Picture Browser</string>
   </property>
   <layout class="QGridLayout">
-   <property name="margin">
+   <property name="leftMargin">
+    <number>3</number>
+   </property>
+   <property name="topMargin">
+    <number>3</number>
+   </property>
+   <property name="rightMargin">
+    <number>3</number>
+   </property>
+   <property name="bottomMargin">
     <number>3</number>
    </property>
    <property name="spacing">
@@ -27,7 +36,16 @@
      </property>
      <widget class="QWidget" name="widget_3" native="true">
       <layout class="QGridLayout">
-       <property name="margin">
+       <property name="leftMargin">
+        <number>0</number>
+       </property>
+       <property name="topMargin">
+        <number>0</number>
+       </property>
+       <property name="rightMargin">
+        <number>0</number>
+       </property>
+       <property name="bottomMargin">
         <number>0</number>
        </property>
        <item row="0" column="0">
@@ -46,7 +64,16 @@
            <property name="spacing">
             <number>3</number>
            </property>
-           <property name="margin">
+           <property name="leftMargin">
+            <number>2</number>
+           </property>
+           <property name="topMargin">
+            <number>2</number>
+           </property>
+           <property name="rightMargin">
+            <number>2</number>
+           </property>
+           <property name="bottomMargin">
             <number>2</number>
            </property>
            <item>
@@ -71,14 +98,23 @@
            <item>
             <widget class="QStackedWidget" name="navigationStack">
              <property name="currentIndex">
-              <number>2</number>
+              <number>0</number>
              </property>
              <widget class="QWidget" name="folderpage">
               <layout class="QVBoxLayout">
                <property name="spacing">
                 <number>0</number>
                </property>
-               <property name="margin">
+               <property name="leftMargin">
+                <number>0</number>
+               </property>
+               <property name="topMargin">
+                <number>0</number>
+               </property>
+               <property name="rightMargin">
+                <number>0</number>
+               </property>
+               <property name="bottomMargin">
                 <number>0</number>
                </property>
                <item>
@@ -98,7 +134,16 @@
                <property name="spacing">
                 <number>3</number>
                </property>
-               <property name="margin">
+               <property name="leftMargin">
+                <number>0</number>
+               </property>
+               <property name="topMargin">
+                <number>0</number>
+               </property>
+               <property name="rightMargin">
+                <number>0</number>
+               </property>
+               <property name="bottomMargin">
                 <number>0</number>
                </property>
                <item>
@@ -351,7 +396,16 @@
                    <property name="spacing">
                     <number>3</number>
                    </property>
-                   <property name="margin">
+                   <property name="leftMargin">
+                    <number>0</number>
+                   </property>
+                   <property name="topMargin">
+                    <number>0</number>
+                   </property>
+                   <property name="rightMargin">
+                    <number>0</number>
+                   </property>
+                   <property name="bottomMargin">
                     <number>0</number>
                    </property>
                    <item>
@@ -417,7 +471,16 @@
                <property name="spacing">
                 <number>3</number>
                </property>
-               <property name="margin">
+               <property name="leftMargin">
+                <number>0</number>
+               </property>
+               <property name="topMargin">
+                <number>0</number>
+               </property>
+               <property name="rightMargin">
+                <number>0</number>
+               </property>
+               <property name="bottomMargin">
                 <number>0</number>
                </property>
                <item>
@@ -441,6 +504,9 @@
                      <width>16777215</width>
                      <height>23</height>
                     </size>
+                   </property>
+                   <property name="toolTip">
+                    <string>Move the document view to the selected page</string>
                    </property>
                    <property name="text">
                     <string>Go to Page</string>
@@ -480,6 +546,9 @@
                <property name="enabled">
                 <bool>true</bool>
                </property>
+               <property name="toolTip">
+                <string>Show/Hide advanced tools</string>
+               </property>
                <property name="text">
                 <string>More</string>
                </property>
@@ -506,6 +575,9 @@
              </item>
              <item>
               <widget class="QCheckBox" name="alwaysOnTopCheckbox">
+               <property name="toolTip">
+                <string>Always keep Picture Browser on top of other windows</string>
+               </property>
                <property name="text">
                 <string>Always on Top</string>
                </property>
@@ -567,7 +639,7 @@
                 </size>
                </property>
                <property name="toolTip">
-                <string>Change sortorder</string>
+                <string>Change sort order</string>
                </property>
                <property name="text">
                 <string/>
@@ -664,6 +736,9 @@
              </item>
              <item>
               <widget class="QComboBox" name="previewModeCombobox">
+               <property name="toolTip">
+                <string>Change preview settings</string>
+               </property>
                <item>
                 <property name="text">
                  <string>Preview Images Only</string>
@@ -778,6 +853,9 @@
              </item>
              <item>
               <widget class="QCheckBox" name="saveSettingsCheckbox">
+               <property name="toolTip">
+                <string>Enable Picture Browser autosave settings</string>
+               </property>
                <property name="text">
                 <string>Autosave Settings</string>
                </property>
@@ -791,6 +869,9 @@
              </item>
              <item>
               <widget class="QPushButton" name="resetSettingsButton">
+               <property name="toolTip">
+                <string>Reset Picture Browser to default settings</string>
+               </property>
                <property name="text">
                 <string>Reset Settings</string>
                </property>
@@ -825,7 +906,7 @@
        </size>
       </property>
       <property name="currentIndex">
-       <number>2</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="tab">
        <attribute name="title">
@@ -1096,7 +1177,16 @@
           <widget class="QWidget" name="page_10"/>
           <widget class="QWidget" name="page_8">
            <layout class="QHBoxLayout">
-            <property name="margin">
+            <property name="leftMargin">
+             <number>0</number>
+            </property>
+            <property name="topMargin">
+             <number>0</number>
+            </property>
+            <property name="rightMargin">
+             <number>0</number>
+            </property>
+            <property name="bottomMargin">
              <number>0</number>
             </property>
             <item>
@@ -1117,6 +1207,9 @@
                 <verstretch>0</verstretch>
                </sizepolicy>
               </property>
+              <property name="toolTip">
+               <string>Select a directory</string>
+              </property>
               <property name="text">
                <string>...</string>
               </property>
@@ -1126,7 +1219,16 @@
           </widget>
           <widget class="QWidget" name="page_9">
            <layout class="QHBoxLayout">
-            <property name="margin">
+            <property name="leftMargin">
+             <number>0</number>
+            </property>
+            <property name="topMargin">
+             <number>0</number>
+            </property>
+            <property name="rightMargin">
+             <number>0</number>
+            </property>
+            <property name="bottomMargin">
              <number>0</number>
             </property>
             <item>
@@ -1160,6 +1262,9 @@
                <verstretch>0</verstretch>
               </sizepolicy>
              </property>
+             <property name="toolTip">
+              <string>Add filter</string>
+             </property>
              <property name="text">
               <string>&lt;&lt; Add</string>
              </property>
@@ -1167,6 +1272,9 @@
            </item>
            <item row="0" column="1">
             <widget class="QComboBox" name="filterCriteriaCombobox">
+             <property name="toolTip">
+              <string>Filter criteria</string>
+             </property>
              <item>
               <property name="text">
                <string>Name (Wildcards Allowed)</string>
@@ -1207,11 +1315,23 @@
              </property>
              <widget class="QWidget" name="page">
               <layout class="QHBoxLayout">
-               <property name="margin">
+               <property name="leftMargin">
+                <number>0</number>
+               </property>
+               <property name="topMargin">
+                <number>0</number>
+               </property>
+               <property name="rightMargin">
+                <number>0</number>
+               </property>
+               <property name="bottomMargin">
                 <number>0</number>
                </property>
                <item>
                 <widget class="QComboBox" name="filterNameCombobox">
+                 <property name="toolTip">
+                  <string>Search criteria</string>
+                 </property>
                  <item>
                   <property name="text">
                    <string>Contains</string>
@@ -1225,17 +1345,33 @@
                 </widget>
                </item>
                <item>
-                <widget class="QLineEdit" name="filterNameLineedit"/>
+                <widget class="QLineEdit" name="filterNameLineedit">
+                 <property name="toolTip">
+                  <string>Type name</string>
+                 </property>
+                </widget>
                </item>
               </layout>
              </widget>
              <widget class="QWidget" name="page_2">
               <layout class="QHBoxLayout">
-               <property name="margin">
+               <property name="leftMargin">
+                <number>0</number>
+               </property>
+               <property name="topMargin">
+                <number>0</number>
+               </property>
+               <property name="rightMargin">
+                <number>0</number>
+               </property>
+               <property name="bottomMargin">
                 <number>0</number>
                </property>
                <item>
                 <widget class="QComboBox" name="filterDateCombobox">
+                 <property name="toolTip">
+                  <string>Search criteria</string>
+                 </property>
                  <item>
                   <property name="text">
                    <string>Newer than</string>
@@ -1249,17 +1385,33 @@
                 </widget>
                </item>
                <item>
-                <widget class="QDateTimeEdit" name="filterDateDatetimeedit"/>
+                <widget class="QDateTimeEdit" name="filterDateDatetimeedit">
+                 <property name="toolTip">
+                  <string>Set date</string>
+                 </property>
+                </widget>
                </item>
               </layout>
              </widget>
              <widget class="QWidget" name="page_3">
               <layout class="QHBoxLayout">
-               <property name="margin">
+               <property name="leftMargin">
+                <number>0</number>
+               </property>
+               <property name="topMargin">
+                <number>0</number>
+               </property>
+               <property name="rightMargin">
+                <number>0</number>
+               </property>
+               <property name="bottomMargin">
                 <number>0</number>
                </property>
                <item>
                 <widget class="QComboBox" name="filterSizeCombobox">
+                 <property name="toolTip">
+                  <string>Search criteria</string>
+                 </property>
                  <item>
                   <property name="text">
                    <string>Smaller than</string>
@@ -1274,6 +1426,9 @@
                </item>
                <item>
                 <widget class="QSpinBox" name="filterSizeSpinbox">
+                 <property name="toolTip">
+                  <string>Set size</string>
+                 </property>
                  <property name="suffix">
                   <string> KB</string>
                  </property>
@@ -1292,11 +1447,24 @@
              </widget>
              <widget class="QWidget" name="page_4">
               <layout class="QHBoxLayout">
-               <property name="margin">
+               <property name="leftMargin">
+                <number>0</number>
+               </property>
+               <property name="topMargin">
+                <number>0</number>
+               </property>
+               <property name="rightMargin">
+                <number>0</number>
+               </property>
+               <property name="bottomMargin">
                 <number>0</number>
                </property>
                <item>
-                <widget class="multiCombobox" name="filterTypeCombobox"/>
+                <widget class="multiCombobox" name="filterTypeCombobox">
+                 <property name="toolTip">
+                  <string>Select file type(s)</string>
+                 </property>
+                </widget>
                </item>
               </layout>
              </widget>
@@ -1384,7 +1552,11 @@
             </widget>
            </item>
            <item row="1" column="0">
-            <widget class="multiCombobox" name="insertPagesCombobox"/>
+            <widget class="multiCombobox" name="insertPagesCombobox">
+             <property name="toolTip">
+              <string>Select the page(s) where to insert the image(s)</string>
+             </property>
+            </widget>
            </item>
            <item row="2" column="0">
             <widget class="QLabel" name="label_2">
@@ -1403,7 +1575,11 @@
             </widget>
            </item>
            <item row="3" column="0">
-            <widget class="multiCombobox" name="insertFramesCombobox"/>
+            <widget class="multiCombobox" name="insertFramesCombobox">
+             <property name="toolTip">
+              <string>Select which frame(s) to use</string>
+             </property>
+            </widget>
            </item>
           </layout>
          </widget>
@@ -1422,6 +1598,9 @@
           <layout class="QGridLayout">
            <item row="0" column="0" colspan="4">
             <widget class="QComboBox" name="insertPositionCombobox">
+             <property name="toolTip">
+              <string>Set the position of the image frame(s) to insert</string>
+             </property>
              <item>
               <property name="text">
                <string>Top Left of Margins</string>
@@ -1459,6 +1638,9 @@
              <property name="enabled">
               <bool>false</bool>
              </property>
+             <property name="toolTip">
+              <string>Horizontal position</string>
+             </property>
              <property name="maximum">
               <number>9999</number>
              </property>
@@ -1478,6 +1660,9 @@
             <widget class="QSpinBox" name="insertPositionYSpinbox">
              <property name="enabled">
               <bool>false</bool>
+             </property>
+             <property name="toolTip">
+              <string>Vertical position</string>
              </property>
              <property name="maximum">
               <number>9999</number>
@@ -1501,6 +1686,9 @@
           <layout class="QGridLayout">
            <item row="0" column="0" colspan="5">
             <widget class="QComboBox" name="insertSizeCombobox">
+             <property name="toolTip">
+              <string>Set the size of the image frame(s) to insert</string>
+             </property>
              <item>
               <property name="text">
                <string>Same as Page Margins</string>
@@ -1538,6 +1726,9 @@
              <property name="enabled">
               <bool>false</bool>
              </property>
+             <property name="toolTip">
+              <string>Width</string>
+             </property>
              <property name="maximum">
               <number>60000</number>
              </property>
@@ -1557,6 +1748,9 @@
             <widget class="QSpinBox" name="insertHeightSpinbox">
              <property name="enabled">
               <bool>false</bool>
+             </property>
+             <property name="toolTip">
+              <string>Height</string>
              </property>
              <property name="maximum">
               <number>60000</number>
@@ -1671,7 +1865,11 @@
             <widget class="multiCombobox" name="collectionsTagImagesCombobox"/>
            </item>
            <item row="1" column="0">
-            <widget class="QLineEdit" name="collectionsAddNewTagLineedit"/>
+            <widget class="QLineEdit" name="collectionsAddNewTagLineedit">
+             <property name="toolTip">
+              <string>Type Tag name</string>
+             </property>
+            </widget>
            </item>
            <item row="1" column="1">
             <widget class="QPushButton" name="collectionsAddNewTagButton">

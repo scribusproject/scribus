@@ -1,7 +1,8 @@
-<ui version="4.0" >
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
  <class>imagedialog</class>
- <widget class="QDialog" name="imagedialog" >
-  <property name="geometry" >
+ <widget class="QDialog" name="imagedialog">
+  <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
@@ -9,31 +10,31 @@
     <height>316</height>
    </rect>
   </property>
-  <property name="windowTitle" >
+  <property name="windowTitle">
    <string>Dialog</string>
   </property>
-  <layout class="QGridLayout" name="gridLayout" >
-   <item row="0" column="0" colspan="2" >
-    <layout class="QHBoxLayout" >
-     <property name="spacing" >
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="0" column="0" colspan="2">
+    <layout class="QHBoxLayout">
+     <property name="spacing">
       <number>8</number>
      </property>
      <item>
-      <widget class="QRadioButton" name="fitToWindowRadiobutton" >
-       <property name="text" >
+      <widget class="QRadioButton" name="fitToWindowRadiobutton">
+       <property name="text">
         <string>Fit to Window</string>
        </property>
-       <property name="checked" >
+       <property name="checked">
         <bool>true</bool>
        </property>
       </widget>
      </item>
      <item>
       <spacer>
-       <property name="orientation" >
+       <property name="orientation">
         <enum>Qt::Horizontal</enum>
        </property>
-       <property name="sizeHint" stdset="0" >
+       <property name="sizeHint" stdset="0">
         <size>
          <width>40</width>
          <height>20</height>
@@ -42,37 +43,40 @@
       </spacer>
      </item>
      <item>
-      <widget class="QRadioButton" name="zoomRadiobutton" >
-       <property name="text" >
+      <widget class="QRadioButton" name="zoomRadiobutton">
+       <property name="text">
         <string>Custom Zoom</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QSpinBox" name="zoomSpinbox" >
-       <property name="enabled" >
+      <widget class="QSpinBox" name="zoomSpinbox">
+       <property name="enabled">
         <bool>false</bool>
        </property>
-       <property name="suffix" >
+       <property name="toolTip">
+        <string>Current zoom level</string>
+       </property>
+       <property name="suffix">
         <string>%</string>
        </property>
-       <property name="minimum" >
+       <property name="minimum">
         <number>1</number>
        </property>
-       <property name="maximum" >
+       <property name="maximum">
         <number>60000</number>
        </property>
-       <property name="value" >
+       <property name="value">
         <number>100</number>
        </property>
       </widget>
      </item>
      <item>
       <spacer>
-       <property name="orientation" >
+       <property name="orientation">
         <enum>Qt::Horizontal</enum>
        </property>
-       <property name="sizeHint" stdset="0" >
+       <property name="sizeHint" stdset="0">
         <size>
          <width>40</width>
          <height>20</height>
@@ -81,23 +85,26 @@
       </spacer>
      </item>
      <item>
-      <widget class="QPushButton" name="showOriginalSizeButton" >
-       <property name="text" >
+      <widget class="QPushButton" name="showOriginalSizeButton">
+       <property name="toolTip">
+        <string>Set zoom to 100%</string>
+       </property>
+       <property name="text">
         <string>Original Size</string>
        </property>
       </widget>
      </item>
     </layout>
    </item>
-   <item row="1" column="0" colspan="2" >
-    <widget class="IView" name="pView" />
+   <item row="1" column="0" colspan="2">
+    <widget class="IView" name="pView"/>
    </item>
-   <item row="2" column="0" >
-    <spacer name="horizontalSpacer" >
-     <property name="orientation" >
+   <item row="2" column="0">
+    <spacer name="horizontalSpacer">
+     <property name="orientation">
       <enum>Qt::Horizontal</enum>
      </property>
-     <property name="sizeHint" stdset="0" >
+     <property name="sizeHint" stdset="0">
       <size>
        <width>387</width>
        <height>20</height>
@@ -105,9 +112,9 @@
      </property>
     </spacer>
    </item>
-   <item row="2" column="1" >
-    <widget class="QPushButton" name="pushButton" >
-     <property name="text" >
+   <item row="2" column="1">
+    <widget class="QPushButton" name="pushButton">
+     <property name="text">
       <string>Close</string>
      </property>
     </widget>
@@ -129,11 +136,11 @@
    <receiver>imagedialog</receiver>
    <slot>close()</slot>
    <hints>
-    <hint type="sourcelabel" >
+    <hint type="sourcelabel">
      <x>518</x>
      <y>499</y>
     </hint>
-    <hint type="destinationlabel" >
+    <hint type="destinationlabel">
      <x>440</x>
      <y>508</y>
     </hint>
