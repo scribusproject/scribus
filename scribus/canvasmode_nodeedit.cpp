@@ -538,13 +538,9 @@ void CanvasMode_NodeEdit::handleNodeEditPress(QMouseEvent* m, QRect)
 			m_doc->nodeEdit.ClRe = a;
 			if ((m_doc->nodeEdit.EdPoints) && (m_doc->nodeEdit.SelNode.contains(a) == 0))
 			{
-				if (m->modifiers() == Qt::ShiftModifier)
-					m_doc->nodeEdit.SelNode.append(a);
-				else
-				{
+				if (m->modifiers() != Qt::ShiftModifier)
 					m_doc->nodeEdit.SelNode.clear();
-					m_doc->nodeEdit.SelNode.append(a);
-				}
+				m_doc->nodeEdit.SelNode.append(a);
 			}
 			m_doc->nodeEdit.update(Clip.pointQF(a));
 			pfound = true;
