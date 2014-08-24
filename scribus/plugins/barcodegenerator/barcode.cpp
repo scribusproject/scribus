@@ -22,6 +22,7 @@ void Barcode::languageChange()
 {
 	m_actionInfo.name = "BarcodeGenerator";
 	m_actionInfo.text = tr("Barcode");
+	m_actionInfo.helpText = tr("Insert a barcode");
 	if (ScCore->haveGS())
 	{
 		m_actionInfo.menu = "Insert";
