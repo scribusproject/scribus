@@ -368,17 +368,34 @@ bool OdgPlug::convert(QString fn)
 		if (!uz->open(fn))
 		{
 			delete uz;
-			if (progressDialog)
-				progressDialog->close();
-			return false;
+			QByteArray f;
+			loadRawText(fn, f);
+			QDomDocument designMapDom;
+			QString errorMsg = "";
+			int errorLine = 0;
+			int errorColumn = 0;
+			if (designMapDom.setContent(f, &errorMsg, &errorLine, &errorColumn))
+			{
+				retVal = parseDocReferenceXML(designMapDom);
+			}
+			else
+			{
+				qDebug() << "Error loading File" << errorMsg << "at Line" << errorLine << "Column" << errorColumn;
+				if (progressDialog)
+					progressDialog->close();
+				return false;
+			}
 		}
-		retVal = false;
-		if (uz->contains("styles.xml"))
-			retVal = parseStyleSheets("styles.xml");
-		if (uz->contains("content.xml"))
-			retVal = parseDocReference("content.xml");
-		uz->close();
-		delete uz;
+		else
+		{
+			retVal = false;
+			if (uz->contains("styles.xml"))
+				retVal = parseStyleSheets("styles.xml");
+			if (uz->contains("content.xml"))
+				retVal = parseDocReference("content.xml");
+			uz->close();
+			delete uz;
+		}
 	}
 	if (progressDialog)
 		progressDialog->close();
@@ -2568,11 +2585,26 @@ void OdgPlug::resovleStyle(ObjStyle &tmpOStyle, QString pAttrs)
 		if (actStyle.shadowY.valid)
 			tmpOStyle.shadowY = parseUnit(actStyle.shadowY.value);
 		if (actStyle.shadowTrans.valid)
-			tmpOStyle.shadowTrans = 1.0 - parseUnit(actStyle.shadowTrans.value);
+		{
+			double transVal = parseUnit(actStyle.shadowTrans.value);
+			if (transVal > 1.0)
+				transVal /= 100.0;
+			tmpOStyle.shadowTrans = 1.0 - transVal;
+		}
 		if (actStyle.fillOpacity.valid)
-			tmpOStyle.fillOpacity = 1.0 - parseUnit(actStyle.fillOpacity.value);
+		{
+			double transVal = parseUnit(actStyle.fillOpacity.value);
+			if (transVal > 1.0)
+				transVal /= 100.0;
+			tmpOStyle.fillOpacity = 1.0 - transVal;
+		}
 		if (actStyle.strokeOpacity.valid)
-			tmpOStyle.strokeOpacity = 1.0 - parseUnit(actStyle.strokeOpacity.value);
+		{
+			double transVal = parseUnit(actStyle.strokeOpacity.value);
+			if (transVal > 1.0)
+				transVal /= 100.0;
+			tmpOStyle.strokeOpacity = 1.0 - transVal;
+		}
 		if (actStyle.LineW.valid)
 			tmpOStyle.LineW = parseUnit(actStyle.LineW.value);
 		if (actStyle.fontName.valid)
