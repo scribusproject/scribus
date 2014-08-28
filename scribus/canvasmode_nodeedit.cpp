@@ -826,6 +826,11 @@ void CanvasMode_NodeEdit::handleNodeEditPress(QMouseEvent* m, QRect)
 					cli.putPoints(cli.size(), Clip.size() - EndInd, Clip, EndInd);
 				}
 			}
+			else if (m_doc->nodeEdit.ClRe == static_cast<int>(EndInd - 2))
+			{
+				Clip.remove(m_doc->nodeEdit.ClRe - 2, 4);
+				cli = Clip.copy();
+			}
 			else
 			{
 				if (m_doc->nodeEdit.ClRe != 0)
