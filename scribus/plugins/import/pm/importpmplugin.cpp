@@ -53,7 +53,7 @@ void ImportPmPlugin::languageChange()
 	importAction->setText( tr("Import Pagemaker..."));
 	FileFormat* fmt = getFormatByExt("pmd");
 	fmt->trName = tr("Pagemaker");
-	fmt->filter = tr("Pagemaker (*.pmd *.PMD *.pm5 *.PM5 *.p65 *.P65)");
+	fmt->filter = tr("Pagemaker (*.pmd *.PMD *.pm *.PM *.pm3 *.PM3 *.pm4 *.PM4 *.pm5 *.PM5 *.pm6 *.PM6 *.p65 *.P65)");
 }
 
 ImportPmPlugin::~ImportPmPlugin()
@@ -88,9 +88,9 @@ void ImportPmPlugin::registerFormats()
 {
 	FileFormat fmt(this);
 	fmt.trName = tr("Pagemaker");
-	fmt.filter = tr("Pagemaker (*.pmd *.PMD *.pm5 *.PM5 *.p65 *.P65)");
+	fmt.filter = tr("Pagemaker (*.pmd *.PMD *.pm *.PM *.pm3 *.PM3 *.pm4 *.PM4 *.pm5 *.PM5 *.pm6 *.PM6 *.p65 *.P65)");
 	fmt.formatId = 0;
-	fmt.fileExtensions = QStringList() << "pmd" << "pm5" << "p65";
+	fmt.fileExtensions = QStringList() << "pmd" << "pm" << "pm3" << "pm4" << "pm5" << "pm6" << "p65";
 	fmt.load = true;
 	fmt.save = false;
 	fmt.thumb = true;
@@ -120,7 +120,7 @@ bool ImportPmPlugin::import(QString fileName, int flags)
 		flags |= lfInteractive;
 		PrefsContext* prefs = PrefsManager::instance()->prefsFile->getPluginContext("importpm");
 		QString wdir = prefs->get("wdir", ".");
-		CustomFDialog diaf(ScCore->primaryMainWindow(), wdir, QObject::tr("Open"), tr("All Supported Formats")+" (*.pmd *.PMD *.pm5 *.PM5 *.p65 *.P65);;All Files (*)");
+		CustomFDialog diaf(ScCore->primaryMainWindow(), wdir, QObject::tr("Open"), tr("All Supported Formats")+" (*.pmd *.PMD *.pm *.PM *.pm3 *.PM3 *.pm4 *.PM4 *.pm5 *.PM5 *.pm6 *.PM6 *.p65 *.P65);;All Files (*)");
 		if (diaf.exec())
 		{
 			fileName = diaf.selectedFile();
