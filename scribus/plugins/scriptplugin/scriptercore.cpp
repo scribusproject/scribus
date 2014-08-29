@@ -568,7 +568,7 @@ bool ScripterCore::setupMainInterpreter()
 		"import scribus\n"
 		"import sys\n"
 		"import code\n"
-		"sys.path[0] = \"%1\"\n"
+		"sys.path.insert(0, \"%1\")\n"
 		"import cStringIO\n"
 		"sys.stdin = cStringIO.StringIO()\n"
 		"scribus._ia = code.InteractiveConsole(globals())\n"
