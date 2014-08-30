@@ -348,6 +348,20 @@ Moves current selection to back.\n\
 /*! 04.01.2007 : Joachim Neu : Moves item selection to back. */
 PyObject *scribus_moveselectiontoback(PyObject*);
 
+PyDoc_STRVAR(scribus_savepdfoptions__doc__,
+QT_TR_NOOP("savePDFOptions(fileName)\n\
+\n\
+Save PDF options to fileName.\n\
+"));
+PyObject *scribus_savepdfoptions(PyObject* /* self */, PyObject* args);
+
+PyDoc_STRVAR(scribus_readpdfoptions__doc__,
+QT_TR_NOOP("readPDFOptions(fileName)\n\
+\n\
+Read PDF options from fileName.\n\
+"));
+PyObject *scribus_readpdfoptions(PyObject* /* self */, PyObject* args);
+
 #endif
 
 

@@ -18,6 +18,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribusview.h"
 #include "selection.h"
 #include "fonts/scfontmetrics.h"
+#include "pdfoptionsio.h"
 
 PyObject *scribus_setredraw(PyObject* /* self */, PyObject* args)
 {
@@ -777,6 +778,40 @@ PyObject *scribus_moveselectiontoback(PyObject*)
 	Py_RETURN_NONE;
 }
 
+PyObject *scribus_savepdfoptions(PyObject* /* self */, PyObject* args)
+{
+	char* file;
+	if(!checkHaveDocument())
+		return NULL;
+	if (!PyArg_ParseTuple(args, const_cast<char*>("es"), "utf-8", &file))
+		return NULL;
+
+	PDFOptionsIO io(ScCore->primaryMainWindow()->doc->pdfOptions());
+	if (!io.writeTo(file))
+	{
+		PyErr_SetString(ScribusException, io.lastError().toUtf8());
+		return NULL;
+	}
+	Py_RETURN_NONE;
+}
+
+PyObject *scribus_readpdfoptions(PyObject* /* self */, PyObject* args)
+{
+	char* file;
+	if(!checkHaveDocument())
+		return NULL;
+	if (!PyArg_ParseTuple(args, const_cast<char*>("es"), "utf-8", &file))
+		return NULL;
+
+	PDFOptionsIO io(ScCore->primaryMainWindow()->doc->pdfOptions());
+	if (!io.readFrom(file))
+	{
+		PyErr_SetString(ScribusException, io.lastError().toUtf8());
+		return NULL;
+	}
+	Py_RETURN_NONE;
+}
+
 /*! HACK: this removes "warning: 'blah' defined but not used" compiler warnings
 with header files structure untouched (docstrings are kept near declarations)
 PV */
@@ -796,5 +831,6 @@ void cmdmiscdocwarnings()
 	  << scribus_glayerblend__doc__ << scribus_glayertrans__doc__ 
 	  << scribus_removelayer__doc__ << scribus_createlayer__doc__ 
 	  << scribus_getlanguage__doc__ << scribus_moveselectiontofront__doc__
-	  << scribus_moveselectiontoback__doc__ << scribus_filequit__doc__;
+	  << scribus_moveselectiontoback__doc__ << scribus_filequit__doc__
+	  << scribus_savepdfoptions__doc__ << scribus_readpdfoptions__doc__;
 }
