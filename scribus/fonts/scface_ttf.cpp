@@ -548,7 +548,6 @@ bool ScFace_ttf::hasNames() const
 
 bool ScFace_ttf::glyphNames(QMap<uint, std::pair<QChar, QString> >& GList) const
 {
-	char buf[50];
 	FT_ULong  charcode;
 	FT_UInt gindex = 0;
 
