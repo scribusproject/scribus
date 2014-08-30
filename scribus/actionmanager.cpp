@@ -481,12 +481,12 @@ void ActionManager::initItemMenuActions()
 	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
 	name="itemToggleInlineImage";
 	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
-	name="itemPreviewLow";
-	scrActions->insert(name, new ScrAction(ScrAction::DataInt, QPixmap(), QPixmap(), "", defaultKey(name), mainWindow, 2));
-	name="itemPreviewNormal";
-	scrActions->insert(name, new ScrAction(ScrAction::DataInt, QPixmap(), QPixmap(), "", defaultKey(name), mainWindow, 1));
 	name="itemPreviewFull";
 	scrActions->insert(name, new ScrAction(ScrAction::DataInt, QPixmap(), QPixmap(), "", defaultKey(name), mainWindow, 0));
+	name="itemPreviewNormal";
+	scrActions->insert(name, new ScrAction(ScrAction::DataInt, QPixmap(), QPixmap(), "", defaultKey(name), mainWindow, 1));
+	name="itemPreviewLow";
+	scrActions->insert(name, new ScrAction(ScrAction::DataInt, QPixmap(), QPixmap(), "", defaultKey(name), mainWindow, 2));
 	name="itemPDFIsBookmark";
 	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
 	(*scrActions)["itemPDFIsBookmark"]->setToggleAction(true);
@@ -499,9 +499,9 @@ void ActionManager::initItemMenuActions()
 	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
 
 	(*scrActions)["itemImageIsVisible"]->setToggleAction(true);
-	(*scrActions)["itemPreviewLow"]->setToggleAction(true);
-	(*scrActions)["itemPreviewNormal"]->setToggleAction(true);
 	(*scrActions)["itemPreviewFull"]->setToggleAction(true);
+	(*scrActions)["itemPreviewNormal"]->setToggleAction(true);
+	(*scrActions)["itemPreviewLow"]->setToggleAction(true);
 	(*scrActions)["itemToggleInlineImage"]->setToggleAction(true);
 
 	name="itemShapeEdit";
@@ -1279,9 +1279,9 @@ void ActionManager::disconnectNewViewActions()
 	disconnect( (*scrActions)["toolsZoomIn"], 0, 0, 0);
 	disconnect( (*scrActions)["toolsZoomOut"], 0, 0, 0);
 	disconnect( (*scrActions)["itemImageIsVisible"], 0, 0, 0);
-	disconnect( (*scrActions)["itemPreviewLow"], SIGNAL(triggeredData(int)), 0, 0 );
-	disconnect( (*scrActions)["itemPreviewNormal"], SIGNAL(triggeredData(int)), 0,0 );
 	disconnect( (*scrActions)["itemPreviewFull"], SIGNAL(triggeredData(int)), 0, 0 );
+	disconnect( (*scrActions)["itemPreviewNormal"], SIGNAL(triggeredData(int)), 0, 0 );
+	disconnect( (*scrActions)["itemPreviewLow"], SIGNAL(triggeredData(int)), 0, 0 );
 	disconnect( (*scrActions)["itemConvertToBezierCurve"], 0, 0, 0);
 	disconnect( (*scrActions)["itemConvertToImageFrame"], 0, 0, 0);
 	disconnect( (*scrActions)["itemConvertToOutlines"], 0, 0, 0);
@@ -1316,9 +1316,9 @@ void ActionManager::disconnectNewSelectionActions()
 {
 	disconnect( (*scrActions)["itemImageIsVisible"], 0, 0, 0);
 	//Only disconnect triggeredData for data based actions or you will disconnect the internal signal
-	disconnect( (*scrActions)["itemPreviewLow"], SIGNAL(triggeredData(int)) , 0, 0);
-	disconnect( (*scrActions)["itemPreviewNormal"], SIGNAL(triggeredData(int)) , 0, 0);
 	disconnect( (*scrActions)["itemPreviewFull"], SIGNAL(triggeredData(int)) , 0, 0);
+	disconnect( (*scrActions)["itemPreviewNormal"], SIGNAL(triggeredData(int)) , 0, 0);
+	disconnect( (*scrActions)["itemPreviewLow"], SIGNAL(triggeredData(int)) , 0, 0);
 	disconnect( (*scrActions)["editClearContents"], 0, 0, 0);
 	disconnect( (*scrActions)["editTruncateContents"], 0, 0, 0);
 }
@@ -1326,9 +1326,9 @@ void ActionManager::disconnectNewSelectionActions()
 void ActionManager::connectNewSelectionActions(ScribusView* /*currView*/, ScribusDoc* currDoc)
 {
 	connect( (*scrActions)["itemImageIsVisible"], SIGNAL(toggled(bool)), currDoc, SLOT(itemSelection_ToggleImageShown()) );
-	connect( (*scrActions)["itemPreviewLow"], SIGNAL(triggeredData(int)), currDoc, SLOT(itemSelection_ChangePreviewResolution(int)) );
-	connect( (*scrActions)["itemPreviewNormal"], SIGNAL(triggeredData(int)), currDoc, SLOT(itemSelection_ChangePreviewResolution(int)) );
 	connect( (*scrActions)["itemPreviewFull"], SIGNAL(triggeredData(int)), currDoc, SLOT(itemSelection_ChangePreviewResolution(int)) );
+	connect( (*scrActions)["itemPreviewNormal"], SIGNAL(triggeredData(int)), currDoc, SLOT(itemSelection_ChangePreviewResolution(int)) );
+	connect( (*scrActions)["itemPreviewLow"], SIGNAL(triggeredData(int)), currDoc, SLOT(itemSelection_ChangePreviewResolution(int)) );
 	connect( (*scrActions)["editClearContents"], SIGNAL(triggered()), currDoc, SLOT(itemSelection_ClearItem()) );
 	connect( (*scrActions)["editTruncateContents"], SIGNAL(triggered()), currDoc, SLOT(itemSelection_TruncateItem()) );
 }
@@ -1578,9 +1578,9 @@ void ActionManager::languageChange()
 	(*scrActions)["itemAdjustImageToFrame"]->setTexts( tr("Adjust Image to Frame"));
 	(*scrActions)["itemToggleInlineImage"]->setTexts( tr("Embed Image"));
 	(*scrActions)["itemExtendedImageProperties"]->setTexts( tr("Extended Image Properties"));
-	(*scrActions)["itemPreviewLow"]->setTexts( tr("&Low Resolution"));
-	(*scrActions)["itemPreviewNormal"]->setTexts( tr("&Normal Resolution"));
 	(*scrActions)["itemPreviewFull"]->setTexts( tr("&Full Resolution"));
+	(*scrActions)["itemPreviewNormal"]->setTexts( tr("&Normal Resolution"));
+	(*scrActions)["itemPreviewLow"]->setTexts( tr("&Low Resolution"));
 	(*scrActions)["itemPDFIsBookmark"]->setTexts( tr("Is PDF &Bookmark"));
 	(*scrActions)["itemPDFIsAnnotation"]->setTexts( tr("Is PDF A&nnotation"));
 	(*scrActions)["itemPDFAnnotationProps"]->setTexts( tr("Annotation P&roperties"));
@@ -2118,9 +2118,9 @@ void ActionManager::createDefaultMenus()
 		<< "itemAdjustImageToFrame" 
 		<< "itemToggleInlineImage" 
 		<< "itemExtendedImageProperties" 
-		<< "itemPreviewLow" 
-		<< "itemPreviewNormal" 
 		<< "itemPreviewFull" 
+		<< "itemPreviewNormal" 
+		<< "itemPreviewLow" 
 		<< "itemRaise" 
 		<< "itemLower" 
 		<< "itemRaiseToTop" 
@@ -2599,9 +2599,9 @@ void ActionManager::setStartupActionsEnabled(bool enabled)
 	(*scrActions)["itemAdjustImageToFrame"]->setEnabled(false);
 	(*scrActions)["itemExtendedImageProperties"]->setEnabled(false);
 	(*scrActions)["itemUpdateImage"]->setEnabled(false);
-	(*scrActions)["itemPreviewLow"]->setEnabled(false);
-	(*scrActions)["itemPreviewNormal"]->setEnabled(false);
 	(*scrActions)["itemPreviewFull"]->setEnabled(false);
+	(*scrActions)["itemPreviewNormal"]->setEnabled(false);
+	(*scrActions)["itemPreviewLow"]->setEnabled(false);
 	(*scrActions)["itemAttributes"]->setEnabled(false);
 	(*scrActions)["itemPDFAnnotationProps"]->setEnabled(false);
 	(*scrActions)["itemPDFFieldProps"]->setEnabled(false);

@@ -288,12 +288,12 @@ void ContextMenu::createMenuItems_Selection()
 			if (m_actionList.contains("itemImageIsVisible"))
 				menuResolution->addAction(m_ScMW->scrActions["itemImageIsVisible"]);
 			menuResolution->addSeparator();
-			if (m_actionList.contains("itemPreviewLow"))
-				menuResolution->addAction(m_ScMW->scrActions["itemPreviewLow"]);
-			if (m_actionList.contains("itemPreviewNormal"))
-				menuResolution->addAction(m_ScMW->scrActions["itemPreviewNormal"]);
 			if (m_actionList.contains("itemPreviewFull"))
 				menuResolution->addAction(m_ScMW->scrActions["itemPreviewFull"]);
+			if (m_actionList.contains("itemPreviewNormal"))
+				menuResolution->addAction(m_ScMW->scrActions["itemPreviewNormal"]);
+			if (m_actionList.contains("itemPreviewLow"))
+				menuResolution->addAction(m_ScMW->scrActions["itemPreviewLow"]);
 			if (menuResolution->actions().count()>0)
 			{
 				QAction *act = addMenu(menuResolution);

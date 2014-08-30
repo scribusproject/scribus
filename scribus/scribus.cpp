@@ -867,9 +867,9 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->addMenuItemString("ItemPreviewSettings", "Image");
 	scrMenuMgr->addMenuItemString("itemImageIsVisible", "ItemPreviewSettings");
 	scrMenuMgr->addMenuItemString("SEPARATOR", "ItemPreviewSettings");
-	scrMenuMgr->addMenuItemString("itemPreviewLow", "ItemPreviewSettings");
-	scrMenuMgr->addMenuItemString("itemPreviewNormal", "ItemPreviewSettings");
 	scrMenuMgr->addMenuItemString("itemPreviewFull", "ItemPreviewSettings");
+	scrMenuMgr->addMenuItemString("itemPreviewNormal", "ItemPreviewSettings");
+	scrMenuMgr->addMenuItemString("itemPreviewLow", "ItemPreviewSettings");
 	scrMenuMgr->createMenu("ItemPDFOptions", tr("&PDF Options"));
 	scrMenuMgr->addMenuItemString("ItemPDFOptions", "Item");
 	scrMenuMgr->addMenuItemString("itemPDFIsAnnotation", "ItemPDFOptions");
@@ -2664,9 +2664,9 @@ void ScribusMainWindow::HaveNewSel()
 	scrActions["itemToggleInlineImage"]->setEnabled(SelectedType==PageItem::ImageFrame && currItem->PictureIsAvailable);
 	scrMenuMgr->setMenuEnabled("ItemPreviewSettings", SelectedType==PageItem::ImageFrame);
 	scrActions["itemImageIsVisible"]->setEnabled(SelectedType==PageItem::ImageFrame);
-	scrActions["itemPreviewLow"]->setEnabled(SelectedType==PageItem::ImageFrame);
-	scrActions["itemPreviewNormal"]->setEnabled(SelectedType==PageItem::ImageFrame);
 	scrActions["itemPreviewFull"]->setEnabled(SelectedType==PageItem::ImageFrame);
+	scrActions["itemPreviewNormal"]->setEnabled(SelectedType==PageItem::ImageFrame);
+	scrActions["itemPreviewLow"]->setEnabled(SelectedType==PageItem::ImageFrame);
 	scrActions["styleImageEffects"]->setEnabled(SelectedType==PageItem::ImageFrame && currItem->isRaster);
 	scrActions["editCopyContents"]->setEnabled(SelectedType==PageItem::ImageFrame && currItem->PictureIsAvailable);
 	scrActions["editPasteContents"]->setEnabled(SelectedType==PageItem::ImageFrame);
@@ -2681,9 +2681,9 @@ void ScribusMainWindow::HaveNewSel()
 	if (SelectedType!=PageItem::ImageFrame)
 	{
 		scrActions["itemImageIsVisible"]->setChecked(false);
-		scrActions["itemPreviewLow"]->setChecked(false);
-		scrActions["itemPreviewNormal"]->setChecked(false);
 		scrActions["itemPreviewFull"]->setChecked(false);
+		scrActions["itemPreviewNormal"]->setChecked(false);
+		scrActions["itemPreviewLow"]->setChecked(false);
 	}
 	if ((SelectedType==-1) || (SelectedType!=-1 && !currItem->asTextFrame()))
 		appModeHelper.enableTextActions(false);
@@ -2715,11 +2715,10 @@ void ScribusMainWindow::HaveNewSel()
 		scrActions["itemAdjustImageToFrame"]->setEnabled(false);
 		scrActions["itemExtendedImageProperties"]->setEnabled(false);
 		scrActions["itemUpdateImage"]->setEnabled(false);
-		scrActions["itemPreviewLow"]->setEnabled(false);
-		scrActions["itemPreviewNormal"]->setEnabled(false);
 		scrActions["itemPreviewFull"]->setEnabled(false);
-		scrActions["itemAttributes"]->setEnabled(false);
+		scrActions["itemPreviewNormal"]->setEnabled(false);
 		scrActions["itemPreviewLow"]->setEnabled(false);
+		scrActions["itemAttributes"]->setEnabled(false);
 //		scrMenuMgr->setMenuEnabled("Item", false);
 		//scrMenuMgr->setMenuEnabled("ItemShapes", false);
 //		scrMenuMgr->setMenuEnabled("ItemConvertTo", false);
@@ -2785,11 +2784,10 @@ void ScribusMainWindow::HaveNewSel()
 		scrActions["itemAdjustImageToFrame"]->setEnabled(true);
 		scrActions["itemExtendedImageProperties"]->setEnabled(currItem->pixm.imgInfo.valid);
 		scrActions["itemUpdateImage"]->setEnabled(true);
-		scrActions["itemPreviewLow"]->setEnabled(true);
-		scrActions["itemPreviewNormal"]->setEnabled(true);
 		scrActions["itemPreviewFull"]->setEnabled(true);
-		scrActions["itemAttributes"]->setEnabled(true);
+		scrActions["itemPreviewNormal"]->setEnabled(true);
 		scrActions["itemPreviewLow"]->setEnabled(true);
+		scrActions["itemAttributes"]->setEnabled(true);
 		scrActions["itemConvertToBezierCurve"]->setEnabled(false);
 		scrActions["itemConvertToImageFrame"]->setEnabled(false);
 		scrActions["itemConvertToOutlines"]->setEnabled(false);
@@ -2806,9 +2804,9 @@ void ScribusMainWindow::HaveNewSel()
 		scrActions["toolsCopyProperties"]->setEnabled(true);
 		scrActions["itemImageIsVisible"]->setChecked(currItem->imageShown());
 		scrActions["itemToggleInlineImage"]->setChecked(currItem->isImageInline());
-		scrActions["itemPreviewLow"]->setChecked(currItem->pixm.imgInfo.lowResType==scrActions["itemPreviewLow"]->actionInt());
-		scrActions["itemPreviewNormal"]->setChecked(currItem->pixm.imgInfo.lowResType==scrActions["itemPreviewNormal"]->actionInt());
 		scrActions["itemPreviewFull"]->setChecked(currItem->pixm.imgInfo.lowResType==scrActions["itemPreviewFull"]->actionInt());
+		scrActions["itemPreviewNormal"]->setChecked(currItem->pixm.imgInfo.lowResType==scrActions["itemPreviewNormal"]->actionInt());
+		scrActions["itemPreviewLow"]->setChecked(currItem->pixm.imgInfo.lowResType==scrActions["itemPreviewLow"]->actionInt());
 
 		break;
 	case PageItem::TextFrame: //Text Frame
@@ -2841,11 +2839,10 @@ void ScribusMainWindow::HaveNewSel()
 		scrActions["itemAdjustImageToFrame"]->setEnabled(false);
 		scrActions["itemExtendedImageProperties"]->setEnabled(false);
 		scrActions["itemUpdateImage"]->setEnabled(false);
-		scrActions["itemPreviewLow"]->setEnabled(false);
-		scrActions["itemPreviewNormal"]->setEnabled(false);
 		scrActions["itemPreviewFull"]->setEnabled(false);
-		scrActions["itemAttributes"]->setEnabled(true);
+		scrActions["itemPreviewNormal"]->setEnabled(false);
 		scrActions["itemPreviewLow"]->setEnabled(false);
+		scrActions["itemAttributes"]->setEnabled(true);
 		scrMenuMgr->setMenuEnabled("ItemConvertTo", !((doc->appMode == modeEdit) || (currItem->isAnnotation())));
 		scrActions["itemConvertToBezierCurve"]->setEnabled(false);
 		scrActions["itemConvertToImageFrame"]->setEnabled(doc->appMode != modeEdit);
@@ -2961,11 +2958,10 @@ void ScribusMainWindow::HaveNewSel()
 		scrActions["itemAdjustImageToFrame"]->setEnabled(false);
 		scrActions["itemExtendedImageProperties"]->setEnabled(false);
 		scrActions["itemUpdateImage"]->setEnabled(false);
-		scrActions["itemPreviewLow"]->setEnabled(false);
-		scrActions["itemPreviewNormal"]->setEnabled(false);
 		scrActions["itemPreviewFull"]->setEnabled(false);
-		scrActions["itemAttributes"]->setEnabled(true);
+		scrActions["itemPreviewNormal"]->setEnabled(false);
 		scrActions["itemPreviewLow"]->setEnabled(false);
+		scrActions["itemAttributes"]->setEnabled(true);
 		//scrMenuMgr->setMenuEnabled("ItemShapes", false);
 		scrActions["itemDetachTextFromPath"]->setEnabled(true);
 //		scrMenuMgr->setMenuEnabled("ItemConvertTo", true);
@@ -3029,11 +3025,10 @@ void ScribusMainWindow::HaveNewSel()
 		scrActions["itemAdjustImageToFrame"]->setEnabled(false);
 		scrActions["itemExtendedImageProperties"]->setEnabled(false);
 		scrActions["itemUpdateImage"]->setEnabled(false);
-		scrActions["itemPreviewLow"]->setEnabled(false);
+		scrActions["itemPreviewFull"]->setEnabled(false);
 		scrActions["itemPreviewNormal"]->setEnabled(false);
-		scrActions["itemPreviewFull"]->setEnabled(true);
-		scrActions["itemAttributes"]->setEnabled(true);
 		scrActions["itemPreviewLow"]->setEnabled(true);
+		scrActions["itemAttributes"]->setEnabled(true);
 		if (SelectedType == PageItem::Polygon) //Polygon
 		{
 			scrMenuMgr->setMenuEnabled("ItemConvertTo", true);
@@ -6474,9 +6469,9 @@ void ScribusMainWindow::setAppMode(int mode)
 				scrActions["itemAdjustImageToFrame"]->setEnabled(true);
 				scrActions["itemExtendedImageProperties"]->setEnabled(true);
 				scrActions["itemUpdateImage"]->setEnabled(true);
-				scrActions["itemPreviewLow"]->setEnabled(true);
-				scrActions["itemPreviewNormal"]->setEnabled(true);
 				scrActions["itemPreviewFull"]->setEnabled(true);
+				scrActions["itemPreviewNormal"]->setEnabled(true);
+				scrActions["itemPreviewLow"]->setEnabled(true);
 				scrActions["itemAttributes"]->setEnabled(true);
 			}
 			view->horizRuler->textMode(false);
@@ -6528,9 +6523,9 @@ void ScribusMainWindow::setAppMode(int mode)
 			scrActions["itemAdjustImageToFrame"]->setEnabled(false);
 			scrActions["itemExtendedImageProperties"]->setEnabled(false);
 			scrActions["itemUpdateImage"]->setEnabled(false);
-			scrActions["itemPreviewLow"]->setEnabled(false);
-			scrActions["itemPreviewNormal"]->setEnabled(false);
 			scrActions["itemPreviewFull"]->setEnabled(false);
+			scrActions["itemPreviewNormal"]->setEnabled(false);
+			scrActions["itemPreviewLow"]->setEnabled(false);
 			scrActions["itemAttributes"]->setEnabled(false);
 /*			doc->CurTimer = new QTimer(view);
 			if (doc->CurTimer!=NULL)
