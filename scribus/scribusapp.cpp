@@ -238,10 +238,10 @@ void ScribusQApp::parseCommandLine()
 			prefsUserFile = QFile::decodeName(args[i + 1].toLocal8Bit());
 			if (!QFileInfo(prefsUserFile).exists()) {
 				showHeader();
-				if (fileName.left(1) == "-" || fileName.left(2) == "--") {
-					std::cout << tr("Invalid argument: ").toLocal8Bit().data() << fileName.toLocal8Bit().data() << std::endl;
+				if (prefsUserFile.left(1) == "-" || prefsUserFile.left(2) == "--") {
+					std::cout << tr("Invalid argument: ").toLocal8Bit().data() << prefsUserFile.toLocal8Bit().data() << std::endl;
 				} else {
-					std::cout << tr("File %1 does not exist, aborting.").arg(fileName).toLocal8Bit().data() << std::endl;
+					std::cout << tr("File %1 does not exist, aborting.").arg(prefsUserFile).toLocal8Bit().data() << std::endl;
 				}
 				showUsage();
 				useGUI=false;
