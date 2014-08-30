@@ -135,7 +135,7 @@ void PDFOptionsIO::buildSettings()
 	addElem(m_root, "mirrorV", m_opts->MirrorV);
 	addElem(m_root, "rotateDegrees", m_opts->RotateDeg);
 	addElem(m_root, "presentMode", m_opts->PresentMode);
-	addPresentationData();
+	// addPresentationData();
 	addElem(m_root, "filename", m_opts->fileName);
 	addElem(m_root, "isGrayscale", m_opts->isGrayscale);
 	addElem(m_root, "useRGB", m_opts->UseRGB);
@@ -345,7 +345,8 @@ bool PDFOptionsIO::readSettings()
 		return false;
 	if (!readElem(m_root, "embedPDF", &m_opts->embedPDF))
 		m_opts->embedPDF = false;
-	readPDFVersion();
+	if (!readPDFVersion())
+		return false;
 	if (!readElem(m_root, "resolution", &m_opts->Resolution))
 		return false;
 	if (!readElem(m_root, "binding", &m_opts->Binding))
@@ -362,8 +363,8 @@ bool PDFOptionsIO::readSettings()
 		return false;
 	if (!readElem(m_root, "presentMode", &m_opts->PresentMode))
 		return false;
-	if (!readPresentationData())
-		return false;
+	// if (!readPresentationData())
+	// 	return false;
 	if (!readElem(m_root, "filename", &m_opts->fileName))
 		return false;
 	if (!readElem(m_root, "isGrayscale", &m_opts->isGrayscale))
@@ -628,7 +629,7 @@ bool PDFOptionsIO::readPresentationData()
 	QList<PDFPresentationData> pList;
 	for (QDomNode node = pSettings.firstChild(); !node.isNull(); node = node.nextSibling())
 	{
-		QDomElement elem = getValueElement(basenode, "presentationSettingsEntry", false);
+		QDomElement elem = getValueElement(node, "presentationSettingsEntry", false);
 		if (elem.isNull())
 			return false;
 		PDFPresentationData pres;
@@ -670,7 +671,7 @@ bool PDFOptionsIO::readLPISettings()
 	QMap<QString,LPIData> lpiMap;
 	for (QDomNode node = lpiSettings.firstChild(); !node.isNull(); node = node.nextSibling())
 	{
-		QDomElement elem = getValueElement(basenode, "lpiSettingsEntry", false);
+		QDomElement elem = getValueElement(node, "lpiSettingsEntry", false);
 		if (elem.isNull())
 			return false;
 		QString name (elem.attribute("name"));
