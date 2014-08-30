@@ -48,12 +48,14 @@ public:
 
 	enum PDFVersion
 	{
-		PDFVersion_13 = 13,
-		PDFVersion_14 = 14,
-		PDFVersion_15 = 15,
-		PDFVersion_X3 = 12,
+		PDFVersion_13  = 13,
+		PDFVersion_14  = 14,
+		PDFVersion_15  = 15,
 		PDFVersion_X1a = 11,
-		PDFVersion_X4 = 10
+		PDFVersion_X3  = 12,
+		PDFVersion_X4  = 10,
+		PDFVersion_Min = 10,
+		PDFVersion_Max = 15,
 	};
 
 	enum PDFPageLayout
