@@ -206,7 +206,7 @@ static PyMethodDef ImageExport_methods[] = {
 PyTypeObject ImageExport_Type = {
 	PyObject_HEAD_INIT(NULL)   // PyObject_VAR_HEAD
 	0,
-	const_cast<char*>("ImageExport"), // char *tp_name; /* For printing, in format "<module>.<name>" */
+	const_cast<char*>("scribus.ImageExport"), // char *tp_name; /* For printing, in format "<module>.<name>" */
 	sizeof(ImageExport),   // int tp_basicsize, /* For allocation */
 	0,  // int tp_itemsize; /* For allocation */
 	(destructor) ImageExport_dealloc, //	 destructor tp_dealloc;

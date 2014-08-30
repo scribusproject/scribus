@@ -1223,7 +1223,7 @@ static PyMethodDef PDFfile_methods[] = {
 PyTypeObject PDFfile_Type = {
 	PyObject_HEAD_INIT(NULL) // PyObject_VAR_HEAD
 	0,		      //
-	const_cast<char*>("PDFfile"), // char *tp_name; /* For printing, in format "<module>.<name>" */
+	const_cast<char*>("scribus.PDFfile"), // char *tp_name; /* For printing, in format "<module>.<name>" */
 	sizeof(PDFfile),     // int tp_basicsize, /* For allocation */
 	0,		    // int tp_itemsize; /* For allocation */
 

@@ -529,7 +529,7 @@ static PyMethodDef Printer_methods[] = {
 PyTypeObject Printer_Type = {
 	PyObject_HEAD_INIT(NULL)   // PyObject_VAR_HEAD
 	0,			 //
-	const_cast<char*>("Printer"), // char *tp_name; /* For printing, in format "<module>.<name>" */
+	const_cast<char*>("scribus.Printer"), // char *tp_name; /* For printing, in format "<module>.<name>" */
 	sizeof(Printer),   // int tp_basicsize, /* For allocation */
 	0,		       // int tp_itemsize; /* For allocation */
 
