@@ -296,6 +296,7 @@ ScribusMainWindow::ScribusMainWindow()
 	UrlLauncher::instance();
 	mainWindowStatusLabel=0;
 	ExternalApp=0;
+	ScriptRunning = 0;
 #ifdef Q_OS_MAC
 	ScQApp->setAttribute(Qt::AA_DontShowIconsInMenus);
 	noIcon = loadIcon("noicon.xpm");
@@ -512,7 +513,6 @@ void ScribusMainWindow::initToolBars()
 void ScribusMainWindow::initDefaultValues()
 {
 	HaveDoc = false;
-	ScriptRunning = 0;
 	view = NULL;
 	doc = NULL;
 	DocNr = 1;
