@@ -2771,17 +2771,25 @@ void IdmlPlug::parseParagraphStyleRange(QDomElement &ste, PageItem* item)
 	QString fontStyle = ttx.charStyle().font().style();
 	for(QDomNode stc = ste.firstChild(); !stc.isNull(); stc = stc.nextSibling() )
 	{
-		int posC = item->itemText.length();
 		QDomElement stt = stc.toElement();
 		if (stt.tagName() == "CharacterStyleRange")
-			parseCharacterStyleRange(stt, item, fontBase, fontStyle, newStyle, posC);
+			parseCharacterStyleRange(stt, item, fontBase, fontStyle, newStyle, item->itemText.length());
 		else if (stt.tagName() == "XMLElement")
 		{
 			for(QDomNode stx = stt.firstChild(); !stx.isNull(); stx = stx.nextSibling() )
 			{
 				QDomElement stxe = stx.toElement();
 				if (stxe.tagName() == "CharacterStyleRange")
-					parseCharacterStyleRange(stt, item, fontBase, fontStyle, newStyle, posC);
+					parseCharacterStyleRange(stxe, item, fontBase, fontStyle, newStyle, item->itemText.length());
+				else if (stxe.tagName() == "XMLElement")
+				{
+					for(QDomNode stxx = stxe.firstChild(); !stxx.isNull(); stxx = stxx.nextSibling() )
+					{
+						QDomElement stxxe = stxx.toElement();
+						if (stxxe.tagName() == "CharacterStyleRange")
+							parseCharacterStyleRange(stxxe, item, fontBase, fontStyle, newStyle, item->itemText.length());
+					}
+				}
 			}
 		}
 	}
@@ -2995,10 +3003,10 @@ void IdmlPlug::parseCharacterStyleRange(QDomElement &stt, PageItem* item, QStrin
 		}
 		else if (s.tagName() == "XMLElement")
 		{
-			for(QDomNode stx = s.firstChild(); !stx.isNull(); stx = stx.nextSibling() )
-			{
+		//	for(QDomNode stx = s.firstChild(); !stx.isNull(); stx = stx.nextSibling() )
+		//	{
 				parseCharacterStyleRange(s, item, fontBase, fontStyle, newStyle, posC);
-			}
+		//	}
 		}
 	}
 	if (data.count() > 0)
