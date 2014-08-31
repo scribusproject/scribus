@@ -775,8 +775,8 @@ int PPreview::RenderPreviewSep(int Seite, int Res)
 		tsx << cmd;
 		fx.close();
 	}
-	args3.append("-f");
-	args3.append(QDir::toNativeSeparators(ScPaths::getTempFileDir()+"/sep.ps"));
+//	args3.append("-f");
+//	args3.append(QDir::toNativeSeparators(ScPaths::getTempFileDir()+"/sep.ps"));
 //	args3.append(cmd);
 
 //	args3.append("-f");
