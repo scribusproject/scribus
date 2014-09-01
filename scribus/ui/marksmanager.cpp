@@ -116,6 +116,9 @@ void MarksManager::setDoc(ScribusDoc *doc)
 	if (m_Doc != NULL)
 		disconnect(m_Doc->scMW(), SIGNAL(UpdateRequest(int)), this , SLOT(handleUpdateRequest(int)));
 
+	UpdateButton->setEnabled(false);
+	listView->setEnabled(false);
+
 	m_Doc = doc;
 	if (!m_Doc)
 	{
