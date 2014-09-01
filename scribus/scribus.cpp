@@ -3027,7 +3027,7 @@ void ScribusMainWindow::HaveNewSel()
 		scrActions["itemUpdateImage"]->setEnabled(false);
 		scrActions["itemPreviewFull"]->setEnabled(false);
 		scrActions["itemPreviewNormal"]->setEnabled(false);
-		scrActions["itemPreviewLow"]->setEnabled(true);
+		scrActions["itemPreviewLow"]->setEnabled(false);
 		scrActions["itemAttributes"]->setEnabled(true);
 		if (SelectedType == PageItem::Polygon) //Polygon
 		{
