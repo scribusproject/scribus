@@ -98,6 +98,7 @@ void SymbolView::dropEvent(QDropEvent *e)
 		e->ignore();
 }
 
+
 bool SymbolView::viewportEvent(QEvent *event)
 {
 	if (event != NULL)
@@ -272,4 +273,30 @@ void SymbolPalette::changeEvent(QEvent *e)
 void SymbolPalette::languageChange()
 {
 	setWindowTitle( tr( "Symbols" ) );
+}
+
+void SymbolPalette::keyPressEvent(QKeyEvent* e)
+{
+	if (!m_doc)
+		return;
+	switch (e->key())
+	{
+		case Qt::Key_Backspace:
+		case Qt::Key_Delete:
+			{
+				QListWidgetItem* it = SymbolViewWidget->currentItem();
+				if (it != NULL)
+				{
+					if (m_doc->docPatterns.contains(it->text()))
+					{
+						m_doc->docPatterns.remove(it->text());
+						updateSymbolList();
+						e->accept();
+					}
+				}
+			}
+			break;
+		default:
+			break;
+	}
 }

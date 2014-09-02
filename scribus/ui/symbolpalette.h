@@ -26,6 +26,7 @@ for which a new license (GPL+exception) is in place.
 #include <QDragLeaveEvent>
 #include <QDragMoveEvent>
 #include <QDropEvent>
+#include <QKeyEvent>
 #include <QImage>
 #include <QListWidget>
 #include <QMouseEvent>
@@ -89,6 +90,7 @@ public slots:
 	void handleDoubleClick(QListWidgetItem *item);
 	void handleUpdateRequest(int);
 	void languageChange();
+	void keyPressEvent(QKeyEvent *e);
 
 signals:
 	void startEdit(QString);
