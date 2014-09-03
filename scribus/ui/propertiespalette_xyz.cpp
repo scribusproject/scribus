@@ -908,89 +908,89 @@ void PropertiesPalette_XYZ::handleNewW()
 	}
 	m_doc->changed();
 	m_doc->regionsChanged()->update(QRect());
+	m_ScMW->setStatusBarTextSelectedItemInfo();
 }
 
 void PropertiesPalette_XYZ::handleNewH()
 {
-	if (!m_ScMW || m_ScMW->scriptIsRunning())
+	if (!m_haveDoc || !m_haveItem || !m_ScMW || m_ScMW->scriptIsRunning())
 		return;
-	if ((m_haveDoc) && (m_haveItem))
+
+	double x,y,w,h, gx, gy, gh, gw;
+	x = xposSpin->value() / m_unitRatio;
+	y = yposSpin->value() / m_unitRatio;
+	w = widthSpin->value() / m_unitRatio;
+	h = heightSpin->value() / m_unitRatio;
+	double oldW = (m_item->width()  != 0.0) ? m_item->width()  : 1.0;
+	double oldH = (m_item->height() != 0.0) ? m_item->height() : 1.0;
+	if (m_doc->m_Selection->isMultipleSelection())
 	{
-		double x,y,w,h, gx, gy, gh, gw;
-		x = xposSpin->value() / m_unitRatio;
-		y = yposSpin->value() / m_unitRatio;
-		w = widthSpin->value() / m_unitRatio;
-		h = heightSpin->value() / m_unitRatio;
-		double oldW = (m_item->width()  != 0.0) ? m_item->width()  : 1.0;
-		double oldH = (m_item->height() != 0.0) ? m_item->height() : 1.0;
-		if (m_doc->m_Selection->isMultipleSelection())
+		if (!_userActionOn)
+			m_ScMW->view->startGroupTransaction();
+		m_doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
+		if (keepFrameWHRatioButton->isChecked())
 		{
-			if (!_userActionOn)
-				m_ScMW->view->startGroupTransaction();
-			m_doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
-			if (keepFrameWHRatioButton->isChecked())
-			{
-				m_doc->scaleGroup(h / gh, h / gh, false);
-				showWH((h / gh) * gw, h);
-			}
-			else
-			{
-				m_doc->scaleGroup(1.0, h / gh, false);
-				m_doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
-				showWH(gw, gh);
-			}
-			if (!_userActionOn)
-			{
-				m_ScMW->view->endGroupTransaction();
-			}
+			m_doc->scaleGroup(h / gh, h / gh, false);
+			showWH((h / gh) * gw, h);
 		}
 		else
 		{
-			bool oldS = m_item->Sizing;
-			m_item->Sizing = false;
-			m_item->OldB2 = m_item->width();
-			m_item->OldH2 = m_item->height();
-			if (m_item->asLine())
+			m_doc->scaleGroup(1.0, h / gh, false);
+			m_doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
+			showWH(gw, gh);
+		}
+		if (!_userActionOn)
+		{
+			m_ScMW->view->endGroupTransaction();
+		}
+	}
+	else
+	{
+		bool oldS = m_item->Sizing;
+		m_item->Sizing = false;
+		m_item->OldB2 = m_item->width();
+		m_item->OldH2 = m_item->height();
+		if (m_item->asLine())
+		{
+			if (m_lineMode)
 			{
-				if (m_lineMode)
-				{
-					double r = atan2(h-y,w-x)*(180.0/M_PI);
-					m_item->setRotation(r, true);
-					w = sqrt(pow(w-x,2)+pow(h-y,2));
-				}
-				m_doc->SizeItem(w, m_item->height(), m_item, true, true, false);
+				double r = atan2(h-y,w-x)*(180.0/M_PI);
+				m_item->setRotation(r, true);
+				w = sqrt(pow(w-x,2)+pow(h-y,2));
+			}
+			m_doc->SizeItem(w, m_item->height(), m_item, true, true, false);
+		}
+		else
+		{
+			if (keepFrameWHRatioButton->isChecked())
+			{
+				showWH((h / oldH) * m_item->width(), h);
+				m_doc->SizeItem((h / oldH) * m_item->width(), h, m_item, true, true, false);
 			}
 			else
-			{
-				if (keepFrameWHRatioButton->isChecked())
-				{
-					showWH((h / oldH) * m_item->width(), h);
-					m_doc->SizeItem((h / oldH) * m_item->width(), h, m_item, true, true, false);
-				}
-				else
-					m_doc->SizeItem(m_item->width(), h, m_item, true, true, false);
-			}
-			if (m_item->isArc())
-			{
-				double dw = w - oldW;
-				double dh = h - oldH;
-				PageItem_Arc* item = m_item->asArc();
-				double dsch = item->arcHeight / oldH;
-				double dscw = item->arcWidth / oldW;
-				item->arcWidth += dw * dscw;
-				item->arcHeight += dh * dsch;
-				item->recalcPath();
-			}
-			if (m_item->isSpiral())
-			{
-				PageItem_Spiral* item = m_item->asSpiral();
-				item->recalcPath();
-			}
-			m_item->Sizing = oldS;
+				m_doc->SizeItem(m_item->width(), h, m_item, true, true, false);
 		}
-		m_doc->changed();
-		m_doc->regionsChanged()->update(QRect());
+		if (m_item->isArc())
+		{
+			double dw = w - oldW;
+			double dh = h - oldH;
+			PageItem_Arc* item = m_item->asArc();
+			double dsch = item->arcHeight / oldH;
+			double dscw = item->arcWidth / oldW;
+			item->arcWidth += dw * dscw;
+			item->arcHeight += dh * dsch;
+			item->recalcPath();
+		}
+		if (m_item->isSpiral())
+		{
+			PageItem_Spiral* item = m_item->asSpiral();
+			item->recalcPath();
+		}
+		m_item->Sizing = oldS;
 	}
+	m_doc->changed();
+	m_doc->regionsChanged()->update(QRect());
+	m_ScMW->setStatusBarTextSelectedItemInfo();
 }
 
 void PropertiesPalette_XYZ::handleRotation()
