@@ -6887,6 +6887,8 @@ void ScribusDoc::updatePict(QString name)
 	for (int c = 0; c < patterns.count(); ++c)
 	{
 		ScPattern pa = docPatterns[patterns[c]];
+		if (pa.items.count() <= 0)
+			continue;
 		for (int o = 0; o < pa.items.count(); o++)
 		{
 			PageItem *currItem = pa.items.at(o);
@@ -6993,6 +6995,8 @@ void ScribusDoc::updatePictDir(QString name)
 	for (int c = 0; c < patterns.count(); ++c)
 	{
 		ScPattern pa = docPatterns[patterns[c]];
+		if (pa.items.count() <= 0)
+			continue;
 		for (int o = 0; o < pa.items.count(); o++)
 		{
 			PageItem *currItem = pa.items.at(o);
@@ -7134,6 +7138,8 @@ void ScribusDoc::recalcPicturesRes(bool applyNewRes)
 	for (int c = 0; c < patterns.count(); ++c)
 	{
 		ScPattern pa = docPatterns[patterns[c]];
+		if (pa.items.count() <= 0)
+			continue;
 		for (int o = 0; o < pa.items.count(); o++)
 		{
 			PageItem *currItem = pa.items.at(o);
@@ -7202,6 +7208,8 @@ void ScribusDoc::removePict(QString name)
 	for (int c = 0; c < patterns.count(); ++c)
 	{
 		ScPattern pa = docPatterns[patterns[c]];
+		if (pa.items.count() <= 0)
+			continue;
 		for (int o = 0; o < pa.items.count(); o++)
 		{
 			PageItem *currItem = pa.items.at(o);
