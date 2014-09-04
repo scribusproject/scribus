@@ -162,16 +162,16 @@ bool ImportAIPlugin::import(QString fileName, int flags)
 			if (tempBuf.startsWith("%PDF"))
 			{
 				qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
-			//	QMessageBox msgBox(ScCore->primaryMainWindow());
-			//	msgBox.setText( tr("This file contains 2 versions of the data."));
-			//	msgBox.setInformativeText( tr("Choose which one should be imported"));
-			//	msgBox.setIcon(QMessageBox::Question);
-			//	QPushButton *pdfButton = msgBox.addButton( tr("Use the pdf part"), QMessageBox::ActionRole);
-			//	msgBox.addButton( tr("Use the ai part"), QMessageBox::ActionRole);
-			//	msgBox.setDefaultButton(pdfButton);
-			//	msgBox.exec();
-			//	if ((QPushButton *)msgBox.clickedButton() == pdfButton)
-			//	{
+				QMessageBox msgBox(ScCore->primaryMainWindow());
+				msgBox.setText( tr("This file contains 2 versions of the data."));
+				msgBox.setInformativeText( tr("Choose which one should be imported"));
+				msgBox.setIcon(QMessageBox::Question);
+				QPushButton *pdfButton = msgBox.addButton( tr("Use the pdf part"), QMessageBox::ActionRole);
+				msgBox.addButton( tr("Use the ai part"), QMessageBox::ActionRole);
+				msgBox.setDefaultButton(pdfButton);
+				msgBox.exec();
+				if ((QPushButton *)msgBox.clickedButton() == pdfButton)
+				{
 					//Import PDF
 					const FileFormat *fmt = LoadSavePlugin::getFormatByExt("pdf");
 					if (!fmt)
@@ -188,7 +188,7 @@ bool ImportAIPlugin::import(QString fileName, int flags)
 					if (!success)
 						QMessageBox::warning(ScCore->primaryMainWindow(), CommonStrings::trWarning, tr("The file could not be imported"), 1, 0, 0);
 					return success;
-			//	}
+				}
 				qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
 			}
 			else if (tempBuf.startsWith("%!PS-Adobe-3.0 EPSF-3.0"))
