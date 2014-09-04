@@ -10126,6 +10126,8 @@ void ScribusDoc::updatePict(QString name)
 	for (int c = 0; c < patterns.count(); ++c)
 	{
 		ScPattern pa = docPatterns[patterns[c]];
+		if (pa.items.count() <= 0)
+			continue;
 		for (int o = 0; o < pa.items.count(); o++)
 		{
 			PageItem *currItem = pa.items.at(o);
@@ -10266,6 +10268,8 @@ void ScribusDoc::updatePictDir(QString name)
 	for (int c = 0; c < patterns.count(); ++c)
 	{
 		ScPattern pa = docPatterns[patterns[c]];
+		if (pa.items.count() <= 0)
+			continue;
 		for (int o = 0; o < pa.items.count(); o++)
 		{
 			PageItem *currItem = pa.items.at(o);
@@ -10294,19 +10298,19 @@ void ScribusDoc::updatePictDir(QString name)
 				updated = true;
 			}
 			allItems.clear();
-			PageItem *ite = pa.items.at(0);
-			double minx =  std::numeric_limits<double>::max();
-			double miny =  std::numeric_limits<double>::max();
-			double maxx = -std::numeric_limits<double>::max();
-			double maxy = -std::numeric_limits<double>::max();
-			double x1, x2, y1, y2;
-			ite->getVisualBoundingRect(&x1, &y1, &x2, &y2);
-			minx = qMin(minx, x1);
-			miny = qMin(miny, y1);
-			maxx = qMax(maxx, x2);
-			maxy = qMax(maxy, y2);
-			docPatterns[patterns[c]].pattern = ite->DrawObj_toImage(qMin(qMax(maxx - minx, maxy - miny), 500.0));
 		}
+		PageItem *ite = pa.items.at(0);
+		double minx =  std::numeric_limits<double>::max();
+		double miny =  std::numeric_limits<double>::max();
+		double maxx = -std::numeric_limits<double>::max();
+		double maxy = -std::numeric_limits<double>::max();
+		double x1, x2, y1, y2;
+		ite->getVisualBoundingRect(&x1, &y1, &x2, &y2);
+		minx = qMin(minx, x1);
+		miny = qMin(miny, y1);
+		maxx = qMax(maxx, x2);
+		maxy = qMax(maxy, y2);
+		docPatterns[patterns[c]].pattern = ite->DrawObj_toImage(qMin(qMax(maxx - minx, maxy - miny), 500.0));
 	}
 	if (updated)
 	{
@@ -10628,6 +10632,8 @@ void ScribusDoc::removePict(QString name)
 	for (int c = 0; c < patterns.count(); ++c)
 	{
 		ScPattern pa = docPatterns[patterns[c]];
+		if (pa.items.count() <= 0)
+			continue;
 		for (int o = 0; o < pa.items.count(); o++)
 		{
 			PageItem *currItem = pa.items.at(o);
