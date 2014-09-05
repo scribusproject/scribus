@@ -5464,7 +5464,21 @@ void ScribusMainWindow::SelectAll(bool docWideSelect)
 
 void ScribusMainWindow::deselectAll()
 {
-	if (doc->appMode == modeEdit || doc->appMode == modeEditTable)
+	bool inEditMode=false;
+
+	if (doc->appMode == modeEdit ||
+		doc->appMode == modeEditTable ||
+		doc->appMode == modeEditSpiral ||
+		doc->appMode == modeEditGradientVectors ||
+		doc->appMode == modeEditClip ||
+		doc->appMode == modeEditMeshGradient ||
+		doc->appMode == modeEditArc ||
+		doc->appMode == modeEditMeshPatch ||
+		doc->appMode == modeEditWeldPoint
+		)
+		inEditMode=true;
+
+	if (inEditMode)
 	{
 		if (doc->m_Selection->isEmpty())
 			return;
