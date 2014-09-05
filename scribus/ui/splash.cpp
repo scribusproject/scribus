@@ -13,15 +13,30 @@ for which a new license (GPL+exception) is in place.
 #include <QPixmap>
 #include <QRegExp>
 
+#include "scconfig.h"
 #include "splash.h"
 
 #include "util.h"
 #include "util_icon.h"
 
+#ifdef HAVE_SVNVERSION
+	#include "svnversion.h"
+#endif
 
 ScSplashScreen::ScSplashScreen( const QPixmap & pixmap, Qt::WindowFlags f ) : QSplashScreen( pixmap, f)
 {
-
+#if defined _WIN32
+	QFont font("Lucida Sans Unicode", 9);
+#elif defined(__INNOTEK_LIBC__)
+	QFont font("WarpSans", 8);
+#elif defined(Q_OS_MAC)
+	QFont font("Helvetica Regular", 11);
+#else
+	QFont font("DejaVu Sans", 8);
+	if (!font.exactMatch())
+		font.setFamily("Bitstream Vera Sans");
+#endif
+	setFont(font);
 }
 
 void ScSplashScreen::setStatus( const QString &message )
@@ -39,18 +54,54 @@ void ScSplashScreen::setStatus( const QString &message )
 		}
 	}
 
-#if defined _WIN32
-	QFont font("Lucida Sans Unicode", 9);
-#elif defined(__INNOTEK_LIBC__)
-	QFont font("WarpSans", 8);
-#elif defined(Q_OS_MAC)
-	QFont font("Helvetica Regular", 11);
-#else
-	QFont font("DejaVu Sans", 8);
-	if (!font.exactMatch())
-		font.setFamily("Bitstream Vera Sans");
-#endif
-
-	setFont(font);
 	showMessage ( tmp, Qt::AlignRight | Qt::AlignBottom, Qt::white );
 }
+
+void ScSplashScreen::drawContents(QPainter* painter)
+{
+	QFont f(font());
+	QSplashScreen::drawContents(painter);
+	QRect r = rect().adjusted(0, 0, -15, -60);
+	QFont lgf(font());
+#if defined _WIN32
+	lgf.setPointSize(30);
+#elif defined(__INNOTEK_LIBC__)
+	lgf.setPointSize(29);
+#elif defined(Q_OS_MAC)
+	lgf.setPointSize(32);
+#else
+	lgf.setPointSize(29);
+#endif
+	QString v(VERSION);
+	painter->setFont(lgf);
+	painter->drawText(r, Qt::AlignRight | Qt::AlignBottom, v );
+
+	if (v.contains("svn"))
+	{
+#ifdef HAVE_SVNVERSION
+	#ifdef SVNVERSION
+		QString revText;
+		revText=QString("SVN Revision: %1").arg(SVNVERSION);
+		QRect r2 = rect().adjusted(0, 0, -15, -50);
+		painter->setFont(f);
+		painter->drawText(r2, Qt::AlignRight | Qt::AlignBottom, revText );
+	#endif
+#endif
+		QFont wf(font());
+#if defined _WIN32
+	wf.setPointSize(10);
+#elif defined(__INNOTEK_LIBC__)
+	wf.setPointSize(9);
+#elif defined(Q_OS_MAC)
+	wf.setPointSize(12);
+#else
+	wf.setPointSize(9);
+#endif
+		painter->setFont(wf);
+		painter->setPen(QPen(Qt::red));
+		QString warningText("UNSTABLE. For testing purposes only!");
+		QRect r3 = rect().adjusted(0, 0, -15, -25);
+		painter->drawText(r3, Qt::AlignRight | Qt::AlignBottom, warningText );
+	}
+}
+

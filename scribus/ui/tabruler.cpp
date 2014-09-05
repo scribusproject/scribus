@@ -79,7 +79,7 @@ void RulerT::paintEvent(QPaintEvent *)
 	p.begin(this);
 	p.drawLine(0, 24, width(), 24);
 	p.translate(-offset, 0);
-	p.setBrush(Qt::black);
+
 	p.setFont(font());
 	p.setPen(QPen(Qt::black, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
 	for (xl = 0; xl < width()+offset; xl += iter)

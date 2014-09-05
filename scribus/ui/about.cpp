@@ -108,7 +108,7 @@ About::About( QWidget* parent, AboutMode diaMode ) : QDialog( parent )
 	tabLayout1->setSpacing( 6 );
 	tabLayout1->setMargin( 15 );
 	pixmapLabel1 = new QLabel( tab );
-	pixmapLabel1->setPixmap(loadIcon("Splash.png", true));
+	pixmapLabel1->setPixmap(loadIcon("scribus_splash.png", true));
 	pixmapLabel1->setFixedSize(QSize(pixmapLabel1->pixmap()->width(), pixmapLabel1->pixmap()->height()));
 	pixmapLabel1->setAlignment(Qt::AlignCenter);
 	tabLayout1->addWidget( pixmapLabel1 );
