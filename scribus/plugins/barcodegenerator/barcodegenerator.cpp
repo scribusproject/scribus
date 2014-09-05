@@ -19,8 +19,8 @@ for which a new license (GPL+exception) is in place.
 
 #include <QTextStream>
 
-BarcodeType::BarcodeType(QString cmd, QString exa,
-						 QString comm, QString regExp,
+BarcodeType::BarcodeType(const QString &cmd, const QString &exa,
+	                     const QString &comm, const QString &regExp,
 						 bool includeCheck, bool includeCheckInText)
 {
 	command = cmd;
@@ -37,70 +37,70 @@ BarcodeGenerator::BarcodeGenerator(QWidget* parent, const char* name)
 	ui.setupUi(this);
 	setObjectName(name);
 	setModal(true);
-	map["EAN-13"] = BarcodeType("ean13", "9780956078001", tr("12 or 13 digits"),
-								"[0-9]{12,13}");
-	map["EAN-8"] = BarcodeType("ean8", "12345678", tr("8 digits"),
-							   "[0-9]{8,8}");
-	map["UPC-A"] = BarcodeType("upca", "78858101497", tr("11 or 12 digits"),
-							   "[0-9]{11,12}");
-	map["UPC-E"] = BarcodeType("upce", "0123456", tr("7 or 8 digits"),
-							   "[0-9]{7,8}");
-	map["EAN-5"] = BarcodeType("ean5", "90200", tr("5 digits"),
-							   "[0-9]{5,5}");
-	map["EAN-2"] = BarcodeType("ean2", "42", tr("2 digits"),
-							   "[0-9]{2,2}");
-	map["ISBN"] = BarcodeType("isbn", "978-0-9560780-0-1",
-							  tr("12 or 13 digits with dashes. The legacy ISBN-10 format accepts 9 or 10 digits with dashes, but this standard was depreciated for public use after 1st January 2007. (Note: To convert an old ISBN-10 to a new ISBN-13, prefix 978- to the first 9 digits, e.g. 1-56592-479-7 -> 978-1-56592-479. The final check-digit will be calculated automatically.)"),
-							  "[0-9]*\\-[0-9]*\\-[0-9]*");
+	map[tr("EAN-13")] = BarcodeType("ean13", "9780956078001", tr("12 or 13 digits"),
+	                                "[0-9]{12,13}");
+	map[tr("EAN-8")] = BarcodeType("ean8", "12345678", tr("8 digits"),
+	                               "[0-9]{8,8}");
+	map[tr("UPC-A")] = BarcodeType("upca", "78858101497", tr("11 or 12 digits"),
+	                               "[0-9]{11,12}");
+	map[tr("UPC-E")] = BarcodeType("upce", "0123456", tr("7 or 8 digits"),
+	                               "[0-9]{7,8}");
+	map[tr("EAN-5")] = BarcodeType("ean5", "90200", tr("5 digits"),
+	                               "[0-9]{5,5}");
+	map[tr("EAN-2")] = BarcodeType("ean2", "42", tr("2 digits"),
+	                               "[0-9]{2,2}");
+	map[tr("ISBN")] = BarcodeType("isbn", "978-0-9560780-0-1",
+	                              tr("12 or 13 digits with dashes. The legacy ISBN-10 format accepts 9 or 10 digits with dashes, but this standard was depreciated for public use after 1st January 2007. (Note: To convert an old ISBN-10 to a new ISBN-13, prefix 978- to the first 9 digits, e.g. 1-56592-479-7 -> 978-1-56592-479. The final check-digit will be calculated automatically.)"),
+	                              "[0-9]*\\-[0-9]*\\-[0-9]*");
 //    "Code-11"] = "code11"
-	map["Code-39"] = BarcodeType("code39", "CODE-39",
-								 tr("Variable number of characters, digits and any of the symbols -. *$/+%."),
-								 "[0-9a-zA-Z\\-\\.\\ \\*\\$\\/\\+\\%]*",
-								true, true);
+	map[tr("Code-39")] = BarcodeType("code39", "CODE-39",
+	                                 tr("Variable number of characters, digits and any of the symbols -. *$/+%."),
+	                                 "[0-9a-zA-Z\\-\\.\\ \\*\\$\\/\\+\\%]*",
+	                                 true, true);
 //    "Code-93"] = "code93"
-	map["Code-128"] = BarcodeType("code128", "^104^102Count^0991234^101!",
-								  tr("Variable number of ASCII characters and special function symbols, starting with the appropriate start character for the initial character set. UCC/EAN-128s must have a mandatory FNC 1 symbol immediately following the start character."),
-								  "\\^[0-9a-zA-Z\\^\\!]*",
-								  true, true);
-	map["UCC/EAN-128"] = BarcodeType("code128", "^104^102Count^0991234^101!",
-									 tr("Variable number of ASCII characters and special function symbols, starting with the appropriate start character for the initial character set. UCC/EAN-128s must have a mandatory FNC 1 symbol immediately following the start character."),
-									 "\\^[0-9a-zA-Z\\^\\!]*");
-	map["Rationalized Codabar"] = BarcodeType("rationalizedCodabar", "0123456789",
-											  tr("Variable number of digits and any of the symbols -$:/.+ABCD."),
-											  "[0-9A-D\\-\\$\\:\\/\\.\\+]*",
-											 true, true);
-	map["Interleaved 2 of 5"] = BarcodeType("interleaved2of5", "05012345678900",
-											tr("Variable number of digits"),
-											"[0-9]*",
-										   true, true);
-	map["ITF-14"] = BarcodeType("interleaved2of5", "05012345678900",
-								tr("Variable number of digits. An ITF-14 is 14 characters and does not have a check digit"),
-								"[0-9]*",
-							   true, true);
-	map["Code 2 of 5"] = BarcodeType("code2of5", "0123456789",
-									 tr("Variable number of digits"),
-									 "[0-9]*");
-	map["Postnet"] = BarcodeType("postnet", "01234567",
-								 tr("Variable number of digits"),
-								 "[0-9]*",
-								false, true);
-	map["Royal Mail"] = BarcodeType("royalmail", "LE28HS9Z",
-									tr("Variable number of digits and capital letters"),
-									"[0-9A-Z]*",
-									false, true);
+	map[tr("Code-128")] = BarcodeType("code128", "^104^102Count^0991234^101!",
+	                                  tr("Variable number of ASCII characters and special function symbols, starting with the appropriate start character for the initial character set. UCC/EAN-128s must have a mandatory FNC 1 symbol immediately following the start character."),
+	                                  "\\^[0-9a-zA-Z\\^\\!]*",
+	                                  true, true);
+	map[tr("UCC/EAN-128")] = BarcodeType("code128", "^104^102Count^0991234^101!",
+	                                     tr("Variable number of ASCII characters and special function symbols, starting with the appropriate start character for the initial character set. UCC/EAN-128s must have a mandatory FNC 1 symbol immediately following the start character."),
+	                                     "\\^[0-9a-zA-Z\\^\\!]*");
+	map[tr("Rationalized Codabar")] = BarcodeType("rationalizedCodabar", "0123456789",
+	                                              tr("Variable number of digits and any of the symbols -$:/.+ABCD."),
+	                                              "[0-9A-D\\-\\$\\:\\/\\.\\+]*",
+	                                              true, true);
+	map[tr("Interleaved 2 of 5")] = BarcodeType("interleaved2of5", "05012345678900",
+	                                            tr("Variable number of digits"),
+	                                            "[0-9]*",
+	                                            true, true);
+	map[tr("ITF-14")] = BarcodeType("interleaved2of5", "05012345678900",
+	                                tr("Variable number of digits. An ITF-14 is 14 characters and does not have a check digit"),
+	                                "[0-9]*",
+	                                true, true);
+	map[tr("Code 2 of 5")] = BarcodeType("code2of5", "0123456789",
+	                                     tr("Variable number of digits"),
+	                                     "[0-9]*");
+	map[tr("Postnet")] = BarcodeType("postnet", "01234567",
+	                                 tr("Variable number of digits"),
+	                                 "[0-9]*",
+	                                 false, true);
+	map[tr("Royal Mail")] = BarcodeType("royalmail", "LE28HS9Z",
+	                                    tr("Variable number of digits and capital letters"),
+	                                    "[0-9A-Z]*",
+	                                    false, true);
 //    "Auspost"] = "auspost"
-	map["MSI"] = BarcodeType("msi", "0120823635162", tr("Variable number of digits"),
-							 "[0-9]*",
-							true, true);
+	map[tr("MSI")] = BarcodeType("msi", "0120823635162", tr("Variable number of digits"),
+	                             "[0-9]*",
+	                             true, true);
 //    "KIX"] = "kix"
-	map["Plessey"] = BarcodeType("plessey", "012345ABCDEF",
-								 tr("Variable number of hexadecimal characters"),
-								 "[0-9A-F]*",
-								false, true);
-	map["QR Code"] = BarcodeType("qrcode", "http://www.scribus.net",
-								 tr("Variable number of characters, digits and any symbols."),
-								 ".*",
-								false, false);
+	map[tr("Plessey")] = BarcodeType("plessey", "012345ABCDEF",
+	                                tr("Variable number of hexadecimal characters"),
+	                                "[0-9A-F]*",
+	                                false, true);
+	map[tr("QR Code")] = BarcodeType("qrcode", "http://www.scribus.net",
+	                                 tr("Variable number of characters, digits and any symbols."),
+	                                 ".*",
+	                                 false, false);
 	//    "Symbol"] = "symbol"
 
 	initializeQROptions();
@@ -173,7 +173,7 @@ void BarcodeGenerator::initializeQROptions()
 	ui.eccCombo->addItem("Q", "eclevel=Q");
 	ui.eccCombo->addItem("H", "eclevel=H");
 
-    qrOptionsEnabled(false);
+	qrOptionsEnabled(false);
 	connect(ui.formatCombo, SIGNAL(currentIndexChanged(int)), this, SLOT(bcComboChanged(int)));
 	connect(ui.eccCombo, SIGNAL(currentIndexChanged(int)), this, SLOT(bcComboChanged(int)));
 }
@@ -352,10 +352,11 @@ void BarcodeGenerator::codeEdit_textChanged(const QString& s)
 	codeEdit_check(s);
 }
 
-bool BarcodeGenerator::paintBarcode(QString fileName, int dpi)
+bool BarcodeGenerator::paintBarcode(const QString &fileName, int dpi)
 {
+	QString realFile(fileName);
 	if (fileName.isEmpty())
-		fileName = tmpFile;
+	    realFile = tmpFile;
 	QString opts("barcolor=%1 showbackground backgroundcolor=%2 textcolor=%3");
 	opts = opts.arg(lnColor.name().replace('#', "")) \
 			.arg(bgColor.name().replace('#', "")) \
@@ -395,13 +396,13 @@ bool BarcodeGenerator::paintBarcode(QString fileName, int dpi)
 
 	QStringList gargs;
 	// limit the area only for preview. EPS importer bounds the box itself.
-	if (fileName == tmpFile)
+	if (realFile == tmpFile)
 	{
 		gargs.append("-dDEVICEWIDTHPOINTS=200");
 		gargs.append("-dDEVICEHEIGHTPOINTS=150");
 	}
 	gargs.append( QString("-r%1").arg(dpi) );
-	gargs.append( QString("-sOutputFile=%1").arg(fileName) );
+	gargs.append( QString("-sOutputFile=%1").arg(realFile) );
 	gargs.append( psFile );
 	qApp->changeOverrideCursor(Qt::WaitCursor);
 	int gs = callGS(gargs);
@@ -411,11 +412,11 @@ bool BarcodeGenerator::paintBarcode(QString fileName, int dpi)
 	qApp->changeOverrideCursor(Qt::ArrowCursor);
 //	qApp->restoreOverrideCursor();
 	// setup only preview
-	if (fileName != tmpFile)
+	if (realFile != tmpFile)
 		return retval;
 	if (gs == 0)
 	{
-		ui.sampleLabel->setPixmap(QPixmap(fileName));
+	    ui.sampleLabel->setPixmap(QPixmap(realFile));
 		ui.okButton->setEnabled(true);
 	}
 	else

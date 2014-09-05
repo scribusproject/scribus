@@ -32,9 +32,9 @@ class BarcodeType
 		\param exa an example of the BC
 		\param comm a comment/help for current BC type
 		\param checkType how to validate the input */
-		BarcodeType(QString cmd, QString exa,
-					QString comm, QString regExp,
-				   bool includeCheck=false, bool includeCheckInText=false);
+	    BarcodeType(const QString &cmd, const QString &exa,
+	                const QString &comm, const QString &regExp,
+	                bool includeCheck=false, bool includeCheckInText=false);
 		~BarcodeType(){};
 		//! \brief postscript command
 		QString command;
@@ -104,7 +104,7 @@ class BarcodeGenerator : public QDialog
 		\param dpi optional DPI value. Default is 72 for preview.
 		\retval bool true on success.
 		*/
-		bool paintBarcode(QString fileName = QString(), int dpi = 72);
+	    bool paintBarcode(const QString &fileName = QString(), int dpi = 72);
 		/*! \brief Create color preview.
 		Used for Color box feedback.
 		\param l A pointer to the sample QLabel
