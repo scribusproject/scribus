@@ -35,6 +35,7 @@ private slots:
 	void slotAdd();
 	void slotEdit();
 	void slotDelete();
+	void slotSelectionChanged();
 
 signals:
 	void docChanged(bool);
