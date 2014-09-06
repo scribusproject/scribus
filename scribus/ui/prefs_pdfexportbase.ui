@@ -1810,8 +1810,8 @@
  <customwidgets>
   <customwidget>
    <class>ScrSpinBox</class>
-   <extends>QSpinBox</extends>
-   <header location="global">ui/scrspinbox.h</header>
+   <extends>QDoubleSpinBox</extends>
+   <header>ui/scrspinbox.h</header>
   </customwidget>
   <customwidget>
    <class>NewMarginWidget</class>
@@ -1820,6 +1820,96 @@
    <container>1</container>
   </customwidget>
  </customwidgets>
+ <tabstops>
+  <tabstop>tabWidget</tabstop>
+  <tabstop>exportAllPagesRadioButton</tabstop>
+  <tabstop>exportChosenPagesRadioButton</tabstop>
+  <tabstop>exportPageListLineEdit</tabstop>
+  <tabstop>exportRangeMorePushButton</tabstop>
+  <tabstop>rotationComboBox</tabstop>
+  <tabstop>pageMirrorHorizontalToolButton</tabstop>
+  <tabstop>pageMirrorVerticalToolButton</tabstop>
+  <tabstop>scrollArea_3</tabstop>
+  <tabstop>pdfVersionComboBox</tabstop>
+  <tabstop>pageBindingComboBox</tabstop>
+  <tabstop>clipToPrinterMarginsCheckBox</tabstop>
+  <tabstop>generateThumbnailsCheckBox</tabstop>
+  <tabstop>saveLinkedTextFramesAsArticlesCheckBox</tabstop>
+  <tabstop>includeLayersCheckBox</tabstop>
+  <tabstop>includeBookmarksCheckBox</tabstop>
+  <tabstop>embedPDFAndEPSFilesCheckBox</tabstop>
+  <tabstop>compressTextAndVectorGraphicsCheckBox</tabstop>
+  <tabstop>imageCompressionMethodComboBox</tabstop>
+  <tabstop>imageCompressionQualityComboBox</tabstop>
+  <tabstop>maxResolutionLimitCheckBox</tabstop>
+  <tabstop>maxExportResolutionSpinBox</tabstop>
+  <tabstop>epsExportResolutionSpinBox</tabstop>
+  <tabstop>useEncryptionCheckBox</tabstop>
+  <tabstop>passwordOwnerLineEdit</tabstop>
+  <tabstop>passwordUserLineEdit</tabstop>
+  <tabstop>allowPrintingCheckBox</tabstop>
+  <tabstop>allowChangingCheckBox</tabstop>
+  <tabstop>allowCopyingCheckBox</tabstop>
+  <tabstop>allowAnnotatingCheckBox</tabstop>
+  <tabstop>scrollArea</tabstop>
+  <tabstop>outputIntentionComboBox</tabstop>
+  <tabstop>convertSpotsToProcessCheckBox</tabstop>
+  <tabstop>useSolidColorProfileCheckBox</tabstop>
+  <tabstop>solidColorProfileComboBox</tabstop>
+  <tabstop>solidColorRenderingIntentComboBox</tabstop>
+  <tabstop>useImageProfileCheckBox</tabstop>
+  <tabstop>doNotUseEmbeddedImageProfileCheckBox</tabstop>
+  <tabstop>imageProfileComboBox</tabstop>
+  <tabstop>imageRenderingIntentComboBox</tabstop>
+  <tabstop>useCustomRenderingCheckBox</tabstop>
+  <tabstop>customRenderingColorComboBox</tabstop>
+  <tabstop>customRenderingFrequencySpinBox</tabstop>
+  <tabstop>customRenderingAngleSpinBox</tabstop>
+  <tabstop>customRenderingSpotFunctionComboBox</tabstop>
+  <tabstop>scrollArea_2</tabstop>
+  <tabstop>printCropMarksCheckBox</tabstop>
+  <tabstop>printBleedMarksCheckBox</tabstop>
+  <tabstop>printColorBarsCheckBox</tabstop>
+  <tabstop>printRegistrationMarksCheckBox</tabstop>
+  <tabstop>printPageInfoCheckBox</tabstop>
+  <tabstop>markLengthSpinBox</tabstop>
+  <tabstop>markOffsetSpinBox</tabstop>
+  <tabstop>useDocumentBleedsCheckBox</tabstop>
+  <tabstop>pdfx3OutputProfileComboBox</tabstop>
+  <tabstop>pdfx3InfoStringLineEdit</tabstop>
+  <tabstop>availableFontsListWidget</tabstop>
+  <tabstop>embedAllButton</tabstop>
+  <tabstop>outlineAllButton</tabstop>
+  <tabstop>toEmbedButton</tabstop>
+  <tabstop>fromEmbedButton</tabstop>
+  <tabstop>embeddedFontsListWidget</tabstop>
+  <tabstop>fromOutlineButton</tabstop>
+  <tabstop>toOutlineButton</tabstop>
+  <tabstop>outlinedFontsListWidget</tabstop>
+  <tabstop>enabledEffectsCheckBox</tabstop>
+  <tabstop>effectsPageListWidget</tabstop>
+  <tabstop>effectTypeComboBox</tabstop>
+  <tabstop>effectMovingDirectionComboBox</tabstop>
+  <tabstop>effectInOutComboBox</tabstop>
+  <tabstop>effectDirectionComboBox</tabstop>
+  <tabstop>displayDurationSpinBox</tabstop>
+  <tabstop>effectDurationSpinBox</tabstop>
+  <tabstop>applyEffectToAllPagesPushButton</tabstop>
+  <tabstop>showPagePreviewsCheckBox</tabstop>
+  <tabstop>singlePageRadioButton</tabstop>
+  <tabstop>continuousPagesRadioButton</tabstop>
+  <tabstop>doublePageLeftRadioButton</tabstop>
+  <tabstop>doublePageRightRadioButton</tabstop>
+  <tabstop>useViewerDefaultsRadioButton</tabstop>
+  <tabstop>useFullScreenRadioButton</tabstop>
+  <tabstop>useBookmarksRadioButton</tabstop>
+  <tabstop>useThumbnailsRadioButton</tabstop>
+  <tabstop>useLayersRadioButton</tabstop>
+  <tabstop>hideViewerMenuBarCheckBox</tabstop>
+  <tabstop>hideViewerToolBarCheckBox</tabstop>
+  <tabstop>fitViewerWindowCheckBox</tabstop>
+  <tabstop>startupJavascriptComboBox</tabstop>
+ </tabstops>
  <resources/>
  <connections>
   <connection>

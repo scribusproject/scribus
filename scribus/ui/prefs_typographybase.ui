@@ -544,6 +544,19 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>scrollArea</tabstop>
+  <tabstop>subscriptDisplacementSpinBox</tabstop>
+  <tabstop>subscriptScalingSpinBox</tabstop>
+  <tabstop>superscriptDisplacementSpinBox</tabstop>
+  <tabstop>superscriptScalingSpinBox</tabstop>
+  <tabstop>underlineDisplacementSpinBox</tabstop>
+  <tabstop>underlineLineWidthSpinBox</tabstop>
+  <tabstop>strikeoutDisplacementSpinBox</tabstop>
+  <tabstop>strikeoutLineWidthSpinBox</tabstop>
+  <tabstop>smallcapsScalingSpinBox</tabstop>
+  <tabstop>automaticLineSpacingSpinBox</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

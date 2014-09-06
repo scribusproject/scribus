@@ -774,22 +774,32 @@
   </layout>
  </widget>
  <tabstops>
+  <tabstop>scrollArea</tabstop>
   <tabstop>psToolLineEdit</tabstop>
   <tabstop>psToolChangeButton</tabstop>
   <tabstop>psAntialiasTextCheckBox</tabstop>
   <tabstop>psAntialiasGraphicsCheckBox</tabstop>
   <tabstop>psResolutionSpinBox</tabstop>
+  <tabstop>imageToolLineEdit</tabstop>
+  <tabstop>imageToolChangeButton</tabstop>
+  <tabstop>webBrowserLineEdit</tabstop>
+  <tabstop>webBrowserChangeButton</tabstop>
+  <tabstop>pdfViewerLineEdit</tabstop>
+  <tabstop>pdfViewerChangeButton</tabstop>
+  <tabstop>uniconvertorLineEdit</tabstop>
+  <tabstop>uniconvertorChangeButton</tabstop>
   <tabstop>latexConfigsListWidget</tabstop>
-  <tabstop>latexConfigUpButton</tabstop>
-  <tabstop>latexConfigDownButton</tabstop>
-  <tabstop>latexConfigAddButton</tabstop>
-  <tabstop>latexConfigDeleteButton</tabstop>
   <tabstop>latexEditorLineEdit</tabstop>
-  <tabstop>latexEditorChangeButton</tabstop>
   <tabstop>latexEmptyFrameCheckBox</tabstop>
   <tabstop>latexEmbeddedEditorCheckBox</tabstop>
   <tabstop>latexForceDPICheckBox</tabstop>
   <tabstop>latexResolutionSpinBox</tabstop>
+  <tabstop>latexConfigUpButton</tabstop>
+  <tabstop>latexConfigDownButton</tabstop>
+  <tabstop>latexConfigAddButton</tabstop>
+  <tabstop>latexConfigDeleteButton</tabstop>
+  <tabstop>latexConfigChangeCommandButton</tabstop>
+  <tabstop>latexEditorChangeButton</tabstop>
   <tabstop>rescanButton</tabstop>
  </tabstops>
  <resources/>

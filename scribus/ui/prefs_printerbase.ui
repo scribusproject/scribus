@@ -598,8 +598,8 @@
  <customwidgets>
   <customwidget>
    <class>ScrSpinBox</class>
-   <extends>QSpinBox</extends>
-   <header location="global">ui/scrspinbox.h</header>
+   <extends>QDoubleSpinBox</extends>
+   <header>ui/scrspinbox.h</header>
   </customwidget>
   <customwidget>
    <class>NewMarginWidget</class>
@@ -608,6 +608,29 @@
    <container>1</container>
   </customwidget>
  </customwidgets>
+ <tabstops>
+  <tabstop>scrollArea</tabstop>
+  <tabstop>destinationComboBox</tabstop>
+  <tabstop>useAltPrinterCmdCheckBox</tabstop>
+  <tabstop>altPrinterCmdLineEdit</tabstop>
+  <tabstop>outputComboBox</tabstop>
+  <tabstop>includePDFAnnotationsCheckBox</tabstop>
+  <tabstop>pageMirrorHorizontallyCheckBox</tabstop>
+  <tabstop>pageMirrorVerticallyCheckBox</tabstop>
+  <tabstop>setMediaSizeCheckBox</tabstop>
+  <tabstop>clipToPrinterMarginsCheckBox</tabstop>
+  <tabstop>applyUnderColorRemovalCheckBox</tabstop>
+  <tabstop>convertSpotsToProcessCheckBox</tabstop>
+  <tabstop>applyICCProfilesCheckBox</tabstop>
+  <tabstop>postscriptLevelComboBox</tabstop>
+  <tabstop>postscriptPrintToColorComboBox</tabstop>
+  <tabstop>cropMarksCheckBox</tabstop>
+  <tabstop>bleedMarksCheckBox</tabstop>
+  <tabstop>registrationMarksCheckBox</tabstop>
+  <tabstop>colorBarsCheckBox</tabstop>
+  <tabstop>markLengthSpinBox</tabstop>
+  <tabstop>markOffsetSpinBox</tabstop>
+ </tabstops>
  <resources/>
  <connections>
   <connection>

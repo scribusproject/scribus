@@ -1602,13 +1602,21 @@
   <tabstop>textColorShadingSpinBox</tabstop>
   <tabstop>textStrokeColorComboBox</tabstop>
   <tabstop>textStrokeShadingSpinBox</tabstop>
+  <tabstop>scrollArea_2</tabstop>
   <tabstop>imageFrameFillColorComboBox</tabstop>
   <tabstop>imageFrameFillShadingSpinBox</tabstop>
   <tabstop>imageFrameLineColorComboBox</tabstop>
   <tabstop>imageFrameLineShadingSpinBox</tabstop>
+  <tabstop>imageUseEmbeddedClippingPathCheckBox</tabstop>
+  <tabstop>imageFreeScalingRadioButton</tabstop>
   <tabstop>imageHorizontalScalingSpinBox</tabstop>
   <tabstop>imageVerticalScalingSpinBox</tabstop>
   <tabstop>scalingLockToolButton</tabstop>
+  <tabstop>imageFrameScalingRadioButton</tabstop>
+  <tabstop>imageKeepAspectRatioCheckBox</tabstop>
+  <tabstop>onscreenResolutionFullRadioButton</tabstop>
+  <tabstop>onscreenResolutionNormalRadioButton</tabstop>
+  <tabstop>onscreenResolutionLowRadioButton</tabstop>
   <tabstop>shapeFrameFillColorComboBox</tabstop>
   <tabstop>shapeFrameFillShadingSpinBox</tabstop>
   <tabstop>shapeFrameLineColorComboBox</tabstop>
@@ -1621,6 +1629,14 @@
   <tabstop>lineWidthSpinBox</tabstop>
   <tabstop>lineStartArrowComboBox</tabstop>
   <tabstop>lineEndArrowComboBox</tabstop>
+  <tabstop>calPenFillColorComboBox</tabstop>
+  <tabstop>calPenFillShadingSpinBox</tabstop>
+  <tabstop>calPenColorComboBox</tabstop>
+  <tabstop>calPenLineShadingSpinBox</tabstop>
+  <tabstop>calPenStyleComboBox</tabstop>
+  <tabstop>calPenAngleSpinBox</tabstop>
+  <tabstop>calPenLineWidthSpinBox</tabstop>
+  <tabstop>calPenWidthSpinBox</tabstop>
  </tabstops>
  <resources/>
  <connections/>
