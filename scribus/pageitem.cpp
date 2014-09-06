@@ -1689,6 +1689,8 @@ void PageItem::DrawObj(ScPainter *p, QRectF cullingArea)
 {
 	if (!m_Doc->DoDrawing)
 		return;
+	if (PoLine.isEmpty())
+		return;
 	if (cullingArea.isNull())
 	{
 		cullingArea = QRectF(QPointF(m_Doc->minCanvasCoordinate.x(), m_Doc->minCanvasCoordinate.y()), 
