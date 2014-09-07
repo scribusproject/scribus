@@ -1030,16 +1030,7 @@
        <property name="spacing">
         <number>5</number>
        </property>
-       <property name="leftMargin">
-        <number>0</number>
-       </property>
-       <property name="topMargin">
-        <number>0</number>
-       </property>
-       <property name="rightMargin">
-        <number>0</number>
-       </property>
-       <property name="bottomMargin">
+       <property name="margin">
         <number>0</number>
        </property>
        <item>
@@ -1115,6 +1106,47 @@
    <container>1</container>
   </customwidget>
  </customwidgets>
+ <tabstops>
+  <tabstop>tabWidget</tabstop>
+  <tabstop>parentCombo</tabstop>
+  <tabstop>lineSpacingMode</tabstop>
+  <tabstop>lineSpacing</tabstop>
+  <tabstop>spaceAbove</tabstop>
+  <tabstop>spaceBelow</tabstop>
+  <tabstop>keepLinesStart</tabstop>
+  <tabstop>keepLinesEnd</tabstop>
+  <tabstop>keepTogether</tabstop>
+  <tabstop>keepWithNext</tabstop>
+  <tabstop>optMarginRadioNone</tabstop>
+  <tabstop>optMarginRadioBoth</tabstop>
+  <tabstop>optMarginRadioLeft</tabstop>
+  <tabstop>optMarginRadioRight</tabstop>
+  <tabstop>optMarginDefaultButton</tabstop>
+  <tabstop>optMarginParentButton</tabstop>
+  <tabstop>minSpaceSpin</tabstop>
+  <tabstop>minGlyphExtSpin</tabstop>
+  <tabstop>maxGlyphExtSpin</tabstop>
+  <tabstop>bulletBox</tabstop>
+  <tabstop>bulletStrEdit</tabstop>
+  <tabstop>bulletCharTableButton</tabstop>
+  <tabstop>numBox</tabstop>
+  <tabstop>numComboBox</tabstop>
+  <tabstop>numLevelSpin</tabstop>
+  <tabstop>numNewLineEdit</tabstop>
+  <tabstop>numFormatCombo</tabstop>
+  <tabstop>numStartSpin</tabstop>
+  <tabstop>numPrefix</tabstop>
+  <tabstop>numSuffix</tabstop>
+  <tabstop>numRestartCombo</tabstop>
+  <tabstop>numRestartOtherBox</tabstop>
+  <tabstop>numRestartHigherBox</tabstop>
+  <tabstop>dropCapsBox</tabstop>
+  <tabstop>dropCapLines</tabstop>
+  <tabstop>parEffectCharStyleCombo</tabstop>
+  <tabstop>parEffectOffset</tabstop>
+  <tabstop>parEffectIndentBox</tabstop>
+  <tabstop>parentParEffectsButton</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

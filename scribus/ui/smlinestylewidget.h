@@ -32,9 +32,6 @@ public:
 	void unitChange(int unitIndex);
 
 private:
-	LineCombo *dashCombo;
-	ScrSpinBox  *lineWidth;
-	ColorCombo *colorCombo;
 	multiLine  currentStyle;
 	ColorList  colors;
 

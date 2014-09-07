@@ -665,6 +665,47 @@ Note: PDF Forms will not be exported.</string>
    <header location="global">ui/scrspinbox.h</header>
   </customwidget>
  </customwidgets>
+ <tabstops>
+  <tabstop>printOptions</tabstop>
+  <tabstop>OtherCom</tabstop>
+  <tabstop>RadioButton1</tabstop>
+  <tabstop>Copies</tabstop>
+  <tabstop>CurrentPage</tabstop>
+  <tabstop>RadioButton2</tabstop>
+  <tabstop>pageNr</tabstop>
+  <tabstop>pageNrButton</tabstop>
+  <tabstop>PrintDest</tabstop>
+  <tabstop>OptButton</tabstop>
+  <tabstop>LineEdit1</tabstop>
+  <tabstop>ToolButton1</tabstop>
+  <tabstop>Command</tabstop>
+  <tabstop>PrintSep</tabstop>
+  <tabstop>colorType</tabstop>
+  <tabstop>SepArt</tabstop>
+  <tabstop>printEngines</tabstop>
+  <tabstop>usePDFMarks</tabstop>
+  <tabstop>MirrorHor</tabstop>
+  <tabstop>MirrorVert</tabstop>
+  <tabstop>devPar</tabstop>
+  <tabstop>ClipMarg</tabstop>
+  <tabstop>GcR</tabstop>
+  <tabstop>spotColors</tabstop>
+  <tabstop>UseICC</tabstop>
+  <tabstop>cropMarks</tabstop>
+  <tabstop>bleedMarks</tabstop>
+  <tabstop>colorMarks</tabstop>
+  <tabstop>registrationMarks</tabstop>
+  <tabstop>markLength</tabstop>
+  <tabstop>markOffset</tabstop>
+  <tabstop>BleedTop</tabstop>
+  <tabstop>BleedRight</tabstop>
+  <tabstop>BleedBottom</tabstop>
+  <tabstop>BleedLeft</tabstop>
+  <tabstop>docBleeds</tabstop>
+  <tabstop>previewButton</tabstop>
+  <tabstop>OKButton</tabstop>
+  <tabstop>OKButton_2</tabstop>
+ </tabstops>
  <resources/>
  <connections>
   <connection>
