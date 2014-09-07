@@ -711,6 +711,27 @@
    <header>smradiobutton.h</header>
   </customwidget>
  </customwidgets>
+ <tabstops>
+  <tabstop>tabWidget</tabstop>
+  <tabstop>parentCombo</tabstop>
+  <tabstop>lineSpacingMode_</tabstop>
+  <tabstop>lineSpacing_</tabstop>
+  <tabstop>spaceAbove_</tabstop>
+  <tabstop>spaceBelow_</tabstop>
+  <tabstop>dropCapsBox</tabstop>
+  <tabstop>dropCapLines_</tabstop>
+  <tabstop>dropCapOffset_</tabstop>
+  <tabstop>parentDropCapButton</tabstop>
+  <tabstop>optMarginRadioNone</tabstop>
+  <tabstop>optMarginRadioBoth</tabstop>
+  <tabstop>optMarginRadioLeft</tabstop>
+  <tabstop>optMarginRadioRight</tabstop>
+  <tabstop>optMarginDefaultButton</tabstop>
+  <tabstop>optMarginParentButton</tabstop>
+  <tabstop>minSpaceSpin</tabstop>
+  <tabstop>minGlyphExtSpin</tabstop>
+  <tabstop>maxGlyphExtSpin</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

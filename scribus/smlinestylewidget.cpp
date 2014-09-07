@@ -24,14 +24,8 @@ SMLineStyleWidget::SMLineStyleWidget() : QWidget()
 	addButton->setIcon(QIcon(loadIcon("penciladd.png")));
 	removeButton->setIcon(QIcon(loadIcon("pencilsub.png")));
 
-	dashCombo = new LineCombo(this);
-	gridLayout->addWidget(dashCombo, 0, 0);
-
-	lineWidth = new ScrSpinBox( 0, 300, this, 0 );
-	gridLayout1->addWidget(lineWidth, 0, 1);
-	
-	colorCombo = new ColorCombo(this);
-	gridLayout1->addWidget(colorCombo, 1, 0);
+	lineWidth->setMinimum(0.0);
+	lineWidth->setMaximum(300.0);
 
 	endCombo->addItem(loadIcon("ButtCap.png"), tr( "Flat Cap" ) );
 	endCombo->addItem(loadIcon("SquareCap.png"), tr( "Square Cap" ) );
