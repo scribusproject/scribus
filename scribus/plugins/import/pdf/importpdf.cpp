@@ -369,7 +369,7 @@ bool PdfPlug::convert(QString fn)
 	int currentLayer = m_Doc->activeLayer();
 	int baseLayer = m_Doc->activeLayer();
 	importedColors.clear();
-	if(progressDialog)
+	if (progressDialog)
 	{
 		progressDialog->setOverallProgress(2);
 		progressDialog->setLabel("GI", tr("Generating Items"));
