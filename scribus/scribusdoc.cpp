@@ -154,6 +154,11 @@ public:
 		}
 		m_docChangeNeeded = true;
 	}
+
+	void setDocChangeNeeded(bool changeNeeded = true)
+	{
+		m_docChangeNeeded = changeNeeded;
+	}
 };
 
 
@@ -9373,10 +9378,12 @@ void ScribusDoc::changed()
 	// Do not emit docChanged signal() unnecessarily
 	// Processing of that signal is slowwwwwww and
 	// DocUpdater will trigger it when necessary
-	if (!m_docUpdater->inUpdateSession())
+	if (m_docUpdater->inUpdateSession())
 	{
-		emit docChanged();
+		m_docUpdater->setDocChangeNeeded();
+		return;
 	}
+	emit docChanged();
 }
 
 void ScribusDoc::invalidateAll()
