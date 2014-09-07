@@ -1019,7 +1019,7 @@ bool ScImgDataLoader_PSD::loadLayerChannels( QDataStream & s, const PSDHeader & 
 		QString layBlend2 = layerInfo[layer].blend;
 		if ((m_imageInfoRecord.isRequest) && (m_imageInfoRecord.RequestProps.contains(layer)))
 			layBlend2 = m_imageInfoRecord.RequestProps[layer].blend;
-		if (layBlend2 == "diss")
+		if (layBlend2 == QLatin1String("diss"))
 		{
 			hasAlpha = true;
 			int layOpa = layerInfo[layer].opacity;
@@ -1128,7 +1128,7 @@ bool ScImgDataLoader_PSD::loadLayerChannels( QDataStream & s, const PSDHeader & 
 					QString layBlend = layerInfo[layer].blend;
 					if ((m_imageInfoRecord.isRequest) && (m_imageInfoRecord.RequestProps.contains(layer)))
 						layBlend = m_imageInfoRecord.RequestProps[layer].blend;
-					if (layBlend != "diss")
+					if (layBlend != QLatin1String("diss"))
 						src_alpha = INT_MULT(src_alpha, layOpa);
 					if (header.color_mode == CM_CMYK)
 						dst_alpha = d[4];
@@ -1136,7 +1136,7 @@ bool ScImgDataLoader_PSD::loadLayerChannels( QDataStream & s, const PSDHeader & 
 						dst_alpha = d[3];
 					if ((dst_alpha > 0) && (src_alpha > 0))
 					{
-						if (layBlend == "mul ")
+						if (layBlend ==  QLatin1String("mul "))
 						{
 							src_r = INT_MULT(src_r, d[0]);
 							src_g = INT_MULT(src_g, d[1]);
@@ -1144,7 +1144,7 @@ bool ScImgDataLoader_PSD::loadLayerChannels( QDataStream & s, const PSDHeader & 
 							if (header.color_mode == CM_CMYK)
 								src_a = INT_MULT(src_a, d[3]);
 						}
-						else if (layBlend == "scrn")
+						else if (layBlend ==  QLatin1String("scrn"))
 						{
 							src_r = 255 - ((255-src_r) * (255-d[0]) / 128);
 							src_g = 255 - ((255-src_g) * (255-d[1]) / 128);
@@ -1152,7 +1152,7 @@ bool ScImgDataLoader_PSD::loadLayerChannels( QDataStream & s, const PSDHeader & 
 							if (header.color_mode == CM_CMYK)
 								src_a = 255 - ((255-src_a) * (255-d[3]) / 128);
 						}
-						else if (layBlend == "over")
+						else if (layBlend ==  QLatin1String("over"))
 						{
 							src_g = d[1] < 128 ? src_g * d[1] / 128 : 255 - ((255-src_g) * (255-d[1]) / 128);
 							src_b = d[2] < 128 ? src_b * d[2] / 128 : 255 - ((255-src_b) * (255-d[2]) / 128);
@@ -1160,7 +1160,7 @@ bool ScImgDataLoader_PSD::loadLayerChannels( QDataStream & s, const PSDHeader & 
 							if (header.color_mode == CM_CMYK)
 								src_r = d[0] < 128 ? src_r * d[0] / 128 : 255 - ((255-src_r) * (255-d[0]) / 128);
 						}
-						else if (layBlend == "diff")
+						else if (layBlend ==  QLatin1String("diff"))
 						{
 							src_r = d[0] > src_r ? d[0] - src_r : src_r - d[0];
 							src_g = d[1] > src_g ? d[1] - src_g : src_g - d[1];
@@ -1168,7 +1168,7 @@ bool ScImgDataLoader_PSD::loadLayerChannels( QDataStream & s, const PSDHeader & 
 							if (header.color_mode == CM_CMYK)
 								src_a = d[3] > src_a ? d[3] - src_a : src_a - d[3];
 						}
-						else if (layBlend == "dark")
+						else if (layBlend ==  QLatin1String("dark"))
 						{
 							src_r = d[0]  < src_r ? d[0]  : src_r;
 							src_g = d[1] < src_g ? d[1] : src_g;
@@ -1176,7 +1176,7 @@ bool ScImgDataLoader_PSD::loadLayerChannels( QDataStream & s, const PSDHeader & 
 							if (header.color_mode == CM_CMYK)
 								src_a = d[3] < src_a ? d[3] : src_a;
 						}
-						else if (layBlend == "hLit")
+						else if (layBlend ==  QLatin1String("hLit"))
 						{
 							src_r = src_r < 128 ? src_r * d[0] / 128 : 255 - ((255-src_r) * (255-d[0]) / 128);
 							src_g = src_g < 128 ? src_g * d[1] / 128 : 255 - ((255-src_g) * (255-d[1]) / 128);
@@ -1184,7 +1184,7 @@ bool ScImgDataLoader_PSD::loadLayerChannels( QDataStream & s, const PSDHeader & 
 							if (header.color_mode == CM_CMYK)
 								src_a = src_a < 128 ? src_a * d[3] / 128 : 255 - ((255-src_a) * (255-d[3]) / 128);
 						}
-						else if (layBlend == "sLit")
+						else if (layBlend ==  QLatin1String("sLit"))
 						{
 							src_r = src_r * d[0] / 256 + src_r * (255 - ((255-src_r)*(255-d[0]) / 256) - src_r * d[0] / 256) / 256;
 							src_g = src_g * d[1] / 256 + src_g * (255 - ((255-src_g)*(255-d[1]) / 256) - src_g * d[1] / 256) / 256;
@@ -1192,7 +1192,7 @@ bool ScImgDataLoader_PSD::loadLayerChannels( QDataStream & s, const PSDHeader & 
 							if (header.color_mode == CM_CMYK)
 								src_a = src_a * d[3] / 256 + src_a * (255 - ((255-src_a)*(255-d[3]) / 256) - src_a * d[3] / 256) / 256;
 						}
-						else if (layBlend == "lite")
+						else if (layBlend ==  QLatin1String("lite"))
 						{
 							src_r = d[0] < src_r ? src_r : d[0];
 							src_g = d[1] < src_g ? src_g : d[1];
@@ -1200,7 +1200,7 @@ bool ScImgDataLoader_PSD::loadLayerChannels( QDataStream & s, const PSDHeader & 
 							if (header.color_mode == CM_CMYK)
 								src_a = d[3] < src_a ? src_a : d[3];
 						}
-						else if (layBlend == "smud")
+						else if (layBlend ==  QLatin1String("smud"))
 						{
 							src_r = d[0] + src_r - src_r * d[0] / 128;
 							src_g = d[1] + src_g - src_g * d[1] / 128;
@@ -1208,7 +1208,7 @@ bool ScImgDataLoader_PSD::loadLayerChannels( QDataStream & s, const PSDHeader & 
 							if (header.color_mode == CM_CMYK)
 								src_a = d[3] + src_a - src_a * d[3] / 128;
 						}
-						else if (layBlend == "div ")
+						else if (layBlend ==  QLatin1String("div "))
 						{
 							src_r = src_r == 255 ? 255 : ((d[0] * 256) / (255-src_r)) > 255 ? 255 : (d[0] * 256) / (255-src_r);
 							src_g = src_g == 255 ? 255 : ((d[1] * 256) / (255-src_g)) > 255 ? 255 : (d[1] * 256) / (255-src_g);
@@ -1216,7 +1216,7 @@ bool ScImgDataLoader_PSD::loadLayerChannels( QDataStream & s, const PSDHeader & 
 							if (header.color_mode == CM_CMYK)
 								src_a = src_a == 255 ? 255 : ((d[3] * 256) / (255-src_a)) > 255 ? 255 : (d[3] * 256) / (255-src_a);
 						}
-						else if (layBlend == "idiv")
+						else if (layBlend ==  QLatin1String("idiv"))
 						{
 							src_r = src_r == 0 ? 0 : (255 - (((255-d[0]) * 256) / src_r)) < 0 ? 0 : 255 - (((255-d[0]) * 256) / src_r);
 							src_g = src_g == 0 ? 0 : (255 - (((255-d[1]) * 256) / src_g)) < 0 ? 0 : 255 - (((255-d[1]) * 256) / src_g);
@@ -1224,7 +1224,7 @@ bool ScImgDataLoader_PSD::loadLayerChannels( QDataStream & s, const PSDHeader & 
 							if (header.color_mode == CM_CMYK)
 								src_a = src_a == 0 ? 0 : (255 - (((255-d[3]) * 256) / src_a)) < 0 ? 0 : 255 - (((255-d[3]) * 256) / src_a);
 						}
-						else if (layBlend == "hue ")
+						else if (layBlend ==  QLatin1String("hue "))
 						{
 							if (header.color_mode != CM_CMYK)
 							{
@@ -1240,7 +1240,7 @@ bool ScImgDataLoader_PSD::loadLayerChannels( QDataStream & s, const PSDHeader & 
 								src_b = new_b;
 							}
 						}
-						else if (layBlend == "sat ")
+						else if (layBlend ==  QLatin1String("sat "))
 						{
 							if (header.color_mode != CM_CMYK)
 							{
@@ -1256,7 +1256,7 @@ bool ScImgDataLoader_PSD::loadLayerChannels( QDataStream & s, const PSDHeader & 
 								src_b = new_b;
 							}
 						}
-						else if (layBlend == "lum ")
+						else if (layBlend ==  QLatin1String("lum "))
 						{
 							if (header.color_mode != CM_CMYK)
 							{
@@ -1272,7 +1272,7 @@ bool ScImgDataLoader_PSD::loadLayerChannels( QDataStream & s, const PSDHeader & 
 								src_b = new_b;
 							}
 						}
-						else if (layBlend == "colr")
+						else if (layBlend ==  QLatin1String("colr"))
 						{
 							if (header.color_mode != CM_CMYK)
 							{
@@ -1306,7 +1306,7 @@ bool ScImgDataLoader_PSD::loadLayerChannels( QDataStream & s, const PSDHeader & 
 							b = (d[2] * (255 - src_alpha) + src_b * src_alpha) / 255;
 							if (header.color_mode == CM_CMYK)
 								a = (d[3] * (255 - src_alpha) + src_a * src_alpha) / 255;
-							if (layBlend != "diss")
+							if (layBlend !=  QLatin1String("diss"))
 								src_alpha = dst_alpha + INT_MULT(255 - dst_alpha, src_alpha);
 						}
 					}
