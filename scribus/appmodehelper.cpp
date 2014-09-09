@@ -62,7 +62,7 @@ void AppModeHelper::resetApplicationMode(ScribusMainWindow* scmw, int newMode)
 void AppModeHelper::setApplicationMode(ScribusMainWindow* scmw, ScribusDoc* doc, int newMode)
 {
 	//Application modes start at 1 (appmodes.h), canvasmodes start at 1000 (canvasmode.h)
-	assert(mode < submodeFirstSubmode);
+	assert(newMode < submodeFirstSubmode);
 
 	//If no doc and we end here, just reset the tool actions
 	if (doc==NULL)
