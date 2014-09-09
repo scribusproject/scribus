@@ -15,6 +15,7 @@ for which a new license (GPL+exception) is in place.
 */
 
 #include "appmodehelper.h"
+#include "appmodes.h"
 #include "pageitem.h"
 #include "pageitem_table.h"
 #include "pluginmanager.h"
