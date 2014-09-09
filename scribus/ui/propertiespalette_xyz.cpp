@@ -14,6 +14,7 @@ for which a new license (GPL+exception) is in place.
 #endif
 #include <cmath>
 
+#include "appmodehelper.h"
 #include "appmodes.h"
 #include "autoform.h"
 #include "basepointwidget.h"
@@ -150,7 +151,7 @@ void PropertiesPalette_XYZ::setMainWindow(ScribusMainWindow* mw)
 {
 	m_ScMW = mw;
 
-	connect(mw, SIGNAL(AppModeChanged(int, int)), this, SLOT(handleAppModeChanged(int, int)));
+	connect(mw->appModeHelper, SIGNAL(AppModeChanged(int, int)), this, SLOT(handleAppModeChanged(int, int)));
 }
 
 void PropertiesPalette_XYZ::setDoc(ScribusDoc *d)

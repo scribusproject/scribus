@@ -11,7 +11,7 @@ for which a new license (GPL+exception) is in place.
 #include <QListWidgetItem>
 #include <QWidget>
 
-
+#include "appmodehelper.h"
 #include "appmodes.h"
 #include "colorcombo.h"
 #include "commonstrings.h"
@@ -65,8 +65,8 @@ void PropertiesPalette_Table::setMainWindow(ScribusMainWindow* mainWindow)
 	m_mainWindow = mainWindow;
 
 	connect(m_mainWindow, SIGNAL(UpdateRequest(int)), SLOT(handleUpdateRequest(int)));
-	connect(m_mainWindow, SIGNAL(AppModeChanged(int,int)), this, SLOT(updateFillControls()));
-	connect(m_mainWindow, SIGNAL(AppModeChanged(int,int)), this, SLOT(updateStyleControls()));
+	connect(m_mainWindow->appModeHelper, SIGNAL(AppModeChanged(int,int)), this, SLOT(updateFillControls()));
+	connect(m_mainWindow->appModeHelper, SIGNAL(AppModeChanged(int,int)), this, SLOT(updateStyleControls()));
 }
 
 void PropertiesPalette_Table::setDocument(ScribusDoc *doc)

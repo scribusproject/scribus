@@ -68,6 +68,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "appmodes.h"
 #include "actionmanager.h"
+#include "appmodehelper.h"
 #include "canvas.h"
 #include "canvasgesture.h"
 #include "canvasmode.h"
@@ -328,7 +329,7 @@ void ScribusView::togglePreview(bool inPreview)
 		Doc->previewVisual = 0;
 		m_ScMW->viewToolBar->setDoc(Doc);
 	}
-	m_ScMW->appModeHelper.setPreviewMode(inPreview);
+	m_ScMW->appModeHelper->setPreviewMode(inPreview);
 	m_ScMW->setPreviewToolbar();
 	m_ScMW->viewToolBar->setViewPreviewMode(inPreview);
 	ScGuardedPtr<ScribusDoc> docPtr = Doc->guardedPtr();
@@ -476,18 +477,15 @@ void ScribusView::requestMode(int appMode)
 			break;
 		default:
 			if (appMode < 0 || appMode > submodeFirstSubmode)
-			{
-//				qDebug() << "request mode: UNKNOWN" << appMode;
 				appMode = modeNormal;
-			}
 			m_previousMode = appMode;
 			break;
 	}
 
-//	qDebug() << "request mode" << Doc->appMode << "-->" << appMode;
 	if (Doc->appMode != appMode)
 	{
-		m_ScMW->setAppMode(appMode);
+		//m_ScMW->setAppMode(appMode);
+		m_ScMW->appModeHelper->setApplicationMode(m_ScMW, Doc, appMode);
 		CanvasMode* newCanvasMode = modeInstances.value(appMode);
 		if (!newCanvasMode)
 		{
@@ -496,7 +494,6 @@ void ScribusView::requestMode(int appMode)
 		}
 		if (newCanvasMode)
 		{
-//			qDebug() << "request canvas mode" << typeid(*newCanvasMode).name();
 			m_canvasMode->deactivate(false);
 			m_canvasMode = newCanvasMode;
 			m_canvasMode->activate(false);
@@ -504,9 +501,97 @@ void ScribusView::requestMode(int appMode)
 		updateNecessary = true;
 	}
 	else
-		m_ScMW->setAppMode(appMode);
+	{
+		//m_ScMW->setAppMode(appMode);
+		m_ScMW->appModeHelper->setApplicationMode(m_ScMW, Doc, appMode);
+	}
 	if (updateNecessary)
 		updateCanvas();
+	setCursorBasedOnAppMode(appMode);
+}
+
+void ScribusView::setCursorBasedOnAppMode(int appMode)
+{
+	int docSelectionCount = Doc->m_Selection->count();
+	switch (appMode)
+	{
+		case modeDrawShapes:
+		case modeDrawArc:
+		case modeDrawSpiral:
+			if (docSelectionCount!=0)
+				Deselect(true);
+			setCursor(QCursor(loadIcon("DrawFrame.xpm")));
+			break;
+		case modeDrawImage:
+			if (docSelectionCount!=0)
+				Deselect(true);
+			setCursor(QCursor(loadIcon("DrawImageFrame.xpm")));
+			break;
+		case modeDrawLatex:
+			if (docSelectionCount!=0)
+				Deselect(true);
+			setCursor(QCursor(loadIcon("DrawLatexFrame.xpm")));
+			break;
+		case modeDrawText:
+			if (docSelectionCount!=0)
+				Deselect(true);
+			setCursor(QCursor(loadIcon("DrawTextFrame.xpm")));
+			break;
+		case modeDrawTable2:
+			if (docSelectionCount!=0)
+				Deselect(true);
+			setCursor(QCursor(loadIcon("DrawTable.xpm")));
+			break;
+		case modeDrawRegularPolygon:
+			if (docSelectionCount!=0)
+				Deselect(true);
+			setCursor(QCursor(loadIcon("DrawPolylineFrame.xpm")));
+			break;
+		case modeMagnifier:
+			if (docSelectionCount!=0)
+				Deselect(true);
+			Magnify = true;
+			setCursor(QCursor(loadIcon("LupeZ.xpm")));
+			break;
+		case modePanning:
+			setCursor(QCursor(loadIcon("HandC.xpm")));
+			break;
+		case modeDrawLine:
+		case modeDrawBezierLine:
+			setCursor(QCursor(Qt::CrossCursor));
+			break;
+		case modeDrawCalligraphicLine:
+		case modeDrawFreehandLine:
+			setCursor(QCursor(loadIcon("DrawFreeLine.png"), 0, 32));
+			break;
+		case modeEyeDropper:
+			setCursor(QCursor(loadIcon("colorpickercursor.png"), 0, 32));
+			break;
+		case modeInsertPDFButton:
+		case modeInsertPDFRadioButton:
+		case modeInsertPDFTextfield:
+		case modeInsertPDFCheckbox:
+		case modeInsertPDFCombobox:
+		case modeInsertPDFListbox:
+		case modeInsertPDFTextAnnotation:
+		case modeInsertPDFLinkAnnotation:
+		case modeInsertPDF3DAnnotation:
+			if (docSelectionCount!=0)
+				Deselect(true);
+			setCursor(QCursor(Qt::CrossCursor));
+			break;
+		case modeMeasurementTool:
+		case modeEditGradientVectors:
+		case modeEditMeshGradient:
+		case modeEditArc:
+		case modeEditPolygon:
+		case modeEditSpiral:
+			setCursor(QCursor(Qt::CrossCursor));
+			break;
+		default:
+			setCursor(QCursor(Qt::ArrowCursor));
+		break;
+	}
 }
 
 

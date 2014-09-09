@@ -59,10 +59,10 @@ class QQuickView;
 #include "scribusdoc.h"
 #include "styleoptions.h"
 #include "ui/customfdialog.h"
-#include "appmodehelper.h"
 
 class ActionManager;
 class AlignDistributePalette;
+class AppModeHelper;
 class Autoforms;
 class Biblio;
 class BookPalette;
@@ -255,7 +255,7 @@ public:
 	ScribusWin* ActWin;
 	QClipboard *ClipB;
 	QString LoadEnc;
-	AppModeHelper appModeHelper;
+	AppModeHelper *appModeHelper;
 
 	QProcess *ExternalApp;
 
@@ -452,7 +452,7 @@ public slots:
 	void slotSelect();
 	/** \brief Switch appMode
 	\param mode TODO learn modes*/
-	void setAppMode(int mode);
+	//void setAppMode(int mode);
 	void setAppModeByToggle(bool isOn, int newMode);
 	/** \brief Neues Dokument erzeugt */
 	void HaveNewDoc();
@@ -575,9 +575,11 @@ public slots:
 	void testQT_slot4();
 	//void adjustCMS();
 	void changePreviewQuality(int index);
+	void ToggleFrameEdit();
+	void NoFrameEdit();
 
 signals:
-	void AppModeChanged(int oldMode, int newMode);
+	//void AppModeChanged(int oldMode, int newMode);
 	void TextStyle(const ParagraphStyle&);
 //deprecated: (av)
 	void TextEffects(int);
@@ -608,8 +610,7 @@ private:
 	void initScrapbook();
 
 	void updateColorMenu(QProgressBar* progressBar=NULL);
-	void ToggleFrameEdit();
-	void NoFrameEdit();
+
 
 	int ScriptRunning;
 

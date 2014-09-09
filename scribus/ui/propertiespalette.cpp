@@ -29,6 +29,8 @@ for which a new license (GPL+exception) is in place.
 #define _USE_MATH_DEFINES
 #endif
 #include <cmath>
+
+#include "appmodehelper.h"
 #include "appmodes.h"
 #include "arrowchooser.h"
 #include "autoform.h"
@@ -181,7 +183,7 @@ void PropertiesPalette::setMainWindow(ScribusMainWindow* mw)
 	//connect(this->Cpal, SIGNAL(gradientChanged()), m_ScMW, SLOT(updtGradFill()));
 	//connect(this->Cpal, SIGNAL(strokeGradientChanged()), m_ScMW, SLOT(updtGradStroke()));
 	connect(this->Tpal, SIGNAL(gradientChanged()), this, SLOT(handleGradientChanged()));
-	connect(m_ScMW, SIGNAL(AppModeChanged(int,int)), this, SLOT(AppModeChanged()));
+	connect(m_ScMW->appModeHelper, SIGNAL(AppModeChanged(int,int)), this, SLOT(AppModeChanged()));
 }
 
 void PropertiesPalette::SelTab(int t)

@@ -111,6 +111,7 @@ public:
 	friend class CanvasMode_Rotate;
 	
 	void requestMode(int appMode);
+	void setCursorBasedOnAppMode(int appMode);
 	void startGesture(CanvasGesture*);
 	void stopGesture();
 	

@@ -95,6 +95,7 @@ for which a new license (GPL+exception) is in place.
 
 
 #include "actionmanager.h"
+#include "appModeHelper.h"
 #include "appmodes.h"
 #include "canvasmode.h"
 #include "canvasmode_imageimport.h"
@@ -290,6 +291,7 @@ extern bool emergencyActivated;
 ScribusMainWindow::ScribusMainWindow()
 {
 	actionManager=0;
+	appModeHelper=0;
 	scrMenuMgr=0;
 	prefsManager=0;
 	formatsManager=0;
@@ -355,7 +357,8 @@ int ScribusMainWindow::initScMW(bool primaryMainWindow)
 	scrLayersActions.clear();
 	scrScrapActions.clear();
 	actionManager = new ActionManager(this);
-	appModeHelper.setup(actionManager, &scrActions);
+	appModeHelper = new AppModeHelper();
+	appModeHelper->setup(actionManager, &scrActions);
 	scrMenuMgr = new ScMWMenuManager(menuBar(), actionManager);
 	prefsManager = PrefsManager::instance();
 	formatsManager = FormatsManager::instance();
@@ -476,6 +479,8 @@ ScribusMainWindow::~ScribusMainWindow()
 {
 	if (actionManager)
 		delete actionManager;
+	if (appModeHelper)
+		delete appModeHelper;
 	delete m_doc;
 }
 
@@ -2564,7 +2569,7 @@ void ScribusMainWindow::SwitchWin()
 		doc->appMode = modeNormal;
 		view->requestMode(submodeEndNodeEdit);
 	} */
-	appModeHelper.mainWindowSwitchWin(doc);
+	appModeHelper->mainWindowSwitchWin(doc);
 
 	if (doc->masterPageMode() || doc->symbolEditMode() || doc->inlineEditMode())
 		pagePalette->enablePalette(false);
@@ -2579,7 +2584,7 @@ void ScribusMainWindow::SwitchWin()
 
 void ScribusMainWindow::HaveNewDoc()
 {
-	appModeHelper.mainWindowHasNewDoc(doc, (ScMimeData::clipboardHasScribusData()) || (scrapbookPalette->tempHasContents()));
+	appModeHelper->mainWindowHasNewDoc(doc, (ScMimeData::clipboardHasScribusData()) || (scrapbookPalette->tempHasContents()));
 
 	//Update palettes
 	updateActiveWindowCaption(doc->DocName);
@@ -2686,7 +2691,7 @@ void ScribusMainWindow::HaveNewSel()
 		scrActions["itemPreviewLow"]->setChecked(false);
 	}
 	if ((SelectedType==-1) || (SelectedType!=-1 && !currItem->asTextFrame()))
-		appModeHelper.enableTextActions(false);
+		appModeHelper->enableTextActions(false);
 	scrActions["insertSampleText"]->setEnabled(false);
 
 	view->horizRuler->textMode(false);
@@ -2892,7 +2897,7 @@ void ScribusMainWindow::HaveNewSel()
 			charPalette->setEnabled(true, currItem);
 			if (currItem->asTextFrame())
 			{
-				appModeHelper.enableTextActions(true, currItem->currentStyle().charStyle().font().scName());
+				appModeHelper->enableTextActions(true, currItem->currentStyle().charStyle().font().scName());
 				currItem->asTextFrame()->togleEditModeActions();
 			}
 			view->horizRuler->setItem(currItem);
@@ -2923,7 +2928,7 @@ void ScribusMainWindow::HaveNewSel()
 		{
 			charPalette->setEnabled(true, currItem);
 			PageItem *i2 = currItem->asTable()->activeCell().textFrame();
-			appModeHelper.enableTextActions(true, i2->currentCharStyle().font().scName());
+			appModeHelper->enableTextActions(true, i2->currentCharStyle().font().scName());
 			scrActions["insertSampleText"]->setEnabled(true);
 			scrActions["toolsEditWithStoryEditor"]->setEnabled(true);
 		}
@@ -4712,7 +4717,7 @@ bool ScribusMainWindow::DoFileClose()
 	{
 		PluginManager& pluginManager(PluginManager::instance());
 		pluginManager.enableOnlyStartupPluginActions(this);
-		appModeHelper.mainWindowCloseLastDoc();
+		appModeHelper->mainWindowCloseLastDoc();
 		mainWindowStatusLabel->setText( tr("Ready"));
 		PrinterUsed = false;
 	}
@@ -4929,10 +4934,8 @@ void ScribusMainWindow::slotFileQuit()
 
 void ScribusMainWindow::slotEditCut()
 {
-//	int a;
 	if (HaveDoc && doc->appMode == modeEditClip)
 		view->requestMode(submodeEndNodeEdit);
-	QString BufferI = "";
 	uint docSelectionCount=doc->m_Selection->count();
 	if ((HaveDoc) && (docSelectionCount != 0))
 	{
@@ -5024,12 +5027,14 @@ void ScribusMainWindow::slotEditCut()
 
 void ScribusMainWindow::slotEditCopy()
 {
-//	int a;
-	if (HaveDoc && doc->appMode == modeEditClip)
+	if (!HaveDoc)
+		return;
+	if (doc->appMode == modeEditClip)
 		view->requestMode(submodeEndNodeEdit);
-	QString BufferI = "";
-	if ((HaveDoc) && (!doc->m_Selection->isEmpty()))
+
+	if (!doc->m_Selection->isEmpty())
 	{
+//		QString BufferI = "";
 		PageItem *currItem = doc->m_Selection->itemAt(0);
 		if (((doc->appMode == modeEdit) || (doc->appMode == modeEditTable)) && (currItem->isTextFrame() || currItem->isTable()))
 		{
@@ -5043,7 +5048,7 @@ void ScribusMainWindow::slotEditCopy()
 				StoryText itemText(doc);
 				itemText.setDefaultStyle(cItem->itemText.defaultStyle());
 				itemText.insert(0, cItem->itemText, true);
-				BufferI = itemText.text(0, itemText.length());
+//				BufferI = itemText.text(0, itemText.length());
 				std::ostringstream xmlString;
 				SaxXML xmlStream(xmlString);
 				xmlStream.beginDoc();
@@ -5464,20 +5469,10 @@ void ScribusMainWindow::SelectAll(bool docWideSelect)
 
 void ScribusMainWindow::deselectAll()
 {
-	bool inEditMode=false;
+	if (!HaveDoc)
+		return;
 
-	if (doc->appMode == modeEdit ||
-		doc->appMode == modeEditTable ||
-		doc->appMode == modeEditSpiral ||
-		doc->appMode == modeEditGradientVectors ||
-		doc->appMode == modeEditClip ||
-		doc->appMode == modeEditMeshGradient ||
-		doc->appMode == modeEditArc ||
-		doc->appMode == modeEditMeshPatch ||
-		doc->appMode == modeEditWeldPoint
-		)
-		inEditMode=true;
-
+	bool inEditMode=appModeHelper->inAnEditMode(doc);
 	if (inEditMode)
 	{
 		if (doc->m_Selection->isEmpty())
@@ -6244,7 +6239,7 @@ void ScribusMainWindow::ToggleFrameEdit()
 	connect(view, SIGNAL(HavePoint(bool, bool)), nodePalette, SLOT(HaveNode(bool, bool)));
 	connect(view, SIGNAL(PolyStatus(int, uint)), nodePalette, SLOT(PolyStatus(int, uint)));
 	doc->nodeEdit.reset();
-	appModeHelper.setFrameEditMode(true);
+	appModeHelper->setFrameEditMode(true);
 	layerPalette->setEnabled(false);
 	outlinePalette->setEnabled(false);
 	guidePalette->setEnabled(false);
@@ -6296,7 +6291,7 @@ void ScribusMainWindow::NoFrameEdit()
 	actionManager->disconnectModeActions();
 	nodePalette->setDoc(0,0);
 	nodePalette->hide();
-	appModeHelper.setFrameEditMode(false);
+	appModeHelper->setFrameEditMode(false);
 	scrActions["toolsSelect"]->setChecked(true);
 	scrActions["toolsEditContents"]->setChecked(false);
 	scrActions["toolsEditWithStoryEditor"]->setChecked(false);
@@ -6333,7 +6328,7 @@ void ScribusMainWindow::slotSelect()
 	if (doc)
 		view->requestMode(modeNormal);
 	else
-		setAppMode(modeNormal);
+		appModeHelper->resetApplicationMode(this, modeNormal);
 }
 
 void ScribusMainWindow::setAppModeByToggle(bool isOn, int newMode)
@@ -6352,352 +6347,325 @@ void ScribusMainWindow::setAppModeByToggle(bool isOn, int newMode)
 		slotSelect();
 }
 
+/*
 void ScribusMainWindow::setAppMode(int mode)
 {
+
 	assert(mode < submodeFirstSubmode);
+	//If no doc and we end here, just reset the tool actions
+	if (!HaveDoc)
+	{	actionManager->disconnectModeActions();
+		appModeHelper->setModeActionsPerMode(mode);
+		actionManager->connectModeActions();
+		return;
+	}
 
-	//disconnect the tools actions so we dont fire them off
 	actionManager->disconnectModeActions();
-	//set the actions state based on incoming mode
-	scrActions["toolsSelect"]->setChecked(mode==modeNormal);
-	scrActions["toolsInsertTextFrame"]->setChecked(mode==modeDrawText);
-	scrActions["toolsInsertImageFrame"]->setChecked(mode==modeDrawImage);
-	scrActions["toolsInsertTable"]->setChecked(mode==modeDrawTable2);
-	scrActions["toolsInsertShape"]->setChecked(mode==modeDrawShapes);
-	scrActions["toolsInsertPolygon"]->setChecked(mode==modeDrawRegularPolygon);
-	scrActions["toolsInsertArc"]->setChecked(mode==modeDrawArc);
-	scrActions["toolsInsertSpiral"]->setChecked(mode==modeDrawSpiral);
-	scrActions["toolsInsertLine"]->setChecked(mode==modeDrawLine);
-	scrActions["toolsInsertBezier"]->setChecked(mode==modeDrawBezierLine);
-	scrActions["toolsInsertFreehandLine"]->setChecked(mode==modeDrawFreehandLine);
-	scrActions["toolsInsertCalligraphicLine"]->setChecked(mode == modeDrawCalligraphicLine);
-	scrActions["toolsInsertRenderFrame"]->setChecked(mode==modeDrawLatex);
-	scrActions["toolsRotate"]->setChecked(mode==modeRotation);
-	scrActions["toolsZoom"]->setChecked(mode==modeMagnifier);
-	scrActions["toolsEditContents"]->setChecked(mode==modeEdit);
-	scrActions["toolsEditWithStoryEditor"]->setChecked(mode==modeStoryEditor);
-	scrActions["toolsLinkTextFrame"]->setChecked(mode==modeLinkFrames);
-	scrActions["toolsUnlinkTextFrame"]->setChecked(mode==modeUnlinkFrames);
-//	scrActions["toolsUnlinkTextFrameWithTextCopy"]->setChecked(mode==modeUnlinkFrames);
-//	scrActions["toolsUnlinkTextFrameWithTextCut"]->setChecked(mode==modeUnlinkFrames);
-	scrActions["toolsEyeDropper"]->setChecked(mode==modeEyeDropper);
-	scrActions["toolsMeasurements"]->setChecked(mode==modeMeasurementTool);
-	scrActions["toolsCopyProperties"]->setChecked(mode==modeCopyProperties);
-	scrActions["toolsPDFPushButton"]->setChecked(mode==modeInsertPDFButton);
-	scrActions["toolsPDFRadioButton"]->setChecked(mode==modeInsertPDFRadioButton);
-	scrActions["toolsPDFTextField"]->setChecked(mode==modeInsertPDFTextfield);
-	scrActions["toolsPDFCheckBox"]->setChecked(mode==modeInsertPDFCheckbox);
-	scrActions["toolsPDFComboBox"]->setChecked(mode==modeInsertPDFCombobox);
-	scrActions["toolsPDFListBox"]->setChecked(mode==modeInsertPDFListbox);
-	scrActions["toolsPDFAnnotText"]->setChecked(mode==modeInsertPDFTextAnnotation);
-	scrActions["toolsPDFAnnotLink"]->setChecked(mode==modeInsertPDFLinkAnnotation);
-#ifdef HAVE_OSG
-	scrActions["toolsPDFAnnot3D"]->setChecked(mode==modeInsertPDF3DAnnotation);
-#endif
+	appModeHelper->setModeActionsPerMode(mode);
 
-	if (HaveDoc)
+
+	PageItem *currItem=0;
+	if (!doc->m_Selection->isEmpty())
+		currItem = doc->m_Selection->itemAt(0);
+	int oldMode = doc->appMode;
+	if (oldMode == modeEditClip && mode != modeEditClip)
+		NoFrameEdit();
+	else if (oldMode != modeEditClip && mode == modeEditClip)
+		ToggleFrameEdit();
+
+	//Ugly hack but I have absolutly no idea about how to do this in another way
+	if(UndoManager::undoEnabled() && currItem && oldMode != mode && (mode == modeEditMeshPatch || mode == modeEditMeshGradient || mode == modeEditGradientVectors || oldMode == modeEditMeshPatch || oldMode == modeEditMeshGradient || oldMode == modeEditGradientVectors || oldMode == modeEditPolygon || mode == modeEditPolygon || oldMode == modeEditArc || mode == modeEditArc || oldMode == modeEditSpiral || mode == modeEditSpiral))
 	{
-		PageItem *currItem=0;
-		if (!doc->m_Selection->isEmpty())
-			currItem = doc->m_Selection->itemAt(0);
-		int oldMode = doc->appMode;
-		if (oldMode == modeEditClip && mode != modeEditClip)
-			NoFrameEdit();
-		else if (oldMode != modeEditClip && mode == modeEditClip)
-			ToggleFrameEdit();
-
-		//Ugly hack but I have absolutly no idea about how to do this in another way
-		if(UndoManager::undoEnabled() && currItem && oldMode != mode && (mode == modeEditMeshPatch || mode == modeEditMeshGradient || mode == modeEditGradientVectors || oldMode == modeEditMeshPatch || oldMode == modeEditMeshGradient || oldMode == modeEditGradientVectors || oldMode == modeEditPolygon || mode == modeEditPolygon || oldMode == modeEditArc || mode == modeEditArc || oldMode == modeEditSpiral || mode == modeEditSpiral))
-		{
-			SimpleState *ss = new SimpleState(Um::Mode);
-			ss->set("CHANGE_MODE","change_mode");
-			ss->set("OLD",oldMode);
-			ss->set("NEW",mode);
-			undoManager->action(currItem,ss);
-		}
-		doc->appMode = mode;
+		SimpleState *ss = new SimpleState(Um::Mode);
+		ss->set("CHANGE_MODE","change_mode");
+		ss->set("OLD",oldMode);
+		ss->set("NEW",mode);
+		undoManager->action(currItem,ss);
+	}
+	doc->appMode = mode;
 //		if (oldMode == modeMeasurementTool)
 //			disconnect(view, SIGNAL(MVals(double, double, double, double, double, double, int )), measurementPalette, SLOT(setValues(double, double, double, double, double, double, int )));
-/*		if (mode != modeEdit && doc->CurTimer!=NULL)
-		{
-			disconnect(doc->CurTimer, SIGNAL(timeout()), view, SLOT(blinkCursor()));
-			doc->CurTimer->stop();
-			delete doc->CurTimer;
-			doc->CurTimer = NULL;
-		} */
+//		if (mode != modeEdit && doc->CurTimer!=NULL)
+//	{
+//		disconnect(doc->CurTimer, SIGNAL(timeout()), view, SLOT(blinkCursor()));
+//		doc->CurTimer->stop();
+//		delete doc->CurTimer;
+//		doc->CurTimer = NULL;
+//	}
 
-		// Restore/save action shortcuts when entering/leaving edit mode.
-		if (mode!=modeEdit && oldMode==modeEdit)
-			actionManager->restoreActionShortcutsPostEditMode();
-		else
-		if (mode==modeEdit && oldMode!=modeEdit)
-			actionManager->saveActionShortcutsPreEditMode();
+	// Restore/save action shortcuts when entering/leaving edit mode.
+	if (mode!=modeEdit && oldMode==modeEdit)
+		actionManager->restoreActionShortcutsPostEditMode();
+	else
+	if (mode==modeEdit && oldMode!=modeEdit)
+		actionManager->saveActionShortcutsPreEditMode();
 
-		// Restore/save action shortcuts when entering/leaving table edit mode.
-		if (mode != modeEditTable && oldMode == modeEditTable)
-		{
-			outlinePalette->setEnabled(true);
-			charPalette->setEnabled(false, 0);
-			appModeHelper.enableTextActions(false);
-			scrActions["insertSampleText"]->setEnabled(false);
-			scrActions["toolsEditWithStoryEditor"]->setEnabled(false);
-			actionManager->restoreActionShortcutsPostEditMode();
-		}
-		else if (mode == modeEditTable && oldMode != modeEditTable)
-		{
-			outlinePalette->setEnabled(false);
-			charPalette->setEnabled(true, currItem);
-			scrActions["insertSampleText"]->setEnabled(true);
-			scrActions["toolsEditWithStoryEditor"]->setEnabled(true);
-			PageItem *i2 = currItem->asTable()->activeCell().textFrame();
-			appModeHelper.enableTextActions(true, i2->currentCharStyle().font().scName());
-			actionManager->saveActionShortcutsPreEditMode();
-		}
-		if (oldMode == modeEdit)
-		{
-			zoomSpinBox->setFocusPolicy(Qt::ClickFocus);
-			pageSelector->setFocusPolicy(Qt::ClickFocus);
-			scrActions["editClearContents"]->setEnabled(false);
-			scrActions["editTruncateContents"]->setEnabled(false);
-			charPalette->setEnabled(false, 0);
+	// Restore/save action shortcuts when entering/leaving table edit mode.
+	if (mode != modeEditTable && oldMode == modeEditTable)
+	{
+		outlinePalette->setEnabled(true);
+		charPalette->setEnabled(false, 0);
+		appModeHelper->enableTextActions(false);
+		scrActions["insertSampleText"]->setEnabled(false);
+		scrActions["toolsEditWithStoryEditor"]->setEnabled(false);
+		actionManager->restoreActionShortcutsPostEditMode();
+	}
+	else if (mode == modeEditTable && oldMode != modeEditTable)
+	{
+		outlinePalette->setEnabled(false);
+		charPalette->setEnabled(true, currItem);
+		scrActions["insertSampleText"]->setEnabled(true);
+		scrActions["toolsEditWithStoryEditor"]->setEnabled(true);
+		PageItem *i2 = currItem->asTable()->activeCell().textFrame();
+		appModeHelper->enableTextActions(true, i2->currentCharStyle().font().scName());
+		actionManager->saveActionShortcutsPreEditMode();
+	}
+	if (oldMode == modeEdit)
+	{
+		zoomSpinBox->setFocusPolicy(Qt::ClickFocus);
+		pageSelector->setFocusPolicy(Qt::ClickFocus);
+		scrActions["editClearContents"]->setEnabled(false);
+		scrActions["editTruncateContents"]->setEnabled(false);
+		charPalette->setEnabled(false, 0);
 //			view->slotDoCurs(false);
-			if (currItem != 0)
-			{
-				currItem->update();
-				if (currItem->asTextFrame())
-					appModeHelper.enableTextActions(false);
-				//		scrMenuMgr->setMenuEnabled("Item", true);
-				scrActions["itemDuplicate"]->setEnabled(true);
-				scrActions["itemMulDuplicate"]->setEnabled(true);
-				scrActions["itemTransform"]->setEnabled(true);
-				scrActions["itemDelete"]->setEnabled(true);
-				scrActions["itemRaise"]->setEnabled(true);
-				scrActions["itemLower"]->setEnabled(true);
-				scrActions["itemRaiseToTop"]->setEnabled(true);
-				scrActions["itemLowerToBottom"]->setEnabled(true);
-//				scrActions["itemSendToScrapbook"]->setEnabled(true);
-				scrMenuMgr->setMenuEnabled("itemSendToScrapbook", true);
-				scrActions["itemSendToPattern"]->setEnabled(true);
-				scrActions["itemSendToInline"]->setEnabled(true);
-				scrActions["itemAdjustFrameToImage"]->setEnabled(true);
-				scrActions["itemAdjustImageToFrame"]->setEnabled(true);
-				scrActions["itemExtendedImageProperties"]->setEnabled(true);
-				scrActions["itemUpdateImage"]->setEnabled(true);
-				scrActions["itemPreviewFull"]->setEnabled(true);
-				scrActions["itemPreviewNormal"]->setEnabled(true);
-				scrActions["itemPreviewLow"]->setEnabled(true);
-				scrActions["itemAttributes"]->setEnabled(true);
-			}
-			view->horizRuler->textMode(false);
-			view->horizRuler->update();
-		}
-		if (mode == modeEdit)
+		if (currItem != 0)
 		{
+			currItem->update();
+			if (currItem->asTextFrame())
+				appModeHelper->enableTextActions(false);
+			//		scrMenuMgr->setMenuEnabled("Item", true);
+			scrActions["itemDuplicate"]->setEnabled(true);
+			scrActions["itemMulDuplicate"]->setEnabled(true);
+			scrActions["itemTransform"]->setEnabled(true);
+			scrActions["itemDelete"]->setEnabled(true);
+			scrActions["itemRaise"]->setEnabled(true);
+			scrActions["itemLower"]->setEnabled(true);
+			scrActions["itemRaiseToTop"]->setEnabled(true);
+			scrActions["itemLowerToBottom"]->setEnabled(true);
+//				scrActions["itemSendToScrapbook"]->setEnabled(true);
+			scrMenuMgr->setMenuEnabled("itemSendToScrapbook", true);
+			scrActions["itemSendToPattern"]->setEnabled(true);
+			scrActions["itemSendToInline"]->setEnabled(true);
+			scrActions["itemAdjustFrameToImage"]->setEnabled(true);
+			scrActions["itemAdjustImageToFrame"]->setEnabled(true);
+			scrActions["itemExtendedImageProperties"]->setEnabled(true);
+			scrActions["itemUpdateImage"]->setEnabled(true);
+			scrActions["itemPreviewFull"]->setEnabled(true);
+			scrActions["itemPreviewNormal"]->setEnabled(true);
+			scrActions["itemPreviewLow"]->setEnabled(true);
+			scrActions["itemAttributes"]->setEnabled(true);
+		}
+		view->horizRuler->textMode(false);
+		view->horizRuler->update();
+	}
+	if (mode == modeEdit)
+	{
 //			view->zoomSpinBox->setFocusPolicy(QWidget::NoFocus);
 // 			view->pageSelector->setFocusPolicy(QWidget::NoFocus);
-			if (currItem != 0)
-			{
+		if (currItem != 0)
+		{
 //				if ((currItem->itemType() == PageItem::Polygon) || (currItem->itemType() == PageItem::PolyLine) || (currItem->itemType() == PageItem::PathText))
 //				{
 //					doc->appMode = modeNormal;
 //					view->requestMode(modeEditClip);
 //					return;
 //				}
-				//setTBvals before placing cursor has no effect
-				currItem->itemText.setCursorPosition(0);
-				setTBvals(currItem);
-			}
-			scrActions["editPaste"]->setEnabled(false);
-			charPalette->setEnabled(true, currItem);
-			if (currItem!=NULL && currItem->asTextFrame())
-			{
-				appModeHelper.enableTextActions(true, currItem->currentCharStyle().font().scName());
-				currItem->asTextFrame()->togleEditModeActions();
-			}
-			if (ScMimeData::clipboardHasScribusData())
-			{
-				bool textFrameEditMode = ((currItem != NULL) && (currItem->asTextFrame()));
-				scrActions["editPaste"]->setEnabled( textFrameEditMode || (currItem == NULL) );
-			}
-//			view->slotDoCurs(true);
-			//		scrMenuMgr->setMenuEnabled("Item", false);
-			scrActions["itemDuplicate"]->setEnabled(false);
-			scrActions["itemMulDuplicate"]->setEnabled(false);
-			scrActions["itemTransform"]->setEnabled(false);
-			scrActions["itemDelete"]->setEnabled(false);
-			scrActions["itemRaise"]->setEnabled(false);
-			scrActions["itemLower"]->setEnabled(false);
-			scrActions["itemRaiseToTop"]->setEnabled(false);
-			scrActions["itemLowerToBottom"]->setEnabled(false);
-//			scrActions["itemSendToScrapbook"]->setEnabled(false);
-			scrMenuMgr->setMenuEnabled("itemSendToScrapbook", false);
-			scrActions["itemSendToPattern"]->setEnabled(false);
-			scrActions["itemSendToInline"]->setEnabled(false);
-			scrActions["itemAdjustFrameToImage"]->setEnabled(false);
-			scrActions["itemAdjustImageToFrame"]->setEnabled(false);
-			scrActions["itemExtendedImageProperties"]->setEnabled(false);
-			scrActions["itemUpdateImage"]->setEnabled(false);
-			scrActions["itemPreviewFull"]->setEnabled(false);
-			scrActions["itemPreviewNormal"]->setEnabled(false);
-			scrActions["itemPreviewLow"]->setEnabled(false);
-			scrActions["itemAttributes"]->setEnabled(false);
-/*			doc->CurTimer = new QTimer(view);
-			if (doc->CurTimer!=NULL)
-			{
-				connect(doc->CurTimer, SIGNAL(timeout()), view, SLOT(blinkCursor()));
-				doc->CurTimer->start(500);
-			} */
-			if (currItem != 0)
-			{
-				scrActions["editCut"]->setEnabled(currItem->HasSel);
-				scrActions["editCopy"]->setEnabled(currItem->HasSel);
-				scrActions["editClearContents"]->setEnabled(currItem->HasSel);
-				scrActions["editTruncateContents"]->setEnabled(currItem->HasSel);
-				scrActions["editSearchReplace"]->setEnabled(true);
-
-				// Why the hell do you want to update the item here? - pm
-// 				currItem->update();
-			}
+			//setTBvals before placing cursor has no effect
+			currItem->itemText.setCursorPosition(0);
+			setTBvals(currItem);
 		}
-		//disable text action which work only text frame in edit mode
-		if ((mode != modeEdit) || (!currItem) || !currItem->isTextFrame())
-			appModeHelper.enableTextActions(false);
-		int docSelectionCount = doc->m_Selection->count();
-		if (mode == modeDrawBezierLine)
+		scrActions["editPaste"]->setEnabled(false);
+		charPalette->setEnabled(true, currItem);
+		if (currItem!=NULL && currItem->asTextFrame())
 		{
-			if ((docSelectionCount != 0) && (!prefsManager->appPrefs.uiPrefs.stickyTools))
-				view->Deselect(true);
-			view->FirstPoly = true;
+			appModeHelper->enableTextActions(true, currItem->currentCharStyle().font().scName());
+			currItem->asTextFrame()->togleEditModeActions();
 		}
-		if (mode == modeEditGradientVectors)
-			propertiesPalette->setGradientEditMode(true);
+		if (ScMimeData::clipboardHasScribusData())
+		{
+			bool textFrameEditMode = ((currItem != NULL) && (currItem->asTextFrame()));
+			scrActions["editPaste"]->setEnabled( textFrameEditMode || (currItem == NULL) );
+		}
+//			view->slotDoCurs(true);
+		//		scrMenuMgr->setMenuEnabled("Item", false);
+		scrActions["itemDuplicate"]->setEnabled(false);
+		scrActions["itemMulDuplicate"]->setEnabled(false);
+		scrActions["itemTransform"]->setEnabled(false);
+		scrActions["itemDelete"]->setEnabled(false);
+		scrActions["itemRaise"]->setEnabled(false);
+		scrActions["itemLower"]->setEnabled(false);
+		scrActions["itemRaiseToTop"]->setEnabled(false);
+		scrActions["itemLowerToBottom"]->setEnabled(false);
+//			scrActions["itemSendToScrapbook"]->setEnabled(false);
+		scrMenuMgr->setMenuEnabled("itemSendToScrapbook", false);
+		scrActions["itemSendToPattern"]->setEnabled(false);
+		scrActions["itemSendToInline"]->setEnabled(false);
+		scrActions["itemAdjustFrameToImage"]->setEnabled(false);
+		scrActions["itemAdjustImageToFrame"]->setEnabled(false);
+		scrActions["itemExtendedImageProperties"]->setEnabled(false);
+		scrActions["itemUpdateImage"]->setEnabled(false);
+		scrActions["itemPreviewFull"]->setEnabled(false);
+		scrActions["itemPreviewNormal"]->setEnabled(false);
+		scrActions["itemPreviewLow"]->setEnabled(false);
+		scrActions["itemAttributes"]->setEnabled(false);
+//			doc->CurTimer = new QTimer(view);
+//		if (doc->CurTimer!=NULL)
+//		{
+//			connect(doc->CurTimer, SIGNAL(timeout()), view, SLOT(blinkCursor()));
+//			doc->CurTimer->start(500);
+//		}
+		if (currItem != 0)
+		{
+			scrActions["editCut"]->setEnabled(currItem->HasSel);
+			scrActions["editCopy"]->setEnabled(currItem->HasSel);
+			scrActions["editClearContents"]->setEnabled(currItem->HasSel);
+			scrActions["editTruncateContents"]->setEnabled(currItem->HasSel);
+			scrActions["editSearchReplace"]->setEnabled(true);
+
+			// Why the hell do you want to update the item here? - pm
+// 				currItem->update();
+		}
+	}
+	//disable text action which work only text frame in edit mode
+	if ((mode != modeEdit) || (!currItem) || !currItem->isTextFrame())
+		appModeHelper->enableTextActions(false);
+	int docSelectionCount = doc->m_Selection->count();
+	if (mode == modeDrawBezierLine)
+	{
+		if ((docSelectionCount != 0) && (!prefsManager->appPrefs.uiPrefs.stickyTools))
+			view->Deselect(true);
+		view->FirstPoly = true;
+	}
+	if (mode == modeEditGradientVectors)
+		propertiesPalette->setGradientEditMode(true);
 //		if (mode == modeMeasurementTool)
 //		{
 //			measurementPalette->show();
 //			connect(view, SIGNAL(MVals(double, double, double, double, double, double, int)), measurementPalette, SLOT(setValues(double, double, double, double, double, double, int )));
 //		}
-		switch (mode)
-		{
-			case modeDrawShapes:
-			case modeDrawArc:
-			case modeDrawSpiral:
-				if (docSelectionCount!=0)
-					view->Deselect(true);
-				view->setCursor(QCursor(loadIcon("DrawFrame.xpm")));
-				break;
-			case modeDrawImage:
-				if (docSelectionCount!=0)
-					view->Deselect(true);
-				view->setCursor(QCursor(loadIcon("DrawImageFrame.xpm")));
-				break;
-			case modeDrawLatex:
-				if (docSelectionCount!=0)
-					view->Deselect(true);
-				view->setCursor(QCursor(loadIcon("DrawLatexFrame.xpm")));
-				break;
-			case modeDrawText:
-				if (docSelectionCount!=0)
-					view->Deselect(true);
-				view->setCursor(QCursor(loadIcon("DrawTextFrame.xpm")));
-				break;
-			case modeDrawTable2:
-				if (docSelectionCount!=0)
-					view->Deselect(true);
-				view->setCursor(QCursor(loadIcon("DrawTable.xpm")));
-				break;
-			case modeDrawRegularPolygon:
-				if (docSelectionCount!=0)
-					view->Deselect(true);
-				view->setCursor(QCursor(loadIcon("DrawPolylineFrame.xpm")));
-				break;
-			case modeMagnifier:
-				if (docSelectionCount!=0)
-					view->Deselect(true);
-				view->Magnify = true;
-				view->setCursor(QCursor(loadIcon("LupeZ.xpm")));
-				break;
-			case modePanning:
-				view->setCursor(QCursor(loadIcon("HandC.xpm")));
-				break;
-			case modeDrawLine:
-			case modeDrawBezierLine:
-				view->setCursor(QCursor(Qt::CrossCursor));
-				break;
-			case modeDrawCalligraphicLine:
-			case modeDrawFreehandLine:
-				view->setCursor(QCursor(loadIcon("DrawFreeLine.png"), 0, 32));
-				break;
-			case modeEyeDropper:
-				view->setCursor(QCursor(loadIcon("colorpickercursor.png"), 0, 32));
-				break;
-			case modeInsertPDFButton:
-			case modeInsertPDFRadioButton:
-			case modeInsertPDFTextfield:
-			case modeInsertPDFCheckbox:
-			case modeInsertPDFCombobox:
-			case modeInsertPDFListbox:
-			case modeInsertPDFTextAnnotation:
-			case modeInsertPDFLinkAnnotation:
-			case modeInsertPDF3DAnnotation:
-				if (docSelectionCount!=0)
-					view->Deselect(true);
-				view->setCursor(QCursor(Qt::CrossCursor));
-				break;
-			case modeMeasurementTool:
-			case modeEditGradientVectors:
-			case modeEditMeshGradient:
-			case modeEditArc:
-			case modeEditPolygon:
-			case modeEditSpiral:
-				view->setCursor(QCursor(Qt::CrossCursor));
-				outlinePalette->setEnabled(false);
-				break;
-			default:
-				view->setCursor(QCursor(Qt::ArrowCursor));
-			break;
-		}
-		if (mode == modeDrawShapes)
-		{
-			doc->SubMode = modeToolBar->SubMode;
-			doc->ShapeValues = modeToolBar->ShapeVals;
-			doc->ValCount = modeToolBar->ValCount;
-			emit UpdateRequest(reqCustomShapeUpdate);
-		}
-		else
-			doc->SubMode = -1;
-		if (mode == modeNormal)
-		{
-			propertiesPalette->setGradientEditMode(false);
-			outlinePalette->setEnabled(true);
-		}
-		if (mode == modeLinkFrames)
-			doc->ElemToLink = doc->m_Selection->itemAt(0);
-		if ((mode == modeLinkFrames) || (mode == modeUnlinkFrames) || (oldMode == modeLinkFrames) || (oldMode == modeUnlinkFrames))
-			doc->regionsChanged()->update(QRect());
-
-		if (mode == modeStoryEditor)
-		{
-			slotStoryEditor(oldMode == modeEditTable);
-			slotSelect();
-		}
-		if (mode == modeCopyProperties)
-		{
-			if (!doc->m_Selection->isEmpty())
-			{
-				doc->ElemToLink = doc->m_Selection->itemAt(0);
+	switch (mode)
+	{
+		case modeDrawShapes:
+		case modeDrawArc:
+		case modeDrawSpiral:
+			if (docSelectionCount!=0)
 				view->Deselect(true);
-				scrActions["toolsCopyProperties"]->setEnabled(true);
-			}
-		}
-		if (mode != modeNormal && mode != modeStoryEditor)
-			activateWindow();
-		PluginManager& pluginManager(PluginManager::instance());
-		pluginManager.enablePluginActionsForSelection(this);
-
-		emit AppModeChanged(oldMode, mode);
+			view->setCursor(QCursor(loadIcon("DrawFrame.xpm")));
+			break;
+		case modeDrawImage:
+			if (docSelectionCount!=0)
+				view->Deselect(true);
+			view->setCursor(QCursor(loadIcon("DrawImageFrame.xpm")));
+			break;
+		case modeDrawLatex:
+			if (docSelectionCount!=0)
+				view->Deselect(true);
+			view->setCursor(QCursor(loadIcon("DrawLatexFrame.xpm")));
+			break;
+		case modeDrawText:
+			if (docSelectionCount!=0)
+				view->Deselect(true);
+			view->setCursor(QCursor(loadIcon("DrawTextFrame.xpm")));
+			break;
+		case modeDrawTable2:
+			if (docSelectionCount!=0)
+				view->Deselect(true);
+			view->setCursor(QCursor(loadIcon("DrawTable.xpm")));
+			break;
+		case modeDrawRegularPolygon:
+			if (docSelectionCount!=0)
+				view->Deselect(true);
+			view->setCursor(QCursor(loadIcon("DrawPolylineFrame.xpm")));
+			break;
+		case modeMagnifier:
+			if (docSelectionCount!=0)
+				view->Deselect(true);
+			view->Magnify = true;
+			view->setCursor(QCursor(loadIcon("LupeZ.xpm")));
+			break;
+		case modePanning:
+			view->setCursor(QCursor(loadIcon("HandC.xpm")));
+			break;
+		case modeDrawLine:
+		case modeDrawBezierLine:
+			view->setCursor(QCursor(Qt::CrossCursor));
+			break;
+		case modeDrawCalligraphicLine:
+		case modeDrawFreehandLine:
+			view->setCursor(QCursor(loadIcon("DrawFreeLine.png"), 0, 32));
+			break;
+		case modeEyeDropper:
+			view->setCursor(QCursor(loadIcon("colorpickercursor.png"), 0, 32));
+			break;
+		case modeInsertPDFButton:
+		case modeInsertPDFRadioButton:
+		case modeInsertPDFTextfield:
+		case modeInsertPDFCheckbox:
+		case modeInsertPDFCombobox:
+		case modeInsertPDFListbox:
+		case modeInsertPDFTextAnnotation:
+		case modeInsertPDFLinkAnnotation:
+		case modeInsertPDF3DAnnotation:
+			if (docSelectionCount!=0)
+				view->Deselect(true);
+			view->setCursor(QCursor(Qt::CrossCursor));
+			break;
+		case modeMeasurementTool:
+		case modeEditGradientVectors:
+		case modeEditMeshGradient:
+		case modeEditArc:
+		case modeEditPolygon:
+		case modeEditSpiral:
+			view->setCursor(QCursor(Qt::CrossCursor));
+			outlinePalette->setEnabled(false);
+			break;
+		default:
+			view->setCursor(QCursor(Qt::ArrowCursor));
+		break;
 	}
+	if (mode == modeDrawShapes)
+	{
+		doc->SubMode = modeToolBar->SubMode;
+		doc->ShapeValues = modeToolBar->ShapeVals;
+		doc->ValCount = modeToolBar->ValCount;
+		emit UpdateRequest(reqCustomShapeUpdate);
+	}
+	else
+		doc->SubMode = -1;
+	if (mode == modeNormal)
+	{
+		propertiesPalette->setGradientEditMode(false);
+		outlinePalette->setEnabled(true);
+	}
+	if (mode == modeLinkFrames)
+		doc->ElemToLink = doc->m_Selection->itemAt(0);
+	if ((mode == modeLinkFrames) || (mode == modeUnlinkFrames) || (oldMode == modeLinkFrames) || (oldMode == modeUnlinkFrames))
+		doc->regionsChanged()->update(QRect());
+
+	if (mode == modeStoryEditor)
+	{
+		slotStoryEditor(oldMode == modeEditTable);
+		slotSelect();
+	}
+	if (mode == modeCopyProperties)
+	{
+		if (!doc->m_Selection->isEmpty())
+		{
+			doc->ElemToLink = doc->m_Selection->itemAt(0);
+			view->Deselect(true);
+			scrActions["toolsCopyProperties"]->setEnabled(true);
+		}
+	}
+	if (mode != modeNormal && mode != modeStoryEditor)
+		activateWindow();
+	PluginManager& pluginManager(PluginManager::instance());
+	pluginManager.enablePluginActionsForSelection(this);
+
+	//emit AppModeChanged(oldMode, mode);
+
 	actionManager->connectModeActions();
 }
+*/
 
 void ScribusMainWindow::setMainWindowActive()
 {
@@ -8134,7 +8102,7 @@ void ScribusMainWindow::editSymbolStart(QString temp)
 		doc->stored_minCanvasCoordinate = doc->minCanvasCoordinate;
 		doc->stored_maxCanvasCoordinate = doc->maxCanvasCoordinate;
 		view->showSymbolPage(temp);
-		appModeHelper.setSymbolEditMode(true, doc);
+		appModeHelper->setSymbolEditMode(true, doc);
 		pagePalette->enablePalette(false);
 		layerPalette->setEnabled(false);
 		patternsDependingOnThis.clear();
@@ -8171,7 +8139,7 @@ void ScribusMainWindow::editSymbolEnd()
 		doc->restartAutoSaveTimer();
 	}
 	slotSelect();
-	appModeHelper.setSymbolEditMode(false, doc);
+	appModeHelper->setSymbolEditMode(false, doc);
 	scrActions["fileClose"]->setToolTip( tr("Close"));
 	scrActions["fileClose"]->setIcon(loadIcon("22/close.png"));
 	scrMenuMgr->setMenuEnabled("FileOpenRecent", true);
@@ -8216,7 +8184,7 @@ void ScribusMainWindow::editInlineStart(int id)
 		doc->stored_minCanvasCoordinate = doc->minCanvasCoordinate;
 		doc->stored_maxCanvasCoordinate = doc->maxCanvasCoordinate;
 		view->showInlinePage(id);
-		appModeHelper.setInlineEditMode(true, doc);
+		appModeHelper->setInlineEditMode(true, doc);
 		pagePalette->enablePalette(false);
 		layerPalette->setEnabled(false);
 		inlinePalette->editingStart(id);
@@ -8238,7 +8206,7 @@ void ScribusMainWindow::editInlineEnd()
 		doc->restartAutoSaveTimer();
 	}
 	slotSelect();
-	appModeHelper.setInlineEditMode(false, doc);
+	appModeHelper->setInlineEditMode(false, doc);
 	scrActions["fileClose"]->setToolTip( tr("Close"));
 	scrActions["fileClose"]->setIcon(loadIcon("22/close.png"));
 	scrMenuMgr->setMenuEnabled("FileOpenRecent", true);
@@ -8298,7 +8266,7 @@ void ScribusMainWindow::editMasterPagesStart(QString temp)
 		pagePalette->show();
 		scrActions["toolsPages"]->setChecked(true);
 	}
-	appModeHelper.setMasterPageEditMode(true, doc);
+	appModeHelper->setMasterPageEditMode(true, doc);
 }
 
 void ScribusMainWindow::editMasterPagesEnd()
@@ -8313,7 +8281,7 @@ void ScribusMainWindow::editMasterPagesEnd()
 		doc->restartAutoSaveTimer();
 	}
 	slotSelect();
-	appModeHelper.setMasterPageEditMode(false, doc);
+	appModeHelper->setMasterPageEditMode(false, doc);
 	scrActions["fileClose"]->setToolTip( tr("Close"));
 	scrActions["fileClose"]->setIcon(loadIcon("22/close.png"));
 	scrMenuMgr->setMenuEnabled("FileOpenRecent", true);
@@ -8805,7 +8773,7 @@ void ScribusMainWindow::changeLayer(int )
 	scrMenuMgr->setMenuEnabled("EditPasteRecent", ((scrapbookPalette->tempBView->objectMap.count() > 0) && (setter)));
 	scrMenuMgr->setMenuEnabled("Insert", setter);
 	scrMenuMgr->setMenuEnabled("ItemLayer", doc->layerCount() > 1);
-	appModeHelper.changeLayer(doc, (ScMimeData::clipboardHasScribusData() || (scrapbookPalette->tempHasContents())));
+	appModeHelper->changeLayer(doc, (ScMimeData::clipboardHasScribusData() || (scrapbookPalette->tempHasContents())));
 }
 
 void ScribusMainWindow::setLayerMenuText(const QString &layerName)

@@ -65,7 +65,6 @@ private:
 	double Mxp, Myp, Dxp, Dyp;
 	double SeRx, SeRy;
 	ScribusMainWindow* m_ScMW;
-	int    m_oldAppMode;
 };
 
 

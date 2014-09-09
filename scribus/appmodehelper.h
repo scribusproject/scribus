@@ -22,11 +22,12 @@ for which a new license (GPL+exception) is in place.
 #include <QPointer>
 #include <QString>
 #include "actionmanager.h"
+#include "appmodes.h"
 #include "scraction.h"
 
 class AppModeHelper : public QObject
 {
-		Q_OBJECT
+	Q_OBJECT
 
 	friend class ActionManager;
 	friend class ScribusMainWindow;
@@ -34,6 +35,11 @@ class AppModeHelper : public QObject
 	public:
 		explicit AppModeHelper(QObject *parent = 0);
 		void setup(ActionManager* am, QMap<QString, QPointer<ScrAction> > *);
+		void resetApplicationMode(ScribusMainWindow* scmw, int newMode);
+		void setApplicationMode(ScribusMainWindow* scmw, ScribusDoc* doc, int newMode);
+		void setModeActionsPerMode(int newMode);
+		bool inAnEditMode(ScribusDoc* doc);
+		void setSpecialEditMode(bool b);
 		void setFrameEditMode(bool b);
 		void setSymbolEditMode(bool b, ScribusDoc* doc);
 		void setInlineEditMode(bool b, ScribusDoc* doc);
@@ -46,13 +52,16 @@ class AppModeHelper : public QObject
 		//! \brief enable or disable the unicode actions and their menus
 		void enableTextActions(bool enabled, const QString& fontName=QString::null);
 
+
 	signals:
+		void AppModeChanged(int oldMode, int newMode);
+		void UpdateRequest(int updateFlags);
 
 	public slots:
 
 	protected:
-		QMap<QString, QPointer<ScrAction> > *scrActions;
-		ActionManager* actMgr;
+		QMap<QString, QPointer<ScrAction> > *a_scrActions;
+		ActionManager* a_actMgr;
 };
 
 #endif // APPMODEHELPER_H

@@ -33,6 +33,7 @@ for which a new license (GPL+exception) is in place.
 #include <cairo.h>
 #include <cassert>
 
+#include "actionmanager.h"
 #include "appmodes.h"
 #include "canvas.h"
 #include "commonstrings.h"
