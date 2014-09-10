@@ -277,6 +277,21 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>outputDirectory</tabstop>
+  <tabstop>outputDirectoryButton</tabstop>
+  <tabstop>prefixLineEdit</tabstop>
+  <tabstop>onePageRadio</tabstop>
+  <tabstop>allPagesRadio</tabstop>
+  <tabstop>intervalPagesRadio</tabstop>
+  <tabstop>rangeVal</tabstop>
+  <tabstop>pageNrButton</tabstop>
+  <tabstop>bitmapType</tabstop>
+  <tabstop>qualityBox</tabstop>
+  <tabstop>DPIBox</tabstop>
+  <tabstop>enlargementBox</tabstop>
+  <tabstop>noBackground</tabstop>
+ </tabstops>
  <resources/>
  <connections>
   <connection>

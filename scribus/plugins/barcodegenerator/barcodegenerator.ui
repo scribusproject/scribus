@@ -369,6 +369,23 @@
   </layout>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
+ <tabstops>
+  <tabstop>bcCombo</tabstop>
+  <tabstop>codeEdit</tabstop>
+  <tabstop>resetButton</tabstop>
+  <tabstop>textCheck</tabstop>
+  <tabstop>guardCheck</tabstop>
+  <tabstop>includeCheck</tabstop>
+  <tabstop>includeCheckInText</tabstop>
+  <tabstop>bgColorButton</tabstop>
+  <tabstop>lnColorButton</tabstop>
+  <tabstop>txtColorButton</tabstop>
+  <tabstop>formatCombo</tabstop>
+  <tabstop>eccCombo</tabstop>
+  <tabstop>commentEdit</tabstop>
+  <tabstop>okButton</tabstop>
+  <tabstop>cancelButton</tabstop>
+ </tabstops>
  <resources/>
  <connections>
   <connection>
