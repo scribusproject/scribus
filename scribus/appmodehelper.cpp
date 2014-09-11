@@ -976,7 +976,7 @@ void AppModeHelper::setPreviewMode(bool b)
 	(*a_scrActions)["viewShowGrid"]->setEnabled(b2);
 	(*a_scrActions)["viewShowGuides"]->setEnabled(b2);
 	(*a_scrActions)["viewShowColumnBorders"]->setEnabled(b2);
-	(*a_scrActions)["viewShowBaseline"]->setEnabled(b);
+	(*a_scrActions)["viewShowBaseline"]->setEnabled(b2);
 	(*a_scrActions)["viewShowTextChain"]->setEnabled(b2);
 	(*a_scrActions)["viewShowTextControls"]->setEnabled(b2);
 }
