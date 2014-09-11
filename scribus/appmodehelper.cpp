@@ -124,25 +124,7 @@ void AppModeHelper::setApplicationMode(ScribusMainWindow* scmw, ScribusDoc* doc,
 					if (currItem->asTextFrame())
 						enableTextActions(false);
 					//		scrMenuMgr->setMenuEnabled("Item", true);
-					(*a_scrActions)["itemDuplicate"]->setEnabled(true);
-					(*a_scrActions)["itemMulDuplicate"]->setEnabled(true);
-					(*a_scrActions)["itemTransform"]->setEnabled(true);
-					(*a_scrActions)["itemDelete"]->setEnabled(true);
-					(*a_scrActions)["itemRaise"]->setEnabled(true);
-					(*a_scrActions)["itemLower"]->setEnabled(true);
-					(*a_scrActions)["itemRaiseToTop"]->setEnabled(true);
-					(*a_scrActions)["itemLowerToBottom"]->setEnabled(true);
-					scmw->scrMenuMgr->setMenuEnabled("itemSendToScrapbook", true);
-					(*a_scrActions)["itemSendToPattern"]->setEnabled(true);
-					(*a_scrActions)["itemSendToInline"]->setEnabled(true);
-					(*a_scrActions)["itemAdjustFrameToImage"]->setEnabled(true);
-					(*a_scrActions)["itemAdjustImageToFrame"]->setEnabled(true);
-					(*a_scrActions)["itemExtendedImageProperties"]->setEnabled(true);
-					(*a_scrActions)["itemUpdateImage"]->setEnabled(true);
-					(*a_scrActions)["itemPreviewFull"]->setEnabled(true);
-					(*a_scrActions)["itemPreviewNormal"]->setEnabled(true);
-					(*a_scrActions)["itemPreviewLow"]->setEnabled(true);
-					(*a_scrActions)["itemAttributes"]->setEnabled(true);
+					setTextEditMode(false);
 				}
 				doc->view()->horizRuler->textMode(false);
 				doc->view()->horizRuler->update();
@@ -225,25 +207,7 @@ void AppModeHelper::setApplicationMode(ScribusMainWindow* scmw, ScribusDoc* doc,
 					bool textFrameEditMode = ((currItem != NULL) && (currItem->asTextFrame()));
 					(*a_scrActions)["editPaste"]->setEnabled( textFrameEditMode || (currItem == NULL) );
 				}
-				(*a_scrActions)["itemDuplicate"]->setEnabled(false);
-				(*a_scrActions)["itemMulDuplicate"]->setEnabled(false);
-				(*a_scrActions)["itemTransform"]->setEnabled(false);
-				(*a_scrActions)["itemDelete"]->setEnabled(false);
-				(*a_scrActions)["itemRaise"]->setEnabled(false);
-				(*a_scrActions)["itemLower"]->setEnabled(false);
-				(*a_scrActions)["itemRaiseToTop"]->setEnabled(false);
-				(*a_scrActions)["itemLowerToBottom"]->setEnabled(false);
-				scmw->scrMenuMgr->setMenuEnabled("itemSendToScrapbook", false);
-				(*a_scrActions)["itemSendToPattern"]->setEnabled(false);
-				(*a_scrActions)["itemSendToInline"]->setEnabled(false);
-				(*a_scrActions)["itemAdjustFrameToImage"]->setEnabled(false);
-				(*a_scrActions)["itemAdjustImageToFrame"]->setEnabled(false);
-				(*a_scrActions)["itemExtendedImageProperties"]->setEnabled(false);
-				(*a_scrActions)["itemUpdateImage"]->setEnabled(false);
-				(*a_scrActions)["itemPreviewFull"]->setEnabled(false);
-				(*a_scrActions)["itemPreviewNormal"]->setEnabled(false);
-				(*a_scrActions)["itemPreviewLow"]->setEnabled(false);
-				(*a_scrActions)["itemAttributes"]->setEnabled(false);
+				setTextEditMode(true);
 
 				if (currItem != 0)
 				{
@@ -433,6 +397,31 @@ bool AppModeHelper::inAnEditMode(ScribusDoc *doc)
 		inEditMode=true;
 
 	return inEditMode;
+}
+
+void AppModeHelper::setTextEditMode(bool b)
+{
+	bool b2=!b;
+
+	(*a_scrActions)["itemDuplicate"]->setEnabled(b2);
+	(*a_scrActions)["itemMulDuplicate"]->setEnabled(b2);
+	(*a_scrActions)["itemTransform"]->setEnabled(b2);
+	(*a_scrActions)["itemDelete"]->setEnabled(b2);
+	(*a_scrActions)["itemRaise"]->setEnabled(b2);
+	(*a_scrActions)["itemLower"]->setEnabled(b2);
+	(*a_scrActions)["itemRaiseToTop"]->setEnabled(b2);
+	(*a_scrActions)["itemLowerToBottom"]->setEnabled(b2);
+	//scmw->scrMenuMgr->setMenuEnabled("itemSendToScrapbook", b2);
+	(*a_scrActions)["itemSendToPattern"]->setEnabled(b2);
+	(*a_scrActions)["itemSendToInline"]->setEnabled(b2);
+	(*a_scrActions)["itemAdjustFrameToImage"]->setEnabled(b2);
+	(*a_scrActions)["itemAdjustImageToFrame"]->setEnabled(b2);
+	(*a_scrActions)["itemExtendedImageProperties"]->setEnabled(b2);
+	(*a_scrActions)["itemUpdateImage"]->setEnabled(b2);
+	(*a_scrActions)["itemPreviewFull"]->setEnabled(b2);
+	(*a_scrActions)["itemPreviewNormal"]->setEnabled(b2);
+	(*a_scrActions)["itemPreviewLow"]->setEnabled(b2);
+	(*a_scrActions)["itemAttributes"]->setEnabled(b2);
 }
 
 void AppModeHelper::setSpecialEditMode(bool b)
