@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>570</width>
+    <width>572</width>
     <height>529</height>
    </rect>
   </property>
@@ -26,7 +26,16 @@
       <property name="spacing">
        <number>5</number>
       </property>
-      <property name="margin">
+      <property name="leftMargin">
+       <number>10</number>
+      </property>
+      <property name="topMargin">
+       <number>10</number>
+      </property>
+      <property name="rightMargin">
+       <number>10</number>
+      </property>
+      <property name="bottomMargin">
        <number>10</number>
       </property>
       <item>
@@ -160,7 +169,16 @@
       <string>Range</string>
      </property>
      <layout class="QGridLayout">
-      <property name="margin">
+      <property name="leftMargin">
+       <number>10</number>
+      </property>
+      <property name="topMargin">
+       <number>10</number>
+      </property>
+      <property name="rightMargin">
+       <number>10</number>
+      </property>
+      <property name="bottomMargin">
        <number>10</number>
       </property>
       <property name="spacing">
@@ -242,6 +260,9 @@ a range of pages or a single page number.</string>
           <width>16</width>
           <height>16</height>
          </size>
+        </property>
+        <property name="toolTip">
+         <string>Create a range of pages</string>
         </property>
         <property name="text">
          <string/>

@@ -117,6 +117,7 @@ void ExportForm::languageChange()
 {
 	intervalPagesRadio->setToolTip( tr( "Export a range of pages" ) );
 	rangeVal->setToolTip( tr( "Insert a comma separated list of tokens where\na token can be * for all the pages, 1-5 for\na range of pages or a single page number." ) );
+	pageNrButton->setToolTip( tr( "Create a range of pages" ) );
 	allPagesRadio->setToolTip( tr( "Export all pages" ) );
 	onePageRadio->setToolTip( tr( "Export only the current page" ) );
 	DPIBox->setToolTip( tr( "Resolution of the Images\nUse 72 dpi for Images intended for the Screen" ) );
