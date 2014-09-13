@@ -3978,13 +3978,12 @@ QStringList ScribusDoc::getUsedPatternsSelection(Selection* customSelection)
 		for (int c = 0; c < results.count(); ++c)
 		{
 			QStringList pats = getUsedPatternsHelper(results[c], results2);
-			if (!pats.isEmpty())
+			if (pats.isEmpty())
+				continue;
+			for (int cc = 0; cc < pats.count(); cc++)
 			{
-				for (int cc = 0; cc < pats.count(); cc++)
-				{
-					if (!results2.contains(pats[cc]))
-						results2.append(pats[cc]);
-				}
+				if (!results2.contains(pats[cc]))
+					results2.append(pats[cc]);
 			}
 		}
 		return results2;
@@ -4031,13 +4030,12 @@ QStringList ScribusDoc::getUsedPatternsHelper(QString pattern, QStringList &resu
 		for (int c = 0; c < pats.count(); ++c)
 		{
 			QStringList pp = getUsedPatternsHelper(pats[c], results);
-			if (!pp.isEmpty())
+			if (pp.isEmpty())
+				continue;
+			for (int cc = 0; cc < pp.count(); cc++)
 			{
-				for (int cc = 0; cc < pp.count(); cc++)
-				{
-					if (!results.contains(pp[cc]))
-						results.append(pp[cc]);
-				}
+				if (!results.contains(pp[cc]))
+					results.append(pp[cc]);
 			}
 		}
 	}
@@ -4056,8 +4054,6 @@ QStringList ScribusDoc::getPatternDependencyList(QStringList used)
 		for (int c = 0; c < pats.count(); ++c)
 		{
 			pp = getUsedPatternsHelper(pats[c], results);
-			if (!pp.isEmpty())
-				results += pp;
 		}
 		pats = results;
 		results.clear();
