@@ -492,7 +492,7 @@ void AppModeHelper::setFrameEditMode(bool b)
 	(*a_scrActions)["toolsPDFAnnotText"]->setEnabled(b2);
 	(*a_scrActions)["toolsPDFAnnotLink"]->setEnabled(b2);
 #ifdef HAVE_OSG
-	(*scrActions)["toolsPDFAnnot3D"]->setEnabled(b2);
+	(*a_scrActions)["toolsPDFAnnot3D"]->setEnabled(b2);
 #endif
 	(*a_scrActions)["itemDelete"]->setEnabled(b2);
 }
@@ -537,7 +537,7 @@ void AppModeHelper::setSymbolEditMode(bool b, ScribusDoc* doc)
 	(*a_scrActions)["toolsPDFListBox"]->setEnabled(b2);
 	(*a_scrActions)["toolsPDFAnnotText"]->setEnabled(b2);
 #ifdef HAVE_OSG
-	(*scrActions)["toolsPDFAnnot3D"]->setEnabled(b2);
+	(*a_scrActions)["toolsPDFAnnot3D"]->setEnabled(b2);
 #endif
 }
 
@@ -582,7 +582,7 @@ void AppModeHelper::setInlineEditMode(bool b, ScribusDoc *doc)
 	(*a_scrActions)["toolsPDFListBox"]->setEnabled(b2);
 	(*a_scrActions)["toolsPDFAnnotText"]->setEnabled(b2);
 #ifdef HAVE_OSG
-	(*scrActions)["toolsPDFAnnot3D"]->setEnabled(b2);
+	(*a_scrActions)["toolsPDFAnnot3D"]->setEnabled(b2);
 #endif
 }
 
@@ -627,9 +627,9 @@ void AppModeHelper::setMasterPageEditMode(bool b, ScribusDoc* doc)
 	(*a_scrActions)["toolsPDFListBox"]->setEnabled(b2);
 	(*a_scrActions)["toolsPDFAnnotText"]->setEnabled(b2);
 #ifdef HAVE_OSG
-	(*scrActions)["toolsPDFAnnot3D"]->setEnabled(b2);
+	(*a_scrActions)["toolsPDFAnnot3D"]->setEnabled(b2);
 #endif
-	//(*scrActions)["viewPreviewMode"]->setEnabled(b2);
+	//(*a_scrActions)["viewPreviewMode"]->setEnabled(b2);
 }
 
 void AppModeHelper::changeLayer(ScribusDoc *doc, bool clipScrapHaveData)
@@ -740,7 +740,7 @@ void AppModeHelper::mainWindowHasNewDoc(ScribusDoc *doc, bool clipScrapHaveData)
 	(*a_scrActions)["toolsPDFAnnotText"]->setEnabled(true);
 	(*a_scrActions)["toolsPDFAnnotLink"]->setEnabled(true);
 #ifdef HAVE_OSG
-	(*scrActions)["toolsPDFAnnot3D"]->setEnabled(true);
+	(*a_scrActions)["toolsPDFAnnot3D"]->setEnabled(true);
 #endif
 	(*a_scrActions)["toolsPreflightVerifier"]->setEnabled(true);
 	bool setter = doc->DocPages.count() > 1 ? true : false;
@@ -789,7 +789,7 @@ void AppModeHelper::mainWindowSwitchWin(ScribusDoc *doc)
 		(*a_scrActions)["toolsPDFListBox"]->setEnabled(false);
 		(*a_scrActions)["toolsPDFAnnotText"]->setEnabled(false);
 #ifdef HAVE_OSG
-		(*scrActions)["toolsPDFAnnot3D"]->setEnabled(false);
+		(*a_scrActions)["toolsPDFAnnot3D"]->setEnabled(false);
 #endif
 	}
 	else
@@ -826,7 +826,7 @@ void AppModeHelper::mainWindowSwitchWin(ScribusDoc *doc)
 		(*a_scrActions)["toolsPDFListBox"]->setEnabled(true);
 		(*a_scrActions)["toolsPDFAnnotText"]->setEnabled(true);
 #ifdef HAVE_OSG
-		(*scrActions)["toolsPDFAnnot3D"]->setEnabled(true);
+		(*a_scrActions)["toolsPDFAnnot3D"]->setEnabled(true);
 #endif
 	}
 
@@ -955,7 +955,7 @@ void AppModeHelper::mainWindowCloseLastDoc()
 	(*a_scrActions)["viewSnapToGuides"]->setChecked(false);
 
 #ifdef HAVE_OSG
-	(*scrActions)["toolsPDFAnnot3D"]->setEnabled(false);
+	(*a_scrActions)["toolsPDFAnnot3D"]->setEnabled(false);
 #endif
 	(*a_scrActions)["itemConvertToBezierCurve"]->setEnabled(false);
 	(*a_scrActions)["itemConvertToImageFrame"]->setEnabled(false);
