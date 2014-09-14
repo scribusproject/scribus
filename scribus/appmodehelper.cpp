@@ -438,6 +438,19 @@ void AppModeHelper::setSpecialEditMode(bool b)
 	(*a_scrActions)["editSelectAllOnLayer"]->setEnabled(b2);
 	(*a_scrActions)["editDeselectAll"]->setEnabled(b2);
 	(*a_scrActions)["itemDelete"]->setEnabled(b2);
+	(*a_scrActions)["itemSendToPattern"]->setEnabled(b2);
+	(*a_scrActions)["itemSendToInline"]->setEnabled(b2);
+	(*a_scrActions)["itemConvertToTextFrame"]->setEnabled(b2);
+	(*a_scrActions)["itemConvertToImageFrame"]->setEnabled(b2);
+	(*a_scrActions)["itemConvertToPolygon"]->setEnabled(b2);
+	(*a_scrActions)["itemConvertToBezierCurve"]->setEnabled(b2);
+	(*a_scrActions)["itemConvertToOutlines"]->setEnabled(b2);
+	(*a_scrActions)["itemConvertToSymbolFrame"]->setEnabled(b2);
+	(*a_scrActions)["pageInsert"]->setEnabled(b2);
+	(*a_scrActions)["pageImport"]->setEnabled(b2);
+	(*a_scrActions)["pageDelete"]->setEnabled(b2);
+	(*a_scrActions)["pageCopy"]->setEnabled(b2);
+	(*a_scrActions)["pageCopyToMasterPage"]->setEnabled(b2);
 }
 
 void AppModeHelper::setFrameEditMode(bool b)
