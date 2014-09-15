@@ -43,14 +43,31 @@ for which a new license (GPL+exception) is in place.
 AppModeHelper::AppModeHelper(QObject *parent) :
     QObject(parent)
 {
-	a_scrActions=NULL;
 	a_actMgr=NULL;
+	a_scrActions=NULL;
+	a_scrRecentFileActions=NULL;
+	a_scrWindowsActions=NULL;
+	a_scrScrapActions=NULL;
+	a_scrLayersActions=NULL;
+	a_scrRecentPasteActions=NULL;
 }
 
-void AppModeHelper::setup(ActionManager* am, QMap<QString, QPointer<ScrAction> > *scra)
+void AppModeHelper::setup(ActionManager* am,
+						  QMap<QString, QPointer<ScrAction> > *scrA,
+						  QMap<QString, QPointer<ScrAction> > *scrRFA,
+						  QMap<QString, QPointer<ScrAction> > *sWA,
+						  QMap<QString, QPointer<ScrAction> > *scSA,
+						  QMap<QString, QPointer<ScrAction> > *scLA,
+						  QMap<QString, QPointer<ScrAction> > *scRPA)
 {
 	a_actMgr=am;
-	a_scrActions=scra;
+	a_scrActions=scrA;
+	a_scrRecentFileActions=scrRFA;
+	a_scrWindowsActions=sWA;
+	a_scrScrapActions=scSA;
+	a_scrLayersActions=scLA;
+	a_scrRecentPasteActions=scRPA;
+
 }
 
 void AppModeHelper::resetApplicationMode(ScribusMainWindow* scmw, int newMode)
@@ -399,6 +416,13 @@ bool AppModeHelper::inAnEditMode(ScribusDoc *doc)
 	return inEditMode;
 }
 
+void AppModeHelper::setActionGroupEnabled(QMap<QString, QPointer<ScrAction> >*ag, bool enabled)
+{
+	if (ag!=NULL)
+		for( QMap<QString, QPointer<ScrAction> >::Iterator it = ag->begin(); it!=ag->end(); ++it )
+			(*it)->setEnabled(enabled);
+}
+
 void AppModeHelper::setTextEditMode(bool b)
 {
 	bool b2=!b;
@@ -451,6 +475,12 @@ void AppModeHelper::setSpecialEditMode(bool b)
 	(*a_scrActions)["pageDelete"]->setEnabled(b2);
 	(*a_scrActions)["pageCopy"]->setEnabled(b2);
 	(*a_scrActions)["pageCopyToMasterPage"]->setEnabled(b2);
+
+	setActionGroupEnabled(a_scrLayersActions, b2);
+	setActionGroupEnabled(a_scrRecentFileActions, b2);
+	setActionGroupEnabled(a_scrRecentPasteActions, b2);
+	setActionGroupEnabled(a_scrScrapActions, b2);
+	setActionGroupEnabled(a_scrWindowsActions, b2);
 }
 
 void AppModeHelper::setFrameEditMode(bool b)
@@ -1008,3 +1038,136 @@ void AppModeHelper::enableTextActions(bool enabled, const QString& fontName)
 		(*a_scrActions)["editMark"]->setEnabled(false);
 	}
 }
+
+void AppModeHelper::setStartupActionsEnabled(bool enabled)
+{
+	(*a_scrActions)["fileDocSetup150"]->setEnabled(false);
+	(*a_scrActions)["filePrint"]->setEnabled(false);
+	(*a_scrActions)["fileSave"]->setEnabled(false);
+	(*a_scrActions)["fileSaveAs"]->setEnabled(false);
+	(*a_scrActions)["fileRevert"]->setEnabled(false);
+	(*a_scrActions)["fileCollect"]->setEnabled(false);
+	(*a_scrActions)["fileClose"]->setEnabled(false);
+	(*a_scrActions)["PrintPreview"]->setEnabled(false);
+	(*a_scrActions)["SaveAsDocumentTemplate"]->setEnabled(false);
+//	scrMenuMgr->setMenuEnabled("FileImport", false);
+//	scrMenuMgr->setMenuEnabled("FileExport", false);
+	(*a_scrActions)["fileExportAsPDF"]->setEnabled(false);
+	(*a_scrActions)["fileExportText"]->setEnabled(false);
+	(*a_scrActions)["fileExportAsEPS"]->setEnabled(false);
+	(*a_scrActions)["fileImportText"]->setEnabled(false);
+	(*a_scrActions)["fileImportText2"]->setEnabled(false);
+	(*a_scrActions)["fileImportImage"]->setEnabled(false);
+	(*a_scrActions)["fileImportAppendText"]->setEnabled(false);
+	(*a_scrActions)["fileImportVector"]->setEnabled(false);
+	(*a_scrActions)["pageInsert"]->setEnabled(false);
+	(*a_scrActions)["pageImport"]->setEnabled(false);
+	(*a_scrActions)["pageDelete"]->setEnabled(false);
+	(*a_scrActions)["pageImport"]->setEnabled(false);
+	(*a_scrActions)["pageMove"]->setEnabled(false);
+	(*a_scrActions)["pageCopy"]->setEnabled(false);
+	(*a_scrActions)["pageApplyMasterPage"]->setEnabled(false);
+	(*a_scrActions)["pageCopyToMasterPage"]->setEnabled(false);
+	(*a_scrActions)["pageManageGuides"]->setEnabled(false);
+	(*a_scrActions)["pageManageMargins"]->setEnabled(false);
+	(*a_scrActions)["editUndoAction"]->setEnabled(false);
+	(*a_scrActions)["editRedoAction"]->setEnabled(false);
+	(*a_scrActions)["editCut"]->setEnabled(false);
+	(*a_scrActions)["editCopy"]->setEnabled(false);
+	(*a_scrActions)["editPaste"]->setEnabled(false);
+//	scrMenuMgr->setMenuEnabled("EditPasteRecent", false);
+	(*a_scrActions)["editClearContents"]->setEnabled(false);
+	(*a_scrActions)["editTruncateContents"]->setEnabled(false);
+	(*a_scrActions)["editSelectAll"]->setEnabled(false);
+	(*a_scrActions)["editSelectAllOnLayer"]->setEnabled(false);
+	(*a_scrActions)["editDeselectAll"]->setEnabled(false);
+	(*a_scrActions)["editReplaceColors"]->setEnabled(false);
+	(*a_scrActions)["editStyles"]->setEnabled(false);
+	(*a_scrActions)["editMarks"]->setEnabled(false);
+	(*a_scrActions)["editNotesStyles"]->setEnabled(false);
+	(*a_scrActions)["editSearchReplace"]->setEnabled(false);
+	(*a_scrActions)["editMasterPages"]->setEnabled(false);
+	(*a_scrActions)["editJavascripts"]->setEnabled(false);
+	(*a_scrActions)["editEditWithImageEditor"]->setEnabled(false);
+	(*a_scrActions)["editEditRenderSource"]->setEnabled(false);
+	(*a_scrActions)["toolsPreflightVerifier"]->setEnabled(false);
+	(*a_scrActions)["extrasHyphenateText"]->setEnabled(false);
+	(*a_scrActions)["extrasDeHyphenateText"]->setEnabled(false);
+	(*a_scrActions)["viewFitInWindow"]->setEnabled(false);
+	(*a_scrActions)["viewFitWidth"]->setEnabled(false);
+	(*a_scrActions)["viewFit50"]->setEnabled(false);
+	(*a_scrActions)["viewFit75"]->setEnabled(false);
+	(*a_scrActions)["viewFit100"]->setEnabled(false);
+	(*a_scrActions)["viewFit200"]->setEnabled(false);
+	(*a_scrActions)["viewFit400"]->setEnabled(false);
+	(*a_scrActions)["viewSnapToGuides"]->setChecked(false);
+	(*a_scrActions)["viewSnapToElements"]->setChecked(false);
+	(*a_scrActions)["viewSnapToGrid"]->setChecked(false);
+	(*a_scrActions)["viewShowRulers"]->setEnabled(false);
+//	scrMenuMgr->setMenuEnabled("Insert", false);
+	(*a_scrActions)["insertFrame"]->setEnabled(false);
+	(*a_scrActions)["insertSampleText"]->setEnabled(false);
+	(*a_scrActions)["itemDuplicate"]->setEnabled(false);
+	(*a_scrActions)["itemMulDuplicate"]->setEnabled(false);
+	(*a_scrActions)["itemTransform"]->setEnabled(false);
+	(*a_scrActions)["itemDelete"]->setEnabled(false);
+	(*a_scrActions)["itemRaise"]->setEnabled(false);
+	(*a_scrActions)["itemLower"]->setEnabled(false);
+	(*a_scrActions)["itemRaiseToTop"]->setEnabled(false);
+	(*a_scrActions)["itemLowerToBottom"]->setEnabled(false);
+//	scrMenuMgr->setMenuEnabled("itemSendToScrapbook", false);
+	(*a_scrActions)["itemSendToPattern"]->setEnabled(false);
+	(*a_scrActions)["itemSendToInline"]->setEnabled(false);
+	(*a_scrActions)["itemAdjustFrameToImage"]->setEnabled(false);
+	(*a_scrActions)["itemAdjustImageToFrame"]->setEnabled(false);
+	(*a_scrActions)["itemExtendedImageProperties"]->setEnabled(false);
+	(*a_scrActions)["itemUpdateImage"]->setEnabled(false);
+	(*a_scrActions)["itemPreviewFull"]->setEnabled(false);
+	(*a_scrActions)["itemPreviewNormal"]->setEnabled(false);
+	(*a_scrActions)["itemPreviewLow"]->setEnabled(false);
+	(*a_scrActions)["itemAttributes"]->setEnabled(false);
+	(*a_scrActions)["itemPDFAnnotationProps"]->setEnabled(false);
+	(*a_scrActions)["itemPDFFieldProps"]->setEnabled(false);
+	(*a_scrActions)["itemConvertToBezierCurve"]->setEnabled(false);
+	(*a_scrActions)["itemConvertToImageFrame"]->setEnabled(false);
+	(*a_scrActions)["itemConvertToOutlines"]->setEnabled(false);
+	(*a_scrActions)["itemConvertToPolygon"]->setEnabled(false);
+	(*a_scrActions)["itemConvertToTextFrame"]->setEnabled(false);
+	(*a_scrActions)["itemConvertToSymbolFrame"]->setEnabled(false);
+	(*a_scrActions)["toolsSelect"]->setEnabled(false);
+	(*a_scrActions)["toolsRotate"]->setEnabled(false);
+	(*a_scrActions)["toolsEditContents"]->setEnabled(false);
+	(*a_scrActions)["toolsEditWithStoryEditor"]->setEnabled(false);
+	(*a_scrActions)["toolsZoom"]->setEnabled(false);
+	(*a_scrActions)["toolsInsertTextFrame"]->setEnabled(false);
+	(*a_scrActions)["toolsInsertImageFrame"]->setEnabled(false);
+	(*a_scrActions)["toolsInsertShape"]->setEnabled(false);
+	(*a_scrActions)["toolsInsertLine"]->setEnabled(false);
+	(*a_scrActions)["toolsInsertBezier"]->setEnabled(false);
+	(*a_scrActions)["toolsInsertFreehandLine"]->setEnabled(false);
+	(*a_scrActions)["toolsInsertCalligraphicLine"]->setEnabled(false);
+	(*a_scrActions)["toolsInsertPolygon"]->setEnabled(false);
+	(*a_scrActions)["toolsInsertArc"]->setEnabled(false);
+	(*a_scrActions)["toolsInsertSpiral"]->setEnabled(false);
+	(*a_scrActions)["toolsInsertRenderFrame"]->setEnabled(false);
+	(*a_scrActions)["toolsInsertTable"]->setEnabled(false);
+	(*a_scrActions)["toolsLinkTextFrame"]->setEnabled(false);
+	(*a_scrActions)["toolsUnlinkTextFrame"]->setEnabled(false);
+	(*a_scrActions)["toolsUnlinkTextFrameWithTextCopy"]->setEnabled(false);
+	(*a_scrActions)["toolsUnlinkTextFrameWithTextCut"]->setEnabled(false);
+	(*a_scrActions)["toolsMeasurements"]->setEnabled(false);
+	(*a_scrActions)["toolsCopyProperties"]->setEnabled(false);
+	(*a_scrActions)["toolsEyeDropper"]->setEnabled(false);
+	(*a_scrActions)["toolsPDFPushButton"]->setEnabled(false);
+	(*a_scrActions)["toolsPDFRadioButton"]->setEnabled(false);
+	(*a_scrActions)["toolsPDFTextField"]->setEnabled(false);
+	(*a_scrActions)["toolsPDFCheckBox"]->setEnabled(false);
+	(*a_scrActions)["toolsPDFComboBox"]->setEnabled(false);
+	(*a_scrActions)["toolsPDFListBox"]->setEnabled(false);
+	(*a_scrActions)["toolsPDFAnnotText"]->setEnabled(false);
+	(*a_scrActions)["toolsPDFAnnotLink"]->setEnabled(false);
+#ifdef HAVE_OSG
+	(*a_scrActions)["toolsPDFAnnot3D"]->setEnabled(false);
+#endif
+}
+

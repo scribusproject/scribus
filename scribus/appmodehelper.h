@@ -34,11 +34,12 @@ class AppModeHelper : public QObject
 
 	public:
 		explicit AppModeHelper(QObject *parent = 0);
-		void setup(ActionManager* am, QMap<QString, QPointer<ScrAction> > *);
+		void setup(ActionManager* am, QMap<QString, QPointer<ScrAction> > *, QMap<QString, QPointer<ScrAction> > *, QMap<QString, QPointer<ScrAction> > *, QMap<QString, QPointer<ScrAction> > *, QMap<QString, QPointer<ScrAction> > *, QMap<QString, QPointer<ScrAction> > *);
 		void resetApplicationMode(ScribusMainWindow* scmw, int newMode);
 		void setApplicationMode(ScribusMainWindow* scmw, ScribusDoc* doc, int newMode);
 		void setModeActionsPerMode(int newMode);
 		bool inAnEditMode(ScribusDoc* doc);
+		void setActionGroupEnabled(QMap<QString, QPointer<ScrAction> > *, bool enabled);
 		void setTextEditMode(bool b);
 		void setSpecialEditMode(bool b);
 		void setFrameEditMode(bool b);
@@ -52,6 +53,7 @@ class AppModeHelper : public QObject
 		void setPreviewMode(bool b);
 		//! \brief enable or disable the unicode actions and their menus
 		void enableTextActions(bool enabled, const QString& fontName=QString::null);
+		void setStartupActionsEnabled(bool enabled);
 
 
 	signals:
@@ -62,6 +64,11 @@ class AppModeHelper : public QObject
 
 	protected:
 		QMap<QString, QPointer<ScrAction> > *a_scrActions;
+		QMap<QString, QPointer<ScrAction> > *a_scrRecentFileActions;
+		QMap<QString, QPointer<ScrAction> > *a_scrWindowsActions;
+		QMap<QString, QPointer<ScrAction> > *a_scrScrapActions;
+		QMap<QString, QPointer<ScrAction> > *a_scrLayersActions;
+		QMap<QString, QPointer<ScrAction> > *a_scrRecentPasteActions;
 		ActionManager* a_actMgr;
 };
 

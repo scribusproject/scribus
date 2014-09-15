@@ -358,7 +358,7 @@ int ScribusMainWindow::initScMW(bool primaryMainWindow)
 	scrScrapActions.clear();
 	actionManager = new ActionManager(this);
 	appModeHelper = new AppModeHelper();
-	appModeHelper->setup(actionManager, &scrActions);
+	appModeHelper->setup(actionManager, &scrActions, &scrRecentFileActions, &scrWindowsActions, &scrScrapActions, &scrLayersActions, &scrRecentPasteActions);
 	scrMenuMgr = new ScMWMenuManager(menuBar(), actionManager);
 	prefsManager = PrefsManager::instance();
 	formatsManager = FormatsManager::instance();
@@ -469,7 +469,7 @@ int ScribusMainWindow::initScMW(bool primaryMainWindow)
 				csm.loadPalette(Cpfad, m_doc, prefsManager->appPrefs.colorPrefs.DColors, prefsManager->appPrefs.defaultGradients, prefsManager->appPrefs.defaultPatterns, false);
 		}
 	}
-	actionManager->setStartupActionsEnabled(false);
+	appModeHelper->setStartupActionsEnabled(false);
 
 	return retVal;
 }
@@ -2044,7 +2044,7 @@ void ScribusMainWindow::startUpDialog()
 	}
 	else
 	{
-		actionManager->setStartupActionsEnabled(false);
+		appModeHelper->setStartupActionsEnabled(false);
 	}
 	prefsManager->setShowStartupDialog(!dia->startUpDialog->isChecked());
 	delete dia;
