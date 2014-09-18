@@ -323,10 +323,10 @@ void ScribusView::togglePreview(bool inPreview)
 		m_ScMW->scrActions["viewEditInPreview"]->setEnabled(false);
 		Doc->guidesPrefs().framesShown = storedFramesShown;
 		Doc->guidesPrefs().showControls = storedShowControls;
-		if (m_ScMW->viewToolBar->visualMenu->currentIndex() != Doc->previewVisual)
-			recalc = true;
 		m_canvas->m_viewMode.previewVisual = 0;
 		Doc->previewVisual = 0;
+		if (m_ScMW->viewToolBar->visualMenu->currentIndex() != Doc->previewVisual)
+			recalc = true;
 		m_ScMW->viewToolBar->setDoc(Doc);
 	}
 	m_ScMW->appModeHelper->setPreviewMode(inPreview);
