@@ -1722,129 +1722,32 @@ void PageItem::DrawObj_Pre(ScPainter *p)
 	if (!isEmbedded)
 		p->translate(m_xPos, m_yPos);
 	p->rotate(m_rotation);
+
 	if (m_Doc->layerOutline(LayerID))
 	{
 		p->setPen(m_Doc->layerMarker(LayerID), 0, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 		p->setFillMode(ScPainter::None);
 		p->setBrushOpacity(1.0);
 		p->setPenOpacity(1.0);
+		return;
 	}
-	else
+
+	if (isGroup())
+		return;
+
+	if (hasSoftShadow())
+		DrawSoftShadow(p);
+	p->setBlendModeFill(fillBlendmode());
+	p->setLineWidth(lwCorr);
+	if (GrType != 0)
 	{
-		if (!isGroup())
+		if (GrType == 8)
 		{
-			if (hasSoftShadow())
-				DrawSoftShadow(p);
-			p->setBlendModeFill(fillBlendmode());
-			p->setLineWidth(lwCorr);
-			if (GrType != 0)
-			{
-				if (GrType == 8)
-				{
-					ScPattern *pattern = m_Doc->checkedPattern(patternVal);
-					if (!pattern)
-					{
-						p->fill_gradient = VGradient(VGradient::linear);
-						p->fill_gradient.setRepeatMethod(GrExtend);
-						if (fillColor() != CommonStrings::None)
-						{
-							p->setBrush(fillQColor);
-							p->setFillMode(ScPainter::Solid);
-						}
-						else
-						{
-							no_fill = true;
-							p->setFillMode(ScPainter::None);
-						}
-						if ((!patternVal.isEmpty()) && (!m_Doc->docPatterns.contains(patternVal)))
-						{
-							GrType = 0;
-							patternVal = "";
-						}
-					}
-					else
-					{
-						p->setPattern(pattern, patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY, patternMirrorX, patternMirrorY);
-						p->setFillMode(ScPainter::Pattern);
-					}
-				}
-				else
-				{
-					if (GrType == 9)
-					{
-						p->setFillMode(ScPainter::Gradient);
-						FPoint pG1 = FPoint(0, 0);
-						FPoint pG2 = FPoint(width(), 0);
-						FPoint pG3 = FPoint(width(), height());
-						FPoint pG4 = FPoint(0, height());
-						p->set4ColorGeometry(pG1, pG2, pG3, pG4, GrControl1, GrControl2, GrControl3, GrControl4);
-						p->set4ColorColors(GrColorP1QColor, GrColorP2QColor, GrColorP3QColor, GrColorP4QColor);
-					}
-					else if (GrType == 14)
-					{
-						if (fillColor() != CommonStrings::None)
-							p->setBrush(fillQColor);
-						p->setFillMode(ScPainter::Hatch);
-						p->setHatchParameters(hatchType, hatchDistance, hatchAngle, hatchUseBackground, hatchBackgroundQ, hatchForegroundQ, width(), height());
-					}
-					else
-					{
-						if ((!gradientVal.isEmpty()) && (!m_Doc->docGradients.contains(gradientVal)))
-							gradientVal = "";
-						if (!(gradientVal.isEmpty()) && (m_Doc->docGradients.contains(gradientVal)))
-							fill_gradient = m_Doc->docGradients[gradientVal];
-						if ((fill_gradient.Stops() < 2) && (GrType < 9)) // fall back to solid filling if there are not enough colorstops in the gradient.
-						{
-							if (fillColor() != CommonStrings::None)
-							{
-								p->setBrush(fillQColor);
-								p->setFillMode(ScPainter::Solid);
-							}
-							else
-							{
-								no_fill = true;
-								p->setFillMode(ScPainter::None);
-							}
-						}
-						else
-						{
-							p->setFillMode(ScPainter::Gradient);
-							p->fill_gradient = fill_gradient;
-							p->fill_gradient.setRepeatMethod(GrExtend);
-							switch (GrType)
-							{
-								case 1:
-								case 2:
-								case 3:
-								case 4:
-								case 6:
-									p->setGradient(VGradient::linear, FPoint(GrStartX, GrStartY), FPoint(GrEndX, GrEndY), FPoint(GrStartX, GrStartY), GrScale, GrSkew);
-									break;
-								case 5:
-								case 7:
-									p->setGradient(VGradient::radial, FPoint(GrStartX, GrStartY), FPoint(GrEndX, GrEndY), FPoint(GrFocalX, GrFocalY), GrScale, GrSkew);
-									break;
-								case 10:
-									p->setFillMode(ScPainter::Gradient);
-									p->setDiamondGeometry(FPoint(0, 0), FPoint(width(), 0), FPoint(width(), height()), FPoint(0, height()), GrControl1, GrControl2, GrControl3, GrControl4, GrControl5);
-									break;
-								case 11:
-								case 13:
-									p->setFillMode(ScPainter::Gradient);
-									p->setMeshGradient(FPoint(0, 0), FPoint(width(), 0), FPoint(width(), height()), FPoint(0, height()), meshGradientArray);
-									break;
-								case 12:
-									p->setFillMode(ScPainter::Gradient);
-									p->setMeshGradient(FPoint(0, 0), FPoint(width(), 0), FPoint(width(), height()), FPoint(0, height()), meshGradientPatches);
-									break;
-							}
-						}
-					}
-				}
-			}
-			else
+			ScPattern *pattern = m_Doc->checkedPattern(patternVal);
+			if (!pattern)
 			{
 				p->fill_gradient = VGradient(VGradient::linear);
+				p->fill_gradient.setRepeatMethod(GrExtend);
 				if (fillColor() != CommonStrings::None)
 				{
 					p->setBrush(fillQColor);
@@ -1855,58 +1758,155 @@ void PageItem::DrawObj_Pre(ScPainter *p)
 					no_fill = true;
 					p->setFillMode(ScPainter::None);
 				}
-			}
-			if ((lineColor() != CommonStrings::None) || (!patternStrokeVal.isEmpty()) || (GrTypeStroke > 0))
-			{
-				p->setPen(strokeQColor, lwCorr, PLineArt, PLineEnd, PLineJoin);
-				if (DashValues.count() != 0)
-					p->setDash(DashValues, DashOffset);
+				if ((!patternVal.isEmpty()) && (!m_Doc->docPatterns.contains(patternVal)))
+				{
+					GrType = 0;
+					patternVal = "";
+				}
 			}
 			else
-				p->setLineWidth(0);
-			p->setBrushOpacity(1.0 - fillTransparency());
-			p->setPenOpacity(1.0 - lineTransparency());
-			p->setFillRule(fillRule);
-			if ((GrMask == 1) || (GrMask == 2) || (GrMask == 4) || (GrMask == 5))
 			{
-				if ((GrMask == 1) || (GrMask == 2))
-					p->setMaskMode(1);
-				else
-					p->setMaskMode(3);
-				if ((!gradientMaskVal.isEmpty()) && (!m_Doc->docGradients.contains(gradientMaskVal)))
-					gradientMaskVal = "";
-				if (!(gradientMaskVal.isEmpty()) && (m_Doc->docGradients.contains(gradientMaskVal)))
-					mask_gradient = m_Doc->docGradients[gradientMaskVal];
-				p->mask_gradient = mask_gradient;
-				if ((GrMask == 1) || (GrMask == 4))
-					p->setGradientMask(VGradient::linear, FPoint(GrMaskStartX, GrMaskStartY), FPoint(GrMaskEndX, GrMaskEndY), FPoint(GrMaskStartX, GrMaskStartY), GrMaskScale, GrMaskSkew);
-				else
-					p->setGradientMask(VGradient::radial, FPoint(GrMaskStartX, GrMaskStartY), FPoint(GrMaskEndX, GrMaskEndY), FPoint(GrMaskFocalX, GrMaskFocalY), GrMaskScale, GrMaskSkew);
+				p->setPattern(pattern, patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY, patternMirrorX, patternMirrorY);
+				p->setFillMode(ScPainter::Pattern);
 			}
-			else if ((GrMask == 3) || (GrMask == 6) || (GrMask == 7) || (GrMask == 8))
+		}
+		else
+		{
+			if (GrType == 9)
 			{
-				ScPattern *patternMask = m_Doc->checkedPattern(patternMaskVal);
-				if (patternMask)
+				p->setFillMode(ScPainter::Gradient);
+				FPoint pG1 = FPoint(0, 0);
+				FPoint pG2 = FPoint(width(), 0);
+				FPoint pG3 = FPoint(width(), height());
+				FPoint pG4 = FPoint(0, height());
+				p->set4ColorGeometry(pG1, pG2, pG3, pG4, GrControl1, GrControl2, GrControl3, GrControl4);
+				p->set4ColorColors(GrColorP1QColor, GrColorP2QColor, GrColorP3QColor, GrColorP4QColor);
+			}
+			else if (GrType == 14)
+			{
+				if (fillColor() != CommonStrings::None)
+					p->setBrush(fillQColor);
+				p->setFillMode(ScPainter::Hatch);
+				p->setHatchParameters(hatchType, hatchDistance, hatchAngle, hatchUseBackground, hatchBackgroundQ, hatchForegroundQ, width(), height());
+			}
+			else
+			{
+				if ((!gradientVal.isEmpty()) && (!m_Doc->docGradients.contains(gradientVal)))
+					gradientVal = "";
+				if (!(gradientVal.isEmpty()) && (m_Doc->docGradients.contains(gradientVal)))
+					fill_gradient = m_Doc->docGradients[gradientVal];
+				if ((fill_gradient.Stops() < 2) && (GrType < 9)) // fall back to solid filling if there are not enough colorstops in the gradient.
 				{
-					p->setPatternMask(patternMask, patternMaskScaleX, patternMaskScaleY, patternMaskOffsetX, patternMaskOffsetY, patternMaskRotation, patternMaskSkewX, patternMaskSkewY, patternMaskMirrorX, patternMaskMirrorY);
-					if (GrMask == 3)
-						p->setMaskMode(2);
-					else if (GrMask == 6)
-						p->setMaskMode(4);
-					else if (GrMask == 7)
-						p->setMaskMode(5);
+					if (fillColor() != CommonStrings::None)
+					{
+						p->setBrush(fillQColor);
+						p->setFillMode(ScPainter::Solid);
+					}
 					else
-						p->setMaskMode(6);
+					{
+						no_fill = true;
+						p->setFillMode(ScPainter::None);
+					}
 				}
 				else
 				{
-					p->setMaskMode(0);
+					p->setFillMode(ScPainter::Gradient);
+					p->fill_gradient = fill_gradient;
+					p->fill_gradient.setRepeatMethod(GrExtend);
+					switch (GrType)
+					{
+						case 1:
+						case 2:
+						case 3:
+						case 4:
+						case 6:
+							p->setGradient(VGradient::linear, FPoint(GrStartX, GrStartY), FPoint(GrEndX, GrEndY), FPoint(GrStartX, GrStartY), GrScale, GrSkew);
+							break;
+						case 5:
+						case 7:
+							p->setGradient(VGradient::radial, FPoint(GrStartX, GrStartY), FPoint(GrEndX, GrEndY), FPoint(GrFocalX, GrFocalY), GrScale, GrSkew);
+							break;
+						case 10:
+							p->setFillMode(ScPainter::Gradient);
+							p->setDiamondGeometry(FPoint(0, 0), FPoint(width(), 0), FPoint(width(), height()), FPoint(0, height()), GrControl1, GrControl2, GrControl3, GrControl4, GrControl5);
+							break;
+						case 11:
+						case 13:
+							p->setFillMode(ScPainter::Gradient);
+							p->setMeshGradient(FPoint(0, 0), FPoint(width(), 0), FPoint(width(), height()), FPoint(0, height()), meshGradientArray);
+							break;
+						case 12:
+							p->setFillMode(ScPainter::Gradient);
+							p->setMeshGradient(FPoint(0, 0), FPoint(width(), 0), FPoint(width(), height()), FPoint(0, height()), meshGradientPatches);
+							break;
+					}
 				}
 			}
-			else
-				p->setMaskMode(0);
 		}
 	}
+	else
+	{
+		p->fill_gradient = VGradient(VGradient::linear);
+		if (fillColor() != CommonStrings::None)
+		{
+			p->setBrush(fillQColor);
+			p->setFillMode(ScPainter::Solid);
+		}
+		else
+		{
+			no_fill = true;
+			p->setFillMode(ScPainter::None);
+		}
+	}
+	if ((lineColor() != CommonStrings::None) || (!patternStrokeVal.isEmpty()) || (GrTypeStroke > 0))
+	{
+		p->setPen(strokeQColor, lwCorr, PLineArt, PLineEnd, PLineJoin);
+		if (DashValues.count() != 0)
+			p->setDash(DashValues, DashOffset);
+	}
+	else
+		p->setLineWidth(0);
+	p->setBrushOpacity(1.0 - fillTransparency());
+	p->setPenOpacity(1.0 - lineTransparency());
+	p->setFillRule(fillRule);
+	if ((GrMask == 1) || (GrMask == 2) || (GrMask == 4) || (GrMask == 5))
+	{
+		if ((GrMask == 1) || (GrMask == 2))
+			p->setMaskMode(1);
+		else
+			p->setMaskMode(3);
+		if ((!gradientMaskVal.isEmpty()) && (!m_Doc->docGradients.contains(gradientMaskVal)))
+			gradientMaskVal = "";
+		if (!(gradientMaskVal.isEmpty()) && (m_Doc->docGradients.contains(gradientMaskVal)))
+			mask_gradient = m_Doc->docGradients[gradientMaskVal];
+		p->mask_gradient = mask_gradient;
+		if ((GrMask == 1) || (GrMask == 4))
+			p->setGradientMask(VGradient::linear, FPoint(GrMaskStartX, GrMaskStartY), FPoint(GrMaskEndX, GrMaskEndY), FPoint(GrMaskStartX, GrMaskStartY), GrMaskScale, GrMaskSkew);
+		else
+			p->setGradientMask(VGradient::radial, FPoint(GrMaskStartX, GrMaskStartY), FPoint(GrMaskEndX, GrMaskEndY), FPoint(GrMaskFocalX, GrMaskFocalY), GrMaskScale, GrMaskSkew);
+	}
+	else if ((GrMask == 3) || (GrMask == 6) || (GrMask == 7) || (GrMask == 8))
+	{
+		ScPattern *patternMask = m_Doc->checkedPattern(patternMaskVal);
+		if (patternMask)
+		{
+			p->setPatternMask(patternMask, patternMaskScaleX, patternMaskScaleY, patternMaskOffsetX, patternMaskOffsetY, patternMaskRotation, patternMaskSkewX, patternMaskSkewY, patternMaskMirrorX, patternMaskMirrorY);
+			if (GrMask == 3)
+				p->setMaskMode(2);
+			else if (GrMask == 6)
+				p->setMaskMode(4);
+			else if (GrMask == 7)
+				p->setMaskMode(5);
+			else
+				p->setMaskMode(6);
+		}
+		else
+		{
+			p->setMaskMode(0);
+		}
+	}
+	else
+		p->setMaskMode(0);
 }
 
 void PageItem::DrawObj_Post(ScPainter *p)
