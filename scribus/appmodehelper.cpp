@@ -1008,6 +1008,21 @@ void AppModeHelper::mainWindowCloseLastDoc()
 	(*a_scrActions)["itemConvertToSymbolFrame"]->setEnabled(false);
 	(*a_scrActions)["itemLock"]->setEnabled(false);
 	(*a_scrActions)["itemLockSize"]->setEnabled(false);
+
+	(*a_scrActions)["tableInsertRows"]->setEnabled(false);
+	(*a_scrActions)["tableInsertColumns"]->setEnabled(false);
+	(*a_scrActions)["tableDeleteRows"]->setEnabled(false);
+	(*a_scrActions)["tableDeleteColumns"]->setEnabled(false);
+	(*a_scrActions)["tableMergeCells"]->setEnabled(false);
+	(*a_scrActions)["tableSplitCells"]->setEnabled(false); // Not implemented.
+	(*a_scrActions)["tableSetRowHeights"]->setEnabled(false);
+	(*a_scrActions)["tableSetColumnWidths"]->setEnabled(false);
+	(*a_scrActions)["tableDistributeRowsEvenly"]->setEnabled(false);
+	(*a_scrActions)["tableDistributeColumnsEvenly"]->setEnabled(false);
+	(*a_scrActions)["tableDistributeRowsEvenly"]->setEnabled(false);
+	(*a_scrActions)["tableDistributeColumnsEvenly"]->setEnabled(false);
+	(*a_scrActions)["tableAdjustFrameToTable"]->setEnabled(false);
+	(*a_scrActions)["tableAdjustTableToFrame"]->setEnabled(false);
 }
 
 void AppModeHelper::setPreviewMode(bool b)
@@ -1169,5 +1184,20 @@ void AppModeHelper::setStartupActionsEnabled(bool enabled)
 #ifdef HAVE_OSG
 	(*a_scrActions)["toolsPDFAnnot3D"]->setEnabled(false);
 #endif
+
+	(*a_scrActions)["tableInsertRows"]->setEnabled(false);
+	(*a_scrActions)["tableInsertColumns"]->setEnabled(false);
+	(*a_scrActions)["tableDeleteRows"]->setEnabled(false);
+	(*a_scrActions)["tableDeleteColumns"]->setEnabled(false);
+	(*a_scrActions)["tableMergeCells"]->setEnabled(false);
+	(*a_scrActions)["tableSplitCells"]->setEnabled(false); // Not implemented.
+	(*a_scrActions)["tableSetRowHeights"]->setEnabled(false);
+	(*a_scrActions)["tableSetColumnWidths"]->setEnabled(false);
+	(*a_scrActions)["tableDistributeRowsEvenly"]->setEnabled(false);
+	(*a_scrActions)["tableDistributeColumnsEvenly"]->setEnabled(false);
+	(*a_scrActions)["tableDistributeRowsEvenly"]->setEnabled(false);
+	(*a_scrActions)["tableDistributeColumnsEvenly"]->setEnabled(false);
+	(*a_scrActions)["tableAdjustFrameToTable"]->setEnabled(false);
+	(*a_scrActions)["tableAdjustTableToFrame"]->setEnabled(false);
 }
 
