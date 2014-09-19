@@ -1741,7 +1741,8 @@ void PageItem::DrawObj_Pre(ScPainter *p)
 			{
 				if (GrType == 8)
 				{
-					if ((patternVal.isEmpty()) || (!m_Doc->docPatterns.contains(patternVal)))
+					ScPattern *pattern = m_Doc->checkedPattern(patternVal);
+					if (!pattern)
 					{
 						p->fill_gradient = VGradient(VGradient::linear);
 						p->fill_gradient.setRepeatMethod(GrExtend);
@@ -1763,7 +1764,7 @@ void PageItem::DrawObj_Pre(ScPainter *p)
 					}
 					else
 					{
-						p->setPattern(&m_Doc->docPatterns[patternVal], patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY, patternMirrorX, patternMirrorY);
+						p->setPattern(pattern, patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternSkewX, patternSkewY, patternMirrorX, patternMirrorY);
 						p->setFillMode(ScPainter::Pattern);
 					}
 				}
@@ -1884,11 +1885,10 @@ void PageItem::DrawObj_Pre(ScPainter *p)
 			}
 			else if ((GrMask == 3) || (GrMask == 6) || (GrMask == 7) || (GrMask == 8))
 			{
-				if ((patternMaskVal.isEmpty()) || (!m_Doc->docPatterns.contains(patternMaskVal)))
-					p->setMaskMode(0);
-				else
+				ScPattern *patternMask = m_Doc->checkedPattern(patternMaskVal);
+				if (patternMask)
 				{
-					p->setPatternMask(&m_Doc->docPatterns[patternMaskVal], patternMaskScaleX, patternMaskScaleY, patternMaskOffsetX, patternMaskOffsetY, patternMaskRotation, patternMaskSkewX, patternMaskSkewY, patternMaskMirrorX, patternMaskMirrorY);
+					p->setPatternMask(patternMask, patternMaskScaleX, patternMaskScaleY, patternMaskOffsetX, patternMaskOffsetY, patternMaskRotation, patternMaskSkewX, patternMaskSkewY, patternMaskMirrorX, patternMaskMirrorY);
 					if (GrMask == 3)
 						p->setMaskMode(2);
 					else if (GrMask == 6)
@@ -1897,6 +1897,10 @@ void PageItem::DrawObj_Pre(ScPainter *p)
 						p->setMaskMode(5);
 					else
 						p->setMaskMode(6);
+				}
+				else
+				{
+					p->setMaskMode(0);
 				}
 			}
 			else
@@ -1968,7 +1972,8 @@ void PageItem::DrawObj_Post(ScPainter *p)
 					p->setupPolygon(&PoLine);
 				if (NamedLStyle.isEmpty())
 				{
-					if ((!patternStrokeVal.isEmpty()) && (m_Doc->docPatterns.contains(patternStrokeVal)))
+					ScPattern *strokePattern = m_Doc->checkedPattern(patternStrokeVal);
+					if (strokePattern)
 					{
 						if (patternStrokePath)
 						{
@@ -1977,7 +1982,7 @@ void PageItem::DrawObj_Post(ScPainter *p)
 						}
 						else
 						{
-							p->setPattern(&m_Doc->docPatterns[patternStrokeVal], patternStrokeScaleX, patternStrokeScaleY, patternStrokeOffsetX, patternStrokeOffsetY, patternStrokeRotation, patternStrokeSkewX, patternStrokeSkewY, patternStrokeMirrorX, patternStrokeMirrorY);
+							p->setPattern(strokePattern, patternStrokeScaleX, patternStrokeScaleY, patternStrokeOffsetX, patternStrokeOffsetY, patternStrokeRotation, patternStrokeSkewX, patternStrokeSkewY, patternStrokeMirrorX, patternStrokeMirrorY);
 							p->setStrokeMode(ScPainter::Pattern);
 							p->strokePath();
 						}
@@ -9557,9 +9562,10 @@ void PageItem::drawArrow(ScPainter *p, QTransform &arrowTrans, int arrowIndex)
 	{
 		if (NamedLStyle.isEmpty())
 		{
-			if ((!patternStrokeVal.isEmpty()) && (m_Doc->docPatterns.contains(patternStrokeVal)))
+			ScPattern *strokePattern = m_Doc->checkedPattern(patternStrokeVal);
+			if (strokePattern)
 			{
-				p->setPattern(&m_Doc->docPatterns[patternStrokeVal], patternStrokeScaleX, patternStrokeScaleY, patternStrokeOffsetX, patternStrokeOffsetY, patternStrokeRotation, patternStrokeSkewX, patternStrokeSkewY, patternStrokeMirrorX, patternStrokeMirrorY);
+				p->setPattern(strokePattern, patternStrokeScaleX, patternStrokeScaleY, patternStrokeOffsetX, patternStrokeOffsetY, patternStrokeRotation, patternStrokeSkewX, patternStrokeSkewY, patternStrokeMirrorX, patternStrokeMirrorY);
 				p->setFillMode(ScPainter::Pattern);
 				p->fillPath();
 			}

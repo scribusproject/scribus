@@ -714,6 +714,10 @@ public:
 	bool addPattern(QString &name, ScPattern& pattern);
 	void setPatterns(QHash<QString, ScPattern> &patterns);
 	/*!
+	* @brief Check pattern with specified name and return it if valid
+	*/
+	ScPattern* checkedPattern(QString &name);
+	/*!
 	* @brief Builds a QStringList of the patterns used within the document
 	*/
 	QStringList getUsedPatterns();

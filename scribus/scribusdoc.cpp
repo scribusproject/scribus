@@ -3825,6 +3825,18 @@ bool ScribusDoc::addPattern(QString &name, ScPattern& pattern)
 	return true;
 }
 
+ScPattern* ScribusDoc::checkedPattern(QString &name)
+{
+	if (name.isEmpty() || !docPatterns.contains(name))
+		return 0;
+	ScPattern* pattern = &docPatterns[name];
+	if (pattern->width <= 0 || pattern->height <= 0)
+		return 0;
+	if (pattern->getPattern()->isNull())
+		return 0;
+	return pattern;
+}
+
 void ScribusDoc::setPatterns(QHash<QString, ScPattern> &patterns)
 {
 	docPatterns.clear();
@@ -3998,7 +4010,6 @@ QStringList ScribusDoc::getUsedPatternsHelper(QString pattern, QStringList &resu
 		return QStringList();
 	ScPattern *pat = &docPatterns[pattern];
 	QStringList pats;
-	pats.clear();
 	for (int c = 0; c < pat->items.count(); ++c)
 	{
 		QList<PageItem*> allItems;
