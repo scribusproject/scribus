@@ -120,7 +120,6 @@ void Canvas::setPreviewVisual(int mode)
 {
 	m_viewMode.previewVisual = qMax(0, mode);
 	m_viewMode.viewAsPreview = (mode >= 0);
-
 }
 // ______________________________
 // Coordinate Conversion Routines:
