@@ -13,6 +13,11 @@ ELSE (WANT_NOTEMPLATES)
 	)
 
 	INSTALL(FILES
+	template.ca.xml
+	  DESTINATION ${TEMPLATEDIR}
+	)
+	
+	INSTALL(FILES
 	template.de.xml
 	  DESTINATION ${TEMPLATEDIR}
 	)
