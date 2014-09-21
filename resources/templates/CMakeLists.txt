@@ -10,6 +10,7 @@ ELSE (WANT_NOTEMPLATES)
 
 INSTALL(FILES
 template.xml
+template.ca.xml
 template.de.xml
 template.es.xml
 template.hu.xml
