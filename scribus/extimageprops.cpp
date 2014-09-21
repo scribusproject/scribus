@@ -409,9 +409,6 @@ void ExtImageProps::changedLayer()
 
 void ExtImageProps::selLayer(int layer)
 {
-	opacitySpinBox->setEnabled(true);
-	blendMode->setEnabled(true);
-
 	disconnect(opacitySpinBox, SIGNAL(valueChanged(int)), this, SLOT(changedLayer()));
 	disconnect(blendMode, SIGNAL(activated(int)), this, SLOT(changedLayer()));
 	if ((currentItem->pixm.imgInfo.isRequest) && (currentItem->pixm.imgInfo.RequestProps.contains(layerTable->rowCount() - layer - 1)))
