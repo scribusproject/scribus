@@ -21,6 +21,7 @@ for which a new license (GPL+exception) is in place.
 ScTextBrowser::ScTextBrowser( QWidget * parent )
 	 : QWebView(parent)
 {
+	hideContextMenus=false;
 	// Questionable - e.g. I would like to browse only through help browser (a pref?)
 	page()->setLinkDelegationPolicy(QWebPage::DelegateExternalLinks);
 	connect(this, SIGNAL(urlChanged(QUrl)), this, SLOT(catchHome(QUrl)));
@@ -43,6 +44,11 @@ void ScTextBrowser::setSimpleText(const QString& str)
 void ScTextBrowser::find(const QString& txt, const int& options)
 {
 	findText(txt, QWebPage::FindFlag(options));
+}
+
+void ScTextBrowser::swallowContextMenus(bool b)
+{
+	hideContextMenus=b;
 }
 
 
@@ -83,4 +89,12 @@ bool ScTextBrowser::event(QEvent * e)
 //	qDebug()<<"ScTextBrowser::event"<<e->type()<<ret;
 //	return ret;
 	return QWebView::event(e);
+}
+
+void ScTextBrowser::contextMenuEvent(QContextMenuEvent* e)
+{
+	if (hideContextMenus)
+		page()->swallowContextMenuEvent(e);
+	else
+		QWebView::contextMenuEvent(e);
 }

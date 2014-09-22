@@ -194,7 +194,7 @@ About::About( QWidget* parent, AboutMode diaMode ) : QDialog( parent )
 	// /usr/local/scribus14/share/doc/scribus-1.3.5svn/AUTHORS
 	textView1 = new ScTextBrowser( tab_2 );
 	textView1->setHtml(About::parseAuthorFile(ScPaths::instance().docDir() + "AUTHORS"));
-
+	textView1->swallowContextMenus(true);
 	tabLayout->addWidget( textView1 );
 	tabWidget2->addTab( tab_2, tr( "A&uthors" ) );
 	tab_3 = new QWidget( tabWidget2 );
@@ -208,7 +208,7 @@ About::About( QWidget* parent, AboutMode diaMode ) : QDialog( parent )
 	/*! TRANSLATION tab */
 	// /usr/local/scribus14/share/doc/scribus-1.3.5svn/TRANSLATION
 	textView2->setHtml(About::parseTranslationFile(ScPaths::instance().docDir() + "TRANSLATION"));
-
+	textView2->swallowContextMenus(true);
 	tabLayout_2->addWidget( textView2 );
 	tabWidget2->addTab( tab_3, tr( "&Translations" ) );
 
@@ -217,6 +217,7 @@ About::About( QWidget* parent, AboutMode diaMode ) : QDialog( parent )
 	tab_4 = new QWidget( tabWidget2 );
 	textView4 = new ScTextBrowser( tab_4 );
 	textView4->setHtml(About::parseLinksFile(ScPaths::instance().docDir() + "LINKS"));
+	textView4->swallowContextMenus(true);
 	tabLayout_4 = new QHBoxLayout( tab_4 );
 	tabLayout_4->setSpacing( 6 );
 	tabLayout_4->setMargin( 10 );
@@ -253,7 +254,7 @@ About::About( QWidget* parent, AboutMode diaMode ) : QDialog( parent )
 		QString licenceText = inTS.readAll();
 		textViewLicence->setSimpleText(licenceText);
 	} 
-	
+	textViewLicence->swallowContextMenus(true);
 	//Add tab widget to about window
 	aboutLayout->addWidget( tabWidget2 );
 
