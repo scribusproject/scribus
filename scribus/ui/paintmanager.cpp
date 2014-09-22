@@ -713,6 +713,8 @@ void PaintManagerDialog::removeColorItem()
 				continue;
 			if (it == colorItems)
 				continue;
+			if (it == patternItems)
+				continue;
 			if (it->text(0) == "Black")
 				continue;
 			if (it->text(0) == "White")
@@ -1918,4 +1920,17 @@ QString PaintManagerDialog::selectedColorName()
 			return it->text(0);
 	}
 	return CommonStrings::None;
+}
+
+void PaintManagerDialog::keyPressEvent(QKeyEvent* k)
+{
+	QList<QTreeWidgetItem *> selItems = dataTree->selectedItems();
+	QString belowText = dataTree->itemBelow(selItems[selItems.count()-1])->text(0);
+
+	if (k->modifiers()==Qt::NoModifier && (k->key()==Qt::Key_Delete || k->key()==Qt::Key_Backspace))
+		removeColorItem();
+
+	QList<QTreeWidgetItem *> belowItems=dataTree->findItems(belowText, Qt::MatchFixedString|Qt::MatchCaseSensitive|Qt::MatchRecursive);
+	if(belowItems.count()>0)
+		belowItems[0]->setSelected(true);
 }

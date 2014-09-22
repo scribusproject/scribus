@@ -52,6 +52,10 @@ class SCRIBUS_API PaintManagerDialog : public QDialog, Ui::PaintManagerBase
 		It's used e.g. in BarcodeGenerator plugin.
 		*/
 		QString selectedColorName();
+
+		void keyPressEvent(QKeyEvent *k);
+
+
 		ScribusDoc *m_doc;
 		ScribusMainWindow *mainWin;
 		QHash<QString, VGradient> dialogGradients;
