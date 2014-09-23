@@ -179,10 +179,10 @@ ExtImageProps::ExtImageProps( QWidget* parent, ImageInfoRecord *info, PageItem *
 			uint counter = 0;
 			for (it2 = info->layerInfo.begin(); it2 != info->layerInfo.end(); ++it2)
 			{
-				QCheckBox *cp = new QCheckBox((*it2).layerName, this);
+				QCheckBox *cp = new QCheckBox(it2->layerName, this);
 				cp->setPalette(palette);
 				QPixmap pm;
-				pm=QPixmap::fromImage((*it2).thumb);
+				pm=QPixmap::fromImage(it2->thumb);
 				col1Width = qMax(col1Width, pm.width());
 				cp->setIcon(pm);
 				FlagsSicht.append(cp);
@@ -191,13 +191,13 @@ ExtImageProps::ExtImageProps( QWidget* parent, ImageInfoRecord *info, PageItem *
 				if ((info->isRequest) && (info->RequestProps.contains(counter)))
 					cp->setChecked(info->RequestProps[counter].visible);
 				else
-					cp->setChecked(!((*it2).flags & 2));
-				if (!(*it2).thumb_mask.isNull())
+					cp->setChecked(!(it2->flags & 2));
+				if (!it2->thumb_mask.isNull())
 				{
-					QCheckBox *cp2 = new QCheckBox((*it2).layerName, this);
+					QCheckBox *cp2 = new QCheckBox(it2->layerName, this);
 					cp2->setPalette(palette);
 					QPixmap pm2;
-					pm2=QPixmap::fromImage((*it2).thumb_mask);
+					pm2=QPixmap::fromImage(it2->thumb_mask);
 					col2Width = qMax(col2Width, pm2.width());
 					cp2->setIcon(pm2);
 					connect(cp2, SIGNAL(clicked()), this, SLOT(changedLayer()));
@@ -210,7 +210,7 @@ ExtImageProps::ExtImageProps( QWidget* parent, ImageInfoRecord *info, PageItem *
 				}
 				else
 					FlagsMask.append(0);
-				QTableWidgetItem *tW = new QTableWidgetItem((*it2).layerName);
+				QTableWidgetItem *tW = new QTableWidgetItem(it2->layerName);
 				tW->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
 				layerTable->setItem(info->layerInfo.count()-counter-1, 2, tW);
 				layerTable->setRowHeight(info->layerInfo.count()-counter-1, 40);
