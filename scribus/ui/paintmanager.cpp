@@ -842,6 +842,8 @@ void PaintManagerDialog::removeColorItem()
 			else
 			{
 				QString dColor = it->text(0);
+				if (dColor == "Black" || dColor == "White" || m_colorList[dColor].isRegistrationColor())
+					return;
 				ColorList UsedCG = getGradientColors();
 				if (inDocUsedColors.contains(dColor) || UsedCG.contains(dColor))
 				{
@@ -1925,6 +1927,10 @@ void PaintManagerDialog::keyPressEvent(QKeyEvent* k)
 {
 	QList<QTreeWidgetItem *> selItems = dataTree->selectedItems();
 	QString belowText = dataTree->itemBelow(selItems[selItems.count()-1])->text(0);
+
+	// Prevent deletion of Black, White and Registration color
+	if (!deleteButton->isEnabled())
+		return;
 
 	if (k->modifiers()==Qt::NoModifier && (k->key()==Qt::Key_Delete || k->key()==Qt::Key_Backspace))
 		removeColorItem();
