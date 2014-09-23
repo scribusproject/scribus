@@ -65,7 +65,7 @@ public slots:
 	void leaveCancel();
 	void changePreview();
 	void changedLayer();
-	void selLayer(int layer);
+	void selLayer();
 	void selPath(QListWidgetItem *c);
 	void noPath();
 

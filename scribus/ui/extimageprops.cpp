@@ -141,6 +141,7 @@ ExtImageProps::ExtImageProps( QWidget* parent, ImageInfoRecord *info, PageItem *
 		layerTable->setHorizontalHeaderItem(0, new QTableWidgetItem(QIcon(loadIcon("16/show-object.png")), ""));
 		layerTable->setHorizontalHeaderItem(1, new QTableWidgetItem(""));
 		layerTable->setHorizontalHeaderItem(2, new QTableWidgetItem( tr("Name")));
+		layerTable->setSelectionBehavior(QTableWidget::SelectRows);
 		QHeaderView* headerH = layerTable->horizontalHeader();
 		headerH->setStretchLastSection(true);
 		headerH->setSectionsClickable(false );
@@ -307,7 +308,7 @@ ExtImageProps::ExtImageProps( QWidget* parent, ImageInfoRecord *info, PageItem *
 		layerTable->selectionModel()->clearSelection();
 		opacitySpinBox->setEnabled(false);
 		blendMode->setEnabled(false);
-		connect(layerTable, SIGNAL(cellClicked(int, int)), this, SLOT(selLayer(int)));
+		connect(layerTable, SIGNAL(itemSelectionChanged()), this, SLOT(selLayer()));
 		connect(opacitySpinBox, SIGNAL(valueChanged(double)), this, SLOT(changedLayer()));
 		connect(blendMode, SIGNAL(activated(int)), this, SLOT(changedLayer()));
 	}
@@ -395,22 +396,28 @@ void ExtImageProps::changedLayer()
 	currentItem->pixm.imgInfo.isRequest = true;
 	for (int r = 0; r < layerTable->rowCount(); ++r)
 	{
-		if (currentLayer == layerTable->rowCount() - r - 1)
+		int layerIndex = layerTable->rowCount() - r - 1;
+		if (currentLayer == layerIndex)
 		{
 			loadingInfo.blend = blendModesRev[blendMode->currentText()];
 			loadingInfo.opacity = qRound(static_cast<int>(opacitySpinBox->value()) / 100.0 * 255);
 		}
+		else if (currentItem->pixm.imgInfo.RequestProps.contains(layerIndex))
+		{
+			loadingInfo.blend = currentItem->pixm.imgInfo.RequestProps[layerIndex].blend;
+			loadingInfo.opacity = currentItem->pixm.imgInfo.RequestProps[layerIndex].opacity;
+		}
 		else
 		{
-			loadingInfo.blend = currentItem->pixm.imgInfo.layerInfo[layerTable->rowCount() - r - 1].blend;
-			loadingInfo.opacity = currentItem->pixm.imgInfo.layerInfo[layerTable->rowCount() - r - 1].opacity;
+			loadingInfo.blend = currentItem->pixm.imgInfo.layerInfo[layerIndex].blend;
+			loadingInfo.opacity = currentItem->pixm.imgInfo.layerInfo[layerIndex].opacity;
 		}
-		loadingInfo.visible = FlagsSicht.at(layerTable->rowCount() - r - 1)->isChecked();
-		if (FlagsMask.at(layerTable->rowCount() - r - 1))
-			loadingInfo.useMask = FlagsMask.at(layerTable->rowCount() - r - 1)->isChecked();
+		loadingInfo.visible = FlagsSicht.at(layerIndex)->isChecked();
+		if (FlagsMask.at(layerIndex))
+			loadingInfo.useMask = FlagsMask.at(layerIndex)->isChecked();
 		else
 			loadingInfo.useMask = true;
-		currentItem->pixm.imgInfo.RequestProps.insert(layerTable->rowCount() - r - 1, loadingInfo);
+		currentItem->pixm.imgInfo.RequestProps.insert(layerIndex, loadingInfo);
 	}
 	if (doPreview)
 	{
@@ -419,23 +426,34 @@ void ExtImageProps::changedLayer()
 	}
 }
 
-void ExtImageProps::selLayer(int layer)
+void ExtImageProps::selLayer()
 {
+	QModelIndexList selectedRows = layerTable->selectionModel()->selectedRows();
+	if (selectedRows.count() <= 0)
+	{
+		currentLayer = -1;
+		opacitySpinBox->setEnabled(false);
+		blendMode->setEnabled(false);
+		return;
+	}
+
+	int selectedRow = selectedRows.at(0).row();
+	currentLayer = layerTable->rowCount() - selectedRow - 1;
+
 	disconnect(opacitySpinBox, SIGNAL(valueChanged(double)), this, SLOT(changedLayer()));
 	disconnect(blendMode, SIGNAL(activated(int)), this, SLOT(changedLayer()));
-	if ((currentItem->pixm.imgInfo.isRequest) && (currentItem->pixm.imgInfo.RequestProps.contains(layerTable->rowCount() - layer - 1)))
+	if ((currentItem->pixm.imgInfo.isRequest) && (currentItem->pixm.imgInfo.RequestProps.contains(currentLayer)))
 	{
-		opacitySpinBox->setValue(qRound(currentItem->pixm.imgInfo.RequestProps[layerTable->rowCount() - layer - 1].opacity / 255.0 * 100));
-		setCurrentComboItem(blendMode, blendModes[currentItem->pixm.imgInfo.RequestProps[layerTable->rowCount() - layer - 1].blend]);
+		opacitySpinBox->setValue(qRound(currentItem->pixm.imgInfo.RequestProps[currentLayer].opacity / 255.0 * 100));
+		setCurrentComboItem(blendMode, blendModes[currentItem->pixm.imgInfo.RequestProps[currentLayer].blend]);
 	}
 	else
 	{
-		opacitySpinBox->setValue(qRound(currentItem->pixm.imgInfo.layerInfo[layerTable->rowCount() - layer - 1].opacity / 255.0 * 100));
-		setCurrentComboItem(blendMode, blendModes[currentItem->pixm.imgInfo.layerInfo[layerTable->rowCount() - layer - 1].blend]);
+		opacitySpinBox->setValue(qRound(currentItem->pixm.imgInfo.layerInfo[currentLayer].opacity / 255.0 * 100));
+		setCurrentComboItem(blendMode, blendModes[currentItem->pixm.imgInfo.layerInfo[currentLayer].blend]);
 	}
 	opacitySpinBox->setEnabled(true);
 	blendMode->setEnabled(true);
-	currentLayer = layerTable->rowCount() - layer - 1;
 	connect(opacitySpinBox, SIGNAL(valueChanged(double)), this, SLOT(changedLayer()));
 	connect(blendMode, SIGNAL(activated(int)), this, SLOT(changedLayer()));
 }
