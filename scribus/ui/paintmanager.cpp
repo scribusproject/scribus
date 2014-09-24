@@ -334,9 +334,8 @@ void PaintManagerDialog::selEditColor(QTreeWidgetItem *it)
 		if ((it->parent() == colorItems) || (it->parent() == gradientItems))
 		{
 			QString curCol = it->text(0);
-			ScColor tmpColor = m_colorList[curCol];
-			bool enableDel  = (curCol != "Black" && curCol != "White" && !tmpColor.isRegistrationColor()) && (m_colorList.count() > 1);
-			bool enableEdit = (curCol != "Black" && curCol != "White" && !tmpColor.isRegistrationColor());
+			bool enableDel  = (!isMandatoryColor(curCol)) && (m_colorList.count() > 1);
+			bool enableEdit = (!isMandatoryColor(curCol));
 			duplicateButton->setEnabled(curCol != "Registration");
 			deleteButton->setEnabled(enableDel);
 			editButton->setEnabled(enableEdit);
@@ -370,8 +369,8 @@ void PaintManagerDialog::itemSelected(QTreeWidgetItem* it)
 			{
 				QString curCol = it->text(0);
 				ScColor tmpColor = m_colorList[curCol];
-				bool enableDel  = (curCol != "Black" && curCol != "White" && !tmpColor.isRegistrationColor()) && (m_colorList.count() > 1);
-				bool enableEdit = (curCol != "Black" && curCol != "White" && !tmpColor.isRegistrationColor());
+				bool enableDel  = (!isMandatoryColor(curCol)) && (m_colorList.count() > 1);
+				bool enableEdit = (!isMandatoryColor(curCol));
 				duplicateButton->setEnabled(curCol != "Registration");
 				deleteButton->setEnabled(enableDel);
 				editButton->setEnabled(enableEdit);
@@ -715,11 +714,7 @@ void PaintManagerDialog::removeColorItem()
 				continue;
 			if (it == patternItems)
 				continue;
-			if (it->text(0) == "Black")
-				continue;
-			if (it->text(0) == "White")
-				continue;
-			if (m_colorList[it->text(0)].isRegistrationColor())
+			if (isMandatoryColor(it->text(0)))
 				continue;
 			if (it->parent() == gradientItems)
 				gradients.append(it->text(0));
@@ -842,7 +837,7 @@ void PaintManagerDialog::removeColorItem()
 			else
 			{
 				QString dColor = it->text(0);
-				if (dColor == "Black" || dColor == "White" || m_colorList[dColor].isRegistrationColor())
+				if (isMandatoryColor(dColor))
 					return;
 				ColorList UsedCG = getGradientColors();
 				if (inDocUsedColors.contains(dColor) || UsedCG.contains(dColor))
@@ -1393,6 +1388,16 @@ void PaintManagerDialog::loadVectors(QString data)
 	UndoManager::instance()->setUndoEnabled(true);
 }
 
+bool PaintManagerDialog::isMandatoryColor(QString colorName)
+{
+	if (colorName == "Black" || colorName == "White")
+		return true;
+	ScColor color = m_colorList.value(colorName, ScColor());
+	if (color.isRegistrationColor())
+		return true;
+	return false;
+}
+
 ColorList PaintManagerDialog::getGradientColors()
 {
 	ColorList colorList;
@@ -1925,17 +1930,26 @@ QString PaintManagerDialog::selectedColorName()
 
 void PaintManagerDialog::keyPressEvent(QKeyEvent* k)
 {
-	QList<QTreeWidgetItem *> selItems = dataTree->selectedItems();
-	QString belowText = dataTree->itemBelow(selItems[selItems.count()-1])->text(0);
-
-	// Prevent deletion of Black, White and Registration color
-	if (!deleteButton->isEnabled())
+	if (k->modifiers()!=Qt::NoModifier || (k->key()!=Qt::Key_Delete && k->key()!=Qt::Key_Backspace))
 		return;
 
-	if (k->modifiers()==Qt::NoModifier && (k->key()==Qt::Key_Delete || k->key()==Qt::Key_Backspace))
-		removeColorItem();
+	QString belowText;
+	QList<QTreeWidgetItem *> selItems = dataTree->selectedItems();
+	if (selItems.count() > 0)
+	{
+		QTreeWidgetItem* belowItem = dataTree->itemBelow(selItems.last());
+		if (belowItem)
+			belowText = belowItem->text(0);
+	}
 
-	QList<QTreeWidgetItem *> belowItems=dataTree->findItems(belowText, Qt::MatchFixedString|Qt::MatchCaseSensitive|Qt::MatchRecursive);
-	if(belowItems.count()>0)
-		belowItems[0]->setSelected(true);
+	removeColorItem();
+
+	QList<QTreeWidgetItem *> belowItems = dataTree->findItems(belowText, Qt::MatchFixedString|Qt::MatchCaseSensitive|Qt::MatchRecursive);
+	if (belowItems.count() > 0)
+	{
+		// In case non deletable colors have been selected, some items
+		//may still be selected, so clear selection first
+		dataTree->selectionModel()->clearSelection();
+		dataTree->setCurrentItem(belowItems[0]);
+	}
 }

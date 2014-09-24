@@ -90,6 +90,7 @@ class SCRIBUS_API PaintManagerDialog : public QDialog, Ui::PaintManagerBase
 		QTreeWidgetItem* updateGradientList(QString addedName = "");
 		QTreeWidgetItem* updateColorList(QString addedName = "");
 		ColorList getGradientColors();
+		bool isMandatoryColor(QString colorName);
 		void loadPatternDir();
 		void loadVectors(QString data);
 		void updateGradientColors(QString newName, QString oldName);
