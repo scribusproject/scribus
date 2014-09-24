@@ -21,6 +21,7 @@ for which a new license (GPL+exception) is in place.
 #include <QHeaderView>
 #include <QTableWidget>
 #include <QTableWidgetItem>
+#include <QTimer>
 
 #include "commonstrings.h"
 #include "pageitem.h"
@@ -42,6 +43,13 @@ ExtImageProps::ExtImageProps( QWidget* parent, ImageInfoRecord *info, PageItem *
 	ExtImagePropsLayout->setMargin(6);
 	ExtImagePropsLayout->setSpacing(6);
 	viewWidget = view;
+	m_timer = 0;
+	if (info->layerInfo.count() != 0)
+	{
+		m_timer = new QTimer(this);
+		m_timer->setSingleShot(true);
+		m_timer->setInterval(350);
+	}
 	currentItem = item;
 	currentLayer = 0;
 	originalInfo = *info;
@@ -121,6 +129,7 @@ ExtImageProps::ExtImageProps( QWidget* parent, ImageInfoRecord *info, PageItem *
 		textLabel2->setText( tr( "Opacity:" ) );
 		layout1->addWidget( textLabel2 );
 		opacitySpinBox = new QSpinBox( tab );
+		opacitySpinBox->setKeyboardTracking(false);
 		opacitySpinBox->setMinimum(0);
 		opacitySpinBox->setMaximum(100);
 		opacitySpinBox->setSingleStep(10);
@@ -298,8 +307,9 @@ ExtImageProps::ExtImageProps( QWidget* parent, ImageInfoRecord *info, PageItem *
 		layerTable->selectionModel()->clearSelection();
 		opacitySpinBox->setEnabled(false);
 		blendMode->setEnabled(false);
+		connect(m_timer, SIGNAL(timeout()), this,  SLOT(changedLayer()));
 		connect(layerTable, SIGNAL(itemSelectionChanged()), this, SLOT(selLayer()));
-		connect(opacitySpinBox, SIGNAL(valueChanged(int)), this, SLOT(changedLayer()));
+		connect(opacitySpinBox, SIGNAL(valueChanged(int)), this, SLOT(delayedLayerChange()));
 		connect(blendMode, SIGNAL(activated(int)), this, SLOT(changedLayer()));
 	}
 }
@@ -380,38 +390,20 @@ void ExtImageProps::changePreview()
 
 void ExtImageProps::changedLayer()
 {
-	struct ImageLoadRequest loadingInfo;
-	currentItem->pixm.imgInfo.isRequest = true;
-	for (int r = 0; r < layerTable->rowCount(); ++r)
-	{
-		int layerIndex = layerTable->rowCount() - r - 1;
-		if (currentLayer == layerIndex)
-		{
-			loadingInfo.blend = blendModesRev[blendMode->currentText()];
-			loadingInfo.opacity = qRound(opacitySpinBox->value() / 100.0 * 255);
-		}
-		else if (currentItem->pixm.imgInfo.RequestProps.contains(layerIndex))
-		{
-			loadingInfo.blend = currentItem->pixm.imgInfo.RequestProps[layerIndex].blend;
-			loadingInfo.opacity = currentItem->pixm.imgInfo.RequestProps[layerIndex].opacity;
-		}
-		else
-		{
-			loadingInfo.blend = currentItem->pixm.imgInfo.layerInfo[layerIndex].blend;
-			loadingInfo.opacity = currentItem->pixm.imgInfo.layerInfo[layerIndex].opacity;
-		}
-		loadingInfo.visible = FlagsSicht.at(layerIndex)->isChecked();
-		if (FlagsMask.at(layerIndex))
-			loadingInfo.useMask = FlagsMask.at(layerIndex)->isChecked();
-		else
-			loadingInfo.useMask = true;
-		currentItem->pixm.imgInfo.RequestProps.insert(layerIndex, loadingInfo);
-	}
+	updateLayerInfo();
 	if (doPreview)
 	{
 		viewWidget->Doc->LoadPict(currentItem->Pfile, currentItem->ItemNr, true);
 		currentItem->update();
 	}
+}
+
+void ExtImageProps::delayedLayerChange()
+{
+	if (m_timer->isActive())
+		m_timer->stop();
+	updateLayerInfo();
+	m_timer->start();
 }
 
 void ExtImageProps::selLayer()
@@ -428,7 +420,7 @@ void ExtImageProps::selLayer()
 	int selectedRow = selectedRows.at(0).row();
 	currentLayer = layerTable->rowCount() - selectedRow - 1;
 
-	disconnect(opacitySpinBox, SIGNAL(valueChanged(int)), this, SLOT(changedLayer()));
+	disconnect(opacitySpinBox, SIGNAL(valueChanged(int)), this, SLOT(delayedLayerChange()));
 	disconnect(blendMode, SIGNAL(activated(int)), this, SLOT(changedLayer()));
 	if ((currentItem->pixm.imgInfo.isRequest) && (currentItem->pixm.imgInfo.RequestProps.contains(currentLayer)))
 	{
@@ -442,8 +434,41 @@ void ExtImageProps::selLayer()
 	}
 	opacitySpinBox->setEnabled(true);
 	blendMode->setEnabled(true);
-	connect(opacitySpinBox, SIGNAL(valueChanged(int)), this, SLOT(changedLayer()));
+	connect(opacitySpinBox, SIGNAL(valueChanged(int)), this, SLOT(delayedLayerChange()));
 	connect(blendMode, SIGNAL(activated(int)), this, SLOT(changedLayer()));
+}
+
+
+void ExtImageProps::updateLayerInfo()
+{
+	struct ImageLoadRequest loadingInfo;
+	bool isRequest = currentItem->pixm.imgInfo.isRequest;
+	for (int r = 0; r < layerTable->rowCount(); ++r)
+	{
+		int layerIndex = layerTable->rowCount() - r - 1;
+		if (currentLayer == layerIndex)
+		{
+			loadingInfo.blend = blendModesRev[blendMode->currentText()];
+			loadingInfo.opacity = qRound(opacitySpinBox->value() / 100.0 * 255);
+		}
+		else if ((isRequest) && (currentItem->pixm.imgInfo.RequestProps.contains(layerIndex)))
+		{
+			loadingInfo.blend = currentItem->pixm.imgInfo.RequestProps[layerIndex].blend;
+			loadingInfo.opacity = currentItem->pixm.imgInfo.RequestProps[layerIndex].opacity;
+		}
+		else
+		{
+			loadingInfo.blend = currentItem->pixm.imgInfo.layerInfo[layerIndex].blend;
+			loadingInfo.opacity = currentItem->pixm.imgInfo.layerInfo[layerIndex].opacity;
+		}
+		loadingInfo.visible = FlagsSicht.at(layerIndex)->isChecked();
+		if (FlagsMask.at(layerIndex))
+			loadingInfo.useMask = FlagsMask.at(layerIndex)->isChecked();
+		else
+			loadingInfo.useMask = true;
+		currentItem->pixm.imgInfo.RequestProps.insert(layerIndex, loadingInfo);
+	}
+	currentItem->pixm.imgInfo.isRequest = true;
 }
 
 void ExtImageProps::noPath()

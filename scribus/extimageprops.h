@@ -22,9 +22,11 @@ class QListWidget;
 class QListWidgetItem;
 class QPushButton;
 class QTableWidget;
+class QTimer;
 
 class ScribusView;
 class PageItem;
+
 #include "scribusapi.h"
 #include "scimage.h"
 
@@ -65,6 +67,7 @@ public slots:
 	void leaveCancel();
 	void changePreview();
 	void changedLayer();
+	void delayedLayerChange();
 	void selLayer();
 	void selPath(QListWidgetItem *c);
 	void noPath();
@@ -76,6 +79,9 @@ protected:
 	QHBoxLayout* layout1;
 	QHBoxLayout* layoutBottom;
 
+	QTimer* m_timer;
+
+	void updateLayerInfo();
 };
 
 #endif // EXTIMAGEPROPS_H
