@@ -42,7 +42,7 @@ ExtImageProps::ExtImageProps( QWidget* parent, ImageInfoRecord *info, PageItem *
 	ExtImagePropsLayout = new QVBoxLayout( this );
 	ExtImagePropsLayout->setMargin(6);
 	ExtImagePropsLayout->setSpacing(6);
-	viewWidget = view;
+	m_view = view;
 	m_timer = 0;
 	if (info->layerInfo.count() != 0)
 	{
@@ -50,7 +50,7 @@ ExtImageProps::ExtImageProps( QWidget* parent, ImageInfoRecord *info, PageItem *
 		m_timer->setSingleShot(true);
 		m_timer->setInterval(350);
 	}
-	currentItem = item;
+	m_item = item;
 	currentLayer = 0;
 	originalInfo = *info;
 	originalImageClip = item->imageClip.copy();
@@ -319,35 +319,35 @@ void ExtImageProps::leaveOK()
 	doPreview = false;
 	if (originalInfo.layerInfo.count() != 0)
 		changedLayer();
-	viewWidget->Doc->LoadPict(currentItem->Pfile, currentItem->ItemNr, true);
+	m_view->Doc->LoadPict(m_item->Pfile, m_item->ItemNr, true);
 	if (pathList->count() != 0)
 	{
 		QList<QListWidgetItem *>sel = pathList->selectedItems();
 		if (sel.count() != 0)
 		{
-			currentItem->imageClip = currentItem->pixm.imgInfo.PDSpathData[sel[0]->text()].copy();
-			currentItem->pixm.imgInfo.usedPath = sel[0]->text();
+			m_item->imageClip = m_item->pixm.imgInfo.PDSpathData[sel[0]->text()].copy();
+			m_item->pixm.imgInfo.usedPath = sel[0]->text();
 			QMatrix cl;
-			cl.translate(currentItem->imageXOffset()*currentItem->imageXScale(), currentItem->imageYOffset()*currentItem->imageYScale());
-			cl.scale(currentItem->imageXScale(), currentItem->imageYScale());
-			currentItem->imageClip.map(cl);
+			cl.translate(m_item->imageXOffset()*m_item->imageXScale(), m_item->imageYOffset()*m_item->imageYScale());
+			cl.scale(m_item->imageXScale(), m_item->imageYScale());
+			m_item->imageClip.map(cl);
 		}
 		else
 		{
-			currentItem->imageClip.resize(0);
-			currentItem->pixm.imgInfo.usedPath = "";
+			m_item->imageClip.resize(0);
+			m_item->pixm.imgInfo.usedPath = "";
 		}
 	}
-	currentItem->update();
+	m_item->update();
 	accept();
 }
 
 void ExtImageProps::leaveCancel()
 {
-	currentItem->pixm.imgInfo = originalInfo;
-	viewWidget->Doc->LoadPict(currentItem->Pfile, currentItem->ItemNr, true);
-	currentItem->imageClip = originalImageClip.copy();
-	currentItem->update();
+	m_item->pixm.imgInfo = originalInfo;
+	m_view->Doc->LoadPict(m_item->Pfile, m_item->ItemNr, true);
+	m_item->imageClip = originalImageClip.copy();
+	m_item->update();
 	reject();
 }
 
@@ -358,33 +358,33 @@ void ExtImageProps::changePreview()
 	{
 		if (originalInfo.layerInfo.count() != 0)
 			changedLayer();
-		viewWidget->Doc->LoadPict(currentItem->Pfile, currentItem->ItemNr, true);
+		m_view->Doc->LoadPict(m_item->Pfile, m_item->ItemNr, true);
 		if (pathList->count() != 0)
 		{
 			QList<QListWidgetItem *>sel = pathList->selectedItems();
 			if (sel.count() != 0)
 			{
-				currentItem->imageClip = currentItem->pixm.imgInfo.PDSpathData[sel[0]->text()].copy();
-				currentItem->pixm.imgInfo.usedPath = sel[0]->text();
+				m_item->imageClip = m_item->pixm.imgInfo.PDSpathData[sel[0]->text()].copy();
+				m_item->pixm.imgInfo.usedPath = sel[0]->text();
 				QMatrix cl;
-				cl.translate(currentItem->imageXOffset()*currentItem->imageXScale(), currentItem->imageYOffset()*currentItem->imageYScale());
-				cl.scale(currentItem->imageXScale(), currentItem->imageYScale());
-				currentItem->imageClip.map(cl);
+				cl.translate(m_item->imageXOffset()*m_item->imageXScale(), m_item->imageYOffset()*m_item->imageYScale());
+				cl.scale(m_item->imageXScale(), m_item->imageYScale());
+				m_item->imageClip.map(cl);
 			}
 			else
 			{
-				currentItem->imageClip.resize(0);
-				currentItem->pixm.imgInfo.usedPath = "";
+				m_item->imageClip.resize(0);
+				m_item->pixm.imgInfo.usedPath = "";
 			}
 		}
-		currentItem->update();
+		m_item->update();
 	}
 	else
 	{
-		currentItem->pixm.imgInfo = originalInfo;
-		viewWidget->Doc->LoadPict(currentItem->Pfile, currentItem->ItemNr, true);
-		currentItem->imageClip = originalImageClip.copy();
-		currentItem->update();
+		m_item->pixm.imgInfo = originalInfo;
+		m_view->Doc->LoadPict(m_item->Pfile, m_item->ItemNr, true);
+		m_item->imageClip = originalImageClip.copy();
+		m_item->update();
 	}
 }
 
@@ -393,8 +393,8 @@ void ExtImageProps::changedLayer()
 	updateLayerInfo();
 	if (doPreview)
 	{
-		viewWidget->Doc->LoadPict(currentItem->Pfile, currentItem->ItemNr, true);
-		currentItem->update();
+		m_view->Doc->LoadPict(m_item->Pfile, m_item->ItemNr, true);
+		m_item->update();
 	}
 }
 
@@ -422,15 +422,15 @@ void ExtImageProps::selLayer()
 
 	disconnect(opacitySpinBox, SIGNAL(valueChanged(int)), this, SLOT(delayedLayerChange()));
 	disconnect(blendMode, SIGNAL(activated(int)), this, SLOT(changedLayer()));
-	if ((currentItem->pixm.imgInfo.isRequest) && (currentItem->pixm.imgInfo.RequestProps.contains(currentLayer)))
+	if ((m_item->pixm.imgInfo.isRequest) && (m_item->pixm.imgInfo.RequestProps.contains(currentLayer)))
 	{
-		opacitySpinBox->setValue(qRound(currentItem->pixm.imgInfo.RequestProps[currentLayer].opacity / 255.0 * 100));
-		setCurrentComboItem(blendMode, blendModes[currentItem->pixm.imgInfo.RequestProps[currentLayer].blend]);
+		opacitySpinBox->setValue(qRound(m_item->pixm.imgInfo.RequestProps[currentLayer].opacity / 255.0 * 100));
+		setCurrentComboItem(blendMode, blendModes[m_item->pixm.imgInfo.RequestProps[currentLayer].blend]);
 	}
 	else
 	{
-		opacitySpinBox->setValue(qRound(currentItem->pixm.imgInfo.layerInfo[currentLayer].opacity / 255.0 * 100));
-		setCurrentComboItem(blendMode, blendModes[currentItem->pixm.imgInfo.layerInfo[currentLayer].blend]);
+		opacitySpinBox->setValue(qRound(m_item->pixm.imgInfo.layerInfo[currentLayer].opacity / 255.0 * 100));
+		setCurrentComboItem(blendMode, blendModes[m_item->pixm.imgInfo.layerInfo[currentLayer].blend]);
 	}
 	opacitySpinBox->setEnabled(true);
 	blendMode->setEnabled(true);
@@ -442,7 +442,7 @@ void ExtImageProps::selLayer()
 void ExtImageProps::updateLayerInfo()
 {
 	struct ImageLoadRequest loadingInfo;
-	bool isRequest = currentItem->pixm.imgInfo.isRequest;
+	bool isRequest = m_item->pixm.imgInfo.isRequest;
 	for (int r = 0; r < layerTable->rowCount(); ++r)
 	{
 		int layerIndex = layerTable->rowCount() - r - 1;
@@ -451,24 +451,24 @@ void ExtImageProps::updateLayerInfo()
 			loadingInfo.blend = blendModesRev[blendMode->currentText()];
 			loadingInfo.opacity = qRound(opacitySpinBox->value() / 100.0 * 255);
 		}
-		else if ((isRequest) && (currentItem->pixm.imgInfo.RequestProps.contains(layerIndex)))
+		else if ((isRequest) && (m_item->pixm.imgInfo.RequestProps.contains(layerIndex)))
 		{
-			loadingInfo.blend = currentItem->pixm.imgInfo.RequestProps[layerIndex].blend;
-			loadingInfo.opacity = currentItem->pixm.imgInfo.RequestProps[layerIndex].opacity;
+			loadingInfo.blend = m_item->pixm.imgInfo.RequestProps[layerIndex].blend;
+			loadingInfo.opacity = m_item->pixm.imgInfo.RequestProps[layerIndex].opacity;
 		}
 		else
 		{
-			loadingInfo.blend = currentItem->pixm.imgInfo.layerInfo[layerIndex].blend;
-			loadingInfo.opacity = currentItem->pixm.imgInfo.layerInfo[layerIndex].opacity;
+			loadingInfo.blend = m_item->pixm.imgInfo.layerInfo[layerIndex].blend;
+			loadingInfo.opacity = m_item->pixm.imgInfo.layerInfo[layerIndex].opacity;
 		}
 		loadingInfo.visible = FlagsSicht.at(layerIndex)->isChecked();
 		if (FlagsMask.at(layerIndex))
 			loadingInfo.useMask = FlagsMask.at(layerIndex)->isChecked();
 		else
 			loadingInfo.useMask = true;
-		currentItem->pixm.imgInfo.RequestProps.insert(layerIndex, loadingInfo);
+		m_item->pixm.imgInfo.RequestProps.insert(layerIndex, loadingInfo);
 	}
-	currentItem->pixm.imgInfo.isRequest = true;
+	m_item->pixm.imgInfo.isRequest = true;
 }
 
 void ExtImageProps::noPath()
@@ -477,9 +477,9 @@ void ExtImageProps::noPath()
 	pathList->clearSelection();
 	if (doPreview)
 	{
-		currentItem->imageClip.resize(0);
-		currentItem->pixm.imgInfo.usedPath = "";
-		currentItem->update();
+		m_item->imageClip.resize(0);
+		m_item->pixm.imgInfo.usedPath = "";
+		m_item->update();
 	}
 	connect(pathList, SIGNAL( itemClicked(QListWidgetItem*) ), this, SLOT( selPath(QListWidgetItem*) ) );
 }
@@ -488,13 +488,13 @@ void ExtImageProps::selPath(QListWidgetItem *c)
 {
 	if ((c != NULL) && (doPreview))
 	{
-		currentItem->imageClip = currentItem->pixm.imgInfo.PDSpathData[c->text()].copy();
-		currentItem->pixm.imgInfo.usedPath = c->text();
+		m_item->imageClip = m_item->pixm.imgInfo.PDSpathData[c->text()].copy();
+		m_item->pixm.imgInfo.usedPath = c->text();
 		QMatrix cl;
-		cl.translate(currentItem->imageXOffset()*currentItem->imageXScale(), currentItem->imageYOffset()*currentItem->imageYScale());
-		cl.scale(currentItem->imageXScale(), currentItem->imageYScale());
-		currentItem->imageClip.map(cl);
-		currentItem->update();
+		cl.translate(m_item->imageXOffset()*m_item->imageXScale(), m_item->imageYOffset()*m_item->imageYScale());
+		cl.scale(m_item->imageXScale(), m_item->imageYScale());
+		m_item->imageClip.map(cl);
+		m_item->update();
 	}
 }
 
