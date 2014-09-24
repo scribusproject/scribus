@@ -149,7 +149,6 @@ ExtImageProps::ExtImageProps( QWidget* parent, ImageInfoRecord *info, PageItem *
 		layerTable->setHorizontalHeaderItem(0, new QTableWidgetItem(QIcon(loadIcon("16/show-object.png")), ""));
 		layerTable->setHorizontalHeaderItem(1, new QTableWidgetItem(""));
 		layerTable->setHorizontalHeaderItem(2, new QTableWidgetItem( tr("Name")));
-		layerTable->setSelectionBehavior(QTableWidget::SelectRows);
 		QHeaderView* headerH = layerTable->horizontalHeader();
 		headerH->setStretchLastSection(true);
 		headerH->setSectionsClickable(false );
@@ -160,7 +159,7 @@ ExtImageProps::ExtImageProps( QWidget* parent, ImageInfoRecord *info, PageItem *
 			layerTable->setColumnWidth(0, 24);
 		}
 		layerTable->setSortingEnabled(false);
-		layerTable->setSelectionBehavior( QAbstractItemView::SelectRows );
+		layerTable->setSelectionBehavior(QTableWidget::SelectRows);
 		QHeaderView *Header = layerTable->verticalHeader();
 		Header->setSectionsMovable( false );
 		Header->setSectionResizeMode(QHeaderView::Fixed);
@@ -168,62 +167,59 @@ ExtImageProps::ExtImageProps( QWidget* parent, ImageInfoRecord *info, PageItem *
 		FlagsSicht.clear();
 		int col2Width = 0;
 		int col1Width = 0;
-		if (info->layerInfo.count() != 0)
+		if ((info->isRequest) && (info->RequestProps.contains(0)))
 		{
-			if ((info->isRequest) && (info->RequestProps.contains(0)))
+			opacitySpinBox->setValue(qRound(info->RequestProps[0].opacity / 255.0 * 100));
+			setCurrentComboItem(blendMode, blendModes[info->RequestProps[0].blend]);
+		}
+		else
+		{
+			opacitySpinBox->setValue(qRound(info->layerInfo[0].opacity / 255.0 * 100));
+			setCurrentComboItem(blendMode, blendModes[info->layerInfo[0].blend]);
+		}
+		opacitySpinBox->setEnabled(true);
+		blendMode->setEnabled(true);
+		QString tmp;
+		QList<PSDLayer>::iterator it2;
+		uint counter = 0;
+		for (it2 = info->layerInfo.begin(); it2 != info->layerInfo.end(); ++it2)
+		{
+			QCheckBox *cp = new QCheckBox(it2->layerName, this);
+			cp->setPalette(palette);
+			QPixmap pm;
+			pm=QPixmap::fromImage(it2->thumb);
+			col1Width = qMax(col1Width, pm.width());
+			cp->setIcon(pm);
+			FlagsSicht.append(cp);
+			connect(cp, SIGNAL(clicked()), this, SLOT(changedLayer()));
+			layerTable->setCellWidget(info->layerInfo.count()-counter-1, 0, cp);
+			if ((info->isRequest) && (info->RequestProps.contains(counter)))
+				cp->setChecked(info->RequestProps[counter].visible);
+			else
+				cp->setChecked(!(it2->flags & 2));
+			if (!it2->thumb_mask.isNull())
 			{
-				opacitySpinBox->setValue(qRound(info->RequestProps[0].opacity / 255.0 * 100));
-				setCurrentComboItem(blendMode, blendModes[info->RequestProps[0].blend]);
+				QCheckBox *cp2 = new QCheckBox(it2->layerName, this);
+				cp2->setPalette(palette);
+				QPixmap pm2;
+				pm2=QPixmap::fromImage(it2->thumb_mask);
+				col2Width = qMax(col2Width, pm2.width());
+				cp2->setIcon(pm2);
+				connect(cp2, SIGNAL(clicked()), this, SLOT(changedLayer()));
+				layerTable->setCellWidget(info->layerInfo.count()-counter-1, 1, cp2);
+				if ((info->isRequest) && (info->RequestProps.contains(counter)))
+					cp2->setChecked(info->RequestProps[counter].useMask);
+				else
+					cp2->setChecked(true);
+				FlagsMask.append(cp2);
 			}
 			else
-			{
-				opacitySpinBox->setValue(qRound(info->layerInfo[0].opacity / 255.0 * 100));
-				setCurrentComboItem(blendMode, blendModes[info->layerInfo[0].blend]);
-			}
-			opacitySpinBox->setEnabled(true);
-			blendMode->setEnabled(true);
-			QString tmp;
-			QList<PSDLayer>::iterator it2;
-			uint counter = 0;
-			for (it2 = info->layerInfo.begin(); it2 != info->layerInfo.end(); ++it2)
-			{
-				QCheckBox *cp = new QCheckBox(it2->layerName, this);
-				cp->setPalette(palette);
-				QPixmap pm;
-				pm=QPixmap::fromImage(it2->thumb);
-				col1Width = qMax(col1Width, pm.width());
-				cp->setIcon(pm);
-				FlagsSicht.append(cp);
-				connect(cp, SIGNAL(clicked()), this, SLOT(changedLayer()));
-				layerTable->setCellWidget(info->layerInfo.count()-counter-1, 0, cp);
-				if ((info->isRequest) && (info->RequestProps.contains(counter)))
-					cp->setChecked(info->RequestProps[counter].visible);
-				else
-					cp->setChecked(!(it2->flags & 2));
-				if (!it2->thumb_mask.isNull())
-				{
-					QCheckBox *cp2 = new QCheckBox(it2->layerName, this);
-					cp2->setPalette(palette);
-					QPixmap pm2;
-					pm2=QPixmap::fromImage(it2->thumb_mask);
-					col2Width = qMax(col2Width, pm2.width());
-					cp2->setIcon(pm2);
-					connect(cp2, SIGNAL(clicked()), this, SLOT(changedLayer()));
-					layerTable->setCellWidget(info->layerInfo.count()-counter-1, 1, cp2);
-					if ((info->isRequest) && (info->RequestProps.contains(counter)))
-						cp2->setChecked(info->RequestProps[counter].useMask);
-					else
-						cp2->setChecked(true);
-					FlagsMask.append(cp2);
-				}
-				else
-					FlagsMask.append(0);
-				QTableWidgetItem *tW = new QTableWidgetItem(it2->layerName);
-				tW->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
-				layerTable->setItem(info->layerInfo.count()-counter-1, 2, tW);
-				layerTable->setRowHeight(info->layerInfo.count()-counter-1, 40);
-				counter++;
-			}
+				FlagsMask.append(0);
+			QTableWidgetItem *tW = new QTableWidgetItem(it2->layerName);
+			tW->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
+			layerTable->setItem(info->layerInfo.count()-counter-1, 2, tW);
+			layerTable->setRowHeight(info->layerInfo.count()-counter-1, 40);
+			counter++;
 		}
 		tabLayout->addWidget( layerTable );
 		layerTable->setColumnWidth(1, 24 + col2Width);
