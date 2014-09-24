@@ -511,42 +511,12 @@ void NewDoc::setUnit(int newUnitIndex)
 	Distance->setNewUnit(newUnitIndex);
 	m_unitRatio = unitGetRatioFromIndex(newUnitIndex);
 	m_unitIndex = newUnitIndex;
-/*	
-double oldUnitRatio = unitRatio;
-	double val, oldB, oldBM, oldH, oldHM;
-	int decimals;
-	widthSpinBox->getValues(&oldB, &oldBM, &decimals, &val);
-	oldB /= oldUnitRatio;
-	oldBM /= oldUnitRatio;
-	heightSpinBox->getValues(&oldH, &oldHM, &decimals, &val);
-	oldH /= oldUnitRatio;
-	oldHM /= oldUnitRatio;
 
-	unitIndex = newUnitIndex;
-	unitRatio = unitGetRatioFromIndex(newUnitIndex);
-	decimals = unitGetDecimalsFromIndex(newUnitIndex);
-	if (pageOrientationComboBox->currentItem() == portraitPage)
-	{
-		widthSpinBox->setValues(oldB * unitRatio, oldBM * unitRatio, decimals, pageWidth * unitRatio);
-		heightSpinBox->setValues(oldH * unitRatio, oldHM * unitRatio, decimals, pageHeight * unitRatio);
-	}
-	else
-	{
-		widthSpinBox->setValues(oldB * unitRatio, oldBM * unitRatio, decimals, pageHeight * unitRatio);
-		heightSpinBox->setValues(oldH * unitRatio, oldHM * unitRatio, decimals, pageWidth * unitRatio);
-	}
-	Distance->setValue(Dist * unitRatio);
-	unitSuffix = unitGetSuffixFromIndex(newUnitIndex);
-	widthSpinBox->setSuffix(unitSuffix);
-	heightSpinBox->setSuffix(unitSuffix);
-	Distance->setSuffix( unitSuffix );
-*/
 	marginGroup->setNewUnit(m_unitIndex);
 	marginGroup->setPageHeight(m_pageHeight);
 	marginGroup->setPageWidth(m_pageWidth);
 	connect(widthSpinBox, SIGNAL(valueChanged(double)), this, SLOT(setWidth(double)));
 	connect(heightSpinBox, SIGNAL(valueChanged(double)), this, SLOT(setHeight(double)));
-
 }
 
 void NewDoc::ExitOK()
@@ -595,9 +565,12 @@ void NewDoc::setOrientation(int ori)
 	disconnect(heightSpinBox, SIGNAL(valueChanged(double)), this, SLOT(setHeight(double)));
 	if (ori != m_orientation)
 	{
-		double w = widthSpinBox->value(), h = heightSpinBox->value();
+		double w  = widthSpinBox->value(), h = heightSpinBox->value();
+		double pw = m_pageWidth, ph = m_pageHeight;
 		widthSpinBox->setValue((ori == portraitPage) ? qMin(w, h) : qMax(w, h));
 		heightSpinBox->setValue((ori == portraitPage) ? qMax(w, h) : qMin(w, h));
+		m_pageWidth  = (ori == portraitPage) ? qMin(pw, ph) : qMax(pw, ph);
+		m_pageHeight = (ori == portraitPage) ? qMax(pw, ph) : qMin(pw, ph);
 	}
 	// #869 pv - defined constants added + code repeat (check w/h)
 	(ori == portraitPage) ? m_orientation = portraitPage : m_orientation = landscapePage;
