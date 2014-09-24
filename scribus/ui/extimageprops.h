@@ -38,6 +38,17 @@ public:
 	ExtImageProps( QWidget* parent, ImageInfoRecord *info, PageItem *item, ScribusView *view );
 	~ExtImageProps() {};
 
+public slots:
+	void leaveOK();
+	void leaveCancel();
+	void changePreview();
+	void changedLayer();
+	void delayedLayerChange();
+	void selLayer();
+	void selPath(QListWidgetItem *c);
+	void noPath();
+
+protected:
 	QTabWidget* propsTab;
 	QWidget* tab;
 	QLabel* textLabel1;
@@ -53,26 +64,7 @@ public:
 	QPushButton* cancelButton;
 	QList<QCheckBox*> FlagsSicht;
 	QList<QCheckBox*> FlagsMask;
-	ScribusView *m_view;
-	PageItem *currentItem;
-	int currentLayer;
-	bool doPreview;
-	ImageInfoRecord originalInfo;
-	FPointArray originalImageClip;
-	QMap<QString, QString> blendModes;
-	QMap<QString, QString> blendModesRev;
 
-public slots:
-	void leaveOK();
-	void leaveCancel();
-	void changePreview();
-	void changedLayer();
-	void delayedLayerChange();
-	void selLayer();
-	void selPath(QListWidgetItem *c);
-	void noPath();
-
-protected:
 	QVBoxLayout* ExtImagePropsLayout;
 	QVBoxLayout* tabLayout;
 	QVBoxLayout* tabLayout_2;
@@ -80,6 +72,15 @@ protected:
 	QHBoxLayout* layoutBottom;
 
 	QTimer* m_timer;
+	ScribusView *m_view;
+	PageItem *m_item;
+
+	int currentLayer;
+	bool doPreview;
+	ImageInfoRecord originalInfo;
+	FPointArray originalImageClip;
+	QMap<QString, QString> blendModes;
+	QMap<QString, QString> blendModesRev;
 
 	void updateLayerInfo();
 };
