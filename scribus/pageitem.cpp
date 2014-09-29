@@ -6827,6 +6827,7 @@ void PageItem::restoreInsertFrameText(SimpleState *ss, bool isUndo)
 	int start = ss->getInt("START");
 	if (isUndo)
 	{
+		itemText.deselectAll();
 		itemText.select(start,text.length());
 		asTextFrame()->deleteSelectedTextFromFrame();
 	}
