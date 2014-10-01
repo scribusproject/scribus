@@ -538,6 +538,7 @@ void AppModeHelper::setFrameEditMode(bool b)
 	(*a_scrActions)["toolsPDFAnnot3D"]->setEnabled(b2);
 #endif
 	(*a_scrActions)["itemDelete"]->setEnabled(b2);
+	(*a_scrActions)["itemConvertToSymbolFrame"]->setEnabled(b2);
 }
 
 void AppModeHelper::setSymbolEditMode(bool b, ScribusDoc* doc)
