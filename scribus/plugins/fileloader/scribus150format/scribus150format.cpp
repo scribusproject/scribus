@@ -283,9 +283,11 @@ bool Scribus150Format::loadElements(const QString & data, QString fileDir, int t
 		}
 		if (tagName == "CHARSTYLE")
 		{
-			readParagraphStyle(m_Doc, reader, vg);
+			CharStyle cstyle;
 			StyleSet<CharStyle> temp;
-			temp.create(vg.charStyle());
+			ScXmlStreamAttributes attrs = reader.scAttributes();
+			readNamedCharacterStyleAttrs(m_Doc, attrs, cstyle);
+			temp.create(cstyle);
 			m_Doc->redefineCharStyles(temp, false);
 		}
 		if (tagName == "TableStyle")
