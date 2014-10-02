@@ -45,13 +45,9 @@ void RulerGesture::drawControls(QPainter* p)
 	int page = -1;
 	if (!m_mousePoint.isNull())
 		page = m_doc->OnPage(m_mousePoint.x(), m_mousePoint.y());
-	//m_doc->OnPage(m_view->m_mousePointDoc.x(), m_view->m_mousePointDoc.y());
 	if (page == -1)
 		return;
-	qDebug()<<page;
-	ScPage* dragToPage;
-	//=m_doc->Pages->at(page);
-	dragToPage=m_doc->currentPage();
+	ScPage* dragToPage=m_doc->Pages->at(page);
 	if (!dragToPage)
 		return;
 	if (m_haveGuide)

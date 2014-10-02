@@ -4090,7 +4090,6 @@ bool ScribusView::eventFilter(QObject *obj, QEvent *event)
 	{
 		QMouseEvent* m = static_cast<QMouseEvent*> (event);
 		m_mousePointDoc=m_canvas->globalToCanvas(m->globalPos());
-		qDebug()<<"boo"<<m_mousePointDoc.x();
 		FPoint p = m_canvas->localToCanvas(QPoint(m->x(),m->y()));
 		emit MousePos(p.x(),p.y());
 		horizRuler->Draw(m->x() + qRound(Doc->minCanvasCoordinate.x() * m_canvas->scale())); //  - 2 * contentsX());
