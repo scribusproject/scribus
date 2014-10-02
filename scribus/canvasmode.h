@@ -48,6 +48,8 @@ class  PageItem;
 class  PageItemPreview;
 class  PageItem_TextFrame;
 
+#include "fpoint.h"
+
 /** These aren't real appmodes but open a new window or override behaviour for a short time */
 enum SubMode
 {
@@ -167,6 +169,7 @@ private:
 
 	bool m_keyRepeat;
 	bool m_arrowKeyDown;	
+	FPoint m_mousePointDoc;
 };
 
 

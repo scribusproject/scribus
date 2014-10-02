@@ -101,6 +101,7 @@ CanvasMode::CanvasMode (ScribusView* view) :
 
 	m_keyRepeat = false;
 	m_arrowKeyDown = false;
+	m_mousePointDoc = FPoint(0,0);
 }
 
 CanvasMode::~CanvasMode()
@@ -918,29 +919,36 @@ void CanvasMode::clearPixmapCache()
 
 void CanvasMode::drawSnapLine(QPainter* p)
 {
-	if (m_doc->SnapElement && (xSnap != 0.0 || ySnap != 0.0))
+	if (!m_doc->SnapElement)
+		return;
+	if (xSnap == 0.0 && ySnap == 0.0)
+		return;
+	int page = m_doc->OnPage(m_mousePointDoc.x(), m_mousePointDoc.y());
+	if (page == -1)
+		return;
+	MarginStruct bleedValues;
+	ScPage* dragToPage=m_doc->Pages->at(page);
+	if (!dragToPage)
+		return;
+	m_doc->getBleeds(dragToPage, bleedValues);
+	double xOffset = dragToPage->xOffset() - bleedValues.Left;
+	double yOffset = dragToPage->yOffset() - bleedValues.Top;
+	QPoint pageOrigin = m_canvas->canvasToLocal(QPointF(xOffset, yOffset));
+	if (ySnap)
 	{
-		MarginStruct bleedValues;
-		m_doc->getBleeds(m_doc->currentPage(), bleedValues);
-		double xOffset = m_doc->currentPage()->xOffset() - bleedValues.Left;
-		double yOffset = m_doc->currentPage()->yOffset() - bleedValues.Top;
-		QPoint pageOrigin = m_canvas->canvasToLocal(QPointF(xOffset, yOffset));
-		if (ySnap)
-		{
-			p->setPen(Qt::green);
-			QPoint pt = m_canvas->canvasToLocal(QPointF(xOffset, ySnap));
-			double w  = (m_doc->currentPage()->width() + bleedValues.Left + bleedValues.Right) * m_canvas->scale();
-			p->drawLine(pageOrigin.x(), pt.y(), pageOrigin.x() + w, pt.y());
-			ySnap = 0;
-		}
-		if (xSnap)
-		{
-			p->setPen(Qt::green);
-			QPoint pt = m_canvas->canvasToLocal(QPointF(xSnap, yOffset));
-			double h  = (m_doc->currentPage()->height() + bleedValues.Bottom + bleedValues.Top) * m_canvas->scale();
-			p->drawLine(pt.x(), pageOrigin.y(), pt.x(), pageOrigin.y() + h);
-			xSnap = 0;
-		}
+		p->setPen(Qt::green);
+		QPoint pt = m_canvas->canvasToLocal(QPointF(xOffset, ySnap));
+		double w  = (dragToPage->width() + bleedValues.Left + bleedValues.Right) * m_canvas->scale();
+		p->drawLine(pageOrigin.x(), pt.y(), pageOrigin.x() + w, pt.y());
+		ySnap = 0;
+	}
+	if (xSnap)
+	{
+		p->setPen(Qt::green);
+		QPoint pt = m_canvas->canvasToLocal(QPointF(xSnap, yOffset));
+		double h  = (dragToPage->height() + bleedValues.Bottom + bleedValues.Top) * m_canvas->scale();
+		p->drawLine(pt.x(), pageOrigin.y(), pt.x(), pageOrigin.y() + h);
+		xSnap = 0;
 	}
 }
 
@@ -972,6 +980,7 @@ void CanvasMode::setResizeCursor(int how, double rot)
 
 bool CanvasMode::commonMouseMove(QMouseEvent *m)
 {
+	m_mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
 	if ((m_canvas->m_viewMode.m_MouseButtonPressed && (m->buttons() & Qt::RightButton) && (m->modifiers() & Qt::ControlModifier)) || ((!(m->modifiers() & Qt::ControlModifier)) && (m->buttons() & Qt::MidButton)))
 	{
 		if (!m_panGesture)
