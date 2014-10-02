@@ -73,6 +73,7 @@ public:
 	/// Returns a copy of the point as a QPointF.
 	QPointF toQPointF() const { return QPointF(xp, yp); }
 	friend class FPointArray;
+	bool isNull() const;
 
 private:
 	double xp;

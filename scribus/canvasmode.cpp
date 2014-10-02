@@ -101,7 +101,7 @@ CanvasMode::CanvasMode (ScribusView* view) :
 
 	m_keyRepeat = false;
 	m_arrowKeyDown = false;
-	m_mousePointDoc = FPoint(0,0);
+	//m_mousePointDoc = FPoint(0,0);
 }
 
 CanvasMode::~CanvasMode()
@@ -923,7 +923,7 @@ void CanvasMode::drawSnapLine(QPainter* p)
 		return;
 	if (xSnap == 0.0 && ySnap == 0.0)
 		return;
-	int page = m_doc->OnPage(m_mousePointDoc.x(), m_mousePointDoc.y());
+	int page = m_doc->OnPage(m_view->m_mousePointDoc.x(), m_view->m_mousePointDoc.y());
 	if (page == -1)
 		return;
 	MarginStruct bleedValues;
@@ -980,7 +980,7 @@ void CanvasMode::setResizeCursor(int how, double rot)
 
 bool CanvasMode::commonMouseMove(QMouseEvent *m)
 {
-	m_mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
+	//m_mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
 	if ((m_canvas->m_viewMode.m_MouseButtonPressed && (m->buttons() & Qt::RightButton) && (m->modifiers() & Qt::ControlModifier)) || ((!(m->modifiers() & Qt::ControlModifier)) && (m->buttons() & Qt::MidButton)))
 	{
 		if (!m_panGesture)

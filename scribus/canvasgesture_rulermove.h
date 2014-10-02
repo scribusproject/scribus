@@ -35,6 +35,7 @@ class QPainter;
 #include "canvas.h"
 #include "canvasgesture.h"
 #include "canvasmode.h"
+#include "fpoint.h"
 
 class ScribusMainWindow;
 class ScribusView;
@@ -89,6 +90,7 @@ private:
 	bool m_haveCursor;
 	QCursor m_cursor;
 	QPoint m_xy;
+	FPoint m_mousePoint;
 	void movePoint(QMouseEvent *m, bool mouseRelease);
 	
 	signals:

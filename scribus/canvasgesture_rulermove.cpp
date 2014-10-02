@@ -33,7 +33,8 @@ RulerGesture::RulerGesture(ScribusView *view, RulerGesture::Mode mode) :
 	m_ScMW(m_view->m_ScMW),
 	m_mode(mode), m_haveGuide(false),
 	m_haveCursor(false),
-	m_xy(0,0)
+	m_xy(0,0),
+	m_mousePoint(0,0)
 {
 
 }
@@ -41,13 +42,24 @@ RulerGesture::RulerGesture(ScribusView *view, RulerGesture::Mode mode) :
 
 void RulerGesture::drawControls(QPainter* p)
 {
-	ScPage* page = m_doc->currentPage();
+	int page = -1;
+	if (!m_mousePoint.isNull())
+		page = m_doc->OnPage(m_mousePoint.x(), m_mousePoint.y());
+	//m_doc->OnPage(m_view->m_mousePointDoc.x(), m_view->m_mousePointDoc.y());
+	if (page == -1)
+		return;
+	qDebug()<<page;
+	ScPage* dragToPage;
+	//=m_doc->Pages->at(page);
+	dragToPage=m_doc->currentPage();
+	if (!dragToPage)
+		return;
 	if (m_haveGuide)
-		page = m_doc->Pages->at(m_page);
+		dragToPage = m_doc->Pages->at(m_page);
 	QColor color(m_doc->guidesPrefs().guideColor);
 	p->save();
-	QPoint pageOrigin = m_canvas->canvasToLocal(QPointF(page->xOffset(), page->yOffset()));
-	QSize pageSize = (QSizeF(page->width(), page->height()) * m_canvas->scale()).toSize();
+	QPoint pageOrigin = m_canvas->canvasToLocal(QPointF(dragToPage->xOffset(), dragToPage->yOffset()));
+	QSize pageSize = (QSizeF(dragToPage->width(), dragToPage->height()) * m_canvas->scale()).toSize();
 	switch (m_mode)
 	{
 		case HORIZONTAL:
@@ -300,6 +312,7 @@ void RulerGesture::movePoint(QMouseEvent* m, bool mouseRelease)
 
 void RulerGesture::mouseMoveEvent(QMouseEvent* m)
 {
+	m_mousePoint=m_canvas->globalToCanvas(m->globalPos());
 	m->accept();
 	if (m_view->moveTimerElapsed())
 	{
@@ -330,6 +343,7 @@ void RulerGesture::mouseReleaseEvent(QMouseEvent* m)
 		m_canvas->setForcedRedraw(true);
 	m_canvas->repaint();
 	m_view->stopGesture();
+	m_mousePoint=QPoint(0,0);
 	if (m_ScMW->doc->guidesPrefs().guidesShown)
 		emit guideInfo(m_mode, m_currentGuide);
 }

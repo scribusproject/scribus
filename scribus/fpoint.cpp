@@ -81,3 +81,10 @@ FPoint FPoint::transformPoint(const double dx, const double dy, const double rot
 	double y = ma.m22() * yp + ma.m12() * xp + ma.dy();
 	return FPoint(x, y);
 }
+
+bool FPoint::isNull() const
+{
+	if (xp == 0.0 && yp == 0.0)
+		return true;
+	return false;
+}

@@ -216,7 +216,7 @@ ScribusView::ScribusView(QWidget* win, ScribusMainWindow* mw, ScribusDoc *doc) :
 	m_canvas->resetRenderMode();
 	m_ScMW->scrActions["viewPreviewMode"]->setChecked(m_canvas->m_viewMode.viewAsPreview);
 //	m_SnapCounter = 0;
-
+	m_mousePointDoc = FPoint(0,0);
 	Doc->regionsChanged()->connectObserver(this);
 	connect(this, SIGNAL(HaveSel()), Doc, SLOT(selectionChanged()));
 // Commented out to fix bug #7865
@@ -4089,6 +4089,8 @@ bool ScribusView::eventFilter(QObject *obj, QEvent *event)
 	if (obj == widget() && event->type() == QEvent::MouseMove)
 	{
 		QMouseEvent* m = static_cast<QMouseEvent*> (event);
+		m_mousePointDoc=m_canvas->globalToCanvas(m->globalPos());
+		qDebug()<<"boo"<<m_mousePointDoc.x();
 		FPoint p = m_canvas->localToCanvas(QPoint(m->x(),m->y()));
 		emit MousePos(p.x(),p.y());
 		horizRuler->Draw(m->x() + qRound(Doc->minCanvasCoordinate.x() * m_canvas->scale())); //  - 2 * contentsX());

@@ -3092,7 +3092,7 @@ void RawPainter::applyArrows(PageItem* ite)
 					EndArrow.map(m);
 					refP = m.map(refP);
 					QPainterPath pa2 = EndArrow.toQPainterPath(true);
-					QRectF br2 = pa2.boundingRect();
+					//QRectF br2 = pa2.boundingRect();
 					QTransform m2;
 					FPoint grOffset2(getMinClipF(&EndArrow));
 					m2.translate(-grOffset2.x(), -grOffset2.y());
@@ -3143,7 +3143,7 @@ void RawPainter::applyArrows(PageItem* ite)
 					EndArrow.map(m);
 					refP = m.map(refP);
 					QPainterPath pa2 = EndArrow.toQPainterPath(true);
-					QRectF br2 = pa2.boundingRect();
+					//QRectF br2 = pa2.boundingRect();
 					QTransform m2;
 					FPoint grOffset2(getMinClipF(&EndArrow));
 					m2.translate(-grOffset2.x(), -grOffset2.y());

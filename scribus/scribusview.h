@@ -155,6 +155,7 @@ public:
 	PageItem *redrawItem;
 	SelectionRubberBand *redrawMarker;
 	FPoint RCenter;
+	FPoint m_mousePointDoc;
 	void updatesOn(bool on);
 	//CB This MUST now be called AFTER a call to doc->addPage or doc->addMasterPage as it
 	//does NOT create a page anymore.

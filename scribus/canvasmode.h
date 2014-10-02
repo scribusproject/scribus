@@ -169,7 +169,7 @@ private:
 
 	bool m_keyRepeat;
 	bool m_arrowKeyDown;	
-	FPoint m_mousePointDoc;
+	//FPoint m_mousePointDoc;
 };
 
 
