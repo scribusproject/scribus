@@ -1494,6 +1494,7 @@ protected: // Start protected functions
 	void restoreCustomLineStyle(SimpleState *state, bool isUndo);
 	void restoreDefaultParagraphStyle(SimpleState *state, bool isUndo);
 	void restoreDeleteFrameText(SimpleState *state, bool isUndo);
+	void restoreDropLinks(UndoState *state, bool isUndo);
 	void restoreEndArrowScale(SimpleState *state, bool isUndo);
 	void restoreFill(SimpleState *state, bool isUndo);
 	void restoreFillGradient(SimpleState *state, bool isUndo);
