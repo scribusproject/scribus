@@ -1095,6 +1095,7 @@ protected:
 	void restoreEditText(SimpleState *state, bool isUndo);
 	void restoreLinkTextFrame(UndoState *state, bool isUndo);
 	void restoreUnlinkTextFrame(UndoState *state, bool isUndo);
+	void restoreDropLinks(UndoState *state, bool isUndo);
 	void restoreReverseText(UndoState *state, bool isUndo);
 	void restorePathOperation(UndoState *state, bool isUndo);
 	/*@}*/

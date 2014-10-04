@@ -7776,8 +7776,12 @@ void ScribusDoc::itemSelection_DeleteItem(Selection* customSelection, bool force
 	}
 	selectedItemCount = delItems.count();
 
+	bool doCreateTransaction = (selectedItemCount > 1);
+	if (selectedItemCount == 1)
+		doCreateTransaction = delItems.at(0)->isTextFrame();
+
 	UndoTransaction* activeTransaction = NULL;
-	if ((selectedItemCount > 1) && UndoManager::undoEnabled())
+	if (doCreateTransaction && UndoManager::undoEnabled())
 		activeTransaction = new UndoTransaction(undoManager->beginTransaction(Um::Group + "/" + Um::Selection, Um::IGroup,
 																			  Um::Delete, tooltip, Um::IDelete));
 

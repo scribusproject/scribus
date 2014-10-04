@@ -908,24 +908,33 @@ void PageItem::dropLinks()
 	// leave text in remaining chain
 	PageItem* before = BackBox;
 	PageItem* after = NextBox;
-	if (after != 0 || before != 0)
+	if (after == 0 && before == 0)
+		return;
+
+	itemText = StoryText(m_Doc);
+	if (before)
+		before->NextBox = after;
+	if (after) 
 	{
-		itemText = StoryText(m_Doc);
-		if (before)
-			before->NextBox = after;
-		if (after) 
-		{
-			after->BackBox = before;
-			while (after)
-			{ 
-				after->invalid = true;
-				after->firstChar = 0;
-				after = after->NextBox;
-			}
+		after->BackBox = before;
+		while (after)
+		{ 
+			after->invalid = true;
+			after->firstChar = 0;
+			after = after->NextBox;
 		}
-		// JG we should set BackBox and NextBox to NULL at a point
-		BackBox = NextBox = NULL;
 	}
+
+	if (UndoManager::undoEnabled())
+	{
+		ItemState<QPair<PageItem*, PageItem*> > *is = new ItemState<QPair<PageItem*, PageItem*> >(Um::UnlinkTextFrame);
+		is->set("DROP_LINKS", "dropLinks");
+		is->setItem(qMakePair(BackBox, NextBox));
+		undoManager->action(this, is);
+	}
+
+	// JG we should set BackBox and NextBox to NULL at a point
+	BackBox = NextBox = NULL;
 }
 
 /// tests if a character is displayed by this frame
@@ -3294,6 +3303,8 @@ void PageItem::restore(UndoState *state, bool isUndo)
 			restoreEditText(ss, isUndo);
 		else if (ss->contains("CLEAR_IMAGE"))
 			restoreClearImage(ss,isUndo);
+		else if (ss->contains("DROP_LINKS"))
+			restoreDropLinks(ss, isUndo);
 		else if (ss->contains("LINK_TEXT_FRAME"))
 			restoreLinkTextFrame(ss,isUndo);
 		else if (ss->contains("UNLINK_TEXT_FRAME"))
@@ -3685,6 +3696,60 @@ void PageItem::restoreClearImage(UndoState *state, bool isUndo)
 	}
 	else
 		asImageFrame()->clearContents();
+}
+
+void PageItem::restoreDropLinks(UndoState *state, bool isUndo)
+{
+	if (!isTextFrame())
+		return;
+	ItemState<QPair<PageItem*, PageItem*> > *is = dynamic_cast<ItemState<QPair<PageItem*, PageItem*> >*>(state);
+	if (isUndo)
+	{
+		PageItem* prev = is->getItem().first;
+		PageItem* next = is->getItem().second;
+
+		BackBox = prev;
+		NextBox = next;
+		invalid = true;
+
+		if (prev)
+		{
+			this->itemText  = prev->itemText;
+			this->isAutoText |= prev->isAutoText;
+			prev->NextBox = this;
+			while (prev)
+			{
+				prev->invalid = true;
+				prev = prev->BackBox;
+			}
+		}
+		if (next)
+		{
+			this->itemText = next->itemText;
+			this->isAutoText |= next->isAutoText;
+
+			next->BackBox = this;
+			while (next)
+			{
+				next->invalid = true;
+				next = next->NextBox;
+			}
+		}
+
+		// update auto pointers
+		if (isAutoText && NextBox == 0)
+		{
+			m_Doc->LastAuto = this;
+		}
+		if (isAutoText && BackBox == 0)
+		{
+			m_Doc->FirstAuto = this;
+		}
+	}
+	else
+	{
+		dropLinks();
+	}
 }
 
 void PageItem::restoreLinkTextFrame(UndoState *state, bool isUndo)
