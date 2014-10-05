@@ -43,6 +43,7 @@ RulerGesture::RulerGesture(ScribusView *view, RulerGesture::Mode mode) :
 void RulerGesture::drawControls(QPainter* p)
 {
 	int page = -1;
+	//This is !null where we've entered the RulerGesture::mouseMoveEvent
 	if (!m_mousePoint.isNull())
 		page = m_doc->OnPage(m_mousePoint.x(), m_mousePoint.y());
 	if (page == -1)

@@ -544,6 +544,8 @@ void AppModeHelper::setFrameEditMode(bool b)
 	(*a_scrActions)["itemConvertToBezierCurve"]->setEnabled(b2);
 	(*a_scrActions)["itemConvertToOutlines"]->setEnabled(b2);
 	(*a_scrActions)["itemConvertToSymbolFrame"]->setEnabled(b2);
+	(*a_scrActions)["pageImport"]->setEnabled(b2);
+	(*a_scrActions)["pageCopyToMasterPage"]->setEnabled(b2);
 
 	setActionGroupEnabled(a_scrLayersActions, b2);
 }
