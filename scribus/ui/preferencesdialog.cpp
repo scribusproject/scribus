@@ -58,6 +58,9 @@ PreferencesDialog::PreferencesDialog(QWidget* parent, ApplicationPrefs& prefsDat
 	setupListWidget();
 	while (prefsStackWidget->currentWidget()!=0)
 		prefsStackWidget->removeWidget(prefsStackWidget->currentWidget());
+
+	applyButton->hide();
+
 	if(doc)
 	{
 		setWindowTitle( tr("Document Setup") );
