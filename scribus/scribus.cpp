@@ -3890,7 +3890,7 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 	// PV - 5780: Scribus doesn't track what documents are already opened
 	// The goal of this part of code is to disallow user to open one
 	// doc multiple times.
-	QString platfName(QDir::toNativeSeparators(fileName));
+	QString FName = fi.absoluteFilePath();
 	uint windowCount = windows.count();
 	for ( uint i = 0; i < windowCount; ++i )
 	{
@@ -3899,7 +3899,7 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 		if (mx && mx->doc()->isModified() && docNameUnmodified.endsWith("*"))
 			docNameUnmodified.resize(docNameUnmodified.length() - 1);
 
-		if (docNameUnmodified == platfName)
+		if (docNameUnmodified == FName)
 		{
 			qApp->restoreOverrideCursor();
 			QMessageBox::information(this, tr("Document is already opened"),
@@ -3913,7 +3913,6 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 	UndoBlocker undoBlocker;
 	if (!fileName.isEmpty())
 	{
-		QString FName = fi.absoluteFilePath();
 		FileLoader *fileLoader = new FileLoader(FName);
 		int testResult = fileLoader->testFile();
 		if (testResult == -1)
