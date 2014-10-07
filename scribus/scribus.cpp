@@ -3891,6 +3891,7 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 	// The goal of this part of code is to disallow user to open one
 	// doc multiple times.
 	QString FName = fi.absoluteFilePath();
+	QString platfName(QDir::toNativeSeparators(FName));
 	uint windowCount = windows.count();
 	for ( uint i = 0; i < windowCount; ++i )
 	{
@@ -3899,7 +3900,7 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 		if (mx && mx->doc()->isModified() && docNameUnmodified.endsWith("*"))
 			docNameUnmodified.resize(docNameUnmodified.length() - 1);
 
-		if (docNameUnmodified == FName)
+		if (docNameUnmodified == platfName)
 		{
 			qApp->restoreOverrideCursor();
 			QMessageBox::information(this, tr("Document is already opened"),
