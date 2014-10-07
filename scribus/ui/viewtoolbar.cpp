@@ -94,6 +94,8 @@ void ViewToolBar::languageChange()
 	previewQualitySwitcher->blockSignals(false);
 
 	previewQualitySwitcher->setToolTip( tr("Select the image preview quality"));
+	previewQualitySwitcher->setStatusTip( tr("Select image preview quality"));
 	visualMenu->setToolTip( tr("Select the visual appearance of the display. You can choose between normal and several color blindness forms"));
+	visualMenu->setStatusTip( tr("Select display visual appearance"));
 
 }
