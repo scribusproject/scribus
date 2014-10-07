@@ -5032,74 +5032,72 @@ void ScribusMainWindow::slotEditCopy()
 	if (doc->appMode == modeEditClip)
 		view->requestMode(submodeEndNodeEdit);
 
-	if (!doc->m_Selection->isEmpty())
+	if (doc->m_Selection->isEmpty())
+		return;
+	PageItem *currItem = doc->m_Selection->itemAt(0);
+	if (((doc->appMode == modeEdit) || (doc->appMode == modeEditTable)) && (currItem->isTextFrame() || currItem->isTable()))
 	{
-//		QString BufferI = "";
-		PageItem *currItem = doc->m_Selection->itemAt(0);
-		if (((doc->appMode == modeEdit) || (doc->appMode == modeEditTable)) && (currItem->isTextFrame() || currItem->isTable()))
-		{
-			PageItem_TextFrame *cItem;
-			if (doc->appMode == modeEditTable)
-				cItem = currItem->asTable()->activeCell().textFrame();
-			else
-				cItem = currItem->asTextFrame();
-			if (cItem->HasSel)
-			{
-				StoryText itemText(doc);
-				itemText.setDefaultStyle(cItem->itemText.defaultStyle());
-				itemText.insert(0, cItem->itemText, true);
-//				BufferI = itemText.text(0, itemText.length());
-				std::ostringstream xmlString;
-				SaxXML xmlStream(xmlString);
-				xmlStream.beginDoc();
-				itemText.saxx(xmlStream, "SCRIBUSTEXT");
-				xmlStream.endDoc();
-				std::string xml(xmlString.str());
-				ScTextMimeData* mimeData = new ScTextMimeData();
-				mimeData->setScribusText( QByteArray(xml.c_str(), xml.length()) );
-				mimeData->setText( itemText.text(0, itemText.length()) );
-				QApplication::clipboard()->setMimeData(mimeData, QClipboard::Clipboard);
-			}
-		}
+		PageItem_TextFrame *cItem;
+		if (doc->appMode == modeEditTable)
+			cItem = currItem->asTable()->activeCell().textFrame();
 		else
+			cItem = currItem->asTextFrame();
+		if (cItem->HasSel)
 		{
-			if ((currItem->isSingleSel) && (currItem->isGroup()))
-				return;
-			//do not copy notes frames
-			if (doc->m_Selection->count() ==1 && currItem->isNoteFrame())
-				return;
-			//deselect notesframes
-			Selection tempSelection(*(doc->m_Selection));
-			for (int i = 0; i < doc->m_Selection->count(); ++i)
-			{
-				if (doc->m_Selection->itemAt(i)->isNoteFrame())
-					tempSelection.removeItem(doc->m_Selection->itemAt(i));
-			}
-			if (tempSelection.count() < doc->m_Selection->count())
-				*(doc->m_Selection) = tempSelection;
-
-			ScriXmlDoc ss;
-			QString BufferS = ss.WriteElem(doc, doc->m_Selection);
-			if (!internalCopy)
-			{
-				if ((prefsManager->appPrefs.scrapbookPrefs.doCopyToScrapbook) && (!internalCopy))
-				{
-					scrapbookPalette->ObjFromCopyAction(BufferS, currItem->itemName());
-					rebuildRecentPasteMenu();
-				}
-				ScElemMimeData* mimeData = new ScElemMimeData();
-				mimeData->setScribusElem(BufferS);
-				mimeData->setText(BufferS);
-				QApplication::clipboard()->setMimeData(mimeData, QClipboard::Clipboard);
-			}
-			else
-				internalCopyBuffer = BufferS;
+			StoryText itemText(doc);
+			itemText.setDefaultStyle(cItem->itemText.defaultStyle());
+			itemText.insert(0, cItem->itemText, true);
+//				BufferI = itemText.text(0, itemText.length());
+			std::ostringstream xmlString;
+			SaxXML xmlStream(xmlString);
+			xmlStream.beginDoc();
+			itemText.saxx(xmlStream, "SCRIBUSTEXT");
+			xmlStream.endDoc();
+			std::string xml(xmlString.str());
+			ScTextMimeData* mimeData = new ScTextMimeData();
+			mimeData->setScribusText( QByteArray(xml.c_str(), xml.length()) );
+			mimeData->setText( itemText.text(0, itemText.length()) );
+			QApplication::clipboard()->setMimeData(mimeData, QClipboard::Clipboard);
 		}
+	}
+	else
+	{
+		if ((currItem->isSingleSel) && (currItem->isGroup()))
+			return;
+		//do not copy notes frames
+		if (doc->m_Selection->count() ==1 && currItem->isNoteFrame())
+			return;
+		//deselect notesframes
+		Selection tempSelection(*(doc->m_Selection));
+		for (int i = 0; i < doc->m_Selection->count(); ++i)
+		{
+			if (doc->m_Selection->itemAt(i)->isNoteFrame())
+				tempSelection.removeItem(doc->m_Selection->itemAt(i));
+		}
+		if (tempSelection.count() < doc->m_Selection->count())
+			*(doc->m_Selection) = tempSelection;
+
+		ScriXmlDoc ss;
+		QString BufferS = ss.WriteElem(doc, doc->m_Selection);
 		if (!internalCopy)
 		{
-			scrActions["editPaste"]->setEnabled(true);
-			scrMenuMgr->setMenuEnabled("EditPasteRecent", scrapbookPalette->tempBView->objectMap.count() != 0);
+			if ((prefsManager->appPrefs.scrapbookPrefs.doCopyToScrapbook) && (!internalCopy))
+			{
+				scrapbookPalette->ObjFromCopyAction(BufferS, currItem->itemName());
+				rebuildRecentPasteMenu();
+			}
+			ScElemMimeData* mimeData = new ScElemMimeData();
+			mimeData->setScribusElem(BufferS);
+			mimeData->setText(BufferS);
+			QApplication::clipboard()->setMimeData(mimeData, QClipboard::Clipboard);
 		}
+		else
+			internalCopyBuffer = BufferS;
+	}
+	if (!internalCopy)
+	{
+		scrActions["editPaste"]->setEnabled(true);
+		scrMenuMgr->setMenuEnabled("EditPasteRecent", scrapbookPalette->tempBView->objectMap.count() != 0);
 	}
 }
 

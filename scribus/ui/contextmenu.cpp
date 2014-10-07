@@ -90,7 +90,7 @@ void ContextMenu::createMenuItems_Selection()
 	assert(m_doc!=0 && currItem!=0);
 	
 	QMenu *menuConvertTo = new QMenu(this);
-	QMenu *menuEditContents = new QMenu(this);
+	QMenu *menuEditContent = new QMenu(this);
 	QMenu *menuInfo = new QMenu(this);
 	QMenu *menuLayer = new QMenu(this);
 	QMenu *menuLevel = new QMenu(this);
@@ -162,42 +162,42 @@ void ContextMenu::createMenuItems_Selection()
 	if (m_actionList.contains("fileImportText"))
 	{
 		addSeparator();
-		menuEditContents->addAction(m_ScMW->scrActions["fileImportText"]);
-		menuEditContents->addAction(m_ScMW->scrActions["fileImportAppendText"]);
-		menuEditContents->addAction(m_ScMW->scrActions["toolsEditWithStoryEditor"]);
-		menuEditContents->addAction(m_ScMW->scrActions["insertSampleText"]);
-		menuEditContents->addSeparator();
+		menuEditContent->addAction(m_ScMW->scrActions["fileImportText"]);
+		menuEditContent->addAction(m_ScMW->scrActions["fileImportAppendText"]);
+		menuEditContent->addAction(m_ScMW->scrActions["toolsEditWithStoryEditor"]);
+		menuEditContent->addAction(m_ScMW->scrActions["insertSampleText"]);
+		menuEditContent->addSeparator();
 	}
 	else //enable this for, eg, text on a path
 		if (m_actionList.contains("toolsEditWithStoryEditor"))
 		{
 			addSeparator();
-			menuEditContents->addAction(m_ScMW->scrActions["toolsEditWithStoryEditor"]);
+			menuEditContent->addAction(m_ScMW->scrActions["toolsEditWithStoryEditor"]);
 		}
 	if (m_actionList.contains("fileImportImage"))
-		menuEditContents->addAction(m_ScMW->scrActions["fileImportImage"]);
+		menuEditContent->addAction(m_ScMW->scrActions["fileImportImage"]);
 	if (selectedItemCount==1 && currItem->asImageFrame())
 	{
 		if (QApplication::clipboard()->mimeData()->hasImage())
-			menuEditContents->addAction(m_ScMW->scrActions["editPasteImageFromClipboard"]);
+			menuEditContent->addAction(m_ScMW->scrActions["editPasteImageFromClipboard"]);
 	}
 	if (itemsAreSameType)
 	{
 		if (m_actionList.contains("editCopyContents"))
-			menuEditContents->addAction(m_ScMW->scrActions["editCopyContents"]);
+			menuEditContent->addAction(m_ScMW->scrActions["editCopyContents"]);
 		if (m_actionList.contains("editPasteContents"))
-			menuEditContents->addAction(m_ScMW->scrActions["editPasteContents"]);
+			menuEditContent->addAction(m_ScMW->scrActions["editPasteContents"]);
 		if (currItem->asImageFrame() && m_actionList.contains("editPasteContentsAbs"))
-			menuEditContents->addAction(m_ScMW->scrActions["editPasteContentsAbs"]);
+			menuEditContent->addAction(m_ScMW->scrActions["editPasteContentsAbs"]);
 	}
 	if (m_actionList.contains("editClearContents"))
-		menuEditContents->addAction(m_ScMW->scrActions["editClearContents"]);
+		menuEditContent->addAction(m_ScMW->scrActions["editClearContents"]);
 	if (m_actionList.contains("editTruncateContents"))
-		menuEditContents->addAction(m_ScMW->scrActions["editTruncateContents"]);
-	if (menuEditContents->actions().count()>0)
+		menuEditContent->addAction(m_ScMW->scrActions["editTruncateContents"]);
+	if (menuEditContent->actions().count()>0)
 	{
-		QAction *act = addMenu(menuEditContents);
-		act->setText( tr("Contents"));
+		QAction *act = addMenu(menuEditContent);
+		act->setText( tr("Content"));
 	}
 	//-->
 
