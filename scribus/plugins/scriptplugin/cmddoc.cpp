@@ -171,7 +171,7 @@ PyObject *scribus_opendoc(PyObject* /* self */, PyObject* args)
 	bool ret = ScCore->primaryMainWindow()->loadDoc(QString::fromUtf8(Name));
 	if (!ret)
 	{
-		PyErr_SetString(ScribusException, QObject::tr("Failed to open document.","python error").toLocal8Bit().constData());
+		PyErr_SetString(ScribusException, QObject::tr("Failed to open document: %1","python error").arg(Name).toLocal8Bit().constData());
 		return NULL;
 	}
 	return PyBool_FromLong(static_cast<long>(true));
