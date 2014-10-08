@@ -396,26 +396,6 @@ void AppModeHelper::setModeActionsPerMode(int newMode)
 #endif
 }
 
-bool AppModeHelper::inAnEditMode(ScribusDoc *doc)
-{
-	bool inEditMode=false;
-
-	if (doc->appMode == modeEdit ||
-		doc->appMode == modeEditTable ||
-		doc->appMode == modeEditSpiral ||
-		doc->appMode == modeEditGradientVectors ||
-		doc->appMode == modeEditClip ||
-		doc->appMode == modeEditMeshGradient ||
-		doc->appMode == modeEditArc ||
-		doc->appMode == modeEditMeshPatch ||
-		doc->appMode == modeEditWeldPoint ||
-		doc->appMode == modeEditPolygon
-		)
-		inEditMode=true;
-
-	return inEditMode;
-}
-
 void AppModeHelper::setActionGroupEnabled(QMap<QString, QPointer<ScrAction> >*ag, bool enabled)
 {
 	if (ag!=NULL)

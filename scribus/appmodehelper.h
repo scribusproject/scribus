@@ -38,7 +38,6 @@ class AppModeHelper : public QObject
 		void resetApplicationMode(ScribusMainWindow* scmw, int newMode);
 		void setApplicationMode(ScribusMainWindow* scmw, ScribusDoc* doc, int newMode);
 		void setModeActionsPerMode(int newMode);
-		bool inAnEditMode(ScribusDoc* doc);
 		void setActionGroupEnabled(QMap<QString, QPointer<ScrAction> > *, bool enabled);
 		void setTextEditMode(bool b);
 		void setSpecialEditMode(bool b);

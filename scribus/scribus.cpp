@@ -5470,7 +5470,7 @@ void ScribusMainWindow::deselectAll()
 	if (!HaveDoc)
 		return;
 
-	bool inEditMode=appModeHelper->inAnEditMode(doc);
+	bool inEditMode = doc->inAnEditMode();
 	if (inEditMode)
 	{
 		if (doc->m_Selection->isEmpty())

@@ -755,6 +755,26 @@ ScribusDoc::~ScribusDoc()
 	ScCore->fileWatcher->start();
 }
 
+bool ScribusDoc::inAnEditMode() const
+{
+	bool inEditMode=false;
+
+	if (appMode == modeEdit ||
+		appMode == modeEditTable ||
+		appMode == modeEditSpiral ||
+		appMode == modeEditGradientVectors ||
+		appMode == modeEditClip ||
+		appMode == modeEditMeshGradient ||
+		appMode == modeEditArc ||
+		appMode == modeEditMeshPatch ||
+		appMode == modeEditWeldPoint ||
+		appMode == modeEditPolygon
+		)
+		inEditMode=true;
+
+	return inEditMode;
+}
+
 QList<PageItem*> ScribusDoc::getAllItems(QList<PageItem*> &items)
 {
 	QList<PageItem*> ret;
