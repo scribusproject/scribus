@@ -281,6 +281,7 @@ char* tr(const char* docstringConstant)
 PyMethodDef scribus_methods[] = {
 	// 2004/10/03 pv - aliases with common Python syntax - ClassName methodName
 	// 2004-11-06 cr - move aliasing to dynamically generated wrapper functions, sort methoddef
+	{const_cast<char*>("applyMasterPage"), scribus_applymasterpage, METH_VARARGS, tr(scribus_applymasterpage__doc__)},
 	{const_cast<char*>("changeColor"), scribus_setcolor, METH_VARARGS, tr(scribus_setcolor__doc__)},
 	{const_cast<char*>("closeDoc"), (PyCFunction)scribus_closedoc, METH_NOARGS, tr(scribus_closedoc__doc__)},
 	{const_cast<char*>("closeMasterPage"), (PyCFunction)scribus_closemasterpage, METH_NOARGS, tr(scribus_closemasterpage__doc__)},
