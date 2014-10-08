@@ -8082,47 +8082,44 @@ void ScribusMainWindow::editSelectedSymbolStart()
 
 void ScribusMainWindow::editSymbolStart(QString temp)
 {
-	if (HaveDoc)
+	if (!HaveDoc || !doc->docPatterns.contains(temp))
+		return;
+	m_WasAutoSave = doc->autoSave();
+	if (m_WasAutoSave)
 	{
-		if (!doc->docPatterns.contains(temp))
-			return;
-		m_WasAutoSave = doc->autoSave();
-		if (m_WasAutoSave)
-		{
-			doc->autoSaveTimer->stop();
-			doc->setAutoSave(false);
-		}
-		view->Deselect(true);
-		storedPageNum = doc->currentPageNumber();
-		storedViewXCoor = view->contentsX();
-		storedViewYCoor = view->contentsY();
-		storedViewScale = view->scale();
-		doc->stored_minCanvasCoordinate = doc->minCanvasCoordinate;
-		doc->stored_maxCanvasCoordinate = doc->maxCanvasCoordinate;
-		view->showSymbolPage(temp);
-		appModeHelper->setSymbolEditMode(true, doc);
-		pagePalette->enablePalette(false);
-		layerPalette->setEnabled(false);
-		patternsDependingOnThis.clear();
-		QStringList mainPatterns = doc->docPatterns.keys();
-		for (int a = 0; a < mainPatterns.count(); a++)
-		{
-			if (mainPatterns[a] != temp)
-			{
-				QStringList subPatterns;
-				subPatterns = doc->getUsedPatternsHelper(mainPatterns[a], subPatterns);
-				if (subPatterns.contains(temp))
-					patternsDependingOnThis.prepend(mainPatterns[a]);
-			}
-		}
-		patternsDependingOnThis.prepend(temp);
-		symbolPalette->editingStart(patternsDependingOnThis);
-		propertiesPalette->Cpal->hideEditedPatterns(patternsDependingOnThis);
-		propertiesPalette->Tpal->hideEditedPatterns(patternsDependingOnThis);
-		if (outlinePalette->isVisible())
-			outlinePalette->BuildTree(false);
-		updateActiveWindowCaption( tr("Editing Symbol: %1").arg(temp));
+		doc->autoSaveTimer->stop();
+		doc->setAutoSave(false);
 	}
+	view->Deselect(true);
+	storedPageNum = doc->currentPageNumber();
+	storedViewXCoor = view->contentsX();
+	storedViewYCoor = view->contentsY();
+	storedViewScale = view->scale();
+	doc->stored_minCanvasCoordinate = doc->minCanvasCoordinate;
+	doc->stored_maxCanvasCoordinate = doc->maxCanvasCoordinate;
+	view->showSymbolPage(temp);
+	appModeHelper->setSymbolEditMode(true, doc);
+	pagePalette->enablePalette(false);
+	layerPalette->setEnabled(false);
+	patternsDependingOnThis.clear();
+	QStringList mainPatterns = doc->docPatterns.keys();
+	for (int a = 0; a < mainPatterns.count(); a++)
+	{
+		if (mainPatterns[a] != temp)
+		{
+			QStringList subPatterns;
+			subPatterns = doc->getUsedPatternsHelper(mainPatterns[a], subPatterns);
+			if (subPatterns.contains(temp))
+				patternsDependingOnThis.prepend(mainPatterns[a]);
+		}
+	}
+	patternsDependingOnThis.prepend(temp);
+	symbolPalette->editingStart(patternsDependingOnThis);
+	propertiesPalette->Cpal->hideEditedPatterns(patternsDependingOnThis);
+	propertiesPalette->Tpal->hideEditedPatterns(patternsDependingOnThis);
+	if (outlinePalette->isVisible())
+		outlinePalette->BuildTree(false);
+	updateActiveWindowCaption( tr("Editing Symbol: %1").arg(temp));
 }
 
 void ScribusMainWindow::editSymbolEnd()
@@ -9856,6 +9853,9 @@ void ScribusMainWindow::ConvertToSymbol()
 		}
 		patternsDependingOnThis.prepend(temp);
 	}
+	 // #12753: We cannot replace currently edited symbol
+	if (doc->symbolEditMode())
+		patternsDependingOnThis.prepend(doc->getEditedSymbol());
 	allItems.clear();
 	Query dia(this, "tt", 1, tr("&Name:"), tr("New Entry"));
 	dia.setEditText(patternName, true);
