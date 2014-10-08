@@ -538,6 +538,7 @@ void AppModeHelper::setFrameEditMode(bool b)
 	(*a_scrActions)["toolsPDFAnnot3D"]->setEnabled(b2);
 #endif
 	(*a_scrActions)["itemDelete"]->setEnabled(b2);
+	(*a_scrActions)["itemLock"]->setEnabled(b2);
 	(*a_scrActions)["itemConvertToTextFrame"]->setEnabled(b2);
 	(*a_scrActions)["itemConvertToImageFrame"]->setEnabled(b2);
 	(*a_scrActions)["itemConvertToPolygon"]->setEnabled(b2);

@@ -417,6 +417,7 @@ void PropertiesPalette_XYZ::handleAppModeChanged(int oldMode, int mode)
 	if (!m_haveDoc || !m_haveItem || !m_ScMW || m_ScMW->scriptIsRunning())
 		return;
 	doUnGroup->setEnabled(mode != modeEdit && mode != modeEditClip && m_item->isGroup());
+	doLock->setEnabled(mode != modeEditClip);
 }
 
 void PropertiesPalette_XYZ::handleSelectionChanged()
