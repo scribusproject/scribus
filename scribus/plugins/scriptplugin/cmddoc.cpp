@@ -389,6 +389,36 @@ PyObject* scribus_deletemasterpage(PyObject* /* self */, PyObject* args)
 	Py_RETURN_NONE;
 }
 
+PyObject* scribus_applymasterpage(PyObject* /* self */, PyObject* args)
+{
+	char* name = 0;
+	int page = 0;
+	if (!PyArg_ParseTuple(args, "esi", const_cast<char*>("utf-8"), &name, &page))
+		return NULL;
+	if(!checkHaveDocument())
+		return NULL;
+	const QString masterPageName(name);
+	if (!ScCore->primaryMainWindow()->doc->MasterNames.contains(masterPageName))
+	{
+		PyErr_SetString(PyExc_ValueError, QObject::tr("Master page does not exist: '%1'","python error").arg(masterPageName).toLocal8Bit().constData());
+		return NULL;
+	}
+	if ((page < 1) || (page > static_cast<int>(ScCore->primaryMainWindow()->doc->Pages->count())))
+	{
+		PyErr_SetString(PyExc_IndexError, QObject::tr("Page number out of range: %1.","python error").arg(page).toLocal8Bit().constData());
+		return NULL;
+	}
+
+	if (!ScCore->primaryMainWindow()->doc->applyMasterPage(masterPageName, page-1))
+	{
+		PyErr_SetString(ScribusException, QObject::tr("Failed to apply masterpage '%1' on page: %2","python error").arg(masterPageName).arg(page).toLocal8Bit().constData());
+		return NULL;
+	}
+//	Py_INCREF(Py_None);
+//	return Py_None;
+	Py_RETURN_NONE;
+}
+
 /*! HACK: this removes "warning: 'blah' defined but not used" compiler warnings
 with header files structure untouched (docstrings are kept near declarations)
 PV */

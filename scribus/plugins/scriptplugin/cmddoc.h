@@ -277,6 +277,13 @@ Delete the named master page.\n\
 "));
 PyObject* scribus_deletemasterpage(PyObject* self, PyObject* args);
 
+PyDoc_STRVAR(scribus_applymasterpage__doc__,
+QT_TR_NOOP("applyMasterPage(mastePageName, pageNumber)\n\
+\n\
+Apply master page masterPageName on page pageNumber.\n\
+"));
+PyObject* scribus_applymasterpage(PyObject* self, PyObject* args);
+
 #endif
 
 
