@@ -323,7 +323,7 @@ void ScPage::restorePageItemCreation(ScItemState<PageItem*> *state, bool isUndo)
 	bool oldMPMode=m_Doc->masterPageMode();
 	m_Doc->setMasterPageMode(!ite->OnMasterPage.isEmpty());
 	if (m_Doc->scMW()->appModeHelper->inAnEditMode(m_Doc))
-		m_Doc->scMW()->slotEndSpecialEdit();
+		m_Doc->view()->requestMode(modeNormal);
 	m_Doc->m_Selection->delaySignalsOn();
 	if (isUndo)
 	{
