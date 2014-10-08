@@ -24,7 +24,7 @@ for which a new license (GPL+exception) is in place.
 #include <QDebug>
 #include <QPixmap>
 
-#include "appmodes.h"
+#include "appmodehelper.h"
 #include "scpage.h"
 #include "scribus.h"
 #include "scribusdoc.h"
@@ -322,8 +322,8 @@ void ScPage::restorePageItemCreation(ScItemState<PageItem*> *state, bool isUndo)
 	PageItem *ite = state->getItem();
 	bool oldMPMode=m_Doc->masterPageMode();
 	m_Doc->setMasterPageMode(!ite->OnMasterPage.isEmpty());
-	if (m_Doc->appMode == modeEditClip) // switch off from edit shape
-		m_Doc->scMW()->nodePalette->EndEdit();
+	if (m_Doc->scMW()->appModeHelper->inAnEditMode(m_Doc))
+		m_Doc->scMW()->slotEndSpecialEdit();
 	m_Doc->m_Selection->delaySignalsOn();
 	if (isUndo)
 	{
