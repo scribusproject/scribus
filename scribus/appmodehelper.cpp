@@ -527,6 +527,10 @@ void AppModeHelper::setFrameEditMode(bool b)
 	(*a_scrActions)["itemConvertToSymbolFrame"]->setEnabled(b2);
 	(*a_scrActions)["pageImport"]->setEnabled(b2);
 	(*a_scrActions)["pageCopyToMasterPage"]->setEnabled(b2);
+	(*a_scrActions)["itemLowerToBottom"]->setEnabled(b2);
+	(*a_scrActions)["itemRaiseToTop"]->setEnabled(b2);
+	(*a_scrActions)["itemLower"]->setEnabled(b2);
+	(*a_scrActions)["itemRaise"]->setEnabled(b2);
 
 	setActionGroupEnabled(a_scrLayersActions, b2);
 }
