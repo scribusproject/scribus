@@ -700,7 +700,7 @@ static int PDFfile_setresolution(PDFfile *self, PyObject *value, void * /*closur
 	}
 	int n = PyInt_AsLong(value);
 	if (n<35 || n>4000) {
-		PyErr_SetString(PyExc_ValueError, "'compress' value must be in interval from 35 to 4000");
+		PyErr_SetString(PyExc_ValueError, "'resolution' value must be in interval from 35 to 4000");
 		return -1;
 	}
 	Py_DECREF(self->resolution);
