@@ -6820,12 +6820,15 @@ void PageItem::restoreDeleteFrameText(SimpleState *ss, bool isUndo)
 	ScItemState<CharStyle> *is = dynamic_cast<ScItemState<CharStyle> *>(ss);
 	QString text = is->get("TEXT_STR");
 	int start = is->getInt("START");
-	if (isUndo){
+	if (isUndo)
+	{
 		itemText.insertChars(start,text);
 		itemText.applyCharStyle(start, text.length(), is->getItem());
 		invalid = true;
 		invalidateLayout();
-	} else {
+	}
+	else
+	{
 		itemText.select(start,text.length());
 		asTextFrame()->deleteSelectedTextFromFrame();
 	}

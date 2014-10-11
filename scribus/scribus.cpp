@@ -3034,25 +3034,26 @@ void ScribusMainWindow::HaveNewSel()
 		scrActions["itemPreviewNormal"]->setEnabled(false);
 		scrActions["itemPreviewLow"]->setEnabled(false);
 		scrActions["itemAttributes"]->setEnabled(true);
+		bool inAnEditMode=doc->inAnEditMode();
 		if (SelectedType == PageItem::Polygon) //Polygon
 		{
 			scrMenuMgr->setMenuEnabled("ItemConvertTo", true);
-			scrActions["itemConvertToBezierCurve"]->setEnabled(doc->appMode != modeEdit);
-			scrActions["itemConvertToImageFrame"]->setEnabled(doc->appMode != modeEdit);
+			scrActions["itemConvertToBezierCurve"]->setEnabled(!inAnEditMode);
+			scrActions["itemConvertToImageFrame"]->setEnabled(!inAnEditMode);
 			scrActions["itemConvertToOutlines"]->setEnabled(false);
 			scrActions["itemConvertToPolygon"]->setEnabled(false);
-			scrActions["itemConvertToTextFrame"]->setEnabled(doc->appMode != modeEdit);
-			scrActions["itemConvertToSymbolFrame"]->setEnabled(doc->appMode != modeEdit);
+			scrActions["itemConvertToTextFrame"]->setEnabled(!inAnEditMode);
+			scrActions["itemConvertToSymbolFrame"]->setEnabled(!inAnEditMode);
 		}
 		else if ((SelectedType == PageItem::RegularPolygon) || (SelectedType == PageItem::Arc)) // Regular Polygon + Arc
 		{
 			scrMenuMgr->setMenuEnabled("ItemConvertTo", true);
-			scrActions["itemConvertToBezierCurve"]->setEnabled(doc->appMode != modeEdit);
-			scrActions["itemConvertToImageFrame"]->setEnabled(doc->appMode != modeEdit);
+			scrActions["itemConvertToBezierCurve"]->setEnabled(!inAnEditMode);
+			scrActions["itemConvertToImageFrame"]->setEnabled(!inAnEditMode);
 			scrActions["itemConvertToOutlines"]->setEnabled(false);
-			scrActions["itemConvertToPolygon"]->setEnabled(doc->appMode != modeEdit);
-			scrActions["itemConvertToTextFrame"]->setEnabled(doc->appMode != modeEdit);
-			scrActions["itemConvertToSymbolFrame"]->setEnabled(doc->appMode != modeEdit);
+			scrActions["itemConvertToPolygon"]->setEnabled(!inAnEditMode);
+			scrActions["itemConvertToTextFrame"]->setEnabled(!inAnEditMode);
+			scrActions["itemConvertToSymbolFrame"]->setEnabled(!inAnEditMode);
 		}
 		else if (SelectedType == PageItem::PolyLine) //Polyline
 		{
@@ -3060,9 +3061,9 @@ void ScribusMainWindow::HaveNewSel()
 			scrActions["itemConvertToBezierCurve"]->setEnabled(false);
 			scrActions["itemConvertToImageFrame"]->setEnabled(false);
 			scrActions["itemConvertToOutlines"]->setEnabled(false);
-			scrActions["itemConvertToPolygon"]->setEnabled(doc->appMode != modeEdit);
+			scrActions["itemConvertToPolygon"]->setEnabled(!inAnEditMode);
 			scrActions["itemConvertToTextFrame"]->setEnabled(false);
-			scrActions["itemConvertToSymbolFrame"]->setEnabled(doc->appMode != modeEdit);
+			scrActions["itemConvertToSymbolFrame"]->setEnabled(!inAnEditMode);
 		}
 		else if ((SelectedType == PageItem::Line) || (SelectedType == PageItem::Spiral)) // Line
 		{
@@ -3071,11 +3072,11 @@ void ScribusMainWindow::HaveNewSel()
 			scrActions["itemConvertToImageFrame"]->setEnabled(false);
 			scrActions["itemConvertToOutlines"]->setEnabled(false);
 			if (SelectedType == PageItem::Spiral)
-				scrActions["itemConvertToPolygon"]->setEnabled(doc->appMode != modeEdit);
+				scrActions["itemConvertToPolygon"]->setEnabled(!inAnEditMode);
 			else
 				scrActions["itemConvertToPolygon"]->setEnabled(false);
 			scrActions["itemConvertToTextFrame"]->setEnabled(false);
-			scrActions["itemConvertToSymbolFrame"]->setEnabled(doc->appMode != modeEdit);
+			scrActions["itemConvertToSymbolFrame"]->setEnabled(!inAnEditMode);
 		}
 		else if (SelectedType == PageItem::Symbol)
 			scrMenuMgr->setMenuEnabled("ItemConvertTo", false);
