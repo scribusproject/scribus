@@ -484,7 +484,6 @@ void ScribusView::requestMode(int appMode)
 
 	if (Doc->appMode != appMode)
 	{
-		//m_ScMW->setAppMode(appMode);
 		m_ScMW->appModeHelper->setApplicationMode(m_ScMW, Doc, appMode);
 		CanvasMode* newCanvasMode = modeInstances.value(appMode);
 		if (!newCanvasMode)
@@ -502,7 +501,6 @@ void ScribusView::requestMode(int appMode)
 	}
 	else
 	{
-		//m_ScMW->setAppMode(appMode);
 		m_ScMW->appModeHelper->setApplicationMode(m_ScMW, Doc, appMode);
 	}
 	if (updateNecessary)

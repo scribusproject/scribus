@@ -25,6 +25,8 @@ for which a new license (GPL+exception) is in place.
 #include "appmodes.h"
 #include "scraction.h"
 
+class PageItem;
+
 class AppModeHelper : public QObject
 {
 	Q_OBJECT
@@ -37,6 +39,7 @@ class AppModeHelper : public QObject
 		void setup(ActionManager* am, QMap<QString, QPointer<ScrAction> > *, QMap<QString, QPointer<ScrAction> > *, QMap<QString, QPointer<ScrAction> > *, QMap<QString, QPointer<ScrAction> > *, QMap<QString, QPointer<ScrAction> > *, QMap<QString, QPointer<ScrAction> > *);
 		void resetApplicationMode(ScribusMainWindow* scmw, int newMode);
 		void setApplicationMode(ScribusMainWindow* scmw, ScribusDoc* doc, int newMode);
+		void enableActionsForSelection(ScribusMainWindow* scmw, ScribusDoc *doc);
 		void setModeActionsPerMode(int newMode);
 		void setActionGroupEnabled(QMap<QString, QPointer<ScrAction> > *, bool enabled);
 		void setTextEditMode(bool b);

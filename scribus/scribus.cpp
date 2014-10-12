@@ -2696,204 +2696,19 @@ void ScribusMainWindow::HaveNewSel()
 
 	view->horizRuler->textMode(false);
 	view->horizRuler->update();
+
+	appModeHelper->enableActionsForSelection(this, doc);
+
 	switch (SelectedType)
 	{
 	case -1: // None
-		scrActions["fileImportText"]->setEnabled(false);
-		scrActions["fileImportText2"]->setEnabled(false);
-		scrActions["fileImportImage"]->setEnabled(false);
-		scrActions["fileImportAppendText"]->setEnabled(false);
-		scrActions["fileExportText"]->setEnabled(false);
-		scrActions["itemDuplicate"]->setEnabled(false);
-		scrActions["itemMulDuplicate"]->setEnabled(false);
-		scrActions["itemTransform"]->setEnabled(false);
-		scrActions["itemDelete"]->setEnabled(false);
-		scrActions["itemRaise"]->setEnabled(false);
-		scrActions["itemLower"]->setEnabled(false);
-		scrActions["itemRaiseToTop"]->setEnabled(false);
-		scrActions["itemLowerToBottom"]->setEnabled(false);
-//		scrActions["itemSendToScrapbook"]->setEnabled(false);
-		scrMenuMgr->setMenuEnabled("itemSendToScrapbook", false);
-		scrActions["itemSendToPattern"]->setEnabled(false);
-		scrActions["itemSendToInline"]->setEnabled(false);
-		scrActions["itemAdjustFrameToImage"]->setEnabled(false);
-		scrActions["itemAdjustImageToFrame"]->setEnabled(false);
-		scrActions["itemExtendedImageProperties"]->setEnabled(false);
-		scrActions["itemUpdateImage"]->setEnabled(false);
-		scrActions["itemPreviewFull"]->setEnabled(false);
-		scrActions["itemPreviewNormal"]->setEnabled(false);
-		scrActions["itemPreviewLow"]->setEnabled(false);
-		scrActions["itemAttributes"]->setEnabled(false);
-//		scrMenuMgr->setMenuEnabled("Item", false);
-		//scrMenuMgr->setMenuEnabled("ItemShapes", false);
-//		scrMenuMgr->setMenuEnabled("ItemConvertTo", false);
-		scrMenuMgr->setMenuEnabled("EditContents", false);
-		scrActions["itemConvertToBezierCurve"]->setEnabled(false);
-		scrActions["itemConvertToImageFrame"]->setEnabled(false);
-		scrActions["itemConvertToOutlines"]->setEnabled(false);
-		scrActions["itemConvertToPolygon"]->setEnabled(false);
-		scrActions["itemConvertToTextFrame"]->setEnabled(false);
-		scrActions["itemConvertToSymbolFrame"]->setEnabled(false);
-		scrActions["itemLock"]->setEnabled(false);
-		scrActions["itemLockSize"]->setEnabled(false);
-		scrActions["itemPrintingEnabled"]->setEnabled(false);
-		scrActions["editCut"]->setEnabled(false);
-		scrActions["editCopy"]->setEnabled(false);
-		scrActions["editCopyContents"]->setEnabled(false);
-		scrActions["editSearchReplace"]->setEnabled(false);
-		scrActions["extrasHyphenateText"]->setEnabled(false);
-		scrActions["extrasDeHyphenateText"]->setEnabled(false);
-
-		scrActions["itemWeld"]->setEnabled(false);
-		scrActions["itemsUnWeld"]->setEnabled(false);
-		scrActions["itemEditWeld"]->setEnabled(false);
-
-		scrActions["toolsUnlinkTextFrame"]->setEnabled(false);
-		scrActions["toolsUnlinkTextFrameWithTextCopy"]->setEnabled(false);
-		scrActions["toolsUnlinkTextFrameWithTextCut"]->setEnabled(false);
-		scrActions["toolsLinkTextFrame"]->setEnabled(false);
-		scrActions["toolsEditContents"]->setEnabled(false);
-		scrActions["toolsEditWithStoryEditor"]->setEnabled(false);
-		scrActions["toolsRotate"]->setEnabled(false);
-		scrActions["toolsCopyProperties"]->setEnabled(false);
-		//CB 061005 moved to cpalette choosegrad
-		//propertiesPalette->Cpal->gradientQCombo->setCurrentItem(0);
 		outlinePalette->slotShowSelect(doc->currentPageNumber(), NULL);
 		propertiesPalette->setGradientEditMode(false);
 		break;
-	case PageItem::ImageFrame: //Image Frame
-		scrActions["fileImportAppendText"]->setEnabled(false);
-		scrActions["fileImportText"]->setEnabled(false);
-		scrActions["fileImportText2"]->setEnabled(false);
-		scrActions["fileImportImage"]->setEnabled(true);
-		scrActions["editCut"]->setEnabled(true);
-		scrActions["editCopy"]->setEnabled(true);
-		scrMenuMgr->setMenuEnabled("EditContents", true);
-		scrActions["editClearContents"]->setEnabled(true);
-		scrActions["editTruncateContents"]->setEnabled(true);
-		scrActions["editSearchReplace"]->setEnabled(false);
-		scrActions["extrasHyphenateText"]->setEnabled(false);
-		scrActions["extrasDeHyphenateText"]->setEnabled(false);
-		scrActions["itemDuplicate"]->setEnabled(true);
-		scrActions["itemMulDuplicate"]->setEnabled(true);
-		scrActions["itemTransform"]->setEnabled(true);
-		scrActions["itemDelete"]->setEnabled(true);
-		scrActions["itemRaise"]->setEnabled(true);
-		scrActions["itemLower"]->setEnabled(true);
-		scrActions["itemRaiseToTop"]->setEnabled(true);
-		scrActions["itemLowerToBottom"]->setEnabled(true);
-		scrMenuMgr->setMenuEnabled("itemSendToScrapbook", true);
-		scrActions["itemSendToPattern"]->setEnabled(true);
-		scrActions["itemSendToInline"]->setEnabled(true);
-		scrActions["itemAdjustFrameToImage"]->setEnabled(true);
-		scrActions["itemAdjustImageToFrame"]->setEnabled(true);
-		scrActions["itemExtendedImageProperties"]->setEnabled(currItem->pixm.imgInfo.valid);
-		scrActions["itemUpdateImage"]->setEnabled(true);
-		scrActions["itemPreviewFull"]->setEnabled(true);
-		scrActions["itemPreviewNormal"]->setEnabled(true);
-		scrActions["itemPreviewLow"]->setEnabled(true);
-		scrActions["itemAttributes"]->setEnabled(true);
-		scrActions["itemConvertToBezierCurve"]->setEnabled(false);
-		scrActions["itemConvertToImageFrame"]->setEnabled(false);
-		scrActions["itemConvertToOutlines"]->setEnabled(false);
-		scrActions["itemConvertToPolygon"]->setEnabled(doc->appMode != modeEdit);
-		scrActions["itemConvertToTextFrame"]->setEnabled(doc->appMode != modeEdit);
-		scrActions["itemConvertToSymbolFrame"]->setEnabled(doc->appMode != modeEdit);
-		scrActions["toolsUnlinkTextFrame"]->setEnabled(false);
-		scrActions["toolsUnlinkTextFrameWithTextCopy"]->setEnabled(false);
-		scrActions["toolsUnlinkTextFrameWithTextCut"]->setEnabled(false);
-		scrActions["toolsLinkTextFrame"]->setEnabled(false);
-		scrActions["toolsEditContents"]->setEnabled(currItem->ScaleType);
-		scrActions["toolsEditWithStoryEditor"]->setEnabled(false);
-		scrActions["toolsRotate"]->setEnabled(true);
-		scrActions["toolsCopyProperties"]->setEnabled(true);
-		scrActions["itemImageIsVisible"]->setChecked(currItem->imageShown());
-		scrActions["itemToggleInlineImage"]->setChecked(currItem->isImageInline());
-		scrActions["itemPreviewFull"]->setChecked(currItem->pixm.imgInfo.lowResType==scrActions["itemPreviewFull"]->actionInt());
-		scrActions["itemPreviewNormal"]->setChecked(currItem->pixm.imgInfo.lowResType==scrActions["itemPreviewNormal"]->actionInt());
-		scrActions["itemPreviewLow"]->setChecked(currItem->pixm.imgInfo.lowResType==scrActions["itemPreviewLow"]->actionInt());
-
-		break;
 	case PageItem::TextFrame: //Text Frame
-		scrActions["fileImportText"]->setEnabled(true);
-		scrActions["fileImportText2"]->setEnabled(true);
-		scrActions["fileImportImage"]->setEnabled(false);
-		scrActions["fileImportAppendText"]->setEnabled(true);
-		scrActions["fileExportText"]->setEnabled(true);
-		scrActions["editCut"]->setEnabled(true);
-		scrActions["editCopy"]->setEnabled(true);
-		scrMenuMgr->setMenuEnabled("EditContents", true);
-		scrActions["editClearContents"]->setEnabled(true);
-		scrActions["editTruncateContents"]->setEnabled(true);
-		scrActions["editSearchReplace"]->setEnabled(currItem->itemText.length() != 0);
-		scrActions["extrasHyphenateText"]->setEnabled(true);
-		scrActions["extrasDeHyphenateText"]->setEnabled(true);
-		//		scrMenuMgr->setMenuEnabled("Item", true);
-		scrActions["itemDuplicate"]->setEnabled(true);
-		scrActions["itemMulDuplicate"]->setEnabled(true);
-		scrActions["itemTransform"]->setEnabled(true);
-		scrActions["itemDelete"]->setEnabled(true);
-		scrActions["itemRaise"]->setEnabled(true);
-		scrActions["itemLower"]->setEnabled(true);
-		scrActions["itemRaiseToTop"]->setEnabled(true);
-		scrActions["itemLowerToBottom"]->setEnabled(true);
-		scrMenuMgr->setMenuEnabled("itemSendToScrapbook", true);
-		scrActions["itemSendToPattern"]->setEnabled(true);
-		scrActions["itemSendToInline"]->setEnabled(true);
-		scrActions["itemAdjustFrameToImage"]->setEnabled(false);
-		scrActions["itemAdjustImageToFrame"]->setEnabled(false);
-		scrActions["itemExtendedImageProperties"]->setEnabled(false);
-		scrActions["itemUpdateImage"]->setEnabled(false);
-		scrActions["itemPreviewFull"]->setEnabled(false);
-		scrActions["itemPreviewNormal"]->setEnabled(false);
-		scrActions["itemPreviewLow"]->setEnabled(false);
-		scrActions["itemAttributes"]->setEnabled(true);
-		scrMenuMgr->setMenuEnabled("ItemConvertTo", !((doc->appMode == modeEdit) || (currItem->isAnnotation())));
-		scrActions["itemConvertToBezierCurve"]->setEnabled(false);
-		scrActions["itemConvertToImageFrame"]->setEnabled(doc->appMode != modeEdit);
-		scrActions["itemConvertToOutlines"]->setEnabled(doc->appMode != modeEdit);
-		scrActions["itemConvertToPolygon"]->setEnabled(doc->appMode != modeEdit);
-		scrActions["itemConvertToTextFrame"]->setEnabled(false);
-		scrActions["itemConvertToSymbolFrame"]->setEnabled(doc->appMode != modeEdit);
-
-		scrActions["toolsRotate"]->setEnabled(true);
-		scrActions["toolsCopyProperties"]->setEnabled(true);
-		scrActions["toolsEditWithStoryEditor"]->setEnabled(true);
-		scrActions["insertSampleText"]->setEnabled(true);
-		scrMenuMgr->setMenuEnabled("InsertMark",true);
-
-		if ((currItem->nextInChain() != 0) || (currItem->prevInChain() != 0))
-		{
-			scrActions["itemConvertToBezierCurve"]->setEnabled(false);
-			scrActions["itemConvertToImageFrame"]->setEnabled(false);
-			scrActions["itemConvertToPolygon"]->setEnabled(false);
-			scrActions["itemConvertToTextFrame"]->setEnabled(false);
-			scrActions["itemConvertToSymbolFrame"]->setEnabled(false);
-			scrActions["toolsUnlinkTextFrame"]->setEnabled(true);
-			scrActions["toolsUnlinkTextFrameWithTextCopy"]->setEnabled(true);
-			scrActions["toolsUnlinkTextFrameWithTextCut"]->setEnabled(true);
-			// FIXME: once there's one itemtext per story, always enable editcontents
-			if ((currItem->prevInChain() != 0) && (currItem->itemText.length() == 0))
-				scrActions["toolsEditContents"]->setEnabled(false);
-			else
-				scrActions["toolsEditContents"]->setEnabled(true);
-		}
-		else
-		{
-			scrActions["toolsEditContents"]->setEnabled(true);
-			scrActions["toolsUnlinkTextFrame"]->setEnabled(false);
-			scrActions["toolsUnlinkTextFrameWithTextCopy"]->setEnabled(false);
-			scrActions["toolsUnlinkTextFrameWithTextCut"]->setEnabled(false);
-		}
-		scrActions["toolsLinkTextFrame"]->setEnabled(!currItem->nextInChain());
-//		if (doc->masterPageMode())
-//			scrActions["toolsLinkTextFrame"]->setEnabled(false);
 		if (doc->appMode == modeEdit)
 		{
 			setTBvals(currItem);
-			scrActions["editSelectAll"]->setEnabled(true);
-			scrActions["editSelectAllOnLayer"]->setEnabled(false);
-			scrMenuMgr->setMenuEnabled("InsertMark",true);
 			charPalette->setEnabled(true, currItem);
 			if (currItem->asTextFrame())
 			{
@@ -2905,7 +2720,6 @@ void ScribusMainWindow::HaveNewSel()
 		}
 		else
 		{
-			scrMenuMgr->setMenuEnabled("InsertMark",false);
 			doc->currentStyle = currItem->itemText.defaultStyle();
 			propertiesPalette->textPal->showParStyle(doc->currentStyle.parent());
 			propertiesPalette->textPal->showCharStyle(doc->currentStyle.charStyle().parent());
@@ -2914,77 +2728,16 @@ void ScribusMainWindow::HaveNewSel()
 			propertiesPalette->textPal->updateStyle(doc->currentStyle);
 			setStyleEffects(doc->currentStyle.charStyle().effects());
 		}
-
-//		doc->docParagraphStyles[0].setLineSpacingMode(static_cast<ParagraphStyle::LineSpacingMode>(currItem->lineSpacingMode()));
-//		doc->docParagraphStyles[0].setLineSpacing(currItem->lineSpacing());
-//		doc->docParagraphStyles[0].setAlignment(currItem->textAlignment);
-
 		break;
 	case PageItem::Table:
-		scrActions["editCut"]->setEnabled(true);
-		scrActions["editCopy"]->setEnabled(true);
-		scrActions["toolsRotate"]->setEnabled(true);
 		if (doc->appMode == modeEditTable)
 		{
 			charPalette->setEnabled(true, currItem);
 			PageItem *i2 = currItem->asTable()->activeCell().textFrame();
 			appModeHelper->enableTextActions(true, i2->currentCharStyle().font().scName());
-			scrActions["insertSampleText"]->setEnabled(true);
-			scrActions["toolsEditWithStoryEditor"]->setEnabled(true);
 		}
 		break;
 	case PageItem::PathText: //Path Text
-		scrActions["fileImportText"]->setEnabled(true);
-		scrActions["fileImportText2"]->setEnabled(true);
-		scrActions["fileImportImage"]->setEnabled(false);
-		scrActions["fileImportAppendText"]->setEnabled(true);
-		scrActions["fileExportText"]->setEnabled(true);
-		scrActions["editCut"]->setEnabled(true);
-		scrActions["editCopy"]->setEnabled(true);
-		scrActions["editClearContents"]->setEnabled(false);
-		scrActions["editTruncateContents"]->setEnabled(false);
-		scrActions["editSearchReplace"]->setEnabled(false);
-		scrActions["extrasHyphenateText"]->setEnabled(false);
-		scrActions["extrasDeHyphenateText"]->setEnabled(false);
-		//		scrMenuMgr->setMenuEnabled("Item", true);
-		scrActions["itemDuplicate"]->setEnabled(true);
-		scrActions["itemMulDuplicate"]->setEnabled(true);
-		scrActions["itemTransform"]->setEnabled(true);
-		scrActions["itemDelete"]->setEnabled(true);
-		scrActions["itemRaise"]->setEnabled(true);
-		scrActions["itemLower"]->setEnabled(true);
-		scrActions["itemRaiseToTop"]->setEnabled(true);
-		scrActions["itemLowerToBottom"]->setEnabled(true);
-//		scrActions["itemSendToScrapbook"]->setEnabled(true);
-		scrMenuMgr->setMenuEnabled("itemSendToScrapbook", true);
-		scrActions["itemSendToPattern"]->setEnabled(true);
-		scrActions["itemSendToInline"]->setEnabled(true);
-		scrActions["itemAdjustFrameToImage"]->setEnabled(false);
-		scrActions["itemAdjustImageToFrame"]->setEnabled(false);
-		scrActions["itemExtendedImageProperties"]->setEnabled(false);
-		scrActions["itemUpdateImage"]->setEnabled(false);
-		scrActions["itemPreviewFull"]->setEnabled(false);
-		scrActions["itemPreviewNormal"]->setEnabled(false);
-		scrActions["itemPreviewLow"]->setEnabled(false);
-		scrActions["itemAttributes"]->setEnabled(true);
-		//scrMenuMgr->setMenuEnabled("ItemShapes", false);
-		scrActions["itemDetachTextFromPath"]->setEnabled(true);
-//		scrMenuMgr->setMenuEnabled("ItemConvertTo", true);
-		scrActions["itemConvertToBezierCurve"]->setEnabled(false);
-		scrActions["itemConvertToImageFrame"]->setEnabled(false);
-		scrActions["itemConvertToOutlines"]->setEnabled(true);
-		scrActions["itemConvertToPolygon"]->setEnabled(false);
-		scrActions["itemConvertToTextFrame"]->setEnabled(false);
-		scrActions["itemConvertToSymbolFrame"]->setEnabled(true);
-
-		scrActions["toolsRotate"]->setEnabled(true);
-		scrActions["toolsCopyProperties"]->setEnabled(true);
-		scrActions["toolsEditContents"]->setEnabled(false);
-		scrActions["toolsEditWithStoryEditor"]->setEnabled(true);
-		scrActions["toolsLinkTextFrame"]->setEnabled(false);
-		scrActions["toolsUnlinkTextFrame"]->setEnabled(false);
-		scrActions["toolsUnlinkTextFrameWithTextCopy"]->setEnabled(false);
-		scrActions["toolsUnlinkTextFrameWithTextCut"]->setEnabled(false);
 		if (doc->appMode == modeEdit)
 			setTBvals(currItem);
 		else
@@ -2998,256 +2751,15 @@ void ScribusMainWindow::HaveNewSel()
 			setStyleEffects(doc->currentStyle.charStyle().effects());
 		}
 		break;
-	default:
-		scrActions["fileImportText"]->setEnabled(false);
-		scrActions["fileImportText2"]->setEnabled(false);
-		scrActions["fileImportImage"]->setEnabled(false);
-		scrActions["fileImportAppendText"]->setEnabled(false);
-		scrActions["fileExportText"]->setEnabled(false);
-		scrActions["editCut"]->setEnabled(true);
-		scrActions["editCopy"]->setEnabled(true);
-		scrMenuMgr->setMenuEnabled("EditContents", false);
-		scrActions["editClearContents"]->setEnabled(false);
-		scrActions["editTruncateContents"]->setEnabled(false);
-		scrActions["editSearchReplace"]->setEnabled(false);
-
-		scrActions["extrasHyphenateText"]->setEnabled(false);
-		scrActions["extrasDeHyphenateText"]->setEnabled(false);
-		//		scrMenuMgr->setMenuEnabled("Item", true);
-		scrActions["itemDuplicate"]->setEnabled(true);
-		scrActions["itemMulDuplicate"]->setEnabled(true);
-		scrActions["itemTransform"]->setEnabled(true);
-		scrActions["itemDelete"]->setEnabled(true);
-		scrActions["itemRaise"]->setEnabled(true);
-		scrActions["itemLower"]->setEnabled(true);
-		scrActions["itemRaiseToTop"]->setEnabled(true);
-		scrActions["itemLowerToBottom"]->setEnabled(true);
-//		scrActions["itemSendToScrapbook"]->setEnabled(true);
-		scrMenuMgr->setMenuEnabled("itemSendToScrapbook", true);
-		scrActions["itemSendToPattern"]->setEnabled(true);
-		scrActions["itemSendToInline"]->setEnabled(true);
-		scrActions["itemAdjustFrameToImage"]->setEnabled(false);
-		scrActions["itemAdjustImageToFrame"]->setEnabled(false);
-		scrActions["itemExtendedImageProperties"]->setEnabled(false);
-		scrActions["itemUpdateImage"]->setEnabled(false);
-		scrActions["itemPreviewFull"]->setEnabled(false);
-		scrActions["itemPreviewNormal"]->setEnabled(false);
-		scrActions["itemPreviewLow"]->setEnabled(false);
-		scrActions["itemAttributes"]->setEnabled(true);
-		bool inAnEditMode=doc->inAnEditMode();
-		if (SelectedType == PageItem::Polygon) //Polygon
-		{
-			scrMenuMgr->setMenuEnabled("ItemConvertTo", true);
-			scrActions["itemConvertToBezierCurve"]->setEnabled(!inAnEditMode);
-			scrActions["itemConvertToImageFrame"]->setEnabled(!inAnEditMode);
-			scrActions["itemConvertToOutlines"]->setEnabled(false);
-			scrActions["itemConvertToPolygon"]->setEnabled(false);
-			scrActions["itemConvertToTextFrame"]->setEnabled(!inAnEditMode);
-			scrActions["itemConvertToSymbolFrame"]->setEnabled(!inAnEditMode);
-		}
-		else if ((SelectedType == PageItem::RegularPolygon) || (SelectedType == PageItem::Arc)) // Regular Polygon + Arc
-		{
-			scrMenuMgr->setMenuEnabled("ItemConvertTo", true);
-			scrActions["itemConvertToBezierCurve"]->setEnabled(!inAnEditMode);
-			scrActions["itemConvertToImageFrame"]->setEnabled(!inAnEditMode);
-			scrActions["itemConvertToOutlines"]->setEnabled(false);
-			scrActions["itemConvertToPolygon"]->setEnabled(!inAnEditMode);
-			scrActions["itemConvertToTextFrame"]->setEnabled(!inAnEditMode);
-			scrActions["itemConvertToSymbolFrame"]->setEnabled(!inAnEditMode);
-		}
-		else if (SelectedType == PageItem::PolyLine) //Polyline
-		{
-			scrMenuMgr->setMenuEnabled("ItemConvertTo", true);
-			scrActions["itemConvertToBezierCurve"]->setEnabled(false);
-			scrActions["itemConvertToImageFrame"]->setEnabled(false);
-			scrActions["itemConvertToOutlines"]->setEnabled(false);
-			scrActions["itemConvertToPolygon"]->setEnabled(!inAnEditMode);
-			scrActions["itemConvertToTextFrame"]->setEnabled(false);
-			scrActions["itemConvertToSymbolFrame"]->setEnabled(!inAnEditMode);
-		}
-		else if ((SelectedType == PageItem::Line) || (SelectedType == PageItem::Spiral)) // Line
-		{
-			scrMenuMgr->setMenuEnabled("ItemConvertTo", true);
-			scrActions["itemConvertToBezierCurve"]->setEnabled(true);
-			scrActions["itemConvertToImageFrame"]->setEnabled(false);
-			scrActions["itemConvertToOutlines"]->setEnabled(false);
-			if (SelectedType == PageItem::Spiral)
-				scrActions["itemConvertToPolygon"]->setEnabled(!inAnEditMode);
-			else
-				scrActions["itemConvertToPolygon"]->setEnabled(false);
-			scrActions["itemConvertToTextFrame"]->setEnabled(false);
-			scrActions["itemConvertToSymbolFrame"]->setEnabled(!inAnEditMode);
-		}
-		else if (SelectedType == PageItem::Symbol)
-			scrMenuMgr->setMenuEnabled("ItemConvertTo", false);
-		scrActions["toolsEditContents"]->setEnabled(false);
-		scrActions["toolsEditWithStoryEditor"]->setEnabled(false);
-		scrActions["toolsUnlinkTextFrame"]->setEnabled(false);
-		scrActions["toolsUnlinkTextFrameWithTextCopy"]->setEnabled(false);
-		scrActions["toolsUnlinkTextFrameWithTextCut"]->setEnabled(false);
-		scrActions["toolsLinkTextFrame"]->setEnabled(false);
-//		if (SelectedType != 5)
-			scrActions["toolsRotate"]->setEnabled(true);
-//		else
-//			scrActions["toolsRotate"]->setEnabled(false);
-		scrActions["toolsCopyProperties"]->setEnabled(true);
-		break;
 	}
 	doc->CurrentSel = SelectedType;
 	propertiesPalette->xyzPal->basePointWidget->setCheckedId(doc->RotMode());
-	if (docSelectionCount == 1)
-	{
-		PageItem* bx = doc->m_Selection->itemAt(0);
-		scrActions["itemsUnWeld"]->setEnabled(bx->isWelded());
-		scrActions["itemEditWeld"]->setEnabled(bx->isWelded());
-	}
-	if (docSelectionCount > 1)
-	{
-		if (!doc->m_Selection->itemsAreSameType())
-		{
-			scrActions["itemConvertToBezierCurve"]->setEnabled(false);
-			scrActions["itemConvertToImageFrame"]->setEnabled(false);
-			//scrActions["itemConvertToOutlines"]->setEnabled(false);
-			scrActions["itemConvertToPolygon"]->setEnabled(false);
-			scrActions["itemConvertToTextFrame"]->setEnabled(false);
-			scrActions["itemConvertToSymbolFrame"]->setEnabled(false);
-		}
-		scrActions["editSearchReplace"]->setEnabled(false);
-
-		bool hPoly = false;
-		for (uint bx=0; bx < docSelectionCount; ++bx)
-		{
-			PageItem* bxi=doc->m_Selection->itemAt(bx);
-			if ((bxi->asPolygon()) || (bxi->asPolyLine()))
-				hPoly = true;
-		}
-		// It is possible to select objects on different layer using
-		// document outline palette. We need to check selected objects
-		// are on a common layer before allowing user to group them
-		bool objectsOnSameLayer = (doc->m_Selection->objectsLayer() != -1);
-		scrActions["itemGroup"]->setEnabled(objectsOnSameLayer);
-		scrActions["itemCombinePolygons"]->setEnabled(hPoly);
-		if (docSelectionCount == 2)
-		{
-			scrActions["itemWeld"]->setEnabled(true);
-			//CB swap bx around if currItem is not at 0 index from the lastItem loop at start of havenewsel
-			PageItem* bx=doc->m_Selection->itemAt(1);
-			if (currItem==bx)
-				bx=doc->m_Selection->itemAt(0);
-
-			if ((currItem->asTextFrame() && (bx->asPolygon() || bx->asPolyLine())) || (bx->asTextFrame() && (currItem->asPolygon() || currItem->asPolyLine())))
-			{
-				if ((currItem->nextInChain() == 0) && (currItem->prevInChain() == 0) && (bx->nextInChain() == 0) && (bx->prevInChain() == 0) && (!currItem->isGroup()) && (!bx->isGroup()))
-					scrActions["itemAttachTextToPath"]->setEnabled(true);
-			}
-
-		}
-		else
-			scrActions["itemWeld"]->setEnabled(false);
-	}
-	else
-	{
-		scrActions["itemWeld"]->setEnabled(false);
-		scrActions["itemGroup"]->setEnabled(false);
-		scrActions["itemAttachTextToPath"]->setEnabled(false);
-		scrActions["itemCombinePolygons"]->setEnabled(false);
-	}
-
-	if (docSelectionCount != 0)
-	{
-		actionManager->setPDFActions(view);
-		updateItemLayerList();
-		rebuildScrapbookMenu();
-
-		//propertiesPalette->textFlowsAroundFrame->setChecked(currItem->textFlowsAroundFrame());
-		propertiesPalette->setTextFlowMode(currItem->textFlowMode());
-		scrActions["itemLock"]->setEnabled(true);
-		scrActions["itemLockSize"]->setEnabled(true);
-		scrActions["itemPrintingEnabled"]->setEnabled(true);
-		if (currItem->isGroup())
-		{
-			scrActions["itemUngroup"]->setEnabled(doc->appMode != modeEdit);
-			scrActions["itemGroupAdjust"]->setEnabled(doc->appMode != modeEdit);
-		}
-		else
-		{
-			scrActions["itemUngroup"]->setEnabled(false);
-			scrActions["itemGroupAdjust"]->setEnabled(false);
-			scrActions["itemSplitPolygons"]->setEnabled( (currItem->asPolygon()) && (currItem->Segments.count() != 0) );
-		}
-		if (currItem->locked())
-		{
-			//scrMenuMgr->setMenuEnabled("ItemShapes", false);
-			scrMenuMgr->setMenuEnabled("ItemConvertTo", false);
-			scrActions["itemConvertToBezierCurve"]->setEnabled(false);
-			scrActions["itemConvertToImageFrame"]->setEnabled(false);
-			scrActions["itemConvertToOutlines"]->setEnabled(false);
-			scrActions["itemConvertToPolygon"]->setEnabled(false);
-			scrActions["itemConvertToTextFrame"]->setEnabled(false);
-			scrActions["itemConvertToSymbolFrame"]->setEnabled(false);
-			scrActions["itemSplitPolygons"]->setEnabled(false);
-			scrActions["itemAttachTextToPath"]->setEnabled(false);
-			scrActions["itemDetachTextFromPath"]->setEnabled(false);
-			scrActions["itemCombinePolygons"]->setEnabled(false);
-			scrActions["itemDelete"]->setEnabled(false);
-			scrMenuMgr->setMenuEnabled("ItemLevel", false);
-			scrActions["itemLowerToBottom"]->setEnabled(false);
-			scrActions["itemRaiseToTop"]->setEnabled(false);
-			scrActions["itemRaise"]->setEnabled(false);
-			scrActions["itemLower"]->setEnabled(false);
-//			scrActions["itemSendToScrapbook"]->setEnabled(!(currItem->isTableItem && currItem->isSingleSel));
-			scrMenuMgr->setMenuEnabled("itemSendToScrapbook", true);
-			scrActions["itemSendToPattern"]->setEnabled(true);
-			scrActions["itemSendToInline"]->setEnabled(true);
-			scrActions["editCut"]->setEnabled(false);
-			scrActions["editClearContents"]->setEnabled(false);
-			scrActions["editTruncateContents"]->setEnabled(false);
-			scrActions["toolsRotate"]->setEnabled(false);
-		}
-		else
-		{
-			bool setter = !currItem->isGroup();
-			scrMenuMgr->setMenuEnabled("ItemLevel", setter);
-			scrActions["itemDuplicate"]->setEnabled(true);
-			scrActions["itemMulDuplicate"]->setEnabled(true);
-			scrActions["itemTransform"]->setEnabled(true);
-			scrActions["itemDelete"]->setEnabled(true);
-//			scrActions["itemSendToScrapbook"]->setEnabled(setter);
-			scrMenuMgr->setMenuEnabled("itemSendToScrapbook", true);
-			scrActions["itemSendToPattern"]->setEnabled(true);
-			scrActions["itemSendToInline"]->setEnabled(true);
-			if (docSelectionCount > 1)
-			{
-				bool haveSameParent = true;
-				PageItem *firstItem = doc->m_Selection->itemAt(0);
-				for (uint a = 1; a < docSelectionCount; ++a)
-				{
-					if (doc->m_Selection->itemAt(a)->Parent != firstItem->Parent)
-					{
-						haveSameParent = false;
-						break;
-					}
-				}
-				scrActions["itemRaise"]->setEnabled(haveSameParent);
-				scrActions["itemLower"]->setEnabled(haveSameParent);
-				scrActions["itemRaiseToTop"]->setEnabled(haveSameParent);
-				scrActions["itemLowerToBottom"]->setEnabled(haveSameParent);
-			}
-		}
-		scrActions["itemLock"]->setChecked(currItem->locked());
-		scrActions["itemLockSize"]->setChecked(currItem->sizeLocked());
-		scrActions["itemPrintingEnabled"]->setChecked(currItem->printEnabled());
-	}
 
 	if (SelectedType != -1)
 	{
-		//propertiesPalette->setCurrentItem(currItem);
 		outlinePalette->slotShowSelect(currItem->OwnPage, currItem);
 		actionManager->connectNewSelectionActions(view, doc);
-// 		propertiesPalette->handleSelectionChanged();
 	}
-//	else
-//		propertiesPalette->handleSelectionChanged();
 
 	PluginManager& pluginManager(PluginManager::instance());
 	QStringList pluginNames(pluginManager.pluginNames(false));

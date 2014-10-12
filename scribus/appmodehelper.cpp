@@ -356,6 +356,429 @@ void AppModeHelper::setApplicationMode(ScribusMainWindow* scmw, ScribusDoc* doc,
 	PluginManager::instance().enablePluginActionsForSelection(scmw);
 }
 
+void AppModeHelper::enableActionsForSelection(ScribusMainWindow* scmw, ScribusDoc* doc)
+{
+	int SelectedType = -1;
+	PageItem *currItem = NULL;
+	const uint docSelectionCount = doc->m_Selection->count();
+	if (docSelectionCount > 0)
+	{
+		currItem = doc->m_Selection->itemAt(0);
+		SelectedType = currItem->itemType();
+	}
+	assert (docSelectionCount == 0 || currItem != NULL); // help coverity analysis
+
+	bool inAnEditMode=doc->inAnEditMode();
+	switch (SelectedType)
+	{
+		case -1: // None
+			(*a_scrActions)["fileImportText"]->setEnabled(false);
+			(*a_scrActions)["fileImportText2"]->setEnabled(false);
+			(*a_scrActions)["fileImportImage"]->setEnabled(false);
+			(*a_scrActions)["fileImportAppendText"]->setEnabled(false);
+			(*a_scrActions)["fileExportText"]->setEnabled(false);
+			(*a_scrActions)["itemDuplicate"]->setEnabled(false);
+			(*a_scrActions)["itemMulDuplicate"]->setEnabled(false);
+			(*a_scrActions)["itemTransform"]->setEnabled(false);
+			(*a_scrActions)["itemDelete"]->setEnabled(false);
+			(*a_scrActions)["itemRaise"]->setEnabled(false);
+			(*a_scrActions)["itemLower"]->setEnabled(false);
+			(*a_scrActions)["itemRaiseToTop"]->setEnabled(false);
+			(*a_scrActions)["itemLowerToBottom"]->setEnabled(false);
+			(*a_scrActions)["itemSendToPattern"]->setEnabled(false);
+			(*a_scrActions)["itemSendToInline"]->setEnabled(false);
+			(*a_scrActions)["itemAdjustFrameToImage"]->setEnabled(false);
+			(*a_scrActions)["itemAdjustImageToFrame"]->setEnabled(false);
+			(*a_scrActions)["itemExtendedImageProperties"]->setEnabled(false);
+			(*a_scrActions)["itemUpdateImage"]->setEnabled(false);
+			(*a_scrActions)["itemPreviewFull"]->setEnabled(false);
+			(*a_scrActions)["itemPreviewNormal"]->setEnabled(false);
+			(*a_scrActions)["itemPreviewLow"]->setEnabled(false);
+			(*a_scrActions)["itemAttributes"]->setEnabled(false);
+			(*a_scrActions)["itemConvertToBezierCurve"]->setEnabled(false);
+			(*a_scrActions)["itemConvertToImageFrame"]->setEnabled(false);
+			(*a_scrActions)["itemConvertToOutlines"]->setEnabled(false);
+			(*a_scrActions)["itemConvertToPolygon"]->setEnabled(false);
+			(*a_scrActions)["itemConvertToTextFrame"]->setEnabled(false);
+			(*a_scrActions)["itemConvertToSymbolFrame"]->setEnabled(false);
+			(*a_scrActions)["itemLock"]->setEnabled(false);
+			(*a_scrActions)["itemLockSize"]->setEnabled(false);
+			(*a_scrActions)["itemPrintingEnabled"]->setEnabled(false);
+			(*a_scrActions)["editCut"]->setEnabled(false);
+			(*a_scrActions)["editCopy"]->setEnabled(false);
+			(*a_scrActions)["editCopyContents"]->setEnabled(false);
+			(*a_scrActions)["editSearchReplace"]->setEnabled(false);
+			(*a_scrActions)["extrasHyphenateText"]->setEnabled(false);
+			(*a_scrActions)["extrasDeHyphenateText"]->setEnabled(false);
+
+			(*a_scrActions)["itemWeld"]->setEnabled(false);
+			(*a_scrActions)["itemsUnWeld"]->setEnabled(false);
+			(*a_scrActions)["itemEditWeld"]->setEnabled(false);
+
+			(*a_scrActions)["toolsUnlinkTextFrame"]->setEnabled(false);
+			(*a_scrActions)["toolsUnlinkTextFrameWithTextCopy"]->setEnabled(false);
+			(*a_scrActions)["toolsUnlinkTextFrameWithTextCut"]->setEnabled(false);
+			(*a_scrActions)["toolsLinkTextFrame"]->setEnabled(false);
+			(*a_scrActions)["toolsEditContents"]->setEnabled(false);
+			(*a_scrActions)["toolsEditWithStoryEditor"]->setEnabled(false);
+			(*a_scrActions)["toolsRotate"]->setEnabled(false);
+			(*a_scrActions)["toolsCopyProperties"]->setEnabled(false);
+			break;
+		case PageItem::ImageFrame: //Image Frame
+			(*a_scrActions)["fileImportAppendText"]->setEnabled(false);
+			(*a_scrActions)["fileImportText"]->setEnabled(false);
+			(*a_scrActions)["fileImportText2"]->setEnabled(false);
+			(*a_scrActions)["fileImportImage"]->setEnabled(true);
+			(*a_scrActions)["editCut"]->setEnabled(true);
+			(*a_scrActions)["editCopy"]->setEnabled(true);
+			(*a_scrActions)["editClearContents"]->setEnabled(true);
+			(*a_scrActions)["editTruncateContents"]->setEnabled(true);
+			(*a_scrActions)["editSearchReplace"]->setEnabled(false);
+			(*a_scrActions)["extrasHyphenateText"]->setEnabled(false);
+			(*a_scrActions)["extrasDeHyphenateText"]->setEnabled(false);
+			(*a_scrActions)["itemDuplicate"]->setEnabled(true);
+			(*a_scrActions)["itemMulDuplicate"]->setEnabled(true);
+			(*a_scrActions)["itemTransform"]->setEnabled(true);
+			(*a_scrActions)["itemDelete"]->setEnabled(true);
+			(*a_scrActions)["itemRaise"]->setEnabled(true);
+			(*a_scrActions)["itemLower"]->setEnabled(true);
+			(*a_scrActions)["itemRaiseToTop"]->setEnabled(true);
+			(*a_scrActions)["itemLowerToBottom"]->setEnabled(true);
+			(*a_scrActions)["itemSendToPattern"]->setEnabled(true);
+			(*a_scrActions)["itemSendToInline"]->setEnabled(true);
+			(*a_scrActions)["itemAdjustFrameToImage"]->setEnabled(true);
+			(*a_scrActions)["itemAdjustImageToFrame"]->setEnabled(true);
+			(*a_scrActions)["itemExtendedImageProperties"]->setEnabled(currItem->pixm.imgInfo.valid);
+			(*a_scrActions)["itemUpdateImage"]->setEnabled(true);
+			(*a_scrActions)["itemPreviewFull"]->setEnabled(true);
+			(*a_scrActions)["itemPreviewNormal"]->setEnabled(true);
+			(*a_scrActions)["itemPreviewLow"]->setEnabled(true);
+			(*a_scrActions)["itemAttributes"]->setEnabled(true);
+			(*a_scrActions)["itemConvertToBezierCurve"]->setEnabled(false);
+			(*a_scrActions)["itemConvertToImageFrame"]->setEnabled(false);
+			(*a_scrActions)["itemConvertToOutlines"]->setEnabled(false);
+			(*a_scrActions)["itemConvertToPolygon"]->setEnabled(!inAnEditMode);
+			(*a_scrActions)["itemConvertToTextFrame"]->setEnabled(!inAnEditMode);
+			(*a_scrActions)["itemConvertToSymbolFrame"]->setEnabled(!inAnEditMode);
+			(*a_scrActions)["toolsUnlinkTextFrame"]->setEnabled(false);
+			(*a_scrActions)["toolsUnlinkTextFrameWithTextCopy"]->setEnabled(false);
+			(*a_scrActions)["toolsUnlinkTextFrameWithTextCut"]->setEnabled(false);
+			(*a_scrActions)["toolsLinkTextFrame"]->setEnabled(false);
+			(*a_scrActions)["toolsEditContents"]->setEnabled(currItem->ScaleType);
+			(*a_scrActions)["toolsEditWithStoryEditor"]->setEnabled(false);
+			(*a_scrActions)["toolsRotate"]->setEnabled(true);
+			(*a_scrActions)["toolsCopyProperties"]->setEnabled(true);
+			(*a_scrActions)["itemImageIsVisible"]->setChecked(currItem->imageShown());
+			(*a_scrActions)["itemToggleInlineImage"]->setChecked(currItem->isImageInline());
+			(*a_scrActions)["itemPreviewFull"]->setChecked(currItem->pixm.imgInfo.lowResType==(*a_scrActions)["itemPreviewFull"]->actionInt());
+			(*a_scrActions)["itemPreviewNormal"]->setChecked(currItem->pixm.imgInfo.lowResType==(*a_scrActions)["itemPreviewNormal"]->actionInt());
+			(*a_scrActions)["itemPreviewLow"]->setChecked(currItem->pixm.imgInfo.lowResType==(*a_scrActions)["itemPreviewLow"]->actionInt());
+
+			break;
+		case PageItem::TextFrame: //Text Frame
+			(*a_scrActions)["fileImportText"]->setEnabled(true);
+			(*a_scrActions)["fileImportText2"]->setEnabled(true);
+			(*a_scrActions)["fileImportImage"]->setEnabled(false);
+			(*a_scrActions)["fileImportAppendText"]->setEnabled(true);
+			(*a_scrActions)["fileExportText"]->setEnabled(true);
+			(*a_scrActions)["editCut"]->setEnabled(true);
+			(*a_scrActions)["editCopy"]->setEnabled(true);
+			//scrMenuMgr->setMenuEnabled("EditContents", true);
+			(*a_scrActions)["editClearContents"]->setEnabled(true);
+			(*a_scrActions)["editTruncateContents"]->setEnabled(true);
+			(*a_scrActions)["editSearchReplace"]->setEnabled(currItem->itemText.length() != 0);
+			(*a_scrActions)["extrasHyphenateText"]->setEnabled(true);
+			(*a_scrActions)["extrasDeHyphenateText"]->setEnabled(true);
+			//		scrMenuMgr->setMenuEnabled("Item", true);
+			(*a_scrActions)["itemDuplicate"]->setEnabled(true);
+			(*a_scrActions)["itemMulDuplicate"]->setEnabled(true);
+			(*a_scrActions)["itemTransform"]->setEnabled(true);
+			(*a_scrActions)["itemDelete"]->setEnabled(true);
+			(*a_scrActions)["itemRaise"]->setEnabled(true);
+			(*a_scrActions)["itemLower"]->setEnabled(true);
+			(*a_scrActions)["itemRaiseToTop"]->setEnabled(true);
+			(*a_scrActions)["itemLowerToBottom"]->setEnabled(true);
+			//scrMenuMgr->setMenuEnabled("itemSendToScrapbook", true);
+			(*a_scrActions)["itemSendToPattern"]->setEnabled(true);
+			(*a_scrActions)["itemSendToInline"]->setEnabled(true);
+			(*a_scrActions)["itemAdjustFrameToImage"]->setEnabled(false);
+			(*a_scrActions)["itemAdjustImageToFrame"]->setEnabled(false);
+			(*a_scrActions)["itemExtendedImageProperties"]->setEnabled(false);
+			(*a_scrActions)["itemUpdateImage"]->setEnabled(false);
+			(*a_scrActions)["itemPreviewFull"]->setEnabled(false);
+			(*a_scrActions)["itemPreviewNormal"]->setEnabled(false);
+			(*a_scrActions)["itemPreviewLow"]->setEnabled(false);
+			(*a_scrActions)["itemAttributes"]->setEnabled(true);
+			//scrMenuMgr->setMenuEnabled("ItemConvertTo", !((doc->appMode == modeEdit) || (currItem->isAnnotation())));
+			(*a_scrActions)["itemConvertToBezierCurve"]->setEnabled(false);
+			(*a_scrActions)["itemConvertToImageFrame"]->setEnabled(!inAnEditMode);
+			(*a_scrActions)["itemConvertToOutlines"]->setEnabled(!inAnEditMode);
+			(*a_scrActions)["itemConvertToPolygon"]->setEnabled(!inAnEditMode);
+			(*a_scrActions)["itemConvertToTextFrame"]->setEnabled(false);
+			(*a_scrActions)["itemConvertToSymbolFrame"]->setEnabled(!inAnEditMode);
+
+			(*a_scrActions)["toolsRotate"]->setEnabled(true);
+			(*a_scrActions)["toolsCopyProperties"]->setEnabled(true);
+			(*a_scrActions)["toolsEditWithStoryEditor"]->setEnabled(true);
+			(*a_scrActions)["insertSampleText"]->setEnabled(true);
+			//scrMenuMgr->setMenuEnabled("InsertMark",true);
+
+			if ((currItem->nextInChain() != 0) || (currItem->prevInChain() != 0))
+			{
+				(*a_scrActions)["itemConvertToBezierCurve"]->setEnabled(false);
+				(*a_scrActions)["itemConvertToImageFrame"]->setEnabled(false);
+				(*a_scrActions)["itemConvertToPolygon"]->setEnabled(false);
+				(*a_scrActions)["itemConvertToTextFrame"]->setEnabled(false);
+				(*a_scrActions)["itemConvertToSymbolFrame"]->setEnabled(false);
+				(*a_scrActions)["toolsUnlinkTextFrame"]->setEnabled(true);
+				(*a_scrActions)["toolsUnlinkTextFrameWithTextCopy"]->setEnabled(true);
+				(*a_scrActions)["toolsUnlinkTextFrameWithTextCut"]->setEnabled(true);
+				// FIXME: once there's one itemtext per story, always enable editcontents
+				if ((currItem->prevInChain() != 0) && (currItem->itemText.length() == 0))
+					(*a_scrActions)["toolsEditContents"]->setEnabled(false);
+				else
+					(*a_scrActions)["toolsEditContents"]->setEnabled(true);
+			}
+			else
+			{
+				(*a_scrActions)["toolsEditContents"]->setEnabled(true);
+				(*a_scrActions)["toolsUnlinkTextFrame"]->setEnabled(false);
+				(*a_scrActions)["toolsUnlinkTextFrameWithTextCopy"]->setEnabled(false);
+				(*a_scrActions)["toolsUnlinkTextFrameWithTextCut"]->setEnabled(false);
+			}
+			(*a_scrActions)["toolsLinkTextFrame"]->setEnabled(!currItem->nextInChain());
+			//		if (doc->masterPageMode())
+			//			(*a_scrActions)["toolsLinkTextFrame"]->setEnabled(false);
+			if (doc->appMode == modeEdit)
+			{
+				(*a_scrActions)["editSelectAll"]->setEnabled(true);
+				(*a_scrActions)["editSelectAllOnLayer"]->setEnabled(false);
+				if (currItem->asTextFrame())
+				{
+					enableTextActions(true, currItem->currentStyle().charStyle().font().scName());
+				}
+			}
+			else
+			{
+				doc->currentStyle = currItem->itemText.defaultStyle();
+			}
+
+			break;
+		case PageItem::Table:
+			(*a_scrActions)["editCut"]->setEnabled(true);
+			(*a_scrActions)["editCopy"]->setEnabled(true);
+			(*a_scrActions)["toolsRotate"]->setEnabled(true);
+			if (doc->appMode == modeEditTable)
+			{
+				PageItem *i2 = currItem->asTable()->activeCell().textFrame();
+				enableTextActions(true, i2->currentCharStyle().font().scName());
+				(*a_scrActions)["insertSampleText"]->setEnabled(true);
+				(*a_scrActions)["toolsEditWithStoryEditor"]->setEnabled(true);
+			}
+			break;
+		case PageItem::PathText: //Path Text
+			(*a_scrActions)["fileImportText"]->setEnabled(true);
+			(*a_scrActions)["fileImportText2"]->setEnabled(true);
+			(*a_scrActions)["fileImportImage"]->setEnabled(false);
+			(*a_scrActions)["fileImportAppendText"]->setEnabled(true);
+			(*a_scrActions)["fileExportText"]->setEnabled(true);
+			(*a_scrActions)["editCut"]->setEnabled(true);
+			(*a_scrActions)["editCopy"]->setEnabled(true);
+			(*a_scrActions)["editClearContents"]->setEnabled(false);
+			(*a_scrActions)["editTruncateContents"]->setEnabled(false);
+			(*a_scrActions)["editSearchReplace"]->setEnabled(false);
+			(*a_scrActions)["extrasHyphenateText"]->setEnabled(false);
+			(*a_scrActions)["extrasDeHyphenateText"]->setEnabled(false);
+			//		scrMenuMgr->setMenuEnabled("Item", true);
+			(*a_scrActions)["itemDuplicate"]->setEnabled(true);
+			(*a_scrActions)["itemMulDuplicate"]->setEnabled(true);
+			(*a_scrActions)["itemTransform"]->setEnabled(true);
+			(*a_scrActions)["itemDelete"]->setEnabled(true);
+			(*a_scrActions)["itemRaise"]->setEnabled(true);
+			(*a_scrActions)["itemLower"]->setEnabled(true);
+			(*a_scrActions)["itemRaiseToTop"]->setEnabled(true);
+			(*a_scrActions)["itemLowerToBottom"]->setEnabled(true);
+			//		(*a_scrActions)["itemSendToScrapbook"]->setEnabled(true);
+			(*a_scrActions)["itemSendToPattern"]->setEnabled(true);
+			(*a_scrActions)["itemSendToInline"]->setEnabled(true);
+			(*a_scrActions)["itemAdjustFrameToImage"]->setEnabled(false);
+			(*a_scrActions)["itemAdjustImageToFrame"]->setEnabled(false);
+			(*a_scrActions)["itemExtendedImageProperties"]->setEnabled(false);
+			(*a_scrActions)["itemUpdateImage"]->setEnabled(false);
+			(*a_scrActions)["itemPreviewFull"]->setEnabled(false);
+			(*a_scrActions)["itemPreviewNormal"]->setEnabled(false);
+			(*a_scrActions)["itemPreviewLow"]->setEnabled(false);
+			(*a_scrActions)["itemAttributes"]->setEnabled(true);
+			//scrMenuMgr->setMenuEnabled("ItemShapes", false);
+			(*a_scrActions)["itemDetachTextFromPath"]->setEnabled(true);
+			//		scrMenuMgr->setMenuEnabled("ItemConvertTo", true);
+			(*a_scrActions)["itemConvertToBezierCurve"]->setEnabled(false);
+			(*a_scrActions)["itemConvertToImageFrame"]->setEnabled(false);
+			(*a_scrActions)["itemConvertToOutlines"]->setEnabled(true);
+			(*a_scrActions)["itemConvertToPolygon"]->setEnabled(false);
+			(*a_scrActions)["itemConvertToTextFrame"]->setEnabled(false);
+			(*a_scrActions)["itemConvertToSymbolFrame"]->setEnabled(true);
+
+			(*a_scrActions)["toolsRotate"]->setEnabled(true);
+			(*a_scrActions)["toolsCopyProperties"]->setEnabled(true);
+			(*a_scrActions)["toolsEditContents"]->setEnabled(false);
+			(*a_scrActions)["toolsEditWithStoryEditor"]->setEnabled(true);
+			(*a_scrActions)["toolsLinkTextFrame"]->setEnabled(false);
+			(*a_scrActions)["toolsUnlinkTextFrame"]->setEnabled(false);
+			(*a_scrActions)["toolsUnlinkTextFrameWithTextCopy"]->setEnabled(false);
+			(*a_scrActions)["toolsUnlinkTextFrameWithTextCut"]->setEnabled(false);
+			break;
+		default:
+			(*a_scrActions)["fileImportText"]->setEnabled(false);
+			(*a_scrActions)["fileImportText2"]->setEnabled(false);
+			(*a_scrActions)["fileImportImage"]->setEnabled(false);
+			(*a_scrActions)["fileImportAppendText"]->setEnabled(false);
+			(*a_scrActions)["fileExportText"]->setEnabled(false);
+			(*a_scrActions)["editCut"]->setEnabled(true);
+			(*a_scrActions)["editCopy"]->setEnabled(true);
+			(*a_scrActions)["editClearContents"]->setEnabled(false);
+			(*a_scrActions)["editTruncateContents"]->setEnabled(false);
+			(*a_scrActions)["editSearchReplace"]->setEnabled(false);
+
+			(*a_scrActions)["extrasHyphenateText"]->setEnabled(false);
+			(*a_scrActions)["extrasDeHyphenateText"]->setEnabled(false);
+			(*a_scrActions)["itemDuplicate"]->setEnabled(true);
+			(*a_scrActions)["itemMulDuplicate"]->setEnabled(true);
+			(*a_scrActions)["itemTransform"]->setEnabled(true);
+			(*a_scrActions)["itemDelete"]->setEnabled(true);
+			(*a_scrActions)["itemRaise"]->setEnabled(true);
+			(*a_scrActions)["itemLower"]->setEnabled(true);
+			(*a_scrActions)["itemRaiseToTop"]->setEnabled(true);
+			(*a_scrActions)["itemLowerToBottom"]->setEnabled(true);
+			(*a_scrActions)["itemSendToPattern"]->setEnabled(true);
+			(*a_scrActions)["itemSendToInline"]->setEnabled(true);
+			(*a_scrActions)["itemAdjustFrameToImage"]->setEnabled(false);
+			(*a_scrActions)["itemAdjustImageToFrame"]->setEnabled(false);
+			(*a_scrActions)["itemExtendedImageProperties"]->setEnabled(false);
+			(*a_scrActions)["itemUpdateImage"]->setEnabled(false);
+			(*a_scrActions)["itemPreviewFull"]->setEnabled(false);
+			(*a_scrActions)["itemPreviewNormal"]->setEnabled(false);
+			(*a_scrActions)["itemPreviewLow"]->setEnabled(false);
+			(*a_scrActions)["itemAttributes"]->setEnabled(true);
+
+			if (SelectedType == PageItem::Polygon) //Polygon
+			{
+				(*a_scrActions)["itemConvertToBezierCurve"]->setEnabled(!inAnEditMode);
+				(*a_scrActions)["itemConvertToImageFrame"]->setEnabled(!inAnEditMode);
+				(*a_scrActions)["itemConvertToOutlines"]->setEnabled(false);
+				(*a_scrActions)["itemConvertToPolygon"]->setEnabled(false);
+				(*a_scrActions)["itemConvertToTextFrame"]->setEnabled(!inAnEditMode);
+				(*a_scrActions)["itemConvertToSymbolFrame"]->setEnabled(!inAnEditMode);
+			}
+			else if ((SelectedType == PageItem::RegularPolygon) || (SelectedType == PageItem::Arc)) // Regular Polygon + Arc
+			{
+				(*a_scrActions)["itemConvertToBezierCurve"]->setEnabled(!inAnEditMode);
+				(*a_scrActions)["itemConvertToImageFrame"]->setEnabled(!inAnEditMode);
+				(*a_scrActions)["itemConvertToOutlines"]->setEnabled(false);
+				(*a_scrActions)["itemConvertToPolygon"]->setEnabled(!inAnEditMode);
+				(*a_scrActions)["itemConvertToTextFrame"]->setEnabled(!inAnEditMode);
+				(*a_scrActions)["itemConvertToSymbolFrame"]->setEnabled(!inAnEditMode);
+			}
+			else if (SelectedType == PageItem::PolyLine) //Polyline
+			{
+				(*a_scrActions)["itemConvertToBezierCurve"]->setEnabled(false);
+				(*a_scrActions)["itemConvertToImageFrame"]->setEnabled(false);
+				(*a_scrActions)["itemConvertToOutlines"]->setEnabled(false);
+				(*a_scrActions)["itemConvertToPolygon"]->setEnabled(!inAnEditMode);
+				(*a_scrActions)["itemConvertToTextFrame"]->setEnabled(false);
+				(*a_scrActions)["itemConvertToSymbolFrame"]->setEnabled(!inAnEditMode);
+			}
+			else if ((SelectedType == PageItem::Line) || (SelectedType == PageItem::Spiral)) // Line
+			{
+				(*a_scrActions)["itemConvertToBezierCurve"]->setEnabled(true);
+				(*a_scrActions)["itemConvertToImageFrame"]->setEnabled(false);
+				(*a_scrActions)["itemConvertToOutlines"]->setEnabled(false);
+				if (SelectedType == PageItem::Spiral)
+					(*a_scrActions)["itemConvertToPolygon"]->setEnabled(!inAnEditMode);
+				else
+					(*a_scrActions)["itemConvertToPolygon"]->setEnabled(false);
+				(*a_scrActions)["itemConvertToTextFrame"]->setEnabled(false);
+				(*a_scrActions)["itemConvertToSymbolFrame"]->setEnabled(!inAnEditMode);
+			}
+			else if (SelectedType == PageItem::Symbol)
+			{
+				(*a_scrActions)["itemConvertToBezierCurve"]->setEnabled(false);
+				(*a_scrActions)["itemConvertToImageFrame"]->setEnabled(false);
+				(*a_scrActions)["itemConvertToOutlines"]->setEnabled(false);
+				(*a_scrActions)["itemConvertToPolygon"]->setEnabled(false);
+				(*a_scrActions)["itemConvertToTextFrame"]->setEnabled(false);
+				(*a_scrActions)["itemConvertToSymbolFrame"]->setEnabled(false);
+			}
+			(*a_scrActions)["toolsEditContents"]->setEnabled(false);
+			(*a_scrActions)["toolsEditWithStoryEditor"]->setEnabled(false);
+			(*a_scrActions)["toolsUnlinkTextFrame"]->setEnabled(false);
+			(*a_scrActions)["toolsUnlinkTextFrameWithTextCopy"]->setEnabled(false);
+			(*a_scrActions)["toolsUnlinkTextFrameWithTextCut"]->setEnabled(false);
+			(*a_scrActions)["toolsLinkTextFrame"]->setEnabled(false);
+			(*a_scrActions)["toolsRotate"]->setEnabled(true);
+			(*a_scrActions)["toolsCopyProperties"]->setEnabled(true);
+			break;
+	}
+
+	if (docSelectionCount == 1)
+	{
+		(*a_scrActions)["itemsUnWeld"]->setEnabled(currItem->isWelded());
+		(*a_scrActions)["itemEditWeld"]->setEnabled(currItem->isWelded());
+	}
+	if (docSelectionCount > 1)
+	{
+		if (!doc->m_Selection->itemsAreSameType())
+		{
+			(*a_scrActions)["itemConvertToBezierCurve"]->setEnabled(false);
+			(*a_scrActions)["itemConvertToImageFrame"]->setEnabled(false);
+			//(*a_scrActions)["itemConvertToOutlines"]->setEnabled(false);
+			(*a_scrActions)["itemConvertToPolygon"]->setEnabled(false);
+			(*a_scrActions)["itemConvertToTextFrame"]->setEnabled(false);
+			(*a_scrActions)["itemConvertToSymbolFrame"]->setEnabled(false);
+		}
+		(*a_scrActions)["editSearchReplace"]->setEnabled(false);
+
+		bool hPoly = false;
+		for (uint i=0; i < docSelectionCount; ++i)
+		{
+			PageItem* it=doc->m_Selection->itemAt(i);
+			if ((it->asPolygon()) || (it->asPolyLine()))
+				hPoly = true;
+		}
+		(*a_scrActions)["itemCombinePolygons"]->setEnabled(hPoly);
+
+		// It is possible to select objects on different layer using
+		// document outline palette. We need to check selected objects
+		// are on a common layer before allowing user to group them
+		bool objectsOnSameLayer = (doc->m_Selection->objectsLayer() != -1);
+		(*a_scrActions)["itemGroup"]->setEnabled(objectsOnSameLayer);
+
+		if (docSelectionCount == 2)
+		{
+			(*a_scrActions)["itemWeld"]->setEnabled(true);
+			//CB swap it around if currItem is not at 0 index from the lastItem loop at start of havenewsel
+			PageItem* it=doc->m_Selection->itemAt(1);
+			if (currItem==it)
+				it=doc->m_Selection->itemAt(0);
+			if ((currItem->asTextFrame() || it->asTextFrame()) && (it->asPolygon() || it->asPolyLine()))
+			{
+				if ((currItem->nextInChain() == 0) && (currItem->prevInChain() == 0) && (it->nextInChain() == 0) && (it->prevInChain() == 0) && (!currItem->isGroup()) && (!it->isGroup()))
+					(*a_scrActions)["itemAttachTextToPath"]->setEnabled(true);
+			}
+		}
+		else
+			(*a_scrActions)["itemWeld"]->setEnabled(false);
+	}
+	else
+	{
+		(*a_scrActions)["itemWeld"]->setEnabled(false);
+		(*a_scrActions)["itemGroup"]->setEnabled(false);
+		(*a_scrActions)["itemAttachTextToPath"]->setEnabled(false);
+		(*a_scrActions)["itemCombinePolygons"]->setEnabled(false);
+	}
+
+}
+
 void AppModeHelper::setModeActionsPerMode(int newMode)
 {
 	//set the actions state based on incoming mode
