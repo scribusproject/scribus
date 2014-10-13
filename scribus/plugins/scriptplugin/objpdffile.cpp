@@ -677,7 +677,6 @@ static int PDFfile_setpages(PDFfile *self, PyObject *value, void * /*closure*/)
 	Py_DECREF(self->pages);
 	Py_INCREF(value);
 	self->pages = value;
-	PyList_Sort(self->pages);
 	return 0;
 }
 
