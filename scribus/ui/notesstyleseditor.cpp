@@ -21,6 +21,7 @@ NotesStylesEditor::NotesStylesEditor(QWidget *parent, const char *name)
 
 	setBlockSignals(true);
 	
+	addNewNsMode = false;
 	setDoc(0);
 	languageChange();
 	NSlistBox->setInsertPolicy(QComboBox::InsertAlphabetically);
@@ -41,7 +42,6 @@ NotesStylesEditor::NotesStylesEditor(QWidget *parent, const char *name)
 	StartSpinBox->setMinimum(1);
 	StartSpinBox->setMaximum(99999);
 	changesMap.clear();
-	addNewNsMode = false;
 
 	setBlockSignals(isVisible());
 }

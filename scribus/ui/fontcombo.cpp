@@ -101,6 +101,7 @@ FontComboH::FontComboH(QWidget* parent, bool labels) :
 		fontStyleLabel(0),
 		showLabels(labels)
 {
+	currDoc = NULL;
 	prefsManager = PrefsManager::instance();
 	ttfFont = loadIcon("font_truetype16.png");
 	otfFont = loadIcon("font_otf16.png");

@@ -154,7 +154,7 @@ int ScribusCore::initScribusCore(bool showSplash, bool showFontInfo, bool showPr
 {
 	CommonStrings::languageChange();
 	int retVal=0;
-//FIXME	ExternalApp = 0;
+	// FIXME: Splash needs the prefs loaded by initDefaults() to know if it must force the image to grayscale
 	initSplash(showSplash);
 	LocaleManager::instance();
 	prefsManager = PrefsManager::instance();

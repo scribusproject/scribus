@@ -92,6 +92,16 @@ struct TypoPrefs
 
 struct WindowPrefs
 {
+	WindowPrefs() {
+		xPosition = 0;
+		yPosition = 0;
+		width   = 640;
+		height  = 480;
+		visible = true;
+		docked  = false;
+		maximized = false;
+	}
+
 	int xPosition;
 	int yPosition;
 	int width;
@@ -104,6 +114,20 @@ struct WindowPrefs
 //User Interface
 struct UIPrefs
 {
+	UIPrefs() {
+		mouseMoveTimeout = 150;
+		wheelJump = 40;
+		applicationFontSize = 12;
+		paletteFontSize = 10;
+		recentDocCount = 5;
+		useSmallWidgets = false;
+		useTabs = false;
+		showStartupDialog = true;
+		showSplashOnStartup = true;
+		stickyTools = false;
+		grayscaleIcons = false;
+	}
+
 	int mouseMoveTimeout; //! Mouse move timeout for move/resize operations
 	int wheelJump; //! Distance to jump with mouse wheel scrolling
 	int applicationFontSize; //! Font size to use in the application, apart from pßalettes

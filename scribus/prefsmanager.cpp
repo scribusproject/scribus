@@ -155,7 +155,9 @@ void PrefsManager::initDefaults()
 	ColorSetManager csm;
 	csm.initialiseDefaultPrefs(appPrefs);
 
+	appPrefs.uiPrefs.mouseMoveTimeout = 150;
 	appPrefs.uiPrefs.wheelJump = 40;
+	appPrefs.uiPrefs.style = "";
 	/** Set Default window position and size to sane default values which should work on every screen */
 //	appPrefs.uiPrefs.mainWinSettings.xPosition = 0;
 //	appPrefs.uiPrefs.mainWinSettings.yPosition = 0;
@@ -166,6 +168,14 @@ void PrefsManager::initDefaults()
 	appPrefs.uiPrefs.mainWinSettings.yPosition=(d->availableGeometry().height()-appPrefs.uiPrefs.mainWinSettings.height)/2;
 	appPrefs.uiPrefs.mainWinSettings.maximized = false;
 	appPrefs.uiPrefs.mainWinState = QByteArray();
+	appPrefs.uiPrefs.RecentDocs.clear();
+	appPrefs.uiPrefs.recentDocCount = 5;
+	appPrefs.uiPrefs.showStartupDialog = true;
+	appPrefs.uiPrefs.showSplashOnStartup = true;
+	appPrefs.uiPrefs.useSmallWidgets = false;
+	appPrefs.uiPrefs.useTabs = false;
+	appPrefs.uiPrefs.stickyTools = false;
+	appPrefs.uiPrefs.grayscaleIcons = false;
 	appPrefs.guidesPrefs.marginsShown = true;
 	appPrefs.guidesPrefs.framesShown = true;
 	appPrefs.guidesPrefs.layerMarkersShown = false;
@@ -202,12 +212,8 @@ void PrefsManager::initDefaults()
 	appPrefs.typoPrefs.valueStrikeThruWidth = -1;
 	appPrefs.guidesPrefs.valueBaselineGrid = 14.4;
 	appPrefs.guidesPrefs.offsetBaselineGrid = 0.0;
-	appPrefs.uiPrefs.style = "";
-	appPrefs.uiPrefs.grayscaleIcons = false; // can be a little slower on startup.. but its a nice effect to play with
 	appPrefs.displayPrefs.showToolTips = true;
 	appPrefs.displayPrefs.showMouseCoordinates = true;
-	appPrefs.uiPrefs.mouseMoveTimeout = 150;
-	appPrefs.uiPrefs.stickyTools = false;
 	//FIXME
 	//Black here causes issues when a colour set is loaded without "Black" in it.
 	//"Black" is created with wrong values. Eg SVG colour set
@@ -292,9 +298,7 @@ void PrefsManager::initDefaults()
 //	appPrefs.PSize = 40;
 	appPrefs.printerPrefs.ClipMargin = false;
 	appPrefs.printerPrefs.GCRMode = false;
-	appPrefs.uiPrefs.RecentDocs.clear();
 	appPrefs.scrapbookPrefs.RecentScrapbooks.clear();
-	appPrefs.uiPrefs.recentDocCount = 5;
 	appPrefs.scrapbookPrefs.doCopyToScrapbook = true;
 	appPrefs.scrapbookPrefs.persistentScrapbook = false;
 	appPrefs.scrapbookPrefs.writePreviews = true;
@@ -414,10 +418,6 @@ void PrefsManager::initDefaults()
 	// lorem ipsum defaults
 	appPrefs.miscPrefs.useStandardLI = false;
 	appPrefs.miscPrefs.paragraphsLI = 10;
-	appPrefs.uiPrefs.showStartupDialog = true;
-	appPrefs.uiPrefs.showSplashOnStartup = true;
-	appPrefs.uiPrefs.useSmallWidgets = false;
-	appPrefs.uiPrefs.useTabs = false;
 	initDefaultCheckerPrefs(&appPrefs.verifierPrefs.checkerPrefsList);
 	appPrefs.verifierPrefs.curCheckProfile = CommonStrings::PostScript;
 	appPrefs.verifierPrefs.showPagesWithoutErrors=false;

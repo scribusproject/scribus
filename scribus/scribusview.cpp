@@ -156,6 +156,7 @@ ScribusView::ScribusView(QWidget* win, ScribusMainWindow* mw, ScribusDoc *doc) :
 	Ready(false),
 	oldX(0), oldY(0),
 	m_groupTransactions(0),
+	m_oldCanvasHeight(0), m_oldCanvasWidth(0),
 	m_groupTransaction(),
 	_isGlobalMode(true),
 	linkAfterDraw(false),

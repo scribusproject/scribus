@@ -54,6 +54,7 @@ AlignDistributePalette::AlignDistributePalette( QWidget* parent, const char* nam
 	setupUi(this);
 	setSizePolicy( QSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum));
 	currDoc=NULL;
+	guideDirection=-1;
 	setObjectName(name);
 	
 	//hide spare controls 
