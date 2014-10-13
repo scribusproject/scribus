@@ -1318,8 +1318,13 @@ void ScribusMainWindow::setStatusBarTextSelectedItemInfo()
 {
 	const uint docSelectionCount = doc->m_Selection->count();
 	if (docSelectionCount == 0)
+	{
 		setStatusBarInfoText("");
-	else if (docSelectionCount == 1)
+		return;
+	}
+	QString widthTxt = value2String(doc->m_Selection->width(), doc->unitIndex(), true, true);
+	QString heightTxt = value2String(doc->m_Selection->height(), doc->unitIndex(), true, true);
+	if (docSelectionCount == 1)
 	{
 		QString whatSel = tr("Unknown");
 		switch (doc->m_Selection->itemAt(0)->itemType())
@@ -1367,15 +1372,11 @@ void ScribusMainWindow::setStatusBarTextSelectedItemInfo()
 				whatSel = "Unknown";
 				break;
 		}
-		QString widthTxt = value2String(doc->m_Selection->width(), doc->unitIndex(), true, true);
-		QString heightTxt = value2String(doc->m_Selection->height(), doc->unitIndex(), true, true);
 		QString txtBody = tr("%1 selected").arg(whatSel) + " : " + tr("Size");
 		setStatusBarInfoText( QString("%1 = %3 x %4").arg(txtBody).arg(widthTxt).arg(heightTxt));
 	}
 	else
 	{
-		QString widthTxt = value2String(doc->m_Selection->width(), doc->unitIndex(), true, true);
-		QString heightTxt = value2String(doc->m_Selection->height(), doc->unitIndex(), true, true);
 		setStatusBarInfoText( tr("%1 Objects selected, Selection Size = %2 x %3").arg(docSelectionCount).arg(widthTxt).arg(heightTxt));
 	}
 }
@@ -1444,39 +1445,74 @@ void ScribusMainWindow::setTBvals(PageItem *currItem)
 //keyPressEvent so process them here.
 void ScribusMainWindow::specialActionKeyEvent(int unicodevalue)
 {
+	if (!HaveDoc)
+		return;
 	const QString& actionName="";
-	if (HaveDoc)
+	if (doc->m_Selection->count() == 1)
 	{
-		if (doc->m_Selection->count() == 1)
+		PageItem* selItem = doc->m_Selection->itemAt(0);
+		if (((doc->appMode == modeEdit) || (doc->appMode == modeEditTable)) && (selItem->isTextFrame() || selItem->isTable()))
 		{
-			PageItem* selItem = doc->m_Selection->itemAt(0);
-			if (((doc->appMode == modeEdit) || (doc->appMode == modeEditTable)) && (selItem->isTextFrame() || selItem->isTable()))
+			PageItem_TextFrame *currItem;
+			if (doc->appMode == modeEditTable)
+				currItem = selItem->asTable()->activeCell().textFrame();
+			else
+				currItem = selItem->asTextFrame();
+			if (currItem!=NULL)
 			{
-				PageItem_TextFrame *currItem;
-				if (doc->appMode == modeEditTable)
-					currItem = selItem->asTable()->activeCell().textFrame();
-				else
-					currItem = selItem->asTextFrame();
-				if (currItem!=NULL)
+				if (unicodevalue!=-1)
 				{
-					if (unicodevalue!=-1)
+					UndoTransaction activeTransaction;
+					if (currItem->HasSel){
+						if (UndoManager::undoEnabled())
+							activeTransaction = undoManager->beginTransaction(Um::Selection, Um::IGroup, Um::ReplaceText, "", Um::IDelete);
+						currItem->deleteSelectedTextFromFrame();
+					}
+					if (UndoManager::undoEnabled())
 					{
-						UndoTransaction activeTransaction;
-						if (currItem->HasSel){
-							if (UndoManager::undoEnabled())
-								activeTransaction = undoManager->beginTransaction(Um::Selection, Um::IGroup, Um::ReplaceText, "", Um::IDelete);
-							currItem->deleteSelectedTextFromFrame();
+						SimpleState *ss = dynamic_cast<SimpleState*>(undoManager->getLastUndo());
+						if(ss && ss->get("ETEA") == "insert_frametext")
+								ss->set("TEXT_STR",ss->get("TEXT_STR") + QString(QChar(unicodevalue)));
+						else {
+							ss = new SimpleState(Um::InsertText,"",Um::ICreate);
+							ss->set("INSERT_FRAMETEXT", "insert_frametext");
+							ss->set("ETEA", QString("insert_frametext"));
+							ss->set("TEXT_STR", QString(QChar(unicodevalue)));
+							ss->set("START", currItem->itemText.cursorPosition());
+							UndoObject * undoTarget = currItem;
+							if (currItem->isNoteFrame())
+							{
+								undoTarget = doc;
+								ss->set("noteframeName", currItem->getUName());
+							}
+							undoManager->action(undoTarget, ss);
 						}
+					}
+					currItem->itemText.insertChars(QString(QChar(unicodevalue)), true);
+					if (activeTransaction)
+						activeTransaction.commit();
+				}
+				else if (unicodevalue==SpecialChars::SHYPHEN.unicode()) //ignore the char as we use an attribute if the text item, for now.
+				{
+					// this code is currently dead since unicodeSoftHyphen
+					// doesnt have unicodevalue == -1 any more
+					if (currItem->itemText.cursorPosition() > 1)
+					{
+#if 0
+						StyleFlag fl = currItem->itemText.item(qMax(currItem->CPos-1,0))->effects();
+						fl |= ScStyle_HyphenationPossible;
+						currItem->itemText.item(qMax(currItem->CPos-1,0))->setEffects(fl);
+#else
 						if (UndoManager::undoEnabled())
 						{
 							SimpleState *ss = dynamic_cast<SimpleState*>(undoManager->getLastUndo());
 							if(ss && ss->get("ETEA") == "insert_frametext")
-									ss->set("TEXT_STR",ss->get("TEXT_STR") + QString(QChar(unicodevalue)));
+									ss->set("TEXT_STR",ss->get("TEXT_STR") + QString(SpecialChars::SHYPHEN));
 							else {
 								ss = new SimpleState(Um::InsertText,"",Um::ICreate);
 								ss->set("INSERT_FRAMETEXT", "insert_frametext");
 								ss->set("ETEA", QString("insert_frametext"));
-								ss->set("TEXT_STR", QString(QChar(unicodevalue)));
+								ss->set("TEXT_STR", QString(SpecialChars::SHYPHEN));
 								ss->set("START", currItem->itemText.cursorPosition());
 								UndoObject * undoTarget = currItem;
 								if (currItem->isNoteFrame())
@@ -1487,50 +1523,14 @@ void ScribusMainWindow::specialActionKeyEvent(int unicodevalue)
 								undoManager->action(undoTarget, ss);
 							}
 						}
-						currItem->itemText.insertChars(QString(QChar(unicodevalue)), true);
-						if (activeTransaction)
-							activeTransaction.commit();
-					}
-					else if (unicodevalue==SpecialChars::SHYPHEN.unicode()) //ignore the char as we use an attribute if the text item, for now.
-					{
-						// this code is currently dead since unicodeSoftHyphen
-						// doesnt have unicodevalue == -1 any more
-						if (currItem->itemText.cursorPosition() > 1)
-						{
-#if 0
-							StyleFlag fl = currItem->itemText.item(qMax(currItem->CPos-1,0))->effects();
-							fl |= ScStyle_HyphenationPossible;
-							currItem->itemText.item(qMax(currItem->CPos-1,0))->setEffects(fl);
-#else
-							if (UndoManager::undoEnabled())
-							{
-								SimpleState *ss = dynamic_cast<SimpleState*>(undoManager->getLastUndo());
-								if(ss && ss->get("ETEA") == "insert_frametext")
-										ss->set("TEXT_STR",ss->get("TEXT_STR") + QString(SpecialChars::SHYPHEN));
-								else {
-									ss = new SimpleState(Um::InsertText,"",Um::ICreate);
-									ss->set("INSERT_FRAMETEXT", "insert_frametext");
-									ss->set("ETEA", QString("insert_frametext"));
-									ss->set("TEXT_STR", QString(SpecialChars::SHYPHEN));
-									ss->set("START", currItem->itemText.cursorPosition());
-									UndoObject * undoTarget = currItem;
-									if (currItem->isNoteFrame())
-									{
-										undoTarget = doc;
-										ss->set("noteframeName", currItem->getUName());
-									}
-									undoManager->action(undoTarget, ss);
-								}
-							}
-							currItem->itemText.insertChars(QString(SpecialChars::SHYPHEN), true);
+						currItem->itemText.insertChars(QString(SpecialChars::SHYPHEN), true);
 #endif
-						}
 					}
-					if (doc->appMode == modeEditTable)
-						selItem->asTable()->update();
-					else
-						currItem->update();
 				}
+				if (doc->appMode == modeEditTable)
+					selItem->asTable()->update();
+				else
+					currItem->update();
 			}
 		}
 	}
@@ -1540,9 +1540,8 @@ bool ScribusMainWindow::eventFilter( QObject* /*o*/, QEvent *e )
 {
 	bool retVal;
 	if (e->type() == QEvent::ToolTip)
-	{
 		return (!prefsManager->appPrefs.displayPrefs.showToolTips);
-	}
+
 	if ( e->type() == QEvent::KeyPress )
 	{
 		QKeyEvent *k = (QKeyEvent *)e;
@@ -1880,9 +1879,7 @@ void ScribusMainWindow::keyReleaseEvent(QKeyEvent *k)
 void ScribusMainWindow::changeEvent(QEvent *e)
 {
 	if (e->type() == QEvent::LanguageChange)
-	{
 		languageChange();
-	}
 	else
 		QWidget::changeEvent(e);
 }
