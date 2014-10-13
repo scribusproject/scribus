@@ -905,12 +905,13 @@ void Scribus134Format::readDocAttributes(ScribusDoc* doc, ScXmlStreamAttributes&
 
 void Scribus134Format::readCMSSettings(ScribusDoc* doc, ScXmlStreamAttributes& attrs)
 {
+	PrefsManager* prefsManager = PrefsManager::instance();
 	doc->cmsSettings().SoftProofOn     = attrs.valueAsBool("DPSo", false);
 	doc->cmsSettings().SoftProofFullOn = attrs.valueAsBool("DPSFo", false);
 	doc->cmsSettings().CMSinUse   = attrs.valueAsBool("DPuse", false);
 	doc->cmsSettings().GamutCheck = attrs.valueAsBool("DPgam", false);
 	doc->cmsSettings().BlackPoint = attrs.valueAsBool("DPbla", true);
-	doc->cmsSettings().DefaultMonitorProfile   = attrs.valueAsString("DPMo","");
+	doc->cmsSettings().DefaultMonitorProfile   = prefsManager->appPrefs.colorPrefs.DCMSset.DefaultMonitorProfile;
 	doc->cmsSettings().DefaultPrinterProfile   = attrs.valueAsString("DPPr","");
 	doc->cmsSettings().DefaultImageRGBProfile  = attrs.valueAsString("DPIn","");
 	doc->cmsSettings().DefaultImageCMYKProfile = attrs.valueAsString("DPInCMYK","");

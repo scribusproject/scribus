@@ -265,7 +265,8 @@ bool Scribus150Format::saveFile(const QString & fileName, const FileFormat & /* 
 	docu.writeAttribute("DPuse", static_cast<int>(m_Doc->cmsSettings().CMSinUse));
 	docu.writeAttribute("DPgam", static_cast<int>(m_Doc->cmsSettings().GamutCheck));
 	docu.writeAttribute("DPbla", static_cast<int>(m_Doc->cmsSettings().BlackPoint));
-	docu.writeAttribute("DPMo",m_Doc->cmsSettings().DefaultMonitorProfile);
+	 // Monitor profile is now an application level parameter
+	//docu.writeAttribute("DPMo",m_Doc->cmsSettings().DefaultMonitorProfile);
 	docu.writeAttribute("DPPr",m_Doc->cmsSettings().DefaultPrinterProfile);
 	docu.writeAttribute("DPIn",m_Doc->cmsSettings().DefaultImageRGBProfile);
 	docu.writeAttribute("DPInCMYK",m_Doc->cmsSettings().DefaultImageCMYKProfile);

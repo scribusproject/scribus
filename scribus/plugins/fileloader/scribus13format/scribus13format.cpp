@@ -314,7 +314,7 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 		m_Doc->cmsSettings().CMSinUse = static_cast<bool>(dc.attribute("DPuse", "0").toInt());
 		m_Doc->cmsSettings().GamutCheck = static_cast<bool>(dc.attribute("DPgam", "0").toInt());
 		m_Doc->cmsSettings().BlackPoint = static_cast<bool>(dc.attribute("DPbla", "1").toInt());
-		m_Doc->cmsSettings().DefaultMonitorProfile = dc.attribute("DPMo","");
+		m_Doc->cmsSettings().DefaultMonitorProfile = prefsManager->appPrefs.colorPrefs.DCMSset.DefaultMonitorProfile;
 		m_Doc->cmsSettings().DefaultPrinterProfile = dc.attribute("DPPr","");
 		m_Doc->cmsSettings().DefaultImageRGBProfile = dc.attribute("DPIn","");
 		m_Doc->cmsSettings().DefaultImageCMYKProfile = dc.attribute("DPInCMYK","");
