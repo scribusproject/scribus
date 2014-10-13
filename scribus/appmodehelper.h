@@ -48,6 +48,7 @@ class AppModeHelper : public QObject
 		void setSymbolEditMode(bool b, ScribusDoc* doc);
 		void setInlineEditMode(bool b, ScribusDoc* doc);
 		void setMasterPageEditMode(bool b, ScribusDoc *doc);
+		void updateTableMenuActions(ScribusDoc* doc);
 		void changeLayer(ScribusDoc *doc, bool clipScrapHaveData);
 		void mainWindowHasNewDoc(ScribusDoc *doc, bool clipScrapHaveData);
 		void mainWindowSwitchWin(ScribusDoc *doc);

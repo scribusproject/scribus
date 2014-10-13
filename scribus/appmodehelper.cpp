@@ -369,6 +369,42 @@ void AppModeHelper::enableActionsForSelection(ScribusMainWindow* scmw, ScribusDo
 	assert (docSelectionCount == 0 || currItem != NULL); // help coverity analysis
 
 	bool inAnEditMode=doc->inAnEditMode();
+
+	(*a_scrActions)["editSelectAllOnLayer"]->setEnabled(true);
+	(*a_scrActions)["editDeselectAll"]->setEnabled(SelectedType != -1);
+	(*a_scrActions)["itemDetachTextFromPath"]->setEnabled(false);
+	(*a_scrActions)["itemUpdateImage"]->setEnabled(SelectedType==PageItem::ImageFrame && (currItem->PictureIsAvailable || currItem->asLatexFrame()));
+	(*a_scrActions)["itemAdjustFrameToImage"]->setEnabled(SelectedType==PageItem::ImageFrame && currItem->PictureIsAvailable);
+	(*a_scrActions)["itemAdjustImageToFrame"]->setEnabled(SelectedType==PageItem::ImageFrame && currItem->PictureIsAvailable);
+	(*a_scrActions)["itemExtendedImageProperties"]->setEnabled(SelectedType==PageItem::ImageFrame && currItem->PictureIsAvailable && currItem->pixm.imgInfo.valid);
+	(*a_scrActions)["itemToggleInlineImage"]->setEnabled(SelectedType==PageItem::ImageFrame && currItem->PictureIsAvailable);
+	(*a_scrActions)["itemImageIsVisible"]->setEnabled(SelectedType==PageItem::ImageFrame);
+	(*a_scrActions)["itemPreviewFull"]->setEnabled(SelectedType==PageItem::ImageFrame);
+	(*a_scrActions)["itemPreviewNormal"]->setEnabled(SelectedType==PageItem::ImageFrame);
+	(*a_scrActions)["itemPreviewLow"]->setEnabled(SelectedType==PageItem::ImageFrame);
+	(*a_scrActions)["styleImageEffects"]->setEnabled(SelectedType==PageItem::ImageFrame && currItem->isRaster);
+	(*a_scrActions)["editCopyContents"]->setEnabled(SelectedType==PageItem::ImageFrame && currItem->PictureIsAvailable);
+	(*a_scrActions)["editPasteContents"]->setEnabled(SelectedType==PageItem::ImageFrame);
+	(*a_scrActions)["editPasteContentsAbs"]->setEnabled(SelectedType==PageItem::ImageFrame);
+	(*a_scrActions)["editEditWithImageEditor"]->setEnabled(SelectedType==PageItem::ImageFrame && currItem->PictureIsAvailable && currItem->isRaster);
+#ifdef HAVE_OSG
+	(*a_scrActions)["editEditRenderSource"]->setEnabled(SelectedType==PageItem::ImageFrame && currItem && (currItem->asLatexFrame() || currItem->asOSGFrame()));
+#else
+	(*a_scrActions)["editEditRenderSource"]->setEnabled(SelectedType==PageItem::ImageFrame && currItem && (currItem->asLatexFrame()));
+#endif
+	(*a_scrActions)["itemAdjustFrameHeightToText"]->setEnabled(SelectedType==PageItem::TextFrame && currItem->itemText.length() >0);
+	if (SelectedType!=PageItem::ImageFrame)
+	{
+		(*a_scrActions)["itemImageIsVisible"]->setChecked(false);
+		(*a_scrActions)["itemPreviewFull"]->setChecked(false);
+		(*a_scrActions)["itemPreviewNormal"]->setChecked(false);
+		(*a_scrActions)["itemPreviewLow"]->setChecked(false);
+	}
+
+	if ((SelectedType==-1) || (SelectedType!=-1 && !currItem->asTextFrame()))
+		enableTextActions(false);
+	(*a_scrActions)["insertSampleText"]->setEnabled(false);
+
 	switch (SelectedType)
 	{
 		case -1: // None
@@ -575,6 +611,7 @@ void AppModeHelper::enableActionsForSelection(ScribusMainWindow* scmw, ScribusDo
 				(*a_scrActions)["insertSampleText"]->setEnabled(true);
 				(*a_scrActions)["toolsEditWithStoryEditor"]->setEnabled(true);
 			}
+			updateTableMenuActions(doc);
 			break;
 		case PageItem::PathText: //Path Text
 			(*a_scrActions)["fileImportText"]->setEnabled(true);
@@ -775,6 +812,78 @@ void AppModeHelper::enableActionsForSelection(ScribusMainWindow* scmw, ScribusDo
 		(*a_scrActions)["itemGroup"]->setEnabled(false);
 		(*a_scrActions)["itemAttachTextToPath"]->setEnabled(false);
 		(*a_scrActions)["itemCombinePolygons"]->setEnabled(false);
+	}
+
+
+	if (docSelectionCount != 0)
+	{
+		(*a_scrActions)["itemLock"]->setEnabled(true);
+		(*a_scrActions)["itemLockSize"]->setEnabled(true);
+		(*a_scrActions)["itemPrintingEnabled"]->setEnabled(true);
+		if (currItem->isGroup())
+		{
+			(*a_scrActions)["itemUngroup"]->setEnabled(doc->appMode != modeEdit);
+			(*a_scrActions)["itemGroupAdjust"]->setEnabled(doc->appMode != modeEdit);
+		}
+		else
+		{
+			(*a_scrActions)["itemUngroup"]->setEnabled(false);
+			(*a_scrActions)["itemGroupAdjust"]->setEnabled(false);
+			(*a_scrActions)["itemSplitPolygons"]->setEnabled( (currItem->asPolygon()) && (currItem->Segments.count() != 0) );
+		}
+		if (currItem->locked())
+		{
+			(*a_scrActions)["itemConvertToBezierCurve"]->setEnabled(false);
+			(*a_scrActions)["itemConvertToImageFrame"]->setEnabled(false);
+			(*a_scrActions)["itemConvertToOutlines"]->setEnabled(false);
+			(*a_scrActions)["itemConvertToPolygon"]->setEnabled(false);
+			(*a_scrActions)["itemConvertToTextFrame"]->setEnabled(false);
+			(*a_scrActions)["itemConvertToSymbolFrame"]->setEnabled(false);
+			(*a_scrActions)["itemSplitPolygons"]->setEnabled(false);
+			(*a_scrActions)["itemAttachTextToPath"]->setEnabled(false);
+			(*a_scrActions)["itemDetachTextFromPath"]->setEnabled(false);
+			(*a_scrActions)["itemCombinePolygons"]->setEnabled(false);
+			(*a_scrActions)["itemDelete"]->setEnabled(false);
+			(*a_scrActions)["itemLowerToBottom"]->setEnabled(false);
+			(*a_scrActions)["itemRaiseToTop"]->setEnabled(false);
+			(*a_scrActions)["itemRaise"]->setEnabled(false);
+			(*a_scrActions)["itemLower"]->setEnabled(false);
+			(*a_scrActions)["itemSendToPattern"]->setEnabled(true);
+			(*a_scrActions)["itemSendToInline"]->setEnabled(true);
+			(*a_scrActions)["editCut"]->setEnabled(false);
+			(*a_scrActions)["editClearContents"]->setEnabled(false);
+			(*a_scrActions)["editTruncateContents"]->setEnabled(false);
+			(*a_scrActions)["toolsRotate"]->setEnabled(false);
+		}
+		else
+		{
+			(*a_scrActions)["itemDuplicate"]->setEnabled(true);
+			(*a_scrActions)["itemMulDuplicate"]->setEnabled(true);
+			(*a_scrActions)["itemTransform"]->setEnabled(true);
+			(*a_scrActions)["itemDelete"]->setEnabled(true);
+			(*a_scrActions)["itemSendToPattern"]->setEnabled(true);
+			(*a_scrActions)["itemSendToInline"]->setEnabled(true);
+			if (docSelectionCount > 1)
+			{
+				bool haveSameParent = true;
+				PageItem *firstItem = doc->m_Selection->itemAt(0);
+				for (uint a = 1; a < docSelectionCount; ++a)
+				{
+					if (doc->m_Selection->itemAt(a)->Parent != firstItem->Parent)
+					{
+						haveSameParent = false;
+						break;
+					}
+				}
+				(*a_scrActions)["itemRaise"]->setEnabled(haveSameParent);
+				(*a_scrActions)["itemLower"]->setEnabled(haveSameParent);
+				(*a_scrActions)["itemRaiseToTop"]->setEnabled(haveSameParent);
+				(*a_scrActions)["itemLowerToBottom"]->setEnabled(haveSameParent);
+			}
+		}
+		(*a_scrActions)["itemLock"]->setChecked(currItem->locked());
+		(*a_scrActions)["itemLockSize"]->setChecked(currItem->sizeLocked());
+		(*a_scrActions)["itemPrintingEnabled"]->setChecked(currItem->printEnabled());
 	}
 
 }
@@ -1091,6 +1200,46 @@ void AppModeHelper::setMasterPageEditMode(bool b, ScribusDoc* doc)
 	(*a_scrActions)["toolsPDFAnnot3D"]->setEnabled(b2);
 #endif
 	//(*a_scrActions)["viewPreviewMode"]->setEnabled(b2);
+}
+
+void AppModeHelper::updateTableMenuActions(ScribusDoc* doc)
+{
+	// Determine state.
+	PageItem* item = doc ? doc->m_Selection->itemAt(0) : 0;
+	PageItem_Table* table = (item && item->isTable()) ? item->asTable() : 0;
+	const bool tableEdit = table && doc->appMode == modeEditTable;
+	const int tableRows = table ? table->rows() : 0;
+	const int tableColumns = table ? table->columns() : 0;
+	const int selectedRows = tableEdit ? table->selectedRows().size() : 0;
+	const int selectedColumns = tableEdit ? table->selectedColumns().size() : 0;
+	const int selectedCells = tableEdit ? table->selectedCells().size() : 0;
+
+	// Enable/disable menu actions.
+	(*a_scrActions)["tableInsertRows"]->setEnabled(table || (tableEdit && selectedCells < 1));
+	(*a_scrActions)["tableInsertColumns"]->setEnabled(table || (tableEdit && selectedCells < 1));
+	(*a_scrActions)["tableDeleteRows"]->setEnabled(tableEdit &&
+		((selectedRows < 1 && tableRows > 1) || (selectedRows > 0 && selectedRows < tableRows)));
+	(*a_scrActions)["tableDeleteColumns"]->setEnabled(tableEdit &&
+		((selectedColumns < 1 && tableColumns > 1) || (selectedColumns > 0 && selectedColumns < tableColumns)));
+	(*a_scrActions)["tableMergeCells"]->setEnabled(selectedCells > 1);
+	(*a_scrActions)["tableSplitCells"]->setEnabled(false); // Not implemented.
+	(*a_scrActions)["tableSetRowHeights"]->setEnabled(tableEdit);
+	(*a_scrActions)["tableSetColumnWidths"]->setEnabled(tableEdit);
+	if (doc)
+	{
+		if (doc->appMode == modeEditTable)
+		{
+			(*a_scrActions)["tableDistributeRowsEvenly"]->setEnabled(selectedRows > 1);
+			(*a_scrActions)["tableDistributeColumnsEvenly"]->setEnabled(selectedColumns > 1);
+		}
+		else
+		{
+			(*a_scrActions)["tableDistributeRowsEvenly"]->setEnabled(table);
+			(*a_scrActions)["tableDistributeColumnsEvenly"]->setEnabled(table);
+		}
+	}
+	(*a_scrActions)["tableAdjustFrameToTable"]->setEnabled(table);
+	(*a_scrActions)["tableAdjustTableToFrame"]->setEnabled(table);
 }
 
 void AppModeHelper::changeLayer(ScribusDoc *doc, bool clipScrapHaveData)
@@ -1483,8 +1632,6 @@ void AppModeHelper::setStartupActionsEnabled(bool enabled)
 	(*a_scrActions)["fileClose"]->setEnabled(false);
 	(*a_scrActions)["PrintPreview"]->setEnabled(false);
 	(*a_scrActions)["SaveAsDocumentTemplate"]->setEnabled(false);
-//	scrMenuMgr->setMenuEnabled("FileImport", false);
-//	scrMenuMgr->setMenuEnabled("FileExport", false);
 	(*a_scrActions)["fileExportAsPDF"]->setEnabled(false);
 	(*a_scrActions)["fileExportText"]->setEnabled(false);
 	(*a_scrActions)["fileExportAsEPS"]->setEnabled(false);

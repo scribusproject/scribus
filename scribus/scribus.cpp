@@ -2658,42 +2658,8 @@ void ScribusMainWindow::HaveNewSel()
 	setStatusBarTextSelectedItemInfo();
 
 	actionManager->disconnectNewSelectionActions();
-	scrActions["editSelectAllOnLayer"]->setEnabled(true);
-	scrActions["editDeselectAll"]->setEnabled(SelectedType != -1);
-	scrActions["itemDetachTextFromPath"]->setEnabled(false);
-	charPalette->setEnabled(false, 0);
-	scrActions["itemUpdateImage"]->setEnabled(SelectedType==PageItem::ImageFrame && (currItem->PictureIsAvailable || currItem->asLatexFrame()));
-	scrActions["itemAdjustFrameToImage"]->setEnabled(SelectedType==PageItem::ImageFrame && currItem->PictureIsAvailable);
-	scrActions["itemAdjustImageToFrame"]->setEnabled(SelectedType==PageItem::ImageFrame && currItem->PictureIsAvailable);
-	scrActions["itemExtendedImageProperties"]->setEnabled(SelectedType==PageItem::ImageFrame && currItem->PictureIsAvailable && currItem->pixm.imgInfo.valid);
-	scrActions["itemToggleInlineImage"]->setEnabled(SelectedType==PageItem::ImageFrame && currItem->PictureIsAvailable);
-	scrMenuMgr->setMenuEnabled("ItemPreviewSettings", SelectedType==PageItem::ImageFrame);
-	scrActions["itemImageIsVisible"]->setEnabled(SelectedType==PageItem::ImageFrame);
-	scrActions["itemPreviewFull"]->setEnabled(SelectedType==PageItem::ImageFrame);
-	scrActions["itemPreviewNormal"]->setEnabled(SelectedType==PageItem::ImageFrame);
-	scrActions["itemPreviewLow"]->setEnabled(SelectedType==PageItem::ImageFrame);
-	scrActions["styleImageEffects"]->setEnabled(SelectedType==PageItem::ImageFrame && currItem->isRaster);
-	scrActions["editCopyContents"]->setEnabled(SelectedType==PageItem::ImageFrame && currItem->PictureIsAvailable);
-	scrActions["editPasteContents"]->setEnabled(SelectedType==PageItem::ImageFrame);
-	scrActions["editPasteContentsAbs"]->setEnabled(SelectedType==PageItem::ImageFrame);
-	scrActions["editEditWithImageEditor"]->setEnabled(SelectedType==PageItem::ImageFrame && currItem->PictureIsAvailable && currItem->isRaster);
-#ifdef HAVE_OSG
-	scrActions["editEditRenderSource"]->setEnabled(SelectedType==PageItem::ImageFrame && currItem && (currItem->asLatexFrame() || currItem->asOSGFrame()));
-#else
-	scrActions["editEditRenderSource"]->setEnabled(SelectedType==PageItem::ImageFrame && currItem && (currItem->asLatexFrame()));
-#endif
-	scrActions["itemAdjustFrameHeightToText"]->setEnabled(SelectedType==PageItem::TextFrame && currItem->itemText.length() >0);
-	if (SelectedType!=PageItem::ImageFrame)
-	{
-		scrActions["itemImageIsVisible"]->setChecked(false);
-		scrActions["itemPreviewFull"]->setChecked(false);
-		scrActions["itemPreviewNormal"]->setChecked(false);
-		scrActions["itemPreviewLow"]->setChecked(false);
-	}
-	if ((SelectedType==-1) || (SelectedType!=-1 && !currItem->asTextFrame()))
-		appModeHelper->enableTextActions(false);
-	scrActions["insertSampleText"]->setEnabled(false);
 
+	charPalette->setEnabled(false, 0);
 	view->horizRuler->textMode(false);
 	view->horizRuler->update();
 
@@ -2755,6 +2721,14 @@ void ScribusMainWindow::HaveNewSel()
 	doc->CurrentSel = SelectedType;
 	propertiesPalette->xyzPal->basePointWidget->setCheckedId(doc->RotMode());
 
+	if (docSelectionCount != 0)
+	{
+		actionManager->setPDFActions(view);
+		updateItemLayerList();
+		rebuildScrapbookMenu();
+		propertiesPalette->setTextFlowMode(currItem->textFlowMode());
+	}
+
 	if (SelectedType != -1)
 	{
 		outlinePalette->slotShowSelect(currItem->OwnPage, currItem);
@@ -2782,7 +2756,6 @@ void ScribusMainWindow::HaveNewSel()
 				pluginAction->setEnabled(ixplug->handleSelection(doc, SelectedType));
 		}
 	}
-	updateTableMenuActions();
 }
 
 void ScribusMainWindow::slotDocCh(bool /*reb*/)
@@ -9579,43 +9552,7 @@ void ScribusMainWindow::updateGUIAfterPagesChanged()
 
 void ScribusMainWindow::updateTableMenuActions()
 {
-	// Determine state.
-	PageItem* item = doc ? doc->m_Selection->itemAt(0) : 0;
-	PageItem_Table* table = (item && item->isTable()) ? item->asTable() : 0;
-	const bool tableEdit = table && doc->appMode == modeEditTable;
-	const int tableRows = table ? table->rows() : 0;
-	const int tableColumns = table ? table->columns() : 0;
-	const int selectedRows = tableEdit ? table->selectedRows().size() : 0;
-	const int selectedColumns = tableEdit ? table->selectedColumns().size() : 0;
-	const int selectedCells = tableEdit ? table->selectedCells().size() : 0;
-
-	// Enable/disable menu actions.
-	scrMenuMgr->setMenuEnabled("ItemTable", table);
-	scrActions["tableInsertRows"]->setEnabled(table || (tableEdit && selectedCells < 1));
-	scrActions["tableInsertColumns"]->setEnabled(table || (tableEdit && selectedCells < 1));
-	scrActions["tableDeleteRows"]->setEnabled(tableEdit &&
-		((selectedRows < 1 && tableRows > 1) || (selectedRows > 0 && selectedRows < tableRows)));
-	scrActions["tableDeleteColumns"]->setEnabled(tableEdit &&
-		((selectedColumns < 1 && tableColumns > 1) || (selectedColumns > 0 && selectedColumns < tableColumns)));
-	scrActions["tableMergeCells"]->setEnabled(selectedCells > 1);
-	scrActions["tableSplitCells"]->setEnabled(false); // Not implemented.
-	scrActions["tableSetRowHeights"]->setEnabled(tableEdit);
-	scrActions["tableSetColumnWidths"]->setEnabled(tableEdit);
-	if (doc)
-	{
-		if (doc->appMode == modeEditTable)
-		{
-			scrActions["tableDistributeRowsEvenly"]->setEnabled(selectedRows > 1);
-			scrActions["tableDistributeColumnsEvenly"]->setEnabled(selectedColumns > 1);
-		}
-		else
-		{
-			scrActions["tableDistributeRowsEvenly"]->setEnabled(table);
-			scrActions["tableDistributeColumnsEvenly"]->setEnabled(table);
-		}
-	}
-	scrActions["tableAdjustFrameToTable"]->setEnabled(table);
-	scrActions["tableAdjustTableToFrame"]->setEnabled(table);
+	appModeHelper->updateTableMenuActions(doc);
 }
 
 void ScribusMainWindow::insertMark(MarkType mType)
