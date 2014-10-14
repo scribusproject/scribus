@@ -351,6 +351,11 @@ void AppModeHelper::setApplicationMode(ScribusMainWindow* scmw, ScribusDoc* doc,
 			//No doc open?
 			break;
 	}
+	if (doc->inAnEditMode())
+	{
+		(*a_scrActions)["itemSendToPattern"]->setEnabled(false);
+		(*a_scrActions)["itemSendToInline"]->setEnabled(false);
+	}
 	emit AppModeChanged(oldMode, newMode);
 	a_actMgr->connectModeActions();
 	PluginManager::instance().enablePluginActionsForSelection(scmw);
@@ -880,6 +885,11 @@ void AppModeHelper::enableActionsForSelection(ScribusMainWindow* scmw, ScribusDo
 				(*a_scrActions)["itemRaiseToTop"]->setEnabled(haveSameParent);
 				(*a_scrActions)["itemLowerToBottom"]->setEnabled(haveSameParent);
 			}
+		}
+		if (inAnEditMode)
+		{
+			(*a_scrActions)["itemSendToPattern"]->setEnabled(false);
+			(*a_scrActions)["itemSendToInline"]->setEnabled(false);
 		}
 		(*a_scrActions)["itemLock"]->setChecked(currItem->locked());
 		(*a_scrActions)["itemLockSize"]->setChecked(currItem->sizeLocked());
