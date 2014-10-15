@@ -206,6 +206,7 @@ void PropTreeItemDelegate::setModelData(QWidget *editor, QAbstractItemModel *mod
 	if (item->m_type == PropTreeItem::IntSpinBox)
 	{
 		ScrSpinBox *spinBox = static_cast<ScrSpinBox*>(editor);
+		spinBox->interpretText(); // #12684: interpretText() is explicitly called in Qt spinboxdelegate example
 		QString value = QString("%1 %2").arg(qRound(spinBox->value())).arg(unitGetSuffixFromIndex(item->m_unit));
 		int val = qRound(spinBox->value());
 		model->setData(index, val, Qt::UserRole);
@@ -214,6 +215,7 @@ void PropTreeItemDelegate::setModelData(QWidget *editor, QAbstractItemModel *mod
 	else if (item->m_type == PropTreeItem::DoubleSpinBox)
 	{
 		ScrSpinBox *spinBox = static_cast<ScrSpinBox*>(editor);
+		spinBox->interpretText(); // #12684: interpretText() is explicitly called in Qt spinboxdelegate example
 		QString value = QString("%1 %2").arg(spinBox->value(), 0, 'f', item->m_decimals).arg(unitGetSuffixFromIndex(item->m_unit));
 		double val = spinBox->value();
 		model->setData(index, val, Qt::UserRole);
