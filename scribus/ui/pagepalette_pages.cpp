@@ -124,8 +124,9 @@ void PagePalette_Pages::deleteMasterPage(QString tmp)
 
 void PagePalette_Pages::pageView_applyMasterPage(QString masterpageName, int pageIndex)
 {
-	m_scMW->Apply_MasterPage(masterpageName, pageIndex);
-
+	m_scMW->Apply_MasterPage(masterpageName, pageIndex, false);
+	currView->reformPages();
+	currView->DrawNew();
 	SeItem* pageItem = pageView->GetPageItem(pageIndex);
 	if (pageItem)
 		pageItem->setIcon(createIcon(pageIndex, masterpageName, pix));
