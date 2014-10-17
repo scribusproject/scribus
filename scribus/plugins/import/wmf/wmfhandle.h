@@ -15,65 +15,62 @@ for which a new license (GPL+exception) is in place.
 class WmfObjHandle
 {
 public:
-    virtual void apply( WMFContext& p ) = 0;
+	virtual void apply( WMFContext& p ) = 0;
+	virtual ~WmfObjHandle() {};
 };
 
 class WmfObjBrushHandle: public WmfObjHandle
 {
 public:
-    virtual void apply( WMFContext& p );
-    QBrush brush;
-    virtual ~WmfObjBrushHandle() {};
+	virtual void apply( WMFContext& p );
+	QBrush brush;
 };
 
 class WmfObjPenHandle: public WmfObjHandle
 {
 public:
-    virtual void apply( WMFContext& p );
-    QPen pen;
-    virtual ~WmfObjPenHandle() {};
+	virtual void apply( WMFContext& p );
+	QPen pen;
 };
 
 class WmfObjPatternBrushHandle: public WmfObjHandle
 {
 public:
-    virtual void apply( WMFContext& p );
-    QBrush brush;
-    QPixmap image;
-    virtual ~WmfObjPatternBrushHandle() {};
+	virtual void apply( WMFContext& p );
+	QBrush brush;
+	QPixmap image;
 };
 
 class WmfObjFontHandle: public WmfObjHandle
 {
 public:
-    virtual void apply( WMFContext& p );
+	virtual void apply( WMFContext& p );
 	int    charset;
-    QFont  font;
-    double rotation;
+	QFont  font;
+	double rotation;
 	WmfObjFontHandle() { charset = 1; rotation = 0.0; }
-    virtual ~WmfObjFontHandle() {};
 };
 
 void WmfObjBrushHandle::apply( WMFContext& p )
 {
-    p.setBrush( brush );
+	p.setBrush( brush );
 }
 
 void WmfObjPenHandle::apply( WMFContext& p )
 {
-    p.setPen( pen );
+	p.setPen( pen );
 }
 
 void WmfObjPatternBrushHandle::apply( WMFContext& p )
 {
-    p.setBrush( brush );
+	p.setBrush( brush );
 }
 
 void WmfObjFontHandle::apply( WMFContext& p )
 {
 	p.setTextCharset( charset );
 	p.setTextRotation( rotation );
-    p.setFont( font );
+	p.setFont( font );
 }
 
 #endif
