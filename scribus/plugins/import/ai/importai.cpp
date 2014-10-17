@@ -2163,6 +2163,9 @@ void AIPlug::processData(QString data)
 				int ens = cmdLine.lastIndexOf("]");
 				QString nodeVals = cmdLine.mid(ans+1, ens-ans-1);
 				ScTextStream mVals4(&nodeVals, QIODevice::ReadOnly);
+				cVal = 0.0;
+				mVal = 0.0;
+				yVal = 0.0;
 				kVal = 0.0;
 				if (meshColorMode == 0)
 					mVals4 >> cVal >> mVal >> yVal >> kVal >> coorX1 >> coorY1 >> coorX2 >> coorY2 >> dummy >> coorX3 >> coorY3;
