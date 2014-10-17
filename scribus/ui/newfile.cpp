@@ -83,7 +83,7 @@ void PageLayoutsWidget::arrangeIcons()
 	maxY = maxSizeY+10;
 }
 
-const QSize PageLayoutsWidget::minimumSizeHint()
+QSize PageLayoutsWidget::minimumSizeHint() const
 {
 	return QSize(maxX, maxY);
 }

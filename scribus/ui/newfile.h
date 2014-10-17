@@ -44,7 +44,7 @@ public:
 	PageLayoutsWidget(QWidget* parent);
 	~PageLayoutsWidget() {};
 	void arrangeIcons();
-	const QSize minimumSizeHint();
+	QSize minimumSizeHint() const;
 	int maxX;
 	int maxY;
 };
