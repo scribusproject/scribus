@@ -2832,7 +2832,7 @@ double OdgPlug::parseUnit(const QString &unit)
 		unitval.replace( "%", "" );
 	double value = ScCLocale::toDoubleC(unitval);
 	if( unit.right( 2 ) == "pt" )
-		value = value;
+		{}/* value = value; */ //no change
 	else if( unit.right( 2 ) == "cm" )
 		value = ( value / 2.54 ) * 72;
 	else if( unit.right( 2 ) == "mm" )
@@ -2840,7 +2840,7 @@ double OdgPlug::parseUnit(const QString &unit)
 	else if( unit.right( 2 ) == "in" )
 		value = value * 72;
 	else if( unit.right( 2 ) == "px" )
-		value = value;
+		{}/* value = value; */ //no change
 	else if( unit.right( 1 ) == "%" )
 		value = value / 100.0;
 	return value;

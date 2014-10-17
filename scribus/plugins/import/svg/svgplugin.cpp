@@ -2064,7 +2064,7 @@ double SVGPlug::parseUnit(const QString &unit)
 		noUnit = true;
 	double value = ScCLocale::toDoubleC(unitval);
 	if (unit.right( 2 ) == "pt")
-		value = value;
+		{}/* value = value; */ //no change
 	else if (unit.right( 2 ) == "cm")
 		value = ( value / 2.54 ) * 72;
 	else if (unit.right( 2 ) == "mm")
@@ -2074,7 +2074,7 @@ double SVGPlug::parseUnit(const QString &unit)
 	else if (unit.right( 2 ) == "px")
 		value = value * 0.8;
 	else if (noUnit)
-		value = value;
+		{}/* value = value; */ //no change
 	return value;
 }
 
