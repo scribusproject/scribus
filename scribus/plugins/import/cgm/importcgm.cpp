@@ -2532,6 +2532,10 @@ void CgmPlug::decodeClass5(QDataStream &ts, quint16 elemID, quint16 paramLen)
 			double s1 = getBinaryReal(ts, realPrecision, realMantissa);
 			qDebug() << "Stages " << s1;
 		}
+		Q_UNUSED(posI);
+		Q_UNUSED(type);
+		Q_UNUSED(p1);
+		Q_UNUSED(p2);
 /*		int pos = ts.device()->pos();
 		uint type = getBinaryUInt(ts, indexPrecision);
 		QPointF p, p2;

@@ -31,8 +31,6 @@ ScListWidgetDelegate::ScListWidgetDelegate(QListWidget *view, QWidget *parent) :
 
 void ScListWidgetDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
-	const QAbstractItemModel *model = index.model();
-	Q_ASSERT(model);
 	if (m_dispIconOnly)
 	{
 		painter->save();

@@ -561,8 +561,6 @@ bool ScFace_ttf::glyphNames(QMap<uint, std::pair<QChar, QString> >& GList) const
 	                           (face->charmap && face->charmap->encoding == FT_ENCODING_UNICODE);
 	if (!avoidFntNames)
 		return FtFace::glyphNames(GList);
-
-	const bool hasPSNames = FT_HAS_GLYPH_NAMES(face);
 	
 //	qDebug() << "reading metrics for" << face->family_name << face->style_name;
 	charcode = FT_Get_First_Char(face, &gindex);

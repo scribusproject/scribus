@@ -52,7 +52,7 @@
 #include "util_math.h"
 
 
-CanvasMode_Magnifier::CanvasMode_Magnifier(ScribusView* view) : CanvasMode(view), m_ScMW(view->m_ScMW) 
+CanvasMode_Magnifier::CanvasMode_Magnifier(ScribusView* view) : CanvasMode(view)
 {
 	Mxp = Myp = -1;
 	Dxp = Dyp = -1;

@@ -1061,9 +1061,8 @@ ListLevel::~ListLevel()
 
 /*** ListStyle **********************************************************************************/
 
-ListStyle::ListStyle(const QString &name, bool consecutiveNumbering, uint currentLevel) :
+ListStyle::ListStyle(const QString &name, uint currentLevel) :
 m_name(name),
-m_consecutiveNumbering(consecutiveNumbering),
 m_currentLevel(currentLevel),
 m_count(0)
 {

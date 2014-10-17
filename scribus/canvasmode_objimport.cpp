@@ -46,8 +46,7 @@
 
 
 CanvasMode_ObjImport::CanvasMode_ObjImport(ScribusView* view) :
-	CanvasMode(view),
-	m_ScMW(view->m_ScMW)
+	CanvasMode(view)
 {
 	Mxp = Myp = -1;
 	m_mimeData = NULL;

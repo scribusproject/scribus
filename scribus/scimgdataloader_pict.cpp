@@ -1317,6 +1317,7 @@ void ScImgDataLoader_PICT::handlePixmap(QDataStream &ts, quint16 opCode)
 	}
 // reading scrRect
 	QRect scrRect = readRect(ts);
+	Q_UNUSED(scrRect);
 //	qDebug() << "Src Rect" << scrRect;
 // reading dstRect
 	QRect dstRect = readRect(ts);
@@ -1464,11 +1465,11 @@ void ScImgDataLoader_PICT::handleQuickTime(QDataStream &ts, quint16 opCode)
 	uint pos = ts.device()->pos();
 	alignStreamToWord(ts, 38);		// Skip version and Matrix information
 	ts >> matteSize;
-	QRect matteRect = readRect(ts);
+	/*QRect matteRect =*/ readRect(ts);
 	if (opCode == 0x8200)
 	{
 		ts >> mode;
-		QRect srcRect = readRect(ts);
+		/*QRect srcRect =*/ readRect(ts);
 		alignStreamToWord(ts, 4);
 		ts >> maskSize;
 		if (matteSize != 0)

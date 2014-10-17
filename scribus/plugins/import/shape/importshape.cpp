@@ -666,8 +666,6 @@ void ShapePlug::parseGroupProperties(QDomNode &DOC, double &minXCoor, double &mi
 {
 	QString FillCol = "White";
 	QString StrokeCol = "Black";
-	QColor stroke = Qt::black;
-	QColor fill = Qt::white;
 	while(!DOC.isNull())
 	{
 		double x1, y1, x2, y2;

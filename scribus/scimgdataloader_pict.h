@@ -77,8 +77,6 @@ private:
 	QByteArray patternData;
 	QRect currRect;
 	QBrush currPatternBrush;
-	int currRectItemNr;
-	int currRectType;
 	QRect lastImageRect;
 	QPoint ovalSize;
 	QMap<int, QString> fontMap;

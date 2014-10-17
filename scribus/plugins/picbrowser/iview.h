@@ -45,7 +45,6 @@ class IView: public QGraphicsView
 
 		QPointF mouseStartPoint;
 		QRect theRect;
-		bool isSelecting;
 		bool isPanning;
 
 		bool m_keepFitted;

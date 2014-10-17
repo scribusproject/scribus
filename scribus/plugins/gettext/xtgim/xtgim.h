@@ -48,11 +48,8 @@ private:
 	QString filename;
 	QString in_Buffer;
 	QByteArray buffer;
-	PageItem *textFrame;
-	TextWriter *writer;
 	void loadFiletoArray();
 	QString toUnicode(const QByteArray& rawText);
-	StyleManager *StyleMan;
 public:
 	XtgIm(QString fileName,QString enc,PageItem *textItem,bool textOnly);
 	~XtgIm();

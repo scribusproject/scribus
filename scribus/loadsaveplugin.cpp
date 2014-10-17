@@ -350,7 +350,6 @@ void LoadSavePlugin::unregisterFormat(unsigned int id)
 void LoadSavePlugin::unregisterAll()
 {
 	QList<FileFormat>::iterator it(formats.begin());
-	QList<FileFormat>::iterator itEnd(formats.end());
 	while (it != formats.end())
 	{
 		if ((*it).plug == this)

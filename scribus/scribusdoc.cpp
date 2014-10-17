@@ -9893,7 +9893,6 @@ void ScribusDoc::MirrorPolyV(PageItem* currItem)
 			ss->set("IS_CONTOUR", true);
 			undoManager->action(currItem, ss, Um::IBorder);
 		}
-		FPoint tp2(getMinClipF(&currItem->ContourLine));
 		FPoint tp(getMaxClipF(&currItem->ContourLine));
 		ma.translate(0, qRound(tp.y()));
 		ma.scale(1, -1);

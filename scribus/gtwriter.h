@@ -78,7 +78,6 @@ private:
 	gtStyle* paragraphStyle;
 	gtStyle* characterStyle;
 	bool errorSet;
-	bool shouldAppend;
 	void setDefaultStyle();
 };
 

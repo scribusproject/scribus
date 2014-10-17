@@ -210,7 +210,6 @@ private:
 	double m_fillTrans;
 	bool   m_fillRule;
 	int    m_fillMode;			// 0 = none, 1 = solid, 2 = gradient
-	int    m_gradientMode;		// 1 = linear, 2 = radial
 
 	double m_patternScaleX;
 	double m_patternScaleY;
@@ -236,8 +235,6 @@ private:
 	double m_offset;
 /* Transformation Stack */
 	QStack<QTransform> m_stack;
-/* Zoom Factor of the Painter */
-	double m_zoomFactor;
 
 /* Some data to describe state of drawing */	
 	bool m_pathIsClosed;

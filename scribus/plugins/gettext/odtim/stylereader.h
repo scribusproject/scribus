@@ -96,7 +96,7 @@ private:
 class ListStyle
 {
 public:
-	ListStyle(const QString &name, bool consecutiveNumbering = false, uint currentLevel = 1);
+	ListStyle(const QString &name, uint currentLevel = 1);
 	~ListStyle();
 	void addLevel(uint level, ListLevel *llevel);
 	QString bullet();
@@ -106,7 +106,6 @@ public:
 	QString& name();
 private:
 	QString m_name;
-	bool m_consecutiveNumbering;
 	uint m_currentLevel;
 	uint m_count;
 	ListLevel* levels[11];

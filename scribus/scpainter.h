@@ -183,7 +183,6 @@ private:
 	double fill_trans;
 	bool m_fillRule;
 	int fillMode;				// 0 = none, 1 = solid, 2 = gradient 3 = pattern 4 = hatch
-	int gradientMode;		// 1 = linear, 2 = radial, 3 = 4colour
 	double patternScaleX;
 	double patternScaleY;
 	double patternOffsetX;

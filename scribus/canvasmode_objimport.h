@@ -58,7 +58,6 @@ public:
 private:
 	QMimeData*          m_mimeData;
 	TransactionSettings* m_trSettings;
-	ScribusMainWindow*  m_ScMW;
 	double     Mxp, Myp;
 };
 

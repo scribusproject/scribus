@@ -3588,7 +3588,6 @@ void SlaOutputDev::drawChar(GfxState *state, double x, double y, double dx, doub
 			{
 				int z = m_doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, xCoor, yCoor, 10, 10, 0, CurrColorFill, CommonStrings::None, true);
 				PageItem* ite = m_doc->Items->at(z);
-				FPoint tp2(getMinClipF(&textPath));
 				QTransform mm;
 				mm.scale(1, -1);
 				mm.translate(x, -y);

@@ -69,7 +69,7 @@ private:
 	ScribusMainWindow* m_ScMW;
 	
 	RectSelect* m_rectangleSelect;
-	int Mxp, Myp, Dxp, Dyp, SeRx, SeRy, GxM, GyM;
+	int Mxp, Myp, Dxp, Dyp, GxM, GyM;
 	bool MoveGX, MoveGY;
 };
 
