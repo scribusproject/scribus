@@ -456,9 +456,9 @@ CustomFDialog::CustomFDialog(QWidget *parent, QString wDir, QString caption, QSt
 			Layout1C->addWidget(TxCodeT);
 			TxCodeM = new ScComboBox(LayoutC);
 			TxCodeM->setEditable(false);
-			TxCodeM->addItem("Keep original size");
-			TxCodeM->addItem("Downscale to page size");
-			TxCodeM->addItem("Upscale to page size");
+			TxCodeM->addItem( tr("Keep original size"));
+			TxCodeM->addItem( tr("Downscale to page size"));
+			TxCodeM->addItem( tr("Upscale to page size"));
 			TxCodeM->setCurrentIndex(0);
 			TxCodeM->setMinimumSize(QSize(200, 0));
 			Layout1C->addWidget(TxCodeM);
