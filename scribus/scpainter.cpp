@@ -2110,7 +2110,7 @@ void ScPainter::blurAlpha(int radius)
 	for (y = 0; y < h; ++y)
 	{
 		ainsum = aoutsum = asum = 0;
-		for(i =- radius; i <= radius; ++i)
+		for(i = -radius; i <= radius; ++i)
 		{
 			p = pix[yi+qMin(wm,qMax(i,0))];
 			sir = stack[i+radius];
@@ -2147,8 +2147,8 @@ void ScPainter::blurAlpha(int radius)
 	for (x=0; x < w; ++x)
 	{
 		ainsum = aoutsum = asum = 0;
-		yp =- radius * w;
-		for(i=-radius; i <= radius; ++i)
+		yp = -radius * w;
+		for(i = -radius; i <= radius; ++i)
 		{
 			yi=qMax(0,yp)+x;
 			sir = stack[i+radius];
@@ -2241,7 +2241,7 @@ void ScPainter::blur(int radius)
 	for (y = 0; y < h; ++y)
 	{
 		rinsum = ginsum = binsum = ainsum = routsum = goutsum = boutsum = aoutsum = rsum = gsum = bsum = asum = 0;
-		for(i =- radius; i <= radius; ++i)
+		for(i = -radius; i <= radius; ++i)
 		{
 			p = pix[yi+qMin(wm,qMax(i,0))];
 			sir = stack[i+radius];

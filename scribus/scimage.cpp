@@ -436,7 +436,7 @@ void ScImage::blur(int radius)
 		rinsum = ginsum = binsum = ainsum
 			= routsum = goutsum = boutsum = aoutsum
 			= rsum = gsum = bsum = asum = 0;
-		for(i =- radius; i <= radius; ++i)
+		for(i = -radius; i <= radius; ++i)
 		{
 			p = pix[yi+qMin(wm,qMax(i,0))];
 			sir = stack[i+radius];
