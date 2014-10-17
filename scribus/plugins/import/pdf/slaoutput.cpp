@@ -1210,7 +1210,7 @@ void SlaOutputDev::startDoc(PDFDoc *doc, XRef *xrefA, Catalog *catA)
 	true);
 }
 
-void SlaOutputDev::startPage(int pageNum, GfxState *)
+void SlaOutputDev::startPage(int pageNum, GfxState *, XRef *)
 {
 	m_formWidgets = pdfDoc->getPage(pageNum)->getFormWidgets();
 	m_radioMap.clear();

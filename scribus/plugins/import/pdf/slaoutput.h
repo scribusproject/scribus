@@ -164,7 +164,7 @@ public:
 	virtual GBool useShadedFills(int type) { return type <= 7; }
 	virtual GBool useFillColorStop() { return gTrue; }
 	virtual GBool useDrawForm() { return gFalse; }
-	virtual void startPage(int pageNum, GfxState *);
+	virtual void startPage(int pageNum, GfxState *, XRef *);
 	virtual void endPage();
 	// grapics state
 	virtual void saveState(GfxState *state);
