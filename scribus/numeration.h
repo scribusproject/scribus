@@ -31,7 +31,8 @@ class Numeration
 public:
 	Numeration() : numFormat(Type_1_2_3), asterix(QString()), lead('0'), len(0), range(NSRdocument), prefix(QString()), suffix(QString()), start(1) {}
 	Numeration(NumFormat f) : numFormat(f), asterix("*") {}
-	const QString numString(const int num);
+	
+	QString numString(int num) const;
 
 	NumFormat numFormat;
 	QString asterix;
@@ -53,11 +54,11 @@ typedef struct {
 
 //util functions for use without Numeration class
 //convert passed num to string using numeration style
-const QString getStringFromNum(NumFormat format, int num, const QChar leadingChar='0', const int charsLen=0);
+QString getStringFromNum(NumFormat format, int num, QChar leadingChar='0', int charsLen=0);
 //convert passed num to string with custom chars
-const QString getAsterixStringFromNum(int num, QString asterix, const QChar leadingChar='_', const int charsLen=0);
+QString getAsterixStringFromNum(int num, QString asterix, QChar leadingChar='_', int charsLen=0);
 //return numeration name from type
-const QString getFormatName(int format);
-const QStringList getFormatList();
+QString getFormatName(int format);
+QStringList getFormatList();
 
 #endif // NUMERATION_H

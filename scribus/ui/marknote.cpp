@@ -20,7 +20,7 @@ NotesStyle* MarkNote::values()
 	return (NotesStyle*) ItemList->itemData(index).value<void*>();
 }
 
-void MarkNote::setValues(NotesStyle* defaultStyle)
+void MarkNote::setValues(const NotesStyle* defaultStyle)
 {
 	ItemList->setCurrentIndex(ItemList->findText(defaultStyle->name()));
 }

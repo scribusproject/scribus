@@ -34,37 +34,37 @@ public:
 	~NotesStyle() {}
 	bool operator!=(const NotesStyle& n2);
 
-	const QString name() { return nameStr; }
+	QString name() const { return nameStr; }
 	void setName(const QString s) { nameStr = s; }
-	const int start() { return startNum; }
+	int start() const { return startNum; }
 	void setStart(const int i) { startNum = i; }
 	void setRange(NumerationRange ns) { numRange = ns; }
-	const NumerationRange range() { return numRange; }
-	const QString prefix() { return prefixStr; }
+	const NumerationRange& range() const { return numRange; }
+	QString prefix() const { return prefixStr; }
 	void setPrefix (const QString str) { prefixStr = str; }
-	const QString suffix() { return suffixStr; }
+	QString suffix() const { return suffixStr; }
 	void setSuffix (const QString str) { suffixStr = str; }
 
-	const QString numString(const int num) { return numeration.numString(num); }
+	QString numString(const int num) const { return numeration.numString(num); }
 	void setType(const NumFormat type) { numeration.numFormat = type; }
-	const NumFormat getType() { return numeration.numFormat; }
+	const NumFormat& getType() const { return numeration.numFormat; }
 
-	bool isEndNotes() { return m_endNotesStyle; }
-	bool isAutoNotesHeight() { return autoNotesHeight; }
-	void setAutoNotesHeight(const bool set) { autoNotesHeight = set; }
-	bool isAutoNotesWidth() { return autoNotesWidth; }
-	void setAutoNotesWidth(const bool set) { autoNotesWidth = set; }
-	bool isAutoRemoveEmptyNotesFrames() { return autoRemoveEmptyNotesFrames; }
-	void setAutoRemoveEmptyNotesFrames(const bool set) { autoRemoveEmptyNotesFrames = set; }
-	bool isAutoWeldNotesFrames() { return autoWeldNotesFrames; }
-	void setAutoWeldNotesFrames(const bool set) { autoWeldNotesFrames = set; }
-	bool isSuperscriptInNote() { return superscriptInNote; }
-	void setSuperscriptInNote(const bool set) { superscriptInNote = set; }
-	bool isSuperscriptInMaster() { return superscriptInMaster; }
-	void setSuperscriptInMaster(const bool set) { superscriptInMaster = set; }
-	const QString marksChStyle() { return marksCharStyle; }
+	bool isEndNotes() const { return m_endNotesStyle; }
+	bool isAutoNotesHeight() const { return autoNotesHeight; }
+	void setAutoNotesHeight(bool set) { autoNotesHeight = set; }
+	bool isAutoNotesWidth() const { return autoNotesWidth; }
+	void setAutoNotesWidth(bool set) { autoNotesWidth = set; }
+	bool isAutoRemoveEmptyNotesFrames() const { return autoRemoveEmptyNotesFrames; }
+	void setAutoRemoveEmptyNotesFrames(bool set) { autoRemoveEmptyNotesFrames = set; }
+	bool isAutoWeldNotesFrames() const { return autoWeldNotesFrames; }
+	void setAutoWeldNotesFrames(bool set) { autoWeldNotesFrames = set; }
+	bool isSuperscriptInNote() const { return superscriptInNote; }
+	void setSuperscriptInNote(bool set) { superscriptInNote = set; }
+	bool isSuperscriptInMaster() const { return superscriptInMaster; }
+	void setSuperscriptInMaster(bool set) { superscriptInMaster = set; }
+	const QString marksChStyle() const { return marksCharStyle; }
 	void setMarksCharStyle(const QString styleName) { marksCharStyle = styleName; }
-	const QString notesParStyle() { return notesParaStyle; }
+	const QString notesParStyle() const { return notesParaStyle; }
 	void setNotesParStyle(const QString styleName) { notesParaStyle = styleName; }
 
 	void setEndNotes(bool);

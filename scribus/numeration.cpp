@@ -1,7 +1,7 @@
 #include "numeration.h"
 #include "util.h"
 
-const QString getStringFromNum(NumFormat format, int num, const QChar leadingChar, const int charsLen)
+QString getStringFromNum(NumFormat format, int num, QChar leadingChar, int charsLen)
 {
 	QString str = getStringFromSequence(format, num);
 	if (charsLen > str.length())
@@ -9,7 +9,7 @@ const QString getStringFromNum(NumFormat format, int num, const QChar leadingCha
 	return str;
 }
 
-const QString getAsterixStringFromNum(int num, QString asterix, const QChar leadingChar, const int charsLen)
+QString getAsterixStringFromNum(int num, QString asterix, QChar leadingChar, int charsLen)
 {
 	QString str = getStringFromSequence(Type_asterix, num, asterix);
 	if (charsLen > str.length())
@@ -17,7 +17,7 @@ const QString getAsterixStringFromNum(int num, QString asterix, const QChar lead
 	return str;
 }
 
-const QString getFormatName(int format)
+QString getFormatName(int format)
 {
 	QString name = QString();
 	if (format == Type_1_2_3)
@@ -38,18 +38,17 @@ const QString getFormatName(int format)
 	return name;
 }
 
-const QStringList getFormatList()
+QStringList getFormatList()
 {
 	QStringList list;
 	list << "1_2_3" << "i_ii_iii" << "I_II_III" << "a_b_c" << "A_B_C" << "*" << "CJK";
 	return list;
 }
 
-const QString Numeration::numString(const int num)
+QString Numeration::numString(int num) const
 {
 	if (numFormat == Type_asterix)
 		return getAsterixStringFromNum(num, asterix, lead, len);
 
 	return getStringFromNum(numFormat, num, lead, len);
-	
 }

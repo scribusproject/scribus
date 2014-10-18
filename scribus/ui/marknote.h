@@ -12,7 +12,7 @@ class SCRIBUS_API MarkNote : public MarkInsert, private Ui::MarkNoteDlg
 public:
 	explicit MarkNote(const QList<NotesStyle*>& notesStylesList, QWidget *parent = NULL);
 	virtual NotesStyle* values();
-	virtual void setValues(NotesStyle* defaultStyle);
+	virtual void setValues(const NotesStyle* defaultStyle);
 
 protected:
 	void changeEvent(QEvent *e);
