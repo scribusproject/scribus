@@ -247,7 +247,7 @@ void ScImgDataLoader::parseRessourceData( QDataStream & s, const PSDHeader & hea
 					s.readRawData(buffer, thsize);
 					QImage imth;
 					imth.loadFromData((const uchar*)buffer, thsize, "JPEG");
-					imth.convertToFormat(QImage::Format_ARGB32);
+					imth = imth.convertToFormat(QImage::Format_ARGB32);
 					if (resID == 0x0409)
 						m_imageInfoRecord.exifInfo.thumbnail = imth.rgbSwapped();
 					else
