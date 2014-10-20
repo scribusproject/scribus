@@ -772,7 +772,7 @@ void SCFonts::AddFontconfigFonts()
 {
 	// All-in-one library setup. Perhaps this should be in
 	// the SCFonts constructor.
-	FcConfig* FcInitLoadConfigAndFonts();
+	FcConfig* config = FcInitLoadConfigAndFonts();
 	// The pattern controls what fonts to match. In this case we want to
 	// match all scalable fonts, but ignore bitmap fonts.
 	FcPattern* pat = FcPatternBuild(NULL,
@@ -784,7 +784,7 @@ void SCFonts::AddFontconfigFonts()
 	FcObjectSet* os = FcObjectSetBuild (FC_FILE, (char *) 0);
 	// Now ask fontconfig to retrieve info as specified in 'os' about fonts
 	// matching pattern 'pat'.
-	FcFontSet* fs = FcFontList(0, pat, os);
+	FcFontSet* fs = FcFontList(config, pat, os);
 	FcObjectSetDestroy(os);
 	FcPatternDestroy(pat);
 	// Create the Freetype library
