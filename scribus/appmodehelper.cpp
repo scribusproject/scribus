@@ -356,6 +356,9 @@ void AppModeHelper::setApplicationMode(ScribusMainWindow* scmw, ScribusDoc* doc,
 		(*a_scrActions)["itemSendToPattern"]->setEnabled(false);
 		(*a_scrActions)["itemSendToInline"]->setEnabled(false);
 	}
+	scmw->enablePalettes(!doc->inAnEditMode());
+	scmw->pageSelector->setEnabled(!doc->inAnEditMode());
+	scmw->layerMenu->setEnabled(!doc->inAnEditMode());
 	emit AppModeChanged(oldMode, newMode);
 	a_actMgr->connectModeActions();
 	PluginManager::instance().enablePluginActionsForSelection(scmw);
@@ -894,6 +897,9 @@ void AppModeHelper::enableActionsForSelection(ScribusMainWindow* scmw, ScribusDo
 		(*a_scrActions)["itemLock"]->setChecked(currItem->locked());
 		(*a_scrActions)["itemLockSize"]->setChecked(currItem->sizeLocked());
 		(*a_scrActions)["itemPrintingEnabled"]->setChecked(currItem->printEnabled());
+		scmw->enablePalettes(!inAnEditMode);
+		scmw->pageSelector->setEnabled(!inAnEditMode);
+		scmw->layerMenu->setEnabled(!inAnEditMode);
 	}
 
 }

@@ -5653,6 +5653,22 @@ void ScribusMainWindow::toggleNodeEdit()
 	view->requestMode(i);
 }
 
+void ScribusMainWindow::enablePalettes(bool b)
+{
+	if(doc->appMode == modeEdit) //Keep Palettes enabled when editing text
+		return;
+	layerPalette->setEnabled(b);
+	outlinePalette->setEnabled(b);
+	guidePalette->setEnabled(b);
+	scrapbookPalette->setEnabled(b);
+	pagePalette->setEnabled(b);
+	bookmarkPalette->setEnabled(b);
+	docCheckerPalette->setEnabled(b);
+	inlinePalette->setEnabled(b);
+	symbolPalette->setEnabled(b);
+	alignDistributePalette->setEnabled(b);
+}
+
 void ScribusMainWindow::ToggleFrameEdit()
 {
 	if (!doc)
@@ -5674,17 +5690,8 @@ void ScribusMainWindow::ToggleFrameEdit()
 	connect(view, SIGNAL(PolyStatus(int, uint)), nodePalette, SLOT(PolyStatus(int, uint)));
 	doc->nodeEdit.reset();
 	appModeHelper->setFrameEditMode(true);
-	layerPalette->setEnabled(false);
-	outlinePalette->setEnabled(false);
-	guidePalette->setEnabled(false);
-	scrapbookPalette->setEnabled(false);
-	pagePalette->setEnabled(false);
-	bookmarkPalette->setEnabled(false);
-	docCheckerPalette->setEnabled(false);
-	inlinePalette->setEnabled(false);
-	symbolPalette->setEnabled(false);
+	enablePalettes(false);
 	styleManager->setEnabled(false);
-	alignDistributePalette->setEnabled(false);
 	pageSelector->setEnabled(false);
 	layerMenu->setEnabled(false);
 	if (!doc->m_Selection->isEmpty())
@@ -5729,17 +5736,8 @@ void ScribusMainWindow::NoFrameEdit()
 	scrActions["toolsSelect"]->setChecked(true);
 	scrActions["toolsEditContents"]->setChecked(false);
 	scrActions["toolsEditWithStoryEditor"]->setChecked(false);
-	layerPalette->setEnabled(true);
-	outlinePalette->setEnabled(true);
-	guidePalette->setEnabled(true);
-	scrapbookPalette->setEnabled(true);
-	pagePalette->setEnabled(true);
-	bookmarkPalette->setEnabled(true);
-	docCheckerPalette->setEnabled(true);
+	enablePalettes(true);
 	styleManager->setEnabled(true);
-	alignDistributePalette->setEnabled(true);
-	symbolPalette->setEnabled(true);
-	inlinePalette->setEnabled(true);
 	pageSelector->setEnabled(true);
 	layerMenu->setEnabled(true);
 	if (HaveDoc)

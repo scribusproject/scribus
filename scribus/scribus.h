@@ -575,6 +575,7 @@ public slots:
 	void testQT_slot4();
 	//void adjustCMS();
 	void changePreviewQuality(int index);
+	void enablePalettes(bool b);
 	void ToggleFrameEdit();
 	void NoFrameEdit();
 
