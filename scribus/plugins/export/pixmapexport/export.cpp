@@ -120,13 +120,13 @@ bool PixmapExportPlugin::run(ScribusDoc* doc, QString target)
 		QFileInfo fi(ex->exportDir);
 		if (!fi.isDir())
 		{
-			QMessageBox::warning(doc->scMW(), tr("Save as Image"),
+			ScMessageBox::warning(doc->scMW(), tr("Save as Image"),
 			                     tr("The target location %1 must be an existing directory").arg(ex->exportDir));
 			return false;
 		}
 		if (!fi.isWritable())
 		{
-			QMessageBox::warning(doc->scMW(), tr("Save as Image"),
+			ScMessageBox::warning(doc->scMW(), tr("Save as Image"),
 			                     tr("The target location %1 must be writable").arg(ex->exportDir));
 			return false;
 		}
@@ -191,7 +191,7 @@ bool ExportBitmap::exportPage(ScribusDoc* doc, uint pageNr, bool background, boo
 	QImage im(doc->view()->PageToPixmap(pageNr, qRound(pixmapSize * enlargement * (pageDPI / 72.0) / 100.0), false, background));
 	if (im.isNull())
 	{
-		QMessageBox::warning(doc->scMW(), tr("Save as Image"), tr("Insufficient memory for this image size."));
+		ScMessageBox::warning(doc->scMW(), tr("Save as Image"), tr("Insufficient memory for this image size."));
 		doc->scMW()->setStatusBarInfoText( tr("Insufficient memory for this image size."));
 		return false;
 	}
@@ -204,10 +204,12 @@ bool ExportBitmap::exportPage(ScribusDoc* doc, uint pageNr, bool background, boo
 		QString fn = QDir::toNativeSeparators(fileName);
 //		QApplication::restoreOverrideCursor();
 		QApplication::changeOverrideCursor(Qt::ArrowCursor);
-		over = QMessageBox::question(doc->scMW(), tr("File exists. Overwrite?"),
+		over = ScMessageBox::question(doc->scMW(), tr("File exists. Overwrite?"),
 				fn +"\n"+ tr("exists already. Overwrite?"),
 				// hack for multiple overwriting (petr) 
-				(single == true) ? QMessageBox::Yes | QMessageBox::No : QMessageBox::Yes | QMessageBox::No | QMessageBox::YesToAll);
+				(single == true) ? QMessageBox::Yes | QMessageBox::No : QMessageBox::Yes | QMessageBox::No | QMessageBox::YesToAll,
+				QMessageBox::NoButton,	// GUI default
+				QMessageBox::YesToAll);	// batch default
 		QApplication::changeOverrideCursor(QCursor(Qt::WaitCursor));
 		if (over == QMessageBox::Yes || over == QMessageBox::YesToAll)
 			doFileSave = true;
@@ -218,7 +220,7 @@ bool ExportBitmap::exportPage(ScribusDoc* doc, uint pageNr, bool background, boo
 		saved = im.save(fileName, bitmapType.toLocal8Bit().constData(), quality);
 	if (!saved && doFileSave)
 	{
-		QMessageBox::warning(doc->scMW(), tr("Save as Image"), tr("Error writing the output file(s)."));
+		ScMessageBox::warning(doc->scMW(), tr("Save as Image"), tr("Error writing the output file(s)."));
 		doc->scMW()->setStatusBarInfoText( tr("Error writing the output file(s)."));
 	}
 	return saved;

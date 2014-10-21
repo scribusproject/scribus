@@ -27,6 +27,7 @@ for which a new license (GPL+exception) is in place.
 #include "prefsfile.h"
 #include "prefsmanager.h"
 #include "scclocale.h"
+#include "ui/scmessagebox.h"
 #include "util.h"
 #include "util_color.h"
 #include "util_icon.h"
@@ -475,7 +476,7 @@ void CurveWidget::doSave()
 				fx.close();
 			}
 			else
-				QMessageBox::warning(this, CommonStrings::trWarning, tr("Cannot write the file: \n%1").arg(fileName), CommonStrings::tr_OK);
+				ScMessageBox::warning(this, CommonStrings::trWarning, tr("Cannot write the file: \n%1").arg(fileName));
 		}
 	}
 }

@@ -528,7 +528,7 @@ void SearchReplace::slotDoSearch()
 			m_item->update();
 			DoReplace->setEnabled(false);
 			AllReplace->setEnabled(false);
-			QMessageBox::information(this, tr("Search/Replace"), tr("Search finished"), CommonStrings::tr_OK);
+			ScMessageBox::information(this, tr("Search/Replace"), tr("Search finished"));
 			m_item->itemText.setCursorPosition(0);
 			m_notFound = false;
 		}
@@ -642,9 +642,8 @@ void SearchReplace::slotDoSearch()
 		}
 		else
 		{
-			QMessageBox::information(this, tr("Search/Replace"),
-					tr("Search finished, found %1 matches").arg(matchesFound),
-					CommonStrings::tr_OK);
+			ScMessageBox::information(this, tr("Search/Replace"),
+					tr("Search finished, found %1 matches").arg(matchesFound));
 			matchesFound = 0;
 			m_notFound = false;
 			QTextCursor cursor = storyTextEdit->textCursor();

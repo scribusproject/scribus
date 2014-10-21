@@ -94,10 +94,12 @@ void PagePalette_Pages::deleteMasterPage(QString tmp)
 		if (currView->Doc->DocPages[i]->MPageNam == tmp)
 			extraWarn = tr("This master page is used at least once in the document.");
 	}
-	int exit = QMessageBox::warning(this,
+	int exit = ScMessageBox::warning(this,
 	                              CommonStrings::trWarning,
 	                              tr("Do you really want to delete this master page?")+"\n"+extraWarn,
-	                              QMessageBox::Yes | QMessageBox::No);
+	                              QMessageBox::Yes | QMessageBox::No,
+	                              QMessageBox::NoButton,	// GUI default
+	                              QMessageBox::Yes);	// batch default
 	if (exit == QMessageBox::Yes)
 	{
 		bool oldMPMode = currView->Doc->masterPageMode();

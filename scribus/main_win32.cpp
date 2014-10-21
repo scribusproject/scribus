@@ -287,7 +287,7 @@ void defaultCrashHandler(DWORD exceptionCode)
 		if (ScribusQApp::useGUI)
 		{
 			ScCore->closeSplash();
-			QMessageBox::critical(ScMW, expHdr, expMsg, QObject::tr("&OK"));
+			ScMessageBox::critical(ScMW, expHdr, expMsg);
 			ScMW->emergencySave();
 			ScMW->close();
 		}
@@ -325,7 +325,7 @@ void messageHandler(QtMsgType type, const QMessageLogContext &context, const QSt
 			ScCore->closeSplash();
 			QString expHdr = QObject::tr("Scribus Crash");
 			QString expMsg = msg;
-			QMessageBox::critical(ScMW, expHdr, expMsg, QObject::tr("&OK"));
+			ScMessageBox::critical(ScMW, expHdr, expMsg);
 			ScMW->emergencySave();
 			ScMW->close();
 		}

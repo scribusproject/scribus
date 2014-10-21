@@ -43,6 +43,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribusdoc.h"
 #include "scrspinbox.h"
 #include "swatchcombo.h"
+#include "ui/scmessagebox.h"
 #include "util.h"
 #include "util_color.h"
 #include "util_formats.h"
@@ -935,14 +936,14 @@ void CMYKChoose::leave()
 	// if condition 10/21/2004 pv #1191 - just be sure that user cannot create "None" color
 	if (ColorName->text().isEmpty())
 	{
-		QMessageBox::information(this, CommonStrings::trWarning, tr("You cannot create a color without a name.\nPlease give it a name"), 0);
+		ScMessageBox::information(this, CommonStrings::trWarning, tr("You cannot create a color without a name.\nPlease give it a name"));
 		ColorName->setFocus();
 		ColorName->selectAll();
 		return;
 	}
 	if (ColorName->text() == CommonStrings::None || ColorName->text() == CommonStrings::tr_NoneColor)
 	{
-		QMessageBox::information(this, CommonStrings::trWarning, tr("You cannot create a color named \"%1\".\nIt is a reserved name for transparent color").arg(ColorName->text()), 0);
+		ScMessageBox::information(this, CommonStrings::trWarning, tr("You cannot create a color named \"%1\".\nIt is a reserved name for transparent color").arg(ColorName->text()));
 		ColorName->setFocus();
 		ColorName->selectAll();
 		return;
@@ -951,7 +952,7 @@ void CMYKChoose::leave()
 	{
 		if (EColors->contains(ColorName->text()))
 		{
-			QMessageBox::information(this, CommonStrings::trWarning, tr("The name of the color already exists.\nPlease choose another one."), CommonStrings::tr_OK, 0, 0, 0, QMessageBox::Ok);
+			ScMessageBox::information(this, CommonStrings::trWarning, tr("The name of the color already exists.\nPlease choose another one."));
 			ColorName->selectAll();
 			ColorName->setFocus();
 			return;

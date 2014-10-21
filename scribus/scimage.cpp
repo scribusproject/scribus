@@ -2319,7 +2319,7 @@ bool ScImage::loadPicture(const QString & fn, int page, const CMSettings& cmSett
 	{
 		if	(ScCore->usingGUI() && pDataLoader->issuedErrorMsg() && showMsg)
 		{
-			QMessageBox::critical(ScCore->primaryMainWindow(), CommonStrings::trWarning, pDataLoader->getMessage(), 1, 0, 0);
+			ScMessageBox::critical(ScCore->primaryMainWindow(), CommonStrings::trWarning, pDataLoader->getMessage());
 		}
 		else if (pDataLoader->issuedErrorMsg())
 		{
@@ -2698,7 +2698,7 @@ bool ScImage::loadPicture(const QString & fn, int page, const CMSettings& cmSett
 		imgInfo.isEmbedded = false;
 	if	(ScCore->usingGUI() && pDataLoader->issuedWarningMsg() && showMsg)
 	{
-		QMessageBox::warning(ScCore->primaryMainWindow(), CommonStrings::trWarning, pDataLoader->getMessage(), 1, 0, 0);
+		ScMessageBox::warning(ScCore->primaryMainWindow(), CommonStrings::trWarning, pDataLoader->getMessage());
 	}
 	else if (pDataLoader->issuedErrorMsg())
 	{

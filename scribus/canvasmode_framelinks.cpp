@@ -188,12 +188,12 @@ void CanvasMode_FrameLinks::mousePressEvent(QMouseEvent *m)
 				{
 					if (bb->prevInChain() != NULL)
 					{
-						QMessageBox msgBox(QMessageBox::Question, tr("Linking Text Frames"),
+						ScMessageBox msgBox(QMessageBox::Question, tr("Linking Text Frames"),
 										   "<qt>" + ScribusView::tr("You are trying to insert a frame into an existing text chain, where would you like to insert it?") + "<qt>");
-						//QMessageBox msgBox;
 						QPushButton *cancelButton = msgBox.addButton(CommonStrings::tr_Cancel, QMessageBox::RejectRole);
 						QPushButton *beforeButton = msgBox.addButton(tr("Before"), QMessageBox::AcceptRole);
 						QPushButton *afterButton = msgBox.addButton(tr("After"), QMessageBox::AcceptRole);
+						msgBox.setDefaultBatchButton(afterButton);
 						msgBox.exec();
 						if ((QPushButton *) msgBox.clickedButton() == cancelButton)
 							break;
@@ -248,14 +248,14 @@ void CanvasMode_FrameLinks::mousePressEvent(QMouseEvent *m)
 				{
 					//CB Mouse is released when this messagebox takes focus
 					m_canvas->m_viewMode.m_MouseButtonPressed = false;
-					QMessageBox::warning(m_view, ScribusView::tr("Linking Text Frames"),
+					ScMessageBox::warning(m_view, ScribusView::tr("Linking Text Frames"),
 											 "<qt>" + ScribusView::tr("You are trying to link a frame to itself.") + "</qt>");
 				}
 				else
 				{
 					//CB Mouse is released when this messagebox takes focus
 					m_canvas->m_viewMode.m_MouseButtonPressed = false;
-					QMessageBox::warning(m_view, ScribusView::tr("Linking Text Frames"),
+					ScMessageBox::warning(m_view, ScribusView::tr("Linking Text Frames"),
 										 "<qt>" + ScribusView::tr("You are trying to link a non-empty frame to frame which is already linked.") + "</qt>");
 				}
 			}

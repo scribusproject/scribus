@@ -13,6 +13,7 @@ for which a new license (GPL+exception) is in place.
 #include "prefsstructs.h"
 #include "latexhelpers.h"
 #include "commonstrings.h"
+#include "ui/scmessagebox.h"
 #include "util_file.h"
 #include "util_ghostscript.h"
 
@@ -163,7 +164,7 @@ void Prefs_ExternalTools::rescanForTools()
 			uniconvertorLineEdit->setText("uniconv");
 		else
 		{
-			QMessageBox::warning(0, CommonStrings::trWarning, tr("Uniconvertor executable not found!"), 1, 0, 0);
+			ScMessageBox::warning(0, CommonStrings::trWarning, tr("Uniconvertor executable not found!"));
 			uniconvertorLineEdit->setText("");
 		}
 	}
@@ -213,9 +214,11 @@ void Prefs_ExternalTools::rescanForTools()
 					if (fInfo.exists())
 					{
 						cmd.append(parms);
-						int ret = QMessageBox::question(this, tr("LaTeX Command"),
+						int ret = ScMessageBox::question(this, tr("LaTeX Command"),
 								tr("Scribus has found the following pdflatex command:\n%1\nDo you want to use this?").arg(cmd),
-								QMessageBox::Yes|QMessageBox::No,QMessageBox::No);
+								QMessageBox::Yes|QMessageBox::No,
+								QMessageBox::No,	// GUI default
+								QMessageBox::Yes);	// batch default
 						if (ret==QMessageBox::Yes)
 						{
 							commands[config]=cmd;

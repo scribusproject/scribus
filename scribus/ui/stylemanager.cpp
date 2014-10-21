@@ -28,6 +28,7 @@ for which a new license (GPL+exception) is in place.
 #include "styleitem.h"
 #include "stylemanager.h"
 #include "ui/customfdialog.h"
+#include "ui/scmessagebox.h"
 #include "ui/styleview.h"
 
 const QString StyleManager::SEPARATOR = "$$$$"; // dumb but it works
@@ -1061,9 +1062,8 @@ void StyleManager::slotShortcutChanged(const QString& shortcut)
 
 	if (!shortcut.isNull() && shortcutExists(shortcut))
 	{
-		QMessageBox::information(this, CommonStrings::trWarning,
-		                         tr("This key sequence is already in use"),
-		                         CommonStrings::tr_OK);
+		ScMessageBox::information(this, CommonStrings::trWarning,
+		                         tr("This key sequence is already in use"));
 		if (m_shortcutWidget)
 			m_shortcutWidget->setShortcut(m_item->shortcut(sitem->text(NAME_COL)));
 		return;

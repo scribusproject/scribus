@@ -481,7 +481,7 @@ void FileLoader::informReplacementFonts()
 		{
 			mess += it.key() + tr(" was replaced by: ")+ it.value() +"\n";
 		}
-		QMessageBox::warning(ScCore->primaryMainWindow(), CommonStrings::trWarning, mess, 1, 0, 0);
+		ScMessageBox::warning(ScCore->primaryMainWindow(), CommonStrings::trWarning, mess);
 	}
 }
 

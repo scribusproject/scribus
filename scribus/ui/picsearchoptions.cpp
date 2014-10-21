@@ -32,6 +32,7 @@ for which a new license (GPL+exception) is in place.
 #include <QLabel>
 #include "picsearchoptions.h"
 #include "filesearch.h"
+#include "ui/scmessagebox.h"
 
 PicSearchOptions::PicSearchOptions(QWidget* parent, const QString & fileName, const QString & searchBase) : QDialog( parent )
 {
@@ -100,9 +101,11 @@ void PicSearchOptions::slotSearchPic()
 	QString searchBase = directoryEdit->text();
 	if (searchBase.isEmpty() || !QDir().exists(searchBase))
 	{
-		if (QMessageBox::warning(this, tr("Scribus - Image Search"), tr("Base directory for search does not exist.\nPlease choose another one."),
+		if (ScMessageBox::warning(this, tr("Scribus - Image Search"), tr("Base directory for search does not exist.\nPlease choose another one."),
 			QMessageBox::Ok | QMessageBox::Default | QMessageBox::Escape | QMessageBox::Cancel,
-			QMessageBox::NoButton) != QMessageBox::Ok)
+			QMessageBox::NoButton,	// GUI default
+			QMessageBox::Ok)	// batch default
+				!= QMessageBox::Ok)
 			return;
 		
 		slotChangeSearchDir();
@@ -137,7 +140,7 @@ void PicSearchOptions::slotSearchPicAborted(bool userCancelled)
 	enableGuiWhileSearching(true);
 	if (!userCancelled)
 		// A running search failed
-		QMessageBox::warning(this, tr("Scribus - Image Search"), tr("The search failed: %1").arg(search->lastError()),
+		ScMessageBox::warning(this, tr("Scribus - Image Search"), tr("The search failed: %1").arg(search->lastError()),
 				QMessageBox::Ok|QMessageBox::Default|QMessageBox::Escape,
 				QMessageBox::NoButton);
 	reject();

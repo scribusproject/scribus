@@ -21,6 +21,7 @@ for which a new license (GPL+exception) is in place.
 #include "scpaths.h"
 #include "scplugin.h"
 #include "scraction.h"
+#include "ui/scmessagebox.h"
 #include "util.h"
 #include "util_icon.h"
 
@@ -496,11 +497,10 @@ void Prefs_KeyboardShortcuts::keyPressEvent(QKeyEvent *k)
 				releaseKeyboard();
 				if (checkKey(keyCode))
 				{
-					QMessageBox::information(this, CommonStrings::trWarning,
+					ScMessageBox::information(this, CommonStrings::trWarning,
 											tr("The %1 key sequence is already in use by \"%2\"")
 												.arg(getTrKeyText(keyCode))
-												.arg(getAction(keyCode)),
-											CommonStrings::tr_OK);
+												.arg(getAction(keyCode)));
 					selectedLVI->setText(1,keyMap[lviToActionMap[selectedLVI]].keySequence.toString());
 					keyDisplay->setText(keyMap[lviToActionMap[selectedLVI]].keySequence.toString());
 				}

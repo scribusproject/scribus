@@ -101,7 +101,7 @@ bool AspellPlugin::run(ScribusDoc* doc, QString target)
 	{
 		doc->scMW()->scrActions[m_actionInfo.name]->setEnabled(false);
 		doc->scMW()->scrActions[m_actionInfo.name]->setVisible(false);
-		QMessageBox::warning(doc->scMW(), tr("Aspell Plugin Error"), aspellPluginImpl->errorMessage());
+		ScMessageBox::warning(doc->scMW(), tr("Aspell Plugin Error"), aspellPluginImpl->errorMessage());
 	}
 	delete aspellPluginImpl;
 	return true;

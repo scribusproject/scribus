@@ -14,6 +14,7 @@ for which a new license (GPL+exception) is in place.
 #include <QValidator>
 #include <QRegExpValidator>
 #include "commonstrings.h"
+#include "ui/scmessagebox.h"
 #include "util_icon.h"
 
 Query::Query( QWidget* parent,  const char* name, bool modal, QString text, QString titel ) : QDialog( parent )
@@ -67,7 +68,7 @@ void Query::Leave()
 	{
 		if (forbiddenList.contains(answerEdit->text()))
 		{
-			QMessageBox::warning(this, CommonStrings::trWarning, tr("Name \"%1\" is not allowed.\nPlease choose another.").arg(answerEdit->text()), CommonStrings::tr_OK);
+			ScMessageBox::warning(this, CommonStrings::trWarning, tr("Name \"%1\" is not allowed.\nPlease choose another.").arg(answerEdit->text()));
 			return;
 		}
 	}
@@ -77,11 +78,12 @@ void Query::Leave()
 		{
 			if (checkMode)
 			{
-				int ret = QMessageBox::warning(this, 
+				int ret = ScMessageBox::warning(this, 
 												CommonStrings::trWarning,
 												tr("Name \"%1\" already exists.\nDo you want to replace the current contents?").arg(answerEdit->text()),
 												QMessageBox::Yes | QMessageBox::No,
-												QMessageBox::No);
+												QMessageBox::No,	// GUI default
+												QMessageBox::Yes);	// batch default
 				if (ret == QMessageBox::No)
 					return;
 				else
@@ -89,7 +91,7 @@ void Query::Leave()
 			}
 			else
 			{
-				QMessageBox::warning(this, CommonStrings::trWarning, tr("Name \"%1\" is not unique.\nPlease choose another.").arg(answerEdit->text()), CommonStrings::tr_OK);
+				ScMessageBox::warning(this, CommonStrings::trWarning, tr("Name \"%1\" is not unique.\nPlease choose another.").arg(answerEdit->text()));
 				return;
 			}
 		}

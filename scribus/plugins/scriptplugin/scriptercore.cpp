@@ -24,6 +24,7 @@ for which a new license (GPL+exception) is in place.
 #include "ui/pagepalette.h" //TODO Move the calls to this to a signal
 #include "ui/layers.h" //TODO Move the calls to this to a signal
 #include "ui/outlinepalette.h" //TODO Move the calls to this to a signal
+#include "ui/scmessagebox.h"
 #include "ui/scmwmenumanager.h"
 #include "pconsole.h"
 #include "scraction.h"
@@ -327,7 +328,7 @@ void ScripterCore::slotRunScriptFile(QString fileName, bool inMainInterpreter)
 				cp->setText(errorMsg);
 				ScCore->closeSplash();
 				qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
-				QMessageBox::warning(ScCore->primaryMainWindow(),
+				ScMessageBox::warning(ScCore->primaryMainWindow(),
 									tr("Script error"),
 									"<qt><p>"
 									+ tr("If you are running an official script report it at <a href=\"http://bugs.scribus.net\">bugs.scribus.net</a> please.")
@@ -424,7 +425,7 @@ void ScripterCore::slotRunScript(const QString Script)
 		if (result == NULL)
 		{
 			PyErr_Print();
-			QMessageBox::warning(ScCore->primaryMainWindow(), tr("Script error"),
+			ScMessageBox::warning(ScCore->primaryMainWindow(), tr("Script error"),
 					"<qt>" + tr("There was an internal error while trying the "
 					   "command you entered. Details were printed to "
 					   "stderr. ") + "</qt>");
@@ -587,7 +588,7 @@ bool ScripterCore::setupMainInterpreter()
 	if (PyRun_SimpleString(cmd.data()))
 	{
 		PyErr_Print();
-		QMessageBox::warning(ScCore->primaryMainWindow(), tr("Script error"),
+		ScMessageBox::warning(ScCore->primaryMainWindow(), tr("Script error"),
 				tr("Setting up the Python plugin failed. "
 				   "Error details were printed to stderr. "));
 		return false;

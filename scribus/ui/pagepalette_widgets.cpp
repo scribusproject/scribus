@@ -23,6 +23,7 @@ for which a new license (GPL+exception) is in place.
 #include "pagepalette_widgets.h"
 #include "sccombobox.h"
 #include "scpage.h"
+#include "ui/scmessagebox.h"
 
 
 #include "util_icon.h"
@@ -116,9 +117,9 @@ void SeList::keyPressEvent(QKeyEvent * e)
 		if (currentItem())
 		{
 			e->accept();
-			if (!QMessageBox::question(this, tr("Delete Master Page?"),
+			if (ScMessageBox::question(this, tr("Delete Master Page?"),
 				"<qt>" + tr("Are you sure you want to delete this master page?") + "</qt>",
-				CommonStrings::trYesKey, CommonStrings::trNoKey, QString::null, 0, 1 ))
+				QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes) == QMessageBox::Yes)
 			{
 				emit DelMaster(currentItem()->text());
 			}
@@ -390,9 +391,9 @@ void SeView::keyPressEvent(QKeyEvent * e)
 	if (k == Qt::Key_Delete)
 	{
 		e->accept();
-		if (!QMessageBox::question(this, tr("Delete Page?"),
+		if (ScMessageBox::question(this, tr("Delete Page?"),
 			 "<qt>" + tr("Are you sure you want to delete this page?") + "</qt>",
-						 CommonStrings::trYesKey, CommonStrings::trNoKey, QString::null, 0, 1 ))
+			QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes) == QMessageBox::Yes)
 		{
 			bool dummy;
 			int pageToDelete=GetPage(currentRow(), currentColumn(), &dummy);

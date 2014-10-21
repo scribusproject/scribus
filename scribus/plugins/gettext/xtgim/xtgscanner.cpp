@@ -34,6 +34,7 @@ for which a new license (GPL+exception) is in place.
 #include "fonts/scface.h"
 #include "scribusdoc.h"
 #include "text/specialchars.h"
+#include "ui/scmessagebox.h"
 
 
 XtgScanner::XtgScanner (QString documentName, TextWriter *wr, QString& buffer, bool textOnly, bool prefix)
@@ -1290,7 +1291,7 @@ bool XtgScanner::styleStatus(QStringList &name,QString &sfcname)
 
 void XtgScanner::showWarning(QString &name)
 {
-	QMessageBox msgBox;
+	ScMessageBox msgBox;
 	msgBox.setWindowTitle("Message");
 	QString message = "Style " + name + " is not defined, falling back to Scribus Default";
 	msgBox.setText(message);

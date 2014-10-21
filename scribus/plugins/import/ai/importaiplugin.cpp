@@ -20,6 +20,7 @@ for which a new license (GPL+exception) is in place.
 #include "util_formats.h"
 
 #include "ui/customfdialog.h"
+#include "ui/scmessagebox.h"
 #include "ui/scmwmenumanager.h"
 
 #include <QApplication>
@@ -162,7 +163,7 @@ bool ImportAIPlugin::import(QString fileName, int flags)
 			if (tempBuf.startsWith("%PDF"))
 			{
 				qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
-				QMessageBox msgBox(ScCore->primaryMainWindow());
+				ScMessageBox msgBox(ScCore->primaryMainWindow());
 				msgBox.setText( tr("This file contains 2 versions of the data."));
 				msgBox.setInformativeText( tr("Choose which one should be imported"));
 				msgBox.setIcon(QMessageBox::Question);
@@ -176,7 +177,7 @@ bool ImportAIPlugin::import(QString fileName, int flags)
 					const FileFormat *fmt = LoadSavePlugin::getFormatByExt("pdf");
 					if (!fmt)
 					{
-						QMessageBox::warning(ScCore->primaryMainWindow(), CommonStrings::trWarning, tr("The PDF Import plugin could not be found"), 1, 0, 0);
+						ScMessageBox::warning(ScCore->primaryMainWindow(), CommonStrings::trWarning, tr("The PDF Import plugin could not be found"));
 						return false;
 					}
 					qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
@@ -186,7 +187,7 @@ bool ImportAIPlugin::import(QString fileName, int flags)
 					if (emptyDoc || !(flags & lfInteractive) || !(flags & lfScripted))
 						UndoManager::instance()->setUndoEnabled(true);
 					if (!success)
-						QMessageBox::warning(ScCore->primaryMainWindow(), CommonStrings::trWarning, tr("The file could not be imported"), 1, 0, 0);
+						ScMessageBox::warning(ScCore->primaryMainWindow(), CommonStrings::trWarning, tr("The file could not be imported"));
 					return success;
 				}
 				qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
@@ -197,7 +198,7 @@ bool ImportAIPlugin::import(QString fileName, int flags)
 				const FileFormat *fmt = LoadSavePlugin::getFormatByExt("eps");
 				if (!fmt)
 				{
-					QMessageBox::warning(ScCore->primaryMainWindow(), CommonStrings::trWarning, tr("The EPS Import plugin could not be found"), 1, 0, 0);
+					ScMessageBox::warning(ScCore->primaryMainWindow(), CommonStrings::trWarning, tr("The EPS Import plugin could not be found"));
 					return false;
 				}
 				qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
@@ -207,7 +208,7 @@ bool ImportAIPlugin::import(QString fileName, int flags)
 				if (emptyDoc || !(flags & lfInteractive) || !(flags & lfScripted))
 					UndoManager::instance()->setUndoEnabled(true);
 				if (!success)
-					QMessageBox::warning(ScCore->primaryMainWindow(), CommonStrings::trWarning, tr("The file could not be imported"), 1, 0, 0);
+					ScMessageBox::warning(ScCore->primaryMainWindow(), CommonStrings::trWarning, tr("The file could not be imported"));
 				return success;
 			}
 		}
@@ -221,7 +222,7 @@ bool ImportAIPlugin::import(QString fileName, int flags)
 	if (emptyDoc || !(flags & lfInteractive) || !(flags & lfScripted))
 		UndoManager::instance()->setUndoEnabled(true);
 	if (!success)
-		QMessageBox::warning(ScCore->primaryMainWindow(), CommonStrings::trWarning, tr("The file could not be imported"), 1, 0, 0);
+		ScMessageBox::warning(ScCore->primaryMainWindow(), CommonStrings::trWarning, tr("The file could not be imported"));
 	delete dia;
 	return success;
 }

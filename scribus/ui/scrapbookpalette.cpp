@@ -1363,7 +1363,10 @@ void Biblio::deleteAllObj()
 {
 	if (!activeBView->canWrite)
 		return;
-	int t = QMessageBox::warning(this, CommonStrings::trWarning, tr("Do you really want to delete all entries?"), QMessageBox::Yes | QMessageBox::No, QMessageBox::No);
+	int t = ScMessageBox::warning(this, CommonStrings::trWarning, tr("Do you really want to delete all entries?"),
+				QMessageBox::Yes | QMessageBox::No,
+				QMessageBox::No,	// GUI default
+				QMessageBox::Yes);	// batch default
 	if (t == QMessageBox::No)
 		return;
 	QMap<QString,BibView::Elem>::Iterator it;

@@ -43,6 +43,7 @@ for which a new license (GPL+exception) is in place.
 #include "third_party/zip/scribus_zip.h"
 #include "ui/customfdialog.h"
 #include "ui/propertiespalette.h"
+#include "ui/scmessagebox.h"
 #include "ui/scmwmenumanager.h"
 #include "undomanager.h"
 #include "util.h"
@@ -203,9 +204,9 @@ bool OODrawImportPlugin::import(QString fileName, int flags)
 	if (dia.importCanceled)
 	{
 		if ((!importDone) || (dia.importFailed))
-			QMessageBox::warning(ScCore->primaryMainWindow(), CommonStrings::trWarning, tr("The file could not be imported"), 1, 0, 0);
+			ScMessageBox::warning(ScCore->primaryMainWindow(), CommonStrings::trWarning, tr("The file could not be imported"));
 		else if (dia.unsupported)
-			QMessageBox::warning(ScCore->primaryMainWindow(), CommonStrings::trWarning, tr("This file contains some unsupported features"), 1, 0, 0);
+			ScMessageBox::warning(ScCore->primaryMainWindow(), CommonStrings::trWarning, tr("This file contains some unsupported features"));
 	}
 	return importDone;
 }
@@ -415,7 +416,7 @@ bool OODPlug::convert(const TransactionSettings& trSettings, int flags)
 		drawPage = offDraw.namedItem( "draw:page" );
 		if (drawPage.isNull())
 		{
-			QMessageBox::warning( m_Doc->scMW(), CommonStrings::trWarning, tr("This document does not seem to be an OpenOffice Draw file.") );
+			ScMessageBox::warning( m_Doc->scMW(), CommonStrings::trWarning, tr("This document does not seem to be an OpenOffice Draw file.") );
 			return false;
 		}
 		else

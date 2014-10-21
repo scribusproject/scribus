@@ -12,6 +12,7 @@ for which a new license (GPL+exception) is in place.
 #include <QApplication>
 
 #include "scripterimpl.h"
+#include "ui/scmessagebox.h"
 
 
 ScripterImpl::ScripterImpl() : QObject(QApplication::instance())
@@ -325,7 +326,7 @@ bool ScripterImpl::test()
  */
 void ScripterImpl::aboutScripter()
 {
-	QMessageBox::information(
+	ScMessageBox::information(
 	    0, //(QWidget*)doc->scMW(),
 	    tr("Scribus - Scripter Plugin"),
 	    tr("If you see this box, Scripter probably works :)"),

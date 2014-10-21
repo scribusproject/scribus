@@ -59,6 +59,7 @@ class QQuickView;
 #include "scribusdoc.h"
 #include "styleoptions.h"
 #include "ui/customfdialog.h"
+#include "ui/scmessagebox.h"
 
 class ActionManager;
 class AlignDistributePalette;

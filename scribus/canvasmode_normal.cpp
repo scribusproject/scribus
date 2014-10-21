@@ -1543,18 +1543,18 @@ void CanvasMode_Normal::handleLinkAnnotation(PageItem* currItem)
 		else
 		{
 			QString message = tr("Page %1 does not exist!").arg(currItem->annotation().Ziel() + 1);
-			QMessageBox::warning(m_view, CommonStrings::trWarning, message, CommonStrings::tr_OK);
+			ScMessageBox::warning(m_view, CommonStrings::trWarning, message);
 		}
 	}
 	else if (currItem->annotation().ActionType() == Annotation::Action_URI)
 	{
 		QString message = tr("Link Target is Web URL.\nURL: %1").arg(currItem->annotation().Extern());
-		QMessageBox::information(m_view, tr("Information"), message, CommonStrings::tr_OK);
+		ScMessageBox::information(m_view, tr("Information"), message);
 	}
 	else if ((currItem->annotation().ActionType() == Annotation::Action_GoToR_FileAbs) || (currItem->annotation().ActionType() == Annotation::Action_GoToR_FileRel))
 	{
 		QString message = tr("Link Target is external File.\nFile: %1\nPage: %2").arg(currItem->annotation().Extern()).arg(currItem->annotation().Ziel() + 1);
-		QMessageBox::information(m_view, tr("Information"), message, CommonStrings::tr_OK);
+		ScMessageBox::information(m_view, tr("Information"), message);
 	}
 }
 

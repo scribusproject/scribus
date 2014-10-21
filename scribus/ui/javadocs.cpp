@@ -21,6 +21,7 @@ for which a new license (GPL+exception) is in place.
 #include "query.h"
 #include "scpage.h"
 #include "scribusdoc.h"
+#include "ui/scmessagebox.h"
 #include "util_icon.h"
 
 
@@ -119,10 +120,12 @@ void JavaDocs::slotDelete()
 	if (!currentItem)
 		return;
 
-	int exit = QMessageBox::warning(this,
-	                               CommonStrings::trWarning,
-	                               tr("Do you really want to delete this script?"),
-	                               QMessageBox::Yes | QMessageBox::No);
+	int exit = ScMessageBox::warning(this,
+	                   CommonStrings::trWarning,
+	                   tr("Do you really want to delete this script?"),
+				       QMessageBox::Yes | QMessageBox::No,
+				       QMessageBox::NoButton,	// GUI default
+				       QMessageBox::Yes);	// batch default
 	if (exit == QMessageBox::Yes)
 	{
 		QString name = currentItem->text();

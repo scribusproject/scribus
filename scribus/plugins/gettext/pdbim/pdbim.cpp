@@ -19,6 +19,7 @@ for which a new license (GPL+exception) is in place.
 #include "gtparagraphstyle.h"
 #include "scribusstructs.h"
 #include "scribuscore.h"
+#include "ui/scmessagebox.h"
 
 
 /*! \brief A dummy 0 filler (helper procedure)
@@ -91,7 +92,7 @@ void PdbIm::loadFile(QString fname)
 
 	if (!m_pdfp)
 	{
-		QMessageBox::warning(ScCore->primaryMainWindow(), QObject::tr("PDB Import", "PDB Importer"),
+		ScMessageBox::warning(ScCore->primaryMainWindow(), QObject::tr("PDB Import", "PDB Importer"),
 							 "<qt>" + QObject::tr("Could not open file %1", "PDB Importer").arg(fname) + "</qt>",
 							 QMessageBox::Ok, QMessageBox::NoButton);
 		return;
@@ -100,7 +101,7 @@ void PdbIm::loadFile(QString fname)
 	if (strncmp(m_header.type, DOC_TYPE, sizeof(m_header.type) ) ||
 		strncmp( m_header.creator, DOC_CREATOR, sizeof(m_header.creator)))
 	{
-		QMessageBox::warning(ScCore->primaryMainWindow(), QObject::tr("PDB Import", "PDB Importer"),
+		ScMessageBox::warning(ScCore->primaryMainWindow(), QObject::tr("PDB Import", "PDB Importer"),
 							 "<qt>" + QObject::tr("This file is not recognized as a PDB document. Please, report this as a bug if you are sure it is one.", "PDB Importer") + "</qt>",
 							 QMessageBox::Ok, QMessageBox::NoButton);
 		return;

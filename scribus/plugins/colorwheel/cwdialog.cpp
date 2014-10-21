@@ -338,7 +338,7 @@ void CWDialog::addButton_clicked()
 	status += "<p>" + tr("Now opening the color manager.") + "</p></qt>";
 	if (err)
 	{
-		QMessageBox::information(this, tr("Color Merging"), status);
+		ScMessageBox::information(this, tr("Color Merging"), status);
 		m_Doc->scMW()->managePaints();
 		return;
 	}
@@ -486,7 +486,7 @@ void CWDialog::setupColorComponents()
 	else
 	{
 		colorList->clear();
-		QMessageBox::information(this, windowTitle(),
+		ScMessageBox::information(this, windowTitle(),
 								 "<qt>" + tr("Unable to find the requested color. "
 										 "You have probably selected black, gray or white. "
 										 "There is no way to process this color.") + "</qt>");

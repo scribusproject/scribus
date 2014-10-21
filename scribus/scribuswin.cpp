@@ -68,11 +68,12 @@ void ScribusWin::closeEvent(QCloseEvent *ce)
 	m_MainWindow->newActWin(getSubWin());
 	if (m_Doc->isModified() && (m_Doc->viewCount == 1))
 	{
-		int exit = QMessageBox::information(m_MainWindow, CommonStrings::trWarning, tr("Document:")+" "+
+		int exit = ScMessageBox::information(m_MainWindow, CommonStrings::trWarning, tr("Document:")+" "+
 											QDir::toNativeSeparators(m_Doc->DocName)+"\n"+
 											tr("has been changed since the last save."),
 											QMessageBox::Save | QMessageBox::Discard | QMessageBox::Cancel,
-											QMessageBox::Cancel);
+											QMessageBox::Cancel,	// GUI default
+											QMessageBox::Discard);	// batch default
 		if (exit == QMessageBox::Cancel)
 		{
 			ce->ignore();

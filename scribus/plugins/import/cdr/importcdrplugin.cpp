@@ -18,6 +18,7 @@ for which a new license (GPL+exception) is in place.
 #include "util_formats.h"
 
 #include "ui/customfdialog.h"
+#include "ui/scmessagebox.h"
 #include "ui/scmwmenumanager.h"
 #include <QMessageBox>
 
@@ -155,7 +156,7 @@ bool ImportCdrPlugin::import(QString fileName, int flags)
 		const FileFormat *fmt = LoadSavePlugin::getFormatByExt("cdt");
 		if (!fmt)
 		{
-			QMessageBox::warning(mw, CommonStrings::trWarning, tr("The Uniconverter Import plugin could not be found"), 1, 0, 0);
+			ScMessageBox::warning(mw, CommonStrings::trWarning, tr("The Uniconverter Import plugin could not be found"));
 			return false;
 		}
 		flags &= ~LoadSavePlugin::lfCreateDoc;
@@ -164,7 +165,7 @@ bool ImportCdrPlugin::import(QString fileName, int flags)
 		{
 			if (flags & LoadSavePlugin::lfCreateDoc)
 			{
-				QMessageBox::warning(mw, CommonStrings::trWarning, tr("Parsing failed!\n\nPlease submit your file (if possible) to the\nDocument Liberation Project http://www.documentliberation.org"), 1, 0, 0);
+				ScMessageBox::warning(mw, CommonStrings::trWarning, tr("Parsing failed!\n\nPlease submit your file (if possible) to the\nDocument Liberation Project http://www.documentliberation.org"));
 			}
 			return false;
 		}

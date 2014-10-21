@@ -829,10 +829,13 @@ bool PrefsManager::copyOldPreferences()
 			bool splashShown=ScCore->splashShowing();
 			if (splashShown)
 				ScCore->showSplash(false);
-			if ( (QMessageBox::question( ScCore->primaryMainWindow(), tr("Migrate Old Scribus Settings?"),
-				tr("Scribus has detected existing Scribus 1.3.5 preferences files.\n"
-						"Do you want to migrate them to the new Scribus version?"),
-				QMessageBox::Yes | QMessageBox::Default, QMessageBox::No, QMessageBox::NoButton))==QMessageBox::Yes )
+			if ( ScMessageBox::question( ScCore->primaryMainWindow(), tr("Migrate Old Scribus Settings?"),
+					tr("Scribus has detected existing Scribus 1.3.5 preferences files.\n"
+					"Do you want to migrate them to the new Scribus version?"),
+					QMessageBox::Yes | QMessageBox::No,
+					QMessageBox::NoButton,	// GUI default
+					QMessageBox::Yes	// batch default
+				)==QMessageBox::Yes )
 			{
 				for (uint i=0;i<4;++i)
 				{
@@ -2684,16 +2687,14 @@ const QString & PrefsManager::lastError() const
 // triggered by a signal sent from here and displayed by ScribusMainWindow.
 void PrefsManager::alertSavePrefsFailed() const
 {
-	QMessageBox::critical(ScCore->primaryMainWindow(), tr("Error Writing Preferences"),
+	ScMessageBox::critical(ScCore->primaryMainWindow(), tr("Error Writing Preferences"),
 			"<qt>" +
 			tr("Scribus was not able to save its preferences:<br>"
 			   "%1<br>"
 			   "Please check file and directory permissions and "
 			   "available disk space.", "scribus app error")
 			   .arg(lastError())
-			+ "</qt>",
-			QMessageBox::Ok|QMessageBox::Default|QMessageBox::Escape,
-			QMessageBox::NoButton);
+			+ "</qt>");
 }
 
 // It's hard to say whether this should be here and called from ReadPrefs, or
@@ -2703,15 +2704,13 @@ void PrefsManager::alertLoadPrefsFailed() const
 	bool splashShowing = ScCore->splashShowing();
 	if (splashShowing)
 		ScCore->showSplash(false);
-	QMessageBox::critical(ScCore->primaryMainWindow(), tr("Error Loading Preferences"),
+	ScMessageBox::critical(ScCore->primaryMainWindow(), tr("Error Loading Preferences"),
 			"<qt>" +
 			tr("Scribus was not able to load its preferences:<br>"
 			   "%1<br>"
 			   "Default settings will be loaded.")
 			   .arg(lastError())
-			+ "</qt>",
-			QMessageBox::Ok|QMessageBox::Default|QMessageBox::Escape,
-			QMessageBox::NoButton);
+			+ "</qt>");
 	ScCore->showSplash(splashShowing);
 }
 

@@ -7,12 +7,13 @@ for which a new license (GPL+exception) is in place.
 
 #include <QMessageBox>
 
+#include "commonstrings.h"
 #include "prefs_shortwords.h"
 #include "prefsstructs.h"
 #include "swsyntaxhighlighter.h"
 #include "version.h"
 #include "scpaths.h"
-#include "commonstrings.h"
+#include "ui/scmessagebox.h"
 
 Prefs_ShortWords::Prefs_ShortWords(QWidget* parent)
 	: Prefs_Pane(parent)
@@ -67,10 +68,12 @@ void Prefs_ShortWords::saveButton_pressed()
 {
 	if (cfgEdit->document()->isModified() && QFile::exists(RC_PATH_USR))
 	{
-		if ((QMessageBox::warning(this, tr("Short Words"),
+		if ((ScMessageBox::warning(this, tr("Short Words"),
 				"<qt>" + tr("User configuration exists already. "
 						"Do you really want to overwrite it?") + "</qt>",
-				QMessageBox::Yes|QMessageBox::No)
+				QMessageBox::Yes|QMessageBox::No,
+				QMessageBox::NoButton,	// GUI default
+				QMessageBox::Yes)	// batch default
 			) == QMessageBox::No)
 			return;
 	}
@@ -78,9 +81,8 @@ void Prefs_ShortWords::saveButton_pressed()
 	QFile f(RC_PATH_USR);
 	if (!f.open(QIODevice::WriteOnly))
 	{
-		QMessageBox::warning(this, tr("Short Words"),
-			 "<qt>" + tr("Cannot write file %1.").arg(RC_PATH_USR) + "</qt>",
-			 CommonStrings::tr_OK);
+		ScMessageBox::warning(this, tr("Short Words"),
+			 "<qt>" + tr("Cannot write file %1.").arg(RC_PATH_USR) + "</qt>");
 	}
 	QTextStream stream(&f);
 	stream.setCodec("UTF-8");

@@ -8,6 +8,7 @@ for which a new license (GPL+exception) is in place.
 #include "cmdutil.h"
 #include "scribuscore.h"
 #include "ui/customfdialog.h"
+#include "ui/scmessagebox.h"
 #include "ui/stylemanager.h"
 
 #include <QMessageBox>
@@ -85,7 +86,9 @@ PyObject *scribus_messdia(PyObject* /* self */, PyObject* args, PyObject* kw)
 	if (!PyArg_ParseTupleAndKeywords(args, kw, "eses|iiii", kwargs, "utf-8", &caption, "utf-8", &message, &ico, &butt1, &butt2, &butt3))
 		return NULL;
 	QApplication::changeOverrideCursor(QCursor(Qt::ArrowCursor));
-	QMessageBox mb(QString::fromUtf8(caption), QString::fromUtf8(message), ico, butt1, butt2, butt3, ScCore->primaryMainWindow());
+	// ScMessageBox mb(ico, butt1, butt2, butt3, ScCore->primaryMainWindow());
+	ScMessageBox mb(ico, QString::fromUtf8(caption), QString::fromUtf8(message), QMessageBox::Ok, ScCore->primaryMainWindow());
+	mb.setDefaultButton(QMessageBox::Ok);
 	result = mb.exec();
 //	QApplication::restoreOverrideCursor();
 	return PyInt_FromLong(static_cast<long>(result));

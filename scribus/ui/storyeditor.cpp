@@ -79,6 +79,7 @@ for which a new license (GPL+exception) is in place.
 #include "styleselect.h"
 #include "ui/charselect.h"
 #include "ui/customfdialog.h"
+#include "ui/scmessagebox.h"
 #include "ui/spalette.h"
 #include "ui/stylemanager.h"
 #include "units.h"
@@ -2163,11 +2164,10 @@ void StoryEditor::closeEvent(QCloseEvent *e)
 	if (m_textChanged)
 	{
 		m_blockUpdate = true;
-		int t = QMessageBox::warning(this, CommonStrings::trWarning,
+		int t = ScMessageBox::warning(this, CommonStrings::trWarning,
 									tr("Do you want to save your changes?"),
-									QMessageBox::Yes|QMessageBox::Default,
-									QMessageBox::No,
-									QMessageBox::Cancel|QMessageBox::Escape);
+									QMessageBox::Yes|QMessageBox::No|QMessageBox::Cancel,
+									QMessageBox::No);
 		qApp->processEvents();
 		if (t == QMessageBox::Yes)
 		{
@@ -2760,9 +2760,11 @@ void StoryEditor::Do_leave()
 	if (m_textChanged)
 	{
 		m_blockUpdate = true;
-		int t = QMessageBox::warning(this, CommonStrings::trWarning,
+		int t = ScMessageBox::warning(this, CommonStrings::trWarning,
 									 tr("Do you really want to lose all your changes?"),
-									 QMessageBox::Yes, QMessageBox::No | QMessageBox::Default);
+									 QMessageBox::Yes | QMessageBox::No,
+									 QMessageBox::No,	// GUI default
+									 QMessageBox::Yes);	// batch default
 		qApp->processEvents();
 		if (t == QMessageBox::No)
 		{
@@ -2789,9 +2791,11 @@ bool StoryEditor::Do_new()
 	if (!Editor->document()->isEmpty())
 	{
 		m_blockUpdate = true;
-		int t = QMessageBox::warning(this, CommonStrings::trWarning,
+		int t = ScMessageBox::warning(this, CommonStrings::trWarning,
 								 tr("Do you really want to clear all your text?"),
-								 QMessageBox::Yes, QMessageBox::No | QMessageBox::Default);
+								 QMessageBox::Yes | QMessageBox::No,
+								 QMessageBox::No,	// GUI default
+								 QMessageBox::Yes);	// batch default
 		qApp->processEvents();
 		if (t == QMessageBox::No)
 		{

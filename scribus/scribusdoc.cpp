@@ -1055,10 +1055,7 @@ bool ScribusDoc::OpenCMSProfiles(ProfilesL InPo, ProfilesL InPoCMYK, ProfilesL M
 		CloseCMSProfiles();
 		docPrefsData.colorPrefs.DCMSset.CMSinUse = false;
 		QString message = tr("An error occurred while opening ICC profiles, color management is not enabled." );
-		if (ScCore->usingGUI())
-			QMessageBox::warning(m_ScMW, CommonStrings::trWarning, message, QMessageBox::Ok, 0, 0);
-		else
-			qWarning( "%s", message.toLocal8Bit().data() );
+		ScMessageBox::warning(m_ScMW, CommonStrings::trWarning, message);
 	}
 	return true;
 }
@@ -11543,7 +11540,10 @@ void ScribusDoc::itemSelection_ClearItem(Selection* customSelection, bool useWar
 		return;
 	if (ScCore->usingGUI() && useWarning)
 	{
-		int t = QMessageBox::warning(m_ScMW, CommonStrings::trWarning, tr("Do you really want to clear the content of all selected frames?"),  QMessageBox::Yes, QMessageBox::No | QMessageBox::Default);
+		int t = ScMessageBox::warning(m_ScMW, CommonStrings::trWarning, tr("Do you really want to clear the content of all selected frames?"),
+							QMessageBox::StandardButtons(QMessageBox::Yes | QMessageBox::No),
+							QMessageBox::No,	// GUI default
+							QMessageBox::Yes);	// batch default
 		if (t == QMessageBox::No)
 			return;
 	}
@@ -11634,7 +11634,7 @@ void ScribusDoc::itemSelection_DeleteItem(Selection* customSelection, bool force
 				m_ScMW->storyEditor->setCurrentDocumentAndItem(this, NULL);
 			else
 			{
-				QMessageBox::critical(m_ScMW, tr("Cannot Delete In-Use Item"), tr("The item %1 is currently being edited by Story Editor. The delete operation will be cancelled").arg(currItem->itemName()), QMessageBox::Ok, QMessageBox::NoButton, QMessageBox::NoButton);
+				ScMessageBox::critical(m_ScMW, tr("Cannot Delete In-Use Item"), tr("The item %1 is currently being edited by Story Editor. The delete operation will be cancelled").arg(currItem->itemName()));
 				itemSelection->delaySignalsOff();
 				return;
 			}
@@ -12266,13 +12266,14 @@ bool ScribusDoc::startAlign()
 	int t = 2;
 	if (oneLocked)
 	{
-		QMessageBox msgBox;
+		ScMessageBox msgBox;
 		QPushButton *abortButton = msgBox.addButton(QMessageBox::Cancel);
 		QPushButton *lockButton = msgBox.addButton(tr("&Unlock All"), QMessageBox::AcceptRole);
 		QPushButton *unlockButton = msgBox.addButton(tr("&Skip locked objects"), QMessageBox::AcceptRole);
 		msgBox.setIcon(QMessageBox::Warning);
 		msgBox.setWindowTitle(CommonStrings::trWarning);
 		msgBox.setText( tr("Some objects are locked."));
+		msgBox.setDefaultBatchButton(lockButton);
 		msgBox.exec();
 		if (msgBox.clickedButton() == abortButton)
 			return false;
@@ -18608,7 +18609,7 @@ bool ScribusDoc::validateNSet(NotesStyle NS, QString newName)
 
 	if (!errStr.isEmpty() && ScCore->usingGUI())
 	{
-		QMessageBox::warning(this->scMW(), QObject::tr("Unacceptable settings for note style"), "<qt>"+ errStr +"</qt>", QMessageBox::Ok, QMessageBox::Abort | QMessageBox::Default);
+		ScMessageBox::warning(this->scMW(), QObject::tr("Unacceptable settings for note style"), "<qt>"+ errStr +"</qt>");
 		return false;
 	}
 	return true;

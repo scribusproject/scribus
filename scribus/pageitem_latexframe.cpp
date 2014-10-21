@@ -158,7 +158,7 @@ void PageItem_LatexFrame::updateImage(int exitCode, QProcess::ExitStatus exitSta
 		if (firstWarning && !killed)
 		{
 			bool editorRunning = internalEditor && internalEditor->isVisible();
-			QMessageBox msgBox;
+			ScMessageBox msgBox;
 			msgBox.setText(tr("Running the external application failed!"));
 			QString informativeText = tr("This is usually a problem with your input. Please check the program's output.");
 			if (!editorRunning) {
@@ -240,9 +240,9 @@ void PageItem_LatexFrame::runApplication()
 		update(); //Show error marker
 		if (firstWarningTmpfile)
 		{
-			QMessageBox::critical(0, tr("Error"), "<qt>" +
+			ScMessageBox::critical(0, tr("Error"), "<qt>" +
 								  tr("Could not create a temporary file to run the application!") 
-								  + "</qt>", 1, 0, 0);
+								  + "</qt>");
 			firstWarningTmpfile = false;
 		}
 		qCritical() << "RENDER FRAME:" << tr("Could not create a temporary file to run the application!");
@@ -260,9 +260,9 @@ void PageItem_LatexFrame::runApplication()
 		update(); //Show error marker
 		if (firstWarningLatexMissing)
 		{
-			QMessageBox::critical(0, tr("Error"),
+			ScMessageBox::critical(0, tr("Error"),
 									 "<qt>" + tr("The config file didn't specify a executable path!") +
-									 "</qt>",1, 0, 0);
+									 "</qt>");
 			firstWarningLatexMissing = false;
 		}
         qCritical() << "RENDER FRAME:" << tr("The config file didn't specify a executable path!");
@@ -408,14 +408,14 @@ void PageItem_LatexFrame::latexError(QProcess::ProcessError error)
 	if (firstWarning)
 	{
 		if (latex->error() == QProcess::FailedToStart) {
-			QMessageBox::critical(0, tr("Error"), "<qt>" +
+			ScMessageBox::critical(0, tr("Error"), "<qt>" +
 								  tr("The application \"%1\" failed to start! Please check the path: ").
 								  arg(config->executable())
-								  + "</qt>", 1, 0, 0);
+								  + "</qt>");
 		} else {
-			QMessageBox::critical(0, tr("Error"), "<qt>" +
+			ScMessageBox::critical(0, tr("Error"), "<qt>" +
 					tr("The application \"%1\" crashed!").arg(config->executable())
-					+ "</qt>", 1, 0, 0);
+					+ "</qt>");
 		}
 		firstWarning = false;
 	}

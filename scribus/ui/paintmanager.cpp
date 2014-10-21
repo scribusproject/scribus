@@ -796,7 +796,10 @@ void PaintManagerDialog::removeColorItem()
 		{
 			if (it == gradientItems)
 			{
-				int t = QMessageBox::warning(this, CommonStrings::trWarning, tr("Do you really want to clear all your gradients?"), QMessageBox::Yes | QMessageBox::No, QMessageBox::No);
+				int t = ScMessageBox::warning(this, CommonStrings::trWarning, tr("Do you really want to clear all your gradients?"),
+						QMessageBox::Yes | QMessageBox::No,
+						QMessageBox::No,	// GUI default
+						QMessageBox::Yes);	// batch default
 				if (t == QMessageBox::No)
 					return;
 				replaceMap.clear();
@@ -816,7 +819,10 @@ void PaintManagerDialog::removeColorItem()
 		{
 			if (it == colorItems)
 			{
-				int t = QMessageBox::warning(this, CommonStrings::trWarning, tr("Do you really want to clear all your colors and gradients?"), QMessageBox::Yes | QMessageBox::No, QMessageBox::No);
+				int t = ScMessageBox::warning(this, CommonStrings::trWarning, tr("Do you really want to clear all your colors and gradients?"),
+						QMessageBox::Yes | QMessageBox::No,
+						QMessageBox::No,	// GUI default
+						QMessageBox::Yes);	// batch default
 				if (t == QMessageBox::No)
 					return;
 				replaceMap.clear();
@@ -875,7 +881,10 @@ void PaintManagerDialog::removeColorItem()
 		{
 			if (it == patternItems)
 			{
-				int t = QMessageBox::warning(this, CommonStrings::trWarning, tr("Do you really want to clear all your patterns?"), QMessageBox::Yes | QMessageBox::No, QMessageBox::No);
+				int t = ScMessageBox::warning(this, CommonStrings::trWarning, tr("Do you really want to clear all your patterns?"),
+							QMessageBox::Yes | QMessageBox::No,
+							QMessageBox::No,	// GUI default
+							QMessageBox::Yes);	// batch default
 				if (t == QMessageBox::No)
 					return;
 				replaceMapPatterns.clear();
@@ -1057,7 +1066,7 @@ void PaintManagerDialog::importColorItems()
 			if (!fileName.isEmpty())
 				dirs->set("colors", fileName.left(fileName.lastIndexOf("/")));
 			if (!importColorsFromFile(fileName, m_colorList))
-				QMessageBox::information(this, tr("Information"), "<qt>" + tr("The file %1 does not contain colors which can be imported.\nIf the file was a PostScript-based, try to import it with File -&gt; Import. \nNot all files have DSC conformant comments where the color descriptions are located.\n This prevents importing colors from some files.\nSee the Edit Colors section of the documentation for more details.").arg(fileName) + "</qt>", 1, 0, 0);
+				ScMessageBox::information(this, tr("Information"), "<qt>" + tr("The file %1 does not contain colors which can be imported.\nIf the file was a PostScript-based, try to import it with File -&gt; Import. \nNot all files have DSC conformant comments where the color descriptions are located.\n This prevents importing colors from some files.\nSee the Edit Colors section of the documentation for more details.").arg(fileName) + "</qt>");
 			else
 			{
 				updateGradientList();

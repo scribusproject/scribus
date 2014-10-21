@@ -18,6 +18,7 @@ for which a new license (GPL+exception) is in place.
 #include "scpaths.h"
 #include "scribusdoc.h"
 #include "scribusview.h"
+#include "ui/scmessagebox.h"
 #include "util.h"
 #include "util_icon.h"
 
@@ -259,7 +260,7 @@ void CharSelect::loadUserContent(QString f)
 				m_userTableModel->addCharacter(line);
 			else
 			{
-				QMessageBox::warning(this, tr("Error"),
+				ScMessageBox::warning(this, tr("Error"),
 				                     "<qt>" + tr("Error reading file %1 - file is corrupted propably.").arg(f) + "</qt>",
 				                     QMessageBox::Ok, QMessageBox::NoButton);
 				break;
@@ -301,7 +302,7 @@ void CharSelect::saveUserContent(QString f)
 		file.close();
 	}
 	else
-		QMessageBox::warning(this, tr("Error"),
+		ScMessageBox::warning(this, tr("Error"),
 		                     "<qt>" + tr("Cannot write file %1").arg(f) + "</qt>",
 		                     QMessageBox::Ok, QMessageBox::NoButton);
 }
@@ -310,10 +311,9 @@ void CharSelect::uniClearButton_clicked()
 {
 	if (m_userTableModel->characters().count() > 0
 	        &&
-	        !QMessageBox::question(this, tr("Empty the Palette?"),
+	        ScMessageBox::question(this, tr("Empty the Palette?"),
 	                               "<qt>" + tr("You will remove all characters from this palette. Are you sure?") + "</qt>",
-	                               CommonStrings::trYesKey, CommonStrings::trNoKey,
-	                               QString::null, 0, 1 )
+	                               QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes) == QMessageBox::Yes
 	   )
 	{
 		m_userTableModel->setCharacters(CharClassDef());

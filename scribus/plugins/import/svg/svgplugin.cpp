@@ -43,6 +43,7 @@ for which a new license (GPL+exception) is in place.
 #include "selection.h"
 #include "ui/customfdialog.h"
 #include "ui/propertiespalette.h"
+#include "ui/scmessagebox.h"
 #include "ui/scmwmenumanager.h"
 #include "undomanager.h"
 #include "util.h"
@@ -195,9 +196,9 @@ bool SVGImportPlugin::import(QString filename, int flags)
 	if (dia->importCanceled)
 	{
 		if (dia->importFailed)
-			QMessageBox::warning(mw, CommonStrings::trWarning, tr("The file could not be imported"), 1, 0, 0);
+			ScMessageBox::warning(mw, CommonStrings::trWarning, tr("The file could not be imported"));
 	//	else if (dia->unsupported)
-	//		QMessageBox::warning(mw, CommonStrings::trWarning, tr("SVG file contains some unsupported features"), 1, 0, 0);
+	//		ScMessageBox::warning(mw, CommonStrings::trWarning, tr("SVG file contains some unsupported features"));
 	}
 
 	delete dia;

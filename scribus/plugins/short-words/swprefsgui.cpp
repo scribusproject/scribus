@@ -4,11 +4,12 @@ to the COPYING file provided with the program. Following this notice may exist
 a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
+#include "commonstrings.h"
 #include "swprefsgui.h"
 #include "swsyntaxhighlighter.h"
 #include "version.h"
 #include "scpaths.h"
-#include "commonstrings.h"
+#include "ui/scmessagebox.h"
 
 #include <QDir>
 #include <QGridLayout>
@@ -106,10 +107,12 @@ void SWPrefsGui::okButton_pressed()
 {
 	if (cfgEdit->document()->isModified() && QFile::exists(RC_PATH_USR))
 	{
-		if ((QMessageBox::warning(this, tr("Short Words"),
+		if ((ScMessageBox::warning(this, tr("Short Words"),
 				"<qt>" + tr("User configuration exists already. "
 						"Do you really want to overwrite it?") + "</qt>",
-				QMessageBox::Yes|QMessageBox::No)
+				QMessageBox::Yes|QMessageBox::No,
+				QMessageBox::NoButton,	// GUI default
+				QMessageBox::Yes)	// batch default
 			) == QMessageBox::No)
 			return;
 	}
@@ -117,9 +120,8 @@ void SWPrefsGui::okButton_pressed()
 	QFile f(RC_PATH_USR);
 	if (!f.open(QIODevice::WriteOnly))
 	{
-		QMessageBox::warning(this, tr("Short Words"),
-			 "<qt>" + tr("Cannot write file %1.").arg(RC_PATH_USR) + "</qt>",
-			 CommonStrings::tr_OK);
+		ScMessageBox::warning(this, tr("Short Words"),
+			 "<qt>" + tr("Cannot write file %1.").arg(RC_PATH_USR) + "</qt>");
 	}
 	QTextStream stream(&f);
 	stream.setCodec("UTF-8");

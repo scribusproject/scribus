@@ -313,9 +313,8 @@ void ScribusView::togglePreview(bool inPreview)
 		// warning popping up in case colour management and out-of-gamut-display are active
 		// as from #4346: Add a preview for daltonian - PV
 		if (Doc->HasCMS && Doc->Gamut)
-			QMessageBox::information(m_ScMW, tr("Preview Mode"),
-						"<qt>" + tr("CMS is active. Therefore the color display may not match the perception by visually impaired") + "</qt>",
-						QMessageBox::Ok);
+			ScMessageBox::information(m_ScMW, tr("Preview Mode"),
+						"<qt>" + tr("CMS is active. Therefore the color display may not match the perception by visually impaired") + "</qt>");
 	}
 	else
 	{
@@ -3215,7 +3214,7 @@ void ScribusView::TextToPath()
 				cont=true;
 			if (currItem==m_ScMW->storyEditor->currentItem() && Doc==m_ScMW->storyEditor->currentDocument())
 			{
-				QMessageBox::information(m_ScMW, tr("Cannot Convert In-Use Item"), "<qt>" + tr("The item %1 is currently being edited by Story Editor. The convert to outlines operation for this item will be skipped").arg(currItem->itemName()) + "</qt>", QMessageBox::Ok, QMessageBox::NoButton, QMessageBox::NoButton);
+				ScMessageBox::information(m_ScMW, tr("Cannot Convert In-Use Item"), "<qt>" + tr("The item %1 is currently being edited by Story Editor. The convert to outlines operation for this item will be skipped").arg(currItem->itemName()) + "</qt>");
 				cont=true;
 			}
 			//Deselect();

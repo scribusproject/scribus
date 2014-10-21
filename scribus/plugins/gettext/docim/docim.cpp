@@ -9,6 +9,7 @@ for which a new license (GPL+exception) is in place.
 #include "gtwriter.h"
 #include "scpaths.h"
 #include "scribusstructs.h"
+#include "ui/scmessagebox.h"
 #include <QObject>
 #include <QByteArray>
 #include <QMessageBox>
@@ -177,7 +178,7 @@ void DocIm::write()
 	if (failed)
 	{
 		QString error = codec->toUnicode( errorBuffer.data() ); 
-		QMessageBox::information(0, tr("Importing failed"),
+		ScMessageBox::information(0, tr("Importing failed"),
 		                         tr("Importing Word document failed \n%1").arg(error),
 		                         QMessageBox::Ok);
 		return;

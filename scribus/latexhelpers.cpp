@@ -30,7 +30,7 @@ copyright            : Scribus Team
 
 #include "prefsmanager.h"
 #include "scpaths.h"
-
+#include "ui/scmessagebox.h"
 
 LatexHighlighter::LatexHighlighter(QTextDocument *document)
 	: QSyntaxHighlighter(document)
@@ -101,10 +101,10 @@ bool LatexConfigParser::parseConfigFile(QString fn)
 	QFile f(fn);
 	if (!f.open(QIODevice::ReadOnly))
 	{
-		QMessageBox::critical(0, QObject::tr("Error"), "<qt>" + 
+		ScMessageBox::critical(0, QObject::tr("Error"), "<qt>" + 
 				QObject::tr("Opening the configfile %1 failed! %2").arg(
 						fn, f.errorString())
-				+ "</qt>", 1, 0, 0);
+				+ "</qt>");
 	}
 	xml.setDevice(&f);
 	
@@ -428,11 +428,11 @@ void LatexConfigCache::createParser(QString filename, bool warnOnError)
 	error[filename] = hasError;
 	if (hasError)
 	{
-		QMessageBox::critical(0, QObject::tr("Error"), "<qt>" + 
+		ScMessageBox::critical(0, QObject::tr("Error"), "<qt>" + 
 				QObject::tr("Parsing the configfile %1 failed! Depending on the type of the error "
 						"render frames might not work correctly!\n%2").arg(
 						filename, parser->error())
-						+ "</qt>", 1, 0, 0);
+						+ "</qt>");
 	}
 }
 

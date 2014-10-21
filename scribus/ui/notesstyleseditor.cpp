@@ -361,9 +361,11 @@ void NotesStylesEditor::on_ApplyButton_clicked()
 void NotesStylesEditor::on_DeleteButton_clicked()
 {
 	QString nsName = NSlistBox->currentText();
-	int t = QMessageBox::warning(m_Doc->scMW(), tr("Warning! Deleting Notes Style"), "<qt>" +
+	int t = ScMessageBox::warning(m_Doc->scMW(), tr("Warning! Deleting Notes Style"), "<qt>" +
 								 tr("You are going to delete notes style %1. All notes and marks using that style are also going to be deleted.").arg(nsName) + "</qt>",
-								 QMessageBox::Ok, QMessageBox::Abort | QMessageBox::Default);
+								 QMessageBox::Ok | QMessageBox::Abort,
+								 QMessageBox::Abort,	// GUI default
+								 QMessageBox::Ok);	// batch default
 	if (t == QMessageBox::Ok)
 	{
 		m_Doc->deleteNotesStyle(nsName);

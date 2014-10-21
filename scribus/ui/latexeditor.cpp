@@ -22,6 +22,7 @@ copyright            : Scribus Team
 #include "latexhelpers.h"
 #include "pageitem_latexframe.h"
 #include "prefsmanager.h"
+#include "ui/scmessagebox.h"
 
 #include <QDebug>
 #include <QFile>
@@ -119,17 +120,17 @@ void LatexEditor::startEditor()
 void LatexEditor::extEditorClicked()
 {
 	if (extEditor->state() != QProcess::NotRunning) {
-		QMessageBox::information(0, tr("Information"),
+		ScMessageBox::information(0, tr("Information"),
 		"<qt>" + tr("An editor for this frame is already running!") +
-		"</qt>", 1, 0, 0);
+		"</qt>");
 		return;
 	}
 	
 	QString full_command = PrefsManager::instance()->latexEditorExecutable();
 	if (full_command.isEmpty()) {
-		QMessageBox::information(0, tr("Information"),
+		ScMessageBox::information(0, tr("Information"),
 		"<qt>" + tr("Please specify an editor in the preferences!") +
-		"</qt>",1, 0, 0);
+		"</qt>");
 		return;
 	}
 
@@ -162,9 +163,9 @@ void LatexEditor::writeExternalEditorFile()
 		QTemporaryFile *editortempfile = new QTemporaryFile(
 			QDir::tempPath() + "/scribus_temp_editor_XXXXXX");
 		if (!editortempfile->open()) {
-			QMessageBox::critical(0, tr("Error"), "<qt>" + 
+			ScMessageBox::critical(0, tr("Error"), "<qt>" + 
 				tr("Could not create a temporary file to run the external editor!")
-				+ "</qt>", 1, 0, 0);
+				+ "</qt>");
 		}
 		extEditorFile = getLongPathName(editortempfile->fileName());
 		editortempfile->setAutoRemove(false);
@@ -203,9 +204,9 @@ void LatexEditor::extEditorFinished(int exitCode, QProcess::ExitStatus exitStatu
 	if (exitCode && extEditor) {
 		qCritical() << "RENDER FRAME: Editor failed. Output was: " << 
 			qPrintable(QString(extEditor->readAllStandardOutput()));
-		QMessageBox::critical(0, tr("Error"), "<qt>" +
+		ScMessageBox::critical(0, tr("Error"), "<qt>" +
 			tr("Running the editor failed with exitcode %d!").arg(exitCode) +
-			"</qt>", 1, 0, 0);
+			"</qt>");
 		return;
 	}
 }
@@ -220,10 +221,10 @@ void LatexEditor::extEditorError(QProcess::ProcessError error)
 {
 	externalEditorPushButton->setEnabled(true);
 	externalEditorPushButton->setText( tr("Run External Editor...") );
-	QMessageBox::critical(0, tr("Error"), "<qt>" +
+	ScMessageBox::critical(0, tr("Error"), "<qt>" +
 		tr("Running the editor \"%1\" failed!").
 		arg(PrefsManager::instance()->latexEditorExecutable()) +
-		"</qt>", 1, 0, 0);
+		"</qt>");
 }
 
 void LatexEditor::exitEditor()
@@ -381,9 +382,9 @@ void LatexEditor::updateConfigFile()
 	QFileInfo fi(currentConfigFile);
 	
 	if (!fi.exists() || !fi.isReadable()) {
-		QMessageBox::critical(0, QObject::tr("Error"), "<qt>" + 
+		ScMessageBox::critical(0, QObject::tr("Error"), "<qt>" + 
 				QObject::tr("Configfile %1 not found or the file is not readable").
-				arg(currentConfigFile) + "</qt>", 1, 0, 0);
+				arg(currentConfigFile) + "</qt>");
 		return;
 	}
 

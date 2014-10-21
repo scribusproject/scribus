@@ -1776,7 +1776,7 @@ void SMParagraphStyle::slotParentChanged(const QString &parent)
 	}
 
 	if (parentLoop)
-		QMessageBox::warning(this->widget(), CommonStrings::trWarning, tr("Setting that style as parent would create an infinite loop."), CommonStrings::tr_OK);
+		ScMessageBox::warning(this->widget(), CommonStrings::trWarning, tr("Setting that style as parent would create an infinite loop."));
 
 	selected(sel);
 
@@ -2703,7 +2703,7 @@ void SMCharacterStyle::slotParentChanged(const QString &parent)
 	}
 
 	if (parentLoop)
-		QMessageBox::warning(this->widget(), CommonStrings::trWarning, tr("Setting that style as parent would create an infinite loop."), CommonStrings::tr_OK);
+		ScMessageBox::warning(this->widget(), CommonStrings::trWarning, tr("Setting that style as parent would create an infinite loop."));
 
 	selected(sel);
 

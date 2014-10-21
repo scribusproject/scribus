@@ -12,6 +12,7 @@ for which a new license (GPL+exception) is in place.
 #include "findimage.h"
 #include "previewimage.h"
 #include "loadimage.h"
+#include "ui/scmessagebox.h"
 
 #include "fileloader.h"
 #include "loadsaveplugin.h"
@@ -405,7 +406,7 @@ void PictureBrowser::actionsGoButtonClicked()
 
 	if ( ( previewIconIndex < 0 ) || ( previewIconIndex > pImages->previewImagesList.size() ) )
 	{
-		QMessageBox::warning ( this, tr ( "Picture Browser Error" ), tr ( "No Image(s) Selected" ) );
+		ScMessageBox::warning ( this, tr ( "Picture Browser Error" ), tr ( "No Image(s) Selected" ) );
 		return;
 	}
 
@@ -728,7 +729,7 @@ void PictureBrowser::collectionReaderThreadFinished()
 	switch ( crt->type )
 	{
 		case 0:
-// 			QMessageBox::warning ( this, tr ( "Picture Browser Error" ), tr ( "File not found or file is not a collection file" ) );
+// 			ScMessageBox::warning ( this, tr ( "Picture Browser Error" ), tr ( "File not found or file is not a collection file" ) );
 			break;
 
 		case 1:
@@ -751,7 +752,7 @@ void PictureBrowser::collectionReaderThreadFinished()
 
 					if ( !currItem )
 					{
-						QMessageBox::warning ( this, tr ( "Picture Browser Error" ), tr ( "You have to create a category first" ) );
+						ScMessageBox::warning ( this, tr ( "Picture Browser Error" ), tr ( "You have to create a category first" ) );
 						return;
 					}
 				}
@@ -831,7 +832,7 @@ void PictureBrowser::collectionReaderThreadListFinishedSave()
 
 			if ( !tmpCrt->type )
 			{
-				QMessageBox::warning ( this, tr ( "Picture Browser Error" ), QString ( "A collection was not found:\n%1\nit will be created" ).arg ( tmpCrt->xmlFile ) );
+				ScMessageBox::warning ( this, tr ( "Picture Browser Error" ), QString ( "A collection was not found:\n%1\nit will be created" ).arg ( tmpCrt->xmlFile ) );
 				tmpCollection = new imageCollection;
 				tmpCollection->imageFiles = tmpCrt->addImages;
 			}
@@ -915,7 +916,7 @@ void PictureBrowser::insertImageButtonClicked()
 {
 	if ( ( previewIconIndex < 0 ) || ( previewIconIndex > pModel->modelItemsList.size() ) )
 	{
-		QMessageBox::warning ( this, tr ( "Picture Browser Error" ), tr ( "No image(s) selected" ) );
+		ScMessageBox::warning ( this, tr ( "Picture Browser Error" ), tr ( "No image(s) selected" ) );
 		return;
 	}
 
@@ -960,7 +961,7 @@ void PictureBrowser::insertImageButtonClicked()
 
 		if ( pageList.isEmpty() )
 		{
-			QMessageBox::warning ( this, tr ( "Picture Browser Error" ), tr ( "No page/image frame selected" ) );
+			ScMessageBox::warning ( this, tr ( "Picture Browser Error" ), tr ( "No page/image frame selected" ) );
 			return;
 		}
 
@@ -1066,7 +1067,7 @@ void PictureBrowser::filterFilterButtonClicked()
 
 		if ( !dir.exists() )
 		{
-			QMessageBox::warning ( this, tr ( "Picture Browser Error" ), tr ( "Directory does not exist" ) );
+			ScMessageBox::warning ( this, tr ( "Picture Browser Error" ), tr ( "Directory does not exist" ) );
 			return;
 		}
 
@@ -1261,7 +1262,7 @@ void PictureBrowser::collectionsNewButtonClicked()
 
 		if ( !currItem )
 		{
-			QMessageBox::warning ( this, tr ( "Picture Browser Error" ), tr ( "You have to create a category first" ) );
+			ScMessageBox::warning ( this, tr ( "Picture Browser Error" ), tr ( "You have to create a category first" ) );
 			return;
 		}
 	}
@@ -1331,7 +1332,7 @@ void PictureBrowser::collectionsExportButtonClicked()
 
 	if ( !currItem )
 	{
-		QMessageBox::warning ( this, tr ( "Picture Browser Error" ), tr ( "You have to select something you want to export" ) );
+		ScMessageBox::warning ( this, tr ( "Picture Browser Error" ), tr ( "You have to select something you want to export" ) );
 		return;
 	}
 
@@ -1440,7 +1441,7 @@ void PictureBrowser::collectionsAddNewTagButtonClicked()
 	}
 	else
 	{
-		QMessageBox::warning ( this, tr ( "Picture Browser Error" ), tr ( "No tag entered" ) );
+		ScMessageBox::warning ( this, tr ( "Picture Browser Error" ), tr ( "No tag entered" ) );
 	}
 }
 

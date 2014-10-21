@@ -8,16 +8,17 @@ for which a new license (GPL+exception) is in place.
 #include <QMessageBox>
 
 #include "api_dialogs.h"
+#include "ui/scmessagebox.h"
 
 DialogsAPI::DialogsAPI() : QObject(SCRIPTER)
 {
-    qDebug() << "DialogsAPI loaded";
-    setObjectName("dialogs");
+	qDebug() << "DialogsAPI loaded";
+	setObjectName("dialogs");
 }
 
 DialogsAPI::~DialogsAPI()
 {
-    qDebug() << "DialogsAPI deleted";
+	qDebug() << "DialogsAPI deleted";
 }
 
 /**
@@ -28,10 +29,10 @@ DialogsAPI::~DialogsAPI()
  */
 void DialogsAPI::alert(const QString & message)
 {
-    QMessageBox::information(
-        0, //(QWidget*)doc->scMW(),
-        tr("Alert - Scribus"),
-        message,
-        QMessageBox::Ok|QMessageBox::Default|QMessageBox::Escape,
-        QMessageBox::NoButton);
+	ScMessageBox::information(
+	    0, //(QWidget*)doc->scMW(),
+	    tr("Alert - Scribus"),
+	    message,
+	    QMessageBox::Ok|QMessageBox::Default|QMessageBox::Escape,
+	    QMessageBox::NoButton);
 }

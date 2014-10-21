@@ -89,9 +89,8 @@ QString CollectForOutput_UI::collect(QString &newFileName)
 	if (!collectItems())
 	{
 		QString errorMsg( tr("Cannot collect all files for output for file:\n%1").arg(newName) );
-		QMessageBox::warning(ScCore->primaryMainWindow(), CommonStrings::trWarning,
-							 "<qt>" + errorMsg + "</qt>",
-							 CommonStrings::tr_OK);
+		ScMessageBox::warning(ScCore->primaryMainWindow(), CommonStrings::trWarning,
+							 "<qt>" + errorMsg + "</qt>");
 		return errorMsg;
 	}
 	progressDialog->setOverallProgress(itemCount+patternCount);
@@ -112,7 +111,7 @@ QString CollectForOutput_UI::collect(QString &newFileName)
 	if (!collectDocument())
 	{
 		QString errorMsg( tr("Cannot collect the file: \n%1").arg(newName) );
-		QMessageBox::warning(ScCore->primaryMainWindow(), CommonStrings::trWarning, "<qt>" + errorMsg + "</qt>", CommonStrings::tr_OK);
+		ScMessageBox::warning(ScCore->primaryMainWindow(), CommonStrings::trWarning, "<qt>" + errorMsg + "</qt>");
 		return errorMsg;
 	}
 

@@ -321,7 +321,7 @@ bool ScribusCore::initFonts(bool showFontInfo)
 		closeSplash();
 		QString mess = tr("There are no fonts found on your system.");
 		mess += "\n" + tr("Exiting now.");
-		QMessageBox::critical(0, tr("Fatal Error"), mess, 1, 0, 0);
+		ScMessageBox::critical(0, tr("Fatal Error"), mess);
 	}
 	else
 		setSplashStatus( tr("Font System Initialized") );

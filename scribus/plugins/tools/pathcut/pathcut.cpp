@@ -29,6 +29,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribusdoc.h"
 #include "appmodes.h"
 #include "selection.h"
+#include "ui/scmessagebox.h"
 #include "util.h"
 #include "util_icon.h"
 #include <QPainterPathStroker>
@@ -123,7 +124,7 @@ bool PathCutPlugin::run(ScribusDoc* doc, QString)
 	QString vers = QString(qVersion()).left(5);
 	if (vers < "4.3.3")
 	{
-		QMessageBox::information(doc->scMW(), tr("Qt Version too old"), tr("This plugin requires at least version 4.3.3 of the Qt library"));
+		ScMessageBox::information(doc->scMW(), tr("Qt Version too old"), tr("This plugin requires at least version 4.3.3 of the Qt library"));
 		return true;
 	}
 	ScribusDoc* currDoc = doc;
@@ -154,7 +155,7 @@ bool PathCutPlugin::run(ScribusDoc* doc, QString)
 		QPainterPath objekt = mm.map(Item2->PoLine.toQPainterPath(true));
 		if ((objekt.contains(QPointF(start.x(), start.y()))) || (objekt.contains(QPointF(end.x(), end.y()))))
 		{
-			QMessageBox::information(doc->scMW(), tr("Error"), tr("The cutting line must cross the polygon and\nboth end points must lie outside of the polygon"));
+			ScMessageBox::information(doc->scMW(), tr("Error"), tr("The cutting line must cross the polygon and\nboth end points must lie outside of the polygon"));
 			return true;
 		}
 		QPainterPath result = objekt.subtracted(cutter);

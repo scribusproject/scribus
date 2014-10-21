@@ -25,6 +25,7 @@ for which a new license (GPL+exception) is in place.
 ***************************************************************************/
 
 #include "gradientaddedit.h"
+#include "ui/scmessagebox.h"
 #include <QMessageBox>
 
 gradientEditDialog::gradientEditDialog(QWidget* parent, QString name, VGradient gradient, ColorList doco, ScribusDoc *doc, QHash<QString, VGradient> *gradients, bool newFlag) : QDialog(parent)
@@ -55,7 +56,7 @@ void gradientEditDialog::quitDialog()
 {
 	if (gradientName->text().isEmpty())
 	{
-		QMessageBox::information(this, CommonStrings::trWarning, tr("You cannot create a gradient without a name\nPlease give it a name"), 0);
+		ScMessageBox::information(this, CommonStrings::trWarning, tr("You cannot create a gradient without a name\nPlease give it a name"));
 		gradientName->setFocus();
 		gradientName->selectAll();
 		return;
@@ -64,7 +65,7 @@ void gradientEditDialog::quitDialog()
 	{
 		if (m_gradients->contains(gradientName->text()))
 		{
-			QMessageBox::information(this, CommonStrings::trWarning, tr("The name of the gradient already exists,\nplease choose another one."), CommonStrings::tr_OK, 0, 0, 0, QMessageBox::Ok);
+			ScMessageBox::information(this, CommonStrings::trWarning, tr("The name of the gradient already exists,\nplease choose another one."));
 			gradientName->selectAll();
 			gradientName->setFocus();
 			return;

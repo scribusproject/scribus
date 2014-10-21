@@ -51,6 +51,7 @@ for which a new license (GPL+exception) is in place.
 #include "util.h"
 #include "ui/customfdialog.h"
 #include "ui/guidemanager.h"
+#include "ui/scmessagebox.h"
 #include "sccolorengine.h"
 #include "util_formats.h"
 #include "util_math.h"
@@ -169,9 +170,11 @@ bool SVGExportPlugin::run(ScribusDoc* doc, QString filename)
 		QFile f(fileName);
 		if (f.exists())
 		{
-			int exit = QMessageBox::warning(doc->scMW(), CommonStrings::trWarning,
+			int exit = ScMessageBox::warning(doc->scMW(), CommonStrings::trWarning,
 				QObject::tr("Do you really want to overwrite the file:\n%1 ?").arg(fileName),
-				QMessageBox::Yes | QMessageBox::No);
+				QMessageBox::Yes | QMessageBox::No,
+				QMessageBox::NoButton,	// GUI default
+				QMessageBox::Yes);	// batch default
 			if (exit == QMessageBox::No)
 				return true;
 		}

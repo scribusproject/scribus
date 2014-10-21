@@ -21,6 +21,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribusview.h"
 #include "scribuscore.h"
 #include "sctextstream.h"
+#include "ui/scmessagebox.h"
 #include "units.h"
 #include "util.h"
 #include "util_color.h"
@@ -1364,7 +1365,7 @@ bool Scribus12Format::loadFile(const QString & fileName, const FileFormat & /* f
 	if (m_mwProgressBar!=0)
 		m_mwProgressBar->setValue(DOC.childNodes().count());
 
-	QMessageBox::warning(ScCore->primaryMainWindow(),
+	ScMessageBox::warning(ScCore->primaryMainWindow(),
 						  CommonStrings::trWarning,
 						  tr("You have opened a file produced by Scribus 1.2.x.\n"
 						     "If you save it in this version, it will no longer be readable by older Scribus versions."));

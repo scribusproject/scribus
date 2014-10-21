@@ -25,25 +25,70 @@ for which a new license (GPL+exception) is in place.
 
 #include "scribusapi.h"
 
+ /**
+  * \brief This class provides alternate versions of QMessageBox functions
+  * that write to log files when Scribus does not have a GUI.
+  * This class is identical to QMessageBox except that provides an optional default batch button.
+  * In batch mode, functions return the default batch button when it is not NoButton,
+  * otherwise they return the default button when it is not NoButton,
+  * otherwise they return one of the standard buttons.
+  * If a dialog asks "Are you sure that you want to do this?",
+  * the default button can be No to keep users from accidentally destroying data,
+  * while the batch button can be Yes to allow scripts to do what they need.
+  * This class does not include QMessageBox functions marked obsolete in Qt5.
+  * Use non-obsolete functions instead.
+  */
 class SCRIBUS_API ScMessageBox : public QMessageBox
 {
 	Q_OBJECT
 public:
-	//Basic copies of the normal constructors
-	static int information ( QWidget * parent, const QString & caption, const QString & text, int button0, int button1 = 0, int button2 = 0 );
-	static int information ( QWidget * parent, const QString & caption, const QString & text, const QString & button0Text = QString::null, const QString & button1Text = QString::null, const QString & button2Text = QString::null, int defaultButtonNumber = 0, int escapeButtonNumber = -1 );
-	static int question ( QWidget * parent, const QString & caption, const QString & text, int button0, int button1 = 0, int button2 = 0 );
-	static int question ( QWidget * parent, const QString & caption, const QString & text, const QString & button0Text = QString::null, const QString & button1Text = QString::null, const QString & button2Text = QString::null, int defaultButtonNumber = 0, int escapeButtonNumber = -1 );
-	static int warning ( QWidget * parent, const QString & caption, const QString & text, int button0, int button1, int button2 = 0 );
-	static int warning ( QWidget * parent, const QString & caption, const QString & text, const QString & button0Text = QString::null, const QString & button1Text = QString::null, const QString & button2Text = QString::null, int defaultButtonNumber = 0, int escapeButtonNumber = -1 );
-	static int critical ( QWidget * parent, const QString & caption, const QString & text, int button0, int button1, int button2 = 0 );
-	static int critical ( QWidget * parent, const QString & caption, const QString & text, const QString & button0Text = QString::null, const QString & button1Text = QString::null, const QString & button2Text = QString::null, int defaultButtonNumber = 0, int escapeButtonNumber = -1 );
-	
-	//Swap the values the buttons are passing in, return the number of buttons used
-	static int swapButtonValues(int &b0, int &b1, int &b2);
-	static int swapButtonValues(QString &b0Text, QString &b1Text, QString &b2Text, int &defaultButton, int &escapeButton);
-	//Swap the return values attained from the QMessageBox class so in main code we dont have to check for swapped buttons.
-	static int swapReturnValues(const int, const int, const int, const int, const int);
+	// Property-based API
+
+	ScMessageBox(QWidget *parent = 0);
+
+	ScMessageBox(QMessageBox::Icon icon, const QString &title, const QString &text,
+		QMessageBox::StandardButtons buttons = QMessageBox::NoButton, QWidget *parent = 0,
+		Qt::WindowFlags flags = Qt::Dialog | Qt::MSWindowsFixedSizeDialogHint);
+
+	int exec();
+
+	QAbstractButton *clickedButton() const;
+
+	void setDefaultBatchButton(QPushButton *button);
+
+	void setDefaultBatchButton(StandardButton button);
+
+	// Static function API
+
+	static QMessageBox::StandardButton information(QWidget *parent, const QString &title, const QString &text,
+			StandardButtons buttons = Ok, StandardButton defaultButton = NoButton, StandardButton defaultBatchButton = NoButton);
+
+	static QMessageBox::StandardButton question(QWidget *parent, const QString &title, const QString &text,
+			StandardButtons buttons = StandardButtons(Yes | No), StandardButton defaultButton = NoButton, StandardButton defaultBatchButton = NoButton);
+
+	static QMessageBox::StandardButton warning(QWidget *parent, const QString &title, const QString &text,
+			StandardButtons buttons = Ok, StandardButton defaultButton = NoButton, StandardButton defaultBatchButton = NoButton);
+
+	static QMessageBox::StandardButton critical(QWidget *parent, const QString &title, const QString &text,
+			StandardButtons buttons = Ok, StandardButton defaultButton = NoButton, StandardButton defaultBatchButton = NoButton);
+
+	static void about(QWidget *parent, const QString &title, const QString &text);
+	static void aboutQt(QWidget *parent, const QString &title = QString());
+
+private:
+	// Saved fields for the property-based API
+
+	QString messageTitle;
+	QPushButton *defaultBatchPushButton;
+	StandardButton defaultBatchStandardButton;
+
+	// Initialize private variables
+
+	void initScMessageBox(void);
+
+	// Find the appropriate default button
+
+	static QMessageBox::StandardButton findDefaultButton(QMessageBox::StandardButtons buttons, QMessageBox::StandardButton defaultButton, StandardButton defaultBatchButton);
 };
 
 #endif

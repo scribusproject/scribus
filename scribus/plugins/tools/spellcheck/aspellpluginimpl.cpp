@@ -265,7 +265,7 @@ void AspellPluginImpl::spellCheckDone()
 	// Called once all words in the current text, i.e., in 'fcontent'
 	// have been spell-checked. Pops up an information dialog.
 	QString completeMsg(tr("Spelling check complete"));
-	QMessageBox::information(fdoc->scMW(), tr("Spell Checker"), completeMsg);
+	ScMessageBox::information(fdoc->scMW(), tr("Spell Checker"), completeMsg);
 	if( fFrame && fFrame->asTextFrame() )
 		fFrame->asTextFrame()->invalidateLayout();
 // 	if( fnchanges.fntot > 0 )
@@ -456,11 +456,13 @@ void AspellPluginImpl::on_flistDicts_activated()
 		// the dictionary is to open the spell checker dialog. However,
 		// changing the dictionary does not recheck first word
 		// --- ask user if he wants to restart spellchecker with new lang
-		if (QMessageBox::question(this,
+		if (ScMessageBox::question(this,
 								  tr("Spell Checker"),
 								  tr("Do you want start from the beginning of the selection "
 								     "with new language selected?"),
-								  QMessageBox::Yes | QMessageBox::No)
+								  QMessageBox::Yes | QMessageBox::No,
+								  QMessageBox::NoButton,	// GUI default
+								  QMessageBox::Yes)		// batch default
 			== QMessageBox::Yes)
 		{
 			fpos = 0;

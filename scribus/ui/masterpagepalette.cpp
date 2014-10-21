@@ -141,10 +141,12 @@ void MasterPagesPalette::deleteMasterPage()
 				if (m_doc->DocPages[i]->MPageNam == m_masterPage)
 					extraWarn = tr("This master page is used at least once in the document.");
 			}
-			int exit = QMessageBox::warning(this,
+			int exit = ScMessageBox::warning(this,
 										CommonStrings::trWarning,
 										tr("Do you really want to delete master page \"%1\"?").arg(m_masterPage)+"\n"+extraWarn,
-										QMessageBox::Yes | QMessageBox::YesToAll | QMessageBox::No | QMessageBox::Cancel);
+										QMessageBox::Yes | QMessageBox::YesToAll | QMessageBox::No | QMessageBox::Cancel,
+										QMessageBox::NoButton,	// GUI default
+										QMessageBox::YesToAll);	// batch default
 
 			if (exit == QMessageBox::YesToAll)
 				forceDelete = true;
@@ -488,7 +490,7 @@ void MasterPagesPalette::renameMasterPage(QListWidgetItem * item)
 	QString oldName(item->text());
 	if ((oldName == CommonStrings::masterPageNormal) || (oldName == CommonStrings::trMasterPageNormal) || (oldName == CommonStrings::trMasterPageNormalLeft) || (oldName == CommonStrings::trMasterPageNormalMiddle) || (oldName == CommonStrings::trMasterPageNormalRight))
 	{
-		QMessageBox::information( this, tr("Unable to Rename Master Page"), tr("The Normal page is not allowed to be renamed."), QMessageBox::Ok );
+		ScMessageBox::information( this, tr("Unable to Rename Master Page"), tr("The Normal page is not allowed to be renamed.") );
 		return;
 	}
 	bool ok;

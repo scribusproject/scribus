@@ -39,6 +39,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribusdoc.h"
 #include "scribusview.h"
 #include "ui/customfdialog.h"
+#include "ui/scmessagebox.h" 
 #include "ui/scrspinbox.h"
 #include "units.h"
 #include "util.h"
@@ -161,9 +162,11 @@ void PDFExportDialog::DoExport()
 	QString dirPath = QDir::toNativeSeparators(fi.absolutePath());
 	if (!QFile::exists(fi.absolutePath()))
 	{
-		if (QMessageBox::question(this, tr( "Save as PDF" ),
+		if (ScMessageBox::question(this, tr( "Save as PDF" ),
 									tr("%1 does not exists and will be created, continue?").arg(dirPath),
-									QMessageBox::Ok | QMessageBox::Cancel)
+									QMessageBox::Ok | QMessageBox::Cancel,
+									QMessageBox::NoButton,	// GUI default
+									QMessageBox::Ok)	// batch default
 				  == QMessageBox::Cancel)
 		{
 			return;
@@ -177,10 +180,9 @@ void PDFExportDialog::DoExport()
 	{
 		if (!d.mkpath(fi.absolutePath()))
 		{
-			QMessageBox::warning(this,
+			ScMessageBox::warning(this,
 								 CommonStrings::trWarning,
-								 tr("Cannot create directory: \n%1").arg(dirPath),
-								 CommonStrings::tr_OK);
+								 tr("Cannot create directory: \n%1").arg(dirPath));
 			return;
 		}
 	}

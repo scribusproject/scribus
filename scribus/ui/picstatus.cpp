@@ -447,7 +447,7 @@ void PicStatus::SearchPic()
 		lastSearchPath = dia->getLastDirSearched();
 		if (dia->getMatches().count() == 0)
 		{
-			QMessageBox::information(this, tr("Scribus - Image Search"), tr("No images named \"%1\" were found.").arg(dia->getFileName()),
+			ScMessageBox::information(this, tr("Scribus - Image Search"), tr("No images named \"%1\" were found.").arg(dia->getFileName()),
 					QMessageBox::Ok|QMessageBox::Default|QMessageBox::Escape,
 					QMessageBox::NoButton);
 		}

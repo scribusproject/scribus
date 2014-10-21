@@ -661,7 +661,7 @@ void OutlinePalette::slotDoRename(QTreeWidgetItem *ite , int col)
 					}
 					if (found)
 					{
-						QMessageBox::warning(this, CommonStrings::trWarning, "<qt>"+ tr("Name \"%1\" isn't unique.<br/>Please choose another.").arg(NameNew)+"</qt>", CommonStrings::tr_OK);
+						ScMessageBox::warning(this, CommonStrings::trWarning, "<qt>"+ tr("Name \"%1\" isn't unique.<br/>Please choose another.").arg(NameNew)+"</qt>");
 						ite->setText(col, NameOld);
 					}
 					else

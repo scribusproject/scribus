@@ -23,6 +23,7 @@ for which a new license (GPL+exception) is in place.
 #include "util.h"
 
 #include "ui/customfdialog.h"
+#include "ui/scmessagebox.h"
 #include "ui/scmwmenumanager.h"
 
 int importpdf_getPluginAPIVersion()
@@ -211,7 +212,7 @@ bool ImportPdfPlugin::import(QString fileName, int flags)
 		else
 		{
 			qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
-			QMessageBox::warning(ScCore->primaryMainWindow(), CommonStrings::trWarning, tr("The Import plugin cannot handle Postscript files"), 1, 0, 0);
+			ScMessageBox::warning(ScCore->primaryMainWindow(), CommonStrings::trWarning, tr("The Import plugin cannot handle Postscript files"));
 			qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
 			return false;
 		}

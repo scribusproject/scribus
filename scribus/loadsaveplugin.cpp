@@ -442,8 +442,7 @@ bool FileFormat::loadFile(const QString & fileName, int flags, int index) const
 		{
 			if (ScCore->usingGUI())
 			{
-				QMessageBox::warning(ScCore->primaryMainWindow(), CommonStrings::trWarning,
-				                     plug->lastError(), CommonStrings::tr_OK);
+				ScMessageBox::warning(ScCore->primaryMainWindow(), CommonStrings::trWarning, plug->lastError());
 			}
 			else
 			{
@@ -509,8 +508,7 @@ bool FileFormat::loadPage(const QString & fileName, int pageNumber, bool Mpage, 
 		{
 			if (ScCore->usingGUI())
 			{
-				QMessageBox::warning(ScCore->primaryMainWindow(), CommonStrings::trWarning,
-				                     plug->lastError(), CommonStrings::tr_OK);
+				ScMessageBox::warning(ScCore->primaryMainWindow(), CommonStrings::trWarning, plug->lastError());
 			}
 			else
 			{

@@ -228,11 +228,10 @@ void PluginManager::initPlugs()
 			failedStr += "</ul>";
 			if (splashShown)
 				ScCore->showSplash(false);
-			QMessageBox::warning(ScCore->primaryMainWindow(), CommonStrings::trWarning,
+			ScMessageBox::warning(ScCore->primaryMainWindow(), CommonStrings::trWarning,
 								 "<qt>" + tr("There is a problem loading %1 of %2 plugins. %3 This is probably caused by some kind of dependency issue or old plugins existing in your install directory. If you clean out your install directory and reinstall and this still occurs, please report it on bugs.scribus.net."
 										).arg(allPlugs.count()-loaded).arg(allPlugs.count()).arg(failedStr)
-									 + "</qt>",
-							 CommonStrings::tr_OK);
+									 + "</qt>");
 			if (splashShown)
 				ScCore->showSplash(true);
 		}

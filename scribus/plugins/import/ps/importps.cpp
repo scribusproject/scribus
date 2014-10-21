@@ -40,6 +40,7 @@ for which a new license (GPL+exception) is in place.
 #include "ui/customfdialog.h"
 #include "ui/multiprogressdialog.h"
 #include "ui/propertiespalette.h"
+#include "ui/scmessagebox.h"
 #include "undomanager.h"
 #include "util.h"
 #include "util_color.h"
@@ -425,7 +426,7 @@ bool EPSPlug::convert(QString fn, double x, double y, double b, double h)
 		if (progressDialog)
 			progressDialog->close();
 		QString mess = tr("Importing File:\n%1\nfailed!").arg(fn);
-		QMessageBox::critical(0, tr("Fatal Error"), mess, 1, 0, 0);
+		ScMessageBox::critical(0, tr("Fatal Error"), mess);
 		return false;
 	}
 	if(progressDialog && !cancel) {
@@ -764,7 +765,7 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 	if (failedImages > 0)
 	{
 		QString mess = tr("Converting of %1 images failed!").arg(failedImages);
-		QMessageBox::critical(0, tr("Error"), mess, 1, 0, 0);
+		ScMessageBox::critical(0, tr("Error"), mess);
 	}
 }
 

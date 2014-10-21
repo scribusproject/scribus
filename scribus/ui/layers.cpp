@@ -309,9 +309,11 @@ void LayerPalette::removeLayer()
 	bool delToo = false;
 	if (m_Doc->layerContainsItems(layerID))
 	{
-		int scmReturn = QMessageBox::warning(this, tr("Delete Layer"),
+		int scmReturn = ScMessageBox::warning(this, tr("Delete Layer"),
 									tr("Do you want to delete all objects on this layer too?"),
-									QMessageBox::Yes | QMessageBox::No | QMessageBox::Cancel, QMessageBox::No);
+									QMessageBox::Yes | QMessageBox::No | QMessageBox::Cancel,
+									QMessageBox::No,	// GUI default
+									QMessageBox::Yes);	// batch default
 		if (scmReturn == QMessageBox::Cancel)
 			return;
 		delToo = (scmReturn != QMessageBox::No);

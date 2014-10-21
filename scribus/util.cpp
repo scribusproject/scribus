@@ -36,6 +36,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribusview.h"
 #include "scribusdoc.h"
 #include "scpainter.h"
+#include "ui/scmessagebox.h"
 
 #include <signal.h>
 
@@ -361,9 +362,11 @@ bool overwrite(QWidget *parent, QString filename)
 	if (fi.exists())
 	{
 		QString fn = QDir::toNativeSeparators(filename);
-		int t = QMessageBox::warning(parent, QObject::tr("File exists"),
+		int t = ScMessageBox::warning(parent, QObject::tr("File exists"),
 									 "<qt>"+ QObject::tr("A file named '%1' already exists.<br/>Do you want to replace it with the file you are saving?").arg(fn) +"</qt>",
-											 QMessageBox::Ok | QMessageBox::Cancel, QMessageBox::Cancel);
+											 QMessageBox::Ok | QMessageBox::Cancel,
+											 QMessageBox::Cancel,	// GUI default
+											 QMessageBox::Ok);	// batch default
 		if (t == QMessageBox::Cancel)
 			retval = false;
 	}

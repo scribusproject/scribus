@@ -28,6 +28,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "commonstrings.h"
 #include "scribuscore.h"
+#include "ui/scmessagebox.h"
 #include "undomanager.h"
 
 int uniconvertorplugin_getPluginAPIVersion()
@@ -153,7 +154,7 @@ bool UniconvImportPlugin::import(QString fileName, int flags)
 	if (!uniconv.waitForStarted(120000)) {
 		qWarning() << "Uniconvertor failed:" <<
 			PrefsManager::instance()->uniconvExecutable() << arguments;
-		QMessageBox::warning(mw, CommonStrings::trWarning,
+		ScMessageBox::warning(mw, CommonStrings::trWarning,
 			tr("Starting Uniconvertor failed! The executable name in "
 			"File->Preferences->External Tools may be incorrect or the "
 			"software has been uninstalled since preferences "
@@ -163,7 +164,7 @@ bool UniconvImportPlugin::import(QString fileName, int flags)
 	}
 	if (!uniconv.waitForFinished(120000)) {
 		qDebug() << "Uniconv exit code:" << uniconv.exitCode();
-		QMessageBox::warning(mw, CommonStrings::trWarning,
+		ScMessageBox::warning(mw, CommonStrings::trWarning,
 			tr("Uniconvertor did not exit correctly: %1").arg(
 			uniconv.errorString()).arg(QString(uniconv.readAll())));
 		delete tempFile;
@@ -171,7 +172,7 @@ bool UniconvImportPlugin::import(QString fileName, int flags)
 	}
 	if (uniconv.exitCode()) {
 		qDebug() << "Uniconv exit code:" << uniconv.exitCode();
-		QMessageBox::warning(mw, CommonStrings::trWarning,
+		ScMessageBox::warning(mw, CommonStrings::trWarning,
 			tr("Uniconvertor failed to convert the file: %1").arg(
 				QString(uniconv.readAll())));
 		delete tempFile;
@@ -181,7 +182,7 @@ bool UniconvImportPlugin::import(QString fileName, int flags)
 	//Import SVG
 	const FileFormat *fmt = LoadSavePlugin::getFormatByExt("svg");
 	if (!fmt) {
-		QMessageBox::warning(mw, CommonStrings::trWarning, tr("The SVG Import plugin could not be found"), 1, 0, 0);
+		ScMessageBox::warning(mw, CommonStrings::trWarning, tr("The SVG Import plugin could not be found"));
 		delete tempFile;
 		return false;
 	}

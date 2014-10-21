@@ -13,6 +13,7 @@ for which a new license (GPL+exception) is in place.
 #include "commonstrings.h"
 #include "prefsstructs.h"
 #include "scribusdoc.h"
+#include "ui/scmessagebox.h"
 
 Prefs_DocumentSections::Prefs_DocumentSections(QWidget* parent, ScribusDoc* doc)
 	: Prefs_Pane(parent),
@@ -178,7 +179,7 @@ void Prefs_DocumentSections::tableItemChanged( int row, int col )
 	if (outOfRange)
 	{
 		updateTable();
-		QMessageBox::warning(parentWidget(), tr("Page Number Out Of Bounds"),"<qt>"+ tr("The value you have entered is outside the range of page numbers in the current document (%1-%2).").arg(1).arg(m_maxpageindex+1)+"</qt>",QMessageBox::Ok,QMessageBox::NoButton,QMessageBox::NoButton);
+		ScMessageBox::warning(parentWidget(), tr("Page Number Out Of Bounds"),"<qt>"+ tr("The value you have entered is outside the range of page numbers in the current document (%1-%2).").arg(1).arg(m_maxpageindex+1)+"</qt>");
 	}
 }
 
