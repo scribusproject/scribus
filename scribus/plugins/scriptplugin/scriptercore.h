@@ -39,6 +39,7 @@ public slots:
 	void StdScript(QString filebasename);
 	void RecentScript(QString fn);
 	void slotRunScriptFile(QString fileName, bool inMainInterpreter = false);
+	void slotRunPythonScript(); // needed for running python script from CLI
 	void slotRunScript(const QString Script);
 	void slotInteractiveScript(bool);
 	void slotExecute();

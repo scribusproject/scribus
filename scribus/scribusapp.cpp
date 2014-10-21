@@ -66,6 +66,7 @@ for which a new license (GPL+exception) is in place.
 #define ARG_PREFS "--prefs"
 #define ARG_UPGRADECHECK "--upgradecheck"
 #define ARG_TESTS "--tests"
+#define ARG_PYTHONSCRIPT "--python-script"
 
 #define ARG_VERSION_SHORT "-v"
 #define ARG_HELP_SHORT "-h"
@@ -81,6 +82,7 @@ for which a new license (GPL+exception) is in place.
 #define ARG_PREFS_SHORT "-pr"
 #define ARG_UPGRADECHECK_SHORT "-u"
 #define ARG_TESTS_SHORT "-T"
+#define ARG_PYTHONSCRIPT_SHORT "-py"
 
 // Qt wants -display not --display or -d
 #define ARG_DISPLAY_QT "-display"
@@ -204,10 +206,9 @@ void ScribusQApp::parseCommandLine()
 		uc.fetch();
 	}
 	//Dont run the GUI init process called from main.cpp, and return
-	if (!header)
-		useGUI=true;
-	else
-		return;
+	if (header)
+		std::exit(EXIT_SUCCESS);
+	useGUI = true;
 	//We are going to run something other than command line help
 	for(int i = 1; i < argsc; i++) {
 		arg = args[i];
@@ -244,14 +245,27 @@ void ScribusQApp::parseCommandLine()
 					std::cout << tr("File %1 does not exist, aborting.").arg(prefsUserFile).toLocal8Bit().data() << std::endl;
 				}
 				showUsage();
-				useGUI=false;
-				return;
+				std::exit(EXIT_FAILURE);
 			} else {
 				++i;
 			}
 		} else if (strncmp(arg.toLocal8Bit().data(),"-psn_",4) == 0)
 		{
 			// Andreas Vox: Qt/Mac has -psn_blah flags that must be accepted.
+		} else if (arg == ARG_PYTHONSCRIPT || arg == ARG_PYTHONSCRIPT_SHORT) {
+			pythonScript = QFile::decodeName(args[i + 1].toLocal8Bit());
+			if (!QFileInfo(pythonScript).exists()) {
+				showHeader();
+				if (pythonScript.left(1) == "-" || pythonScript.left(2) == "--") {
+					std::cout << tr("Invalid argument: ").toLocal8Bit().data() << pythonScript.toLocal8Bit().data() << std::endl;
+				} else {
+					std::cout << tr("File %1 does not exist, aborting.").arg(pythonScript).toLocal8Bit().data() << std::endl;
+				}
+				showUsage();
+				std::exit(EXIT_FAILURE);
+			} else {
+				++i;
+			}
 		} else {
 			fileName = QFile::decodeName(args[i].toLocal8Bit());
 			if (!QFileInfo(fileName).exists()) {
@@ -262,8 +276,7 @@ void ScribusQApp::parseCommandLine()
 					std::cout << tr("File %1 does not exist, aborting.").arg(fileName).toLocal8Bit().data() << std::endl;
 				}
 				showUsage();
-				useGUI=false;
-				return;
+				std::exit(EXIT_FAILURE);
 			}
 			else
 			{
@@ -283,8 +296,20 @@ int ScribusQApp::init()
 	processEvents();
 	ScCore->init(useGUI, swapDialogButtonOrder, filesToLoad);
 	int retVal=EXIT_SUCCESS;
-	if (useGUI)
+	/* TODO:
+	 * When Scribus is truly able to run without GUI
+	 * we should uncomment if (useGUI)
+	 * and delete if (true)
+	 */
+	// if (useGUI)
+	if (true)
 		retVal=ScCore->startGUI(showSplash, showFontInfo, showProfileInfo, lang, prefsUserFile);
+
+	// A hook for plugins and scripts to trigger on. Some plugins and scripts
+	// require the app to be fully set up (in particular, the main window to be
+	// built and shown) before running their setup.
+	emit appStarted();
+
 	return retVal;
 }
 
@@ -464,7 +489,8 @@ void ScribusQApp::showUsage()
 	printArgLine(ts, ARG_SWAPDIABUTTONS_SHORT, ARG_SWAPDIABUTTONS, tr("Use right to left dialog button ordering (eg. Cancel/No/Yes instead of Yes/No/Cancel)") );
 	printArgLine(ts, ARG_UPGRADECHECK_SHORT, ARG_UPGRADECHECK, tr("Download a file from the Scribus website and show the latest available version.") );
 	printArgLine(ts, ARG_VERSION_SHORT, ARG_VERSION, tr("Output version information and exit") );
-	
+	printArgLine(ts, ARG_PYTHONSCRIPT_SHORT, QString(QString(ARG_PYTHONSCRIPT) + QString(" ") + tr("filename")).toLocal8Bit().constData(), tr("Run filename in Python scripter") );
+	printArgLine(ts, ARG_NOGUI_SHORT, ARG_NOGUI, tr("Do not start GUI") );
 	
 #if defined(_WIN32) && !defined(_CONSOLE)
 	printArgLine(ts, ARG_CONSOLE_SHORT, ARG_CONSOLE, tr("Display a console window") );

@@ -142,11 +142,6 @@ protected:
 	bool m_HaveGS;
 	bool m_HavePngAlpha;
 	bool m_HaveTiffSep;
-	
-	
-signals:
-	void appStarted();
-
 };
 
 /*

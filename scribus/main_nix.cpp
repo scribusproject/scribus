@@ -78,13 +78,11 @@ int mainApp(int argc, char **argv)
 #endif // QT_VERSION == 0x040400
 #endif // Q_OS_UNIX
 	app.parseCommandLine();
+	int appRetVal=app.init();
+	if (appRetVal==EXIT_FAILURE)
+		return(EXIT_FAILURE);
 	if (app.useGUI)
-	{
-		int appRetVal=app.init();
-		if (appRetVal==EXIT_FAILURE)
-			return(EXIT_FAILURE);
 		return app.exec();
-	}
 	return EXIT_SUCCESS;	
 }
 

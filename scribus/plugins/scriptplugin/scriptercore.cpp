@@ -36,6 +36,7 @@ for which a new license (GPL+exception) is in place.
 #include "prefscontext.h"
 #include "prefstable.h"
 #include "prefsmanager.h"
+#include "scribusapp.h" // need it to acces ScQApp->pythonScript
 
 ScripterCore::ScripterCore(QWidget* parent)
 {
@@ -66,6 +67,9 @@ ScripterCore::ScripterCore(QWidget* parent)
 
 	QObject::connect(pcon, SIGNAL(runCommand()), this, SLOT(slotExecute()));
 	QObject::connect(pcon, SIGNAL(paletteShown(bool)), this, SLOT(slotInteractiveScript(bool)));
+
+	QObject::connect(ScQApp, SIGNAL(appStarted()) , this, SLOT(runStartupScript()) );
+	QObject::connect(ScQApp, SIGNAL(appStarted()) , this, SLOT(slotRunPythonScript()) );
 }
 
 ScripterCore::~ScripterCore()
@@ -177,7 +181,6 @@ void ScripterCore::FinishScriptRun()
 void ScripterCore::runScriptDialog()
 {
 	QString fileName;
-	QString curDirPath = QDir::currentPath();
 	RunScriptDialog dia( ScCore->primaryMainWindow(), m_enableExtPython );
 	if (dia.exec())
 	{
@@ -193,7 +196,6 @@ void ScripterCore::runScriptDialog()
 		}
 		rebuildRecentScriptsMenu();
 	}
-	QDir::setCurrent(curDirPath);
 	FinishScriptRun();
 }
 
@@ -246,8 +248,6 @@ void ScripterCore::slotRunScriptFile(QString fileName, bool inMainInterpreter)
 		//stateo = PyEval_SaveThread();
 		global_state = PyThreadState_Get();
 		state = Py_NewInterpreter();
-		// Chdir to the dir the script is in
-		QDir::setCurrent(fi.absolutePath());
 		// Init the scripter module in the sub-interpreter
 		initscribus(ScCore->primaryMainWindow());
 	}
@@ -292,11 +292,9 @@ void ScripterCore::slotRunScriptFile(QString fileName, bool inMainInterpreter)
 		// into a StringIO buffer for later extraction.
 		cm        += QString("except:\n");
 		cm        += QString("    import traceback\n");
-		cm        += QString("    import scribus\n");                  // we stash our working vars here
-		cm        += QString("    scribus._f=cStringIO.StringIO()\n");
-		cm        += QString("    traceback.print_exc(file=scribus._f)\n");
-		cm        += QString("    _errorMsg = scribus._f.getvalue()\n");
-		cm        += QString("    del(scribus._f)\n");
+		cm        += QString("    _errorMsg = traceback.format_exc()\n");
+		if (!ScCore->usingGUI())
+			cm += QString("    traceback.print_exc()\n");
 		// We re-raise the exception so the return value of PyRun_StringFlags reflects
 		// the fact that an exception has ocurred.
 		cm        += QString("    raise\n");
@@ -321,7 +319,7 @@ void ScripterCore::slotRunScriptFile(QString fileName, bool inMainInterpreter)
 				qDebug("Exception was:");
 				PyErr_Print();
 			}
-			else
+			else if (ScCore->usingGUI())
 			{
 				QString errorMsg = PyString_AsString(errorMsgPyStr);
 				// Display a dialog to the user with the exception
@@ -351,6 +349,16 @@ void ScripterCore::slotRunScriptFile(QString fileName, bool inMainInterpreter)
 	}
 
 	enableMainWindowMenu();
+}
+
+// needed for running script from CLI
+void ScripterCore::slotRunPythonScript()
+{
+	if (!ScQApp->pythonScript.isNull())
+	{
+		slotRunScriptFile(ScQApp->pythonScript, true);
+		FinishScriptRun();
+	}
 }
 
 void ScripterCore::slotRunScript(const QString Script)

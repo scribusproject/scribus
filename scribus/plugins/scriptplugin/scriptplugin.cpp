@@ -185,7 +185,6 @@ bool ScriptPlugin::initPlugin()
 #endif
 	scripterCore->setupMainInterpreter();
 	scripterCore->initExtensionScripts();
-	scripterCore->runStartupScript();
 	return true;
 }
 
@@ -734,7 +733,7 @@ void initscribus(ScribusMainWindow *pl)
 
 	// Measurement units understood by Scribus's units.cpp functions are exported as constant conversion
 	// factors to be used from Python.
-	for (int i = 0; i <= unitGetMaxIndex(); ++i)
+	for (int i = 0; i <= unitGetMaxIndex()-2; ++i)
 	{
 		PyObject* value = PyFloat_FromDouble(unitGetRatioFromIndex(i));
 		if (!value)
@@ -744,10 +743,10 @@ void initscribus(ScribusMainWindow *pl)
 		}
 		// `in' is a reserved word in Python so we must replace it
 		PyObject* name;
-		if (unitGetStrFromIndex(i) == "in")
+		if (unitGetUntranslatedStrFromIndex(i) == "in")
 			name = PyString_FromString("inch");
 		else
-			name = PyString_FromString(unitGetStrFromIndex(i).toLatin1().constData());
+			name = PyString_FromString(unitGetUntranslatedStrFromIndex(i).toLatin1().constData());
 		if (!name)
 		{
 			initscribus_failed(__FILE__, __LINE__);
