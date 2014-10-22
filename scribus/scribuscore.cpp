@@ -130,7 +130,8 @@ int ScribusCore::startGUI(bool showSplash, bool showFontInfo, bool showProfileIn
 		}
 		else
 		{
-			if (PrefsManager::instance()->appPrefs.uiPrefs.showStartupDialog)
+			if (PrefsManager::instance()->appPrefs.uiPrefs.showStartupDialog
+			    && usingGUI())
 				scribus->startUpDialog();
 			else
 				scribus->setFocus();
