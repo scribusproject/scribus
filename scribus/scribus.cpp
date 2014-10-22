@@ -2430,6 +2430,7 @@ void ScribusMainWindow::newActWin(QMdiSubWindow *w)
 		scrActions["viewPreviewMode"]->blockSignals(true);
 		scrActions["viewPreviewMode"]->setChecked(doc->drawAsPreview);
 		scrActions["viewPreviewMode"]->blockSignals(false);
+		appModeHelper->setPreviewMode(doc->drawAsPreview);
 		scrActions["viewEditInPreview"]->setEnabled(doc->drawAsPreview);
 		scrActions["viewToggleCMS"]->blockSignals(true);
 		scrActions["viewToggleCMS"]->setChecked(doc->HasCMS);
@@ -4154,10 +4155,7 @@ bool ScribusMainWindow::slotFileClose()
 	ScribusWin* tw = ActWin;
 	mdiArea->closeActiveSubWindow();
 	windowsMenuAboutToShow();
-	if (tw == ActWin)
-		return false;
-	else
-		return true;
+	return (tw != ActWin);
 }
 
 bool ScribusMainWindow::DoFileClose()
@@ -4249,6 +4247,9 @@ bool ScribusMainWindow::DoFileClose()
 	updateLayerMenu();
 	updateTableMenuActions();
 	rebuildScrapbookMenu();
+	//not running view's togglePreview as we dont want to affect the doc settings.
+	scrActions["viewPreviewMode"]->setChecked(false);
+	appModeHelper->setPreviewMode(false);
 	return true;
 }
 
