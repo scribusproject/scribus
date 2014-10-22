@@ -63,7 +63,7 @@ public:
 	int exportToSVG() {return 0;}
 	int runScript() {return 0;}
 	*/	
-	int init(bool useGUI, bool swapDialogButtonOrder, const QList<QString>& filesToUse);
+	int init(bool useGUI, const QList<QString>& filesToUse);
 	int initScribusCore(bool showSplash, bool showFontInfo, bool showProfileInfo, const QString newGuiLanguage, const QString prefsUserFile);
 	bool initialized() const {return m_ScribusInitialized;};
 	const QString& getGuiLanguage() const;
@@ -85,11 +85,6 @@ public:
 	* @retval bool true if we are on Qt/Win
 	*/
 	bool isWinGUI() const;
-	/**
-	* @brief Are we swapping dialog button order?
-	* @retval bool if we are swapping
-	*/
-	bool reverseDialogButtons() const;
 	bool haveCMS() const {return m_HaveCMS;}
 	bool haveGS() const {return m_HaveGS;};
 	bool havePNGAlpha() const {return m_HavePngAlpha;}
@@ -136,7 +131,6 @@ protected:
 	PrefsManager *prefsManager;
 	bool m_ScribusInitialized;
 	bool m_UseGUI;
-	bool m_SwapDialogButtonOrder;
 	QList<QString> m_Files;
 	bool m_HaveCMS;
 	bool m_HaveGS;

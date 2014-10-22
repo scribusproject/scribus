@@ -82,11 +82,10 @@ static void abort_on_error(QtMsgType t, const char * m)
 #endif
 
 
-int ScribusCore::init(bool useGUI, bool swapDialogButtonOrder, const QList<QString>& filesToUse)
+int ScribusCore::init(bool useGUI, const QList<QString>& filesToUse)
 {
 	m_UseGUI=useGUI;
 	m_Files=filesToUse;
-	m_SwapDialogButtonOrder=swapDialogButtonOrder;
 #if !defined(NDEBUG) && !defined(_WIN32)
 	qInstallMsgHandler( & abort_on_error );
 #endif
@@ -285,31 +284,6 @@ bool ScribusCore::isWinGUI() const
 #else
 	return false;
 #endif
-}
-
-bool ScribusCore::reverseDialogButtons() const
-{
-	if (m_SwapDialogButtonOrder)
-		return true;
-	//Win32 - dont switch
-	#if defined(_WIN32)
-		return false;
-	//Mac Aqua - switch
-	#elif defined(Q_OS_MAC)
-		return true;
-	#else
-	//Gnome - switch
-	QString gnomesession= ::getenv("GNOME_DESKTOP_SESSION_ID");
-	if (!gnomesession.isEmpty())
-		return true;
-
-	//KDE/KDE Aqua - dont switch
-	//Best guess for now if we are running under KDE
-	QString kdesession= ::getenv("KDE_FULL_SESSION");
-	if (!kdesession.isEmpty())
-		return false;
-	#endif
-	return false;
 }
 
 //Returns false when there are no fonts

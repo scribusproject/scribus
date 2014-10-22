@@ -62,7 +62,6 @@ for which a new license (GPL+exception) is in place.
 #define ARG_DISPLAY "--display"
 #define ARG_FONTINFO "--font-info"
 #define ARG_PROFILEINFO "--profile-info"
-#define ARG_SWAPDIABUTTONS "--swap-buttons"
 #define ARG_PREFS "--prefs"
 #define ARG_UPGRADECHECK "--upgradecheck"
 #define ARG_TESTS "--tests"
@@ -78,7 +77,6 @@ for which a new license (GPL+exception) is in place.
 #define ARG_DISPLAY_SHORT "-d"
 #define ARG_FONTINFO_SHORT "-fi"
 #define ARG_PROFILEINFO_SHORT "-pi"
-#define ARG_SWAPDIABUTTONS_SHORT "-sb"
 #define ARG_PREFS_SHORT "-pr"
 #define ARG_UPGRADECHECK_SHORT "-u"
 #define ARG_TESTS_SHORT "-T"
@@ -148,7 +146,6 @@ void ScribusQApp::parseCommandLine()
 #endif
 	showFontInfo=false;
 	showProfileInfo=false;
-	swapDialogButtonOrder=false;
 
 	//Parse for command line information options, and lang
 	// Qt5 port: do this in a Qt compatible manner
@@ -229,8 +226,6 @@ void ScribusQApp::parseCommandLine()
 			showFontInfo=true;
 		} else if (arg == ARG_PROFILEINFO || arg == ARG_PROFILEINFO_SHORT) {
 			showProfileInfo=true;
-		} else if (arg == ARG_SWAPDIABUTTONS || arg == ARG_SWAPDIABUTTONS_SHORT) {
-			swapDialogButtonOrder=true;
 		} else if ((arg == ARG_DISPLAY || arg==ARG_DISPLAY_SHORT || arg==ARG_DISPLAY_QT) && ++i < argsc) {
 			// allow setting of display, QT expect the option -display <display_name> so we discard the
 			// last argument. FIXME: Qt only understands -display not --display and -d , we need to work
@@ -294,7 +289,7 @@ int ScribusQApp::init()
 		return EXIT_FAILURE;
 	ScCore=m_ScCore;
 	processEvents();
-	ScCore->init(useGUI, swapDialogButtonOrder, filesToLoad);
+	ScCore->init(useGUI, filesToLoad);
 	int retVal=EXIT_SUCCESS;
 	/* TODO:
 	 * When Scribus is truly able to run without GUI
@@ -486,7 +481,6 @@ void ScribusQApp::showUsage()
 	printArgLine(ts, ARG_NEVERSPLASH_SHORT, ARG_NEVERSPLASH, tr("Stop the showing of the splashscreen on startup. Writes an empty file called .neversplash in ~/.scribus.") );
 	printArgLine(ts, ARG_PREFS_SHORT, QString(QString(ARG_PREFS) + QString(" ") + tr("filename")).toLocal8Bit().constData(), tr("Use filename as path for user given preferences") );
 	printArgLine(ts, ARG_PROFILEINFO_SHORT, ARG_PROFILEINFO, tr("Show location ICC profile information on console while starting") );
-	printArgLine(ts, ARG_SWAPDIABUTTONS_SHORT, ARG_SWAPDIABUTTONS, tr("Use right to left dialog button ordering (eg. Cancel/No/Yes instead of Yes/No/Cancel)") );
 	printArgLine(ts, ARG_UPGRADECHECK_SHORT, ARG_UPGRADECHECK, tr("Download a file from the Scribus website and show the latest available version.") );
 	printArgLine(ts, ARG_VERSION_SHORT, ARG_VERSION, tr("Output version information and exit") );
 	printArgLine(ts, ARG_PYTHONSCRIPT_SHORT, QString(QString(ARG_PYTHONSCRIPT) + QString(" ") + tr("filename")).toLocal8Bit().constData(), tr("Run filename in Python scripter") );
