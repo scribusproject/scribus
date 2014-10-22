@@ -195,6 +195,7 @@ class PictureBrowser : public QDialog, Ui::PictureBrowser
 		void previewImageSelectionChanged ( const QItemSelection & selected, const QItemSelection & deselected );
 		void collectionsSetTagsButtonClicked();
 		void collectionsAddNewTagButtonClicked();
+		void jumpToImageFolder();
 
 	private:
 		//updates the QListView when the set of previewimages was changed (new images, zoom, previewmode changed etc)

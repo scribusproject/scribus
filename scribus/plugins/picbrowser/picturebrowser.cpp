@@ -154,6 +154,7 @@ PictureBrowser::PictureBrowser ( ScribusDoc* doc, QWidget *parent ) : QDialog ( 
 	connect ( collectionsSetTagsButton, SIGNAL ( clicked() ), this, SLOT ( collectionsSetTagsButtonClicked() ) );
 	connect ( collectionsAddNewTagButton, SIGNAL ( clicked() ), this, SLOT ( collectionsAddNewTagButtonClicked() ) );
 
+	connect (jumpToImageButton, SIGNAL(clicked()), this, SLOT(jumpToImageFolder()));
 
 	collectionsWidget->setColumnCount ( 1 );
 	collectionsWidget->setHeaderLabels ( QStringList ( "Name" ) );
@@ -1436,13 +1437,32 @@ void PictureBrowser::collectionsAddNewTagButtonClicked()
 	QString newTag = collectionsAddNewTagLineedit->text();
 
 	if ( !newTag.isEmpty() )
-	{
 		collectionsTagImagesCombobox->addItem ( newTag, 1 );
+	else
+		ScMessageBox::warning ( this, tr ( "Picture Browser Error" ), tr ( "No tag entered" ) );
+}
+
+void PictureBrowser::jumpToImageFolder()
+{
+	QString searchDir = informationFilepathLabel->text();
+	QDir dir ( searchDir );
+
+	if (!dir.exists())
+		return;
+
+	currPath = searchDir;
+
+	if (!fit)
+	{
+		fit = new findImagesThread ( currPath, nameFilters, QDir::Name, true );
+		connect ( fit, SIGNAL ( finished() ), this, SLOT ( findImagesThreadFinished() ) );
+		fit->start();
 	}
 	else
 	{
-		ScMessageBox::warning ( this, tr ( "Picture Browser Error" ), tr ( "No tag entered" ) );
+		fit->restart();
 	}
+	navigationBox->setCurrentIndex(0);
 }
 
 
@@ -1735,6 +1755,8 @@ void PictureBrowser::updateInformationTab ( int index )
 			informationFilepathLabel->setText ( tmpImage->fileInformation.absolutePath() );
 			informationFilesizeLabel->setText ( QString ( "%1 Bytes" ).arg ( tmpImage->fileInformation.size() ) );
 			informationFiledateLabel->setText ( tmpImage->fileInformation.lastModified().toString ( "dd.MM.yyyy hh:mm:ss" ) );
+			informationFilepathLabel->setToolTip(tmpImage->fileInformation.absoluteFilePath());
+
 
 			if(tmpImage->previewImageLoading)
 				informationFilenameLabel->setText (tr("Image still loading"));
