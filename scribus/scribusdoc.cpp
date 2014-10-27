@@ -757,20 +757,18 @@ ScribusDoc::~ScribusDoc()
 
 bool ScribusDoc::inAnEditMode() const
 {
-	bool inEditMode=false;
-
-	if (appMode == modeEdit ||
-		appMode == modeEditTable ||
-		appMode == modeEditSpiral ||
-		appMode == modeEditGradientVectors ||
-		appMode == modeEditClip ||
-		appMode == modeEditMeshGradient ||
-		appMode == modeEditArc ||
-		appMode == modeEditMeshPatch ||
-		appMode == modeEditWeldPoint ||
-		appMode == modeEditPolygon
-		)
-		inEditMode=true;
+	bool inEditMode = (appMode == modeEdit ||
+					   appMode == modeEditTable ||
+					   appMode == modeEditSpiral ||
+					   appMode == modeEditGradientVectors ||
+					   appMode == modeEditClip ||
+					   appMode == modeEditMeshGradient ||
+					   appMode == modeEditArc ||
+					   appMode == modeEditMeshPatch ||
+					   appMode == modeEditWeldPoint ||
+					   appMode == modeEditPolygon ||
+					   appMode == modeDrawBezierLine
+					   ) ? true : false;
 
 	return inEditMode;
 }

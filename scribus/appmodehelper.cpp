@@ -147,6 +147,9 @@ void AppModeHelper::setApplicationMode(ScribusMainWindow* scmw, ScribusDoc* doc,
 				doc->view()->horizRuler->update();
 			}
 			break;
+		case modeDrawBezierLine:
+			setSpecialEditMode(false);
+			break;
 		case modeEditTable:
 			if (newMode != modeEditTable)
 			{
@@ -255,6 +258,7 @@ void AppModeHelper::setApplicationMode(ScribusMainWindow* scmw, ScribusDoc* doc,
 			break;
 		case modeDrawBezierLine:
 			{
+				setSpecialEditMode(true);
 				if ((doc->m_Selection->count() != 0) && (!PrefsManager::instance()->appPrefs.uiPrefs.stickyTools))
 					doc->view()->Deselect(true);
 				doc->view()->FirstPoly = true;
@@ -325,13 +329,11 @@ void AppModeHelper::setApplicationMode(ScribusMainWindow* scmw, ScribusDoc* doc,
 			break;
 		case modeEditSpiral:
 			setSpecialEditMode(true);
-			scmw->outlinePalette->setEnabled(false);
 			break;
 		case modeEditTable:
 			{
 				if (oldMode != modeEditTable)
 				{
-					scmw->outlinePalette->setEnabled(false);
 					scmw->charPalette->setEnabled(true, currItem);
 					(*a_scrActions)["insertSampleText"]->setEnabled(true);
 					(*a_scrActions)["toolsEditWithStoryEditor"]->setEnabled(true);
@@ -473,8 +475,8 @@ void AppModeHelper::enableActionsForSelection(ScribusMainWindow* scmw, ScribusDo
 			(*a_scrActions)["fileImportText"]->setEnabled(false);
 			(*a_scrActions)["fileImportText2"]->setEnabled(false);
 			(*a_scrActions)["fileImportImage"]->setEnabled(true);
-			(*a_scrActions)["editCut"]->setEnabled(true);
-			(*a_scrActions)["editCopy"]->setEnabled(true);
+			(*a_scrActions)["editCut"]->setEnabled(!inAnEditMode);
+			(*a_scrActions)["editCopy"]->setEnabled(!inAnEditMode);
 			(*a_scrActions)["editClearContents"]->setEnabled(true);
 			(*a_scrActions)["editTruncateContents"]->setEnabled(true);
 			(*a_scrActions)["editSearchReplace"]->setEnabled(false);
@@ -483,13 +485,13 @@ void AppModeHelper::enableActionsForSelection(ScribusMainWindow* scmw, ScribusDo
 			(*a_scrActions)["itemDuplicate"]->setEnabled(true);
 			(*a_scrActions)["itemMulDuplicate"]->setEnabled(true);
 			(*a_scrActions)["itemTransform"]->setEnabled(true);
-			(*a_scrActions)["itemDelete"]->setEnabled(true);
+			(*a_scrActions)["itemDelete"]->setEnabled(!inAnEditMode);
 			(*a_scrActions)["itemRaise"]->setEnabled(true);
 			(*a_scrActions)["itemLower"]->setEnabled(true);
 			(*a_scrActions)["itemRaiseToTop"]->setEnabled(true);
 			(*a_scrActions)["itemLowerToBottom"]->setEnabled(true);
-			(*a_scrActions)["itemSendToPattern"]->setEnabled(true);
-			(*a_scrActions)["itemSendToInline"]->setEnabled(true);
+			(*a_scrActions)["itemSendToPattern"]->setEnabled(!inAnEditMode);
+			(*a_scrActions)["itemSendToInline"]->setEnabled(!inAnEditMode);
 			(*a_scrActions)["itemAdjustFrameToImage"]->setEnabled(true);
 			(*a_scrActions)["itemAdjustImageToFrame"]->setEnabled(true);
 			(*a_scrActions)["itemExtendedImageProperties"]->setEnabled(currItem->pixm.imgInfo.valid);
@@ -510,8 +512,8 @@ void AppModeHelper::enableActionsForSelection(ScribusMainWindow* scmw, ScribusDo
 			(*a_scrActions)["toolsLinkTextFrame"]->setEnabled(false);
 			(*a_scrActions)["toolsEditContents"]->setEnabled(currItem->ScaleType);
 			(*a_scrActions)["toolsEditWithStoryEditor"]->setEnabled(false);
-			(*a_scrActions)["toolsRotate"]->setEnabled(true);
-			(*a_scrActions)["toolsCopyProperties"]->setEnabled(true);
+			(*a_scrActions)["toolsRotate"]->setEnabled(!inAnEditMode);
+			(*a_scrActions)["toolsCopyProperties"]->setEnabled(!inAnEditMode);
 			(*a_scrActions)["itemImageIsVisible"]->setChecked(currItem->imageShown());
 			(*a_scrActions)["itemToggleInlineImage"]->setChecked(currItem->isImageInline());
 			(*a_scrActions)["itemPreviewFull"]->setChecked(currItem->pixm.imgInfo.lowResType==(*a_scrActions)["itemPreviewFull"]->actionInt());
@@ -525,8 +527,8 @@ void AppModeHelper::enableActionsForSelection(ScribusMainWindow* scmw, ScribusDo
 			(*a_scrActions)["fileImportImage"]->setEnabled(false);
 			(*a_scrActions)["fileImportAppendText"]->setEnabled(true);
 			(*a_scrActions)["fileExportText"]->setEnabled(true);
-			(*a_scrActions)["editCut"]->setEnabled(true);
-			(*a_scrActions)["editCopy"]->setEnabled(true);
+			(*a_scrActions)["editCut"]->setEnabled(!inAnEditMode);
+			(*a_scrActions)["editCopy"]->setEnabled(!inAnEditMode);
 			//scrMenuMgr->setMenuEnabled("EditContents", true);
 			(*a_scrActions)["editClearContents"]->setEnabled(true);
 			(*a_scrActions)["editTruncateContents"]->setEnabled(true);
@@ -537,14 +539,14 @@ void AppModeHelper::enableActionsForSelection(ScribusMainWindow* scmw, ScribusDo
 			(*a_scrActions)["itemDuplicate"]->setEnabled(true);
 			(*a_scrActions)["itemMulDuplicate"]->setEnabled(true);
 			(*a_scrActions)["itemTransform"]->setEnabled(true);
-			(*a_scrActions)["itemDelete"]->setEnabled(true);
+			(*a_scrActions)["itemDelete"]->setEnabled(!inAnEditMode);
 			(*a_scrActions)["itemRaise"]->setEnabled(true);
 			(*a_scrActions)["itemLower"]->setEnabled(true);
 			(*a_scrActions)["itemRaiseToTop"]->setEnabled(true);
 			(*a_scrActions)["itemLowerToBottom"]->setEnabled(true);
 			//scrMenuMgr->setMenuEnabled("itemSendToScrapbook", true);
-			(*a_scrActions)["itemSendToPattern"]->setEnabled(true);
-			(*a_scrActions)["itemSendToInline"]->setEnabled(true);
+			(*a_scrActions)["itemSendToPattern"]->setEnabled(!inAnEditMode);
+			(*a_scrActions)["itemSendToInline"]->setEnabled(!inAnEditMode);
 			(*a_scrActions)["itemAdjustFrameToImage"]->setEnabled(false);
 			(*a_scrActions)["itemAdjustImageToFrame"]->setEnabled(false);
 			(*a_scrActions)["itemExtendedImageProperties"]->setEnabled(false);
@@ -561,8 +563,8 @@ void AppModeHelper::enableActionsForSelection(ScribusMainWindow* scmw, ScribusDo
 			(*a_scrActions)["itemConvertToTextFrame"]->setEnabled(false);
 			(*a_scrActions)["itemConvertToSymbolFrame"]->setEnabled(!inAnEditMode);
 
-			(*a_scrActions)["toolsRotate"]->setEnabled(true);
-			(*a_scrActions)["toolsCopyProperties"]->setEnabled(true);
+			(*a_scrActions)["toolsRotate"]->setEnabled(!inAnEditMode);
+			(*a_scrActions)["toolsCopyProperties"]->setEnabled(!inAnEditMode);
 			(*a_scrActions)["toolsEditWithStoryEditor"]->setEnabled(true);
 			(*a_scrActions)["insertSampleText"]->setEnabled(true);
 			//scrMenuMgr->setMenuEnabled("InsertMark",true);
@@ -609,9 +611,9 @@ void AppModeHelper::enableActionsForSelection(ScribusMainWindow* scmw, ScribusDo
 
 			break;
 		case PageItem::Table:
-			(*a_scrActions)["editCut"]->setEnabled(true);
-			(*a_scrActions)["editCopy"]->setEnabled(true);
-			(*a_scrActions)["toolsRotate"]->setEnabled(true);
+			(*a_scrActions)["editCut"]->setEnabled(!inAnEditMode);
+			(*a_scrActions)["editCopy"]->setEnabled(!inAnEditMode);
+			(*a_scrActions)["toolsRotate"]->setEnabled(!inAnEditMode);
 			if (doc->appMode == modeEditTable)
 			{
 				PageItem *i2 = currItem->asTable()->activeCell().textFrame();
@@ -627,8 +629,8 @@ void AppModeHelper::enableActionsForSelection(ScribusMainWindow* scmw, ScribusDo
 			(*a_scrActions)["fileImportImage"]->setEnabled(false);
 			(*a_scrActions)["fileImportAppendText"]->setEnabled(true);
 			(*a_scrActions)["fileExportText"]->setEnabled(true);
-			(*a_scrActions)["editCut"]->setEnabled(true);
-			(*a_scrActions)["editCopy"]->setEnabled(true);
+			(*a_scrActions)["editCut"]->setEnabled(!inAnEditMode);
+			(*a_scrActions)["editCopy"]->setEnabled(!inAnEditMode);
 			(*a_scrActions)["editClearContents"]->setEnabled(false);
 			(*a_scrActions)["editTruncateContents"]->setEnabled(false);
 			(*a_scrActions)["editSearchReplace"]->setEnabled(false);
@@ -638,14 +640,14 @@ void AppModeHelper::enableActionsForSelection(ScribusMainWindow* scmw, ScribusDo
 			(*a_scrActions)["itemDuplicate"]->setEnabled(true);
 			(*a_scrActions)["itemMulDuplicate"]->setEnabled(true);
 			(*a_scrActions)["itemTransform"]->setEnabled(true);
-			(*a_scrActions)["itemDelete"]->setEnabled(true);
+			(*a_scrActions)["itemDelete"]->setEnabled(!inAnEditMode);
 			(*a_scrActions)["itemRaise"]->setEnabled(true);
 			(*a_scrActions)["itemLower"]->setEnabled(true);
 			(*a_scrActions)["itemRaiseToTop"]->setEnabled(true);
 			(*a_scrActions)["itemLowerToBottom"]->setEnabled(true);
 			//		(*a_scrActions)["itemSendToScrapbook"]->setEnabled(true);
-			(*a_scrActions)["itemSendToPattern"]->setEnabled(true);
-			(*a_scrActions)["itemSendToInline"]->setEnabled(true);
+			(*a_scrActions)["itemSendToPattern"]->setEnabled(!inAnEditMode);
+			(*a_scrActions)["itemSendToInline"]->setEnabled(!inAnEditMode);
 			(*a_scrActions)["itemAdjustFrameToImage"]->setEnabled(false);
 			(*a_scrActions)["itemAdjustImageToFrame"]->setEnabled(false);
 			(*a_scrActions)["itemExtendedImageProperties"]->setEnabled(false);
@@ -664,8 +666,8 @@ void AppModeHelper::enableActionsForSelection(ScribusMainWindow* scmw, ScribusDo
 			(*a_scrActions)["itemConvertToTextFrame"]->setEnabled(false);
 			(*a_scrActions)["itemConvertToSymbolFrame"]->setEnabled(true);
 
-			(*a_scrActions)["toolsRotate"]->setEnabled(true);
-			(*a_scrActions)["toolsCopyProperties"]->setEnabled(true);
+			(*a_scrActions)["toolsRotate"]->setEnabled(!inAnEditMode);
+			(*a_scrActions)["toolsCopyProperties"]->setEnabled(!inAnEditMode);
 			(*a_scrActions)["toolsEditContents"]->setEnabled(false);
 			(*a_scrActions)["toolsEditWithStoryEditor"]->setEnabled(true);
 			(*a_scrActions)["toolsLinkTextFrame"]->setEnabled(false);
@@ -679,8 +681,8 @@ void AppModeHelper::enableActionsForSelection(ScribusMainWindow* scmw, ScribusDo
 			(*a_scrActions)["fileImportImage"]->setEnabled(false);
 			(*a_scrActions)["fileImportAppendText"]->setEnabled(false);
 			(*a_scrActions)["fileExportText"]->setEnabled(false);
-			(*a_scrActions)["editCut"]->setEnabled(true);
-			(*a_scrActions)["editCopy"]->setEnabled(true);
+			(*a_scrActions)["editCut"]->setEnabled(!inAnEditMode);
+			(*a_scrActions)["editCopy"]->setEnabled(!inAnEditMode);
 			(*a_scrActions)["editClearContents"]->setEnabled(false);
 			(*a_scrActions)["editTruncateContents"]->setEnabled(false);
 			(*a_scrActions)["editSearchReplace"]->setEnabled(false);
@@ -690,13 +692,13 @@ void AppModeHelper::enableActionsForSelection(ScribusMainWindow* scmw, ScribusDo
 			(*a_scrActions)["itemDuplicate"]->setEnabled(true);
 			(*a_scrActions)["itemMulDuplicate"]->setEnabled(true);
 			(*a_scrActions)["itemTransform"]->setEnabled(true);
-			(*a_scrActions)["itemDelete"]->setEnabled(true);
+			(*a_scrActions)["itemDelete"]->setEnabled(!inAnEditMode);
 			(*a_scrActions)["itemRaise"]->setEnabled(true);
 			(*a_scrActions)["itemLower"]->setEnabled(true);
 			(*a_scrActions)["itemRaiseToTop"]->setEnabled(true);
 			(*a_scrActions)["itemLowerToBottom"]->setEnabled(true);
-			(*a_scrActions)["itemSendToPattern"]->setEnabled(true);
-			(*a_scrActions)["itemSendToInline"]->setEnabled(true);
+			(*a_scrActions)["itemSendToPattern"]->setEnabled(!inAnEditMode);
+			(*a_scrActions)["itemSendToInline"]->setEnabled(!inAnEditMode);
 			(*a_scrActions)["itemAdjustFrameToImage"]->setEnabled(false);
 			(*a_scrActions)["itemAdjustImageToFrame"]->setEnabled(false);
 			(*a_scrActions)["itemExtendedImageProperties"]->setEnabled(false);
@@ -760,8 +762,8 @@ void AppModeHelper::enableActionsForSelection(ScribusMainWindow* scmw, ScribusDo
 			(*a_scrActions)["toolsUnlinkTextFrameWithTextCopy"]->setEnabled(false);
 			(*a_scrActions)["toolsUnlinkTextFrameWithTextCut"]->setEnabled(false);
 			(*a_scrActions)["toolsLinkTextFrame"]->setEnabled(false);
-			(*a_scrActions)["toolsRotate"]->setEnabled(true);
-			(*a_scrActions)["toolsCopyProperties"]->setEnabled(true);
+			(*a_scrActions)["toolsRotate"]->setEnabled(!inAnEditMode);
+			(*a_scrActions)["toolsCopyProperties"]->setEnabled(!inAnEditMode);
 			break;
 	}
 
@@ -825,7 +827,7 @@ void AppModeHelper::enableActionsForSelection(ScribusMainWindow* scmw, ScribusDo
 
 	if (docSelectionCount != 0)
 	{
-		(*a_scrActions)["itemLock"]->setEnabled(true);
+		(*a_scrActions)["itemLock"]->setEnabled(!inAnEditMode);
 		(*a_scrActions)["itemLockSize"]->setEnabled(true);
 		(*a_scrActions)["itemPrintingEnabled"]->setEnabled(true);
 		if (currItem->isGroup())
@@ -856,8 +858,8 @@ void AppModeHelper::enableActionsForSelection(ScribusMainWindow* scmw, ScribusDo
 			(*a_scrActions)["itemRaiseToTop"]->setEnabled(false);
 			(*a_scrActions)["itemRaise"]->setEnabled(false);
 			(*a_scrActions)["itemLower"]->setEnabled(false);
-			(*a_scrActions)["itemSendToPattern"]->setEnabled(true);
-			(*a_scrActions)["itemSendToInline"]->setEnabled(true);
+			(*a_scrActions)["itemSendToPattern"]->setEnabled(!inAnEditMode);
+			(*a_scrActions)["itemSendToInline"]->setEnabled(!inAnEditMode);
 			(*a_scrActions)["editCut"]->setEnabled(false);
 			(*a_scrActions)["editClearContents"]->setEnabled(false);
 			(*a_scrActions)["editTruncateContents"]->setEnabled(false);
@@ -868,9 +870,9 @@ void AppModeHelper::enableActionsForSelection(ScribusMainWindow* scmw, ScribusDo
 			(*a_scrActions)["itemDuplicate"]->setEnabled(true);
 			(*a_scrActions)["itemMulDuplicate"]->setEnabled(true);
 			(*a_scrActions)["itemTransform"]->setEnabled(true);
-			(*a_scrActions)["itemDelete"]->setEnabled(true);
-			(*a_scrActions)["itemSendToPattern"]->setEnabled(true);
-			(*a_scrActions)["itemSendToInline"]->setEnabled(true);
+			(*a_scrActions)["itemDelete"]->setEnabled(!inAnEditMode);
+			(*a_scrActions)["itemSendToPattern"]->setEnabled(!inAnEditMode);
+			(*a_scrActions)["itemSendToInline"]->setEnabled(!inAnEditMode);
 			if (docSelectionCount > 1)
 			{
 				bool haveSameParent = true;
@@ -1065,6 +1067,9 @@ void AppModeHelper::setFrameEditMode(bool b)
 #ifdef HAVE_OSG
 	(*a_scrActions)["toolsPDFAnnot3D"]->setEnabled(b2);
 #endif
+	(*a_scrActions)["editCopy"]->setEnabled(b2);
+	(*a_scrActions)["editCut"]->setEnabled(b2);
+	(*a_scrActions)["editPaste"]->setEnabled(b2);
 	(*a_scrActions)["itemDelete"]->setEnabled(b2);
 	(*a_scrActions)["itemLock"]->setEnabled(b2);
 	(*a_scrActions)["itemConvertToTextFrame"]->setEnabled(b2);
