@@ -106,7 +106,12 @@ void AppModeHelper::setApplicationMode(ScribusMainWindow* scmw, ScribusDoc* doc,
 		scmw->ToggleFrameEdit();
 
 	//Ugly hack but I have absolutly no idea about how to do this in another way
-	if(UndoManager::undoEnabled() && currItem && oldMode != newMode && (newMode == modeEditMeshPatch || newMode == modeEditMeshGradient || newMode == modeEditGradientVectors || oldMode == modeEditMeshPatch || oldMode == modeEditMeshGradient || oldMode == modeEditGradientVectors || oldMode == modeEditPolygon || newMode == modeEditPolygon || oldMode == modeEditArc || newMode == modeEditArc || oldMode == modeEditSpiral || newMode == modeEditSpiral))
+	if(UndoManager::undoEnabled() && currItem && oldMode != newMode && (newMode == modeEditMeshPatch || oldMode == modeEditMeshPatch ||
+																		newMode == modeEditMeshGradient || oldMode == modeEditMeshGradient ||
+																		newMode == modeEditGradientVectors || oldMode == modeEditGradientVectors ||
+																		newMode == modeEditPolygon || oldMode == modeEditPolygon ||
+																		newMode == modeEditArc || oldMode == modeEditArc ||
+																		newMode == modeEditSpiral || oldMode == modeEditSpiral))
 	{
 		SimpleState *ss = new SimpleState(Um::Mode);
 		ss->set("CHANGE_MODE","change_mode");
@@ -150,10 +155,18 @@ void AppModeHelper::setApplicationMode(ScribusMainWindow* scmw, ScribusDoc* doc,
 		case modeDrawBezierLine:
 			setSpecialEditMode(false);
 			break;
+		case modeEditGradientVectors:
+			setSpecialEditMode(false);
+			break;
+		case modeEditMeshGradient:
+			setSpecialEditMode(false);
+			break;
+		case modeEditMeshPatch:
+			setSpecialEditMode(false);
+			break;
 		case modeEditTable:
 			if (newMode != modeEditTable)
 			{
-				scmw->outlinePalette->setEnabled(true);
 				scmw->charPalette->setEnabled(false, 0);
 				enableTextActions(false);
 				(*a_scrActions)["insertSampleText"]->setEnabled(false);
@@ -288,11 +301,6 @@ void AppModeHelper::setApplicationMode(ScribusMainWindow* scmw, ScribusDoc* doc,
 			break;
 		case modeMeasurementTool:
 			break;
-		case modeEditGradientVectors:
-			{
-				scmw->propertiesPalette->setGradientEditMode(true);
-			}
-			break;
 		case modeEyeDropper:
 			break;
 		case modeCopyProperties:
@@ -313,7 +321,17 @@ void AppModeHelper::setApplicationMode(ScribusMainWindow* scmw, ScribusDoc* doc,
 			break;
 		case modeInsertPDF3DAnnotation:
 			break;
+		case modeEditGradientVectors:
+			{
+				setSpecialEditMode(true);
+				scmw->propertiesPalette->setGradientEditMode(true);
+			}
+		break;
 		case modeEditMeshGradient:
+			setSpecialEditMode(true);
+			break;
+		case modeEditMeshPatch:
+			setSpecialEditMode(true);
 			break;
 		case modeDrawCalligraphicLine:
 			break;
@@ -342,8 +360,6 @@ void AppModeHelper::setApplicationMode(ScribusMainWindow* scmw, ScribusDoc* doc,
 					a_actMgr->saveActionShortcutsPreEditMode();
 				}
 			}
-			break;
-		case modeEditMeshPatch:
 			break;
 		case modeEditWeldPoint:
 			break;
@@ -827,7 +843,7 @@ void AppModeHelper::enableActionsForSelection(ScribusMainWindow* scmw, ScribusDo
 
 	if (docSelectionCount != 0)
 	{
-		(*a_scrActions)["itemLock"]->setEnabled(!inAnEditMode);
+		(*a_scrActions)["itemLock"]->setEnabled(doc->appMode != modeEditClip);
 		(*a_scrActions)["itemLockSize"]->setEnabled(true);
 		(*a_scrActions)["itemPrintingEnabled"]->setEnabled(true);
 		if (currItem->isGroup())
