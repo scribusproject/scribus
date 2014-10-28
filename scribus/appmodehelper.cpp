@@ -100,11 +100,6 @@ void AppModeHelper::setApplicationMode(ScribusMainWindow* scmw, ScribusDoc* doc,
 	if (!doc->m_Selection->isEmpty())
 		currItem = doc->m_Selection->itemAt(0);
 
-	if (oldMode == modeEditClip && newMode != modeEditClip)
-		scmw->NoFrameEdit();
-	else if (oldMode != modeEditClip && newMode == modeEditClip)
-		scmw->ToggleFrameEdit();
-
 	//Ugly hack but I have absolutly no idea about how to do this in another way
 	if(UndoManager::undoEnabled() && currItem && oldMode != newMode && (newMode == modeEditMeshPatch || oldMode == modeEditMeshPatch ||
 																		newMode == modeEditMeshGradient || oldMode == modeEditMeshGradient ||
@@ -133,7 +128,7 @@ void AppModeHelper::setApplicationMode(ScribusMainWindow* scmw, ScribusDoc* doc,
 	{
 		case modeEdit:
 			{
-				if (newMode!=modeEdit)
+				if (newMode != modeEdit)
 					a_actMgr->restoreActionShortcutsPostEditMode();
 				scmw->zoomSpinBox->setFocusPolicy(Qt::ClickFocus);
 				scmw->pageSelector->setFocusPolicy(Qt::ClickFocus);
@@ -150,6 +145,12 @@ void AppModeHelper::setApplicationMode(ScribusMainWindow* scmw, ScribusDoc* doc,
 				}
 				doc->view()->horizRuler->textMode(false);
 				doc->view()->horizRuler->update();
+			}
+			break;
+		case modeEditClip:
+			{
+				if (newMode != modeEditClip)
+					scmw->NoFrameEdit();
 			}
 			break;
 		case modeDrawBezierLine:
@@ -252,6 +253,12 @@ void AppModeHelper::setApplicationMode(ScribusMainWindow* scmw, ScribusDoc* doc,
 				}
 			}
 			break;
+		case modeEditClip:
+			{
+				if (oldMode != modeEditClip)
+					scmw->ToggleFrameEdit();
+			}
+			break;
 		case modeDrawLine:
 			break;
 		case modeRotation:
@@ -312,8 +319,6 @@ void AppModeHelper::setApplicationMode(ScribusMainWindow* scmw, ScribusDoc* doc,
 					(*a_scrActions)["toolsCopyProperties"]->setEnabled(true);
 				}
 			}
-			break;
-		case modeEditClip:
 			break;
 		case modeDrawLatex:
 			break;

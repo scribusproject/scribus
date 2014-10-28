@@ -5693,12 +5693,6 @@ void ScribusMainWindow::ToggleFrameEdit()
 	if (!doc)
 		return;
 
-	if (doc->appMode == modeEditClip)
-	{
-		NoFrameEdit();
-		return;
-	}
-
 	nodePalette->setDoc(doc, view);
 	nodePalette->MoveN();
 	nodePalette->HaveNode(false, false);
