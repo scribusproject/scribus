@@ -2429,7 +2429,7 @@ bool PrefsManager::ReadPref(QString ho)
 		}
 		if (dc.tagName()=="Fonts")
 		{
-			appPrefs.fontPrefs.askBeforeSubstitute = static_cast<bool>(dc.attribute("AutomaticSubst", "1").toInt());
+			appPrefs.fontPrefs.askBeforeSubstitute = static_cast<bool>(dc.attribute("AutomaticSubstitution", "1").toInt());
 		}
 		if (dc.tagName()=="Font")
 		{
