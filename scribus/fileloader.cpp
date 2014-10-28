@@ -436,34 +436,33 @@ bool FileLoader::postLoad(ScribusDoc* currDoc)
 			currDoc->docHyphenator->MinWordLen=currDoc->hyphMinimumWordLength();
 			currDoc->docHyphenator->HyCount=currDoc->hyphConsecutiveLines();
 	}
+	
+	ReplacedFonts = currDoc->AllFonts->getSubstitutions(ReplacedFonts.keys());
 	if (ReplacedFonts.isEmpty())
 		return true;
-	ReplacedFonts = currDoc->AllFonts->getSubstitutions(ReplacedFonts.keys());
-	if (ReplacedFonts.count() != 0)
+
+	if ((prefsManager->appPrefs.fontPrefs.askBeforeSubstitute))
 	{
-		if ((prefsManager->appPrefs.fontPrefs.askBeforeSubstitute))
+		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+		FontReplaceDialog dia(0, &ReplacedFonts);
+		if (dia.exec())
 		{
-			qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
-			FontReplaceDialog dia(0, &ReplacedFonts);
-			if (dia.exec())
+			QMap<QString,QString>::Iterator itfsu;
+			for (itfsu = ReplacedFonts.begin(); itfsu != ReplacedFonts.end(); ++itfsu)
 			{
-				QMap<QString,QString>::Iterator itfsu;
-				for (itfsu = ReplacedFonts.begin(); itfsu != ReplacedFonts.end(); ++itfsu)
-				{
-					if (dia.stickyReplacements->isChecked())
-						prefsManager->appPrefs.fontPrefs.GFontSub[itfsu.key()] = itfsu.value();
-				}
-				currDoc->AllFonts->setSubstitutions(ReplacedFonts, currDoc);
-				ResourceCollection repl;
-				repl.availableFonts = currDoc->AllFonts;
-				repl.mapFonts(ReplacedFonts);
-				currDoc->replaceNamedResources(repl);
-				return true;
+				if (dia.stickyReplacements->isChecked())
+					prefsManager->appPrefs.fontPrefs.GFontSub[itfsu.key()] = itfsu.value();
 			}
-			else
-			{
-				return false;
-			}
+			currDoc->AllFonts->setSubstitutions(ReplacedFonts, currDoc);
+			ResourceCollection repl;
+			repl.availableFonts = currDoc->AllFonts;
+			repl.mapFonts(ReplacedFonts);
+			currDoc->replaceNamedResources(repl);
+			return true;
+		}
+		else
+		{
+			return false;
 		}
 	}
 
