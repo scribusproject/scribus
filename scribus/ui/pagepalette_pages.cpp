@@ -199,16 +199,20 @@ void PagePalette_Pages::rebuildMasters()
 	if (currView == 0)
 		return;
 	QPixmap pm;
+	QListWidgetItem* item;
 	QMap<QString,int>::Iterator it;
 	for (it = currView->Doc->MasterNames.begin(); it != currView->Doc->MasterNames.end(); ++it)
 	{
+		QString pageLabel = it.key() == CommonStrings::masterPageNormal ? CommonStrings::trMasterPageNormal : it.key();
+		QString pageName = it.key();
 		if (masterPageList->Thumb)
 		{
 			pm = QPixmap::fromImage(currView->MPageToPixmap(it.key(),60));
-			new QListWidgetItem(QIcon(pm), it.key() == CommonStrings::masterPageNormal ? CommonStrings::trMasterPageNormal : it.key(), masterPageList);
+			item = new QListWidgetItem(QIcon(pm), pageLabel, masterPageList);
 		}
 		else
-			masterPageList->addItem(it.key() == CommonStrings::masterPageNormal ? CommonStrings::trMasterPageNormal : it.key());
+			item = new QListWidgetItem(pageLabel, masterPageList);
+		item->setData(Qt::UserRole, pageName);
 	}
 }
 
@@ -350,7 +354,10 @@ void PagePalette_Pages::setView(ScribusView *view)
 void PagePalette_Pages::selMasterPage()
 {
 	if (masterPageList->CurItem != 0)
-		emit gotoMasterPage(masterPageList->CurItem->text());
+	{
+		QVariant pageVar = masterPageList->CurItem->data(Qt::UserRole);
+		emit gotoMasterPage(pageVar.toString());
+	}
 }
 
 QPixmap PagePalette_Pages::createIcon(int nr, QString masterPage, QPixmap pixin)

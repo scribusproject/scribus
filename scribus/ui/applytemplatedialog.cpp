@@ -155,23 +155,23 @@ ApplyMasterPageDialog::~ApplyMasterPageDialog()
 	// no need to delete child widgets, Qt does it all for us
 }
 
-void ApplyMasterPageDialog::setup(ScribusDoc *view, QString Nam)
+void ApplyMasterPageDialog::setup(ScribusDoc *doc, QString Nam)
 {
 	QString na = Nam == CommonStrings::masterPageNormal ? CommonStrings::trMasterPageNormal : Nam, in;
 	int cc = 0;
-	for (QMap<QString,int>::Iterator it = view->MasterNames.begin(); it != view->MasterNames.end(); ++it)
+	for (QMap<QString,int>::Iterator it = doc->MasterNames.begin(); it != doc->MasterNames.end(); ++it)
 	{
 		in = it.key() == CommonStrings::masterPageNormal ? CommonStrings::trMasterPageNormal : it.key();
-		masterPageComboBox->addItem(in);
+		masterPageComboBox->addItem(in, it.key());
 		if (in == na)
 			masterPageComboBox->setCurrentIndex(cc);
 		++cc;
 	}
-	const unsigned int docPagesCount = view->Pages->count();
+	const unsigned int docPagesCount = doc->Pages->count();
 	if (docPagesCount < 2)
 		evenPagesRadioButton->setEnabled(false);
 	fromPageSpinBox->setMaximum(docPagesCount);
-	fromPageSpinBox->setValue(view->currentPage()->pageNr()+1);
+	fromPageSpinBox->setValue(doc->currentPage()->pageNr()+1);
 	toPageSpinBox->setMaximum(docPagesCount);
 	toPageSpinBox->setValue(static_cast<int>(docPagesCount));
 }
@@ -179,7 +179,8 @@ void ApplyMasterPageDialog::setup(ScribusDoc *view, QString Nam)
 
 QString ApplyMasterPageDialog::getMasterPageName()
 {
-	return masterPageComboBox->currentText();
+	int currentIndex = masterPageComboBox->currentIndex();
+	return masterPageComboBox->itemData(currentIndex).toString();
 }
 
 

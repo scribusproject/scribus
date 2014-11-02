@@ -90,21 +90,21 @@ void SeList::mouseMoveEvent(QMouseEvent* e)
 	if ((Mpressed) && ((Mpos - e->pos()).manhattanLength() > 4))
 	{
 		Mpressed = false;
-		QListWidgetItem *i = itemAt(Mpos);
-		if (i)
-		{
-			QMimeData *mimeData = new QMimeData;
-			mimeData->setData("page/magic", "1"+i->text().toLocal8Bit());
-			mimeData->setText("1"+i->text());
-			QDrag *dr = new QDrag(this);
-			dr->setMimeData(mimeData);
-			const QPixmap& pm = loadIcon("doc.png");
-			dr->setPixmap(pm);
-		//	dr->setDragCursor(pm, Qt::CopyAction);
-		//	dr->setDragCursor(pm, Qt::MoveAction);
-			dr->exec(Qt::CopyAction | Qt::MoveAction);
-			QApplication::setOverrideCursor(Qt::ArrowCursor);
-		}
+		QListWidgetItem *item = itemAt(Mpos);
+		if (!item)
+			return;
+		QMimeData *mimeData = new QMimeData;
+		QString pageName = item->data(Qt::UserRole).toString();
+		mimeData->setData("page/magic", "1" + pageName.toLocal8Bit());
+		mimeData->setText("1" + pageName);
+		QDrag *dr = new QDrag(this);
+		dr->setMimeData(mimeData);
+		const QPixmap& pm = loadIcon("doc.png");
+		dr->setPixmap(pm);
+	//	dr->setDragCursor(pm, Qt::CopyAction);
+	//	dr->setDragCursor(pm, Qt::MoveAction);
+		dr->exec(Qt::CopyAction | Qt::MoveAction);
+		QApplication::setOverrideCursor(Qt::ArrowCursor);
 	}
 }
 

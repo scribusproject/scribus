@@ -74,7 +74,9 @@ InsPage::InsPage( QWidget* parent, ScribusDoc* currentDoc, int currentPage, int 
 	{
 		QComboBox* pageData = new QComboBox(masterPageGroup);
 		for (QMap<QString,int>::Iterator it = currentDoc->MasterNames.begin(); it != currentDoc->MasterNames.end(); ++it)
-			pageData->addItem(it.key() == CommonStrings::masterPageNormal ? CommonStrings::trMasterPageNormal : it.key());
+		{
+			pageData->addItem(it.key() == CommonStrings::masterPageNormal ? CommonStrings::trMasterPageNormal : it.key(), it.key());
+		}
 		if (currentDoc->MasterNames.contains( CommonStrings::trMasterPageNormal))
 			setCurrentComboItem(pageData, CommonStrings::trMasterPageNormal);
 		masterPageLabel = new QLabel(tr("&Master Page:"), masterPageGroup);
@@ -97,13 +99,13 @@ InsPage::InsPage( QWidget* parent, ScribusDoc* currentDoc, int currentPage, int 
 				for (QMap<QString,int>::Iterator it = currentDoc->MasterNames.begin(); it != currentDoc->MasterNames.end(); ++it)
 				{
 					if ((it.key() == CommonStrings::masterPageNormal) && (!conNam))
-						pageData->addItem(CommonStrings::trMasterPageNormal);
+						pageData->addItem(CommonStrings::trMasterPageNormal, it.key());
 					else if ((it.key() == CommonStrings::trMasterPageNormal) && (!conNam))
-						pageData->addItem(CommonStrings::trMasterPageNormal);
+						pageData->addItem(CommonStrings::trMasterPageNormal, it.key());
 					else
 					{
 						if (currentDoc->MasterPages.at(it.value())->LeftPg == 1)
-							pageData->addItem(it.key());
+							pageData->addItem(it.key(), it.key());
 					}
 				}
 				if (currentDoc->MasterNames.contains( CommonStrings::trMasterPageNormalLeft))
@@ -117,13 +119,13 @@ InsPage::InsPage( QWidget* parent, ScribusDoc* currentDoc, int currentPage, int 
 					for (QMap<QString,int>::Iterator it = currentDoc->MasterNames.begin(); it != currentDoc->MasterNames.end(); ++it)
 					{
 						if ((it.key() == CommonStrings::masterPageNormal) && (!conNam))
-							pageData->addItem(CommonStrings::trMasterPageNormal);
+							pageData->addItem(CommonStrings::trMasterPageNormal, it.key());
 						else if ((it.key() == CommonStrings::trMasterPageNormal) && (!conNam))
-							pageData->addItem(CommonStrings::trMasterPageNormal);
+							pageData->addItem(CommonStrings::trMasterPageNormal, it.key());
 						else
 						{
 							if ((currentDoc->MasterPages.at(it.value())->LeftPg != 0) && (currentDoc->MasterPages.at(it.value())->LeftPg != 1))
-								pageData->addItem(it.key());
+								pageData->addItem(it.key(), it.key());
 						}
 					}
 					if (currentDoc->MasterNames.contains( CommonStrings::trMasterPageNormalMiddle))
@@ -135,13 +137,13 @@ InsPage::InsPage( QWidget* parent, ScribusDoc* currentDoc, int currentPage, int 
 					for (QMap<QString,int>::Iterator it = currentDoc->MasterNames.begin(); it != currentDoc->MasterNames.end(); ++it)
 					{
 						if ((it.key() == CommonStrings::masterPageNormal) && (!conNam))
-							pageData->addItem(CommonStrings::trMasterPageNormal);
+							pageData->addItem(CommonStrings::trMasterPageNormal, it.key());
 						else if ((it.key() == CommonStrings::trMasterPageNormal) && (!conNam))
-							pageData->addItem(CommonStrings::trMasterPageNormal);
+							pageData->addItem(CommonStrings::trMasterPageNormal, it.key());
 						else
 						{
 							if (currentDoc->MasterPages.at(it.value())->LeftPg == 0)
-								pageData->addItem(it.key());
+								pageData->addItem(it.key(), it.key());
 						}
 					}
 					if (currentDoc->MasterNames.contains( CommonStrings::trMasterPageNormalRight))
@@ -156,13 +158,13 @@ InsPage::InsPage( QWidget* parent, ScribusDoc* currentDoc, int currentPage, int 
 					for (QMap<QString,int>::Iterator it = currentDoc->MasterNames.begin(); it != currentDoc->MasterNames.end(); ++it)
 					{
 						if ((it.key() == CommonStrings::masterPageNormal) && (!conNam))
-							pageData->addItem(CommonStrings::trMasterPageNormal);
+							pageData->addItem(CommonStrings::trMasterPageNormal, it.key());
 						else if ((it.key() == CommonStrings::trMasterPageNormal) && (!conNam))
-							pageData->addItem(CommonStrings::trMasterPageNormal);
+							pageData->addItem(CommonStrings::trMasterPageNormal, it.key());
 						else
 						{
 							if ((currentDoc->MasterPages.at(it.value())->LeftPg != 0) && (currentDoc->MasterPages.at(it.value())->LeftPg != 1))
-								pageData->addItem(it.key());
+								pageData->addItem(it.key(), it.key());
 						}
 					}
 					if (currentDoc->MasterNames.contains( CommonStrings::trMasterPageNormalMiddle))
@@ -174,13 +176,13 @@ InsPage::InsPage( QWidget* parent, ScribusDoc* currentDoc, int currentPage, int 
 					for (QMap<QString,int>::Iterator it = currentDoc->MasterNames.begin(); it != currentDoc->MasterNames.end(); ++it)
 					{
 						if ((it.key() == CommonStrings::masterPageNormal) && (!conNam))
-							pageData->addItem(CommonStrings::trMasterPageNormal);
+							pageData->addItem(CommonStrings::trMasterPageNormal, it.key());
 						else if ((it.key() == CommonStrings::trMasterPageNormal) && (!conNam))
-							pageData->addItem(CommonStrings::trMasterPageNormal);
+							pageData->addItem(CommonStrings::trMasterPageNormal, it.key());
 						else
 						{
 							if (currentDoc->MasterPages.at(it.value())->LeftPg == 0)
-								pageData->addItem(it.key());
+								pageData->addItem(it.key(), it.key());
 						}
 					}
 					if (currentDoc->MasterNames.contains( CommonStrings::trMasterPageNormalRight))
@@ -193,13 +195,13 @@ InsPage::InsPage( QWidget* parent, ScribusDoc* currentDoc, int currentPage, int 
 				for (QMap<QString,int>::Iterator it = currentDoc->MasterNames.begin(); it != currentDoc->MasterNames.end(); ++it)
 				{
 					if ((it.key() == CommonStrings::masterPageNormal) && (!conNam))
-						pageData->addItem(CommonStrings::trMasterPageNormal);
+						pageData->addItem(CommonStrings::trMasterPageNormal, it.key());
 					else if ((it.key() == CommonStrings::trMasterPageNormal) && (!conNam))
-						pageData->addItem(CommonStrings::trMasterPageNormal);
+						pageData->addItem(CommonStrings::trMasterPageNormal, it.key());
 					else
 					{
 						if (currentDoc->MasterPages.at(it.value())->LeftPg == 0)
-							pageData->addItem(it.key());
+							pageData->addItem(it.key(), it.key());
 					}
 				}
 				if (currentDoc->MasterNames.contains( CommonStrings::trMasterPageNormalRight))
@@ -344,14 +346,18 @@ const QStringList InsPage::getMasterPages()
 	QStringList ret;
 	for (int n = 0; n < masterPageCombos.count(); ++n)
 	{
-		ret.append(masterPageCombos.at(n)->currentText());
+		int currentIndex = masterPageCombos.at(n)->currentIndex();
+		QVariant pageVar = masterPageCombos.at(n)->itemData(currentIndex);
+		ret.append(pageVar.toString());
 	}
 	return ret;
 }
 
 const QString InsPage::getMasterPageN(uint n)
 {
-	return masterPageCombos.at(n)->currentText();
+	QComboBox* comboBox = masterPageCombos.at(n);
+	int currentIndex = comboBox->currentIndex();
+	return comboBox->itemData(currentIndex).toString();
 }
 
 int InsPage::getWhere() const
