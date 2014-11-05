@@ -15,7 +15,7 @@ for which a new license (GPL+exception) is in place.
 #include <QTextCodec>
 #include <QTextStream>
 
-
+#include "downloadmanager/scdlmgr.h"
 #include "prefs_spelling.h"
 #include "langmgr.h"
 #include "prefsstructs.h"

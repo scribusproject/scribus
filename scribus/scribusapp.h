@@ -25,9 +25,10 @@ for which a new license (GPL+exception) is in place.
 #include <QString>
 
 #include "scribusapi.h"
-#include "downloadmanager/scdlmgr.h"
+
 class ScribusCore;
 class ScribusMainWindow;
+class ScDLManager;
 
 class SCRIBUS_API ScribusQApp : public QApplication
 {

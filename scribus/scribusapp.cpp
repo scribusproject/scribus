@@ -35,13 +35,15 @@ for which a new license (GPL+exception) is in place.
 #include <QTextStream>
 
 #include "scribusapp.h"
-#include "scribuscore.h"
-#include "scpaths.h"
-#include "prefsfile.h"
+
+#include "commonstrings.h"
+#include "downloadmanager/scdlmgr.h"
 #include "langmgr.h"
 #include "localemgr.h"
+#include "prefsfile.h"
 #include "prefsmanager.h"
-#include "commonstrings.h"
+#include "scpaths.h"
+#include "scribuscore.h"
 #include "upgradechecker.h"
 
 #ifdef WITH_TESTS
