@@ -1,6 +1,7 @@
 #ifndef SCDLMANAGER_H
 #define SCDLMANAGER_H
 
+#include <QDialog>
 #include <QFile>
 #include <QList>
 #include <QNetworkAccessManager>
@@ -10,8 +11,8 @@
 #include <QThread>
 #include <QTime>
 #include <QUrl>
+
 #include "scdlthread.h"
-#include <QDialog>
 
 class ScDLManager: public QObject
 {
