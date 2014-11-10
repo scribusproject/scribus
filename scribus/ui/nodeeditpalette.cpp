@@ -1050,7 +1050,18 @@ void NodePalette::unitChange()
 	if (m_doc==0)
 		return;
 	unitRatio = m_doc->unitRatio();
+
+	bool sigBlocked1 = XSpin->blockSignals(true);
+	bool sigBlocked2 = YSpin->blockSignals(true);
+	bool sigBlocked3 = scaleDistance->blockSignals(true);
+
+	XSpin->setNewUnit(m_doc->unitIndex());
+	YSpin->setNewUnit(m_doc->unitIndex());
 	scaleDistance->setNewUnit(m_doc->unitIndex());
+
+	XSpin->blockSignals(sigBlocked1);
+	YSpin->blockSignals(sigBlocked2);
+	scaleDistance->blockSignals(sigBlocked3);
 }
 
 ScribusDoc* NodePalette::currentDocument() const
