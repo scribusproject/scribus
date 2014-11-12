@@ -99,8 +99,8 @@ NodePalette::NodePalette( QWidget* parent) : ScrPaletteBase( parent, "nodePalett
 	gridLayout->addWidget(Res1Node, 1, 3, 1, 1);
 
 	PolySplit = new QToolButton(this);
-	PolySplit->setEnabled( false );
-	PolySplit->setCheckable( true );
+	PolySplit->setEnabled(false);
+	PolySplit->setCheckable(true);
 	PolySplit->setIcon(QIcon(loadIcon("PolyCut.png")));
 	PolySplit->setIconSize(iconSize);
 	PolySplit->setContentsMargins(0, 0, 0, 0);
@@ -108,7 +108,7 @@ NodePalette::NodePalette( QWidget* parent) : ScrPaletteBase( parent, "nodePalett
 	gridLayout->addWidget(PolySplit, 2, 0, 1, 1);
 
 	BezierClose = new QToolButton(this);
-	BezierClose->setEnabled( false );
+	BezierClose->setEnabled(false);
 	BezierClose->setIcon(QIcon(loadIcon("BezierClose.png")));
 	BezierClose->setIconSize(iconSize);
 	BezierClose->setContentsMargins(0, 0, 0, 0);
@@ -595,6 +595,7 @@ void NodePalette::SetSym()
 		doc->nodeEdit.MoveSym = true;
 	SymMove->setChecked(true);
 	AsymMove->setChecked(false);
+	PolySplit->setChecked(false);
 }
 
 void NodePalette::SetAsym()
@@ -603,6 +604,7 @@ void NodePalette::SetAsym()
 		doc->nodeEdit.MoveSym = false;
 	SymMove->setChecked(false);
 	AsymMove->setChecked(true);
+	PolySplit->setChecked(false);
 }
 
 void NodePalette::SetXY(double x, double y)
@@ -792,6 +794,7 @@ void NodePalette::MoveK()
 	MoveControl->setChecked(true);
 	DeleteNode->setChecked(false);
 	AddNode->setChecked(false);
+	PolySplit->setChecked(false);
 }
 
 void NodePalette::MoveN()
@@ -816,6 +819,7 @@ void NodePalette::MoveN()
 	MoveControl->setChecked(false);
 	DeleteNode->setChecked(false);
 	AddNode->setChecked(false);
+	PolySplit->setChecked(false);
 }
 
 void NodePalette::AddN()
@@ -830,6 +834,7 @@ void NodePalette::AddN()
 	Res1Node->setEnabled(false);
 	AddNode->setChecked(true);
 	DeleteNode->setChecked(false);
+	PolySplit->setChecked(false);
 }
 
 void NodePalette::DelN()
@@ -844,6 +849,7 @@ void NodePalette::DelN()
 	Res1Node->setEnabled(false);
 	AddNode->setChecked(false);
 	DeleteNode->setChecked(true);
+	PolySplit->setChecked(false);
 }
 
 void NodePalette::closeEvent(QCloseEvent *ce)
@@ -857,8 +863,8 @@ void NodePalette::closeEvent(QCloseEvent *ce)
 		doc->nodeEdit.SegP2 = -1;
 		doc->nodeEdit.SelNode.clear();
 	}
-	PolySplit->setEnabled( false );
-	BezierClose->setEnabled( false );
+	PolySplit->setEnabled(false);
+	BezierClose->setEnabled(false);
 	emit Schliessen();
 	ScrPaletteBase::closeEvent(ce);
 }
@@ -876,8 +882,8 @@ void NodePalette::EndEdit()
 		EditCont->setChecked(false);
 		ToggleConMode();
 	}
-	PolySplit->setEnabled( false );
-	BezierClose->setEnabled( false );
+	PolySplit->setEnabled(false);
+	BezierClose->setEnabled(false);
 	EditCont->setChecked(false);
 	emit Schliessen();
 }
