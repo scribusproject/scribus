@@ -1311,10 +1311,18 @@ IF(APPLEBUNDLE)
 #	ADD_CUSTOM_COMMAND(TARGET ${EXE_NAME} POST_BUILD
 #	COMMAND ${CMAKE_COMMAND} ARGS -Dinput_file=${CMAKE_CURRENT_BINARY_DIR}/${EXE_NAME}.app/Contents/MacOS/${EXE_NAME} -P ${CMAKE_MODULE_PATH}/ScribusIngestOSXBundleLibraries.cmake
 #	)
+#MESSAGE(STATUS "Installing apple bundle")
 
-#	INSTALL(
-#	CODE "SET(input_file ${CMAKE_INSTALL_PREFIX}/MacOS/${EXE_NAME})"
-#	SCRIPT ${CMAKE_MODULE_PATH}/ScribusIngestOSXBundleLibraries.cmake )
+#	SET(APPS "${APPLE_APP_DIR}")
+#	SET(DIRS ${QT_LIBRARY_DIRS})
+#	INSTALL(CODE "
+#		file(GLOB_RECURSE QTPLUGINS
+#		  \"\${CMAKE_INSTALL_PREFIX}/${LIBDIR}/plugins/*${CMAKE_SHARED_LIBRARY_SUFFIX}\")
+#		include(BundleUtilities)
+#		fixup_bundle(\"${APPS}\" \"\${QTPLUGINS}\" \"${DIRS}\")
+#		" COMPONENT Runtime)
+
+
 ELSE(APPLEBUNDLE)
 	IF(WIN32)
 	INSTALL(TARGETS ${EXE_NAME}

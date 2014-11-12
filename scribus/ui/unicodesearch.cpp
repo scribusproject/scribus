@@ -181,7 +181,7 @@ UnicodeSearch::UnicodeSearch( QWidget* parent)
 	tableView->setColumnWidth(0, tableView->fontMetrics().maxWidth()*4);
 
 	connect(searchEdit, SIGNAL(returnPressed()),
-			this, SLOT(searchEdit_returnPressed()));
+			 this, SLOT(searchEdit_returnPressed()));
 	connect(tableView, SIGNAL(doubleClicked(const QModelIndex &)),
 			 this, SLOT(itemChosen(const QModelIndex &)));
 	connect(tableView, SIGNAL(activated(const QModelIndex &)),

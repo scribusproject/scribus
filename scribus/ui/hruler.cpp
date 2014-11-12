@@ -338,6 +338,7 @@ void Hruler::enterEvent(QEvent *e)
 void Hruler::leaveEvent(QEvent *m)
 {
 	emit MarkerMoved(0, -1);
+	qApp->restoreOverrideCursor();
 	m_view->m_canvasMode->setModeCursor();
 }
 
