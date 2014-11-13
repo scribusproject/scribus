@@ -292,7 +292,11 @@ void CreateMode::mouseMoveEvent(QMouseEvent *m)
 			QRectF createObjectRect(createObjectPos.x(), createObjectPos.y(), wSize, hSize);
 			createObjectRect = createObjectRect.normalized();
 			if (createObjectMode != modeDrawLine)
-				m_canvas->displaySizeHUD(m->globalPos(), createObjectRect.width(), createObjectRect.height(), false);
+			{
+				if (modifiers == Qt::ControlModifier)
+					hSize = wSize;
+				m_canvas->displaySizeHUD(m->globalPos(), wSize, hSize, false);
+			}
 			else
 			{
 				double angle = -xy2Deg(wSize, hSize);
