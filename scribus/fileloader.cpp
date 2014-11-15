@@ -376,7 +376,7 @@ bool FileLoader::postLoad(ScribusDoc* currDoc)
 	ReplacedFonts = currDoc->AllFonts->getSubstitutions(ReplacedFonts.keys());
 	if (ReplacedFonts.count() != 0)
 	{
-		if ((prefsManager->appPrefs.askBeforeSubstituite)) 
+		if ((prefsManager->appPrefs.askBeforeSubstitute)) 
 		{
 			qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 			FontReplaceDialog dia(0, &ReplacedFonts);
