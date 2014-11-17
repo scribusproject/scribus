@@ -664,7 +664,7 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 			}
 			else
 			{
-				if (m_Doc->itemToolPrefs().shapeLineColor != CommonStrings::None)
+				if (m_Doc->itemToolPrefs().shapeFillColor != CommonStrings::None)
 				{
 					const ScColor& col = m_Doc->PageColors[m_Doc->itemToolPrefs().shapeFillColor];
 					QColor qcol = ScColorEngine::getRGBColor(col, m_Doc);
@@ -3207,6 +3207,7 @@ void PageItem::setMeshPointColor(int x, int y, QString color, int shade, double 
 				case LatexFrame:
 				case OSGFrame:
 					MColor = m_Doc->itemToolPrefs().imageFillColor;
+					break;
 				case TextFrame:
 				case PathText:
 					MColor = m_Doc->itemToolPrefs().textFillColor;
@@ -3425,6 +3426,7 @@ void PageItem::createGradientMesh(int rows, int cols)
 				case LatexFrame:
 				case OSGFrame:
 					MColor = m_Doc->itemToolPrefs().imageFillColor;
+					break;
 				case TextFrame:
 				case PathText:
 					MColor = m_Doc->itemToolPrefs().textFillColor;
@@ -3952,6 +3954,7 @@ void PageItem::setFillColor(const QString &newColor)
 				case LatexFrame:
 				case OSGFrame:
 					tmp = m_Doc->itemToolPrefs().imageFillColor;
+					break;
 				case TextFrame:
 				case PathText:
 					tmp = m_Doc->itemToolPrefs().textFillColor;

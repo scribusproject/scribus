@@ -1162,7 +1162,7 @@ void PageItem_Table::updateSpans(int index, int number, ChangeType changeType)
 		// Check if the area was affected by the change.
 		if (newArea != oldArea)
 		{
-			if (newArea.height() < 1 || newArea.height() < 1)
+			if (newArea.height() < 1 || newArea.width() < 1)
 			{
 				// Adjusted area was annihilated, so remove it.
 				areaIt.remove();
