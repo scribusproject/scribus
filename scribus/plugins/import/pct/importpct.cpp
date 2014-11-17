@@ -1318,7 +1318,7 @@ void PctPlug::handleShape(QDataStream &ts, quint16 opCode)
 	if (opCode > 0x0044)
 		currRectType = 1;
 	finishItem(ite);
-	if ((patternMode) && ((opCode != 0x0030) || (opCode != 0x0040) || (opCode != 0x0050)))
+	if ((patternMode) && (opCode && 0x0030) && (opCode != 0x0040) && (opCode != 0x0050))
 		setFillPattern(ite);
 }
 
@@ -1403,7 +1403,7 @@ void PctPlug::handleSameShape(QDataStream &ts, quint16 opCode)
 		ite->PoLine.translate(offsetX, offsetY);
 		finishItem(ite);
 	}
-	if ((patternMode) && ((opCode != 0x0038) || (opCode != 0x0048) || (opCode != 0x0058)))
+	if ((patternMode) && (opCode != 0x0038) && (opCode != 0x0048) && (opCode != 0x0058))
 		setFillPattern(ite);
 }
 
