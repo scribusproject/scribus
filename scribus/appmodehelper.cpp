@@ -548,8 +548,8 @@ void AppModeHelper::enableActionsForSelection(ScribusMainWindow* scmw, ScribusDo
 			(*a_scrActions)["fileImportImage"]->setEnabled(false);
 			(*a_scrActions)["fileImportAppendText"]->setEnabled(true);
 			(*a_scrActions)["fileExportText"]->setEnabled(true);
-			(*a_scrActions)["editCut"]->setEnabled(!inAnEditMode);
-			(*a_scrActions)["editCopy"]->setEnabled(!inAnEditMode);
+			(*a_scrActions)["editCut"]->setEnabled(true);
+			(*a_scrActions)["editCopy"]->setEnabled(true);
 			//scrMenuMgr->setMenuEnabled("EditContents", true);
 			(*a_scrActions)["editClearContents"]->setEnabled(true);
 			(*a_scrActions)["editTruncateContents"]->setEnabled(true);
@@ -632,8 +632,8 @@ void AppModeHelper::enableActionsForSelection(ScribusMainWindow* scmw, ScribusDo
 
 			break;
 		case PageItem::Table:
-			(*a_scrActions)["editCut"]->setEnabled(!inAnEditMode);
-			(*a_scrActions)["editCopy"]->setEnabled(!inAnEditMode);
+			(*a_scrActions)["editCut"]->setEnabled(true);
+			(*a_scrActions)["editCopy"]->setEnabled(true);
 			(*a_scrActions)["toolsRotate"]->setEnabled(!inAnEditMode);
 			if (doc->appMode == modeEditTable)
 			{
