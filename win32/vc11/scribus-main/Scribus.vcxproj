@@ -301,8 +301,8 @@
     <moc Include="..\..\..\scribus\canvasmode_editspiral.h" />
     <moc Include="..\..\..\scribus\canvasmode_edittable.h" />
     <moc Include="..\..\..\scribus\canvasmode_editweldpoint.h" />
-    <ClInclude Include="..\..\..\scribus\canvasmode_eyedropper.h" />
-    <ClInclude Include="..\..\..\scribus\canvasmode_framelinks.h" />
+    <moc Include="..\..\..\scribus\canvasmode_eyedropper.h" />
+    <moc Include="..\..\..\scribus\canvasmode_framelinks.h" />
     <ClInclude Include="..\..\..\scribus\canvasmode_imageimport.h" />
     <ClInclude Include="..\..\..\scribus\canvasmode_magnifier.h" />
     <moc Include="..\..\..\scribus\canvasmode_measurements.h" />
@@ -895,6 +895,8 @@
     <ClCompile Include="..\..\..\scribus\desaxe\saxXML.cpp" />
     <ClCompile Include="..\..\..\scribus\desaxe\uniqueid.cpp" />
     <ClCompile Include="..\..\..\scribus\moc_appmodehelper.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_canvasmode_eyedropper.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_canvasmode_framelinks.cpp" />
     <ClCompile Include="..\..\..\scribus\moc_qtiocompressor.cpp" />
     <ClCompile Include="..\..\..\scribus\moc_upgradechecker.cpp" />
     <ClCompile Include="..\..\..\scribus\qtiocompressor.cpp" />

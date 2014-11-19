@@ -3467,6 +3467,12 @@
     <ClCompile Include="..\..\..\scribus\undotransaction.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\scribus\moc_canvasmode_eyedropper.cpp">
+      <Filter>Generated Moc Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\moc_canvasmode_framelinks.cpp">
+      <Filter>Generated Moc Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Scribus.rc">

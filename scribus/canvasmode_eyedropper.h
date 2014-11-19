@@ -26,6 +26,8 @@ class ScribusView;
 
 class CanvasMode_EyeDropper :  public CanvasMode
 {
+	Q_OBJECT
+
 public:
 	explicit CanvasMode_EyeDropper(ScribusView* view);
 	virtual ~CanvasMode_EyeDropper() {}

@@ -215,6 +215,8 @@ SET(SCRIBUS_MOC_CLASSES
 	canvasmode_editspiral.h
 	canvasmode_edittable.h
 	canvasmode_editweldpoint.h
+	canvasmode_eyedropper.h
+	canvasmode_framelinks.h
 	canvasmode_measurements.h
 	canvasmode_normal.h
 	chartablemodel.h
