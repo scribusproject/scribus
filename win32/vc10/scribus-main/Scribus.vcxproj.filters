@@ -123,12 +123,6 @@
     <ClInclude Include="..\..\..\scribus\canvasmode_editmeshpatch.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\scribus\canvasmode_eyedropper.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\scribus\canvasmode_framelinks.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\scribus\canvasmode_imageimport.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -3479,6 +3473,12 @@
     <ClCompile Include="..\..\..\scribus\undotransaction.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\scribus\moc_canvasmode_eyedropper.cpp">
+      <Filter>Generated Moc Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\moc_canvasmode_framelinks.cpp">
+      <Filter>Generated Moc Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Scribus.rc">
@@ -4918,6 +4918,12 @@
       <Filter>Header Files</Filter>
     </moc>
     <moc Include="..\..\..\scribus\ui\filedialogeventcatcher.h">
+      <Filter>Header Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\canvasmode_eyedropper.h">
+      <Filter>Header Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\canvasmode_framelinks.h">
       <Filter>Header Files</Filter>
     </moc>
   </ItemGroup>
