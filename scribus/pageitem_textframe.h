@@ -82,7 +82,7 @@ public:
 	double columnWidth();
 
     //enable/disable marks inserting actions depending on editMode
-	void togleEditModeActions();
+	void toggleEditModeActions();
 	QRegion availableRegion() { return m_availableRegion; }
 
 protected:

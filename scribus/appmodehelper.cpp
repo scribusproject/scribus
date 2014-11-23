@@ -222,7 +222,7 @@ void AppModeHelper::setApplicationMode(ScribusMainWindow* scmw, ScribusDoc* doc,
 			break;
 		case modeEdit:
 			{
-				if (oldMode!=modeEdit)
+				if (oldMode != modeEdit)
 					a_actMgr->saveActionShortcutsPreEditMode();
 				if (currItem != 0)
 				{
@@ -234,7 +234,7 @@ void AppModeHelper::setApplicationMode(ScribusMainWindow* scmw, ScribusDoc* doc,
 				if (currItem!=NULL && currItem->asTextFrame())
 				{
 					enableTextActions(true, currItem->currentCharStyle().font().scName());
-					currItem->asTextFrame()->togleEditModeActions();
+					currItem->asTextFrame()->toggleEditModeActions();
 				}
 				if (ScMimeData::clipboardHasScribusData())
 				{

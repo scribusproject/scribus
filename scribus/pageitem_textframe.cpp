@@ -5230,7 +5230,7 @@ bool PageItem_TextFrame::createInfoGroup(QFrame *infoGroup, QGridLayout *infoGro
 	return true;
 }
 
-void PageItem_TextFrame::togleEditModeActions()
+void PageItem_TextFrame::toggleEditModeActions()
 {
 	bool editMode = (m_Doc->appMode == modeEdit);
 	bool masterMode = m_Doc->masterPageMode();

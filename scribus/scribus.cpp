@@ -2679,7 +2679,7 @@ void ScribusMainWindow::HaveNewSel()
 			if (currItem->asTextFrame())
 			{
 				appModeHelper->enableTextActions(true, currItem->currentStyle().charStyle().font().scName());
-				currItem->asTextFrame()->togleEditModeActions();
+				currItem->asTextFrame()->toggleEditModeActions();
 			}
 			view->horizRuler->setItem(currItem);
 			view->horizRuler->update();
