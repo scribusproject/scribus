@@ -209,15 +209,15 @@ void CanvasMode_FrameLinks::mousePressEvent(QMouseEvent *m)
 				{
 					//CB Mouse is released when this messagebox takes focus
 					m_canvas->m_viewMode.m_MouseButtonPressed = false;
-					QMessageBox::warning(m_view, ScribusView::tr("Linking Text Frames"),
-											 "<qt>" + ScribusView::tr("You are trying to link a frame to itself.") + "</qt>");
+					QMessageBox::warning(m_view, tr("Linking Text Frames"),
+										 "<qt>" + tr("You are trying to link a frame to itself.") + "</qt>");
 				}
 				else
 				{
 					//CB Mouse is released when this messagebox takes focus
 					m_canvas->m_viewMode.m_MouseButtonPressed = false;
-					QMessageBox::warning(m_view, ScribusView::tr("Linking Text Frames"),
-										 "<qt>" + ScribusView::tr("You are trying to link a frame which is already linked.") + "</qt>");
+					QMessageBox::warning(m_view, tr("Linking Text Frames"),
+										 "<qt>" + tr("You are trying to link a frame which is already linked.") + "</qt>");
 				}
 			}
 			else

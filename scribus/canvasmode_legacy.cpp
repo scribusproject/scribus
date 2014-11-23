@@ -1963,7 +1963,7 @@ void LegacyMode::mousePressEvent(QMouseEvent *m)
 					//CB Mouse is released when this messagebox takes focus
 					m_canvas->m_viewMode.m_MouseButtonPressed = false;
 					QMessageBox::warning(m_view, ScribusView::tr("Linking Text Frames"),
-											 "<qt>" + ScribusView::tr("You are trying to link a frame to itself.") + "</qt>");
+										 "<qt>" + ScribusView::tr("You are trying to link a frame to itself.") + "</qt>");
 				}
 				else
 				{

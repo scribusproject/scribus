@@ -89,6 +89,8 @@ SET(SCRIBUS_MOC_CLASSES
   canvasgesture_rulermove.h
   canvasmode.h
   canvasmode_edit.h
+  canvasmode_eyedropper.h
+  canvasmode_framelinks.h
   canvasmode_legacy.h
   canvasmode_measurements.h
   canvasmode_normal.h

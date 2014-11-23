@@ -37,6 +37,8 @@ class ScribusView;
 
 class CanvasMode_FrameLinks :  public CanvasMode
 {
+	Q_OBJECT
+
 public:
 	CanvasMode_FrameLinks(ScribusView* view);
 

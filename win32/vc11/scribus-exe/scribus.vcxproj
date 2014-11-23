@@ -278,8 +278,8 @@
     <ClInclude Include="..\..\..\scribus\canvasmode_drawfreehand.h" />
     <moc Include="..\..\..\scribus\canvasmode_edit.h" />
     <ClInclude Include="..\..\..\scribus\canvasmode_editgradient.h" />
-    <ClInclude Include="..\..\..\scribus\canvasmode_eyedropper.h" />
-    <ClInclude Include="..\..\..\scribus\canvasmode_framelinks.h" />
+    <moc Include="..\..\..\scribus\canvasmode_eyedropper.h" />
+    <moc Include="..\..\..\scribus\canvasmode_framelinks.h" />
     <moc Include="..\..\..\scribus\canvasmode_legacy.h" />
     <ClInclude Include="..\..\..\scribus\canvasmode_magnifier.h" />
     <moc Include="..\..\..\scribus\canvasmode_measurements.h" />
@@ -735,6 +735,8 @@
     <ClCompile Include="..\..\..\scribus\canvasmode_rotate.cpp" />
     <ClCompile Include="..\..\..\scribus\charselect.cpp" />
     <ClCompile Include="..\..\..\scribus\charselectenhanced.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_canvasmode_eyedropper.cpp" />
+    <ClCompile Include="..\..\..\scribus\moc_canvasmode_framelinks.cpp" />
     <ClCompile Include="..\..\..\scribus\moc_scescapecatcher.cpp" />
     <ClCompile Include="..\..\..\scribus\scescapecatcher.cpp" />
     <ClCompile Include="..\..\..\scribus\styles\charstyle.cpp" />

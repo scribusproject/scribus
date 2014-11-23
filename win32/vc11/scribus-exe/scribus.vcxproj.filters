@@ -2531,6 +2531,12 @@
     <ClCompile Include="..\..\..\scribus\moc_scescapecatcher.cpp">
       <Filter>Generated Moc Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\scribus\moc_canvasmode_eyedropper.cpp">
+      <Filter>Generated Moc Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\moc_canvasmode_framelinks.cpp">
+      <Filter>Generated Moc Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="scribus.rc">
