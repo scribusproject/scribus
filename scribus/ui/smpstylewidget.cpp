@@ -20,7 +20,7 @@ static bool isEqual(double a, double b)
 	Q_ASSERT(a >  -21473 && b > -21473 && a < 21474 && b < 21474);
 	long al = static_cast<long>(10000 * a);
 	long bl = static_cast<long>(10000 * b);
-    return al == bl;
+	return al == bl;
 }
 
 
@@ -53,7 +53,7 @@ SMPStyleWidget::SMPStyleWidget(ScribusDoc* doc, StyleSet<CharStyle> *cstyles) : 
 //	optMarginCombo->addItem(tr("Default"), ParagraphStyle::OM_Default);
 
 	parEffectOffset->setSuffix(unitGetSuffixFromIndex(0));
-	
+
 	fillBulletStrEditCombo();
 	bulletCharTableButton->setIcon(loadIcon("22/insert-table.png"));
 	fillNumFormatCombo();
@@ -111,9 +111,9 @@ void SMPStyleWidget::languageChange()
 	//dropCapsBox->setToolTip(      tr("Enable or disable drop cap"));
 	dropCapLines->setToolTip(    tr("Drop Cap Lines"));
 	bulletCharTableButton->setToolTip(tr("Enhanced Char Table for inserting customs chars as bullets"));
-	parEffectOffset->setToolTip(   tr("Paragraph Effects Chars Offset"));
-	parEffectIndentBox->setToolTip(   tr("Hang Paragraph Effect before paragraph indent"));
-	parEffectCharStyleCombo->setToolTip("<qt>" + tr("Choose chracter style or leave blank for use default paragraph style"));
+	parEffectOffset->setToolTip(         tr("Paragraph Effects Chars Offset"));
+	parEffectIndentBox->setToolTip(      tr("Hang Paragraph Effect before paragraph indent"));
+	parEffectCharStyleCombo->setToolTip( tr("Choose character style or leave blank for use default paragraph style"));
 	alignment->setToolTip(       tr("Alignment"));
 	tabList->first_->setToolTip( tr("First Line Indent"));
 	tabList->left_->setToolTip(  tr("Left Indent"));
@@ -121,19 +121,19 @@ void SMPStyleWidget::languageChange()
 	//CB Unneeded, gets in the way of single widget tooltips
 	//tabList->setToolTip(         tr("Tabulators"));
 	
-	minSpaceSpin->setToolTip(tr("Maximum white space compression allowed.\nExpressed as a percentage of the current white space value."));
+	minSpaceSpin->setToolTip(   tr("Maximum white space compression allowed.\nExpressed as a percentage of the current white space value."));
 	minSpaceLabel->setToolTip(minSpaceSpin->toolTip());
 	minGlyphExtSpin->setToolTip(tr("Maximum compression of glyphs"));
 	minGlyphExtLabel->setToolTip(minGlyphExtSpin->toolTip());
 	maxGlyphExtSpin->setToolTip(tr("Maximum extension of glyphs"));
 	maxGlyphExtLabel->setToolTip(maxGlyphExtSpin->toolTip());
 
-	keepLinesStart->setToolTip ("<qt>" + tr ("Ensure that first lines of a paragraph won't end up separated from the rest (known as widow/orphan control)") + "</qt>");
-	keepLinesEnd->setToolTip ("<qt>" + tr ("Ensure that last lines of a paragraph won't end up separated from the rest (known as widow/orphan control)") + "</qt>");
-	keepLabelStart->setToolTip (keepLinesStart->toolTip());
-	keepLabelEnd->setToolTip (keepLinesEnd->toolTip());
-	keepTogether->setToolTip ("<qt>" + tr ("If checked, ensures that the paragraph won't be split across multiple pages or columns") + "</qt>");
-	keepWithNext->setToolTip ("<qt>" + tr ("If checked, automatically moves the paragraph to the next column or page if the next paragraph isn't on the same page or column") + "</qt>");
+	keepLinesStart->setToolTip("<qt>" + tr("Ensure that first lines of a paragraph won't end up separated from the rest (known as widow/orphan control)") + "</qt>");
+	keepLinesEnd->setToolTip("<qt>" + tr("Ensure that last lines of a paragraph won't end up separated from the rest (known as widow/orphan control)") + "</qt>");
+	keepLabelStart->setToolTip(keepLinesStart->toolTip());
+	keepLabelEnd->setToolTip(keepLinesEnd->toolTip());
+	keepTogether->setToolTip("<qt>" + tr("If checked, ensures that the paragraph won't be split across multiple pages or columns") + "</qt>");
+	keepWithNext->setToolTip("<qt>" + tr("If checked, automatically moves the paragraph to the next column or page if the next paragraph isn't on the same page or column") + "</qt>");
 
 /***********************************/
 /*      End Tooltips               */
@@ -143,7 +143,7 @@ void SMPStyleWidget::languageChange()
 	lineSpacingMode->addItem( tr("Fixed Linespacing"));
 	lineSpacingMode->addItem( tr("Automatic Linespacing"));
 	lineSpacingMode->addItem( tr("Align to Baseline Grid"));
-	
+
 //	optMarginCombo->clear();
 //	optMarginCombo->addItem(tr("None"), ParagraphStyle::OM_None);
 //	optMarginCombo->addItem(tr("Left Protruding"), ParagraphStyle::OM_LeftProtruding);
@@ -161,24 +161,26 @@ void SMPStyleWidget::languageChange()
 	distancesBox->setTitle( tr("Distances and Alignment"));
 
 	//parEffectsBox->setTitle(tr("Paragraph Effects"));
-	dropCapsBox->setTitle( tr("Drop Caps"));
-	bulletBox->setTitle(tr("Bullets"));
-	numBox->setTitle(tr("Numeration"));
-	dropCapsLineLabel->setText( tr("Lines:"));
-	bulletCharLabel->setText(tr("Bullet Char/String"));
+	bulletBox->setTitle(           tr("Bullets"));
+	bulletCharLabel->setText(      tr("Bullet Char/String"));
 	bulletCharTableButton->setText(tr("Char Table"));
+
+	numBox->setTitle(       tr("Numeration"));
+	numLevelLabel->setText( tr("Level"));
 	numFormatLabel->setText(tr("Numbering Style"));
-	numLevelLabel->setText(tr("Level"));
+	numStartLabel->setText( tr("Start with"));
 	numPrefixLabel->setText(tr("Prefix"));
 	numSuffixLabel->setText(tr("Suffix"));
-	numStartLabel->setText(tr("Start with"));
-	numRestartOtherBox->setText(tr("Restart after other format"));
+	numRestartOtherBox->setText( tr("Restart after other format"));
 	numRestartHigherBox->setText(tr("Restart after higher level"));
+
+	dropCapsBox->setTitle( tr("Drop Caps"));
+	dropCapsLineLabel->setText( tr("Lines:"));
 
 	parEffectCharStyleComboLabel->setText(tr("Character Style for Effect:"));
 	distFromTextLabel->setText(tr("Distance from Text:"));
 	parentParEffectsButton->setText(tr("Use Parent`s Values"));
-	
+
 	QFont font1;
 	if (font1.pointSize())
 		font1.setPointSize(font1.pointSize() *2);
@@ -187,25 +189,25 @@ void SMPStyleWidget::languageChange()
 	((QComboBox*) bulletStrEdit)->setFont(font1);
 	(bulletStrEdit->lineEdit())->setFont(font1);
 
-	tabsBox->setTitle( tr("Tabulators and Indentation"));
+	tabsBox->setTitle(tr("Tabulators and Indentation"));
 	tabWidget->setTabText(0, tr("Properties"));
 	tabWidget->setTabText(1, tr("Paragraph Effects"));
 	tabWidget->setTabText(2, tr("Character Style"));
 	
 	advSettingsGroupBox->setTitle( tr("Advanced Settings"));
-	minSpaceLabel->setText( tr("Minimum Space Width:"));
-	glyphExtensionLabel->setText( tr("Glyph Extension "));
-	minGlyphExtLabel->setText( tr("Minimum:", "Glyph Extension"));
-	maxGlyphExtLabel->setText (tr("Maximum:", "Glyph Extension"));
+	minSpaceLabel->setText(        tr("Min. Space Width:"));
+	glyphExtensionLabel->setText(  tr("Glyph Extension "));
+	minGlyphExtLabel->setText(     tr("Min:", "Glyph Extension"));
+	maxGlyphExtLabel->setText(     tr("Max:", "Glyph Extension"));
 
 	opticalMarginsGroupBox->setTitle( tr("Optical Margins"));
-	optMarginRadioNone->setText( tr("None","optical margins") );
-	optMarginRadioBoth->setText( tr("Both Sides","optical margins") );
-	optMarginRadioLeft->setText( tr("Left Only","optical margins") );
-	optMarginRadioRight->setText( tr("Right Only","optical margins") );
+	optMarginRadioNone->setText(      tr("None", "Optical Margins"));
+	optMarginRadioBoth->setText(      tr("Both Sides", "Optical Margins"));
+	optMarginRadioLeft->setText(      tr("Left Only", "Optical Margins"));
+	optMarginRadioRight->setText(     tr("Right Only", "Optical Margins"));
 
-	optMarginDefaultButton->setText( tr("Reset to Default") );
-	optMarginParentButton->setText( tr("Use Parent Value") );
+	optMarginDefaultButton->setText(  tr("Reset to Default"));
+	optMarginParentButton->setText(   tr("Use Parent Value"));
 }
 
 void SMPStyleWidget::unitChange(double oldRatio, double newRatio, int unitIndex)
