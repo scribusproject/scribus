@@ -2308,6 +2308,8 @@ void ScribusDoc::restore(UndoState* state, bool isUndo)
 					scMW()->layerPalette->setActiveLayer(layerLevelFromID(ss->getInt("ACTIVE")),0);
 				m_ScMW->changeLayer(ss->getInt("ACTIVE"));
 				m_ScMW->layerPalette->rebuildList();
+				if (m_ScMW->outlinePalette->isVisible())
+					m_ScMW->outlinePalette->BuildTree();
 			}
 		}
 	}
