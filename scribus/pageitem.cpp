@@ -880,9 +880,9 @@ PageItem::~PageItem()
 		{
 			for (int pos=0; pos < itemText.length(); ++pos)
 			{
-                if (itemText.hasMark(pos))
+				if (itemText.hasMark(pos))
 				{
-                    Mark* mrk = itemText.mark(pos);
+					Mark* mrk = itemText.mark(pos);
 					if (!mrk->isType(MARKBullNumType))
 						m_Doc->eraseMark(mrk);
 				}

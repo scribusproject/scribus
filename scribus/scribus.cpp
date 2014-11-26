@@ -4963,14 +4963,16 @@ void ScribusMainWindow::deselectAll()
 void ScribusMainWindow::ClipChange()
 {
 	bool textFrameEditMode = false;
+	bool tableEditMode = false;
 	bool hasScribusData = ScMimeData::clipboardHasScribusElem() || ScMimeData::clipboardHasScribusFragment();
 	if (HaveDoc && !doc->m_Selection->isEmpty())
 	{
 		PageItem *currItem = NULL;
 		currItem = doc->m_Selection->itemAt(0);
 		textFrameEditMode  = ((doc->appMode == modeEdit) && (currItem->asTextFrame()));
+		tableEditMode = ((doc->appMode == modeEditTable) && (currItem->asTable()));
 	}
-	scrActions["editPaste"]->setEnabled(HaveDoc && (hasScribusData || textFrameEditMode));
+	scrActions["editPaste"]->setEnabled(HaveDoc && (hasScribusData || textFrameEditMode || tableEditMode));
 }
 
 void ScribusMainWindow::EnableTxEdit()

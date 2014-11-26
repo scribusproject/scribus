@@ -363,6 +363,12 @@ void AppModeHelper::setApplicationMode(ScribusMainWindow* scmw, ScribusDoc* doc,
 					PageItem *i2 = currItem->asTable()->activeCell().textFrame();
 					enableTextActions(true, i2->currentCharStyle().font().scName());
 					a_actMgr->saveActionShortcutsPreEditMode();
+					// #11938: Paste is not correctly enabled in modeEditTable
+					if (ScMimeData::clipboardHasScribusData())
+					{
+						bool tableEditMode = ((currItem != NULL) && (currItem->asTable()));
+						(*a_scrActions)["editPaste"]->setEnabled(tableEditMode);
+					}
 				}
 			}
 			break;
