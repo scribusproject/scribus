@@ -28,6 +28,8 @@ private:
 	bool   hasParent_;
 	bool   useParentValue_;
 	int    pValue_;
+
+	QString useParentValueText();
 	void setFont(bool wantBold);
 
 private slots:
