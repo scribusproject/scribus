@@ -4551,6 +4551,21 @@ Høyde: %2</translation>
     </message>
 </context>
 <context>
+    <name>CanvasMode_FrameLinks</name>
+    <message>
+        <source>Linking Text Frames</source>
+        <translation type="unfinished">Lenker tekstrammer</translation>
+    </message>
+    <message>
+        <source>You are trying to link a frame to itself.</source>
+        <translation type="unfinished">Du prøver å lenke en ramme til seg selv.</translation>
+    </message>
+    <message>
+        <source>You are trying to link a frame which is already linked.</source>
+        <translation type="unfinished">Du prøver å lenke en ramme som allerede er lenket.</translation>
+    </message>
+</context>
+<context>
     <name>CanvasMode_Normal</name>
     <message>
         <source>All Supported Formats</source>
@@ -19475,6 +19490,22 @@ Sjekk stien og filnavnet.</translation>
         <source>Directory:</source>
         <translation>Mappe:</translation>
     </message>
+    <message>
+        <source>Files of type:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Look in:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Forward</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Parent Directory</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QFontDialog</name>
@@ -20388,15 +20419,15 @@ Eksterne lenker
     </message>
     <message>
         <source>Scribus Crash</source>
-        <translation type="obsolete">Scribuskrasj</translation>
+        <translation type="unfinished">Scribuskrasj</translation>
     </message>
     <message>
         <source>Scribus crashes due to Signal #%1</source>
-        <translation type="obsolete">Scribus krasjet på grunn av signalet #%1</translation>
+        <translation type="unfinished">Scribus krasjet på grunn av signalet #%1</translation>
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation type="obsolete">&amp;Greit</translation>
+        <translation type="unfinished">&amp;Greit</translation>
     </message>
     <message>
         <source>Custom</source>
@@ -20710,7 +20741,7 @@ Eksterne lenker
     <message>
         <source>Failed to open document.</source>
         <comment>python error</comment>
-        <translation>Klarte ikke å åpne dokumentet.</translation>
+        <translation type="obsolete">Klarte ikke å åpne dokumentet.</translation>
     </message>
     <message>
         <source>Failed to save document.</source>
@@ -21973,6 +22004,34 @@ is not exhaustive due to exceptions from called functions.
         <source>Anii</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Scribus crashes due to the following exception : %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Grids</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Failed to open document: %1</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Master page does not exist: &apos;%1&apos;</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Page number out of range: %1.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Failed to apply masterpage &apos;%1&apos; on page: %2</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QTextEdit</name>
@@ -22758,31 +22817,31 @@ Hvis du bruker motstående sider, kan dette brukes til å få rettinnbindingsmar
     </message>
     <message>
         <source> pt</source>
-        <translation> pt</translation>
+        <translation type="obsolete"> pt</translation>
     </message>
     <message>
         <source>Solid Line</source>
-        <translation>Heltrukken</translation>
+        <translation type="obsolete">Heltrukken</translation>
     </message>
     <message>
         <source>Dashed Line</source>
-        <translation>Stiplet</translation>
+        <translation type="obsolete">Stiplet</translation>
     </message>
     <message>
         <source>Dotted Line</source>
-        <translation>Prikkete linje</translation>
+        <translation type="obsolete">Prikkete linje</translation>
     </message>
     <message>
         <source>Dash Dot Line</source>
-        <translation>Bindestrek punktum linje</translation>
+        <translation type="obsolete">Bindestrek punktum linje</translation>
     </message>
     <message>
         <source>Dash Dot Dot Line</source>
-        <translation>Bindestrek punktum punktum linje</translation>
+        <translation type="obsolete">Bindestrek punktum punktum linje</translation>
     </message>
     <message>
         <source> pt </source>
-        <translation> pt </translation>
+        <translation type="obsolete"> pt </translation>
     </message>
 </context>
 <context>
@@ -25602,7 +25661,7 @@ Rotasjon: %4</translation>
     </message>
     <message>
         <source>Text Files (*.txt);;All Files(*)</source>
-        <translation>Tekstfiler (*.txt);;Alle filer (*)</translation>
+        <translation type="obsolete">Tekstfiler (*.txt);;Alle filer (*)</translation>
     </message>
     <message>
         <source>Normal</source>
@@ -25839,6 +25898,10 @@ Du kan bruke forhåndssjekken for å rette dem.</translation>
     </message>
     <message>
         <source>Click the Help button to read Scribus-related Ghostscript help and installation instructions.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Text Files (*.txt);;All Files (*)</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -26997,7 +27060,7 @@ til sidevisningen nedenfor for å lage en ny side.</translation>
     </message>
     <message>
         <source>Text Files (*.txt);;All Files(*)</source>
-        <translation>Tekstfiler (*.txt);;Alle filer (*)</translation>
+        <translation type="obsolete">Tekstfiler (*.txt);;Alle filer (*)</translation>
     </message>
     <message>
         <source>Save as</source>
@@ -27168,6 +27231,10 @@ til sidevisningen nedenfor for å lage en ny side.</translation>
     <message>
         <source>Space</source>
         <translation>Mellomrom</translation>
+    </message>
+    <message>
+        <source>Text Files (*.txt);;All Files (*)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -30409,11 +30476,15 @@ Nivå 1 eller 2 kan gi store filer</translation>
     </message>
     <message>
         <source>The minimum number is 1; the maximum us 100.</source>
-        <translation>Det minste tallet er 1, det største er 100.</translation>
+        <translation type="obsolete">Det minste tallet er 1, det største er 100.</translation>
     </message>
     <message>
         <source>Number of Copied Items to Keep in Scrapbook:</source>
         <translation>Antall kopierte elementer som skal beholdes i  kladdeboka:</translation>
+    </message>
+    <message>
+        <source>The minimum number is 1; the maximum is 100.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -32063,6 +32134,10 @@ X: %4, Y: %5</translation>
     <message>
         <source>Path Operation</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Duplicate</source>
+        <translation type="unfinished">Kopier</translation>
     </message>
 </context>
 <context>
