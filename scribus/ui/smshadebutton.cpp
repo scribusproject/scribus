@@ -51,11 +51,17 @@ bool SMShadeButton::useParentValue()
 	{
 		setValue(m_pValue, true);
 		QList<QAction*> actList = FillSh->actions();
-		FillSh->removeAction(actList.last());
+		if (actList.last()->text() == useParentValueText())
+			FillSh->removeAction(actList.last());
 	}
-	
 
 	return ret;
+}
+
+QString SMShadeButton::useParentValueText()
+{
+	QString trText = tr("Use Parent Value");
+	return trText;
 }
 
 void SMShadeButton::setFont(bool wantBold)
@@ -71,7 +77,7 @@ void SMShadeButton::currentChanged()
 	if (m_hasParent)
 	{
 		setFont(true);
-		QString upv = tr("Use Parent Value");
+		QString upv = useParentValueText();
 		QList<QAction*> actList = FillSh->actions();
 		if (actList.last()->text() != upv)
 			FillSh->addAction(upv, this, SLOT(slotUseParent()));
@@ -82,6 +88,7 @@ void SMShadeButton::slotUseParent()
 {
 	m_useParentValue = true;
 	QList<QAction*> actList = FillSh->actions();
-	FillSh->removeAction(actList.last());
+	if (actList.last()->text() == useParentValueText())
+		FillSh->removeAction(actList.last());
 	emit clicked();
 }
