@@ -54,7 +54,6 @@ bool SMShadeButton::useParentValue()
 		if (actList.last()->text() == useParentValueText())
 			FillSh->removeAction(actList.last());
 	}
-	
 
 	return ret;
 }
