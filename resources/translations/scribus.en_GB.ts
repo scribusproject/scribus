@@ -194,6 +194,10 @@
         <source>Haiku Port:</source>
         <translation>Haiku Port:</translation>
     </message>
+    <message>
+        <source>SVN Revision: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>AboutPlugins</name>
@@ -1459,7 +1463,7 @@
     </message>
     <message>
         <source>Edit text in the Story Editor</source>
-        <translation>Edit text in the Story Editor</translation>
+        <translation type="vanished">Edit text in the Story Editor</translation>
     </message>
     <message>
         <source>Eye Dropper</source>
@@ -1667,6 +1671,22 @@
     </message>
     <message>
         <source>3D Annotation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Edit text in story editor</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enable preview mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enable editing in preview mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Toggle color management system</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2362,6 +2382,10 @@ Configuration invalid</translation>
         <source>Barcode</source>
         <translation type="unfinished">Barcode</translation>
     </message>
+    <message>
+        <source>Insert a barcode</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>BarcodeGenerator</name>
@@ -2440,6 +2464,82 @@ Configuration invalid</translation>
     <message>
         <source>Variable number of characters, digits and any symbols.</source>
         <translation>Variable number of characters, digits and any symbols.</translation>
+    </message>
+    <message>
+        <source>EAN-13</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>EAN-8</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>UPC-A</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>UPC-E</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>EAN-5</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>EAN-2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>ISBN</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Code-39</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Code-128</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>UCC/EAN-128</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Rationalized Codabar</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Interleaved 2 of 5</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>ITF-14</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Code 2 of 5</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Postnet</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Royal Mail</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>MSI</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Plessey</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>QR Code</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -3438,11 +3538,31 @@ Document Liberation Project http://www.documentliberation.org</source>
     </message>
     <message>
         <source>Hide/Show Enhanced Palette</source>
-        <translation>Hide/Show Enhanced Palette</translation>
+        <translation type="vanished">Hide/Show Enhanced Palette</translation>
     </message>
     <message>
         <source>Save Quick Character Palette</source>
         <translation>Save Quick Character Palette</translation>
+    </message>
+    <message>
+        <source>Show/Hide Enhanced Palette</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unicode Search</source>
+        <translation type="unfinished">Unicode Search</translation>
+    </message>
+    <message>
+        <source>Load a Character Palette</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save the Character Palette</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Empty the Character Palette</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4519,7 +4639,7 @@ currently %2 x %3 DPI</translation>
     </message>
     <message>
         <source>Contents</source>
-        <translation type="unfinished">Contents</translation>
+        <translation type="obsolete">Contents</translation>
     </message>
     <message>
         <source>Edit 3D Annotation...</source>
@@ -4572,6 +4692,10 @@ currently %2 x %3 DPI</translation>
     <message>
         <source>Paste Recent</source>
         <translation type="unfinished">Paste Recent</translation>
+    </message>
+    <message>
+        <source>Content</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4922,6 +5046,22 @@ currently %2 x %3 DPI</translation>
     <message>
         <source>Include color profiles when collecting files for the document</source>
         <translation>Include colour profiles when collecting files for the document</translation>
+    </message>
+    <message>
+        <source>Import Option:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Keep original size</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Downscale to page size</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Upscale to page size</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -5615,6 +5755,10 @@ Use 72 dpi for Images intended for the Screen</translation>
     </message>
     <message>
         <source>Don&apos;t export Page Background</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Create a range of pages</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -7080,6 +7224,34 @@ converting their vector data into Scribus objects.</translation>
     </message>
 </context>
 <context>
+    <name>ImportPmPlugin</name>
+    <message>
+        <source>Import Pagemaker...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Pagemaker</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Pagemaker (*.pmd *.PMD *.pm *.PM *.pm3 *.PM3 *.pm4 *.PM4 *.pm5 *.PM5 *.pm6 *.PM6 *.p65 *.P65)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Imports Pagemaker Files</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Imports most Pagemaker files into the current document,
+converting their vector data into Scribus objects.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>All Supported Formats</source>
+        <translation type="unfinished">All Supported Formats</translation>
+    </message>
+</context>
+<context>
     <name>ImportPubPlugin</name>
     <message>
         <source>Import PUB...</source>
@@ -7567,6 +7739,10 @@ p, li { white-space: pre-wrap; }
     <message>
         <source>Master Pages</source>
         <translation>Master Pages</translation>
+    </message>
+    <message>
+        <source>Override Master Page Sizing</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -9747,14 +9923,6 @@ If no handle is selected all handles will be reset.</source>
     </message>
     <message>
         <source>Add Style</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Mark`s Character Style</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Note`s Paragraph Style</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -12338,7 +12506,7 @@ Please choose another one.</source>
     <name>PictureBrowser</name>
     <message>
         <source>Scribus Picture Browser</source>
-        <translation>Scribus Picture Browser</translation>
+        <translation type="vanished">Scribus Picture Browser</translation>
     </message>
     <message>
         <source>Folder Browser</source>
@@ -12422,7 +12590,7 @@ Please choose another one.</source>
     </message>
     <message>
         <source>Change sortorder</source>
-        <translation>Change sortorder</translation>
+        <translation type="vanished">Change sortorder</translation>
     </message>
     <message>
         <source>Zoom in</source>
@@ -12812,6 +12980,106 @@ Please choose another one.</source>
         <source>Image Frame(s):</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Picture Browser</source>
+        <translation type="unfinished">Picture Browser</translation>
+    </message>
+    <message>
+        <source>Move the document view to the selected page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show/Hide advanced tools</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Always keep Picture Browser on top of other windows</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Change sort order</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Change preview settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enable Picture Browser autosave settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Reset Picture Browser to default settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Select a directory</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Add filter</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Filter criteria</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Search criteria</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Type name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Set date</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Set size</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Select file type(s)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Select the page(s) where to insert the image(s)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Select which frame(s) to use</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Set the position of the image frame(s) to insert</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Horizontal position</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Vertical position</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Set the size of the image frame(s) to insert</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Width</source>
+        <translation type="unfinished">Width</translation>
+    </message>
+    <message>
+        <source>Height</source>
+        <translation type="unfinished">Height</translation>
+    </message>
+    <message>
+        <source>Type Tag name</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>PictureBrowserPlugin</name>
@@ -12945,6 +13213,24 @@ Please choose another one.</source>
     <message>
         <source>Form</source>
         <translation>Form</translation>
+    </message>
+</context>
+<context>
+    <name>PmPlug</name>
+    <message>
+        <source>Importing: %1</source>
+        <translation type="unfinished">Importing: %1</translation>
+    </message>
+    <message>
+        <source>Analyzing File:</source>
+        <translation type="unfinished">Analysing File:</translation>
+    </message>
+    <message>
+        <source>Parsing failed!
+
+Please submit your file (if possible) to the
+Document Liberation Project http://www.documentliberation.org</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -14235,6 +14521,18 @@ Do you want to migrate them to the new Scribus version?</translation>
         <source>Scribus has found the following pdflatex command:
 %1
 Do you want to use this?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;qt&gt;File system location for web browser.&lt;/qt&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;qt&gt;File system location for PDF viewer.&lt;/qt&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;qt&gt;File system location for Uniconvertor.&lt;/qt&gt;</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -15903,6 +16201,10 @@ A value of 0 means unlimited hyphenations.</translation>
         <source>Choose an owner password which enables or disables all the security features in your exported PDF</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Create a range of pages</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Prefs_PageSizes</name>
@@ -17194,6 +17496,10 @@ Note: PDF Forms will not be exported.</source>
         <source>Length:</source>
         <translation>Length:</translation>
     </message>
+    <message>
+        <source>Create a range of pages</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>PropertiesPalette</name>
@@ -17549,6 +17855,10 @@ Note: PDF Forms will not be exported.</source>
     <message>
         <source>Compression quality used in PDF export for the image</source>
         <translation>Compression quality used in PDF export for the image</translation>
+    </message>
+    <message>
+        <source>&amp;To Frame Size</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -19430,6 +19740,10 @@ Scripter documentation for futher information. </source>
         <source>Select color</source>
         <translation>Select colour</translation>
     </message>
+    <message>
+        <source>Pick Screen Color</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QFileDialog</name>
@@ -19676,6 +19990,22 @@ Check path and filename.</translation>
     <message>
         <source>Directory:</source>
         <translation>Directory:</translation>
+    </message>
+    <message>
+        <source>Files of type:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Look in:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Forward</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Parent Directory</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -20530,7 +20860,7 @@ External Links</translation>
     </message>
     <message>
         <source>Unable to read settings XML:</source>
-        <translation>Unable to read settings XML:</translation>
+        <translation type="vanished">Unable to read settings XML:</translation>
     </message>
     <message>
         <source>%1 (line %2 col %3)</source>
@@ -20559,7 +20889,7 @@ External Links</translation>
     <message>
         <source>unexpected null &lt;%2&gt; node</source>
         <comment>Load PDF settings</comment>
-        <translation>unexpected null &lt;%2&gt; node</translation>
+        <translation type="vanished">unexpected null &lt;%2&gt; node</translation>
     </message>
     <message>
         <source>node &lt;%1&gt; not an element</source>
@@ -20640,7 +20970,7 @@ External Links</translation>
     <message>
         <source>Failed to open document.</source>
         <comment>python error</comment>
-        <translation>Failed to open document.</translation>
+        <translation type="vanished">Failed to open document.</translation>
     </message>
     <message>
         <source>Failed to save document.</source>
@@ -20941,7 +21271,7 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation type="unfinished">&amp;OK</translation>
+        <translation type="obsolete">&amp;OK</translation>
     </message>
     <message>
         <source>Need selection or argument list of items to group</source>
@@ -21090,11 +21420,11 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>C&amp;reate</source>
-        <translation>C&amp;reate</translation>
+        <translation type="vanished">C&amp;reate</translation>
     </message>
     <message>
         <source>&amp;Import</source>
-        <translation>&amp;Import</translation>
+        <translation type="vanished">&amp;Import</translation>
     </message>
     <message>
         <source>Thai</source>
@@ -22209,6 +22539,45 @@ Therefore the image may be not correct</source>
     </message>
     <message>
         <source>Open Raster Files</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>unexpected null &lt;%1&gt; node</source>
+        <comment>Load PDF settings</comment>
+        <translation type="unfinished">unexpected null &lt;%2&gt; node {1&gt;?}</translation>
+    </message>
+    <message>
+        <source>element &lt;%1&gt; value must be an integer</source>
+        <comment>Load PDF settings</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>element &lt;%1&gt; value must be a double</source>
+        <comment>Load PDF settings</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Pagemaker Importer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Failed to open document: %1</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Master page does not exist: &apos;%1&apos;</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Page number out of range: %1.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Failed to apply masterpage &apos;%1&apos; on page: %2</source>
+        <comment>python error</comment>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -24525,7 +24894,7 @@ converting their vector data into Scribus objects.</translation>
     </message>
     <message>
         <source>C&amp;onvert To</source>
-        <translation>C&amp;onvert To</translation>
+        <translation type="vanished">C&amp;onvert To</translation>
     </message>
     <message>
         <source>Character</source>
@@ -24550,6 +24919,10 @@ converting their vector data into Scribus objects.</translation>
     <message>
         <source>Online &amp;Tutorials</source>
         <translation>Online &amp;Tutorials</translation>
+    </message>
+    <message>
+        <source>C&amp;onvert to</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -24845,7 +25218,7 @@ Rotation: %4</translation>
     </message>
     <message>
         <source>C&amp;onvert To</source>
-        <translation>C&amp;onvert To</translation>
+        <translation type="vanished">C&amp;onvert To</translation>
     </message>
     <message>
         <source>Ready</source>
@@ -25239,10 +25612,6 @@ Consider using the Preflight Verifier to correct them</translation>
         <translation type="unfinished">Y:</translation>
     </message>
     <message>
-        <source>%1 Selected</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Text Files (*.txt);;All Files (*)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -25273,6 +25642,18 @@ Consider using the Preflight Verifier to correct them</translation>
     <message>
         <source>Select the current unit</source>
         <translation type="unfinished">Select the current unit</translation>
+    </message>
+    <message>
+        <source>C&amp;onvert to</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 selected</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>C&amp;reate</source>
+        <translation type="unfinished">C&amp;reate</translation>
     </message>
 </context>
 <context>
@@ -25319,7 +25700,7 @@ Consider using the Preflight Verifier to correct them</translation>
     </message>
     <message>
         <source>Use right to left dialog button ordering (eg. Cancel/No/Yes instead of Yes/No/Cancel)</source>
-        <translation>Use right to left dialogue button ordering (eg. Cancel/No/Yes instead of Yes/No/Cancel)</translation>
+        <translation type="vanished">Use right to left dialogue button ordering (eg. Cancel/No/Yes instead of Yes/No/Cancel)</translation>
     </message>
     <message>
         <source>filename</source>
@@ -25389,6 +25770,14 @@ Consider using the Preflight Verifier to correct them</translation>
         <source>Run unit tests and exit</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Run filename in Python scripter</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Do not start GUI</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ScribusView</name>
@@ -25442,7 +25831,7 @@ Consider using the Preflight Verifier to correct them</translation>
     </message>
     <message>
         <source>Enter Object Size</source>
-        <translation>Enter Object Size</translation>
+        <translation type="vanished">Enter Object Size</translation>
     </message>
     <message>
         <source>You are trying to link a frame to itself.</source>
@@ -26150,7 +26539,7 @@ Consider using the Preflight Verifier to correct them</translation>
     </message>
     <message>
         <source>Text Files (*.txt);;All Files(*)</source>
-        <translation>Text Files (*.txt);;All Files(*)</translation>
+        <translation type="vanished">Text Files (*.txt);;All Files(*)</translation>
     </message>
     <message>
         <source>Save as</source>
@@ -27492,6 +27881,10 @@ when PDF document is opened:</translation>
     </message>
     <message>
         <source>Choose an owner password which enables or disables all the security features in your exported PDF</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Create a range of pages</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -28976,6 +29369,14 @@ Would you like to start the system&apos;s default browser instead?</translation>
         <source>Select the visual appearance of the display. You can choose between normal and several color blindness forms</source>
         <translation type="unfinished">Select the visual appearance of the display. You can choose between normal and several colour blindness forms</translation>
     </message>
+    <message>
+        <source>Select image preview quality</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Select display visual appearance</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>VivaPlug</name>
@@ -29471,6 +29872,14 @@ please choose another one.</translation>
     <message>
         <source>Close</source>
         <translation>Close</translation>
+    </message>
+    <message>
+        <source>Current zoom level</source>
+        <translation type="unfinished">Current zoom level</translation>
+    </message>
+    <message>
+        <source>Set zoom to 100%</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

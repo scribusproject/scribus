@@ -194,6 +194,10 @@
         <source>Haiku Port:</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>SVN Revision: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>AboutPlugins</name>
@@ -1474,10 +1478,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Edit text in the Story Editor</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Eye Dropper</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1667,6 +1667,22 @@
     </message>
     <message>
         <source>3D Annotation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Edit text in story editor</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enable preview mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enable editing in preview mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Toggle color management system</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2171,7 +2187,7 @@
     </message>
     <message>
         <source>Sample Polygon</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Eksempel på mangekant</translation>
     </message>
 </context>
 <context>
@@ -2361,6 +2377,10 @@ Configuration invalid</source>
         <source>Barcode</source>
         <translation type="unfinished">Strekkode</translation>
     </message>
+    <message>
+        <source>Insert a barcode</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>BarcodeGenerator</name>
@@ -2438,6 +2458,82 @@ Configuration invalid</source>
     </message>
     <message>
         <source>Variable number of characters, digits and any symbols.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>EAN-13</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>EAN-8</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>UPC-A</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>UPC-E</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>EAN-5</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>EAN-2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>ISBN</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Code-39</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Code-128</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>UCC/EAN-128</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Rationalized Codabar</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Interleaved 2 of 5</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>ITF-14</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Code 2 of 5</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Postnet</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Royal Mail</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>MSI</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Plessey</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>QR Code</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -3434,11 +3530,31 @@ Document Liberation Project http://www.documentliberation.org</source>
     </message>
     <message>
         <source>Hide/Show Enhanced Palette</source>
-        <translation>Vis/skjul den utvidede oversikten</translation>
+        <translation type="vanished">Vis/skjul den utvidede oversikten</translation>
     </message>
     <message>
         <source>Save Quick Character Palette</source>
         <translation>Lagre hurtigoversikten</translation>
+    </message>
+    <message>
+        <source>Show/Hide Enhanced Palette</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unicode Search</source>
+        <translation type="unfinished">Unicode-søk</translation>
+    </message>
+    <message>
+        <source>Load a Character Palette</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save the Character Palette</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Empty the Character Palette</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4515,7 +4631,7 @@ Nå %2 x %3 ppt</translation>
     </message>
     <message>
         <source>Contents</source>
-        <translation type="unfinished">Innhold</translation>
+        <translation type="obsolete">Innhold</translation>
     </message>
     <message>
         <source>Edit 3D Annotation...</source>
@@ -4567,6 +4683,10 @@ Nå %2 x %3 ppt</translation>
     </message>
     <message>
         <source>Paste Recent</source>
+        <translation type="unfinished">Lim inn &amp;nylig brukte</translation>
+    </message>
+    <message>
+        <source>Content</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -4919,6 +5039,22 @@ Manglende bibliotekstøtte vises med *</translation>
     <message>
         <source>Include color profiles when collecting files for the document</source>
         <translation>Ta med fargeprofiler når du samler filer for dokumentet</translation>
+    </message>
+    <message>
+        <source>Import Option:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Keep original size</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Downscale to page size</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Upscale to page size</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -5615,6 +5751,10 @@ Bruk 72 ppt for bilder som skal vises på en skjerm</translation>
         <source>Don&apos;t export Page Background</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Create a range of pages</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ExtImageProps</name>
@@ -6078,7 +6218,7 @@ Bruk 72 ppt for bilder som skal vises på en skjerm</translation>
     </message>
     <message>
         <source>Opacity:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ugjennomsiktighet:</translation>
     </message>
     <message>
         <source>Shade:</source>
@@ -6527,7 +6667,7 @@ Bruk 72 ppt for bilder som skal vises på en skjerm</translation>
     </message>
     <message>
         <source>&amp;New</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Ny</translation>
     </message>
     <message>
         <source>&amp;Delete</source>
@@ -7074,6 +7214,34 @@ converting their vector data into Scribus objects.</source>
     </message>
 </context>
 <context>
+    <name>ImportPmPlugin</name>
+    <message>
+        <source>Import Pagemaker...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Pagemaker</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Pagemaker (*.pmd *.PMD *.pm *.PM *.pm3 *.PM3 *.pm4 *.PM4 *.pm5 *.PM5 *.pm6 *.PM6 *.p65 *.P65)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Imports Pagemaker Files</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Imports most Pagemaker files into the current document,
+converting their vector data into Scribus objects.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>All Supported Formats</source>
+        <translation type="unfinished">Alle støttede formater</translation>
+    </message>
+</context>
+<context>
     <name>ImportPubPlugin</name>
     <message>
         <source>Import PUB...</source>
@@ -7557,6 +7725,10 @@ p, li { white-space: pre-wrap; }
     <message>
         <source>Move Objects with their Page</source>
         <translation>Flytt objektene sammen med sidene de er på</translation>
+    </message>
+    <message>
+        <source>Override Master Page Sizing</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -9406,11 +9578,11 @@ Hvis du ikke har valgt noe håndtak blir alle håndtakene stilt tilbake.</transl
     </message>
     <message>
         <source>Distance between the top margin guide and the edge of the page</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Avstanden mellom øvre hjelpelinjemarg og sidekanten</translation>
     </message>
     <message>
         <source>Distance between the bottom margin guide and the edge of the page</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Avstanden mellom nedre hjelpelinjemarg og sidekanten</translation>
     </message>
     <message>
         <source>Distance between the left margin guide and the edge of the page. If a double-sided, 3 or 4-fold layout is selected, this margin space can be used to achieve the correct margins for binding</source>
@@ -9743,14 +9915,6 @@ Hvis du ikke har valgt noe håndtak blir alle håndtakene stilt tilbake.</transl
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Mark`s Character Style</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Note`s Paragraph Style</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>default</source>
         <translation type="unfinished"></translation>
     </message>
@@ -9923,7 +10087,7 @@ You cannot switch to different notes style before you apply that new one or pres
     </message>
     <message>
         <source>Opacity:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ugjennomsiktighet:</translation>
     </message>
     <message>
         <source> %</source>
@@ -11002,7 +11166,7 @@ Often used for allowing items to be placed across page spreads</source>
     </message>
     <message>
         <source>This master page is used at least once in the document.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Denne malsiden brukes av minst en side i dokumentet.</translation>
     </message>
     <message>
         <source>Do you really want to delete master page &quot;%1&quot;?</source>
@@ -11060,7 +11224,7 @@ Often used for allowing items to be placed across page spreads</source>
     <name>PagePalette_Pages</name>
     <message>
         <source>This master page is used at least once in the document.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Denne malsiden brukes av minst en side i dokumentet.</translation>
     </message>
     <message>
         <source>Do you really want to delete this master page?</source>
@@ -12351,10 +12515,6 @@ Please choose another one.</source>
 <context>
     <name>PictureBrowser</name>
     <message>
-        <source>Scribus Picture Browser</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Folder Browser</source>
         <translation type="unfinished"></translation>
     </message>
@@ -12436,10 +12596,6 @@ Please choose another one.</source>
     </message>
     <message>
         <source>Sort by Type</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Change sortorder</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -12826,6 +12982,106 @@ Please choose another one.</source>
         <source>No image selected</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Picture Browser</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Move the document view to the selected page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show/Hide advanced tools</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Always keep Picture Browser on top of other windows</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Change sort order</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Change preview settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enable Picture Browser autosave settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Reset Picture Browser to default settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Select a directory</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Add filter</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Filter criteria</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Search criteria</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Type name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Set date</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Set size</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Select file type(s)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Select the page(s) where to insert the image(s)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Select which frame(s) to use</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Set the position of the image frame(s) to insert</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Horizontal position</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Vertical position</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Set the size of the image frame(s) to insert</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Width</source>
+        <translation type="unfinished">Bredde</translation>
+    </message>
+    <message>
+        <source>Height</source>
+        <translation type="unfinished">Høyde</translation>
+    </message>
+    <message>
+        <source>Type Tag name</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>PictureBrowserPlugin</name>
@@ -12960,6 +13216,24 @@ Please choose another one.</source>
     <message>
         <source>Form</source>
         <translation>Skjema</translation>
+    </message>
+</context>
+<context>
+    <name>PmPlug</name>
+    <message>
+        <source>Importing: %1</source>
+        <translation type="unfinished">Importerer: %1</translation>
+    </message>
+    <message>
+        <source>Analyzing File:</source>
+        <translation type="unfinished">Analyserer fila:</translation>
+    </message>
+    <message>
+        <source>Parsing failed!
+
+Please submit your file (if possible) to the
+Document Liberation Project http://www.documentliberation.org</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -13734,7 +14008,7 @@ Vil du overføre dem til denne nye scribusversjonen? {1.3.5 ?}</translation>
     </message>
     <message>
         <source>Is Parent Of</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Er foreldreelement til</translation>
     </message>
     <message>
         <source>Is Child Of</source>
@@ -14222,7 +14496,7 @@ med jevne mellomrom</translation>
     </message>
     <message>
         <source>Locate your web browser</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Finn din nettleser</translation>
     </message>
     <message>
         <source>Locate your PDF viewer</source>
@@ -14270,6 +14544,18 @@ Do you want to use this?</source>
         <source>Command: </source>
         <translation type="unfinished">Kommando: </translation>
     </message>
+    <message>
+        <source>&lt;qt&gt;File system location for web browser.&lt;/qt&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;qt&gt;File system location for PDF viewer.&lt;/qt&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;qt&gt;File system location for Uniconvertor.&lt;/qt&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Prefs_Fonts</name>
@@ -14311,7 +14597,7 @@ Do you want to use this?</source>
     </message>
     <message>
         <source>Font Name</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Navn på skrifttypen</translation>
     </message>
     <message>
         <source>Replacement</source>
@@ -15333,7 +15619,7 @@ A value of 0 means unlimited hyphenations.</source>
     </message>
     <message>
         <source>Printer Marks</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Skrivemerker</translation>
     </message>
     <message>
         <source>Page Information</source>
@@ -15345,7 +15631,7 @@ A value of 0 means unlimited hyphenations.</source>
     </message>
     <message>
         <source>Crop Marks</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Skjæremerker</translation>
     </message>
     <message>
         <source>Bleed Marks</source>
@@ -15521,7 +15807,7 @@ A value of 0 means unlimited hyphenations.</source>
     </message>
     <message>
         <source>Export a range of pages to PDF</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Eksporter en sidefølge til PDF</translation>
     </message>
     <message>
         <source>Insert a comma separated list of tokens where a token can be * for all the pages, 1-5 for a range of pages or a single page number.</source>
@@ -15592,15 +15878,15 @@ på at du må endre det, bruk standardvalget: Venstre.</translation>
     </message>
     <message>
         <source>Choose a password for users to be able to read your PDF.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Velg et passord som må oppgis for å lese PDF-fila.</translation>
     </message>
     <message>
         <source>Allow printing of the PDF. If un-checked, printing is prevented. </source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Tillat andre å skrive ut PDF-fila.</translation>
     </message>
     <message>
         <source>Allow modifying of the PDF. If un-checked, modifying the PDF is prevented.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Tillat andre å endre PDF-fila.</translation>
     </message>
     <message>
         <source>Allow copying of text or graphics from the PDF. If unchecked, text and graphics cannot be copied.</source>
@@ -15624,7 +15910,7 @@ på at du må endre det, bruk standardvalget: Venstre.</translation>
     </message>
     <message>
         <source>Color profile for solid colors</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Fargeprofil for ensfargede farger</translation>
     </message>
     <message>
         <source>Rendering intent for solid colors</source>
@@ -15695,7 +15981,8 @@ på at du må endre det, bruk standardvalget: Venstre.</translation>
     </message>
     <message>
         <source>Output profile for printing. If possible, get some guidance from your printer on profile selection.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">
+            </translation>
     </message>
     <message>
         <source>Mandatory string for PDF/X or the PDF will fail PDF/X conformance. We recommend you use the title of the document.</source>
@@ -15723,7 +16010,7 @@ på at du må endre det, bruk standardvalget: Venstre.</translation>
     </message>
     <message>
         <source>High</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Høy</translation>
     </message>
     <message>
         <source>Medium</source>
@@ -15858,7 +16145,7 @@ samme utseendet på dokumentet.</translation>
     </message>
     <message>
         <source>Show page previews of each page listed above.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Forhåndsvis alle siden som er listet opp ovenfor</translation>
     </message>
     <message>
         <source>Length of time the page is shown before the presentation starts on the selected page. Setting 0 will disable automatic page transition.</source>
@@ -15871,19 +16158,19 @@ Et kort tidsrom gir en kort effekt, et lengre tidsrom gir en lengre effekt.</tra
     </message>
     <message>
         <source>Type of the display effect.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Visningseffekt.</translation>
     </message>
     <message>
         <source>Direction of the effect of moving lines for the split and blind effects.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Retning på de bevegelige linjene når du bruker effekten «Del» – eller «Persienne».</translation>
     </message>
     <message>
         <source>Starting position for the box and split effects.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Startposisjonen for bokseffekten og deleffekten.</translation>
     </message>
     <message>
         <source>Direction of the glitter or wipe effects.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Retningen på glittereffekten og på visk ut-effektene.</translation>
     </message>
     <message>
         <source>Apply the selected effect to all pages.</source>
@@ -15958,6 +16245,10 @@ Et kort tidsrom gir en kort effekt, et lengre tidsrom gir en lengre effekt.</tra
     </message>
     <message>
         <source>Choose an owner password which enables or disables all the security features in your exported PDF</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Create a range of pages</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -16325,7 +16616,7 @@ Et kort tidsrom gir en kort effekt, et lengre tidsrom gir en lengre effekt.</tra
     </message>
     <message>
         <source>Crop Marks</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Skjæremerker</translation>
     </message>
     <message>
         <source>Bleed Marks</source>
@@ -16353,16 +16644,19 @@ Et kort tidsrom gir en kort effekt, et lengre tidsrom gir en lengre effekt.</tra
     </message>
     <message>
         <source>Use an alternative print manager, such as kprinter or gtklp, to utilize additional printing options</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Bruk en annen utskriftsbehandler, som kprinter eller gtklp,
+for å få flere utskriftsvalg</translation>
     </message>
     <message>
         <source>Sets the PostScript Level.
  Setting to Level 1 or 2 can create huge files</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Angi postscriptnivået.
+Nivå 1 eller 2 kan gi veldig store filer</translation>
     </message>
     <message>
         <source>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis. UCR reduces the possibility of over saturation with CMY inks.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">
+            </translation>
     </message>
     <message>
         <source>Enables Spot Colors to be converted to composite colors. Unless you are planning to print spot colors at a commercial printer, this is probably best left enabled.</source>
@@ -16737,7 +17031,7 @@ Et kort tidsrom gir en kort effekt, et lengre tidsrom gir en lengre effekt.</tra
     </message>
     <message>
         <source>Small Caps</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Små bokstaver</translation>
     </message>
     <message>
         <source>Automatic Line Spacing</source>
@@ -17269,6 +17563,10 @@ Merk: PDF-skjemaer blir ikke tatt med.</translation>
         <source>Length:</source>
         <translation type="unfinished">Lengde:</translation>
     </message>
+    <message>
+        <source>Create a range of pages</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>PropertiesPalette</name>
@@ -17302,7 +17600,7 @@ Merk: PDF-skjemaer blir ikke tatt med.</translation>
     </message>
     <message>
         <source>&amp;Group</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Grupper</translation>
     </message>
     <message>
         <source>&amp;Transparency</source>
@@ -17550,7 +17848,7 @@ Merk: PDF-skjemaer blir ikke tatt med.</translation>
     </message>
     <message>
         <source>High</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Høy</translation>
     </message>
     <message>
         <source>Medium</source>
@@ -17628,6 +17926,10 @@ Merk: PDF-skjemaer blir ikke tatt med.</translation>
     </message>
     <message>
         <source>Compression quality used in PDF export for the image</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;To Frame Size</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -17774,7 +18076,7 @@ Merk: PDF-skjemaer blir ikke tatt med.</translation>
     </message>
     <message>
         <source>Miter Join</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Kantete sammenføyning</translation>
     </message>
     <message>
         <source>Bevel Join</source>
@@ -17786,15 +18088,15 @@ Merk: PDF-skjemaer blir ikke tatt med.</translation>
     </message>
     <message>
         <source>Flat Cap</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Flat Cap</translation>
     </message>
     <message>
         <source>Square Cap</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Firkant Cap</translation>
     </message>
     <message>
         <source>Round Cap</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Rund Cap</translation>
     </message>
     <message>
         <source>&amp;Endings:</source>
@@ -17920,7 +18222,7 @@ Merk: PDF-skjemaer blir ikke tatt med.</translation>
     </message>
     <message>
         <source>Opacity:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ugjennomsiktighet:</translation>
     </message>
     <message>
         <source>Blendmode:</source>
@@ -17956,7 +18258,7 @@ Merk: PDF-skjemaer blir ikke tatt med.</translation>
     </message>
     <message>
         <source>Overlay</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Legg over</translation>
     </message>
     <message>
         <source>Hard Light</source>
@@ -18027,7 +18329,7 @@ Merk: PDF-skjemaer blir ikke tatt med.</translation>
     </message>
     <message>
         <source>Opacity:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ugjennomsiktighet:</translation>
     </message>
     <message>
         <source> %</source>
@@ -18059,7 +18361,7 @@ Merk: PDF-skjemaer blir ikke tatt med.</translation>
     </message>
     <message>
         <source>Overlay</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Legg over</translation>
     </message>
     <message>
         <source>Hard Light</source>
@@ -18655,11 +18957,11 @@ Merk: PDF-skjemaer blir ikke tatt med.</translation>
     </message>
     <message>
         <source>Scaling width of characters</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Skaleringsbredde på tegn</translation>
     </message>
     <message>
         <source>Scaling height of characters</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Skaleringshøyde på tegn</translation>
     </message>
     <message>
         <source>Minimal width of spaces between words</source>
@@ -18721,7 +19023,7 @@ Merk: PDF-skjemaer blir ikke tatt med.</translation>
     </message>
     <message>
         <source>&amp;Bottom:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Bunnen:</translation>
     </message>
     <message>
         <source>&amp;Left:</source>
@@ -18812,7 +19114,7 @@ Merk: PDF-skjemaer blir ikke tatt med.</translation>
     </message>
     <message>
         <source>&amp;Bottom:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Bunnen:</translation>
     </message>
     <message>
         <source>&amp;Left:</source>
@@ -19326,7 +19628,7 @@ Merk: PDF-skjemaer blir ikke tatt med.</translation>
     </message>
     <message>
         <source>Saturation of color of text stroke</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Metning på tekststrekens farge</translation>
     </message>
     <message>
         <source>Right to Left Writing</source>
@@ -19527,6 +19829,10 @@ Scribus Skripter for mer informasjon.</translation>
     <message>
         <source>Select color</source>
         <translation>Velg farge</translation>
+    </message>
+    <message>
+        <source>Pick Screen Color</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -19774,6 +20080,22 @@ Sjekk stien og filnavnet.</translation>
     <message>
         <source>Directory:</source>
         <translation>Mappe:</translation>
+    </message>
+    <message>
+        <source>Files of type:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Look in:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Forward</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Parent Directory</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -20449,7 +20771,7 @@ Eksterne lenker
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation type="unfinished">&amp;Greit</translation>
+        <translation type="obsolete">&amp;Greit</translation>
     </message>
     <message>
         <source>Page</source>
@@ -20493,7 +20815,7 @@ Eksterne lenker
     </message>
     <message>
         <source>Unable to read settings XML:</source>
-        <translation>Klarte ikke å lese XML-oppsettsfila:</translation>
+        <translation type="vanished">Klarte ikke å lese XML-oppsettsfila:</translation>
     </message>
     <message>
         <source>%1 (line %2 col %3)</source>
@@ -20523,7 +20845,7 @@ Eksterne lenker
     <message>
         <source>unexpected null &lt;%2&gt; node</source>
         <comment>Load PDF settings</comment>
-        <translation>uventet null &lt;%2&gt;-node</translation>
+        <translation type="vanished">uventet null &lt;%2&gt;-node</translation>
     </message>
     <message>
         <source>node &lt;%1&gt; not an element</source>
@@ -20687,7 +21009,7 @@ Eksterne lenker
     <message>
         <source>Failed to open document.</source>
         <comment>python error</comment>
-        <translation>Klarte ikke å åpne dokumentet.</translation>
+        <translation type="vanished">Klarte ikke å åpne dokumentet.</translation>
     </message>
     <message>
         <source>Failed to save document.</source>
@@ -21134,11 +21456,11 @@ Eksterne lenker
     </message>
     <message>
         <source>C&amp;reate</source>
-        <translation>&amp;Lag</translation>
+        <translation type="vanished">&amp;Lag</translation>
     </message>
     <message>
         <source>&amp;Import</source>
-        <translation>&amp;Importer</translation>
+        <translation type="vanished">&amp;Importer</translation>
     </message>
     <message>
         <source>Thai</source>
@@ -22336,6 +22658,45 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>Open Raster Files</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>unexpected null &lt;%1&gt; node</source>
+        <comment>Load PDF settings</comment>
+        <translation type="unfinished">uventet null &lt;%2&gt;-node {1&gt;?}</translation>
+    </message>
+    <message>
+        <source>element &lt;%1&gt; value must be an integer</source>
+        <comment>Load PDF settings</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>element &lt;%1&gt; value must be a double</source>
+        <comment>Load PDF settings</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Pagemaker Importer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Failed to open document: %1</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Master page does not exist: &apos;%1&apos;</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Page number out of range: %1.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Failed to apply masterpage &apos;%1&apos; on page: %2</source>
+        <comment>python error</comment>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -24638,11 +24999,11 @@ converting their vector data into Scribus objects.</source>
     <name>ScMWMenuManager</name>
     <message>
         <source>Open &amp;Recent</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Åpne nylig b&amp;rukte</translation>
     </message>
     <message>
         <source>Paste Recent</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Lim inn &amp;nylig brukte</translation>
     </message>
     <message>
         <source>&amp;Import</source>
@@ -24674,7 +25035,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>C&amp;onvert To</source>
-        <translation type="unfinished">&amp;Konverter til</translation>
+        <translation type="obsolete">&amp;Konverter til</translation>
     </message>
     <message>
         <source>Character</source>
@@ -24700,6 +25061,10 @@ converting their vector data into Scribus objects.</source>
     <message>
         <source>Online &amp;Tutorials</source>
         <translation type="unfinished">&amp;Brukerhjelp på Internett</translation>
+    </message>
+    <message>
+        <source>C&amp;onvert to</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -25004,7 +25369,7 @@ Rotasjon: %4</translation>
     </message>
     <message>
         <source>C&amp;onvert To</source>
-        <translation>&amp;Konverter til</translation>
+        <translation type="vanished">&amp;Konverter til</translation>
     </message>
     <message>
         <source>Ready</source>
@@ -25403,10 +25768,6 @@ Former monitor profile will be used.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>%1 Selected</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Text Files (*.txt);;All Files (*)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -25439,6 +25800,18 @@ Former monitor profile will be used.</source>
     <message>
         <source>Select the current unit</source>
         <translation type="unfinished">Velg denne verdien</translation>
+    </message>
+    <message>
+        <source>C&amp;onvert to</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 selected</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>C&amp;reate</source>
+        <translation type="unfinished">&amp;Lag</translation>
     </message>
 </context>
 <context>
@@ -25485,7 +25858,7 @@ Former monitor profile will be used.</source>
     </message>
     <message>
         <source>Use right to left dialog button ordering (eg. Cancel/No/Yes instead of Yes/No/Cancel)</source>
-        <translation type="unfinished">
+        <translation type="obsolete">
             </translation>
     </message>
     <message>
@@ -25559,6 +25932,14 @@ Former monitor profile will be used.</source>
         <source>Run unit tests and exit</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Run filename in Python scripter</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Do not start GUI</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ScribusView</name>
@@ -25614,7 +25995,7 @@ Former monitor profile will be used.</source>
     </message>
     <message>
         <source>Enter Object Size</source>
-        <translation>Angi objektstørrelse</translation>
+        <translation type="vanished">Angi objektstørrelse</translation>
     </message>
     <message>
         <source>You are trying to link a frame to itself.</source>
@@ -25660,7 +26041,7 @@ Former monitor profile will be used.</source>
     </message>
     <message>
         <source>&amp;New</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Ny</translation>
     </message>
     <message>
         <source>&amp;Run</source>
@@ -26284,7 +26665,7 @@ Former monitor profile will be used.</source>
     </message>
     <message>
         <source>Sample Polygon</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Eksempel på mangekant</translation>
     </message>
 </context>
 <context>
@@ -26327,7 +26708,7 @@ Former monitor profile will be used.</source>
     </message>
     <message>
         <source>Text Files (*.txt);;All Files(*)</source>
-        <translation>Tekstfiler (*.txt);;Alle filer (*)</translation>
+        <translation type="vanished">Tekstfiler (*.txt);;Alle filer (*)</translation>
     </message>
     <message>
         <source>Save as</source>
@@ -27708,6 +28089,10 @@ når dokumentet åpnes:</translation>
     </message>
     <message>
         <source>Choose an owner password which enables or disables all the security features in your exported PDF</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Create a range of pages</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -29203,7 +29588,7 @@ Would you like to start the system&apos;s default browser instead?</source>
     </message>
     <message>
         <source>High</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Høy</translation>
     </message>
     <message>
         <source>Normal</source>
@@ -29221,6 +29606,14 @@ Would you like to start the system&apos;s default browser instead?</source>
         <source>Select the visual appearance of the display. You can choose between normal and several color blindness forms</source>
         <translation type="unfinished">
             </translation>
+    </message>
+    <message>
+        <source>Select image preview quality</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Select display visual appearance</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -29719,6 +30112,14 @@ denne filendelsen, og ikke spør om dette senere.</translation>
     <message>
         <source>Close</source>
         <translation type="unfinished">Lukk</translation>
+    </message>
+    <message>
+        <source>Current zoom level</source>
+        <translation type="unfinished">Nåværende skalering</translation>
+    </message>
+    <message>
+        <source>Set zoom to 100%</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -30240,7 +30641,7 @@ denne filendelsen, og ikke spør om dette senere.</translation>
     </message>
     <message>
         <source>Opacity:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ugjennomsiktighet:</translation>
     </message>
     <message>
         <source>Set the transparency for the color selected</source>
@@ -30276,7 +30677,7 @@ denne filendelsen, og ikke spør om dette senere.</translation>
     </message>
     <message>
         <source>Overlay</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Legg over</translation>
     </message>
     <message>
         <source>Hard Light</source>
