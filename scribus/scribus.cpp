@@ -5539,7 +5539,10 @@ void ScribusMainWindow::SelectAll(bool docWideSelect)
 
 void ScribusMainWindow::deselectAll()
 {
-	if (doc->appMode == modeEdit)
+	bool inEditMode = (doc->appMode == modeEdit ||
+					   doc->appMode == modeEditClip ||
+					   doc->appMode == modeEditGradientVectors);
+	if (inEditMode)
 	{
 		if (doc->m_Selection->count() <= 0)
 			return;
