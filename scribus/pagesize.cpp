@@ -193,8 +193,8 @@ void PageSize::generateSizeList()
 	
 	//Imperial
 	//http://en.wikipedia.org/wiki/Paper_sizes
-	double impWidths[]={10.0,13.0,8.5,8.0,8.5,11.0,7.25,15.5,15.0,16.5,17.5,18.0,20.0,23.0,23.5,35.0,5.5,8.5,11.0,17.0,22.0,34.0};
-	double impHeights[]={8.0,8.0,11.0,10.5,14.0,17.0,10.5,19.25,20.0,21.0,22.5,23.0,25.0,28.0,35.0,45.0,8.5,11.0,17.0,22.0,34.0,44.0};
+	double impWidths[]={8.0,8.0,8.5,8.0,8.5,11.0,7.25,15.5,15.0,16.5,17.5,18.0,20.0,23.0,23.5,35.0,5.5,8.5,11.0,17.0,22.0,34.0};
+	double impHeights[]={10.0,13.0,11.0,10.5,14.0,17.0,10.5,19.25,20.0,21.0,22.5,23.0,25.0,28.0,35.0,45.0,8.5,11.0,17.0,22.0,34.0,44.0};
 	QString impNames[]={"Quarto","Foolscap","Letter","Govt. Letter","Legal","Ledger","Executive","Post","Crown","Large Post","Demy","Medium","Royal","Elephant","Double Demy","Quad Demy","STMT","A","B","C","D","E"};
 	QString impTrNames[]={QObject::tr("Quarto"), QObject::tr("Foolscap"), QObject::tr("Letter"),
 		QObject::tr("Govt. Letter"), QObject::tr("Legal"), QObject::tr("Ledger"), QObject::tr("Executive"),
