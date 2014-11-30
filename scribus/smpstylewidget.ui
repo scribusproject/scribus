@@ -206,7 +206,7 @@
               <item>
                <layout class="QHBoxLayout">
                 <item>
-                 <widget class="SMAlignSelect" name="alignement_" native="true">
+                 <widget class="SMAlignSelect" name="alignment_" native="true">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
                     <horstretch>0</horstretch>

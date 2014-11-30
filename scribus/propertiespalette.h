@@ -277,7 +277,7 @@ private slots:
 	void NewLineJoin();
 	void NewLineEnd();
 	void NewLineMode();
-	void NewAlignement(int a);
+	void NewAlignment(int a);
 	void setTypeStyle(int s);
 	void newShadowOffs();
 	void DoLower();
@@ -328,10 +328,7 @@ protected slots:
 
 signals:
 	void DocChanged();
-	void NewParStyle(int);
-	void NewAlignment(int);
 	void NewEffects(int);
-	void ShapeEdit();
 	void NewFont(const QString&);
 	void UpdtGui(int);
 

@@ -93,7 +93,7 @@ void SMPStyleWidget::languageChange()
 	//dropCapsBox->setToolTip(      tr("Enable or disable drop cap"));
 	dropCapLines_->setToolTip(    tr("Drop Cap Lines"));
 	dropCapOffset_->setToolTip(   tr("Drop Cap Offset"));
-	alignement_->setToolTip(      tr("Alignment"));
+	alignment_->setToolTip(       tr("Alignment"));
 	tabList_->first_->setToolTip( tr("First Line Indent"));
 	tabList_->left_->setToolTip(  tr("Left Indent"));
 	tabList_->right_->setToolTip( tr("Right Indent"));
@@ -229,8 +229,8 @@ void SMPStyleWidget::show(ParagraphStyle *pstyle, QList<ParagraphStyle> &pstyles
 		dropCapOffset_->setValue(pstyle->dropCapOffset() * unitRatio, pstyle->isInhDropCapOffset());
 		dropCapOffset_->setParentValue(parent->dropCapOffset() * unitRatio);
 
-		alignement_->setStyle(pstyle->alignment(), pstyle->isInhAlignment());
-		alignement_->setParentItem(parent->alignment());
+		alignment_->setStyle(pstyle->alignment(), pstyle->isInhAlignment());
+		alignment_->setParentItem(parent->alignment());
 
 		bool hasParentTabs = pstyle->isInhTabValues();
 		QList<ParagraphStyle::TabRecord> tabs;
@@ -269,7 +269,7 @@ void SMPStyleWidget::show(ParagraphStyle *pstyle, QList<ParagraphStyle> &pstyles
 		dropCapLines_->setValue(pstyle->dropCapLines());
 		dropCapOffset_->setValue(pstyle->dropCapOffset() * unitRatio);
 		parentDropCapButton->hide();
-		alignement_->setStyle(pstyle->alignment());
+		alignment_->setStyle(pstyle->alignment());
 		tabList_->setTabs(pstyle->tabValues(), unitIndex);
 		tabList_->setLeftIndentValue(pstyle->leftMargin() * unitRatio);
 		tabList_->setFirstLineValue(pstyle->firstIndent() * unitRatio);
@@ -488,16 +488,16 @@ void SMPStyleWidget::showAlignment(QList<ParagraphStyle*> &pstyles)
 	{
 		if (a != pstyles[i]->alignment())
 		{
-			if (alignement_->selectedId() > -1 && alignement_->selectedId() < 5)
+			if (alignment_->selectedId() > -1 && alignment_->selectedId() < 5)
 			{
-				alignement_->buttonGroup->setExclusive(false);
-				alignement_->buttonGroup->button(alignement_->selectedId())->toggle();
-				alignement_->buttonGroup->setExclusive(true);
+				alignment_->buttonGroup->setExclusive(false);
+				alignment_->buttonGroup->button(alignment_->selectedId())->toggle();
+				alignment_->buttonGroup->setExclusive(true);
 			}
 			return;
 		}
 	}
-	alignement_->setStyle(a);
+	alignment_->setStyle(a);
 }
 
 void SMPStyleWidget::showOpticalMargin(QList< ParagraphStyle * > & pstyles)
