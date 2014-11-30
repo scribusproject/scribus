@@ -7590,7 +7590,7 @@ May throw ValueError if any of the distances are out of bounds (must be positive
         <location filename="../../../scribus/actionmanager.cpp" line="1398"/>
         <source>Sticky Tools</source>
         <translatorcomment>Funzione che mantiene lo strumento selezionato anche dopo il suo utilizzo</translatorcomment>
-        <translation>Strumenti adesivi</translation>
+        <translation>Mantieni strumento</translation>
     </message>
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1412"/>
@@ -24435,7 +24435,7 @@ Collegamenti esterni
         <location filename="../../../scribus/plugins/scriptplugin/cmddoc.cpp" line="392"/>
         <source>Failed to apply masterpage &apos;%1&apos; on page: %2</source>
         <comment>python error</comment>
-        <translation>Impossibile applicare la pagina mastro &apos;%1&apos; a pagina: &apos;%2&apos;</translation>
+        <translation>Impossibile applicare la pagina mastro &apos;%1&apos; a pagina: %2</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/scriptplugin/cmdmani.cpp" line="27"/>
