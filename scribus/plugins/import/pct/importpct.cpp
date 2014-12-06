@@ -1318,7 +1318,7 @@ void PctPlug::handleShape(QDataStream &ts, quint16 opCode)
 	if (opCode > 0x0044)
 		currRectType = 1;
 	finishItem(ite);
-	if ((patternMode) && (opCode && 0x0030) && (opCode != 0x0040) && (opCode != 0x0050))
+	if ((patternMode) && (opCode != 0x0030) && (opCode != 0x0040) && (opCode != 0x0050))
 		setFillPattern(ite);
 }
 
