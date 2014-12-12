@@ -1370,14 +1370,14 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 					Neu->isGroupControl = static_cast<bool>(pite.attribute("isGroupControl", "0").toInt());
 					if (Neu->isGroupControl)
 					{
-						int groupLastItem = pg.attribute("groupsLastItem", "0").toInt();
+						int groupLastItem = pite.attribute("groupsLastItem", "0").toInt();
 						if ((Neu->Groups.count() == 0) || (groupLastItem <= 0)) // Sanity check for some broken files created using buggy development versions.
 						{
 							Neu->isGroupControl = false;
 							Neu->setFillColor("None");
 						}
 						else
-							groupID2.insert(Neu, pite.attribute("groupsLastItem", "0").toInt()+Neu->ItemNr);
+							groupID2.insert(Neu, groupLastItem + Neu->ItemNr);
 					}
 					pa = pa.nextSibling();
 				}
@@ -3322,13 +3322,14 @@ bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool M
 					Neu->isGroupControl = static_cast<bool>(pite.attribute("isGroupControl", "0").toInt());
 					if (Neu->isGroupControl)
 					{
-						if (Neu->Groups.count() == 0) // Sanity check for some broken files created using buggy development versions.
+						int groupsLastItem = pite.attribute("groupsLastItem", "0").toInt();
+						if ((Neu->Groups.count() == 0) || (groupsLastItem <= 0)) // Sanity check for some broken files created using buggy development versions.
 						{
 							Neu->isGroupControl = false;
 							Neu->setFillColor("None");
 						}
 						else
-							groupID.insert(Neu, pite.attribute("groupsLastItem", "0").toInt()+Neu->ItemNr);
+							groupID.insert(Neu, groupsLastItem + Neu->ItemNr);
 					}
 					pa = pa.nextSibling();
 				}
