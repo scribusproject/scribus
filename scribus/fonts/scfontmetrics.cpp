@@ -72,21 +72,21 @@ int setBestEncoding(FT_Face face)
 	int defaultchmap = 0;
 	for(int u = 0; u < face->num_charmaps; u++)
 	{
-		if (face->charmaps[u]->encoding == FT_ENCODING_UNICODE )
+		FT_CharMap charmap = face->charmaps[u];
+		if (charmap->encoding == FT_ENCODING_UNICODE)
 		{
 			FT_Set_Charmap(face, face->charmaps[u]);
 			chmapUniCode = u;
 			gindex = 0;
-			charcode = FT_Get_First_Char( face, &gindex );
+			charcode = FT_Get_First_Char(face, &gindex);
 			while ( gindex != 0 )
 			{
 				countUniCode++;
-				charcode = FT_Get_Next_Char( face, charcode, &gindex );
+				charcode = FT_Get_Next_Char(face, charcode, &gindex);
 			}
 //			qDebug() << "found Unicode enc for" << face->family_name << face->style_name  << "as map" << chmapUniCode << "with" << countUniCode << "glyphs";
-
 		}
-		if (face->charmaps[u]->encoding == FT_ENCODING_ADOBE_CUSTOM)
+		if (charmap->encoding == FT_ENCODING_ADOBE_CUSTOM)
 		{
 			chmapCustom = u;
 			foundEncoding = true;
@@ -94,7 +94,7 @@ int setBestEncoding(FT_Face face)
 //			qDebug() << "found Custom enc for" << face->family_name << face->style_name;
 			break;
 		}
-		else if (face->charmaps[u]->encoding == FT_ENCODING_MS_SYMBOL)
+		else if (charmap->encoding == FT_ENCODING_MS_SYMBOL)
 		{
 //			qDebug() << "found Symbol enc for" << face->family_name << face->style_name;
 
@@ -104,44 +104,40 @@ int setBestEncoding(FT_Face face)
 			break;
 		}
 	}
-	int mapToSet=defaultchmap;
+	int mapToSet = defaultchmap;
 	if (chmapUniCode >= 0 && countUniCode >= face->num_glyphs-1)
 	{
 //		qDebug() << "using Unicode enc for" << face->family_name << face->style_name;
-
-		mapToSet=chmapUniCode;
-		//FT_Set_Charmap(face, face->charmaps[chmapUniCode]);
+		mapToSet = chmapUniCode;
 		retVal = 0;
 	}
 	else if (foundEncoding)
 	{
 //		qDebug() << "using special enc for" << face->family_name << face->style_name;
-		mapToSet=chmapCustom;
-		//FT_Set_Charmap(face, face->charmaps[chmapCustom]);
+		mapToSet = chmapCustom;
 	}
 	else
 	{
 //		qDebug() << "using default enc for" << face->family_name << face->style_name;
-		mapToSet=defaultchmap;
-		//FT_Set_Charmap(face, defaultEncoding);
+		mapToSet = defaultchmap;
 		retVal = 0;
 	}
 
 	//Fixes #2199, missing glyphs from 1.2.1->1.2.2
 	//If the currently wanted character map is not already Unicode...
 	//if (FT_Get_Charmap_Index(face->charmap)!=chmapUniCode)
-	if (mapToSet!=chmapUniCode)
+	if (mapToSet != chmapUniCode)
 	{
 		//Change map so we can count the chars in it
 		FT_Set_Charmap(face, face->charmaps[mapToSet]);
 		//Count the characters in the current map
 		gindex = 0;
-		int countCurrMap=0;
-		charcode = FT_Get_First_Char( face, &gindex );
+		int countCurrMap = 0;
+		charcode = FT_Get_First_Char(face, &gindex);
 		while (gindex != 0)
 		{
 			countCurrMap++;
-			charcode = FT_Get_Next_Char( face, charcode, &gindex );
+			charcode = FT_Get_Next_Char(face, charcode, &gindex);
 		}
 		//If the last Unicode map we found before has more characters,
 		//then set it to be the current map.
