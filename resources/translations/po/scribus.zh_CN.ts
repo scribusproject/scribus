@@ -4385,9 +4385,34 @@ Height: %2</source>
         <translation>不能写入文件 %1</translation>
     </message>
     <message>
-        <location filename="../../../scribus/charselect.ui" line="13"/>
+        <location filename="../../../scribus/charselect.ui" line="14"/>
         <source>Character Palette</source>
         <translation>字符面板</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/charselect.ui" line="25"/>
+        <source>Show/Hide Enhanced Palette</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/charselect.ui" line="35"/>
+        <source>Unicode Search</source>
+        <translation type="unfinished">Unicode 搜索</translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/charselect.ui" line="42"/>
+        <source>Load a Character Palette</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/charselect.ui" line="52"/>
+        <source>Save the Character Palette</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../scribus/charselect.ui" line="62"/>
+        <source>Empty the Character Palette</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../../scribus/charselect.cpp" line="345"/>
@@ -4400,9 +4425,8 @@ Height: %2</source>
         <translation>你将从面板上移除所有字符，你确定吗?</translation>
     </message>
     <message>
-        <location filename="../../../scribus/charselect.ui" line="24"/>
         <source>Hide/Show Enhanced Palette</source>
-        <translation>显示/隐藏 增强型面板</translation>
+        <translation type="obsolete">显示/隐藏 增强型面板</translation>
     </message>
     <message>
         <location filename="../../../scribus/charselect.cpp" line="307"/>
@@ -19685,7 +19709,7 @@ Expressed as a percentage of the current white space value.</source>
 <context>
     <name>SMShadeButton</name>
     <message>
-        <location filename="../../../scribus/smshadebutton.cpp" line="74"/>
+        <location filename="../../../scribus/smshadebutton.cpp" line="63"/>
         <source>Use Parent Value</source>
         <translation>使用父值</translation>
     </message>
@@ -20243,7 +20267,7 @@ If you save it in this version, it will no longer be readable by older Scribus v
 <context>
     <name>Scribus134Format</name>
     <message>
-        <location filename="../../../scribus/plugins/fileloader/scribus134format/scribus134format.cpp" line="3620"/>
+        <location filename="../../../scribus/plugins/fileloader/scribus134format/scribus134format.cpp" line="3621"/>
         <source>Copy #%1 of </source>
         <translation>复制 #%1 的</translation>
     </message>
@@ -20465,31 +20489,31 @@ Rotation: %4</source>
     </message>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="600"/>
-        <location filename="../../../scribus/scribus.cpp" line="9497"/>
+        <location filename="../../../scribus/scribus.cpp" line="9500"/>
         <source>Open &amp;Recent</source>
         <translation>最近打开 (&amp;R)</translation>
     </message>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="608"/>
-        <location filename="../../../scribus/scribus.cpp" line="9499"/>
+        <location filename="../../../scribus/scribus.cpp" line="9502"/>
         <source>&amp;Import</source>
         <translation>导入 (&amp;I)</translation>
     </message>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="615"/>
-        <location filename="../../../scribus/scribus.cpp" line="9500"/>
+        <location filename="../../../scribus/scribus.cpp" line="9503"/>
         <source>&amp;Export</source>
         <translation>导出 (&amp;E)</translation>
     </message>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="656"/>
-        <location filename="../../../scribus/scribus.cpp" line="9498"/>
+        <location filename="../../../scribus/scribus.cpp" line="9501"/>
         <source>Paste Recent</source>
         <translation>最近粘贴</translation>
     </message>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="657"/>
-        <location filename="../../../scribus/scribus.cpp" line="9502"/>
+        <location filename="../../../scribus/scribus.cpp" line="9505"/>
         <source>Contents</source>
         <translation type="unfinished">内容</translation>
     </message>
@@ -20510,13 +20534,13 @@ Rotation: %4</source>
     </message>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="740"/>
-        <location filename="../../../scribus/scribus.cpp" line="9507"/>
+        <location filename="../../../scribus/scribus.cpp" line="9510"/>
         <source>&amp;PDF Options</source>
         <translation>PDF选项 (&amp;P)</translation>
     </message>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="747"/>
-        <location filename="../../../scribus/scribus.cpp" line="9509"/>
+        <location filename="../../../scribus/scribus.cpp" line="9512"/>
         <source>C&amp;onvert To</source>
         <translation>转换为 (&amp;o)</translation>
     </message>
@@ -20537,22 +20561,22 @@ Rotation: %4</source>
     </message>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="856"/>
-        <location filename="../../../scribus/scribus.cpp" line="9515"/>
+        <location filename="../../../scribus/scribus.cpp" line="9518"/>
         <source>Liga&amp;ture</source>
         <translation>拉丁语连字 (&amp;t)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="5660"/>
+        <location filename="../../../scribus/scribus.cpp" line="5663"/>
         <source>Text Files (*.txt);;All Files (*)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="7847"/>
+        <location filename="../../../scribus/scribus.cpp" line="7850"/>
         <source>Click the Help button to read Scribus-related Ghostscript help and installation instructions.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="9522"/>
+        <location filename="../../../scribus/scribus.cpp" line="9525"/>
         <source>&amp;Alignment</source>
         <translation>对齐 (&amp;A)</translation>
     </message>
@@ -20563,7 +20587,7 @@ Rotation: %4</source>
         <location filename="../../../scribus/scribus.cpp" line="4550"/>
         <location filename="../../../scribus/scribus.cpp" line="4775"/>
         <location filename="../../../scribus/scribus.cpp" line="4921"/>
-        <location filename="../../../scribus/scribus.cpp" line="9532"/>
+        <location filename="../../../scribus/scribus.cpp" line="9535"/>
         <source>Ready</source>
         <translation>就绪</translation>
     </message>
@@ -20575,7 +20599,7 @@ Rotation: %4</source>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="2279"/>
         <location filename="../../../scribus/scribus.cpp" line="4866"/>
-        <location filename="../../../scribus/scribus.cpp" line="8079"/>
+        <location filename="../../../scribus/scribus.cpp" line="8082"/>
         <source>Document</source>
         <translation>文档</translation>
     </message>
@@ -20646,9 +20670,9 @@ Rotation: %4</source>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="4482"/>
         <location filename="../../../scribus/scribus.cpp" line="4545"/>
-        <location filename="../../../scribus/scribus.cpp" line="8111"/>
-        <location filename="../../../scribus/scribus.cpp" line="8245"/>
-        <location filename="../../../scribus/scribus.cpp" line="8267"/>
+        <location filename="../../../scribus/scribus.cpp" line="8114"/>
+        <location filename="../../../scribus/scribus.cpp" line="8248"/>
+        <location filename="../../../scribus/scribus.cpp" line="8270"/>
         <source>Cannot write the file: 
 %1</source>
         <translation>不能写入文件： 
@@ -20661,8 +20685,8 @@ Rotation: %4</source>
     </message>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="4530"/>
-        <location filename="../../../scribus/scribus.cpp" line="5660"/>
-        <location filename="../../../scribus/scribus.cpp" line="8102"/>
+        <location filename="../../../scribus/scribus.cpp" line="5663"/>
+        <location filename="../../../scribus/scribus.cpp" line="8105"/>
         <source>Save As</source>
         <translation>另存为</translation>
     </message>
@@ -20673,7 +20697,7 @@ Rotation: %4</source>
     </message>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="4829"/>
-        <location filename="../../../scribus/scribus.cpp" line="7964"/>
+        <location filename="../../../scribus/scribus.cpp" line="7967"/>
         <source>Scribus has detected some errors. Consider using the Preflight Verifier to correct them</source>
         <translation>Scribus已经检测到一些错误。考虑用印前检验器来纠正它们</translation>
     </message>
@@ -20698,12 +20722,12 @@ Rotation: %4</source>
         <translation>对象 %1 目前正被文章编辑器编辑。剪切操作将被取消</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="5603"/>
+        <location filename="../../../scribus/scribus.cpp" line="5606"/>
         <source>About Qt</source>
         <translation>关于Qt</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="5616"/>
+        <location filename="../../../scribus/scribus.cpp" line="5619"/>
         <source>Scribus Manual</source>
         <translation>Scribus 使用手册</translation>
     </message>
@@ -20712,27 +20736,27 @@ Rotation: %4</source>
         <translation type="obsolete">文本文件 (*.txt);;全部文件(*)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="7055"/>
+        <location filename="../../../scribus/scribus.cpp" line="7058"/>
         <source>&amp;Size:</source>
         <translation>尺寸 (&amp;S):</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="7055"/>
+        <location filename="../../../scribus/scribus.cpp" line="7058"/>
         <source>Size</source>
         <translation>尺寸</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="7087"/>
+        <location filename="../../../scribus/scribus.cpp" line="7090"/>
         <source>&amp;Shade:</source>
         <translation>暗调 (&amp;S):</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="7087"/>
+        <location filename="../../../scribus/scribus.cpp" line="7090"/>
         <source>Shade</source>
         <translation>暗调</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="7191"/>
+        <location filename="../../../scribus/scribus.cpp" line="7194"/>
         <source>No Style</source>
         <translation>没有样式</translation>
     </message>
@@ -20741,51 +20765,51 @@ Rotation: %4</source>
         <translation type="obsolete">点击帮助按钮阅读与 Scribus 有关的 Ghostscript 帮助和安装信息。</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="7999"/>
+        <location filename="../../../scribus/scribus.cpp" line="8002"/>
         <source>All</source>
         <translation>全部</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="8048"/>
+        <location filename="../../../scribus/scribus.cpp" line="8051"/>
         <source>Scribus detected some errors.
 Consider using the Preflight Verifier  to correct them.</source>
         <translation>Scribus检测到一些错误。
 考虑使用印前检验器来纠正它们。</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="8145"/>
+        <location filename="../../../scribus/scribus.cpp" line="8148"/>
         <source>Detected some errors.
 Consider using the Preflight Verifier to correct them</source>
         <translation>检测到一些错误。
 考虑使用印前检验器来纠正它们</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="8241"/>
+        <location filename="../../../scribus/scribus.cpp" line="8244"/>
         <source>-Page%1</source>
         <translation>-页%1</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="8629"/>
+        <location filename="../../../scribus/scribus.cpp" line="8632"/>
         <source>Some objects are locked.</source>
         <translation>某些对象被锁定。</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="8625"/>
+        <location filename="../../../scribus/scribus.cpp" line="8628"/>
         <source>&amp;Lock All</source>
         <translation>全部锁定 (&amp;L)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="7839"/>
+        <location filename="../../../scribus/scribus.cpp" line="7842"/>
         <source>Ghostscript is not installed on your system, or Scribus is not configured with the path to the software.</source>
         <translation>Ghostscript 未在你的系统上安装，或者 Scribus 没有配置正确的路径。</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="7842"/>
+        <location filename="../../../scribus/scribus.cpp" line="7845"/>
         <source>Until this is remedied, you cannot import EPS images or use Print Preview. </source>
         <translation>在纠正错误之前，你不能导入 EPS 图片或者使用打印预览。</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="7844"/>
+        <location filename="../../../scribus/scribus.cpp" line="7847"/>
         <source>Until this is remedied, you cannot import EPS images or use PostScript Print Preview. </source>
         <translation>在纠正错误之前，你不能导入 EPS 图片或者使用 PostScript 打印预览。</translation>
     </message>
@@ -20794,75 +20818,75 @@ Consider using the Preflight Verifier to correct them</source>
         <translation type="obsolete">请阅读我们的 &lt;a href=&quot;http://wiki.scribus.net/index.php/Ghostscript&quot;&gt;帮助和安装说明&lt;/a&gt;。</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="7852"/>
+        <location filename="../../../scribus/scribus.cpp" line="7855"/>
         <source>Ghostscript is missing</source>
         <translation type="unfinished">Ghostscript 缺失</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="8626"/>
+        <location filename="../../../scribus/scribus.cpp" line="8629"/>
         <source>&amp;Unlock All</source>
         <translation>全部解锁 (&amp;U)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="9344"/>
+        <location filename="../../../scribus/scribus.cpp" line="9347"/>
         <source>Information</source>
         <translation>信息</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="9344"/>
+        <location filename="../../../scribus/scribus.cpp" line="9347"/>
         <source>The program %1 is already running!</source>
         <translation>程序 %1 已经在运行中!</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="9383"/>
+        <location filename="../../../scribus/scribus.cpp" line="9386"/>
         <source>The program %1 is missing!</source>
         <translation>程序 %1 不存在!</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="9504"/>
+        <location filename="../../../scribus/scribus.cpp" line="9507"/>
         <source>&amp;Level</source>
         <translation>层 (&amp;L)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="9505"/>
+        <location filename="../../../scribus/scribus.cpp" line="9508"/>
         <source>Send to Layer</source>
         <translation>发送到图层</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="9506"/>
+        <location filename="../../../scribus/scribus.cpp" line="9509"/>
         <source>Previe&amp;w Settings</source>
         <translation>预览设置 (&amp;w)</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="9512"/>
+        <location filename="../../../scribus/scribus.cpp" line="9515"/>
         <source>Character</source>
         <translation>字符</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="9513"/>
+        <location filename="../../../scribus/scribus.cpp" line="9516"/>
         <source>Quote</source>
         <translation>引号</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="9514"/>
+        <location filename="../../../scribus/scribus.cpp" line="9517"/>
         <source>Space</source>
         <translation>空铅</translation>
     </message>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="1022"/>
-        <location filename="../../../scribus/scribus.cpp" line="9528"/>
+        <location filename="../../../scribus/scribus.cpp" line="9531"/>
         <source>X-Pos:</source>
         <translation>X-坐标:</translation>
     </message>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="1023"/>
-        <location filename="../../../scribus/scribus.cpp" line="9529"/>
+        <location filename="../../../scribus/scribus.cpp" line="9532"/>
         <source>Y-Pos:</source>
         <translation>Y-坐标:</translation>
     </message>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="4384"/>
-        <location filename="../../../scribus/scribus.cpp" line="9682"/>
+        <location filename="../../../scribus/scribus.cpp" line="9685"/>
         <source>Do you really want to replace your existing image?</source>
         <translation>你真的想取代现存的图片吗?</translation>
     </message>
@@ -20878,7 +20902,7 @@ Consider using the Preflight Verifier to correct them</source>
     </message>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="963"/>
-        <location filename="../../../scribus/scribus.cpp" line="9523"/>
+        <location filename="../../../scribus/scribus.cpp" line="9526"/>
         <source>Online &amp;Tutorials</source>
         <translation>在线教程 (&amp;T)</translation>
     </message>
@@ -20888,7 +20912,7 @@ Consider using the Preflight Verifier to correct them</source>
         <translation>这篇文档使用的部分顔色配置未安装:</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="8102"/>
+        <location filename="../../../scribus/scribus.cpp" line="8105"/>
         <source>%1;;All Files (*)</source>
         <translation>%1;;所有文件 (*)</translation>
     </message>
@@ -20921,17 +20945,17 @@ Consider using the Preflight Verifier to correct them</source>
         <translation>所有支持的格式</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="9739"/>
+        <location filename="../../../scribus/scribus.cpp" line="9742"/>
         <source>&amp;Name:</source>
         <translation>名称 (&amp;N):</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="9739"/>
+        <location filename="../../../scribus/scribus.cpp" line="9742"/>
         <source>New Entry</source>
         <translation type="unfinished">新对象</translation>
     </message>
     <message>
-        <location filename="../../../scribus/scribus.cpp" line="7910"/>
+        <location filename="../../../scribus/scribus.cpp" line="7913"/>
         <source>Ghostscript is missing : PostScript Print Preview is not available</source>
         <translation>Ghostscript缺失：PostScript打印预览功能失效</translation>
     </message>

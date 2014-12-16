@@ -4664,11 +4664,31 @@ Høyde: %2</translation>
     </message>
     <message>
         <source>Hide/Show Enhanced Palette</source>
-        <translation>Vis/skjul den utvidede oversikten</translation>
+        <translation type="obsolete">Vis/skjul den utvidede oversikten</translation>
     </message>
     <message>
         <source>Save Quick Character Palette</source>
         <translation>Lagre hurtigoversikten</translation>
+    </message>
+    <message>
+        <source>Show/Hide Enhanced Palette</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unicode Search</source>
+        <translation type="unfinished">Unicode-søk</translation>
+    </message>
+    <message>
+        <source>Load a Character Palette</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save the Character Palette</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Empty the Character Palette</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
