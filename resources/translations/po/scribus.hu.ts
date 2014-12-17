@@ -4333,17 +4333,17 @@ Height: %2</source>
         <location filename="../../../scribus/canvasmode_framelinks.cpp" line="212"/>
         <location filename="../../../scribus/canvasmode_framelinks.cpp" line="219"/>
         <source>Linking Text Frames</source>
-        <translation type="unfinished">Kapcsolt szövegkeretek</translation>
+        <translation>Kapcsolt szövegkeretek</translation>
     </message>
     <message>
         <location filename="../../../scribus/canvasmode_framelinks.cpp" line="213"/>
         <source>You are trying to link a frame to itself.</source>
-        <translation type="unfinished">A keretet önmagához kísérelte meg kapcsolni.</translation>
+        <translation>A keretet önmagához kísérelte meg kapcsolni.</translation>
     </message>
     <message>
         <location filename="../../../scribus/canvasmode_framelinks.cpp" line="220"/>
         <source>You are trying to link a frame which is already linked.</source>
-        <translation type="unfinished">Olyan kerethez kísérelt meg kapcsolatot létrehozni, amely már kapcsolva van.</translation>
+        <translation>Olyan kerethez kísérelt meg kapcsolatot létrehozni, amely már kapcsolva van.</translation>
     </message>
 </context>
 <context>
@@ -4395,27 +4395,27 @@ Height: %2</source>
     <message>
         <location filename="../../../scribus/charselect.ui" line="25"/>
         <source>Show/Hide Enhanced Palette</source>
-        <translation type="unfinished"></translation>
+        <translation>Kiterjesztett paletta elrejtése ill. megjelenítése</translation>
     </message>
     <message>
         <location filename="../../../scribus/charselect.ui" line="35"/>
         <source>Unicode Search</source>
-        <translation type="unfinished">Unicode keresés</translation>
+        <translation>Unicode keresés</translation>
     </message>
     <message>
         <location filename="../../../scribus/charselect.ui" line="42"/>
         <source>Load a Character Palette</source>
-        <translation type="unfinished"></translation>
+        <translation>Karakterpaletta betöltése</translation>
     </message>
     <message>
         <location filename="../../../scribus/charselect.ui" line="52"/>
         <source>Save the Character Palette</source>
-        <translation type="unfinished"></translation>
+        <translation>Karakterpaletta mentése</translation>
     </message>
     <message>
         <location filename="../../../scribus/charselect.ui" line="62"/>
         <source>Empty the Character Palette</source>
-        <translation type="unfinished"></translation>
+        <translation>Karakterpaletta ürítése</translation>
     </message>
     <message>
         <location filename="../../../scribus/charselect.cpp" line="345"/>
@@ -15763,7 +15763,7 @@ ismert korlátozással. A Scribus parancsfájl-feldolgozó dokumentációjában 
     <message>
         <location filename="../../../scribus/translationdummy.cpp" line="19"/>
         <source>Files of type:</source>
-        <translation type="unfinished"></translation>
+        <translation>Fájltípus:</translation>
     </message>
     <message>
         <location filename="../../../scribus/translationdummy.cpp" line="20"/>
@@ -15818,7 +15818,7 @@ ismert korlátozással. A Scribus parancsfájl-feldolgozó dokumentációjában 
     <message>
         <location filename="../../../scribus/translationdummy.cpp" line="30"/>
         <source>Look in:</source>
-        <translation type="unfinished"></translation>
+        <translation>Megtekintés:</translation>
     </message>
     <message>
         <location filename="../../../scribus/translationdummy.cpp" line="31"/>
@@ -15828,12 +15828,12 @@ ismert korlátozással. A Scribus parancsfájl-feldolgozó dokumentációjában 
     <message>
         <location filename="../../../scribus/translationdummy.cpp" line="32"/>
         <source>Forward</source>
-        <translation type="unfinished"></translation>
+        <translation>Előre</translation>
     </message>
     <message>
         <location filename="../../../scribus/translationdummy.cpp" line="33"/>
         <source>Parent Directory</source>
-        <translation type="unfinished"></translation>
+        <translation>Szülő könyvtár</translation>
     </message>
     <message>
         <location filename="../../../scribus/translationdummy.cpp" line="34"/>
@@ -16264,7 +16264,7 @@ Check path and filename.</source>
     <message>
         <location filename="../../../scribus/nftrcreader.cpp" line="220"/>
         <source>Grids</source>
-        <translation type="unfinished"></translation>
+        <translation>Rácsok</translation>
     </message>
     <message>
         <location filename="../../../scribus/nftrcreader.cpp" line="232"/>
@@ -16781,7 +16781,7 @@ Külső hivatkozások
         <location filename="../../../scribus/plugins/scriptplugin/cmddoc.cpp" line="152"/>
         <source>Failed to open document: %1</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Dokumentum megnyitása sikertelen: %1</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/scriptplugin/cmddoc.cpp" line="230"/>
@@ -16793,19 +16793,19 @@ Külső hivatkozások
         <location filename="../../../scribus/plugins/scriptplugin/cmddoc.cpp" line="381"/>
         <source>Master page does not exist: &apos;%1&apos;</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Mesteroldal nem létezik: %1</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/scriptplugin/cmddoc.cpp" line="386"/>
         <source>Page number out of range: %1.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Oldalszám kívül esik a tartományon: %1.</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/scriptplugin/cmddoc.cpp" line="392"/>
         <source>Failed to apply masterpage &apos;%1&apos; on page: %2</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>%1 mesteroldal alkalmazása az oldalon sikertelen: %2</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/scriptplugin/cmdmani.cpp" line="27"/>
@@ -17451,19 +17451,19 @@ Külső hivatkozások
         <location filename="../../../scribus/main_win32.cpp" line="234"/>
         <location filename="../../../scribus/main_win32.cpp" line="259"/>
         <source>Scribus Crash</source>
-        <translation type="unfinished">Scribus összeomlás</translation>
+        <translation>Scribus összeomlás</translation>
     </message>
     <message>
         <location filename="../../../scribus/main_nix.cpp" line="128"/>
         <source>Scribus crashes due to Signal #%1</source>
-        <translation type="unfinished">A Scribus összeomlott a #%1 szignál miatt</translation>
+        <translation>A Scribus összeomlott a szignál miatt: #%1</translation>
     </message>
     <message>
         <location filename="../../../scribus/main_nix.cpp" line="135"/>
         <location filename="../../../scribus/main_win32.cpp" line="243"/>
         <location filename="../../../scribus/main_win32.cpp" line="261"/>
         <source>&amp;OK</source>
-        <translation type="unfinished">&amp;OK</translation>
+        <translation>&amp;OK</translation>
     </message>
     <message>
         <location filename="../../../scribus/page.cpp" line="91"/>
@@ -17900,7 +17900,7 @@ lista hiányos a meghívott funkciók miatt.</translation>
     <message>
         <location filename="../../../scribus/main_win32.cpp" line="236"/>
         <source>Scribus crashes due to the following exception : %1</source>
-        <translation type="unfinished">A Scribus összeomlott a következő kivétel miatt: %1</translation>
+        <translation>A Scribus összeomlott a következő kivétel miatt: %1</translation>
     </message>
     <message>
         <location filename="../../../scribus/pslib.cpp" line="1852"/>
@@ -20648,7 +20648,7 @@ Forgatás: %4</translation>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="5663"/>
         <source>Text Files (*.txt);;All Files (*)</source>
-        <translation type="unfinished"></translation>
+        <translation>Szöveges fájlok (*.txt);;Minden fájl (*)</translation>
     </message>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="7842"/>
@@ -22040,7 +22040,7 @@ Tekintse meg őket az Elővizsgálóval, hogy javítani tudja</translation>
         <location filename="../../../scribus/storyeditor.cpp" line="3246"/>
         <location filename="../../../scribus/storyeditor.cpp" line="3281"/>
         <source>Text Files (*.txt);;All Files (*)</source>
-        <translation type="unfinished"></translation>
+        <translation>Szöveges fájlok (*.txt);;Minden fájl (*)</translation>
     </message>
     <message>
         <source>&amp;Edit Styles...</source>
@@ -25524,7 +25524,7 @@ Az 1. és a 2. szint nagy méretű fájlt eredményez</translation>
     <message>
         <location filename="../../../scribus/tabscrapbook.ui" line="52"/>
         <source>The minimum number is 1; the maximum is 100.</source>
-        <translation type="unfinished"></translation>
+        <translation>Minimum 1, maximum 100.</translation>
     </message>
     <message>
         <source>The minimum number is 1; the maximum us 100.</source>
@@ -26972,7 +26972,7 @@ to %2</source>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="953"/>
         <source>Duplicate</source>
-        <translation type="unfinished"></translation>
+        <translation>Kettőzés</translation>
     </message>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="972"/>
