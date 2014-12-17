@@ -7813,7 +7813,7 @@ hvis indlæsning lykkedes, indeholder markeringen den importerede ODG
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1481"/>
         <source>Insert Link Annotation</source>
-        <translation>Indsæt lænke kommentar</translation>
+        <translation>Indsæt link kommentar</translation>
     </message>
     <message>
         <location filename="../../../scribus/actionmanager.cpp" line="1526"/>
@@ -9336,7 +9336,7 @@ hvis indlæsning lykkedes, indeholder markeringen den importerede ODG
     <message>
         <location filename="../../../scribus/annota.cpp" line="78"/>
         <source>Link</source>
-        <translation>Lænke</translation>
+        <translation>Link</translation>
     </message>
     <message>
         <location filename="../../../scribus/annota.cpp" line="409"/>
@@ -9351,7 +9351,7 @@ hvis indlæsning lykkedes, indeholder markeringen den importerede ODG
     <message>
         <location filename="../../../scribus/annota.cpp" line="80"/>
         <source>External Web-Link</source>
-        <translation>Ekstern web-Lænke</translation>
+        <translation>Ekstern web-Link</translation>
     </message>
     <message>
         <location filename="../../../scribus/annota.cpp" line="47"/>
@@ -9365,7 +9365,7 @@ hvis indlæsning lykkedes, indeholder markeringen den importerede ODG
     <message>
         <location filename="../../../scribus/annota.cpp" line="79"/>
         <source>External Link</source>
-        <translation>Ekstern Lænke</translation>
+        <translation>Ekstern Link</translation>
     </message>
     <message>
         <location filename="../../../scribus/annota.cpp" line="168"/>
@@ -11351,17 +11351,17 @@ Højde: %2</translation>
         <location filename="../../../scribus/canvasmode_framelinks.cpp" line="212"/>
         <location filename="../../../scribus/canvasmode_framelinks.cpp" line="219"/>
         <source>Linking Text Frames</source>
-        <translation type="unfinished">Sammenkæder tekstrammer</translation>
+        <translation>Linker tekstrammer</translation>
     </message>
     <message>
         <location filename="../../../scribus/canvasmode_framelinks.cpp" line="213"/>
         <source>You are trying to link a frame to itself.</source>
-        <translation type="unfinished">Du prøver at lænke en ramme til sig selv.</translation>
+        <translation>Du prøver at linke en ramme til sig selv.</translation>
     </message>
     <message>
         <location filename="../../../scribus/canvasmode_framelinks.cpp" line="220"/>
         <source>You are trying to link a frame which is already linked.</source>
-        <translation type="unfinished">Du prøver at lænke en ramme, som allerede er lænket.</translation>
+        <translation>Du prøver at linke en ramme, som allerede er linket.</translation>
     </message>
 </context>
 <context>
@@ -11578,27 +11578,27 @@ Højde: %2</translation>
     <message>
         <location filename="../../../scribus/charselect.ui" line="25"/>
         <source>Show/Hide Enhanced Palette</source>
-        <translation type="unfinished"></translation>
+        <translation>Skjul/Vis Udvidet palette</translation>
     </message>
     <message>
         <location filename="../../../scribus/charselect.ui" line="35"/>
         <source>Unicode Search</source>
-        <translation type="unfinished">Unikode søgning</translation>
+        <translation>Unikode-søgning</translation>
     </message>
     <message>
         <location filename="../../../scribus/charselect.ui" line="42"/>
         <source>Load a Character Palette</source>
-        <translation type="unfinished"></translation>
+        <translation>Indlæs en skrifttegn-palette</translation>
     </message>
     <message>
         <location filename="../../../scribus/charselect.ui" line="52"/>
         <source>Save the Character Palette</source>
-        <translation type="unfinished"></translation>
+        <translation>Gem skrifttegn-paletten</translation>
     </message>
     <message>
         <location filename="../../../scribus/charselect.ui" line="62"/>
         <source>Empty the Character Palette</source>
-        <translation type="unfinished"></translation>
+        <translation>Tøm skrifttegn-paletten</translation>
     </message>
     <message>
         <source>&amp;Search</source>
@@ -11607,7 +11607,7 @@ Højde: %2</translation>
     <message>
         <location filename="../../../scribus/charselect.cpp" line="345"/>
         <source>Empty the Palette?</source>
-        <translation>Ryd palette?</translation>
+        <translation>Tøm paletten?</translation>
     </message>
     <message>
         <location filename="../../../scribus/charselect.cpp" line="346"/>
@@ -12820,7 +12820,7 @@ Se Redigér farver sektionen af dokumentationen for flere detaljer.</translation
     <message>
         <location filename="../../../scribus/commonstrings.cpp" line="282"/>
         <source>PDF Link Annotation</source>
-        <translation>PDF lænke-kommentar</translation>
+        <translation>PDF link-kommentar</translation>
     </message>
     <message>
         <location filename="../../../scribus/commonstrings.cpp" line="390"/>
@@ -17718,7 +17718,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../../scribus/insertaframe.ui" line="543"/>
         <source>Name of existing text frame to link to</source>
-        <translation>Navn på eksisterende tekstramme som skal lænkes til</translation>
+        <translation>Navn på eksisterende tekstramme som skal linkes til</translation>
     </message>
     <message>
         <location filename="../../../scribus/insertaframe.ui" line="561"/>
@@ -20475,17 +20475,17 @@ Hvis ingen håndtag er markerede, så nulstilles alle håndtag.</translation>
     <message>
         <location filename="../../../scribus/pdflib_core.cpp" line="7718"/>
         <source>Failed to load an image : %1</source>
-        <translation>Indlæsning af billede mislykkedes: %1</translation>
+        <translation>Kunne ikke Indlæse billede: %1</translation>
     </message>
     <message>
         <location filename="../../../scribus/pdflib_core.cpp" line="7723"/>
         <source>Failed to write an image : %1</source>
-        <translation>Gemme et billede mislykkedes: %1</translation>
+        <translation>Kunne ikke gemme billede: %1</translation>
     </message>
     <message>
         <location filename="../../../scribus/pdflib_core.cpp" line="7728"/>
         <source>Failed to load an image mask : %1</source>
-        <translation>Indlæsning af billed-maske mislykkedes: %1</translation>
+        <translation>Kunne ikke Indlæse billed-maske: %1</translation>
     </message>
     <message>
         <location filename="../../../scribus/pdflib_core.cpp" line="7733"/>
@@ -20801,17 +20801,17 @@ Hvis ingen håndtag er markerede, så nulstilles alle håndtag.</translation>
     <message>
         <location filename="../../../scribus/pslib.cpp" line="1795"/>
         <source>Failed to write data for an image</source>
-        <translation>Gemme billed-data mislykkedes</translation>
+        <translation>Kunne ikke gemme billed-data</translation>
     </message>
     <message>
         <location filename="../../../scribus/pslib.cpp" line="1800"/>
         <source>Failed to load an image : %1</source>
-        <translation>Indlæsning af billede mislykkedes: %1</translation>
+        <translation>Kunne ikke Indlæse billede: %1</translation>
     </message>
     <message>
         <location filename="../../../scribus/pslib.cpp" line="1805"/>
         <source>Failed to load an image mask : %1</source>
-        <translation>Indlæsning af billed-maske mislykkedes: %1</translation>
+        <translation>Kunne ikke indlæse billed-maske: %1</translation>
     </message>
     <message>
         <location filename="../../../scribus/pslib.cpp" line="1810"/>
@@ -21226,7 +21226,7 @@ Hvis ingen håndtag er markerede, så nulstilles alle håndtag.</translation>
         <location filename="../../../scribus/pageitem_latexframe.cpp" line="163"/>
         <location filename="../../../scribus/pageitem_latexframe.cpp" line="181"/>
         <source>Running the external application failed!</source>
-        <translation>Kørsel af det externe program mislykkedes!</translation>
+        <translation>Kunne ikke køre det eksterne program!</translation>
     </message>
     <message>
         <location filename="../../../scribus/pageitem_latexframe.cpp" line="246"/>
@@ -21241,7 +21241,7 @@ Hvis ingen håndtag er markerede, så nulstilles alle håndtag.</translation>
     <message>
         <location filename="../../../scribus/pageitem_latexframe.cpp" line="426"/>
         <source>Running the application &quot;%1&quot; failed!</source>
-        <translation>Kørsel af programmet &quot;%1&quot; mislykkedes!</translation>
+        <translation>Kunne ikke køre programmet &quot;%1&quot;!</translation>
     </message>
     <message>
         <source>OK</source>
@@ -23514,7 +23514,7 @@ billeder og nogen eksperimenteren og testning er nødvendigt fra billede til bil
     <message>
         <location filename="../../../scribus/printdialog.cpp" line="312"/>
         <source>Failed to retrieve printer settings</source>
-        <translation>Hente printer-indstillinger mislykkedes</translation>
+        <translation>Kunne ikke hente printer-indstillinger</translation>
     </message>
     <message>
         <source>Clip to Page Margins</source>
@@ -23966,13 +23966,13 @@ Niveau 1 eller 2 kan give meget store filer</translation>
         <location filename="../../../scribus/printdialogbase.ui" line="323"/>
         <source>Include PDF Annotations and Links into the output.
 Note: PDF Forms will not be exported.</source>
-        <translation>Medtag PDF tekst-kommentarer og lænker i uddate
-Bemærk: PDF forme vil ikke blive eksporteret.</translation>
+        <translation>Medtag PDF tekst-kommentarer og links i uddate
+Bemærk: PDF-forme vil ikke blive eksporteret.</translation>
     </message>
     <message>
         <location filename="../../../scribus/printdialogbase.ui" line="327"/>
         <source>Include PDF Annotations and Links</source>
-        <translation>Medtag PDF tekst-kommentarer og lænker </translation>
+        <translation>Medtag PDF tekst-kommentarer og links</translation>
     </message>
     <message>
         <source>This enables you to explicitly set the media size of the PostScript file. Not recommended unless requested by your printer.</source>
@@ -25585,7 +25585,7 @@ Scripter dokumentationen for mere information.</translation>
     <message>
         <location filename="../../../scribus/translationdummy.cpp" line="19"/>
         <source>Files of type:</source>
-        <translation type="unfinished"></translation>
+        <translation>Filtype:</translation>
     </message>
     <message>
         <location filename="../../../scribus/translationdummy.cpp" line="29"/>
@@ -25595,17 +25595,17 @@ Scripter dokumentationen for mere information.</translation>
     <message>
         <location filename="../../../scribus/translationdummy.cpp" line="30"/>
         <source>Look in:</source>
-        <translation type="unfinished"></translation>
+        <translation>Se i:</translation>
     </message>
     <message>
         <location filename="../../../scribus/translationdummy.cpp" line="32"/>
         <source>Forward</source>
-        <translation type="unfinished"></translation>
+        <translation>Fremad</translation>
     </message>
     <message>
         <location filename="../../../scribus/translationdummy.cpp" line="33"/>
         <source>Parent Directory</source>
-        <translation type="unfinished"></translation>
+        <translation>Forældre-mappe</translation>
     </message>
     <message>
         <location filename="../../../scribus/translationdummy.cpp" line="38"/>
@@ -25689,7 +25689,7 @@ Kontrollér sti og filnavn.</translation>
     <message>
         <location filename="../../../scribus/translationdummy.cpp" line="64"/>
         <source>the symlink</source>
-        <translation>Symbol-lænken</translation>
+        <translation>Den symbolske link</translation>
     </message>
     <message>
         <location filename="../../../scribus/translationdummy.cpp" line="54"/>
@@ -25709,7 +25709,7 @@ Kontrollér sti og filnavn.</translation>
     <message>
         <location filename="../../../scribus/translationdummy.cpp" line="45"/>
         <source>Symlink to Special</source>
-        <translation>Symbolsk lænke til speciel</translation>
+        <translation>Symbolsk link til speciel</translation>
     </message>
     <message>
         <location filename="../../../scribus/translationdummy.cpp" line="78"/>
@@ -25759,12 +25759,12 @@ Kontrollér sti og filnavn.</translation>
     <message>
         <location filename="../../../scribus/translationdummy.cpp" line="43"/>
         <source>Symlink to File</source>
-        <translation>Symbolsk lænke til fil</translation>
+        <translation>Symbolsk link til fil</translation>
     </message>
     <message>
         <location filename="../../../scribus/translationdummy.cpp" line="44"/>
         <source>Symlink to Directory</source>
-        <translation>Symbolsk lænke til mappe</translation>
+        <translation>Symbolsk link til mappe</translation>
     </message>
     <message>
         <location filename="../../../scribus/translationdummy.cpp" line="36"/>
@@ -25986,7 +25986,7 @@ Kontrollér sti og filnavn.</translation>
     <message>
         <location filename="../../../scribus/nftrcreader.cpp" line="220"/>
         <source>Grids</source>
-        <translation type="unfinished"></translation>
+        <translation>Gitre</translation>
     </message>
     <message>
         <location filename="../../../scribus/nftrcreader.cpp" line="232"/>
@@ -26170,7 +26170,7 @@ Kontrollér sti og filnavn.</translation>
 External Links
 </source>
         <translation>
-Ekstern Lænker</translation>
+Eksterne links</translation>
     </message>
     <message>
         <location filename="../../../scribus/scfonts.cpp" line="334"/>
@@ -26461,7 +26461,7 @@ Ekstern Lænker</translation>
         <location filename="../../../scribus/plugins/scriptplugin/cmddoc.cpp" line="152"/>
         <source>Failed to open document: %1</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Kunne ikke åbne dokument: %1</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/scriptplugin/cmddoc.cpp" line="230"/>
@@ -26473,19 +26473,19 @@ Ekstern Lænker</translation>
         <location filename="../../../scribus/plugins/scriptplugin/cmddoc.cpp" line="381"/>
         <source>Master page does not exist: &apos;%1&apos;</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Masterside eksisterer ikke: &apos;%1&apos;</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/scriptplugin/cmddoc.cpp" line="386"/>
         <source>Page number out of range: %1.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Sidenummer er uden for tilladt område: %1.</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/scriptplugin/cmddoc.cpp" line="392"/>
         <source>Failed to apply masterpage &apos;%1&apos; on page: %2</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Kunne ikke anvende masterside &apos;%1&apos; på side: %2</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/scriptplugin/cmdmani.cpp" line="27"/>
@@ -26653,7 +26653,7 @@ Ekstern Lænker</translation>
         <location filename="../../../scribus/plugins/scriptplugin/objimageexport.cpp" line="188"/>
         <source>Failed to export image</source>
         <comment>python error</comment>
-        <translation>Eksport af billede mislykkedes</translation>
+        <translation>Kunne ikke eksportere billede</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/scriptplugin/cmdcolor.cpp" line="47"/>
@@ -26865,13 +26865,13 @@ Ekstern Lænker</translation>
         <location filename="../../../scribus/plugins/scriptplugin/cmdtext.cpp" line="835"/>
         <source>Target frame links to another frame.</source>
         <comment>python error</comment>
-        <translation>Mål-rammen har lænke til en anden ramme.</translation>
+        <translation>Mål-rammen har link til en anden ramme.</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/scriptplugin/cmdtext.cpp" line="840"/>
         <source>Target frame is linked to by another frame.</source>
         <comment>python error</comment>
-        <translation>Mål-rammen har lænke fra en anden ramme.</translation>
+        <translation>Mål-rammen har link fra en anden ramme.</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/scriptplugin/cmdtext.cpp" line="845"/>
@@ -26883,7 +26883,7 @@ Ekstern Lænker</translation>
         <location filename="../../../scribus/plugins/scriptplugin/cmdtext.cpp" line="870"/>
         <source>Cannot unlink a non-text frame.</source>
         <comment>python error</comment>
-        <translation>Kan ikke bryde lænke for andet end tekst-ramme.</translation>
+        <translation>Kan ikke bryde link for andet end tekst-ramme.</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/scriptplugin/cmdtext.cpp" line="925"/>
@@ -26928,19 +26928,19 @@ Ekstern Lænker</translation>
         <location filename="../../../scribus/main_win32.cpp" line="234"/>
         <location filename="../../../scribus/main_win32.cpp" line="259"/>
         <source>Scribus Crash</source>
-        <translation type="unfinished">Scribus nedbrud</translation>
+        <translation>Scribus nedbrud</translation>
     </message>
     <message>
         <location filename="../../../scribus/main_nix.cpp" line="128"/>
         <source>Scribus crashes due to Signal #%1</source>
-        <translation type="unfinished">Scribus nedbrud p.g.a Signal #%1</translation>
+        <translation>Scribus nedbrud p.g.a Signal #%1</translation>
     </message>
     <message>
         <location filename="../../../scribus/main_nix.cpp" line="135"/>
         <location filename="../../../scribus/main_win32.cpp" line="243"/>
         <location filename="../../../scribus/main_win32.cpp" line="261"/>
         <source>&amp;OK</source>
-        <translation type="unfinished">&amp;OK</translation>
+        <translation>&amp;OK</translation>
     </message>
     <message>
         <location filename="../../../scribus/page.cpp" line="37"/>
@@ -27266,7 +27266,7 @@ Ekstern Lænker</translation>
         <location filename="../../../scribus/plugins/scriptplugin/cmddoc.cpp" line="192"/>
         <source>Failed to save document.</source>
         <comment>python error</comment>
-        <translation>Gem dokument mislykkedes.</translation>
+        <translation>Kunne ikke gemme dokument.</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/scriptplugin/cmdgetsetprop.cpp" line="39"/>
@@ -27390,7 +27390,7 @@ Ekstern Lænker</translation>
         <location filename="../../../scribus/plugins/scriptplugin/cmdpage.cpp" line="59"/>
         <source>Failed to save EPS.</source>
         <comment>python error</comment>
-        <translation>Gem EPS mislykkedes.</translation>
+        <translation>Kunne ikke gemme EPS.</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/scriptplugin/cmdpage.cpp" line="42"/>
@@ -27455,7 +27455,7 @@ Ekstern Lænker</translation>
         <location filename="../../../scribus/plugins/scriptplugin/cmdtext.cpp" line="876"/>
         <source>Object is not a linked text frame, can&apos;t unlink.</source>
         <comment>python error</comment>
-        <translation>Objekt er ikke en sammkædet tekst-ramme, kan ikke bryde lænke.</translation>
+        <translation>Objekt er ikke en sammkædet tekst-ramme, kan ikke bryde link.</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/scriptplugin/cmdtext.cpp" line="952"/>
@@ -27704,7 +27704,7 @@ er denne liste ikke udtømmende, på grund af indsiglser fra kaldte funktioner.
     <message>
         <location filename="../../../scribus/main_win32.cpp" line="236"/>
         <source>Scribus crashes due to the following exception : %1</source>
-        <translation type="unfinished">Scribus nedbrud p.g.a følgende indsigelse : %1</translation>
+        <translation>Scribus nedbrud p.g.a følgende indsigelse : %1</translation>
     </message>
     <message>
         <location filename="../../../scribus/util.cpp" line="368"/>
@@ -28488,7 +28488,7 @@ Derfor er billedet måske ikke korrekt</translation>
         <location filename="../../../scribus/latexhelpers.cpp" line="414"/>
         <source>Parsing the configfile %1 failed! Depending on the type of the error render frames might not work correctly!
 %2</source>
-        <translation>Fortolkning af konfigfilen %1 mislykkedes! Afhængig af fejl-typen, så vil gengivelse af rammer måske ikke fungere korrekt!
+        <translation>Kunne ikke fortolke konfigfilen %1 ! Afhængig af fejl-typen, så vil gengivelse af rammer måske ikke fungere korrekt!
 %2</translation>
     </message>
     <message>
@@ -28614,7 +28614,7 @@ Derfor er billedet måske ikke korrekt</translation>
     <message>
         <location filename="../../../scribus/latexhelpers.cpp" line="98"/>
         <source>Opening the configfile %1 failed! %2</source>
-        <translation>Åbning af konfigfilen %1 mislykkedes! %2</translation>
+        <translation>Kunne ikke åbne konfigfilen %1 ! %2</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/import/cvg/importcvgplugin.cpp" line="71"/>
@@ -31216,7 +31216,7 @@ Overvej at bruge Preflight efterprøvning for at rette dem</translation>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="5663"/>
         <source>Text Files (*.txt);;All Files (*)</source>
-        <translation type="unfinished"></translation>
+        <translation>Tekstfiler (*.txt);;Alle filer (*)</translation>
     </message>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="7842"/>
@@ -31819,12 +31819,12 @@ Du kan vælge mellem normal og adskillige former for farveblindhed</translation>
     <message>
         <location filename="../../../scribus/canvasmode_legacy.cpp" line="1966"/>
         <source>You are trying to link a frame to itself.</source>
-        <translation>Du prøver at lænke en ramme til sig selv.</translation>
+        <translation>Du prøver at linke en ramme til sig selv.</translation>
     </message>
     <message>
         <location filename="../../../scribus/canvasmode_legacy.cpp" line="1973"/>
         <source>You are trying to link a frame which is already linked.</source>
-        <translation>Du prøver at lænke en ramme, som allerede er lænket.</translation>
+        <translation>Du prøver at linke en ramme, som allerede er linket.</translation>
     </message>
     <message>
         <location filename="../../../scribus/scribusview.cpp" line="359"/>
@@ -32562,7 +32562,7 @@ Du kan vælge mellem normal og adskillige former for farveblindhed</translation>
         <location filename="../../../scribus/storyeditor.cpp" line="3246"/>
         <location filename="../../../scribus/storyeditor.cpp" line="3281"/>
         <source>Text Files (*.txt);;All Files (*)</source>
-        <translation type="unfinished"></translation>
+        <translation>Tekstfiler (*.txt);;Alle filer (*)</translation>
     </message>
     <message>
         <location filename="../../../scribus/storyeditor.cpp" line="3281"/>
@@ -33460,7 +33460,7 @@ Du kan vælge mellem normal og adskillige former for farveblindhed</translation>
     <message>
         <location filename="../../../scribus/tabdisplay.cpp" line="35"/>
         <source>Enable or disable  the display of linked frames.</source>
-        <translation>Slår visningen  af lænkede rammer til eller fra.</translation>
+        <translation>Aktivér eller deaktivér  visningen af linkede rammer.</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabdisplay.cpp" line="36"/>
@@ -36709,7 +36709,7 @@ Niveau 1 eller 2 kan give meget store filer</translation>
     <message>
         <location filename="../../../scribus/tabprinter.ui" line="174"/>
         <source>Include PDF Annotations and Links</source>
-        <translation>Medtag PDF tekst-kommentarer og lænker </translation>
+        <translation>Medtag PDF tekst-kommentarer og links</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabprinter.cpp" line="35"/>
@@ -36914,7 +36914,7 @@ Niveau 1 eller 2 kan give meget store filer</translation>
     <message>
         <location filename="../../../scribus/tabscrapbook.ui" line="52"/>
         <source>The minimum number is 1; the maximum is 100.</source>
-        <translation type="unfinished"></translation>
+        <translation>Det mindste antal er 1; det største er 100.</translation>
     </message>
     <message>
         <source>The minimum number is 1; the maximum us 100.</source>
@@ -38561,7 +38561,7 @@ til %2</translation>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="953"/>
         <source>Duplicate</source>
-        <translation type="unfinished"></translation>
+        <translation>Duplikér</translation>
     </message>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="969"/>
