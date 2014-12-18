@@ -145,7 +145,7 @@ tr("&Define Custom Colors >>");
 tr("OK");
 tr("Cancel");
 tr("&Add to Custom Colors");
-tr("Select color");
+tr("Select Color");
 }
 QFontDialog::QFontDialog()
 {
