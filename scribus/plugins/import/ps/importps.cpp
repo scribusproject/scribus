@@ -149,10 +149,10 @@ bool EPSPlug::import(QString fName, const TransactionSettings &trSettings, int f
 		try
 		{
 			PoDoFo::PdfError::EnableDebug( false );
-#if (PODOFO_VERSION == 0 && PODOFO_MINOR > 6)
-		PoDoFo::PdfError::EnableLogging( false );
+#if (PODOFO_VERSION >= PODOFO_MAKE_VERSION(0, 7, 0))
+			PoDoFo::PdfError::EnableLogging( false );
 #endif
-#if (PODOFO_VERSION == 0 && PODOFO_MINOR == 5 && PODOFO_REVISION == 99) || PODOFO_MINOR > 5
+#if (PODOFO_VERSION >= PODOFO_MAKE_VERSION(0, 5, 99))
 			PoDoFo::PdfMemDocument doc( fName.toLocal8Bit().data() );
 #else
 			PoDoFo::PdfDocument doc( fName.toLocal8Bit().data() );
