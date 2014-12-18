@@ -49,6 +49,7 @@ for which a new license (GPL+exception) is in place.
 #include <QPixmap>
 #include <QRect>
 #include <QRegExp>
+#include <QScopedPointer>
 #include <QStack>
 #include <QString>
 #include <QTemporaryFile>
@@ -9754,13 +9755,27 @@ bool PDFLibCore::PDF_EmbeddedPDF(PageItem* c, const QString& fn, double sx, doub
 	if (!Options.embedPDF)
 		return false;
 
+	
 #ifdef HAVE_PODOFO
+	// Try to catch potential pdf parsing exceptions early
+	// so we can use the raster fallback if needed
+	QScopedPointer<PoDoFo::PdfMemDocument> doc;
 	try
 	{
 		PoDoFo::PdfError::EnableDebug( false );
 		PoDoFo::PdfError::EnableLogging( false );
-		PoDoFo::PdfMemDocument doc( fn.toLocal8Bit().data() );
-		PoDoFo::PdfPage*         page      = doc.GetPage(qMin(qMax(1, c->pixm.imgInfo.actualPageNumber), c->pixm.imgInfo.numberOfPages) - 1);
+		doc.reset(new PoDoFo::PdfMemDocument(fn.toLocal8Bit().data()));
+	}
+	catch(PoDoFo::PdfError& e)
+	{
+		qDebug() << "PoDoFo error, falling back to raster!";
+		e.PrintErrorMsg();
+		return false;
+	}
+
+	try
+	{
+		PoDoFo::PdfPage*   page      = doc->GetPage(qMin(qMax(1, c->pixm.imgInfo.actualPageNumber), c->pixm.imgInfo.numberOfPages) - 1);
 		PoDoFo::PdfObject* contents  = page? page->GetContents() : NULL;
 		PoDoFo::PdfObject* resources = page? page->GetResources() : NULL;
 		for (PoDoFo::PdfObject* par = page->GetObject(); par && !resources; par = par->GetIndirectKey("Parent"))
@@ -9823,7 +9838,7 @@ bool PDFLibCore::PDF_EmbeddedPDF(PageItem* c, const QString& fn, double sx, doub
 			char * mbuffer = NULL;
 			long mlen = 0;
 
-#if ( (PODOFO_VERSION_MAJOR == 0) && (PODOFO_VERSION_MINOR == 7) && (PODOFO_VERSION_PATCH == 99) ) || ( (PODOFO_VERSION_MAJOR == 0) && (PODOFO_VERSION_MINOR > 7) )
+#if (PODOFO_VERSION >= PODOFO_MAKE_VERSION(0, 7, 99))
 			// seems more complicated at first, but in fact it makes the code more stable wrt podofo changes
 			PoDoFo::PdfMemoryOutputStream oStream(1);
 			stream->GetCopy(&oStream);
@@ -9951,14 +9966,14 @@ bool PDFLibCore::PDF_EmbeddedPDF(PageItem* c, const QString& fn, double sx, doub
 				else if(carray[ci].IsReference())
 				{
 
-					nextObj = doc.GetObjects().GetObject(carray[ci].GetReference());
+					nextObj = doc->GetObjects().GetObject(carray[ci].GetReference());
 
 					while(nextObj != NULL)
 					{
 
 						if(nextObj->IsReference())
 						{
-							nextObj = doc.GetObjects().GetObject(nextObj->GetReference());
+							nextObj = doc->GetObjects().GetObject(nextObj->GetReference());
 						}
 						else if(nextObj->HasStream())
 						{
@@ -10115,7 +10130,7 @@ void PDFLibCore::copyPoDoFoObject(const PoDoFo::PdfObject* obj, uint scObjID, QM
 		char * mbuffer = NULL;
 		long mlen = 0;
 
-#if ( (PODOFO_VERSION_MAJOR == 0) && (PODOFO_VERSION_MINOR == 7) && (PODOFO_VERSION_PATCH == 99) ) || ( (PODOFO_VERSION_MAJOR == 0) && (PODOFO_VERSION_MINOR > 7) )
+#if (PODOFO_VERSION >= PODOFO_MAKE_VERSION(0, 7, 99))
 		// seems more complicated at first, but in fact it makes the code more stable wrt podofo changes
 		PoDoFo::PdfMemoryOutputStream oStream(1);
 		stream->GetCopy(&oStream);

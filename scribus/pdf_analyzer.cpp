@@ -74,6 +74,8 @@ PDFAnalyzer::PDFAnalyzer(QString & filename) : QObject()
 		nameMapInited = true;
 	}
 
+	m_doc = 0;
+
 	PdfError::EnableDebug( false );
 	try {
 		m_doc = new PdfMemDocument(filename.toLocal8Bit().data());
@@ -88,11 +90,14 @@ PDFAnalyzer::PDFAnalyzer(QString & filename) : QObject()
 
 PDFAnalyzer::~PDFAnalyzer()
 {
-	delete m_doc;
+	if (m_doc)
+		delete m_doc;
 }
 
 bool PDFAnalyzer::inspectPDF(int pageNum, QList<PDFColorSpace> & usedColorSpaces, bool & hasTransparency, QList<PDFFont> & usedFonts, QList<PDFImage> & imgs)
 {
+	if (!m_doc)
+		return false;
 	PdfPage* page = m_doc->GetPage(pageNum);
 	return page?inspectCanvas(page, usedColorSpaces, hasTransparency, usedFonts, imgs):false;
 }
