@@ -72,11 +72,11 @@ ScPaths::ScPaths() :
 	m_sampleScriptDir = QString("%1/Contents/share/scribus/samples/").arg(pathPtr);
 	m_scriptDir = QString("%1/Contents/share/scribus/scripts/").arg(pathPtr);
 	m_templateDir = QString("%1/Contents/share/scribus/templates/").arg(pathPtr);
-	m_libDir = QString("%1/Contents/Frameworks/").arg(pathPtr);
-	m_pluginDir = QString("%1/Contents/Frameworks/").arg(pathPtr);
+	m_libDir = QString("%1/Contents/lib/").arg(pathPtr);
+	m_pluginDir = QString("%1/Contents/lib/").arg(pathPtr);
 	m_qmlDir = QString("%1/Contents/share/scribus/qml/").arg(pathPtr);
 	//QApplication::setLibraryPaths(QStringList(QString("%1/Contents/lib/qtplugins/").arg(pathPtr)));
-	QApplication::addLibraryPath(QString("%1/Contents/lib/qtplugins/").arg(pathPtr));
+	QApplication::addLibraryPath(QString("%1/Contents/PlugIns/").arg(pathPtr));
 	// on OSX this goes to the sys console, so user only sees it when they care -- AV
 	qDebug() << QString("scpaths: doc dir=%1").arg(m_docDir);
 	qDebug() << QString("scpaths: icon dir=%1").arg(m_iconDir);
