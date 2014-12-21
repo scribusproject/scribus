@@ -8529,6 +8529,10 @@ void ScribusMainWindow::manageMasterPagesEnd()
 	pagePalette->enablePalette(true);
 	pagePalette->rebuildMasters();
 	ActWin->setMasterPagesPalette(NULL);
+	// #12857 : the number of pages may change when undoing/redoing
+	// page addition/deletion while in edit mode, so take some extra
+	// care so that storedPageNum is in appropriate range
+	storedPageNum = qMin(storedPageNum, doc->DocPages.count() - 1);
 	doc->setCurrentPage(doc->DocPages.at(storedPageNum));
 	view->reformPages(false);
 	view->setContentsPos(static_cast<int>(storedViewXCoor * storedViewScale), static_cast<int>(storedViewYCoor * storedViewScale));
