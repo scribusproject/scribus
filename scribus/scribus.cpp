@@ -7275,6 +7275,10 @@ void ScribusMainWindow::editSymbolEnd()
 	pagePalette->enablePalette(true);
 	pagePalette->rebuildMasters();
 	view->setScale(storedViewScale);
+	// #12857 : the number of pages may change when undoing/redoing
+	// page addition/deletion while in edit mode, so take some extra
+	// care so that storedPageNum is in appropriate range
+	storedPageNum = qMin(storedPageNum, doc->DocPages.count() - 1);
 	doc->setCurrentPage(doc->DocPages.at(storedPageNum));
 	view->setContentsPos(static_cast<int>(storedViewXCoor * storedViewScale), static_cast<int>(storedViewYCoor * storedViewScale));
 	view->DrawNew();
@@ -7338,6 +7342,10 @@ void ScribusMainWindow::editInlineEnd()
 	pagePalette->enablePalette(true);
 	pagePalette->rebuildMasters();
 	view->setScale(storedViewScale);
+	// #12857 : the number of pages may change when undoing/redoing
+	// page addition/deletion while in edit mode, so take some extra
+	// care so that storedPageNum is in appropriate range
+	storedPageNum = qMin(storedPageNum, doc->DocPages.count() - 1);
 	doc->setCurrentPage(doc->DocPages.at(storedPageNum));
 	view->setContentsPos(static_cast<int>(storedViewXCoor * storedViewScale), static_cast<int>(storedViewYCoor * storedViewScale));
 	if (doc->currentEditedTextframe != NULL)
@@ -7419,6 +7427,10 @@ void ScribusMainWindow::editMasterPagesEnd()
 		pagePalette->setVisible(m_pagePalVisible);
 		scrActions["toolsPages"]->setChecked(m_pagePalVisible);
 	}
+	// #12857 : the number of pages may change when undoing/redoing
+	// page addition/deletion while in edit mode, so take some extra
+	// care so that storedPageNum is in appropriate range
+	storedPageNum = qMin(storedPageNum, doc->DocPages.count() - 1);
 	doc->setCurrentPage(doc->DocPages.at(storedPageNum));
 	doc->minCanvasCoordinate = doc->stored_minCanvasCoordinate;
 	doc->maxCanvasCoordinate = doc->stored_maxCanvasCoordinate;
