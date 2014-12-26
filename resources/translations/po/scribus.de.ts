@@ -24506,7 +24506,7 @@ erzielen. Zudem reduziert UFR die Gefahr der Übersättigung.</translation>
     <message>
         <location filename="../../../scribus/propertiespalette.cpp" line="5417"/>
         <source>Left Point</source>
-        <translation>Linker Punkt</translation>
+        <translation>Ausgangspunkt</translation>
     </message>
     <message>
         <location filename="../../../scribus/propertiespalette.cpp" line="5418"/>
