@@ -8488,7 +8488,7 @@ C= littleCMS C=CUPS, T=TIFF-Unterstützung, F=Fontconfig-Unterstützung. Der zus
     <message>
         <location filename="../../../scribus/aligndistribute.cpp" line="122"/>
         <source>Align tops of items to bottom of anchor</source>
-        <translation>Unterseite von Objekten an der Oberseite des gewählten Ankers ausrichten</translation>
+        <translation>Oberseite von Objekten an der Unterseite des gewählten Ankers ausrichten</translation>
     </message>
     <message>
         <location filename="../../../scribus/aligndistribute.cpp" line="130"/>
@@ -11404,17 +11404,17 @@ Höhe: %2</translation>
         <location filename="../../../scribus/canvasmode_framelinks.cpp" line="212"/>
         <location filename="../../../scribus/canvasmode_framelinks.cpp" line="219"/>
         <source>Linking Text Frames</source>
-        <translation type="unfinished">Textrahmen verketten</translation>
+        <translation>Textrahmen verketten</translation>
     </message>
     <message>
         <location filename="../../../scribus/canvasmode_framelinks.cpp" line="213"/>
         <source>You are trying to link a frame to itself.</source>
-        <translation type="unfinished">Sie versuchen, einen Rahmen mit sich selbst zu verketten.</translation>
+        <translation>Sie versuchen, einen Rahmen mit sich selbst zu verketten.</translation>
     </message>
     <message>
         <location filename="../../../scribus/canvasmode_framelinks.cpp" line="220"/>
         <source>You are trying to link a frame which is already linked.</source>
-        <translation type="unfinished">Sie versuchen, mit einem Rahmen zu verketten, der schon verkettet ist.</translation>
+        <translation>Sie versuchen, mit einem Rahmen zu verketten, der schon verkettet ist.</translation>
     </message>
 </context>
 <context>
@@ -11630,27 +11630,27 @@ Höhe: %2</translation>
     <message>
         <location filename="../../../scribus/charselect.ui" line="25"/>
         <source>Show/Hide Enhanced Palette</source>
-        <translation type="unfinished"></translation>
+        <translation>Erweiterte Palette anzeigen/verbergen</translation>
     </message>
     <message>
         <location filename="../../../scribus/charselect.ui" line="35"/>
         <source>Unicode Search</source>
-        <translation type="unfinished">Unicode-Suche</translation>
+        <translation>Unicode-Suche</translation>
     </message>
     <message>
         <location filename="../../../scribus/charselect.ui" line="42"/>
         <source>Load a Character Palette</source>
-        <translation type="unfinished"></translation>
+        <translation>Zeichenpalette laden</translation>
     </message>
     <message>
         <location filename="../../../scribus/charselect.ui" line="52"/>
         <source>Save the Character Palette</source>
-        <translation type="unfinished"></translation>
+        <translation>Zeichenpalette speichern</translation>
     </message>
     <message>
         <location filename="../../../scribus/charselect.ui" line="62"/>
         <source>Empty the Character Palette</source>
-        <translation type="unfinished"></translation>
+        <translation>Zeichenpalette leeren</translation>
     </message>
     <message>
         <source>&amp;Search</source>
@@ -24521,7 +24521,7 @@ erzielen. Zudem reduziert UFR die Gefahr der Übersättigung.</translation>
     <message>
         <location filename="../../../scribus/propertiespalette.cpp" line="5438"/>
         <source>Bevel Join</source>
-        <translation>Gefasst</translation>
+        <translation>Abgeschrägt</translation>
     </message>
     <message>
         <location filename="../../../scribus/propertiespalette.cpp" line="5439"/>
@@ -25926,7 +25926,7 @@ Eigene Farben &amp;definieren &gt;&gt;</translation>
     <message>
         <location filename="../../../scribus/translationdummy.cpp" line="19"/>
         <source>Files of type:</source>
-        <translation type="unfinished"></translation>
+        <translation>Dateityp:</translation>
     </message>
     <message>
         <location filename="../../../scribus/translationdummy.cpp" line="20"/>
@@ -25981,7 +25981,7 @@ Eigene Farben &amp;definieren &gt;&gt;</translation>
     <message>
         <location filename="../../../scribus/translationdummy.cpp" line="30"/>
         <source>Look in:</source>
-        <translation type="unfinished"></translation>
+        <translation>Suchen in:</translation>
     </message>
     <message>
         <location filename="../../../scribus/translationdummy.cpp" line="31"/>
@@ -25991,12 +25991,12 @@ Eigene Farben &amp;definieren &gt;&gt;</translation>
     <message>
         <location filename="../../../scribus/translationdummy.cpp" line="32"/>
         <source>Forward</source>
-        <translation type="unfinished"></translation>
+        <translation>Vorwärts</translation>
     </message>
     <message>
         <location filename="../../../scribus/translationdummy.cpp" line="33"/>
         <source>Parent Directory</source>
-        <translation type="unfinished"></translation>
+        <translation>Übergeordnetes Verzeichnis</translation>
     </message>
     <message>
         <location filename="../../../scribus/translationdummy.cpp" line="34"/>
@@ -26432,7 +26432,7 @@ wirklich überschreiben?</translation>
     <message>
         <location filename="../../../scribus/nftrcreader.cpp" line="220"/>
         <source>Grids</source>
-        <translation type="unfinished"></translation>
+        <translation>Gestaltungsraster</translation>
     </message>
     <message>
         <location filename="../../../scribus/nftrcreader.cpp" line="232"/>
@@ -26944,7 +26944,7 @@ Externe Links</translation>
         <location filename="../../../scribus/plugins/scriptplugin/cmddoc.cpp" line="152"/>
         <source>Failed to open document: %1</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Dokument konnte nicht geöffnet werden: %1</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/scriptplugin/cmddoc.cpp" line="230"/>
@@ -26956,19 +26956,19 @@ Externe Links</translation>
         <location filename="../../../scribus/plugins/scriptplugin/cmddoc.cpp" line="381"/>
         <source>Master page does not exist: &apos;%1&apos;</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Musterseite ist nicht vorhanden: %1</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/scriptplugin/cmddoc.cpp" line="386"/>
         <source>Page number out of range: %1.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Seitennummer außerhalb des Bereichs: %1.</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/scriptplugin/cmddoc.cpp" line="392"/>
         <source>Failed to apply masterpage &apos;%1&apos; on page: %2</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Musterseite &apos;%1&apos; konnte nicht auf Seite &apos;%2&apos; angewandt werden.</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/scriptplugin/cmdmani.cpp" line="27"/>
@@ -27427,19 +27427,19 @@ Externe Links</translation>
         <location filename="../../../scribus/main_win32.cpp" line="234"/>
         <location filename="../../../scribus/main_win32.cpp" line="259"/>
         <source>Scribus Crash</source>
-        <translation type="unfinished">Scribus ist abgestürzt</translation>
+        <translation>Scribus ist abgestürzt</translation>
     </message>
     <message>
         <location filename="../../../scribus/main_nix.cpp" line="128"/>
         <source>Scribus crashes due to Signal #%1</source>
-        <translation type="unfinished">Absturz durch Signal #%1</translation>
+        <translation>Absturz durch Signal #%1</translation>
     </message>
     <message>
         <location filename="../../../scribus/main_nix.cpp" line="135"/>
         <location filename="../../../scribus/main_win32.cpp" line="243"/>
         <location filename="../../../scribus/main_win32.cpp" line="261"/>
         <source>&amp;OK</source>
-        <translation type="unfinished">&amp;OK</translation>
+        <translation>&amp;OK</translation>
     </message>
     <message>
         <location filename="../../../scribus/page.cpp" line="37"/>
@@ -28122,7 +28122,7 @@ is not exhaustive due to exceptions from called functions.
     <message>
         <location filename="../../../scribus/main_win32.cpp" line="236"/>
         <source>Scribus crashes due to the following exception : %1</source>
-        <translation type="unfinished">Scribus ist wegen der Ausnahme %1 abgestürzt</translation>
+        <translation>Scribus ist wegen der Ausnahme %1 abgestürzt</translation>
     </message>
     <message>
         <location filename="../../../scribus/scfonts.cpp" line="325"/>
@@ -29925,7 +29925,7 @@ Bitte wählen Sie eine andere.</translation>
     <message>
         <location filename="../../../scribus/smlinestylewidget.cpp" line="35"/>
         <source>Bevel Join</source>
-        <translation>Gefasst</translation>
+        <translation>Abgeschrägt</translation>
     </message>
     <message>
         <location filename="../../../scribus/smlinestylewidget.cpp" line="36"/>
@@ -31751,7 +31751,7 @@ diese zu finden und zu korrigieren</translation>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="5663"/>
         <source>Text Files (*.txt);;All Files (*)</source>
-        <translation type="unfinished"></translation>
+        <translation>Textdateien (*.txt);;Alle Dateien (*)</translation>
     </message>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="7842"/>
@@ -33224,7 +33224,7 @@ Sie können zwischen &quot;normal&quot; und verschiedenen Formen der Farbenblind
         <location filename="../../../scribus/storyeditor.cpp" line="3246"/>
         <location filename="../../../scribus/storyeditor.cpp" line="3281"/>
         <source>Text Files (*.txt);;All Files (*)</source>
-        <translation type="unfinished"></translation>
+        <translation>Textdateien (*.txt);;Alle Dateien (*)</translation>
     </message>
     <message>
         <location filename="../../../scribus/storyeditor.cpp" line="1721"/>
@@ -37559,7 +37559,7 @@ erzielen. Zudem reduziert UFR die Gefahr der Übersättigung.</translation>
     <message>
         <location filename="../../../scribus/tabscrapbook.ui" line="52"/>
         <source>The minimum number is 1; the maximum is 100.</source>
-        <translation type="unfinished"></translation>
+        <translation>Das Minimum ist 1, das Maximum 100.</translation>
     </message>
     <message>
         <source>The minimum number is 1; the maximum us 100.</source>
@@ -38402,7 +38402,7 @@ erzielen. Zudem reduziert UFR die Gefahr der Übersättigung.</translation>
     <message>
         <location filename="../../../scribus/plugins/tools/transform/transformdialog.cpp" line="52"/>
         <source>Translation</source>
-        <translation>Übersetzung</translation>
+        <translation>Parallelverschiebung</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/tools/transform/transformdialog.cpp" line="53"/>
@@ -38430,14 +38430,14 @@ erzielen. Zudem reduziert UFR die Gefahr der Übersättigung.</translation>
     <message>
         <location filename="../../../scribus/plugins/tools/transform/transformdialog.cpp" line="101"/>
         <source>Translate</source>
-        <translation>Übersetzung</translation>
+        <translation>Verschiebung</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/tools/transform/transformdialog.cpp" line="104"/>
         <location filename="../../../scribus/plugins/tools/transform/transformdialog.cpp" line="221"/>
         <location filename="../../../scribus/plugins/tools/transform/transformdialog.cpp" line="229"/>
         <source>Translate H = %1%2 V = %3%4</source>
-        <translation>Übersetzung H=%1%2 V=%3%4</translation>
+        <translation>Verschiebung H=%1%2 V=%3%4</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/tools/transform/transformdialog.cpp" line="110"/>
@@ -38519,7 +38519,7 @@ erzielen. Zudem reduziert UFR die Gefahr der Übersättigung.</translation>
     <message>
         <location filename="../../../scribus/plugins/tools/transform/transformdialogbase.ui" line="253"/>
         <source>Translation</source>
-        <translation>Übersetzung</translation>
+        <translation>Parallelverschiebung</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/tools/transform/transformdialogbase.ui" line="306"/>
@@ -39211,7 +39211,7 @@ bis %2</translation>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="953"/>
         <source>Duplicate</source>
-        <translation type="unfinished"></translation>
+        <translation>Duplizieren</translation>
     </message>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="969"/>
