@@ -9651,6 +9651,7 @@ bool ScribusMainWindow::editMarkDlg(Mark *mrk, PageItem_TextFrame* currItem)
 				{
 					getUniqueName(label,doc->marksLabelsList(mrk->getType()), "_"); //FIX ME here user should be warned that inserted mark`s label was changed
 					mrk->label = label;
+					emit UpdateRequest(reqMarksUpdate);
 				}
 				break;
 			case MARKVariableTextType:
