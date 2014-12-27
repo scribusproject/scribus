@@ -246,8 +246,6 @@ struct CMSData
 	QString DefaultSolidColorRGBProfile;
 	QString DefaultSolidColorCMYKProfile;
 	int ComponentsInput2;
-	int ComponentsInput3;
-	int ComponentsPrinter;
 	eRenderIntent DefaultIntentImages;
 	eRenderIntent DefaultIntentColors;
 	bool CMSinUse;
