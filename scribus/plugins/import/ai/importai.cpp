@@ -411,7 +411,7 @@ bool AIPlug::extractFromPDF(QString infile, QString outfile)
 							data = priv->GetIndirectKey(PoDoFo::PdfName(Key.toUtf8().data()));
 							PoDoFo::PdfStream const *stream = data->GetStream();
 							char *Buffer;
-#if (PODOFO_MAJOR == 0 && PODOFO_MINOR >= 8)
+#if (PODOFO_VERSION >= PODOFO_MAKE_VERSION(0, 8, 0))
 							PoDoFo::pdf_long bLen = 0;
 #elif defined(pdf_long)
 							pdf_long bLen = 0;
@@ -432,7 +432,7 @@ bool AIPlug::extractFromPDF(QString infile, QString outfile)
 									break;
 								PoDoFo::PdfStream const *stream = data->GetStream();
 								char *Buffer;
-#if (PODOFO_MAJOR == 0 && PODOFO_MINOR >= 8)
+#if (PODOFO_VERSION >= PODOFO_MAKE_VERSION(0, 8, 0))
 								PoDoFo::pdf_long bLen = 0;
 #elif defined(pdf_long)
 								pdf_long bLen = 0;
