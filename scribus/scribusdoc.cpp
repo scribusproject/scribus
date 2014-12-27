@@ -791,7 +791,7 @@ bool ScribusDoc::OpenCMSProfiles(ProfilesL InPo, ProfilesL InPoCMYK, ProfilesL M
 			CMSSettings.ComponentsInput2 = 3;
 	if (DocInputRGBProf.colorSpace() == ColorSpace_Cmyk)
 			CMSSettings.ComponentsInput2 = 4;
-	if (DocInputRGBProf.colorSpace() == ColorSpace_Cmyk)
+	if (DocInputRGBProf.colorSpace() == ColorSpace_Cmy)
 			CMSSettings.ComponentsInput2 = 3;
 	if (DocInputCMYKProf.colorSpace() == ColorSpace_Rgb)
 			CMSSettings.ComponentsInput3 = 3;
