@@ -10,11 +10,11 @@ for which a new license (GPL+exception) is in place.
 #include <QObject>
 #include <QtDebug>
 
-#include "pythonize.h"
 #include "scribus.h"
 #include "scribusdoc.h"
 #include "scribuscore.h"
 #include "scpaths.h"
+#include "pythonize.h"
 #include "api_prefs.h"
 #include "api_printer.h"
 #include "api_imageexport.h"
