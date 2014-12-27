@@ -71,14 +71,15 @@ int ShadeButton::getValue()
 
 void ShadeButton::setValue(int val)
 {
-	for (int a = 0; a < FillSh->actions().count(); ++a)
+	QList<QAction*> fillActions = FillSh->actions();
+	for (int a = 0; a < fillActions.count(); ++a)
 	{
-		FillSh->actions()[a]->setChecked(false);
+		fillActions[a]->setChecked(false);
 	}
 	if ((val % 10) == 0)
-		FillSh->actions()[val/10+1]->setChecked(true);
+		fillActions[val / 10 + 1]->setChecked(true);
 	else
-		FillSh->actions()[0]->setChecked(true);
+		fillActions[0]->setChecked(true);
 	setText(QString::number(val)+" %");
 }
 
