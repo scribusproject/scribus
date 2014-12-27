@@ -1032,18 +1032,6 @@ bool ScribusDoc::OpenCMSProfiles(ProfilesL InPo, ProfilesL InPoCMYK, ProfilesL M
 			docPrefsData.colorPrefs.DCMSset.ComponentsInput2 = 4;
 	if (DocInputRGBProf.colorSpace() == ColorSpace_Cmy)
 			docPrefsData.colorPrefs.DCMSset.ComponentsInput2 = 3;
-	if (DocInputCMYKProf.colorSpace() == ColorSpace_Rgb)
-			docPrefsData.colorPrefs.DCMSset.ComponentsInput3 = 3;
-	if (DocInputCMYKProf.colorSpace() == ColorSpace_Cmyk)
-			docPrefsData.colorPrefs.DCMSset.ComponentsInput3 = 4;
-	if (DocInputCMYKProf.colorSpace() == ColorSpace_Cmy)
-			docPrefsData.colorPrefs.DCMSset.ComponentsInput3 = 3;
-	if (DocPrinterProf.colorSpace() == ColorSpace_Rgb)
-			docPrefsData.colorPrefs.DCMSset.ComponentsPrinter = 3;
-	if (DocPrinterProf.colorSpace() == ColorSpace_Cmyk)
-			docPrefsData.colorPrefs.DCMSset.ComponentsPrinter = 4;
-	if (DocPrinterProf.colorSpace() == ColorSpace_Cmy)
-			docPrefsData.colorPrefs.DCMSset.ComponentsPrinter = 3;
 
 	bool success  = (stdTransRGBMon && stdTransCMYKMon && stdProofImg  && stdProofImgCMYK &&
 		             stdTransImg    && stdTransRGB     && stdTransCMYK && stdProof       &&
