@@ -40,7 +40,7 @@ BarcodeGenerator::BarcodeGenerator(QWidget* parent, const char* name)
 	setModal(true);
 	map["EAN-13"] = BarcodeType("ean13", "9781860742712", tr("12 or 13 digits"),
 								"[0-9]{12,13}");
-	map["EAN-8"] = BarcodeType("ean8", "12345678", tr("8 digits"),
+	map["EAN-8"] = BarcodeType("ean8", "12345670", tr("8 digits"),
 							   "[0-9]{8,8}");
 	map["UPC-A"] = BarcodeType("upca", "78858101497", tr("11 or 12 digits"),
 							   "[0-9]{11,12}");
@@ -66,7 +66,7 @@ BarcodeGenerator::BarcodeGenerator(QWidget* parent, const char* name)
 	map["UCC/EAN-128"] = BarcodeType("code128", "^104^102Count^0991234^101!",
 									 tr("Variable number of ASCII characters and special function symbols, starting with the appropriate start character for the initial character set. UCC/EAN-128s must have a mandatory FNC 1 symbol immediately following the start character."),
 									 "\\^[0-9a-zA-Z\\^\\!]*");
-	map["Rationalized Codabar"] = BarcodeType("rationalizedCodabar", "0123456789",
+	map["Rationalized Codabar"] = BarcodeType("rationalizedCodabar", "A0123456789D",
 											  tr("Variable number of digits and any of the symbols -$:/.+ABCD."),
 											  "[0-9A-D\\-\\$\\:\\/\\.\\+]*",
 											 true, true);
@@ -81,7 +81,7 @@ BarcodeGenerator::BarcodeGenerator(QWidget* parent, const char* name)
 	map["Code 2 of 5"] = BarcodeType("code2of5", "0123456789",
 									 tr("Variable number of digits"),
 									 "[0-9]*");
-	map["Postnet"] = BarcodeType("postnet", "01234567",
+	map["Postnet"] = BarcodeType("postnet", "012345678",
 								 tr("Variable number of digits"),
 								 "[0-9]*",
 								false, true);
