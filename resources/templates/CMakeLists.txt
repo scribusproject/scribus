@@ -370,4 +370,45 @@ ELSE (WANT_NOTEMPLATES)
 	buscard_coll/Business_Card_Collection.png
 	  DESTINATION ${TEMPLATEDIR}buscard_coll
 	)
+	
+	INSTALL(FILES
+	Business_Card_EU_Green/Business Card Waves.sla.gz
+	Business_Card_EU_Green/Business Card Wavestn.png
+	Business_Card_EU_Green/Business Card Waves.png
+	Business_Card_EU_Green/Line1.png
+	  DESTINATION ${TEMPLATEDIR}Business_Card_EU_Green
+	)
+	
+	INSTALL(FILES
+	3Fold_Wave_Style/3Fold Waves Style.sla.gz
+	3Fold_Wave_Style/3Fold Waves Styletn.png
+	3Fold_Wave_Style/3Fold Waves Style.png
+	3Fold_Wave_Style/IMAGES_SML.png
+	3Fold_Wave_Style/IMAGES_BG.png
+	3Fold_Wave_Style/3Fold Waves Style.jpeg
+	  DESTINATION ${TEMPLATEDIR}3Fold_Wave_Style
+	)
+	
+	INSTALL(FILES
+	Flyer_Waves_A5_DoubleSided/Waves Flyer.sla.gz
+	Flyer_Waves_A5_DoubleSided/Waves Flyer tn.png
+	Flyer_Waves_A5_DoubleSided/Waves Flyer.png
+	  DESTINATION ${TEMPLATEDIR}Flyer_Waves_A5_DoubleSided
+	)
+	
+	INSTALL(FILES
+	Layout_Informer_A4/Layout Informer.sla.gz
+	Layout_Informer_A4/Layout Informer.png
+	Layout_Informer_A4/Layout Informertn.png
+	  DESTINATION ${TEMPLATEDIR}Layout_Informer_A4
+	)
+	
+	INSTALL(FILES
+	Newsletter_Layout/Newsletter Wavestyle.sla.gz
+	Newsletter_Layout/Newsletter Wavestyletn.png
+	Newsletter_Layout/Newsletter Wavestyle.png
+	Newsletter_Layout/path9902.png
+	  DESTINATION ${TEMPLATEDIR}Newsletter_Layout
+	)
+	  
 ENDIF (WANT_NOTEMPLATES)
