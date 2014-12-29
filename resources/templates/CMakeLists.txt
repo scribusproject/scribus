@@ -372,9 +372,9 @@ ELSE (WANT_NOTEMPLATES)
 	)
 	
 	INSTALL(FILES
-	Business_Card_EU_Green/Business Card Waves.sla.gz
-	Business_Card_EU_Green/Business Card Wavestn.png
-	Business_Card_EU_Green/Business Card Waves.png
+	Business_Card_EU_Green/Business_Card_Waves.sla.gz
+	Business_Card_EU_Green/Business_Card_Wavestn.png
+	Business_Card_EU_Green/Business_Card_Waves.png
 	Business_Card_EU_Green/Line1.png
 	  DESTINATION ${TEMPLATEDIR}Business_Card_EU_Green
 	)
