@@ -6709,36 +6709,36 @@ void PageItem::restoreColumnsGap(SimpleState *ss, bool isUndo)
 void PageItem::restoreLeftTextFrameDist(SimpleState *ss, bool isUndo)
 {
 	if (isUndo)
-		m_textDistanceMargins.Left = ss->getInt("OLD_DIST");
+		m_textDistanceMargins.Left = ss->getDouble("OLD_DIST");
 	else
-		m_textDistanceMargins.Left = ss->getInt("NEW_DIST");
+		m_textDistanceMargins.Left = ss->getDouble("NEW_DIST");
 	update();
 }
 
 void PageItem::restoreRightTextFrameDist(SimpleState *ss, bool isUndo)
 {
 	if (isUndo)
-		m_textDistanceMargins.Right = ss->getInt("OLD_DIST");
+		m_textDistanceMargins.Right = ss->getDouble("OLD_DIST");
 	else
-		m_textDistanceMargins.Right = ss->getInt("NEW_DIST");
+		m_textDistanceMargins.Right = ss->getDouble("NEW_DIST");
 	update();
 }
 
 void PageItem::restoreTopTextFrameDist(SimpleState *ss, bool isUndo)
 {
 	if (isUndo)
-		m_textDistanceMargins.Top = ss->getInt("OLD_DIST");
+		m_textDistanceMargins.Top = ss->getDouble("OLD_DIST");
 	else
-		m_textDistanceMargins.Top = ss->getInt("NEW_DIST");
+		m_textDistanceMargins.Top = ss->getDouble("NEW_DIST");
 	update();
 }
 
 void PageItem::restoreBottomTextFrameDist(SimpleState *ss, bool isUndo)
 {
 	if (isUndo)
-		m_textDistanceMargins.Bottom = ss->getInt("OLD_DIST");
+		m_textDistanceMargins.Bottom = ss->getDouble("OLD_DIST");
 	else
-		m_textDistanceMargins.Bottom = ss->getInt("NEW_DIST");
+		m_textDistanceMargins.Bottom = ss->getDouble("NEW_DIST");
 	update();
 }
 
