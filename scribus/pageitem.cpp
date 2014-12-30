@@ -6700,9 +6700,9 @@ void PageItem::restorePasteText(SimpleState *ss, bool isUndo)
 void PageItem::restoreColumnsGap(SimpleState *ss, bool isUndo)
 {
 	if (isUndo)
-		ColGap = ss->getInt("OLD_COLUMNS");
+		ColGap = ss->getDouble("OLD_COLUMNS");
 	else
-		ColGap = ss->getInt("NEW_COLUMNS");
+		ColGap = ss->getDouble("NEW_COLUMNS");
 	update();
 }
 
