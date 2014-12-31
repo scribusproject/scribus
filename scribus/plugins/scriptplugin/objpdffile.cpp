@@ -51,13 +51,12 @@ typedef struct
 	PyObject *SubsetList; // list of string - fonts to outline
 	PyObject *pages; // list of int - pages to print
 	int thumbnails; // bool -
-	int cropmarks; // bool -
-	int cropmarksoffset; // int
-	int bleedmarks; // bool -
-	int registrationmarks; // bool -
-	int colormarks; //  bool -
-	int pageinformation; // bool -
-	int embedpdf; // bool -
+	int cropMarks; // bool -
+	int bleedMarks; // bool -
+	int registrationMarks; // bool -
+	int colorMarks; // bool -
+	int docInfoMarks; // bool -
+	double markOffset; // double -
 	int compress; // bool -
 	int compressmtd; // int - 0=automatic 1=jpeg 2=zip 3=none
 	int quality; // int - 0=Maximum 4=minimum
@@ -98,12 +97,12 @@ typedef struct
 	int usedocbleeds; // bool
 	int useLayers;
 	int embedPDF;
-	int MirrorH;
-	int MirrorV;
+	int mirrorH;
+	int mirrorV;
 	int doClip;
 	PyObject * RotateDeg; // int
 	int isGrayscale;
-	int PageLayout;
+	int pageLayout;
 	int displayBookmarks;
 	int displayThumbs;
 	int displayLayers;
@@ -111,12 +110,6 @@ typedef struct
 	int hideToolBar;
 	int hideMenuBar;
 	int fitWindow;
-	int cropMarks;
-	int bleedMarks;
-	int registrationMarks;
-	int colorMarks;
-	int docInfoMarks;
-	double markOffset;
 	PyObject *openAction;
 
 } PDFfile;
@@ -179,20 +172,18 @@ static PyObject * PDFfile_new(PyTypeObject *type, PyObject * /*args*/, PyObject 
 		}
 // set thumbnails attribute
 		self->thumbnails = 0;
-// set cropmarks attribute
-		self->cropmarks = 0;
-// set cropmarks offset attribute
-		self->cropmarksoffset = 0;
-// set bleedmarks attribute
-		self->bleedmarks = 0;
-// set registrationmarks attribute
-		self->registrationmarks = 0;
-// set colormarks attribute
-		self->colormarks = 0;
-// set pageinformation attribute
-		self->pageinformation = 0;
-// set embedpdf attribute
-		self->embedpdf = 0;
+// set cropMarks attribute
+		self->cropMarks = 0;
+// set bleedMarks attribute
+		self->bleedMarks = 0;
+// set registrationMarks attribute
+		self->registrationMarks = 0;
+// set colorMarks attribute
+		self->colorMarks = 0;
+// set docInfoMarks attribute
+		self->docInfoMarks = 0;
+// set mark offset attribute
+		self->markOffset = 0;
 // set compress attribute
 		self->compress = 0;
 // set compressmtd attribute
@@ -295,8 +286,8 @@ static PyObject * PDFfile_new(PyTypeObject *type, PyObject * /*args*/, PyObject 
 		self->usedocbleeds = 1; // bool
 		self->useLayers = 0;
 		self->embedPDF = 0;
-		self->MirrorH = 0;
-		self->MirrorV = 0;
+		self->mirrorH = 0;
+		self->mirrorV = 0;
 		self->doClip = 0;
 		self->RotateDeg = PyInt_FromLong(0);
 		if (!self->RotateDeg){
@@ -304,7 +295,7 @@ static PyObject * PDFfile_new(PyTypeObject *type, PyObject * /*args*/, PyObject 
 			return NULL;
 		}
 		self->isGrayscale = 0;
-		self->PageLayout = 0;
+		self->pageLayout = 0;
 		self->displayBookmarks = 0;
 		self->displayThumbs = 0;
 		self->displayLayers = 0;
@@ -312,12 +303,6 @@ static PyObject * PDFfile_new(PyTypeObject *type, PyObject * /*args*/, PyObject 
 		self->hideToolBar = 0;
 		self->hideMenuBar = 0;
 		self->fitWindow = 0;
-		self->cropMarks = 0;
-		self->bleedMarks = 0;
-		self->registrationMarks = 0;
-		self->colorMarks = 0;
-		self->docInfoMarks = 0;
-		self->markOffset = 0;
 		self->openAction = PyString_FromString("");
 		if (!self->openAction){
 			Py_DECREF(self);
@@ -433,19 +418,17 @@ static int PDFfile_init(PDFfile *self, PyObject * /*args*/, PyObject * /*kwds*/)
 // print thumbnails ?
 	self->thumbnails = ScCore->primaryMainWindow()->doc->pdfOptions().Thumbnails;
 // output crop marks ?
-	self->cropmarks = ScCore->primaryMainWindow()->doc->pdfOptions().cropMarks;
-// cropmarks offset 
-	self->cropmarksoffset = ScCore->primaryMainWindow()->doc->pdfOptions().markOffset;
+	self->cropMarks = ScCore->primaryMainWindow()->doc->pdfOptions().cropMarks;
 // output bleed marks ?
-	self->bleedmarks = ScCore->primaryMainWindow()->doc->pdfOptions().bleedMarks;
+	self->bleedMarks = ScCore->primaryMainWindow()->doc->pdfOptions().bleedMarks;
 // output registration marks ?
-	self->registrationmarks = ScCore->primaryMainWindow()->doc->pdfOptions().registrationMarks;
+	self->registrationMarks = ScCore->primaryMainWindow()->doc->pdfOptions().registrationMarks;
 // output color bars ?
-	self->colormarks = ScCore->primaryMainWindow()->doc->pdfOptions().colorMarks;
-// output page information ?
-	self->pageinformation = ScCore->primaryMainWindow()->doc->pdfOptions().docInfoMarks;
-// embed pdf and eps ?
-	self->embedpdf = ScCore->primaryMainWindow()->doc->pdfOptions().embedPDF;
+	self->colorMarks = ScCore->primaryMainWindow()->doc->pdfOptions().colorMarks;
+// output doc info marks ?
+	self->docInfoMarks = ScCore->primaryMainWindow()->doc->pdfOptions().docInfoMarks;
+// cropmarks offset 
+	self->markOffset = ScCore->primaryMainWindow()->doc->pdfOptions().markOffset;
 // set automatic compression
 	self->compress = ScCore->primaryMainWindow()->doc->pdfOptions().Compress;
 	self->compressmtd = ScCore->primaryMainWindow()->doc->pdfOptions().CompressMethod;
@@ -633,8 +616,8 @@ static int PDFfile_init(PDFfile *self, PyObject * /*args*/, PyObject * /*kwds*/)
 	self->usedocbleeds = ScCore->primaryMainWindow()->doc->pdfOptions().useDocBleeds; // bool
 	self->useLayers = ScCore->primaryMainWindow()->doc->pdfOptions().useLayers; // bool
 	self->embedPDF = ScCore->primaryMainWindow()->doc->pdfOptions().embedPDF; // bool
-	self->MirrorH = ScCore->primaryMainWindow()->doc->pdfOptions().MirrorH; // bool
-	self->MirrorV = ScCore->primaryMainWindow()->doc->pdfOptions().MirrorV; // bool
+	self->mirrorH = ScCore->primaryMainWindow()->doc->pdfOptions().MirrorH; // bool
+	self->mirrorV = ScCore->primaryMainWindow()->doc->pdfOptions().MirrorV; // bool
 	self->doClip = ScCore->primaryMainWindow()->doc->pdfOptions().doClip; // bool
 	PyObject *RotateDeg = NULL;
 	RotateDeg = PyInt_FromLong(0);
@@ -646,7 +629,7 @@ static int PDFfile_init(PDFfile *self, PyObject * /*args*/, PyObject * /*kwds*/)
 		return -1;
 	}
 	self->isGrayscale = ScCore->primaryMainWindow()->doc->pdfOptions().isGrayscale; // bool
-	self->PageLayout = ScCore->primaryMainWindow()->doc->pdfOptions().PageLayout; // int
+	self->pageLayout = ScCore->primaryMainWindow()->doc->pdfOptions().PageLayout; // int
 	self->displayBookmarks = ScCore->primaryMainWindow()->doc->pdfOptions().displayBookmarks; // bool
 	self->displayThumbs = ScCore->primaryMainWindow()->doc->pdfOptions().displayThumbs; // bool
 	self->displayLayers = ScCore->primaryMainWindow()->doc->pdfOptions().displayLayers; // bool
@@ -654,12 +637,6 @@ static int PDFfile_init(PDFfile *self, PyObject * /*args*/, PyObject * /*kwds*/)
 	self->hideToolBar = ScCore->primaryMainWindow()->doc->pdfOptions().hideToolBar; // bool
 	self->hideMenuBar = ScCore->primaryMainWindow()->doc->pdfOptions().hideMenuBar; // bool
 	self->fitWindow = ScCore->primaryMainWindow()->doc->pdfOptions().fitWindow; // bool
-	self->cropMarks = ScCore->primaryMainWindow()->doc->pdfOptions().cropMarks; // bool
-	self->bleedMarks = ScCore->primaryMainWindow()->doc->pdfOptions().bleedMarks; // bool
-	self->registrationMarks = ScCore->primaryMainWindow()->doc->pdfOptions().registrationMarks; // bool
-	self->colorMarks = ScCore->primaryMainWindow()->doc->pdfOptions().colorMarks; // bool
-	self->docInfoMarks = ScCore->primaryMainWindow()->doc->pdfOptions().docInfoMarks; // bool
-	self->markOffset = ScCore->primaryMainWindow()->doc->pdfOptions().markOffset; // double
 
 	PyObject *openAction = NULL;
 	openAction = PyString_FromString(ScCore->primaryMainWindow()->doc->pdfOptions().openAction.toLatin1().data());
@@ -676,13 +653,12 @@ static int PDFfile_init(PDFfile *self, PyObject * /*args*/, PyObject * /*kwds*/)
 
 static PyMemberDef PDFfile_members[] = {
 	{const_cast<char*>("thumbnails"), T_INT, offsetof(PDFfile, thumbnails), 0, const_cast<char*>("Generate thumbnails. Bool value.")},
-	{const_cast<char*>("cropmarks"), T_INT, offsetof(PDFfile, cropmarks), 0, const_cast<char*>("Output cropmarks. Bool value.")},
-	{const_cast<char*>("cropmarksoffset"), T_INT, offsetof(PDFfile, cropmarksoffset), 0, const_cast<char*>("Cropmarks offset. Int value.")},
-	{const_cast<char*>("bleedmarks"), T_INT, offsetof(PDFfile, bleedmarks), 0, const_cast<char*>("Output bleedmarks. Bool value.")},
-	{const_cast<char*>("registrationmarks"), T_INT, offsetof(PDFfile, registrationmarks), 0, const_cast<char*>("Output registrationmarks. Bool value.")},
-	{const_cast<char*>("colormarks"), T_INT, offsetof(PDFfile, colormarks), 0, const_cast<char*>("Output colormarks. Bool value.")},
-	{const_cast<char*>("pageinformation"), T_INT, offsetof(PDFfile, pageinformation), 0, const_cast<char*>("Output page information. Bool value.")},
-	{const_cast<char*>("embedpdf"), T_INT, offsetof(PDFfile, embedpdf), 0, const_cast<char*>("Embed EPS and PDF files. Bool value.")},
+	{const_cast<char*>("cropMarks"), T_INT, offsetof(PDFfile, cropMarks), 0, const_cast<char*>("Creates crop marks in the PDF indicating where the paper should be cut or trimmed after printing.")},
+	{const_cast<char*>("bleedMarks"), T_INT, offsetof(PDFfile, bleedMarks), 0, const_cast<char*>("Create marks delimiting the bleed area.")},
+	{const_cast<char*>("registrationMarks"), T_INT, offsetof(PDFfile, registrationMarks), 0, const_cast<char*>("Add registration marks to each separation.")},
+	{const_cast<char*>("colorMarks"), T_INT, offsetof(PDFfile, colorMarks), 0, const_cast<char*>("Add color calibration bars.")},
+	{const_cast<char*>("docInfoMarks"), T_INT, offsetof(PDFfile, docInfoMarks), 0, const_cast<char*>("Add document information which includes the document title and page numbers.")},
+	{const_cast<char*>("markOffset"), T_DOUBLE, offsetof(PDFfile, markOffset), 0, const_cast<char*>("Indicate the distance offset between mark and page area.")},
 	{const_cast<char*>("compress"), T_INT, offsetof(PDFfile, compress), 0, const_cast<char*>("Compression switch. Bool value.")},
 	{const_cast<char*>("compressmtd"), T_INT, offsetof(PDFfile, compressmtd), 0, const_cast<char*>("Compression method.\n\t0 - Automatic\n\t1 - JPEG\n\t2 - zip\n\t3 - None.")},
 	{const_cast<char*>("quality"), T_INT, offsetof(PDFfile, quality), 0, const_cast<char*>("Image quality\n\t0 - Maximum\n\t1 - High\n\t2 - Medium\n\t3 - Low\n\t4 - Minimum")},
@@ -711,12 +687,12 @@ static PyMemberDef PDFfile_members[] = {
 	{const_cast<char*>("bleedb"), T_DOUBLE, offsetof(PDFfile, bleedb), 0, const_cast<char*>("Bleed Bottom\n""Distance for bleed from the bottom of the physical page")},
 	{const_cast<char*>("usedocbleeds"), T_INT, offsetof(PDFfile, usedocbleeds), 0, const_cast<char*>("Use the existing bleed settings from the document preferences. Bool value")},
 	{const_cast<char*>("useLayers"), T_INT, offsetof(PDFfile, useLayers), 0, const_cast<char*>("Layers in your document are exported to the PDF Only available if PDF 1.5 is chosen.")},
-	{const_cast<char*>("embedPDF"), T_INT, offsetof(PDFfile, embedPDF), 0, const_cast<char*>("Export PDFs in image frames as embedded PDFs. This does *not* yet take care of colorspaces, so you should know what you are doing before setting this to 'true'.")},
-	{const_cast<char*>("MirrorH"), T_INT, offsetof(PDFfile, MirrorH), 0, const_cast<char*>("Mirror Page(s) horizontally")},
-	{const_cast<char*>("MirrorV"), T_INT, offsetof(PDFfile, MirrorV), 0, const_cast<char*>("Mirror Page(s) vertically")},
+	{const_cast<char*>("embedPDF"), T_INT, offsetof(PDFfile, embedPDF), 0, const_cast<char*>("Export EPS and PDFs in image frames as embedded PDFs. This does *not* yet take care of colorspaces, so you should know what you are doing before setting this to 'true'.")},
+	{const_cast<char*>("mirrorH"), T_INT, offsetof(PDFfile, mirrorH), 0, const_cast<char*>("Mirror Page(s) horizontally")},
+	{const_cast<char*>("mirrorV"), T_INT, offsetof(PDFfile, mirrorV), 0, const_cast<char*>("Mirror Page(s) vertically")},
 	{const_cast<char*>("doClip"), T_INT, offsetof(PDFfile, doClip), 0, const_cast<char*>("Do not show objects outside the margins in the exported file")},
 	{const_cast<char*>("isGrayscale"), T_INT, offsetof(PDFfile, isGrayscale), 0, const_cast<char*>("Export PDF in grayscale")},
-	{const_cast<char*>("PageLayout"), T_INT, offsetof(PDFfile, PageLayout), 0, const_cast<char*>("Document layout in PDF viewer:\n"
+	{const_cast<char*>("pageLayout"), T_INT, offsetof(PDFfile, pageLayout), 0, const_cast<char*>("Document layout in PDF viewer:\n"
 												     "\t0 - Show the document in single page mode\n"
 												     "\t1 - Show the document in single page mode with the pages displayed continuously end to end like a scroll\n"
 												     "\t2 - Show the document with facing pages, starting with the first page displayed on the left\n"
@@ -724,17 +700,11 @@ static PyMemberDef PDFfile_members[] = {
 												     )},
 	{const_cast<char*>("displayBookmarks"), T_INT, offsetof(PDFfile, displayBookmarks), 0, const_cast<char*>("Display the bookmarks upon opening")},
 	{const_cast<char*>("displayThumbs"), T_INT, offsetof(PDFfile, displayThumbs), 0, const_cast<char*>("Display the page thumbnails upon opening")},
-	{const_cast<char*>("displayLayers"), T_INT, offsetof(PDFfile, displayLayers), 0, const_cast<char*>("Forces the displaying of layers. Useful only for PDF 1.5+.")},
-	{const_cast<char*>("displayFullscreen"), T_INT, offsetof(PDFfile, displayFullscreen), 0, const_cast<char*>("Enables viewing the document in full screen")},
-	{const_cast<char*>("hideToolBar"), T_INT, offsetof(PDFfile, hideToolBar), 0, const_cast<char*>("Hides the Tool Bar which has selection and other editing capabilities")},
-	{const_cast<char*>("hideMenuBar"), T_INT, offsetof(PDFfile, hideMenuBar), 0, const_cast<char*>("Hides the Menu Bar for the viewer, the PDF will display in a plain window. ")},
+	{const_cast<char*>("displayLayers"), T_INT, offsetof(PDFfile, displayLayers), 0, const_cast<char*>("Display the layer list upon opening. Useful only for PDF 1.5+.")},
+	{const_cast<char*>("displayFullscreen"), T_INT, offsetof(PDFfile, displayFullscreen), 0, const_cast<char*>("Display the document in full screen mode upon opening.")},
+	{const_cast<char*>("hideToolBar"), T_INT, offsetof(PDFfile, hideToolBar), 0, const_cast<char*>("Hides the viewer toolbar. The toolbar has usually selection and other editing capabilities.")},
+	{const_cast<char*>("hideMenuBar"), T_INT, offsetof(PDFfile, hideMenuBar), 0, const_cast<char*>("Hides the viewer menu bar, the PDF will display in a plain window.")},
 	{const_cast<char*>("fitWindow"), T_INT, offsetof(PDFfile, fitWindow), 0, const_cast<char*>("Fit the document page or pages to the available space in the viewer window.")},
-	{const_cast<char*>("cropMarks"), T_INT, offsetof(PDFfile, cropMarks), 0, const_cast<char*>("Creates crop marks in the PDF indicating where the paper should be cut or trimmed after printing")},
-	{const_cast<char*>("bleedMarks"), T_INT, offsetof(PDFfile, bleedMarks), 0, const_cast<char*>("This creates bleed marks which are indicated by  _ . _ and show the bleed limit")},
-	{const_cast<char*>("registrationMarks"), T_INT, offsetof(PDFfile, registrationMarks), 0, const_cast<char*>("Add registration marks to each separation")},
-	{const_cast<char*>("colorMarks"), T_INT, offsetof(PDFfile, colorMarks), 0, const_cast<char*>("Add color calibration bars")},
-	{const_cast<char*>("docInfoMarks"), T_INT, offsetof(PDFfile, docInfoMarks), 0, const_cast<char*>("Add document information which includes the document title and page numbers")},
-	{const_cast<char*>("markOffset"), T_DOUBLE, offsetof(PDFfile, markOffset), 0, const_cast<char*>("Indicate the distance offset for the registration marks")},
 	{NULL, 0, 0, 0, NULL} // sentinel
 };
 
@@ -1269,19 +1239,17 @@ static PyObject *PDFfile_save(PDFfile *self)
 // apply thumbnails attribute
 	ScCore->primaryMainWindow()->doc->pdfOptions().Thumbnails = self->thumbnails;
 // apply cropmarks attribute
-	ScCore->primaryMainWindow()->doc->pdfOptions().cropMarks = self->cropmarks;
-// apply cropmarks offset attribute
-	ScCore->primaryMainWindow()->doc->pdfOptions().markOffset = self->cropmarksoffset;
+	ScCore->primaryMainWindow()->doc->pdfOptions().cropMarks = self->cropMarks;
 // apply bleedmarks attribute
-	ScCore->primaryMainWindow()->doc->pdfOptions().bleedMarks = self->bleedmarks;
+	ScCore->primaryMainWindow()->doc->pdfOptions().bleedMarks = self->bleedMarks;
 // apply registrationmarks attribute
-	ScCore->primaryMainWindow()->doc->pdfOptions().registrationMarks = self->registrationmarks;
+	ScCore->primaryMainWindow()->doc->pdfOptions().registrationMarks = self->registrationMarks;
 // apply colormarks attribute
-	ScCore->primaryMainWindow()->doc->pdfOptions().colorMarks = self->colormarks;
-// apply pageinformation attribute
-	ScCore->primaryMainWindow()->doc->pdfOptions().docInfoMarks = self->pageinformation;
-// apply embedpdf attribute
-	ScCore->primaryMainWindow()->doc->pdfOptions().embedPDF = self->embedpdf;
+	ScCore->primaryMainWindow()->doc->pdfOptions().colorMarks = self->colorMarks;
+// apply docInfoMark attribute
+	ScCore->primaryMainWindow()->doc->pdfOptions().docInfoMarks = self->docInfoMarks;
+// apply mark offset attribute
+	ScCore->primaryMainWindow()->doc->pdfOptions().markOffset = self->markOffset;
 // apply compress attribute
 	self->compressmtd = minmaxi(self->compressmtd, 0, 3);
 	ScCore->primaryMainWindow()->doc->pdfOptions().Compress = self->compress;
@@ -1453,12 +1421,12 @@ static PyObject *PDFfile_save(PDFfile *self)
 	}
 	ScCore->primaryMainWindow()->doc->pdfOptions().useLayers = self->useLayers;
 	ScCore->primaryMainWindow()->doc->pdfOptions().embedPDF = self->embedPDF;
-	ScCore->primaryMainWindow()->doc->pdfOptions().MirrorH = self->MirrorH;
-	ScCore->primaryMainWindow()->doc->pdfOptions().MirrorV = self->MirrorV;
+	ScCore->primaryMainWindow()->doc->pdfOptions().MirrorH = self->mirrorH;
+	ScCore->primaryMainWindow()->doc->pdfOptions().MirrorV = self->mirrorV;
 	ScCore->primaryMainWindow()->doc->pdfOptions().doClip = self->doClip;
 	ScCore->primaryMainWindow()->doc->pdfOptions().RotateDeg = PyInt_AsLong(self->RotateDeg);
 	ScCore->primaryMainWindow()->doc->pdfOptions().isGrayscale = self->isGrayscale;
-	ScCore->primaryMainWindow()->doc->pdfOptions().PageLayout = minmaxi(self->PageLayout, 0, 3);
+	ScCore->primaryMainWindow()->doc->pdfOptions().PageLayout = minmaxi(self->pageLayout, 0, 3);
 	ScCore->primaryMainWindow()->doc->pdfOptions().displayBookmarks = self->displayBookmarks;
 	ScCore->primaryMainWindow()->doc->pdfOptions().displayThumbs = self->displayThumbs;
 	ScCore->primaryMainWindow()->doc->pdfOptions().displayLayers = self->displayLayers;
