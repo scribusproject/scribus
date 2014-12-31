@@ -13,14 +13,16 @@
 	<dt><a name="PDFfile-Save"><strong>Save</strong></a>(...)</dt>
 	<dd><code>Cette m&eacute;thode est obsol&egrave;te - utilisez <a href="#PDFfile-save">save</a>() &agrave; la place.</code></dd>
 
-	<dt><a name="PDFfile-__init__"><strong>__init__</strong></a>(...)</dt><dd><code>x.<a href="#PDFfile-__init__">__init__</a>(...) initialise x; voir x.__class__.__doc__ pour la signature</code></dd>
+	<dt><a name="PDFfile-__init__"><strong>__init__</strong></a>(...)</dt>
+	<dd><code>x.<a href="#PDFfile-__init__">__init__</a>(...) initialise x; voir x.__class__.__doc__ pour la signature</code></dd>
 
-	<dt><a name="PDFfile-save"><strong>save</strong></a>(...)</dt><dd><code>Enregistre les pages s&eacute;lectionn&eacute;es dans un fichier pdf</code></dd>
+	<dt><a name="PDFfile-save"><strong>save</strong></a>(...)</dt>
+	<dd><code>Enregistre les pages s&eacute;lectionn&eacute;es dans un fichier pdf</code></dd>
 </dl>
 
 <hr>
 <p>Donn&eacute;es et autres attributs d&eacute;finis ici:</p>
-<dd>
+<dl>
 	<dt><strong>__new__</strong> = &lt;m&eacute;thode int&eacute;gr&eacute;e __new__ de type objet&gt;</dt>
 	<dd><code>T.<a href="#PDFfile-__new__">__new__</a>(S, ...) -&gt; un nouvel objet de type S, un sous-type de T</code></dd>
 
@@ -54,7 +56,7 @@
 	<dd><code>Marge de coupe de droite<br>Distance pour la coupe &agrave; partir de la droite de la page physique</code></dd>
 
 	<dt><strong>bleedt</strong> = &lt;membre 'bleedt' des objets 'PDFfile'&gt;</dt>
-	<dd><code>Marge de coupe du haut<br>Distance pour la coupe &agrave; partir du haut de la page physique</code></dl>
+	<dd><code>Marge de coupe du haut<br>Distance pour la coupe &agrave; partir du haut de la page physique</code></dd>
 
 	<dt><strong>bookmarks</strong> = &lt;membre 'bookmarks' des objets 'PDFfile'&gt;</dt>
 	<dd><code>Inclus les signets que vous avez cr&eacute;&eacute;s dans votre document.<br>Ils sont utiles pour la navigation dans de longs documents PDF.<br>Valeur bool&eacute;enne</code></dd>
@@ -101,8 +103,7 @@ Il s'agit d'une liste de six nombres entiers. Ils ont la signification suivante:
                 2 - De bas en haut
                 3 - De droite &agrave; gauche
                 4 - Du coin sup&eacute;rieur gauche au coin inf&eacute;rieur droit
-</pre></code>
-</dt>
+</pre></code></dd>
 
 <dt><strong>encrypt</strong> = &lt;membre 'encrypt' des objets 'PDFfile'&gt;</dt>
 <dd><code>Utilisation de l'encryption. Valeur bool&eacute;enne</code></dd>
@@ -190,8 +191,8 @@ Soyez prudent en assignant ces valeurs, car leur validit&eacute; n'est pas v&eac
 <dt><strong>solidpr</strong> = &lt;attribut 'solidpr' des objets 'PDFfile'&gt;</dt>
 <dd><code>Profil couleur pour les couleurs d'accompagnement</code></dd>
 
-<dt><strong>thumbnails</strong> = &lt;membre 'thumbnails' des objets 'PDFfile'&gt;<dd><code>G&eacute;n&egrave;re
-les vignettes. Valeur bool&eacute;enne.</code></dl>
+<dt><strong>thumbnails</strong> = &lt;membre 'thumbnails' des objets 'PDFfile'&gt;</dt>
+<dd><code>G&eacute;n&egrave;re les vignettes. Valeur bool&eacute;enne.</code></dd>
 
 <dt><strong>uselpi</strong> = &lt;membre 'uselpi' des objets 'PDFfile'&gt;</dt>
 <dd><code>Utilisation des param&egrave;tres personnalis&eacute;s de rendu. Valeur bool&eacute;enne</code></dd>
@@ -201,9 +202,12 @@ les vignettes. Valeur bool&eacute;enne.</code></dl>
 
 <dt><strong>version</strong> = &lt;membre 'version' des objets 'PDFfile'&gt;</dt>
 <dd><code>Indique la version de PDF &agrave; utiliser:<br>
+11 = PDF/X-1a<br>
 12 = PDF/X-3<br>
 13 = PDF 1.3 (Acrobat 4)<br>
-14 = PDF 1.4 (Acrobat 5)</code></dd>
+14 = PDF 1.4 (Acrobat 5)<br>
+15 = PDF 1.5 (Acrobat 6)</code></dd>
 
+</dl>
 </body>
 </html> 
