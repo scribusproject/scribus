@@ -113,7 +113,10 @@ void PropTreeItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &
 QWidget *PropTreeItemDelegate::createEditor(QWidget *parent, const QStyleOptionViewItem &/* option */, const QModelIndex &index) const
 {
 	QWidget *edito = NULL;
-	PropTreeItem* item = (PropTreeItem*)m_parent->indexToItem(index);
+	PropTreeItem* item = (PropTreeItem*) m_parent->indexToItem(index);
+	if (!item)
+		return 0;
+
 	if (item->m_type == PropTreeItem::IntSpinBox)
 	{
 		ScrSpinBox *editor = new ScrSpinBox(parent, item->m_unit);
@@ -165,7 +168,7 @@ QWidget *PropTreeItemDelegate::createEditor(QWidget *parent, const QStyleOptionV
 	else
 		edito = 0;
 	m_edit = edito;
-	if (item)
+	if (item && m_edit)
 		emit item->editStarted();
 	return edito;
 }
@@ -202,7 +205,7 @@ void PropTreeItemDelegate::setEditorData(QWidget *editor, const QModelIndex &ind
 
 void PropTreeItemDelegate::setModelData(QWidget *editor, QAbstractItemModel *model,  const QModelIndex &index) const
 {
-	PropTreeItem* item = (PropTreeItem*)m_parent->indexToItem(index);
+	PropTreeItem* item = (PropTreeItem*) m_parent->indexToItem(index);
 	if (item->m_type == PropTreeItem::IntSpinBox)
 	{
 		ScrSpinBox *spinBox = static_cast<ScrSpinBox*>(editor);
@@ -307,6 +310,12 @@ int PropTreeItem::valueAsInt()
 {
 	int val = 0;
 	val = data(1, Qt::UserRole).toInt();
+	if (m_type == ComboBox)
+	{
+		QStringList vals = data(1, Qt::UserRole + 1).toStringList();
+		if (m_comboIndex < vals.count())
+			val = m_comboIndex;
+	}
 	return val;
 }
 
