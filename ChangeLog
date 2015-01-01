@@ -1,8 +1,95 @@
-Scribus - 1.4.4 (Released 14-05-25) [ View Issues ]
+Scribus - 1.4.5 (Released 2015-01-XX)
+=========================================
+- 0012858: [Plug-ins] Barcode plugin updated barcode.ps file (fschmid) - resolved.
+- 0012827: [PDF] crash on pdf export (jghali) - resolved.
+- 0012848: [Graphics / Image Frames] Patterns made from groups are given black outline on document retrieval (jghali) - resolved.
+- 0012866: [General] Fix Authors tab appearance (jghali) - closed.
+- 0012857: [General] Closing document while editing master pages may cause crash (jghali) - closed.
+- 0012356: [Undo/Redo] Undo/Redo crashes Scribus while editing master page (cbradney) - closed.
+- 0012854: [Translation] Updated Danish Translation (jghali) - closed.
+- 0012853: [Translation] Hungarian translation update for 1.4.5 (jghali) - closed.
+- 0012852: [Translation] Final 1.4.5.svn Italian translation update (jghali) - closed.
+- 0012812: [Plug-ins] import/pct/importpct.cpp: 2 * bad if test ? (jghali) - closed.
+- 0012845: [Translation] Esperanto translation (jghali) - closed.
+- 0012839: [User Interface] Backport 0012622 fix to 1.4.5.svn (jghali) - closed.
+- 0012837: [General] Backport 0011833 fix to 1.4.5.svn (jghali) - closed.
+- 0012840: [General] Backport 0012620 fix to 1.4.5.svn (jghali) - closed.
+- 0012841: [General] Backport 0012668 fix to 1.4.5.svn (jghali) - closed.
+- 0012833: [Translation] Italian translation update (jghali) - closed.
+- 0012832: [Styles] Setting Fill Shade of Cell/Char to "Parent Value" crashes Scribus (jghali) - closed.
+- 0012819: [Translation] [PATCH] Fix some non translated UI strings (jghali) - closed.
+- 0012740: [General] [TESTED-PATCH] Mouse pointer keeps the wrong "L" symbol (set tab spaces) in determined condition (FirasH) - closed.
+- 0012807: [Canvas] [TESTED-PATCH] Backport 0012461 fix to 1.4.5.svn (FirasH) - closed.
+- 0012808: [Shape Drawing] [TESTED-PATCH] Backport 0011400 fix to 1.4.5.svn (FirasH) - closed.
+- 0012806: [General] X-Pos/Y-Pos unit is not updated in "Nodes" window (jghali) - closed.
+- 0012746: [Scripter] [patch] Fix opening same document multiple times in Scribus 1.4 (cbradney) - closed.
+- 0012757: [Scripter] [patch] Add applyMasterPage command to scripter in Scribus 1.4 (cbradney) - closed.
+- 0012767: [PDF] [patches for 1.4 and 1.5] Fix wrong word in python error string (jghali) - closed.
+- 0012018: [Undo/Redo] Undo does not behave as expected with linked Text Frames (jghali) - closed.
+- 0012739: [Undo/Redo] Undo/Redo crashes Scribus if a linked Text Frame is edited and deleted (jghali) - closed.
+- 0004648: [Graphics / Image Frames] Changing opacity is extremely slow (jghali) - closed.
+- 0012719: [User Interface] Illogical behaviour of Extended Image Properties dialog with multi-layered PSD files (jghali) - closed.
+- 0012722: [Translation] Catalan translation (jghali) - closed.
+- 0012723: [Translation] template.ca (jghali) - closed.
+- 0012671: [User Interface] Some non consistent tabstops (1) (jghali) - closed.
+- 0012670: [General] Edit/Delete crashes Scribus using JavaScripts (jghali) - closed.
+- 0012654: [Graphics / Image Frames] Scribus crashes after color change "due to Signal 11" (jghali) - closed.
+- 0012648: [Translation] [PATCH] Backport some fixes to untranslatable UI strings to 1.4.5.svn (jghali) - closed.
+- 0012249: [Shape Drawing] Deleting Bezier Curve nodes crashes/freezes Scribus in determined condition (jghali) - closed.
+- 0012628: [Color Management] Spot colors invisible in the « print preview » tool (fschmid) - closed.
+- 0012634: [User Interface] Broken UTF-8 encoding of license copyright and contributor names in 'About Scribus' license box (jghali) - closed.
+- 0012621: [Shape Drawing] It is possible to create Bezier Curves with only 1 node (fschmid) - closed.
+- 0012624: [General] "Get Field Names" (JavaScript) crashes Scribus if there is none (jghali) - closed.
+- 0012635: [Translation] Translator email update (jghali) - closed.
+- 0012222: [General] Opening a non compatible Scribus format disables "Action History" (jghali) - closed.
+- 0012580: [Usability] Trying to import emf disguised as wmf cause crash (jghali) - closed.
+- 0012575: [Translation] Italian translation updates for 1.5.0.svn + 1 important fix for 1.4.5.svn (jghali) - closed.
+- 0012546: [Undo/Redo] Undo button might be disabled closing Nodes window (jghali) - closed.
+- 0012552: [Shape Drawing] Deleting a node of a Shape with 3 nodes crashes Scribus (jghali) - closed.
+- 0012549: [General] "Add Nodes" crashes Scribus in determined condition (jghali) - closed.
+- 0009641: [Usability] User-assigned Frame name is lost after reopening document. (ale) - closed.
+- 0006008: [Translation] Descriptions of templates can't be translated - closed.
+- 0012506: [General] Page assigned "Empty" master page after changing from Single Page to Double Page layout (jghali) - closed.
+- 0012440: [Styles] para styles using "Based On:" character inheritance trigger incorrect text display (jghali) - closed.
+- 0012474: [Documentation] Man page link to Fontmatrix s outdated (jghali) - closed.
+- 0012476: [Scripter] "importcvs2table" script crashes if no document is opened (jghali) - closed.
+- 0012468: [Usability] Typing 01 in page selector triggers crash (jghali) - closed.
+- 0000873: [User Interface] Allow to save document as a first step - closed.
+- 0010876: [General] Colour palettes unavailable - closed.
+- 0007883: [Usability] Use Shift drag to select a second group of objects - closed.
+- 0009163: [Plug-ins] InfoBox Script crashes in case one just presses Escape ;) (jghali) - closed.
+- 0012436: [Undo/Redo] Undo/Redo crashes Scribus undoing Page > Insert... (jghali) - closed.
+- 0012396: [Undo/Redo] Undo/Redo records Multiple Duplication always with pt unit (jghali) - closed.
+- 0012429: [Undo/Redo] Undo/Redo crashes Scribus undoing Page > Delete... (jghali) - closed.
+- 0012412: [General] "Edit Source..." crashes Scribus if no document is opened (jghali) - closed.
+- 0012411: [General] "Edit Image..." crashes Scribus if no document is opened (jghali) - closed.
+- 0012337: [General] Scribus 1.4.3 in breton language (cbradney) - closed.
+- 0012335: [Translation] Bug in Polish translation (jghali) - closed.
+- 0012368: [PDF] OCG options improperly nested in PDF output [PATCH] (jghali) - closed.
+- 0011753: [Scripter] Bundled Autoquote script crash (gpittman) - closed.
+- 0012294: [Graphics / Image Frames] Image resampling sometimes does not fill the right-most column of pixels in the target image (jghali) - closed.
+- 0012376: [Canvas] Selection is imprecise when Multiple Duplication is applied (jghali) - closed.
+- 0012377: [General] "Transform" does not manage correctly units (jghali) - closed.
+- 0012375: [Undo/Redo] Undo/Redo crashes Scribus editing a Freehand Line (jghali) - closed.
+- 0012357: [Styles] Style Manager does not manage correctly units for Line Styles (jghali) - closed.
+- 0012182: [General] Backport template.xml files to 1.4.5svn (jghali) - closed.
+- 0012334: [General] Typo/Updates after string freeze for 1.4.5.svn (jghali) - closed.
+- 0012331: [Translation] Polish translation update (jghali) - closed.
+
+Scribus - 1.4.4 (Released 14-05-29)
 =======================================
+- 0004433: [Translation] [German localization] Shortcut for inserting smart hyphen not working (christoph_s) - closed.
+- 0006306: [Import / Export] JPEG Library Error when importing a graphic into a frame. - closed.
+- 0006710: [User Interface] Font name disappears from list in Style Manager (jghali) - closed.
+- 0011475: [Build System] Think package must be missing from buils (plinnell) - closed.
+- 0008239: [General] All tools loose focus (get deactivated) - closed.
+- 0009239: [User Interface] Image info not readable with dark theme (Kunda) - closed.
+- 0011834: [Scripter] provide image_align_in_frame.py (gpittman) - closed.
+- 0011739: [Import / Export] tif and other formats are missing in Export As Image dialog (cbradney) - closed.
 - 0012273: [User Interface] Colors dialog: launch editor only after a doubleclick (jghali) - closed.
-- 0012300: [Win32] cannot run gnuplot on windows 8 (jghali) - resolved.
-- 0012273: [User Interface] Colors dialog: launch editor only after a doubleclick (jghali) - resolved.
+- 0012300: [OS-Win32] cannot run gnuplot on windows 8 (jghali) - closed.
+- 0012324: [Translation] Final 1.4.4 Italian translation fixes (jghali) - closed.
+- 0012322: [Translation] Updated Italian readme (christoph_s) - closed.
 - 0012316: [Documentation] [PATCH] add getDocName to documentation (cbradney) - closed.
 - 0012312: [Translation] NAA docs - Italian translation (jghali) - closed.
 - 0012258: [User Interface] Frame color can't be changed (jghali) - closed.
@@ -13,7 +100,6 @@ Scribus - 1.4.4 (Released 14-05-25) [ View Issues ]
 - 0011652: [General] US Geography colour palette (christoph_s) - closed.
 - 0012242: [Translation] Docs update for 1.4.4, Italian translation (jghali) - closed.
 - 0012218: [Documentation] Italian screenshot updates for 1.4.4 documentation (jghali) - closed.
-- 0011834: [Scripter] provide image_align_in_frame.py (gpittman) - closed.
 - 0012216: [Translation] Docs update for 1.4.4, Italian translation (jghali) - closed.
 - 0012210: [Import / Export] Add support of PDF/X-1a to 1.4.x (jghali) - closed.
 - 0012199: [General] Scratch space amnesia (jghali) - closed.
@@ -56,7 +142,7 @@ Scribus - 1.4.4 (Released 14-05-25) [ View Issues ]
 - 0011697: [Documentation] Minor doc update (jghali) - closed.
 - 0011689: [PDF] PDF Option "Embed PDF & EPS files" not saved with document/template (jghali) - closed.
 
-Scribus - 1.4.3 (Released 20-07-13) [ View Issues ]
+Scribus - 1.4.3 (Released 30-07-13)
 =======================================
 - 0011485: [Graphics / Image Frames] Popup windows misbehave in Unity (jghali) - resolved.
 - 0011388: [Graphics / Image Frames] Unselected frame outline no longer visible after upgrade to 1.4.2 (jghali) - resolved.

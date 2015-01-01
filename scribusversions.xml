@@ -1,9 +1,9 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
 <scribus>
-  <release platform="X11" stability="stable" version="1.4.4" />
-  <release platform="OS2" stability="stable" version="1.4.4" />
-  <release platform="MacOSX" stability="stable" version="1.4.4" />
-  <release platform="Win32" stability="stable" version="1.4.4" />
+  <release platform="X11" stability="stable" version="1.4.5" />
+  <release platform="OS2" stability="stable" version="1.4.5" />
+  <release platform="MacOSX" stability="stable" version="1.4.5" />
+  <release platform="Win32" stability="stable" version="1.4.5" />
   <release platform="X11" stability="stablesvn" version="1.4.5.svn" />
   <release platform="OS2" stability="stablesvn" version="1.4.5.svn" />
   <release platform="MacOSX" stability="stablesvn" version="1.4.5.svn" />
@@ -16,5 +16,5 @@
   <release platform="Win32" stability="unstablesvn" version="1.5.0.svn" />
   <release platform="MacOSX" stability="unstablesvn" version="1.5.0.svn" />
   <release platform="OS2" stability="unstablesvn" version="1.5.0.svn" />
-  <message lang="en" > - Scribus 1.4.4 is the latest stable release, released May 2014.<![CDATA[<br>]]> - Scribus 1.5.0.svn is the current development version. </message>
+  <message lang="en" > - Scribus 1.4.5 is the latest stable release, released January 2015.<![CDATA[<br>]]> - Scribus 1.5.0.svn is the current development version. </message>
 </scribus>

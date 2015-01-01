@@ -9,6 +9,6 @@ Maintained-by:   franz.schmid@altmuehlnet.de Franz Schmid
 Primary-site:    http://www.scribus.net        
 Alternate-site:  http://www.scribus.sourceforge.net/	        
 Original-site:   http://web2.altmuehlnet.de/fschmid  
-Platforms:       Linux and other Unices, MacOSX, Requires: Python >= 2.3, Qt >= 4.6+, cairo >= 1.8, freetype2 >=2.1.9
+Platforms:       Linux and other Unices, MacOSX, Requires: Python >= 2.3, Qt >= 4.7+, cairo >= 1.8, freetype2 >=2.1.9
 Copying-policy:  GNU Public License
 End
