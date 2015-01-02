@@ -57,7 +57,7 @@
 		</dict>
 	</array>
 	<key>CFBundleGetInfoString</key>
-	<string>Scribus (c) 2003-2014 The Scribus Team</string>
+	<string>Scribus (c) 2001-2014 The Scribus Team</string>
 	<key>CFBundleIconFile</key>
 	<string>Scribus.icns</string>
 	<key>CFBundleIdentifier</key>
