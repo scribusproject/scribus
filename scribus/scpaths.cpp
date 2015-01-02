@@ -99,10 +99,10 @@ ScPaths::ScPaths() :
 	m_sampleScriptDir = QString("%1/Contents/share/scribus/samples/").arg(pathPtr);
 	m_scriptDir = QString("%1/Contents/share/scribus/scripts/").arg(pathPtr);
 	m_templateDir = QString("%1/Contents/share/scribus/templates/").arg(pathPtr);
-	m_libDir = QString("%1/Contents/lib/scribus/").arg(pathPtr);
-	m_pluginDir = QString("%1/Contents/lib/scribus/plugins/").arg(pathPtr);
+	m_libDir = QString("%1/Contents/lib/").arg(pathPtr);
+	m_pluginDir = QString("%1/Contents/lib/").arg(pathPtr);
 //	QApplication::setLibraryPaths(QStringList(QString("%1/Contents/lib/qtplugins/").arg(pathPtr)));
-	QApplication::addLibraryPath(QString("%1/Contents/lib/qtplugins/").arg(pathPtr));
+	QApplication::addLibraryPath(QString("%1/Contents/PlugIns/").arg(pathPtr));
 //	CFRelease(pluginRef);
 //	CFRelease(macPath);
 
