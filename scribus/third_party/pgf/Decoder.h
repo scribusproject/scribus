@@ -1,24 +1,24 @@
 /*
  * The Progressive Graphics File; http://www.libpgf.org
- *
+ * 
  * $Date: 2006-06-04 22:05:59 +0200 (So, 04 Jun 2006) $
  * $Revision: 229 $
- *
+ * 
  * This file Copyright (C) 2006 xeraina GmbH, Switzerland
- *
+ * 
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU LESSER GENERAL PUBLIC LICENSE
  * as published by the Free Software Foundation; either version 2.1
  * of the License, or (at your option) any later version.
- *
+ * 
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
 //////////////////////////////////////////////////////////////////////
@@ -36,7 +36,8 @@
 
 /////////////////////////////////////////////////////////////////////
 // Constants
-#define BufferLen			(BufferSize/WordWidth)	// number of words per buffer
+#define BufferLen			(BufferSize/WordWidth)	///< number of words per buffer
+#define CodeBufferLen		BufferSize				///< number of words in code buffer (CodeBufferLen > BufferLen)
 
 /////////////////////////////////////////////////////////////////////
 /// PGF decoder class.
@@ -49,29 +50,44 @@ class CDecoder {
 	/// @brief A macro block is a decoding unit of fixed size (uncoded)
 	class CMacroBlock {
 	public:
-		CMacroBlock(CDecoder *decoder)
-		: m_header(0)
-        , m_valuePos(0)
-		, m_decoder(decoder)
+		//////////////////////////////////////////////////////////////////////
+		/// Constructor: Initializes new macro block.
+		/// @param decoder Pointer to outer class.
+		CMacroBlock()
+		: m_header(0)								// makes sure that IsCompletelyRead() returns true for an empty macro block
+#if defined(WIN32) || defined(WINCE) || defined(WIN64)
+#pragma warning( suppress : 4351 )
+#endif
+		, m_value()
+		, m_codeBuffer()
+		, m_valuePos(0)
+		, m_sigFlagVector()
 		{
-			ASSERT(m_decoder);
 		}
 
-		void  BitplaneDecode();						// several macro blocks can be encoded in parallel
+		//////////////////////////////////////////////////////////////////////
+		/// Returns true if this macro block has been completely read.
+		/// @return true if current value position is at block end
+		bool IsCompletelyRead() const	{ return m_valuePos >= m_header.rbh.bufferSize; }
 
-		ROIBlockHeader m_header;					// block header
-		DataT  m_value[BufferSize];					// output buffer of values with index m_valuePos
-		UINT32 m_codeBuffer[BufferSize];			// input buffer for encoded bitstream
-		UINT32 m_valuePos;							// current position in m_value
+		//////////////////////////////////////////////////////////////////////
+		/// Decodes already read input data into this macro block.
+		/// Several macro blocks can be decoded in parallel.
+		/// Call CDecoder::ReadMacroBlock before this method.
+		void BitplaneDecode();
+
+		ROIBlockHeader m_header;					///< block header
+		DataT  m_value[BufferSize];					///< output buffer of values with index m_valuePos
+		UINT32 m_codeBuffer[CodeBufferLen];			///< input buffer for encoded bitstream
+		UINT32 m_valuePos;							///< current position in m_value
 
 	private:
 		UINT32 ComposeBitplane(UINT32 bufferSize, DataT planeMask, UINT32* sigBits, UINT32* refBits, UINT32* signBits);
 		UINT32 ComposeBitplaneRLD(UINT32 bufferSize, DataT planeMask, UINT32 sigPos, UINT32* refBits);
-		UINT32 ComposeBitplaneRLD(UINT32 bufferSize, DataT planeMask, UINT32* sigBits, UINT32* refBits, UINT32* signBits);
+		UINT32 ComposeBitplaneRLD(UINT32 bufferSize, DataT planeMask, UINT32* sigBits, UINT32* refBits, UINT32 signPos);
 		void  SetBitAtPos(UINT32 pos, DataT planeMask)			{ (m_value[pos] >= 0) ? m_value[pos] |= planeMask : m_value[pos] -= planeMask; }
 		void  SetSign(UINT32 pos, bool sign)					{ m_value[pos] = -m_value[pos]*sign + m_value[pos]*(!sign); }
 
-		CDecoder *m_decoder;						// outer class
 		bool m_sigFlagVector[BufferSize+1];			// see paper from Malvar, Fast Progressive Wavelet Coder
 	};
 
@@ -84,8 +100,12 @@ public:
 	/// @param header [out] A PGF header
 	/// @param postHeader [out] A PGF post-header
 	/// @param levelLength The location of the levelLength array. The array is allocated in this method. The caller has to delete this array.
+	/// @param userDataPos The stream position of the user data (metadata)
 	/// @param useOMP If true, then the decoder will use multi-threading based on openMP
-	CDecoder(CPGFStream* stream, PGFPreHeader& preHeader, PGFHeader& header, PGFPostHeader& postHeader, UINT32*& levelLength, bool useOMP = true) THROW_; // throws IOException
+	/// @param skipUserData If true, then user data is not read. In case of available user data, the file position is still returned in userDataPos.
+	CDecoder(CPGFStream* stream, PGFPreHeader& preHeader, PGFHeader& header, 
+		     PGFPostHeader& postHeader, UINT32*& levelLength, UINT64& userDataPos, 
+			 bool useOMP, bool skipUserData) THROW_; // throws IOException
 
 	/////////////////////////////////////////////////////////////////////
 	/// Destructor
@@ -94,13 +114,13 @@ public:
 	/////////////////////////////////////////////////////////////////////
 	/// Unpartitions a rectangular region of a given subband.
 	/// Partitioning scheme: The plane is partitioned in squares of side length LinBlockSize.
-	/// Write wavelet coefficients into buffer.
+	/// Read wavelet coefficients from the output buffer of a macro block.
 	/// It might throw an IOException.
 	/// @param band A subband
 	/// @param quantParam Dequantization value
 	/// @param width The width of the rectangle
 	/// @param height The height of the rectangle
-	/// @param startPos The buffer position of the top left corner of the rectangular region
+	/// @param startPos The relative subband position of the top left corner of the rectangular region
 	/// @param pitch The number of bytes in row of the subband
 	void Partition(CSubband* band, int quantParam, int width, int height, int startPos, int pitch) THROW_;
 
@@ -119,7 +139,7 @@ public:
 	UINT32 GetEncodedHeaderLength() const			{ return m_encodedHeaderLength; }
 
 	////////////////////////////////////////////////////////////////////
-	/// Reset stream position to beginning of PGF pre header
+	/// Reset stream position to beginning of PGF pre-header
 	void SetStreamPosToStart() THROW_				{ ASSERT(m_stream); m_stream->SetPos(FSFromStart, m_startPos); }
 
 	////////////////////////////////////////////////////////////////////
@@ -133,10 +153,11 @@ public:
 
 	/////////////////////////////////////////////////////////////////////
 	/// Dequantization of a single value at given position in subband.
+	/// It might throw an IOException.
 	/// @param band A subband
 	/// @param bandPos A valid position in subband band
 	/// @param quantParam The quantization parameter
-	void DequantizeValue(CSubband* band, UINT32 bandPos, int quantParam);
+	void DequantizeValue(CSubband* band, UINT32 bandPos, int quantParam) THROW_;
 
 	//////////////////////////////////////////////////////////////////////
 	/// Copies data from the open stream to a target buffer.
@@ -150,6 +171,14 @@ public:
 	/// Reads stream and decodes tile buffer
 	/// It might throw an IOException.
 	void DecodeBuffer() THROW_;
+
+	/////////////////////////////////////////////////////////////////////
+	/// @return Stream
+	CPGFStream* GetStream()							{ return m_stream; }
+
+	/////////////////////////////////////////////////////////////////////
+	/// @return True if decoded macro blocks are available for processing
+	bool MacroBlocksAvailable() const				{ return m_macroBlocksAvailable > 1; }
 
 #ifdef __PGFROISUPPORT__
 	/////////////////////////////////////////////////////////////////////
@@ -172,21 +201,21 @@ public:
 #endif
 
 private:
-	void ReadMacroBlock(CMacroBlock* block) THROW_; // throws IOException
+	void ReadMacroBlock(CMacroBlock* block) THROW_; ///< throws IOException
 
-	CPGFStream *m_stream;						// input pgf stream
-	UINT64 m_startPos;							// stream position at the beginning of the PGF pre header
-	UINT64 m_streamSizeEstimation;				// estimation of stream size
-	UINT32 m_encodedHeaderLength;				// stream offset from startPos to the beginning of the data part (highest level)
+	CPGFStream *m_stream;						///< input PGF stream
+	UINT64 m_startPos;							///< stream position at the beginning of the PGF pre-header
+	UINT64 m_streamSizeEstimation;				///< estimation of stream size
+	UINT32 m_encodedHeaderLength;				///< stream offset from startPos to the beginning of the data part (highest level)
 
-	CMacroBlock **m_macroBlocks;				// array of macroblocks
-	int m_currentBlockIndex;					// index of current macro block
-	int	m_macroBlockLen;						// array length
-	int	m_macroBlocksAvailable;					// number of decoded macro blocks
-	CMacroBlock *m_currentBlock;				// current macro block (used by main thread)
+	CMacroBlock **m_macroBlocks;				///< array of macroblocks
+	int m_currentBlockIndex;					///< index of current macro block
+	int	m_macroBlockLen;						///< array length
+	int	m_macroBlocksAvailable;					///< number of decoded macro blocks (including currently used macro block)
+	CMacroBlock *m_currentBlock;				///< current macro block (used by main thread)
 
 #ifdef __PGFROISUPPORT__
-	bool   m_roi;								// true: ensures region of interest (ROI) decoding
+	bool   m_roi;								///< true: ensures region of interest (ROI) decoding
 #endif
 };
 

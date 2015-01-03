@@ -1,24 +1,24 @@
 /*
  * The Progressive Graphics File; http://www.libpgf.org
- *
+ * 
  * $Date: 2007-06-12 19:27:47 +0200 (Di, 12 Jun 2007) $
  * $Revision: 307 $
- *
+ * 
  * This file Copyright (C) 2006 xeraina GmbH, Switzerland
- *
+ * 
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU LESSER GENERAL PUBLIC LICENSE
  * as published by the Free Software Foundation; either version 2.1
  * of the License, or (at your option) any later version.
- *
+ * 
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 
 //////////////////////////////////////////////////////////////////////
@@ -70,18 +70,19 @@
 //-------------------------------------------------------------------------------
 //	32 Bit platform constants
 //-------------------------------------------------------------------------------
-#define WordWidth			32					// WordBytes*8
-#define WordWidthLog		5					// ld of WordWidth
-#define WordMask			0xFFFFFFE0			// least WordWidthLog bits are zero
-#define WordBytes			4					// sizeof(UINT32)
-#define WordBytesLog		2					// ld of WordBytes
+#define WordWidth			32					///< WordBytes*8
+#define WordWidthLog		5					///< ld of WordWidth
+#define WordMask			0xFFFFFFE0			///< least WordWidthLog bits are zero
+#define WordBytes			4					///< sizeof(UINT32)
+#define WordBytesMask		0xFFFFFFFC			///< least WordBytesLog bits are zero
+#define WordBytesLog		2					///< ld of WordBytes
 
 //-------------------------------------------------------------------------------
-// Macros
+// Alignment macros (used in PGF based libraries)
 //-------------------------------------------------------------------------------
-//#define DWWIDTH(bytes)		((((bytes) + WordBytes - 1) >> WordBytesLog) << WordBytesLog)	// aligns scanline width in bytes to DWORD value
-//#define DWWIDTHBITS(bits)	((((bits) + WordWidth - 1) >> WordWidthLog) << WordBytesLog)	// aligns scanline width in bits to DWORD value
-//#define DWWIDTHREST(bytes)	((WordBytes - (bytes)%WordBytes)%WordBytes)						// DWWIDTHBITS(bytes*8) - bytes
+#define DWWIDTHBITS(bits)	(((bits) + WordWidth - 1) & WordMask)		///< aligns scanline width in bits to DWORD value
+#define DWWIDTH(bytes)		(((bytes) + WordBytes - 1) & WordBytesMask)	///< aligns scanline width in bytes to DWORD value
+#define DWWIDTHREST(bytes)	((WordBytes - (bytes)%WordBytes)%WordBytes)	///< DWWIDTH(bytes) - bytes
 
 //-------------------------------------------------------------------------------
 // Min-Max macros
@@ -104,7 +105,7 @@
 #define ImageModeMultichannel		7
 #define ImageModeDuotone			8
 #define ImageModeLabColor			9
-#define ImageModeGray16				10
+#define ImageModeGray16				10		// 565
 #define ImageModeRGB48				11
 #define ImageModeLab48				12
 #define ImageModeCMYK64				13
@@ -112,16 +113,16 @@
 #define ImageModeDuotone16			15
 // pgf extension
 #define ImageModeRGBA				17
-#define ImageModeGray31				18
+#define ImageModeGray32				18		// MSB is 0 (can be interpreted as signed 15.16 fixed point format)
 #define ImageModeRGB12				19
 #define ImageModeRGB16				20
 #define ImageModeUnknown			255
 
 
 //-------------------------------------------------------------------------------
-// WINDOWS 32
+// WINDOWS 
 //-------------------------------------------------------------------------------
-#if defined(WIN32) || defined(WINCE)
+#if defined(WIN32) || defined(WINCE) || defined(WIN64)
 #define VC_EXTRALEAN		// Exclude rarely-used stuff from Windows headers
 
 //-------------------------------------------------------------------------------
@@ -142,10 +143,10 @@
 #include <windows.h>
 #include <ole2.h>
 
-#endif // _MFC_VER
+#endif // _MFC_VER 
 //-------------------------------------------------------------------------------
 
-#define DllExport   __declspec( dllexport )
+#define DllExport   __declspec( dllexport ) 
 
 //-------------------------------------------------------------------------------
 // unsigned number type definitions
@@ -157,8 +158,8 @@ typedef unsigned short      WORD;
 typedef	unsigned int		UINT32;
 typedef unsigned long       DWORD;
 typedef unsigned long       ULONG;
-typedef unsigned __int64	UINT64;
-typedef unsigned __int64	ULONGLONG;
+typedef unsigned __int64	UINT64; 
+typedef unsigned __int64	ULONGLONG; 
 
 //-------------------------------------------------------------------------------
 // signed number type definitions
@@ -188,9 +189,9 @@ typedef bool (__cdecl *CallbackPtr)(double percent, bool escapeAllowed, void *da
 	#ifdef _DEBUG
 		#define ASSERT(x)	assert(x)
 	#else
-		#if defined(__GNUC__)
-			#define ASSERT(ignore)((void) 0)
-		#elif _MSC_VER >= 1300
+		#if defined(__GNUC__) 
+			#define ASSERT(ignore)((void) 0) 
+		#elif _MSC_VER >= 1300 
 			#define ASSERT		__noop
 		#else
 			#define ASSERT ((void)0)
@@ -232,18 +233,18 @@ typedef bool (__cdecl *CallbackPtr)(double percent, bool escapeAllowed, void *da
 //-------------------------------------------------------------------------------
 // IO Error constants
 //-------------------------------------------------------------------------------
-#define NoError				ERROR_SUCCESS		// no error
-#define AppError			0x20000000			// all application error messages must be larger than this value
-#define InsufficientMemory	0x20000001			// memory allocation wasn't successfull
-#define EndOfMemory			0x20000002			// like end-of-file (EOF) for memory stream
-#define EscapePressed		0x20000003			// user break by ESC
-#define WrongVersion		0x20000004			// wrong pgf version
-#define FormatCannotRead	0x20000005			// wrong data file format
-#define ImageTooSmall		0x20000006			// image is too small
-#define ZlibError			0x20000007			// error in zlib functions
-#define ColorTableError		0x20000008			// errors related to color table size
-#define PNGError			0x20000009			// errors in png functions
-#define MissingData			0x2000000A			// expected data cannot be read
+#define NoError				ERROR_SUCCESS		///< no error
+#define AppError			0x20000000			///< all application error messages must be larger than this value
+#define InsufficientMemory	0x20000001			///< memory allocation wasn't successfull
+#define InvalidStreamPos	0x20000002			///< invalid memory stream position
+#define EscapePressed		0x20000003			///< user break by ESC
+#define WrongVersion		0x20000004			///< wrong pgf version 
+#define FormatCannotRead	0x20000005			///< wrong data file format
+#define ImageTooSmall		0x20000006			///< image is too small
+#define ZlibError			0x20000007			///< error in zlib functions
+#define ColorTableError		0x20000008			///< errors related to color table size
+#define PNGError			0x20000009			///< errors in png functions
+#define MissingData			0x2000000A			///< expected data cannot be read
 
 //-------------------------------------------------------------------------------
 // methods
@@ -318,7 +319,7 @@ inline OSError SetFPos(HANDLE hFile, int posMode, INT64 posOff) {
 // Apple OSX
 //-------------------------------------------------------------------------------
 #ifdef __APPLE__
-#define __POSIX__
+#define __POSIX__ 
 #endif // __APPLE__
 
 
@@ -342,17 +343,17 @@ inline OSError SetFPos(HANDLE hFile, int posMode, INT64 posOff) {
 // *BSD
 //-------------------------------------------------------------------------------
 #if defined(__NetBSD__) || defined(__OpenBSD__) || defined(__FreeBSD__)
-#ifndef __POSIX__
-#define __POSIX__
-#endif
+#ifndef __POSIX__ 
+#define __POSIX__ 
+#endif 
 
-#ifndef off64_t
-#define off64_t off_t
-#endif
+#ifndef off64_t 
+#define off64_t off_t 
+#endif 
 
-#ifndef lseek64
-#define lseek64 lseek
-#endif
+#ifndef lseek64 
+#define lseek64 lseek 
+#endif 
 
 #endif // __NetBSD__ or __OpenBSD__ or __FreeBSD__
 
@@ -397,7 +398,7 @@ typedef int64_t				LONGLONG;
 // other types
 //-------------------------------------------------------------------------------
 typedef int					OSError;
-typedef int					HANDLE;
+typedef int					HANDLE;	
 typedef unsigned long		ULONG_PTR;
 typedef void*				PVOID;
 typedef char*				LPTSTR;
@@ -423,10 +424,6 @@ typedef union _LARGE_INTEGER {
   struct {
     DWORD LowPart;
     LONG HighPart;
-  };
-  struct {
-    DWORD LowPart;
-    LONG HighPart;
   } u;
   LONGLONG QuadPart;
 } LARGE_INTEGER, *PLARGE_INTEGER;
@@ -444,8 +441,8 @@ typedef union _LARGE_INTEGER {
 //-------------------------------------------------------------------------------
 // methods
 //-------------------------------------------------------------------------------
-/* The MulDiv function multiplies two 32-bit values and then divides the 64-bit
- * result by a third 32-bit value. The return value is rounded up or down to
+/* The MulDiv function multiplies two 32-bit values and then divides the 64-bit 
+ * result by a third 32-bit value. The return value is rounded up or down to 
  * the nearest integer.
  * http://msdn.microsoft.com/library/default.asp?url=/library/en-us/winprog/winprog/muldiv.asp
  * */
@@ -465,7 +462,7 @@ __inline int MulDiv(int nNumber, int nNumerator, int nDenominator) {
 	#ifdef _DEBUG
 		#define ASSERT(x)	assert(x)
 	#else
-		#define ASSERT(x)
+		#define ASSERT(x)	
 	#endif //_DEBUG
 #endif //ASSERT
 
@@ -496,18 +493,18 @@ __inline int MulDiv(int nNumber, int nNumerator, int nDenominator) {
 //-------------------------------------------------------------------------------
 // IO Error constants
 //-------------------------------------------------------------------------------
-#define NoError					0x0000
-#define AppError				0x2000			// all application error messages must be larger than this value
-#define InsufficientMemory		0x2001			// memory allocation wasn't successfull
-#define EndOfMemory				0x2002			// like end-of-file (EOF) for memory stream
-#define EscapePressed			0x2003			// user break by ESC
-#define WrongVersion			0x2004			// wrong pgf version
-#define FormatCannotRead		0x2005			// wrong data file format
-#define ImageTooSmall			0x2006			// image is too small
-#define ZlibError				0x2007			// error in zlib functions
-#define ColorTableError			0x2008			// errors related to color table size
-#define PNGError				0x2009			// errors in png functions
-#define MissingData				0x200A			// expected data cannot be read
+#define NoError					0x0000			///< no error
+#define AppError				0x2000			///< all application error messages must be larger than this value
+#define InsufficientMemory		0x2001			///< memory allocation wasn't successfull
+#define InvalidStreamPos		0x2002			///< invalid memory stream position
+#define EscapePressed			0x2003			///< user break by ESC
+#define WrongVersion			0x2004			///< wrong pgf version 
+#define FormatCannotRead		0x2005			///< wrong data file format
+#define ImageTooSmall			0x2006			///< image is too small
+#define ZlibError				0x2007			///< error in zlib functions
+#define ColorTableError			0x2008			///< errors related to color table size
+#define PNGError				0x2009			///< errors in png functions
+#define MissingData				0x200A			///< expected data cannot be read
 
 //-------------------------------------------------------------------------------
 // methods
@@ -573,7 +570,7 @@ __inline OSError SetFPos(HANDLE hFile, int posMode, INT64 posOff) {
 //-------------------------------------------------------------------------------
 //	Big Endian
 //-------------------------------------------------------------------------------
-#ifdef PGF_USE_BIG_ENDIAN
+#ifdef PGF_USE_BIG_ENDIAN 
 
 #ifndef _lrotl
 	#define _lrotl(x,n)	(((x) << ((UINT32)(n))) | ((x) >> (32 - (UINT32)(n))))
@@ -583,19 +580,19 @@ __inline UINT16 ByteSwap(UINT16 wX) {
 	return ((wX & 0xFF00) >> 8) | ((wX & 0x00FF) << 8);
 }
 
-__inline UINT32 ByteSwap(UINT32 dwX) {
-#ifdef _X86_
-	_asm mov eax, dwX
+__inline UINT32 ByteSwap(UINT32 dwX) { 
+#ifdef _X86_     
+	_asm mov eax, dwX     
 	_asm bswap eax
-	_asm mov dwX, eax
-	return dwX;
-#else
-	return _lrotl(((dwX & 0xFF00FF00) >> 8) | ((dwX & 0x00FF00FF) << 8), 16);
-#endif
+	_asm mov dwX, eax      
+	return dwX; 
+#else     
+	return _lrotl(((dwX & 0xFF00FF00) >> 8) | ((dwX & 0x00FF00FF) << 8), 16); 
+#endif 
 }
 
-#if defined WIN32
-__inline UINT64 ByteSwap(UINT64 ui64) {
+#if defined(WIN32) || defined(WIN64)
+__inline UINT64 ByteSwap(UINT64 ui64) { 
 	return _byteswap_uint64(ui64);
 }
 #endif
@@ -607,37 +604,34 @@ __inline UINT64 ByteSwap(UINT64 ui64) {
 	#define __VAL(x) (x)
 
 #endif //PGF_USE_BIG_ENDIAN
-
-// NOTE: Use LIBPGF_DISABLE_OPENMP to disable OpenMP support in whole libpgf
-#ifndef LIBPGF_DISABLE_OPENMP
-
+ 
 // OpenMP rules (inspired from libraw project)
-#if defined (_OPENMP)
+// NOTE: Use LIBPGF_DISABLE_OPENMP to disable OpenMP support in whole libpgf
+#define LIBPGF_DISABLE_OPENMP
+#undef LIBPGF_USE_OPENMP
 
-#if defined(WIN32)
-# if defined (_MSC_VER) && (_MSC_VER >= 1500)
-// VS2008 SP1 and VS2010+ : OpenMP works OK
-#   define LIBPGF_USE_OPENMP
-#elif defined (__INTEL_COMPILER) && (__INTEL_COMPILER >=910)
-//  Have not tested on 9.x and 10.x, but Intel documentation claims OpenMP 2.5 support in 9.1
-#   define LIBPGF_USE_OPENMP
-#else
-#  undef LIBPGF_USE_OPENMP
-#endif
-// Not Win32
-# elif (defined(__APPLE__) || defined(__MACOSX__)) && defined(_REENTRANT)
+#ifndef LIBPGF_DISABLE_OPENMP
+# if defined (_OPENMP)
+#  if defined (WIN32) || defined(WIN64)
+#   if defined (_MSC_VER) && (_MSC_VER >= 1500)
+//   VS2008 SP1 and VS2010+ : OpenMP works OK
+#    define LIBPGF_USE_OPENMP
+#   elif defined (__INTEL_COMPILER) && (__INTEL_COMPILER >=910)
+//   untested on 9.x and 10.x, Intel documentation claims OpenMP 2.5 support in 9.1
+#    define LIBPGF_USE_OPENMP
+#   else
+#    undef LIBPGF_USE_OPENMP
+#   endif
+//  Not Win32
+#  elif (defined(__APPLE__) || defined(__MACOSX__)) && defined(_REENTRANT)
 #   undef LIBPGF_USE_OPENMP
-# else
+#  else
 #   define LIBPGF_USE_OPENMP
-# endif
-
-#endif // defined (_OPENMP)
-
+#  endif
+# endif // defined (_OPENMP)
 #endif // ifndef LIBPGF_DISABLE_OPENMP
-
 #ifdef LIBPGF_USE_OPENMP
 #include <omp.h>
 #endif
-
 
 #endif //PGF_PGFPLATFORM_H
