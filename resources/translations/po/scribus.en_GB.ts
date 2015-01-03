@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="en_GB">
+<TS version="2.1" language="en_GB">
 <context>
     <name></name>
     <message>
@@ -10912,17 +10912,17 @@ Height: %2</translation>
         <location filename="../../../scribus/canvasmode_framelinks.cpp" line="212"/>
         <location filename="../../../scribus/canvasmode_framelinks.cpp" line="219"/>
         <source>Linking Text Frames</source>
-        <translation type="unfinished">Linking Text Frames</translation>
+        <translation>Linking Text Frames</translation>
     </message>
     <message>
         <location filename="../../../scribus/canvasmode_framelinks.cpp" line="213"/>
         <source>You are trying to link a frame to itself.</source>
-        <translation type="unfinished">You are trying to link a frame to itself.</translation>
+        <translation>You are trying to link a frame to itself.</translation>
     </message>
     <message>
         <location filename="../../../scribus/canvasmode_framelinks.cpp" line="220"/>
         <source>You are trying to link a frame which is already linked.</source>
-        <translation type="unfinished">You are trying to link a frame which is already linked.</translation>
+        <translation>You are trying to link a frame which is already linked.</translation>
     </message>
 </context>
 <context>
@@ -11138,27 +11138,27 @@ Height: %2</translation>
     <message>
         <location filename="../../../scribus/charselect.ui" line="25"/>
         <source>Show/Hide Enhanced Palette</source>
-        <translation type="unfinished"></translation>
+        <translation>Show/Hide Enhanced Palette</translation>
     </message>
     <message>
         <location filename="../../../scribus/charselect.ui" line="35"/>
         <source>Unicode Search</source>
-        <translation type="unfinished">Unicode Search</translation>
+        <translation>Unicode Search</translation>
     </message>
     <message>
         <location filename="../../../scribus/charselect.ui" line="42"/>
         <source>Load a Character Palette</source>
-        <translation type="unfinished"></translation>
+        <translation>Load a Character Palette</translation>
     </message>
     <message>
         <location filename="../../../scribus/charselect.ui" line="52"/>
         <source>Save the Character Palette</source>
-        <translation type="unfinished"></translation>
+        <translation>Save the Character Palette</translation>
     </message>
     <message>
         <location filename="../../../scribus/charselect.ui" line="62"/>
         <source>Empty the Character Palette</source>
-        <translation type="unfinished"></translation>
+        <translation>Empty the Character Palette</translation>
     </message>
     <message>
         <source>&amp;Search</source>
@@ -17529,7 +17529,7 @@ p, li { white-space: pre-wrap; }
         <source>Length:</source>
         <translation type="obsolete">Length:</translation>
     </message>
-    <message utf8="true">
+    <message>
         <location filename="../../../scribus/measurements.cpp" line="50"/>
         <source> °</source>
         <translation> °</translation>
@@ -19865,22 +19865,22 @@ both end points must lie outside of the polygon</source>
         <source>Rotate Objects by:</source>
         <translation>Rotate Objects by:</translation>
     </message>
-    <message utf8="true">
+    <message>
         <location filename="../../../scribus/plugins/tools/2geomtools/pathalongpath/pathdialogbase.ui" line="80"/>
         <source>0°</source>
         <translation>0°</translation>
     </message>
-    <message utf8="true">
+    <message>
         <location filename="../../../scribus/plugins/tools/2geomtools/pathalongpath/pathdialogbase.ui" line="85"/>
         <source>90°</source>
         <translation>90°</translation>
     </message>
-    <message utf8="true">
+    <message>
         <location filename="../../../scribus/plugins/tools/2geomtools/pathalongpath/pathdialogbase.ui" line="90"/>
         <source>180°</source>
         <translation>180°</translation>
     </message>
-    <message utf8="true">
+    <message>
         <location filename="../../../scribus/plugins/tools/2geomtools/pathalongpath/pathdialogbase.ui" line="95"/>
         <source>270°</source>
         <translation>270°</translation>
@@ -23435,7 +23435,7 @@ Scripter documentation for futher information. </source>
     <message>
         <location filename="../../../scribus/translationdummy.cpp" line="19"/>
         <source>Files of type:</source>
-        <translation type="unfinished"></translation>
+        <translation>Files of type:</translation>
     </message>
     <message>
         <location filename="../../../scribus/translationdummy.cpp" line="20"/>
@@ -23490,7 +23490,7 @@ Scripter documentation for futher information. </source>
     <message>
         <location filename="../../../scribus/translationdummy.cpp" line="30"/>
         <source>Look in:</source>
-        <translation type="unfinished"></translation>
+        <translation>Look in:</translation>
     </message>
     <message>
         <location filename="../../../scribus/translationdummy.cpp" line="31"/>
@@ -23500,12 +23500,12 @@ Scripter documentation for futher information. </source>
     <message>
         <location filename="../../../scribus/translationdummy.cpp" line="32"/>
         <source>Forward</source>
-        <translation type="unfinished"></translation>
+        <translation>Forward</translation>
     </message>
     <message>
         <location filename="../../../scribus/translationdummy.cpp" line="33"/>
         <source>Parent Directory</source>
-        <translation type="unfinished"></translation>
+        <translation>Parent Directory</translation>
     </message>
     <message>
         <location filename="../../../scribus/translationdummy.cpp" line="34"/>
@@ -23933,7 +23933,7 @@ Check path and filename.</translation>
     <message>
         <location filename="../../../scribus/nftrcreader.cpp" line="220"/>
         <source>Grids</source>
-        <translation type="unfinished"></translation>
+        <translation>Grids</translation>
     </message>
     <message>
         <location filename="../../../scribus/nftrcreader.cpp" line="232"/>
@@ -24437,7 +24437,7 @@ External Links</translation>
         <location filename="../../../scribus/plugins/scriptplugin/cmddoc.cpp" line="152"/>
         <source>Failed to open document: %1</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Failed to open document: %1</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/scriptplugin/cmddoc.cpp" line="230"/>
@@ -24449,19 +24449,19 @@ External Links</translation>
         <location filename="../../../scribus/plugins/scriptplugin/cmddoc.cpp" line="381"/>
         <source>Master page does not exist: &apos;%1&apos;</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Master page does not exist: &apos;%1&apos;</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/scriptplugin/cmddoc.cpp" line="386"/>
         <source>Page number out of range: %1.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Page number out of range: %1.</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/scriptplugin/cmddoc.cpp" line="392"/>
         <source>Failed to apply masterpage &apos;%1&apos; on page: %2</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Failed to apply masterpage &apos;%1&apos; on page: %2</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/scriptplugin/cmdmani.cpp" line="27"/>
@@ -25426,19 +25426,19 @@ is not exhaustive due to exceptions from called functions.
         <location filename="../../../scribus/main_win32.cpp" line="234"/>
         <location filename="../../../scribus/main_win32.cpp" line="259"/>
         <source>Scribus Crash</source>
-        <translation type="unfinished">Scribus Crash</translation>
+        <translation>Scribus Crash</translation>
     </message>
     <message>
         <location filename="../../../scribus/main_nix.cpp" line="128"/>
         <source>Scribus crashes due to Signal #%1</source>
-        <translation type="unfinished">Scribus crashes due to Signal #%1</translation>
+        <translation>Scribus crashes due to Signal #%1</translation>
     </message>
     <message>
         <location filename="../../../scribus/main_nix.cpp" line="135"/>
         <location filename="../../../scribus/main_win32.cpp" line="243"/>
         <location filename="../../../scribus/main_win32.cpp" line="261"/>
         <source>&amp;OK</source>
-        <translation type="unfinished">&amp;OK</translation>
+        <translation>&amp;OK</translation>
     </message>
     <message>
         <source>Can&apos;t group less than two items</source>
@@ -25558,7 +25558,7 @@ is not exhaustive due to exceptions from called functions.
     <message>
         <location filename="../../../scribus/main_win32.cpp" line="236"/>
         <source>Scribus crashes due to the following exception : %1</source>
-        <translation type="unfinished">Scribus crashes due to the following exception : %1</translation>
+        <translation>Scribus crashes due to the following exception : %1</translation>
     </message>
     <message>
         <location filename="../../../scribus/scfonts.cpp" line="325"/>
@@ -26371,7 +26371,7 @@ Therefore the image may be not correct</translation>
         <source>Xfig File</source>
         <translation>Xfig File</translation>
     </message>
-    <message utf8="true">
+    <message>
         <location filename="../../../scribus/langmgr.cpp" line="119"/>
         <location filename="../../../scribus/langmgr.cpp" line="120"/>
         <source>Norwegian (Bokmål)</source>
@@ -29048,7 +29048,7 @@ Consider using the Preflight Verifier to correct them</translation>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="5663"/>
         <source>Text Files (*.txt);;All Files (*)</source>
-        <translation type="unfinished"></translation>
+        <translation>Text Files (*.txt);;All Files (*)</translation>
     </message>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="8105"/>
@@ -30169,7 +30169,7 @@ You can choose between normal and several colour blindness forms</translation>
         <location filename="../../../scribus/storyeditor.cpp" line="3246"/>
         <location filename="../../../scribus/storyeditor.cpp" line="3281"/>
         <source>Text Files (*.txt);;All Files (*)</source>
-        <translation type="unfinished"></translation>
+        <translation>Text Files (*.txt);;All Files (*)</translation>
     </message>
     <message>
         <location filename="../../../scribus/storyeditor.cpp" line="1721"/>
@@ -33733,7 +33733,7 @@ when PDF document is opened:</translation>
     <message>
         <location filename="../../../scribus/tabscrapbook.ui" line="52"/>
         <source>The minimum number is 1; the maximum is 100.</source>
-        <translation type="unfinished"></translation>
+        <translation>The minimum number is 1; the maximum is 100.</translation>
     </message>
     <message>
         <source>The minimum number is 1; the maximum us 100.</source>
@@ -35304,7 +35304,7 @@ to %2</translation>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="953"/>
         <source>Duplicate</source>
-        <translation type="unfinished"></translation>
+        <translation>Duplicate</translation>
     </message>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="969"/>
