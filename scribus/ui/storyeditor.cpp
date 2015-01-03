@@ -180,7 +180,7 @@ void SideBar::paintEvent(QPaintEvent *e)
 		while ((pos1 <= pos2) && (pos1 < editor->StyledText.length()))
 		{
 			paraInfo.first = pos1;
-            if (editor->StyledText.text(pos1) == SpecialChars::PARSEP)
+			if (editor->StyledText.text(pos1) == SpecialChars::PARSEP)
 			{
 				paraInfo.second = pos1;
 				pos1 += 1;

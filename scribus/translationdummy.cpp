@@ -28,6 +28,7 @@ tr("Attributes");
 tr("OK");
 tr("Look &in:");
 tr("Look in:");
+tr("Recent Places");
 tr("Back");
 tr("Forward");
 tr("Parent Directory");
@@ -63,12 +64,15 @@ tr("the file");
 tr("the directory");
 tr("the symlink");
 tr("Delete %1");
+tr("Delete");
 tr("<qt>Are you sure you wish to delete %1 \"%2\"?</qt>");
+tr("Are you sure you want to delete '%1'?");
 CommonStrings::trYesKey;
 CommonStrings::trNoKey;
 tr("New Folder 1");
 tr("New Folder");
 tr("New Folder %1");
+tr("&New Folder");
 tr("Find Directory");
 tr("Directories");
 tr("Save");
@@ -81,22 +85,23 @@ tr("Directory:");
 QLineEdit::QLineEdit()
 {
 tr("Clear");
-tr("Select All");
 tr("&Undo");
 tr("&Redo");
 tr("Cu&t");
 tr("&Copy");
 tr("&Paste");
+tr("Delete");
+tr("Select All");
 }
 QTextEdit::QTextEdit()
 {
 tr("Clear");
-tr("Select All");
 tr("&Undo");
 tr("&Redo");
 tr("Cu&t");
 tr("&Copy");
 tr("&Paste");
+tr("Select All");
 }
 QMainWindow::QMainWindow()
 {
