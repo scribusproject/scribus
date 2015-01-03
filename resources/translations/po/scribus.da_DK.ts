@@ -12957,7 +12957,7 @@ Se Redigér farver sektionen af dokumentationen for flere detaljer.</translation
     <message>
         <location filename="../../../scribus/cpalette.cpp" line="1006"/>
         <source>Shade:</source>
-        <translation>Farvemætning:</translation>
+        <translation>Farvetone:</translation>
     </message>
     <message>
         <location filename="../../../scribus/cpalette.cpp" line="1043"/>
@@ -14699,7 +14699,7 @@ fejlede!</translation>
     <message>
         <location filename="../../../scribus/effectsdialog.cpp" line="110"/>
         <source>Shade:</source>
-        <translation>Farvemætning:</translation>
+        <translation>Farvetone:</translation>
     </message>
     <message>
         <location filename="../../../scribus/effectsdialog.cpp" line="126"/>
@@ -26853,7 +26853,7 @@ Eksterne links</translation>
         <location filename="../../../scribus/plugins/scriptplugin/cmdtext.cpp" line="785"/>
         <source>Cannot set text shade on a non-text frame.</source>
         <comment>python error</comment>
-        <translation>Kan ikke sætte tekst-farvemætning i andet end tekst-ramme.</translation>
+        <translation>Kan ikke sætte tekst-farvetone i andet end tekst-ramme.</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/scriptplugin/cmdtext.cpp" line="825"/>
@@ -27437,13 +27437,13 @@ Eksterne links</translation>
         <location filename="../../../scribus/plugins/scriptplugin/cmdsetprop.cpp" line="265"/>
         <source>Line shade out of bounds, must be 0 &lt;= shade &lt;= 100.</source>
         <comment>python error</comment>
-        <translation>Linje-farvemætning uden for tilladt område, skal være 0 &lt;= farvemætning &lt;= 100.</translation>
+        <translation>Linje-farvetone uden for tilladt område, skal være 0 &lt;= farvetone &lt;= 100.</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/scriptplugin/cmdsetprop.cpp" line="285"/>
         <source>Fill shade out of bounds, must be 0 &lt;= shade &lt;= 100.</source>
         <comment>python error</comment>
-        <translation>Fyld-farvemætning uden for tilladt område, skal være 0 &lt;= farvemætning &lt;= 100.</translation>
+        <translation>Fyld-farvetone uden for tilladt område, skal være 0 &lt;= farvetone &lt;= 100.</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/scriptplugin/cmdsetprop.cpp" line="377"/>
@@ -28583,7 +28583,7 @@ Derfor er billedet måske ikke korrekt</translation>
         <location filename="../../../scribus/plugins/scriptplugin/cmdsetprop.cpp" line="100"/>
         <source>Stop shade out of bounds, must be 0 &lt;= shade &lt;= 100.</source>
         <comment>python error</comment>
-        <translation>Stop-farvemætning uden for tilladt område, skal være 0 &lt;= farvemætning &lt;= 100.</translation>
+        <translation>Stop-farvetone uden for tilladt område, skal være 0 &lt;= farvetone &lt;= 100.</translation>
     </message>
     <message>
         <location filename="../../../scribus/plugins/scriptplugin/cmdsetprop.cpp" line="105"/>
@@ -29208,7 +29208,7 @@ Vælg venligst et andet.</translation>
         <location filename="../../../scribus/smcstylewidget.cpp" line="466"/>
         <location filename="../../../scribus/smcstylewidget.cpp" line="484"/>
         <source>Shade</source>
-        <translation>Farvemætning</translation>
+        <translation>Farvetone</translation>
     </message>
     <message>
         <location filename="../../../scribus/smcstylewidget.ui" line="49"/>
@@ -29287,7 +29287,7 @@ Vælg venligst et andet.</translation>
     <message>
         <location filename="../../../scribus/smcstylewidget.cpp" line="93"/>
         <source>Fill Shade</source>
-        <translation>Fyld-farvemætning</translation>
+        <translation>Fyld-farvetone</translation>
     </message>
     <message>
         <location filename="../../../scribus/smcstylewidget.cpp" line="94"/>
@@ -29297,7 +29297,7 @@ Vælg venligst et andet.</translation>
     <message>
         <location filename="../../../scribus/smcstylewidget.cpp" line="95"/>
         <source>Stroke Shade</source>
-        <translation>Streg-farvemætning</translation>
+        <translation>Streg-farvetone</translation>
     </message>
     <message>
         <location filename="../../../scribus/smcstylewidget.cpp" line="229"/>
@@ -31150,12 +31150,12 @@ Rotation: %4</translation>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="7090"/>
         <source>&amp;Shade:</source>
-        <translation>&amp;Farvemætning:</translation>
+        <translation>&amp;Farvetone:</translation>
     </message>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="7090"/>
         <source>Shade</source>
-        <translation>Farvemætning</translation>
+        <translation>Farvetone</translation>
     </message>
     <message>
         <location filename="../../../scribus/scribus.cpp" line="7194"/>
@@ -32173,7 +32173,7 @@ Du kan vælge mellem normal og adskillige former for farveblindhed</translation>
         <location filename="../../../scribus/search.cpp" line="92"/>
         <location filename="../../../scribus/search.cpp" line="189"/>
         <source>Stroke Shade</source>
-        <translation> - farvemætning</translation>
+        <translation> - farvetone</translation>
     </message>
     <message>
         <location filename="../../../scribus/search.cpp" line="45"/>
@@ -32218,7 +32218,7 @@ Du kan vælge mellem normal og adskillige former for farveblindhed</translation>
         <location filename="../../../scribus/search.cpp" line="86"/>
         <location filename="../../../scribus/search.cpp" line="183"/>
         <source>Fill Shade</source>
-        <translation> - farvemætning</translation>
+        <translation> - farvetone</translation>
     </message>
     <message>
         <location filename="../../../scribus/search.cpp" line="80"/>
@@ -32346,7 +32346,7 @@ Du kan vælge mellem normal og adskillige former for farveblindhed</translation>
     <message>
         <location filename="../../../scribus/shadebutton.cpp" line="49"/>
         <source>Shade</source>
-        <translation>Farvemætning</translation>
+        <translation>Farvetone</translation>
     </message>
     <message>
         <location filename="../../../scribus/shadebutton.cpp" line="16"/>
@@ -32356,7 +32356,7 @@ Du kan vælge mellem normal og adskillige former for farveblindhed</translation>
     <message>
         <location filename="../../../scribus/shadebutton.cpp" line="49"/>
         <source>&amp;Shade:</source>
-        <translation>&amp;Farvemætning:</translation>
+        <translation>&amp;Farvetone:</translation>
     </message>
 </context>
 <context>
@@ -37041,7 +37041,7 @@ Niveau 1 eller 2 kan give meget store filer</translation>
         <location filename="../../../scribus/tabtools.cpp" line="245"/>
         <location filename="../../../scribus/tabtools.cpp" line="299"/>
         <source>&amp;Shading:</source>
-        <translation>Farvem&amp;ætning:</translation>
+        <translation>Farvet&amp;oning:</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabtools.cpp" line="251"/>
@@ -37052,7 +37052,7 @@ Niveau 1 eller 2 kan give meget store filer</translation>
         <location filename="../../../scribus/tabtools.cpp" line="260"/>
         <location filename="../../../scribus/tabtools.cpp" line="394"/>
         <source>S&amp;hading:</source>
-        <translation>Farvem&amp;ætning:</translation>
+        <translation>Farvet&amp;oning:</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabtools.cpp" line="267"/>
@@ -37321,7 +37321,7 @@ Niveau 1 eller 2 kan give meget store filer</translation>
         <location filename="../../../scribus/tabtools.cpp" line="171"/>
         <location filename="../../../scribus/tabtools.cpp" line="187"/>
         <source>Shading:</source>
-        <translation>Farvemætning:</translation>
+        <translation>Farvetoning:</translation>
     </message>
     <message>
         <location filename="../../../scribus/tabtools.cpp" line="146"/>
@@ -38218,7 +38218,7 @@ W: %3, H: %4</translation>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="853"/>
         <source>Set fill color shade</source>
-        <translation>Angiv fyldfarve-mætning</translation>
+        <translation>Angiv fyld-farvetone</translation>
     </message>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="854"/>
@@ -38228,7 +38228,7 @@ W: %3, H: %4</translation>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="855"/>
         <source>Set line color shade</source>
-        <translation>Angiv linjefarve-mætning</translation>
+        <translation>Angiv linje-farvetone</translation>
     </message>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="856"/>
@@ -38395,12 +38395,12 @@ til %2</translation>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="891"/>
         <source>Set font fill color shade</source>
-        <translation>Vælg font fyldfarve-mætning</translation>
+        <translation>Vælg font fyld-farvetone</translation>
     </message>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="892"/>
         <source>Set font stroke color shade</source>
-        <translation>Vælg font stregfarve-mætning</translation>
+        <translation>Vælg font streg-farvetone</translation>
     </message>
     <message>
         <location filename="../../../scribus/undomanager.cpp" line="893"/>
