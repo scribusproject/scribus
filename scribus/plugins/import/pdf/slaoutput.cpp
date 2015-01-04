@@ -2254,8 +2254,8 @@ GBool SlaOutputDev::tilingPatternFill(GfxState *state, Gfx * /*gfx*/, Catalog *c
 	gfx->display(str);
 	gElements = m_groupStack.pop();
 	m_doc->m_Selection->clear();
-	double pwidth = 0;
-	double pheight = 0;
+//	double pwidth = 0;
+//	double pheight = 0;
 	if (gElements.Items.count() > 0)
 	{
 		for (int dre = 0; dre < gElements.Items.count(); ++dre)
@@ -2281,8 +2281,8 @@ GBool SlaOutputDev::tilingPatternFill(GfxState *state, Gfx * /*gfx*/, Catalog *c
 		m_doc->DoDrawing = false;
 		pat.width = ite->width();
 		pat.height = ite->height();
-		pwidth = ite->width();
-		pheight = ite->height();
+	//	pwidth = ite->width();
+	//	pheight = ite->height();
 		ite->gXpos = 0;
 		ite->gYpos = 0;
 		ite->setXYPos(ite->gXpos, ite->gYpos, true);

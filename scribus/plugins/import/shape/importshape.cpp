@@ -133,7 +133,8 @@ bool ShapePlug::import(QString fNameIn, const TransactionSettings& trSettings, i
 	interactive = (flags & LoadSavePlugin::lfInteractive);
 	importerFlags = flags;
 	cancel = false;
-	double x, y, b, h;
+//	double x, y, b, h;
+	double b, h;
 	bool ret = false;
 	QFileInfo fi = QFileInfo(fName);
 	if ( !ScCore->usingGUI() )
@@ -162,8 +163,8 @@ bool ShapePlug::import(QString fNameIn, const TransactionSettings& trSettings, i
 	else
 		progressDialog = NULL;
 /* Set default Page to size defined in Preferences */
-	x = 0.0;
-	y = 0.0;
+//	x = 0.0;
+//	y = 0.0;
 	b = 0.0;
 	h = 0.0;
 	if (progressDialog)
@@ -413,12 +414,12 @@ void ShapePlug::parseGroup(QDomNode &DOC)
 	QString defStrokeCol = "Black";
 	QColor stroke = Qt::black;
 	QColor fill = Qt::white;
-	Qt::PenStyle Dash = Qt::SolidLine;
+//	Qt::PenStyle Dash = Qt::SolidLine;
 	Qt::PenCapStyle LineEnd = Qt::FlatCap;
 	Qt::PenJoinStyle LineJoin = Qt::MiterJoin;
-	int fillStyle = 1;
+//	int fillStyle = 1;
 	double strokewidth = 0.1;
-	bool poly = false;
+//	bool poly = false;
 	while(!DOC.isNull())
 	{
 		double x1, y1, x2, y2;
@@ -426,9 +427,9 @@ void ShapePlug::parseGroup(QDomNode &DOC)
 		FillCol = defFillCol;
 		stroke = Qt::black;
 		fill = Qt::white;
-		fillStyle = 1;
+	//	fillStyle = 1;
 		strokewidth = 1.0;
-		Dash = Qt::SolidLine;
+	//	Dash = Qt::SolidLine;
 		LineEnd = Qt::FlatCap;
 		LineJoin = Qt::MiterJoin;
 		FPointArray PoLine;
@@ -580,7 +581,8 @@ void ShapePlug::parseGroup(QDomNode &DOC)
 		}
 		else if (STag == "svg:path")
 		{
-			poly = parseSVG( pg.attribute( "d" ), &PoLine );
+		//	poly =
+			parseSVG( pg.attribute( "d" ), &PoLine );
 			if (PoLine.size() < 4)
 			{
 				DOC = DOC.nextSibling();

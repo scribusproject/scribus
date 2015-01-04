@@ -2928,7 +2928,8 @@ void SVGPlug::parseGradient( const QDomElement &e )
 	gradhelper.gradient.setRepeatMethod( VGradient::none );
 
 	QString href = e.attribute("xlink:href").mid(1);
-	double x1=0, y1=0, x2=0, y2=0, fx=0, fy=0;
+//	double x1=0, y1=0, x2=0, y2=0, fx=0, fy=0;
+	double x1=0, y1=0, x2=0, fx=0, fy=0;
 	if (!href.isEmpty())
 	{
 		if (m_gradients.contains(href))
@@ -3002,7 +3003,7 @@ void SVGPlug::parseGradient( const QDomElement &e )
 			x2 = parseUnit(e.attribute("r", "0.5"));
 			gradhelper.x2Valid = true;
 		}
-		y2 = y1;
+	//	y2 = y1;
 		fx = e.hasAttribute("fx") ? parseUnit(e.attribute("fx", ScCLocale::toQStringC(x1))) : x1;
 		gradhelper.fxValid = true;
 		fy = e.hasAttribute("fy") ? parseUnit(e.attribute("fy", ScCLocale::toQStringC(y1))) : y1;

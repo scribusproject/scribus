@@ -605,7 +605,7 @@ bool PagesPlug::parseDocReference(QString designMap, bool compressed)
 				}
 				else if (spf.tagName() == "sf:text-body")
 				{
-					int txPage = 0;
+				//	int txPage = 0;
 					StoryText itemText;
 					itemText.clear();
 					itemText.setDoc(m_Doc);
@@ -621,11 +621,12 @@ bool PagesPlug::parseDocReference(QString designMap, bool compressed)
 					itemText.setDefaultStyle(newStyle);
 					for(QDomElement spg = spf.firstChildElement(); !spg.isNull(); spg = spg.nextSiblingElement() )
 					{
-						if (spg.tagName() == "sf:container-hint")
-						{
-							txPage = spg.attribute("sf:page-index").toInt();
-						}
-						else if (spg.tagName() == "sf:p")
+					//	if (spg.tagName() == "sf:container-hint")
+					//	{
+					//		txPage = spg.attribute("sf:page-index").toInt();
+					//	}
+					//	else
+						if (spg.tagName() == "sf:p")
 						{
 							ParagraphStyle tmpStyle = newStyle;
 							if (!spg.attribute("sf:style").isEmpty())
@@ -647,10 +648,10 @@ bool PagesPlug::parseDocReference(QString designMap, bool compressed)
 								for(QDomElement sph = spg.firstChildElement(); !sph.isNull(); sph = sph.nextSiblingElement() )
 								{
 									totalCount += sph.text().length();
-									if (sph.tagName() == "sf:container-hint")
-									{
-										txPage = sph.attribute("sf:page-index").toInt();
-									}
+								//	if (sph.tagName() == "sf:container-hint")
+								//	{
+								//		txPage = sph.attribute("sf:page-index").toInt();
+								//	}
 								}
 							}
 							int count = spg.text().length();

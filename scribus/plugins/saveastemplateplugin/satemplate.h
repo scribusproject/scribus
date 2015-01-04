@@ -72,6 +72,6 @@ public:
 	~sat();
 };
 
-static MenuSAT* Sat;
+//static MenuSAT* Sat;
 
 #endif

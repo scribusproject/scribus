@@ -994,7 +994,7 @@ PageItem* VivaPlug::parseObjectDetailsXML(const QDomElement& obNode, int baseTyp
 	double imageXoffs = 0;
 	double imageYoffs = 0;
 	double imageScaleX = 1.0;
-	double imageScaleY = 1.0;
+//	double imageScaleY = 1.0;
 	double cornerRadius = 0.0;
 	int ob_type = 0;
 	bool printable = false;
@@ -1378,8 +1378,8 @@ PageItem* VivaPlug::parseObjectDetailsXML(const QDomElement& obNode, int baseTyp
 							imageYoffs = parseUnit(eo.text());
 						else if (eo.tagName() == "vo:scaleHorizontal")
 							imageScaleX = eo.text().toDouble() / 100.0;
-						else if (eo.tagName() == "vo:scaleVertical")
-							imageScaleY = eo.text().toDouble() / 100.0;
+					//	else if (eo.tagName() == "vo:scaleVertical")
+					//		imageScaleY = eo.text().toDouble() / 100.0;
 					}
 				}
 				else if (eog.tagName() == "vo:preview")

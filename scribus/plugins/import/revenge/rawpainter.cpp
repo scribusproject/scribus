@@ -331,9 +331,9 @@ void RawPainter::setStyle(const librevenge::RVNGPropertyList &propList)
 	}
 	if(propList["draw:fill"] && propList["draw:fill"]->getStr() == "gradient")
 	{
-		double angle = 0;
-		if (propList["draw:angle"])
-			angle = propList["draw:angle"]->getDouble();
+	//	double angle = 0;
+	//	if (propList["draw:angle"])
+	//		angle = propList["draw:angle"]->getDouble();
 		double opacity = 1.0;
 		librevenge::RVNGPropertyListVector gradient;
 		if (propList.child("svg:linearGradient"))

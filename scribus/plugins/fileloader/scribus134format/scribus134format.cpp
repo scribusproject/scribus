@@ -3619,7 +3619,7 @@ bool Scribus134Format::readLineStyles(const QString& fileName, QHash<QString,mul
 bool Scribus134Format::readColors(const QString& fileName, ColorList & colors)
 {
 	bool firstElement = true;
-	bool success = true;
+//	bool success = true;
 
 	QScopedPointer<QIODevice> ioDevice(slaReader(fileName));
 	if (ioDevice.isNull())
@@ -3637,7 +3637,7 @@ bool Scribus134Format::readColors(const QString& fileName, ColorList & colors)
 		{
 			if (tagName != "SCRIBUSUTF8NEW")
 			{
-				success = false;
+			//	success = false;
 				break;
 			}
 			firstElement = false;

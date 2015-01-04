@@ -381,9 +381,9 @@ void PctPlug::parseHeader(QString fName, double &x, double &y, double &b, double
 				if (vExt == -1)
 				{
 					ts >> dummy;
-					quint32 xres, yres;
-					xres = 72;
-					yres = 72;
+				//	quint32 xres, yres;
+				//	xres = 72;
+				//	yres = 72;
 					resX = 1.0;
 					resY = 1.0;
 					qint32 pgX2, pgY2, pgW2, pgH2;

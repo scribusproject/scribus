@@ -104,7 +104,7 @@ bool SaveAsTemplatePlugin::run(ScribusDoc* doc, QString target)
  	if ( m_Doc )
 	{
 		Q_ASSERT(target.isEmpty());
-		Sat = new MenuSAT();
+		MenuSAT* Sat = new MenuSAT();
 		Sat->RunSATPlug(m_Doc);
 		delete Sat;
 		Sat = 0;

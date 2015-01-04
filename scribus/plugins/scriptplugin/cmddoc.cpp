@@ -21,7 +21,8 @@ PyObject *scribus_newdocument(PyObject* /* self */, PyObject* args)
 {
 	double topMargin, bottomMargin, leftMargin, rightMargin;
 	double pageWidth, pageHeight;
-	int orientation, firstPageNr, unit, pagesType, facingPages, firstPageOrder, numPages;
+//	int orientation, firstPageNr, unit, pagesType, facingPages, firstPageOrder, numPages;
+	int orientation, firstPageNr, unit, pagesType, firstPageOrder, numPages;
 
 	PyObject *p, *m;
 
@@ -38,11 +39,11 @@ PyObject *scribus_newdocument(PyObject* /* self */, PyObject* args)
 		numPages = 1;
 	if (pagesType == 0)
 	{
-		facingPages = 0;
+	//	facingPages = 0;
 		firstPageOrder = 0;
 	}
-	else
-		facingPages = 1;
+//	else
+//		facingPages = 1;
 	// checking the bounds
 	if (pagesType < firstPageOrder)
 	{

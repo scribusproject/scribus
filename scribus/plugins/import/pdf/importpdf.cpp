@@ -602,29 +602,29 @@ bool PdfPlug::convert(QString fn)
 						if (info.isDict())
 						{
 							Object obj;
-							GooString *s1;
+						//	GooString *s1;
 							Dict *infoDict = info.getDict();
 							if (infoDict->lookup((char*)"Title", &obj )->isString())
 							{
-								s1 = obj.getString();
+						//		s1 = obj.getString();
 								m_Doc->documentInfo().setTitle(UnicodeParsedString(obj.getString()));
 								obj.free();
 							}
 							if (infoDict->lookup((char*)"Author", &obj )->isString())
 							{
-								s1 = obj.getString();
+						//		s1 = obj.getString();
 								m_Doc->documentInfo().setAuthor(UnicodeParsedString(obj.getString()));
 								obj.free();
 							}
 							if (infoDict->lookup((char*)"Subject", &obj )->isString())
 							{
-								s1 = obj.getString();
+						//		s1 = obj.getString();
 								m_Doc->documentInfo().setSubject(UnicodeParsedString(obj.getString()));
 								obj.free();
 							}
 							if (infoDict->lookup((char*)"Keywords", &obj )->isString())
 							{
-								s1 = obj.getString();
+						//		s1 = obj.getString();
 								m_Doc->documentInfo().setKeywords(UnicodeParsedString(obj.getString()));
 								obj.free();
 							}

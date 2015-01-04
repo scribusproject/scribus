@@ -3931,7 +3931,7 @@ bool Scribus150Format::readObject(ScribusDoc* doc, ScXmlStreamReader& reader, It
 		{
 			if (newItem->asGroupFrame())
 			{
-				bool success = true;
+			//	bool success = true;
 				QList<PageItem*>* DItems = doc->Items;
 				QList<PageItem*> GroupItems;
 				doc->Items = &GroupItems;
@@ -3939,7 +3939,8 @@ bool Scribus150Format::readObject(ScribusDoc* doc, ScXmlStreamReader& reader, It
 				// #12313: set the 'loadPage' parameter to true in order to
 				// avoid the change of page mode and the doc item lists switch
 				// when loading groups in masterpages
-				success = readObject(doc, reader, itemInfo, baseDir, true);
+			//	success =
+				readObject(doc, reader, itemInfo, baseDir, true);
 				for (int as = 0; as < GroupItems.count(); ++as)
 				{
 					PageItem* currItem = GroupItems.at(as);
@@ -6483,7 +6484,7 @@ bool Scribus150Format::readCharStyles(const QString& fileName, ScribusDoc* doc, 
 {
 	CharStyle cstyle;
 	bool firstElement = true;
-	bool success = true;
+	//bool success = true;
 
 	QScopedPointer<QIODevice> ioDevice(slaReader(fileName));
 	if (ioDevice.isNull())
@@ -6501,7 +6502,7 @@ bool Scribus150Format::readCharStyles(const QString& fileName, ScribusDoc* doc, 
 		{
 			if (tagName != "SCRIBUSUTF8NEW")
 			{
-				success = false;
+			//	success = false;
 				break;
 			}
 			firstElement = false;

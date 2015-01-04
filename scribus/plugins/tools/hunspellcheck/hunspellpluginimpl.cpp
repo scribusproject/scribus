@@ -140,7 +140,7 @@ bool HunspellPluginImpl::parseTextFrame(StoryText *iText)
 		//A little hack as for some reason our en dictionary from the aspell plugin was not called en_GB or en_US but en, content was en_GB though. Meh.
 		if (wordLang=="en")
 			wordLang="en_GB";
-		int spellerIndex=0;
+	//	int spellerIndex=0;
 		//qDebug()<<"Word:"<<word<<wordLang;
 		if (!dictionaryMap.contains(wordLang))
 		{
@@ -164,7 +164,7 @@ bool HunspellPluginImpl::parseTextFrame(StoryText *iText)
 				++i;
 				++it;
 			}
-			spellerIndex = i;
+		//	spellerIndex = i;
 		}
 
 		if (hspellerMap.contains(wordLang) && hspellerMap[wordLang]->spell(word)==0)

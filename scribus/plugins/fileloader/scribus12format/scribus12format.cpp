@@ -1816,7 +1816,7 @@ bool Scribus12Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 	QString tmV, tmp, tmpf, tmp2, tmp3, tmp4, PgNam, Defont, tmf;
 	QMap<int,int> TableID;
 	QList<PageItem*> TableItems;
-	int x, a, counter, baseobj;
+	int x, a, counter; //, baseobj;
 	bool newVersion = false;
 	bool VorLFound = false;
 	QMap<int,int> layerTrans;
@@ -1985,7 +1985,7 @@ bool Scribus12Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 
 				QDomNode OBJ=PAGE.firstChild();
 				counter = m_Doc->Items->count();
-				baseobj = counter;
+			//	baseobj = counter;
 				int pageItem = 0;
 				while(!OBJ.isNull())
 				{

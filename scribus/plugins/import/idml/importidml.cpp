@@ -1696,7 +1696,7 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, QTransform pT
 	double RExtra = def_RExtra;
 	int TextColumnCount = def_TextColumnCount;
 	double TextColumnGutter = def_TextColumnGutter;
-	double TextColumnFixedWidth = def_TextColumnFixedWidth;
+	//double TextColumnFixedWidth = def_TextColumnFixedWidth;
 	QString LeftLineEnd = def_LeftLineEnd;
 	QString RightLineEnd = def_RightLineEnd;
 	QString imageFit = "None";
@@ -1763,7 +1763,7 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, QTransform pT
 			RExtra = nstyle.RExtra;
 			TextColumnCount = nstyle.TextColumnCount;
 			TextColumnGutter = nstyle.TextColumnGutter;
-			TextColumnFixedWidth = nstyle.TextColumnFixedWidth;
+		//	TextColumnFixedWidth = nstyle.TextColumnFixedWidth;
 			textFlow = nstyle.TextFlow;
 			LeftLineEnd = nstyle.LeftLineEnd;
 			RightLineEnd = nstyle.RightLineEnd;
@@ -2015,8 +2015,8 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, QTransform pT
 				TextColumnCount = ite.attribute("TextColumnCount").toInt();
 			if (ite.hasAttribute("TextColumnGutter"))
 				TextColumnGutter = ite.attribute("TextColumnGutter").toDouble();
-			if (ite.hasAttribute("TextColumnFixedWidth"))
-				TextColumnFixedWidth = ite.attribute("TextColumnFixedWidth").toDouble();
+		//	if (ite.hasAttribute("TextColumnFixedWidth"))
+		//		TextColumnFixedWidth = ite.attribute("TextColumnFixedWidth").toDouble();
 			for(QDomNode itpp = ite.firstChild(); !itpp.isNull(); itpp = itpp.nextSibling() )
 			{
 				QDomElement i = itpp.toElement();
