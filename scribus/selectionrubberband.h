@@ -8,6 +8,7 @@
 
 class SCRIBUS_API SelectionRubberBand : public QRubberBand
 {
+	Q_OBJECT
 	public:
 		SelectionRubberBand(QRubberBand::Shape s, QWidget * p = 0);
 		~SelectionRubberBand();

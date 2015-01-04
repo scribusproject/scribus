@@ -123,8 +123,9 @@ void SCFonts::AddScalableFonts(const QString &path, QString DocName)
 		return;
 	FT_Library library = NULL;
 	QString pathfile, fullpath;
-	bool error;
-	error = FT_Init_FreeType( &library );
+//	bool error;
+//	error =
+	FT_Init_FreeType( &library );
 	QString pathname(path);
 	if ( !pathname.endsWith("/") )
 		pathname += "/";
@@ -183,12 +184,12 @@ void SCFonts::AddScalableFonts(const QString &path, QString DocName)
 				ext = ext2;
 			if ((ext == "ttc") || (ext == "dfont") || (ext == "pfa") || (ext == "pfb") || (ext == "ttf") || (ext == "otf"))
 			{
-				error = AddScalableFont(pathfile, library, DocName);
+				AddScalableFont(pathfile, library, DocName);
 			}
 #ifdef Q_OS_MAC
 			else if (ext.isEmpty() && DocName.isEmpty())
 			{
-				error = AddScalableFont(pathfile, library, DocName);
+				bool error = AddScalableFont(pathfile, library, DocName);
 				if (error)
 					error = AddScalableFont(pathfile + "/..namedfork/rsrc",library, DocName);
 			}
@@ -788,9 +789,9 @@ void SCFonts::AddFontconfigFonts()
 	FcObjectSetDestroy(os);
 	FcPatternDestroy(pat);
 	// Create the Freetype library
-	bool error;
+//	bool error;
 	FT_Library library = NULL;
-	error = FT_Init_FreeType( &library );
+	FT_Init_FreeType( &library );
 	// Now iterate over the font files and load them
 	int i;
 	for (i = 0; i < fs->nfont; i++) 
@@ -800,7 +801,7 @@ void SCFonts::AddFontconfigFonts()
 		{
 			if (showFontInformation)
 				sDebug(QObject::tr("Loading font %1 (found using fontconfig)").arg(QString((char*)file)));
-			error = AddScalableFont(QString((char*)file), library, "");
+			AddScalableFont(QString((char*)file), library, "");
 		}
 		else
 			if (showFontInformation)

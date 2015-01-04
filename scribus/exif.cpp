@@ -781,12 +781,12 @@ void ExifData::process_COM ( const uchar * Data, int length )
 //--------------------------------------------------------------------------
 void ExifData::process_SOFn ( const uchar * Data, int marker )
 {
-	int data_precision, num_components;
+//	int data_precision, num_components;
 
-	data_precision = Data[2];
+//	data_precision = Data[2];
 	ExifData::Height = Get16m ( Data+3 );
 	ExifData::Width = Get16m ( Data+5 );
-	num_components = Data[7];
+	int num_components = Data[7];
 
 	if ( num_components == 3 )
 		ExifData::IsColor = 1;

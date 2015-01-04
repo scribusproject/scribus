@@ -171,8 +171,7 @@ bool ScImgDataLoader_PS::parseData(QString fn)
 				{
 					QByteArray imgc(thumbLen, ' ');
 					f.seek(thumbStart);
-					uint readB = f.read(imgc.data(), thumbLen);
-					readB = 0;
+					f.read(imgc.data(), thumbLen);
 					QString tmpFile = QDir::toNativeSeparators(ScPaths::getTempFileDir() + "preview.tiff");
 					QFile f2(tmpFile);
 					if (f2.open(QIODevice::WriteOnly))
@@ -1426,8 +1425,7 @@ void ScImgDataLoader_PS::loadDCS2(QString fn, int gsRes)
 			if (f.open(QIODevice::ReadOnly))
 			{
 				f.seek(it.value().pos);
-				uint readB = f.read(imgc.data(), it.value().len);
-				readB = 0;
+				f.read(imgc.data(), it.value().len);
 			}
 			f.close();
 			QFile f2(tmpFile2);

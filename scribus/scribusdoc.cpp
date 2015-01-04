@@ -14760,7 +14760,7 @@ void ScribusDoc::scaleGroup(double scx, double scy, bool scaleText, Selection* c
 		return;
 	
 	PageItem *bb;
-	double gx, gy, gh, gw, x, y;
+	double gx, gy, gh, gw; //, x, y;
 	int aa;
 	double sc = 1; //FIXME:av Scale;
 	int drm = rotMode;
@@ -14860,8 +14860,8 @@ void ScribusDoc::scaleGroup(double scx, double scy, bool scaleText, Selection* c
 			ma3.translate(gx, gy);
 			ma3.scale(scx, scy);
 			FPoint n(gx-oldPos.x(), gy-oldPos.y());
-			x = ma3.m11() * n.x() + ma3.m21() * n.y() + ma3.dx();
-			y = ma3.m22() * n.y() + ma3.m12() * n.x() + ma3.dy();
+		//	x = ma3.m11() * n.x() + ma3.m21() * n.y() + ma3.dx();
+		//	y = ma3.m22() * n.y() + ma3.m12() * n.x() + ma3.dy();
 		//	MoveItem(gx-x, gy-y, bb);
 			bb->setXYPos(b1.x()+gx, b1.y()+gy);
 			if (oldRot != 0)

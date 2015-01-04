@@ -5127,7 +5127,6 @@ void PageItem::restore(UndoState *state, bool isUndo)
 	bool SnapGridBackup = m_Doc->SnapGrid;
 	bool SnapGuidesBackup = m_Doc->SnapGuides;
 	bool SnapElementBackup = m_Doc->SnapElement;
-	int dummy = 0;
 	m_Doc->SnapElement = false;
 	m_Doc->SnapGrid = false;
 	m_Doc->SnapGuides = false;
@@ -5143,246 +5142,247 @@ void PageItem::restore(UndoState *state, bool isUndo)
 	if (ss)
 	{
 		bool actionFound = checkGradientUndoRedo(ss, isUndo);
-		if (actionFound)
-			dummy = 0;
-		else if (ss->contains("ARC"))
-			restoreArc(ss, isUndo);
-		else if (ss->contains("MASKTYPE"))
-			restoreMaskType(ss, isUndo);
-		else if (ss->contains("POLYGON"))
-			restorePolygon(ss, isUndo);
-		else if (ss->contains("END_ARROWSCALE"))
-			restoreEndArrowScale(ss, isUndo);
-		else if (ss->contains("START_ARROWSCALE"))
-			restoreStartArrowScale(ss, isUndo);
-		else if (ss->contains("IMAGE_ROTATION"))
-			restoreImageRotation(ss, isUndo);
-		else if (ss->contains("ITEM_RESIZE"))
-			restoreResize(ss, isUndo);
-		else if (ss->contains("ITEM_ROTATE"))
-			restoreRotate(ss, isUndo);
-		else if (ss->contains("ITEM_MOVE"))
-			restoreMove(ss, isUndo);
-		else if (ss->contains("FILL"))
-			restoreFill(ss, isUndo);
-		else if (ss->contains("SHADE"))
-			restoreShade(ss, isUndo);
-		else if (ss->contains("LINE_COLOR"))
-			restoreLineColor(ss, isUndo);
-		else if (ss->contains("VERTICAL_ALIGN"))
-			restoreVerticalAlign(ss, isUndo);
-		else if (ss->contains("COLUMNS"))
-			restoreColumns(ss, isUndo);
-		else if (ss->contains("COLUMNSGAP"))
-			restoreColumnsGap(ss, isUndo);
-		else if (ss->contains("LINE_SHADE"))
-			restoreLineShade(ss, isUndo);
-		else if (ss->contains("DELETE_FRAMETEXT"))
-			restoreDeleteFrameText(ss, isUndo);
-		else if (ss->contains("INSERT_FRAMETEXT"))
-			restoreInsertFrameText(ss,isUndo);
-		else if (ss->contains("LOREM_FRAMETEXT"))
-			restoreInsertFrameText(ss,isUndo);
-		else if (ss->contains("APPLY_CHARSTYLE"))
-			restoreCharStyle(ss,isUndo);
-		else if (ss->contains("SET_CHARSTYLE"))
-			restoreSetCharStyle(ss,isUndo);
-		else if (ss->contains("SET_PARASTYLE"))
-			restoreSetParagraphStyle(ss,isUndo);
-		else if (ss->contains("APPLY_PARASTYLE"))
-			restoreParagraphStyle(ss,isUndo);
-		else if (ss->contains("APPLY_DEFAULTPARASTYLE"))
-			restoreDefaultParagraphStyle(ss,isUndo);
-		else if (ss->contains("LEFT_TEXTFRAMEDIST"))
-			restoreLeftTextFrameDist(ss,isUndo);
-		else if (ss->contains("RIGHT_TEXTFRAMEDIST"))
-			restoreRightTextFrameDist(ss,isUndo);
-		else if (ss->contains("TOP_TEXTFRAMEDIST"))
-			restoreTopTextFrameDist(ss,isUndo);
-		else if (ss->contains("BOTTOM_TEXTFRAMEDIST"))
-			restoreBottomTextFrameDist(ss,isUndo);
-		else if (ss->contains("FIRSTLINEOFFSET"))
-			restoreFirstLineOffset(ss,isUndo);
-		else if (ss->contains("PASTE_TEXT"))
-			restorePasteText(ss,isUndo);
-		else if (ss->contains("CORNER_RADIUS"))
-			restoreCornerRadius(ss,isUndo);
-		else if (ss->contains("IMAGEFLIPH"))
+		if (!actionFound)
 		{
-			select();
-			m_Doc->itemSelection_FlipH();
+			if (ss->contains("ARC"))
+				restoreArc(ss, isUndo);
+			else if (ss->contains("MASKTYPE"))
+				restoreMaskType(ss, isUndo);
+			else if (ss->contains("POLYGON"))
+				restorePolygon(ss, isUndo);
+			else if (ss->contains("END_ARROWSCALE"))
+				restoreEndArrowScale(ss, isUndo);
+			else if (ss->contains("START_ARROWSCALE"))
+				restoreStartArrowScale(ss, isUndo);
+			else if (ss->contains("IMAGE_ROTATION"))
+				restoreImageRotation(ss, isUndo);
+			else if (ss->contains("ITEM_RESIZE"))
+				restoreResize(ss, isUndo);
+			else if (ss->contains("ITEM_ROTATE"))
+				restoreRotate(ss, isUndo);
+			else if (ss->contains("ITEM_MOVE"))
+				restoreMove(ss, isUndo);
+			else if (ss->contains("FILL"))
+				restoreFill(ss, isUndo);
+			else if (ss->contains("SHADE"))
+				restoreShade(ss, isUndo);
+			else if (ss->contains("LINE_COLOR"))
+				restoreLineColor(ss, isUndo);
+			else if (ss->contains("VERTICAL_ALIGN"))
+				restoreVerticalAlign(ss, isUndo);
+			else if (ss->contains("COLUMNS"))
+				restoreColumns(ss, isUndo);
+			else if (ss->contains("COLUMNSGAP"))
+				restoreColumnsGap(ss, isUndo);
+			else if (ss->contains("LINE_SHADE"))
+				restoreLineShade(ss, isUndo);
+			else if (ss->contains("DELETE_FRAMETEXT"))
+				restoreDeleteFrameText(ss, isUndo);
+			else if (ss->contains("INSERT_FRAMETEXT"))
+				restoreInsertFrameText(ss,isUndo);
+			else if (ss->contains("LOREM_FRAMETEXT"))
+				restoreInsertFrameText(ss,isUndo);
+			else if (ss->contains("APPLY_CHARSTYLE"))
+				restoreCharStyle(ss,isUndo);
+			else if (ss->contains("SET_CHARSTYLE"))
+				restoreSetCharStyle(ss,isUndo);
+			else if (ss->contains("SET_PARASTYLE"))
+				restoreSetParagraphStyle(ss,isUndo);
+			else if (ss->contains("APPLY_PARASTYLE"))
+				restoreParagraphStyle(ss,isUndo);
+			else if (ss->contains("APPLY_DEFAULTPARASTYLE"))
+				restoreDefaultParagraphStyle(ss,isUndo);
+			else if (ss->contains("LEFT_TEXTFRAMEDIST"))
+				restoreLeftTextFrameDist(ss,isUndo);
+			else if (ss->contains("RIGHT_TEXTFRAMEDIST"))
+				restoreRightTextFrameDist(ss,isUndo);
+			else if (ss->contains("TOP_TEXTFRAMEDIST"))
+				restoreTopTextFrameDist(ss,isUndo);
+			else if (ss->contains("BOTTOM_TEXTFRAMEDIST"))
+				restoreBottomTextFrameDist(ss,isUndo);
+			else if (ss->contains("FIRSTLINEOFFSET"))
+				restoreFirstLineOffset(ss,isUndo);
+			else if (ss->contains("PASTE_TEXT"))
+				restorePasteText(ss,isUndo);
+			else if (ss->contains("CORNER_RADIUS"))
+				restoreCornerRadius(ss,isUndo);
+			else if (ss->contains("IMAGEFLIPH"))
+			{
+				select();
+				m_Doc->itemSelection_FlipH();
+			}
+			else if (ss->contains("IMAGEFLIPV"))
+			{
+				select();
+				m_Doc->itemSelection_FlipV();
+			}
+			else if (ss->contains("OVERPRINT"))
+			{
+				if (isUndo)
+					doOverprint=!ss->getBool("OVERPRINT");
+				else
+					doOverprint=ss->getBool("OVERPRINT");
+			}
+			else if (ss->contains("FILLBLENDMODE"))
+			{
+				if (isUndo)
+					fillBlendmodeVal=ss->getInt("FILLBLENDMODE_OLD");
+				else
+					fillBlendmodeVal=ss->getInt("FILLBLENDMODE");
+			}
+			else if (ss->contains("ACTIONPDFANNOTATION"))
+			{
+				if (isUndo)
+					m_isAnnotation=!ss->getBool("ACTIONPDFANNOTATION");
+				else
+					m_isAnnotation=ss->getBool("ACTIONPDFANNOTATION");
+			}
+			else if (ss->contains("ACTIONPDFBOOKMARK"))
+			{
+				if (isUndo)
+					isBookmark=!ss->getBool("ACTIONPDFBOOKMARK");
+				else
+					isBookmark=ss->getBool("ACTIONPDFBOOKMARK");
+			}
+			else if (ss->contains("LINEBLENDMODE"))
+			{
+				if (isUndo)
+					lineBlendmodeVal=ss->getInt("LINEBLENDMODE_OLD");
+				else
+					lineBlendmodeVal=ss->getInt("LINEBLENDMODE");
+			}
+			else if (ss->contains("LOCK"))
+			{
+				select();
+				m_Doc->itemSelection_ToggleLock();
+			}
+			else if (ss->contains("SIZE_LOCK"))
+			{
+				select();
+				m_Doc->itemSelection_ToggleSizeLock();
+			}
+			else if (ss->contains("PRINT_ENABLED"))
+			{
+				select();
+				m_Doc->itemSelection_TogglePrintEnabled();
+			}
+			else if (ss->contains("NEW_NAME"))
+				restoreName(ss, isUndo);
+			else if (ss->contains("SHOW_IMAGE"))
+				restoreShowImage(ss, isUndo);
+			else if (ss->contains("TRANSPARENCY"))
+				restoreFillTP(ss, isUndo);
+			else if (ss->contains("LINE_TRANSPARENCY"))
+				restoreLineTP(ss, isUndo);
+			else if (ss->contains("LINE_STYLE"))
+				restoreLineStyle(ss, isUndo);
+			else if (ss->contains("LINE_END"))
+				restoreLineEnd(ss, isUndo);
+			else if (ss->contains("LINE_JOIN"))
+				restoreLineJoin(ss, isUndo);
+			else if (ss->contains("LINE_WIDTH"))
+				restoreLineWidth(ss, isUndo);
+			else if (ss->contains("CUSTOM_LINE_STYLE"))
+				restoreCustomLineStyle(ss, isUndo);
+			else if (ss->contains("START_ARROW"))
+				restoreArrow(ss, isUndo, true);
+			else if (ss->contains("END_ARROW"))
+				restoreArrow(ss, isUndo, false);
+			else if (ss->contains("PSTYLE"))
+				restorePStyle(ss, isUndo);
+			else if (ss->contains("CONVERT"))
+				restoreType(ss, isUndo);
+			else if (ss->contains("TEXTFLOW_OLDMODE"))
+				restoreTextFlowing(ss, isUndo);
+			else if (ss->contains("SCALE_MODE"))
+				restoreImageScaleMode(ss, isUndo);
+			else if (ss->contains("IMAGE_SCALE"))
+				restoreImageScaleChange(ss, isUndo);
+			else if (ss->contains("IMAGE_OFFSET"))
+				restoreImageOffsetChange(ss, isUndo);
+			else if (ss->contains("EDIT_CONTOUR"))
+				restorePoly(ss, isUndo, true);
+			else if (ss->contains("EDIT_SHAPE"))
+				restorePoly(ss, isUndo, false);
+			else if (ss->contains("RES_TYP"))
+				restoreResTyp(ss, isUndo);
+			else if (ss->contains("RESET_CONTOUR"))
+				restoreContourLine(ss, isUndo);
+			else if (ss->contains("CHANGE_SHAPE_TYPE"))
+				restoreShapeType(ss, isUndo);
+			else if (ss->contains("UNITEITEM"))
+				restoreUniteItem(ss, isUndo);
+			else if (ss->contains("SPLITITEM"))
+				restoreSplitItem(ss, isUndo);
+			else if (ss->contains("MIRROR_PATH_H"))
+			{
+				bool editContour = m_Doc->nodeEdit.isContourLine;
+				m_Doc->nodeEdit.isContourLine = ss->getBool("IS_CONTOUR");
+				select();
+				m_Doc->MirrorPolyH(m_Doc->m_Selection->itemAt(0));
+				m_Doc->nodeEdit.isContourLine = editContour;
+			}
+			else if (ss->contains("MIRROR_PATH_V"))
+			{
+				bool editContour = m_Doc->nodeEdit.isContourLine;
+				m_Doc->nodeEdit.isContourLine = ss->getBool("IS_CONTOUR");
+				select();
+				m_Doc->MirrorPolyV(m_Doc->m_Selection->itemAt(0));
+				m_Doc->nodeEdit.isContourLine = editContour;
+			}
+			else if (ss->contains("SEND_TO_LAYER"))
+				restoreLayer(ss, isUndo);
+			else if (ss->contains("GET_IMAGE"))
+				restoreGetImage(ss, isUndo);
+			else if (ss->contains("EDIT_SHAPE_OR_CONTOUR"))
+				restoreShapeContour(ss, isUndo);
+			else if (ss->contains("APPLY_IMAGE_EFFECTS"))
+				restoreImageEffects(ss, isUndo);
+			else if (ss->contains("DROP_LINKS"))
+				restoreDropLinks(ss,isUndo);
+			else if (ss->contains("LINK_TEXT_FRAME"))
+				restoreLinkTextFrame(ss,isUndo);
+			else if (ss->contains("UNLINK_TEXT_FRAME"))
+				restoreUnlinkTextFrame(ss,isUndo);
+			else if (ss->contains("REVERSE_TEXT"))
+				restoreReverseText(ss, isUndo);
+			else if (ss->contains("CLEAR_IMAGE"))
+				restoreClearImage(ss,isUndo);
+			else if (ss->contains("PASTE_INLINE"))
+				restorePasteInline(ss,isUndo);
+			else if (ss->contains("TRANSFORM"))
+				restoreTransform(ss, isUndo);
+			else if (ss->contains("PATH_OPERATION"))
+				restorePathOperation(ss, isUndo);
+			else if (ss->contains("IMAGE_NBR"))
+				restoreImageNbr(ss, isUndo);
+			else if (ss->contains("CHANGE_MODE"))
+				restoreAppMode(ss, isUndo);
+			else if (ss->contains("CONNECT_PATH"))
+				restoreConnectPath(ss, isUndo);
+			else if (ss->contains("WELD_ITEMS"))
+				restoreWeldItems(ss, isUndo);
+			else if (ss->contains("UNWELD_ITEM"))
+				restoreUnWeldItem(ss, isUndo);
+			else if (ss->contains("CLEARMARKSTRING"))
+				restoreMarkString(ss, isUndo);
+			else if (ss->contains("SOFT_SHADOW"))
+				restoreSoftShadow(ss, isUndo);
+			else if (ss->contains("SOFT_SHADOW_COLOR"))
+				restoreSoftShadowColor(ss, isUndo);
+			else if (ss->contains("SOFT_SHADOW_SHADE"))
+				restoreSoftShadowShade(ss, isUndo);
+			else if (ss->contains("SOFT_SHADOW_BLUR_RADIUS"))
+				restoreSoftShadowBlurRadius(ss, isUndo);
+			else if (ss->contains("SOFT_SHADOW_XOFFSET"))
+				restoreSoftShadowXOffset(ss, isUndo);
+			else if (ss->contains("SOFT_SHADOW_YOFFSET"))
+				restoreSoftShadowYOffset(ss, isUndo);
+			else if (ss->contains("SOFT_SHADOW_OPACITY"))
+				restoreSoftShadowOpacity(ss, isUndo);
+			else if (ss->contains("SOFT_SHADOW_BLEND_MODE"))
+				restoreSoftShadowBlendMode(ss, isUndo);
 		}
-		else if (ss->contains("IMAGEFLIPV"))
-		{
-			select();
-			m_Doc->itemSelection_FlipV();
-		}
-		else if (ss->contains("OVERPRINT"))
-		{
-			if (isUndo)
-				doOverprint=!ss->getBool("OVERPRINT");
-			else
-				doOverprint=ss->getBool("OVERPRINT");
-		}
-		else if (ss->contains("FILLBLENDMODE"))
-		{
-			if (isUndo)
-				fillBlendmodeVal=ss->getInt("FILLBLENDMODE_OLD");
-			else
-				fillBlendmodeVal=ss->getInt("FILLBLENDMODE");
-		}
-		else if (ss->contains("ACTIONPDFANNOTATION"))
-		{
-			if (isUndo)
-				m_isAnnotation=!ss->getBool("ACTIONPDFANNOTATION");
-			else
-				m_isAnnotation=ss->getBool("ACTIONPDFANNOTATION");
-		}
-		else if (ss->contains("ACTIONPDFBOOKMARK"))
-		{
-			if (isUndo)
-				isBookmark=!ss->getBool("ACTIONPDFBOOKMARK");
-			else
-				isBookmark=ss->getBool("ACTIONPDFBOOKMARK");
-		}
-		else if (ss->contains("LINEBLENDMODE"))
-		{
-			if (isUndo)
-				lineBlendmodeVal=ss->getInt("LINEBLENDMODE_OLD");
-			else
-				lineBlendmodeVal=ss->getInt("LINEBLENDMODE");
-		}
-		else if (ss->contains("LOCK"))
-		{
-			select();
-			m_Doc->itemSelection_ToggleLock();
-		}
-		else if (ss->contains("SIZE_LOCK"))
-		{
-			select();
-			m_Doc->itemSelection_ToggleSizeLock();
-		}
-		else if (ss->contains("PRINT_ENABLED"))
-		{
-			select();
-			m_Doc->itemSelection_TogglePrintEnabled();
-		}
-		else if (ss->contains("NEW_NAME"))
-			restoreName(ss, isUndo);
-		else if (ss->contains("SHOW_IMAGE"))
-			restoreShowImage(ss, isUndo);
-		else if (ss->contains("TRANSPARENCY"))
-			restoreFillTP(ss, isUndo);
-		else if (ss->contains("LINE_TRANSPARENCY"))
-			restoreLineTP(ss, isUndo);
-		else if (ss->contains("LINE_STYLE"))
-			restoreLineStyle(ss, isUndo);
-		else if (ss->contains("LINE_END"))
-			restoreLineEnd(ss, isUndo);
-		else if (ss->contains("LINE_JOIN"))
-			restoreLineJoin(ss, isUndo);
-		else if (ss->contains("LINE_WIDTH"))
-			restoreLineWidth(ss, isUndo);
-		else if (ss->contains("CUSTOM_LINE_STYLE"))
-			restoreCustomLineStyle(ss, isUndo);
-		else if (ss->contains("START_ARROW"))
-			restoreArrow(ss, isUndo, true);
-		else if (ss->contains("END_ARROW"))
-			restoreArrow(ss, isUndo, false);
-		else if (ss->contains("PSTYLE"))
-			restorePStyle(ss, isUndo);
-		else if (ss->contains("CONVERT"))
-			restoreType(ss, isUndo);
-		else if (ss->contains("TEXTFLOW_OLDMODE"))
-			restoreTextFlowing(ss, isUndo);
-		else if (ss->contains("SCALE_MODE"))
-			restoreImageScaleMode(ss, isUndo);
-		else if (ss->contains("IMAGE_SCALE"))
-			restoreImageScaleChange(ss, isUndo);
-		else if (ss->contains("IMAGE_OFFSET"))
-			restoreImageOffsetChange(ss, isUndo);	
-		else if (ss->contains("EDIT_CONTOUR"))
-			restorePoly(ss, isUndo, true);
-		else if (ss->contains("EDIT_SHAPE"))
-			restorePoly(ss, isUndo, false);
-		else if (ss->contains("RES_TYP"))
-			restoreResTyp(ss, isUndo);
-		else if (ss->contains("RESET_CONTOUR"))
-			restoreContourLine(ss, isUndo);
-		else if (ss->contains("CHANGE_SHAPE_TYPE"))
-			restoreShapeType(ss, isUndo);
-		else if (ss->contains("UNITEITEM"))
-			restoreUniteItem(ss, isUndo);
-		else if (ss->contains("SPLITITEM"))
-			restoreSplitItem(ss, isUndo);
-		else if (ss->contains("MIRROR_PATH_H"))
-		{
-			bool editContour = m_Doc->nodeEdit.isContourLine;
-			m_Doc->nodeEdit.isContourLine = ss->getBool("IS_CONTOUR");
-			select();
-			m_Doc->MirrorPolyH(m_Doc->m_Selection->itemAt(0));
-			m_Doc->nodeEdit.isContourLine = editContour;
-		}
-		else if (ss->contains("MIRROR_PATH_V"))
-		{
-			bool editContour = m_Doc->nodeEdit.isContourLine;
-			m_Doc->nodeEdit.isContourLine = ss->getBool("IS_CONTOUR");
-			select();
-			m_Doc->MirrorPolyV(m_Doc->m_Selection->itemAt(0));
-			m_Doc->nodeEdit.isContourLine = editContour;
-		}
-		else if (ss->contains("SEND_TO_LAYER"))
-			restoreLayer(ss, isUndo);
-		else if (ss->contains("GET_IMAGE"))
-			restoreGetImage(ss, isUndo);
-		else if (ss->contains("EDIT_SHAPE_OR_CONTOUR"))
-			restoreShapeContour(ss, isUndo);
-		else if (ss->contains("APPLY_IMAGE_EFFECTS"))
-			restoreImageEffects(ss, isUndo);
-		else if (ss->contains("DROP_LINKS"))
-			restoreDropLinks(ss,isUndo);
-		else if (ss->contains("LINK_TEXT_FRAME"))
-			restoreLinkTextFrame(ss,isUndo);
-		else if (ss->contains("UNLINK_TEXT_FRAME"))
-			restoreUnlinkTextFrame(ss,isUndo);
-		else if (ss->contains("REVERSE_TEXT"))
-			restoreReverseText(ss, isUndo);
-		else if (ss->contains("CLEAR_IMAGE"))
-			restoreClearImage(ss,isUndo);
-		else if (ss->contains("PASTE_INLINE"))
-			restorePasteInline(ss,isUndo);
-		else if (ss->contains("TRANSFORM"))
-			restoreTransform(ss, isUndo);
-		else if (ss->contains("PATH_OPERATION"))
-			restorePathOperation(ss, isUndo);
-		else if (ss->contains("IMAGE_NBR"))
-			restoreImageNbr(ss, isUndo);
-		else if (ss->contains("CHANGE_MODE"))
-			restoreAppMode(ss, isUndo);
-		else if (ss->contains("CONNECT_PATH"))
-			restoreConnectPath(ss, isUndo);
-		else if (ss->contains("WELD_ITEMS"))
-			restoreWeldItems(ss, isUndo);
-		else if (ss->contains("UNWELD_ITEM"))
-			restoreUnWeldItem(ss, isUndo);
-		else if (ss->contains("CLEARMARKSTRING"))
-			restoreMarkString(ss, isUndo);
-		else if (ss->contains("SOFT_SHADOW"))
-			restoreSoftShadow(ss, isUndo);
-		else if (ss->contains("SOFT_SHADOW_COLOR"))
-			restoreSoftShadowColor(ss, isUndo);
-		else if (ss->contains("SOFT_SHADOW_SHADE"))
-			restoreSoftShadowShade(ss, isUndo);
-		else if (ss->contains("SOFT_SHADOW_BLUR_RADIUS"))
-			restoreSoftShadowBlurRadius(ss, isUndo);
-		else if (ss->contains("SOFT_SHADOW_XOFFSET"))
-			restoreSoftShadowXOffset(ss, isUndo);
-		else if (ss->contains("SOFT_SHADOW_YOFFSET"))
-			restoreSoftShadowYOffset(ss, isUndo);
-		else if (ss->contains("SOFT_SHADOW_OPACITY"))
-			restoreSoftShadowOpacity(ss, isUndo);
-		else if (ss->contains("SOFT_SHADOW_BLEND_MODE"))
-			restoreSoftShadowBlendMode(ss, isUndo);
 	}
 	if (!OnMasterPage.isEmpty())
 		m_Doc->setCurrentPage(oldCurrentPage);
@@ -7096,9 +7096,11 @@ void PageItem::restoreArrow(SimpleState *state, bool isUndo, bool isStart)
 
 void PageItem::restorePStyle(SimpleState *state, bool isUndo)
 {
-	int styleid = state->getInt("OLD_STYLE");
-	if (!isUndo)
-		styleid = state->getInt("NEW_STYLE");
+	Q_UNUSED(state);
+	Q_UNUSED(isUndo);
+	//int styleid = state->getInt("OLD_STYLE");
+	//if (!isUndo)
+	//	styleid = state->getInt("NEW_STYLE");
 	//will be done later with other text-undo:
 	//	m_Doc->chAbStyle(this, styleid);
 }

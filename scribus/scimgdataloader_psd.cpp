@@ -290,7 +290,7 @@ bool ScImgDataLoader_PSD::LoadPSDResources( QDataStream & s, const PSDHeader & h
 	uint tmp;
 	uint cdataStart;
 	uint ressourceDataLen;
-	uint startRessource;
+//	uint startRessource;
 
 	s.device()->seek( dataOffset );
 
@@ -486,7 +486,7 @@ bool ScImgDataLoader_PSD::LoadPSDResources( QDataStream & s, const PSDHeader & h
 	}
 	s.device()->seek( cdataStart + tmp );
 	s >> ressourceDataLen;
-	startRessource = s.device()->pos();
+//	startRessource = s.device()->pos();
 	if (ressourceDataLen != 0)
 		parseRessourceData(s, header, ressourceDataLen);
 	return true;
@@ -995,8 +995,8 @@ bool ScImgDataLoader_PSD::loadLayerChannels( QDataStream & s, const PSDHeader & 
 			startSrcX = 0;
 			startDstX = layerInfo[layer].xpos;
 		}
-		unsigned int startSrcYm, startSrcXm, startDstYm, startDstXm;
-		if (layerInfo[layer].maskYpos < 0)
+		unsigned int startSrcXm; //, startSrcYm, startDstYm, startDstXm;
+	/*	if (layerInfo[layer].maskYpos < 0)
 		{
 			startSrcYm = abs(layerInfo[layer].maskYpos);
 			startDstYm = 0;
@@ -1005,16 +1005,16 @@ bool ScImgDataLoader_PSD::loadLayerChannels( QDataStream & s, const PSDHeader & 
 		{
 			startSrcYm = 0;
 			startDstYm = layerInfo[layer].maskYpos;
-		}
+		}*/
 		if (layerInfo[layer].maskXpos < 0)
 		{
 			startSrcXm = abs(layerInfo[layer].maskXpos);
-			startDstXm = 0;
+	//		startDstXm = 0;
 		}
 		else
 		{
 			startSrcXm = 0;
-			startDstXm = layerInfo[layer].maskXpos;
+	//		startDstXm = layerInfo[layer].maskXpos;
 		}
 		QString layBlend2 = layerInfo[layer].blend;
 		if ((m_imageInfoRecord.isRequest) && (m_imageInfoRecord.RequestProps.contains(layer)))

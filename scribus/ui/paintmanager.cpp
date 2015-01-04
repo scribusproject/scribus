@@ -368,7 +368,7 @@ void PaintManagerDialog::itemSelected(QTreeWidgetItem* it)
 			if (it->parent() == colorItems)
 			{
 				QString curCol = it->text(0);
-				ScColor tmpColor = m_colorList[curCol];
+				//ScColor tmpColor = m_colorList[curCol];
 				bool enableDel  = (!isMandatoryColor(curCol)) && (m_colorList.count() > 1);
 				bool enableEdit = (!isMandatoryColor(curCol));
 				duplicateButton->setEnabled(curCol != "Registration");

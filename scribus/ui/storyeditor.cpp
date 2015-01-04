@@ -988,7 +988,8 @@ void SEditor::paste()
 {
 	emit SideBarUp(false);
 	bool useMimeStyledText = false;
-	int  newParaCount, lengthLastPara, advanceLen = 0;
+	// int  newParaCount, lengthLastPara,
+	int advanceLen = 0;
 	int  pos = textCursor().hasSelection() ? textCursor().selectionStart() : textCursor().position();
 	const QMimeData* mimeData = QApplication::clipboard()->mimeData(QClipboard::Clipboard);
 	if (mimeData->hasFormat("application/x-scribus-styledtext"))
@@ -1013,8 +1014,8 @@ void SEditor::paste()
 		if (!data.isEmpty())
 		{
 			data.replace(QRegExp("\r"), "");
-			newParaCount=data.count("\n");
-			lengthLastPara=data.length()-data.lastIndexOf("\n");
+		//	newParaCount=data.count("\n");
+		//	lengthLastPara=data.length()-data.lastIndexOf("\n");
 			data.replace(QRegExp("\n"), SpecialChars::PARSEP);
 //			inserted=true;
 			advanceLen = data.length() /*- newParaCount*/;
@@ -2138,7 +2139,7 @@ whitespaces on the tail) - select only one word - return
 controlling back to story editor - have rest */
 void StoryEditor::doubleClick(int para, int position)
 {
-	int indexFrom=0, indexTo=0;
+	int indexFrom=0; //, indexTo=0;
 	QString selText = Editor->textCursor().selectedText();
 	if (selText.length() == 0 || !m_smartSelection)
 	{
@@ -2146,7 +2147,7 @@ void StoryEditor::doubleClick(int para, int position)
 		return;
 	}
 	indexFrom = Editor->textCursor().selectionStart();
-	indexTo = Editor->textCursor().selectionEnd();
+//	indexTo = Editor->textCursor().selectionEnd();
 	selText =  selText.trimmed();
 	Editor->textCursor().clearSelection();
 	Editor->textCursor().setPosition(indexFrom);

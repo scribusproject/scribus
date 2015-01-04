@@ -102,9 +102,9 @@ void ScImgDataLoader_PICT::parseHeader(QString fName, double &x, double &y, doub
 				if (vExt == -1)
 				{
 					ts >> dummy;
-					quint32 xres, yres;
-					xres = 72;
-					yres = 72;
+				//	quint32 xres, yres;
+				//	xres = 72;
+				//	yres = 72;
 					qint32 pgX2, pgY2, pgW2, pgH2;
 					ts >> pgX2 >> pgY2 >> pgW2 >> pgH2;
 					ts >> dummy;

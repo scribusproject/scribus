@@ -324,10 +324,10 @@ bool PluginManager::setupPluginActions(ScribusMainWindow *mw)
 			else
 			{
 //				QString actionName(ai.menu.toLower()+ai.menuAfterName);
-				QString actionName(ai.menuAfterName);
-				ScrAction* afterAction=0;
-				if (mw->scrActions.contains(actionName))
-					afterAction=mw->scrActions[actionName];
+			//	QString actionName(ai.menuAfterName);
+			//	ScrAction* afterAction=0;
+			//	if (mw->scrActions.contains(actionName))
+			//		afterAction=mw->scrActions[actionName];
 				if ((!ai.subMenuName.isEmpty()) && (!ai.parentMenu.isEmpty()))
 				{
 					if (!mw->scrMenuMgr->menuExists(ai.menu))
@@ -413,10 +413,10 @@ bool PluginManager::setupPluginActions(StoryEditor *sew)
 				}
 				else
 				{
-					QString actionName(ai.seMenu.toLower()+ai.menuAfterName);
-					ScrAction* afterAction=0;
-					if (sew->seActions.contains(actionName))
-						afterAction=sew->seActions[actionName];
+				//	QString actionName(ai.seMenu.toLower()+ai.menuAfterName);
+				//	ScrAction* afterAction=0;
+				//	if (sew->seActions.contains(actionName))
+				//		afterAction=sew->seActions[actionName];
 					if ((!ai.subMenuName.isEmpty()) && (!ai.parentMenu.isEmpty()))
 					{
 						if (!sew->seMenuMgr->menuExists(ai.seMenu))

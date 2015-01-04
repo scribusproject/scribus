@@ -105,7 +105,7 @@ bool ScImgDataLoader_JPEG::preloadAlphaChannel(const QString& fn, int /*page*/, 
 
 bool ScImgDataLoader_JPEG::loadPicture(const QString& fn, int /*page*/, int res, bool thumbnail)
 {
-	bool isCMYK = false;
+//	bool isCMYK = false;
 	bool fromPS = false;
 	float xres = 72.0, yres = 72.0;
 	if (!QFile::exists(fn))
@@ -268,7 +268,7 @@ bool ScImgDataLoader_JPEG::loadPicture(const QString& fn, int /*page*/, int res,
 	m_imageInfoRecord.yres = qRound(yres);
 	if (cinfo.output_components == 4)
 	{
-		isCMYK = true;
+	//	isCMYK = true;
 		m_imageInfoRecord.colorspace = ColorSpaceCMYK;
 	}
 	else if (cinfo.output_components == 3)
@@ -450,10 +450,10 @@ bool ScImgDataLoader_JPEG::loadPicture(const QString& fn, int /*page*/, int res,
 				}
 			}
 			m_pixelFormat = Format_YMCK_8;
-			isCMYK = true;
+		//	isCMYK = true;
 		}
-		else
-			isCMYK = false;
+		//else
+		//	isCMYK = false;
 		if ( cinfo.output_components == 1 )
 		{
 			QImage tmpImg = m_image.convertToFormat(QImage::Format_ARGB32);
