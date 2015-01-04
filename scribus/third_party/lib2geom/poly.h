@@ -19,7 +19,7 @@ public:
     
     Poly operator+(const Poly& p) const {
         Poly result;
-        const unsigned out_size = std::max(size(), p.size());
+	//    const unsigned out_size = std::max(size(), p.size());
         const unsigned min_size = std::min(size(), p.size());
         //result.reserve(out_size);
         
@@ -30,7 +30,7 @@ public:
             result.push_back((*this)[i]);
         for(unsigned i = min_size; i < p.size(); i++)
             result.push_back(p[i]);
-        assert(result.size() == out_size);
+	 //   assert(result.size() == out_size);
         return result;
     }
     Poly operator-(const Poly& p) const {
