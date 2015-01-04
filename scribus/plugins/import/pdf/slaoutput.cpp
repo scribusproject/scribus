@@ -3589,6 +3589,7 @@ void SlaOutputDev::drawChar(GfxState *state, double x, double y, double dx, doub
 			FPoint wh = textPath.WidthHeight();
 			if ((textPath.size() > 3) && ((wh.x() != 0.0) || (wh.y() != 0.0)))
 			{
+				CurrColorFill = getColor(state->getFillColorSpace(), state->getFillColor(), &CurrFillShade);
 				int z = m_doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, xCoor, yCoor, 10, 10, 0, CurrColorFill, CommonStrings::None, true);
 				PageItem* ite = m_doc->Items->at(z);
 				QTransform mm;
@@ -3712,6 +3713,7 @@ void SlaOutputDev::endTextObject(GfxState *state)
 				ite = m_doc->groupObjectsSelection(tmpSel);
 			else
 				ite = gElements.Items.first();
+			ite->setGroupClipping(false);
 			ite->setFillTransparency(1.0 - state->getFillOpacity());
 			ite->setFillBlendmode(getBlendMode(state));
 			for (int as = 0; as < tmpSel->count(); ++as)
