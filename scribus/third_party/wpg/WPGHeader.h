@@ -51,11 +51,6 @@ private:
 	unsigned char m_minorVersion;           // 0 for WPG 8.0 files
 	unsigned int  m_encryptionKey;          // 0 when not encrypted
 	unsigned int  m_startOfPacketData;      // unused, since according to the docs no packets are defined
-	unsigned char m_entryCount;             // number of entries in extension
-	unsigned char m_resourceComplete;       // resource completeness indicator
-	unsigned int  m_encryptionBlockOffset;  // encryption block offset
-	unsigned long m_fileSize;               // size of the entire wpg file
-	unsigned int  m_encryptVersion;         // encryption version information
 };
 
 #endif // WPGHEADER

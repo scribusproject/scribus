@@ -50,12 +50,7 @@ WPGHeader::WPGHeader() :
     m_majorVersion(0x02),
     m_minorVersion(0x00),
     m_encryptionKey(0x00),
-    m_startOfPacketData(0),
-    m_entryCount(0),
-    m_resourceComplete(0),
-    m_encryptionBlockOffset(0),
-    m_fileSize(0),
-    m_encryptVersion(0)
+    m_startOfPacketData(0)
 {
     m_identifier[0] = 0xff;
     m_identifier[1] = 'W';

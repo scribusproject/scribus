@@ -230,8 +230,7 @@ WPG2Parser::WPG2Parser(WPXInputStream *input, libwpg::WPGPaintInterface* painter
 	m_bitmap(),
 	m_binaryData(),
 	m_hFlipped(false),
-	m_vFlipped(false),
-	m_binaryId(0)
+	m_vFlipped(false)
 {
 }
 

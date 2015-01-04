@@ -648,7 +648,7 @@ void WPG1Parser::fillPixels(libwpg::WPGBitmap& bitmap, const unsigned char* buff
 	}
 
 	// debugging only
-	if(buffer && 0)
+/*	if(buffer && 0)
 	{
 		for(unsigned x = 0; x < width; x++)
 		for(unsigned y = 0; y < height; y++)
@@ -656,7 +656,7 @@ void WPG1Parser::fillPixels(libwpg::WPGBitmap& bitmap, const unsigned char* buff
 			libwpg::WPGColor color = bitmap.pixel(x,y);
 			WPG_DEBUG_MSG((" pixel at %d, %d: %3d %3d %3d\n", x, y, color.red, color.green, color.blue));
 		}
-	}
+	}*/
 }
 
 void WPG1Parser::handleBitmapTypeOne()

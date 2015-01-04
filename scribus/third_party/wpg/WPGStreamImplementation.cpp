@@ -98,7 +98,7 @@ WPGMemoryStreamPrivate::~WPGMemoryStreamPrivate()
 }
 
 WPGFileStream::WPGFileStream(const char* filename) :
-	WPXInputStream(true),
+	WPXInputStream(),
 	d(new WPGFileStreamPrivate)
 {
 	d->file.open( filename, std::ios::binary | std::ios::in );
@@ -300,7 +300,7 @@ bool WPGFileStream::isOLEStream()
 }
 
 WPGMemoryStream::WPGMemoryStream(const char *data, const unsigned int dataSize) :
-    WPXInputStream(true),
+    WPXInputStream(),
     d(new WPGMemoryStreamPrivate(std::string(data, dataSize)))
 {
 	d->buffer.seekg( 0, std::ios::end );
@@ -325,7 +325,7 @@ const uint8_t *WPGMemoryStream::read(size_t numBytes, size_t &numBytesRead)
 	if (0 == numBytes)
 		return 0;
 
-	if (numBytes < 0 || atEOS() || numBytes > (std::numeric_limits<unsigned long>::max)()/2)
+	if (atEOS() || numBytes > (std::numeric_limits<unsigned long>::max)()/2)
 		return 0;
 
 	unsigned long curpos = d->buffer.tellg();

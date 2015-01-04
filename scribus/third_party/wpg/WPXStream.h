@@ -36,8 +36,7 @@ enum WPX_SEEK_TYPE
 class WPXInputStream
 {
 public:
-	WPXInputStream(bool supportsOLE) :
-		m_supportsOLE(supportsOLE) {}
+	WPXInputStream() {}
 	virtual ~WPXInputStream() {}
 
 	/**
@@ -84,8 +83,5 @@ public:
 	is beyond its end. In all other cases, it should be false.
 	*/
 	virtual bool atEOS() = 0;
-
-private:
-	bool m_supportsOLE;
 };
 #endif

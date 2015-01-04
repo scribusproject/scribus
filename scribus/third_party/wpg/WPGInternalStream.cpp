@@ -26,7 +26,7 @@
 #include "WPGInternalStream.h"
 
 WPGInternalInputStream::WPGInternalInputStream(const unsigned char *data, const size_t size) :
-	WPXInputStream(false),
+	WPXInputStream(),
 	m_offset(0),
 	m_size(size),
 	m_data(data),

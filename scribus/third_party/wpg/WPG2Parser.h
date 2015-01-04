@@ -225,7 +225,6 @@ private:
 
 	class ObjectCharacterization;
 	void parseCharacterization(ObjectCharacterization*);
-	unsigned m_binaryId;
 };
 
 #endif // __WPG2PARSER_H__
