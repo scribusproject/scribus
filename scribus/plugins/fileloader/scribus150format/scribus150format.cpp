@@ -6123,14 +6123,6 @@ bool Scribus150Format::loadPage(const QString & fileName, int pageNumber, bool M
 						WeldID.insert(itemInfo.ownWeld, itemInfo.item);
 					}
 				}
-				if (tagName == "FRAMEOBJECT")
-				{
-					if (newItem->inlineCharID == -1)
-						FrameItems.append(m_Doc->Items->takeAt(m_Doc->Items->indexOf(newItem)));
-					else
-						m_Doc->FrameItems.insert(newItem->inlineCharID, m_Doc->Items->takeAt(m_Doc->Items->indexOf(newItem)));
-					newItem->LayerID = m_Doc->firstLayerID();
-				}
 				if (groupStack.count() > 0)
 				{
 					groupStack.top().append(itemInfo.item);
