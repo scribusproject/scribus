@@ -162,7 +162,7 @@ bool ScImgDataLoader_GMagick::loadPicture(const QString& fn, int /*page*/, int r
 		qCritical() << "Failed to read image" << fn;
 		return false;
 	}
-
+	image = FlattenImages(image, &exception);
 //	qDebug() << "has matte(alpha):" << image->matte;
 	int width = image->columns;
 	int height = image->rows;
