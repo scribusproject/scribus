@@ -2288,7 +2288,10 @@ bool ScImage::loadPicture(const QString & fn, int page, const CMSettings& cmSett
 	else if (fmtImg.contains(ext))
 		pDataLoader.reset( new ScImgDataLoader_QT() );
 	else
+	{
 		pDataLoader.reset( new ScImgDataLoader_GMagick() );
+		pDataLoader->setRequest(imgInfo.isRequest, imgInfo.RequestProps);
+	}
 #else
 	else
 		pDataLoader.reset( new ScImgDataLoader_QT() );

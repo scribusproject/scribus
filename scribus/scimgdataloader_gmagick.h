@@ -15,6 +15,7 @@ class ScImgDataLoader_GMagick : public ScImgDataLoader
 protected:
 	void initSupportedFormatList();
 	bool m_useRawImage;
+	int layerCount;
 private:
 	static bool gm_initialized;
 	bool readCMYK(Image *input, RawImage *output, int width, int height);
