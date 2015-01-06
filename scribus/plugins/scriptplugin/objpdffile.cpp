@@ -86,6 +86,7 @@ typedef struct
 	double bleedl; // double - 0 to width of page
 	double bleedr; // double - 0 to width of page
 	double bleedb; // double - 0 to hight of page
+	int usedocbleeds; // bool
 
 } PDFfile;
 
@@ -238,6 +239,7 @@ static PyObject * PDFfile_new(PyTypeObject *type, PyObject * /*args*/, PyObject 
 		self->bleedl = 0; // double -
 		self->bleedr = 0; // double -
 		self->bleedb = 0; // double -
+		self->usedocbleeds = 0; // bool
 	}
 	return (PyObject *) self;
 }
@@ -511,6 +513,7 @@ static int PDFfile_init(PDFfile *self, PyObject * /*args*/, PyObject * /*kwds*/)
 	self->bleedl = pdfOptions.bleeds.Left * currentDoc->unitRatio(); // double -
 	self->bleedr = pdfOptions.bleeds.Right * currentDoc->unitRatio(); // double -
 	self->bleedb = pdfOptions.bleeds.Bottom * currentDoc->unitRatio(); // double -
+	self->usedocbleeds = 0; // bool
 
 	return 0;
 }
@@ -543,6 +546,7 @@ static PyMemberDef PDFfile_members[] = {
 	{const_cast<char*>("bleedl"), T_DOUBLE, offsetof(PDFfile, bleedl), 0, const_cast<char*>("Bleed Left\n""Distance for bleed from the left of the physical page")},
 	{const_cast<char*>("bleedr"), T_DOUBLE, offsetof(PDFfile, bleedr), 0, const_cast<char*>("Bleed Right\n""Distance for bleed from the right of the physical page")},
 	{const_cast<char*>("bleedb"), T_DOUBLE, offsetof(PDFfile, bleedb), 0, const_cast<char*>("Bleed Bottom\n""Distance for bleed from the bottom of the physical page")},
+	{const_cast<char*>("usedocbleeds"), T_INT, offsetof(PDFfile, usedocbleeds), 0, const_cast<char*>("Use the existing bleed settings from the document preferences. Bool value")},
 	{NULL, 0, 0, 0, NULL} // sentinel
 };
 
@@ -1125,14 +1129,6 @@ static PyObject *PDFfile_save(PDFfile *self)
 				if (hIn.colorSpace() == ColorSpace_Gray)
 					Components = 3;
 				pdfOptions.Info = PyString_AsString(self->info);
-				self->bleedt = minmaxd(self->bleedt, 0, currentDoc->pageHeight * currentDoc->unitRatio());
-				pdfOptions.bleeds.Top = self->bleedt / currentDoc->unitRatio();
-				self->bleedl = minmaxd(self->bleedl, 0, currentDoc->pageWidth * currentDoc->unitRatio());
-				pdfOptions.bleeds.Left = self->bleedl / currentDoc->unitRatio();
-				self->bleedr = minmaxd(self->bleedr, 0, currentDoc->pageWidth * currentDoc->unitRatio());
-				pdfOptions.bleeds.Right = self->bleedr / currentDoc->unitRatio();
-				self->bleedb = minmaxd(self->bleedb, 0, currentDoc->pageHeight * currentDoc->unitRatio());
-				pdfOptions.bleeds.Bottom = self->bleedb / currentDoc->unitRatio();
 				pdfOptions.Encrypt = false;
 				pdfOptions.PresentMode = false;
 			}
@@ -1153,17 +1149,38 @@ static PyObject *PDFfile_save(PDFfile *self)
 		thumbs.insert(pageNs[ap], pm);
 	}
 	ReOrderText(currentDoc, ScCore->primaryMainWindow()->view);
+
+	MarginStruct optBleeds(pdfOptions.bleeds);
+	pdfOptions.useDocBleeds = self->usedocbleeds;
+	if (self->usedocbleeds)
+		pdfOptions.bleeds = currentDoc->bleeds;
+	else {
+		self->bleedt = minmaxd(self->bleedt, 0, currentDoc->pageHeight * currentDoc->unitRatio());
+		pdfOptions.bleeds.Top = self->bleedt / currentDoc->unitRatio();
+		self->bleedl = minmaxd(self->bleedl, 0, currentDoc->pageWidth * currentDoc->unitRatio());
+		pdfOptions.bleeds.Left = self->bleedl / currentDoc->unitRatio();
+		self->bleedr = minmaxd(self->bleedr, 0, currentDoc->pageWidth * currentDoc->unitRatio());
+		pdfOptions.bleeds.Right = self->bleedr / currentDoc->unitRatio();
+		self->bleedb = minmaxd(self->bleedb, 0, currentDoc->pageHeight * currentDoc->unitRatio());
+		pdfOptions.bleeds.Bottom = self->bleedb / currentDoc->unitRatio();
+	}
+
 	QString errorMessage;
-	if (!ScCore->primaryMainWindow()->getPDFDriver(fn, nam, Components, pageNs, thumbs, errorMessage)) {
+	bool success = ScCore->primaryMainWindow()->getPDFDriver(fn, nam, Components, pageNs, thumbs, errorMessage);
+	if (!success) {
 		fn  = "Cannot write the File: " + fn;
 		if (!errorMessage.isEmpty())
 			fn += QString("\n%1").arg(errorMessage);
 		PyErr_SetString(PyExc_SystemError, fn.toAscii());
-		return NULL;
 	}
-//	Py_INCREF(Py_None);
-//	return Py_None;
-	Py_RETURN_NONE;
+
+	if (self->usedocbleeds || (pdfOptions.Version != PDFOptions::PDFVersion_X1a && 
+	                           pdfOptions.Version != PDFOptions::PDFVersion_X3))
+		pdfOptions.bleeds = optBleeds;
+
+	if (success)
+		Py_RETURN_NONE;
+	return NULL;
 }
 
 static PyMethodDef PDFfile_methods[] = {
