@@ -210,7 +210,7 @@
 		<author>vectorportal.com</author>
 		<email></email>
 	</template>
-	<template category="Grids">
+	<template category="Gestaltungsraster">
 		<name>Brochure_Grid_A4_L</name>
 		<file>grid_br_a4_l/Brochure_Grid_A4_L.sla.gz</file>
 		<tnail>grid_br_a4_l/Brochure_Grid_A4_Ltn.png</tnail>
@@ -224,7 +224,7 @@
 		<author>Christoph Schäfer</author>
 		<email></email>
 	</template>
-	<template category="Grids">
+	<template category="Gestaltungsraster">
 		<name>Brochure_Grid_A4_P</name>
 		<file>grid_br_a4_p/Brochure_Grid_A4_P.sla.gz</file>
 		<tnail>grid_br_a4_p/Brochure_Grid_A4_Ptn.png</tnail>
@@ -238,7 +238,7 @@
 		<author>Christoph Schäfer</author>
 		<email></email>
 	</template>
-	<template category="Grids">
+	<template category="Gestaltungsraster">
 		<name>Brochure_Grid_975x85_in_L</name>
 		<file>grid_br_975x85in_l/Brochure_Grid_975x85in_L.sla.gz</file>
 		<tnail>grid_br_975x85in_l/Brochure_Grid_975x85_in_Ltn.png</tnail>
@@ -252,7 +252,7 @@
 		<author>Christoph Schäfer</author>
 		<email></email>
 	</template>
-	<template category="Grids">
+	<template category="Gestaltungsraster">
 		<name>Brochure_Grid_975x85_in_P</name>
 		<file>grid_br_975x85_p/Brochure_Grid_975x85in_P.sla.gz</file>
 		<tnail>grid_br_975x85_p/Brochure_Grid_975x85_in_Ptn.png</tnail>
@@ -266,7 +266,7 @@
 		<author>Christoph Schäfer</author>
 		<email></email>
 	</template>
-	<template category="Grids">
+	<template category="Gestaltungsraster">
 		<name>Brochure_Grid_375x85_in_P</name>
 		<file>grid_br_375x85_p/Brochure_Grid_375x85in_P.sla.gz</file>
 		<tnail>grid_br_375x85_p/Brochure_Grid_375x85_in_Ptn.png</tnail>
@@ -280,7 +280,7 @@
 		<author>Christoph Schäfer</author>
 		<email></email>
 	</template>
-	<template category="Grids">
+	<template category="Gestaltungsraster">
 		<name>Brochure_Grid_375x85_in_L</name>
 		<file>grid_br_375x85_l/Brochure_Grid_375x85in_L.sla.gz</file>
 		<tnail>grid_br_375x85_l/Brochure_Grid_375x85_in_Landscapetn.png</tnail>
@@ -294,7 +294,7 @@
 		<author>Christoph Schäfer</author>
 		<email></email>
 	</template>
-	<template category="Grids">
+	<template category="Gestaltungsraster">
 		<name>Brochure_Grid_100x210_P</name>
 		<file>grid_br_100x210_p/Brochure_Grid_100x210_P.sla.gz</file>
 		<tnail>grid_br_100x210_p/Brochure_Grid_100x210_Ptn.png</tnail>
@@ -308,7 +308,7 @@
 		<author>Christoph Schäfer</author>
 		<email></email>
 	</template>
-	<template category="Grids">
+	<template category="Gestaltungsraster">
 		<name>Brochure_Grid_100x210_L</name>
 		<file>grid_br_100x210_l/Brochure_Grid_100x210_L.sla.gz</file>
 		<tnail>grid_br_100x210_l/Brochure_Grid_100x210_mm_Landscapetn.png</tnail>
@@ -322,7 +322,7 @@
 		<author>Christoph Schäfer</author>
 		<email></email>
 	</template>
-	<template category="Grids">
+	<template category="Gestaltungsraster">
 		<name>Brochure_Grid_55x85in_P</name>
 		<file>grid_br_55x86in_p/Brochure_Grid_55x85in_P.sla.gz</file>
 		<tnail>grid_br_55x86in_p/Brochure_Grid_55x85in_Portraoittn.png</tnail>
@@ -336,7 +336,7 @@
 		<author>Christoph Schäfer</author>
 		<email></email>
 	</template>
-	<template category="Grids">
+	<template category="Gestaltungsraster">
 		<name>Brochure_Grid_55x85in_L</name>
 		<file>grid_br_55x85in_l/Brochure_Grid_55x85in_L.sla.gz</file>
 		<tnail>grid_br_55x85in_l/Brochure_Grid_55x85_in_Ltn.png</tnail>
@@ -350,7 +350,7 @@
 		<author>Christoph Schäfer</author>
 		<email></email>
 	</template>
-	<template category="Grids">
+	<template category="Gestaltungsraster">
 		<name>Poster_Grid_A3</name>
 		<file>grid_poster_a3/Poster_Grid_A3.sla.gz</file>
 		<tnail>grid_poster_a3/Poster_Grid_A3tn.png</tnail>
@@ -364,7 +364,7 @@
 		<author>Christoph Schäfer</author>
 		<email></email>
 	</template>
-	<template category="Grids">
+	<template category="Gestaltungsraster">
 		<name>Poster_Grid_A2</name>
 		<file>grid_poster_a2/Poster_Grid_A2.sla.gz</file>
 		<tnail>grid_poster_a2/Poster_Grid_A2tn.png</tnail>
@@ -392,7 +392,7 @@
 		<author>Christoph Schäfer</author>
 		<email></email>
 	</template>
-	<template category="Grids">
+	<template category="Gestaltungsraster">
 		<name>Poster_Grid_A0</name>
 		<file>grid_poster_a0/Poster_Grid_A0.sla.gz</file>
 		<tnail>grid_poster_a0/Poster_Grid_A0tn.png</tnail>
@@ -406,7 +406,7 @@
 		<author>Christoph Schäfer</author>
 		<email></email>
 	</template>
-	<template category="Grids">
+	<template category="Gestaltungsraster">
 		<name>Brochure_Grid_USL_P</name>
 		<file>grid_br_usl_p/Brochure_Grid_USL_P.sla.gz</file>
 		<tnail>grid_br_usl_p/Brochure_Grid_USL_Ptn.png</tnail>
@@ -420,7 +420,7 @@
 		<author>Christoph Schäfer</author>
 		<email></email>
 	</template>
-	<template category="Grids">
+	<template category="Gestaltungsraster">
 		<name>Brochure_Grid_USL_L</name>
 		<file>grid_br_usl_l/Brochure_Grid_USL_L.sla.gz</file>
 		<tnail>grid_br_usl_l/Brochure_Grid_USL_Ltn.png</tnail>
@@ -434,7 +434,7 @@
 		<author>Christoph Schäfer</author>
 		<email></email>
 	</template>
-	<template category="Grids">
+	<template category="Gestaltungsraster">
 		<name>Brochure_Grid_DIN_LANG_P</name>
 		<file>grid_br_dinl_p/Brochure_Grid_DIN_LANG_P.sla.gz</file>
 		<tnail>grid_br_dinl_p/Brochure_Grid_DIN_LANG_Ptn.png</tnail>
@@ -448,7 +448,7 @@
 		<author>Christoph Schäfer</author>
 		<email></email>
 	</template>
-	<template category="Grids">
+	<template category="Gestaltungsraster">
 		<name>Brochure_Grid_DIN_LANG_L</name>
 		<file>grid_br_dinl_l/Brochure_Grid_DIN_LANG_L.sla.gz</file>
 		<tnail>grid_br_dinl_l/Brochure_Grid_DIN_LANG_Ltn.png</tnail>
@@ -462,7 +462,7 @@
 		<author>Christoph Schäfer</author>
 		<email></email>
 	</template>
-	<template category="Grids">
+	<template category="Gestaltungsraster">
 		<name>Brochure_Grid_A5_P</name>
 		<file>grid_br_a5_p/Brochure_Grid_A5_P.sla.gz</file>
 		<tnail>grid_br_a5_p/Brochure_Grid_A5_Portraittn.png</tnail>
@@ -476,7 +476,7 @@
 		<author>Christoph Schäfer</author>
 		<email></email>
 	</template>
-	<template category="Grids">
+	<template category="Gestaltungsraster">
 		<name>Brochure_Grid_A5_L</name>
 		<file>grid_br_a5_l/Brochure_Grid_A5_L.sla.gz</file>
 		<tnail>grid_br_a5_l/Brochure_Grid_A5_Ltn.png</tnail>
@@ -657,5 +657,75 @@
 		<date>2010-10-22</date>
 		<author>vectorportal.com</author>
 		<email></email>
+	</template>
+	<template category="Visitenkarten">
+		<name>Business Card EU Green</name>
+		<file>Business_Card_EU_Green/Business_Card_Waves.sla.gz</file>
+		<tnail>Business_Card_EU_Green/Business_Card_Wavestn.png</tnail>
+		<img>Business_Card_EU_Green/Business_Card_Waves.png</img>
+		<psize>Benutzerdefiniert, 241x156</psize>
+		<color>RGB</color>
+		<descr>Visitenkarte, 85x55mm, EU-Modell</descr>
+		<usage></usage>
+		<scribus_version>1.4.4</scribus_version>
+		<date>2014-12-07</date>
+		<author>Dennis Groenewegen vd Weijden</author>
+		<email>dengro74@gmail.com</email>
+	</template>
+	<template category="Newsletter">
+		<name>Newsletter Wavestyle</name>
+		<file>Newsletter_Layout/Newsletter_Wavestyle.sla.gz</file>
+		<tnail>Newsletter_Layout/Newsletter_Wavestyletn.png</tnail>
+		<img>Newsletter_Layout/Newsletter_Wavestyle.png</img>
+		<psize>A4, Querformat</psize>
+		<color>RGB</color>
+		<descr>Newsletter, Information</descr>
+		<usage></usage>
+		<scribus_version>1.4.4</scribus_version>
+		<date>2014-12-07</date>
+		<author>Dennis Groenewegen vd Weijden</author>
+		<email>dengro74@gmail.com</email>
+	</template>
+	<template category="Flyer">
+		<name>Waves Flyer </name>
+		<file>Flyer_Waves_A5_DoubleSided/Waves_Flyer.sla.gz</file>
+		<tnail>Flyer_Waves_A5_DoubleSided/Waves_Flyer_tn.png</tnail>
+		<img>Flyer_Waves_A5_DoubleSided/Waves_Flyer_.png</img>
+		<psize>Benutzerdefiniert, 417x595</psize>
+		<color>RGB</color>
+		<descr></descr>
+		<usage></usage>
+		<scribus_version>1.4.4</scribus_version>
+		<date>2014-12-07</date>
+		<author>Dennis Groenewegen vd Weijden</author>
+		<email>dengro74@gmail.com</email>
+	</template>
+	<template category="Newsletter">
+		<name>Layout Informer</name>
+		<file>Layout_Informer_A4/Layout_Informer.sla.gz</file>
+		<tnail>Layout_Informer_A4/Layout_Informertn.png</tnail>
+		<img>Layout_Informer_A4/Layout_Informer.png</img>
+		<psize>A4, Querformat</psize>
+		<color>RGB</color>
+		<descr>A4, Nachrichtenseite, Magazin</descr>
+		<usage></usage>
+		<scribus_version>1.4.4</scribus_version>
+		<date>2014-12-07</date>
+		<author>Dennis Groenewegen vd Weijden</author>
+		<email>dengro74@gmail.com</email>
+	</template>
+	<template category="Broschüren">
+		<name>3Fold Waves Style</name>
+		<file>3Fold_Wave_Style/3Fold_Waves_Style.sla.gz</file>
+		<tnail>3Fold_Wave_Style/3Fold_Waves_Styletn.png</tnail>
+		<img>3Fold_Wave_Style/3Fold_Waves_Style.png</img>
+		<psize>A4, Querformat</psize>
+		<color>RGB</color>
+		<descr>Broschüre, 3fach gefaltet, doppelseitig, Marketing</descr>
+		<usage></usage>
+		<scribus_version>1.4.4</scribus_version>
+		<date>2014-12-07</date>
+		<author>Dennis Groenewegen vd Weijden</author>
+		<email>dengro74@gmail.com</email>
 	</template>
 </templates>
