@@ -216,6 +216,7 @@ bool Scribus150Format::loadElements(const QString & data, QString fileDir, int t
 	itemRemapF.clear();
 	itemNextF.clear();
 
+	FrameItems.clear();
 	TableItems.clear();
 	TableID.clear();
 	TableItemsM.clear();
@@ -1275,6 +1276,7 @@ bool Scribus150Format::loadFile(const QString & fileName, const FileFormat & /* 
 	itemRemapF.clear();
 	itemNextF.clear();
 
+	FrameItems.clear();
 	TableItems.clear();
 	TableID.clear();
 	TableItemsM.clear();
@@ -5831,7 +5833,6 @@ bool Scribus150Format::loadPage(const QString & fileName, int pageNumber, bool M
 	}
 
 	parStyleMap.clear();
-
 	itemRemap.clear();
 	itemNext.clear();
 	itemCount = 0;
@@ -5840,6 +5841,8 @@ bool Scribus150Format::loadPage(const QString & fileName, int pageNumber, bool M
 	itemCountM = 0;
 	itemRemapF.clear();
 	itemNextF.clear();
+
+	FrameItems.clear();
 	WeldItems.clear();
 	WeldID.clear();
 

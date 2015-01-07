@@ -113,7 +113,7 @@ void Scribus134Format::registerFormats()
 bool Scribus134Format::fileSupported(QIODevice* /* file */, const QString & fileName) const
 {
 	QByteArray docBytes("");
-	if(fileName.right(2) == "gz")
+	if (fileName.right(2) == "gz")
 	{
 		QFile file(fileName);
 		QtIOCompressor compressor(&file);
@@ -149,7 +149,7 @@ QIODevice* Scribus134Format::slaReader(const QString & fileName)
 		return NULL;
 
 	QIODevice* ioDevice = 0;
-	if(fileName.right(2) == "gz")
+	if (fileName.right(2) == "gz")
 	{
 		aFile.setFileName(fileName);
 		QtIOCompressor *compressor = new QtIOCompressor(&aFile);
@@ -232,6 +232,7 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 	itemNextM.clear();
 	itemCountM = 0;
 
+	FrameItems.clear();
 	TableItems.clear();
 	TableID.clear();
 	TableItemsM.clear();
@@ -1069,11 +1070,11 @@ bool Scribus134Format::readPageSets(ScribusDoc* doc, ScXmlStreamReader& reader)
 	{
 		reader.readNext();
 		QStringRef tagName = reader.name();
-		if(reader.isStartElement())
+		if (reader.isStartElement())
 			attrs = reader.attributes();
 		if (reader.isEndElement() && tagName == "PageSets")
 			break;
-		if(reader.isStartElement() && tagName == "Set")
+		if (reader.isStartElement() && tagName == "Set")
 		{
 			ScXmlStreamAttributes attrs = reader.scAttributes();
 			pageS.Name      = CommonStrings::untranslatePageSetString(attrs.valueAsString("Name"));
@@ -1085,7 +1086,7 @@ bool Scribus134Format::readPageSets(ScribusDoc* doc, ScXmlStreamReader& reader)
 //			pageS.GapBelow      = attrs.valueAsDouble("GapBelow", 0);
 			pageS.pageNames.clear();
 		}
-		if(reader.isEndElement() && tagName == "Set")
+		if (reader.isEndElement() && tagName == "Set")
 		{
 			//->Prefs doc->pageSets.append(pageS);
 			doc->appendToPageSets(pageS);
@@ -1586,7 +1587,7 @@ bool Scribus134Format::readPDFOptions(ScribusDoc* doc, ScXmlStreamReader& reader
 			continue;
 		QStringRef tName = reader.name();
 		attrs = reader.scAttributes();
-		if(tName == "LPI")
+		if (tName == "LPI")
 		{
 			struct LPIData lpo;
 			lpo.Angle     = attrs.valueAsInt("Angle");
@@ -1594,19 +1595,19 @@ bool Scribus134Format::readPDFOptions(ScribusDoc* doc, ScXmlStreamReader& reader
 			lpo.SpotFunc  = attrs.valueAsInt("SpotFunction");
 			doc->pdfOptions().LPISettings[attrs.valueAsString("Color")] = lpo;
 		}
-		if(tName == "Fonts")
+		if (tName == "Fonts")
 		{
 			QString fname = attrs.valueAsString("Name");
 			if (!doc->pdfOptions().EmbedList.contains(fname))
 				doc->pdfOptions().EmbedList.append(fname);
 		}
-		if(tName == "Subset")
+		if (tName == "Subset")
 		{
 			QString sname = attrs.valueAsString("Name");
 			if (!doc->pdfOptions().SubsetList.contains(sname))
 				doc->pdfOptions().SubsetList.append(sname);
 		}
-		if(tName == "Effekte")
+		if (tName == "Effekte")
 		{
 			struct PDFPresentationData ef;
 			ef.pageEffectDuration =  attrs.valueAsInt("pageEffectDuration");
@@ -1680,7 +1681,7 @@ bool Scribus134Format::readDocItemAttributes(ScribusDoc *doc, ScXmlStreamReader&
 		reader.readNext();
 		if (reader.isEndElement() && reader.name() == tagName)
 			break;
-		if(reader.isStartElement() && reader.name() == "ItemAttribute")
+		if (reader.isStartElement() && reader.name() == "ItemAttribute")
 		{
 			ScXmlStreamAttributes attrs = reader.scAttributes();
 			ObjectAttribute objattr;
@@ -1706,7 +1707,7 @@ bool Scribus134Format::readTableOfContents(ScribusDoc* doc, ScXmlStreamReader& r
 		reader.readNext();
 		if (reader.isEndElement() && reader.name() == tagName)
 			break;
-		if(reader.isStartElement() && reader.name() == "TableOfContents")
+		if (reader.isStartElement() && reader.name() == "TableOfContents")
 		{
 			ScXmlStreamAttributes attrs = reader.scAttributes();
 			ToCSetup tocsetup;
@@ -1896,7 +1897,7 @@ bool Scribus134Format::readObject(ScribusDoc* doc, ScXmlStreamReader& reader, It
 
 	if (tagName == "FRAMEOBJECT")
 	{
-		doc->addToInlineFrames(doc->Items->takeAt(doc->Items->indexOf(newItem)));
+		FrameItems.append(doc->Items->takeAt(doc->Items->indexOf(newItem)));
 		newItem->LayerID = doc->firstLayerID();
 	}
 
@@ -3102,6 +3103,7 @@ bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool M
 		maxLevel = qMax(m_Doc->Layers[la2].Level, maxLevel);
 	}
 
+	FrameItems.clear();
 	groupRemap.clear();
 	itemRemap.clear();
 	itemNext.clear();
@@ -3184,7 +3186,7 @@ bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool M
 			success = readArrows(m_Doc, attrs);
 			if (!success) break;
 		}
-		if(tagName == "MultiLine")
+		if (tagName == "MultiLine")
 		{
 			multiLine ml;
 			QString mlName  = attrs.valueAsString("Name");
@@ -3215,7 +3217,7 @@ bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool M
 			if (!success) break;
 			bookmarks.insert(bmElem, bookmark);
 		}
-		if(tagName == "STYLE")
+		if (tagName == "STYLE")
 		{
 			getStyle(vg, reader, NULL, m_Doc, true);
 		}
@@ -3322,11 +3324,6 @@ bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool M
 				{
 					TableItems.append(newItem);
 					TableID.insert(itemInfo.ownLink, newItem);
-				}
-				if (tagName == "FRAMEOBJECT")
-				{
-					FrameItems.append(m_Doc->Items->takeAt(m_Doc->Items->indexOf(newItem)));
-					newItem->LayerID = m_Doc->firstLayerID();
 				}
 			}
 		}
@@ -3643,7 +3640,7 @@ bool Scribus134Format::readColors(const QString& fileName, ColorList & colors)
 			firstElement = false;
 			continue;
 		}
-		if(tagName == "COLOR" && attrs.valueAsString("NAME") != CommonStrings::None)
+		if (tagName == "COLOR" && attrs.valueAsString("NAME") != CommonStrings::None)
 		{
 			attrs = reader.scAttributes();
 			if (attrs.valueAsString("NAME") != CommonStrings::None)
@@ -3685,9 +3682,9 @@ bool Scribus134Format::readPageCount(const QString& fileName, int *num1, int *nu
 			firstElement = false;
 			continue;
 		}
-		if(tagName == "PAGE")
+		if (tagName == "PAGE")
 			counter++;
-		if(tagName == "MASTERPAGE")
+		if (tagName == "MASTERPAGE")
 		{
 			pageName = reader.scAttributes().valueAsString("NAM");
 			if (!pageName.isEmpty())

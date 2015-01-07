@@ -189,6 +189,7 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 	int a;
 	PageItem *Neu;
 	ScPage* Apage;
+	FrameItems.clear();
 	itemRemap.clear();
 	itemNext.clear();
 	itemCount = 0;
@@ -2017,6 +2018,7 @@ bool Scribus13Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 	struct ScribusDoc::BookMa bok;
 	PageItem *Neu;
 	ScPage* Apage = NULL;
+	FrameItems.clear();
 	itemRemap.clear();
 	itemNext.clear();
 	itemCount = 0;
