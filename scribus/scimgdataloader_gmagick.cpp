@@ -101,12 +101,6 @@ bool ScImgDataLoader_GMagick::readCMYK(Image *input, RawImage *output, int width
 
 bool ScImgDataLoader_GMagick::readRGB(Image *input, QImage *output, int width, int height)
 {
-	//Copied from GraphicsMagick header and modified
-#define GetRedSample(p) (p.red)
-#define GetGreenSample(p) (p.green)
-#define GetBlueSample(p) (p.blue)
-#define GetRGBAlphaSample(p) (p.opacity)
-
 	bool hasAlpha = input->matte;
 
 	ExceptionInfo exception;
@@ -129,12 +123,12 @@ bool ScImgDataLoader_GMagick::readRGB(Image *input, QImage *output, int width, i
 	int i;
 	for (i = 0; i < width*height; i++)
 	{
-		unsigned char b = ScaleQuantumToChar(GetBlueSample(pixels[i]));
-		unsigned char g = ScaleQuantumToChar(GetGreenSample(pixels[i]));
-		unsigned char r = ScaleQuantumToChar(GetRedSample(pixels[i]));
+		unsigned char b = ScaleQuantumToChar(pixels[i].blue);
+		unsigned char g = ScaleQuantumToChar(pixels[i].green);
+		unsigned char r = ScaleQuantumToChar(pixels[i].red);
 		unsigned char a;
 		if (hasAlpha)
-			a = 255 - ScaleQuantumToChar(GetRGBAlphaSample(pixels[i]));
+			a = 255 - ScaleQuantumToChar(pixels[i].opacity);
 		else
 			a = 255;
 		*s = qRgba(r, g, b, a);
@@ -158,7 +152,6 @@ bool ScImgDataLoader_GMagick::loadPicture(const QString& fn, int /*page*/, int r
 	m_imageInfoRecord.layerInfo.clear();
 	m_imageInfoRecord.PDSpathData.clear();
 	initGraphicsMagick();
-//	qDebug() << "Loading image" << fn << "Tumbnail:" << thumbnail;
 
 	ExceptionInfo exception;
 	GetExceptionInfo(&exception);
@@ -190,7 +183,7 @@ bool ScImgDataLoader_GMagick::loadPicture(const QString& fn, int /*page*/, int r
 		{
 			bool visible = true;
 			double opacity = 1.0;
-			QString compositeOp = "norm";
+			QString compositeOp = blendModeToString(flatten_image->compose);
 			QString layerName = QString("layer%1").arg(layerCount+1);
 			if ((m_imageInfoRecord.isRequest) && (m_imageInfoRecord.RequestProps.contains(layerCount)))
 				opacity = m_imageInfoRecord.RequestProps[layerCount].opacity / 255.0;
@@ -201,8 +194,8 @@ bool ScImgDataLoader_GMagick::loadPicture(const QString& fn, int /*page*/, int r
 			layer.layerName = layerName;
 			layer.channelType.clear();
 			layer.channelLen.clear();
-			layer.opacity = opacity;
-			layer.blend = "norm";
+			layer.opacity = qRound(opacity * 255);
+			layer.blend = compositeOp;
 			layer.maskYpos = 0;
 			layer.maskXpos = 0;
 			layer.maskHeight = 0;
@@ -235,7 +228,7 @@ bool ScImgDataLoader_GMagick::loadPicture(const QString& fn, int /*page*/, int r
 			{
 				visible = true;
 				opacity = 1.0;
-				compositeOp = "norm";
+				compositeOp = blendModeToString(next->compose);
 				layerName = QString("layer%1").arg(layerCount+1);
 				if ((m_imageInfoRecord.isRequest) && (m_imageInfoRecord.RequestProps.contains(layerCount)))
 					opacity = m_imageInfoRecord.RequestProps[layerCount].opacity / 255.0;
@@ -246,8 +239,8 @@ bool ScImgDataLoader_GMagick::loadPicture(const QString& fn, int /*page*/, int r
 				layer.layerName = layerName;
 				layer.channelType.clear();
 				layer.channelLen.clear();
-				layer.opacity = opacity;
-				layer.blend = "norm";
+				layer.opacity = qRound(opacity * 255);
+				layer.blend = compositeOp;
 				layer.maskYpos = 0;
 				layer.maskXpos = 0;
 				layer.maskHeight = 0;
@@ -272,16 +265,14 @@ bool ScImgDataLoader_GMagick::loadPicture(const QString& fn, int /*page*/, int r
 				m_imageInfoRecord.layerInfo.append(layer);
 				layerCount++;
 				if (visible)
-					(void)CompositeImage(flatten_image, next->compose, next, next->page.x, next->page.y);
+					(void)CompositeImage(flatten_image, (CompositeOperator)blendModeToInt(compositeOp), next, next->page.x, next->page.y);
 			}
 			image = CloneImage(flatten_image, 0, 0, true, &exception);
 		}
 	}
-//	qDebug() << "has matte(alpha):" << image->matte;
 
 	if (image->colorspace == CMYKColorspace)
 	{
-		qDebug() << "CMYK image";
 		m_useRawImage = true;
 		if (!readCMYK(image, &r_image, width, height))
 			return false;
@@ -302,6 +293,8 @@ bool ScImgDataLoader_GMagick::loadPicture(const QString& fn, int /*page*/, int r
 	{
 		m_imageInfoRecord.exifDataValid = true;
 		m_imageInfoRecord.exifInfo.thumbnail = m_image;
+		m_imageInfoRecord.exifInfo.height = height;
+		m_imageInfoRecord.exifInfo.width = width;
 	}
 	m_imageInfoRecord.type = ImageTypeOther;
 	m_imageInfoRecord.xres = qMax(72, qRound(xres));
@@ -316,7 +309,6 @@ bool ScImgDataLoader_GMagick::loadPicture(const QString& fn, int /*page*/, int r
 bool ScImgDataLoader_GMagick::preloadAlphaChannel(const QString& fn, int /*page*/, int res, bool& hasAlpha)
 {
 	initGraphicsMagick();
-	qDebug() << "GMAGICK: preloadAlpha" << fn;
 	initialize();
 	hasAlpha = false;
 
@@ -344,8 +336,6 @@ bool ScImgDataLoader_GMagick::preloadAlphaChannel(const QString& fn, int /*page*
 
 void ScImgDataLoader_GMagick::loadEmbeddedProfile(const QString& fn, int /*page*/)
 {
-	qDebug() << "GMAGICK: loadEmbeddedProfile";
-
 	initGraphicsMagick();
 	m_embeddedProfile.resize(0);
 	m_profileComponents = 0;
@@ -376,4 +366,86 @@ void ScImgDataLoader_GMagick::loadEmbeddedProfile(const QString& fn, int /*page*
 
 	m_embeddedProfile.resize(length);
 	memcpy(dest, src, length);
+}
+
+QString ScImgDataLoader_GMagick::blendModeToString(int compositeOp)
+{
+	QString ret = "norm";
+	if (compositeOp == 24)
+		ret = "dark";
+	else if (compositeOp == 25)
+		ret = "lite";
+	else if (compositeOp == 11)
+		ret = "mul ";
+	else if (compositeOp == 30)
+		ret = "scrn";
+	else if (compositeOp == 31)
+		ret = "over";
+	else if (compositeOp == 37)
+		ret = "hLit";
+	else if (compositeOp == 41)
+		ret = "sLit";
+	else if (compositeOp == 10)
+		ret = "diff";
+	else if (compositeOp == 39)
+		ret = "div ";
+	else if (compositeOp == 40)
+		ret = "idiv";
+	else if (compositeOp == 28)
+		ret = "colr";
+	else if (compositeOp == 29)
+		ret = "lum ";
+	else if (compositeOp == 26)
+		ret = "hue ";
+	else if (compositeOp == 27)
+		ret = "sat ";
+	else if (compositeOp == 6)
+		ret = "plus";
+	else if (compositeOp == 2)
+		ret = "dsti";
+	else if (compositeOp == 3)
+		ret = "dsto";
+	return ret;
+}
+
+int ScImgDataLoader_GMagick::blendModeToInt(QString compositeOp)
+{
+	int ret = 1;
+	if (compositeOp == "norm")
+		ret = 1;
+	else if (compositeOp == "dark")
+		ret = 24;
+	else if (compositeOp == "lite")
+		ret = 25;
+	else if (compositeOp == "mul ")
+		ret = 11;
+	else if (compositeOp == "scrn")
+		ret = 30;
+	else if (compositeOp == "over")
+		ret = 31;
+	else if (compositeOp == "hLit")
+		ret = 37;
+	else if (compositeOp == "sLit")
+		ret = 41;
+	else if (compositeOp == "diff")
+		ret = 10;
+	else if (compositeOp == "div ")
+		ret = 39;
+	else if (compositeOp == "idiv")
+		ret = 40;
+	else if (compositeOp == "colr")
+		ret = 28;
+	else if (compositeOp == "lum ")
+		ret = 29;
+	else if (compositeOp == "hue ")
+		ret = 26;
+	else if (compositeOp == "sat ")
+		ret = 27;
+	else if (compositeOp == "plus")
+		ret = 6;
+	else if (compositeOp == "dsti")
+		ret = 2;
+	else if (compositeOp == "dsto")
+		ret = 3;
+	return ret;
 }

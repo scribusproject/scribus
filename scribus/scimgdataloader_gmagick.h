@@ -14,6 +14,8 @@ class ScImgDataLoader_GMagick : public ScImgDataLoader
 {
 protected:
 	void initSupportedFormatList();
+	QString blendModeToString(int compositeOp);
+	int blendModeToInt(QString compositeOp);
 	bool m_useRawImage;
 	int layerCount;
 private:
