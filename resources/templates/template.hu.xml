@@ -657,36 +657,36 @@
 		<date>2010-10-22</date>
 		<author>vectorportal.com</author>
 		<email></email>
-	</template><template category="Business Cards">
-		<name>Business Card EU Green</name>
+	</template><template category="Névjegykártyák">
+		<name>Zöld EU névjegykártya</name>
 		<file>Business_Card_EU_Green/Business_Card_Waves.sla.gz</file>
 		<tnail>Business_Card_EU_Green/Business_Card_Wavestn.png</tnail>
 		<img>Business_Card_EU_Green/Business_Card_Waves.png</img>
 		<psize>custom, 241x156</psize>
 		<color>RGB</color>
-		<descr>Card, 85x55mm, EU model</descr>
+		<descr>Névjegykártya, 85x55mm, EU modell</descr>
 		<usage></usage>
 		<scribus_version>1.4.4</scribus_version>
 		<date>2014-12-07</date>
 		<author>Dennis Groenewegen vd Weijden</author>
 		<email>dengro74@gmail.com</email>
 	</template>
-	<template category="Newsletters">
-		<name>Newsletter Wavestyle</name>
+	<template category="Hírlevelek">
+		<name>Hullámstílusú hírlevél</name>
 		<file>Newsletter_Layout/Newsletter_Wavestyle.sla.gz</file>
 		<tnail>Newsletter_Layout/Newsletter_Wavestyletn.png</tnail>
 		<img>Newsletter_Layout/Newsletter_Wavestyle.png</img>
 		<psize>A4, landscape</psize>
 		<color>RGB</color>
-		<descr>Newsletter, Informer</descr>
+		<descr>Hírlevél, információk</descr>
 		<usage></usage>
 		<scribus_version>1.4.4</scribus_version>
 		<date>2014-12-07</date>
 		<author>Dennis Groenewegen vd Weijden</author>
 		<email>dengro74@gmail.com</email>
 	</template>
-	<template category="Fliers">
-		<name>Waves Flyer </name>
+	<template category="Szórólapok">
+		<name>Hullámos szórólap</name>
 		<file>Flyer_Waves_A5_DoubleSided/Waves_Flyer.sla.gz</file>
 		<tnail>Flyer_Waves_A5_DoubleSided/Waves_Flyer_tn.png</tnail>
 		<img>Flyer_Waves_A5_DoubleSided/Waves_Flyer_.png</img>
@@ -699,28 +699,28 @@
 		<author>Dennis Groenewegen vd Weijden</author>
 		<email>dengro74@gmail.com</email>
 	</template>
-	<template category="Newsletters">
-		<name>Layout Informer</name>
+	<template category="Hírlevelek">
+		<name>Információs terv</name>
 		<file>Layout_Informer_A4/Layout_Informer.sla.gz</file>
 		<tnail>Layout_Informer_A4/Layout_Informertn.png</tnail>
 		<img>Layout_Informer_A4/Layout_Informer.png</img>
 		<psize>A4, landscape</psize>
 		<color>RGB</color>
-		<descr>A4, News Page, Magazine looking </descr>
+		<descr>A4, Híroldal, Magazin stílus</descr>
 		<usage></usage>
 		<scribus_version>1.4.4</scribus_version>
 		<date>2014-12-07</date>
 		<author>Dennis Groenewegen vd Weijden</author>
 		<email>dengro74@gmail.com</email>
 	</template>
-	<template category="Brochures">
-		<name>3Fold Waves Style</name>
+	<template category="Brosúrák">
+		<name>Háromrét hajtott hullám stílus</name>
 		<file>3Fold_Wave_Style/3Fold_Waves_Style.sla.gz</file>
 		<tnail>3Fold_Wave_Style/3Fold_Waves_Styletn.png</tnail>
 		<img>3Fold_Wave_Style/3Fold_Waves_Style.png</img>
 		<psize>A4, landscape</psize>
 		<color>RGB</color>
-		<descr>Brochure, 3Fold double sided, Marketing purpose</descr>
+		<descr>Brosúra, Háromrét hajtott kétoldalas, Marketing célú</descr>
 		<usage></usage>
 		<scribus_version>1.4.4</scribus_version>
 		<date>2014-12-07</date>
