@@ -57,6 +57,7 @@ typedef struct
 	int colorMarks; // bool -
 	int docInfoMarks; // bool -
 	double markOffset; // double -
+	double markLength; // double -
 	int compress; // bool -
 	int compressmtd; // int - 0=automatic 1=jpeg 2=zip 3=none
 	int quality; // int - 0=Maximum 4=minimum
@@ -184,6 +185,8 @@ static PyObject * PDFfile_new(PyTypeObject *type, PyObject * /*args*/, PyObject 
 		self->docInfoMarks = 0;
 // set mark offset attribute
 		self->markOffset = 0;
+// set mark length attribute
+		self->markLength = 0;
 // set compress attribute
 		self->compress = 0;
 // set compressmtd attribute
@@ -432,7 +435,9 @@ static int PDFfile_init(PDFfile *self, PyObject * /*args*/, PyObject * /*kwds*/)
 // output doc info marks ?
 	self->docInfoMarks = pdfOptions.docInfoMarks;
 // cropmarks offset 
-	self->markOffset = pdfOptions.markOffset;
+	self->markOffset = pdfOptions.markOffset * currentDoc->unitRatio();
+// cropmarks length 
+	self->markLength = pdfOptions.markLength * currentDoc->unitRatio();
 // set automatic compression
 	self->compress = pdfOptions.Compress;
 	self->compressmtd = pdfOptions.CompressMethod;
@@ -663,6 +668,7 @@ static PyMemberDef PDFfile_members[] = {
 	{const_cast<char*>("colorMarks"), T_INT, offsetof(PDFfile, colorMarks), 0, const_cast<char*>("Add color calibration bars.")},
 	{const_cast<char*>("docInfoMarks"), T_INT, offsetof(PDFfile, docInfoMarks), 0, const_cast<char*>("Add document information which includes the document title and page numbers.")},
 	{const_cast<char*>("markOffset"), T_DOUBLE, offsetof(PDFfile, markOffset), 0, const_cast<char*>("Indicate the distance offset between mark and page area.")},
+	{const_cast<char*>("markLength"), T_DOUBLE, offsetof(PDFfile, markLength), 0, const_cast<char*>("Indicate the length of crop and bleed marks.")},
 	{const_cast<char*>("compress"), T_INT, offsetof(PDFfile, compress), 0, const_cast<char*>("Compression switch. Bool value.")},
 	{const_cast<char*>("compressmtd"), T_INT, offsetof(PDFfile, compressmtd), 0, const_cast<char*>("Compression method.\n\t0 - Automatic\n\t1 - JPEG\n\t2 - zip\n\t3 - None.")},
 	{const_cast<char*>("quality"), T_INT, offsetof(PDFfile, quality), 0, const_cast<char*>("Image quality\n\t0 - Maximum\n\t1 - High\n\t2 - Medium\n\t3 - Low\n\t4 - Minimum")},
@@ -1256,7 +1262,9 @@ static PyObject *PDFfile_save(PDFfile *self)
 // apply docInfoMark attribute
 	pdfOptions.docInfoMarks = self->docInfoMarks;
 // apply mark offset attribute
-	pdfOptions.markOffset = self->markOffset;
+	pdfOptions.markOffset = qMax(0.0, self->markOffset / currentDoc->unitRatio());
+// apply mark length attribute
+	pdfOptions.markLength = qMax(0.0, self->markLength / currentDoc->unitRatio());
 // apply compress attribute
 	self->compressmtd = minmaxi(self->compressmtd, 0, 3);
 	pdfOptions.Compress = self->compress;
@@ -1441,12 +1449,6 @@ static PyObject *PDFfile_save(PDFfile *self)
 	pdfOptions.hideToolBar = self->hideToolBar;
 	pdfOptions.hideMenuBar = self->hideMenuBar;
 	pdfOptions.fitWindow = self->fitWindow;
-	pdfOptions.cropMarks = self->cropMarks;
-	pdfOptions.bleedMarks = self->bleedMarks;
-	pdfOptions.registrationMarks = self->registrationMarks;
-	pdfOptions.colorMarks = self->colorMarks;
-	pdfOptions.docInfoMarks = self->docInfoMarks;
-	pdfOptions.markOffset = self->markOffset;
 	pdfOptions.openAction = QString(PyString_AsString(self->openAction));
 	pdfOptions.firstUse = false;
 
