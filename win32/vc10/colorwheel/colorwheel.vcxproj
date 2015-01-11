@@ -114,9 +114,6 @@
     <ClCompile Include="..\..\..\scribus\plugins\colorwheel\colorwheel.cpp" />
     <ClCompile Include="..\..\..\scribus\plugins\colorwheel\colorwheelwidget.cpp" />
     <ClCompile Include="..\..\..\scribus\plugins\colorwheel\cwdialog.cpp" />
-    <ClCompile Include="..\..\..\scribus\plugins\colorwheel\moc_colorwheel.cpp" />
-    <ClCompile Include="..\..\..\scribus\plugins\colorwheel\moc_colorwheelwidget.cpp" />
-    <ClCompile Include="..\..\..\scribus\plugins\colorwheel\moc_cwdialog.cpp" />
   </ItemGroup>
   <ItemGroup>
     <moc Include="..\..\..\scribus\plugins\colorwheel\colorwheel.h" />

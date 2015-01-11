@@ -9,9 +9,6 @@
       <UniqueIdentifier>{ebd3511b-c607-454f-85ec-4fbe5f140836}</UniqueIdentifier>
       <Extensions>h;hpp;hxx;hm;inl;inc</Extensions>
     </Filter>
-    <Filter Include="Generated Moc Files">
-      <UniqueIdentifier>{bd90ec3b-03bb-4b18-8215-8967a24d8a4f}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\scribus\plugins\fileloader\scribus13format\scribus13format.cpp">
@@ -19,12 +16,6 @@
     </ClCompile>
     <ClCompile Include="..\..\..\scribus\plugins\fileloader\scribus13format\scribus13formatimpl.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\scribus\plugins\fileloader\scribus13format\moc_scribus13format.cpp">
-      <Filter>Generated Moc Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\scribus\plugins\fileloader\scribus13format\moc_scribus13formatimpl.cpp">
-      <Filter>Generated Moc Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -9,9 +9,6 @@
       <UniqueIdentifier>{db831e49-a570-41b6-b201-84d792bee60f}</UniqueIdentifier>
       <Extensions>h;hpp;hxx;hm;inl;inc</Extensions>
     </Filter>
-    <Filter Include="Generated Moc Files">
-      <UniqueIdentifier>{e6dd28ed-d209-4d3e-b079-083024eacc16}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\scribus\plugins\import\sml\importsml.cpp">
@@ -19,12 +16,6 @@
     </ClCompile>
     <ClCompile Include="..\..\..\scribus\plugins\import\sml\importsmlplugin.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\scribus\plugins\import\sml\moc_importsml.cpp">
-      <Filter>Generated Moc Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\scribus\plugins\import\sml\moc_importsmlplugin.cpp">
-      <Filter>Generated Moc Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

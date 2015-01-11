@@ -129,14 +129,6 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="..\..\..\scribus\plugins\picbrowser\previewimage.cpp" />
-    <ClCompile Include="..\..\..\scribus\plugins\picbrowser\moc_collection.cpp" />
-    <ClCompile Include="..\..\..\scribus\plugins\picbrowser\moc_findimage.cpp" />
-    <ClCompile Include="..\..\..\scribus\plugins\picbrowser\moc_imagedialog.cpp" />
-    <ClCompile Include="..\..\..\scribus\plugins\picbrowser\moc_loadimage.cpp" />
-    <ClCompile Include="..\..\..\scribus\plugins\picbrowser\moc_multicombobox.cpp" />
-    <ClCompile Include="..\..\..\scribus\plugins\picbrowser\moc_picturebrowser.cpp" />
-    <ClCompile Include="..\..\..\scribus\plugins\picbrowser\moc_picturebrowserplugin.cpp" />
-    <ClCompile Include="..\..\..\scribus\plugins\picbrowser\moc_previewimage.cpp" />
   </ItemGroup>
   <ItemGroup>
     <moc Include="..\..\..\scribus\plugins\picbrowser\collection.h" />

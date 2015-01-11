@@ -208,8 +208,6 @@
   <ItemGroup>
     <ClCompile Include="..\..\..\scribus\plugins\import\sml\importsml.cpp" />
     <ClCompile Include="..\..\..\scribus\plugins\import\sml\importsmlplugin.cpp" />
-    <ClCompile Include="..\..\..\scribus\plugins\import\sml\moc_importsml.cpp" />
-    <ClCompile Include="..\..\..\scribus\plugins\import\sml\moc_importsmlplugin.cpp" />
   </ItemGroup>
   <ItemGroup>
     <moc Include="..\..\..\scribus\plugins\import\sml\importsml.h" />

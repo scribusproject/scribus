@@ -208,8 +208,6 @@
   <ItemGroup>
     <ClCompile Include="..\..\..\scribus\plugins\export\pixmapexport\dialog.cpp" />
     <ClCompile Include="..\..\..\scribus\plugins\export\pixmapexport\export.cpp" />
-    <ClCompile Include="..\..\..\scribus\plugins\export\pixmapexport\moc_dialog.cpp" />
-    <ClCompile Include="..\..\..\scribus\plugins\export\pixmapexport\moc_export.cpp" />
   </ItemGroup>
   <ItemGroup>
     <moc Include="..\..\..\scribus\plugins\export\pixmapexport\dialog.h" />

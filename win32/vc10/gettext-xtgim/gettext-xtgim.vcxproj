@@ -115,8 +115,6 @@
     <ClCompile Include="..\..\..\scribus\plugins\gettext\xtgim\xtgdialog.cpp" />
     <ClCompile Include="..\..\..\scribus\plugins\gettext\xtgim\xtgim.cpp" />
     <ClCompile Include="..\..\..\scribus\plugins\gettext\xtgim\xtgscanner.cpp" />
-    <ClCompile Include="..\..\..\scribus\plugins\gettext\xtgim\moc_fontselectdialog.cpp" />
-    <ClCompile Include="..\..\..\scribus\plugins\gettext\xtgim\moc_xtgdialog.cpp" />
   </ItemGroup>
   <ItemGroup>
     <moc Include="..\..\..\scribus\plugins\gettext\xtgim\fontselectdialog.h" />

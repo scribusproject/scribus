@@ -113,8 +113,6 @@
   <ItemGroup>
     <ClCompile Include="..\..\..\scribus\plugins\tools\2geomtools\pathalongpath\pathalongpath.cpp" />
     <ClCompile Include="..\..\..\scribus\plugins\tools\2geomtools\pathalongpath\pathdialog.cpp" />
-    <ClCompile Include="..\..\..\scribus\plugins\tools\2geomtools\pathalongpath\moc_pathalongpath.cpp" />
-    <ClCompile Include="..\..\..\scribus\plugins\tools\2geomtools\pathalongpath\moc_pathdialog.cpp" />
   </ItemGroup>
   <ItemGroup>
     <moc Include="..\..\..\scribus\plugins\tools\2geomtools\pathalongpath\pathalongpath.h" />

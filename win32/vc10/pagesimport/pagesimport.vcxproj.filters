@@ -9,9 +9,6 @@
       <UniqueIdentifier>{61e9b32c-9547-4ba3-ad41-5af47753d778}</UniqueIdentifier>
       <Extensions>h;hpp;hxx;hm;inl;inc</Extensions>
     </Filter>
-    <Filter Include="Generated Moc Files">
-      <UniqueIdentifier>{2ae74d9e-6ff6-43e7-b91d-d45c7ff8b76b}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\scribus\plugins\import\pages\importpages.cpp">
@@ -19,12 +16,6 @@
     </ClCompile>
     <ClCompile Include="..\..\..\scribus\plugins\import\pages\importpagesplugin.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\scribus\plugins\import\pages\moc_importpages.cpp">
-      <Filter>Generated Moc Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\scribus\plugins\import\pages\moc_importpagesplugin.cpp">
-      <Filter>Generated Moc Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

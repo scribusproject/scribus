@@ -208,8 +208,6 @@
   <ItemGroup>
     <ClCompile Include="..\..\..\scribus\plugins\import\odg\importodg.cpp" />
     <ClCompile Include="..\..\..\scribus\plugins\import\odg\importodgplugin.cpp" />
-    <ClCompile Include="..\..\..\scribus\plugins\import\odg\moc_importodg.cpp" />
-    <ClCompile Include="..\..\..\scribus\plugins\import\odg\moc_importodgplugin.cpp" />
   </ItemGroup>
   <ItemGroup>
     <moc Include="..\..\..\scribus\plugins\import\odg\importodg.h" />

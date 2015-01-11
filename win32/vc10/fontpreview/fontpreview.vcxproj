@@ -113,8 +113,6 @@
   <ItemGroup>
     <ClCompile Include="..\..\..\scribus\plugins\fontpreview\fontpreview.cpp" />
     <ClCompile Include="..\..\..\scribus\plugins\fontpreview\fontpreviewplugin.cpp" />
-    <ClCompile Include="..\..\..\scribus\plugins\fontpreview\moc_fontpreview.cpp" />
-    <ClCompile Include="..\..\..\scribus\plugins\fontpreview\moc_fontpreviewplugin.cpp" />
   </ItemGroup>
   <ItemGroup>
     <moc Include="..\..\..\scribus\plugins\fontpreview\fontpreview.h" />

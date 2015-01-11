@@ -208,8 +208,6 @@
   <ItemGroup>
     <ClCompile Include="..\..\..\scribus\plugins\import\wpg\importwpg.cpp" />
     <ClCompile Include="..\..\..\scribus\plugins\import\wpg\importwpgplugin.cpp" />
-    <ClCompile Include="..\..\..\scribus\plugins\import\wpg\moc_importwpg.cpp" />
-    <ClCompile Include="..\..\..\scribus\plugins\import\wpg\moc_importwpgplugin.cpp" />
   </ItemGroup>
   <ItemGroup>
     <moc Include="..\..\..\scribus\plugins\import\wpg\importwpg.h" />

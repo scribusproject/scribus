@@ -9,9 +9,6 @@
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
     </Filter>
-    <Filter Include="Generated Moc Files">
-      <UniqueIdentifier>{5f6ce49e-d8ad-4a65-839f-3373324c4d82}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\scribus\third_party\zip\scribus_zip.cpp">
@@ -25,12 +22,6 @@
     </ClCompile>
     <ClCompile Include="..\..\..\scribus\third_party\zip\zipglobal.cpp">
       <Filter>Sources Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\scribus\third_party\zip\moc_zip_p.cpp">
-      <Filter>Generated Moc Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\scribus\third_party\zip\moc_unzip_p.cpp">
-      <Filter>Generated Moc Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

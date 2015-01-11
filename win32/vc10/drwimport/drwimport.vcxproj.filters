@@ -9,9 +9,6 @@
       <UniqueIdentifier>{76575812-379b-40a2-9c80-a782b9328990}</UniqueIdentifier>
       <Extensions>h;hpp;hxx;hm;inl;inc</Extensions>
     </Filter>
-    <Filter Include="Generated Moc Files">
-      <UniqueIdentifier>{bf6d3a12-bfd5-4816-8b9a-51abd51f7fc1}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\scribus\plugins\import\drw\importdrw.cpp">
@@ -19,12 +16,6 @@
     </ClCompile>
     <ClCompile Include="..\..\..\scribus\plugins\import\drw\importdrwplugin.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\scribus\plugins\import\drw\moc_importdrw.cpp">
-      <Filter>Generated Moc Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\scribus\plugins\import\drw\moc_importdrwplugin.cpp">
-      <Filter>Generated Moc Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -9,9 +9,6 @@
       <UniqueIdentifier>{e431be5a-3295-43d7-aa9e-e9f73832a915}</UniqueIdentifier>
       <Extensions>h;hpp;hxx;hm;inl;inc</Extensions>
     </Filter>
-    <Filter Include="Generated Moc Files">
-      <UniqueIdentifier>{f498bdfd-6638-4b1f-9b98-16e83dde2a2f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Generated Form Files">
       <UniqueIdentifier>{7de4c226-c92a-4950-9008-e8b945cb7fd3}</UniqueIdentifier>
     </Filter>
@@ -32,15 +29,6 @@
     </ClCompile>
     <ClCompile Include="..\..\..\scribus\plugins\tools\hunspellcheck\hunspellpluginimpl.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\scribus\plugins\tools\hunspellcheck\moc_hunspelldialog.cpp">
-      <Filter>Generated Moc Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\scribus\plugins\tools\hunspellcheck\moc_hunspellplugin.cpp">
-      <Filter>Generated Moc Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\scribus\plugins\tools\hunspellcheck\moc_hunspellpluginimpl.cpp">
-      <Filter>Generated Moc Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -113,8 +113,6 @@
   <ItemGroup>
     <ClCompile Include="..\..\..\scribus\plugins\saveastemplateplugin\satdialog.cpp" />
     <ClCompile Include="..\..\..\scribus\plugins\saveastemplateplugin\satemplate.cpp" />
-    <ClCompile Include="..\..\..\scribus\plugins\saveastemplateplugin\moc_satdialog.cpp" />
-    <ClCompile Include="..\..\..\scribus\plugins\saveastemplateplugin\moc_satemplate.cpp" />
   </ItemGroup>
   <ItemGroup>
     <moc Include="..\..\..\scribus\plugins\saveastemplateplugin\satdialog.h" />

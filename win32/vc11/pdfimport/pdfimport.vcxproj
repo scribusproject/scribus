@@ -210,9 +210,6 @@
     <ClCompile Include="..\..\..\scribus\plugins\import\pdf\importpdfplugin.cpp" />
     <ClCompile Include="..\..\..\scribus\plugins\import\pdf\pdfimportoptions.cpp" />
     <ClCompile Include="..\..\..\scribus\plugins\import\pdf\slaoutput.cpp" />
-    <ClCompile Include="..\..\..\scribus\plugins\import\pdf\moc_importpdf.cpp" />
-    <ClCompile Include="..\..\..\scribus\plugins\import\pdf\moc_importpdfplugin.cpp" />
-    <ClCompile Include="..\..\..\scribus\plugins\import\pdf\moc_pdfimportoptions.cpp" />
   </ItemGroup>
   <ItemGroup>
     <moc Include="..\..\..\scribus\plugins\import\pdf\importpdf.h" />

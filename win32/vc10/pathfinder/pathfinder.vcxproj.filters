@@ -9,9 +9,6 @@
       <UniqueIdentifier>{6b593108-b1a3-451f-8d85-e33c89de4997}</UniqueIdentifier>
       <Extensions>h;hpp;hxx;hm;inl;inc</Extensions>
     </Filter>
-    <Filter Include="Generated Moc Files">
-      <UniqueIdentifier>{44d2a92d-51cb-4da2-a32f-eb0a106fbbf3}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Generated Form Files">
       <UniqueIdentifier>{3bbbde15-fda4-4e57-ac30-7ef124d51dcb}</UniqueIdentifier>
     </Filter>
@@ -26,12 +23,6 @@
     </ClCompile>
     <ClCompile Include="..\..\..\scribus\plugins\tools\pathfinder\pathfinderdialog.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\scribus\plugins\tools\pathfinder\moc_pathfinder.cpp">
-      <Filter>Generated Moc Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\scribus\plugins\tools\pathfinder\moc_pathfinderdialog.cpp">
-      <Filter>Generated Moc Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

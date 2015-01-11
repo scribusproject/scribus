@@ -9,9 +9,6 @@
       <UniqueIdentifier>{467096fa-eab5-417a-9f13-65188bdfbc50}</UniqueIdentifier>
       <Extensions>h;hpp;hxx;hm;inl;inc</Extensions>
     </Filter>
-    <Filter Include="Generated Moc Files">
-      <UniqueIdentifier>{cba1ddb7-aecc-49aa-aa9c-2845c8a9caf8}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Generated Form Files">
       <UniqueIdentifier>{d8e30f82-ab05-45e1-8833-7d119f3bf2fa}</UniqueIdentifier>
     </Filter>
@@ -25,12 +22,6 @@
     </ClCompile>
     <ClCompile Include="..\..\..\scribus\plugins\fontpreview\fontpreviewplugin.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\scribus\plugins\fontpreview\moc_fontpreview.cpp">
-      <Filter>Generated Moc Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\scribus\plugins\fontpreview\moc_fontpreviewplugin.cpp">
-      <Filter>Generated Moc Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

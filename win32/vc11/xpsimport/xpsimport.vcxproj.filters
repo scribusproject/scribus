@@ -9,9 +9,6 @@
       <UniqueIdentifier>{ae7efe02-a2a4-4bb8-9332-5ed946549b77}</UniqueIdentifier>
       <Extensions>h;hpp;hxx;hm;inl;inc</Extensions>
     </Filter>
-    <Filter Include="Generated Moc Files">
-      <UniqueIdentifier>{2e7674d4-dcac-400d-b247-96cb0033b110}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Generated Form Files">
       <UniqueIdentifier>{1d2ad7ef-563a-4431-b6ce-7591574764b0}</UniqueIdentifier>
     </Filter>
@@ -27,17 +24,8 @@
     <ClCompile Include="..\..\..\scribus\plugins\import\xps\importxpsplugin.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\scribus\plugins\import\xps\moc_importxps.cpp">
-      <Filter>Generated Moc Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\scribus\plugins\import\xps\moc_importxpsplugin.cpp">
-      <Filter>Generated Moc Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\scribus\plugins\import\xps\xpsimportoptions.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\scribus\plugins\import\xps\moc_xpsimportoptions.cpp">
-      <Filter>Generated Moc Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

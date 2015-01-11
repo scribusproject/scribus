@@ -208,8 +208,6 @@
   <ItemGroup>
     <ClCompile Include="..\..\..\scribus\plugins\import\drw\importdrw.cpp" />
     <ClCompile Include="..\..\..\scribus\plugins\import\drw\importdrwplugin.cpp" />
-    <ClCompile Include="..\..\..\scribus\plugins\import\drw\moc_importdrw.cpp" />
-    <ClCompile Include="..\..\..\scribus\plugins\import\drw\moc_importdrwplugin.cpp" />
   </ItemGroup>
   <ItemGroup>
     <moc Include="..\..\..\scribus\plugins\import\drw\importdrw.h" />

@@ -9,9 +9,6 @@
       <UniqueIdentifier>{1e0a237d-2226-4a70-936a-eeb2cd26e2fe}</UniqueIdentifier>
       <Extensions>h;hpp;hxx;hm;inl;inc</Extensions>
     </Filter>
-    <Filter Include="Generated Moc Files">
-      <UniqueIdentifier>{a4f4a43e-30ce-448d-9f7d-a6e1567c4f6e}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\scribus\plugins\import\oodraw\oodrawimp.cpp">
@@ -19,9 +16,6 @@
     </ClCompile>
     <ClCompile Include="..\..\..\scribus\plugins\import\oodraw\stylestack.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\scribus\plugins\import\oodraw\moc_oodrawimp.cpp">
-      <Filter>Generated Moc Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

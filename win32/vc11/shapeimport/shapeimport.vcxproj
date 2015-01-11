@@ -208,8 +208,6 @@
   <ItemGroup>
     <ClCompile Include="..\..\..\scribus\plugins\import\shape\importshape.cpp" />
     <ClCompile Include="..\..\..\scribus\plugins\import\shape\importshapeplugin.cpp" />
-    <ClCompile Include="..\..\..\scribus\plugins\import\shape\moc_importshape.cpp" />
-    <ClCompile Include="..\..\..\scribus\plugins\import\shape\moc_importshapeplugin.cpp" />
   </ItemGroup>
   <ItemGroup>
     <moc Include="..\..\..\scribus\plugins\import\shape\importshape.h" />

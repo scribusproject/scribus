@@ -213,12 +213,6 @@
     <ClCompile Include="..\..\..\scribus\plugins\short-words\swdialog.cpp" />
     <ClCompile Include="..\..\..\scribus\plugins\short-words\swprefsgui.cpp" />
     <ClCompile Include="..\..\..\scribus\plugins\short-words\swsyntaxhighlighter.cpp" />
-    <ClCompile Include="..\..\..\scribus\plugins\short-words\moc_configuration.cpp" />
-    <ClCompile Include="..\..\..\scribus\plugins\short-words\moc_parse.cpp" />
-    <ClCompile Include="..\..\..\scribus\plugins\short-words\moc_prefs_shortwords.cpp" />
-    <ClCompile Include="..\..\..\scribus\plugins\short-words\moc_shortwords.cpp" />
-    <ClCompile Include="..\..\..\scribus\plugins\short-words\moc_swdialog.cpp" />
-    <ClCompile Include="..\..\..\scribus\plugins\short-words\moc_swprefsgui.cpp" />
   </ItemGroup>
   <ItemGroup>
     <moc Include="..\..\..\scribus\plugins\short-words\configuration.h" />

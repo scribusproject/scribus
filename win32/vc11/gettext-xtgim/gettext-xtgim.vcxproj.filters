@@ -5,10 +5,6 @@
       <UniqueIdentifier>{1aa6e6a5-06da-4c37-9e64-377eb3f49e59}</UniqueIdentifier>
       <Extensions>cpp;c;cxx;def;odl;idl;hpj;bat;asm</Extensions>
     </Filter>
-    <Filter Include="Generated Moc Files">
-      <UniqueIdentifier>{c5acb525-c24b-4044-b2f5-a564930eab34}</UniqueIdentifier>
-      <Extensions>moc_*.cpp</Extensions>
-    </Filter>
     <Filter Include="Header Files">
       <UniqueIdentifier>{89b14120-493f-47e2-bc03-c8bd1e7cc30e}</UniqueIdentifier>
       <Extensions>h;hpp;hxx;hm;inl;inc</Extensions>
@@ -26,12 +22,6 @@
     </ClCompile>
     <ClCompile Include="..\..\..\scribus\plugins\gettext\xtgim\xtgscanner.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\scribus\plugins\gettext\xtgim\moc_fontselectdialog.cpp">
-      <Filter>Generated Moc Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\scribus\plugins\gettext\xtgim\moc_xtgdialog.cpp">
-      <Filter>Generated Moc Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

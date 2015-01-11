@@ -114,8 +114,6 @@
     <ClCompile Include="..\..\..\scribus\plugins\fileloader\scribus150format\scribus150format.cpp" />
     <ClCompile Include="..\..\..\scribus\plugins\fileloader\scribus150format\scribus150format_save.cpp" />
     <ClCompile Include="..\..\..\scribus\plugins\fileloader\scribus150format\scribus150formatimpl.cpp" />
-    <ClCompile Include="..\..\..\scribus\plugins\fileloader\scribus150format\moc_scribus150format.cpp" />
-    <ClCompile Include="..\..\..\scribus\plugins\fileloader\scribus150format\moc_scribus150formatimpl.cpp" />
   </ItemGroup>
   <ItemGroup>
     <moc Include="..\..\..\scribus\plugins\fileloader\scribus150format\scribus150format.h" />

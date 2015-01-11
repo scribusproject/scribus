@@ -207,7 +207,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\scribus\plugins\tools\pathstroker\pathstroker.cpp" />
-    <ClCompile Include="..\..\..\scribus\plugins\tools\pathstroker\moc_pathstroker.cpp" />
   </ItemGroup>
   <ItemGroup>
     <moc Include="..\..\..\scribus\plugins\tools\pathstroker\pathstroker.h" />

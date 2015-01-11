@@ -113,8 +113,6 @@
   <ItemGroup>
     <ClCompile Include="..\..\..\scribus\plugins\import\ai\importai.cpp" />
     <ClCompile Include="..\..\..\scribus\plugins\import\ai\importaiplugin.cpp" />
-    <ClCompile Include="..\..\..\scribus\plugins\import\ai\moc_importai.cpp" />
-    <ClCompile Include="..\..\..\scribus\plugins\import\ai\moc_importaiplugin.cpp" />
   </ItemGroup>
   <ItemGroup>
     <moc Include="..\..\..\scribus\plugins\import\ai\importai.h" />

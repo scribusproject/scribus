@@ -208,8 +208,6 @@
   <ItemGroup>
     <ClCompile Include="..\..\..\scribus\plugins\fileloader\scribus13format\scribus13format.cpp" />
     <ClCompile Include="..\..\..\scribus\plugins\fileloader\scribus13format\scribus13formatimpl.cpp" />
-    <ClCompile Include="..\..\..\scribus\plugins\fileloader\scribus13format\moc_scribus13format.cpp" />
-    <ClCompile Include="..\..\..\scribus\plugins\fileloader\scribus13format\moc_scribus13formatimpl.cpp" />
   </ItemGroup>
   <ItemGroup>
     <moc Include="..\..\..\scribus\plugins\fileloader\scribus13format\scribus13format.h" />

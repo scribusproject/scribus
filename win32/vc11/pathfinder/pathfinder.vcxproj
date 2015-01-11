@@ -208,8 +208,6 @@
   <ItemGroup>
     <ClCompile Include="..\..\..\scribus\plugins\tools\pathfinder\pathfinder.cpp" />
     <ClCompile Include="..\..\..\scribus\plugins\tools\pathfinder\pathfinderdialog.cpp" />
-    <ClCompile Include="..\..\..\scribus\plugins\tools\pathfinder\moc_pathfinder.cpp" />
-    <ClCompile Include="..\..\..\scribus\plugins\tools\pathfinder\moc_pathfinderdialog.cpp" />
   </ItemGroup>
   <ItemGroup>
     <moc Include="..\..\..\scribus\plugins\tools\pathfinder\pathfinder.h" />

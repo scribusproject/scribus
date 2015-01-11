@@ -9,10 +9,6 @@
       <UniqueIdentifier>{51b0a2f6-2166-4b0a-91f7-f4a6d0e3ac85}</UniqueIdentifier>
       <Extensions>h;hpp;hxx;hm;inl;inc</Extensions>
     </Filter>
-    <Filter Include="Generated Moc Files">
-      <UniqueIdentifier>{c8c00f41-de02-4f4e-a3ab-939916ef24fe}</UniqueIdentifier>
-      <Extensions>moc_*.cpp</Extensions>
-    </Filter>
     <Filter Include="Generated Form Files">
       <UniqueIdentifier>{5270151a-f364-4c18-afb5-f2d3ae00d96d}</UniqueIdentifier>
     </Filter>
@@ -29,15 +25,6 @@
     </ClCompile>
     <ClCompile Include="..\..\..\scribus\plugins\colorwheel\cwdialog.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\scribus\plugins\colorwheel\moc_colorwheel.cpp">
-      <Filter>Generated Moc Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\scribus\plugins\colorwheel\moc_colorwheelwidget.cpp">
-      <Filter>Generated Moc Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\scribus\plugins\colorwheel\moc_cwdialog.cpp">
-      <Filter>Generated Moc Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

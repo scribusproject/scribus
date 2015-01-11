@@ -209,8 +209,6 @@
     <ClCompile Include="..\..\..\scribus\plugins\import\wmf\wmfcontext.cpp" />
     <ClCompile Include="..\..\..\scribus\plugins\import\wmf\wmfimport.cpp" />
     <ClCompile Include="..\..\..\scribus\plugins\import\wmf\wmfimportplugin.cpp" />
-    <ClCompile Include="..\..\..\scribus\plugins\import\wmf\moc_wmfimport.cpp" />
-    <ClCompile Include="..\..\..\scribus\plugins\import\wmf\moc_wmfimportplugin.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\scribus\plugins\import\wmf\metafuncs.h" />

@@ -113,8 +113,6 @@
   <ItemGroup>
     <ClCompile Include="..\..\..\scribus\plugins\import\cgm\importcgm.cpp" />
     <ClCompile Include="..\..\..\scribus\plugins\import\cgm\importcgmplugin.cpp" />
-    <ClCompile Include="..\..\..\scribus\plugins\import\cgm\moc_importcgm.cpp" />
-    <ClCompile Include="..\..\..\scribus\plugins\import\cgm\moc_importcgmplugin.cpp" />
   </ItemGroup>
   <ItemGroup>
     <moc Include="..\..\..\scribus\plugins\import\cgm\importcgm.h" />

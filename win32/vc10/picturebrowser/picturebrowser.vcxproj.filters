@@ -20,10 +20,6 @@
     <Filter Include="Generated Form Files">
       <UniqueIdentifier>{1c3b9947-57ed-4fab-918e-29ee1e5dd3b7}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Generated Moc Files">
-      <UniqueIdentifier>{30ddb752-1cf2-4ccc-80ea-71d91d29736d}</UniqueIdentifier>
-      <Extensions>moc_*.cpp</Extensions>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\scribus\plugins\picbrowser\collection.cpp">
@@ -58,30 +54,6 @@
     </ClCompile>
     <ClCompile Include="..\..\..\scribus\plugins\picbrowser\previewimage.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\scribus\plugins\picbrowser\moc_collection.cpp">
-      <Filter>Generated Moc Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\scribus\plugins\picbrowser\moc_findimage.cpp">
-      <Filter>Generated Moc Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\scribus\plugins\picbrowser\moc_imagedialog.cpp">
-      <Filter>Generated Moc Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\scribus\plugins\picbrowser\moc_loadimage.cpp">
-      <Filter>Generated Moc Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\scribus\plugins\picbrowser\moc_multicombobox.cpp">
-      <Filter>Generated Moc Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\scribus\plugins\picbrowser\moc_picturebrowser.cpp">
-      <Filter>Generated Moc Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\scribus\plugins\picbrowser\moc_picturebrowserplugin.cpp">
-      <Filter>Generated Moc Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\scribus\plugins\picbrowser\moc_previewimage.cpp">
-      <Filter>Generated Moc Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

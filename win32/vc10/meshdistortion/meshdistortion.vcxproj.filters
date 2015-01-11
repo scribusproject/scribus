@@ -9,9 +9,6 @@
       <UniqueIdentifier>{95ac6036-f82c-43c2-9714-3ead6f9e598a}</UniqueIdentifier>
       <Extensions>h;hpp;hxx;hm;inl;inc</Extensions>
     </Filter>
-    <Filter Include="Generated Moc Files">
-      <UniqueIdentifier>{0343cee8-4aa4-4513-ae35-10d30fca19fc}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Generated Form Files">
       <UniqueIdentifier>{aca5a719-0e98-4903-8174-3613bc726064}</UniqueIdentifier>
     </Filter>
@@ -26,12 +23,6 @@
     </ClCompile>
     <ClCompile Include="..\..\..\scribus\plugins\tools\2geomtools\meshdistortion\meshdistortiondialog.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\scribus\plugins\tools\2geomtools\meshdistortion\moc_meshdistortion.cpp">
-      <Filter>Generated Moc Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\scribus\plugins\tools\2geomtools\meshdistortion\moc_meshdistortiondialog.cpp">
-      <Filter>Generated Moc Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

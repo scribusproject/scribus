@@ -9,9 +9,6 @@
       <UniqueIdentifier>{e90d32cf-149c-4dc1-ab3a-b6d86893914a}</UniqueIdentifier>
       <Extensions>h;hpp;hxx;hm;inl;inc</Extensions>
     </Filter>
-    <Filter Include="Generated Moc Files">
-      <UniqueIdentifier>{982a16a6-4033-44d6-b632-f3180f3944c5}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Generated Form Files">
       <UniqueIdentifier>{b4cb61b3-e1bc-44e8-8fba-19fab0cbec1f}</UniqueIdentifier>
     </Filter>
@@ -32,15 +29,6 @@
     </ClCompile>
     <ClCompile Include="..\..\..\scribus\plugins\import\pdf\slaoutput.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\scribus\plugins\import\pdf\moc_importpdf.cpp">
-      <Filter>Generated Moc Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\scribus\plugins\import\pdf\moc_importpdfplugin.cpp">
-      <Filter>Generated Moc Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\scribus\plugins\import\pdf\moc_pdfimportoptions.cpp">
-      <Filter>Generated Moc Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

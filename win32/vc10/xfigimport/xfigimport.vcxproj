@@ -113,8 +113,6 @@
   <ItemGroup>
     <ClCompile Include="..\..\..\scribus\plugins\import\xfig\importxfig.cpp" />
     <ClCompile Include="..\..\..\scribus\plugins\import\xfig\importxfigplugin.cpp" />
-    <ClCompile Include="..\..\..\scribus\plugins\import\xfig\moc_importxfig.cpp" />
-    <ClCompile Include="..\..\..\scribus\plugins\import\xfig\moc_importxfigplugin.cpp" />
   </ItemGroup>
   <ItemGroup>
     <moc Include="..\..\..\scribus\plugins\import\xfig\importxfig.h" />

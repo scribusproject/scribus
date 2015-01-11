@@ -208,8 +208,6 @@
   <ItemGroup>
     <ClCompile Include="..\..\..\scribus\plugins\import\pages\importpages.cpp" />
     <ClCompile Include="..\..\..\scribus\plugins\import\pages\importpagesplugin.cpp" />
-    <ClCompile Include="..\..\..\scribus\plugins\import\pages\moc_importpages.cpp" />
-    <ClCompile Include="..\..\..\scribus\plugins\import\pages\moc_importpagesplugin.cpp" />
   </ItemGroup>
   <ItemGroup>
     <moc Include="..\..\..\scribus\plugins\import\pages\importpages.h" />

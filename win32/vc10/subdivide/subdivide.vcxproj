@@ -112,7 +112,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\scribus\plugins\tools\subdivide\subdivide.cpp" />
-    <ClCompile Include="..\..\..\scribus\plugins\tools\subdivide\moc_subdivide.cpp" />
   </ItemGroup>
   <ItemGroup>
     <moc Include="..\..\..\scribus\plugins\tools\subdivide\subdivide.h" />

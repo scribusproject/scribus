@@ -9,9 +9,6 @@
       <UniqueIdentifier>{d76a1c86-25fc-4950-ad65-4c96a7db940c}</UniqueIdentifier>
       <Extensions>h;hpp;hxx;hm;inl;inc</Extensions>
     </Filter>
-    <Filter Include="Generated Moc Files">
-      <UniqueIdentifier>{8a139663-8420-4e07-b3e8-cc90935a3bf1}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\scribus\plugins\gettext\odtim\contentreader.cpp">
@@ -25,9 +22,6 @@
     </ClCompile>
     <ClCompile Include="..\..\..\scribus\plugins\gettext\odtim\stylereader.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\scribus\plugins\gettext\odtim\moc_odtdia.cpp">
-      <Filter>Generated Moc Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -113,8 +113,6 @@
   <ItemGroup>
     <ClCompile Include="..\..\..\scribus\plugins\tools\pathconnect\pathconnect.cpp" />
     <ClCompile Include="..\..\..\scribus\plugins\tools\pathconnect\pathconnectdialog.cpp" />
-    <ClCompile Include="..\..\..\scribus\plugins\tools\pathconnect\moc_pathconnect.cpp" />
-    <ClCompile Include="..\..\..\scribus\plugins\tools\pathconnect\moc_pathconnectdialog.cpp" />
   </ItemGroup>
   <ItemGroup>
     <moc Include="..\..\..\scribus\plugins\tools\pathconnect\pathconnect.h" />

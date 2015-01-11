@@ -15,9 +15,6 @@
     <Filter Include="Generated Form Files">
       <UniqueIdentifier>{f55087c4-a921-49d3-8fff-06a1bdcc027b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Generated Moc Files">
-      <UniqueIdentifier>{d9ccf1e7-d24d-46f3-87e5-8b8ab51e13ba}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\scribus\plugins\export\pixmapexport\dialog.cpp">
@@ -25,12 +22,6 @@
     </ClCompile>
     <ClCompile Include="..\..\..\scribus\plugins\export\pixmapexport\export.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\scribus\plugins\export\pixmapexport\moc_dialog.cpp">
-      <Filter>Generated Moc Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\scribus\plugins\export\pixmapexport\moc_export.cpp">
-      <Filter>Generated Moc Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

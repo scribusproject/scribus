@@ -9,9 +9,6 @@
       <UniqueIdentifier>{f2df67ca-56c9-4510-8cde-c266955b1f02}</UniqueIdentifier>
       <Extensions>h;hpp;hxx;hm;inl;inc</Extensions>
     </Filter>
-    <Filter Include="Generated Moc Files">
-      <UniqueIdentifier>{fd0a79a6-5924-47fd-87a8-058f63be6b51}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Generated Form Files">
       <UniqueIdentifier>{c6e17d68-63bd-46da-979d-01235f7b116f}</UniqueIdentifier>
     </Filter>
@@ -26,12 +23,6 @@
     </ClCompile>
     <ClCompile Include="..\..\..\scribus\plugins\tools\lenseffects\lenseffects.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\scribus\plugins\tools\lenseffects\moc_lensdialog.cpp">
-      <Filter>Generated Moc Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\scribus\plugins\tools\lenseffects\moc_lenseffects.cpp">
-      <Filter>Generated Moc Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

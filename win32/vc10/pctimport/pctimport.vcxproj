@@ -113,8 +113,6 @@
   <ItemGroup>
     <ClCompile Include="..\..\..\scribus\plugins\import\pct\importpct.cpp" />
     <ClCompile Include="..\..\..\scribus\plugins\import\pct\importpctplugin.cpp" />
-    <ClCompile Include="..\..\..\scribus\plugins\import\pct\moc_importpct.cpp" />
-    <ClCompile Include="..\..\..\scribus\plugins\import\pct\moc_importpctplugin.cpp" />
   </ItemGroup>
   <ItemGroup>
     <moc Include="..\..\..\scribus\plugins\import\pct\importpct.h" />

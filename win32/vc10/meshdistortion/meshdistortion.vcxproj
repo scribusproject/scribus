@@ -113,8 +113,6 @@
   <ItemGroup>
     <ClCompile Include="..\..\..\scribus\plugins\tools\2geomtools\meshdistortion\meshdistortion.cpp" />
     <ClCompile Include="..\..\..\scribus\plugins\tools\2geomtools\meshdistortion\meshdistortiondialog.cpp" />
-    <ClCompile Include="..\..\..\scribus\plugins\tools\2geomtools\meshdistortion\moc_meshdistortion.cpp" />
-    <ClCompile Include="..\..\..\scribus\plugins\tools\2geomtools\meshdistortion\moc_meshdistortiondialog.cpp" />
   </ItemGroup>
   <ItemGroup>
     <moc Include="..\..\..\scribus\plugins\tools\2geomtools\meshdistortion\meshdistortion.h" />

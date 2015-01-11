@@ -141,6 +141,9 @@
       CommandLineTemplate="%(moc.CommandLineTemplate)"
       AdditionalOptions="%(moc.AdditionalOptions)"
       Inputs="%(moc.Identity)" />
+    <ItemGroup>
+      <ClCompile Include="%(moc.Outputs)"/>
+    </ItemGroup>
   </Target>
   <PropertyGroup>
     <ComputeLinkInputsTargets>

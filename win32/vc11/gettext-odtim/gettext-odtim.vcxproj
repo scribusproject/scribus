@@ -210,7 +210,6 @@
     <ClCompile Include="..\..\..\scribus\plugins\gettext\odtim\odtdia.cpp" />
     <ClCompile Include="..\..\..\scribus\plugins\gettext\odtim\odtim.cpp" />
     <ClCompile Include="..\..\..\scribus\plugins\gettext\odtim\stylereader.cpp" />
-    <ClCompile Include="..\..\..\scribus\plugins\gettext\odtim\moc_odtdia.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\scribus\plugins\gettext\odtim\contentreader.h" />

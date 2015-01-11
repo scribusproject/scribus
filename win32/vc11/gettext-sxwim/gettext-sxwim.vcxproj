@@ -210,7 +210,6 @@
     <ClCompile Include="..\..\..\scribus\plugins\gettext\sxwim\stylereader.cpp" />
     <ClCompile Include="..\..\..\scribus\plugins\gettext\sxwim\sxwdia.cpp" />
     <ClCompile Include="..\..\..\scribus\plugins\gettext\sxwim\sxwim.cpp" />
-    <ClCompile Include="..\..\..\scribus\plugins\gettext\sxwim\moc_sxwdia.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\scribus\plugins\gettext\sxwim\contentreader.h" />

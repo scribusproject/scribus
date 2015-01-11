@@ -9,10 +9,6 @@
       <UniqueIdentifier>{9c144189-5ce9-4795-8e69-d323d4980dad}</UniqueIdentifier>
       <Extensions>h;hpp;hxx;hm;inl;inc</Extensions>
     </Filter>
-    <Filter Include="Generated Moc Files">
-      <UniqueIdentifier>{dd67c30e-0c2e-4637-9e59-e0278ffe3a98}</UniqueIdentifier>
-      <Extensions>moc_*.cpp</Extensions>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\scribus\plugins\gettext\textfilter\textfilter.cpp">
@@ -23,12 +19,6 @@
     </ClCompile>
     <ClCompile Include="..\..\..\scribus\plugins\gettext\textfilter\tffilter.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\scribus\plugins\gettext\textfilter\moc_tfdia.cpp">
-      <Filter>Generated Moc Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\scribus\plugins\gettext\textfilter\moc_tffilter.cpp">
-      <Filter>Generated Moc Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

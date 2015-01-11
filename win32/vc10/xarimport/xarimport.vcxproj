@@ -113,8 +113,6 @@
   <ItemGroup>
     <ClCompile Include="..\..\..\scribus\plugins\import\xar\importxar.cpp" />
     <ClCompile Include="..\..\..\scribus\plugins\import\xar\importxarplugin.cpp" />
-    <ClCompile Include="..\..\..\scribus\plugins\import\xar\moc_importxar.cpp" />
-    <ClCompile Include="..\..\..\scribus\plugins\import\xar\moc_importxarplugin.cpp" />
   </ItemGroup>
   <ItemGroup>
     <moc Include="..\..\..\scribus\plugins\import\xar\importxar.h" />

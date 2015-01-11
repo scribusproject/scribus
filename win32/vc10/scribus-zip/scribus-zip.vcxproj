@@ -11,8 +11,6 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\scribus\third_party\zip\moc_unzip_p.cpp" />
-    <ClCompile Include="..\..\..\scribus\third_party\zip\moc_zip_p.cpp" />
     <ClCompile Include="..\..\..\scribus\third_party\zip\scribus_zip.cpp" />
     <ClCompile Include="..\..\..\scribus\third_party\zip\unzip.cpp" />
     <ClCompile Include="..\..\..\scribus\third_party\zip\zip.cpp" />

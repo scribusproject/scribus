@@ -9,9 +9,6 @@
       <UniqueIdentifier>{3cc96f6f-101c-4a4e-8771-081a02faffa9}</UniqueIdentifier>
       <Extensions>h;hpp;hxx;hm;inl;inc</Extensions>
     </Filter>
-    <Filter Include="Generated Moc Files">
-      <UniqueIdentifier>{6cf44d45-62bf-4cf4-829e-752617c5180b}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Form Files">
       <UniqueIdentifier>{e7c51734-0aa1-45e7-b09b-99999118ece9}</UniqueIdentifier>
       <Extensions>ui</Extensions>
@@ -101,24 +98,6 @@
     </ClCompile>
     <ClCompile Include="..\..\..\scribus\plugins\scriptplugin\svgimport.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\scribus\plugins\scriptplugin\moc_pconsole.cpp">
-      <Filter>Generated Moc Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\scribus\plugins\scriptplugin\moc_prefs_scripter.cpp">
-      <Filter>Generated Moc Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\scribus\plugins\scriptplugin\moc_runscriptdialog.cpp">
-      <Filter>Generated Moc Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\scribus\plugins\scriptplugin\moc_scriptercore.cpp">
-      <Filter>Generated Moc Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\scribus\plugins\scriptplugin\moc_scripterprefsgui.cpp">
-      <Filter>Generated Moc Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\scribus\plugins\scriptplugin\moc_scriptplugin.cpp">
-      <Filter>Generated Moc Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

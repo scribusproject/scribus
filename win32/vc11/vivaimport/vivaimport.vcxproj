@@ -208,8 +208,6 @@
   <ItemGroup>
     <ClCompile Include="..\..\..\scribus\plugins\import\viva\importviva.cpp" />
     <ClCompile Include="..\..\..\scribus\plugins\import\viva\importvivaplugin.cpp" />
-    <ClCompile Include="..\..\..\scribus\plugins\import\viva\moc_importviva.cpp" />
-    <ClCompile Include="..\..\..\scribus\plugins\import\viva\moc_importvivaplugin.cpp" />
   </ItemGroup>
   <ItemGroup>
     <moc Include="..\..\..\scribus\plugins\import\viva\importviva.h" />

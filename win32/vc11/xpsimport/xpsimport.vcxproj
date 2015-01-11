@@ -208,10 +208,7 @@
   <ItemGroup>
     <ClCompile Include="..\..\..\scribus\plugins\import\xps\importxps.cpp" />
     <ClCompile Include="..\..\..\scribus\plugins\import\xps\importxpsplugin.cpp" />
-    <ClCompile Include="..\..\..\scribus\plugins\import\xps\moc_xpsimportoptions.cpp" />
     <ClCompile Include="..\..\..\scribus\plugins\import\xps\xpsimportoptions.cpp" />
-    <ClCompile Include="..\..\..\scribus\plugins\import\xps\moc_importxps.cpp" />
-    <ClCompile Include="..\..\..\scribus\plugins\import\xps\moc_importxpsplugin.cpp" />
   </ItemGroup>
   <ItemGroup>
     <moc Include="..\..\..\scribus\plugins\import\xps\importxps.h" />

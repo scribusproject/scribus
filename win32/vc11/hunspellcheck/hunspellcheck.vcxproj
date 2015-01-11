@@ -210,9 +210,6 @@
     <ClCompile Include="..\..\..\scribus\plugins\tools\hunspellcheck\hunspelldict.cpp" />
     <ClCompile Include="..\..\..\scribus\plugins\tools\hunspellcheck\hunspellplugin.cpp" />
     <ClCompile Include="..\..\..\scribus\plugins\tools\hunspellcheck\hunspellpluginimpl.cpp" />
-    <ClCompile Include="..\..\..\scribus\plugins\tools\hunspellcheck\moc_hunspelldialog.cpp" />
-    <ClCompile Include="..\..\..\scribus\plugins\tools\hunspellcheck\moc_hunspellplugin.cpp" />
-    <ClCompile Include="..\..\..\scribus\plugins\tools\hunspellcheck\moc_hunspellpluginimpl.cpp" />
   </ItemGroup>
   <ItemGroup>
     <moc Include="..\..\..\scribus\plugins\tools\hunspellcheck\hunspelldialog.h" />

@@ -9,9 +9,6 @@
       <UniqueIdentifier>{2aa3be9c-d0bb-4673-822f-279920a32ead}</UniqueIdentifier>
       <Extensions>h;hpp;hxx;hm;inl;inc</Extensions>
     </Filter>
-    <Filter Include="Generated Moc Files">
-      <UniqueIdentifier>{edf87f88-389d-4e4d-a838-c2e865178187}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Generated Form Files">
       <UniqueIdentifier>{2bfb6535-8099-415f-a6a0-97936b074dda}</UniqueIdentifier>
     </Filter>
@@ -26,12 +23,6 @@
     </ClCompile>
     <ClCompile Include="..\..\..\scribus\plugins\tools\pathconnect\pathconnectdialog.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\scribus\plugins\tools\pathconnect\moc_pathconnect.cpp">
-      <Filter>Generated Moc Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\scribus\plugins\tools\pathconnect\moc_pathconnectdialog.cpp">
-      <Filter>Generated Moc Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

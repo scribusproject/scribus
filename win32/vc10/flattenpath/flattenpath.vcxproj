@@ -112,7 +112,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\scribus\plugins\tools\flattenpath\flattenpath.cpp" />
-    <ClCompile Include="..\..\..\scribus\plugins\tools\flattenpath\moc_flattenpath.cpp" />
   </ItemGroup>
   <ItemGroup>
     <moc Include="..\..\..\scribus\plugins\tools\flattenpath\flattenpath.h" />
