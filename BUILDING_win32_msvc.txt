@@ -19,7 +19,7 @@ GETTING DEPENDENCIES
 ====================
 
 This is a quick and dirty set of notes that will be filled out once everything's
-verified as correct and working. It asssumes that you'll be building all your
+verified as correct and working. It assumes that you'll be building all your
 dependencies at a single root, like C:\Developer. The root *MUST NOT* have spaces
 in its path.
 
@@ -55,19 +55,19 @@ Archives with ready-to-build solutions for scribus dependencies have been made a
 compile all dependencies necessary for Scribus.
 
 Two different archives are needed :
-	- commone libraries for 14x and trunk : contains boost and python, no compilation is required here
+	- common libraries for 14x and trunk : contains boost and python, no compilation is required here
 	- Scribus 14x specified libraries : libraries used to compile current Scribus 1.4.x releases
 
 Common libraries and version specific libraries can be downloaded on Sourceforge from this directory:
 http://sourceforge.net/projects/scribus/files/scribus-libs/
 
 Common libraries are named with following scheme : scribus-commmon-libs-XXXXXX where XXXXX represents a date.
-Archives with version specific libraries are names using following scheme scribus-14x-libs-msvcXXXX-XXXXXX where :
+Archives with version specific libraries are named using following scheme scribus-14x-libs-msvcXXXX-XXXXXX where :
 	- msvcXXXX represent the Visual Studio version needed to compile provided Visual Studio solution
-	- XXXXXX is a serie of number representing a date.
+	- XXXXXX is a series of numbers representing a date.
 
 For building 14x, archives are provided for Visual Studio 2008 and Visual Studio 2012. The Visual Studio 2008 archives allows to build 
-bit libraries targetted at Windows 2000 SP4, Windows XP and more recent Windows systems. The Visual Studio 12012 archives allows to build 
+libraries targeted at Windows 2000 SP4, Windows XP and more recent Windows systems. The Visual Studio 2012 archives allows to build 
 libraries for 32bit and 64bit platforms. Produced binaries can be used on Windows Vista and up. If you plan to use a more recent 
 Visual Studio version than Visual Studio 2012, download the archives for Visual Studio 2012.
 
@@ -132,9 +132,9 @@ To install common libs:
 To install version specific libs:
 	- open the scribus-14x-libs-msvc* directory where you uncompressed Scribus 14x libs
 	- open the copy-*-dlls-to-build-dir.bat file in a text editor
-	- modify the SCRIBUS_DEBUG_BUILD and SCRIBUS_RELEASE_BUILD to appropriate paths (note: enclose path in double quotes if those contains spaces)
+	- modify the SCRIBUS_DEBUG_BUILD and SCRIBUS_RELEASE_BUILD variables appropriately (note: enclose path in double quotes if those contain spaces)
 	- execute batch file to copy appropriate dlls to build directory
-	
+
 Finally copy Qt DLLs to build directory and Qt plugins directory to "qtplugins" directory.
 Scribus should now run.
 
