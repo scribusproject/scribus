@@ -12239,11 +12239,11 @@ void ScribusDoc::buildAlignItemList(Selection* customSelection)
 }
 
 
-bool ScribusDoc::startAlign()
+bool ScribusDoc::startAlign(uint minObjects)
 {
 	buildAlignItemList();
-	uint alignObjectsCount=AObjects.count();
-	if (alignObjectsCount==0)
+	uint alignObjectsCount = AObjects.count();
+	if (alignObjectsCount < minObjects)
 		return false;
 		
 	bool oneLocked=false;
@@ -12291,7 +12291,6 @@ bool ScribusDoc::startAlign()
 	}
 	return true;
 }
-
 
 void ScribusDoc::endAlign()
 {
@@ -12380,8 +12379,8 @@ void ScribusDoc::itemSelection_AlignLeftOut(AlignTo currAlignTo, AlignMethod cur
 {
 	if (!startAlign())
 		return;
-	uint alignObjectsCount=AObjects.count();
-	int loopStart=0, loopEnd=alignObjectsCount-1;
+	uint alignObjectsCount = AObjects.count();
+	int loopStart = 0, loopEnd = alignObjectsCount - 1;
 	double newX = std::numeric_limits<double>::max();
 	switch ( currAlignTo )
 	{
@@ -12418,8 +12417,8 @@ void ScribusDoc::itemSelection_AlignLeftIn(AlignTo currAlignTo, AlignMethod curr
 {
 	if (!startAlign())
 		return;
-	uint alignObjectsCount=AObjects.count();
-	int loopStart=0, loopEnd=alignObjectsCount-1;
+	uint alignObjectsCount = AObjects.count();
+	int loopStart = 0, loopEnd = alignObjectsCount - 1;
 	double newX = std::numeric_limits<double>::max();
 	switch ( currAlignTo ) 
 	{
@@ -12456,8 +12455,8 @@ void ScribusDoc::itemSelection_AlignCenterHor(AlignTo currAlignTo, AlignMethod c
 {
 	if (!startAlign())
 		return;
-	uint alignObjectsCount=AObjects.count();
-	int loopStart=0, loopEnd=alignObjectsCount-1;
+	uint alignObjectsCount = AObjects.count();
+	int loopStart = 0, loopEnd = alignObjectsCount - 1;
 	double newX = 0.0;
 	switch ( currAlignTo ) 
 	{
@@ -12510,8 +12509,8 @@ void ScribusDoc::itemSelection_AlignRightIn(AlignTo currAlignTo, AlignMethod cur
 {
 	if (!startAlign())
 		return;
-	uint alignObjectsCount=AObjects.count();
-	int loopStart=0, loopEnd=alignObjectsCount-1;
+	uint alignObjectsCount = AObjects.count();
+	int loopStart = 0, loopEnd = alignObjectsCount - 1;
 	double newX = -std::numeric_limits<double>::max();
 	switch ( currAlignTo ) 
 	{
@@ -12550,8 +12549,8 @@ void ScribusDoc::itemSelection_AlignRightOut(AlignTo currAlignTo, AlignMethod cu
 {
 	if (!startAlign())
 		return;
-	uint alignObjectsCount=AObjects.count();
-	int loopStart=0, loopEnd=alignObjectsCount-1;
+	uint alignObjectsCount = AObjects.count();
+	int loopStart = 0, loopEnd = alignObjectsCount - 1;
 	double newX = -std::numeric_limits<double>::max();
 	switch ( currAlignTo ) 
 	{
@@ -12590,8 +12589,8 @@ void ScribusDoc::itemSelection_AlignTopOut(AlignTo currAlignTo, AlignMethod curr
 {
 	if (!startAlign())
 		return;
-	uint alignObjectsCount=AObjects.count();
-	int loopStart=0, loopEnd=alignObjectsCount-1;
+	uint alignObjectsCount = AObjects.count();
+	int loopStart = 0, loopEnd = alignObjectsCount - 1;
 	double newY = std::numeric_limits<double>::max();
 	switch ( currAlignTo ) 
 	{
@@ -12628,8 +12627,8 @@ void ScribusDoc::itemSelection_AlignTopIn(AlignTo currAlignTo, AlignMethod currA
 {
 	if (!startAlign())
 		return;
-	uint alignObjectsCount=AObjects.count();
-	int loopStart=0, loopEnd=alignObjectsCount-1;
+	uint alignObjectsCount = AObjects.count();
+	int loopStart = 0, loopEnd = alignObjectsCount - 1;
 	double newY = std::numeric_limits<double>::max();
 	switch ( currAlignTo ) 
 	{
@@ -12666,8 +12665,8 @@ void ScribusDoc::itemSelection_AlignCenterVer(AlignTo currAlignTo, AlignMethod c
 {
 	if (!startAlign())
 		return;
-	uint alignObjectsCount=AObjects.count();
-	int loopStart=0, loopEnd=alignObjectsCount-1;
+	uint alignObjectsCount = AObjects.count();
+	int loopStart = 0, loopEnd = alignObjectsCount - 1;
 	double newY = 0.0;
 	switch ( currAlignTo ) 
 	{
@@ -12720,8 +12719,8 @@ void ScribusDoc::itemSelection_AlignBottomIn(AlignTo currAlignTo, AlignMethod cu
 {
 	if (!startAlign())
 		return;
-	uint alignObjectsCount=AObjects.count();
-	int loopStart=0, loopEnd=alignObjectsCount-1;
+	uint alignObjectsCount = AObjects.count();
+	int loopStart = 0, loopEnd = alignObjectsCount - 1;
 	double newY = -std::numeric_limits<double>::max();
 	switch ( currAlignTo ) 
 	{
@@ -12760,8 +12759,8 @@ void ScribusDoc::itemSelection_AlignBottomOut(AlignTo currAlignTo, AlignMethod c
 {
 	if (!startAlign())
 		return;
-	uint alignObjectsCount=AObjects.count();
-	int loopStart=0, loopEnd=alignObjectsCount-1;
+	uint alignObjectsCount = AObjects.count();
+	int loopStart = 0, loopEnd = alignObjectsCount - 1;
 	double newY = -std::numeric_limits<double>::max();
 	switch ( currAlignTo )
 	{
@@ -12798,11 +12797,9 @@ void ScribusDoc::itemSelection_AlignBottomOut(AlignTo currAlignTo, AlignMethod c
 
 void ScribusDoc::itemSelection_DistributeLeft()
 {
-	if (!startAlign())
+	if (!startAlign(2))
 		return;
-	uint alignObjectsCount=AObjects.count();
-	if (alignObjectsCount<=1)
-		return;
+	uint alignObjectsCount = AObjects.count();
 	QMap<double,uint> Xsorted;
 	for (uint a = 0; a < alignObjectsCount; ++a)
 	{
@@ -12838,11 +12835,9 @@ void ScribusDoc::itemSelection_DistributeLeft()
 
 void ScribusDoc::itemSelection_DistributeCenterH()
 {
-	if (!startAlign())
+	if (!startAlign(2))
 		return;
-	uint alignObjectsCount=AObjects.count();
-	if (alignObjectsCount<=1)
-		return;
+	uint alignObjectsCount = AObjects.count();
 	QMap<double,uint> Xsorted;
 	for (uint a = 0; a < alignObjectsCount; ++a)
 	{
@@ -12878,11 +12873,9 @@ void ScribusDoc::itemSelection_DistributeCenterH()
 
 void ScribusDoc::itemSelection_DistributeRight()
 {
-	if (!startAlign())
+	if (!startAlign(2))
 		return;
-	uint alignObjectsCount=AObjects.count();
-	if (alignObjectsCount<=1)
-		return;
+	uint alignObjectsCount = AObjects.count();
 	QMap<double,uint> Xsorted;
 	for (uint a = 0; a < alignObjectsCount; ++a)
 	{
@@ -12918,11 +12911,9 @@ void ScribusDoc::itemSelection_DistributeRight()
 
 void ScribusDoc::itemSelection_DistributeDistH(bool usingDistance, double distance, bool reverseDistribute)
 {
-	if (!startAlign())
+	if (!startAlign(2))
 		return;
-	uint alignObjectsCount=AObjects.count();
-	if (alignObjectsCount<=1)
-		return;
+	uint alignObjectsCount = AObjects.count();
 	QMap<double,uint> X1sorted, X2sorted;
 	for (uint a = 0; a < alignObjectsCount; ++a)
 	{
@@ -13003,11 +12994,9 @@ void ScribusDoc::itemSelection_DistributeDistH(bool usingDistance, double distan
 
 void ScribusDoc::itemSelection_DistributeBottom()
 {
-	if (!startAlign())
+	if (!startAlign(2))
 		return;
-	uint alignObjectsCount=AObjects.count();
-	if (alignObjectsCount<=1)
-		return;
+	uint alignObjectsCount = AObjects.count();
 	QMap<double,uint> Ysorted;
 	for (uint a = 0; a < alignObjectsCount; ++a)
 	{
@@ -13043,11 +13032,9 @@ void ScribusDoc::itemSelection_DistributeBottom()
 
 void ScribusDoc::itemSelection_DistributeCenterV()
 {
-	if (!startAlign())
+	if (!startAlign(2))
 		return;
-	uint alignObjectsCount=AObjects.count();
-	if (alignObjectsCount<=1)
-		return;
+	uint alignObjectsCount = AObjects.count();
 	QMap<double,uint> Ysorted;
 	for (uint a = 0; a < alignObjectsCount; ++a)
 	{
@@ -13083,11 +13070,9 @@ void ScribusDoc::itemSelection_DistributeCenterV()
 
 void ScribusDoc::itemSelection_DistributeTop()
 {
-	if (!startAlign())
+	if (!startAlign(2))
 		return;
-	uint alignObjectsCount=AObjects.count();
-	if (alignObjectsCount<=1)
-		return;
+	uint alignObjectsCount = AObjects.count();
 	QMap<double,uint> Ysorted;
 	for (uint a = 0; a < alignObjectsCount; ++a)
 	{
@@ -13123,11 +13108,9 @@ void ScribusDoc::itemSelection_DistributeTop()
 
 void ScribusDoc::itemSelection_DistributeDistV(bool usingDistance, double distance, bool reverseDistribute)
 {
-	if (!startAlign())
+	if (!startAlign(2))
 		return;
-	uint alignObjectsCount=AObjects.count();
-	if (alignObjectsCount<=1)
-		return;
+	uint alignObjectsCount = AObjects.count();
 	QMap<double,uint> Y1sorted, Y2sorted;
 	for (uint a = 0; a < alignObjectsCount; ++a)
 	{
@@ -13208,11 +13191,9 @@ void ScribusDoc::itemSelection_DistributeDistV(bool usingDistance, double distan
 
 void ScribusDoc::itemSelection_DistributeAcrossPage(bool useMargins)
 {
-	if (!startAlign())
+	if (!startAlign(2))
 		return;
-	uint alignObjectsCount=AObjects.count();
-	if (alignObjectsCount<=1)
-		return;
+	uint alignObjectsCount = AObjects.count();
 	QMap<double,uint> X1sorted, X2sorted;
 	for (uint a = 0; a < alignObjectsCount; ++a)
 	{
@@ -13260,11 +13241,9 @@ void ScribusDoc::itemSelection_DistributeAcrossPage(bool useMargins)
 
 void ScribusDoc::itemSelection_DistributeDownPage(bool useMargins)
 {
-	if (!startAlign())
+	if (!startAlign(2))
 		return;
-	uint alignObjectsCount=AObjects.count();
-	if (alignObjectsCount<=1)
-		return;
+	uint alignObjectsCount = AObjects.count();
 	QMap<double,uint> Y1sorted, Y2sorted;
 	for (uint a = 0; a < alignObjectsCount; ++a)
 	{
@@ -13323,11 +13302,9 @@ void ScribusDoc::endUpdate()
 
 void ScribusDoc::itemSelection_SwapLeft()
 {
-	if (!startAlign())
+	if (!startAlign(2))
 		return;
-	uint alignObjectsCount=AObjects.count();
-	if (alignObjectsCount<=1)
-		return;
+	uint alignObjectsCount = AObjects.count();
 	 QList<int> circleList;
 	int circleListCounter=0;
 	//X
@@ -13437,12 +13414,10 @@ void ScribusDoc::itemSelection_SwapLeft()
 
 void ScribusDoc::itemSelection_SwapRight()
 {
-	if (!startAlign())
+	if (!startAlign(2))
 		return;
-	uint alignObjectsCount=AObjects.count();
-	if (alignObjectsCount<=1)
-		return;
-	 QList<int> circleList;
+	uint alignObjectsCount = AObjects.count();
+	QList<int> circleList;
 	int circleListCounter=0;
 	//X
 	QMap<double,uint> Xsorted;

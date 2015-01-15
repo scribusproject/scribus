@@ -1012,7 +1012,7 @@ public:
 	typedef enum {alignFirst, alignLast, alignPage, alignMargins, alignGuide, alignSelection } AlignTo;
 	typedef enum {alignByMoving, alignByResizing } AlignMethod;
 	void buildAlignItemList(Selection* customSelection=0);
-	bool startAlign();
+	bool startAlign(uint minObjects = 1);
 	void endAlign();
 	/**
 	 * \brief Insert a color into the documents color list
