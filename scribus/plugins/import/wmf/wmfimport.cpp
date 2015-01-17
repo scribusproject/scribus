@@ -879,15 +879,39 @@ void WMFImport::polyPolygon( QList<PageItem*>& items, long num, short* params )
 {
 	int numPolys   = params[0];
 	int pointIndex = params[0] + 1;
+	FPointArray pointsPoly;
 	for (int i = 0; i < numPolys; ++i)
 	{
 		short  numPoints  = params[i + 1];
 		short* paramArray = new short[1 + 2 * numPoints];
 		paramArray[0] = numPoints;
 		memcpy(&paramArray[1], &params[pointIndex], 2 * numPoints * sizeof(short));
-		polygon(items, num, paramArray);
+		FPointArray paramPoints = pointsFromParam( numPoints, &paramArray[1] );
+		FPointArray points      = pointsToPolyline( paramPoints, true );
+		pointsPoly += points;
+		if (numPolys > 1)
+			pointsPoly.setMarker();
+//		polygon(items, num, paramArray);
 		delete[] paramArray;
 		pointIndex += (2 * numPoints);
+	}
+	double  BaseX = m_Doc->currentPage()->xOffset();
+	double  BaseY = m_Doc->currentPage()->yOffset();
+	bool    doFill = m_context.brush().style() != Qt::NoBrush;
+	bool    doStroke = m_context.pen().style() != Qt::NoPen;
+	QString fillColor   = doFill ? importColor( m_context.brush().color() ) : CommonStrings::None;
+	QString strokeColor = doStroke ? importColor( m_context.pen().color() ) : CommonStrings::None;
+	double  lineWidth   = m_context.pen().width();
+	if (doStroke && lineWidth <= 0.0 )
+		lineWidth = 1.0;
+	if( pointsPoly.size() > 0 )
+	{
+		int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, BaseX, BaseY, 10, 10, lineWidth, fillColor, strokeColor, true);
+		PageItem* ite = m_Doc->Items->at(z);
+		ite->PoLine = pointsPoly;
+		ite->fillRule = !m_context.windingFill();
+		finishCmdParsing(ite);
+		items.append(ite);
 	}
 }
 
