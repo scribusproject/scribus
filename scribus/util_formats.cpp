@@ -65,6 +65,7 @@ FormatsManager::FormatsManager()
 #endif
 	m_fmtNames[FormatsManager::UNICONV] = QObject::tr("UniConvertor File");
 	m_fmtNames[FormatsManager::PCT]  = QObject::tr("Macintosh Pict File");
+	m_fmtNames[FormatsManager::QT]  = QObject::tr("Qt supported File");
 
 	m_fmtMimeTypes.insert(FormatsManager::EPS,  QStringList() << "application/postscript");
 	m_fmtMimeTypes.insert(FormatsManager::GIF,  QStringList() << "image/gif");
@@ -85,6 +86,7 @@ FormatsManager::FormatsManager()
 	m_fmtMimeTypes.insert(FormatsManager::WPG,  QStringList() << "");
 	m_fmtMimeTypes.insert(FormatsManager::PCT,  QStringList() << "");
 	m_fmtMimeTypes.insert(FormatsManager::ORA,  QStringList() << "");
+	m_fmtMimeTypes.insert(FormatsManager::QT,   QStringList() << "");
 
 	QMapIterator<int, QStringList> i(m_fmts);
 	while (i.hasNext())
@@ -93,8 +95,24 @@ FormatsManager::FormatsManager()
 		m_fmtList << i.value().first().toUpper();
 	}
 
-	m_qtSupportedImageFormats=QImageReader::supportedImageFormats();
-	m_supportedImageFormats=m_qtSupportedImageFormats;
+	m_qtSupportedImageFormats = QImageReader::supportedImageFormats();
+	QStringList qtFmts;
+	for (int qf = 0; qf < m_qtSupportedImageFormats.count(); qf++)
+	{
+		QString fmt = m_qtSupportedImageFormats[qf];
+		bool found = false;
+		QMapIterator<int, QStringList> i(m_fmts);
+		while (i.hasNext())
+		{
+			i.next();
+			if (i.value().contains(fmt))
+				found = true;
+		}
+		if (!found)
+			qtFmts.append(fmt);
+	}
+	m_fmts.insert(FormatsManager::QT, qtFmts);
+	m_supportedImageFormats = m_qtSupportedImageFormats;
 	updateSupportedImageFormats(m_supportedImageFormats);
 }
 
