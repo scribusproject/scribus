@@ -270,7 +270,7 @@ void PrefsManager::initDefaults()
 	appPrefs.opToolPrefs.magMin = 1;
 	appPrefs.opToolPrefs.magMax = 32000;
 	appPrefs.opToolPrefs.magStep = 25;
-	qDebug()<<ScQApp->currGUILanguage();
+//	qDebug()<<ScQApp->currGUILanguage();
 	appPrefs.docSetupPrefs.docUnitIndex = unitIndexFromString(LocaleManager::instance()->unitForLocale(ScQApp->currGUILanguage()));
 	appPrefs.itemToolPrefs.polyCorners = 4;
 	appPrefs.itemToolPrefs.polyFactor = 0.5;

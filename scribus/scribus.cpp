@@ -1449,7 +1449,7 @@ void ScribusMainWindow::specialActionKeyEvent(int unicodevalue)
 {
 	if (!HaveDoc)
 		return;
-	const QString& actionName="";
+//	const QString& actionName="";
 	if (doc->m_Selection->count() == 1)
 	{
 		PageItem* selItem = doc->m_Selection->itemAt(0);
@@ -9885,6 +9885,8 @@ void ScribusMainWindow::testQT_slot4()
 	{
 		qDebug()<<"qov"<<q_xSpinBox->property("value").toDouble();
 	}
+	qqview->close();
+	qqview->deleteLater();
 }
 
 /*
