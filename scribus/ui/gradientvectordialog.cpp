@@ -419,8 +419,8 @@ void GradientVectorDialog::unitChange(int unitIndex)
 	gC3YD->setNewUnit(unitIndex);
 	gC4XD->setNewUnit(unitIndex);
 	gC4YD->setNewUnit(unitIndex);
-	gC4XD->setNewUnit(unitIndex);
-	gC4YD->setNewUnit(unitIndex);
+	gC5XD->setNewUnit(unitIndex);
+	gC5YD->setNewUnit(unitIndex);
 	connect(gX1,   SIGNAL(valueChanged(double)), this, SLOT(changeSpecialL()));
 	connect(gX2,   SIGNAL(valueChanged(double)), this, SLOT(changeSpecialL()));
 	connect(gY1,   SIGNAL(valueChanged(double)), this, SLOT(changeSpecialL()));
