@@ -126,6 +126,9 @@ void AppModeHelper::setApplicationMode(ScribusMainWindow* scmw, ScribusDoc* doc,
 
 	switch (oldMode)
 	{
+		case modeDrawBezierLine:
+			setSpecialEditMode(false);
+			break;
 		case modeEdit:
 			{
 				if (newMode != modeEdit)
@@ -147,14 +150,14 @@ void AppModeHelper::setApplicationMode(ScribusMainWindow* scmw, ScribusDoc* doc,
 				doc->view()->horizRuler->update();
 			}
 			break;
+		case modeEditArc:
+			setSpecialEditMode(false);
+			break;
 		case modeEditClip:
 			{
 				if (newMode != modeEditClip)
 					scmw->NoFrameEdit();
 			}
-			break;
-		case modeDrawBezierLine:
-			setSpecialEditMode(false);
 			break;
 		case modeEditGradientVectors:
 			setSpecialEditMode(false);
@@ -163,6 +166,12 @@ void AppModeHelper::setApplicationMode(ScribusMainWindow* scmw, ScribusDoc* doc,
 			setSpecialEditMode(false);
 			break;
 		case modeEditMeshPatch:
+			setSpecialEditMode(false);
+			break;
+		case modeEditPolygon:
+			setSpecialEditMode(false);
+			break;
+		case modeEditSpiral:
 			setSpecialEditMode(false);
 			break;
 		case modeEditTable:
@@ -175,13 +184,7 @@ void AppModeHelper::setApplicationMode(ScribusMainWindow* scmw, ScribusDoc* doc,
 				a_actMgr->restoreActionShortcutsPostEditMode();
 			}
 			break;
-		case modeEditArc:
-			setSpecialEditMode(false);
-			break;
-		case modeEditSpiral:
-			setSpecialEditMode(false);
-			break;
-		case modeEditPolygon:
+		case modeEditWeldPoint:
 			setSpecialEditMode(false);
 			break;
 		case modeLinkFrames:
@@ -200,6 +203,38 @@ void AppModeHelper::setApplicationMode(ScribusMainWindow* scmw, ScribusDoc* doc,
 				scmw->outlinePalette->setEnabled(true);
 			}
 			break;
+		case modeCopyProperties:
+			{
+				if (!doc->m_Selection->isEmpty())
+				{
+					doc->ElemToLink = doc->m_Selection->itemAt(0);
+					doc->view()->Deselect(true);
+					(*a_scrActions)["toolsCopyProperties"]->setEnabled(true);
+				}
+			}
+			break;
+		case modeDrawArc:
+			break;
+		case modeDrawBezierLine:
+			{
+				setSpecialEditMode(true);
+				if ((doc->m_Selection->count() != 0) && (!PrefsManager::instance()->appPrefs.uiPrefs.stickyTools))
+					doc->view()->Deselect(true);
+				doc->view()->FirstPoly = true;
+			}
+			break;
+		case modeDrawCalligraphicLine:
+			break;
+		case modeDrawFreehandLine:
+			break;
+		case modeDrawImage:
+			break;
+		case modeDrawLatex:
+			break;
+		case modeDrawLine:
+			break;
+		case modeDrawRegularPolygon:
+			break;
 		case modeDrawShapes:
 			{
 				doc->SubMode = scmw->modeToolBar->SubMode;
@@ -208,17 +243,13 @@ void AppModeHelper::setApplicationMode(ScribusMainWindow* scmw, ScribusDoc* doc,
 				scmw->emitUpdateRequest(reqCustomShapeUpdate);
 			}
 			break;
-		case modeStoryEditor:
-			{
-				scmw->slotStoryEditor(oldMode == modeEditTable);
-				scmw->slotSelect();
-			}
+		case modeDrawSpiral:
 			break;
-		case modeDrawImage:
+		case modeDrawTable:
+			break;
+		case modeDrawTable2:
 			break;
 		case modeDrawText:
-			break;
-		case modeMagnifier:
 			break;
 		case modeEdit:
 			{
@@ -253,102 +284,29 @@ void AppModeHelper::setApplicationMode(ScribusMainWindow* scmw, ScribusDoc* doc,
 				}
 			}
 			break;
+		case modeEditArc:
+			setSpecialEditMode(true);
+			break;
 		case modeEditClip:
 			{
 				if (oldMode != modeEditClip)
 					scmw->ToggleFrameEdit();
 			}
 			break;
-		case modeDrawLine:
-			break;
-		case modeRotation:
-			break;
-		case modeLinkFrames:
-			{
-				doc->regionsChanged()->update(QRect());
-				doc->ElemToLink = doc->m_Selection->itemAt(0);
-			}
-			break;
-		case modeImportImage:
-			break;
-		case modeUnlinkFrames:
-			doc->regionsChanged()->update(QRect());
-			break;
-		case modeDrawRegularPolygon:
-			break;
-		case modeDrawBezierLine:
-			{
-				setSpecialEditMode(true);
-				if ((doc->m_Selection->count() != 0) && (!PrefsManager::instance()->appPrefs.uiPrefs.stickyTools))
-					doc->view()->Deselect(true);
-				doc->view()->FirstPoly = true;
-			}
-			break;
-		case modeInsertPDFButton:
-			break;
-		case modeInsertPDFTextfield:
-			break;
-		case modeInsertPDFCheckbox:
-			break;
-		case modeInsertPDFCombobox:
-			break;
-		case modeInsertPDFListbox:
-			break;
-		case modeInsertPDFTextAnnotation:
-			break;
-		case modeInsertPDFLinkAnnotation:
-			break;
-		case modeDrawFreehandLine:
-			break;
-		case modeDrawTable:
-			break;
-		case modeDrawTable2:
-			break;
-		case modePanning:
-			break;
-		case modeMeasurementTool:
-			break;
-		case modeEyeDropper:
-			break;
-		case modeCopyProperties:
-			{
-				if (!doc->m_Selection->isEmpty())
-				{
-					doc->ElemToLink = doc->m_Selection->itemAt(0);
-					doc->view()->Deselect(true);
-					(*a_scrActions)["toolsCopyProperties"]->setEnabled(true);
-				}
-			}
-			break;
-		case modeDrawLatex:
-			break;
-		case modeImportObject:
-			break;
-		case modeInsertPDF3DAnnotation:
-			break;
 		case modeEditGradientVectors:
 			{
 				setSpecialEditMode(true);
 				scmw->propertiesPalette->setGradientEditMode(true);
 			}
-		break;
+			break;
 		case modeEditMeshGradient:
 			setSpecialEditMode(true);
 			break;
 		case modeEditMeshPatch:
 			setSpecialEditMode(true);
 			break;
-		case modeDrawCalligraphicLine:
-			break;
-		case modeDrawArc:
-			break;
-		case modeEditArc:
-			setSpecialEditMode(true);
-			break;
 		case modeEditPolygon:
 			setSpecialEditMode(true);
-			break;
-		case modeDrawSpiral:
 			break;
 		case modeEditSpiral:
 			setSpecialEditMode(true);
@@ -373,8 +331,54 @@ void AppModeHelper::setApplicationMode(ScribusMainWindow* scmw, ScribusDoc* doc,
 			}
 			break;
 		case modeEditWeldPoint:
+			setSpecialEditMode(true);
+			break;
+		case modeEyeDropper:
+			break;
+		case modeImportImage:
+			break;
+		case modeImportObject:
+			break;
+		case modeInsertPDF3DAnnotation:
+			break;
+		case modeInsertPDFButton:
+			break;
+		case modeInsertPDFCheckbox:
+			break;
+		case modeInsertPDFCombobox:
+			break;
+		case modeInsertPDFLinkAnnotation:
+			break;
+		case modeInsertPDFListbox:
 			break;
 		case modeInsertPDFRadioButton:
+			break;
+		case modeInsertPDFTextAnnotation:
+			break;
+		case modeInsertPDFTextfield:
+			break;
+		case modeLinkFrames:
+			{
+				doc->regionsChanged()->update(QRect());
+				doc->ElemToLink = doc->m_Selection->itemAt(0);
+			}
+			break;
+		case modeMagnifier:
+			break;
+		case modeMeasurementTool:
+			break;
+		case modePanning:
+			break;
+		case modeRotation:
+			break;
+		case modeStoryEditor:
+			{
+				scmw->slotStoryEditor(oldMode == modeEditTable);
+				scmw->slotSelect();
+			}
+			break;
+		case modeUnlinkFrames:
+			doc->regionsChanged()->update(QRect());
 			break;
 		default:
 			//No doc open?
@@ -405,10 +409,13 @@ void AppModeHelper::enableActionsForSelection(ScribusMainWindow* scmw, ScribusDo
 	}
 	assert (docSelectionCount == 0 || currItem != NULL); // help coverity analysis
 
-	bool inAnEditMode=doc->inAnEditMode();
+	bool inAnEditMode = doc->inAnEditMode();
 
-	(*a_scrActions)["editSelectAllOnLayer"]->setEnabled(true);
-	(*a_scrActions)["editDeselectAll"]->setEnabled(SelectedType != -1);
+	if (!doc->inASpecialEditMode()) // #12897: Using Undo/Redo those actions are re-enabled causing crash
+	{
+		(*a_scrActions)["editSelectAllOnLayer"]->setEnabled(true);
+		(*a_scrActions)["editDeselectAll"]->setEnabled(SelectedType != -1);
+	}
 	(*a_scrActions)["itemDetachTextFromPath"]->setEnabled(false);
 	(*a_scrActions)["itemUpdateImage"]->setEnabled(SelectedType==PageItem::ImageFrame && (currItem->PictureIsAvailable || currItem->asLatexFrame()));
 	(*a_scrActions)["itemAdjustFrameToImage"]->setEnabled(SelectedType==PageItem::ImageFrame && currItem->PictureIsAvailable);

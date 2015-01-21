@@ -757,20 +757,35 @@ ScribusDoc::~ScribusDoc()
 
 bool ScribusDoc::inAnEditMode() const
 {
-	bool inEditMode = (appMode == modeEdit ||
-					   appMode == modeEditTable ||
-					   appMode == modeEditSpiral ||
-					   appMode == modeEditGradientVectors ||
-					   appMode == modeEditClip ||
-					   appMode == modeEditMeshGradient ||
+	bool inEditMode = (appMode == modeDrawBezierLine ||
+					   appMode == modeEdit ||
 					   appMode == modeEditArc ||
+					   appMode == modeEditClip ||
+					   appMode == modeEditGradientVectors ||
+					   appMode == modeEditMeshGradient ||
 					   appMode == modeEditMeshPatch ||
-					   appMode == modeEditWeldPoint ||
 					   appMode == modeEditPolygon ||
-					   appMode == modeDrawBezierLine
+					   appMode == modeEditSpiral ||
+					   appMode == modeEditTable ||
+					   appMode == modeEditWeldPoint
 					   ) ? true : false;
 
 	return inEditMode;
+}
+
+bool ScribusDoc::inASpecialEditMode() const
+{ // #12897, modes that use setSpecialEditMode() function in appmodehelper.cpp
+	bool inSpecialEditMode = (appMode == modeDrawBezierLine ||
+							  appMode == modeEditArc ||
+							  appMode == modeEditGradientVectors ||
+							  appMode == modeEditMeshGradient ||
+							  appMode == modeEditMeshPatch ||
+							  appMode == modeEditPolygon ||
+							  appMode == modeEditSpiral ||
+							  appMode == modeEditWeldPoint
+							  ) ? true : false;
+
+	return inSpecialEditMode;
 }
 
 QList<PageItem*> ScribusDoc::getAllItems(QList<PageItem*> &items)

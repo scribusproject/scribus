@@ -129,6 +129,7 @@ public:
 	~ScribusDoc();
 	void init();
 	bool inAnEditMode() const;
+	bool inASpecialEditMode() const;
 	QList<PageItem*> getAllItems(QList<PageItem*> &items);
 	QList<PageItem*> *parentGroup(PageItem* item, QList<PageItem*> *list);
 	void setup(const int, const int, const int, const int, const int, const QString&, const QString&);
