@@ -28,7 +28,7 @@ LANGUAGE LANG_NEUTRAL, SUBLANG_NEUTRAL
 
 // Icon with lowest ID value placed first to ensure application icon
 // remains consistent on all systems.
-AAASCRIBUSAPP           ICON                    "scribusicon.ico"
+SCRIBUSICO              ICON                    "scribusicon.ico"
 SCRIBUSDOC              ICON                    "scribusdoc.ico"
 #endif    // Neutre resources
 /////////////////////////////////////////////////////////////////////////////
@@ -95,7 +95,7 @@ BEGIN
             VALUE "FileDescription", "Scribus 1.5.0svn"
             VALUE "FileVersion", "1.5.0"
             VALUE "InternalName", "Scribus 1.5.0svn"
-            VALUE "LegalCopyright", "Copyright (C) 2001-2013 by The Scribus Team"
+            VALUE "LegalCopyright", "Copyright (C) 2001-2015 by The Scribus Team"
             VALUE "OriginalFilename", "Scribus.exe"
             VALUE "ProductName", "Scribus - Open Source Desktop Publishing"
             VALUE "ProductVersion", "1.5.0"

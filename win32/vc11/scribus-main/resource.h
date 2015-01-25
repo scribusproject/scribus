@@ -2,7 +2,7 @@
 // Microsoft Visual C++ generated include file.
 // Used by Scribus 1.3.x cvs.rc
 //
-#define AAASCRIBUSAPP                   101
+#define SCRIBUSICO                      101
 #define SCRIBUSDOC                      102
 
 // Next default values for new objects
