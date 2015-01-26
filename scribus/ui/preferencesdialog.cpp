@@ -61,10 +61,10 @@ PreferencesDialog::PreferencesDialog(QWidget* parent, ApplicationPrefs& prefsDat
 
 	applyButton->hide();
 
+	exportButton->hide();
 	if(doc)
 	{
 		setWindowTitle( tr("Document Setup") );
-		exportButton->hide();
 		defaultsButton->hide();
 	}
 	else
