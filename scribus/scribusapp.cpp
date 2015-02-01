@@ -24,15 +24,16 @@ for which a new license (GPL+exception) is in place.
 #include <iostream>
 #include <cstdlib>
 
-#include <QString>
-#include <QFont>
-#include <QTranslator>
-#include <QFileInfo>
-#include <QFile>
 #include <QDir>
-#include <QTextCodec>
+#include <QFile>
+#include <QFileInfo>
+#include <QFont>
+#include <QLibraryInfo>
 #include <QLocale>
+#include <QString>
+#include <QTextCodec>
 #include <QTextStream>
+#include <QTranslator>
 
 #include "scribusapp.h"
 
@@ -389,22 +390,30 @@ QStringList ScribusQApp::getLang(QString lang)
 
 void ScribusQApp::installTranslators(const QStringList & langs)
 {
+	static QTranslator *transQt = 0;
 	static QTranslator *trans = 0;
 
-	if ( trans )
+	if (transQt)
+	{
+		removeTranslator( transQt );
+		delete transQt;
+		transQt=0;
+	}
+	if (trans)
 	{
 		removeTranslator( trans );
 		delete trans;
 		trans=0;
 	}
 
+	transQt = new QTranslator(0);
 	trans = new QTranslator(0);
 	QString path(ScPaths::instance().translationDir());
-	path += "scribus";
 
-	bool loaded = false;
+	bool loadedQt = false;
+	bool loadedScribus = false;
 	QString lang;
-	for (QStringList::const_iterator it = langs.constBegin(); it != langs.constEnd() && !loaded; ++it) 
+	for (QStringList::const_iterator it = langs.constBegin(); it != langs.constEnd() && !loadedScribus; ++it)
 	{
 		lang=(*it);
 		if (lang == "en")
@@ -412,10 +421,18 @@ void ScribusQApp::installTranslators(const QStringList & langs)
 			GUILang=lang;
 			break;
 		}
-		else if (trans->load(QString(path + '.' + lang), "."))
-			loaded = true;
+		else
+		{
+			//CB: This might need adjusting for qm files distribution locations
+			if (transQt->load("qt_" + lang,	QLibraryInfo::location(QLibraryInfo::TranslationsPath)))
+				loadedQt = true;
+			if (trans->load(QString(path + "scribus." + lang), "."))
+				loadedScribus = true;
+		}
 	}
-	if (loaded)
+	if (loadedQt)
+		installTranslator(transQt);
+	if (loadedScribus)
 	{
 		installTranslator(trans);
 		GUILang=lang;
