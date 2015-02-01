@@ -1223,7 +1223,9 @@ IF(APPLE)
 	"-framework CoreFoundation" )
 ENDIF(APPLE)
 
-add_dependencies(${EXE_NAME} svnheader)
+IF (WANT_SVNVERSION)
+	add_dependencies(${EXE_NAME} svnheader)
+ENDIF (WANT_SVNVERSION)
 
 TARGET_LINK_LIBRARIES(${EXE_NAME}
 	${SCRIBUS_COLORMGMT_LIB}
