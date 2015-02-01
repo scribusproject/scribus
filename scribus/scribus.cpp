@@ -173,6 +173,7 @@ for which a new license (GPL+exception) is in place.
 #include "ui/cpalette.h"
 #include "ui/customfdialog.h"
 #include "ui/delpages.h"
+#include "ui/downloadspalette.h"
 #include "ui/edittoolbar.h"
 #include "ui/effectsdialog.h"
 #include "ui/filetoolbar.h"
@@ -528,8 +529,10 @@ void ScribusMainWindow::initDefaultValues()
 	keyrep = false;
 	_arrowKeyDown = false;
 	ClipB = QApplication::clipboard();
-	palettesStatus[0] = false;
-	guidesStatus[0] = false;
+	for (int i=0; i<11 ; ++i)
+		palettesStatus[i] = false;
+	for (int i=0; i<13 ; ++i)
+		guidesStatus[0] = false;
 #ifdef HAVE_OSG
 	QStringList supportedExts;
 	supportedExts << "osg" << "dxf" << "flt" << "ive" << "geo" << "sta" << "stl" << "logo" << "3ds" << "ac" << "obj";
@@ -618,6 +621,10 @@ void ScribusMainWindow::initPalettes()
 	connect( scrActions["toolsBookmarks"], SIGNAL(toggled(bool)) , bookmarkPalette, SLOT(setPaletteShown(bool)) );
 	connect( bookmarkPalette, SIGNAL(paletteShown(bool)), scrActions["toolsBookmarks"], SLOT(setChecked(bool)));
 	bookmarkPalette->installEventFilter(this);
+	downloadsPalette = new DownloadsPalette(this);
+	connect( scrActions["toolsDownloads"], SIGNAL(toggled(bool)) , downloadsPalette, SLOT(setPaletteShown(bool)) );
+	connect( downloadsPalette, SIGNAL(paletteShown(bool)), scrActions["toolsDownloads"], SLOT(setChecked(bool)));
+	downloadsPalette->installEventFilter(this);
 	connect( scrActions["toolsMeasurements"], SIGNAL(toggledData(bool, int)) , this, SLOT(setAppModeByToggle(bool, int)) );
 	docCheckerPalette = new CheckDocument(this, false);
 	connect( scrActions["toolsPreflightVerifier"], SIGNAL(toggled(bool)) , docCheckerPalette, SLOT(setPaletteShown(bool)) );
@@ -1170,6 +1177,7 @@ void ScribusMainWindow::addDefaultWindowMenuItems()
 	scrMenuMgr->addMenuItemString("toolsPages", "Windows");
 	scrMenuMgr->addMenuItemString("toolsLayers", "Windows");
 	scrMenuMgr->addMenuItemString("toolsBookmarks", "Windows");
+	scrMenuMgr->addMenuItemString("toolsDownloads", "Windows");
 	scrMenuMgr->addMenuItemString("SEPARATOR", "Windows");
 	scrMenuMgr->addMenuItemString("toolsScrapbook", "Windows");
 	scrMenuMgr->addMenuItemString("toolsSymbols", "Windows");
@@ -1930,6 +1938,7 @@ void ScribusMainWindow::closeEvent(QCloseEvent *ce)
 	outlinePalette->hide();
 	scrapbookPalette->hide();
 	bookmarkPalette->hide();
+	downloadsPalette->hide();
 	layerPalette->hide();
 	pagePalette->hide();
 	docCheckerPalette->hide();
@@ -5362,6 +5371,8 @@ void ScribusMainWindow::ToggleAllPalettes()
 			bookmarkPalette->show();
 		if (palettesStatus[9])
 			docCheckerPalette->show();
+		if (palettesStatus[10])
+			downloadsPalette->show();
 		setUndoPalette(palettesStatus[8]);
 	}
 	else
@@ -5374,6 +5385,7 @@ void ScribusMainWindow::ToggleAllPalettes()
 		palettesStatus[6] = bookmarkPalette->isVisible();
 		palettesStatus[8] = undoPalette->isVisible();
 		palettesStatus[9] = docCheckerPalette->isVisible();
+		palettesStatus[10] = downloadsPalette->isVisible();
 		propertiesPalette->hide();
 		outlinePalette->hide();
 		scrapbookPalette->hide();
@@ -5381,6 +5393,7 @@ void ScribusMainWindow::ToggleAllPalettes()
 		pagePalette->hide();
 		layerPalette->hide();
 		docCheckerPalette->hide();
+		downloadsPalette->hide();
 		setUndoPalette(false);
 		palettesStatus[0] = true;
 	}
@@ -5688,6 +5701,7 @@ void ScribusMainWindow::enablePalettes(bool b)
 	inlinePalette->setEnabled(b);
 	symbolPalette->setEnabled(b);
 	alignDistributePalette->setEnabled(b);
+	downloadsPalette->setEnabled(b);
 }
 
 void ScribusMainWindow::ToggleFrameEdit()
@@ -6564,6 +6578,7 @@ int ScribusMainWindow::ShowSubs()
 	outlinePalette->startup();
 	scrapbookPalette->startup();
 	bookmarkPalette->startup();
+	downloadsPalette->startup();
 	pagePalette->startup();
 	layerPalette->startup();
 //	measurementPalette->startup();

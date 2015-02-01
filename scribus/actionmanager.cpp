@@ -791,6 +791,8 @@ void ActionManager::initToolsMenuActions()
 	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
 	name="toolsBookmarks";
 	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
+	name="toolsDownloads";
+	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
 	name="toolsMeasurements";
 	scrActions->insert(name, new ScrAction(ScrAction::DataInt, loadIcon("16/measure.png"), loadIcon("22/measure.png"), "", defaultKey(name), mainWindow, modeMeasurementTool));
 	name="toolsActionHistory";
@@ -889,6 +891,7 @@ void ActionManager::initToolsMenuActions()
 	(*scrActions)["toolsLayers"]->setShortcutContext(Qt::ApplicationShortcut);
 	(*scrActions)["toolsPages"]->setShortcutContext(Qt::ApplicationShortcut);
 	(*scrActions)["toolsBookmarks"]->setShortcutContext(Qt::ApplicationShortcut);
+	(*scrActions)["toolsDownloads"]->setShortcutContext(Qt::ApplicationShortcut);
 	(*scrActions)["toolsActionHistory"]->setShortcutContext(Qt::ApplicationShortcut);
 	(*scrActions)["toolsPreflightVerifier"]->setShortcutContext(Qt::ApplicationShortcut);
 	(*scrActions)["toolsAlignDistribute"]->setShortcutContext(Qt::ApplicationShortcut);
@@ -902,6 +905,7 @@ void ActionManager::initToolsMenuActions()
 	(*scrActions)["toolsLayers"]->setToggleAction(true);
 	(*scrActions)["toolsPages"]->setToggleAction(true);
 	(*scrActions)["toolsBookmarks"]->setToggleAction(true);
+	(*scrActions)["toolsDownloads"]->setToggleAction(true);
 	(*scrActions)["toolsMeasurements"]->setToggleAction(true);
 	(*scrActions)["toolsActionHistory"]->setToggleAction(true);
 	(*scrActions)["toolsPreflightVerifier"]->setToggleAction(true);
@@ -1662,6 +1666,7 @@ void ActionManager::languageChange()
 	(*scrActions)["toolsLayers"]->setTexts( tr("&Layers"));
 	(*scrActions)["toolsPages"]->setTexts( tr("&Arrange Pages"));
 	(*scrActions)["toolsBookmarks"]->setTexts( tr("&Bookmarks"));
+	(*scrActions)["toolsDownloads"]->setTexts( tr("&Downloads"));
 	(*scrActions)["toolsMeasurements"]->setTexts( tr("&Measurements"));
 	(*scrActions)["toolsActionHistory"]->setTexts( tr("Action &History"));
 	(*scrActions)["toolsPreflightVerifier"]->setTexts( tr("Preflight &Verifier"));
@@ -2321,6 +2326,7 @@ void ActionManager::createDefaultMenus()
 		<< "toolsLayers"
 		<< "toolsPages"
 		<< "toolsBookmarks"
+		<< "toolsDownloads"
 		<< "toolsMeasurements"
 		<< "toolsActionHistory"
 		<< "toolsPreflightVerifier"

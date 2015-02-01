@@ -94,6 +94,7 @@ SET(SCRIBUS_UI_SRC
 	ui/charselectenhanced.ui
 	ui/cmsprefsbase.ui
 	ui/colorpalette.ui
+	ui/downloadspalettebase.ui
 	ui/gradientaddedit.ui
 	ui/gradienteditor.ui
 	ui/gradientvectorbase.ui
@@ -325,6 +326,7 @@ SET(SCRIBUS_MOC_CLASSES
 	ui/dasheditor.h
 	ui/dcolor.h
 	ui/delpages.h
+	ui/downloadspalette.h
 	ui/editor.h
 	ui/effectsdialog.h
 	ui/extimageprops.h
@@ -781,6 +783,7 @@ SET(SCRIBUS_SOURCES
 	ui/dasheditor.cpp
 	ui/dcolor.cpp
 	ui/delpages.cpp
+	ui/downloadspalette.cpp
 	ui/editor.cpp
 	ui/effectsdialog.cpp
 	ui/extimageprops.cpp

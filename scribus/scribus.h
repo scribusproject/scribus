@@ -70,6 +70,7 @@ class BookPalette;
 class CharSelect;
 class CheckDocument;
 class ColorCombo;
+class DownloadsPalette;
 class EditToolBar;
 class FileToolBar;
 class FontCombo;
@@ -244,6 +245,7 @@ public:
 	LayerPalette* layerPalette;
 	PagePalette *pagePalette;
 	BookPalette *bookmarkPalette;
+	DownloadsPalette *downloadsPalette;
 	SymbolPalette *symbolPalette;
 	InlinePalette *inlinePalette;
 	Measurements* measurementPalette;
@@ -632,7 +634,7 @@ private:
 	int viewBopal;
 	int viewUndoPalette;
 
-	bool palettesStatus[10];
+	bool palettesStatus[11];
 	bool guidesStatus[13];
 
 	bool keyrep;
