@@ -156,7 +156,13 @@ void AppModeHelper::setApplicationMode(ScribusMainWindow* scmw, ScribusDoc* doc,
 		case modeEditClip:
 			{
 				if (newMode != modeEditClip)
+				{
 					scmw->NoFrameEdit();
+					// #12898: disable select actions in Edit menu editing nodes
+					(*a_scrActions)["editSelectAll"]->setEnabled(true);
+					(*a_scrActions)["editSelectAllOnLayer"]->setEnabled(true);
+					(*a_scrActions)["editDeselectAll"]->setEnabled(true);
+				}
 			}
 			break;
 		case modeEditGradientVectors:
@@ -290,7 +296,13 @@ void AppModeHelper::setApplicationMode(ScribusMainWindow* scmw, ScribusDoc* doc,
 		case modeEditClip:
 			{
 				if (oldMode != modeEditClip)
+				{
 					scmw->ToggleFrameEdit();
+					// #12898: disable select actions in Edit menu editing nodes
+					(*a_scrActions)["editSelectAll"]->setEnabled(false);
+					(*a_scrActions)["editSelectAllOnLayer"]->setEnabled(false);
+					(*a_scrActions)["editDeselectAll"]->setEnabled(false);
+				}
 			}
 			break;
 		case modeEditGradientVectors:
@@ -411,7 +423,8 @@ void AppModeHelper::enableActionsForSelection(ScribusMainWindow* scmw, ScribusDo
 
 	bool inAnEditMode = doc->inAnEditMode();
 
-	if (!doc->inASpecialEditMode()) // #12897: Using Undo/Redo those actions are re-enabled causing crash
+	// #12897: Using Undo/Redo those actions are re-enabled causing crash
+	if (!doc->inASpecialEditMode())
 	{
 		(*a_scrActions)["editSelectAllOnLayer"]->setEnabled(true);
 		(*a_scrActions)["editDeselectAll"]->setEnabled(SelectedType != -1);
