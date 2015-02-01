@@ -52,6 +52,7 @@ void ScPaths::destroy()
 // as preprocessor macros and set by autoconf.
 ScPaths::ScPaths() :
 	m_docDir(DOCDIR),
+	m_fontDir(),
 	m_iconDir(ICONDIR),
 	m_libDir(LIBDIR),
 	m_pluginDir(PLUGINDIR),
@@ -68,6 +69,7 @@ ScPaths::ScPaths() :
 	qDebug() << QString("scpaths: bundle at %1").arg(pathPtr);
 	m_shareDir = QString("%1/Contents/share/scribus/").arg(pathPtr);
 	m_docDir = QString("%1/Contents/share/doc/scribus/").arg(pathPtr);
+	m_fontDir = QString("%1/Contents/share/scribus/fonts/").arg(pathPtr);
 	m_iconDir = QString("%1/Contents/share/scribus/icons/").arg(pathPtr);
 	m_sampleScriptDir = QString("%1/Contents/share/scribus/samples/").arg(pathPtr);
 	m_scriptDir = QString("%1/Contents/share/scribus/scripts/").arg(pathPtr);
