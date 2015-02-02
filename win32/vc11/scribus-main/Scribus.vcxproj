@@ -313,7 +313,7 @@
     <ClInclude Include="..\..\..\scribus\canvasmode_rotate.h" />
     <ClInclude Include="..\..\..\scribus\cellarea.h" />
     <moc Include="..\..\..\scribus\qtiocompressor.h" />
-    <ClInclude Include="..\..\..\scribus\scimgdataloader_ora.h" />
+    <ClInclude Include="..\..\..\scribus\imagedataloaders\scimgdataloader_ora.h" />
     <moc Include="..\..\..\scribus\selectionrubberband.h" />
     <ClInclude Include="..\..\..\scribus\styles\cellstyle.h" />
     <moc Include="..\..\..\scribus\ui\charselect.h" />
@@ -396,6 +396,7 @@
     <moc Include="..\..\..\scribus\ui\helpbrowser.h" />
     <ClInclude Include="..\..\..\scribus\text\textlayout.h" />
     <moc Include="..\..\..\scribus\ui\filedialogeventcatcher.h" />
+    <moc Include="..\..\..\scribus\ui\downloadspalette.h" />
     <ClInclude Include="..\..\..\scribus\ui\helpnavigation.h" />
     <ClInclude Include="..\..\..\scribus\hnjalloc.h" />
     <moc Include="..\..\..\scribus\ui\hruler.h" />
@@ -567,6 +568,7 @@
     <moc Include="..\..\..\scribus\upgradechecker.h" />
     <moc Include="..\..\..\scribus\ui\proptree.h" />
     <moc Include="..\..\..\scribus\ui\viewtoolbar.h" />
+    <ClInclude Include="..\..\..\scribus\ui\ui_downloadspalettebase.h" />
     <ClInclude Include="..\..\..\scribus\undotransaction.h" />
     <ClInclude Include="..\..\..\scribus\util_debug.h" />
     <ClInclude Include="..\..\..\scribus\util_os.h" />
@@ -603,17 +605,17 @@
     <ClInclude Include="..\..\..\scribus\scimagecacheproxy.h" />
     <ClInclude Include="..\..\..\scribus\scimagecachewriteaction.h" />
     <ClInclude Include="..\..\..\scribus\scimagestructs.h" />
-    <ClInclude Include="..\..\..\scribus\scimgdataloader.h" />
-    <ClInclude Include="..\..\..\scribus\scimgdataloader_gimp.h" />
-    <ClInclude Include="..\..\..\scribus\scimgdataloader_jpeg.h" />
-    <ClInclude Include="..\..\..\scribus\scimgdataloader_pdf.h" />
-    <ClInclude Include="..\..\..\scribus\scimgdataloader_pgf.h" />
-    <ClInclude Include="..\..\..\scribus\scimgdataloader_pict.h" />
-    <ClInclude Include="..\..\..\scribus\scimgdataloader_ps.h" />
-    <ClInclude Include="..\..\..\scribus\scimgdataloader_psd.h" />
-    <ClInclude Include="..\..\..\scribus\scimgdataloader_qt.h" />
-    <ClInclude Include="..\..\..\scribus\scimgdataloader_tiff.h" />
-    <ClInclude Include="..\..\..\scribus\scimgdataloader_wpg.h" />
+    <ClInclude Include="..\..\..\scribus\imagedataloaders\scimgdataloader.h" />
+    <ClInclude Include="..\..\..\scribus\imagedataloaders\scimgdataloader_gimp.h" />
+    <ClInclude Include="..\..\..\scribus\imagedataloaders\scimgdataloader_jpeg.h" />
+    <ClInclude Include="..\..\..\scribus\imagedataloaders\scimgdataloader_pdf.h" />
+    <ClInclude Include="..\..\..\scribus\imagedataloaders\scimgdataloader_pgf.h" />
+    <ClInclude Include="..\..\..\scribus\imagedataloaders\scimgdataloader_pict.h" />
+    <ClInclude Include="..\..\..\scribus\imagedataloaders\scimgdataloader_ps.h" />
+    <ClInclude Include="..\..\..\scribus\imagedataloaders\scimgdataloader_psd.h" />
+    <ClInclude Include="..\..\..\scribus\imagedataloaders\scimgdataloader_qt.h" />
+    <ClInclude Include="..\..\..\scribus\imagedataloaders\scimgdataloader_tiff.h" />
+    <ClInclude Include="..\..\..\scribus\imagedataloaders\scimgdataloader_wpg.h" />
     <moc Include="..\..\..\scribus\ui\scinputdialog.h" />
     <moc Include="..\..\..\scribus\sclayer.h" />
     <ClInclude Include="..\..\..\scribus\sclimits.h" />
@@ -895,7 +897,7 @@
     <ClCompile Include="..\..\..\scribus\desaxe\saxXML.cpp" />
     <ClCompile Include="..\..\..\scribus\desaxe\uniqueid.cpp" />
     <ClCompile Include="..\..\..\scribus\qtiocompressor.cpp" />
-    <ClCompile Include="..\..\..\scribus\scimgdataloader_ora.cpp" />
+    <ClCompile Include="..\..\..\scribus\imagedataloaders\scimgdataloader_ora.cpp" />
     <ClCompile Include="..\..\..\scribus\selectionrubberband.cpp" />
     <ClCompile Include="..\..\..\scribus\text\textlayout.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\about.cpp" />
@@ -989,6 +991,7 @@
     <ClCompile Include="..\..\..\scribus\docinfo.cpp" />
     <ClCompile Include="..\..\..\scribus\documentchecker.cpp" />
     <ClCompile Include="..\..\..\scribus\documentinformation.cpp" />
+    <ClCompile Include="..\..\..\scribus\ui\downloadspalette.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\editor.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\edittoolbar.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\effectsdialog.cpp" />
@@ -1324,17 +1327,17 @@
     <ClCompile Include="..\..\..\scribus\scimagecacheproxy.cpp" />
     <ClCompile Include="..\..\..\scribus\scimagecachewriteaction.cpp" />
     <ClCompile Include="..\..\..\scribus\scimagestructs.cpp" />
-    <ClCompile Include="..\..\..\scribus\scimgdataloader.cpp" />
-    <ClCompile Include="..\..\..\scribus\scimgdataloader_gimp.cpp" />
-    <ClCompile Include="..\..\..\scribus\scimgdataloader_jpeg.cpp" />
-    <ClCompile Include="..\..\..\scribus\scimgdataloader_pdf.cpp" />
-    <ClCompile Include="..\..\..\scribus\scimgdataloader_pgf.cpp" />
-    <ClCompile Include="..\..\..\scribus\scimgdataloader_pict.cpp" />
-    <ClCompile Include="..\..\..\scribus\scimgdataloader_ps.cpp" />
-    <ClCompile Include="..\..\..\scribus\scimgdataloader_psd.cpp" />
-    <ClCompile Include="..\..\..\scribus\scimgdataloader_qt.cpp" />
-    <ClCompile Include="..\..\..\scribus\scimgdataloader_tiff.cpp" />
-    <ClCompile Include="..\..\..\scribus\scimgdataloader_wpg.cpp" />
+    <ClCompile Include="..\..\..\scribus\imagedataloaders\scimgdataloader.cpp" />
+    <ClCompile Include="..\..\..\scribus\imagedataloaders\scimgdataloader_gimp.cpp" />
+    <ClCompile Include="..\..\..\scribus\imagedataloaders\scimgdataloader_jpeg.cpp" />
+    <ClCompile Include="..\..\..\scribus\imagedataloaders\scimgdataloader_pdf.cpp" />
+    <ClCompile Include="..\..\..\scribus\imagedataloaders\scimgdataloader_pgf.cpp" />
+    <ClCompile Include="..\..\..\scribus\imagedataloaders\scimgdataloader_pict.cpp" />
+    <ClCompile Include="..\..\..\scribus\imagedataloaders\scimgdataloader_ps.cpp" />
+    <ClCompile Include="..\..\..\scribus\imagedataloaders\scimgdataloader_psd.cpp" />
+    <ClCompile Include="..\..\..\scribus\imagedataloaders\scimgdataloader_qt.cpp" />
+    <ClCompile Include="..\..\..\scribus\imagedataloaders\scimgdataloader_tiff.cpp" />
+    <ClCompile Include="..\..\..\scribus\imagedataloaders\scimgdataloader_wpg.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\scinputdialog.cpp" />
     <ClCompile Include="..\..\..\scribus\sclayer.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\sclistwidgetdelegate.cpp" />
@@ -1513,6 +1516,7 @@
     <uic Include="..\..\..\scribus\ui\colorpalette.ui" />
     <uic Include="..\..\..\scribus\ui\copypagetomasterpage.ui" />
     <uic Include="..\..\..\scribus\ui\createrange.ui" />
+    <uic Include="..\..\..\scribus\ui\downloadspalettebase.ui" />
     <uic Include="..\..\..\scribus\ui\gradientaddedit.ui" />
     <uic Include="..\..\..\scribus\ui\gradienteditor.ui" />
     <uic Include="..\..\..\scribus\ui\gradientvectorbase.ui" />
@@ -1660,16 +1664,6 @@
     <lrelease Include="..\..\..\resources\translations\scribus.uk.ts" />
     <lrelease Include="..\..\..\resources\translations\scribus.zh_CN.ts" />
     <lrelease Include="..\..\..\resources\translations\scribus.zh_TW.ts" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\scribus-pgf\scribus-pgf.vcxproj">
-      <Project>{aaa3586d-6218-4cdb-bdd2-bc0198946661}</Project>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-    </ProjectReference>
-    <ProjectReference Include="..\scribus-wpg\scribus-wpg.vcxproj">
-      <Project>{50c264a1-2ce7-46a3-8c79-cbc714c49510}</Project>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

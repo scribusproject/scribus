@@ -365,37 +365,37 @@
     <ClInclude Include="..\..\..\scribus\scimagestructs.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\scribus\scimgdataloader.h">
+    <ClInclude Include="..\..\..\scribus\imagedataloaders\scimgdataloader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\scribus\scimgdataloader_gimp.h">
+    <ClInclude Include="..\..\..\scribus\imagedataloaders\scimgdataloader_gimp.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\scribus\scimgdataloader_jpeg.h">
+    <ClInclude Include="..\..\..\scribus\imagedataloaders\scimgdataloader_jpeg.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\scribus\scimgdataloader_pdf.h">
+    <ClInclude Include="..\..\..\scribus\imagedataloaders\scimgdataloader_pdf.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\scribus\scimgdataloader_pgf.h">
+    <ClInclude Include="..\..\..\scribus\imagedataloaders\scimgdataloader_pgf.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\scribus\scimgdataloader_pict.h">
+    <ClInclude Include="..\..\..\scribus\imagedataloaders\scimgdataloader_pict.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\scribus\scimgdataloader_ps.h">
+    <ClInclude Include="..\..\..\scribus\imagedataloaders\scimgdataloader_ps.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\scribus\scimgdataloader_psd.h">
+    <ClInclude Include="..\..\..\scribus\imagedataloaders\scimgdataloader_psd.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\scribus\scimgdataloader_qt.h">
+    <ClInclude Include="..\..\..\scribus\imagedataloaders\scimgdataloader_qt.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\scribus\scimgdataloader_tiff.h">
+    <ClInclude Include="..\..\..\scribus\imagedataloaders\scimgdataloader_tiff.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\scribus\scimgdataloader_wpg.h">
+    <ClInclude Include="..\..\..\scribus\imagedataloaders\scimgdataloader_wpg.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\scribus\sclimits.h">
@@ -977,7 +977,7 @@
     <ClInclude Include="..\..\..\scribus\colormgmt\sclcms2colortransformimpl.h">
       <Filter>colorMgmt</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\scribus\scimgdataloader_ora.h">
+    <ClInclude Include="..\..\..\scribus\imagedataloaders\scimgdataloader_ora.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\scribus\text\textlayout.h">
@@ -994,6 +994,12 @@
     </ClInclude>
     <ClInclude Include="..\..\..\scribus\undotransaction.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\ui\downloadspalette.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\ui\ui_downloadspalettebase.h">
+      <Filter>Generated Form Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1987,37 +1993,37 @@
     <ClCompile Include="..\..\..\scribus\scimagestructs.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\scribus\scimgdataloader.cpp">
+    <ClCompile Include="..\..\..\scribus\imagedataloaders\scimgdataloader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\scribus\scimgdataloader_gimp.cpp">
+    <ClCompile Include="..\..\..\scribus\imagedataloaders\scimgdataloader_gimp.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\scribus\scimgdataloader_jpeg.cpp">
+    <ClCompile Include="..\..\..\scribus\imagedataloaders\scimgdataloader_jpeg.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\scribus\scimgdataloader_pdf.cpp">
+    <ClCompile Include="..\..\..\scribus\imagedataloaders\scimgdataloader_pdf.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\scribus\scimgdataloader_pgf.cpp">
+    <ClCompile Include="..\..\..\scribus\imagedataloaders\scimgdataloader_pgf.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\scribus\scimgdataloader_pict.cpp">
+    <ClCompile Include="..\..\..\scribus\imagedataloaders\scimgdataloader_pict.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\scribus\scimgdataloader_ps.cpp">
+    <ClCompile Include="..\..\..\scribus\imagedataloaders\scimgdataloader_ps.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\scribus\scimgdataloader_psd.cpp">
+    <ClCompile Include="..\..\..\scribus\imagedataloaders\scimgdataloader_psd.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\scribus\scimgdataloader_qt.cpp">
+    <ClCompile Include="..\..\..\scribus\imagedataloaders\scimgdataloader_qt.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\scribus\scimgdataloader_tiff.cpp">
+    <ClCompile Include="..\..\..\scribus\imagedataloaders\scimgdataloader_tiff.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\scribus\scimgdataloader_wpg.cpp">
+    <ClCompile Include="..\..\..\scribus\imagedataloaders\scimgdataloader_wpg.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\scribus\ui\scinputdialog.cpp">
@@ -2482,7 +2488,7 @@
     <ClCompile Include="..\..\..\scribus\qtiocompressor.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\scribus\scimgdataloader_ora.cpp">
+    <ClCompile Include="..\..\..\scribus\imagedataloaders\scimgdataloader_ora.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\scribus\text\textlayout.cpp">
@@ -2501,6 +2507,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\scribus\undotransaction.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\downloadspalette.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -2849,6 +2858,9 @@
       <Filter>Form Files</Filter>
     </uic>
     <uic Include="..\..\..\scribus\ui\weldeditbase.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\downloadspalettebase.ui">
       <Filter>Form Files</Filter>
     </uic>
   </ItemGroup>
