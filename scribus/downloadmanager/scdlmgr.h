@@ -13,6 +13,7 @@
 #include <QUrl>
 
 #include "scdlthread.h"
+#include "scribusstructs.h"
 
 class ScDLManager: public QObject
 {
@@ -22,13 +23,16 @@ class ScDLManager: public QObject
 		~ScDLManager();
 //TODO: Add download groups so different parts of Scribus can be downloading at the same time
 
-		void addURL(const QUrl &url, bool overwrite, const QString &location="");
-		void addURL(const QString &url, bool overwrite, const QString &location="");
-		void addURLs(const QStringList &urlList, bool overwrite, const QString &location="");
+		void addURL(const QUrl &url, bool overwrite, const QString &downloadLocation, const QString& destinationLocation);
+		void addURL(const QString &url, bool overwrite, const QString &downloadLocation, const QString& destinationLocation);
+		void addURLs(const QStringList &urlList, bool overwrite, const QString &downloadLocation, const QString& destinationLocation);
 		void startDownloads();
 
 	public slots:
 		void updateText(const QString& t);
+
+	protected slots:
+		void moveFinishedDownloads();
 
 	signals:
 		void finished();
@@ -36,6 +40,8 @@ class ScDLManager: public QObject
 
 	private:
 		ScDLThread *thread;
+
+		QList <DownloadData> fileList;
 };
 
 #endif

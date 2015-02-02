@@ -54,7 +54,7 @@ IF(HAVE_OSG)
 ENDIF (HAVE_OSG)
 
 IF (GMAGICK_FOUND)
-	SET(SCRIBUS_GMAGICK_SRC scimgdataloader_gmagick.cpp)
+	SET(SCRIBUS_GMAGICK_SRC imagedataloaders/scimgdataloader_gmagick.cpp)
 ELSE(GMAGICK_FOUND)
 	SET(SCRIBUS_GMAGICK_SRC)
 ENDIF(GMAGICK_FOUND)
@@ -670,18 +670,18 @@ SET(SCRIBUS_SOURCES
 	scimagecachemanager.cpp
 	scimagecachewriteaction.cpp
 	scimagestructs.cpp
-	scimgdataloader.cpp
-	scimgdataloader_gimp.cpp
-	scimgdataloader_jpeg.cpp
-	scimgdataloader_ora.cpp
-	scimgdataloader_pdf.cpp
-	scimgdataloader_pgf.cpp
-	scimgdataloader_pict.cpp
-	scimgdataloader_ps.cpp
-	scimgdataloader_psd.cpp
-	scimgdataloader_qt.cpp
-	scimgdataloader_tiff.cpp
-	scimgdataloader_wpg.cpp
+	imagedataloaders/scimgdataloader.cpp
+	imagedataloaders/scimgdataloader_gimp.cpp
+	imagedataloaders/scimgdataloader_jpeg.cpp
+	imagedataloaders/scimgdataloader_ora.cpp
+	imagedataloaders/scimgdataloader_pdf.cpp
+	imagedataloaders/scimgdataloader_pgf.cpp
+	imagedataloaders/scimgdataloader_pict.cpp
+	imagedataloaders/scimgdataloader_ps.cpp
+	imagedataloaders/scimgdataloader_psd.cpp
+	imagedataloaders/scimgdataloader_qt.cpp
+	imagedataloaders/scimgdataloader_tiff.cpp
+	imagedataloaders/scimgdataloader_wpg.cpp
 	sclayer.cpp
 	sclockedfile.cpp
 	scmimedata.cpp

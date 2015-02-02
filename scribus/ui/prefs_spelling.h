@@ -11,23 +11,13 @@ for which a new license (GPL+exception) is in place.
 #include "ui_prefs_spellingbase.h"
 #include "prefs_pane.h"
 #include "scribusapi.h"
+#include "scribusstructs.h"
 
 class ScribusDoc;
 
 class SCRIBUS_API Prefs_Spelling : public Prefs_Pane, Ui::Prefs_Spelling
 {
-	//TODO: Dict license showing, URL background unzipping, checksumming, pkg mgr platforms warning
-	struct DictData
-	{
-		QString lang;
-		QString version;
-		QString files;
-		QString url;
-		QString desc;
-		QString license;
-		QString filetype;
-		bool download;
-	};
+
 
 	Q_OBJECT
 

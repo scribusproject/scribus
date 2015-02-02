@@ -18,8 +18,8 @@ class ScDLThread : public QThread
 		~ScDLThread();
 		void run();
 
-		void addURL(const QUrl &url, bool overwrite, const QString& location="");
-		void addURLs(const QStringList &urlList, bool overwrite, const QString& location="");
+		void addURL(const QUrl &url, bool overwrite, const QString& location, const QString& destinationLocation);
+		void addURLs(const QStringList &urlList, bool overwrite, const QString& location, const QString& destinationLocation);
 		void startDownloads();
 		QString saveFileName(const QUrl &url, const QString &location, bool overwrite);
 

@@ -26,7 +26,7 @@ void ScDLThread::run()
 	emit(runSignal());
 }
 
-void ScDLThread::addURL(const QUrl &url, bool overwrite, const QString& location)
+void ScDLThread::addURL(const QUrl &url, bool overwrite, const QString& location, const QString& destinationLocation)
 {
 	qDebug()<<"ScDLThread::addURL:"<<url;
 	if (!urlOK(url))
@@ -38,7 +38,7 @@ void ScDLThread::addURL(const QUrl &url, bool overwrite, const QString& location
 	++totalCount;
 }
 
-void ScDLThread::addURLs(const QStringList &urlList, bool overwrite, const QString& location)
+void ScDLThread::addURLs(const QStringList &urlList, bool overwrite, const QString& location, const QString& destinationLocation)
 {
 	qDebug()<<"ScDLThread::addURLs:"<<urlList;
 	m_urlList=urlList;

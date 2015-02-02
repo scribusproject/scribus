@@ -79,15 +79,14 @@ void Prefs_Spelling::downloadSpellDicts()
 	downloadProgressBar->setVisible(true);
 	dlLabel->setVisible(true);
 	int i=0;
-
+	QString userDictDir(ScPaths::getUserDictDir(true));
 	foreach(DictData d, dictList)
 	{
 		if (dlLangs.contains(d.lang))
 		{
 			if (d.filetype=="zip")
 			{
-				ScQApp->dlManager()->addURL(d.url, true, downloadLocation);
-				downloadList.append(d);
+				ScQApp->dlManager()->addURL(d.url, true, downloadLocation, userDictDir);
 				++i;
 			}
 			if (d.filetype=="plain")
@@ -96,7 +95,7 @@ void Prefs_Spelling::downloadSpellDicts()
 				QStringList plainURLs(d.files.split(";", QString::SkipEmptyParts));
 				foreach (QString s, plainURLs)
 				{
-					ScQApp->dlManager()->addURL(d.url+"/"+s, true, downloadLocation);
+					ScQApp->dlManager()->addURL(d.url+"/"+s, true, downloadLocation, userDictDir);
 					++i;
 				}
 				downloadList.append(d);
@@ -151,7 +150,7 @@ void Prefs_Spelling::updateDictList()
 void Prefs_Spelling::updateAvailDictList()
 {
 	availListDownloadButton->setEnabled(false);
-	ScQApp->dlManager()->addURL("http://services.scribus.net/scribus_spell_dicts.xml", true, downloadLocation);
+	ScQApp->dlManager()->addURL("http://services.scribus.net/scribus_spell_dicts.xml", true, downloadLocation, downloadLocation);
 	connect(ScQApp->dlManager(), SIGNAL(finished()), this, SLOT(downloadDictListFinished()));
 	ScQApp->dlManager()->startDownloads();
 }

@@ -370,5 +370,27 @@ class AttributeValue
 		QString value;
 };
 
+//TODO: Dict license showing, URL background unzipping, checksumming, pkg mgr platforms warning
+struct DictData
+{
+	QString lang;
+	QString version;
+	QString files;
+	QString url;
+	QString desc;
+	QString license;
+	QString filetype;
+	bool download;
+};
+
+struct DownloadData
+{
+	QString name;
+	QString downloadLocation;
+	QString destinationLocation;
+	typedef enum {Started, Paused, Finished} DownloadState;
+	DownloadState state;
+};
+
 #endif
 

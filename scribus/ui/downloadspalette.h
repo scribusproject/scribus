@@ -25,8 +25,11 @@ for which a new license (GPL+exception) is in place.
 #define DOWNLOADSPALETTE_H
 
 #include "scribusapi.h"
+#include "scribusstructs.h"
 #include "ui/scrpalettebase.h"
 #include "ui_downloadspalettebase.h"
+
+
 
 class SCRIBUS_API DownloadsPalette : public ScrPaletteBase, public Ui::DownloadsPalette_Base
 {
@@ -36,10 +39,15 @@ class SCRIBUS_API DownloadsPalette : public ScrPaletteBase, public Ui::Downloads
 		DownloadsPalette(QWidget* parent);
 		~DownloadsPalette() {};
 
+	//events:
 		//virtual void changeEvent(QEvent *e);
 
 	public slots:
 		void languageChange();
+		void addDownload(const QString &name, const QString &source, const QString &destination);
+
+	protected:
+
 };
 
 #endif // DOWNLOADSPALETTE_H
