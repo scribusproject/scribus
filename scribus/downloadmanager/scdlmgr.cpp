@@ -14,10 +14,10 @@ ScDLManager::ScDLManager(QObject *parent)
 {
 	dlID=0;
 	thread=new ScDLThread();
-//	connect(thread, SIGNAL(received(const QString &)), this, SLOT(dlReceived(const QString&)));
-//	connect(thread, SIGNAL(failed(const QString &)), this, SLOT(dlFailed(const QString&)));
+	connect(thread, SIGNAL(received(const QString &)), this, SLOT(dlReceived(const QString&)));
+	connect(thread, SIGNAL(failed(const QString &)), this, SLOT(dlFailed(const QString&)));
 	connect(thread, SIGNAL(finished()), this, SIGNAL(finished()));
-//	connect(thread, SIGNAL(finished()), this, SLOT(moveFinishedDownloads()));
+	connect(thread, SIGNAL(finished()), this, SLOT(moveFinishedDownloads()));
 }
 
 ScDLManager::~ScDLManager()
@@ -90,6 +90,7 @@ void ScDLManager::dlReceived(const QString& t)
 		{
 			qDebug()<<"success"<<i.value().downloadLocation+i.value().name<<t;
 			i.value().state=DownloadData::Successful;
+			break;
 		}
 	}
 }
@@ -107,6 +108,7 @@ void ScDLManager::dlFailed(const QString& t)
 		{
 			qDebug()<<"fail"<<i.value().downloadLocation+i.value().name<<t;
 			i.value().state=DownloadData::Failed;
+			break;
 		}
 	}
 }

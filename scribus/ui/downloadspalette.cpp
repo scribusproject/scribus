@@ -18,3 +18,8 @@ void DownloadsPalette::languageChange()
 	removeAllButton->setText( tr( "Remove All" ) );
 }
 
+void DownloadsPalette::addDownload(const QString& name, const QString& source, const QString& destination)
+{
+
+}
+
