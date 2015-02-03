@@ -29,8 +29,9 @@ class ScDLManager: public QObject
 		void startDownloads();
 
 	public slots:
-		void dlReceived(const QString& t);
-		void dlFailed(const QString& t);
+		void dlStarted(const QString& filename);
+		void dlReceived(const QString& filename);
+		void dlFailed(const QString& filename);
 
 	protected slots:
 		void moveFinishedDownloads();

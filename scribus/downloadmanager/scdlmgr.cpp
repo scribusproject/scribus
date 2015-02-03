@@ -9,13 +9,16 @@
 
 #include <stdio.h>
 
+#include "util_file.h"
+
 ScDLManager::ScDLManager(QObject *parent)
 	: QObject(parent)
 {
 	dlID=0;
 	thread=new ScDLThread();
-	connect(thread, SIGNAL(received(const QString &)), this, SLOT(dlReceived(const QString&)));
-	connect(thread, SIGNAL(failed(const QString &)), this, SLOT(dlFailed(const QString&)));
+	connect(thread, SIGNAL(fileReceived(const QString &)), this, SLOT(dlReceived(const QString&)));
+	connect(thread, SIGNAL(fileFailed(const QString &)), this, SLOT(dlFailed(const QString&)));
+	connect(thread, SIGNAL(fileStarted(const QString &)), this, SLOT(dlStarted(const QString &)));
 	connect(thread, SIGNAL(finished()), this, SIGNAL(finished()));
 	connect(thread, SIGNAL(finished()), this, SLOT(moveFinishedDownloads()));
 }
@@ -73,40 +76,54 @@ void ScDLManager::addURLs(const QStringList &urlList, bool overwrite, const QStr
 
 void ScDLManager::startDownloads()
 {
-	qDebug()<<"Manager starting downloads...";
+	//qDebug()<<"Manager starting downloads...";
 	thread->startDownloads();
 }
 
-void ScDLManager::dlReceived(const QString& t)
+void ScDLManager::dlStarted(const QString& filename)
 {
-	emit fileReceived(t);
-	qDebug()<<"File Received:"<<t;
+	//qDebug()<<"File Started:"<<filename;
 	QMutableListIterator<DownloadData> i(fileList);
 	while (i.hasNext())
 	{
 		i.next();
-		//if (d.state==DownloadData::Started && d.downloadLocation+d.name==t)
-		if (i.value().downloadLocation+i.value().name==t)
+		if (i.value().state!=DownloadData::Successful && i.value().state!=DownloadData::Failed && i.value().downloadLocation+i.value().name==filename)
 		{
-			qDebug()<<"success"<<i.value().downloadLocation+i.value().name<<t;
+			//qDebug()<<"starting"<<i.value().downloadLocation+i.value().name<<filename;
+			i.value().state=DownloadData::Started;
+			break;
+		}
+	}
+}
+
+void ScDLManager::dlReceived(const QString& filename)
+{
+	emit fileReceived(filename);
+	//qDebug()<<"File Received:"<<filename;
+	QMutableListIterator<DownloadData> i(fileList);
+	while (i.hasNext())
+	{
+		i.next();
+		if (i.value().state==DownloadData::Started && i.value().downloadLocation+i.value().name==filename)
+		{
+			//qDebug()<<"success"<<i.value().downloadLocation+i.value().name<<filename;
 			i.value().state=DownloadData::Successful;
 			break;
 		}
 	}
 }
 
-void ScDLManager::dlFailed(const QString& t)
+void ScDLManager::dlFailed(const QString& filename)
 {
-	emit fileFailed(t);
-	qDebug()<<"File Failed:"<<t;
+	emit fileFailed(filename);
+	//qDebug()<<"File Failed:"<<filename;
 	QMutableListIterator<DownloadData> i(fileList);
 	while (i.hasNext())
 	{
 		i.next();
-		//if (d.state==DownloadData::Started && d.downloadLocation+d.name==t)
-		if (i.value().downloadLocation+i.value().name==t)
+		if (i.value().state==DownloadData::Started && i.value().downloadLocation+i.value().name==filename)
 		{
-			qDebug()<<"fail"<<i.value().downloadLocation+i.value().name<<t;
+			//qDebug()<<"fail"<<i.value().downloadLocation+i.value().name<<filename;
 			i.value().state=DownloadData::Failed;
 			break;
 		}
@@ -119,22 +136,25 @@ void ScDLManager::moveFinishedDownloads()
 	while (i.hasNext())
 	{
 		i.next();
-		qDebug()<<"moveFinishedDownloads"<<i.value().name<<i.value().url;
+		//qDebug()<<"moveFinishedDownloads"<<i.value().name<<i.value().url;
 		switch (i.value().state)
 		{
 			case DownloadData::Successful:
 				{
 					if (i.value().downloadLocation==i.value().destinationLocation)
-						qDebug()<<i.value().name<<"is in"<<i.value().downloadLocation<<"which is the same as"<<i.value().destinationLocation;
+						;//qDebug()<<i.value().name<<"is in"<<i.value().downloadLocation<<"which is the same as"<<i.value().destinationLocation;
 					else
-						qDebug()<<"Need to move"<<i.value().name<<"from"<<i.value().downloadLocation<<"to"<<i.value().destinationLocation;
+					{
+						//qDebug()<<"Need to move"<<i.value().name<<"from"<<i.value().downloadLocation<<"to"<<i.value().destinationLocation;
+						moveFile(i.value().downloadLocation+i.value().name, i.value().destinationLocation+i.value().name);
+					}
 				}
 				break;
 			case DownloadData::Failed:
-				qDebug()<<i.value().name<<"failed :(.";
+				//qDebug()<<i.value().name<<"failed :(.";
 				break;
 			default:
-				qDebug()<<"case d state default"<<i.value().url;
+				//qDebug()<<"case d state default"<<i.value().url;
 				break;
 		}
 	}

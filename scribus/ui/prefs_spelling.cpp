@@ -64,7 +64,6 @@ void Prefs_Spelling::saveGuiToPrefs(struct ApplicationPrefs *prefsData) const
 void Prefs_Spelling::downloadSpellDicts()
 {
 	spellDownloadButton->setEnabled(false);
-	qDebug()<<"Now attempting downloads";
 	int rows=availDictTableWidget->rowCount();
 	QStringList dlLangs;
 	for (int i=0; i<rows; ++i)
@@ -105,7 +104,7 @@ void Prefs_Spelling::downloadSpellDicts()
 	if (i>0)
 	{
 		downloadProgressBar->setRange(0, i);
-		connect(ScQApp->dlManager(), SIGNAL(finished()), this, SLOT(downloadSpellDictsFinished()));
+		//connect(ScQApp->dlManager(), SIGNAL(finished()), this, SLOT(downloadSpellDictsFinished()));
 		connect(ScQApp->dlManager(), SIGNAL(fileReceived(const QString&)), this, SLOT(updateProgressBar()));
 		connect(ScQApp->dlManager(), SIGNAL(fileFailed(const QString&)), this, SLOT(updateProgressBar()));
 		ScQApp->dlManager()->startDownloads();
@@ -129,7 +128,7 @@ void Prefs_Spelling::updateDictList()
 	{
 		 i.next();
 		 int column=0;
-		 qDebug()<<i.key()<<i.value()<<LanguageManager::instance()->getLangFromAbbrev(i.key(), false);
+		 //qDebug()<<i.key()<<i.value()<<LanguageManager::instance()->getLangFromAbbrev(i.key(), false);
 		 QTableWidgetItem *newItem1 = new QTableWidgetItem(LanguageManager::instance()->getLangFromAbbrev(i.key()));
 		 newItem1->setFlags(newItem1->flags() & ~Qt::ItemIsEditable);
 		 dictTableWidget->setItem(row, column++, newItem1);

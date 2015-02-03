@@ -26,8 +26,9 @@ class ScDLThread : public QThread
 	signals:
 		void finished();
 		void runSignal();
-		void received(const QString &);
-		void failed(const QString &);
+		void fileStarted(const QString &);
+		void fileReceived(const QString &);
+		void fileFailed(const QString &);
 
 	private slots:
 		void startNextDownload();

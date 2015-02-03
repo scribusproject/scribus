@@ -28,7 +28,7 @@ void ScDLThread::run()
 
 void ScDLThread::addURL(const QUrl &url, bool overwrite, const QString& location, const QString& destinationLocation)
 {
-	qDebug()<<"ScDLThread::addURL:"<<url;
+	//qDebug()<<"ScDLThread::addURL:"<<url;
 	if (!urlOK(url))
 		return;
 	QString l(QDir::cleanPath(location));
@@ -40,7 +40,7 @@ void ScDLThread::addURL(const QUrl &url, bool overwrite, const QString& location
 
 void ScDLThread::addURLs(const QStringList &urlList, bool overwrite, const QString& location, const QString& destinationLocation)
 {
-	qDebug()<<"ScDLThread::addURLs:"<<urlList;
+	//qDebug()<<"ScDLThread::addURLs:"<<urlList;
 	m_urlList=urlList;
 	QString l(QDir::cleanPath(location));
 	if (!l.endsWith("/"))
@@ -59,7 +59,7 @@ void ScDLThread::startDownloads()
 {
 	if (downloadQueue.isEmpty())
 	{
-		qDebug()<<"No more downloads left";
+		//qDebug()<<"No more downloads left";
 		emit finished();
 		return;
 	}
@@ -97,7 +97,7 @@ void ScDLThread::startNextDownload()
 {
 	if (downloadQueue.isEmpty())
 	{
-		qDebug()<<downloadedCount<<"/"<<totalCount<<"files downloaded successfully";
+		//qDebug()<<downloadedCount<<"/"<<totalCount<<"files downloaded successfully";
 		downloadedCount=totalCount=0;
 		emit finished();
 		return;
@@ -107,25 +107,25 @@ void ScDLThread::startNextDownload()
 	QString filename = saveFileName(urlPair.first, urlPair.second, true);
 	if (filename.isEmpty())
 	{
-		qDebug()<<"File name empty for url:"<<urlPair.first.toEncoded().constData();
+		//qDebug()<<"File name empty for url:"<<urlPair.first.toEncoded().constData();
 		return;
 	}
 	output.setFileName(filename);
 	if (!output.open(QIODevice::WriteOnly))
 	{
-		qDebug()<<"Problem opening save file '"<<qPrintable(filename)<<"' for download '"
-			   <<urlPair.first.toEncoded().constData()<<"': "<<qPrintable(output.errorString());
+		//qDebug()<<"Problem opening save file '"<<qPrintable(filename)<<"' for download '"
+		//	   <<urlPair.first.toEncoded().constData()<<"': "<<qPrintable(output.errorString());
 
 		startNextDownload();
 		return;
 	}
-
+	emit fileStarted(output.fileName());
 	QNetworkRequest request(urlPair.first);
 	currentDownload = manager.get(request);
 	connect(currentDownload, SIGNAL(finished()), SLOT(downloadFinished()));
 	connect(currentDownload, SIGNAL(readyRead()), SLOT(downloadReadyRead()));
 
-	qDebug()<<"Downloading:"<<urlPair.first.toEncoded().constData();
+	//qDebug()<<"Downloading:"<<urlPair.first.toEncoded().constData();
 }
 
 void ScDLThread::downloadFinished()
@@ -134,15 +134,16 @@ void ScDLThread::downloadFinished()
 
 	if (currentDownload->error())
 	{
-		qDebug()<<"Failed: "<<qPrintable(currentDownload->errorString());
-		emit failed(output.fileName());
+		//qDebug()<<"Failed: "<<qPrintable(currentDownload->errorString());
+		emit fileFailed(output.fileName());
+		if (output.exists())
+			output.remove();
 	}
 	else
 	{
-		printf("Succeeded.\n");
-		qDebug()<<"Saving file:"<<qPrintable(output.fileName());
+		//qDebug()<<"Saving file:"<<qPrintable(output.fileName());
 		++downloadedCount;
-		emit received(output.fileName());
+		emit fileReceived(output.fileName());
 	}
 	currentDownload->deleteLater();
 	startNextDownload();
@@ -164,7 +165,7 @@ bool ScDLThread::urlOK(QUrl url)
 	//TODO: Add some more URL checks
 	if (!url.isValid() || url.isEmpty() || url.host().isEmpty())
 	{
-		qDebug()<<"URL invalid:"<<url;
+		//qDebug()<<"URL invalid:"<<url;
 		return false;
 	}
 	return true;

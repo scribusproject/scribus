@@ -130,7 +130,7 @@ void ScribusQApp::initLang()
 void ScribusQApp::initDLMgr()
 {
 	m_scDLMgr = new ScDLManager(this);
-	connect(m_scDLMgr, SIGNAL(fileReceived(const QString&)), SLOT(downloadComplete(const QString&)));
+	//connect(m_scDLMgr, SIGNAL(fileReceived(const QString&)), SLOT(downloadComplete(const QString&)));
 }
 
 void ScribusQApp::parseCommandLine()
@@ -591,7 +591,7 @@ bool ScribusQApp::neverSplashExists()
 
 void ScribusQApp::downloadComplete(const QString &t)
 {
-	qDebug()<<"ScribusQApp: download finished:"<<t;
+	//qDebug()<<"ScribusQApp: download finished:"<<t;
 }
 
 bool ScribusQApp::event(QEvent *event)
