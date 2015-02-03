@@ -29,7 +29,8 @@ class ScDLManager: public QObject
 		void startDownloads();
 
 	public slots:
-		void updateText(const QString& t);
+		void dlReceived(const QString& t);
+		void dlFailed(const QString& t);
 
 	protected slots:
 		void moveFinishedDownloads();
@@ -37,10 +38,11 @@ class ScDLManager: public QObject
 	signals:
 		void finished();
 		void fileReceived(const QString& t);
+		void fileFailed(const QString& t);
 
 	private:
 		ScDLThread *thread;
-
+		int dlID;
 		QList <DownloadData> fileList;
 };
 

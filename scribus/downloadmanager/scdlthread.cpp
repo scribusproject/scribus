@@ -133,14 +133,17 @@ void ScDLThread::downloadFinished()
 	output.close();
 
 	if (currentDownload->error())
+	{
 		qDebug()<<"Failed: "<<qPrintable(currentDownload->errorString());
+		emit failed(output.fileName());
+	}
 	else
 	{
 		printf("Succeeded.\n");
 		qDebug()<<"Saving file:"<<qPrintable(output.fileName());
 		++downloadedCount;
+		emit received(output.fileName());
 	}
-	emit (received(output.fileName()));
 	currentDownload->deleteLater();
 	startNextDownload();
 }

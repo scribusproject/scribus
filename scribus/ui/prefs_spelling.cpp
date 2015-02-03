@@ -73,7 +73,7 @@ void Prefs_Spelling::downloadSpellDicts()
 		if (dlItem->checkState()==Qt::Checked)
 			dlLangs<<availDictTableWidget->item(i,1)->text();
 	}
-	qDebug()<<dlLangs;
+	//qDebug()<<dlLangs;
 	downloadList.clear();
 	downloadProgressBar->setValue(0);
 	downloadProgressBar->setVisible(true);
@@ -107,6 +107,7 @@ void Prefs_Spelling::downloadSpellDicts()
 		downloadProgressBar->setRange(0, i);
 		connect(ScQApp->dlManager(), SIGNAL(finished()), this, SLOT(downloadSpellDictsFinished()));
 		connect(ScQApp->dlManager(), SIGNAL(fileReceived(const QString&)), this, SLOT(updateProgressBar()));
+		connect(ScQApp->dlManager(), SIGNAL(fileFailed(const QString&)), this, SLOT(updateProgressBar()));
 		ScQApp->dlManager()->startDownloads();
 	}
 }

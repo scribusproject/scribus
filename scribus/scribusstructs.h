@@ -385,10 +385,12 @@ struct DictData
 
 struct DownloadData
 {
+	int id;
+	QUrl url;
 	QString name;
 	QString downloadLocation;
 	QString destinationLocation;
-	typedef enum {Started, Paused, Finished} DownloadState;
+	typedef enum {New, Started, Paused, Finished, Successful, Failed} DownloadState;
 	DownloadState state;
 };
 
