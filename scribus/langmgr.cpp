@@ -114,6 +114,7 @@ void LanguageManager::generateLangList()
 	langTable.append(LangDef("en_ZA",  "",      "English (South Africa)", QObject::tr( "English (South Africa)" )) );
 	langTable.append(LangDef("eo",     "",      "Esperanto",              QObject::tr( "Esperanto" )) );
 	langTable.append(LangDef("es",     "es_ES", "Spanish",                QObject::tr( "Spanish" )) );
+	langTable.append(LangDef("es",     "es_ANY", "Spanish",                QObject::tr( "Spanish" )) );
 	langTable.append(LangDef("es_AR",  "",      "Spanish (Argentina)",    QObject::tr( "Spanish (Argentina)" )) );
 	langTable.append(LangDef("es_LA",  "",      "Spanish (Latin)",        QObject::tr( "Spanish (Latin)" )) );
 	langTable.append(LangDef("et",     "et_EE", "Estonian",               QObject::tr( "Estonian" )) );
