@@ -2662,24 +2662,22 @@ void StoryEditor::updateStatus()
 
 	ParC->setText(tmp.setNum(Editor->StyledText.nrOfParagraphs()));
 	CharC2->setText(tmp.setNum(Editor->StyledText.length()));
-
 	CharC->setText(tmp.setNum(end - start));
+
 	QRegExp rx( "(\\w+)\\b" );
 	const QString& txt(Editor->StyledText.text(0, Editor->StyledText.length()));
-	int pos = 1;
-	int counter = end > start? 1 : 0;
-	int counter2 = Editor->StyledText.length() > 0? 1 : 0;
-	while ( pos >= 0 )
-	{
-		pos = rx.indexIn( txt, pos );
-		if ( pos > -1 )
-		{
-			if (pos > start && pos < end)
-				counter++;
+	int counter  = 0;
+	int counter2 = 0;
 
-			counter2++;
-			pos += rx.matchedLength();
-		}
+	int pos = rx.indexIn(txt, 0);
+	while (pos >= 0)
+	{
+		if (pos >= start && pos < end)
+			counter++;
+
+		counter2++;
+		pos += rx.matchedLength();
+		pos  = rx.indexIn(txt, pos);
 	}
 
 	WordC->setText(tmp.setNum(counter));
