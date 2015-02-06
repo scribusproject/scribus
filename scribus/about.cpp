@@ -303,6 +303,8 @@ QString About::trAuthorTitle(QString title)
 		result = tr("OS/2&#174;/eComStation&#8482; Port:");
 	else if ( title == "Windows&#174; Port:" )
 		result = tr("Windows&#174; Port:");
+	else if ( title == "Haiku Port:" )
+		result = tr("Haiku Port:");
 	else if ( title == "Contributions from:" )
 		result = tr("Contributions from:");
 	else if ( title == "Official Documentation:" )
