@@ -59,6 +59,8 @@ public:
 	QString numericSequence(QString seq);
 	bool findSpellingDictionaries(QStringList& sl);
 	void findSpellingDictionarySets(QStringList& dictionaryPaths, QMap<QString, QString>& dictionaryMap);
+	bool findHyphDictionaries(QStringList& sl);
+	void findHyphDictionarySets(QStringList& dictionaryPaths, QMap<QString, QString>& dictionaryMap);
 	
 	const QString getHyphFilename(const QString& langAbbrev);
 	int langTableIndex(const QString& abbrev);

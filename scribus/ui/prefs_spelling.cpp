@@ -15,18 +15,19 @@ for which a new license (GPL+exception) is in place.
 #include <QTextCodec>
 #include <QTextStream>
 
+
 #include "downloadmanager/scdlmgr.h"
-#include "prefs_spelling.h"
 #include "langmgr.h"
+#include "prefs_spelling.h"
 #include "prefsstructs.h"
+#include "scpaths.h"
+#include "scribusapp.h"
 #include "scribusdoc.h"
-#include "util_icon.h"
+#include "third_party/zip/scribus_zip.h"
 #include "util.h"
 #include "util_file.h"
-#include "third_party/zip/scribus_zip.h"
+#include "util_icon.h"
 
-#include "scribusapp.h"
-#include "scpaths.h"
 
 
 extern ScribusQApp* ScQApp;
@@ -104,7 +105,7 @@ void Prefs_Spelling::downloadSpellDicts()
 	if (i>0)
 	{
 		downloadProgressBar->setRange(0, i);
-		//connect(ScQApp->dlManager(), SIGNAL(finished()), this, SLOT(downloadSpellDictsFinished()));
+		connect(ScQApp->dlManager(), SIGNAL(finished()), this, SLOT(downloadSpellDictsFinished()));
 		connect(ScQApp->dlManager(), SIGNAL(fileReceived(const QString&)), this, SLOT(updateProgressBar()));
 		connect(ScQApp->dlManager(), SIGNAL(fileFailed(const QString&)), this, SLOT(updateProgressBar()));
 		ScQApp->dlManager()->startDownloads();
@@ -165,6 +166,7 @@ void Prefs_Spelling::downloadDictListFinished()
 void Prefs_Spelling::downloadSpellDictsFinished()
 {
 	disconnect(ScQApp->dlManager(), SIGNAL(finished()), this, SLOT(downloadDictListFinished()));
+/*
 	//qDebug()<<"Downloads All Finished";
 	QString userDictDir(ScPaths::getUserDictDir(true));
 	// List all downloaded files in order to handle identical
@@ -217,7 +219,7 @@ void Prefs_Spelling::downloadSpellDictsFinished()
 			}
 		}
 	}
-
+*/
 	updateDictList();
 	downloadProgressBar->setValue(0);
 	downloadProgressBar->setVisible(false);

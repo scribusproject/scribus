@@ -114,7 +114,7 @@ void LanguageManager::generateLangList()
 	langTable.append(LangDef("en_ZA",  "",      "English (South Africa)", QObject::tr( "English (South Africa)" )) );
 	langTable.append(LangDef("eo",     "",      "Esperanto",              QObject::tr( "Esperanto" )) );
 	langTable.append(LangDef("es",     "es_ES", "Spanish",                QObject::tr( "Spanish" )) );
-	langTable.append(LangDef("es",     "es_ANY", "Spanish",                QObject::tr( "Spanish" )) );
+	langTable.append(LangDef("es",     "es_ANY", "Spanish",               QObject::tr( "Spanish" )) );
 	langTable.append(LangDef("es_AR",  "",      "Spanish (Argentina)",    QObject::tr( "Spanish (Argentina)" )) );
 	langTable.append(LangDef("es_LA",  "",      "Spanish (Latin)",        QObject::tr( "Spanish (Latin)" )) );
 	langTable.append(LangDef("et",     "et_EE", "Estonian",               QObject::tr( "Estonian" )) );
@@ -139,7 +139,7 @@ void LanguageManager::generateLangList()
 	langTable.append(LangDef("lb",     "",      "Luxembourgish",          QObject::tr( "Luxembourgish" )) );
 	langTable.append(LangDef("lo",     "",      "Lao",                    QObject::tr( "Lao" )) );
 	langTable.append(LangDef("lt",     "lt_LT", "Lithuanian",             QObject::tr( "Lithuanian" )) );
-	langTable.append(LangDef("ne_NP",  "",      "Nepali",                  QObject::tr( "Nepali" )) );
+	langTable.append(LangDef("ne_NP",  "",      "Nepali",                 QObject::tr( "Nepali" )) );
 	langTable.append(LangDef("nb",     "nb_NO", "Norwegian (Bokmål)",     QObject::trUtf8( "Norwegian (Bokm\303\245l)" )) );
 	langTable.append(LangDef("nl",     "nl_NL", "Dutch",                  QObject::tr( "Dutch" )) );
 	langTable.append(LangDef("nn",     "nn_NO", "Norwegian (Nnyorsk)",    QObject::tr( "Norwegian (Nnyorsk)" )) );
@@ -154,7 +154,9 @@ void LanguageManager::generateLangList()
 	langTable.append(LangDef("sl",     "sl_SL", "Slovenian",              QObject::tr( "Slovenian" )) );
 	langTable.append(LangDef("sq",     "",      "Albanian",               QObject::tr( "Albanian" )) );
 	langTable.append(LangDef("sr",     "",      "Serbian",                QObject::tr( "Serbian" )) );
+	langTable.append(LangDef("sr-Latn","sr-Latn","Serbian (Latin)",       QObject::tr( "Serbian (Latin)" )) );
 	langTable.append(LangDef("sv",     "",      "Swedish",                QObject::tr( "Swedish" )) );
+	langTable.append(LangDef("te",     "te_IN", "Telugu",                 QObject::tr( "Telugu" )) );
 	langTable.append(LangDef("th",     "th_TH", "Thai",                   QObject::tr( "Thai" )) );
 	langTable.append(LangDef("tr",     "tr_TR", "Turkish",                QObject::tr( "Turkish" )) );
 	langTable.append(LangDef("uk",     "uk_UA", "Ukranian",               QObject::tr( "Ukranian" )) );
@@ -194,7 +196,7 @@ void LanguageManager::generateInstalledHyphLangList()
 	//Build our list of hyphenation dictionaries we have in the install dir
 	//Grab the language abbreviation from it, get the full language text
 	//Insert the name as key and a new string list into the map
-	QString hyphDirName = QDir::toNativeSeparators(ScPaths::instance().dictDir());
+	QString hyphDirName = QDir::toNativeSeparators(ScPaths::instance().dictDir()+"/hyph");
 	QDir hyphDir(hyphDirName, "hyph*.dic", QDir::Name, QDir::Files | QDir::NoSymLinks);
 	if (!hyphDir.exists() || hyphDir.count() == 0)
 	{
@@ -551,6 +553,76 @@ void LanguageManager::findSpellingDictionarySets(QStringList &dictionaryPaths, Q
 		}
 		++it;
 	}
+}
+
+bool LanguageManager::findHyphDictionaries(QStringList& sl)
+{
+	sl=ScPaths::instance().hyphDirs();
+	if (sl.count()==0)
+		return false;
+	return true;
+}
+
+void LanguageManager::findHyphDictionarySets(QStringList& dictionaryPaths, QMap<QString, QString>& dictionaryMap)
+{
+	for (int i=0; i<dictionaryPaths.count(); ++i)
+	{
+		// Find the dic and aff files in the location
+		QDir dictLocation(dictionaryPaths.at(i));
+		QStringList dictFilters("hyph*.dic");
+		QStringList dictList(dictLocation.entryList(dictFilters, QDir::Files, QDir::Name));
+		dictList.replaceInStrings(".dic","");
+
+		//Ensure we have aff+dic file pairs, remove any hyphenation dictionaries from the list
+		foreach(QString dn, dictList)
+		{
+			QString dictName(dn.section('_',1));
+			if (!dictionaryMap.contains(dictName))
+			{
+				if (dictName.length()<=2)
+				{
+					QString shortAbbrev(LanguageManager::getShortAbbrevFromAbbrev(dictName));
+					dictionaryMap.insert(dictName, dictionaryPaths.at(i)+dn);
+				}
+				if (dictName.length()>2)
+				{
+					QString shortAbbrev(LanguageManager::getShortAbbrevFromAbbrev(dictName));
+					dictionaryMap.insert(shortAbbrev, dictionaryPaths.at(i)+dn);
+				}
+			}
+		}
+	}
+	/*
+	//Now rescan dictionary map for any extra languages we can support with the files we have
+	QMap<QString, QString>::iterator it = dictionaryMap.begin();
+	while (it != dictionaryMap.end())
+	{
+		QString lang(it.key());
+		if (lang.length()==5)
+		{
+			QString shortAbbrev(LanguageManager::getShortAbbrevFromAbbrev(lang));
+			if (!dictionaryMap.contains(shortAbbrev))
+			{
+				//qDebug()<<"Adding extra spelling definitions for:"<<lang<<":"<<shortAbbrev;
+				dictionaryMap.insert(shortAbbrev, it.value());
+			}
+			//else
+				//qDebug()<<"Short abbreviation:"<<shortAbbrev<<"already exists for:"<<lang;
+		}
+		if (lang.length()==2)
+		{
+			QString altAbbrev(LanguageManager::getAlternativeAbbrevfromAbbrev(lang));
+			if (!dictionaryMap.contains(altAbbrev))
+			{
+				//qDebug()<<"Adding extra spelling definitions for:"<<lang<<":"<<altAbbrev;
+				dictionaryMap.insert(altAbbrev, it.value());
+			}
+			//else
+				//qDebug()<<"Alt. abbreviation:"<<altAbbrev<<"already exists for:"<<lang;
+		}
+		++it;
+	}
+	*/
 }
 
 LanguageManager::~LanguageManager()

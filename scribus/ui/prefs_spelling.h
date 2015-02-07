@@ -30,7 +30,7 @@ class SCRIBUS_API Prefs_Spelling : public Prefs_Pane, Ui::Prefs_Spelling
 	public slots:
 		void languageChange();
 
-	private slots:
+	protected slots:
 		void downloadSpellDicts();
 		void updateDictList();
 		void updateAvailDictList();
@@ -38,12 +38,10 @@ class SCRIBUS_API Prefs_Spelling : public Prefs_Pane, Ui::Prefs_Spelling
 		void downloadSpellDictsFinished();
 		void updateProgressBar();
 
-	private:
+	protected:
 		QString affixFileName(QStringList files);
 		QString dictFileName(QStringList files);
 		void setAvailDictsXMLFile(QString availDictsXMLDataFile);
-
-	protected:
 		QMap<QString, QString> dictionaryMap;
 		QStringList dictionaryPaths;
 		QString downloadLocation;

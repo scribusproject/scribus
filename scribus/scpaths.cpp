@@ -302,6 +302,76 @@ QStringList ScPaths::spellDirs() const
 	return spellDirs;
 }
 
+QStringList ScPaths::hyphDirs() const
+{
+	//dictionaryPaths
+/*
+	QString macPortsPath("/opt/local/share/hunspell/");
+	QString finkPath("/sw/share/hunspell/");
+	QString osxLibreOfficePath("/Applications/LibreOffice.app/Contents/share/extensions");
+	QString osxUserLibreOfficePath(QDir::homePath()+"/Applications/LibreOffice.app/Contents/share/extensions");
+	QString linuxLocalPath("/usr/local/share/hunspell/");
+	QString linuxHunspellPath("/usr/share/hunspell/");
+	QString linuxMyspellPath("/usr/share/myspell/");
+	QString windowsLOPath("LibreOffice 3.5/share/extensions");
+*/
+	QDir d;
+	QStringList hyphDirs;
+	hyphDirs.append(getUserDictDir(false));
+	hyphDirs.append(m_shareDir + "dicts/hyph/");
+/*
+#ifdef Q_OS_MAC
+	d.setPath(macPortsPath);
+	if (d.exists())
+		hyphDirs.append(macPortsPath);
+	d.setPath(finkPath);
+	if (d.exists())
+		hyphDirs.append(finkPath);
+	d.setPath(osxLibreOfficePath);
+	if (d.exists())
+	{
+		QStringList dictDirFilters("dict-*");
+		QStringList dictDirList(d.entryList(dictDirFilters, QDir::Dirs, QDir::Name));
+		QString dir;
+		foreach (dir, dictDirList)
+			hyphDirs.append(osxLibreOfficePath + "/" + dir + "/");
+	}
+	d.setPath(osxUserLibreOfficePath);
+	if (d.exists())
+	{
+		QStringList dictDirFilters("dict-*");
+		QStringList dictDirList(d.entryList(dictDirFilters, QDir::Dirs, QDir::Name));
+		QString dir;
+		foreach (dir, dictDirList)
+			hyphDirs.append(osxUserLibreOfficePath + "/" + dir + "/");
+	}
+
+#elif defined(_WIN32)
+	QString progFiles = getSpecialDir(CSIDL_PROGRAM_FILES);
+	d.setPath(progFiles+windowsLOPath);
+	if (d.exists())
+	{
+		QStringList dictDirFilters("dict-*");
+		QStringList dictDirList(d.entryList(dictDirFilters, QDir::Dirs, QDir::Name));
+		QString dir;
+		foreach (dir, dictDirList)
+			spellDirs.append(progFiles+windowsLOPath + "/" + dir + "/");
+	}
+#elif defined(Q_OS_LINUX)
+	d.setPath(linuxHunspellPath);
+	if (d.exists())
+		spellDirs.append(linuxHunspellPath);
+	d.setPath(linuxMyspellPath);
+	if (d.exists())
+		spellDirs.append(linuxMyspellPath);
+	d.setPath(linuxLocalPath);
+	if (d.exists())
+		spellDirs.append(linuxLocalPath);
+#endif
+	*/
+	return hyphDirs;
+}
+
 QStringList ScPaths::getSystemFontDirs(void)
 {
 	QStringList fontDirs;
