@@ -2660,14 +2660,20 @@ void StoryEditor::updateStatus()
 	int start = Editor->StyledText.startOfParagraph(p);
 	int end = Editor->StyledText.endOfParagraph(p);
 
-	ParC->setText(tmp.setNum(Editor->StyledText.nrOfParagraphs()));
-	CharC2->setText(tmp.setNum(Editor->StyledText.length()));
+	int paragraphCount = Editor->StyledText.nrOfParagraphs();
+	ParC->setText(tmp.setNum(paragraphCount));
 	CharC->setText(tmp.setNum(end - start));
 
 	QRegExp rx( "(\\w+)\\b" );
 	const QString& txt(Editor->StyledText.text(0, Editor->StyledText.length()));
 	int counter  = 0;
 	int counter2 = 0;
+
+	int realCharCount = Editor->StyledText.length();
+	int parSepCount   = paragraphCount;
+	if ((realCharCount > 0) && (!txt.endsWith(SpecialChars::PARSEP)))
+		parSepCount -= 1;
+	CharC2->setText(tmp.setNum(realCharCount - parSepCount));
 
 	int pos = rx.indexIn(txt, 0);
 	while (pos >= 0)
