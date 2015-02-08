@@ -352,18 +352,18 @@ QStringList ScPaths::hyphDirs() const
 		QStringList dictDirList(d.entryList(dictDirFilters, QDir::Dirs, QDir::Name));
 		QString dir;
 		foreach (dir, dictDirList)
-			spellDirs.append(progFiles+windowsLOPath + "/" + dir + "/");
+			hyphDirs.append(progFiles+windowsLOPath + "/" + dir + "/");
 	}
 #elif defined(Q_OS_LINUX)
 	d.setPath(linuxHunspellPath);
 	if (d.exists())
-		spellDirs.append(linuxHunspellPath);
+		hyphDirs.append(linuxHunspellPath);
 	d.setPath(linuxMyspellPath);
 	if (d.exists())
-		spellDirs.append(linuxMyspellPath);
+		hyphDirs.append(linuxMyspellPath);
 	d.setPath(linuxLocalPath);
 	if (d.exists())
-		spellDirs.append(linuxLocalPath);
+		hyphDirs.append(linuxLocalPath);
 #endif
 	return hyphDirs;
 }
