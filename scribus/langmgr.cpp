@@ -193,29 +193,30 @@ void LanguageManager::generateInstalledGUILangList()
 
 void LanguageManager::generateInstalledHyphLangList()
 {
-	//Build our list of hyphenation dictionaries we have in the install dir
-	//Grab the language abbreviation from it, get the full language text
-	//Insert the name as key and a new string list into the map
-	QString hyphDirName = QDir::toNativeSeparators(ScPaths::instance().dictDir()+"hyph/");
-	QDir hyphDir(hyphDirName, "hyph*.dic", QDir::Name, QDir::Files | QDir::NoSymLinks);
-	if (!hyphDir.exists() || hyphDir.count() == 0)
+	QStringList dictionaryPaths;
+	bool dictPathFound=findHyphDictionaries(dictionaryPaths);
+	if (!dictPathFound)
 	{
-		qDebug()<<"No preinstalled hyphenation dictonaries or paths found";
+//		qDebug()<<"No preinstalled hyphenation dictonaries or paths found";
 		return;
 	}
+	QMap<QString, QString> dictionaryMap;
+	findHyphDictionarySets(dictionaryPaths, dictionaryMap);
+	if (dictionaryMap.count()==0)
+		return;
 
+	QMap<QString, QString>::iterator it = dictionaryMap.begin();
 //	qDebug()<<"Installed Hyphenation Dictonaries:";
-	for (uint i = 0; i < hyphDir.count(); ++i)
+	while (it != dictionaryMap.end())
 	{
-		QFileInfo file(hyphDir[i]);
-		QString langAbbrev=file.baseName().section('_', 1);
-		int j=langTableIndex(langAbbrev);
+		int j=langTableIndex(it.key());
 		if (j!=-1)
 		{
 			langTable[j].m_hyphAvailable=true;
-			langTable[j].m_hyphFile=hyphDirName+hyphDir[i];
-			//qDebug()<<"Found installed hyphenation dictionary:"<<langAbbrev<<" : "<<hyphDirName+hyphDir[i];
+			langTable[j].m_hyphFile=it.value();
+			//qDebug()<<"Found installed hyphenation dictionary:"<<it.key()<<" : "<<it.value();
 		}
+		++it;
 	}
 }
 
@@ -582,47 +583,16 @@ void LanguageManager::findHyphDictionarySets(QStringList& dictionaryPaths, QMap<
 				if (dictName.length()<=2)
 				{
 					QString shortAbbrev(LanguageManager::getShortAbbrevFromAbbrev(dictName));
-					dictionaryMap.insert(dictName, dictionaryPaths.at(i)+dn);
+					dictionaryMap.insert(dictName, dictionaryPaths.at(i)+dn+".dic");
 				}
 				if (dictName.length()>2)
 				{
 					QString shortAbbrev(LanguageManager::getShortAbbrevFromAbbrev(dictName));
-					dictionaryMap.insert(shortAbbrev, dictionaryPaths.at(i)+dn);
+					dictionaryMap.insert(shortAbbrev, dictionaryPaths.at(i)+dn+".dic");
 				}
 			}
 		}
 	}
-	/*
-	//Now rescan dictionary map for any extra languages we can support with the files we have
-	QMap<QString, QString>::iterator it = dictionaryMap.begin();
-	while (it != dictionaryMap.end())
-	{
-		QString lang(it.key());
-		if (lang.length()==5)
-		{
-			QString shortAbbrev(LanguageManager::getShortAbbrevFromAbbrev(lang));
-			if (!dictionaryMap.contains(shortAbbrev))
-			{
-				//qDebug()<<"Adding extra spelling definitions for:"<<lang<<":"<<shortAbbrev;
-				dictionaryMap.insert(shortAbbrev, it.value());
-			}
-			//else
-				//qDebug()<<"Short abbreviation:"<<shortAbbrev<<"already exists for:"<<lang;
-		}
-		if (lang.length()==2)
-		{
-			QString altAbbrev(LanguageManager::getAlternativeAbbrevfromAbbrev(lang));
-			if (!dictionaryMap.contains(altAbbrev))
-			{
-				//qDebug()<<"Adding extra spelling definitions for:"<<lang<<":"<<altAbbrev;
-				dictionaryMap.insert(altAbbrev, it.value());
-			}
-			//else
-				//qDebug()<<"Alt. abbreviation:"<<altAbbrev<<"already exists for:"<<lang;
-		}
-		++it;
-	}
-	*/
 }
 
 LanguageManager::~LanguageManager()
