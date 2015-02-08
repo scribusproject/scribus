@@ -65,8 +65,8 @@ Hyphenator::Hyphenator(QWidget* parent, ScribusDoc *dok) : QObject( parent ),
 	if (f.open(QIODevice::ReadOnly))
 	{
 		QTextStream st(&f);
-    	QString line;
-    	line = st.readLine();
+		QString line;
+		line = st.readLine();
 		m_codec = QTextCodec::codecForName(line.toUtf8());
 		f.close();
 	}
