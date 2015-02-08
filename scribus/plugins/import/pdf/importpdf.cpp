@@ -98,7 +98,7 @@ QImage PdfPlug::readThumbnail(QString fName)
 				bgColor[0] = 255;
 				bgColor[1] = 255;
 				bgColor[2] = 255;
-				SplashOutputDev *dev = new SplashOutputDev(splashModeXBGR8, 4, gFalse, bgColor, gTrue, gTrue);
+				SplashOutputDev *dev = new SplashOutputDev(splashModeXBGR8, 4, gFalse, bgColor, gTrue);
 				dev->setVectorAntialias(gTrue);
 				dev->setFreeTypeHinting(gTrue, gFalse);
 				dev->startDoc(pdfDoc);
@@ -907,7 +907,7 @@ QImage PdfPlug::readPreview(int pgNum, int width, int height, int box)
 	bgColor[0] = 255;
 	bgColor[1] = 255;
 	bgColor[2] = 255;
-	SplashOutputDev *dev = new SplashOutputDev(splashModeXBGR8, 4, gFalse, bgColor, gTrue, gTrue);
+	SplashOutputDev *dev = new SplashOutputDev(splashModeXBGR8, 4, gFalse, bgColor, gTrue);
 	dev->setVectorAntialias(gTrue);
 	dev->setFreeTypeHinting(gTrue, gFalse);
 	dev->startDoc(m_pdfDoc);
