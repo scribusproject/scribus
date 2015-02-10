@@ -47,6 +47,7 @@ ImportPSPlugin::ImportPSPlugin() : LoadSavePlugin(),
 	// Set action info in languageChange, so we only have to do it in one
 	// place. This includes registering file format support.
 	languageChange();
+	registerFormats();
 }
 /*
 void ImportPSPlugin::addToMainWindowMenu(ScribusMainWindow *mw)
@@ -60,8 +61,8 @@ void ImportPSPlugin::languageChange()
 {
 	importAction->setText( tr("Import PostScript..."));
 	// (Re)register file format support
-	unregisterAll();
-	registerFormats();
+	//unregisterAll();
+	//registerFormats();
 }
 
 ImportPSPlugin::~ImportPSPlugin()
@@ -106,7 +107,7 @@ void ImportPSPlugin::registerFormats()
 	fmt.mimeTypes = FormatsManager::instance()->mimetypeOfFormat(FormatsManager::EPS); // MIME types
 	fmt.priority = 64; // Priority
 	registerFormat(fmt);
-	
+
 	FileFormat fmt2(this);
 	fmt2.trName = FormatsManager::instance()->nameOfFormat(FormatsManager::PS); // Human readable name
 	fmt2.formatId = 0;
