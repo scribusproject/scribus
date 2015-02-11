@@ -50,8 +50,8 @@ ImportPdfPlugin::ImportPdfPlugin() : LoadSavePlugin(),
 {
 	// Set action info in languageChange, so we only have to do it in one
 	// place. This includes registering file format support.
-	languageChange();
 	registerFormats();
+	languageChange();
 }
 
 void ImportPdfPlugin::languageChange()
