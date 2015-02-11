@@ -270,6 +270,10 @@ PictureBrowser::PictureBrowser ( ScribusDoc* doc, QWidget *parent ) : QDialog ( 
 //imageViewArea->setBatchSize(4);
 //imageViewArea->setVerticalScrollMode(QAbstractItemView::ScrollPerItem);
 //imageViewArea->setHorizontalScrollMode(QAbstractItemView::ScrollPerItem);
+
+
+//Actually select the current folder to generate the preview from it's contents
+	dirChosen(folderModel.index( QDir::currentPath() ));
 }
 
 
