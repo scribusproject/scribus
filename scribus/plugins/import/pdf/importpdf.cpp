@@ -170,6 +170,11 @@ QImage PdfPlug::readThumbnail(QString fName)
 
 bool PdfPlug::import(QString fNameIn, const TransactionSettings& trSettings, int flags, bool showProgress)
 {
+#ifdef Q_OS_OSX
+	#if QT_VERSION >= 0x050300
+		showProgress = false;
+	#endif
+#endif
 	QString fName = fNameIn;
 	bool success = false;
 	interactive = (flags & LoadSavePlugin::lfInteractive);
