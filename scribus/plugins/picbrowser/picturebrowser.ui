@@ -60,22 +60,7 @@
             <verstretch>0</verstretch>
            </sizepolicy>
           </property>
-          <layout class="QVBoxLayout">
-           <property name="spacing">
-            <number>3</number>
-           </property>
-           <property name="leftMargin">
-            <number>2</number>
-           </property>
-           <property name="topMargin">
-            <number>2</number>
-           </property>
-           <property name="rightMargin">
-            <number>2</number>
-           </property>
-           <property name="bottomMargin">
-            <number>2</number>
-           </property>
+          <layout class="QVBoxLayout" name="verticalLayout_3">
            <item>
             <widget class="QComboBox" name="navigationBox">
              <item>
@@ -101,22 +86,7 @@
               <number>0</number>
              </property>
              <widget class="QWidget" name="folderpage">
-              <layout class="QVBoxLayout">
-               <property name="spacing">
-                <number>0</number>
-               </property>
-               <property name="leftMargin">
-                <number>0</number>
-               </property>
-               <property name="topMargin">
-                <number>0</number>
-               </property>
-               <property name="rightMargin">
-                <number>0</number>
-               </property>
-               <property name="bottomMargin">
-                <number>0</number>
-               </property>
+              <layout class="QVBoxLayout" name="verticalLayout_2">
                <item>
                 <widget class="QCheckBox" name="subdirsCheckbox">
                  <property name="text">
@@ -925,38 +895,10 @@
            <string>File</string>
           </property>
           <layout class="QGridLayout">
-           <item row="2" column="0">
-            <widget class="QLabel" name="label_11">
-             <property name="text">
-              <string>Path:</string>
-             </property>
-            </widget>
-           </item>
-           <item row="5" column="1">
-            <widget class="QLabel" name="informationFiledateLabel">
+           <item row="0" column="1">
+            <widget class="QLabel" name="informationFilenameLabel">
              <property name="text">
               <string/>
-             </property>
-            </widget>
-           </item>
-           <item row="4" column="0">
-            <widget class="QLabel" name="label_22">
-             <property name="text">
-              <string>Size:</string>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="0">
-            <widget class="QLabel" name="label_10">
-             <property name="text">
-              <string>Name:</string>
-             </property>
-            </widget>
-           </item>
-           <item row="5" column="0">
-            <widget class="QLabel" name="label_23">
-             <property name="text">
-              <string>Date:</string>
              </property>
             </widget>
            </item>
@@ -967,10 +909,31 @@
              </property>
             </widget>
            </item>
-           <item row="0" column="1">
-            <widget class="QLabel" name="informationFilenameLabel">
+           <item row="5" column="1">
+            <widget class="QLabel" name="informationFiledateLabel">
              <property name="text">
               <string/>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="0">
+            <widget class="QLabel" name="label_11">
+             <property name="text">
+              <string>Path:</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="0">
+            <widget class="QLabel" name="label_10">
+             <property name="text">
+              <string>Name:</string>
+             </property>
+            </widget>
+           </item>
+           <item row="4" column="0">
+            <widget class="QLabel" name="label_22">
+             <property name="text">
+              <string>Size:</string>
              </property>
             </widget>
            </item>
@@ -1000,6 +963,26 @@
              </property>
             </widget>
            </item>
+           <item row="5" column="0">
+            <widget class="QLabel" name="label_23">
+             <property name="text">
+              <string>Date:</string>
+             </property>
+            </widget>
+           </item>
+           <item row="6" column="0">
+            <spacer name="verticalSpacer_2">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>40</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
           </layout>
          </widget>
         </item>
@@ -1014,67 +997,14 @@
           <property name="title">
            <string>Image</string>
           </property>
+          <property name="alignment">
+           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+          </property>
           <layout class="QGridLayout">
-           <item row="0" column="0">
-            <widget class="QLabel" name="label_12">
-             <property name="text">
-              <string>Format:</string>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="1">
-            <widget class="QLabel" name="informationFormatLabel">
+           <item row="3" column="1">
+            <widget class="QLabel" name="informationEmbeddedLabel">
              <property name="text">
               <string/>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="2">
-            <widget class="QLabel" name="label_3">
-             <property name="text">
-              <string>Width:</string>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="3">
-            <widget class="QLabel" name="informationWidthLabel">
-             <property name="text">
-              <string/>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="0">
-            <widget class="QLabel" name="label_13">
-             <property name="text">
-              <string>Colorspace:</string>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="1">
-            <widget class="QLabel" name="informationColorspaceLabel">
-             <property name="text">
-              <string/>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="2">
-            <widget class="QLabel" name="label_4">
-             <property name="text">
-              <string>Height:</string>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="3">
-            <widget class="QLabel" name="informationHeightLabel">
-             <property name="text">
-              <string/>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="0">
-            <widget class="QLabel" name="label_14">
-             <property name="text">
-              <string>DPI:</string>
              </property>
             </widget>
            </item>
@@ -1082,13 +1012,6 @@
             <widget class="QLabel" name="informationDpiLabel">
              <property name="text">
               <string/>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="2">
-            <widget class="QLabel" name="label_5">
-             <property name="text">
-              <string>Layers:</string>
              </property>
             </widget>
            </item>
@@ -1106,8 +1029,8 @@
              </property>
             </widget>
            </item>
-           <item row="3" column="1">
-            <widget class="QLabel" name="informationEmbeddedLabel">
+           <item row="1" column="3">
+            <widget class="QLabel" name="informationHeightLabel">
              <property name="text">
               <string/>
              </property>
@@ -1126,6 +1049,82 @@
               <string/>
              </property>
             </widget>
+           </item>
+           <item row="0" column="2">
+            <widget class="QLabel" name="label_3">
+             <property name="text">
+              <string>Width:</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <widget class="QLabel" name="informationFormatLabel">
+             <property name="text">
+              <string/>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="3">
+            <widget class="QLabel" name="informationWidthLabel">
+             <property name="text">
+              <string/>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="1">
+            <widget class="QLabel" name="informationColorspaceLabel">
+             <property name="text">
+              <string/>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="0">
+            <widget class="QLabel" name="label_12">
+             <property name="text">
+              <string>Format:</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0">
+            <widget class="QLabel" name="label_13">
+             <property name="text">
+              <string>Colorspace:</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="2">
+            <widget class="QLabel" name="label_5">
+             <property name="text">
+              <string>Layers:</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="0">
+            <widget class="QLabel" name="label_14">
+             <property name="text">
+              <string>DPI:</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="2">
+            <widget class="QLabel" name="label_4">
+             <property name="text">
+              <string>Height:</string>
+             </property>
+            </widget>
+           </item>
+           <item row="4" column="0">
+            <spacer name="verticalSpacer">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>40</height>
+              </size>
+             </property>
+            </spacer>
            </item>
           </layout>
          </widget>
@@ -1784,7 +1783,7 @@
           <item>
            <widget class="QLabel" name="label_25">
             <property name="sizePolicy">
-             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+             <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
               <horstretch>0</horstretch>
               <verstretch>0</verstretch>
              </sizepolicy>
