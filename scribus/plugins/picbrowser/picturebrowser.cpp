@@ -36,6 +36,7 @@ PictureBrowser::PictureBrowser ( ScribusDoc* doc, QWidget *parent ) : QDialog ( 
 //load settings
 	pbSettings.load();
 
+	documentChanged = false;
 
 	connect ( navigationBox, SIGNAL ( currentIndexChanged ( int ) ), this, SLOT ( navigate ( int ) ) );
 	connect ( sortCombobox, SIGNAL ( currentIndexChanged ( int ) ), this, SLOT ( sortChanged ( int ) ) );
@@ -588,10 +589,10 @@ void PictureBrowser::subdirsCheckboxStateChanged()
 void PictureBrowser::dirChosen ( const QModelIndex &index )
 {
 	// as long as the folder doesnt change, only the first signal (click, doubleclick or activated) is processed
-	if ( !tmpindex.isValid() || ( tmpindex != index ) )
+	if ( documentChanged || !tmpindex.isValid() || ( tmpindex != index ) )
 	{
 		tmpindex = index;
-
+		documentChanged = false;
 		currPath = folderModel.filePath ( index );
 
 		if ( !fit )
@@ -1681,6 +1682,8 @@ void PictureBrowser::changedDocument ( ScribusDoc* doc )
 	updateDocumentbrowser();
 	actionsGoButton->setEnabled ( true );
 	insertImageButton->setEnabled ( true );
+	documentChanged=true;
+	dirChosen(folderModel.index( QDir::currentPath() ));
 }
 
 void PictureBrowser::closedDocument()

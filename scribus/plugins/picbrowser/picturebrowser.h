@@ -260,6 +260,8 @@ class PictureBrowser : public QDialog, Ui::PictureBrowser
 
 		//contains the hierarchy for the collectionsbrowser treewidget
 		QList<collections *> collectionsDb;
+
+		bool documentChanged;
 };
 
 
