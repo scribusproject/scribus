@@ -574,7 +574,8 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 						pageMap.insert(page, doc->DocPages.at(aPage));
 					}
 					QTreeWidgetItem * errorText = new QTreeWidgetItem(page);
-					errorText->setText(COLUMN_PROBLEM, appliedMasterDifferentSide);
+					errorText->setText(COLUMN_PROBLEM, warnMap[PV_APPLIED_MASTER_DIFF_SIDE].first);
+					errorText->setToolTip(COLUMN_PROBLEM, warnMap[PV_APPLIED_MASTER_DIFF_SIDE].second);
 					errorText->setIcon(COLUMN_ITEM, onlyWarning );
 					pageMap.insert(errorText, doc->DocPages.at(aPage));
 					hasError=true;

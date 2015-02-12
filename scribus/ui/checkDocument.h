@@ -125,25 +125,7 @@ protected:
 	//! \brief Icon for OK
 	QPixmap noErrors;
 
-	//! \brief Strings for common texts in GUI dialog tree
-	QString missingGlyph;
-	QString textOverflow;
-	QString notOnPage;
-	QString missingImg;
-	QString emptyImg;
-	QString lowDPI;
-	QString highDPI;
-	QString transpar;
-	QString annot;
-	QString rasterPDF;
-	QString isGIF;
-	QString isGIFtoolTip;
-	QString WrongFont;
-	QString partFilledImageFrame;
-	QString notCMYKOrSpot;
-	QString fontNotEmbedded;
-	QString appliedMasterDifferentSide;
-	QString emptyTextFrame;
+	//! \brief enum for warning strings for common texts in GUI dialog tree
 	enum {
 		PV_ANNOTATION,
 		PV_APPLIED_MASTER_DIFF_SIDE,
@@ -166,7 +148,7 @@ protected:
 		PV_LAYER_BLENDMODE,
 		PV_LAYER_PRINTVIS_MISMATCH
 	};
-
+	//! \brief Strings for common texts in GUI dialog tree
 	QMap<int, QPair<QString, QString> > warnMap;
 
 	//! \brief Flag if is ignore button shown. true = hidden, false = shown.
