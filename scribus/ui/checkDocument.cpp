@@ -94,6 +94,59 @@ CheckDocument::CheckDocument( QWidget* parent, bool modal )
 	connect(reScan, SIGNAL(clicked()), this, SLOT(doReScan()));
 }
 
+
+void CheckDocument::changeEvent(QEvent *e)
+{
+	if (e->type() == QEvent::LanguageChange)
+	{
+		languageChange();
+	}
+	else
+		QWidget::changeEvent(e);
+}
+
+void CheckDocument::languageChange()
+{
+	setWindowTitle( tr( "Preflight Verifier" ) );
+	QStringList headerLabels;
+	headerLabels << tr("Items") << tr("Problems")
+				 << tr("Layer");// << tr("Information");
+	reportDisplay->setHeaderLabels(headerLabels);
+	reportDisplay->setColumnCount(headerLabels.count());
+
+	textLabel1->setText( tr("Current Profile:"));
+	ignoreErrors->setText( tr("&Ignore Errors"));
+	reScan->setText( tr("Check again"));
+
+	textLabel1->setToolTip( "<qt>"+ tr( "Preflight profile to base the report generation on. Options can be set in Document Setup or Preferences") + "</qt>");
+	ignoreErrors->setToolTip( "<qt>"+ tr( "Ignore found errors and continue to export or print. Be sure to understand the errors you are ignoring before continuing.") + "</qt>");
+	reScan->setToolTip( "<qt>"+ tr( "Rerun the document scan to check corrections you may have made" ) + "</qt>");
+
+	warnMap.clear();
+	warnMap.insert(PV_ANNOTATION,				qMakePair(tr("Object is a PDF Annotation or Field"),					tr("Indicates that editorial changes have been made to a PDF are still present or your PDF contains unprintable annotation items. They may cause issues in professional printing. Also helpful reminder if you are wanting to publish a final draft without editorial relics.")));
+	warnMap.insert(PV_APPLIED_MASTER_DIFF_SIDE,	qMakePair(tr("Applied master page has different page destination (left, middle, right side)"),
+																														tr("Have you applied the correct Master Page?")));
+	warnMap.insert(PV_EMPTY_IMAGE_FRAME,		qMakePair(tr("Empty Image Frame"),										tr("If you have created an image frame, there is the presumption that you planned to put an image in it.")));
+	warnMap.insert(PV_EMPTY_TEXT_FRAME,			qMakePair(tr("Empty Text Frame"),										tr("If you have created a text frame, there is the presumption that you planned to put text in it.")));
+	warnMap.insert(PV_FONT_NOT_EMBEDDED,		qMakePair(tr("Imported document contains non-embedded fonts"),			tr("When some imported document uses non-embedded fonts, then their rendering will be wrong, unless by chance you have them installed on their system, but that cannot be guaranteed in case you want to share the resulting document.")));
+	warnMap.insert(PV_HIGH_DPI,					qMakePair(tr("Image resolution above %1 DPI,\ncurrently %2 x %3 DPI"),	tr("This is a user definable setting serving as a caution for high resolution images, which may lead to unnecessarily large files.")));
+	warnMap.insert(PV_IMAGE_FRAME_PART_FILLED,	qMakePair(tr("Image dimension is smaller than its frame"),				tr("mage doesnt fit the whole space you reserved for it. Maybe this is intended, or maybe this is caused by bad inner placement or scale. The result will either be a cropped image or white space around the image.")));
+	warnMap.insert(PV_IS_GIF,					qMakePair(tr("Image is GIF"),											tr("This warning alerts you that you are using a bitmap based graphic format that is typically not used for high resolution images (.gif is one of those). This may result in poor viewing quality (for example: when commercially printed, viewed on a high-resolution screens, etc...). If your PDF will be printed commercially, there are some printing systems that will have difficulty printing these types of images.")));
+	warnMap.insert(PV_LOW_DPI,					qMakePair(tr("Image resolution below %1 DPI,\ncurrently %2 x %3 DPI"),	tr("This is a user definable setting serving as a caution for low resolution images, which may lead to poor quality output.")));
+	warnMap.insert(PV_MISSING_GLYPH,			qMakePair(tr("Glyphs missing"),											tr("You have one or more characters which do not have a corresponding glyph in your chosen font.")));
+	warnMap.insert(PV_MISSING_IMAGE,			qMakePair(tr("Missing Image"),											tr("The assigned image file cannot be found.")));
+	warnMap.insert(PV_NON_ON_PAGE,				qMakePair(tr("Object is not on a Page"),								tr("An object is placed somewhere outside of the page borders, it will not be printed and might be missing somewhere.")));
+	warnMap.insert(PV_NOT_CMYK_SPOT,			qMakePair(tr("Object colorspace is not CMYK or spot"),					tr("PDF supports many different ways to represent the color of any object including RGB, CMYK and Spot (aka Separation) colors. Some of the PDF standards, such as PDF/X-1a, require the only CMYK and Spot colors be used.")));
+	warnMap.insert(PV_RASTER_PDF,				qMakePair(tr("Object is a placed PDF"),									tr("The warning is verifying for you that there is a PDF loaded into an Image Frame, where it will be rasterized or converted to a bitmap. Its resolution may be less than ideal. See PDF Export to learn how to minimize this problem.")));
+	warnMap.insert(PV_TEXT_OVERFLOW,			qMakePair(tr("Text overflow"),											tr("There is more text than can show in the frame as sized. Nonvisible excess characters like spaces and carriage returns may trigger this if nothing appears to be missing.")));
+	warnMap.insert(PV_TRANSPARENCY,				qMakePair(tr("Object has transparency"),								tr("This warning indicates that your document contains images that have a transparent layer. This is really only an issue if using older printing profiles or PostScript. It is safe to ignore this when exporting to PDF version greater than 1.4.")));
+	warnMap.insert(PV_WRONG_FONT,				qMakePair(tr("Annotation uses a non-TrueType font"),					tr("Annotations support only a standard set of fonts. Choose another one.")));
+	warnMap.insert(PV_LAYER_TRANSPARENCY,		qMakePair(tr("Transparency used"),										tr("This layer uses transparency, only an issue if using older printing profiles. You may safely ignore this when using modern printing methods, or exporting to PDF version greater than 1.4.")));
+	warnMap.insert(PV_LAYER_BLENDMODE,			qMakePair(tr("Blendmode used"),											tr("This layer uses blendmodes which relies on transparency, only an issue if using older printing profiles. You may safely ignore this when using modern printing methods, or exporting to PDF version greater than 1.4.")));
+	warnMap.insert(PV_LAYER_PRINTVIS_MISMATCH,	qMakePair(tr("Print/Visible mismatch"),									tr("This layer uses transparency, only an issue if using older printing profiles. You may safely ignore this when using modern printing methods, or exporting to PDF version greater than 1.4.")));
+}
+
+
 void CheckDocument::setDoc(ScribusDoc *doc)
 {
 	m_Doc = doc;
@@ -200,28 +253,33 @@ void CheckDocument::buildItem(QTreeWidgetItem * item,
 	switch (errorType)
 	{
 		case MissingGlyph:
-			item->setText(COLUMN_PROBLEM, missingGlyph);
+			item->setText(COLUMN_PROBLEM, warnMap[PV_MISSING_GLYPH].first);
+			item->setToolTip(COLUMN_PROBLEM, warnMap[PV_MISSING_GLYPH].second);
 			item->setIcon(COLUMN_ITEM, graveError );
 			pageGraveError = true;
 			itemError = true;
 			break;
 		case TextOverflow:
-			item->setText(COLUMN_PROBLEM, textOverflow);
+			item->setText(COLUMN_PROBLEM, warnMap[PV_TEXT_OVERFLOW].first);
+			item->setToolTip(COLUMN_PROBLEM, warnMap[PV_TEXT_OVERFLOW].second);
 			item->setIcon(COLUMN_ITEM, onlyWarning );
 			break;
 		case ObjectNotOnPage:
-			item->setText(COLUMN_PROBLEM, notOnPage);
+			item->setText(COLUMN_PROBLEM, warnMap[PV_NON_ON_PAGE].first);
+			item->setToolTip(COLUMN_PROBLEM, warnMap[PV_NON_ON_PAGE].second);
 			item->setIcon(COLUMN_ITEM, onlyWarning );
 			break;
 		case MissingImage:
 			if (pageItem->externalFile().isEmpty())
 			{
-				item->setText(COLUMN_PROBLEM, emptyImg);
+				item->setText(COLUMN_PROBLEM, warnMap[PV_EMPTY_IMAGE_FRAME].first);
+				item->setToolTip(COLUMN_PROBLEM, warnMap[PV_EMPTY_IMAGE_FRAME].second);
 				item->setIcon(COLUMN_ITEM, onlyWarning );
 			}
 			else
 			{
-				item->setText(COLUMN_PROBLEM, missingImg);
+				item->setText(COLUMN_PROBLEM, warnMap[PV_MISSING_IMAGE].first);
+				item->setToolTip(COLUMN_PROBLEM, warnMap[PV_MISSING_IMAGE].second);
 				item->setIcon(COLUMN_ITEM, graveError );
 				pageGraveError = true;
 			}
@@ -230,7 +288,8 @@ void CheckDocument::buildItem(QTreeWidgetItem * item,
 		{
 			int xres = qRound(72.0 / pageItem->imageXScale());
 			int yres = qRound(72.0 / pageItem->imageYScale());
-			item->setText(COLUMN_PROBLEM, lowDPI.arg(minResDPI).arg(xres).arg(yres));
+			item->setText(COLUMN_PROBLEM, warnMap[PV_LOW_DPI].first.arg(minResDPI).arg(xres).arg(yres));
+			item->setToolTip(COLUMN_PROBLEM, warnMap[PV_LOW_DPI].second);
 			item->setIcon(COLUMN_ITEM, onlyWarning );
 			break;
 		}
@@ -238,50 +297,60 @@ void CheckDocument::buildItem(QTreeWidgetItem * item,
 		{
 			int xres = qRound(72.0 / pageItem->imageXScale());
 			int yres = qRound(72.0 / pageItem->imageYScale());
-			item->setText(COLUMN_PROBLEM, highDPI.arg(maxResDPI).arg(xres).arg(yres));
+			item->setText(COLUMN_PROBLEM, warnMap[PV_HIGH_DPI].first.arg(maxResDPI).arg(xres).arg(yres));
+			item->setToolTip(COLUMN_PROBLEM, warnMap[PV_HIGH_DPI].second);
 			item->setIcon(COLUMN_ITEM, onlyWarning );
 			break;
 		}
 		case PartFilledImageFrame:
-			item->setText(COLUMN_PROBLEM, partFilledImageFrame);
+			item->setText(COLUMN_PROBLEM, warnMap[PV_IMAGE_FRAME_PART_FILLED].first);
+			item->setToolTip(COLUMN_PROBLEM, warnMap[PV_IMAGE_FRAME_PART_FILLED].second);
 			item->setIcon(COLUMN_ITEM, onlyWarning);
 			break;
 		case Transparency:
-			item->setText(COLUMN_PROBLEM, transpar);
+			item->setText(COLUMN_PROBLEM, warnMap[PV_TRANSPARENCY].first);
+			item->setToolTip(COLUMN_PROBLEM, warnMap[PV_TRANSPARENCY].second);
 			item->setIcon(COLUMN_ITEM, graveError );
 			pageGraveError = true;
 			itemError = true;
 			break;
 		case PDFAnnotField:
-			item->setText(COLUMN_PROBLEM, annot);
+			item->setText(COLUMN_PROBLEM, warnMap[PV_ANNOTATION].second);
+			item->setToolTip(COLUMN_PROBLEM, warnMap[PV_ANNOTATION].second);
 			item->setIcon(COLUMN_ITEM, onlyWarning );
 			break;
 		case PlacedPDF:
-			item->setText(COLUMN_PROBLEM, rasterPDF);
+			item->setText(COLUMN_PROBLEM, warnMap[PV_RASTER_PDF].first);
+			item->setToolTip(COLUMN_PROBLEM, warnMap[PV_RASTER_PDF].second);
 			item->setIcon(COLUMN_ITEM, onlyWarning );
 			break;
 		case ImageIsGIF:
-			item->setText(COLUMN_PROBLEM, isGIF);
+			item->setText(COLUMN_PROBLEM, warnMap[PV_IS_GIF].first);
+			item->setToolTip(COLUMN_PROBLEM, warnMap[PV_IS_GIF].second);
 			item->setIcon(COLUMN_ITEM, onlyWarning);
 			break;
 		case WrongFontInAnnotation:
-			item->setText(COLUMN_PROBLEM, WrongFont);
+			item->setText(COLUMN_PROBLEM, warnMap[PV_WRONG_FONT].first);
+			item->setToolTip(COLUMN_PROBLEM, warnMap[PV_WRONG_FONT].second);
 			item->setIcon(COLUMN_ITEM, graveError );
 			pageGraveError = true;
 			itemError = true;
 			break;
 		case NotCMYKOrSpot:
-			item->setText(COLUMN_PROBLEM, notCMYKOrSpot);
+			item->setText(COLUMN_PROBLEM, warnMap[PV_NOT_CMYK_SPOT].first);
+			item->setToolTip(COLUMN_PROBLEM, warnMap[PV_NOT_CMYK_SPOT].second);
 			item->setIcon(COLUMN_ITEM, onlyWarning);
 			itemError = true;
 			break;
 		case FontNotEmbedded:
-			item->setText(COLUMN_PROBLEM, fontNotEmbedded);
+			item->setText(COLUMN_PROBLEM, warnMap[PV_FONT_NOT_EMBEDDED].first);
+			item->setToolTip(COLUMN_PROBLEM, warnMap[PV_FONT_NOT_EMBEDDED].second);
 			item->setIcon(COLUMN_ITEM, graveError);
 			itemError = true;
 			break;
 		case EmptyTextFrame:
-			item->setText(COLUMN_PROBLEM, emptyTextFrame);
+			item->setText(COLUMN_PROBLEM, warnMap[PV_EMPTY_TEXT_FRAME].first);
+			item->setToolTip(COLUMN_PROBLEM, warnMap[PV_EMPTY_TEXT_FRAME].second);
 			item->setIcon(COLUMN_ITEM, onlyWarning);
 			itemError = true;
 			break;
@@ -363,17 +432,20 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 					switch (layerErrorsIt.key())
 					{
 						case Transparency:
-							errorText->setText(COLUMN_ITEM, tr("Transparency used"));
+							errorText->setText(COLUMN_ITEM, warnMap[PV_LAYER_TRANSPARENCY].first);
+							errorText->setToolTip(COLUMN_ITEM, warnMap[PV_LAYER_TRANSPARENCY].second);
 							errorText->setIcon(COLUMN_ITEM, graveError );
 							layoutGraveError = true;
 							break;
 						case BlendMode:
-							errorText->setText(COLUMN_ITEM, tr("Blendmode used"));
+							errorText->setText(COLUMN_ITEM, warnMap[PV_LAYER_BLENDMODE].first);
+							errorText->setToolTip(COLUMN_ITEM, warnMap[PV_LAYER_BLENDMODE].second);
 							errorText->setIcon(COLUMN_ITEM, graveError );
 							layoutGraveError = true;
 							break;
 						case OffConflictLayers:
-							errorText->setText(COLUMN_ITEM, tr("Print/Visible Mismatch"));
+							errorText->setText(COLUMN_ITEM, warnMap[PV_LAYER_PRINTVIS_MISMATCH].first);
+							errorText->setToolTip(COLUMN_ITEM, warnMap[PV_LAYER_PRINTVIS_MISMATCH].second);
 							errorText->setIcon(COLUMN_ITEM, onlyWarning );
 							break;
 						default:
@@ -646,53 +718,6 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 	reportDisplay->resizeColumnToContents(COLUMN_LAYER);
 	connect(curCheckProfile, SIGNAL(activated(const QString&)), this, SLOT(newScan(const QString&)));
 	connect(reportDisplay, SIGNAL(itemClicked(QTreeWidgetItem*, int)), this, SLOT(slotSelect(QTreeWidgetItem*)));
-}
-
-void CheckDocument::changeEvent(QEvent *e)
-{
-	if (e->type() == QEvent::LanguageChange)
-	{
-		languageChange();
-	}
-	else
-		QWidget::changeEvent(e);
-}
-
-void CheckDocument::languageChange()
-{
-	setWindowTitle( tr( "Preflight Verifier" ) );
-	QStringList headerLabels;
-	headerLabels << tr("Items") << tr("Problems")
-	             << tr("Layer");// << tr("Information");
-	reportDisplay->setHeaderLabels(headerLabels);
-	reportDisplay->setColumnCount(headerLabels.count());
-
-	textLabel1->setText( tr("Current Profile:"));
-	ignoreErrors->setText( tr("&Ignore Errors"));
-	reScan->setText( tr("Check again"));
-	
-	textLabel1->setToolTip( "<qt>"+ tr( "Preflight profile to base the report generation on. Options can be set in Document Setup or Preferences") + "</qt>");
-	ignoreErrors->setToolTip( "<qt>"+ tr( "Ignore found errors and continue to export or print. Be sure to understand the errors you are ignoring before continuing.") + "</qt>");
-	reScan->setToolTip( "<qt>"+ tr( "Rerun the document scan to check corrections you may have made" ) + "</qt>");
-	
-	missingGlyph = tr("Glyphs missing");
-	textOverflow = tr("Text overflow");
-	notOnPage = tr("Object is not on a Page");
-	missingImg = tr("Missing Image");
-	emptyImg = tr("Empty Image Frame");
-	emptyTextFrame = tr("Empty Text Frame");
-	lowDPI = tr("Image resolution below %1 DPI,\ncurrently %2 x %3 DPI");
-	highDPI = tr("Image resolution above %1 DPI,\ncurrently %2 x %3 DPI");
-	transpar = tr("Object has transparency");
-	annot = tr("Object is a PDF Annotation or Field");
-	rasterPDF = tr("Object is a placed PDF");
-	isGIF = tr("Image is GIF");
-	WrongFont = tr("Annotation uses a non TrueType font");
-	partFilledImageFrame = tr("Image dimension is smaller than its frame");
-	notCMYKOrSpot = tr("Object colorspace is not CMYK or spot");
-	fontNotEmbedded =  tr("Imported document contains non embedded fonts");
-	//isGIFtoolTip = "<qt>" + tr("GIF images are not recommended for print. See the online docs for more info") + "</qt>";
-	appliedMasterDifferentSide = tr("Applied master page has different page destination (left, middle, right side)");
 }
 
 void CheckDocument::setIgnoreEnabled(bool state)

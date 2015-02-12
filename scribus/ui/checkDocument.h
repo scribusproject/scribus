@@ -8,7 +8,9 @@ for which a new license (GPL+exception) is in place.
 #define CHECKDOCUMENT_H
 
 #include <QMap>
+#include <QPair>
 #include <QPointer>
+#include <QString>
 
 class QEvent;
 class QHBoxLayout;
@@ -142,6 +144,30 @@ protected:
 	QString fontNotEmbedded;
 	QString appliedMasterDifferentSide;
 	QString emptyTextFrame;
+	enum {
+		PV_ANNOTATION,
+		PV_APPLIED_MASTER_DIFF_SIDE,
+		PV_EMPTY_IMAGE_FRAME,
+		PV_EMPTY_TEXT_FRAME,
+		PV_FONT_NOT_EMBEDDED,
+		PV_HIGH_DPI,
+		PV_IMAGE_FRAME_PART_FILLED,
+		PV_IS_GIF,
+		PV_LOW_DPI,
+		PV_MISSING_GLYPH,
+		PV_MISSING_IMAGE,
+		PV_NON_ON_PAGE,
+		PV_NOT_CMYK_SPOT,
+		PV_RASTER_PDF,
+		PV_TEXT_OVERFLOW,
+		PV_TRANSPARENCY,
+		PV_WRONG_FONT,
+		PV_LAYER_TRANSPARENCY,
+		PV_LAYER_BLENDMODE,
+		PV_LAYER_PRINTVIS_MISMATCH
+	};
+
+	QMap<int, QPair<QString, QString> > warnMap;
 
 	//! \brief Flag if is ignore button shown. true = hidden, false = shown.
 	bool noButton;
