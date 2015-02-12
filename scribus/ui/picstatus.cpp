@@ -394,15 +394,17 @@ void PicStatus::visiblePic()
 
 void PicStatus::GotoPic()
 {
-	if (currItem != NULL)
-	{
-		if (currItem->OnMasterPage.isEmpty() && m_Doc->masterPageMode())
-			ScCore->primaryMainWindow()->closeActiveWindowMasterPageEditor();
-		if (!currItem->OnMasterPage.isEmpty())
-			emit selectMasterPage(currItem->OnMasterPage);
-		else
-			emit selectPage(currItem->OwnPage);
-	}
+	if (currItem == NULL)
+		return;
+
+	if (currItem->OnMasterPage.isEmpty() && m_Doc->masterPageMode())
+		ScCore->primaryMainWindow()->closeActiveWindowMasterPageEditor();
+	if (!currItem->OnMasterPage.isEmpty())
+		emit selectMasterPage(currItem->OnMasterPage);
+	else
+		emit selectPage(currItem->OwnPage);
+
+	emit selectElementByItem(currItem, true, 1);
 }
 
 void PicStatus::SelectPic()
@@ -415,7 +417,7 @@ void PicStatus::SelectPic()
 	else if (!currItem->OnMasterPage.isEmpty() && !m_Doc->masterPageMode())
 		emit selectMasterPage(currItem->OnMasterPage);
 
-	emit selectElementByItem(currItem, true);
+	emit selectElementByItem(currItem, true, 1);
 }
 
 bool PicStatus::loadPict(const QString & newFilePath)

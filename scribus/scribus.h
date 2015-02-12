@@ -491,7 +491,8 @@ public slots:
 	void setNewCharStyle(const QString& name);
 	void setAlignmentValue(int a);
 	void editItemsFromOutlines(PageItem *ite);
-	void selectItemsFromOutlines(PageItem *ite, bool single = false);
+	//0= center, 1 = top left.
+	void selectItemsFromOutlines(PageItem *ite, bool single = false, int position = 0);
 	void selectItemFromOutlines(PageItem *ite, bool single, int cPos);
 	void selectPagesFromOutlines(int ScPage);
 	void doPrintPreview();

@@ -6318,7 +6318,7 @@ void ScribusMainWindow::editItemsFromOutlines(PageItem *ite)
 		view->requestMode(modeEditTable);
 }
 
-void ScribusMainWindow::selectItemsFromOutlines(PageItem* ite, bool single)
+void ScribusMainWindow::selectItemsFromOutlines(PageItem* ite, bool single, int position)
 {
 	if (HaveDoc && doc->appMode == modeEditClip)
 		view->requestMode(submodeEndNodeEdit);
@@ -6350,7 +6350,18 @@ void ScribusMainWindow::selectItemsFromOutlines(PageItem* ite, bool single)
 		}
 		else
 		{
-			view->SetCCPo(currItem->xPos() + currItem->width() / 2.0, currItem->yPos() + currItem->height() / 2.0);
+			double xOffset=0.0,yOffset=0.0;
+			switch (position)
+			{
+				case 1: //top left
+					break;
+				default: //center
+					xOffset = currItem->width() / 2.0;
+					yOffset = currItem->height() / 2.0;
+					break;
+			}
+
+			view->SetCCPo(currItem->xPos() + xOffset, currItem->yPos() + yOffset);
 		}
 	}
 }
@@ -7753,19 +7764,17 @@ void ScribusMainWindow::restoreUngrouping(SimpleState *state, bool isUndo)
 
 void ScribusMainWindow::StatusPic()
 {
-	if (HaveDoc)
-	{
-		PicStatus *dia = new PicStatus(this, doc);
-		connect(dia, SIGNAL(selectPage(int)), this, SLOT(selectPagesFromOutlines(int)));
-		connect(dia, SIGNAL(selectMasterPage(QString)), this, SLOT(editMasterPagesStart(QString)));
-		connect(dia, SIGNAL(selectElementByItem(PageItem *, bool)), this, SLOT(selectItemsFromOutlines(PageItem *, bool)));
-		dia->exec();
-		delete dia;
-	}
+	if (!HaveDoc)
+		return;
+	PicStatus *dia = new PicStatus(this, doc);
+	connect(dia, SIGNAL(selectPage(int)), this, SLOT(selectPagesFromOutlines(int)));
+	connect(dia, SIGNAL(selectMasterPage(QString)), this, SLOT(editMasterPagesStart(QString)));
+	connect(dia, SIGNAL(selectElementByItem(PageItem *, bool, int )), this, SLOT(selectItemsFromOutlines(PageItem *, bool, int)));
+	dia->exec();
+	delete dia;
 }
 
-QString ScribusMainWindow::CFileDialog(QString wDir, QString caption, QString filter, QString defNa,
-                                int optionFlags, bool *docom, bool *doFont, bool *doProfiles)
+QString ScribusMainWindow::CFileDialog(QString wDir, QString caption, QString filter, QString defNa, int optionFlags, bool *docom, bool *doFont, bool *doProfiles)
 {
 	QString retval("");
 	// changed from "this" to qApp->activeWindow() to be sure it will be opened

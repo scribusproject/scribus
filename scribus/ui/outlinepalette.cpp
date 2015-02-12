@@ -226,7 +226,7 @@ void OutlineWidget::dropEvent(QDropEvent *e)
 		else
 		{
 			item->PageItemObject->OwnPage = item->DocObject->OnPage(item->PageItemObject);
-			item->DocObject->scMW()->selectItemsFromOutlines(item->PageItemObject, true);
+			item->DocObject->scMW()->selectItemsFromOutlines(item->PageItemObject, true, 1);
 		}
 		QList<QTreeWidgetItem*> selList;
 		selList.append(it);
