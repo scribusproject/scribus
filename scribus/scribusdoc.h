@@ -271,6 +271,12 @@ public:
 	 */
 	void setLocationBasedPageLRMargins(uint pageIndex);
 	/**
+	 * @brief Swap two pages
+	 * @param a page index
+	 * @param b page index
+	 */
+	void swapPages(const int a, const int b);
+	/**
 	 * @brief Move page(s) within the document
 	 * @param fromPage page index
 	 * @param toPage page index

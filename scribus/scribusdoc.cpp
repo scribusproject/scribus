@@ -2830,6 +2830,13 @@ void ScribusDoc::deletePage(const int pageNumber)
 	changed();
 }
 
+void ScribusDoc::swapPages(const int a, const int b)
+{
+	Pages->swap(a,b);
+	reformPages();
+	changed();
+}
+
 
 void ScribusDoc::movePage(const int fromPage, const int toPage, const int dest, const int position)
 {

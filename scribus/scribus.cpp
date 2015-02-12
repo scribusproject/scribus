@@ -6015,6 +6015,12 @@ void ScribusMainWindow::movePage()
 		int to = dia->getToPage();
 		int wie = dia->getWhere();
 		int wo = dia->getWherePage();
+		if (wie == 3)
+		{
+			doc->swapPages(from-1, wo-1);
+			updateGUIAfterPagesChanged();
+			return;
+		}
 		if ((wie < 2) && (from <= wo) && (wo <= to))
 			return;
 		if (wie == 2 && to == signed(doc->Pages->count()))
