@@ -37,15 +37,14 @@ Prefs_Hyphenator::Prefs_Hyphenator(QWidget* parent, ScribusDoc* doc)
 	languageList.sort();
 	hyphLanguageComboBox->addItems( languageList );
 
-	//<<DL
 	updateDictList();
 	downloadLocation=ScPaths::downloadDir();
+	hyphDownloadButton->setEnabled(false);
 	setAvailDictsXMLFile(downloadLocation + "scribus_hyph_dicts.xml");
 	downloadProgressBar->setVisible(false);
 	dlLabel->setVisible(false);
 	connect(hyphDownloadButton, SIGNAL(clicked()), this, SLOT(downloadHyphDicts()));
 	connect(availHyphListDownloadButton, SIGNAL(clicked()), this, SLOT(updateAvailDictList()));
-	//>DL
 
 	exceptionAddButton->setIcon(QIcon(loadIcon("16/list-add.png")));
 	exceptionEditButton->setEnabled(false);
@@ -191,7 +190,6 @@ void Prefs_Hyphenator::enableExceptButtons()
 
 void Prefs_Hyphenator::downloadHyphDicts()
 {
-	hyphDownloadButton->setEnabled(false);
 	int rows=availHyphDictTableWidget->rowCount();
 	QStringList dlLangs;
 	for (int i=0; i<rows; ++i)
@@ -200,7 +198,9 @@ void Prefs_Hyphenator::downloadHyphDicts()
 		if (dlItem->checkState()==Qt::Checked)
 			dlLangs<<availHyphDictTableWidget->item(i,1)->text();
 	}
-	//qDebug()<<dlLangs;
+	if (dlLangs.isEmpty())
+		return;
+	hyphDownloadButton->setEnabled(false);
 	downloadList.clear();
 	downloadProgressBar->setValue(0);
 	downloadProgressBar->setVisible(true);
@@ -308,6 +308,8 @@ void Prefs_Hyphenator::updateProgressBar()
 void Prefs_Hyphenator::setAvailDictsXMLFile(QString availDictsXMLDataFile)
 {
 	QFile dataFile(availDictsXMLDataFile);
+	if (!dataFile.exists())
+		return;
 	dataFile.open(QIODevice::ReadOnly);
 	QTextStream ts(&dataFile);
 	ts.setCodec(QTextCodec::codecForName("UTF-8"));
@@ -358,6 +360,11 @@ void Prefs_Hyphenator::setAvailDictsXMLFile(QString availDictsXMLDataFile)
 		n = n.nextSibling();
 	}
 	availHyphDictTableWidget->clear();
+	if(dictList.isEmpty())
+	{
+		hyphDownloadButton->setEnabled(false);
+		return;
+	}
 	availHyphDictTableWidget->setRowCount(dictList.count());
 	availHyphDictTableWidget->setColumnCount(4);
 	int row=0;
@@ -384,4 +391,5 @@ void Prefs_Hyphenator::setAvailDictsXMLFile(QString availDictsXMLDataFile)
 	headers << tr("Language") << tr("Code") << tr("Installed") << tr("Download");
 	availHyphDictTableWidget->setHorizontalHeaderLabels(headers);
 	availHyphDictTableWidget->resizeColumnsToContents();
+	hyphDownloadButton->setEnabled(true);
 }

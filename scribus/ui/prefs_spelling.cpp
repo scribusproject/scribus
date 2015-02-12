@@ -39,6 +39,7 @@ Prefs_Spelling::Prefs_Spelling(QWidget* parent, ScribusDoc* doc)
 
 	updateDictList();
 	downloadLocation=ScPaths::downloadDir();
+	spellDownloadButton->setEnabled(false);
 	setAvailDictsXMLFile(downloadLocation + "scribus_spell_dicts.xml");
 	downloadProgressBar->setVisible(false);
 	dlLabel->setVisible(false);
@@ -64,7 +65,6 @@ void Prefs_Spelling::saveGuiToPrefs(struct ApplicationPrefs *prefsData) const
 
 void Prefs_Spelling::downloadSpellDicts()
 {
-	spellDownloadButton->setEnabled(false);
 	int rows=availDictTableWidget->rowCount();
 	QStringList dlLangs;
 	for (int i=0; i<rows; ++i)
@@ -73,7 +73,9 @@ void Prefs_Spelling::downloadSpellDicts()
 		if (dlItem->checkState()==Qt::Checked)
 			dlLangs<<availDictTableWidget->item(i,1)->text();
 	}
-	//qDebug()<<dlLangs;
+	if (dlLangs.isEmpty())
+		return;
+	spellDownloadButton->setEnabled(false);
 	downloadList.clear();
 	downloadProgressBar->setValue(0);
 	downloadProgressBar->setVisible(true);
@@ -235,6 +237,8 @@ void Prefs_Spelling::updateProgressBar()
 void Prefs_Spelling::setAvailDictsXMLFile(QString availDictsXMLDataFile)
 {
 	QFile dataFile(availDictsXMLDataFile);
+	if (!dataFile.exists())
+		return;
 	dataFile.open(QIODevice::ReadOnly);
 	QTextStream ts(&dataFile);
 	ts.setCodec(QTextCodec::codecForName("UTF-8"));
@@ -285,6 +289,11 @@ void Prefs_Spelling::setAvailDictsXMLFile(QString availDictsXMLDataFile)
 		n = n.nextSibling();
 	}
 	availDictTableWidget->clear();
+	if(dictList.isEmpty())
+	{
+		spellDownloadButton->setEnabled(false);
+		return;
+	}
 	availDictTableWidget->setRowCount(dictList.count());
 	availDictTableWidget->setColumnCount(4);
 	int row=0;
@@ -311,6 +320,7 @@ void Prefs_Spelling::setAvailDictsXMLFile(QString availDictsXMLDataFile)
 	headers << tr("Language") << tr("Code") << tr("Installed") << tr("Download");
 	availDictTableWidget->setHorizontalHeaderLabels(headers);
 	availDictTableWidget->resizeColumnsToContents();
+	spellDownloadButton->setEnabled(true);
 }
 
 QString Prefs_Spelling::affixFileName(QStringList files)
