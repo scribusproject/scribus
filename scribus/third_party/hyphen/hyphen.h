@@ -32,8 +32,8 @@
  *
  * You should have received a copy of the GNU Library General Public
  * License along with this library; if not, write to the 
- * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, 
- * Boston, MA  02110-1301  USA.
+ * Free Software Foundation, Inc., 59 Temple Place - Suite 330, 
+ * Boston, MA  02111-1307  USA.
 */
 
 /*
@@ -54,6 +54,8 @@
 #ifdef __cplusplus
 extern "C" {
 #endif /* __cplusplus */
+
+#include <stdio.h>
 
 typedef struct _HyphenDict HyphenDict;
 typedef struct _HyphenState HyphenState;
@@ -94,6 +96,7 @@ struct _HyphenTrans {
 };
 
 HyphenDict *hnj_hyphen_load (const char *fn);
+HyphenDict *hnj_hyphen_load_file (FILE *f);
 void hnj_hyphen_free (HyphenDict *dict);
 
 /* obsolete, use hnj_hyphen_hyphenate2() or *hyphenate3() functions) */

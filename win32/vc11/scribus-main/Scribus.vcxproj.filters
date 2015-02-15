@@ -218,10 +218,10 @@
     <ClInclude Include="..\..\..\scribus\ui\helpnavigation.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\scribus\hnjalloc.h">
+    <ClInclude Include="..\..\..\scribus\third_party\hyphen\hnjalloc.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\scribus\hyphen.h">
+    <ClInclude Include="..\..\..\scribus\third_party\hyphen\hyphen.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\scribus\ioapi.h">
@@ -1417,7 +1417,7 @@
     <ClCompile Include="..\..\..\scribus\ui\helpnavigation.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\scribus\hnjalloc.c">
+    <ClCompile Include="..\..\..\scribus\third_party\hyphen\hnjalloc.c">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\scribus\ui\hruler.cpp">
@@ -1426,7 +1426,7 @@
     <ClCompile Include="..\..\..\scribus\ui\hyask.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\scribus\hyphen.c">
+    <ClCompile Include="..\..\..\scribus\third_party\hyphen\hyphen.c">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\scribus\hyphenator.cpp">

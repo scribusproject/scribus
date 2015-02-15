@@ -989,10 +989,11 @@ SET(SCRIBUS_SOURCES
 )
 
 IF(NOT HAVE_HYPHEN)
+	INCLUDE_DIRECTORIES(third_party/hyphen)
 	SET(SCRIBUS_SOURCES
 	${SCRIBUS_SOURCES}
-	hnjalloc.c
-	hyphen.c
+	third_party/hyphen/hnjalloc.c
+	third_party/hyphen/hyphen.c
 	)
 ENDIF(NOT HAVE_HYPHEN)
 

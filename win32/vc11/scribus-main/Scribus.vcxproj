@@ -398,10 +398,10 @@
     <moc Include="..\..\..\scribus\ui\filedialogeventcatcher.h" />
     <moc Include="..\..\..\scribus\ui\downloadspalette.h" />
     <ClInclude Include="..\..\..\scribus\ui\helpnavigation.h" />
-    <ClInclude Include="..\..\..\scribus\hnjalloc.h" />
+    <ClInclude Include="..\..\..\scribus\third_party\hyphen\hnjalloc.h" />
     <moc Include="..\..\..\scribus\ui\hruler.h" />
     <moc Include="..\..\..\scribus\ui\hyask.h" />
-    <ClInclude Include="..\..\..\scribus\hyphen.h" />
+    <ClInclude Include="..\..\..\scribus\third_party\hyphen\hyphen.h" />
     <moc Include="..\..\..\scribus\hyphenator.h" />
     <moc Include="..\..\..\scribus\ui\imageinfodialog.h" />
     <moc Include="..\..\..\scribus\ui\inlinepalette.h" />
@@ -1034,7 +1034,7 @@
     <ClCompile Include="..\..\..\scribus\guidesview.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\helpbrowser.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\helpnavigation.cpp" />
-    <ClCompile Include="..\..\..\scribus\hnjalloc.c">
+    <ClCompile Include="..\..\..\scribus\third_party\hyphen\hnjalloc.c">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
       </PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -1062,7 +1062,7 @@
     </ClCompile>
     <ClCompile Include="..\..\..\scribus\ui\hruler.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\hyask.cpp" />
-    <ClCompile Include="..\..\..\scribus\hyphen.c">
+    <ClCompile Include="..\..\..\scribus\third_party\hyphen\hyphen.c">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
       </PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">

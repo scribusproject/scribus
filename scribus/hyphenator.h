@@ -13,7 +13,8 @@ for which a new license (GPL+exception) is in place.
 #include <QSet>
 
 #include "scribusapi.h"
-#include "hyphen.h"
+#include "third_party/hyphen/hyphen.h"
+
 class ScribusDoc;
 class ScribusMainWindow;
 class PageItem;
