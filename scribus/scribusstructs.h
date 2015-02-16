@@ -381,6 +381,7 @@ struct DownloadItem
 	QString license;
 	QString filetype;
 	QString type;
+	QString movetofile;
 	bool download;
 };
 
@@ -391,6 +392,7 @@ struct DownloadData
 	QString name;
 	QString downloadLocation;
 	QString destinationLocation;
+	QString destinationName;
 	typedef enum {New, Started, Paused, Finished, Successful, Failed} DownloadState;
 	DownloadState state;
 };

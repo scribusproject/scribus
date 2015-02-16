@@ -128,7 +128,7 @@ void ScDLThread::startNextDownload()
 	connect(currentDownload, SIGNAL(finished()), this, SLOT(downloadFinished()));
 	connect(currentDownload, SIGNAL(readyRead()), this, SLOT(downloadReadyRead()));
 
-	qDebug()<<"Downloading:"<<urlPair.first.toEncoded().constData();
+	//qDebug()<<"Downloading:"<<urlPair.first.toEncoded().constData();
 }
 
 void ScDLThread::downloadFinished()
@@ -154,7 +154,7 @@ void ScDLThread::downloadFinished()
 	}
 	else
 	{
-		qDebug()<<"Saving file:"<<qPrintable(output.fileName());
+		//qDebug()<<"Saving file:"<<qPrintable(output.fileName());
 		++downloadedCount;
 		emit fileReceived(output.fileName());
 	}
