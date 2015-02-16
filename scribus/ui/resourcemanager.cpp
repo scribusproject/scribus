@@ -244,6 +244,7 @@ void ResourceManager::updateAvailableFonts()
 					d.lang=e.attribute("language");
 					d.license=e.attribute("license");
 					d.filetype=e.attribute("filetype");
+					d.movetofile=e.attribute("movetofilename");
 					d.type=e.attribute("type").toUpper();
 					QUrl url(d.url);
 					if (url.isValid() && !url.isEmpty() && !url.host().isEmpty())
@@ -611,7 +612,7 @@ void ResourceManager::startDownload()
 	}
 	if (filesToDownload.isEmpty())
 		return;
-	qDebug()<<filesToDownload;
+	//qDebug()<<filesToDownload;
 	downloadButton->setEnabled(false);
 	downloadList.clear();
 	downloadProgressBar->setValue(0);
@@ -650,7 +651,7 @@ void ResourceManager::startDownload()
 						foreach (QString s, plainURLs)
 						{
 							//qDebug()<<"Requesting:"<<d.url+"/"+s;
-							ScQApp->dlManager()->addURL(d.url+"/"+s, true, ScPaths::downloadDir(), destinationFolder);
+							ScQApp->dlManager()->addURL(d.url+"/"+s, true, ScPaths::downloadDir(), destinationFolder, d.files);
 							++dlCount;
 						}
 						downloadList.append(d);

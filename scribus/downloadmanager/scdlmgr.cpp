@@ -30,7 +30,7 @@ ScDLManager::~ScDLManager()
 		delete thread;
 }
 
-void ScDLManager::addURL(const QUrl &url, bool overwrite, const QString& downloadLocation, const QString& destinationLocation)
+void ScDLManager::addURL(const QUrl &url, bool overwrite, const QString& downloadLocation, const QString& destinationLocation, const QString& destinationName)
 {
 	DownloadData d;
 	d.id=dlID++;
@@ -38,13 +38,14 @@ void ScDLManager::addURL(const QUrl &url, bool overwrite, const QString& downloa
 	d.url=url;
 	d.downloadLocation=downloadLocation;
 	d.destinationLocation=destinationLocation;
+	d.destinationName=destinationName;
 	d.state=DownloadData::New;
 	fileList.append(d);
 
 	thread->addURL(url, overwrite, downloadLocation, destinationLocation);
 }
 
-void ScDLManager::addURL(const QString &url, bool overwrite, const QString &downloadLocation, const QString& destinationLocation)
+void ScDLManager::addURL(const QString &url, bool overwrite, const QString &downloadLocation, const QString& destinationLocation, const QString& destinationName)
 {
 	DownloadData d;
 	d.id=dlID++;
@@ -52,6 +53,7 @@ void ScDLManager::addURL(const QString &url, bool overwrite, const QString &down
 	d.url=url;
 	d.downloadLocation=downloadLocation;
 	d.destinationLocation=destinationLocation;
+	d.destinationName=destinationName;
 	d.state=DownloadData::New;
 	fileList.append(d);
 
@@ -68,6 +70,7 @@ void ScDLManager::addURLs(const QStringList &urlList, bool overwrite, const QStr
 		d.url=s;
 		d.downloadLocation=downloadLocation;
 		d.destinationLocation=destinationLocation;
+		d.destinationName="";
 		d.state=DownloadData::New;
 		fileList.append(d);
 	}
@@ -146,7 +149,10 @@ void ScDLManager::moveFinishedDownloads()
 					else
 					{
 						//qDebug()<<"Need to move"<<i.value().name<<"from"<<i.value().downloadLocation<<"to"<<i.value().destinationLocation;
-						moveFile(i.value().downloadLocation+i.value().name, i.value().destinationLocation+i.value().name);
+						QString newName=i.value().name;
+						if (!i.value().destinationName.isEmpty())
+							newName=i.value().destinationName;
+						moveFile(i.value().downloadLocation+i.value().name, i.value().destinationLocation+newName);
 					}
 				}
 				break;

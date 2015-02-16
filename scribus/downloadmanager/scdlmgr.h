@@ -23,8 +23,8 @@ class ScDLManager: public QObject
 		~ScDLManager();
 //TODO: Add download groups so different parts of Scribus can be downloading at the same time
 
-		void addURL(const QUrl &url, bool overwrite, const QString &downloadLocation, const QString& destinationLocation);
-		void addURL(const QString &url, bool overwrite, const QString &downloadLocation, const QString& destinationLocation);
+		void addURL(const QUrl &url, bool overwrite, const QString &downloadLocation, const QString& destinationLocation, const QString& destinationName="");
+		void addURL(const QString &url, bool overwrite, const QString &downloadLocation, const QString& destinationLocation, const QString& destinationName="");
 		void addURLs(const QStringList &urlList, bool overwrite, const QString &downloadLocation, const QString& destinationLocation);
 		void startDownloads();
 
