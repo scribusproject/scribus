@@ -33,6 +33,7 @@ class ScDLThread : public QThread
 	private slots:
 		void startNextDownload();
 		void downloadFinished();
+		void replyFinished(QNetworkReply* reply);
 		void downloadReadyRead();
 		void runSlot();
 

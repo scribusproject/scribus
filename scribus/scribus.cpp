@@ -229,6 +229,7 @@ for which a new license (GPL+exception) is in place.
 #include "ui/propertiespalette_xyz.h"
 #include "ui/query.h"
 #include "ui/replacecolors.h"
+#include "ui/resourcemanager.h"
 #include "ui/sccombobox.h"
 #include "ui/scfilewidget.h"
 #include "ui/scmessagebox.h"
@@ -296,6 +297,7 @@ ScribusMainWindow::ScribusMainWindow()
 	scrMenuMgr=0;
 	prefsManager=0;
 	formatsManager=0;
+	resourceManager=0;
 	UrlLauncher::instance();
 	mainWindowStatusLabel=0;
 	ExternalApp=0;
@@ -1178,6 +1180,7 @@ void ScribusMainWindow::addDefaultWindowMenuItems()
 	scrMenuMgr->addMenuItemString("toolsLayers", "Windows");
 	scrMenuMgr->addMenuItemString("toolsBookmarks", "Windows");
 	scrMenuMgr->addMenuItemString("toolsDownloads", "Windows");
+	scrMenuMgr->addMenuItemString("toolsResources", "Windows");
 	scrMenuMgr->addMenuItemString("SEPARATOR", "Windows");
 	scrMenuMgr->addMenuItemString("toolsScrapbook", "Windows");
 	scrMenuMgr->addMenuItemString("toolsSymbols", "Windows");
@@ -5046,6 +5049,17 @@ void ScribusMainWindow::slotOnlineHelpClosed()
 {
 	if (helpBrowser)
 		helpBrowser->deleteLater();
+}
+
+void ScribusMainWindow::slotResourceManager()
+{
+	if (!resourceManager)
+	{
+		resourceManager=new ResourceManager(this);
+		resourceManager->exec();
+		resourceManager->deleteLater();
+		resourceManager=0;
+	}
 }
 
 void ScribusMainWindow::ToggleTips()

@@ -19,7 +19,7 @@ ScDLManager::ScDLManager(QObject *parent)
 	connect(thread, SIGNAL(fileReceived(const QString &)), this, SLOT(dlReceived(const QString&)));
 	connect(thread, SIGNAL(fileFailed(const QString &)), this, SLOT(dlFailed(const QString&)));
 	connect(thread, SIGNAL(fileStarted(const QString &)), this, SLOT(dlStarted(const QString &)));
-	connect(thread, SIGNAL(finished()), this, SIGNAL(finished()));
+	//connect(thread, SIGNAL(finished()), this, SIGNAL(finished()));
 	connect(thread, SIGNAL(finished()), this, SLOT(moveFinishedDownloads()));
 }
 
@@ -208,4 +208,5 @@ void ScDLManager::moveFinishedDownloads()
 		}
 	}
 	*/
+	emit finished();
 }

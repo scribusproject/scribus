@@ -70,8 +70,10 @@ public:
 	static QStringList getDirsFromEnvVar(const QString envVar, const QString dirToFind);
 	/** @brief Return path to application data dir*/
 	static QString getApplicationDataDir(void);
-	/** @brief Return path to application data dir for downloaded dictsionaries*/
+	/** @brief Return path to application data dir for downloaded dictionaries*/
 	static QString getUserDictDir(bool createIfNotExists);
+	/** @brief Return path to application data dir for downloaded fonts*/
+	static QString getUserFontDir(bool createIfNotExists);
 	/** @brief Return path to image cache dir*/
 	static QString getImageCacheDir(void);
 	/** @brief Return path to plugin data dir*/

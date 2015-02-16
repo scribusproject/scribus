@@ -82,7 +82,7 @@ void Prefs_Spelling::downloadSpellDicts()
 	dlLabel->setVisible(true);
 	int i=0;
 	QString userDictDir(ScPaths::getUserDictDir(true));
-	foreach(DictData d, dictList)
+	foreach(DownloadItem d, dictList)
 	{
 		if (dlLangs.contains(d.lang))
 		{
@@ -268,7 +268,7 @@ void Prefs_Spelling::setAvailDictsXMLFile(QString availDictsXMLDataFile)
 				{
 					if (e.attribute("type")=="spell")
 					{
-						struct DictData d;
+						struct DownloadItem d;
 						d.desc=e.attribute("description");
 						d.download=false;
 						d.files=e.attribute("files");
@@ -297,7 +297,7 @@ void Prefs_Spelling::setAvailDictsXMLFile(QString availDictsXMLDataFile)
 	availDictTableWidget->setRowCount(dictList.count());
 	availDictTableWidget->setColumnCount(4);
 	int row=0;
-	foreach(DictData d, dictList)
+	foreach(DownloadItem d, dictList)
 	{
 		int column=0;
 		//qDebug()<<d.version<<d.files<<d.url<<d.desc<<d.license;

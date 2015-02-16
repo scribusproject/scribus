@@ -38,23 +38,13 @@ class SCRIBUS_API Prefs_Hyphenator : public Prefs_Pane, Ui::Prefs_Hyphenator
 		void removeExceptListEntry();
 		void enableExceptButtons();
 
-	protected slots:
-		void downloadHyphDicts();
-		void updateDictList();
-		void updateAvailDictList();
-		void downloadDictListFinished();
-		void downloadHyphDictsFinished();
-		void updateProgressBar();
-
 	protected:
 		QString affixFileName(QStringList files);
 		QString dictFileName(QStringList files);
 		void setAvailDictsXMLFile(QString availDictsXMLDataFile);
 		QMap<QString, QString> dictionaryMap;
 		QStringList dictionaryPaths;
-		QString downloadLocation;
-		QList <DictData> dictList;
-		QList <DictData> downloadList;
+
 };
 
 #endif // PREFS_HYPHENATOR_H

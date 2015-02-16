@@ -81,7 +81,6 @@ class InlinePalette;
 class LayerPalette;
 class MarksManager;
 class Measurements;
-class ScMWMenuManager;
 class ModeToolBar;
 class NodePalette;
 class NotesStylesEditor;
@@ -94,14 +93,16 @@ class PageSelector;
 class PrefsContext;
 class PrefsManager;
 class PropertiesPalette;
+class ResourceManager;
+class ScMWMenuManager;
 class ScToolBar;
 class ScrAction;
-class ScribusDoc;
+class ScrSpinBox;
 class ScribusCore;
+class ScribusDoc;
 class ScribusMainWindow;
 class ScribusQApp;
 class ScribusWin;
-class ScrSpinBox;
 class SimpleState;
 class StoryEditor;
 class StyleManager;
@@ -111,7 +112,6 @@ class UndoManager;
 class UndoPalette;
 class UndoState;
 class ViewToolBar;
-
 
 extern SCRIBUS_API ScribusQApp* ScQApp;
 
@@ -252,6 +252,7 @@ public:
 	CheckDocument * docCheckerPalette;
 	UndoPalette* undoPalette;
 	AlignDistributePalette *alignDistributePalette;
+	ResourceManager *resourceManager;
 	StoryEditor* storyEditor;
 	StoryEditor* CurrStED;
 	QMdiArea *mdiArea;
@@ -401,6 +402,7 @@ public slots:
 	void slotRaiseOnlineHelp();
 	void slotOnlineHelp(const QString & jumpToSection=QString::null, const QString & jumpToFile=QString::null);
 	void slotOnlineHelpClosed();
+	void slotResourceManager();
 	void ToggleTips();
 	void ToggleMouseTips();
 	/** \brief Erzeugt eine neue Seite */

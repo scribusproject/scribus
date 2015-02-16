@@ -1,15 +1,13 @@
-
+#For those that want it, show the SVN version in the About dialog
 IF (WANT_SVNVERSION)
 	ADD_DEFINITIONS(-DHAVE_SVNVERSION)
 	MESSAGE(STATUS "SVN Version requested in About dialog")
 	# a custom target that is always built
-	add_custom_target(svnheader ALL
-		DEPENDS svn_header ) # svn_header is nothing more than a unique string
+	add_custom_target(svnheader ALL	DEPENDS svn_header ) # svn_header is nothing more than a unique string
 
 	# creates svnheader.h using cmake script
 	add_custom_command(OUTPUT svn_header ${CMAKE_CURRENT_BINARY_DIR}/svnheader.h
-		COMMAND ${CMAKE_COMMAND} -DSOURCE_DIR=${CMAKE_CURRENT_SOURCE_DIR}
-							 -P ${CMAKE_MODULE_PATH}/getsvn.cmake)
+		COMMAND ${CMAKE_COMMAND} -DSOURCE_DIR=${CMAKE_CURRENT_SOURCE_DIR} -P ${CMAKE_MODULE_PATH}/getsvn.cmake)
 
 	set_source_files_properties(${CMAKE_CURRENT_BINARY_DIR}/svnversion.h
 		PROPERTIES GENERATED TRUE
@@ -39,17 +37,17 @@ ADD_SUBDIRECTORY(third_party)
 
 IF(HAVE_OSG)
 	SET(SCRIBUS_OSG_UI_SRC
-	ui/osgeditor.ui
+		ui/osgeditor.ui
 	)
 	SET(SCRIBUS_OSG_CLASS
-	ui/AdapterWidget.h
-	ui/osgeditor.h
-	pageitem_osgframe.h
+		ui/AdapterWidget.h
+		ui/osgeditor.h
+		pageitem_osgframe.h
 	)
 	SET(SCRIBUS_OSG_SRC
-	ui/AdapterWidget.cpp
-	ui/osgeditor.cpp
-	pageitem_osgframe.cpp
+		ui/AdapterWidget.cpp
+		ui/osgeditor.cpp
+		pageitem_osgframe.cpp
 	)
 ENDIF (HAVE_OSG)
 
@@ -60,11 +58,12 @@ ELSE(GMAGICK_FOUND)
 ENDIF(GMAGICK_FOUND)
 
 # We setup something like a group to gather setter related stuff
-# because it could expand into a huge amount of file at some point.
+# because it could expand into a huge amount of files at some point.
 SET(SCRIBUS_ITEMSETTERS_UI_SRC
-ui/positionsetter.ui
-ui/rotationsetter.ui
+	ui/positionsetter.ui
+	ui/rotationsetter.ui
 )
+
 SET(SCRIBUS_ITEMSETTERS_CLASS
 	openpalettemanager.h
 	openpalettemodel.h
@@ -74,6 +73,7 @@ SET(SCRIBUS_ITEMSETTERS_CLASS
 	ui/pageitempositionsetter.h
 	ui/pageitemrotationsetter.h
 )
+
 SET(SCRIBUS_ITEMSETTERS_SRC
 	openpalettemanager.cpp
 	openpalettemodel.cpp
@@ -157,7 +157,6 @@ SET(SCRIBUS_UI_SRC
 	ui/propertiespalette_groupbase.ui
 	ui/propertiespalette_imagebase.ui
 	ui/propertiespalette_linebase.ui
-#	ui/propertiespalette_shadowbase.ui
 	ui/propertiespalette_shapebase.ui
 	ui/propertiespalette_tablebase.ui
 	ui/propertiespalette_textbase.ui
@@ -172,6 +171,7 @@ SET(SCRIBUS_UI_SRC
 	ui/propertywidget_textcolorbase.ui
 	ui/replacecolors.ui
 	ui/replaceonecolor.ui
+	ui/resourcemanagerbase.ui
 	ui/selectobjects.ui
 	ui/shortcutwidget.ui
 	ui/smcellstylewidget.ui
@@ -195,7 +195,7 @@ SET(SCRIBUS_UI_SRC
 	ui/unicodesearch.ui
 	ui/useprintermarginsdialog.ui
 	ui/weldeditbase.ui
-#	${SCRIBUS_ITEMSETTERS_UI_SRC}
+#	#{SCRIBUS_ITEMSETTERS_UI_SRC}
 	${SCRIBUS_OSG_UI_SRC}
 )
 
@@ -449,6 +449,7 @@ SET(SCRIBUS_MOC_CLASSES
 	ui/query.h
 	ui/replacecolors.h
 	ui/replaceonecolor.h
+	ui/resourcemanager.h
 	ui/rulermover.h
 	ui/scdockpalette.h
 	ui/scescapecatcher.h
@@ -520,7 +521,7 @@ SET(SCRIBUS_MOC_CLASSES
 	ui/useprintermarginsdialog.h
 	ui/vruler.h
 	ui/weldedit.h
-#	${SCRIBUS_ITEMSETTERS_CLASS}
+#	#{SCRIBUS_ITEMSETTERS_CLASS}
 	${SCRIBUS_OSG_CLASS}
 )
 
@@ -575,7 +576,6 @@ SET(SCRIBUS_SOURCES
 	commonstrings.cpp
 	deferredtask.cpp
 	docinfo.cpp
-	#documentbuilder.cpp
 	documentchecker.cpp
 	documentinformation.cpp
 	downloadmanager/scdlmgr.cpp
@@ -906,6 +906,7 @@ SET(SCRIBUS_SOURCES
 	ui/query.cpp
 	ui/replacecolors.cpp
 	ui/replaceonecolor.cpp
+	ui/resourcemanager.cpp
 	ui/rulermover.cpp
 	ui/sccombobox.cpp
 	ui/scdockpalette.cpp
@@ -983,7 +984,7 @@ SET(SCRIBUS_SOURCES
 	ui/vruler.cpp
 	ui/useprintermarginsdialog.cpp
 	ui/weldedit.cpp
-#	${SCRIBUS_ITEMSETTERS_SRC}
+#	#{SCRIBUS_ITEMSETTERS_SRC}
 	${SCRIBUS_OSG_SRC}
 	${SCRIBUS_GMAGICK_SRC}
 )
@@ -1059,7 +1060,6 @@ IF(HAVE_BOOST)
 	SET(SCRIBUS_2GEOM_LIB "scribus_2geom_lib")
 ENDIF (HAVE_BOOST)
 SET(SCRIBUS_WPG_LIB "scribus_wpg_lib")
-
 SET(SCRIBUS_PGF_LIB "scribus_pgf_lib")
 SET(SCRIBUS_ZIP_LIB "scribus_zip_lib")
 
@@ -1110,41 +1110,41 @@ IF(COMMAND cmake_policy)
 ENDIF(COMMAND cmake_policy)
 
 IF(HAVE_OSG)
-ADD_EXECUTABLE(${EXE_NAME}
-	${SCRIBUS_MOC_SOURCES}
-	${SCRIBUS_SOURCES}
-	${SCRIBUS_MAIN_CPP}
-	${SCRIBUS_UI_SOURCES}
-	${SCRIBUS_TEXT_SOURCES}
-	${SCRIBUS_STYLES_SOURCES}
-	${SCRIBUS_COLORMGMT_SOURCES}
-	${SCRIBUS_FONTS_SOURCES}
-	${SCRIBUS_DESAXE_SOURCES}
-	${SCRIBUS_WIN32_ONLY_SOURCES}
-	${GESTURE_FRAME_PREVIEW_SOURCES}
-	${SCRIBUS_PRC_SOURCES}
-)
+	ADD_EXECUTABLE(${EXE_NAME}
+		${SCRIBUS_MOC_SOURCES}
+		${SCRIBUS_SOURCES}
+		${SCRIBUS_MAIN_CPP}
+		${SCRIBUS_UI_SOURCES}
+		${SCRIBUS_TEXT_SOURCES}
+		${SCRIBUS_STYLES_SOURCES}
+		${SCRIBUS_COLORMGMT_SOURCES}
+		${SCRIBUS_FONTS_SOURCES}
+		${SCRIBUS_DESAXE_SOURCES}
+		${SCRIBUS_WIN32_ONLY_SOURCES}
+		${GESTURE_FRAME_PREVIEW_SOURCES}
+		${SCRIBUS_PRC_SOURCES}
+	)
 ELSE(HAVE_OSG)
-ADD_EXECUTABLE(${EXE_NAME}
-	${SCRIBUS_MOC_SOURCES}
-	${SCRIBUS_SOURCES}
-	${SCRIBUS_MAIN_CPP}
-	${SCRIBUS_UI_SOURCES}
-	${SCRIBUS_TEXT_SOURCES}
-	${SCRIBUS_STYLES_SOURCES}
-	${SCRIBUS_COLORMGMT_SOURCES}
-	${SCRIBUS_FONTS_SOURCES}
-	${SCRIBUS_DESAXE_SOURCES}
-	${SCRIBUS_WIN32_ONLY_SOURCES}
-	${GESTURE_FRAME_PREVIEW_SOURCES}
-)
+	ADD_EXECUTABLE(${EXE_NAME}
+		${SCRIBUS_MOC_SOURCES}
+		${SCRIBUS_SOURCES}
+		${SCRIBUS_MAIN_CPP}
+		${SCRIBUS_UI_SOURCES}
+		${SCRIBUS_TEXT_SOURCES}
+		${SCRIBUS_STYLES_SOURCES}
+		${SCRIBUS_COLORMGMT_SOURCES}
+		${SCRIBUS_FONTS_SOURCES}
+		${SCRIBUS_DESAXE_SOURCES}
+		${SCRIBUS_WIN32_ONLY_SOURCES}
+		${GESTURE_FRAME_PREVIEW_SOURCES}
+	)
 ENDIF (HAVE_OSG)
 
 IF(WIN32)
 	SET_TARGET_PROPERTIES(${EXE_NAME}
-	PROPERTIES
-	COMPILE_FLAGS -DCOMPILE_SCRIBUS_MAIN_APP
-	ENABLE_EXPORTS TRUE
+		PROPERTIES
+		COMPILE_FLAGS -DCOMPILE_SCRIBUS_MAIN_APP
+		ENABLE_EXPORTS TRUE
 	)
 	SET(WIN32_ONLY_LIBS mscms.lib)
 ELSE(WIN32)
@@ -1202,7 +1202,7 @@ TARGET_LINK_LIBRARIES(${EXE_NAME}
 
 IF (NOT WIN32 AND NOT HAIKU)
 	TARGET_LINK_LIBRARIES(${EXE_NAME}
-	${CUPS_LIBRARIES}
+		${CUPS_LIBRARIES}
 	)
 ENDIF (NOT WIN32 AND NOT HAIKU)
 
@@ -1246,63 +1246,63 @@ TARGET_LINK_LIBRARIES(${EXE_NAME}
 IF(WITH_TESTS)
 	TARGET_LINK_LIBRARIES(${EXE_NAME}
 		${QT_QTTEST_LIBRARY}
-	${SCRIBUS_TESTS_LIB}
+		${SCRIBUS_TESTS_LIB}
 	)
 ENDIF(WITH_TESTS)
 
 IF(HAVE_PODOFO)
 	TARGET_LINK_LIBRARIES(${EXE_NAME}
-	${LIBPODOFO_LIBRARY}
+		${LIBPODOFO_LIBRARY}
 	)
 ENDIF(HAVE_PODOFO)
 
 IF(HAVE_OSG)
 	TARGET_LINK_LIBRARIES(${EXE_NAME}
-	${OPENTHREADS_LIBRARY}
-	${OSG_LIBRARY}
-	${OSGGA_LIBRARY}
-	${OSGUTIL_LIBRARY}
-	${OSGDB_LIBRARY}
-	${OSGVIEWER_LIBRARY}
-	${OSGTEXT_LIBRARY}
-	${SCRIBUS_PRC_LIB}
+		${OPENTHREADS_LIBRARY}
+		${OSG_LIBRARY}
+		${OSGGA_LIBRARY}
+		${OSGUTIL_LIBRARY}
+		${OSGDB_LIBRARY}
+		${OSGVIEWER_LIBRARY}
+		${OSGTEXT_LIBRARY}
+		${SCRIBUS_PRC_LIB}
 	)
 ENDIF(HAVE_OSG)
 
 IF (HAVE_BOOST)
 	TARGET_LINK_LIBRARIES(${EXE_NAME}
-	${SCRIBUS_2GEOM_LIB}
+		${SCRIBUS_2GEOM_LIB}
 	)
 ENDIF(HAVE_BOOST)
 
 # Now build plugins
 
-	SET(PLUGIN_LIBRARIES
-		${Qt5Core_LIBRARIES}
-		${Qt5Widgets_LIBRARIES}
-		${Qt5Gui_LIBRARIES}
-		${Qt5Xml_LIBRARIES}
-		${Qt5WebKit_LIBRARIES}
-		${Qt5WebKitWidgets_LIBRARIES}
-		${Qt5Network_LIBRARIES}
-		${Qt5OpenGL_LIBRARIES}
-		${LIBXML2_LIBRARIES}
-		${ZLIB_LIBRARIES}
-		)
+SET(PLUGIN_LIBRARIES
+	${Qt5Core_LIBRARIES}
+	${Qt5Widgets_LIBRARIES}
+	${Qt5Gui_LIBRARIES}
+	${Qt5Xml_LIBRARIES}
+	${Qt5WebKit_LIBRARIES}
+	${Qt5WebKitWidgets_LIBRARIES}
+	${Qt5Network_LIBRARIES}
+	${Qt5OpenGL_LIBRARIES}
+	${LIBXML2_LIBRARIES}
+	${ZLIB_LIBRARIES}
+)
 
 IF(WIN32)
 	# IF your plugin needs more than this, please link them privately
 	# in the CMakeLists.txt for your plugin.
 	SET(PLUGIN_LIBRARIES
-#	${QT_LIBRARIES} part of #7210
-	${PLUGIN_LIBRARIES}
-	${EXE_NAME}
+#		${QT_LIBRARIES} part of #7210
+		${PLUGIN_LIBRARIES}
+		${EXE_NAME}
 	)
 ENDIF(WIN32)
 IF(APPLE)
 	SET(PLUGIN_LIBRARIES
-	${PLUGIN_LIBRARIES}
-	"-undefined dynamic_lookup"
+		${PLUGIN_LIBRARIES}
+		"-undefined dynamic_lookup"
 	)
 ENDIF(APPLE)
 MESSAGE(STATUS ${PLUGIN_LIBRARIES})
@@ -1333,14 +1333,14 @@ IF(APPLEBUNDLE)
 
 ELSE(APPLEBUNDLE)
 	IF(WIN32)
-	INSTALL(TARGETS ${EXE_NAME}
-		RUNTIME DESTINATION .
-		LIBRARY DESTINATION ${LIB_DIR_NAME}
+		INSTALL(TARGETS ${EXE_NAME}
+			RUNTIME DESTINATION .
+			LIBRARY DESTINATION ${LIB_DIR_NAME}
 		)
 	ELSE(WIN32)
-	INSTALL(TARGETS ${EXE_NAME}
-		RUNTIME DESTINATION bin
-		LIBRARY DESTINATION ${LIB_DIR_NAME}
+		INSTALL(TARGETS ${EXE_NAME}
+			RUNTIME DESTINATION bin
+			LIBRARY DESTINATION ${LIB_DIR_NAME}
 		)
 	ENDIF(WIN32)
 ENDIF(APPLEBUNDLE)
@@ -1349,16 +1349,16 @@ ENDIF(APPLEBUNDLE)
 IF(WANT_HEADERINSTALL)
 	MESSAGE(STATUS "Source header files will be installed")
 	INSTALL(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/ DESTINATION ${INCLUDEDIR}
-	FILES_MATCHING
-	PATTERN "*.h"
-	PATTERN "dicts" EXCLUDE
-	PATTERN "doc" EXCLUDE
-	PATTERN "dtd" EXCLUDE
-	PATTERN "editorconfig" EXCLUDE
-	PATTERN "icon*" EXCLUDE
-	PATTERN "manpages" EXCLUDE
-	PATTERN "old" EXCLUDE
-	PATTERN ".svn" EXCLUDE
+		FILES_MATCHING
+		PATTERN "*.h"
+		PATTERN "dicts" EXCLUDE
+		PATTERN "doc" EXCLUDE
+		PATTERN "dtd" EXCLUDE
+		PATTERN "editorconfig" EXCLUDE
+		PATTERN "icon*" EXCLUDE
+		PATTERN "manpages" EXCLUDE
+		PATTERN "old" EXCLUDE
+		PATTERN ".svn" EXCLUDE
 	)
 ELSE(WANT_HEADERINSTALL)
 	MESSAGE(STATUS "No source header files will be installed")

@@ -371,7 +371,7 @@ class AttributeValue
 };
 
 //TODO: Dict license showing, URL background unzipping, checksumming, pkg mgr platforms warning
-struct DictData
+struct DownloadItem
 {
 	QString lang;
 	QString version;
@@ -380,6 +380,7 @@ struct DictData
 	QString desc;
 	QString license;
 	QString filetype;
+	QString type;
 	bool download;
 };
 

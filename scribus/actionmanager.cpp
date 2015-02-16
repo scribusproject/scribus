@@ -793,6 +793,8 @@ void ActionManager::initToolsMenuActions()
 	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
 	name="toolsDownloads";
 	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
+	name="toolsResources";
+	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
 	name="toolsMeasurements";
 	scrActions->insert(name, new ScrAction(ScrAction::DataInt, loadIcon("16/measure.png"), loadIcon("22/measure.png"), "", defaultKey(name), mainWindow, modeMeasurementTool));
 	name="toolsActionHistory";
@@ -935,7 +937,7 @@ void ActionManager::initToolsMenuActions()
 	*nonEditActionNames << "itemLowerToBottom" << "itemRaiseToTop" << "itemRaise" << "itemLower";
 
 	connect( (*scrActions)["toolsActionHistory"], SIGNAL(toggled(bool)), mainWindow, SLOT(setUndoPalette(bool)) );
-
+	connect( (*scrActions)["toolsResources"], SIGNAL(triggered()), mainWindow, SLOT(slotResourceManager()) );
 	connectModeActions();
 }
 
@@ -1667,6 +1669,7 @@ void ActionManager::languageChange()
 	(*scrActions)["toolsPages"]->setTexts( tr("&Arrange Pages"));
 	(*scrActions)["toolsBookmarks"]->setTexts( tr("&Bookmarks"));
 	(*scrActions)["toolsDownloads"]->setTexts( tr("&Downloads"));
+	(*scrActions)["toolsResources"]->setTexts( tr("&Resources"));
 	(*scrActions)["toolsMeasurements"]->setTexts( tr("&Measurements"));
 	(*scrActions)["toolsActionHistory"]->setTexts( tr("Action &History"));
 	(*scrActions)["toolsPreflightVerifier"]->setTexts( tr("Preflight &Verifier"));
@@ -2327,6 +2330,7 @@ void ActionManager::createDefaultMenus()
 		<< "toolsPages"
 		<< "toolsBookmarks"
 		<< "toolsDownloads"
+		<< "toolsResources"
 		<< "toolsMeasurements"
 		<< "toolsActionHistory"
 		<< "toolsPreflightVerifier"

@@ -974,6 +974,10 @@ void SCFonts::GetFonts(QString pf, bool showFontInfo)
 	// Search Scribus font path
 	if (!ScPaths::instance().fontDir().isEmpty() && QDir(ScPaths::instance().fontDir()).exists())
 		AddScalableFonts( ScPaths::instance().fontDir() );
+	//Add downloaded user fonts
+	QString userFontDir(ScPaths::instance().getUserFontDir(false));
+	if (QDir(userFontDir).exists())
+		AddScalableFonts( userFontDir );
 // if fontconfig is there, it does all the work
 #if HAVE_FONTCONFIG
 	// Search fontconfig paths

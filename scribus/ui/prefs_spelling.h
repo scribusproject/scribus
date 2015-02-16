@@ -45,8 +45,8 @@ class SCRIBUS_API Prefs_Spelling : public Prefs_Pane, Ui::Prefs_Spelling
 		QMap<QString, QString> dictionaryMap;
 		QStringList dictionaryPaths;
 		QString downloadLocation;
-		QList <DictData> dictList;
-		QList <DictData> downloadList;
+		QList <DownloadItem> dictList;
+		QList <DownloadItem> downloadList;
 };
 
 #endif // PREFS_SPELLING_H

@@ -518,6 +518,17 @@ QString ScPaths::getUserDictDir(bool createIfNotExists)
 	return userDictDirectory.absolutePath()+"/";
 }
 
+QString ScPaths::getUserFontDir(bool createIfNotExists)
+{
+	QDir userDictDirectory(getApplicationDataDir() + "fonts/");
+	if(createIfNotExists)
+	{
+		if (!userDictDirectory.exists())
+			userDictDirectory.mkpath(userDictDirectory.absolutePath());
+	}
+	return userDictDirectory.absolutePath()+"/";
+}
+
 QString ScPaths::getUserDocumentDir(void)
 {
 #if defined(_WIN32)
