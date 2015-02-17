@@ -455,7 +455,9 @@
     <moc Include="..\..\..\scribus\upgradechecker.h" />
     <moc Include="..\..\..\scribus\ui\proptree.h" />
     <moc Include="..\..\..\scribus\ui\viewtoolbar.h" />
+    <moc Include="..\..\..\scribus\ui\resourcemanager.h" />
     <ClInclude Include="..\..\..\scribus\ui\ui_downloadspalettebase.h" />
+    <ClInclude Include="..\..\..\scribus\ui\ui_resourcemanagerbase.h" />
     <ClInclude Include="..\..\..\scribus\undotransaction.h" />
     <ClInclude Include="..\..\..\scribus\util_debug.h" />
     <ClInclude Include="..\..\..\scribus\util_os.h" />
@@ -1137,6 +1139,7 @@
     </ClCompile>
     <ClCompile Include="..\..\..\scribus\ui\replacecolors.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\replaceonecolor.cpp" />
+    <ClCompile Include="..\..\..\scribus\ui\resourcemanager.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\rulermover.cpp" />
     <ClCompile Include="..\..\..\scribus\sampleitem.cpp" />
     <ClCompile Include="..\..\..\scribus\scclocale.cpp" />
@@ -1435,6 +1438,7 @@
     <uic Include="..\..\..\scribus\ui\propertywidget_textcolorbase.ui" />
     <uic Include="..\..\..\scribus\ui\replacecolors.ui" />
     <uic Include="..\..\..\scribus\ui\replaceonecolor.ui" />
+    <uic Include="..\..\..\scribus\ui\resourcemanagerbase.ui" />
     <uic Include="..\..\..\scribus\ui\rotationsetter.ui" />
     <uic Include="..\..\..\scribus\ui\selectobjects.ui" />
     <uic Include="..\..\..\scribus\ui\shortcutwidget.ui" />

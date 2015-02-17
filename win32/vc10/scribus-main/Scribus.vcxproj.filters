@@ -1010,6 +1010,9 @@
     <ClInclude Include="..\..\..\scribus\ui\ui_downloadspalettebase.h">
       <Filter>Generated Form Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\scribus\ui\ui_resourcemanagerbase.h">
+      <Filter>Generated Form Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\scribus\desaxe\digester.cpp">
@@ -2521,6 +2524,9 @@
     <ClCompile Include="..\..\..\scribus\ui\downloadspalette.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\resourcemanager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Scribus.rc">
@@ -2870,6 +2876,9 @@
       <Filter>Form Files</Filter>
     </uic>
     <uic Include="..\..\..\scribus\ui\downloadspalettebase.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\resourcemanagerbase.ui">
       <Filter>Form Files</Filter>
     </uic>
   </ItemGroup>
@@ -3975,6 +3984,9 @@
       <Filter>Header Files</Filter>
     </moc>
     <moc Include="..\..\..\scribus\ui\downloadspalette.h">
+      <Filter>Header Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\resourcemanager.h">
       <Filter>Header Files</Filter>
     </moc>
   </ItemGroup>
