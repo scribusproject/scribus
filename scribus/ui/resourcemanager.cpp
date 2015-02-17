@@ -22,6 +22,8 @@ for which a new license (GPL+exception) is in place.
 #include <QComboBox>
 #include <QDebug>
 #include <QDomDocument>
+#include <QFile>
+#include <QFileInfo>
 #include <QString>
 #include <QStringList>
 #include <QTableWidget>
@@ -563,9 +565,10 @@ void ResourceManager::downloadFilesFinished()
 				//qDebug()<<d.desc<<d.download<<d.files<<d.type;
 				if (d.filetype=="zip")
 				{
-					QString fn(ScPaths::getUserFontDir(false)+d.files);
+					QString fn(ScPaths::getUserFontDir(true)+d.files);
 					//qDebug()<<fn;
 					QFile dledFile(fn);
+					QFileInfo fi(dledFile);
 					if (!dledFile.exists())
 						qDebug()<<"File doesnt exist"<<fn;
 					else
@@ -576,10 +579,14 @@ void ResourceManager::downloadFilesFinished()
 						else
 						{
 							QStringList toExtract(fun->files());
+							QString toDir(ScPaths::getUserFontDir(false)+fi.baseName()+"/");
+							QDir d(ScPaths::getUserFontDir(false));
+							if (!d.exists(fi.baseName()))
+								d.mkdir(fi.baseName());
 							foreach (QString f2e, toExtract)
 							{
-								//qDebug()<<"Unzipping"<<f2e;
-								fun->extract(f2e,ScPaths::getUserFontDir(false));
+								//qDebug()<<"Unzipping"<<f2e<<"to"<<toDir;
+								fun->extract(f2e,toDir);
 							}
 						}
 						delete fun;
