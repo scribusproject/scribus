@@ -51,7 +51,7 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,
                                 const SCFonts &AllFonts,
                                 const ProfilesL & PDFXProfiles,
 								const QMap<QString, int> & DocFonts,
-                                int unitIndex, ScribusDoc * mdoc )
+                                ScribusDoc * doc )
 	: QTabWidget( parent ),
 	// Initialize all those darn pointer members so we catch unitialized
 	// accesses. I (CR) use the following command to generate these based on
@@ -231,9 +231,8 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,
 	X3GroupLayout(0),
 	// end protected member gui pointers
 	// Private members
-	unit(unitGetSuffixFromIndex(unitIndex)),
-	unitRatio(unitGetRatioFromIndex(unitIndex)),
-	m_Doc(mdoc),
+	unitRatio(unitGetRatioFromIndex(doc->unitIndex())),
+	m_Doc(doc),
 	AllFonts(AllFonts),
 	Opts(Optionen),
 	cms(false)
@@ -313,7 +312,7 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,
 	PDFVersionCombo->addItem("PDF 1.3 (Acrobat 4)");
 	PDFVersionCombo->addItem("PDF 1.4 (Acrobat 5)");
 	PDFVersionCombo->addItem("PDF 1.5 (Acrobat 6)");
-	cms = m_Doc ? (ScCore->haveCMS() && m_Doc->HasCMS) : false;
+	cms = (ScCore->haveCMS() && m_Doc->HasCMS);
 	if (cms && (!PDFXProfiles.isEmpty()))
 	{
 		PDFVersionCombo->addItem("PDF/X-1a");
@@ -393,229 +392,227 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,
 	CBoxLayout->addWidget( ValC, 2, 1, Qt::AlignLeft );
 	tabLayout->addWidget( CBox );
 	addTab(tabGeneral, tr( "&General" ));
-	if (m_Doc != 0)
-	{
-		tabFonts = new QWidget( this );
-		tabLayout_3 = new QVBoxLayout( tabFonts );
-		tabLayout_3->setSpacing( 5 );
-		tabLayout_3->setMargin( 10 );
-		GroupFont = new QGroupBox( tr( "Embedding" ), tabFonts);
-		GroupFontLayout = new QHBoxLayout( GroupFont );
-		GroupFontLayout->setAlignment( Qt::AlignTop );
-		GroupFontLayout->setSpacing( 5 );
-		GroupFontLayout->setMargin( 10 );
-		Layout4_2 = new QVBoxLayout;
-		Layout4_2->setSpacing( 5 );
-		Layout4_2->setMargin( 0 );
-		TextFont1 = new QLabel( tr( "Available Fonts:" ), GroupFont);
-		Layout4_2->addWidget( TextFont1 );
-		AvailFlist = new QListWidget( GroupFont );
-		AvailFlist->setMaximumHeight(300);
-		Layout4_2->addWidget( AvailFlist );
-		GroupFontLayout->addLayout( Layout4_2 );
-		Layout5_2 = new QVBoxLayout;
-		Layout5_2->setSpacing( 5 );
-		Layout5_2->setMargin( 0 );
-		QSpacerItem* spacerS3a = new QSpacerItem( 2, 30, QSizePolicy::Minimum, QSizePolicy::Minimum );
-		Layout5_2->addItem( spacerS3a );
-		ToEmbed = new QPushButton(GroupFont);
-		ToEmbed->setIcon(QIcon(loadIcon("22/go-next.png")));
-		Layout5_2->addWidget( ToEmbed );
-		FromEmbed = new QPushButton(GroupFont);
-		FromEmbed->setIcon(QIcon(loadIcon("22/go-previous.png")));
-		Layout5_2->addWidget( FromEmbed );
-		QSpacerItem* spacerS3 = new QSpacerItem( 2, 2, QSizePolicy::Minimum, QSizePolicy::Expanding );
-		Layout5_2->addItem( spacerS3 );
-		GroupFontLayout->addLayout( Layout5_2 );
-		Layout6 = new QVBoxLayout;
-		Layout6->setSpacing( 5 );
-		Layout6->setMargin( 0 );
-		TextFont1_2 = new QLabel( tr( "Fonts to embed:" ), GroupFont);
-		Layout6->addWidget( TextFont1_2 );
-		EmbedList = new QListWidget( GroupFont);
-		EmbedList->setMaximumHeight(105);
-		Layout6->addWidget( EmbedList );
 
-		Layout5_2a = new QHBoxLayout;
-		Layout5_2a->setSpacing( 5 );
-		Layout5_2a->setMargin( 0 );
-		EmbedFonts = new QPushButton( tr( "&Embed all" ), GroupFont);
-		Layout5_2a->addWidget( EmbedFonts );
-		QSpacerItem* spacerS1 = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
-		Layout5_2a->addItem( spacerS1 );
-		ToOutline = new QPushButton(GroupFont);
-		ToOutline->setIcon(QIcon(loadIcon("22/go-down.png")));
-		Layout5_2a->addWidget( ToOutline );
-		FromOutline = new QPushButton(GroupFont);
-		FromOutline->setIcon(QIcon(loadIcon("22/go-up.png")));
-		Layout5_2a->addWidget( FromOutline );
-		QSpacerItem* spacerS2 = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
-		Layout5_2a->addItem( spacerS2 );
-		Layout6->addLayout( Layout5_2a );
-		TextFont1_2a = new QLabel( tr( "Fonts to outline:" ), GroupFont);
-		Layout6->addWidget( TextFont1_2a );
-		OutlineList = new QListWidget( GroupFont );
-		OutlineList->setMaximumHeight(105);
-		Layout6->addWidget( OutlineList );
-		OutlineFonts = new QPushButton( tr( "&Outline all" ), GroupFont);
-		Layout6->addWidget( OutlineFonts );
-		GroupFontLayout->addLayout( Layout6 );
-		tabLayout_3->addWidget( GroupFont );
-		addTab( tabFonts, tr( "&Fonts" ) );
-		tabPresentation = new QWidget( this );
-		tabLayout_5 = new QGridLayout( tabPresentation );
-		tabLayout_5->setSpacing( 5 );
-		tabLayout_5->setMargin( 10 );
-		CheckBox10 = new QCheckBox( tr( "Enable &Presentation Effects" ), tabPresentation);
-		tabLayout_5->addWidget( CheckBox10, 0, 0, 1, 2 );
-		Pages = new QListWidget( tabPresentation );
+	tabFonts = new QWidget( this );
+	tabLayout_3 = new QVBoxLayout( tabFonts );
+	tabLayout_3->setSpacing( 5 );
+	tabLayout_3->setMargin( 10 );
+	GroupFont = new QGroupBox( tr( "Embedding" ), tabFonts);
+	GroupFontLayout = new QHBoxLayout( GroupFont );
+	GroupFontLayout->setAlignment( Qt::AlignTop );
+	GroupFontLayout->setSpacing( 5 );
+	GroupFontLayout->setMargin( 10 );
+	Layout4_2 = new QVBoxLayout;
+	Layout4_2->setSpacing( 5 );
+	Layout4_2->setMargin( 0 );
+	TextFont1 = new QLabel( tr( "Available Fonts:" ), GroupFont);
+	Layout4_2->addWidget( TextFont1 );
+	AvailFlist = new QListWidget( GroupFont );
+	AvailFlist->setMaximumHeight(300);
+	Layout4_2->addWidget( AvailFlist );
+	GroupFontLayout->addLayout( Layout4_2 );
+	Layout5_2 = new QVBoxLayout;
+	Layout5_2->setSpacing( 5 );
+	Layout5_2->setMargin( 0 );
+	QSpacerItem* spacerS3a = new QSpacerItem( 2, 30, QSizePolicy::Minimum, QSizePolicy::Minimum );
+	Layout5_2->addItem( spacerS3a );
+	ToEmbed = new QPushButton(GroupFont);
+	ToEmbed->setIcon(QIcon(loadIcon("22/go-next.png")));
+	Layout5_2->addWidget( ToEmbed );
+	FromEmbed = new QPushButton(GroupFont);
+	FromEmbed->setIcon(QIcon(loadIcon("22/go-previous.png")));
+	Layout5_2->addWidget( FromEmbed );
+	QSpacerItem* spacerS3 = new QSpacerItem( 2, 2, QSizePolicy::Minimum, QSizePolicy::Expanding );
+	Layout5_2->addItem( spacerS3 );
+	GroupFontLayout->addLayout( Layout5_2 );
+	Layout6 = new QVBoxLayout;
+	Layout6->setSpacing( 5 );
+	Layout6->setMargin( 0 );
+	TextFont1_2 = new QLabel( tr( "Fonts to embed:" ), GroupFont);
+	Layout6->addWidget( TextFont1_2 );
+	EmbedList = new QListWidget( GroupFont);
+	EmbedList->setMaximumHeight(105);
+	Layout6->addWidget( EmbedList );
+
+	Layout5_2a = new QHBoxLayout;
+	Layout5_2a->setSpacing( 5 );
+	Layout5_2a->setMargin( 0 );
+	EmbedFonts = new QPushButton( tr( "&Embed all" ), GroupFont);
+	Layout5_2a->addWidget( EmbedFonts );
+	QSpacerItem* spacerS1 = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
+	Layout5_2a->addItem( spacerS1 );
+	ToOutline = new QPushButton(GroupFont);
+	ToOutline->setIcon(QIcon(loadIcon("22/go-down.png")));
+	Layout5_2a->addWidget( ToOutline );
+	FromOutline = new QPushButton(GroupFont);
+	FromOutline->setIcon(QIcon(loadIcon("22/go-up.png")));
+	Layout5_2a->addWidget( FromOutline );
+	QSpacerItem* spacerS2 = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
+	Layout5_2a->addItem( spacerS2 );
+	Layout6->addLayout( Layout5_2a );
+	TextFont1_2a = new QLabel( tr( "Fonts to outline:" ), GroupFont);
+	Layout6->addWidget( TextFont1_2a );
+	OutlineList = new QListWidget( GroupFont );
+	OutlineList->setMaximumHeight(105);
+	Layout6->addWidget( OutlineList );
+	OutlineFonts = new QPushButton( tr( "&Outline all" ), GroupFont);
+	Layout6->addWidget( OutlineFonts );
+	GroupFontLayout->addLayout( Layout6 );
+	tabLayout_3->addWidget( GroupFont );
+	addTab( tabFonts, tr( "&Fonts" ) );
+	tabPresentation = new QWidget( this );
+	tabLayout_5 = new QGridLayout( tabPresentation );
+	tabLayout_5->setSpacing( 5 );
+	tabLayout_5->setMargin( 10 );
+	CheckBox10 = new QCheckBox( tr( "Enable &Presentation Effects" ), tabPresentation);
+	tabLayout_5->addWidget( CheckBox10, 0, 0, 1, 2 );
+	Pages = new QListWidget( tabPresentation );
 //		Pages->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)1, (QSizePolicy::SizeType)1, Pages->sizePolicy().hasHeightForWidth() ) );
-		tabLayout_5->addWidget( Pages, 1, 0 );
-		PagePrev = new QCheckBox( tr( "Show Page Pre&views" ), tabPresentation);
-		tabLayout_5->addWidget( PagePrev, 2, 0 );
-		Effects = new QGroupBox( tr( "Effects" ), tabPresentation);
-		EffectsLayout = new QGridLayout( Effects );
-		EffectsLayout->setAlignment( Qt::AlignTop );
-		EffectsLayout->setSpacing( 5 );
-		EffectsLayout->setMargin( 10 );
-		TextLabel1e = new QLabel( tr( "&Display Duration:" ), Effects);
-		EffectsLayout->addWidget( TextLabel1e, 0, 0 );
-		TextLabel2e = new QLabel( tr( "Effec&t Duration:" ), Effects);
-		EffectsLayout->addWidget( TextLabel2e, 1, 0 );
-		TextLabel3e = new QLabel( tr( "Effect T&ype:" ), Effects);
-		EffectsLayout->addWidget( TextLabel3e, 2, 0 );
-		TextLabel4e = new QLabel( tr( "&Moving Lines:" ), Effects);
-		EffectsLayout->addWidget( TextLabel4e, 3, 0 );
-		TextLabel5e = new QLabel( tr( "F&rom the:" ), Effects);
-		EffectsLayout->addWidget( TextLabel5e, 4, 0 );
-		TextLabel6e = new QLabel( tr( "D&irection:" ), Effects);
-		EffectsLayout->addWidget( TextLabel6e, 5, 0 );
-		PageTime = new QSpinBox( Effects);
-		PageTime->setSuffix( tr( " sec" ) );
-		PageTime->setMaximum( 3600 );
-		PageTime->setMinimum( 0 );
-		TextLabel1e->setBuddy(PageTime);
-		EffectsLayout->addWidget( PageTime, 0, 1 );
-		EffectTime = new QSpinBox( Effects);
-		EffectTime->setSuffix( tr( " sec" ) );
-		EffectTime->setMaximum( 3600 );
-		EffectTime->setMinimum( 1 );
-		TextLabel2e->setBuddy(EffectTime);
-		EffectsLayout->addWidget( EffectTime, 1, 1 );
-		EffectType = new QComboBox(Effects);
-		EffectType->addItem( tr("No Effect"));
-		EffectType->addItem( tr("Blinds"));
-		EffectType->addItem( tr("Box"));
-		EffectType->addItem( tr("Dissolve"));
-		EffectType->addItem( tr("Glitter"));
-		EffectType->addItem( tr("Split"));
-		EffectType->addItem( tr("Wipe"));
-		EffectType->setEditable(false);
-		TextLabel3e->setBuddy(EffectType);
-		EffectsLayout->addWidget( EffectType, 2, 1 );
-		EDirection = new QComboBox(Effects);
-		EDirection->addItem( tr( "Horizontal" ) );
-		EDirection->addItem( tr( "Vertical" ) );
-		EDirection->setEditable(false);
-		TextLabel4e->setBuddy(EDirection);
-		EffectsLayout->addWidget( EDirection, 3, 1 );
-		EDirection_2 = new QComboBox(Effects);
-		EDirection_2->addItem( tr( "Inside" ) );
-		EDirection_2->addItem( tr( "Outside" ) );
-		EDirection_2->setEditable(false);
-		TextLabel5e->setBuddy(EDirection_2);
-		EffectsLayout->addWidget( EDirection_2, 4, 1 );
-		EDirection_2_2 = new QComboBox(Effects);
-		QString tmp_ed[] = { tr("Left to Right"), tr("Top to Bottom"), tr("Bottom to Top"), tr("Right to Left"),
-		                     tr("Top-left to Bottom-Right")};
-		size_t ar_ed = sizeof(tmp_ed) / sizeof(*tmp_ed);
-		for (uint a = 0; a < ar_ed; ++a)
-			EDirection_2_2->addItem(tmp_ed[a]);
-		EDirection_2_2->setEditable(false);
-		TextLabel6e->setBuddy(EDirection_2_2);
-		EffectsLayout->addWidget( EDirection_2_2, 5, 1 );
-		EonAllPg = new QPushButton( tr( "&Apply Effect to all Pages" ), Effects);
-		EffectsLayout->addWidget( EonAllPg, 6, 0, 1, 2 );
-		tabLayout_5->addWidget( Effects, 1, 1, 2, 1 );
-		addTab( tabPresentation, tr( "E&xtras" ) );
-		tabSpecial = new QWidget( this );
-		tabSpecialLayout = new QVBoxLayout( tabSpecial );
-		tabSpecialLayout->setSpacing( 5 );
-		tabSpecialLayout->setMargin( 10 );
-		groupDisplay = new QGroupBox( tabSpecial );
-		groupDisplay->setTitle( tr( "Display Settings" ) );
-		groupDisplayLayout = new QVBoxLayout( groupDisplay );
-		groupDisplayLayout->setSpacing( 5 );
-		groupDisplayLayout->setMargin( 10 );
-		groupDisplayLayout->setAlignment( Qt::AlignTop );
-		LayoutSpecial = new QHBoxLayout;
-		LayoutSpecial->setSpacing( 5 );
-		LayoutSpecial->setMargin( 0 );
-		pageLayout = new QGroupBox( groupDisplay );
-		pageLayout->setTitle( tr( "Document Layout" ) );
-		pageLayoutLayout = new QVBoxLayout( pageLayout );
-		pageLayoutLayout->setSpacing( 5 );
-		pageLayoutLayout->setMargin( 10 );
-		pageLayoutLayout->setAlignment( Qt::AlignTop );
-		singlePage = new QRadioButton( pageLayout );
-		singlePage->setText( tr( "Single Page" ) );
-		pageLayoutLayout->addWidget( singlePage );
-		continuousPages = new QRadioButton( pageLayout );
-		continuousPages->setText( tr( "Continuous" ) );
-		pageLayoutLayout->addWidget( continuousPages );
-		doublePageLeft = new QRadioButton( pageLayout );
-		doublePageLeft->setText( tr( "Double Page Left" ) );
-		pageLayoutLayout->addWidget( doublePageLeft );
-		doublePageRight = new QRadioButton( pageLayout );
-		doublePageRight->setText( tr( "Double Page Right" ) );
-		pageLayoutLayout->addWidget( doublePageRight );
-		LayoutSpecial->addWidget( pageLayout );
-		groupNavigation = new QGroupBox( groupDisplay );
-		groupNavigation->setTitle( tr( "Visual Appearance" ) );
-		groupNavigationLayout = new QVBoxLayout( groupNavigation );
-		groupNavigationLayout->setSpacing( 5 );
-		groupNavigationLayout->setMargin( 10 );
-		groupNavigationLayout->setAlignment( Qt::AlignTop );
-		useViewDefault = new QRadioButton( groupNavigation );
-		useViewDefault->setText( tr( "Use Viewers Defaults" ) );
-		groupNavigationLayout->addWidget( useViewDefault );
-		useFullScreen = new QRadioButton( groupNavigation );
-		useFullScreen->setText( tr( "Use Full Screen Mode" ) );
-		groupNavigationLayout->addWidget( useFullScreen );
-		useBookmarks = new QRadioButton( groupNavigation );
-		useBookmarks->setText( tr( "Display Bookmarks Tab" ) );
-		groupNavigationLayout->addWidget( useBookmarks );
-		useThumbnails = new QRadioButton( groupNavigation );
-		useThumbnails->setText( tr( "Display Thumbnails" ) );
-		groupNavigationLayout->addWidget( useThumbnails );
-		useLayers2 = new QRadioButton( groupNavigation );
-		useLayers2->setText( tr( "Display Layers Tab" ) );
-		groupNavigationLayout->addWidget( useLayers2 );
-		hideToolBar = new QCheckBox( tr( "Hide Viewers Toolbar" ), groupNavigation );
-		groupNavigationLayout->addWidget( hideToolBar );
-		hideMenuBar = new QCheckBox( tr( "Hide Viewers Menubar" ), groupNavigation );
-		groupNavigationLayout->addWidget( hideMenuBar );
-		fitWindow = new QCheckBox( tr( "Zoom Pages to fit Viewer Window" ), groupNavigation );
-		groupNavigationLayout->addWidget( fitWindow );
-		LayoutSpecial->addWidget( groupNavigation );
-		groupDisplayLayout->addLayout( LayoutSpecial );
-		tabSpecialLayout->addWidget( groupDisplay );
-		groupJava = new QGroupBox( tabSpecial );
-		groupJava->setTitle( tr( "Special Actions" ) );
-		groupJavaLayout = new QHBoxLayout( groupJava );
-		groupJavaLayout->setSpacing( 5 );
-		groupJavaLayout->setMargin( 10 );
-		groupJavaLayout->setAlignment( Qt::AlignTop );
-		actionLabel = new QLabel( groupJava );
-		actionLabel->setText( tr( "Javascript to be executed\nwhen PDF document is opened:" ) );
-		groupJavaLayout->addWidget( actionLabel );
-		actionCombo = new QComboBox(groupJava);
-		actionCombo->setEditable(false);
-		actionCombo->addItem( tr("No Script"));
-		groupJavaLayout->addWidget( actionCombo );
-		tabSpecialLayout->addWidget( groupJava );
-		addTab( tabSpecial, tr("Viewer") );
-	}
+	tabLayout_5->addWidget( Pages, 1, 0 );
+	PagePrev = new QCheckBox( tr( "Show Page Pre&views" ), tabPresentation);
+	tabLayout_5->addWidget( PagePrev, 2, 0 );
+	Effects = new QGroupBox( tr( "Effects" ), tabPresentation);
+	EffectsLayout = new QGridLayout( Effects );
+	EffectsLayout->setAlignment( Qt::AlignTop );
+	EffectsLayout->setSpacing( 5 );
+	EffectsLayout->setMargin( 10 );
+	TextLabel1e = new QLabel( tr( "&Display Duration:" ), Effects);
+	EffectsLayout->addWidget( TextLabel1e, 0, 0 );
+	TextLabel2e = new QLabel( tr( "Effec&t Duration:" ), Effects);
+	EffectsLayout->addWidget( TextLabel2e, 1, 0 );
+	TextLabel3e = new QLabel( tr( "Effect T&ype:" ), Effects);
+	EffectsLayout->addWidget( TextLabel3e, 2, 0 );
+	TextLabel4e = new QLabel( tr( "&Moving Lines:" ), Effects);
+	EffectsLayout->addWidget( TextLabel4e, 3, 0 );
+	TextLabel5e = new QLabel( tr( "F&rom the:" ), Effects);
+	EffectsLayout->addWidget( TextLabel5e, 4, 0 );
+	TextLabel6e = new QLabel( tr( "D&irection:" ), Effects);
+	EffectsLayout->addWidget( TextLabel6e, 5, 0 );
+	PageTime = new QSpinBox( Effects);
+	PageTime->setSuffix( tr( " sec" ) );
+	PageTime->setMaximum( 3600 );
+	PageTime->setMinimum( 0 );
+	TextLabel1e->setBuddy(PageTime);
+	EffectsLayout->addWidget( PageTime, 0, 1 );
+	EffectTime = new QSpinBox( Effects);
+	EffectTime->setSuffix( tr( " sec" ) );
+	EffectTime->setMaximum( 3600 );
+	EffectTime->setMinimum( 1 );
+	TextLabel2e->setBuddy(EffectTime);
+	EffectsLayout->addWidget( EffectTime, 1, 1 );
+	EffectType = new QComboBox(Effects);
+	EffectType->addItem( tr("No Effect"));
+	EffectType->addItem( tr("Blinds"));
+	EffectType->addItem( tr("Box"));
+	EffectType->addItem( tr("Dissolve"));
+	EffectType->addItem( tr("Glitter"));
+	EffectType->addItem( tr("Split"));
+	EffectType->addItem( tr("Wipe"));
+	EffectType->setEditable(false);
+	TextLabel3e->setBuddy(EffectType);
+	EffectsLayout->addWidget( EffectType, 2, 1 );
+	EDirection = new QComboBox(Effects);
+	EDirection->addItem( tr( "Horizontal" ) );
+	EDirection->addItem( tr( "Vertical" ) );
+	EDirection->setEditable(false);
+	TextLabel4e->setBuddy(EDirection);
+	EffectsLayout->addWidget( EDirection, 3, 1 );
+	EDirection_2 = new QComboBox(Effects);
+	EDirection_2->addItem( tr( "Inside" ) );
+	EDirection_2->addItem( tr( "Outside" ) );
+	EDirection_2->setEditable(false);
+	TextLabel5e->setBuddy(EDirection_2);
+	EffectsLayout->addWidget( EDirection_2, 4, 1 );
+	EDirection_2_2 = new QComboBox(Effects);
+	QString tmp_ed[] = { tr("Left to Right"), tr("Top to Bottom"), tr("Bottom to Top"), tr("Right to Left"),
+		                    tr("Top-left to Bottom-Right")};
+	size_t ar_ed = sizeof(tmp_ed) / sizeof(*tmp_ed);
+	for (uint a = 0; a < ar_ed; ++a)
+		EDirection_2_2->addItem(tmp_ed[a]);
+	EDirection_2_2->setEditable(false);
+	TextLabel6e->setBuddy(EDirection_2_2);
+	EffectsLayout->addWidget( EDirection_2_2, 5, 1 );
+	EonAllPg = new QPushButton( tr( "&Apply Effect to all Pages" ), Effects);
+	EffectsLayout->addWidget( EonAllPg, 6, 0, 1, 2 );
+	tabLayout_5->addWidget( Effects, 1, 1, 2, 1 );
+	addTab( tabPresentation, tr( "E&xtras" ) );
+	tabSpecial = new QWidget( this );
+	tabSpecialLayout = new QVBoxLayout( tabSpecial );
+	tabSpecialLayout->setSpacing( 5 );
+	tabSpecialLayout->setMargin( 10 );
+	groupDisplay = new QGroupBox( tabSpecial );
+	groupDisplay->setTitle( tr( "Display Settings" ) );
+	groupDisplayLayout = new QVBoxLayout( groupDisplay );
+	groupDisplayLayout->setSpacing( 5 );
+	groupDisplayLayout->setMargin( 10 );
+	groupDisplayLayout->setAlignment( Qt::AlignTop );
+	LayoutSpecial = new QHBoxLayout;
+	LayoutSpecial->setSpacing( 5 );
+	LayoutSpecial->setMargin( 0 );
+	pageLayout = new QGroupBox( groupDisplay );
+	pageLayout->setTitle( tr( "Document Layout" ) );
+	pageLayoutLayout = new QVBoxLayout( pageLayout );
+	pageLayoutLayout->setSpacing( 5 );
+	pageLayoutLayout->setMargin( 10 );
+	pageLayoutLayout->setAlignment( Qt::AlignTop );
+	singlePage = new QRadioButton( pageLayout );
+	singlePage->setText( tr( "Single Page" ) );
+	pageLayoutLayout->addWidget( singlePage );
+	continuousPages = new QRadioButton( pageLayout );
+	continuousPages->setText( tr( "Continuous" ) );
+	pageLayoutLayout->addWidget( continuousPages );
+	doublePageLeft = new QRadioButton( pageLayout );
+	doublePageLeft->setText( tr( "Double Page Left" ) );
+	pageLayoutLayout->addWidget( doublePageLeft );
+	doublePageRight = new QRadioButton( pageLayout );
+	doublePageRight->setText( tr( "Double Page Right" ) );
+	pageLayoutLayout->addWidget( doublePageRight );
+	LayoutSpecial->addWidget( pageLayout );
+	groupNavigation = new QGroupBox( groupDisplay );
+	groupNavigation->setTitle( tr( "Visual Appearance" ) );
+	groupNavigationLayout = new QVBoxLayout( groupNavigation );
+	groupNavigationLayout->setSpacing( 5 );
+	groupNavigationLayout->setMargin( 10 );
+	groupNavigationLayout->setAlignment( Qt::AlignTop );
+	useViewDefault = new QRadioButton( groupNavigation );
+	useViewDefault->setText( tr( "Use Viewers Defaults" ) );
+	groupNavigationLayout->addWidget( useViewDefault );
+	useFullScreen = new QRadioButton( groupNavigation );
+	useFullScreen->setText( tr( "Use Full Screen Mode" ) );
+	groupNavigationLayout->addWidget( useFullScreen );
+	useBookmarks = new QRadioButton( groupNavigation );
+	useBookmarks->setText( tr( "Display Bookmarks Tab" ) );
+	groupNavigationLayout->addWidget( useBookmarks );
+	useThumbnails = new QRadioButton( groupNavigation );
+	useThumbnails->setText( tr( "Display Thumbnails" ) );
+	groupNavigationLayout->addWidget( useThumbnails );
+	useLayers2 = new QRadioButton( groupNavigation );
+	useLayers2->setText( tr( "Display Layers Tab" ) );
+	groupNavigationLayout->addWidget( useLayers2 );
+	hideToolBar = new QCheckBox( tr( "Hide Viewers Toolbar" ), groupNavigation );
+	groupNavigationLayout->addWidget( hideToolBar );
+	hideMenuBar = new QCheckBox( tr( "Hide Viewers Menubar" ), groupNavigation );
+	groupNavigationLayout->addWidget( hideMenuBar );
+	fitWindow = new QCheckBox( tr( "Zoom Pages to fit Viewer Window" ), groupNavigation );
+	groupNavigationLayout->addWidget( fitWindow );
+	LayoutSpecial->addWidget( groupNavigation );
+	groupDisplayLayout->addLayout( LayoutSpecial );
+	tabSpecialLayout->addWidget( groupDisplay );
+	groupJava = new QGroupBox( tabSpecial );
+	groupJava->setTitle( tr( "Special Actions" ) );
+	groupJavaLayout = new QHBoxLayout( groupJava );
+	groupJavaLayout->setSpacing( 5 );
+	groupJavaLayout->setMargin( 10 );
+	groupJavaLayout->setAlignment( Qt::AlignTop );
+	actionLabel = new QLabel( groupJava );
+	actionLabel->setText( tr( "Javascript to be executed\nwhen PDF document is opened:" ) );
+	groupJavaLayout->addWidget( actionLabel );
+	actionCombo = new QComboBox(groupJava);
+	actionCombo->setEditable(false);
+	actionCombo->addItem( tr("No Script"));
+	groupJavaLayout->addWidget( actionCombo );
+	tabSpecialLayout->addWidget( groupJava );
+	addTab( tabSpecial, tr("Viewer") );
 
 	tabSecurity = new QWidget( this );
 	tabSecurityLayout = new QVBoxLayout( tabSecurity );
@@ -721,12 +718,6 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,
 	tabColorLayout->addWidget( LPIgroup );
 	SelLPIcolor = LPIcolor->currentText();
 	
-	if (m_Doc==0)
-	{
-		UseLPI->hide();
-		LPIgroup->hide();
-	}
-	
 	GroupBox9 = new QGroupBox( tr( "Solid Colors:" ), tabColor);
 	GroupBox9Layout = new QGridLayout( GroupBox9 );
 	GroupBox9Layout->setSpacing( 5 );
@@ -806,17 +797,15 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,
 	MarkTxt1 = new QLabel( MarkGroup );
 	MarkTxt1->setText( tr( "Length:" ) );
 	MarkGroupLayout->addWidget( MarkTxt1, 2, 1 );
-	markLength = new ScrSpinBox( MarkGroup, unitIndex );
+	markLength = new ScrSpinBox( MarkGroup, m_Doc->unitIndex() );
 	MarkGroupLayout->addWidget( markLength, 2, 2 );
-	markLength->setSuffix( unit );
 	markLength->setMinimum(1 * unitRatio);
 	markLength->setMaximum(3000 * unitRatio);
 	MarkTxt2 = new QLabel( MarkGroup );
 	MarkTxt2->setText( tr( "Offset:" ) );
 	MarkGroupLayout->addWidget( MarkTxt2, 3, 1 );
-	markOffset = new ScrSpinBox( MarkGroup, unitIndex );
+	markOffset = new ScrSpinBox( MarkGroup, m_Doc->unitIndex() );
 	MarkGroupLayout->addWidget( markOffset, 3, 2 );
-	markOffset->setSuffix( unit );
 	markOffset->setMinimum(0);
 	markOffset->setMaximum(3000 * unitRatio);
 	tabPDFXLayout->addWidget( MarkGroup );
@@ -830,22 +819,30 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,
 	BleedTxt1 = new QLabel( BleedGroup );
 	BleedTxt1->setText( tr( "Top:" ) );
 	BleedGroupLayout->addWidget( BleedTxt1, 0, 0 );
-	BleedTop = new ScrSpinBox( BleedGroup, unitIndex );
+	BleedTop = new ScrSpinBox( BleedGroup, m_Doc->unitIndex() );
+	BleedTop->setMinimum(0);
+	BleedTop->setMaximum(3000 * unitRatio);
 	BleedGroupLayout->addWidget( BleedTop, 0, 1 );
 	BleedTxt2 = new QLabel( BleedGroup );
 	BleedTxt2->setText( tr( "Bottom:" ) );
 	BleedGroupLayout->addWidget( BleedTxt2, 1, 0 );
-	BleedBottom = new ScrSpinBox( BleedGroup, unitIndex );
+	BleedBottom = new ScrSpinBox( BleedGroup, m_Doc->unitIndex() );
+	BleedBottom->setMinimum(0);
+	BleedBottom->setMaximum(3000 * unitRatio);
 	BleedGroupLayout->addWidget( BleedBottom, 1, 1 );
 	BleedTxt3 = new QLabel( BleedGroup );
 	BleedTxt3->setText( tr( "Left:" ) );
 	BleedGroupLayout->addWidget( BleedTxt3, 0, 2 );
-	BleedLeft = new ScrSpinBox( BleedGroup, unitIndex );
+	BleedLeft = new ScrSpinBox( BleedGroup, m_Doc->unitIndex() );
+	BleedLeft->setMinimum(0);
+	BleedLeft->setMaximum(3000 * unitRatio);
 	BleedGroupLayout->addWidget( BleedLeft, 0, 3 );
 	BleedTxt4 = new QLabel( BleedGroup );
 	BleedTxt4->setText( tr( "Right:" ) );
 	BleedGroupLayout->addWidget( BleedTxt4, 1, 2 );
-	BleedRight = new ScrSpinBox( BleedGroup, unitIndex );
+	BleedRight = new ScrSpinBox( BleedGroup, m_Doc->unitIndex() );
+	BleedRight->setMinimum(0);
+	BleedRight->setMaximum(3000 * unitRatio);
 	BleedGroupLayout->addWidget( BleedRight, 1, 3 );
 	docBleeds = new QCheckBox( tr( "Use Document Bleeds" ), BleedGroup );
 	BleedGroupLayout->addWidget( docBleeds, 2, 0, 1, 4 );
@@ -874,68 +871,53 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,
 	tabPDFXLayout->addItem( spacerPX2 );
 
 	addTab( tabPDFX, tr( "Pre-Press" ) );
-	BleedTop->setSuffix( unit );
-	BleedTop->setMinimum(0);
-	BleedTop->setMaximum(3000*unitRatio);
-	BleedBottom->setSuffix( unit );
-	BleedBottom->setMinimum(0);
-	BleedBottom->setMaximum(3000*unitRatio);
-	BleedRight->setSuffix( unit );
-	BleedRight->setMinimum(0);
-	BleedRight->setMaximum(3000*unitRatio);
-	BleedLeft->setSuffix( unit );
-	BleedLeft->setMinimum(0);
-	BleedLeft->setMaximum(3000*unitRatio);
 
-	restoreDefaults(Optionen, AllFonts, PDFXProfiles, DocFonts, unitIndex, m_Doc);
+	restoreDefaults(Optionen, AllFonts, PDFXProfiles, DocFonts);
 
-	if (m_Doc != 0)
-	{
-		connect(EmbedFonts, SIGNAL(clicked()), this, SLOT(EmbedAll()));
-		connect(AvailFlist, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(SelAFont(QListWidgetItem*)));
-		connect(EmbedList, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(SelEFont(QListWidgetItem*)));
-		connect(ToEmbed, SIGNAL(clicked()), this, SLOT(PutToEmbed()));
-		connect(FromEmbed, SIGNAL(clicked()), this, SLOT(RemoveEmbed()));
-		connect(OutlineFonts, SIGNAL(clicked()), this, SLOT(OutlineAll()));
-		connect(OutlineList, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(SelSFont(QListWidgetItem*)));
-		connect(ToOutline, SIGNAL(clicked()), this, SLOT(PutToOutline()));
-		connect(FromOutline, SIGNAL(clicked()), this, SLOT(RemoveOutline()));
-		connect(PagePrev, SIGNAL(clicked()), this, SLOT(PagePr()));
-		connect(Pages, SIGNAL(currentItemChanged(QListWidgetItem*, QListWidgetItem*)), this, SLOT(SetPgEff(QListWidgetItem*, QListWidgetItem*)));
-		connect(EffectType, SIGNAL(activated(int)), this, SLOT(SetEffOpts(int)));
-		connect(EDirection_2_2, SIGNAL(activated(int)), this, SLOT(ValidDI(int)));
-		connect(CheckBox10, SIGNAL(clicked()), this, SLOT(DoEffects()));
-		connect(EonAllPg, SIGNAL(clicked()), this, SLOT(EffectOnAll()));
-		connect(InfoString, SIGNAL(textChanged(const QString &)), this, SLOT(checkInfo()));
-		connect(InfoString, SIGNAL(editingFinished()), this, SLOT(checkInfo()));
-		connect(docBleeds, SIGNAL(clicked()), this, SLOT(doDocBleeds()));
-		EmbedFonts->setToolTip( "<qt>" + tr( "Embed fonts into the PDF. Embedding the fonts will preserve the layout and appearance of your document." ) + "</qt>");
-		CheckBox10->setToolTip( "<qt>" + tr( "Enables presentation effects when using Adobe&#174; Reader&#174; and other PDF viewers which support this in full screen mode." ) + "</qt>");
-		PagePrev->setToolTip( "<qt>" + tr( "Show page previews of each page listed above." ) + "</qt>");
-		PageTime->setToolTip( "<qt>" + tr( "Length of time the page is shown before the presentation starts on the selected page. Setting 0 will disable automatic page transition." ) + "</qt>" );
-		EffectTime->setToolTip( "<qt>" + tr( "Length of time the effect runs. A shorter time will speed up the effect, a longer one will slow it down." ) + "</qt>" );
-		EffectType->setToolTip( "<qt>" + tr( "Type of the display effect." ) + "</qt>" );
-		EDirection->setToolTip( "<qt>" + tr( "Direction of the effect of moving lines for the split and blind effects." ) + "</qt>" );
-		EDirection_2->setToolTip( "<qt>" + tr( "Starting position for the box and split effects." ) + "</qt>" );
-		EDirection_2_2->setToolTip( "<qt>" + tr( "Direction of the glitter or wipe effects." ) + "</qt>" );
-		EonAllPg->setToolTip( "<qt>" + tr( "Apply the selected effect to all pages." ) + "</qt>" );
-		OutlineFonts->setToolTip( "<qt>" + tr("Convert all glyphs in the document to outlines.") + "</qt>");
-		//Viewer tab
-		singlePage->setToolTip( "<qt>" + tr( "Show the document in single page mode" ) + "</qt>" );
-		continuousPages->setToolTip( "<qt>" + tr( "Show the document in single page mode with the pages displayed continuously end to end like a scroll" ) + "</qt>" );
-		doublePageLeft->setToolTip( "<qt>" + tr( "Show the document with facing pages, starting with the first page displayed on the left" ) + "</qt>" );
-		doublePageRight->setToolTip( "<qt>" + tr( "Show the document with facing pages, starting with the first page displayed on the right" ) + "</qt>" );
-		useViewDefault->setToolTip( "<qt>" + tr( "Use the viewer's defaults or the user's preferences if set differently from the viewer defaults" ) + "</qt>" );
-		useFullScreen->setToolTip( "<qt>" + tr( "Enables viewing the document in full screen" ) + "</qt>" );
-		useBookmarks->setToolTip( "<qt>" + tr( "Display the bookmarks upon opening" ) + "</qt>" );
-		useThumbnails->setToolTip( "<qt>" + tr( "Display the page thumbnails upon opening" ) + "</qt>" );
-		useLayers2->setToolTip( "<qt>" + tr( "Forces the displaying of layers. Useful only for PDF 1.5+." ) + "</qt>" );
-		hideToolBar->setToolTip( "<qt>" + tr( "Hides the Tool Bar which has selection and other editing capabilities" ) + "</qt>" );
-		hideMenuBar->setToolTip( "<qt>" + tr( "Hides the Menu Bar for the viewer, the PDF will display in a plain window. " ) + "</qt>" );
-		fitWindow->setToolTip( "<qt>" + tr( "Fit the document page or pages to the available space in the viewer window." ) + "</qt>" );
-	}
-	else
-		docBleeds->hide();
+	connect(EmbedFonts, SIGNAL(clicked()), this, SLOT(EmbedAll()));
+	connect(AvailFlist, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(SelAFont(QListWidgetItem*)));
+	connect(EmbedList, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(SelEFont(QListWidgetItem*)));
+	connect(ToEmbed, SIGNAL(clicked()), this, SLOT(PutToEmbed()));
+	connect(FromEmbed, SIGNAL(clicked()), this, SLOT(RemoveEmbed()));
+	connect(OutlineFonts, SIGNAL(clicked()), this, SLOT(OutlineAll()));
+	connect(OutlineList, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(SelSFont(QListWidgetItem*)));
+	connect(ToOutline, SIGNAL(clicked()), this, SLOT(PutToOutline()));
+	connect(FromOutline, SIGNAL(clicked()), this, SLOT(RemoveOutline()));
+	connect(PagePrev, SIGNAL(clicked()), this, SLOT(PagePr()));
+	connect(Pages, SIGNAL(currentItemChanged(QListWidgetItem*, QListWidgetItem*)), this, SLOT(SetPgEff(QListWidgetItem*, QListWidgetItem*)));
+	connect(EffectType, SIGNAL(activated(int)), this, SLOT(SetEffOpts(int)));
+	connect(EDirection_2_2, SIGNAL(activated(int)), this, SLOT(ValidDI(int)));
+	connect(CheckBox10, SIGNAL(clicked()), this, SLOT(DoEffects()));
+	connect(EonAllPg, SIGNAL(clicked()), this, SLOT(EffectOnAll()));
+	connect(InfoString, SIGNAL(textChanged(const QString &)), this, SLOT(checkInfo()));
+	connect(InfoString, SIGNAL(editingFinished()), this, SLOT(checkInfo()));
+	connect(docBleeds, SIGNAL(clicked()), this, SLOT(doDocBleeds()));
+
+	EmbedFonts->setToolTip( "<qt>" + tr( "Embed fonts into the PDF. Embedding the fonts will preserve the layout and appearance of your document." ) + "</qt>");
+	CheckBox10->setToolTip( "<qt>" + tr( "Enables presentation effects when using Adobe&#174; Reader&#174; and other PDF viewers which support this in full screen mode." ) + "</qt>");
+	PagePrev->setToolTip( "<qt>" + tr( "Show page previews of each page listed above." ) + "</qt>");
+	PageTime->setToolTip( "<qt>" + tr( "Length of time the page is shown before the presentation starts on the selected page. Setting 0 will disable automatic page transition." ) + "</qt>" );
+	EffectTime->setToolTip( "<qt>" + tr( "Length of time the effect runs. A shorter time will speed up the effect, a longer one will slow it down." ) + "</qt>" );
+	EffectType->setToolTip( "<qt>" + tr( "Type of the display effect." ) + "</qt>" );
+	EDirection->setToolTip( "<qt>" + tr( "Direction of the effect of moving lines for the split and blind effects." ) + "</qt>" );
+	EDirection_2->setToolTip( "<qt>" + tr( "Starting position for the box and split effects." ) + "</qt>" );
+	EDirection_2_2->setToolTip( "<qt>" + tr( "Direction of the glitter or wipe effects." ) + "</qt>" );
+	EonAllPg->setToolTip( "<qt>" + tr( "Apply the selected effect to all pages." ) + "</qt>" );
+	OutlineFonts->setToolTip( "<qt>" + tr("Convert all glyphs in the document to outlines.") + "</qt>");
+	//Viewer tab
+	singlePage->setToolTip( "<qt>" + tr( "Show the document in single page mode" ) + "</qt>" );
+	continuousPages->setToolTip( "<qt>" + tr( "Show the document in single page mode with the pages displayed continuously end to end like a scroll" ) + "</qt>" );
+	doublePageLeft->setToolTip( "<qt>" + tr( "Show the document with facing pages, starting with the first page displayed on the left" ) + "</qt>" );
+	doublePageRight->setToolTip( "<qt>" + tr( "Show the document with facing pages, starting with the first page displayed on the right" ) + "</qt>" );
+	useViewDefault->setToolTip( "<qt>" + tr( "Use the viewer's defaults or the user's preferences if set differently from the viewer defaults" ) + "</qt>" );
+	useFullScreen->setToolTip( "<qt>" + tr( "Enables viewing the document in full screen" ) + "</qt>" );
+	useBookmarks->setToolTip( "<qt>" + tr( "Display the bookmarks upon opening" ) + "</qt>" );
+	useThumbnails->setToolTip( "<qt>" + tr( "Display the page thumbnails upon opening" ) + "</qt>" );
+	useLayers2->setToolTip( "<qt>" + tr( "Forces the displaying of layers. Useful only for PDF 1.5+." ) + "</qt>" );
+	hideToolBar->setToolTip( "<qt>" + tr( "Hides the Tool Bar which has selection and other editing capabilities" ) + "</qt>" );
+	hideMenuBar->setToolTip( "<qt>" + tr( "Hides the Menu Bar for the viewer, the PDF will display in a plain window. " ) + "</qt>" );
+	fitWindow->setToolTip( "<qt>" + tr( "Fit the document page or pages to the available space in the viewer window." ) + "</qt>" );
+
 	connect(AllPages, SIGNAL(toggled(bool)), this, SLOT(SelRange(bool)));
 	connect(pageNrButton, SIGNAL(clicked()), this, SLOT(createPageNumberRange()));
 	connect(DSColor, SIGNAL(clicked()), this, SLOT(DoDownsample()));
@@ -1028,28 +1010,26 @@ QStringList TabPDFOptions::fontsToOutline()
 void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 									const SCFonts &AllFonts,
 									const ProfilesL & PDFXProfiles,
-									const QMap<QString, int> & DocFonts,
-									int unitIndex, ScribusDoc * mdoc)
+									const QMap<QString, int> & DocFonts)
 {
 	AllPages->setChecked( true );
 	PageNr->setEnabled(false);
 	pageNrButton->setEnabled(false);
-	if (mdoc != 0)
+
+	AllPages->setChecked(Opts.pageRangeSelection == 0);
+	OnlySome->setChecked(Opts.pageRangeSelection != 0);
+	if (OnlySome->isChecked())
 	{
-		AllPages->setChecked(Opts.pageRangeSelection == 0);
-		OnlySome->setChecked(Opts.pageRangeSelection != 0);
-		if (OnlySome->isChecked())
-		{
-			PageNr->setEnabled(true);
-			PageNr->setText(Opts.pageRangeString);
-			pageNrButton->setEnabled(true);
-		}
+		PageNr->setEnabled(true);
+		PageNr->setText(Opts.pageRangeString);
+		pageNrButton->setEnabled(true);
 	}
+
 	RotateDeg->setCurrentIndex(Opts.RotateDeg / 90);
 	MirrorH->setChecked(Opts.MirrorH);
 	MirrorV->setChecked(Opts.MirrorV);
 	ClipMarg->setChecked(Opts.doClip);
-	bool cmsUse = mdoc ? (ScCore->haveCMS() && mdoc->HasCMS) : false;
+	bool cmsUse = (ScCore->haveCMS() && m_Doc->HasCMS);
 	if (cmsUse)
 	{
 		if (Opts.Version == PDFOptions::PDFVersion_X1a)
@@ -1086,161 +1066,159 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 	DSColor->setChecked(Opts.RecalcPic);
 	ValC->setValue(Opts.PicRes);
 	ValC->setEnabled(DSColor->isChecked() ? true : false);
-	if (mdoc != 0)
-	{
+
 //	Build a list of all Fonts used in Annotations;
-		PageItem *pgit;
-		QList<PageItem*> allItems;
-		for (QHash<int, PageItem*>::iterator it = m_Doc->FrameItems.begin(); it != m_Doc->FrameItems.end(); ++it)
-		{
-			PageItem *currItem = it.value();
-			if (currItem->isGroup())
-				allItems = currItem->getItemList();
-			else
-				allItems.append(currItem);
-			for (int ii = 0; ii < allItems.count(); ii++)
-			{
-				pgit = allItems.at(ii);
-				if (((pgit->itemType() == PageItem::TextFrame) || (pgit->itemType() == PageItem::PathText)) && (pgit->isAnnotation()))
-				{
-					int annotType  = pgit->annotation().Type();
-					bool mustEmbed = ((annotType >= Annotation::Button) && (annotType <= Annotation::Listbox) && (annotType != Annotation::Checkbox));
-					if (pgit->itemText.length() > 0 || mustEmbed)
-						AnnotationFonts.insert(pgit->itemText.defaultStyle().charStyle().font().replacementName(), "");
-				}
-			}
-			allItems.clear();
-		}
-		for (int a = 0; a < m_Doc->MasterItems.count(); ++a)
-		{
-			PageItem *currItem = m_Doc->MasterItems.at(a);
-			if (currItem->isGroup())
-				allItems = currItem->getItemList();
-			else
-				allItems.append(currItem);
-			for (int ii = 0; ii < allItems.count(); ii++)
-			{
-				pgit = allItems.at(ii);
-				if (((pgit->itemType() == PageItem::TextFrame) || (pgit->itemType() == PageItem::PathText)) && (pgit->isAnnotation()))
-				{
-					int annotType  = pgit->annotation().Type();
-					bool mustEmbed = ((annotType >= Annotation::Button) && (annotType <= Annotation::Listbox) && (annotType != Annotation::Checkbox));
-					if (pgit->itemText.length() > 0 || mustEmbed)
-						AnnotationFonts.insert(pgit->itemText.defaultStyle().charStyle().font().replacementName(), "");
-				}
-			}
-			allItems.clear();
-		}
-		for (int a = 0; a < m_Doc->DocItems.count(); ++a)
-		{
-			PageItem *currItem = m_Doc->DocItems.at(a);
-			if (currItem->isGroup())
-				allItems = currItem->getItemList();
-			else
-				allItems.append(currItem);
-			for (int ii = 0; ii < allItems.count(); ii++)
-			{
-				pgit = allItems.at(ii);
-				if (((pgit->itemType() == PageItem::TextFrame) || (pgit->itemType() == PageItem::PathText)) && (pgit->isAnnotation()))
-				{
-					int annotType  = pgit->annotation().Type();
-					bool mustEmbed = ((annotType >= Annotation::Button) && (annotType <= Annotation::Listbox) && (annotType != Annotation::Checkbox));
-					if (pgit->itemText.length() > 0 || mustEmbed)
-						AnnotationFonts.insert(pgit->itemText.defaultStyle().charStyle().font().replacementName(), "");
-				}
-			}
-			allItems.clear();
-		}
-		QMap<QString,int>::const_iterator it;
-		AvailFlist->clear();
-		for (it = DocFonts.constBegin(); it != DocFonts.constEnd(); ++it)
-		{
-			if (AllFonts[it.key()].isReplacement())
-				new QListWidgetItem( QIcon(loadIcon("font_subst16.png")), it.key(), AvailFlist );
-			else if (AllFonts[it.key()].type() == ScFace::TYPE1)
-				new QListWidgetItem( QIcon(loadIcon("font_type1_16.png")), it.key(), AvailFlist );
-			else if (AllFonts[it.key()].type() == ScFace::TTF)
-				new QListWidgetItem( QIcon(loadIcon("font_truetype16.png")), it.key(), AvailFlist );
-			else if (AllFonts[it.key()].type() == ScFace::OTF)
-				new QListWidgetItem( QIcon(loadIcon("font_otf16.png")), it.key(), AvailFlist );
-		}
-		ToEmbed->setEnabled(false);
-		FromEmbed->setEnabled(false);
-		ToOutline->setEnabled(false);
-		FromOutline->setEnabled(false);
-		if ((Opts.EmbedList.count() == 0) && (Opts.SubsetList.count() == 0) && (Opts.firstUse))
-			EmbedAll();
+	PageItem *pgit;
+	QList<PageItem*> allItems;
+	for (QHash<int, PageItem*>::iterator it = m_Doc->FrameItems.begin(); it != m_Doc->FrameItems.end(); ++it)
+	{
+		PageItem *currItem = it.value();
+		if (currItem->isGroup())
+			allItems = currItem->getItemList();
 		else
+			allItems.append(currItem);
+		for (int ii = 0; ii < allItems.count(); ii++)
 		{
-			EmbedList->clear();
-			for (int fe = 0; fe < Opts.EmbedList.count(); ++fe)
-				EmbedList->addItem(Opts.EmbedList[fe]);
-			if (Opts.SubsetList.count() != 0)
+			pgit = allItems.at(ii);
+			if (((pgit->itemType() == PageItem::TextFrame) || (pgit->itemType() == PageItem::PathText)) && (pgit->isAnnotation()))
 			{
-				OutlineList->clear();
-				for (int fe = 0; fe < Opts.SubsetList.count(); ++fe)
-					OutlineList->addItem(Opts.SubsetList[fe]);
-			}
-			QMap<QString, QString>::Iterator itAnn;
-			for (itAnn = AnnotationFonts.begin(); itAnn != AnnotationFonts.end(); ++itAnn)
-			{
-				QList<QListWidgetItem *> itEmbed = EmbedList->findItems(itAnn.key(), Qt::MatchExactly);
-				if (itEmbed.count() == 0)
-				{
-					EmbedList->addItem(itAnn.key());
-					EmbedList->item(EmbedList->count()-1)->setFlags(Qt::ItemIsEnabled);
-				}
-				QList<QListWidgetItem *> itOutline = OutlineList->findItems(itAnn.key(), Qt::MatchExactly);
-				for (int itOut = 0; itOut < itOutline.count(); ++itOut)
-				{
-					QListWidgetItem* item = itOutline[itOut];
-					delete OutlineList->takeItem(OutlineList->row(item));
-				}
+				int annotType  = pgit->annotation().Type();
+				bool mustEmbed = ((annotType >= Annotation::Button) && (annotType <= Annotation::Listbox) && (annotType != Annotation::Checkbox));
+				if (pgit->itemText.length() > 0 || mustEmbed)
+					AnnotationFonts.insert(pgit->itemText.defaultStyle().charStyle().font().replacementName(), "");
 			}
 		}
-		CheckBox10->setChecked(Opts.PresentMode);
-		PagePrev->setChecked(false);
-		Pages->clear();
-		QString tmp;
-		for (int pg = 0; pg < m_Doc->Pages->count(); ++pg)
-		{
-			Pages->addItem( tr("Page")+" "+tmp.setNum(pg+1));
-			EffVal.append(m_Doc->Pages->at(pg)->PresentVals);
-		}
-		PageTime->setValue(EffVal[0].pageViewDuration);
-		EffectTime->setValue(EffVal[0].pageEffectDuration);
-		bool df = true;
-		if ((Opts.displayBookmarks) || (Opts.displayFullscreen) || (Opts.displayLayers) || (Opts.displayThumbs))
-			df = false;
-		if (df)
-			useViewDefault->setChecked(df);
-		useFullScreen->setChecked(Opts.displayFullscreen);
-		useBookmarks->setChecked(Opts.displayBookmarks);
-		useThumbnails->setChecked(Opts.displayThumbs);
-		useLayers2->setChecked(Opts.displayLayers);
-		hideToolBar->setChecked(Opts.hideToolBar);
-		hideMenuBar->setChecked(Opts.hideMenuBar);
-		fitWindow->setChecked(Opts.fitWindow);
-		QMap<QString,QString>::Iterator itja;
-		actionCombo->clear();
-		actionCombo->addItem( tr("No Script"));
-		for (itja = m_Doc->JavaScripts.begin(); itja != m_Doc->JavaScripts.end(); ++itja)
-			actionCombo->addItem(itja.key());
-		if (m_Doc->JavaScripts.contains(Opts.openAction))
-			setCurrentComboItem(actionCombo, Opts.openAction);
-		if (Opts.PageLayout == PDFOptions::SinglePage)
-			singlePage->setChecked(true);
-		else if (Opts.PageLayout == PDFOptions::OneColumn)
-			continuousPages->setChecked(true);
-		else if (Opts.PageLayout == PDFOptions::TwoColumnLeft)
-			doublePageLeft->setChecked(true);
-		else if (Opts.PageLayout == PDFOptions::TwoColumnRight)
-			doublePageRight->setChecked(true);
-		if ((Opts.Version == PDFOptions::PDFVersion_15) || (Opts.Version == PDFOptions::PDFVersion_X4))
-			useLayers2->setEnabled(true);
-		else
-			useLayers2->setEnabled(false);
+		allItems.clear();
 	}
+	for (int a = 0; a < m_Doc->MasterItems.count(); ++a)
+	{
+		PageItem *currItem = m_Doc->MasterItems.at(a);
+		if (currItem->isGroup())
+			allItems = currItem->getItemList();
+		else
+			allItems.append(currItem);
+		for (int ii = 0; ii < allItems.count(); ii++)
+		{
+			pgit = allItems.at(ii);
+			if (((pgit->itemType() == PageItem::TextFrame) || (pgit->itemType() == PageItem::PathText)) && (pgit->isAnnotation()))
+			{
+				int annotType  = pgit->annotation().Type();
+				bool mustEmbed = ((annotType >= Annotation::Button) && (annotType <= Annotation::Listbox) && (annotType != Annotation::Checkbox));
+				if (pgit->itemText.length() > 0 || mustEmbed)
+					AnnotationFonts.insert(pgit->itemText.defaultStyle().charStyle().font().replacementName(), "");
+			}
+		}
+		allItems.clear();
+	}
+	for (int a = 0; a < m_Doc->DocItems.count(); ++a)
+	{
+		PageItem *currItem = m_Doc->DocItems.at(a);
+		if (currItem->isGroup())
+			allItems = currItem->getItemList();
+		else
+			allItems.append(currItem);
+		for (int ii = 0; ii < allItems.count(); ii++)
+		{
+			pgit = allItems.at(ii);
+			if (((pgit->itemType() == PageItem::TextFrame) || (pgit->itemType() == PageItem::PathText)) && (pgit->isAnnotation()))
+			{
+				int annotType  = pgit->annotation().Type();
+				bool mustEmbed = ((annotType >= Annotation::Button) && (annotType <= Annotation::Listbox) && (annotType != Annotation::Checkbox));
+				if (pgit->itemText.length() > 0 || mustEmbed)
+					AnnotationFonts.insert(pgit->itemText.defaultStyle().charStyle().font().replacementName(), "");
+			}
+		}
+		allItems.clear();
+	}
+	QMap<QString,int>::const_iterator it;
+	AvailFlist->clear();
+	for (it = DocFonts.constBegin(); it != DocFonts.constEnd(); ++it)
+	{
+		if (AllFonts[it.key()].isReplacement())
+			new QListWidgetItem( QIcon(loadIcon("font_subst16.png")), it.key(), AvailFlist );
+		else if (AllFonts[it.key()].type() == ScFace::TYPE1)
+			new QListWidgetItem( QIcon(loadIcon("font_type1_16.png")), it.key(), AvailFlist );
+		else if (AllFonts[it.key()].type() == ScFace::TTF)
+			new QListWidgetItem( QIcon(loadIcon("font_truetype16.png")), it.key(), AvailFlist );
+		else if (AllFonts[it.key()].type() == ScFace::OTF)
+			new QListWidgetItem( QIcon(loadIcon("font_otf16.png")), it.key(), AvailFlist );
+	}
+	ToEmbed->setEnabled(false);
+	FromEmbed->setEnabled(false);
+	ToOutline->setEnabled(false);
+	FromOutline->setEnabled(false);
+	if ((Opts.EmbedList.count() == 0) && (Opts.SubsetList.count() == 0) && (Opts.firstUse))
+		EmbedAll();
+	else
+	{
+		EmbedList->clear();
+		for (int fe = 0; fe < Opts.EmbedList.count(); ++fe)
+			EmbedList->addItem(Opts.EmbedList[fe]);
+		if (Opts.SubsetList.count() != 0)
+		{
+			OutlineList->clear();
+			for (int fe = 0; fe < Opts.SubsetList.count(); ++fe)
+				OutlineList->addItem(Opts.SubsetList[fe]);
+		}
+		QMap<QString, QString>::Iterator itAnn;
+		for (itAnn = AnnotationFonts.begin(); itAnn != AnnotationFonts.end(); ++itAnn)
+		{
+			QList<QListWidgetItem *> itEmbed = EmbedList->findItems(itAnn.key(), Qt::MatchExactly);
+			if (itEmbed.count() == 0)
+			{
+				EmbedList->addItem(itAnn.key());
+				EmbedList->item(EmbedList->count()-1)->setFlags(Qt::ItemIsEnabled);
+			}
+			QList<QListWidgetItem *> itOutline = OutlineList->findItems(itAnn.key(), Qt::MatchExactly);
+			for (int itOut = 0; itOut < itOutline.count(); ++itOut)
+			{
+				QListWidgetItem* item = itOutline[itOut];
+				delete OutlineList->takeItem(OutlineList->row(item));
+			}
+		}
+	}
+	CheckBox10->setChecked(Opts.PresentMode);
+	PagePrev->setChecked(false);
+	Pages->clear();
+	QString tmp;
+	for (int pg = 0; pg < m_Doc->Pages->count(); ++pg)
+	{
+		Pages->addItem( tr("Page")+" "+tmp.setNum(pg+1));
+		EffVal.append(m_Doc->Pages->at(pg)->PresentVals);
+	}
+	PageTime->setValue(EffVal[0].pageViewDuration);
+	EffectTime->setValue(EffVal[0].pageEffectDuration);
+	bool df = true;
+	if ((Opts.displayBookmarks) || (Opts.displayFullscreen) || (Opts.displayLayers) || (Opts.displayThumbs))
+		df = false;
+	if (df)
+		useViewDefault->setChecked(df);
+	useFullScreen->setChecked(Opts.displayFullscreen);
+	useBookmarks->setChecked(Opts.displayBookmarks);
+	useThumbnails->setChecked(Opts.displayThumbs);
+	useLayers2->setChecked(Opts.displayLayers);
+	hideToolBar->setChecked(Opts.hideToolBar);
+	hideMenuBar->setChecked(Opts.hideMenuBar);
+	fitWindow->setChecked(Opts.fitWindow);
+	QMap<QString,QString>::Iterator itja;
+	actionCombo->clear();
+	actionCombo->addItem( tr("No Script"));
+	for (itja = m_Doc->JavaScripts.begin(); itja != m_Doc->JavaScripts.end(); ++itja)
+		actionCombo->addItem(itja.key());
+	if (m_Doc->JavaScripts.contains(Opts.openAction))
+		setCurrentComboItem(actionCombo, Opts.openAction);
+	if (Opts.PageLayout == PDFOptions::SinglePage)
+		singlePage->setChecked(true);
+	else if (Opts.PageLayout == PDFOptions::OneColumn)
+		continuousPages->setChecked(true);
+	else if (Opts.PageLayout == PDFOptions::TwoColumnLeft)
+		doublePageLeft->setChecked(true);
+	else if (Opts.PageLayout == PDFOptions::TwoColumnRight)
+		doublePageRight->setChecked(true);
+	if ((Opts.Version == PDFOptions::PDFVersion_15) || (Opts.Version == PDFOptions::PDFVersion_X4))
+		useLayers2->setEnabled(true);
+	else
+		useLayers2->setEnabled(false);
 
 	Encry->setChecked( Opts.Encrypt );
 	PassOwner->setText(Opts.PassOwner);
@@ -1290,12 +1268,7 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 	EnablePGI();
 	QString tp = Opts.SolidProf;
 	if (!ScCore->InputProfiles.contains(tp))
-	{
-		if (mdoc != 0)
-			tp = mdoc->cmsSettings().DefaultSolidColorRGBProfile;
-		else
-			tp = PrefsManager::instance()->appPrefs.colorPrefs.DCMSset.DefaultSolidColorRGBProfile;
-	}
+		tp = m_Doc->cmsSettings().DefaultSolidColorRGBProfile;
 	ProfilesL::Iterator itp;
 	ProfilesL::Iterator itpend=ScCore->InputProfiles.end();
 	SolidPr->clear();
@@ -1312,12 +1285,7 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 		IntendS->setCurrentIndex(Opts.Intent);
 	QString tp1 = Opts.ImageProf;
 	if (!ScCore->InputProfiles.contains(tp1))
-	{
-		if (mdoc != 0)
-			tp1 = mdoc->cmsSettings().DefaultSolidColorRGBProfile;
-		else
-			tp1 = PrefsManager::instance()->appPrefs.colorPrefs.DCMSset.DefaultSolidColorRGBProfile;
-	}
+		tp1 = m_Doc->cmsSettings().DefaultSolidColorRGBProfile;
 	ProfilesL::Iterator itp2;
 	ProfilesL::Iterator itp2end=ScCore->InputProfiles.end();
 	ImageP->clear();
@@ -1341,12 +1309,7 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 	ProfilesL::const_iterator itp3;
 	QString tp3 = Opts.PrintProf;
 	if (!PDFXProfiles.contains(tp3))
-	{
-		if (mdoc != 0)
-			tp3 = mdoc->cmsSettings().DefaultPrinterProfile;
-		else
-			tp3 = PrefsManager::instance()->appPrefs.colorPrefs.DCMSset.DefaultPrinterProfile;
-	}
+		tp3 = m_Doc->cmsSettings().DefaultPrinterProfile;
 	PrintProfC->clear();
 	for (itp3 = PDFXProfiles.constBegin(); itp3 != PDFXProfiles.constEnd(); ++itp3)
 	{
@@ -1358,23 +1321,17 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 		InfoString->setText(Opts.Info);
 	else
 	{
-		if (mdoc != 0)
-		{
-			QFileInfo fi(mdoc->DocName);
-			InfoString->setText(fi.fileName());
-		}
-		else
-			InfoString->setText( tr("InfoString"));
+		QFileInfo fi(m_Doc->DocName);
+		InfoString->setText(fi.fileName());
 	}
+
 	BleedTop->setValue(Opts.bleeds.Top*unitRatio);
 	BleedBottom->setValue(Opts.bleeds.Bottom*unitRatio);
 	BleedRight->setValue(Opts.bleeds.Right*unitRatio);
 	BleedLeft->setValue(Opts.bleeds.Left*unitRatio);
-	if (mdoc != 0)
-	{
-		docBleeds->setChecked(Opts.useDocBleeds);
-		doDocBleeds();
-	}
+	docBleeds->setChecked(Opts.useDocBleeds);
+	doDocBleeds();
+
 	markLength->setValue(Opts.markLength*unitRatio);
 	markOffset->setValue(Opts.markOffset*unitRatio);
 	cropMarks->setChecked(Opts.cropMarks);
@@ -1392,45 +1349,42 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 		EnablePDFX(5);
 	else
 		X3Group->setEnabled(false);
-	if (mdoc != 0)
+
+	EffectType->clear();
+	EffectType->addItem( tr("No Effect"));
+	EffectType->addItem( tr("Blinds"));
+	EffectType->addItem( tr("Box"));
+	EffectType->addItem( tr("Dissolve"));
+	EffectType->addItem( tr("Glitter"));
+	EffectType->addItem( tr("Split"));
+	EffectType->addItem( tr("Wipe"));
+	if (Opts.Version == PDFOptions::PDFVersion_15)
 	{
-		EffectType->clear();
-		EffectType->addItem( tr("No Effect"));
-		EffectType->addItem( tr("Blinds"));
-		EffectType->addItem( tr("Box"));
-		EffectType->addItem( tr("Dissolve"));
-		EffectType->addItem( tr("Glitter"));
-		EffectType->addItem( tr("Split"));
-		EffectType->addItem( tr("Wipe"));
-		if (Opts.Version == PDFOptions::PDFVersion_15)
-		{
-			EffectType->addItem( tr("Push"));
-			EffectType->addItem( tr("Cover"));
-			EffectType->addItem( tr("Uncover"));
-			EffectType->addItem( tr("Fade"));
-		}
-		Pages->setCurrentRow(0);
-		SetEffOpts(0);
-		Pages->setEnabled(false);
-		Effects->setEnabled(false);
-		PagePrev->setEnabled(false);
-		DoEffects();
-		if (CheckBox10->isChecked())
-		{
-			PageTime->setValue(EffVal[0].pageViewDuration);
-			EffectTime->setValue(EffVal[0].pageEffectDuration);
-			EffectType->setCurrentIndex(EffVal[0].effectType);
-			EDirection->setCurrentIndex(EffVal[0].Dm);
-			EDirection_2->setCurrentIndex(EffVal[0].M);
-			EDirection_2_2->setCurrentIndex(EffVal[0].Di);
-			SetEffOpts(EffectType->currentIndex());
-		}
-		if (mdoc->pagePositioning() != 0)
-		{
-			BleedTxt3->setText( tr( "Inside:" ) );
-			BleedTxt4->setText( tr( "Outside:" ) );
-		}
-		
+		EffectType->addItem( tr("Push"));
+		EffectType->addItem( tr("Cover"));
+		EffectType->addItem( tr("Uncover"));
+		EffectType->addItem( tr("Fade"));
+	}
+	Pages->setCurrentRow(0);
+	SetEffOpts(0);
+	Pages->setEnabled(false);
+	Effects->setEnabled(false);
+	PagePrev->setEnabled(false);
+	DoEffects();
+	if (CheckBox10->isChecked())
+	{
+		PageTime->setValue(EffVal[0].pageViewDuration);
+		EffectTime->setValue(EffVal[0].pageEffectDuration);
+		EffectType->setCurrentIndex(EffVal[0].effectType);
+		EDirection->setCurrentIndex(EffVal[0].Dm);
+		EDirection_2->setCurrentIndex(EffVal[0].M);
+		EDirection_2_2->setCurrentIndex(EffVal[0].Di);
+		SetEffOpts(EffectType->currentIndex());
+	}
+	if (m_Doc->pagePositioning() != 0)
+	{
+		BleedTxt3->setText( tr( "Inside:" ) );
+		BleedTxt4->setText( tr( "Outside:" ) );
 	}
 }
 
@@ -1609,44 +1563,43 @@ void TabPDFOptions::EnablePDFX(int a)
 	useLayers->setEnabled((a == 2) || (a == 5));
 	if (useLayers2)
 		useLayers2->setEnabled((a == 2) || (a == 5));
-	if (m_Doc != 0)
+
+	int currentEff = EffectType->currentIndex();
+	disconnect(EffectType, SIGNAL(activated(int)), this, SLOT(SetEffOpts(int)));
+	EffectType->clear();
+	EffectType->addItem( tr("No Effect"));
+	EffectType->addItem( tr("Blinds"));
+	EffectType->addItem( tr("Box"));
+	EffectType->addItem( tr("Dissolve"));
+	EffectType->addItem( tr("Glitter"));
+	EffectType->addItem( tr("Split"));
+	EffectType->addItem( tr("Wipe"));
+	if (a == 2)
 	{
-		int currentEff = EffectType->currentIndex();
-		disconnect(EffectType, SIGNAL(activated(int)), this, SLOT(SetEffOpts(int)));
-		EffectType->clear();
-		EffectType->addItem( tr("No Effect"));
-		EffectType->addItem( tr("Blinds"));
-		EffectType->addItem( tr("Box"));
-		EffectType->addItem( tr("Dissolve"));
-		EffectType->addItem( tr("Glitter"));
-		EffectType->addItem( tr("Split"));
-		EffectType->addItem( tr("Wipe"));
-		if (a == 2)
+		EffectType->addItem( tr("Push"));
+		EffectType->addItem( tr("Cover"));
+		EffectType->addItem( tr("Uncover"));
+		EffectType->addItem( tr("Fade"));
+		EffectType->setCurrentIndex(currentEff);
+	}
+	else
+	{
+		if (currentEff > 6)
 		{
-			EffectType->addItem( tr("Push"));
-			EffectType->addItem( tr("Cover"));
-			EffectType->addItem( tr("Uncover"));
-			EffectType->addItem( tr("Fade"));
-			EffectType->setCurrentIndex(currentEff);
+			currentEff = 0;
+			EffectType->setCurrentIndex(0);
+			SetEffOpts(0);
+			for (int pg = 0; pg < m_Doc->Pages->count(); ++pg)
+			{
+				if (EffVal[pg].effectType > 6)
+					EffVal[pg].effectType = 0;
+			}
 		}
 		else
-		{
-			if (currentEff > 6)
-			{
-				currentEff = 0;
-				EffectType->setCurrentIndex(0);
-				SetEffOpts(0);
-				for (int pg = 0; pg < m_Doc->Pages->count(); ++pg)
-				{
-					if (EffVal[pg].effectType > 6)
-						EffVal[pg].effectType = 0;
-				}
-			}
-			else
-				EffectType->setCurrentIndex(currentEff);
-		}
-		connect(EffectType, SIGNAL(activated(int)), this, SLOT(SetEffOpts(int)));
+			EffectType->setCurrentIndex(currentEff);
 	}
+	connect(EffectType, SIGNAL(activated(int)), this, SLOT(SetEffOpts(int)));
+
 	if (a < 3)  // not PDF/X
 	{
 		X3Group->setEnabled(false);
@@ -1655,14 +1608,12 @@ void TabPDFOptions::EnablePDFX(int a)
 		EmbedProfs->setEnabled(true);
 		EmbedProfs2->setEnabled(true);
 		emit hasInfo();
-		if (m_Doc != 0)
-		{
-			CheckBox10->setEnabled(true);
-			EmbedFonts->setEnabled(true);
-			if (EmbedList->count() != 0)
-				FromEmbed->setEnabled(true);
-			ToEmbed->setEnabled(true);
-		}
+
+		CheckBox10->setEnabled(true);
+		EmbedFonts->setEnabled(true);
+		if (EmbedList->count() != 0)
+			FromEmbed->setEnabled(true);
+		ToEmbed->setEnabled(true);
 		EnablePr(OutCombo->currentIndex());
 		return;
 	}
@@ -1684,20 +1635,17 @@ void TabPDFOptions::EnablePDFX(int a)
 		EmbedProfs2->setChecked(true);
 		EmbedProfs2->setEnabled(false);
 	}
-	if (m_Doc != 0)
-	{
-//		EmbedFonts->setChecked(true);
-		EmbedAll();
-		CheckBox10->setChecked(false);
-		CheckBox10->setEnabled(false);
-//		EmbedFonts->setEnabled(false);
-		FromEmbed->setEnabled(false);
-		ToEmbed->setEnabled(false);
-		if (InfoString->text().isEmpty())
-			emit noInfo();
-		else
-			emit hasInfo();
-	}
+
+	EmbedAll();
+	CheckBox10->setChecked(false);
+	CheckBox10->setEnabled(false);
+	FromEmbed->setEnabled(false);
+	ToEmbed->setEnabled(false);
+	if (InfoString->text().isEmpty())
+		emit noInfo();
+	else
+		emit hasInfo();
+
 	EnablePGI();
 	X3Group->setEnabled(true);
 	setTabEnabled(indexOf(tabSecurity), false);
@@ -1765,12 +1713,7 @@ void TabPDFOptions::EnableLPI(int a)
 	{
 		QString tp = Opts.SolidProf;
 		if (!ScCore->InputProfiles.contains(tp))
-		{
-			if (m_Doc != 0)
-				tp = m_Doc->cmsSettings().DefaultSolidColorRGBProfile;
-			else
-				tp = PrefsManager::instance()->appPrefs.colorPrefs.DCMSset.DefaultSolidColorRGBProfile;
-		}
+			tp = m_Doc->cmsSettings().DefaultSolidColorRGBProfile;
 		SolidPr->clear();
 		ProfilesL::Iterator itp;
 		ProfilesL::Iterator itpend=ScCore->InputProfiles.end();
@@ -1787,12 +1730,7 @@ void TabPDFOptions::EnableLPI(int a)
 			IntendS->setCurrentIndex(Opts.Intent);
 		QString tp1 = Opts.ImageProf;
 		if (!ScCore->InputProfiles.contains(tp1))
-		{
-			if (m_Doc != 0)
-				tp1 = m_Doc->cmsSettings().DefaultSolidColorRGBProfile;
-			else
-				tp1 = PrefsManager::instance()->appPrefs.colorPrefs.DCMSset.DefaultSolidColorRGBProfile;
-		}
+			tp1 = m_Doc->cmsSettings().DefaultSolidColorRGBProfile;
 		ImageP->clear();
 		ProfilesL::Iterator itp2;
 		ProfilesL::Iterator itp2end=ScCore->InputProfiles.end();
@@ -1818,14 +1756,11 @@ void TabPDFOptions::EnableLPI(int a)
 			ProfsGroup->hide();
 		}
 		useSpot->show();
-		if (m_Doc!=0)
-		{
-			UseLPI->show();
-			if (UseLPI->isChecked())
-				LPIgroup->show();
-			else
-				LPIgroup->hide();
-		}	
+		UseLPI->show();
+		if (UseLPI->isChecked())
+			LPIgroup->show();
+		else
+			LPIgroup->hide();	
 	}
 	else
 	{
@@ -1837,13 +1772,10 @@ void TabPDFOptions::EnableLPI(int a)
 
 void TabPDFOptions::EnableLPI2()
 {
-	if (m_Doc!=0)
-	{
-		if (UseLPI->isChecked())
-			LPIgroup->show();
-		else
-			LPIgroup->hide();
-	}
+	if (UseLPI->isChecked())
+		LPIgroup->show();
+	else
+		LPIgroup->hide();
 }
 
 void TabPDFOptions::SelLPIcol(int c)
@@ -2267,7 +2199,7 @@ void TabPDFOptions::OutlineAll()
 	}
 }
 
-void TabPDFOptions::unitChange(QString unit, int docUnitIndex, double invUnitConversion)
+void TabPDFOptions::unitChange(int docUnitIndex)
 {
 	BleedBottom->setNewUnit(docUnitIndex);
 	BleedTop->setNewUnit(docUnitIndex);
@@ -2278,16 +2210,14 @@ void TabPDFOptions::unitChange(QString unit, int docUnitIndex, double invUnitCon
 
 void TabPDFOptions::createPageNumberRange( )
 {
-	if (m_Doc!=0)
+	CreateRange cr(PageNr->text(), m_Doc->DocPages.count(), this);
+	if (cr.exec())
 	{
-		CreateRange cr(PageNr->text(), m_Doc->DocPages.count(), this);
-		if (cr.exec())
-		{
-			CreateRangeData crData;
-			cr.getCreateRangeData(crData);
-			PageNr->setText(crData.pageRange);
-			return;
-		}
+		CreateRangeData crData;
+		cr.getCreateRangeData(crData);
+		PageNr->setText(crData.pageRange);
+		return;
 	}
+
 	PageNr->setText(QString::null);
 }

@@ -111,8 +111,7 @@ PDFExportDialog::PDFExportDialog( QWidget* parent, const QString & docFileName,
 	NameLayout->addWidget( openAfterExportCheckBox, 2, 0 );
 	PDFExportLayout->addWidget( Name );
 
-	Options = new TabPDFOptions( this, pdfOptions, AllFonts, PDFXProfiles, DocFonts,
-								currView->Doc->unitIndex(), currView->Doc );
+	Options = new TabPDFOptions( this, pdfOptions, AllFonts, PDFXProfiles, DocFonts, currView->Doc );
 	PDFExportLayout->addWidget( Options );
 	Layout7 = new QHBoxLayout;
 	Layout7->setSpacing( 5 );

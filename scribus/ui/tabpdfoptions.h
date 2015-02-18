@@ -42,18 +42,17 @@ public:
 					const SCFonts &AllFonts,
 					const ProfilesL & PDFXProfiles,
 					const QMap<QString, int> & DocFonts,
-					int unitIndex, ScribusDoc *mdoc);
+					ScribusDoc *doc);
 	~TabPDFOptions() {};
 
 	void restoreDefaults(PDFOptions & Optionen,
 						 const SCFonts &AllFonts,
 						 const ProfilesL & PDFXProfiles,
-						 const QMap<QString, int> & DocFonts,
-						 int unitIndex, ScribusDoc *mdoc);
+						 const QMap<QString, int> & DocFonts);
 
 	void storeValues(PDFOptions& options);
 
-	void unitChange(QString unit, int docUnitIndex, double invUnitConversion);
+	void unitChange(int docUnitIndex);
 
 	QStringList fontsToEmbed();
 	QStringList fontsToOutline();
@@ -310,7 +309,6 @@ private:
 	// end protected GUI member pointers
 
 	// Non-GUI protected members
-	QString unit;
 	double unitRatio;
 	ScribusDoc* const m_Doc;
 	const SCFonts & AllFonts;
