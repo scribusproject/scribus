@@ -23,11 +23,15 @@ class SCRIBUS_API Prefs_PDFExport : public Prefs_Pane, Ui::Prefs_PDFExport
 	public:
 		Prefs_PDFExport(QWidget* parent, ScribusDoc* doc=NULL);
 		~Prefs_PDFExport();
+
 		virtual void restoreDefaults(struct ApplicationPrefs *prefsData);
 		virtual void restoreDefaults(struct ApplicationPrefs *prefsData, const ProfilesL & PDFXProfiles,
 									 bool exporting=false);
 		virtual void saveGuiToPrefs(struct ApplicationPrefs *prefsData) const;
 		void enableCMS(bool);
+
+		QStringList fontsToEmbed();
+		QStringList fontsToOutline();
 
 	signals:
 		void noInfo();
@@ -82,9 +86,6 @@ class SCRIBUS_API Prefs_PDFExport : public Prefs_Pane, Ui::Prefs_PDFExport
 		QMap<QString, QString> AnnotationFonts;
 
 		QList<PDFPresentationData> EffVal;
-		QList<QString> FontsToEmbed;
-		QList<QString> FontsToOutline;
-		int PgSel;
 		SCFonts AllFonts;
 		bool exportingPDF;
 		QString SelLPIcolor;

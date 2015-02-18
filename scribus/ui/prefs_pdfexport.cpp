@@ -107,6 +107,21 @@ Prefs_PDFExport::~Prefs_PDFExport()
 {
 }
 
+QStringList Prefs_PDFExport::fontsToEmbed()
+{
+	QStringList fonts;
+	for (int i = 0; i < embeddedFontsListWidget->count(); ++i)
+		fonts.append(embeddedFontsListWidget->item(i)->text());
+	return fonts;
+}
+
+QStringList Prefs_PDFExport::fontsToOutline()
+{
+	QStringList fonts;
+	for (int i = 0; i < outlinedFontsListWidget->count(); ++i)
+		fonts.append(outlinedFontsListWidget->item(i)->text());
+	return fonts;
+}
 
 void Prefs_PDFExport::unitChange(int unitIndex)
 {
@@ -316,36 +331,28 @@ void Prefs_PDFExport::restoreDefaults(struct ApplicationPrefs *prefsData, const 
 		else
 		{
 			embeddedFontsListWidget->clear();
-			FontsToEmbed.clear();
 			for (int fe = 0; fe < Opts.EmbedList.count(); ++fe)
-			{
 				embeddedFontsListWidget->addItem(Opts.EmbedList[fe]);
-				FontsToEmbed.append(Opts.EmbedList[fe]);
-			}
 			if (Opts.SubsetList.count() != 0)
 			{
 				outlinedFontsListWidget->clear();
-				FontsToOutline.clear();
 				for (int fe = 0; fe < Opts.SubsetList.count(); ++fe)
-				{
 					outlinedFontsListWidget->addItem(Opts.SubsetList[fe]);
-					FontsToOutline.append(Opts.SubsetList[fe]);
-				}
 			}
 			QMap<QString, QString>::Iterator itAnn;
 			for (itAnn = AnnotationFonts.begin(); itAnn != AnnotationFonts.end(); ++itAnn)
 			{
-				if (FontsToEmbed.contains(itAnn.key()) == 0)
+				QList<QListWidgetItem *> itEmbed = embeddedFontsListWidget->findItems(itAnn.key(), Qt::MatchExactly);
+				if (itEmbed.count() == 0)
 				{
 					embeddedFontsListWidget->addItem(itAnn.key());
 					embeddedFontsListWidget->item(embeddedFontsListWidget->count()-1)->setFlags(Qt::ItemIsEnabled);
-					FontsToEmbed.append(itAnn.key());
 				}
-				if (FontsToOutline.contains(itAnn.key()) != 0)
+				QList<QListWidgetItem *> itOutline = outlinedFontsListWidget->findItems(itAnn.key(), Qt::MatchExactly);
+				for (int itOut = 0; itOut < itOutline.count(); ++itOut)
 				{
-					FontsToOutline.removeAll(itAnn.key());
-					QList<QListWidgetItem *> itR = outlinedFontsListWidget->findItems(itAnn.key(), Qt::MatchExactly);
-					delete outlinedFontsListWidget->takeItem(outlinedFontsListWidget->row(itR.at(0)));
+					QListWidgetItem* item = itOutline[itOut];
+					delete outlinedFontsListWidget->takeItem(outlinedFontsListWidget->row(item));
 				}
 			}
 		}
@@ -563,7 +570,6 @@ void Prefs_PDFExport::restoreDefaults(struct ApplicationPrefs *prefsData, const 
 			effectTypeComboBox->addItem( tr("Uncover"));
 			effectTypeComboBox->addItem( tr("Fade"));
 		}
-		PgSel = 0;
 		effectsPageListWidget->setCurrentRow(0);
 		SetEffOpts(0);
 		effectsPageListWidget->setEnabled(false);
@@ -1100,37 +1106,32 @@ void Prefs_PDFExport::enableEffects(bool enabled)
 void Prefs_PDFExport::EmbedAll()
 {
 	embeddedFontsListWidget->clear();
-	FontsToEmbed.clear();
 	outlinedFontsListWidget->clear();
-	FontsToOutline.clear();
 	fromEmbedButton->setEnabled(false);
 	toEmbedButton->setEnabled(false);
 	toOutlineButton->setEnabled(false);
 	fromOutlineButton->setEnabled(false);
 	for (int a=0; a < availableFontsListWidget->count(); ++a)
 	{
-		if (availableFontsListWidget->item(a)->flags() & Qt::ItemIsSelectable)
+		QListWidgetItem* item = availableFontsListWidget->item(a);
+		if ((item->flags() & Qt::ItemIsSelectable) == 0)
+			continue;
+		if (!AllFonts[item->text()].subset())
 		{
-			if (!AllFonts[availableFontsListWidget->item(a)->text()].subset())
+			embeddedFontsListWidget->addItem(item->text());
+			if (AnnotationFonts.contains(item->text()))
+				embeddedFontsListWidget->item(embeddedFontsListWidget->count()-1)->setFlags(Qt::ItemIsEnabled);
+		}
+		else
+		{
+			if (AnnotationFonts.contains(item->text()))
 			{
-				FontsToEmbed.append(availableFontsListWidget->item(a)->text());
-				embeddedFontsListWidget->addItem(availableFontsListWidget->item(a)->text());
-				if (AnnotationFonts.contains(availableFontsListWidget->item(a)->text()))
-					embeddedFontsListWidget->item(embeddedFontsListWidget->count()-1)->setFlags(Qt::ItemIsEnabled);
+				embeddedFontsListWidget->addItem(item->text());
+				embeddedFontsListWidget->item(embeddedFontsListWidget->count()-1)->setFlags(Qt::ItemIsEnabled);
 			}
 			else
 			{
-				if (AnnotationFonts.contains(availableFontsListWidget->item(a)->text()))
-				{
-					FontsToEmbed.append(availableFontsListWidget->item(a)->text());
-					embeddedFontsListWidget->addItem(availableFontsListWidget->item(a)->text());
-					embeddedFontsListWidget->item(embeddedFontsListWidget->count()-1)->setFlags(Qt::ItemIsEnabled);
-				}
-				else
-				{
-					FontsToOutline.append(availableFontsListWidget->item(a)->text());
-					outlinedFontsListWidget->addItem(availableFontsListWidget->item(a)->text());
-				}
+				outlinedFontsListWidget->addItem(item->text());
 			}
 		}
 	}
@@ -1139,28 +1140,24 @@ void Prefs_PDFExport::EmbedAll()
 void Prefs_PDFExport::OutlineAll()
 {
 	embeddedFontsListWidget->clear();
-	FontsToEmbed.clear();
 	outlinedFontsListWidget->clear();
-	FontsToOutline.clear();
 	fromEmbedButton->setEnabled(false);
 	toEmbedButton->setEnabled(false);
 	toOutlineButton->setEnabled(false);
 	fromOutlineButton->setEnabled(false);
-	for (int a=0; a < availableFontsListWidget->count(); ++a)
+	for (int a = 0; a < availableFontsListWidget->count(); ++a)
 	{
-		if (availableFontsListWidget->item(a)->flags() & Qt::ItemIsSelectable)
+		QListWidgetItem* item = availableFontsListWidget->item(a);
+		if ((item->flags() & Qt::ItemIsSelectable) == 0)
+			continue;
+		if (AnnotationFonts.contains(item->text()))
 		{
-			if (AnnotationFonts.contains(availableFontsListWidget->item(a)->text()))
-			{
-				FontsToEmbed.append(availableFontsListWidget->item(a)->text());
-				embeddedFontsListWidget->addItem(availableFontsListWidget->item(a)->text());
-				embeddedFontsListWidget->item(embeddedFontsListWidget->count()-1)->setFlags(Qt::ItemIsEnabled);
-			}
-			else
-			{
-				FontsToOutline.append(availableFontsListWidget->item(a)->text());
-				outlinedFontsListWidget->addItem(availableFontsListWidget->item(a)->text());
-			}
+			embeddedFontsListWidget->addItem(item->text());
+			embeddedFontsListWidget->item(embeddedFontsListWidget->count()-1)->setFlags(Qt::ItemIsEnabled);
+		}
+		else
+		{
+			outlinedFontsListWidget->addItem(item->text());
 		}
 	}
 }
@@ -1317,15 +1314,9 @@ void Prefs_PDFExport::PagePr()
 		}
 	}
 	if (ci != -1)
-	{
-		PgSel = ci;
 		effectsPageListWidget->setCurrentRow(ci);
-	}
 	else
-	{
-		PgSel = 0;
 		effectsPageListWidget->clearSelection();
-	}
 	connect(effectsPageListWidget, SIGNAL(itemClicked(QListWidgetItem *)), this, SLOT(SetPgEff()));
 }
 
@@ -1343,7 +1334,6 @@ void Prefs_PDFExport::DoDownsample()
 
 void Prefs_PDFExport::RemoveEmbed()
 {
-	FontsToEmbed.removeAll(embeddedFontsListWidget->currentItem()->text());
 	delete embeddedFontsListWidget->takeItem(embeddedFontsListWidget->currentRow());
 	embeddedFontsListWidget->clearSelection();
 	if (embeddedFontsListWidget->count() == 0)
@@ -1363,15 +1353,15 @@ void Prefs_PDFExport::RemoveEmbed()
 
 void Prefs_PDFExport::PutToEmbed()
 {
+	QString currentFont = availableFontsListWidget->currentItem()->text();
 	if (embeddedFontsListWidget->count() != 0)
 	{
-		if (!AllFonts[availableFontsListWidget->currentItem()->text()].subset())
+		if (!AllFonts[currentFont].subset())
 		{
-			if (embeddedFontsListWidget->findItems(availableFontsListWidget->currentItem()->text(), Qt::MatchExactly).count() == 0)
+			if (embeddedFontsListWidget->findItems(currentFont, Qt::MatchExactly).count() == 0)
 			{
-				FontsToEmbed.append(availableFontsListWidget->currentItem()->text());
-				embeddedFontsListWidget->addItem(availableFontsListWidget->currentItem()->text());
-				if (AnnotationFonts.contains(availableFontsListWidget->currentItem()->text()))
+				embeddedFontsListWidget->addItem(currentFont);
+				if (AnnotationFonts.contains(currentFont))
 					embeddedFontsListWidget->item(embeddedFontsListWidget->count()-1)->setFlags(Qt::ItemIsEnabled);
 			}
 		}
@@ -1379,42 +1369,33 @@ void Prefs_PDFExport::PutToEmbed()
 		{
 			if (outlinedFontsListWidget->count() != 0)
 			{
-				if (outlinedFontsListWidget->findItems(availableFontsListWidget->currentItem()->text(), Qt::MatchExactly).count() == 0)
-				{
-					FontsToOutline.append(availableFontsListWidget->currentItem()->text());
-					outlinedFontsListWidget->addItem(availableFontsListWidget->currentItem()->text());
-				}
+				if (outlinedFontsListWidget->findItems(currentFont, Qt::MatchExactly).count() == 0)
+					outlinedFontsListWidget->addItem(currentFont);
 			}
 			else
 			{
-				FontsToOutline.append(availableFontsListWidget->currentItem()->text());
-				outlinedFontsListWidget->addItem(availableFontsListWidget->currentItem()->text());
+				outlinedFontsListWidget->addItem(currentFont);
 			}
 		}
 	}
 	else
 	{
-		if ((AllFonts[availableFontsListWidget->currentItem()->text()].type() != ScFace::OTF) && (!AllFonts[availableFontsListWidget->currentItem()->text()].subset()))
+		if ((AllFonts[currentFont].type() != ScFace::OTF) && (!AllFonts[currentFont].subset()))
 		{
-			FontsToEmbed.append(availableFontsListWidget->currentItem()->text());
-			embeddedFontsListWidget->addItem(availableFontsListWidget->currentItem()->text());
-			if (AnnotationFonts.contains(availableFontsListWidget->currentItem()->text()))
+			embeddedFontsListWidget->addItem(currentFont);
+			if (AnnotationFonts.contains(currentFont))
 				embeddedFontsListWidget->item(embeddedFontsListWidget->count()-1)->setFlags(Qt::ItemIsEnabled);
 		}
 		else
 		{
 			if (outlinedFontsListWidget->count() != 0)
 			{
-				if (outlinedFontsListWidget->findItems(availableFontsListWidget->currentItem()->text(), Qt::MatchExactly).count() == 0)
-				{
-					FontsToOutline.append(availableFontsListWidget->currentItem()->text());
-					outlinedFontsListWidget->addItem(availableFontsListWidget->currentItem()->text());
-				}
+				if (outlinedFontsListWidget->findItems(currentFont, Qt::MatchExactly).count() == 0)
+					outlinedFontsListWidget->addItem(currentFont);
 			}
 			else
 			{
-				FontsToOutline.append(availableFontsListWidget->currentItem()->text());
-				outlinedFontsListWidget->addItem(availableFontsListWidget->currentItem()->text());
+				outlinedFontsListWidget->addItem(currentFont);
 			}
 		}
 	}
@@ -1422,12 +1403,9 @@ void Prefs_PDFExport::PutToEmbed()
 
 void Prefs_PDFExport::RemoveOutline()
 {
-	FontsToOutline.removeAll(outlinedFontsListWidget->currentItem()->text());
-	if ((AllFonts[outlinedFontsListWidget->currentItem()->text()].type() != ScFace::OTF) && (!AllFonts[outlinedFontsListWidget->currentItem()->text()].subset()))
-	{
-		FontsToEmbed.append(outlinedFontsListWidget->currentItem()->text());
-		embeddedFontsListWidget->addItem(outlinedFontsListWidget->currentItem()->text());
-	}
+	QString currentFont = outlinedFontsListWidget->currentItem()->text();
+	if ((AllFonts[currentFont].type() != ScFace::OTF) && (!AllFonts[currentFont].subset()))
+		embeddedFontsListWidget->addItem(currentFont);
 	delete outlinedFontsListWidget->takeItem(outlinedFontsListWidget->currentRow());
 	outlinedFontsListWidget->clearSelection();
 	if (outlinedFontsListWidget->count() == 0)
@@ -1436,20 +1414,16 @@ void Prefs_PDFExport::RemoveOutline()
 
 void Prefs_PDFExport::PutToOutline()
 {
+	QString currentFont = embeddedFontsListWidget->currentItem()->text();
 	if (outlinedFontsListWidget->count() != 0)
 	{
-		if (outlinedFontsListWidget->findItems(embeddedFontsListWidget->currentItem()->text(), Qt::MatchExactly).count() == 0)
-		{
-			FontsToOutline.append(embeddedFontsListWidget->currentItem()->text());
-			outlinedFontsListWidget->addItem(embeddedFontsListWidget->currentItem()->text());
-		}
+		if (outlinedFontsListWidget->findItems(currentFont, Qt::MatchExactly).count() == 0)
+			outlinedFontsListWidget->addItem(currentFont);
 	}
 	else
 	{
-		FontsToOutline.append(embeddedFontsListWidget->currentItem()->text());
-		outlinedFontsListWidget->addItem(embeddedFontsListWidget->currentItem()->text());
+		outlinedFontsListWidget->addItem(currentFont);
 	}
-	FontsToEmbed.removeAll(embeddedFontsListWidget->currentItem()->text());
 	delete embeddedFontsListWidget->takeItem(embeddedFontsListWidget->currentRow());
 	embeddedFontsListWidget->clearSelection();
 	if (embeddedFontsListWidget->count() == 0)

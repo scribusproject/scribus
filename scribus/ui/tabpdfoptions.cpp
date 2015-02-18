@@ -51,8 +51,7 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,
                                 const SCFonts &AllFonts,
                                 const ProfilesL & PDFXProfiles,
 								const QMap<QString, int> & DocFonts,
-                                int unitIndex, double PageH, double PageB,
-                                ScribusDoc * mdoc, bool exporting )
+                                int unitIndex, ScribusDoc * mdoc )
 	: QTabWidget( parent ),
 	// Initialize all those darn pointer members so we catch unitialized
 	// accesses. I (CR) use the following command to generate these based on
@@ -109,8 +108,6 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,
 	ValC(0),
 	// Protected members other than GUI member pointers
 	// End GUI member pointers
-	// Protected non-gui members
-	PgSel(0),
 	// Protected GUI member pointers
 	actionCombo(0),
 	AllPages(0),
@@ -235,9 +232,7 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,
 	// end protected member gui pointers
 	// Private members
 	unit(unitGetSuffixFromIndex(unitIndex)),
-	precision(unitGetPrecisionFromIndex(unitIndex)),
 	unitRatio(unitGetRatioFromIndex(unitIndex)),
-	pdfExport(exporting),
 	m_Doc(mdoc),
 	AllFonts(AllFonts),
 	Opts(Optionen),
@@ -398,7 +393,7 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,
 	CBoxLayout->addWidget( ValC, 2, 1, Qt::AlignLeft );
 	tabLayout->addWidget( CBox );
 	addTab(tabGeneral, tr( "&General" ));
-	if (m_Doc != 0 && exporting)
+	if (m_Doc != 0)
 	{
 		tabFonts = new QWidget( this );
 		tabLayout_3 = new QVBoxLayout( tabFonts );
@@ -892,9 +887,9 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,
 	BleedLeft->setMinimum(0);
 	BleedLeft->setMaximum(3000*unitRatio);
 
-	restoreDefaults(Optionen, AllFonts, PDFXProfiles, DocFonts, unitIndex, PageH, PageB, m_Doc, pdfExport);
+	restoreDefaults(Optionen, AllFonts, PDFXProfiles, DocFonts, unitIndex, m_Doc);
 
-	if (m_Doc != 0 && exporting)
+	if (m_Doc != 0)
 	{
 		connect(EmbedFonts, SIGNAL(clicked()), this, SLOT(EmbedAll()));
 		connect(AvailFlist, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(SelAFont(QListWidgetItem*)));
@@ -906,7 +901,7 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,
 		connect(ToOutline, SIGNAL(clicked()), this, SLOT(PutToOutline()));
 		connect(FromOutline, SIGNAL(clicked()), this, SLOT(RemoveOutline()));
 		connect(PagePrev, SIGNAL(clicked()), this, SLOT(PagePr()));
-		connect(Pages, SIGNAL(itemClicked(QListWidgetItem *)), this, SLOT(SetPgEff()));
+		connect(Pages, SIGNAL(currentItemChanged(QListWidgetItem*, QListWidgetItem*)), this, SLOT(SetPgEff(QListWidgetItem*, QListWidgetItem*)));
 		connect(EffectType, SIGNAL(activated(int)), this, SLOT(SetEffOpts(int)));
 		connect(EDirection_2_2, SIGNAL(activated(int)), this, SLOT(ValidDI(int)));
 		connect(CheckBox10, SIGNAL(clicked()), this, SLOT(DoEffects()));
@@ -1014,17 +1009,32 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,
 	InfoString->setToolTip( "<qt>" + tr( "Mandatory string for PDF/X or the PDF will fail PDF/X conformance. We recommend you use the title of the document." ) + "</qt>" );
 }
 
+QStringList TabPDFOptions::fontsToEmbed()
+{
+	QStringList fonts;
+	for (int i = 0; i < EmbedList->count(); ++i)
+		fonts.append(EmbedList->item(i)->text());
+	return fonts;
+}
+
+QStringList TabPDFOptions::fontsToOutline()
+{
+	QStringList fonts;
+	for (int i = 0; i < OutlineList->count(); ++i)
+		fonts.append(OutlineList->item(i)->text());
+	return fonts;
+}
+
 void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 									const SCFonts &AllFonts,
 									const ProfilesL & PDFXProfiles,
 									const QMap<QString, int> & DocFonts,
-									int unitIndex, double PageH, double PageB,
-									ScribusDoc * mdoc, bool exporting)
+									int unitIndex, ScribusDoc * mdoc)
 {
 	AllPages->setChecked( true );
 	PageNr->setEnabled(false);
 	pageNrButton->setEnabled(false);
-	if (mdoc != 0 && exporting)
+	if (mdoc != 0)
 	{
 		AllPages->setChecked(Opts.pageRangeSelection == 0);
 		OnlySome->setChecked(Opts.pageRangeSelection != 0);
@@ -1076,7 +1086,7 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 	DSColor->setChecked(Opts.RecalcPic);
 	ValC->setValue(Opts.PicRes);
 	ValC->setEnabled(DSColor->isChecked() ? true : false);
-	if (mdoc != 0 && exporting)
+	if (mdoc != 0)
 	{
 //	Build a list of all Fonts used in Annotations;
 		PageItem *pgit;
@@ -1163,36 +1173,28 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 		else
 		{
 			EmbedList->clear();
-			FontsToEmbed.clear();
 			for (int fe = 0; fe < Opts.EmbedList.count(); ++fe)
-			{
 				EmbedList->addItem(Opts.EmbedList[fe]);
-				FontsToEmbed.append(Opts.EmbedList[fe]);
-			}
 			if (Opts.SubsetList.count() != 0)
 			{
 				OutlineList->clear();
-				FontsToOutline.clear();
 				for (int fe = 0; fe < Opts.SubsetList.count(); ++fe)
-				{
 					OutlineList->addItem(Opts.SubsetList[fe]);
-					FontsToOutline.append(Opts.SubsetList[fe]);
-				}
 			}
 			QMap<QString, QString>::Iterator itAnn;
 			for (itAnn = AnnotationFonts.begin(); itAnn != AnnotationFonts.end(); ++itAnn)
 			{
-				if (FontsToEmbed.contains(itAnn.key()) == 0)
+				QList<QListWidgetItem *> itEmbed = EmbedList->findItems(itAnn.key(), Qt::MatchExactly);
+				if (itEmbed.count() == 0)
 				{
 					EmbedList->addItem(itAnn.key());
 					EmbedList->item(EmbedList->count()-1)->setFlags(Qt::ItemIsEnabled);
-					FontsToEmbed.append(itAnn.key());
 				}
-				if (FontsToOutline.contains(itAnn.key()) != 0)
+				QList<QListWidgetItem *> itOutline = OutlineList->findItems(itAnn.key(), Qt::MatchExactly);
+				for (int itOut = 0; itOut < itOutline.count(); ++itOut)
 				{
-					FontsToOutline.removeAll(itAnn.key());
-					QList<QListWidgetItem *> itR = OutlineList->findItems(itAnn.key(), Qt::MatchExactly);
-					delete OutlineList->takeItem(OutlineList->row(itR.at(0)));
+					QListWidgetItem* item = itOutline[itOut];
+					delete OutlineList->takeItem(OutlineList->row(item));
 				}
 			}
 		}
@@ -1289,7 +1291,7 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 	QString tp = Opts.SolidProf;
 	if (!ScCore->InputProfiles.contains(tp))
 	{
-		if (mdoc != 0 && exporting)
+		if (mdoc != 0)
 			tp = mdoc->cmsSettings().DefaultSolidColorRGBProfile;
 		else
 			tp = PrefsManager::instance()->appPrefs.colorPrefs.DCMSset.DefaultSolidColorRGBProfile;
@@ -1311,7 +1313,7 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 	QString tp1 = Opts.ImageProf;
 	if (!ScCore->InputProfiles.contains(tp1))
 	{
-		if (mdoc != 0 && exporting)
+		if (mdoc != 0)
 			tp1 = mdoc->cmsSettings().DefaultSolidColorRGBProfile;
 		else
 			tp1 = PrefsManager::instance()->appPrefs.colorPrefs.DCMSset.DefaultSolidColorRGBProfile;
@@ -1340,7 +1342,7 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 	QString tp3 = Opts.PrintProf;
 	if (!PDFXProfiles.contains(tp3))
 	{
-		if (mdoc != 0 && exporting)
+		if (mdoc != 0)
 			tp3 = mdoc->cmsSettings().DefaultPrinterProfile;
 		else
 			tp3 = PrefsManager::instance()->appPrefs.colorPrefs.DCMSset.DefaultPrinterProfile;
@@ -1356,7 +1358,7 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 		InfoString->setText(Opts.Info);
 	else
 	{
-		if (mdoc != 0 && exporting)
+		if (mdoc != 0)
 		{
 			QFileInfo fi(mdoc->DocName);
 			InfoString->setText(fi.fileName());
@@ -1368,7 +1370,7 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 	BleedBottom->setValue(Opts.bleeds.Bottom*unitRatio);
 	BleedRight->setValue(Opts.bleeds.Right*unitRatio);
 	BleedLeft->setValue(Opts.bleeds.Left*unitRatio);
-	if (mdoc != 0 && exporting)
+	if (mdoc != 0)
 	{
 		docBleeds->setChecked(Opts.useDocBleeds);
 		doDocBleeds();
@@ -1390,7 +1392,7 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 		EnablePDFX(5);
 	else
 		X3Group->setEnabled(false);
-	if (mdoc != 0  && exporting)
+	if (mdoc != 0)
 	{
 		EffectType->clear();
 		EffectType->addItem( tr("No Effect"));
@@ -1407,7 +1409,6 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 			EffectType->addItem( tr("Uncover"));
 			EffectType->addItem( tr("Fade"));
 		}
-		PgSel = 0;
 		Pages->setCurrentRow(0);
 		SetEffOpts(0);
 		Pages->setEnabled(false);
@@ -1608,7 +1609,7 @@ void TabPDFOptions::EnablePDFX(int a)
 	useLayers->setEnabled((a == 2) || (a == 5));
 	if (useLayers2)
 		useLayers2->setEnabled((a == 2) || (a == 5));
-	if (m_Doc != 0 && pdfExport)
+	if (m_Doc != 0)
 	{
 		int currentEff = EffectType->currentIndex();
 		disconnect(EffectType, SIGNAL(activated(int)), this, SLOT(SetEffOpts(int)));
@@ -1654,7 +1655,7 @@ void TabPDFOptions::EnablePDFX(int a)
 		EmbedProfs->setEnabled(true);
 		EmbedProfs2->setEnabled(true);
 		emit hasInfo();
-		if (m_Doc != 0 && pdfExport)
+		if (m_Doc != 0)
 		{
 			CheckBox10->setEnabled(true);
 			EmbedFonts->setEnabled(true);
@@ -1683,7 +1684,7 @@ void TabPDFOptions::EnablePDFX(int a)
 		EmbedProfs2->setChecked(true);
 		EmbedProfs2->setEnabled(false);
 	}
-	if (m_Doc != 0 && pdfExport)
+	if (m_Doc != 0)
 	{
 //		EmbedFonts->setChecked(true);
 		EmbedAll();
@@ -1907,25 +1908,29 @@ void TabPDFOptions::ValidDI(int nr)
 		EDirection_2_2->setCurrentIndex(0);
 }
 
-void TabPDFOptions::SetPgEff()
+void TabPDFOptions::SetPgEff(QListWidgetItem* /*current*/, QListWidgetItem* previous)
 {
-	int nr = Pages->currentRow();
-	if (nr < 0)
+	int currentRow = Pages->currentRow();
+	if (currentRow < 0)
 		return;
-	EffVal[PgSel].pageViewDuration = PageTime->value();
-	EffVal[PgSel].pageEffectDuration = EffectTime->value();
-	EffVal[PgSel].effectType = EffectType->currentIndex();
-	EffVal[PgSel].Dm = EDirection->currentIndex();
-	EffVal[PgSel].M = EDirection_2->currentIndex();
-	EffVal[PgSel].Di = EDirection_2_2->currentIndex();
-	SetEffOpts(EffVal[nr].effectType);
-	PageTime->setValue(EffVal[nr].pageViewDuration);
-	EffectTime->setValue(EffVal[nr].pageEffectDuration);
-	EffectType->setCurrentIndex(EffVal[nr].effectType);
-	EDirection->setCurrentIndex(EffVal[nr].Dm);
-	EDirection_2->setCurrentIndex(EffVal[nr].M);
-	EDirection_2_2->setCurrentIndex(EffVal[nr].Di);
-	PgSel = nr;
+
+	int previousRow = 0;
+	if (previous)
+		previousRow = Pages->row(previous);
+
+	EffVal[previousRow].pageViewDuration = PageTime->value();
+	EffVal[previousRow].pageEffectDuration = EffectTime->value();
+	EffVal[previousRow].effectType = EffectType->currentIndex();
+	EffVal[previousRow].Dm = EDirection->currentIndex();
+	EffVal[previousRow].M = EDirection_2->currentIndex();
+	EffVal[previousRow].Di = EDirection_2_2->currentIndex();
+	SetEffOpts(EffVal[currentRow].effectType);
+	PageTime->setValue(EffVal[currentRow].pageViewDuration);
+	EffectTime->setValue(EffVal[currentRow].pageEffectDuration);
+	EffectType->setCurrentIndex(EffVal[currentRow].effectType);
+	EDirection->setCurrentIndex(EffVal[currentRow].Dm);
+	EDirection_2->setCurrentIndex(EffVal[currentRow].M);
+	EDirection_2_2->setCurrentIndex(EffVal[currentRow].Di);
 }
 
 void TabPDFOptions::SetEffOpts(int nr)
@@ -1994,7 +1999,7 @@ void TabPDFOptions::SetEffOpts(int nr)
 
 void TabPDFOptions::PagePr()
 {
-	disconnect(Pages, SIGNAL(itemClicked(QListWidgetItem *)), this, SLOT(SetPgEff()));
+	connect(Pages, SIGNAL(currentItemChanged(QListWidgetItem*, QListWidgetItem*)), this, SLOT(SetPgEff(QListWidgetItem*, QListWidgetItem*)));
 	QString tmp;
 	QPixmap pm;
 	int ci = Pages->currentRow();
@@ -2020,16 +2025,10 @@ void TabPDFOptions::PagePr()
 		}
 	}
 	if (ci != -1)
-	{
-		PgSel = ci;
 		Pages->setCurrentRow(ci);
-	}
 	else
-	{
-		PgSel = 0;
 		Pages->clearSelection();
-	}
-	connect(Pages, SIGNAL(itemClicked(QListWidgetItem *)), this, SLOT(SetPgEff()));
+	connect(Pages, SIGNAL(currentItemChanged(QListWidgetItem*, QListWidgetItem*)), this, SLOT(SetPgEff(QListWidgetItem*, QListWidgetItem*)));
 }
 
 void TabPDFOptions::DoDownsample()
@@ -2048,7 +2047,6 @@ void TabPDFOptions::DoDownsample()
 
 void TabPDFOptions::RemoveEmbed()
 {
-	FontsToEmbed.removeAll(EmbedList->currentItem()->text());
 	delete EmbedList->takeItem(EmbedList->currentRow());
 	EmbedList->clearSelection();
 	if (EmbedList->count() == 0)
@@ -2068,15 +2066,15 @@ void TabPDFOptions::RemoveEmbed()
 
 void TabPDFOptions::PutToEmbed()
 {
+	QString currentFont = AvailFlist->currentItem()->text();
 	if (EmbedList->count() != 0)
 	{
-		if (!AllFonts[AvailFlist->currentItem()->text()].subset())
+		if (!AllFonts[currentFont].subset())
 		{
-			if (EmbedList->findItems(AvailFlist->currentItem()->text(), Qt::MatchExactly).count() == 0)
+			if (EmbedList->findItems(currentFont, Qt::MatchExactly).count() == 0)
 			{
-				FontsToEmbed.append(AvailFlist->currentItem()->text());
-				EmbedList->addItem(AvailFlist->currentItem()->text());
-				if (AnnotationFonts.contains(AvailFlist->currentItem()->text()))
+				EmbedList->addItem(currentFont);
+				if (AnnotationFonts.contains(currentFont))
 					EmbedList->item(EmbedList->count()-1)->setFlags(Qt::ItemIsEnabled);
 			}
 		}
@@ -2084,42 +2082,33 @@ void TabPDFOptions::PutToEmbed()
 		{
 			if (OutlineList->count() != 0)
 			{
-				if (OutlineList->findItems(AvailFlist->currentItem()->text(), Qt::MatchExactly).count() == 0)
-				{
-					FontsToOutline.append(AvailFlist->currentItem()->text());
-					OutlineList->addItem(AvailFlist->currentItem()->text());
-				}
+				if (OutlineList->findItems(currentFont, Qt::MatchExactly).count() == 0)
+					OutlineList->addItem(currentFont);
 			}
 			else
 			{
-				FontsToOutline.append(AvailFlist->currentItem()->text());
-				OutlineList->addItem(AvailFlist->currentItem()->text());
+				OutlineList->addItem(currentFont);
 			}
 		}
 	}
 	else
 	{
-		if ((AllFonts[AvailFlist->currentItem()->text()].type() != ScFace::OTF) && (!AllFonts[AvailFlist->currentItem()->text()].subset()))
+		if ((AllFonts[currentFont].type() != ScFace::OTF) && (!AllFonts[currentFont].subset()))
 		{
-			FontsToEmbed.append(AvailFlist->currentItem()->text());
-			EmbedList->addItem(AvailFlist->currentItem()->text());
-			if (AnnotationFonts.contains(AvailFlist->currentItem()->text()))
+			EmbedList->addItem(currentFont);
+			if (AnnotationFonts.contains(currentFont))
 				EmbedList->item(EmbedList->count()-1)->setFlags(Qt::ItemIsEnabled);
 		}
 		else
 		{
 			if (OutlineList->count() != 0)
 			{
-				if (OutlineList->findItems(AvailFlist->currentItem()->text(), Qt::MatchExactly).count() == 0)
-				{
-					FontsToOutline.append(AvailFlist->currentItem()->text());
-					OutlineList->addItem(AvailFlist->currentItem()->text());
-				}
+				if (OutlineList->findItems(currentFont, Qt::MatchExactly).count() == 0)
+					OutlineList->addItem(currentFont);
 			}
 			else
 			{
-				FontsToOutline.append(AvailFlist->currentItem()->text());
-				OutlineList->addItem(AvailFlist->currentItem()->text());
+				OutlineList->addItem(currentFont);
 			}
 		}
 	}
@@ -2127,11 +2116,10 @@ void TabPDFOptions::PutToEmbed()
 
 void TabPDFOptions::RemoveOutline()
 {
-	FontsToOutline.removeAll(OutlineList->currentItem()->text());
-	if ((AllFonts[OutlineList->currentItem()->text()].type() != ScFace::OTF) && (!AllFonts[OutlineList->currentItem()->text()].subset()))
+	QString currentFont = OutlineList->currentItem()->text();
+	if ((AllFonts[currentFont].type() != ScFace::OTF) && (!AllFonts[currentFont].subset()))
 	{
-		FontsToEmbed.append(OutlineList->currentItem()->text());
-		EmbedList->addItem(OutlineList->currentItem()->text());
+		EmbedList->addItem(currentFont);
 	}
 	delete OutlineList->takeItem(OutlineList->currentRow());
 	OutlineList->clearSelection();
@@ -2141,20 +2129,16 @@ void TabPDFOptions::RemoveOutline()
 
 void TabPDFOptions::PutToOutline()
 {
+	QString currentFont = EmbedList->currentItem()->text();
 	if (OutlineList->count() != 0)
 	{
-		if (OutlineList->findItems(EmbedList->currentItem()->text(), Qt::MatchExactly).count() == 0)
-		{
-			FontsToOutline.append(EmbedList->currentItem()->text());
-			OutlineList->addItem(EmbedList->currentItem()->text());
-		}
+		if (OutlineList->findItems(currentFont, Qt::MatchExactly).count() == 0)
+			OutlineList->addItem(currentFont);
 	}
 	else
 	{
-		FontsToOutline.append(EmbedList->currentItem()->text());
-		OutlineList->addItem(EmbedList->currentItem()->text());
+		OutlineList->addItem(currentFont);
 	}
-	FontsToEmbed.removeAll(EmbedList->currentItem()->text());
 	delete EmbedList->takeItem(EmbedList->currentRow());
 	EmbedList->clearSelection();
 	if (EmbedList->count() == 0)
@@ -2227,37 +2211,32 @@ void TabPDFOptions::SelSFont(QListWidgetItem *c)
 void TabPDFOptions::EmbedAll()
 {
 	EmbedList->clear();
-	FontsToEmbed.clear();
 	OutlineList->clear();
-	FontsToOutline.clear();
 	FromEmbed->setEnabled(false);
 	ToEmbed->setEnabled(false);
 	ToOutline->setEnabled(false);
 	FromOutline->setEnabled(false);
 	for (int a=0; a < AvailFlist->count(); ++a)
 	{
-		if (AvailFlist->item(a)->flags() & Qt::ItemIsSelectable)
+		QListWidgetItem* item = AvailFlist->item(a);
+		if ((item->flags() & Qt::ItemIsSelectable) == 0)
+			continue;
+		if (!AllFonts[item->text()].subset())
 		{
-			if (!AllFonts[AvailFlist->item(a)->text()].subset())
+			EmbedList->addItem(item->text());
+			if (AnnotationFonts.contains(item->text()))
+				EmbedList->item(EmbedList->count()-1)->setFlags(Qt::ItemIsEnabled);
+		}
+		else
+		{
+			if (AnnotationFonts.contains(item->text()))
 			{
-				FontsToEmbed.append(AvailFlist->item(a)->text());
-				EmbedList->addItem(AvailFlist->item(a)->text());
-				if (AnnotationFonts.contains(AvailFlist->item(a)->text()))
-					EmbedList->item(EmbedList->count()-1)->setFlags(Qt::ItemIsEnabled);
+				EmbedList->addItem(item->text());
+				EmbedList->item(EmbedList->count()-1)->setFlags(Qt::ItemIsEnabled);
 			}
 			else
 			{
-				if (AnnotationFonts.contains(AvailFlist->item(a)->text()))
-				{
-					FontsToEmbed.append(AvailFlist->item(a)->text());
-					EmbedList->addItem(AvailFlist->item(a)->text());
-					EmbedList->item(EmbedList->count()-1)->setFlags(Qt::ItemIsEnabled);
-				}
-				else
-				{
-					FontsToOutline.append(AvailFlist->item(a)->text());
-					OutlineList->addItem(AvailFlist->item(a)->text());
-				}
+				OutlineList->addItem(item->text());
 			}
 		}
 	}
@@ -2266,28 +2245,24 @@ void TabPDFOptions::EmbedAll()
 void TabPDFOptions::OutlineAll()
 {
 	EmbedList->clear();
-	FontsToEmbed.clear();
 	OutlineList->clear();
-	FontsToOutline.clear();
 	FromEmbed->setEnabled(false);
 	ToEmbed->setEnabled(false);
 	ToOutline->setEnabled(false);
 	FromOutline->setEnabled(false);
-	for (int a=0; a < AvailFlist->count(); ++a)
+	for (int a = 0; a < AvailFlist->count(); ++a)
 	{
-		if (AvailFlist->item(a)->flags() & Qt::ItemIsSelectable)
+		QListWidgetItem* item = AvailFlist->item(a);
+		if ((item->flags() & Qt::ItemIsSelectable) == 0)
+			continue;
+		if (AnnotationFonts.contains(item->text()))
 		{
-			if (AnnotationFonts.contains(AvailFlist->item(a)->text()))
-			{
-				FontsToEmbed.append(AvailFlist->item(a)->text());
-				EmbedList->addItem(AvailFlist->item(a)->text());
-				EmbedList->item(EmbedList->count()-1)->setFlags(Qt::ItemIsEnabled);
-			}
-			else
-			{
-				FontsToOutline.append(AvailFlist->item(a)->text());
-				OutlineList->addItem(AvailFlist->item(a)->text());
-			}
+			EmbedList->addItem(item->text());
+			EmbedList->item(EmbedList->count()-1)->setFlags(Qt::ItemIsEnabled);
+		}
+		else
+		{
+			OutlineList->addItem(item->text());
 		}
 	}
 }

@@ -23,6 +23,7 @@ for which a new license (GPL+exception) is in place.
 #include <QGroupBox>
 #include <QHBoxLayout>
 #include <QLineEdit>
+#include <QListWidget>
 #include <QMessageBox>
 #include <QPushButton>
 #include <QRadioButton>
@@ -111,8 +112,7 @@ PDFExportDialog::PDFExportDialog( QWidget* parent, const QString & docFileName,
 	PDFExportLayout->addWidget( Name );
 
 	Options = new TabPDFOptions( this, pdfOptions, AllFonts, PDFXProfiles, DocFonts,
-								currView->Doc->unitIndex(), currView->Doc->pageHeight(),
-								currView->Doc->pageWidth(), currView->Doc, true );
+								currView->Doc->unitIndex(), currView->Doc );
 	PDFExportLayout->addWidget( Options );
 	Layout7 = new QHBoxLayout;
 	Layout7->setSpacing( 5 );
@@ -194,13 +194,14 @@ void PDFExportDialog::DoExport()
 		doIt = overwrite(this, fn);
 	if (doIt)
 	{
+		int pageIndex = (Options->Pages->currentRow() >= 0) ? Options->Pages->currentRow() : 0;
 		m_presEffects = Options->EffVal;
-		m_presEffects[Options->PgSel].pageViewDuration = Options->PageTime->value();
-		m_presEffects[Options->PgSel].pageEffectDuration = Options->EffectTime->value();
-		m_presEffects[Options->PgSel].effectType = Options->EffectType->currentIndex();
-		m_presEffects[Options->PgSel].Dm = Options->EDirection->currentIndex();
-		m_presEffects[Options->PgSel].M = Options->EDirection_2->currentIndex();
-		m_presEffects[Options->PgSel].Di = Options->EDirection_2_2->currentIndex();
+		m_presEffects[pageIndex].pageViewDuration = Options->PageTime->value();
+		m_presEffects[pageIndex].pageEffectDuration = Options->EffectTime->value();
+		m_presEffects[pageIndex].effectType = Options->EffectType->currentIndex();
+		m_presEffects[pageIndex].Dm = Options->EDirection->currentIndex();
+		m_presEffects[pageIndex].M = Options->EDirection_2->currentIndex();
+		m_presEffects[pageIndex].Di = Options->EDirection_2_2->currentIndex();
 		m_opts.LPISettings[Options->SelLPIcolor].Frequency = Options->LPIfreq->value();
 		m_opts.LPISettings[Options->SelLPIcolor].Angle = Options->LPIangle->value();
 		m_opts.LPISettings[Options->SelLPIcolor].SpotFunc = Options->LPIfunc->currentIndex();
@@ -239,8 +240,8 @@ void PDFExportDialog::updateDocOptions()
 	m_opts.CompressMethod = (PDFOptions::PDFCompression) Options->CMethod->currentIndex();
 	m_opts.Quality = Options->CQuality->currentIndex();
 	m_opts.Resolution = Options->Resolution->value();
-	m_opts.EmbedList = Options->FontsToEmbed;
-	m_opts.SubsetList = Options->FontsToOutline;
+	m_opts.EmbedList = Options->fontsToEmbed();
+	m_opts.SubsetList = Options->fontsToOutline();
 	m_opts.RecalcPic = Options->DSColor->isChecked();
 	m_opts.PicRes = Options->ValC->value();
 	m_opts.embedPDF = Options->EmbedPDF->isChecked();

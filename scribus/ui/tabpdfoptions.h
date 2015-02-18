@@ -42,20 +42,21 @@ public:
 					const SCFonts &AllFonts,
 					const ProfilesL & PDFXProfiles,
 					const QMap<QString, int> & DocFonts,
-					int unitIndex, double PageH, double PageB,
-					ScribusDoc *mdoc = 0, bool exporting = false);
+					int unitIndex, ScribusDoc *mdoc);
 	~TabPDFOptions() {};
 
 	void restoreDefaults(PDFOptions & Optionen,
 						 const SCFonts &AllFonts,
 						 const ProfilesL & PDFXProfiles,
 						 const QMap<QString, int> & DocFonts,
-						 int unitIndex, double PageH, double PageB,
-						 ScribusDoc *mdoc, bool exporting);
+						 int unitIndex, ScribusDoc *mdoc);
 
 	void storeValues(PDFOptions& options);
 
 	void unitChange(QString unit, int docUnitIndex, double invUnitConversion);
+
+	QStringList fontsToEmbed();
+	QStringList fontsToOutline();
 
 	// GUI member pointers
 	// Remember to initialize these in the initializer list of the ctor when
@@ -130,7 +131,7 @@ public slots:
 	void EmbedAll();
 	void OutlineAll();
 	void PagePr();
-	void SetPgEff();
+	void SetPgEff(QListWidgetItem* current, QListWidgetItem* previous);
 	void SetEffOpts(int nr);
 	void ValidDI(int nr);
 	void PDFMirror();
@@ -159,11 +160,8 @@ protected:
 	// widget access in this class, it might be able to privately inheirit and
 	// be added to a very thin dialog class instead.
 	friend class PDFExportDialog;
-	int PgSel;
 	QList<PDFPresentationData> EffVal;
 	QString SelLPIcolor;
-	QList<QString> FontsToEmbed;
-	QList<QString> FontsToOutline;
 
 	// PDFExportDialog needs access to these GUI members
 	// but they don't need to be exposed to the rest of Scribus.
@@ -313,9 +311,7 @@ private:
 
 	// Non-GUI protected members
 	QString unit;
-	int precision;
 	double unitRatio;
-	bool pdfExport;
 	ScribusDoc* const m_Doc;
 	const SCFonts & AllFonts;
 	PDFOptions & Opts;
