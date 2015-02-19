@@ -586,10 +586,8 @@ SET(SCRIBUS_SOURCES
 	filewatcher.cpp
 	ui/fontcombo.cpp
 	fontlistmodel.cpp
-	fparser.cpp
 	fpoint.cpp
 	fpointarray.cpp
-	fpoptimizer.cpp
 	gtaction.cpp
 	gtfont.cpp
 	gtframestyle.cpp
@@ -721,6 +719,8 @@ SET(SCRIBUS_SOURCES
 	tablecell.cpp
 	tableutils.cpp
 	textwriter.cpp
+	third_party/fparser/fpoptimizer.cpp
+	third_party/fparser/fparser.cpp
 	tocgenerator.cpp
 	transaction.cpp
 	undogui.cpp
