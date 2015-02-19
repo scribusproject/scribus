@@ -2610,8 +2610,8 @@ QImage ScribusView::MPageToPixmap(QString name, int maxGr, bool drawFrame)
 	ScLayer layer;
 	layer.isViewable = false;
 	int Nr = Doc->MasterNames[name];
-	int clipx = static_cast<int>(Doc->scratch()->Left);
-	int clipy = static_cast<int>(Doc->scratch()->Top);
+	int clipx = static_cast<int>(Doc->scratch()->left());
+	int clipy = static_cast<int>(Doc->scratch()->top());
 	int clipw = qRound(Doc->MasterPages.at(Nr)->width());
 	int cliph = qRound(Doc->MasterPages.at(Nr)->height());
 	if ((clipw > 0) && (cliph > 0))

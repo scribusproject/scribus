@@ -216,10 +216,10 @@ PyObject *scribus_pagenmargins(PyObject* /* self */, PyObject* args)
 		return NULL;
 	}
 	PyObject *margins = NULL;
-	margins = Py_BuildValue("ffff", PointToValue(ScCore->primaryMainWindow()->doc->Pages->at(e)->Margins.Top),
-									PointToValue(ScCore->primaryMainWindow()->doc->Pages->at(e)->Margins.Left),
-									PointToValue(ScCore->primaryMainWindow()->doc->Pages->at(e)->Margins.Right),
-									PointToValue(ScCore->primaryMainWindow()->doc->Pages->at(e)->Margins.Bottom));
+	margins = Py_BuildValue("ffff", PointToValue(ScCore->primaryMainWindow()->doc->Pages->at(e)->Margins.top()),
+									PointToValue(ScCore->primaryMainWindow()->doc->Pages->at(e)->Margins.left()),
+									PointToValue(ScCore->primaryMainWindow()->doc->Pages->at(e)->Margins.right()),
+									PointToValue(ScCore->primaryMainWindow()->doc->Pages->at(e)->Margins.bottom()));
 	return margins;
 }
 
@@ -362,10 +362,10 @@ PyObject *scribus_getpagemargins(PyObject* /* self */)
 	PyObject *margins = NULL;
 	if(!checkHaveDocument())
 		return NULL;
-	margins = Py_BuildValue("ffff", PointToValue(ScCore->primaryMainWindow()->doc->margins()->Top),
-									PointToValue(ScCore->primaryMainWindow()->doc->margins()->Left),
-									PointToValue(ScCore->primaryMainWindow()->doc->margins()->Right),
-									PointToValue(ScCore->primaryMainWindow()->doc->margins()->Bottom));
+	margins = Py_BuildValue("ffff", PointToValue(ScCore->primaryMainWindow()->doc->margins()->top()),
+									PointToValue(ScCore->primaryMainWindow()->doc->margins()->left()),
+									PointToValue(ScCore->primaryMainWindow()->doc->margins()->right()),
+									PointToValue(ScCore->primaryMainWindow()->doc->margins()->bottom()));
 	return margins;
 }
 

@@ -3662,10 +3662,7 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 			addedPage->setInitialWidth(docPage->width());
 			addedPage->setHeight(docPage->height());
 			addedPage->setWidth(docPage->width());
-			addedPage->initialMargins.Top = docPage->initialMargins.Top;
-			addedPage->initialMargins.Bottom = docPage->initialMargins.Bottom;
-			addedPage->initialMargins.Left = docPage->initialMargins.Left;
-			addedPage->initialMargins.Right = docPage->initialMargins.Right;
+			addedPage->initialMargins = docPage->initialMargins;
 			addedPage->LeftPg = docPage->LeftPg;
 			addedPage->setOrientation(docPage->orientation());
 		}
@@ -6768,10 +6765,7 @@ bool ScribusMainWindow::DoSaveAsEps(QString fn, QString& error)
 	options.colorMarks = false;
 	options.markLength = 20.0;
 	options.markOffset = 0.0;
-	options.bleeds.Top = 0.0;
-	options.bleeds.Left = 0.0;
-	options.bleeds.Right = 0.0;
-	options.bleeds.Bottom = 0.0;
+	options.bleeds.set(0, 0, 0, 0);
 	PSLib *dd = new PSLib(options, false, prefsManager->appPrefs.fontPrefs.AvailFonts, ReallyUsed, usedColors, false, true);
 	if (dd != NULL)
 	{

@@ -18,27 +18,52 @@ for which a new license (GPL+exception) is in place.
 #define MARGINS_H
 
 #include <QDebug>
+#include <QMarginsF>
 
 /** \brief Pagemargins and bleeds*/
 class MarginStruct
 {
 	public:
-		MarginStruct() : Top(0), Left(0), Bottom(0), Right(0) {}
+		MarginStruct() : m_top(0), m_left(0), m_bottom(0), m_right(0) {}
 		MarginStruct(double top, double left, double bottom, double right) :
-			Top(top), Left(left), Bottom(bottom), Right(right) {}
-		MarginStruct(const MarginStruct& rhs) {Top=rhs.Top;Bottom=rhs.Bottom;Left=rhs.Left;Right=rhs.Right;}
-		void set(double top, double left, double bottom, double right) {Top=top;Bottom=bottom;Left=left;Right=right;}
-		void resetToZero() {Top=0.0;Bottom=0.0;Left=0.0;Right=0.0;}
-		bool hasNonZeroValue() const { return Top!=0.0 || Bottom!=0.0 || Left!=0.0 || Right!=0.0;}
-		void print() const {qDebug() << Top << Left << Bottom << Right;}
-		double leftMargin() const { return Left; }
-		double topMargin() const { return Top; }
-		double bottomMargin() const { return Bottom; }
-		double rightMargin() const { return Right; }
-		double Top;
-		double Left;
-		double Bottom;
-		double Right;
+			m_top(top), m_left(left), m_bottom(bottom), m_right(right) {}
+		MarginStruct(const MarginStruct& rhs) {m_top=rhs.m_top;m_bottom=rhs.m_bottom;m_left=rhs.m_left;m_right=rhs.m_right;}
+		void set(double top, double left, double bottom, double right) {m_top=top;m_bottom=bottom;m_left=left;m_right=right;}
+		void resetToZero() {m_top=0.0;m_bottom=0.0;m_left=0.0;m_right=0.0;}
+		bool isNull() const {return qFuzzyIsNull(m_left) && qFuzzyIsNull(m_top) && qFuzzyIsNull(m_right) && qFuzzyIsNull(m_bottom);}
+		//bool hasNonZeroValue() const { return m_top!=0.0 || m_bottom!=0.0 || m_left!=0.0 || m_right!=0.0;}
+		void print() const {qDebug() << m_top << m_left << m_bottom << m_right;}
+		inline double left() const { return m_left; }
+		inline double top() const { return m_top; }
+		inline double bottom() const { return m_bottom; }
+		inline double right() const { return m_right; }
+
+		inline void setLeft(double aleft) { m_left = aleft; }
+		inline void setTop(double atop) { m_top = atop; }
+		inline void setRight(double aright) { m_right = aright; }
+		inline void setBottom(double abottom) { m_bottom = abottom; }
+
+
+	protected:
+		double m_top;
+		double m_left;
+		double m_bottom;
+		double m_right;
 };
+
+#if QT_VERSION >= 0x050300
+class ScMargins : public QMarginsF
+{
+	public:
+		ScMargins(qreal left, qreal top, qreal right, qreal bottom) : QMarginsF(left, top, right, bottom) {};
+		void set(qreal left, qreal top, qreal right, qreal bottom)
+		{
+			setTop(top);
+			setBottom(bottom);
+			setLeft(left);
+			setRight(right);
+		}
+};
+#endf
 
 #endif // MARGINS_H

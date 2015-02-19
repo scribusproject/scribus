@@ -432,10 +432,7 @@ static PyObject *Printer_print(Printer *self)
 	options.registrationMarks = false;
 	options.colorMarks = false;
 	options.markOffset = 0.0;
-	options.bleeds.Top    = 0.0;
-	options.bleeds.Left   = 0.0;
-	options.bleeds.Right  = 0.0;
-	options.bleeds.Bottom = 0.0;
+	options.bleeds.set(0, 0, 0, 0);
 	if (!PrinterUtil::checkPrintEngineSupport(options.printer, options.prnEngine, options.toFile))
 		options.prnEngine = PrinterUtil::getDefaultPrintEngine(options.printer, options.toFile);
 	printcomm = QString(PyString_AsString(self->cmd));

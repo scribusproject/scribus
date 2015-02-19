@@ -115,7 +115,7 @@ void NewMarginWidget::setTop()
 		updateMarginSpinValues();
 	}
 	else
-		marginData.Top = newVal;
+		marginData.setTop(newVal);
 	setPreset();
 }
 
@@ -129,7 +129,7 @@ void NewMarginWidget::setBottom()
 		updateMarginSpinValues();
 	}
 	else
-		marginData.Bottom = newVal;
+		marginData.setBottom(newVal);
 	setPreset();
 }
 
@@ -143,7 +143,7 @@ void NewMarginWidget::setLeft()
 		updateMarginSpinValues();
 	}
 	else
-		marginData.Left = newVal;
+		marginData.setLeft(newVal);
 	setPreset();
 }
 
@@ -157,7 +157,7 @@ void NewMarginWidget::setRight()
 		updateMarginSpinValues();
 	}
 	else
-		marginData.Right = newVal;
+		marginData.setRight(newVal);
 	setPreset();
 }
 
@@ -203,7 +203,7 @@ void NewMarginWidget::setPreset()
 	}
 	if (restoringValues || (presetLayoutComboBox->needUpdate() && facingPages))
 	{
-		marginData.set(qMax(0.0, marg.Top), qMax(0.0, marg.Left), qMax(0.0, marg.Bottom), qMax(0.0, marg.Right));
+		marginData.set(qMax(0.0, marg.top()), qMax(0.0, marg.left()), qMax(0.0, marg.bottom()), qMax(0.0, marg.right()));
 		updateMarginSpinValues();
 
 		bottomMarginSpinBox->setMaximum(qMax(0.0, pageHeight * m_unitRatio - topMarginSpinBox->value()));
@@ -246,10 +246,10 @@ void NewMarginWidget::updateMarginSpinValues()
 	bool topBlocked = topMarginSpinBox->blockSignals(true);
 	bool bottomBlocked = bottomMarginSpinBox->blockSignals(true);
 
-	topMarginSpinBox->setValue(marginData.Top * m_unitRatio);
-	rightMarginSpinBox->setValue(marginData.Right * m_unitRatio);
-	bottomMarginSpinBox->setValue(marginData.Bottom * m_unitRatio);
-	leftMarginSpinBox->setValue(marginData.Left * m_unitRatio);
+	topMarginSpinBox->setValue(marginData.top() * m_unitRatio);
+	rightMarginSpinBox->setValue(marginData.right() * m_unitRatio);
+	bottomMarginSpinBox->setValue(marginData.bottom() * m_unitRatio);
+	leftMarginSpinBox->setValue(marginData.left() * m_unitRatio);
 
 	leftMarginSpinBox->blockSignals(leftBlocked);
 	rightMarginSpinBox->blockSignals(rightBlocked);

@@ -1325,10 +1325,10 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 		InfoString->setText(fi.fileName());
 	}
 
-	BleedTop->setValue(Opts.bleeds.Top*unitRatio);
-	BleedBottom->setValue(Opts.bleeds.Bottom*unitRatio);
-	BleedRight->setValue(Opts.bleeds.Right*unitRatio);
-	BleedLeft->setValue(Opts.bleeds.Left*unitRatio);
+	BleedTop->setValue(Opts.bleeds.top()*unitRatio);
+	BleedBottom->setValue(Opts.bleeds.bottom()*unitRatio);
+	BleedRight->setValue(Opts.bleeds.right()*unitRatio);
+	BleedLeft->setValue(Opts.bleeds.left()*unitRatio);
 	docBleeds->setChecked(Opts.useDocBleeds);
 	doDocBleeds();
 
@@ -1422,10 +1422,10 @@ void TabPDFOptions::storeValues(PDFOptions& pdfOptions)
 	pdfOptions.markLength = markLength->value() / unitRatio;
 	pdfOptions.markOffset = markOffset->value() / unitRatio;
 	pdfOptions.useDocBleeds = docBleeds->isChecked();
-	pdfOptions.bleeds.Bottom = BleedBottom->value() / unitRatio;
-	pdfOptions.bleeds.Top = BleedTop->value() / unitRatio;
-	pdfOptions.bleeds.Left = BleedLeft->value() / unitRatio;
-	pdfOptions.bleeds.Right = BleedRight->value() / unitRatio;
+	pdfOptions.bleeds.setBottom(BleedBottom->value() / unitRatio);
+	pdfOptions.bleeds.setTop(BleedTop->value() / unitRatio);
+	pdfOptions.bleeds.setLeft(BleedLeft->value() / unitRatio);
+	pdfOptions.bleeds.setRight(BleedRight->value() / unitRatio);
 	pdfOptions.doClip = ClipMarg->isChecked();
 	if (Encry->isChecked())
 	{
@@ -1495,14 +1495,14 @@ void TabPDFOptions::doDocBleeds()
 {
 	if (docBleeds->isChecked())
 	{
-		Opts.bleeds.Top = BleedTop->value() / unitRatio;
-		Opts.bleeds.Bottom = BleedBottom->value() / unitRatio;
-		Opts.bleeds.Right = BleedRight->value() / unitRatio;
-		Opts.bleeds.Left = BleedLeft->value() / unitRatio;
-		BleedTop->setValue(m_Doc->bleeds()->Top*unitRatio);
-		BleedBottom->setValue(m_Doc->bleeds()->Bottom*unitRatio);
-		BleedRight->setValue(m_Doc->bleeds()->Right*unitRatio);
-		BleedLeft->setValue(m_Doc->bleeds()->Left*unitRatio);
+		Opts.bleeds.setTop(BleedTop->value() / unitRatio);
+		Opts.bleeds.setBottom(BleedBottom->value() / unitRatio);
+		Opts.bleeds.setRight(BleedRight->value() / unitRatio);
+		Opts.bleeds.setLeft(BleedLeft->value() / unitRatio);
+		BleedTop->setValue(m_Doc->bleeds()->top()*unitRatio);
+		BleedBottom->setValue(m_Doc->bleeds()->bottom()*unitRatio);
+		BleedRight->setValue(m_Doc->bleeds()->right()*unitRatio);
+		BleedLeft->setValue(m_Doc->bleeds()->left()*unitRatio);
 		BleedTop->setEnabled(false);
 		BleedBottom->setEnabled(false);
 		BleedRight->setEnabled(false);
@@ -1510,10 +1510,10 @@ void TabPDFOptions::doDocBleeds()
 	}
 	else
 	{
-		BleedTop->setValue(Opts.bleeds.Top*unitRatio);
-		BleedBottom->setValue(Opts.bleeds.Bottom*unitRatio);
-		BleedRight->setValue(Opts.bleeds.Right*unitRatio);
-		BleedLeft->setValue(Opts.bleeds.Left*unitRatio);
+		BleedTop->setValue(Opts.bleeds.top()*unitRatio);
+		BleedBottom->setValue(Opts.bleeds.bottom()*unitRatio);
+		BleedRight->setValue(Opts.bleeds.right()*unitRatio);
+		BleedLeft->setValue(Opts.bleeds.left()*unitRatio);
 		BleedTop->setEnabled(true);
 		BleedBottom->setEnabled(true);
 		BleedRight->setEnabled(true);

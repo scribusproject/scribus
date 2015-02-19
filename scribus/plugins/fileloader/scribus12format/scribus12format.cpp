@@ -777,10 +777,10 @@ bool Scribus12Format::loadFile(const QString & fileName, const FileFormat & /* f
 		else
 			m_Doc->setPageWidth(ScCLocale::toDoubleC(dc.attribute("PAGEWITH")));
 		m_Doc->setPageHeight(ScCLocale::toDoubleC(dc.attribute("PAGEHEIGHT")));
-		m_Doc->margins()->Left=qMax(0.0, ScCLocale::toDoubleC(dc.attribute("BORDERLEFT")));
-		m_Doc->margins()->Right=qMax(0.0, ScCLocale::toDoubleC(dc.attribute("BORDERRIGHT")));
-		m_Doc->margins()->Top=qMax(0.0, ScCLocale::toDoubleC(dc.attribute("BORDERTOP")));
-		m_Doc->margins()->Bottom=qMax(0.0, ScCLocale::toDoubleC(dc.attribute("BORDERBOTTOM")));
+		m_Doc->margins()->setLeft(qMax(0.0, ScCLocale::toDoubleC(dc.attribute("BORDERLEFT"))));
+		m_Doc->margins()->setRight(qMax(0.0, ScCLocale::toDoubleC(dc.attribute("BORDERRIGHT"))));
+		m_Doc->margins()->setTop(qMax(0.0, ScCLocale::toDoubleC(dc.attribute("BORDERTOP"))));
+		m_Doc->margins()->setBottom(qMax(0.0, ScCLocale::toDoubleC(dc.attribute("BORDERBOTTOM"))));
 		m_Doc->setMarginPreset(dc.attribute("PRESET", "0").toInt());
 		m_Doc->setPageOrientation(dc.attribute("ORIENTATION", "0").toInt());
 		m_Doc->setPageSize(dc.attribute("PAGESIZE"));
@@ -1193,10 +1193,10 @@ bool Scribus12Format::loadFile(const QString & fileName, const FileFormat & /* f
 				m_Doc->pdfOptions().ImageProf = pg.attribute("ImageP", "");
 				m_Doc->pdfOptions().PrintProf = pg.attribute("PrintP", "");
 				m_Doc->pdfOptions().Info = pg.attribute("InfoString", "");
-				m_Doc->pdfOptions().bleeds.Top = ScCLocale::toDoubleC(pg.attribute("BTop"), 0.0);
-				m_Doc->pdfOptions().bleeds.Left = ScCLocale::toDoubleC(pg.attribute("BLeft"), 0.0);
-				m_Doc->pdfOptions().bleeds.Right = ScCLocale::toDoubleC(pg.attribute("BRight"), 0.0);
-				m_Doc->pdfOptions().bleeds.Bottom = ScCLocale::toDoubleC(pg.attribute("BBottom"), 0.0);
+				m_Doc->pdfOptions().bleeds.setTop(ScCLocale::toDoubleC(pg.attribute("BTop"), 0.0));
+				m_Doc->pdfOptions().bleeds.setLeft(ScCLocale::toDoubleC(pg.attribute("BLeft"), 0.0));
+				m_Doc->pdfOptions().bleeds.setRight(ScCLocale::toDoubleC(pg.attribute("BRight"), 0.0));
+				m_Doc->pdfOptions().bleeds.setBottom(ScCLocale::toDoubleC(pg.attribute("BBottom"), 0.0));
 				m_Doc->pdfOptions().EmbeddedI = static_cast<bool>(pg.attribute("ImagePr", "0").toInt());
 				m_Doc->pdfOptions().PassOwner = pg.attribute("PassOwner", "");
 				m_Doc->pdfOptions().PassUser = pg.attribute("PassUser", "");

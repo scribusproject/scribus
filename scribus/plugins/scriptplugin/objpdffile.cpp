@@ -618,10 +618,10 @@ static int PDFfile_init(PDFfile *self, PyObject * /*args*/, PyObject * /*kwds*/)
 		PyErr_SetString(PyExc_SystemError, "Can not initialize 'info' attribute");
 		return -1;
 	}
-	self->bleedt = pdfOptions.bleeds.Top * currentDoc->unitRatio(); // double -
-	self->bleedl = pdfOptions.bleeds.Left * currentDoc->unitRatio(); // double -
-	self->bleedr = pdfOptions.bleeds.Right * currentDoc->unitRatio(); // double -
-	self->bleedb = pdfOptions.bleeds.Bottom * currentDoc->unitRatio(); // double -
+	self->bleedt = pdfOptions.bleeds.top() * currentDoc->unitRatio(); // double -
+	self->bleedl = pdfOptions.bleeds.left() * currentDoc->unitRatio(); // double -
+	self->bleedr = pdfOptions.bleeds.right() * currentDoc->unitRatio(); // double -
+	self->bleedb = pdfOptions.bleeds.bottom() * currentDoc->unitRatio(); // double -
 	self->usedocbleeds = pdfOptions.useDocBleeds; // bool
 	self->useLayers = pdfOptions.useLayers; // bool
 	self->embedPDF = pdfOptions.embedPDF; // bool
@@ -1426,13 +1426,13 @@ static PyObject *PDFfile_save(PDFfile *self)
 		pdfOptions.bleeds = ScCore->primaryMainWindow()->doc->bleedsVal();
 	else {
 		self->bleedt = minmaxd(self->bleedt, 0, currentDoc->pageHeight() * currentDoc->unitRatio());
-		pdfOptions.bleeds.Top = self->bleedt / currentDoc->unitRatio();
+		pdfOptions.bleeds.setTop(self->bleedt / currentDoc->unitRatio());
 		self->bleedl = minmaxd(self->bleedl, 0, currentDoc->pageWidth() * currentDoc->unitRatio());
-		pdfOptions.bleeds.Left = self->bleedl / currentDoc->unitRatio();
+		pdfOptions.bleeds.setLeft(self->bleedl / currentDoc->unitRatio());
 		self->bleedr = minmaxd(self->bleedr, 0, currentDoc->pageWidth() * currentDoc->unitRatio());
-		pdfOptions.bleeds.Right = self->bleedr / currentDoc->unitRatio();
+		pdfOptions.bleeds.setRight(self->bleedr / currentDoc->unitRatio());
 		self->bleedb = minmaxd(self->bleedb, 0, currentDoc->pageHeight() * currentDoc->unitRatio());
-		pdfOptions.bleeds.Bottom = self->bleedb / currentDoc->unitRatio();
+		pdfOptions.bleeds.setBottom(self->bleedb / currentDoc->unitRatio());
 	}
 	pdfOptions.useLayers = self->useLayers;
 	pdfOptions.embedPDF = self->embedPDF;

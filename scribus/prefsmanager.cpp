@@ -309,15 +309,9 @@ void PrefsManager::initDefaults()
 	PageSize defaultPageSize(appPrefs.docSetupPrefs.pageSize);
 	appPrefs.docSetupPrefs.pageWidth = defaultPageSize.width();
 	appPrefs.docSetupPrefs.pageHeight = defaultPageSize.height();
-	appPrefs.docSetupPrefs.margins.Top = 40;
-	appPrefs.docSetupPrefs.margins.Bottom = 40;
-	appPrefs.docSetupPrefs.margins.Left = 40;
-	appPrefs.docSetupPrefs.margins.Right = 40;
+	appPrefs.docSetupPrefs.margins.set(40, 40, 40, 40);
 	appPrefs.docSetupPrefs.marginPreset = 0;
-	appPrefs.docSetupPrefs.bleeds.Top = 0;
-	appPrefs.docSetupPrefs.bleeds.Left = 0;
-	appPrefs.docSetupPrefs.bleeds.Right = 0;
-	appPrefs.docSetupPrefs.bleeds.Bottom = 0;
+	appPrefs.docSetupPrefs.bleeds.set(0, 0, 0, 0);
 	appPrefs.hyphPrefs.MinWordLen = 3;
 	appPrefs.hyphPrefs.HyCount = 2;
 	appPrefs.hyphPrefs.Language = "en_GB";
@@ -375,10 +369,10 @@ void PrefsManager::initDefaults()
 	appPrefs.colorPrefs.DCMSset.DefaultIntentColors = Intent_Relative_Colorimetric;
 	appPrefs.colorPrefs.DCMSset.DefaultIntentImages = Intent_Perceptual;
 	appPrefs.fontPrefs.GFontSub.clear();
-	appPrefs.displayPrefs.scratch.Left = 100;
-	appPrefs.displayPrefs.scratch.Right = 100;
-	appPrefs.displayPrefs.scratch.Top = 20;
-	appPrefs.displayPrefs.scratch.Bottom = 20;
+	appPrefs.displayPrefs.scratch.setLeft(100);
+	appPrefs.displayPrefs.scratch.setRight(100);
+	appPrefs.displayPrefs.scratch.setTop(20);
+	appPrefs.displayPrefs.scratch.setBottom(20);
 	appPrefs.displayPrefs.pageGapHorizontal = 0.0;
 	appPrefs.displayPrefs.pageGapVertical = 40.0;
 	struct PageSet pageS;
@@ -456,10 +450,7 @@ void PrefsManager::initDefaults()
 	appPrefs.pdfPrefs.Info = "";
 	appPrefs.pdfPrefs.Intent = 0;
 	appPrefs.pdfPrefs.Intent2 = 0;
-	appPrefs.pdfPrefs.bleeds.Top = 0;
-	appPrefs.pdfPrefs.bleeds.Left = 0;
-	appPrefs.pdfPrefs.bleeds.Right = 0;
-	appPrefs.pdfPrefs.bleeds.Bottom = 0;
+	appPrefs.pdfPrefs.bleeds.set(0, 0, 0, 0);
 	appPrefs.pdfPrefs.useDocBleeds = true;
 	appPrefs.pdfPrefs.cropMarks = false;
 	appPrefs.pdfPrefs.bleedMarks = false;
@@ -1324,19 +1315,19 @@ bool PrefsManager::WritePref(QString ho)
 	deDocumentSetup.setAttribute("PageOrientation",appPrefs.docSetupPrefs.pageOrientation);
 	deDocumentSetup.setAttribute("PageWidth",ScCLocale::toQStringC(appPrefs.docSetupPrefs.pageWidth));
 	deDocumentSetup.setAttribute("PageHeight",ScCLocale::toQStringC(appPrefs.docSetupPrefs.pageHeight));
-	deDocumentSetup.setAttribute("MarginTop",ScCLocale::toQStringC(appPrefs.docSetupPrefs.margins.Top));
-	deDocumentSetup.setAttribute("MarginBottom",ScCLocale::toQStringC(appPrefs.docSetupPrefs.margins.Bottom));
-	deDocumentSetup.setAttribute("MarginLeft",ScCLocale::toQStringC(appPrefs.docSetupPrefs.margins.Left));
-	deDocumentSetup.setAttribute("MarginRight",ScCLocale::toQStringC(appPrefs.docSetupPrefs.margins.Right));
+	deDocumentSetup.setAttribute("MarginTop",ScCLocale::toQStringC(appPrefs.docSetupPrefs.margins.top()));
+	deDocumentSetup.setAttribute("MarginBottom",ScCLocale::toQStringC(appPrefs.docSetupPrefs.margins.bottom()));
+	deDocumentSetup.setAttribute("MarginLeft",ScCLocale::toQStringC(appPrefs.docSetupPrefs.margins.left()));
+	deDocumentSetup.setAttribute("MarginRight",ScCLocale::toQStringC(appPrefs.docSetupPrefs.margins.right()));
 	deDocumentSetup.setAttribute("MarginPreset",appPrefs.docSetupPrefs.marginPreset);
 	deDocumentSetup.setAttribute("PagePositioning", appPrefs.docSetupPrefs.pagePositioning);
 	deDocumentSetup.setAttribute("AutoSave", static_cast<int>(appPrefs.docSetupPrefs.AutoSave));
 	deDocumentSetup.setAttribute("AutoSaveTime", appPrefs.docSetupPrefs.AutoSaveTime);
 	deDocumentSetup.setAttribute("SaveCompressed", static_cast<int>(appPrefs.docSetupPrefs.saveCompressed));
-	deDocumentSetup.setAttribute("BleedTop", ScCLocale::toQStringC(appPrefs.docSetupPrefs.bleeds.Top));
-	deDocumentSetup.setAttribute("BleedLeft", ScCLocale::toQStringC(appPrefs.docSetupPrefs.bleeds.Left));
-	deDocumentSetup.setAttribute("BleedRight", ScCLocale::toQStringC(appPrefs.docSetupPrefs.bleeds.Right));
-	deDocumentSetup.setAttribute("BleedBottom", ScCLocale::toQStringC(appPrefs.docSetupPrefs.bleeds.Bottom));
+	deDocumentSetup.setAttribute("BleedTop", ScCLocale::toQStringC(appPrefs.docSetupPrefs.bleeds.top()));
+	deDocumentSetup.setAttribute("BleedLeft", ScCLocale::toQStringC(appPrefs.docSetupPrefs.bleeds.left()));
+	deDocumentSetup.setAttribute("BleedRight", ScCLocale::toQStringC(appPrefs.docSetupPrefs.bleeds.right()));
+	deDocumentSetup.setAttribute("BleedBottom", ScCLocale::toQStringC(appPrefs.docSetupPrefs.bleeds.bottom()));
 	elem.appendChild(deDocumentSetup);
 
 	QDomElement dePaths=docu.createElement("Paths");
@@ -1397,10 +1388,10 @@ bool PrefsManager::WritePref(QString ho)
 	elem.appendChild(deSE);
 
 	QDomElement deDisplay=docu.createElement("Display");
-	deDisplay.setAttribute("ScratchBottom", ScCLocale::toQStringC(appPrefs.displayPrefs.scratch.Bottom));
-	deDisplay.setAttribute("ScratchLeft", ScCLocale::toQStringC(appPrefs.displayPrefs.scratch.Left));
-	deDisplay.setAttribute("ScratchRight", ScCLocale::toQStringC(appPrefs.displayPrefs.scratch.Right));
-	deDisplay.setAttribute("ScratchTop", ScCLocale::toQStringC(appPrefs.displayPrefs.scratch.Top));
+	deDisplay.setAttribute("ScratchBottom", ScCLocale::toQStringC(appPrefs.displayPrefs.scratch.bottom()));
+	deDisplay.setAttribute("ScratchLeft", ScCLocale::toQStringC(appPrefs.displayPrefs.scratch.left()));
+	deDisplay.setAttribute("ScratchRight", ScCLocale::toQStringC(appPrefs.displayPrefs.scratch.right()));
+	deDisplay.setAttribute("ScratchTop", ScCLocale::toQStringC(appPrefs.displayPrefs.scratch.top()));
 	deDisplay.setAttribute("PageGapHorizontal", ScCLocale::toQStringC(appPrefs.displayPrefs.pageGapHorizontal));
 	deDisplay.setAttribute("PageGapVertical", ScCLocale::toQStringC(appPrefs.displayPrefs.pageGapVertical));
 	deDisplay.setAttribute("ShowPageShadow",static_cast<int>(appPrefs.displayPrefs.showPageShadow));
@@ -1490,10 +1481,10 @@ bool PrefsManager::WritePref(QString ho)
 	dcItemTools.setAttribute("TextColumnCount",appPrefs.itemToolPrefs.textColumns);
 	dcItemTools.setAttribute("TextColumnGap",ScCLocale::toQStringC(appPrefs.itemToolPrefs.textColumnGap));
 	dcItemTools.setAttribute("TextTabWidth",ScCLocale::toQStringC(appPrefs.itemToolPrefs.textTabWidth));
-	dcItemTools.setAttribute("TextDistanceTop",ScCLocale::toQStringC(appPrefs.itemToolPrefs.textDistances.Top));
-	dcItemTools.setAttribute("TextDistanceBottom",ScCLocale::toQStringC(appPrefs.itemToolPrefs.textDistances.Bottom));
-	dcItemTools.setAttribute("TextDistanceLeft",ScCLocale::toQStringC(appPrefs.itemToolPrefs.textDistances.Left));
-	dcItemTools.setAttribute("TextDistanceRight",ScCLocale::toQStringC(appPrefs.itemToolPrefs.textDistances.Right));
+	dcItemTools.setAttribute("TextDistanceTop",ScCLocale::toQStringC(appPrefs.itemToolPrefs.textDistances.top()));
+	dcItemTools.setAttribute("TextDistanceBottom",ScCLocale::toQStringC(appPrefs.itemToolPrefs.textDistances.bottom()));
+	dcItemTools.setAttribute("TextDistanceLeft",ScCLocale::toQStringC(appPrefs.itemToolPrefs.textDistances.left()));
+	dcItemTools.setAttribute("TextDistanceRight",ScCLocale::toQStringC(appPrefs.itemToolPrefs.textDistances.right()));
 	dcItemTools.setAttribute("TabFillCharacter",appPrefs.itemToolPrefs.textTabFillChar);
 	dcItemTools.setAttribute("ShapeLineStyle",appPrefs.itemToolPrefs.shapeLineStyle);
 	dcItemTools.setAttribute("LineStyle",appPrefs.itemToolPrefs.lineStyle);
@@ -1753,10 +1744,10 @@ bool PrefsManager::WritePref(QString ho)
 	pdf.setAttribute("ImageProfile", appPrefs.pdfPrefs.ImageProf);
 	pdf.setAttribute("PrintProfile", appPrefs.pdfPrefs.PrintProf);
 	pdf.setAttribute("InfoString", appPrefs.pdfPrefs.Info);
-	pdf.setAttribute("BleedTop", ScCLocale::toQStringC(appPrefs.pdfPrefs.bleeds.Top));
-	pdf.setAttribute("BleedLeft", ScCLocale::toQStringC(appPrefs.pdfPrefs.bleeds.Left));
-	pdf.setAttribute("BleedRight", ScCLocale::toQStringC(appPrefs.pdfPrefs.bleeds.Right));
-	pdf.setAttribute("BleedBottom", ScCLocale::toQStringC(appPrefs.pdfPrefs.bleeds.Bottom));
+	pdf.setAttribute("BleedTop", ScCLocale::toQStringC(appPrefs.pdfPrefs.bleeds.top()));
+	pdf.setAttribute("BleedLeft", ScCLocale::toQStringC(appPrefs.pdfPrefs.bleeds.left()));
+	pdf.setAttribute("BleedRight", ScCLocale::toQStringC(appPrefs.pdfPrefs.bleeds.right()));
+	pdf.setAttribute("BleedBottom", ScCLocale::toQStringC(appPrefs.pdfPrefs.bleeds.bottom()));
 	pdf.setAttribute("UseDocBleeds", static_cast<int>(appPrefs.pdfPrefs.useDocBleeds));
 	pdf.setAttribute("CropMarks", static_cast<int>(appPrefs.pdfPrefs.cropMarks));
 	pdf.setAttribute("BleedMarks", static_cast<int>(appPrefs.pdfPrefs.bleedMarks));
@@ -1931,19 +1922,19 @@ bool PrefsManager::ReadPref(QString ho)
 			appPrefs.docSetupPrefs.pageOrientation = dc.attribute("PageOrientation", "0").toInt();
 			appPrefs.docSetupPrefs.pageWidth   = ScCLocale::toDoubleC(dc.attribute("PageWidth"), 595.0);
 			appPrefs.docSetupPrefs.pageHeight  = ScCLocale::toDoubleC(dc.attribute("PageHeight"), 842.0);
-			appPrefs.docSetupPrefs.margins.Top = ScCLocale::toDoubleC(dc.attribute("MarginTop"), 9.0);
-			appPrefs.docSetupPrefs.margins.Bottom = ScCLocale::toDoubleC(dc.attribute("MarginBottom"), 40.0);
-			appPrefs.docSetupPrefs.margins.Left   = ScCLocale::toDoubleC(dc.attribute("MarginLeft"), 9.0);
-			appPrefs.docSetupPrefs.margins.Right  = ScCLocale::toDoubleC(dc.attribute("MarginRight"), 9.0);
+			appPrefs.docSetupPrefs.margins.setTop(ScCLocale::toDoubleC(dc.attribute("MarginTop"), 9.0));
+			appPrefs.docSetupPrefs.margins.setBottom(ScCLocale::toDoubleC(dc.attribute("MarginBottom"), 40.0));
+			appPrefs.docSetupPrefs.margins.setLeft(ScCLocale::toDoubleC(dc.attribute("MarginLeft"), 9.0));
+			appPrefs.docSetupPrefs.margins.setRight(ScCLocale::toDoubleC(dc.attribute("MarginRight"), 9.0));
 			appPrefs.docSetupPrefs.marginPreset   = dc.attribute("MarginPreset", "0").toInt();
 			appPrefs.docSetupPrefs.pagePositioning	= dc.attribute("PagePositioning", "0").toInt();
 			appPrefs.docSetupPrefs.AutoSave	  = static_cast<bool>(dc.attribute("AutoSave", "0").toInt());
 			appPrefs.docSetupPrefs.AutoSaveTime  = dc.attribute("AutoSaveTime", "600000").toInt();
 			appPrefs.docSetupPrefs.saveCompressed = static_cast<bool>(dc.attribute("SaveCompressed", "0").toInt());
-			appPrefs.docSetupPrefs.bleeds.Top	= ScCLocale::toDoubleC(dc.attribute("BleedTop"), 0.0);
-			appPrefs.docSetupPrefs.bleeds.Left   = ScCLocale::toDoubleC(dc.attribute("BleedLeft"), 0.0);
-			appPrefs.docSetupPrefs.bleeds.Right  = ScCLocale::toDoubleC(dc.attribute("BleedRight"), 0.0);
-			appPrefs.docSetupPrefs.bleeds.Bottom = ScCLocale::toDoubleC(dc.attribute("BleedBottom"), 0.0);
+			appPrefs.docSetupPrefs.bleeds.setTop(ScCLocale::toDoubleC(dc.attribute("BleedTop"), 0.0));
+			appPrefs.docSetupPrefs.bleeds.setLeft(ScCLocale::toDoubleC(dc.attribute("BleedLeft"), 0.0));
+			appPrefs.docSetupPrefs.bleeds.setRight(ScCLocale::toDoubleC(dc.attribute("BleedRight"), 0.0));
+			appPrefs.docSetupPrefs.bleeds.setBottom(ScCLocale::toDoubleC(dc.attribute("BleedBottom"), 0.0));
 
 		}
 
@@ -1957,10 +1948,10 @@ bool PrefsManager::ReadPref(QString ho)
 
 		if (dc.tagName()=="Display")
 		{
-			appPrefs.displayPrefs.scratch.Bottom = ScCLocale::toDoubleC(dc.attribute("ScratchBottom"), 20.0);
-			appPrefs.displayPrefs.scratch.Left   = ScCLocale::toDoubleC(dc.attribute("ScratchLeft"), 100.0);
-			appPrefs.displayPrefs.scratch.Right  = ScCLocale::toDoubleC(dc.attribute("ScratchRight"), 100.0);
-			appPrefs.displayPrefs.scratch.Top	= ScCLocale::toDoubleC(dc.attribute("ScratchTop"), 20.0);
+			appPrefs.displayPrefs.scratch.setBottom(ScCLocale::toDoubleC(dc.attribute("ScratchBottom"), 20.0));
+			appPrefs.displayPrefs.scratch.setLeft(ScCLocale::toDoubleC(dc.attribute("ScratchLeft"), 100.0));
+			appPrefs.displayPrefs.scratch.setRight(ScCLocale::toDoubleC(dc.attribute("ScratchRight"), 100.0));
+			appPrefs.displayPrefs.scratch.setTop(ScCLocale::toDoubleC(dc.attribute("ScratchTop"), 20.0));
 			appPrefs.displayPrefs.pageGapHorizontal  = ScCLocale::toDoubleC(dc.attribute("PageGapHorizontal"), 0.0);
 			appPrefs.displayPrefs.pageGapVertical	= ScCLocale::toDoubleC(dc.attribute("PageGapVertical"), 40.0);
 			appPrefs.displayPrefs.showPageShadow = static_cast<bool>(dc.attribute("ShowPageShadow", "1").toInt());
@@ -2104,10 +2095,10 @@ bool PrefsManager::ReadPref(QString ho)
 			appPrefs.itemToolPrefs.textColumnGap  = ScCLocale::toDoubleC(dc.attribute("TextColumnGap"), 0.0);
 			appPrefs.itemToolPrefs.textTabFillChar = dc.attribute("TabFillCharacter", "");
 			appPrefs.itemToolPrefs.textTabWidth   = ScCLocale::toDoubleC(dc.attribute("TextTabWidth"), 36.0);
-			appPrefs.itemToolPrefs.textDistances.Top = ScCLocale::toDoubleC(dc.attribute("TextDistanceTop"), 0.0);
-			appPrefs.itemToolPrefs.textDistances.Bottom = ScCLocale::toDoubleC(dc.attribute("TextDistanceBottom"), 0.0);
-			appPrefs.itemToolPrefs.textDistances.Left = ScCLocale::toDoubleC(dc.attribute("TextDistanceLeft"), 0.0);
-			appPrefs.itemToolPrefs.textDistances.Right = ScCLocale::toDoubleC(dc.attribute("TextDistanceRight"), 0.0);
+			appPrefs.itemToolPrefs.textDistances.setTop(ScCLocale::toDoubleC(dc.attribute("TextDistanceTop"), 0.0));
+			appPrefs.itemToolPrefs.textDistances.setBottom(ScCLocale::toDoubleC(dc.attribute("TextDistanceBottom"), 0.0));
+			appPrefs.itemToolPrefs.textDistances.setLeft(ScCLocale::toDoubleC(dc.attribute("TextDistanceLeft"), 0.0));
+			appPrefs.itemToolPrefs.textDistances.setRight(ScCLocale::toDoubleC(dc.attribute("TextDistanceRight"), 0.0));
 			appPrefs.itemToolPrefs.shapeLineStyle = dc.attribute("ShapeLineStyle").toInt();
 			appPrefs.itemToolPrefs.lineStyle = dc.attribute("LineStyle").toInt();
 			appPrefs.itemToolPrefs.shapeLineWidth	 = ScCLocale::toDoubleC(dc.attribute("ShapeLineWidth"), 1.0);
@@ -2493,10 +2484,10 @@ bool PrefsManager::ReadPref(QString ho)
 			appPrefs.pdfPrefs.ImageProf = dc.attribute("ImageProfile", "");
 			appPrefs.pdfPrefs.PrintProf = dc.attribute("PrintProfile", "");
 			appPrefs.pdfPrefs.Info = dc.attribute("InfoString", "");
-			appPrefs.pdfPrefs.bleeds.Top	= ScCLocale::toDoubleC(dc.attribute("BleedTop"), 0.0);
-			appPrefs.pdfPrefs.bleeds.Left   = ScCLocale::toDoubleC(dc.attribute("BleedLeft"), 0.0);
-			appPrefs.pdfPrefs.bleeds.Right  = ScCLocale::toDoubleC(dc.attribute("BleedRight"), 0.0);
-			appPrefs.pdfPrefs.bleeds.Bottom = ScCLocale::toDoubleC(dc.attribute("BleedBottom"), 0.0);
+			appPrefs.pdfPrefs.bleeds.setTop(ScCLocale::toDoubleC(dc.attribute("BleedTop"), 0.0));
+			appPrefs.pdfPrefs.bleeds.setLeft(ScCLocale::toDoubleC(dc.attribute("BleedLeft"), 0.0));
+			appPrefs.pdfPrefs.bleeds.setRight(ScCLocale::toDoubleC(dc.attribute("BleedRight"), 0.0));
+			appPrefs.pdfPrefs.bleeds.setBottom(ScCLocale::toDoubleC(dc.attribute("BleedBottom"), 0.0));
 			appPrefs.pdfPrefs.useDocBleeds = static_cast<bool>(dc.attribute("UseDocBleeds", "1").toInt());
 			appPrefs.pdfPrefs.cropMarks = static_cast<bool>(dc.attribute("CropMarks", "0").toInt());
 			appPrefs.pdfPrefs.bleedMarks = static_cast<bool>(dc.attribute("BleedMarks", "0").toInt());

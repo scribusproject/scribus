@@ -712,10 +712,10 @@ public: // Start public functions
 	void makeImageExternal(QString path);
 
 	//Text Data - Move to PageItem_TextFrame at some point? --- no, to FrameStyle, av
-	double textToFrameDistLeft() const { return m_textDistanceMargins.Left; }
-	double textToFrameDistRight() const { return m_textDistanceMargins.Right; }
-	double textToFrameDistTop() const { return m_textDistanceMargins.Top; }
-	double textToFrameDistBottom() const { return m_textDistanceMargins.Bottom; }
+	double textToFrameDistLeft() const { return m_textDistanceMargins.left(); }
+	double textToFrameDistRight() const { return m_textDistanceMargins.right(); }
+	double textToFrameDistTop() const { return m_textDistanceMargins.top(); }
+	double textToFrameDistBottom() const { return m_textDistanceMargins.bottom(); }
 	int columns() const { return Cols; }
 	double columnGap() const { return ColGap; }
 	double gridOffset() const;

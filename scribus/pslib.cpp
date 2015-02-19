@@ -550,14 +550,14 @@ void PSLib::PS_begin_page(ScPage* pg, MarginStruct* Ma, bool Clipping)
 		markOffs = qMax(markOffs, Options.markOffset + 20.0);
 	GetBleeds(pg, bleedLeft, bleedRight);
 	double maxBoxX = pg->width()+bleedLeft+bleedRight+markOffs*2.0;
-	double maxBoxY = pg->height()+Options.bleeds.Bottom+Options.bleeds.Top+markOffs*2.0;
+	double maxBoxY = pg->height()+Options.bleeds.bottom()+Options.bleeds.top()+markOffs*2.0;
 	Seiten++;
 	PutStream("%%Page: " + IToStr(Seiten) + " " + IToStr(Seiten) + "\n");
 	PutStream("%%PageOrientation: ");
 // when creating EPS files determine the orientation from the bounding box
   	if (!psExport)
 	{
-		if ((pg->width() - Ma->Left - Ma->Right) <= (pg->height() - Ma->Bottom - Ma->Top))
+		if ((pg->width() - Ma->left() - Ma->right()) <= (pg->height() - Ma->bottom() - Ma->top()))
 			PutStream("Portrait\n");
 		else
 			PutStream("Landscape\n");
@@ -568,13 +568,13 @@ void PSLib::PS_begin_page(ScPage* pg, MarginStruct* Ma, bool Clipping)
 		{
 			PutStream("Portrait\n");
 			PutStream("%%PageBoundingBox: 0 0 "+IToStr(qRound(maxBoxX))+" "+IToStr(qRound(maxBoxY))+"\n");
-			PutStream("%%PageCropBox: "+ToStr(bleedLeft+markOffs)+" "+ToStr(Options.bleeds.Bottom+markOffs)+" "+ToStr(maxBoxX-bleedRight-markOffs*2.0)+" "+ToStr(maxBoxY-Options.bleeds.Top-markOffs*2.0)+"\n");
+			PutStream("%%PageCropBox: "+ToStr(bleedLeft+markOffs)+" "+ToStr(Options.bleeds.bottom()+markOffs)+" "+ToStr(maxBoxX-bleedRight-markOffs*2.0)+" "+ToStr(maxBoxY-Options.bleeds.top()-markOffs*2.0)+"\n");
 		}
 		else
 		{
 			PutStream("Landscape\n");
 			PutStream("%%PageBoundingBox: 0 0 "+IToStr(qRound(maxBoxY))+" "+IToStr(qRound(maxBoxX))+"\n");
-			PutStream("%%PageCropBox: "+ToStr(bleedLeft+markOffs)+" "+ToStr(Options.bleeds.Bottom+markOffs)+" "+ToStr(maxBoxY-Options.bleeds.Top-markOffs*2.0)+" "+ToStr(maxBoxX-bleedRight-markOffs*2.0)+"\n");
+			PutStream("%%PageCropBox: "+ToStr(bleedLeft+markOffs)+" "+ToStr(Options.bleeds.bottom()+markOffs)+" "+ToStr(maxBoxY-Options.bleeds.top()-markOffs*2.0)+" "+ToStr(maxBoxX-bleedRight-markOffs*2.0)+"\n");
 		}
 	}
 	PutStream("Scribusdict begin\n");
@@ -587,14 +587,14 @@ void PSLib::PS_begin_page(ScPage* pg, MarginStruct* Ma, bool Clipping)
 	if (pg->orientation() == 1 && psExport)
 		PutStream("90 rotate 0 "+IToStr(qRound(maxBoxY))+" neg translate\n");
   	PutStream("/DeviceCMYK setcolorspace\n");
-	PutStream(ToStr(bleedLeft+markOffs)+" "+ToStr(Options.bleeds.Bottom+markOffs)+" tr\n");
+	PutStream(ToStr(bleedLeft+markOffs)+" "+ToStr(Options.bleeds.bottom()+markOffs)+" tr\n");
 	ActPage = pg;
 	if (Clipping)
 	{
-		PDev = ToStr(Ma->Left) + " " + ToStr(Ma->Bottom) + " m\n";
-		PDev += ToStr(pg->width() - Ma->Right) + " " + ToStr(Ma->Bottom) + " li\n";
-		PDev += ToStr(pg->width() - Ma->Right) + " " + ToStr(pg->height() - Ma->Top) + " li\n";
-		PDev += ToStr(Ma->Left) + " " + ToStr(pg->height() - Ma->Top) + " li cl clip newpath\n";
+		PDev = ToStr(Ma->left()) + " " + ToStr(Ma->bottom()) + " m\n";
+		PDev += ToStr(pg->width() - Ma->right()) + " " + ToStr(Ma->bottom()) + " li\n";
+		PDev += ToStr(pg->width() - Ma->right()) + " " + ToStr(pg->height() - Ma->top()) + " li\n";
+		PDev += ToStr(Ma->left()) + " " + ToStr(pg->height() - Ma->top()) + " li cl clip newpath\n";
 		PutStream(PDev);
 	}
 }
@@ -611,7 +611,7 @@ void PSLib::PS_end_page()
 	double bleedRight, bleedLeft;
 	GetBleeds(ActPage, bleedLeft, bleedRight);
 	double maxBoxX = ActPage->width()+bleedLeft+bleedRight+markOffs*2.0;
-	double maxBoxY = ActPage->height()+Options.bleeds.Bottom+Options.bleeds.Top+markOffs*2.0;
+	double maxBoxY = ActPage->height()+Options.bleeds.bottom()+Options.bleeds.top()+markOffs*2.0;
 	PutStream("gs\n");
 	if(ActPage->orientation() == 1 && psExport)
 		PutStream("90 rotate 0 "+IToStr(qRound(maxBoxY))+" neg translate\n");
@@ -626,29 +626,29 @@ void PSLib::PS_end_page()
 		if (Options.cropMarks)
 		{
 		// Bottom Left
-			PutStream(ToStr(markDelta)+" "+ToStr(markOffs+Options.bleeds.Bottom)+" m\n");
-			PutStream(ToStr(markDelta+Options.markLength)+" "+ToStr(markOffs+Options.bleeds.Bottom)+" li\n");
+			PutStream(ToStr(markDelta)+" "+ToStr(markOffs+Options.bleeds.bottom())+" m\n");
+			PutStream(ToStr(markDelta+Options.markLength)+" "+ToStr(markOffs+Options.bleeds.bottom())+" li\n");
 			PutStream("st\n");
 			PutStream(ToStr(markOffs+bleedLeft)+" "+ToStr(markDelta)+" m\n");
 			PutStream(ToStr(markOffs+bleedLeft)+" "+ToStr(markDelta+Options.markLength)+" li\n");
 			PutStream("st\n");
 		// Top Left
-			PutStream(ToStr(markDelta)+" "+ToStr(maxBoxY-Options.bleeds.Top-markOffs)+" m\n");
-			PutStream(ToStr(markDelta+Options.markLength)+" "+ToStr(maxBoxY-Options.bleeds.Top-markOffs)+" li\n");
+			PutStream(ToStr(markDelta)+" "+ToStr(maxBoxY-Options.bleeds.top()-markOffs)+" m\n");
+			PutStream(ToStr(markDelta+Options.markLength)+" "+ToStr(maxBoxY-Options.bleeds.top()-markOffs)+" li\n");
 			PutStream("st\n");
 			PutStream(ToStr(markOffs+bleedLeft)+" "+ToStr(maxBoxY-markDelta)+" m\n");
 			PutStream(ToStr(markOffs+bleedLeft)+" "+ToStr(maxBoxY-markDelta-Options.markLength) +" li\n");
 			PutStream("st\n");
 		// Bottom Right
-			PutStream(ToStr(maxBoxX-markDelta)+" "+ToStr(markOffs+Options.bleeds.Bottom)+" m\n");
-			PutStream(ToStr(maxBoxX-markDelta-Options.markLength)+" "+ToStr(markOffs+Options.bleeds.Bottom)+" li\n");
+			PutStream(ToStr(maxBoxX-markDelta)+" "+ToStr(markOffs+Options.bleeds.bottom())+" m\n");
+			PutStream(ToStr(maxBoxX-markDelta-Options.markLength)+" "+ToStr(markOffs+Options.bleeds.bottom())+" li\n");
 			PutStream("st\n");
 			PutStream(ToStr(maxBoxX-bleedRight-markOffs)+" "+ ToStr(markDelta)+" m\n");
 			PutStream(ToStr(maxBoxX-bleedRight-markOffs)+" "+ ToStr(markDelta+Options.markLength) +" li\n");
 			PutStream("st\n");
 		// Top Right
-			PutStream(ToStr(maxBoxX-markDelta)+" "+ToStr(maxBoxY-Options.bleeds.Top-markOffs)+" m\n");
-			PutStream(ToStr(maxBoxX-markDelta-Options.markLength)+" "+ToStr(maxBoxY-Options.bleeds.Top-markOffs)+" li\n");
+			PutStream(ToStr(maxBoxX-markDelta)+" "+ToStr(maxBoxY-Options.bleeds.top()-markOffs)+" m\n");
+			PutStream(ToStr(maxBoxX-markDelta-Options.markLength)+" "+ToStr(maxBoxY-Options.bleeds.top()-markOffs)+" li\n");
 			PutStream("st\n");
  			PutStream(ToStr(maxBoxX-bleedRight-markOffs)+" "+ ToStr(maxBoxY-markDelta)+" m\n");
 			PutStream(ToStr(maxBoxX-bleedRight-markOffs)+" "+ ToStr(maxBoxY-markDelta-Options.markLength) +" li\n");
@@ -1588,10 +1588,10 @@ int PSLib::CreatePS(ScribusDoc* Doc, PrintOptions &options)
 		if ((!psExport) && (Doc->m_Selection->count() != 0))
 		{
 			MarginStruct Ma;
-			Ma.Left = gx;
-			Ma.Top = gy;
-			Ma.Bottom = page->height() - (gy + gh);
-			Ma.Right  = page->width() - (gx + gw);
+			Ma.setLeft(gx);
+			Ma.setTop(gy);
+			Ma.setBottom(page->height() - (gy + gh));
+			Ma.setRight(page->width() - (gx + gw));
 			PS_begin_page(page, &Ma, true);
 		}
 		else
@@ -5553,18 +5553,18 @@ void PSLib::GetBleeds(ScPage* page, double& left, double& right)
 {
 	MarginStruct values;
 	m_Doc->getBleeds(page, Options.bleeds, values);
-	left   = values.Left;
-	right  = values.Right;
+	left   = values.left();
+	right  = values.right();
 }
 
 void PSLib::GetBleeds(ScPage* page, double& left, double& right, double& bottom, double& top)
 {
 	MarginStruct values;
 	m_Doc->getBleeds(page, Options.bleeds, values);
-	left   = values.Left;
-	right  = values.Right;
-	bottom = values.Bottom;
-	top    = values.Top;
+	left   = values.left();
+	right  = values.right();
+	bottom = values.bottom();
+	top    = values.top();
 }
 
 void PSLib::SetClipPath(FPointArray *c, bool poly)

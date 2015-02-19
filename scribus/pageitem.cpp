@@ -1544,65 +1544,65 @@ void PageItem::currentTextProps(ParagraphStyle& parStyle) const
 
 void PageItem::setTextToFrameDistLeft(double newLeft)
 {
-	if (m_textDistanceMargins.Left==newLeft)
+	if (m_textDistanceMargins.left()==newLeft)
 		return;
 	if (UndoManager::undoEnabled())
 	{
 		SimpleState *ss = new SimpleState(Um::TextFrameDist, "", Um::ITextFrame);
 		ss->set("LEFT_TEXTFRAMEDIST", "left_textframedist");
-		ss->set("OLD_DIST",m_textDistanceMargins.Left);
+		ss->set("OLD_DIST",m_textDistanceMargins.left());
 		ss->set("NEW_DIST",newLeft);
 		undoManager->action(this, ss);
 	}
-	m_textDistanceMargins.Left=newLeft;
+	m_textDistanceMargins.setLeft(newLeft);
 	//emit textToFrameDistances(Extra, TExtra, BExtra, RExtra);
 }
 
 void PageItem::setTextToFrameDistRight(double newRight)
 {
-	if (m_textDistanceMargins.Right==newRight)
+	if (m_textDistanceMargins.right()==newRight)
 		return;
 	if (UndoManager::undoEnabled())
 	{
 		SimpleState *ss = new SimpleState(Um::TextFrameDist, "", Um::ITextFrame);
 		ss->set("RIGHT_TEXTFRAMEDIST", "right_textframedist");
-		ss->set("OLD_DIST",m_textDistanceMargins.Right);
+		ss->set("OLD_DIST",m_textDistanceMargins.right());
 		ss->set("NEW_DIST",newRight);
 		undoManager->action(this, ss);
 	}
-	m_textDistanceMargins.Right=newRight;
+	m_textDistanceMargins.setRight(newRight);
 	//emit textToFrameDistances(Extra, TExtra, BExtra, RExtra);
 }
 
 void PageItem::setTextToFrameDistTop(double newTop)
 {
-	if (m_textDistanceMargins.Top==newTop)
+	if (m_textDistanceMargins.top()==newTop)
 		return;
 	if (UndoManager::undoEnabled())
 	{
 		SimpleState *ss = new SimpleState(Um::TextFrameDist, "", Um::ITextFrame);
 		ss->set("TOP_TEXTFRAMEDIST", "top_textframedist");
-		ss->set("OLD_DIST",m_textDistanceMargins.Top);
+		ss->set("OLD_DIST",m_textDistanceMargins.top());
 		ss->set("NEW_DIST",newTop);
 		undoManager->action(this, ss);
 	}
-	m_textDistanceMargins.Top=newTop;
+	m_textDistanceMargins.setTop(newTop);
 	//emit textToFrameDistances(Extra, TExtra, BExtra, RExtra);
 }
 
 void PageItem::setTextToFrameDistBottom(double newBottom)
 {
-	if (m_textDistanceMargins.Bottom==newBottom)
+	if (m_textDistanceMargins.bottom()==newBottom)
 		return;
 	if (UndoManager::undoEnabled())
 	{
 		SimpleState *ss = new SimpleState(Um::TextFrameDist, "", Um::ITextFrame);
 		ss->set("BOTTOM_TEXTFRAMEDIST", "bottom_textframedist");
-		ss->set("OLD_DIST",m_textDistanceMargins.Bottom);
+		ss->set("OLD_DIST",m_textDistanceMargins.bottom());
 		ss->set("NEW_DIST",newBottom);
 		undoManager->action(this, ss);
 	}
-	m_textDistanceMargins.Bottom=newBottom;
+	m_textDistanceMargins.setBottom(newBottom);
 	//emit textToFrameDistances(Extra, TExtra, BExtra, RExtra);
 }
 
@@ -6709,36 +6709,36 @@ void PageItem::restoreColumnsGap(SimpleState *ss, bool isUndo)
 void PageItem::restoreLeftTextFrameDist(SimpleState *ss, bool isUndo)
 {
 	if (isUndo)
-		m_textDistanceMargins.Left = ss->getDouble("OLD_DIST");
+		m_textDistanceMargins.setLeft(ss->getDouble("OLD_DIST"));
 	else
-		m_textDistanceMargins.Left = ss->getDouble("NEW_DIST");
+		m_textDistanceMargins.setLeft(ss->getDouble("NEW_DIST"));
 	update();
 }
 
 void PageItem::restoreRightTextFrameDist(SimpleState *ss, bool isUndo)
 {
 	if (isUndo)
-		m_textDistanceMargins.Right = ss->getDouble("OLD_DIST");
+		m_textDistanceMargins.setRight(ss->getDouble("OLD_DIST"));
 	else
-		m_textDistanceMargins.Right = ss->getDouble("NEW_DIST");
+		m_textDistanceMargins.setRight(ss->getDouble("NEW_DIST"));
 	update();
 }
 
 void PageItem::restoreTopTextFrameDist(SimpleState *ss, bool isUndo)
 {
 	if (isUndo)
-		m_textDistanceMargins.Top = ss->getDouble("OLD_DIST");
+		m_textDistanceMargins.setTop(ss->getDouble("OLD_DIST"));
 	else
-		m_textDistanceMargins.Top = ss->getDouble("NEW_DIST");
+		m_textDistanceMargins.setTop(ss->getDouble("NEW_DIST"));
 	update();
 }
 
 void PageItem::restoreBottomTextFrameDist(SimpleState *ss, bool isUndo)
 {
 	if (isUndo)
-		m_textDistanceMargins.Bottom = ss->getDouble("OLD_DIST");
+		m_textDistanceMargins.setBottom(ss->getDouble("OLD_DIST"));
 	else
-		m_textDistanceMargins.Bottom = ss->getDouble("NEW_DIST");
+		m_textDistanceMargins.setBottom(ss->getDouble("NEW_DIST"));
 	update();
 }
 

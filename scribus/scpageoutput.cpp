@@ -55,10 +55,10 @@ MarksOptions::MarksOptions(struct PrintOptions& opt)
 {
 	markLength = opt.markLength;
 	markOffset = opt.markOffset;
-	BleedTop = opt.bleeds.Top;
-	BleedLeft = opt.bleeds.Left;
-	BleedRight = opt.bleeds.Right;
-	BleedBottom = opt.bleeds.Bottom;
+	BleedTop = opt.bleeds.top();
+	BleedLeft = opt.bleeds.left();
+	BleedRight = opt.bleeds.right();
+	BleedBottom = opt.bleeds.bottom();
 	cropMarks = opt.cropMarks;
 	bleedMarks = opt.bleedMarks;
 	registrationMarks = opt.registrationMarks;

@@ -2639,8 +2639,8 @@ bool PDFLibCore::PDF_TemplatePage(const ScPage* pag, bool )
 				double bleedLeft  = 0.0;
 				getBleeds(ActPageP, bleedLeft, bleedRight);
 				double maxBoxX = ActPageP->width()+bleedRight+bleedLeft;
-				double maxBoxY = ActPageP->height()+Options.bleeds.Top+Options.bleeds.Bottom;
-				PutDoc("/BBox [ "+FToStr(-bleedLeft)+" "+FToStr(-Options.bleeds.Bottom)+" "+FToStr(maxBoxX)+" "+FToStr(maxBoxY)+" ]\n");
+				double maxBoxY = ActPageP->height()+Options.bleeds.top()+Options.bleeds.bottom();
+				PutDoc("/BBox [ "+FToStr(-bleedLeft)+" "+FToStr(-Options.bleeds.bottom())+" "+FToStr(maxBoxX)+" "+FToStr(maxBoxY)+" ]\n");
 //				PutDoc("/BBox [ 0 0 "+FToStr(ActPageP->width())+" "+FToStr(ActPageP->height())+" ]\n");
 				PutDoc("/Resources << /ProcSet [/PDF /Text /ImageB /ImageC /ImageI]\n");
 				if ((Seite.ImgObjects.count() != 0) || (Seite.XObjects.count() != 0))
@@ -2772,7 +2772,7 @@ void PDFLibCore::PDF_End_Page(int physPage)
 	double bleedRight, bleedLeft;
 	getBleeds(ActPageP, bleedLeft, bleedRight);
 	double maxBoxX = ActPageP->width()+bleedLeft+bleedRight+markOffs*2.0;
-	double maxBoxY = ActPageP->height()+Options.bleeds.Bottom+Options.bleeds.Top+markOffs*2.0;
+	double maxBoxY = ActPageP->height()+Options.bleeds.bottom()+Options.bleeds.top()+markOffs*2.0;
 	// (JG) Fix #5977 and #6075 (invalid restore)
 	//PutPage("Q\n");
 	if ((Options.cropMarks) || (Options.bleedMarks) || (Options.registrationMarks) || (Options.colorMarks) || (Options.docInfoMarks))
@@ -2782,29 +2782,29 @@ void PDFLibCore::PDF_End_Page(int physPage)
 		if (Options.cropMarks)
 		{
 		// Bottom Left
-			PutPage(FToStr(markDelta)+" "+FToStr(markOffs+Options.bleeds.Bottom)+" m\n");
-			PutPage(FToStr(markDelta+Options.markLength)+" "+FToStr(markOffs+Options.bleeds.Bottom)+" l\n");
+			PutPage(FToStr(markDelta)+" "+FToStr(markOffs+Options.bleeds.bottom())+" m\n");
+			PutPage(FToStr(markDelta+Options.markLength)+" "+FToStr(markOffs+Options.bleeds.bottom())+" l\n");
 			PutPage("S\n");
 			PutPage(FToStr(markOffs+bleedLeft)+" "+FToStr(markDelta)+" m\n");
 			PutPage(FToStr(markOffs+bleedLeft)+" "+FToStr(markDelta+Options.markLength)+" l\n");
 			PutPage("S\n");
 		// Top Left
-			PutPage(FToStr(markDelta)+" "+FToStr(maxBoxY-Options.bleeds.Top-markOffs)+" m\n");
-			PutPage(FToStr(markDelta+Options.markLength)+" "+FToStr(maxBoxY-Options.bleeds.Top-markOffs)+" l\n");
+			PutPage(FToStr(markDelta)+" "+FToStr(maxBoxY-Options.bleeds.top()-markOffs)+" m\n");
+			PutPage(FToStr(markDelta+Options.markLength)+" "+FToStr(maxBoxY-Options.bleeds.top()-markOffs)+" l\n");
 			PutPage("S\n");
 			PutPage(FToStr(markOffs+bleedLeft)+" "+FToStr(maxBoxY-markDelta)+" m\n");
 			PutPage(FToStr(markOffs+bleedLeft)+" "+FToStr(maxBoxY-markDelta-Options.markLength) +" l\n");
 			PutPage("S\n");
 		// Bottom Right
-			PutPage(FToStr(maxBoxX-markDelta)+" "+FToStr(markOffs+Options.bleeds.Bottom)+" m\n");
-			PutPage(FToStr(maxBoxX-markDelta-Options.markLength)+" "+FToStr(markOffs+Options.bleeds.Bottom)+" l\n");
+			PutPage(FToStr(maxBoxX-markDelta)+" "+FToStr(markOffs+Options.bleeds.bottom())+" m\n");
+			PutPage(FToStr(maxBoxX-markDelta-Options.markLength)+" "+FToStr(markOffs+Options.bleeds.bottom())+" l\n");
 			PutPage("S\n");
 			PutPage(FToStr(maxBoxX-bleedRight-markOffs)+" "+ FToStr(markDelta)+" m\n");
 			PutPage(FToStr(maxBoxX-bleedRight-markOffs)+" "+ FToStr(markDelta+Options.markLength) +" l\n");
 			PutPage("S\n");
 		// Top Right
-			PutPage(FToStr(maxBoxX-markDelta)+" "+FToStr(maxBoxY-Options.bleeds.Top-markOffs)+" m\n");
-			PutPage(FToStr(maxBoxX-markDelta-Options.markLength)+" "+FToStr(maxBoxY-Options.bleeds.Top-markOffs)+" l\n");
+			PutPage(FToStr(maxBoxX-markDelta)+" "+FToStr(maxBoxY-Options.bleeds.top()-markOffs)+" m\n");
+			PutPage(FToStr(maxBoxX-markDelta-Options.markLength)+" "+FToStr(maxBoxY-Options.bleeds.top()-markOffs)+" l\n");
 			PutPage("S\n");
  			PutPage(FToStr(maxBoxX-bleedRight-markOffs)+" "+ FToStr(maxBoxY-markDelta)+" m\n");
 			PutPage(FToStr(maxBoxX-bleedRight-markOffs)+" "+ FToStr(maxBoxY-markDelta-Options.markLength) +" l\n");
@@ -2981,9 +2981,9 @@ void PDFLibCore::PDF_End_Page(int physPage)
 	PutDoc("/MediaBox [0 0 "+FToStr(maxBoxX)+" "+FToStr(maxBoxY)+"]\n");
 	PutDoc("/BleedBox ["+FToStr(markOffs)+" "+FToStr(markOffs)+" "+FToStr(maxBoxX-markOffs)+" "+FToStr(maxBoxY-markOffs)+"]\n");
 	PutDoc("/CropBox [0 0 "+FToStr(maxBoxX)+" "+FToStr(maxBoxY)+"]\n");
-	PutDoc("/TrimBox ["+FToStr(bleedLeft+markOffs)+" "+FToStr(Options.bleeds.Bottom+markOffs)+" "+FToStr(maxBoxX-bleedRight-markOffs)+" "+FToStr(maxBoxY-Options.bleeds.Top-markOffs)+"]\n");
+	PutDoc("/TrimBox ["+FToStr(bleedLeft+markOffs)+" "+FToStr(Options.bleeds.bottom()+markOffs)+" "+FToStr(maxBoxX-bleedRight-markOffs)+" "+FToStr(maxBoxY-Options.bleeds.top()-markOffs)+"]\n");
 	if (Options.Version >= PDFOptions::PDFVersion_13) // PDF/X forbids having both art and trim box!
-		PutDoc("/ArtBox ["+FToStr(bleedLeft+markOffs)+" "+FToStr(Options.bleeds.Bottom+markOffs)+" "+FToStr(maxBoxX-bleedRight-markOffs)+" "+FToStr(maxBoxY-Options.bleeds.Top-markOffs)+"]\n");
+		PutDoc("/ArtBox ["+FToStr(bleedLeft+markOffs)+" "+FToStr(Options.bleeds.bottom()+markOffs)+" "+FToStr(maxBoxX-bleedRight-markOffs)+" "+FToStr(maxBoxY-Options.bleeds.top()-markOffs)+"]\n");
 	PutDoc("/Rotate "+QString::number(Options.RotateDeg)+"\n");
 	PutDoc("/Contents "+QString::number(Seite.ObjNum)+" 0 R\n");
 	if ((Options.Version >= PDFOptions::PDFVersion_14) || (Options.Version == PDFOptions::PDFVersion_X4)) // && (Transpar.count() != 0))
@@ -3195,9 +3195,9 @@ bool PDFLibCore::PDF_ProcessPage(const ScPage* pag, uint PNr, bool clip)
 	/*if (!pag->MPageNam.isEmpty())
 	{*/
 		getBleeds(ActPageP, bleedLeft, bleedRight, bleedBottom, bleedTop);
-		PutPage("1 0 0 1 "+FToStr(bleedLeft+markOffs)+" "+FToStr(Options.bleeds.Bottom+markOffs)+" cm\n");
+		PutPage("1 0 0 1 "+FToStr(bleedLeft+markOffs)+" "+FToStr(Options.bleeds.bottom()+markOffs)+" cm\n");
 		bleedDisplacementX = bleedLeft+markOffs;
-		bleedDisplacementY = Options.bleeds.Bottom+markOffs;
+		bleedDisplacementY = Options.bleeds.bottom()+markOffs;
 	/*}*/
 	//#9385 : clip to BleedBox
 	if ((Options.cropMarks) || (Options.bleedMarks) || (Options.registrationMarks) || (Options.colorMarks) || (Options.docInfoMarks))
@@ -3212,9 +3212,9 @@ bool PDFLibCore::PDF_ProcessPage(const ScPage* pag, uint PNr, bool clip)
 		PutPage("1 0 0 -1 0 "+FToStr(ActPageP->height())+" cm\n");
 	if (clip)
 	{
-		double maxBoxX = ActPageP->width() - ActPageP->Margins.Right - ActPageP->Margins.Left;
-		double maxBoxY = ActPageP->height() - ActPageP->Margins.Top - ActPageP->Margins.Bottom;
-		PutPage(FToStr(ActPageP->Margins.Left)+" "+FToStr(ActPageP->Margins.Bottom)+" "+FToStr(maxBoxX)+" "+FToStr(maxBoxY)+" re W n\n");
+		double maxBoxX = ActPageP->width() - ActPageP->Margins.right() - ActPageP->Margins.left();
+		double maxBoxY = ActPageP->height() - ActPageP->Margins.top() - ActPageP->Margins.bottom();
+		PutPage(FToStr(ActPageP->Margins.left())+" "+FToStr(ActPageP->Margins.bottom())+" "+FToStr(maxBoxX)+" "+FToStr(maxBoxY)+" re W n\n");
 	//	PutPage("0 0 "+FToStr(ActPageP->width())+" "+FToStr(ActPageP->height())+" re W n\n");
 	}
 	//CB *2 because the Pitems count loop runs twice.. y.. dunno.
@@ -3338,8 +3338,8 @@ bool PDFLibCore::PDF_ProcessPageElements(const ScLayer& layer, const ScPage* pag
 			double bleedLeft  = 0.0;
 			getBleeds(ActPageP, bleedLeft, bleedRight);
 			double maxBoxX = ActPageP->width()+bleedRight+bleedLeft;
-			double maxBoxY = ActPageP->height()+Options.bleeds.Top+Options.bleeds.Bottom;
-			PutDoc("/BBox [ "+FToStr(-bleedLeft)+" "+FToStr(-Options.bleeds.Bottom)+" "+FToStr(maxBoxX)+" "+FToStr(maxBoxY)+" ]\n");
+			double maxBoxY = ActPageP->height()+Options.bleeds.top()+Options.bleeds.bottom();
+			PutDoc("/BBox [ "+FToStr(-bleedLeft)+" "+FToStr(-Options.bleeds.bottom())+" "+FToStr(maxBoxX)+" "+FToStr(maxBoxY)+" ]\n");
 			PutDoc("/Group "+QString::number(Gobj)+" 0 R\n");
 			if (Options.Compress)
 				inh = CompressStr(&inh);
@@ -3394,7 +3394,7 @@ QString PDFLibCore::Write_TransparencyGroup(double trans, int blend, QString &da
 	double bleedLeft  = 0.0;
 	getBleeds(ActPageP, bleedLeft, bleedRight);
 	double maxBoxX = ActPageP->width()+bleedRight+bleedLeft;
-	double maxBoxY = ActPageP->height()+Options.bleeds.Top+Options.bleeds.Bottom;
+	double maxBoxY = ActPageP->height()+Options.bleeds.top()+Options.bleeds.bottom();
 	if (controlItem != NULL)
 	{
 		double scaleW, scaleH;
@@ -3426,7 +3426,7 @@ QString PDFLibCore::Write_TransparencyGroup(double trans, int blend, QString &da
 		}
 	}
 	else
-		PutDoc("/BBox [ "+FToStr(-bleedLeft)+" "+FToStr(-Options.bleeds.Bottom)+" "+FToStr(maxBoxX)+" "+FToStr(maxBoxY)+" ]\n");
+		PutDoc("/BBox [ "+FToStr(-bleedLeft)+" "+FToStr(-Options.bleeds.bottom())+" "+FToStr(maxBoxX)+" "+FToStr(maxBoxY)+" ]\n");
 	PutDoc("/Group "+QString::number(Gobj)+" 0 R\n");
 	PutDoc("/Resources << /ProcSet [/PDF /Text /ImageB /ImageC /ImageI]\n");
 	if ((Seite.ImgObjects.count() != 0) || (Seite.XObjects.count() != 0))
@@ -6108,18 +6108,18 @@ void PDFLibCore::getBleeds(const ScPage* page, double &left, double &right)
 {
 	MarginStruct values;
 	doc.getBleeds(page, Options.bleeds, values);
-	left   = values.Left;
-	right  = values.Right;
+	left   = values.left();
+	right  = values.right();
 }
 
 void PDFLibCore::getBleeds(const ScPage* page, double &left, double &right, double &bottom, double& top)
 {
 	MarginStruct values;
 	doc.getBleeds(page, Options.bleeds, values);
-	left   = values.Left;
-	right  = values.Right;
-	bottom = values.Bottom;
-	top    = values.Top;
+	left   = values.left();
+	right  = values.right();
+	bottom = values.bottom();
+	top    = values.top();
 }
 
 QString PDFLibCore::PDF_TransparenzFill(PageItem *currItem)

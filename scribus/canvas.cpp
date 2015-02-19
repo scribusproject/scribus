@@ -1581,8 +1581,8 @@ void Canvas::DrawPageItems(ScPainter *painter, ScLayer& layer, QRect clip, bool 
  */
 void Canvas::drawBackgroundMasterpage(ScPainter* painter, int clipx, int clipy, int clipw, int cliph)
 {
-	double x = m_doc->scratch()->Left * m_viewMode.scale;
-	double y = m_doc->scratch()->Top * m_viewMode.scale;
+	double x = m_doc->scratch()->left() * m_viewMode.scale;
+	double y = m_doc->scratch()->top() * m_viewMode.scale;
 	double w = m_doc->currentPage()->width() * m_viewMode.scale;
 	double h = m_doc->currentPage()->height() * m_viewMode.scale;
 	QRectF drawRect = QRectF(x, y, w+5, h+5);
@@ -1595,19 +1595,19 @@ void Canvas::drawBackgroundMasterpage(ScPainter* painter, int clipx, int clipy, 
 		m_doc->getBleeds(m_doc->currentPage(), pageBleeds);
 		painter->setAntialiasing(false);
 		painter->setPen(Qt::black, 1 / m_viewMode.scale, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
-		if (m_doc->bleeds()->hasNonZeroValue() && m_doc->guidesPrefs().showBleed)
+		if (!m_doc->bleeds()->isNull() && m_doc->guidesPrefs().showBleed)
 		{
 			if (PrefsManager::instance()->appPrefs.displayPrefs.showPageShadow)
-				painter->drawRect(m_doc->scratch()->Left - pageBleeds.Left+5, m_doc->scratch()->Top - pageBleeds.Top+5, m_doc->currentPage()->width() + pageBleeds.Left + pageBleeds.Right, m_doc->currentPage()->height() + pageBleeds.Bottom + pageBleeds.Top);
+				painter->drawRect(m_doc->scratch()->left() - pageBleeds.left()+5, m_doc->scratch()->top() - pageBleeds.top()+5, m_doc->currentPage()->width() + pageBleeds.left() + pageBleeds.right(), m_doc->currentPage()->height() + pageBleeds.bottom() + pageBleeds.top());
 			painter->setBrush(m_doc->paperColor());
-			painter->drawRect(m_doc->scratch()->Left - pageBleeds.Left, m_doc->scratch()->Top - pageBleeds.Top, m_doc->currentPage()->width() + pageBleeds.Left + pageBleeds.Right, m_doc->currentPage()->height() + pageBleeds.Bottom + pageBleeds.Top);
+			painter->drawRect(m_doc->scratch()->left() - pageBleeds.left(), m_doc->scratch()->top() - pageBleeds.top(), m_doc->currentPage()->width() + pageBleeds.left() + pageBleeds.right(), m_doc->currentPage()->height() + pageBleeds.bottom() + pageBleeds.top());
 		}
 		else
 		{
 			if (PrefsManager::instance()->appPrefs.displayPrefs.showPageShadow)
-				painter->drawRect(m_doc->scratch()->Left+5, m_doc->scratch()->Top+5, m_doc->currentPage()->width(), m_doc->currentPage()->height());
+				painter->drawRect(m_doc->scratch()->left()+5, m_doc->scratch()->top()+5, m_doc->currentPage()->width(), m_doc->currentPage()->height());
 			painter->setBrush(m_doc->paperColor());
-			painter->drawRect(m_doc->scratch()->Left, m_doc->scratch()->Top, m_doc->currentPage()->width(), m_doc->currentPage()->height());
+			painter->drawRect(m_doc->scratch()->left(), m_doc->scratch()->top(), m_doc->currentPage()->width(), m_doc->currentPage()->height());
 		}
 		painter->setAntialiasing(true);
 	}
@@ -1634,10 +1634,10 @@ void Canvas::drawBackgroundPageOutlines(ScPainter* painter, int clipx, int clipy
 			m_doc->getBleeds(actPg, pageBleeds);
 			if (m_viewMode.viewAsPreview)
 				pageBleeds.resetToZero();
-			double blx = (actPg->xOffset() - pageBleeds.Left) * m_viewMode.scale;
-			double bly = (actPg->yOffset() - pageBleeds.Top) * m_viewMode.scale;
-			double blw = (actPg->width() + pageBleeds.Left + pageBleeds.Right) * m_viewMode.scale;
-			double blh = (actPg->height() + pageBleeds.Bottom + pageBleeds.Top) * m_viewMode.scale;
+			double blx = (actPg->xOffset() - pageBleeds.left()) * m_viewMode.scale;
+			double bly = (actPg->yOffset() - pageBleeds.top()) * m_viewMode.scale;
+			double blw = (actPg->width() + pageBleeds.left() + pageBleeds.right()) * m_viewMode.scale;
+			double blh = (actPg->height() + pageBleeds.bottom() + pageBleeds.top()) * m_viewMode.scale;
 			
 			QRectF drawRect = QRectF(blx-1, bly-1, blw+6, blh+6);
 			drawRect.translate(-m_doc->minCanvasCoordinate.x() * m_viewMode.scale, -m_doc->minCanvasCoordinate.y() * m_viewMode.scale);
@@ -1650,13 +1650,13 @@ void Canvas::drawBackgroundPageOutlines(ScPainter* painter, int clipx, int clipy
 				double blh2 = actPg->height();
 				if (m_doc->guidesPrefs().showBleed)
 				{
-					blx2 -= pageBleeds.Left;
-					bly2 -= pageBleeds.Top;
-					blw2 += pageBleeds.Left + pageBleeds.Right;
-					blh2 += pageBleeds.Bottom + pageBleeds.Top;
+					blx2 -= pageBleeds.left();
+					bly2 -= pageBleeds.top();
+					blw2 += pageBleeds.left() + pageBleeds.right();
+					blh2 += pageBleeds.bottom() + pageBleeds.top();
 				}
 				painter->drawRect(blx2 + 5, bly2 + 5, blw2, blh2);
-				if (m_doc->bleeds()->hasNonZeroValue() && m_doc->guidesPrefs().showBleed)
+				if (!m_doc->bleeds()->isNull() && m_doc->guidesPrefs().showBleed)
 				{
 					painter->setFillMode(ScPainter::None);
 					painter->setPen(Qt::black, 1.0 / m_viewMode.scale, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
@@ -1677,17 +1677,17 @@ void Canvas::drawBackgroundPageOutlines(ScPainter* painter, int clipx, int clipy
 		double w = actPg->width();
 		double h = actPg->height();
 		bool drawBleed = false;
-		if (((m_doc->bleeds()->Bottom != 0.0) || (m_doc->bleeds()->Top != 0.0) || (m_doc->bleeds()->Left != 0.0) || (m_doc->bleeds()->Right != 0.0)) && (m_doc->guidesPrefs().showBleed))
+		if (((m_doc->bleeds()->bottom() != 0.0) || (m_doc->bleeds()->top() != 0.0) || (m_doc->bleeds()->left() != 0.0) || (m_doc->bleeds()->right() != 0.0)) && (m_doc->guidesPrefs().showBleed))
 		{
 			drawBleed = true;
 			m_doc->getBleeds(a, pageBleeds);
 		}
 		else
 			pageBleeds.resetToZero();
-		double blx = (actPg->xOffset() - pageBleeds.Left) * m_viewMode.scale;
-		double bly = (actPg->yOffset() - pageBleeds.Top) * m_viewMode.scale;
-		double blw = (actPg->width() + pageBleeds.Left + pageBleeds.Right) * m_viewMode.scale;
-		double blh = (actPg->height() + pageBleeds.Bottom + pageBleeds.Top) * m_viewMode.scale;
+		double blx = (actPg->xOffset() - pageBleeds.left()) * m_viewMode.scale;
+		double bly = (actPg->yOffset() - pageBleeds.top()) * m_viewMode.scale;
+		double blw = (actPg->width() + pageBleeds.left() + pageBleeds.right()) * m_viewMode.scale;
+		double blh = (actPg->height() + pageBleeds.bottom() + pageBleeds.top()) * m_viewMode.scale;
 		
 		QRectF drawRect = QRectF(blx, bly, blw+5, blh+5);
 		drawRect.translate(-m_doc->minCanvasCoordinate.x() * m_viewMode.scale, -m_doc->minCanvasCoordinate.y() * m_viewMode.scale);
@@ -1700,10 +1700,10 @@ void Canvas::drawBackgroundPageOutlines(ScPainter* painter, int clipx, int clipy
 			painter->setBrush(m_doc->paperColor());
 			if (!m_viewMode.viewAsPreview)
 			{
-				double blx2 = actPg->xOffset() - pageBleeds.Left;
-				double bly2 = actPg->yOffset() - pageBleeds.Top;
-				double blw2 = actPg->width() + pageBleeds.Left + pageBleeds.Right;
-				double blh2 = actPg->height() + pageBleeds.Bottom + pageBleeds.Top;
+				double blx2 = actPg->xOffset() - pageBleeds.left();
+				double bly2 = actPg->yOffset() - pageBleeds.top();
+				double blw2 = actPg->width() + pageBleeds.left() + pageBleeds.right();
+				double blh2 = actPg->height() + pageBleeds.bottom() + pageBleeds.top();
 				painter->drawRect(blx2, bly2, blw2, blh2);
 				if (drawBleed)
 					painter->drawRect(x, y, w, h);
@@ -1769,8 +1769,8 @@ void Canvas::DrawPageBorder(ScPainter *p, QRectF clip, bool master)
 	if (master)
 	{
 		ScPage *page = m_doc->currentPage();
-		double x = m_doc->scratch()->Left * m_viewMode.scale;
-		double y = m_doc->scratch()->Top * m_viewMode.scale;
+		double x = m_doc->scratch()->left() * m_viewMode.scale;
+		double y = m_doc->scratch()->top() * m_viewMode.scale;
 		double w = page->width() * m_viewMode.scale;
 		double h = page->height() * m_viewMode.scale;
 		QRectF drawRect = QRectF(x, y, w+5, h+5);
@@ -1813,14 +1813,14 @@ void Canvas::DrawPageMarginsGridSub(ScPainter *p, ScPage *page)
 		{
 			p->setFillMode(ScPainter::Solid);
 			p->setBrush(m_doc->guidesPrefs().marginColor);
-			p->drawRect(0, 0, pageWidth, page->Margins.Top);
-			p->drawRect(0, page->Margins.Top, page->Margins.Left, pageHeight - page->Margins.Top);
-			p->drawRect(page->Margins.Left, pageHeight - page->Margins.Bottom, pageWidth - page->Margins.Right - page->Margins.Left, page->Margins.Bottom);
-			p->drawRect(pageWidth - page->Margins.Right, page->Margins.Top, page->Margins.Right, pageHeight-page->Margins.Top);
+			p->drawRect(0, 0, pageWidth, page->Margins.top());
+			p->drawRect(0, page->Margins.top(), page->Margins.left(), pageHeight - page->Margins.top());
+			p->drawRect(page->Margins.left(), pageHeight - page->Margins.bottom(), pageWidth - page->Margins.right() - page->Margins.left(), page->Margins.bottom());
+			p->drawRect(pageWidth - page->Margins.right(), page->Margins.top(), page->Margins.right(), pageHeight-page->Margins.top());
 			p->setFillMode(ScPainter::None);
 		}
 		p->setFillMode(ScPainter::None);
-		p->drawRect(page->Margins.Left, page->Margins.Top, pageWidth - page->Margins.Left - page->Margins.Right, pageHeight - page->Margins.Top - page->Margins.Bottom);
+		p->drawRect(page->Margins.left(), page->Margins.top(), pageWidth - page->Margins.left() - page->Margins.right(), pageHeight - page->Margins.top() - page->Margins.bottom());
 	}
 	p->setAntialiasing(true);
 	p->restore();
@@ -1831,8 +1831,8 @@ void Canvas::DrawPageMargins(ScPainter *p, QRectF clip, bool master)
 	if (master)
 	{
 		ScPage *page = m_doc->currentPage();
-		double x = m_doc->scratch()->Left * m_viewMode.scale;
-		double y = m_doc->scratch()->Top * m_viewMode.scale;
+		double x = m_doc->scratch()->left() * m_viewMode.scale;
+		double y = m_doc->scratch()->top() * m_viewMode.scale;
 		double w = page->width() * m_viewMode.scale;
 		double h = page->height() * m_viewMode.scale;
 		QRectF drawRect = QRectF(x, y, w+5, h+5);
@@ -1883,8 +1883,8 @@ void Canvas::DrawPageBaselineGrid(ScPainter *p, QRectF clip, bool master)
 	if (master)
 	{
 		ScPage *page = m_doc->currentPage();
-		double x = m_doc->scratch()->Left * m_viewMode.scale;
-		double y = m_doc->scratch()->Top * m_viewMode.scale;
+		double x = m_doc->scratch()->left() * m_viewMode.scale;
+		double y = m_doc->scratch()->top() * m_viewMode.scale;
 		double w = page->width() * m_viewMode.scale;
 		double h = page->height() * m_viewMode.scale;
 		QRectF drawRect = QRectF(x, y, w+5, h+5);
@@ -2006,8 +2006,8 @@ void Canvas::DrawPageGrid(ScPainter *p, QRectF clip, bool master)
 	if (master)
 	{
 		ScPage *page = m_doc->currentPage();
-		double x = m_doc->scratch()->Left * m_viewMode.scale;
-		double y = m_doc->scratch()->Top * m_viewMode.scale;
+		double x = m_doc->scratch()->left() * m_viewMode.scale;
+		double y = m_doc->scratch()->top() * m_viewMode.scale;
 		double w = page->width() * m_viewMode.scale;
 		double h = page->height() * m_viewMode.scale;
 		QRectF drawRect = QRectF(x, y, w+5, h+5);
@@ -2052,8 +2052,8 @@ void Canvas::DrawPageGuides(ScPainter *p, QRectF clip, bool master)
 	if (master)
 	{
 		ScPage *page = m_doc->currentPage();
-		double x = m_doc->scratch()->Left * m_viewMode.scale;
-		double y = m_doc->scratch()->Top * m_viewMode.scale;
+		double x = m_doc->scratch()->left() * m_viewMode.scale;
+		double y = m_doc->scratch()->top() * m_viewMode.scale;
 		double w = page->width() * m_viewMode.scale;
 		double h = page->height() * m_viewMode.scale;
 		QRectF drawRect = QRectF(x, y, w+5, h+5);
@@ -2100,8 +2100,8 @@ void Canvas::DrawPageIndicator(ScPainter *p, QRectF clip, bool master)
 	if (master)
 	{
 		ScPage *page = m_doc->currentPage();
-		double x = m_doc->scratch()->Left * m_viewMode.scale;
-		double y = m_doc->scratch()->Top * m_viewMode.scale;
+		double x = m_doc->scratch()->left() * m_viewMode.scale;
+		double y = m_doc->scratch()->top() * m_viewMode.scale;
 		double w = page->width() * m_viewMode.scale;
 		double h = page->height() * m_viewMode.scale;
 		QRectF drawRect = QRectF(x, y, w+5, h+5);

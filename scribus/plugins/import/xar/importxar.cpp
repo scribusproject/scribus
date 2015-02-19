@@ -3361,10 +3361,7 @@ void XarPlug::handleSpreadInfo(QDataStream &ts)
 		m_Doc->currentPage()->setInitialWidth(docWidth);
 		m_Doc->currentPage()->setHeight(docHeight);
 		m_Doc->currentPage()->setWidth(docWidth);
-		m_Doc->currentPage()->initialMargins.Top = 0;
-		m_Doc->currentPage()->initialMargins.Bottom = 0;
-		m_Doc->currentPage()->initialMargins.Left = 0;
-		m_Doc->currentPage()->initialMargins.Right = 0;
+		m_Doc->currentPage()->initialMargins.set(0, 0, 0, 0);
 		m_Doc->reformPages(true);
 	}
 }
@@ -3384,10 +3381,7 @@ void XarPlug::handlePage(QDataStream &ts)
 		m_Doc->currentPage()->setInitialWidth(docWidth);
 		m_Doc->currentPage()->setHeight(docHeight);
 		m_Doc->currentPage()->setWidth(docWidth);
-		m_Doc->currentPage()->initialMargins.Top = 0;
-		m_Doc->currentPage()->initialMargins.Bottom = 0;
-		m_Doc->currentPage()->initialMargins.Left = 0;
-		m_Doc->currentPage()->initialMargins.Right = 0;
+		m_Doc->currentPage()->initialMargins.set(0, 0, 0, 0);
 		m_Doc->currentPage()->MPageNam = CommonStrings::trMasterPageNormal;
 		m_Doc->view()->addPage(pagecount, true);
 		pagecount++;

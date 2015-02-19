@@ -263,7 +263,7 @@ void MarginWidget::setTop()
 		updateMarginSpinValues();
 	}
 	else
-		marginData.Top = newVal;
+		marginData.setTop(newVal);
 	setPreset();
 }
 
@@ -277,7 +277,7 @@ void MarginWidget::setBottom()
 		updateMarginSpinValues();
 	}
 	else
-		marginData.Bottom = newVal;
+		marginData.setBottom(newVal);
 	setPreset();
 }
 
@@ -291,7 +291,7 @@ void MarginWidget::setLeft()
 		updateMarginSpinValues();
 	}
 	else
-		marginData.Left = newVal;
+		marginData.setLeft(newVal);
 	setPreset();
 }
 
@@ -305,7 +305,7 @@ void MarginWidget::setRight()
 		updateMarginSpinValues();
 	}
 	else
-		marginData.Right = newVal;
+		marginData.setRight(newVal);
 	setPreset();
 }
 
@@ -364,7 +364,7 @@ void MarginWidget::setPreset()
 	}
 	if (restoringValues || (presetCombo->needUpdate() && facingPages))
 	{
-		marginData.set(qMax(0.0, marg.Top), qMax(0.0, marg.Left), qMax(0.0, marg.Bottom), qMax(0.0, marg.Right));
+		marginData.set(qMax(0.0, marg.top()), qMax(0.0, marg.left()), qMax(0.0, marg.bottom()), qMax(0.0, marg.right()));
 		updateMarginSpinValues();
 		
 		bottomR->setMaximum(qMax(0.0, pageHeight * m_unitRatio - topR->value()));
@@ -408,10 +408,10 @@ void MarginWidget::setMarginsToPrinterMargins()
 		upm.getNewPrinterMargins(t,b,l,r);
 		presetCombo->setCurrentIndex(PresetLayout::none);
 		
-		marginData.Top = t;
-		marginData.Bottom = b;
-		marginData.Left = l;
-		marginData.Right = r;
+		marginData.setTop(t);
+		marginData.setBottom(b);
+		marginData.setLeft(l);
+		marginData.setRight(r);
 		updateMarginSpinValues();
 
 		bottomR->setMaximum((qMax(0.0, pageHeight - t) * m_unitRatio));
@@ -427,22 +427,22 @@ void MarginWidget::setMarginsToPrinterMargins()
 
 double MarginWidget::top() const
 {
-	return marginData.Top;
+	return marginData.top();
 }
 
 double MarginWidget::bottom() const
 {
-	return marginData.Bottom;
+	return marginData.bottom();
 }
 
 double MarginWidget::left() const
 {
-	return marginData.Left;
+	return marginData.left();
 }
 
 double MarginWidget::right() const
 {
-	return marginData.Right;
+	return marginData.right();
 }
 
 void MarginWidget::setNewMargins(MarginStruct &m)
@@ -515,10 +515,10 @@ void MarginWidget::setNewBleeds(MarginStruct& b)
 	disconnect(BleedRight, SIGNAL(valueChanged(double)), this, SLOT(changeBleeds()));
 	disconnect(BleedTop, SIGNAL(valueChanged(double)), this, SLOT(changeBleeds()));
 	disconnect(BleedBottom, SIGNAL(valueChanged(double)), this, SLOT(changeBleeds()));
-	BleedTop->setValue(b.Top * m_unitRatio);
-	BleedBottom->setValue(b.Bottom * m_unitRatio);
-	BleedLeft->setValue(b.Left * m_unitRatio);
-	BleedRight->setValue(b.Right * m_unitRatio);
+	BleedTop->setValue(b.top() * m_unitRatio);
+	BleedBottom->setValue(b.bottom() * m_unitRatio);
+	BleedLeft->setValue(b.left() * m_unitRatio);
+	BleedRight->setValue(b.right() * m_unitRatio);
 	connect(BleedLeft, SIGNAL(valueChanged(double)), this, SLOT(changeBleeds()));
 	connect(BleedRight, SIGNAL(valueChanged(double)), this, SLOT(changeBleeds()));
 	connect(BleedTop, SIGNAL(valueChanged(double)), this, SLOT(changeBleeds()));
@@ -573,8 +573,8 @@ void MarginWidget::slotLinkMargins()
 
 void MarginWidget::updateMarginSpinValues()
 {
-	topR->setValue(marginData.Top * m_unitRatio);
-	rightR->setValue(marginData.Right * m_unitRatio);
-	bottomR->setValue(marginData.Bottom * m_unitRatio);
-	leftR->setValue(marginData.Left * m_unitRatio);
+	topR->setValue(marginData.top() * m_unitRatio);
+	rightR->setValue(marginData.right() * m_unitRatio);
+	bottomR->setValue(marginData.bottom() * m_unitRatio);
+	leftR->setValue(marginData.left() * m_unitRatio);
 }

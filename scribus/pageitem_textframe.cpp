@@ -509,18 +509,18 @@ struct LineControl {
 	void nextColumn(double asce = 0.0)
 	{
 		startOfCol = true;
-		colLeft = (colWidth + colGap) * column + insets.Left + lineCorr;
+		colLeft = (colWidth + colGap) * column + insets.left() + lineCorr;
 		//now colRight is REAL column right edge
 		colRight = colLeft + colWidth;
 		if (legacy)
 			colRight += lineCorr;
 		xPos = colLeft;
-		yPos = asce + insets.Top + lineCorr;
+		yPos = asce + insets.top() + lineCorr;
 	}
 
 	bool isEndOfCol(double morespace = 0)
 	{
-		return yPos + morespace + insets.Bottom + lineCorr > frameHeight;
+		return yPos + morespace + insets.bottom() + lineCorr > frameHeight;
 	}
 
 	/**
@@ -1447,7 +1447,7 @@ void PageItem_TextFrame::layout()
 		}
 
 		current.nextColumn();
-		lastLineY = m_textDistanceMargins.Top;
+		lastLineY = m_textDistanceMargins.top();
 
 		//automatic line spacing factor (calculated once)
 		double autoLS = static_cast<double>(m_Doc->typographicPrefs().autoLineSpacing) / 100.0;
@@ -1468,13 +1468,13 @@ void PageItem_TextFrame::layout()
 			else
 				chs = cstyle.fontSize();
 			desc = -cstyle.font().descent(chs / 10.0);
-			current.yPos = m_textDistanceMargins.Top + lineCorr;
+			current.yPos = m_textDistanceMargins.top() + lineCorr;
 //			qDebug() << QString("first line at y=%1").arg(current.yPos);
 		}
 		else // empty itemText:
 		{
 			desc = -itemText.defaultStyle().charStyle().font().descent(itemText.defaultStyle().charStyle().fontSize() / 10.0);
-			current.yPos = itemText.defaultStyle().lineSpacing() + m_textDistanceMargins.Top + lineCorr - desc;
+			current.yPos = itemText.defaultStyle().lineSpacing() + m_textDistanceMargins.top() + lineCorr - desc;
 		}
 		current.startLine(firstInFrame());
 
@@ -1718,7 +1718,7 @@ void PageItem_TextFrame::layout()
 				}
 				current.breakIndex = -1;
 				if (current.startOfCol && !current.afterOverflow && current.recalculateY)
-					current.yPos = qMax(current.yPos, m_textDistanceMargins.Top);
+					current.yPos = qMax(current.yPos, m_textDistanceMargins.top());
 				// more about par gap and dropcaps
 				if ((a > firstInFrame() && itemText.text(a-1) == SpecialChars::PARSEP) || (a == 0 && BackBox == 0 && current.startOfCol))
 				{
@@ -1972,7 +1972,7 @@ void PageItem_TextFrame::layout()
 					//if top of column Y position depends on first line offset
 					if (current.startOfCol)
 					{
-						lastLineY = qMax(lastLineY, m_textDistanceMargins.Top + lineCorr);
+						lastLineY = qMax(lastLineY, m_textDistanceMargins.top() + lineCorr);
 						//fix for proper rendering first empty line (only with PARSEP)
 						if (chstr[0] == SpecialChars::PARSEP)
 							current.yPos += style.lineSpacing();
@@ -2917,7 +2917,7 @@ void PageItem_TextFrame::layout()
 						current.nextColumn();
 						current.mustLineEnd = current.colRight;
 						current.addLeftIndent = true;
-						lastLineY = m_textDistanceMargins.Top;
+						lastLineY = m_textDistanceMargins.top();
 						current.rowDesc = 0;
 						current.recalculateY = true;
 					}
@@ -3047,18 +3047,18 @@ void PageItem_TextFrame::layout()
 	if ((verticalAlign > 0) && (NextBox == NULL))
 	{
 		int vertAlign = verticalAlign;
-		double topDist = m_textDistanceMargins.Top;
+		double topDist = m_textDistanceMargins.top();
 		double hAdjust = 0;
 		if (verticalAlign == 1)
-			hAdjust = (height() - (m_textDistanceMargins.Bottom + lineCorr) - maxY) / 2.0;
+			hAdjust = (height() - (m_textDistanceMargins.bottom() + lineCorr) - maxY) / 2.0;
 		else if (verticalAlign == 2)
-			hAdjust = (height() - (m_textDistanceMargins.Bottom + lineCorr) - maxY);
+			hAdjust = (height() - (m_textDistanceMargins.bottom() + lineCorr) - maxY);
 		if (hAdjust > 0)
 		{
-			m_textDistanceMargins.Top += hAdjust;
+			m_textDistanceMargins.setTop(topDist + hAdjust);
 			verticalAlign = 0;
 			layout();
-			m_textDistanceMargins.Top = topDist;
+			m_textDistanceMargins.setTop(topDist);
 			verticalAlign = vertAlign;
 		}
 	}
@@ -5107,8 +5107,8 @@ double PageItem_TextFrame::columnWidth()
 		lineCorr = m_lineWidth / 2.0;
 	else
 		lineCorr = 0;
-	return (m_width - (ColGap * (Cols - 1)) - m_textDistanceMargins.Left - m_textDistanceMargins.Right - 2 * lineCorr) / Cols;
-//	return (Width - (ColGap * (Cols - 1)) - m_textDistanceMargins.Left - m_textDistanceMargins.Right - lineCorr) / Cols;
+	return (m_width - (ColGap * (Cols - 1)) - m_textDistanceMargins.left() - m_textDistanceMargins.right() - 2 * lineCorr) / Cols;
+//	return (Width - (ColGap * (Cols - 1)) - m_textDistanceMargins.left() - m_textDistanceMargins.right() - lineCorr) / Cols;
 }
 
 /*
@@ -5156,17 +5156,17 @@ void PageItem_TextFrame::drawColumnBorders(ScPainter *p)
 	double lineCorr=0;
 	if (lineColor() != CommonStrings::None)
 		lineCorr = m_lineWidth / 2.0;
-	if (m_textDistanceMargins.Top + lineCorr!=0.0)
-		p->drawSharpLine(FPoint(m_textDistanceMargins.Left + lineCorr, m_textDistanceMargins.Top + lineCorr), FPoint(m_width - m_textDistanceMargins.Right - lineCorr, m_textDistanceMargins.Top + lineCorr));
-	if (m_textDistanceMargins.Bottom + lineCorr!=0.0)
-		p->drawSharpLine(FPoint(m_textDistanceMargins.Left + lineCorr, m_height - m_textDistanceMargins.Bottom - lineCorr), FPoint(m_width - m_textDistanceMargins.Right - lineCorr, m_height - m_textDistanceMargins.Bottom - lineCorr));
+	if (m_textDistanceMargins.top() + lineCorr!=0.0)
+		p->drawSharpLine(FPoint(m_textDistanceMargins.left() + lineCorr, m_textDistanceMargins.top() + lineCorr), FPoint(m_width - m_textDistanceMargins.right() - lineCorr, m_textDistanceMargins.top() + lineCorr));
+	if (m_textDistanceMargins.bottom() + lineCorr!=0.0)
+		p->drawSharpLine(FPoint(m_textDistanceMargins.left() + lineCorr, m_height - m_textDistanceMargins.bottom() - lineCorr), FPoint(m_width - m_textDistanceMargins.right() - lineCorr, m_height - m_textDistanceMargins.bottom() - lineCorr));
 	while(curCol < Cols)
 	{
-		colLeft=(colWidth + ColGap) * curCol + m_textDistanceMargins.Left + lineCorr;
+		colLeft=(colWidth + ColGap) * curCol + m_textDistanceMargins.left() + lineCorr;
 		if (colLeft != 0.0)
-			p->drawSharpLine(FPoint(colLeft, m_textDistanceMargins.Top + lineCorr), FPoint(colLeft, m_height - m_textDistanceMargins.Bottom - lineCorr));
+			p->drawSharpLine(FPoint(colLeft, m_textDistanceMargins.top() + lineCorr), FPoint(colLeft, m_height - m_textDistanceMargins.bottom() - lineCorr));
 		if (colLeft + colWidth != m_width)
-			p->drawSharpLine(FPoint(colLeft + colWidth, m_textDistanceMargins.Top + lineCorr), FPoint(colLeft + colWidth, m_height - m_textDistanceMargins.Bottom - lineCorr));
+			p->drawSharpLine(FPoint(colLeft + colWidth, m_textDistanceMargins.top() + lineCorr), FPoint(colLeft + colWidth, m_height - m_textDistanceMargins.bottom() - lineCorr));
 		++curCol;
 	}
 
@@ -5855,9 +5855,9 @@ NotesInFrameMap PageItem_TextFrame::updateNotesFrames(QMap<int, Mark*> noteMarks
 					//create new endnotes frame
 					double x,y,w,h;
 					const ScPage* scP = m_Doc->page4EndNotes(NS, this);
-					x = scP->Margins.Left + m_Doc->rulerXoffset + scP->xOffset();
-					y = scP->Margins.Top + m_Doc->rulerYoffset + scP->yOffset();
-					w = scP->width() - scP->Margins.Left - scP->Margins.Right;
+					x = scP->Margins.left() + m_Doc->rulerXoffset + scP->xOffset();
+					y = scP->Margins.top() + m_Doc->rulerYoffset + scP->yOffset();
+					w = scP->width() - scP->Margins.left() - scP->Margins.right();
 					h = calculateLineSpacing(itemText.defaultStyle(), this);
 					nF = m_Doc->createNoteFrame(note->notesStyle(), x, y, w, h, m_Doc->itemToolPrefs().shapeLineWidth, CommonStrings::None, m_Doc->itemToolPrefs().textFont);
 					switch (NS->range())
@@ -5892,8 +5892,8 @@ NotesInFrameMap PageItem_TextFrame::updateNotesFrames(QMap<int, Mark*> noteMarks
 				if (scP->pageNr() != nF->OwnPage)
 				{
 					double x,y;
-					x = scP->Margins.Left + m_Doc->rulerXoffset + scP->xOffset();
-					y = scP->Margins.Top + m_Doc->rulerYoffset + scP->yOffset();
+					x = scP->Margins.left() + m_Doc->rulerXoffset + scP->xOffset();
+					y = scP->Margins.top() + m_Doc->rulerYoffset + scP->yOffset();
 					if ((scP->pageNr() != nF->OwnPage) || (nF->xPos() > (x + scP->width())) || nF->yPos() > (y + scP->height()))
 					{
 						undoManager->setUndoEnabled(false);
@@ -6071,7 +6071,7 @@ void PageItem_TextFrame::setTextFrameHeight()
 	//ugly hack increasing min frame`s haeight against strange glyph painting if it is too close of bottom
 	double hackValue = 0.5;
 
-	setHeight(ceil(maxY) + m_textDistanceMargins.Bottom + hackValue);
+	setHeight(ceil(maxY) + m_textDistanceMargins.bottom() + hackValue);
 	updateClip();
 	invalid = true;
 	m_Doc->changed();

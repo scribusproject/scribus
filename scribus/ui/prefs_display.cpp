@@ -121,10 +121,10 @@ void Prefs_Display::restoreDefaults(struct ApplicationPrefs *prefsData)
 
 	unitChange(docUnitIndex);
 
-	scratchSpaceLeftSpinBox->setValue(prefsData->displayPrefs.scratch.Left * unitRatio);
-	scratchSpaceRightSpinBox->setValue(prefsData->displayPrefs.scratch.Right * unitRatio);
-	scratchSpaceTopSpinBox->setValue(prefsData->displayPrefs.scratch.Top * unitRatio);
-	scratchSpaceBottomSpinBox->setValue(prefsData->displayPrefs.scratch.Bottom * unitRatio);
+	scratchSpaceLeftSpinBox->setValue(prefsData->displayPrefs.scratch.left() * unitRatio);
+	scratchSpaceRightSpinBox->setValue(prefsData->displayPrefs.scratch.right() * unitRatio);
+	scratchSpaceTopSpinBox->setValue(prefsData->displayPrefs.scratch.top() * unitRatio);
+	scratchSpaceBottomSpinBox->setValue(prefsData->displayPrefs.scratch.bottom() * unitRatio);
 	pageGapHorizontalSpinBox->setValue(prefsData->displayPrefs.pageGapHorizontal * unitRatio);
 	pageGapVerticalSpinBox->setValue(prefsData->displayPrefs.pageGapVertical * unitRatio);
 
@@ -413,10 +413,10 @@ void Prefs_Display::saveGuiToPrefs(struct ApplicationPrefs *prefsData) const
 	prefsData->displayPrefs.showVerifierWarningsOnCanvas=showVerifierWarningsOnCanvasCheckBox->isChecked();
 	prefsData->displayPrefs.showAutosaveClockOnCanvas=showAutosaveClockOnCanvasCheckBox->isChecked();
 	double unitRatio = unitGetRatioFromIndex(docUnitIndex);
-	prefsData->displayPrefs.scratch.Left=scratchSpaceLeftSpinBox->value() / unitRatio;
-	prefsData->displayPrefs.scratch.Right=scratchSpaceRightSpinBox->value() / unitRatio;
-	prefsData->displayPrefs.scratch.Top=scratchSpaceTopSpinBox->value() / unitRatio;
-	prefsData->displayPrefs.scratch.Bottom=scratchSpaceBottomSpinBox->value() / unitRatio;
+	prefsData->displayPrefs.scratch.setLeft(scratchSpaceLeftSpinBox->value() / unitRatio);
+	prefsData->displayPrefs.scratch.setRight(scratchSpaceRightSpinBox->value() / unitRatio);
+	prefsData->displayPrefs.scratch.setTop(scratchSpaceTopSpinBox->value() / unitRatio);
+	prefsData->displayPrefs.scratch.setBottom(scratchSpaceBottomSpinBox->value() / unitRatio);
 	prefsData->displayPrefs.pageGapHorizontal=pageGapHorizontalSpinBox->value() / unitRatio;
 	prefsData->displayPrefs.pageGapVertical=pageGapVerticalSpinBox->value() / unitRatio;
 

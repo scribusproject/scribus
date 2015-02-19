@@ -469,10 +469,10 @@ bool OdgPlug::parseStyleSheetsXML(QDomDocument &designMapDom)
 						m_Doc->currentPage()->setInitialWidth(tmpOStyle.page_width);
 						m_Doc->currentPage()->setHeight(tmpOStyle.page_height);
 						m_Doc->currentPage()->setWidth(tmpOStyle.page_width);
-						m_Doc->currentPage()->initialMargins.Top = tmpOStyle.margin_top;
-						m_Doc->currentPage()->initialMargins.Bottom = tmpOStyle.margin_bottom;
-						m_Doc->currentPage()->initialMargins.Left = tmpOStyle.margin_left;
-						m_Doc->currentPage()->initialMargins.Right = tmpOStyle.margin_right;
+						m_Doc->currentPage()->initialMargins.setTop(tmpOStyle.margin_top);
+						m_Doc->currentPage()->initialMargins.setBottom(tmpOStyle.margin_bottom);
+						m_Doc->currentPage()->initialMargins.setLeft(tmpOStyle.margin_left);
+						m_Doc->currentPage()->initialMargins.setRight(tmpOStyle.margin_right);
 						if (!backGroundStyle.isEmpty())
 						{
 							ObjStyle tmpBStyle;
@@ -595,10 +595,10 @@ bool OdgPlug::parseDocReferenceXML(QDomDocument &designMapDom)
 						m_Doc->currentPage()->setInitialWidth(tmpOStyle.page_width);
 						m_Doc->currentPage()->setHeight(tmpOStyle.page_height);
 						m_Doc->currentPage()->setWidth(tmpOStyle.page_width);
-						m_Doc->currentPage()->initialMargins.Top = tmpOStyle.margin_top;
-						m_Doc->currentPage()->initialMargins.Bottom = tmpOStyle.margin_bottom;
-						m_Doc->currentPage()->initialMargins.Left = tmpOStyle.margin_left;
-						m_Doc->currentPage()->initialMargins.Right = tmpOStyle.margin_right;
+						m_Doc->currentPage()->initialMargins.setTop(tmpOStyle.margin_top);
+						m_Doc->currentPage()->initialMargins.setBottom(tmpOStyle.margin_bottom);
+						m_Doc->currentPage()->initialMargins.setLeft(tmpOStyle.margin_left);
+						m_Doc->currentPage()->initialMargins.setRight(tmpOStyle.margin_right);
 						if (!currStyle.page_layout_name.value.isEmpty())
 						{
 							ObjStyle tmpBStyle;
@@ -680,10 +680,10 @@ bool OdgPlug::parseDocReferenceXML(QDomDocument &designMapDom)
 									m_Doc->currentPage()->setInitialWidth(docWidth);
 									m_Doc->currentPage()->setHeight(docHeight);
 									m_Doc->currentPage()->setWidth(docWidth);
-									m_Doc->currentPage()->initialMargins.Top = topMargin;
-									m_Doc->currentPage()->initialMargins.Bottom = bottomMargin;
-									m_Doc->currentPage()->initialMargins.Left = leftMargin;
-									m_Doc->currentPage()->initialMargins.Right = rightMargin;
+									m_Doc->currentPage()->initialMargins.setTop(topMargin);
+									m_Doc->currentPage()->initialMargins.setBottom(bottomMargin);
+									m_Doc->currentPage()->initialMargins.setLeft(leftMargin);
+									m_Doc->currentPage()->initialMargins.setRight(rightMargin);
 									m_Doc->reformPages(true);
 								}
 								else
@@ -694,10 +694,10 @@ bool OdgPlug::parseDocReferenceXML(QDomDocument &designMapDom)
 									m_Doc->currentPage()->setInitialWidth(docWidth);
 									m_Doc->currentPage()->setHeight(docHeight);
 									m_Doc->currentPage()->setWidth(docWidth);
-									m_Doc->currentPage()->initialMargins.Top = topMargin;
-									m_Doc->currentPage()->initialMargins.Bottom = bottomMargin;
-									m_Doc->currentPage()->initialMargins.Left = leftMargin;
-									m_Doc->currentPage()->initialMargins.Right = rightMargin;
+									m_Doc->currentPage()->initialMargins.setTop(topMargin);
+									m_Doc->currentPage()->initialMargins.setBottom(bottomMargin);
+									m_Doc->currentPage()->initialMargins.setLeft(leftMargin);
+									m_Doc->currentPage()->initialMargins.setRight(rightMargin);
 									m_Doc->currentPage()->MPageNam = CommonStrings::trMasterPageNormal;
 									m_Doc->view()->addPage(pagecount, true);
 									pagecount++;

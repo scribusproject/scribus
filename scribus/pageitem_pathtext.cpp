@@ -80,7 +80,7 @@ void PageItem_PathText::DrawObj_Item(ScPainter *p, QRectF cullingArea)
 	FPoint point = FPoint(0, 0);
 	FPoint tangent = FPoint(0, 0);
 	QColor tmp;
-	CurX = m_textDistanceMargins.Left;
+	CurX = m_textDistanceMargins.left();
 	QString cachedStroke = "";
 	QString cachedFill = "";
 	double cachedFillShade = -1;
@@ -223,12 +223,12 @@ void PageItem_PathText::DrawObj_Item(ScPainter *p, QRectF cullingArea)
 	{
 		totalCurveLen += PoLine.lenPathSeg(segs);
 	}
-	if ((itemRenderText.paragraphStyle(0).alignment() != 0) && (totalCurveLen >= totalTextLen + m_textDistanceMargins.Left))
+	if ((itemRenderText.paragraphStyle(0).alignment() != 0) && (totalCurveLen >= totalTextLen + m_textDistanceMargins.left()))
 	{
 		if (itemRenderText.paragraphStyle(0).alignment() == 2)
 		{
 			CurX = totalCurveLen  - totalTextLen;
-			CurX -= m_textDistanceMargins.Left;
+			CurX -= m_textDistanceMargins.left();
 		}
 		if (itemRenderText.paragraphStyle(0).alignment() == 1)
 			CurX = (totalCurveLen - totalTextLen) / 2.0;
@@ -237,16 +237,16 @@ void PageItem_PathText::DrawObj_Item(ScPainter *p, QRectF cullingArea)
 			if (spaceCount != 0)
 			{
 				extraOffset = 0;
-				wordExtra = (totalCurveLen - m_textDistanceMargins.Left  - totalTextLen) / static_cast<double>(spaceCount);
+				wordExtra = (totalCurveLen - m_textDistanceMargins.left()  - totalTextLen) / static_cast<double>(spaceCount);
 			}
 			else
 			{
-				extraOffset = (totalCurveLen - m_textDistanceMargins.Left  - totalTextLen) / static_cast<double>(itemRenderText.length());
+				extraOffset = (totalCurveLen - m_textDistanceMargins.left()  - totalTextLen) / static_cast<double>(itemRenderText.length());
 				wordExtra = 0;
 			}
 		}
 		if (itemRenderText.paragraphStyle(0).alignment() == 4)
-			extraOffset = (totalCurveLen - m_textDistanceMargins.Left - totalTextLen) / static_cast<double>(itemRenderText.length());
+			extraOffset = (totalCurveLen - m_textDistanceMargins.left() - totalTextLen) / static_cast<double>(itemRenderText.length());
 	}
 	QPainterPath guidePath = PoLine.toQPainterPath(false);
 	QList<QPainterPath> pathList = decomposePath(guidePath);

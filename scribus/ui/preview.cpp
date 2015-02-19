@@ -605,10 +605,7 @@ int PPreview::RenderPreview(int Seite, int Res)
 		options.colorMarks = false;
 		options.markLength = 20.0;
 		options.markOffset = 0.0;
-		options.bleeds.Top = 0.0;
-		options.bleeds.Left = 0.0;
-		options.bleeds.Right = 0.0;
-		options.bleeds.Bottom = 0.0;
+		options.bleeds.set(0, 0, 0, 0);
 		PSLib *dd = new PSLib(options, true, prefsManager->appPrefs.fontPrefs.AvailFonts, ReallyUsed, doc->PageColors, false, !spotColors->isChecked());
 		if (dd != NULL)
 		{
@@ -718,10 +715,7 @@ int PPreview::RenderPreviewSep(int Seite, int Res)
 		options.colorMarks = false;
 		options.markLength = 20.0;
 		options.markOffset = 0.0;
-		options.bleeds.Top = 0.0;
-		options.bleeds.Left = 0.0;
-		options.bleeds.Right = 0.0;
-		options.bleeds.Bottom = 0.0;
+		options.bleeds.set(0, 0, 0, 0);
 		PSLib *dd = new PSLib(options, true, prefsManager->appPrefs.fontPrefs.AvailFonts, ReallyUsed, doc->PageColors, false, !spotColors->isChecked());
 		if (dd != NULL)
 		{

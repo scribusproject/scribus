@@ -129,10 +129,10 @@ void Prefs_ItemTools::restoreDefaults(struct ApplicationPrefs *prefsData)
 	textTabWidthSpinBox->setValue(prefsData->itemToolPrefs.textTabWidth * unitRatio);
 	textColumnsSpinBox->setValue(prefsData->itemToolPrefs.textColumns);
 	textColumnGapSpinBox->setValue(prefsData->itemToolPrefs.textColumnGap * unitRatio);
-	topTextDistanceSpinBox->setValue(prefsData->itemToolPrefs.textDistances.Top * unitRatio);
-	bottomTextDistanceSpinBox->setValue(prefsData->itemToolPrefs.textDistances.Bottom * unitRatio);
-	leftTextDistanceSpinBox->setValue(prefsData->itemToolPrefs.textDistances.Left * unitRatio);
-	rightTextDistanceSpinBox->setValue(prefsData->itemToolPrefs.textDistances.Right * unitRatio);
+	topTextDistanceSpinBox->setValue(prefsData->itemToolPrefs.textDistances.top() * unitRatio);
+	bottomTextDistanceSpinBox->setValue(prefsData->itemToolPrefs.textDistances.bottom() * unitRatio);
+	leftTextDistanceSpinBox->setValue(prefsData->itemToolPrefs.textDistances.left() * unitRatio);
+	rightTextDistanceSpinBox->setValue(prefsData->itemToolPrefs.textDistances.right() * unitRatio);
 
 	//Image Tool
 	imageFreeScalingRadioButton->setChecked( prefsData->itemToolPrefs.imageScaleType );
@@ -253,10 +253,10 @@ void Prefs_ItemTools::saveGuiToPrefs(struct ApplicationPrefs *prefsData) const
 			prefsData->itemToolPrefs.textTabFillChar = textTabFillCharComboBox->currentText().right(1);
 			break;
 	}
-	prefsData->itemToolPrefs.textDistances.Top = topTextDistanceSpinBox->value() / unitRatio;
-	prefsData->itemToolPrefs.textDistances.Bottom = bottomTextDistanceSpinBox->value() / unitRatio;
-	prefsData->itemToolPrefs.textDistances.Left = leftTextDistanceSpinBox->value() / unitRatio;
-	prefsData->itemToolPrefs.textDistances.Right = rightTextDistanceSpinBox->value() / unitRatio;
+	prefsData->itemToolPrefs.textDistances.setTop(topTextDistanceSpinBox->value() / unitRatio);
+	prefsData->itemToolPrefs.textDistances.setBottom(bottomTextDistanceSpinBox->value() / unitRatio);
+	prefsData->itemToolPrefs.textDistances.setLeft(leftTextDistanceSpinBox->value() / unitRatio);
+	prefsData->itemToolPrefs.textDistances.setRight(rightTextDistanceSpinBox->value() / unitRatio);
 	prefsData->itemToolPrefs.imageFillColor = imageFrameFillColorComboBox->currentText();
 	if (prefsData->itemToolPrefs.imageFillColor == CommonStrings::tr_NoneColor)
 		prefsData->itemToolPrefs.imageFillColor = CommonStrings::None;

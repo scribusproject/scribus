@@ -434,10 +434,10 @@ void VivaPlug::parseSettingsXML(const QDomElement& grNode)
 {
 	if (importerFlags & LoadSavePlugin::lfCreateDoc)
 	{
-		topMargin = m_Doc->marginsVal().Top;
-		leftMargin = m_Doc->marginsVal().Left;
-		rightMargin = m_Doc->marginsVal().Right;
-		bottomMargin = m_Doc->marginsVal().Bottom;
+		topMargin = m_Doc->marginsVal().top();
+		leftMargin = m_Doc->marginsVal().left();
+		rightMargin = m_Doc->marginsVal().right();
+		bottomMargin = m_Doc->marginsVal().bottom();
 		double pgCols = m_Doc->PageSp;
 		double pgGap = m_Doc->PageSpa;
 		papersize = "Custom";
@@ -501,10 +501,10 @@ void VivaPlug::parseSettingsXML(const QDomElement& grNode)
 		m_Doc->currentPage()->setInitialWidth(docWidth);
 		m_Doc->currentPage()->setHeight(docHeight);
 		m_Doc->currentPage()->setWidth(docWidth);
-		m_Doc->currentPage()->initialMargins.Top = topMargin;
-		m_Doc->currentPage()->initialMargins.Bottom = bottomMargin;
-		m_Doc->currentPage()->initialMargins.Left = leftMargin;
-		m_Doc->currentPage()->initialMargins.Right = rightMargin;
+		m_Doc->currentPage()->initialMargins.setTop(topMargin);
+		m_Doc->currentPage()->initialMargins.setBottom(bottomMargin);
+		m_Doc->currentPage()->initialMargins.setLeft(leftMargin);
+		m_Doc->currentPage()->initialMargins.setRight(rightMargin);
 		m_Doc->reformPages(true);
 	}
 }
@@ -779,10 +779,10 @@ void VivaPlug::parseSpreadXML(const QDomElement& spNode)
 				m_Doc->currentPage()->setInitialWidth(docWidth);
 				m_Doc->currentPage()->setHeight(docHeight);
 				m_Doc->currentPage()->setWidth(docWidth);
-				m_Doc->currentPage()->initialMargins.Top = topMargin;
-				m_Doc->currentPage()->initialMargins.Bottom = bottomMargin;
-				m_Doc->currentPage()->initialMargins.Left = leftMargin;
-				m_Doc->currentPage()->initialMargins.Right = rightMargin;
+				m_Doc->currentPage()->initialMargins.setTop(topMargin);
+				m_Doc->currentPage()->initialMargins.setBottom(bottomMargin);
+				m_Doc->currentPage()->initialMargins.setLeft(leftMargin);
+				m_Doc->currentPage()->initialMargins.setRight(rightMargin);
 				m_Doc->currentPage()->MPageNam = CommonStrings::trMasterPageNormal;
 				m_Doc->view()->addPage(pagecount, true);
 				pagecount++;

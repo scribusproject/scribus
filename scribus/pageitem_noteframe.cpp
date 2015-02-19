@@ -222,7 +222,7 @@ void PageItem_NoteFrame::layout()
 			}
 		}
 		double hackValue = 0.5;
-		oldHeight = m_height = ceil(maxY) + m_textDistanceMargins.Bottom + hackValue;
+		oldHeight = m_height = ceil(maxY) + m_textDistanceMargins.bottom() + hackValue;
 		updateConstants();
 		updateClip();
 		invalid = true;

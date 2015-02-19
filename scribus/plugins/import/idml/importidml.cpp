@@ -1316,16 +1316,16 @@ bool IdmlPlug::parsePreferencesXML(const QDomElement& prElem)
 
 void IdmlPlug::parsePreferencesXMLNode(const QDomElement& prNode)
 {
-	double topMargin = m_Doc->marginsVal().Top;
-	double leftMargin = m_Doc->marginsVal().Left;
-	double rightMargin = m_Doc->marginsVal().Right;
-	double bottomMargin = m_Doc->marginsVal().Bottom;
+	double topMargin = m_Doc->marginsVal().top();
+	double leftMargin = m_Doc->marginsVal().left();
+	double rightMargin = m_Doc->marginsVal().right();
+	double bottomMargin = m_Doc->marginsVal().bottom();
 	double pgCols = m_Doc->PageSp;
 	double pgGap = m_Doc->PageSpa;
-	double bleedTop = m_Doc->bleeds()->Top;
-	double bleedLeft = m_Doc->bleeds()->Left;
-	double bleedRight = m_Doc->bleeds()->Right;
-	double bleedBottom = m_Doc->bleeds()->Bottom;
+	double bleedTop = m_Doc->bleeds()->top();
+	double bleedLeft = m_Doc->bleeds()->left();
+	double bleedRight = m_Doc->bleeds()->right();
+	double bleedBottom = m_Doc->bleeds()->bottom();
 	facingPages = false;
 	for (QDomNode n = prNode.firstChild(); !n.isNull(); n = n.nextSibling() )
 	{
@@ -1492,10 +1492,10 @@ void IdmlPlug::parsePreferencesXMLNode(const QDomElement& prNode)
 		m_Doc->currentPage()->setInitialWidth(docWidth);
 		m_Doc->currentPage()->setHeight(docHeight);
 		m_Doc->currentPage()->setWidth(docWidth);
-		m_Doc->currentPage()->initialMargins.Top = topMargin;
-		m_Doc->currentPage()->initialMargins.Bottom = bottomMargin;
-		m_Doc->currentPage()->initialMargins.Left = leftMargin;
-		m_Doc->currentPage()->initialMargins.Right = rightMargin;
+		m_Doc->currentPage()->initialMargins.setTop(topMargin);
+		m_Doc->currentPage()->initialMargins.setBottom(bottomMargin);
+		m_Doc->currentPage()->initialMargins.setLeft(leftMargin);
+		m_Doc->currentPage()->initialMargins.setRight(rightMargin);
 		m_Doc->reformPages(true);
 		baseX = m_Doc->currentPage()->xOffset();
 		baseY = m_Doc->currentPage()->yOffset() + m_Doc->currentPage()->height() / 2.0;

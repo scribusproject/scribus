@@ -248,12 +248,12 @@ void PagePalette_MasterPages::duplicateMasterPage()
 				lp++;
 			destination->LeftPg = lp;
 		}
-		destination->initialMargins.Top = from->initialMargins.Top;
-		destination->initialMargins.Bottom = from->initialMargins.Bottom;
+		destination->initialMargins.setTop(from->initialMargins.top());
+		destination->initialMargins.setBottom(from->initialMargins.bottom());
 		if (m_doc->pageSets()[m_doc->pagePositioning()].Columns == 1)
 		{
-			destination->initialMargins.Left = from->initialMargins.Left;
-			destination->initialMargins.Right = from->initialMargins.Right;
+			destination->initialMargins.setLeft(from->initialMargins.left());
+			destination->initialMargins.setRight(from->initialMargins.right());
 		}
 		else
 		{
@@ -261,19 +261,19 @@ void PagePalette_MasterPages::duplicateMasterPage()
 			{
 				if (destination->LeftPg > 1)
 				{
-					destination->initialMargins.Right = from->initialMargins.Left;
-					destination->initialMargins.Left = from->initialMargins.Left;
+					destination->initialMargins.setRight(from->initialMargins.left());
+					destination->initialMargins.setLeft(from->initialMargins.left());
 				}
 				else
 				{
-					destination->initialMargins.Left = from->initialMargins.Left;
-					destination->initialMargins.Right = from->initialMargins.Right;
+					destination->initialMargins.setLeft(from->initialMargins.left());
+					destination->initialMargins.setRight(from->initialMargins.right());
 				}
 			}
 			else
 			{
-				destination->initialMargins.Left = from->initialMargins.Left;
-				destination->initialMargins.Right = from->initialMargins.Right;
+				destination->initialMargins.setLeft(from->initialMargins.left());
+				destination->initialMargins.setRight(from->initialMargins.right());
 			}
 		}
 		//#8321 : incorrect selection of master page on new mp creation/duplictation

@@ -246,16 +246,16 @@ bool CanvasMode_CopyProperties::SeleItem(QMouseEvent *m)
 		int docPageCount = static_cast<int>(m_doc->Pages->count() - 1);
 		MarginStruct pageBleeds;
 		bool drawBleed = false;
-		if (m_doc->bleeds()->hasNonZeroValue() && m_doc->guidesPrefs().showBleed)
+		if (!m_doc->bleeds()->isNull() && m_doc->guidesPrefs().showBleed)
 			drawBleed = true;
 		for (int a = docPageCount; a > -1; a--)
 		{
 			if (drawBleed)
 				m_doc->getBleeds(a, pageBleeds);
-			int x = static_cast<int>(m_doc->Pages->at(a)->xOffset() - pageBleeds.Left);
-			int y = static_cast<int>(m_doc->Pages->at(a)->yOffset() - pageBleeds.Top);
-			int w = static_cast<int>(m_doc->Pages->at(a)->width() + pageBleeds.Left + pageBleeds.Right);
-			int h = static_cast<int>(m_doc->Pages->at(a)->height() + pageBleeds.Bottom + pageBleeds.Top);
+			int x = static_cast<int>(m_doc->Pages->at(a)->xOffset() - pageBleeds.left());
+			int y = static_cast<int>(m_doc->Pages->at(a)->yOffset() - pageBleeds.top());
+			int w = static_cast<int>(m_doc->Pages->at(a)->width() + pageBleeds.left() + pageBleeds.right());
+			int h = static_cast<int>(m_doc->Pages->at(a)->height() + pageBleeds.bottom() + pageBleeds.top());
 			if (QRect(x, y, w, h).contains(MxpS, MypS))
 			{
 				pgNum = static_cast<int>(a);

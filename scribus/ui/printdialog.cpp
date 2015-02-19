@@ -417,10 +417,10 @@ void PrintDialog::storeValues()
 	m_doc->Print_Options.prnEngine= printEngine();
 	m_doc->Print_Options.setDevParam = doDev();
 	m_doc->Print_Options.useDocBleeds  = docBleeds->isChecked();
-	m_doc->Print_Options.bleeds.Top    = BleedTop->value() / m_doc->unitRatio();
-	m_doc->Print_Options.bleeds.Left   = BleedLeft->value() / m_doc->unitRatio();
-	m_doc->Print_Options.bleeds.Right  = BleedRight->value() / m_doc->unitRatio();
-	m_doc->Print_Options.bleeds.Bottom = BleedBottom->value() / m_doc->unitRatio();
+	m_doc->Print_Options.bleeds.setTop(BleedTop->value() / m_doc->unitRatio());
+	m_doc->Print_Options.bleeds.setLeft(BleedLeft->value() / m_doc->unitRatio());
+	m_doc->Print_Options.bleeds.setRight(BleedRight->value() / m_doc->unitRatio());
+	m_doc->Print_Options.bleeds.setBottom(BleedBottom->value() / m_doc->unitRatio());
 	m_doc->Print_Options.markLength = markLength->value() / m_doc->unitRatio();
 	m_doc->Print_Options.markOffset = markOffset->value() / m_doc->unitRatio();
 	m_doc->Print_Options.cropMarks  = cropMarks->isChecked();
@@ -544,17 +544,17 @@ void PrintDialog::setStoredValues(const QString& fileName, bool gcr)
 	docBleeds->setChecked(m_doc->Print_Options.useDocBleeds);
 	if (docBleeds->isChecked())
 	{
-		BleedTop->setValue(m_doc->bleeds()->Top*unitRatio);
-		BleedBottom->setValue(m_doc->bleeds()->Bottom*unitRatio);
-		BleedRight->setValue(m_doc->bleeds()->Right*unitRatio);
-		BleedLeft->setValue(m_doc->bleeds()->Left*unitRatio);
+		BleedTop->setValue(m_doc->bleeds()->top()*unitRatio);
+		BleedBottom->setValue(m_doc->bleeds()->bottom()*unitRatio);
+		BleedRight->setValue(m_doc->bleeds()->right()*unitRatio);
+		BleedLeft->setValue(m_doc->bleeds()->left()*unitRatio);
 	}
 	else
 	{
-		BleedTop->setValue(m_doc->Print_Options.bleeds.Top*unitRatio);
-		BleedBottom->setValue(m_doc->Print_Options.bleeds.Bottom*unitRatio);
-		BleedRight->setValue(m_doc->Print_Options.bleeds.Right*unitRatio);
-		BleedLeft->setValue(m_doc->Print_Options.bleeds.Left*unitRatio);
+		BleedTop->setValue(m_doc->Print_Options.bleeds.top()*unitRatio);
+		BleedBottom->setValue(m_doc->Print_Options.bleeds.bottom()*unitRatio);
+		BleedRight->setValue(m_doc->Print_Options.bleeds.right()*unitRatio);
+		BleedLeft->setValue(m_doc->Print_Options.bleeds.left()*unitRatio);
 	}
 	BleedTop->setEnabled(!docBleeds->isChecked());
 	BleedBottom->setEnabled(!docBleeds->isChecked());
@@ -680,10 +680,10 @@ void PrintDialog::doDocBleeds()
 		prefs->set("BleedBottom", BleedBottom->value() / unitRatio);
 		prefs->set("BleedRight", BleedRight->value() / unitRatio);
 		prefs->set("BleedLeft", BleedLeft->value() / unitRatio);
-		BleedTop->setValue(m_doc->bleeds()->Top*unitRatio);
-		BleedBottom->setValue(m_doc->bleeds()->Bottom*unitRatio);
-		BleedRight->setValue(m_doc->bleeds()->Right*unitRatio);
-		BleedLeft->setValue(m_doc->bleeds()->Left*unitRatio);
+		BleedTop->setValue(m_doc->bleeds()->top()*unitRatio);
+		BleedBottom->setValue(m_doc->bleeds()->bottom()*unitRatio);
+		BleedRight->setValue(m_doc->bleeds()->right()*unitRatio);
+		BleedLeft->setValue(m_doc->bleeds()->left()*unitRatio);
 	}
 	else
 	{

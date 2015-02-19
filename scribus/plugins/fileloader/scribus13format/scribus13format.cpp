@@ -348,10 +348,10 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 		else
 			m_Doc->setPageWidth(ScCLocale::toDoubleC(dc.attribute("PAGEWITH")));
 		m_Doc->setPageHeight(ScCLocale::toDoubleC(dc.attribute("PAGEHEIGHT")));
-		m_Doc->margins()->Left  = qMax(0.0, ScCLocale::toDoubleC("BORDERLEFT"));
-		m_Doc->margins()->Right = qMax(0.0, ScCLocale::toDoubleC("BORDERRIGHT"));
-		m_Doc->margins()->Top   = qMax(0.0, ScCLocale::toDoubleC("BORDERTOP"));
-		m_Doc->margins()->Bottom= qMax(0.0, ScCLocale::toDoubleC("BORDERBOTTOM"));
+		m_Doc->margins()->setLeft(qMax(0.0, ScCLocale::toDoubleC("BORDERLEFT")));
+		m_Doc->margins()->setRight(qMax(0.0, ScCLocale::toDoubleC("BORDERRIGHT")));
+		m_Doc->margins()->setTop(qMax(0.0, ScCLocale::toDoubleC("BORDERTOP")));
+		m_Doc->margins()->setBottom(qMax(0.0, ScCLocale::toDoubleC("BORDERBOTTOM")));
 		m_Doc->setMarginPreset(dc.attribute("PRESET", "0").toInt());
 		m_Doc->setHyphAutomatic(static_cast<bool>(dc.attribute("AUTOMATIC", "1").toInt()));
 		m_Doc->setHyphAutoCheck(static_cast<bool>(dc.attribute("AUTOCHECK", "0").toInt()));
@@ -651,10 +651,10 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 				m_Doc->pdfOptions().ImageProf = pg.attribute("ImageP", "");
 				m_Doc->pdfOptions().PrintProf = pg.attribute("PrintP", "");
 				m_Doc->pdfOptions().Info = pg.attribute("InfoString", "");
-				m_Doc->pdfOptions().bleeds.Top    = ScCLocale::toDoubleC(pg.attribute("BTop"), 0.0);
-				m_Doc->pdfOptions().bleeds.Left   = ScCLocale::toDoubleC(pg.attribute("BLeft"), 0.0);
-				m_Doc->pdfOptions().bleeds.Right  = ScCLocale::toDoubleC(pg.attribute("BRight"), 0.0);
-				m_Doc->pdfOptions().bleeds.Bottom = ScCLocale::toDoubleC(pg.attribute("BBottom"), 0.0);
+				m_Doc->pdfOptions().bleeds.setTop(ScCLocale::toDoubleC(pg.attribute("BTop"), 0.0));
+				m_Doc->pdfOptions().bleeds.setLeft(ScCLocale::toDoubleC(pg.attribute("BLeft"), 0.0));
+				m_Doc->pdfOptions().bleeds.setRight(ScCLocale::toDoubleC(pg.attribute("BRight"), 0.0));
+				m_Doc->pdfOptions().bleeds.setBottom(ScCLocale::toDoubleC(pg.attribute("BBottom"), 0.0));
 				m_Doc->pdfOptions().EmbeddedI = static_cast<bool>(pg.attribute("ImagePr", "0").toInt());
 				m_Doc->pdfOptions().PassOwner = pg.attribute("PassOwner", "");
 				m_Doc->pdfOptions().PassUser  = pg.attribute("PassUser", "");
@@ -829,13 +829,13 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 				Apage->setHeight( ScCLocale::toDoubleC(pg.attribute("PAGEHEIGHT")) );
 				Apage->setInitialHeight(Apage->height());
 				Apage->setInitialWidth(Apage->width());
-				Apage->initialMargins.Top    = qMax(0.0, ScCLocale::toDoubleC(pg.attribute("BORDERTOP")));
-				Apage->initialMargins.Bottom = qMax(0.0, ScCLocale::toDoubleC(pg.attribute("BORDERBOTTOM")));
-				Apage->initialMargins.Left   = qMax(0.0, ScCLocale::toDoubleC(pg.attribute("BORDERLEFT")));
-				Apage->initialMargins.Right  = qMax(0.0, ScCLocale::toDoubleC(pg.attribute("BORDERRIGHT")));
+				Apage->initialMargins.setTop(qMax(0.0, ScCLocale::toDoubleC(pg.attribute("BORDERTOP"))));
+				Apage->initialMargins.setBottom(qMax(0.0, ScCLocale::toDoubleC(pg.attribute("BORDERBOTTOM"))));
+				Apage->initialMargins.setLeft(qMax(0.0, ScCLocale::toDoubleC(pg.attribute("BORDERLEFT"))));
+				Apage->initialMargins.setRight(qMax(0.0, ScCLocale::toDoubleC(pg.attribute("BORDERRIGHT"))));
 				Apage->marginPreset = pg.attribute("PRESET", "0").toInt();
-				Apage->Margins.Top = Apage->initialMargins.Top;
-				Apage->Margins.Bottom = Apage->initialMargins.Bottom;
+				Apage->Margins.setTop(Apage->initialMargins.top());
+				Apage->Margins.setBottom(Apage->initialMargins.bottom());
 				m_Doc->setMasterPageMode(false);
 				// guides reading
 				tmp = "";
@@ -2203,13 +2203,13 @@ bool Scribus13Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 				Apage->setHeight(ScCLocale::toDoubleC(pg.attribute("PAGEHEIGHT")));
 				Apage->setInitialHeight(Apage->height());
 				Apage->setInitialWidth(Apage->width());
-				Apage->initialMargins.Top    = qMax(0.0, ScCLocale::toDoubleC(pg.attribute("BORDERTOP")));
-				Apage->initialMargins.Bottom = qMax(0.0, ScCLocale::toDoubleC(pg.attribute("BORDERBOTTOM")));
-				Apage->initialMargins.Left   = qMax(0.0, ScCLocale::toDoubleC(pg.attribute("BORDERLEFT")));
-				Apage->initialMargins.Right  = qMax(0.0, ScCLocale::toDoubleC(pg.attribute("BORDERRIGHT")));
+				Apage->initialMargins.setTop(qMax(0.0, ScCLocale::toDoubleC(pg.attribute("BORDERTOP"))));
+				Apage->initialMargins.setBottom(qMax(0.0, ScCLocale::toDoubleC(pg.attribute("BORDERBOTTOM"))));
+				Apage->initialMargins.setLeft(qMax(0.0, ScCLocale::toDoubleC(pg.attribute("BORDERLEFT"))));
+				Apage->initialMargins.setRight(qMax(0.0, ScCLocale::toDoubleC(pg.attribute("BORDERRIGHT"))));
 				Apage->marginPreset = pg.attribute("PRESET", "0").toInt();
-				Apage->Margins.Top = Apage->initialMargins.Top;
-				Apage->Margins.Bottom = Apage->initialMargins.Bottom;
+				Apage->Margins.setTop(Apage->initialMargins.top());
+				Apage->Margins.setBottom(Apage->initialMargins.bottom());
 				pageX = ScCLocale::toDoubleC(pg.attribute("PAGEXPOS"));
 				pageY = ScCLocale::toDoubleC(pg.attribute("PAGEYPOS"));
 				// guides reading

@@ -255,8 +255,8 @@ Guides GuideManagerCore::getAutoHorizontals(ScPage* page)
 
 	if (m_horizontalAutoRefer == 1)
 	{
-		newPageHeight = newPageHeight - page->Margins.Top - page->Margins.Bottom;
-		offset = page->Margins.Top;
+		newPageHeight = newPageHeight - page->Margins.top() - page->Margins.bottom();
+		offset = page->Margins.top();
 	}
 	else if (m_horizontalAutoRefer == 2)
 	{
@@ -305,8 +305,8 @@ Guides GuideManagerCore::getAutoVerticals(ScPage* page)
 
 	if (m_verticalAutoRefer == 1)
 	{
-		newPageWidth = newPageWidth - page->Margins.Left - page->Margins.Right;
-		offset = page->Margins.Left;
+		newPageWidth = newPageWidth - page->Margins.left() - page->Margins.right();
+		offset = page->Margins.left();
 	}
 	else if (m_verticalAutoRefer == 2)
 	{
@@ -483,10 +483,10 @@ void GuideManagerCore::drawPage(ScPainter *p, ScribusDoc *doc, double lineWidth)
 		return;
 
 	// real painting margins including bleeds
-	double verticalFrom = 0.0 - doc->bleeds()->Top;
-	double verticalTo = m_page->height() + doc->bleeds()->Bottom;
-	double horizontalFrom = 0.0 - doc->bleeds()->Left;
-	double horizontalTo = m_page->width() + doc->bleeds()->Right;
+	double verticalFrom = 0.0 - doc->bleeds()->top();
+	double verticalTo = m_page->height() + doc->bleeds()->bottom();
+	double horizontalFrom = 0.0 - doc->bleeds()->left();
+	double horizontalTo = m_page->width() + doc->bleeds()->right();
 
 	// all standard
 	p->setPen(color, lineWidth, Qt::DashDotLine, Qt::FlatCap, Qt::MiterJoin);
@@ -612,10 +612,10 @@ double GuideManagerCore::closestHorAbove(double y)// const
 			closest = horizontalAutoG[i];
 	}
 
-	if (m_page->Margins.Top < y && m_page->Margins.Top > closest)
-		closest = m_page->Margins.Top;
-	if (m_page->height() - m_page->Margins.Bottom < y && m_page->height() - m_page->Margins.Bottom > closest)
-		closest = m_page->height() - m_page->Margins.Bottom;
+	if (m_page->Margins.top() < y && m_page->Margins.top() > closest)
+		closest = m_page->Margins.top();
+	if (m_page->height() - m_page->Margins.bottom() < y && m_page->height() - m_page->Margins.bottom() > closest)
+		closest = m_page->height() - m_page->Margins.bottom();
 
 	return closest;
 }
@@ -635,10 +635,10 @@ double GuideManagerCore::closestHorBelow(double y)// const
 			closest = horizontalAutoG[i];
 	}
 
-	if (m_page->Margins.Top > y && m_page->Margins.Top < closest)
-		closest = m_page->Margins.Top;
-	if (m_page->height() - m_page->Margins.Bottom > y && m_page->height() - m_page->Margins.Bottom < closest)
-		closest = m_page->height() - m_page->Margins.Bottom;
+	if (m_page->Margins.top() > y && m_page->Margins.top() < closest)
+		closest = m_page->Margins.top();
+	if (m_page->height() - m_page->Margins.bottom() > y && m_page->height() - m_page->Margins.bottom() < closest)
+		closest = m_page->height() - m_page->Margins.bottom();
 
 	return closest;
 }
@@ -658,10 +658,10 @@ double GuideManagerCore::closestVertLeft(double x)// const
 			closest = verticalAutoG[i];
 	}
 
-	if (m_page->Margins.Left < x && m_page->Margins.Left > closest)
-		closest = m_page->Margins.Left;
-	if (m_page->width() - m_page->Margins.Right < x && m_page->width() - m_page->Margins.Right > closest)
-		closest = m_page->width() - m_page->Margins.Right;
+	if (m_page->Margins.left() < x && m_page->Margins.left() > closest)
+		closest = m_page->Margins.left();
+	if (m_page->width() - m_page->Margins.right() < x && m_page->width() - m_page->Margins.right() > closest)
+		closest = m_page->width() - m_page->Margins.right();
 
 	return closest;
 }
@@ -681,10 +681,10 @@ double GuideManagerCore::closestVertRight(double x)// const
 			closest = verticalAutoG[i];
 	}
 
-	if (m_page->Margins.Left > x  && m_page->Margins.Left < closest)
-		closest = m_page->Margins.Left;
-	if (m_page->width() - m_page->Margins.Right > x && m_page->width() - m_page->Margins.Right < closest)
-		closest = m_page->width() - m_page->Margins.Right;
+	if (m_page->Margins.left() > x  && m_page->Margins.left() < closest)
+		closest = m_page->Margins.left();
+	if (m_page->width() - m_page->Margins.right() > x && m_page->width() - m_page->Margins.right() < closest)
+		closest = m_page->width() - m_page->Margins.right();
 
 	return closest;
 }

@@ -28,38 +28,38 @@ MarginStruct PresetLayout::getMargins(int index, double pageWidth, double pageHe
 	switch (index)
 	{
 		case PresetLayout::magazine:
-			ret.Top = ret.Bottom = ret.Left = ret.Right = leftMargin;
+			ret.set(leftMargin, leftMargin, leftMargin, leftMargin);
 			break;
 		case PresetLayout::gutenberg:
 			{
 				double ratio = pageHeight / pageWidth;
-				ret.Left = leftMargin;
-				ret.Top = leftMargin * ratio;
-				ret.Right = leftMargin * 2.0;
-				ret.Bottom = ret.Right * ratio;
+				ret.setLeft(leftMargin);
+				ret.setTop(leftMargin * ratio);
+				ret.setRight(leftMargin * 2.0);
+				ret.setBottom(ret.right() * ratio);
 			}
 			break;
 		case PresetLayout::fibonacci:
-			ret.Left = leftMargin;
-			ret.Top = leftMargin / 2.0 * 3.0;
-			ret.Right = leftMargin / 2.0 * 5.0;
-			ret.Bottom = leftMargin / 2.0 * 8.0;
+			ret.setLeft(leftMargin);
+			ret.setTop(leftMargin / 2.0 * 3.0);
+			ret.setRight(leftMargin / 2.0 * 5.0);
+			ret.setBottom(leftMargin / 2.0 * 8.0);
 			break;
 		case PresetLayout::goldencut:
-			ret.Left = leftMargin;
-			ret.Top = leftMargin / 2.0 * 3.4;
-			ret.Right = leftMargin / 2.0 * 4.8;
-			ret.Bottom = leftMargin / 2.0 * 6.8;
+			ret.setLeft(leftMargin);
+			ret.setTop(leftMargin / 2.0 * 3.4);
+			ret.setRight(leftMargin / 2.0 * 4.8);
+			ret.setBottom(leftMargin / 2.0 * 6.8);
 			break;
 		case PresetLayout::nineparts:
-			ret.Left = pageWidth / 9.0;
-			ret.Top = pageHeight / 9.0;
-			ret.Right = pageWidth / 9.0 * 2.0;
-			ret.Bottom = pageHeight / 9.0 * 2.0;
+			ret.setLeft(pageWidth / 9.0);
+			ret.setTop(pageHeight / 9.0);
+			ret.setRight(pageWidth / 9.0 * 2.0);
+			ret.setBottom(pageHeight / 9.0 * 2.0);
 			break;
 		default:
 			updateMargins = false;
-			ret.Top = ret.Bottom = ret.Left = ret.Right = -1.0;
+			ret.set(-1.0, -1.0, -1.0, -1.0);
 	}
 	return ret;
 }

@@ -486,10 +486,10 @@ bool PagesPlug::parseDocReference(QString designMap, bool compressed)
 				m_Doc->currentPage()->setInitialWidth(docWidth);
 				m_Doc->currentPage()->setHeight(docHeight);
 				m_Doc->currentPage()->setWidth(docWidth);
-				m_Doc->currentPage()->initialMargins.Top = topMargin;
-				m_Doc->currentPage()->initialMargins.Bottom = bottomMargin;
-				m_Doc->currentPage()->initialMargins.Left = leftMargin;
-				m_Doc->currentPage()->initialMargins.Right = rightMargin;
+				m_Doc->currentPage()->initialMargins.setTop(topMargin);
+				m_Doc->currentPage()->initialMargins.setBottom(bottomMargin);
+				m_Doc->currentPage()->initialMargins.setLeft(leftMargin);
+				m_Doc->currentPage()->initialMargins.setRight(rightMargin);
 				m_Doc->reformPages(true);
 			}
 			baseX = m_Doc->currentPage()->xOffset();
@@ -554,10 +554,10 @@ bool PagesPlug::parseDocReference(QString designMap, bool compressed)
 					{
 						if (firstPage)
 						{
-							topMargin = m_Doc->marginsVal().Top;
-							leftMargin = m_Doc->marginsVal().Left;
-							rightMargin = m_Doc->marginsVal().Right;
-							bottomMargin = m_Doc->marginsVal().Bottom;
+							topMargin = m_Doc->marginsVal().top();
+							leftMargin = m_Doc->marginsVal().left();
+							rightMargin = m_Doc->marginsVal().right();
+							bottomMargin = m_Doc->marginsVal().bottom();
 							m_Doc->setPage(docWidth, docHeight, topMargin, leftMargin, rightMargin, bottomMargin, m_Doc->PageSp, m_Doc->PageSpa, false, false);
 							m_Doc->setPageSize("Custom");
 							m_Doc->currentPage()->m_pageSize = "Custom";
@@ -565,10 +565,10 @@ bool PagesPlug::parseDocReference(QString designMap, bool compressed)
 							m_Doc->currentPage()->setInitialWidth(docWidth);
 							m_Doc->currentPage()->setHeight(docHeight);
 							m_Doc->currentPage()->setWidth(docWidth);
-							m_Doc->currentPage()->initialMargins.Top = topMargin;
-							m_Doc->currentPage()->initialMargins.Bottom = bottomMargin;
-							m_Doc->currentPage()->initialMargins.Left = leftMargin;
-							m_Doc->currentPage()->initialMargins.Right = rightMargin;
+							m_Doc->currentPage()->initialMargins.setTop(topMargin);
+							m_Doc->currentPage()->initialMargins.setBottom(bottomMargin);
+							m_Doc->currentPage()->initialMargins.setLeft(leftMargin);
+							m_Doc->currentPage()->initialMargins.setRight(rightMargin);
 							m_Doc->reformPages(true);
 						}
 						else
@@ -579,10 +579,10 @@ bool PagesPlug::parseDocReference(QString designMap, bool compressed)
 							m_Doc->currentPage()->setInitialWidth(docWidth);
 							m_Doc->currentPage()->setHeight(docHeight);
 							m_Doc->currentPage()->setWidth(docWidth);
-							m_Doc->currentPage()->initialMargins.Top = topMargin;
-							m_Doc->currentPage()->initialMargins.Bottom = bottomMargin;
-							m_Doc->currentPage()->initialMargins.Left = leftMargin;
-							m_Doc->currentPage()->initialMargins.Right = rightMargin;
+							m_Doc->currentPage()->initialMargins.setTop(topMargin);
+							m_Doc->currentPage()->initialMargins.setBottom(bottomMargin);
+							m_Doc->currentPage()->initialMargins.setLeft(leftMargin);
+							m_Doc->currentPage()->initialMargins.setRight(rightMargin);
 							m_Doc->currentPage()->MPageNam = CommonStrings::trMasterPageNormal;
 							m_Doc->view()->addPage(pagecount, true);
 							pagecount++;

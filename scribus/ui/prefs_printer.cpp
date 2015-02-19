@@ -89,6 +89,8 @@ void Prefs_Printer::restoreDefaults(struct ApplicationPrefs *prefsData)
 			   prefs->getDouble("BleedBottom", 0.0),
 			   prefs->getDouble("BleedRight", 0.0),
 			   prefs->getDouble("BleedLeft", 0.0));
+
+
 	bleedsWidget->setup(bleeds, 0, docUnitIndex, false, false);
 	bleedsWidget->setPageWidth(prefsData->docSetupPrefs.pageWidth);
 	bleedsWidget->setPageHeight(prefsData->docSetupPrefs.pageHeight);
@@ -114,7 +116,7 @@ void Prefs_Printer::saveGuiToPrefs(struct ApplicationPrefs *prefsData) const
 	prefs->set("Copies", 1);
 	prefs->set("Separations", static_cast<int>(outputComboBox->currentIndex()==1));
 	//FIXME: This comparison looks wrong.
-	prefs->set("PrintColor", static_cast<int>(!postscriptPrintToColorComboBox->currentIndex()==0));
+	prefs->set("PrintColor", static_cast<int>(!(postscriptPrintToColorComboBox->currentIndex()==0)));
 	prefs->set("SepArt", tr("All"));
 	prefs->set("MirrorH", pageMirrorHorizontallyCheckBox->isChecked());
 	prefs->set("MirrorV", pageMirrorVerticallyCheckBox->isChecked());
@@ -126,10 +128,10 @@ void Prefs_Printer::saveGuiToPrefs(struct ApplicationPrefs *prefsData) const
 	prefs->set("ICCinUse", applyICCProfilesCheckBox->isChecked());
 	double unitRatio = unitGetRatioFromIndex(prefsData->docSetupPrefs.docUnitIndex);
 	MarginStruct bleeds(bleedsWidget->margins());
-	prefs->set("BleedTop", bleeds.Left);
-	prefs->set("BleedBottom", bleeds.Bottom);
-	prefs->set("BleedRight", bleeds.Right);
-	prefs->set("BleedLeft", bleeds.Left);
+	prefs->set("BleedTop", bleeds.top());
+	prefs->set("BleedBottom", bleeds.bottom());
+	prefs->set("BleedRight", bleeds.right());
+	prefs->set("BleedLeft", bleeds.left());
 	prefs->set("markLength", markLengthSpinBox->value() / unitRatio);
 	prefs->set("markOffset", markOffsetSpinBox->value() / unitRatio);
 	prefs->set("cropMarks", cropMarksCheckBox->isChecked());

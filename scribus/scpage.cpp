@@ -274,13 +274,13 @@ void ScPage::restorePageAttributes(SimpleState *state, bool isUndo)
 		this->setHeight(height_old);
 		this->setInitialHeight(init_height_old);
 		this->setInitialWidth(init_width_old);
-		this->initialMargins.Top    = init_margin_top_old;
-		this->initialMargins.Bottom = init_margin_bottom_old;
-		this->initialMargins.Left   = init_margin_left_old;
-		this->initialMargins.Right  = init_margin_right_old;
+		this->initialMargins.setTop(init_margin_top_old);
+		this->initialMargins.setBottom(init_margin_bottom_old);
+		this->initialMargins.setLeft(init_margin_left_old);
+		this->initialMargins.setRight(init_margin_right_old);
 		this->marginPreset = margin_preset_old;
-		this->Margins.Top = margin_top_old;
-		this->Margins.Bottom = margin_bottom_old;
+		this->Margins.setTop(margin_top_old);
+		this->Margins.setBottom(margin_bottom_old);
 		this->guides.setHorizontalAutoGap(horizontal_autogap_old);
 		this->guides.setVerticalAutoGap(vertical_autogap_old);
 		this->guides.setHorizontalAutoCount(horizontal_autocount_old);
@@ -298,13 +298,13 @@ void ScPage::restorePageAttributes(SimpleState *state, bool isUndo)
 		this->setHeight(height);
 		this->setInitialHeight(init_height);
 		this->setInitialWidth(init_width);
-		this->initialMargins.Top    = init_margin_top;
-		this->initialMargins.Bottom = init_margin_bottom;
-		this->initialMargins.Left   = init_margin_left;
-		this->initialMargins.Right  = init_margin_right;
+		this->initialMargins.setTop(init_margin_top);
+		this->initialMargins.setBottom(init_margin_bottom);
+		this->initialMargins.setLeft(init_margin_left);
+		this->initialMargins.setRight(init_margin_right);
 		this->marginPreset = margin_preset;
-		this->Margins.Top = margin_top;
-		this->Margins.Bottom = margin_bottom;
+		this->Margins.setTop(margin_top);
+		this->Margins.setBottom(margin_bottom);
 		this->guides.setHorizontalAutoGap(horizontal_autogap);
 		this->guides.setVerticalAutoGap(vertical_autogap);
 		this->guides.setHorizontalAutoCount(horizontal_autocount);
@@ -474,14 +474,8 @@ void ScPage::copySizingProperties(ScPage* sourcePage, const MarginStruct& pageMa
 	m_initialWidth = sourcePage->m_initialWidth;
 	m_initialHeight = sourcePage->m_initialHeight;
 
-	Margins.Top    = pageMargins.Top;
-	Margins.Bottom = pageMargins.Bottom;
-	Margins.Left   = pageMargins.Left;//todo fix for layouts
-	Margins.Right  = pageMargins.Right;
+	Margins = pageMargins;
 	// #8859 do not get initialMargins from pageMargins otherwise
 	// margins may be inverted when applying master pages
-	initialMargins.Top    = sourcePage->initialMargins.Top;
-	initialMargins.Bottom = sourcePage->initialMargins.Bottom;
-	initialMargins.Left   = sourcePage->initialMargins.Left;
-	initialMargins.Right  = sourcePage->initialMargins.Right;
+	initialMargins = sourcePage->initialMargins;
 }
