@@ -54,14 +54,11 @@ ScribusCore::ScribusCore() : QObject(), defaultEngine(colorMgmtEngineFactory.cre
 	m_UseGUI=false;
 	m_HaveCMS=false;
 	m_currScMW=0;
-
 	ScColorMgmtStrategy strategy;
 	strategy.useBlackPointCompensation = true;
 	strategy.useBlackPreservation      = false;
 	defaultEngine.setStrategy(strategy);
 }
-
-
 
 ScribusCore::~ScribusCore()
 {
@@ -81,7 +78,6 @@ static void abort_on_error(QtMsgType t, const char * m)
 }
 #endif
 
-
 int ScribusCore::init(bool useGUI, const QList<QString>& filesToUse)
 {
 	m_UseGUI=useGUI;
@@ -89,7 +85,6 @@ int ScribusCore::init(bool useGUI, const QList<QString>& filesToUse)
 #if !defined(NDEBUG) && !defined(_WIN32)
 	qInstallMsgHandler( & abort_on_error );
 #endif
-
 	return 0;
 }
 
@@ -140,7 +135,6 @@ int ScribusCore::startGUI(bool showSplash, bool showFontInfo, bool showProfileIn
 	{
 		scribus->slotRaiseOnlineHelp();
 	}
-
 	return EXIT_SUCCESS;
 }
 
@@ -148,7 +142,6 @@ int ScribusCore::initScribusCore(bool showSplash, bool showFontInfo, bool showPr
 								 const QString newGuiLanguage, const QString prefsUserFile)
 {
 	CommonStrings::languageChange();
-	int retVal=0;
 	// FIXME: Splash needs the prefs loaded by initDefaults() to know if it must force the image to grayscale
 	initSplash(showSplash);
 	LocaleManager::instance();
@@ -156,11 +149,7 @@ int ScribusCore::initScribusCore(bool showSplash, bool showFontInfo, bool showPr
 	prefsManager->setup();
 	//CB #4428 Get fonts before prefs are set to default
 	bool haveFonts=false;
-//#ifdef Q_OS_MAC
-//	haveFonts=ScCore->initFonts(true);
-//#else
 	haveFonts=ScCore->initFonts(showFontInfo);
-//#endif
 	if (!haveFonts)
 		return 1;
 	prefsManager->initDefaults();
@@ -169,18 +158,7 @@ int ScribusCore::initScribusCore(bool showSplash, bool showFontInfo, bool showPr
 	undoManager = UndoManager::instance();
 	fileWatcher = new FileWatcher(this);
 	pluginManager = new PluginManager();
-//	setSplashStatus( tr("Initializing Plugins") );
-//	pluginManager->initPlugs();
-/* #4428, remove block later if ok
-	bool haveFonts=false;
-#ifdef Q_OS_MAC
-	haveFonts=ScCore->initFonts(true);
-#else
-	haveFonts=ScCore->initFonts(showFontInfo);
-#endif
-	if (!haveFonts)
-		return 1;
-*/
+
 	setSplashStatus( tr("Initializing Keyboard Shortcuts") );
 	prefsManager->initDefaultActionKeys();
 	setSplashStatus( tr("Reading Preferences") );
@@ -189,8 +167,6 @@ int ScribusCore::initScribusCore(bool showSplash, bool showFontInfo, bool showPr
 	else
 		prefsManager->ReadPrefs(prefsUserFile);
 	prefsManager->appPrefs.uiPrefs.showSplashOnStartup=showSplash;
-//	setSplashStatus( tr("Applying User Shortcuts") );
-//	prefsManager->applyLoadedShortCuts();
 		
 	m_HaveGS = testGSAvailability();
 	m_HavePngAlpha = testGSDeviceAvailability("pngalpha");
@@ -210,32 +186,26 @@ int ScribusCore::initScribusCore(bool showSplash, bool showFontInfo, bool showPr
 	icm.setMaxCacheEntries(prefsManager->appPrefs.imageCachePrefs.maxCacheEntries);
 	icm.setCompressionLevel(prefsManager->appPrefs.imageCachePrefs.compressionLevel);
 	icm.initialize();
-
-	return retVal;
+	return 0;
 }
-
 
 void ScribusCore::initSplash(bool showSplash)
 {
-	if (showSplash)
-	{
-		//QPixmap pix = loadIcon("Splash.png", true);
-		QPixmap pix = loadIcon("scribus_splash.png", true);
-		//ScSplashScreen::writeVersion(&pix);
-		m_SplashScreen = new ScSplashScreen(pix, Qt::WindowStaysOnTopHint);
-		if (m_SplashScreen != NULL)
-			m_SplashScreen->show();
-		if (m_SplashScreen != NULL && m_SplashScreen->isVisible())
-			setSplashStatus(QObject::tr("Initializing..."));
-	}
-	else
-		m_SplashScreen = NULL;
+	m_SplashScreen = NULL;
+	if (!showSplash)
+		return;
+	QPixmap pix = loadIcon("scribus_splash.png", true);
+	m_SplashScreen = new ScSplashScreen(pix, Qt::WindowStaysOnTopHint);
+	if (m_SplashScreen != NULL)
+		m_SplashScreen->show();
+	if (m_SplashScreen != NULL && m_SplashScreen->isVisible())
+		setSplashStatus(QObject::tr("Initializing..."));
 }
 
 void ScribusCore::setSplashStatus(const QString& newText)
 {
 	if (m_SplashScreen != NULL)
-        m_SplashScreen->setStatus( newText );
+		m_SplashScreen->setStatus( newText );
 }
 
 void ScribusCore::showSplash(bool shown)
@@ -246,19 +216,18 @@ void ScribusCore::showSplash(bool shown)
 
 bool ScribusCore::splashShowing() const
 {
-	if (m_SplashScreen != NULL)
-		return m_SplashScreen->isVisible();
-	return false;
+	if (m_SplashScreen == NULL)
+		return false;
+	return m_SplashScreen->isVisible();
 }
 
 void ScribusCore::closeSplash()
 {
-	if (m_SplashScreen!=NULL)
-	{
-		m_SplashScreen->close();
-		delete m_SplashScreen;
-		m_SplashScreen = NULL;
-	}
+	if (m_SplashScreen==NULL)
+		return;
+	m_SplashScreen->close();
+	delete m_SplashScreen;
+	m_SplashScreen = NULL;
 }
 
 bool ScribusCore::usingGUI() const
@@ -312,11 +281,9 @@ void ScribusCore::getCMSProfiles(bool showInfo)
 	PrinterProfiles.clear();
 	InputProfiles.clear();
 	InputProfilesCMYK.clear();
-	QString pfad = ScPaths::instance().shareDir();
-	pfad += "profiles/";
 	profDirs = ScPaths::getSystemProfilesDirs();
 	profDirs.prepend( prefsManager->appPrefs.pathPrefs.colorProfiles );
-	profDirs.prepend( pfad );
+	profDirs.prepend( ScPaths::instance().shareDir()+"profiles/");
 	for(int i = 0; i < profDirs.count(); i++)
 	{
 		profDir = profDirs[i];
@@ -534,7 +501,7 @@ void ScribusCore::initCMS()
 	}
 }
 
-ScribusMainWindow * ScribusCore::primaryMainWindow( )
+ScribusMainWindow * ScribusCore::primaryMainWindow()
 {
 	if (ScMWList.count() == 0 || m_currScMW > ScMWList.count())
 		return 0;
