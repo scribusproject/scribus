@@ -197,7 +197,6 @@ for which a new license (GPL+exception) is in place.
 #include "ui/marknote.h"
 #include "ui/marksmanager.h"
 #include "ui/markvariabletext.h"
-#include "ui/masterpagepalette.h"
 #include "ui/mergedoc.h"
 #include "ui/modetoolbar.h"
 #include "ui/movepage.h"
