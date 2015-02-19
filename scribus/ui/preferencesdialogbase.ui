@@ -30,6 +30,9 @@
          <height>16777215</height>
         </size>
        </property>
+       <property name="alternatingRowColors">
+        <bool>true</bool>
+       </property>
        <property name="viewMode">
         <enum>QListView::IconMode</enum>
        </property>

@@ -107,46 +107,45 @@ PreferencesDialog::PreferencesDialog(QWidget* parent, ApplicationPrefs& prefsDat
 	{
 		addItem( tr("User Interface"), loadIcon("scribus16.png"), prefs_UserInterface);
 		addItem( tr("Paths"), loadIcon("16/folder.png"), prefs_Paths);
+		addItem( tr("Keyboard Shortcuts"), loadIcon("16/preferences-desktop-keyboard-shortcuts.png"), prefs_KeyboardShortcuts);
 	}
 	addItem( tr("Document Setup"), loadIcon("scribusdoc16.png"), prefs_DocumentSetup);
-	if (doc)
-	{
-		addItem( tr("Document Information"), loadIcon("documentinfo.png"), prefs_DocumentInformation);
-	}
-	else
-	{
+	if (!doc)
 		addItem( tr("Page Sizes"), loadIcon("16/page-simple.png"), prefs_PageSizes);
-	}
 	addItem( tr("Guides"), loadIcon("16/edit-guides.png"), prefs_Guides);
-	addItem( tr("Typography"), loadIcon("16/draw-text.png"), prefs_Typography);
+	if (doc)
+		addItem( tr("Document Information"), loadIcon("documentinfo.png"), prefs_DocumentInformation);
+	if (doc)
+		addItem( tr("Sections"), loadIcon("tabtocindex_16.png"), prefs_DocumentSections);
+
 	addItem( tr("Item Tools"), loadIcon("tools_16.png"), prefs_ItemTools);
-	addItem( tr("Operator Tools"), loadIcon("tools_16.png"), prefs_OperatorTools);
-	addItem( tr("Hyphenator"), loadIcon("signature_16.png"), prefs_Hyphenator);
 	addItem( tr("Fonts"), loadIcon("16/preferences-desktop-font.png"), prefs_Fonts);
+	addItem( tr("Typography"), loadIcon("16/draw-text.png"), prefs_Typography);
+	addItem( tr("Hyphenator"), loadIcon("signature_16.png"), prefs_Hyphenator);
+	//if (!doc)
+	//	addItem( tr("Spelling"), loadIcon("signature_16.png"), prefs_Spelling);
+
+
+
 	addItem( tr("Color Management"), loadIcon("blend_16.png"), prefs_ColorManagement);
+	if (!doc)
+		addItem( tr("Image Cache"), loadIcon("16/image-x-generic.png"), prefs_ImageCache);
+	addItem( tr("Display"), loadIcon("16/video-display.png"), prefs_Display);
+	addItem( tr("Operator Tools"), loadIcon("tools_16.png"), prefs_OperatorTools);
+	if (!doc)
+		addItem( tr("External Tools"), loadIcon("gear_16.png"), prefs_ExternalTools);
+	if (!doc)
+		addItem( tr("Scrapbook"), loadIcon("scrap_16.png"), prefs_Scrapbook);
+	addItem( tr("Preflight Verifier"), loadIcon("16/preflight-verifier.png"), prefs_PreflightVerifier);
 	addItem( tr("Printer"), loadIcon("16/printer.png"), prefs_Printer);
 	addItem( tr("PDF Export"), loadIcon("acroread16.png"), prefs_PDFExport);
-	addItem( tr("Preflight Verifier"), loadIcon("16/preflight-verifier.png"), prefs_PreflightVerifier);
+	if (!doc)
+		addItem( tr("Miscellaneous"), loadIcon("misc_16.png"), prefs_Miscellaneous);
 	addItem( tr("Document Item Attributes"), loadIcon("docattributes_16.png"), prefs_DocumentItemAttributes);
 	addItem( tr("Tables of Contents"), loadIcon("tabtocindex_16.png"), prefs_TableOfContents);
-	if (doc)
-	{
-		addItem( tr("Sections"), loadIcon("tabtocindex_16.png"), prefs_DocumentSections);
-	}
+
 	if (!doc)
-	{
-		addItem( tr("Keyboard Shortcuts"), loadIcon("16/preferences-desktop-keyboard-shortcuts.png"), prefs_KeyboardShortcuts);
-		addItem( tr("Scrapbook"), loadIcon("scrap_16.png"), prefs_Scrapbook);
-//		addItem( tr("Spelling"), loadIcon("signature_16.png"), prefs_Spelling);
-	}
-	addItem( tr("Display"), loadIcon("16/video-display.png"), prefs_Display);
-	if (!doc)
-	{
-		addItem( tr("External Tools"), loadIcon("gear_16.png"), prefs_ExternalTools);
-		addItem( tr("Miscellaneous"), loadIcon("misc_16.png"), prefs_Miscellaneous);
 		addItem( tr("Plugins"), loadIcon("plugins_16.png"), prefs_Plugins);
-		addItem( tr("Image Cache"), loadIcon("16/image-x-generic.png"), prefs_ImageCache);
-	}
 
 	arrangeIcons();
 
