@@ -467,8 +467,8 @@ bool ScPrintEngine_GDI::printPage_PS ( ScribusDoc* doc, ScPage* page, PrintOptio
 	
 	if( ret == 0 )
 	{
-		double bleedH = options.bleeds.Left + options.bleeds.Right;
-		double bleedV = options.bleeds.Top  + options.bleeds.Bottom;
+		double bleedH = options.bleeds.left() + options.bleeds.right();
+		double bleedV = options.bleeds.top()  + options.bleeds.bottom();
 		StartPage( printerDC );
 		succeed = sendPSFile( tempFilePath, printerDC, page->width() + bleedH, page->height() + bleedV, (page->orientation() == 1));
 		EndPage( printerDC );
