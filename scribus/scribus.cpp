@@ -302,7 +302,8 @@ ScribusMainWindow::ScribusMainWindow()
 	ExternalApp=0;
 	ScriptRunning = 0;
 #ifdef Q_OS_MAC
-	ScQApp->setAttribute(Qt::AA_DontShowIconsInMenus);
+	//commenting this out until this is resolved :https://bugreports.qt.io/browse/QTBUG-44565
+	//ScQApp->setAttribute(Qt::AA_DontShowIconsInMenus);
 	noIcon = loadIcon("noicon.xpm");
 #endif
 }
