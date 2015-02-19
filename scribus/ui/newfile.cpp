@@ -255,14 +255,15 @@ void NewDoc::createNewDocPage()
 	heightSpinBox->setSuffix(m_unitSuffix);
 	TextLabel2_2->setBuddy(heightSpinBox);
 	pageSizeGroupBoxLayout->addWidget(heightSpinBox, 3, 2 );
-	layoutLabel1 = new QLabel( pageSizeGroupBox );
-	layoutLabel1->setText( tr( "First Page is:" ) );
-	pageSizeGroupBoxLayout->addWidget( layoutLabel1, 4, 1 );
-	firstPage = new ScComboBox( pageSizeGroupBox );
-	firstPage->clear();
-	pageSizeGroupBoxLayout->addWidget( firstPage, 4, 2 );
-	selectItem(prefsManager->appPrefs.docSetupPrefs.pagePositioning);
-	firstPage->setCurrentIndex(prefsManager->appPrefs.pageSets[prefsManager->appPrefs.docSetupPrefs.pagePositioning].FirstPage);
+
+	unitOfMeasureLabel = new QLabel( tr( "&Default Unit:" ), pageSizeGroupBox );
+	unitOfMeasureComboBox = new QComboBox( pageSizeGroupBox );
+	unitOfMeasureComboBox->addItems(unitGetTextUnitList());
+	unitOfMeasureComboBox->setCurrentIndex(m_unitIndex);
+	unitOfMeasureComboBox->setEditable(false);
+	unitOfMeasureLabel->setBuddy(unitOfMeasureComboBox);
+	pageSizeGroupBoxLayout->addWidget( unitOfMeasureLabel, 4, 1 );
+	pageSizeGroupBoxLayout->addWidget( unitOfMeasureComboBox, 4, 2 );
 
 	MarginStruct marg(prefsManager->appPrefs.docSetupPrefs.margins);
 	marginGroup = new MarginWidget(newDocFrame,  tr( "Margin Guides" ), &marg, m_unitIndex );
@@ -277,9 +278,6 @@ void NewDoc::createNewDocPage()
 	else
 		pageSizeComboBox->setCurrentIndex(pageSizeComboBox->count()-1);
 	marginGroup->setPageSize(pageSizeComboBox->currentText());
-	setDocLayout(prefsManager->appPrefs.docSetupPrefs.pagePositioning);
-	setSize(prefsManager->appPrefs.docSetupPrefs.pageSize);
-	setOrientation(prefsManager->appPrefs.docSetupPrefs.pageOrientation);
 	marginGroup->setNewBleeds(prefsManager->appPrefs.docSetupPrefs.bleeds);
 	marginGroup->setMarginPreset(prefsManager->appPrefs.docSetupPrefs.marginPreset);
 
@@ -297,14 +295,19 @@ void NewDoc::createNewDocPage()
 	pageCountSpinBox->setMaximum( 10000 );
 	pageCountSpinBox->setMinimum( 1 );
 	pageCountLabel->setBuddy(pageCountSpinBox);
-	unitOfMeasureLabel = new QLabel( tr( "&Default Unit:" ), optionsGroupBox );
-	unitOfMeasureComboBox = new QComboBox( optionsGroupBox );
-	unitOfMeasureComboBox->addItems(unitGetTextUnitList());
-	unitOfMeasureComboBox->setCurrentIndex(m_unitIndex);
-	unitOfMeasureComboBox->setEditable(false);
-	unitOfMeasureLabel->setBuddy(unitOfMeasureComboBox);
 	optionsGroupBoxLayout->addRow( pageCountLabel, pageCountSpinBox);
-	optionsGroupBoxLayout->addRow( unitOfMeasureLabel, unitOfMeasureComboBox );
+
+	layoutLabel1 = new QLabel( optionsGroupBox );
+	layoutLabel1->setText( tr( "First Page is:" ) );
+	firstPage = new ScComboBox( optionsGroupBox );
+	firstPage->clear();
+	selectItem(prefsManager->appPrefs.docSetupPrefs.pagePositioning);
+	optionsGroupBoxLayout->addRow( layoutLabel1, firstPage );
+	firstPage->setCurrentIndex(prefsManager->appPrefs.pageSets[prefsManager->appPrefs.docSetupPrefs.pagePositioning].FirstPage);
+
+	setDocLayout(prefsManager->appPrefs.docSetupPrefs.pagePositioning);
+	setSize(prefsManager->appPrefs.docSetupPrefs.pageSize);
+	setOrientation(prefsManager->appPrefs.docSetupPrefs.pageOrientation);
 
 	autoTextFrame = new QCheckBox( optionsGroupBox );
 	autoTextFrame->setText( tr( "&Automatic Text Frames" ) );
@@ -323,6 +326,8 @@ void NewDoc::createNewDocPage()
 	m_distance = 11;
 	optionsGroupBoxLayout->addRow( TextLabel4, Distance );
 	TextLabel4->setBuddy(Distance);
+
+	firstPage->setMinimumWidth(Distance->width());
 
 	TextLabel3->setEnabled(false);
 	TextLabel4->setEnabled(false);
