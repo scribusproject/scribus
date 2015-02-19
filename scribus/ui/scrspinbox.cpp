@@ -216,6 +216,7 @@ double ScrSpinBox::valueFromText ( const QString & text ) const
 		ts.replace(CommonStrings::trStrCM, CommonStrings::strCM);
 	if (CommonStrings::trStrC.localeAwareCompare(CommonStrings::strC)!=0)
 		ts.replace(CommonStrings::trStrC, CommonStrings::strC);
+/* not needed with fparser 4.5.1 and AddUnit
 	//Replace in our typed text all of the units strings with *unitstring
 	QRegExp rx("\\b(\\d+)\\s*("+CommonStrings::strPT+"|"+CommonStrings::strMM+"|"+CommonStrings::strC+"|"+CommonStrings::strCM+"|"+CommonStrings::strIN+")\\b");
 	pos = 0;
@@ -226,16 +227,16 @@ double ScrSpinBox::valueFromText ( const QString & text ) const
 			ts.replace(pos, rx.cap(0).length(), replacement);
 		}
 	}
-
+*/
 	//Add in the fparser constants using our unit strings, and the conversion factors.
 	FunctionParser fp;
 // 	setFPConstants(fp);
-	fp.AddConstant(CommonStrings::strPT.toStdString(), value2value(1.0, SC_PT, m_unitIndex));
-	fp.AddConstant(CommonStrings::strMM.toStdString(), value2value(1.0, SC_MM, m_unitIndex));
-	fp.AddConstant(CommonStrings::strIN.toStdString(), value2value(1.0, SC_IN, m_unitIndex));
-	fp.AddConstant(CommonStrings::strP.toStdString(), value2value(1.0, SC_P, m_unitIndex));
-	fp.AddConstant(CommonStrings::strCM.toStdString(), value2value(1.0, SC_CM, m_unitIndex));
-	fp.AddConstant(CommonStrings::strC.toStdString(), value2value(1.0, SC_C, m_unitIndex));
+	fp.AddUnit(CommonStrings::strPT.toStdString(), value2value(1.0, SC_PT, m_unitIndex));
+	fp.AddUnit(CommonStrings::strMM.toStdString(), value2value(1.0, SC_MM, m_unitIndex));
+	fp.AddUnit(CommonStrings::strIN.toStdString(), value2value(1.0, SC_IN, m_unitIndex));
+	fp.AddUnit(CommonStrings::strP.toStdString(), value2value(1.0, SC_P, m_unitIndex));
+	fp.AddUnit(CommonStrings::strCM.toStdString(), value2value(1.0, SC_CM, m_unitIndex));
+	fp.AddUnit(CommonStrings::strC.toStdString(), value2value(1.0, SC_C, m_unitIndex));
 
 	fp.AddConstant("old", value());
 	if (m_constants)
