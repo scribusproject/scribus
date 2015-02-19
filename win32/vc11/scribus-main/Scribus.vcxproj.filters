@@ -1001,9 +1001,6 @@
     <ClInclude Include="..\..\..\scribus\ui\ui_resourcemanagerbase.h">
       <Filter>Generated Form Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\scribus\ui\resourcemanager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\scribus\desaxe\digester.cpp">
@@ -1526,9 +1523,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\scribus\ui\markvariabletext.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\scribus\ui\masterpagepalette.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\scribus\ui\measurements.cpp">
@@ -3344,9 +3338,6 @@
     <moc Include="..\..\..\scribus\ui\markvariabletext.h">
       <Filter>Header Files</Filter>
     </moc>
-    <moc Include="..\..\..\scribus\ui\masterpagepalette.h">
-      <Filter>Header Files</Filter>
-    </moc>
     <moc Include="..\..\..\scribus\ui\measurements.h">
       <Filter>Header Files</Filter>
     </moc>
@@ -3975,6 +3966,9 @@
       <Filter>Header Files</Filter>
     </moc>
     <moc Include="..\..\..\scribus\ui\downloadspalette.h">
+      <Filter>Header Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\resourcemanager.h">
       <Filter>Header Files</Filter>
     </moc>
   </ItemGroup>

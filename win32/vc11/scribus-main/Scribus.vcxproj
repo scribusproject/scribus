@@ -435,7 +435,6 @@
     <ClInclude Include="..\..\..\scribus\marks.h" />
     <moc Include="..\..\..\scribus\ui\marksmanager.h" />
     <moc Include="..\..\..\scribus\ui\markvariabletext.h" />
-    <moc Include="..\..\..\scribus\ui\masterpagepalette.h" />
     <moc Include="..\..\..\scribus\ui\measurements.h" />
     <moc Include="..\..\..\scribus\menumanager.h" />
     <moc Include="..\..\..\scribus\ui\mergedoc.h" />
@@ -1147,7 +1146,6 @@
     <ClCompile Include="..\..\..\scribus\ui\marknote.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\marksmanager.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\markvariabletext.cpp" />
-    <ClCompile Include="..\..\..\scribus\ui\masterpagepalette.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\measurements.cpp" />
     <ClCompile Include="..\..\..\scribus\menumanager.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\mergedoc.cpp" />

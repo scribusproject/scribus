@@ -1537,9 +1537,6 @@
     <ClCompile Include="..\..\..\scribus\ui\markvariabletext.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\scribus\ui\masterpagepalette.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\scribus\ui\measurements.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -3351,9 +3348,6 @@
       <Filter>Header Files</Filter>
     </moc>
     <moc Include="..\..\..\scribus\ui\markvariabletext.h">
-      <Filter>Header Files</Filter>
-    </moc>
-    <moc Include="..\..\..\scribus\ui\masterpagepalette.h">
       <Filter>Header Files</Filter>
     </moc>
     <moc Include="..\..\..\scribus\ui\measurements.h">
