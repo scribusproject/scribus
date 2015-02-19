@@ -64,6 +64,6 @@ class ScMargins : public QMarginsF
 			setRight(right);
 		}
 };
-#endf
+#endif
 
 #endif // MARGINS_H
