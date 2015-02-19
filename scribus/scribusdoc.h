@@ -1129,7 +1129,7 @@ public:
 			for (int ii = 0; ii < allItems.count(); ii++)
 			{
 				item = allItems.at(ii);
-				if (item->PictureIsAvailable)
+				if (item->imageIsAvailable)
 				{
 					bool fho = item->imageFlippedH();
 					bool fvo = item->imageFlippedV();

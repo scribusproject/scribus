@@ -1346,7 +1346,7 @@ void ScAnnot::RemoveNIcon()
 {
 	NiconPrev->clear();
 	item->Pfile = "";
-	item->PictureIsAvailable = false;
+	item->imageIsAvailable = false;
 	IconNR->setEnabled(false);
 }
 
@@ -1401,7 +1401,7 @@ void ScAnnot::GetNIcon()
 		pmI1=QPixmap::fromImage(item->pixm.qImage());
 		NiconPrev->setPixmap(pmI1);
 		item->Pfile = fileName;
-		item->PictureIsAvailable = true;
+		item->imageIsAvailable = true;
 		int w = item->pixm.width();
 		int h = item->pixm.height();
 		double sw = item->width() / w;

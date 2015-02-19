@@ -2181,7 +2181,7 @@ bool PDFLibCore::PDF_TemplatePage(const ScPage* pag, bool )
 						if (ite->imageClip.size() != 0)
 							PutPage(SetImagePathAndClip(ite));
 						PutPage(SetPathAndClip(ite, true));
-						if ((ite->PictureIsAvailable) && (!ite->Pfile.isEmpty()))
+						if ((ite->imageIsAvailable) && (!ite->Pfile.isEmpty()))
 						{
 							if (!PDF_Image(ite, ite->Pfile, ite->imageXScale(), ite->imageYScale(), ite->imageXOffset(), -ite->imageYOffset(), false, ite->IProfile, ite->UseEmbedded, ite->IRender, &tmpOut))
 								return false;
@@ -3833,7 +3833,7 @@ bool PDFLibCore::PDF_ProcessItem(QString& output, PageItem* ite, const ScPage* p
 			if (ite->imageClip.size() != 0)
 				tmp += SetImagePathAndClip(ite);
 			tmp += SetPathAndClip(ite, true);
-			if ((ite->PictureIsAvailable) && (!ite->Pfile.isEmpty()))
+			if ((ite->imageIsAvailable) && (!ite->Pfile.isEmpty()))
 			{
 				if (!PDF_Image(ite, ite->Pfile, ite->imageXScale(), ite->imageYScale(), ite->imageXOffset(), -ite->imageYOffset(), false, ite->IProfile, ite->UseEmbedded, ite->IRender, &tmpOut))
 					return false;

@@ -4764,7 +4764,7 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 			clipPath = clPath;
 			layerFound = true;
 		}
-		currItem->setImageShown( attrs.valueAsInt("PICART"));
+		currItem->setImageVisible( attrs.valueAsInt("PICART"));
 		currItem->setLineWidth(pw);
 		UndoManager::instance()->setUndoEnabled(true);
 		break;
@@ -5080,7 +5080,7 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 			currItem->UseEmbedded = attrs.valueAsInt("EMBEDDED", 1);
 			doc->loadPict(currItem->Pfile, currItem);
 			currItem->setImageXYScale(scx, scy);
-			currItem->setImageShown( attrs.valueAsInt("PICART"));
+			currItem->setImageVisible( attrs.valueAsInt("PICART"));
 /*			currItem->BBoxX = ScCLocale::toDoubleC( obj->attribute("BBOXX"));
 			currItem->BBoxH = ScCLocale::toDoubleC( obj->attribute("BBOXH")); */
 			currItem->ScaleType   = attrs.valueAsInt("SCALETYPE", 1);

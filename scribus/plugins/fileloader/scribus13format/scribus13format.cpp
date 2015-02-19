@@ -1557,7 +1557,7 @@ PageItem* Scribus13Format::PasteItem(QDomElement *obj, ScribusDoc *doc, const QS
 			cl.scale(currItem->imageXScale(), currItem->imageYScale());
 			currItem->imageClip.map(cl);
 		}
-		currItem->setImageShown(obj->attribute("PICART").toInt());
+		currItem->setImageVisible(obj->attribute("PICART").toInt());
 /*		currItem->BBoxX = obj->attribute("BBOXX").toDouble();
 		currItem->BBoxH = obj->attribute("BBOXH").toDouble(); */
 		currItem->setLineWidth(pw);
@@ -1821,7 +1821,7 @@ PageItem* Scribus13Format::PasteItem(QDomElement *obj, ScribusDoc *doc, const QS
 			currItem->UseEmbedded = obj->attribute("EMBEDDED", "1").toInt();
 			doc->loadPict(currItem->Pfile, currItem);
 			currItem->setImageXYScale(scx, scy);
-			currItem->setImageShown(obj->attribute("PICART").toInt());
+			currItem->setImageVisible(obj->attribute("PICART").toInt());
 /*			currItem->BBoxX = obj->attribute("BBOXX").toDouble();
 			currItem->BBoxH = obj->attribute("BBOXH").toDouble(); */
 		}

@@ -201,7 +201,7 @@ void CanvasMode_Normal::mouseDoubleClickEvent(QMouseEvent *m)
 			{
 				return;
 			}
-			if (currItem->imageShown())
+			if (currItem->imageVisible())
 				m_view->requestMode(modeEdit);
 		}
 #ifdef HAVE_OSG
@@ -223,9 +223,9 @@ void CanvasMode_Normal::mouseDoubleClickEvent(QMouseEvent *m)
 			{
 				if (currItem->Pfile.isEmpty())
 					m_view->requestMode(submodeLoadPic);
-				else if (!currItem->PictureIsAvailable)
+				else if (!currItem->imageIsAvailable)
 					m_view->requestMode(submodeStatusPic);
-				else if (currItem->imageShown())
+				else if (currItem->imageVisible())
 					m_view->requestMode(modeEdit);
  			}
  			else if (currItem->itemType() == PageItem::TextFrame)

@@ -617,7 +617,7 @@ void SVGPlug::finishNode( const QDomNode &e, PageItem* item)
 //			item->moveBy(mm.dx(), mm.dy());
 //			item->setWidthHeight(item->width() * mm.m11(), item->height() * mm.m22());
 //			item->setLineWidth(item->lineWidth() * (coeff1 + coeff2) / 2.0);
-			if (item->PictureIsAvailable)
+			if (item->imageIsAvailable)
 			{
 				item->setImageXYOffset(0.0, 0.0);
 				item->setImageXYScale(item->width() / (item->pixm.width() * (item->pixm.imgInfo.xres / 72.0)),

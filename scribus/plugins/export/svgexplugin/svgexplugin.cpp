@@ -1032,7 +1032,7 @@ QDomElement SVGExPlug::processImageItem(PageItem *Item, QString trans, QString f
 			ob.appendChild(ob1);
 		}
 	}
-	if ((Item->PictureIsAvailable) && (!Item->Pfile.isEmpty()))
+	if ((Item->imageIsAvailable) && (!Item->Pfile.isEmpty()))
 	{
 		QDomElement cl, ob2;
 		if (Item->imageClip.size() != 0)

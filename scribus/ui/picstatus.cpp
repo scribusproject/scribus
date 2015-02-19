@@ -93,7 +93,7 @@ QPixmap PicStatus::createImgIcon(PageItem* item)
 	p.setPen(Qt::NoPen);
 	p.setBrush(b);
 	p.drawRect(12, 12, 104, 104);
-	if (item->PictureIsAvailable && QFile::exists(item->externalFile()))
+	if (item->imageIsAvailable && QFile::exists(item->externalFile()))
 	{
 		QImage im2 = item->pixm.scaled(104, 104, Qt::KeepAspectRatio, Qt::SmoothTransformation);
 		p.drawImage((104 - im2.width()) / 2 + 12, (104 - im2.height()) / 2 + 12, im2);
@@ -280,7 +280,7 @@ void PicStatus::imageSelected(QListWidgetItem *ite)
 				displayPage->setText(QString::number(currItem->OwnPage + 1));
 		}
 		displayObjekt->setText(currItem->itemName());
-		if (currItem->PictureIsAvailable)
+		if (currItem->imageIsAvailable)
 		{
 			QFileInfo fi = QFileInfo(currItem->Pfile);
 			QString ext = fi.suffix().toLower();
@@ -337,7 +337,7 @@ void PicStatus::imageSelected(QListWidgetItem *ite)
 			displayScale->setText(QString("%1 x %2 %").arg(currItem->imageXScale() * 100 / 72.0 * currItem->pixm.imgInfo.xres, 5, 'f', 1).arg(currItem->imageYScale() * 100 / 72.0 * currItem->pixm.imgInfo.yres, 5, 'f', 1));
 			displayPrintSize->setText(QString("%1 x %2%3").arg(currItem->OrigW * currItem->imageXScale() * m_Doc->unitRatio(), 7, 'f', 2).arg(currItem->OrigH * currItem->imageXScale() * m_Doc->unitRatio(), 7, 'f', 2).arg(unitGetSuffixFromIndex(m_Doc->unitIndex())));
 			isPrinting->setChecked(currItem->printEnabled());
-			isVisibleCheck->setChecked(currItem->imageShown());
+			isVisibleCheck->setChecked(currItem->imageVisible());
 			buttonEdit->setEnabled(currItem->isRaster);
 			effectsButton->setEnabled(currItem->isRaster);
 			buttonLayers->setEnabled(currItem->pixm.imgInfo.valid);
@@ -387,7 +387,7 @@ void PicStatus::visiblePic()
 {
 	if (currItem != NULL)
 	{
-		currItem->setImageShown(isVisibleCheck->isChecked());
+		currItem->setImageVisible(isVisibleCheck->isChecked());
 		emit refreshItem(currItem);
 	}
 }
@@ -431,7 +431,7 @@ bool PicStatus::loadPict(const QString & newFilePath)
 	m_Doc->loadPict(newFilePath, currItem, true);
 	if (masterPageMode != oldMasterPageMode)
 		m_Doc->setMasterPageMode(oldMasterPageMode);
-	return currItem->PictureIsAvailable;
+	return currItem->imageIsAvailable;
 }
 
 void PicStatus::SearchPic()

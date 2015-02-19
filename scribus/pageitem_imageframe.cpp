@@ -58,7 +58,7 @@ PageItem_ImageFrame::PageItem_ImageFrame(ScribusDoc *pa, double x, double y, dou
 
 PageItem_ImageFrame::~PageItem_ImageFrame()
 {
-	if ((PictureIsAvailable) && (!Pfile.isEmpty()))
+	if ((imageIsAvailable) && (!Pfile.isEmpty()))
 	{
 		ScCore->fileWatcher->removeFile(Pfile);
 		QFileInfo fi(Pfile);
@@ -92,14 +92,14 @@ void PageItem_ImageFrame::DrawObj_Item(ScPainter *p, QRectF /*e*/)
 	else
 	{
 		//If we are missing our image, draw a red cross in the frame
-		if ((!PicArt) || (!PictureIsAvailable))
+		if ((!m_imageVisible) || (!imageIsAvailable))
 		{
 			if ((drawFrame()) && (m_Doc->guidesPrefs().framesShown))
 			{
 				p->setBrush(Qt::white);
 				QString htmlText = "";
 				QFileInfo fi = QFileInfo(Pfile);
-				if (PictureIsAvailable)
+				if (imageIsAvailable)
 				{
 					p->setPen(Qt::black, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 					if (isInlineImage)
@@ -228,7 +228,7 @@ void PageItem_ImageFrame::clearContents()
 		undoManager->action(this, is);
 	}
 	effectsInUse.clear();
-	PictureIsAvailable = false;
+	imageIsAvailable = false;
 	Pfile = "";
 	pixm = ScImage();
 
@@ -358,7 +358,7 @@ bool PageItem_ImageFrame::createInfoGroup(QFrame *infoGroup, QGridLayout *infoGr
 	infoCT->setText( tr("Image"));
 	infoGroupLayout->addWidget( infoCT, 0, 0, 1, 2, Qt::AlignHCenter );
 	
-	if (PictureIsAvailable)
+	if (imageIsAvailable)
 	{
 		fileT = new QLabel(infoGroup);
 		oPpiT = new QLabel(infoGroup);
@@ -431,7 +431,7 @@ void PageItem_ImageFrame::applicableActions(QStringList & actionList)
 	actionList << "itemPreviewLow";
 	actionList << "itemPreviewNormal";
 
-	if (PictureIsAvailable)
+	if (imageIsAvailable)
 	{
 		actionList << "itemAdjustFrameToImage";
 		actionList << "itemAdjustImageToFrame";
@@ -463,7 +463,7 @@ QString PageItem_ImageFrame::infoDescription()
 	QString htmlText;
 	htmlText.append( tr("Image") + "<br/>");
 	
-	if (PictureIsAvailable)
+	if (imageIsAvailable)
 	{
 		QFileInfo fi = QFileInfo(Pfile);
 		if (isInlineImage)

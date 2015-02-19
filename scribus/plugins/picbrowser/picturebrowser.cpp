@@ -201,7 +201,7 @@ PictureBrowser::PictureBrowser ( ScribusDoc* doc, QWidget *parent ) : QDialog ( 
 			if ( ( pItem->itemType() == PageItem::ImageFrame ) && ( !pItem->asLatexFrame() ) )
 			{
 				QString itemText;
-				if ( pItem->PictureIsAvailable )
+				if ( pItem->imageIsAvailable )
 					itemText = QString ( "Frame %1" ).arg ( pItem->itemName() );
 				else
 					itemText = QString ( "Frame %1 (empty)" ).arg ( pItem->itemName() );
@@ -223,7 +223,7 @@ PictureBrowser::PictureBrowser ( ScribusDoc* doc, QWidget *parent ) : QDialog ( 
 			if ( ( pItem->itemType() == PageItem::ImageFrame ) && ( !pItem->asLatexFrame() ) )
 			{
 				QString itemText;
-				if ( pItem->PictureIsAvailable )
+				if ( pItem->imageIsAvailable )
 					itemText = QString ( "Frame %1" ).arg ( pItem->itemName() );
 				else
 					itemText = QString ( "Frame %1 (empty)" ).arg ( pItem->itemName() );
@@ -625,7 +625,7 @@ void PictureBrowser::documentChosen ( QTreeWidgetItem * item, int column )
 		for (int ii = 0; ii < allItems.count(); ii++)
 		{
 			pItem = allItems.at(ii);
-			if ( ( pItem->itemType() == PageItem::ImageFrame ) && ( pItem->PictureIsAvailable ) && ( !pItem->asLatexFrame() ) )
+			if ( ( pItem->itemType() == PageItem::ImageFrame ) && ( pItem->imageIsAvailable ) && ( !pItem->asLatexFrame() ) )
 			{
 				if ( ( id == 0 ) || ( ( id-1 ) == pItem->OwnPage ) )
 				{
@@ -645,7 +645,7 @@ void PictureBrowser::documentChosen ( QTreeWidgetItem * item, int column )
 		for (int ii = 0; ii < allItems.count(); ii++)
 		{
 			pItem = allItems.at(ii);
-			if ( ( pItem->itemType() == PageItem::ImageFrame ) && ( pItem->PictureIsAvailable ) && ( !pItem->asLatexFrame() ) )
+			if ( ( pItem->itemType() == PageItem::ImageFrame ) && ( pItem->imageIsAvailable ) && ( !pItem->asLatexFrame() ) )
 			{
 				if ( ( id == 0 ) || ( ( id-1 ) == pItem->OwnPage ) )
 				{

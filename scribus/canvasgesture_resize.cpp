@@ -338,7 +338,7 @@ void ResizeGesture::doResize(bool scaleContent)
 			}
 			currItem->setImageXYScale(imgScX, imgScY);
 		}
-		else if (currItem->itemType() == PageItem::ImageFrame && currItem->PictureIsAvailable && !currItem->fitImageToFrame())
+		else if (currItem->itemType() == PageItem::ImageFrame && currItem->imageIsAvailable && !currItem->fitImageToFrame())
 		{
 			QTransform mm = currItem->getTransform();
 			QPointF itPos = mm.map(QPointF(0, 0));

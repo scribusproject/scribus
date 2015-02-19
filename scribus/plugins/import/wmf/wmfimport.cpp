@@ -761,7 +761,7 @@ void WMFImport::finishCmdParsing( PageItem* item )
 		item->moveBy(gcm.dx(), gcm.dy());
 		item->setWidthHeight(item->width() * gcm.m11(), item->height() * gcm.m22());
 		item->setLineWidth(qMax(item->lineWidth() * (coeff1 + coeff2) / 2.0, 0.25));
-		if (item->PictureIsAvailable)
+		if (item->imageIsAvailable)
 			item->setImageXYScale(item->width() / item->pixm.width(), item->height() / item->pixm.height());
 	}
 	else if( item->asTextFrame() )

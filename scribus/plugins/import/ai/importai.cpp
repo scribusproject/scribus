@@ -1443,7 +1443,7 @@ void AIPlug::processData(QString data)
 					ite->isTempFile = true;
 					m_Doc->loadPict(imgName, ite);
 					delete tempFile;
-					if (ite->PictureIsAvailable)
+					if (ite->imageIsAvailable)
 						ite->setImageXYScale(ite->width() / ite->pixm.width(), ite->height() / ite->pixm.height());
 					ite->setImageFlippedV(true);
 					ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
@@ -3090,7 +3090,7 @@ void AIPlug::processRaster(QDataStream &ts)
 		TIFFClose(tif);
 	}
 	m_Doc->loadPict(imgName, ite);
-	if (ite->PictureIsAvailable)
+	if (ite->imageIsAvailable)
 		ite->setImageXYScale(ite->width() / ite->pixm.width(), ite->height() / ite->pixm.height());
 	if (importerFlags & LoadSavePlugin::lfCreateDoc)
 		ite->setLocked(itemLocked);

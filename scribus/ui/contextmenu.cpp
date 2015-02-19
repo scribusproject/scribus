@@ -307,13 +307,13 @@ void ContextMenu::createMenuItems_Selection()
 			menuImage->addAction(m_ScMW->scrActions["editEditWithImageEditor"]);
 		if (selectedItemCount==1 && currItem->asImageFrame())
 		{
-			if (currItem->PictureIsAvailable)
+			if (currItem->imageIsAvailable)
 			{
 				if (m_actionList.contains("itemExtendedImageProperties"))
 					menuImage->addAction(m_ScMW->scrActions["itemExtendedImageProperties"]);
 				if (m_actionList.contains("itemAdjustFrameToImage"))
 				{
-					if (currItem->PictureIsAvailable)
+					if (currItem->imageIsAvailable)
 						menuImage->addAction(m_ScMW->scrActions["itemToggleInlineImage"]);
 				}
 				if (m_actionList.contains("itemImageInfo"))

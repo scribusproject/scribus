@@ -712,7 +712,7 @@ void XPSExPlug::processImageItem(double xOffset, double yOffset, PageItem *Item,
 			grp.appendChild(ob);
 		}
 	}
-	if ((Item->PictureIsAvailable) && (!Item->Pfile.isEmpty()))
+	if ((Item->imageIsAvailable) && (!Item->Pfile.isEmpty()))
 	{
 		QDomElement ob2 = p_docu.createElement("Path");
 		ob2.setAttribute("Data", pa);

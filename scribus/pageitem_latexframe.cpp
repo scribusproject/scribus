@@ -190,7 +190,7 @@ void PageItem_LatexFrame::updateImage(int exitCode, QProcess::ExitStatus exitSta
 
 	//Save state and restore afterwards
 	double xres, yres;
-	if (PictureIsAvailable)
+	if (imageIsAvailable)
 	{
 		xres = pixm.imgInfo.xres;
 		yres = pixm.imgInfo.yres;
@@ -550,7 +550,7 @@ void PageItem_LatexFrame::applicableActions(QStringList & actionList)
 	actionList << "itemPreviewNormal";
 	actionList << "itemUpdateImage";
 	actionList << "editEditRenderSource";
-	if (PictureIsAvailable)
+	if (imageIsAvailable)
 	{
 		/*if (!isTableItem)
 			actionList << "itemAdjustFrameToImage";*/

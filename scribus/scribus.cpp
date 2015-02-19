@@ -3677,9 +3677,9 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 		doc->reformPages();
 		doc->refreshGuides();
 		doc->setLoading(false);
-		for (int azz=0; azz<doc->MasterItems.count(); ++azz)
+		for (int i=0; i<doc->MasterItems.count(); ++i)
 		{
-			PageItem *ite = doc->MasterItems.at(azz);
+			PageItem *ite = doc->MasterItems.at(i);
 			// TODO fix that for Groups on Masterpages
 //			if (ite->Groups.count() != 0)
 //				view->GroupOnPage(ite);
@@ -3692,9 +3692,9 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 		t.start();*/
 		int docItemsCount=doc->Items->count();
 		doc->flag_Renumber = false;
-		for (int azz=0; azz<docItemsCount; ++azz)
+		for (int i=0; i<docItemsCount; ++i)
 		{
-			PageItem *ite = doc->Items->at(azz);
+			PageItem *ite = doc->Items->at(i);
 			if((ite->nextInChain() == NULL) && !ite->isNoteFrame())  //do not layout notes frames
 				ite->layout();
 		}
@@ -3893,7 +3893,7 @@ void ScribusMainWindow::slotGetClipboardImage()
 		if (currItem->itemType() == PageItem::ImageFrame)
 		{
 			int t = QMessageBox::Yes;
-			if (currItem->PictureIsAvailable)
+			if (currItem->imageIsAvailable)
 				t = ScMessageBox::warning(this, CommonStrings::trWarning, tr("Do you really want to replace your existing image?"),
 							QMessageBox::Yes | QMessageBox::No,
 							QMessageBox::No,	// GUI default
@@ -3942,7 +3942,7 @@ void ScribusMainWindow::toogleInlineState()
 	PageItem *currItem = doc->m_Selection->itemAt(0);
 	if (currItem->itemType() != PageItem::ImageFrame)
 		return;
-	if (!currItem->PictureIsAvailable)
+	if (!currItem->imageIsAvailable)
 		return;
 	if (currItem->isImageInline())
 	{
@@ -5432,24 +5432,38 @@ void ScribusMainWindow::toggleUndoPalette()
 	palettesStatus[0] = false;
 }
 
-void ScribusMainWindow::TogglePics()
+void ScribusMainWindow::toggleImageVisibility()
 {
 	if (!doc)
 		return;
 	doc->guidesPrefs().showPic = !doc->guidesPrefs().showPic;
 	QList<PageItem*> allItems;
-	for (int a = 0; a < doc->Items->count(); ++a)
+	for (int i = 0; i < doc->DocItems.count(); ++i)
 	{
-		PageItem *currItem = doc->Items->at(a);
+		PageItem *currItem = doc->DocItems.at(i);
 		if (currItem->isGroup())
 			allItems = currItem->asGroupFrame()->getItemList();
 		else
 			allItems.append(currItem);
-		for (int ii = 0; ii < allItems.count(); ii++)
+		for (int j = 0; j < allItems.count(); j++)
 		{
-			PageItem* item = allItems.at(ii);
+			PageItem* item = allItems.at(j);
 			if (item->asImageFrame())
-				item->setImageShown(doc->guidesPrefs().showPic);
+				item->setImageVisible(doc->guidesPrefs().showPic);
+		}
+	}
+	for (int i=0; i<doc->MasterItems.count(); ++i)
+	{
+		PageItem *currItem = doc->MasterItems.at(i);
+		if (currItem->isGroup())
+			allItems = currItem->asGroupFrame()->getItemList();
+		else
+			allItems.append(currItem);
+		for (int j = 0; j < allItems.count(); j++)
+		{
+			PageItem* item = allItems.at(j);
+			if (item->asImageFrame())
+				item->setImageVisible(doc->guidesPrefs().showPic);
 		}
 	}
 	view->DrawNew();
@@ -6282,7 +6296,7 @@ void ScribusMainWindow::editItemsFromOutlines(PageItem *ite)
 	}
 	if (ite->asLatexFrame())
 	{
-		if (ite->imageShown())
+		if (ite->imageVisible())
 			view->requestMode(modeEdit);
 	}
 #ifdef HAVE_OSG
@@ -6295,9 +6309,9 @@ void ScribusMainWindow::editItemsFromOutlines(PageItem *ite)
 		{
 			if (ite->Pfile.isEmpty())
 				view->requestMode(submodeLoadPic);
-			else if (!ite->PictureIsAvailable)
+			else if (!ite->imageIsAvailable)
 				view->requestMode(submodeStatusPic);
-			else if (ite->imageShown())
+			else if (ite->imageVisible())
 				view->requestMode(modeEdit);
 		}
 		else if (ite->itemType() == PageItem::TextFrame)
@@ -8254,7 +8268,7 @@ void ScribusMainWindow::callImageEditor()
 		ScMessageBox::information(this, tr("Information"), "<qt>" + tr("The program %1 is already running!").arg(ieExe) + "</qt>");
 		return;
 	}
-	if (currItem->PictureIsAvailable)
+	if (currItem->imageIsAvailable)
 	{
 		int index;
 		QString imEditor;
@@ -8598,7 +8612,7 @@ void ScribusMainWindow::slotEditCopyContents()
 		return;
 
 	PageItem_ImageFrame* imageItem = currItem->asImageFrame();
-	if (!imageItem->PictureIsAvailable)
+	if (!imageItem->imageIsAvailable)
 		return;
 	contentsBuffer.sourceType = PageItem::ImageFrame;
 	contentsBuffer.contentsFileName = imageItem->Pfile;
@@ -8627,7 +8641,7 @@ void ScribusMainWindow::slotEditPasteContents(int absolute)
 
 	PageItem_ImageFrame* imageItem=currItem->asImageFrame();
 	int t=QMessageBox::Yes;
-	if (imageItem->PictureIsAvailable)
+	if (imageItem->imageIsAvailable)
 		t = ScMessageBox::warning(this, CommonStrings::trWarning,
 								tr("Do you really want to replace your existing image?"),
 								QMessageBox::Yes | QMessageBox::No,

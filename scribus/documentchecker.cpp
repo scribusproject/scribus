@@ -238,11 +238,11 @@ void DocumentChecker::checkItems(ScribusDoc *currDoc, struct CheckerPrefs checke
 					itemError.insert(PartFilledImageFrame, 0);
 				}
 
-				if ((!currItem->PictureIsAvailable) && (checkerSettings.checkPictures))
+				if ((!currItem->imageIsAvailable) && (checkerSettings.checkPictures))
 					itemError.insert(MissingImage, 0);
 				else
 				{
-					if (currItem->PictureIsAvailable)
+					if (currItem->imageIsAvailable)
 					{
 						if (checkerSettings.checkTransparency && currItem->pixm.hasSmoothAlpha())
 							itemError.insert(Transparency, 0);
@@ -531,11 +531,11 @@ void DocumentChecker::checkItems(ScribusDoc *currDoc, struct CheckerPrefs checke
 					itemError.insert(PartFilledImageFrame, 0);
 				}
 
-				if ((!currItem->PictureIsAvailable) && (checkerSettings.checkPictures))
+				if ((!currItem->imageIsAvailable) && (checkerSettings.checkPictures))
 					itemError.insert(MissingImage, 0);
 				else
 				{
-					if (currItem->PictureIsAvailable)
+					if (currItem->imageIsAvailable)
 					{
 						if (checkerSettings.checkTransparency && currItem->pixm.hasSmoothAlpha())
 							itemError.insert(Transparency, 0);

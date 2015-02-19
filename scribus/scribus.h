@@ -447,7 +447,7 @@ public slots:
 	void setUndoPalette(bool visible);
 	void toggleCheckPal();
 	/** \brief Schaltet M_ViewShowImages ein/aus */
-	void TogglePics();
+	void toggleImageVisibility();
 	/** \brief Schaltet Raster ein/aus */
 	void ToggleGrid();
 	/** \brief Schaltet Rasterbenutzung ein/aus */

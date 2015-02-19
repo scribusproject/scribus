@@ -2736,7 +2736,7 @@ QImage ScribusView::PageToPixmap(int Nr, int maxGr, bool drawFrame, bool drawBac
 				for (uint a = 0; a < pageFromMasterCount; ++a)
 				{
 					currItem = page->FromMaster.at(a);
-					if (!currItem->asImageFrame() || !currItem->PictureIsAvailable)
+					if (!currItem->asImageFrame() || !currItem->imageIsAvailable)
 						continue;
 					if (currItem->pixm.imgInfo.lowResType == 0)
 						continue;
@@ -2762,7 +2762,7 @@ QImage ScribusView::PageToPixmap(int Nr, int maxGr, bool drawFrame, bool drawBac
 					currItem = Doc->Items->at(it);
 					if (!cullingArea.intersects(currItem->getBoundingRect().adjusted(0.0, 0.0, 1.0, 1.0)))
 						continue;
-					if (!currItem->asImageFrame() || !currItem->PictureIsAvailable)
+					if (!currItem->asImageFrame() || !currItem->imageIsAvailable)
 						continue;
 					if (currItem->pixm.imgInfo.lowResType == 0)
 						continue;

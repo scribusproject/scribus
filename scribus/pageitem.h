@@ -1178,8 +1178,8 @@ public: // Start public functions
 	Annotation& annotation() { return m_annotation; }
 	const Annotation& annotation() const { return m_annotation; }
 
-	bool imageShown() const { return PicArt; }
-	void setImageShown(bool);
+	bool imageVisible() const { return m_imageVisible; }
+	void setImageVisible(bool);
 
 	void updateConstants();
 	bool isWelded()  {return !weldList.isEmpty(); }  //true if to this item some other items are welded (weldList is list of these items)
@@ -1278,7 +1278,7 @@ public:	// Start public variables
 	int CompressionMethodIndex;
 	bool OverrideCompressionQuality;
 	int CompressionQualityIndex;
-	bool PictureIsAvailable; ///< Flag to hiold image file availability
+	bool imageIsAvailable; ///< Flag to hiold image file availability
 	int OrigW;
 	int OrigH;
 	double BBoxX; ///< Bounding Box-X
@@ -1366,7 +1366,7 @@ public:	// Start public variables
 		bool m_isAnnotation; ///< Flag to tell if this item is a PDF annotation item
 		Annotation m_annotation; ///< PDF annotation data
 
-		bool PicArt; ///< Darstellungsart Bild/Titel
+		bool m_imageVisible; ///< Darstellungsart Bild/Titel
 
 		double m_lineWidth; //< Line width
 		double Oldm_lineWidth;

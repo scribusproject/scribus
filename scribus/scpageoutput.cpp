@@ -892,7 +892,7 @@ void ScPageOutput::drawItem_ImageFrame( PageItem_ImageFrame* item, ScPainterExBa
 	}
 	else
 	{
-		if ((!item->imageShown()) || (!item->PictureIsAvailable))
+		if ((!item->imageVisible()) || (!item->imageIsAvailable))
 		{
 			/*painter->setPen( ScColorShade(Qt::red, 100), 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 			painter->drawLine(FPoint(0, 0), FPoint(item->width(), item->height()));
@@ -1602,7 +1602,7 @@ void ScPageOutput::drawItem_TextFrame( PageItem_TextFrame* item, ScPainterExBase
 		painter->setupPolygon(&item->PoLine);
 		fillPath(item, painter, clip);
 	}
-	if ((item->isAnnotation()) && (item->annotation().Type() == Annotation::Button) && (!item->Pfile.isEmpty()) && (item->PictureIsAvailable) && (item->imageShown()) && (item->annotation().UseIcons()))
+	if ((item->isAnnotation()) && (item->annotation().Type() == Annotation::Button) && (!item->Pfile.isEmpty()) && (item->imageIsAvailable) && (item->imageVisible()) && (item->annotation().UseIcons()))
 	{
 		painter->save();
 		painter->setupPolygon(&item->PoLine);

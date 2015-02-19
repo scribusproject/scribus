@@ -169,7 +169,7 @@ PageItem::PageItem(const PageItem & other)
 	OverrideCompressionQuality(other.OverrideCompressionQuality),
 	CompressionQualityIndex(other.CompressionQualityIndex),
 
-	PictureIsAvailable(other.PictureIsAvailable),
+	imageIsAvailable(other.imageIsAvailable),
 	OrigW(other.OrigW),
 	OrigH(other.OrigH),
 	BBoxX(other.BBoxX),
@@ -241,7 +241,7 @@ PageItem::PageItem(const PageItem & other)
 	m_Doc(other.m_Doc),
 	m_isAnnotation(other.m_isAnnotation),
 	m_annotation(other.m_annotation),
-	PicArt(other.PicArt),
+	m_imageVisible(other.m_imageVisible),
 	m_lineWidth(other.m_lineWidth),
 	Oldm_lineWidth(other.Oldm_lineWidth),
 	patternStrokeVal(other.patternStrokeVal),
@@ -357,6 +357,7 @@ PageItem::PageItem(const PageItem & other)
 	hatchForegroundQ(other.hatchForegroundQ)
 {
 	QString tmp;
+	m_imageVisible=m_Doc->guidesPrefs().showPic;
 	m_Doc->TotalItems++;
 	AnName += tmp.setNum(m_Doc->TotalItems);
 	uniqueNr = m_Doc->TotalItems;
@@ -541,8 +542,8 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	OwnPage = m_Doc->currentPage() ? m_Doc->currentPage()->pageNr() : -1;
 	oldOwnPage = OwnPage;
 	savedOwnPage = OwnPage;
-	PicArt = true;
-	PictureIsAvailable = false;
+	m_imageVisible = m_Doc->guidesPrefs().showPic;
+	imageIsAvailable = false;
 	m_PrintEnabled = true;
 	isBookmark = false;
 	m_isAnnotation = false;
@@ -6960,9 +6961,9 @@ void PageItem::restoreShowImage(SimpleState *state, bool isUndo)
 {
 	bool old = state->getBool("OLD");
 	if (isUndo)
-		PicArt = old;
+		m_imageVisible = old;
 	else
-		PicArt = !old;
+		m_imageVisible = !old;
 	update();
 }
 
@@ -9315,7 +9316,7 @@ bool PageItem::loadImage(const QString& filename, const bool reload, const int g
 	if (!pixm.loadPicture(imgcache, fromCache, pixm.imgInfo.actualPageNumber, cms, ScImage::RGBData, gsRes, &dummy, showMsg))
 	{
 		Pfile = fi.absoluteFilePath();
-		PictureIsAvailable = false;
+		imageIsAvailable = false;
 //		PicArt = false;
 		return false;
 	}
@@ -9342,7 +9343,7 @@ bool PageItem::loadImage(const QString& filename, const bool reload, const int g
 	}
 	double xres = pixm.imgInfo.xres;
 	double yres = pixm.imgInfo.yres;
-	PictureIsAvailable = true;
+	imageIsAvailable = true;
 //	PicArt = true;
 		
 	if (Pfile != filename)
@@ -9414,7 +9415,7 @@ bool PageItem::loadImage(const QString& filename, const bool reload, const int g
 	oldLocalScX = m_imageXScale;
 	oldLocalScY = m_imageYScale;
 
-	if (PictureIsAvailable && !fromCache)
+	if (imageIsAvailable && !fromCache)
 	{
 		if ((pixm.imgInfo.colorspace == ColorSpaceDuotone) && (pixm.imgInfo.duotoneColors.count() != 0) && (!reload))
 		{
@@ -9562,7 +9563,7 @@ bool PageItem::loadImage(const QString& filename, const bool reload, const int g
 				pixm.imgInfo.lowResScale = 1.0;
 		}
 	}
-	if (PictureIsAvailable && m_Doc->viewAsPreview)
+	if (imageIsAvailable && m_Doc->viewAsPreview)
 	{
 		VisionDefectColor defect;
 		QColor tmpC;
@@ -10095,18 +10096,18 @@ void PageItem::setAnnotation(const Annotation& ad)
 	m_annotation=ad;
 }
 
-void PageItem::setImageShown(bool isShown)
+void PageItem::setImageVisible(bool isShown)
 {
-	if (PicArt==isShown)
+	if (m_imageVisible==isShown)
 		return;
 	if (UndoManager::undoEnabled())
 	{
 		SimpleState *ss = new SimpleState(Um::ResTyp,"",Um::IImageFrame);
 		ss->set("SHOW_IMAGE","show_image");
-		ss->set("OLD",PicArt);
+		ss->set("OLD",m_imageVisible);
 		undoManager->action(this,ss);
 	}
-	PicArt=isShown;
+	m_imageVisible=isShown;
 }
 
 void PageItem::updateConstants()

@@ -2574,7 +2574,7 @@ PageItem* Scribus134Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 			cl.scale(currItem->imageXScale(), currItem->imageYScale());
 			currItem->imageClip.map(cl);
 		}
-		currItem->setImageShown( attrs.valueAsInt("PICART"));
+		currItem->setImageVisible( attrs.valueAsInt("PICART"));
 /*		currItem->BBoxX = ScCLocale::toDoubleC( obj->attribute("BBOXX"));
 		currItem->BBoxH = ScCLocale::toDoubleC( obj->attribute("BBOXH")); */
 		currItem->setLineWidth(pw);
@@ -2818,7 +2818,7 @@ PageItem* Scribus134Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 			currItem->UseEmbedded = attrs.valueAsInt("EMBEDDED", 1);
 			doc->loadPict(currItem->Pfile, currItem);
 			currItem->setImageXYScale(scx, scy);
-			currItem->setImageShown( attrs.valueAsInt("PICART"));
+			currItem->setImageVisible( attrs.valueAsInt("PICART"));
 /*			currItem->BBoxX = ScCLocale::toDoubleC( obj->attribute("BBOXX"));
 			currItem->BBoxH = ScCLocale::toDoubleC( obj->attribute("BBOXH")); */
 		}

@@ -758,7 +758,7 @@ void ActionManager::initViewMenuActions()
 	connect( (*scrActions)["viewShowBleeds"], SIGNAL(triggered()), mainWindow, SLOT(ToggleBleeds()) );
 	connect( (*scrActions)["viewShowFrames"], SIGNAL(triggered()), mainWindow, SLOT(ToggleFrames()) );
 	connect( (*scrActions)["viewShowLayerMarkers"], SIGNAL(triggered()), mainWindow, SLOT(ToggleLayerMarkers()) );
-	connect( (*scrActions)["viewShowImages"], SIGNAL(triggered()), mainWindow, SLOT(TogglePics()) );
+	connect( (*scrActions)["viewShowImages"], SIGNAL(triggered()), mainWindow, SLOT(toggleImageVisibility()) );
 	connect( (*scrActions)["viewShowGrid"], SIGNAL(triggered()), mainWindow, SLOT(ToggleGrid()) );
 	connect( (*scrActions)["viewShowGuides"], SIGNAL(triggered()), mainWindow, SLOT(ToggleGuides()) );
 	connect( (*scrActions)["viewShowColumnBorders"], SIGNAL(triggered()), mainWindow, SLOT(ToggleColumnBorders()) );
