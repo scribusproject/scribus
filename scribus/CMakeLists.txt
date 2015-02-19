@@ -719,8 +719,8 @@ SET(SCRIBUS_SOURCES
 	tablecell.cpp
 	tableutils.cpp
 	textwriter.cpp
-	third_party/fparser/fpoptimizer.cpp
-	third_party/fparser/fparser.cpp
+	third_party/fparser/fpoptimizer.cc
+	third_party/fparser/fparser.cc
 	tocgenerator.cpp
 	transaction.cpp
 	undogui.cpp

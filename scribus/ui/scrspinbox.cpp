@@ -20,7 +20,7 @@ for which a new license (GPL+exception) is in place.
 #include "commonstrings.h"
 #include "scrspinbox.h"
 #include "units.h"
-#include "third_party/fparser/fparser.h"
+#include "third_party/fparser/fparser.hh"
 
 ScrSpinBox::ScrSpinBox(QWidget *parent, int unitIndex) : QDoubleSpinBox(parent), m_constants(NULL)
 {

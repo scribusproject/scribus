@@ -36,7 +36,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "color.h"
 #include "fileloader.h"
-#include "third_party/fparser/fparser.h"
+#include "third_party/fparser/fparser.hh"
 #include "loadsaveplugin.h"
 #include "pageitem_table.h"
 #include "pagesize.h"
