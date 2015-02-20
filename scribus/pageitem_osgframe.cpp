@@ -101,7 +101,7 @@ void PageItem_OSGFrame::loadModel()
 void PageItem_OSGFrame::setImage(QImage &image)
 {
 	isInlineImage = true;
-	if (PictureIsAvailable)
+	if (imageIsAvailable)
 	{
 		image.save(Pfile, "PNG");
 		m_Doc->loadPict(Pfile, this, true);
@@ -149,7 +149,7 @@ void PageItem_OSGFrame::applicableActions(QStringList & actionList)
 {
 	actionList << "itemImageIsVisible";
 	actionList << "editEditRenderSource";
-	if (PictureIsAvailable)
+	if (imageIsAvailable)
 	{
 		actionList << "editClearContents";
 	}

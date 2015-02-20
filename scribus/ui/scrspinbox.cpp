@@ -216,7 +216,7 @@ double ScrSpinBox::valueFromText ( const QString & text ) const
 		ts.replace(CommonStrings::trStrCM, CommonStrings::strCM);
 	if (CommonStrings::trStrC.localeAwareCompare(CommonStrings::strC)!=0)
 		ts.replace(CommonStrings::trStrC, CommonStrings::strC);
-/* not needed with fparser 4.5.1 and AddUnit
+/* not needed with fparser 3.3.2 and AddUnit
 	//Replace in our typed text all of the units strings with *unitstring
 	QRegExp rx("\\b(\\d+)\\s*("+CommonStrings::strPT+"|"+CommonStrings::strMM+"|"+CommonStrings::strC+"|"+CommonStrings::strCM+"|"+CommonStrings::strIN+")\\b");
 	pos = 0;
