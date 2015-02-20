@@ -6437,6 +6437,12 @@ void ScribusMainWindow::slotPrefsOrg()
 
 		//TODO: and the other dirs?
 		DocDir = prefsManager->documentDir();
+		if (oldPrefs.pathPrefs.documents != newPrefs.pathPrefs.documents)
+		{
+			PrefsContext* docContext = prefsManager->prefsFile->getContext("docdirs", false);
+			docContext->set("docsopen", newPrefs.pathPrefs.documents);
+		}
+
 		ScQApp->neverSplash(!prefsManager->appPrefs.uiPrefs.showSplashOnStartup);
 
 		QString newUILanguage = prefsManager->uiLanguage();
