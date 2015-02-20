@@ -10,13 +10,15 @@
 #include <string>
 #include <vector>
 
+#include "scribusapi.h"
+
 #ifdef FUNCTIONPARSER_SUPPORT_DEBUG_OUTPUT
 #include <iostream>
 #endif
 
 namespace FPoptimizer_CodeTree { class CodeTree; }
 
-class FunctionParser
+class SCRIBUS_API FunctionParser
 {
 public:
     enum ParseErrorType
