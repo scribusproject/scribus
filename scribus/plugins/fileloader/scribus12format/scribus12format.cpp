@@ -426,7 +426,7 @@ void Scribus12Format::PasteItem(struct CopyPasteBuffer *Buffer, bool drag, bool 
 		if (!currItem->Pfile.isEmpty())
 			m_Doc->loadPict(currItem->Pfile, currItem);
 		currItem->setImageXYScale(Buffer->LocalScX, Buffer->LocalScY);
-		currItem->setImageShown(Buffer->PicArt);
+		currItem->setImageVisible(Buffer->PicArt);
 		currItem->ScaleType = Buffer->ScaleType;
 		currItem->AspectRatio = Buffer->AspectRatio;
 		currItem->setLineWidth(Buffer->Pwidth);
