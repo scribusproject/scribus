@@ -186,7 +186,7 @@ SET(SCRIBUS_UI_SRC
 	ui/stylemanager.ui
 	ui/tablecolumnwidthsdialog.ui
 	ui/tablerowheightsdialog.ui
-	ui/tabpdfoptionsbase.ui
+	ui/tabpdfoptions.ui
 	ui/transformdialogbase.ui
 	ui/transparencypalette.ui
 	ui/copypagetomasterpage.ui
