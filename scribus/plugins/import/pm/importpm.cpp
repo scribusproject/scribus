@@ -207,12 +207,12 @@ bool PmPlug::import(QString fNameIn, const TransactionSettings& trSettings, int 
 			m_Doc->setPageOrientation(0);
 		m_Doc->setPageSize("Custom");
 	}
-	if (!(flags & LoadSavePlugin::lfLoadAsPattern))
+	if ((!(flags & LoadSavePlugin::lfLoadAsPattern)) && (m_Doc->view() != NULL))
 		m_Doc->view()->Deselect();
 	Elements.clear();
 	m_Doc->setLoading(true);
 	m_Doc->DoDrawing = false;
-	if (!(flags & LoadSavePlugin::lfLoadAsPattern))
+	if ((!(flags & LoadSavePlugin::lfLoadAsPattern)) && (m_Doc->view() != NULL))
 		m_Doc->view()->updatesOn(false);
 	m_Doc->scMW()->setScriptRunning(true);
 	qApp->setOverrideCursor(QCursor(Qt::WaitCursor));
@@ -245,7 +245,8 @@ bool PmPlug::import(QString fNameIn, const TransactionSettings& trSettings, int 
 					}
 					m_Doc->m_Selection->delaySignalsOff();
 					m_Doc->m_Selection->setGroupRect();
-					m_Doc->view()->updatesOn(true);
+					if (m_Doc->view() != NULL)
+						m_Doc->view()->updatesOn(true);
 				}
 			}
 			else
