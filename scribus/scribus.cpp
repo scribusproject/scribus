@@ -534,7 +534,7 @@ void ScribusMainWindow::initDefaultValues()
 	for (int i=0; i<11 ; ++i)
 		palettesStatus[i] = false;
 	for (int i=0; i<13 ; ++i)
-		guidesStatus[0] = false;
+		guidesStatus[GS_ALL] = false;
 #ifdef HAVE_OSG
 	QStringList supportedExts;
 	supportedExts << "osg" << "dxf" << "flt" << "ive" << "geo" << "sta" << "stl" << "logo" << "3ds" << "ac" << "obj";
@@ -5474,21 +5474,21 @@ void ScribusMainWindow::ToggleAllGuides()
 	if (!doc)
 		return;
 	keyrep=false;
-	if (guidesStatus[0])
+	if (guidesStatus[GS_ALL])
 	{
-		guidesStatus[0] = false;
-		doc->guidesPrefs().marginsShown = guidesStatus[1];
-		doc->guidesPrefs().framesShown = guidesStatus[2];
-		doc->guidesPrefs().gridShown = guidesStatus[3];
-		doc->guidesPrefs().guidesShown = guidesStatus[4];
-		doc->guidesPrefs().baselineGridShown = guidesStatus[5];
-		doc->guidesPrefs().linkShown = guidesStatus[6];
-		doc->guidesPrefs().showControls = guidesStatus[7];
-		doc->guidesPrefs().rulerMode = guidesStatus[8];
-		doc->guidesPrefs().rulersShown = guidesStatus[9];
-		doc->guidesPrefs().colBordersShown = guidesStatus[10];
-		doc->guidesPrefs().layerMarkersShown = guidesStatus[11] ;
-		doc->guidesPrefs().showBleed = guidesStatus[12] ;
+		guidesStatus[GS_ALL] = false;
+		doc->guidesPrefs().marginsShown = guidesStatus[GS_MARGINS];
+		doc->guidesPrefs().framesShown = guidesStatus[GS_FRAMES];
+		doc->guidesPrefs().gridShown = guidesStatus[GS_GRID];
+		doc->guidesPrefs().guidesShown = guidesStatus[GS_GUIDES];
+		doc->guidesPrefs().baselineGridShown = guidesStatus[GS_BASELINE];
+		doc->guidesPrefs().linkShown = guidesStatus[GS_LINKS];
+		doc->guidesPrefs().showControls = guidesStatus[GS_CONTROLS];
+		doc->guidesPrefs().rulerMode = guidesStatus[GS_RULERMODE];
+		doc->guidesPrefs().rulersShown = guidesStatus[GS_RULERS];
+		doc->guidesPrefs().colBordersShown = guidesStatus[GS_COLUMNBORDERS];
+		doc->guidesPrefs().layerMarkersShown = guidesStatus[GS_LAYERMARKERS] ;
+		doc->guidesPrefs().showBleed = guidesStatus[GS_BLEED];
 		ToggleMarks();
 		ToggleFrames();
 		ToggleLayerMarkers();
@@ -5504,19 +5504,19 @@ void ScribusMainWindow::ToggleAllGuides()
 	}
 	else
 	{
-		guidesStatus[0] = true;
-		guidesStatus[1] = !doc->guidesPrefs().marginsShown;
-		guidesStatus[2] = !doc->guidesPrefs().framesShown;
-		guidesStatus[3] = !doc->guidesPrefs().gridShown;
-		guidesStatus[4] = !doc->guidesPrefs().guidesShown;
-		guidesStatus[5] = !doc->guidesPrefs().baselineGridShown;
-		guidesStatus[6] = !doc->guidesPrefs().linkShown;
-		guidesStatus[7] = !doc->guidesPrefs().showControls;
-		guidesStatus[8] = !doc->guidesPrefs().rulerMode;
-		guidesStatus[9] = !doc->guidesPrefs().rulersShown;
-		guidesStatus[10] = !doc->guidesPrefs().colBordersShown;
-		guidesStatus[11] = !doc->guidesPrefs().layerMarkersShown;
-		guidesStatus[12] = !doc->guidesPrefs().showBleed;
+		guidesStatus[GS_ALL] = true;
+		guidesStatus[GS_MARGINS] = !doc->guidesPrefs().marginsShown;
+		guidesStatus[GS_FRAMES] = !doc->guidesPrefs().framesShown;
+		guidesStatus[GS_GRID] = !doc->guidesPrefs().gridShown;
+		guidesStatus[GS_GUIDES] = !doc->guidesPrefs().guidesShown;
+		guidesStatus[GS_BASELINE] = !doc->guidesPrefs().baselineGridShown;
+		guidesStatus[GS_LINKS] = !doc->guidesPrefs().linkShown;
+		guidesStatus[GS_CONTROLS] = !doc->guidesPrefs().showControls;
+		guidesStatus[GS_RULERMODE] = !doc->guidesPrefs().rulerMode;
+		guidesStatus[GS_RULERS] = !doc->guidesPrefs().rulersShown;
+		guidesStatus[GS_COLUMNBORDERS] = !doc->guidesPrefs().colBordersShown;
+		guidesStatus[GS_LAYERMARKERS] = !doc->guidesPrefs().layerMarkersShown;
+		guidesStatus[GS_BLEED] = !doc->guidesPrefs().showBleed;
 		doc->guidesPrefs().marginsShown = false;
 		doc->guidesPrefs().framesShown = false;
 		doc->guidesPrefs().gridShown = false;
@@ -5550,7 +5550,7 @@ void ScribusMainWindow::ToggleMarks()
 {
 	if (!doc)
 		return;
-	guidesStatus[0] = false;
+	guidesStatus[GS_ALL] = false;
 	doc->guidesPrefs().marginsShown = !doc->guidesPrefs().marginsShown;
 	view->DrawNew();
 }
@@ -5559,7 +5559,7 @@ void ScribusMainWindow::ToggleBleeds()
 {
 	if (!doc)
 		return;
-	guidesStatus[0] = false;
+	guidesStatus[GS_ALL] = false;
 	doc->guidesPrefs().showBleed = !doc->guidesPrefs().showBleed;
 	view->DrawNew();
 }
@@ -5568,7 +5568,7 @@ void ScribusMainWindow::ToggleFrames()
 {
 	if (!doc)
 		return;
-	guidesStatus[0] = false;
+	guidesStatus[GS_ALL] = false;
 	doc->guidesPrefs().framesShown = !doc->guidesPrefs().framesShown;
 	view->DrawNew();
 }
@@ -5577,7 +5577,7 @@ void ScribusMainWindow::ToggleLayerMarkers()
 {
 	if (!doc)
 		return;
-	guidesStatus[0] = false;
+	guidesStatus[GS_ALL] = false;
 	doc->guidesPrefs().layerMarkersShown = !doc->guidesPrefs().layerMarkersShown;
 	view->DrawNew();
 }
@@ -5586,7 +5586,7 @@ void ScribusMainWindow::ToggleGrid()
 {
 	if (!doc)
 		return;
-	guidesStatus[0] = false;
+	guidesStatus[GS_ALL] = false;
 	doc->guidesPrefs().gridShown = !doc->guidesPrefs().gridShown;
 	view->DrawNew();
 }
@@ -5595,7 +5595,7 @@ void ScribusMainWindow::ToggleGuides()
 {
 	if (!doc)
 		return;
-	guidesStatus[0] = false;
+	guidesStatus[GS_ALL] = false;
 	doc->guidesPrefs().guidesShown = !doc->guidesPrefs().guidesShown;
 	view->DrawNew();
 }
@@ -5604,7 +5604,7 @@ void ScribusMainWindow::ToggleColumnBorders()
 {
 	if (!doc)
 		return;
-	guidesStatus[0] = false;
+	guidesStatus[GS_ALL] = false;
 	doc->guidesPrefs().colBordersShown = !doc->guidesPrefs().colBordersShown;
 	view->DrawNew();
 }
@@ -5613,7 +5613,7 @@ void ScribusMainWindow::ToggleBase()
 {
 	if (!doc)
 		return;
-	guidesStatus[0] = false;
+	guidesStatus[GS_ALL] = false;
 	doc->guidesPrefs().baselineGridShown = !doc->guidesPrefs().baselineGridShown;
 	view->DrawNew();
 }
@@ -5622,7 +5622,7 @@ void ScribusMainWindow::ToggleTextLinks()
 {
 	if (!doc)
 		return;
-	guidesStatus[0] = false;
+	guidesStatus[GS_ALL] = false;
 	doc->guidesPrefs().linkShown = !doc->guidesPrefs().linkShown;
 	view->DrawNew();
 }
@@ -5631,7 +5631,7 @@ void ScribusMainWindow::ToggleTextControls()
 {
 	if (!doc)
 		return;
-	guidesStatus[0] = false;
+	guidesStatus[GS_ALL] = false;
 	doc->guidesPrefs().showControls = !doc->guidesPrefs().showControls;
 	view->DrawNew();
 }
@@ -5640,7 +5640,7 @@ void ScribusMainWindow::ToggleRulers()
 {
 	if (!doc)
 		return;
-	guidesStatus[0] = false;
+	guidesStatus[GS_ALL] = false;
 	doc->guidesPrefs().rulersShown = !doc->guidesPrefs().rulersShown;
 	view->setRulersShown(doc->guidesPrefs().rulersShown);
 }
@@ -5649,7 +5649,7 @@ void ScribusMainWindow::ToggleRulerMode()
 {
 	if (!doc)
 		return;
-	guidesStatus[0] = false;
+	guidesStatus[GS_ALL] = false;
 	doc->guidesPrefs().rulerMode = !doc->guidesPrefs().rulerMode;
 	if (doc->guidesPrefs().rulerMode)
 	{

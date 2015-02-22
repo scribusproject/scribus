@@ -397,5 +397,22 @@ struct DownloadData
 	DownloadState state;
 };
 
+enum
+{
+	GS_ALL,
+	GS_MARGINS,
+	GS_FRAMES,
+	GS_GRID,
+	GS_GUIDES,
+	GS_BASELINE,
+	GS_LINKS,
+	GS_CONTROLS,
+	GS_RULERMODE,
+	GS_RULERS,
+	GS_COLUMNBORDERS,
+	GS_LAYERMARKERS,
+	GS_BLEED
+};
+
 #endif
 
