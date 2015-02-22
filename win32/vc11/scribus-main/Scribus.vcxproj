@@ -366,11 +366,8 @@
     <moc Include="..\..\..\scribus\fontlistmodel.h" />
     <moc Include="..\..\..\scribus\ui\fontlistview.h" />
     <moc Include="..\..\..\scribus\ui\fontreplacedialog.h" />
-    <ClInclude Include="..\..\..\scribus\fparser.h" />
-    <ClInclude Include="..\..\..\scribus\fpconfig.h" />
     <ClInclude Include="..\..\..\scribus\fpoint.h" />
     <ClInclude Include="..\..\..\scribus\fpointarray.h" />
-    <ClInclude Include="..\..\..\scribus\fptypes.h" />
     <ClInclude Include="..\..\..\scribus\text\frect.h" />
     <ClInclude Include="..\..\..\scribus\text\fsize.h" />
     <ClInclude Include="..\..\..\scribus\fonts\ftface.h" />
@@ -901,6 +898,8 @@
     <ClCompile Include="..\..\..\scribus\imagedataloaders\scimgdataloader_ora.cpp" />
     <ClCompile Include="..\..\..\scribus\selectionrubberband.cpp" />
     <ClCompile Include="..\..\..\scribus\text\textlayout.cpp" />
+    <ClCompile Include="..\..\..\scribus\third_party\fparser\fparser.cc" />
+    <ClCompile Include="..\..\..\scribus\third_party\fparser\fpoptimizer.cc" />
     <ClCompile Include="..\..\..\scribus\ui\about.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\aboutplugins.cpp" />
     <ClCompile Include="..\..\..\scribus\actionmanager.cpp" />
@@ -1007,10 +1006,8 @@
     <ClCompile Include="..\..\..\scribus\fontlistmodel.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\fontlistview.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\fontreplacedialog.cpp" />
-    <ClCompile Include="..\..\..\scribus\fparser.cpp" />
     <ClCompile Include="..\..\..\scribus\fpoint.cpp" />
     <ClCompile Include="..\..\..\scribus\fpointarray.cpp" />
-    <ClCompile Include="..\..\..\scribus\fpoptimizer.cpp" />
     <ClCompile Include="..\..\..\scribus\text\frect.cpp" />
     <ClCompile Include="..\..\..\scribus\text\fsize.cpp" />
     <ClCompile Include="..\..\..\scribus\fonts\ftface.cpp" />
@@ -1503,6 +1500,15 @@
     <ResourceCompile Include="Scribus.rc" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\scribus\third_party\fparser\fparser.hh">
+      <FileType>Document</FileType>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\third_party\fparser\fpconfig.hh">
+      <FileType>Document</FileType>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\third_party\fparser\fptypes.hh">
+      <FileType>Document</FileType>
+    </ClInclude>
     <None Include="scribusdoc.ico" />
     <None Include="scribusicon.ico" />
   </ItemGroup>
@@ -1615,6 +1621,7 @@
     <uic Include="..\..\..\scribus\ui\stylemanager.ui" />
     <uic Include="..\..\..\scribus\ui\tablecolumnwidthsdialog.ui" />
     <uic Include="..\..\..\scribus\ui\tablerowheightsdialog.ui" />
+    <uic Include="..\..\..\scribus\ui\tabpdfoptions.ui" />
     <uic Include="..\..\..\scribus\ui\transformdialogbase.ui" />
     <uic Include="..\..\..\scribus\ui\transparencypalette.ui" />
     <uic Include="..\..\..\scribus\ui\unicodesearch.ui" />

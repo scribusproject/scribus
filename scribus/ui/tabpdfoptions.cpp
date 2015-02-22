@@ -53,183 +53,6 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,
 								const QMap<QString, int> & DocFonts,
                                 ScribusDoc * doc )
 	: QTabWidget( parent ),
-	// Initialize all those darn pointer members so we catch unitialized
-	// accesses. I (CR) use the following command to generate these based on
-	// the header excerpt:
-	//    !cut -d \* -f 2 | sed -r 's/ ?(.*);/\t\1\(0\),/g'
-	// Public GUI member pointers:
-	AddSec(0),
-	Article(0),
-	BleedBottom(0),
-	BleedLeft(0),
-	BleedRight(0),
-	BleedTop(0),
-	CheckBM(0),
-	CheckBox1(0),
-	CMethod(0),
-	ClipMarg(0),
-	ComboBind(0),
-	Compression(0),
-	continuousPages(0),
-	CopySec(0),
-	CQuality(0),
-	doublePageLeft(0),
-	doublePageRight(0),
-	DSColor(0),
-	EmbedPDF(0),
-	EmbedProfs(0),
-	EmbedProfs2(0),
-	Encry(0),
-	ImageP(0),
-	IntendI(0),
-	IntendS(0),
-	MirrorH(0),
-	MirrorV(0),
-	ModifySec(0),
-	NoEmbedded(0),
-	OutCombo(0),
-	Pages(0),
-	PassOwner(0),
-	PassUser(0),
-	PDFVersionCombo(0),
-	PrintProfC(0),
-	PrintSec(0),
-	Resolution(0),
-	RotateDeg(0),
-	singlePage(0),
-	SolidPr(0),
-	useBookmarks(0),
-	useFullScreen(0),
-	useLayers(0),
-	useLayers2(0),
-	UseLPI(0),
-	useSpot(0),
-	useThumbnails(0),
-	ValC(0),
-	// Protected members other than GUI member pointers
-	// End GUI member pointers
-	// Protected GUI member pointers
-	actionCombo(0),
-	AllPages(0),
-	CheckBox10(0),
-	EDirection(0),
-	EDirection_2(0),
-	EDirection_2_2(0),
-	EffectTime(0),
-	EffectType(0),
-	fitWindow(0),
-	hideMenuBar(0),
-	hideToolBar(0),
-	InfoString(0),
-	LPIangle(0),
-	LPIfreq(0),
-	LPIfunc(0),
-	PageNr(0),
-	PageTime(0),
-	// End protected gui member pointers
-	// Private member gui pointers
-	actionLabel(0),
-	AvailFlist(0),
-	BleedGroup(0),
-	BleedGroupLayout(0),
-	CBox(0),
-	CBoxLayout(0),
-	ColorGroup(0),
-	ColorGroupLayout(0),
-	ColorText1(0),
-	Effects(0),
-	EffectsLayout(0),
-	EmbedFonts(0),
-	EmbedList(0),
-	EonAllPg(0),
-	FromEmbed(0),
-	FromOutline(0),
-	GroupBox1(0),
-	GroupBox1Layout(0),
-	GroupBox9(0),
-	GroupBox9Layout(0),
-	groupDisplay(0),
-	groupDisplayLayout(0),
-	GroupFont(0),
-	GroupFontLayout(0),
-	groupJava(0),
-	groupJavaLayout(0),
-	groupNavigation(0),
-	groupNavigationLayout(0),
-	GroupPass(0),
-	GroupPassLayout(0),
-	GroupSecSet(0),
-	GroupSecSetLayout(0),
-	Layout11(0),
-	pageNumberSelectorLayout(0),
-	Layout11a(0),
-	Layout13(0),
-	Layout4_2(0),
-	Layout5_2(0),
-	Layout5_2a(0),
-	Layout6(0),
-	LayoutSpecial(0),
-	LPIcolor(0),
-	LPIgroup(0),
-	LPIgroupLayout(0),
-	OnlySome(0),
-	pageLayout(0),
-	pageLayoutLayout(0),
-	PagePrev(0),
-	PDFX1(0),
-	PDFX2(0),
-	PrintSec2(0),
-	ProfsGroup(0),
-	ProfsGroupLayout(0),
-	ProfsTxt1(0),
-	ProfsTxt2(0),
-	ProfsTxt3(0),
-	ProfsTxt4(0),
-	RangeGroup(0),
-	RangeGroupLayout(0),
-	OutlineFonts(0),
-	OutlineList(0),
-	tabColor(0),
-	tabColorLayout(0),
-	tabFonts(0),
-	tabGeneral(0),
-	tabLayout(0),
-	tabLayout_3(0),
-	tabLayout_5(0),
-	tabPDFX(0),
-	tabPDFXLayout(0),
-	tabPresentation(0),
-	tabSecurity(0),
-	tabSecurityLayout(0),
-	tabSpecial(0),
-	tabSpecialLayout(0),
-	TextCom1(0),
-	TextCom2(0),
-	TextFont1(0),
-	TextFont1_2(0),
-	TextFont1_2a(0),
-	TextLabel1(0),
-	TextLabel1e(0),
-	TextLabel1x(0),
-	TextLabel2(0),
-	TextLabel2e(0),
-	TextLabel3(0),
-	TextLabel3e(0),
-	TextLabel4e(0),
-	TextLabel5e(0),
-	TextLabel6e(0),
-	textLPI1(0),
-	textLPI2(0),
-	textLPI3(0),
-	TextSec1(0),
-	TextSec2(0),
-	pageNrButton(0),
-	ToEmbed(0),
-	ToOutline(0),
-	useViewDefault(0),
-	X3Group(0),
-	X3GroupLayout(0),
-	// end protected member gui pointers
 	// Private members
 	unitRatio(unitGetRatioFromIndex(doc->unitIndex())),
 	m_Doc(doc),
@@ -237,78 +60,17 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,
 	Opts(Optionen),
 	cms(false)
 {
+	setupUi(this);
 
-	tabGeneral = new QWidget( this );
-	tabLayout = new QVBoxLayout( tabGeneral );
-	tabLayout->setSpacing( 5 );
-	tabLayout->setMargin( 10 );
-	Layout13 = new QHBoxLayout;
-	Layout13->setSpacing( 5 );
-	Layout13->setMargin( 0 );
-	RangeGroup = new QGroupBox( tabGeneral );
-	RangeGroup->setTitle( tr( "Export Range" ) );
-	RangeGroupLayout = new QVBoxLayout( RangeGroup );
-	RangeGroupLayout->setSpacing( 5 );
-	RangeGroupLayout->setMargin( 10 );
-	RangeGroupLayout->setAlignment( Qt::AlignTop );
-	AllPages = new QRadioButton( tr( "&All Pages" ), RangeGroup );
-	RangeGroupLayout->addWidget( AllPages );
-	Layout11 = new QGridLayout;
-	Layout11->setSpacing( 5 );
-	Layout11->setMargin( 0 );
-	OnlySome = new QRadioButton( tr( "C&hoose Pages" ), RangeGroup );
-	Layout11->addWidget( OnlySome, 0, 0 );
- 	pageNumberSelectorLayout = new QHBoxLayout;
-	pageNumberSelectorLayout->setSpacing( 5 );
-	pageNumberSelectorLayout->setMargin( 0 );
-	PageNr = new QLineEdit( RangeGroup );
- 	pageNumberSelectorLayout->addWidget( PageNr );
- 	pageNrButton = new QPushButton( RangeGroup );
+	// General tab
+	rangeGroupLayout->setAlignment( Qt::AlignTop );
  	pageNrButton->setIcon(QIcon(loadIcon("ellipsis.png")));
- 	pageNumberSelectorLayout->addWidget( pageNrButton );
- 	Layout11->addLayout( pageNumberSelectorLayout, 1, 0 );
-	RangeGroupLayout->addLayout( Layout11 );
-	RotationLayout = new QHBoxLayout;
-	RotationLayout->setSpacing( 5 );
-	RotationLayout->setMargin( 0 );
-	TextLabel3 = new QLabel( tr( "&Rotation:" ), RangeGroup );
-	RotationLayout->addWidget( TextLabel3 );
-	RotateDeg = new QComboBox(RangeGroup);
-	RotateDeg->addItem(QString::fromUtf8("0 °"));
-	RotateDeg->addItem(QString::fromUtf8("90 °"));
-	RotateDeg->addItem(QString::fromUtf8("180 °"));
-	RotateDeg->addItem(QString::fromUtf8("270 °"));
-	RotateDeg->setEditable(false);
-	TextLabel3->setBuddy(RotateDeg);
-	RotationLayout->addWidget( RotateDeg );
-	RangeGroupLayout->addLayout(RotationLayout);
-	Layout11a = new QGridLayout;
-	Layout11a->setSpacing( 5 );
-	Layout11a->setMargin( 0 );
-	MirrorH = new QToolButton(RangeGroup);
 	MirrorH->setIcon(QIcon(loadIcon("16/flip-object-horizontal.png")));
 	MirrorH->setCheckable( true );
-	Layout11a->addWidget( MirrorH, 0, 0 );
-	MirrorV = new QToolButton( RangeGroup );
 	MirrorV->setIcon(QIcon(loadIcon("16/flip-object-vertical.png")));
 	MirrorV->setCheckable( true );
-	Layout11a->addWidget( MirrorV, 0, 1 );
-	RangeGroupLayout->addLayout( Layout11a );
-	ClipMarg = new QCheckBox( tr( "Clip to Printer Margins" ), RangeGroup );
-	RangeGroupLayout->addWidget( ClipMarg );
-	Layout13->addWidget( RangeGroup );
 
-	GroupBox1 = new QGroupBox( tr( "File Options" ), tabGeneral );
-	GroupBox1Layout = new QGridLayout( GroupBox1 );
-	GroupBox1Layout->setAlignment( Qt::AlignTop );
-	GroupBox1Layout->setSpacing( 5 );
-	GroupBox1Layout->setMargin( 10 );
-	TextLabel1 = new QLabel( tr( "Compatibilit&y:" ), GroupBox1 );
-	TextLabel1->setAlignment( Qt::AlignVCenter | Qt::AlignLeft );
-	GroupBox1Layout->addWidget( TextLabel1, 0, 0 );
-	PDFVersionCombo = new QComboBox( GroupBox1 );
-	PDFVersionCombo->setEditable(false);
-	TextLabel1->setBuddy(PDFVersionCombo);
+	fileOptionsLayout->setAlignment( Qt::AlignTop );
 	PDFVersionCombo->addItem("PDF 1.3 (Acrobat 4)");
 	PDFVersionCombo->addItem("PDF 1.4 (Acrobat 5)");
 	PDFVersionCombo->addItem("PDF 1.5 (Acrobat 6)");
@@ -319,558 +81,91 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,
 		PDFVersionCombo->addItem("PDF/X-3");
 		PDFVersionCombo->addItem("PDF/X-4");
 	}
-	GroupBox1Layout->addWidget( PDFVersionCombo, 0, 1, 1, 2 );
-	TextLabel1x = new QLabel( tr( "&Binding:" ), GroupBox1 );
-	TextLabel1x->setAlignment(Qt::AlignVCenter | Qt::AlignLeft);
-	GroupBox1Layout->addWidget( TextLabel1x, 1, 0 );
-	ComboBind = new QComboBox( GroupBox1 );
-	ComboBind->addItem( tr("Left Margin"));
-	ComboBind->addItem( tr("Right Margin"));
-	ComboBind->setEditable(false);
-	TextLabel1x->setBuddy(ComboBind);
-	GroupBox1Layout->addWidget( ComboBind, 1, 1, 1, 2 );
-	CheckBox1 = new QCheckBox( tr( "Generate &Thumbnails" ), GroupBox1 );
-	GroupBox1Layout->addWidget( CheckBox1, 2, 0, 1, 3 );
-	Article = new QCheckBox( tr( "Save &Linked Text Frames as PDF Articles" ), GroupBox1 );
-	GroupBox1Layout->addWidget( Article, 3, 0, 1, 3 );
-	CheckBM = new QCheckBox( tr( "&Include Bookmarks" ), GroupBox1 );
-	GroupBox1Layout->addWidget( CheckBM, 4, 0, 1, 3 );
-	useLayers = new QCheckBox( tr( "Include La&yers" ), GroupBox1 );
-	GroupBox1Layout->addWidget( useLayers, 5, 0, 1, 3 );
-	Resolution = new QSpinBox( GroupBox1 );
 	Resolution->setMaximum( 4000 );
 	Resolution->setMinimum( 35 );
 	Resolution->setSuffix( tr( " dpi" ) );
-	TextLabel2 = new QLabel( tr( "&Resolution for EPS Graphics:" ), GroupBox1 );
-	TextLabel2->setBuddy(Resolution);
-	TextLabel2->setAlignment( Qt::AlignVCenter | Qt::AlignLeft );
-	GroupBox1Layout->addWidget( TextLabel2, 6, 0 );
-	GroupBox1Layout->addWidget( Resolution, 6, 1, Qt::AlignLeft );
-	EmbedPDF = new QCheckBox( tr("Embed PDF && EPS files (EXPERIMENTAL)"), GroupBox1 );
-	GroupBox1Layout->addWidget( EmbedPDF, 7, 0, 1, 3 );
 #ifndef HAVE_PODOFO
 	EmbedPDF->setEnabled(false);
 #endif
-	Layout13->addWidget( GroupBox1 );
-	tabLayout->addLayout( Layout13 );
-	Compression = new QCheckBox( tr( "Com&press Text and Vector Graphics" ), tabGeneral );
-	tabLayout->addWidget( Compression );
-	CBox = new QGroupBox( tr( "Image Quality Settings" ), tabGeneral );
-	CBoxLayout = new QGridLayout( CBox );
-	CBoxLayout->setSpacing( 5 );
-	CBoxLayout->setMargin( 10 );
-	CBoxLayout->setAlignment( Qt::AlignTop );
-	CMethod = new QComboBox(CBox);
-	CMethod->clear();
-	CMethod->addItem( tr( "Automatic" ) );
-	CMethod->addItem( tr( "Lossy - JPEG" ) );
-	CMethod->addItem( tr( "Lossless - Zip" ) );
-	CMethod->addItem( tr( "None" ) );
-	CMethod->setEditable(false);
-	TextCom1 = new QLabel( tr( "Compression Metho&d:" ), CBox );
-	TextCom1->setBuddy(CMethod);
-	CBoxLayout->addWidget( TextCom1, 0, 0 );
-	CBoxLayout->addWidget( CMethod, 0, 1 );
-	CQuality = new QComboBox(CBox);
-	CQuality->clear();
-	CQuality->addItem( tr( "Maximum" ) );
-	CQuality->addItem( tr( "High" ) );
-	CQuality->addItem( tr( "Medium" ) );
-	CQuality->addItem( tr( "Low" ) );
-	CQuality->addItem( tr( "Minimum" ) );
-	CQuality->setEditable(false);
-	TextCom2 = new QLabel( tr( "Compression &Quality:" ), CBox );
-	TextCom2->setBuddy(CQuality);
-	CBoxLayout->addWidget( TextCom2, 1, 0 );
-	CBoxLayout->addWidget( CQuality, 1, 1 );
-	DSColor = new QCheckBox( tr( "Maximum Image Resolution:" ), CBox );
-	CBoxLayout->addWidget( DSColor, 2, 0 );
-	ValC = new QSpinBox( CBox );
+
+	imageQualityLayout->setAlignment( Qt::AlignTop );
 	ValC->setSuffix( tr( " dpi" ) );
 	ValC->setMaximum( 4000 );
 	ValC->setMinimum( 35 );
-	CBoxLayout->addWidget( ValC, 2, 1, Qt::AlignLeft );
-	tabLayout->addWidget( CBox );
-	addTab(tabGeneral, tr( "&General" ));
 
-	tabFonts = new QWidget( this );
-	tabLayout_3 = new QVBoxLayout( tabFonts );
-	tabLayout_3->setSpacing( 5 );
-	tabLayout_3->setMargin( 10 );
-	GroupFont = new QGroupBox( tr( "Embedding" ), tabFonts);
-	GroupFontLayout = new QHBoxLayout( GroupFont );
-	GroupFontLayout->setAlignment( Qt::AlignTop );
-	GroupFontLayout->setSpacing( 5 );
-	GroupFontLayout->setMargin( 10 );
-	Layout4_2 = new QVBoxLayout;
-	Layout4_2->setSpacing( 5 );
-	Layout4_2->setMargin( 0 );
-	TextFont1 = new QLabel( tr( "Available Fonts:" ), GroupFont);
-	Layout4_2->addWidget( TextFont1 );
-	AvailFlist = new QListWidget( GroupFont );
+	// Fonts tab
+	groupFontLayout->setAlignment( Qt::AlignTop );
 	AvailFlist->setMaximumHeight(300);
-	Layout4_2->addWidget( AvailFlist );
-	GroupFontLayout->addLayout( Layout4_2 );
-	Layout5_2 = new QVBoxLayout;
-	Layout5_2->setSpacing( 5 );
-	Layout5_2->setMargin( 0 );
-	QSpacerItem* spacerS3a = new QSpacerItem( 2, 30, QSizePolicy::Minimum, QSizePolicy::Minimum );
-	Layout5_2->addItem( spacerS3a );
-	ToEmbed = new QPushButton(GroupFont);
-	ToEmbed->setIcon(QIcon(loadIcon("22/go-next.png")));
-	Layout5_2->addWidget( ToEmbed );
-	FromEmbed = new QPushButton(GroupFont);
-	FromEmbed->setIcon(QIcon(loadIcon("22/go-previous.png")));
-	Layout5_2->addWidget( FromEmbed );
-	QSpacerItem* spacerS3 = new QSpacerItem( 2, 2, QSizePolicy::Minimum, QSizePolicy::Expanding );
-	Layout5_2->addItem( spacerS3 );
-	GroupFontLayout->addLayout( Layout5_2 );
-	Layout6 = new QVBoxLayout;
-	Layout6->setSpacing( 5 );
-	Layout6->setMargin( 0 );
-	TextFont1_2 = new QLabel( tr( "Fonts to embed:" ), GroupFont);
-	Layout6->addWidget( TextFont1_2 );
-	EmbedList = new QListWidget( GroupFont);
 	EmbedList->setMaximumHeight(105);
-	Layout6->addWidget( EmbedList );
-
-	Layout5_2a = new QHBoxLayout;
-	Layout5_2a->setSpacing( 5 );
-	Layout5_2a->setMargin( 0 );
-	EmbedFonts = new QPushButton( tr( "&Embed all" ), GroupFont);
-	Layout5_2a->addWidget( EmbedFonts );
-	QSpacerItem* spacerS1 = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
-	Layout5_2a->addItem( spacerS1 );
-	ToOutline = new QPushButton(GroupFont);
+	ToEmbed->setIcon(QIcon(loadIcon("22/go-next.png")));
+	FromEmbed->setIcon(QIcon(loadIcon("22/go-previous.png")));
 	ToOutline->setIcon(QIcon(loadIcon("22/go-down.png")));
-	Layout5_2a->addWidget( ToOutline );
-	FromOutline = new QPushButton(GroupFont);
 	FromOutline->setIcon(QIcon(loadIcon("22/go-up.png")));
-	Layout5_2a->addWidget( FromOutline );
-	QSpacerItem* spacerS2 = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
-	Layout5_2a->addItem( spacerS2 );
-	Layout6->addLayout( Layout5_2a );
-	TextFont1_2a = new QLabel( tr( "Fonts to outline:" ), GroupFont);
-	Layout6->addWidget( TextFont1_2a );
-	OutlineList = new QListWidget( GroupFont );
 	OutlineList->setMaximumHeight(105);
-	Layout6->addWidget( OutlineList );
-	OutlineFonts = new QPushButton( tr( "&Outline all" ), GroupFont);
-	Layout6->addWidget( OutlineFonts );
-	GroupFontLayout->addLayout( Layout6 );
-	tabLayout_3->addWidget( GroupFont );
-	addTab( tabFonts, tr( "&Fonts" ) );
-	tabPresentation = new QWidget( this );
-	tabLayout_5 = new QGridLayout( tabPresentation );
-	tabLayout_5->setSpacing( 5 );
-	tabLayout_5->setMargin( 10 );
-	CheckBox10 = new QCheckBox( tr( "Enable &Presentation Effects" ), tabPresentation);
-	tabLayout_5->addWidget( CheckBox10, 0, 0, 1, 2 );
-	Pages = new QListWidget( tabPresentation );
-//		Pages->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)1, (QSizePolicy::SizeType)1, Pages->sizePolicy().hasHeightForWidth() ) );
-	tabLayout_5->addWidget( Pages, 1, 0 );
-	PagePrev = new QCheckBox( tr( "Show Page Pre&views" ), tabPresentation);
-	tabLayout_5->addWidget( PagePrev, 2, 0 );
-	Effects = new QGroupBox( tr( "Effects" ), tabPresentation);
-	EffectsLayout = new QGridLayout( Effects );
-	EffectsLayout->setAlignment( Qt::AlignTop );
-	EffectsLayout->setSpacing( 5 );
-	EffectsLayout->setMargin( 10 );
-	TextLabel1e = new QLabel( tr( "&Display Duration:" ), Effects);
-	EffectsLayout->addWidget( TextLabel1e, 0, 0 );
-	TextLabel2e = new QLabel( tr( "Effec&t Duration:" ), Effects);
-	EffectsLayout->addWidget( TextLabel2e, 1, 0 );
-	TextLabel3e = new QLabel( tr( "Effect T&ype:" ), Effects);
-	EffectsLayout->addWidget( TextLabel3e, 2, 0 );
-	TextLabel4e = new QLabel( tr( "&Moving Lines:" ), Effects);
-	EffectsLayout->addWidget( TextLabel4e, 3, 0 );
-	TextLabel5e = new QLabel( tr( "F&rom the:" ), Effects);
-	EffectsLayout->addWidget( TextLabel5e, 4, 0 );
-	TextLabel6e = new QLabel( tr( "D&irection:" ), Effects);
-	EffectsLayout->addWidget( TextLabel6e, 5, 0 );
-	PageTime = new QSpinBox( Effects);
+
+	// Presentation tab
+	effectsLayout->setAlignment( Qt::AlignTop );
 	PageTime->setSuffix( tr( " sec" ) );
 	PageTime->setMaximum( 3600 );
 	PageTime->setMinimum( 0 );
-	TextLabel1e->setBuddy(PageTime);
-	EffectsLayout->addWidget( PageTime, 0, 1 );
-	EffectTime = new QSpinBox( Effects);
 	EffectTime->setSuffix( tr( " sec" ) );
 	EffectTime->setMaximum( 3600 );
 	EffectTime->setMinimum( 1 );
-	TextLabel2e->setBuddy(EffectTime);
-	EffectsLayout->addWidget( EffectTime, 1, 1 );
-	EffectType = new QComboBox(Effects);
-	EffectType->addItem( tr("No Effect"));
-	EffectType->addItem( tr("Blinds"));
-	EffectType->addItem( tr("Box"));
-	EffectType->addItem( tr("Dissolve"));
-	EffectType->addItem( tr("Glitter"));
-	EffectType->addItem( tr("Split"));
-	EffectType->addItem( tr("Wipe"));
-	EffectType->setEditable(false);
-	TextLabel3e->setBuddy(EffectType);
-	EffectsLayout->addWidget( EffectType, 2, 1 );
-	EDirection = new QComboBox(Effects);
-	EDirection->addItem( tr( "Horizontal" ) );
-	EDirection->addItem( tr( "Vertical" ) );
-	EDirection->setEditable(false);
-	TextLabel4e->setBuddy(EDirection);
-	EffectsLayout->addWidget( EDirection, 3, 1 );
-	EDirection_2 = new QComboBox(Effects);
-	EDirection_2->addItem( tr( "Inside" ) );
-	EDirection_2->addItem( tr( "Outside" ) );
-	EDirection_2->setEditable(false);
-	TextLabel5e->setBuddy(EDirection_2);
-	EffectsLayout->addWidget( EDirection_2, 4, 1 );
-	EDirection_2_2 = new QComboBox(Effects);
-	QString tmp_ed[] = { tr("Left to Right"), tr("Top to Bottom"), tr("Bottom to Top"), tr("Right to Left"),
-		                    tr("Top-left to Bottom-Right")};
-	size_t ar_ed = sizeof(tmp_ed) / sizeof(*tmp_ed);
-	for (uint a = 0; a < ar_ed; ++a)
-		EDirection_2_2->addItem(tmp_ed[a]);
-	EDirection_2_2->setEditable(false);
-	TextLabel6e->setBuddy(EDirection_2_2);
-	EffectsLayout->addWidget( EDirection_2_2, 5, 1 );
-	EonAllPg = new QPushButton( tr( "&Apply Effect to all Pages" ), Effects);
-	EffectsLayout->addWidget( EonAllPg, 6, 0, 1, 2 );
-	tabLayout_5->addWidget( Effects, 1, 1, 2, 1 );
-	addTab( tabPresentation, tr( "E&xtras" ) );
-	tabSpecial = new QWidget( this );
-	tabSpecialLayout = new QVBoxLayout( tabSpecial );
-	tabSpecialLayout->setSpacing( 5 );
-	tabSpecialLayout->setMargin( 10 );
-	groupDisplay = new QGroupBox( tabSpecial );
-	groupDisplay->setTitle( tr( "Display Settings" ) );
-	groupDisplayLayout = new QVBoxLayout( groupDisplay );
-	groupDisplayLayout->setSpacing( 5 );
-	groupDisplayLayout->setMargin( 10 );
+	
+	// Viewer tab
 	groupDisplayLayout->setAlignment( Qt::AlignTop );
-	LayoutSpecial = new QHBoxLayout;
-	LayoutSpecial->setSpacing( 5 );
-	LayoutSpecial->setMargin( 0 );
-	pageLayout = new QGroupBox( groupDisplay );
-	pageLayout->setTitle( tr( "Document Layout" ) );
-	pageLayoutLayout = new QVBoxLayout( pageLayout );
-	pageLayoutLayout->setSpacing( 5 );
-	pageLayoutLayout->setMargin( 10 );
 	pageLayoutLayout->setAlignment( Qt::AlignTop );
-	singlePage = new QRadioButton( pageLayout );
-	singlePage->setText( tr( "Single Page" ) );
-	pageLayoutLayout->addWidget( singlePage );
-	continuousPages = new QRadioButton( pageLayout );
-	continuousPages->setText( tr( "Continuous" ) );
-	pageLayoutLayout->addWidget( continuousPages );
-	doublePageLeft = new QRadioButton( pageLayout );
-	doublePageLeft->setText( tr( "Double Page Left" ) );
-	pageLayoutLayout->addWidget( doublePageLeft );
-	doublePageRight = new QRadioButton( pageLayout );
-	doublePageRight->setText( tr( "Double Page Right" ) );
-	pageLayoutLayout->addWidget( doublePageRight );
-	LayoutSpecial->addWidget( pageLayout );
-	groupNavigation = new QGroupBox( groupDisplay );
-	groupNavigation->setTitle( tr( "Visual Appearance" ) );
-	groupNavigationLayout = new QVBoxLayout( groupNavigation );
-	groupNavigationLayout->setSpacing( 5 );
-	groupNavigationLayout->setMargin( 10 );
 	groupNavigationLayout->setAlignment( Qt::AlignTop );
-	useViewDefault = new QRadioButton( groupNavigation );
-	useViewDefault->setText( tr( "Use Viewers Defaults" ) );
-	groupNavigationLayout->addWidget( useViewDefault );
-	useFullScreen = new QRadioButton( groupNavigation );
-	useFullScreen->setText( tr( "Use Full Screen Mode" ) );
-	groupNavigationLayout->addWidget( useFullScreen );
-	useBookmarks = new QRadioButton( groupNavigation );
-	useBookmarks->setText( tr( "Display Bookmarks Tab" ) );
-	groupNavigationLayout->addWidget( useBookmarks );
-	useThumbnails = new QRadioButton( groupNavigation );
-	useThumbnails->setText( tr( "Display Thumbnails" ) );
-	groupNavigationLayout->addWidget( useThumbnails );
-	useLayers2 = new QRadioButton( groupNavigation );
-	useLayers2->setText( tr( "Display Layers Tab" ) );
-	groupNavigationLayout->addWidget( useLayers2 );
-	hideToolBar = new QCheckBox( tr( "Hide Viewers Toolbar" ), groupNavigation );
-	groupNavigationLayout->addWidget( hideToolBar );
-	hideMenuBar = new QCheckBox( tr( "Hide Viewers Menubar" ), groupNavigation );
-	groupNavigationLayout->addWidget( hideMenuBar );
-	fitWindow = new QCheckBox( tr( "Zoom Pages to fit Viewer Window" ), groupNavigation );
-	groupNavigationLayout->addWidget( fitWindow );
-	LayoutSpecial->addWidget( groupNavigation );
-	groupDisplayLayout->addLayout( LayoutSpecial );
-	tabSpecialLayout->addWidget( groupDisplay );
-	groupJava = new QGroupBox( tabSpecial );
-	groupJava->setTitle( tr( "Special Actions" ) );
-	groupJavaLayout = new QHBoxLayout( groupJava );
-	groupJavaLayout->setSpacing( 5 );
-	groupJavaLayout->setMargin( 10 );
 	groupJavaLayout->setAlignment( Qt::AlignTop );
-	actionLabel = new QLabel( groupJava );
-	actionLabel->setText( tr( "Javascript to be executed\nwhen PDF document is opened:" ) );
-	groupJavaLayout->addWidget( actionLabel );
-	actionCombo = new QComboBox(groupJava);
-	actionCombo->setEditable(false);
-	actionCombo->addItem( tr("No Script"));
-	groupJavaLayout->addWidget( actionCombo );
-	tabSpecialLayout->addWidget( groupJava );
-	addTab( tabSpecial, tr("Viewer") );
 
-	tabSecurity = new QWidget( this );
-	tabSecurityLayout = new QVBoxLayout( tabSecurity );
-	tabSecurityLayout->setSpacing( 5 );
-	tabSecurityLayout->setMargin( 10 );
-	Encry = new QCheckBox( tr( "&Use Encryption" ), tabSecurity);
-	tabSecurityLayout->addWidget( Encry );
-	GroupPass = new QGroupBox( tr( "Passwords" ), tabSecurity );
-	GroupPass->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum);
-	GroupPassLayout = new QGridLayout( GroupPass );
-	GroupPassLayout->setSpacing( 5 );
-	GroupPassLayout->setMargin( 10 );
-	GroupPassLayout->setAlignment( Qt::AlignTop );
-	TextSec2 = new QLabel( tr( "&User:" ), GroupPass);
-	GroupPassLayout->addWidget( TextSec2, 1, 0 );
-	TextSec1 = new QLabel( tr( "&Owner:" ), GroupPass);
-	GroupPassLayout->addWidget( TextSec1, 0, 0 );
-	PassOwner = new QLineEdit( GroupPass );
-	PassOwner->setEchoMode( QLineEdit::Password );
-	TextSec1->setBuddy(PassOwner);
-	GroupPassLayout->addWidget( PassOwner, 0, 1 );
-	PassUser = new QLineEdit( GroupPass );
-	PassUser->setEchoMode( QLineEdit::Password );
-	TextSec2->setBuddy(PassUser);
-	GroupPassLayout->addWidget( PassUser, 1, 1 );
-	tabSecurityLayout->addWidget( GroupPass );
+	// Security tab
+	groupPassLayout->setAlignment( Qt::AlignTop );
+	groupSecSetLayout->setAlignment( Qt::AlignTop );
 
-	GroupSecSet = new QGroupBox( tr( "Settings" ), tabSecurity);
-	GroupSecSet->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum);
-	GroupSecSetLayout = new QVBoxLayout( GroupSecSet );
-	GroupSecSetLayout->setSpacing( 5 );
-	GroupSecSetLayout->setMargin( 10 );
-	GroupSecSetLayout->setAlignment( Qt::AlignTop );
-	PrintSec = new QCheckBox( tr( "Allow &Printing the Document" ), GroupSecSet);
-	GroupSecSetLayout->addWidget( PrintSec );
-	ModifySec = new QCheckBox( tr( "Allow &Changing the Document" ), GroupSecSet);
-	GroupSecSetLayout->addWidget( ModifySec );
-	CopySec = new QCheckBox( tr( "Allow Cop&ying Text and Graphics" ), GroupSecSet);
-	GroupSecSetLayout->addWidget( CopySec );
-	AddSec = new QCheckBox( tr( "Allow Adding &Annotations and Fields" ), GroupSecSet);
-	GroupSecSetLayout->addWidget( AddSec );
-	tabSecurityLayout->addWidget( GroupSecSet );
-	addTab( tabSecurity, tr( "S&ecurity" ) );
+	// Color tab
+	colorGroupLayout->setAlignment( Qt::AlignTop );
+	lpiGroupLayout->setAlignment( Qt::AlignTop );
 
-	tabColor = new QWidget( this );
-	tabColorLayout = new QVBoxLayout( tabColor );
-	tabColorLayout->setSpacing( 5 );
-	tabColorLayout->setMargin( 10 );
-	ColorGroup = new QGroupBox( tr( "General" ), tabColor);
-	ColorGroupLayout = new QHBoxLayout( ColorGroup );
-	ColorGroupLayout->setSpacing( 5 );
-	ColorGroupLayout->setMargin( 10 );
-	ColorGroupLayout->setAlignment( Qt::AlignTop );
-	ColorText1 = new QLabel( tr( "Output &Intended For:" ), ColorGroup );
-	ColorGroupLayout->addWidget( ColorText1 );
-	OutCombo = new QComboBox( ColorGroup );
-	OutCombo->addItem( tr( "Screen / Web" ) );
-	OutCombo->addItem( tr( "Printer" ) );
-	OutCombo->addItem( tr( "Grayscale" ) );
-	OutCombo->setEditable(false);
-	ColorText1->setBuddy(OutCombo);
-	ColorGroupLayout->addWidget( OutCombo );
-	tabColorLayout->addWidget( ColorGroup );
-
-	useSpot = new QCheckBox( tr( "Convert Spot Colors to Process Colors" ), tabColor);
-	tabColorLayout->addWidget( useSpot );
-
-	UseLPI = new QCheckBox( tr( "&Use Custom Rendering Settings" ), tabColor);
-	tabColorLayout->addWidget( UseLPI );
-	LPIgroup = new QGroupBox( tr( "Rendering Settings" ), tabColor);
-	LPIgroupLayout = new QGridLayout( LPIgroup );
-	LPIgroupLayout->setSpacing( 5 );
-	LPIgroupLayout->setMargin( 10 );
-	LPIgroupLayout->setAlignment( Qt::AlignTop );
-	LPIcolor = new QComboBox(LPIgroup);
-	LPIcolor->setEditable(false);
-	LPIgroupLayout->addWidget( LPIcolor, 0, 0 );
-	textLPI1 = new QLabel( tr( "Fre&quency:" ), LPIgroup);
-	LPIgroupLayout->addWidget( textLPI1, 0, 1 );
-	LPIfreq = new QSpinBox( LPIgroup );
 	LPIfreq->setMinimum(10);
 	LPIfreq->setMaximum(1000);
-	textLPI1->setBuddy(LPIfreq);
-	LPIgroupLayout->addWidget( LPIfreq, 0, 2 );
-	textLPI2 = new QLabel( tr( "&Angle:" ), LPIgroup);
-	LPIgroupLayout->addWidget( textLPI2, 1, 1 );
-	LPIangle = new QSpinBox( LPIgroup );
-	LPIangle->setSuffix( QString::fromUtf8(" °"));
+
 	LPIangle->setMinimum(-180);
 	LPIangle->setMaximum(180);
-	textLPI2->setBuddy(LPIangle);
-	LPIgroupLayout->addWidget( LPIangle, 1, 2 );
-	textLPI3 = new QLabel( tr( "S&pot Function:" ), LPIgroup );
-	LPIgroupLayout->addWidget( textLPI3, 2, 1 );
-	LPIfunc = new QComboBox(LPIgroup);
-	LPIfunc->setEditable(false);
-	LPIfunc->addItem( tr( "Simple Dot" ) );
-	LPIfunc->addItem( tr( "Line" ) );
-	LPIfunc->addItem( tr( "Round" ) );
-	LPIfunc->addItem( tr( "Ellipse" ) );
-	textLPI3->setBuddy(LPIfunc);
-	LPIgroupLayout->addWidget( LPIfunc, 2, 2 );
-	tabColorLayout->addWidget( LPIgroup );
+
 	SelLPIcolor = LPIcolor->currentText();
 	
-	GroupBox9 = new QGroupBox( tr( "Solid Colors:" ), tabColor);
-	GroupBox9Layout = new QGridLayout( GroupBox9 );
-	GroupBox9Layout->setSpacing( 5 );
-	GroupBox9Layout->setMargin( 10 );
-	GroupBox9Layout->setAlignment( Qt::AlignTop );
-	EmbedProfs = new QCheckBox( GroupBox9 );
-	EmbedProfs->setText( tr( "Use Color Profile" ) );
-	GroupBox9Layout->addWidget( EmbedProfs, 0, 0, 1, 2 );
-	ProfsTxt1 = new QLabel(GroupBox9);
-	ProfsTxt1->setText( tr( "Profile:" ) );
-	GroupBox9Layout->addWidget( ProfsTxt1, 1, 0 );
-	ProfsTxt2 = new QLabel( GroupBox9 );
-	ProfsTxt2->setText( tr( "Rendering Intent:" ) );
-	GroupBox9Layout->addWidget( ProfsTxt2, 1, 1 );
-	SolidPr = new QComboBox(GroupBox9);
-	SolidPr->setEditable(false);
-	GroupBox9Layout->addWidget( SolidPr, 2, 0 );
-	IntendS = new QComboBox(GroupBox9);
-	QString tmp_ip[] = { tr("Perceptual"), tr("Relative Colorimetric"), tr("Saturation"), tr("Absolute Colorimetric")};
-	size_t ar_ip = sizeof(tmp_ip) / sizeof(*tmp_ip);
-	for (uint a = 0; a < ar_ip; ++a)
-		IntendS->addItem(tmp_ip[a]);
-	IntendS->setEditable(false);
-	GroupBox9Layout->addWidget( IntendS, 2, 1 );
-	tabColorLayout->addWidget( GroupBox9 );
-	ProfsGroup = new QGroupBox( tr( "Images:" ), tabColor );
-	ProfsGroupLayout = new QGridLayout( ProfsGroup );
-	ProfsGroupLayout->setSpacing( 5 );
-	ProfsGroupLayout->setMargin( 10 );
-	ProfsGroupLayout->setAlignment( Qt::AlignTop );
-	EmbedProfs2 = new QCheckBox( tr( "Use Color Profile" ), ProfsGroup );
-	ProfsGroupLayout->addWidget( EmbedProfs2, 0, 0, 1, 2 );
-	NoEmbedded = new QCheckBox( ProfsGroup );
-	NoEmbedded->setText( tr( "Do not use embedded color profiles" ) );
-	ProfsGroupLayout->addWidget( NoEmbedded, 1, 0, 1, 2 );
-	ProfsTxt3 = new QLabel( ProfsGroup );
-	ProfsTxt3->setText( tr( "Profile:" ) );
-	ProfsGroupLayout->addWidget( ProfsTxt3, 2, 0 );
-	ProfsTxt4 = new QLabel( ProfsGroup );
-	ProfsTxt4->setText( tr( "Rendering Intent:" ) );
-	ProfsGroupLayout->addWidget( ProfsTxt4, 2, 1 );
-	ImageP = new QComboBox(ProfsGroup );
-	ImageP->setEditable(false);
-	ProfsGroupLayout->addWidget( ImageP, 3, 0 );
-	IntendI = new QComboBox(ProfsGroup);
-	for (uint a = 0; a < ar_ip; ++a)
-		IntendI->addItem(tmp_ip[a]);
-	IntendI->setEditable(false);
-	ProfsGroupLayout->addWidget( IntendI, 3, 1 );
-	tabColorLayout->addWidget( ProfsGroup );
+	solidColorsGroupLayout->setAlignment( Qt::AlignTop );
+	imageProfileGroupLayout->setAlignment( Qt::AlignTop );
 
-	QSpacerItem* spacerCG = new QSpacerItem( 0, 0, QSizePolicy::Minimum, QSizePolicy::Expanding );
-	tabColorLayout->addItem( spacerCG );
-	addTab( tabColor, tr( "C&olor" ) );
-
-	tabPDFX = new QWidget( this );
-	tabPDFXLayout = new QVBoxLayout( tabPDFX );
-	tabPDFXLayout->setSpacing( 5 );
-	tabPDFXLayout->setMargin( 10 );
-
-	MarkGroup = new QGroupBox( tabPDFX );
-	MarkGroup->setTitle( tr( "Printer Marks" ) );
-	MarkGroupLayout = new QGridLayout( MarkGroup );
-	MarkGroupLayout->setSpacing( 5 );
-	MarkGroupLayout->setMargin( 10 );
-	MarkGroupLayout->setAlignment( Qt::AlignTop );
-	cropMarks = new QCheckBox( tr( "Crop Marks" ), MarkGroup );
-	MarkGroupLayout->addWidget( cropMarks, 0, 0 );
-	bleedMarks = new QCheckBox( tr( "Bleed Marks" ), MarkGroup );
-	MarkGroupLayout->addWidget( bleedMarks, 1, 0 );
-	registrationMarks = new QCheckBox( tr( "Registration Marks" ), MarkGroup );
-	MarkGroupLayout->addWidget( registrationMarks, 2, 0 );
-	colorMarks = new QCheckBox( tr( "Color Bars" ), MarkGroup);
-	MarkGroupLayout->addWidget( colorMarks, 3, 0 );
-	docInfoMarks = new QCheckBox( tr( "Page Information" ), MarkGroup );
-	MarkGroupLayout->addWidget( docInfoMarks, 0, 1, 1, 2 );
-	MarkTxt1 = new QLabel( MarkGroup );
-	MarkTxt1->setText( tr( "Length:" ) );
-	MarkGroupLayout->addWidget( MarkTxt1, 2, 1 );
-	markLength = new ScrSpinBox( MarkGroup, m_Doc->unitIndex() );
-	MarkGroupLayout->addWidget( markLength, 2, 2 );
+	// Prepress tab
+	markGroupLayout->setAlignment( Qt::AlignTop );
+	markLength->setNewUnit(m_Doc->unitIndex());
 	markLength->setMinimum(1 * unitRatio);
 	markLength->setMaximum(3000 * unitRatio);
-	MarkTxt2 = new QLabel( MarkGroup );
-	MarkTxt2->setText( tr( "Offset:" ) );
-	MarkGroupLayout->addWidget( MarkTxt2, 3, 1 );
-	markOffset = new ScrSpinBox( MarkGroup, m_Doc->unitIndex() );
-	MarkGroupLayout->addWidget( markOffset, 3, 2 );
+
+	markOffset->setNewUnit(m_Doc->unitIndex());
 	markOffset->setMinimum(0);
 	markOffset->setMaximum(3000 * unitRatio);
-	tabPDFXLayout->addWidget( MarkGroup );
 
-	BleedGroup = new QGroupBox( tabPDFX );
-	BleedGroup->setTitle( tr( "Bleed Settings" ) );
-	BleedGroupLayout = new QGridLayout( BleedGroup );
-	BleedGroupLayout->setSpacing( 5 );
-	BleedGroupLayout->setMargin( 10 );
-	BleedGroupLayout->setAlignment( Qt::AlignTop );
-	BleedTxt1 = new QLabel( BleedGroup );
-	BleedTxt1->setText( tr( "Top:" ) );
-	BleedGroupLayout->addWidget( BleedTxt1, 0, 0 );
-	BleedTop = new ScrSpinBox( BleedGroup, m_Doc->unitIndex() );
+	bleedGroupLayout->setAlignment( Qt::AlignTop );
+
+	BleedTop->setNewUnit(m_Doc->unitIndex());
 	BleedTop->setMinimum(0);
 	BleedTop->setMaximum(3000 * unitRatio);
-	BleedGroupLayout->addWidget( BleedTop, 0, 1 );
-	BleedTxt2 = new QLabel( BleedGroup );
-	BleedTxt2->setText( tr( "Bottom:" ) );
-	BleedGroupLayout->addWidget( BleedTxt2, 1, 0 );
-	BleedBottom = new ScrSpinBox( BleedGroup, m_Doc->unitIndex() );
+
+	BleedBottom->setNewUnit(m_Doc->unitIndex());
 	BleedBottom->setMinimum(0);
 	BleedBottom->setMaximum(3000 * unitRatio);
-	BleedGroupLayout->addWidget( BleedBottom, 1, 1 );
-	BleedTxt3 = new QLabel( BleedGroup );
-	BleedTxt3->setText( tr( "Left:" ) );
-	BleedGroupLayout->addWidget( BleedTxt3, 0, 2 );
-	BleedLeft = new ScrSpinBox( BleedGroup, m_Doc->unitIndex() );
+
+	BleedLeft->setNewUnit(m_Doc->unitIndex());
 	BleedLeft->setMinimum(0);
 	BleedLeft->setMaximum(3000 * unitRatio);
-	BleedGroupLayout->addWidget( BleedLeft, 0, 3 );
-	BleedTxt4 = new QLabel( BleedGroup );
-	BleedTxt4->setText( tr( "Right:" ) );
-	BleedGroupLayout->addWidget( BleedTxt4, 1, 2 );
-	BleedRight = new ScrSpinBox( BleedGroup, m_Doc->unitIndex() );
+
+	BleedRight->setNewUnit(m_Doc->unitIndex());
 	BleedRight->setMinimum(0);
 	BleedRight->setMaximum(3000 * unitRatio);
-	BleedGroupLayout->addWidget( BleedRight, 1, 3 );
-	docBleeds = new QCheckBox( tr( "Use Document Bleeds" ), BleedGroup );
-	BleedGroupLayout->addWidget( docBleeds, 2, 0, 1, 4 );
-	tabPDFXLayout->addWidget( BleedGroup );
 
-	X3Group = new QGroupBox( tabPDFX );
-	X3Group->setTitle( tr( "PDF/X Output Intent" ) );
-	X3GroupLayout = new QGridLayout( X3Group );
-	X3GroupLayout->setSpacing( 5 );
-	X3GroupLayout->setMargin( 10 );
 	X3GroupLayout->setAlignment( Qt::AlignTop );
-	PrintProfC = new QComboBox( X3Group );
-	PrintProfC->setEditable(false);
-	X3GroupLayout->addWidget( PrintProfC, 0, 1 );
-	InfoString = new QLineEdit( X3Group );
-	X3GroupLayout->addWidget( InfoString, 1, 1 );
-	PDFX2 = new QLabel( tr( "&Info String:" ), X3Group );
-	PDFX2->setBuddy(InfoString);
-	X3GroupLayout->addWidget( PDFX2, 1, 0 );
-	PDFX1 = new QLabel( tr( "Output &Profile:" ), X3Group );
-	PDFX1->setBuddy(PrintProfC);
-	X3GroupLayout->addWidget( PDFX1, 0, 0 );
-	tabPDFXLayout->addWidget( X3Group );
-
-	QSpacerItem* spacerPX2 = new QSpacerItem( 0, 0, QSizePolicy::Minimum, QSizePolicy::Expanding );
-	tabPDFXLayout->addItem( spacerPX2 );
-
-	addTab( tabPDFX, tr( "Pre-Press" ) );
 
 	restoreDefaults(Optionen, AllFonts, PDFXProfiles, DocFonts);
 
@@ -1229,8 +524,8 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 	AddSec->setChecked( Opts.Permissions & 32 );
 	if (!Encry->isChecked())
 	{
-		GroupSecSet->setEnabled(false);
-		GroupPass->setEnabled(false);
+		groupSecSet->setEnabled(false);
+		groupPass->setEnabled(false);
 	}
 
 	if (Opts.UseRGB)
@@ -1258,8 +553,8 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 	NoEmbedded->setChecked(Opts.EmbeddedI);
 	if ((Opts.UseRGB) || (Opts.isGrayscale))
 	{
-		ProfsGroup->setEnabled(false);
-		GroupBox9->setEnabled(false);
+		solidsProfileGroup->setEnabled(false);
+		imageProfileGroup->setEnabled(false);
 		EnablePr(0);
 	}
 	else
@@ -1302,8 +597,8 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 		IntendI->setCurrentIndex(Opts.Intent2);
 	if (!cmsUse)
 	{
-		GroupBox9->hide();
-		ProfsGroup->hide();
+		solidsProfileGroup->hide();
+		imageProfileGroup->hide();
 	}
 
 	ProfilesL::const_iterator itp3;
@@ -1383,8 +678,8 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 	}
 	if (m_Doc->pagePositioning() != 0)
 	{
-		BleedTxt3->setText( tr( "Inside:" ) );
-		BleedTxt4->setText( tr( "Outside:" ) );
+		bleedLeftLabel->setText( tr( "Inside:" ) );
+		bleedRightLabel->setText( tr( "Outside:" ) );
 	}
 }
 
@@ -1532,8 +827,8 @@ void TabPDFOptions::checkInfo()
 void TabPDFOptions::ToggleEncr()
 {
 	bool setter = Encry->isChecked() ? true : false;
-	GroupSecSet->setEnabled(setter);
-	GroupPass->setEnabled(setter);
+	groupSecSet->setEnabled(setter);
+	groupPass->setEnabled(setter);
 }
 
 void TabPDFOptions::enableCMS(bool enable)
@@ -1658,15 +953,15 @@ void TabPDFOptions::EnablePGI()
 	{
 		NoEmbedded->setEnabled(true);
 		bool setter = NoEmbedded->isChecked() ? true : false;
-		ProfsTxt3->setEnabled(setter);
-		ProfsTxt4->setEnabled(setter);
+		imageProfileLabel->setEnabled(setter);
+		imageIntentLabel->setEnabled(setter);
 		ImageP->setEnabled(setter);
 		IntendI->setEnabled(setter);
 	}
 	else
 	{
-		ProfsTxt3->setEnabled(false);
-		ProfsTxt4->setEnabled(false);
+		imageProfileLabel->setEnabled(false);
+		imageIntentLabel->setEnabled(false);
 		ImageP->setEnabled(false);
 		IntendI->setEnabled(false);
 		NoEmbedded->setEnabled(false);
@@ -1676,8 +971,8 @@ void TabPDFOptions::EnablePGI()
 void TabPDFOptions::EnablePGI2()
 {
 	bool setter = NoEmbedded->isChecked() ? true : false;
-	ProfsTxt3->setEnabled(setter);
-	ProfsTxt4->setEnabled(setter);
+	imageProfileLabel->setEnabled(setter);
+	imageIntentLabel->setEnabled(setter);
 	ImageP->setEnabled(setter);
 	IntendI->setEnabled(setter);
 }
@@ -1685,8 +980,8 @@ void TabPDFOptions::EnablePGI2()
 void TabPDFOptions::EnablePG()
 {
 	bool setter = EmbedProfs->isChecked() ? true : false;
-	ProfsTxt1->setEnabled(setter);
-	ProfsTxt2->setEnabled(setter);
+	solidsProfileLabel->setEnabled(setter);
+	solidsIntentLabel->setEnabled(setter);
 	SolidPr->setEnabled(setter);
 	IntendS->setEnabled(setter);
 }
@@ -1703,8 +998,8 @@ void TabPDFOptions::EnablePr(int a)
 			setter = true;
 	}
 
-	GroupBox9->setEnabled(setter);
-	ProfsGroup->setEnabled(setter);
+	solidsProfileGroup->setEnabled(setter);
+	imageProfileGroup->setEnabled(setter);
 }
 
 void TabPDFOptions::EnableLPI(int a)
@@ -1747,13 +1042,13 @@ void TabPDFOptions::EnableLPI(int a)
 			IntendI->setCurrentIndex(Opts.Intent2);
 		if (cms)
 		{
-			GroupBox9->show();
-			ProfsGroup->show();
+			solidsProfileGroup->show();
+			imageProfileGroup->show();
 		}
 		else
 		{
-			GroupBox9->hide();
-			ProfsGroup->hide();
+			solidsProfileGroup->hide();
+			imageProfileGroup->hide();
 		}
 		useSpot->show();
 		UseLPI->show();
