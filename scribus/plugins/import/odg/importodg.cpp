@@ -1586,7 +1586,13 @@ PageItem* OdgPlug::parseFrame(QDomElement &e)
 					if (uz->read(imagePath, f))
 					{
 						QFileInfo fi(imagePath);
-						QTemporaryFile *tempFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_odg_XXXXXX." + fi.suffix());
+						QString ext = fi.suffix();
+						if (ext == "wmf")
+						{
+							if ((f[0] == '\x01') && (f[1] == '\x00') && (f[2] == '\x00') && (f[3] == '\x00') && (f[40] == '\x20') && (f[41] == '\x45') && (f[42] == '\x4D') && (f[43] == '\x46'))
+								ext = "emf";
+						}
+						QTemporaryFile *tempFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_odg_XXXXXX." + ext);
 						if (tempFile->open())
 						{
 							QString fileName = getLongPathName(tempFile->fileName());
