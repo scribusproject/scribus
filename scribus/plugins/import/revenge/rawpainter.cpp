@@ -604,9 +604,12 @@ void RawPainter::drawPolygon(const librevenge::RVNGPropertyList &propList)
 				  finishItem(ite);
 				  insertImage(ite, imgExt, imageData);
 			  }
-			  else if (m_style["librevenge:mime-type"]->getStr() == "image/wmf")
+			  else if ((m_style["librevenge:mime-type"]->getStr() == "image/wmf") || (m_style["librevenge:mime-type"]->getStr() == "image/emf"))
 			  {
-				  imgExt = "wmf";
+				  if (m_style["librevenge:mime-type"]->getStr() == "image/wmf")
+					  imgExt = "wmf";
+				  else
+					  imgExt = "emf";
 				  QTemporaryFile *tempFile = new QTemporaryFile(QDir::tempPath() + QString("/scribus_temp_%1_XXXXXX.").arg(fileType) + imgExt);
 				  if (tempFile->open())
 				  {
@@ -752,9 +755,12 @@ void RawPainter::drawPath(const librevenge::RVNGPropertyList &propList)
 				  finishItem(ite);
 				  insertImage(ite, imgExt, imageData);
 			  }
-			  else if (m_style["librevenge:mime-type"]->getStr() == "image/wmf")
+			  else if ((m_style["librevenge:mime-type"]->getStr() == "image/wmf") || (m_style["librevenge:mime-type"]->getStr() == "image/emf"))
 			  {
-				  imgExt = "wmf";
+				  if (m_style["librevenge:mime-type"]->getStr() == "image/wmf")
+					  imgExt = "wmf";
+				  else
+					  imgExt = "emf";
 				  QTemporaryFile *tempFile = new QTemporaryFile(QDir::tempPath() + QString("/scribus_temp_%1_XXXXXX.").arg(fileType) + imgExt);
 				  if (tempFile->open())
 				  {
@@ -887,9 +893,13 @@ void RawPainter::drawGraphicObject(const librevenge::RVNGPropertyList &propList)
 		}
 		else
 		{
-			if (propList["librevenge:mime-type"]->getStr() == "image/wmf")
+			if ((propList["librevenge:mime-type"]->getStr() == "image/wmf") || (propList["librevenge:mime-type"]->getStr() == "image/emf"))
 			{
-				imgExt = "wmf";
+				QString imgExt = "";
+				if (propList["librevenge:mime-type"]->getStr() == "image/wmf")
+					imgExt = "wmf";
+				else
+					imgExt = "emf";
 				QTemporaryFile *tempFile = new QTemporaryFile(QDir::tempPath() + QString("/scribus_temp_%1_XXXXXX.").arg(fileType) + imgExt);
 				if (tempFile->open())
 				{
@@ -1463,8 +1473,181 @@ void RawPainter::applyFill(PageItem* ite)
 		}
 		else if (gradMode == "shape")
 		{
+			FPointArray gpath = ite->PoLine.copy();
+			for (int sub = 0; sub < 2; sub++)
+			{
+				FPointArray points;
+				double nearT = 0.5;
+				uint psize = gpath.size();
+				for (uint a = 0; a < psize-3; a += 4)
+				{
+					if (gpath.isMarker(a))
+					{
+						points.setMarker();
+						continue;
+					}
+					FPoint base = gpath.point(a);
+					FPoint c1 = gpath.point(a+1);
+					FPoint base2 =  gpath.point(a+2);
+					FPoint c2 = gpath.point(a+3);
+					FPoint cn1 = (1.0 - nearT) * base + nearT * c1;
+					FPoint cn2 = (1.0 - nearT) * cn1 + nearT * ((1.0 - nearT) * c1 + nearT * c2);
+					FPoint cn3 = (1.0 - nearT) * ((1.0 - nearT) * c1 + nearT * c2) + nearT * ((1.0 - nearT) * c2 + nearT * base2);
+					FPoint cn4 = (1.0 - nearT) * c2 + nearT * base2;
+					FPoint bp1 = (1.0 - nearT) * cn2 + nearT * cn3;
+					if ((base == c1) && (base2 == c2))
+					{
+						points.addPoint(base);
+						points.addPoint(c1);
+						points.addPoint(bp1);
+						points.addPoint(bp1);
+						points.addPoint(bp1);
+						points.addPoint(bp1);
+						points.addPoint(base2);
+						points.addPoint(c2);
+					}
+					else
+					{
+						points.addPoint(base);
+						points.addPoint(cn1);
+						points.addPoint(bp1);
+						points.addPoint(cn2);
+						points.addPoint(bp1);
+						points.addPoint(cn3);
+						points.addPoint(base2);
+						points.addPoint(cn4);
+					}
+				}
+				gpath = points;
+			}
 			ite->meshGradientPatches.clear();
 			FPoint center = FPoint(ite->width() / 2.0, ite->height() / 2.0);
+			QList<VColorStop*> colorStops = currentGradient.colorStops();
+			if (colorStops.count() == 2)
+			{
+				int endC = colorStops.count() - 1;
+				meshPoint cP;
+				cP.resetTo(center);
+				cP.transparency = colorStops[0]->opacity;
+				cP.shade = 100;
+				cP.colorName = colorStops[0]->name;
+				cP.color = colorStops[0]->color;
+				for (int poi = 0; poi < gpath.size()-3; poi += 4)
+				{
+					meshGradientPatch patch;
+					patch.BL = cP;
+					patch.BR = cP;
+					if (gpath.isMarker(poi))
+						continue;
+					meshPoint tL;
+					tL.resetTo(gpath.point(poi));
+					tL.controlRight = gpath.point(poi + 1);
+					tL.transparency = colorStops[endC]->opacity;
+					tL.shade = 100;
+					tL.colorName = colorStops[endC]->name;
+					tL.color = colorStops[endC]->color;
+					meshPoint tR;
+					tR.resetTo(gpath.point(poi + 2));
+					tR.controlLeft = gpath.point(poi + 3);
+					tR.transparency = colorStops[endC]->opacity;
+					tR.shade = 100;
+					tR.colorName = colorStops[endC]->name;
+					tR.color = colorStops[endC]->color;
+					patch.TL = tL;
+					patch.TR = tR;
+					ite->meshGradientPatches.append(patch);
+				}
+			}
+			else
+			{
+				FPointArray gpath2 = gpath.copy();
+				QTransform mm;
+				mm.translate(center.x(), center.y());
+				mm.scale(colorStops[1]->rampPoint, colorStops[1]->rampPoint);
+				mm.translate(-center.x(), -center.y());
+				gpath2.map(mm);
+				meshPoint cP;
+				cP.resetTo(center);
+				cP.transparency = colorStops[0]->opacity;
+				cP.shade = 100;
+				cP.colorName = colorStops[0]->name;
+				cP.color = colorStops[0]->color;
+				for (int poi = 0; poi < gpath2.size()-3; poi += 4)
+				{
+					meshGradientPatch patch;
+					patch.BL = cP;
+					patch.BR = cP;
+					if (gpath.isMarker(poi))
+						continue;
+					meshPoint tL;
+					tL.resetTo(gpath2.point(poi));
+					tL.controlRight = gpath2.point(poi + 1);
+					tL.transparency = colorStops[1]->opacity;
+					tL.shade = 100;
+					tL.colorName = colorStops[1]->name;
+					tL.color = colorStops[1]->color;
+					meshPoint tR;
+					tR.resetTo(gpath2.point(poi + 2));
+					tR.controlLeft = gpath2.point(poi + 3);
+					tR.transparency = colorStops[1]->opacity;
+					tR.shade = 100;
+					tR.colorName = colorStops[1]->name;
+					tR.color = colorStops[1]->color;
+					patch.TL = tL;
+					patch.TR = tR;
+					ite->meshGradientPatches.append(patch);
+				}
+				for (int cstp = 2; cstp < colorStops.count(); cstp++)
+				{
+					FPointArray gpath3 = gpath2.copy();
+					gpath2 = gpath.copy();
+					QTransform mm;
+					mm.translate(center.x(), center.y());
+					mm.scale(colorStops[cstp]->rampPoint, colorStops[cstp]->rampPoint);
+					mm.translate(-center.x(), -center.y());
+					gpath2.map(mm);
+					for (int poi = 0; poi < gpath2.size()-3; poi += 4)
+					{
+						if (gpath.isMarker(poi))
+							continue;
+						meshGradientPatch patch;
+						meshPoint bL;
+						bL.resetTo(gpath3.point(poi));
+						bL.controlRight = gpath3.point(poi + 1);
+						bL.transparency = colorStops[cstp - 1]->opacity;
+						bL.shade = 100;
+						bL.colorName = colorStops[cstp - 1]->name;
+						bL.color = colorStops[cstp - 1]->color;
+						patch.BL = bL;
+						meshPoint bR;
+						bR.resetTo(gpath3.point(poi + 2));
+						bR.controlLeft = gpath3.point(poi + 3);
+						bR.transparency = colorStops[cstp - 1]->opacity;
+						bR.shade = 100;
+						bR.colorName = colorStops[cstp - 1]->name;
+						bR.color = colorStops[cstp - 1]->color;
+						patch.BR = bR;
+						meshPoint tL;
+						tL.resetTo(gpath2.point(poi));
+						tL.controlRight = gpath2.point(poi + 1);
+						tL.transparency = colorStops[cstp]->opacity;
+						tL.shade = 100;
+						tL.colorName = colorStops[cstp]->name;
+						tL.color = colorStops[cstp]->color;
+						meshPoint tR;
+						tR.resetTo(gpath2.point(poi + 2));
+						tR.controlLeft = gpath2.point(poi + 3);
+						tR.transparency = colorStops[cstp]->opacity;
+						tR.shade = 100;
+						tR.colorName = colorStops[cstp]->name;
+						tR.color = colorStops[cstp]->color;
+						patch.TL = tL;
+						patch.TR = tR;
+						ite->meshGradientPatches.append(patch);
+					}
+				}
+			}
+			/*
 			meshPoint cP;
 			cP.resetTo(center);
 			cP.transparency = gradColor2Trans;
@@ -1496,6 +1679,7 @@ void RawPainter::applyFill(PageItem* ite)
 				patch.TR = tR;
 				ite->meshGradientPatches.append(patch);
 			}
+			*/
 			ite->GrType = 12;
 		}
 	}
@@ -2026,9 +2210,12 @@ void RawPainter::drawPolygon(const ::WPXPropertyListVector &vertices)
 			  finishItem(ite);
 			  insertImage(ite, imgExt, imageData);
 		  }
-		  else if (m_style["libwpg:mime-type"]->getStr() == "image/wmf")
+		  else if ((m_style["libwpg:mime-type"]->getStr() == "image/wmf") || (m_style["libwpg:mime-type"]->getStr() == "image/emf"))
 		  {
-			  imgExt = "wmf";
+			  if (m_style["libwpg:mime-type"]->getStr() == "image/wmf")
+				  imgExt = "wmf";
+			  else
+				  imgExt = "emf";
 			  QTemporaryFile *tempFile = new QTemporaryFile(QDir::tempPath() + QString("/scribus_temp_%1_XXXXXX.").arg(fileType) + imgExt);
 			  if (tempFile->open())
 			  {
@@ -2171,9 +2358,12 @@ void RawPainter::drawPath(const ::WPXPropertyListVector &path)
 				  finishItem(ite);
 				  insertImage(ite, imgExt, imageData);
 			  }
-			  else if (m_style["libwpg:mime-type"]->getStr() == "image/wmf")
+			  else if ((m_style["libwpg:mime-type"]->getStr() == "image/wmf") || (m_style["libwpg:mime-type"]->getStr() == "image/emf"))
 			  {
-				  imgExt = "wmf";
+				  if (m_style["libwpg:mime-type"]->getStr() == "image/wmf")
+					  imgExt = "wmf";
+				  else
+					  imgExt = "emf";
 				  QTemporaryFile *tempFile = new QTemporaryFile(QDir::tempPath() + QString("/scribus_temp_%1_XXXXXX.").arg(fileType) + imgExt);
 				  if (tempFile->open())
 				  {
@@ -2303,9 +2493,12 @@ void RawPainter::drawGraphicObject(const ::WPXPropertyList &propList, const ::WP
 		}
 		else
 		{
-			if (propList["libwpg:mime-type"]->getStr() == "image/wmf")
+			else if ((m_style["libwpg:mime-type"]->getStr() == "image/wmf") || (m_style["libwpg:mime-type"]->getStr() == "image/emf"))
 			{
-				imgExt = "wmf";
+				if (m_style["libwpg:mime-type"]->getStr() == "image/wmf")
+					imgExt = "wmf";
+				else
+					imgExt = "emf";
 				QTemporaryFile *tempFile = new QTemporaryFile(QDir::tempPath() + QString("/scribus_temp_%1_XXXXXX.").arg(fileType) + imgExt);
 				if (tempFile->open())
 				{

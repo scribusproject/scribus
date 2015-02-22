@@ -216,9 +216,11 @@ bool OdgPlug::import(QString fNameIn, const TransactionSettings& trSettings, int
 		m_Doc->setPageSize("Custom");
 	}
 	Elements.clear();
+	if ((!(flags & LoadSavePlugin::lfLoadAsPattern)) && (m_Doc->view() != NULL))
+		m_Doc->view()->Deselect();
 	m_Doc->setLoading(true);
 	m_Doc->DoDrawing = false;
-	if (!(flags & LoadSavePlugin::lfLoadAsPattern))
+	if ((!(flags & LoadSavePlugin::lfLoadAsPattern)) && (m_Doc->view() != NULL))
 		m_Doc->view()->updatesOn(false);
 	m_Doc->scMW()->setScriptRunning(true);
 	qApp->setOverrideCursor(QCursor(Qt::WaitCursor));
@@ -251,7 +253,8 @@ bool OdgPlug::import(QString fNameIn, const TransactionSettings& trSettings, int
 					}
 					m_Doc->m_Selection->delaySignalsOff();
 					m_Doc->m_Selection->setGroupRect();
-					m_Doc->view()->updatesOn(true);
+					if (m_Doc->view() != NULL)
+						m_Doc->view()->updatesOn(true);
 				}
 			}
 			else
@@ -1584,7 +1587,6 @@ PageItem* OdgPlug::parseFrame(QDomElement &e)
 					{
 						QFileInfo fi(imagePath);
 						QTemporaryFile *tempFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_odg_XXXXXX." + fi.suffix());
-						tempFile->setAutoRemove(false);
 						if (tempFile->open())
 						{
 							QString fileName = getLongPathName(tempFile->fileName());
@@ -1617,6 +1619,7 @@ PageItem* OdgPlug::parseFrame(QDomElement &e)
 								}
 							}
 						}
+						delete tempFile;
 					}
 				}
 			}
@@ -1650,14 +1653,15 @@ PageItem* OdgPlug::parseFrame(QDomElement &e)
 							ext = "xpm";
 						else if ((buf[0] == '\xD7') && (buf[1] == '\xCD') && (buf[2] == '\xC6') && (buf[3] == '\x9A'))
 							ext = "wmf";
+						else if ((buf[0] == '\x01') && (buf[1] == '\x00') && (buf[2] == '\x00') && (buf[3] == '\x00') && (buf[40] == '\x20') && (buf[41] == '\x45') && (buf[42] == '\x4D') && (buf[43] == '\x46'))
+							ext = "emf";
 						else if ((buf[0] == '<') && (buf[1] == '?') && (buf[2] == 'x') && (buf[3] == 'm') && (buf[4] == 'l'))
 							ext = "svg";
 						if (!ext.isEmpty())
 						{
-							if ((ext == "eps") || (ext == "wmf") || (ext == "svg"))
+							if ((ext == "eps") || (ext == "wmf") || (ext == "emf") || (ext == "svg"))
 							{
 								QTemporaryFile *tempFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_odg_XXXXXX." + ext);
-								tempFile->setAutoRemove(false);
 								if (tempFile->open())
 								{
 									QString fileName = getLongPathName(tempFile->fileName());
@@ -1690,6 +1694,7 @@ PageItem* OdgPlug::parseFrame(QDomElement &e)
 										}
 									}
 								}
+								delete tempFile;
 							}
 							else
 							{
