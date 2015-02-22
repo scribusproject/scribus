@@ -292,6 +292,11 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "odgimport", "odgimport\odgi
 		{6CC39EED-B1E2-4209-8F65-0E6242EE63E5} = {6CC39EED-B1E2-4209-8F65-0E6242EE63E5}
 	EndProjectSection
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "emfimport", "emfimport\emfimport.vcxproj", "{7EE58A82-4A97-4470-91ED-02DC4B262A9B}"
+	ProjectSection(ProjectDependencies) = postProject
+		{B17FCD80-7978-4544-93C4-2FE1AC6FE9F3} = {B17FCD80-7978-4544-93C4-2FE1AC6FE9F3}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -534,6 +539,10 @@ Global
 		{69A3282A-7C08-40B4-B0F5-B1BDB0D3126E}.Debug|Win32.Build.0 = Debug|Win32
 		{69A3282A-7C08-40B4-B0F5-B1BDB0D3126E}.Release|Win32.ActiveCfg = Release|Win32
 		{69A3282A-7C08-40B4-B0F5-B1BDB0D3126E}.Release|Win32.Build.0 = Release|Win32
+		{7EE58A82-4A97-4470-91ED-02DC4B262A9B}.Debug|Win32.ActiveCfg = Debug|Win32
+		{7EE58A82-4A97-4470-91ED-02DC4B262A9B}.Debug|Win32.Build.0 = Debug|Win32
+		{7EE58A82-4A97-4470-91ED-02DC4B262A9B}.Release|Win32.ActiveCfg = Release|Win32
+		{7EE58A82-4A97-4470-91ED-02DC4B262A9B}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
