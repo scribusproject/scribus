@@ -2180,46 +2180,52 @@ void EmfPlug::finishItem(PageItem* ite, bool fill)
 			}
 		}
 	}
-	if ((!currentDC.clipPath.isEmpty()) && (ite->itemType() != PageItem::ImageFrame))
+	if (inEMFPlus)
 	{
-		PageItem *iteG;
-		QList<PageItem*> gElements;
-		gElements.append(ite);
-		tmpSel->clear();
-		tmpSel->addItem(ite, true);
-		iteG = m_Doc->groupObjectsSelection(tmpSel);
-		iteG->setTextFlowMode(PageItem::TextFlowUsesBoundingBox);
-		double oldX = iteG->xPos();
-		double oldY = iteG->yPos();
-		double oldW = iteG->width();
-		double oldH = iteG->height();
-		double oldgW = iteG->groupWidth;
-		double oldgH = iteG->groupHeight;
-		iteG->PoLine = currentDC.clipPath.copy();
-		iteG->PoLine.translate(baseX, baseY);
-		FPoint xy = getMinClipF(&iteG->PoLine);
-		iteG->setXYPos(xy.x(), xy.y(), true);
-		iteG->PoLine.translate(-xy.x(), -xy.y());
-		FPoint wh = getMaxClipF(&iteG->PoLine);
-		iteG->setWidthHeight(wh.x(),wh.y());
-		iteG->groupWidth = oldgW * (iteG->width() / oldW);
-		iteG->groupHeight = oldgH * (iteG->height() / oldH);
-		double dx = (iteG->xPos() - oldX) / (iteG->width() / iteG->groupWidth);
-		double dy = (iteG->yPos() - oldY) / (iteG->height() / iteG->groupHeight);
-		for (int em = 0; em < iteG->groupItemList.count(); ++em)
+		if (currentDC.brushStyle == U_BT_PathGradient)
 		{
-			PageItem* embedded = iteG->groupItemList.at(em);
-			embedded->moveBy(-dx, -dy, true);
-			m_Doc->setRedrawBounding(embedded);
-			embedded->OwnPage = m_Doc->OnPage(embedded);
+			if ((!currentDC.clipPath.isEmpty()) && (ite->itemType() != PageItem::ImageFrame))
+			{
+				PageItem *iteG;
+				QList<PageItem*> gElements;
+				gElements.append(ite);
+				tmpSel->clear();
+				tmpSel->addItem(ite, true);
+				iteG = m_Doc->groupObjectsSelection(tmpSel);
+				iteG->setTextFlowMode(PageItem::TextFlowUsesBoundingBox);
+				double oldX = iteG->xPos();
+				double oldY = iteG->yPos();
+				double oldW = iteG->width();
+				double oldH = iteG->height();
+				double oldgW = iteG->groupWidth;
+				double oldgH = iteG->groupHeight;
+				iteG->PoLine = currentDC.clipPath.copy();
+				iteG->PoLine.translate(baseX, baseY);
+				FPoint xy = getMinClipF(&iteG->PoLine);
+				iteG->setXYPos(xy.x(), xy.y(), true);
+				iteG->PoLine.translate(-xy.x(), -xy.y());
+				FPoint wh = getMaxClipF(&iteG->PoLine);
+				iteG->setWidthHeight(wh.x(),wh.y());
+				iteG->groupWidth = oldgW * (iteG->width() / oldW);
+				iteG->groupHeight = oldgH * (iteG->height() / oldH);
+				double dx = (iteG->xPos() - oldX) / (iteG->width() / iteG->groupWidth);
+				double dy = (iteG->yPos() - oldY) / (iteG->height() / iteG->groupHeight);
+				for (int em = 0; em < iteG->groupItemList.count(); ++em)
+				{
+					PageItem* embedded = iteG->groupItemList.at(em);
+					embedded->moveBy(-dx, -dy, true);
+					m_Doc->setRedrawBounding(embedded);
+					embedded->OwnPage = m_Doc->OnPage(embedded);
+				}
+				iteG->ClipEdited = true;
+				iteG->OldB2 = ite->width();
+				iteG->OldH2 = ite->height();
+				iteG->Clip = FlattenPath(iteG->PoLine, iteG->Segments);
+				iteG->updateGradientVectors();
+				ite = iteG;
+				tmpSel->clear();
+			}
 		}
-		iteG->ClipEdited = true;
-		iteG->OldB2 = ite->width();
-		iteG->OldH2 = ite->height();
-		iteG->Clip = FlattenPath(iteG->PoLine, iteG->Segments);
-		iteG->updateGradientVectors();
-		ite = iteG;
-		tmpSel->clear();
 	}
 	Elements.append(ite);
 }
