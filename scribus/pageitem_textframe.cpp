@@ -904,22 +904,23 @@ private:
 
 static bool checkCJK(QChar ch) {
 	unsigned int code = ch.unicode();
-	if (	(0x2E80 < code && code < 0x2EFF) ||   // CJK Radicals Supplement
-		(0x3000 < code && code < 0x303F) ||   // CJK Symbols and Punctuation
-		(0x31C0 < code && code < 0x31EF) ||   // CJK Strokes
-		(0x3200 < code && code < 0x32FF) ||   // Enclosed CJK Letters and Months
-		(0x3300 < code && code < 0x33FF) ||   // CJK Compatibility
-		(0x3400 < code && code < 0x4DBF) ||   // CJK Unified Ideographs Extension A
-		(0x4E00 < code && code < 0x9FFF) ||   // CJK Unified Ideographs
-		(0xF900 < code && code < 0xFAFF) ||   // CJK Compatibility Ideographs
-		(0xFE30 < code && code < 0xFE4F) ||   // CJK Compatibility Forms
-		(0x20000 < code && code < 0x2A6DF) || // CJK Unified Ideographs Extension B
-		(0x2A700 < code && code < 0x2B73F) || // CJK Unified Ideographs Extension C
-		(0x2B740 < code && code < 0x2B81F) || // CJK Unified Ideographs Extension D
-		(0x2F800 < code && code < 0x2FA1F) || // CJK Compatibility Ideographs Supplement
-		(0xFF01 < code && code < 0xFF0F) ||
-		(0xFF1A < code && code < 0xFF20) ||
-		(0xFF58 < code && code < 0xFFDC) ||
+	if (	(0x2E80 < code && code < 0x2EFF)   ||  // CJK Radicals Supplement
+		(0x3000 < code && code < 0x303F)   ||  // CJK Symbols and Punctuation
+		(0x3040 < code && code <= 0x30FF)  ||  // Hiragana, Katakana
+		(0x31C0 < code && code < 0x31EF)   ||  // CJK Strokes
+		(0x3200 < code && code < 0x32FF)   ||  // Enclosed CJK Letters and Months
+		(0x3300 < code && code < 0x33FF)   ||  // CJK Compatibility
+		(0x3400 < code && code < 0x4DBF)   ||  // CJK Unified Ideographs Extension A
+		(0x4E00 < code && code < 0x9FFF)   ||  // CJK Unified Ideographs
+		(0xF900 < code && code < 0xFAFF)   ||  // CJK Compatibility Ideographs
+		(0xFE30 < code && code < 0xFE4F)   ||  // CJK Compatibility Forms
+		(0x20000 < code && code < 0x2A6DF) ||  // CJK Unified Ideographs Extension B
+		(0x2A700 < code && code < 0x2B73F) ||  // CJK Unified Ideographs Extension C
+		(0x2B740 < code && code < 0x2B81F) ||  // CJK Unified Ideographs Extension D
+		(0x2F800 < code && code < 0x2FA1F) ||  // CJK Compatibility Ideographs Supplement
+		(0xFF01 < code && code < 0xFF0F)   ||
+		(0xFF1A < code && code < 0xFF20)   ||
+		(0xFF58 < code && code < 0xFFDC)   ||
 		(code == 0x3000) ||
 		(code == 0x3002) ||
 		(code == 0x201C) ||
@@ -930,7 +931,7 @@ static bool checkCJK(QChar ch) {
 }
 
 static bool allowedCJKBreakAfter(QChar ch) {
-	unsigned int code[] = {0x201C, 0xFF08, 0xFF3B, 0xFF5B, 0xFF5F, 0xFF62, 0xFF0D, 0};
+	unsigned int code[] = {0x201C, 0x300C, 0xFF08, 0xFF3B, 0xFF5B, 0xFF5F, 0xFF62, 0xFF0D, 0};
 	for (int i = 0; code[i]; ++i)
 		if (code[i] == ch.unicode())
 			return false;
@@ -939,7 +940,7 @@ static bool allowedCJKBreakAfter(QChar ch) {
 
 static int allowedCJKBreakBefore(QChar ch) {
 	unsigned int code[] =
-	 {0x201D, 0x3002, 0xFF01, 0xFF09, 0xFF0C, 0xFF0E, 0xFF1A,
+	 {0x201D, 0x3001, 0x3002, 0x300D, 0xFF01, 0xFF09, 0xFF0C, 0xFF0E, 0xFF1A,
 	  0xFF1B, 0xFF1F, 0xFF3D, 0xFF5D, 0xFF60, 0xFF63, 0xFF64, 0};
 	for (int i = 0; code[i]; ++i)
 		if (code[i] == ch.unicode())
