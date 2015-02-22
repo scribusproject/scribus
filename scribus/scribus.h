@@ -159,10 +159,7 @@ public:
 	void applyNewMaster(QString name);
 	void updateRecent(QString fn);
 	void doPasteRecent(QString data);
-	bool getPDFDriver(const QString & fn, const QString & nam,
-					  int Components, const std::vector<int> & pageNs,
-					  const QMap<int,QPixmap> & thumbs, QString& error, 
-					  bool* cancelled = NULL);
+	bool getPDFDriver(const QString & filename, const QString & name, int components, const std::vector<int> & pageNumbers, const QMap<int,QPixmap> & thumbs, QString& error, bool* cancelled = NULL);
 	bool DoSaveAsEps(QString fn, QString& error);
 	QString CFileDialog(QString wDir = ".", QString caption = "", QString filter = "", QString defNa = "",
 						int optionFlags = fdExistingFiles, bool *docom = 0, bool *doFont = 0, bool *doProfiles = 0);
@@ -433,15 +430,15 @@ public slots:
 	 */
 	void slotZoom(double zoomFactor); // 20, 50, 100, or -100 for Fit
 	/** \brief Schaltet Raender ein/aus */
-	void ToggleMarks();
-	void ToggleBleeds();
-	void ToggleFrames();
-	void ToggleLayerMarkers();
-	void ToggleTextLinks();
-	void ToggleTextControls();
-	void ToggleColumnBorders();
-	void ToggleRulers();
-	void ToggleRulerMode();
+	void toggleMarks();
+	void toggleBleeds();
+	void toggleFrames();
+	void toggleLayerMarkers();
+	void toggleTextLinks();
+	void toggleTextControls();
+	void toggleColumnBorders();
+	void toggleRulers();
+	void toggleRulerMode();
 	void togglePagePalette();
 	void toggleUndoPalette();
 	void setUndoPalette(bool visible);
@@ -449,9 +446,9 @@ public slots:
 	/** \brief Schaltet M_ViewShowImages ein/aus */
 	void toggleImageVisibility();
 	/** \brief Schaltet Raster ein/aus */
-	void ToggleGrid();
+	void toggleGrid();
 	/** \brief Schaltet Rasterbenutzung ein/aus */
-	void ToggleUGrid();
+	void toggleSnapGrid();
 	/** \brief Schaltet Rahmenbearbeitung ein/aus */
 	void toggleNodeEdit();
 	void slotSelect();
@@ -520,10 +517,10 @@ public slots:
 	void AdjustGroupObj();
 	void StatusPic();
 	void ModifyAnnot();
-	void ToggleGuides();
-	void ToggleBase();
-	void ToggleUGuides();
-	void ToggleUElements();
+	void toggleGuides();
+	void toggleBase();
+	void toggleSnapGuides();
+	void toggleSnapElements();
 	void SetSnapElements(bool b);
 	void EditTabs();
 	void SearchText();

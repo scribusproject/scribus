@@ -531,10 +531,10 @@ void ScribusMainWindow::initDefaultValues()
 	keyrep = false;
 	_arrowKeyDown = false;
 	ClipB = QApplication::clipboard();
-	for (int i=0; i<11 ; ++i)
+	for (int i=0; i<PS_MAX ; ++i)
 		palettesStatus[i] = false;
-	for (int i=0; i<13 ; ++i)
-		guidesStatus[GS_ALL] = false;
+	for (int i=0; i<GS_MAX ; ++i)
+		guidesStatus[i] = false;
 #ifdef HAVE_OSG
 	QStringList supportedExts;
 	supportedExts << "osg" << "dxf" << "flt" << "ive" << "geo" << "sta" << "stl" << "logo" << "3ds" << "ac" << "obj";
@@ -5365,38 +5365,38 @@ void ScribusMainWindow::ToggleStickyTools()
 
 void ScribusMainWindow::ToggleAllPalettes()
 {
-	if (palettesStatus[0])
+	if (palettesStatus[PS_ALL])
 	{
-		palettesStatus[0] = false;
-		if (palettesStatus[1])
+		palettesStatus[PS_ALL] = false;
+		if (palettesStatus[PS_PROPERTIES])
 			propertiesPalette->show();
-		if (palettesStatus[2])
+		if (palettesStatus[PS_OUTLINE])
 			outlinePalette->show();
-		if (palettesStatus[3])
+		if (palettesStatus[PS_SCRAPBOOK])
 			scrapbookPalette->show();
-		if (palettesStatus[4])
+		if (palettesStatus[PS_LAYER])
 			layerPalette->show();
-		if (palettesStatus[5])
+		if (palettesStatus[PS_PAGE])
 			pagePalette->show();
-		if (palettesStatus[6])
+		if (palettesStatus[PS_BOOKMARK])
 			bookmarkPalette->show();
-		if (palettesStatus[9])
+		if (palettesStatus[PS_VERIFIER])
 			docCheckerPalette->show();
-		if (palettesStatus[10])
+		if (palettesStatus[PS_DOWNLOADS])
 			downloadsPalette->show();
-		setUndoPalette(palettesStatus[8]);
+		setUndoPalette(palettesStatus[PS_UNDO]);
 	}
 	else
 	{
-		palettesStatus[1] = propertiesPalette->isVisible();
-		palettesStatus[2] = outlinePalette->isVisible();
-		palettesStatus[3] = scrapbookPalette->isVisible();
-		palettesStatus[4] = layerPalette->isVisible();
-		palettesStatus[5] = pagePalette->isVisible();
-		palettesStatus[6] = bookmarkPalette->isVisible();
-		palettesStatus[8] = undoPalette->isVisible();
-		palettesStatus[9] = docCheckerPalette->isVisible();
-		palettesStatus[10] = downloadsPalette->isVisible();
+		palettesStatus[PS_PROPERTIES] = propertiesPalette->isVisible();
+		palettesStatus[PS_OUTLINE] = outlinePalette->isVisible();
+		palettesStatus[PS_SCRAPBOOK] = scrapbookPalette->isVisible();
+		palettesStatus[PS_LAYER] = layerPalette->isVisible();
+		palettesStatus[PS_PAGE] = pagePalette->isVisible();
+		palettesStatus[PS_BOOKMARK] = bookmarkPalette->isVisible();
+		palettesStatus[PS_UNDO] = undoPalette->isVisible();
+		palettesStatus[PS_VERIFIER] = docCheckerPalette->isVisible();
+		palettesStatus[PS_DOWNLOADS] = downloadsPalette->isVisible();
 		propertiesPalette->hide();
 		outlinePalette->hide();
 		scrapbookPalette->hide();
@@ -5406,13 +5406,13 @@ void ScribusMainWindow::ToggleAllPalettes()
 		docCheckerPalette->hide();
 		downloadsPalette->hide();
 		setUndoPalette(false);
-		palettesStatus[0] = true;
+		palettesStatus[PS_ALL] = true;
 	}
 }
 
 void ScribusMainWindow::toggleCheckPal()
 {
-	palettesStatus[0] = false;
+	palettesStatus[PS_ALL] = false;
 }
 
 void ScribusMainWindow::setUndoPalette(bool visible)
@@ -5423,13 +5423,13 @@ void ScribusMainWindow::setUndoPalette(bool visible)
 
 void ScribusMainWindow::togglePagePalette()
 {
-	palettesStatus[0] = false;
+	palettesStatus[PS_ALL] = false;
 }
 
 void ScribusMainWindow::toggleUndoPalette()
 {
 	setUndoPalette(!undoPalette->isVisible());
-	palettesStatus[0] = false;
+	palettesStatus[PS_ALL] = false;
 }
 
 void ScribusMainWindow::toggleImageVisibility()
@@ -5489,18 +5489,18 @@ void ScribusMainWindow::ToggleAllGuides()
 		doc->guidesPrefs().colBordersShown = guidesStatus[GS_COLUMNBORDERS];
 		doc->guidesPrefs().layerMarkersShown = guidesStatus[GS_LAYERMARKERS] ;
 		doc->guidesPrefs().showBleed = guidesStatus[GS_BLEED];
-		ToggleMarks();
-		ToggleFrames();
-		ToggleLayerMarkers();
-		ToggleGrid();
-		ToggleGuides();
-		ToggleColumnBorders();
-		ToggleBase();
-		ToggleTextLinks();
-		ToggleTextControls();
-		ToggleRulerMode();
-		ToggleRulers();
-		ToggleBleeds();
+		toggleMarks();
+		toggleFrames();
+		toggleLayerMarkers();
+		toggleGrid();
+		toggleGuides();
+		toggleColumnBorders();
+		toggleBase();
+		toggleTextLinks();
+		toggleTextControls();
+		toggleRulerMode();
+		toggleRulers();
+		toggleBleeds();
 	}
 	else
 	{
@@ -5546,7 +5546,7 @@ void ScribusMainWindow::ToggleAllGuides()
 	view->DrawNew();
 }
 
-void ScribusMainWindow::ToggleMarks()
+void ScribusMainWindow::toggleMarks()
 {
 	if (!doc)
 		return;
@@ -5555,7 +5555,7 @@ void ScribusMainWindow::ToggleMarks()
 	view->DrawNew();
 }
 
-void ScribusMainWindow::ToggleBleeds()
+void ScribusMainWindow::toggleBleeds()
 {
 	if (!doc)
 		return;
@@ -5564,7 +5564,7 @@ void ScribusMainWindow::ToggleBleeds()
 	view->DrawNew();
 }
 
-void ScribusMainWindow::ToggleFrames()
+void ScribusMainWindow::toggleFrames()
 {
 	if (!doc)
 		return;
@@ -5573,7 +5573,7 @@ void ScribusMainWindow::ToggleFrames()
 	view->DrawNew();
 }
 
-void ScribusMainWindow::ToggleLayerMarkers()
+void ScribusMainWindow::toggleLayerMarkers()
 {
 	if (!doc)
 		return;
@@ -5582,7 +5582,7 @@ void ScribusMainWindow::ToggleLayerMarkers()
 	view->DrawNew();
 }
 
-void ScribusMainWindow::ToggleGrid()
+void ScribusMainWindow::toggleGrid()
 {
 	if (!doc)
 		return;
@@ -5591,7 +5591,7 @@ void ScribusMainWindow::ToggleGrid()
 	view->DrawNew();
 }
 
-void ScribusMainWindow::ToggleGuides()
+void ScribusMainWindow::toggleGuides()
 {
 	if (!doc)
 		return;
@@ -5600,7 +5600,7 @@ void ScribusMainWindow::ToggleGuides()
 	view->DrawNew();
 }
 
-void ScribusMainWindow::ToggleColumnBorders()
+void ScribusMainWindow::toggleColumnBorders()
 {
 	if (!doc)
 		return;
@@ -5609,7 +5609,7 @@ void ScribusMainWindow::ToggleColumnBorders()
 	view->DrawNew();
 }
 
-void ScribusMainWindow::ToggleBase()
+void ScribusMainWindow::toggleBase()
 {
 	if (!doc)
 		return;
@@ -5618,7 +5618,7 @@ void ScribusMainWindow::ToggleBase()
 	view->DrawNew();
 }
 
-void ScribusMainWindow::ToggleTextLinks()
+void ScribusMainWindow::toggleTextLinks()
 {
 	if (!doc)
 		return;
@@ -5627,7 +5627,7 @@ void ScribusMainWindow::ToggleTextLinks()
 	view->DrawNew();
 }
 
-void ScribusMainWindow::ToggleTextControls()
+void ScribusMainWindow::toggleTextControls()
 {
 	if (!doc)
 		return;
@@ -5636,7 +5636,7 @@ void ScribusMainWindow::ToggleTextControls()
 	view->DrawNew();
 }
 
-void ScribusMainWindow::ToggleRulers()
+void ScribusMainWindow::toggleRulers()
 {
 	if (!doc)
 		return;
@@ -5645,7 +5645,7 @@ void ScribusMainWindow::ToggleRulers()
 	view->setRulersShown(doc->guidesPrefs().rulersShown);
 }
 
-void ScribusMainWindow::ToggleRulerMode()
+void ScribusMainWindow::toggleRulerMode()
 {
 	if (!doc)
 		return;
@@ -5671,7 +5671,7 @@ void ScribusMainWindow::ToggleRulerMode()
 	view->DrawNew();
 }
 
-void ScribusMainWindow::ToggleUGrid()
+void ScribusMainWindow::toggleSnapGrid()
 {
 	if (!doc)
 		return;
@@ -5679,7 +5679,7 @@ void ScribusMainWindow::ToggleUGrid()
 	slotDocCh();
 }
 
-void ScribusMainWindow::ToggleUGuides()
+void ScribusMainWindow::toggleSnapGuides()
 {
 	if (!doc)
 		return;
@@ -5687,7 +5687,7 @@ void ScribusMainWindow::ToggleUGuides()
 	slotDocCh();
 }
 
-void ScribusMainWindow::ToggleUElements()
+void ScribusMainWindow::toggleSnapElements()
 {
 	if (!doc)
 		return;
@@ -5698,7 +5698,7 @@ void ScribusMainWindow::ToggleUElements()
 void ScribusMainWindow::SetSnapElements(bool b)
 {
 	if(doc && doc->SnapElement != b)
-		ToggleUElements();
+		toggleSnapElements();
 }
 
 
@@ -6058,7 +6058,9 @@ void ScribusMainWindow::movePage()
 
 void ScribusMainWindow::copyPage()
 {
-	if (HaveDoc && doc->appMode == modeEditClip)
+	if (!HaveDoc)
+		return;
+	if (doc->appMode == modeEditClip)
 		view->requestMode(submodeEndNodeEdit);
 	MovePages *dia = new MovePages(this, doc->currentPage()->pageNr()+1, doc->Pages->count(), false);
 	if (dia->exec())
@@ -6078,9 +6080,11 @@ void ScribusMainWindow::copyPage()
 
 void ScribusMainWindow::changePageMargins()
 {
-	if (HaveDoc && doc->appMode == modeEditClip)
+	if (!HaveDoc)
+		return;
+	if (doc->appMode == modeEditClip)
 		view->requestMode(submodeEndNodeEdit);
-	QString Nam = doc->currentPage()->MPageNam;
+	QString currPageMasterPageName(doc->currentPage()->MPageNam);
 	MarginDialog *dia = new MarginDialog(this, doc);
 	if (dia->exec())
 	{
@@ -6104,7 +6108,7 @@ void ScribusMainWindow::changePageMargins()
 								   dia->left(), dia->right(),
 								   ph, pw, ph, pw, orientation,
 								   sizeName, dia->getMarginPreset(), dia->getMoveObjects(), doc->currentPage()->pageNr());
-			if (dia->masterPage() != Nam)
+			if (dia->masterPage() != currPageMasterPageName)
 				Apply_MasterPage(dia->masterPage(), doc->currentPage()->pageNr());
 		}
 		doc->updateEndnotesFrames();
@@ -6217,19 +6221,19 @@ void ScribusMainWindow::MakeFrame(int f, int c, double *vals)
 	PageItem *currItem = doc->m_Selection->itemAt(0);
 	switch (f)
 	{
-	case 0:
-		currItem->SetRectFrame();
-		doc->setRedrawBounding(currItem);
-		break;
-	case 1:
-		currItem->SetOvalFrame();
-		doc->setRedrawBounding(currItem);
-		break;
-	default:
-		currItem->SetFrameShape(c, vals);
-		doc->setRedrawBounding(currItem);
-		currItem->FrameType = f+2;
-		break;
+		case 0:
+			currItem->SetRectFrame();
+			doc->setRedrawBounding(currItem);
+			break;
+		case 1:
+			currItem->SetOvalFrame();
+			doc->setRedrawBounding(currItem);
+			break;
+		default:
+			currItem->SetFrameShape(c, vals);
+			doc->setRedrawBounding(currItem);
+			currItem->FrameType = f+2;
+			break;
 	}
 	currItem->update();
 	slotDocCh();
@@ -6251,10 +6255,10 @@ void ScribusMainWindow::duplicateItem()
 	if (UndoManager::undoEnabled())
 		trans = undoManager->beginTransaction(Um::Selection,Um::IPolygon,Um::Duplicate,"",Um::IMultipleDuplicate);
 	slotEditPaste();
-	for (int b=0; b<doc->m_Selection->count(); ++b)
+	for (int i=0; i<doc->m_Selection->count(); ++i)
 	{
-		doc->m_Selection->itemAt(b)->setLocked(false);
-		doc->MoveItem(doc->opToolPrefs().dispX, doc->opToolPrefs().dispY, doc->m_Selection->itemAt(b));
+		doc->m_Selection->itemAt(i)->setLocked(false);
+		doc->MoveItem(doc->opToolPrefs().dispX, doc->opToolPrefs().dispY, doc->m_Selection->itemAt(i));
 	}
 	if (trans)
 		trans.commit();
@@ -6271,7 +6275,7 @@ void ScribusMainWindow::duplicateItemMulti()
 	if (!HaveDoc)
 		return;
 	slotSelect();
-	if (HaveDoc && doc->appMode == modeEditClip)
+	if (doc->appMode == modeEditClip)
 		view->requestMode(submodeEndNodeEdit);
 	internalCopy = true;
 	MultipleDuplicate *dia = new MultipleDuplicate(doc->unitIndex(), this);
@@ -6662,6 +6666,8 @@ int ScribusMainWindow::ShowSubs()
 
 void ScribusMainWindow::doPrintPreview()
 {
+	if (!HaveDoc)
+		return;
 	if (!( ScCore->haveGS() || ScCore->isWinGUI() ))
 		return;
 	if (docCheckerPalette->isIgnoreEnabled())
@@ -6672,55 +6678,50 @@ void ScribusMainWindow::doPrintPreview()
 		scrActions["toolsPreflightVerifier"]->setChecked(false);
 		disconnect(docCheckerPalette, SIGNAL(ignoreAllErrors()), this, SLOT(doPrintPreview()));
 	}
-	if (HaveDoc)
+	PrefsContext* prefs = PrefsManager::instance()->prefsFile->getContext("print_options");
+	QString currentPrinter    = prefs->get("CurrentPrn");
+	PrintEngine currentEngine = (PrintEngine) prefs->get("CurrentPrnEngine", "3").toInt();
+	if ( PPreview::usePostscriptPreview(currentPrinter, currentEngine) && ( !ScCore->haveGS() ) )
 	{
-		PrefsContext* prefs = PrefsManager::instance()->prefsFile->getContext("print_options");
-		QString currentPrinter    = prefs->get("CurrentPrn");
-		PrintEngine currentEngine = (PrintEngine) prefs->get("CurrentPrnEngine", "3").toInt();
-		if ( PPreview::usePostscriptPreview(currentPrinter, currentEngine) && ( !ScCore->haveGS() ) )
-		{
-			QString mess = tr("Ghostscript is missing : PostScript Print Preview is not available")+"\n\n";
-			ScMessageBox::warning(this, CommonStrings::trWarning, mess);
-			return;
-		}
-		PPreview *dia = new PPreview(this, view, doc, currentPrinter, currentEngine);
-		previewDinUse = true;
-		connect(dia, SIGNAL(doPrint()), this, SLOT(slotReallyPrint()));
-		dia->exec();
-		PrefsManager *prefsManager=PrefsManager::instance();
-		prefsManager->appPrefs.printPreviewPrefs.PrPr_Mode = dia->EnableCMYK->isChecked();
-		prefsManager->appPrefs.printPreviewPrefs.PrPr_AntiAliasing = dia->AntiAlias->isChecked();
-		prefsManager->appPrefs.printPreviewPrefs.PrPr_Transparency = dia->AliasTr->isChecked();
-		if ( !ScCore->haveTIFFSep() || !dia->postscriptPreview )
-		{
-			prefsManager->appPrefs.printPreviewPrefs.PrPr_C = dia->EnableCMYK_C->isChecked();
-			prefsManager->appPrefs.printPreviewPrefs.PrPr_M = dia->EnableCMYK_M->isChecked();
-			prefsManager->appPrefs.printPreviewPrefs.PrPr_Y = dia->EnableCMYK_Y->isChecked();
-			prefsManager->appPrefs.printPreviewPrefs.PrPr_K = dia->EnableCMYK_K->isChecked();
-		}
-		else
-		{
-			prefsManager->appPrefs.printPreviewPrefs.PrPr_C = dia->flagsVisible["Cyan"]->isChecked();
-			prefsManager->appPrefs.printPreviewPrefs.PrPr_M = dia->flagsVisible["Magenta"]->isChecked();
-			prefsManager->appPrefs.printPreviewPrefs.PrPr_Y = dia->flagsVisible["Yellow"]->isChecked();
-			prefsManager->appPrefs.printPreviewPrefs.PrPr_K = dia->flagsVisible["Black"]->isChecked();
-			prefsManager->appPrefs.printPreviewPrefs.PrPr_InkCoverage = dia->EnableInkCover->isChecked();
-			prefsManager->appPrefs.printPreviewPrefs.PrPr_InkThreshold = dia->CoverThresholdValue->value();
-		}
+		QString mess = tr("Ghostscript is missing : PostScript Print Preview is not available")+"\n\n";
+		ScMessageBox::warning(this, CommonStrings::trWarning, mess);
+		return;
+	}
+	PPreview *dia = new PPreview(this, view, doc, currentPrinter, currentEngine);
+	previewDinUse = true;
+	connect(dia, SIGNAL(doPrint()), this, SLOT(slotReallyPrint()));
+	dia->exec();
+	PrefsManager *prefsManager=PrefsManager::instance();
+	prefsManager->appPrefs.printPreviewPrefs.PrPr_Mode = dia->EnableCMYK->isChecked();
+	prefsManager->appPrefs.printPreviewPrefs.PrPr_AntiAliasing = dia->AntiAlias->isChecked();
+	prefsManager->appPrefs.printPreviewPrefs.PrPr_Transparency = dia->AliasTr->isChecked();
+	if ( !ScCore->haveTIFFSep() || !dia->postscriptPreview )
+	{
+		prefsManager->appPrefs.printPreviewPrefs.PrPr_C = dia->EnableCMYK_C->isChecked();
+		prefsManager->appPrefs.printPreviewPrefs.PrPr_M = dia->EnableCMYK_M->isChecked();
+		prefsManager->appPrefs.printPreviewPrefs.PrPr_Y = dia->EnableCMYK_Y->isChecked();
+		prefsManager->appPrefs.printPreviewPrefs.PrPr_K = dia->EnableCMYK_K->isChecked();
+	}
+	else
+	{
+		prefsManager->appPrefs.printPreviewPrefs.PrPr_C = dia->flagsVisible["Cyan"]->isChecked();
+		prefsManager->appPrefs.printPreviewPrefs.PrPr_M = dia->flagsVisible["Magenta"]->isChecked();
+		prefsManager->appPrefs.printPreviewPrefs.PrPr_Y = dia->flagsVisible["Yellow"]->isChecked();
+		prefsManager->appPrefs.printPreviewPrefs.PrPr_K = dia->flagsVisible["Black"]->isChecked();
+		prefsManager->appPrefs.printPreviewPrefs.PrPr_InkCoverage = dia->EnableInkCover->isChecked();
+		prefsManager->appPrefs.printPreviewPrefs.PrPr_InkThreshold = dia->CoverThresholdValue->value();
+	}
 //		prefsManager->appPrefs.Gcr_Mode = dia->EnableGCR->isChecked();
-		disconnect(dia, SIGNAL(doPrint()), this, SLOT(slotReallyPrint()));
-		previewDinUse = false;
-		delete dia;
-		QFile::remove(prefsManager->preferencesLocation()+"/tmp.ps");
-		QFile::remove(prefsManager->preferencesLocation()+"/sc.png");
-		QDir d(prefsManager->preferencesLocation()+"/", "sc.*", QDir::Name, QDir::Files | QDir::NoSymLinks);
-		if ((d.exists()) && (d.count() != 0))
-		{
-			for (uint dc = 0; dc < d.count(); dc++)
-			{
-				QFile::remove(prefsManager->preferencesLocation() +"/" + d[dc]);
-			}
-		}
+	disconnect(dia, SIGNAL(doPrint()), this, SLOT(slotReallyPrint()));
+	previewDinUse = false;
+	delete dia;
+	QFile::remove(prefsManager->preferencesLocation()+"/tmp.ps");
+	QFile::remove(prefsManager->preferencesLocation()+"/sc.png");
+	QDir d(prefsManager->preferencesLocation()+"/", "sc.*", QDir::Name, QDir::Files | QDir::NoSymLinks);
+	if ((d.exists()) && (d.count() != 0))
+	{
+		for (uint i = 0; i < d.count(); i++)
+			QFile::remove(prefsManager->preferencesLocation() +"/" + d[i]);
 	}
 }
 
@@ -6786,22 +6787,22 @@ bool ScribusMainWindow::DoSaveAsEps(QString fn, QString& error)
 	options.markLength = 20.0;
 	options.markOffset = 0.0;
 	options.bleeds.set(0, 0, 0, 0);
-	PSLib *dd = new PSLib(options, false, prefsManager->appPrefs.fontPrefs.AvailFonts, ReallyUsed, usedColors, false, true);
-	if (dd != NULL)
+	PSLib *pslib = new PSLib(options, false, prefsManager->appPrefs.fontPrefs.AvailFonts, ReallyUsed, usedColors, false, true);
+	if (pslib != NULL)
 	{
 		qApp->setOverrideCursor(QCursor(Qt::WaitCursor));
-		if (dd->PS_set_file(fn))
+		if (pslib->PS_set_file(fn))
 		{
-			int psRet = dd->CreatePS(doc, options);
+			int psRet = pslib->CreatePS(doc, options);
 			if (psRet == 1)
 			{
-				error = dd->errorMessage();
+				error = pslib->errorMessage();
 				return_value = false;
 			}
 		}
 		else
 			return_value = false;
-		delete dd;
+		delete pslib;
 		qApp->restoreOverrideCursor();
 	}
 	ScCore->fileWatcher->start();
@@ -6891,14 +6892,13 @@ void ScribusMainWindow::reallySaveAsEps()
 	}
 }
 
-bool ScribusMainWindow::getPDFDriver(const QString & fn, const QString & nam, int Components,
-									 const std::vector<int> & pageNs, const QMap<int,QPixmap> & thumbs,
-									 QString& error, bool* cancelled)
+bool ScribusMainWindow::getPDFDriver(const QString &filename, const QString &name, int components, const std::vector<int> & pageNumbers,
+									 const QMap<int,QPixmap> & thumbs, QString& error, bool* cancelled)
 {
 	ScCore->fileWatcher->forceScan();
 	ScCore->fileWatcher->stop();
 	PDFlib pdflib(*doc);
-	bool ret = pdflib.doExport(fn, nam, Components, pageNs, thumbs);
+	bool ret = pdflib.doExport(filename, name, components, pageNumbers, thumbs);
 	if (!ret)
 		error = pdflib.errorMessage();
 	if (cancelled)
@@ -7176,7 +7176,7 @@ void ScribusMainWindow::updateLayerMenu()
 
 void ScribusMainWindow::GotoLa(int l)
 {
-	if (doc==NULL)
+	if (!HaveDoc)
 		return;
 	int level = doc->layerCount()-l-1;
 	int layerID=doc->layerIDFromLevel(level);
@@ -7865,11 +7865,10 @@ QString ScribusMainWindow::CFileDialog(QString wDir, QString caption, QString fi
 
 void ScribusMainWindow::recalcColors(QProgressBar *dia)
 {
-	if (HaveDoc)
-	{
-		doc->recalculateColors();
-		propertiesPalette->updateColorList();
-	}
+	if (!HaveDoc)
+		return;
+	doc->recalculateColors();
+	propertiesPalette->updateColorList();
 }
 
 void ScribusMainWindow::ModifyAnnot()
