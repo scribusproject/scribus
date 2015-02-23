@@ -1183,14 +1183,14 @@ public: // Start public functions
 
 	void updateConstants();
 	bool isWelded()  {return !weldList.isEmpty(); }  //true if to this item some other items are welded (weldList is list of these items)
-	void weldTo(PageItem* pIt);
+	void weldTo(PageItem* item);
 	QList<PageItem*> itemsWeldedTo(PageItem* except = NULL);
 	void unWeld();
-	void addWelded(PageItem* iPt);
-	void moveWelded(double DX, double DY, int weld);
-	void moveWelded(double DX, double DY, PageItem* except = NULL);
+	void addWelded(PageItem* item);
+	void moveWelded(double dX, double dY, int weld);
+	void moveWelded(double dX, double dY, PageItem* except = NULL);
 	void rotateWelded(double dR, double oldRot);
-	void setWeldPoint(double DX, double DY, PageItem *pItem); 	///< added for autowelding feature of notes frames, setting welding point with given pItem to given coords
+	void setWeldPoint(double dX, double dY, PageItem *pItem); 	///< added for autowelding feature of notes frames, setting welding point with given pItem to given coords
 	QString getItemTextSaxed(int selStart, int selLength); ///< used by notes frames to get content of notes from itemText
 	bool groupClipping() { return m_groupClips; }
 	void setGroupClipping(bool val) { m_groupClips = val; }
@@ -1442,13 +1442,13 @@ public:	// Start public variables
 		bool isInlineImage;
 		bool isTempFile;
 		//items welding (item follows while item moves which they are connected with)
-		struct weldingInfo
+		struct WeldingInfo
 		{
 			PageItem *weldItem;
 			FPoint weldPoint;
 			int weldID;
 		};
-		QList<weldingInfo> weldList;
+		QList<WeldingInfo> weldList;
 		double hatchAngle;
 		double hatchDistance;
 		int hatchType;				// 0 = single 1 = double 2 = triple

@@ -450,7 +450,7 @@ bool Scribus150Format::loadElements(const QString & data, QString fileDir, int t
 				PageItem* ta = WeldItems.at(ttc);
 				for (int i = 0; i < ta->weldList.count(); ++i)
 				{
-					PageItem::weldingInfo wInf = ta->weldList.at(i);
+					PageItem::WeldingInfo wInf = ta->weldList.at(i);
 					ta->weldList[i].weldItem   = LinkID.value(wInf.weldID, 0);
 					if (ta->weldList[i].weldItem == NULL)
 						ta->weldList.removeAt(i--);
@@ -554,7 +554,7 @@ bool Scribus150Format::loadElements(const QString & data, QString fileDir, int t
 				PageItem* ta = WeldItems.at(ttc);
 				for (int i = 0 ; i < ta->weldList.count(); ++i)
 				{
-					PageItem::weldingInfo wInf = ta->weldList.at(i);
+					PageItem::WeldingInfo wInf = ta->weldList.at(i);
 					ta->weldList[i].weldItem = WeldID.value(wInf.weldID, 0);
 					if (ta->weldList[i].weldItem == NULL)
 						ta->weldList.removeAt(i--);
@@ -954,7 +954,7 @@ bool Scribus150Format::loadPalette(const QString & fileName)
 				PageItem* ta = WeldItems.at(ttc);
 				for (int i = 0 ; i < ta->weldList.count(); ++i)
 				{
-					PageItem::weldingInfo wInf = ta->weldList.at(i);
+					PageItem::WeldingInfo wInf = ta->weldList.at(i);
 					ta->weldList[i].weldItem = LinkID.value(wInf.weldID, 0);
 					if (ta->weldList[i].weldItem == NULL)
 						ta->weldList.removeAt(i--);
@@ -1058,7 +1058,7 @@ bool Scribus150Format::loadPalette(const QString & fileName)
 				PageItem* ta = WeldItems.at(ttc);
 				for (int i = 0 ; i < ta->weldList.count(); ++i)
 				{
-					PageItem::weldingInfo wInf = ta->weldList.at(i);
+					PageItem::WeldingInfo wInf = ta->weldList.at(i);
 					ta->weldList[i].weldItem = WeldID.value(wInf.weldID, 0);
 					if (ta->weldList[i].weldItem == NULL)
 						ta->weldList.removeAt(i--);
@@ -1635,7 +1635,7 @@ bool Scribus150Format::loadFile(const QString & fileName, const FileFormat & /* 
 				PageItem* ta = WeldItems.at(ttc);
 				for (int i = 0 ; i < ta->weldList.count(); ++i)
 				{
-					PageItem::weldingInfo wInf = ta->weldList.at(i);
+					PageItem::WeldingInfo wInf = ta->weldList.at(i);
 					ta->weldList[i].weldItem = LinkID.value(wInf.weldID, 0);
 					if (ta->weldList[i].weldItem == NULL)
 						ta->weldList.removeAt(i--);
@@ -1739,7 +1739,7 @@ bool Scribus150Format::loadFile(const QString & fileName, const FileFormat & /* 
 				PageItem* ta = WeldItems.at(ttc);
 				for (int i = 0 ; i < ta->weldList.count(); ++i)
 				{
-					PageItem::weldingInfo wInf = ta->weldList.at(i);
+					PageItem::WeldingInfo wInf = ta->weldList.at(i);
 					ta->weldList[i].weldItem = WeldID.value(wInf.weldID, 0);
 					if (ta->weldList[i].weldItem == NULL)
 						ta->weldList.removeAt(i--);
@@ -4008,7 +4008,7 @@ bool Scribus150Format::readObject(ScribusDoc* doc, ScXmlStreamReader& reader, It
 		}
 		if (tName == "WeldEntry")
 		{
-			PageItem::weldingInfo wInf;
+			PageItem::WeldingInfo wInf;
 			wInf.weldItem = NULL;
 			wInf.weldPoint = FPoint(tAtt.valueAsDouble("WX", 0.0), tAtt.valueAsDouble("WY", 0.0));
 			wInf.weldID = tAtt.valueAsInt("Target", 0);
@@ -4224,7 +4224,7 @@ bool Scribus150Format::readPattern(ScribusDoc* doc, ScXmlStreamReader& reader, c
 				PageItem* ta = WeldItems.at(ttc);
 				for (int i = 0 ; i < ta->weldList.count(); ++i)
 				{
-					PageItem::weldingInfo wInf = ta->weldList.at(i);
+					PageItem::WeldingInfo wInf = ta->weldList.at(i);
 					ta->weldList[i].weldItem = LinkID.value(wInf.weldID, 0);
 					if (ta->weldList[i].weldItem == NULL)
 						ta->weldList.removeAt(i--);
@@ -4264,7 +4264,7 @@ bool Scribus150Format::readPattern(ScribusDoc* doc, ScXmlStreamReader& reader, c
 				PageItem* ta = WeldItems.at(ttc);
 				for (int i = 0 ; i < ta->weldList.count(); ++i)
 				{
-					PageItem::weldingInfo wInf = ta->weldList.at(i);
+					PageItem::WeldingInfo wInf = ta->weldList.at(i);
 					ta->weldList[i].weldItem = WeldID.value(wInf.weldID, 0);
 					if (ta->weldList[i].weldItem == NULL)
 						ta->weldList.removeAt(i--);
@@ -6203,7 +6203,7 @@ bool Scribus150Format::loadPage(const QString & fileName, int pageNumber, bool M
 				PageItem* ta = WeldItems.at(ttc);
 				for (int i = 0 ; i < ta->weldList.count(); ++i)
 				{
-					PageItem::weldingInfo wInf = ta->weldList.at(i);
+					PageItem::WeldingInfo wInf = ta->weldList.at(i);
 					ta->weldList[i].weldItem = LinkID.value(wInf.weldID, 0);
 					if (ta->weldList[i].weldItem == NULL)
 						ta->weldList.removeAt(i--);
@@ -6261,7 +6261,7 @@ bool Scribus150Format::loadPage(const QString & fileName, int pageNumber, bool M
 				PageItem* ta = WeldItems.at(ttc);
 				for (int i = 0 ; i < ta->weldList.count(); ++i)
 				{
-					PageItem::weldingInfo wInf = ta->weldList.at(i);
+					PageItem::WeldingInfo wInf = ta->weldList.at(i);
 					ta->weldList[i].weldItem = WeldID.value(wInf.weldID, 0);
 					if (ta->weldList[i].weldItem == NULL)
 						ta->weldList.removeAt(i--);
@@ -6737,7 +6737,7 @@ void Scribus150Format::updateNames2Ptr() //after document load - items pointers 
 						item->asNoteFrame()->setMaster(master);
 						master->asTextFrame()->setNoteFrame(item->asNoteFrame());
 						//FIX welding with note frame
-						PageItem::weldingInfo wInf;
+						PageItem::WeldingInfo wInf;
 						for (int i = 0 ; i < master->weldList.count(); i++)
 						{
 							wInf = master->weldList.at(i);

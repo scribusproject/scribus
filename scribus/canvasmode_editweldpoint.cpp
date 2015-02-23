@@ -102,7 +102,7 @@ void CanvasMode_EditWeldPoint::drawControlsWeldPoint(QPainter* psx, PageItem* cu
 	psx->setBrush(Qt::NoBrush);
 	for (int i = 0 ; i <  currItem->weldList.count(); i++)
 	{
-		PageItem::weldingInfo wInf =  currItem->weldList.at(i);
+		PageItem::WeldingInfo wInf =  currItem->weldList.at(i);
 		if (i == selectedPoint)
 			psx->setPen(QPen(Qt::red, 8.0 / m_canvas->scale(), Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin));
 		else
@@ -413,7 +413,7 @@ void CanvasMode_EditWeldPoint::mousePressEvent(QMouseEvent *m)
 	selectedPoint = -1;
 	for (int i = 0 ; i <  currItem->weldList.count(); i++)
 	{
-		PageItem::weldingInfo wInf = currItem->weldList.at(i);
+		PageItem::WeldingInfo wInf = currItem->weldList.at(i);
 		if (m_canvas->hitsCanvasPoint(mousePointDoc, itemMatrix.map(QPointF(wInf.weldPoint.x(), wInf.weldPoint.y()))))
 		{
 			selectedPoint = i;

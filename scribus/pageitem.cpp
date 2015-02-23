@@ -5423,14 +5423,14 @@ void PageItem::restoreUnWeldItem(SimpleState *state, bool isUndo)
 		ScItemState<PageItem*> *is = dynamic_cast<ScItemState<PageItem*>*>(state);
 		PageItem* wIt = is->getItem();
 		{
-			weldingInfo wInf;
+			WeldingInfo wInf;
 			wInf.weldItem = wIt;
 			wInf.weldID = is->getInt("thisID");
 			wInf.weldPoint = FPoint(is->getDouble("thisPoint_x"), is->getDouble("thisPoint_y"));
 			weldList.append(wInf);
 		}
 		{
-			weldingInfo wInf;
+			WeldingInfo wInf;
 			wInf.weldItem = this;
 			wInf.weldID = is->getInt("ID");
 			wInf.weldPoint = FPoint(is->getDouble("Point_x"), is->getDouble("Point_y"));
@@ -10283,7 +10283,7 @@ void PageItem::updateClip(bool updateWelded)
 				{
 					for (int i = 0 ; i < weldList.count(); i++)
 					{
-						weldingInfo wInf = weldList.at(i);
+						WeldingInfo wInf = weldList.at(i);
 						if (wInf.weldItem->isNoteFrame())
 						{
 							PageItem_NoteFrame* noteFrame = wInf.weldItem->asNoteFrame();
@@ -10418,7 +10418,7 @@ void PageItem::updateClip(bool updateWelded)
 			{
 			for (int i = 0 ; i < weldList.count(); i++)
 			{
-				weldingInfo wInf = weldList.at(i);
+				WeldingInfo wInf = weldList.at(i);
 					if (wInf.weldItem->isNoteFrame())
 					{
 						PageItem_NoteFrame* noteFrame = wInf.weldItem->asNoteFrame();
@@ -10540,18 +10540,18 @@ void PageItem::makeImageExternal(QString path)
 	}
 }
 
-void PageItem::addWelded(PageItem* iPt)
+void PageItem::addWelded(PageItem* item)
 {
 	FPoint centerI = FPoint(xPos() + (width() / 2.0), yPos() + (height() / 2.0));
-	FPoint centerP = FPoint(iPt->xPos() + (iPt->width() / 2.0), iPt->yPos() + (iPt->height() / 2.0));
-	weldingInfo wInf;
-	wInf.weldItem = iPt;
+	FPoint centerP = FPoint(item->xPos() + (item->width() / 2.0), item->yPos() + (item->height() / 2.0));
+	WeldingInfo wInf;
+	wInf.weldItem = item;
 	wInf.weldPoint = FPoint((width() / 2.0) + ((centerP.x() - centerI.x()) / 2.0), (height() / 2.0) + ((centerP.y() - centerI.y()) / 2.0));
 	weldList.append(wInf);
 }
 
 //welded frames
-void PageItem::weldTo(PageItem* pIt)
+void PageItem::weldTo(PageItem* item)
 {
 	UndoTransaction activeTransaction;
 	if (undoManager->undoEnabled())
@@ -10559,54 +10559,54 @@ void PageItem::weldTo(PageItem* pIt)
 														  Um::WeldItems, "", Um::IGroup);
 	for (int i = 0 ; i <  weldList.count(); i++)
 	{
-		PageItem::weldingInfo wInf = weldList.at(i);
-		if (wInf.weldItem == pIt)
+		PageItem::WeldingInfo wInf = weldList.at(i);
+		if (wInf.weldItem == item)
 			return;
 	}
-	QList<PageItem*> ret = pIt->itemsWeldedTo();
-	if (ret.contains(this))
+	QList<PageItem*> weldItems = item->itemsWeldedTo();
+	if (weldItems.contains(this))
 		return;
-	addWelded(pIt);
-	pIt->addWelded(this);
+	addWelded(item);
+	item->addWelded(this);
 	if (undoManager->undoEnabled())
 	{
 		ScItemState<PageItem*> *is = new ScItemState<PageItem*>(Um::WeldItems,"",Um::IGroup);
 		is->set("WELD_ITEMS", "weld_items");
-		is->setItem(pIt);
+		is->setItem(item);
 		undoManager->action(this, is, getUPixmap());
 	}
 	update();
-	pIt->update();
+	item->update();
 	if (activeTransaction)
 		activeTransaction.commit();
 }
 
-void PageItem::moveWelded(double DX, double DY, int weld)
+void PageItem::moveWelded(double dX, double dY, int weld)
 {
-	weldingInfo wInf = weldList.at(weld);
+	WeldingInfo wInf = weldList.at(weld);
 	PageItem *pIt = wInf.weldItem;
-	pIt->setXPos(pIt->xPos() + DX);
-	pIt->setYPos(pIt->yPos() + DY);
+	pIt->setXPos(pIt->xPos() + dX);
+	pIt->setYPos(pIt->yPos() + dY);
 	pIt->update();
-	pIt->moveWelded(DX, DY, this);
+	pIt->moveWelded(dX, dY, this);
 }
 
-void PageItem::moveWelded(double DX, double DY, PageItem* except)
+void PageItem::moveWelded(double dX, double dY, PageItem* except)
 {
-	if ((DX == 0) && (DY == 0))
+	if ((dX == 0) && (dY == 0))
 		return;
 	//do not save undo for auto-welded notes frames
 	UndoManager::instance()->setUndoEnabled(false);
 	for (int i = 0 ; i < weldList.count(); i++)
 	{
-		weldingInfo wInf = weldList.at(i);
+		WeldingInfo wInf = weldList.at(i);
 		PageItem *pIt = wInf.weldItem;
 		if (pIt != except)
 		{
-			pIt->setXPos(pIt->xPos() + DX);
-			pIt->setYPos(pIt->yPos() + DY);
+			pIt->setXPos(pIt->xPos() + dX);
+			pIt->setYPos(pIt->yPos() + dY);
 			pIt->update();
-			pIt->moveWelded(DX, DY, this);
+			pIt->moveWelded(dX, dY, this);
 		}
 	}
 	UndoManager::instance()->setUndoEnabled(true);
@@ -10653,7 +10653,7 @@ QList<PageItem*> PageItem::itemsWeldedTo(PageItem* except)
 	ret.clear();
 	for (int i = 0 ; i < weldList.count(); i++)
 	{
-		weldingInfo wInf = weldList.at(i);
+		WeldingInfo wInf = weldList.at(i);
 		PageItem *pIt = wInf.weldItem;
 		if (pIt != except)
 		{
@@ -10665,14 +10665,14 @@ QList<PageItem*> PageItem::itemsWeldedTo(PageItem* except)
 	return ret;
 }
 
-void PageItem::setWeldPoint(double DX, double DY, PageItem *pItem)
+void PageItem::setWeldPoint(double dX, double dY, PageItem *pItem)
 {
 	for (int i = 0 ; i < weldList.count(); i++)
 	{
 		PageItem *pIt = weldList[i].weldItem;
 		if (pIt == pItem)
 		{
-			weldList[i].weldPoint = FPoint(DX, DY);
+			weldList[i].weldPoint = FPoint(dX, dY);
 			return;
 		}
 	}
@@ -10686,25 +10686,25 @@ void PageItem::unWeld()
 														  Um::UnweldItems, "", Um::IDelete);
 	for (int a = 0 ; a < weldList.count(); a++)
 	{
-		weldingInfo wInf = weldList.at(a);
-		PageItem *pIt = wInf.weldItem;
-		if (pIt == NULL)
+		WeldingInfo wInf = weldList.at(a);
+		PageItem *item = wInf.weldItem;
+		if (item == NULL)
 		{
 			qDebug() << "unWeld - null pointer in weldList";
 			continue;
 		}
-		for (int b = 0 ; b < pIt->weldList.count(); b++)
+		for (int b = 0 ; b < item->weldList.count(); b++)
 		{
-			weldingInfo wInf2 = pIt->weldList.at(b);
+			WeldingInfo wInf2 = item->weldList.at(b);
 			PageItem *pIt2 = wInf2.weldItem;
 			if (pIt2 == this)
 			{
-				pIt->weldList.removeAt(b);
+				item->weldList.removeAt(b);
 				if (undoManager->undoEnabled())
 				{
 					ScItemState<PageItem*> *is = new ScItemState<PageItem*>(Um::UnweldItems,"",Um::IGroup);
 					is->set("UNWELD_ITEM", "unweld_item");
-					is->setItem(pIt);
+					is->setItem(item);
 					is->set("thisPoint_x", wInf.weldPoint.x());
 					is->set("thisPoint_y", wInf.weldPoint.y());
 					is->set("thisID", wInf.weldID);

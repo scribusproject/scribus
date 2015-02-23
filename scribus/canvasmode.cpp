@@ -458,7 +458,7 @@ void CanvasMode::drawSelection(QPainter* psx, bool drawHandles)
 					psx->setPen(QPen(Qt::yellow, 8.0 / m_canvas->scale(), Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin));
 					for (int i = 0 ; i <  currItem->weldList.count(); i++)
 					{
-						PageItem::weldingInfo wInf =  currItem->weldList.at(i);
+						PageItem::WeldingInfo wInf =  currItem->weldList.at(i);
 						psx->drawPoint(QPointF(wInf.weldPoint.x(), wInf.weldPoint.y()));
 					}
 				}

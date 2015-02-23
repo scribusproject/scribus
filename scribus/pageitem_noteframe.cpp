@@ -395,11 +395,11 @@ void PageItem_NoteFrame::unWeld(bool doUndo)
 	{
 		for (int a = 0 ; a < weldList.count(); a++)
 		{
-			weldingInfo wInf = weldList.at(a);
+			WeldingInfo wInf = weldList.at(a);
 			PageItem *pIt = wInf.weldItem;
 			for (int b = 0 ; b < pIt->weldList.count(); b++)
 			{
-				weldingInfo wInf2 = pIt->weldList.at(b);
+				WeldingInfo wInf2 = pIt->weldList.at(b);
 				PageItem *pIt2 = wInf2.weldItem;
 				if (pIt2 == this)
 				{
@@ -419,10 +419,10 @@ int PageItem_NoteFrame::findNoteCpos(TextNote* note)
 		return -1;
 	for (int pos=0; pos < itemText.length(); ++pos)
 	{
-        Mark* mark = itemText.mark(pos);
-        if (itemText.hasMark(pos) && mark->isType(MARKNoteFrameType))
+		Mark* mark = itemText.mark(pos);
+		if (itemText.hasMark(pos) && mark->isType(MARKNoteFrameType))
 		{
-            if (mark->getNotePtr() == note)
+			if (mark->getNotePtr() == note)
 				return (pos);
 		}
 	}

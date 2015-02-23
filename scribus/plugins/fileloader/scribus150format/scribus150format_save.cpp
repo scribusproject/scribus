@@ -1950,7 +1950,7 @@ void Scribus150Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 			// bool isWelded = false;
 			for (int i = 0 ; i <  item->weldList.count(); i++)
 			{
-				PageItem::weldingInfo wInf = item->weldList.at(i);
+				PageItem::WeldingInfo wInf = item->weldList.at(i);
 				PageItem *pIt = wInf.weldItem;
 				if (pIt == NULL)
 				{
@@ -2453,7 +2453,7 @@ void Scribus150Format::SetItemProps(ScXmlStreamWriter& docu, PageItem* item, con
 		bool isWelded = false;
 		for (int i = 0 ; i <  item->weldList.count(); i++)
 		{
-			PageItem::weldingInfo wInf = item->weldList.at(i);
+			PageItem::WeldingInfo wInf = item->weldList.at(i);
 			PageItem *pIt = wInf.weldItem;
 			if (pIt != NULL && !pIt->isAutoNoteFrame())
 			{
