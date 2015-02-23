@@ -10684,22 +10684,22 @@ void PageItem::unWeld()
 	if (undoManager->undoEnabled())
 		activeTransaction = undoManager->beginTransaction(Um::UnweldItems + "/" + Um::Selection, Um::IGroup,
 														  Um::UnweldItems, "", Um::IDelete);
-	for (int a = 0 ; a < weldList.count(); a++)
+	for (int i = 0 ; i < weldList.count(); i++)
 	{
-		WeldingInfo wInf = weldList.at(a);
+		WeldingInfo wInf = weldList.at(i);
 		PageItem *item = wInf.weldItem;
 		if (item == NULL)
 		{
 			qDebug() << "unWeld - null pointer in weldList";
 			continue;
 		}
-		for (int b = 0 ; b < item->weldList.count(); b++)
+		for (int j = 0 ; j < item->weldList.count(); j++)
 		{
-			WeldingInfo wInf2 = item->weldList.at(b);
-			PageItem *pIt2 = wInf2.weldItem;
-			if (pIt2 == this)
+			WeldingInfo wInf2 = item->weldList.at(j);
+			PageItem *item2 = wInf2.weldItem;
+			if (item2 == this)
 			{
-				item->weldList.removeAt(b);
+				item->weldList.removeAt(j);
 				if (undoManager->undoEnabled())
 				{
 					ScItemState<PageItem*> *is = new ScItemState<PageItem*>(Um::UnweldItems,"",Um::IGroup);
