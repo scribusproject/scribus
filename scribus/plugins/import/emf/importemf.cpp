@@ -3713,14 +3713,14 @@ quint32 EmfPlug::handleEMPBrush(QDataStream &ds, quint16 id, bool first, bool co
 			quint8 a = (startCol >> 24) & 0xFF;
 			QColor col(b, g, r, a);
 			QString stColor = handleColor(col);
-			sty.gradient.addStop(col, 1.0, 0.5, col.alphaF(), stColor, 100);
+			sty.gradient.addStop(col, 0.0, 0.5, col.alphaF(), stColor, 100);
 			r = endCol & 0xFF;
 			g = (endCol >> 8) & 0xFF;
 			b = (endCol >> 16) & 0xFF;
 			a = (endCol >> 24) & 0xFF;
 			QColor col2(b, g, r, a);
 			QString enColor = handleColor(col2);
-			sty.gradient.addStop(col2, 0.0, 0.5, col2.alphaF(), enColor, 100);
+			sty.gradient.addStop(col2, 1.0, 0.5, col2.alphaF(), enColor, 100);
 		}
 	}
 	else if (brushType == U_BT_LinearGradient)
@@ -4112,16 +4112,16 @@ quint32 EmfPlug::getImageData(QDataStream &ds, quint16 id, bool first, bool cont
 				ds.readRawData(hea.data(), 22);
 				ds.skipRawData(2);
 				QByteArray dta;
-				dta.resize(imgSize);
-				retVal = ds.readRawData(dta.data(), imgSize);
+				dta.resize(dataSize - 40);
+				retVal = ds.readRawData(dta.data(), dataSize - 40);
 				retVal += 24;
 				sty.imageData = hea;
 				sty.imageData += dta;
 			}
 			else
 			{
-				sty.imageData.resize(imgSize);
-				retVal = ds.readRawData(sty.imageData.data(), imgSize);
+				sty.imageData.resize(dataSize - 16);
+				retVal = ds.readRawData(sty.imageData.data(), dataSize - 16);
 			}
 			sty.imageType = imgType;
 			sty.MetaFile = true;
