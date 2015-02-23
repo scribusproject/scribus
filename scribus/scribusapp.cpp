@@ -1,4 +1,4 @@
-/*
+∑∑/*
 For general Scribus (>=1.3.2) copyright and licensing information please refer
 to the COPYING file provided with the program. Following this notice may exist
 a copyright and/or license notice that predates the release of Scribus 1.3.2
@@ -333,26 +333,26 @@ QStringList ScribusQApp::getLang(QString lang)
 
 void ScribusQApp::installTranslators(const QStringList & langs)
 {
-	static QTranslator *transQt = 0;
+//	static QTranslator *transQt = 0;
 	static QTranslator *trans = 0;
 
-	if (transQt)
-	{
-		removeTranslator( transQt );
-		delete transQt;
-		transQt=0;
-	}
+//	if (transQt)
+//	{
+//		removeTranslator( transQt );
+//		delete transQt;
+//		transQt=0;
+//	}
 	if ( trans )
 	{
 		removeTranslator( trans );
 		delete trans;
 	}
 
-	transQt = new QTranslator(0);
+//	transQt = new QTranslator(0);
 	trans = new QTranslator(0);
 	QString path(ScPaths::instance().translationDir());
 
-	bool loadedQt = false;
+//	bool loadedQt = false;
 	bool loadedScribus = false;
 	QString lang;
 	for (QStringList::const_iterator it = langs.constBegin(); it != langs.constEnd() && !loadedScribus; ++it) 
@@ -365,15 +365,15 @@ void ScribusQApp::installTranslators(const QStringList & langs)
 		}
 		else
 		{
-			//CB: This might need adjusting for qm files distribution locations
-			if (transQt->load("qt_" + lang,	QLibraryInfo::location(QLibraryInfo::TranslationsPath)))
-				loadedQt = true;
+//			//CB: This might need adjusting for qm files distribution locations
+//			if (transQt->load("qt_" + lang,	QLibraryInfo::location(QLibraryInfo::TranslationsPath)))
+//				loadedQt = true;
 			if (trans->load(QString("scribus." + lang), path))
 				loadedScribus = true;
 		}
 	}
-	if (loadedQt)
-		installTranslator(transQt);
+//	if (loadedQt)
+//		installTranslator(transQt);
 	if (loadedScribus)
 	{
 		installTranslator(trans);
