@@ -1604,7 +1604,7 @@ void ActionManager::languageChange()
 	(*scrActions)["itemConvertToSymbolFrame"]->setTexts( tr("&Symbol"));
 	(*scrActions)["itemsUnWeld"]->setTexts( tr("Unweld Items"));
 	(*scrActions)["itemWeld"]->setTexts( tr("Weld Items"));
-	(*scrActions)["itemEditWeld"]->setTexts( tr("Edit Welded Item"));
+	(*scrActions)["itemEditWeld"]->setTexts( tr("Edit Weld"));
 
 	//Insert Menu
 	(*scrActions)["insertFrame"]->setTexts( tr("&Frames..."));

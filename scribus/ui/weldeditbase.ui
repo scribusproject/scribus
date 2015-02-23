@@ -6,18 +6,18 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>129</width>
+    <width>151</width>
     <height>95</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Form</string>
+   <string>Edit Weld</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
     <widget class="QRadioButton" name="moveWeldPoint">
      <property name="text">
-      <string>Move weld Point</string>
+      <string>Move Weld Point</string>
      </property>
      <property name="checked">
       <bool>true</bool>

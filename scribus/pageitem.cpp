@@ -10600,13 +10600,13 @@ void PageItem::moveWelded(double dX, double dY, PageItem* except)
 	for (int i = 0 ; i < weldList.count(); i++)
 	{
 		WeldingInfo wInf = weldList.at(i);
-		PageItem *pIt = wInf.weldItem;
-		if (pIt != except)
+		PageItem *item = wInf.weldItem;
+		if (item != except)
 		{
-			pIt->setXPos(pIt->xPos() + dX);
-			pIt->setYPos(pIt->yPos() + dY);
-			pIt->update();
-			pIt->moveWelded(dX, dY, this);
+			item->setXPos(item->xPos() + dX);
+			item->setYPos(item->yPos() + dY);
+			item->update();
+			item->moveWelded(dX, dY, this);
 		}
 	}
 	UndoManager::instance()->setUndoEnabled(true);
@@ -10636,41 +10636,40 @@ void PageItem::rotateWelded(double dR, double oldRot)
 	}
 	QPointF rotCenter = ma.map(QPointF(0,0));
 	QList<PageItem*> itemList = itemsWeldedTo(this);
-	for (int a = 0; a < itemList.count(); a++)
+	for (int i = 0; i < itemList.count(); i++)
 	{
-		PageItem *pIt = itemList.at(a);
-		QLineF lin = QLineF(rotCenter, QPointF(pIt->xPos(), pIt->yPos()));
+		PageItem *item = itemList.at(i);
+		QLineF lin = QLineF(rotCenter, QPointF(item->xPos(), item->yPos()));
 		lin.setAngle(lin.angle() - dR);
-		pIt->setXYPos(lin.p2().x(), lin.p2().y());
-		pIt->rotateBy(dR);
+		item->setXYPos(lin.p2().x(), lin.p2().y());
+		item->rotateBy(dR);
 	}
 	UndoManager::instance()->setUndoEnabled(true);
 }
 
 QList<PageItem*> PageItem::itemsWeldedTo(PageItem* except)
 {
-	QList<PageItem*> ret;
-	ret.clear();
+	QList<PageItem*> pageItemList;
 	for (int i = 0 ; i < weldList.count(); i++)
 	{
 		WeldingInfo wInf = weldList.at(i);
-		PageItem *pIt = wInf.weldItem;
-		if (pIt != except)
+		PageItem *item = wInf.weldItem;
+		if (item != except)
 		{
-			ret.append(pIt);
-			if (pIt->isWelded())
-				ret.append(pIt->itemsWeldedTo(this));
+			pageItemList.append(item);
+			if (item->isWelded())
+				pageItemList.append(item->itemsWeldedTo(this));
 		}
 	}
-	return ret;
+	return pageItemList;
 }
 
 void PageItem::setWeldPoint(double dX, double dY, PageItem *pItem)
 {
 	for (int i = 0 ; i < weldList.count(); i++)
 	{
-		PageItem *pIt = weldList[i].weldItem;
-		if (pIt == pItem)
+		PageItem *item = weldList[i].weldItem;
+		if (item == pItem)
 		{
 			weldList[i].weldPoint = FPoint(dX, dY);
 			return;
