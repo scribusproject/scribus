@@ -1098,6 +1098,7 @@ FORMS += scribus/ui/aboutplugins.ui \
          scribus/ui/stylemanager.ui \
          scribus/ui/tablecolumnwidthsdialog.ui \
          scribus/ui/tablerowheightsdialog.ui \
+         scribus/ui/tabpdfoptions.ui \
          scribus/ui/transformdialogbase.ui \
          scribus/ui/transparencypalette.ui \
          scribus/ui/unicodesearch.ui \
