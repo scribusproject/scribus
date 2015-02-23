@@ -784,6 +784,7 @@ void UndoManager::languageChange()
 	UndoManager::ChangePageAttrs    = tr("Change Page Attributes");
 	UndoManager::Transform          = tr("Transform");
 	UndoManager::WeldItems          = tr("Weld Items");
+	UndoManager::UnweldItems        = tr("Unweld Items");
 	UndoManager::SoftShadow         = tr("Drop Shadow");
 	UndoManager::SoftShadowColor    = tr("Drop Shadow Color");
 	UndoManager::SoftShadowShade    = tr("Drop Shadow Shade");
@@ -1066,6 +1067,7 @@ QString UndoManager::PathOperation      = "";
 QString UndoManager::ChangePageAttrs    = "";
 QString UndoManager::Transform          = "";
 QString UndoManager::WeldItems          = "";
+QString UndoManager::UnweldItems        = "";
 QString UndoManager::SoftShadow         = "";
 QString UndoManager::SoftShadowColor    = "";
 QString UndoManager::SoftShadowShade    = "";

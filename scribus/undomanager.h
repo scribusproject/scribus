@@ -571,6 +571,7 @@ public:
 	static QString ClearImage;
 	static QString PathOperation;
 	static QString WeldItems;
+	static QString UnweldItems;
 	static QString SoftShadow;
 	static QString SoftShadowColor;
 	static QString SoftShadowShade;

@@ -10553,6 +10553,10 @@ void PageItem::addWelded(PageItem* iPt)
 //welded frames
 void PageItem::weldTo(PageItem* pIt)
 {
+	UndoTransaction activeTransaction;
+	if (undoManager->undoEnabled())
+		activeTransaction = undoManager->beginTransaction(Um::WeldItems + "/" + Um::Selection, Um::IGroup,
+														  Um::WeldItems, "", Um::IGroup);
 	for (int i = 0 ; i <  weldList.count(); i++)
 	{
 		PageItem::weldingInfo wInf = weldList.at(i);
@@ -10573,6 +10577,8 @@ void PageItem::weldTo(PageItem* pIt)
 	}
 	update();
 	pIt->update();
+	if (activeTransaction)
+		activeTransaction.commit();
 }
 
 void PageItem::moveWelded(double DX, double DY, int weld)
@@ -10676,8 +10682,8 @@ void PageItem::unWeld()
 {
 	UndoTransaction activeTransaction;
 	if (undoManager->undoEnabled())
-		activeTransaction = undoManager->beginTransaction(Um::WeldItems + "/" + Um::Selection, Um::IGroup,
-														  Um::WeldItems, "", Um::IDelete);
+		activeTransaction = undoManager->beginTransaction(Um::UnweldItems + "/" + Um::Selection, Um::IGroup,
+														  Um::UnweldItems, "", Um::IDelete);
 	for (int a = 0 ; a < weldList.count(); a++)
 	{
 		weldingInfo wInf = weldList.at(a);
@@ -10696,7 +10702,7 @@ void PageItem::unWeld()
 				pIt->weldList.removeAt(b);
 				if (undoManager->undoEnabled())
 				{
-					ScItemState<PageItem*> *is = new ScItemState<PageItem*>(Um::WeldItems,"",Um::IGroup);
+					ScItemState<PageItem*> *is = new ScItemState<PageItem*>(Um::UnweldItems,"",Um::IGroup);
 					is->set("UNWELD_ITEM", "unweld_item");
 					is->setItem(pIt);
 					is->set("thisPoint_x", wInf.weldPoint.x());
