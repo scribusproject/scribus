@@ -1630,8 +1630,8 @@ double EmfPlug::convertLogical2Pts(double in)
 QPointF EmfPlug::convertLogical2Pts(QPointF in)
 {
 	QPointF out;
-	double scaleX = (bBoxMM.width() / 1000.0 / 2.54 * 72.0) / bBoxDev.width(); // Device -> Pts
-	double scaleY = (bBoxMM.height() / 1000.0 / 2.54 * 72.0) / bBoxDev.height(); // Device -> Pts
+	double scaleX = qAbs((bBoxMM.width() / 1000.0 / 2.54 * 72.0) / bBoxDev.width()); // Device -> Pts
+	double scaleY = qAbs((bBoxMM.height() / 1000.0 / 2.54 * 72.0) / bBoxDev.height()); // Device -> Pts
 	if (currentDC.m_mapMode == 1)
 	{
 		out.setX(in.x() * scaleX);
@@ -1664,8 +1664,8 @@ QPointF EmfPlug::convertLogical2Pts(QPointF in)
 	}
 	else if ((currentDC.m_mapMode == 0x07) || (currentDC.m_mapMode == 0x08))
 	{
-		double ratioX = viewPextendX / static_cast<double>(winPextendX); // Logical --> Device
-		double ratioY = viewPextendY / static_cast<double>(winPextendY); // Logical --> Device
+		double ratioX = qAbs(viewPextendX / static_cast<double>(winPextendX)); // Logical --> Device
+		double ratioY = qAbs(viewPextendY / static_cast<double>(winPextendY)); // Logical --> Device
 		// logic --> device --> pts
 		out.setX(in.x() * ratioX * scaleX);
 		out.setY(in.y() * ratioY * scaleY);
@@ -2731,8 +2731,8 @@ void EmfPlug::handleImage(qint32 dstX, qint32 dstY, qint32 dstW, qint32 dstH, QI
 	QTransform bm = currentDC.m_WorldMap;
 	if ((currentDC.m_mapMode == 0x07) || (currentDC.m_mapMode == 0x08))
 	{
-		double ratioX = viewPextendX / static_cast<double>(winPextendX); // Logical --> Device
-		double ratioY = viewPextendY / static_cast<double>(winPextendY); // Logical --> Device
+		double ratioX = qAbs(viewPextendX / static_cast<double>(winPextendX)); // Logical --> Device
+		double ratioY = qAbs(viewPextendY / static_cast<double>(winPextendY)); // Logical --> Device
 		bm = QTransform(bm.m11() * ratioX, bm.m12() * ratioY, bm.m21() * ratioX, bm.m22() * ratioY, bm.dx() * ratioX, bm.dy() * ratioY);
 	}
 	QPointF p = currentDC.m_WorldMap.map(QPointF(dstX, dstY));
