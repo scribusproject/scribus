@@ -35,7 +35,7 @@ class PDFExportDialog;
 class ScribusDoc;
 class ScrSpinBox;
 
-class TabPDFOptions : public QTabWidget, public Ui_TabPDFOptions
+class TabPDFOptions : public QTabWidget, Ui::TabPDFOptions
 {
 	Q_OBJECT
 

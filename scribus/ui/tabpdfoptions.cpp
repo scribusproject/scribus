@@ -187,32 +187,7 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,
 	connect(InfoString, SIGNAL(textChanged(const QString &)), this, SLOT(checkInfo()));
 	connect(InfoString, SIGNAL(editingFinished()), this, SLOT(checkInfo()));
 	connect(docBleeds, SIGNAL(clicked()), this, SLOT(doDocBleeds()));
-
-	EmbedFonts->setToolTip( "<qt>" + tr( "Embed fonts into the PDF. Embedding the fonts will preserve the layout and appearance of your document." ) + "</qt>");
-	CheckBox10->setToolTip( "<qt>" + tr( "Enables presentation effects when using Adobe&#174; Reader&#174; and other PDF viewers which support this in full screen mode." ) + "</qt>");
-	PagePrev->setToolTip( "<qt>" + tr( "Show page previews of each page listed above." ) + "</qt>");
-	PageTime->setToolTip( "<qt>" + tr( "Length of time the page is shown before the presentation starts on the selected page. Setting 0 will disable automatic page transition." ) + "</qt>" );
-	EffectTime->setToolTip( "<qt>" + tr( "Length of time the effect runs. A shorter time will speed up the effect, a longer one will slow it down." ) + "</qt>" );
-	EffectType->setToolTip( "<qt>" + tr( "Type of the display effect." ) + "</qt>" );
-	EDirection->setToolTip( "<qt>" + tr( "Direction of the effect of moving lines for the split and blind effects." ) + "</qt>" );
-	EDirection_2->setToolTip( "<qt>" + tr( "Starting position for the box and split effects." ) + "</qt>" );
-	EDirection_2_2->setToolTip( "<qt>" + tr( "Direction of the glitter or wipe effects." ) + "</qt>" );
-	EonAllPg->setToolTip( "<qt>" + tr( "Apply the selected effect to all pages." ) + "</qt>" );
-	OutlineFonts->setToolTip( "<qt>" + tr("Convert all glyphs in the document to outlines.") + "</qt>");
-	//Viewer tab
-	singlePage->setToolTip( "<qt>" + tr( "Show the document in single page mode" ) + "</qt>" );
-	continuousPages->setToolTip( "<qt>" + tr( "Show the document in single page mode with the pages displayed continuously end to end like a scroll" ) + "</qt>" );
-	doublePageLeft->setToolTip( "<qt>" + tr( "Show the document with facing pages, starting with the first page displayed on the left" ) + "</qt>" );
-	doublePageRight->setToolTip( "<qt>" + tr( "Show the document with facing pages, starting with the first page displayed on the right" ) + "</qt>" );
-	useViewDefault->setToolTip( "<qt>" + tr( "Use the viewer's defaults or the user's preferences if set differently from the viewer defaults" ) + "</qt>" );
-	useFullScreen->setToolTip( "<qt>" + tr( "Enables viewing the document in full screen" ) + "</qt>" );
-	useBookmarks->setToolTip( "<qt>" + tr( "Display the bookmarks upon opening" ) + "</qt>" );
-	useThumbnails->setToolTip( "<qt>" + tr( "Display the page thumbnails upon opening" ) + "</qt>" );
-	useLayers2->setToolTip( "<qt>" + tr( "Forces the displaying of layers. Useful only for PDF 1.5+." ) + "</qt>" );
-	hideToolBar->setToolTip( "<qt>" + tr( "Hides the Tool Bar which has selection and other editing capabilities" ) + "</qt>" );
-	hideMenuBar->setToolTip( "<qt>" + tr( "Hides the Menu Bar for the viewer, the PDF will display in a plain window. " ) + "</qt>" );
-	fitWindow->setToolTip( "<qt>" + tr( "Fit the document page or pages to the available space in the viewer window." ) + "</qt>" );
-
+	
 	connect(AllPages, SIGNAL(toggled(bool)), this, SLOT(SelRange(bool)));
 	connect(pageNrButton, SIGNAL(clicked()), this, SLOT(createPageNumberRange()));
 	connect(DSColor, SIGNAL(clicked()), this, SLOT(DoDownsample()));
@@ -228,7 +203,8 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,
 	connect(UseLPI, SIGNAL(clicked()), this, SLOT(EnableLPI2()));
 	connect(LPIcolor, SIGNAL(activated(int)), this, SLOT(SelLPIcol(int)));
 	connect(CMethod, SIGNAL(activated(int)), this, SLOT(handleCompressionMethod(int)));
-	//tooltips
+
+	// Tooltips : General tab
 	RotateDeg->setToolTip( "<qt>" + tr( "Automatically rotate the exported pages" ) + "</qt>" );
 	AllPages->setToolTip( "<qt>" + tr( "Export all pages to PDF" ) + "</qt>" );
 	OnlySome->setToolTip( "<qt>" + tr( "Export a range of pages to PDF" ) );
@@ -236,6 +212,9 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,
 		                                    "a token can be * for all the pages, 1-5 for "
 		                                    "a range of pages or a single page number.") + "</qt>" );
 	pageNrButton->setToolTip( "<qt>" + tr( "Create a range of pages" ) + "</qt>");
+	ClipMarg->setToolTip( "<qt>" + tr( "Do not show objects outside the margins in the exported file" ) + "</qt>" );
+	MirrorH->setToolTip( "<qt>" + tr( "Mirror Page(s) horizontally" ) + "</qt>" );
+	MirrorV->setToolTip( "<qt>" + tr( "Mirror Page(s) vertically" ) + "</qt>" );
 	PDFVersionCombo->setToolTip( "<qt>" + tr( "Determines the PDF compatibility.<br/>The default is <b>PDF 1.3</b> which gives the widest compatibility.<br/>Choose <b>PDF 1.4</b> if your file uses features such as transparency or you require 128 bit encryption.<br/><b>PDF 1.5</b> is necessary when you wish to preserve objects in separate layers within the PDF.<br/><b>PDF/X-3</b> is for exporting the PDF when you want color managed RGB for commercial printing and is selectable when you have activated color management. Use only when advised by your printer or in some cases printing to a 4 color digital color laser printer.<br/><b>PDF/X-1a</b> is for blind exchange with colors strictly specified in CMYK or spot colors.<br/><b>PDF/X-4</b> is an extension of PDF/X-3 to support transparancy and layering." ) + "</qt>");
 	ComboBind->setToolTip( "<qt>" + tr( "Determines the binding of pages in the PDF. Unless you know you need to change it leave the default choice - Left." ) + "</qt>" );
 	CheckBox1->setToolTip( "<qt>" + tr( "Generates thumbnails of each page in the PDF. Some viewers can use the thumbnails for navigation." ) + "</qt>" );
@@ -249,6 +228,37 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,
 	CQuality->setToolTip( "<qt>" + tr( "Compression quality levels for lossy compression methods: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%). Note that a quality level does not directly determine the size of the resulting image - both size and quality loss vary from image to image at any given quality level. Even with Maximum selected, there is always some quality loss with jpeg." ) + "</qt>");
 	DSColor->setToolTip( "<qt>" + tr( "Limits the resolution of your bitmap images to the selected DPI. Images with a lower resolution will be left untouched. Leaving this unchecked will render them at their native resolution. Enabling this will increase memory usage and slow down export." ) + "</qt>" );
 	ValC->setToolTip( "<qt>" + tr( "DPI (Dots Per Inch) for image export.") + "</qt>" );
+
+	// Tooltips : Fonts tab
+	EmbedFonts->setToolTip( "<qt>" + tr( "Embed fonts into the PDF. Embedding the fonts will preserve the layout and appearance of your document." ) + "</qt>");
+	CheckBox10->setToolTip( "<qt>" + tr( "Enables presentation effects when using Adobe&#174; Reader&#174; and other PDF viewers which support this in full screen mode." ) + "</qt>");
+	OutlineFonts->setToolTip( "<qt>" + tr("Convert all glyphs in the document to outlines.") + "</qt>");
+
+	// Tooltips : Presentation tab
+	PagePrev->setToolTip( "<qt>" + tr( "Show page previews of each page listed above." ) + "</qt>");
+	PageTime->setToolTip( "<qt>" + tr( "Length of time the page is shown before the presentation starts on the selected page. Setting 0 will disable automatic page transition." ) + "</qt>" );
+	EffectTime->setToolTip( "<qt>" + tr( "Length of time the effect runs. A shorter time will speed up the effect, a longer one will slow it down." ) + "</qt>" );
+	EffectType->setToolTip( "<qt>" + tr( "Type of the display effect." ) + "</qt>" );
+	EDirection->setToolTip( "<qt>" + tr( "Direction of the effect of moving lines for the split and blind effects." ) + "</qt>" );
+	EDirection_2->setToolTip( "<qt>" + tr( "Starting position for the box and split effects." ) + "</qt>" );
+	EDirection_2_2->setToolTip( "<qt>" + tr( "Direction of the glitter or wipe effects." ) + "</qt>" );
+	EonAllPg->setToolTip( "<qt>" + tr( "Apply the selected effect to all pages." ) + "</qt>" );
+
+	// Tooltips : Viewer tab
+	singlePage->setToolTip( "<qt>" + tr( "Show the document in single page mode" ) + "</qt>" );
+	continuousPages->setToolTip( "<qt>" + tr( "Show the document in single page mode with the pages displayed continuously end to end like a scroll" ) + "</qt>" );
+	doublePageLeft->setToolTip( "<qt>" + tr( "Show the document with facing pages, starting with the first page displayed on the left" ) + "</qt>" );
+	doublePageRight->setToolTip( "<qt>" + tr( "Show the document with facing pages, starting with the first page displayed on the right" ) + "</qt>" );
+	useViewDefault->setToolTip( "<qt>" + tr( "Use the viewer's defaults or the user's preferences if set differently from the viewer defaults" ) + "</qt>" );
+	useFullScreen->setToolTip( "<qt>" + tr( "Enables viewing the document in full screen" ) + "</qt>" );
+	useBookmarks->setToolTip( "<qt>" + tr( "Display the bookmarks upon opening" ) + "</qt>" );
+	useThumbnails->setToolTip( "<qt>" + tr( "Display the page thumbnails upon opening" ) + "</qt>" );
+	useLayers2->setToolTip( "<qt>" + tr( "Forces the displaying of layers. Useful only for PDF 1.5+." ) + "</qt>" );
+	hideToolBar->setToolTip( "<qt>" + tr( "Hides the Tool Bar which has selection and other editing capabilities" ) + "</qt>" );
+	hideMenuBar->setToolTip( "<qt>" + tr( "Hides the Menu Bar for the viewer, the PDF will display in a plain window. " ) + "</qt>" );
+	fitWindow->setToolTip( "<qt>" + tr( "Fit the document page or pages to the available space in the viewer window." ) + "</qt>" );
+
+	// Tooltips : Security Tab
 	Encry->setToolTip( "<qt>" + tr( "Enable the security features in your exported PDF. If you selected PDF 1.3, the PDF will be protected by 40 bit encryption. If you selected PDF 1.4, the PDF will be protected by 128 bit encryption. Disclaimer: PDF encryption is not as reliable as GPG or PGP encryption and does have some limitations." ) + "</qt>" );
 	PassOwner->setToolTip( "<qt>" + tr( "Choose an owner password which enables or disables all the security features in your exported PDF" ) + "</qt>" );
 	PassUser->setToolTip( "<qt>" + tr( "Choose a password for users to be able to read your PDF." ) + "</qt>" );
@@ -256,6 +266,8 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,
 	ModifySec->setToolTip( "<qt>" + tr( "Allow modifying of the PDF. If un-checked, modifying the PDF is prevented." ) + "</qt>" );
 	CopySec->setToolTip( "<qt>" + tr( "Allow copying of text or graphics from the PDF. If unchecked, text and graphics cannot be copied." ) + "</qt>" );
 	AddSec->setToolTip( "<qt>" + tr( "Allow adding annotations and fields to the PDF. If unchecked, editing annotations and fields is prevented." ) + "</qt>" );
+
+	// Tooltips : Color tab
 	OutCombo->setToolTip( "<qt>" + tr( "Color model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 color CMYK printer. Choose Grayscale when you want a grey scale PDF." ) + "</qt>" );
 	UseLPI->setToolTip( "<qt>" + tr( "This is an advanced setting which is not enabled by default. This should only be enabled when specifically requested by your printer and they have given you the exact details needed. Otherwise, your exported PDF may not print properly and is truly not portable across systems." ) + "</qt>" );
 	EmbedProfs->setToolTip( "<qt>" + tr( "Embed a color profile for solid colors" ) + "</qt>" );
@@ -265,11 +277,9 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,
 	NoEmbedded->setToolTip( "<qt>" + tr( "Do not use color profiles that are embedded in source images" ) + "</qt>" );
 	ImageP->setToolTip( "<qt>" + tr( "Color profile for images" ) + "</qt>" );
 	IntendI->setToolTip( "<qt>" + tr( "Rendering intent for images" ) + "</qt>" );
-	MirrorH->setToolTip( "<qt>" + tr( "Mirror Page(s) horizontally" ) + "</qt>" );
-	MirrorV->setToolTip( "<qt>" + tr( "Mirror Page(s) vertically" ) + "</qt>" );
 	useSpot->setToolTip("<qt>" + tr( "Enables Spot Colors to be converted to composite colors. Unless you are planning to print spot colors at a commercial printer, this is probably best left enabled." ) + "</qt>");
-	ClipMarg->setToolTip( "<qt>" + tr( "Do not show objects outside the margins in the exported file" ) + "</qt>" );
-	//PrePress tab 
+
+	// Tooltips : PrePress tab 
 	cropMarks->setToolTip( "<qt>" + tr( "Creates crop marks in the PDF indicating where the paper should be cut or trimmed after printing" ) + "</qt>" );
 	bleedMarks->setToolTip( "<qt>" + tr( "This creates bleed marks which are indicated by  _ . _ and show the bleed limit" ) + "</qt>" );
 	registrationMarks->setToolTip( "<qt>" + tr( "Add registration marks to each separation" ) + "</qt>" );
