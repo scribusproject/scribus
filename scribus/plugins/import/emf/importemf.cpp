@@ -3552,7 +3552,7 @@ void EmfPlug::handleEMPObject(QDataStream &ds, quint8 flagsH, quint8 flagsL, qui
 {
 	quint16 id = flagsH;
 	quint16 type = flagsL & 0x7F;
-	quint32 totalSize;
+	quint32 totalSize = 0;
 	bool cont = (flagsL & 0x80);
 	bool first = true;
 	if (!cont)
