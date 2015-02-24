@@ -5,12 +5,19 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 
+#include <QDebug>
 #include <QImageReader>
 #include <QMapIterator>
 #include <QObject>
 
 #include "commonstrings.h"
 #include "util_formats.h"
+
+#ifdef GMAGICK_FOUND
+#include <magick/api.h>
+#include <magick/magick.h>
+#include <magick/symbols.h>
+#endif
 
 FormatsManager* FormatsManager::_instance = 0;
 
@@ -36,7 +43,23 @@ FormatsManager::FormatsManager()
 	m_fmts.insert(FormatsManager::BMP,  QStringList() << "bmp");
 	m_fmts.insert(FormatsManager::ORA,  QStringList() << "ora");
 #ifdef GMAGICK_FOUND
-	m_fmts.insert(FormatsManager::GMAGICK, QStringList() << "xbm" << "tga" << "ptif" << "ppm" << "pnm" << "pgm" << "pcds" << "pcd" << "pbm" << "mng" << "ico" << "gif" << "fax" << "dpx" << "bmp" << "xcf");
+	QStringList gmagickformats;
+	InitializeMagick(0);
+	ExceptionInfo exception;
+	MagickInfo **magick_array;
+	magick_array=GetMagickInfoArray(&exception);
+	if (!magick_array)
+		return;
+	for (int i=0; magick_array[i] != 0; i++)
+	{
+		if (magick_array[i]->stealth)
+			continue;
+		gmagickformats<<QString(magick_array[i]->name).toLower();
+	}
+	MagickFreeMemory(magick_array);
+	//qDebug()<<gmagickformats;
+	m_fmts.insert(FormatsManager::GMAGICK, gmagickformats);
+	//QStringList() << "xbm" << "tga" << "ptif" << "ppm" << "pnm" << "pgm" << "pcds" << "pcd" << "pbm" << "mng" << "ico" << "gif" << "fax" << "dpx" << "bmp" << "xcf");
 #endif
 	m_fmts.insert(FormatsManager::UNICONV, QStringList() << "cdt" << "ccx" << "cmx" << "aff" << "sk" << "sk1" << "plt" << "dxf" << "dst" << "pes" << "exp" << "pcs");
 	m_fmts.insert(FormatsManager::PCT,  QStringList() << "pct" << "pic" << "pict");

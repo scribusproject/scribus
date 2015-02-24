@@ -948,6 +948,7 @@ int PageItem::level() const
 
 void PageItem::moveBy(const double dX, const double dY, bool drawingOnly)
 {
+	//qDebug()<<"pageitem::moveby"<<dX<<dY;;
 	if (dX==0.0 && dY==0.0)
 		return;
 	invalid = true;
@@ -10584,15 +10585,17 @@ void PageItem::weldTo(PageItem* item)
 void PageItem::moveWelded(double dX, double dY, int weld)
 {
 	WeldingInfo wInf = weldList.at(weld);
-	PageItem *pIt = wInf.weldItem;
-	pIt->setXPos(pIt->xPos() + dX);
-	pIt->setYPos(pIt->yPos() + dY);
-	pIt->update();
-	pIt->moveWelded(dX, dY, this);
+	PageItem *item
+			= wInf.weldItem;
+	item->setXPos(item->xPos() + dX);
+	item->setYPos(item->yPos() + dY);
+	item->update();
+	item->moveWelded(dX, dY, this);
 }
 
 void PageItem::moveWelded(double dX, double dY, PageItem* except)
 {
+	//qDebug()<<"PageItem::moveWelded"<<dX<<dY;
 	if ((dX == 0) && (dY == 0))
 		return;
 	//do not save undo for auto-welded notes frames
