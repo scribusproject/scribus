@@ -10585,8 +10585,7 @@ void PageItem::weldTo(PageItem* item)
 void PageItem::moveWelded(double dX, double dY, int weld)
 {
 	WeldingInfo wInf = weldList.at(weld);
-	PageItem *item
-			= wInf.weldItem;
+	PageItem *item = wInf.weldItem;
 	item->setXPos(item->xPos() + dX);
 	item->setYPos(item->yPos() + dY);
 	item->update();

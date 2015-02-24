@@ -16,6 +16,7 @@ for which a new license (GPL+exception) is in place.
 #ifdef GMAGICK_FOUND
 #include <magick/api.h>
 #include <magick/magick.h>
+//#include <magick/memory.h>
 #include <magick/symbols.h>
 #endif
 
@@ -56,7 +57,7 @@ FormatsManager::FormatsManager()
 			continue;
 		gmagickformats<<QString(magick_array[i]->name).toLower();
 	}
-	MagickFreeMemory(magick_array);
+	MagickFree(magick_array);
 	//qDebug()<<gmagickformats;
 	m_fmts.insert(FormatsManager::GMAGICK, gmagickformats);
 	//QStringList() << "xbm" << "tga" << "ptif" << "ppm" << "pnm" << "pgm" << "pcds" << "pcd" << "pbm" << "mng" << "ico" << "gif" << "fax" << "dpx" << "bmp" << "xcf");
