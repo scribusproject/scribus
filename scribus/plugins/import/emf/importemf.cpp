@@ -17,6 +17,7 @@ for which a new license (GPL+exception) is in place.
 #include <QFile>
 #include <QList>
 #include <QMimeData>
+#include <QRawFont>
 #include <QRegExp>
 #include <QTextCodec>
 #include <QUuid>
@@ -1114,6 +1115,8 @@ bool EmfPlug::convert(QString fn)
 						break;
 					case U_EMR_SETWINDOWORGEX:
 						ds >> winOrigX >> winOrigY;
+						if ((viewPextendX != 0) && (viewPextendY != 0))
+							currentDC.winOrigin = convertLogical2Pts(QPointF(winOrigX, winOrigY));
 						break;
 					case U_EMR_SETVIEWPORTEXTEX:
 						ds >> viewPextendX >> viewPextendY;
@@ -1664,8 +1667,8 @@ QPointF EmfPlug::convertLogical2Pts(QPointF in)
 	}
 	else if ((currentDC.m_mapMode == 0x07) || (currentDC.m_mapMode == 0x08))
 	{
-		double ratioX = qAbs(viewPextendX / static_cast<double>(winPextendX)); // Logical --> Device
-		double ratioY = qAbs(viewPextendY / static_cast<double>(winPextendY)); // Logical --> Device
+		double ratioX = viewPextendX / static_cast<double>(winPextendX); // Logical --> Device
+		double ratioY = viewPextendY / static_cast<double>(winPextendY); // Logical --> Device
 		// logic --> device --> pts
 		out.setX(in.x() * ratioX * scaleX);
 		out.setY(in.y() * ratioY * scaleY);
@@ -1856,6 +1859,7 @@ void EmfPlug::finishItem(PageItem* ite, bool fill)
 	ite->setTextFlowMode(PageItem::TextFlowDisabled);
 	m_Doc->AdjustItemSize(ite);
 	ite->moveBy(-docX, -docY, true);
+	ite->moveBy(-currentDC.winOrigin.x(), -currentDC.winOrigin.y());
 	ite->OldB2 = ite->width();
 	ite->OldH2 = ite->height();
 	ite->updateClip();
@@ -2182,7 +2186,7 @@ void EmfPlug::finishItem(PageItem* ite, bool fill)
 	}
 	if (inEMFPlus)
 	{
-		if (currentDC.brushStyle == U_BT_PathGradient)
+		if ((currentDC.brushStyle == U_BT_PathGradient) || (currentDC.brushStyle == U_BT_LinearGradient))
 		{
 			if ((!currentDC.clipPath.isEmpty()) && (ite->itemType() != PageItem::ImageFrame))
 			{
@@ -2639,6 +2643,8 @@ void EmfPlug::handleSmallText(QDataStream &ds)
 
 void EmfPlug::handleText(QDataStream &ds, qint64 posi, bool size)
 {
+	QString aTxt = "";
+	QPainterPath painterPath;
 	qint32 bLeft, bTop, bRight, bBottom, oLeft, oTop, oRight, oBottom;
 	quint32 grMode, numChar, offTxt, txOpts, offDx;
 	float sx, sy;
@@ -2652,59 +2658,99 @@ void EmfPlug::handleText(QDataStream &ds, qint64 posi, bool size)
 	ds >> oLeft >> oTop >> oRight >> oBottom;
 	ds >> offDx;
 	ds.device()->seek(posi + offTxt);
-	QString aTxt = "";
-	for (quint32 a = 0; a < numChar; a++)
-	{
-		if (size)
-		{
-			quint16 cc;
-			ds >> cc;
-			aTxt.append(QChar(cc));
-		}
-		else
-		{
-			quint8 cc;
-			ds >> cc;
-			aTxt.append(QChar(cc));
-		}
-	}
-	ds.device()->seek(posi + offDx);
-	QList<quint32> dxTxt;
-	for (quint32 a = 0; a < numChar; a++)
-	{
-		quint32 cc;
-		ds >> cc;
-		dxTxt.append(cc);
-	}
-	if (aTxt.isEmpty())
-		return;
-	FPointArray textPath;
-	QPainterPath painterPath;
 	QFont font = QFont(currentDC.fontName, currentDC.fontSize);
 	font.setPixelSize(currentDC.fontSize);
-	if (font.exactMatch())
+	QFontMetricsF fm(font);
+	double aTextWidth = 0;
+	if (txOpts & 0x00000010)
 	{
+		QList<quint32> glyphs;
+		for (quint32 a = 0; a < numChar; a++)
+		{
+			if (size)
+			{
+				quint16 cc;
+				ds >> cc;
+				glyphs.append(cc);
+			}
+			else
+			{
+				quint8 cc;
+				ds >> cc;
+				glyphs.append(cc);
+			}
+		}
+		ds.device()->seek(posi + offDx);
+		QList<quint32> dxTxt;
+		for (quint32 a = 0; a < numChar; a++)
+		{
+			quint32 cc;
+			ds >> cc;
+			dxTxt.append(cc);
+		}
+		QRawFont rFont = QRawFont::fromFont(font);
 		double startX = p1.x();
 		for (quint32 a = 0; a < numChar; a++)
 		{
-			painterPath.addText(startX, p1.y(), font, aTxt.at(a));
+			QPainterPath gPath = rFont.pathForGlyph(glyphs[a]);
+			gPath.translate(startX, p1.y());
+			painterPath.addPath(gPath);
 			startX += convertLogical2Pts(static_cast<double>(dxTxt[a]));
 		}
+		aTextWidth = painterPath.boundingRect().width();
 	}
 	else
-		painterPath.addText(p1.x(), p1.y(), font, aTxt);
-	QFontMetricsF fm(font);
+	{
+		for (quint32 a = 0; a < numChar; a++)
+		{
+			if (size)
+			{
+				quint16 cc;
+				ds >> cc;
+				aTxt.append(QChar(cc));
+			}
+			else
+			{
+				quint8 cc;
+				ds >> cc;
+				aTxt.append(QChar(cc));
+			}
+		}
+		ds.device()->seek(posi + offDx);
+		QList<quint32> dxTxt;
+		for (quint32 a = 0; a < numChar; a++)
+		{
+			quint32 cc;
+			ds >> cc;
+			dxTxt.append(cc);
+		}
+		if (aTxt.isEmpty())
+			return;
+		if (font.exactMatch())
+		{
+			double startX = p1.x();
+			for (quint32 a = 0; a < numChar; a++)
+			{
+				painterPath.addText(startX, p1.y(), font, aTxt.at(a));
+				startX += convertLogical2Pts(static_cast<double>(dxTxt[a]));
+			}
+		}
+		else
+			painterPath.addText(p1.x(), p1.y(), font, aTxt);
+		aTextWidth = fm.width(aTxt);
+	}
 	if (currentDC.textAlignment == 0)
 		painterPath.translate(0, fm.ascent());
 	if (currentDC.textAlignment & 0x0002)
-		painterPath.translate(-fm.width(aTxt), 0);
+		painterPath.translate(-aTextWidth, 0);
 	else if (currentDC.textAlignment & 0x0006)
-		painterPath.translate(-fm.width(aTxt) / 2.0, 0);
+		painterPath.translate(-aTextWidth / 2.0, 0);
 	if (currentDC.textAlignment & 0x0008)
 		painterPath.translate(0, fm.descent());
 	QTransform bm = currentDC.m_WorldMap;
 	bm = QTransform(bm.m11(), bm.m12(), bm.m21(), bm.m22(), 0, 0);
 	painterPath = bm.map(painterPath);
+	FPointArray textPath;
 	textPath.fromQPainterPath(painterPath);
 	if (textPath.size() > 0)
 	{
@@ -2720,9 +2766,9 @@ void EmfPlug::handleText(QDataStream &ds, qint64 posi, bool size)
 		if (currentDC.textAlignment & 0x0002)
 			currentDC.currentPoint = p1;
 		else if (currentDC.textAlignment & 0x0006)
-			currentDC.currentPoint = QPointF(p1.x() + (fm.width(aTxt) / 2.0), p1.y());
+			currentDC.currentPoint = QPointF(p1.x() + (aTextWidth / 2.0), p1.y());
 		else
-			currentDC.currentPoint = QPointF(p1.x() + fm.width(aTxt), p1.y());
+			currentDC.currentPoint = QPointF(p1.x() + aTextWidth, p1.y());
 	}
 }
 
@@ -2731,8 +2777,8 @@ void EmfPlug::handleImage(qint32 dstX, qint32 dstY, qint32 dstW, qint32 dstH, QI
 	QTransform bm = currentDC.m_WorldMap;
 	if ((currentDC.m_mapMode == 0x07) || (currentDC.m_mapMode == 0x08))
 	{
-		double ratioX = qAbs(viewPextendX / static_cast<double>(winPextendX)); // Logical --> Device
-		double ratioY = qAbs(viewPextendY / static_cast<double>(winPextendY)); // Logical --> Device
+		double ratioX = viewPextendX / static_cast<double>(winPextendX); // Logical --> Device
+		double ratioY = viewPextendY / static_cast<double>(winPextendY); // Logical --> Device
 		bm = QTransform(bm.m11() * ratioX, bm.m12() * ratioY, bm.m21() * ratioX, bm.m22() * ratioY, bm.dx() * ratioX, bm.dy() * ratioY);
 	}
 	QPointF p = currentDC.m_WorldMap.map(QPointF(dstX, dstY));
@@ -3037,7 +3083,12 @@ void EmfPlug::handlePolygon(QDataStream &ds, bool size, bool fill)
 		getPolyInfo(ds, BoxDev, countP);
 		FPointArray pointsPoly = getPolyPoints(ds, countP, size, fill);
 		if (fill)
-			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, currentDC.LineW, currentDC.CurrColorFill, currentDC.CurrColorStroke, true);
+		{
+			if (currentDC.LineW == 0)
+				z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, 0, currentDC.CurrColorFill, CommonStrings::None, true);
+			else
+				z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, currentDC.LineW, currentDC.CurrColorFill, currentDC.CurrColorStroke, true);
+		}
 		else
 			z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, currentDC.LineW, CommonStrings::None, currentDC.CurrColorStroke, true);
 		PageItem* ite = m_Doc->Items->at(z);
@@ -3090,7 +3141,12 @@ void EmfPlug::handlePolyPolygon(QDataStream &ds, bool size, bool fill)
 				pointsPoly.setMarker();
 		}
 		if (fill)
-			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, currentDC.LineW, currentDC.CurrColorFill, currentDC.CurrColorStroke, true);
+		{
+			if (currentDC.LineW == 0)
+				z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, 0, currentDC.CurrColorFill, CommonStrings::None, true);
+			else
+				z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, currentDC.LineW, currentDC.CurrColorFill, currentDC.CurrColorStroke, true);
+		}
 		else
 			z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, currentDC.LineW, CommonStrings::None, currentDC.CurrColorStroke, true);
 		PageItem* ite = m_Doc->Items->at(z);
