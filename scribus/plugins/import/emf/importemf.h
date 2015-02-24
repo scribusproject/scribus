@@ -216,6 +216,7 @@ private:
 	void        handleEMFPDrawPath(QDataStream &ds, quint8 flagsH);
 	void        handleEMFPDrawPie(QDataStream &ds, quint8 flagsL, quint8 flagsH);
 	void        handleEMFPDrawRects(QDataStream &ds, quint8 flagsL, quint8 flagsH);
+	void        handleEMFPDrawDriverString(QDataStream &ds, quint8 flagsL, quint8 flagsH);
 	void        handleEMFPDrawString(QDataStream &ds, quint8 flagsL, quint8 flagsH);
 	void        handleEMFPSetClipRect(QDataStream &ds, quint8 flagsL);
 	void        handleEMFPSetClipRegion(QDataStream &ds, quint8 flagsL, quint8 flagsH);

@@ -3512,9 +3512,7 @@ void EmfPlug::handleEMFPlus(QDataStream &ds, quint32 dtaSize)
 				handleEMFPSetClipPath(dsEmf, flagsL, flagsH);
 				break;
 			case U_PMR_DRAWDRIVERSTRING:
-				{
-					qDebug() << "\tU_PMR_DRAWDRIVERSTRING";
-				}
+				handleEMFPDrawDriverString(dsEmf, flagsL, flagsH);
 				break;
 			case U_PMR_STROKEFILLPATH:
 				{
@@ -4636,6 +4634,93 @@ void EmfPlug::handleEMFPDrawRects(QDataStream &ds, quint8 flagsL, quint8 flagsH)
 		PageItem* ite = m_Doc->Items->at(z);
 		ite->PoLine = polyline.copy();
 		finishItem(ite, false);
+	}
+}
+
+void EmfPlug::handleEMFPDrawDriverString(QDataStream &ds, quint8 flagsL, quint8 flagsH)
+{
+	quint32 brushID, txOpts, matrix, numChars;
+	ds >> brushID >> txOpts >> matrix >> numChars;
+	bool directBrush = (flagsL & 0x80);
+	getEMFPBrush(brushID, directBrush);
+	getEMFPFont(flagsH);
+	quint32 unit = currentDC.fontUnit;
+	if ((unit == U_UT_World) || (unit == U_UT_Display))
+		unit = U_UT_Pixel;
+	double fSize = convertEMFPLogical2Pts(currentDC.fontSize, unit);
+	fSize *= 10.0;
+	QFont font = QFont(currentDC.fontName, fSize);
+	font.setPixelSize(fSize);
+	QList<QChar> stringData;
+	QList<quint32> glyphs;
+	QTransform txTrans = QTransform();
+	if (txOpts & 0x00000001)
+	{
+		for (quint32 a = 0; a < numChars; a++)
+		{
+			quint16 cc;
+			ds >> cc;
+			stringData.append(QChar(cc));
+		}
+	}
+	else
+	{
+		for (quint32 a = 0; a < numChars; a++)
+		{
+			quint16 cc;
+			ds >> cc;
+			glyphs.append(cc);
+		}
+	}
+	QList<QPointF> dxTxt;
+	for (quint32 a = 0; a < numChars; a++)
+	{
+		QPointF p = getEMFPPoint(ds, false);
+		dxTxt.append(p);
+	}
+	if (matrix == 1)
+	{
+		float m11, m12, m21, m22, dx, dy;
+		ds >> m11 >> m12 >> m21 >> m22 >> dx >> dy;
+		txTrans = QTransform(m11, m12, m21, m22, dx, dy);
+	}
+	QPainterPath painterPath;
+	if (txOpts & 0x00000001)
+	{
+		for (quint32 a = 0; a < numChars; a++)
+		{
+			QPainterPath gPath;
+			gPath.addText(0, 0, font, stringData[a]);
+			QTransform mm;
+			mm.scale(0.1, 0.1);
+			gPath = mm.map(gPath);
+			gPath.translate(dxTxt[a].x(), dxTxt[a].y());
+			gPath = txTrans.map(gPath);
+			painterPath.addPath(gPath);
+		}
+	}
+	else
+	{
+		QRawFont rFont = QRawFont::fromFont(font);
+		for (quint32 a = 0; a < numChars; a++)
+		{
+			QPainterPath gPath = rFont.pathForGlyph(glyphs[a]);
+			QTransform mm;
+			mm.scale(0.1, 0.1);
+			gPath = mm.map(gPath);
+			gPath.translate(dxTxt[a].x(), dxTxt[a].y());
+			gPath = txTrans.map(gPath);
+			painterPath.addPath(gPath);
+		}
+	}
+	FPointArray textPath;
+	textPath.fromQPainterPath(painterPath);
+	if (textPath.size() > 0)
+	{
+		int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, 0, currentDC.CurrColorFill, CommonStrings::None, true);
+		PageItem* ite = m_Doc->Items->at(z);
+		ite->PoLine = textPath.copy();
+		finishItem(ite);
 	}
 }
 
