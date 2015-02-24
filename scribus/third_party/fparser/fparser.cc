@@ -27,6 +27,7 @@ using namespace std;
 #define M_PI 3.1415926535897932384626433832795
 #endif
 
+#include "scclocale.h"
 
 //=========================================================================
 // Name handling functions
@@ -1232,7 +1233,7 @@ const char* FunctionParser::CompileElement(const char* function)
     if(isdigit(c) || c=='.') // Number
     {
         char* endPtr;
-        const double val = strtod(function, &endPtr);
+        const double val = ScCLocale::strtod(function, &endPtr);
         if(endPtr == function) return SetErrorType(SYNTAX_ERROR, function);
 
         data->Immed.push_back(val);
