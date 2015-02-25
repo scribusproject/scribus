@@ -11621,6 +11621,9 @@ void ScribusDoc::itemSelection_DeleteItem(Selection* customSelection, bool force
 				continue;
 			}
 		}
+		//#12371 don't delete group items
+		if(currItem->isGroupChild())
+			continue;
 		//CB FIXME remove this and include of storyeditor.h too
 		if ((currItem->asTextFrame() || currItem->asPathText()) && currItem==m_ScMW->storyEditor->currentItem() && this==m_ScMW->storyEditor->currentDocument())
 		{
