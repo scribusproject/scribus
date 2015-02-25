@@ -135,6 +135,11 @@ void Prefs_DocumentSetup::restoreDefaults(struct ApplicationPrefs *prefsData)
 	pageWidthSpinBox->setValue(pageW * unitRatio);
 	pageHeightSpinBox->setValue(pageH * unitRatio);
 	pageSets=prefsData->pageSets;
+	if (prefsData->docSetupPrefs.pagePositioning < 2)
+	{
+		threeFoldRadioButton->hide();
+		fourFoldRadioButton->hide();
+	}
 	switch (prefsData->docSetupPrefs.pagePositioning)
 	{
 		case 0:

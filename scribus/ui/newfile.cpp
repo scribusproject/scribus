@@ -203,19 +203,14 @@ void NewDoc::createNewDocPage()
 			ic = new QListWidgetItem( QIcon(loadIcon("32/page-doublesided.png")), psname, layoutsView );
 			ic->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
 		}
-		else if (pg == 2)
+		else if (pg == 2 && prefsManager->appPrefs.docSetupPrefs.pagePositioning == 2)
 		{
 			ic = new QListWidgetItem( QIcon(loadIcon("32/page-3fold.png")), psname, layoutsView );
 			ic->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
 		}
-		else if (pg == 3)
+		else if (pg == 3 && prefsManager->appPrefs.docSetupPrefs.pagePositioning == 3)
 		{
 			ic = new QListWidgetItem( QIcon(loadIcon("32/page-4fold.png")), psname, layoutsView );
-			ic->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
-		}
-		else
-		{
-			ic = new QListWidgetItem( QIcon(loadIcon("32/page-simple.png")), psname, layoutsView );
 			ic->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
 		}
 	}
