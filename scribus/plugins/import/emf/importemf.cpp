@@ -3002,6 +3002,22 @@ QImage EmfPlug::handleDIB(QDataStream &ds, qint64 filePos, quint32 offBitH, quin
 				img = img.convertToFormat(QImage::Format_ARGB32);
 			}
 		}
+		else if ((hCompression == 1) || (hCompression == 2))
+		{
+			QByteArray pattern;
+			pattern.resize(14);
+			pattern.fill(0);
+			quint16 bmType = 0x4D42;
+			quint32 bmSize = bitsBits.count() + headerBits.count() + 14;
+			QDataStream pa(&pattern, QIODevice::WriteOnly);
+			pa.setByteOrder(QDataStream::LittleEndian);
+			pa << bmType;
+			pa << bmSize;
+			bitsBits.prepend(headerBits);
+			bitsBits.prepend(pattern);
+			img.loadFromData(bitsBits, "BMP");
+			img = img.convertToFormat(QImage::Format_ARGB32);
+		}
 		else if (hCompression == 3)
 		{
 			QDataStream dsB(bitsBits);
