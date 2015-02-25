@@ -168,7 +168,7 @@ bool ImportOdgPlugin::import(QString fileName, int flags)
 		activeTransaction = UndoManager::instance()->beginTransaction(trSettings);
 	OdgPlug *dia = new OdgPlug(m_Doc, flags);
 	Q_CHECK_PTR(dia);
-	bool ret = dia->import(fileName, trSettings, flags);
+	bool ret = dia->import(fileName, trSettings, flags, !(flags & lfScripted));
 	if (activeTransaction)
 		activeTransaction.commit();
 	if (emptyDoc || !(flags & lfInteractive) || !(flags & lfScripted))

@@ -148,7 +148,7 @@ bool ImportCdrPlugin::import(QString fileName, int flags)
 		activeTransaction = UndoManager::instance()->beginTransaction(trSettings);
 	CdrPlug *dia = new CdrPlug(m_Doc, flags);
 	Q_CHECK_PTR(dia);
-	if (!dia->import(fileName, trSettings, flags))
+	if (!dia->import(fileName, trSettings, flags, !(flags & lfScripted)))
 	{
 		ScribusMainWindow* mw=(m_Doc==0) ? ScCore->primaryMainWindow() : m_Doc->scMW();
 		//Import per Uniconverter

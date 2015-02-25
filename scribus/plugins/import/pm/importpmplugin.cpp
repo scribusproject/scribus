@@ -145,7 +145,7 @@ bool ImportPmPlugin::import(QString fileName, int flags)
 		activeTransaction = new UndoTransaction(UndoManager::instance()->beginTransaction(trSettings));
 	PmPlug *dia = new PmPlug(m_Doc, flags);
 	Q_CHECK_PTR(dia);
-	dia->import(fileName, trSettings, flags);
+	dia->import(fileName, trSettings, flags, !(flags & lfScripted));
 	if (activeTransaction)
 	{
 		activeTransaction->commit();

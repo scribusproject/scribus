@@ -216,7 +216,7 @@ bool ImportAIPlugin::import(QString fileName, int flags)
 #endif
 	AIPlug *dia = new AIPlug(m_Doc, flags);
 	Q_CHECK_PTR(dia);
-	bool success = dia->import(fileName, trSettings, flags);
+	bool success = dia->import(fileName, trSettings, flags, !(flags & lfScripted));
 	if (activeTransaction)
 		activeTransaction.commit();
 	if (emptyDoc || !(flags & lfInteractive) || !(flags & lfScripted))

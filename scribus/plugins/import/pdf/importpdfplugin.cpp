@@ -221,9 +221,9 @@ bool ImportPdfPlugin::import(QString fileName, int flags)
 	PdfPlug *dia = new PdfPlug(m_Doc, flags);
 	Q_CHECK_PTR(dia);
 	if (isCleanedFile)
-		ret = dia->import(cleanFile, trSettings, flags);
+		ret = dia->import(cleanFile, trSettings, flags, !(flags & lfScripted));
 	else
-		ret = dia->import(fileName, trSettings, flags);
+		ret = dia->import(fileName, trSettings, flags, !(flags & lfScripted));
 	if (activeTransaction)
 		activeTransaction.commit();
 	if (emptyDoc || !(flags & lfInteractive) || !(flags & lfScripted))
