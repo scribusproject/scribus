@@ -59,6 +59,16 @@ FormatsManager::FormatsManager()
 	}
 	MagickFree(magick_array);
 	//qDebug()<<gmagickformats;
+	gmagickformats.removeAll("wmf");
+	gmagickformats.removeAll("wpg");
+	gmagickformats.removeAll("svg");
+	gmagickformats.removeAll("svgz");
+	gmagickformats.removeAll("tiff");
+	gmagickformats.removeAll("psd");
+	gmagickformats.removeAll("pdf");
+	gmagickformats.removeAll("eps");
+	gmagickformats.removeAll("ps");
+	gmagickformats.removeAll("pict");
 	m_fmts.insert(FormatsManager::GMAGICK, gmagickformats);
 	//QStringList() << "xbm" << "tga" << "ptif" << "ppm" << "pnm" << "pgm" << "pcds" << "pcd" << "pbm" << "mng" << "ico" << "gif" << "fax" << "dpx" << "bmp" << "xcf");
 #endif
