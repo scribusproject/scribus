@@ -565,6 +565,7 @@ public:
 	static QString ChangePageAttrs;
 	static QString ImportPage;
 	static QString MovePage;
+	static QString SwapPage;
 	static QString ToOutlines;
 	static QString LinkTextFrame;
 	static QString UnlinkTextFrame;

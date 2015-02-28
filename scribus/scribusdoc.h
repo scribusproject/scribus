@@ -275,7 +275,7 @@ public:
 	 * @param a page index
 	 * @param b page index
 	 */
-	void swapPages(const int a, const int b);
+	void swapPage(const int a, const int b);
 	/**
 	 * @brief Move page(s) within the document
 	 * @param fromPage page index
@@ -754,6 +754,7 @@ public:
 	void restoreMasterPageRenaming(SimpleState *state, bool isUndo);
 	void restoreCopyPage(SimpleState *state, bool isUndo);
 	void restoreMovePage(SimpleState *state, bool isUndo);
+	void restoreSwapPage(SimpleState *state, bool isUndo);
 	void restoreAddMasterPage(SimpleState *state, bool isUndo);
 	/**
 	 * @brief Undo function for grouping/ungrouping

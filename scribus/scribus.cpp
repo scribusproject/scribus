@@ -6042,7 +6042,7 @@ void ScribusMainWindow::movePage()
 		int wo = dia->getWherePage();
 		if (wie == 3)
 		{
-			doc->swapPages(from-1, wo-1);
+			doc->swapPage(from-1, wo-1);
 			updateGUIAfterPagesChanged();
 			return;
 		}

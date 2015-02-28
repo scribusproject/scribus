@@ -1869,6 +1869,8 @@ void ScribusDoc::restore(UndoState* state, bool isUndo)
 			restoreCopyPage(ss, isUndo);
 		else if (ss->contains("PAGE_MOVE"))
 			restoreMovePage(ss, isUndo);
+		else if (ss->contains("PAGE_SWAP"))
+			restoreSwapPage(ss, isUndo);
 		else if (ss->contains("LEVEL_DOWN"))
 			restoreLevelDown(ss,isUndo);
 		else if (ss->contains("LEVEL_UP"))
@@ -2826,13 +2828,31 @@ void ScribusDoc::deletePage(const int pageNumber)
 	changed();
 }
 
-void ScribusDoc::swapPages(const int a, const int b)
+void ScribusDoc::swapPage(const int a, const int b)
 {
+	if (UndoManager::undoEnabled())
+	{
+		SimpleState *ss = new SimpleState(Um::SwapPage, "", Um::IDocument);
+		ss->set("PAGE_SWAP", "page_swap");
+		ss->set("PAGE_SWAP_FROM", a);
+		ss->set("PAGE_SWAP_TO", b);
+		undoManager->action(this, ss);
+	}
 	Pages->swap(a,b);
 	reformPages();
 	changed();
 }
 
+void ScribusDoc::restoreSwapPage(SimpleState *state, bool isUndo)
+{
+	int a = state->getInt("PAGE_SWAP_FROM");
+	int b = state->getInt("PAGE_SWAP_TO");
+
+	if (isUndo)
+		swapPage(b,a);
+	else
+		swapPage(a,b);
+}
 
 void ScribusDoc::movePage(const int fromPage, const int toPage, const int dest, const int position)
 {
@@ -2870,7 +2890,7 @@ void ScribusDoc::movePage(const int fromPage, const int toPage, const int dest, 
 		ss->set("PAGE_MOVE_TO", toPage);
 		ss->set("PAGE_MOVE_DEST", dest);
 		ss->set("PAGE_MOVE_NEWPOS", position);
-		undoManager->action(this, ss, DocName, Um::IDocument);
+		undoManager->action(this, ss);
 	}
 	reformPages();
 	if (m_View && m_ScMW)
