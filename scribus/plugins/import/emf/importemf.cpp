@@ -3099,12 +3099,7 @@ void EmfPlug::handlePolygon(QDataStream &ds, bool size, bool fill)
 		getPolyInfo(ds, BoxDev, countP);
 		FPointArray pointsPoly = getPolyPoints(ds, countP, size, fill);
 		if (fill)
-		{
-			if (currentDC.LineW == 0)
-				z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, 0, currentDC.CurrColorFill, CommonStrings::None, true);
-			else
-				z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, currentDC.LineW, currentDC.CurrColorFill, currentDC.CurrColorStroke, true);
-		}
+			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, currentDC.LineW, currentDC.CurrColorFill, currentDC.CurrColorStroke, true);
 		else
 			z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, currentDC.LineW, CommonStrings::None, currentDC.CurrColorStroke, true);
 		PageItem* ite = m_Doc->Items->at(z);
@@ -3157,12 +3152,7 @@ void EmfPlug::handlePolyPolygon(QDataStream &ds, bool size, bool fill)
 				pointsPoly.setMarker();
 		}
 		if (fill)
-		{
-			if (currentDC.LineW == 0)
-				z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, 0, currentDC.CurrColorFill, CommonStrings::None, true);
-			else
-				z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, currentDC.LineW, currentDC.CurrColorFill, currentDC.CurrColorStroke, true);
-		}
+			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, currentDC.LineW, currentDC.CurrColorFill, currentDC.CurrColorStroke, true);
 		else
 			z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, currentDC.LineW, CommonStrings::None, currentDC.CurrColorStroke, true);
 		PageItem* ite = m_Doc->Items->at(z);
@@ -3188,9 +3178,12 @@ void EmfPlug::handlePenDef(quint32 penID, quint32 penStyle, quint32 penWidth, qu
 	else if ((penStyle & 0x0F) == U_LS_DashDot)
 		sty.penStyle = Qt::DashDotLine;
 	else if ((penStyle & 0x0F) == U_LS_DashDotDot)
-		sty.penStyle = Qt::DashDotDotLine;
-	else if ((penStyle & 0x0F) == U_LS_Custom)
 		sty.penStyle = Qt::SolidLine;
+	else if ((penStyle & 0x0F) == 5)
+	{
+		sty.penStyle = Qt::SolidLine;
+		sty.penColor = CommonStrings::None;
+	}
 	else
 		sty.penStyle = Qt::SolidLine;
 	if ((penStyle & 0x0F00) == 0x100)
