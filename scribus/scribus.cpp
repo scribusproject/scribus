@@ -4430,94 +4430,95 @@ void ScribusMainWindow::slotFileQuit()
 
 void ScribusMainWindow::slotEditCut()
 {
-	if (HaveDoc && doc->appMode == modeEditClip)
+	if (!HaveDoc)
+		return;
+	if (doc->appMode == modeEditClip)
 		view->requestMode(submodeEndNodeEdit);
+	if (doc->m_Selection->isEmpty())
+		return;
 	uint docSelectionCount=doc->m_Selection->count();
-	if ((HaveDoc) && (docSelectionCount != 0))
+	UndoTransaction activeTransaction;
+	PageItem *currItem;
+	for (uint i = 0; i < docSelectionCount; ++i)
 	{
-		UndoTransaction activeTransaction;
-		PageItem *currItem;
-		for (uint i = 0; i < docSelectionCount; ++i)
+		currItem=doc->m_Selection->itemAt(i);
+		if ((currItem->asTextFrame() || currItem->asPathText()) && currItem==storyEditor->currentItem() && doc==storyEditor->currentDocument())
 		{
-			currItem=doc->m_Selection->itemAt(i);
-			if ((currItem->asTextFrame() || currItem->asPathText()) && currItem==storyEditor->currentItem() && doc==storyEditor->currentDocument())
-			{
-					ScMessageBox::critical(this, tr("Cannot Cut In-Use Item"), tr("The item %1 is currently being edited by Story Editor. The cut operation will be cancelled").arg(currItem->itemName()));
-					return;
-			}
+				ScMessageBox::critical(this, tr("Cannot Cut In-Use Item"), tr("The item %1 is currently being edited by Story Editor. The cut operation will be cancelled").arg(currItem->itemName()));
+				return;
 		}
-		if (UndoManager::undoEnabled())
-		{
-			if (docSelectionCount > 1)
-				activeTransaction = undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::Cut,"",Um::ICut);
-			else
-			{
-				PageItem* item=doc->m_Selection->itemAt(0);
-				activeTransaction = undoManager->beginTransaction(item->getUName(), item->getUPixmap(), Um::Cut, "", Um::ICut);
-			}
-		}
-		currItem = doc->m_Selection->itemAt(0);
-		if (((doc->appMode == modeEdit) || (doc->appMode == modeEditTable)) && (currItem->isTextFrame() || currItem->isTable()))
-		{
-			PageItem_TextFrame *cItem;
-			if (doc->appMode == modeEditTable)
-				cItem = currItem->asTable()->activeCell().textFrame();
-			else
-				cItem = currItem->asTextFrame();
-			if (cItem->HasSel)
-			{
-				if ((cItem->itemText.length() == 0) || (!cItem->HasSel))
-					return;
-				StoryText itemText(doc);
-				itemText.setDefaultStyle(cItem->itemText.defaultStyle());
-				itemText.insert(0, cItem->itemText, true);
-				std::ostringstream xmlString;
-				SaxXML xmlStream(xmlString);
-				xmlStream.beginDoc();
-				itemText.saxx(xmlStream, "SCRIBUSTEXT");
-				xmlStream.endDoc();
-				std::string xml(xmlString.str());
-				ScTextMimeData* mimeData = new ScTextMimeData();
-				mimeData->setScribusText (QByteArray(xml.c_str(), xml.length()));
-				mimeData->setText( itemText.text(0, itemText.length()) ) ;
-				QApplication::clipboard()->setMimeData(mimeData, QClipboard::Clipboard);
-				cItem->deleteSelectedTextFromFrame();
-				if (doc->appMode == modeEditTable)
-					currItem->asTable()->update();
-				else
-					cItem->update();
-			}
-		}
+	}
+	if (UndoManager::undoEnabled())
+	{
+		if (docSelectionCount > 1)
+			activeTransaction = undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::Cut,"",Um::ICut);
 		else
 		{
-			if ((currItem->isSingleSel) && (currItem->isGroup()))
-				return;
-			ScriXmlDoc ss;
-			QString BufferS = ss.WriteElem(doc, doc->m_Selection);
-			if ((prefsManager->appPrefs.scrapbookPrefs.doCopyToScrapbook) && (!internalCopy))
-			{
-				scrapbookPalette->ObjFromCopyAction(BufferS, currItem->itemName());
-				rebuildRecentPasteMenu();
-			}
-			ScElemMimeData* mimeData = new ScElemMimeData();
-			mimeData->setScribusElem(BufferS);
-			mimeData->setText(BufferS);
-			QApplication::clipboard()->setMimeData(mimeData, QClipboard::Clipboard);
-			for (int i=0; i < doc->m_Selection->count(); ++i)
-			{
-				PageItem* frame = doc->m_Selection->itemAt(i);
-				if (frame->asTextFrame() && frame->prevInChain() == NULL)
-					frame->clearContents();
-			}
-			doc->itemSelection_DeleteItem();
+			PageItem* item=doc->m_Selection->itemAt(0);
+			activeTransaction = undoManager->beginTransaction(item->getUName(), item->getUPixmap(), Um::Cut, "", Um::ICut);
 		}
-		slotDocCh();
-		scrActions["editPaste"]->setEnabled(true);
-		scrMenuMgr->setMenuEnabled("EditPasteRecent", scrapbookPalette->tempBView->objectMap.count() != 0);
-		if (activeTransaction)
+	}
+	currItem = doc->m_Selection->itemAt(0);
+	if (((doc->appMode == modeEdit) || (doc->appMode == modeEditTable)) && (currItem->isTextFrame() || currItem->isTable()))
+	{
+		PageItem_TextFrame *cItem;
+		if (doc->appMode == modeEditTable)
+			cItem = currItem->asTable()->activeCell().textFrame();
+		else
+			cItem = currItem->asTextFrame();
+		if (cItem->HasSel)
 		{
-			activeTransaction.commit();
+			if ((cItem->itemText.length() == 0) || (!cItem->HasSel))
+				return;
+			StoryText itemText(doc);
+			itemText.setDefaultStyle(cItem->itemText.defaultStyle());
+			itemText.insert(0, cItem->itemText, true);
+			std::ostringstream xmlString;
+			SaxXML xmlStream(xmlString);
+			xmlStream.beginDoc();
+			itemText.saxx(xmlStream, "SCRIBUSTEXT");
+			xmlStream.endDoc();
+			std::string xml(xmlString.str());
+			ScTextMimeData* mimeData = new ScTextMimeData();
+			mimeData->setScribusText (QByteArray(xml.c_str(), xml.length()));
+			mimeData->setText( itemText.text(0, itemText.length()) ) ;
+			QApplication::clipboard()->setMimeData(mimeData, QClipboard::Clipboard);
+			cItem->deleteSelectedTextFromFrame();
+			if (doc->appMode == modeEditTable)
+				currItem->asTable()->update();
+			else
+				cItem->update();
 		}
+	}
+	else
+	{
+		if ((currItem->isSingleSel) && (currItem->isGroup()))
+			return;
+		ScriXmlDoc ss;
+		QString BufferS = ss.WriteElem(doc, doc->m_Selection);
+		if ((prefsManager->appPrefs.scrapbookPrefs.doCopyToScrapbook) && (!internalCopy))
+		{
+			scrapbookPalette->ObjFromCopyAction(BufferS, currItem->itemName());
+			rebuildRecentPasteMenu();
+		}
+		ScElemMimeData* mimeData = new ScElemMimeData();
+		mimeData->setScribusElem(BufferS);
+		mimeData->setText(BufferS);
+		QApplication::clipboard()->setMimeData(mimeData, QClipboard::Clipboard);
+		for (int i=0; i < doc->m_Selection->count(); ++i)
+		{
+			PageItem* frame = doc->m_Selection->itemAt(i);
+			if (frame->asTextFrame() && frame->prevInChain() == NULL)
+				frame->clearContents();
+		}
+		doc->itemSelection_DeleteItem();
+	}
+	slotDocCh();
+	scrActions["editPaste"]->setEnabled(true);
+	scrMenuMgr->setMenuEnabled("EditPasteRecent", scrapbookPalette->tempBView->objectMap.count() != 0);
+	if (activeTransaction)
+	{
+		activeTransaction.commit();
 	}
 }
 
@@ -4527,7 +4528,6 @@ void ScribusMainWindow::slotEditCopy()
 		return;
 	if (doc->appMode == modeEditClip)
 		view->requestMode(submodeEndNodeEdit);
-
 	if (doc->m_Selection->isEmpty())
 		return;
 	PageItem *currItem = doc->m_Selection->itemAt(0);
@@ -4599,225 +4599,224 @@ void ScribusMainWindow::slotEditCopy()
 
 void ScribusMainWindow::slotEditPaste()
 {
-	if (HaveDoc && doc->appMode == modeEditClip)
-		view->requestMode(submodeEndNodeEdit);
-	if (HaveDoc)
+	if (!HaveDoc)
+		return;
+	if (doc->appMode == modeEditClip)
+	view->requestMode(submodeEndNodeEdit);
+	UndoTransaction activeTransaction;
+	if (!ScMimeData::clipboardHasScribusData() && (!internalCopy))
+		return;
+	if (UndoManager::undoEnabled())
+		activeTransaction = undoManager->beginTransaction(doc->currentPage()->getUName(), 0, Um::Paste, "", Um::IPaste);
+	PageItem* selItem = doc->m_Selection->itemAt(0);
+	if (((doc->appMode == modeEdit) || (doc->appMode == modeEditTable)) && (selItem->isTextFrame() || selItem->isTable()))
 	{
-		UndoTransaction activeTransaction;
-		if (!ScMimeData::clipboardHasScribusData() && (!internalCopy))
-			return;
-		if (UndoManager::undoEnabled())
-			activeTransaction = undoManager->beginTransaction(doc->currentPage()->getUName(), 0, Um::Paste, "", Um::IPaste);
-		PageItem* selItem = doc->m_Selection->itemAt(0);
-		if (((doc->appMode == modeEdit) || (doc->appMode == modeEditTable)) && (selItem->isTextFrame() || selItem->isTable()))
+		PageItem_TextFrame *currItem;
+		if (doc->appMode == modeEditTable)
+			currItem = selItem->asTable()->activeCell().textFrame();
+		else
+			currItem = selItem->asTextFrame();
+		assert(currItem != NULL);
+		if (currItem->HasSel)
 		{
-			PageItem_TextFrame *currItem;
-			if (doc->appMode == modeEditTable)
-				currItem = selItem->asTable()->activeCell().textFrame();
-			else
-				currItem = selItem->asTextFrame();
-			assert(currItem != NULL);
-			if (currItem->HasSel)
-			{
-				//removing marks and notes from selected text
+			//removing marks and notes from selected text
 //				if (currItem->isTextFrame() && !currItem->asTextFrame()->removeMarksFromText(!ScCore->usingGUI()))
 //					return;
-				currItem->deleteSelectedTextFromFrame();
-			}
+			currItem->deleteSelectedTextFromFrame();
+		}
 
-			if (ScMimeData::clipboardHasScribusText())
+		if (ScMimeData::clipboardHasScribusText())
+		{
+			Serializer *textSerializer = doc->textSerializer();
+			textSerializer->reset();
+			textSerializer->store<ScribusDoc>("<scribusdoc>", doc);
+
+			QByteArray xml = ScMimeData::clipboardScribusText();
+			textSerializer->parseMemory(xml, xml.length());
+
+			StoryText* story = textSerializer->result<StoryText>();
+
+			//avoid pasting notes marks into notes frames
+			if (currItem->isNoteFrame())
 			{
-				Serializer *textSerializer = doc->textSerializer();
-				textSerializer->reset();
-				textSerializer->store<ScribusDoc>("<scribusdoc>", doc);
-
-				QByteArray xml = ScMimeData::clipboardScribusText();
-				textSerializer->parseMemory(xml, xml.length());
-
-				StoryText* story = textSerializer->result<StoryText>();
-
-				//avoid pasting notes marks into notes frames
-				if (currItem->isNoteFrame())
+				story->setDoc(doc);
+				for (int pos=story->length() -1; pos >= 0; --pos)
 				{
-					story->setDoc(doc);
-					for (int pos=story->length() -1; pos >= 0; --pos)
-					{
-						if (story->hasMark(pos) && (story->mark(pos)->isNoteType()))
-							story->removeChars(pos,1);
-					}
+					if (story->hasMark(pos) && (story->mark(pos)->isNoteType()))
+						story->removeChars(pos,1);
 				}
-				if (UndoManager::undoEnabled())
-				{
-					ScItemState<StoryText> *is = new ScItemState<StoryText>(Um::Paste);
-					is->set("PASTE_TEXT", "paste_text");
-					is->set("START",currItem->itemText.cursorPosition());
-					is->setItem(*story);
-					undoManager->action(currItem, is);
-				}
-				currItem->itemText.insert(*story);
-
-				delete story;
 			}
-			else if (ScMimeData::clipboardHasScribusElem() || ScMimeData::clipboardHasScribusFragment())
+			if (UndoManager::undoEnabled())
 			{
-				bool savedAlignGrid = doc->SnapGrid;
-				bool savedAlignGuides = doc->SnapGuides;
-				bool savedAlignElement = doc->SnapElement;
-				int ac = doc->Items->count();
-				bool isGroup = false;
-				double gx, gy, gh, gw;
-				FPoint minSize = doc->minCanvasCoordinate;
-				FPoint maxSize = doc->maxCanvasCoordinate;
-				doc->SnapGrid = false;
-				doc->SnapGuides = false;
-				doc->SnapElement = false;
-				// HACK #6541 : undo does not handle text modification => do not record embedded item creation
-				// if embedded item is deleted, undo system will not be aware of its deletion => crash - JG
-				undoManager->setUndoEnabled(false);
-				QString buffer  = ScMimeData::clipboardScribusElem();
-				slotElemRead(buffer, 0, 0, false, true, doc, view);
-				// update style lists:
-				styleManager->setDoc(doc);
-				propertiesPalette->unsetDoc();
-				propertiesPalette->setDoc(doc);
-				marksManager->setDoc(doc);
-				nsEditor->setDoc(doc);
-				symbolPalette->unsetDoc();
-				symbolPalette->setDoc(doc);
+				ScItemState<StoryText> *is = new ScItemState<StoryText>(Um::Paste);
+				is->set("PASTE_TEXT", "paste_text");
+				is->set("START",currItem->itemText.cursorPosition());
+				is->setItem(*story);
+				undoManager->action(currItem, is);
+			}
+			currItem->itemText.insert(*story);
 
-				doc->SnapGrid = savedAlignGrid;
-				doc->SnapGuides = savedAlignGuides;
-				doc->SnapElement = savedAlignElement;
-				//int tempList=doc->m_Selection->backupToTempList(0);
-				Selection tempSelection(*doc->m_Selection);
-				doc->m_Selection->clear();
-				if (doc->Items->count() - ac > 1)
-					isGroup = true;
-				doc->m_Selection->delaySignalsOn();
-				for (int as = ac; as < doc->Items->count(); ++as)
-				{
-					doc->m_Selection->addItem(doc->Items->at(as));
-				}
-				if (isGroup)
-					doc->GroupCounter++;
-				doc->m_Selection->setGroupRect();
-				doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
-				PageItem* currItem3 = doc->Items->at(ac);
-				currItem3->isEmbedded = true;
-				currItem3->setIsAnnotation(false);
-				currItem3->isBookmark = false;
-				currItem3->gXpos = currItem3->xPos() - gx;
-				currItem3->gYpos = currItem3->yPos() - gy;
-				currItem3->gWidth = gw;
-				currItem3->gHeight = gh;
-				int fIndex = doc->addToInlineFrames(currItem3);
-				int acc = doc->Items->count();
-				for (int as = ac; as < acc; ++as)
-				{
-					doc->Items->takeAt(ac);
-				}
-				doc->m_Selection->clear();
-				//doc->m_Selection->restoreFromTempList(0, tempList);
-				*doc->m_Selection=tempSelection;
+			delete story;
+		}
+		else if (ScMimeData::clipboardHasScribusElem() || ScMimeData::clipboardHasScribusFragment())
+		{
+			bool savedAlignGrid = doc->SnapGrid;
+			bool savedAlignGuides = doc->SnapGuides;
+			bool savedAlignElement = doc->SnapElement;
+			int ac = doc->Items->count();
+			bool isGroup = false;
+			double gx, gy, gh, gw;
+			FPoint minSize = doc->minCanvasCoordinate;
+			FPoint maxSize = doc->maxCanvasCoordinate;
+			doc->SnapGrid = false;
+			doc->SnapGuides = false;
+			doc->SnapElement = false;
+			// HACK #6541 : undo does not handle text modification => do not record embedded item creation
+			// if embedded item is deleted, undo system will not be aware of its deletion => crash - JG
+			undoManager->setUndoEnabled(false);
+			QString buffer  = ScMimeData::clipboardScribusElem();
+			slotElemRead(buffer, 0, 0, false, true, doc, view);
+			// update style lists:
+			styleManager->setDoc(doc);
+			propertiesPalette->unsetDoc();
+			propertiesPalette->setDoc(doc);
+			marksManager->setDoc(doc);
+			nsEditor->setDoc(doc);
+			symbolPalette->unsetDoc();
+			symbolPalette->setDoc(doc);
+
+			doc->SnapGrid = savedAlignGrid;
+			doc->SnapGuides = savedAlignGuides;
+			doc->SnapElement = savedAlignElement;
+			//int tempList=doc->m_Selection->backupToTempList(0);
+			Selection tempSelection(*doc->m_Selection);
+			doc->m_Selection->clear();
+			if (doc->Items->count() - ac > 1)
+				isGroup = true;
+			doc->m_Selection->delaySignalsOn();
+			for (int as = ac; as < doc->Items->count(); ++as)
+			{
+				doc->m_Selection->addItem(doc->Items->at(as));
+			}
+			if (isGroup)
+				doc->GroupCounter++;
+			doc->m_Selection->setGroupRect();
+			doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
+			PageItem* currItem3 = doc->Items->at(ac);
+			currItem3->isEmbedded = true;
+			currItem3->setIsAnnotation(false);
+			currItem3->isBookmark = false;
+			currItem3->gXpos = currItem3->xPos() - gx;
+			currItem3->gYpos = currItem3->yPos() - gy;
+			currItem3->gWidth = gw;
+			currItem3->gHeight = gh;
+			int fIndex = doc->addToInlineFrames(currItem3);
+			int acc = doc->Items->count();
+			for (int as = ac; as < acc; ++as)
+			{
+				doc->Items->takeAt(ac);
+			}
+			doc->m_Selection->clear();
+			//doc->m_Selection->restoreFromTempList(0, tempList);
+			*doc->m_Selection=tempSelection;
 //				view->resizeContents(qRound((maxSize.x() - minSize.x()) * view->scale()), qRound((maxSize.y() - minSize.y()) * view->scale()));
 //				view->scrollBy(qRound((doc->minCanvasCoordinate.x() - minSize.x()) * view->scale()), qRound((doc->minCanvasCoordinate.y() - minSize.y()) * view->scale()));
-				doc->minCanvasCoordinate = minSize;
-				doc->maxCanvasCoordinate = maxSize;
-				if (outlinePalette->isVisible())
-					outlinePalette->BuildTree();
-				undoManager->setUndoEnabled(true);
-				if (UndoManager::undoEnabled())
-				{
-					SimpleState *is = new SimpleState(Um::Paste,"",Um::IPaste);
-					is->set("PASTE_INLINE", "paste_inline");
-					is->set("START",currItem->itemText.cursorPosition());
-					is->set("INDEX",fIndex);
-					undoManager->action(currItem, is);
-				}
-				currItem->itemText.insertObject(fIndex);
-				doc->m_Selection->delaySignalsOff();
-				inlinePalette->unsetDoc();
-				inlinePalette->setDoc(doc);
-			}
-			else
+			doc->minCanvasCoordinate = minSize;
+			doc->maxCanvasCoordinate = maxSize;
+			if (outlinePalette->isVisible())
+				outlinePalette->BuildTree();
+			undoManager->setUndoEnabled(true);
+			if (UndoManager::undoEnabled())
 			{
-				// K.I.S.S.:
-				QString text = QApplication::clipboard()->text(QClipboard::Clipboard);
-				text = text.replace("\r\n", SpecialChars::PARSEP);
-				text = text.replace('\n', SpecialChars::PARSEP);
-				currItem->itemText.insertChars(text, true);
+				SimpleState *is = new SimpleState(Um::Paste,"",Um::IPaste);
+				is->set("PASTE_INLINE", "paste_inline");
+				is->set("START",currItem->itemText.cursorPosition());
+				is->set("INDEX",fIndex);
+				undoManager->action(currItem, is);
 			}
-			if (doc->appMode == modeEditTable)
-				selItem->asTable()->update();
-			else
-				currItem->update();
-			view->DrawNew();
+			currItem->itemText.insertObject(fIndex);
+			doc->m_Selection->delaySignalsOff();
+			inlinePalette->unsetDoc();
+			inlinePalette->setDoc(doc);
 		}
 		else
 		{
-			if (ScMimeData::clipboardHasScribusElem() || ScMimeData::clipboardHasScribusFragment() || internalCopy)
-			{
-				view->Deselect(true);
-				uint ac = doc->Items->count();
-				bool savedAlignGrid = doc->SnapGrid;
-				bool savedAlignGuides = doc->SnapGuides;
-				bool savedAlignElement = doc->SnapElement;
-				doc->SnapGrid = false;
-				doc->SnapGuides = false;
-				doc->SnapElement = false;
-				if (internalCopy)
-					slotElemRead(internalCopyBuffer, doc->currentPage()->xOffset(), doc->currentPage()->yOffset(), false, true, doc, view);
-				else
-				{
-					QString buffer  = ScMimeData::clipboardScribusElem();
-					slotElemRead(buffer, doc->currentPage()->xOffset(), doc->currentPage()->yOffset(), false, true, doc, view);
-				}
-				// update style lists:
-				styleManager->setDoc(doc);
-				propertiesPalette->unsetDoc();
-				propertiesPalette->setDoc(doc);
-				marksManager->setDoc(doc);
-				nsEditor->setDoc(doc);
-				symbolPalette->unsetDoc();
-				symbolPalette->setDoc(doc);
-				inlinePalette->unsetDoc();
-				inlinePalette->setDoc(doc);
-
-				doc->SnapGrid = savedAlignGrid;
-				doc->SnapGuides = savedAlignGuides;
-				doc->SnapElement = savedAlignElement;
-				doc->m_Selection->delaySignalsOn();
-				for (int as = ac; as < doc->Items->count(); ++as)
-				{
-					PageItem* currItem = doc->Items->at(as);
-					if (currItem->isBookmark)
-						AddBookMark(currItem);
-					doc->m_Selection->addItem(currItem);
-				}
-				doc->m_Selection->delaySignalsOff();
-				int docSelectionCount = doc->m_Selection->count();
-				// Already done by selection delaySignalsOff()
-				/*if (docSelectionCount > 0)
-				{
-					doc->m_Selection->itemAt(0)->connectToGUI();
-					doc->m_Selection->itemAt(0)->emitAllToGUI();
-				}*/
-				if (docSelectionCount > 1)
-				{
-					doc->m_Selection->setGroupRect();
-				}
-				// Done via Selection selectionChanged() signal
-				/*if (docSelectionCount > 0)
-					HaveNewSel();*/
-			}
-			view->DrawNew();
+			// K.I.S.S.:
+			QString text = QApplication::clipboard()->text(QClipboard::Clipboard);
+			text = text.replace("\r\n", SpecialChars::PARSEP);
+			text = text.replace('\n', SpecialChars::PARSEP);
+			currItem->itemText.insertChars(text, true);
 		}
-		if (activeTransaction)
-			activeTransaction.commit();
-		if (doc->notesChanged())
-			doc->notesFramesUpdate();
-		slotDocCh(false);
+		if (doc->appMode == modeEditTable)
+			selItem->asTable()->update();
+		else
+			currItem->update();
+		view->DrawNew();
 	}
+	else
+	{
+		if (ScMimeData::clipboardHasScribusElem() || ScMimeData::clipboardHasScribusFragment() || internalCopy)
+		{
+			view->Deselect(true);
+			uint ac = doc->Items->count();
+			bool savedAlignGrid = doc->SnapGrid;
+			bool savedAlignGuides = doc->SnapGuides;
+			bool savedAlignElement = doc->SnapElement;
+			doc->SnapGrid = false;
+			doc->SnapGuides = false;
+			doc->SnapElement = false;
+			if (internalCopy)
+				slotElemRead(internalCopyBuffer, doc->currentPage()->xOffset(), doc->currentPage()->yOffset(), false, true, doc, view);
+			else
+			{
+				QString buffer  = ScMimeData::clipboardScribusElem();
+				slotElemRead(buffer, doc->currentPage()->xOffset(), doc->currentPage()->yOffset(), false, true, doc, view);
+			}
+			// update style lists:
+			styleManager->setDoc(doc);
+			propertiesPalette->unsetDoc();
+			propertiesPalette->setDoc(doc);
+			marksManager->setDoc(doc);
+			nsEditor->setDoc(doc);
+			symbolPalette->unsetDoc();
+			symbolPalette->setDoc(doc);
+			inlinePalette->unsetDoc();
+			inlinePalette->setDoc(doc);
+
+			doc->SnapGrid = savedAlignGrid;
+			doc->SnapGuides = savedAlignGuides;
+			doc->SnapElement = savedAlignElement;
+			doc->m_Selection->delaySignalsOn();
+			for (int as = ac; as < doc->Items->count(); ++as)
+			{
+				PageItem* currItem = doc->Items->at(as);
+				if (currItem->isBookmark)
+					AddBookMark(currItem);
+				doc->m_Selection->addItem(currItem);
+			}
+			doc->m_Selection->delaySignalsOff();
+			int docSelectionCount = doc->m_Selection->count();
+			// Already done by selection delaySignalsOff()
+			/*if (docSelectionCount > 0)
+			{
+				doc->m_Selection->itemAt(0)->connectToGUI();
+				doc->m_Selection->itemAt(0)->emitAllToGUI();
+			}*/
+			if (docSelectionCount > 1)
+			{
+				doc->m_Selection->setGroupRect();
+			}
+			// Done via Selection selectionChanged() signal
+			/*if (docSelectionCount > 0)
+				HaveNewSel();*/
+		}
+		view->DrawNew();
+	}
+	if (activeTransaction)
+		activeTransaction.commit();
+	if (doc->notesChanged())
+		doc->notesFramesUpdate();
+	slotDocCh(false);
 }
 
 //CB-->Doc ?????
@@ -4945,9 +4944,7 @@ void ScribusMainWindow::deselectAll()
 {
 	if (!HaveDoc)
 		return;
-
-	bool inEditMode = doc->inAnEditMode();
-	if (inEditMode)
+	if (doc->inAnEditMode())
 	{
 		if (doc->m_Selection->isEmpty())
 			return;
@@ -5097,7 +5094,9 @@ void ScribusMainWindow::applyNewMaster(QString name)
 
 void ScribusMainWindow::slotNewPageP(int wo, QString templ)
 {
-	if (HaveDoc && doc->appMode == modeEditClip)
+	if (!HaveDoc)
+		return;
+	if (doc->appMode == modeEditClip)
 		view->requestMode(submodeEndNodeEdit);
 	view->Deselect(true);
 	int where = 1;
@@ -5120,7 +5119,9 @@ void ScribusMainWindow::slotNewPageP(int wo, QString templ)
 /** Erzeugt eine neue Seite */
 void ScribusMainWindow::slotNewPageM()
 {
-	if (HaveDoc && doc->appMode == modeEditClip)
+	if (!HaveDoc)
+		return;
+	if (doc->appMode == modeEditClip)
 		view->requestMode(submodeEndNodeEdit);
 	view->Deselect(true);
 	InsPage *dia = new InsPage(this, doc, doc->currentPage()->pageNr(), doc->Pages->count());
