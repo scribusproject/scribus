@@ -109,43 +109,43 @@ bool ScriXmlDoc::ReadElemHeader(QString file, bool isFile, double *x, double *y,
 	return (succeed && !sReader.hasError());
 }
 
-bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, double Xp, double Yp, bool Fi, bool loc, QMap<QString,QString> &FontSub)
+bool ScriXmlDoc::ReadElem(QString fileNameOrData, SCFonts &avail, ScribusDoc *doc, double xPos, double yPos, bool isDataFromFile, bool loc, QMap<QString,QString> &FontSub)
 {
 	// Do not suppose the existence of layer with id = 0
 	// return ReadElemToLayer(fileName, avail, doc, Xp, Yp, Fi, loc, FontSub, view, 0);
-	return ReadElemToLayer(fileName, avail, doc, Xp, Yp, Fi, loc, FontSub, doc->activeLayer());
+	return ReadElemToLayer(fileNameOrData, avail, doc, xPos, yPos, isDataFromFile, loc, FontSub, doc->activeLayer());
 }
 
-bool ScriXmlDoc::ReadElemToLayer(QString fileName, SCFonts &avail, ScribusDoc *doc, double Xp, double Yp, bool Fi, bool loc, QMap<QString,QString> &FontSub, int toLayer)
+bool ScriXmlDoc::ReadElemToLayer(QString fileNameOrData, SCFonts &avail, ScribusDoc *doc, double xPos, double yPos, bool isDataFromFile, bool loc, QMap<QString,QString> &FontSub, int toLayer)
 {
-	QString ff;
+	QString elementData;
 	QString fileDir = QDir::homePath();
-	if (Fi)
+	if (isDataFromFile)
 	{
 		QByteArray f;
-		if (!loadRawText(fileName, f))
+		if (!loadRawText(fileNameOrData, f))
 			return false;
 		if (f.left(16) == "<SCRIBUSELEMUTF8")
-			ff = QString::fromUtf8(f.data());
+			elementData = QString::fromUtf8(f.data());
 		else
-			ff = f;
-		fileDir = QFileInfo(fileName).absolutePath();
+			elementData = f;
+		fileDir = QFileInfo(fileNameOrData).absolutePath();
 	}
 	else
 	{
-		ff = fileName;
+		elementData = fileNameOrData;
 	}
-	// In case ff contains some old broken scribus xml
-	ff.replace(QChar(5), SpecialChars::PARSEP);
-	ff.replace(QChar(4), SpecialChars::TAB);
-	ff.replace(QChar(0), QChar(32));
-	ff.replace("&#x5;", SpecialChars::PARSEP);
-	ff.replace("&#x4;", SpecialChars::TAB);
+	// In case elementData contains some old broken scribus xml
+	elementData.replace(QChar(5), SpecialChars::PARSEP);
+	elementData.replace(QChar(4), SpecialChars::TAB);
+	elementData.replace(QChar(0), QChar(32));
+	elementData.replace("&#x5;", SpecialChars::PARSEP);
+	elementData.replace("&#x4;", SpecialChars::TAB);
 	const FileFormat *fmt = LoadSavePlugin::getFormatById(FORMATID_SLA150IMPORT);
 	if (fmt)
 	{
 		fmt->setupTargets(doc, 0, doc->scMW(), 0, &(PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts));
-		fmt->loadElements(ff, fileDir, toLayer, Xp, Yp, loc);
+		fmt->loadElements(elementData, fileDir, toLayer, xPos, yPos, loc);
 		return true;
 	}
 	return false;

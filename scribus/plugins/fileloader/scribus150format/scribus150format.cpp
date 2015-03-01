@@ -193,19 +193,20 @@ bool Scribus150Format::loadElements(const QString & data, QString fileDir, int t
 	GrX = 0.0;
 	GrY = 0.0;
 
-	QMap<int,PageItem*> TableID;
-	QMap<int,PageItem*> TableIDM;
-	QMap<int,PageItem*> TableIDF;
 	QList<PageItem*> TableItems;
-	QList<PageItem*> TableItemsM;
 	QList<PageItem*> TableItemsF;
-	QMap<int,PageItem*> WeldID;
+	QList<PageItem*> TableItemsM;
 	QList<PageItem*> WeldItems;
+	QMap<int,PageItem*> TableID;
+	QMap<int,PageItem*> TableIDF;
+	QMap<int,PageItem*> TableIDM;
+	QMap<int,PageItem*> WeldID;
 	QStack< QList<PageItem*> > groupStack;
 	QStack< QList<PageItem*> > groupStackF;
 	QStack< QList<PageItem*> > groupStackM;
 	QStack< QList<PageItem*> > groupStackP;
 	QStack<int> groupStack2;
+
 
 	itemRemap.clear();
 	itemNext.clear();
@@ -215,16 +216,7 @@ bool Scribus150Format::loadElements(const QString & data, QString fileDir, int t
 	itemCountM = 0;
 	itemRemapF.clear();
 	itemNextF.clear();
-
 	FrameItems.clear();
-	TableItems.clear();
-	TableID.clear();
-	TableItemsM.clear();
-	TableIDM.clear();
-	TableItemsF.clear();
-	TableIDF.clear();
-	WeldItems.clear();
-	WeldID.clear();
 
 	bool firstElement = true;
 	bool success = true;

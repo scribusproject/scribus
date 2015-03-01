@@ -48,8 +48,8 @@ public:
 	\retval bool true = Scribus format file, false : not Scribus
 	*/
 	bool ReadElemHeader(QString file, bool isFile, double *x, double *y, double *w, double *h);
-	bool ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, double Xp, double Yp, bool Fi, bool loc, QMap<QString,QString> &FontSub);
-	bool ReadElemToLayer(QString fileName, SCFonts &avail, ScribusDoc *doc, double Xp, double Yp, bool Fi, bool loc, QMap<QString,QString> &FontSub, int toLayer);
+	bool ReadElem(QString fileNameOrData, SCFonts &avail, ScribusDoc *doc, double xPos, double yPos, bool isDataFromFile, bool loc, QMap<QString,QString> &FontSub);
+	bool ReadElemToLayer(QString fileNameOrData, SCFonts &avail, ScribusDoc *doc, double xPos, double yPos, bool isDataFromFile, bool loc, QMap<QString,QString> &FontSub, int toLayer);
 	
 	static QString WriteElem(ScribusDoc *doc, Selection *selection);
 	static ScElemMimeData* WriteToMimeData(ScribusDoc *doc, Selection *selection);

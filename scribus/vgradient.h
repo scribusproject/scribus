@@ -136,13 +136,13 @@ public:
 	void transform( const QTransform& m );
 
 protected:
-	QList<VColorStop*>        m_colorStops;
+	QList<VColorStop*> m_colorStops;
 
 	int  compareItems(const VColorStop* item1, const VColorStop* item2 ) const;
 	void inSort( VColorStop* d );
 
 private:
-	VGradientType         m_type;
+	VGradientType m_type;
 	VGradientRepeatMethod m_repeatMethod	: 3;
 
 	// coordinates:

@@ -4602,14 +4602,14 @@ void ScribusMainWindow::slotEditPaste()
 	if (!HaveDoc)
 		return;
 	if (doc->appMode == modeEditClip)
-	view->requestMode(submodeEndNodeEdit);
+		view->requestMode(submodeEndNodeEdit);
 	UndoTransaction activeTransaction;
 	if (!ScMimeData::clipboardHasScribusData() && (!internalCopy))
 		return;
 	if (UndoManager::undoEnabled())
 		activeTransaction = undoManager->beginTransaction(doc->currentPage()->getUName(), 0, Um::Paste, "", Um::IPaste);
 	PageItem* selItem = doc->m_Selection->itemAt(0);
-	if (((doc->appMode == modeEdit) || (doc->appMode == modeEditTable)) && (selItem->isTextFrame() || selItem->isTable()))
+	if (((doc->appMode == modeEdit) || (doc->appMode == modeEditTable)) && selItem && (selItem->isTextFrame() || selItem->isTable()))
 	{
 		PageItem_TextFrame *currItem;
 		if (doc->appMode == modeEditTable)
@@ -4758,7 +4758,7 @@ void ScribusMainWindow::slotEditPaste()
 		if (ScMimeData::clipboardHasScribusElem() || ScMimeData::clipboardHasScribusFragment() || internalCopy)
 		{
 			view->Deselect(true);
-			uint ac = doc->Items->count();
+			uint docItemCount = doc->Items->count();
 			bool savedAlignGrid = doc->SnapGrid;
 			bool savedAlignGuides = doc->SnapGuides;
 			bool savedAlignElement = doc->SnapElement;
@@ -4770,6 +4770,7 @@ void ScribusMainWindow::slotEditPaste()
 			else
 			{
 				QString buffer  = ScMimeData::clipboardScribusElem();
+				qDebug()<<buffer;
 				slotElemRead(buffer, doc->currentPage()->xOffset(), doc->currentPage()->yOffset(), false, true, doc, view);
 			}
 			// update style lists:
@@ -4787,7 +4788,7 @@ void ScribusMainWindow::slotEditPaste()
 			doc->SnapGuides = savedAlignGuides;
 			doc->SnapElement = savedAlignElement;
 			doc->m_Selection->delaySignalsOn();
-			for (int as = ac; as < doc->Items->count(); ++as)
+			for (int as = docItemCount; as < doc->Items->count(); ++as)
 			{
 				PageItem* currItem = doc->Items->at(as);
 				if (currItem->isBookmark)
@@ -4795,20 +4796,8 @@ void ScribusMainWindow::slotEditPaste()
 				doc->m_Selection->addItem(currItem);
 			}
 			doc->m_Selection->delaySignalsOff();
-			int docSelectionCount = doc->m_Selection->count();
-			// Already done by selection delaySignalsOff()
-			/*if (docSelectionCount > 0)
-			{
-				doc->m_Selection->itemAt(0)->connectToGUI();
-				doc->m_Selection->itemAt(0)->emitAllToGUI();
-			}*/
-			if (docSelectionCount > 1)
-			{
+			if (doc->m_Selection->count() > 1)
 				doc->m_Selection->setGroupRect();
-			}
-			// Done via Selection selectionChanged() signal
-			/*if (docSelectionCount > 0)
-				HaveNewSel();*/
 		}
 		view->DrawNew();
 	}
