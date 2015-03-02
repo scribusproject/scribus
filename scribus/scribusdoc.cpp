@@ -11158,14 +11158,14 @@ void ScribusDoc::itemSelection_FlipH()
 				currItem->rotateBy(currItem->rotation() * -2.0);
 				currItem->setRedrawBounding();
 				currItem->getBoundingRect(&ix2, &iy2, &iw2, &ih2);
-				currItem->moveBy(ix-ix2, iy-iy2, true);
+				currItem->moveBy(ix-ix2, iy-iy2, false);
 				currItem->setRedrawBounding();
 			}
 			if (currItem->isImageFrame() || currItem->isTextFrame() || currItem->isLatexFrame() || currItem->isOSGFrame() || currItem->isSymbol() || currItem->isGroup() || currItem->isSpiral())
 				currItem->flipImageH();
 			if (currItem->itemType() != PageItem::Line)
 				MirrorPolyH(currItem);
-			currItem->moveBy(dx, 0, true);
+			currItem->moveBy(dx, 0, false);
 			currItem->GrStartX = currItem->width() - currItem->GrStartX;
 			currItem->GrEndX = currItem->width() - currItem->GrEndX;
 			if (currItem->isArc())
@@ -11207,7 +11207,7 @@ void ScribusDoc::itemSelection_FlipH()
 			currItem->rotateBy(currItem->rotation() * -2.0);
 			currItem->setRedrawBounding();
 			currItem->getBoundingRect(&ix2, &iy2, &iw2, &ih2);
-			currItem->moveBy(ix-ix2, iy-iy2, true);
+			currItem->moveBy(ix-ix2, iy-iy2, false);
 			currItem->setRedrawBounding();
 		}
 		currItem->GrStartX = currItem->width() - currItem->GrStartX;
@@ -11266,14 +11266,14 @@ void ScribusDoc::itemSelection_FlipV()
 				currItem->rotateBy(currItem->rotation() * -2.0);
 				currItem->setRedrawBounding();
 				currItem->getBoundingRect(&ix2, &iy2, &iw2, &ih2);
-				currItem->moveBy(ix-ix2, iy-iy2, true);
+				currItem->moveBy(ix-ix2, iy-iy2, false);
 				currItem->setRedrawBounding();
 			}
 			if (currItem->isImageFrame() || currItem->isTextFrame() || currItem->isLatexFrame() || currItem->isOSGFrame() || currItem->isSymbol() || currItem->isGroup() || currItem->isSpiral())
 				currItem->flipImageV();
 			if (currItem->itemType() != PageItem::Line)
 				MirrorPolyV(currItem);
-			currItem->moveBy(0, dx, true);
+			currItem->moveBy(0, dx, false);
 			currItem->GrStartY = currItem->height() - currItem->GrStartY;
 			currItem->GrEndY = currItem->height() - currItem->GrEndY;
 			if (currItem->isArc())
@@ -11318,7 +11318,7 @@ void ScribusDoc::itemSelection_FlipV()
 			currItem->rotateBy(currItem->rotation() * -2.0);
 			currItem->setRedrawBounding();
 			currItem->getBoundingRect(&ix2, &iy2, &iw2, &ih2);
-			currItem->moveBy(ix-ix2, iy-iy2, true);
+			currItem->moveBy(ix-ix2, iy-iy2, false);
 			currItem->setRedrawBounding();
 		}
 		currItem->GrStartY = currItem->height() - currItem->GrStartY;
