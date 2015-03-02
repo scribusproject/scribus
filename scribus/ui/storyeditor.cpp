@@ -500,15 +500,16 @@ void SEditor::handleContentsChange(int position, int charsRemoved, int charsAdde
 
 void SEditor::focusOutEvent(QFocusEvent *e)
 {
-	if (textCursor().hasSelection())
+	QTextCursor tc(textCursor());
+	if (tc.hasSelection())
 	{
-		SelParaStart = textCursor().selectionStart();
-		SelParaEnd = textCursor().selectionEnd();
+		SelParaStart = tc.selectionStart();
+		SelParaEnd = tc.selectionEnd();
 		StoredSel = true;
 	}
 	else
 	{
-		SelParaStart = textCursor().position();
+		SelParaStart = tc.position();
 		StoredSel = false;
 	}
 	QTextEdit::focusOutEvent(e);
@@ -2247,7 +2248,7 @@ bool StoryEditor::eventFilter( QObject* ob, QEvent* ev )
 					EditorBar->doRepaint();
 					updateProps(0, 0);
 					connectSignals();
-					}
+				}
 			}
 		}
 	}
