@@ -15874,8 +15874,8 @@ void ScribusDoc::itemSelection_convertItemsToSymbol(QString& patternName)
 		undoManager->action(target, is);
 	}*/
 	m_Selection->delaySignalsOff();
-	if (activeTransaction)
-		activeTransaction.commit();
+	/*if (activeTransaction)
+		activeTransaction.commit();*/
 }
 
 //CB-->Doc
