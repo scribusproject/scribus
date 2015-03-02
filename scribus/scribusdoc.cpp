@@ -7463,14 +7463,14 @@ void ScribusDoc::itemSelection_FlipH()
 					currItem->rotateBy(currItem->rotation() * -2.0);
 					currItem->setRedrawBounding();
 					currItem->getBoundingRect(&ix2, &iy2, &iw2, &ih2);
-					currItem->moveBy(ix-ix2, iy-iy2, true);
+					currItem->moveBy(ix-ix2, iy-iy2, false);
 					currItem->setRedrawBounding();
 				}
 				if ((currItem->itemType() == PageItem::ImageFrame) || (currItem->itemType() == PageItem::TextFrame))
 					currItem->flipImageH();
 				if (currItem->itemType() != PageItem::Line)
 					MirrorPolyH(currItem);
-				currItem->moveBy(dx, 0, true);
+				currItem->moveBy(dx, 0, false);
 				currItem->setRedrawBounding();
 				currItem->GrStartX = currItem->width() - currItem->GrStartX;
 				currItem->GrEndX = currItem->width() - currItem->GrEndX;
@@ -7493,7 +7493,7 @@ void ScribusDoc::itemSelection_FlipH()
 					currItem->rotateBy(currItem->rotation() * -2.0);
 					currItem->setRedrawBounding();
 					currItem->getBoundingRect(&ix2, &iy2, &iw2, &ih2);
-					currItem->moveBy(ix-ix2, iy-iy2, true);
+					currItem->moveBy(ix-ix2, iy-iy2, false);
 					currItem->setRedrawBounding();
 				}
 				currItem->GrStartX = currItem->width() - currItem->GrStartX;
@@ -7528,14 +7528,14 @@ void ScribusDoc::itemSelection_FlipV()
 					currItem->rotateBy(currItem->rotation() * -2.0);
 					currItem->setRedrawBounding();
 					currItem->getBoundingRect(&ix2, &iy2, &iw2, &ih2);
-					currItem->moveBy(ix-ix2, iy-iy2, true);
+					currItem->moveBy(ix-ix2, iy-iy2, false);
 					currItem->setRedrawBounding();
 				}
 				if ((currItem->itemType() == PageItem::ImageFrame) || (currItem->itemType() == PageItem::TextFrame))
 					currItem->flipImageV();
 				if (currItem->itemType() != PageItem::Line)
 					MirrorPolyV(currItem);
-				currItem->moveBy(0, dx, true);
+				currItem->moveBy(0, dx, false);
 				currItem->setRedrawBounding();
 				currItem->GrStartY = currItem->height() - currItem->GrStartY;
 				currItem->GrEndY = currItem->height() - currItem->GrEndY;
@@ -7559,7 +7559,7 @@ void ScribusDoc::itemSelection_FlipV()
 					currItem->rotateBy(currItem->rotation() * -2.0);
 					currItem->setRedrawBounding();
 					currItem->getBoundingRect(&ix2, &iy2, &iw2, &ih2);
-					currItem->moveBy(ix-ix2, iy-iy2, true);
+					currItem->moveBy(ix-ix2, iy-iy2, false);
 					currItem->setRedrawBounding();
 				}
 				currItem->GrStartY = currItem->height() - currItem->GrStartY;
