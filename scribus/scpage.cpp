@@ -214,6 +214,8 @@ void ScPage::restore(UndoState* state, bool isUndo)
 			restorePageItemDeletion(dynamic_cast<ScItemState< QList<PageItem*> >*>(ss), isUndo);
 		else if (ss->contains("CONVERT_ITEM"))
 			restorePageItemConversion(dynamic_cast<ScItemState<std::pair<PageItem*, PageItem*> >*>(ss), isUndo);
+		else if (ss->contains("CONVERT_ITEM_TO_SYMBOL"))
+			restorePageItemConversionToSymbol(dynamic_cast<ScItemState<std::pair<PageItem*, PageItem*> >*>(ss), isUndo);
 		else if (ss->contains("PAGE_ATTRS"))
 			restorePageAttributes(ss, isUndo);
 	}
@@ -415,6 +417,31 @@ void ScPage::restorePageItemConversion(ScItemState<std::pair<PageItem*, PageItem
 		m_Doc->Items->replace(m_Doc->Items->indexOf(newItem), oldItem);
 		oldItem->updatePolyClip();
 		m_Doc->AdjustItemSize(oldItem);
+	}
+	else
+	{
+		m_Doc->Items->replace(m_Doc->Items->indexOf(oldItem), newItem);
+	}
+	m_Doc->setMasterPageMode(oldMPMode);
+}
+
+void ScPage::restorePageItemConversionToSymbol(ScItemState<std::pair<PageItem*, PageItem*> >* state, bool isUndo)
+{
+	if (!state)
+		return;
+
+	PageItem *oldItem=state->getItem().first;
+	PageItem *newItem=state->getItem().second;
+	QString patternName=state->getDescription();
+	bool oldMPMode=m_Doc->masterPageMode();
+	m_Doc->setMasterPageMode(!oldItem->OnMasterPage.isEmpty());
+	if (isUndo)
+	{
+		m_Doc->Items->replace(m_Doc->Items->indexOf(newItem), oldItem);
+		oldItem->updatePolyClip();
+		m_Doc->AdjustItemSize(oldItem);
+		if (m_Doc->docPatterns.contains(patternName))
+			m_Doc->docPatterns.remove(patternName);
 	}
 	else
 	{

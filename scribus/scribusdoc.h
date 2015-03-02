@@ -1060,7 +1060,7 @@ public:
 	void resizeGroupToContents(PageItem* group);
 	void itemSelection_resizeGroupToContents(Selection *customSelection=0);
 	void itemSelection_convertItemsTo(const PageItem::ItemType newType, Selection* restoredSelection=0, Selection* customSelection=0);
-
+	void itemSelection_convertItemsToSymbol(QString& patternName);
 	void itemSelection_ApplyParagraphStyle(const ParagraphStyle & newstyle, Selection* customSelection=0, bool rmDirectFormatting = false);
 	void itemSelection_SetParagraphStyle(const ParagraphStyle & newstyle, Selection* customSelection=0);
 	void itemSelection_ApplyCharStyle(const CharStyle & newstyle, Selection* customSelection=0, QString ETEA = "");

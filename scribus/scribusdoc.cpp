@@ -15749,6 +15749,135 @@ void ScribusDoc::itemSelection_convertItemsTo(const PageItem::ItemType newType, 
 	changed();
 }
 
+void ScribusDoc::itemSelection_convertItemsToSymbol(QString& patternName)
+{
+	uint docSelectionCount = m_Selection->count();
+	/* #11365 will be fixed once undo here is fixed
+	UndoTransaction activeTransaction;
+	if (UndoManager::undoEnabled()) // && !m_itemCreationTransaction)
+		activeTransaction = undoManager->beginTransaction();
+	*/
+	PageItem* currItem;
+	Selection itemSelection(this, false);
+	itemSelection.copy(*m_Selection, false);
+	m_View->Deselect(true);
+	if (docSelectionCount > 1)
+		currItem = groupObjectsSelection(&itemSelection);
+	else
+		currItem = itemSelection.itemAt(0);
+	QList<PageItem*> allItems;
+	if (currItem->isGroup())
+		allItems = currItem->asGroupFrame()->getItemList();
+	else
+		allItems.append(currItem);
+	QStringList results;
+	for (int i = 0; i < allItems.count(); i++)
+	{
+		PageItem *item = allItems.at(i);
+		if ((!results.contains(item->pattern())) && ((item->GrType == 8) || (item->itemType() == PageItem::Symbol)))
+			results.append(item->pattern());
+		if (!item->strokePattern().isEmpty())
+		{
+			if (!results.contains(item->strokePattern()))
+				results.append(item->strokePattern());
+		}
+		if (!item->patternMask().isEmpty())
+		{
+			if (!results.contains(item->patternMask()))
+				results.append(item->patternMask());
+		}
+	}
+	m_ScMW->patternsDependingOnThis.clear();
+	QStringList mainPatterns = docPatterns.keys();
+	for (int i = 0; i < results.count(); i++)
+	{
+		QString temp = results[i];
+		for (int j = 0; j < mainPatterns.count(); j++)
+		{
+			if (mainPatterns[j] != temp)
+			{
+				QStringList subPatterns;
+				subPatterns = getUsedPatternsHelper(mainPatterns[j], subPatterns);
+				if (subPatterns.contains(temp))
+					m_ScMW->patternsDependingOnThis.prepend(mainPatterns[j]);
+			}
+		}
+		m_ScMW->patternsDependingOnThis.prepend(temp);
+	}
+	 // #12753: We cannot replace currently edited symbol
+	if (symbolEditMode())
+		m_ScMW->patternsDependingOnThis.prepend(getEditedSymbol());
+	allItems.clear();
+
+	ScPattern pat = ScPattern();
+	pat.setDoc(this);
+	double minx =  std::numeric_limits<double>::max();
+	double miny =  std::numeric_limits<double>::max();
+	double maxx = -std::numeric_limits<double>::max();
+	double maxy = -std::numeric_limits<double>::max();
+	double x1, x2, y1, y2;
+	currItem->getVisualBoundingRect(&x1, &y1, &x2, &y2);
+	minx = qMin(minx, x1);
+	miny = qMin(miny, y1);
+	maxx = qMax(maxx, x2);
+	maxy = qMax(maxy, y2);
+	pat.pattern = currItem->DrawObj_toImage(qMin(qMax(maxx - minx, maxy - miny), 500.0));
+	pat.width = maxx - minx;
+	pat.height = maxy - miny;
+	pat.items.append(currItem);
+	// #11274 : OwnPage is not meaningful for pattern items
+	// We set consequently pattern item's OwnPage to -1
+	QList<PageItem*> patternItems = pat.items;
+	while (patternItems.count() > 0)
+	{
+		PageItem* patItem = patternItems.takeAt(0);
+		if (patItem->isGroup())
+			patternItems += patItem->groupItemList;
+		patItem->OwnPage = -1;
+	}
+	if (docPatterns.contains(patternName))
+		docPatterns.remove(patternName);
+	addPattern(patternName, pat);
+	int d = -1;
+	double sx = minx;
+	double sy = miny;
+	if (currItem->isGroupChild())
+	{
+		sx = currItem->gXpos;
+		sy = currItem->gYpos;
+		d = currItem->parentGroup()->groupItemList.indexOf(currItem);
+	}
+	else
+		d = Items->indexOf(currItem);
+	currItem->gXpos = currItem->xPos() - minx;
+	currItem->gYpos = currItem->yPos() - miny;
+	currItem->setXYPos(currItem->gXpos, currItem->gYpos, true);
+	int z = itemAdd(PageItem::Symbol, PageItem::Rectangle, sx, sy, maxx - minx, maxy - miny, 0, CommonStrings::None, CommonStrings::None, true);
+	PageItem* groupItem = Items->takeAt(z);
+	groupItem->setPattern(patternName);
+	groupItem->Parent = currItem->Parent;
+	if (currItem->isGroupChild())
+		currItem->parentGroup()->groupItemList.replace(d, groupItem);
+	else
+		Items->replace(d, groupItem);
+	/* #11365 will be fixed once undo here is fixed
+	if (UndoManager::undoEnabled())
+	{
+		ScItemState<QPair<PageItem*, PageItem*> > *is = new ScItemState<QPair<PageItem*, PageItem*> >("Convert Item");
+		is->set("CONVERT_ITEM_TO_SYMBOL", "convert_item_to_symbol");
+		is->setItem(qMakePair(currItem, groupItem));
+		is->setDescription(patternName);
+		//Undo target rests with the Page for object specific undo
+		UndoObject *target = Pages->at(0);
+		if (groupItem->OwnPage > -1)
+			target = Pages->at(groupItem->OwnPage);
+		undoManager->action(target, is);
+	}*/
+	m_Selection->delaySignalsOff();
+	if (activeTransaction)
+		activeTransaction.commit();
+}
+
 //CB-->Doc
 //Fix size/move item calls
 //CB TODO Use the selection loop properly

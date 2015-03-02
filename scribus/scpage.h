@@ -105,7 +105,8 @@ protected:
 	void restorePageItemDeletion(ScItemState< QList<PageItem*> > *state, bool isUndo);
 	void restorePageAttributes(SimpleState *state, bool isUndo);
 	void restorePageItemConversion(ScItemState<std::pair<PageItem*, PageItem*> >*state, bool isUndo);
-	
+	void restorePageItemConversionToSymbol(ScItemState<std::pair<PageItem*, PageItem*> >*state, bool isUndo);
+
 	double m_xOffset;
 	double m_yOffset;
 	double m_width;
