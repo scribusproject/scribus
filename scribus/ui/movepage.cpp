@@ -45,6 +45,10 @@ MovePages::MovePages( QWidget* parent, int currentPage, int maxPages, bool movin
 	fromToLayout->addWidget( moveLabel, currentRow, 0);
 	fromToLayout->addWidget( fromPageData, currentRow, 1);
 
+	toLabel = 0;
+	toPageData = 0;
+	numberOfCopiesLabel = 0;
+	numberOfCopiesData  = 0;
 	if (move)
 	{
 		toLabel = new QLabel( tr("To:"), this );
@@ -107,28 +111,31 @@ MovePages::MovePages( QWidget* parent, int currentPage, int maxPages, bool movin
 
 	// signals and slots connections
 	if (move)
+	{
+		connect( fromPageData, SIGNAL( valueChanged(double) ), this, SLOT( fromChanged() ) );
 		connect( toPageData, SIGNAL( valueChanged(double) ), this, SLOT( toChanged() ) );
+	}
 	connect( mvWhereData, SIGNAL( activated(int) ), this, SLOT( mvWherePageDataDisable(int) ) );
-	connect( fromPageData, SIGNAL( valueChanged(double) ), this, SLOT( fromChanged() ) );
 	connect( okButton, SIGNAL( clicked() ), this, SLOT( accept() ) );
 	connect( cancelButton, SIGNAL( clicked() ), this, SLOT( reject() ) );
 }
 
 void MovePages::fromChanged()
 {
-	if (move)
-	{
-		int pageNumber=static_cast<int>(fromPageData->value());
-		if (pageNumber > toPageData->value() || mvWhereData->currentIndex() == 3)
-			toPageData->setValue(pageNumber);
-		if ((pageNumber == 1) && (toPageData->value() == toPageData->maximum()))
-			toPageData->setValue(toPageData->maximum()-1);
-	}
+	if (!move)
+		return;
+	int pageNumber = static_cast<int>(fromPageData->value());
+	if (pageNumber > toPageData->value() || mvWhereData->currentIndex() == 3)
+		toPageData->setValue(pageNumber);
+	if ((pageNumber == 1) && (toPageData->value() == toPageData->maximum()))
+		toPageData->setValue(toPageData->maximum()-1);
 }
 
 void MovePages::toChanged()
 {
-	int pageNumber=static_cast<int>(toPageData->value());
+	if (!move)
+		return;
+	int pageNumber = static_cast<int>(toPageData->value());
 	if (pageNumber < fromPageData->value())
 		fromPageData->setValue(pageNumber);
 	if ((fromPageData->value() == 1) && (pageNumber == toPageData->maximum()))
@@ -138,9 +145,12 @@ void MovePages::toChanged()
 void MovePages::mvWherePageDataDisable(int index)
 {
 	mvWherePageData->setDisabled(index==2);
-	toPageData->setDisabled(index==3);
-	if (index==3)
-		toPageData->setValue(fromPageData->value());
+	if (toPageData)
+	{
+		toPageData->setDisabled(index==3);
+		if (index==3)
+			toPageData->setValue(fromPageData->value());
+	}
 }
 
 
