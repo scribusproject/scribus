@@ -18,8 +18,9 @@ for which a new license (GPL+exception) is in place.
 #define MARGINS_H
 
 #include <QDebug>
+#if QT_VERSION >= 0x050300
 #include <QMarginsF>
-
+#endif
 /** \brief Pagemargins and bleeds*/
 class MarginStruct
 {
