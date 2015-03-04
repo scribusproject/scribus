@@ -1752,7 +1752,7 @@ void Scribus150Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 			docu.writeAttribute("XPOS", item->xPos());
 			docu.writeAttribute("YPOS", item->yPos());
 		}
-		SetItemProps(docu, item, baseDir, true);
+		SetItemProps(docu, item, baseDir);
 		if (!item->OnMasterPage.isEmpty())
 			docu.writeAttribute("OnMasterPage", item->OnMasterPage);
 		if (!item->pixm.imgInfo.usedPath.isEmpty())
@@ -2401,12 +2401,11 @@ void Scribus150Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 	}
 }
 
-void Scribus150Format::SetItemProps(ScXmlStreamWriter& docu, PageItem* item, const QString& baseDir, bool newFormat)
+void Scribus150Format::SetItemProps(ScXmlStreamWriter& docu, PageItem* item, const QString& baseDir)
 {
 //	double xf, yf;
 	QString tmp, tmpy;
-	if (newFormat)
-		docu.writeAttribute("OwnPage", item->OwnPage);
+	docu.writeAttribute("OwnPage", item->OwnPage);
 	docu.writeAttribute("ItemID", qHash(item));
 	docu.writeAttribute("PTYPE",item->realItemType());
 	docu.writeAttribute("WIDTH",item->width());
