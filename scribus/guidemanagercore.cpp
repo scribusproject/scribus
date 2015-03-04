@@ -23,6 +23,7 @@ for which a new license (GPL+exception) is in place.
 #include "ui/guidemanager.h"
 
 GuideManagerCore::GuideManagerCore():
+	gx(0), gy(0), gw(0), gh(0),
 	undoManager(UndoManager::instance()),
 	m_page(0),
 	m_horizontalAutoGap(0.0),
@@ -39,6 +40,7 @@ GuideManagerCore::GuideManagerCore():
 }
 
 GuideManagerCore::GuideManagerCore(ScPage *parentPage):
+	gx(0), gy(0), gw(0), gh(0),
 	undoManager(UndoManager::instance()),
 	m_page(parentPage),
 	m_horizontalAutoGap(0.0),
