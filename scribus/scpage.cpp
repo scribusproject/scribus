@@ -427,6 +427,7 @@ void ScPage::restorePageItemConversion(ScItemState<std::pair<PageItem*, PageItem
 
 void ScPage::restorePageItemConversionToSymbol(ScItemState<std::pair<PageItem*, PageItem*> >* state, bool isUndo)
 {
+	//#11365... this code is not finished and broken... fixing will fix 11365
 	if (!state)
 		return;
 

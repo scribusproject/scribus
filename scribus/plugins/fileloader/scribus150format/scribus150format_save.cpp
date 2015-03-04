@@ -544,7 +544,7 @@ void Scribus150Format::writeBookmarks(ScXmlStreamWriter & docu)
 		docu.writeAttribute("Text",(*itbm).Text);
 		docu.writeAttribute("Aktion",(*itbm).Aktion);
 		docu.writeAttribute("ItemNr", (*itbm).ItemNr);
-		docu.writeAttribute("Element", qHash((*itbm).PageObject));
+		docu.writeAttribute("Element", qHash((*itbm).PageObject) & 0x7FFFFFFF);
 		docu.writeAttribute("First", (*itbm).First);
 		docu.writeAttribute("Last", (*itbm).Last);
 		docu.writeAttribute("Prev", (*itbm).Prev);
@@ -1249,7 +1249,7 @@ void Scribus150Format::writeMarks(ScXmlStreamWriter & docu)
 		{
 			const PageItem* item = mrk->getItemPtr();
 			assert(item != NULL);
-			docu.writeAttribute("ItemID", qHash(item));
+			docu.writeAttribute("ItemID", qHash(item) & 0x7FFFFFFF);
 			//docu.writeAttribute("itemName", item->itemName());
 		}
 		else if (mrk->isType(MARKVariableTextType) && mrk->hasString())
@@ -1338,7 +1338,7 @@ void Scribus150Format::writeNotesFrames(ScXmlStreamWriter &docu)
 			docu.writeEmptyElement("ENDNOTEFRAME");
 			docu.writeAttribute("NSname", NS->name());
 			docu.writeAttribute("range", (int) NS->range());
-			docu.writeAttribute("myID", qHash(nF));
+			docu.writeAttribute("myID", qHash(nF) & 0x7FFFFFFF);
 			//docu.writeAttribute("name", nF->itemName());
 			
 			rangeItem rI = m_Doc->m_docEndNotesFramesMap.value(nF);
@@ -1347,16 +1347,16 @@ void Scribus150Format::writeNotesFrames(ScXmlStreamWriter &docu)
 			else if (NS->range() == NSRpage)
 				docu.writeAttribute("index", rI.page->pageNr());
 			else if (NS->range() == NSRstory)
-				docu.writeAttribute("ItemID", qHash(rI.firstStoryFrame));
+				docu.writeAttribute("ItemID", qHash(rI.firstStoryFrame) & 0x7FFFFFFF);
 				//docu.writeAttribute("item", rI.firstStoryFrame->itemName());
 		}
 		else //footnotes frame
 		{
 			docu.writeEmptyElement("FOOTNOTEFRAME");
 			docu.writeAttribute("NSname", NS->name());
-			docu.writeAttribute("myID", qHash(nF));
+			docu.writeAttribute("myID", qHash(nF) & 0x7FFFFFFF);
 			//docu.writeAttribute("name", nF->itemName());
-			docu.writeAttribute("MasterID", qHash(nF->masterFrame()));
+			docu.writeAttribute("MasterID", qHash(nF->masterFrame()) & 0x7FFFFFFF);
 			//docu.writeAttribute("master",nF->masterFrame()->itemName());
 		}
 	}
@@ -1929,12 +1929,12 @@ void Scribus150Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 		if (item->asTextFrame() || item->asPathText() || item->asImageFrame())
 		{
 			if (item->nextInChain() != 0)
-				docu.writeAttribute("NEXTITEM", qHash(item->nextInChain()));
+				docu.writeAttribute("NEXTITEM", qHash(item->nextInChain()) & 0x7FFFFFFF);
 			else
 				docu.writeAttribute("NEXTITEM", -1);
 			
 			if (item->prevInChain() != 0 && items->contains(item->prevInChain()))
-				docu.writeAttribute("BACKITEM", qHash(item->prevInChain()));
+				docu.writeAttribute("BACKITEM", qHash(item->prevInChain()) & 0x7FFFFFFF);
 			else
 			{
 				docu.writeAttribute("BACKITEM", -1);
@@ -1960,7 +1960,7 @@ void Scribus150Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 				if (pIt->isAutoNoteFrame())
 					continue;
 				docu.writeEmptyElement("WeldEntry");
-				docu.writeAttribute("Target", qHash(wInf.weldItem));
+				docu.writeAttribute("Target", qHash(wInf.weldItem) & 0x7FFFFFFF);
 				docu.writeAttribute("WX", wInf.weldPoint.x());
 				docu.writeAttribute("WY", wInf.weldPoint.y());
 			}
@@ -2406,7 +2406,7 @@ void Scribus150Format::SetItemProps(ScXmlStreamWriter& docu, PageItem* item, con
 //	double xf, yf;
 	QString tmp, tmpy;
 	docu.writeAttribute("OwnPage", item->OwnPage);
-	docu.writeAttribute("ItemID", qHash(item));
+	docu.writeAttribute("ItemID", qHash(item) & 0x7FFFFFFF);
 	docu.writeAttribute("PTYPE",item->realItemType());
 	docu.writeAttribute("WIDTH",item->width());
 	docu.writeAttribute("HEIGHT",item->height());
@@ -2463,7 +2463,7 @@ void Scribus150Format::SetItemProps(ScXmlStreamWriter& docu, PageItem* item, con
 		if (isWelded)
 		{
 			docu.writeAttribute("isWeldItem", 1);
-			docu.writeAttribute("WeldSource", qHash(item));
+			docu.writeAttribute("WeldSource", qHash(item) & 0x7FFFFFFF);
 		}
 	}
 	if (item->asRegularPolygon())
