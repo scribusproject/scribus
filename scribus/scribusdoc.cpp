@@ -2060,9 +2060,9 @@ void ScribusDoc::restore(UndoState* state, bool isUndo)
 			ScItemsState *is = dynamic_cast<ScItemsState*>(state);
 			if (is)
 			{
-				Mark* mrk = getMarkDefinied(is->get("label"), (MarkType) is->getInt("type"));
+				Mark* mrk = getMark(is->get("label"), (MarkType) is->getInt("type"));
 				if (mrk == NULL && is->contains("labelOLD"))
-					mrk = getMarkDefinied(is->get("labelOLD"), (MarkType) is->getInt("type"));
+					mrk = getMark(is->get("labelOLD"), (MarkType) is->getInt("type"));
 				int pos = is->getInt("at");
 				bool isAutoNoteFrame = false;
 				PageItem* currItem = NULL;
@@ -2096,7 +2096,7 @@ void ScribusDoc::restore(UndoState* state, bool isUndo)
 						Q_ASSERT(pos >= 0);
 						Q_ASSERT(currItem != NULL);
 						Q_ASSERT(mrk != NULL);
-						Mark* mrk = getMarkDefinied(is->get("label"), (MarkType) is->getInt("type"));
+						Mark* mrk = getMark(is->get("label"), (MarkType) is->getInt("type"));
 						currItem->itemText.replaceMark(pos, mrk);
 						if (is->contains("strtxtOLD"))
 						{
@@ -2221,7 +2221,7 @@ void ScribusDoc::restore(UndoState* state, bool isUndo)
 					{
 						Q_ASSERT(currItem != NULL);
 						Q_ASSERT(pos >= 0);
-						currItem->itemText.replaceMark(pos, getMarkDefinied(is->get("label"), (MarkType) is->getInt("type")));
+						currItem->itemText.replaceMark(pos, getMark(is->get("label"), (MarkType) is->getInt("type")));
 						if (is->contains("strtxtNEW"))
 						{
 							mrk->setString(is->get("strtxtNEW"));
@@ -17441,7 +17441,7 @@ QStringList ScribusDoc::marksLabelsList(MarkType type)
 	return nameList;
 }
 
-Mark* ScribusDoc::getMarkDefinied(QString l, MarkType t)
+Mark* ScribusDoc::getMark(QString l, MarkType t)
 {
 	foreach (Mark* mrk, m_docMarksList)
 	{
@@ -17623,7 +17623,7 @@ bool ScribusDoc::eraseMark(Mark *mrk, bool fromText, PageItem *item, bool force)
 			QString l;
 			MarkType t;
 			m->getMark(l, t);
-			if (mrk == getMarkDefinied(l, t))
+			if (mrk == getMark(l, t))
 			{
 				setUndoDelMark(m);
 				eraseMark(m, true, NULL, true);
@@ -17822,7 +17822,7 @@ bool ScribusDoc::updateMarks(bool updateNotesMarks)
 			QString l;
 			MarkType t;
 			mrk->getMark(l,t);
-			Mark* destMark = getMarkDefinied(l,t);
+			Mark* destMark = getMark(l,t);
 			if (destMark != NULL)
 			{
 				PageItem* dItem = findFirstMarkItem(destMark);

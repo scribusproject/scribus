@@ -9265,7 +9265,7 @@ void ScribusMainWindow::slotInsertMarkNote()
 			label += " in " + currItem->firstInChain()->itemName();
 		else if (nStyle->range() == NSRframe)
 			label += " in frame" + currItem->itemName();
-		if (doc->getMarkDefinied(label + "_1", MARKNoteMasterType) != NULL)
+		if (doc->getMark(label + "_1", MARKNoteMasterType) != NULL)
 			getUniqueName(label,doc->marksLabelsList(MARKNoteMasterType), "_"); //FIX ME here user should be warned that inserted mark`s label was changed
 		else
 			label = label + "_1";
@@ -9417,7 +9417,7 @@ bool ScribusMainWindow::insertMarkDialog(PageItem_TextFrame* currItem, MarkType 
 			//check if label for new mark can be used as is
 			if (mrkType == MARKNoteMasterType)
 			{
-				if (doc->getMarkDefinied(label + "_1", mrkType) != NULL)
+				if (doc->getMark(label + "_1", mrkType) != NULL)
 					getUniqueName(label,doc->marksLabelsList(mrkType), "_"); //FIX ME here user should be warned that inserted mark`s label was changed
 				else
 					label = label + "_1";
@@ -9530,7 +9530,7 @@ bool ScribusMainWindow::editMarkDlg(Mark *mrk, PageItem_TextFrame* currItem)
 				QString l;
 				MarkType t;
 				mrk->getMark(l,t);
-				Mark* m = doc->getMarkDefinied(l,t);
+				Mark* m = doc->getMark(l,t);
 				editMDialog->setValues(mrk->label, m);
 			}
 			break;

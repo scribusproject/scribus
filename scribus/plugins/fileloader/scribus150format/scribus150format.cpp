@@ -3424,7 +3424,7 @@ bool Scribus150Format::readMarks(ScribusDoc* doc, ScXmlStreamReader& reader)
 				{
 					QString mark2Label = attrs.valueAsString("MARKlabel");
 					MarkType mark2Type = (MarkType) attrs.valueAsInt("MARKtype");
-					Mark* mark2 = doc->getMarkDefinied(mark2Label, mark2Type);
+					Mark* mark2 = doc->getMark(mark2Label, mark2Type);
 					if (mark2 != NULL) //mark is not defined yet, insert into temp list for update to pointers later
 						mark->setMark(mark2);
 					else
@@ -3953,16 +3953,16 @@ bool Scribus150Format::readObject(ScribusDoc* doc, ScXmlStreamReader& reader, It
 				Mark* mark = NULL;
 				if (m_Doc->isLoading())
 				{
-					mark = m_Doc->getMarkDefinied(l, t);
+					mark = m_Doc->getMark(l, t);
 				}
 				else
 				{	//doc is not loading so it is copy/paste task
 					if (t == MARKVariableTextType)
-						mark = m_Doc->getMarkDefinied(l, t);
+						mark = m_Doc->getMark(l, t);
 					else
 					{
 						//create copy of mark
-						Mark* oldMark = m_Doc->getMarkDefinied(l, t);
+						Mark* oldMark = m_Doc->getMark(l, t);
 						if (oldMark == NULL)
 						{
 							qWarning() << "wrong copy of oldMark";
@@ -4447,16 +4447,16 @@ bool Scribus150Format::readStoryText(ScribusDoc *doc, ScXmlStreamReader& reader,
 			Mark* mark = NULL;
 			if (m_Doc->isLoading())
 			{
-				mark = m_Doc->getMarkDefinied(l, t);
+				mark = m_Doc->getMark(l, t);
 			}
 			else
 			{	//doc is not loading so it is copy/paste task
 				if (t == MARKVariableTextType)
-					mark = m_Doc->getMarkDefinied(l, t);
+					mark = m_Doc->getMark(l, t);
 				else
 				{
 					//create copy of mark
-					Mark* oldMark = m_Doc->getMarkDefinied(l, t);
+					Mark* oldMark = m_Doc->getMark(l, t);
 					if (oldMark == NULL)
 					{
 						qWarning() << "wrong copy of oldMark";
@@ -5911,7 +5911,7 @@ bool Scribus150Format::loadPage(const QString & fileName, int pageNumber, bool M
 			success = readArrows(m_Doc, attrs);
 			if (!success) break;
 		}
-		if(tagName == "MultiLine")
+		if (tagName == "MultiLine")
 		{
 			multiLine ml;
 			QString mlName  = attrs.valueAsString("Name");
@@ -6668,7 +6668,7 @@ void Scribus150Format::updateNames2Ptr() //after document load - items pointers 
 			{
 				qWarning() << "Scribus150Format::updateNames2Ptr() : wrong mark [" << mrk->label << "] data - item [" << ItemID << "] not exists - DELETING MARK";
 				if (!m_Doc->eraseMark(mrk, true))
-					qWarning() << "Erase mark [" << mrk->label << "] failed - was it definied?";
+					qWarning() << "Erase mark [" << mrk->label << "] failed - was it defined?";
 			}
 		}
 		markeredItemsMap.clear();
@@ -6683,7 +6683,7 @@ void Scribus150Format::updateNames2Ptr() //after document load - items pointers 
 			QMap<QString, MarkType> mark2map = markIt.value();
 			QString label2 = mark2map.begin().key();
 			MarkType type2 = mark2map.begin().value();
-			Mark* mark2 = m_Doc->getMarkDefinied(label2, type2);
+			Mark* mark2 = m_Doc->getMark(label2, type2);
 			if (mark2 != NULL)
 			{
 				mark->setMark(mark2);
@@ -6757,7 +6757,7 @@ void Scribus150Format::updateNames2Ptr() //after document load - items pointers 
 			TextNote* note = it.value();
 			assert(note != NULL);
 			QString mrkLabel = it.key();
-			Mark* mrk = m_Doc->getMarkDefinied(mrkLabel, MARKNoteMasterType);
+			Mark* mrk = m_Doc->getMark(mrkLabel, MARKNoteMasterType);
 			if (mrk == NULL)
 			{
 				qWarning() << "Scribus150Format::updateNames2Ptr() : cannot find master mark ("<<mrkLabel <<") for note - note will be deleted";

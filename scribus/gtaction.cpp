@@ -167,7 +167,7 @@ void gtAction::writeUnstyled(const QString& text, bool isNote)
 				label += " in " + it->firstInChain()->itemName();
 			else if (nStyle->range() == NSRframe)
 				label += " in frame" + it->itemName();
-			if (it->m_Doc->getMarkDefinied(label + "_1", MARKNoteMasterType) != NULL)
+			if (it->m_Doc->getMark(label + "_1", MARKNoteMasterType) != NULL)
 				getUniqueName(label,it->m_Doc->marksLabelsList(MARKNoteMasterType), "_"); //FIX ME here user should be warned that inserted mark`s label was changed
 			else
 				label = label + "_1";
@@ -322,7 +322,7 @@ void gtAction::write(const QString& text, gtStyle *style, bool isNote)
 				label += " in " + it->firstInChain()->itemName();
 			else if (nStyle->range() == NSRframe)
 				label += " in frame" + it->itemName();
-			if (it->m_Doc->getMarkDefinied(label + "_1", MARKNoteMasterType) != NULL)
+			if (it->m_Doc->getMark(label + "_1", MARKNoteMasterType) != NULL)
 				getUniqueName(label,it->m_Doc->marksLabelsList(MARKNoteMasterType), "_"); //FIX ME here user should be warned that inserted mark`s label was changed
 			else
 				label = label + "_1";

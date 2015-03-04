@@ -1719,8 +1719,8 @@ public:
 	//returns list of marks labels for given mark type
 	QStringList marksLabelsList(MarkType type);
 
-	//return mark definied with gioven label and given type
-	Mark* getMarkDefinied(QString label, MarkType type); //returns mark with label and type (labels are unique only for same type marks)
+	//return mark with given label and given type
+	Mark* getMark(QString label, MarkType type); //returns mark with label and type (labels are unique only for same type marks)
 	Mark* newMark(Mark* mrk = NULL);
 	TextNote* newNote(NotesStyle* NS);
 	

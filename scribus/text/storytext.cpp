@@ -1877,7 +1877,7 @@ void StoryText::saxx(SaxHandler& handler, const Xml_string& elemtag) const
 				QString l;
 				MarkType t;
 				mrk->getMark(l, t);
-				if (m_doc->getMarkDefinied(l,t) != NULL)
+				if (m_doc->getMark(l,t) != NULL)
 				{
 					mark_attr.insert("mark_l", l);
 					mark_attr.insert("mark_t", QString::number((int) t));
@@ -2080,7 +2080,7 @@ public:
 				ScribusDoc* doc  = this->dig->lookup<ScribusDoc>("<scribusdoc>");
 				//				ParagraphStyle* pstyle = NULL;
 				if (t == MARKVariableTextType)
-					mrk = doc->getMarkDefinied(l,t);
+					mrk = doc->getMark(l,t);
 				//			else if (t == MARKBullNumType)
 				//			{
 				//				mrk = (Mark*) new BulNumMark();
@@ -2156,7 +2156,7 @@ public:
 					}
 					if (mrk->isType(MARK2MarkType) && (m_lIt != attr.end()) && (m_tIt != attr.end()))
 					{
-						Mark* targetMark = doc->getMarkDefinied(Xml_data(m_lIt), (MarkType) parseInt(Xml_data(m_tIt)));
+						Mark* targetMark = doc->getMark(Xml_data(m_lIt), (MarkType) parseInt(Xml_data(m_tIt)));
 						mrk->setMark(targetMark);
 						if (targetMark == NULL)
 							mrk->setString("0");
