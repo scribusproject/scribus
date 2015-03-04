@@ -489,12 +489,12 @@ void Scribus150Format::writeLinestyles(ScXmlStreamWriter& docu)
 		for (itMU2 = ml.begin(); itMU2 != ml.end(); ++itMU2)
 		{
 			docu.writeEmptyElement("SubLine");
-			docu.writeAttribute("Color", (*itMU2).Color);
-			docu.writeAttribute("Shade", (*itMU2).Shade);
-			docu.writeAttribute("Dash", (*itMU2).Dash);
-			docu.writeAttribute("LineEnd", (*itMU2).LineEnd);
-			docu.writeAttribute("LineJoin", (*itMU2).LineJoin);
-			docu.writeAttribute("Width", (*itMU2).Width);
+			docu.writeAttribute("Color", itMU2->Color);
+			docu.writeAttribute("Shade", itMU2->Shade);
+			docu.writeAttribute("Dash", itMU2->Dash);
+			docu.writeAttribute("LineEnd", itMU2->LineEnd);
+			docu.writeAttribute("LineJoin", itMU2->LineJoin);
+			docu.writeAttribute("Width", itMU2->Width);
 			docu.writeAttribute("Shortcut", ml.shortcut);
 		}
 		docu.writeEndElement();
@@ -502,20 +502,20 @@ void Scribus150Format::writeLinestyles(ScXmlStreamWriter& docu)
 	QList<ArrowDesc>::Iterator itar;
 	for (itar = m_Doc->arrowStyles().begin(); itar != m_Doc->arrowStyles().end(); ++itar)
 	{
-		if ((*itar).userArrow)
+		if (itar->userArrow)
 		{
 			docu.writeEmptyElement("Arrows");
-			docu.writeAttribute("NumPoints", (*itar).points.size());
+			docu.writeAttribute("NumPoints", itar->points.size());
 			QString arp = "";
 			QString tmp, tmpy;
 			double xa, ya;
-			for (int nxx = 0; nxx < (*itar).points.size(); ++nxx)
+			for (int nxx = 0; nxx < itar->points.size(); ++nxx)
 			{
-				(*itar).points.point(nxx, &xa, &ya);
+				itar->points.point(nxx, &xa, &ya);
 				arp += tmp.setNum(xa) + " " + tmpy.setNum(ya) + " ";
 			}
 			docu.writeAttribute("Points", arp);
-			docu.writeAttribute("Name", (*itar).name);
+			docu.writeAttribute("Name", itar->name);
 		}
 	}
 }
@@ -540,16 +540,16 @@ void Scribus150Format::writeBookmarks(ScXmlStreamWriter & docu)
 	for (itbm = m_Doc->BookMarks.begin(); itbm != m_Doc->BookMarks.end(); ++itbm)
 	{
 		docu.writeEmptyElement("Bookmark");
-		docu.writeAttribute("Title",(*itbm).Title);
-		docu.writeAttribute("Text",(*itbm).Text);
-		docu.writeAttribute("Aktion",(*itbm).Aktion);
-		docu.writeAttribute("ItemNr", (*itbm).ItemNr);
-		docu.writeAttribute("Element", qHash((*itbm).PageObject) & 0x7FFFFFFF);
-		docu.writeAttribute("First", (*itbm).First);
-		docu.writeAttribute("Last", (*itbm).Last);
-		docu.writeAttribute("Prev", (*itbm).Prev);
-		docu.writeAttribute("Next", (*itbm).Next);
-		docu.writeAttribute("Parent", (*itbm).Parent);
+		docu.writeAttribute("Title", itbm->Title);
+		docu.writeAttribute("Text", itbm->Text);
+		docu.writeAttribute("Aktion", itbm->Aktion);
+		docu.writeAttribute("ItemNr", itbm->ItemNr);
+		docu.writeAttribute("Element", qHash(itbm->PageObject) & 0x7FFFFFFF);
+		docu.writeAttribute("First", itbm->First);
+		docu.writeAttribute("Last", itbm->Last);
+		docu.writeAttribute("Prev", itbm->Prev);
+		docu.writeAttribute("Next", itbm->Next);
+		docu.writeAttribute("Parent", itbm->Parent);
 	}
 }
 
@@ -1146,13 +1146,13 @@ void Scribus150Format::writeDocItemAttributes(ScXmlStreamWriter & docu)
 	for(ObjAttrVector::Iterator objAttrIt = m_Doc->itemAttributes().begin() ; objAttrIt != m_Doc->itemAttributes().end(); ++objAttrIt )
 	{
 		docu.writeEmptyElement("ItemAttribute");
-		docu.writeAttribute("Name", (*objAttrIt).name);
-		docu.writeAttribute("Type", (*objAttrIt).type);
-		docu.writeAttribute("Value", (*objAttrIt).value);
-		docu.writeAttribute("Parameter", (*objAttrIt).parameter);
-		docu.writeAttribute("Relationship", (*objAttrIt).relationship);
-		docu.writeAttribute("RelationshipTo", (*objAttrIt).relationshipto);
-		docu.writeAttribute("AutoAddTo", (*objAttrIt).autoaddto);
+		docu.writeAttribute("Name", objAttrIt->name);
+		docu.writeAttribute("Type", objAttrIt->type);
+		docu.writeAttribute("Value", objAttrIt->value);
+		docu.writeAttribute("Parameter", objAttrIt->parameter);
+		docu.writeAttribute("Relationship", objAttrIt->relationship);
+		docu.writeAttribute("RelationshipTo", objAttrIt->relationshipto);
+		docu.writeAttribute("AutoAddTo", objAttrIt->autoaddto);
 	}
 	docu.writeEndElement();
 }
@@ -1164,12 +1164,12 @@ void Scribus150Format::writeTOC(ScXmlStreamWriter & docu)
 	for(ToCSetupVector::Iterator tocSetupIt = m_Doc->tocSetups().begin() ; tocSetupIt != m_Doc->tocSetups().end(); ++tocSetupIt )
 	{
 		docu.writeEmptyElement("TableOfContents");
-		docu.writeAttribute("Name", (*tocSetupIt).name);
-		docu.writeAttribute("ItemAttributeName", (*tocSetupIt).itemAttrName);
-		docu.writeAttribute("FrameName", (*tocSetupIt).frameName);
-		docu.writeAttribute("ListNonPrinting", (*tocSetupIt).listNonPrintingFrames);
-		docu.writeAttribute("Style", (*tocSetupIt).textStyle);
-		switch ((*tocSetupIt).pageLocation)
+		docu.writeAttribute("Name", tocSetupIt->name);
+		docu.writeAttribute("ItemAttributeName", tocSetupIt->itemAttrName);
+		docu.writeAttribute("FrameName", tocSetupIt->frameName);
+		docu.writeAttribute("ListNonPrinting", tocSetupIt->listNonPrintingFrames);
+		docu.writeAttribute("Style", tocSetupIt->textStyle);
+		switch (tocSetupIt->pageLocation)
 		{
 			case Beginning:
 				docu.writeAttribute("NumberPlacement", "Beginning");
@@ -1392,14 +1392,14 @@ void Scribus150Format::writePageSets(ScXmlStreamWriter & docu)
 	for(itpgset = pageSet.begin(); itpgset != pageSet.end(); ++itpgset )
 	{
 		docu.writeStartElement("Set");
-		docu.writeAttribute("Name", (*itpgset).Name);
-		docu.writeAttribute("FirstPage", (*itpgset).FirstPage);
-		docu.writeAttribute("Rows", (*itpgset).Rows);
-		docu.writeAttribute("Columns", (*itpgset).Columns);
-//		docu.writeAttribute("GapHorizontal", (*itpgset).GapHorizontal);
-//		docu.writeAttribute("GapVertical", (*itpgset).GapVertical);
-//		docu.writeAttribute("GapBelow", (*itpgset).GapBelow);
-		QStringList pNames = (*itpgset).pageNames;
+		docu.writeAttribute("Name", itpgset->Name);
+		docu.writeAttribute("FirstPage", itpgset->FirstPage);
+		docu.writeAttribute("Rows", itpgset->Rows);
+		docu.writeAttribute("Columns", itpgset->Columns);
+//		docu.writeAttribute("GapHorizontal", itpgset->GapHorizontal);
+//		docu.writeAttribute("GapVertical", itpgset->GapVertical);
+//		docu.writeAttribute("GapBelow", itpgset->GapBelow);
+		QStringList pNames = itpgset->pageNames;
 		QStringList::Iterator itpgsetN;
 		for(itpgsetN = pNames.begin(); itpgsetN != pNames.end(); ++itpgsetN )
 		{
@@ -2387,13 +2387,13 @@ void Scribus150Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 			for(ObjAttrVector::Iterator objAttrIt = attributes->begin() ; objAttrIt != attributes->end(); ++objAttrIt )
 			{
 				docu.writeEmptyElement("ItemAttribute");
-				docu.writeAttribute("Name", (*objAttrIt).name);
-				docu.writeAttribute("Type", (*objAttrIt).type);
-				docu.writeAttribute("Value", (*objAttrIt).value);
-				docu.writeAttribute("Parameter", (*objAttrIt).parameter);
-				docu.writeAttribute("Relationship", (*objAttrIt).relationship);
-				docu.writeAttribute("RelationshipTo", (*objAttrIt).relationshipto);
-				docu.writeAttribute("AutoAddTo", (*objAttrIt).autoaddto);
+				docu.writeAttribute("Name", objAttrIt->name);
+				docu.writeAttribute("Type", objAttrIt->type);
+				docu.writeAttribute("Value", objAttrIt->value);
+				docu.writeAttribute("Parameter", objAttrIt->parameter);
+				docu.writeAttribute("Relationship", objAttrIt->relationship);
+				docu.writeAttribute("RelationshipTo", objAttrIt->relationshipto);
+				docu.writeAttribute("AutoAddTo", objAttrIt->autoaddto);
 			}
 			docu.writeEndElement();
 		}
