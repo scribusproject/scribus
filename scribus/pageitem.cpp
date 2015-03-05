@@ -1420,15 +1420,20 @@ void PageItem::dropLinks()
 		return;
 
 	itemText = StoryText(m_Doc);
+	
+	int afterChar = 0;
 	if (before)
+	{
 		before->NextBox = after;
+		afterChar = qMin((int) before->MaxChars, before->itemText.length());
+	}
 	if (after) 
 	{
 		after->BackBox = before;
 		while (after)
 		{ 
 			after->invalid = true;
-			after->firstChar = 0;
+			after->firstChar = afterChar;
 			after = after->NextBox;
 		}
 	}
