@@ -3078,8 +3078,12 @@ void PageItem_TextFrame::layout()
 	if (NextBox != NULL)
 	{
 		PageItem_TextFrame * nextFrame = dynamic_cast<PageItem_TextFrame*>(NextBox);
-		nextFrame->invalid   = true;
-		nextFrame->firstChar = MaxChars;
+		while (nextFrame)
+		{
+			nextFrame->invalid   = true;
+			nextFrame->firstChar = MaxChars;
+			nextFrame = dynamic_cast<PageItem_TextFrame*>(nextFrame->NextBox);
+		}
 	}
 	itemText.blockSignals(false);
 //	qDebug("textframe: len=%d, done relayout", itemText.length());
