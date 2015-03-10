@@ -497,9 +497,14 @@ void PropertiesPalette_Table::on_fillColor_activated(const QString& colorName)
 	}
 	else
 	{
-		TableCell cell = table->activeCell();
-		cell.setFillColor(color);
-		cell.setFillShade(fillShade->value());
+		QSet<TableCell> cells = table->selectedCells();
+		QSet<TableCell>::Iterator cellIter;
+		for (cellIter = cells.begin(); cellIter != cells.end(); cellIter++)
+		{
+			TableCell currentCell(*cellIter);
+			currentCell.setFillColor(color);
+			currentCell.setFillShade(fillShade->value());
+		}
 	}
 
 	table->update();
@@ -521,9 +526,14 @@ void PropertiesPalette_Table::on_fillShade_valueChanged(int shade)
 	}
 	else
 	{
-		TableCell cell = table->activeCell();
-		cell.setFillColor(color);
-		cell.setFillShade(shade);
+		QSet<TableCell> cells = table->selectedCells();
+		QSet<TableCell>::Iterator cellIter;
+		for (cellIter = cells.begin(); cellIter != cells.end(); cellIter++)
+		{
+			TableCell currentCell(*cellIter);
+			currentCell.setFillColor(color);
+			currentCell.setFillShade(shade);
+		}
 	}
 	table->update();
 }
