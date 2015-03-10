@@ -89,7 +89,7 @@ void ScrPainter::startGraphics(double width, double height)
 		else
 			m_Doc->setPageOrientation(0);
 		m_Doc->setPageSize("Custom");
-		m_Doc->changePageMargins(0, 0, 0, 0, 72 * height, 72 * width, 72 * height, 72 * width, m_Doc->pageOrientation(), m_Doc->pageSize(), m_Doc->currentPage()->pageNr(), 0);
+		m_Doc->changePageProperties(0, 0, 0, 0, 72 * height, 72 * width, 72 * height, 72 * width, m_Doc->pageOrientation(), m_Doc->pageSize(), m_Doc->currentPage()->pageNr(), 0);
 	}
 	firstLayer = true;
 }

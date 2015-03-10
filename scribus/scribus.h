@@ -420,7 +420,7 @@ public slots:
 	/** \brief Verschiebt Seiten */
 	void movePage();
 	void copyPage();
-	void changePageMargins();
+	void changePageProperties();
 	/*!
 	\author Craig Bradney
 	\date Sun 30 Jan 2005

@@ -629,7 +629,7 @@ void ActionManager::initPageMenuActions()
 	name="pageManageGuides";
 	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
 	(*scrActions)["pageManageGuides"]->setToggleAction(true);
-	name="pageManageMargins";
+	name="pageManageProperties";
 	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
 
 	connect( (*scrActions)["pageInsert"], SIGNAL(triggered()), mainWindow, SLOT(slotNewPageM()) );
@@ -639,7 +639,7 @@ void ActionManager::initPageMenuActions()
 	connect( (*scrActions)["pageMove"], SIGNAL(triggered()), mainWindow, SLOT(movePage()) );
 	connect( (*scrActions)["pageApplyMasterPage"], SIGNAL(triggered()), mainWindow, SLOT(ApplyMasterPage()) );
 	connect( (*scrActions)["pageCopyToMasterPage"], SIGNAL(triggered()), mainWindow, SLOT(duplicateToMasterPage()) );
-	connect( (*scrActions)["pageManageMargins"], SIGNAL(triggered()), mainWindow, SLOT(changePageMargins()) );
+	connect( (*scrActions)["pageManageProperties"], SIGNAL(triggered()), mainWindow, SLOT(changePageProperties()) );
 }
 
 void ActionManager::initViewMenuActions()
@@ -1629,7 +1629,7 @@ void ActionManager::languageChange()
 	(*scrActions)["pageApplyMasterPage"]->setTexts( tr("&Apply Master Page..."));
 	(*scrActions)["pageCopyToMasterPage"]->setTexts( tr("Convert to Master Page..."));
 	(*scrActions)["pageManageGuides"]->setTexts( tr("Manage &Guides..."));
-	(*scrActions)["pageManageMargins"]->setTexts( tr("Manage Page Properties..."));
+	(*scrActions)["pageManageProperties"]->setTexts( tr("Manage Page Properties..."));
 
 	//View Menu
 	(*scrActions)["viewFitInWindow"]->setTexts( tr("&Fit to Height"));
@@ -2265,7 +2265,7 @@ void ActionManager::createDefaultMenus()
 		<< "pageApplyMasterPage"
 		<< "pageCopyToMasterPage"
 		<< "pageManageGuides"
-		<< "pageManageMargins"
+		<< "pageManageProperties"
 		<< "viewSnapToGrid"
 		<< "viewSnapToGuides"
 		<< "viewSnapToElements";

@@ -791,7 +791,7 @@ void DrwPlug::decodeCmd(quint8 cmd, int pos)
 				else
 					m_Doc->setPageOrientation(0);
 				m_Doc->setPageSize("Custom");
-				m_Doc->changePageMargins(0, 0, 0, 0, docHeight, docWidth, docHeight, docWidth, m_Doc->pageOrientation(), m_Doc->pageSize(), m_Doc->currentPage()->pageNr(), 0);
+				m_Doc->changePageProperties(0, 0, 0, 0, docHeight, docWidth, docHeight, docWidth, m_Doc->pageOrientation(), m_Doc->pageSize(), m_Doc->currentPage()->pageNr(), 0);
 				cmdText = QString("DRW Page  Width %1  Height %2").arg(docWidth).arg(docHeight);
 			}
 			break;

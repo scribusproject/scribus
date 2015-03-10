@@ -601,7 +601,7 @@ void ContextMenu::createMenuItems_NoSelection(double mx, double my)
 		addSeparator();
 		addAction(m_ScMW->scrActions["pageApplyMasterPage"]);
 		addAction(m_ScMW->scrActions["pageManageGuides"]);
-		addAction(m_ScMW->scrActions["pageManageMargins"]);
+		addAction(m_ScMW->scrActions["pageManageProperties"]);
 		if (m_ScMW->scrActions["pageDelete"]->isEnabled())
 		{
 			addSeparator();

@@ -1430,7 +1430,7 @@ void AppModeHelper::mainWindowHasNewDoc(ScribusDoc *doc, bool clipScrapHaveData)
 	(*a_scrActions)["pageApplyMasterPage"]->setEnabled(true);
 	(*a_scrActions)["pageCopyToMasterPage"]->setEnabled(true);
 	(*a_scrActions)["pageManageGuides"]->setEnabled(true);
-	(*a_scrActions)["pageManageMargins"]->setEnabled(true);
+	(*a_scrActions)["pageManageProperties"]->setEnabled(true);
 }
 
 void AppModeHelper::mainWindowSwitchWin(ScribusDoc *doc)
@@ -1492,7 +1492,7 @@ void AppModeHelper::mainWindowSwitchWin(ScribusDoc *doc)
 		(*a_scrActions)["pageApplyMasterPage"]->setEnabled(true);
 		(*a_scrActions)["pageCopyToMasterPage"]->setEnabled(true);
 		(*a_scrActions)["pageManageGuides"]->setEnabled(true);
-		(*a_scrActions)["pageManageMargins"]->setEnabled(true);
+		(*a_scrActions)["pageManageProperties"]->setEnabled(true);
 
 		(*a_scrActions)["fileSaveAs"]->setEnabled(true);
 		(*a_scrActions)["fileCollect"]->setEnabled(true);
@@ -1585,7 +1585,7 @@ void AppModeHelper::mainWindowCloseLastDoc()
 	(*a_scrActions)["pageImport"]->setEnabled(false);
 	(*a_scrActions)["pageInsert"]->setEnabled(false);
 	(*a_scrActions)["pageManageGuides"]->setEnabled(false);
-	(*a_scrActions)["pageManageMargins"]->setEnabled(false);
+	(*a_scrActions)["pageManageProperties"]->setEnabled(false);
 	(*a_scrActions)["pageMove"]->setEnabled(false);
 	(*a_scrActions)["toolsCopyProperties"]->setEnabled(false);
 	(*a_scrActions)["toolsEditContents"]->setEnabled(false);
@@ -1717,7 +1717,7 @@ void AppModeHelper::setStartupActionsEnabled(bool enabled)
 	(*a_scrActions)["pageApplyMasterPage"]->setEnabled(false);
 	(*a_scrActions)["pageCopyToMasterPage"]->setEnabled(false);
 	(*a_scrActions)["pageManageGuides"]->setEnabled(false);
-	(*a_scrActions)["pageManageMargins"]->setEnabled(false);
+	(*a_scrActions)["pageManageProperties"]->setEnabled(false);
 	(*a_scrActions)["editUndoAction"]->setEnabled(false);
 	(*a_scrActions)["editRedoAction"]->setEnabled(false);
 	(*a_scrActions)["editCut"]->setEnabled(false);

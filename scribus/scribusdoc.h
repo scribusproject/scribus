@@ -756,6 +756,7 @@ public:
 	void restoreMovePage(SimpleState *state, bool isUndo);
 	void restoreSwapPage(SimpleState *state, bool isUndo);
 	void restoreAddMasterPage(SimpleState *state, bool isUndo);
+	void restoreChangePageProperties(SimpleState *state, bool isUndo);
 	/**
 	 * @brief Undo function for grouping/ungrouping
 	 */
@@ -772,7 +773,7 @@ public:
 	/**
 	 * @brief Set the page margins. Current code uses current page only, also provide a (currently, TODO) option for this.
 	 */
-	bool changePageMargins(const double initialTop, const double initialBottom, const double initialLeft, const double initialRight, const double initialHeight, const double initialWidth, const double Height, const double width, const int orientation, const QString& pageSize, const int marginPreset, const bool moveObjects, const int pageNumber=-1, const int pageType = 0);
+	bool changePageProperties(const double initialTop, const double initialBottom, const double initialLeft, const double initialRight, const double initialHeight, const double initialWidth, const double Height, const double width, const int orientation, const QString& pageSize, const int marginPreset, const bool moveObjects, const int pageNumber=-1, const int pageType = 0);
 	/**
 	 * @brief Recalculate the colors after CMS settings change. Update the items in the doc accordingly.
 	 */

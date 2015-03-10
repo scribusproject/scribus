@@ -1036,7 +1036,7 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->addMenuItemString("pageApplyMasterPage", "Page");
 	scrMenuMgr->addMenuItemString("pageCopyToMasterPage", "Page");
 	scrMenuMgr->addMenuItemString("pageManageGuides", "Page");
-	scrMenuMgr->addMenuItemString("pageManageMargins", "Page");
+	scrMenuMgr->addMenuItemString("pageManageProperties", "Page");
 	scrMenuMgr->addMenuItemString("SEPARATOR", "Page");
 	scrMenuMgr->addMenuItemString("viewSnapToGrid", "Page");
 	scrMenuMgr->addMenuItemString("viewSnapToGuides", "Page");
@@ -6068,7 +6068,7 @@ void ScribusMainWindow::copyPage()
 	delete dia;
 }
 
-void ScribusMainWindow::changePageMargins()
+void ScribusMainWindow::changePageProperties()
 {
 	if (!HaveDoc)
 		return;
@@ -6079,28 +6079,17 @@ void ScribusMainWindow::changePageMargins()
 	if (dia->exec())
 	{
 		int orientation = dia->getPageOrientation();
-		double ph = dia->getPageHeight();
-		double pw = dia->getPageWidth();
-		QString sizeName = dia->getpPrefsPageSizeName();
-		if (doc->masterPageMode())
-		{
-			int lp=0;
-			if (doc->pagePositioning() != singlePage)
-				lp = dia->pageOrder();
-			doc->changePageMargins(dia->top(), dia->bottom(),
-								   dia->left(), dia->right(),
-								   ph, pw, ph, pw, orientation,
-								   sizeName, dia->getMarginPreset(), dia->getMoveObjects(), doc->currentPage()->pageNr(), lp);
-		}
-		else
-		{
-			doc->changePageMargins(dia->top(), dia->bottom(),
-								   dia->left(), dia->right(),
-								   ph, pw, ph, pw, orientation,
-								   sizeName, dia->getMarginPreset(), dia->getMoveObjects(), doc->currentPage()->pageNr());
-			if (dia->masterPage() != currPageMasterPageName)
-				Apply_MasterPage(dia->masterPage(), doc->currentPage()->pageNr());
-		}
+		double pageHeight = dia->getPageHeight();
+		double pageWidth = dia->getPageWidth();
+		QString pageSizeName = dia->getpPrefsPageSizeName();
+		int lp=0;
+		if (doc->masterPageMode() && doc->pagePositioning() != singlePage)
+			lp = dia->pageOrder();
+		doc->changePageProperties(dia->top(), dia->bottom(), dia->left(), dia->right(),
+							   pageHeight, pageWidth, pageHeight, pageWidth, orientation,
+							   pageSizeName, dia->getMarginPreset(), dia->getMoveObjects(), doc->currentPage()->pageNr(), lp);
+		if (!doc->masterPageMode() && dia->masterPage() != currPageMasterPageName)
+			Apply_MasterPage(dia->masterPage(), doc->currentPage()->pageNr());
 		doc->updateEndnotesFrames();
 	}
 	delete dia;
@@ -7676,6 +7665,8 @@ void ScribusMainWindow::restoreDeletePage(SimpleState *state, bool isUndo)
 
 void ScribusMainWindow::restoreAddPage(SimpleState *state, bool isUndo)
 {
+	if (!HaveDoc)
+		return;
 	int wo    = state->getInt("PAGE");
 	int where = state->getInt("WHERE");
 	int count = state->getInt("COUNT");
@@ -7722,7 +7713,7 @@ void ScribusMainWindow::restoreAddPage(SimpleState *state, bool isUndo)
 			undoManager->replaceObject(doc->Pages->at(i)->getUId(), duo);
 			state->set(QString("Page%1").arg(i), static_cast<uint>(did));
 		}
-		if (HaveDoc && doc->appMode == modeEditClip)
+		if (doc->appMode == modeEditClip)
 			view->requestMode(submodeEndNodeEdit);
 		view->Deselect(true);
 		deletePage(delFrom, delTo);

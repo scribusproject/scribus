@@ -1880,24 +1880,7 @@ void ScribusDoc::restore(UndoState* state, bool isUndo)
 		else if (ss->contains("LEVEL_TOP"))
 			restoreLevelBottom(ss,!isUndo);
 		else if (ss->contains("PAGE_CHANGEPROPS"))
-		{
-			if (isUndo)
-			{
-				changePageMargins(ss->getDouble("OLD_PAGE_INITIALTOP"), ss->getDouble("OLD_PAGE_INITIALBOTTOM"),
-						ss->getDouble("OLD_PAGE_INITIALLEFT"), ss->getDouble("OLD_PAGE_INITIALRIGHT"),
-						ss->getDouble("OLD_PAGE_INITIALHEIGHT"), ss->getDouble("OLD_PAGE_INITIALWIDTH"),
-						ss->getDouble("OLD_PAGE_HEIGHT"), ss->getDouble("OLD_PAGE_WIDTH"), ss->getInt("OLD_PAGE_ORIENTATION"),
-						ss->get("OLD_PAGE_SIZE"), ss->getInt("OLD_PAGE_MARGINPRESET"), ss->getBool("OLD_PAGE_MOVEOBJECTS"), ss->getInt("PAGE_NUM"), ss->getInt("OLD_PAGE_TYPE"));
-			}
-			else
-			{
-				changePageMargins(ss->getDouble("NEW_PAGE_INITIALTOP"), ss->getDouble("NEW_PAGE_INITIALBOTTOM"),
-						ss->getDouble("NEW_PAGE_INITIALLEFT"), ss->getDouble("NEW_PAGE_INITIALRIGHT"),
-						ss->getDouble("NEW_PAGE_INITIALHEIGHT"), ss->getDouble("NEW_PAGE_INITIALWIDTH"),
-						ss->getDouble("NEW_PAGE_HEIGHT"), ss->getDouble("NEW_PAGE_WIDTH"), ss->getInt("NEW_PAGE_ORIENTATION"),
-						ss->get("NEW_PAGE_SIZE"), ss->getInt("NEW_PAGE_MARGINPRESET"), ss->getBool("OLD_PAGE_MOVEOBJECTS"), ss->getInt("PAGE_NUM"), ss->getInt("NEW_PAGE_TYPE"));
-			}
-		}
+			restoreChangePageProperties(ss,isUndo);
 		else if (ss->contains("DELETE_FRAMETEXT"))
 		{
 			PageItem * nF = getItemFromName(ss->get("noteframeName"));
@@ -2377,6 +2360,35 @@ void ScribusDoc::restoreAddMasterPage(SimpleState *ss, bool isUndo)
 		setCurrentPage(oldPage);
 	scMW()->pagePalette->updateMasterPageList();
 	m_View->reformPages();
+}
+
+void ScribusDoc::restoreChangePageProperties(SimpleState* state, bool isUndo)
+{
+	bool oldMPMode  = masterPageMode();
+	ScPage* oldPage = currentPage();
+
+	setMasterPageMode(state->getBool("MASTER_PAGE_MODE"));
+	setCurrentPage(Pages->at(state->getInt("PAGE_NUM")));
+	if (isUndo)
+	{
+		//qDebug()<<"undo setting orientation to"<<state->getInt("OLD_PAGE_ORIENTATION");
+		changePageProperties(state->getDouble("OLD_PAGE_INITIALTOP"), state->getDouble("OLD_PAGE_INITIALBOTTOM"),
+				state->getDouble("OLD_PAGE_INITIALLEFT"), state->getDouble("OLD_PAGE_INITIALRIGHT"),
+				state->getDouble("OLD_PAGE_INITIALHEIGHT"), state->getDouble("OLD_PAGE_INITIALWIDTH"),
+				state->getDouble("OLD_PAGE_HEIGHT"), state->getDouble("OLD_PAGE_WIDTH"), state->getInt("OLD_PAGE_ORIENTATION"),
+				state->get("OLD_PAGE_SIZE"), state->getInt("OLD_PAGE_MARGINPRESET"), state->getBool("OLD_PAGE_MOVEOBJECTS"), state->getInt("PAGE_NUM"), state->getInt("OLD_PAGE_TYPE"));
+	}
+	else
+	{
+		//qDebug()<<"redo setting orientation to"<<state->getInt("NEW_PAGE_ORIENTATION");
+		changePageProperties(state->getDouble("NEW_PAGE_INITIALTOP"), state->getDouble("NEW_PAGE_INITIALBOTTOM"),
+				state->getDouble("NEW_PAGE_INITIALLEFT"), state->getDouble("NEW_PAGE_INITIALRIGHT"),
+				state->getDouble("NEW_PAGE_INITIALHEIGHT"), state->getDouble("NEW_PAGE_INITIALWIDTH"),
+				state->getDouble("NEW_PAGE_HEIGHT"), state->getDouble("NEW_PAGE_WIDTH"), state->getInt("NEW_PAGE_ORIENTATION"),
+				state->get("NEW_PAGE_SIZE"), state->getInt("NEW_PAGE_MARGINPRESET"), state->getBool("OLD_PAGE_MOVEOBJECTS"), state->getInt("PAGE_NUM"), state->getInt("NEW_PAGE_TYPE"));
+	}
+	setMasterPageMode(oldMPMode);
+	setCurrentPage(oldPage);
 }
 
 void ScribusDoc::restoreGrouping(SimpleState *state, bool isUndo)
@@ -4964,7 +4976,7 @@ bool ScribusDoc::save(const QString& fileName, QString* savedFile)
 }
 
 
-bool ScribusDoc::changePageMargins(const double initialTop, const double initialBottom, const double initialLeft, const double initialRight, const double initialHeight, const double initialWidth, const double height, const double width, const int orientation, const QString& pageSize, const int marginPreset, const bool moveObjects, const int pageNumber, const int pageType)
+bool ScribusDoc::changePageProperties(const double initialTop, const double initialBottom, const double initialLeft, const double initialRight, const double initialHeight, const double initialWidth, const double height, const double width, const int orientation, const QString& pageSize, const int marginPreset, const bool moveObjects, const int pageNumber, const int pageType)
 {
 	bool retVal=true;
 	if (pageNumber==-1)
@@ -5009,6 +5021,7 @@ bool ScribusDoc::changePageMargins(const double initialTop, const double initial
 				ss->set("NEW_PAGE_SIZE", pageSize);
 				ss->set("NEW_PAGE_TYPE", pageType);
 				ss->set("NEW_PAGE_MARGINPRESET", marginPreset);
+				ss->set("MASTER_PAGE_MODE", masterPageMode());
 				undoManager->action(this, ss);
 			}
 			//set the current page's values

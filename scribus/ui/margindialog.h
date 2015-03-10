@@ -24,7 +24,7 @@ class MarginWidget;
 class ScribusDoc;
 
 /*! \brief A dialog to setup the existing document margins.
-In modal mode called from void ScribusMainWindow::changePageMargins() */
+In modal mode called from void ScribusMainWindow::changePageProperties() */
 class SCRIBUS_API MarginDialog : public QDialog
 {
 	Q_OBJECT
