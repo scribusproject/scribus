@@ -299,11 +299,10 @@ void SeView::dropEvent(QDropEvent * e)
 			int dr = str.mid(st, en-st).toInt();
 			int a = rowAt(e->pos().y());
 			int b = columnAt(e->pos().x());
-			int p;
 			if ((a == -1) || (b == -1))
 				return;
 			QTableWidgetItem* ite = item(a, b);
-			p = GetPage(a, b, &lastPage);
+			int p = GetPage(a, b, &lastPage);
 			if (a == rowCount()-1)
 			{
 				emit movePage(dr, p+1);
