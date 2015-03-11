@@ -665,7 +665,7 @@ void PagePalette::deleteMasterPage(QString tmp)
 
 void PagePalette::pageView_movePage(int r, int c)
 {
-	if (r == c)
+	if (r == c || r == pageView->MaxC)
 		return;
 	if (c > pageView->MaxC)
 		currView->Doc->movePage(r, r + 1, c, 2);
