@@ -2371,7 +2371,7 @@ void ScribusDoc::restoreChangePageProperties(SimpleState* state, bool isUndo)
 	setCurrentPage(Pages->at(state->getInt("PAGE_NUM")));
 	if (isUndo)
 	{
-		//qDebug()<<"undo setting orientation to"<<state->getInt("OLD_PAGE_ORIENTATION");
+//		qDebug()<<"undo setting orientation to"<<state->getInt("OLD_PAGE_ORIENTATION");
 		changePageProperties(state->getDouble("OLD_PAGE_INITIALTOP"), state->getDouble("OLD_PAGE_INITIALBOTTOM"),
 				state->getDouble("OLD_PAGE_INITIALLEFT"), state->getDouble("OLD_PAGE_INITIALRIGHT"),
 				state->getDouble("OLD_PAGE_INITIALHEIGHT"), state->getDouble("OLD_PAGE_INITIALWIDTH"),
@@ -2380,7 +2380,7 @@ void ScribusDoc::restoreChangePageProperties(SimpleState* state, bool isUndo)
 	}
 	else
 	{
-		//qDebug()<<"redo setting orientation to"<<state->getInt("NEW_PAGE_ORIENTATION");
+//		qDebug()<<"redo setting orientation to"<<state->getInt("NEW_PAGE_ORIENTATION");
 		changePageProperties(state->getDouble("NEW_PAGE_INITIALTOP"), state->getDouble("NEW_PAGE_INITIALBOTTOM"),
 				state->getDouble("NEW_PAGE_INITIALLEFT"), state->getDouble("NEW_PAGE_INITIALRIGHT"),
 				state->getDouble("NEW_PAGE_INITIALHEIGHT"), state->getDouble("NEW_PAGE_INITIALWIDTH"),
@@ -2389,6 +2389,10 @@ void ScribusDoc::restoreChangePageProperties(SimpleState* state, bool isUndo)
 	}
 	setMasterPageMode(oldMPMode);
 	setCurrentPage(oldPage);
+//	m_View->reformPages();
+//	m_View->DrawNew();
+//	scMW()->pagePalette->Rebuild();
+//	scMW()->guidePalette->setupPage(false);
 }
 
 void ScribusDoc::restoreGrouping(SimpleState *state, bool isUndo)
@@ -6191,71 +6195,71 @@ void ScribusDoc::reformPages(bool moveObjects)
 	currentXPos += (docPrefsData.docSetupPrefs.pageWidth+docPrefsData.displayPrefs.pageGapHorizontal) * counter;
 
 	lastYPos = Pages->at(0)->initialHeight();
-	ScPage* Seite;
+	ScPage* page;
 	uint docPageCount=Pages->count();
-	for (uint a = 0; a < docPageCount; ++a)
+	for (uint i = 0; i < docPageCount; ++i)
 	{
-		Seite = Pages->at(a);
-		oldPg.oldXO = Seite->xOffset();
-		oldPg.oldYO = Seite->yOffset();
-		oldPg.newPg = a;
-		pageTable.insert(Seite->pageNr(), oldPg);
-		Seite->setPageNr(a);
+		page = Pages->at(i);
+		oldPg.oldXO = page->xOffset();
+		oldPg.oldYO = page->yOffset();
+		oldPg.newPg = i;
+		pageTable.insert(page->pageNr(), oldPg);
+		page->setPageNr(i);
 		if (masterPageMode())
 		{
-			Seite->setXOffset(docPrefsData.displayPrefs.scratch.left());
-			Seite->setYOffset(docPrefsData.displayPrefs.scratch.top());
-			if (Seite->LeftPg == 0)
+			page->setXOffset(docPrefsData.displayPrefs.scratch.left());
+			page->setYOffset(docPrefsData.displayPrefs.scratch.top());
+			if (page->LeftPg == 0)
 			{
-				Seite->Margins.setRight(Seite->initialMargins.right());
-				Seite->Margins.setLeft(Seite->initialMargins.left());
+				page->Margins.setRight(page->initialMargins.right());
+				page->Margins.setLeft(page->initialMargins.left());
 			}
-			else if ((Seite->LeftPg > 1) && (Seite->LeftPg < pageSets()[docPrefsData.docSetupPrefs.pagePositioning].Columns))
+			else if ((page->LeftPg > 1) && (page->LeftPg < pageSets()[docPrefsData.docSetupPrefs.pagePositioning].Columns))
 			{
-				Seite->Margins.setLeft(Seite->initialMargins.left());
-				Seite->Margins.setRight(Seite->initialMargins.left());
+				page->Margins.setLeft(page->initialMargins.left());
+				page->Margins.setRight(page->initialMargins.left());
 			}
 			else
 			{
-				Seite->Margins.setLeft(Seite->initialMargins.right());
-				Seite->Margins.setRight(Seite->initialMargins.left());
+				page->Margins.setLeft(page->initialMargins.right());
+				page->Margins.setRight(page->initialMargins.left());
 			}
 		}
 		else
 		{
-			Seite->setWidth(Seite->initialWidth());
-			Seite->setHeight(Seite->initialHeight());
-			Seite->setXOffset(currentXPos);
-			Seite->setYOffset(currentYPos);
+			page->setWidth(page->initialWidth());
+			page->setHeight(page->initialHeight());
+			page->setXOffset(currentXPos);
+			page->setYOffset(currentYPos);
 			if (counter < pageSets()[docPrefsData.docSetupPrefs.pagePositioning].Columns-1)
 			{
 //				currentXPos += Seite->width() + pageSets[currentPageLayout].GapHorizontal;
-				currentXPos += Seite->width() + docPrefsData.displayPrefs.pageGapHorizontal;
-				lastYPos = qMax(lastYPos, Seite->height());
+				currentXPos += page->width() + docPrefsData.displayPrefs.pageGapHorizontal;
+				lastYPos = qMax(lastYPos, page->height());
 				if (counter == 0)
 				{
-					Seite->Margins.setLeft(Seite->initialMargins.right());
-					Seite->Margins.setRight(Seite->initialMargins.left());
+					page->Margins.setLeft(page->initialMargins.right());
+					page->Margins.setRight(page->initialMargins.left());
 				}
 				else
 				{
-					Seite->Margins.setLeft(Seite->initialMargins.left());
-					Seite->Margins.setRight(Seite->initialMargins.left());
+					page->Margins.setLeft(page->initialMargins.left());
+					page->Margins.setRight(page->initialMargins.left());
 				}
 			}
 			else
 			{
 				currentXPos = docPrefsData.displayPrefs.scratch.left();
 				if (pageSets()[docPrefsData.docSetupPrefs.pagePositioning].Columns > 1)
-					currentYPos += qMax(lastYPos, Seite->height())+docPrefsData.displayPrefs.pageGapVertical;
+					currentYPos += qMax(lastYPos, page->height())+docPrefsData.displayPrefs.pageGapVertical;
 //					currentYPos += qMax(lastYPos, Seite->height())+pageSets[currentPageLayout].GapVertical;
 				else
-					currentYPos += Seite->height()+docPrefsData.displayPrefs.pageGapVertical;
+					currentYPos += page->height()+docPrefsData.displayPrefs.pageGapVertical;
 //					currentYPos += Seite->height()+pageSets[currentPageLayout].GapVertical;
 //				lastYPos = qMax(lastYPos, Seite->height());
 				lastYPos = 0;
-				Seite->Margins.setRight(Seite->initialMargins.right());
-				Seite->Margins.setLeft(Seite->initialMargins.left());
+				page->Margins.setRight(page->initialMargins.right());
+				page->Margins.setLeft(page->initialMargins.left());
 			}
 			counter++;
 			if (counter > pageSets()[docPrefsData.docSetupPrefs.pagePositioning].Columns-1)
@@ -6270,10 +6274,10 @@ void ScribusDoc::reformPages(bool moveObjects)
 				}
 			}
 		}
-		Seite->Margins.setTop(Seite->initialMargins.top());
-		Seite->Margins.setBottom(Seite->initialMargins.bottom());
-		maxXPos = qMax(maxXPos, Seite->xOffset()+Seite->width()+docPrefsData.displayPrefs.scratch.right());
-		maxYPos = qMax(maxYPos, Seite->yOffset()+Seite->height()+docPrefsData.displayPrefs.scratch.bottom());
+		page->Margins.setTop(page->initialMargins.top());
+		page->Margins.setBottom(page->initialMargins.bottom());
+		maxXPos = qMax(maxXPos, page->xOffset()+page->width()+docPrefsData.displayPrefs.scratch.right());
+		maxYPos = qMax(maxYPos, page->yOffset()+page->height()+docPrefsData.displayPrefs.scratch.bottom());
 	}
 	if (!isLoading())
 	{

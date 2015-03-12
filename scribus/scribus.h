@@ -462,12 +462,12 @@ public slots:
 	/** Dokument ist geaendert worden */
 	void slotDocCh(bool reb = true);
 	/** Setzt die Abstufung */
-	void setItemShade(int id);
+	//void setItemShade(int id);
 	/** Setzt den Font */
 	/** Korrigiert das FontMenu */
 	void SetNewFont(const QString& nf);
 	/** Setz die Zeichensatzgroesse */
-	void setItemFSize(int id);
+	void setItemFontSize(int fontSize);
 	/** Color Replacement */
 	void slotReplaceColors();
 	/** Style Manager */

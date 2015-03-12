@@ -145,8 +145,6 @@ void PagePalette_Pages::pageView_movePage(int r, int c)
 	currView->reformPages();
 	rebuildPages();
 	currView->DrawNew();
-//CB done by doc::reformpages
-// 	currView->Doc->setModified(true);
 }
 
 void PagePalette_Pages::pageView_gotoPage(int r, int c, int b)
@@ -175,20 +173,15 @@ void PagePalette_Pages::handlePageLayout(int layout)
 	currView->DrawNew();
 	currView->GotoPage(currView->Doc->currentPageNumber());
 	rebuildPages();
-//CB done by doc::reformpages
-//	currView->Doc->setModified(true);
 }
 
 void PagePalette_Pages::handleFirstPage(int fp)
 {
-//	currView->Doc->pageSets()[currView->Doc->currentPageLayout].FirstPage = fp;
 	currView->Doc->setPageSetFirstPage(currView->Doc->pagePositioning(), fp);
 	currView->reformPages();
 	currView->DrawNew();
 	currView->GotoPage(currView->Doc->currentPageNumber());
 	rebuildPages();
-//CB done by doc::reformpages
-// 	currView->Doc->setModified(true);
 }
 
 void PagePalette_Pages::rebuildMasters()

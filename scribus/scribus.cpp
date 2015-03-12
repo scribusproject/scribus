@@ -6101,25 +6101,26 @@ void ScribusMainWindow::SetNewFont(const QString& nf)
 	doc->itemSetFont(nf);
 }
 
-void ScribusMainWindow::setItemFSize(int id)
+void ScribusMainWindow::setItemFontSize(int fontSize)
 {
-	int c = id;
-	if (c != -1)
-		doc->itemSelection_SetFontSize(c*10);
+	int fs=fontSize;
+	if (fs != -1)
+		doc->itemSelection_SetFontSize(fs*10);
 	else
 	{
 		bool ok = false;
 		Query dia(this, "New", 1, tr("&Size:"), tr("Size"));
 		if (dia.exec())
 		{
-			c = qRound(dia.getEditText().toDouble(&ok));
-			if ((ok) && (c < 1025) && (c > 0))
-				doc->itemSelection_SetFontSize(c*10);
+			fs = qRound(dia.getEditText().toDouble(&ok));
+			if (ok && (fs < 1025) && (fs > 0))
+				doc->itemSelection_SetFontSize(fs*10);
 		}
 	}
-	propertiesPalette->textPal->showFontSize(c*10);
+	propertiesPalette->textPal->showFontSize(fs*10);
 }
 
+/*
 //CB-->Doc partly
 void ScribusMainWindow::setItemShade(int id)
 {
@@ -6152,7 +6153,7 @@ void ScribusMainWindow::setItemShade(int id)
 		}
 	}
 }
-
+*/
 //CB-->Doc
 void ScribusMainWindow::setNewAlignment(int a)
 {
@@ -8590,8 +8591,6 @@ void ScribusMainWindow::dropEvent ( QDropEvent * e)
 void ScribusMainWindow::slotEditCopyContents()
 {
 	PageItem *currItem = NULL;
-	contentsBuffer.contentsFileName = "";
-
 	if (!HaveDoc || (currItem = doc->m_Selection->itemAt(0)) == NULL)
 		return;
 	if (currItem->itemType() != PageItem::ImageFrame)
@@ -8600,6 +8599,7 @@ void ScribusMainWindow::slotEditCopyContents()
 	PageItem_ImageFrame* imageItem = currItem->asImageFrame();
 	if (!imageItem->imageIsAvailable)
 		return;
+	contentsBuffer.contentsFileName = "";
 	contentsBuffer.sourceType = PageItem::ImageFrame;
 	contentsBuffer.contentsFileName = imageItem->Pfile;
 	contentsBuffer.LocalScX = imageItem->imageXScale();
@@ -8617,9 +8617,9 @@ void ScribusMainWindow::slotEditCopyContents()
 
 void ScribusMainWindow::slotEditPasteContents(int absolute)
 {
-	PageItem *currItem = NULL;
-	if (HaveDoc || contentsBuffer.contentsFileName.isEmpty())
+	if (!HaveDoc || contentsBuffer.contentsFileName.isEmpty())
 		return;
+	PageItem *currItem = NULL;
 	if ((currItem = doc->m_Selection->itemAt(0)) == NULL)
 		return;
 	if (contentsBuffer.sourceType != PageItem::ImageFrame || currItem->itemType() != PageItem::ImageFrame)
