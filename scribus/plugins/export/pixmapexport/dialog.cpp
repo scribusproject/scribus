@@ -4,23 +4,24 @@ to the COPYING file provided with the program. Following this notice may exist
 a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
-#include <QImageWriter>
-#include <QFileDialog>
-#include <QToolTip>
-#include <QDirModel>
 #include <QCompleter>
+#include <QDebug>
+#include <QDirModel>
+#include <QFileDialog>
+#include <QImageWriter>
+#include <QToolTip>
 
+#include "commonstrings.h"
 #include "dialog.h"
+#include "prefscontext.h"
+#include "prefsfile.h"
+#include "prefsmanager.h"
 #include "scribusdoc.h"
 #include "ui/createrange.h"
-#include "prefsmanager.h"
-#include "prefsfile.h"
-#include "prefscontext.h"
 #include "ui/scrspinbox.h"
 #include "usertaskstructs.h"
-#include "util_icon.h"
 #include "util.h"
-#include "commonstrings.h"
+#include "util_icon.h"
 
 ExportForm::ExportForm(QWidget* parent, ScribusDoc* doc, int size, int quality, QString type)
 	: QDialog(parent, 0), m_doc(doc), m_PageCount(doc->DocPages.count())
@@ -35,11 +36,8 @@ ExportForm::ExportForm(QWidget* parent, ScribusDoc* doc, int size, int quality, 
 
 	outputDirectory->setText( QDir::toNativeSeparators(prefs->get("wdir", QDir::currentPath())) );
 	QList<QByteArray> imgs = QImageWriter::supportedImageFormats();
-	for (int a = 0; a < imgs.count(); a++)
-	{
-		bitmapType->addItem(imgs[a]);
-	}
-	setCurrentComboItem(bitmapType, type.toLower());
+	for (int i = 0; i < imgs.count(); i++)
+		bitmapType->addItem(imgs[i]);
 	qualityBox->setValue(quality);
 	qualityBox->setWrapping(true);
 
@@ -78,12 +76,12 @@ void ExportForm::computeSize()
 void ExportForm::OutputDirectoryButton_pressed()
 {
 	QString lastDir = prefs->get("wdir", ".");
-	QString d = QFileDialog::getExistingDirectory(this, tr("Choose a Export Directory"), lastDir);
-	if (d.length()>0)
+	QString dirName = QFileDialog::getExistingDirectory(this, tr("Choose a Export Directory"), lastDir);
+	if (dirName.length()>0)
 	{
-		d = QDir::toNativeSeparators(d);
-		outputDirectory->setText(d);
-		prefs->set("wdir", d);
+		dirName = QDir::toNativeSeparators(dirName);
+		outputDirectory->setText(dirName);
+		prefs->set("wdir", dirName);
 	}
 }
 
@@ -136,17 +134,19 @@ void ExportForm::readConfig()
 	DPIBox->setValue(prefs->getUInt("DPIBox", 72));
 	enlargementBox->setValue(prefs->getInt("EnlargementBox", 100));
 	qualityBox->setValue(prefs->getUInt("QualityBox", -1));
-	int b = prefs->getUInt("ButtonGroup1", 0);
-	switch (b)
+	int exportPageValue = prefs->getUInt("ButtonGroup1", 0);
+	switch (exportPageValue)
 	{
-		case 0: onePageRadio->setChecked(true); break;
-		case 1: allPagesRadio->setChecked(true); break;
-		default: intervalPagesRadio->setChecked(true); break;
+		case 0: onePageRadio->setChecked(true);
+			break;
+		case 1: allPagesRadio->setChecked(true);
+			break;
+		default: intervalPagesRadio->setChecked(true);
+			break;
 	}
-	rangeVal->setEnabled(b==2);
-	pageNrButton->setEnabled(b==2);
-
-	bitmapType->setCurrentIndex(prefs->getInt("BitmapType", 4));
+	rangeVal->setEnabled(exportPageValue==2);
+	pageNrButton->setEnabled(exportPageValue==2);
+	bitmapType->setCurrentText("png");
 	rangeVal->setText(prefs->get("RangeVal", ""));
 }
 
@@ -155,14 +155,14 @@ void ExportForm::writeConfig()
 	prefs->set("DPIBox", DPIBox->value());
 	prefs->set("EnlargementBox", enlargementBox->value());
 	prefs->set("QualityBox", qualityBox->value());
-	int b;
+	int exportPageValue;
 	if (onePageRadio->isChecked())
-		b = 0;
+		exportPageValue = 0;
 	else if (allPagesRadio->isChecked())
-		b = 1;
+		exportPageValue = 1;
 	else
-		b = 2;
-	prefs->set("ButtonGroup1", b);
+		exportPageValue = 2;
+	prefs->set("ButtonGroup1", exportPageValue);
 	prefs->set("BitmapType", bitmapType->currentIndex());
 	prefs->set("RangeVal", rangeVal->text());
 }

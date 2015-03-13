@@ -160,7 +160,7 @@ ExportBitmap::ExportBitmap()
 	quality = -1;
 	enlargement = 100.0;
 	exportDir = QDir::currentPath();
-	bitmapType = QString("PNG");
+	bitmapType = QString("png");
 	overwrite = false;
 }
 
