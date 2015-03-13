@@ -469,11 +469,11 @@ void BibView::ReadOldContents(QString name, QString newName)
 		QDomElement dc=DOC.toElement();
 		if (dc.tagName()=="OBJEKT")
 		{
-			QFile fi(QDir::cleanPath(QDir::toNativeSeparators(newName + "/" + GetAttr(&dc, "NAME") + ".sce")));
+			QFile fi(QDir::cleanPath(QDir::toNativeSeparators(newName + "/" + dc.attribute("NAME", 0) + ".sce")));
 			if(!fi.open(QIODevice::WriteOnly))
 				continue ;
 			QDataStream s(&fi);
-			QString fn = GetAttr(&dc, "DATA");
+			QString fn = dc.attribute("DATA", 0);
 			cf = isUtf8? fn.toUtf8() : fn.toLocal8Bit();
 			s.writeRawData(cf.data(), cf.length());
 			fi.close();

@@ -51,7 +51,6 @@ bool SCRIBUS_API sortingQPairOfStrings( QPair<QString, QString> aP, QPair<QStrin
 void SCRIBUS_API ReOrderText(ScribusDoc *currentDoc, ScribusView *view);
 void SCRIBUS_API WordAndPara(PageItem *currItem, int *w, int *p, int *c, int *wN, int *pN, int *cN);
 bool SCRIBUS_API overwrite(QWidget *parent, QString filename);
-QByteArray SCRIBUS_API ComputeMD5Sum(QByteArray *in);
 QString SCRIBUS_API Path2Relative(QString Path, const QString& baseDir = QDir::currentPath());
 QString SCRIBUS_API Relative2Path(QString File, const QString& baseDir = QDir::currentPath());
 char SCRIBUS_API *toAscii85( quint32 value, bool& allZero );
@@ -68,7 +67,6 @@ There is no need to preallocate the buffer, and the new data replaces any
 old contents. */
 bool SCRIBUS_API loadRawText(const QString & filename, QByteArray & buf);
 bool SCRIBUS_API loadRawBytes(const QString & filename, QByteArray & buf);
-QString SCRIBUS_API GetAttr(QDomElement *el, QString at, QString def="0");
 /**
 * @brief Synchronously execute a new process, optionally saving its output
    *

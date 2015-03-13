@@ -72,8 +72,7 @@ int System(const QString exename, const QStringList & args, const QString fileSt
 	}
 	if (cancel && (*cancel == true))
 		return -1;
-	int ex = proc.exitCode();
-	return ex;
+	return proc.exitCode();
 }
 
 // On Windows, return short path name, else return longPath;
@@ -115,12 +114,6 @@ QString getLongPathName(const QString & shortPath)
 #endif
 	return longPath;
 }
-
-QString GetAttr(QDomElement *el, QString at, QString def)
-{
-	return el->attribute(at, def);
-}
-
 
 // Legacy implementation of LoadText with incorrect
 // handling of unicode data. This should be retired.
@@ -265,17 +258,17 @@ QByteArray CompressArray(const QByteArray& in)
 
 char *toAscii85( quint32 value, bool& allZero )
 {
-	int digit, i;
+	int digit;
 	static char asciiVal[6];
 	allZero = true;
-    for (i = 0; i < 5; ++i) 
+	for (int i = 0; i < 5; ++i)
 	{
 		digit = value % 85;
 		if (digit != 0)
 			allZero = false;
 		asciiVal[4-i] = digit + 33;
 		value = (value - digit) / 85;
-    }
+	}
 	asciiVal[5] = 0;
 	return asciiVal;
 }
@@ -314,14 +307,6 @@ QString String2Hex(QString *in, bool lang)
 		}
 	}
 	return out;
-}
-
-QByteArray ComputeMD5Sum(QByteArray *in)
-{
-	return QCryptographicHash::hash(*in, QCryptographicHash::Md5);
-//	QByteArray MDsum(16, ' ');
-//	md5_buffer (in->data(), in->size(), reinterpret_cast<void*>(MDsum.data()));
-//	return MDsum;
 }
 
 QString Path2Relative(QString Path, const QString& baseDir)
@@ -582,8 +567,7 @@ const QString numberToLetterSequence(uint i)
 	QString retVal("");
 	unsigned digits = 1;
 	unsigned offset = 0;
-	uint column=i;
-	--column;
+	uint column=i-1;
 
 	if( column > 4058115285U ) return  QString("@");
 
@@ -707,7 +691,6 @@ void parsePagesString(QString pages, std::vector<int>* pageNs, int sourcePageCou
 {
 	QString tmp(pages);
 	QString token;
-	int from, to, pageNr;
 	do
 	{
 		if (tmp.indexOf(",") == -1)
@@ -729,8 +712,8 @@ void parsePagesString(QString pages, std::vector<int>* pageNs, int sourcePageCou
 		}
 		else if (token.indexOf("-") != -1) // import a range of source doc pages
 		{
-			from = QString(token.left(token.indexOf("-"))).toInt();
-			to = QString(token.right(token.length() - token.indexOf("-") - 1)).toInt();
+			int from = QString(token.left(token.indexOf("-"))).toInt();
+			int to = QString(token.right(token.length() - token.indexOf("-") - 1)).toInt();
 			if ((from != 0) && (to != 0))
 			{
 				if (from > sourcePageCount)
@@ -753,7 +736,7 @@ void parsePagesString(QString pages, std::vector<int>* pageNs, int sourcePageCou
 		}
 		else // import single source doc page
 		{
-			pageNr = token.toInt();
+			int pageNr = token.toInt();
 			if ((pageNr > 0) && (pageNr <= sourcePageCount))
 				pageNs->push_back(pageNr);
 		}
@@ -797,7 +780,7 @@ QString readAdobeUniCodeString(QDataStream &s)
 	QString ret = "";
 	quint32 len;
 	s >> len;
-	for (quint32 a = 0; a < len; a++)
+	for (quint32 i = 0; i < len; i++)
 	{
 		quint16 ch;
 		s >> ch;
@@ -812,10 +795,10 @@ QString getDashString(int dashtype, double linewidth)
 	QString dashString;
 	QVector<double> dashArray;
 	getDashArray(dashtype, linewidth, dashArray);
-	for (int a = 0; a < dashArray.size(); ++a)
+	for (int i = 0; i < dashArray.size(); ++i)
 	{
-		dashString += QString::number(dashArray.at(a));
-		if (a < (dashArray.size() - 1))
+		dashString += QString::number(dashArray.at(i));
+		if (i < (dashArray.size() - 1))
 			dashString += " ";
 	}
 	return dashString;
@@ -826,9 +809,8 @@ void getDashArray(int dashtype, double linewidth, QVector<float> &dashArray)
 	QVector<double> tmp;
 	getDashArray(dashtype, linewidth, tmp);
 	dashArray.clear();
-	for (int i = 0; i < tmp.count(); ++i) {
+	for (int i = 0; i < tmp.count(); ++i)
 		dashArray << static_cast<float>(tmp[i]);
-	}
 }
 
 void getDashArray(int dashtype, double linewidth, QVector<double> &dashArray)
@@ -972,9 +954,9 @@ bool convertOldTable(ScribusDoc *m_Doc, PageItem* gItem, QList<PageItem*> &gpL, 
 	// converted to standard groups (at least until we find a good way to process that case)
 	bool hasTableLinks = false;
 	bool hasTextLinks = false;
-	for (int a = 0; a < gpL.count(); a++)
+	for (int i = 0; i < gpL.count(); i++)
 	{
-		PageItem* it = gpL[a];
+		PageItem* it = gpL[i];
 		it->isTableItem = false;
 		if (it->nextInChain() || it->prevInChain())
 			hasTextLinks = true;
@@ -986,9 +968,9 @@ bool convertOldTable(ScribusDoc *m_Doc, PageItem* gItem, QList<PageItem*> &gpL, 
 		return false;
 
 	PageItem *topLeft = NULL;
-	for (int a = 0; a < gpL.count(); a++)
+	for (int i = 0; i < gpL.count(); i++)
 	{
-		PageItem* it = gpL[a];
+		PageItem* it = gpL[i];
 		if ((it->TopLink == NULL) && (it->LeftLink == NULL))	// we got the topleft item
 		{
 			topLeft = it;

@@ -38,6 +38,7 @@ for which a new license (GPL+exception) is in place.
 #include "rc4.h"
 
 #include <QByteArray>
+#include <QCryptographicHash>
 #include <QDateTime>
 #include <QDataStream>
 #include <QDebug>
@@ -660,7 +661,7 @@ void PDFLibCore::CalcOwnerKey(const QString & Owner, const QString & User)
 	if (KeyLen > 5)
 	{
 		for (int kl = 0; kl < 50; ++kl)
-			step1 = ComputeMD5Sum(&step1);
+			step1 = QCryptographicHash::hash(step1, QCryptographicHash::Md5);
 	}
 	QByteArray us(32, ' ');
 	QByteArray enk(16, ' ');
@@ -708,7 +709,7 @@ void PDFLibCore::CalcUserKey(const QString & User, int Permission)
 	if (KeyLen > 5)
 	{
 		for (int kl = 0; kl < 50; ++kl)
-			step1 = ComputeMD5Sum(&step1);
+			step1 = QCryptographicHash::hash(step1, QCryptographicHash::Md5);
 		EncryKey.resize(16);
 	}
 	for (int a2 = 0; a2 < KeyLen; ++a2)
@@ -745,7 +746,7 @@ QByteArray PDFLibCore::ComputeMD5(const QString& in)
 	QByteArray TBytes(inlen, ' ');
 	for (uint a = 0; a < inlen; ++a)
 		TBytes[a] = static_cast<uchar>(QChar(in.at(a)).cell());
-	return ComputeMD5Sum(&TBytes);
+	return QCryptographicHash::hash(TBytes, QCryptographicHash::Md5);
 }
 
 QByteArray PDFLibCore::ComputeRC4Key(int ObjNum)
@@ -765,7 +766,7 @@ QByteArray PDFLibCore::ComputeRC4Key(int ObjNum)
 	data[dlen++] = 0;
 	data[dlen++] = 0;
 	QByteArray rc4Key(16, ' ');
-	rc4Key = ComputeMD5Sum(&data);
+	rc4Key = QCryptographicHash::hash(data, QCryptographicHash::Md5);
 	rc4Key.resize(qMin(KeyLen+5, 16));
 	return rc4Key;
 }
