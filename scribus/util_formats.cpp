@@ -403,6 +403,8 @@ QString getImageType(QString filename)
 				ret = "tif";
 			else if ((buf[0] == '/') && (buf[1] == '*') && (buf[2] == ' ') && (buf[3] == 'X') && (buf[4] == 'P') && (buf[5] == 'M'))
 				ret = "xpm";
+			else if ((buf[0] == 'V') && (buf[1] == 'C') && (buf[2] == 'L') && (buf[3] == 'M') && (buf[4] == 'T') && (buf[5] == 'F'))
+				ret = "svm";
 
 			f.close();
 		}
