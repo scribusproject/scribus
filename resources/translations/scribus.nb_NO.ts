@@ -1598,10 +1598,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Edit Welded Item</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>T&amp;runcate</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1683,6 +1679,18 @@
     </message>
     <message>
         <source>Toggle color management system</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Edit Weld</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Downloads</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Resources</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -3407,6 +3415,18 @@ Høyde: %2</translation>
         <source>After</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>You are trying to insert a frame into an existing text chain, where would you like to insert it?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You are trying to link a frame to itself.</source>
+        <translation type="unfinished">Du prøver å lenke en ramme til seg selv.</translation>
+    </message>
+    <message>
+        <source>You are trying to link a non-empty frame to frame which is already linked.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>CanvasMode_Normal</name>
@@ -3824,7 +3844,7 @@ Innsettingsknappen setter inn en glyff i avsnittet nedenfor, og med Delete-knapp
     </message>
     <message>
         <source>Annotation uses a non TrueType font</source>
-        <translation>Kommentaren bruker ikke en TrueType-skrift</translation>
+        <translation type="vanished">Kommentaren bruker ikke en TrueType-skrift</translation>
     </message>
     <message>
         <source>Preflight profile to base the report generation on. Options can be set in Document Setup or Preferences</source>
@@ -3848,7 +3868,7 @@ Innsettingsknappen setter inn en glyff i avsnittet nedenfor, og med Delete-knapp
     </message>
     <message>
         <source>Print/Visible Mismatch</source>
-        <translation>Manglende overensstemmelse mellom utskrift og visning</translation>
+        <translation type="vanished">Manglende overensstemmelse mellom utskrift og visning</translation>
     </message>
     <message>
         <source>Master Pages</source>
@@ -3887,15 +3907,99 @@ Nå %2 x %3 ppt</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Imported document contains non embedded fonts</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Applied master page has different page destination (left, middle, right side)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Empty Text Frame</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Indicates that editorial changes have been made to a PDF are still present or your PDF contains unprintable annotation items. They may cause issues in professional printing. Also helpful reminder if you are wanting to publish a final draft without editorial relics.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Have you applied the correct Master Page?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>If you have created an image frame, there is the presumption that you planned to put an image in it.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>If you have created a text frame, there is the presumption that you planned to put text in it.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Imported document contains non-embedded fonts</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>When some imported document uses non-embedded fonts, then their rendering will be wrong, unless by chance you have them installed on their system, but that cannot be guaranteed in case you want to share the resulting document.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This is a user definable setting serving as a caution for high resolution images, which may lead to unnecessarily large files.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>mage doesnt fit the whole space you reserved for it. Maybe this is intended, or maybe this is caused by bad inner placement or scale. The result will either be a cropped image or white space around the image.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This warning alerts you that you are using a bitmap based graphic format that is typically not used for high resolution images (.gif is one of those). This may result in poor viewing quality (for example: when commercially printed, viewed on a high-resolution screens, etc...). If your PDF will be printed commercially, there are some printing systems that will have difficulty printing these types of images.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This is a user definable setting serving as a caution for low resolution images, which may lead to poor quality output.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You have one or more characters which do not have a corresponding glyph in your chosen font.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The assigned image file cannot be found.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>An object is placed somewhere outside of the page borders, it will not be printed and might be missing somewhere.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PDF supports many different ways to represent the color of any object including RGB, CMYK and Spot (aka Separation) colors. Some of the PDF standards, such as PDF/X-1a, require the only CMYK and Spot colors be used.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The warning is verifying for you that there is a PDF loaded into an Image Frame, where it will be rasterized or converted to a bitmap. Its resolution may be less than ideal. See PDF Export to learn how to minimize this problem.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>There is more text than can show in the frame as sized. Nonvisible excess characters like spaces and carriage returns may trigger this if nothing appears to be missing.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This warning indicates that your document contains images that have a transparent layer. This is really only an issue if using older printing profiles or PostScript. It is safe to ignore this when exporting to PDF version greater than 1.4.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Annotation uses a non-TrueType font</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Annotations support only a standard set of fonts. Choose another one.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This layer uses transparency, only an issue if using older printing profiles. You may safely ignore this when using modern printing methods, or exporting to PDF version greater than 1.4.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This layer uses blendmodes which relies on transparency, only an issue if using older printing profiles. You may safely ignore this when using modern printing methods, or exporting to PDF version greater than 1.4.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Print/Visible mismatch</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -5281,6 +5385,44 @@ eventuelt fulgt av en bindestrek og en ISO-3166 landskode, f.eks nn-NO, nb-NO, f
     </message>
 </context>
 <context>
+    <name>DownloadsPalette</name>
+    <message>
+        <source>Show In Finder</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show In Explorer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Remove</source>
+        <translation type="unfinished">Fjern</translation>
+    </message>
+    <message>
+        <source>Remove All</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>DownloadsPalette_Base</name>
+    <message>
+        <source>Downloads</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Remove</source>
+        <translation type="unfinished">Fjern</translation>
+    </message>
+    <message>
+        <source>Remove All</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>DrwPlug</name>
     <message>
         <source>Importing: %1</source>
@@ -5565,6 +5707,21 @@ mislyktes</translation>
     <message>
         <source>Curves</source>
         <translation>Kurver</translation>
+    </message>
+</context>
+<context>
+    <name>EmfPlug</name>
+    <message>
+        <source>Importing: %1</source>
+        <translation type="unfinished">Importerer: %1</translation>
+    </message>
+    <message>
+        <source>Analyzing File:</source>
+        <translation type="unfinished">Analyserer fila:</translation>
+    </message>
+    <message>
+        <source>Generating Items</source>
+        <translation type="unfinished">Lager objekter</translation>
     </message>
 </context>
 <context>
@@ -7022,6 +7179,34 @@ converting their vector data into Scribus objects.</source>
     </message>
 </context>
 <context>
+    <name>ImportEmfPlugin</name>
+    <message>
+        <source>Import EMF...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>EMF</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>EMF (*.emf *.EMF)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Imports EMF Files</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Imports most EMF files into the current document,
+converting their vector data into Scribus objects.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>All Supported Formats</source>
+        <translation type="unfinished">Alle støttede formater</translation>
+    </message>
+</context>
+<context>
     <name>ImportIdml</name>
     <message>
         <source>Adobe Indesign IDML</source>
@@ -7321,6 +7506,34 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Imports most Kivio stencils into the current document,
+converting their vector data into Scribus objects.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>All Supported Formats</source>
+        <translation type="unfinished">Alle støttede formater</translation>
+    </message>
+</context>
+<context>
+    <name>ImportSvmPlugin</name>
+    <message>
+        <source>Import SVM...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>SVM</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>SVM (*.svm *.svm)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Imports SVM Files</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Imports most SVM files into the current document,
 converting their vector data into Scribus objects.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -8950,75 +9163,75 @@ p, li { white-space: pre-wrap; }
     <name>MasterPagesPalette</name>
     <message>
         <source>Edit Master Pages</source>
-        <translation>Rediger malsider</translation>
+        <translation type="vanished">Rediger malsider</translation>
     </message>
     <message>
         <source>&amp;Name:</source>
-        <translation>&amp;Navn:</translation>
+        <translation type="vanished">&amp;Navn:</translation>
     </message>
     <message>
         <source>New Master Page</source>
-        <translation>Ny malside</translation>
+        <translation type="vanished">Ny malside</translation>
     </message>
     <message>
         <source>Name:</source>
-        <translation>Navn:</translation>
+        <translation type="vanished">Navn:</translation>
     </message>
     <message>
         <source>New MasterPage</source>
-        <translation>Ny malside</translation>
+        <translation type="vanished">Ny malside</translation>
     </message>
     <message>
         <source>Copy #%1 of </source>
-        <translation>Kopi #%1 av </translation>
+        <translation type="vanished">Kopi #%1 av </translation>
     </message>
     <message>
         <source>Duplicate the selected master page</source>
-        <translation>Lag en kopi av den valgte malsiden</translation>
+        <translation type="vanished">Lag en kopi av den valgte malsiden</translation>
     </message>
     <message>
         <source>Delete the selected master page</source>
-        <translation>Slett den valgte malsiden</translation>
+        <translation type="vanished">Slett den valgte malsiden</translation>
     </message>
     <message>
         <source>Add a new master page</source>
-        <translation>Lag en ny malside</translation>
+        <translation type="vanished">Lag en ny malside</translation>
     </message>
     <message>
         <source>Import master pages from another document</source>
-        <translation>Importer malsider fra et annet dokument</translation>
+        <translation type="vanished">Importer malsider fra et annet dokument</translation>
     </message>
     <message>
         <source>New Master Page %1</source>
-        <translation>Ny malside %1</translation>
+        <translation type="vanished">Ny malside %1</translation>
     </message>
     <message>
         <source>Unable to Rename Master Page</source>
-        <translation>Kan ikke gi nytt navn til malsiden</translation>
+        <translation type="vanished">Kan ikke gi nytt navn til malsiden</translation>
     </message>
     <message>
         <source>The Normal page is not allowed to be renamed.</source>
-        <translation>Kan ikke gi nytt navn til siden «Normal»</translation>
+        <translation type="vanished">Kan ikke gi nytt navn til siden «Normal»</translation>
     </message>
     <message>
         <source>Rename Master Page</source>
-        <translation>Gi nytt navn til malsiden</translation>
+        <translation type="vanished">Gi nytt navn til malsiden</translation>
     </message>
     <message>
         <source>New Name:</source>
-        <translation>Nytt navn:</translation>
+        <translation type="vanished">Nytt navn:</translation>
     </message>
     <message>
         <source>Copy #%1 of %2</source>
-        <translation>Kopi #%1 av %2</translation>
+        <translation type="vanished">Kopi #%1 av %2</translation>
     </message>
     <message>
         <source>This master page is used at least once in the document.</source>
-        <translation>Denne malsiden brukes av minst en side i dokumentet.</translation>
+        <translation type="vanished">Denne malsiden brukes av minst en side i dokumentet.</translation>
     </message>
     <message>
         <source>Do you really want to delete master page &quot;%1&quot;?</source>
-        <translation>Er du helt sikker på at du vil slett malsiden «%1»?</translation>
+        <translation type="vanished">Er du helt sikker på at du vil slett malsiden «%1»?</translation>
     </message>
 </context>
 <context>
@@ -9266,6 +9479,10 @@ Hvis du ikke har valgt noe håndtak blir alle håndtakene stilt tilbake.</transl
     <message>
         <source>Number of Copies:</source>
         <translation>Antall sider:</translation>
+    </message>
+    <message>
+        <source>Swap with Page</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -13461,10 +13678,6 @@ positiv verdi vil gjøre den konveks (buler ut).</translation>
     </message>
     <message>
         <source>Image Cache</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Spelling</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -19828,10 +20041,14 @@ Scribus Skripter for mer informasjon.</translation>
     </message>
     <message>
         <source>Select color</source>
-        <translation>Velg farge</translation>
+        <translation type="vanished">Velg farge</translation>
     </message>
     <message>
         <source>Pick Screen Color</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Select Color</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -20097,6 +20314,22 @@ Sjekk stien og filnavnet.</translation>
         <source>Parent Directory</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Recent Places</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Delete</source>
+        <translation type="unfinished">Slett</translation>
+    </message>
+    <message>
+        <source>Are you sure you want to delete &apos;%1&apos;?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;New Folder</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QFontDialog</name>
@@ -20186,6 +20419,10 @@ Sjekk stien og filnavnet.</translation>
     <message>
         <source>&amp;Paste</source>
         <translation>&amp;Lim inn</translation>
+    </message>
+    <message>
+        <source>Delete</source>
+        <translation type="unfinished">Slett</translation>
     </message>
 </context>
 <context>
@@ -22699,6 +22936,30 @@ is not exhaustive due to exceptions from called functions.
         <comment>python error</comment>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Bosnian</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Serbian (Latin)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Telugu</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>EMF Importer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>SVM Importer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Qt supported File</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QTextEdit</name>
@@ -22812,6 +23073,104 @@ Velg et annet.</translation>
     <message>
         <source>Name &quot;%1&quot; is not allowed.
 Please choose another.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ResourceManager</name>
+    <message>
+        <source>Show In Finder</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show In Explorer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Fonts</source>
+        <translation type="unfinished">Skrifttyper</translation>
+    </message>
+    <message>
+        <source>Hyphenation Dictionaries</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Spelling Dictionaries</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Description</source>
+        <translation type="unfinished">Beskrivelse</translation>
+    </message>
+    <message>
+        <source>Type</source>
+        <translation type="unfinished">Type</translation>
+    </message>
+    <message>
+        <source>Installed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Download</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Language</source>
+        <translation type="unfinished">Språk</translation>
+    </message>
+    <message>
+        <source>Code</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Location</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ResourceManagerBase</name>
+    <message>
+        <source>Resource Manager</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Category:</source>
+        <translation type="unfinished">Kategori:</translation>
+    </message>
+    <message>
+        <source>Installed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Description</source>
+        <translation type="unfinished">Beskrivelse</translation>
+    </message>
+    <message>
+        <source>ID</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Location</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show in Filesystem</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Delete Selected</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Available</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Download</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Update Available List</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -23496,10 +23855,6 @@ Expressed as a percentage of the current white space value.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Choose chracter style or leave blank for use default paragraph style</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Ensure that last lines of a paragraph won&apos;t end up separated from the rest (known as widow/orphan control)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -23522,22 +23877,22 @@ Expressed as a percentage of the current white space value.</source>
     <message>
         <source>None</source>
         <comment>optical margins</comment>
-        <translation type="unfinished">Ingen</translation>
+        <translation type="obsolete">Ingen</translation>
     </message>
     <message>
         <source>Both Sides</source>
         <comment>optical margins</comment>
-        <translation type="unfinished">Begge sidene</translation>
+        <translation type="obsolete">Begge sidene</translation>
     </message>
     <message>
         <source>Left Only</source>
         <comment>optical margins</comment>
-        <translation type="unfinished">Bare til venstre</translation>
+        <translation type="obsolete">Bare til venstre</translation>
     </message>
     <message>
         <source>Right Only</source>
         <comment>optical margins</comment>
-        <translation type="unfinished">Bare til høyre</translation>
+        <translation type="obsolete">Bare til høyre</translation>
     </message>
     <message>
         <source>Paragraph Effects</source>
@@ -23656,22 +24011,46 @@ Expressed as a percentage of the current white space value.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Minimum Space Width:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Glyph Extension </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Minimum:</source>
+        <source>Choose character style or leave blank for use default paragraph style</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Min. Space Width:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Min:</source>
+        <comment>Glyph Extension</comment>
+        <translation type="unfinished">Minste:</translation>
+    </message>
+    <message>
+        <source>Max:</source>
         <comment>Glyph Extension</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Maximum:</source>
-        <comment>Glyph Extension</comment>
-        <translation type="unfinished"></translation>
+        <source>None</source>
+        <comment>Optical Margins</comment>
+        <translation type="unfinished">Ingen</translation>
+    </message>
+    <message>
+        <source>Both Sides</source>
+        <comment>Optical Margins</comment>
+        <translation type="unfinished">Begge sidene</translation>
+    </message>
+    <message>
+        <source>Left Only</source>
+        <comment>Optical Margins</comment>
+        <translation type="unfinished">Bare til venstre</translation>
+    </message>
+    <message>
+        <source>Right Only</source>
+        <comment>Optical Margins</comment>
+        <translation type="unfinished">Bare til høyre</translation>
     </message>
 </context>
 <context>
@@ -25483,11 +25862,11 @@ Rotasjon: %4</translation>
     </message>
     <message>
         <source>&amp;Shade:</source>
-        <translation>&amp;Skygge:</translation>
+        <translation type="vanished">&amp;Skygge:</translation>
     </message>
     <message>
         <source>Shade</source>
-        <translation>Skygge</translation>
+        <translation type="vanished">Skygge</translation>
     </message>
     <message>
         <source>All</source>
@@ -25969,7 +26348,7 @@ Former monitor profile will be used.</source>
     </message>
     <message>
         <source>Linking Text Frames</source>
-        <translation>Lenker tekstrammer</translation>
+        <translation type="vanished">Lenker tekstrammer</translation>
     </message>
     <message>
         <source>Cannot Convert In-Use Item</source>
@@ -25999,11 +26378,7 @@ Former monitor profile will be used.</source>
     </message>
     <message>
         <source>You are trying to link a frame to itself.</source>
-        <translation>Du prøver å lenke en ramme til seg selv.</translation>
-    </message>
-    <message>
-        <source>You are trying to link a non-empty frame to frame which is already linked.</source>
-        <translation type="unfinished"></translation>
+        <translation type="vanished">Du prøver å lenke en ramme til seg selv.</translation>
     </message>
     <message>
         <source>End Edit</source>
@@ -26011,10 +26386,6 @@ Former monitor profile will be used.</source>
     </message>
     <message>
         <source>Click here to leave this special edit mode.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>You are trying to insert a frame into an existing text chain, where would you like to insert it?</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -27103,6 +27474,21 @@ Former monitor profile will be used.</source>
     </message>
 </context>
 <context>
+    <name>SvmPlug</name>
+    <message>
+        <source>Importing: %1</source>
+        <translation type="unfinished">Importerer: %1</translation>
+    </message>
+    <message>
+        <source>Analyzing File:</source>
+        <translation type="unfinished">Analyserer fila:</translation>
+    </message>
+    <message>
+        <source>Generating Items</source>
+        <translation type="unfinished">Lager objekter</translation>
+    </message>
+</context>
+<context>
     <name>SxwDialog</name>
     <message>
         <source>Use document name as a prefix for paragraph styles</source>
@@ -27903,7 +28289,7 @@ når dokumentet åpnes:</translation>
     </message>
     <message>
         <source>InfoString</source>
-        <translation type="unfinished">
+        <translation type="obsolete">
             </translation>
     </message>
     <message>
@@ -28094,6 +28480,34 @@ når dokumentet åpnes:</translation>
     <message>
         <source>Create a range of pages</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>TabWidget</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>...</source>
+        <translation type="unfinished">…</translation>
+    </message>
+    <message>
+        <source>0 °</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>90 °</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>180 °</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>270 °</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> °</source>
+        <translation type="unfinished"> °</translation>
     </message>
 </context>
 <context>
@@ -29360,6 +29774,14 @@ X: %4, Y: %5</translation>
         <source>Drop Shadow Blend Mode</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Swap page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unweld Items</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>UndoPalette</name>
@@ -29917,10 +30339,6 @@ converting their vector data into Scribus objects.</source>
         <translation type="unfinished">Farge:</translation>
     </message>
     <message>
-        <source>Transparency:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Edit Colors</source>
         <translation type="unfinished"></translation>
     </message>
@@ -30014,6 +30432,10 @@ converting their vector data into Scribus objects.</source>
     <message>
         <source>Pad</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Opacity:</source>
+        <translation type="unfinished">Ugjennomsiktighet:</translation>
     </message>
 </context>
 <context>
@@ -30764,11 +31186,7 @@ denne filendelsen, og ikke spør om dette senere.</translation>
     <name>weldEditBase</name>
     <message>
         <source>Form</source>
-        <translation type="unfinished">Skjema</translation>
-    </message>
-    <message>
-        <source>Move weld Point</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Skjema</translation>
     </message>
     <message>
         <source>Move Object</source>
@@ -30776,6 +31194,14 @@ denne filendelsen, og ikke spør om dette senere.</translation>
     </message>
     <message>
         <source>End Edit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Edit Weld</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Move Weld Point</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

@@ -1586,10 +1586,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Edit Welded Item</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>T&amp;runcate</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1687,6 +1683,18 @@
     </message>
     <message>
         <source>Toggle color management system</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Edit Weld</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Downloads</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Resources</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -3412,6 +3420,18 @@ Height: %2</translation>
         <source>After</source>
         <translation>After</translation>
     </message>
+    <message>
+        <source>You are trying to insert a frame into an existing text chain, where would you like to insert it?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You are trying to link a frame to itself.</source>
+        <translation type="unfinished">You are trying to link a frame to itself.</translation>
+    </message>
+    <message>
+        <source>You are trying to link a non-empty frame to frame which is already linked.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>CanvasMode_Normal</name>
@@ -3832,7 +3852,7 @@ The Insert key inserts a Glyph into the Selection below and the Delete key remov
     </message>
     <message>
         <source>Annotation uses a non TrueType font</source>
-        <translation>Annotation uses a non TrueType font</translation>
+        <translation type="vanished">Annotation uses a non TrueType font</translation>
     </message>
     <message>
         <source>Preflight profile to base the report generation on. Options can be set in Document Setup or Preferences</source>
@@ -3856,7 +3876,7 @@ The Insert key inserts a Glyph into the Selection below and the Delete key remov
     </message>
     <message>
         <source>Print/Visible Mismatch</source>
-        <translation>Print/Visible Mismatch</translation>
+        <translation type="vanished">Print/Visible Mismatch</translation>
     </message>
     <message>
         <source>Master Pages</source>
@@ -3895,15 +3915,99 @@ currently %2 x %3 DPI</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Imported document contains non embedded fonts</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Applied master page has different page destination (left, middle, right side)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Empty Text Frame</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Indicates that editorial changes have been made to a PDF are still present or your PDF contains unprintable annotation items. They may cause issues in professional printing. Also helpful reminder if you are wanting to publish a final draft without editorial relics.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Have you applied the correct Master Page?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>If you have created an image frame, there is the presumption that you planned to put an image in it.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>If you have created a text frame, there is the presumption that you planned to put text in it.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Imported document contains non-embedded fonts</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>When some imported document uses non-embedded fonts, then their rendering will be wrong, unless by chance you have them installed on their system, but that cannot be guaranteed in case you want to share the resulting document.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This is a user definable setting serving as a caution for high resolution images, which may lead to unnecessarily large files.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>mage doesnt fit the whole space you reserved for it. Maybe this is intended, or maybe this is caused by bad inner placement or scale. The result will either be a cropped image or white space around the image.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This warning alerts you that you are using a bitmap based graphic format that is typically not used for high resolution images (.gif is one of those). This may result in poor viewing quality (for example: when commercially printed, viewed on a high-resolution screens, etc...). If your PDF will be printed commercially, there are some printing systems that will have difficulty printing these types of images.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This is a user definable setting serving as a caution for low resolution images, which may lead to poor quality output.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You have one or more characters which do not have a corresponding glyph in your chosen font.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The assigned image file cannot be found.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>An object is placed somewhere outside of the page borders, it will not be printed and might be missing somewhere.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PDF supports many different ways to represent the color of any object including RGB, CMYK and Spot (aka Separation) colors. Some of the PDF standards, such as PDF/X-1a, require the only CMYK and Spot colors be used.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The warning is verifying for you that there is a PDF loaded into an Image Frame, where it will be rasterized or converted to a bitmap. Its resolution may be less than ideal. See PDF Export to learn how to minimize this problem.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>There is more text than can show in the frame as sized. Nonvisible excess characters like spaces and carriage returns may trigger this if nothing appears to be missing.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This warning indicates that your document contains images that have a transparent layer. This is really only an issue if using older printing profiles or PostScript. It is safe to ignore this when exporting to PDF version greater than 1.4.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Annotation uses a non-TrueType font</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Annotations support only a standard set of fonts. Choose another one.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This layer uses transparency, only an issue if using older printing profiles. You may safely ignore this when using modern printing methods, or exporting to PDF version greater than 1.4.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This layer uses blendmodes which relies on transparency, only an issue if using older printing profiles. You may safely ignore this when using modern printing methods, or exporting to PDF version greater than 1.4.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Print/Visible mismatch</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -5287,6 +5391,44 @@ currently %2 x %3 DPI</translation>
     </message>
 </context>
 <context>
+    <name>DownloadsPalette</name>
+    <message>
+        <source>Show In Finder</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show In Explorer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Remove</source>
+        <translation type="unfinished">Remove</translation>
+    </message>
+    <message>
+        <source>Remove All</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>DownloadsPalette_Base</name>
+    <message>
+        <source>Downloads</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Remove</source>
+        <translation type="unfinished">Remove</translation>
+    </message>
+    <message>
+        <source>Remove All</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>DrwPlug</name>
     <message>
         <source>Group%1</source>
@@ -5571,6 +5713,21 @@ failed!</translation>
     <message>
         <source>Curves</source>
         <translation>Curves</translation>
+    </message>
+</context>
+<context>
+    <name>EmfPlug</name>
+    <message>
+        <source>Importing: %1</source>
+        <translation type="unfinished">Importing: %1</translation>
+    </message>
+    <message>
+        <source>Analyzing File:</source>
+        <translation type="unfinished">Analysing File:</translation>
+    </message>
+    <message>
+        <source>Generating Items</source>
+        <translation type="unfinished">Generating Items</translation>
     </message>
 </context>
 <context>
@@ -7029,6 +7186,34 @@ converting their vector data into Scribus objects.</translation>
     </message>
 </context>
 <context>
+    <name>ImportEmfPlugin</name>
+    <message>
+        <source>Import EMF...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>EMF</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>EMF (*.emf *.EMF)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Imports EMF Files</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Imports most EMF files into the current document,
+converting their vector data into Scribus objects.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>All Supported Formats</source>
+        <translation type="unfinished">All Supported Formats</translation>
+    </message>
+</context>
+<context>
     <name>ImportIdml</name>
     <message>
         <source>Imports Adobe Idml Packages</source>
@@ -7340,6 +7525,34 @@ converting their vector data into Scribus objects.</translation>
     <message>
         <source>All Supported Formats</source>
         <translation>All Supported Formats</translation>
+    </message>
+</context>
+<context>
+    <name>ImportSvmPlugin</name>
+    <message>
+        <source>Import SVM...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>SVM</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>SVM (*.svm *.svm)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Imports SVM Files</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Imports most SVM files into the current document,
+converting their vector data into Scribus objects.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>All Supported Formats</source>
+        <translation type="unfinished">All Supported Formats</translation>
     </message>
 </context>
 <context>
@@ -8963,75 +9176,75 @@ p, li { white-space: pre-wrap; }
     <name>MasterPagesPalette</name>
     <message>
         <source>Edit Master Pages</source>
-        <translation>Edit Master Pages</translation>
+        <translation type="vanished">Edit Master Pages</translation>
     </message>
     <message>
         <source>&amp;Name:</source>
-        <translation>&amp;Name:</translation>
+        <translation type="vanished">&amp;Name:</translation>
     </message>
     <message>
         <source>New Master Page</source>
-        <translation>New Master Page</translation>
+        <translation type="vanished">New Master Page</translation>
     </message>
     <message>
         <source>Name:</source>
-        <translation>Name:</translation>
+        <translation type="vanished">Name:</translation>
     </message>
     <message>
         <source>New MasterPage</source>
-        <translation>New MasterPage</translation>
+        <translation type="vanished">New MasterPage</translation>
     </message>
     <message>
         <source>Copy #%1 of </source>
-        <translation>Copy #%1 of </translation>
+        <translation type="vanished">Copy #%1 of </translation>
     </message>
     <message>
         <source>Duplicate the selected master page</source>
-        <translation>Duplicate the selected master page</translation>
+        <translation type="vanished">Duplicate the selected master page</translation>
     </message>
     <message>
         <source>Delete the selected master page</source>
-        <translation>Delete the selected master page</translation>
+        <translation type="vanished">Delete the selected master page</translation>
     </message>
     <message>
         <source>Add a new master page</source>
-        <translation>Add a new master page</translation>
+        <translation type="vanished">Add a new master page</translation>
     </message>
     <message>
         <source>Import master pages from another document</source>
-        <translation>Import master pages from another document</translation>
+        <translation type="vanished">Import master pages from another document</translation>
     </message>
     <message>
         <source>New Master Page %1</source>
-        <translation>New Master Page %1</translation>
+        <translation type="vanished">New Master Page %1</translation>
     </message>
     <message>
         <source>Unable to Rename Master Page</source>
-        <translation>Unable to Rename Master Page</translation>
+        <translation type="vanished">Unable to Rename Master Page</translation>
     </message>
     <message>
         <source>The Normal page is not allowed to be renamed.</source>
-        <translation>The Normal page is not allowed to be renamed.</translation>
+        <translation type="vanished">The Normal page is not allowed to be renamed.</translation>
     </message>
     <message>
         <source>Rename Master Page</source>
-        <translation>Rename Master Page</translation>
+        <translation type="vanished">Rename Master Page</translation>
     </message>
     <message>
         <source>New Name:</source>
-        <translation>New Name:</translation>
+        <translation type="vanished">New Name:</translation>
     </message>
     <message>
         <source>Copy #%1 of %2</source>
-        <translation>Copy #%1 of %2</translation>
+        <translation type="vanished">Copy #%1 of %2</translation>
     </message>
     <message>
         <source>This master page is used at least once in the document.</source>
-        <translation>This master page is used at least once in the document.</translation>
+        <translation type="vanished">This master page is used at least once in the document.</translation>
     </message>
     <message>
         <source>Do you really want to delete master page &quot;%1&quot;?</source>
-        <translation>Do you really want to delete master page &quot;%1&quot;?</translation>
+        <translation type="vanished">Do you really want to delete master page &quot;%1&quot;?</translation>
     </message>
 </context>
 <context>
@@ -9277,6 +9490,10 @@ If no handle is selected all handles will be reset.</source>
     <message>
         <source>Number of Copies:</source>
         <translation>Number of Copies:</translation>
+    </message>
+    <message>
+        <source>Swap with Page</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -13458,10 +13675,6 @@ Document Liberation Project http://www.documentliberation.org</source>
     <message>
         <source>Image Cache</source>
         <translation>Image Cache</translation>
-    </message>
-    <message>
-        <source>Spelling</source>
-        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -19738,10 +19951,14 @@ Scripter documentation for futher information. </source>
     </message>
     <message>
         <source>Select color</source>
-        <translation>Select colour</translation>
+        <translation type="vanished">Select colour</translation>
     </message>
     <message>
         <source>Pick Screen Color</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Select Color</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -20007,6 +20224,22 @@ Check path and filename.</translation>
         <source>Parent Directory</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Recent Places</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Delete</source>
+        <translation type="unfinished">Delete</translation>
+    </message>
+    <message>
+        <source>Are you sure you want to delete &apos;%1&apos;?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;New Folder</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QFontDialog</name>
@@ -20096,6 +20329,10 @@ Check path and filename.</translation>
     <message>
         <source>&amp;Paste</source>
         <translation>&amp;Paste</translation>
+    </message>
+    <message>
+        <source>Delete</source>
+        <translation type="unfinished">Delete</translation>
     </message>
 </context>
 <context>
@@ -22580,6 +22817,30 @@ Therefore the image may be not correct</source>
         <comment>python error</comment>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Bosnian</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Serbian (Latin)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Telugu</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>EMF Importer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>SVM Importer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Qt supported File</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QTextEdit</name>
@@ -22694,6 +22955,104 @@ Please choose another.</translation>
     <message>
         <source>Name &quot;%1&quot; is not allowed.
 Please choose another.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ResourceManager</name>
+    <message>
+        <source>Show In Finder</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show In Explorer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Fonts</source>
+        <translation type="unfinished">Fonts</translation>
+    </message>
+    <message>
+        <source>Hyphenation Dictionaries</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Spelling Dictionaries</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Description</source>
+        <translation type="unfinished">Description</translation>
+    </message>
+    <message>
+        <source>Type</source>
+        <translation type="unfinished">Type</translation>
+    </message>
+    <message>
+        <source>Installed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Download</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Language</source>
+        <translation type="unfinished">Language</translation>
+    </message>
+    <message>
+        <source>Code</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Location</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ResourceManagerBase</name>
+    <message>
+        <source>Resource Manager</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Category:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Installed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Description</source>
+        <translation type="unfinished">Description</translation>
+    </message>
+    <message>
+        <source>ID</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Location</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show in Filesystem</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Delete Selected</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Available</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Download</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Update Available List</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -23367,10 +23726,6 @@ Expressed as a percentage of the current white space value.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Choose chracter style or leave blank for use default paragraph style</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Ensure that last lines of a paragraph won&apos;t end up separated from the rest (known as widow/orphan control)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -23393,22 +23748,22 @@ Expressed as a percentage of the current white space value.</translation>
     <message>
         <source>None</source>
         <comment>optical margins</comment>
-        <translation type="unfinished">None</translation>
+        <translation type="obsolete">None</translation>
     </message>
     <message>
         <source>Both Sides</source>
         <comment>optical margins</comment>
-        <translation type="unfinished">Both Sides</translation>
+        <translation type="obsolete">Both Sides</translation>
     </message>
     <message>
         <source>Left Only</source>
         <comment>optical margins</comment>
-        <translation type="unfinished">Left Only</translation>
+        <translation type="obsolete">Left Only</translation>
     </message>
     <message>
         <source>Right Only</source>
         <comment>optical margins</comment>
-        <translation type="unfinished">Right Only</translation>
+        <translation type="obsolete">Right Only</translation>
     </message>
     <message>
         <source>Paragraph Effects</source>
@@ -23527,22 +23882,56 @@ Expressed as a percentage of the current white space value.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Minimum Space Width:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Glyph Extension </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Minimum:</source>
         <comment>Glyph Extension</comment>
-        <translation type="unfinished">Minimum:</translation>
+        <translation type="obsolete">Minimum:</translation>
     </message>
     <message>
         <source>Maximum:</source>
         <comment>Glyph Extension</comment>
-        <translation type="unfinished">Maximum:</translation>
+        <translation type="obsolete">Maximum:</translation>
+    </message>
+    <message>
+        <source>Choose character style or leave blank for use default paragraph style</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Min. Space Width:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Min:</source>
+        <comment>Glyph Extension</comment>
+        <translation type="unfinished">Min:</translation>
+    </message>
+    <message>
+        <source>Max:</source>
+        <comment>Glyph Extension</comment>
+        <translation type="unfinished">Max:</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <comment>Optical Margins</comment>
+        <translation type="unfinished">None</translation>
+    </message>
+    <message>
+        <source>Both Sides</source>
+        <comment>Optical Margins</comment>
+        <translation type="unfinished">Both Sides</translation>
+    </message>
+    <message>
+        <source>Left Only</source>
+        <comment>Optical Margins</comment>
+        <translation type="unfinished">Left Only</translation>
+    </message>
+    <message>
+        <source>Right Only</source>
+        <comment>Optical Margins</comment>
+        <translation type="unfinished">Right Only</translation>
     </message>
 </context>
 <context>
@@ -25330,11 +25719,11 @@ Rotation: %4</translation>
     </message>
     <message>
         <source>&amp;Shade:</source>
-        <translation>&amp;Shade:</translation>
+        <translation type="vanished">&amp;Shade:</translation>
     </message>
     <message>
         <source>Shade</source>
-        <translation>Shade</translation>
+        <translation type="vanished">Shade</translation>
     </message>
     <message>
         <source>An error occurred while opening monitor profile.
@@ -25807,7 +26196,7 @@ Consider using the Preflight Verifier to correct them</translation>
     </message>
     <message>
         <source>Linking Text Frames</source>
-        <translation>Linking Text Frames</translation>
+        <translation type="vanished">Linking Text Frames</translation>
     </message>
     <message>
         <source>Cannot Convert In-Use Item</source>
@@ -25835,11 +26224,7 @@ Consider using the Preflight Verifier to correct them</translation>
     </message>
     <message>
         <source>You are trying to link a frame to itself.</source>
-        <translation>You are trying to link a frame to itself.</translation>
-    </message>
-    <message>
-        <source>You are trying to link a non-empty frame to frame which is already linked.</source>
-        <translation type="unfinished"></translation>
+        <translation type="vanished">You are trying to link a frame to itself.</translation>
     </message>
     <message>
         <source>End Edit</source>
@@ -25847,10 +26232,6 @@ Consider using the Preflight Verifier to correct them</translation>
     </message>
     <message>
         <source>Click here to leave this special edit mode.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>You are trying to insert a frame into an existing text chain, where would you like to insert it?</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -26924,6 +27305,21 @@ Consider using the Preflight Verifier to correct them</translation>
     </message>
 </context>
 <context>
+    <name>SvmPlug</name>
+    <message>
+        <source>Importing: %1</source>
+        <translation type="unfinished">Importing: %1</translation>
+    </message>
+    <message>
+        <source>Analyzing File:</source>
+        <translation type="unfinished">Analysing File:</translation>
+    </message>
+    <message>
+        <source>Generating Items</source>
+        <translation type="unfinished">Generating Items</translation>
+    </message>
+</context>
+<context>
     <name>SxwDialog</name>
     <message>
         <source>Use document name as a prefix for paragraph styles</source>
@@ -27705,7 +28101,7 @@ when PDF document is opened:</translation>
     </message>
     <message>
         <source>InfoString</source>
-        <translation>InfoString</translation>
+        <translation type="vanished">InfoString</translation>
     </message>
     <message>
         <source>Inside:</source>
@@ -27886,6 +28282,34 @@ when PDF document is opened:</translation>
     <message>
         <source>Create a range of pages</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>TabWidget</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>...</source>
+        <translation type="unfinished">...</translation>
+    </message>
+    <message>
+        <source>0 °</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>90 °</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>180 °</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>270 °</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> °</source>
+        <translation type="unfinished"> °</translation>
     </message>
 </context>
 <context>
@@ -29131,6 +29555,14 @@ X: %4, Y: %5</translation>
         <source>Drop Shadow Blend Mode</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Swap page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unweld Items</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>UndoPalette</name>
@@ -29680,7 +30112,7 @@ converting their vector data into Scribus objects.</translation>
     </message>
     <message>
         <source>Transparency:</source>
-        <translation>Transparency:</translation>
+        <translation type="vanished">Transparency:</translation>
     </message>
     <message>
         <source>Edit Colors</source>
@@ -29773,6 +30205,10 @@ converting their vector data into Scribus objects.</translation>
     <message>
         <source>Pad</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Opacity:</source>
+        <translation type="unfinished">Opacity:</translation>
     </message>
 </context>
 <context>
@@ -30514,11 +30950,11 @@ please choose another one.</translation>
     <name>weldEditBase</name>
     <message>
         <source>Form</source>
-        <translation>Form</translation>
+        <translation type="vanished">Form</translation>
     </message>
     <message>
         <source>Move weld Point</source>
-        <translation>Move weld Point</translation>
+        <translation type="vanished">Move weld Point</translation>
     </message>
     <message>
         <source>Move Object</source>
@@ -30527,6 +30963,14 @@ please choose another one.</translation>
     <message>
         <source>End Edit</source>
         <translation>End Edit</translation>
+    </message>
+    <message>
+        <source>Edit Weld</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Move Weld Point</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>
