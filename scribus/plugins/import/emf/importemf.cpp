@@ -54,6 +54,7 @@ for which a new license (GPL+exception) is in place.
 #include "selection.h"
 #include "undomanager.h"
 #include "util.h"
+#include "util_file.h"
 #include "util_formats.h"
 #include "util_icon.h"
 #include "util_math.h"
@@ -1345,6 +1346,36 @@ bool EmfPlug::convert(QString fn)
 								currentDC.clipPath = currentDC.Coords.copy();
 						}
 						break;
+				/*	case U_EMR_INTERSECTCLIPRECT:
+						{
+							QPointF p1 = getPoint(ds, true);
+							QPointF p2 = getPoint(ds, true);
+							FPointArray clipPath;
+							clipPath.resize(0);
+							clipPath.svgInit();
+							clipPath.svgMoveTo(p1.x(), p1.y());
+							clipPath.svgLineTo(p2.x(), p1.y());
+							clipPath.svgLineTo(p2.x(), p2.y());
+							clipPath.svgLineTo(p1.x(), p2.y());
+							clipPath.svgClosePath();
+							if (currentDC.clipPath.isEmpty())
+								currentDC.clipPath = clipPath.copy();
+							else
+							{
+								QPainterPath pathN = clipPath.toQPainterPath(true);
+								QPainterPath pathA = currentDC.clipPath.toQPainterPath(true);
+								QPainterPath resultPath = pathA.intersected(pathN);
+								if (!resultPath.isEmpty())
+								{
+									FPointArray polyline;
+									polyline.resize(0);
+									polyline.fromQPainterPath(resultPath, true);
+									polyline.svgClosePath();
+									currentDC.clipPath = polyline.copy();
+								}
+							}
+						}
+						break;*/
 					case U_EMR_ABORTPATH:
 						inPath = false;
 						currentDC.Coords.resize(0);
@@ -1618,7 +1649,6 @@ QPointF EmfPlug::convertDevice2Pts(QPointF in)
 	double scaleY = (bBoxMM.height() / 1000.0 / 2.54 * 72.0) / bBoxDev.height(); // Device -> Pts
 	out.setX(in.x() * scaleX);
 	out.setY(in.y() * scaleY);
-
 	return out;
 }
 
@@ -2208,8 +2238,8 @@ void EmfPlug::finishItem(PageItem* ite, bool fill)
 				FPoint xy = getMinClipF(&iteG->PoLine);
 				iteG->setXYPos(xy.x(), xy.y(), true);
 				iteG->PoLine.translate(-xy.x(), -xy.y());
-				FPoint wh = getMaxClipF(&iteG->PoLine);
-				iteG->setWidthHeight(wh.x(),wh.y());
+				FPoint whi = getMaxClipF(&iteG->PoLine);
+				iteG->setWidthHeight(whi.x(),whi.y());
 				iteG->groupWidth = oldgW * (iteG->width() / oldW);
 				iteG->groupHeight = oldgH * (iteG->height() / oldH);
 				double dx = (iteG->xPos() - oldX) / (iteG->width() / iteG->groupWidth);
@@ -5466,42 +5496,13 @@ void EmfPlug::handleEMFPDrawImageData(QPointF p1, QPointF p2, QPointF p3, quint8
 		QString ext = "emf";
 		if (emfStyleMapEMP[flagsH].imageType < U_MDT_Emf)
 			ext = "wmf";
-		QTemporaryFile *tempFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_emf_XXXXXX." + ext);
-		if (tempFile->open())
+		PageItem* ite = getVectorFileFromData(m_Doc, emfStyleMapEMP[flagsH].imageData, ext, baseX + p1.x(), baseY + p1.y(), QLineF(p1, p2).length(), QLineF(p1, p3).length());
+		if (ite != NULL)
 		{
-			QString fileName = getLongPathName(tempFile->fileName());
-			if (!fileName.isEmpty())
-			{
-				tempFile->write(emfStyleMapEMP[flagsH].imageData);
-				tempFile->close();
-				FileLoader *fileLoader = new FileLoader(fileName);
-				int testResult = fileLoader->testFile();
-				delete fileLoader;
-				if (testResult != -1)
-				{
-					const FileFormat * fmt = LoadSavePlugin::getFormatById(testResult);
-					if(fmt)
-					{
-						m_Doc->m_Selection->clear();
-						fmt->setupTargets(m_Doc, 0, 0, 0, &(PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts));
-						fmt->loadFile(fileName, LoadSavePlugin::lfUseCurrentPage|LoadSavePlugin::lfInteractive|LoadSavePlugin::lfScripted);
-						if (m_Doc->m_Selection->count() > 0)
-						{
-							PageItem* ite = m_Doc->groupObjectsSelection();
-							ite->setTextFlowMode(PageItem::TextFlowUsesBoundingBox);
-							ite->setXYPos(baseX + p1.x(), baseY + p1.y(), true);
-							ite->setWidthHeight(QLineF(p1, p2).length(), QLineF(p1, p3).length(), true);
-							if (QLineF(p1, p2).angle() != 0)
-								ite->setRotation(-QLineF(p1, p2).angle(), true);
-							ite->updateClip();
-							finishItem(ite, false);
-						}
-						m_Doc->m_Selection->clear();
-					}
-				}
-			}
+			if (QLineF(p1, p2).angle() != 0)
+				ite->setRotation(-QLineF(p1, p2).angle(), true);
+			finishItem(ite, false);
 		}
-		delete tempFile;
 	}
 	else
 	{

@@ -257,6 +257,7 @@ for which a new license (GPL+exception) is in place.
 #include "units.h"
 #include "urllauncher.h"
 #include "util.h"
+#include "util_file.h"
 #include "util_formats.h"
 #include "util_ghostscript.h"
 #include "util_icon.h"
@@ -4799,6 +4800,21 @@ void ScribusMainWindow::slotEditPaste()
 			if (doc->m_Selection->count() > 1)
 				doc->m_Selection->setGroupRect();
 		}
+		else if (ScMimeData::clipboardHasKnownData())
+		{
+			QString ext = ScMimeData::clipboardKnownDataExt();
+			QByteArray bitsBits = ScMimeData::clipboardKnownDataData();
+			double x0 = (view->contentsX() / view->scale()) + ((view->visibleWidth() / 2.0) / view->scale());
+			double y0 = (view->contentsY() / view->scale()) + ((view->visibleHeight() / 2.0) / view->scale());
+			PageItem *retObj = getVectorFileFromData(doc, bitsBits, ext, x0, y0);
+			if (retObj != NULL)
+			{
+				double x = (view->contentsX() / view->scale()) + ((view->visibleWidth() / 2.0) / view->scale()) - (retObj->width() / 2.0);
+				double y = (view->contentsY() / view->scale()) + ((view->visibleHeight() / 2.0) / view->scale()) - (retObj->height() / 2.0);
+				retObj->setTextFlowMode(PageItem::TextFlowUsesBoundingBox);
+				retObj->setXYPos(x, y, true);
+			}
+		}
 		view->DrawNew();
 	}
 	if (activeTransaction)
@@ -4960,6 +4976,7 @@ void ScribusMainWindow::ClipChange()
 	bool textFrameEditMode = false;
 	bool tableEditMode = false;
 	bool hasScribusData = ScMimeData::clipboardHasScribusElem() || ScMimeData::clipboardHasScribusFragment();
+	bool hasExternalData = ScMimeData::clipboardHasKnownData();
 	if (HaveDoc && !doc->m_Selection->isEmpty())
 	{
 		PageItem *currItem = NULL;
@@ -4967,7 +4984,7 @@ void ScribusMainWindow::ClipChange()
 		textFrameEditMode  = ((doc->appMode == modeEdit) && (currItem->asTextFrame()));
 		tableEditMode = ((doc->appMode == modeEditTable) && (currItem->asTable()));
 	}
-	scrActions["editPaste"]->setEnabled(HaveDoc && (hasScribusData || textFrameEditMode || tableEditMode));
+	scrActions["editPaste"]->setEnabled(HaveDoc && (hasScribusData || textFrameEditMode || tableEditMode || hasExternalData));
 }
 
 void ScribusMainWindow::EnableTxEdit()

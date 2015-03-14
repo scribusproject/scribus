@@ -33,6 +33,9 @@ bool ScMimeData::clipboardHasScribusData(void)
 		hasData |= mimeData->hasFormat(ScMimeData::ScribusFragmentMimeType);
 		hasData |= mimeData->hasFormat(ScMimeData::ScribusTextMimeType);
 		hasData |= mimeData->hasText();
+		hasData |= mimeData->hasFormat("application/x-openoffice-gdimetafile;windows_formatname=\"GDIMetaFile\"");
+		hasData |= mimeData->hasFormat("image/x-inkscape-svg");
+		hasData |= mimeData->hasFormat("application/vnd.oasis.opendocument.graphics");
 	}
 	return hasData;
 }
@@ -67,6 +70,51 @@ bool ScMimeData::clipboardHasPlainText(void)
 	if (mimeData)
 		return mimeData->hasText();
 	return false;
+}
+
+bool ScMimeData::clipboardHasKnownData(void)
+{
+	bool  hasData = false;
+	const QMimeData* mimeData = QApplication::clipboard()->mimeData();
+	if (mimeData)
+	{
+		hasData |= mimeData->hasFormat("application/x-openoffice-gdimetafile;windows_formatname=\"GDIMetaFile\"");
+		hasData |= mimeData->hasFormat("image/x-inkscape-svg");
+		hasData |= mimeData->hasFormat("application/vnd.oasis.opendocument.graphics");
+	}
+	return hasData;
+}
+
+QString ScMimeData::clipboardKnownDataExt(void)
+{
+	QString ext = "";
+	const QMimeData* mimeData = QApplication::clipboard()->mimeData();
+	if (mimeData)
+	{
+		if (mimeData->hasFormat("application/x-openoffice-gdimetafile;windows_formatname=\"GDIMetaFile\""))
+			ext = "svm";
+		else if (mimeData->hasFormat("image/x-inkscape-svg"))
+			ext = "svg";
+		else if (mimeData->hasFormat("application/vnd.oasis.opendocument.graphics"))
+			ext = "odg";
+	}
+	return ext;
+}
+
+QByteArray ScMimeData::clipboardKnownDataData(void)
+{
+	QByteArray data = "";
+	const QMimeData* mimeData = QApplication::clipboard()->mimeData();
+	if (mimeData)
+	{
+		if (mimeData->hasFormat("application/x-openoffice-gdimetafile;windows_formatname=\"GDIMetaFile\""))
+			data = mimeData->data("application/x-openoffice-gdimetafile;windows_formatname=\"GDIMetaFile\"");
+		else if (mimeData->hasFormat("image/x-inkscape-svg"))
+			data = mimeData->data("image/x-inkscape-svg");
+		else if (mimeData->hasFormat("application/vnd.oasis.opendocument.graphics"))
+			data = mimeData->data("application/vnd.oasis.opendocument.graphics");
+	}
+	return data;
 }
 
 QString ScMimeData::clipboardScribusElem(void)

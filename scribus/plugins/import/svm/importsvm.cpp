@@ -54,6 +54,7 @@ for which a new license (GPL+exception) is in place.
 #include "selection.h"
 #include "undomanager.h"
 #include "util.h"
+#include "util_file.h"
 #include "util_formats.h"
 #include "util_icon.h"
 #include "util_math.h"
@@ -4559,42 +4560,13 @@ void SvmPlug::handleEMFPDrawImageData(QPointF p1, QPointF p2, QPointF p3, quint8
 		QString ext = "emf";
 		if (emfStyleMapEMP[flagsH].imageType < U_MDT_Emf)
 			ext = "wmf";
-		QTemporaryFile *tempFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_emf_XXXXXX." + ext);
-		if (tempFile->open())
+		PageItem* ite = getVectorFileFromData(m_Doc, emfStyleMapEMP[flagsH].imageData, ext, baseX + p1.x(), baseY + p1.y(), QLineF(p1, p2).length(), QLineF(p1, p3).length());
+		if (ite != NULL)
 		{
-			QString fileName = getLongPathName(tempFile->fileName());
-			if (!fileName.isEmpty())
-			{
-				tempFile->write(emfStyleMapEMP[flagsH].imageData);
-				tempFile->close();
-				FileLoader *fileLoader = new FileLoader(fileName);
-				int testResult = fileLoader->testFile();
-				delete fileLoader;
-				if (testResult != -1)
-				{
-					const FileFormat * fmt = LoadSavePlugin::getFormatById(testResult);
-					if(fmt)
-					{
-						m_Doc->m_Selection->clear();
-						fmt->setupTargets(m_Doc, 0, 0, 0, &(PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts));
-						fmt->loadFile(fileName, LoadSavePlugin::lfUseCurrentPage|LoadSavePlugin::lfInteractive|LoadSavePlugin::lfScripted);
-						if (m_Doc->m_Selection->count() > 0)
-						{
-							PageItem* ite = m_Doc->groupObjectsSelection();
-							ite->setTextFlowMode(PageItem::TextFlowUsesBoundingBox);
-							ite->setXYPos(baseX + p1.x(), baseY + p1.y(), true);
-							ite->setWidthHeight(QLineF(p1, p2).length(), QLineF(p1, p3).length(), true);
-							if (QLineF(p1, p2).angle() != 0)
-								ite->setRotation(-QLineF(p1, p2).angle(), true);
-							ite->updateClip();
-							finishItem(ite, false);
-						}
-						m_Doc->m_Selection->clear();
-					}
-				}
-			}
+			if (QLineF(p1, p2).angle() != 0)
+				ite->setRotation(-QLineF(p1, p2).angle(), true);
+			finishItem(ite, false);
 		}
-		delete tempFile;
 	}
 	else
 	{

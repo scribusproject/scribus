@@ -13,6 +13,7 @@ for which a new license (GPL+exception) is in place.
 # include <utime.h>
 #endif
 
+#include <QByteArray>
 #include <QDataStream>
 #include <QDir>
 #include <QFile>
@@ -21,7 +22,13 @@ for which a new license (GPL+exception) is in place.
 #include <QProcess>
 #include <QTemporaryFile>
 
+#include "fileloader.h"
+#include "loadsaveplugin.h"
+#include "prefsmanager.h"
+#include "scribusdoc.h"
 #include "scstreamfilter.h"
+#include "selection.h"
+#include "util.h"
 
 bool copyData(QIODevice& src, QIODevice& dest)
 {
@@ -232,4 +239,47 @@ bool fileInPath(const QString& filename)
 			return true;
 	}
 	return false;
+}
+
+PageItem*  getVectorFileFromData(ScribusDoc *doc, QByteArray &data, QString ext, double x, double y, double w, double h)
+{
+	PageItem* retObj = NULL;
+	QTemporaryFile *tempFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_XXXXXX." + ext);
+	if (tempFile->open())
+	{
+		QString fileName = getLongPathName(tempFile->fileName());
+		if (!fileName.isEmpty())
+		{
+			tempFile->write(data);
+			tempFile->close();
+			FileLoader *fileLoader = new FileLoader(fileName);
+			int testResult = fileLoader->testFile();
+			delete fileLoader;
+			if (testResult != -1)
+			{
+				const FileFormat * fmt = LoadSavePlugin::getFormatById(testResult);
+				if( fmt )
+				{
+					doc->m_Selection->clear();
+					doc->m_Selection->delaySignalsOn();
+					fmt->setupTargets(doc, 0, 0, 0, &(PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts));
+					fmt->loadFile(fileName, LoadSavePlugin::lfUseCurrentPage|LoadSavePlugin::lfInteractive|LoadSavePlugin::lfScripted);
+					if (doc->m_Selection->count() > 0)
+					{
+						retObj = doc->groupObjectsSelection();
+						retObj->setTextFlowMode(PageItem::TextFlowUsesBoundingBox);
+						retObj->setXYPos(x, y, true);
+						if ((w >= 0) && (h >= 0))
+							retObj->setWidthHeight(w, h, true);
+						retObj->updateClip();
+						retObj->update();
+					}
+					doc->m_Selection->clear();
+					doc->m_Selection->delaySignalsOff();
+				}
+			}
+		}
+	}
+	delete tempFile;
+	return retObj;
 }

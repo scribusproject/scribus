@@ -65,6 +65,7 @@ for which a new license (GPL+exception) is in place.
 #include "ui/propertiespalette.h"
 #include "undomanager.h"
 #include "util.h"
+#include "util_file.h"
 #include "util_formats.h"
 #include "util_icon.h"
 #include "util_math.h"
@@ -1592,40 +1593,9 @@ PageItem* OdgPlug::parseFrame(QDomElement &e)
 							if ((f[0] == '\x01') && (f[1] == '\x00') && (f[2] == '\x00') && (f[3] == '\x00') && (f[40] == '\x20') && (f[41] == '\x45') && (f[42] == '\x4D') && (f[43] == '\x46'))
 								ext = "emf";
 						}
-						QTemporaryFile *tempFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_odg_XXXXXX." + ext);
-						if (tempFile->open())
-						{
-							QString fileName = getLongPathName(tempFile->fileName());
-							if (!fileName.isEmpty())
-							{
-								tempFile->write(f);
-								tempFile->close();
-								FileLoader *fileLoader = new FileLoader(fileName);
-								int testResult = fileLoader->testFile();
-								delete fileLoader;
-								if (testResult != -1)
-								{
-									const FileFormat * fmt = LoadSavePlugin::getFormatById(testResult);
-									if( fmt )
-									{
-										m_Doc->m_Selection->clear();
-										fmt->setupTargets(m_Doc, 0, 0, 0, &(PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts));
-										fmt->loadFile(fileName, LoadSavePlugin::lfUseCurrentPage|LoadSavePlugin::lfInteractive|LoadSavePlugin::lfScripted);
-										if (m_Doc->m_Selection->count() > 0)
-										{
-											retObj = m_Doc->groupObjectsSelection();
-											retObj->setTextFlowMode(PageItem::TextFlowUsesBoundingBox);
-											retObj->setXYPos(baseX + x, baseY + y, true);
-											retObj->setWidthHeight(w, h, true);
-											retObj->updateClip();
-										}
-										m_Doc->m_Selection->clear();
-										m_Doc->Items->removeLast();
-									}
-								}
-							}
-						}
-						delete tempFile;
+						retObj = getVectorFileFromData(m_Doc, f, ext, baseX + x, baseY + y, w, h);
+						if (retObj != NULL)
+							m_Doc->Items->removeLast();
 					}
 				}
 			}
@@ -1663,44 +1633,15 @@ PageItem* OdgPlug::parseFrame(QDomElement &e)
 							ext = "emf";
 						else if ((buf[0] == '<') && (buf[1] == '?') && (buf[2] == 'x') && (buf[3] == 'm') && (buf[4] == 'l'))
 							ext = "svg";
+						else if ((buf[0] == 'V') && (buf[1] == 'C') && (buf[2] == 'L') && (buf[3] == 'M') && (buf[4] == 'T') && (buf[5] == 'F'))
+							ext = "svm";
 						if (!ext.isEmpty())
 						{
-							if ((ext == "eps") || (ext == "wmf") || (ext == "emf") || (ext == "svg"))
+							if ((ext == "eps") || (ext == "wmf") || (ext == "emf") || (ext == "svg") || (ext == "svm"))
 							{
-								QTemporaryFile *tempFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_odg_XXXXXX." + ext);
-								if (tempFile->open())
-								{
-									QString fileName = getLongPathName(tempFile->fileName());
-									if (!fileName.isEmpty())
-									{
-										tempFile->write(buf);
-										tempFile->close();
-										FileLoader *fileLoader = new FileLoader(fileName);
-										int testResult = fileLoader->testFile();
-										delete fileLoader;
-										if (testResult != -1)
-										{
-											const FileFormat * fmt = LoadSavePlugin::getFormatById(testResult);
-											if( fmt )
-											{
-												m_Doc->m_Selection->clear();
-												fmt->setupTargets(m_Doc, 0, 0, 0, &(PrefsManager::instance()->appPrefs.fontPrefs.AvailFonts));
-												fmt->loadFile(fileName, LoadSavePlugin::lfUseCurrentPage|LoadSavePlugin::lfInteractive|LoadSavePlugin::lfScripted);
-												if (m_Doc->m_Selection->count() > 0)
-												{
-													retObj = m_Doc->groupObjectsSelection();
-													retObj->setTextFlowMode(PageItem::TextFlowUsesBoundingBox);
-													retObj->setXYPos(baseX + x, baseY + y, true);
-													retObj->setWidthHeight(w, h, true);
-													retObj->updateClip();
-												}
-												m_Doc->m_Selection->clear();
-												m_Doc->Items->removeLast();
-											}
-										}
-									}
-								}
-								delete tempFile;
+								retObj = getVectorFileFromData(m_Doc, buf, ext, baseX + x, baseY + y, w, h);
+								if (retObj != NULL)
+									m_Doc->Items->removeLast();
 							}
 							else
 							{
@@ -4003,6 +3944,8 @@ void OdgPlug::finishItem(PageItem* item, ObjStyle &obState)
 					ext = "tif";
 				else if ((buf[0] == '/') && (buf[1] == '*') && (buf[2] == ' ') && (buf[3] == 'X') && (buf[4] == 'P') && (buf[5] == 'M'))
 					ext = "xpm";
+				else if ((buf[0] == 'V') && (buf[1] == 'C') && (buf[2] == 'L') && (buf[3] == 'M') && (buf[4] == 'T') && (buf[5] == 'F'))
+					ext = "svm";
 				if (!ext.isEmpty())
 				{
 					QTemporaryFile *tempFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_odg_XXXXXX." + ext);
