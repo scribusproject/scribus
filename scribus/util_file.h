@@ -86,5 +86,5 @@ bool SCRIBUS_API touchFile(const QString& file);
 **/
 bool SCRIBUS_API fileInPath(const QString& filename);
 
-PageItem* SCRIBUS_API getVectorFileFromData(ScribusDoc *doc, QByteArray &data, QString ext, double x, double y, double w = -1.0, double h = -1.0);
+PageItem SCRIBUS_API * getVectorFileFromData(ScribusDoc *doc, QByteArray &data, QString ext, double x, double y, double w = -1.0, double h = -1.0);
 #endif
