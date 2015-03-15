@@ -329,67 +329,67 @@ bool regionContainsRect(const QRegion& shape, QRect rect)
 	// Code adapted from Qt RectInRegion (cf. qregion.cpp) to detect
 	// if a specific rect is stricly contained in a specific region
 	const QRect *pbox, *pboxEnd;
-    bool partIn(false), partOut(false);
+	bool partIn(false), partOut(false);
 
 	QRect *prect = &rect;
 	int rx = rect.left();
 	int ry = rect.top();
-   
+
 	int rectCount = shape.rectCount();
 	QRect boundingRect = shape.boundingRect();
-    if (rectCount == 0 || !boundingRect.contains(rect))
-        return false;
+	if (rectCount == 0 || !boundingRect.contains(rect))
+		return false;
 
-    /* can stop when both partOut and partIn are true, or we reach prect->y2 */
+	/* can stop when both partOut and partIn are true, or we reach prect->y2 */
 	const QVector<QRect> rects = shape.rects();
-    pbox = (rectCount == 1) ? &boundingRect : rects.constData();
-    pboxEnd = pbox + rectCount;
-    for (; pbox < pboxEnd; ++pbox) {
-        if (pbox->bottom() < ry)
-           continue;
+	pbox = (rectCount == 1) ? &boundingRect : rects.constData();
+	pboxEnd = pbox + rectCount;
+	for (; pbox < pboxEnd; ++pbox) {
+		if (pbox->bottom() < ry)
+			continue;
 
-        if (pbox->top() > ry) {
-           partOut = true;
-           if (partIn || pbox->top() > prect->bottom())
-              break;
-           ry = pbox->top();
-        }
+		if (pbox->top() > ry) {
+			partOut = true;
+			if (partIn || pbox->top() > prect->bottom())
+				break;
+			ry = pbox->top();
+		}
 
-        if (pbox->right() < rx)
-           continue;            /* not far enough over yet */
+		if (pbox->right() < rx)
+			continue;            /* not far enough over yet */
 
-        if (pbox->left() > rx) {
-           partOut = true;      /* missed part of rectangle to left */
-           if (partIn)
-              break;
-        }
+		if (pbox->left() > rx) {
+			partOut = true;      /* missed part of rectangle to left */
+			if (partIn)
+				break;
+		}
 
-        if (pbox->left() <= prect->right()) {
-            partIn = true;      /* definitely overlap */
-            if (partOut)
-               break;
-        }
+		if (pbox->left() <= prect->right()) {
+			partIn = true;      /* definitely overlap */
+			if (partOut)
+				break;
+		}
 
-        if (pbox->right() >= prect->right()) {
-           ry = pbox->bottom() + 1;     /* finished with this band */
-           if (ry > prect->bottom())
-              break;
-           rx = prect->left();  /* reset x out to left again */
-        } else {
-            /*
-             * Because boxes in a band are maximal width, if the first box
-             * to overlap the rectangle doesn't completely cover it in that
-             * band, the rectangle must be partially out, since some of it
-             * will be uncovered in that band. partIn will have been set true
-             * by now...
-             */
-            break;
-        }
-    }
+		if (pbox->right() >= prect->right()) {
+			ry = pbox->bottom() + 1;     /* finished with this band */
+			if (ry > prect->bottom())
+				break;
+			rx = prect->left();  /* reset x out to left again */
+		} else {
+			/*
+			 * Because boxes in a band are maximal width, if the first box
+			 * to overlap the rectangle doesn't completely cover it in that
+			 * band, the rectangle must be partially out, since some of it
+			 * will be uncovered in that band. partIn will have been set true
+			 * by now...
+			 */
+			break;
+		}
+	}
 	/*bool newResult = partIn ? ((ry <= prect->bottom()) ? false : true) : false;
 	if (oldResult != newResult)
 		int test = 0;*/
-    return partIn ? ((ry <= prect->bottom()) ? false : true) : false;
+	return partIn ? ((ry <= prect->bottom()) ? false : true) : false;
 }
 
 QPolygon FlattenPath(const FPointArray& ina, QList<uint> &Segs)
