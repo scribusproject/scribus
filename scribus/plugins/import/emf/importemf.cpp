@@ -2885,9 +2885,9 @@ void EmfPlug::handlePatternFill(qint32 dstX, qint32 dstY, qint32 dstW, qint32 ds
 QImage EmfPlug::handleDIB(QDataStream &ds, qint64 filePos, quint32 offBitH, quint32 sizeBitH, quint32 offBits, quint32 sizeBits)
 {
 	QImage img = QImage();
-	quint32 hSiz, hCompression, imgSize, xres, yres, colorsUsed, colorsReq;
-	qint32 hWidth, hHeight;
-	quint16 hPlane, hBitCount;
+	quint32 hSiz = 0, hCompression = 0, imgSize = 0, xres = 0, yres = 0, colorsUsed = 0, colorsReq = 0;
+	qint32 hWidth = 0, hHeight = 0;
+	quint16 hPlane = 0, hBitCount = 0;
 	QVector<QRgb> colorTbl;
 	if ((sizeBitH != 0) && (sizeBits != 0))
 	{
