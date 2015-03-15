@@ -4797,7 +4797,7 @@ void PageItem_TextFrame::deleteSelectedTextFromFrame(/*bool findNotes*/)
 	int start = itemText.startOfSelection();
 	int stop = itemText.endOfSelection();
 	int marksNum = 0;
-	if(UndoManager::undoEnabled()) {
+	if (UndoManager::undoEnabled()) {
 		int lastPos = start;
 		CharStyle lastParent = itemText.charStyle(start);
 		UndoState* state = undoManager->getLastUndo();
@@ -4805,7 +4805,7 @@ void PageItem_TextFrame::deleteSelectedTextFromFrame(/*bool findNotes*/)
 		TransactionState *ts = NULL;
 		bool added = false;
 		bool lastIsDelete = false;
-		while(state && state->isTransaction()){
+		while (state && state->isTransaction()){
 			ts = dynamic_cast<TransactionState*>(state);
 			is = dynamic_cast<ScItemState<CharStyle>*>(ts->at(ts->sizet()-1));
 			state = ts->at(0);
@@ -4932,7 +4932,7 @@ void PageItem_TextFrame::deleteSelectedTextFromFrame(/*bool findNotes*/)
 		}
 	}
 	else //remove marks without undo
-		marksNum =removeMarksFromText(false);
+		marksNum = removeMarksFromText(false);
 	itemText.setCursorPosition( start );
 	//for sure text is still selected
 	itemText.select(start, stop - start - marksNum);
