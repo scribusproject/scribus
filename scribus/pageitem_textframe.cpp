@@ -866,15 +866,15 @@ struct LineControl {
 //		double firstasce = itemText.charStyle(line.firstItem).font().ascent(itemText.charStyle(line.firstItem).fontSize() / 10.0);
 //		double adj (0.0);
 //		double currasce (this->getLineAscent(itemText));
-//		if( offsetPolicy == FLOPRealGlyphHeight )
+//		if (offsetPolicy == FLOPRealGlyphHeight)
 //		{
 //			adj = firstasce - currasce;
 //		}
-//		else if( offsetPolicy == FLOPFontAscent )
+//		else if (offsetPolicy == FLOPFontAscent)
 //		{
 //			adj = 0.0;
 //		}
-//		else if( offsetPolicy == FLOPLineSpacing )
+//		else if (offsetPolicy == FLOPLineSpacing)
 //		{
 //			adj = firstasce - style.lineSpacing();
 //		}
@@ -1854,12 +1854,12 @@ void PageItem_TextFrame::layout()
 								}
 								break;
 							case SpecialChars::CJK_FENCE_BEGIN:
-								if(a == current.line.firstItem){ // first char of the line
+								if (a == current.line.firstItem){ // first char of the line
 									prevStat = SpecialChars::CJK_FENCE_BEGIN;
 								} else {
 									prevStat = SpecialChars::getCJKAttr(itemText.text(a-1)) & SpecialChars::CJK_CHAR_MASK;
 								}
-								if(prevStat == SpecialChars::CJK_FENCE_BEGIN){
+								if (prevStat == SpecialChars::CJK_FENCE_BEGIN){
 									kern = -wide / 2;
 									wide += kern;
 									glyphs->last()->xadvance += kern;
@@ -2031,7 +2031,7 @@ void PageItem_TextFrame::layout()
 						current.leftIndent += style.firstIndent();
 						if (BulNumMode || DropCmode)
 						{
-							if(style.parEffectIndent())
+							if (style.parEffectIndent())
 							{
 								current.leftIndent -= style.parEffectOffset() + wide;
 								if (current.leftIndent < 0.0)
@@ -2376,14 +2376,14 @@ void PageItem_TextFrame::layout()
 			if  (HasObject)
 				current.rememberBreak(a, breakPos, style.rightMargin());
 			// CJK break
-			if(a > current.line.firstItem)
+			if (a > current.line.firstItem)
 			{ // not the first char
-				if( (lastStat == 0) && (curStat == 0))
+				if ((lastStat == 0) && (curStat == 0))
 				{	// both non-CJK
 					// do nothing
 				} else {
 					// non-CJK char does not have CJK_NOBREAK_AFTER/CJK_NOBREAK_BEFORE
-					if((lastStat & SpecialChars::CJK_NOBREAK_AFTER) == 0 &&
+					if ((lastStat & SpecialChars::CJK_NOBREAK_AFTER) == 0 &&
 							(curStat & SpecialChars::CJK_NOBREAK_BEFORE) == 0){
 						current.rememberBreak(a-1, breakPos, style.rightMargin());
 					}
@@ -3178,7 +3178,7 @@ bool PageItem_TextFrame::isValidChainFromBegin()
 
 void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRectF cullingArea)
 {
-	if(invalid)
+	if (invalid)
 	{
 		if (isNoteFrame() && asNoteFrame()->deleteIt)
 		//do not layout notes frames which should be deleted
@@ -3693,10 +3693,10 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRectF cullingArea)
 				Mark* mark = itemText.mark(as);
 				if (mark != NULL && (mark->isType(MARKAnchorType) || mark->isType(MARKIndexType)))
 					continue;
-				if(selecteds)
+				if (selecteds)
 				{
 					const CharStyle& charStyleS(itemText.charStyle(as));
-					if(((as > ls.firstItem) && (charStyleS != itemText.charStyle(as-1)))
+					if (((as > ls.firstItem) && (charStyleS != itemText.charStyle(as-1)))
 						|| ((!selectedFrame.isNull()) && HasObject)
 						|| previousWasObject)
 					{
@@ -3712,10 +3712,10 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRectF cullingArea)
 							double xcoZli = selX + glyphs->xoffset;
 							// ugly hack to make selection correct, as xoffset is used to
 							// remove left-half of CJK lparen , which is blank.
-							if(glyphs->xoffset)
+							if (glyphs->xoffset)
 							{
 								int attr = SpecialChars::getCJKAttr(itemText.text(as)) & SpecialChars::CJK_CHAR_MASK;
-								if( attr == SpecialChars::CJK_FENCE_BEGIN)
+								if (attr == SpecialChars::CJK_FENCE_BEGIN)
 								{
 									xcoZli -= glyphs->xoffset;
 								}
@@ -3746,7 +3746,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRectF cullingArea)
 				else*/
 				selX += glyphs->wide();
 			}
-			if(!selectedFrame.isNull())
+			if (!selectedFrame.isNull())
 				sFList << selectedFrame;
 			p->save();//SA3
 			p->setFillMode(1);
@@ -4051,7 +4051,7 @@ void PageItem_TextFrame::clearContents()
 	nextItem->asTextFrame()->deleteSelectedTextFromFrame();
 	if (!isNoteFrame())
 	{
-		if(UndoManager::undoEnabled() && undoManager->getLastUndo())
+		if (UndoManager::undoEnabled() && undoManager->getLastUndo())
 			undoManager->getLastUndo()->setName(Um::ClearText);
 		nextItem->itemText.setDefaultStyle(defaultStyle);
 	}
@@ -4076,7 +4076,7 @@ void PageItem_TextFrame::truncateContents()
 		}
 		itemText.setCursorPosition(pos, true);
 
-		if(UndoManager::undoEnabled() && undoManager->getLastUndo())
+		if (UndoManager::undoEnabled() && undoManager->getLastUndo())
 			undoManager->getLastUndo()->setName(Um::TruncateText);
 		this->itemText.setDefaultStyle(defaultStyle);
 	}
@@ -4166,14 +4166,14 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 		if (UndoManager::undoEnabled())
 		{
 			SimpleState *ss = dynamic_cast<SimpleState*>(undoManager->getLastUndo());
-			if(ss)
+			if (ss)
 				ss->set("ETEA",QString(""));
 			else
 			{
 				TransactionState *ts = dynamic_cast<TransactionState*>(undoManager->getLastUndo());
-				if(ts)
+				if (ts)
 					ss = dynamic_cast<SimpleState*>(ts->at(0));
-				if(ss)
+				if (ss)
 					ss->set("ETEA",QString(""));
 			}
 		}
@@ -4202,7 +4202,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 			if (ok)
 			{
 				UndoTransaction trans;
-				if(UndoManager::undoEnabled())
+				if (UndoManager::undoEnabled())
 					trans = undoManager->beginTransaction(Um::Selection,Um::ITextFrame,Um::InsertText,"",Um::IDelete);
 				if (itemText.lengthOfSelection() > 0)
 					deleteSelectedTextFromFrame();
@@ -4211,7 +4211,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 				if (UndoManager::undoEnabled())
 				{
 					SimpleState *ss = dynamic_cast<SimpleState*>(undoManager->getLastUndo());
-					if(ss && ss->get("ETEA") == "insert_frametext")
+					if (ss && ss->get("ETEA") == "insert_frametext")
 							ss->set("TEXT_STR",ss->get("TEXT_STR") + QString(QChar(conv)));
 					else {
 						ss = new SimpleState(Um::InsertText,"",Um::ICreate);
@@ -4805,7 +4805,7 @@ void PageItem_TextFrame::deleteSelectedTextFromFrame(/*bool findNotes*/)
 		TransactionState *ts = NULL;
 		bool added = false;
 		bool lastIsDelete = false;
-		while (state && state->isTransaction()){
+		while (state && state->isTransaction()) {
 			ts = dynamic_cast<TransactionState*>(state);
 			is = dynamic_cast<ScItemState<CharStyle>*>(ts->at(ts->sizet()-1));
 			state = ts->at(0);
@@ -4842,20 +4842,20 @@ void PageItem_TextFrame::deleteSelectedTextFromFrame(/*bool findNotes*/)
 			{
 				added = false;
 				lastIsDelete = false;
-				if (is && ts && dynamic_cast<ScItemState<CharStyle>*>(ts->at(0))->get("ETEA") == "delete_frametext" && lastPos<is->getInt("START"))
+				if (is && ts && dynamic_cast<ScItemState<CharStyle>*>(ts->at(0))->get("ETEA") == "delete_frametext" && lastPos < is->getInt("START"))
 				{
 					if (is->getItem().equiv(lastParent))
 					{
-						is->set("START",start);
-						is->set("TEXT_STR",itemText.text(lastPos,i - lastPos) + is->get("TEXT_STR"));
+						is->set("START", start);
+						is->set("TEXT_STR", itemText.text(lastPos, i - lastPos) + is->get("TEXT_STR"));
 						added = true;
 					}
 					lastIsDelete = true;
 				}
-				else if (is && ts && dynamic_cast<ScItemState<CharStyle>*>(ts->at(0))->get("ETEA") == "delete_frametext"  && lastPos>=is->getInt("START"))
+				else if (is && ts && dynamic_cast<ScItemState<CharStyle>*>(ts->at(0))->get("ETEA") == "delete_frametext"  && lastPos >= is->getInt("START"))
 				{
 					if (is->getItem().equiv(lastParent)){
-						is->set("TEXT_STR",is->get("TEXT_STR") + itemText.text(lastPos,i - lastPos));
+						is->set("TEXT_STR", is->get("TEXT_STR") + itemText.text(lastPos, i - lastPos));
 						added = true;
 					}
 					lastIsDelete = true;
@@ -4866,10 +4866,10 @@ void PageItem_TextFrame::deleteSelectedTextFromFrame(/*bool findNotes*/)
 					is = NULL;
 					if (i - lastPos > 0)
 					{
-						is = new ScItemState<CharStyle>(Um::DeleteText,"",Um::IDelete);
+						is = new ScItemState<CharStyle>(Um::DeleteText, "", Um::IDelete);
 						is->set("DELETE_FRAMETEXT", "delete_frametext");
 						is->set("ETEA", QString("delete_frametext"));
-						is->set("TEXT_STR",itemText.text(lastPos,i - lastPos));
+						is->set("TEXT_STR", itemText.text(lastPos, i - lastPos));
 						is->set("START", start);
 						is->setItem(lastParent);
 					}
@@ -4901,25 +4901,25 @@ void PageItem_TextFrame::deleteSelectedTextFromFrame(/*bool findNotes*/)
 								m_Doc->flag_updateEndNotes = true;
 							m_Doc->deleteNote(note);
 						}
-						if(is)
+						if (is)
 						{
-							if (!ts || !lastIsDelete){
+							if (!ts || !lastIsDelete) {
 								undoManager->action(undoTarget, is);
 								ts = NULL;
 							}
 							else
-								ts->pushBack(undoTarget,is);
+								ts->pushBack(undoTarget, is);
 						}
 						break;
 					}
 					if (is)
 					{
-						if(!ts || !lastIsDelete){
+						if (!ts || !lastIsDelete) {
 							undoManager->action(undoTarget, is);
 							ts = NULL;
 						}
 						else
-							ts->pushBack(undoTarget,is);
+							ts->pushBack(undoTarget, is);
 					}
 				}
 				lastPos = i;
@@ -4933,7 +4933,7 @@ void PageItem_TextFrame::deleteSelectedTextFromFrame(/*bool findNotes*/)
 	}
 	else //remove marks without undo
 		marksNum = removeMarksFromText(false);
-	itemText.setCursorPosition( start );
+	itemText.setCursorPosition(start);
 	//for sure text is still selected
 	itemText.select(start, stop - start - marksNum);
 	itemText.removeSelection();
