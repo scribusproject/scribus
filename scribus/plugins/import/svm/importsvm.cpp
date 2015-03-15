@@ -2085,14 +2085,17 @@ void SvmPlug::handleImageEX(QDataStream &ds, qint64 posi, quint32 totalSize)
 	QImage imgM;
 	imgM.load(ds.device(), "BMP");
 	imgM = imgM.convertToFormat(QImage::Format_ARGB32);
-	for (int ih = 0; ih < img.height(); ih++)
+	if (!imgM.isNull())
 	{
-		QRgb *src = (QRgb *)imgM.scanLine(ih);
-		QRgb *dst = (QRgb *)img.scanLine(ih);
-		for (int iw = 0; iw < img.width(); iw++)
+		for (int ih = 0; ih < img.height(); ih++)
 		{
-			*dst &= 0x00FFFFFF;
-			*dst++ |= (((0xFF - (*src++ & 0x000000FF)) << 24) & 0xFF000000);
+			QRgb *src = (QRgb *)imgM.scanLine(ih);
+			QRgb *dst = (QRgb *)img.scanLine(ih);
+			for (int iw = 0; iw < img.width(); iw++)
+			{
+				*dst &= 0x00FFFFFF;
+				*dst++ |= (((0xFF - (*src++ & 0x000000FF)) << 24) & 0xFF000000);
+			}
 		}
 	}
 	ds.device()->seek(posi + totalSize - 16);
