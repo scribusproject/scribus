@@ -342,8 +342,10 @@ public:
 	 * @brief Returns the count of the <code>UndoState</code> objects in this transaction.
 	 * @return count of the <code>UndoState</code> objects in this transaction
 	 */
-	uint sizet();
-	/** @brief Use the name from last action added to this <code>TransactionState</code> */
+	uint sizet() const;
+	/**
+	 * @brief Use the name from last action added to this <code>TransactionState</code>
+	 */
 	void useActionName();
 	/**
 	 * @brief Returns an <code>UndoState</code> object at <code>index</code>.
@@ -352,7 +354,12 @@ public:
 	 * @return <code>UndoState</code> object from <code>index</code> or <code>NULL</code>
 	 * if <code>index</code> is out of scope.
 	 */
-	UndoState* at(int index);
+	UndoState* at(int index) const;
+	/**
+	 * @brief Returns the last UndoState in transaction.
+	 * @return a valid UndoState pointer or 0 if transaction is empty.
+	 */
+	UndoState* last() const;
 	/**
 	 * @brief Returns true if this transaction contains UndoObject with the id <code>uid</code>
 	 * @brief otherwise returns false.

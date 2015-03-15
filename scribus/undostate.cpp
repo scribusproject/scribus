@@ -205,12 +205,19 @@ TransactionState::TransactionState() : UndoState("")
 	size_ = 0;
 }
 
-UndoState* TransactionState::at(int index)
+UndoState* TransactionState::at(int index) const
 {
 	if (index >= 0 && static_cast<uint>(index) < sizet())
 		return states_[index];
 	else
 		return 0;
+}
+
+UndoState* TransactionState::last() const
+{
+	if (states_.size() > 0)
+		return states_.at(size_ - 1);
+	return 0;
 }
 
 bool TransactionState::contains(int uid) const
@@ -245,7 +252,7 @@ void TransactionState::pushBack(UndoObject *target, UndoState *state)
 	}
 }
 
-uint TransactionState::sizet()
+uint TransactionState::sizet() const
 {
 	return size_;
 }
