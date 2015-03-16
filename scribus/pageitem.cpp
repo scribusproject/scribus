@@ -6783,11 +6783,11 @@ void PageItem::restoreParagraphStyle(SimpleState *ss, bool isUndo)
 	int pos = is->getInt("POS");
 	if (isUndo)
 	{
-		itemText.eraseStyle(pos,is->getItem().first);
-		itemText.applyStyle(pos,is->getItem().second);
+		itemText.eraseStyle(pos, is->getItem().first);
+		itemText.applyStyle(pos, is->getItem().second);
 	}
 	else
-		itemText.applyStyle(pos,is->getItem().first);
+		itemText.applyStyle(pos, is->getItem().first);
 }
 
 void PageItem::restoreCharStyle(SimpleState *ss, bool isUndo)
@@ -6797,11 +6797,11 @@ void PageItem::restoreCharStyle(SimpleState *ss, bool isUndo)
 	int start = is->getInt("START");
 	if (isUndo)
 	{
-		itemText.eraseCharStyle(start,length,is->getItem().first);
-		itemText.applyCharStyle(start,length,is->getItem().second);
+		itemText.eraseCharStyle(start,length, is->getItem().first);
+		itemText.applyCharStyle(start,length, is->getItem().second);
 	}
 	else
-		itemText.applyCharStyle(start,length,is->getItem().first);
+		itemText.applyCharStyle(start,length, is->getItem().first);
 }
 
 void PageItem::restoreSetCharStyle(SimpleState *ss, bool isUndo)
@@ -6810,9 +6810,9 @@ void PageItem::restoreSetCharStyle(SimpleState *ss, bool isUndo)
 	int length = is->getInt("LENGTH");
 	int start = is->getInt("START");
 	if (isUndo)
-		itemText.setCharStyle(start,length,is->getItem().second);
+		itemText.setCharStyle(start,length, is->getItem().second);
 	else
-		itemText.setCharStyle(start,length,is->getItem().first);
+		itemText.setCharStyle(start,length, is->getItem().first);
 }
 
 void PageItem::restoreSetParagraphStyle(SimpleState *ss, bool isUndo)
@@ -6820,9 +6820,9 @@ void PageItem::restoreSetParagraphStyle(SimpleState *ss, bool isUndo)
 	ScItemState<QPair<ParagraphStyle, ParagraphStyle > > *is = dynamic_cast<ScItemState<QPair<ParagraphStyle, ParagraphStyle> >*>(ss);
 	int pos = is->getInt("POS");
 	if (isUndo)
-		itemText.setStyle(pos,is->getItem().second);
+		itemText.setStyle(pos, is->getItem().second);
 	else
-		itemText.setStyle(pos,is->getItem().first);
+		itemText.setStyle(pos, is->getItem().first);
 }
 
 void PageItem::restoreDeleteFrameText(SimpleState *ss, bool isUndo)
@@ -6832,14 +6832,14 @@ void PageItem::restoreDeleteFrameText(SimpleState *ss, bool isUndo)
 	int start = is->getInt("START");
 	if (isUndo)
 	{
-		itemText.insertChars(start,text);
+		itemText.insertChars(start, text);
 		itemText.applyCharStyle(start, text.length(), is->getItem());
 		invalid = true;
 		invalidateLayout();
 	}
 	else
 	{
-		itemText.select(start,text.length());
+		itemText.select(start, text.length());
 		asTextFrame()->deleteSelectedTextFromFrame();
 	}
 	update();
@@ -6852,11 +6852,11 @@ void PageItem::restoreInsertFrameText(SimpleState *ss, bool isUndo)
 	if (isUndo)
 	{
 		itemText.deselectAll();
-		itemText.select(start,text.length());
+		itemText.select(start, text.length());
 		asTextFrame()->deleteSelectedTextFromFrame();
 	}
 	else
-		itemText.insertChars(start,text);
+		itemText.insertChars(start, text);
 }
 
 void PageItem::restoreCornerRadius(SimpleState *state, bool isUndo)

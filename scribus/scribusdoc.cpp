@@ -9468,9 +9468,9 @@ void ScribusDoc::itemSelection_ApplyParagraphStyle(const ParagraphStyle & newSty
 
 void ScribusDoc::itemSelection_ApplyCharStyle(const CharStyle & newStyle, Selection* customSelection, QString ETEA)
 {
-	Selection* itemSelection = (customSelection!=0) ? customSelection : m_Selection;
-	assert(itemSelection!=0);
-	uint selectedItemCount=itemSelection->count();
+	Selection* itemSelection = (customSelection != 0) ? customSelection : m_Selection;
+	assert(itemSelection != 0);
+	uint selectedItemCount = itemSelection->count();
 	if (selectedItemCount == 0)
 		return;
 	UndoTransaction activeTransaction;
@@ -9510,7 +9510,7 @@ void ScribusDoc::itemSelection_ApplyCharStyle(const CharStyle & newStyle, Select
 			CharStyle lastParent = currItem->itemText.charStyle(start);
 			int stop = start+qMax(0,length);
 			int lastPos = start;
-			for (int i=start; i <= stop; ++i)
+			for (int i = start; i <= stop; ++i)
 			{
 				const CharStyle& curParent(currItem->itemText.charStyle(i));
 				if (!curParent.equiv(lastParent) || i==stop)
@@ -9525,7 +9525,7 @@ void ScribusDoc::itemSelection_ApplyCharStyle(const CharStyle & newStyle, Select
 							ss = dynamic_cast<SimpleState*>(ts->last());
 						if (ss && ss->get("ETEA") == ETEA)
 						{
-							for (uint i=0;i<ts->sizet();i++){
+							for (uint i=0; i < ts->sizet(); i++) {
 								is = dynamic_cast<ScItemState<QPair<CharStyle,CharStyle> > *>(ts->at(i));
 								is->setItem(qMakePair(newStyle, is->getItem().second));
 							}
@@ -9534,8 +9534,8 @@ void ScribusDoc::itemSelection_ApplyCharStyle(const CharStyle & newStyle, Select
 						{
 							is = new ScItemState<QPair <CharStyle,CharStyle> >(Um::ApplyTextStyle);
 							is->set("APPLY_CHARSTYLE", "apply_charstyle");
-							is->set("START",lastPos);
-							is->set("LENGTH",i-lastPos);
+							is->set("START", lastPos);
+							is->set("LENGTH", i - lastPos);
 							is->set("ETEA", ETEA);
 							is->setItem(qMakePair(newStyle, currItem->itemText.charStyle(lastPos)));
 							undoManager->action(currItem, is);
@@ -9562,7 +9562,7 @@ void ScribusDoc::itemSelection_ApplyCharStyle(const CharStyle & newStyle, Select
 			CharStyle lastParent = currItem->itemText.charStyle(0);
 			int stop = currItem->itemText.length();
 			int lastPos = 0;
-			for (int i=0; i <= stop; ++i)
+			for (int i = 0; i <= stop; ++i)
 			{
 				const CharStyle& curParent(currItem->itemText.charStyle(i));
 				if (!curParent.equiv(lastParent) || i==stop)
@@ -9571,8 +9571,8 @@ void ScribusDoc::itemSelection_ApplyCharStyle(const CharStyle & newStyle, Select
 					{
 						ScItemState<QPair<CharStyle,CharStyle> > *ist = new ScItemState<QPair <CharStyle,CharStyle> >(Um::ApplyTextStyle);
 						ist->set("APPLY_CHARSTYLE", "apply_charstyle");
-						ist->set("START",lastPos);
-						ist->set("LENGTH",i-lastPos);
+						ist->set("START", lastPos);
+						ist->set("LENGTH", i - lastPos);
 						ist->setItem(qMakePair(newStyle, currItem->itemText.charStyle(lastPos)));
 						undoManager->action(currItem, ist);
 					}
