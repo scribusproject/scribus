@@ -9522,7 +9522,7 @@ void ScribusDoc::itemSelection_ApplyCharStyle(const CharStyle & newStyle, Select
 						SimpleState *ss = NULL;
 						TransactionState *ts = dynamic_cast<TransactionState*>(state);
 						if (state && state->isTransaction())
-							ss = dynamic_cast<SimpleState*>(ts->at(0));
+							ss = dynamic_cast<SimpleState*>(ts->last());
 						if (ss && ss->get("ETEA") == ETEA)
 						{
 							for (uint i=0;i<ts->sizet();i++){

@@ -4167,14 +4167,14 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 		{
 			SimpleState *ss = dynamic_cast<SimpleState*>(undoManager->getLastUndo());
 			if (ss)
-				ss->set("ETEA",QString(""));
+				ss->set("ETEA", QString(""));
 			else
 			{
 				TransactionState *ts = dynamic_cast<TransactionState*>(undoManager->getLastUndo());
 				if (ts)
-					ss = dynamic_cast<SimpleState*>(ts->at(0));
+					ss = dynamic_cast<SimpleState*>(ts->last());
 				if (ss)
-					ss->set("ETEA",QString(""));
+					ss->set("ETEA", QString(""));
 			}
 		}
 	}
@@ -4212,7 +4212,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 				{
 					SimpleState *ss = dynamic_cast<SimpleState*>(undoManager->getLastUndo());
 					if (ss && ss->get("ETEA") == "insert_frametext")
-							ss->set("TEXT_STR",ss->get("TEXT_STR") + QString(QChar(conv)));
+						ss->set("TEXT_STR",ss->get("TEXT_STR") + QString(QChar(conv)));
 					else {
 						ss = new SimpleState(Um::InsertText,"",Um::ICreate);
 						ss->set("INSERT_FRAMETEXT", "insert_frametext");
@@ -4807,9 +4807,10 @@ void PageItem_TextFrame::deleteSelectedTextFromFrame(/*bool findNotes*/)
 		bool lastIsDelete = false;
 		while (state && state->isTransaction()) {
 			ts = dynamic_cast<TransactionState*>(state);
-			is = dynamic_cast<ScItemState<CharStyle>*>(ts->at(ts->sizet()-1));
-			state = ts->at(0);
+			is = dynamic_cast<ScItemState<CharStyle>*>(ts->last());
+			state = ts->last();
 		}
+		QString eteaString = (m_Doc->appMode == modeEdit) ? "delete_frametext" : "";
 		UndoTransaction trans = undoManager->beginTransaction(Um::Selection,Um::IDelete,Um::Delete,"",Um::IDelete);
 
 		//find and delete notes and marks in selected text
@@ -4842,7 +4843,7 @@ void PageItem_TextFrame::deleteSelectedTextFromFrame(/*bool findNotes*/)
 			{
 				added = false;
 				lastIsDelete = false;
-				if (is && ts && dynamic_cast<ScItemState<CharStyle>*>(ts->at(0))->get("ETEA") == "delete_frametext" && lastPos < is->getInt("START"))
+				if (is && ts && is->get("ETEA") == "delete_frametext" && lastPos < is->getInt("START"))
 				{
 					if (is->getItem().equiv(lastParent))
 					{
@@ -4852,9 +4853,10 @@ void PageItem_TextFrame::deleteSelectedTextFromFrame(/*bool findNotes*/)
 					}
 					lastIsDelete = true;
 				}
-				else if (is && ts && dynamic_cast<ScItemState<CharStyle>*>(ts->at(0))->get("ETEA") == "delete_frametext"  && lastPos >= is->getInt("START"))
+				else if (is && ts && is->get("ETEA") == "delete_frametext"  && lastPos >= is->getInt("START"))
 				{
-					if (is->getItem().equiv(lastParent)){
+					if (is->getItem().equiv(lastParent))
+					{
 						is->set("TEXT_STR", is->get("TEXT_STR") + itemText.text(lastPos, i - lastPos));
 						added = true;
 					}
@@ -4868,7 +4870,7 @@ void PageItem_TextFrame::deleteSelectedTextFromFrame(/*bool findNotes*/)
 					{
 						is = new ScItemState<CharStyle>(Um::DeleteText, "", Um::IDelete);
 						is->set("DELETE_FRAMETEXT", "delete_frametext");
-						is->set("ETEA", QString("delete_frametext"));
+						is->set("ETEA", eteaString);
 						is->set("TEXT_STR", itemText.text(lastPos, i - lastPos));
 						is->set("START", start);
 						is->setItem(lastParent);
