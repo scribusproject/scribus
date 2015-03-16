@@ -34,7 +34,12 @@ for which a new license (GPL+exception) is in place.
 #include "ui/storyeditor.h"
 #include "util_icon.h"
 
-ScribusWin::ScribusWin(QWidget* parent, ScribusDoc* doc) : QMainWindow(parent)
+ScribusWin::ScribusWin(QWidget* parent, ScribusDoc* doc) :
+	QMainWindow(parent),
+	m_subWindow(0),
+	m_ScMW(0),
+	m_View(0),
+	m_winIndex(0)
 {
 	setWindowIcon(loadIcon("AppIcon2.png"));
 	setAttribute(Qt::WA_DeleteOnClose);
@@ -43,7 +48,7 @@ ScribusWin::ScribusWin(QWidget* parent, ScribusDoc* doc) : QMainWindow(parent)
 
 void ScribusWin::setMainWindow(ScribusMainWindow *mw)
 {
-	m_MainWindow=mw;
+	m_ScMW=mw;
 }
 
 void ScribusWin::setView(ScribusView* newView)
@@ -65,10 +70,10 @@ void ScribusWin::slotSaved(QString newName)
 void ScribusWin::closeEvent(QCloseEvent *ce)
 {
 	activateWindow();
-	m_MainWindow->newActWin(getSubWin());
+	m_ScMW->newActWin(getSubWin());
 	if (m_Doc->isModified() && (m_Doc->viewCount == 1))
 	{
-		int exit = ScMessageBox::information(m_MainWindow, CommonStrings::trWarning, tr("Document:")+" "+
+		int exit = ScMessageBox::information(m_ScMW, CommonStrings::trWarning, tr("Document:")+" "+
 											QDir::toNativeSeparators(m_Doc->DocName)+"\n"+
 											tr("has been changed since the last save."),
 											QMessageBox::Save | QMessageBox::Discard | QMessageBox::Cancel,
@@ -81,18 +86,13 @@ void ScribusWin::closeEvent(QCloseEvent *ce)
 		}
 		if (exit == QMessageBox::Save)
 		{
-			if (m_MainWindow->slotFileSave())
-			{
-				if (m_Doc == m_MainWindow->storyEditor->currentDocument())
-					m_MainWindow->storyEditor->close();
-			}
-			else
+			if (!m_ScMW->slotFileSave())
 			{
 				ce->ignore();
 				return;
 			}
 		}
 	}
-	m_MainWindow->DoFileClose();
+	m_ScMW->DoFileClose();
 	ce->accept();
 }

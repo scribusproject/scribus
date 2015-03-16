@@ -61,7 +61,7 @@ signals:
 protected:
 	QMdiSubWindow *m_subWindow;
 	ScribusDoc *m_Doc;
-	ScribusMainWindow *m_MainWindow;
+	ScribusMainWindow *m_ScMW;
 	ScribusView *m_View;
 	int m_winIndex;
 
