@@ -22,8 +22,8 @@ const qint32 ExifValues::dsVersion = 1;
 
 QDataStream & operator<< (QDataStream& stream, const ExifValues & exif)
 {
-	stream << static_cast<qint32>(exif.width) << static_cast<qint32>(exif.height) << exif.ExposureTime
-		   << exif.ApertureFNumber << static_cast<qint32>(exif.ISOequivalent) << exif.cameraName
+	stream << static_cast<qint32>(exif.width) << static_cast<qint32>(exif.height) << static_cast<qint32>(exif.orientation) 
+		   << exif.ExposureTime << exif.ApertureFNumber << static_cast<qint32>(exif.ISOequivalent) << exif.cameraName
 		   << exif.cameraVendor << exif.comment << exif.userComment << exif.artist << exif.copyright
 		   << exif.dateTime << exif.thumbnail;
 	return stream;
@@ -31,12 +31,13 @@ QDataStream & operator<< (QDataStream& stream, const ExifValues & exif)
 
 QDataStream & operator>> (QDataStream& stream, ExifValues & exif)
 {
-	qint32 w, h, iso;
-	stream >> w >> h >> exif.ExposureTime >> exif.ApertureFNumber >> iso >> exif.cameraName
+	qint32 w, h, ori, iso;
+	stream >> w >> h >> ori >> exif.ExposureTime >> exif.ApertureFNumber >> iso >> exif.cameraName
 		   >> exif.cameraVendor >> exif.comment >> exif.userComment >> exif.artist >> exif.copyright
 		   >> exif.dateTime >> exif.thumbnail;
 	exif.width = w;
 	exif.height = h;
+	exif.orientation = ori;
 	exif.ISOequivalent = iso;
 	return stream;
 }
@@ -50,6 +51,7 @@ void ExifValues::init(void)
 {
 	width = 0;
 	height = 0;
+	orientation = 1;
 	ExposureTime = 0;
 	ApertureFNumber = 0;
 	ISOequivalent = 0;

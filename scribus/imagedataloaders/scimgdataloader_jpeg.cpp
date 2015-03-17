@@ -175,6 +175,7 @@ bool ScImgDataLoader_JPEG::loadPicture(const QString& fn, int /*page*/, int res,
 		m_imageInfoRecord.exifInfo.comment = ExifInf.getComment();
 		m_imageInfoRecord.exifInfo.width = ExifInf.getWidth();
 		m_imageInfoRecord.exifInfo.height = ExifInf.getHeight();
+		m_imageInfoRecord.exifInfo.orientation = ExifInf.getOrientation();
 		m_imageInfoRecord.exifInfo.userComment = ExifInf.getUserComment();
 		m_imageInfoRecord.exifInfo.dateTime = ExifInf.getDateTime();
 		m_imageInfoRecord.exifInfo.ApertureFNumber = ExifInf.getApertureFNumber();

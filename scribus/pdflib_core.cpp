@@ -10643,7 +10643,9 @@ bool PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy,
 			{
 				if (((Options.UseRGB || Options.UseProfiles2) && (cm == PDFOptions::Compression_Auto) && (c->effectsInUse.count() == 0) && (img.imgInfo.colorspace == ColorSpaceRGB)) && (!img.imgInfo.progressive) && (!((Options.RecalcPic) && (Options.PicRes < (qMax(72.0 / c->imageXScale(), 72.0 / c->imageYScale()))))))
 				{
-					jpegUseOriginal = true;
+					// #12961 : we must not rely on PDF viewers taking exif infos into account
+					// So if JPEG orientation is non default, do not use the original file
+					jpegUseOriginal = (img.imgInfo.exifInfo.orientation == 1);
 					cm = PDFOptions::Compression_JPEG;
 				}
 				// We can't unfortunately use directly cmyk jpeg files. Otherwise we have to use the /Decode argument in image

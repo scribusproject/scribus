@@ -88,6 +88,7 @@ public:
 
 	int width;
 	int height;
+	int   orientation;
 	float ExposureTime;
 	float ApertureFNumber;
 	int   ISOequivalent;
