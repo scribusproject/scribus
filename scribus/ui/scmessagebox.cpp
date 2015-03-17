@@ -24,19 +24,11 @@ for which a new license (GPL+exception) is in place.
  ***************************************************************************/
 
 #include <QMessageBox>
-
 #include <iostream>
 
 #include "scconfig.h"
 #include "scribuscore.h"
 #include "ui/scmessagebox.h"
-
-
-/*
-** ScMessageBox
-*/
-
-// Initialize private variables
 
 void ScMessageBox::initScMessageBox(void)
 {
@@ -69,21 +61,20 @@ QMessageBox::StandardButton ScMessageBox::findDefaultButton(QMessageBox::Standar
 				QMessageBox::StandardButton defaultButton, QMessageBox::StandardButton defaultBatchButton)
 {
 	QMessageBox::StandardButton result = ((defaultBatchButton != QMessageBox::NoButton)? defaultBatchButton: defaultButton);
-
-	if (result == QMessageBox::NoButton) {
+	if (result == QMessageBox::NoButton)
+	{
 		QMessageBox::StandardButton buttonList[] = { QMessageBox::Yes, QMessageBox::Ok,
 					QMessageBox::Cancel, QMessageBox::Close, QMessageBox::Discard,
 					QMessageBox::No, QMessageBox::Abort, QMessageBox::Ignore, QMessageBox::NoButton };
-		for (int i = 0; buttonList[ i ] != QMessageBox::NoButton; i++)
+		for (int i = 0; buttonList[i] != QMessageBox::NoButton; i++)
 		{
-			if ((buttons & buttonList[ i ]) != 0)
+			if ((buttons & buttonList[i]) != 0)
 			{
-				result = buttonList[ i ];
+				result = buttonList[i];
 				break;
 			}
 		}
 	}
-
 	return result;
 }
 
@@ -100,24 +91,16 @@ void ScMessageBox::setDefaultBatchButton(StandardButton button)
 int ScMessageBox::exec()
 {
 	if (ScCore->usingGUI())
-	{
 		return QMessageBox::exec();
-	}
-
 	QString msg = messageTitle + text() + " " + informativeText() + " " + detailedText();
-
 	std::cerr << msg.toLocal8Bit().data() << std::endl;
-
 	return static_cast<int>(findDefaultButton(QMessageBox::standardButtons(), QMessageBox::NoButton, defaultBatchStandardButton));
 }
 
 QAbstractButton *ScMessageBox::clickedButton() const
 {
 	if (ScCore->usingGUI())
-	{
 		return QMessageBox::clickedButton();
-	}
-
 	return defaultBatchPushButton? defaultBatchPushButton: QMessageBox::defaultButton();
 }
 
@@ -130,12 +113,8 @@ QMessageBox::StandardButton ScMessageBox::information(QWidget *parent, const QSt
 				StandardButtons buttons, StandardButton defaultButton, StandardButton defaultBatchButton)
 {
 	if (ScCore->usingGUI())
-	{
 		return QMessageBox::information(parent, title, text, buttons, defaultButton);
-	}
-
 	std::cerr << title.toLocal8Bit().data() << " " << text.toLocal8Bit().data() << std::endl;
-
 	return findDefaultButton(buttons, defaultButton, defaultBatchButton);
 }
 
@@ -143,12 +122,8 @@ QMessageBox::StandardButton ScMessageBox::question(QWidget *parent, const QStrin
 				StandardButtons buttons, StandardButton defaultButton, StandardButton defaultBatchButton)
 {
 	if (ScCore->usingGUI())
-	{
 		return QMessageBox::question(parent, title, text, buttons, defaultButton);
-	}
-
 	std::cerr << title.toLocal8Bit().data() << " " << text.toLocal8Bit().data() << std::endl;
-
 	return findDefaultButton(buttons, defaultButton, defaultBatchButton);
 }
 
@@ -156,12 +131,8 @@ QMessageBox::StandardButton ScMessageBox::warning(QWidget *parent, const QString
 				StandardButtons buttons, StandardButton defaultButton, StandardButton defaultBatchButton)
 {
 	if (ScCore->usingGUI())
-	{
 		return QMessageBox::warning(parent, title, text, buttons, defaultButton);
-	}
-
 	std::cerr << title.toLocal8Bit().data() << " " << text.toLocal8Bit().data() << std::endl;
-
 	return findDefaultButton(buttons, defaultButton, defaultBatchButton);
 }
 
@@ -169,12 +140,8 @@ QMessageBox::StandardButton ScMessageBox::critical(QWidget *parent, const QStrin
 				StandardButtons buttons, StandardButton defaultButton, StandardButton defaultBatchButton)
 {
 	if (ScCore->usingGUI())
-	{
 		return QMessageBox::critical(parent, title, text, buttons, defaultButton);
-	}
-
 	std::cerr << title.toLocal8Bit().data() << " " << text.toLocal8Bit().data() << std::endl;
-
 	return findDefaultButton(buttons, defaultButton, defaultBatchButton);
 }
 
@@ -185,7 +152,6 @@ void ScMessageBox::about(QWidget *parent, const QString &title, const QString &t
 		QMessageBox::about(parent, title, text);
 		return;
 	}
-
 	std::cerr << title.toLocal8Bit().data() << " " << text.toLocal8Bit().data() << std::endl;
 }
 
@@ -196,6 +162,5 @@ void ScMessageBox::aboutQt(QWidget *parent, const QString &title)
 		QMessageBox::aboutQt(parent, title);
 		return;
 	}
-
 	std::cerr << title.toLocal8Bit().data() << std::endl;
 }

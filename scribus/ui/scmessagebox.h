@@ -41,25 +41,19 @@ for which a new license (GPL+exception) is in place.
 class SCRIBUS_API ScMessageBox : public QMessageBox
 {
 	Q_OBJECT
+
 public:
 	// Property-based API
-
 	ScMessageBox(QWidget *parent = 0);
-
 	ScMessageBox(QMessageBox::Icon icon, const QString &title, const QString &text,
 		QMessageBox::StandardButtons buttons = QMessageBox::NoButton, QWidget *parent = 0,
 		Qt::WindowFlags flags = Qt::Dialog | Qt::MSWindowsFixedSizeDialogHint);
-
 	int exec();
-
 	QAbstractButton *clickedButton() const;
-
 	void setDefaultBatchButton(QPushButton *button);
-
 	void setDefaultBatchButton(StandardButton button);
 
 	// Static function API
-
 	static QMessageBox::StandardButton information(QWidget *parent, const QString &title, const QString &text,
 			StandardButtons buttons = Ok, StandardButton defaultButton = NoButton, StandardButton defaultBatchButton = NoButton);
 
@@ -77,17 +71,14 @@ public:
 
 private:
 	// Saved fields for the property-based API
-
 	QString messageTitle;
 	QPushButton *defaultBatchPushButton;
 	StandardButton defaultBatchStandardButton;
 
 	// Initialize private variables
-
 	void initScMessageBox(void);
 
 	// Find the appropriate default button
-
 	static QMessageBox::StandardButton findDefaultButton(QMessageBox::StandardButtons buttons, QMessageBox::StandardButton defaultButton, StandardButton defaultBatchButton);
 };
 
