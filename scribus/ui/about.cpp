@@ -122,11 +122,7 @@ About::About( QWidget* parent, AboutMode diaMode ) : QDialog( parent )
 	QString BUILD_TZ = "";
 	QString BUILD_NAME = "";
 
-// This is the old way:
 	QString built = tr("%1 %2 %3").arg(BUILD_DAY).arg(BUILD_MONTH).arg(BUILD_YEAR);
-
-// This is my way, only activated when envvar BUILD_NAME is set :-)  AV
-//#include "about_builddate.inc"
 	QString version = VERSION;
 	if (BUILD_NAME != "")
 		version += " \"" + BUILD_NAME + "\"";
@@ -692,9 +688,6 @@ void About::runUpdateCheck()
 	textView5->clear();
 	UpgradeCheckerGUI uc(textView5);
 	disconnect( checkForUpdateButton, SIGNAL( clicked() ), this, SLOT( runUpdateCheck() ) );
-	//connect(checkForUpdateButton, SIGNAL( clicked() ), &uc, SLOT( abort() ));
-	//checkForUpdateButton->setText( tr("Abort Update Check") );
 	uc.fetch();
-	//checkForUpdateButton->setText( tr("Check for Updates") );
 	connect( checkForUpdateButton, SIGNAL( clicked() ), this, SLOT( runUpdateCheck() ) );
 }
