@@ -148,6 +148,7 @@ private:
 	void        parseHeader(QString fName, double &x, double &y, double &b, double &h);
 	bool        convert(QString fn);
 	// Common functions
+	bool        checkClip(FPointArray &clip);
 	void        aligntoQuadWord(QDataStream &ds);
 	double      convertDevice2Pts(double in);
 	QPointF     convertDevice2Pts(QPointF in);
@@ -161,6 +162,8 @@ private:
 	void        setWTransform(QTransform mm, quint32 how);
 	QPointF     intersectBoundingRect(PageItem *item, QLineF gradientVector);
 	void        finishItem(PageItem* ite, bool fill = true);
+	void        invalidateClipGroup();
+	void        createClipGroup();
 	// Functions for normal EMF Files
 	void        handleComment(QDataStream &ds);
 	void        handleEllipse(QDataStream &ds);
@@ -285,6 +288,7 @@ private:
 		quint32          vAlign;
 		quint32          fontUnit;
 		bool             verticalText;
+		bool             clipValid;
 	};
 	QStack<dcState> dcStack;
 	QHash<quint32, dcState> dcStackEMP;
@@ -292,6 +296,7 @@ private:
 	QHash<quint32, emfStyle> emfStyleMap;
 	QHash<quint32, emfStyle> emfStyleMapEMP;
 	QList<PageItem*> Elements;
+	PageItem* clipGroup;
 	double docWidth;
 	double docHeight;
 	double baseX, baseY;

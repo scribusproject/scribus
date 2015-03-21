@@ -865,8 +865,10 @@ void EmfPlug::parseHeader(QString fName, double &x, double &y, double &b, double
 							ds >> sign >> vers >> bytes >> m_records;
 							bBoxDev = QRectF(QPointF(bLeft, bTop), QPointF(bRight, bBottom)).normalized();
 							bBoxMM = QRectF(QPointF(pLeft, pTop), QPointF(pRight, pBottom)).normalized();
-							dpiX = bBoxDev.width() / (bBoxMM.width() / 100.0) * 25.4;
-							dpiY = bBoxDev.height() / (bBoxMM.height() / 100.0) * 25.4;
+						//	dpiX = bBoxDev.width() / (bBoxMM.width() / 100.0) * 25.4;
+						//	dpiY = bBoxDev.height() / (bBoxMM.height() / 100.0) * 25.4;
+							dpiX = bRight / (pRight / 100.0) * 25.4;
+							dpiY = bBottom / (pBottom / 100.0) * 25.4;
 							b = bBoxMM.width() / 1000.0 / 2.54 * 72.0;
 							h = bBoxMM.height() / 1000.0 / 2.54 * 72.0;
 							x = bBoxMM.x() / 1000.0 / 2.54 * 72.0;
@@ -962,6 +964,7 @@ bool EmfPlug::convert(QString fn)
 	currentDC.Coords.svgInit();
 	currentDC.clipPath.resize(0);
 	currentDC.clipPath.svgInit();
+	currentDC.clipValid = false;
 	currentDC.fontSize = 12;
 	currentDC.fontName = "Arial";
 	currentDC.fontRotation = 0;
@@ -1038,6 +1041,7 @@ bool EmfPlug::convert(QString fn)
 	sty.styType = U_OT_Pen;
 	emfStyleMap.insert(U_DC_PEN, sty);
 	emfStyleMapEMP.clear();
+	clipGroup = NULL;
 	if(progressDialog)
 	{
 		progressDialog->setOverallProgress(2);
@@ -1172,6 +1176,7 @@ bool EmfPlug::convert(QString fn)
 						break;
 					case U_EMR_RESTOREDC:
 						{
+							invalidateClipGroup();
 							qint32 drop;
 							ds >> drop;
 							drop = qAbs(drop);
@@ -1182,6 +1187,14 @@ bool EmfPlug::convert(QString fn)
 									currentDC = dcStack.pop();
 									if (dcStack.count() == 0)
 										break;
+								}
+							}
+							if (currentDC.clipPath.count() != 0)
+							{
+								if (checkClip(currentDC.clipPath))
+								{
+									currentDC.clipValid = true;
+									createClipGroup();
 								}
 							}
 						}
@@ -1340,14 +1353,23 @@ bool EmfPlug::convert(QString fn)
 						break;
 					case U_EMR_SELECTCLIPPATH:
 						{
+							invalidateClipGroup();
 							quint32 mode;
 							ds >> mode;
 							if (currentDC.Coords.count() != 0)
-								currentDC.clipPath = currentDC.Coords.copy();
+							{
+								if (checkClip(currentDC.Coords))
+								{
+									currentDC.clipValid = true;
+									currentDC.clipPath = currentDC.Coords.copy();
+									createClipGroup();
+								}
+							}
 						}
 						break;
-				/*	case U_EMR_INTERSECTCLIPRECT:
+					case U_EMR_EXCLUDECLIPRECT:
 						{
+							invalidateClipGroup();
 							QPointF p1 = getPoint(ds, true);
 							QPointF p2 = getPoint(ds, true);
 							FPointArray clipPath;
@@ -1359,7 +1381,59 @@ bool EmfPlug::convert(QString fn)
 							clipPath.svgLineTo(p1.x(), p2.y());
 							clipPath.svgClosePath();
 							if (currentDC.clipPath.isEmpty())
-								currentDC.clipPath = clipPath.copy();
+							{
+								if (checkClip(clipPath))
+								{
+									currentDC.clipPath = clipPath.copy();
+									currentDC.clipValid = true;
+									createClipGroup();
+								}
+							}
+							else
+							{
+								QPainterPath pathN = clipPath.toQPainterPath(true);
+								QPainterPath pathA = currentDC.clipPath.toQPainterPath(true);
+								QPainterPath resultPath = pathA.subtracted(pathN);
+								if (!resultPath.isEmpty())
+								{
+									FPointArray polyline;
+									polyline.resize(0);
+									polyline.fromQPainterPath(resultPath, true);
+									polyline.svgClosePath();
+									if (checkClip(polyline))
+									{
+										currentDC.clipPath = polyline.copy();
+										currentDC.clipValid = true;
+										createClipGroup();
+									}
+								}
+								else
+									currentDC.clipValid = false;
+							}
+						}
+						break;
+					case U_EMR_INTERSECTCLIPRECT:
+						{
+							invalidateClipGroup();
+							QPointF p1 = getPoint(ds, true);
+							QPointF p2 = getPoint(ds, true);
+							FPointArray clipPath;
+							clipPath.resize(0);
+							clipPath.svgInit();
+							clipPath.svgMoveTo(p1.x(), p1.y());
+							clipPath.svgLineTo(p2.x(), p1.y());
+							clipPath.svgLineTo(p2.x(), p2.y());
+							clipPath.svgLineTo(p1.x(), p2.y());
+							clipPath.svgClosePath();
+							if (currentDC.clipPath.isEmpty())
+							{
+								if (checkClip(clipPath))
+								{
+									currentDC.clipPath = clipPath.copy();
+									currentDC.clipValid = true;
+									createClipGroup();
+								}
+							}
 							else
 							{
 								QPainterPath pathN = clipPath.toQPainterPath(true);
@@ -1371,11 +1445,18 @@ bool EmfPlug::convert(QString fn)
 									polyline.resize(0);
 									polyline.fromQPainterPath(resultPath, true);
 									polyline.svgClosePath();
-									currentDC.clipPath = polyline.copy();
+									if (checkClip(polyline))
+									{
+										currentDC.clipPath = polyline.copy();
+										currentDC.clipValid = true;
+										createClipGroup();
+									}
 								}
+								else
+									currentDC.clipValid = false;
 							}
 						}
-						break;*/
+						break;
 					case U_EMR_ABORTPATH:
 						inPath = false;
 						currentDC.Coords.resize(0);
@@ -1601,6 +1682,7 @@ bool EmfPlug::convert(QString fn)
 				qApp->processEvents();
 			}
 		}
+		invalidateClipGroup();
 		if (Elements.count() == 0)
 		{
 			if (importedColors.count() != 0)
@@ -1625,6 +1707,21 @@ bool EmfPlug::convert(QString fn)
 	return true;
 }
 
+bool EmfPlug::checkClip(FPointArray &clip)
+{
+	bool ret = true;
+	QRectF clipRect = clip.toQPainterPath(false).boundingRect();
+	if (clipRect.x() < docX)
+		ret = false;
+	if (clipRect.y() < docY)
+		ret = false;
+	if (clipRect.right() > docX + docWidth + 1)
+		ret = false;
+	if (clipRect.bottom() > docY + docHeight + 1)
+		ret = false;
+	return ret;
+}
+
 void EmfPlug::aligntoQuadWord(QDataStream &ds)
 {
 	if ((ds.device()->pos() % 4) != 0)
@@ -1645,10 +1742,12 @@ double EmfPlug::convertDevice2Pts(double in)
 QPointF EmfPlug::convertDevice2Pts(QPointF in)
 {
 	QPointF out;
-	double scaleX = (bBoxMM.width() / 1000.0 / 2.54 * 72.0) / bBoxDev.width(); // Device -> Pts
-	double scaleY = (bBoxMM.height() / 1000.0 / 2.54 * 72.0) / bBoxDev.height(); // Device -> Pts
-	out.setX(in.x() * scaleX);
-	out.setY(in.y() * scaleY);
+//	double scaleX = (bBoxMM.width() / 1000.0 / 2.54 * 72.0) / bBoxDev.width(); // Device -> Pts
+//	double scaleY = (bBoxMM.height() / 1000.0 / 2.54 * 72.0) / bBoxDev.height(); // Device -> Pts
+//	out.setX(in.x() * scaleX);
+//	out.setY(in.y() * scaleY);
+	out.setX(in.x() / dpiX * 72.0);
+	out.setY(in.y() / dpiY * 72.0);
 	return out;
 }
 
@@ -1663,12 +1762,14 @@ double EmfPlug::convertLogical2Pts(double in)
 QPointF EmfPlug::convertLogical2Pts(QPointF in)
 {
 	QPointF out;
-	double scaleX = qAbs((bBoxMM.width() / 1000.0 / 2.54 * 72.0) / bBoxDev.width()); // Device -> Pts
-	double scaleY = qAbs((bBoxMM.height() / 1000.0 / 2.54 * 72.0) / bBoxDev.height()); // Device -> Pts
+//	double scaleX = qAbs((bBoxMM.width() / 1000.0 / 2.54 * 72.0) / bBoxDev.width()); // Device -> Pts
+//	double scaleY = qAbs((bBoxMM.height() / 1000.0 / 2.54 * 72.0) / bBoxDev.height()); // Device -> Pts
 	if (currentDC.m_mapMode == 1)
 	{
-		out.setX(in.x() * scaleX);
-		out.setY(in.y() * scaleY);
+	//	out.setX(in.x() * scaleX);
+	//	out.setY(in.y() * scaleY);
+		out.setX(in.x() / dpiX * 72.0);
+		out.setY(in.y() / dpiY * 72.0);
 	}
 	else if (currentDC.m_mapMode == 2)
 	{
@@ -1700,8 +1801,12 @@ QPointF EmfPlug::convertLogical2Pts(QPointF in)
 		double ratioX = viewPextendX / static_cast<double>(winPextendX); // Logical --> Device
 		double ratioY = viewPextendY / static_cast<double>(winPextendY); // Logical --> Device
 		// logic --> device --> pts
-		out.setX(in.x() * ratioX * scaleX);
-		out.setY(in.y() * ratioY * scaleY);
+	//	out.setX(in.x() * ratioX * scaleX);
+	//	out.setY(in.y() * ratioY * scaleY);
+		out.setX(in.x() * ratioX);
+		out.setY(in.y() * ratioY);
+		out.setX(out.x() / dpiX * 72.0);
+		out.setY(out.y() / dpiY * 72.0);
 	}
 	return out;
 }
@@ -2214,54 +2319,54 @@ void EmfPlug::finishItem(PageItem* ite, bool fill)
 			}
 		}
 	}
-	if (inEMFPlus)
+	if (clipGroup != NULL)
 	{
-		if ((currentDC.brushStyle == U_BT_PathGradient) || (currentDC.brushStyle == U_BT_LinearGradient))
+		QList<PageItem*> itemList;
+		itemList.append(ite);
+		m_Doc->groupObjectsToItem(clipGroup, itemList);
+	}
+	else
+		Elements.append(ite);
+}
+
+void EmfPlug::invalidateClipGroup()
+{
+	if (clipGroup != NULL)
+	{
+		if (clipGroup->asGroupFrame()->groupItemList.count() == 0)
 		{
-			if ((!currentDC.clipPath.isEmpty()) && (ite->itemType() != PageItem::ImageFrame))
-			{
-				PageItem *iteG;
-				QList<PageItem*> gElements;
-				gElements.append(ite);
-				tmpSel->clear();
-				tmpSel->addItem(ite, true);
-				iteG = m_Doc->groupObjectsSelection(tmpSel);
-				iteG->setTextFlowMode(PageItem::TextFlowUsesBoundingBox);
-				double oldX = iteG->xPos();
-				double oldY = iteG->yPos();
-				double oldW = iteG->width();
-				double oldH = iteG->height();
-				double oldgW = iteG->groupWidth;
-				double oldgH = iteG->groupHeight;
-				iteG->PoLine = currentDC.clipPath.copy();
-				iteG->PoLine.translate(baseX, baseY);
-				FPoint xy = getMinClipF(&iteG->PoLine);
-				iteG->setXYPos(xy.x(), xy.y(), true);
-				iteG->PoLine.translate(-xy.x(), -xy.y());
-				FPoint whi = getMaxClipF(&iteG->PoLine);
-				iteG->setWidthHeight(whi.x(),whi.y());
-				iteG->groupWidth = oldgW * (iteG->width() / oldW);
-				iteG->groupHeight = oldgH * (iteG->height() / oldH);
-				double dx = (iteG->xPos() - oldX) / (iteG->width() / iteG->groupWidth);
-				double dy = (iteG->yPos() - oldY) / (iteG->height() / iteG->groupHeight);
-				for (int em = 0; em < iteG->groupItemList.count(); ++em)
-				{
-					PageItem* embedded = iteG->groupItemList.at(em);
-					embedded->moveBy(-dx, -dy, true);
-					m_Doc->setRedrawBounding(embedded);
-					embedded->OwnPage = m_Doc->OnPage(embedded);
-				}
-				iteG->ClipEdited = true;
-				iteG->OldB2 = ite->width();
-				iteG->OldH2 = ite->height();
-				iteG->Clip = FlattenPath(iteG->PoLine, iteG->Segments);
-				iteG->updateGradientVectors();
-				ite = iteG;
-				tmpSel->clear();
-			}
+			Elements.removeAll(clipGroup);
+			m_Doc->Items->removeAll(clipGroup);
+			delete clipGroup;
 		}
 	}
-	Elements.append(ite);
+	clipGroup = NULL;
+}
+
+void EmfPlug::createClipGroup()
+{
+	if (currentDC.clipValid)
+	{
+		int z = m_Doc->itemAdd(PageItem::Group, PageItem::Unspecified, baseX, baseY, 10, 10, 0, CommonStrings::None, CommonStrings::None, true);
+		PageItem* ite = m_Doc->Items->at(z);
+		ite->PoLine = currentDC.clipPath.copy();
+		ite->setFillEvenOdd(false);
+		ite->ClipEdited = true;
+		ite->FrameType = 3;
+		FPoint wh = getMaxClipF(&ite->PoLine);
+		ite->setWidthHeight(wh.x(),wh.y());
+		ite->setTextFlowMode(PageItem::TextFlowDisabled);
+		m_Doc->AdjustItemSize(ite, true);
+		ite->moveBy(-docX, -docY, true);
+		ite->moveBy(-currentDC.winOrigin.x(), -currentDC.winOrigin.y());
+		ite->OldB2 = ite->width();
+		ite->OldH2 = ite->height();
+		ite->updateClip();
+		ite->OwnPage = m_Doc->OnPage(ite);
+		m_Doc->GroupOnPage(ite);
+		clipGroup = ite;
+		Elements.append(ite);
+	}
 }
 
 void EmfPlug::handleComment(QDataStream &ds)
@@ -2835,7 +2940,7 @@ void EmfPlug::handleImage(qint32 dstX, qint32 dstY, qint32 dstW, qint32 dstH, QI
 			ite->isTempFile = true;
 			ite->AspectRatio = false;
 			ite->ScaleType   = false;
-			if (currentDC.clipPath.count() != 0)
+			if (currentDC.clipValid)
 			{
 				FPointArray cp = currentDC.clipPath.copy();
 				cp.translate(baseX, baseY);
@@ -3319,6 +3424,7 @@ void EmfPlug::handleFrameRegion(QDataStream &ds)
 
 void EmfPlug::handleSetClipRegion(QDataStream &ds)
 {
+	invalidateClipGroup();
 	quint32 dummy, mode, countRects;
 	ds >> dummy >> mode;
 	ds >> dummy >> dummy >> countRects;
@@ -3400,6 +3506,8 @@ void EmfPlug::handleEMFPlus(QDataStream &ds, quint32 dtaSize)
 				emfPlusDual = (flagsH == 1);
 				dsEmf >> dummy >> dummy;
 				dsEmf >> EmfPdpiX >> EmfPdpiY;
+			//	dpiX = EmfPdpiX;
+			//	dpiY = EmfPdpiY;
 				break;
 			case U_PMR_ENDOFFILE:
 				inEMFPlus = false;
@@ -3480,9 +3588,18 @@ void EmfPlug::handleEMFPlus(QDataStream &ds, quint32 dtaSize)
 				dcStackEMP.insert(dummy, currentDC);
 				break;
 			case U_PMR_RESTORE:
+				invalidateClipGroup();
 				dsEmf >> dummy;
 				if (dcStackEMP.contains(dummy))
 					currentDC = dcStackEMP[dummy];
+				if (currentDC.clipPath.count() != 0)
+				{
+					if (checkClip(currentDC.clipPath))
+					{
+						currentDC.clipValid = true;
+						createClipGroup();
+					}
+				}
 				break;
 			case U_PMR_SETWORLDTRANSFORM:
 				dsEmf >> m11 >> m12 >> m21 >> m22 >> dx >> dy;
@@ -3530,16 +3647,20 @@ void EmfPlug::handleEMFPlus(QDataStream &ds, quint32 dtaSize)
 				dsEmf >> emfPlusScale;
 				break;
 			case U_PMR_OFFSETCLIP:
-				if (!currentDC.clipPath.isEmpty())
+				if (currentDC.clipValid)
 				{
 					double dx = getEMFPDistance(dsEmf, false);
 					double dy = getEMFPDistance(dsEmf, false);
 					currentDC.clipPath.translate(dx, dy);
+					invalidateClipGroup();
+					createClipGroup();
 				}
 				break;
 			case U_PMR_RESETCLIP:
 				currentDC.clipPath.resize(0);
 				currentDC.clipPath.svgInit();
+				currentDC.clipValid = false;
+				invalidateClipGroup();
 				break;
 			case U_PMR_SETCLIPRECT:
 				handleEMFPSetClipRect(dsEmf, flagsL);
@@ -4860,6 +4981,7 @@ void EmfPlug::handleEMFPDrawString(QDataStream &ds, quint8 flagsL, quint8 flagsH
 
 void EmfPlug::handleEMFPSetClipRect(QDataStream &ds, quint8 flagsL)
 {
+	invalidateClipGroup();
 	quint8 mode = flagsL & 0x0F;
 	QPolygonF rect = getEMFPRect(ds, false);
 	FPointArray clipPath;
@@ -4870,8 +4992,15 @@ void EmfPlug::handleEMFPSetClipRect(QDataStream &ds, quint8 flagsL)
 	clipPath.svgLineTo(rect[2].x(), rect[2].y());
 	clipPath.svgLineTo(rect[3].x(), rect[3].y());
 	clipPath.svgClosePath();
-	if ((mode == 0) || (currentDC.clipPath.isEmpty()))
-		currentDC.clipPath = clipPath.copy();
+	if ((mode == 0) || (!currentDC.clipValid))
+	{
+		if (checkClip(clipPath))
+		{
+			currentDC.clipPath = clipPath.copy();
+			currentDC.clipValid = true;
+			createClipGroup();
+		}
+	}
 	else
 	{
 		QPainterPath pathN = clipPath.toQPainterPath(true);
@@ -4894,24 +5023,40 @@ void EmfPlug::handleEMFPSetClipRect(QDataStream &ds, quint8 flagsL)
 			polyline.resize(0);
 			polyline.fromQPainterPath(resultPath, true);
 			polyline.svgClosePath();
-			currentDC.clipPath = polyline.copy();
+			if (checkClip(polyline))
+			{
+				currentDC.clipPath = polyline.copy();
+				currentDC.clipValid = true;
+				createClipGroup();
+			}
 		}
+		else
+			currentDC.clipValid = false;
 	}
 }
 
 void EmfPlug::handleEMFPSetClipRegion(QDataStream &ds, quint8 flagsL, quint8 flagsH)
 {
+	invalidateClipGroup();
 	if (emfStyleMapEMP.contains(flagsH))
 	{
 		if (emfStyleMapEMP[flagsH].Coords.isEmpty())
 		{
 			currentDC.clipPath.resize(0);
 			currentDC.clipPath.svgInit();
+			currentDC.clipValid = false;
 			return;
 		}
 		quint8 mode = flagsL & 0x0F;
-		if ((mode == 0) || (currentDC.clipPath.isEmpty()))
-			currentDC.clipPath = emfStyleMapEMP[flagsH].Coords.copy();
+		if ((mode == 0) || (!currentDC.clipValid))
+		{
+			if (checkClip(emfStyleMapEMP[flagsH].Coords))
+			{
+				currentDC.clipPath = emfStyleMapEMP[flagsH].Coords.copy();
+				currentDC.clipValid = true;
+				createClipGroup();
+			}
+		}
 		else
 		{
 			FPointArray clipPath = emfStyleMapEMP[flagsH].Coords.copy();
@@ -4935,24 +5080,40 @@ void EmfPlug::handleEMFPSetClipRegion(QDataStream &ds, quint8 flagsL, quint8 fla
 				polyline.resize(0);
 				polyline.fromQPainterPath(resultPath, true);
 				polyline.svgClosePath();
-				currentDC.clipPath = polyline.copy();
+				if (checkClip(polyline))
+				{
+					currentDC.clipPath = polyline.copy();
+					currentDC.clipValid = true;
+					createClipGroup();
+				}
 			}
+			else
+				currentDC.clipValid = false;
 		}
 	}
 	else
 	{
 		currentDC.clipPath.resize(0);
 		currentDC.clipPath.svgInit();
+		currentDC.clipValid = false;
 	}
 }
 
 void EmfPlug::handleEMFPSetClipPath(QDataStream &ds, quint8 flagsL, quint8 flagsH)
 {
+	invalidateClipGroup();
 	if (emfStyleMapEMP.contains(flagsH))
 	{
 		quint8 mode = flagsL & 0x0F;
-		if ((mode == 0) || (currentDC.clipPath.isEmpty()))
-			currentDC.clipPath = emfStyleMapEMP[flagsH].Coords.copy();
+		if ((mode == 0) || (!currentDC.clipValid))
+		{
+			if (checkClip(emfStyleMapEMP[flagsH].Coords))
+			{
+				currentDC.clipPath = emfStyleMapEMP[flagsH].Coords.copy();
+				currentDC.clipValid = true;
+				createClipGroup();
+			}
+		}
 		else
 		{
 			FPointArray clipPath = emfStyleMapEMP[flagsH].Coords.copy();
@@ -4976,8 +5137,15 @@ void EmfPlug::handleEMFPSetClipPath(QDataStream &ds, quint8 flagsL, quint8 flags
 				polyline.resize(0);
 				polyline.fromQPainterPath(resultPath, true);
 				polyline.svgClosePath();
-				currentDC.clipPath = polyline.copy();
+				if (checkClip(polyline))
+				{
+					currentDC.clipPath = polyline.copy();
+					currentDC.clipValid = true;
+					createClipGroup();
+				}
 			}
+			else
+				currentDC.clipValid = false;
 		}
 	}
 }
@@ -5534,7 +5702,7 @@ void EmfPlug::handleEMFPDrawImageData(QPointF p1, QPointF p2, QPointF p3, quint8
 					m_Doc->loadPict(fileName, ite);
 					ite->setImageScalingMode(false, false);
 					ite->updateClip();
-					if (currentDC.clipPath.count() != 0)
+					if (currentDC.clipValid)
 					{
 						FPointArray cp = currentDC.clipPath.copy();
 						cp.translate(baseX, baseY);
