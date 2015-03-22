@@ -1715,9 +1715,9 @@ bool EmfPlug::checkClip(FPointArray &clip)
 		ret = false;
 	if (clipRect.y() < docY)
 		ret = false;
-	if (clipRect.right() > docX + docWidth + 1)
+	if (clipRect.right() > docX + docWidth)
 		ret = false;
-	if (clipRect.bottom() > docY + docHeight + 1)
+	if (clipRect.bottom() > docY + docHeight)
 		ret = false;
 	return ret;
 }
