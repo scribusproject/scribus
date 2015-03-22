@@ -578,8 +578,6 @@ bool PdfPlug::convert(QString fn)
 									currentLayer = m_Doc->addLayer(UnicodeParsedString(oc->getName()), false);
 								else
 									currentLayer = m_Doc->layerIDFromName(UnicodeParsedString(oc->getName()));
-// POPPLER_VERSION appeared in 0.19.0 first
-#ifdef POPPLER_VERSION
 								if ((oc->getViewState() == OptionalContentGroup::ocUsageOn) || (oc->getViewState() == OptionalContentGroup::ocUsageUnset))
 									m_Doc->setLayerVisible(currentLayer, true);
 								else
@@ -588,18 +586,6 @@ bool PdfPlug::convert(QString fn)
 									m_Doc->setLayerPrintable(currentLayer, true);
 								else
 									m_Doc->setLayerPrintable(currentLayer, false);
-#else
-								if (oc->getState() == OptionalContentGroup::On)
-								{
-									m_Doc->setLayerVisible(currentLayer, true);
-									m_Doc->setLayerPrintable(currentLayer, true);
-								}
-								else
-								{
-									m_Doc->setLayerVisible(currentLayer, false);
-									m_Doc->setLayerPrintable(currentLayer, false);
-								}
-#endif
 								oc->setState(OptionalContentGroup::Off);
 							}
 							dev->layersSetByOCG = true;
