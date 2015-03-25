@@ -50,6 +50,7 @@ PageSelector::PageSelector( QWidget* parent, int maxPg ) : QWidget( parent, 0 )
 	backButton->setDefault( false );
 	backButton->setAutoDefault( false );
 	backButton->setFlat(OPTION_FLAT_BUTTON);
+	forwardButton = new QPushButton( this );
 	forwardButton->setDefault( false );
 	forwardButton->setAutoDefault( false );
 	forwardButton->setFlat(OPTION_FLAT_BUTTON);
