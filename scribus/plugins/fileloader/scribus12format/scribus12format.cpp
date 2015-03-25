@@ -1645,11 +1645,16 @@ void Scribus12Format::GetItemProps(QDomElement *obj, struct CopyPasteBuffer *OB,
 	{
 		OB->PoLine.resize(obj->attribute("NUMPO").toUInt());
 		tmp = obj->attribute("POCOOR");
+		double maxVal = std::numeric_limits<double>::max() / 2.0;
 		ScTextStream fp(&tmp, QIODevice::ReadOnly);
 		for (uint cx=0; cx<obj->attribute("NUMPO").toUInt(); ++cx)
 		{
 			fp >> xf;
 			fp >> yf;
+			if (xf >= 999999)
+				xf = maxVal;
+			if (yf >= 999999)
+				yf = maxVal;
 			OB->PoLine.setPoint(cx, xf, yf);
 		}
 	}
@@ -1660,11 +1665,16 @@ void Scribus12Format::GetItemProps(QDomElement *obj, struct CopyPasteBuffer *OB,
 	{
 		OB->ContourLine.resize(obj->attribute("NUMCO").toUInt());
 		tmp = obj->attribute("COCOOR");
+		double maxVal = std::numeric_limits<double>::max() / 2.0;
 		ScTextStream fp(&tmp, QIODevice::ReadOnly);
 		for (uint cx=0; cx<obj->attribute("NUMCO").toUInt(); ++cx)
 		{
 			fp >> xf;
 			fp >> yf;
+			if (xf >= 999999)
+				xf = maxVal;
+			if (yf >= 999999)
+				yf = maxVal;
 			OB->ContourLine.setPoint(cx, xf, yf);
 		}
 	}

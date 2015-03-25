@@ -2917,10 +2917,15 @@ PageItem* Scribus134Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 		tmp = attrs.valueAsString("POCOOR");
 		ScTextStream fp(&tmp, QIODevice::ReadOnly);
 		uint numPo = attrs.valueAsUInt("NUMPO");
+		double maxVal = std::numeric_limits<double>::max() / 2.0;
 		for (uint cx=0; cx < numPo; ++cx)
 		{
 			fp >> xf;
 			fp >> yf;
+			if (xf >= 999999)
+				xf = maxVal;
+			if (yf >= 999999)
+				yf = maxVal;
 			currItem->PoLine.setPoint(cx, xf, yf);
 		}
 	}
@@ -2934,10 +2939,15 @@ PageItem* Scribus134Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 		tmp = attrs.valueAsString("COCOOR");
 		ScTextStream fp(&tmp, QIODevice::ReadOnly);
 		uint numCo = attrs.valueAsUInt("NUMCO");
+		double maxVal = std::numeric_limits<double>::max() / 2.0;
 		for (uint cx=0; cx < numCo; ++cx)
 		{
 			fp >> xf;
 			fp >> yf;
+			if (xf >= 999999)
+				xf = maxVal;
+			if (yf >= 999999)
+				yf = maxVal;
 			currItem->ContourLine.setPoint(cx, xf, yf);
 		}
 	}

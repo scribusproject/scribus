@@ -1892,11 +1892,16 @@ PageItem* Scribus13Format::PasteItem(QDomElement *obj, ScribusDoc *doc, const QS
 	{
 		currItem->PoLine.resize(obj->attribute("NUMPO").toUInt());
 		tmp = obj->attribute("POCOOR");
+		double maxVal = std::numeric_limits<double>::max() / 2.0;
 		ScTextStream fp(&tmp, QIODevice::ReadOnly);
 		for (uint cx=0; cx<obj->attribute("NUMPO").toUInt(); ++cx)
 		{
 			fp >> xf;
 			fp >> yf;
+			if (xf >= 999999)
+				xf = maxVal;
+			if (yf >= 999999)
+				yf = maxVal;
 			currItem->PoLine.setPoint(cx, xf, yf);
 		}
 	}
@@ -1907,11 +1912,16 @@ PageItem* Scribus13Format::PasteItem(QDomElement *obj, ScribusDoc *doc, const QS
 	{
 		currItem->ContourLine.resize(obj->attribute("NUMCO").toUInt());
 		tmp = obj->attribute("COCOOR");
+		double maxVal = std::numeric_limits<double>::max() / 2.0;
 		ScTextStream fp(&tmp, QIODevice::ReadOnly);
 		for (uint cx=0; cx<obj->attribute("NUMCO").toUInt(); ++cx)
 		{
 			fp >> xf;
 			fp >> yf;
+			if (xf >= 999999)
+				xf = maxVal;
+			if (yf >= 999999)
+				yf = maxVal;
 			currItem->ContourLine.setPoint(cx, xf, yf);
 		}
 	}
