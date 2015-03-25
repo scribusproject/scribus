@@ -393,9 +393,9 @@ bool ScribusView::handleObjectImport(QMimeData* mimeData, TransactionSettings* t
 
 void ScribusView::startGesture(CanvasGesture* gesture)
 {
-//	qDebug() << "start gesture" << typeid(*m_canvasMode).name()
-//			<< "---->"
-//			<< typeid(*gesture).name();
+	qDebug() << "start gesture" << typeid(*m_canvasMode).name()
+			<< "---->"
+			<< typeid(*gesture).name();
 	if (m_canvasMode != gesture)
 	{
 		m_canvasMode->deactivate(true);
@@ -409,7 +409,7 @@ void ScribusView::startGesture(CanvasGesture* gesture)
 
 void ScribusView::stopGesture()
 {
-// 	qDebug() << "stop gesture" << typeid(*m_canvasMode).name() << (m_canvasMode->delegate() != 0);
+	qDebug() << "stop gesture" << typeid(*m_canvasMode).name() << (m_canvasMode->delegate() != 0);
 	if (m_canvasMode->delegate())
 	{
 		m_canvasMode->deactivate(false);
@@ -1394,7 +1394,7 @@ void ScribusView::TransformPoly(int mode, int rot, double scaling)
 	currItem->ClipEdited = true;
 	QTransform ma;
 	undoManager->setUndoEnabled(false);
-	if (Doc->nodeEdit.isContourLine)
+	if (Doc->nodeEdit.isContourLine())
 	{
 		FPoint tp2(getMinClipF(&currItem->ContourLine));
 		FPoint tp(getMaxClipF(&currItem->ContourLine));
@@ -2125,12 +2125,12 @@ ScPage* ScribusView::addPage(int nr, bool mov)
 	HaveSelRect = false;
 	Magnify = false;
 	FirstPoly = true;
-	Doc->nodeEdit.EdPoints = true;
+	Doc->nodeEdit.setEdPoints(true);
 	//GroupSel = false;
 	DraggedGroup = false;
 //FIXME:av	MoveGY = false;
 //FIXME:av	MoveGX = false;
-	Doc->nodeEdit.isContourLine = false;
+	Doc->nodeEdit.setIsContourLine(false);
 	return fe;
 }
 

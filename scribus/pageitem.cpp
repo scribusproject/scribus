@@ -5323,19 +5323,19 @@ void PageItem::restore(UndoState *state, bool isUndo)
 				restoreSplitItem(ss, isUndo);
 			else if (ss->contains("MIRROR_PATH_H"))
 			{
-				bool editContour = m_Doc->nodeEdit.isContourLine;
-				m_Doc->nodeEdit.isContourLine = ss->getBool("IS_CONTOUR");
+				bool editContour = m_Doc->nodeEdit.isContourLine();
+				m_Doc->nodeEdit.setIsContourLine(ss->getBool("IS_CONTOUR"));
 				select();
 				m_Doc->MirrorPolyH(m_Doc->m_Selection->itemAt(0));
-				m_Doc->nodeEdit.isContourLine = editContour;
+				m_Doc->nodeEdit.setIsContourLine(editContour);
 			}
 			else if (ss->contains("MIRROR_PATH_V"))
 			{
-				bool editContour = m_Doc->nodeEdit.isContourLine;
-				m_Doc->nodeEdit.isContourLine = ss->getBool("IS_CONTOUR");
+				bool editContour = m_Doc->nodeEdit.isContourLine();
+				m_Doc->nodeEdit.setIsContourLine(ss->getBool("IS_CONTOUR"));
 				select();
 				m_Doc->MirrorPolyV(m_Doc->m_Selection->itemAt(0));
-				m_Doc->nodeEdit.isContourLine = editContour;
+				m_Doc->nodeEdit.setIsContourLine(editContour);
 			}
 			else if (ss->contains("SEND_TO_LAYER"))
 				restoreLayer(ss, isUndo);
@@ -7450,8 +7450,8 @@ void PageItem::restorePoly(SimpleState *state, bool isUndo, bool isContour)
 	int rot     = state->getInt("ROT");
 	ScribusView* view = m_Doc->view();
 	double scaling = state->getDouble("SCALING");
-	bool editContour = m_Doc->nodeEdit.isContourLine;
-	m_Doc->nodeEdit.isContourLine = isContour;
+	bool editContour = m_Doc->nodeEdit.isContourLine();
+	m_Doc->nodeEdit.setIsContourLine(isContour);
 	select();
 	if (isUndo)
 	{
@@ -7465,7 +7465,7 @@ void PageItem::restorePoly(SimpleState *state, bool isUndo, bool isContour)
 			scaling = ((100.0 / (100.0 - scaling)) - 1.0) * 100.0;
 	}
 	view->TransformPoly(mode, rot, scaling);
-	m_Doc->nodeEdit.isContourLine = editContour;
+	m_Doc->nodeEdit.setIsContourLine(editContour);
 }
 
 void PageItem::restoreUniteItem(SimpleState *state, bool isUndo)

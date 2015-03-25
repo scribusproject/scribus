@@ -40,6 +40,7 @@ class ScribusView;
 class CanvasMode_EditArc :  public CanvasMode
 {	
 	Q_OBJECT
+
 public:
 	explicit CanvasMode_EditArc(ScribusView* view);
 	virtual ~CanvasMode_EditArc() {}

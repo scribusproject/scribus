@@ -44,6 +44,7 @@ for which a new license (GPL+exception) is in place.
 #include "documentinformation.h"
 #include "numeration.h"
 #include "marks.h"
+#include "nodeeditcontext.h"
 #include "notesstyles.h"
 #include "observable.h"
 #include "pageitem.h"
@@ -82,39 +83,6 @@ class MarksManager;
 class NotesStyle;
 class TextNote;
 
-struct SCRIBUS_API NodeEditContext : public MassObservable<QPointF>
-{
-	enum SubMode { MOVE_POINT = 0, ADD_POINT = 1, DEL_POINT = 2, SPLIT_PATH = 3 };
-	int submode;
-	bool isContourLine;
-	FPointArray *oldClip;
-	UndoTransaction nodeTransaction;
-	double oldItemX;
-	double oldItemY;
-		
-	int ClRe;
-	int ClRe2;
-	int SegP1;
-	int SegP2;
-	bool EdPoints;
-	bool MoveSym;
-	QList<int> SelNode;	
-	
-	NodeEditContext();
-	
-	bool hasNodeSelected();
-	void deselect();
-	
-	void reset();
-	
-	void reset1Control(PageItem* currItem);
-	void resetControl(PageItem* currItem);
-	FPointArray beginTransaction(PageItem* currItem);
-	void finishTransaction(PageItem* currItem);
-	ScItemState<QPair<FPointArray, FPointArray> >* finishTransaction1(PageItem* currItem);
-	void finishTransaction2(PageItem* currItem, ScItemState<QPair<FPointArray, FPointArray> >* state);
-	void moveClipPoint(PageItem *currItem, FPoint ip);
-};
 
 
 /**! \brief the Document Class
@@ -1082,8 +1050,6 @@ public:
 	void itemSelection_SetAlignment(int w, Selection* customSelection=0);
 	void itemSelection_SetLineSpacing(double w, Selection* customSelection=0);
 	void itemSelection_SetLineSpacingMode(int w, Selection* customSelection=0);
-	//void ChLocalXY(double x, double y);
-	//void ChLocalSc(double x, double y);
 	void itemSetFont(const QString& newFont);
 	void itemSelection_SetFont(QString fon, Selection* customSelection=0);
 	void itemSelection_SetFillColor(QString farbe, Selection* customSelection=0);
@@ -1106,8 +1072,6 @@ public:
 	void itemSelection_SetCompressionQuality(int cqIndex, Selection* customSelection=0);
 	void itemSelection_SetTracking(int us, Selection* customSelection=0);
 	void itemSelection_SetFontSize(int size, Selection* customSelection=0);
-	//void FlipImageH();
-	//void FlipImageV();
 	void MirrorPolyH(PageItem *currItem);
 	void MirrorPolyV(PageItem *currItem);
 	bool getItem(PageItem **currItem, int nr = -1);

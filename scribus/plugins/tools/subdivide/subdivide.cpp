@@ -116,7 +116,7 @@ bool SubdividePlugin::run(ScribusDoc* doc, QString)
 		{
 			FPointArray points;
 			PageItem *currItem = currDoc->m_Selection->itemAt(aa);
-			if (currDoc->nodeEdit.isContourLine)
+			if (currDoc->nodeEdit.isContourLine())
 			{
 				uint psize = currItem->ContourLine.size();
 				for (uint a = 0; a < psize-3; a += 4)

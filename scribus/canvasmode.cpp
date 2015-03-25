@@ -1419,21 +1419,21 @@ void CanvasMode::commonkeyPressEvent_NormalNodeEdit(QKeyEvent *e)
 					{
 						if ((m_doc->appMode == modeEditClip) && (m_doc->nodeEdit.hasNodeSelected()))
 						{
-							int storedClRe = m_doc->nodeEdit.ClRe;
-							if ((m_doc->nodeEdit.SelNode.count() != 0) && (m_doc->nodeEdit.EdPoints))
+							int storedClRe = m_doc->nodeEdit.clre();
+							if ((m_doc->nodeEdit.selNode().count() != 0) && (m_doc->nodeEdit.edPoints()))
 							{
 								QPolygonF poly;
-								if ((currItem->imageFlippedH() && (!m_doc->nodeEdit.isContourLine)) && (currItem->isSymbol() || currItem->isGroup()))
+								if ((currItem->imageFlippedH() && (!m_doc->nodeEdit.isContourLine())) && (currItem->isSymbol() || currItem->isGroup()))
 									moveBy *= -1;
-								for (int itm = 0; itm < m_doc->nodeEdit.SelNode.count(); ++itm)
+								for (int itm = 0; itm < m_doc->nodeEdit.selNode().count(); ++itm)
 								{
 									FPoint np;
-									int clRe = m_doc->nodeEdit.SelNode.at(itm);
-									if (m_doc->nodeEdit.isContourLine)
+									int clRe = m_doc->nodeEdit.selNode().at(itm);
+									if (m_doc->nodeEdit.isContourLine())
 										np = currItem->ContourLine.point(clRe);
 									else
 										np = currItem->PoLine.point(clRe);
-									m_doc->nodeEdit.ClRe = clRe;
+									m_doc->nodeEdit.setClre(clRe);
 									np = np - FPoint(moveBy, 0);
 									m_doc->nodeEdit.moveClipPoint(currItem, np);
 									poly.append(np.toQPointF());
@@ -1444,7 +1444,7 @@ void CanvasMode::commonkeyPressEvent_NormalNodeEdit(QKeyEvent *e)
 								QRectF newR(currItem->getBoundingRect());
 								m_doc->regionsChanged()->update(newR.united(oldR));
 							}
-							m_doc->nodeEdit.ClRe = storedClRe;
+							m_doc->nodeEdit.setClre(storedClRe);
 						}
 						else
 						{
@@ -1469,7 +1469,7 @@ void CanvasMode::commonkeyPressEvent_NormalNodeEdit(QKeyEvent *e)
 					else
 					{
 						//CB If in EditContour mode, allow contour line to be scaled with arrow keys too
-						if(m_doc->nodeEdit.isContourLine)
+						if(m_doc->nodeEdit.isContourLine())
 							m_view->TransformPoly(10, 0, resizeBy/unitGetRatioFromIndex(m_doc->unitIndex()));
 						else if (!currItem->sizeLocked())
 						{
@@ -1493,21 +1493,21 @@ void CanvasMode::commonkeyPressEvent_NormalNodeEdit(QKeyEvent *e)
 					{
 						if ((m_doc->appMode == modeEditClip) && (m_doc->nodeEdit.hasNodeSelected()))
 						{
-							int storedClRe = m_doc->nodeEdit.ClRe;
-							if ((m_doc->nodeEdit.SelNode.count() != 0) && (m_doc->nodeEdit.EdPoints))
+							int storedClRe = m_doc->nodeEdit.clre();
+							if ((m_doc->nodeEdit.selNode().count() != 0) && (m_doc->nodeEdit.edPoints()))
 							{
 								QPolygonF poly;
-								if ((currItem->imageFlippedH() && (!m_doc->nodeEdit.isContourLine)) && (currItem->isSymbol() || currItem->isGroup()))
+								if ((currItem->imageFlippedH() && (!m_doc->nodeEdit.isContourLine())) && (currItem->isSymbol() || currItem->isGroup()))
 									moveBy *= -1;
-								for (int itm = 0; itm < m_doc->nodeEdit.SelNode.count(); ++itm)
+								for (int itm = 0; itm < m_doc->nodeEdit.selNode().count(); ++itm)
 								{
 									FPoint np;
-									int clRe = m_doc->nodeEdit.SelNode.at(itm);
-									if (m_doc->nodeEdit.isContourLine)
+									int clRe = m_doc->nodeEdit.selNode().at(itm);
+									if (m_doc->nodeEdit.isContourLine())
 										np = currItem->ContourLine.point(clRe);
 									else
 										np = currItem->PoLine.point(clRe);
-									m_doc->nodeEdit.ClRe = clRe;
+									m_doc->nodeEdit.setClre(clRe);
 									np = np + FPoint(moveBy, 0);
 									m_doc->nodeEdit.moveClipPoint(currItem, np);
 									poly.append(np.toQPointF());
@@ -1518,7 +1518,7 @@ void CanvasMode::commonkeyPressEvent_NormalNodeEdit(QKeyEvent *e)
 								QRectF newR(currItem->getBoundingRect());
 								m_doc->regionsChanged()->update(newR.united(oldR));
 							}
-							m_doc->nodeEdit.ClRe = storedClRe;
+							m_doc->nodeEdit.setClre(storedClRe);
 						}
 						else
 						{
@@ -1543,7 +1543,7 @@ void CanvasMode::commonkeyPressEvent_NormalNodeEdit(QKeyEvent *e)
 					else
 					{
 						//CB If in EditContour mode, allow contour line to be scaled with arrow keys too
-						if(m_doc->nodeEdit.isContourLine)
+						if(m_doc->nodeEdit.isContourLine())
 							m_view->TransformPoly(11, 0, resizeBy/unitGetRatioFromIndex(m_doc->unitIndex()));
 						else if (!currItem->sizeLocked())
 						{
@@ -1567,21 +1567,21 @@ void CanvasMode::commonkeyPressEvent_NormalNodeEdit(QKeyEvent *e)
 					{
 						if ((m_doc->appMode == modeEditClip) && (m_doc->nodeEdit.hasNodeSelected()))
 						{
-							int storedClRe = m_doc->nodeEdit.ClRe;
-							if ((m_doc->nodeEdit.SelNode.count() != 0) && (m_doc->nodeEdit.EdPoints))
+							int storedClRe = m_doc->nodeEdit.clre();
+							if ((m_doc->nodeEdit.selNode().count() != 0) && (m_doc->nodeEdit.edPoints()))
 							{
 								QPolygonF poly;
-								if ((currItem->imageFlippedV() && (!m_doc->nodeEdit.isContourLine)) && (currItem->isSymbol() || currItem->isGroup()))
+								if ((currItem->imageFlippedV() && (!m_doc->nodeEdit.isContourLine())) && (currItem->isSymbol() || currItem->isGroup()))
 									moveBy *= -1;
-								for (int itm = 0; itm < m_doc->nodeEdit.SelNode.count(); ++itm)
+								for (int itm = 0; itm < m_doc->nodeEdit.selNode().count(); ++itm)
 								{
 									FPoint np;
-									int clRe = m_doc->nodeEdit.SelNode.at(itm);
-									if (m_doc->nodeEdit.isContourLine)
+									int clRe = m_doc->nodeEdit.selNode().at(itm);
+									if (m_doc->nodeEdit.isContourLine())
 										np = currItem->ContourLine.point(clRe);
 									else
 										np = currItem->PoLine.point(clRe);
-									m_doc->nodeEdit.ClRe = clRe;
+									m_doc->nodeEdit.setClre(clRe);
 									np = np - FPoint(0, moveBy);
 									m_doc->nodeEdit.moveClipPoint(currItem, np);
 									poly.append(np.toQPointF());
@@ -1592,7 +1592,7 @@ void CanvasMode::commonkeyPressEvent_NormalNodeEdit(QKeyEvent *e)
 								QRectF newR(currItem->getBoundingRect());
 								m_doc->regionsChanged()->update(newR.united(oldR));
 							}
-							m_doc->nodeEdit.ClRe = storedClRe;
+							m_doc->nodeEdit.setClre(storedClRe);
 						}
 						else
 						{
@@ -1617,7 +1617,7 @@ void CanvasMode::commonkeyPressEvent_NormalNodeEdit(QKeyEvent *e)
 					else
 					{
 						//CB If in EditContour mode, allow contour line to be scaled with arrow keys too
-						if(m_doc->nodeEdit.isContourLine)
+						if(m_doc->nodeEdit.isContourLine())
 							m_view->TransformPoly(12, 0, resizeBy/unitGetRatioFromIndex(m_doc->unitIndex()));
 						else
 						{
@@ -1641,21 +1641,21 @@ void CanvasMode::commonkeyPressEvent_NormalNodeEdit(QKeyEvent *e)
 					{
 						if ((m_doc->appMode == modeEditClip) && (m_doc->nodeEdit.hasNodeSelected()))
 						{
-							int storedClRe = m_doc->nodeEdit.ClRe;
-							if ((m_doc->nodeEdit.SelNode.count() != 0) && (m_doc->nodeEdit.EdPoints))
+							int storedClRe = m_doc->nodeEdit.clre();
+							if ((m_doc->nodeEdit.selNode().count() != 0) && (m_doc->nodeEdit.edPoints()))
 							{
 								QPolygonF poly;
-								if ((currItem->imageFlippedV() && (!m_doc->nodeEdit.isContourLine)) && (currItem->isSymbol() || currItem->isGroup()))
+								if ((currItem->imageFlippedV() && (!m_doc->nodeEdit.isContourLine())) && (currItem->isSymbol() || currItem->isGroup()))
 									moveBy *= -1;
-								for (int itm = 0; itm < m_doc->nodeEdit.SelNode.count(); ++itm)
+								for (int itm = 0; itm < m_doc->nodeEdit.selNode().count(); ++itm)
 								{
 									FPoint np;
-									int clRe = m_doc->nodeEdit.SelNode.at(itm);
-									if (m_doc->nodeEdit.isContourLine)
+									int clRe = m_doc->nodeEdit.selNode().at(itm);
+									if (m_doc->nodeEdit.isContourLine())
 										np = currItem->ContourLine.point(clRe);
 									else
 										np = currItem->PoLine.point(clRe);
-									m_doc->nodeEdit.ClRe = clRe;
+									m_doc->nodeEdit.setClre(clRe);
 									np = np - FPoint(0, -moveBy);
 									m_doc->nodeEdit.moveClipPoint(currItem, np);
 									poly.append(np.toQPointF());
@@ -1666,7 +1666,7 @@ void CanvasMode::commonkeyPressEvent_NormalNodeEdit(QKeyEvent *e)
 								QRectF newR(currItem->getBoundingRect());
 								m_doc->regionsChanged()->update(newR.united(oldR));
 							}
-							m_doc->nodeEdit.ClRe = storedClRe;
+							m_doc->nodeEdit.setClre(storedClRe);
 						}
 						else
 						{
@@ -1691,7 +1691,7 @@ void CanvasMode::commonkeyPressEvent_NormalNodeEdit(QKeyEvent *e)
 					else
 					{
 						//CB If in EditContour mode, allow contour line to be scaled with arrow keys too
-						if(m_doc->nodeEdit.isContourLine)
+						if(m_doc->nodeEdit.isContourLine())
 							m_view->TransformPoly(13, 0, resizeBy/unitGetRatioFromIndex(m_doc->unitIndex()));
 						else if (!currItem->sizeLocked())
 						{
@@ -1749,7 +1749,7 @@ void CanvasMode::commonkeyReleaseEvent(QKeyEvent *e)
 					double xposOrig = currItem->xPos();
 					double yposOrig = currItem->yPos();
 					m_doc->AdjustItemSize(currItem, true, true);
-					if (!m_doc->nodeEdit.isContourLine)
+					if (!m_doc->nodeEdit.isContourLine())
 						currItem->ContourLine.translate(xposOrig - currItem->xPos(),yposOrig - currItem->yPos());
 					currItem->update();
 					m_doc->regionsChanged()->update(currItem->getVisualBoundingRect());
