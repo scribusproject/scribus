@@ -7556,6 +7556,7 @@ void ScribusDoc::sendItemSelectionToBack()
 	int docSelectionCount = m_Selection->count();
 	if (docSelectionCount == 0)
 		return;
+	QRectF selRect = m_Selection->getGroupRect();
 	if (UndoManager::undoEnabled())
 	{
 		ScItemState<QList<QPointer<PageItem> > > *is = new ScItemState<QList<QPointer<PageItem> > >(Um::LevelBottom);
@@ -7613,6 +7614,7 @@ void ScribusDoc::sendItemSelectionToBack()
 		}
 	}
 	changed();
+	invalidateRegion(selRect);
 	regionsChanged()->update(QRectF());
 	return;
 }
@@ -7622,6 +7624,7 @@ void ScribusDoc::bringItemSelectionToFront()
 	int docSelectionCount = m_Selection->count();
 	if (docSelectionCount == 0)
 		return;
+	QRectF selRect = m_Selection->getGroupRect();
 	if (UndoManager::undoEnabled())
 	{
 		ScItemState<QList<QPointer<PageItem> > > *is = new ScItemState<QList<QPointer<PageItem> > >(Um::LevelTop);
@@ -7679,6 +7682,7 @@ void ScribusDoc::bringItemSelectionToFront()
 		}
 	}
 	changed();
+	invalidateRegion(selRect);
 	regionsChanged()->update(QRectF());
 	return;
 }
@@ -7688,6 +7692,7 @@ void ScribusDoc::itemSelection_LowerItem()
 	int docSelectionCount = m_Selection->count();
 	if (docSelectionCount == 0)
 		return;
+	QRectF selRect = m_Selection->getGroupRect();
 	if (UndoManager::undoEnabled())
 	{
 		ScItemState<QList<QPointer<PageItem> > > *is = new ScItemState<QList<QPointer<PageItem> > >(Um::LevelDown);
@@ -7751,6 +7756,7 @@ void ScribusDoc::itemSelection_LowerItem()
 		*m_Selection = tempSelection;
 		m_Selection->delaySignalsOff();
 		changed();
+		invalidateRegion(selRect);
 		regionsChanged()->update(QRectF());
 	}
 }
@@ -7760,6 +7766,7 @@ void ScribusDoc::itemSelection_RaiseItem()
 	int docSelectionCount = m_Selection->count();
 	if (docSelectionCount == 0)
 		return;
+	QRectF selRect = m_Selection->getGroupRect();
 	if (UndoManager::undoEnabled())
 	{
 		ScItemState<QList<QPointer<PageItem> > > *is = new ScItemState<QList<QPointer<PageItem> > >(Um::LevelUp);
@@ -7825,6 +7832,7 @@ void ScribusDoc::itemSelection_RaiseItem()
 		*m_Selection = tempSelection;
 		m_Selection->delaySignalsOff();
 		changed();
+		invalidateRegion(selRect);
 		regionsChanged()->update(QRectF());
 	}
 }
