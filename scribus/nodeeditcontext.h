@@ -22,6 +22,7 @@ for which a new license (GPL+exception) is in place.
  ***************************************************************************/
 #ifndef NODEEDITCONTEXT_H
 #define NODEEDITCONTEXT_H
+
 #ifdef HAVE_CONFIG_H
 #include "scconfig.h"
 #endif
