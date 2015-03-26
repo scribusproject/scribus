@@ -315,6 +315,7 @@
     <moc Include="..\..\..\scribus\qtiocompressor.h" />
     <ClInclude Include="..\..\..\scribus\imagedataloaders\scimgdataloader_ora.h" />
     <moc Include="..\..\..\scribus\selectionrubberband.h" />
+    <ClInclude Include="..\..\..\scribus\nodeeditcontext.h" />
     <ClInclude Include="..\..\..\scribus\styles\cellstyle.h" />
     <moc Include="..\..\..\scribus\ui\charselect.h" />
     <moc Include="..\..\..\scribus\ui\charselectenhanced.h" />
@@ -894,6 +895,7 @@
     <ClCompile Include="..\..\..\scribus\desaxe\saxiohelper.cpp" />
     <ClCompile Include="..\..\..\scribus\desaxe\saxXML.cpp" />
     <ClCompile Include="..\..\..\scribus\desaxe\uniqueid.cpp" />
+    <ClCompile Include="..\..\..\scribus\nodeeditcontext.cpp" />
     <ClCompile Include="..\..\..\scribus\qtiocompressor.cpp" />
     <ClCompile Include="..\..\..\scribus\imagedataloaders\scimgdataloader_ora.cpp" />
     <ClCompile Include="..\..\..\scribus\selectionrubberband.cpp" />

@@ -1001,6 +1001,9 @@
     <ClInclude Include="..\..\..\scribus\third_party\fparser\fptypes.hh">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\scribus\nodeeditcontext.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\scribus\desaxe\digester.cpp">
@@ -2510,6 +2513,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\scribus\third_party\fparser\fparser.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\nodeeditcontext.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
