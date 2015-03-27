@@ -1226,40 +1226,43 @@ PageItem* VivaPlug::parseObjectDetailsXML(const QDomElement& obNode, int baseTyp
 							}
 						}
 					}
-					if (ob_type == 2)
+					if (tPoints.count() > 0)
 					{
-						Path.addPoint(tPoints[0].PolyPoint);
-						Path.addPoint(tPoints[0].afterPolyPoint);
-						for (int ppx = 1; ppx < tPoints.count(); ppx++)
+						if (ob_type == 2)
 						{
-							Path.addPoint(tPoints[ppx].PolyPoint);
-							Path.addPoint(tPoints[ppx].beforePolyPoint);
-							Path.addPoint(tPoints[ppx].PolyPoint);
-							Path.addPoint(tPoints[ppx].afterPolyPoint);
+							Path.addPoint(tPoints[0].PolyPoint);
+							Path.addPoint(tPoints[0].afterPolyPoint);
+							for (int ppx = 1; ppx < tPoints.count(); ppx++)
+							{
+								Path.addPoint(tPoints[ppx].PolyPoint);
+								Path.addPoint(tPoints[ppx].beforePolyPoint);
+								Path.addPoint(tPoints[ppx].PolyPoint);
+								Path.addPoint(tPoints[ppx].afterPolyPoint);
+							}
+							Path.addPoint(tPoints[0].PolyPoint);
+							Path.addPoint(tPoints[0].beforePolyPoint);
 						}
-						Path.addPoint(tPoints[0].PolyPoint);
-						Path.addPoint(tPoints[0].beforePolyPoint);
-					}
-					else if (ob_type == 3)
-					{
-						Path.addPoint(tPoints[0].PolyPoint);
-						Path.addPoint(tPoints[0].PolyPoint);
-						Path.addPoint(tPoints[1].PolyPoint);
-						Path.addPoint(tPoints[1].PolyPoint);
-					}
-					else if (ob_type == 4)
-					{
-						Path.addPoint(tPoints[0].PolyPoint);
-						Path.addPoint(tPoints[0].afterPolyPoint);
-						for (int ppx = 1; ppx < tPoints.count()-1; ppx++)
+						else if (ob_type == 3)
 						{
-							Path.addPoint(tPoints[ppx].PolyPoint);
-							Path.addPoint(tPoints[ppx].beforePolyPoint);
-							Path.addPoint(tPoints[ppx].PolyPoint);
-							Path.addPoint(tPoints[ppx].afterPolyPoint);
+							Path.addPoint(tPoints[0].PolyPoint);
+							Path.addPoint(tPoints[0].PolyPoint);
+							Path.addPoint(tPoints[1].PolyPoint);
+							Path.addPoint(tPoints[1].PolyPoint);
 						}
-						Path.addPoint(tPoints[tPoints.count()-1].PolyPoint);
-						Path.addPoint(tPoints[tPoints.count()-1].beforePolyPoint);
+						else if (ob_type == 4)
+						{
+							Path.addPoint(tPoints[0].PolyPoint);
+							Path.addPoint(tPoints[0].afterPolyPoint);
+							for (int ppx = 1; ppx < tPoints.count()-1; ppx++)
+							{
+								Path.addPoint(tPoints[ppx].PolyPoint);
+								Path.addPoint(tPoints[ppx].beforePolyPoint);
+								Path.addPoint(tPoints[ppx].PolyPoint);
+								Path.addPoint(tPoints[ppx].afterPolyPoint);
+							}
+							Path.addPoint(tPoints[tPoints.count()-1].PolyPoint);
+							Path.addPoint(tPoints[tPoints.count()-1].beforePolyPoint);
+						}
 					}
 				}
 				else if (eog.tagName() == "vo:shadow")
@@ -1461,7 +1464,7 @@ PageItem* VivaPlug::parseObjectDetailsXML(const QDomElement& obNode, int baseTyp
 	{
 		PageItem* item = m_Doc->Items->at(z);
 		item->setTextFlowMode(textFlow);
-		if ((ob_type == 2) || (ob_type == 3) || (ob_type == 4))
+		if (((ob_type == 2) || (ob_type == 3) || (ob_type == 4)) && (Path.count() > 0))
 		{
 			item->PoLine = Path.copy();
 			FPoint wh = getMaxClipF(&item->PoLine);
