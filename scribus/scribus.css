@@ -1,0 +1,50 @@
+/* page selector comboboxes */
+
+PageSelector QComboBox { border: 1px solid gray; height: 20px; }
+PageSelector QComboBox::down-arrow { image: url(___downArrow___); width: 12px; height 12px;}
+PageSelector QComboBox::down-arrow:on { top: 1px; left: 1px; }
+PageSelector QComboBox:editable { background: white; }
+PageSelector QComboBox:!editable, QComboBox::drop-down:editable { background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #E1E1E1, stop: 0.4 #DDDDDD, stop: 0.5 #D8D8D8, stop: 1.0 #D3D3D3);}
+PageSelector QComboBox:!editable:on, QComboBox::drop-down:editable:on { background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #D3D3D3, stop: 0.4 #D8D8D8, stop: 0.5 #DDDDDD, stop: 1.0 #E1E1E1); }
+PageSelector QComboBox:on { padding-top: 3px; padding-left: 4px; }
+PageSelector QComboBox::drop-down { subcontrol-origin: padding; subcontrol-position: top right; width: 15px; border-left-width: 1px; border-left-color: darkgray; border-left-style: solid; border-top-right-radius: 3px; border-bottom-right-radius: 3px; }
+
+/* page back, forward etc buttons */
+PageSelector QPushButton { height: 20px; width: 20px; border: 0px; }
+PageSelector QPushButton:hover { border: 1px solid gray ; }
+PageSelector QPushButton:pressed { border: 1px solid gray; background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #dadbde, stop: 1 #f6f7fa); }
+
+
+/* zoom buttons */
+QPushButton#zoomDefaultToolbarButton { height: 20px; width: 20px; border: 0px; }
+QPushButton#zoomDefaultToolbarButton:hover { border: 1px solid gray ; }
+QPushButton#zoomDefaultToolbarButton:pressed { border: 1px solid gray; background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #dadbde, stop: 1 #f6f7fa); }
+
+QPushButton#zoomInToolbarButton { height: 20px; width: 20px; border: 0px; }
+QPushButton#zoomInToolbarButton:hover { border: 1px solid gray ; }
+QPushButton#zoomInToolbarButton:pressed { border: 1px solid gray; background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #dadbde, stop: 1 #f6f7fa); }
+
+QPushButton#zoomOutToolbarButton { height: 20px; width: 20px; border: 0px; }
+QPushButton#zoomOutToolbarButton:hover { border: 1px solid gray ; }
+QPushButton#zoomOutToolbarButton:pressed { border: 1px solid gray; background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #dadbde, stop: 1 #f6f7fa); }
+
+QSpinBox#zoomSpinBox { height: 20px; width: 3em; padding-right: 15px; }
+
+QComboBox#layerMenu { border: 1px solid gray; height: 20px; width:6em; }
+QComboBox#layerMenu::down-arrow { image: url(___downArrow___); width: 12px; height 12px;}
+QComboBox#layerMenu::down-arrow:on { top: 1px; left: 1px; }
+QComboBox#layerMenu:editable { background: white; }
+QComboBox#layerMenu:!editable, QComboBox::drop-down:editable { background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #E1E1E1, stop: 0.4 #DDDDDD, stop: 0.5 #D8D8D8, stop: 1.0 #D3D3D3);}
+QComboBox#layerMenu:!editable:on, QComboBox::drop-down:editable:on { background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #D3D3D3, stop: 0.4 #D8D8D8, stop: 0.5 #DDDDDD, stop: 1.0 #E1E1E1); }
+QComboBox#layerMenu:on { padding-top: 3px; padding-left: 4px; }
+QComboBox#layerMenu::drop-down { subcontrol-origin: padding; subcontrol-position: top right; width: 15px; border-left-width: 1px; border-left-color: darkgray; border-left-style: solid; border-top-right-radius: 3px; border-bottom-right-radius: 3px; }
+
+QComboBox#unitSwitcher { border: 1px solid gray; height: 20px; width:2em; }
+QComboBox#unitSwitcher::down-arrow { image: url(___downArrow___); width: 12px; height 12px;}
+QComboBox#unitSwitcher::down-arrow:on { top: 1px; left: 1px; }
+QComboBox#unitSwitcher:editable { background: white; }
+QComboBox#unitSwitcher:!editable, QComboBox::drop-down:editable { background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #E1E1E1, stop: 0.4 #DDDDDD, stop: 0.5 #D8D8D8, stop: 1.0 #D3D3D3);}
+QComboBox#unitSwitcher:!editable:on, QComboBox::drop-down:editable:on { background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #D3D3D3, stop: 0.4 #D8D8D8, stop: 0.5 #DDDDDD, stop: 1.0 #E1E1E1); }
+QComboBox#unitSwitcher:on { padding-top: 3px; padding-left: 4px; }
+QComboBox#unitSwitcher::drop-down { subcontrol-origin: padding; subcontrol-position: top right; width: 15px; border-left-width: 1px; border-left-color: darkgray; border-left-style: solid; border-top-right-radius: 3px; border-bottom-right-radius: 3px; }
+

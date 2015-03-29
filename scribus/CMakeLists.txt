@@ -1368,3 +1368,9 @@ IF(WANT_HEADERINSTALL)
 ELSE(WANT_HEADERINSTALL)
 	MESSAGE(STATUS "No source header files will be installed")
 ENDIF(WANT_HEADERINSTALL)
+
+#Install our stylesheet
+INSTALL(FILES
+	scribus.css
+	DESTINATION ${LIBDIR}
+)

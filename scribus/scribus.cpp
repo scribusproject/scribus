@@ -1229,37 +1229,6 @@ void ScribusMainWindow::initStatusBar()
 	layerMenu->setFocusPolicy(Qt::NoFocus);
 	layerMenu->setSizeAdjustPolicy(QComboBox::AdjustToContents);
 
-	QString downArrow(ScPaths::instance().iconDir()+"16/go-down.png");
-
-	QString comboStyleSheet1 ("QComboBox#layerMenu { border: 1px solid gray; height: 20px; width:5em; }"
-							 "QComboBox::down-arrow { image: url("+downArrow+"); width: 12px; height 12px;}"
-							 "QComboBox::down-arrow:on { top: 1px; left: 1px; }"
-							 "QComboBox:editable { background: white; }"
-							 "QComboBox:!editable, QComboBox::drop-down:editable { background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #E1E1E1, stop: 0.4 #DDDDDD, stop: 0.5 #D8D8D8, stop: 1.0 #D3D3D3);}"
-							 "QComboBox:!editable:on, QComboBox::drop-down:editable:on { background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #D3D3D3, stop: 0.4 #D8D8D8, stop: 0.5 #DDDDDD, stop: 1.0 #E1E1E1); }"
-							 "QComboBox:on { padding-top: 3px; padding-left: 4px; }"
-							 "QComboBox::drop-down { subcontrol-origin: padding; subcontrol-position: top right; width: 15px; border-left-width: 1px; border-left-color: darkgray; border-left-style: solid; border-top-right-radius: 3px; border-bottom-right-radius: 3px; }"
-
-							 );
-
-	QString comboStyleSheet2 ("QComboBox#unitSwitcher { border: 1px solid gray; height: 20px; width:2em; }"
-							 "QComboBox::down-arrow { image: url("+downArrow+"); width: 12px; height 12px;}"
-							 "QComboBox::down-arrow:on { top: 1px; left: 1px; }"
-							 "QComboBox:editable { background: white; }"
-							 "QComboBox:!editable, QComboBox::drop-down:editable { background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #E1E1E1, stop: 0.4 #DDDDDD, stop: 0.5 #D8D8D8, stop: 1.0 #D3D3D3);}"
-							 "QComboBox:!editable:on, QComboBox::drop-down:editable:on { background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #D3D3D3, stop: 0.4 #D8D8D8, stop: 0.5 #DDDDDD, stop: 1.0 #E1E1E1); }"
-							 "QComboBox:on { padding-top: 3px; padding-left: 4px; }"
-							 "QComboBox:drop-down { subcontrol-origin: padding; subcontrol-position: top right; width: 20px; border-left-width: 1px; border-left-color: darkgray; border-left-style: solid; }"
-
-							 );
-
-	QString buttonStyleSheet("QPushButton { height: 20px; width: 20px; border: 0px; } "
-							 "QPushButton:hover { border: 1px solid gray ; }"
-							 "QPushButton:pressed { border: 1px solid gray; background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #dadbde, stop: 1 #f6f7fa); }");
-
-	QString zoomStyleSheet("QSpinBox { height: 20px; width: 3em; padding-right: 15px; }"
-						   );
-
 	pageSelector = new PageSelector(this, 1);
 	pageSelector->setObjectName("pageSelector");
 	pageSelector->setFont(fo);
@@ -1306,6 +1275,29 @@ void ScribusMainWindow::initStatusBar()
 	mainWindowYPosDataLabel->setMinimumWidth(mainWindowYPosDataLabel->fontMetrics().width("99999.999"));
 	statusBarLanguageChange();
 
+	QByteArray stylesheet;
+	if (loadRawText(ScPaths::instance().libDir() + "scribus.css", stylesheet))
+	{
+		QString downArrow(ScPaths::instance().iconDir()+"16/go-down.png");
+		QByteArray da;
+		da.append(downArrow);
+		stylesheet.replace("___downArrow___", da);
+	}
+
+	layerMenu->setObjectName("layerMenu");
+	unitSwitcher->setObjectName("unitSwitcher");
+	zoomDefaultToolbarButton->setObjectName("zoomDefaultToolbarButton");
+	zoomInToolbarButton->setObjectName("zoomInToolbarButton");
+	zoomOutToolbarButton->setObjectName("zoomOutToolbarButton");
+	zoomSpinBox->setObjectName("zoomSpinBox");
+
+	layerMenu->setStyleSheet(stylesheet);
+	unitSwitcher->setStyleSheet(stylesheet);
+	zoomDefaultToolbarButton->setStyleSheet(stylesheet);
+	zoomInToolbarButton->setStyleSheet(stylesheet);
+	zoomOutToolbarButton->setStyleSheet(stylesheet);
+	zoomSpinBox->setStyleSheet(stylesheet);
+
 	statusBar()->setFont(fo);
 	statusBar()->addPermanentWidget(mainWindowStatusLabel, 5);
 	QLabel *s=new QLabel("");
@@ -1325,13 +1317,6 @@ void ScribusMainWindow::initStatusBar()
 	statusBar()->addPermanentWidget(unitSwitcher,0);
 	statusBar()->addPermanentWidget(mainWindowProgressBar, 0);
 	connect(statusBar(), SIGNAL(messageChanged(const QString &)), this, SLOT(setTempStatusBarText(const QString &)));
-
-	layerMenu->setStyleSheet(comboStyleSheet1);
-	unitSwitcher->setStyleSheet(comboStyleSheet2);
-	zoomDefaultToolbarButton->setStyleSheet(buttonStyleSheet);
-	zoomInToolbarButton->setStyleSheet(buttonStyleSheet);
-	zoomOutToolbarButton->setStyleSheet(buttonStyleSheet);
-	zoomSpinBox->setStyleSheet(zoomStyleSheet);
 
 }
 

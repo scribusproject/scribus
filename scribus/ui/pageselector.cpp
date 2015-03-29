@@ -6,6 +6,8 @@ for which a new license (GPL+exception) is in place.
 */
 #include "pageselector.h"
 
+#include <QByteArray>
+#include <QDebug>
 #include <QEvent>
 #include <QHBoxLayout>
 #include <QLabel>
@@ -31,26 +33,32 @@ PageSelector::PageSelector( QWidget* parent, int maxPg ) : QWidget( parent, 0 )
 	PageSelectorLayout->setSpacing(1);
 
 	startButton = new QPushButton( this );
-	startButton->setDefault( false );
-	startButton->setAutoDefault( false );
 	backButton = new QPushButton( this );
-	backButton->setDefault( false );
-	backButton->setAutoDefault( false );
 	forwardButton = new QPushButton( this );
-	forwardButton->setDefault( false );
-	forwardButton->setAutoDefault( false );
 	lastButton = new QPushButton( this );
+
+	startButton->setDefault( false );
+	backButton->setDefault( false );
+	forwardButton->setDefault( false );
 	lastButton->setDefault( false );
+
+	startButton->setAutoDefault( false );
+	backButton->setAutoDefault( false );
+	forwardButton->setAutoDefault( false );
 	lastButton->setAutoDefault( false );
 
 	startButton->setIcon(QIcon(loadIcon("16/go-first.png")));
-	startButton->setFocusPolicy(Qt::NoFocus);
-	PageSelectorLayout->addWidget( startButton );
-
 	backButton->setIcon(QIcon(loadIcon("16/go-previous.png")));
+	forwardButton->setIcon(QIcon(loadIcon("16/go-next.png")));
+	lastButton->setIcon(QIcon(loadIcon("16/go-last.png")));
+
+	startButton->setFocusPolicy(Qt::NoFocus);
 	backButton->setFocusPolicy(Qt::NoFocus);
+	forwardButton->setFocusPolicy(Qt::NoFocus);
+	lastButton->setFocusPolicy(Qt::NoFocus);
+
+	forwardButton->setAutoRepeat(true);
 	backButton->setAutoRepeat(true);
-	PageSelectorLayout->addWidget( backButton );
 
 	m_validator = new QIntValidator(1, m_lastPage, this);
 	m_pageCombo = new ScComboBox( this );
@@ -59,25 +67,13 @@ PageSelector::PageSelector( QWidget* parent, int maxPg ) : QWidget( parent, 0 )
 	m_pageCombo->setInsertPolicy(QComboBox::NoInsert);
 	m_pageCombo->lineEdit()->setAlignment(Qt::AlignHCenter);
 	for (int i = 0; i < m_lastPage; ++i)
-	{
 		m_pageCombo->addItem(QString::number(i+1));
-	}
 	m_pageCombo->setValidator(m_validator);
 	m_pageCombo->setMinimumSize(fontMetrics().width( "9999" )+20, 20);
 	m_pageCombo->setFocusPolicy(Qt::ClickFocus);
-	PageSelectorLayout->addWidget( m_pageCombo );
 	
 	pageCountLabel = new QLabel(PageCountString.arg(m_lastPage), this);
-	PageSelectorLayout->addWidget(pageCountLabel);
-			
-	forwardButton->setIcon(QIcon(loadIcon("16/go-next.png")));
-	forwardButton->setFocusPolicy(Qt::NoFocus);
-	forwardButton->setAutoRepeat(true);
-	PageSelectorLayout->addWidget( forwardButton );
 
-	lastButton->setIcon(QIcon(loadIcon("16/go-last.png")));
-	lastButton->setFocusPolicy(Qt::NoFocus);
-	PageSelectorLayout->addWidget( lastButton );
 	forwardButton->setEnabled(true);
 	lastButton->setEnabled(true);
 	backButton->setEnabled(false);
@@ -88,27 +84,23 @@ PageSelector::PageSelector( QWidget* parent, int maxPg ) : QWidget( parent, 0 )
 		lastButton->setEnabled(false);
 	}
 
-	QString buttonStyleSheet("QPushButton { height: 20px; width: 20px; border: 0px; } "
-							 "QPushButton:hover { border: 1px solid gray ; }"
-							 "QPushButton:pressed { border: 1px solid gray; background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #dadbde, stop: 1 #f6f7fa); }");
-	startButton->setStyleSheet(buttonStyleSheet);
-	backButton->setStyleSheet(buttonStyleSheet);
-	forwardButton->setStyleSheet(buttonStyleSheet);
-	lastButton->setStyleSheet(buttonStyleSheet);
+	QByteArray stylesheet;
+	if (loadRawText(ScPaths::instance().libDir() + "scribus.css", stylesheet))
+	{
+		QString downArrow(ScPaths::instance().iconDir()+"16/go-down.png");
+		QByteArray da;
+		da.append(downArrow);
+		stylesheet.replace("___downArrow___", da);
+		setStyleSheet(QString(stylesheet));
+	}
 
-	QString downArrow(ScPaths::instance().iconDir()+"16/go-down.png");
+	PageSelectorLayout->addWidget( startButton );
+	PageSelectorLayout->addWidget( backButton );
+	PageSelectorLayout->addWidget( m_pageCombo );
+	PageSelectorLayout->addWidget(pageCountLabel);
+	PageSelectorLayout->addWidget( forwardButton );
+	PageSelectorLayout->addWidget( lastButton );
 
-	QString comboStyleSheet ("QComboBox { border: 1px solid gray; height: 20px; }"
-							 "QComboBox::down-arrow { image: url("+downArrow+"); width: 12px; height 12px;}"
-							 "QComboBox::down-arrow:on { top: 1px; left: 1px; }"
-							 "QComboBox:editable { background: white; }"
-							 "QComboBox:!editable, QComboBox::drop-down:editable { background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #E1E1E1, stop: 0.4 #DDDDDD, stop: 0.5 #D8D8D8, stop: 1.0 #D3D3D3);}"
-							 "QComboBox:!editable:on, QComboBox::drop-down:editable:on { background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #D3D3D3, stop: 0.4 #D8D8D8, stop: 0.5 #DDDDDD, stop: 1.0 #E1E1E1); }"
-							 "QComboBox:on { padding-top: 3px; padding-left: 4px; }"
-							 "QComboBox::drop-down { subcontrol-origin: padding; subcontrol-position: top right; width: 15px; border-left-width: 1px; border-left-color: darkgray; border-left-style: solid; border-top-right-radius: 3px; border-bottom-right-radius: 3px; }"
-
-							 );
-	m_pageCombo->setStyleSheet(comboStyleSheet);
 
 	languageChange();
 	// signals and slots connections
