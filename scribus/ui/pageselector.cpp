@@ -7,6 +7,7 @@ for which a new license (GPL+exception) is in place.
 #include "pageselector.h"
 
 #include <QByteArray>
+#include <QComboBox>
 #include <QDebug>
 #include <QEvent>
 #include <QHBoxLayout>
@@ -18,7 +19,6 @@ for which a new license (GPL+exception) is in place.
 #include <QToolTip>
 #include <QValidator>
 
-#include "sccombobox.h"
 #include "scpaths.h"
 #include "util_icon.h"
 #include "util.h"
@@ -61,7 +61,7 @@ PageSelector::PageSelector( QWidget* parent, int maxPg ) : QWidget( parent, 0 )
 	backButton->setAutoRepeat(true);
 
 	m_validator = new QIntValidator(1, m_lastPage, this);
-	m_pageCombo = new ScComboBox( this );
+	m_pageCombo = new QComboBox( this );
 	m_pageCombo->setEditable(true);
 	m_pageCombo->setDuplicatesEnabled( false );
 	m_pageCombo->setInsertPolicy(QComboBox::NoInsert);

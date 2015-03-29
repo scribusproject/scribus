@@ -19,7 +19,7 @@ class QIntValidator;
 #include "scribusapi.h"
 #include "styleoptions.h"
 
-class ScComboBox;
+class QComboBox;
 
 class SCRIBUS_API PageSelector : public QWidget
 {
@@ -62,7 +62,7 @@ protected:
 	int m_lastPage;
 	int m_currentPage;
 
-	ScComboBox *m_pageCombo;
+	QComboBox *m_pageCombo;
 	QIntValidator *m_validator;
 
 signals:
