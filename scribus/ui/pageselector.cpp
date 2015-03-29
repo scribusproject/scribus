@@ -71,6 +71,7 @@ PageSelector::PageSelector( QWidget* parent, int maxPg ) : QWidget( parent, 0 )
 	m_pageCombo->setValidator(m_validator);
 	m_pageCombo->setMinimumSize(fontMetrics().width( "9999" )+20, 20);
 	m_pageCombo->setFocusPolicy(Qt::ClickFocus);
+	m_pageCombo->setObjectName("pageCombo");
 	
 	pageCountLabel = new QLabel(PageCountString.arg(m_lastPage), this);
 
@@ -97,7 +98,7 @@ PageSelector::PageSelector( QWidget* parent, int maxPg ) : QWidget( parent, 0 )
 	PageSelectorLayout->addWidget( startButton );
 	PageSelectorLayout->addWidget( backButton );
 	PageSelectorLayout->addWidget( m_pageCombo );
-	PageSelectorLayout->addWidget(pageCountLabel);
+	PageSelectorLayout->addWidget( pageCountLabel );
 	PageSelectorLayout->addWidget( forwardButton );
 	PageSelectorLayout->addWidget( lastButton );
 
