@@ -64,7 +64,6 @@ for which a new license (GPL+exception) is in place.
 #include <QStyleFactory>
 #include <QTableWidget>
 #include <QTextCodec>
-#include <QToolButton>
 #include <QTranslator>
 #include <QWheelEvent>
 
@@ -1203,12 +1202,20 @@ void ScribusMainWindow::initStatusBar()
 	int posi = fo.pointSize() - (ScCore->isWinGUI() ? 1 : 2);
 	fo.setPointSize(posi);
 	unitSwitcher = new QComboBox( this );
+	unitSwitcher->setObjectName("unitSwitcher");
 	unitSwitcher->setFocusPolicy(Qt::NoFocus);
 	unitSwitcher->setFont(fo);
 	int maxUindex = unitGetMaxIndex() - 2;
 	for (int i = 0; i <= maxUindex; ++i)
 		unitSwitcher->addItem(unitGetStrFromIndex(i));
-	zoomSpinBox = new ScrSpinBox( 1, 32000, this, 6 );
+
+
+	QWidget* zoomWidget = new QWidget( statusBar() );
+	QHBoxLayout* zoomLayout = new QHBoxLayout( zoomWidget );
+	zoomLayout->setMargin(0);
+	zoomLayout->setSpacing(1);
+
+	zoomSpinBox = new ScrSpinBox( 1, 32000, zoomWidget, 6 );
 	zoomSpinBox->setTabAdvance(false);
 	zoomSpinBox->setFont(fo);
 	zoomSpinBox->setValue( 100 );
@@ -1216,51 +1223,70 @@ void ScribusMainWindow::initStatusBar()
 	zoomSpinBox->setFocusPolicy(Qt::ClickFocus);
 	zoomSpinBox->setSuffix( tr( " %" ) );
 	layerMenu = new QComboBox( this );
+	layerMenu->setObjectName("layerMenu");
 	layerMenu->setEditable(false);
 	layerMenu->setFont(fo);
 	layerMenu->setFocusPolicy(Qt::NoFocus);
 	layerMenu->setSizeAdjustPolicy(QComboBox::AdjustToContents);
 
+	QString downArrow(ScPaths::instance().iconDir()+"16/go-down.png");
+
+	QString comboStyleSheet1 ("QComboBox#layerMenu { border: 1px solid gray; height: 20px; width:5em; }"
+							 "QComboBox::down-arrow { image: url("+downArrow+"); width: 12px; height 12px;}"
+							 "QComboBox::down-arrow:on { top: 1px; left: 1px; }"
+							 "QComboBox:editable { background: white; }"
+							 "QComboBox:!editable, QComboBox::drop-down:editable { background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #E1E1E1, stop: 0.4 #DDDDDD, stop: 0.5 #D8D8D8, stop: 1.0 #D3D3D3);}"
+							 "QComboBox:!editable:on, QComboBox::drop-down:editable:on { background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #D3D3D3, stop: 0.4 #D8D8D8, stop: 0.5 #DDDDDD, stop: 1.0 #E1E1E1); }"
+							 "QComboBox:on { padding-top: 3px; padding-left: 4px; }"
+							 "QComboBox::drop-down { subcontrol-origin: padding; subcontrol-position: top right; width: 15px; border-left-width: 1px; border-left-color: darkgray; border-left-style: solid; border-top-right-radius: 3px; border-bottom-right-radius: 3px; }"
+
+							 );
+
+	QString comboStyleSheet2 ("QComboBox#unitSwitcher { border: 1px solid gray; height: 20px; width:2em; }"
+							 "QComboBox::down-arrow { image: url("+downArrow+"); width: 12px; height 12px;}"
+							 "QComboBox::down-arrow:on { top: 1px; left: 1px; }"
+							 "QComboBox:editable { background: white; }"
+							 "QComboBox:!editable, QComboBox::drop-down:editable { background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #E1E1E1, stop: 0.4 #DDDDDD, stop: 0.5 #D8D8D8, stop: 1.0 #D3D3D3);}"
+							 "QComboBox:!editable:on, QComboBox::drop-down:editable:on { background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #D3D3D3, stop: 0.4 #D8D8D8, stop: 0.5 #DDDDDD, stop: 1.0 #E1E1E1); }"
+							 "QComboBox:on { padding-top: 3px; padding-left: 4px; }"
+							 "QComboBox:drop-down { subcontrol-origin: padding; subcontrol-position: top right; width: 20px; border-left-width: 1px; border-left-color: darkgray; border-left-style: solid; }"
+
+							 );
+
+	QString buttonStyleSheet("QPushButton { height: 20px; width: 20px; border: 0px; } "
+							 "QPushButton:hover { border: 1px solid gray ; }"
+							 "QPushButton:pressed { border: 1px solid gray; background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #dadbde, stop: 1 #f6f7fa); }");
+
+	QString zoomStyleSheet("QSpinBox { height: 20px; width: 3em; padding-right: 15px; }"
+						   );
+
 	pageSelector = new PageSelector(this, 1);
+	pageSelector->setObjectName("pageSelector");
 	pageSelector->setFont(fo);
 	pageSelector->setFocusPolicy(Qt::ClickFocus);
 
-#if OPTION_USE_QTOOLBUTTON
-	zoomDefaultToolbarButton = new QToolButton(this);
-	zoomInToolbarButton = new QToolButton(this);
-	zoomOutToolbarButton = new QToolButton(this);
-	zoomDefaultToolbarButton->setAutoRaise(OPTION_FLAT_BUTTON);
-	zoomOutToolbarButton->setAutoRaise(OPTION_FLAT_BUTTON);
-	zoomInToolbarButton->setAutoRaise(OPTION_FLAT_BUTTON);
-	zoomInToolbarButton->setDefaultAction(scrActions["toolsZoomIn"]);
-	zoomOutToolbarButton->setDefaultAction(scrActions["toolsZoomOut"]);
-#else
-	zoomDefaultToolbarButton = new QPushButton(this);
+	zoomDefaultToolbarButton = new QPushButton(zoomWidget);
 	zoomDefaultToolbarButton->setFocusPolicy(Qt::NoFocus);
 	zoomDefaultToolbarButton->setDefault( false );
 	zoomDefaultToolbarButton->setAutoDefault( false );
-	zoomDefaultToolbarButton->setFlat(OPTION_FLAT_BUTTON);
-	zoomOutToolbarButton = new QPushButton(this);
+	zoomOutToolbarButton = new QPushButton(zoomWidget);
 	zoomOutToolbarButton->setFocusPolicy(Qt::NoFocus);
 	zoomOutToolbarButton->setDefault( false );
 	zoomOutToolbarButton->setAutoDefault( false );
-	zoomOutToolbarButton->setFlat(OPTION_FLAT_BUTTON);
-	zoomInToolbarButton = new QPushButton(this);
+	zoomInToolbarButton = new QPushButton(zoomWidget);
 	zoomInToolbarButton->setFocusPolicy(Qt::NoFocus);
 	zoomInToolbarButton->setDefault( false );
 	zoomInToolbarButton->setAutoDefault( false );
-	zoomInToolbarButton->setFlat(OPTION_FLAT_BUTTON);
-	zoomInToolbarButton->addAction(scrActions["toolsZoomIn"]);
-	zoomOutToolbarButton->addAction(scrActions["toolsZoomOut"]);
-#endif
+
 	zoomDefaultToolbarButton->setIcon(QIcon(loadIcon("16/zoom-original.png")));
 	zoomOutToolbarButton->setIcon(QIcon(loadIcon("16/zoom-out.png")));
 	zoomInToolbarButton->setIcon(QIcon(loadIcon("16/zoom-in.png")));
-	zoomOutToolbarButton->resize(10,10);
-//	cmsAdjustMenu = new QMenu();
-//	idCmsAdjustMenu = cmsAdjustMenu->addAction( "Configure CMS...", this, SLOT(adjustCMS()));
-//	cmsToolbarButton->setMenu(cmsAdjustMenu);
 
+
+	zoomLayout->addWidget( zoomSpinBox );
+	zoomLayout->addWidget( zoomOutToolbarButton );
+	zoomLayout->addWidget( zoomDefaultToolbarButton );
+	zoomLayout->addWidget( zoomInToolbarButton );
 
 	mainWindowStatusLabel = new QLabel( "           ", statusBar());
 	mainWindowStatusLabel->setFont(fo);
@@ -1272,33 +1298,40 @@ void ScribusMainWindow::initStatusBar()
 	mainWindowXPosLabel->setFont(fo);
 	mainWindowYPosLabel = new QLabel( tr("Y:"), statusBar());
 	mainWindowYPosLabel->setFont(fo);
-	mainWindowXPosDataLabel = new QLabel( "        ", statusBar());
+	mainWindowXPosDataLabel = new QLabel( "", statusBar());
 	mainWindowXPosDataLabel->setFont(fo);
-	mainWindowYPosDataLabel = new QLabel( "        ", statusBar());
+	mainWindowYPosDataLabel = new QLabel( "", statusBar());
 	mainWindowYPosDataLabel->setFont(fo);
-
+	mainWindowXPosDataLabel->setMinimumWidth(mainWindowXPosDataLabel->fontMetrics().width("99999.999"));
+	mainWindowYPosDataLabel->setMinimumWidth(mainWindowYPosDataLabel->fontMetrics().width("99999.999"));
 	statusBarLanguageChange();
-
 
 	statusBar()->setFont(fo);
 	statusBar()->addPermanentWidget(mainWindowStatusLabel, 5);
 	QLabel *s=new QLabel("");
 	QLabel *s2=new QLabel("");
+	QLabel *s3=new QLabel("");
 	statusBar()->addPermanentWidget(s,1);
-	statusBar()->addPermanentWidget(zoomSpinBox,1);
-	statusBar()->addPermanentWidget(zoomOutToolbarButton,1);
-	statusBar()->addPermanentWidget(zoomDefaultToolbarButton,1);
-	statusBar()->addPermanentWidget(zoomInToolbarButton,1);
-	statusBar()->addPermanentWidget(pageSelector,3);
+	statusBar()->addPermanentWidget(s2,1);
+	statusBar()->addPermanentWidget(zoomWidget,0);
+	statusBar()->addPermanentWidget(pageSelector,0);
 	statusBar()->addPermanentWidget(layerMenu,1);
-	statusBar()->addPermanentWidget(s2,2);
+	statusBar()->addPermanentWidget(s3,3);
 	statusBar()->addPermanentWidget(mainWindowXPosLabel, 0);
-	statusBar()->addPermanentWidget(mainWindowXPosDataLabel, 1);
+	statusBar()->addPermanentWidget(mainWindowXPosDataLabel, 0);
 	statusBar()->addPermanentWidget(mainWindowYPosLabel, 0);
-	statusBar()->addPermanentWidget(mainWindowYPosDataLabel, 1);
+	statusBar()->addPermanentWidget(mainWindowYPosDataLabel, 0);
+
 	statusBar()->addPermanentWidget(unitSwitcher,0);
 	statusBar()->addPermanentWidget(mainWindowProgressBar, 0);
 	connect(statusBar(), SIGNAL(messageChanged(const QString &)), this, SLOT(setTempStatusBarText(const QString &)));
+
+	layerMenu->setStyleSheet(comboStyleSheet1);
+	unitSwitcher->setStyleSheet(comboStyleSheet2);
+	zoomDefaultToolbarButton->setStyleSheet(buttonStyleSheet);
+	zoomInToolbarButton->setStyleSheet(buttonStyleSheet);
+	zoomOutToolbarButton->setStyleSheet(buttonStyleSheet);
+	zoomSpinBox->setStyleSheet(zoomStyleSheet);
 
 }
 

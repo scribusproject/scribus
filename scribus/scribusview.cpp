@@ -393,9 +393,9 @@ bool ScribusView::handleObjectImport(QMimeData* mimeData, TransactionSettings* t
 
 void ScribusView::startGesture(CanvasGesture* gesture)
 {
-	qDebug() << "start gesture" << typeid(*m_canvasMode).name()
-			<< "---->"
-			<< typeid(*gesture).name();
+	//qDebug() << "start gesture" << typeid(*m_canvasMode).name()
+	//		<< "---->"
+	//		<< typeid(*gesture).name();
 	if (m_canvasMode != gesture)
 	{
 		m_canvasMode->deactivate(true);
@@ -409,7 +409,7 @@ void ScribusView::startGesture(CanvasGesture* gesture)
 
 void ScribusView::stopGesture()
 {
-	qDebug() << "stop gesture" << typeid(*m_canvasMode).name() << (m_canvasMode->delegate() != 0);
+	//qDebug() << "stop gesture" << typeid(*m_canvasMode).name() << (m_canvasMode->delegate() != 0);
 	if (m_canvasMode->delegate())
 	{
 		m_canvasMode->deactivate(false);

@@ -42,7 +42,6 @@ for which a new license (GPL+exception) is in place.
 #include <QPushButton>
 #include <QProcess>
 #include <QString>
-#include <QToolButton>
 
 class QCloseEvent;
 class QDragEnterEvent;
@@ -211,15 +210,9 @@ public:
 	QProgressBar* mainWindowProgressBar;
 	ScrSpinBox* zoomSpinBox; //zoom spinbox at bottom of view
 	PageSelector* pageSelector; //Page selector at bottom of view
-#if OPTION_USE_QTOOLBUTTON
-	QToolButton *zoomDefaultToolbarButton;
-	QToolButton *zoomOutToolbarButton;
-	QToolButton *zoomInToolbarButton;
-#else
 	QPushButton *zoomDefaultToolbarButton;
 	QPushButton *zoomOutToolbarButton;
 	QPushButton *zoomInToolbarButton;
-#endif
 	QComboBox *layerMenu; //Menu for layers at bottom of view
 	QComboBox *unitSwitcher; //Menu for units at bottom of view
 	EditToolBar *editToolBar;

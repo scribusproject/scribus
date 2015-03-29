@@ -7,19 +7,17 @@ for which a new license (GPL+exception) is in place.
 #include "pageselector.h"
 
 #include <QEvent>
-#include <QLineEdit>
-#if OPTION_USE_QTOOLBUTTON
-    #include <QToolButton>
-#else
-    #include <QPushButton>
-#endif
-#include <QLabel>
-#include <QToolTip>
-#include <QRegExp>
-#include <QPixmap>
 #include <QHBoxLayout>
+#include <QLabel>
+#include <QLineEdit>
+#include <QPixmap>
+#include <QPushButton>
+#include <QRegExp>
+#include <QToolTip>
 #include <QValidator>
+
 #include "sccombobox.h"
+#include "scpaths.h"
 #include "util_icon.h"
 #include "util.h"
 
@@ -32,33 +30,19 @@ PageSelector::PageSelector( QWidget* parent, int maxPg ) : QWidget( parent, 0 )
 	PageSelectorLayout->setMargin(0);
 	PageSelectorLayout->setSpacing(1);
 
-#if OPTION_USE_QTOOLBUTTON
-	startButton = new QToolButton( this );
-	startButton->setAutoRaise(OPTION_FLAT_BUTTON);
-	backButton = new QToolButton( this );
-	backButton->setAutoRaise(OPTION_FLAT_BUTTON);
-	forwardButton = new QToolButton( this );
-	forwardButton->setAutoRaise(OPTION_FLAT_BUTTON);
-	lastButton = new QToolButton( this );
-	lastButton->setAutoRaise(OPTION_FLAT_BUTTON);
-#else
 	startButton = new QPushButton( this );
 	startButton->setDefault( false );
 	startButton->setAutoDefault( false );
-	startButton->setFlat(OPTION_FLAT_BUTTON);
 	backButton = new QPushButton( this );
 	backButton->setDefault( false );
 	backButton->setAutoDefault( false );
-	backButton->setFlat(OPTION_FLAT_BUTTON);
 	forwardButton = new QPushButton( this );
 	forwardButton->setDefault( false );
 	forwardButton->setAutoDefault( false );
-	forwardButton->setFlat(OPTION_FLAT_BUTTON);
 	lastButton = new QPushButton( this );
 	lastButton->setDefault( false );
 	lastButton->setAutoDefault( false );
-	lastButton->setFlat(OPTION_FLAT_BUTTON);
-#endif
+
 	startButton->setIcon(QIcon(loadIcon("16/go-first.png")));
 	startButton->setFocusPolicy(Qt::NoFocus);
 	PageSelectorLayout->addWidget( startButton );
@@ -103,6 +87,28 @@ PageSelector::PageSelector( QWidget* parent, int maxPg ) : QWidget( parent, 0 )
 		forwardButton->setEnabled(false);
 		lastButton->setEnabled(false);
 	}
+
+	QString buttonStyleSheet("QPushButton { height: 20px; width: 20px; border: 0px; } "
+							 "QPushButton:hover { border: 1px solid gray ; }"
+							 "QPushButton:pressed { border: 1px solid gray; background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #dadbde, stop: 1 #f6f7fa); }");
+	startButton->setStyleSheet(buttonStyleSheet);
+	backButton->setStyleSheet(buttonStyleSheet);
+	forwardButton->setStyleSheet(buttonStyleSheet);
+	lastButton->setStyleSheet(buttonStyleSheet);
+
+	QString downArrow(ScPaths::instance().iconDir()+"16/go-down.png");
+
+	QString comboStyleSheet ("QComboBox { border: 1px solid gray; height: 20px; }"
+							 "QComboBox::down-arrow { image: url("+downArrow+"); width: 12px; height 12px;}"
+							 "QComboBox::down-arrow:on { top: 1px; left: 1px; }"
+							 "QComboBox:editable { background: white; }"
+							 "QComboBox:!editable, QComboBox::drop-down:editable { background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #E1E1E1, stop: 0.4 #DDDDDD, stop: 0.5 #D8D8D8, stop: 1.0 #D3D3D3);}"
+							 "QComboBox:!editable:on, QComboBox::drop-down:editable:on { background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #D3D3D3, stop: 0.4 #D8D8D8, stop: 0.5 #DDDDDD, stop: 1.0 #E1E1E1); }"
+							 "QComboBox:on { padding-top: 3px; padding-left: 4px; }"
+							 "QComboBox::drop-down { subcontrol-origin: padding; subcontrol-position: top right; width: 15px; border-left-width: 1px; border-left-color: darkgray; border-left-style: solid; border-top-right-radius: 3px; border-bottom-right-radius: 3px; }"
+
+							 );
+	m_pageCombo->setStyleSheet(comboStyleSheet);
 
 	languageChange();
 	// signals and slots connections

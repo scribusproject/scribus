@@ -14,7 +14,6 @@ class QHBoxLayout;
 class QLabel;
 class QLineEdit;
 class QPushButton;
-class QToolButton;
 class QIntValidator;
 
 #include "scribusapi.h"
@@ -37,19 +36,10 @@ public:
 	void setFont ( const QFont & );
 	int getCurrentPage();
 
-#if OPTION_USE_QTOOLBUTTON
-	QToolButton* startButton;
-	QToolButton* backButton;
-	QToolButton* forwardButton;
-	QToolButton* lastButton;
-#else
 	QPushButton* startButton;
 	QPushButton* backButton;
 	QPushButton* forwardButton;
 	QPushButton* lastButton;
-#endif
-
-
 
 public slots:
 	virtual void setGUIForPage(int i);
