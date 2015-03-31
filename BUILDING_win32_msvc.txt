@@ -27,7 +27,7 @@ in its path.
 Building Qt:
 ------------
 
-Download the latest Qt 4 release from http://download.qt-project.org/official_releases/qt/4.8/ and unpack it to C:\Developer.
+Download the latest Qt 4 release from http://download.qt.io/official_releases/qt/4.8/ and unpack it to C:\Developer.
 
 Start a command line and import your Visual Studio environment:
 \path\to\visual\studio\VC\vcvarsall.bat x86 (for 32bit build)
@@ -56,7 +56,7 @@ compile all dependencies necessary for Scribus.
 
 Two different archives are needed :
 	- common libraries for 14x and trunk : contains boost and python, no compilation is required here
-	- Scribus 14x specified libraries : libraries used to compile current Scribus 1.4.x releases
+	- Scribus 14x specific libraries : libraries used to compile current Scribus 1.4.x releases
 
 Common libraries and version specific libraries can be downloaded on Sourceforge from this directory:
 http://sourceforge.net/projects/scribus/files/scribus-libs/
@@ -88,7 +88,7 @@ Open the Visual Studio solution located in same directoy and start building.
 
 After building completed, you will find executables in a Scribus-builds\scribus-$(configuration)-$(platform)-*\
 directory, located in same directory as Scribus sources. Those executables will not function yet. Scribus resources and
-dependencies must be copied from to install directory first.
+dependencies must be copied to install directory first.
 
 INSTALLING RESOURCES AND DEPENDENCIES
 =====================================
