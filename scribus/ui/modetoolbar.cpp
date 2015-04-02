@@ -150,6 +150,12 @@ void ModeToolBar::changeEvent(QEvent *e)
 		QWidget::changeEvent(e);
 }
 
+void ModeToolBar::setDoc(ScribusDoc* doc)
+{
+	Angle->setValue(doc->itemToolPrefs().calligraphicPenAngle);
+	PWidth->setValue(doc->itemToolPrefs().calligraphicPenWidth);
+}
+
 void ModeToolBar::languageChange()
 {
 	AngleTxt->setText(tr("Angle:"));

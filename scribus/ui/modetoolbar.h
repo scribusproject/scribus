@@ -34,12 +34,14 @@ for which a new license (GPL+exception) is in place.
 #include <QWidget>
 
 class QEvent;
-
 class QToolButton;
+
 class AutoformButtonGroup;
+class ScrSpinBox;
+class ScribusDoc;
 class ScribusMainWindow;
 class WidgetPopupMenu2;
-class ScrSpinBox;
+
 
 /**
   *@author Franz Schmid
@@ -53,18 +55,17 @@ public:
 	ModeToolBar(ScribusMainWindow* parent);
 	~ModeToolBar() {};
 
+	virtual void changeEvent(QEvent *e);
+	void setDoc(ScribusDoc* doc);
 	int SubMode;
 	int ValCount;
 	double *ShapeVals;
-	ScrSpinBox *Angle;
-	ScrSpinBox *PWidth;
-	
-	virtual void changeEvent(QEvent *e);
 
 public slots:
 	void newCalValues();
 	void GetPolyProps();
 	void SelShape(int s, int c, qreal *vals);
+	void getShapeValues(int& mode, double* values, int& count);
 	void languageChange();
 		
 protected:
@@ -80,6 +81,9 @@ protected:
 	QWidgetAction* calValAct;
 	QLabel *AngleTxt;
 	QLabel *PWidthTxt;
+	ScrSpinBox *Angle;
+	ScrSpinBox *PWidth;
+
 };
 
 #endif

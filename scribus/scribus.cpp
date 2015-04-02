@@ -2545,8 +2545,7 @@ void ScribusMainWindow::newActWin(QMdiSubWindow *w)
 	nsEditor->setDoc(doc);
 	symbolPalette->setDoc(doc);
 	inlinePalette->setDoc(doc);
-	modeToolBar->Angle->setValue(doc->itemToolPrefs().calligraphicPenAngle);
-	modeToolBar->PWidth->setValue(doc->itemToolPrefs().calligraphicPenWidth);
+	modeToolBar->setDoc(doc);
 	// Give plugins a chance to react on changing the current document
 	PluginManager& pluginManager(PluginManager::instance());
 	QStringList pluginNames(pluginManager.pluginNames(false));
@@ -6566,7 +6565,7 @@ void ScribusMainWindow::slotDocSetup()
 		doc->setNewPrefs(newDocPrefs, oldDocPrefs, resizePages, resizeMasterPages, resizePageMargins, resizeMasterPageMargins);
 
 		slotChangeUnit(doc->unitIndex(), false);
-		//dia->updateDocumentSettings();
+
 		if (oldDocPrefs.itemToolPrefs.imageLowResType!=newDocPrefs.itemToolPrefs.imageLowResType)
 		{
 			setStatusBarInfoText( tr("Updating Images"));
@@ -6610,6 +6609,7 @@ void ScribusMainWindow::slotDocSetup()
 		pagePalette->rebuildPages();
 		emit UpdateRequest(reqCmsOptionsUpdate);
 		doc->changed();
+		modeToolBar->setDoc(doc);
 	}
 }
 
