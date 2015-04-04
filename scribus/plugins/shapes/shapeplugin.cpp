@@ -70,13 +70,13 @@ void ShapePlugin::addToMainWindowMenu(ScribusMainWindow* mw)
 	{
 		sc_palette->setMainWindow(mw);
 		languageChange();
-		mw->scrActions.insert("shapeShowPalette", new ScrAction(QObject::tr("Custom Shapes"), QKeySequence(), mw));
-		mw->scrActions["shapeShowPalette"]->setToggleAction(true);
-		mw->scrActions["shapeShowPalette"]->setChecked(false);
-		connect(mw->scrActions["shapeShowPalette"], SIGNAL(toggled(bool)), sc_palette, SLOT(setPaletteShown(bool)));
-		connect(sc_palette, SIGNAL(paletteShown(bool)), mw->scrActions["shapeShowPalette"], SLOT(setChecked(bool)));
+		m_actions.insert("shapeShowPalette", new ScrAction(QObject::tr("Custom Shapes"), QKeySequence(), this));
+		m_actions["shapeShowPalette"]->setToggleAction(true);
+		m_actions["shapeShowPalette"]->setChecked(false);
+		connect(m_actions["shapeShowPalette"], SIGNAL(toggled(bool)), sc_palette, SLOT(setPaletteShown(bool)));
+		connect(sc_palette, SIGNAL(paletteShown(bool)), m_actions["shapeShowPalette"], SLOT(setChecked(bool)));
 		mw->scrMenuMgr->addMenuItemStringAfter("shapeShowPalette", "toolsInline", "Windows");
-		mw->scrMenuMgr->addMenuItemStringstoMenuBar("Windows", mw->scrActions);
+		mw->scrMenuMgr->addMenuItemStringstoMenuBar("Windows", m_actions);
 	}
 }
 

@@ -7,10 +7,14 @@ for which a new license (GPL+exception) is in place.
 #ifndef SHAPEPLUG_H
 #define SHAPEPLUG_H
 
+#include <QMap>
+#include <QPointer>
+
 #include "scconfig.h"
 #include "scplugin.h"
 #include "pluginapi.h"
 #include "shapepalette.h"
+
 class ScrAction;
 class ScribusMainWindow;
 
@@ -30,6 +34,9 @@ class PLUGIN_API ShapePlugin : public ScPersistentPlugin
 		virtual void languageChange();
 		virtual void addToMainWindowMenu(ScribusMainWindow *);
 		ShapePalette* sc_palette;
+
+	protected:
+		QMap<QString, QPointer<ScrAction> > m_actions;
 };
 
 extern "C" PLUGIN_API int shapeplugin_getPluginAPIVersion();
