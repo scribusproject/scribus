@@ -1693,7 +1693,7 @@
     <ClCompile Include="..\..\..\scribus\pdfoptionsio.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\scribus\ui\pdfopts.cpp">
+    <ClCompile Include="..\..\..\scribus\ui\pdfexportdialog.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\scribus\ui\pdftoolbar.cpp">
@@ -3491,7 +3491,7 @@
     <moc Include="..\..\..\scribus\pdflib_core.h">
       <Filter>Header Files</Filter>
     </moc>
-    <moc Include="..\..\..\scribus\ui\pdfopts.h">
+    <moc Include="..\..\..\scribus\ui\pdfexportdialog.h">
       <Filter>Header Files</Filter>
     </moc>
     <moc Include="..\..\..\scribus\ui\pdftoolbar.h">

@@ -491,7 +491,7 @@
     <moc Include="..\..\..\scribus\pdflib_core.h" />
     <ClInclude Include="..\..\..\scribus\pdfoptions.h" />
     <ClInclude Include="..\..\..\scribus\pdfoptionsio.h" />
-    <moc Include="..\..\..\scribus\ui\pdfopts.h" />
+    <moc Include="..\..\..\scribus\ui\pdfexportdialog.h" />
     <moc Include="..\..\..\scribus\ui\pdftoolbar.h" />
     <moc Include="..\..\..\scribus\ui\picsearch.h" />
     <moc Include="..\..\..\scribus\ui\picsearchoptions.h" />
@@ -1202,7 +1202,7 @@
     <ClCompile Include="..\..\..\scribus\pdflib_core.cpp" />
     <ClCompile Include="..\..\..\scribus\pdfoptions.cpp" />
     <ClCompile Include="..\..\..\scribus\pdfoptionsio.cpp" />
-    <ClCompile Include="..\..\..\scribus\ui\pdfopts.cpp" />
+    <ClCompile Include="..\..\..\scribus\ui\pdfexportdialog.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\pdftoolbar.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\picsearch.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\picsearchoptions.cpp" />
