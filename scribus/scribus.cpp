@@ -1192,6 +1192,7 @@ void ScribusMainWindow::addDefaultWindowMenuItems()
 	scrMenuMgr->addMenuItemString("toolsToolbarTools", "Windows");
 	scrMenuMgr->addMenuItemString("toolsToolbarPDF", "Windows");
 	scrMenuMgr->addMenuItemString("toolsToolbarView", "Windows");
+	scrMenuMgr->addMenuItemString("SEPARATOR", "Windows");
 	scrMenuMgr->addMenuItemStringstoMenuBar("Windows", scrActions);
 }
 
@@ -2329,8 +2330,14 @@ void ScribusMainWindow::newView()
 
 void ScribusMainWindow::windowsMenuAboutToShow()
 {
-	scrWindowsActions.clear();
-	addDefaultWindowMenuItems();
+	if (!scrWindowsActions.isEmpty())
+	{
+		for (QMap<QString, QPointer<ScrAction> >::iterator it = scrWindowsActions.begin(); it != scrWindowsActions.end(); ++it)
+		{
+			scrMenuMgr->removeMenuItem(it.key(), it.value(), "Windows");
+		}
+		scrWindowsActions.clear();
+	}
 	QList<QMdiSubWindow *> windows = mdiArea->subWindowList();
 	bool windowsListNotEmpty=!windows.isEmpty();
 	scrActions["windowsCascade"]->setEnabled(windowsListNotEmpty);
@@ -2338,8 +2345,8 @@ void ScribusMainWindow::windowsMenuAboutToShow()
 	if (windowsListNotEmpty)
 	{
 		int windowCount=static_cast<int>(windows.count());
-		if (windowCount>1)
-			scrMenuMgr->addMenuItemString("SEPARATOR", "Windows");
+	//	if (windowCount>1)
+	//		scrMenuMgr->addMenuItemString("SEPARATOR", "Windows");
 		for ( int i = 0; i < windowCount; ++i )
 		{
 			QString docInWindow(windows.at(i)->windowTitle());

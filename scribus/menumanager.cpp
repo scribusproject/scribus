@@ -271,6 +271,18 @@ void MenuManager::addMenuItemStringAfter(const QString& s, const QString& after,
 	}
 }
 
+void MenuManager::removeMenuItem(const QString& s, ScrAction *menuAction, const QString &parent)
+{
+	if (menuStrings.contains(parent))
+	{
+		if (menuStrings[parent].contains(s))
+		{
+			menuBarMenus[parent]->removeAction(menuAction);
+			menuStrings[parent].removeAll(s);
+		}
+	}
+}
+
 bool MenuManager::removeMenuItem(ScrAction *menuAction, const QString &parent)
 {
 	bool retVal=false;
