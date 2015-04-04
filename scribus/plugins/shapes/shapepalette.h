@@ -39,12 +39,12 @@ class ScribusDoc;
 class ShapePalette;
 
 
-#include "scribusapi.h"
+#include "pluginapi.h"
 #include "ui/scdockpalette.h"
 #include "ui/sclistwidgetdelegate.h"
 #include "fpointarray.h"
 
-class SCRIBUS_API ShapeView : public QListWidget
+class PLUGIN_API ShapeView : public QListWidget
 {
 	Q_OBJECT
 
@@ -74,7 +74,7 @@ private:
 	ScListWidgetDelegate* delegate;
 };
 
-class SCRIBUS_API ShapePalette : public ScDockPalette
+class PLUGIN_API ShapePalette : public ScDockPalette
 {
 	Q_OBJECT
 

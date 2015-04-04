@@ -21,14 +21,16 @@ for which a new license (GPL+exception) is in place.
  *                                                                         *
  ***************************************************************************/
 
+#include <QApplication>
+#include <QWidget>
+#include <QString>
+
 #include "scribuscore.h"
 #include "scribusapp.h"
 #include "shapeplugin.h"
 #include "scraction.h"
 #include "ui/scmwmenumanager.h"
-#include <QApplication>
-#include <QWidget>
-#include <QString>
+
 
 int shapeplugin_getPluginAPIVersion()
 {
