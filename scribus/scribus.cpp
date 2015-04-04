@@ -212,7 +212,7 @@ for which a new license (GPL+exception) is in place.
 #include "ui/pagepalette.h"
 #include "ui/pageselector.h"
 #include "ui/paintmanager.h"
-#include "ui/pdfopts.h"
+#include "ui/pdfexportdialog.h"
 #include "ui/pdftoolbar.h"
 #include "ui/picstatus.h"
 #include "ui/polygonwidget.h"

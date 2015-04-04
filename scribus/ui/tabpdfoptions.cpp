@@ -47,11 +47,11 @@ for which a new license (GPL+exception) is in place.
 #include "scribuscore.h"
 #include "util.h"
 
-TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,
-                                const SCFonts &AllFonts,
-                                const ProfilesL & PDFXProfiles,
+TabPDFOptions::TabPDFOptions(QWidget* parent, PDFOptions & Optionen,
+								const SCFonts &AllFonts,
+								const ProfilesL & PDFXProfiles,
 								const QMap<QString, int> & DocFonts,
-                                ScribusDoc * doc )
+								ScribusDoc * doc )
 	: QTabWidget( parent ),
 	// Private members
 	unitRatio(unitGetRatioFromIndex(doc->unitIndex())),

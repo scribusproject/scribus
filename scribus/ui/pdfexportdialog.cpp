@@ -13,7 +13,7 @@ for which a new license (GPL+exception) is in place.
  *                                                                         *
  ***************************************************************************/
 #include "scconfig.h"
-#include "pdfopts.h"
+#include "pdfexportdialog.h"
 
 
 #include <QByteArray>

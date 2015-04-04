@@ -393,7 +393,7 @@ SET(SCRIBUS_MOC_CLASSES
 	ui/pageselector.h
 	ui/paintmanager.h
 	ui/patternpropsdialog.h
-	ui/pdfopts.h
+	ui/pdfexportdialog.h
 	ui/picsearch.h
 	ui/picsearchoptions.h
 	ui/picstatus.h
@@ -851,7 +851,7 @@ SET(SCRIBUS_SOURCES
 	ui/pageselector.cpp
 	ui/paintmanager.cpp
 	ui/patternpropsdialog.cpp
-	ui/pdfopts.cpp
+	ui/pdfexportdialog.cpp
 	ui/picsearch.cpp
 	ui/picsearchoptions.cpp
 	ui/picstatus.cpp
