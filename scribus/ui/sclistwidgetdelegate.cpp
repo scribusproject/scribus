@@ -36,6 +36,15 @@ void ScListWidgetDelegate::paint(QPainter *painter, const QStyleOptionViewItem &
 		painter->save();
 		QIcon icon = index.data(Qt::DecorationRole).value<QIcon>();
 		painter->drawPixmap(option.rect, icon.pixmap(m_view->iconSize()));
+		QPalette::ColorGroup cg = option.state & QStyle::State_Enabled ? QPalette::Normal : QPalette::Disabled;
+		if (cg == QPalette::Normal && !(option.state & QStyle::State_Active))
+			cg = QPalette::Inactive;
+		if (option.state & QStyle::State_Selected)
+		{
+			QColor sele = option.palette.brush(cg, QPalette::Highlight).color();
+			sele.setAlphaF(0.3);
+			painter->fillRect(option.rect, sele);
+		}
 		painter->restore();
 	}
 	else
