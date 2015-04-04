@@ -65,7 +65,7 @@ public slots:
 	void newCalValues();
 	void GetPolyProps();
 	void SelShape(int s, int c, qreal *vals);
-	void getShapeValues(int& mode, double* values, int& count);
+//	void getShapeValues(int& mode, double* values, int& count);
 	void languageChange();
 		
 protected:
