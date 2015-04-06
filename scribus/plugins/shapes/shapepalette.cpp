@@ -37,6 +37,7 @@ for which a new license (GPL+exception) is in place.
 #include "selection.h"
 #include "scmimedata.h"
 #include "scribusXml.h"
+#include "ui/scmessagebox.h"
 #include "util.h"
 #include "util_icon.h"
 #include "util_math.h"
@@ -58,6 +59,7 @@ ShapeView::ShapeView(QWidget* parent) : QListWidget(parent)
 	delegate->setIconOnly(false);
 	setItemDelegate(delegate);
 	setIconSize(QSize(48, 48));
+	m_Shapes.clear();
 	connect(this, SIGNAL(customContextMenuRequested (const QPoint &)), this, SLOT(HandleContextMenu(QPoint)));
 }
 
@@ -73,7 +75,7 @@ void ShapeView::HandleContextMenu(QPoint)
 			connect(delAct, SIGNAL(triggered()), this, SLOT(delOne()));
 		}
 		QAction* delAAct = pmenu->addAction( tr("Delete all Shapes"));
-		connect(delAAct, SIGNAL(triggered()), this, SIGNAL(deleteAll()));
+		connect(delAAct, SIGNAL(triggered()), this, SLOT(deleteAll()));
 		pmenu->addSeparator();
 	}
 	QAction* viewAct = pmenu->addAction( tr("Display Icons only"));
@@ -84,13 +86,26 @@ void ShapeView::HandleContextMenu(QPoint)
 	delete pmenu;
 }
 
+void ShapeView::deleteAll()
+{
+	int t = ScMessageBox::warning(this, CommonStrings::trWarning, tr("Do you really want to clear all your shapes in this tab?"),
+				QMessageBox::Yes | QMessageBox::No,
+				QMessageBox::No,	// GUI default
+				QMessageBox::Yes);	// batch default
+	if (t == QMessageBox::No)
+		return;
+	m_Shapes.clear();
+	clear();
+}
+
 void ShapeView::delOne()
 {
 	QListWidgetItem* it = currentItem();
 	if (it != NULL)
 	{
 		QString key = it->data(Qt::UserRole).toString();
-		emit deleteOne(key);
+		m_Shapes.remove(key);
+		updateShapeList();
 	}
 }
 
@@ -130,6 +145,31 @@ bool ShapeView::viewportEvent(QEvent *event)
 	return QListWidget::viewportEvent(event);
 }
 
+void ShapeView::keyPressEvent(QKeyEvent* e)
+{
+	switch (e->key())
+	{
+		case Qt::Key_Backspace:
+		case Qt::Key_Delete:
+			{
+				QListWidgetItem* it = currentItem();
+				if (it != NULL)
+				{
+					QString key = it->data(Qt::UserRole).toString();
+					if (m_Shapes.contains(key))
+					{
+						m_Shapes.remove(key);
+						updateShapeList();
+						e->accept();
+					}
+				}
+			}
+			break;
+		default:
+			break;
+	}
+}
+
 void ShapeView::dragEnterEvent(QDragEnterEvent *e)
 {
 	if (e->source() == this)
@@ -164,18 +204,18 @@ void ShapeView::dropEvent(QDropEvent *e)
 void ShapeView::startDrag(Qt::DropActions supportedActions)
 {
 	QString key = currentItem()->data(Qt::UserRole).toString();
-	if (m_palette->m_Shapes.contains(key))
+	if (m_Shapes.contains(key))
 	{
-		int w = m_palette->m_Shapes[key].width;
-		int h = m_palette->m_Shapes[key].height;
+		int w = m_Shapes[key].width;
+		int h = m_Shapes[key].height;
 		ScribusDoc *m_Doc = new ScribusDoc();
 		m_Doc->setup(0, 1, 1, 1, 1, "Custom", "Custom");
 		m_Doc->setPage(w, h, 0, 0, 0, 0, 0, 0, false, false);
 		m_Doc->addPage(0);
-		m_Doc->setGUI(false, m_palette->m_scMW, 0);
-		int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, 0, 0, w, h, m_Doc->itemToolPrefs().shapeLineWidth, m_Doc->itemToolPrefs().shapeFillColor, m_Doc->itemToolPrefs().shapeLineColor, true);
+		m_Doc->setGUI(false, m_scMW, 0);
+		int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset(), w, h, m_Doc->itemToolPrefs().shapeLineWidth, m_Doc->itemToolPrefs().shapeFillColor, m_Doc->itemToolPrefs().shapeLineColor, true);
 		PageItem* ite = m_Doc->Items->at(z);
-		ite->PoLine = m_palette->m_Shapes[key].path.copy();
+		ite->PoLine = m_Shapes[key].path.copy();
 		FPoint wh = getMaxClipF(&ite->PoLine);
 		ite->setWidthHeight(wh.x(),wh.y());
 		ite->setTextFlowMode(PageItem::TextFlowDisabled);
@@ -192,6 +232,43 @@ void ShapeView::startDrag(Qt::DropActions supportedActions)
 		dr->setPixmap(currentItem()->icon().pixmap(QSize(48, 48)));
 		dr->exec();
 		delete m_Doc;
+	}
+}
+
+void ShapeView::updateShapeList()
+{
+	clear();
+	setWordWrap(true);
+	for (QHash<QString, shapeData>::Iterator it = m_Shapes.begin(); it != m_Shapes.end(); ++it)
+	{
+		int w = it.value().width + 4;
+		int h = it.value().height + 4;
+		QImage Ico(w, h, QImage::Format_ARGB32_Premultiplied);
+		Ico.fill(0);
+		ScPainter *painter = new ScPainter(&Ico, w, h);
+		painter->setBrush(qRgb(0, 0, 0));
+		painter->setPen(qRgb(0, 0, 0), 1.0, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+		painter->setFillMode(ScPainter::Solid);
+		painter->setStrokeMode(ScPainter::Solid);
+		painter->translate(2.0, 2.0);
+		painter->setupPolygon(&it.value().path);
+		painter->drawPolygon();
+		painter->end();
+		delete painter;
+		QPixmap pm;
+		if (w >= h)
+			pm = QPixmap::fromImage(Ico.scaledToWidth(48, Qt::SmoothTransformation));
+		else
+			pm = QPixmap::fromImage(Ico.scaledToHeight(48, Qt::SmoothTransformation));
+		QPixmap pm2(48, 48);
+		pm2.fill(palette().color(QPalette::Base));
+		QPainter p;
+		p.begin(&pm2);
+		p.drawPixmap(24 - pm.width() / 2, 24 - pm.height() / 2, pm);
+		p.end();
+		QListWidgetItem *item = new QListWidgetItem(pm2, it.value().name, this);
+		item->setData(Qt::UserRole, it.key());
+		item->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled | Qt::ItemIsDragEnabled);
 	}
 }
 
@@ -214,21 +291,21 @@ ShapePalette::ShapePalette( QWidget* parent) : ScDockPalette( parent, "Shap", 0)
 	buttonLayout->addWidget( importButton );
 	QSpacerItem* spacer = new QSpacerItem( 1, 1, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	buttonLayout->addItem( spacer );
+	closeButton = new QToolButton(this);
+	closeButton->setSizePolicy(QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed));
+	closeButton->setIcon(loadIcon("16/close.png"));
+	closeButton->setIconSize(QSize(16, 16));
+	buttonLayout->addWidget( closeButton );
 	vLayout->addLayout( buttonLayout );
-	ShapeViewWidget = new ShapeView(this);
-	ShapeViewWidget->clear();
-	vLayout->addWidget(ShapeViewWidget);
+	Frame3 = new QToolBox( this );
+	vLayout->addWidget(Frame3);
 	setWidget(containerWidget);
 
 	unsetDoc();
 	m_scMW  = NULL;
-	m_Shapes.clear();
-	ShapeViewWidget->m_palette = this;
 	languageChange();
-	connect(ShapeViewWidget, SIGNAL(itemDoubleClicked(QListWidgetItem *)), this, SLOT(handleDoubleClick(QListWidgetItem *)));
-	connect(ShapeViewWidget, SIGNAL(deleteOne(QString)), this, SLOT(deleteOne(QString)));
-	connect(ShapeViewWidget, SIGNAL(deleteAll()), this, SLOT(deleteAll()));
 	connect(importButton, SIGNAL(clicked()), this, SLOT(Import()));
+	connect(closeButton, SIGNAL(clicked()), this, SLOT(closeTab()));
 }
 
 void ShapePalette::writeToPrefs()
@@ -242,15 +319,22 @@ void ShapePalette::writeToPrefs()
 	QString st = "<ScribusShape></ScribusShape>";
 	docu.setContent(st);
 	QDomElement docElement = docu.documentElement();
-	for (QHash<QString, shapeData>::Iterator it = m_Shapes.begin(); it != m_Shapes.end(); ++it)
+	for (int a = 0; a < Frame3->count(); a++)
 	{
-		QDomElement shp = docu.createElement("shape");
-		shp.setAttribute("width", it.value().width);
-		shp.setAttribute("height", it.value().width);
-		shp.setAttribute("name", it.value().name);
-		shp.setAttribute("path", it.value().path.svgPath(true));
-		shp.setAttribute("uuid", it.key());
-		docElement.appendChild(shp);
+		ShapeViewWidget = (ShapeView*)Frame3->widget(a);
+		QDomElement fil = docu.createElement("file");
+		fil.setAttribute("name", Frame3->itemText(a));
+		for (QHash<QString, shapeData>::Iterator it = ShapeViewWidget->m_Shapes.begin(); it != ShapeViewWidget->m_Shapes.end(); ++it)
+		{
+			QDomElement shp = docu.createElement("shape");
+			shp.setAttribute("width", it.value().width);
+			shp.setAttribute("height", it.value().width);
+			shp.setAttribute("name", it.value().name);
+			shp.setAttribute("path", it.value().path.svgPath(true));
+			shp.setAttribute("uuid", it.key());
+			fil.appendChild(shp);
+		}
+		docElement.appendChild(fil);
 	}
 	QDataStream s(&f);
 	QString wr = vo;
@@ -266,7 +350,6 @@ void ShapePalette::readFromPrefs()
 	QFileInfo fi(prFile);
 	if (fi.exists())
 	{
-		m_Shapes.clear();
 		QByteArray docBytes("");
 		loadRawText(prFile, docBytes);
 		QString docText("");
@@ -274,25 +357,39 @@ void ShapePalette::readFromPrefs()
 		QDomDocument docu("scridoc");
 		docu.setContent(docText);
 		QDomElement docElem = docu.documentElement();
-		for(QDomNode drawPag = docElem.firstChild(); !drawPag.isNull(); drawPag = drawPag.nextSibling() )
+		for(QDomElement drawPag = docElem.firstChildElement(); !drawPag.isNull(); drawPag = drawPag.nextSiblingElement() )
 		{
-			QDomElement dpg = drawPag.toElement();
-			if (dpg.tagName() == "shape")
+			if (drawPag.tagName() == "file")
 			{
-				shapeData shData;
-				shData.height = dpg.attribute("height", "1").toInt();
-				shData.width = dpg.attribute("width", "1").toInt();
-				shData.path.parseSVG(dpg.attribute("path"));
-				shData.name = dpg.attribute("name");
-				m_Shapes.insert(dpg.attribute("uuid"), shData);
+				ShapeViewWidget = new ShapeView(this);
+				ShapeViewWidget->m_scMW = m_scMW;
+				Frame3->addItem(ShapeViewWidget, drawPag.attribute("name"));
+				for(QDomElement dpg = drawPag.firstChildElement(); !dpg.isNull(); dpg = dpg.nextSiblingElement() )
+				{
+					if (dpg.tagName() == "shape")
+					{
+						shapeData shData;
+						shData.height = dpg.attribute("height", "1").toInt();
+						shData.width = dpg.attribute("width", "1").toInt();
+						shData.path.parseSVG(dpg.attribute("path"));
+						shData.name = dpg.attribute("name");
+						ShapeViewWidget->m_Shapes.insert(dpg.attribute("uuid"), shData);
+					}
+				}
+				ShapeViewWidget->updateShapeList();
 			}
 		}
-		updateShapeList();
+		if (Frame3->count() > 0)
+			Frame3->setCurrentIndex(0);
 	}
 }
 
-void ShapePalette::handleDoubleClick(QListWidgetItem *item)
+void ShapePalette::closeTab()
 {
+	int index = Frame3->currentIndex();
+	ShapeViewWidget = (ShapeView*)Frame3->widget(index);
+	Frame3->removeItem(index);
+	delete ShapeViewWidget;
 }
 
 double ShapePalette::decodePSDfloat(uint data)
@@ -318,6 +415,9 @@ void ShapePalette::Import()
 	QString s = QFileDialog::getOpenFileName(this, tr("Choose a shape file to import"), dirs->get("shape_load", "."), tr("Photoshop Custom Shape (*.csh *.CSH)"));
 	if (!s.isEmpty())
 	{
+		QFileInfo fi(s);
+		ShapeViewWidget = new ShapeView(this);
+		int nIndex = Frame3->addItem(ShapeViewWidget, fi.baseName());
 		dirs->set("shape_load", s.left(s.lastIndexOf(QDir::toNativeSeparators("/"))));
 		QFile file(s);
 		if (!file.open(QFile::ReadOnly))
@@ -432,12 +532,14 @@ void ShapePalette::Import()
 			shData.width = bounds.width();
 			shData.path = clip2.copy();
 			shData.name = string;
-			m_Shapes.insert(QString(uuid), shData);
+			ShapeViewWidget->m_Shapes.insert(QString(uuid), shData);
 			ds.device()->seek(posi + shpLen);
 			shpCounter++;
 		}
 		file.close();
-		updateShapeList();
+		Frame3->setCurrentIndex(nIndex);
+		ShapeViewWidget->updateShapeList();
+		ShapeViewWidget->m_scMW = m_scMW;
 		QApplication::restoreOverrideCursor();
 	}
 }
@@ -445,11 +547,10 @@ void ShapePalette::Import()
 void ShapePalette::setMainWindow(ScribusMainWindow *mw)
 {
 	m_scMW = mw;
-	if (m_scMW == NULL)
+	for (int a = 0; a < Frame3->count(); a++)
 	{
-		ShapeViewWidget->clear();
-		m_Shapes.clear();
-		return;
+		ShapeViewWidget = (ShapeView*)Frame3->widget(a);
+		ShapeViewWidget->m_scMW = mw;
 	}
 }
 
@@ -471,44 +572,6 @@ void ShapePalette::unsetDoc()
 	setEnabled(true);
 }
 
-void ShapePalette::updateShapeList()
-{
-	ShapeViewWidget->clear();
-	ShapeViewWidget->setWordWrap(true);
-	for (QHash<QString, shapeData>::Iterator it = m_Shapes.begin(); it != m_Shapes.end(); ++it)
-	{
-		int w = it.value().width + 4;
-		int h = it.value().height + 4;
-		QImage Ico(w, h, QImage::Format_ARGB32_Premultiplied);
-		Ico.fill(0);
-		ScPainter *painter = new ScPainter(&Ico, w, h);
-		painter->setBrush(qRgb(0, 0, 0));
-		painter->setPen(qRgb(0, 0, 0), 1.0, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
-		painter->setFillMode(ScPainter::Solid);
-		painter->setStrokeMode(ScPainter::Solid);
-		painter->translate(2.0, 2.0);
-		painter->setupPolygon(&it.value().path);
-		painter->drawPolygon();
-	//	painter->drawPolyLine();
-		painter->end();
-		delete painter;
-		QPixmap pm;
-		if (w >= h)
-			pm = QPixmap::fromImage(Ico.scaledToWidth(48, Qt::SmoothTransformation));
-		else
-			pm = QPixmap::fromImage(Ico.scaledToHeight(48, Qt::SmoothTransformation));
-		QPixmap pm2(48, 48);
-		pm2.fill(palette().color(QPalette::Base));
-		QPainter p;
-		p.begin(&pm2);
-		p.drawPixmap(24 - pm.width() / 2, 24 - pm.height() / 2, pm);
-		p.end();
-		QListWidgetItem *item = new QListWidgetItem(pm2, it.value().name, ShapeViewWidget);
-		item->setData(Qt::UserRole, it.key());
-		item->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled | Qt::ItemIsDragEnabled);
-	}
-}
-
 void ShapePalette::changeEvent(QEvent *e)
 {
 	if (e->type() == QEvent::LanguageChange)
@@ -523,44 +586,5 @@ void ShapePalette::languageChange()
 {
 	setWindowTitle( tr( "Custom Shapes" ) );
 	importButton->setToolTip( tr("Load Photoshop Custom Shapes"));
-}
-
-void ShapePalette::keyPressEvent(QKeyEvent* e)
-{
-	switch (e->key())
-	{
-		case Qt::Key_Backspace:
-		case Qt::Key_Delete:
-			{
-				QListWidgetItem* it = ShapeViewWidget->currentItem();
-				if (it != NULL)
-				{
-					QString key = it->data(Qt::UserRole).toString();
-					if (m_Shapes.contains(key))
-					{
-						m_Shapes.remove(key);
-						updateShapeList();
-						e->accept();
-					}
-				}
-			}
-			break;
-		default:
-			break;
-	}
-}
-
-void ShapePalette::deleteOne(QString key)
-{
-	if (m_Shapes.contains(key))
-	{
-		m_Shapes.remove(key);
-		updateShapeList();
-	}
-}
-
-void ShapePalette::deleteAll()
-{
-	m_Shapes.clear();
-	ShapeViewWidget->clear();
+	closeButton->setToolTip( tr("Close current Tab"));
 }

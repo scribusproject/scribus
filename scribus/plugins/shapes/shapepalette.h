@@ -27,6 +27,7 @@ for which a new license (GPL+exception) is in place.
 #include <QListWidget>
 #include <QMouseEvent>
 #include <QPixmap>
+#include <QToolBox>
 #include <QToolButton>
 #include <QToolTip>
 #include <QVBoxLayout>
@@ -36,13 +37,20 @@ for which a new license (GPL+exception) is in place.
 class QEvent;
 class ScribusMainWindow;
 class ScribusDoc;
-class ShapePalette;
 
 
 #include "pluginapi.h"
 #include "ui/scdockpalette.h"
 #include "ui/sclistwidgetdelegate.h"
 #include "fpointarray.h"
+
+struct shapeData
+{
+	int width;
+	int height;
+	QString name;
+	FPointArray path;
+};
 
 class PLUGIN_API ShapeView : public QListWidget
 {
@@ -51,19 +59,21 @@ class PLUGIN_API ShapeView : public QListWidget
 public:
 	ShapeView( QWidget* parent);
 	~ShapeView() {};
-	ShapePalette* m_palette;
+	void updateShapeList();
+	QHash<QString, shapeData> m_Shapes;
+	ScribusMainWindow *m_scMW;
 
 public slots:
 	void HandleContextMenu(QPoint);
 	void changeDisplay();
 	void delOne();
+	void deleteAll();
 signals:
 	void objectDropped();
-	void deleteOne(QString key);
-	void deleteAll();
 
 protected:
 	bool viewportEvent(QEvent *event);
+	void keyPressEvent(QKeyEvent *e);
 	void dragEnterEvent(QDragEnterEvent *e);
 	void dragMoveEvent(QDragMoveEvent *e);
 	void dropEvent(QDropEvent *e);
@@ -87,33 +97,23 @@ public:
 	void setMainWindow(ScribusMainWindow *mw);
 	void setDoc(ScribusDoc *);
 	void unsetDoc();
-	void updateShapeList();
-	struct shapeData
-	{
-		int width;
-		int height;
-		QString name;
-		FPointArray path;
-	};
-	QHash<QString, shapeData> m_Shapes;
 	ScribusMainWindow *m_scMW;
 	
 	virtual void changeEvent(QEvent *e);
 
 public slots:
-	void handleDoubleClick(QListWidgetItem *item);
+	void closeTab();
 	void Import();
 	void languageChange();
-	void keyPressEvent(QKeyEvent *e);
-	void deleteOne(QString key);
-	void deleteAll();
 
 protected:
 	ShapeView *ShapeViewWidget;
+	QToolBox* Frame3;
 	QWidget* containerWidget;
 	QVBoxLayout* vLayout;
 	QHBoxLayout* buttonLayout;
 	QToolButton* importButton;
+	QToolButton* closeButton;
 	ScribusDoc *m_doc;
 };
 
