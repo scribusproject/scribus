@@ -556,7 +556,11 @@ QString ScPaths::getTempFileDir(void)
 			return tempPath;
 	}
 #endif
-	return getApplicationDataDir();
+
+	QDir tempAppDirectory(getApplicationDataDir() + "temp/");
+	if (!tempAppDirectory.exists())
+		tempAppDirectory.mkpath(tempAppDirectory.absolutePath());
+	return tempAppDirectory.absolutePath()+"/";
 }
 
 QString ScPaths::downloadDir()
