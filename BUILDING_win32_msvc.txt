@@ -37,8 +37,8 @@ Start a command line and import your Visual Studio environment:
 - for building 64bit : \path\to\visual\studio\VC\vcvarsall.bat x86_amd64
 
 now cd to C:\Developer\qt-everywhere-whatever and run configure:
-	- Visuak Studio 2012 : configure -platform win32-msvc2012 -prefix /path/where/you/want/qt5/to/be/installed -nomake examples -nomake tests -opengl desktop -opensource -mp
-	- Visuak Studio 2013 : configure -platform win32-msvc2013 -prefix /path/where/you/want/qt5/to/be/installed -nomake examples -nomake tests -opengl desktop -opensource -mp 
+	- Visual Studio 2012 : configure -platform win32-msvc2012 -prefix /path/where/you/want/qt5/to/be/installed -nomake examples -nomake tests -opengl desktop -opensource -mp
+	- Visual Studio 2013 : configure -platform win32-msvc2013 -prefix /path/where/you/want/qt5/to/be/installed -nomake examples -nomake tests -opengl desktop -opensource -mp 
 
 After configure has finished its work, run nmake. Depending on the number of processors available on your machine, a complete Qt build may 
 take from a few hours to several days. Once Qt has finished building, run following command to install Qt to its install directory:
